@@ -1,117 +1,59 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E668D463B62
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6881B468C06
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790983787; cv=none; b=EI7YClCwnNF8eVskQyphpFLRXwx7MGm263TAxtqpdIHn7DmHx2KFqN8VhABOgESnZh+UPx+X9LfdWNBxG4lHSnThle3giYqdX/NemdpGF3JWHQrJifCeCpW+Qgokf9tGagHInRFFOe0c86VpvJeLM42pdeMpxZB2gDAv8f27GLY=
+	t=1790983790; cv=none; b=XG8xK/80XfvmhgUd0qCYtu9dww/TUmcpunMnceUyL0pg9MDgjEw4jkB2dPN97owMXxG0DyczUvQyhyfgK3y5SxU8T35G5ZqzVlMGjfmSilxxvZ+R+eK6SQSsBY7AoMqWu4YG/o1v2zUTfAZRcJvUuU7eT9likQiKxSJxRsT1rpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790983787; c=relaxed/simple;
-	bh=q9hoYC77TAOBI7UPGkqjKa//giTHqLClViyb2A4XOpQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eop8CSZ/c11qaYoGzCbqrGPJ+W1x+rLVKj2XKoDR05tqfaT9UIG0dLvNgoQ0LwJTqdL+rPAzJVxCdVdCM7qpPWghYCQwV4sT4//sC1D1sEzGW1JFKaHYywv3/KlFb688i0kTZf0AfZQ43Xtm47saajkUJBTwK0heUu5Lm/QtFbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y5jPrgb6; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790983790; c=relaxed/simple;
+	bh=JqmySC+xzWMTX7R78OgixtR+z8aXbsP/GeUYqG/FcMU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fXj4gTH6iEExO++4YHBMO+3apX4UQK28iTdgNBP2vFzKsHlIanRDVwDjJyQA94tByBeP3drQZFyYBHhHv0ysDlb6zSLQ7nJ72UFUQbTPz/AO+dYbFYBCNNMT6OHcf/94eu6SeeOlSDmdITFkA7+Lh2SlDot73bX2entO0jlaGYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MUlYLozi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y5jPrgb6"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso2134425e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:29:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790983784; x=1791588584; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nxHrVIR24GDD4S7L2ZgpY+muMq5UDZWEAxE61ARdg78=;
-        b=Y5jPrgb6rsl5pKRpoyjjCb05KEg9Dy1wOneoOrfX+R9D670m1/zwQYBzEJU8vqNovn
-         Gy8pX4HnsE4ez55G2+b/gZPt27CQZlcNlf8gJoupavwqQ36VlB+wv4AtItFM2cwL6+dZ
-         fNT6Cpt/eK/SpdURX+DdUPuAf/sAt2C+mW1sydQyIcL/uQi5EjS1Of6oLe/6jd8h/krY
-         beYVDBP0hqLfw1WU0L3xk6B91LB1sbjRHuNqqzDaibC1Y9Cja9ajdQ8qrt3oRccz4EvG
-         C5Ij/peMiuzn6+ClJhvxZiZ3m6Of3E79qVj0T9PSNPbQ6xcsuYW/NODhykzfBmcRteD+
-         MhaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790983784; x=1791588584;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nxHrVIR24GDD4S7L2ZgpY+muMq5UDZWEAxE61ARdg78=;
-        b=vd5tWVJcUuOs5amzaqq14Ye0iadvxurRqR6iV7cRHTvdNQ5dmoJ0Pkje9h/oGweqqv
-         LBMWHojg0aDczH2qWV+mDLIPbnmY+lM6wbycVF/dJjdO6OnH7E9q/VFKGLftEq6jO+6V
-         7c8ZsrKTeu8TvT/SNY6OMQtsBbpG3R8ZMOKz2Spa+DxezyolappxBJ5EKsMpEAUBP9lG
-         t4E0O46N7d0n8nxSE8kqfKmVRUqNa/SghnheQez+eDvBEpkpEGGlCOz58bGiMacs+Wvc
-         plEMkye4Fxq2sobyS5/q4d1+S3l0jdrNbqizVH/92ufFByPszTbBpLXW599QCXwM4se8
-         hT+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxFfVJMTxNaZLblZMfibBErm4hW6jeiqgCD1eZmlqcQZ4U2wcnqUTh0P14lua8z/hLEhncdiuCYY+88Ul8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAjZmg4cakSJzOZ0imx81GLBpsEHM6q8aofyO2PQRBTc4IXC5X
-	jfSDhQxjEkyw4Qnz/dBTiCUGpbIEMxx8R96G9A5s90WF9EDcYjfNAavC
-X-Gm-Gg: AYBFou1iGpBKBKw3K3PH7hV5u+FvS6wadLP6ifywk33fJZeFSn72lfgTrk/N4/YZpfQ
-	h0g8XCTOkAoMEh5ILZM05nsgTYDQKQdmwbsyVpbMCL0HYIlasCrYhG2PcLm45hwsowutbt6YkJg
-	ydnEWYeMiz9c6Nyq4A//Q6QhEWJl25zX9L1SNlEYF03pVInd+LepGuL+QcVcI1HoDp+dn7cAWqs
-	OPDHicQQycDrr0uzjdRyNg9ssVdXpbyZyBvLNddo4FN2ic5IN5AQrHicK1saxTV7Vx85/x7QIEs
-	mdltj0GEkYqe5swSEwnIXrf0bvUEmj2oQflB0UfxwqoQXGXsQN1rSDl8yM3xZILvsOrfC3zDr8J
-	iyWZ4vxfO0prb1VwEsexhDexFp7nqPXif5vKYm6yBKP9H0zzLF14LVidKBIKoItpiONRVs5Sv0k
-	InlJWE6/fMpfYM+SDO6paM8QGwC2BIH3swj5k5vGctTp1NhQRY9x60ICy7vpLN3q5EJ8X1qoZMf
-	ewIWETh0o6IgY++1QDxwmJPq2KTCwJpgILe8wa+Z9ST2E4l2NZvgrjH90JVBE8ZChcRBWDhj9N8
-	DL/2bUUKNc/lLbV/t+8ypMp9VqY/znJPwMNgSbc9zRXTpNz3lym06gTDtT4JRdbY9m2sIWF6yie
-	ILvUp6pyGRpIM
-X-Received: by 2002:a05:600c:3110:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a168069b91mr14580305e9.0.1790983783964;
-        Fri, 02 Oct 2026 16:29:43 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-af35-1901-81da-eee8-c2d0-ee3b.310.pool.telefonica.de. [2a02:3100:af35:1901:81da:eee8:c2d0:ee3b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fac3csm8688932f8f.21.2026.10.02.16.29.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 16:29:43 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Steve French <stfrench@microsoft.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: use u8 for SMB2 oplock level values
-Date: Sat,  3 Oct 2026 01:29:38 +0200
-Message-Id: <20261002232938.40011-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MUlYLozi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E96871F000FF;
+	Fri,  2 Oct 2026 23:29:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790983789;
+	bh=9DCAvEBt+9vx1zK/ZDVHfLqQ3aCPVbKhtlr64cyEutM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MUlYLozifUr2EaRMqWwVpFFfAD7TRXCyxFN7IGaYRA1KcMOOYPkNaX025vNna41yb
+	 3v7wW95xvSNmy7EyuEOBqwUj8Xcvm2xX2ZZgmEcicZqZXt2LgEpzO1vlUEY7nl6v+h
+	 OLXsJHgVH+uNR1vHztzj8vILzXnCG3u4dm942Drr4ZEsa/quODy+fXQOYKuFJT7afQ
+	 wbWdjnSM/HUsHLq0Sjc69+TbXBqxrejyy4PW+8B8WVRhRaSCH2tC7ik6noCuyoBR5t
+	 vifNyhegZZF4PyURnmI6KWuJOJ8Sqkv4d6VYdC03fF1CI9CWtizklcUwafBpZlYsUf
+	 rF3f1Ozyv7Ajg==
+Date: Fri, 2 Oct 2026 16:29:34 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [PATCH v1] f2fs: convert pagecache_read() to use folios
+Message-ID: <20261002232934.GB15366@quark>
+References: <20261002114338.12073-1-nsvatoslav515@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002114338.12073-1-nsvatoslav515@gmail.com>
 
-The SMB2 oplock level is an unsigned 8-bit wire value, but
-smb20_oplock_break_ack() stores it in a plain char. On architectures where
-plain char is signed, the value 0xff becomes -1 and cannot compare equal to
-SMB2_OPLOCK_LEVEL_LEASE (0xff). The acknowledgment is consequently rejected
-with STATUS_INVALID_OPLOCK_PROTOCOL instead of the intended
-STATUS_INVALID_PARAMETER.
+On Fri, Oct 02, 2026 at 02:43:37PM +0300, Svyatoslav Nikolenko wrote:
+> Replace page-based APIs with folio equivalents in pagecache_read()
+> to migrate fs/f2fs/verity.c away from struct page.
+> 
+> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
 
-Use u8 for the request and response oplock-level variables. This preserves
-all wire values in their original representation.
+This will conflict with
+https://lore.kernel.org/fsverity/20261002223705.2175542-5-aalbersh@kernel.org
 
-Fixes: 80a56d4a826c ("ksmbd: align SMB2 oplock break ack handling")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- fs/smb/server/smb2pdu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm checking if that one will go into 7.4.  If so, this one won't be
+needed.
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 6b8809f..6074bdd 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -11444,7 +11444,7 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
- 	__le32 status = STATUS_SUCCESS;
- 	int ret;
- 	u64 volatile_id, persistent_id;
--	char req_oplevel = 0, rsp_oplevel = 0;
-+	u8 req_oplevel = 0, rsp_oplevel = 0;
- 
- 	WORK_BUFFERS(work, req, rsp);
- 
--- 
-2.53.0
-
+- Eric
