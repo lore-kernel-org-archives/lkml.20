@@ -1,108 +1,121 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93703B5837
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A51F43E9D2
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979386; cv=none; b=tJKvdyVmE9NMWNpr0phiV+9Lq/laI5OfiCY/IJnpThbPr9aD7KniudG44zzWz2yQR1LieDhiWb8Hy8wtYLsZ1JI1fgWFGB/+QMph7KJBjoxFbYbv7w28FDZ19M4xtx+TFMPtKJgxp3TRA/tvut7+irrrRYqsQubXZ9HaXuKDeg4=
+	t=1790979460; cv=none; b=tp/LmePoaJh/xAUmXgVmD0gUNDcbzN4Mk5LrSvwM6Aq6O0rW95tMtpB2hw7zPu0dVzwo38HchffjJq8Dmg2EntHhArm0o1MusKrqyCqUPL9TpTQbUZFvRQpiR9p/lQK6EDUM3VUo96SfSCbxl9Dhz4gMScPQKx5ziR68ChVfOl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979386; c=relaxed/simple;
-	bh=K9Rjfs4Qr7oUSRMr5nl0YpdYHF+TKIqpiiDrDAgieAo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=EtJVsCNw5yxmgNusxaOHaMXZBYCt2tXnpSsqEaGxZH25g/ayzqZYcYxhghVl8wRAQPvAcxxq3cWdsc+M9nY/TAmlHoNhfQu027OF3o4cQEqNup5RWav9dmR2GJyWGv6dtX1QSqIy99LPWgY+m7EM1j7D9fzT4Aqetu2Z6zxeDbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HngVvTTK; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790979460; c=relaxed/simple;
+	bh=B/VXtCUQwoXPPKu8lxOmovdpJMQBwKId7zCI8uyGZkc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=CEb5XmKbsYgfCY4XX2/U8Pnhozo6jGAZpWGjIbT9iSNFC4BTiwDdmlhD15cWcAtzlfm4xUtPEpIypFRq48sNClL+QbwfNrui4TDOHCv2mDVXiiN5kRncwJyVksQe2YW/vU22XZCg4qa/GJIkZVD4i1D2aYQq6T+3kureSqyJHwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TR1gTQ0x; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=g2ysucJH; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HngVvTTK"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e2d3a3ff86so1053265ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:16:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790979384; x=1791584184; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4ZUOmUpFAdn6kAClohBDNQiVlfBYiZoDgK+pqSPmkXA=;
-        b=HngVvTTKyEOnn5b6Sn5FG6cV8XR/RaiIAVRZo3mhMGQntDCRKeDR2t3je5mJ0aHhGT
-         ChjrWqRZOsGBV2H7lL7itN+4yOcnoF+k78j5QQrgODPXkXNTJnworxqg4H+XnF7Ov4pi
-         UZO+Hf5QN3Jtch1LlipCSWUwtLRZoxMIKTqEKEg/J9eb4HH34kt+YoLy7XMYmFunlt02
-         VGSWdPNoloUyIW78c0fitLmEMhkhUuTxnMFwbuj3jlJesEXsrRrnP2qhM2QRugwTMZW8
-         aGLlSJTufswaI7/hiEFQqqscIDC0Hmuvc7w3Q+ixBf+6c6AdYsQzjTGNHSuC5jPElmEA
-         phdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790979384; x=1791584184;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4ZUOmUpFAdn6kAClohBDNQiVlfBYiZoDgK+pqSPmkXA=;
-        b=UplWgj3EHZG9b7tvcZGErY8jPChK0zOtNqtSruVCsCIPeb1a8F58rf54DsYzwgmUvh
-         iAayqZIwGzNu2V/6XLDqh+VMWOB4Z11OF0vo8dh1pofnCbUITwVeVmB/qlkH4LJfLbDW
-         3cfZnQjUwguwd57Lq3Zq09S8n/5gTzpvLf89NyfRcPd1p3h754OrEll30Cfv50HCX2Ic
-         zGuHTGrxSjRQ//4YWgiWvGfTtNtGQSlRzw6JVWGvFlfdubKadW9wluRXzaMuSWzBSq8P
-         cE7r15JMGY/eyK+Y4+OQmfdk2uat+GvqSXkrqw4bic5ATFzU3I4b1jlmmgtYZPZluHgy
-         09kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPXhnPKllDzJUdcXyHeNPNA0SAPWe94UJikgFc43hxDNEhmsXRK+VWrbhLMP8H9vimQxFUm+dxrr5stb0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtlT+25tWYPhcfszrWe4whp5xTzP0BtHIHFJubzf0C4jC0YzU2
-	qs5qium+I8ycE/X6oUGNPHTUgIuXBzlICiOI2cYa4h5r5LwrYhR0HIGtsIlOrfxBVrVFfgEq4U2
-	0mNnCdQ==
-X-Received: from plbml16.prod.google.com ([2002:a17:903:34d0:b0:2e1:326b:da73])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:18e:b0:2e3:1bb4:6113
- with SMTP id d9443c01a7336-2e49b648c41mr42782405ad.26.1790979383748; Fri, 02
- Oct 2026 15:16:23 -0700 (PDT)
-Date: Fri, 2 Oct 2026 15:16:23 -0700
-In-Reply-To: <25cdef9c45a1270dcad7e9c4140e56b6953eb27b.1790101179.git.ritesh.list@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TR1gTQ0x";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="g2ysucJH"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790979449; bh=Sg4yY5MWZdmrnfGNvY0VeK2
+	tgHJvxSQdovqzRH/Klnk=; b=TR1gTQ0x+17W1eha5sdkl6EsbHgnOn+CLJi//82uISM6rytcR7
+	GZobzx67dxwulAGdRqP35mvM5c8cLaVzY+m94pUQAWObAvO+OLk9ASkklOzdv5Bj865cip/SDwA
+	Qd0FYbTJqMlralKoHqUhubfBUoE8tUM45SLdbmYXvN3/orRzzRvshSDCZLtV3+rVk5myJMdyksf
+	oVK4zIva2N2ph5Ow6lE/fwm9E1MLRX3wqa1kxMYy6lONXHXsGBarq1Euxf7A9pCgMDDEX6/j5e+
+	W4UDiJGgIiXBWrykbA7JJJka8gfTMKWVuDTkCaMEsKK791NnWKUGqusF0TaWqnXA+wA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790979450; bh=Sg4yY5MWZdmrnfGNvY0VeK2
+	tgHJvxSQdovqzRH/Klnk=; b=g2ysucJH7UVPLaJgC1mdBTAmVHz4AeLb6mqCOd/cpm4agbcJ+s
+	edchTR+N2JeLfxBF4gdrPOpsNlFP87r0d+Dw==;
+Date: Fri, 02 Oct 2026 23:17:30 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Doug Anderson <dianders@chromium.org>
+CC: akpm@linux-foundation.org, blum@kernel.org, tglx@linutronix.de,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_watchdog/perf=3A_reject_em?=
+ =?US-ASCII?Q?pty_config_before_the_raw_event_parse?=
+In-Reply-To: <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
+References: <20261002175000.1-brads@mainlining.org> <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
+Message-ID: <B6936CB8-9A77-4DE5-BC6F-F924E2FA7EE6@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790101179.git.ritesh.list@gmail.com> <25cdef9c45a1270dcad7e9c4140e56b6953eb27b.1790101179.git.ritesh.list@gmail.com>
-Message-ID: <asAtNhSQHDy_k0d_@google.com>
-Subject: Re: [PATCH v5 5/9] KVM: selftests: Make kvm_create_max_vcpus tolerate ENOMEM
-From: Sean Christopherson <seanjc@google.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
-	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
-	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026, Ritesh Harjani (IBM) wrote:
-> diff --git a/tools/testing/selftests/kvm/kvm_create_max_vcpus.c b/tools/testing/selftests/kvm/kvm_create_max_vcpus.c
-> index 59ddc3757943..45a9d8b369b5 100644
-> --- a/tools/testing/selftests/kvm/kvm_create_max_vcpus.c
-> +++ b/tools/testing/selftests/kvm/kvm_create_max_vcpus.c
-> @@ -20,16 +20,29 @@
->  void test_vcpu_creation(int first_vcpu_id, int num_vcpus)
->  {
->  	struct kvm_vm *vm;
-> -	int i;
-> +	struct kvm_vcpu *vcpu;
-> +	int i, created = 0;
->  
->  	pr_info("Testing creating %d vCPUs, with IDs %d...%d.\n",
->  		num_vcpus, first_vcpu_id, first_vcpu_id + num_vcpus - 1);
->  
->  	vm = vm_create_barebones();
->  
-> -	for (i = first_vcpu_id; i < first_vcpu_id + num_vcpus; i++)
-> -		/* This asserts that the vCPU was created. */
-> -		__vm_vcpu_add(vm, i);
-> +	for (i = first_vcpu_id; i < first_vcpu_id + num_vcpus; i++) {
-> +		vcpu = __vm_vcpu_try_add(vm, i);
-> +		if (vcpu) {
-> +			created++;
-> +			continue;
-> +		}
+On 2 October 2026 23:12:33 BST, Doug Anderson <dianders@chromium.org>
+wrote:
+>Hi,
+>
+>On Fri, Oct 2, 2026 at 10:46 AM Bradley Morgan <brads@mainlining.org>
+>wrote:
+>>
+>> Date: Fri, 2 Oct 2026 17:39:13 +0000
+>> Subject: [PATCH] watchdog/perf: reject empty config before the raw event
+>parse
+>>
+>> Commit 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+>> manual NUL-termination") replaced strscpy(buf, str, sizeof(buf)) plus a
+>> manual buf[len] = 0 with strscpy(buf, str, len). strscpy() writes
+>> nothing at all when the count is zero, so on a comma directly after
+>> the "r" prefix, nmi_watchdog=r,1 for example, len is 0, buf stays
+>> uninitialized, and kstrtoull() parses whatever stack garbage is there.
+>>
+>> The old code was safe here by accident, strscpy() filled the whole
+>> buffer before buf[len] = 0 overwrote the comma position, so a zero
+>> length just produced an empty string and a clean parse failure.
+>>
+>> Treat an empty config the same as an overlong one and return early.
+>>
+>> Fixes: 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+>manual NUL-termination")
+>> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>> ---
+>>  kernel/watchdog_perf.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/watchdog_perf.c b/kernel/watchdog_perf.c
+>> index cf05775a96d3..cca0485ba28c 100644
+>> --- a/kernel/watchdog_perf.c
+>> +++ b/kernel/watchdog_perf.c
+>> @@ -301,7 +301,7 @@ void __init hardlockup_config_perf_event(const char
+>*str)
+>>         } else {
+>>                 unsigned int len = comma - str;
+>>
+>> -               if (len > sizeof(buf))
+>> +               if (!len || len > sizeof(buf))
+>>                         return;
+>>
+>>                 strscpy(buf, str, len);
+>
+>I fed your patch to my AI, and it wasn't happy with it. While you fix
+>one corner case, the larger problem is still there.
+>
+>Image if `str` is "300,panic". Then `comma - str` will be 3. Passing 3
+>to `strscpy` will copy at most 2 characters so it has room to use the
+>3rd character as termination. That means `buf` will have "30", not
+>"300". Oops.
+>
+>My AI suggests the correct fix is to change the "len >" to "len >="
+>and then pass "len + 1" to strscpy().
+>
+>if (len >= sizeof(buf))
+>  return;
+>
+>strscpy(buf, str, len + 1);
 
-Oof.  I dislike this, to put it very mildly.  Is this the KVM_CAP_PPC_SMT thing
-again, or something else?
+Makes sense. Do you think you could put this into a separate patch, or
+would you like me to respin? :)
 
-Assuming it's KVM_CAP_PPC_SMT, is there really no way userspace can pre-probe the
-"real" limit?  Or modify the test to enable KVM_CAP_PPC_SMT and do the proper
-striding?  Eating -ENOMEM is all kinds of gross, and I really don't want to add
-__vm_vcpu_try_add().
+>
+>-Doug
+>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
