@@ -1,147 +1,292 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF12934388E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692B73CE4BE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790983234; cv=pass; b=ahlmqg7Jx4cDDrwijSP4ZrRseWIIro/FZwXi3bmLP9llTZVYzSrSBbeIjlgyEZrvgZ7yjhVJL2TV3snNayUuHPPhL7P8sIXTI0v8AzqHT1OMLb0Q6dbrQYOQZPECVpleUASd9IOkfd+GVjLF94UgKZMcDupNB7EFR+4wHsd+aWE=
+	t=1790983436; cv=pass; b=Cmi9sIXv3VSBoyn8ZXc2MDggju+gts0Gsk5i33BqbdoPb0BPHJpOd+SToDVHbdpptJ4IcwUpVbse5sRUpGGhvXXfl3uf2jVXDKnVU51CxbI5GXQWxbrk6d1Iz1UCilm05cLPVUv1YVxazJEWUbHAyT7RiW7utIZ0LDaPTGuFiIE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790983234; c=relaxed/simple;
-	bh=0YyNoFgXnOTZ2CL9S814ONhRiXWkIMdJewja2D4QI88=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DT1DT7Kzq4aCbSA941tTqy/7qjwv5/H0bRpqv++rDQFFBYDBJf5Tv4ARAw9zTiitEX7exSaKqUtY7bCqmBIKPdQkZr0jArJHWEJSwFidMBx9ZNEkalrpSP1zRpkbhR5voM7Mtg0QxwBN8HECajP0ReXq3NrnadqTGu8jkbC1ehI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=ZYHN0urZ; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790983436; c=relaxed/simple;
+	bh=RRu9tqdBY3AuiE+QNEPO/+zvxhldBrdnI2YOZOTmnGg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ik7lFk8joDmBmCWuvfzZI7nTeep7STY7H8JgJfEzWcMroa/WlHr51MNdB+dJynhIzBumVzK4OPIJJJG3yH4Wz4MJvgAgeDX1EIHHFrzeFHQd0gajJHebBSdo1j9AFhLNF5A9eKsMCd6Ub+0dpJkrQDgC0hmpMYdmVEHKIyR2gmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vmbQC762; arc=pass smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ZYHN0urZ"
-ARC-Seal: i=1; a=rsa-sha256; t=1790983203; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=dE6JIISAhjlmGvUnCmDL3f0lJw2RGxXk6VMWheaZ3C2aiCp+ebulITgiUlebGe1mcBqEBcpNe2glW+m0TyM408qGFl0pGth3aa/FnLhFkFK8TERNzEe+v6LtFgSJMd45j6lh+wlYm7o0T+FswoPOOablPaCu0tvlY94MwJYwN5w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790983203; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=DLkFz/5sZpW9b+wdDVOWJEoQTEsK8SzJC8tjZVqLs14=; 
-	b=DzpCOW2LbHUYTiPo1KNZaPaOPrKqbjPgrk3nm1K50g2cKjavQULBEJsfpiqi56jxSBsWhZjEo0sTBE/BKohP0VW6dXtv/9tVOc4hlPWAUqF8HuOeWdbX1N8Lg7uVrHf0d4GN22LFSSuYzgdDciZhmvAWOMYK4bmfOBQL67ioTIM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790983199;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=DLkFz/5sZpW9b+wdDVOWJEoQTEsK8SzJC8tjZVqLs14=;
-	b=ZYHN0urZ+bkss5sC+6UQQBewcXijF8TJBB57sM4lTxCxHnhRs6xG5VLv+9OHHmlu
-	YV7PoRfYvv9pvw7asqYPN598/2MJzTunNWkxsF6JTDG6sfT1u/IPje9esgPJpK7LxVc
-	R2bg7MnfyvYqoHlYXcuTR/3m6A0ON6TwUnqOtq3o=
-Received: by smtp.zohomail.com with SMTPS id 1790983199051394.2695663621121;
-	Fri, 2 Oct 2026 16:19:59 -0700 (PDT)
-Date: Sat, 3 Oct 2026 00:19:55 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: markuss.broks@gmail.com
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
-	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: add Mali-G68 support
-Message-ID: <asA6VefBKQQD3eSH@sobremesa>
-References: <20260803-staging-mainline-v1-1-5071dc782149@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vmbQC762"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e2e4ef20beso22155ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:23:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790983434; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PfPs4aixKt4FEP+qrqkGeCtf09LpqdWQXfh6ah+EN0bgPfOEZ6n7QC/23iuaGEEzwd
+         9Z82oy1+S5fGEkZAHhd/LTiMKsdOfFne7AOTsacI74gvZ02UWqLjWSpCQ0zCmIvBRURn
+         AtQecZdslLGctWPUnB5lY6LudYlgsIvNPLXmaljFGTbfcv9LtR2EyxFbjO/YqdlJGAOj
+         pQyK3209L5wfaVC2PUepm8qkUdSXbW7ew5SjianIXicpDNBJ+1dUz0yiHn3aCn3XhcMw
+         vew2tqqLctagjJFevIPJ+MZTaXBmoYV23erJpD6Szhxlfk/XtkAmX0a+2A1fifiiyFSh
+         VVhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yRPB82VFJ90lfQ7njnr7XC8e8HLChtcDRi7BTmzq/ag=;
+        fh=x2dXtvVEq9uyl+GnL2acNn4JHup35LN9AlgBfdqLn6Q=;
+        b=rr87eFNc+AuEGBPg3nFNqa36W4KbwR91eV2NXbx5HBz2yuqjWthpkbge6e6J6C3kux
+         sG+rd4y9ljg+Em2XsJKa5UBCvI9Xv2VynH2yU+voAD8QHXFItxicrDulAasaMZMelJQh
+         dWIJbFkgAcqUAKX8m/oG9E1UXenk+spo8gfyTFOClwiICvkgmCiAW9b5NjpiTtV8myaV
+         //qfJ5Zp0f+o36HS735pGGru49Khetu9qmT3QP6pm42bgna3JGQgylr9WauOzGXSOEby
+         wY7L1ok3dUyXHiFFiHpUMe0A+dBxzmZ8rLH7Toi8ejZA1KsB3bxgvi6eENJSTv9d9Imz
+         mr/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790983434; x=1791588234; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yRPB82VFJ90lfQ7njnr7XC8e8HLChtcDRi7BTmzq/ag=;
+        b=vmbQC762YIx+c+b9Jcnd2ztRovdm6zNGjHZ6GeiASMwD7pmAJ3ugMenjclUjOA3dLb
+         rJ2IdzxHW+vqGiiN30lJyeK3aZ/OmBpQJuqJRei45nG6YI2iQe4O8m8zln4qQiY1PCaZ
+         X/KboT6nAaJ90wI442SPH86gBBG9WrhYcUuD2dtXmINFla2bQP+mcQsXgwX5GkYQZghF
+         nBjbDfMZBYywTv/ogVf9WAy99T2cSG7LfWQRkzCwSfgVAGYTLDGRpwNN9YAZ3YL6NKPe
+         w+srLCT9yHBfyP9dGe2aRGF27nmApJAUCigXBZDjq6EuBvxttRjC3krG41YGyn5E6WE5
+         8GjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790983434; x=1791588234;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yRPB82VFJ90lfQ7njnr7XC8e8HLChtcDRi7BTmzq/ag=;
+        b=a+y0fZtLMKlU9rdY4rciTmohLq3Sd3iSbkgOIyQyYQFegwFXNf0AN1vllarE8okGZS
+         VziTA7MQVUyqGl4aNMCFYpyGZjKvGhCCklDxJekEP5MmOYQUodMoWJg7Jyns6prJPTHV
+         Bti/x9W3vssiXICT2EYqobdH8+3bzfPy/DMmXgmOTCSCcRtnH3i5yiPhl/Yju5xKzjR8
+         SaznwHjgMcnp0K+zRR/DxmadXf+KqMdtQyGtBlOoWyQadrAyv7QK2nQqexw8FChV7z7n
+         bShlIE3iBFDgI8/tGM2e4H+btor08fECOjyo8/AeFG9fVQnW4wvd30vmmkFttd3yyyaM
+         1MBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxft2Cxvl0NL7b4Lh4M6gRYdNvkw9979oJH4dHv5bKrJRpwMFHLE6gpdht1O+6MDZkFEZ5gkrln5V7bCBU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJekWwfeFI04i+I9+a8BQbnyCAEguUlDyTUXg+JF/jPhAFvZFzk
+	s5S25WNUbHIQmpBKyScN8K+kxCfNMG8qdOyP8NrEYPENBTf0aZy4uNRYQNGCP5HmJPARH4OQTKf
+	dip3WXHChsKFKoMyyjl33NoD4Kr1DbOKa2KyzNHLX
+X-Gm-Gg: AYBFou1eqFtr5n8fVSfiKNiFHAV6zof4XV+2qUErlqwLGJHKLWarnH1oeUWT0iZ4F7V
+	w/qo+rl2jvrRWfGlIHfPK13SJjaY0/QXT/meF/So2WowtnTazInDaH3GDdgkI1WuwaOhl7pto3I
+	IPn/GT0VUpPVX1YqFnsJm2h9zyTWhAewrlUtM+X2y1WZAJrpN5otm1FdAD+nW9N33hnJpgJbHrv
+	heNxxXZRzsFEXxrpv5+t+hILKLpvx2BKXj2jRqExLyLKbKtCEg+6CFkKOm6sEVjE03TwKJ+1opw
+	P0sgGqdmgUVFe8jkSN6Ir8vMbfnUXkaumX0xKAGBwZZ2uJpBlnPZ4TMd7EbeJkmIlsXHzFlsMjh
+	j9pphOOFYB/o6M1y2OJTK+4HzpbH5+s4xeN+M72JDraDmUZdjUVtRZg==
+X-Received: by 2002:a17:903:3c2b:b0:2c9:d89f:fd98 with SMTP id
+ d9443c01a7336-2e530c1b194mr2089565ad.1.1790983433055; Fri, 02 Oct 2026
+ 16:23:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260803-staging-mainline-v1-1-5071dc782149@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.975.46
+References: <20260930190428.1130007-6-hramamurthy@google.com> <179093559163.434549.8853251921845038273@kernel.org>
+In-Reply-To: <179093559163.434549.8853251921845038273@kernel.org>
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+Date: Fri, 2 Oct 2026 16:23:41 -0700
+X-Gm-Features: AclHuK97xos_v4EowLQemIo8YleA2mrgDLsr55DFbDKD09wvx5nu-a-y-m1obAo
+Message-ID: <CAEAWyHdJiwb_SEgmUw0TMn-kh6SNzrg3Xwr9wac=E8DpXr-hCA@mail.gmail.com>
+Subject: Re: [PATCH net-next v9 05/12] gve: refactor gve_init_priv for reset path
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
+	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
+	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
+	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	przemyslaw.kitszel@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Queued to drm-misc-next.
+On Fri, Oct 2, 2026 at 3:06=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wrot=
+e:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 (1) =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The commit message says "These changes are only code movement,
+>   no functional change".
+>
+> Pre-existing issues:
+> - [Medium] This problem wasn't introduced by this patch, but a hard reset
+>   leaks the AdminQ dma_pool and its buffer.
+>
+> --
+>
+> gve: refactor gve_init_priv for reset path
+>
+> This patch splits gve_init_priv() so that gve_probe() now does the AdminQ
+> setup (the new gve_adminq_init()) and the device property negotiation
+> (gve_adminq_get_device_properties()). Device setup moves into a new
+> gve_setup_device() helper. gve_reset_recovery() now calls
+> gve_adminq_init(), gve_adminq_verify_driver_compatibility() and
+> gve_setup_device() directly, instead of gve_init_priv(priv, true).
+>
+> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
+thernet/google/gve/gve_main.c
+> > index addfd8dc1a1a2..2fe280cf7e680 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_main.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
+>
+> [ ... ]
+>
+> > @@ -2566,15 +2541,32 @@ static int gve_reset_recovery(struct gve_priv *=
+priv, bool was_up)
+> >  {
+> >       int err;
+> >
+> > -     err =3D gve_init_priv(priv, true);
+> > -     if (err)
+> > +     err =3D gve_adminq_init(priv);
+>
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but does a hard reset leak the
+> AdminQ dma_pool and its buffer here?
+>
+> A hard reset is gve_reset(priv, false), or gve_reset() after gve_close()
+> fails. Either way it goes through:
+>
+> gve_reset_and_teardown()
+>   gve_trigger_reset()
+>     gve_adminq_release()
+>       gve_clear_admin_queue_ok(priv);
+>   gve_teardown_priv_resources()
+>     gve_adminq_free()
+>
+> gve_adminq_free() then returns early, because ADMIN_QUEUE_OK is already
+> clear:
+>
+> void gve_adminq_free(struct gve_priv *priv)
+> {
+>         if (!gve_get_admin_queue_ok(priv))
+>                 return;
+>         gve_adminq_release(priv);
+>         dma_pool_free(priv->adminq_pool, priv->adminq, priv->adminq_bus_a=
+ddr);
+>         dma_pool_destroy(priv->adminq_pool);
+>         ...
+> }
+>
+> So dma_pool_free() and dma_pool_destroy() never run. Then
+> gve_adminq_init() here calls gve_adminq_alloc(), which puts new
+> allocations in priv->adminq_pool and priv->adminq. The old pool and
+> buffer are lost.
+>
+> The same thing seems to happen when gve_teardown_device_resources() calls
+> gve_trigger_reset() after a failed AdminQ command.
+>
+> The baseline gve_init_priv(priv, true) path leaked in the same way. The
+> later "gve: simplify reset logic" patch in this series appears to fix it.
 
-One thing though, I had to adjust the indentation of the GPU_REV() macro before merging.
-Not a big deal, but always make sure to run the following in your branch before submission:
+Like the AI notes, this issue is pre-exisiting and most of the reset
+related issues are fixed in the following patch =E2=80=9C"gve: simplify res=
+et
+logic"  in the same series.
 
-./scripts/checkpatch.pl --strict --git first_commit~..HEAD
+> That patch makes gve_adminq_release() static and calls it only from
+> gve_adminq_free(). It also stops gve_adminq_release() from clearing
+> ADMIN_QUEUE_OK and removes gve_trigger_reset().
+>
+> > +     if (err) {
+> > +             dev_err(&priv->pdev->dev,
+> > +                     "Failed to alloc admin queue: err=3D%d\n", err);
+> >               goto err;
+> > +     }
+> > +
+>
+> [ ... ]
+>
+> >       if (was_up) {
+> >               err =3D gve_open(priv->dev);
+> >               if (err)
+> > -                     goto err;
+> > +                     return err;
+>
+> [Severity: Medium]
+> The commit message says:
+>
+>   These changes are only code movement, no functional change.
+>
+> Is that accurate? The patch seems to change behaviour in a few places.
+>
+> First, gve_adminq_init() writes the version string before it allocates
+> the AdminQ:
+>
+>         gve_adminq_write_version(&reg_bar->driver_version);
+>         return gve_adminq_alloc(priv);
+>
+> gve_reset_recovery() now calls this helper. That means the driver version
+> string is written to the BAR0 driver_version register on every reset,
+> resume and recovery. Before this patch, gve_write_version() ran only once=
+,
+> from gve_probe(). gve_recover() still does this at the end of the series.
+>
+> Second, the order of device accesses in gve_probe() changes. The version
+> write now comes after the max_tx_queues/max_rx_queues ioread32be() reads
+> and after alloc_etherdev_mqs(). AdminQ registration,
+> VERIFY_DRIVER_COMPATIBILITY and DESCRIBE_DEVICE now run before ctrl_ops i=
+s
+> set, before map_db_bar() and before alloc_ordered_workqueue().
 
-Also, I suppose you didn't have a chance to test it on a g68_r1p0. That would be of interest
-because of HW_ISSUE_TTRX_3485, which seems to mandate the submission of a dummy job before
-any real further work. It seems at the moment there's no such a workaround either in the
-UM Mesa driver or the Panfrost KMD.
+Both these two changes listed here prepare the driver for the addition
+of the new control plane - the version write is now done as part of
+Adminq init specifically since this won=E2=80=99t be needed in the mailbox
+mode.
 
-Maybe Steven or Boris could elaborate on this?
+And in mailbox mode,  the control plane has to be setup and the device
+properties negotiation has to happen before we try to allocate the
+net_device. Since the max TX/RX queues that the device supports comes
+from this negotiation.
+>
+> Third, when gve_open() fails here, the old goto err path logged "Reset
+> failed! !!! DISABLING ALL QUEUES !!!" and called gve_turndown(). Now the
+> function just returns. Neither gve_reset() nor gve_resume() logs the
+> error, so a failed re-open after reset or resume leaves nothing in the lo=
+g.
 
-On 03.08.2026 12:35, Markuss Broks via B4 Relay wrote:
-> From: Markuss Broks <markuss.broks@gmail.com>
-> 
-> Add the features, issues, and ID for Mali-G68, a first-generation
-> (v9) Valhall GPU.
-> Tested on Exynos8835: the GPU reports GPU_ID 0x9204 (G68 r1p1).
-> 
-> Signed-off-by: Markuss Broks <markuss.broks@gmail.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_features.h | 2 ++
->  drivers/gpu/drm/panfrost/panfrost_gpu.c      | 3 +++
->  drivers/gpu/drm/panfrost/panfrost_issues.h   | 8 ++++++++
->  3 files changed, 13 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_features.h b/drivers/gpu/drm/panfrost/panfrost_features.h
-> index 52f9d69f6db9..34c65847192f 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_features.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_features.h
-> @@ -121,6 +121,8 @@ enum panfrost_hw_feature {
->  	BIT_ULL(HW_FEATURE_IDVS_GROUP_SIZE) | \
->  	BIT_ULL(HW_FEATURE_CLEAN_ONLY_SAFE))
->  
-> +#define hw_features_g68 hw_features_g57
-> +
->  static inline bool panfrost_has_hw_feature(struct panfrost_device *pfdev,
->  					   enum panfrost_hw_feature feat)
->  {
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> index 7d555e63e21a..83223192a544 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> @@ -242,6 +242,9 @@ static const struct panfrost_model gpu_models[] = {
->  	/* MediaTek MT8188 Mali-G57 MC3 */
->  	GPU_MODEL(g57, 0x9093,
->  		GPU_REV(g57, 0, 0)),
-> +
-> +	GPU_MODEL(g68, 0x9004,
-> +		GPU_REV(g68, 1, 0), GPU_REV(g68, 1, 1)),
->  	{0},
->  };
->  
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_issues.h b/drivers/gpu/drm/panfrost/panfrost_issues.h
-> index eb60cb83667a..dd39946bb572 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_issues.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_issues.h
-> @@ -265,6 +265,14 @@ enum panfrost_hw_issue {
->  #define hw_issues_g57_r0p0 (\
->  	BIT_ULL(HW_ISSUE_TTRX_3485))
->  
-> +#define hw_issues_g68 (\
-> +	BIT_ULL(HW_ISSUE_TTRX_2968_TTRX_3162))
-> +
-> +#define hw_issues_g68_r1p0 (\
-> +	BIT_ULL(HW_ISSUE_TTRX_3485))
-> +
-> +#define hw_issues_g68_r1p1 0
-> +
->  static inline bool panfrost_has_hw_issue(const struct panfrost_device *pfdev,
->  					 enum panfrost_hw_issue issue)
->  {
-> 
-> ---
-> base-commit: 415606a7be939835db9b0d6b711887586646346d
-> change-id: 20260803-staging-mainline-ebe89543b632
-> 
-> Best regards,
-> --  
-> Markuss Broks <markuss.broks@gmail.com>
+Hmm, actually the only visible effect here is the dropping of the log
+line which will be back in the next patch. gve_turndown() does nothing
+at this point, because NAPI is already disabled and carrier is already
+off. The following patch rewrites this path anyway.
 
+>
+> The only place this is mentioned is the v3 changelog below the ---
+> line, and that text is dropped when the patch is applied. The changelog
+> says "don't free device resources if gve_open() fails in the reset path".
+> The baseline err label did not free device resources either, though.
+>
+> The later "gve: simplify reset logic" patch adds a "Failed to start
+> queues ... DISABLING ALL QUEUES" message in gve_recover(). At this commit=
+,
+> though, the message is missing.
+>
+> Could the commit message describe these changes, instead of calling the
+> patch only code movement?
 
+I can call out these changes in the commit message and bring the log
+line back if there is a need for another respin. These issues on their
+own don=E2=80=99t merit a respin IMO.
 
-Adrian Larumbe
+>
+> >       }
+> >       return 0;
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20260930190428.1130007-1-hramamurthy%40google.com
