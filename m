@@ -1,156 +1,100 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E939470457;
-	Fri,  2 Oct 2026 09:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2273E476CD8
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:18:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932676; cv=none; b=GkmpIOhIbz1UZht+GL5jPrdoT1qMq8w9RUGYHHd+pcGSfaD/IKwnkE1cLSbcWPrQzJ3EWWEF35U353l2TVNQ5FMREl8A4hgmvS7tISReu9uPdCiGBvtFIDc/bJA0idJ1ig2eURbn40wtA8X248IaLS2BB9bDYp4ozycNg2WWpP8=
+	t=1790932685; cv=none; b=H+DWgPT1RLqrGsshie+G00LbVwcUkhPSGeTCP2GoIYS7/Xx2b5NUvW/T88eitTu4EnpckRSua24OMeGciK019GqwySGbo4XP5BDcBK8cP4dUCcVnB68YgYsTXOZnUVwm+pl+ftO+BeVfJf759+sFXL/x9bbe/llT+U+y3iH5Clg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932676; c=relaxed/simple;
-	bh=G57u2qii/v7VAwt+ktBPH9MfBfnuJ8qot9Hpqxg9VFM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iiMRCT5JjUL528Qm2spA9mqZNOPevH9XEWVkr4HeOD9OFu5fvKaDRF5vTGjoJ1LTrcNRqKr5fZUAAHeF8aNJadxzZUfzBYXdeE4QScwuCzWBz8xz9zxw/2rbKlnyVOgmPGt7Hu/RnJxw+xW65HY8igD6Am3nso6zAbqWexokhD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ZjppKu+X; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790932685; c=relaxed/simple;
+	bh=IUZNf3fno5D/v1SQtKkJJtC39+JBzebyE7h56078Jj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PpNbSoWzffp5jPnckXOhCmN0OKjFhOiRdKv+Qvc69KPAlNhM6T2Mq1wC4Lnwc2Am321JSMrllWKKuXHNGJliR1BH9VJvkCtBDlCcVT23kvdOtCvH/ehlRlNQ8GKGNUvBqDopbpMt8If0x00sfS1b5jY0QEA1tSYgZhV1DgPDPyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IFg2oAmc; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ZjppKu+X"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69265rQL3958830;
-	Fri, 2 Oct 2026 09:17:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=6uqtZCh5sKiBa1aMXAb5BJTAZQc8AK
-	FENrdMiTf5wfM=; b=ZjppKu+Xb/f/KaoBLr2rFJugyrTL723BCaOwEBmWmBnC59
-	k3r8m67jPcYaVd8ORwmboDqQoEByQbOHVKXkiJL13VNFqJhbyjcMUn1XYp/C3b0a
-	U8LFHujV6zFRyMVGOeqqpZ4wy1hhuk+P8I1k6cW1wbzAxTeSphz+BxkDCWilpBXh
-	rDTwYAsf8GpPZ2pM56xlO1fTtSZ8wotN4veMkOfZCBMv0NPP9V3NYCIgVA80Eoro
-	JfCpcyI8gSweqzVDTicBhDn//xmFOYUyKIzv6hGahIOTdnjpF0/ACQwGz+n3RCfo
-	rcVeSbyy1wMJGociV6QGqhvjz3tR7N/czr/pH2ag==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5j5rjd0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 09:17:33 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69262PFt2076520;
-	Fri, 2 Oct 2026 09:17:32 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0xcsj6a3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 09:17:32 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6929HSmC45941162
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 2 Oct 2026 09:17:28 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0BB3B20043;
-	Fri,  2 Oct 2026 09:17:28 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F05972004E;
-	Fri,  2 Oct 2026 09:17:26 +0000 (GMT)
-Received: from osiris (unknown [9.87.132.225])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  2 Oct 2026 09:17:26 +0000 (GMT)
-Date: Fri, 2 Oct 2026 11:17:25 +0200
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>
-Subject: Re: (subset) [PATCH v9 00/24] KVM: s390: Introduce arm64 KVM
-Message-ID: <20261002091725.22510-B-seiden@linux.ibm.com>
-References: <20260930173441.66762-1-seiden@linux.ibm.com>
- <179085262878.3865846.5787241839391727949.b4-ty@b4>
- <20261001132715.108643-A-seiden@linux.ibm.com>
- <86wls1315l.wl-maz@kernel.org>
- <20261002080015.22510-A-seiden@linux.ibm.com>
- <86v77k326m.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IFg2oAmc"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso46987845e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:18:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790932682; x=1791537482; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H0FcRb8OTX7/GhAedNNsxuIjIt1hP3QdH9f7yijnG/M=;
+        b=IFg2oAmc4OUwqJ7/ZADZIUBWoK0A41m3vk0OoWpsiXflsnjc3loxliTcWMGrUn2P3k
+         jl66KzvdUHXDElmsrvWPkxKxm0Y7f8QX2SvTJ0ZkcJF4EKD3b+1KrTWjsPCQ9DLh8pXY
+         XZBRqR+Z5K0QMHfZmS9czomEFTvSmOC/A3npIALIZNAJDFVKzPfL1gaFbPLS9OlprlYx
+         o8QS6yQohrVFd4J4/Dt7tPWKkEGmr5grL0Ms2ZbtwPnZtcqop93jq8s+VGo4fOicArnQ
+         tE/g+pwmDzDpo9YS8Eo03Ci7mukayZKs/fKaKP8qXlpXlBDywp1x6BUknTQI+rDApggk
+         mnhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790932682; x=1791537482;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H0FcRb8OTX7/GhAedNNsxuIjIt1hP3QdH9f7yijnG/M=;
+        b=rJdJT3C8dMouWGCnJ0EyT435Dc3TyZwHm5nMqs6y8x/becBOABvRaQV9KGT38z6Gd9
+         C+CM+kNH6dL7W6WZns2WOxPl/YIo9WuWsTz3H+Ximx5Blf0apNfM6hJ+qqhR9Quf7Qh/
+         8CuBvQBgPYdwkr54N8fAgePLeuqB5ibz8pB0nYk2eL/r0wGI2HTXBz64DnLmSKXxqvcl
+         iemOElCUeFMo/FtYNAcD3Vj7p4NE9XSumO1hdQR6+ebLzA7MpZApKGv0gizSAaq5bJMT
+         I0p+s4UvEA1SqKUC6af8F4en24y3LcoQKgnN0AKqkcyg7QPvEkSGgcMCw75GIKKI3RqR
+         WQKg==
+X-Forwarded-Encrypted: i=1; AKwUvByOryOaAh/8/SIhnGmlBeLgqHCW14fY91VF1Rx/73mTGTXmOYv97RRixcpRqNr6lGn3Y27kVDXOQ9CFq84=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaMc36yA0YgNlPeV9ppYWlJ4u2kYVwwO9uiEHiZ+6ZiKbed7QI
+	UQEsa90basdhsuwGc/X5Syp+nVhZwHASuGWJHDCbsHZ2Sqav5SL61IL9
+X-Gm-Gg: AYBFou3n3n807HRHE4Zd/5rvmL0guFZmH2ZqX0+vy67DWevrzFsPiRbina5MRNnPzQZ
+	kUj5swQ3Wz6vFVrIa5Pn8NYB/UxnzyogYsB772Ss7gxpgE7sAD9DtcEdUzrTVFI/IRuIZg1xVew
+	njpLid/Xbcc/a0rdPKeqJohfpfG4x0rtsUejm4r3gUedrTzEE9EZOPXlpyM/53UV+Mut/jbo9+y
+	HuidzZDSfGnS17UnK79SXJMfCqqi4xt3NEQeJw8N37gxRyZLuAaXP0ee90jGKaohHye89aWvMrh
+	rjcphHAsBf9+AmqBiU2x+6RPNrqO0OJ2cOHmlY5fI4vAeFSYCAWvn+Fif73GMJcG3Jp6cfB8+n5
+	GI2wc8ROE7qhCp3f1hWh0mmivhwj6rAX7QhEonGxVkS2JofiwUkS6A30HjHIR44gLYiLNFFUJno
+	mALoESiQ+YDuFn9xcNS+3aMfc8eNw3AZoGXCjl90mGr+HRpE4mTvHUdno5n87Ctyz+oEuispwQY
+	cg4q1YzpiM/nIwhCBnFRYnvmH9O7jiV/NQSfSsgUm7hUBGEBHguXRh/yds=
+X-Received: by 2002:a05:600c:8b77:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a027564df4mr36860205e9.19.1790932682063;
+        Fri, 02 Oct 2026 02:18:02 -0700 (PDT)
+Received: from 1Z10 ([2a02:b123:8010:a99a:44ac:6cdb:a419:601e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280b2e3csm77717755e9.5.2026.10.02.02.18.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 02:18:01 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andy@kernel.org,
+	hansg@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 02/16] media: ov8858: support 19.2 MHz clock and CHT gain setup
+Date: Fri,  2 Oct 2026 11:17:59 +0200
+Message-ID: <20261002-media-v7-p02-andy-reply-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ar9Z1Zr-deCCQ1nx@ashevche-desk.local>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com> <628adb1cabec866554ca26a2da5af860b04d6cb1.1788360629.git.mauriziocasciano7@gmail.com> <ar674__4-cNOGMMy@kekkonen.localdomain> <ar9Z1Zr-deCCQ1nx@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86v77k326m.wl-maz@kernel.org>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfXzf+SaVRSYbxi
- wF6O6ItDg/TjjQZsWvIS6iA/pNx+kTGeei2b09mnkYuIYMQvNAu4GfhXOyjUUU0ecdGH3IcCXgs
- 8zzy2BhHZFxJHD9SOSQgWcEEoP35fgc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfX6ksXvNaSh//Y
- qLGbrcdum8WnH1erhMEoQABB1l9Je2YAFiwqN0X/a9GeNPNsbLWZkrcInVgphwEXJAfvKF8kzoA
- UIAjEcbcoTC6O+M2TpSUxiugeT+5/TVTNvt2jWqvO83EkDuQTG2CBYApKvu9ZWJ8WMo6+m/eQVZ
- uy3eJXQNOaX+DaYfQ9LeFKbrWhDTIw4gc0RD6NjqlK8itgz3tvrbx+JtuiptfSPSRb+M/VwxF10
- FaMYAZoIfFmS1t2noOk7/HasizlcmVvCPkkChT9+60jc69zF0PNT7/66sbeBXUkjVoZTLuqyFqR
- 0FdGxTkEB4K9x55i0cDA+RhXD1blx10kci9trxb1/sLsHrRVwRkFUPhHRQap8hN3zbRRclFkFdh
- iFISzd2W8M8fXgxjMcGEbO1ZQSotv8F/yjGjvc9BFh9Hv7qdmfJciVbqVxUGbIp77a2oL5NOyTm
- HePgsSgJ7jxJP7IFoGg==
-X-Proofpoint-GUID: 8jsrgeQygRoRTjmexax4kfknhqu-s8hs
-X-Authority-Analysis: v=2.4 cv=RKcmjIi+ c=1 sm=1 tr=0 ts=6abf76ad cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=ALOfu2a2d7XKILEI8oUA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: 6Gcx6D6PvRG4WEJpQqeeOPCS1cyvHcMq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020036
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 10:02:41AM +0100, Marc Zyngier wrote:
-> On Fri, 02 Oct 2026 09:00:15 +0100,
-> Steffen Eiden <seiden@linux.ibm.com> wrote:
-> > 
-> > Yes the positioning of the functions look good. It builds on top of
-> > kvmarm/next + this (sightly relocated (line numbes are different) patch
-> > + arm on s390 stuff.
-> 
-> Cool. I've now pushed out the rebuilt kvmarm/next branch with this,
-> and hopefully it will make it into -next today.
-> 
-> Let me know if anything else is amiss.
-> 
-> > I'll work on a verification tool for you guys to make this process
-> > easier.
-> 
-> I guess the ultimate verification tool is to build s390 with the rest
-> of the patches, which I've just done. This doesn't lead to any error
-> that wasn't already reported.
+The Link trailer was invalid and has been removed.
 
-Yes. Fortuinately this will be availabel soon :) 
+I also corrected the disclosure to the documented form used by this tree:
 
-I wanted to create a simple build target or similar for arm64 that
-mimics the s390 use of arm64 shared code but compiles using an arm64
-toolchain to reduce friction for esp non-maintainers.
+  Assisted-by: LLM sparse
 
-I have some ideas. They may work. Let's talk at plumbers about that.
+The clock constants in v10 use integer unit macros consistently, including
+19200 * HZ_PER_KHZ for 19.2 MHz. Patch 2 now uses 24000 * HZ_PER_KHZ for the
+24 MHz value as well.
 
-	Steffen
+With Best Regards,
+Maurizio Casciano
