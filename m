@@ -1,253 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22BA4968EC;
-	Fri,  2 Oct 2026 22:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FC9411A03
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790980703; cv=none; b=OF/4utcJsSFRUsH5ZoZDq9D4ko1O6G4GkA9YVum1WJkJt75Y/kDQKKGvMmtFhCeR7bGvKG/fVyEd9T3lAzmxcFfTbRfFNtuQQX4AiDRGM/ijf9o8MGQoik7To2cX5PcPUR/xUT2vfj2L+IBHfe72I9FBd3J7iI7x9V0lTnUF8uk=
+	t=1790980728; cv=none; b=K/TSn5vJpdJqRXDBLC9xspudpsLk/ekrmRg4ikkloyshxz5MzMymTfp0NMWj0RVne2UN2PrH50Fn7JaLb9i9WRza/5Z7LJ42wX52zQZ2cKtkHOfYjEkUx+VsymD/5zZLx1VBL81S4OPm6qg7v8vE9MXhsI/IgKWh6A3F7PXh3EA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790980703; c=relaxed/simple;
-	bh=Bva8BNciURWl8yUW82jFE/8yEgOo6fOKPbDmsbRuR1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pVIjQJ+ATT16p76MMr9hM+R52ODwTNuU6Lk0LIremY7LFfOKshfsnv5qDHNtf6pe9TNwz592U5znA+aNskfrf1APnqsr/8q2W0JBeWF4KJf+Xq6gSmEIDoz/BNX4hT0Mf47BxVFMc/wosAbkQPSewI7W+tc/RYfCYpTMXp5++Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWcALDbZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790980728; c=relaxed/simple;
+	bh=cKfSEMOPoL9tlZ6wipUo4X013hFwDlMQ81qIU9OU1aY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Vcm5zljwCa8kbVzIGr27sON1KMa79UTcjQScD8FcIcyuEfL3Cm0cHdquooLLeRCHC3Oq+pj6xSM1dhngF1grpcYjtynY4XiRQYfPpGW4GLsPgrbiG2DBS0u6vURzU3c15QM3CMImKE3ILBmgAqCJMIi8T0tL6Xw5wRWOInQ6xLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WYbmwdR9; arc=none smtp.client-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWcALDbZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7251F00893;
-	Fri,  2 Oct 2026 22:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790980701;
-	bh=yVXvSTZV+wOW3rU7laW2CvI+tv/5A+XeBSRiNm1iWuc=;
-	h=From:To:Cc:Subject:Date;
-	b=RWcALDbZ2i8JByAnu183ZoyxJYn+VWb+mrwdFdtKsmVegJfQDBOe//zEJLT1+ii+f
-	 3sZb1wSpV8fsn7QeaNCEB6Lh/C/4z6cuOyGaxLagM6Vmkyx2/4MCsa38OUmz1iijFp
-	 vwY9MgZzzsrHxOskwIQzGghosKSZ271NjDGpLL8wJh7S7R3Hg8TI+89Y8AK3PyNTcF
-	 2mziqllAO3m1taB67qR+1SGYXnNUf7omg2A83nhkHSWo2bsAQy7Hp0ysWAl69uR4Sp
-	 SzY//k2B1kOqrG43Sw+j+srx0WPo+Layn3nR/ij9Gi19LTQCDCQCcEG3ioXZJW5o5J
-	 Nlw/Zmu/zPiyA==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH] lib: Move SipHash into lib/crypto/
-Date: Fri,  2 Oct 2026 15:37:08 -0700
-Message-ID: <20261002223708.39183-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WYbmwdR9"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8884a02ee85so96029b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:38:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790980726; x=1791585526; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8FKzhc6JuX9pGuBJ5sRMzCjJd9/g4im8E9bMuOULVOQ=;
+        b=WYbmwdR998NStm33eDkN48ceZOhW1KnfMcow2ta6nkcozn0Qkerh0TCpuzllP9VFME
+         YvL+foBD4u6l25pJs3ouilY04u7Rm5KSvryxjzM0+0kiNn196FeBGbeoFWLqJYhcmlxP
+         F9JqPS3XyyzbvLE042tZ3tHfbVP8Y58NVYU/R7CbKPkRrLwM5XrHixGw4hgF04N0ox/g
+         iEEcGZ8yGfACAKPh7iZsjmxj5ZZI06812dkOw4JB+jVHRfBgHSX8gzpXqluS8yCfzYz4
+         9GmVgawPixHEpIg2hWsTsllAambxqLTXhM1xRHfxWROxjXns75nfTsizC1AZ2wERRFXa
+         Eh/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790980726; x=1791585526;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8FKzhc6JuX9pGuBJ5sRMzCjJd9/g4im8E9bMuOULVOQ=;
+        b=j4p0S11d1pHEGXLqFrNc+erdD7pZb/NtmZXTPFg2qJOQ1Mgp8aiNEe5Hehq6gjrcPx
+         rjVgqB5Fr5KnWpz8B5uqgzQzx32ZxOCID/sxgrA+DaNC70Wm6gUhKTfR/f78JxW5XIAr
+         sLJ3dyKobiFgfNB8SzKeOKgU3oXdaVupmzoxrLPWju/mZqPiWW0lGiKEmAcK250DtIdZ
+         nzOsu7WXEkuLyO1xz3SLzAnk1YOYfmeH0y33UZy9HqS22utL0TrQJPRpjKGE9+KTVNw/
+         yga29V/Z50K02HsHlniX+0pofEXipPrtbfaldEtkam+TpJF+6ItHbyj/nQLPDNQGIznt
+         gncw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9FldUKarGansmdCUXvY8Mu1OPv4iw6fhZUjRxC3FrBEyAch7E/i2Gp4P1wCv6dR5dpNPsf7G786fRZWo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlKIQkH2YVufCgAa7arpZpkQsVv5Y2Y6nYbRUzvTG9Pob7qsMT
+	OWgO2mU0L6HA7N/ltGcA+o9d3GRWMVtwvc7x18nohY9t4KPA6SGdRapH0bzr8OyVcmtsvsHnddn
+	WRvAVRg==
+X-Received: from pfbhu35.prod.google.com ([2002:a05:6a00:69a3:b0:883:f59:2478])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4fc1:b0:886:301:cb7d
+ with SMTP id d2e1a72fcca58-88af54f7783mr3790819b3a.11.1790980726304; Fri, 02
+ Oct 2026 15:38:46 -0700 (PDT)
+Date: Fri, 2 Oct 2026 15:38:45 -0700
+In-Reply-To: <pkxwkffc.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <cover.1790101179.git.ritesh.list@gmail.com> <pkxwkffc.ritesh.list@gmail.com>
+Message-ID: <asAydfQLscU6rXQL@google.com>
+Subject: Re: [PATCH v5 0/9] KVM: selftests: add powerpc support
+From: Sean Christopherson <seanjc@google.com>
+To: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-The addition of SipHash to lib/ predated the existence of the
-lib/crypto/ directory.  Since it's a cryptographic algorithm, move it
-from the top-level lib/ directory to lib/crypto/.
+On Tue, Sep 29, 2026, Ritesh Harjani wrote:
+> "Ritesh Harjani (IBM)" <ritesh.list@gmail.com> writes:
+> 
+> > Hi All,
+> >
+> > This series primarly adds KVM selftests support for powerpc (64-bit, BookS,
+> > radix MMU).
+> >
+> 
+> Hello Sean,
+> 
+> Just wanted to check what's our plan on this one?
 
-Specifically:
+At this point, I'm not going to get a pull request to Paolo before the normal
+merge window.  I was hoping/planning to get some early pull requests to Paolo
+this cycle so y'all could build on kvm/next directly, but that didn't happen.
 
-- Move both siphash.c and siphash_kunit.c.  Keep the header
-  <linux/siphash.h> as-is for now.
+> Are we planning for both PPC pre-enablement series of yours and this one to
+> be taken for v7.4 merge? Do you think this can go in too?
 
-- Keep the dedicated MAINTAINERS entry for SipHash.  Just update the
-  file paths it references.
+I'd like to get at least a subset of this series in for 7.4.  If I'm reading
+things correctly, all of the hacky changes I don't like are for the
+kvm_create_max_vcpus_test and hardware_disable_test.  And as called out in the
+final patch, "fixes" for PPC really should be ordered so that they land *before*
+the tests are enabled.
 
-- Move the kconfig option that controls the KUnit test.  Put
-  "CRYPTO_LIB" in its name and update the prompt to make it consistent
-  with the other crypto library test options.
+Actually, better idea.  Limit patch 1 to just TEST_GEN_PROGS_COMMON, then for
+the addon tests, bundle the "fix" with the PPC enablement.  AFAICT, except for
+the kvm_create_max_vcpus changes, they're all pretty small, i.e. bundling the
+PPC support with the "fix" shouldn't be too painful, and then we don't have to
+worry about ordering.
 
-- Enable the KUnit test in lib/crypto/.kunitconfig.
+As for kvm_create_max_vcpus and hardware_disable_test, drop them from the initial
+enablement so we can get the core support landed, and tackle them as separate
+series post-7.4.
 
-- Link to siphash.rst from the appropriate place in libcrypto-hash.rst.
+As for actually landing this, the easiest thing at this point would probably be
+for me to grab the patches in a dedicated topic branch that's based off the
+kvm-x86/selftests branch at an appropriate point in time.  Alternatively, I
+could provide a stable tag and someone else could grab the patches, but other
+than it being a little weird taking PPC changes through kvm-x86, that's by far
+the easiest approach since I'll be sending Paolo pull requests anyways and can
+explain the dependencies and whatnot.
 
-- Use obj-y instead of lib-y, for consistency with the fact that
-  currently lib/crypto/ doesn't use kbuild's support for library file
-  goals.  We could keep it as lib-y, but virtually every kernel needs
-  SipHash support anyway (with vsprintf, printk, IPv4, IPv6, etc.
-  depending on it) so there is no practical difference in this case.
-
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
-
-This patch is targeting libcrypto-next
-
- Documentation/crypto/libcrypto-hash.rst          |  5 +++++
- MAINTAINERS                                      |  4 ++--
- lib/Kconfig.debug                                | 11 -----------
- lib/Makefile                                     |  2 +-
- lib/crypto/.kunitconfig                          |  1 +
- lib/crypto/Makefile                              |  2 ++
- lib/{ => crypto}/siphash.c                       |  0
- lib/crypto/tests/Kconfig                         | 11 +++++++++++
- lib/crypto/tests/Makefile                        |  1 +
- lib/{ => crypto}/tests/siphash_kunit.c           |  0
- lib/tests/Makefile                               |  1 -
- tools/testing/selftests/bpf/progs/test_siphash.h |  2 +-
- 12 files changed, 24 insertions(+), 16 deletions(-)
- rename lib/{ => crypto}/siphash.c (100%)
- rename lib/{ => crypto}/tests/siphash_kunit.c (100%)
-
-diff --git a/Documentation/crypto/libcrypto-hash.rst b/Documentation/crypto/libcrypto-hash.rst
-index fa4c54236af6..d1e2d2ff06f4 100644
---- a/Documentation/crypto/libcrypto-hash.rst
-+++ b/Documentation/crypto/libcrypto-hash.rst
-@@ -80,6 +80,11 @@ SHA-3
- 
- The SHA-3 API is documented in :ref:`sha3`.
- 
-+SipHash
-+-------
-+
-+The SipHash API is documented in Documentation/security/siphash.rst.
-+
- SM3
- ---
- 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9dc69113f47a..21ab5d531557 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25117,8 +25117,8 @@ SIPHASH PRF ROUTINES
- M:	Jason A. Donenfeld <Jason@zx2c4.com>
- S:	Maintained
- F:	include/linux/siphash.h
--F:	lib/siphash.c
--F:	lib/tests/siphash_kunit.c
-+F:	lib/crypto/siphash.c
-+F:	lib/crypto/tests/siphash_kunit.c
- 
- SIS 190 ETHERNET DRIVER
- M:	Francois Romieu <romieu@fr.zoreil.com>
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625..0f37a552318d 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -3075,17 +3075,6 @@ config HW_BREAKPOINT_KUNIT_TEST
- 
- source "lib/crypto/tests/Kconfig"
- 
--config SIPHASH_KUNIT_TEST
--	tristate "Perform selftest on siphash functions" if !KUNIT_ALL_TESTS
--	depends on KUNIT
--	default KUNIT_ALL_TESTS
--	help
--	  Enable this option to test the kernel's siphash (<linux/siphash.h>) hash
--	  functions on boot (or module load).
--
--	  This is intended to help people writing architecture-specific
--	  optimized versions.  If unsure, say N.
--
- config USERCOPY_KUNIT_TEST
- 	tristate "KUnit Test for user/kernel boundary protections"
- 	depends on KUNIT
-diff --git a/lib/Makefile b/lib/Makefile
-index dfab958327c5..e1eb91d62a30 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -38,7 +38,7 @@ lib-y := ctype.o string.o vsprintf.o cmdline.o \
- 	 maple_tree.o idr.o extable.o irq_regs.o argv_split.o \
- 	 flex_proportions.o ratelimit.o \
- 	 is_single_threaded.o plist.o decompress.o kobject_uevent.o \
--	 earlycpio.o seq_buf.o siphash.o dec_and_lock.o \
-+	 earlycpio.o seq_buf.o dec_and_lock.o \
- 	 nmi_backtrace.o win_minmax.o memcat_p.o \
- 	 buildid.o objpool.o iomem_copy.o sys_info.o
- 
-diff --git a/lib/crypto/.kunitconfig b/lib/crypto/.kunitconfig
-index 60e0a77f9889..6f218cd2d0c3 100644
---- a/lib/crypto/.kunitconfig
-+++ b/lib/crypto/.kunitconfig
-@@ -19,4 +19,5 @@ CONFIG_CRYPTO_LIB_SHA1_KUNIT_TEST=y
- CONFIG_CRYPTO_LIB_SHA256_KUNIT_TEST=y
- CONFIG_CRYPTO_LIB_SHA512_KUNIT_TEST=y
- CONFIG_CRYPTO_LIB_SHA3_KUNIT_TEST=y
-+CONFIG_CRYPTO_LIB_SIPHASH_KUNIT_TEST=y
- CONFIG_CRYPTO_LIB_SM3_KUNIT_TEST=y
-diff --git a/lib/crypto/Makefile b/lib/crypto/Makefile
-index d683b8520f55..7697a361625c 100644
---- a/lib/crypto/Makefile
-+++ b/lib/crypto/Makefile
-@@ -12,6 +12,8 @@ ppc64-perlasm-flavour-y := linux-ppc64
- ppc64-perlasm-flavour-$(CONFIG_PPC64_ELF_ABI_V2) := linux-ppc64-elfv2
- ppc64-perlasm-flavour-$(CONFIG_CPU_LITTLE_ENDIAN) := linux-ppc64le
- 
-+obj-y += siphash.o
-+
- obj-$(CONFIG_KUNIT)				+= tests/
- 
- obj-$(CONFIG_CRYPTO_HASH_INFO)			+= hash_info.o
-diff --git a/lib/siphash.c b/lib/crypto/siphash.c
-similarity index 100%
-rename from lib/siphash.c
-rename to lib/crypto/siphash.c
-diff --git a/lib/crypto/tests/Kconfig b/lib/crypto/tests/Kconfig
-index e121114624da..2971ec1f08b3 100644
---- a/lib/crypto/tests/Kconfig
-+++ b/lib/crypto/tests/Kconfig
-@@ -151,6 +151,17 @@ config CRYPTO_LIB_SHA3_KUNIT_TEST
- 	  including SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128 and
- 	  SHAKE256.
- 
-+config CRYPTO_LIB_SIPHASH_KUNIT_TEST
-+	tristate "KUnit tests for SipHash" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Enable this option to test the kernel's siphash (<linux/siphash.h>)
-+	  hash functions on boot (or module load).
-+
-+	  This is intended to help people writing architecture-specific
-+	  optimized versions.  If unsure, say N.
-+
- config CRYPTO_LIB_SM3_KUNIT_TEST
- 	tristate "KUnit tests for SM3" if !KUNIT_ALL_TESTS
- 	depends on KUNIT && CRYPTO_LIB_SM3
-diff --git a/lib/crypto/tests/Makefile b/lib/crypto/tests/Makefile
-index c97c1d78784a..f639d76a8fb7 100644
---- a/lib/crypto/tests/Makefile
-+++ b/lib/crypto/tests/Makefile
-@@ -17,4 +17,5 @@ obj-$(CONFIG_CRYPTO_LIB_SHA1_KUNIT_TEST) += sha1_kunit.o
- obj-$(CONFIG_CRYPTO_LIB_SHA256_KUNIT_TEST) += sha224_kunit.o sha256_kunit.o
- obj-$(CONFIG_CRYPTO_LIB_SHA512_KUNIT_TEST) += sha384_kunit.o sha512_kunit.o
- obj-$(CONFIG_CRYPTO_LIB_SHA3_KUNIT_TEST) += sha3_kunit.o
-+obj-$(CONFIG_CRYPTO_LIB_SIPHASH_KUNIT_TEST) += siphash_kunit.o
- obj-$(CONFIG_CRYPTO_LIB_SM3_KUNIT_TEST) += sm3_kunit.o
-diff --git a/lib/tests/siphash_kunit.c b/lib/crypto/tests/siphash_kunit.c
-similarity index 100%
-rename from lib/tests/siphash_kunit.c
-rename to lib/crypto/tests/siphash_kunit.c
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index 3cac3b63a752..1a3d39db268f 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -46,7 +46,6 @@ obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
- obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
- obj-$(CONFIG_SCANF_KUNIT_TEST) += scanf_kunit.o
- obj-$(CONFIG_SEQ_BUF_KUNIT_TEST) += seq_buf_kunit.o
--obj-$(CONFIG_SIPHASH_KUNIT_TEST) += siphash_kunit.o
- obj-$(CONFIG_SLUB_KUNIT_TEST) += slub_kunit.o
- obj-$(CONFIG_TEST_SORT) += test_sort.o
- CFLAGS_stackinit_kunit.o += $(call cc-disable-warning, switch-unreachable)
-diff --git a/tools/testing/selftests/bpf/progs/test_siphash.h b/tools/testing/selftests/bpf/progs/test_siphash.h
-index 5d3a7ec36780..9a85670a9dea 100644
---- a/tools/testing/selftests/bpf/progs/test_siphash.h
-+++ b/tools/testing/selftests/bpf/progs/test_siphash.h
-@@ -22,7 +22,7 @@ static inline u64 rol64(u64 word, unsigned int shift)
- #define SIPHASH_CONST_2 0x6c7967656e657261ULL
- #define SIPHASH_CONST_3 0x7465646279746573ULL
- 
--/* lib/siphash.c */
-+/* lib/crypto/siphash.c */
- #define SIPROUND SIPHASH_PERMUTATION(v0, v1, v2, v3)
- 
- #define PREAMBLE(len) \
-
-base-commit: 9ca77aa621027149c43551308112eba06b1de3af
--- 
-2.56.0
-
+TL;DR: what if you post a slightly trimmed-down v6 and I take it through kvm-x86?
