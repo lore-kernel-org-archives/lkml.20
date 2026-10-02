@@ -1,63 +1,63 @@
 Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F7C3E2777
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:21:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D53429037
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925701; cv=none; b=ORDk38GuSQceiv9JTo/zi5UGvbV5oljySp8Aq55oN3VHMt+fMaKBN2c6EnDJQ48W2sEjUe5TvIv04wJWgFge/avzmkJJj52jgHaMcMIpNYAAWEQm0d5jY3Hbzv/LPco4VS7VrEl1rtTlahpM/owJd+aatY0Km09HCfBkccNGiGE=
+	t=1790925702; cv=none; b=hDwmgQEpJV4bXIuu/F8HNv6eCrqDj4m64HT9xnO0W/5fOPI/woR6+URPw1KLfJzrymx0VmBqoueVedZA2VFf0CXm5ndWT7KSHUdIy8pqzUgqAGlkBuogLuimZ4earsVlPs2cuJzmtCJQ3gORIqXJy9ivAIFSJ5cwbOuV0IrjGRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925701; c=relaxed/simple;
-	bh=rm7uzPDkcLKqr8w3udJ6WGIB9nMIOt1Z58NAzybVYsQ=;
+	s=arc-20240116; t=1790925702; c=relaxed/simple;
+	bh=e1B44NfTCH0F4oqJpUfmhyo7mQkyATlaZ6kmm/oiW08=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p3jI8MaSjVE7vmpD2vmM8i7XNcwLWlh9v0KEYaeNUfU/GKw5gEa8QIgtOZTBibJnezZhPR66mPMgglcbyZnfi6BF5RFeXPp9+UwEB2NetjKWdG8kmGTmYYNeXuGuL0Ep6IBdBhgtrtwyGgN8OMXIOOk2ClisW7pNeK+bsBrm2bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=II98zR8n; arc=none smtp.client-ip=74.125.225.98
+	 MIME-Version; b=tBUhzme7bcn+nlE72Ic/T8pYPuHN2hFg0AEmpnVC2h5/wzNXEMmgg4FkK58sX4QCCPRbQiS9W9lM21S3CTvs5TV7qcCqVK/fdKh84WNEUguXwbqOKO+4GrVxei/ys+25dup461BOf9c+d5nCPRVTAzvYns5vKhUWSJmuH0G2QMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oxBhsTh9; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="II98zR8n"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b00a0ac65so1578242f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:21:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oxBhsTh9"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c4f4daso2033950f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:21:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790925697; x=1791530497; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790925699; x=1791530499; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BiRT4iJ8ATEOAN7haj6uPz4qVcb8QlqeLbjNdcN2pu4=;
-        b=II98zR8nWrVwx5b3JWGLpLkU5uhl1QVMfZPa3ToIFaBhEGqXfGp0gOWvO7+bSR7jDS
-         OgWkctC/MmvKzRAjpAmtuY6rDmw6pA+Vf9jkMczaWnPMKarUBgHv5cYstIlvVLyhwibk
-         rpyQBiCdgu+zpusD20OUPe+hHV5CNnak6jsZR4Z0UqnsRpZCH9IQ8x6a4f79GuIaABCN
-         wicuEqnxBbXWF2aGo70Y193hm7cfzQC50OE+zd6pvb0gUhjzA0yMaWnsCXmhUkh8gMiL
-         Mu6BwuavEy4JNoS6P+/hY50A4Z42v+mdRmT2PmytMZ4FXk66zBN3UPjlVxMQBz9Sit8w
-         nJLQ==
+        bh=wUsDqDrhpmZMvn+QumvMUSjkcnQssbcKtOFdPQ7A4VQ=;
+        b=oxBhsTh9eiOA3huWK22aXtbDEP3qbGXmIqBRC4DWY5ifTjLghunuGOWjZ+ibTAT4+E
+         Jh/hGZTCpdlfvbzfpyROCL17iETCdcrWJmc0UYaArdidd75BfzTNJx781eCiaCZUluF7
+         jIUEFbQqm0/QIsOCvwACyeKMtBPjEN+Ek78OzOe4fkCUtfobu8j+O/Fql2vBzfj+yf+J
+         6QZPdcWBcFhGg8ZL0UKMnrWqy7CxLeohVobMSy4AL+C/1MWrhyJxK6Ve4fvAJjI+EXvI
+         duahPfv+ud7wQ74xc+6La3EbEjrYuIbkPQZp5ZB3ZX6ZkCoLlqOqFKQB3tgWXxNnhiJP
+         wjqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790925697; x=1791530497;
+        d=1e100.net; s=20260707; t=1790925699; x=1791530499;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BiRT4iJ8ATEOAN7haj6uPz4qVcb8QlqeLbjNdcN2pu4=;
-        b=j96ZQbb1gF6GsOI5R5mA25VvVK+vF52yhGi/bNpiCKiAd+9fyzs8IxEIAb4dPWBtsr
-         yltlO0wmSy+gDab55i80ds1vGktN4Ok5dsucQculu/s947YwRYgs9amXTerXeL/zpTOn
-         plfJjxRGctxRguxls//L6fkRlVHWT7ZiNpIEF7EhI48mOdY0bWRtrX/L9lhu3g4B+pmJ
-         CrpjfIYDUwybrT6LtU35wSEcYjoo1Lv8qrVAEDMj5QIQbIv8L7UofrJdkWNRLwwx/odv
-         aX8ko1YmnMEqAk5QmkDkezacyzpnITmfXDCGQrtgrfu3HZsgLHiHhUFfkgP+50fQ40EZ
-         o0lQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6aS+X163/pG78CCWekbi3ee37YD+01O77V+qSIeb5+dIe4Rigx0tJuTDw/WlQPt5infELWIfL9wl/YYA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKL4WdXfhFHuDOG5izZi/8xrNOKTB9wnRZTI30APSb3KqO9JhJl
-	JAxtWOwI010ay6HrtnMj6q+E6vmeyoNUYSR2CcNVuv6noQm/m9ZGnH4T
-X-Gm-Gg: AYBFou0R9TCkKw7g+0zvAtzZUtAWZLkoTrmhAW/edHpWB4Oakl5M8vSll/qgu9ir62O
-	Za6T+T8icnBV2m4GHJZhlzTJrtJPlZYU1aDI6S/UdmBgh334zQLUx7sj9uMq0MMMcwpGi1HUslo
-	IwfDepczxfWiNk8hvRihRLHRt2COU0bFkDUQ3GJ6kS+IUVoNfLkTr9iZqr1F9s83KD1GIR3Hxkp
-	jzwN/hM4ubEOIo9DCYZSKuCS21Sm0gl/HTvi6y906BJe4Lg4VAmoeoK7yDOVulucE0ZfomSIiCw
-	wc0OmNQ2+jQOfDtg1m5qhH4mtAg2P7qgbNCtVFxxmsVwkd7nIT6WFl4+stY30eJf7FzM12b4EQN
-	2kIfjCdpXzMPh+TSXWigNdNhuyLhRo3I6e1xZVR6nnTyeD2UqDQM603gmuLZuzHhRYm62Xl1z2m
-	c5F6GcqOTM8yX5Nnwrm5Em6JhN+/mWdBm7pgk4ZdmqUZjRrTp33B2h9O5tOFCa6QA2kw==
-X-Received: by 2002:a05:6000:981:b0:48b:9f7:9359 with SMTP id ffacd0b85a97d-48b12739796mr3125446f8f.16.1790925697499;
-        Fri, 02 Oct 2026 00:21:37 -0700 (PDT)
+        bh=wUsDqDrhpmZMvn+QumvMUSjkcnQssbcKtOFdPQ7A4VQ=;
+        b=BBdtHqC4gTRk/k+7B667F11Wp+89LwCbk6lFW73jSWo/36rZqMBc7z1hfHYvNrlwCO
+         0j4DR9TMqS7wRpp1f4uJorfGZQzW0+XKAvt8Zfw5BWYaZxyx4GFt3EXWbwoox2f9kY0+
+         AxmJwNs/PrIRs0Kao3o/49gUzwaJtXjvUM2EQjUnbgEoS1kCxGE10bX4WtQjWk71/rY/
+         +qPa9B+z+S9kvNb4NoloEJMbc/JZY4f4bBbOZxCzyMpRgXafx5eGXCeO8bX7dpMHHma5
+         X1rak5+RmZ6Rp2n58L5SKvkCv34h2EeZNmUby25lYgFvdC5sGfMxq+llSIByvsbt0Prb
+         JReg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ3RH0w/kVqM+zW1nmRLv18lrseIrUGrVgtWoYRPZMVa8LYOf41BggUpbRqgiiALPUCDfWudTgCtn+tC8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+SfBq/Pjip9L710y4iqFmjdJBpY1dc4ixPejKi8AyjgbM2Alz
+	wHLzFJmZZ2Phq4sOqNCzxYpp8id3RDdWO/+dAZBhVl6gd/gwajn/TNqN
+X-Gm-Gg: AYBFou2qv6XXZWU0uHomaP+yWHot6o/zZNvlgP/1pInRt/4JgQzDqpxbl/OLU7u0WXe
+	sAds6mfl+p0T0RxJPsq9criVvLltaoHq7511GEKpNSeP5f5wKJ6RkIiOBWxI1aHjW3cy06oGYNw
+	76FKJXTth8qCZZzQkd/1b5jUm5i7UtGZEdIIaNBUokmNdtZGG5bU2277vK88W52q097lR4iHFnp
+	T8kGUpDLI9A7obBjfS3G/jq8dhCZs0nELbaAOTuwfc9DIlBjI9CqydhB+4UEiKkK2vS64x7gW4z
+	gU/r8pNnv220CfhCWiSX9On8o36PJuAQKp7xFXYxGrOzrAciJjiC29Gm2vANwjG7dqVs7wOzug6
+	NuSZZPJAg82GW1hOK4FPnjiS1eDaKfnv+KyDoukt+JtRMXYXDSm/8prQAMjF2bZEBAo/9RBPCXd
+	KAFLGbjHLfulT5qqWLn/xdji28Qtp2GPny7zj24l5g3m+yUxOfPr7FRhDHdDacmjOq+JE=
+X-Received: by 2002:a05:6000:4717:b0:487:7fd:730 with SMTP id ffacd0b85a97d-48b1271cda5mr3160214f8f.13.1790925698787;
+        Fri, 02 Oct 2026 00:21:38 -0700 (PDT)
 Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104e07sm3564479f8f.31.2026.10.02.00.21.36
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104e07sm3564479f8f.31.2026.10.02.00.21.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 00:21:37 -0700 (PDT)
+        Fri, 02 Oct 2026 00:21:38 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
@@ -68,9 +68,9 @@ Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
 	Stanley Chu <stanley.chu@mediatek.com>,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 2/3] clocksource/drivers/timer-mediatek: Convert to OF probing
-Date: Fri,  2 Oct 2026 09:19:27 +0200
-Message-ID: <20261002072115.169250-3-l.scorcia@gmail.com>
+Subject: [PATCH 3/3] clocksource/drivers/timer-mediatek: Request and enable the bus clock
+Date: Fri,  2 Oct 2026 09:19:28 +0200
+Message-ID: <20261002072115.169250-4-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261002072115.169250-1-l.scorcia@gmail.com>
 References: <20261002072115.169250-1-l.scorcia@gmail.com>
@@ -82,88 +82,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MediaTek APXGPT general purpose timer driver is registered via
-TIMER_OF_DECLARE to be loaded early in the boot process. It depends on
-a reference 13 MHz clock that is assigned via the clocks property of
-its DT node.
-On platforms like mt8516/mt8167 this clock is provided by a driver that
-is loaded using OF probing and becomes available only later during boot.
-This leads to a silent EDEFER error during timer init, which is not
-recovered by TIMER_OF_DECLARE and GPT clocks are not registered at all.
+MediaTek APXGPT general purpose timers may optionally depend on a bus
+clock. If this clock is not enabled the timers don't actually run. Boot
+loaders usually turn it on, but later the kernel turns it off since it's
+never requested by any driver.
 
-Since those clocks are not critical for boot, convert the timer-mediatek
-to OF probing and drop the TIMER_OF_DECLARE instructions.
+Some platforms (like mt6735) declare it as a critical clock in their
+clock definitions to keep it running, but at least on mt8167 it's not
+actually required for a successful boot.
+
+If a bus clock is declared in the device tree, make sure it is enabled
+by driver probe and associated to the device.
 
 Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 ---
- drivers/clocksource/timer-mediatek.c | 36 ++++++++++++++++++++++++----
- 1 file changed, 31 insertions(+), 5 deletions(-)
+ drivers/clocksource/timer-mediatek.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
-index e20075b09fab..a9e7ff6908a3 100644
+index a9e7ff6908a3..842d6ee4259e 100644
 --- a/drivers/clocksource/timer-mediatek.c
 +++ b/drivers/clocksource/timer-mediatek.c
-@@ -13,6 +13,9 @@
+@@ -9,6 +9,7 @@
+ 
+ #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
+ 
++#include <linux/clk.h>
+ #include <linux/clockchips.h>
  #include <linux/clocksource.h>
  #include <linux/interrupt.h>
- #include <linux/irqreturn.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
- #include <linux/sched_clock.h>
- #include <linux/slab.h>
- #include "timer-of.h"
-@@ -215,8 +218,7 @@ static irqreturn_t mtk_gpt_interrupt(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
--static void
--__init mtk_gpt_setup(struct timer_of *to, u8 timer, u8 option)
-+static void mtk_gpt_setup(struct timer_of *to, u8 timer, u8 option)
- {
- 	writel(GPT_CTRL_CLEAR | GPT_CTRL_DISABLE,
- 	       timer_of_base(to) + GPT_CTRL_REG(timer));
-@@ -281,7 +283,7 @@ static struct timer_of to = {
+@@ -283,8 +284,9 @@ static struct timer_of to = {
  	},
  };
  
--static int __init mtk_syst_init(struct device_node *node)
-+static int mtk_syst_init(struct device_node *node)
+-static int mtk_syst_init(struct device_node *node)
++static int mtk_syst_init(struct platform_device *pdev)
  {
++	struct device_node *node = pdev->dev.of_node;
  	int ret;
  
-@@ -339,5 +341,29 @@ static int __init mtk_gpt_init(struct device_node *node)
- 
+ 	to.clkevt.features = CLOCK_EVT_FEAT_DYNIRQ | CLOCK_EVT_FEAT_ONESHOT;
+@@ -305,10 +307,14 @@ static int mtk_syst_init(struct device_node *node)
  	return 0;
  }
--TIMER_OF_DECLARE(mtk_mt6577, "mediatek,mt6577-timer", mtk_gpt_init);
--TIMER_OF_DECLARE(mtk_mt6765, "mediatek,mt6765-timer", mtk_syst_init);
+ 
+-static int __init mtk_gpt_init(struct device_node *node)
++static int mtk_gpt_init(struct platform_device *pdev)
+ {
++	struct device_node *node = pdev->dev.of_node;
++	struct clk *clk_bus;
+ 	int ret;
+ 
++	clk_bus = devm_clk_get_optional_enabled(&pdev->dev, "bus");
 +
-+static int mtk_timer_probe(struct platform_device *pdev)
-+{
-+	int (*timer_init)(struct device_node *node);
-+	struct device_node *np = pdev->dev.of_node;
-+
-+	timer_init = of_device_get_match_data(&pdev->dev);
-+	return timer_init(np);
-+}
-+
-+static const struct of_device_id mtk_timer_match_table[] = {
-+	{ .compatible = "mediatek,mt6577-timer", .data = mtk_gpt_init },
-+	{ .compatible = "mediatek,mt6765-timer", .data = mtk_syst_init },
-+	{ /* sentinel */ }
-+};
-+
-+static struct platform_driver mtk_timer_driver = {
-+	.probe = mtk_timer_probe,
-+	.driver = {
-+		.name = "mediatek-timer",
-+		.of_match_table = mtk_timer_match_table,
-+	},
-+};
-+module_platform_driver(mtk_timer_driver);
-+
-+MODULE_DESCRIPTION("MediaTek Timer driver");
+ 	to.clkevt.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
+ 	to.clkevt.set_state_shutdown = mtk_gpt_clkevt_shutdown;
+ 	to.clkevt.set_state_periodic = mtk_gpt_clkevt_set_periodic;
+@@ -344,11 +350,10 @@ static int __init mtk_gpt_init(struct device_node *node)
+ 
+ static int mtk_timer_probe(struct platform_device *pdev)
+ {
+-	int (*timer_init)(struct device_node *node);
+-	struct device_node *np = pdev->dev.of_node;
++	int (*timer_init)(struct platform_device *pdev);
+ 
+ 	timer_init = of_device_get_match_data(&pdev->dev);
+-	return timer_init(np);
++	return timer_init(pdev);
+ }
+ 
+ static const struct of_device_id mtk_timer_match_table[] = {
 -- 
 2.43.0
 
