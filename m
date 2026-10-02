@@ -1,103 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507C6282F09;
-	Fri,  2 Oct 2026 03:44:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556D926AC5;
+	Fri,  2 Oct 2026 03:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790912664; cv=none; b=E5FPEREMmDyVkBKbtz3tPE/gXeZEBAxmKcES6rwsLIfBk7vL7pgyRoXxlBW/dIE/S+EwxFU7OXeY88lCqN2GsSnSS4qYfVlYRVGAt69/+06HopKozqst6BLhv2MiDxMTnpb286j9RwiBCGvkQkukazXgcMrpH7eGWEe0yo5Ujws=
+	t=1790912680; cv=none; b=TpYGKwBpE+k5n7a6SqdOU8VzS2x1TNDoub3pOQ6A3PWH0G+hlgSWLsvZmn7S/cgdkOE8cNQ73KMhZc1bn+kKdQogq1eiuSF74XNKZ8tjvK6Cl6+jNNgMssKBM5hSMOFM4Dsrjs4wStT1ZhyLTcLECV3LQ7SPuBbLgU6ZHldLhxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790912664; c=relaxed/simple;
-	bh=+DOhqr+poTlo3urZ1ftfzIxp7WmCdCeRGqyE7G3eVec=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sZXUOS1a09VlxQevwHLgZ9EK8HLEtB3uTvgzevSX6Quc+oMqyl7x16j9lielK7xTemZoQIYuNO30mTGko1xvVI1EJqVDJ5brS9SIGgjg+rqwNcAUcRBfpyyWLqS9Z7TC05eSrS7sUZA5Spip+Dojv7Uo/K1r/My+KIRCit3OJMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JpKlurud; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790912680; c=relaxed/simple;
+	bh=ILPpPq8Vser1NH+/VD1JhEO+iKNEFYL2zNBTQTEwhS0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jFFvamxapHhUnK+B0sMAq3r51SRybk9PyNRqgnpaocP0hhLjIaBXPEoESJdf78Oz6/5l/VD2CaXuap/iXX4YZPXgvAWFLPZOgLko/6Gfr98SLj1kdKchPTaafdkUudQraNz5pObEosuFE9NZ6uHsjmzwhAdKPq7dWdJ7iCeg+4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4AUjpod; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JpKlurud"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B931F1F000FF;
-	Fri,  2 Oct 2026 03:44:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4AUjpod"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 821AC1F000FF;
+	Fri,  2 Oct 2026 03:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790912662;
-	bh=/ynodn5OHWC4jZ9SKMczWLDATY/LtrHJOagsrGndSEk=;
-	h=From:To:Cc:Subject:Date;
-	b=JpKlurudV/TDQsEqat8WQy5NBC3zE9xyHbS1xQboGvPrSUM+xhKP1Y/qhWFKZ1tWx
-	 DbtG9foZ3xKZgvV9l3WmG+nQMyy1KAWBtiAy/Snngo4a3qjwWOODlG/qCpRtOfueab
-	 AohRG8Hsz2BOUjhBMpfLJ4zRtNgznBpmZlY+5D++ryD/FzUqS2u+COIU5p2UwX5nke
-	 z00bc5R9N770KMPzwykSmvR9h4/Jc4uil+GNmQcNTZpffZ7ALGTbRKq4JQoI/wjHAB
-	 HL0nFtaH3wHH3fwD96dnIWOGkxsL0KFnlTExNTgeGHlM5c4L7z5+yWKXUvVLwhY7vq
-	 7X0R3KAZyCM6Q==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH] lib/crypto: x86/aes-ctr: Remove some unreachable code
-Date: Thu,  1 Oct 2026 20:44:05 -0700
-Message-ID: <20261002034405.49886-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1790912679;
+	bh=ya+ofgI7W4YYzdVJENAGjbAvZq2LEFB3huWIBYBKhXI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g4AUjpodLKOORKyWJrnaPsRWHMsJuCm9GsZlgKFAcwmZBcV8jTcW6rE0lRdFRqBwr
+	 CjOlB4jiCZhVvUebh5+D1PA3wxjFRGo89YpLMvQ/KpWztSgxKEerBCtL0+D7zxj/bp
+	 ffkCnGvw7nBLiVRjSX3lFp5pz0DG5VFAUYgPF9er9dp530nMQ4RGwYALLwbW+HJOa6
+	 ZRvtAoRZX31s1zSkjvS2XBXm1M/LTNvVxBgA3IuncnddEgnOelprfOAK1Agl8XQkNt
+	 WQv6FAceX4unesNo1tCQrCFUPVPv412hWhvb0SWtgYzvf8UoF1u5bGGWvzOD/AMYa4
+	 2tm1O9RbEbGJg==
+Date: Fri, 2 Oct 2026 06:44:34 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jay Freyensee <why2jjj.linux@gmail.com>,
+	Jerry Snitselaar <jsnitsel@redhat.com>,
+	Nayna Jain <nayna@linux.vnet.ibm.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: tpm2_probe: propagate transport errors
+Message-ID: <ar8oot0ceRNTMF7p@kernel.org>
+References: <20261001060114.1582092-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001060114.1582092-1-alexander.sverdlin@siemens.com>
 
-In the AES-CTR and AES-XCTR code that handles a remainder of '4*VL < LEN
-< 8*VL', first 4 full vectors are processed, leaving 0 < LEN < 4*VL.
-After that, five different cases are handled depending on whether there
-are 0, 1, 2, 3, or 4 full vectors remaining.  But the case of 4 vectors
-is never reached there, making the code handling it unused.  Remove it.
+On Thu, Oct 01, 2026 at 08:01:11AM +0200, A. Sverdlin wrote:
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> 
+> tpm2_probe() reads the protocol version from the response tag and is
+> documented to return -errno on failure, but it always returns 0.  A
+> transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
+> the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
+> unset. A transient bus failure on the first command then misdetects a
+> TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
+> 
+>   tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
+>   tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
+> 
+> Return the transport error instead; rc >= 0 still means a valid header was
+> received and the TPM's own response code is still ignored.
+> 
+> Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> ---
+>  drivers/char/tpm/tpm2-cmd.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+> index a94f4395c198a..4b2bb2ddc321a 100644
+> --- a/drivers/char/tpm/tpm2-cmd.c
+> +++ b/drivers/char/tpm/tpm2-cmd.c
+> @@ -483,8 +483,9 @@ int tpm2_probe(struct tpm_chip *chip)
+>  		out = (struct tpm_header *)buf->data;
+>  		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
+>  			chip->flags |= TPM_CHIP_FLAG_TPM2;
+> +		return 0;
+>  	}
+> -	return 0;
+> +	return rc;
+>  }
+>  EXPORT_SYMBOL_GPL(tpm2_probe);
+>  
+> -- 
+> 2.55.0
+> 
 
-With that done, the '.Lxor_tail_partial_vec_3\@' block would be reached
-only via an unconditional jump.  Therefore, relocate it to the only
-place that jumps to it.  This allows removing the jump at the end of the
-'.Lxor_tail_partial_vec_2\@' block and making it fall through.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
- lib/crypto/x86/aes-ctr-avx-x86_64.S | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+Thanks.
 
-diff --git a/lib/crypto/x86/aes-ctr-avx-x86_64.S b/lib/crypto/x86/aes-ctr-avx-x86_64.S
-index c232337899b6..13b3e2cfae37 100644
---- a/lib/crypto/x86/aes-ctr-avx-x86_64.S
-+++ b/lib/crypto/x86/aes-ctr-avx-x86_64.S
-@@ -419,10 +419,12 @@
- 	cmp		$3*VL-1, LEN32
- 	jle		.Lxor_tail_partial_vec_2\@
- 	_xor_data	2
--	cmp		$4*VL-1, LEN32
--	jle		.Lxor_tail_partial_vec_3\@
--	_xor_data	3
--	jmp		.Ldone\@
-+	add		$-3*VL, LEN32
-+	jz		.Ldone\@
-+	sub		$-3*VL, SRC
-+	sub		$-3*VL, DST
-+	_vmovdqa	AESDATA3, AESDATA0
-+	jmp		.Lxor_tail_partial_vec_0\@
- 
- .Lenc_tail_atmost4vecs\@:
- 	cmp		$2*VL, LEN32
-@@ -469,14 +471,6 @@
- 	sub		$-2*VL, SRC
- 	sub		$-2*VL, DST
- 	_vmovdqa	AESDATA2, AESDATA0
--	jmp		.Lxor_tail_partial_vec_0\@
--
--.Lxor_tail_partial_vec_3\@:
--	add		$-3*VL, LEN32
--	jz		.Ldone\@
--	sub		$-3*VL, SRC
--	sub		$-3*VL, DST
--	_vmovdqa	AESDATA3, AESDATA0
- 
- .Lxor_tail_partial_vec_0\@:
- 	// XOR the remaining 1 <= LEN < VL bytes.  It's easy if masked
-
-base-commit: 9ca77aa621027149c43551308112eba06b1de3af
--- 
-2.56.0
-
+Br, Jarkko
