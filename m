@@ -1,158 +1,83 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABFF21A457;
-	Fri,  2 Oct 2026 04:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA46A33FE0A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790915597; cv=none; b=Y6cX5rs47CHVThAELur7qykdtuoAH9JacXQ+y59/pMuTM1NAz1wIiZbo/zT+d6OeexJvqqwQ6TcwDwvNgRY7z8q3Go6eoKomZCDw3lTT3T6x523Q593waaZ9v3d6E6ZhXHe5Kf4FJXSfeNdMMlptUSEuuXn7UDpkWDHi9285u8U=
+	t=1790915616; cv=none; b=lP6C1Qn+OZRb0K41MgFGm8I384hgMywPzZWTJS1htSDaDxrGAZ6cJBC0c2QSDKIaYMYNm5pfm7+K8Tit9ifr3BKN/rRrkndD8VUXm+k76izO0RruKN0CCaHVH0oGiAtQ3VLauePmadj0z7UMSu0rLT9bowEYpc9cQPIBdsAi/o8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790915597; c=relaxed/simple;
-	bh=9LNfvW8DQMUknlb/lG/9lxmKsQuXnu/5WwsR9rsisMA=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=nXDUVK8x3490fBy7+6jmrQjbzTsR2G2PJftcTAU4N6EeaJB92UsyaQ16C6VmrqLldqBQWxZ0sgjBNEbfjCRCQJYqhs0kN2lBTDYVfk3KhR42en/JxAlLV0N6GCk07PVtaMmpL88y5wp2Sots9bAosqeRYAB9rgP17zfn5FiKnVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=S3OdndIW; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="S3OdndIW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1790915589; bh=EB2J6eVL7vHfJirKa9hAYAOnqQs4/wBWOg7RLq9ctKo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S3OdndIWheazN8BFYPNFAEgrQFL5jcEvuzoyX/JtxJXEj+7mQE5trC961YPDyO092
-	 VVIgToxhfvUOgoWegi5ad8Z7blA4nx0GBQD7zUSf3AgTfXK0xndFFA5tEefZ1hsEMa
-	 2K5CjPHB/GCFVVOwmIm9CYF8msCTeFfarB8dy6Ng=
-Received: from localhost.localdomain ([182.239.119.53])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 6579C811; Fri, 02 Oct 2026 12:25:23 +0800
-X-QQ-mid: xmsmtpt1790915123tqpcn1qjm
-Message-ID: <tencent_3EF2E566E214C1068698C581DE374E1E3C09@qq.com>
-X-QQ-XMAILINFO: MpqzBLgWqqkewDs+O/hpfYDbqJLbHuvaqF6+R9G/Eqv05J7l3Joipq4Des5xq2
-	 HtJRkne2LWLCfkoEtT02hBy6vxpfn3haxTzMSLapVUGqJ/fOi9Ai4MUboghzL8bpkAQDoqgzMDjg
-	 nMN1TcHGJ7dvqmIslpHOodDoIF+D278IV+P/lrL5Hkk2T85VRrqFh2OliSRRhnTeAbgF6WlVu+g7
-	 4bEWgvB/x2kKKxAO0Ig4iNdrcuAGXPia0Bcomm8qFfiF5r3kIqFoLNicfoeGCdLUaCUJ888ds+Fh
-	 qrToMRR4IM1KQWjUMXRMDpG4iW3eKqOncR/GCKmeoJ7KmfKYgH06zzO9OFUHh6iicEqYLblybxkU
-	 UcOlxqlfmvTXolkwvnggSthSzBRHpTYzCBbwSWQR9NAplQsoYu61w4/98jPUxB/y2DK3I1+Y3Ykz
-	 jovvszeRS5PU2TJ15irEwCI5s7FWdFHokrLGVI3o+Oid1LbTCLgo7pO8cPMgvvYgKJzCjiWBpNFz
-	 QbAPyfW1+Xxumvla1Fy4Sissxq1xAYRTjTxRnvPHj9TWrMYIb3rZbAOXm5Lp3f8lfYTe+uWuAwci
-	 giD7fFSSJzUUbVsnzTXXcO80TtDwMpFJ7r+McsXwnexFAusE/DGz4rb54JQBRlMbD5mIxLzDGvK7
-	 N2EnDIRo7W45SAjQa/2q+YiMcdvSgg4920fKicOW77uP5Wu06Wu0/ybgsV9TfgHd46MnLHUFgwS0
-	 cWOp8f0t0VGbDnLcmcyIslgvGUspAfAc5vKF6TdgV3q9TKnt4DhwUvCXrUTVwjWDtHuZVZHKwJR+
-	 J9OkqziPTHn4LjPMXFBjGdd7NxcIUwdHRizoKSBQqqBIKtz5biEM37FIHxwEBJaQNMvQI84RwOIg
-	 tvoZ7/tO20H7jT9S/hD/yPfxCqdj9yZCCEexWEEfhc91q30KSIJqNrOGQrpj3NosIfGLNpAowtJD
-	 gcNJ+MtKskoHybizSZCkl5F2GbiRE870UzN5u1RsfrTyVJOtuoGZwOUUrAPyeC/xSMO1PeQ6RmsK
-	 zDDBFEMX/XAvHuk6L799JsqaXqW5nNMShiTVrzg0/aB8jrb5ZaSmGg+Nj3goKqWzG8mALXSID6xz
-	 jnhFJq
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Ma Xinmeng <1564938642@qq.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: netfilter-devel@vger.kernel.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1 1/2] netfilter: nf_tables: allow to create netdev chain without device
-Date: Fri,  2 Oct 2026 12:25:08 +0800
-X-OQ-MSGID: <20261002042509.711-1-1564938642@qq.com>
-X-Mailer: git-send-email 2.49.0.windows.1
-In-Reply-To: <ar4d_JbuojZJuazs@chamomile>
-References: <ar4d_JbuojZJuazs@chamomile>
+	s=arc-20240116; t=1790915616; c=relaxed/simple;
+	bh=pry1evyY3DPk3Y/Tj+ULclL2p1vDd/JrvU1SJRu/05o=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=DGl9nJoVcubt4gj7dYeFJz9j8vayma8tdlIDvhY+rp1OgoKT0+FRP7RL4syPs2lYZdJf1wGY95oBLGKuMc+MQdcWGA5YOozEGuPNbQKyGNR/ynh/O+JHkzjMaJrqDqXN4PGzQQ3pcRMWVgGbx+CNdQGxA12xelRjhw/dWSbUKD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ea4c979030so8476496b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:33:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790915614; x=1791520414;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HByzDwFyjzTgRB7MQ1RZxQ4wC4BBdcjr2tqD1Fp6vEw=;
+        b=YR9AvqqUnhgkJjIXooltQyaJaB+5g2ipqTipJvCAeH5GyPDiNTeIUjf2bIAKjyirSq
+         KF55vy7Tfmo8RfA3AQxN2JPUOeUBycpNI2W2j5c0j3QtMBbiJUbmSa+TUxqMzSXik7kZ
+         9XVtFLR1BZpPn8ITz/5DysF9XfFZ4ySn3PgOfXrDNBeFP+CCL0l4EMidf3d0BdrQ8w0o
+         /thxzEZTDbBmMPoaRMv4KjUXgr4ZP5wVTiCaMBqckwuPiUnDxh1j2CxmwJgZ2Wl4kJsV
+         +E7+fKtNlSxwDPy12xJj2aYBblKRNSL3FAqd3ZY/w3bPNMFgDM9eKuvOdObtK600rN67
+         gR6A==
+X-Gm-Message-State: AFuF++mG2EjiyB8+8TfEAlIQiP5Dr95ELNLTsMJj383Y/UP9TEqfNLaT
+	BC7xYMyM+CxzhM8qvWBYrk2ybhMvT2SbfSb6FMPAlKM2p3lV/hAvD4g58XNJFId7wyK9J9C/rr/
+	NjLsygwWulE9RPPN9538nlejTNYlSj3oEGNZyyrteHDc7hEtwZAHwVKcbwjg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:f88:b0:4c3:9892:96fe with SMTP id
+ 5614622812f47-4f52694aa30mr1278662b6e.3.1790915613810; Thu, 01 Oct 2026
+ 21:33:33 -0700 (PDT)
+Date: Thu, 01 Oct 2026 21:33:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abf341d.b50370da.302ea9.0009.GAE@google.com>
+Subject: [syzbot] Monthly trace report (Oct 2026)
+From: syzbot <syzbot+listd5671394c1ed3b007c27@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+Hello trace maintainers/developers,
 
-Relax netdev chain creation to allow for loading the ruleset, then
-adding/deleting devices at a later stage. Hardware offload does not
-support for this feature yet.
+This is a 31-day syzbot report for the trace subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/trace
 
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Ma Xinmeng <1564938642@qq.com>
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 8 issues are still open and 68 have already been fixed.
+There are also 17 low-priority issues.
 
-This is a 6.1 backport of upstream commit 207296f1a03b; the hunk for
-nft_delchain_hook() is dropped since that function is not present in 6.1.
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 72      Yes   INFO: task hung in blk_trace_remove (2)
+                  https://syzkaller.appspot.com/bug?extid=2373f6be3e6de4f92562
+<2> 16      No    KASAN: slab-out-of-bounds Read in seq_buf_putmem
+                  https://syzkaller.appspot.com/bug?extid=f179b16e13624138b0f1
+<3> 1       No    KASAN: slab-use-after-free Read in ring_buffer_lock_reserve
+                  https://syzkaller.appspot.com/bug?extid=37e1793bdb0061ea3a47
+
 ---
- net/netfilter/nf_tables_api.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index 96b0638c2..18aa388d5 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -2180,7 +2180,7 @@ struct nft_chain_hook {
- 
- static int nft_chain_parse_netdev(struct net *net,
- 				  struct nlattr *tb[],
--				  struct list_head *hook_list)
-+				  struct list_head *hook_list, u32 flags)
- {
- 	struct nft_hook *hook;
- 	int err;
-@@ -2197,19 +2197,20 @@ static int nft_chain_parse_netdev(struct net *net,
- 		if (err < 0)
- 			return err;
- 
--		if (list_empty(hook_list))
--			return -EINVAL;
--	} else {
--		return -EINVAL;
- 	}
- 
-+	if (flags & NFT_CHAIN_HW_OFFLOAD &&
-+	    list_empty(hook_list))
-+		return -EINVAL;
-+
- 	return 0;
- }
- 
- static int nft_chain_parse_hook(struct net *net,
- 				const struct nlattr * const nla[],
- 				struct nft_chain_hook *hook, u8 family,
--				struct netlink_ext_ack *extack, bool autoload)
-+				struct netlink_ext_ack *extack, bool autoload,
-+				u32 flags)
- {
- 	struct nftables_pernet *nft_net = nft_pernet(net);
- 	struct nlattr *ha[NFTA_HOOK_MAX + 1];
-@@ -2261,7 +2262,7 @@ static int nft_chain_parse_hook(struct net *net,
- 
- 	INIT_LIST_HEAD(&hook->list);
- 	if (nft_base_chain_netdev(family, hook->num)) {
--		err = nft_chain_parse_netdev(net, ha, &hook->list);
-+		err = nft_chain_parse_netdev(net, ha, &hook->list, flags);
- 		if (err < 0) {
- 			module_put(type->owner);
- 			return err;
-@@ -2409,7 +2410,7 @@ static int nf_tables_addchain(struct nft_ctx *ctx, u8 family, u8 genmask,
- 			return -EOPNOTSUPP;
- 
- 		err = nft_chain_parse_hook(net, nla, &hook, family, extack,
--					   true);
-+					   true, flags);
- 		if (err < 0)
- 			return err;
- 
-@@ -2574,7 +2575,7 @@ static int nf_tables_updchain(struct nft_ctx *ctx, u8 genmask, u8 policy,
- 			return -EEXIST;
- 		}
- 		err = nft_chain_parse_hook(ctx->net, nla, &hook, ctx->family,
--					   extack, false);
-+					   extack, false, flags);
- 		if (err < 0)
- 			return err;
- 
-@@ -2795,6 +2796,7 @@ static int nf_tables_newchain(struct sk_buff *skb, const struct nfnl_info *info,
- 	return nf_tables_addchain(&ctx, family, genmask, policy, flags, extack);
- }
- 
-+
- static int nf_tables_delchain(struct sk_buff *skb, const struct nfnl_info *info,
- 			      const struct nlattr * const nla[])
- {
--- 
-2.43.0
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
