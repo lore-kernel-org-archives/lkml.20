@@ -1,131 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6FB46F483
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BEE495ADA;
+	Fri,  2 Oct 2026 12:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945143; cv=none; b=uEn/A4pdjsY86p8e9u2bEhl+Bud8Jmj5eBpZ4ut9ZXJlGHYMNFY6Ox6KQDZbgJoLbC5Iwcc9a9WlPb1L7Csx3mEibgU5Qzi600GmylPDqmAcsgvo5cRYzTQmy+9G6uGWTqHZ6H7CHmqjAcNVoMKMyHrlffqBdl7uz3PnRTEI3C0=
+	t=1790945147; cv=none; b=EHD14D0D5DgFqTbZw2Z5Ov7N/Lqwp/6/UGO8twMLmtDpwZEDKM3mo4fEVatzRcBnZvqLgQV7F4jR3LtDOaQTGH0ZnJi5zycH158VtgtjJmTnwUvwxLVdN7Nv8pgccU4ktJmjMxdSrsW2oRyjrQevg5wo4pFTQyxGrIBT0dPGlvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945143; c=relaxed/simple;
-	bh=RE8eRXCcdd6IL89jJFGqZThlhfyeVIPzFWTLDOZGVLI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=crgbFtBLNg7YS96EwRNwc3btxgqWzv/iVvrXc8CgylzuwH37GGv6N7AeM7zDbMJVmE/syRBtH4PCon1477zg6DULhevUNtyKJjj7CKF+f9HAPR/KVrABbULbFOXDkZMACIwzf06H3nPayOsavDiO0JkzGimdKS55uQW7hosY9Xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bLk02lqH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790945147; c=relaxed/simple;
+	bh=xVL8H0n+Nr692E9tB1LnNW30KjtCfZjmAfsT6VWXD3E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o89JBJ/IJyhxOHe8WUb+bLnYijSC5BZ9Ly6x5OE2pBDBV0LuKnMsPj+LE5KvAllNOPkvFcaJQ2T4xFrdlYILleFVXdllfD0kL52A2kAJEziVeWGPI/gveB3Qm4LuF6OrgAIGoARF757KnnpZKP03OyZv/Mf0jj8BV6nrYPQ6UMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0VAtm1ok; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=/0WdpOGW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YWadqPbf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=K+VJeQ8q; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bLk02lqH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EFB41F00893;
-	Fri,  2 Oct 2026 12:45:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945142;
-	bh=xKTWeEYvEnq79Yxip4eR9Mt6akyZMfafUd0tpMec7X0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bLk02lqHk6sLm/Y9/eL3x80KpG1VpyNYAA3SY/0XMGLKrqq/EvbsUSBRqZ71a1gAP
-	 wOAsukhqRyamJGmYiW5kqlum2Awu52uz3BEQG8vc4OIl32A7pHL5IHRNKX5ibqWGCl
-	 Z/vbdDVWzFlcwEvIg9gSejzjgmQk76ggul9PwyJrtg/+DudTaEyuUCJoPDF9JkG7DH
-	 YfMDavAXO50DKNzh6g7xL0kjZHWHHIs9JGOiElFsb4d+S12itXfol4gKXn95udrnBR
-	 uHnQ0slVIHTUiw4EU9Xshm3NKcBF4+JOIRfeNAxeFzu8kuc9rXzHuvBewKJa8s2hF7
-	 T/qlfCpXyK0XQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/15] mtd: spi-nor: winbond: Prepare the introduction
- of W35TxxNW parts
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Richard
- Weinberger" <richard@nod.at>, "Pratyush Yadav" <pratyush@kernel.org>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, "Michael Walle" <mwalle@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Steam Lin" <STLin2@winbond.com>
-In-Reply-To: <20261002-winbond-master-spi-nor-w35t-v1-9-a22a2f95c26e@bootlin.com>
-References: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
- <20261002-winbond-master-spi-nor-w35t-v1-9-a22a2f95c26e@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 12:45:41 +0000
-Message-Id: <20261002124541.7EFB41F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0VAtm1ok";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/0WdpOGW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YWadqPbf";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K+VJeQ8q"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BE03421A11;
+	Fri,  2 Oct 2026 12:45:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790945113; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
+	b=0VAtm1okbgz5jzuoRsfzT69Y/XKSc0LTX25eYbBpId8RovP8Ez2W4HNc45fyVaEJzGCM1r
+	jGtAcCx4BoCEPmlKZjr+nlWxTndk75sS7zO+Edks2cr/7PvfXFB8lI+cBEgl7seD6LXtYd
+	+IVn3Lt2MJy7oeEgTJ7BmmuocoyGBhc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790945113;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
+	b=/0WdpOGWUmQcKyNVEEcrhE9hGTxG/ri/IIKdSwT/lCXNhxxV7eRYuWfBysIeZkrbl8BTN4
+	AphoHx4bJsqASOCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YWadqPbf;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=K+VJeQ8q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790945109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
+	b=YWadqPbfZH0ePDQ8JYeoE1P8LiT3LS8oZ+P+rnw2AHGoeTeiJgk6ggUGP64urgCMWkpmUt
+	YDslIkSXYcr+zh7kHnXwvgWyD55ebOeAQtxVy8LC4lQ1mIPenCxkr0gWfZohIJ7FCEYMr3
+	W8pk2/bz9ODbadcO2xiV2fsv6Mq2C38=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790945109;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
+	b=K+VJeQ8qvl9p71DUEThv2kY1N27YQYsYhVDGv7g2ZLRH1x3Y4CkA4hT5f0Y01sMJifkx/O
+	+8KvOv8CtwID0iAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E939A13C98;
+	Fri,  2 Oct 2026 12:45:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id V/hJI0ynv2rNTwAAD6G6ig:T6
+	(envelope-from <tzimmermann@suse.de>); Fri, 02 Oct 2026 12:45:02 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	decui@microsoft.com,
+	ssengar@linux.microsoft.com,
+	andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	sashiko-reviews@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Javier Martinez Canillas <javierm@redhat.com>
+Subject: [PATCH v2 5/7] drm/tegra: Do not include <drm/drm_simple_kms_helper.h>
+Date: Fri,  2 Oct 2026 14:41:55 +0200
+Message-ID: <20261002124456.741011-6-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002124456.741011-1-tzimmermann@suse.de>
+References: <20261002124456.741011-1-tzimmermann@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: BE03421A11
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,microsoft.com,linux.microsoft.com,linuxfoundation.org];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:email,suse.de:dkim];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
+X-Spam-Level: 
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mtd: spi-nor: winbond: volatile dummy cycle config lost on resume
---
+The tegra driver does not require anything from the simple-kms
+header. Do not include it.
 
-commit 61a4c1418798804759dbb5ceb316bd56196b68ad
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
-mtd: spi-nor: winbond: Prepare the introduction of W35TxxNW parts
+Suggested-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/tegra/output.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-This commit introduces support for the Winbond W35TxxNW octal DTR flash
-family. It implements callbacks for entering octal DTR mode and configuring
-the number of dummy cycles via volatile VCR registers.
+diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/output.c
+index d0ba3bd0aab8..eebf0ec0eea0 100644
+--- a/drivers/gpu/drm/tegra/output.c
++++ b/drivers/gpu/drm/tegra/output.c
+@@ -11,7 +11,6 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "drm.h"
+ #include "dc.h"
+-- 
+2.55.0
 
-> --- a/drivers/mtd/spi-nor/winbond.c
-> +++ b/drivers/mtd/spi-nor/winbond.c
-
-[ ... ]
-
-> +static int winbond_w35txxnw_nor_set_dummy(struct spi_nor *nor, u8 dummy_=
-cycles)
-> +{
-> +	return winbond_w35txxnw_nor_write_vcr(nor, WINBOND_NOR_VCR_DUMMY_CFG_RE=
-G,
-> +					      dummy_cycles);
-> +}
-> +
-> +static int winbond_w35txxnw_nor_set_octal_dtr(struct spi_nor *nor, bool =
-enable)
-> +{
-> +	enum spi_nor_protocol proto_aft;
-> +	u8 *buf =3D nor->bouncebuf;
-> +	u8 rdid_dummy_aft, val;
-> +	int ret;
-> +
-> +	if (enable) {
-> +		val =3D WINBOND_NOR_VCR_IO_MODE_ODDR;
-> +		proto_aft =3D SNOR_PROTO_8_8_8_DTR;
-> +		rdid_dummy_aft =3D 16;
-> +	} else {
-> +		val =3D WINBOND_NOR_VCR_IO_MODE_SSDR;
-> +		proto_aft =3D SNOR_PROTO_1_1_1;
-> +		rdid_dummy_aft =3D 0;
-> +	}
-> +
-> +	ret =3D winbond_w35txxnw_nor_write_vcr(nor, WINBOND_NOR_VCR_IO_MODE_CFG=
-_REG, val);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-Will this lose the dummy cycle configuration upon system resume?
-
-When the system resumes, the SPI NOR subsystem invokes spi_nor_resume(),
-which calls spi_nor_init(). The spi_nor_init() function calls
-spi_nor_set_octal_dtr() to re-enable octal DTR mode, which invokes
-winbond_w35txxnw_nor_set_octal_dtr():
-
-spi_nor_resume()
-  spi_nor_init()
-    spi_nor_set_octal_dtr()
-      winbond_w35txxnw_nor_set_octal_dtr()
-
-Since winbond_w35txxnw_nor_set_dummy() writes to a volatile register
-(WINBOND_NOR_VCR_DUMMY_CFG_REG), that configuration is lost during sleep.
-
-Because the core does not call the nor->params->set_dummy() callback on
-resume, and winbond_w35txxnw_nor_set_octal_dtr() does not explicitly
-reconfigure the dummy cycles when Octal DTR is re-enabled, will the SPI
-controller and the flash chip disagree on the number of dummy cycles used
-for read operations?
-
-Can this cause data corruption on read operations after a system
-suspend/resume cycle?
-
-> +
-> +	/* Read flash ID to make sure the switch was successful */
-> +	ret =3D spi_nor_read_id(nor, 0, rdid_dummy_aft, buf, proto_aft);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-winbond-ma=
-ster-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com?part=3D9
