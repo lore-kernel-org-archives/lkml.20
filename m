@@ -1,163 +1,98 @@
-Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C043033E6
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E5B2D0C92;
+	Fri,  2 Oct 2026 14:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952955; cv=none; b=QbOvb3IOsaPvWtt5Yr0XYmzKjajA6nZew48wkkrcgjjxH7AbIEaI8drdE4vZhQx+vKQmtf4ZCx8F75GGw5HxPaDBIM8eQigpOlPhpc9DzPQ5JwrlrFfZYIn9jOPrNRtzW8rda9byVcwCQVhL1PGREixPz/usam9eqaiQI/BqJJg=
+	t=1790952991; cv=none; b=IFfGxhB0DzDJmodYMnwJf603aPI1UX/8WWViAixkTMwMqJpCHpjbB7GaaUSvzyTw75W6Qf475SZFzZW2Z2DlQ+VHqIjTqIhR0sjreassYI2HCbIQ+3bXp3IShGNGCRYCVYCMkNO8VOsa5F1uIBKxpGzR+YAZf5ID+oSRe1YWL/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952955; c=relaxed/simple;
-	bh=mWawWoT/4zGtCooTZRrFjQzDVEsQ87rz1F1yEWua8Jw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K3CW8U5bteyxL268jvIi8NmEz1tl/mKSHNXdiwsMkwGsG+K54hFEFDFO3f+wQdGBwL5VYxoDrK+FO4tRNU8aMvinHdwx+ILkF0B3f8x8vlO+7lAwW6z76nYxfsR2rsNf9v+tGPUwdHmQwiaqpOXi/duRTWVs2S1o1bxKop8uDOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=WIcj47sU; arc=none smtp.client-ip=74.125.231.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1790952991; c=relaxed/simple;
+	bh=YACqoRRD/66CKvHTvNeAFase+iU5cFN8XjwLNq5/zV8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rm4qCyS+hYesDy6MXucDV+bmwyEM1O/0bdBshlVy56M278VQwGC6FKWLea2mA+k56Iiz1Y3qtVkNRcEJs61fMkEMZ82IuLMytHcPAYJcCbFFApDwFILs2pDHus0N7W+kOytsN1w3lqSTxnYFETFYWUkvkTpbfAsX3i3w8vJWBnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fM+tQXUe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="WIcj47sU"
-Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-492d8c4add0so11239fac.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:55:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790952951; x=1791557751; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+aS1nFHs1o26b9G5lmQi2V+h1cf11SB88eiBbPfTjO4=;
-        b=WIcj47sUpRFBtqjA0GLnqxuCUFXZM9zyHz5gg4gBKWQx6HMuiZ8lRfhKIY5HE+sUxw
-         RpzuxqokkIjOVEwQHyhZuDe1L1h3wvnOH4kwi9sJKMQ3sscQhA17KGS44KU1BvOxwmEy
-         npKm3GOYK8Q5K9UC9C08WBbCqLi0bnZKYG1dVyKcFpruoSnNhfoMyX0o4fZcyTzpUHUa
-         adcU3ZG6vU4pclmuuG2KHBidl33DCRFxIQ+wQQPXr4lMNI65bVyn9U2fdGIEtg5GjXu2
-         /mxjwVwp2qBKTIsPlp4kDQ0ktwYC6DxO1Q7o6az586tuKp1kmv0KruFNwtEdPnq+op93
-         kTGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790952951; x=1791557751;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+aS1nFHs1o26b9G5lmQi2V+h1cf11SB88eiBbPfTjO4=;
-        b=POaASEGjjpnp9X5Bfmedjj1oc7FwQgCovjdtvzj+a+yrgvrIPgDp/xG+p8N4x/d9S5
-         Hc8T5wkWd4P5dA8e893rKyAXIU/8oBQC5nZ+lPQNePXsu8EzoRvgostskzsSg5IYruzJ
-         EoI3ZdSW0BwHH+OtMNbnAi2SkJc2MAVG6W8NsXNhPmpZwlj6X+1bQcq92wfBoJ7NdYgE
-         +3kmIWilPDBLPQRVmlHm1C8H+bEV2pyBAUtXsy8vH7en6iMtiSHX2564bKTtwk1o8plP
-         KyllKwlY4kt7h+oDnsIBT4g+AnX1C/liMGS/0fzmEvrhxMt/2oI/OF6eW1Py5l3MjIP9
-         GkVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZUoUcnHuaGGc0LmMv/rjeyJ30gLJWtJGmsQBpcxe//UUB3a3NEJX10ttr8T+pTeL/M3LqPgcmIAPG7/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWHSh8FPg7XS4o9gsoJ/IPoUvGTR/A2HvhLLHa+yoWCVIpj1gp
-	qwbd2e/Y/M5FvY1nzyXDRl2BySlmiSzRhCF0FZc4vRsTotmm+Y2IkP1o7vRaovoa68w=
-X-Gm-Gg: AYBFou1Daosi95/mbDg2ocDs7Qrkxa/2PXjnbPRjkzt+/NPyuIUL9vl5QO+whBNRSKm
-	VjbWgklfU1ZLX81Dg9wutTRoqKhzLZDc8u8QnMMq/YBcZFkwBAgr3GeRqEYSAGvSqx5uMgXnZen
-	t0j9nNAvNYhWYi3jZjm30xfGBrC2kfZos9I8KasN3f5cdMBfqVURMpa+++VordzDNvtZFuQr38R
-	1/CvZwbD6X8SQMQNzlV7NCV3MGZN9XLWXxSHzMnDeOLEH23YlttLZt57gDSOnIC5M4itpJywPkn
-	MF2bX2PLAJZHkbufflbm6+lAwOJRhmaA2v5/W9t640Bzm6nWGRfmPJ8XjyPoYqzYz9LbsIijczv
-	MVOKsPAAHLpVQEu9v0MXKPxE5TVH3bWFE4+c2xEeiEMKFvjFIa/VlRkiUXTCAs+Abp/r3lpJDf4
-	D2LwCoEd+X6+8q8vK9e5agC6/0ttweTeJYvKmxIzlc1pHHE7wceb7CGJJWveOj7dZ2BorzHXqtx
-	CuBODoumpVuMZG52qn/1GGXa0fKPrSe53JJ/72AAHAtUifcz3aHnWg=
-X-Received: by 2002:a05:6808:1828:b0:4f3:68d6:f12c with SMTP id 5614622812f47-4f528de5ecfmr2380933b6e.24.1790952950725;
-        Fri, 02 Oct 2026 07:55:50 -0700 (PDT)
-Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f5243d47absm1998187b6e.8.2026.10.02.07.55.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 07:55:50 -0700 (PDT)
-Message-ID: <ff775d61-d0fc-4ce7-a3a2-91789570ce45@kernel.dk>
-Date: Fri, 2 Oct 2026 08:55:49 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fM+tQXUe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4380E1F000FF;
+	Fri,  2 Oct 2026 14:56:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790952990;
+	bh=tBvVq/p+7C7hTdIJh3LESmoF+EeGUiLsF68CeaDW2QU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fM+tQXUekLCVS0caURrlTRbW6sUI2pZw/UW5QlgZ1bQMBWXzRzusHxepO8o+W32zi
+	 qUId1MI+B/mlKyqEOine7A2sUxadSJep9tUqGcJ6kjSKcbepaMagCvDFTANrb9tp8+
+	 VvKYRKO5umrsmHeIvp6/Va4Z+gS2DQYl5wneNgbf2gEuuIsrhlGswtox59jduPjfMA
+	 rO+LstbIBigwjcRNVx4iMATJWQJFfgyAK4f+DLy+bPmnVia8qR/WJ1olJ+90+WcBKt
+	 Tj5loN7pM7k8jPCOFmTANC7nd59ijd8QHaZtwzurPxHln9nKrdMjWPtl9ebM7YP5BD
+	 K4OURa/F0xy0Q==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xCegW-00000009k8A-1OaJ;
+	Fri, 02 Oct 2026 16:56:28 +0200
+Date: Fri, 2 Oct 2026 16:56:28 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Alban Bedel <alban.bedel@lht.dlh.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH] USB: serial: Support attaching serdev devices
+Message-ID: <ar_GHJpNwit_wxkQ@hovoldconsulting.com>
+References: <20260917081103.1917665-1-alban.bedel@lht.dlh.de>
+ <2026091739-spousal-linked-2a36@gregkh>
+ <20260917153736.600061de@OMT-CWNXR4TFW5-LHT>
+ <2026091756-unmolded-fructose-a018@gregkh>
+ <20260917172152.1b1cb540@OMT-CWNXR4TFW5-LHT>
+ <aq1RJuZw9MLKIMbl@hovoldconsulting.com>
+ <20260921173712.5b41e1ea@OMT-CWNXR4TFW5-LHT>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring: fix out-of-bounds bvec access in
- io_vec_fill_kern_bvec
-To: Ming Lei <tom.leiming@gmail.com>, =?UTF-8?Q?=C3=96mer_Mete_Kaya?=
- <omermetekaya0@gmail.com>
-Cc: Gabriel Krisman Bertazi <gabriel@krisman.be>, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261001143003.755790-1-omermetekaya0@gmail.com>
- <87se2pwhzh.fsf@mailhost.krisman.be>
- <20874bd2-f827-4ef8-9855-dc8aaec874fa@gmail.com>
- <CACVXFVMrjhACs9mQMkJJxYXsTyh=a1ZHUmg1i9hK2+TZdwbXFQ@mail.gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <CACVXFVMrjhACs9mQMkJJxYXsTyh=a1ZHUmg1i9hK2+TZdwbXFQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921173712.5b41e1ea@OMT-CWNXR4TFW5-LHT>
 
-On 10/2/26 12:04 AM, Ming Lei wrote:
-> On Thu, Oct 1, 2026 at 2:55?PM ?mer Mete Kaya <omermetekaya0@gmail.com> wrote:
->>
->>
->>
->> On 10/1/26 18:36, Gabriel Krisman Bertazi wrote:
->>> ?mer Mete Kaya <omermetekaya0@gmail.com> writes:
->>>
->>>> for_each_mp_bvec() dereferences src_bvec[bi_idx] in the loop condition
->>>> before the body is entered, with no guard against bi_idx reaching
->>>> imu->nr_bvecs. iov_kern_bvec_size() stops iterating when i reaches
->>>> imu->nr_bvecs even if bi_size is still non-zero, so the fill loop can
->>>> walk past the end of the bvec array and overrun res_bvec[].
->>>>
->>>> Open-code the loop with an explicit bi_idx < imu->nr_bvecs check before
->>>> the dereference, matching the termination condition in
->>>> iov_kern_bvec_size().
->>>
->>> Do you have a reproducer?  This should be checked in iov_kern_bvec_size.
->>> We make sure it doesn't go through imu->len which should match bv_len,
->>> IIUC.
->>
->> Yes I checked more and looks like the *bug* is unreachable via existing
->> in-tree callers.>>
->>>> Fixes: 1045afae4b88 ("io_uring: support vectored kernel fixed buffer")
->>
->> It doesnt fix something broken actually, more like a defensive refactoring.
->>
->>>> Signed-off-by: ?mer Mete Kaya <omermetekaya0@gmail.com>
->>>> ---
->>>>  io_uring/rsrc.c | 7 ++++++-
->>>>  1 file changed, 6 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
->>>> index 51b46e624..3d29a0c7b 100644
->>>> --- a/io_uring/rsrc.c
->>>> +++ b/io_uring/rsrc.c
->>>> @@ -1614,8 +1614,13 @@ static int io_vec_fill_kern_bvec(int ddir, struct iov_iter *iter,
->>>>              struct bio_vec bv;
->>>>
->>>>              bvec_iter_advance(src_bvec, &bi, offset);
->>>> -            for_each_mp_bvec(bv, src_bvec, bi, bi)
->>>> +            while (bi.bi_size) {
->>>
->>> bi.bi_size is the first condition of for_each_mp_bvec.  Do you really
->>> need an open coded loop?  If there is an issue, can we just add the
->>> check below?
->>
->> mp_bvec_iter_bvec() is called in the for-loop condition not the body:
->>
->>     for (iter = (start);
->>         (iter).bi_size &&
->>             ((bvl = mp_bvec_iter_bvec((bio_vec), (iter))), 1); <-***
->>         bvec_iter_advance_single(...))
->>
->> src_bvec[bi_idx] is dereferenced before the loop body is entered.
->> A check inside the body executes after the out-of-bounds read has
->> already occurred. The open-coded loop is the way to check bi_idx
->> before the dereference. The question is "should the kernel be defensive
->> itself or trust the callers?". If you find these kinds of defensive
->> controls unnecessary, happy to withdraw the patch instead of releasing v2.
+On Mon, Sep 21, 2026 at 05:37:12PM +0200, Alban Bedel wrote:
+> On Fri, 18 Sep 2026 16:56:38 +0200
+> Johan Hovold <johan@kernel.org> wrote:
 > 
-> bio/bvec iterator is written in this way from begining.
+> > On Thu, Sep 17, 2026 at 05:21:52PM +0200, Alban Bedel wrote:
+> > > On Thu, 17 Sep 2026 15:08:11 +0100
+> > > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:  
+> > 
+> > > > Please read the archives for why we don't want to do this unless/until
+> > > > serdev is "fixed" to properly handle dynamic device removals.  
+> > > 
+> > > All I could find is the "USB-Serial serdev support" thread from last
+> > > year which sadly doesn't provides much details. Like Marco Felsch back
+> > > then I tested disabling/enabling the USB port and didn't have any
+> > > issue, the serdev device get removed and added back just fine. In my
+> > > case the serdev driver provides an I2C bus, all devices on it get
+> > > removed and added back again as well and work just fine.
+> > > 
+> > > I really fail to see an issue in pratice, would you care to explain
+> > > what I'm missing here?  
+> > 
+> > Serial drivers use hangups when tearing down their ports. Serdev does
+> > not support that so the port is shut down underneath the serdev client
+> > while still in use, which can lead to all sorts of issues.
 > 
-> So it looks you should work on improving the iterator helper, instead
-> of open code for the single user only.
+> Hangup from modem status are ignored because serdev set C_CLOCAL.
 
-Indeed, it's a generic helper. If there's a potential issue in that
-helper, then that is where the fix should go - not having users
-open-code the iteration.
+I know since I added that in commit cda64188ca91 ("serdev: ttyport:
+ignore carrier detect to avoid hangups") for this reason.
 
-So please take a look at the root cause instead, I'll ignore this patch.
+> So
+> that only leave the hangup sent when the USB device is disconnected.
+> But in this case, right after the hangup, the tty port device is
+> removed, which in turn remove the serdev device. At this point there no
+> way to comunicate with the tty anymore anyway, so I don't see what
+> signaling the hangup to the serdev device right before it get removed
+> would add.
 
--- 
-Jens Axboe
+You still have a window where the serdev driver is bound to a port after
+its port has been torn down.
+
+Johan
