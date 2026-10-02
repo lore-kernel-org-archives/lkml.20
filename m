@@ -1,163 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1F53DCD96
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1A3414410
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790972539; cv=none; b=plgsx6x420rTW1eFIvTwow2yI7rO1Ry6Xx4DJr5h4/s1p/vHoNV4CWVCK7wV2dRAbj7qHHOSIRXOsYqnfEOuXzbNxTWsZ1pUG871x5UCiQgSYbK6lanDFx/IS1x+nL6irjpwMw1VOULYtje8JtHIVWqetKe/P4wKYDYdLh1feKA=
+	t=1790972577; cv=none; b=RFDBYIMK30z/+UBHiunDkLzvBx2pC7tqI8wZqjR10Y2MTC4H3UnVdpvYCe9xC+jddqHIiW/UFBKGV9WxD3NZYhnxIx+TqaM8RHxnFaOyiOsErg7NLqgSTto7cEG6CjPCN5QbhNVMq8crFzE6WNYbIX0e8ZSIKAP7AHr5ieF3bd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790972539; c=relaxed/simple;
-	bh=QA7tmWELfgIJM99NQIo3XuRcOD1O5oWkVNbsDh+mKRs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DA93bgNuEM3TOnSxUoPXL81+HBdTbdRIT7IFuurKzZuXzB7Ol0wgv4Z4cLoBB2yWwCE+2gjoza5yPtLCsO49WAM769GBHQEpIYXcpA8fgSgQJ9OjGS9bFeOP1PWunp3atvUwN1s9qy8FmV+OFbg+sMD+tl2/ZL604A6M4cdAF7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lrnDNug5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790972577; c=relaxed/simple;
+	bh=1zuKCeX4ubKsHdgFEEDZASCv9P97PZ9/9qgb9og1SDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FgOFG6X8VPsYf3SFXQKJS1qPJCwopBXE8JaDVSgF6A8ESSgmVkZB9iFEpws2fAwDjUiaHydy4ocroX7AHbcrYm42JEsks4AeAqANATJHWXM9lj6ZZPjoadaVik83dY772B90LmPPr9YE8CXXV1iA3ur3y5eTcN0eCzpvNXehNsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AbCm341R; arc=none smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lrnDNug5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A151F000FF;
-	Fri,  2 Oct 2026 20:22:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790972537;
-	bh=Tmq0KD51zkY3WuDYM8F+lipJday2wPv7c2igNCkh6ss=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lrnDNug5W2wmkcPEA12cNCAar5kTG+xYxqc7DzfnCpC/uU1FsQC5Oj97vOBX81Kd+
-	 oSTnfyUkUDM5nqOAs/wLkekxjv0OcKAzL0Di4FXZmS82+1fZ9CE0ixtzqLgJtSuGS4
-	 npQshm5RhOuWRURl59tBbkR5w7+R6N5KKND05LcabkkdSmtG4DKmzwdVMC7tM07DTF
-	 9hw5tHcn0Q1sM3W/FZ1n6dET70++/wST4z1PEIkTZIiUKAPRXHlwt3wGk/Xm7VMJcz
-	 X3hpDDnAL/nWs1K5LsfPw998DgRDepcUIoDa32d3AcN8mm2Zp8pF+DeMUvoCtwUhQy
-	 rmKMhfTtXOzQQ==
-Message-ID: <7bd2b824-4c91-4378-a817-d5ce475ea84d@kernel.org>
-Date: Fri, 2 Oct 2026 22:22:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AbCm341R"
+Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5ce99149so694788085a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:22:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790972575; x=1791577375; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gxbnn0+HyLrQHSw5N5vcj8DOerEWS9jU0mk7xDwdzyg=;
+        b=AbCm341RvLDwkmK/S7LLO03iuarUsWKqjvRSx674cm3+gptpv+rQeQ2f30UfVWWZF5
+         YmJ1dun5ajVItEBWyw3VOsnJvCOz7p/s5zJy6v0xH3lvzWAYFmCmarBD4JU4ryjYLGrK
+         z9nEsVgN0yvPS3S/lDfXNQxkfKQtxN/nNmIUnLCmxAzWp883aNhSBujpc+5u9dW7N8x9
+         Xfjiq3wr8f8uQmsCc1qHmmIZ7L4xxo+MuZW343D4Up5IoW+u1rtzxSzThxWKkqTgqScq
+         Xf3hvlpMUjItdqKnSrhAquYe9YMm6/rwdh3zWBTvUqGM1x+AeBOPEDZyGaRTjV2CP7N2
+         0pcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790972575; x=1791577375;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gxbnn0+HyLrQHSw5N5vcj8DOerEWS9jU0mk7xDwdzyg=;
+        b=oq0z3t771ID4HHV8si8+oajK3QEQeak7iCDrhKYDivCEkugdHNFjYAShzCbhk0xiWJ
+         3zcUy8OViORZ/BwPvmPFM0twrPamY3mxCYDq3iaLbRFNMKcfFixGnP/EP+67i0OL0RUt
+         lqYEHi6Wzcqv9PxvSKd1bCiGh9/+wnYrGR413K40p4AUnttxJscrT4ixQ+sDcejA2t4j
+         oY6YEp19djPK8daPBXkLlY7jlS1mJ/JE13hKoicnVWd6Z0aM71n6N/ZFaI77hzOT0u0B
+         eoylJyivUYAHVvRvv1l5p5TaUg5XzTcTSJNuzONjLJQUbsMTCmr9eFWNJlTulS4qeWnh
+         BIGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwpHI2+XEebOjXnlvKQFefTE0VpgEDk+Nh26uguN21T0Nt5XAFooMzvT/+lemzYMyXWR5PCMmlEx10M9J4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYNy9+c0OKKTg/sHkwH2c9nJMpjwsS0bSr7cFPLj/MkrVhXOQQ
+	rm/o+almLDoCoPAccEiP/yd9Tv+YzYqjFWoz5JVZprJSPVDxQCPzv3yH
+X-Gm-Gg: AYBFou1+rRvVcyTe59dZ7PuKE6xh+4dfkMNgFdTAo3V3dYuA+lBFZtp9NPFFeSFZmy4
+	fKfjO+2o4J8KouuzFJ0iWiYVe6CSQ7LhA78+XlBvu68qhOSKcOzuh7C1S9wjl55B9hhC/FO3Vsm
+	jccOu3FufGsFsvQ2BfaDOjK+rNUY4zBGe0+C61cCod8LHrzL3jEdXBcWhaYPgnlUbzotBFr1TPf
+	1GUUxfFzHjyNNxrDLjhkhKKWSAQOIOQR0UcberlC40iL2HguIKDXfG4z6cb4IKJqm5qzVnf0+I/
+	HUcV59id2Z6tejU57gRpDLfBrMVTxKp6L5IDf92ZGFUz17Qy6G0TFoPjYb9AtTlDpjXUcLLHZVu
+	m+PmI4Pvg3EoWWdfuM849fFJmtv31maVZksXs5joNlfP2Fj8I/snbU/XCVVIPgOBK8aCB+4J6qA
+	II+HGtJsLdUXH+wHPkgnx89BhPthy2SS9ltLKIGFTT+VG8JQtd63nNSVzAxKjBB7G3z2dMMpH0e
+	wjwApYgG4+CBMSBiGhj7cedcPhFykLR927F
+X-Received: by 2002:a05:620a:1b95:b0:93c:5dee:f04a with SMTP id af79cd13be357-93ce7a9de6bmr754544085a.7.1790972575184;
+        Fri, 02 Oct 2026 13:22:55 -0700 (PDT)
+Received: from mango-teamkim.. ([129.170.192.96])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca2d361bsm308676985a.45.2026.10.02.13.22.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 13:22:54 -0700 (PDT)
+From: pip-izony <eeodqql09@gmail.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Saranya Gopal <saranya.gopal@intel.com>,
+	Rajaram Regupathy <rajaram.regupathy@intel.com>,
+	Benson Leung <bleung@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Seungjin Bae <eeodqql09@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] usb: typec: ucsi: reject GET_PDOS responses longer than requested
+Date: Fri,  2 Oct 2026 16:21:02 -0400
+Message-ID: <20261002202102.599998-1-eeodqql09@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026092932-arbitrate-snorkel-3fca@gregkh>
+References: <2026092932-arbitrate-snorkel-3fca@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
-To: Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
- akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
- nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
- yosry@kernel.org, shikemeng@huaweicloud.com, chengming.zhou@linux.dev,
- linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
- <aqrHjfHwyEtRIr5S@cmpxchg.org> <aquWKJoP5JLP8Ci7@fedora>
- <20260917131712.GA1344@cmpxchg.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260917131712.GA1344@cmpxchg.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/17/26 15:17, Johannes Weiner wrote:
-> On Thu, Sep 17, 2026 at 03:31:23PM +0800, Baoquan He wrote:
->> On 09/16/26 at 12:45pm, Johannes Weiner wrote:
->>>
->>> If the swap maintainers prefer the VM_SPARSE route, I'm happy to defer
->>> to them on that.
->>>
->>> However, from the cgroup and zswap camp, two stipulations that I
->>> reasoned out in the other thread[1]:
->>
->>>
->>> 1. You must not charge compression space as swap space to the cgroup.
->>
->> Hmm, I don't have a stance on this. However, isn't this an issue
->> zswap/zram have been doing? It feels like an independent issue which
->> should be done separately?
-> 
-> If you have 3 containers using compression space, and two of them have
-> writeback enabled to a shared swapfile, the memory.swap.* controls
-> need to work to manage fair access to that swapfile. They do not work
-> if compression space itself is conflated in.
-> 
-> Right now zswap entries actually consume physical swapfile space, even
-> before writeback. Charging the space is correct. But the whole point
-> is to decouple compression space from physical swap space.
-> 
-> This is not something that can be done later. It would be a dramatic
-> user-visible change to how the resource is categorized and managed.
-> 
->>> 2. You must make the compression space large enough to be outside the
->>>    range where users can hit space limits before hitting memory limits.
->>
->> We may need a way to define 'large enough' at first.
-> 
-> I've tried to lay this out in the other thread, and highlighted the
-> usability issues that result from hitting compression space limits
-> prematurely. It's kind of your call whether you want to seriously
-> engage with this or not.
-> 
-> But ultimately it's your claim that a static size can be made to work,
-> so it's on you to make a convincing case.
-> 
->>>    That also means not allowing setups where this is possible.
->>
->> And the limit is only an optional knob. If the admin does not set it,
->> the device grows to the full address space, so there is no space limit
->> to hit at all. It already behaves the way you want by default. The knob
->> is only for admins who want a ceiling, they can use it or not. I hope
->> this would not be a problem for your use case.                                                  
-> 
-> No, I've laid this out already as well.
-> 
-> This isn't about "my" usecase. It's about designing a coherent
-> interface that works well with a large number of usecases, and other
-> pieces of kernel infrastructure commonly used in conjunction.
+From: Seungjin Bae <eeodqql09@gmail.com>
 
-Johannes, I read this as a NAK for now to the current approach from the memcg
-side, is that correct?
+In ucsi_get_pdos(), the number of PDOs is derived from the data length
+reported in the CCI register, which is provided by the PPM firmware.
 
-I've tried to follow the discussion on the other thread, but it just exploded
-and some of the things I read there made me rather upset late on a Friday evening.
+The function requests at most UCSI_MAX_PDOS PDOs on the first read and
+PDO_MAX_OBJECTS - UCSI_MAX_PDOS on the second, and ucsi_send_command()
+only copies that many bytes into the buffer. However, the returned
+length is taken from the 8 bit CCI data length field and is not bounded
+by the size of the request.
 
+If a malicious PPM reports a larger length, e.g. 0xFF, each
+read is counted as 63 PDOs and ucsi_get_pdos() returns up to 126, beyond
+PDO_MAX_OBJECTS and the number of PDOs actually read.
+
+ucsi_get_src_pdos() stores this value in con->num_pdos, and
+ucsi_psy_get_voltage_max() and ucsi_psy_get_current_max() use it to
+index con->src_pdos[con->num_pdos - 1], resulting in an out-of-bounds
+read. This happens without any userspace action, since
+ucsi_get_src_pdos() calls ucsi_port_psy_changed() and the resulting
+uevent reads every property.
+
+Reject such responses in ucsi_read_pdos(), if the PPM reports more data
+than was requested, print an error and return -EPROTO, so that the
+invalid count is never used.
+
+Fixes: b04e1747fbcc ("usb: typec: ucsi: Register USB Power Delivery Capabilities")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
+---
+ v1 -> v2: Print an error and fail instead of limiting the count, as suggested
+ by Heikki.
+
+ drivers/usb/typec/ucsi/ucsi.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index bef3f9b71d71..17beec16fe19 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -862,6 +862,7 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
+ 			  u32 *pdos, int offset, int num_pdos)
+ {
+ 	struct ucsi *ucsi = con->ucsi;
++	int len = num_pdos * sizeof(u32);
+ 	u64 command;
+ 	int ret;
+ 
+@@ -875,11 +876,17 @@ static int ucsi_read_pdos(struct ucsi_connector *con,
+ 	command |= UCSI_GET_PDOS_PDO_OFFSET(offset);
+ 	command |= UCSI_GET_PDOS_NUM_PDOS(num_pdos - 1);
+ 	command |= is_source(role) ? UCSI_GET_PDOS_SRC_PDOS : 0;
+-	ret = ucsi_send_command(ucsi, command, pdos + offset,
+-				num_pdos * sizeof(u32));
++	ret = ucsi_send_command(ucsi, command, pdos + offset, len);
+ 	if (ret < 0 && ret != -ETIMEDOUT)
+ 		dev_err(ucsi->dev, "UCSI_GET_PDOS failed (%d)\n", ret);
+ 
++	if (ret > len) {
++		dev_err(ucsi->dev,
++			"PPM returned %d bytes of PDOs, but only %d were requested\n",
++			ret, len);
++		return -EPROTO;
++	}
++
+ 	return ret;
+ }
+ 
 -- 
-Cheers,
+2.43.0
 
-David
