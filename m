@@ -1,281 +1,88 @@
-Received: from mta0.migadu.com (out-207.mta0.migadu.com [91.218.175.207])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAF248C3F2
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A032B47AF6E;
+	Fri,  2 Oct 2026 09:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935048; cv=none; b=rXp1uq2V3/OXekQW/FDt0PhHtDPkhaiEFgN3216VFHaICCxcuNluJqzOETroD6NPFokI3G6qfzBMI6Q64F+ao2y/mB3KsAmty5vpo6P5gvyjISJThpQH44JI+er0jjpoxyEPe8/b7Mjs9DbzCUYm89GwgtlDMVsEwjoIl0uT4Nk=
+	t=1790935050; cv=none; b=H6PAplQMkMXEKzMLW95WCdzO/WICkgsq0nzVcLowqXKLBAdJrcxvNXnvyhF0ZzXnfZD0ogpe384Ab67VmMoMK4LTMyNYEXUAFcdoC/MZyqCxipUCe4YevBmcEvhOMVzCnNbFcb2tdU1/BlZaLrgtSM/F0dps+5V8EQ4bD5DeL6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935048; c=relaxed/simple;
-	bh=EyUDdenA2PgGa7+xcdmhQ/lN4jJ+bH9xLwGVwaO34zE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qd/CygQ6AfONo3B8uJmmKBhW0ZCZOhk/p6TqvlmtVcJdaA/zoEsmBuV6SVvtuoM6MQVayxza7FEwGqvn0P4GDDZRj802A8OYI8+TRQ+DxaWK9ZPYncrtxuDJUZLSoOtQrPsrvzMy9BaP2INckG2+Gi9tu6S+Z7Sep/RIDc/a3Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d3YMl7LG; arc=none smtp.client-ip=91.218.175.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790935050; c=relaxed/simple;
+	bh=qY9Qy/zjj5otB983nZyGB0RLI2KGL0XWmvAirNnx1iQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ARZiy06QZ6p1uo0zTRx4PRQN/jJ+w8lI4PObid+MBd5KZWTgZ1qKwChd+Iaz2UCQ3bbb1sKnKaSVNKXXdrGikEHU+n4IQkoVTnJX6LrHsYKuGnVhbUpIUU5lmPq5xjHbnrjHm2qOrIuXLd3N0Xc95nHaJLyDsUTJZW2e2MkFPFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NOnmRr5G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d3YMl7LG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EyUDdenA2PgGa7+xcdmhQ/lN4jJ+bH9xLwGVwaO34zE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790935045; v=1; x=1791539845;
- b=d3YMl7LGOIxqLB0tW6xOFJJQfLgJL5sBgyyqVQQBXYevdoQ+zbIbzzYZb0I/I0uFsDh9ya67
- SMvI9jNK7i+OYrZRa4a0BUzaXgYQVw4zX4f+p03VbLXdeSmZqWUpk+cVgLYsy+BBQCZQ6MtjqO1
- 1JUg5zP5AUkQoBi8c1i+M9lc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 8077e17e7794163d;
-	Fri, 02 Oct 2026 09:57:24 +0000
-X-Mizu-Trace-ID: 8077e17e7794163d
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com,
-	Baoquan He <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	Liam R. Howlett <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v8 25/30] mm: handle PMD swap entries in MADV_WILLNEED
-Date: Fri,  2 Oct 2026 02:52:39 -0700
-Message-ID: <20261002095503.3585565-26-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002095503.3585565-1-usama.arif@linux.dev>
-References: <20261002095503.3585565-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NOnmRr5G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3461F000FF;
+	Fri,  2 Oct 2026 09:57:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790935049;
+	bh=PLeFu54Nd5rSMQsgmk8z/TW66IdcUrnWu2a8cKeXez0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NOnmRr5GZfqw+1btVcKPXx/ECYIxnDHl/RVP+c+SgzGdRqr9uXCheHqsscC2Zu2TN
+	 Zd5/EUIIesNAf66IZwaN6yQauHNLh2v0yyx0XWGLCoUDCI2UdIjJb9yAE7nmb5/Z/F
+	 B2wkj2OsN4Ek+Ut1w82WQ62aZYM6ERP1kBWxrWbmKU6FMIzpjh4Fp3gmMPLimSeCB3
+	 ap2Y6hekZMupJZV8yOOpFcc1paW4sHNie2ROcF9zhFXSbpL8gh1IXLSPOmdbtFbLuu
+	 z2N9z2ck7HCWUKUQPqogK+anFEiLuR3s3yWc2uf0b2RypMnqseV4An7MGAANYXVWLK
+	 Ai3NsRny3nAQg==
+Date: Fri, 2 Oct 2026 11:57:25 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, 
+	Ulf Hansson <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v3 1/7] dt-bindings: power: qcom-rpmpd: define RPMPD_VDDMD
+Message-ID: <20261002-devious-mauve-wrasse-66bbeb@quoll>
+References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
+ <20261002-sdm632-rpmpd-v3-1-95c47d0f26cf@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261002-sdm632-rpmpd-v3-1-95c47d0f26cf@mainlining.org>
 
-swapin_walk_pmd_entry() walks PTEs and cannot descend into a non-present
-PMD, so MADV_WILLNEED is a no-op on a PMD swap entry. Reading the slots
-back one at a time would not be much better: order-0 readahead populates
-per-page swap-cache state, and the fault that follows would then have to
-split the entry the prefetch was supposed to help.
+On Fri, Oct 02, 2026 at 12:38:29AM +0200, Barnab=C3=A1s Cz=C3=A9m=C3=A1n wr=
+ote:
+> Define RPMPD_VDDMD can be used for SDM439 and SDM632 MSS.
 
-Prefetch the whole range as one PMD-order folio instead, leaving the entry
-in place so the eventual fault still takes do_huge_pmd_swap_page(). Check
-the THP policy first: the range was PMD-mapped when it was swapped out, but
-MADV_NOHUGEPAGE or the sysfs knob may have changed since, and reading at
-PMD order would then hand do_swap_page() a PMD-sized folio to map with
-PTEs.
+There is no sdm439 RPMPD... The SDM632 is added later and bindings
+header come with the compatible patch. Squash these.
 
-A split cache, per-page zswap state, or a failed PMD-order read or
-allocation falls back to PTEs. Leaving the entry alone would prefetch
-nothing at all, while the PTE path can still read the slots at order 0. A
-folio that failed to read is dropped from the swap cache first, so the PTE
-retry re-reads each slot rather than every later fault returning SIGBUS.
+>=20
+> Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining=
+=2Eorg>
+> ---
+>  include/dt-bindings/power/qcom-rpmpd.h | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings=
+/power/qcom-rpmpd.h
+> index 4371ac941f29..beb066b3aa8c 100644
+> --- a/include/dt-bindings/power/qcom-rpmpd.h
+> +++ b/include/dt-bindings/power/qcom-rpmpd.h
+> @@ -15,6 +15,7 @@
+>  #define RPMPD_VDDMX		3
+>  #define RPMPD_VDDMX_AO		4
+>  #define RPMPD_VDDMX_VFL		5
+> +#define RPMPD_VDDMD		5
 
-Only split if the PMD still looks like the entry that was observed - the
-decision is taken after the PMD lock has been dropped, so a racing fault
-may have swapped the range back in as a THP. The test is lockless, so it
-narrows that window rather than closing it.
+Problem is that it is platform specific and comment in that file says
+"don't do it" yet you do it.
 
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- mm/madvise.c | 139 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 139 insertions(+)
+So the device has nbo MX? Why commit msg is silent on this? Explains
+not much except repeating the diff and referencing users which are
+almost obvious if this is properly squashed.
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 64019668d69fb..ec1cb1b71070a 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -33,6 +33,7 @@
- #include <linux/shmem_fs.h>
- #include <linux/mmu_notifier.h>
- #include <linux/swap_ops.h>
-+#include <linux/zswap.h>
- 
- #include <asm/tlb.h>
- 
-@@ -194,6 +195,108 @@ static int madvise_update_vma(vm_flags_t new_flags,
- }
- 
- #ifdef CONFIG_SWAP
-+/*
-+ * Prefetch a whole PMD swap entry as one PMD-order folio.
-+ *
-+ * Called with the PMD lock held; always drops it. Returns true when the
-+ * caller should ask the walker to retry so the PTE path can handle the
-+ * covered slots individually.
-+ */
-+static bool swapin_pmd_swap_entry(struct vm_area_struct *vma, pmd_t *pmd,
-+				  unsigned long addr, softleaf_t entry,
-+				  spinlock_t *ptl)
-+{
-+	struct vm_fault vmf = {
-+		.vma = vma,
-+		.address = addr,
-+		.real_address = addr,
-+		.pmd = pmd,
-+	};
-+	enum swap_pmd_cache cache_state;
-+	struct swap_info_struct *si;
-+	struct folio *folio;
-+	bool split = false;
-+
-+	/*
-+	 * The range was PMD-mapped when it was swapped out, but the policy may
-+	 * have changed since: MADV_NOHUGEPAGE, or the sysfs knob. Reading it
-+	 * back at PMD order would then hand do_swap_page() a PMD-sized folio to
-+	 * map with PTEs, which is exactly what the policy forbids. Split now
-+	 * and let the PTE path prefetch at order 0 - the next fault would split
-+	 * the entry anyway, so nothing is lost that the VMA still permits.
-+	 */
-+	if (!thp_vma_allowable_order(vma, vma->vm_flags, TVA_PAGEFAULT,
-+				     HPAGE_PMD_ORDER)) {
-+		spin_unlock(ptl);
-+		return true;
-+	}
-+
-+	cache_state = swap_pmd_cache_lookup(entry, &folio);
-+	if (cache_state == SWAP_PMD_CACHE_HUGE) {
-+		/* Already cached as one PMD-sized folio, nothing to do. */
-+		folio_put(folio);
-+		spin_unlock(ptl);
-+		return false;
-+	}
-+	if (cache_state == SWAP_PMD_CACHE_SPLIT ||
-+	    zswap_is_present(entry, HPAGE_PMD_NR)) {
-+		spin_unlock(ptl);
-+		return true;
-+	}
-+
-+	/*
-+	 * Pin the swap device under the PMD lock so the PMD-swap-entry
-+	 * observation keeps the entry valid for swapin_sync().
-+	 */
-+	si = get_swap_device(entry);
-+	spin_unlock(ptl);
-+	if (IS_ERR_OR_NULL(si))
-+		return false;
-+
-+	folio = swapin_sync(entry, GFP_HIGHUSER_MOVABLE, BIT(HPAGE_PMD_ORDER),
-+			    &vmf, NULL, 0);
-+
-+	/*
-+	 * Fall back to PTE-order swapin: a PMD-order failure does not mean
-+	 * that individual slots cannot be read.
-+	 */
-+	if (IS_ERR_OR_NULL(folio)) {
-+		split = true;
-+		goto out;
-+	}
-+
-+	if (folio_nr_pages(folio) != HPAGE_PMD_NR) {
-+		split = true;
-+		goto out_put;
-+	}
-+
-+	/*
-+	 * A trylock only succeeds once the read has completed, so this never
-+	 * blocks MADV_WILLNEED on in-flight I/O. A read that failed - a
-+	 * PMD-order zswap load that found per-page state, or an I/O error -
-+	 * leaves the folio clean and not uptodate. Drop it from the swap cache
-+	 * so the PTE retry reads each slot again; leaving it there would make
-+	 * the next fault return VM_FAULT_SIGBUS. Another thread may have
-+	 * removed it already, so revalidate the association first.
-+	 */
-+	if (!folio_trylock(folio))
-+		goto out_put;
-+
-+	if (!folio_test_uptodate(folio)) {
-+		if (folio_matches_swap_entry(folio, entry))
-+			swap_cache_del_folio(folio);
-+		split = true;
-+	}
-+	folio_unlock(folio);
-+
-+out_put:
-+	folio_put(folio);
-+out:
-+	/* Keep the device pinned until the last use of @entry. */
-+	put_swap_device(si);
-+	return split;
-+}
-+
- static int swapin_walk_pmd_entry(pmd_t *pmd, unsigned long start,
- 		unsigned long end, struct mm_walk *walk)
- {
-@@ -203,6 +306,41 @@ static int swapin_walk_pmd_entry(pmd_t *pmd, unsigned long start,
- 	spinlock_t *ptl;
- 	unsigned long addr;
- 
-+	ptl = pmd_trans_huge_lock(pmd, vma);
-+	if (ptl) {
-+		pmd_t pmdval = *pmd;
-+
-+		if (pmd_is_swap_entry(pmdval)) {
-+			/* swapin_pmd_swap_entry() always drops the PMD lock. */
-+			if (!swapin_pmd_swap_entry(vma, pmd, start,
-+						   softleaf_from_pmd(pmdval),
-+						   ptl))
-+				goto ret;
-+			/*
-+			 * Only split if this still looks like the entry we
-+			 * observed. The fallback was decided after the PMD lock
-+			 * was dropped, so a racing fault may have swapped the
-+			 * range back in as a THP, and splitting that would
-+			 * demote a perfectly good huge mapping for an advisory
-+			 * hint. The test is lockless, so it narrows that window
-+			 * rather than closing it.
-+			 */
-+			if (pmd_same(pmdval, pmdp_get_lockless(pmd))) {
-+				__split_huge_pmd(vma, pmd, start);
-+				walk->action = ACTION_AGAIN;
-+				goto ret;
-+			}
-+			/*
-+			 * Somebody else changed the PMD. Leave it alone and let
-+			 * the PTE loop below deal with whatever is there now;
-+			 * it simply finds no page table if the range came back
-+			 * as a THP.
-+			 */
-+		} else {
-+			spin_unlock(ptl);
-+		}
-+	}
-+
- 	for (addr = start; addr < end; addr += PAGE_SIZE) {
- 		pte_t pte;
- 		softleaf_t entry;
-@@ -231,6 +369,7 @@ static int swapin_walk_pmd_entry(pmd_t *pmd, unsigned long start,
- 	if (ptep)
- 		pte_unmap_unlock(ptep, ptl);
- 	swap_read_submit(&ctx);
-+ret:
- 	cond_resched();
- 
- 	return 0;
--- 
-2.53.0-Meta
+Best regards,
+Krzysztof
 
