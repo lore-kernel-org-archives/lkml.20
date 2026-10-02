@@ -1,112 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40AE3BD246;
-	Fri,  2 Oct 2026 22:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD11931E858
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790981977; cv=none; b=hJnUdV36lVNB8N7XSznnCxWqo+k6x5J3EQ1r3mKPUxiYwtXwycjHA4JKtrwySJ4WVKTg3uUMsgH9ugQ3pCVt6l3HOfGqOOY9DVbZGc4vzolLMy5wwteEoYyzd2wrgQUKcLlyH9Cc+L23gqmqZfkDvJEHNAXd6HQuxLttovCnu4c=
+	t=1790982082; cv=none; b=KJhckihgp4wn+lOHVCLCehJoCHhMnXettHr+7i+Hguq7Tlf8KDhegbuLRA/x7TBQ71QsRiiqyaEwFLFf6H0SbxB+6wIDdfeo/xfqsr76Lq2CBfx89AuYnFte9CmXXIIVGDzE2LZWnHvxuyJJheP8otHZCGI1BM1qrKkKCrpcSg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790981977; c=relaxed/simple;
-	bh=bE7Zl9IWk+uckl2YZcLFCtuyK3VF7pTM6/ugeaNjLv4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EnxRQDhvldRkOuEZ0z8dCCl2ItvjJsyb3LQSFxRLeX8KlvadJD7wVORwNfpy8ZtAm9/QihYzH6leQTDVKuatu6BYLKuCY2UmVU44kOcOb0mTp4GS1V9C9P8gDJDjlz0KGcVX3V71heer1YHu5ssLZeo0WVrd11E0yvTykA/V2EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNfHSg1U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790982082; c=relaxed/simple;
+	bh=Kkc+7wyLlEIrSW/ZGHpo+zCK4Drb6lnG4rA0ceiEaps=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a3OqvY3DE/ZNC53KTkq9CT1FksECli/aT2jT9/XJhyQvuR6RS9QOGUWWJm3H93EPPODdca8gmGXtVKvfOc0aHJqJyEA+TkiBc1TDogVDJqdHr34GL5VCa8BAfEVOWiGdIQic4U5fCLdRgitXcmclRhlHStLIxQwAYUFlHcbUlLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TNvn1srs; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNfHSg1U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662DD1F000FF;
-	Fri,  2 Oct 2026 22:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790981975;
-	bh=JJBZoitWEBQrTY8FcV1qjmfA5wNk/u7NZng6rYh3IJw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HNfHSg1Uf8VJletd/R2fu339SQf15SzodVIk+PgQjnibCGWW0FKaGqCJtTB9CsNHH
-	 6ZUjgPXjwhCfn0EGwOSXZnhmp45GPc+8mBA4KIzr/toF9NifDgEMbBmB4wpIm6Wuoy
-	 PGDxN8NS97pBFrWQT9d7hKP5mkCXJblmyL+hkEVaPn1KH1+pekc/czSzjfNxTn5i4w
-	 2Iq0tz+X5nmVOxpuWhDIPmemZAOT9ihSSeBT885X0ojH1LJGqvnzh7JC6JlgbypVQl
-	 HfjwRzYoVzwUGjpamhY/kQ/PSG3PTNTaVZ5goiedFc9jkBzMgkMLorUjrNGTzbdTns
-	 xrxKXyue6TwAw==
-Date: Fri, 2 Oct 2026 15:59:35 -0700
-From: Kees Cook <kees@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Pedro Falcato <pfalcato@suse.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Jason Xing <kerneljasonxing@gmail.com>, netdev@vger.kernel.org,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	linux-hardening@vger.kernel.org, Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v4 7/7] net: skb: isolate skb data area allocations into
- a separate bucket
-Message-ID: <202610021554.58F5CBB8@keescook>
-References: <20260921075811.too.775-kees@kernel.org>
- <20260921075820.1718334-7-kees@kernel.org>
- <8862b9ed-6f96-48c6-a134-6e8635c38987@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TNvn1srs"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b0ef9c76eso13835f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:01:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790982079; x=1791586879; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BYvP6m3iDd7aVHdkDbM00AQcpjKk9yQSFhGJmwfSPZY=;
+        b=TNvn1srs8a1H+p1N0oisFFcxm61XqQwdRWnNQnK54uY75a2bWWTqH7CULvhkXTubxi
+         VSVO0pDTV/Gk6SMYZ8oRJofLXSBSwfBiDMT2H+QcI6623uXou5mVC6d7vPgccXr6hKgU
+         TLL/cNKsFgd4+eW1tTLJkw1CaFuqh66epAVuN0YyUZS1imDBPYEx+MJtdTxvoytvBllM
+         2PQazgl+WQNNBz2Kn5g85gItj8w21FAvIWwRa7XWzmbUWjdDNRKrU+bOcLzKxYCxLDjG
+         TKH4ZSHWn4tdIV1G7LljntHwG9XEr7xsAVJDgT4P3Df6s1oUywDpmLn9vs2w1J56ZCTp
+         YK9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790982079; x=1791586879;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BYvP6m3iDd7aVHdkDbM00AQcpjKk9yQSFhGJmwfSPZY=;
+        b=jjyRwhNwmQHJepvjz0E3wj3O4/74rnwFpp7PqwSA9DpCxB+QY0C5UnMI103bym9BnG
+         on0OO3W/fIWhZFpYS7MOKdy+YnEuE+bKXeant63UFIJTEUWu8Yrc4F/Hq7el6iwZ6Z6Z
+         BhiPyGsCHEkqm95Wugu7TQ7gnPkC1hy1rlJZT+t+tBT4wZlMAJGwW6cZk1iP+hx6g2s4
+         +1gn57QXSekjnyYDd3iJTNrN+KuZv8O4t2pJ7HbOP4bRBqJoU2S+GDPf6zGah5+qMU7h
+         8XpjLuC3AGdk1j89UeMWlJStu2Vy2ceh98ssTzidyYEDASWd6CKotG1grYVEuBPdpP23
+         Uf1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx6S7C/VKvLSwqybrLaxl0VjUWxWByIq8GOLF5NOUcIorKle634x8FMjydIDod2zQbYTp6cVWpoWuWY+6c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzs+eNjxziovk66x8b6LHz/n+eZmP1PzkXXgHWulIveCwsS6o+
+	aKdE9cOF/HP9SWeTAa4iT8/3Kj0MtfJ9r/qZ43zbPflW9FsKTQTHjrFa
+X-Gm-Gg: AYBFou3mZB3piBO3rvxCq15JblAWa15YmQSITBAFGo7NbK9/1Yp6xW3K3/erXeYetuk
+	+4BBt6RrZIsBI41Gq887zTNnvNshl1QPtuVP8B7+lhuUvMOZyUaXT1/LyXo+Bljm0brqMnZlauS
+	uM3ux84wSvsLEgceWTP12hzXkPuLRHSD+Y5SElgum++dAA34/BC6C9AfDG1Ex4R6V+Y7NBTQ6yU
+	U+ZwPIGVU9dozWwsSYgLM4ZKfqBAkUAjtt1flM5yXYbrZWF6sD7Yg0+2llrSLmgrdNFzzZNPB6v
+	wIRrYE5FinILpO//2jbgRTUyLGb7YcOXjnA5570/5N+temEuTTTO9i8xhjjNeFKOQclDPL5OEZr
+	I30zRmaEW8Xdf+JMgy5sFDVXLUGGw0H0PoQUn54R6GTURofdzwDRTZ95fdFUpO03XLYAu1dapMW
+	9u2Uy4MZokc5gxLRt4N4q/QnP4Ar8PDu77BN2hsm3zPXz3GPzCOSxB+4R4OkvJL0wGvcR46eZOl
+	F7N86eUobegqnz7fax+o0G4I8di7agKzYU8nSzV5jLGj0+U/c+uXP0jJBQ1dB9MRIMFdeeN4CQ7
+	aKc75IxERWsi2xaej4K5koI7FEbJpyp4hc3XBw5hGVLdYIZg60BOUzJNB5c+buMmE49SmLpIWDw
+	yHg==
+X-Received: by 2002:a05:6000:25e3:b0:48a:f11a:c34a with SMTP id ffacd0b85a97d-48c4801ad09mr929694f8f.52.1790982078649;
+        Fri, 02 Oct 2026 16:01:18 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-af35-1901-81da-eee8-c2d0-ee3b.310.pool.telefonica.de. [2a02:3100:af35:1901:81da:eee8:c2d0:ee3b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253e8dsm7514734f8f.4.2026.10.02.16.01.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 16:01:18 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] docs: kerneldoc.py: preserve headings in kernel-doc output
+Date: Sat,  3 Oct 2026 01:01:14 +0200
+Message-Id: <20261002230114.39651-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8862b9ed-6f96-48c6-a134-6e8635c38987@redhat.com>
 
-On Sun, Sep 27, 2026 at 10:24:16AM +0200, Paolo Abeni wrote:
-> On 9/21/26 09:58, Kees Cook wrote:
-> > From: Pedro Falcato <pfalcato@suse.de>
-> > 
-> > SKB data area allocations (as done from alloc_skb()) use kmalloc().
-> > These allocations can be variably sized and their contents can be more
-> > or less controlled from userspace, which makes them useful for attackers
-> > that want to overwrite a use-after-free'd object from the same kmalloc slab
-> > (which often just requires the sizes to roughly match into the same kmalloc
-> > bucket). [0] is an easy example of an exploit that uses netlink skb
-> > allocation to target another similarly-sized accidentally freed object.
-> > 
-> > While other mitigations like CONFIG_RANDOM_KMALLOC_CACHES exist, these are
-> > probabilistic. Use the existing kmem buckets API to further isolate these
-> > allocations in a guaranteed fashion, when CONFIG_SLAB_BUCKETS=y.
-> > 
-> > Ask for the accounted kmalloc type as well as the normal one. AF_UNIX
-> > sets sk_allocation to GFP_KERNEL_ACCOUNT, so without it every AF_UNIX
-> > skb data area would fall back to the general caches, and those are the
-> > ones most worth isolating. GFP_DMA is left to fall back, being passed to
-> > an skb allocator only by rare devices.
-> > 
-> > Link: https://github.com/google/security-research/blob/master/pocs/linux/kernelctf/CVE-2023-4207_lts_cos_mitigation_2/docs/exploit.md [0]
-> > Reviewed-by: Kees Cook <kees@kernel.org>
-> > Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-> 
-> I would be curious to learn how about the memory usage delta.
-> However I see buckets are protected by their own kconfig, small
-> systems can unselect them.
+kerneldoc.py parses extracted ReST into a detached section node while
+retaining the surrounding title hierarchy. Docutils 0.21.2 silently drops
+affected sections; 0.22.4 reports:
 
-Correct. But here's the delta for a 1 node NUMA with memcg, which is
-dominated by sysfs. 26 caches (13 normal and 13 memcg):
+  Documentation/networking/kapi:107:
+  ../include/net/net_shaper.h:75:
+  ERROR: A level 3 section cannot be used here.
 
-  sysfs, 26 caches                                          113,152
-  struct kmem_cache, 26                                       6,656
-  kmem_cache_node, 26                                         1,664
-  node_barn, 26                                               1,664
-  names, 26                                                   1,248
-  the set itself, 2 rows × 14 pointers in kmalloc_buckets       224
-  per-CPU sheaf structs                                 CPUSx x 832
+The same issue drops three Xe DRM RAS headings already in mainline.
 
-> For the networking bits:
-> 
-> Acked-by: Paolo Abeni <pabeni@redhat.com>
+Use nested_parse_with_titles() to give kernel-doc output an independent
+title hierarchy.
 
-Thanks!
+Fixes: 2404dad1f67f ("doc: Cope with the deprecation of AutoReporter")
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Reposted as a standalone documentation patch at Jakub's suggestion:
+https://lore.kernel.org/r/20260925120152.09ef180c@kernel.org/
 
+Changes since v2:
+- Route the patch to the documentation maintainers without a net-next tag.
+- Add Randy's Acked-by and Tested-by tags. No code changes.
+
+ Documentation/sphinx/kerneldoc.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/sphinx/kerneldoc.py b/Documentation/sphinx/kerneldoc.py
+index c1cadb4eb0997..9986df33e37ea 100644
+--- a/Documentation/sphinx/kerneldoc.py
++++ b/Documentation/sphinx/kerneldoc.py
+@@ -38,6 +38,7 @@ from docutils.statemachine import ViewList
+ from docutils.parsers.rst import directives, Directive
+ import sphinx
+ from sphinx.util.docutils import switch_source_input
++from sphinx.util.nodes import nested_parse_with_titles
+ from sphinx.util import logging
+ from pprint import pformat
+ 
+@@ -252,7 +253,7 @@ class KernelDocDirective(Directive):
+ 
+     def do_parse(self, result, node):
+         with switch_source_input(self.state, result):
+-            self.state.nested_parse(result, 0, node, match_titles=1)
++            nested_parse_with_titles(self.state, result, node)
+ 
+ def setup_kfiles(app):
+     global kfiles
 -- 
-Kees Cook
+2.53.0
