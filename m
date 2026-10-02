@@ -1,256 +1,340 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F20EE49891F
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951842; cv=none; b=GYy/IDNQBqomFEtln32f02Wniamvz12w0wQyTVBJgXlENLp6e+ppZDTyG5wXQXulc1oTJjkkdoOtSK9ZaGxz/Fm3Wqo3uuyHinZt/35dy97gGJDphtarScANVWvJhEOeiEFReyGLnQHpPd4UUY4MrGLwdptiPj4fyoVDaZECN3Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951842; c=relaxed/simple;
-	bh=3dn54dCsXnCXYpAf3hPzLT2h82Gv0QxovmmmqR8Z4VY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z/le1TtDwh3IIjW86VDdkjn2UfyCffVc/mAYLiplYjTNmqEVnSEVuhVl1GzVWGtm/z/ymIo59lYKEVdw2TQJbaYs8K4RrVKzJbjI9hoLhIWRSaBVWQme0XZsmiGCJV5/qXh8OK+dfi2BBFoaTPGPJLxgirEgP5amJs30zub5Iuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZolcFSF1; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012019.outbound.protection.outlook.com [52.101.66.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD6223ABB9;
+	Fri,  2 Oct 2026 14:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790951861; cv=fail; b=p7Y9SWtJnQeG5N2/dTZBZEFIHgRTejv1/EI+Jr2NC/efb38JPrg9KYqiFr/wkhzWEbR2iBKNumK4g3UB+sZ9BxB2/QKUBdtQ4pE8IEHjK9T+nhDp87cDxuxn5tW5NYH9R8nkSqg8pQnirggTBobfbMztUy620u/olzZlnPw35YI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790951861; c=relaxed/simple;
+	bh=rH5XrqQqHgPS7rBYcLs7Z4pr7dEp6zLfjuOnXSUaotA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=uSeExKfvRvY6LniKnCVf9MCtO6T1tU0MNUD4Vdw8RkFXXIwuZfRAMgpMlPbBIWu5v4X4VdrOeKCHeBX9sDtE9S7xIX+hMqKqmco6Sl4odkZr1iSP9qmF/KwuY9t1HlfU+sDfTQXtSzKheD642SC/MPPydZj0lKq0p+jMODLKWl0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wz2R2/KA; arc=fail smtp.client-ip=52.101.66.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZolcFSF1"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 448B2497;
-	Fri,  2 Oct 2026 07:37:11 -0700 (PDT)
-Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C4983F86F;
-	Fri,  2 Oct 2026 07:37:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790951834; bh=3dn54dCsXnCXYpAf3hPzLT2h82Gv0QxovmmmqR8Z4VY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZolcFSF1k/4mgxhd7ju3tNWLJZj/nQ2OI9v9kQjBmnIShSIOihLVCuTpuNbDgys9C
-	 oh4h2c769yFE6v+NiQpj9HYlZYaI9I+29pgCkZDBcCgBmfohB3LLy+49KpNtreEwhE
-	 wBgg5x14GqF2ZaIc4wyUFbAlqONHPvIumAwTHDWk=
-Message-ID: <6c2953cd-ec0e-4579-ad7a-be189fa1838a@arm.com>
-Date: Fri, 2 Oct 2026 15:37:08 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wz2R2/KA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h/PIp1iU+4VtXj5MhiRaEq4hhkr3eabxgkF9keRtpAHcJW4PYn//lKD/wLf3+sdyGl8x5bRMGP1lqGYvOBnofNdG7BDRQ3I+0sWuU4AkyAdZRb/GfGZp4+mkGenXFcgH/R4lkQmRpn92OiQXihvnhsVgXWbrPUVLkJQVB/W20yiRZFUPmjo8sBMDajP9bZotv19J2TG9X51Q9iT8G7tg73+Cv7WdFMlbm5LkzVxMjpB2vpph4KuzgKEAJ2jg1XQ4gEsqeZtj9sUmwSuNRtnM8SA62jOKWjZAwQibT5OkxoxNu0R6o+M0XlFlPYQQhKlQsb/JY34rBKolQFeS2kytIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iyK9KF8BwI7l26n6Cuqk13fok4hb23usT40xtRevMDQ=;
+ b=Je1kjm3HT3smKHF2IVzBcyFmTXPdoJkPy/bc3UqPC/njm39wAenaDqM6wT++np2pCr8ULdIKs/BeoOblbq2LXPKwsXx5eVGnupcS1Pc+QJiv0KsKZ+hioMjp5Ztv8TkqFoyPMZfnAO5OR/7mZrn+xe7MPwgfEe9faldSY8iN98ldvHJlY/M4Am0MgRr+wue1iXRnOlTFBx3usukcxK5SobX0nmE5dg8wjhM9mla55WtLnVeKI0qwnWFC/Q/ptF/0lK8bN44svaU/i62qz7rTSDv3/V/B4Va/2Okwzi6h/+CVQvUMsI566Hzt6lNdoqQP+FlBluP6NlVRjE1wkvt79A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iyK9KF8BwI7l26n6Cuqk13fok4hb23usT40xtRevMDQ=;
+ b=wz2R2/KAsO0EdPHMyepYQNuDxRi67y3r0/+LR3rKyHVXuOZLPVRPE+yXfyIXA4W3jhHSwtd69s8bWdqt1VcrxfnyD7Qf4whIIeKVDj7XZa/EWzaGcyIrf/MOwnE7nRcU2Y1EC9/C5b11oXu2/3ea340QEgHtCAoFO0zWjd4eVr9j2cr9oZiSPcTE5NBuHStJY6hC2jAVgKieIfNHI3V5NW3GPh6OVP2dfPcybOyhYSgmVi9H1bd5hAWW04WiPmVk4DW0WQ6i4DB5tpv4FYzpcZObgRFASeNlRORtgFd2ZZroMoMy+ED/Ryhr/CagSyOwdk0ZaQwhkWi0KcPs+KLZMg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI1PR04MB7024.eurprd04.prod.outlook.com (2603:10a6:800:124::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 14:37:27 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 14:37:27 +0000
+Date: Fri, 2 Oct 2026 09:37:17 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com
+Subject: Re: [PATCH 1/8] ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULx
+Message-ID: <ar_BnRDhyiMpUs_T@SMW015318>
+References: <20261002081417.2092471-1-alexander.stein@ew.tq-group.com>
+ <20261002081417.2092471-2-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002081417.2092471-2-alexander.stein@ew.tq-group.com>
+X-ClientProxiedBy: CY5P220CA0006.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:930:ed::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 08/15] drm/panfrost: Move all DRM device
- initialisation into device_init()
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-8-62beb08de207@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929-claude-fixes-v12-8-62beb08de207@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB7024:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0cf81ee8-8dfd-4571-6efb-08df2092ae4a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|19092799006|23010399003|1800799024|11063799006|4143699003|56012099006|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	mO9l3kyLdckbnTSP7wvm08etQdZRswuOF5KPInr8cD3Xi7UjwMOeupW9ZiziPAaatEeDk/OWybAd7IhMyncn4f7bTcZMkNpEAoL1/i/3JH6oj5K0iURUQmjIOEKpglM4SoIJYh7VDbERPoF+4yOWdmnkrPYdPnTGolCHNlxAogUu9hxkwjcyaU0E5AYWp63PnvXdwZZjMc9n6CF7vJCNrA/bHhMgHCHZJSfGWc+tV+RbK7nvPQzIe5S8TiqZ2v9qdGr75L2/QjTsAdtxIN+aXytraVBfgguuCkMQyVt7QHH9sFr5e2VqtbJKlVz9nNffq3V/9+08BszlFu7r5qtFAYPGvW47AZQhENCK2j1cQ13NrRydXMN9GCdAu0v+SUqwQ9ItCoH0vlOA0V1rzF56qifqi0ixp01+R7w+B401taR0vT6Xs+o+JNS595nAab2vGhPVikIkGJuwcHibmptVJENnqnIs26PMCtCMi//6gIB4lhH2zA9whQvBpzJ3GxXoPxhM8h5eWObpdXLIX0eD6QzMGaluEXhmhiZnVCMIhVHWBOmKBQ5fZk77viMj4fsJ5B7G52VkVijJ6nRy0JZ91s+BQv+fAC0f8wNiEAk4Nfn2QSpbJd4sV7jVTp48I8ZBMTJKLZzzjvqMW5g7XpDnZZM2j6UR+dLbbF2n3LrA1Nc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(19092799006)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?chRFZjpWUix8CDtv4R3gjOPOJ09viPQErjq4sHYUshIe/GCfHC0FylUf6L1o?=
+ =?us-ascii?Q?tLHWDzHxWQDcs/9fA2M230dJCb8HWJVTED19qs0Ln6TMVA7FtEfw1k8WgSL+?=
+ =?us-ascii?Q?U1pkn5pinFWXTuYdakTYOqKyHy+qrJJ4zOBjaflLxZmTFx0QarQUk/2MLd/A?=
+ =?us-ascii?Q?4+DnkTfpw5oMXd+D6/xLqt591TcRc6uS16RWiE+8h2Or5Wjz+2yk90NEq1wH?=
+ =?us-ascii?Q?ZOi+vRrE4IW6Y19YFYFzY6BXHVEyUKqdEkxdMd4ZTXvZBrKPPJUTwz/96P0G?=
+ =?us-ascii?Q?3AQcHh7mQBT28LPiqAvfQrnaoC1n1VBev0YTyrPJz949nF8cxNVfkVb43XUB?=
+ =?us-ascii?Q?uGcqWkCOOdKKfAw5WcLTQD6fjtAnmvr7Mmg6yOBnbiqTam56J/D4ulmm13Ys?=
+ =?us-ascii?Q?jabCANK1ISJdAp6wKEbHXz1EnhveRZwNiE1DAp6HCK80QBvEUwkLR5ie8v5Z?=
+ =?us-ascii?Q?EudqkDqFbJyy03X6ooyZydAm46x0J3bA7/h5A+lBdAYicUnXEffuws7GV64x?=
+ =?us-ascii?Q?otYs0prfOv7w6424M5lY7UbPyQCKiKf8CDfAijPSHE8lRE8uxjpgdMqku2n4?=
+ =?us-ascii?Q?KKe0MpIkZ22p9PlbG0FT+p0a7nmV4xfLqodaYGMzAqjkNxxm48iRNSaP+XAC?=
+ =?us-ascii?Q?BTWHkuDD30oFLf6PcdYS+JbOnNFtc5zewC1/aoMgb6xFh0E6Vk2d33+RZfoU?=
+ =?us-ascii?Q?0leHxgjBKmtHc1F7979UCHD3rBhdh6SnDQKr56FMzO5qQ7Vo2ZzIco0n9Yz1?=
+ =?us-ascii?Q?3snYNRt0GgITIhQLj16cSXEJM49R3E2nTx30H8i114d5xdK60M6Xb5xzp31B?=
+ =?us-ascii?Q?insyWBeJ5vWnAX32ypgu8ig8b7ShfBtHm7ZLgqtTY5OqyFOnyKSFiaFU1AUk?=
+ =?us-ascii?Q?AxaOhskshZjXK165rjtpooRdZqtd0oDi1CWOmFoMltxohO5Pli5NxEOPUgFY?=
+ =?us-ascii?Q?YPEY2xapPTueUy8ndpKX7zHwPs429FloK8qQt11l5edfPF/MMmoSCRTlaIZF?=
+ =?us-ascii?Q?yFVNrTYQQz8gEUPQYOWjqgxjtbT/ZR7Yem4WmI2k/GrEd1etsbAEb9hxaXA6?=
+ =?us-ascii?Q?JBGqdehBVuuw0Ywrt991YRhaC6Abu5c/wp3639+nYcGs+4CJWJie8UgZCjRQ?=
+ =?us-ascii?Q?JQJ8CFkH+TaCGXQeOkusVAfflKwWt03PNlL96P6dswQGveJa21Z4DNa2E1M4?=
+ =?us-ascii?Q?yAeaTDavJyR5P8QSjrgaZ3pTU9G2MgFCyy9uTfqNm+nPqAOCaCV4CPc00KH6?=
+ =?us-ascii?Q?KAUwhPDfVc8i7J+05Qi1FpHV9ld5MifryvkIqtnxxwaqyqdPQfHxF7J4icyh?=
+ =?us-ascii?Q?CF+vSrF65YhNl3fkOoPzNW14+aiOsacLOR3izcLKlh7aP0SpKCzXm52l7x8K?=
+ =?us-ascii?Q?kjd/UiUJwvlVM9RNQ47kx+XvswgHIB6n6YZN/jnEiHFqQ9ycCGtbhlfa4p4a?=
+ =?us-ascii?Q?pCWqkJevEY8h/UmAS8avEl2MDXAZ8+vhkYvekSzWyao8Bmv0q9QQCwcO26zf?=
+ =?us-ascii?Q?b9mfneCIJk49uRZGz7VEOG6/P2pvF/WzfgP39e5d+xtIUK2YkhZNRVvGv5xC?=
+ =?us-ascii?Q?ICOiQ76FmmJK2FETW0QwUDcyTrAslcR1tgQ3thO1moYVfhNQGjOC6YCl99+Z?=
+ =?us-ascii?Q?VYGRU9LOWDdLssDBvgb9nzPt/iriM7xuw0+ED6rWeLcGu4ct3aVcxTgynb11?=
+ =?us-ascii?Q?T/OBPReUtWxLPs8GwUF/EQXMz1ANcpVrc4w1gx1VTmFGU4HVOmovwNngyK+r?=
+ =?us-ascii?Q?IM1Ub/XjQdWnyes6JL7kelsv71q8MO5SbZdEpKOw3CsSOJfTXmTg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cf81ee8-8dfd-4571-6efb-08df2092ae4a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 14:37:27.3951
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UtukmIiPgGGztBOlb55vC9BV+8cNL644HC7Dfw8Xvn4joVxLAk84pFXX0jvtjw2QXJNKR3RDdM9mQmZeJz38HxUgK7FrMH2cnvKQEg3gC65hq5+RLn4cNZG/9iE9uP0z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7024
 
-On 29/09/2026 04:44, Adrián Larumbe wrote:
-> Ideally the probe() function will do as little as possible, and all device
-> initialisation and registration should happen inside the panfrost device
-> subsystem, just like it's done in Panthor. This also simplifies resource
-> unwinding in the error path.
-> 
-> Do the same thing for DRM driver remove, as in, sweep most of the action
-> into panfrost_device_fini(), just like we did for device probe.
-> 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-
+On Fri, Oct 02, 2026 at 10:14:02AM +0200, Alexander Stein wrote:
+> The generic setup like pinmux and lcdif <-> display connection is done
+> in the mainboard while LVDS specific setup is done in the overlay.
+> As this mainboard also supports parallel display the LVDS connection
+> using an LVDS encoder is done in the overlay.
+>
+> Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 > ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 49 ++++++++++++++++++++++++++++
->  drivers/gpu/drm/panfrost/panfrost_drv.c    | 52 +-----------------------------
->  2 files changed, 50 insertions(+), 51 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 9f2b1967a398..c6bf3d0663df 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -8,6 +8,7 @@
->  #include <linux/pm_domain.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
-> +#include <drm/drm_drv.h>
->  
->  #include "panfrost_device.h"
->  #include "panfrost_devfreq.h"
-> @@ -228,8 +229,15 @@ static int panfrost_pm_domain_init(struct panfrost_device *pfdev)
->  
->  int panfrost_device_init(struct panfrost_device *pfdev)
->  {
-> +	bool device_initialised = false;
->  	int err;
->  
-> +	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
-> +	if (!pfdev->comp)
-> +		return -ENODEV;
+>  arch/arm/boot/dts/nxp/imx/Makefile            |  4 ++
+>  ...6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso | 69 +++++++++++++++++++
+>  arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi        | 64 +++++++++++++++++
+>  3 files changed, 137 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso
+>
+> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+> index c5caca92ea10c..ea0799ba1893e 100644
+> --- a/arch/arm/boot/dts/nxp/imx/Makefile
+> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
+> @@ -420,6 +420,10 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+>  	imx6ulz-14x14-evk.dtb \
+>  	imx6ulz-bsh-smm-m2.dtb
+>
+> +imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33-dtbs += imx6ul-tqma6ul2-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
 > +
-> +	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
+> +dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtb
 > +
->  #ifdef CONFIG_DEBUG_FS
->  	mutex_init(&pfdev->debugfs.gems_lock);
->  	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
-> @@ -291,8 +299,35 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  	if (err)
->  		goto out_perfcnt;
->  
-> +	device_initialised = true;
+>  imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel-dtbs := \
+>  	imx7d-colibri-emmc-aster.dtb \
+>  	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso
+> new file mode 100644
+> index 0000000000000..e44b7461001ea
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso
+> @@ -0,0 +1,69 @@
+> +// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
+> +/*
+> + * Copyright 2018-2026 TQ-Systems GmbH <linux@ew.tq-group.com>,
+> + * D-82229 Seefeld, Germany.
+> + * Author: Markus Niebel
+> + * Author: Alexander Stein
+> + */
 > +
-> +	/* The reason we must manually set the PM status and usage counter is
-> +	 * we have just powered the device up but did not go through the PM
-> +	 * runtime resume callback, so we need to update these ourselves.
-> +	 */
-> +	pm_runtime_get_noresume(pfdev->base.dev);
-> +	pm_runtime_set_active(pfdev->base.dev);
-> +	pm_runtime_mark_last_busy(pfdev->base.dev);
-> +	pm_runtime_enable(pfdev->base.dev);
-> +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> +	pm_runtime_use_autosuspend(pfdev->base.dev);
+> +/dts-v1/;
+> +/plugin/;
 > +
-> +	/*
-> +	 * Register the DRM device with the core and the connectors with
-> +	 * sysfs
-> +	 */
-> +	err = drm_dev_register(&pfdev->base, 0);
-> +	if (err < 0)
-> +		goto err_disable_rpm;
+> +#include <dt-bindings/gpio/gpio.h>
 > +
-> +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> +
->  	return 0;
->  
-> +err_disable_rpm:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_disable(pfdev->base.dev);
-> +	panfrost_gem_fini(pfdev);
->  out_perfcnt:
->  	panfrost_perfcnt_fini(pfdev);
->  out_job:
-> @@ -311,11 +346,22 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  	panfrost_reset_fini(pfdev);
->  out_pm_domain:
->  	panfrost_pm_domain_fini(pfdev);
-> +
-> +	if (device_initialised) {
-> +		pm_runtime_set_suspended(pfdev->base.dev);
-> +		pm_runtime_put_noidle(pfdev->base.dev);
-> +	}
-> +
->  	return err;
->  }
->  
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> +	pm_runtime_get_sync(pfdev->base.dev);
-> +
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_disable(pfdev->base.dev);
-> +
->  	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
-> @@ -326,6 +372,9 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
->  	panfrost_clk_fini(pfdev);
->  	panfrost_reset_fini(pfdev);
->  	panfrost_pm_domain_fini(pfdev);
-> +
-> +	pm_runtime_set_suspended(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
->  }
->  
->  #define PANFROST_EXCEPTION(id) \
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 907d4a14a0b5..f77780c72a1a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -830,7 +830,6 @@ static const struct drm_driver panfrost_drm_driver = {
->  static int panfrost_probe(struct platform_device *pdev)
->  {
->  	struct panfrost_device *pfdev;
-> -	int err;
->  
->  	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
->  				   struct panfrost_device, base);
-> @@ -839,50 +838,7 @@ static int panfrost_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, pfdev);
->  
-> -	pfdev->comp = of_device_get_match_data(&pdev->dev);
-> -	if (!pfdev->comp)
-> -		return -ENODEV;
-> -
-> -	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
-> -
-> -	err = panfrost_device_init(pfdev);
-> -	if (err) {
-> -		if (err != -EPROBE_DEFER)
-> -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
-> -		goto err_out0;
-> -	}
-> -
-> -	/* The reason we must manually set the PM status and usage counter is
-> -	 * we have just powered the device up but did not go through the PM
-> -	 * runtime resume callback, so we need to update these ourselves.
-> -	 */
-> -	pm_runtime_get_noresume(pfdev->base.dev);
-> -	pm_runtime_set_active(pfdev->base.dev);
-> -	pm_runtime_mark_last_busy(pfdev->base.dev);
-> -	pm_runtime_enable(pfdev->base.dev);
-> -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> -	pm_runtime_use_autosuspend(pfdev->base.dev);
-> -
-> -	/*
-> -	 * Register the DRM device with the core and the connectors with
-> -	 * sysfs
-> -	 */
-> -	err = drm_dev_register(&pfdev->base, 0);
-> -	if (err < 0)
-> -		goto err_out1;
-> -
-> -	pm_runtime_put_autosuspend(pfdev->base.dev);
-> -
-> -	return 0;
-> -
-> -err_out1:
-> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> -	pm_runtime_disable(pfdev->base.dev);
-> -	panfrost_device_fini(pfdev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
-> -	pm_runtime_put_noidle(pfdev->base.dev);
-> -err_out0:
-> -	return err;
-> +	return panfrost_device_init(pfdev);
->  }
->  
->  static void panfrost_remove(struct platform_device *pdev)
-> @@ -891,13 +847,7 @@ static void panfrost_remove(struct platform_device *pdev)
->  
->  	drm_dev_unregister(&pfdev->base);
->  
-> -	pm_runtime_get_sync(pfdev->base.dev);
-> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> -	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
-> -	pm_runtime_put_noidle(pfdev->base.dev);
-> -
->  }
->  
->  static ssize_t profiling_show(struct device *dev,
-> 
+> +&{/} {
+> +	lvds_encoder: lvds-encoder {
+> +		compatible = "ti,sn75lvds83", "lvds-encoder";
 
+
+Can you check if shared one overlay files with
+ls1021a-tqmls1021a-mbls1021a-lvds-tm070jvhg33.dtso
+
+I suppose use the model between two boards.
+
+You use two labels like
+
+reg_lvds: reg_mba6ul_3v3: regulator { ... } to create unified label naming
+for regulator.
+
+GPIO can use nexus node to do mapping.
+
+https://lore.kernel.org/imx/20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com/
+
+Frank
+
+> +		powerdown-gpios = <&expander_out0 3 GPIO_ACTIVE_LOW>;
+> +		power-supply = <&reg_mba6ul_3v3>;
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +
+> +				lvds_encoder_in: endpoint {
+> +					remote-endpoint = <&lcdif_out>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +
+> +				lvds_encoder_out: endpoint {
+> +					remote-endpoint = <&display_in>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&backlight {
+> +	pwms = <&pwm2 0 62500 0>;
+> +	brightness-levels = <0 16 32 64 96 128 160 192 224 255>;
+> +	default-brightness-level = <5>;
+> +	status = "okay";
+> +};
+> +
+> +&display {
+> +	compatible = "tianma,tm070jvhg33";
+> +	power-supply = <&reg_mba6ul_5v0>;
+> +	status = "okay";
+> +};
+> +
+> +&display_in {
+> +	remote-endpoint = <&lvds_encoder_out>;
+> +};
+> +
+> +/* for lcd reset != #stkrst */
+> +/* place r2021, resolder r2022 and iomux following: */
+> +/* MX6UL_PAD_LCD_RESET__GPIO3_IO04	0x79 */
+> +&lcdif {
+> +	status = "okay";
+> +};
+> +
+> +&lcdif_out {
+> +	remote-endpoint = <&lvds_encoder_in>;
+> +};
+> diff --git a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi b/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
+> index fd05479bbffc9..ba79bb9760806 100644
+> --- a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
+> +++ b/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
+> @@ -30,6 +30,21 @@ beeper: beeper {
+>  		gpios = <&expander_out1 6 GPIO_ACTIVE_HIGH>;
+>  	};
+>
+> +	display: display {
+> +		/*
+> +		 * Display is not fixed, so compatible has to be added from
+> +		 * DT overlay
+> +		 */
+> +		backlight = <&backlight>;
+> +		status = "disabled";
+> +
+> +		port {
+> +			display_in: endpoint {
+> +				remote-endpoint = <&lcdif_out>;
+> +			};
+> +		};
+> +	};
+> +
+>  	gpio_buttons: gpio-keys {
+>  		compatible = "gpio-keys";
+>  		pinctrl-names = "default";
+> @@ -299,6 +314,17 @@ se97b: eeprom@51 {
+>  	};
+>  };
+>
+> +&lcdif {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_lcdif>, <&pinctrl_lcdifctrl>;
+> +
+> +	port {
+> +		lcdif_out: endpoint {
+> +			remote-endpoint = <&display_in>;
+> +		};
+> +	};
+> +};
+> +
+>  &pwm2 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&pinctrl_pwm2>;
+> @@ -466,6 +492,44 @@ MX6UL_PAD_UART2_CTS_B__FLEXCAN2_TX	0x1b020
+>  		>;
+>  	};
+>
+> +	pinctrl_lcdif: lcdifgrp {
+> +		fsl,pins = <
+> +			MX6UL_PAD_LCD_DATA00__LCDIF_DATA00	0x79
+> +			MX6UL_PAD_LCD_DATA01__LCDIF_DATA01	0x79
+> +			MX6UL_PAD_LCD_DATA02__LCDIF_DATA02	0x79
+> +			MX6UL_PAD_LCD_DATA03__LCDIF_DATA03	0x79
+> +			MX6UL_PAD_LCD_DATA04__LCDIF_DATA04	0x79
+> +			MX6UL_PAD_LCD_DATA05__LCDIF_DATA05	0x79
+> +			MX6UL_PAD_LCD_DATA06__LCDIF_DATA06	0x79
+> +			MX6UL_PAD_LCD_DATA07__LCDIF_DATA07	0x79
+> +			MX6UL_PAD_LCD_DATA08__LCDIF_DATA08	0x79
+> +			MX6UL_PAD_LCD_DATA09__LCDIF_DATA09	0x79
+> +			MX6UL_PAD_LCD_DATA10__LCDIF_DATA10	0x79
+> +			MX6UL_PAD_LCD_DATA11__LCDIF_DATA11	0x79
+> +			MX6UL_PAD_LCD_DATA12__LCDIF_DATA12	0x79
+> +			MX6UL_PAD_LCD_DATA13__LCDIF_DATA13	0x79
+> +			MX6UL_PAD_LCD_DATA14__LCDIF_DATA14	0x79
+> +			MX6UL_PAD_LCD_DATA15__LCDIF_DATA15	0x79
+> +			MX6UL_PAD_LCD_DATA16__LCDIF_DATA16	0x79
+> +			MX6UL_PAD_LCD_DATA17__LCDIF_DATA17	0x79
+> +			MX6UL_PAD_LCD_DATA18__LCDIF_DATA18	0x79
+> +			MX6UL_PAD_LCD_DATA19__LCDIF_DATA19	0x79
+> +			MX6UL_PAD_LCD_DATA20__LCDIF_DATA20	0x79
+> +			MX6UL_PAD_LCD_DATA21__LCDIF_DATA21	0x79
+> +			MX6UL_PAD_LCD_DATA22__LCDIF_DATA22	0x79
+> +			MX6UL_PAD_LCD_DATA23__LCDIF_DATA23	0x79
+> +		>;
+> +	};
+> +
+> +	pinctrl_lcdifctrl: lcdifctrlgrp {
+> +		fsl,pins = <
+> +			MX6UL_PAD_LCD_CLK__LCDIF_CLK		0x79
+> +			MX6UL_PAD_LCD_ENABLE__LCDIF_ENABLE	0x79
+> +			MX6UL_PAD_LCD_HSYNC__LCDIF_HSYNC	0x79
+> +			MX6UL_PAD_LCD_VSYNC__LCDIF_VSYNC	0x79
+> +		>;
+> +	};
+> +
+>  	pinctrl_pwm2: pwm2grp {
+>  		fsl,pins = <
+>  			/* 100 k PD, DSE 120 OHM, SPEED LO */
+> --
+> 2.55.0
+>
+>
