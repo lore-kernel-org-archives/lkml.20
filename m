@@ -1,256 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65E04FDA7E;
-	Fri,  2 Oct 2026 21:14:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC5E25F7B9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975670; cv=none; b=HBKZUsIiQiT4ppAtsdDnwOJ9Yms50vcI0UArlYlDIClyNEBLrv+2mqIFycVVf0WrFeU/qSd/vU6XhhvGSMesBp8b3PhFXu+kWI1Y9ecl99nTMcb/9dxYex/78QxYNmEL+Un8SUa/7c5EUqf3jlHiWJEp6Wq8ZXLjPCEgBNKBfEM=
+	t=1790975781; cv=none; b=lqPGHmxPkGa9/ca2WOevbkzxxPjU0r+mMfGmZNl+kGQjygOwlKBjq9p6wDhPQJs14RM3Wle6QYwupSggiTCN3Vuq8lz0PZCKaTunwoj11ekNiuYEvSDstm9TjaNJJR+yV/is93OkxUqYgFAXYk3MkOB1F/1lzn1OAY5v9bWJMPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975670; c=relaxed/simple;
-	bh=+jv31ccIhOb8FrXhXWahI2VF/WjBW/tpQ4MtIQMg45M=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CQA6BTaKfGbQ1gqkzsWxfsbOgEI+aK2XUSb7Vmxh5XNa8G2KQmgBA3/Bz0C767Vt2kNgdCFdRT7jmGltRalWFSl6mY5O362wb81rpKnfPU0TCyoSk9stXDtPkbpurWiGWysX923WfLRKq0EmD7vwvWhWlUBRmAqYeXMNsrsW2f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ul9T1K0M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790975781; c=relaxed/simple;
+	bh=iWJINnlDrOftowfoGhxkJf705MBebOzL7c4W6AMdQ70=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IydbEm+Q5fW1DuGRCiOH7CTe/cCwNQlpGpoCD+N5zOprSxKdr8CGnrO3dd+lsHZcd9pfptuNDRrFE3ykNM0vwNnW5/azsmX/H+aZ3LFoE5e4gljzb9EunSCf8gThg0z3HMiNRPSJd3g3r2QTqDbeE3GfrIVtporjuU2T+Y9S40w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fB79RhAe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ul9T1K0M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1713A1F00899;
-	Fri,  2 Oct 2026 21:14:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fB79RhAe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F2B71F000FF;
+	Fri,  2 Oct 2026 21:16:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790975668;
-	bh=DC/qKm6b/6853KuyCaBbJha6FdHLb8zcxHwijeIilGc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Ul9T1K0MoAoeWKYm1iO9f4SqGWmP01CeCq7Gpz38tKQmczSQRH0qEYyNKdOP/6yU9
-	 DbQnbzbqzDMn2jWehKB8VTtS5GQoN6j1iFkndLDjzB4l3G+f8qteHlFIFaOU7szpyQ
-	 MCrSRbNzaxijbpgzPwZQkZkgLRvaTpMqxCNlWKQTm9c2Ms+SWna/JlGCstGP23PQnt
-	 eVEz3V6HN4cUrpwCbVbK5JcEi2j5yJW/I+2JQ/4sIR9YZJa1A1vkzCqkDpkLlujV7G
-	 8iKroEQXm9jjqcA+wa3KEdDNCGvuy+M3dl8S5K/aE1p4gZ3FaiS8suESzAFhX5Iqgp
-	 fszcM0+lkLzvw==
-Subject: Re: [PATCH net-next v13 9/9] net: dsa: lan9645x: add port statistics
-From: netdev-bot+sashiko@kernel.org
-To: jensemil.schulzostergaard@microchip.com
-Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- woojung.huh@microchip.com, linux@armlinux.org.uk,
- Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Fri, 02 Oct 2026 21:14:26 +0000
-Message-ID: <179097566660.434549.17651613804901292493@kernel.org>
-In-Reply-To:
- <20260929-dsa_lan9645x_switch_driver_base-v13-9-827c2d3617f2@microchip.com>
-References:
- <20260929-dsa_lan9645x_switch_driver_base-v13-9-827c2d3617f2@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790975779;
+	bh=OKYnKgYrHClMD1obTpPvxEWFYDGIOLzE5fVt8z/a5gk=;
+	h=From:To:Cc:Subject:Date;
+	b=fB79RhAevy+lGoRCC9aSnrE2JEX8D24OumGbd7yfBddkzY0E2VKiH7n/5fIP2C/dt
+	 BevKf52tBD3QQXRR84OGfhMC+GNQoXqyY72uwB7N73OISOivowwNNtKzHrCT7T5ZcL
+	 QGtgCBV54giEdTE+ksx8MVpog/1afiw8h+k4BZGRQlVLlgPSJwzIRuOcJ+VMvvIK5k
+	 48xtreiX7cSTHZ/CBbevtU0tjJRcZJByPmG99JMpYOhCNyocO5ZqGEK+jYjKx+wZtc
+	 RFiHea44dnVAlurC073PGNwM0EKW6AxQXHN58D9zWV3djoC+r8CHIcmSE4aCWMs/ri
+	 OPxKpLr+UeaKA==
+From: Borislav Petkov <bp@kernel.org>
+To: X86 <x86@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	stable@kernel.org
+Subject: [PATCH] x86/CPU/AMD: Fix AMD TLBI Erratum #1718
+Date: Fri,  2 Oct 2026 14:16:17 -0700
+Message-ID: <20261002211617.1001617-1-bp@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+From: "Borislav Petkov (AMD)" <bp@alien8.de>
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 1
+The processor may fail to invalidate a TLB entry while executing an
+INVLPGB/TLBSYNC instruction pair.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Detect the erratum and apply a software workaround when a microcode fix
+is not present.
 
-- [Medium] lan9645x_stats_get_sset_count() returns -EOPNOTSUPP (-95) for
-  every string set other than ETH_SS_STATS.
-- [Medium] lan9645x_stats_get_stats64() counts bad frames in rx_packets.
-- [Medium] The eMAC and pMAC FRAG counters are handled inconsistently.
-- [Low] The commit message says 'The eMAC and pMAC counter sources are
-  decoded, but only the aggregate source is reachable for now'.
+Fixes: 82378c6c2f43 ("x86/mm: Use INVLPGB for kernel TLB flushes")
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Cc: <stable@kernel.org>
+---
+ arch/x86/include/asm/cpufeatures.h | 3 +++
+ arch/x86/include/asm/tlb.h         | 6 ++++++
+ arch/x86/kernel/cpu/amd.c          | 4 ++++
+ 3 files changed, 13 insertions(+)
 
---
-
-net: dsa: lan9645x: add port statistics
-
-This adds port counter support to the lan9645x DSA driver. The 32 bit
-hardware counters are copied into 64 bit software counters by a poller
-that runs every three seconds. They are reported through ethtool -S, the
-standard ethtool statistics groups and ndo_get_stats64.
-
-> The eMAC and pMAC counter sources are decoded, but only the aggregate
-> source is reachable for now, until MAC merge support is added.
-
-[Severity: Low]
-Is this sentence still accurate? None of these read the ->src field of the
-structure they fill in:
-
-  lan9645x_stats_get_eth_mac_stats()
-  lan9645x_stats_get_rmon_stats()
-  lan9645x_stats_get_pause_stats()
-  lan9645x_stats_get_eth_phy_stats()
-  lan9645x_stats_get_eth_ctrl_stats()
-
-All of them always return the eMAC plus pMAC sum.
-
-The v12 changelog says "Drop the unreachable mac merge related code", so
-the per-source decoding seems to have been removed. This has no runtime
-effect today, because without .get_mm ethtool only allows the aggregate
-source.
-
-Could the message say instead that the pMAC counters are summed into the
-aggregate, and that per-source reporting is not implemented yet?
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> new file mode 100644
-> index 0000000000000..1253f77489931
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> @@ -0,0 +1,856 @@
-
-[ ... ]
-
-> +int lan9645x_stats_get_sset_count(struct lan9645x *lan9645x, int port, int sset)
-> +{
-> +	if (sset != ETH_SS_STATS)
-> +		return -EOPNOTSUPP;
-
-[Severity: Medium]
-Can this negative return value corrupt the sset counts that the conduit
-netdev reports? DSA replaces the conduit's get_sset_count with
-dsa_conduit_get_sset_count(). For every sset, that function calls:
-
-net/dsa/conduit.c:dsa_conduit_append_port_sset_count() {
-	if (ds->ops->get_sset_count)
-		*count += ds->ops->get_sset_count(ds, port, sset);
-}
-
-Nothing checks for a negative value. For ETH_SS_TEST, ETH_SS_PRIV_FLAGS
-and ETH_SS_PHY_STATS, the conduit therefore reports its own count minus
-95.
-
-If the conduit has fewer than 95 entries, the count is negative. Then
-ethtool -t, the netlink priv-flags path and ETHTOOL_GSTRINGS on the
-conduit fail with a bogus errno. The conduit's self-tests and private
-flags also drop out of ethtool -i and the netlink strset reply.
-
-If the conduit has 95 or more entries, the result is zero or a smaller
-positive value. ethtool_self_test(), ethtool_get_phy_stats_ethtool() and
-strset_prepare_set() size their buffers from that value, but the
-conduit's own callbacks still write their full number of entries. No real
-NIC has that many entries, so this part is theoretical.
-
-Most other DSA drivers (hellcreek, lan9303, gswip, mt7530, qca8k, a5psw,
-vsc73xx, and others) return 0 for unsupported ssets. Should this return 0
-as well?
-
-> +
-> +	return ARRAY_SIZE(lan9645x_port_ethtool_stats);
-> +}
-
-[ ... ]
-
-> +	r->undersize_pkts = c[SCNT_RX_SHORT] +
-> +			    c[SCNT_RX_PMAC_SHORT];
-> +	r->oversize_pkts = c[SCNT_RX_LONG] +
-> +			   c[SCNT_RX_PMAC_LONG];
-> +	/* SCNT_RX_FRAG counts frames received after the port is paused, and
-> +	 * increments when pause frames arrive from the link partner.
-> +	 * It counts neither undersize frames nor errors, so it is left out here
-> +	 * and out of rx_packets, unlike lan966x which adds it to rx_errors.
-> +	 * SCNT_RX_PMAC_FRAG does count number of runt frames with invalid CRC.
-> +	 */
-> +	r->fragments = c[SCNT_RX_PMAC_FRAG];
-
-[Severity: Medium]
-Can fragments be non-zero without MAC merge support? The pMAC receives no
-traffic until MAC merge is supported, so RMON fragments always reads 0 in
-lan9645x_stats_get_rmon_stats(). That includes the case where runts with
-a bad CRC arrive on the eMAC.
-
-Documentation/networking/statistics.rst says drivers should leave fields
-they do not report at ETHTOOL_STAT_NOT_SET, not overwrite them with 0. If
-no accurate eMAC fragment count exists, would it be better to leave
-fragments unset?
-
-The two MACs are also treated differently in lan9645x_stats_get_stats64().
-rx_packets includes c[SCNT_RX_PMAC_FRAG] but not c[SCNT_RX_FRAG]. As a
-result, a bad-CRC runt is counted in rx_packets only when the pMAC
-receives it.
-
-Does the hardware really use different meanings for the counters at
-offset 0x5 and offset 0x35, which is the same position in the pMAC block?
-If not, could both MACs be handled the same way?
-
-[ ... ]
-
-> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> +				struct rtnl_link_stats64 *stats)
-> +{
-
-[ ... ]
-
-> +	stats->rx_packets = c[SCNT_RX_SHORT] +
-> +			    c[SCNT_RX_JABBER] +
-> +			    c[SCNT_RX_SZ_64] +
-> +			    c[SCNT_RX_SZ_65_127] +
-> +			    c[SCNT_RX_SZ_128_255] +
-> +			    c[SCNT_RX_SZ_256_511] +
-> +			    c[SCNT_RX_SZ_512_1023] +
-> +			    c[SCNT_RX_SZ_1024_1526] +
-> +			    c[SCNT_RX_SZ_JUMBO] +
-> +			    c[SCNT_RX_LONG] +
-
-[Severity: Medium]
-Should rx_packets include SCNT_RX_SHORT, SCNT_RX_JABBER and SCNT_RX_LONG,
-and their pMAC equivalents? The same function counts all of them in
-rx_errors below, and counts JABBER and LONG in rx_length_errors too.
-
-include/uapi/linux/if_link.h describes rx_packets as "Number of good
-packets received by the interface".
-
-The SZ_* buckets also include frames with a bad FCS. The v5 changelog
-says: "remove rx_crc, rx_symbol_err from rx_packets, as they are already
-counted in SZ_* buckets".
-
-So when a link partner sends a runt, jabber, oversized or bad-FCS frame,
-it shows up in both rx_packets and rx_errors. ocelot and lan966x use a
-similar formula.
-
-Would the RX_UC, RX_MC and RX_BC good frame counters, which already feed
-FramesReceivedOK, be a better source here?
-
-> +			    c[SCNT_RX_PMAC_SHORT] +
-> +			    c[SCNT_RX_PMAC_FRAG] +
-> +			    c[SCNT_RX_PMAC_JABBER] +
-> +			    c[SCNT_RX_PMAC_SZ_64] +
-> +			    c[SCNT_RX_PMAC_SZ_65_127] +
-> +			    c[SCNT_RX_PMAC_SZ_128_255] +
-> +			    c[SCNT_RX_PMAC_SZ_256_511] +
-> +			    c[SCNT_RX_PMAC_SZ_512_1023] +
-> +			    c[SCNT_RX_PMAC_SZ_1024_1526] +
-> +			    c[SCNT_RX_PMAC_SZ_JUMBO] +
-> +			    c[SCNT_RX_PMAC_LONG];
-> +
-> +	stats->multicast = c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
-> +
-> +	stats->rx_errors = c[SCNT_RX_SHORT] +
-> +			   c[SCNT_RX_JABBER] +
-> +			   c[SCNT_RX_CRC] +
-> +			   c[SCNT_RX_LONG] +
-> +			   c[SCNT_RX_PMAC_SHORT] +
-> +			   c[SCNT_RX_PMAC_JABBER] +
-> +			   c[SCNT_RX_PMAC_CRC] +
-> +			   c[SCNT_RX_PMAC_LONG];
-> +
-> +	stats->rx_length_errors = c[SCNT_RX_JABBER] +
-> +				  c[SCNT_RX_LONG] +
-> +				  c[SCNT_RX_PMAC_JABBER] +
-> +				  c[SCNT_RX_PMAC_LONG];
-
-[ ... ]
-
+diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+index f70ee74b5f92..fe84cf4e97d3 100644
+--- a/arch/x86/include/asm/cpufeatures.h
++++ b/arch/x86/include/asm/cpufeatures.h
+@@ -477,6 +477,8 @@
+ #define X86_FEATURE_NO_NESTED_DATA_BP	(20*32+ 0) /* No Nested Data Breakpoints */
+ #define X86_FEATURE_WRMSR_XX_BASE_NS	(20*32+ 1) /* WRMSR to {FS,GS,KERNEL_GS}_BASE is non-serializing */
+ #define X86_FEATURE_LFENCE_RDTSC	(20*32+ 2) /* LFENCE always serializing / synchronizes RDTSC */
++
++#define X86_FEATURE_TLBSYNC_SFW_NO	(20*32+ 4) /* TLBI Erratum #1718 fixed in microcode */
+ #define X86_FEATURE_VERW_CLEAR		(20*32+ 5) /* The memory form of VERW mitigates TSA */
+ #define X86_FEATURE_NULL_SEL_CLR_BASE	(20*32+ 6) /* Null Selector Clears Base */
+ 
+@@ -587,4 +589,5 @@
+ #define X86_BUG_TSA			X86_BUG( 1*32+ 9) /* "tsa" CPU is affected by Transient Scheduler Attacks */
+ #define X86_BUG_VMSCAPE			X86_BUG( 1*32+10) /* "vmscape" CPU is affected by VMSCAPE attacks from guests */
+ #define X86_BUG_SEAMRET_INVD_VMCS	X86_BUG( 1*32+11) /* "seamret_invd_vmcs" SEAMRET from P-SEAMLDR clears the current VMCS */
++#define X86_BUG_TLBI			X86_BUG( 1*32+12) /* "tlbi" AMD TLBI Erratum #1718 */
+ #endif /* _ASM_X86_CPUFEATURES_H */
+diff --git a/arch/x86/include/asm/tlb.h b/arch/x86/include/asm/tlb.h
+index 866ea78ba156..eba925c85f52 100644
+--- a/arch/x86/include/asm/tlb.h
++++ b/arch/x86/include/asm/tlb.h
+@@ -110,6 +110,12 @@ static inline void __tlbsync(void)
+ 
+ 	/* TLBSYNC: supported in binutils >= 0.36. */
+ 	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
++
++	if (!static_cpu_has_bug(X86_BUG_TLBI))
++		return;
++
++	/* TLBSYNC: supported in binutils >= 0.36. */
++	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
+ }
+ #else
+ /* Some compilers (I'm looking at you clang!) simply can't do DCE */
+diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
+index 54e14ed276b5..40463bad1078 100644
+--- a/arch/x86/kernel/cpu/amd.c
++++ b/arch/x86/kernel/cpu/amd.c
+@@ -1049,6 +1049,10 @@ static void init_amd_zen5(struct cpuinfo_x86 *c)
+ 		msr_clear_bit(MSR_AMD64_CPUID_FN_7, 18);
+ 		pr_emerg_once("RDSEED32 is broken. Disabling the corresponding CPUID bit.\n");
+ 	}
++
++	if (cpu_has(c, X86_FEATURE_INVLPGB) &&
++	    !cpu_has(c, X86_FEATURE_TLBSYNC_SFW_NO))
++		set_cpu_bug(c, X86_BUG_TLBI);
+ }
+ 
+ static void init_amd(struct cpuinfo_x86 *c)
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2%40microchip.com
+2.53.0
+
