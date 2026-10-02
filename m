@@ -1,66 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2B043DEDA;
-	Fri,  2 Oct 2026 07:53:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBDC43FD05
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927607; cv=none; b=erVwxorbdaqJj6e3Zf2ZUJC30TY+3bFQvRYMw20qTyAtkQ0fKV0TrQlYL0gr8bpmVNjQ6ewo0ZUqzMxqHQ4fbqg7Ah++WpS1JnlKNbuiq42jp8Mtv9CRr1jV2xk4Z/+4MPQyowiHjQzb/Mb2lkglYm/9Zo1pEvOYoE1Pp/PB/Co=
+	t=1790927609; cv=none; b=E225WYb0nkpaFr7uDlXu6ZOBPtF4Tc9A1U3q0AnwA4CmqnpB45pPmolWRyfeHVH5A1uRZmHO59RHJmpmHUtnpYWCCDSR3ZzUTa1t/DTaNU2rnZJ54I7YP8DplRAxT3T49eK77m0usAAFztpVdfeFH+fzd98Ti7d7hj3xeSPMKRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927607; c=relaxed/simple;
-	bh=OfplhBT++WQsNhZIkkqJQlDrbFhJnMQOYEBvuh5N+d0=;
+	s=arc-20240116; t=1790927609; c=relaxed/simple;
+	bh=o/RvQv9f1ZtZd51QR8FJOZby6EqzahPJ2E5K519w+Ks=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UrPNYJDUTMp3OPoCHP+l+wY69CgbO+ZNSxoBNmdPkvQJFtGI7isb0SiNUdu0ZU1ABN1Y04+WRCGIgeVuDNnUFieDjAlq6jDMfF42rfqgjbR1ihihi20ubHFwkDScMO/K/RSFuQzlQEsdO6lFKTNJzVqOswNgCtekDh/yVfhyeb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TSU6gF8m; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rec+gUXOmKRxgVVQnuDZA+r7WcQ9l5J62FYMCwzt+usEiSwqjV90qJqjbYc3DlRpFMe1t7nbwC6AVcxa1YBoQGImS/APEflr/5fAtpezQbtgxdMW9AH8vlQNM/zAl64Hz2Jp9C+kib9k7VJnnlg3j+lBYmZfdA8Gp0khthVbWFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FG8vwcof; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MG3XxAHF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TSU6gF8m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790927606; x=1822463606;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OfplhBT++WQsNhZIkkqJQlDrbFhJnMQOYEBvuh5N+d0=;
-  b=TSU6gF8mh8/ENfYSIcNtu5n0T2xiaUH9Ct6VI9NnYuaE9MBGgNo+FejH
-   LmlaFezsK1atcKDWxuK40OhTycuTeDGLaVgw0LvJ12UKYQLxJmZjMES7R
-   PZL381DXns+dHLzJb1QsL6NB0uxdsqIRlsAk18/C6sT8Uh7WSscWPe7Di
-   LN3E57Ypaw9Hrmb05oF+YCy4oKw8XKkuKioiqEmMAYKC4ZYa+uZLWK3Gw
-   PJUywICbnsBIzRwSeU0JZuKfqUMz7ArcfZJiQ9T7PQmbMmuHbTbT3qBXY
-   3mFbsg+BUppDA0tFVqJB2MXhkjhQyfdfDpNzGfQDTwCHUkHkSKvl7hX7t
-   g==;
-X-CSE-ConnectionGUID: lYvGdoGSS/abDyNfNrdNUA==
-X-CSE-MsgGUID: GWjJYSVFQGmL1YCgl5tMWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90904756"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90904756"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:53:25 -0700
-X-CSE-ConnectionGUID: eQy9liTuRqmN7AUTTXl6rw==
-X-CSE-MsgGUID: Fyl2DyfpRi+yjO5idWO8Iw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="314178670"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:53:22 -0700
-Date: Fri, 2 Oct 2026 10:53:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v11 2/5] iio: pressure: dps310: read buffered samples
- from the hardware FIFO
-Message-ID: <ar9i8D9OTQpD80Lw@ashevche-desk.local>
-References: <20261002072526.250081-1-zoone.rupert@gmail.com>
- <20261002072526.250081-3-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FG8vwcof";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MG3XxAHF"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925jknC3416655
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 07:53:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=6leoAHiHC58kTdNzD41rzsHZ
+	ue8MEp5AAZ57oKNPKQI=; b=FG8vwcof6+Yymu+Xm20Dzq5uzPYgxmE7Oh+3KmL9
+	4k+05Lbc2lg9qKNEPq9qtsiLUBRv3VR4dETGZ10i/P9o+KNQdNkUM7EVqedL/Ssa
+	KK27jCk46B8ABvKq5zQ4XEA+fzDqbLSTEIu1HZ1WXYZsdicLSoJHYn8O5QLdi67o
+	zemOmMenzMGG/BDqkhJ71t8iUVgI+KjzE6yKdJuOUIlfbE997K0uT7alHIK/xHZ0
+	Oo24b23CSc50iIrinWNXkSiMqqLn0UbG49MXWuQtqjnktqJ7nEcX7AY7U3Xse7TO
+	eeDAsgdGubFKFokXl9S49mTv3V8O+eOeXtKjEX/4/NsuPA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1vxea77d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:53:26 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5333a1b634bso128006651cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:53:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790927605; x=1791532405; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6leoAHiHC58kTdNzD41rzsHZue8MEp5AAZ57oKNPKQI=;
+        b=MG3XxAHFb0JhwLhs2BpNOb232fHRYqzi7oqgOR+NIVQA2R7DwGRbsmyTsHRBPopCur
+         0DKnxfF43tLARsyjDcjSTq0sV1cX9mV6CT9g3yoISe4UFIn1318CCJ4Hj6tqLeVp0jsT
+         qg9ivf3KCSySDICBVrAKxh4M9xHEsdVluqXvcUjrvkQ+ubnHTHDfhZrLJyK1zdjcgL5V
+         0cyjPzqamjD4NlUb+sQ8VvI3preu9Q6Mj/960xvvvuoGYIp6xfk2np4bYoNddi92+c/3
+         kRE0GdZgy4KKTUl0GoFZhAoY/15k521by5Vs8HAil88Cw8P6MGECbDhDZiuJmhlBAucV
+         qjXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790927605; x=1791532405;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6leoAHiHC58kTdNzD41rzsHZue8MEp5AAZ57oKNPKQI=;
+        b=fGhy8w5WfTi0ksZYGphqjmZ51rYqXyCWVBXha0stpp1lp5Hwuwh0trsdZDqbNEmXjU
+         w4HMmDuI3LgRsTSOx4NP9FnjLLJKccsbqKpUsUKOGDodbCpxNF3CyekPgBEV0CmwQH/b
+         QBZ1iyuihnkZnSTsG1z6uh73J5uM6rjRgaEXPb1fr3/PLKYGVKga8C4huuTwrWMJ3jR+
+         aG/U352DsBRWWbRm1o2c+K9zei8W+ORdswSbubvUy4MBoRM8B4xWL4FlpH3neQauvo7E
+         8SSjg4V2c8jn6m2PTmCpzSPRYk/oFtyT4FNiC5lDCtR/2UDV3vMVX0vCALBhcoXaBcRx
+         u8NQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbRqWRgzRS47SrJQ7e5duwkGRCH5d8gxbn+1dAJpyD2f5WgTuvfACRdbKqF2hw48Xzfvc7LcsRkvG26/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++ko/gUcd0MwblfovuFO0R+S4JFCE+yv3A9CeumaDcDCMWhgwW2c
+	P55RY4i8iK4y4pCFpL/YrSgSzdEYQJNJhZG1EoV0A+pzYLH9PoOPclw33uJB1TUvCeqOHRwIfUi
+	r0Qj7CFupsuPhpEz9KVR5s5VgDwcDjYx/a86rlrjgXkUhTwsfsyZ5Irfpo5acvOPhVMU=
+X-Gm-Gg: AYBFou3C0DB6Kq/g6EPybpd2dX7tKbSwRpdVsNqY73Cxzma0zCu8sP851cIkHmwkBV2
+	sC8LmmkKslSPTtvL1euQjfSb63yzlmVPiNOOKlEe2EgVh8w/DXD6p71P3xCvV6iBzaPreMVKnY+
+	OAlAbgg+NPM6CW2WUeQM2cGJJDY1B0FsPc3Eu4YGb/jScWK7swo0Ghw/r9HjdVwED6nBpyhKbw/
+	s22RKa/lHY9N3RkZa9T5tLWyc+wVkYM1BjwdihqAY6y82ctZFhosSTVaRNymOmuoep3ESHYrFmU
+	iUXY32wfbgZ0WNHSFJ0jrAGAFDPhWqDzlVqjN08zNU1hjBIzIkZQaijmAqBv/39udHiEs054LtZ
+	V6oLZj92I4G1OdcUNIQAx
+X-Received: by 2002:a05:620a:a0c4:10b0:939:fc74:b6af with SMTP id af79cd13be357-93cf16b3fdbmr230240685a.11.1790927605393;
+        Fri, 02 Oct 2026 00:53:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:a0c4:10b0:939:fc74:b6af with SMTP id af79cd13be357-93cf16b3fdbmr230237685a.11.1790927604917;
+        Fri, 02 Oct 2026 00:53:24 -0700 (PDT)
+Received: from mai.linaro.org ([2a05:6e02:1041:c10:f14c:b716:c104:4712])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fad53sm4411184f8f.19.2026.10.02.00.53.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 00:53:24 -0700 (PDT)
+Date: Fri, 2 Oct 2026 09:53:22 +0200
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Guenter Roeck <groeck@chromium.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>
+Subject: Re: [PATCH v15 3/6] reboot: add parsable tokens for power state
+ change reasons
+Message-ID: <ar9i8i-7a7ZnT5t8@mai.linaro.org>
+References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
+ <20260924-pscrr-framework-v15-3-7af87107e0d3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,216 +108,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261002072526.250081-3-zoone.rupert@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260924-pscrr-framework-v15-3-7af87107e0d3@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=fdc4WEQF c=1 sm=1 tr=0 ts=6abf62f6 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=pGLkceISAAAA:8 a=WjtHAGiS79jxuaiHvU8A:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: 6RAW-ZiYN6-2zyEahPI6soeXCWyr5MMA
+X-Proofpoint-ORIG-GUID: 6RAW-ZiYN6-2zyEahPI6soeXCWyr5MMA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzMSBTYWx0ZWRfXz+KKP7OyGEfW
+ cbQ3mADfRhQ1sCTb1jKlff6Nef79IzwuXV+/MeOT1vhIwXZwyyI1sKVjY0PHlOJqNwBKxIx1muc
+ ozTZ5UKqyd253GT/8ySj1h7MNkRphp3VMTabMy+X1E1DfSe5vKN643/3L6c1URsVaeCyqpjGdhD
+ jOguMc0DerqMjiDk4y5So3XCZAEJcJeQzdbb1T1DSSuf2P3ypJcGiNJYrpR+PjzjO0fHJUejalY
+ MZBbU7qCeMe3EYbO/7rsthCwU6+3nNEcBHOfDEYQdjuLdKPTLKKvNKAx4C9ugPCB3JuRIjmLzSP
+ K0xQaXqoIzwnV5BRN+YvyC97usLOvVosXms+anf2axlfeRQ2DsiM9tSBkZeajQhr5LkMu6OBm2D
+ egowHRtNkcOXcYvC+tJYHN2pZBMhGqbPNWNvR9oqPTUocySaUNyaR/4Hvn338TSAUMdxsz3j2M4
+ jKxb/ePkxG8pVrcT+Vw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzMSBTYWx0ZWRfXwvRB5Cl+Vtec
+ OcX27tgkIXqBtI5tlDyEI17zj9qxbtgAGy3hmn2YFaB2KpBxZuTyNq4DlASmjWOPizbTRdqRDGJ
+ Z1HX+HW1Bx4oeyfbG3MMVeT6QdN0Y78=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020031
 
-On Fri, Oct 02, 2026 at 10:25:23AM +0300, Rupesh Majhi wrote:
-> DPS310 has a 32-entry FIFO shared by both measurements. Drain it from a
-> work item and push what it held, so buffered capture needs no trigger.
-> Nothing in tree wires the interrupt pin, so the work rearms itself at
-> half the FIFO fill time.
+On Thu, Sep 24, 2026 at 12:38:44PM +0530, Faruque Ansari wrote:
+> psc_reason_to_str() returns human-readable labels that contain spaces
+> (e.g. "over temperature"). Those are fine for logs but unusable as
+> values in a space-separated sysfs list or as a write target.
 > 
-> Each entry carries one measurement, so a pressure entry is compensated
-> with the temperature ahead of it. Pressure read before a session's first
-> temperature is held until one arrives rather than dropped, so the first
-> push can wait a temperature period.
+> Extend the single reason descriptor table with a stable, space-free
+> token next to the existing label, and add psc_reason_to_token() and
+> psc_reason_from_token() so consumers can emit and parse reasons without
+> inventing their own string table.
 > 
-> FIFO entries are not timestamped, so postenable refuses the timestamp
-> channel unless a trigger is attached.
+> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+> Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
 > 
-> Tested on a DPS310 on a BeagleBone Black.
+> Chnages v15
 
-...
+Nit: ^^^
 
-> +{
-> +	u8 val[3];
-> +	s32 raw;
-> +	int rc;
-> +
-> +	/* Entries come out of the pressure registers whichever made them */
-> +	rc = regmap_bulk_read(data->regmap, DPS310_PRS_BASE, val, sizeof(val));
-> +	if (rc < 0)
-> +		return rc;
-> +
-> +	raw = get_unaligned_be24(val);
-> +	if (raw == DPS310_FIFO_EMPTY_VAL)
-> +		return DPS310_FIFO_EMPTY;
-> +
-> +	*value = sign_extend32(raw, 23);
-> +
-> +	return raw & DPS310_FIFO_TAG_PRS ? DPS310_FIFO_PRESSURE :
-> +					   DPS310_FIFO_TEMP;
+> - Add Reviewed-by tags from Matti Vaittinen.
 
-Make it a single line (yes, 83 characters).
-
-> +}
-
-...
-
-> +static unsigned int dps310_fifo_push_held(struct dps310_data *data)
-> +	__must_hold(&data->lock)
-> +{
-> +	unsigned int pushed = 0;
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < data->fifo_held; i++) {
-
-	for (unsigned int i = 0; i < data->fifo_held; i++) {
-
-> +		if (!dps310_fifo_push_scan(data, data->fifo_temp_raw,
-> +					   data->fifo_hold[i]))
-> +			pushed++;
-> +	}
-> +
-> +	data->fifo_held = 0;
-> +
-> +	return pushed;
-> +}
-
-...
-
-> +/*
-> + * Read the batch out before compensating it, so a pressure entry pairs with
-> + * the temperature preceding it rather than the last one in the batch.
-> + *
-> + * Returns scans pushed.
-> + */
-> +static int dps310_fifo_drain(struct dps310_data *data)
-> +	__must_hold(&data->lock)
-> +{
-> +	bool pressure_enabled = test_bit(DPS310_SCAN_PRESSURE,
-> +					 data->iio->active_scan_mask);
-> +	u8 kind[DPS310_FIFO_DEPTH];
-> +	s32 raw[DPS310_FIFO_DEPTH];
-> +	unsigned int pushed = 0;
-> +	unsigned int cnt, i;
-> +	int rc;
-> +
-> +	for (cnt = 0; cnt < DPS310_FIFO_DEPTH; cnt++) {
-
-Ditto.
-
-> +		rc = dps310_fifo_read_entry(data, &raw[cnt]);
-> +		if (rc < 0)
-> +			return rc;
-> +
-> +		if (rc == DPS310_FIFO_EMPTY)
-> +			break;
-> +
-> +		kind[cnt] = rc;
-> +	}
-> +
-> +	for (i = 0; i < cnt; i++) {
-
-Ditto.
-
-> +		if (kind[i] == DPS310_FIFO_TEMP) {
-> +			data->fifo_temp_raw = raw[i];
-> +			data->fifo_temp_valid = true;
-> +
-> +			if (pressure_enabled)
-> +				pushed += dps310_fifo_push_held(data);
-> +			else if (!dps310_fifo_push_scan(data, raw[i], 0))
-> +				pushed++;
-> +			continue;
-> +		}
-> +
-> +		if (!pressure_enabled)
-> +			continue;
-> +
-> +		if (!data->fifo_temp_valid) {
-> +			dps310_fifo_hold(data, raw[i]);
-> +			continue;
-> +		}
-> +
-> +		if (!dps310_fifo_push_scan(data, data->fifo_temp_raw, raw[i]))
-> +			pushed++;
-> +	}
-> +
-> +	return pushed;
-> +}
-
-...
-
-> +static void dps310_fifo_work(struct work_struct *work)
-> +{
-> +	struct dps310_data *data = container_of(to_delayed_work(work),
-> +						struct dps310_data, fifo_work);
-> +	int rc;
-> +
-> +	mutex_lock(&data->lock);
-> +	rc = dps310_fifo_drain(data);
-> +	mutex_unlock(&data->lock);
-
-What's wrong with scoped_guard()?
-
-> +	if (rc < 0)
-> +		dev_dbg(&data->client->dev, "FIFO drain failed: %d\n", rc);
-> +
-> +	schedule_delayed_work(&data->fifo_work,
-> +			      msecs_to_jiffies(data->drain_interval_ms));
-> +}
-
-...
-
-> +static int dps310_buffer_postenable(struct iio_dev *iio)
-> +{
-> +	struct dps310_data *data = iio_priv(iio);
-> +	int rc, prs_rate, tmp_rate;
-> +
-> +	/* An attached trigger drives the capture instead, FIFO stays off */
-> +	if (iio_device_get_current_mode(iio) == INDIO_BUFFER_TRIGGERED)
-> +		return 0;
-> +
-> +	/* Entries are not timestamped and the drain timer is no substitute */
-> +	if (iio_scan_timestamp_enabled(iio))
-> +		return -EINVAL;
-
-> +	mutex_lock(&data->lock);
-
-Refactor this to make one use guard()() and the inner one to use kfree().
-
-> +	rc = dps310_get_pres_samp_freq(data, &prs_rate);
-> +	if (rc)
-> +		goto err_unlock;
-> +
-> +	rc = dps310_get_temp_samp_freq(data, &tmp_rate);
-> +	if (rc)
-> +		goto err_unlock;
-> +
-> +	data->drain_interval_ms = dps310_fifo_interval(prs_rate, tmp_rate);
-> +
-> +	rc = dps310_fifo_hold_alloc(data, prs_rate, tmp_rate);
-> +	if (rc)
-> +		goto err_unlock;
-> +
-> +	/* Drop whatever accumulated before enable */
-> +	rc = dps310_fifo_hw_flush(data);
-> +	if (rc)
-> +		goto err_hold;
-> +
-> +	rc = dps310_fifo_set_enable(data, true);
-> +	if (rc)
-> +		goto err_hold;
-> +
-> +	schedule_delayed_work(&data->fifo_work,
-> +			      msecs_to_jiffies(data->drain_interval_ms));
-> +
-> +	mutex_unlock(&data->lock);
-> +
-> +	return 0;
-> +
-> +err_hold:
-> +	kfree(data->fifo_hold);
-> +err_unlock:
-> +	mutex_unlock(&data->lock);
-> +
-> +	return rc;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
