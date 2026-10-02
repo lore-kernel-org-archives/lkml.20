@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A44442F715
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:08:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AF9497395
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:08:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946516; cv=none; b=rJgdDkeTekdvPt24Y432Ua2nyAUtPFoSy0J5j15lvDBi3lCNPdTPcU84zzeNmZPgFoPcCyPk63R0WnDmH3tS+EtyVM+jbU+vtiBQnB/dSzIaLY2kK3UQJPpecu1om7q7B9GjS0jggROi4rfFw+r2GuVD2qL8NP27/faVrcbcs7g=
+	t=1790946516; cv=none; b=pX8fi2RTil11DopdKcyphaHaDdkGbD5cqgUdQClI0sMShjQhXhDOnrWcNnNrZEBdISsCi8dVY4EzScUX066waUEOgLBRMLFur3b2F1Op8MJbk68ruc5+6HSBxKPRoXcMwqOy+OTGwsK2nnhK98uKxDi+qiBRHnfoPa3O2QRlo8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790946516; c=relaxed/simple;
-	bh=hpORNAInQY4YIDil5qPoyicTIbpKgGs8vIsuPQzrju4=;
+	bh=n2rKkg1lmyo2UXxYDRrre3pvWle2qeWhsouk8b/xGL0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JIevxYkXFZWeP9PYZkGWCjDe0kjrxixwukwDPIvrt3BLxmVEZHMAodCGm/qQ4+ANyHab/mBO/SjN+gCFE0CsklYCQdpw9MnCmrHSekRESgiup9geCUEu+FIH6X8gSbxMWi2fD5qBbuoPUpNAX2YgeqaSUAg2A/LQTK15UNkvyUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DWxgby7u; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=CC3Zry6ucwWgKQVMf6Up7cnGF9ulbrfLbQus4OEXBbbuA0n9QozjzbLqcRWnW/ktU+9h33qMarUK1qrJKdrXIO15kj1594OnaC0wicHGvoG/d1gYnLg8MC6G5kg93rmMO2v0JG2WGDhJ6L515kJ9z+o9A8mFpPnSXBUnudWIjbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XMI6FiD1; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DWxgby7u"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XMI6FiD1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790946498;
+	s=mimecast20190719; t=1790946507;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Zob1KtCjSCYBg2TkSrCdgcCYXcxGjfohAaytPDnT6AI=;
-	b=DWxgby7uTkIkDj/31GF9Jammsr6wKTXiand5sjlUM2/R0FY7SAQQ7tnMmvhgW46n4Jrw74
-	7MD2OaMWDk9vgN9wV1hnaju6Ci1ggxF8YTFMDRaAMsV/qW1ZRfGRM/b/6kYweOyF2eGwFt
-	k8XBwKthbqyXD1qZwGBd2JKZX0vcl1o=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=W76JwHWwSP5UMXZ3360bvlY9alCmFcEj7PuZV/VZQ+k=;
+	b=XMI6FiD1kO7210628FLuqi7nQgAZLMvPBaCssrM0UgRxQddGWMTiQffe4OGN3vHKS4MU3e
+	kOGfLmg6TMMuC+bb/gihfc+yiCnQ9KftUkUe6yI1geNj0YK0cfsB3nLDAWVg2x89uhID2Q
+	vux+E1DoQ0K93dKTpU6nP+fA4LXo2Mk=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-358-PRbX39NwOhW8XAmihcVDpw-1; Fri,
- 02 Oct 2026 09:08:15 -0400
-X-MC-Unique: PRbX39NwOhW8XAmihcVDpw-1
-X-Mimecast-MFC-AGG-ID: PRbX39NwOhW8XAmihcVDpw_1790946492
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-414-DjAbGEWVPKWUXFJf5YJa2w-1; Fri,
+ 02 Oct 2026 09:08:21 -0400
+X-MC-Unique: DjAbGEWVPKWUXFJf5YJa2w-1
+X-Mimecast-MFC-AGG-ID: DjAbGEWVPKWUXFJf5YJa2w_1790946498
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7919E1800627;
-	Fri,  2 Oct 2026 13:08:11 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 191BD195423D;
+	Fri,  2 Oct 2026 13:08:18 +0000 (UTC)
 Received: from ShadowPeak.redhat.com (unknown [10.44.32.39])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 52B8B214;
-	Fri,  2 Oct 2026 13:08:04 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DA267756;
+	Fri,  2 Oct 2026 13:08:11 +0000 (UTC)
 From: Petr Oros <poros@redhat.com>
 To: netdev@vger.kernel.org
 Cc: Petr Oros <poros@redhat.com>,
@@ -69,9 +69,9 @@ Cc: Petr Oros <poros@redhat.com>,
 	intel-wired-lan@lists.osuosl.org,
 	linux-kernel@vger.kernel.org,
 	bpf@vger.kernel.org
-Subject: [PATCH iwl-net 01/10] ice: replay UDP tunnel ports after a core or global reset
-Date: Fri,  2 Oct 2026 15:07:43 +0200
-Message-ID: <20261002130752.2597259-2-poros@redhat.com>
+Subject: [PATCH iwl-net 02/10] ice: fix IRQ freeing in ice_vsi_req_irq_msix() error path
+Date: Fri,  2 Oct 2026 15:07:44 +0200
+Message-ID: <20261002130752.2597259-3-poros@redhat.com>
 In-Reply-To: <20261002130752.2597259-1-poros@redhat.com>
 References: <20261002130752.2597259-1-poros@redhat.com>
 Precedence: bulk
@@ -83,53 +83,54 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-A CORER, GLOBR or EMPR reloads the DDP package in ice_rebuild() and
-ice_init_pkg_hints() clears hw->tnl, so every offloaded VXLAN and GENEVE
-port is gone from both the boost TCAM and the driver table. The
-udp_tunnel_nic core is never told about it and still considers the ports
-programmed, so the Rx tunnel offloads silently stop working after the
-reset. With VXLAN port 4789 offloaded, 64 flows that differ only in the
-inner headers are spread over all six Rx queues of the test port by
-RSS, after a CORER they all land in a single queue, the same as without
-the port. Removing the port later trips the WARN_ON() in
-ice_destroy_tunnel() because its table entry is no longer valid:
+The vectors are requested with the q_vector as dev_id, but the error
+path frees them with &vsi->q_vectors[vector], which is the address of
+the array slot. devm_free_irq() finds no matching devres entry, warns
+and leaves the IRQ requested. The unwind also tries to free vectors that
+the request loop skipped because they have no rings.
 
-  WARNING: ice_flex_pipe.c:524 at ice_udp_tunnel_unset_port+0x56/0x280 [ice]
-  ice 0000:04:00.3 enp4s0f3np3: Error removing UDP tunnel - -5
-  ice 0000:04:00.3 enp4s0f3np3: UDP tunnel port sync failed port 4789 type vxlan: -5
+Forcing request_irq to fail on the fourth vector during ndo_open gives:
 
-Call udp_tunnel_nic_reset_ntf() once the main VSI is rebuilt so the core
-programs the ports again. A PF reset keeps the package and the table, so
-it is left alone. No rtnl_lock is needed since commit 1ead7501094c
-("udp_tunnel: remove rtnl_lock dependency").
+  ice 0000:04:00.2 enp4s0f2np2: MSIX request_irq failed, error: -16
+  WARNING: kernel/irq/devres.c:191 at devm_free_irq+0x30/0x40
+  WARNING: kernel/irq/devres.c:191 at devm_free_irq+0x30/0x40
+  WARNING: kernel/irq/devres.c:191 at devm_free_irq+0x30/0x40
 
-i40e fixed the same problem in commit 1f190d936948 ("i40e: Reprogram
-port offloads after reset").
+and the three IRQs stay registered in /proc/interrupts while the
+interface is down.
 
-Fixes: a4e82a81f573 ("ice: Add support for tunnel offloads")
+Pass the q_vector as dev_id and skip the vectors without rings, which
+the request loop never requested.
+
+i40e fixed the same mistake in commit 915470e1b44e ("i40e: fix IRQ
+freeing in i40e_vsi_request_irq_msix error path").
+
+Fixes: cdedef59deb0 ("ice: Configure VSIs for Tx/Rx")
 Assisted-by: LLM
 Signed-off-by: Petr Oros <poros@redhat.com>
 ---
- drivers/net/ethernet/intel/ice/ice_main.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/intel/ice/ice_main.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
-index 8c4b0fbc790644..f2121e79fca993 100644
+index f2121e79fca993..d246cde36ae726 100644
 --- a/drivers/net/ethernet/intel/ice/ice_main.c
 +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-@@ -7859,8 +7859,11 @@ static void ice_rebuild(struct ice_pf *pf, enum ice_reset_req reset_type)
- 		ice_rebuild_arfs(pf);
+@@ -2582,8 +2582,12 @@ static int ice_vsi_req_irq_msix(struct ice_vsi *vsi, char *basename)
+ 
+ free_q_irqs:
+ 	while (vector--) {
+-		irq_num = vsi->q_vectors[vector]->irq.virq;
+-		devm_free_irq(dev, irq_num, &vsi->q_vectors[vector]);
++		struct ice_q_vector *q_vector = vsi->q_vectors[vector];
++
++		if (!q_vector->tx.tx_ring && !q_vector->rx.rx_ring)
++			continue;
++
++		devm_free_irq(dev, q_vector->irq.virq, q_vector);
  	}
- 
--	if (vsi && vsi->netdev)
-+	if (vsi && vsi->netdev) {
- 		netif_device_attach(vsi->netdev);
-+		if (reset_type != ICE_RESET_PFR)
-+			udp_tunnel_nic_reset_ntf(vsi->netdev);
-+	}
- 
- 	ice_update_pf_netdev_link(pf);
- 
+ 	return err;
+ }
 -- 
 2.55.0
 
