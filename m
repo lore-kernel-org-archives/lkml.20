@@ -1,73 +1,76 @@
-Received: from mail-ej2-f40.google.com (mail-ej2-f40.google.com [74.125.228.168])
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E75339361
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A5B3D76
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957746; cv=none; b=Lw0JWGnUCfDdRoT6uRhLijaohqREsSzN3fPEy3Ad9R8aukBYwKAEP4WS3HU3fpI1z+GfYh3tP5xvodovQTCXg+B5F/5dm3AlZJSDF3Ulr2U1yMfBRIybk0oDen+baqhwMSr2MsVKQm1lcL8xwJz33xjInxaDHK+hvqowvx3RFF4=
+	t=1790957752; cv=none; b=dR7WfLvJQr8J5V5IQ+z2rH7OgDBEmWIKUl5iWMqSLU5bkzouamFrTOUUAIJDWWgtN0EaRYugJgjlTf02StfE+4yuRzXqI/1z0KVZ95YNc/3ExcpMefrvOQ+3xPdENC8NqbWtmd2e00pr8E52Kl+MNqsgZI4U+dRCX5t5kxn46/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957746; c=relaxed/simple;
-	bh=FmrZsCQCkfPKkxLhyxsxGqqblu2KJkJgk/mbNbXoYKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cy51X+263TD5vGTZlV4WviLLuinJ6NmTaM3Lv73872gExxsw8CxJXE9SCmLvPqjF4MAM7cJ0R2EEQWvldpd1ex/cZv0Ja3QNzH0no5vVSUZyJOFMuzhunqvUh2MU/KO+MsrAPJDHxgDuEodWUTrT+pC/qf/Acu6uxeZQyfqGZWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BK6zvlOO; arc=none smtp.client-ip=74.125.228.168
+	s=arc-20240116; t=1790957752; c=relaxed/simple;
+	bh=Le1SYPb2jPNj5MhF8OuGIlzFKKsBR2rEDTHPqcMQNeM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hnnTkynFWcLgTFAAzOivCYcLLCxUcYlwz7B/IJcxS/dnW0eSjKGRV4wsXMtE5zX2ZNnPEni60ROyXc2Ak4/k8Rt5b5QslI+BYvedniSvJOMW6NSwMvuWhJmkmwVuNhbbIDnnniEMThaKY6z6axw1Yy0tCYJTjnRRyWlkRzjdWZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W61Bo5gY; arc=none smtp.client-ip=74.125.228.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BK6zvlOO"
-Received: by mail-ej2-f40.google.com with SMTP id a640c23a62f3a-c2e402001e8so11328266b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:15:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W61Bo5gY"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e320322edso6516466b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:15:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790957743; x=1791562543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o4niJFCL1Tg94S7QXfdYdCSyAdIrBTgV96rmAV/L4ak=;
-        b=BK6zvlOOIHHPYSUmG5dtBBpjWV29MW+dCV3vMstfvQVWPSyeA5JTJ7/yQU6JDepizy
-         x7JHPDvuXoxqVr+wgiv4RYjWQ+9bU6838sUHQ56ZffC3leslBVXbzLiwbiiuYzGOxR2K
-         2taTy0wxdZOqf/MYgDhIa5S4dnAoPHb2w7Jy6rwEl8SSMUzhTRmiVonVFrDmvIOu7pWa
-         CRUhsLEAlQ2F/r360zfafWqcHXi/VSJI13+LINd7ahRoOufT7poXKASTk1oz1YY0uu4N
-         ePobZBr6XEhX0nDqO++YcV5yFS+NoR8rMcBEJzrVnKgged5TPl52d+ycQ4x0a3B2DEoo
-         uyww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790957743; x=1791562543;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790957749; x=1791562549; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=o4niJFCL1Tg94S7QXfdYdCSyAdIrBTgV96rmAV/L4ak=;
-        b=fL8rQ+TcvuXVS3AKBm3FfhoBe4q0eJfqBGyQoQwqq/yUVQBnIzG/Aqjjjidk6b5YaD
-         CCnedxAgQ10XPmvR7uGrzAPtGDm122nb1R71BPmNSewL1QyLFh9RRokc+SqgGlnVLLD0
-         yeuqlZZ5sXtMpwXNvpZNzJOHCy6IziVropzOLgm/tM6IDb6n3s6GpL0h6Mlymqk0cTP3
-         UyTFiFS3i2HEF8YQRYFC44ch+MMLgvZg330nKS5lEcISiagkzHudRdSO2oHXEkjfBH8n
-         3+CUOnWEBXZNC3n1ZnoDApkj+uhy3RJu6Fr+zBrO4ZjnImSlnfKg5g3sDVkvEc4cSrT7
-         HFsQ==
-X-Gm-Message-State: AFuF++nbEPRn4KW8JhO+s3pV8f6n57TaKjIufbJv1MOtYaqVQTyFJdns
-	Op/l0qDFakCmnwNQO/tPv8GLOP7HdYv/j457krnBRdTFg4evfo+iyTQt
-X-Gm-Gg: AYBFou1VELbzDjz4PQLSl6dQ/EVAAN67Ds+W8nW777hJm3T7RtIj1Ni2XEXK09zxuWO
-	1TL+MfI4in/jnUWRYONdGpnURrQ7ynLhHvg18RRypLORjP5yuLcdCd9+H8xqYEGA2PpBZCyzpSh
-	yJEUYHn7zNRpOB0+S3cD8jiV9N2VrnOwtj+66n7RG7LDBxkk0NDbRSKKHxxCGk2rpMVYS6wmMHm
-	v0UCsIdZuPuyjJgwnwrLJnJ6/0pxsk2nlVqrKyWoP6GW+Drlm7G3Z60E17IsVpgLHn0A/p9hTkC
-	IvRdwMHqy6xc9vhpE882a2/2FxMyufyJ2aK+5Q2GyzWdVeYG1ayCz7jBSvleN0aCE4gKrytq7tO
-	SIQzfEeXoScEMrNbxIuhjUDqJhxctUZVv+avpIR7Hq+0E0AeJzcMPKdwGa98gmRb+rELo6d/9Gu
-	cpAtdqJJyafank5O2IPD3cwAiizH7lBzo2C6cb5lIseXVYSoVLatKEWSigG7oJSEsql7ww1K7H3
-	Il0Ew1eXqqptQSr9eVIayeuiY2L+9HtgpS6K53/d0NAus7Ze98=
-X-Received: by 2002:a17:906:6a02:b0:c2a:fcf5:c6bb with SMTP id a640c23a62f3a-c2e4af6ee00mr264468966b.23.1790957742743;
-        Fri, 02 Oct 2026 09:15:42 -0700 (PDT)
+        bh=ZtyEZmwj0f19Lpw83gnqEqbS3r4hbHydMWKTWR/TdRU=;
+        b=W61Bo5gYLf5flTB6iLcAJdoKQXBqRVe69B5nIDefiy1t9DhIV8RpCeL+5g0IMk0Dmu
+         kkhGXVQJIQP/jSghoZ2tQ1vs0VgAn6lsC1ywm5rfyQCyyvlJhoRKhETZhzhkcAcTHris
+         Q+/IGn2FenLTCvGrjG+DCcmukmf4SKQKxNdaKOvi+cLnb7gobd+kHB/Nd4t3/wESAyiA
+         nUs1Uwi8FMD/5Zt7Ir5p9aJaEwq7WDtWIDRjCWD1zQbjEecVTIxUTpyfBheUhCU0U1Hl
+         WCWpss9VpHmbTzblxvU1+SQN/jrXj57PfsJsnNX/X+fk/z0wRj5qWEhar6YHKHXGWBKz
+         CdQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790957749; x=1791562549;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZtyEZmwj0f19Lpw83gnqEqbS3r4hbHydMWKTWR/TdRU=;
+        b=lwKEJNy5BPrZgNBx6fbAjrYGr4xRqc0d5vCWe/zWZUdQ+/oSTypiw7gz4KtAeJ3IAL
+         QfoNF010r/Oo6IT0X57+IHcfal3gkPhGEqQSJxSs7SghPOSUHxQ5Xq4Qnwz+rcwXvxae
+         3yhbZ1vay5/4cBJkhZexQ1OtYGJfNAGtOtvgnXunYu1IqxX8fAgoFE8jQ6q+vQYUAGA+
+         s/tO84Z5C87BGre8WbwJ+3/2iKBvQStBZExm1QHg0INnYp4LentHkpjCA4zrisSoKQYc
+         Y2O1LxjeTyAHKVzgzPTNJMe6eD3wujIwbzUUhvFz8JlFRWy3/4vqtniXSzqDIURcyrWY
+         cKZA==
+X-Gm-Message-State: AFuF++nYy1TWQ3O1Q56oPlspcW/DYCxp+07FjnP3mdcnpK8s8qob/QyY
+	cIiiNUe7SVNH0GX5JSC7x7vvROMuVMYIaEdGmPVlyX3gTNlsJv8kDknZ
+X-Gm-Gg: AYBFou2z0O0LK0itJ5vczxY++iUajUTIiIg0AZ62Yg6ZeA9Ml4U3VBb2lxJTl4ZclaA
+	F8/mebRBpiu2yXe+ndIw0xxodaJBj2I1WYFKNs0oZN9PNIXQb5VfQ5y6rA8hREKix31AGCQZEI+
+	kRTlFWjn0EOS4B8hL9Q5y1yogDYbim0u3l22TN68Q6o3nKB7sFaCLyr2oAWOL/293t5QzdFh0wj
+	XOcJl2JFN4gT11WMDmLax99ebkBBfCckSkyiLGKjG/LDMIgXEegegPnMRR1RsYiUv2H7ycjsfZ1
+	OFvudqupekEEyZqexYTaIK2a8kS7E6s9DxDsP5ippOj+g1aRtcbmdH/ONRW6TUgabCDbtV2Jmsu
+	1XlGvLqfjgJlptqug04gucXSpWDYCR8o1sRgL+KTD6XaPZS1rYEbYeTvxaWThWVp2HbqqqizFzc
+	z8df/Ln5Vnhx4drWOs+b4dI+NAPI8n+y05UNVTht64GbuwWU3dyuMpNiMK9bhO/mafgVCaoeTvY
+	ajDpyOMmHznfFwp82DcMh6UNONVwGSkRjFFS2Tl
+X-Received: by 2002:a17:907:d086:b0:c2d:d408:5da6 with SMTP id a640c23a62f3a-c2e4b2417b1mr256577366b.49.1790957749284;
+        Fri, 02 Oct 2026 09:15:49 -0700 (PDT)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf5f4e4sm106437166b.42.2026.10.02.09.15.40
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf5f4e4sm106437166b.42.2026.10.02.09.15.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:15:40 -0700 (PDT)
+        Fri, 02 Oct 2026 09:15:46 -0700 (PDT)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: sparclinux@vger.kernel.org,
 	"David S . Miller" <davem@davemloft.net>,
 	Andreas Larsson <andreas@gaisler.com>
 Cc: linux-kernel@vger.kernel.org,
 	Magnus Lindholm <linmag7@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH 0/7] sparc64: add Fujitsu M3000 support
-Date: Fri,  2 Oct 2026 18:14:22 +0200
-Message-ID: <20261002161515.932316-1-linmag7@gmail.com>
+	stable@vger.kernel.org
+Subject: [PATCH 1/7] sparc64: return from the generic clear_page implementation
+Date: Fri,  2 Oct 2026 18:14:23 +0200
+Message-ID: <20261002161515.932316-2-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002161515.932316-1-linmag7@gmail.com>
+References: <20261002161515.932316-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,90 +79,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several years ago I salvaged an M3000 SPARC Enterprise box being
-decommissioned at work. The box has been sitting ever since, it did
-not run Linux. It did not seem impossible to get Linux running but
-my earlier attempts failed. I recently found some documentation;
-"SPARC JPS2: Common Specification" and the "Fujitsu SPARC64 II
-Extensions", which gave me some of the missingpieces.
-Getting this up and running required extensive testing, some
-kernel instrumentation, debug printouts and many reboot iterations.
-For thisi, Codex proved very helpful. Along the way, I stumbled upon
-some generic sparc and driver bugs that this series addresses as well.
+GENclear_page falls through into generic_patch_pageops after clearing
+its page. The patcher then rewrites kernel text on each invocation.
+Return to the caller once the clear loop completes, as GENcopy_page does.
+This affects processors using the generic page-operation fallback.
 
-This series adds support for the Fujitsu SPARC Enterprise M3000, with
-SPARC64 VII+, Oberon PCIe, BCM5718 networking and a firmware hvc console.
-It applies to Linux v7.3-rc1, base cee9395acd8043be0644b25c34bfa86623f2b935.
+Fixes: 6c70b6fc7b6f ("[SPARC64]: Do not assume sun4v chips have load-twin/store-init support.")
+Cc: stable@vger.kernel.org
 
-Patches 1-3 fix existing sparc64 defects in generic clear_page, secondary
-queued-spinlock acquisition and sun4u kernel huge-PUD mappings. Each has
-a Fixes tag. Patches 4-7 add the CPU/MMU/SMP path, PCIe bridge, narrowly
-matched tg3 firmware-state correction and console. They form one series
-so the complete port can be built without collecting prerequisites.
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
+ arch/sparc/lib/GENpage.S | 3 +++
+ 1 file changed, 3 insertions(+)
 
-VII context-write and demap synchronization follows the cited JPS2 and
-SPARC64 VII manual sections. Existing Cheetah routines are unchanged:
-similar assembly does not establish the same hardware requirement there.
-
-The final tree includes the demap-all instruction synchronization in the
-CPU/MMU patch. All seven cumulative prefixes build. The exact final image
-boots Gentoo/OpenRC and SSH with eight threads; kernel taint is zero.
-
-HugeTLB/THP, CPU offlining, Oberon MSI and complete RAS recovery remain
-unsupported. Firmware console calls cannot be bounded if firmware stalls.
-
-SPARC64 VII/VII+ support is currently opt-in through Kconfig while the new
-CPU/MMU/SMP paths receive broader testing. The option also excludes HugeTLB
-and THP configurations, which this implementation does not yet support.
-The longer-term aim is to rely on runtime CPU detection once unsupported
-huge-page configurations can be handled safely.
-
-Magnus Lindholm (7):
-  sparc64: return from the generic clear_page implementation
-  sparc64: honor queued spinlock layout in secondary startup
-  sparc64: avoid huge kernel PUD mappings on sun4u
-  sparc64: add SPARC64 VII CPU, MMU and SMP support
-  sparc64: add M3000 Oberon PCIe support
-  tg3: normalize inherited M3000 register byte order
-  hvc: add an M3000 firmware console backend
-
- MAINTAINERS                         |   6 +
- arch/sparc/Kconfig                  |  19 +++
- arch/sparc/include/asm/head_64.h    |  15 ++
- arch/sparc/include/asm/iommu_64.h   |   1 +
- arch/sparc/include/asm/irq_64.h     |   1 +
- arch/sparc/include/asm/setup.h      |   5 +
- arch/sparc/include/asm/smp_64.h     |   4 +
- arch/sparc/include/asm/spitfire.h   |   1 +
- arch/sparc/include/asm/trap_block.h |   6 +
- arch/sparc/kernel/cpu.c             |   3 +
- arch/sparc/kernel/entry.h           |   2 +
- arch/sparc/kernel/head_64.S         |  18 +++
- arch/sparc/kernel/helpers.S         |  41 +++++
- arch/sparc/kernel/iommu.c           |  44 ++++++
- arch/sparc/kernel/irq_64.c          |  50 ++++--
- arch/sparc/kernel/pci_fire.c        |  31 +++-
- arch/sparc/kernel/pci_impl.h        |   1 +
- arch/sparc/kernel/prom_64.c         |   6 +
- arch/sparc/kernel/prom_irqtrans.c   |   7 +
- arch/sparc/kernel/ptrace_64.c       |   7 +
- arch/sparc/kernel/setup_64.c        |  55 +++++++
- arch/sparc/kernel/smp_64.c          |  82 +++++++++-
- arch/sparc/kernel/trampoline_64.S   |  53 ++++++-
- arch/sparc/kernel/traps_64.c        |  27 ++++
- arch/sparc/lib/GENpage.S            |   3 +
- arch/sparc/mm/init_64.c             | 110 ++++++++++++-
- arch/sparc/mm/tsb.c                 |  19 ++-
- arch/sparc/mm/ultra.S               | 236 ++++++++++++++++++++++++++++
- drivers/net/ethernet/broadcom/tg3.c |  91 ++++++++++-
- drivers/tty/hvc/Kconfig             |  10 ++
- drivers/tty/hvc/Makefile            |   2 +
- drivers/tty/hvc/hvc_m3000.c         | 167 ++++++++++++++++++++
- 32 files changed, 1088 insertions(+), 35 deletions(-)
- create mode 100644 drivers/tty/hvc/hvc_m3000.c
-
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+diff --git a/arch/sparc/lib/GENpage.S b/arch/sparc/lib/GENpage.S
+index c143c4d1de3f..6ce11108e143 100644
+--- a/arch/sparc/lib/GENpage.S
++++ b/arch/sparc/lib/GENpage.S
+@@ -48,6 +48,9 @@ GENclear_user_page:
+ 	bne,pt	%xcc, 1b
+ 	 add	%o0, 64, %o0
+ 
++	retl
++	 nop
++
+ #define BRANCH_ALWAYS	0x10680000
+ #define NOP		0x01000000
+ #define GEN_DO_PATCH(OLD, NEW)	\
 -- 
 2.43.0
 
