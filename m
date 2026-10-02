@@ -1,156 +1,135 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB87353A9F
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350D433E34E;
+	Fri,  2 Oct 2026 07:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790924526; cv=none; b=jpyIfn0kmlJC/Ti7ZnH0ZgVhHCEjE6IS7QbUt4ye0GukUk8TR5mC5jRGZcOAZog1+NRsm8+3zdTh/W9gakzxvf7bTz79UmGJfEL4cvFTGogSXvqvfuH8I+VOXDyWF1EuSSr2CUddp3e26rJGKpEIEt+gnB4KeIqTebs2lJNwL9c=
+	t=1790924544; cv=none; b=p5JVehj14fmnp66ImmlYwhAcmYCd8QSanwVckLuENmJVmDkm384IlBJphvcZOxVbW0c9GzrY4cP4pujwl3YG6kt39NMxkBXec6DvsCy2OKDiiCwczgFaJYJU0b+MhPa53LVenYOLtkd1IRtZZLaVwtQptIG4PBsy1ACiK9ADl6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790924526; c=relaxed/simple;
-	bh=yY4WyVT5eSzlPT/GzLNNSSRq506EM7lsXWxz3OxywSM=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=ssBlHBJisnBL60brmONAwQA0nWY181Gfwfio9yprtRousHgh6S/uLas+29xbffKvRyMGe7ylpWUqxt5KGEnO4FLYhd1uBydwAQ8nIRxL8Y2kp1AHJ6fgxqOFJovB5ZvWVWav8lOzyTeyeupuXK/JDFAwYk35JXYNTadPjycinmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=HfVWCHS6; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790924544; c=relaxed/simple;
+	bh=/A1j9BbrO4u2Y2+W9QnJf9AK6H8xr/DSJGU8MUjV/V0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IX+Zt1Xi/aScVltUwCwtgF9ELKBT/Ce3qKgWQNXbpXKiGyeBR1s00AWIJHa/MvsgGUNbPy82yfLFls551ZvbFMH0OImD+UuwvDalVocTADXWO/0VWLA2NyUbR8GgA22GtMeuxrcsiTxmPO/6g0s6K5MhEyfSMAmbq0uqW0nZxlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=NQn60Juk; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="HfVWCHS6"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261002070201epoutp01e73097df333865865f892f0c90d2e43d~apF0G_N0G3147031470epoutp01d
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:02:01 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261002070201epoutp01e73097df333865865f892f0c90d2e43d~apF0G_N0G3147031470epoutp01d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790924521;
-	bh=IuoVDFisGJtBiR6B4hUqoFcY2KUNUjB6ufO+jyeqPv8=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=HfVWCHS6yuYXfydKbOshIMCeJDd+mJWcs20yF6EhmxFmwjG+G5gPb29eAqoo2oij0
-	 kGTWMvjgRgOMgo7LbkSjOp6rO3k4bveSTCqYM8FPgiYIqF/lE/HTPxMeJ/39W7cSuT
-	 p28TQy4Qf/1jZ71q6VAz2h7HtH62/RwljdoMzaKU=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261002070200epcas2p13075a036b31125d4054157e3f0cf9bc3~apFzs9jrw2252422524epcas2p1q;
-	Fri,  2 Oct 2026 07:02:00 +0000 (GMT)
-Received: from epcas2p2.samsung.com (unknown [182.195.38.209]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4hx0883DzQz6B9m6; Fri,  2 Oct
-	2026 07:02:00 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="NQn60Juk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=cor8xgh0lw+1k1nOlsjT1eCSx7Yhd8JvND/1iy2CPpI=; 
+	b=NQn60Juk2p6GA4I+LMRNAgW3aWZUgT2Q5drBcFs7U+zby35l6T3QqyGnSf9HM9GMmOIbaa11xth
+	PuVy5g29ahjAC/qszNVJJiZ7etI+ftmUG+E2tcisbKy+g8ttJB2yoffpWhFXflY1xUEUIYYZNn/B8
+	tH1K7nlCfeHChzdeGXXLKLseuUYSQrcsPg7ny4MdY1WoQT6fBsTThj2xeJtdz/TtJdqXhinA02dDU
+	jwzrYYek516kGLdZ+/MguITsaPQlji+aEpYB8tWeIxrYZmReJ9bgwiAPblGAvb36pdZKndsHunvQ5
+	hCqWPsV1iTLAmXNbsfHazcIqCEZ8985aNz3g==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xCXHR-00000002kpW-3ikb;
+	Fri, 02 Oct 2026 15:02:06 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 17:02:05 +1000
+Date: Fri, 2 Oct 2026 17:02:05 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>,
+	Antoine Tenart <atenart@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Richard van Schagen <vschagen@icloud.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCHv2] crypto: eip93 - fix IRQ teardown ordering in remove
+ path
+Message-ID: <ar9W7bxnDVtT_OOI@gondor.apana.org.au>
+References: <20260921231121.63342-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: [PATCH 1/2] nvmet: fix use-after-free of the old registrant in
- nvmet_pr_preempt()
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: "hch@lst.de" <hch@lst.de>, "sagi@grimberg.me" <sagi@grimberg.me>,
-	"kch@nvidia.com" <kch@nvidia.com>
-CC: "kbusch@kernel.org" <kbusch@kernel.org>, "kanie@linux.alibaba.com"
-	<kanie@linux.alibaba.com>, "linux-nvme@lists.infradead.org"
-	<linux-nvme@lists.infradead.org>, "linux-nfs@vger.kernel.org"
-	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <20261002065931epcms2p1cb2c16f98cf3b05f8c859ad92b0ad465@epcms2p1>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261002070200epcms2p593a0aa8ac482e776e8f1de89d9f212ae@epcms2p5>
-Date: Fri, 02 Oct 2026 16:02:00 +0900
-X-CMS-MailID: 20261002070200epcms2p593a0aa8ac482e776e8f1de89d9f212ae
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261002065931epcms2p1cb2c16f98cf3b05f8c859ad92b0ad465
-References: <20261002065931epcms2p1cb2c16f98cf3b05f8c859ad92b0ad465@epcms2p1>
-	<CGME20261002065931epcms2p1cb2c16f98cf3b05f8c859ad92b0ad465@epcms2p5>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921231121.63342-1-rosenp@gmail.com>
 
-nvmet_pr_preempt() handles a preempt sent by the reservation holder by
-changing the reservation type with nvmet_pr_update_reg_attr(), unless
-the reservation is of an All Registrants type.  For the holder that
-helper does not modify the registrant in place: it puts a copy on the
-registrant list, points pr->holder to the copy and passes the old
-registrant to kfree_rcu().
+On Mon, Sep 21, 2026 at 04:11:21PM -0700, Rosen Penev wrote:
+>
+> diff --git a/drivers/crypto/inside-secure/eip93/eip93-main.c b/drivers/crypto/inside-secure/eip93/eip93-main.c
+> index e62785952b0d..cc504590fd0f 100644
+> --- a/drivers/crypto/inside-secure/eip93/eip93-main.c
+> +++ b/drivers/crypto/inside-secure/eip93/eip93-main.c
+> @@ -395,9 +395,21 @@ static int eip93_desc_init(struct eip93_device *eip93)
+>  
+>  static void eip93_cleanup(struct eip93_device *eip93)
+>  {
+> +	/* Stop HW from asserting IRQ first */
+> +	eip93_irq_clear(eip93, EIP93_INT_ALL);
+> +	eip93_irq_disable(eip93, EIP93_INT_ALL);
 
-If the reservation type changed, nvmet_pr_preempt() then hands
-&reg->hostid of that old registrant to nvmet_pr_resv_released().  Unless
-the reservation released notification is masked, that function takes
-subsys->lock and compares the host id against every controller of the
-subsystem.  The caller only holds pr->pr_sem and is not in an RCU
-read-side critical section, so nothing keeps the old registrant alive
-while it is read.
+What's the point of this since the tasklet can undo it at any time?
+IOW why not just get rid of these two lines and only do them after
+the tasklet_kill call?
 
-The result is a read of 16 freed bytes that decides which controllers
-get the notification.  Found by code inspection.  kfree_rcu() defers
-the free, so it usually happens after the read; when the pending free
-is forced to run before the read, KASAN reports the host id as freed
-memory.
+> +
+> +	/* Synchronize and unregister the IRQ handler */
+> +	free_irq(eip93->irq, eip93);
+> +
+> +	/* Drain any tasklet scheduled before the IRQ was disabled */
+>  	tasklet_kill(&eip93->ring->done_task);
+>  
+> -	/* Clear/ack all interrupts before disable all */
+> +	/*
+> +	 * The tasklet re-enables the RDR interrupt when it drains the
+> +	 * result ring, so mask the device interrupts again before the
+> +	 * hardware is switched off.
+> +	 */
+>  	eip93_irq_clear(eip93, EIP93_INT_ALL);
+>  	eip93_irq_disable(eip93, EIP93_INT_ALL);
+>  
+> @@ -430,12 +442,6 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+>  	if (eip93->irq < 0)
+>  		return eip93->irq;
+>  
+> -	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
+> -					NULL, IRQF_ONESHOT,
+> -					dev_name(eip93->dev), eip93);
+> -	if (ret)
+> -		return ret;
+> -
+>  	ret = eip93_desc_init(eip93);
+>  	if (ret)
+>  		return ret;
+> @@ -448,6 +454,11 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+>  	spin_lock_init(&eip93->ring->idr_lock);
+>  	idr_init(&eip93->ring->crypto_async_idr);
+>  
+> +	ret = request_irq(eip93->irq, eip93_irq_handler, 0,
+> +			  dev_name(eip93->dev), eip93);
+> +	if (ret)
+> +		goto err_free_tasklet;
 
-Pass the host id of the controller that sent the command instead.  The
-registrant was looked up by that host id, and the controller outlives
-the request.
+Going from a threaded handler to a legacy handler seems to be
+a step backward, even if this driver didn't make use of the
+threaded functionality.
 
-Fixes: 5a47c2080a73 ("nvmet: support reservation feature")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
----
+What about getting rid of the tasklet altogether and just using
+the threaded IRQ handler directly, that too would kill the race
+condition, right?
 
-Notes:
-    The KASAN report came from this change on top of the base commit, which
-    forces the pending free and then checks the pointer that is handed to
-    nvmet_pr_resv_released():
-    
-     		status = nvmet_pr_update_reg_attr(pr, holder,
-     				nvmet_pr_update_holder_rtype, &rtype);
-    +		kvfree_rcu_barrier();
-    +		kasan_check_read(&reg->hostid, sizeof(reg->hostid));
-     		if (!status && original_rtype != rtype)
-     			nvmet_pr_resv_released(pr, &reg->hostid);
-    
-    A holder that preempts itself with another reservation type then gives:
-    
-      BUG: KASAN: slab-use-after-free in nvmet_pr_preempt.isra.0+0x462/0xa50
-      Read of size 16 at addr ff110001113bb088 by task kworker/u32:0/12
-      ...
-      Allocated by task 12:
-       ...
-       nvmet_execute_pr_register+0x1f4/0x1130
-      ...
-      Freed by task 864:
-       ...
-       __rcu_free_sheaf_prepare+0x61/0x230
-       rcu_free_sheaf_nobarn+0x1d/0x50
-       rcu_core+0x691/0x1e20
-    
-    The free in this report is the one forced by the added barrier.  The
-    same two lines with &ctrl->hostid on top of this patch give no report.
+> @@ -472,6 +483,12 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+>  		 readl(eip93->base + EIP93_REG_PE_OPTION_0));
+>  
+>  	return 0;
+> +
+> +err_free_tasklet:
+> +	idr_destroy(&eip93->ring->crypto_async_idr);
+> +	tasklet_kill(&eip93->ring->done_task);
 
- drivers/nvme/target/pr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This seems weird.  You can only get here if request_irq fails,
+how can you schedule a tasklet in that case?
 
-diff --git a/drivers/nvme/target/pr.c b/drivers/nvme/target/pr.c
-index 09d8c63f5..bfd5447f6 100644
---- a/drivers/nvme/target/pr.c
-+++ b/drivers/nvme/target/pr.c
-@@ -589,7 +589,7 @@ static u16 nvmet_pr_preempt(struct nvmet_req *req,
- 		status = nvmet_pr_update_reg_attr(pr, holder,
- 				nvmet_pr_update_holder_rtype, &rtype);
- 		if (!status && original_rtype != rtype)
--			nvmet_pr_resv_released(pr, &reg->hostid);
-+			nvmet_pr_resv_released(pr, &ctrl->hostid);
- 		return status;
- 	}
- 
+Cheers,
 -- 
-2.43.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
