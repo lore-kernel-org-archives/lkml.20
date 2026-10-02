@@ -1,81 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCE7456E04;
-	Fri,  2 Oct 2026 12:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0453FC5CD;
+	Fri,  2 Oct 2026 12:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945203; cv=none; b=YtW7p/ZFH7VpxUTaaf40VNERD+FmYqrXv4h8oaJDv6Oz2pkejFW9oJPZEPrNvH2MQXf8TB12mil97lJcpf3Q6T+egyMeh3m+27M9/S49/ImHDAFoiJknHe0+FpZv1HsJNKGCXBdABXrK2o/eslD4BXuRX33hQofb5j9a+EEtL+o=
+	t=1790945247; cv=none; b=ry3HZl3wNCJ24tHeJ/sv0HmhtU+gjCeoThlWHuiyQdAUo1e0SixK/PM5kOM/F6uOzZigPt7l1IQUof5TGpRfSkzA2BUcDO6hlV3kQ8vxsbALUJKYl+rLLpy49Ax+9FMovliS72lKFyHomA6xbXbIc+m9iY7JlVI52Ih39eOoyA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945203; c=relaxed/simple;
-	bh=JQxR4eGGYbKJwHhbYpIJsQpaBxAF5zzb4gtTpnFDNTY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lkDAj9oFunIjgnCzV6s1oFnZf/EnMHNud/KakMK9Gp7zeDRDjZvCpMvqtvPUXymqaqfL1QUG5I0WgreOiSyoEyXqO2TonrMfE4YrCnInIY/ffD+Zbiz9ktXLhrXA5QSFaX3/SJhbNmig8xE4NsmyoIV9LMWLE702MpoTUncPiCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwCP57dZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwCP57dZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A431F000FF;
-	Fri,  2 Oct 2026 12:46:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945201;
-	bh=AqUEVR1oYCfboeWUpeYHEayLw0kUQOKUQHYOMXYnCKk=;
-	h=From:To:Cc:Subject:Date;
-	b=ZwCP57dZaSZHoXZtSx8OhvflHTqNOpbCC2OEf9FlbSNE/oHqW8Ih3LDPW4EkrojGj
-	 JKOz8xbSApfjn8rGsoJIqKfP6H+GKM6KsipzgZi2RVnVv9VHa18ie9R/EXiPGt+GIu
-	 vBkwwY9aTV6Qr8WjAsFh/nreuf7tYnfaUB8ll/Si/DjMfu6MsoorsGPB++EAIR7nA4
-	 IndJX7zIiybSTRMGSyU9mHzWXpSPeF2gtUVhbhaj+sBBjmM26ltvZouCrrEL3o6Opb
-	 wztZ3Ase7MrPoOc5/NWcTuzGELoxuyo/kWKli9mLAohImUPRr661hwDByl9VqHLxTP
-	 ChJmfXV4Gk9MQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Linus Walleij <linusw@kernel.org>,
-	Long Zhao <longzhao@ambarella.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	=?UTF-8?q?Beno=C3=AEt=20Monin?= <benoit.monin@bootlin.com>,
-	Benjamin Boortz <bennib@mailbox.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Johan Hovold <johan@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: ambarella: add CONFIG_OF dependency
-Date: Fri,  2 Oct 2026 14:46:20 +0200
-Message-ID: <20261002124636.3514597-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1790945247; c=relaxed/simple;
+	bh=AHVx/Q1GmZhBuPUNmnAr3l6u5ZYKy+cNTxNKgGbss5U=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=CPuD7H6iJiPpZqp1fV5JgqTH1i7x5OaSP6zMCst9GoO386hFeReMHsYNk14FuBz1i7TyQrzjnbrIp11eR9J8pD+51Eq2tsbGPyVEqfi4V14GPJIBsf5YmwnvM3flxiPEh10CfUk7HZbu3cykL3HWdcs45VeQGPiFOjeu8+i1KMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xCcfP-0000000039f-3IYK;
+	Fri, 02 Oct 2026 12:47:11 +0000
+Date: Fri, 2 Oct 2026 13:47:08 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Hendrik Noack <hendrik-noack@gmx.de>, Arnd Bergmann <arnd@arndb.de>,
+	Ferass El Hafidi <funderscore@postmarketos.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Oleh Kuzhylnyi <kuzhylol@gmail.com>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Chad Monroe <chad@monroe.io>, John Crispin <john@phrozen.org>
+Subject: [PATCH v2 0/5] Input: hynitron-cst816x: axes, gesture keys and panel
+ power
+Message-ID: <cover.1790944534.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Arnd Bergmann <arnd@arndb.de>
+This series improves the hynitron-cst816x touchscreen driver. It makes
+the driver respect the common touchscreen axis properties, which are
+now documented in the binding as well, it keeps gesture keys from
+getting stuck, and it lets the controller follow the panel it is
+mounted on.
 
-On randconfig builds without CONFIG_OF, this driver fails to link:
+The gesture key is reported with the controller's touch flag as its
+value, so the key stays pressed once the controller stops reporting
+the gesture code. The controller has no lift event to offer, so the
+keys are now released on the first report carrying no gesture code, or
+40 ms after the last one that carried a code, whichever comes first.
 
-x86_64-linux-ld: vmlinux.o: in function `pinconf_generic_dt_node_to_map_all':
-pinctrl-ambarella.c:(.text+0x54cdf0): undefined reference to `pinconf_generic_dt_node_to_map'
+Boards which mount the controller on the panel feed it from the
+panel's rail, so the reset and the interrupt now wait for the panel to
+be prepared, which the common 'panel' phandle asks for.
 
-Enforce OF as a dependency as we do for other such drivers.
+Changes since v1:
+- the binding allows touchscreen-min-x/y, touchscreen-size-x/y and
+  touchscreen-fuzz-x/y as well, which touchscreen_parse_properties()
+  already honours; the 240x240 default is unchanged
+- the binding allows the 'panel' phandle, and patch 5 is new: it
+  follows the panel's power sequence
+- the binding commit message carries a justification (Conor Dooley)
+- keycodes above KEY_MAX are rejected, which keeps the gesture key
+  lookup inside the input core's key bitmap (Sashiko AI review)
+- the timed release is skipped when the interrupt handler re-armed the
+  timer while the timer callback waited for the lock (Sashiko AI
+  review)
+- the Sashiko AI review also asked about additionalProperties next to
+  a $ref, which stays, as this binding allows a subset of
+  touchscreen.yaml (writing-schema.rst)
 
-Fixes: b40e9d140c24 ("pinctrl: ambarella: add CV75 pin controller")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/pinctrl/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Link: https://lore.kernel.org/r/cover.1790851590.git.daniel@makrotopia.org
 
-diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-index 6fe53a684dc0..83f68bdd951a 100644
---- a/drivers/pinctrl/Kconfig
-+++ b/drivers/pinctrl/Kconfig
-@@ -41,6 +41,7 @@ config PINCTRL_AMB
- 	bool "Ambarella pin controller support"
- 	depends on ARCH_AMBARELLA || COMPILE_TEST
- 	depends on HAS_IOMEM
-+	depends on OF
- 	default y if ARCH_AMBARELLA
- 	select GENERIC_PINCONF
- 	select GENERIC_PINCTRL_GROUPS
+Daniel Golle (5):
+  dt-bindings: input: touchscreen: hynitron,cst816x: axes and panel
+  Input: hynitron-cst816x: respect touchscreen DT properties
+  Input: hynitron-cst816x: release gesture keys
+  Input: hynitron-cst816x: time out gesture key release
+  Input: hynitron-cst816x: power sequence with the panel
+
+ .../input/touchscreen/hynitron,cst816x.yaml   |  16 ++
+ drivers/input/touchscreen/Kconfig             |   2 +
+ drivers/input/touchscreen/hynitron-cst816x.c  | 182 +++++++++++++++---
+ 3 files changed, 171 insertions(+), 29 deletions(-)
+
+
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
 -- 
-2.53.0
-
+2.55.0
