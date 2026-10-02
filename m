@@ -1,148 +1,293 @@
-Received: from mail.adriel.eu (mail.adriel.eu [51.75.77.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4681531716D;
-	Fri,  2 Oct 2026 16:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.75.77.166
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61F374E0B78
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790958027; cv=none; b=M9u8STo11/2/QEnbrL8YIBQwxEc+HLf25vuzbJds+jC+gYXzbgCGraUJFf36dO16NoRW61AvsIoEX4DiGYfal8Tk6TH9n5RPwO6JXb1Tt81t64MB7sPX7vSmsJqWJ6GTN3TolGsHbGKW5NI1ZGfDUktwfL3DMB7QQPzDGyL61sc=
+	t=1790958085; cv=none; b=jmfyuBTqKkVDw4XbRApa/1NnFMG+C//DapVezjCJdjG7qI7QfufIRoeulLuIP2FTltCZWGKPmNfgOWjnvR3p8aLMIq281ePD1q9zFEN+13CJk9vJzdqFwDw841M70PgMZnNiwdslPjAMahzsQ82yaTpt+m+PIsJtZnaslNLvGvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790958027; c=relaxed/simple;
-	bh=kGwamAOcW69QieVU0Eb5n3DQQ18Its6iwsGa4DSTG+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k0Up4AOvLbSBPO6I10U01JY1wJllILi/I6EYwYPKijjB337Q7SHJ4AGEX6ZrAJcAqVmVvYIe+Dj6mHtnB+PlF+sebZEzPcI94Wba+MOf4DTn5j5KHbCVU3Znjuwim98ZtLJSZh0n8ztk6Q17o/ZzEVcWuFEt03eu9e5B+sv9uMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adriel.eu; spf=pass smtp.mailfrom=adriel.eu; dkim=pass (2048-bit key) header.d=adriel.eu header.i=@adriel.eu header.b=fZFBEGoQ; arc=none smtp.client-ip=51.75.77.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adriel.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=adriel.eu
+	s=arc-20240116; t=1790958085; c=relaxed/simple;
+	bh=EYCHNwLbd3FNIDPR3reQ4ONA0wMTkDrOokTErY8y4V4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BnX3jjNqE6aJW53HFYXc4/D5IqMEMb2bdN+qKy7mni4LNXuPF2FNr2Dlbh1aqvlmgsCBcPyj4eu8nYXqebpLgEabi2aiBYEGDjTeve43UMUitfcDLLRpwAcRTkUyZMS7inxVrAxu2v3gk/uxA35457ezdWR11yniUc8GXey8ROw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=olcmUA92; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=adriel.eu header.i=@adriel.eu header.b="fZFBEGoQ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1020F261ACF;
-	Fri, 02 Oct 2026 12:11:44 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adriel.eu; s=dkim;
-	t=1790957510; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=rT6Ok/TgsDsjnHJNnNtEOfsiLGxANnzqLzd/ug7vm/s=;
-	b=fZFBEGoQ2HSiEJgD6RIFFwytlm9LB/v0DbiugHciPs+Uwul3i0zKpaxUViyaXX6lBd2Afy
-	8+3sC8KhlmTkErPYnKecKn9KqEAawrZiBSgIVB1j/r151nBpGIgxwZoi5nDaUBKAFjFP6/
-	I//rjUXgO+1w3Cf9RzNj2LB4NULNKtQ9mv7Mu59M+36/dXRLuQHq7h+Hg6Ds7Q3Fe3suD1
-	SQkuirFZWt50JHQB2QPmVtxZOd5soxYLayVe3xG1f8U1LPGf3ZsLG3+WtWdNLwpZAJS2gB
-	5IJuG655JBSJCZd6aEL9XIqaOXi7Z4ZGLm66P0hR2vJHLytx6qgc57AmYE0Xlg==
-From: Adriel Santos <adriel@adriel.eu>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-	Nitheesh Sekar <quic_nsekar@quicinc.com>,
-	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Gilberto Conde <gilbertorconde@gmail.com>,
-	George Moussalem <george.moussalem@outlook.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: qcom: ipq5018: replace gcc_plltest with pwm2 on gpio12
-Date: Fri,  2 Oct 2026 13:09:58 -0300
-Message-ID: <20261002160958.908424-1-adriel@adriel.eu>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="olcmUA92"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52B252F;
+	Fri,  2 Oct 2026 09:21:18 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EEB003F86F;
+	Fri,  2 Oct 2026 09:21:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790958081; bh=EYCHNwLbd3FNIDPR3reQ4ONA0wMTkDrOokTErY8y4V4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=olcmUA92VImZqoHucFH9jJErBKuWGpxulrDFs6b9vsSgvv2YZSgnblb2DLCm95NSa
+	 +To8qzdoedK9DlFM+0OU9zmP7vUhZnvaMG6n+ELx31fY7f4rcQ3L4pUn6FiKvJx83y
+	 /4YNsAqYITtBT+t6KRM4vH96VpJaff87v4JKMymE=
+Message-ID: <18c9b030-8dc6-4242-8e66-0448ee125d7d@arm.com>
+Date: Fri, 2 Oct 2026 17:21:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/16] iommu/dma: Prepare MSI physical address lists
+To: Andrew Jones <andrew.jones@oss.qualcomm.com>,
+ linux-riscv@lists.infradead.org, iommu@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
+ tjeznach@rivosinc.com, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
+ will@kernel.org, pjw@kernel.org, palmer@dabbelt.com, anup@brainfault.org,
+ tglx@kernel.org, kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
+References: <20260925151659.419512-1-andrew.jones@oss.qualcomm.com>
+ <20260925151659.419512-2-andrew.jones@oss.qualcomm.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260925151659.419512-2-andrew.jones@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The pingroup table has gcc_plltest at function 5 of gpio12 and does not
-offer pwm2 on that pin, so the pinmux core rejects a request for pwm2 on
-gpio12 as an invalid group. On the hardware, function 5 of gpio12
-carries the PWM2 output: the Xiaomi AX3000T v2 drives its blue status
-LED from PWM2 on gpio12.
+On 25/09/2026 4:16 pm, Andrew Jones wrote:
+> Software MSI mappings may cover an ordered list of physical addresses
+> which must be mapped into one contiguous IOVA range. Extend the internal
+> DMA-IOMMU mapping helpers to accept an address array, address count, and
+> required mapping granule.
+> 
+> Teach iommu_dma_get_msi_page() to map the list into one contiguous IOVA
+> allocation. Keep the existing per-page cache entries and mark the first
+> entry with the size of the allocation so an identical list can reuse the
+> mapping without changing the existing cache representation.
+> 
+> This prepares for the forthcoming iommu_dma_prepare_msi_list() API.
 
-The vendor kernel shipped on that router (Linux 4.4, stock firmware
-2.0.28) has pwm2 in this slot. Its pingroup table, as read from the
-firmware image, lists these functions for gpio12:
+Sorry, but this looks pretty bonkers, even before we get to patch #8. 
+You already end up adding what is effectively a RISC-V-specific 
+entrypoint, so you may as well just carry that all the way through to 
+its own effectively RISC-V-specific implementation, without making an 
+unmaintainable mess of the existing code.
 
-  gpio, blsp0_spi, blsp0_i2c, blsp1_uart0, _, pwm2, qdss_tracedata_a,
-  _, _, _
+The current design for both DMA_IOVA and DMA_MSI cookies is based on the 
+(Arm-centric) notion that different devices may be associated with 
+different MSI controllers that are independent of each other, so we only 
+map what we know we need (and have a way to get the address of at all), 
+and the list lookup is to save redundant mappings and IOVA space when 
+devices do happen to share. Your requirement is almost the complete 
+opposite, where *any* device needs *every* possible MSI controller 
+mapped up-front, plus the MSI controller driver has to be in on this 
+notion too, so it really doesn't fit the same logic well at all. In fact 
+IIUC it should be far simpler - you shouldn't need a list, nor even 
+really care about the addresses, it should merely be a case of whether 
+a) this is the first call for the given cookie so everything needs 
+mapping, or b) it's not the first call, so everything must already be 
+mapped and we can just return the IOVA. If trying to cram these opposing 
+notions down the same path results in a bunch of weird complexity for 
+pretending to support distinct and overlapping values of "everything", 
+which neither case needs, that seems like a pretty clear sign of it 
+being a bad idea IMO.
 
-and has pwm3 at function 4 of gpio13, matching commit c6c159fcdb4e
-("pinctrl: qcom: ipq5018: add missing pwm3 function on gpio13").
+Note that since the core cookie rework, untangling the DMA_MSI 
+implementation from DMA_IOVA has been on the table, at which point 
+adding more top-level types of MSI-only cookies would clearly be 
+straightforward. However for DMA_IOVA that could end up getting a bit 
+combinatorial, and keeping an internal sub-type (like for flush queues) 
+would probably be simpler, so it may well make sense to take the latter 
+approach for both, at least to start with. But getting rid of those odd 
+special cases in iommu_dma_{alloc,free}_iova() and the clunkiness of 
+cookie_msi_{granule,pages}() would still be nice either way...
 
-Measured on the board: with gpio12 set to each of the 16 function
-values in turn, and PWM2 held at 0% and then at 100% duty, the pad
-level read back from GPIO_IN follows PWM2 only at function 5. There it
-does not follow PWM channels 0, 1 or 3, and the LED switches with PWM2.
-Functions 4 and 7, which the table leaves empty, do not carry PWM2.
+At very worst, a separate hook to just pre-populate msi_page_list with a 
+regular page for each IMSIC address, such that the existing reuse 
+mechanism keeps working as-is, could probably suffice without any other 
+major structural changes; it's only really the IOVA allocation and the 
+fact that it all has to be done under a single lock acquisition that's 
+special.
 
-Put pwm2 in function 5 of gpio12 and list gpio12 in pwm2_groups. Drop
-gpio12 from gcc_plltest_groups: none of its functions is gcc_plltest
-any more, and selecting it would trigger the WARN_ON() in
-msm_pinmux_set_mux().
+Thanks,
+Robin.
 
-Fixes: 725d1c891658 ("pinctrl: qcom: Add IPQ5018 pinctrl driver")
-Assisted-by: LLM
-Signed-off-by: Adriel Santos <adriel@adriel.eu>
----
-
-Notes:
-    - The vendor table was read from the stock kernel image: each pingroup
-      descriptor was found by its register offsets (0xc000 for gpio12), and
-      its function array decoded with the image's own function name table.
-      That table still lists gpio12 in gcc_plltest_groups, which this patch
-      drops for the reason given above.
-    - George Moussalem's OpenWrt port of this board first put pwm2 on gpio12
-      at function 7. At function 7, and at function 4 (pwm3's slot on
-      gpio13), the pad stays high at both 0% and 100% duty, which is why the
-      message mentions those two.
-    - This applies on top of George's "pinctrl: qcom: ipq5018: update PWM
-      groups and corresponding pin functions", which Bartosz has applied for
-      v7.3; the two touch different pins.
-    - Tested on the Xiaomi AX3000T v2 with an OpenWrt 6.18 kernel carrying
-      the same table change: the blue LED (pwm2 on gpio12) and the yellow
-      LED (pwm3 on gpio13) switch with their PWM channels. This patch was
-      build-tested on pinctrl-qcom/for-current (arm64, W=1, built-in and as
-      a module). It has not been booted on a mainline kernel.
-    - Prepared with an AI coding assistant (Claude). It found the mismatch
-      while I was bringing up the board, wrote the measurement and
-      table-decoding scripts, and drafted the change and this message. I
-      confirmed the LED behaviour on the hardware and reviewed the change
-      and the evidence.
-
- drivers/pinctrl/qcom/pinctrl-ipq5018.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/pinctrl/qcom/pinctrl-ipq5018.c b/drivers/pinctrl/qcom/pinctrl-ipq5018.c
-index 84392fe258..28b23bb5e1 100644
---- a/drivers/pinctrl/qcom/pinctrl-ipq5018.c
-+++ b/drivers/pinctrl/qcom/pinctrl-ipq5018.c
-@@ -361,7 +361,7 @@ static const char * const blsp1_uart0_groups[] = {
- };
- 
- static const char * const gcc_plltest_groups[] = {
--	"gpio10", "gpio12",
-+	"gpio10",
- };
- 
- static const char * const gcc_tlmm_groups[] = {
-@@ -555,7 +555,7 @@ static const char * const qdss_cti_trig_in_b0_groups[] = {
- };
- 
- static const char * const pwm2_groups[] = {
--	"gpio44",
-+	"gpio12", "gpio44",
- };
- 
- static const char * const qdss_cti_trig_out_b1_groups[] = {
-@@ -688,7 +688,7 @@ static const struct msm_pingroup ipq5018_groups[] = {
- 	PINGROUP(9, sdc1_clk, qspi_clk, _, qdss_tracedata_a, _, _, _, _, _),
- 	PINGROUP(10, blsp0_spi, blsp1_uart0, led0, gcc_plltest, qdss_tracedata_a, _, _, _, _),
- 	PINGROUP(11, blsp0_spi, blsp1_uart0, _, gcc_tlmm, qdss_tracedata_a, _, _, _, _),
--	PINGROUP(12, blsp0_spi, blsp0_i2c, blsp1_uart0, _, gcc_plltest, qdss_tracedata_a, _, _, _),
-+	PINGROUP(12, blsp0_spi, blsp0_i2c, blsp1_uart0, _, pwm2, qdss_tracedata_a, _, _, _),
- 	PINGROUP(13, blsp0_spi, blsp0_i2c, blsp1_uart0, pwm3, qdss_tracedata_a, _, _, _, _),
- 	PINGROUP(14, pcie0_clk, _, _, cri_trng0, qdss_tracedata_a, _, _, _, _),
- 	PINGROUP(15, _, _, cri_trng1, qdss_tracedata_a, _, _, _, _, _),
-
-base-commit: 19fc4240358be2a25ce8e0a49a2819588ed61c5d
--- 
-2.47.3
+> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+> Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> ---
+>   drivers/iommu/dma-iommu.c | 116 +++++++++++++++++++++++++++++---------
+>   1 file changed, 88 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 58c624513cd4..0b4eb47d1a95 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -42,6 +42,7 @@ struct iommu_dma_msi_page {
+>   	struct list_head	list;
+>   	dma_addr_t		iova;
+>   	phys_addr_t		phys;
+> +	size_t			range_size; /* IOVA range size, or 0 if not the first map */
+>   };
+>   
+>   enum iommu_dma_queue_type {
+> @@ -481,7 +482,7 @@ static int cookie_init_hw_msi_region(struct iommu_dma_cookie *cookie,
+>   	num_pages = iova_align(iovad, end - start) >> iova_shift(iovad);
+>   
+>   	for (i = 0; i < num_pages; i++) {
+> -		msi_page = kmalloc_obj(*msi_page);
+> +		msi_page = kzalloc_obj(*msi_page);
+>   		if (!msi_page)
+>   			return -ENOMEM;
+>   
+> @@ -2191,15 +2192,42 @@ static struct list_head *cookie_msi_pages(const struct iommu_domain *domain)
+>   	}
+>   }
+>   
+> +static bool iommu_dma_msi_range_matches(struct list_head *msi_page_list,
+> +					const struct iommu_dma_msi_page *base_page,
+> +					const phys_addr_t *phys_addrs,
+> +					unsigned int nr_addrs, size_t granule)
+> +{
+> +	const struct iommu_dma_msi_page *msi_page;
+> +	unsigned int nr_found = 0;
+> +	dma_addr_t offset;
+> +
+> +	list_for_each_entry(msi_page, msi_page_list, list) {
+> +		if (msi_page->iova < base_page->iova)
+> +			continue;
+> +		offset = msi_page->iova - base_page->iova;
+> +		if (offset >= base_page->range_size)
+> +			continue;
+> +		if (!IS_ALIGNED((size_t)offset, granule) ||
+> +		    msi_page->phys != phys_addrs[(size_t)offset / granule])
+> +			return false;
+> +		nr_found++;
+> +	}
+> +
+> +	return nr_found == nr_addrs;
+> +}
+> +
+>   static struct iommu_dma_msi_page *iommu_dma_get_msi_page(struct device *dev,
+> -		phys_addr_t msi_addr, struct iommu_domain *domain)
+> +		const phys_addr_t *phys_addrs, unsigned int nr_addrs, size_t granule,
+> +		struct iommu_domain *domain)
+>   {
+>   	struct list_head *msi_page_list = cookie_msi_pages(domain);
+> -	struct iommu_dma_msi_page *msi_page;
+> -	dma_addr_t iova;
+> +	struct iommu_dma_msi_page *msi_page, *first_page = NULL;
+>   	int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
+> -	size_t size = cookie_msi_granule(domain);
+>   	static DEFINE_MUTEX(msi_prepare_lock);
+> +	LIST_HEAD(new_msi_pages);
+> +	dma_addr_t base_iova;
+> +	unsigned int i;
+> +	size_t size;
+>   
+>   	/*
+>   	 * Normally a device's default domain is only ever attached to that
+> @@ -2213,32 +2241,60 @@ static struct iommu_dma_msi_page *iommu_dma_get_msi_page(struct device *dev,
+>   	 */
+>   	guard(mutex)(&msi_prepare_lock);
+>   
+> -	msi_addr &= ~(phys_addr_t)(size - 1);
+> -	list_for_each_entry(msi_page, msi_page_list, list)
+> -		if (msi_page->phys == msi_addr)
+> +	if (!nr_addrs || nr_addrs > SIZE_MAX / granule)
+> +		return NULL;
+> +	size = nr_addrs * granule;
+> +
+> +	list_for_each_entry(msi_page, msi_page_list, list) {
+> +		if (msi_page->phys != phys_addrs[0])
+> +			continue;
+> +		if (nr_addrs == 1)
+> +			return msi_page;
+> +		if (msi_page->range_size == size &&
+> +		    iommu_dma_msi_range_matches(msi_page_list, msi_page, phys_addrs,
+> +						nr_addrs, granule))
+>   			return msi_page;
+> +	}
+>   
+> -	msi_page = kzalloc_obj(*msi_page);
+> -	if (!msi_page)
+> -		return NULL;
+> +	for (i = 0; i < nr_addrs; i++) {
+> +		msi_page = kzalloc_obj(*msi_page);
+> +		if (!msi_page)
+> +			goto out_free_pages;
+> +		list_add_tail(&msi_page->list, &new_msi_pages);
+> +	}
+>   
+> -	iova = iommu_dma_alloc_iova(domain, size, dma_get_mask(dev), dev);
+> -	if (!iova)
+> -		goto out_free_page;
+> +	base_iova = iommu_dma_alloc_iova(domain, size, dma_get_mask(dev), dev);
+> +	if (!base_iova)
+> +		goto out_free_pages;
+>   
+> -	if (iommu_map(domain, iova, msi_addr, size, prot, GFP_KERNEL))
+> -		goto out_free_iova;
+> +	i = 0;
+> +	list_for_each_entry(msi_page, &new_msi_pages, list) {
+> +		msi_page->phys = phys_addrs[i];
+> +		msi_page->iova = base_iova + i * granule;
+> +		if (!i)
+> +			first_page = msi_page;
+> +		if (iommu_map(domain, msi_page->iova, msi_page->phys, granule, prot, GFP_KERNEL))
+> +			goto out_unmap;
+> +		i++;
+> +	}
+>   
+> -	INIT_LIST_HEAD(&msi_page->list);
+> -	msi_page->phys = msi_addr;
+> -	msi_page->iova = iova;
+> -	list_add(&msi_page->list, msi_page_list);
+> -	return msi_page;
+> +	first_page->range_size = size;
+> +	list_splice(&new_msi_pages, msi_page_list);
+> +	return first_page;
+>   
+> -out_free_iova:
+> -	iommu_dma_free_iova(domain, iova, size, NULL);
+> -out_free_page:
+> -	kfree(msi_page);
+> +out_unmap:
+> +	if (i) {
+> +		size_t unmap = iommu_unmap(domain, base_iova, i * granule);
+> +
+> +		WARN_ON_ONCE(unmap != i * granule);
+> +	}
+> +	iommu_dma_free_iova(domain, base_iova, size, NULL);
+> +out_free_pages:
+> +	while (!list_empty(&new_msi_pages)) {
+> +		msi_page = list_first_entry(&new_msi_pages, typeof(*msi_page), list);
+> +		list_del(&msi_page->list);
+> +		kfree(msi_page);
+> +	}
+>   	return NULL;
+>   }
+>   
+> @@ -2247,19 +2303,23 @@ int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+>   {
+>   	struct device *dev = msi_desc_to_dev(desc);
+>   	const struct iommu_dma_msi_page *msi_page;
+> +	phys_addr_t phys_addr;
+> +	size_t granule;
+>   
+>   	if (!has_msi_cookie(domain)) {
+>   		msi_desc_set_iommu_msi_iova(desc, 0, 0);
+>   		return 0;
+>   	}
+>   
+> +	granule = cookie_msi_granule(domain);
+> +	phys_addr = ALIGN_DOWN(msi_addr, granule);
+> +
+>   	iommu_group_mutex_assert(dev);
+> -	msi_page = iommu_dma_get_msi_page(dev, msi_addr, domain);
+> +	msi_page = iommu_dma_get_msi_page(dev, &phys_addr, 1, granule, domain);
+>   	if (!msi_page)
+>   		return -ENOMEM;
+>   
+> -	msi_desc_set_iommu_msi_iova(desc, msi_page->iova,
+> -				    ilog2(cookie_msi_granule(domain)));
+> +	msi_desc_set_iommu_msi_iova(desc, msi_page->iova, ilog2(granule));
+>   	return 0;
+>   }
+>   
 
