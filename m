@@ -1,258 +1,138 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021136.outbound.protection.outlook.com [52.101.95.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC483E316B;
-	Fri,  2 Oct 2026 21:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.136
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976714; cv=fail; b=VHaRAIqZRMnp4oWkfjvPa1/y6HdO1b7IOfUqv9ihjf7mkPCfU48X75qYQnNnFult9+r+RPJLTh5ljWmFdViose/AfgdiLe/L/bP6YqPfq8xotKs7u5SOtGIBsIMCp2QgfibjDeuPUK91y6OXMuOhj9nbVICLnTk8cSrtRKGi9jA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976714; c=relaxed/simple;
-	bh=Q9+ph5kGSQRbYvw8rq8nkycPe0eSh7I01fpVHKxaujI=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=AK9N6FNR/igtB9ldeZdgAR5W5LBFXU/yAP5Sbx17X8ttV3T8eM2lW393KyZNEUfgMAR79ASgN85EItHfsplvneRA7weVryBbNvxGDzdQ7oZm9+j/iXgG2SAWLd/HHeTHgw9Ke8hnK4gZqLwgYCamnFGdmPFTxGw3eXhAkeQ3neE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PkgsYBUEiTdimLYre2sNesvmIUmdTfXX2XJcECxLGw2hRBeAUZQYmfv10FtqUJSdej/0bXYS+Y18Sbnt00pP6EDtSKmt3x1SwH/qFh8E68xTQa5W7YL3177XQmEpxaynB6dFqpojZRUm5dajvTxKwYQUIpe/jX08h5O90uqkFULM//woyUvPAk+SpOpUMiFY2ms1imar0iu1YgvIxy/rD7NRGaQvv6eVDHquY/wiurYR5UNYacNGtvQRA8TJGCaZZ8ribhiDNaIFP6WSLCHRT84u+NdcpI6JCEkamQuklealPJNR3AShKI0q0ox+2+LfgHeSI9ppDmPUKlglJNjJ2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=AEY9HUsxJ+b4G7usFFn6f1hdprCWJSIMXifOADMEcgk=;
- b=sbC5xONavaJVx/agDwYXUsbO/woz00pF69T2O8v8RYNg45bKWgDl8E9+Zpt/zYoqx/OldtbnT5uOUySfzzHO1m+NeA9ip4DxKsk3Oc0HV03AVsn23oQUQM4bjev4+kwyRk3cdkkahpHLxou1hL3nHGnwhE9zdHUr6ck1yQa8s4yPPPqGR8SQBumhUX4cim5Om3r53iSeEkG6B4JbyM+KEKomJRXG+Y9J3jfFTxOg9g4MNNwu5NhD47tpELlLEMBl/EfYRq4l3dAPI8XHT/gKhNbysVQTzN2bO5Yq6RayDQYzp27LWxKXOhL4LVVtjde9M3u5iT7TALspOtsqzcaS3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by CW1P123MB7791.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:248::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Fri, 2 Oct
- 2026 21:31:49 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 21:31:48 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org
-Cc: mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	atomlin@atomlin.com,
-	linux-perf-users@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73983A83B1
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:32:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790976762; cv=none; b=JkQvHS5+p/Zz5h3ctieRuCNhJ/u1xG2vL1SOdZo0UVJrky1QfSN3EDB21V7HYH7MANDbFqixCNMpRk/Es4y4UK1VRzGfmDw7tUB2U5kQNjnWhg6ln42MyPqFR2+f8caFdXUPR4dgZri2wXKo62TbDgMKrjpZLcgGTLnBRGEQcTI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790976762; c=relaxed/simple;
+	bh=x/M1kcpxvSKi4krGnkQAPZbV9dIa2IiLAsV2NlsNxjw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jtNumoQvxl5fzHK5mKTShGFtWch6uir6HMb/Y/DxJlmjj04CRvHiFQJ9aQ1kTUDTehSx5WMZ9mdzJE/xNASyEG/WPvmGBlTEngri4Lh7S0d+N1ksaN3twkgHPyrgyKIn+bCJAx4Zw7Mm4jYLqDxL1gsY5dvrlFuP2K8BxPWS3QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n0dvm9IX; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n0dvm9IX"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so225695f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:32:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790976759; x=1791581559; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fRbVgDYdNJlvmRSpYo0bQrmNNcQh1akysnltqtNjmKU=;
+        b=n0dvm9IXxRkHyw2nrayYWRhRnTRGel8oMBmH5wRCXBdq8opmgXOF3dEBkLmT6TOrdL
+         D80zPuTF9h2mW5x36GlIl0efMdbMvOpE8upjGEnXGFb1n/+j7GyWS7Oe46t6dCBjQBu9
+         EhTM53Az+R4LMTWgjfLUH4HT7t7XVNHZ0rMvTeUWFlZ7XjxI0XPffZB59PkUlvVe5ehK
+         DCYH+3lqVnjskdl6kX+rmf2wjERrYE0XanzJiI38kpDL1UA96Klzsj/3XVpUhX+0EOof
+         BaTMaGAFFFDgIVaL0j7j3mVQf2k0KEqzgDuW3OVrsdrk08oPbSk53h47D7aGigcdS5dn
+         YRRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790976759; x=1791581559;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fRbVgDYdNJlvmRSpYo0bQrmNNcQh1akysnltqtNjmKU=;
+        b=utWw9X+joyXBKEmhtWh0X1CFMEWNAhobFAgejdcgoPY+yOcBffcv5v3kTS3Wmvy6Ih
+         bJqCOWd+t9i7hEArg/ZG2EEkq8x/m+gOKWGgBRaUHlBGdW4n3URs81MzYXzwQt6wgJ11
+         CbQ6nlmPqVa9TxJ6ZsjB5vi8mzwouq3LVi5bznRwL5jsPIlhZc7G+m1U7gG/Er0k8BWH
+         SZO5in/wsG2TCZZCqOBJPpAc9acJuq1ax5psipEz+hK5PzfUiJV7sVWbzqBS83IVTz0W
+         fUsvu5qSfpEvopX1XYa6Mtz93eCRcigF3xkQmlZ3/5N5tWhGGjmQjBRHJJrbJaw4oE+4
+         W98g==
+X-Forwarded-Encrypted: i=1; AKwUvBymKYYUaVIG9IHtlJpsdtMDgt0CDjCtwj8y3LETdZgGmRwYdx89K97SUSAMt9lq/znSR3kVE8LZzb5VI3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2eDArAE67XDPeU4noblYIa2wbnEHnZqeAiMNfq3Qw6Py1UsCf
+	tYdhajRitByzx/Ivp0/92223DvyWQKReYFgqyvg49qMD2kSImPY2Sudw
+X-Gm-Gg: AYBFou0qCIy8fO2eNZlPH5pbkE9RT5MtI0UVey7YEPxTHhboUqVef0XC3JgSFt7oXmk
+	ac81xEtAyyWbWttX+gy/SmJwkDB4xP3M6IU6fsDL43doKJUHhbphS0UUjAtTleP+VhsVFQymr+u
+	OcadM31Q/lw1dBCY1r1B2uGRcnopXo/oLyJQGHSzM/ZJskjg2EhDzEiEYKhnOL7zYQrMX1j+GwG
+	6BaiY05FsgT4XBorDhYWykDAH7zZ00u8TUybH7ela8NiqeW0Mi+S4iYcQwiWK19Gus01UqJwCdR
+	qeU3s21mXzOinMk8Mz/uD3UAzHangzXszD1a9SQ1yJ6rlajGF1hfU6ThPFOKdvXfdtVNOff0U36
+	v+mvlGar/bfqp/7kSKiPM1D5QLnz7wwRQTcHo0+MAuiEf92QYwdz3Hk33Bebxo5zi4537BDlFCO
+	MSdaZrH82RfKsNep+wKCaaq8m4SBCDKOqYRUV9rWNKxOecZkghTeakiGwW9tLk87QKOuILRgoxC
+	xGoZxqNSM9hgrXLKVnW3uv1Oa/T+6OzGjEn0AwSgiNe3X5qUxMJht+87iaqelLmcspYqwIl9cxl
+	kBn25k5Uy/IG+zNurTrPa+3jR4f7QTvZPJokm5AG2nf7swnIQ7+qwrlehmsxZnbOluhUo8H3z+8
+	aOg==
+X-Received: by 2002:a05:600c:310d:b0:49f:c18a:61c8 with SMTP id 5b1f17b1804b1-4a027598d30mr79255705e9.29.1790976758917;
+        Fri, 02 Oct 2026 14:32:38 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-af35-1901-81da-eee8-c2d0-ee3b.310.pool.telefonica.de. [2a02:3100:af35:1901:81da:eee8:c2d0:ee3b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff56136sm41162795e9.3.2026.10.02.14.32.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 14:32:37 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-usb@vger.kernel.org,
+	linux-sh@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] perf trace: Support --bitmask-list with --libtraceevent
-Date: Fri,  2 Oct 2026 17:31:45 -0400
-Message-ID: <20261002213145.333100-1-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MN0PR05CA0023.namprd05.prod.outlook.com
- (2603:10b6:208:52c::14) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+Subject: [PATCH] usb: r8a66597-hcd: fix buffer overflow on odd-length FIFO reads
+Date: Fri,  2 Oct 2026 23:32:25 +0200
+Message-Id: <20261002213225.27834-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB7791:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ef0e1a2-c7fc-4634-1e62-08df20cc90c3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|18002099003|10067099003|3023799007|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	UPPLv4KwL9mRGi3GuKEPJ8BzzLdgv8sFSgcLWs9D+sWIRGR8NufQ7U9Blwq7weJ9/k/l5gvAX4/nzBhpMQoJDwmyUAPSYjJEg+SlXmzfi+LID61oz7sLMjC+4+6k7d0BsTJfHhS2JYyCgPyGGWsgZ0tGHzd+wRQEMpQLkhk1LpvcoZVvCSTZncZ2fKFww2n7hXEs9/lwTwoG19IETd/maFN13XV6BfyWpP+uxkt2az5Gog6m0ZQPQ3MPJxWmHjdBQbbjp58GuI3l2uNgzUvkKM2LpNqTl4kGqb7nDHE0xmJxgXgHoOK0h1YrwTjxTOOsia+0VGxSV9n97DBecW9uao+0qfpIapAuxYy/hu0TrNhCb5XzE50RSkwhyMzhUOxAFOlHPR1eA8op5SuNpoMJeDaIs6rPj31jwKBBPYhNoTA28pArxLgqCEKIqgu58G1nLqrZUANl78u74EJhrgab3/4jAxSpTlQ/oJ5+GMs4+FlViB2nBzhymOXRspxqCUzk3upa7MkJAwEiyld3hsirG43cxIa6CTqdSNE/aLExM62insBLefm3EsMNR3Dd9KOcm2/4dNMSysvpxPBm50tmdBS2BcCViz6SMomiVo6koVkXLAJr4VRXCjEHgo6foBXDVVmu19+PC4j0BrZxo/vFUyf4+hItvIc6JANbT4wIJUE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(18002099003)(10067099003)(3023799007)(56012099006)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?g+r/wr1n2spx/EI25bYGmPaj1tu3i5znTl5j4lT/7JtUZHMbvxXcRorCpnot?=
- =?us-ascii?Q?NOD6VlTaUinPdTHipsZfME5MASo9ieS0qOWlJiX47u1lH51RRPTXCJbjCyX+?=
- =?us-ascii?Q?v/Mcv1DwepaNVOZpiZUCQGPhvCXO8w22l1QI80g/RHUEUX4kbMtq2gvp8Msu?=
- =?us-ascii?Q?O3l8BzCUzrM9veCIx99ufp2WD3H7XY166I7g18uWfX5aCjB09BvwkNKM+xbS?=
- =?us-ascii?Q?o1L8eNWn8LRW36ghW12waQA77WGBC0hUd61TC/LqfaVcEB905c5vf+7jyiRq?=
- =?us-ascii?Q?NLAeAxIrczMZxjHixIBMgDVPeVtsx0d+tqszQ7HY9Igiomc8coVVtdIw32Cn?=
- =?us-ascii?Q?LeD5xpmr3I39FyrLLcx9DR6PC3Qm874IXTCdxi45qBbVU6Bv+hRONb8YeVPr?=
- =?us-ascii?Q?+Ne79W/J3ZaKd7t0UNXQd2OSP09LhrvJBuPgA+04zbo9eZmjY4CwQ/dapR4T?=
- =?us-ascii?Q?ui+euHWQ6tt3D/fxo9PEetn7t/J/XFqxNDpYNkR/G1AgPBKq6atj8EqeJ9vt?=
- =?us-ascii?Q?AoP4I59X0hwgT8jENZpxdDsR9VO4djtr787JiKi0rOAbySto2HfLb+qI3jar?=
- =?us-ascii?Q?PNyU/t1fvuYhWVmLXL3FOO5V8i+P1jMonIDYxzwSrXSO8FmgUKDGTOCISWjW?=
- =?us-ascii?Q?vhbpAGlyxeosZrJMor1fBLkHnq1B2WvmM1nCKsql+9iuaRNxXAOSUBh9w9Go?=
- =?us-ascii?Q?3/UN0a6uxlVtOaAgYQFSaxAdibSiTEs/FLP0WVq7mnD/WRNeS0ROn2AUrfbb?=
- =?us-ascii?Q?C4clIIx0LLMztJblneHxPsDufSfo5okRgtaE9yRscDU6waiEyzCX7AhOj8ik?=
- =?us-ascii?Q?ov9YRSiHCBaXAhmVfFyN934wCCtg6h4mfuD78TWWJdNWCt69PuQiPqSaU+lg?=
- =?us-ascii?Q?6dKdBZgPbFCCqC6VzqO0n7TQVZRoynn8IeRpveVWsh1t+YPoc1uNcDCPc+Mu?=
- =?us-ascii?Q?rbwiah/5ZTJO+l0LzK4IhxHDJ/Cr8iTfwlq8OG2wG10a4dlcnHAwJ87Gsx+N?=
- =?us-ascii?Q?GzIRkNHpm8yVuFEBalDyvA1IoGpqFFBF8gUP9AJgeJx0HQibXbmWMy1/xCml?=
- =?us-ascii?Q?b7hurO84gUfSF9zisOPVyUTe5Zv5pMcgfTexDGQhPy9C7bMKQx2GBv9czYAf?=
- =?us-ascii?Q?uedOVMbOYDqCMH8hbycwfSPhuqIJvkwgcGgJiReJhgZbMyBW2A8ISGQXL6+3?=
- =?us-ascii?Q?W3eq8bRG8/KjcPXUbCK1Pb1WWNUiD1sKXK+RaqLnc+3xuwtzgflxA+6o46Na?=
- =?us-ascii?Q?PYNypheL7Pid+saJtVy1qoL8KYlBaC/s+FCLkzU4852Yq+wd0Mx+Axd1RDOo?=
- =?us-ascii?Q?piAoGAUCmNKZVg6rbjcvxkAltPrelTUiZ/Y2W3o8ZunyoVZYQUJXyKk9kmaR?=
- =?us-ascii?Q?DiHJOIILWTsjsq8esjRJYOYabxsP87AOp4V4i0phK3uTKsJbYUYX9LQwYF3N?=
- =?us-ascii?Q?qjWvuEL120G2jFEPfMVNOl8FXAfWJai8wu861SM+F4GzNH0RLDE1nygt01PJ?=
- =?us-ascii?Q?9ndZ2mRBEuYFusxJWZyFH0Y//DHjVuo5N/V9h6SH3fitsYaLwI8kyTdXyL/z?=
- =?us-ascii?Q?ZC8od4NCpmzqnhpSal3jc4tFzr2MowRufO1zhHGFLp38D5e3rc45ZVJ5KWHI?=
- =?us-ascii?Q?m1VsP4/ROziawHRAnVasIMbeZN++OsiddKJhYGyXxc36WIPanZ+1zigHb/XW?=
- =?us-ascii?Q?D5UYdDX4LBZrgRcykdQyf54QxVuiG43dLLIQtfK5g5L0PxH1yOvCg1pBQNTN?=
- =?us-ascii?Q?ufj/6YKW3g=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ef0e1a2-c7fc-4634-1e62-08df20cc90c3
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 21:31:48.6468
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hqPbp+0cOeLV77LyGivVNu4ONg57CF+8wDvs87PgSvNWFhvy/lryfROgPm1pjShnDolYExJi0egH47hrBrqN0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB7791
+Content-Transfer-Encoding: 8bit
 
-Commit ab74d1fbe061 ("perf trace: Add --bitmask-list command-line option")
-introduced the --bitmask-list option to display cpumasks and bitmasks as
-condensed, human-readable range lists (e.g. "0,2-5,7") instead of the
-default hexadecimal format.
+For an external R8A66597 (pdata->on_chip is false), the driver accesses
+the FIFO 16 bits at a time. It rounds an odd byte count up to the next
+word and passes that word count to ioread16_rep(), which stores both bytes
+of every word in the caller's buffer. The final word therefore writes one
+byte beyond an odd-length read, past the end of the buffer when the read
+fills it.
 
-However, that implementation only augmented trace__fprintf_tp_fields().
-When --libtraceevent is specified, event formatting is delegated to
-event_format__fprintf(), which bypasses trace__fprintf_tp_fields() and
-relies directly on libtraceevent.
+This is visible while enumerating a USB device on an SH7785LCR. The USB
+core allocates nine bytes for the configuration descriptor header, and
+the controller driver stores ten bytes in it. SLUB reports the first
+redzone byte changing from 0xcc to 0x09 in usb_get_configuration().
+Odd-sized HID report descriptors trigger the same overwrite.
 
-In libtraceevent, tracepoint bitmask fields defined using __get_bitmask()
-are parsed into TEP_PRINT_BITMASK AST nodes and unconditionally formatted
-as raw 32-bit hex chunks (e.g. "00000000,00000005"), ignoring the
---bitmask-list command-line option.
+Section 2.8.5 of the R8A66597 datasheet requires software to discard the
+excess byte after a 16-bit FIFO read when DTLN is odd. Read the trailing
+byte through a temporary word and copy only that byte.
 
-While a dedicated configuration API in libtraceevent would be the ideal
-long-term solution, that requires a new upstream libtraceevent release
-and conditional version checks in perf. To provide immediate support for
-existing installations, traverse the event format's print argument AST
-in perf trace and rewrite any TEP_PRINT_BITMASK nodes to TEP_PRINT_CPUMASK
-when --bitmask-list is enabled. Both types share the identical union
-payload (arg->bitmask.field), but TEP_PRINT_CPUMASK instructs
-libtraceevent's print engine (print_cpumask_to_seq()) to render the mask
-as a condensed range list.
-
-To avoid any per-sample overhead in the event handling fast path, perform
-this transformation once during tracepoint setup via
-trace__init_tp_bitmask_list() for both live tracing (cmd_trace()) and
-recording replay (trace__replay()), leaving trace__event_handler()
-untouched. All enum values of enum tep_print_arg_type are explicitly
-covered in the switch statement to satisfy -Wswitch-enum under -Werror.
-
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+Fixes: 5d3043586db4 ("USB: r8a66597-hcd: host controller driver for R8A66597")
+Cc: stable@vger.kernel.org
+Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Link: https://lore.kernel.org/all/3bd32eaf159db61ed1d423e1d52a869b3689c682.camel@physik.fu-berlin.de/
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- tools/perf/builtin-trace.c | 75 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index c3c7f1f85c53..57249df65fe3 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -4857,6 +4857,77 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 	goto out_put_evlist;
+Reproduced with 32-bit and 29-bit SH7785LCR kernels against a local
+R8A66597 QEMU model. Before this patch, slub_debug=FZPU reports overflows
+for the 9-byte configuration header and the 63-byte HID report descriptor.
+An A/B test of this patch with the 32-bit kernel enumerates the keyboard
+and removes both reports.
+Testing the fix on real hardware is welcome.
+
+ drivers/usb/host/r8a66597.h | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/host/r8a66597.h b/drivers/usb/host/r8a66597.h
+--- a/drivers/usb/host/r8a66597.h
++++ b/drivers/usb/host/r8a66597.h
+@@ -178,8 +178,15 @@ static inline void r8a66597_read_fifo(struct r8a66597 *r8a66597,
+ 			       len & 0x03);
+ 		}
+ 	} else {
+-		len = (len + 1) / 2;
+-		ioread16_rep(fifoaddr, buf, len);
++		count = len / 2;
++		ioread16_rep(fifoaddr, buf, count);
++
++		if (len & 0x00000001) {
++			u16 tmp;
++
++			ioread16_rep(fifoaddr, &tmp, 1);
++			memcpy((unsigned char *)buf + count * 2, &tmp, 1);
++		}
+ 	}
  }
  
-+#ifdef HAVE_LIBTRACEEVENT
-+static void tep_print_arg__set_bitmask_list(struct tep_print_arg *arg)
-+{
-+	for (; arg; arg = arg->next) {
-+		switch (arg->type) {
-+		case TEP_PRINT_BITMASK:
-+			arg->type = TEP_PRINT_CPUMASK;
-+			break;
-+		case TEP_PRINT_OP:
-+			tep_print_arg__set_bitmask_list(arg->op.left);
-+			tep_print_arg__set_bitmask_list(arg->op.right);
-+			break;
-+		case TEP_PRINT_FUNC:
-+			tep_print_arg__set_bitmask_list(arg->func.args);
-+			break;
-+		case TEP_PRINT_FLAGS:
-+			tep_print_arg__set_bitmask_list(arg->flags.field);
-+			break;
-+		case TEP_PRINT_SYMBOL:
-+			tep_print_arg__set_bitmask_list(arg->symbol.field);
-+			break;
-+		case TEP_PRINT_HEX:
-+			tep_print_arg__set_bitmask_list(arg->hex.field);
-+			tep_print_arg__set_bitmask_list(arg->hex.size);
-+			break;
-+		case TEP_PRINT_INT_ARRAY:
-+			tep_print_arg__set_bitmask_list(arg->int_array.field);
-+			tep_print_arg__set_bitmask_list(arg->int_array.count);
-+			tep_print_arg__set_bitmask_list(arg->int_array.el_size);
-+			break;
-+		case TEP_PRINT_TYPE:
-+			tep_print_arg__set_bitmask_list(arg->typecast.item);
-+			break;
-+		case TEP_PRINT_DYNAMIC_ARRAY:
-+			tep_print_arg__set_bitmask_list(arg->dynarray.index);
-+			break;
-+		case TEP_PRINT_NULL:
-+		case TEP_PRINT_ATOM:
-+		case TEP_PRINT_FIELD:
-+		case TEP_PRINT_STRING:
-+		case TEP_PRINT_BSTRING:
-+		case TEP_PRINT_DYNAMIC_ARRAY_LEN:
-+		case TEP_PRINT_HEX_STR:
-+		case TEP_PRINT_CPUMASK:
-+		default:
-+			break;
-+		}
-+	}
-+}
-+
-+static void trace__init_tp_bitmask_list(struct trace *trace, struct evlist *evlist)
-+{
-+	struct evsel *evsel;
-+
-+	if (!trace->libtraceevent_print || !trace->bitmask_list)
-+		return;
-+
-+	evlist__for_each_entry(evlist, evsel) {
-+		struct tep_event *tp_format = evsel__tp_format(evsel);
-+
-+		if (tp_format)
-+			tep_print_arg__set_bitmask_list(tp_format->print_fmt.args);
-+	}
-+}
-+#else
-+static void trace__init_tp_bitmask_list(struct trace *trace __maybe_unused,
-+					struct evlist *evlist __maybe_unused)
-+{
-+}
-+#endif
-+
- static int trace__replay(struct trace *trace)
- {
- 	const struct evsel_str_handler handlers[] = {
-@@ -4908,6 +4979,8 @@ static int trace__replay(struct trace *trace)
- 	if (err)
- 		goto out;
- 
-+	trace__init_tp_bitmask_list(trace, session->evlist);
-+
- 	evsel = evlist__find_tracepoint_by_name(session->evlist, "raw_syscalls:sys_enter");
- 	trace->syscalls.events.sys_enter = evsel;
- 	/* older kernels have syscalls tp versus raw_syscalls */
-@@ -5814,6 +5887,8 @@ int cmd_trace(int argc, const char **argv)
- 
- 		if (use_btf)
- 			trace__load_vmlinux_btf(&trace);
-+
-+		trace__init_tp_bitmask_list(&trace, trace.evlist);
- 	}
- 
- 	/*
 -- 
-2.55.0
-
+2.53.0
