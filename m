@@ -1,134 +1,139 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68C9399018
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406FA38A725
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790963825; cv=none; b=pdvlUUPBncvo3sBa9zoNeGQUtq99J3RmtD7KsgP7drvbEVjy7xQ170abOebswHQS7/CjZDKnzxEZ1bICpCHwXuhQYDUXVeM6je8Yr7+p9WknDWRP2xGEngWN8nw93y6854hE/R1HDG06y2gQPxxOU9X/o5wB05WBVXrhij4cjfc=
+	t=1790963875; cv=none; b=i9MkCqGIDxwG1uOXGdY+F6jKXakrfx+Eu/dqfwhHi6b6P0I23NBM9xZaisOKQnBXMfh3k96q5czF1k/vN1mQEs6764vqyhfWEPPlOKAlMOJyLhUtl+VOS5CtOd9YGQjvEdIa79rSuifxBXPyNepVpVX5waGhrVfLq4yJKnYnYFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790963825; c=relaxed/simple;
-	bh=39BCaKIS2a4rsGcJLQO0o1OjODWMY9BGj2pmo1ZKneE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tH7QKaYh4zQlHgh6byl7GU77yvjAxIydvdhzZKblE0zb5zx/8iUm2217gPNJhnab9itGApHy5/E4q7guLLH55QtXfvdb11XaPIMH99+LiR1TtfWvIheefJT3uxXnZTWAutk/Wgc+po7Nv44t+yLgHzboNl+fcCQILmZQBXryNWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com; spf=pass smtp.mailfrom=truenas.com; dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b=NYhsKqZv; arc=none smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=truenas.com
+	s=arc-20240116; t=1790963875; c=relaxed/simple;
+	bh=Zo/IJELH6ai7E1VCqk8pVwwOBxDGzIxLI79k6nC4IdY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J0o/XwPc4YffvwKiumPSdpsXRye8gU18b9f28lC5i0ibWyBi6eSskCUMWUeyLfS9VI1kTpXoV+wHmSZUu8EmI7rYT4tnL+Dn5ZqFns0kzv2iVUg9ByZucCNA4WsRfD6r4aufqVOD7KJ9eJqMMCOYXY3JF7gwB7zIIzX8qu4c/6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZVLWSCyO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZQuag8sR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=truenas.com header.i=@truenas.com header.b="NYhsKqZv"
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-6755a6109c1so258953d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:57:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZVLWSCyO";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZQuag8sR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790963871;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YRmfniRYY3gDZtpbulPtdSLopqAgCcIdSXqyEPuAkSA=;
+	b=ZVLWSCyOMZYM4xQeejfTvNkawDgetUWv9+MDLvrEqW9jDdyR3MXd/T+7Qf6y0a8rTy6YG+
+	wIa3aS+ZQuqXUDvP4G2TNiY3QRE1FuYPmBfzTjCZ3+dWVaY6pGodwq4XZYwgGbfLmKuFKi
+	1IlcN/btCkNpJHt9CWAIof8+1Crdy+c=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-378-pWg9z-vMP5idqasIhzq1FQ-1; Fri, 02 Oct 2026 13:57:49 -0400
+X-MC-Unique: pWg9z-vMP5idqasIhzq1FQ-1
+X-Mimecast-MFC-AGG-ID: pWg9z-vMP5idqasIhzq1FQ_1790963869
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-532dc3793easo46368991cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:57:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=truenas.com; s=google; t=1790963820; x=1791568620; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xxaI2OMOwwuqBrxKvOI44CslxEdzYP5+0cKedVWBK0M=;
-        b=NYhsKqZvx0TufQd4i2gFpuCCbh5ixRqToSIL4dQI/oQ48+kJC5E//QpGtVMviMEH/l
-         dRHBBnP24KmMXXhtFfEkHL16JUdCxa/x/sr7iMaVHb0w58xkuXlzMXtGcmFnltPOQppg
-         6f0sZdaxjZWFLYA2TF0Es4ov/jZtWBcR1eGCZJInrLPOFZVKEARF/itLqD9pdQ3wuaF4
-         AUgYucYbKN6lcLxU/IVujwfGrY7X4MelD12QaRzi4omEWdf6QB471nEu1YecW+EFZi7r
-         m9UBiIQlgquh2c8yi1jew3a4H1dsr5OjPOJaPaXCIwx9lRRUoWeD5QwspAmSY8moUMxD
-         +uNA==
+        d=redhat.com; s=google; t=1790963869; x=1791568669; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YRmfniRYY3gDZtpbulPtdSLopqAgCcIdSXqyEPuAkSA=;
+        b=ZQuag8sRzDDsKyHc9I/zOZbbtK293iziA/f7qxB/6UDZ8Iy1ad2ssCPoKhDKEJf322
+         JAHHgrAnUHZ9wBCQGZMKjtQlFAOVGkWDfg2+fKkdaFx7rCpvsv/q58tcov30QNhu4uXr
+         +MXZykA+d3xvYdmz4ol0502Y2kEXLaPtZpID3lOum9P3lZIO90Ao8/u6N4VkVmHOTDxo
+         PxOHj0sApVYGmIyKo0ddJFFRkf7m+Ko61sWv44t0ZbRBC7fZowC2zjW9B9/8ig7h9QIZ
+         RZFmyvKPgYNXbtA4Sa2SKW6o7XTGxgVwEY2gr2DNxFAGK4MtDgzDpk7kqxUASdeDBDx9
+         OvmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790963820; x=1791568620;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xxaI2OMOwwuqBrxKvOI44CslxEdzYP5+0cKedVWBK0M=;
-        b=IkJf8KtzRLK7EVG921/B2Hc4ICFZsv9f9GKoJYFfQfY+y/exFbLzaZv8XgzCnUJZlf
-         QRX62J5jE5Xjsedrg6F97rt6+QpgKL0PirERT9EFoESJ0SRdI3Ok6FYWsjWM2gp8mg+K
-         yNnFFtcq/ojYlx0W6LRYBAJvDCl0HQ/jRJPpqrQPekcCnEdcUQltx9oxj0TYbskfVSwi
-         uy25o1p1Qhie2yXHi4VYE1FxJ//SOqq7cSUdAy7XtXqg+EzLMH02KqC+lAR6ERyI/4pT
-         Cew5oAfbqOkDmleOSd1hAdkV3HlcxnhCzxAX947hsJ74tuHxWTxWVVIBPz5KX9N4+ZQ5
-         QXFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzKId5QwvDTqfFeulz01bd1Q+cPOG3O/SzKLzNkFhzyxWI1IYi9A8f44zCNjg/OU4+y69aMbAuCTICIZg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZNHNuXtEaVJb8xt8myh4JGzxR/dz5c2nZPcDW2jU7JG96RJHS
-	IvEzUigPJdgnOKBVjopzbSOEyqio+SxVbnnz3yCmZBNM76GZkYMDMZ2Su8KIZlxU/K2yxS8Ls06
-	0uFmfqPws
-X-Gm-Gg: AYBFou1Yc2WCdD4llMT3URHVBsQrhh5jKi5pty/OqGD3hvBas3hsaESFEQtIqYzKssu
-	/DeikEmaRiMr3FUWu1rxctKq9NfChyjfxFVaBExGGpW6th6rYUaQqa8XXC5Tmc3C38bs5B1k9lb
-	DQhPTq5dw+7ErMiSHVPldieiyv2d5i7Vnn5PjSi9gqFuwERDApDB+kwN5vPHB6a0rv/J6tRuF5i
-	CMSCNiJOd7GlHkVQ3SiwUDsU54N9jQP1LptuUMaODnnKH8Dgo1w6qfCPUIKkPoQHxKi8ldcwVt1
-	Mdkmn2KjMqXslwMMD9G6TzW9GdqBDAkc9dnoSa5HYhcQpmAQhXyMTApkDrcbOx4gHLBr0KzEPD9
-	gkjtATHQnczh1F+Y3H8hK9tjpyRZEECQNPFhdLQgpHZGwibEsF7W4wMixLnaJsfCugD6FK7QeKh
-	fEIPz4lEkh3fSc/aKXLqp7RPHzuGvWOEDQLFff6WZdB9GtZxUm/slpbAYgBc6h2LjzslM1tA==
-X-Received: by 2002:a05:690e:4291:10b0:676:8641:27d2 with SMTP id 956f58d0204a3-677ac0944c5mr1330447d50.40.1790963819897;
-        Fri, 02 Oct 2026 10:56:59 -0700 (PDT)
-Received: from hamza-PC ([124.29.197.38])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677ac63acc0sm1368439d50.20.2026.10.02.10.56.54
+        d=1e100.net; s=20260707; t=1790963869; x=1791568669;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YRmfniRYY3gDZtpbulPtdSLopqAgCcIdSXqyEPuAkSA=;
+        b=DDb1kB32oLjWbldMTIYzCRanRsZuXkpJM4RD2GIjK2pPOY7wcsd533gkQDMy6quCl4
+         FLXp1/2nymVq7XJbyIdT4or/JqOXECJpR/ULcjRoPsFWH+ZEyFS/FpL42maKx8sjaJn8
+         bvSR7wiJSiYQ+qQllFSFoHyW4sDv+Kbrg29CVlFOBqeERO4rjUqv1yBqZeq3+bKwD8dZ
+         tXwmYLMbg0xJqq3knrILTN3y4aaspLSL/Zqaz6SAwyxqpWQvl97tKDz/BIVU1Aah/IF8
+         DdY5O/DYgbjxNKxIYBnE110NVibOajagwkYmTSWNlHTsF2xPFD2xeDh4wSz8orkG8T3a
+         JiFw==
+X-Forwarded-Encrypted: i=1; AKwUvByxnBD6vQ1o3essfLuUg9PFwiUh2oUEY5LMJa/1OP8S24ay+tidgwDg1xXkJ0xv+rc1BuDVRAQQPN3mkvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvq7tahGPHjqaBD9bpotAiEIimvvrvYaXfvYY3AjGBMtS7CQSo
+	VuyV50ulDF1BLNR2QJBzb4KxmcXddd4MWCc+fTOU4zsr8kGMpVxWUT1REk/oTWUhHh5kyndBYY/
+	e5LOFqev4PljnL/mUgjweQUNFb6rT58DxZ4L0jkQlg9Jb4iKoPzCpmRbkXggRrHihVw==
+X-Gm-Gg: AYBFou2fBE23byMpEqhdDZ2yfZn4C5skCe/MWO+lVgnz6yxmHp2XAKJO8eRou+ZroV3
+	7YHrWalsCSW9epljjGYOvQF4LjdveRV3Xn7gvGaDP7E46p0eRTUtzWR/s12Pj0dj+lEMiqSdu1V
+	8WeniRtkMYKt/WD/5rxi6ZMy0lBurPCRgIJsPPQgK/L6/Xn7QjwjAt9rKNQrEyf6Jd+JijIKMAC
+	5g1bkvPvxv41ANz5A9BQAYgDquBhGALulOYjeFrUNp/X4lOm1lYDS1yOF+rzQpgMG/SWYEWXiYI
+	bV0BtYumKGSKfHmADPc7WFGUgYyzN0ErZWtA3LsHsasks1z29sx7b2tQqXjcMIP8YxZykS7dlA=
+	=
+X-Received: by 2002:ac8:5750:0:b0:532:8063:4ccc with SMTP id d75a77b69052e-533831271a9mr130026071cf.3.1790963869181;
+        Fri, 02 Oct 2026 10:57:49 -0700 (PDT)
+X-Received: by 2002:ac8:5750:0:b0:532:8063:4ccc with SMTP id d75a77b69052e-533831271a9mr130025521cf.3.1790963868585;
+        Fri, 02 Oct 2026 10:57:48 -0700 (PDT)
+Received: from redhat.com ([2600:382:7723:4eba:66b1:961f:1a2d:af55])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398bdd010sm33168861cf.19.2026.10.02.10.57.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 10:56:59 -0700 (PDT)
-From: Ameer Hamza <ameer.hamza@truenas.com>
-To: ljs@kernel.org,
-	rppt@kernel.org,
-	peterz@infradead.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	linux-mm@kvack.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	4ncienth@gmail.com,
-	sashal@kernel.org,
-	alexander.motin@truenas.com,
-	caleb.stjohn@truenas.com,
-	ameer.hamza@truenas.com
-Subject: [REGRESSION] secretmem: SIGBUS on memfd_secret() pages while perf record runs
-Date: Fri,  2 Oct 2026 22:56:51 +0500
-Message-ID: <20261002175651.811343-1-ameer.hamza@truenas.com>
-X-Mailer: git-send-email 2.53.0
+        Fri, 02 Oct 2026 10:57:47 -0700 (PDT)
+Date: Fri, 2 Oct 2026 13:57:45 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Yixun Lan <dlan@kernel.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 2/2] riscv: dts: anlogic: drop unused DR1V90 external
+ clocks
+Message-ID: <ar_wmUWEXgIzq1XM@redhat.com>
+References: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
+ <20261003-dr1v90-cru-dt-fix-v2-2-6e7d96612ac0@pigmoral.tech>
+ <20261002-crimson-unwrapped-b067e86de38c@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-crimson-unwrapped-b067e86de38c@spud>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-Hi,
+On Fri, Oct 02, 2026 at 05:33:24PM +0100, Conor Dooley wrote:
+> On Sat, Oct 03, 2026 at 12:28:40AM +0800, Junhui Liu wrote:
+> > The external CAN and watchdog clock inputs are not routed on the MLKPAI
+> > FS01, the only board currently supported. Drop the two fixed-clock
+> > placeholders from the common dtsi, as fixed clocks require a valid
+> > clock-frequency property.
+> > 
+> > Both clock muxes select their internal parent clocks after reset, so
+> > the CRU operates correctly without the external inputs. Keep only the
+> > required oscillator input to the CRU.
+> > 
+> > A board using these external clocks should define them in its own
+> > board-level dts and override the clocks and clock-names properties of
+> > the CRU node.
+> > 
+> > Reported-by: Yixun Lan <dlan@kernel.org>
+> > Fixes: 7849521aaac2 ("riscv: dts: anlogic: add clocks and CRU for DR1V90")
+> > Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> 
+> Per the v1, Brian said he would rebase the clock tree, so I'll just
+> squash this into the original patch I think.
 
-Since commit 97d34aa65c29 ("mm/secretmem: properly account locked
-pages"), in v7.3-rc2 and the 6.18.52 and 7.2.5 backports, touching a
-memfd_secret() page for the first time fails with SIGBUS while the
-same user is running perf record, and read() into such a page fails
-with EFAULT. This happens for root as well as for an unprivileged
-user running its own perf record. It reproduces on v7.3-rc4 and
-6.18.52, and the same test passes without the recording or with the
-commit reverted.
+It's already rebased, and dropped from the clk-next history.
 
-The commit charges secretmem pages to the per-user user->locked_vm
-and checks that counter against RLIMIT_MEMLOCK, with no CAP_IPC_LOCK
-exemption because the fd can be passed to other processes. perf has
-charged its ring buffers to the same counter since 2009, up to
-perf_event_mlock_kb per online CPU, and only what exceeds that
-allowance is checked against RLIMIT_MEMLOCK. sysctl/kernel.rst
-describes the allowance as not counted against the mlock limit, yet
-it sits in the counter that secretmem now enforces. perf record sizes
-its buffers to the allowance by default, 516 KiB per CPU, so on 16 or
-more CPUs one recording uses up the default 8 MiB limit on its own,
-and on fewer CPUs it leaves correspondingly less for secretmem.
+Brian
 
-Reproducer, as root on a 16 vCPU x86_64 guest with the default
-ulimit -l 8192, while "perf record -o /tmp/p.data -- sleep 300" runs
-in another shell:
-
-  fd = syscall(SYS_memfd_secret, 0);
-  ftruncate(fd, 4096);
-  p = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-  read(open("/dev/zero", O_RDONLY), p, 4096);   /* EFAULT */
-  p[0] = 1;                                     /* SIGBUS */
-
-The commit closes a real hole, unbounded pinning of unevictable memory
-by unprivileged users. The question is whether the perf_event_mlock_kb
-allowance is meant to count against the RLIMIT_MEMLOCK budget that
-secretmem and the other subsystems accounting to user->locked_vm
-enforce, or whether perf should keep it in a counter of its own, which
-would leave the hole closed and secretmem usable during a recording.
-
-#regzbot introduced: 97d34aa65c29
-
-Thanks,
-Ameer Hamza
