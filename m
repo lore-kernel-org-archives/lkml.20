@@ -1,229 +1,319 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74CA3D954F;
-	Fri,  2 Oct 2026 08:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DA944839A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928666; cv=none; b=SypEvn+EUZ507xw28REhCuJfXNxCtboNyVLEofe7TMyHnv1RdUFwLCzqmbwnSojgnRxlVzG9rLNuZp38ngYBUng6LB7oyimwj50+pOHYDzDa1UFkkAo6Gq/RgbWc0G6BL06ZDTStx94WS4sL0qnPuk/KJuQU4DO1ftZtYUTh98k=
+	t=1790928695; cv=none; b=pIYPWsj92PGFHI97TZOEVCDU4MhnfP+fNth+xnrBo+g5pPyfDeZiwTmnRxZy/Ao0bfCeqwejkyx/igpba2sBcjDYkyB9/8kSH/rt2pcxOv9+rfcBKnP+a1kXALRyB75MRamFNskFlWHry/1SYEqhwkoiQFazgUuOMZSc4JIZRVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928666; c=relaxed/simple;
-	bh=jbrobNgLFvEYW+K5702m//jZXUekQEX6EeXtEarN3MI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GG7CFw/buHXF4E+KIcf4X/ZOrHk+Fs6LXxbz9KDgk/iJQqKch+vhYK+xW1c5cRgxo6IFy/35ZQvsjjY6hJM9gDmsARFF7X8MiI3ApA6eBuseE0qrgrqD76oJ9nPahLDxSS/HfdwcrhFMRgE2uwojZxxDJLRQ8H3O2fuEp9ofR0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ia0kYKAi; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790928695; c=relaxed/simple;
+	bh=5ECWojSQ3v9QRdtfjAMX6P6Ej5xW9FLxF3YOk0JcaLA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=CD1x8LpAMzphORh5CMGt96YKPnwIXuX65oP3N2t/Q9galJn97OtelhFnc2zSZUQBXE4fjyKY3Z8RyhNpS74LV6DhcFPgc3zsmexrHtj4iFZi4DvWfM7HUaAi+cwZxx5rp80K8ygNNpCPvHHYcxB1btMDissG3/XUcJPpZY+ji2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aBzDiYE1; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ia0kYKAi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790928663; x=1822464663;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jbrobNgLFvEYW+K5702m//jZXUekQEX6EeXtEarN3MI=;
-  b=ia0kYKAiSWnVp3MxPr/qS1CY66rm1SkwHNDl+yUybqKvbzb5kyHAJMoG
-   BP2vJ178VD2gnOvJhMntaT9LrZiIjNDYCJIXh5w3S0HbJbeKnO1XUYYFs
-   oTDUytjCS8HvqEkI8tgNPJNM6IhFlFl0KhimHFSo8XhlsUbtJ1QCkACRf
-   mtie2nW22/ipJiznn3OBcWB/cejmPhUVuZDBzdJTdF7LragquZTY5JHfL
-   4l7mnS8V9DwzkriZX+57rkeOikdswybiZWDDT+8qpQ5U9pB9Z+YoOQfel
-   D5tP8npLinhSC20xp+hviwgEVbPsKUoFXEUy2giQuAaF8Smu1XHwiqRqx
-   Q==;
-X-CSE-ConnectionGUID: l+io++RYQbqUdxWzNxF9Nw==
-X-CSE-MsgGUID: wZeGrd1hS+6ji4HgbDBkzQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94406446"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="94406446"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:10:53 -0700
-X-CSE-ConnectionGUID: OWKdrr/1QZ+1XoZZBrzcjw==
-X-CSE-MsgGUID: wfmyyLdUR1uQ8ZwS3auB0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="275740714"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:10:47 -0700
-Date: Fri, 2 Oct 2026 11:10:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 06/15] clk: ambarella: add CV75 RCT clock controller
-Message-ID: <ar9nBBGJ361IFXn8@ashevche-desk.local>
-References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
- <20261001-cv75-v5-v9-6-486cc289a4b8@ambarella.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aBzDiYE1"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so1730267f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:11:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790928677; x=1791533477; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qa8a08zy/9EMmaSnon0+MVyVSBQZTq4II4ieN33FiZM=;
+        b=aBzDiYE1LeoVxZDabCyc08XJEVQ8EyJvl3VBeovm7D8ANau1MZexzizBNPFPpB2G6e
+         /6H1UQQM5OwNbbGzrn7IxDoiQPcfBESvqsAZZo3ZX3KdDQs6WdOY1JIigIX+UnMv9BTA
+         CcLJgDTYKZiZ9bFAvwQ0Dkya7tigcRqeJc0rDE8rfpZG4WbkEFDSuiZyjS1fajb2xV/6
+         O00tmd/0wmhC8ym6egwp6et0/cINl3ZMvrVwhcqdIEaKnFkjYvS9d0pDLYxOLdjFXxgm
+         3+4K48FS4TvAYtsqvcw8JwIO1IgcuvGLrbyCarL6VjJwcOFsuMP6kQI3UzcJ6EOcU1Ox
+         Ajbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790928677; x=1791533477;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qa8a08zy/9EMmaSnon0+MVyVSBQZTq4II4ieN33FiZM=;
+        b=NMrCfB6IaoNgsQH8qb4Xj8dqAW8uGQ8JD83bKOfd/suNgAGnAN+Ch0SoQRt4lF6/O/
+         N3pgkQh156tA6WlTF4UI44SpNEwpX/UrE+c7IlNH7eLVehi3vnYrvM3EgjMxW04XXNY3
+         jm7QbR0y6+hGDHw7XD0YlMWNqPRrn0fWQ7dqmcPvRDQzZYEgC01off3TPEQ8NX7oqMLc
+         6+YBHt+K2hoHYpW5TOwWY5OiuFES6nahlHcLWF/9n0ICkJQDfIFDVNWUsLbqr3HbW0lB
+         cVEBsmITBhzZC5sS5WZxltilY2XdyfwVm2g2ixcEAQfHu9vTsaFu2jLHgBsldv59DmLe
+         o/DA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuXGAbCIGOdGUW1JbkJpDoFLUIgXvpr76yiQWNmGa1C3QDQ3Bzj6o6L/f3lkygUm2p7knGZc73gaydFKc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLa6TNy44Y1bT/VOtmtHlFosV3pSNnjREqsYZU3D9BlX28ZhTvQ
+	tXdZ0hrfGbAj3tWdH/RnE+45teb5f4ry7a6921zqb3nxCbDTJ16wtS3NTvukVk/2MqQ=
+X-Gm-Gg: AYBFou0m5QGBBvikbihujCSB3p5fpagt6hawfQssppdqxx0FBUBuULdycTXm/8dYdxv
+	601O5iIQVFV1/T2kQbRWUXvELxwx10u963lM6Nb/Su7u9DqA5WnzJfYW7e0+t+m4OPD2yUxISc2
+	mdbjNskp/CnG2A/NRCAy5gg//d/pYoiigzB0uCJMUtUa4dZE5ZTePwVl/JFJuhQkeQpku/iat9Y
+	oKHRSTIHua+JtWYaLMQoWfvNv2iS5GE783Wjv9oN2gOEJdQLF9b3m7+kDra+cifdQcMrN4XTS6x
+	ihRWXkUGI4gvJ9OEHrUuk53dHY5/5RQA5kEEHyvi0grbcUoWmUpbUgoXcXPZkB5Y+n1cFpzlKqt
+	x8lvDV4HOrX/yrrs7OTNl+FKP5hfmGtcx4T71cS3J9Q7Z3pwT4dLp+ByNN1bhI9VkXfYDnUrCnF
+	DFnlcJGYJ07/ToMeDLESu2lvO6UySTjGLNFtvvfJRSZRpSpY/j1tTjE4/vx9ERJlGE0NG/9udUe
+	ZRAMrgm+oJpecCU0XLkY9/I5JB52CjGn7LzkN7UZ5/QhcFbRCg=
+X-Received: by 2002:a05:6000:480b:b0:48b:f92:1f75 with SMTP id ffacd0b85a97d-48b12726376mr3833848f8f.48.1790928676871;
+        Fri, 02 Oct 2026 01:11:16 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fab11sm3944624f8f.16.2026.10.02.01.11.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 01:11:16 -0700 (PDT)
+Message-ID: <116b4574-a9a7-49c6-9806-9b6424d2fd2c@linaro.org>
+Date: Fri, 2 Oct 2026 10:11:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-cv75-v5-v9-6-486cc289a4b8@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <artgrTe6wvKxnUOG@houat>
+ <c75feb5d-055d-403a-8dba-3c187cdb8e7d@linaro.org> <ar4ADESgOoIx4F5d@houat>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <ar4ADESgOoIx4F5d@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 08:40:55PM +0800, Long Zhao via B4 Relay wrote:
+On 10/1/26 08:48, Maxime Ripard wrote:
+> On Wed, Sep 30, 2026 at 03:46:04PM +0200, Neil Armstrong wrote:
+>> On 9/29/26 09:13, Maxime Ripard wrote:
+>>> Hi Neil,
+>>>
+>>> On Mon, Sep 28, 2026 at 06:39:58PM +0200, Neil Armstrong wrote:
+>>>> On 9/28/26 18:22, Maxime Ripard wrote:
+>>>>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>>>>> difficult to support and require pretty much a panel driver for each
+>>>>> panel produced. Most of them are pretty simple, and require an opaque
+>>>>> initialization sequence that is usually poorly documented.
+>>>>>
+>>>>> This creates a tension between OEMs and distros because OEMs will
+>>>>> typically get a new panel to react to a sourcing issue during
+>>>>> production, and thus need some swift turnaround between getting their
+>>>>> new panel and it being operational in the OS. Distributions on the other
+>>>>> hand can take years to ship a kernel with that new panel driver.
+>>>>>
+>>>>> To solve this, I followed the example of HID-BPF and wrote a panel
+>>>>> driver that will rely on BPF programs to perform the panel
+>>>>> initialization. That way, we can ship the programs separately from the
+>>>>> kernel, and with a different lifecycle. If this driver is accepted, the
+>>>>> plan is to have a userspace component started by udev to identify and
+>>>>> load the right BPF program for the panels found on the device.
+>>>>
+>>>> This is kind of late for serious applications except if we manage to
+>>>> solve the bootloader to Linux display engine transition.
+>>>
+>>> Virtually all "generic" distributions are shipping the panel as modules
+>>> today anyway, because anything else is nothing but impractical. But
+>>> maybe you don't consider them serious enough. Also, applications live in
+>>> userspace already, so can be ran after this driver would be initialized
+>>> anyway.
+>>
+>> So what would this exactly solve ? keeping out-of-tree BPF driver + bindings
+>> driver forever and never upstreaming then ? Is this what we really want ?
+>>
+>>>
+>>>>> This driver is fully functional and works with both 5" and 7" Touch
+>>>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
+>>>>> typical panel driver in multiple ways:
+>>>>>
+>>>>> - BPF programs can only be loaded by userspace. This leaves us with two
+>>>>>      choices:
+>>>>>
+>>>>>      * We prevent the driver from loading until the script itself is
+>>>>>        loaded. This has the side effect of preventing any other output to
+>>>>>        be used until the initramfs is ran at the earliest, and possibly
+>>>>>        ever if the loader isn't installed for example.
+>>>>
+>>>> This adds a dependency on user-space behavior and if somehow the
+>>>> initramfs doesn't load for a reason we won't have a way to display
+>>>> an error.
+>>>
+>>> Yes, if an error happens before the DRM driver loads, it won't be shown
+>>> on the screen. This is already the case for any panel driver today on
+>>> any major !embedded distribution. And with built-in drivers, this can
+>>> also happen before or while the DRM driver loads.
+>>>
+>>> The solution is always the same though: load simpledrm first, move to
+>>> the proper DRM device once it's functional. It still works with this
+>>> solution.
+>>
+>> Module != bpf programs, maybe one day it will change.
+> 
+> I have exactly zero idea what your point is here. You were saying that
+> it's bad because panels get to probe later now and you wouldn't see an
+> error. I'm saying it's already what happens today with a significant
+> part of the install base and doesn't seem to bother you.
+> 
+> I'm not talking about BPF programs themselves, I'm talking about your
+> double standard.
 
-> Add a table-driven CCF driver for the CV75 root clock tree. Register
-> the core PLL, AHB/APB fixed factors and UART0 composite clock, with
-> osc supplied via clk_parent_data.
+I just expressed that you're trying to compare modules which are already
+hard to handle since they can be loaded anytime with BPF. Adding an additional
+complexity on top of modules won't simplify things at all.
 
-...
+> 
+>>>>>      * Or we probe the driver all the time, but only report it as connected
+>>>>>        once a program has been registered. This is somewhat unconventional,
+>>>>>        but allows the other outputs to be functional, *and* allows the user
+>>>>>        to force the output if their panel doesn't require any
+>>>>>        initialization or during debugging. I chose this solution.
+>>>>
+>>>> Both options are not really great...
+>>>
+>>> Feel free to make any suggestions
+>>>
+>>>>>
+>>>>> - It's not a panel driver, but a bridge one, which is also pretty
+>>>>>      unconventional. This is required because panel drivers don't have
+>>>>>      access to a detect callback that is required for the above, but I also
+>>>>>      think that the recent work from Luca blurs the line from panels and
+>>>>>      bridges and we'll end up going that road anyway.
+>>>>
+>>>> On this point, DDIC _are_ bridges,
+>>>
+>>> I have no idea what a DDIC mean.
+>>
+>> The DDIC is the Display Driver Interface Controller, basically the
+>> IC which received DSI packets and physically drives the display.
+>>
+>> It's basically a bridge to the panel, and this is mainly what we program.
+> 
+> I've been writing panel drivers longer than you did, there's no need to
+> be patronizing.
 
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/container_of.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
+Sorry I never meant to patronize you in any way, I just explained my position
+on why DDIC are bridges. So perhaps I didn't understand your question.
 
-> +#include <linux/math.h>
-> +#include <linux/math64.h>
+> 
+>>>> but in the current panel API we blur the line between the panel and
+>>>> the DDIC. So being a bridge is fine, but in a general way we lack a
+>>>> proper way to describe the display/panel/monitor independently of the
+>>>> DDIC.
+>>>>
+>>>> At first glance it's a nice driver, but moving the timings into a blob
+>>>
+>>> Let's not kid ourselves, it's *already* a blob. We just sugar-coated it
+>>> enough that we can be happy and call it GPL.
+>>
+>> It's the case for most drivers, but since we don't get proper
+>> documentation we're stuck using registers list and can't
+>> implement advanced features. And moving this to a bpf won't solve
+>> but enhance the problem by a large factor.
+> 
+> How? You keep saying those broad, alarmist statements. Look at the BPF
+> examples I provided. *How* is it "making the problem worse by a large
+> factor" exactly?
+> 
+> Just like I said to Rob, I don't mind changing that driver to accomodate
+> your fear or anxiety. But "this is shit" isn't a review, it's abusive
+> behaviour. If you plan on continuing that trend, don't.
 
-The latter one covers the former one.
+I'm sorry if you felt like this, I expressed multiple times this patchset
+is great and very well written, I only expressed some legitimate questions
+about BPF because I'm ignorant on the subject and the impact it will have
+on my volunteer DRM panel maintenance activity.
 
-> +#include <linux/module.h>
-> +#include <linux/overflow.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/types.h>
+I'm sorry if this felt as fear, anxiety or abusive behaviour.
 
-...
+> 
+>>>> moves something into possible proprietary binaries with possible
+>>>> closed licence and distribution restriction so it's a downgrade for
+>>>> the same of bringing up a panel faster.
+>>>
+>>> We can already make a proprietary, out-of-tree, panel driver today. That
+>>> being said, the only license we allow for BPF programs here is GPL, so
+>>> if anything it would be less of a concern for this than it would be for
+>>> regular panels.
+>>
+>> So you're on to facilitate keeping panel driver out-of-tree and never
+>> upstream them ? this is awkward TBH.
+> 
+> Hahahaha, yeah, sure. I don't care about upstreaming anymore and just
+> want to scorch-earth the entire kernel to have an excuse to retire and
+> do goat farming. You got me.
+> 
+> However, given the current state of this discussion and the intention
+> you're giving me, it does sound appealing.
 
-> +struct cv75_pll_hw {
-> +	struct clk_hw hw;
+So this remark comes from directly from the cover letter arguments, which
+are mainly helping to facilitate OEMs and distros to ship panels drivers
+faster and would help "ship the programs separately from the
+kernel, and with a different lifecycle".
 
-> +	u32 ctrl;
-> +	u32 frac;
-> +	u32 ctrl2;
+Since I still don't understand how it will help OEM and distros, because I'm
+no more an OEM for while and I don't run a distro and since I maintain the
+subsystem I feel legitimate to understand exactly how it would solve
+the *real* issue you expressed.
 
-This repeats twice in different data structures. Is the semantic the same in
-both cases? If so, it might make sense to have a separate data structure for
-these three and embed it as required.
+Let me be clear, I want people to upstream panel drivers, and since I took
+over the panel maintainership I have a constant driver review and merge
+rate, so perhaps it means I need to improve how I handle the susbsystem ?
+Or is writing a panel driver too hard ? Am I to strict on the review ?
+TBH I'll handle the BPF driver the same way, so again it makes me feel
+this solution is not the right way to solve this, or I should just do
+something else ?
 
-> +};
+I think we should stop arguing here, since my words were badly interpreted,
+and we should leverage the Plumbers and OSS/ELC next week to discuss this
+in-person.
 
-...
+Thanks,
+Neil
 
-> +struct cv75_pll {
-> +	const char *name;
-> +	struct cv75_pll_hw *hw;
-> +	unsigned long flags;
-
-> +	u32 ctrl;
-> +	u32 frac;
-> +	u32 ctrl2;
-
-^^^ See above.
-
-> +	int id;
-> +};
-
-...
-
-> +{
-> +	struct clk_parent_data parent_data = { .fw_name = "osc" };
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(cv75_plls); i++) {
-
-	for (unsigned int i = 0; i < ARRAY_SIZE(cv75_plls); i++) {
-
-Same approach in the below code where similar cases appear.
-
-> +		const struct cv75_pll *desc = &cv75_plls[i];
-> +		struct cv75_pll_hw *pll = desc->hw;
-> +		struct clk_init_data init = {};
-> +		int ret;
-> +
-> +		pll->ctrl = desc->ctrl;
-> +		pll->frac = desc->frac;
-> +		pll->ctrl2 = desc->ctrl2;
-> +
-> +		init.name = desc->name;
-> +		init.ops = &cv75_pll_ops;
-> +		init.parent_data = &parent_data;
-> +		init.num_parents = 1;
-> +		init.flags = desc->flags;
-> +		pll->hw.init = &init;
-> +
-> +		ret = devm_clk_hw_register(dev, &pll->hw);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (desc->id >= 0)
-> +			data->hws[desc->id] = &pll->hw;
-> +	}
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int cv75_rct_probe(struct platform_device *pdev)
-> +{
-> +	struct clk_hw_onecell_data *data;
-> +	struct device *dev = &pdev->dev;
-> +	int ret;
-
-> +	spin_lock_init(&cv75_ccu.lock);
-
-Can it be done later, after memory allocation?
-
-> +	cv75_ccu.base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(cv75_ccu.base))
-> +		return PTR_ERR(cv75_ccu.base);
-> +
-> +	data = devm_kzalloc(dev, struct_size(data, hws, CV75_NUM_CLKS), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +	data->num = CV75_NUM_CLKS;
-> +
-> +	ret = cv75_register_plls(dev, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register plls\n");
-> +
-> +	ret = cv75_register_fixed_factors(dev, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register fixed factors\n");
-> +
-> +	ret = cv75_register_composites(dev, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register composites\n");
-> +
-> +	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to add clock provider\n");
-> +
-> +	return 0;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> 
+> Maxime
 
