@@ -1,252 +1,208 @@
-Received: from mail-qv2-f40.google.com (mail-qv2-f40.google.com [74.125.230.168])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FE7343897
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D22D343897
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.98
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922970; cv=pass; b=nvvAiuiPBs8fwaUwjceQonkxoVpCCxdHER54aFMUFjUe4+wWb6PO6LsonyYXmxwedpSkKAOObV84vV8rLuuHdK2rLqvw8x1I5i2butKQ/eN0ncPtVMSNuKLOdmEXORMlleFNm9NAltKCnJrTgTChWMwnjTnrggA8IlK59QSqXaE=
+	t=1790922993; cv=pass; b=QsoE3GJ4m7U7H9hDIMT2PlE3pAacnW6ZD2ctuJK/wrNMoNlLQnkOxDtP4lEgGLI7PHc8KvR+GU23bv4DMXUUYNk2T7ArObMvdIpEQK07Wi1rfeOU52dMwjvwtmElB0ORULM2d4YoZkXjXVvYiCB5JfK6JakJkuw+Sox5tE1WBtY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922970; c=relaxed/simple;
-	bh=3S1uZs1hII2pWOKPYQNkil7Fn4cNrtQ1UC0K0UrYm/g=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=WOfEKuah9saFG0bBcRnT273mugq4NhMqbMYDJfyJjp6oAwxd2bVf3FYohQ9qqqT8lUgfrRKaHrtVGYQc8fQTGfn3FGjuaGLgACwCLld2ml9ZBuEA1au9J0w578KxLF79LxeJORi2/BEMp6EbqYm8UUNgCPInEB3P7iChVaY8x/U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rB/jwKfq; arc=pass smtp.client-ip=74.125.230.168
+	s=arc-20240116; t=1790922993; c=relaxed/simple;
+	bh=9YZmPBYy1SKXzdHu1slkhLm9qPYGjqzmlrCIOJQSO1I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gXZQph8PCWyZCveP3x4OdVsOUnqud3+A76Pk7yNmXg6QmrREPZP9aDt+PWYA9jQpwd84mV9A6FxoYkXNmmHcrLWHETHxLRjF/HCFOnUdP+92U3YPtXI6oDT6h+otTzHODPLKPFLBV0IQaFcXEXjuIQTQ4nkzK0TNf0BNcgNuJ2A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pNeWEMmn; arc=pass smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rB/jwKfq"
-Received: by mail-qv2-f40.google.com with SMTP id 6a1803df08f44-917ae0d5298so16686866d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:36:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790922967; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pNeWEMmn"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b00a0ac65so1552488f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:36:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790922990; cv=none;
         d=google.com; s=arc-20260327;
-        b=pzH+B7N0pnKEQ+A8Ump8djbw3kz33e3SP/Z/kXbWKIDpvybf3lMj4Jzxmnqr5cCKZN
-         HDFGyV0EwiTIbj/Aolsr90I4Y2MdPRZAR40W6Se64DgsT+wEKG+ndtqE2SIawm8/kSNl
-         o390dzUoL0kzUz8OeFMcFQj/KUt0yNx06p0oNfmFCHNGLYuyCe6CFAonN3y1Ugo7k5W8
-         nECa5l46wYElcSRP+wgfiOIGLdweNgMPTdT6NmfJh7/O1IYpVStdbVRXOA/RozYzmuKR
-         WTXo4gvnFRKfXoDLVxZiV9fspPiiZ4joUkChAHIRJSNM2A6UcCyK9Ipj0NgKGruDuo2Y
-         M3TA==
+        b=HmpLokpFbasmt74rH344QQ94SJ2SRowm1LTNcLQtD6bqYYcwNgVNYFnWoKaAReqaSw
+         Tqh0g+AwcViDazJn8FXG5gVQS0Bqw+BcxpcyL6ceCeNKxSqkqBZJW9ZUQm/OKYoY331h
+         UKSVkSLS5LzNG+Rofe3tEXVGc3OfvPvRYzs71IcRDq34N8MouCrwoR6urjtyARubsESA
+         0IWFWnfI12brx9+Znb851fE4yi3pApCh8MO50iEJRAUfaFZFcorWsNfaoqytKt0TZx41
+         T+it+c8/GuzR4cG1NylTY7XYNNSta1qB/6/fTmR1+biBn51BJp/ZloV1O9RrGg14z6zW
+         7dKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=XEUnD7DqqTtUtcDjYvQugZu8ealQJ2hIum6Bu4MZjiI=;
-        fh=uUZ37uKULDvMUpVprQ6Ffl3A/q5N5+z3ML3/rILH5nc=;
-        b=O4HEBhUAMn5LOkn3kP6PgmW3+sr1SG5B0BqE3rxo/6GxtuxQed7ONiwEWZugsyqG0n
-         0guH4KW9V93krZp89DovvLQwXsiil9V/1cCQTwhTIt/oSWP+H2FGtCVfBL5PjNEvO0xY
-         54mEEJEdCGBqXa/DY9zorcH4sFzXaRKgZ4XFhpUxVig1rtOGdSwNtFJL9gRdwjZxJFIM
-         PaD1KTpZZpn+QrhkV84DU/lbvxUVp82sTLod+NGK+KmWqJcQNyAIQYZuOoRZ3EgTs9aU
-         548g8YxxoO2X+ap3Q2sShnAjJSPOeTyLuiP/TDjPSRZJGyidWWOi+AZBFeQ71AM5qsGG
-         q9Bw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=soPsbDvUWN0SPXlaYNOhQMJeReVB4dKwMaExJU9cL80=;
+        fh=iAGO8pPQdO+BwYxNHUSv6BEDRqKCbKvMaqSyIoJXz+g=;
+        b=loz46HssdB0HrnbQ+c705XWTJi7yBtnB/IJNuPuFKqHayZtzxgdCLUpcnTHTJ0G9yS
+         vad/y4+zxYJFVGHEKWx27VqVlJVGGM0Uzm27PfwD5gftFNNz9UlP5t1zdhrBqD1qOgfq
+         B6Hm/LTnoWR+EBhIlhBdHKdreGjzcZnUpKSuAYuNMjCLKvF0H+3o7GPWR+JkcwBCNSPG
+         3a3/xfauyY/fEyHt09AB2n//M9OSMBvkzG1s8R/XAEb/7pynO8ljVRH6DMds0RJ2zDm8
+         V8cwWCL1XKLTZ1TOxS960W0+k/4NBLJ++lIDlQWzK0Gr61XdopAj4uojXmdG5QgD2wvw
+         e8cw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790922967; x=1791527767; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XEUnD7DqqTtUtcDjYvQugZu8ealQJ2hIum6Bu4MZjiI=;
-        b=rB/jwKfqAc8b/Mimi6xHXJ0Y1EjA1k9uFGQxlxSUJP9DY5KS9/JQeAXRKyRkqeSn8o
-         P60PWpZ/yZfu+glJ8qBJBFZyCTgLTKuH1yvRR3Ms6kL7g1yULX6B0hlsPR7ejpMADZY9
-         om9LFohlBug3ELBeXaoIsgq/yMU6gqc26CvtSwiheRmgX3V6haELGWS9orhdTWFwyOPa
-         1o2gbmJIIogrS0fbyi2EvRozrjDRk5avtc1ozHHBSsE7sm/zV76cCi4erUyK3mOD0o1H
-         1Vs3FHQb1Wj7IvIQJJmw780oLJLnFS+ESP2MddA+po2sf75Ny3+sobXs+mdKMmMJ+15Z
-         ioLw==
+        d=gmail.com; s=20251104; t=1790922990; x=1791527790; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=soPsbDvUWN0SPXlaYNOhQMJeReVB4dKwMaExJU9cL80=;
+        b=pNeWEMmnSARCxWseuUsu39yTxf0wEHNDyV/bTRXr9vR7cpjkQIw9bQ3xrtuMW3Ons0
+         4HB89SdYiEsHHVzIaNLiTo1YPdQtQJKFGZcadzaOCxTdHIoHZ02fbL/16Ro9Kw8mhMM3
+         6+GWJY7kHDNRjXvt/pbSSY5WAzNX+wEfTgmPxN0/aLRonbQk7sCLEziEfqGS6EnBIcHs
+         K8DDHtitDS8xSUfoPSpRurxHFaJF8BPj4udohyaKY33SaJvIIUrt53mZkxeiovhXMwbF
+         oKzACeEngk345xR9+MAiQaKXQFI879r4Km9K0Fv3vjQryM/4ocxbxAi8b/vo0Q72x6fn
+         8yyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790922967; x=1791527767;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XEUnD7DqqTtUtcDjYvQugZu8ealQJ2hIum6Bu4MZjiI=;
-        b=l9sNoMgg4JG3vm9I0x/nMYIaEfQ/4VGZlc73/7YGY0YdIklDUiqaSM2kDzGauKXIZL
-         H9mXLOpLqCsFc+gvqz/2vkPN+UHacMPu0zZV/MV78WlMKQSKbD7kBnGKjK1e74ZPZqoc
-         0UEknZQ+Zi8SDwfS1myVVNwRemr9Q+3EuIaakfcvrH5U68+8UJrwSVVLuOxVIs4eYhE7
-         6hrvpR4+DOKj7yDX9DKpJbq4FPlrnLa5cjz6Spck0c3ioSQwGGDTlfyQgpgKIalBfsDQ
-         xkrklzX6lcbHQA89nX5Re/Yts1AzTVxvupNbGxCct5hNllTdXQ23kpL4+EoztpPzhMoo
-         oYQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+0Nr4O0Sy3K9aJws7baOW1jnhp1TiZbS9PbGZH7g9KuHWCXRZRykdeURsEuFT/bE1Hncx17HPBDBN6Y4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkRfSO2SpYTJDaU17ZoGuEcHVbnMRfv+IP9039QaX5w8ot5U89
-	WASKgI/V+Bro1wgQpgLaSsXfkmAub1QzRsKTmK+A1S+pnKjUkMO5F/RN1qHIFu7QNy0xcKlEJ6f
-	R3L8Ub0Eukv5R9Op5gL/FLv7jGVIIHdU=
-X-Gm-Gg: AYBFou29I31uLYltdm08+6ewMqPMg4CO3eC+n/zaSRRRUCueds6isX8pYznkN0qaYzi
-	MP6XWkufquywsvkGK5mwq3evGc5Dmd1IP/Z/RW6p11jdZq+Mtim1xqWr/vu0YO3wxF4NQWz3sQo
-	9rLgQVfMC2lS1IJRabHE7bKmjjGZG88ZAjH0l8AxE2/6neDrCZtiD2KlQYe5RXwZU+A7Zsiz6LY
-	4fuowcaVH0NgidIAwQDkk4p+pjbHB/QlMroVyahC7gRHDFHLMlSa2OpcUmvvUICVPUuKrBlRU3/
-	gmfOFdRWux8LOt+MYFvxYYViY4BFCGZNAkqTeEjl2AX08EjeG4mNrH2AvinxZqe/hHmpb578XqF
-	3QzT2Xl8=
-X-Received: by 2002:a05:6214:250b:b0:917:9407:ebe6 with SMTP id
- 6a1803df08f44-917c01f8f37mr34918186d6.45.1790922966450; Thu, 01 Oct 2026
- 23:36:06 -0700 (PDT)
-Received: from 313336824172 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 01:36:05 -0500
-Received: from 313336824172 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 01:36:05 -0500
-From: aljojobypls@gmail.com
+        d=1e100.net; s=20260707; t=1790922990; x=1791527790;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=soPsbDvUWN0SPXlaYNOhQMJeReVB4dKwMaExJU9cL80=;
+        b=uDv50UwguAl/wDbrvVR2pQVZjfwNKJTn/kldRPsRxy6hmyFyUPD+ZzD/2OQUrTIbes
+         ZMKOlqqAvBdj0JvR6DoN/C06C/YH/KEQsw3dwRn0y3dfpuyQiKC7CkNWEKdFVrcAcDzZ
+         9pWFFtNqrCpLIIOXbMgvG4uP7nWkx1GuOeetEKBNStMuXUpydJKHhQvwHT6d2f0mMtIn
+         WfSCDLAWg1uZZok23YoFCAYaKpnQqg9c9Ws6efo/kafknUhxJsJbGbK4XXPLLFt3FApu
+         4izctpktTfddWQRVpTUY8zUzb3BQSOI/wUjTz37G6Kg6DhvUo+aGhgNt3MT2Ni/C6yOo
+         +F4A==
+X-Forwarded-Encrypted: i=1; AKwUvBz4feqUTte2QFT8L5XMsJ/jbYYEImUc41vWVzcCYikYKKhdf/cIlw+yd66yTXRQ0k2BR1ZSgGHVQZfhdOc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPPCesMQWTrA7GWA7OsjR2HLJmgPjOLWIA43O61D8vKesBa3nV
+	PFWfE0puVB5UvOk/3K+u9eoF0z2lJbztqfI4E3vD+q8296Arpist9D02sfRRu73SumwT9V6d9V6
+	qhEts2yJ9KgJF6ZJ8/WV69xYbuVa0vvM=
+X-Gm-Gg: AYBFou2PcuRJkRR6Op4VUgZU2qNJqDNagQY6lsj/z+3tHLOdb2TfF2bocJ+FsZV9JqQ
+	vkExNQh+SINkgZaG/Ymys3AJ0GqnBTPxvgqMAnKdI2mBVkb1jJ/TNYNLHnnsizcKooli9i1FFyc
+	uXQ+Lgsg0EFobZiLu1M4vrXGKhDnsE/AN0RnbTGYcHSzWLEbQ1BWsqsApTSxyXVQ5UpZPx9VF+x
+	oT/iXpuFhQrk5RFyPMuAgnepX55DDnFThAgvdA5HrF2DonYeKf8W93a+dSNUMC3Q6mAhyk7pUcO
+	vLtvvVyFHaS/zEqp/sHtkEB0SozDkxBm7tVeerMQNwnW0wAawkzUtvtsyrN1D4Ia6U9LR+925Dt
+	TxKMyZwORHI+HBKyL0JAwXNKG
+X-Received: by 2002:a05:600c:138b:b0:49f:ce78:3562 with SMTP id
+ 5b1f17b1804b1-4a02759b46fmr32317815e9.19.1790922989794; Thu, 01 Oct 2026
+ 23:36:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 2 Oct 2026 01:36:05 -0500
-X-Gm-Features: AclHuK-eOHG-KjrKk1EnhSAW8Anv2gpdAShX7kyS6osGEORvuk9-xVyj6NCHZdM
-Message-ID: <CAPNiJxAHw90Ndv_NoEi5PeqO4mRnw9S9vx-es3F0NNt2nbV2cw@mail.gmail.com>
-Subject: [PATCH] ntfs3: do not trust setuid and device nodes from WSL metadata
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
+References: <20260925133922.1356404-1-arnd@kernel.org> <CAN_Opa8F+vKAAckVi0+qi_yXrav7Dop5brpS=zr7Hw-XaAUL2w@mail.gmail.com>
+ <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
+In-Reply-To: <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Fri, 2 Oct 2026 14:36:18 +0800
+X-Gm-Features: AclHuK9Dz0MHNSTovGlbFnDS08y0Lg6jFdNOchKzstmaAxNqyn8Ihv_sSnlWWsQ
+Message-ID: <CAN_Opa9XhfVcvjCOa_Ay+zw+HpQMKEqsnBcTpNS6p5MVa5u5Jw@mail.gmail.com>
+Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
+To: paulmck@kernel.org
+Cc: Arnd Bergmann <arnd@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, 
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
+	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
+	Uladzislau Rezki <urezki@gmail.com>, Arnd Bergmann <arnd@arndb.de>, Steven Rostedt <rostedt@goodmis.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Zqiang <qiang.zhang@linux.dev>, Thomas Gleixner <tglx@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Andrea Righi <arighi@nvidia.com>, Cheng-Yang Chou <yphbchou0911@gmail.com>, 
+	Gustavo Luiz Duarte <gustavold@gmail.com>, rcu@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ntfs_get_wsl_perm() copies $LXMOD over the inode mode, including the
-file type, setuid, setgid and the sticky bit, and $LXDEV supplies a
-device number. Those attributes are stored on the volume.
+On Wed, Sep 30, 2026 at 5:08=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
+g> wrote:
+>
+> On Mon, Sep 28, 2026 at 10:54:13AM +0800, KunWu Chan wrote:
+> > Thanks, Arnd.
+> >
+> > Tested on top of 1eccf02fb8d5 with CONFIG_PREEMPT_RCU=3Dy:
+> >
+> > CONFIG_RT_MUTEXES=3Dy: build passes
+> > CONFIG_RT_MUTEXES=3Dn: fails without this patch, passes with it
+> >
+> > The failure is in tree_stall.h, where rt_mutex_owner() is used
+> > before tree_plugin.h includes rtmutex_common.h. This matches the
+> > reported failure, and the added include fixes it.
+> >
+> > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
+>
+> Bradley and Kunwu, are you OK with my applying your tags to the commit
+> that I am merging this into?
+>
+> 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall=
+ dump")
+>
+>                                                         Thanx, Paul
+>
 
-A crafted NTFS image can therefore present a setuid-root binary or a
-device node. cp -a and rsync -a copy that mode onto a normal Linux
-filesystem. The nosuid,nodev flags on the ntfs3 mount do not travel
-with the copy.
+Sure. Thanks, Paul.
 
-Keep the stored owner and the rwx bits. Keep the file type already
-derived from the MFT, and drop setuid, setgid, the sticky bit and
-device nodes. -o permissions restores the previous behavior for a
-volume the operator trusts, such as a WSL disk that really contains
-setuid binaries.
+Kunwu
 
-Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aljo Joby <aljojobypls@gmail.com>
----
- Documentation/filesystems/ntfs3.rst |  9 ++++++++
- fs/ntfs3/ntfs_fs.h                  |  1 +
- fs/ntfs3/super.c                    |  7 ++++++
- fs/ntfs3/xattr.c                    | 35 +++++++++++++++++++++++------
- 4 files changed, 45 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/filesystems/ntfs3.rst
-b/Documentation/filesystems/ntfs3.rst
-index 2b86a9b3a..260f73228 100644
---- a/Documentation/filesystems/ntfs3.rst
-+++ b/Documentation/filesystems/ntfs3.rst
-@@ -109,6 +109,15 @@ this table marked with no it means default is
-without **no**.
-        Kernel. Not to be confused with NTFS ACLs. The option specified as acl
-        enables support for POSIX ACLs.
-
-+   * - permissions
-+     - Trust the WSL metadata stored in \$LXUID, \$LXGID, \$LXMOD and \$LXDEV.
-+       This includes the owner, setuid, setgid, the sticky bit and device
-+       nodes. Without this option the driver still applies the stored owner
-+       and the rwx bits, but it keeps the file type it read from the MFT and
-+       drops setuid, setgid, the sticky bit and device nodes. Mount a volume
-+       with this option only when you trust it, for example a WSL disk that
-+       legitimately contains setuid binaries.
-+
- Todo list
- =========
- - Full journaling support over JBD. Currently journal replaying is supported
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index 5811d89d6..267d980f7 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -111,6 +111,7 @@ struct ntfs_mount_options {
- 	unsigned nocase : 1; /* case insensitive. */
- 	unsigned delalloc : 1; /* delay allocation. */
- 	unsigned ads : 1; /* ads support. */
-+	unsigned permissions : 1; /* Trust on-disk WSL uid, mode, devices. */
- };
-
- /* Special value to unpack and deallocate. */
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index f4a42a0c7..863126e87 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -275,6 +275,7 @@ enum Opt {
- 	Opt_delalloc_bool,
- 	Opt_ads,
- 	Opt_ads_bool,
-+	Opt_permissions,
- 	Opt_err,
- };
-
-@@ -303,6 +304,7 @@ static const struct fs_parameter_spec
-ntfs_fs_parameters[] = {
- 	fsparam_bool("delalloc",	Opt_delalloc_bool),
- 	fsparam_flag("ads",		Opt_ads),
- 	fsparam_bool("ads",		Opt_ads_bool),
-+	fsparam_flag("permissions",	Opt_permissions),
- 	{}
- };
- // clang-format on
-@@ -432,6 +434,9 @@ static int ntfs_fs_parse_param(struct fs_context *fc,
- 	case Opt_ads_bool:
- 		opts->ads = result.boolean;
- 		break;
-+	case Opt_permissions:
-+		opts->permissions = 1;
-+		break;
- 	default:
- 		/* Should not be here unless we forget add case. */
- 		return -EINVAL;
-@@ -805,6 +810,8 @@ static int ntfs_show_options(struct seq_file *m,
-struct dentry *root)
- 		seq_puts(m, ",delalloc");
- 	if (opts->ads)
- 		seq_puts(m, ",ads");
-+	if (opts->permissions)
-+		seq_puts(m, ",permissions");
-
- 	return 0;
- }
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index 594ef6860..5db154513 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -1036,6 +1036,8 @@ void ntfs_get_wsl_perm(struct inode *inode)
- {
- 	size_t sz;
- 	__le32 value[3];
-+	struct ntfs_sb_info *sbi = inode->i_sb->s_fs_info;
-+	umode_t disk_mode, type;
-
- 	if (ntfs_get_ea(inode, "$LXUID", sizeof("$LXUID") - 1, &value[0],
- 			sizeof(value[0]), &sz) == sizeof(value[0]) &&
-@@ -1043,15 +1045,34 @@ void ntfs_get_wsl_perm(struct inode *inode)
- 			sizeof(value[1]), &sz) == sizeof(value[1]) &&
- 	    ntfs_get_ea(inode, "$LXMOD", sizeof("$LXMOD") - 1, &value[2],
- 			sizeof(value[2]), &sz) == sizeof(value[2])) {
--		i_uid_write(inode, (uid_t)le32_to_cpu(value[0]));
--		i_gid_write(inode, (gid_t)le32_to_cpu(value[1]));
--		inode->i_mode = le32_to_cpu(value[2]);
-+		disk_mode = le32_to_cpu(value[2]);
-
--		if (ntfs_get_ea(inode, "$LXDEV", sizeof("$LXDEV") - 1,
--				&value[0], sizeof(value),
--				&sz) == sizeof(value[0])) {
--			inode->i_rdev = le32_to_cpu(value[0]);
-+		/*
-+		 * $LXUID/$LXGID/$LXMOD/$LXDEV are stored on the volume.
-+		 * A crafted image can claim to be a setuid-root binary or
-+		 * a device node. Those bits are copied onto a trusted
-+		 * filesystem by cp -a and rsync -a, even when this mount
-+		 * itself is nosuid,nodev. Trust them only with -o permissions.
-+		 */
-+		if (sbi->options->permissions) {
-+			i_uid_write(inode, (uid_t)le32_to_cpu(value[0]));
-+			i_gid_write(inode, (gid_t)le32_to_cpu(value[1]));
-+			inode->i_mode = disk_mode;
-+
-+			if (S_ISCHR(disk_mode) || S_ISBLK(disk_mode)) {
-+				if (ntfs_get_ea(inode, "$LXDEV",
-+						sizeof("$LXDEV") - 1, &value[0],
-+						sizeof(value[0]),
-+						&sz) == sizeof(value[0]))
-+					inode->i_rdev = le32_to_cpu(value[0]);
-+			}
-+			return;
- 		}
-+
-+		i_uid_write(inode, (uid_t)le32_to_cpu(value[0]));
-+		i_gid_write(inode, (gid_t)le32_to_cpu(value[1]));
-+		type = inode->i_mode & S_IFMT;
-+		inode->i_mode = type | (disk_mode & 0777);
- 	}
- }
-
--- 
-2.53.0
+> > Thanks,
+> > Kunwu
+> >
+> > On Fri, Sep 25, 2026 at 9:39=E2=80=AFPM Arnd Bergmann <arnd@kernel.org>=
+ wrote:
+> > >
+> > > From: Arnd Bergmann <arnd@arndb.de>
+> > >
+> > > The added call to rt_mutex_owner() makes this fail to build in
+> > > some configurations:
+> > >
+> > > In file included from kernel/rcu/tree.c:5121:
+> > > kernel/rcu/tree_stall.h:333:8: error: call to undeclared function 'rt=
+_mutex_owner'; ISO C99 and later do not support implicit function declarati=
+ons [-Wimplicit-function-declaration]
+> > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rt=
+mutex) =3D=3D t)
+> > >       |                             ^
+> > > kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and=
+ integer ('int' and 'struct task_struct *') [-Werror,-Wpointer-integer-comp=
+are]
+> > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rt=
+mutex) =3D=3D t)
+> > >       |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~~~ ^  ~
+> > > In file included from kernel/rcu/tree.c:5124:
+> > > In file included from kernel/rcu/tree_plugin.h:14:
+> > > kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting typ=
+es for 'rt_mutex_owner'
+> > >   231 | static inline struct task_struct *rt_mutex_owner(struct rt_mu=
+tex_base *lock)
+> > >       |                                   ^
+> > > kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is=
+ here
+> > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rt=
+mutex) =3D=3D t)
+> > >       |                             ^
+> > >
+> > > There are already a couple of inclusions of "../locking/rtmutex_commo=
+n.h",
+> > > so assume this is safe to do here.
+> > >
+> > > Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU=
+ task stall dump")
+> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > > ---
+> > > I wonder if it would be better to either move the rt_mutex_owner()
+> > > definition into a global header like include/linux/rtmutex.h, or to
+> > > move the code out of tree_stall.h into a .c file, as this feels like =
+a
+> > > layering violation.
+> > > ---
+> > >  kernel/rcu/tree_stall.h | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > >
+> > > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+> > > index 5dded1e89197..803a56af3259 100644
+> > > --- a/kernel/rcu/tree_stall.h
+> > > +++ b/kernel/rcu/tree_stall.h
+> > > @@ -12,6 +12,7 @@
+> > >  #include <linux/rcu_notifier.h>
+> > >  #include <linux/smp.h>
+> > >  #include <linux/rtmutex.h>
+> > > +#include "../locking/rtmutex_common.h"
+> > >
+> > >  ////////////////////////////////////////////////////////////////////=
+//////////
+> > >  //
+> > > --
+> > > 2.53.0
+> > >
+> >
