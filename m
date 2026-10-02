@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE634BB7F0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC363A16AC;
 	Fri,  2 Oct 2026 18:36:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790966209; cv=none; b=c8hk8TAphw+tw5Zr5UD+xkK1htAagG2+JWDlDtv1JTk/Br6hzIshDYfcAxOeYTW8qFMwUxc03kgefOWx/cwIQZnxlJIkEA908ybyBCyEvLNtkYw6vBeMFQlex4Y39Gp0TS2v2G4ORMnyjRsGIkvyjGihQihBzEZ9XoehVdCnsWk=
+	t=1790966209; cv=none; b=OGinoZNAoiYU6gtuN934YxrE6MwbFztVR9RJpHwCRGO0RrJ/+xRVPK/knirqSGqlohJr5Zh5fcwXNon34tpyf30kWIY9nOnFyIxZ3Vj2qC254aHkJNkRW+LF909af5sCTmn5rAoJbrE2lkf+FqqSvF5qKQlGOFp64tNhvbD61Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790966209; c=relaxed/simple;
-	bh=b1yPZi82g5YJjfiKmfE3necw60fkrcFAPcinKeqKRUs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lPsS4Ii2HLuBHX1O+/06Fp49g0GXWQgSk8vNONK60ez2rtbhiKMmXbjfOsU3pgx7YoBGZDQQ5ujfh1bH1h91QfcsOzn7dOUkEamf6CTSLzvhEsB8xT+WO63pQLqGxsFxQYicN5EwfEPMYSrOBupVrVjgANmgDljDugr9qH6S0M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XH3mdsOo; arc=none smtp.client-ip=10.30.226.201
+	bh=oqriVhcuHi++E4d/LMJaua4G89WcpjjWhndoonwZOjo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ki1nG7BLwrwYPhz7wYZf0DlMz849szlhG2Acp9z1D5ngesG3UH6/XkPCvnimc8XIHd+uQdDq5Bv9K6ptgeGSlVvEHXcxELYoo2hvQm9F9bNpiVFOnoKr394SIaZx1n3R3tdCGI1+ASWAabgwQX57Bcc5+bcJAI3XjwYLWn5QCVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AU51t3H9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XH3mdsOo"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 56E09C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AU51t3H9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7106BC4AF14;
 	Fri,  2 Oct 2026 18:36:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790966208;
-	bh=b1yPZi82g5YJjfiKmfE3necw60fkrcFAPcinKeqKRUs=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=XH3mdsOou+EpbPmhJ04gKwYHqxuNG2AmXt+q+1soAqXmfGMbkT37SD9HcFG1P29tg
-	 HFYHX0nvLqq9Oaq9Wj0PoWmOoX66/sGkTjl88ho84FeprwKYKLzcNz2mKUQZkKpJtG
-	 uDgq276zv2LoSurCUQydAyzawVw/3iJXBnHdhoYeOByL7rvgcuOAhvxZkVwdwqo27u
-	 4T4oD/397qJ19RK8TsP0cCGOt/ej/p7NYeuH8vslg9dzNVPXN1RKKyzTO0RJMfzoby
-	 abYS30w1H9/Plfo0HHu79ToTPz8bDRe1IvNBIp4WqC1av2l45ogj0kdLv9JSyWPxIf
-	 +XK6kUt69ckrw==
+	bh=oqriVhcuHi++E4d/LMJaua4G89WcpjjWhndoonwZOjo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=AU51t3H9jmkA/VNmU+zgRyNpecRwVpO2NryljnfG19c9k85FiiKGI1mUhNV+t2Gbo
+	 iBb+2QDYhUlxk+NvGyyO1ABvMaej+voQvdM7TgwuODdSjRjeIlsLYwzTb0h9e92bsH
+	 8yZvRiKPAnKfAqY5CqbWSNuXjbGelZD4Y1HZn6+zmvCbbtVgsGkZs41KvCnQktrnfy
+	 /4Ml6JVx6YBPDDzp56EMjdyDeYckNUgGIYfvc/RyFia6eItl5uL1Cgrpk36wvWuMna
+	 d+L4HjbQrFc5MvsYgjwo9KmLYy3vbqeynk5TaIHa2UftFsRsYI1mLNfdi3cD4MLCHB
+	 wM2E4i2Mx0Raw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3241CCA5FE0;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50944CA5FD4;
 	Fri,  2 Oct 2026 18:36:48 +0000 (UTC)
 From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Subject: [PATCH v2 0/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: fix the
- SPI NOR
-Date: Fri, 02 Oct 2026 21:36:45 +0300
-Message-Id: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
+Date: Fri, 02 Oct 2026 21:36:47 +0300
+Subject: [PATCH v2 2/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: run the
+ SPI NOR at 40 MHz
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAL35v2oC/23MQQrCMBCF4auUWTsySVppXHkP6SLU0QxIUhIJl
- pK7N3bt8n/wvg0yJ+EM126DxEWyxNBCnzqYvQsvRnm0Bk36QtYQ+rnHvAiGmNCNpAbNhtgpaI8
- l8VO+h3afWnvJn5jWAy/qt/53ikJC64wZFGs79nwTV87vAlOtdQfMm6CfowAAAA==
+Message-Id: <20261002-hc4-spi-nor-v2-2-8366a4f91049@iav.lv>
+References: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
+In-Reply-To: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
@@ -53,47 +53,58 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1092; i=iav@iav.lv;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1452; i=iav@iav.lv;
  h=from:subject:message-id;
- bh=b1yPZi82g5YJjfiKmfE3necw60fkrcFAPcinKeqKRUs=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFn7f+4N1HnAzNsq2ufuFNnO8HmGxIMWXVHutOxnZT6yQ
- ietzuZ1lLIwiHExyIopskw4pHErY8nVv/4e5g9g5rAygQxh4OIUgIncTmf4X2Ha9crFovxM0lWX
- lX9qDv35fcD/REMti3+LrbDwn/MWtYwMK/u33irZ21L6sMJk1oQtlQUym7cFMt9vtp1qUCN361k
- wBwA=
+ bh=NgYmk2F31b9kS7Gvan8KxK/AyfRvJU013G77W98iZH8=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFn7f+7jZI1dvfOXhXy3p/6vB+4Zb9KEd/yY7T37qcHF6
+ riFFvsnd5SyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJtBxl+KfrcrAhfvrXmodh
+ vD8Wh+5wFrTbV6OlsdOC6e88tdpD9j8YGRZMWV3JwZH/8Klbi0+tyKWsnqW/b8ws/xwZ99S1pOE
+ 9GzMA
 X-Developer-Key: i=iav@iav.lv; a=openpgp;
  fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
 X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
 X-Original-From: Igor Velkov <iav@iav.lv>
 Reply-To: iav@iav.lv
 
-Two fixes for the SPI NOR flash on ODROID-HC4. Patch 1 lets the flash
-probe after a boot from SD that bypasses the SPI flash. Patch 2 lowers
-the clock to 40 MHz, where reads stop returning corrupted data.
+From: Igor Velkov <iav@iav.lv>
 
-U-Boot takes this device tree from dts/upstream and gets the fixes with
-the next sync.
+At 104 MHz, reads return corrupted data: bit 0 of the first byte of a
+transfer flips from 0 to 1 part of the time. The same byte read as the
+second byte of a transfer was correct in all 100 reads. One 4 KiB block
+read 200 times came back wrong 157 times. Writes are unaffected.
 
+flashcp verifies while it writes, so a bootloader update erases blocks
+it should skip and can abort halfway, with the flash half written.
+
+The Hardkernel vendor device tree for this board uses 40 MHz. At 40 MHz
+the same tests pass: 200 block reads with no mismatch, and 14 flashcp
+runs with no block erased.
+
+Tested on ODROID-HC4 with an XT25F128B.
+
+Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
+Assisted-by: LLM
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
-Changes in v2:
-- Patch 1: move the HOLD#/WP# group to meson-g12-common.dtsi (Neil).
-  The HC4 dtb decompiles identically to v1.
-- Link to v1: https://lore.kernel.org/r/20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv
+ arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
----
-Igor Velkov (2):
-      arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the SPI NOR HOLD# and WP# pins
-      arm64: dts: amlogic: meson-sm1-odroid-hc4: run the SPI NOR at 40 MHz
+diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+index c4b93d6619f2..5f15c2299509 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
++++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+@@ -134,7 +134,7 @@ flash@0 {
+ 		#size-cells = <1>;
+ 		compatible = "jedec,spi-nor";
+ 		reg = <0>;
+-		spi-max-frequency = <104000000>;
++		spi-max-frequency = <40000000>;
+ 	};
+ };
+ 
 
- arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi    | 9 +++++++++
- arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 4 ++--
- 2 files changed, 11 insertions(+), 2 deletions(-)
----
-base-commit: 065957517880dc7053e0723cc9532b6e78c8855c
-change-id: 20260930-hc4-spi-nor-a80152e30ea1
-
-Best regards,
 -- 
-Igor Velkov <iav@iav.lv>
+2.43.0
 
 
