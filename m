@@ -1,55 +1,310 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D9B25B092;
-	Fri,  2 Oct 2026 00:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9442DC783
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 00:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790901494; cv=none; b=nyJOzyudMp5+1hzzTL5yiNiT9QpMx3xBXUvwxbGTAo9ipdMug915u6+/ovceNEE6eNUCaxwX1o1ywdaKAgWUJoR/Eb453+L2FKBcqTH+OwwamFkmMK0RzkA5f4yAMMSFiLiX4WSPHFxbH4k8mYtUSVk5EwBx1wmyWPSbWVaysxQ=
+	t=1790901504; cv=none; b=uYBL0KDI3lsNFMUR2WRIVl44rjh7aXoe0Sk0BglgKaEuod6Nizn8v9/pHDXrILPjO9PaRIHe9MGhVQJ2qvmheKzoVQpinRTFW7pmzGkuv+nrJ3hJCtsyMvzyJuEM9tvVwJaz1FNpT7rwOfH/hrjWjqf892mH4eK5Eo5ksBetJVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790901494; c=relaxed/simple;
-	bh=QO+xcArTR3a26WqHth8KpxoC/JMLl4gB0KDGVJNxQYM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WEZ4A5B/07ktsb5WQvGPJEgPxFLLVU0psfSunYvpqCJlT2QuXPj+BKvwzocwqx8clHvDPtPTe6svImtp/gCY3+X8EcqyICZmnmq5mgalRSUaLXYSbgiBxJCFOMkG+xkRcKg/KRg879vAZrnJ98VNFklK1Ve01D9gEhKfv5LyrEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fZxidBBI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790901504; c=relaxed/simple;
+	bh=J3utxBYWapNuzsgJiM2xNv+dVDyB6qQmcrEPJ8HMbxI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=D0WW7flo09HBiV9WeDtRPg66eGnWohcNccArLl888xbYbzHwdMyGmeCfcnGXynYKaLisc1ZHmeXII0PtccDvMBzbiB2Dnq+0gJj013+DWw3E+yVX91UuUAzYDY50HS+QFTTf8k7BpJtzh7b5BUKFad55b0/Y5dEbwnn2tjuBVio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M0pQ1Cvb; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZxidBBI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1D31F00893;
-	Fri,  2 Oct 2026 00:38:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790901492;
-	bh=9G9Gp22sD6F2MLnPvbvkpT0KyPSGOudpskd/aZZNlrw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fZxidBBIc/z1wKHwgZeDlw2oTEcVrCxEDfCADVsjv2cWSBf2d3s8yg9vJYc4yu0zJ
-	 oFnrkjh+Fm7xXUv6CYWJtHK9UbOUJ83bJGJVQQCMRkMnAQZOy1f2wFzKLyO5/iQb7P
-	 eI08fWvYE5j07cAQ4LiKJJeVIAwSnr7G++2HfK4pZTMiQzryudyLqdx0QujBKJ2w1Z
-	 vGcLcZCt05Py1cDWSRXuu+3PAWjV/i04qJ+puhr6h7LbK6Wb4+doIAiAp/HOsQ4R7U
-	 MsnPzHquoHeIZnFXTHimk0iRIl8NZMKIqZ65oxkCiwEC5XN3ZgnVVuxQ1g21BBUGNV
-	 H+Q1FinrTMWgw==
-Date: Thu, 1 Oct 2026 17:38:11 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Seung Min Shin <guncraft2000@naver.com>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Xin Long
- <lucien.xin@gmail.com>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, linux-sctp@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sctp: hold transport reference across connect wait
-Message-ID: <20261001173811.17b0b861@kernel.org>
-In-Reply-To: <20260928152132.3705137-1-guncraft2000@naver.com>
-References: <20260928152132.3705137-1-guncraft2000@naver.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M0pQ1Cvb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790901503; x=1822437503;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=J3utxBYWapNuzsgJiM2xNv+dVDyB6qQmcrEPJ8HMbxI=;
+  b=M0pQ1CvbVsDvpXouWVML7cE7hMFkmGxN6VRmVIA1G0pyj+FYrd/xWmeb
+   u3praDIxfrps5pDaeZZNNIIpiJO/PL5aa17AHf/QLmMZi5ZdkGK/TYw6R
+   pPLI58QcinuGisq5l16O9fZMuOI8qHRrID0rjqE3DZuhtoErI/ob/KQ5B
+   EmIgAOKSqQXe8hKdlKthYh7XkAVSoAebXD+11IR0cnigaKpCqvog2jQE3
+   UYhPRODStusy9RW7nfO8ZFETrrkaC9wTeLIh+J0atXwFoNnZdBsuZz6HX
+   DK7hznOwHF7/knfYR/SguGcRvZp6yZ6x1c16P6+uH8Nh3Zqnfsbma4hFz
+   g==;
+X-CSE-ConnectionGUID: e/xxD7ACQOCKuX132Dxs7A==
+X-CSE-MsgGUID: d2VnODBXQQ+E15gqfHhBWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91693212"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="91693212"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 17:38:22 -0700
+X-CSE-ConnectionGUID: Z84WhmAaTLKXie5L8J0qHA==
+X-CSE-MsgGUID: +tr2yjb+TpSNbehLerEgEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="276240069"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 17:38:21 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] drm/exec: track the first few locked objects inline
+Date: Thu,  1 Oct 2026 17:38:16 -0700
+Message-Id: <20261002003816.3233277-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 15:21:32 +0000 Seung Min Shin wrote:
-> Subject: [PATCH] sctp: hold transport reference across connect wait
+drm_exec_init() always allocates the table of locked objects, a whole
+page of it unless the caller asks for a specific size. Many users only
+ever lock a handful of objects, often just a VM's common dma-resv and
+one BO, yet still pay for an allocation, and any of them can fail with
+-ENOMEM. That is awkward on paths which can't fail, such as dropping
+what may be the last reference of a drm_gpuvm_bo, which needs both the
+VM's and the BO's dma-resv held; drivers end up open coding the ww_mutex
+dance instead.
 
-this needs a respin, it conflicted with commit 4f1da630d13de
+Keep room for DRM_EXEC_INLINE_OBJECTS (8) objects within struct drm_exec
+itself and track the first locked objects there. Only once more are
+locked does the table move to an allocation, which then grows as before.
+A caller passing nr larger than that still gets an allocated table of
+that size up front, falling back to the inline one should that fail.
+
+As a result, locking up to DRM_EXEC_INLINE_OBJECTS objects never
+allocates memory and cannot fail with -ENOMEM, and callers passing
+nr == 0 no longer allocate a page they mostly don't need. The cost is
+64 bytes more of struct drm_exec, which typically lives on the stack.
+
+Since objects may now point into the struct itself, a struct drm_exec
+must not be moved or copied after drm_exec_init(); no user does so.
+
+Add a KUnit test which locks one object more than fits inline, checking
+that the table moves out of the struct only then, that every object is
+tracked across the move, and that a large nr skips the inline table.
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Assisted-by: LLM
+
+---
+This came out of a Sashiko review of the two-pass GPUVM series [1],
+which flagged a nouveau cleanup path dropping a drm_gpuvm_bo with
+drm_exec and silently carrying on if locking failed with -ENOMEM.
+Grabbing a small number of locks on paths which cannot fail is quite
+common, and drm_exec should provide a ww transaction wrapper for that
+which can't fail, rather than drivers open coding the ww_mutex dance.
+
+[1] https://sashiko.dev/#/patchset/20261001220632.3190896-1-matthew.brost%40intel.com
+---
+ drivers/gpu/drm/drm_exec.c            | 39 +++++++++++++------
+ drivers/gpu/drm/tests/drm_exec_test.c | 55 +++++++++++++++++++++++++++
+ include/drm/drm_exec.h                | 18 ++++++++-
+ 3 files changed, 99 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+index 2453ec41360f..bdc9c79359b3 100644
+--- a/drivers/gpu/drm/drm_exec.c
++++ b/drivers/gpu/drm/drm_exec.c
+@@ -70,19 +70,26 @@ static void drm_exec_unlock_all(struct drm_exec *exec)
+  *
+  * Initialize the object and make sure that we can track locked objects.
+  *
+- * If nr is non-zero then it is used as the initial objects table size.
+- * In either case, the table will grow (be re-allocated) on demand.
++ * The first %DRM_EXEC_INLINE_OBJECTS locked objects are tracked within @exec
++ * itself, so locking no more than that never allocates memory. If nr is larger
++ * than that, it is used as the initial size of an allocated objects table
++ * instead. In either case, the table will grow (be re-allocated) on demand.
+  */
+ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr)
+ {
+-	if (!nr)
+-		nr = PAGE_SIZE / sizeof(void *);
++	exec->objects = NULL;
++	if (nr > DRM_EXEC_INLINE_OBJECTS)
++		exec->objects = kvmalloc_objs(*exec->objects, nr);
+ 
+-	exec->flags = flags;
+-	exec->objects = kvmalloc_objs(*exec->objects, nr);
++	/* If allocation here fails, just delay that till it is needed */
++	if (exec->objects) {
++		exec->max_objects = nr;
++	} else {
++		exec->objects = exec->inline_objects;
++		exec->max_objects = DRM_EXEC_INLINE_OBJECTS;
++	}
+ 
+-	/* If allocation here fails, just delay that till the first use */
+-	exec->max_objects = exec->objects ? nr : 0;
++	exec->flags = flags;
+ 	exec->num_objects = 0;
+ 	exec->contended = DRM_EXEC_DUMMY;
+ 	exec->prelocked = NULL;
+@@ -99,7 +106,8 @@ EXPORT_SYMBOL(drm_exec_init);
+ void drm_exec_fini(struct drm_exec *exec)
+ {
+ 	drm_exec_unlock_all(exec);
+-	kvfree(exec->objects);
++	if (exec->objects != exec->inline_objects)
++		kvfree(exec->objects);
+ 	if (exec->contended != DRM_EXEC_DUMMY) {
+ 		drm_gem_object_put(exec->contended);
+ 		ww_acquire_fini(&exec->ticket);
+@@ -140,9 +148,16 @@ static int drm_exec_obj_locked(struct drm_exec *exec,
+ {
+ 	if (unlikely(exec->num_objects == exec->max_objects)) {
+ 		size_t size = exec->max_objects * sizeof(void *);
+-		void *tmp;
+-
+-		tmp = kvrealloc(exec->objects, size + PAGE_SIZE, GFP_KERNEL);
++		struct drm_gem_object **tmp;
++
++		if (exec->objects == exec->inline_objects) {
++			tmp = kvmalloc(size + PAGE_SIZE, GFP_KERNEL);
++			if (tmp)
++				memcpy(tmp, exec->objects, size);
++		} else {
++			tmp = kvrealloc(exec->objects, size + PAGE_SIZE,
++					GFP_KERNEL);
++		}
+ 		if (!tmp)
+ 			return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
+index 7a374e462348..434ab9c59878 100644
+--- a/drivers/gpu/drm/tests/drm_exec_test.c
++++ b/drivers/gpu/drm/tests/drm_exec_test.c
+@@ -204,6 +204,60 @@ static void test_multiple_loops(struct kunit *test)
+ 	KUNIT_SUCCEED(test);
+ }
+ 
++static void test_inline_objects(struct kunit *test)
++{
++	struct drm_exec_priv *priv = test->priv;
++	const unsigned int count = DRM_EXEC_INLINE_OBJECTS + 1;
++	DECLARE_BITMAP(seen, DRM_EXEC_INLINE_OBJECTS + 1) = {};
++	struct drm_gem_object *gobj, *obj;
++	struct drm_exec exec;
++	unsigned int i;
++	int ret = 0;
++
++	gobj = kunit_kcalloc(test, count, sizeof(*gobj), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, gobj);
++
++	for (i = 0; i < count; i++)
++		drm_gem_private_object_init(priv->drm, &gobj[i], PAGE_SIZE);
++
++	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
++	KUNIT_EXPECT_PTR_EQ(test, exec.objects, &exec.inline_objects[0]);
++	drm_exec_until_all_locked(&exec) {
++		for (i = 0; i < count; i++) {
++			ret = drm_exec_lock_obj(&exec, &gobj[i]);
++			drm_exec_retry_on_contention(&exec);
++			if (ret)
++				break;
++
++			/* Only spills out of the struct past the inline ones */
++			if (exec.num_objects <= DRM_EXEC_INLINE_OBJECTS)
++				KUNIT_EXPECT_PTR_EQ(test, exec.objects,
++						    &exec.inline_objects[0]);
++			else
++				KUNIT_EXPECT_PTR_NE(test, exec.objects,
++						    &exec.inline_objects[0]);
++		}
++	}
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, exec.num_objects, count);
++	/* Contention may reorder them, but each must be tracked once */
++	drm_exec_for_each_locked_object(&exec, obj) {
++		KUNIT_ASSERT_TRUE(test, obj >= gobj && obj < gobj + count);
++		KUNIT_EXPECT_FALSE(test, test_and_set_bit(obj - gobj, seen));
++	}
++	KUNIT_EXPECT_TRUE(test, bitmap_full(seen, count));
++	drm_exec_fini(&exec);
++
++	/* A larger initial size skips the inline objects altogether */
++	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, count);
++	KUNIT_EXPECT_PTR_NE(test, exec.objects, &exec.inline_objects[0]);
++	KUNIT_EXPECT_EQ(test, exec.max_objects, count);
++	drm_exec_fini(&exec);
++
++	for (i = 0; i < count; i++)
++		drm_gem_private_object_fini(&gobj[i]);
++}
++
+ static struct kunit_case drm_exec_tests[] = {
+ 	KUNIT_CASE(sanitycheck),
+ 	KUNIT_CASE(test_lock),
+@@ -212,6 +266,7 @@ static struct kunit_case drm_exec_tests[] = {
+ 	KUNIT_CASE(test_prepare),
+ 	KUNIT_CASE(test_prepare_array),
+ 	KUNIT_CASE(test_multiple_loops),
++	KUNIT_CASE(test_inline_objects),
+ 	{}
+ };
+ 
+diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+index cc2937185a9f..ddbdd745efd9 100644
+--- a/include/drm/drm_exec.h
++++ b/include/drm/drm_exec.h
+@@ -15,6 +15,12 @@
+  */
+ #define DRM_EXEC_DUMMY ((void *)~0)
+ 
++/*
++ * Number of locked objects tracked inside &struct drm_exec itself. Locking at
++ * most this many objects never allocates memory for tracking them.
++ */
++#define DRM_EXEC_INLINE_OBJECTS	8
++
+ struct drm_gem_object;
+ 
+ /**
+@@ -42,7 +48,8 @@ struct drm_exec {
+ 	unsigned int		max_objects;
+ 
+ 	/**
+-	 * @objects: array of the locked objects
++	 * @objects: array of the locked objects, either @inline_objects or
++	 * allocated once more objects need tracking than it can hold
+ 	 */
+ 	struct drm_gem_object	**objects;
+ 
+@@ -55,6 +62,15 @@ struct drm_exec {
+ 	 * @prelocked: already locked GEM object due to contention
+ 	 */
+ 	struct drm_gem_object *prelocked;
++
++	/**
++	 * @inline_objects: storage for the first %DRM_EXEC_INLINE_OBJECTS
++	 * locked objects, so that locking only a few objects does not need to
++	 * allocate memory, and therefore cannot fail with -ENOMEM. As @objects
++	 * may point here, a &struct drm_exec must not be moved or copied after
++	 * drm_exec_init().
++	 */
++	struct drm_gem_object	*inline_objects[DRM_EXEC_INLINE_OBJECTS];
+ };
+ 
+ /**
 -- 
-pw-bot: cr
+2.34.1
+
