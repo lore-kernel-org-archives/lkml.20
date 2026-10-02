@@ -1,274 +1,130 @@
-Received: from mta0.migadu.com (out-142.mta0.migadu.com [91.218.175.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41857481FBE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D9E457E58
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950674; cv=none; b=ULm6VPVoMQKiZH0BeX2agTyEIV0VIrG83gigy3DsT9txRFlgAuQtr75FiOfbAfwmj1ueJvASFqZ5Q2GXWZQFFtJ1aTj6foky/dcV3TyQ0HpXBQWwazGuIlNMwmxInyZHcI47Q/ScmLUmLb201jwsvraqQRkuT1yIP8YTImGfjKA=
+	t=1790950686; cv=none; b=NH/ESYBElWz/HiBtzA7HREqGWUYWYbw4lImTGWf2xXH04u12aZJJTeHIKIXqi3x2gWc07A5BLZPiclf0SZ2h/U2FDcwSxJC7M/6XeVQxoGGjVonJaDPd5mNne3mHU8GC2ua4puU5Uh0JMAFdioX7x6xNTQWMKYVqL2gEbyQB3qI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950674; c=relaxed/simple;
-	bh=KVvd3mTqD0OezG5YoQKXKSUl1mfAZ3w3xJhCc5bbS0w=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Wu2Nd0jgGiW2nUDROGsqWgIBdJT6+lh3RR6u4I3ETFJEAmr0T385GvH6FnB7Yi09Me3cuHFVwzkcPPTBe3Np5nwav6Vj7OwADUBVrTs2z7OJOxxUl+zZcfGplDb/Ueh54olmvMyFZaaPpVThECJb3CJMWOoCktK2jFkgxXF2yfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Xugd8xf6; arc=none smtp.client-ip=91.218.175.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790950686; c=relaxed/simple;
+	bh=NenvuYZGdfGWmIY7YgQLfKZKlknQZ8chX/MutBqmwmo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LtklGtGGBm+SsJ1W8SFOnRUme5uUfZFVty5Wlk8l3FjcqaFsokXwLUNyFgggkHQoPUBGmmr4Id39bGiFgXMpsq5gR9o6WZiaM2GJf3RnH8V4EROX4BnhQPCd2GwOkCMtLKPuujlBPbr7Bxd1lkxF/YrvlNh3j7SDUgoPgRagDjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oappmKQy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Xugd8xf6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KVvd3mTqD0OezG5YoQKXKSUl1mfAZ3w3xJhCc5bbS0w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790950670; v=1; x=1791555470;
- b=Xugd8xf6lf0ZhY1tQHrRgLBONtg9vpCiToKhkCPLaG+9OiaOalCdjZ7yrxxeLqnXo9xDfNzH
- bjcWDEdTQBaM596FZk61Qcn0KVQQXaR7yau5xcQhL5k0+TediTCDCPMYYfWKJ8ZzSaMQo1SHNEA
- 0zj5EBX3UHF5bKKaHzEOg1xM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 74ad76f5439c6670;
-	Fri, 02 Oct 2026 14:17:50 +0000
-X-Mizu-Trace-ID: 74ad76f5439c6670
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b83447c2-564a-4d9a-af24-60ad675f59ff@linux.dev>
-Date: Fri, 2 Oct 2026 22:17:36 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oappmKQy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8FA41F00901
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:18:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790950684;
+	bh=0uOM3jWz9hTdESdoL/7PR8IoiwAtC5PATol6n9clR1w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oappmKQya7E9Zo7YvGbz225Wzyq9o2rw3IkqXrNEP986A+djebCRgzN1ysoUo49KR
+	 Y3zwqRU23muhQZHXWWOUht7UDXXxDd97rIh5r0+f95SHYAGKsMQOS723ZGtMNlZ+hn
+	 gPy9sQhFMULcctANzXMz394AQljzN89hPcRjnFBPJxGaKqtI7Q6qIImyjX1dP8qUdh
+	 EeYxjSsVJWcgPp98mLiL0CzXPIlhCZdWBhTfAcLHiJeWFMIO/ma69M2wW+eBMQwxuj
+	 4Rf5fU9EaLkITmAdsQNanXa9dv2jzoOIA4sq4JVVR142LtdxAZQVTbWVRYgBTJr/5z
+	 MaKGZ0aqoUZ9Q==
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so12178656a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:18:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBziwmbFBolKS3G6/h0Xu82fsgBELWBDoe0mrH3JvOjiYmszU3IhyI/9I76W35wTXEUQ2oNpUnUIsrMZjOA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyuAvxA++BtBtsWCP96h4zMlalaJqoP6NhOtB2AIZelzFPWdmx
+	IRtfeOcSaPyl/66j0noW8atEfNbPlINktxrBr0gwCD5qwcV1lYaMMxHXWt7B7dUnL+hUx8IJqsK
+	dGUsDXvh0cAtx0SZlm313RA70pez9Hjo=
+X-Received: by 2002:a05:6402:44d5:b0:6a9:ce42:e684 with SMTP id
+ 4fb4d7f45d1cf-6af9e022740mr1653386a12.4.1790950683375; Fri, 02 Oct 2026
+ 07:18:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
- cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
- eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
- linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
- ameryhung@gmail.com, alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v8 1/4] blk-iocost: add BPF struct_ops cost model
- support
-To: Tejun Heo <tj@kernel.org>
-References: <20260930075154.189958-1-cui.tao@linux.dev>
- <20260930075154.189958-2-cui.tao@linux.dev>
- <6c97ba9ada55be8e7191f78c4db8bcf9@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <6c97ba9ada55be8e7191f78c4db8bcf9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261002095503.3585565-1-usama.arif@linux.dev> <20261002095503.3585565-4-usama.arif@linux.dev>
+In-Reply-To: <20261002095503.3585565-4-usama.arif@linux.dev>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Fri, 2 Oct 2026 22:17:51 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5yr0xqAUUKftz_RL-SCp02RdFB=aK0sP+uDDwXZPUmxA@mail.gmail.com>
+X-Gm-Features: AclHuK_4yoHncqxrokiRpDq18m_ydAvkbPTMAsmKGSie1oxuSHyShV6peln57f8
+Message-ID: <CAAhV-H5yr0xqAUUKftz_RL-SCp02RdFB=aK0sP+uDDwXZPUmxA@mail.gmail.com>
+Subject: Re: [PATCH v8 03/30] loongarch: mm: add PMD swap-exclusive helpers
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, chrisl@kernel.org, 
+	kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org, 
+	ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>, willy@infradead.org, 
+	youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com, 
+	shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org, baohua@kernel.org, 
+	dev.jain@arm.com, baolin.wang@linux.alibaba.com, 
+	Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, 
+	Vlastimil Babka <vbabka@kernel.org>, lance.yang@linux.dev, linux-kernel@vger.kernel.org, 
+	nphamcs@gmail.com, shikemeng@huaweicloud.com, yosry@kernel.org, 
+	qi.zheng@linux.dev, luizcap@redhat.com, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello, Tejun.
+Hi, Usama,
 
-在 2026/10/1 08:20, Tejun Heo 写道:
-> Hello, Tao.
-> 
-> The following is a Claude-generated review.
-> 
-> On Wed, 30 Sep 2026 15:51:51 +0800, Tao Cui wrote:
->> Add the iocost_model_ops struct_ops.  Attachment follows the
->> hid_bpf_ops model: the struct_ops instance is per-device, the target
->> device is set in the dev member from userspace before load, .reg
->> attaches the model to that device and switches it away from the
->> builtin linear model, and .unreg detaches it and restores the builtin
->> model.  The struct_ops core owns the program lifetime, so there is no
->> name registry and no bound-state bookkeeping.
-> ...
->> The cgroup callbacks are bound to the iocg policy init/free paths,
->> one (cgroup, device) pair per invocation, matching the builtin
->> cursor's lifetime, instead of the blkcg css lifecycle, which also
->> drops the mutex from the cgroup online/offline paths.
-> 
-> The description is written against earlier versions. There is no name
-> registry, css lifecycle binding or mutex in the tree, so a reader of the
-> commit can't follow it. Can you open with why a pluggable model is wanted
-> and then describe what the patch does: attach creates the ioc and
-> switches the model under the same freeze as io.cost.model writes,
-> model=bpf and model=linear select between the attached and builtin
-> models, device removal ejects the model, and so on? Also, the model
-> prices every charged IO, not every IO. Root cgroup IOs and IOs while the
-> controller is disabled never reach it.
-> 
+On Fri, Oct 2, 2026 at 5:55=E2=80=AFPM Usama Arif <usama.arif@linux.dev> wr=
+ote:
+>
+> Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
+> swap round-trip, which makes PG_anon_exclusive have to survive in a swap
+> PMD and not just in a swap PTE.
+>
+> A LoongArch swap PMD is the swap PTE value plus _PAGE_HUGE, and
+> _PAGE_SWP_EXCLUSIVE sits outside both the type and the offset field, so t=
+he
+> PMD helpers can use the same bit.
+>
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  arch/loongarch/include/asm/pgtable.h | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>
+> diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/includ=
+e/asm/pgtable.h
+> index cf29a4c8ac593..87fecc3a51001 100644
+> --- a/arch/loongarch/include/asm/pgtable.h
+> +++ b/arch/loongarch/include/asm/pgtable.h
+> @@ -351,6 +351,25 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pt=
+e)
+>         return pte;
+>  }
+>
+> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+> +{
+> +       pmd_val(pmd) |=3D _PAGE_SWP_EXCLUSIVE;
+> +       return pmd;
+> +}
+> +
+> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> +{
+> +       return pmd_val(pmd) & _PAGE_SWP_EXCLUSIVE;
+> +}
+> +
+> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+> +{
+> +       pmd_val(pmd) &=3D ~_PAGE_SWP_EXCLUSIVE;
+> +       return pmd;
+> +}
+I think the order should be pmd_swp_exclusive, pmd_swp_mkexclusive and
+pmd_swp_clear_exclusive. That looks more natural.
 
-The commit message is rewritten to open with why a pluggable model
-is wanted and describe the current behavior.  It also clarifies that
-the model prices every charged IO rather than every IO.
+The riscv version is already like this, but others are not.
 
->> +bool blk_get_queue_rcu(struct request_queue *q)
->> +{
->> +	return refcount_inc_not_zero(&q->refs);
->> +}
->> +EXPORT_SYMBOL(blk_get_queue_rcu);
-> ...
->> +struct block_device *blkdev_get_no_open(dev_t dev, bool autoload);
->> +void blkdev_put_no_open(struct block_device *bdev);
->> +bool blk_get_queue_rcu(struct request_queue *q);
->> +void blk_put_queue(struct request_queue *q);
-> 
-> blk_get_queue_rcu() has no prototype in any header, so every build warns
-> on it. Can you declare it in block/blk.h, include "blk.h" from
-> blk-iocost-bpf.c and drop these local prototypes? blkdev_get_no_open()
-> and blkdev_put_no_open() are already in blk.h and blk_put_queue() in
-> blkdev.h. The export isn't needed either as the only user is built-in.
-> 
 
-Done: declared in block/blk.h without the export, and blk-iocost-bpf.c
-includes "blk.h" instead of carrying local prototypes.
+Huacai
 
->> +	case offsetof(struct iocost_model_ops, bdev):
-> ...
->> +	case offsetof(struct iocost_model_ops, q):
-> 
-> The struct_ops core rejects non-zero non-function members that
-> init_member doesn't claim and kvalue starts zeroed, so these two cases
-> can go. Same for the name lookup in .init, the core has already found the
-> struct by then.
-> 
-
-The bdev and q cases in .init_member() are gone, and the redundant
-name lookup is removed from .init().
-
->> +	rcu_read_lock();
->> +	q = rcu_dereference(ops->q);
-> 
-> ops->q isn't __rcu annotated, so sparse will complain here. Either
-> annotate it and use RCU_INIT_POINTER() for the stores, or READ_ONCE() it.
-> The RCU section protects the queue, not the ops pointer.
-> 
-
-ops->q and the owning link are written with WRITE_ONCE() and read
-with READ_ONCE().
-
->> +#ifdef CONFIG_BLK_CGROUP_IOCOST_BPF
->> +	{
->> +		struct iocost_model_ops *ops;
->> +
->> +		spin_lock_irq(&ioc->lock);
->> +		ops = (struct iocost_model_ops *)rcu_dereference_protected(
->> +				ioc->attached, lockdep_is_held(&ioc->lock));
->> +		rcu_assign_pointer(ioc->attached, NULL);
->> +		rcu_assign_pointer(ioc->model, NULL);
->> +		spin_unlock_irq(&ioc->lock);
->> +
->> +		/* eject the model completely on device removal */
->> +		if (ops) {
->> +			WRITE_ONCE(ops->q, NULL);
->> +			blkdev_put_no_open(ops->bdev);
->> +		}
->> +	}
->> +#endif
-> 
-> Once ops->q is NULL, .unreg returns without taking rq_qos_mutex, the link
-> can go away and the struct_ops map which holds ops can be freed after a
-> grace period. This path isn't in an RCU read section, so reading
-> ops->bdev after the store is a use-after-free window. Read bdev first and
-> make the NULL store the last access.
-> 
-
-Done: the ejection reads bdev into a local before clearing ops->q.
-
-> This is also a block scoping a variable. Can you make it an
-> ioc_bpf_eject() helper next to attach and detach, with an empty stub for
-> !CONFIG_BLK_CGROUP_IOCOST_BPF? That removes the #ifdef and the const
-> cast. The remaining #ifdefs in ioc_cost_model_write() would go away too
-> if the two pointers in struct ioc were unconditional.
-> 
-
-Done: ioc_bpf_eject() with a stub drops the #ifdef from
-ioc_rqos_exit(), and the attached and model pointers in struct ioc are
-unconditional, so the remaining #ifdefs in ioc_cost_model_write() are
-gone too.
-
->> + * Deliver iocg_init()/iocg_free() to the cgroups which already have a
->> + * blkg on the queue, the same q->blkg_list walk the blkcg policy
->> + * teardown uses.  The queue is frozen and quiesced and blkcg_mutex
->> + * serializes against blkg creation and destruction.  Cgroups without
->> + * a blkg on the device yet are not missed: their blkg is created
->> + * later and ioc_pd_init()/ioc_pd_free() deliver the callbacks then.
->> + */
-> 
-> blkcg_mutex doesn't serialize blkg creation. The IO path creates blkgs
-> from bio_associate_blkg() through blkg_lookup_create(), before
-> bio_queue_enter(), so the freeze doesn't stop it either, and
-> blkg_create() runs pd_init and then list_add() to q->blkg_list under
-> queue_lock only. Against the attach:
-> 
-> 1. ioc->attached is published, blkg_create() runs ioc_pd_init() which
->    delivers iocg_init(), then list_add(), then the walk delivers
->    iocg_init() again.
-> 
-> 2. blkg_create() runs ioc_pd_init() while attached is NULL, the walk runs
->    before list_add(), and the blkg never gets iocg_init() but gets
->    iocg_free() from ioc_pd_free() or the detach walk.
-> 
-> Detach has the mirror cases. The walk is also the only q->blkg_list
-> walker without queue_lock, and a plain list_for_each_entry() against a
-> concurrent list_add() isn't safe. The teardown walk this mirrors holds
-> blkcg_mutex and queue_lock. Can you publish and clear ioc->attached and
-> walk under queue_lock as well? ioc_pd_init() already calls iocg_init()
-> under queue_lock, so nothing changes for the BPF side.
-> 
-> While at it, the walk goes newest first, so children usually get
-> iocg_init() before their parents. blkcg_activate_policy() walks in
-> reverse for that reason.
-> 
-
-You were right that blkcg_mutex alone did not serialize against blkg
-creation from the IO path.  The attachment is now published and
-cleared under blkcg_mutex and queue_lock, and the blkg walk is
-performed under the same locking; the init walk goes parents first
-like blkcg_activate_policy().
-
->> +	/* prevent multiple attach of the same struct_ops */
->> +	if (ops->q)
->> +		return -EINVAL;
-> 
-> On the link path the map stays READY after .unreg, so a map can be
-> attached again through a new link. If the device goes away, the ejection
-> clears ops->q while the old link is still open, a device with the same
-> dev_t comes back and a new link attaches the same map, closing the old
-> link then detaches the new attachment. Recording the owning link in the
-> ops and having .unreg detach only when it matches would close that.
-> 
-
-Done: .unreg records the owning link in the ops and only detaches
-when the closing link matches.
-
->> +	/*
->> +	 * check liveness and create the ioc under rq_qos_mutex, like
->> +	 * blkg_conf_open_bdev() does; enabling stays with io.cost.qos
->> +	 *
->> +	 * the queue reference is held across the unlocked window below:
->> +	 * the bdev reference does not pin the queue, bdev only holds a
->> +	 * raw bd_queue pointer, and concurrent device removal may eject
->> +	 * the model and free the ioc while we are off the mutex, so
->> +	 * without our own reference the second mutex_lock() would touch
->> +	 * a freed queue
->> +	 */
->> +	mutex_lock(&q->rq_qos_mutex);
->> +	if (!disk_live(disk) || !blk_get_queue(q)) {
-> ...
->> +	ioc = q_to_ioc(q);
->> +	if (!ioc) {
->> +		ret = blk_iocost_init(disk);
->> +		mutex_unlock(&q->rq_qos_mutex);
-> 
-> Why drop rq_qos_mutex here? ioc_cost_model_write() holds it from
-> blkg_conf_open_bdev() across blk_iocost_init() and its own freeze and
-> quiesce, so attach can hold it from the disk_live() check through the
-> unfreeze. Then the ioc can't be freed under us and the queue reference,
-> the second q_to_ioc() check and this comment go away. The comment is also
-> wrong: a whole-disk no-open bdev reference holds the disk device, and
-> disk_release() is what drops the queue reference.
-> 
-
-Done: the attach holds rq_qos_mutex from the disk_live() check
-through the unfreeze, like ioc_cost_model_write() does, so the unlock
-window, the queue reference, the second q_to_ioc() and its comment
-are gone.
-
-Thanks.
-Tao
-
-> Thanks.
-> 
+> +#endif
+> +
+>  #define pte_none(pte)          (!(pte_val(pte) & ~_PAGE_GLOBAL))
+>  #define pte_present(pte)       (pte_val(pte) & (_PAGE_PRESENT | _PAGE_PR=
+OTNONE))
+>  #define pte_no_exec(pte)       (pte_val(pte) & _PAGE_NO_EXEC)
 > --
-> tejun
-
+> 2.53.0-Meta
+>
