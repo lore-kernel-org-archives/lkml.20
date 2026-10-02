@@ -1,39 +1,39 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BF34968F0
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41E4496D2E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945152; cv=none; b=OjcKgWeuDVxNMAFM7mPqrcJ13o40AvCot7t7XqArcaYluvkSKZfVDeCuMfj1YgYqU/aP+F0up3aWEgClaDBeSbyzPWpjKBrkIH0FgY4UGzLiISYlSjjKpRwwgC93Gubu71131an/dnF85cDr9kfDH6LcNWZ0u4WBxB71GlBDM10=
+	t=1790945154; cv=none; b=VKBpu0tHJ3tT2vTnh0QJ0YFGEd3W7vEXkM8ge3RP3+y+1HatuZVT9pVQPcomnhqZ8VwAAC368A32dxoj9Pnb/sn+EnxEPdQt6LJ34P1W+eKIfypVSQEUaW03gSYizx/3AHp6P4QrTVdQEF2acaIS1HkfBgoyxUHBA3Y70bFm+jM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945152; c=relaxed/simple;
-	bh=eACLHThZNRTT/bJKV+e0u5PadLOj8pRcKs63oyq/bGM=;
+	s=arc-20240116; t=1790945154; c=relaxed/simple;
+	bh=hxUO5Igy0W7EyFlDN5fY4TXl+gk8bGci7Vn3ccTQG4g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CpRu993Q6MhpZdbdoW07LJjrV1+MDwckT5pDDk6dvRiEpnBOE9k8s127HsOmniMFyuEcKCXs4Ls5K2HnAjRCIxgd4anmxAX9B01XEstTeq4fddiehzlmurT6CGcWBTm4bug20bz/QxAnRGRhEKtBwSSOrqYBtTJ0WtH3zA3tPUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=kV58cHTA; arc=none smtp.client-ip=80.241.56.151
+	 MIME-Version; b=OynbqDNa+7f3F5kV7mAXA1QOplczcXxFX4KAO2TWxAvjtQneW4VI25lV3nyY3L6nTb64rrSL1Op54ZN50hLnvFkK63LD1Ko8Ht9f+a9MxsXQxeUynhtfqNK06xzUd3t0PctsAxXGDY6mdy4/FpVGO6m3Hb1E0KwVHJzstNc/HmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sfRqnRTq; arc=none smtp.client-ip=80.241.56.152
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="kV58cHTA"
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sfRqnRTq"
 Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hx7mp0k5mz8vFf;
-	Fri, 02 Oct 2026 14:45:46 +0200 (CEST)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hx7mr3VmVzKp6P;
+	Fri, 02 Oct 2026 14:45:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790945146;
+	t=1790945148;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WoQqOjLK8fATVY6MiWXGiBtGhGfaP10eLWjBUowZBYU=;
-	b=kV58cHTAQOtgm14L3VQTWXN6MxBIrfkarzB7Oq9E3XDDFvTpsfDRJpSMjy2XA++0ug6Yye
-	NscWq62TKFixlE0kouqukJpkAL9cIxPcU0eShgFU3jKzJkmHLXWuRgdVgRC7/PEstgVDog
-	IL6qnGnazq0wLTalkU8Y89w/6wxA0YVHHZ+nmFnqsP9z/if68whJg/zTWIEDFnLv++W8u2
-	k2ypA2Gb3DWIAU0lCthNZ2vbnnqFqPCopfz56Oayxf13gbi1nVkgnG3dxWCm8fyPVl3/sn
-	aFoQiALYW6yly78f32estdPEOG/6EMm4RlLdxPWnOf2TnpUWMMjekScmO486fA==
+	bh=j/26+k03Ys7YtKOFZGg1RR9UPUx8C444z1ZD3oGXPhw=;
+	b=sfRqnRTqpaBoOeG60UXIBtcTBl+m3PDE66kHBa+PAI5GHZm9FyuwzRE6Kd6IpJ6mMeWA96
+	NKgHH7JMD0mjpPgI4xtkfcX8XMv0ZMZ8O2AZlQ5vndW5GvFho3S5BJoDYxkwdGrLydvxai
+	iVYXXfkIzVQhdG4laiqgfVM8q5QgrbkeIBhHOnG466455tzwvzlii7W6WkCIs1ZkBbOpCJ
+	aGzJkzQjn95S/1n2ILoaP212N01L1ChERAjbtLUyBR830+RNJBUEnpKgIFpWD0X8odvYY0
+	vbhjrv1bCPEH4Kix+0irTY7C8qsHXoYQqRhbDBLmCp4LAJg8MIn+GQZhAxXFCA==
 From: Tor Vic <torvic9@mailbox.org>
 To: peterz@infradead.org,
 	mingo@redhat.com,
@@ -43,9 +43,9 @@ To: peterz@infradead.org,
 	kprateek.nayak@amd.com
 Cc: linux-kernel@vger.kernel.org,
 	Tor Vic <torvic9@mailbox.org>
-Subject: [RFC PATCH 1/2] sched/fair: Remove the 'none' and 'linear' scaling of tunables
-Date: Fri,  2 Oct 2026 14:45:37 +0200
-Message-ID: <20261002124538.79658-2-torvic9@mailbox.org>
+Subject: [RFC PATCH 2/2] sched/fair: Remove sched_base_slice scaling altogether
+Date: Fri,  2 Oct 2026 14:45:38 +0200
+Message-ID: <20261002124538.79658-3-torvic9@mailbox.org>
 In-Reply-To: <20261002124538.79658-1-torvic9@mailbox.org>
 References: <20261002124538.79658-1-torvic9@mailbox.org>
 Precedence: bulk
@@ -55,183 +55,146 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 0cc3a43fa825aba1626
-X-MBO-RS-META: 49k5re96d4wbupbuuitskzu1rssne6tu
+X-MBO-RS-META: tdqrattbsuigh8xym8putxgc661o5eu6
+X-MBO-RS-ID: b37ec2e3a226b9b9a1d
 
-Get rid of the tunable scalings 'none' and 'linear' as these do not
-appear to be very useful.
+After having removed the 'none' and 'linear' scalings, remove the
+entire tunable scaling mechanism altogether, and just set a fixed
+default sched_base_slice of 2 msec.
 
-Only keep the 'log' scaling, which is already the default.
+This can still be changed through debugfs.
 
 Signed-off-by: Tor Vic <torvic9@mailbox.org>
 ---
- include/linux/sched/sysctl.h |  7 -----
- kernel/sched/debug.c         | 52 ------------------------------------
- kernel/sched/fair.c          | 28 +------------------
- kernel/sched/sched.h         |  2 --
- 4 files changed, 1 insertion(+), 88 deletions(-)
+ kernel/sched/core.c  |  1 -
+ kernel/sched/fair.c  | 53 +++-----------------------------------------
+ kernel/sched/sched.h |  3 ---
+ 3 files changed, 3 insertions(+), 54 deletions(-)
 
-diff --git a/include/linux/sched/sysctl.h b/include/linux/sched/sysctl.h
-index 5a64582b086b..0b923cc771e0 100644
---- a/include/linux/sched/sysctl.h
-+++ b/include/linux/sched/sysctl.h
-@@ -12,13 +12,6 @@ extern unsigned long sysctl_hung_task_timeout_secs;
- enum { sysctl_hung_task_timeout_secs = 0 };
- #endif
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1fe40de6ebe3..2a8a242e20e5 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -8942,7 +8942,6 @@ void __init sched_init_smp(void)
+ 	if (set_cpus_allowed_ptr(current, housekeeping_cpumask(HK_TYPE_DOMAIN)) < 0)
+ 		BUG();
+ 	current->flags &= ~PF_NO_SETAFFINITY;
+-	sched_init_granularity();
  
--enum sched_tunable_scaling {
--	SCHED_TUNABLESCALING_NONE,
--	SCHED_TUNABLESCALING_LOG,
--	SCHED_TUNABLESCALING_LINEAR,
--	SCHED_TUNABLESCALING_END,
--};
--
- #define NUMA_BALANCING_DISABLED		0x0
- #define NUMA_BALANCING_NORMAL		0x1
- #define NUMA_BALANCING_MEMORY_TIERING	0x2
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index 72236db67983..b159d7a1cfa2 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -170,46 +170,6 @@ static const struct file_operations sched_feat_fops = {
- 	.release	= single_release,
- };
- 
--static ssize_t sched_scaling_write(struct file *filp, const char __user *ubuf,
--				   size_t cnt, loff_t *ppos)
--{
--	unsigned int scaling;
--	int ret;
--
--	ret = kstrtouint_from_user(ubuf, cnt, 10, &scaling);
--	if (ret)
--		return ret;
--
--	if (scaling >= SCHED_TUNABLESCALING_END)
--		return -EINVAL;
--
--	sysctl_sched_tunable_scaling = scaling;
--	if (sched_update_scaling())
--		return -EINVAL;
--
--	*ppos += cnt;
--	return cnt;
--}
--
--static int sched_scaling_show(struct seq_file *m, void *v)
--{
--	seq_printf(m, "%d\n", sysctl_sched_tunable_scaling);
--	return 0;
--}
--
--static int sched_scaling_open(struct inode *inode, struct file *filp)
--{
--	return single_open(filp, sched_scaling_show, NULL);
--}
--
--static const struct file_operations sched_scaling_fops = {
--	.open		= sched_scaling_open,
--	.write		= sched_scaling_write,
--	.read		= seq_read,
--	.llseek		= seq_lseek,
--	.release	= single_release,
--};
--
- #ifdef CONFIG_SCHED_CACHE
- static ssize_t
- sched_cache_enable_write(struct file *filp, const char __user *ubuf,
-@@ -726,7 +686,6 @@ static __init int sched_init_debug(void)
- 	debugfs_create_u32("latency_warn_ms", 0644, debugfs_sched, &sysctl_resched_latency_warn_ms);
- 	debugfs_create_u32("latency_warn_once", 0644, debugfs_sched, &sysctl_resched_latency_warn_once);
- 
--	debugfs_create_file("tunable_scaling", 0644, debugfs_sched, NULL, &sched_scaling_fops);
- 	debugfs_create_u32("migration_cost_ns", 0644, debugfs_sched, &sysctl_sched_migration_cost);
- 	debugfs_create_u32("nr_migrate", 0644, debugfs_sched, &sysctl_sched_nr_migrate);
- 
-@@ -1238,12 +1197,6 @@ do {									\
- 	SEQ_printf(m, "\n");
- }
- 
--static const char *sched_tunable_scaling_names[] = {
--	"none",
--	"logarithmic",
--	"linear"
--};
--
- static void sched_debug_header(struct seq_file *m)
- {
- 	u64 ktime, sched_clk, cpu_clk;
-@@ -1286,11 +1239,6 @@ static void sched_debug_header(struct seq_file *m)
- #undef PN
- #undef P
- 
--	SEQ_printf(m, "  .%-40s: %d (%s)\n",
--		"sysctl_sched_tunable_scaling",
--		sysctl_sched_tunable_scaling,
--		sched_tunable_scaling_names[sysctl_sched_tunable_scaling]);
--	SEQ_printf(m, "\n");
- }
- 
- static int sched_debug_show(struct seq_file *m, void *v)
+ 	init_sched_rt_class();
+ 	init_sched_dl_class();
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..2f9b7d2fe813 100644
+index 2f9b7d2fe813..3d59af44abdf 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -61,19 +61,6 @@
- #include "stats.h"
- #include "autogroup.h"
+@@ -67,10 +67,10 @@
+  * Under EEVDF this is the request size used to compute the virtual
+  * deadline; see update_deadline().
+  *
+- * (default: 0.70 msec * (1 + ilog(ncpus)), units: nanoseconds)
++ * (default: 2 msec)
+  */
+-unsigned int sysctl_sched_base_slice			= 700000ULL;
+-static unsigned int normalized_sysctl_sched_base_slice	= 700000ULL;
++unsigned int sysctl_sched_base_slice			= 2000000ULL;
++static unsigned int normalized_sysctl_sched_base_slice	= 2000000ULL;
+ 
+ __read_mostly unsigned int sysctl_sched_migration_cost	= 500000UL;
+ 
+@@ -173,38 +173,6 @@ static inline void update_load_set(struct load_weight *lw, unsigned long w)
+ 	lw->inv_weight = 0;
+ }
  
 -/*
-- * The initial- and re-scaling of tunables is configurable
+- * Increase the granularity value when there are more CPUs,
+- * because with more CPUs the 'effective latency' as visible
+- * to users decreases. But the relationship is not linear,
+- * so pick a second-best guess by going with the log2 of the
+- * number of CPUs.
 - *
-- * Options are:
-- *
-- *   SCHED_TUNABLESCALING_NONE - unscaled, always *1
-- *   SCHED_TUNABLESCALING_LOG - scaled logarithmically, *1+ilog(ncpus)
-- *   SCHED_TUNABLESCALING_LINEAR - scaled linear, *ncpus
-- *
-- * (default SCHED_TUNABLESCALING_LOG = *(1+ilog(ncpus))
+- * This idea comes from the SD scheduler of Con Kolivas:
 - */
--unsigned int sysctl_sched_tunable_scaling = SCHED_TUNABLESCALING_LOG;
+-static unsigned int get_update_sysctl_factor(void)
+-{
+-	unsigned int cpus = min_t(unsigned int, num_online_cpus(), 8);
+-	unsigned int factor = 1 + ilog2(cpus);
 -
- /*
-  * Default base time slice (request size r_i) for SCHED_NORMAL/SCHED_BATCH:
-  *
-@@ -198,20 +185,7 @@ static inline void update_load_set(struct load_weight *lw, unsigned long w)
- static unsigned int get_update_sysctl_factor(void)
- {
- 	unsigned int cpus = min_t(unsigned int, num_online_cpus(), 8);
--	unsigned int factor;
+-	return factor;
+-}
 -
--	switch (sysctl_sched_tunable_scaling) {
--	case SCHED_TUNABLESCALING_NONE:
--		factor = 1;
--		break;
--	case SCHED_TUNABLESCALING_LINEAR:
--		factor = cpus;
--		break;
--	case SCHED_TUNABLESCALING_LOG:
--	default:
--		factor = 1 + ilog2(cpus);
--		break;
--	}
-+	unsigned int factor = 1 + ilog2(cpus);
+-static void update_sysctl(void)
+-{
+-	unsigned int factor = get_update_sysctl_factor();
+-
+-#define SET_SYSCTL(name) \
+-	(sysctl_##name = (factor) * normalized_sysctl_##name)
+-	SET_SYSCTL(sched_base_slice);
+-#undef SET_SYSCTL
+-}
+-
+-void __init sched_init_granularity(void)
+-{
+-	update_sysctl();
+-}
+-
+ #ifndef CONFIG_64BIT
+ #define WMULT_CONST	(~0U)
+ #define WMULT_SHIFT	32
+@@ -1242,17 +1210,6 @@ struct sched_entity *__pick_last_entity(struct cfs_rq *cfs_rq)
+ /**************************************************************
+  * Scheduling class statistics methods:
+  */
+-int sched_update_scaling(void)
+-{
+-	unsigned int factor = get_update_sysctl_factor();
+-
+-#define WRT_SYSCTL(name) \
+-	(normalized_sysctl_##name = sysctl_##name / (factor))
+-	WRT_SYSCTL(sched_base_slice);
+-#undef WRT_SYSCTL
+-
+-	return 0;
+-}
  
- 	return factor;
+ static void clear_buddies(struct cfs_rq *cfs_rq, struct sched_entity *se);
+ 
+@@ -15011,15 +14968,11 @@ void sched_balance_trigger(struct rq *rq)
+ 
+ static void rq_online_fair(struct rq *rq)
+ {
+-	update_sysctl();
+-
+ 	update_runtime_enabled(rq);
  }
+ 
+ static void rq_offline_fair(struct rq *rq)
+ {
+-	update_sysctl();
+-
+ 	/* Ensure any throttled groups are reachable by pick_next_task */
+ 	unthrottle_offline_cfs_rqs(rq);
+ 
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..7a36b3210757 100644
+index 7a36b3210757..a323fdeb7125 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -3153,8 +3153,6 @@ extern unsigned int sysctl_sched_base_slice;
- extern int sysctl_resched_latency_warn_ms;
- extern int sysctl_resched_latency_warn_once;
+@@ -2302,8 +2302,6 @@ extern int group_balance_cpu(struct sched_group *sg);
+ extern void update_sched_domain_debugfs(void);
+ extern void dirty_sched_domain_sysctl(int cpu);
  
--extern unsigned int sysctl_sched_tunable_scaling;
+-extern int sched_update_scaling(void);
 -
- extern unsigned int sysctl_numa_balancing_scan_delay;
- extern unsigned int sysctl_numa_balancing_scan_period_min;
- extern unsigned int sysctl_numa_balancing_scan_period_max;
+ static inline const struct cpumask *task_user_cpus(struct task_struct *p)
+ {
+ 	if (!p->user_cpus_ptr)
+@@ -2987,7 +2985,6 @@ extern void schedule_idle(void);
+ asmlinkage void schedule_user(void);
+ 
+ extern void sysrq_sched_debug_show(void);
+-extern void sched_init_granularity(void);
+ extern void update_max_interval(void);
+ 
+ extern void init_sched_dl_class(void);
 -- 
 2.55.0
 
