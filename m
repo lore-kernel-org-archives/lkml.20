@@ -1,95 +1,63 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0238E448388
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B57E33AD88;
+	Fri,  2 Oct 2026 21:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975473; cv=none; b=aPK8Nhct4j8qfODxAvZ0HfthN5knjVXbReq2mk1cM0CJT2gNIdkqrijYe/aEsEZvtv/Ir3V6QDZO4LkLZYEcLqkXZH9hz+ss0NyG9UkTMwkN6kCgL4MY6xU5rH2tyCwKMkc+Giqwhp9aPWHWnQir/BsEhOGzhWMTEwCeYwp0MGQ=
+	t=1790975482; cv=none; b=Bw810X3f5G5A0yXZS4S1Don6VEZ1fGJr2MIeG4+U5xqbcn3oA4D+kFc25nMKi2uIIQydCPuAehmoti6UDlol9ivAu1wuOcwwvzn5jjVw9VYMMc5iD/ysA8XqcSiMFgwB6ZYMpQIQlXVnjqDw4q0UPsI6eDGqWZNDsfJBH8IDN7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975473; c=relaxed/simple;
-	bh=4OJqPOL7lBDbFzlziwR1lbzs+pCfEyKnpIdZkYoT5qU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Ig7a8uS7/kkOFeJfZEZ+SeQLDPHBCllizGGdRsL9EXn98M/EobUeq/hnYeJFSSA8GkgX0XQ1tn9vUgBkv5XwkzgJHGfOhXzmAaiQ9z83g+hV8hawjbjDxOi/0g6QOk3YcjXZmhNr2zdMiKMLqoHjvtrLYmj+DJgGOz5r/uocAvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZjkEsJXT; arc=none smtp.client-ip=209.85.216.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790975482; c=relaxed/simple;
+	bh=epb/pTgDiHlKY/1lndx0/zeuht4ACtMQnTBInF1rjIg=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=I2Uyn56CF6n1ccVx4eZKgMShIIt2glhO+96ieEXwddvhXYP0zZ3uAGePsJf+z/mKJPy0R+d60zoCO4OxL3hzkvcto6mR3CwVSrVlJ1lPo4abvLS6WEjumISmscolvCq+VswjjffYN6peBIDIzJbssGsq4Lp08Bk9dIH7uT296MU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXdSuK8q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZjkEsJXT"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39aee9b4cf2so400065a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:11:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790975469; x=1791580269; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZVEvejY8ub0y6DWWkkKmrQP5oPQlWXWvEpLrLoGD238=;
-        b=ZjkEsJXTXftw5v2gMA87YqUnk9ibx+O93m9hJlpawaihft7wK4RjRDkNId1EX9TbU8
-         CYqV3XJ7XcR9HAWNtvrb1maWhEmRkcE8hrPD+MhOdYht3+ohzoTteR2OOyTvraDILYJp
-         y9xvUZfvz8YE9frgI3RK4dA5JCVVE0F2qjjVvTZGtGaYlNxpKTbuxs9N2ysQNEbLe4Jq
-         FSWrPSnujEmah8vhYKCOExcPOCQQbNMRGumRwkZL3Ngu/toyP5sHAfBNTyVc3WjZyxc7
-         zWW9iZ+g5V9mrkWS/KNqqX6rWXJ22mkACO9ahb5U4y1mBpL+n+aeNmi73QCiioEXoY3L
-         EwAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790975469; x=1791580269;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZVEvejY8ub0y6DWWkkKmrQP5oPQlWXWvEpLrLoGD238=;
-        b=0Tsxf3bANmDLm10lMGTWexOYMSssLXr2/QTcrj1oRK+ZTCFAjrWTcje9/vh+VaxPI7
-         aFoDJXKGnsgDHAu82d7Byk0b9qGU2ceSYit5hQBg8Ofd7f1LanTpKzw3kcHtl9Gt4vb7
-         4ujg/LO/PUUAWsH+xG2QnzUtfOdpgHMurjIEEQ4yRyO39BgneHIKHGQY/Xc9qE3MEbMn
-         Q9Gl43hdfblUrCKoyK1wxtm43XEeAv+jrMn7HzEoZcyMwzU4E3Vl8oxFF3ODSRMTfTi4
-         PqC61V6GykS+bDcRcFvFozZTUGPojdwpfDeQlw85fXkepUh7nG4GEFFl4H5ZblbeMaSx
-         WltA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKVIxsbD2pwqXPm1NzJ07j9QlJxT0TCUtyw4/zCyNfVdmEkKhzGr6XoJrnjkKFw6GoQpLhGqyw3mbJdTc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7FWmOaa9+SebjgmwV0mJxu19WdfIuzdBLM0HernT7d4mmPvvZ
-	iEXmgpA2o9bMop4fydglCszUW+6b1zWl4FYq+IBwR7FZ65VRvGCDJKYQ7ph/V1s37xPQaXjI7i+
-	8K0SpLA==
-X-Received: from pgbfe13.prod.google.com ([2002:a05:6a02:288d:b0:cc7:865b:2dc5])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e7d2:b0:3a7:8350:49a2
- with SMTP id 98e67ed59e1d1-3a78350537bmr406615a91.33.1790975468419; Fri, 02
- Oct 2026 14:11:08 -0700 (PDT)
-Date: Fri,  2 Oct 2026 14:07:28 -0700
-In-Reply-To: <20260918113631.634233-1-gokul02k@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXdSuK8q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090C31F000FF;
+	Fri,  2 Oct 2026 21:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790975481;
+	bh=VeZoC8wnvPckVIOR9wRFK/+DXTqDin+bqdpsn9fPCTg=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=XXdSuK8qzgPffIPYiuV9hV6ba5jEMrcl9JTmQ6w2YbRckzcbx6Jf0ZjFcwHSNXsei
+	 4r7vqlY+N265ENjuzTSHgs44QpKXZC/XQTSPIKZstXPmGaV7L6kWIkQy9tHlNndQVs
+	 9/kBOjnY25sYlkDWN7fRGulOeZgkrvnuRB+IeweDHbvn7lMD1YLmOlltkbr/AW4kB6
+	 a9ogOedDjoZlVuHb3sTRv+w4piWyFGgeq+BBrOyExK6j3m/t+YFrXY3k2PLCnOHGbN
+	 y81EzUohiYhDDCwjeDg1b9Eh9j3nroEgqcfTTkRV3GpljYNQdC4yvSs/SBCURu1H1J
+	 tUNGXQ5mBWqFQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16533811A72;
+	Fri,  2 Oct 2026 21:11:20 +0000 (UTC)
+Subject: Re: [GIT PULL] smb client fixes for 7.3-rc6
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <7af974fcbddc7e739dc7d18aaf1ea69f@manguebit.org>
+References: <7af974fcbddc7e739dc7d18aaf1ea69f@manguebit.org>
+X-PR-Tracked-List-Id: <linux-cifs.vger.kernel.org>
+X-PR-Tracked-Message-Id: <7af974fcbddc7e739dc7d18aaf1ea69f@manguebit.org>
+X-PR-Tracked-Remote: https://git.manguebit.org/linux tags/cifs-fixes-7.3-rc6
+X-PR-Tracked-Commit-Id: 19465a9aeb664f1d710d0d22c07c31bfb7c85446
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: ff47652a4b66c067c765a7ad464d930b5a9367cc
+Message-Id: <179097547951.3587474.14332160813562131151.pr-tracker-bot@kernel.org>
+Date: Fri, 02 Oct 2026 21:11:19 +0000
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918113631.634233-1-gokul02k@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <179097463764.4067030.5907546688694730038.b4-ty@b4>
-Subject: Re: [PATCH 0/3] KVM: selftests: Delete three pieces of dead library code
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Gokul K <gokul02k@gmail.com>
-Cc: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
 
-On Fri, 18 Sep 2026 17:06:28 +0530, Gokul K wrote:
-> Three unused things in the selftest library, found by asking the linker
-> rather than by reading: build the selftests, then look for global symbols
-> in lib/ that no object refers to, and check each survivor against the
-> whole source tree by hand.
-> 
->   1/3  sparsebit_copy() and sparsebit_num_set(), neither called
->   2/3  the declaration of vcpu_set_cpuid_maxphyaddr(), which has no
->        definition anywhere
->   3/3  guest_snprintf(), a varargs wrapper nobody calls
-> 
-> [...]
+The pull request you sent on Fri, 02 Oct 2026 17:42:23 -0300:
 
-Applied 2 and 3 to kvm-x86 selftests, thanks!
+> https://git.manguebit.org/linux tags/cifs-fixes-7.3-rc6
 
-[1/3] KVM: selftests: Delete the unused sparsebit copy and count helpers
-      [SKIP, handled in a separate series]
-[2/3] KVM: selftests: Delete the declaration of vcpu_set_cpuid_maxphyaddr()
-      https://github.com/kvm-x86/linux/commit/dd572ec94640
-[3/3] KVM: selftests: Delete the unused guest_snprintf()
-      https://github.com/kvm-x86/linux/commit/3bac3b77c5e6
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/ff47652a4b66c067c765a7ad464d930b5a9367cc
 
---
-https://github.com/kvm-x86/linux/tree/next
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
