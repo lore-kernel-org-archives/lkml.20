@@ -1,77 +1,81 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD68472772
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA7247ECE8
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932592; cv=none; b=BE0XH5rL4i1+qCX8M7JabvfDDo66LsX6WFaoRlRWxURCSz7iwKKow6klZetGM+wg0mNTctvCFFmwdr8RNHf5ZzDQpzDCDJE9qQJbMU+eJ8T1Vbo3dzM+rjt+Q9WO/aiNeih0Plq0dR5It/xtMeRkAwzem4ndbsTspSyM4+2J4Dg=
+	t=1790932593; cv=none; b=RmvUVOPShDYHXHu7bwUOSJcZZUsR/9jbgqqvVmcJQ+lFSVxwMqCDPcMlXVevN2awyCq8Px+1XSintfmIsuK2hzoxI5xuZykI+beihyn2qKScPLq3B9Fe/qU5iNXPCWwyeNxf3qE9F+JT8LW//AU/G9WX3EhCv3VwRn9kYVlzZNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932592; c=relaxed/simple;
-	bh=c1MekjqISxF0fGn1yJW4FB6LYLWcYNOjlAKoEXUwTOg=;
+	s=arc-20240116; t=1790932593; c=relaxed/simple;
+	bh=+nntUQFMA9ECBC0mOxhUiGIwsa46qGwVCDJJZvNWfwo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=nSmydERF1OfoJIQAnUaIlZ0rcehRTfo4nLtQERvVQdu1hXlm5DNkAyQRbKto0WDlOZ/r/BwKCdmpsaq+4bUn5LZDLanX2GbOD9cxTnRu7RjT1OYqixLpxO4zrQ9uHQZ7GXFx0yUcdzNKVZpd3jZppfAJpKwtZ/ejHjQYprBSvnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FIDFt7mg; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version:Content-Type; b=BtGmqvhWMv/yDruZqamIR21htuypFTCCf2VeM980nlaguI/UkmMinHUqDEI2p2poC6oGts6aYAzGpXZO3nMTmFmYrSBh2tIqmPg8GxnDh609bDvRtT8qAX/AQ0xA2cQMnhraujnlR2z0eh52QVZLjT7Gx897W4QIb/rOynN8hNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nWjlzvb3; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FIDFt7mg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso46977255e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:16:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nWjlzvb3"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso420136f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:16:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790932589; x=1791537389; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790932590; x=1791537390; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uyzeELAx9pVH5pCQHDGoYs+swgzoejgakWVx8elkkIY=;
-        b=FIDFt7mgTOeQw+5ogyHWt2BAR5aEkALbz32G3bhkxPYG3IkcTF9Oxs+YN18gL0jDpj
-         Tea+2sCigAwTbF06osKFXbi4chOLtwywH9yyRiw71HdOI6iZRQ5DC414/pUZwhIeHFIe
-         l+B8SFmk3Xv5zpTZ2ZPppURLwu/tGNcU62qJfIhLJ9hIwud73qM44xE+45CsKSbEAAxq
-         +JBVFFbF796t5tS8tH3XLW8a+k2Rfnk7/EmpuMerShtekP5I+wReyLyBgK50KySl5zce
-         tCdifQsXyo97LF0Mq2ffqWkC9txvy0X6J+Cl0pFU7p3UxlJYIf3r0b9Bf0t9gFNpnCD/
-         6wog==
+        bh=Es1ESAl2Bi9P2/UjIit9xvYINnvS6VIXIVgcZvDxiCM=;
+        b=nWjlzvb3VsqllWhdfOhaZ3GMPTTzB9YXUlVvG8xCW42TbMt91pjuUUVXQJvaAEpAn9
+         CXK3+P78xG51gFdcOuMC3pn4LfYwHuM63GH1Sjc+OufE445feiuZ8oqfMaIdw3qXZT7D
+         z1JQd10Owwjz0bbm8t1HRK6ZCE6i2KnWx43R74ZiQ0Qvuh4DaPaWu/zKlwE1KO9ltgcA
+         G+Xg2OIpxkZY7+CqAc6CQAd8HCTRW5zAb4Al2G8l9phn8uO9yGEhkPOxobZknzuc0V76
+         y0i6aE/l5L7VXxMTfzbCaOR2J+97fKaa0HCQYq0NFzWNJH/Na6+h/bWtKM3J+QpYagtA
+         6FZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932589; x=1791537389;
+        d=1e100.net; s=20260707; t=1790932590; x=1791537390;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uyzeELAx9pVH5pCQHDGoYs+swgzoejgakWVx8elkkIY=;
-        b=CVtyopvUzw0cjxeNGEMPTnKRg9bzOY46jf2Wf9b44o/t+ZVYJRx+hqocpZCCf/RMYY
-         7rxdUt/BDqb++inAlkzS9Dx224BRXUB15jJ0wsK4fgjrVUcQOyTQTuQfaepmfZf/Ez9o
-         PsWkanEv1HDNA26NQBczAzlrQfSoOY8bW6m3q+N/77o+xlSaIt1gOcUol8o09RkB68PY
-         5rBQUhnvK5dxApMdXFRIbCXOrJbJjS/PjD+kLaqBzOG93iT5uHpYUb+cIVzLDKyPiJoM
-         trXh11QK2IoCghNv01kjF6dBsAcpNkui65veNM3VYXSHv0uhTDb7O8sKCZ7LqQDRbPl8
-         h3MQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMq/g+0S8PdzfqUdoAKyjizQOaXm7LOgItvGtGpq+WXXNaUXeOS5H9wed94JlGcfjzDNXwHcWQf3+5Fwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHgrfKQaKEyedzxmPc66z85P0kRY1Mzrqi8sh9MYEQGcAOz9S4
-	kTJSP0Gl/b+YZPlk6w3Ehyjhbe5L1YxdxsCAisGO/Wswn1IaQeKM/HFSLGhbHpIMfwc=
-X-Gm-Gg: AYBFou1RnIORgMaaYboJITiPPXHPAlcJl/2qR+9OwHhSuSql2c7S/3s3FXpoTH0xeh8
-	nNVktylbN0bxnVXMlJpyoHRxdCrHWs1goWwaMiI+ngkZMDfzeeV2yYLZsZzt7s4D+LPV19Obuq7
-	prVkYFcKW/jiZsN7WCu8pCRNs8+FgmO6qB94DboGmtW+5NFV/Hn9MQjLyaHVUTiZGd/hzVM9D6h
-	vkwV8omhw12NY93VlH32WSz/ErHRhJuOGmKBmNWM7HLZlUqWpxl9iJ7OgvNHh3/WFFlcs4jViAU
-	7l3vKevv/pKD+CN7+JIO2Vb7lGnK1kDrnoS8qTVLoNX0qpRqq9Qiar8w8sXOpUlsqgGzQ6ab0eP
-	lFo/fjUmHt50CNUf/PgAv61a7hJfeYXq3rWctp5CWgaADkKyzIvTqTKRQsxDfmsndmjsIodO4g5
-	eJe0D2Ztv924NBSWssIe5WFykJ8rCmr8Cpp02k+rw8sJjIk6Ghw1PiCGPaG5uX33xwN9FmJVIXC
-	6kMDaQdMlNvSubsXys=
-X-Received: by 2002:a05:600c:34c2:b0:4a1:6425:be69 with SMTP id 5b1f17b1804b1-4a16425bff3mr5735255e9.17.1790932588885;
-        Fri, 02 Oct 2026 02:16:28 -0700 (PDT)
+        bh=Es1ESAl2Bi9P2/UjIit9xvYINnvS6VIXIVgcZvDxiCM=;
+        b=1G6J+ml4pHjMxMip6H0m3QRloEcWQmOa/B4X4JDW55xdqu+UmE7EITPmOcrsaOTqpL
+         sBgRmBgvmsCStPjTXhj2TqEPoNih5UZMMy9v9lsrAUH0ehjSmrf8pVvudTugveqm8wZe
+         T4sFZBEwHDg6OAFrh643X3mUrW9zluMEMxj+n8yAQeSElTWR+Ji4hDi9jDHvkANE0n+C
+         74M5bqK+VUj+0RB0G6fFeMK/ON0NseCCghIqZSxI5Vo2FGX83d2+NDYsiri5zPxeyvJW
+         Qq+a5TTV5rPwaewMnDY0Rk7wvDOZLr7bKlHCi5uIazak01Pot6dDsn4CWMO+CqN21Wz1
+         wSVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwUxJaGnrD5iiQRNtP0ZM9uu9NZQQFCbJM7cBUfZgsf/ao2oS7IYsUIaQSqstVeMDo7OMg6ZkvUyheKpM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2ZGMOo49btFFM9P0QIwnzjoKUGh98i5Ew2Lh5y5VDmJJwyhee
+	YbO4KKFcXp3BosY2NvrkpDIF9A8dyJH298TflO0YuaJRFxJZR4ekXaZOPTxAGNfSaG4=
+X-Gm-Gg: AYBFou28bbs3e0pgSMrWXmvO6X2ia9YRSvay5K2IMLKyQ3tZFuYBy8YTT7szbeoYJNb
+	QPYbM1QCyvSIyufkmQpfv0Pq9ql/iwukBz9adKiqT8QVQf8WM7Tz6NkfmNB+YUPHSfFFnpEFLTu
+	du6bPHX4y7qq0o7wCNM/Cu2C/QDp6Kec0YUKqTKTdiBJimKyHzXZygyxTtf0NakjllNCHROAG9q
+	jIOnVXefGHJClCsXr0H4hsE85lrxT+Aovc424iOOrkHv/0I+kNdKw4Dw3nw8ukDzN8UudzhFNuT
+	H21M3PXWfsVxEyY/5fVEpHndX15njRc/VMDUxfVJhH/I6jdt/R/DO/9dHQiJBqy9h/xfyp8oKU7
+	GVfoK47jjJOEmXZdwya+vDD1u4wm3MtMDhTL8szCZj2voe6TkGEN5bYQaKgbibGA2g95xXonF9d
+	QwdXpG/Gy0q6kVVvhzfQQ2KUC2VsNJ+sUMaF++LbC3dQOECHsrHY/RT3Vjba+jSiKDHetHpN0PJ
+	Ch7uQYmXf9QiEklmrw=
+X-Received: by 2002:a05:600c:5888:b0:49f:d742:97ea with SMTP id 5b1f17b1804b1-4a01eab3237mr86257095e9.0.1790932589833;
+        Fri, 02 Oct 2026 02:16:29 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.27
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:16:27 -0700 (PDT)
+        Fri, 02 Oct 2026 02:16:29 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: dianders@chromium.org, jesszhan0024@gmail.com, 
- Hsieh Hung-En <hungen3108@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch
-In-Reply-To: <20261001004940.110776-1-hungen3108@gmail.com>
-References: <20261001004940.110776-1-hungen3108@gmail.com>
-Subject: Re: [PATCH v2] drm/panel: ronbo-rb070d30: Ignore DCS errors in
- disable()
-Message-Id: <179093258722.2282096.3857794392092899182.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:16:27 +0200
+To: Jessica Zhang <jesszhan0024@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261001-asteroids-panel-support-v4-1-fb228194ad91@pm.me>
+References: <20261001-asteroids-panel-support-v4-1-fb228194ad91@pm.me>
+Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Document Raydium
+ RM69220 DDIC
+Message-Id: <179093258899.2282096.1855528319289622159.b4-ty@b4>
+Date: Fri, 02 Oct 2026 11:16:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,21 +88,14 @@ X-Mailer: b4 0.15.1
 
 Hi,
 
-On Thu, 01 Oct 2026 08:49:40 +0800, Hsieh Hung-En wrote:
-> If rb070d30_panel_disable() returns an error, drm_panel_disable() skips
-> clearing panel->enabled. unprepare() still powers the panel off, but the
-> next drm_panel_enable() sees the panel as already enabled and does
-> nothing, so the panel stays dark.
-> 
-> Always return 0 from disable(). A failed ENTER_SLEEP_MODE is still logged
-> by mipi_dsi_dcs_enter_sleep_mode_multi().
-> 
-> [...]
+On Fri, 02 Oct 2026 01:51:41 +0000, Alexander Koskovich wrote:
+> Document the Raydium RM69220 DDIC and the BOE BF068MWM-TD0 6.77"
+> 1080x2392 AMOLED display panel used in the Nothing Phone (3a).
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/1] drm/panel: ronbo-rb070d30: Ignore DCS errors in disable()
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/00efe8a685658deb7033d68fcdbf0a7e6796352e
+[1/2] dt-bindings: display: panel: Document Raydium RM69220 DDIC
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/dfb7ce7880264ec69579db6c309c00f6c788256a
 
 -- 
 Neil
