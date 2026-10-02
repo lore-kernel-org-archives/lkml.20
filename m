@@ -1,125 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22862D0C92;
-	Fri,  2 Oct 2026 14:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA64D30F52B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:55:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952788; cv=none; b=FkuYtUF1WDpeIy08NNUBuY2R9XxNQ8OAGsngPiCRh8vNF4LBpSpBJRyisCkJv1HIduxTgBlwMxYFLR8XRs9nmsHKYW9snZVhNU5WLDvuJ97U/yfCarbvZ+z7WMgjbBBG6R2QZX5X7gIWarv6mJNPsRGfNxsOY6H43uOyNrbwjBE=
+	t=1790952930; cv=none; b=r4LMmr7QWDppRwl/pNrTKzINEjZU56WClQhN4TAgelvDlvIVw9Nn45L/mQKJYCXRMXdYdhxU6MkBsLeXPhY3xGO+/CbyOHhn5+KtGBBGMou5fuf22qWteN/i5ObT7NUjDc5pohHpUnx+3Bqizs8u5JQkh5gCA33ORp4eO07jP28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952788; c=relaxed/simple;
-	bh=GZxRYK1w4snKNC2Ijd053YYTdJJ312g/wKMewJKo/ek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bErwNGGyg8PuNIZimV4GiW/445Ldcu8RVbwGiN7GWlj6mqHCRA84WbhxlsQ2bM4rvOtafBwAH/jHgfZaxCYAFM3hfmf4OLu8kuN7xX4gzz/luxdrveKu3vzftBxiI94kAMReX5RpAPH/pA+gNQcoZ3S0UppukYJyyFAv8v9+F1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X8QQqt24; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790952930; c=relaxed/simple;
+	bh=vL/NAW4pI59cTO2nOfUaBkDeGt8grGQZ57Ks3hj6950=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=FjfBT+8rHsJjf4vQgc5ZJmDyivZFCT4LKoyuyt5otcd3MX6wp9dkkULRMvolJwOelk4En5qfy7IAECXYdfgwCFA/BziJmAm6BCudGn8YhP0t6YOqMZPSioO5P6irYyqvaMjZ4UaqqrDERT3SZt/AnBsSBoNpvheHHuVnaDdwK5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com; spf=pass smtp.mailfrom=korsgaard.com; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=Tx9x/W0E; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korsgaard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X8QQqt24"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1BCD1F000FF;
-	Fri,  2 Oct 2026 14:53:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790952786;
-	bh=/P3LRF5JXFyBnEM5H7R7UPRrjiyCLLXP7y3LOSoBZ3Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X8QQqt24tfxSc01J8QrXafL/qhMHuz4v4dNU4ZH6QivQZ0pfn8UVD0Ayi3BHU5gTj
-	 acbBdl5SwLoyInD8PDtvEIubVowu7K9nCEOQTFkiF5eXyBYdrKSr8bVJxpojg5fben
-	 ucO0QVKSJVRJQb+o6p9cloaAQST/NbUrLt+fm+xs=
-Date: Fri, 2 Oct 2026 16:52:59 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Adi Prasan <itsadi2409@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	error27@gmail.com
-Subject: Re: [PATCH v3] staging: rtl8723bs: fix ie_length bound check in
- rtw_cfg80211_inform_bss
-Message-ID: <2026100246-underpaid-hardener-cfab@gregkh>
-References: <20260920142849.294162-1-itsadi2409@gmail.com>
- <20261002140450.3209-1-itsadi2409@gmail.com>
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="Tx9x/W0E"
+DKIM-Signature: a=rsa-sha256; b=Tx9x/W0Ef/V8PJllx8oSJRi1Thykxg/0uSCj159+UMQP8FJSGPpWJyxHoZcgwpgnVnFzb67WWxy74iXguH+fd3m0ynIP7myDimbUFWuexpUZCKWeXHk/pMPmSEA+I5/5Fsrhs/+/GULMGru45HqZt8nwKRn6C7s0l+sutVvPxM5kHMYV22lfpVZ2I5z/uQnrPz2Oede0AaFCibImnZgPaodfrgMjtc6w+6Y2YMIEk0oAYNhpQC9ihtxnf/DvKd7+1lwVaxtNH716pkXNXIL12oumdsUbPM1KvDdDTbVzhneNPNad53VpMzGIrXPPPh3XD+9pNB42f4WN+AkUFPcuiw==; s=purelymail1; d=purelymail.com; v=1; bh=vL/NAW4pI59cTO2nOfUaBkDeGt8grGQZ57Ks3hj6950=; h=Feedback-ID:Received:Received:From:To:Subject:Date;
+Feedback-ID: 21632:4007:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1831802679;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Fri, 02 Oct 2026 14:55:09 +0000 (UTC)
+Received: from peko by dell.be.48ers.dk with local (Exim 4.98.2)
+	(envelope-from <peter@korsgaard.com>)
+	id 1xCefE-00000009Cqd-0WvU;
+	Fri, 02 Oct 2026 16:55:08 +0200
+From: Peter Korsgaard <peter@korsgaard.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,  Peter Korsgaard
+ <jacmet@sunsite.dk>,  Arnd Bergmann <arnd@arndb.de>,
+  linux-usb@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: c67x00: fix uninitialized data access
+In-Reply-To: <20261002124558.3495203-1-arnd@kernel.org> (Arnd Bergmann's
+	message of "Fri, 2 Oct 2026 14:45:46 +0200")
+References: <20261002124558.3495203-1-arnd@kernel.org>
+Date: Fri, 02 Oct 2026 16:55:08 +0200
+Message-ID: <871pa8rw37.fsf@dell.be.48ers.dk>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002140450.3209-1-itsadi2409@gmail.com>
+Content-Type: text/plain
 
-On Fri, Oct 02, 2026 at 02:04:50PM +0000, Adi Prasan wrote:
-> The buffer bound check in rtw_cfg80211_inform_bss() checked bssinf_len
-> (ie_length + header size) against MAX_BSSINFO_LEN (1000 bytes), but
-> network.ies[] is only MAX_IE_SZ (768) bytes. This allowed ie_length
-> values up to ~976 bytes to pass the check while a subsequent memcpy()
-> from network.ies still only has 768 valid bytes, and other paths that
-> write to network.ies consistently cap ie_length to MAX_IE_SZ.
-> 
-> Check ie_length against MAX_IE_SZ directly, which is the actual size
-> of network.ies, and drop the now-unused bssinf_len/MAX_BSSINFO_LEN
-> comparison.
-> 
-> Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
-> Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+>>>>> "Arnd" == Arnd Bergmann <arnd@kernel.org> writes:
+
+ > From: Arnd Bergmann <arnd@arndb.de>
+ > Randconfig builds for s390 using gcc-10.5 revealed that the
+ > c67x00_ll_husb_init_host_port() writes bogus data into the
+ > registers:
+
+ > drivers/usb/c67x00/c67x00-ll-hpi.c: In function 'c67x00_ll_husb_init_host_port':
+ > drivers/usb/c67x00/c67x00-ll-hpi.c:288:3: error: '*(u16 *)((char *)&data+-452)' is used uninitialized in this function [-Werror=uninitialized]
+ >   288 |   hpi_write_word(dev, COMM_R(i), data->regs[i]);
+ >       |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ > I have not seen this error before, but the compiler is clearly correct
+ > and the bug has been in the driver since it was added in 2008.
+ > This particular build has CONFIG_INIT_STACK_NONE=y and CONFIG_UBSAN=y,
+ > but I don't think that alone is sufficient to find the bug.
+
+ > Change this to write zeroes instead, which may still not be what
+ > is intended but at least avoids the undefined behavior and the
+ > warning about it.
+
+Sorry, I don't have access to the documentation anymore :/
+
+
+ > Fixes: e9b29ffc519b ("USB: add Cypress c67x00 OTG controller HCD driver")
+ > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+Acked-by: Peter Korsgaard <peter@korsgaard.com>
+
+I wonder if we have any users anymore? I have myself not have access to
+any platforms with this cypress controller for the last 10+ years or so,
+so maybe the driver should just be dropped?
+
+
 > ---
->  drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-> index 27e7b8442d7b..7e964b15ae6d 100644
-> --- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-> +++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-> @@ -210,7 +210,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
->  	u64 notify_timestamp;
->  	s32 notify_signal;
->  	u8 *buf = NULL, *pbuf;
-> -	size_t len, bssinf_len = 0;
-> +	size_t len;
->  	struct ieee80211_hdr *pwlanhdr;
->  	__le16 *fctrl;
->  
-> @@ -218,8 +218,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
->  	struct wiphy *wiphy = wdev->wiphy;
->  	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
->  
-> -	bssinf_len = pnetwork->network.ie_length + sizeof(struct ieee80211_hdr_3addr);
-> -	if (bssinf_len > MAX_BSSINFO_LEN || pnetwork->network.ie_length > MAX_IE_SZ)
-> +	if (pnetwork->network.ie_length > MAX_IE_SZ)
->  		goto exit;
->  
->  	{
-> -- 
-> 2.43.0
-> 
+ >  drivers/usb/c67x00/c67x00-ll-hpi.c | 2 +-
+ >  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hi,
+ > diff --git a/drivers/usb/c67x00/c67x00-ll-hpi.c b/drivers/usb/c67x00/c67x00-ll-hpi.c
+ > index 7a214a3a6cc7..3825552dc024 100644
+ > --- a/drivers/usb/c67x00/c67x00-ll-hpi.c
+ > +++ b/drivers/usb/c67x00/c67x00-ll-hpi.c
+ > @@ -306,7 +306,7 @@ void c67x00_ll_set_husb_eot(struct c67x00_device *dev, u16 value)
+ >  static inline void c67x00_ll_husb_sie_init(struct c67x00_sie *sie)
+ >  {
+ >  	struct c67x00_device *dev = sie->dev;
+ > -	struct c67x00_lcp_int_data data;
+ > +	struct c67x00_lcp_int_data data = {};
+ >  	int rc;
+ 
+ >  	rc = c67x00_comm_exec_int(dev, HUSB_SIE_INIT_INT(sie->sie_num), &data);
+ > -- 
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+ > 2.53.0
 
-You are receiving this message because of the following common error(s)
-as indicated below:
 
-- This looks like a new version of a previously submitted patch, but you
-  did not list below the --- line any changes from the previous version.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/process/submitting-patches.rst for what
-  needs to be done here to properly describe this.
-
-- You have marked a patch with a "Fixes:" tag for a commit that is in an
-  older released kernel, yet you do not have a cc: stable line in the
-  signed-off-by area at all, which means that the patch will not be
-  applied to any older kernel releases.  To properly fix this, please
-  follow the documented rules in the
-  Documentation/process/stable-kernel-rules.rst file for how to resolve
-  this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+-- 
+Bye, Peter Korsgaard
