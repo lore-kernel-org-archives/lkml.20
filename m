@@ -1,35 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5594BD7BC;
-	Fri,  2 Oct 2026 13:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E30A4AB1D0;
+	Fri,  2 Oct 2026 13:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949267; cv=none; b=H7Qd94KBm5sUQ0kBNszmjPCF8zS4Arx326aMK05C9oYLDmcgI86eA7Sun3KvBD6eF6/ckDeNYCSUW+VAJfwzGfipBR40a9zzWmwzOpAB9nwCCe8DHnKjXVLfJEEFs4kOv5sBvXh8GpOQvkZLkP0W1HGYJLfdY5gyIXIB4CZnTxk=
+	t=1790949336; cv=none; b=I0lRDAim1vPNzmtKHLKuPDpZy3lgazKbYpIVLLbWclmmjZ16XpeeMsLZXtKaY0mP7E0tjLy+l9W9f4U/s/LqydoT1ILxTM6SLeML/ax89UeLiS+blAtidAxltsoVYd1dqNx+t2isMmt7Vq+t6rPjydM8AY0QdwJAqlTYAiCpag8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949267; c=relaxed/simple;
-	bh=39qH4Qxiqg7lwy9ZN0c1IOZ55qUFWpAVl+PAyYOaB+Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MmAnFoNsqB+asFJ9MmDP4Ie4E2mEAx3qHhNinaC76zMxJUTqxYMpfx3TeAqTz3QXkzXGimB/TELd617e8SXIikfyKCtaematKSb9Zm9m4Unc6a5Kj8DKpa6TgBCbimaEsB/RtwyN0Uf8ZN/q+veJK4ro2Oe7tafHP/falikKxJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgcXLvgD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949336; c=relaxed/simple;
+	bh=2kzDVsObb9Ct7NqxEGSKl9YO7zCZZOw64eoh61FFWFE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fMO94VCZuuUi96fIzz6KlAW/5Qve/9BSRgQB/I7ZKdVCuqe/q+pr4i7qTKzZi8SCUtUDyaklgjbqwowsxEhnsXZPQs6YgxDnFQg+Uq4CykegZRJ/pjFPU8BTiOQBpPe2iw6GHa7GbGy6/IXu47k0G8Ly2/tLJEKu5vAevq6MdhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pW6YdM+W; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgcXLvgD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B518F1F000FF;
-	Fri,  2 Oct 2026 13:54:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949266;
-	bh=PS7AtoZtYOlnLuk+2alc0UUFO/f6v1NDvPSG5gs76uE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UgcXLvgDQy4oQwT5RhmGjmYrVq5e+nOdqXwCtf4PKhEnskiSOg0bUXMGHIKBwdMjs
-	 NiPdbBPApR/G4hEQbMMU3x6TZZMzhxtIE5pqiUmLWsBM5YsVVm/k5HWiUaOY0cICGr
-	 gt2FUh07/vmW4MZV2U8+zfTF50VIZKEFXxQtD9A9IyP0zWlGddYvdmBqc2swrJHqIA
-	 jVaRv0fm2lq/hR9MAvjAKe8Sxjs8+63RsOk94zbb4U+ZBP93A+rtxHGpZm44YNm3Fr
-	 QayK9iav4Oke3Cxj67L3VHHooQXm3S1Ji4iFF0jtTiUUyLQHWAlExI778bzaLwR1oB
-	 lAt46pOuQhxgg==
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 02 Oct 2026 15:52:52 +0200
-Subject: [PATCH 21/21] selftests/filesystems: check that reading the root
- of an empty mount namespace stalls nobody
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pW6YdM+W"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AE8A8C2BCF4;
+	Fri,  2 Oct 2026 13:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790949335;
+	bh=2kzDVsObb9Ct7NqxEGSKl9YO7zCZZOw64eoh61FFWFE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=pW6YdM+WvVGykGKjKzhZolfJ54Qxctosma1cJ9ajYvWBVQv9QpZF3dEzMR5tC4DAn
+	 y0QT4fF3PmovpcqTlriTD9U6K8W7fpUHVm/FMl3u7+P1qGjKsKQ7PNHZ6wofo21Wzl
+	 6DYvY8e8TwSJ3TCbYdzVKAfO8u+IxKY3zBtaQ8hlfcseXbZvZqGuQMXpuS4jxZT3Wr
+	 IZmS9tzWQz7VwgJToRTWKGfSnh2kIinfZtKMHLlMugBrgQkvUK60KjTxuq99L8tB5i
+	 9G33drQ9Lt+OX7BfEirt0ir9Hz4rhaQGqWsJVp2G3VKquoJKwbo795jkW8DYICoGJi
+	 9mkfcjesF0oeA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D1C9CA5FC4;
+	Fri,  2 Oct 2026 13:55:35 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Fri, 02 Oct 2026 10:55:35 -0300
+Subject: [PATCH] clk: qcom: mmcc-sdm660: enable the parent when
+ pclk0_clk_src changes rate
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,117 +40,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-work-mount-fixes-4-v1-21-dd44b89d44ce@kernel.org>
-References: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
-In-Reply-To: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>, 
- Jann Horn <jannh@google.com>, Neil Brown <neil@brown.name>, 
- Amir Goldstein <amir73il@gmail.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3552; i=brauner@kernel.org;
- h=from:subject:message-id; bh=39qH4Qxiqg7lwy9ZN0c1IOZ55qUFWpAVl+PAyYOaB+Y=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt3x5t//Ci/O/ITx2ey5+VrnHoWHzKMkTEYNtF2bYrV
- klnpqRpd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEykdxvDb5Y7nx72/onhnKpQ
- eeFuUFioQ/ujptLpn5UqmHbb59W+mMLw31mLIeOad6LmuooomTQLj1CrwxPyuxbqmRgXM2cteWX
- MCAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Message-Id: <20261002-sdm660-pclk0-parent-enable-v1-1-d6ff889144e4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJW5MCXsW4KNNBR7CQDhgTw
+ t2tuPnJ2/wNlLOwwqXaIPNbVKZUYE8V0COkO6PEYnDGeWuMQ40v7w3ONA6lIXNakFPoRsbGujO
+ 1gWobGyiDOXMvn2N+vf2ta/dkWn5H2PcvDq8Y634AAAA=
+X-Change-ID: 20261002-sdm660-pclk0-parent-enable-8123c9ac71d8
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
+ Martin Botka <martin.botka@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790949334; l=2042;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=UJ72pjAY0/NNTs1ZuCPwUI9TXq4wpNAkoyf3mD77/xY=;
+ b=q2cfb5tDrUIFY55Z+7QVGgYP4ymbCdvNt/yDM1AvYKXiImd30fBS1SfmZrBLMZyH6mVSYOmVz
+ jTqdTQ9cP7QB6CEHYpRhwCdDPyOpOji7iXh75dE1bDQt8n7omv5DrEI
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-A readdir of the root of an empty mount namespace stuck in the page
-fault of its buffer must stall neither a create nor a lookup in that
-directory. The test needs userfaultfd and skips without it.
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+pclk0_clk_src is fed by the DSI PHY PLL, which
+dsi_pll_14nm_vco_set_rate() resets and only clk_prepare() restarts. The
+DSI host sets the link rates before it prepares the PLL, so the RCG is
+updated against a stopped source, and if it is enabled at that point
+the update times out:
+
+  pclk0_clk_src: rcg didn't update its configuration.
+
+Seen on a board whose simple-framebuffer node lists the pixel clock:
+the RCG then reads enabled at msm's first modeset.
+
+Set CLK_OPS_PARENT_ENABLE so the core prepares the PLL around the rate
+change, as dispcc-sm8250 does for its pixel clock sources since
+commit acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for pixel
+clocks").
+
+Fixes: 5db3ae8b33de ("clk: qcom: Add SDM660 Multimedia Clock Controller (MMCC) driver")
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
- .../selftests/filesystems/empty_mntns/.gitignore   |  1 +
- .../selftests/filesystems/empty_mntns/Makefile     |  5 ++-
- .../filesystems/empty_mntns/root_readdir_test.c    | 45 ++++++++++++++++++++++
- 3 files changed, 50 insertions(+), 1 deletion(-)
+Tested on the Motorola Moto X4 (SDM630, payton) with the sdm660-mainline
+7.2.y tree, sdm660_defconfig, DRM_MSM=m: without the flag the warning
+fires in most boots, with it never. At the stall the RCG reads root-on
+and the PLL stopped. With the display built in, clk_disable_unused()
+also prepares the PLL under this flag, and some boots then log "DSI PLL
+lock failed".
+---
+ drivers/clk/qcom/mmcc-sdm660.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/filesystems/empty_mntns/.gitignore b/tools/testing/selftests/filesystems/empty_mntns/.gitignore
-index 8ea166068d6b..27bcbcaeb1d1 100644
---- a/tools/testing/selftests/filesystems/empty_mntns/.gitignore
-+++ b/tools/testing/selftests/filesystems/empty_mntns/.gitignore
-@@ -4,3 +4,4 @@ empty_mntns_test
- overmount_chroot_test
- internal_sb_reconfigure_test
- nullfs_atime_test
-+root_readdir_test
-diff --git a/tools/testing/selftests/filesystems/empty_mntns/Makefile b/tools/testing/selftests/filesystems/empty_mntns/Makefile
-index 4b2ea6acec1c..22af2164c54e 100644
---- a/tools/testing/selftests/filesystems/empty_mntns/Makefile
-+++ b/tools/testing/selftests/filesystems/empty_mntns/Makefile
-@@ -4,7 +4,9 @@ CFLAGS += -Wall -O2 -g $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
- LDLIBS += -lcap
+diff --git a/drivers/clk/qcom/mmcc-sdm660.c b/drivers/clk/qcom/mmcc-sdm660.c
+index 9f8b8e29fa0f..bc95d0de75a3 100644
+--- a/drivers/clk/qcom/mmcc-sdm660.c
++++ b/drivers/clk/qcom/mmcc-sdm660.c
+@@ -984,7 +984,8 @@ static struct clk_rcg2 pclk0_clk_src = {
+ 		.parent_data = mmcc_xo_dsi0pll_dsi1pll,
+ 		.num_parents = ARRAY_SIZE(mmcc_xo_dsi0pll_dsi1pll),
+ 		.ops = &clk_pixel_ops,
+-		.flags = CLK_SET_RATE_PARENT | CLK_GET_RATE_NOCACHE,
++		.flags = CLK_SET_RATE_PARENT | CLK_GET_RATE_NOCACHE |
++			 CLK_OPS_PARENT_ENABLE,
+ 	},
+ };
  
- TEST_GEN_PROGS := empty_mntns_test overmount_chroot_test clone3_empty_mntns_test
--TEST_GEN_PROGS += internal_sb_reconfigure_test nullfs_atime_test
-+TEST_GEN_PROGS += internal_sb_reconfigure_test nullfs_atime_test root_readdir_test
-+
-+LOCAL_HDRS += ../readdir_hold.h
- 
- include ../../lib.mk
- 
-@@ -12,3 +14,4 @@ $(OUTPUT)/empty_mntns_test: ../utils.c
- $(OUTPUT)/overmount_chroot_test: ../utils.c
- $(OUTPUT)/clone3_empty_mntns_test: ../utils.c
- $(OUTPUT)/internal_sb_reconfigure_test: ../utils.c
-+$(OUTPUT)/root_readdir_test: LDLIBS += -pthread
-diff --git a/tools/testing/selftests/filesystems/empty_mntns/root_readdir_test.c b/tools/testing/selftests/filesystems/empty_mntns/root_readdir_test.c
-new file mode 100644
-index 000000000000..0ff544247027
---- /dev/null
-+++ b/tools/testing/selftests/filesystems/empty_mntns/root_readdir_test.c
-@@ -0,0 +1,45 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Reading the root of an empty mount namespace holds nothing that anybody
-+ * else waits for: the directory never has an entry, so a readdir stuck in
-+ * the page fault of its buffer stalls neither a create nor a lookup in it.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <sched.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+
-+#include "../../kselftest_harness.h"
-+#include "../readdir_hold.h"
-+#include "empty_mntns.h"
-+
-+TEST(readdir_blocks_nobody)
-+{
-+	struct readdir_hold hold;
-+	bool stalled;
-+	int dfd;
-+
-+	if (geteuid())
-+		SKIP(return, "test requires root");
-+	if (readdir_hold_init(&hold))
-+		SKIP(return, "test requires userfaultfd");
-+	if (unshare(UNSHARE_EMPTY_MNTNS)) {
-+		readdir_hold_destroy(&hold);
-+		if (errno == EINVAL)
-+			SKIP(return, "UNSHARE_EMPTY_MNTNS not supported");
-+		ASSERT_TRUE(false)
-+			TH_LOG("unshare(UNSHARE_EMPTY_MNTNS): %m");
-+	}
-+	dfd = open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-+	ASSERT_GE(dfd, 0);
-+	ASSERT_EQ(readdir_hold_check(&hold, dfd, &stalled), 0);
-+	/* the lookup came back while the readdir was stuck in its fault */
-+	EXPECT_FALSE(stalled);
-+	close(dfd);
-+	readdir_hold_destroy(&hold);
-+}
-+
-+TEST_HARNESS_MAIN
 
--- 
-2.53.0
+---
+base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+change-id: 20261002-sdm660-pclk0-parent-enable-8123c9ac71d8
+
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
+
 
