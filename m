@@ -1,84 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-239.mta0.migadu.com [91.218.175.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A7ADF59;
-	Fri,  2 Oct 2026 08:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47CB446C0B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928062; cv=none; b=Hle8y1Zvy2oh8+Bxawkao5qmuIgBgeYG29L4L+zSpLFVgAnbmiMF7fDuHiBY6F4aDGcttC2qDamZF6eoYVjL/YkKy7pmfJ8g69aPCV1PdkOvWNDZUUlK0wpArx7UQtCM4fxe6bqG312wgXIzR36lX0yLsPrOpwyNEZjTuX3Fh/c=
+	t=1790928221; cv=none; b=gYcevbPIfjfRnrpOwgvDLZvetCFRu7reTHgHTqj9ZmfjnKvIQRBy8iyARU4EWo5ghi9GDalLwz4F9Se4f9l4dhDe9D72gUDifWF/d1Gua06a+lUnblelp9V+DzT7GQsbsWcgm7QEoJVKceMXgkm6C8baPyhE4m+EhaPdq9oequY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928062; c=relaxed/simple;
-	bh=/xWJpEeJD5AJW9yH/EyOrkr7+kDg5DrQbP93o7p6wFo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ge4FJ9dOY2OqnLhlqTPvFtcJonB9yzZxaVDSAV2+9w1vvdmVaAa+pIxvMaaSz4smpvEybRUCiDwht9FLxeaANQwLTcOawYjAC+NB3ApWjri1P7DupOL90C1FLiZG+KPrNu+GL9CujcW9di3zHT72aWZw45tI7rI0Q769rCt8Y6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kmfQKwno; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790928221; c=relaxed/simple;
+	bh=CE54ArF9CfZSFzFjBXuY+9dl8X+yjhtgmfmzwiHATzM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=GB+Jjaxmo3E8+3tPEhdg92moJDzMruT+I0qlRH7tUq2/AVYAU2hJlIN2PycuRv/L5qeiDmiwC6wuZktJjLmYphOKhRI6a3eedNY26nKQqqRGmxwOv/mO7HkIqTOV5EA3pYRsrHufQVqnU7A/r7xyjfDpsVvTslQVrjeggyZv2vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ds3++d5y; arc=none smtp.client-ip=91.218.175.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kmfQKwno"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790928061; x=1822464061;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/xWJpEeJD5AJW9yH/EyOrkr7+kDg5DrQbP93o7p6wFo=;
-  b=kmfQKwnoN/k5urfHn32wg5lnselEAMaVloffvInR95/OldFwXJ3IvS6B
-   2MuuHOvuVmGanPIPCz27+Zb5UDjogaB+YWMihJZvuVhz6OGggGCJOazbl
-   E/dEC493ZwtvPTC+CXjY5eTqsFz/j3W/bLENPBw7Ey1X/gXQHpDFCB6DM
-   Z735Z4bcr05WYvpsHt+6dhoXnHcYfOINy9KDQNZ1hE8AaKFp+nMl3uTl+
-   MMWSMtm1RuiUm0sLqWLFS0k0KhCETjVXC4RXVs0TWqO0YwofmS4jFUA4A
-   ZHgSagdgs0FhePvsEIZ5i2H28s5D/UsLopJsuSlDu8zdL8Z/U5M49CDYf
-   Q==;
-X-CSE-ConnectionGUID: +CPnOfUvRHWoFuuFHFn7rQ==
-X-CSE-MsgGUID: 2MITto9LRu+BKKw+NwTMrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="109179215"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="109179215"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:01:00 -0700
-X-CSE-ConnectionGUID: dQZU25YVTo+VvkkW3QgIww==
-X-CSE-MsgGUID: 20r7/UEIQb6U2JmGcVj8Dg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="229607"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:00:58 -0700
-Date: Fri, 2 Oct 2026 11:00:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH RFC 3/3] iio: core: use kstrtodec64() to parse
- fixed-point values
-Message-ID: <ar9kuHwnTM8jdkqR@ashevche-desk.local>
-References: <20261001-e-notation-v1-0-75187bf06c10@analog.com>
- <20261001-e-notation-v1-3-75187bf06c10@analog.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ds3++d5y"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CE54ArF9CfZSFzFjBXuY+9dl8X+yjhtgmfmzwiHATzM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790928212; v=1; x=1791533012;
+ b=Ds3++d5yfDk3weHdTLBg3OgvNzweIJnH6GRoSyfTW1ra7WqtBBSuaC1czrtFxSira0HEyujf
+ Y8HxXqfT27CknSgNDgx89MZxLDRzOu9z7WQUTgayBxIIWxxmgFdjrK+ah3ev8EZrxRsZTpkjLXO
+ vzfCowrKNNGEbhnXRi904XKc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3000c729e5b3d0a9;
+	Fri, 02 Oct 2026 08:03:32 +0000
+X-Mizu-Trace-ID: 3000c729e5b3d0a9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4fc25ca5-bd57-4df0-a8e1-cf6bb9ba2fcb@linux.dev>
+Date: Fri, 2 Oct 2026 09:03:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-e-notation-v1-3-75187bf06c10@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
+ bpf_reg_state->id [NFC]
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>,
+ John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ bpf <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-2-vineet.gupta@linux.dev>
+ <DLDKB6BTHVXE.PFK87O3QY1J5@gmail.com>
+ <f575fe19-a5a0-4f43-b1bd-cdec2c6e9830@linux.dev>
+ <DLH1MDZPU5G0.228555JR34D3N@gmail.com>
+ <76ca0a2e-dd9a-41c9-90e4-5fd3c9171172@linux.dev>
+ <CAADnVQKKWBV+pFMAStB_-POKveeO83RiXU+VKeua3odSu-Xrmg@mail.gmail.com>
+Content-Language: en-US
+In-Reply-To: <CAADnVQKKWBV+pFMAStB_-POKveeO83RiXU+VKeua3odSu-Xrmg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 12:34:58PM -0300, Rodrigo Alencar via B4 Relay wrote:
+On 9/16/26 5:36 PM, Alexei Starovoitov wrote:
+> On Wed, Sep 16, 2026 at 2:24 PM Vineet Gupta<vineet.gupta@linux.dev> wrote:
+>> On 9/16/26 2:02 PM, Alexei Starovoitov wrote:
+>>> On Tue Sep 15, 2026 at 1:17 AM UTC, Vineet Gupta wrote:
+>>>> Back when I started, keeping it NFC made more sense. But with all the
+>>>> nuances discovered in the process, I'm inclined to drop the NFC stance
+>>> What is NFC ?
+>> non functional change aka refactoring.
+>> Like I said when I started I wanted to keep the id / flag breakout
+>> purely non functional. But given that splitting it does change one thing
+>> (mentioned below) - I'm dropping NFC attribution.
+>>
+>>>> and make functional changes - there's at least one which is the
+>>>> following accepted pre-series and now rejected.
+>>>>
+>>>>          old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
+>>> that's a red flag, no? The refactoring patch shouldn't have
+>>> any changes to selftest and veristat numbers?
+>>> Unless I'm missing it again.
+>> Yes understood except that it is no longer refactoring.
+> NFC is gcc probably lingvo? In kernel people just put in the commit
+> log "No functional changes", so it's easier for humans and for AI
+> to review patches.
+> So pls skip such unusual tags in the future,
 
-...
+Yes keeping kernel's existing conventions makes sense, although LLMs 
+understand what NFC is.
 
-> +	/* fract_mult = 10^n, so ffs(10^n) = ffs(2^n * 5^n) = n + 1 */
-> +	unsigned int scale = ffs(fract_mult);
+> but keep the first patch as "No functional change".
 
-Hmm... It's not obvious. Maybe you want to use int_log() instead?
+Just to rehash since the meaning of first has moved significantly.
 
--- 
-With Best Regards,
-Andy Shevchenko
+1. Now the first change (patch 1/x and its test 2/x )  is no longer the 
+compound id conversion, but coerce_reg_to_size_sx / 
+coerce_subreg_to_size_sx change to fix the errno range case, as 
+suggested by you. It is a functional change, with following improvement:
 
+    === VERDICT CHANGES: 3 ===
+        mov32sx_s8_negative_range     failure -> success
+        mov64sx_s32_negative_range    failure -> success
+        mov64sx_s8_negative_range     failure -> success
+
+    === total_insns:  0 changed among 1242 both-passing, 0 worse ===
+    === total_states: 0 changed among 1242 both-passing, 0 worse ===
+
+2. The second change (3/x and its test 4/x) is accumulating add_const 
+deltas (w3 = w0; w3 -=1). This makes the 32-bit link with delta special 
+handling of zext unnecessary so its a prereq for the series.
+
+3. I guess you are referring to the patch to convert compound id to 
+broken out id + flags (5/x ) is also technically a functional change - 
+due to the state comparison behavior improvement that fell out of the 
+seemingly mechanical conversion and is clearly called out now. However I 
+verified it in isolation (on top of 4 prior of course) and there are no 
+veristat or selftest changes with it (just a cosmetic name change due to 
+base_id -> id)
+
+    === VERDICT CHANGES: 0 ===
+    === total_insns:  0 changed among 1247 both-passing, 0 worse ===
+    === total_states: 0 changed among 1247 both-passing, 0 worse ===
+
+
+I presume that is what you were asking for ?
+
+Thx,
+-Vineet
 
