@@ -1,158 +1,123 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937F03CE0A4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991ED3BD65D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944847; cv=none; b=VJO8H40gtXuxgDcX/wylay5RVNPWVYwA/2jgtlSJwpt7iCH6EcvCHo6tc2FkCdqHpxss13+ryXnSufsx59qYx9GMb1DpCnZ+muQif2QT0H3cgI1NeNgKtlPfPjyPX92NF0izIBleiRJYRXCFj3CO324m9yiaBCBQQA1ZjLpht+Q=
+	t=1790944870; cv=none; b=g8gkg8POoHx0G7e9j/n7G2QbZ5I4JaTzlFrABnDDl36eCxxuqwKn62PlJ0VpDzhmOiY7DZ7ndD6RjkhLElGzEkwmcq59iVir2AEFYhEg6V/UMe0DOBdc96HlF5RXgmF6fCwXlTVT8aVllOpDuvZZosZpShPeGm2vzcQw13bih6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944847; c=relaxed/simple;
-	bh=vqjK4slV1N7ra8wRUcxL1SZujEvmpdhLFb5qwVelDzw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qPftYuvQnTx/PJvSWQgbUV3w3KBtHwebO8vkbjjS+0xvv2Y+uvuyIegxuCR0LJdtnfAv9daGyZPZszEMJ19Wct0RPisM1BR7CipnE1Ln/Xnz78lGQ3xsyIcfmDA8y6rnr0p0V+n5fjGhbzow9lpliOHbySocqG8DAKtpEt3aHiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=e0sySH1o; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WhADyh/s; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1790944870; c=relaxed/simple;
+	bh=WquY7HvTUY1YNIuKfLmkwIUcPE6j7wZaFxlIYZ0OU8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Io/HxM0CshiwEu/UxSL++Tz44FUU+8DIPvwq/qhrEMcqheGb13x/Fn7FOnCCZ34cH/hHZHiI0cnSl3q2uy2KOwaLRJNn3k4HlyV3nFxiXbW/WGntADCBmt7YgDti/bOnjPKw10aFqEifcC1AUydPTrDwy9vvZcB+rpENMaQZfUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WfdJYP0n; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="e0sySH1o";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WhADyh/s"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id B094DEC0300
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:40:44 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Fri, 02 Oct 2026 08:40:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790944844;
-	 x=1791031244; bh=X1fUnTyojVOzVIiPWbG7G4BS8AHa4mHFcS9JswnI+J0=; b=
-	e0sySH1oT2BRYNbVN6l0FN9qjwRmHfZ5SkSqY7EbDKQBF3fMSzfhETdVNQHusOWo
-	m9C+eCtjmsLFlr8t3qOuG2yyUCj2p+37oOMn9nSXK9iqG5JwWsjUfc5QCldpNpn0
-	iACmDB4wD1KDcmv70dk4kPgxRxRAvC8pVjr39JAfX7Pf8cIu03ebQ+7/qTKIViDL
-	T2m3yA9+eYl05QEM5AFbBpHgYheNHT/9zWV5pKs1PmWPMvNRI8OahudyLXfZGW8z
-	xj9hTnTHJfSo1rboqmXL+oad69V1/i6OuT3kFhM0VhJS9vaHQIY4pkFu2i/3H+uX
-	UvRUjzCrMmVc2F7APJqmww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790944844; x=
-	1791031244; bh=X1fUnTyojVOzVIiPWbG7G4BS8AHa4mHFcS9JswnI+J0=; b=W
-	hADyh/sO/CeHS4B+fbhrg8b/UbslNiRnCBkWup+rcu2wesf2XH0LDWPkHbtZOysW
-	Bvn5E9OuZZnHCbLcGQshtKUkEfrmMYE1SSI20XtYvsSLvcYucaHaEY3IPxLe7y50
-	riUGQQZFptqZla6xqECC8O0UddQHzJ+FRRflwugVeT+auJp9VtzOJ21UbCas9fjT
-	dxScSSKr+9a+rYt4H50BiHXX3zyE8ZDuKFTkLQDOYpcMDIEN99oeahofPuwaUZW7
-	v0jkp1oBNU+HNyA5TncfMsBtbPRCSMNQiFX+l4qoGApLn1h37ZEUW7ChLuMZxlIB
-	msb7PAKheOC1uovFWYFXw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790944844; d=kroah.com;
-	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:QkmPPMz7l8r10TmZWm3r7OvWOn5vWLJ8b+Y0qZeXmWm2axg
-	d83AkbXPbNX2P6HJjpIeKm2eMiUbvxwPTIqZvkU5r092TjXEaAvEP70wMFlFsaq+
-	yAP0GBjrLZcaf7P4XVjLYvoTXixQrcL7+Xt5AYsqP+fbao7o2JTvIMgF/YU3ZkXR
-	MvEhVUBrnrSX9TCITP/b9iqdmcN8EGRjRVBlN1/plUP/k2bI/Xpw8cBgKyrB5e1C
-	A0rqqjZG/o06GTr3DEsWB1XM9J8+PExMpHnI+WSc1viU7hz3890RV/O+k/Aw5kl8
-	pMy4jAyYQLOhrYiWewgrqi6TDXy8t1aJVazk+OQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:hDqUd+Z+Ldk0J5ss6uXfxd+uCSED8Z8itM8peJLNXxU=:vqjK4slV1N7ra8wRUcxL1SZujEvmpdhLFb5qwVelDzw=;
-X-ME-Sender: <xms:TKa_anJmtaBZPyGNDSYPz0WVHmXiWPL7CuceObgZxiHgRGDKHZlB1A>
-    <xme:TKa_ar7Z1BoyJwCCGDZN2QMZ76emT8FgDKXMDuwIN6BXfobja6oQTRYJSZahXBbsR
-    6UbledvniKMBJt37_xF2QEEAJeSLiQsZdsupCwsxopripji2oSpnw>
-X-ME-Received: <xmr:TKa_ar2ImbbcOkFQmR-4JltLXwOHd8w9YHZ_PSMVcPlo2GCkqdlmBmPraNNSGBHNckPDvNqQz1iU3cpdh0LG24Xv8DXPdD7bBxtn>
-X-ME-Proxy-Cause: dmFkZTEkT0xFaS48rHxJ4MGW/YcpmIEsfMb9aj10DLH2763n3AEUz0QFSPruhCqFZgC83X
-    oawLTHM18kNrqMuwtJWjHaHZZ5ZJoow0pckvNDPVKSeBlXf+MqF3rAsFwVCTjrkuQqAEXZ
-    o4yOHp7+Ql0SBJpwzqD6o2D/+sY/hGOTArU7jRz6ij+kts8oUZvVgQ8yR4EYTB1PtHTvH2
-    NnpWbKG0/+HPULKl1JY0YFNWsIU44HKtods/ZSiSAJlQxzIX31sBYm4W5haqz7JJvS6HUi
-    frbekWbJoD0mahd4KTsAbDq/wVkdUQOARnu11uYmbhFn6xeoqVggNyFwumyUtTGb9N3uEE
-    up65UEVKr8izlIAj7BwJjtDHmu8j4/8YUwZIFi2pY1MwpmIghI/UPSATwNzfqTzNVRjJSr
-    AjeGqDKokLGU8humd33joONC9l/vMPCWomHbgen1SvRHgMKitzb1lRQGchZMa9rCdq6So5
-    dm3zQNF5kT9oo7vf0MW+zQKcp5x8WpBOqABSXYTt+TYGygTBW/3dpwWjvp8pgN7EPa+qYJ
-    ZALzoLjtfyav2bqTE0p0oMweXNzL3pPk7tK6UvibwLjLaIgu6S5N3RWPSywheKqqzUiwhM
-    UqCpqcWdxSPfDJLMTgaYolgqYaBoUy87wR+9jKFP4zpYmjWY5Eq3wQzM1PRw
-X-ME-Proxy: <xmx:TKa_ahd9fbJY94wA_jPdExiDPNVykZ7S4mQysB-yiiCpHYdgtNx81g>
-    <xmx:TKa_ahfx0v9E8-eaUeydjvFgTGGGs3k1-r4Xnix6W1UBMZbnRMuhTQ>
-    <xmx:TKa_asws44_ZOhZ_c5YRF1g9VO8JBYosrlN_D6Ew3AKY7Jumnb4cgQ>
-    <xmx:TKa_ag_JuCA03uoshXhGzX_ZQ5x5FID40VNWT5pIWGDM0ERy9AgFhg>
-    <xmx:TKa_aooszoGoYVT5C61LEgix_zINcRXWtVnK1srFk3edqcVFlT_HaVR->
-Feedback-ID: i1d2843be:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 2 Oct 2026 08:40:43 -0400 (EDT)
-Message-ID: <90eac3b0-cc01-4616-8007-2f7750398dd4@kroah.com>
-Date: Fri, 2 Oct 2026 14:40:41 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WfdJYP0n"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6714595153cso1048892d50.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:41:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790944867; x=1791549667; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WquY7HvTUY1YNIuKfLmkwIUcPE6j7wZaFxlIYZ0OU8M=;
+        b=WfdJYP0nApmRzmSmN8GPWxaEFKUe9P9FQkMQv/pr9N0DYrqoOIAgreOR/Gv/NXPtXt
+         2/O+hLKEbjbkBglaeGhsyCgOsxqF/Cffy5MbAjXbMiEGtl033Oey/SC9tgX0EPTa6dxS
+         me7BMeD5/ABKvSjrSsCCxEQpUvo2fFY0DlYfnYZHnsnfPBUAKPoVYtAjYC3o3gQk/O3h
+         ryUndDoemkbuxCSI0a3IBfWCWEPQD+jov01QuvqnzTWcxajb++txJAPeHDyhYEdsdg7O
+         L4NdvtL1P0MzBOjhSGQbahzMClrwEF9RenFYqhvfLT/2vho11ttkdRkfQEgTATvTsjQO
+         Omww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790944867; x=1791549667;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WquY7HvTUY1YNIuKfLmkwIUcPE6j7wZaFxlIYZ0OU8M=;
+        b=sYgM13iL/kfK4LrBQ+DAbhnRtzVgLMTMCemHSDn0PhDeHWCxNBKFZVNYEQca9wTcNl
+         nH530VCts0SHcWIriW8QFurJZEA7qwadqZWUu4wgBQ3p3IiTEXvawDRNdN69lrX9bbAK
+         aJD5cWxBfzuBGaklznzu2KDDPupU1eWkzK47dMz/iS+kHx4/d1i6YoBSk79QD5mcTLra
+         JdA5ID62+vIzBSe2l97paZju5+JhqaEZsv6b0YuS+vdhR99hddXvoVpjsM2Miidr5Hio
+         +UiWJz0Emx+VHR0X1PDq1po9HpqbxTR1K9rYi4ZPApHv88fKhipdeiSYoUXy7iA3UaRT
+         lkPg==
+X-Forwarded-Encrypted: i=1; AKwUvBzZY5Hy1neh1lUu3UN7HVy+AW+UBXN1Vyth0HnDvBFM0XE69wLtzYK2EppWeNL8drk6zfHSat13PjSZzOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIU0cLgiKFMp7IbBefNDZSKdjPWqyaJPOfFGelrEhjRHAIAUSUb
+	QtykiaWpojTKqsEaGbzBolYF/A+qin8QpdnpxrbsRP+SwRrU6hA1kaA5
+X-Gm-Gg: AYBFou3dSeWD0X2eYBBnR2+BYKXuqoxAzXnDVxbNon2q1mDULRfhJas5s8Js0PReOan
+	3ce3TuaK779dy1ysQAsmCRYwLmRORQqaUJv2qEJfDNs5+XTDAV/vzufLsmwxNPazMLsIt1sqNv/
+	C6nCFZHCa/C55RboSyth+rz46WGwIWg6AhOItt5O6PjGcbIoI+AA/NL+Tlv9y/VoHNSI+YxEGep
+	Igxs7JsKtq+BxRhaJvKTrYEwGtqdYYcgZ8n9vmMJWt0TnIU6CtvbCruWi7vMWZPBP9XKGvZsQIl
+	/Na466Zxyyd/cz0hmFVokFvCSVT9mshBYsiEfmmNg4O+HzWFWVEDa+X69ChFMZsroHvxd1LZkl7
+	KyDdTp3sIflkkEv5DJnMx0TiFZlXkkxX0bfsakyBkf/QRcLBULZVhb9fB5/EZpkVOa1k1BY8l2O
+	4FoSPvQHjX808eo8C0uYijBDIUCcBUusRTUFe51SLkTjZ5lHvXWnHo/LTDh5QRS2w73zlm+I6sA
+	NL3KMPL0pYHprf6RjIm0rPrhcT5tqBsOyFUTer2in815vcdHlc=
+X-Received: by 2002:a05:690e:4344:b0:674:20c8:5af5 with SMTP id 956f58d0204a3-6769119554dmr1834462d50.27.1790944867295;
+        Fri, 02 Oct 2026 05:41:07 -0700 (PDT)
+Received: from llmbox ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677ac3ba68bsm875023d50.1.2026.10.02.05.41.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 05:41:06 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Michael Jordan <jordan.mymail@gmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] media: uvcvideo: report AUTO_UPDATE controls as volatile
+Date: Fri,  2 Oct 2026 08:41:05 -0400
+Message-ID: <20261002124105.55173-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <60efdb3c-e669-403d-b2d5-fee993e16217@kernel.org>
+References: <20260928215021.819064-1-jordan.mymail@gmail.com> <20260928215021.819064-2-jordan.mymail@gmail.com> <20260929123422.GA349401@killaraus.ideasonboard.com> <60efdb3c-e669-403d-b2d5-fee993e16217@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] leds: lp50xx: use scoped loop to fix fwnode reference
- leak in lp50xx_probe_dt()
-To: Manush Prajwal <manushprajwal555@gmail.com>, lee@kernel.org,
- pavel@kernel.org
-Cc: dmurphy@ti.com, linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <6abde533.1f5d5c08.1fd03.f4e7@mx.google.com>
-Content-Language: en-US
-From: Griffin Kroah-Hartman <griffin@kroah.com>
-In-Reply-To: <6abde533.1f5d5c08.1fd03.f4e7@mx.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/1/26 6:44 AM, Manush Prajwal wrote:
+Hi Hans,
 
-> In lp50xx_probe_dt(), fwnode_for_each_child_node(child, led_node) iterates
-> over each sub-LED child node. If fwnode_property_read_u32() for "reg" fails
-> or if multi_index >= LP50XX_LEDS_PER_MODULE, the function returns -EINVAL
-> without dropping the reference count of led_node, leaking the fwnode.
->
-> Use fwnode_for_each_child_node_scoped() to automatically release led_node
-> on all exit paths, eliminating the refcount leak as well as the manual
-> fwnode_handle_put(led_node) on the "color" property failure path, and
-> remove the now unnecessary function-scope led_node variable declaration.
->
-> Fixes: 193910c2c54e ("leds: lp50xx: Add the LP50XX family of the RGB LED driver")
-> Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
-> ---
->   drivers/leds/leds-lp50xx.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/leds/leds-lp50xx.c b/drivers/leds/leds-lp50xx.c
-> index 20bfb315b..d542eedd4 100644
-> --- a/drivers/leds/leds-lp50xx.c
-> +++ b/drivers/leds/leds-lp50xx.c
-> @@ -458,7 +458,6 @@ static int lp50xx_probe_leds(struct fwnode_handle *child, struct lp50xx *priv,
->   
->   static int lp50xx_probe_dt(struct lp50xx *priv)
->   {
-> -	struct fwnode_handle *led_node = NULL;
->   	struct led_init_data init_data = {};
->   	struct led_classdev *led_cdev;
->   	struct mc_subled *mc_led_info;
-> @@ -505,12 +504,11 @@ static int lp50xx_probe_dt(struct lp50xx *priv)
->   		if (!mc_led_info)
->   			return -ENOMEM;
->   
-> -		fwnode_for_each_child_node(child, led_node) {
-> +		fwnode_for_each_child_node_scoped(child, led_node) {
->   			int multi_index;
->   			ret = fwnode_property_read_u32(led_node, "color",
->   						       &color_id);
->   			if (ret) {
-> -				fwnode_handle_put(led_node);
->   				dev_err(priv->dev, "Cannot read color\n");
->   				return ret;
->   			}
+Thanks for pointing me to `v4l2_ctrl_auto_cluster()`. I’m trying to
+understand how to apply that model correctly here.
 
+From UVC 1.5 §4.1.2, Table 4-3, I understand that GET_INFO distinguishes
+“Disabled due to automatic mode” (D2, a state bit) from “Autoupdate
+Control” (D3, a capability bit). That helps me understand why AUTO_UPDATE
+alone should not determine the flags for controls with an auto/manual
+master.
 
-Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
+The Tiny 2 and Tail 2 pan/tilt case is what I’m unsure about. These are
+the only cameras I have available to test. On both, writing the V4L2
+pan/tilt controls sends a target position to the camera. With the
+AUTO_UPDATE fixups applied, subsequent V4L2 reads retrieve values from
+the camera that follow its movement towards that target, rather than
+immediately returning the commanded target. I observed this with tracking
+disabled as well. The pan/tilt mappings in uvcvideo have no `master_id`.
 
+This is what I observed on these devices; I’m not assuming the
+specification requires live position feedback. In particular,
+§4.2.2.1.14 describes pan/tilt “settings,” and both cameras advertise
+UVC 1.00.
+
+Would the appropriate approach be to follow the mode-dependent flag
+handling you described for controls with an auto/manual master, and use
+`VOLATILE | EXECUTE_ON_WRITE` for writable PTZ controls exhibiting this
+behavior? Or am I misunderstanding how that read/write behavior should
+be represented in V4L2?
+
+The v5 I sent fixes the event-notification issue but retains the blanket
+flag mapping, so your feedback still applies.
+
+Thanks for helping me understand this.
+
+Michael
