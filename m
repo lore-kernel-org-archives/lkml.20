@@ -1,166 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96944AD4A9;
-	Fri,  2 Oct 2026 20:30:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED9830D401
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973006; cv=none; b=fxgEP1a3nU/nuUsXK9V1Gj+K11HTZNZJ92FKvuUOtUMZ6JxAHEkJv7EB0p7pS54qnfWYnIiIYBNpJobfvmTrq/kB8Y/WujYTeQHgtmT+WHTUMVo9I3VH5PI6wopUGRa2lR/eexvFwLgcUmEl7tQ6BWWlPJApGhrs0Ice81J0JZ4=
+	t=1790973028; cv=none; b=VuIhUE6DwpfXu2nlSUnSz0OQSB+IxmIfA2k7t8QbLfugUyUw0G4H6qE78cmgvBYKL6yZSL9GJb0XJAGeQe55uCmg/lxPMue0Zf4j4suUb5rGvai6766offTupDHJuTlhwPk5J1+blkms30kIWKGjRBz1W7phXqkpSipyMwvmyBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973006; c=relaxed/simple;
-	bh=A57fix4TjPTef9DberGTKzGGVIoj6xLxc1T8ES85t+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ub3Q0WSJke37cNxmhaMz2I8PHTH2PMRD7hHBDtUxFd/FZPQYH7aGLs9SaWn6HBuwkPJvaPXcWO6tqLhwyv4CcSiMXPK8l6GlnE0YOIZUMQM/XZ7UpqKjxWGsfPd9iY50qHiyEVmQm0keCHtX1OoxnOwf8EQ1BEmychW2jpw4SvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kRYgbpfN; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kRYgbpfN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E801F00899;
-	Fri,  2 Oct 2026 20:29:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790973001;
-	bh=PPe8XfiBwwc3VDb6mDFBIKcS4IWCrZUJLVhKKA8dMoE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kRYgbpfN3Zr8PhX0aoVstFOHkG4ZIeid0meglthEXwDFLVd90amgIuPcMBIzne1rC
-	 /1S/wriOyhe968niXRc0AzTYNSTiNXzIlDPO7ejp06HBS2hazRVQosS/alNt/JPuWH
-	 CNQG9PsE1iFjXAQK7r94nDpO1TOaHqXxHhOp7BEWL7jnCh3hpod7aAlKt1zQfltCgV
-	 waKUDwpqRoJj6FPEU3B1OGlkJHc3OI3CsXjrpn13Bic2uwVxYX6pKRnfhKTRO/cF/6
-	 sYKSiSVyhYTIyKopNgInQWIiqe5kOo+83tiUHGw+cjiIwFwFRguGHYgVVJ29V67ddK
-	 mmkZ4SnLzwY1g==
-Date: Fri, 2 Oct 2026 21:29:54 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v5 0/8] Add StarFive JHB100 syscon modules
-Message-ID: <20261002-causal-handbrake-d5e1331fcfde@spud>
-References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+	s=arc-20240116; t=1790973028; c=relaxed/simple;
+	bh=Skg4vR4Y5bBodaqf5L8n2jNcUdE2TBSMs439IgFKqPM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=BgqJW11p5h31kwnOTJ1wlyNzjvMgPjz3/3Dyn0+zUV6QkyjGtuUTlEWdSPjCEem35eq7CghY/lMqR1YuAomBifXTmNY0LfVAbfbmXsA2ussHun82idOo1YjP8CRjBrhzA/CyHDJPlnKQJcBlfm4CaWqB1uG0OZ0qh3akl57bM4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4eb0b989f0eso469656b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:30:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790973023; x=1791577823;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6wUuB592+kJPng/iRiJB4kmOBdQLCgtSi2/SJcT8bYA=;
+        b=x6Sur5674Z14sWWoPEmppv4LhpBi8zRfjL69K4tu1zS/PPyVBAPKG50H8DpIYKtrJw
+         j0Rw8uG8WYZG0a3tlziGsugNxam5QU+Wl06WkM9AiBZwTyL5XAxYXgQ1mUqUor18DMQO
+         wKGLWxM8zCaYLo0JRjEufQEqItsnM0SnJCVpa6HyxB0ZbS3zhf2YMD1oh2pnIJ6VB3F+
+         UbsMvTZQe/BmvgPCi70DRwTOYuHzi4mC7JlG7RKFMcixnCZYDVRhamDKkEtcTQthyEu7
+         4QsVWR9MvC3qe0x0je5/MxVkVvoAtP2zlZvmnfiiOyAMmseDa8f94TaoQ5GXwZ1VOTJY
+         6Qhg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2bN/bmaA4DPSxQQ6pCX2oYBwILFO2T+ycYxY0980pIp4gEiAgJnWpjNhmG9ExepHQrePz1fcXiL+eGDI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiGlF6SHuMp3y8AGqJS7E+LJcLTUnp8a3au0PiUs2o8fuMKM0B
+	nSEjvYl2Q1g6CrIZlQ5J4m1tdFMz2Wm9mcx0DvHNuvQ9HEtrKG0mCBXC48aOdkHujDw+cF8Nx54
+	aV+YaaK4PWl4yknVEQYwIjDQBJpNqjwYKGskYeEzrmxBJDAyW2sB4ozL7+Ks=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4ued5DHNw/Ko0FYQ"
-Content-Disposition: inline
-In-Reply-To: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+X-Received: by 2002:a05:6808:bd4:b0:4d6:9133:cfee with SMTP id
+ 5614622812f47-4f30caa6c35mr5991865b6e.51.1790973023528; Fri, 02 Oct 2026
+ 13:30:23 -0700 (PDT)
+Date: Fri, 02 Oct 2026 13:30:23 -0700
+In-Reply-To: <20261001202234.3794060-1-seanjc@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac0145f.34119e79.2f92f3.0003.GAE@google.com>
+Subject: [syzbot ci] Re: KVM: Fix+harden against bad uaccess using dying VM
+From: syzbot ci <syzbot+ci69d67bf25886d3bd@syzkaller.appspotmail.com>
+To: jmattson@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, npiggin@gmail.com, 
+	pbonzini@redhat.com, seanjc@google.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
---4ued5DHNw/Ko0FYQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+syzbot ci has tested the following series
 
-On Fri, Aug 28, 2026 at 02:56:00AM -0700, Changhuang Liang wrote:
-> StarFive JHB100 has many syscon modules, as listed below:
-> - pcieep0_ecsr_syscon	(PCIe endpoint 0 externel syscon)
-> - pcieep1_ecsr_syscon
-> - host0_syscon		(Host0 syscon)
-> - host1_syscon
-> - husb0_syscon		(Host USB 0 syscon)
-> - husb1_syscon
-> - husbd0_syscon		(Host USB device 0 syscon)
-> - husbd1_syscon
-> - husbcmn_syscon	(Host USB common syscon)
-> - gpu0_syscon		(GPU0 syscon)
-> - gpu1_syscon
-> - b2h_syscon		(BMC to Host syscon)
-> - h2b_syscon		(Host to BMC syscon)
-> - vout_syscon		(Video output syscon)
-> - pcierp_ecsr_syscon	(PCIe root port externel syscon)
-> - pcierp_syscon		(PCIe root port syscon)
-> - usb_syscon
-> - npu_syscon
-> - per0_syscon		(Peripheral 0 syscon)
-> - per1_syscon
-> - per2_syscon
-> - per3_syscon
-> - sys0_syscon		(System 0 syscon)
-> - sys1_syscon
-> - sys2_syscon
-> - strap_syscon
-> - sfc0_filter_syscon	(SFC0 filter syscon)
-> - sfc1_filter_syscon
-> - sfc2_filter_syscon
->=20
-> Some syscon modules contain PLL, reset, and socinfo nodes
->=20
-> This series depends on the series:
-> https://lore.kernel.org/all/20260807112923.191627-1-changhuang.liang@star=
-fivetech.com/
->=20
-> changes since v4:
-> PATCH 2:
-> - Constify name pointer
-> - flag =3D=3D> flags
-> - Use FIELD_GET() and FIELD_PREP()
-> - Use DEFINE_SHOW_ATTRIBUTE()
-> - Replace of_device_get_match_data() with device_get_match_data().
-> - Make the driver compatible with both MFD cell instantiation and
->   direct device tree node probing.
-> - select STARFIVE_JHB100_SOCINFO and select MFD_SYSCON
->=20
-> PATCH 3:
-> - The changes in PATCH 2 introduced a conflict with PATCH 3, requiring
->   modifications.
->=20
-> PATCH 7:
-> - Binds directly to the "starfive,jhb100-sys0-syscon" node.
-> - Instantiates the sys0 PLL clock driver as an MFD child cell,
->   since the syscon region contains both the revision register
->   and PLL controls.
-> - Uses devm_* APIs for automatic resource cleanup.
->=20
-> v4: https://lore.kernel.org/all/20260809015054.210577-1-changhuang.liang@=
-starfivetech.com/
-> v3: https://lore.kernel.org/all/20260521012932.24163-1-changhuang.liang@s=
-tarfivetech.com/
-> v2: https://lore.kernel.org/all/20260512083521.3448-1-changhuang.liang@st=
-arfivetech.com/
-> V1: https://lore.kernel.org/all/20260403054945.467700-1-changhuang.liang@=
-starfivetech.com/
->=20
-> Changhuang Liang (8):
->   dt-bindings: soc: starfive: Add StarFive JHB100 syscon modules
->   clk: starfive: Add system-0 domain PLL clock driver
->   clk: starfive: Add peripheral-0 domain PLL clock driver
->   clk: starfive: Add Peripheral-1 domain PLL clock driver
->   reset: starfive: Introduce active_low
->   reset: starfive: Add syscon reset driver support
->   soc: starfive: Add socinfo driver for JHB100 SoC
->   riscv: dts: starfive: jhb100: Add syscon nodes
+[v2] KVM: Fix+harden against bad uaccess using dying VM
+https://lore.kernel.org/all/20261001202234.3794060-1-seanjc@google.com
+* [PATCH v2 01/10] KVM: Reject user accesses to guest memory if current->mm != kvm->mm
+* [PATCH v2 02/10] KVM: PPC: Flush/zap all memslots on kvm_arch_flush_shadow_all()
+* [PATCH v2 03/10] KVM: x86: Unmap VMAs for KVM-internal memslots when the memslot is freed
+* [PATCH v2 04/10] KVM: Disallow setting memslots when the VM is being destroyed
+* [PATCH v2 05/10] KVM: Destroy memslots immediately after mmu_notifiers are unregistered
+* [PATCH v2 06/10] KVM: WARN if KVM attempts to do guest-related uaccess with "wrong" process
+* [PATCH v2 07/10] KVM: WARN and reject guest-based uaccess if VM is dying
+* [PATCH v2 08/10] KVM: nVMX: Don't flush shadow VMCS12 to guest memory during vCPU teardown
+* [PATCH v2 09/10] KVM: nVMX: Don't try to load eVMCS12 page when the VM is dying
+* [PATCH v2 10/10] KVM: Pre-check uaccesses in KVM's APIs to read/write guest memory
 
-I've applied patches 1 & 7 of this, and included the former in a PR sent
-to Brian a few minutes ago. I'll queue patch 8 in my pending content
-branch for the jhb100, when you resubmit to resolve the recent driver
-feedback, please drop those three patches.
+and found the following issue:
+WARNING in __kvm_read_guest_page
 
-Thanks,
-Conor.
+Full report is available here:
+https://ci.syzbot.org/series/5f8da53a-c584-4176-abcb-7a29eb02e4c4
 
---4ued5DHNw/Ko0FYQ
-Content-Type: application/pgp-signature; name=signature.asc
+***
 
------BEGIN PGP SIGNATURE-----
+WARNING in __kvm_read_guest_page
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasAUQgAKCRB4tDGHoIJi
-0txxAP9J81APJ2rNfPL6LzA6KaEGcDyNoMIX+tZLI1ChqhRl9AD/SJm4crHJUNCr
-qFd0XtDfj18Jmac4RW1KplFxlCRYQA8=
-=zVOA
------END PGP SIGNATURE-----
+tree:      kvm-next
+URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
+base:      d4b7fb647204f0c81dfeae2d1a708e4d858e0c94
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/4d4c10d0-f56c-448f-8782-ad4dab8f46d0/config
+syz repro: https://ci.syzbot.org/findings/dc5f6c42-c3ab-41b0-9384-1a15798e4820/syz_repro
 
---4ued5DHNw/Ko0FYQ--
+------------[ cut here ]------------
+!__kvm_can_do_uaccess(kvm)
+WARNING: ./include/linux/kvm_host.h:1360 at kvm_can_do_uaccess include/linux/kvm_host.h:1360 [inline], CPU#1: syz.1.18/5858
+WARNING: ./include/linux/kvm_host.h:1360 at kvm_is_guest_access_ok virt/kvm/kvm_main.c:3216 [inline], CPU#1: syz.1.18/5858
+WARNING: ./include/linux/kvm_host.h:1360 at __kvm_read_guest_page+0x38e/0x440 virt/kvm/kvm_main.c:3226, CPU#1: syz.1.18/5858
+Modules linked in:
+CPU: 1 UID: 0 PID: 5858 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:kvm_can_do_uaccess include/linux/kvm_host.h:1360 [inline]
+RIP: 0010:kvm_is_guest_access_ok virt/kvm/kvm_main.c:3216 [inline]
+RIP: 0010:__kvm_read_guest_page+0x38e/0x440 virt/kvm/kvm_main.c:3226
+Code: f2 ff ff ff 0f 44 d8 31 ff e8 5e a4 89 00 89 d8 48 83 c4 30 5b 41 5c 41 5d 41 5e 41 5f 5d e9 09 ac a8 0a cc e8 83 9e 89 00 90 <0f> 0b 90 bb f2 ff ff ff eb da e8 73 9e 89 00 90 0f 0b 90 bb f2 ff
+RSP: 0018:ffffc90003157778 EFLAGS: 00010293
+RAX: ffffffff813e2d22 RBX: 0000000000000000 RCX: ffff888174382580
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 1ffff1102217d82a R08: ffff888110bee183 R09: 1ffff1102217dc30
+R10: dffffc0000000000 R11: ffffed102217dc31 R12: ffff888110bee180
+R13: ffff888174382b40 R14: 1ffff1102217dc30 R15: 0000000000000000
+FS:  000055557c0db500(0000) GS:ffff8882a8cda000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f458dfeb840 CR3: 000000016c9d0000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ kvm_vcpu_read_guest+0x64/0x140 virt/kvm/kvm_main.c:3284
+ nested_vmx_load_msr+0x133/0x4d0 arch/x86/kvm/vmx/nested.c:1107
+ load_vmcs12_host_state+0x10ca/0x1e20 arch/x86/kvm/vmx/nested.c:4930
+ __nested_vmx_vmexit+0x1800/0x2d10 arch/x86/kvm/vmx/nested.c:5206
+ nested_vmx_vmexit arch/x86/kvm/vmx/nested.h:46 [inline]
+ vmx_leave_nested arch/x86/kvm/vmx/nested.c:6891 [inline]
+ nested_vmx_free_vcpu+0x8e/0xd0 arch/x86/kvm/vmx/nested.c:389
+ vmx_vcpu_free+0x109/0x3e0 arch/x86/kvm/vmx/vmx.c:7653
+ kvm_arch_vcpu_destroy+0x154/0x380 arch/x86/kvm/x86.c:9463
+ kvm_vcpu_destroy virt/kvm/kvm_main.c:469 [inline]
+ kvm_destroy_vcpus+0x123/0x380 virt/kvm/kvm_main.c:489
+ kvm_arch_destroy_vm+0x55/0x120 arch/x86/kvm/x86.c:10014
+ kvm_destroy_vm virt/kvm/kvm_main.c:1326 [inline]
+ kvm_put_kvm+0x93a/0xc80 virt/kvm/kvm_main.c:1359
+ kvm_vm_release+0x43/0x50 virt/kvm/kvm_main.c:1382
+ __fput+0x418/0xa50 fs/file_table.c:512
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7fec79e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff0d2850c8 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007f7feca27da0 RCX: 00007f7fec79e159
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 00007f7feca27da0 R08: 00007f7feca26038 R09: 0000000000000000
+R10: 000000000003fdb8 R11: 0000000000000246 R12: 000000000000ec04
+R13: 00007f7feca25fac R14: 000000000000e938 R15: 00007fff0d2851d0
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
