@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07267480DE9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809C2488209
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936058; cv=none; b=a+L45ZLS+yYj0+5u7dJUguaAdHtMzRqnPcnrAF6eCuVfKTwvrEcCwbbjCwIXQXPKov8cRuBFS9NI5JhaMXcp/jif44ez27SH2BPbnFMJ4fLw2F9G/YnFf4DlmOjTUR7hHRW0rWHPmsS3CYWZes9lmQMV5UPcIl1heRg9o2dlnCQ=
+	t=1790936059; cv=none; b=SH0MDBuUfzBpI6EcxEJguPk6wEMW+s83ZNmP4wBSRu1Bc293UvCkEKopMw1gkQmhdoaRUyWDYGTRb9B4Bt23hdeUmOaZ1nzXaKWJRzLTQ150xPMPHy1uO3qCQWES0y1VR7StuD0EY95MrPP0NPz9H4tSiJcdgP4Hgx3VfE3edhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936058; c=relaxed/simple;
-	bh=bQ2VJNz85yTDUPyqufpo/KoAj24VVw/EB4ZsZkLst8g=;
+	s=arc-20240116; t=1790936059; c=relaxed/simple;
+	bh=qmqJ22Insbjm6Dsp1Q/74HB1aMHmOBjBTuZsPO4cB4U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uirOFZ5DvBpTbP21jNJ00xnG/V/LYNYt8AgR0D3qorEYxHoLhrRGi4Jys0teV8I/jGVuT/QDRWQCw+uSqm6nuvk5WcZd/lTuO52vOsBcETl6jV9hSROGCRY7sqokNw4+KK27iQTmLtmOrlzZp0oYftXQNAO2mAkLHlL3++6Rjzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3ftYu5Z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KJeQBaNUIWr8ME4nU79MCvIF3SLoQoCnl+fTNneyO31cLhEKKgGNsf00I+RETWnsvZOMc1SLf7at8eZBem2WiATn/4H5wcJ8+s2ni/vVCDngBMKEHcmIbT0NMtCKvD5dctBvdAHAQMaX5vY5ubFzifAHOQA5jUD2/mMokfXWVlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mr6ENH9S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3ftYu5Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22CE1F000FF;
-	Fri,  2 Oct 2026 10:14:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mr6ENH9S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538B91F00893;
+	Fri,  2 Oct 2026 10:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790936056;
-	bh=704o1efPMbOJQEadnU5pQYbte47NkjF4oh2h5K648uQ=;
+	s=k20260515; t=1790936058;
+	bh=McCs6DMamKRuXTJSP7raTicLb5h5rSIArXo0pM8nXE0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E3ftYu5ZbFJBdRRlUt+D4XEWXM6Ooc9eVTT19jiIggK3TJi7ggRSaSnXpue3wO7pC
-	 5SovfavtppTGsnCoUcT6hPVsg575YZnBZWC2OPjMi5QAVWRQGKeXjaym83vhaQN5o0
-	 AQ0TeVDwWbGOmfb2dAYqmHDNoUKac5TN9aMk5+SeDbThDiiOQU0tpVuSQyWYOKz2B9
-	 dFP1a4mic+MnxgxB22Qxl5cZCuCj6cLUk1mudtmfzVvZXt3Q0haXBQJr66XvbS+gyC
-	 uE045+1JV5GOIx168P3AtVirxXOHUYkxEQaN1RYi7xeNlkv/xNS3l3KdwC4P6aBix0
-	 Z73OXwSAjU3Vg==
+	b=Mr6ENH9SI2HUhtJltAu8lCMZMfGjE8lUoGQx6Bdmp1A8PCFMQIKZ0E7viXStaL0dk
+	 81Qm6nDi9Hu4hsZkia7fpjbUoF9RDiDew9zIZ6jJPOr3f7tlkGlFHhP1PclxJuhzIr
+	 ZfjS+yYicXnEZmXVmpzrXrcIkV8tIvdvW4dRcJ0975eon+go8bsh+9f1zvavTqyvAY
+	 nJEFHqzi3WZsVFMdqt6ktSUEbrkMa01nbR3+p/V6ZoPyPGCrGMOFLCjbTzmnRJG/7M
+	 d6mmcvnWX22tll7unQ7q4edQEfI3Jhw/TMkpYKbIiYhNDLeY53kQ5twnVxfOeunKTv
+	 zyznfDgtuZwzw==
 From: srini@kernel.org
 To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
-	Kees Cook <kees+treewide@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 4/9] nvmem: core: Add const to pattrs allocation type
-Date: Fri,  2 Oct 2026 11:13:47 +0100
-Message-ID: <20261002101352.1084447-5-srini@kernel.org>
+Subject: [PATCH 5/9] nvmem: layouts: Support fixed-layout as the nvmem device node itself
+Date: Fri,  2 Oct 2026 11:13:48 +0100
+Message-ID: <20261002101352.1084447-6-srini@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002101352.1084447-1-srini@kernel.org>
 References: <20261002101352.1084447-1-srini@kernel.org>
@@ -45,42 +46,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kees Cook <kees+treewide@kernel.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-In preparation for making the devm_kmalloc family of allocators type
-aware, we need to make sure that the returned type from the allocation
-matches the type of the variable being assigned. (Before, the allocator
-would always return "void *", which can be implicitly cast to any
-pointer type.)
+of_nvmem_layout_get_container() only looks for a child node named
+"nvmem-layout" to locate the cell definitions. This does not cover
+providers whose device tree node is itself the fixed-layout container,
+such as an eMMC boot partition block device whose fwnode points directly
+at a "fixed-layout" compatible partitions node.
 
-The assigned type is "const struct bin_attribute **", but the converted
-allocation type would be "struct bin_attribute **", which is the same
-type without the const qualifier. As there is no general way to safely
-add const qualifiers, take the size from the assignment target instead.
-No change in allocation size results.
+When no "nvmem-layout" child is present, fall back to returning the nvmem
+device node itself if it is compatible with "fixed-layout", so that its
+cells are parsed by nvmem_add_cells_from_fixed_layout().
 
-Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
-drivers/nvmem/core.o
-
-Assisted-by: LLM coccinelle
-Signed-off-by: Kees Cook <kees+treewide@kernel.org>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
 ---
- drivers/nvmem/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/nvmem/layouts.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index 0556d140170a..19edc9ab0282 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -485,7 +485,7 @@ static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
- 	/* Allocate an array of attributes with a sentinel */
- 	ncells = list_count_nodes(&nvmem->cells);
- 	pattrs = devm_kcalloc(&nvmem->dev, ncells + 1,
--			      sizeof(struct bin_attribute *), GFP_KERNEL);
-+			      sizeof(*pattrs), GFP_KERNEL);
- 	if (!pattrs)
- 		return -ENOMEM;
+diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
+index 07a34be9669c..409909e3244f 100644
+--- a/drivers/nvmem/layouts.c
++++ b/drivers/nvmem/layouts.c
+@@ -156,7 +156,18 @@ static int nvmem_layout_bus_populate(struct nvmem_device *nvmem,
+ 
+ struct device_node *of_nvmem_layout_get_container(struct nvmem_device *nvmem)
+ {
+-	return of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
++	struct device_node *np;
++
++	/* Search for nvmem-layout child */
++	np = of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
++	if (np)
++		return np;
++
++	/* The nvmem of_node is itself a fixed-layout node */
++	if (of_device_is_compatible(nvmem->dev.of_node, "fixed-layout"))
++		return of_node_get(nvmem->dev.of_node);
++
++	return NULL;
+ }
+ EXPORT_SYMBOL_GPL(of_nvmem_layout_get_container);
  
 -- 
 2.53.0
