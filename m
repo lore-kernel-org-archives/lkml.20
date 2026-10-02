@@ -1,115 +1,230 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBB12EEE80
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 00:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAC42AEEB;
+	Fri,  2 Oct 2026 00:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790901704; cv=none; b=jbzLmtAzcTFhrCFaEOkD8VnEKvehZI5dr/bzdCw6BvrO55IdRsFV+33fRJjwzRmypZZwd/nKVdaov5kKADSq5DEmiCW6kVigSr6J9hkY4tYQlWdmIPDBR54SFnCN8iCMaVf+vW+1miqWb+ltliKPiSLdsvX6uud8KLespniNets=
+	t=1790901748; cv=none; b=PNJrXA4PmiNTPIzkKzoIxClVG0I3WvvQ3WZxNnwsoSehtu86yvyuVZ930l403QemM9g+v72sUWYvQVEaNa7ZDkBVtye0RwtG8VJGlgCf5LFaqne8ZhGEuNReYQMEd1SIlQtvHGrkMi79wmvL11jOzVOPo0Rji1EF+Q8AuLUU/MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790901704; c=relaxed/simple;
-	bh=coPbEVU635kTDJ5rpJpWSMLlxl5aCTdBTQo8PREAd1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rNSf9TdWr6P5AltXOiB2Sifz5+Ag/1BCPMi30L6Xh6IG55HPYMh5OgcRBj5a4yk0s6aJtvKfMyZlWzoZ+K7yGMvxH6mE6Lhofi0JE0M4TjNLsHHWJE3XGi+8JS7Kw0eeKRaZwM9RMyXhxTwQGrfHpNo+r3Azjja9iNFf6FVhcT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SvwDURJd; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790901748; c=relaxed/simple;
+	bh=gBw7E2BgY1FfiPSs4mMueqTdgnv2lStU8g3f6KJkzfA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mcb+2fiz7sjasinmujoFluerCWptqpoDHJKQRMBBtDxPjjCHINmvxPwpMo0B73dzrfx3J/Z6vy3G1W6ogcvRKdJ+6T+qL0c4yEYRAoDpl9TK+qU+PpiCOBltLCDV+BdryPMtWiM161XQcXAQz00ouTca8cvuHlxCOMItzxXXSGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SL55T05a; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SvwDURJd"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c8c8602so3899778241.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 17:41:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790901701; x=1791506501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jAwTn9q8SUnFiLbMogXfXDX+dJCQYDVb282KSgjxcVA=;
-        b=SvwDURJdw2pLdZZHZvhlvgXlHIftDXyrQ8tZ0LBWejuZ0ca/YXuHnVLpoOuiOmblQw
-         95Xs3VhwqpQgbPEwFWJHGO5JP+lyo9AUG69TVsh7kwFQZ+nVN9HVDQLU7hUoJ+8mDVb4
-         HbKW3HmYWUuE0L50E/new0+md5mvd+GMPYDKOsonXAFlH8bHCIee6O7Clob7VDw/dqLS
-         AM4gur1znNwwU/22etNZn2MIT1OX1RRZq/9aTR6HpIYfBBGmY8i7h+zi009X6PXtaOxN
-         ECElefUSXdHrQ5WKzgL0kKRQgVAKN65FWqH6+EXG7iqeiBbHeiZNMxJNM01UH62nwvQM
-         Sgdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790901701; x=1791506501;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jAwTn9q8SUnFiLbMogXfXDX+dJCQYDVb282KSgjxcVA=;
-        b=VYtH/OAyq36BeeUQPntH8YCdmWtBzMPi/yq+z//lUXTPi4yVSRN61nE6i68NZ4hq7Y
-         EaOMoUyOn3XnCIUfOwDuk2r0HF7d8WBJGb9cGoT98qFsnFoK1NyQ5cQYqI6hj4KI+0fQ
-         2PgD3ATTGNWsH0SaZUun7sWq7WTc7dB8c1xLW/yBqlqCWMEgqF2tmQWMWGqlg/K+Asdf
-         J0KCdxQrAZ9NA2vlApCQrTwOUCJTvBPcWNjb5OmPnrQl3AhcQp3Rd8lReCEjNihx2/H8
-         +RnTeBoGZ7abIT2t1eTxR7ECG8lqbVFoiyO2+b60SMJ5V3QsJbzasvQ1aNN5xiuST3At
-         aIWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxR+oRGJgsFQ/eQ038TWqZZivojNGqjCGB9PNXeHfISxYPbY2pImrghdb9b38RGQMn7wZM/UL2Sv5IAmxQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKg1+uWwUhpeaEazXjAlbiucJ8REx40mptGxY8VHiZgx2ns7qiK
-	2YDCLoZegfgr3rZQ5t0tg5G31/b4abWGG+0ZAktsdvnBdkqpMXYl6TWL
-X-Gm-Gg: AYBFou1elGMg2MnjzVU9c7mH7w2j1MnCNF8CHt39IIbz+c7da8/pUmf+E86AgaOl7fM
-	dt7pxMRyJZ4wNVNgib42Myodj/KLZe29dYsfvuVywJs2f+cqJ2k+iSTQ0xclgftD/xFJ7rplqwx
-	toLpAkgujgWDEYo6odBQURCAk8F0hxN52tyvHES76ZolJf+VO/A9cy3SfLF7BQtU/YMRBembsxB
-	ZnKljWKpiBfPWNbMUalJMGkyLMaE9VDm5aJ1staBH2B0WfWjUL1GJ3j3KLrypiYk41VEnInPFG3
-	VZLRtR9oIiwD+tC43pkgaYbt8sLiD0+OtueMwyR38g1LWWXgipM69kh6ENJhEMJ/TbQCM5kiB+b
-	fhgD1bm7ng3c3ejMe0RqRXorhIOie2QlMPASqtbcOzlDbS0clacubhorYQJ+Axl+iX7VMjDBFCL
-	g0uy198miUVFfrkWAmyq5FR9QM+3hQBvdRmaDOFrtcp6O/Xx0nlN1w+MmSc4mSD4Xh
-X-Received: by 2002:a05:6102:5cca:b0:7a1:f7d2:e81a with SMTP id ada2fe7eead31-7c0f4c9f080mr378970137.19.1790901701501;
-        Thu, 01 Oct 2026 17:41:41 -0700 (PDT)
-Received: from adriano ([191.118.25.221])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7c0ffaeedf5sm1025960137.7.2026.10.01.17.41.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 17:41:40 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Subject: [PATCH] ext4: wipe moved dirents with their real length
-Date: Thu,  1 Oct 2026 21:41:27 -0300
-Message-ID: <20261002004127.1332310-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SL55T05a"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2EC9A929;
+	Fri,  2 Oct 2026 02:40:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790901631;
+	bh=gBw7E2BgY1FfiPSs4mMueqTdgnv2lStU8g3f6KJkzfA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SL55T05aIHoBeS8oeyWousjnIRN2XTY2XMjaLjL2mxCmQj3L0rPTPnXBxffTa6Nsy
+	 z1DjtTLwIBhNPZPCzX/OUF3XZCoM7+K4qTjQZFjWAjX0ry1AIv/+yXxh+PMXvuzWBq
+	 AiKbciLpqhlYOjn7Fl4USsDAlf2HPAr+XuP1W09g=
+Date: Fri, 2 Oct 2026 03:42:22 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+Message-ID: <20261002004222.GA33700@killaraus.ideasonboard.com>
+References: <20260928122450.GA166131@killaraus.ideasonboard.com>
+ <CANiDSCuBFLYXFbq7Vox7AhdhftfzC9Ga6FKL-2F1o08cHQjoAA@mail.gmail.com>
+ <20260928124109.GF157191@killaraus.ideasonboard.com>
+ <CANiDSCvvJd0_taNYvHm894kPpyOWQ+TaxC_XRVOs5qrUHod08Q@mail.gmail.com>
+ <20260928184429.GE210522@killaraus.ideasonboard.com>
+ <CANiDSCs8N-m1F7LMuerVbYF8xrBPBeVTg2_UX4p6M7g=9yz_Sg@mail.gmail.com>
+ <20260928194459.GH210522@killaraus.ideasonboard.com>
+ <CANiDSCs4WOB7jpyXHEAjGOGYf4_69OmUW3LdpB_cxQDmfHr-_Q@mail.gmail.com>
+ <20260928195500.GI210522@killaraus.ideasonboard.com>
+ <CANiDSCvfuz0Kr-Ud4N13pSrdkdjUGtWuHkpYC+o7G39qvnkfHQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANiDSCvfuz0Kr-Ud4N13pSrdkdjUGtWuHkpYC+o7G39qvnkfHQ@mail.gmail.com>
 
-After copying a dirent to the new block, dx_move_dirents() wipes the
-source entry using the on-disk rec_len.  Use the length already
-computed for the copy instead because the on-disk rec_len is untrusted
-and a corrupt value makes the memset() run out of bounds.
+Hi Ricardo,
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Tested-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
- fs/ext4/namei.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+On Mon, Sep 28, 2026 at 10:48:05PM +0200, Ricardo Ribalda wrote:
+> On Mon, 28 Sept 2026 at 21:55, Laurent Pinchart wrote:
+> > On Mon, Sep 28, 2026 at 09:49:05PM +0200, Ricardo Ribalda wrote:
+> > > On Mon, 28 Sept 2026 at 21:45, Laurent Pinchart wrote:
+> > > > On Mon, Sep 28, 2026 at 09:03:41PM +0200, Ricardo Ribalda wrote:
+> > > > > On Mon, 28 Sept 2026 at 20:44, Laurent Pinchart wrote:
+> > > > > > On Mon, Sep 28, 2026 at 04:03:15PM +0200, Ricardo Ribalda wrote:
+> > > > > > > On Mon, 28 Sept 2026 at 14:41, Laurent Pinchart wrote:
+> > > > > > > > On Mon, Sep 28, 2026 at 02:35:29PM +0200, Ricardo Ribalda wrote:
+> > > > > > > > > On Mon, 28 Sept 2026 at 14:24, Laurent Pinchart wrote:
+> > > > > > > > > > On Mon, Sep 28, 2026 at 02:10:26PM +0200, Ricardo Ribalda wrote:
+> > > > > > > > > > > On Mon, 28 Sept 2026 at 14:02, Laurent Pinchart wrote:
+> > > > > > > > > > > > On Fri, Sep 11, 2026 at 01:23:50PM +0000, Ricardo Ribalda wrote:
+> > > > > > > > > > > > > uvc_parse_control() passes descriptor by descriptor to
+> > > > > > > > > > > > > uvc_parse_standard_control() with the number of bytes remaining in the
+> > > > > > > > > > > > > buffer, not the number of bytes of that descriptor.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Because of this, malformed descriptors could leak over the next
+> > > > > > > > > > > > > descriptor, leaving malformed data in our structures.
+> > > > > > > > > > > >
+> > > > > > > > > > > > What issue does this fix in practice ?
+> > > > > > > > > > >
+> > > > > > > > > > > Look into uvc_parse_standard_control().
+> > > > > > > > > > > Let's take the UVC_VC_HEADER
+> > > > > > > > > > >
+> > > > > > > > > > > Imagine we have a malformed control at the beginning of the descriptor that has:
+> > > > > > > > > > >
+> > > > > > > > > > > buffer[0] = 3
+> > > > > > > > > > > buffer[2] = UVC_VC_HEADER
+> > > > > > > > > > > buffer[3] => Beggining of next control
+> > > > > > > > > > >
+> > > > > > > > > > > With the current code, buffer[3...X] is parsed as UVC_VC_HEADER.
+> > > > > > > > > > >
+> > > > > > > > > > > What does it fix in practice? It avoids that data outside the controls
+> > > > > > > > > > > is parsed as part of the control.
+> > > > > > > > > >
+> > > > > > > > > > I understand that, but what does it fix in practice ? And have you
+> > > > > > > > > > encountered a device that exhibits such a problem ?
+> > > > > > > > >
+> > > > > > > > > I have not encountered such devices, but even if they do not exist
+> > > > > > > > > they are easy to emulate and use for escalation.
+> > > > > > > >
+> > > > > > > > That's what I'd like to understand, can this be used for any kind of
+> > > > > > > > escalation ?
+> > > > > > >
+> > > > > > > It is very difficult (impossible?) to prove that something is not
+> > > > > > > exploitable, especially as the code evolves.
+> > > > > >
+> > > > > > Regardless of whether or not all the bytes parsed by the
+> > > > > > uvc_parse_vendor_control() and uvc_parse_vendor_control() functions are
+> > > > > > part of the control descriptor or are split across multiple descriptors,
+> > > > > > they all come from the USB descriptors buffer and are all ultimately
+> > > > > > under device control.
+> > > > > >
+> > > > > > As far as I can tell, all this patch does it add a check on buffer[0]
+> > > > > > but has no impact on anything else. If a device can supply USB
+> > > > > > descriptors data with an invalid buffer[0] that currently causes any
+> > > > > > type of issue in the driver, the same device could supply the exact same
+> > > > > > USB descriptors with buffer[0] set to a value that will be accepted and
+> > > > > > still cause the same issue. Am I missing something ?
+> > > > > >
+> > > > > > > We could spend hours trying to craft a payload, plus extra time in
+> > > > > > > future reviews whenever uvc_parse_vendor_control() changes. It is much
+> > > > > > > safer to just enforce the correct bounds now.
+> > > > > >
+> > > > > > So is your concern only about introducing issues in the future without
+> > > > > > noticing ?
+> > > > >
+> > > > > My main concerns are that the function's API looks wrong and yes, it
+> > > > > could introduce bugs in the future.
+> > > >
+> > > > I agree there's a quite small risk of introducing future bugs. This is
+> > > > what I wanted to know, if there was an actual issue today (as in
+> > > > exploitable bugs), or if it was only a forward-looking change.
+> > > >
+> > > > > we basically have:
+> > > > > parse_field(void *data, size_t total_length)
+> > > > >
+> > > > > instead of:
+> > > > > parse_field(void *data, size_t field_length)
+> > > > >
+> > > > > btw: in parse_field we are ignoring the field_legth in most of the cases.
+> > > > >
+> > > > > I am happy to drop the cc and fixes tags if you want to consider this
+> > > > > just a boring cleanup
+> > > >
+> > > > As it stands, I think the risk of introducing regressions is likely
+> > > > smaller. bLength can't be completely off or the USB core would fail
+> > > > parsing descriptors. It could be smaller than needed while still
+> > > > pointing to the next descriptors, with the control parsing then using
+> > > > the first few bytes of the next descriptor, but the chance that would
+> > > > result in values that don't cause observable weird effects are slim.
+> > > >
+> > > > So I think we can merge this change. I'd drop the backport as we're not
+> > > > fixing any existing issue. And maybe avoid "Fix" in the subject, to
+> > > > avoid autosel being triggered ?
+> > >
+> > > sgtm. Do you need a v2 or can you modify it locally when merging?
+> >
+> > Can you tell me what you'd like as an updated subject line (and include
+> > commit message updates if you think that's relevant) ? I'll then use
+> > that and apply the patch.
+> 
+> How does
+> 
+> media: uvcvideo: Bound uvc_parse_*_control to the control size
+> 
+> sound to you?
+> 
+> In any case you are usually better than me at writing commit messages,
+> so feel free to change it to anything that makes you happy :P
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index a6386c1d237f..71e9e7c9a7fd 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1860,10 +1860,8 @@ dx_move_dirents(struct inode *dir, char *from, char *to,
- 
- 		/* wipe dir_entry excluding the rec_len field */
- 		de->inode = 0;
--		memset(&de->name_len, 0, ext4_rec_len_from_disk(de->rec_len,
--								blocksize) -
--					 offsetof(struct ext4_dir_entry_2,
--								name_len));
-+		memset(&de->name_len, 0, rec_len -
-+		       offsetof(struct ext4_dir_entry_2, name_len));
- 
- 		map++;
- 		to += rec_len;
+I'll go with your subject line :-)
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> > > > > > > As you said, the risk to break current hardware is low. If it happens
+> > > > > > > tis change is small enough to make it easy to revert.
+> > > > > > >
+> > > > > > > > > We add minimal code and solve a family of bugs. Do you think that it
+> > > > > > > > > is a better pattern that uvc_parse_vendor_control() and
+> > > > > > > > > uvc_parse_vendor_control() have visibility beyond the control that
+> > > > > > > > > they are parsing?
+> > > > > > > >
+> > > > > > > > I'm concerned that some devices may stop working. The risk is likely
+> > > > > > > > small though, but I'd like to understand what we get from this patch to
+> > > > > > > > see if it's worth the risk.
+> > > > > > > >
+> > > > > > > > > > > > > Change the code so we pass the actual length of the descriptor to the
+> > > > > > > > > > > > > parser.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Note that this makes the existing check more strict and some devices
+> > > > > > > > > > > > > that are wrongly parsed today will not be probed now.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Cc: stable@vger.kernel.org
+> > > > > > > > > > > > > Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> > > > > > > > > > > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > > > > > > > > > > > ---
+> > > > > > > > > > > > >  drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+> > > > > > > > > > > > >  1 file changed, 5 insertions(+), 2 deletions(-)
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > > > > > index e289cc71ba98..429f1ab19a2a 100644
+> > > > > > > > > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > > > > > > > > > > > > @@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+> > > > > > > > > > > > >        */
+> > > > > > > > > > > > >
+> > > > > > > > > > > > >       while (buflen > 2) {
+> > > > > > > > > > > > > -             if (uvc_parse_vendor_control(dev, buffer, buflen) ||
+> > > > > > > > > > > > > +             if (buflen < buffer[0] || buffer[0] < 3)
+> > > > > > > > > > > > > +                     return -EINVAL;
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +             if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+> > > > > > > > > > > > >                   buffer[1] != USB_DT_CS_INTERFACE)
+> > > > > > > > > > > > >                       goto next_descriptor;
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > -             ret = uvc_parse_standard_control(dev, buffer, buflen);
+> > > > > > > > > > > > > +             ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+> > > > > > > > > > > > >               if (ret < 0)
+> > > > > > > > > > > > >                       return ret;
+> > > > > > > > > > > > >
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > ---
+> > > > > > > > > > > > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > > > > > > > > > > > change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
+
 -- 
-2.51.0
+Regards,
 
+Laurent Pinchart
