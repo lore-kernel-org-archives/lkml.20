@@ -1,127 +1,150 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6834E020E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FFC53E49D2
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955320; cv=none; b=jqP4+Ueml0sLYlk1CBzMPjnA0QdXwmckLMJ7d3Am+WUlmsljuwT5d3vwQWiekMiOAxiqr7ATXbmIbrspdvsPz6quvt0fBqniS7ztZxZ1A+ZTb2qGpM/Qf+5HqH1k2voScibuzU5Vy5/zexAxHfunWYMAyAXsimcrKe2hMJuFL8Y=
+	t=1790955345; cv=none; b=pLXSXrMaXMkmuUzGgJTcgErCKD9SjeELsYyuFaUGFhFzRxvQQh0nORSUcIu47nW5YDsFJcHq5EgTN99m1bnFMUiMzBll8Dypzmx3+6kKrFOoq5wvVMEDNVwoAcWrCpALAFfbJWHNlri07M1lMZWFvVQ2Kll1rH/2B0xqnEPL5EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955320; c=relaxed/simple;
-	bh=bgMeIh1vpMW5r0Z2UUaueYfyJsodKGJ3R8+jL/Snwco=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=RXS5zxuKYVD59kFYJyK8qCd3CHDWWSZOfXZY8kCU6AHRlts+u9F6PMwAEgro94CKN9h1i6500n+iHU/tMsniW5/2rC0tNMQQyw2RzZrpnQ4rNyQDaa/yESmDTxaofkcv89fMctdM9s4PUDE/9XtJMVfBEAWX9TvizPSQg1d4i6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FBmidAss; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790955345; c=relaxed/simple;
+	bh=Ey7NB0qS8ZKugxYGyiBGHdk7OWdkE3p8zHjWGF3bJIU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VemxGJk+FM4Ew6PQTS4Tf+osEUixD78fY9iu28iwSfdizzHcIknDGYgcduLwgCjw3QZwEB8PhHE7wfgBLpQuQYtdzjwCsTmB0IgHE4X/tGmUvmMyK0VMQv4GpWRJHwbHIP4y2veSw8jacCEFrvg8EUFXd94HbYZPAtc03T4l3FU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DQs0wtCC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FBmidAss"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so74429885ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790955318; x=1791560118; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ulPJ+yIIyvNEzuRqB5Fotp1huOAGEZ6P6NiuujPsDU=;
-        b=FBmidAssnLL52ChGak5KzhMgpNrjYc5MoABoyvaf9mJCWhCUKxk3kmZXlWk8Fumdpl
-         Wqate9JI2pgbrC9yCmenfGC9xdamy3mW6zR6lkJFDn9VM3Ic901yUsDWBNc5CEoK4qYR
-         7rHo0WlTWB/I0ZFX7HVF3hl2KaQb10W5U9+3axktChYzHylnDXsf76GnbqnsmrEmULIx
-         +jPFp6774TjcQNOx/zDg5CNulqggsW9mO94m9dUeTkEG0gs5PiR14rRQiifeVkOs7ask
-         zNd+TUaMhGDGt4Zrm80e3pvdfM5WRhizp9bgfE/3yleLWCWBEWifol+2LgEu9/313cyV
-         eBvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955318; x=1791560118;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/ulPJ+yIIyvNEzuRqB5Fotp1huOAGEZ6P6NiuujPsDU=;
-        b=H3CRvmWMaN9W4J4+sutbcMsemRc0K/DQ0/GHHWorFd8iSCLdfleW8AqEzo/jPUS2vD
-         VucNAQfthFHUSuX6QiACjAVFYt004I0PTsshLjWRGpghvf3YizOP82+kzWM3NDOHVPIN
-         zI7UnkvFK95pLjbg1z81ZbhoIAN+9DAXqdAwOfmnub49AOHkHdGbWw7nOadeTcslpCyl
-         cmQhOZ76a6rJhnnhYEENasCv+bYa5IRe+f0tV0e8JlrTismcQDujHUfj9hmQgUw7Vp5L
-         kRyJcQb1vDtryHCkV8KpezM4NAqh0vIuTABUgcC2YpClXlRjHgiyq96ugMgSh0iivucJ
-         npFw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQUsEJL+/2Xmkes6+9DHKqCoK2ivqlSdN/lNJyHQF6LriLd/sMGVqQejCcOm5hx/3OIXyxiUoxNRiFXYo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzgvFclnM+HPVsobmywx1V9lRAHMINQuX6bymKIE+NpAnKpA23
-	BqUUA4gXFcKfkQS8V7oVjBAkRHo1BLWtbavv2P1nqdWy60E1NVxmFNRsjJb1bjzG3EnYwe3ylZb
-	k5pCsQA==
-X-Received: from plq5.prod.google.com ([2002:a17:903:2f85:b0:2e2:f17b:1655])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:8c3:b0:2df:9305:8909
- with SMTP id d9443c01a7336-2e49b6ab32dmr26853235ad.17.1790955317254; Fri, 02
- Oct 2026 08:35:17 -0700 (PDT)
-Date: Fri, 2 Oct 2026 08:35:16 -0700
-In-Reply-To: <20261002151942.491680-1-bruno.produit@trailofbits.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DQs0wtCC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 660BE143D;
+	Fri,  2 Oct 2026 08:35:39 -0700 (PDT)
+Received: from [10.211.55.3] (unknown [10.57.85.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 938703F882;
+	Fri,  2 Oct 2026 08:35:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790955342; bh=Ey7NB0qS8ZKugxYGyiBGHdk7OWdkE3p8zHjWGF3bJIU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DQs0wtCCgfEpU67TSvbohdw6qNHUkNJsGw92h4qZqWNL0cUCqrQv85AdepTt58uCF
+	 Bt0GMxEaN4JTO9wdQsnxKA3+CpF0o4pGW4CuSMBpopq4pelsJMalKLMKqhL5GYs/CB
+	 OJ3URr3fW5C9idBqNqj7NeZ0I/Mqy8PfqUdd33Eg=
+Message-ID: <99c7f8d2-b65a-4e8b-bb7e-1de16fed3190@arm.com>
+Date: Fri, 2 Oct 2026 16:35:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261002151942.491680-1-bruno.produit@trailofbits.com>
-Message-ID: <ar_PNEIvsQMQPMLg@google.com>
-Subject: Re: [PATCH] KVM: x86: Cancel PIT timer on failed creation
-From: Sean Christopherson <seanjc@google.com>
-To: Bruno Produit <bruno.produit@trailofbits.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, kvm@vger.kernel.org, 
-	Kyle Zeng <kylebot@openai.com>, linux-kernel@vger.kernel.org, 
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH v12 08/13] arm_mpam: propagate MSC access errors for
+ interrupt control
+To: Andre Przywara <andre.przywara@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
+ <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ James Morse <james.morse@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+ Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
+ Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
+ Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
+ linux-acpi@vger.kernel.org--cc, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261001153439.3295416-1-andre.przywara@arm.com>
+ <20261001153439.3295416-9-andre.przywara@arm.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261001153439.3295416-9-andre.przywara@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 02, 2026, Bruno Produit wrote:
-> From: Kyle Zeng <kylebot@openai.com>
+Hi Andre,
+
+On 01/10/2026 16:34, Andre Przywara wrote:
+> Allow the functions dealing with interrupt registration and enablement
+> to check for and return errors, and propagate MSC read and write errors
+> from the lower level up.
+> This does not cover the IRQ handler yet, as this needs some more
+> attention.
 > 
-> Cancel the PIT hrtimer if PIT creation fails after registering the PIO
-> device. This matches normal teardown and ensures the timer no longer
-> uses the PIT before its memory is freed.
-> 
-> KVM registers the PIT's PIO device before registering the optional dummy
-> speaker device.  If speaker registration fails, a vCPU can have already
-> programmed channel 0 and armed pit_state.timer through the published PIT
-> device. When I/O bus registration became fallible, its cleanup did not
-> cancel the timer before freeing the PIT.
-> 
-> Fixes: 090b7aff2712 ("KVM: make io_bus interface more robust")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+
+Thanks,
+
+Ben
+
 > ---
->  arch/x86/kvm/i8254.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/resctrl/mpam_devices.c | 23 +++++++++++------------
+>  1 file changed, 11 insertions(+), 12 deletions(-)
 > 
-> diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
-> index 1982b0077..b7875345f 100644
-> --- a/arch/x86/kvm/i8254.c
-> +++ b/arch/x86/kvm/i8254.c
-> @@ -793,6 +793,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
->  fail_register_pit:
->  	mutex_unlock(&kvm->slots_lock);
->  	kvm_pit_set_reinject(pit, false);
-> +	hrtimer_cancel(&pit->pit_state.timer);
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index b876f4d2e9a77..60f6a39176ea1 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -1118,7 +1118,9 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+>  	}
+>  
+>  	/* Clear any stale errors */
+> -	mpam_msc_clear_esr(msc);
+> +	ret = mpam_msc_clear_esr(msc);
+> +	if (ret)
+> +		return ret;
+>  
+>  	spin_lock(&partid_max_lock);
+>  	mpam_partid_max = min(mpam_partid_max, msc->partid_max);
+> @@ -2681,9 +2683,7 @@ static int mpam_enable_msc_ecr(void *_msc)
+>  {
+>  	struct mpam_msc *msc = _msc;
+>  
+> -	__mpam_write_reg(msc, MPAMF_ECR, MPAMF_ECR_INTEN);
+> -
+> -	return 0;
+> +	return __mpam_write_reg(msc, MPAMF_ECR, MPAMF_ECR_INTEN);
+>  }
+>  
+>  /* This can run in mpam_disable(), and the interrupt handler on the same CPU */
+> @@ -2691,9 +2691,7 @@ static int mpam_disable_msc_ecr(void *_msc)
+>  {
+>  	struct mpam_msc *msc = _msc;
+>  
+> -	__mpam_write_reg(msc, MPAMF_ECR, 0);
+> -
+> -	return 0;
+> +	return __mpam_write_reg(msc, MPAMF_ECR, 0);
+>  }
+>  
+>  static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
+> @@ -2790,11 +2788,12 @@ static int mpam_register_irqs(void)
+>  				return err;
+>  		}
+>  
+> -		mutex_lock(&msc->error_irq_lock);
+> +		guard(mutex)(&msc->error_irq_lock);
+>  		msc->error_irq_req = true;
+> -		mpam_touch_msc(msc, mpam_enable_msc_ecr, msc);
+> +		err = mpam_touch_msc(msc, mpam_enable_msc_ecr, msc);
+> +		if (err)
+> +			return err;
+>  		msc->error_irq_hw_enabled = true;
+> -		mutex_unlock(&msc->error_irq_lock);
+>  	}
+>  
+>  	return 0;
+> @@ -2815,8 +2814,8 @@ static void mpam_unregister_irqs(void)
+>  
+>  		mutex_lock(&msc->error_irq_lock);
+>  		if (msc->error_irq_hw_enabled) {
+> -			mpam_touch_msc(msc, mpam_disable_msc_ecr, msc);
+> -			msc->error_irq_hw_enabled = false;
+> +			if (!mpam_touch_msc(msc, mpam_disable_msc_ecr, msc))
+> +				msc->error_irq_hw_enabled = false;
+>  		}
+>  
+>  		if (msc->error_irq_req) {
 
-Given that the timer can be armed if and only if the PIT was successfully registered,
-wouldn't this suffice?
-
-diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
-index 1982b0077ddd..33d772c7160b 100644
---- a/arch/x86/kvm/i8254.c
-+++ b/arch/x86/kvm/i8254.c
-@@ -790,6 +790,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
- 
- fail_register_speaker:
- 	kvm_io_bus_unregister_dev(kvm, KVM_PIO_BUS, &pit->dev);
-+	hrtimer_cancel(&pit->pit_state.timer);
- fail_register_pit:
- 	mutex_unlock(&kvm->slots_lock);
- 	kvm_pit_set_reinject(pit, false);
-
-
->  	kthread_destroy_worker(pit->worker);
->  fail_kthread:
->  	kfree(pit);
-> -- 
-> 2.53.0
-> 
