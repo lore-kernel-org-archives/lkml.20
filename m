@@ -1,148 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91407192D8A;
-	Fri,  2 Oct 2026 16:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214AF47668A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790958811; cv=none; b=pUcPkz7eNkR/uuBIQgJ6z+HvXJbR9zdZMcpcXXd68zF6dovg0FN/TmLnZFczaLUUGI06TgyQerQo7D3q5HlLUOR/0ZyucRDafqANd854eqchWznu3cf3o/qWlCWWUkHz8XHQ+BNa+lgN1VNE6RmP4iMcvNpkxr0Qc5XqrkD8k0M=
+	t=1790958838; cv=none; b=JLGjFsAZzXKEp7Cf7fE4EPMKEZcYQlfa4Ha+WfasRzxW0+T7JLVO/j2MYWGZG2IGjvHMRlqbScKfCC5XAfdGIaAvLvY+NT37MOiuesGqB8T0BsQzXVySbHPok2shJVoG+MSv3wtBEYC1yfs/liMCS77KJGg+HzFGbwP+wgFfRQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790958811; c=relaxed/simple;
-	bh=cQuBadWgAkTATXuLRF3QsD1k7yb//OoVxzmxkY3/BPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g9qNyzOJxyAxc8Fz9iyBaMBqm2/snQN00RrL9sSdN0rBmdMuIrjhDNnID1ArmAA8a/FWto4SpjeZgU13JHyWSH7KiwDpkXVeq4J8z1mKvXITHEXEuE93af8m+CfUSFIASAFu/ybASHfiqmMk2Nc7aJq5pps1nYsj56ljmn17IR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIJGTR2r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790958838; c=relaxed/simple;
+	bh=M4l4ClH7Jwc+fKfFtHK7JUjAaHPk7o8GggwSfAsAEP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MmfXeBBwd+kp4/4t3zorGL97NAZrtl2hEWI3WFQPsBqjj6J2qN2ADmxNbR9ohMfsT0RPjWTdmJJjG8RzbNnQbT0cSPX5KZcPMhSXfQQ+XLUFqociaf+iVeIDiD8EgF65Ps00FU9bJoTxN01/DugvVxlV63Fsjl3EEKWngFEkiJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7moC5Up; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIJGTR2r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCBF61F000FF;
-	Fri,  2 Oct 2026 16:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790958810;
-	bh=DJw/bQXSTRdvAja+ek51LZG2Di+l26iUyTjo6I8rsWg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oIJGTR2rkEmjUEjYXbfImIUXSScXQZ+3kK0AyfZaCekj0BU7jQ6MfjeNjK7xSCE6g
-	 EG8KIYl0AG+hV7fuQKj+HX0+tDKmA7x4/30Z24snYgNCk0eOwEp1sxsc7/zaaRlXPY
-	 jepoTPa6pPcmlFhwTd6pcXciA5Bseh83Jd8UH0hK9YcjpHzQAjcgZjFFSTLF1LLImP
-	 ypAEiuogjP4M8jektTkI/t8ZksH3uc95xDt48wNNT1orQxqAcyYzYpX3V+oniPgQCA
-	 rQ6CkMWzUYE71j6hIQmeY+EmCB/xzpSWCESdA/+wbJGvnNhSNuocpqdbAVgUE0pD1L
-	 HUUXDvDIVsH2g==
-Date: Fri, 2 Oct 2026 17:33:24 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Brian Masney <bmasney@redhat.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Yixun Lan <dlan@kernel.org>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v2 2/2] riscv: dts: anlogic: drop unused DR1V90 external
- clocks
-Message-ID: <20261002-crimson-unwrapped-b067e86de38c@spud>
-References: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
- <20261003-dr1v90-cru-dt-fix-v2-2-6e7d96612ac0@pigmoral.tech>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7moC5Up"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304784so3364510a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:33:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790958836; x=1791563636; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ng3pfH+8Y0uTBJEh9FH2p3oXQStVr7nZPjCZ6kZCW0Q=;
+        b=r7moC5Up8e3gOsjvpXwgSlqyj863yOOExweIIwty6sox2G9FUeUu2Kc7nwSx5ME5q6
+         a0wTxgnLJEX/y5Wsj8jo9ksO0eLkyP2bKIODxzKh+UOYW1WJGF1qg10CHCjhuMRZIkYY
+         YalM55cHfctUVyk3LJhSYq0SBSYDdlblVxopqdznR6ZtZSbSMqhI7htO61fLrT78fb6x
+         9+Fb4X0y1Ib3aTlK02321up2r/VLuftrCCie3iqYWKHhytk5/bEqBq2+A02Ie8f++9lT
+         dcGHSuAW0NoJqXYlafRF4bPOYb5JJ6bJVyhZZHeLFTgJxRtbxUJ3Ai/Lvlqhp9dAoG2K
+         YIBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790958836; x=1791563636;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ng3pfH+8Y0uTBJEh9FH2p3oXQStVr7nZPjCZ6kZCW0Q=;
+        b=FvXnbFu6F6QAhm0V/kwMkpd68DuGPsrltBMpbgtSnNixBN99ayRLqptPLORJAyPMoc
+         iKYJhmpMrnWX5BraXdSVUA4lMaoKrYWZptJsex4bDAEpPFYMdzhfHhGW0iNkKi1I6DvU
+         73MzSZvFDXETftlD4MV1jXNC4zJy+jdSXoV2rqFcVW+W3xWX4YlnnEug9hmmX7MAmTF1
+         xJ303NBQmUkoiompnP3LM29llg+GAmhHECxIyHDPjvzJZExi2oqdl8yledJ5dWhJQ1YO
+         ip0bukx8oG4eS4MeOnWnDr7ro7tj+Duxwk6o8LAgQ4Lk3jJ/nfP6xGFESLb5HswOI7bI
+         O7Lg==
+X-Gm-Message-State: AFuF++lxx8Cm6bLLs4mg0scezRHxu/ZT8+YTIaJCFUzT9BuM7/E/q80+
+	5YdXqJar6OSMqJU2knD/Re7tYFVggPJVE9S+nJusjdOwlEep1JNdJdQytmCUg3v7
+X-Gm-Gg: AYBFou23NW5z8r1eDSjeCkkoemTMBNkdw0/80hq3w8S2lGDP+4sFva9/GjO5URrW5Hz
+	MEvol+l6VTiI8Wvu2sC4TIoY2wkriY0cjnd0AFnMhcbUaK8thl/n4KG0DEsZdde1DCdIfEMYXcU
+	iTxOfiY7jyjRxglkrGWZy6GSXuT4Y4kA8pK8bgWypNYk10ed6hF7yWFwiMsmQ1DGl1bVtVHxFYY
+	1ZK0uCzc0wS/oFE18aB5NI/OBDSDV1TWhr1nNcOImT2Rs/GSAfLpqD3r++FPFRv+y2tukS6vZq3
+	JhfwHvFrcbqFpc2MkYPmHT80cSrPQzxbsaExlDSdjq2kAGMxk0Vmu5Sb56gNI1XxMUrjjT4hXP2
+	X7tGZ6gfoihZCvOH6hQRnHpI5+5JUfiEXvxOZS6xRkzV7pBv3VtgsNgKPC9Mjdb29LZq4x7hK5H
+	D89WTLatqa590VzVwif/fhdLTgiMrwsLofO+ar80V7H5pZQYoYaBYu9WpGipQD4tDsxPEP
+X-Received: by 2002:a05:6a20:3d0b:b0:3dd:85a8:4c56 with SMTP id adf61e73a8af0-3e0bd19459dmr3535852637.29.1790958836234;
+        Fri, 02 Oct 2026 09:33:56 -0700 (PDT)
+Received: from TC-LAPTOP.lan ([99.30.92.7])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0968b6absm1135149b3a.2.2026.10.02.09.33.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 09:33:55 -0700 (PDT)
+From: Thierry Chatard <tchatard@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	lee@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com,
+	dmanresa@gmail.com,
+	Thierry Chatard <tchatard@gmail.com>
+Subject: [PATCH v12 0/9] Enable cameras on Dell Latitude 5285 2-in-1
+Date: Fri,  2 Oct 2026 09:33:41 -0700
+Message-ID: <20261002163350.1248431-1-tchatard@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eqrbOkMOuuaT2HBv"
-Content-Disposition: inline
-In-Reply-To: <20261003-dr1v90-cru-dt-fix-v2-2-6e7d96612ac0@pigmoral.tech>
+Content-Transfer-Encoding: 8bit
 
---eqrbOkMOuuaT2HBv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series enables the front (OV5670/INT3479) and rear (OV8858/INT3477)
+cameras on the Dell Latitude 5285 2-in-1 under Linux.
 
-On Sat, Oct 03, 2026 at 12:28:40AM +0800, Junhui Liu wrote:
-> The external CAN and watchdog clock inputs are not routed on the MLKPAI
-> FS01, the only board currently supported. Drop the two fixed-clock
-> placeholders from the common dtsi, as fixed clocks require a valid
-> clock-frequency property.
->=20
-> Both clock muxes select their internal parent clocks after reset, so
-> the CRU operates correctly without the external inputs. Keep only the
-> required oscillator input to the CRU.
->=20
-> A board using these external clocks should define them in its own
-> board-level dts and override the clocks and clock-names properties of
-> the CRU node.
->=20
-> Reported-by: Yixun Lan <dlan@kernel.org>
-> Fixes: 7849521aaac2 ("riscv: dts: anlogic: add clocks and CRU for DR1V90")
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+Per Documentation/process/coding-assistants.rst, every patch carries an
+Assisted-by tag; this work was developed with help from an AI coding
+assistant. I have reviewed and tested it on the hardware and take
+responsibility for the result.
 
-Per the v1, Brian said he would rebase the clock tree, so I'll just
-squash this into the original patch I think.
+The series touches three subsystems:
+  - mfd:          patches 1-2 (intel-lpss resource-conflict quirk)
+  - platform/x86: patches 3-7 (int3472/tps68470)
+  - media:        patches 8-9 (ipu-bridge, ov8858)
+There is no build dependency between the three groups, so - as Lee
+suggested - each subsystem maintainer can take their own patches through
+their respective tree.
 
-> ---
->  arch/riscv/boot/dts/anlogic/dr1v90.dtsi | 16 ++--------------
->  1 file changed, 2 insertions(+), 14 deletions(-)
->=20
-> diff --git a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi b/arch/riscv/boot/dt=
-s/anlogic/dr1v90.dtsi
-> index 574c6608aef0..fe85d01563ad 100644
-> --- a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
-> +++ b/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
-> @@ -44,23 +44,11 @@ cpu0_intc: interrupt-controller {
->  	};
-> =20
->  	clocks {
-> -		can_ext: clock-ext-can {
-> -			compatible =3D "fixed-clock";
-> -			clock-output-names =3D "can_ext";
-> -			#clock-cells =3D <0>;
-> -		};
-> -
->  		osc: clock-osc {
->  			compatible =3D "fixed-clock";
->  			clock-output-names =3D "osc";
->  			#clock-cells =3D <0>;
->  		};
-> -
-> -		wdt_ext: clock-ext-wdt {
-> -			compatible =3D "fixed-clock";
-> -			clock-output-names =3D "wdt_ext";
-> -			#clock-cells =3D <0>;
-> -		};
->  	};
-> =20
->  	soc {
-> @@ -128,8 +116,8 @@ uart1: serial@f8401000 {
->  		cru: clock-controller@f8801000 {
->  			compatible =3D "anlogic,dr1v90-cru";
->  			reg =3D <0x0 0xf8801000 0 0x400>;
-> -			clocks =3D <&osc>, <&can_ext>, <&wdt_ext>;
-> -			clock-names =3D "osc", "can_ext", "wdt_ext";
-> +			clocks =3D <&osc>;
-> +			clock-names =3D "osc";
->  			#clock-cells =3D <1>;
->  			#reset-cells =3D <1>;
->  		};
->=20
-> --=20
-> 2.55.0
->=20
+Patch 2 (from D. Manresa) extends the intel-lpss quirk to the Dell Latitude
+7275, which has the same BIOS bug; it is carried here at the maintainers'
+request. The companion 7275 board-data patch is posted separately by
+D. Manresa.
 
---eqrbOkMOuuaT2HBv
-Content-Type: application/pgp-signature; name=signature.asc
+Changes since v11:
+- All patches: shorten the Assisted-by tag to "Assisted-by: LLM" (Andy).
+- Patch 1 (intel-lpss): use C99 initialisers in the quirk ID table (Andy).
+- Patch 4 (move Windows MFD setup): no longer introduces a local
+  struct device *dev; the existing &client->dev references are kept so the
+  patch only moves code (plus the -ENODEV -> -ENODATA change), with the
+  unrelated dev conversions dropped (Andy).
+- Collected Reviewed-by: Sakari Ailus on patch 1; Andy Shevchenko on
+  patches 2 and 3.
 
------BEGIN PGP SIGNATURE-----
+Earlier changelogs are in the v11 posting:
+  https://lore.kernel.org/all/20260930214321.600863-1-tchatard@gmail.com/
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar/c1AAKCRB4tDGHoIJi
-0t1xAQCzVqDgkscVzsXWZRHTWAoSHRS3DskL95IygBPAybTfHQEAxxJRFD3pJTpZ
-XraOBPmmfoHqwPlcPCBeLOsUdpZHSQk=
-=jPEu
------END PGP SIGNATURE-----
+Tested on Ubuntu 25.10 (kernel 6.17.0-22-generic) and Ubuntu 26.04 (kernel
+7.0.0-31-generic): both cameras working in Zoom, Chrome, and GNOME Camera
+via PipeWire. Also independently tested on the closely-related Dell Latitude
+5290 2-in-1 by Vitalii Tytskyi:
+  https://github.com/vitovt/dell-5290-camera-kernel/tree/master/patches
 
---eqrbOkMOuuaT2HBv--
+D. Manresa (1):
+  mfd: intel-lpss: add Dell Latitude 7275 to the resource conflict quirk
+
+Thierry Chatard (8):
+  mfd: intel-lpss: add resource conflict quirk for Dell Latitude 5285
+  platform/x86: int3472: tps68470: use unsigned int for GPIO lookup loop
+    counters
+  platform/x86: int3472: tps68470: move Windows MFD setup below the
+    device-type switch
+  platform/x86: int3472: tps68470: add static clock consumer support
+  platform/x86: int3472: tps68470: use a common always-on VIO regulator
+    init_data
+  platform/x86: int3472: tps68470: add board data for Dell Latitude 5285
+  media: ipu-bridge: add sensor configuration for OV8858 (INT3477)
+  media: ov8858: add ACPI device ID INT3477
+
+ drivers/media/i2c/ov8858.c                    |   8 +
+ drivers/media/pci/intel/ipu-bridge.c          |   2 +
+ drivers/mfd/intel-lpss-acpi.c                 |  38 ++++
+ drivers/platform/x86/intel/int3472/tps68470.c | 105 +++++-----
+ drivers/platform/x86/intel/int3472/tps68470.h |   8 +
+ .../x86/intel/int3472/tps68470_board_data.c   | 181 ++++++++++++++++--
+ 6 files changed, 283 insertions(+), 59 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+--
+2.53.0
+
