@@ -1,75 +1,77 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46463546F3
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E90D2E1746
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790914356; cv=none; b=aKRvLCfLmyumNLc6/bmQUFHRXq+7Cg4bQCtY+7NyF2nMz8rpkMwi2pnixieP+UQzcbcUTQHhRPdkeX0d+gw6G2YzUFXFpR6sJwr6BeG3mSvLC3i19kqpHZi98aj0vxFVQd/WGHGPh+Q00CRPmYZkqZ7GsEJrAmptm6wE21NZt60=
+	t=1790914532; cv=none; b=f+r4SSlIizvbp2xHr5jyUyfoqybipi7vOuKHts6DK0MJ6LMeU1WzTJRRyYsiK/Tm/ol5HStb6GMDxuozkOaQDzU6R534HdKOS7MNu0XQ/tg4I+0KnG74F6waDkHDW/bbxvnakfyq27niTmNdANY3Lmn7cosAR19KTNWvOUz68xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790914356; c=relaxed/simple;
-	bh=oOk0mRh1Zu9+TZU2VveQTBrJgYISQnjjC2uG9A/pX+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U98DyDZsbx6nULivvu6VGWsOIJbYZCuAL529XRfRQtrq4oaCx5fVkNmQ7FzRl4MoD8Fm8bWZb7vCZZwww2q9Wv9IbeFPYuRyL/N03g8EV29dOk4pQNp3HvNuaB0Wplh2unr317Iv8EuN5/HyfWXI9XyiHXRVuc5xb7QBtfDUX1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJWo4VAt; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1790914532; c=relaxed/simple;
+	bh=qEpCCNFio2iaESKTqfGgNYuFlMgPhAmm2vmNFrdbijM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VCqxvVctRTZU4NbBj0x3P3xCfmc0oNBJ+6hHsUdnwp+lzM9UikHVPGO1HIQ3ki3JKiaSCjH9wIz7NcSIltcfyo310Od0B+KWKhPKE7GkbvjwQr8pjoKuSXkiAGe6a9dvZ7EHeB5X7pI/J9+V8RpU3YO7N9HRqiXCcPPz9l/UVXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d3xg2BKO; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJWo4VAt"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ee1f38so32944935ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:12:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d3xg2BKO"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8beb8adso3357435e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:15:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790914354; x=1791519154; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xy+1LeyVsAGyBzZFBYPpptBj3oT6vaEgfVU1QwMeY1M=;
-        b=IJWo4VAt4hrJH6on0pL53BB463D925W4AFjy+TK+VIzpj9W0TYCt6Yqfpxk9FzZoJ3
-         AUabFRIdiWJoFwdhF1H5/I/COyCpgGzz7xc3ylJDLpEIqQ3n5R0cYvn5Hw3hKIKAzmR1
-         GFBsrzoi9Ag9k2+AM3Ijk8G+ZZ405zlgb5pQhYs/6UGBlubHY/jEc2hy5H6wUzDqS13O
-         akAMywuJL8HXc4COp311qYEho7BxPfV0DBSyRCYaoSKT17exiXo5HcoD6EqOoQpguEFm
-         Ua6g47pjCGnoORfN+9xerLuOnUU4MaE2It3hzoZRH8vzKvFQ+zWLK28soUxV6rIp7sBQ
-         Am2Q==
+        d=gmail.com; s=20251104; t=1790914529; x=1791519329; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AIDrugdzd2VRvxrjP7DNmuK/HUl0lALqvQgqwdaAuLE=;
+        b=d3xg2BKOmA90d5rZ0VBaZabiLPOtldOdDrFXThx0C9O2DCQz+QVwr7Ia8L/pd/R4z9
+         JWMGur/W/2m8NwIPZCHd5l1Kak3zqrGuuUNufD4mr3OrED1/7a4bl7CvZYNsjzWaETdY
+         SAAKfYyoEnaxPAK3KgCbcfJkhEWhHHQKwxuXLhK9F2hwsSjqzVXds2b6GuLmpd2qgAkr
+         zvE1gp3bUAtxcns6pEux8DhUlxLxJZ+Chhuisvvp3inS8PQJmnV/19nyMnWXcYgc4Sw2
+         9/qVBIlqMBNp4OC5WCQ0zFzsAWhzaxsa3m9u0VPGG7HaJB8xnQlHw3rOjCqI++Oq4Ffj
+         +p8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790914354; x=1791519154;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xy+1LeyVsAGyBzZFBYPpptBj3oT6vaEgfVU1QwMeY1M=;
-        b=aO/4Pnozjn5xgvW+NxfG+UwS3GGogZdp4wLthbzPIJkgeoZ/nI5cYceTT9C0R7VhLe
-         0bmYwP1/lA/dbEto4gs3J79EF7MWF/7cee87kjHbJgvX19QG/3axF+pcVwucR4rigCec
-         c/l+IEfsM/FzMlhGpvb9xycy7uNaz2yoiASFJJ2h9+rbvWBdASr59aMIKsXOm1Hf1Xyv
-         Hj7bfCaw5yL2vQsL9uecQ5BahupbgwA8S2qxXQegY9v4caMqZQ0WCfspza8g8bUMa2XQ
-         0v1Vt4sIJId5/Krdvt9zPUCbegatwR98ucUVuI3ksRKHIcxvW1bK5m+AOEzDDwf6cIHe
-         gDhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEQuIGiGPc2Nzbovf5p3QNuSFFUgwJLo2vjsE8ie4098OQRqWYDp+BinlklQuuTzPZnSO+NjRHcszduyY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8WOhGTrqL/9g9fIPNZRH2Yv3B2259a+8M5wn9mKlnzSWOmS6A
-	KGc0ZPbjhtJiB0w3FIXgUOLXY3Oi4iop7I6eQyvEwRfcrRStvfbY7L2N4zHIEg==
-X-Gm-Gg: AYBFou2ey5F35Zh+V23v8CiSltIPbbkUcH9i8TcsS+Hlq17x+DduaGI0RLma5OmDTGo
-	b0O4p6jlIPrwYbUtrecYv8YfaCbfNZtXxSGs55YoRgTOTdzvHL+nd9pmdZ1D7B39IIAz1VJrabh
-	71eVCbqmSnp6Gj5BqTjS42hpFgx70NPxdTxzEc5bPOhT6eEBtGxoDy3HPjswCFrbyHCT1Q4nJ+d
-	EVN1xp6N1hf1ulZce2rOgMexKlrr5brSYiXOIh18VLfkE6FCJP9TuslfyXHCwEgBlp7hvQnDcNr
-	k5YxmD1lo+uGzfsRj5nzMT8KEeVN+rsUxSxhWtMYPvD7UwXnovFxulot6E1lZ//qR/K35p6Jvre
-	/vETDQppFkOA3Unagi2tEVSqphfsNshhfWipvR8DDe7oGetNnKdgkudzcrJAQyy1BjkN5/igIMl
-	WTeZDcI7f2IcY2IsojxCqXiEtU4Xc6bnCui69+Y2ue3y0959+N8iUz7mucM+DzLjdPGr2zQBeG8
-	o56rWDDdcFFMYaV5PQ1dRjzse87PU4eA+FvrMCscWplqK+b
-X-Received: by 2002:a17:903:3d0e:b0:2e3:100:10cf with SMTP id d9443c01a7336-2e49b6dcab3mr12216905ad.60.1790914354195;
-        Thu, 01 Oct 2026 21:12:34 -0700 (PDT)
-Received: from localhost.localdomain (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f680403sm3484055ad.25.2026.10.01.21.12.33
+        d=1e100.net; s=20260707; t=1790914529; x=1791519329;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AIDrugdzd2VRvxrjP7DNmuK/HUl0lALqvQgqwdaAuLE=;
+        b=o41gChUq9pdmhTUs4vQnh+ErsHuQovQeVNBfYOqD8J2w5tUou42Z32w3sU39aYfUUI
+         pf54X/GFREurrXBqUKU/nGgMvZ6OWzM54Ll2o0UjefAhBdvRpc2Rp3JCWytl0JkyHToU
+         tFhuW5M8Jp1q7BHvrlBxDnQw5gnudhh07VBlF7FdiJGYN+bHs0jB8A1VFUow0GDCU8oQ
+         Pc8IrUf8rMPwZvLzN5GDedBQArgcoLo2QDINWuiYVzVF3PArvJZAsa8ZZ47MgxoaKlrG
+         0NfHLzGkcG7xTUnFY8WxhPcI8REBEdtuNXJFaU6y+Q0zw8HkMLb/jzuOlB25pBi/AT9l
+         tL9g==
+X-Forwarded-Encrypted: i=1; AKwUvBxvGW45rwHIzsP3WWSnmCRNnOtfIxjwNFeE4yjc06/h/lcK9CNjzxImXlwlwyl5eFCFJ/DonIksOHW6PgE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lY0EposedcOHgJBZye648dXdnID7vi3Ru+4hsRtaE3gIgZ8nZk
+	rpUlHhGeVYobYesHBC7RmTAipQ4CCd5d7SM+pdW5C6PhuO72eMjA8VwJ
+X-Gm-Gg: AYBFou1L7ec2zzzuqyxrqOi64wC1tQDNQOWxL6SwxPGa7ZnX6XjBaviiKYIsr6dxmNF
+	TSfIS0iE/c7Eb9ii7dkHPYRWBMnvvh2xagGe8sgooEaDzfFnlezM3VYE8xz6OxMAHTm3u9XVYju
+	wU74aZ0jsZRukZJep+r/LpnlkYH3IFe1FWeRa4EYWzDoV1cXR1CawMoyQaXqvxlMxi2B/URrpYY
+	/NS8Wf9n6IIIGeIrlnSoTUMR212m6f2lBWp+sQQv4cwj90CWcnSvlAFuTnbUYL3/AedA2QsrLwI
+	7kQGMhE04qT+I5oYIy2WP086MZfo2yJpD3dusAjPy3x2UYPtSSBvyc1xZA6FdGaLGyTiudPjPI2
+	5BWkuhshy2kJZLgI7tCuHqrlHRuaY++0ubCl/KFlgXM4pLa0BmeZqm7TWJZ4ULEUBoG7ceOr5fz
+	PVJnjykoEzQaSWIfHni5bDke2Qom65j/JiwUB82geqshAkRKaYMcvnddNUUyNFVDOltMtKAzcLO
+	GtWOjFfW8XxvgaKEqnHkDXXZQwV6QY=
+X-Received: by 2002:a05:600c:6384:b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4a02769886emr25697315e9.2.1790914528481;
+        Thu, 01 Oct 2026 21:15:28 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.118.71.106])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff3cab2sm13522835e9.2.2026.10.01.21.15.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 21:12:33 -0700 (PDT)
-From: Artem Novak <artem122novak@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Novak <artem122novak@gmail.com>
-Subject: [PATCH v2 2/2] sh: add SH7305 CPU subtype support
-Date: Thu,  1 Oct 2026 22:12:20 -0600
-Message-ID: <20261002041220.133911-3-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002041220.133911-1-artem122novak@gmail.com>
-References: <20261002041220.133911-1-artem122novak@gmail.com>
+        Thu, 01 Oct 2026 21:15:28 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	mchehab@kernel.org,
+	aleksandr.loktionov@intel.com,
+	bvanassche@acm.org,
+	emmaonana18@gmail.com,
+	tudor.ambarus@linaro.org
+Subject: [PATCH] docs: kdoc: strip DOMAIN_NS() wrapper in function prototypes
+Date: Fri,  2 Oct 2026 05:15:19 +0100
+Message-ID: <20261002041520.42061-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,81 +80,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the SH7305 as an SH4AL-DSP CPU subtype.
+kernel-doc fails to parse functions whose names are wrapped in the
+DOMAIN_NS() namespace macro, e.g. in
+drivers/iommu/generic_pt/iommu_pt.h:217:
 
-Recognize the SH7305 in the SH-4 CPU probe using the existing
-0x300b PVR family with PRR value 0xc0, and expose the processor
-name through the SH CPU information interface.
+  ... expecting prototype for iova_to_phys(). Prototype was for
+  DOMAIN_NS() instead
 
-Signed-off-by: Artem Novak <artem122novak@gmail.com>
+function_xforms is the designated place for unwrapping function-name
+macros, but it has no entry for DOMAIN_NS(), so the macro name is kept
+as the prototype and the real name leaks into the parameter list.
+
+Add a transform expanding DOMAIN_NS(op) to op, following the existing
+DEFINE_IDTENTRY_IRQ precedent.
+
+Add a regression test for the wrapped iova_to_phys() declaration.
+
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 ---
- arch/sh/Kconfig                 | 9 +++++++++
- arch/sh/include/asm/processor.h | 2 +-
- arch/sh/kernel/cpu/proc.c       | 3 ++-
- arch/sh/kernel/cpu/sh4/probe.c  | 3 +++
- 4 files changed, 15 insertions(+), 2 deletions(-)
+ tools/lib/python/kdoc/xforms_lists.py |  6 ++++++
+ tools/unittests/test_kdoc_parser.py   | 22 ++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
-index d60f1d5a94c0..e71b5476769e 100644
---- a/arch/sh/Kconfig
-+++ b/arch/sh/Kconfig
-@@ -467,6 +467,15 @@ config CPU_SUBTYPE_SHX3
+diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+index e3dda2fe8a53..5e8bd9117895 100644
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@ -91,6 +91,12 @@ class CTransforms:
+         (CMatch("__diagnose_as"), ""),
+         (CMatch("DECL_BUCKET_PARAMS"), r"\1, \2"),
+         (CMatch("DEFINE_IDTENTRY_IRQ"), r"static void \1(struct pt_regs *regs, u32 vector)"),
++        #
++        # DOMAIN_NS() wraps a function name with a namespace prefix
++        # (see drivers/iommu/generic_pt/iommu_pt.h). Unwrap it so the
++        # real function name is parsed.
++        #
++        (CMatch("DOMAIN_NS"), r"\1"),
+         (CMatch("__cond_acquires"), ""),
+         (CMatch("__cond_releases"), ""),
+         (CMatch("__acquires"), ""),
+diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+index c4a76ed13dbc..4b47a858824a 100755
+--- a/tools/unittests/test_kdoc_parser.py
++++ b/tools/unittests/test_kdoc_parser.py
+@@ -418,6 +418,28 @@ class TestSelfValidate(GenerateKdocItem):
+         """
+         self.run_test(self.SOURCE, [self.DEFAULT.copy()], self.EXPORTS)
  
- # SH4AL-DSP Processor Support
- 
-+config CPU_SUBTYPE_SH7305
-+	bool "Support SH7305 processor"
-+	select CPU_SH4AL_DSP
-+	help
-+	  Select this option to build the kernel for systems based on the
-+	  Renesas SH7305 processor. The SH7305 belongs to the SH4AL-DSP
-+	  processor family and is used in embedded systems such as Casio
-+	  graphing calculators.
++class TestDomainNs(GenerateKdocItem):
++    def test_domain_ns_wrapped_function(self):
++        source = """
++            /**
++             * iova_to_phys() - Return the output address for the given IOVA
++             * @domain: Table to query
++             * @iova: IO virtual address to query
++             */
++            phys_addr_t DOMAIN_NS(iova_to_phys)(struct iommu_domain *domain,
++                                                dma_addr_t iova);
++        """
 +
- config CPU_SUBTYPE_SH7343
- 	bool "Support SH7343 processor"
- 	select CPU_SH4AL_DSP
-diff --git a/arch/sh/include/asm/processor.h b/arch/sh/include/asm/processor.h
-index 2a0b5713ab80..96321c46ce85 100644
---- a/arch/sh/include/asm/processor.h
-+++ b/arch/sh/include/asm/processor.h
-@@ -36,7 +36,7 @@ enum cpu_type {
- 	CPU_SH7723, CPU_SH7724, CPU_SH7757, CPU_SH7734, CPU_SHX3,
- 
- 	/* SH4AL-DSP types */
--	CPU_SH7343, CPU_SH7722, CPU_SH7366, CPU_SH7372,
-+	CPU_SH7343, CPU_SH7305, CPU_SH7722, CPU_SH7366, CPU_SH7372,
- 
- 	/* Unknown subtype */
- 	CPU_SH_NONE
-diff --git a/arch/sh/kernel/cpu/proc.c b/arch/sh/kernel/cpu/proc.c
-index 5f6d0e827bae..b6fbe27742e0 100644
---- a/arch/sh/kernel/cpu/proc.c
-+++ b/arch/sh/kernel/cpu/proc.c
-@@ -25,7 +25,8 @@ static const char *cpu_name[] = {
- 	[CPU_SH7786]	= "SH7786",	[CPU_SH7757]	= "SH7757",
- 	[CPU_SH7722]	= "SH7722",	[CPU_SHX3]	= "SH-X3",
- 	[CPU_MXG]	= "MX-G",	[CPU_SH7723]	= "SH7723",
--	[CPU_SH7366]	= "SH7366",	[CPU_SH7724]	= "SH7724",
-+	[CPU_SH7305]	= "SH7305",	[CPU_SH7366]	= "SH7366",
-+	[CPU_SH7724]	= "SH7724",
- 	[CPU_SH7372]	= "SH7372",	[CPU_SH7734]	= "SH7734",
- 	[CPU_J2]	= "J2",
- 	[CPU_SH_NONE]	= "Unknown"
-diff --git a/arch/sh/kernel/cpu/sh4/probe.c b/arch/sh/kernel/cpu/sh4/probe.c
-index ef4dd6295263..7f77fc64258c 100644
---- a/arch/sh/kernel/cpu/sh4/probe.c
-+++ b/arch/sh/kernel/cpu/sh4/probe.c
-@@ -143,6 +143,9 @@ void cpu_probe(void)
- 		break;
- 	case 0x300b:
- 		switch (prr) {
-+		case 0xc0:
-+			boot_cpu_data.type = CPU_SH7305;
-+			break;
- 		case 0x20:
- 			boot_cpu_data.type = CPU_SH7724;
- 			boot_cpu_data.flags |= CPU_HAS_L2_CACHE;
++        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
++        patcher = patch('builtins.open', new_callable=mock_open,
++                        read_data=dedent(source))
++        with patcher:
++            _, entries = kernel_doc.parse_kdoc()
++
++        self.assertEqual(len(entries), 1)
++        self.assertEqual(entries[0].name, "iova_to_phys")
++        self.assertEqual(entries[0].warnings, [])
++
+ #
+ # Class and logic to create dynamic tests from YAML
+ #
 -- 
-2.55.0
+2.43.0
 
