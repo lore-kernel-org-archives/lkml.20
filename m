@@ -1,424 +1,322 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1F24BF94A;
-	Fri,  2 Oct 2026 15:54:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D39253340;
+	Fri,  2 Oct 2026 15:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956502; cv=none; b=pB9jGiVS1yolTPCZc7RD6Tz9R1dGbNnzl+xEL06c1x5/DILsS4QuS/5zCQYoHrxKpAvmx9gaoWYIURfSmvmFjN6etUc1SYp7qx4mw02VkHtisOOkdcF65kNb3G7PA9RDFgZKxH2J8EM9qIGM4zWgMb+W7vK7H/20NYMhU05Kb9I=
+	t=1790956526; cv=none; b=EpmU0MP0lTIRU1BCSfhfzHczPu84Ly6uOR32Y8zzf8F6BXwH2jruS2eMitOWzjKfWIYka9hkbeGPww9aDYDq+2HDyCWOyXkN0OoCEpTNr9jD7bUdqw5JRk8IniUptgu21fxHZnOLKQa8b+emYMYo1bnMbxsB/D0rBJhfLGiAhiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956502; c=relaxed/simple;
-	bh=QeIB8FIwClEuHoSXhmFICLeKpPAISYAuaZpYo+1tLkc=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=of+3f1lblwwX14O7moWmrYwnD+8jxsz+asBsOCACx0dM7QonQIgu+4j5MxEne8zxQpC+BhK+ecB5CWNSrQtLqMgG6e39CpONTzdDyaqhmH5l+QFS2wkbGelViaK88hYC7gux0qxOB6ciA6M1GHqnko+M6YxuqiRyA5mBOIBJ3RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aP9f1I+B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790956526; c=relaxed/simple;
+	bh=KH1UWl5VeB6hAgaMlflVxWfiK3gRO3gxjWFR2LGVmBw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=srA6UN8KTK/LBBo3QKAHScRQHYw8EG9oBz/nX58gTFn9l1dYQPofKb2bMU2pPWnwAOGTyL/72BDNsu4/SM7gxEKFskgtH8JqPUZSe9jzuJgZ68DehP6d122I0DI+CuVl4GK3Sna5SbA30IMC5kUknGc9Qm9fcQneJaxHUbAjH1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qs/IrjqB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aP9f1I+B"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3ABCE1F000FF;
-	Fri,  2 Oct 2026 15:54:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qs/IrjqB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DEBB1F000FF;
+	Fri,  2 Oct 2026 15:55:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790956494;
-	bh=WFujwnzdjUGFy+TVg5vvBKDLsUDq8dhtgaheVBaIwHY=;
-	h=From:To:Cc:Subject:Date;
-	b=aP9f1I+BpA3k2i6rtaGlfV8SwceeVlP8+wQwgbLCrdP1on6kqjfiUWWaHfhxot13b
-	 e0zof2NTaYc5jE6MC4a2SpE6qE76E9iZVAvO3CSMkcDQML5LrmeSSxeV3PsAvFSxCO
-	 4CciQQR+Srlr87Rx2BM/HCrGabOfNOO/ekk+pxkyKGZoxrAfi0E5g7x61VkP9YVHtU
-	 R6LSh5tctLqsTYhpKY+x224UHJKB7NhFh+f8rejTEQONfWlRiltufMim7dnhvTSkMx
-	 Fcf7GuaywNpaltZntT4jRpeUAxX6bumm+d33IczgKoDLIAmQkuo4WDDNKMKUcoInGq
-	 zDCnSgMtsMWyA==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Krystian Kaniewski <krystianmkaniewski@gmail.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, <linux-usb@vger.kernel.org>, "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
-Cc: aichao@kylinos.cn, kees@kernel.org, linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] usb: gadget: u_serial: pin ports while TTYs are installed
-Message-ID: <6941beb7-8cae-4cc5-ba07-e1c8a8753fe1@mail.kernel.org>
+	s=k20260515; t=1790956524;
+	bh=2ng9SKCBg1G/ma+Mp8f8fqCiS/P7/Xy23pBv8pxKv/4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qs/IrjqB1Fc4QXRM78/IxqxrbUDRfXuKWx4/HkQc/Qf2RPMIY8kQ36WSK9afD395N
+	 ZTZ8FsvQ7uXl39Z7acfyIsMBim0yT+UDCv2ZKGTymhY3dXOe738+yuDCuxGXEx2nB0
+	 RTX8MgDZPm5lAvR9zGa3Tj/+rqrJKQxwh/cYF9aJBCy3MhG9oE7ifiiXMBBlIzBSa+
+	 4m6Hung47p0R1viXVIc01IsbDmq9PB8dGndCgFnROC3NdQ+7VbKkC8GaNBZ5rEV4nd
+	 +oWMBTMAq0Me/VNlktgtU/NTES73bNqhghGgjbDbmCO/CEOmqqr8+SecjlnKKx+RL/
+	 ri+Vw89AUx1MA==
+Date: Fri, 2 Oct 2026 23:35:23 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 08/20] dt-bindings: reset: add Synaptics SL261X SoCs
+Message-ID: <ar_POzPRppAwK7ui@xhacker>
+References: <20260929061417.20733-1-jszhang@kernel.org>
+ <20260929061417.20733-9-jszhang@kernel.org>
+ <20260929-sprang-stir-af07a907ccb2@spud>
+ <ar0npPCHX1P5Gjzx@xhacker>
+ <20260930-legend-helium-ca5a0ff56709@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Fri,  2 Oct 2026 15:54:54 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930-legend-helium-ca5a0ff56709@spud>
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+On Wed, Sep 30, 2026 at 05:49:18PM +0100, Conor Dooley wrote:
+> On Wed, Sep 30, 2026 at 11:15:48PM +0800, Jisheng Zhang wrote:
+> > On Tue, Sep 29, 2026 at 08:44:13PM +0100, Conor Dooley wrote:
+> > > On Tue, Sep 29, 2026 at 02:14:05PM +0800, Jisheng Zhang wrote:
+> > > > Add device tree bindings for the resets on Synaptics SL261X SoCs.
+> > > > 
+> > > > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > > > ---
+> > > >  .../bindings/reset/syna,sl261x-reset.yaml     | 40 ++++++++++
+> > > >  include/dt-bindings/reset/syna,sl261x-reset.h | 80 +++++++++++++++++++
+> > > >  2 files changed, 120 insertions(+)
+> > > >  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
+> > > >  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..8cfec17df800
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
+> > > > @@ -0,0 +1,40 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > > +# Copyright (C) 2026 Synaptics Incorporated
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/reset/syna,sl261x-reset.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Synaptics SL261X reset controller
+> > > > +
+> > > > +maintainers:
+> > > > +  - Jisheng Zhang <jszhang@kernel.org>
+> > > > +
+> > > > +description: The reset controller node must be a sub-node of the chip
+> > > > +  controller node on SL261X SoCs.
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    enum:
+> > > > +      - syna,sl261x-soc-reset
+> > > > +      - syna,sl261x-system-reset
+> > > > +
+> > > > +  "#reset-cells":
+> > > > +    const: 1
+> > > > +
+> > > > +required:
+> > > > +  - compatible
+> > > > +  - "#reset-cells"
+> > > > +
+> > > > +additionalProperties: false
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    chip: chip-control@f7e10000 {
+> > > > +        reg = <0xf7e10000 0x1000>;
+> > > > +
+> > > > +        chip_rst: reset {
+> > > > +            compatible = "syna,sl261x-soc-reset";
+> > > > +            #reset-cells = <1>;
+> > > > +        };
+> > > 
+> > > Why can't this just be part of the parent node?
+> > 
+> > Good question! IMHO, the reasons are:
+> > 
+> > 1. the so called Gbls(Gbl means global) such as mcuGbl and
+> > chip control Gbl contain not only reset, pinctrl and clk/plls
+> > but also some other registers for different purposes, e.g in the
+> > chip control gbl, there are some registers to control eth phy sel(RMII
+> > or RGMII), and TXC 90 degree selection etc. These registers will
+> > be used by the Ethernet driver;
+> > 
+> > While there's no pinctrl regs in avioGbl and vppGbl. In the vppgbl,
+> > there are some registers for DPHYTX etc.
+> > 
+> > As can been, in different Gbls, there maybe different purposes registers, no
+> > obvious patterns.
+> > 
+> > So the question here is why not split the gbl into different register
+> > spaces, and abstract each space for each function group?
+> 
+> No, you misunderstood. I'm not asking for the register space to be
+> split, I am asking why you cannot do
+> | syscon@f7e1000 {
+> | 	compatible = "syna,sl2610-soc-syscon", "syscon";
+> | 	reg = <0xf7e10000 0x1000>;
+> | 	#clock-cells = <1>;
+> | 	#reset-cells = <1>;
+> | };
+> With this kind of thing, you can either use the auxiliary bus or
+> MFD_CELL_NAME() to create the other devices. The latter is good if
+> you've got a region with clocks that also has resets thrown in, the
+> former is probably better if you have a syscon with a genuine
+> assortment of different functions that you're going to be looking up via
+> phandle.
 
-A slab-use-after-free can occur when gserial_free_line() frees struct
-gs_port while it is still reachable by the TTY core. In the reported trace,
-the write in tty_init_dev() occurs while the TTY is installed because the
-port is freed while its TTY device is still registered and the driver table
-still points to it.
+I see your points now. But there are two problems with this solution:
 
-BUG: KASAN: slab-use-after-free in tty_init_dev+0x244/0x4d0
-drivers/tty/tty_io.c:1397
-Call Trace:
- <TASK>
- tty_init_dev+0x244/0x4d0 drivers/tty/tty_io.c:1397
- tty_open_by_driver drivers/tty/tty_io.c:2046 [inline]
- tty_open+0x7d9/0xcc0 drivers/tty/tty_io.c:2093
- chrdev_open+0x4d9/0x600 fs/char_dev.c:411
- do_dentry_open+0x816/0x1380 fs/open.c:996
- vfs_open+0x3b/0x340 fs/open.c:1101
- </TASK>
+1. Besides reset, pinctrl and clk, the so called "Gbl" also contains
+registers for other purpose, e.g DPHYTX, when we need the driver for
+DPHYTX, I assume I could also go with the auxiliary bus or MFD_CELL_NAME(),
 
-Fix this by managing the lifetime of struct gs_port with tty_port reference
-counting. Pin the port during gs_install() and release it in gs_cleanup(),
-deferring freeing to gs_port_destruct() once all references are dropped. In
-gserial_free_line(), unregister the device before waiting for existing
-closes and dropping the initial reference. Record failed gs_open() calls so
-gs_close() invoked by the TTY core on open failure exits without
-decrementing port->port.count. Check in gs_open() that the port was not
-removed between install and open; checking for a removed rather than
-replaced port suffices because the slot remains reserved while a TTY holds
-a reference to the old port. Finally, keep line numbers reserved until port
-destruction and defer publishing the port pointer in ports[] until after
-tty_port_register_device() succeeds, which protects saved termios because
-tty_register_device_attr() frees the saved termios of the index on every
-registration without holding tty_mutex.
+2. where should the driver(s) and dt-bindings doc be put?
+I assume drivers/soc/synaptics/ and
+Documentation/devicetree/bindings/soc/synaptics?
 
-Fixes: 19b10a8828a6 ("usb: gadget: allocate & giveback serial ports instead hard code them")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-Link: https://syzkaller.appspot.com/ai_job?id=ec789387-2e7b-4a8f-a7a1-a47bf7fa57f5
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Kindly correct me if I misunderstood something.
 
----
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc66..aaad06fa5 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -70,10 +70,28 @@
-  *	gserial->ioport == usb_ep->driver_data ... gs_port
-  *	gs_port->port_usb ... gserial
-  *
-- * gs_port <---> tty_struct ... links will be null when the TTY file
-- * isn't opened; managed by gs_open()/gs_close()
-- *	gserial->port_tty ... tty_struct
-- *	tty_struct->driver_data ... gserial
-+ * gs_port <---> tty_struct:
-+ *	tty->driver_data refers to gs_port from install through cleanup,
-+ *	pinning the port via tty_port reference counting.
-+ *	gs_port->port.tty exists only while the port is open.
-+ *
-+ * Each entry in ports[] is guarded by ports[i].lock and models three states:
-+ *   - Free:      !port && !reserved
-+ *   - Published:  port &&  reserved
-+ *   - Retiring or device registration in progress: !port &&  reserved
-+ *
-+ * A minor remains reserved until gs_port_destruct() runs upon final tty_port
-+ * release, preventing minor reuse while cleanup or termios saving is still
-+ * underway. The owner reference is retained through device unregister so the
-+ * destructor releases the reservation only after device teardown is complete.
-+ *
-+ * open_close_failures tracks failed gs_open() calls where port->port.count
-+ * was not incremented. The TTY core calls gs_close() on open failure to tear
-+ * down the tty; tracking failures as aggregate credits allows gs_close() to
-+ * consume a credit and exit without decrementing port->port.count. Credits
-+ * are aggregate rather than paired with individual files (another gs_close()
-+ * can consume a failed open's credit before that file's own close runs).
-+ * It is protected by tty_lock.
-  */
- 
- /* RX and TX queues can buffer QUEUE_SIZE packets before they hit the
-@@ -128,6 +146,7 @@ struct gs_port {
- 	wait_queue_head_t	close_wait;
- 	bool			suspended;	/* port suspended */
- 	bool			start_delayed;	/* delay start when suspended */
-+	unsigned int		open_close_failures; /* protected by tty_lock */
- 	struct async_icount	icount;
- 
- 	/* REVISIT this state ... */
-@@ -135,8 +154,9 @@ struct gs_port {
- };
- 
- static struct portmaster {
--	struct mutex	lock;			/* protect open/close */
-+	struct mutex	lock;			/* protect open/close and port slot */
- 	struct gs_port	*port;
-+	bool		reserved;
- } ports[MAX_U_SERIAL_PORTS];
- 
- #define GS_CLOSE_TIMEOUT		15		/* seconds */
-@@ -603,22 +623,63 @@ static int gserial_wakeup_host(struct gserial *gser)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	if (!tport) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		tty_port_put(tport);
-+		return ret;
-+	}
-+
-+	tty->driver_data = port;
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-- * gs_open sets up the link between a gs_port and its associated TTY.
-- * That link is broken *only* by TTY close(), and all driver methods
-- * know that.
-+ * gs_open associates an open TTY with its gs_port.
-+ *
-+ * There are two TTY-to-port relationships: port->port.tty exists from the
-+ * first successful open until final close, while tty->driver_data is assigned
-+ * during gs_install() and remains valid through gs_cleanup().
-  */
- static int gs_open(struct tty_struct *tty, struct file *file)
- {
- 	int		port_num = tty->index;
--	struct gs_port	*port;
-+	struct gs_port	*port = tty->driver_data;
- 	int		status = 0;
- 
-+	if (!port)
-+		return -ENODEV;
-+
- 	mutex_lock(&ports[port_num].lock);
--	port = ports[port_num].port;
--	if (!port) {
-+	if (ports[port_num].port != port) {
- 		status = -ENODEV;
--		goto out;
-+		goto fail_unlock;
- 	}
- 
- 	spin_lock_irq(&port->port_lock);
-@@ -638,7 +699,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 		if (status) {
- 			pr_debug("gs_open: ttyGS%d (%p,%p) no buffer\n",
- 				 port_num, tty, file);
--			goto out;
-+			goto fail_unlock;
- 		}
- 
- 		spin_lock_irq(&port->port_lock);
-@@ -648,7 +709,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -672,7 +732,11 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 
- exit_unlock_port:
- 	spin_unlock_irq(&port->port_lock);
--out:
-+	mutex_unlock(&ports[port_num].lock);
-+	return status;
-+
-+fail_unlock:
-+	port->open_close_failures++;
- 	mutex_unlock(&ports[port_num].lock);
- 	return status;
- }
-@@ -695,6 +759,14 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	struct gs_port *port = tty->driver_data;
- 	struct gserial	*gser;
- 
-+	if (!port)
-+		return;
-+
-+	if (port->open_close_failures > 0) {
-+		port->open_close_failures--;
-+		return;
-+	}
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
-@@ -909,8 +981,10 @@ static int gs_get_icount(struct tty_struct *tty,
- }
- 
- static const struct tty_operations gs_tty_ops = {
-+	.install =		gs_install,
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1203,14 +1277,41 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
--static int
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+	unsigned int port_num = port->port_num;
-+
-+	mutex_lock(&ports[port_num].lock);
-+	if (WARN_ON(ports[port_num].port))
-+		ports[port_num].port = NULL;
-+	WARN_ON(!ports[port_num].reserved);
-+	if (gs_tty_driver)
-+		gs_tty_driver->ports[port_num] = NULL;
-+	ports[port_num].reserved = false;
-+	mutex_unlock(&ports[port_num].lock);
-+
-+	kfifo_free(&port->port_write_buf);
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+static struct gs_port *
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
- 	struct gs_port	*port;
- 	int		ret = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	if (ports[port_num].port) {
-+	if (WARN_ON_ONCE(ports[port_num].port && !ports[port_num].reserved)) {
-+		ret = -EBUSY;
-+		goto out;
-+	}
-+
-+	if (ports[port_num].reserved) {
- 		ret = -EBUSY;
- 		goto out;
- 	}
-@@ -1222,6 +1323,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1235,10 +1337,13 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	port->port_num = port_num;
- 	port->port_line_coding = *coding;
- 
--	ports[port_num].port = port;
-+	ports[port_num].reserved = true;
-+	mutex_unlock(&ports[port_num].lock);
-+	return port;
-+
- out:
- 	mutex_unlock(&ports[port_num].lock);
--	return ret;
-+	return ERR_PTR(ret);
- }
- 
- static int gs_closed(struct gs_port *port)
-@@ -1258,8 +1363,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
-@@ -1276,15 +1380,15 @@ void gserial_free_line(unsigned char port_num)
- 	ports[port_num].port = NULL;
- 	mutex_unlock(&ports[port_num].lock);
- 
--	gserial_free_port(port);
- 	tty_unregister_device(gs_tty_driver, port_num);
-+	gserial_free_port(port);
- }
- EXPORT_SYMBOL_GPL(gserial_free_line);
- 
- int gserial_alloc_line_no_console(unsigned char *line_num)
- {
- 	struct usb_cdc_line_coding	coding;
--	struct gs_port			*port;
-+	struct gs_port			*port = ERR_PTR(-EBUSY);
- 	struct device			*tty_dev;
- 	int				ret;
- 	int				port_num;
-@@ -1295,19 +1399,20 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 	coding.bDataBits = USB_CDC_1_STOP_BITS;
- 
- 	for (port_num = 0; port_num < MAX_U_SERIAL_PORTS; port_num++) {
--		ret = gs_port_alloc(port_num, &coding);
--		if (ret == -EBUSY)
--			continue;
--		if (ret)
-+		port = gs_port_alloc(port_num, &coding);
-+		if (IS_ERR(port)) {
-+			ret = PTR_ERR(port);
-+			if (ret == -EBUSY)
-+				continue;
- 			return ret;
-+		}
- 		break;
- 	}
--	if (ret)
--		return ret;
-+	if (IS_ERR(port))
-+		return PTR_ERR(port);
- 
- 	/* ... and sysfs class devices, so mdev/udev make /dev/ttyGS* */
- 
--	port = ports[port_num].port;
- 	tty_dev = tty_port_register_device(&port->port,
- 			gs_tty_driver, port_num, NULL);
- 	if (IS_ERR(tty_dev)) {
-@@ -1315,15 +1420,16 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 				__func__, port_num, PTR_ERR(tty_dev));
- 
- 		ret = PTR_ERR(tty_dev);
--		mutex_lock(&ports[port_num].lock);
--		ports[port_num].port = NULL;
--		mutex_unlock(&ports[port_num].lock);
--		gserial_free_port(port);
--		goto err;
-+		tty_port_put(&port->port);
-+		return ret;
- 	}
-+
-+	mutex_lock(&ports[port_num].lock);
-+	ports[port_num].port = port;
-+	mutex_unlock(&ports[port_num].lock);
-+
- 	*line_num = port_num;
--err:
--	return ret;
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(gserial_alloc_line_no_console);
- 
+Thanks
+> 
+> > Two blocking
+> > points make this impossible and ugly: different reg space may not be
+> > aligned at 4KB boundary, e.g reset: 0x350 ~ 0x37c; eth phy sel:0xa18;
+> > some registers which belong to similar functionality, e.g clks, may not be
+> > adjacent.
+> 
+> This sort of thing, with non-adjacent clocks is still possible, you have
+> a regmap just like before.
+> 
+> > So the best way is to abstract these GBLs via. "syscon", "simple-mfd", and
+> > put necessary subnodes such as reset, pinctrl and clks under the GBL
+> > node. If the registers in GBL is misc control, pass the syscon phandle
+> > to the main driver, e.g I planed to pass the syscon phandle to GMAC
+> > driver to control the RMII/RGMII selection.
+> 
+> And you can get the regmap from other drivers by doing phandle or
+> compatible based lookups just like before.
+> 
+> > 
+> > 2.follow current bg2 and bg2q style
+> > e.g arch/arm/boot/dts/synaptics/berlin2q.dtsi
+> > 
+> > IMHO, why bg2 and bg2q dtsi files are implemented as current
+> > style is due to the above point 1.
+> 
+> Unfortunately, this is the berlin2q devicetree showing its age, we've
+> been pushing people away from nodes that exist just to probe a driver
+> and don't provide any additional value. Something like
+> | chip-control@f7e10000 {
+> |     reg = <0xf7e10000 0x1000>;
+> | 
+> |     chip_rst: reset {
+> |         compatible = "syna,sl261x-soc-reset";
+> |         #reset-cells = <1>;
+> |     };
+> | 
+> |     chip_clk: clock {
+> |         compatible = "syna,sl261x-soc-clock";
+> |         #clock-cells = <1>;
+> |     };
+> is exactly the pattern we are trying to avoid.
+> 
+> Cheers,
+> Conor.
+> 
+> > 
+> > Kindly let me know if there's a better solution.
+> > 
+> > > From a quick check of the dts, the node with this subnode didn't also
+> > > have a system-reset node too, so there's no conflict or anything of that
+> > > nature.
+> > > 
+> > > > +    };
+> > > > diff --git a/include/dt-bindings/reset/syna,sl261x-reset.h b/include/dt-bindings/reset/syna,sl261x-reset.h
+> > > > new file mode 100644
+> > > > index 000000000000..7034f58aae5b
+> > > > --- /dev/null
+> > > > +++ b/include/dt-bindings/reset/syna,sl261x-reset.h
+> > > > @@ -0,0 +1,80 @@
+> > > > +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
+> > > > +/*
+> > > > + * Copyright (C) 2026 Synaptics Incorporated
+> > > > + *
+> > > > + * Author: Jisheng Zhang <jszhang@kernel.org>
+> > > > + */
+> > > > +
+> > > > +#ifndef _DT_BINDINGS_SL261X_RESET_H
+> > > > +#define _DT_BINDINGS_SL261X_RESET_H
+> > > > +
+> > > > +/* ACPU subsystem */
+> > > > +#define RST_SOC_SDIO0		0
+> > > > +#define RST_SOC_USB0		1
+> > > > +#define RST_SOC_EMMC		2
+> > > > +#define RST_SOC_GETH0		3
+> > > > +#define RST_SOC_SDIO1		4
+> > > > +#define RST_SOC_USB1		5
+> > > > +#define RST_SOC_GETH1		6
+> > > > +#define RST_SOC_USB0PHY		7
+> > > > +#define RST_SOC_USB0CORE	8
+> > > > +#define RST_SOC_USB0MAHB	9
+> > > > +#define RST_SOC_USB1PHY		10
+> > > > +#define RST_SOC_USB1CORE	11
+> > > > +#define RST_SOC_USB1MAHB	12
+> > > > +#define RST_SOC_UART0		13
+> > > > +#define RST_SOC_UART1		14
+> > > > +#define RST_SOC_UART2		15
+> > > > +#define RST_SOC_UART3		16
+> > > > +#define RST_SOC_I2C0		17
+> > > > +#define RST_SOC_I2C1		18
+> > > > +#define RST_SOC_SPI0		19
+> > > > +#define RST_SOC_SPI1		20
+> > > > +#define RST_SOC_SPI2		21
+> > > > +#define RST_SOC_SPI3		22
+> > > > +#define RST_SOC_APBTIMERS	23
+> > > > +#define RST_SOC_APBSYSCNT	24
+> > > > +#define RST_SOC_APBWDT		25
+> > > > +#define RST_SOC_APBGPIO		26
+> > > > +#define RST_SOC_APBDMA		27
+> > > > +#define RST_SOC_GPUCORE		28
+> > > > +#define RST_SOC_NPUCORE		29
+> > > > +#define RST_SOC_AVIOAIOG	30
+> > > > +#define RST_SOC_AVIOVPPG	31
+> > > > +#define RST_SOC_AVIOVIPG	32
+> > > > +
+> > > > +/* system subsystem */
+> > > > +#define RST_SM_ADCCORE		0
+> > > > +#define RST_SM_ADCPRST		1
+> > > > +#define RST_SM_CAN0PRST		2
+> > > > +#define RST_SM_CAN0SRST		3
+> > > > +#define RST_SM_CAN1PRST		4
+> > > > +#define RST_SM_CAN1SRST		5
+> > > > +#define RST_SM_GPIOPRST		6
+> > > > +#define RST_SM_GPIOSRST		7
+> > > > +#define RST_SM_I2CM0PRST	8
+> > > > +#define RST_SM_I2CM0SRST	9
+> > > > +#define RST_SM_I2CM1PRST	10
+> > > > +#define RST_SM_I2CM1SRST	11
+> > > > +#define RST_SM_I3CPRST		12
+> > > > +#define RST_SM_I3CSRST		13
+> > > > +#define RST_SM_PDMPRST		14
+> > > > +#define RST_SM_PDMSRST		15
+> > > > +#define RST_SM_PVTHSRST		16
+> > > > +#define RST_SM_PVTPRST		17
+> > > > +#define RST_SM_PWMPERIRST	18
+> > > > +#define RST_SM_PWMPRST		19
+> > > > +#define RST_SM_SPIMPRST		20
+> > > > +#define RST_SM_SPIMSRST		21
+> > > > +#define RST_SM_SPISPRST		22
+> > > > +#define RST_SM_SPISSRST		23
+> > > > +#define RST_SM_UART0PRST	24
+> > > > +#define RST_SM_UART0SRST	25
+> > > > +#define RST_SM_UART1PRST	26
+> > > > +#define RST_SM_UART1SRST	27
+> > > > +#define RST_SM_UART2PRST	28
+> > > > +#define RST_SM_UART2SRST	29
+> > > > +#define RST_SM_UART3PRST	30
+> > > > +#define RST_SM_UART3SRST	31
+> > > > +
+> > > > +#endif /* _DT_BINDINGS_SL261X_RESET_H */
+> > > > -- 
+> > > > 2.53.0
+> > > > 
+> > 
+> > 
 
 
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
