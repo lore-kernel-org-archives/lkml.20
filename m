@@ -1,148 +1,187 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED9E4E020E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960381; cv=none; b=F6K0maa2BdJiNAAvF8h22U/qIb0HTLK+GCV2AbWijj9+d3PHEbu8ZjqZIzuAeJr3ETRiZ4mBx6ZFhBUdnIgB2SLFifmZdn3PcUcnLXXntmvkuUhvf4Yh4vKd1eAw4M2ShLKE1FRGQ4wrn0p+v/a2diHV+m6A/UL17IzIwhGobjQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960381; c=relaxed/simple;
-	bh=kd7OAG6c1iwUyUoZxDoHr392YykdB2Kdbv1eldfS5t4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iRXH2yUROfM9Qv5Zwd4KDoOGX3UDnI2pSw7606lJRbRDbt7UO3DCL3gssdRCJQ+mAxzodeIz8/65OqrhfuaJB24MnYBe4hwpykPWN89CFE0qlAQcgDf3trCnEhVElEcb/s9v7zA6btfoTUqi8kIZHBnGprD9rSvK+XPgYThJmuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=WnQt18WX; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613934E020E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790960389; cv=pass; b=JHHY7gvGCAQ2jtF47XJgVnYs6b47fx1yklqJ3cYOm8YM/79uQhd2yaKFuw6CSnrCE2L/aL5BCpt9mQw9zM4+TNsq849A/wsQiyLJtiI2CF/IgX015WwLPcF7sYe6MvJUl5mcW/Pg44kQOVrteDjBamp9/T6Lgy1HCY3zSE+aX4M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790960389; c=relaxed/simple;
+	bh=EHkJtd8Eu6RlYIDachMsn7gB1X9/FWHuhTARdLq36AQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JwpHJjix/FB2uxlmVA+fNMOCC3eXikZL7SofrfXy63EgZcW0SeA3dzOKZhb5UPHjpgtC3xhcFBzd4R7S3yVHbBIKUx2m3LAF7bSd02AwuxlTV3ebVz16niMhR7UQy16w2HDZEGsD9zr54xs0UoT9uGzoV2347ib5w9JPIQR668I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpIzZ8Fe; arc=pass smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="WnQt18WX"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2e4c841e9bdso1483735ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:59:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpIzZ8Fe"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340d23b6a9eso595048eec.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:59:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790960386; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YkcsziPPeGFBRtiNpv8H9fi0uQOLuWzMYt3pTzw8bNu3B/n/Akm++mRfQ0X7IsqG1L
+         e683hNfXWItMOEieVTfGDvyBBUDKu2rWNwI2VBVYkhHhQd868mGIqfs4/EdXhYhRulw7
+         t1j+l9sAsRlD8jdqJhaRVDxsJAzM1xShRZsRfRcmeKjccuKAz3ErxD4bZrUVTKz+7NBS
+         1anUPu1tVejPYzgF+5T7n+iT9kE7ozsSIudTDqvVbapnyY0JPdFv+nAeYbr18AeQl0r5
+         ra3nYKKZeCWBpsqiOVZKfn8SK2DcHPA9LBzQ/iQmmlNzUYro5JtgM0rk+kOWxh1qCX/0
+         PLXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
+        fh=kvxD9cwwj2K5btMpBVHT/YTIX5mL8TvzLl3Gw0K01hI=;
+        b=d6pUoICd4YyjYko0VIrnzxCAb/xzkOp8AZEMQ1fthFXiEnBHpbalZdQWBz/BnPRbRH
+         DnYhnrW8L7GZTWYXBczSz5OSYBgQ/p9Shv04AScuagtaJFoTmd+5qU/gS4i+8aHIVl2y
+         aIKLIDv1QCj5FozLrIFxyN5YIH8rHdaJJpBacXCUyI0LA+fFyypVl+DKQEcDgqwHWEDd
+         /CnGZ4Nk3lHEbsNxO8FPjCNGxCDSWlwqVNvAWC6Tmjsf0a58YxUaYmYPP+2/7HMKH8Eu
+         +iXKt3J7sMDLeK7xhOWaw5cZiLb2op/W8pjp27Gt2jINnnasU1DIvsXjQlQMe+XBzfPq
+         clSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1790960379; x=1791565179; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZLuPtuADBRa2rGkYmsXjO56D54ZyazJQSU1TrksMpbM=;
-        b=WnQt18WXBxY5Un5WTJAy+icDNBacBGiLilSgPvD0WiwP5uRTUsgIDsVab4uWq8GyAc
-         x9OCAxPtGJ2vKQCbBm22ZFAvFuEQ8u0rYaZzdmtQQQGCnq3ccSIYwAw8bem8DJbc59Vr
-         MygpxuM43aOe8ay3Ai0QiNAsADKqMii58ZxC0h8tuQyfotDFaL6BPNek9MZVN5ONrpQG
-         rhqshmqIyid+AEgb9miio+E8Wzzn3vLJfb43w34yTOBJ6BFzP3h64EViHt+djN9KnSis
-         MwTTzSO/4aidPYuIoK5BdwRxpHEaVoIeouM2eeInfc9VdYFPp55QKX2JoKvR62PdufQO
-         9Bwg==
+        d=gmail.com; s=20251104; t=1790960386; x=1791565186; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
+        b=mpIzZ8Fewhzw18Tfl3XgkOPOU1uONme0BMiA89Cy0Ed9IromRZD2/aKV6/49tOojkt
+         GGflUKA/eaF3C19qoANFMP7tELK9jL2rH0AJG1lmNefizVTtwwjZwdzo8ZyMgz/I/M+B
+         KnQ/pZE7RI88BZBdzoO3pDZEPAt8toVzDjEzTCJHl6+5nWlRYvTdPq/3v+UH4K4TJNVc
+         AYHCmUjwexQBIbpRk+0ANUUfs7d4R5uQu8s8KBNwIsnjo77EyfVL6c+CJG2N2tLeDxHx
+         KtfgRIa1f3IDIyeh/vAF3V9IepbtNT88mQs5iCzsTglwrmcG/OmyTfV8Ge4JIzj/nDlL
+         dnTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790960379; x=1791565179;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZLuPtuADBRa2rGkYmsXjO56D54ZyazJQSU1TrksMpbM=;
-        b=mL3IaF6v5sHGlBl1ScXq82dPsnGtGz7uD2ZU74SWnkm4X9t5U5l+UjizP9i+bsCvMF
-         2CjSaq+R5gKItIFwaGB7TJ7FcQ0mcWB+xSmyoOixY4jz+o1j4m8ImaWBAY1RL3xesFUP
-         FMq3/Yr/GZObHIwBR5XJkYx+H/LSs5o0Chx++ZW5rpdX/0JOVS19+6iLmYuoXCX32w1u
-         AOTWOA2+SI+OmQpeWSrM2imswhrijXEJunYqomvOWjCiX2foytXY4uR6/BWiNU5RaKUu
-         VBOxZ4f0PcSzywNrWnX7zISJM9KQHV5HGH6DLQoQ2/SE6l3x9NbVt6R+S8fwtLYnnbyD
-         YrVA==
-X-Gm-Message-State: AFq9FYKxxTdUVy1Sm01L/E7TlxEmeV4eSOykIyOk0RZ4kKe5EKskdX9x
-	4J4D+wPbR7lY+z4nJq0f2Rr0oMcKckZW3fvSIRk6QmxeyR11KQh/gsAx8I1+k+RpRtNB6jVj4/q
-	LjGBu++kslQ==
-X-Gm-Gg: AYBFou1SZcfWrkQaoYe+59wRlta3Wt1SSn6BG5Y9/owIEL61DpdRi8dx8lPb+FSk7YL
-	Bk8FWM16X+1u71yANWjpRo1eJi11x7lG3CTVSQL9jGd5VgAo2BawTu8F0f55g5oYm26EDXQrP11
-	AN9Taf65ZZYkok4ek6tfZo2nPXRJNzn4vPdpggGakj3xdy3O97o4FQse10ptTTx97FkUwws2LtO
-	S+zWshGreHgsg1tByuIFXldGR0Y/6+ivmoS22hqEV3rEfr0b+S+huGeMozPZWpdTXR9D64jeLA2
-	FMNQtRznsKT8fGjjllmfP+H9gTYCgb45HKBNusZuVsYQE8rVOjn7Nc032IJV18lm81X+U+2Fs6t
-	NkZUyfGKWBNClNrej38n0vMshbkC4vwtIdfGGJRy6mWQ3NMaI1rgLipifcOoU3aWiCR7u38wGaV
-	clbpIxpcxbTJMnzN+OBPBUzrG95eBoCplsxs9BimVahCJ4cZyKEWqwDDQ5N/RreEGcyioPCf/CL
-	88OoMz0puosCitkItSOJlKC37UCuQ==
-X-Received: by 2002:a17:90b:2e4b:b0:3a4:b076:f0e7 with SMTP id 98e67ed59e1d1-3a6ce59f8eemr2982621a91.6.1790960379019;
-        Fri, 02 Oct 2026 09:59:39 -0700 (PDT)
-Received: from n37-012-226.byted.org ([115.190.40.12])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6cd5d88bbsm4900871a91.12.2026.10.02.09.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:59:38 -0700 (PDT)
-From: Qingwei Hu <qingwei.hu@bytedance.com>
-To: linux-riscv@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Gary Guo <gary@garyguo.net>,
-	Andrea Parri <parri.andrea@gmail.com>,
-	Guo Ren <guoren@kernel.org>,
-	Xu Lu <luxu.kernel@bytedance.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Qingwei Hu <qingwei.hu@bytedance.com>
-Subject: [PATCH v5 3/5] riscv: Optimize smp_cond_load_acquire() with Zalasr
-Date: Sat,  3 Oct 2026 00:59:08 +0800
-Message-Id: <20261002165910.3818940-4-qingwei.hu@bytedance.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261002165910.3818940-1-qingwei.hu@bytedance.com>
-References: <20261002165910.3818940-1-qingwei.hu@bytedance.com>
+        d=1e100.net; s=20260707; t=1790960386; x=1791565186;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
+        b=F+GUSik3h/BIkI7xkx9eGIB+buqCt2B097caq/Ln/p4PUAKWk6Sv6uZUIkJfUrKNtx
+         MehtnL61TdWLRhih97IKRvqTeK4C2/gCHFMcDsPc1TsO7Qjp0FU2anI8ALsqJ40TUCaH
+         0GODcnDeazTHrw10ctAgJK+DUlMnwhAJFBhbbqlLpp3YjFluZ0i6q28tZcdwFIuQfpky
+         5wDMJRdrJISn1xysf7JFiZDpjUyJu5S5hN2J9NXp/xbVbNs0+ZT0QSabEZHWE85lZMlc
+         Jn6AvxUndt+yMrfIf9qET2iM0nlEW6vZivUhGnfoZI7/22WQ0PQYJtTwwMXCkWXJtZMP
+         LJhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwlCK5qiCcOnyAQ1o4sJM9q2nPlmPJJj7HOntmeQKrgqP2+ljk7xhaAOHMQbFHhLxnMT114JyooElOxQs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeOtVx3ARZJAq280R3tiPLoaYNdn3bfGJ0V1yRMTFoDhgjme2k
+	LfR9irL9FBFd4Dg0bJL6IXCVPHx6IMuSBbg8lfTgSZSjOsbF5yoLfx6ELP6xW0YXbPlb4/RQfQ6
+	y7+FjxZ2aZoPYaP2gevHhsXu4Kpkja/g=
+X-Gm-Gg: AYBFou0rZQw0gNtVTm+5BBBb/EsAAtvQ4BznqZJtQcgzJnv+jrpXI8g1YgjQqo67epY
+	B9jQrinQt9T7jM49oGbiwjMVPs6aNfHeG5tNuYfdrEO7Fk69MflUHbD87y2Hk5Of+W/27gzlGcp
+	01GiYAjXDvd8O6IXZGJ55tV6Q8aslrA1scKJnrF5fGjo6SCGbvAp417BH+cP1NR7z623uZaUkKV
+	I+yPvrG9hwQ2auV4po0Fis4oECOqzjdZUGnDIQR5YG71wIfYzd4eY7w9YRYWebw02bE4H82kHnL
+	YJihCEWt4GOaCCdo+XuaqVITBAFpZaOWYXZZ4yTOWUfFSLJtpZbt+N8GLdCiJMzVYWcBRZEV5IT
+	udzVj6KNaCfNRDdBW4GWU5oz6aEYnA0K47yqrozIJ6r6ZOp6adAnNZArVUCwvqmW4x3AIMkQpww
+	49tiozh46UQFj1F9oyonOEoMlMrGzdP5JD6M7lAc6Ed5amS+jJbrRSzykAcQRwSA==
+X-Received: by 2002:a05:7301:468a:b0:340:f698:fd56 with SMTP id
+ 5a478bee46e88-34f1507015fmr4716231eec.2.1790960386330; Fri, 02 Oct 2026
+ 09:59:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260917-cv-v4-0-547ef5727451@nvidia.com> <20260917-cv-v4-1-547ef5727451@nvidia.com>
+In-Reply-To: <20260917-cv-v4-1-547ef5727451@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 18:59:31 +0200
+X-Gm-Features: AclHuK_QhqfJYiyMedO2piq5-wcrguEMff8QxYGEopB8UiRg5ASf89kljYpIsb8
+Message-ID: <CANiq72m0PLhT=-ODzQtX7k3jn6=XXpESDUbnHcAmR-1gFqR7uQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
+ constant expressions
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Yunhui Cui <cuiyunhui@bytedance.com>
+On Thu, Sep 17, 2026 at 10:35=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.c=
+om> wrote:
+>
+> from constants without a verbose turbofish syntax.
+> For example, `const { NonZero::new(1).unwrap() }` can be written as
 
-The generic smp_cond_load_acquire() implementation spins with relaxed
-loads and applies acquire ordering after the condition is satisfied.
-With Zalasr, each iteration can use an acquire load instead. The final
-satisfying load then provides the required ordering.
+Word wrap or newline?
 
-Use the Zalasr path only when the extension is available. Keep the
-generic relaxed loop followed by smp_acquire__after_ctrl_dep() as the
-fallback, and retain Zawrs waiting when configured. Evaluate the
-original pointer once and avoid shadowing the helper's private variable.
+> +/// Creates a value from an integer constant expression, with validity c=
+hecked at build time.
 
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
-Co-developed-by: Qingwei Hu <qingwei.hu@bytedance.com>
-Signed-off-by: Qingwei Hu <qingwei.hu@bytedance.com>
----
- arch/riscv/include/asm/barrier.h | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Maybe:
 
-diff --git a/arch/riscv/include/asm/barrier.h b/arch/riscv/include/asm/barrier.h
-index d2200e826ec00..b37ae9544d08e 100644
---- a/arch/riscv/include/asm/barrier.h
-+++ b/arch/riscv/include/asm/barrier.h
-@@ -142,6 +142,29 @@ do {									\
- 	}								\
- 	(typeof(*ptr))VAL;						\
- })
-+#define __smp_cond_load_wait(ptr, val)	__cmpwait_relaxed(ptr, val)
-+#else
-+#define __smp_cond_load_wait(...)	cpu_relax()
-+#endif
-+
-+#ifdef CONFIG_SMP
-+#define smp_cond_load_acquire(ptr, cond_expr) ({			\
-+	__auto_type __zalasr_ptr = (ptr);				\
-+	__unqual_scalar_typeof(*__zalasr_ptr) VAL;			\
-+	if (riscv_has_extension_unlikely(RISCV_ISA_EXT_ZALASR)) {	\
-+		for (;;) {						\
-+			/* The satisfying load provides acquire ordering. */ \
-+			VAL = smp_load_acquire(__zalasr_ptr);		\
-+			if (cond_expr)					\
-+				break;					\
-+			__smp_cond_load_wait(__zalasr_ptr, VAL);		\
-+		}							\
-+	} else {							\
-+		VAL = smp_cond_load_relaxed(__zalasr_ptr, cond_expr);	\
-+		smp_acquire__after_ctrl_dep();				\
-+	}								\
-+	(typeof(*__zalasr_ptr))VAL;					\
-+})
- #endif
- 
- #include <asm-generic/barrier.h>
--- 
-2.39.5
+  ... a constant value ("cv") ...
 
+since we explain that in the commit message, but not in the actual
+documentation :)
+
+I would also say "at compile time", and possibly mention it is usable
+in const context (we use "build time" for things like `build_assert!`,
+which can be much later, e.g. link time).
+
+> +    };
+> +    // Using `FromConst<V>::VALUE` means const generic expressions can't=
+ be used, since it requires
+
+Newline between these two lines?
+
+> +/// Types that can be created from an integer constant expression valida=
+ted at build time.
+
+Ditto (please see above).
+
+> +/// Implement this trait to make a type usable with [`cv!`]. Use the [`c=
+v`] macro, not this trait
+
+The second intra-doc link should also have a `!` for consistency.
+
+> +    /// Fails the build if `V` is not a valid value for `Self`.
+
+[`Self`]
+
+> +                // CAST: the macro is only used for types up to 64 bits =
+wide, so `MIN` and `MAX`
+
+"CAST: The"
+
+> +                // CAST: the assert above confirmed that `V` fits in `$t=
+ype`.
+
+Ditto.
+
+> +                // SAFETY: the assert above confirmed that `value` can b=
+e represented within `N`
+
+Ditto.
+
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+
+One thing before that, though: are these assertions expected to fail?
+
+    const X: i64 =3D 1 << 31;
+    const Y: i64 =3D cv!(1 << 31);
+    assert_eq!(X, Y);
+
+Or:
+
+    const X: u64 =3D 2 << 31;
+    const Y: u64 =3D cv!(2 << 31);
+    assert_eq!(X, Y);
+
+Because that is quite surprising, especially since we say "with the
+target type inferred from the context" in the documentation.
+
+I hope that helps & thanks Eliot for working on this!
+
+Cheers,
+Miguel
