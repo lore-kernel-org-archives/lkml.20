@@ -1,171 +1,67 @@
-Received: from mail-wr2-f38.google.com (mail-wr2-f38.google.com [74.125.225.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96204331A53
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A073B47D0;
+	Fri,  2 Oct 2026 09:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934818; cv=none; b=nNwHSoPajigMb9o1mmtdeVcW+HULuZtiNaMcfgCYyJz9/fqVHYk3cO+jEDXzas7zQ+SFROuQ1btiXcxRXP7fzRZtsFLYFvcGNTAZpCAOUdkSHag2A2fMhNjusGaV1ukNV7TdgwM+6Wgc7/bNAz6/wBKUN0aya5ElHwT5OVGxvO8=
+	t=1790934828; cv=none; b=CIOiyo3kIu3Dn/mV3J9UGquPeq4qnxyr8zaHIOJHVue3ubIYya7gKZsdzBERQQPfVkPIJ2d+RGLJUV2DEsPktY1jAJ7sn8VTdXRlj1i692wGOaQqGmrlimk8LmXXL4TOeZMveAQANEwUnroZBQmsZVuIv8Dkn9B8ejxQQZB5V4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934818; c=relaxed/simple;
-	bh=zt3Vto8vq19QPh6KBS6XymZhc2OLvztLzf1Qnpyz4zY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CTuTapLPCT6fRRPgkMsGJJj/RJWZeUbLZcQuIHxWyxFhnh/W0Df7Ts6CxFB7DaiF6LJ3LPGV2TYhO40ZYVqUxyQy6eEfkVEHbQ9vpqZgqcxfRgxtaAPfxikdK6H+Bkrb6eBqfszje32fR22irah1wfWFSdlpCAy3lj+tRBHVNmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qoCb4Zyh; arc=none smtp.client-ip=74.125.225.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790934828; c=relaxed/simple;
+	bh=gBVfS8Z97pp/piGdlIkEVhWZcOZCyLP6JZH2sHnPxI4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pnmX56NPuRcTegPmTcm/Et5t/imlvkD/uUafEtUP6dvdMhVJXZN/Od0qe/L2j7ZEh6sVwDRVnx0JO/Ps57CNFlbhevdxUOQ2nOUysCPOWrW64EMLKT1MgNs61pdElah3YpHvWYK4Y7DnDMu5LgAlwV+GtGz4zEkq7Mz15B2FTMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=EqSkZGWI; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qoCb4Zyh"
-Received: by mail-wr2-f38.google.com with SMTP id ffacd0b85a97d-482f6350f89so4502375f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:53:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790934815; x=1791539615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uNC9YCP8AT7IxNNn4b5VtrbR3K2PgY3ERGLBHswr9ww=;
-        b=qoCb4ZyhM6d94X00v+OcJ+83zrA1fVq9aFe+IDFoSMNbDmCUwt3FtRTfRNzntcV6Xu
-         isgDKuSI9UrGgUoiJrq/ALqSM5gf30gk73/F5wBU8P/rsFTozWnVIO5+wWmZvWG1BjPA
-         D7N2tBLK6eAMCe7H40XOUZzfaG1z1XwM/1WRXkoiM1/5oIFay4T9imUnfoikGZSW1ipB
-         FGjDBSEILdKQfO+8u7x8/jW+Av73I9rNHgPkaC+w5hod9WYkzaUYvGfP+MWzx4JU8hQD
-         QelYt/H+lracsgB2B6dnrgg1B0+zuIT8NEJowynBr0QesrXPFhbvozpRue0Cv8MdbpBU
-         Vgtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790934815; x=1791539615;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uNC9YCP8AT7IxNNn4b5VtrbR3K2PgY3ERGLBHswr9ww=;
-        b=1ir0izMRfbYsZPDkuMTwgkKo1/HEgzwyMWmXMia0PEfyCJcfe3yx1IhGcnQi8Mk8d2
-         CXtlYVFgXcKy/tinAyqv5jTP4Ji0yA3NiQO3C4Jvmn4NtEDBzNKDfJSLWoupyTkDUT7G
-         l/RX3RuulDm4QvOXQiPMWZFg5kfyc+fnjxAeFDyKeW3LFyLwrTRF6I7WGN5R6WS5u6uS
-         E2TvpElwB7fIakvTAm3iL9aYCszTAHApfaiNZNkO/02lSL2QmbD8eMnfwxuI0Vznp+JA
-         KqIooo2WryyxgFiFxBUjEKF9HpdBh4/iNVcwV4rzu+ZbduULoBvPpaft71eNmQ+Rxmot
-         J57Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzb4rOitnejg3GbE06QpEk7vP0nPSO686Hg7SmldqJXVPiDwodTHOHrBY7xPpMWVwByXAs/FY837TMtbwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++neJR7qs7tYd5hU44s7yCwsZYDs2xm6blouwuF3JRfUVyksgYjh
-	EAdUh/VjWh6Yv9e5+2kvKkFNaH6to2OMNibNcqRiZwAT/H1Hh+n0GmgHg2VtVv7u
-X-Gm-Gg: AYBFou0YjlSqbopZnzGJNETKkO9wlx1cFKyiLHftgcfK8XD7iV70ZaErhOtfw08utoJ
-	VuCAJTye0OFPwlsv6tOUs4WeHRs5sIItRKD8xY3eqs2ORf7Mk+VDjd56TXz0bTYbuBzzrJPMrY9
-	+CL9Le/pOl1dpCMtl2O7rPJnAimI6lGoypcB7W6KtuGxO2oCVW3uf8TF8pN05meV1I8nyhIG7TT
-	HqcQkN7YqILIpWHc900fZ5bE1EHKaJzn/oZw15EiNey21VJcGEccrJjj2VlqT9/pWTpjkKRudgH
-	appFzTxkrgp0cQqrrDQEmWRnefVQjrHPWkfKQ2ao98jHCN6FAKBm9oPKwX5CrDtc9/A1DletG1m
-	gKJjukUWeWZ4E1cD04bjqs322DKO9MsHBfC3oNcptonZrmDOSxkhcIbQeHfrmkQDS3x0rhWxtKt
-	zRi9W+shV0ufrKqSw3IJj70qBeiOA/zSC3pwWJ2PFWhWJvH+I6YBqwO8pR3u+JieCw53y/TP4jg
-	JZSjeT2FfdJ7bdQNfp/D9ULOOt8NnQZTq0GdVa43M3JVQ==
-X-Received: by 2002:a05:600c:1f87:b0:4a0:1efa:c74c with SMTP id 5b1f17b1804b1-4a0275a1d54mr38515505e9.20.1790934814461;
-        Fri, 02 Oct 2026 02:53:34 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02854073csm58305185e9.3.2026.10.02.02.53.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:53:34 -0700 (PDT)
-Date: Fri, 2 Oct 2026 10:53:33 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, kernel test robot
- <lkp@intel.com>, Josh Law <objecting@objecting.org>,
- oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org, Linux Memory
- Management List <linux-mm@kvack.org>, linux-mips@vger.kernel.org, Bradley
- Morgan <brads@mainlining.org>
-Subject: Re: arch/mips/boot/compressed/decompress.c:undefined reference to
- `__ashldi3'
-Message-ID: <20261002105333.6f77abd0@pumpkin>
-In-Reply-To: <ar4050mdKL_W8yI9@pedro-suse.tail5790ac.ts.net>
-References: <202609301826.MFaFMsmd-lkp@intel.com>
-	<20260930120159.7e4f29a82d461bd8b040454e@linux-foundation.org>
-	<ar4050mdKL_W8yI9@pedro-suse.tail5790ac.ts.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="EqSkZGWI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790934818; x=1791194018;
+	bh=gBVfS8Z97pp/piGdlIkEVhWZcOZCyLP6JZH2sHnPxI4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=EqSkZGWIt90Bk+2itJm4JwvBaT8CrCrbwDCHBxI4k36yLUcJfv9GSWAH709/R8Gg7
+	 36ANzuQJJ3qRxmHUmZV/25OoVb8oMDlmUKEvR7S1etMz3YgAoxqeEjcvTlurv8A2fw
+	 R5URhN8yHmXzS97FPQPi4N3TCphgJrBo43gyLTlBofCks0lont+uDw3HoYVakM8E4o
+	 PfvdCs+0urapr6L/hymmk9nhYTjhqo+0se7x9u7YB3G+PtmpCv+Ox+pO267pAKques
+	 VjTcJLvYEi9XxMJO0RSEC/Kf4HHIXvjOyX+TsTsiopt7ppycxhpfMJZaV5q5XICjse
+	 mWm6V1uMgNBQQ==
+Date: Fri, 02 Oct 2026 09:53:32 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 2/3] media: i2c: Add Sony IMX681 sensor driver
+Message-ID: <20261002095324.65355-1-lsa.uz@pm.me>
+In-Reply-To: <20261002082537.74084-3-lsa.uz@pm.me>
+References: <20261002082537.74084-1-lsa.uz@pm.me> <20261002082537.74084-3-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: e99c89fc6fe63ed71028b4fc2830343b8854d6c8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 1 Oct 2026 11:30:09 +0100
-Pedro Falcato <pfalcato@suse.de> wrote:
+Sashiko's review of this patch [1] went to devicetree, not linux-media. It
+asks whether the flip controls are read here without the control handler
+lock:
 
-> On Wed, Sep 30, 2026 at 12:01:59PM -0700, Andrew Morton wrote:
-> > On Wed, 30 Sep 2026 18:36:50 +0200 kernel test robot <lkp@intel.com> wrote:
-> >   
-> > > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> > > head:   551c722f40809618230001baccf219193e22fc5a
-> > > commit: d4dba3b9c03a326cfa73833d6b166aeb442f82b5 lib: decompress_bunzip2: fix 32-bit shift undefined behavior
-> > > date:   6 months ago
-> > > config: mips-randconfig-r2300-20260930 (https://download.01.org/0day-ci/archive/20260930/202609301826.MFaFMsmd-lkp@intel.com/config)
-> > > compiler: mips-linux-gcc (GCC) 15.2.0
-> > > sparse: v0.6.5-rc1
-> > > reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260930/202609301826.MFaFMsmd-lkp@intel.com/reproduce)
-> > > 
-> > > If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> > > the same patch/commit), kindly add following tags
-> > > | Fixes: d4dba3b9c03a ("lib: decompress_bunzip2: fix 32-bit shift undefined behavior")
-> > > | Reported-by: kernel test robot <lkp@intel.com>
-> > > | Closes: https://lore.kernel.org/oe-kbuild-all/202609301826.MFaFMsmd-lkp@intel.com/
-> > > 
-> > > All errors (new ones prefixed by >>):
-> > > 
-> > >    mips-linux-ld: arch/mips/boot/compressed/decompress.o: in function `get_bits':  
-> > > >> arch/mips/boot/compressed/decompress.c:(.text+0xf4): undefined reference to `__ashldi3'
-> > > >> mips-linux-ld: arch/mips/boot/compressed/decompress.c:(.text+0x168): undefined reference to `__ashldi3'  
-> > 
-> > I dunno, I'd be suspecting a toolchain issue here?
-> > 
-> > --- a/lib/decompress_bunzip2.c
-> > +++ b/lib/decompress_bunzip2.c
-> > @@ -135,7 +135,7 @@ static unsigned int INIT get_bits(struct bunzip_data *bd, char bits_wanted)
-> >  		}
-> >  		/* Avoid 32-bit overflow (dump bit buffer to top of output) */
-> >  		if (bd->inbufBitCount >= 24) {
-> > -			bits = bd->inbufBits&((1 << bd->inbufBitCount)-1);
-> > +			bits = bd->inbufBits & ((1ULL << bd->inbufBitCount) - 1);
-> >  			bits_wanted -= bd->inbufBitCount;
-> >  			bits <<= bits_wanted;
-> >  			bd->inbufBitCount = 0;
-> > @@ -146,7 +146,7 @@ static unsigned int INIT get_bits(struct bunzip_data *bd, char bits_wanted)
-> >  	}
-> >  	/* Calculate result */
-> >  	bd->inbufBitCount -= bits_wanted;
-> > -	bits |= (bd->inbufBits >> bd->inbufBitCount)&((1 << bits_wanted)-1);
-> > +	bits |= (bd->inbufBits >> bd->inbufBitCount) & ((1ULL << bits_wanted) - 1);
-> >  
-> >  	return bits;
-> >  }
-> > 
-> > 32-bit MIPS should be able to do this?  
-> 
-> FWIW the patch seems entirely bogus. I don't think you can have inbufBitCount >=
-> 32. If you could, then the patch would still not fix anything, because
-> bd->inbufBits is an (32-bit) unsigned int.
+> When a userspace process calls VIDIOC_SUBDEV_ENUM_MBUS_CODE or
+> VIDIOC_SUBDEV_S_FMT with V4L2_SUBDEV_FORMAT_TRY, the V4L2 core locks the
+> file handle's TRY state, but not the control handler.
 
-The 1 should probably be 1U (or possibly 1UL is 64bit values can happen on
-64bit) rather than 1ULL.
+The TRY state's lock is the control handler's lock. The driver sets
+sd.state_lock to ctrl_handler.lock before v4l2_subdev_init_finalize(), and
+subdev_fh_init() allocates each TRY state with sd->state_lock, so these
+ioctls hold the same mutex as S_CTRL. No change needed.
 
-Wasn't the problem being solved '1 << 31' being undefined (or UB) and one of
-the static checkers deciding that should never shift a signed value left?
-That is entirely bogus anyway.
-It is only non-portable because C allows 1's compliment and sign overpunch
-for negative integers, gcc supports neither (and I think the next C standard
-mandates 2's compliment).
+[1] https://lore.kernel.org/all/20261002091451.1476A1F000FF@smtp.kernel.org=
+/
 
-That is separate from shift right of negative values being UB to allow for
-cpu that don't have a sign replicating shift (all modern ones do).
-Think about it, for a shift/rotate left you need one of 0/carry/high-bit and
-for shift right 0/carry/low-bit so two instruction bits can select one of
-0/carry/low-bit/high-bit (giving the often implemented but undocumented shift
-left that replicates the low bit).
-
-David
-
-> 
-> As per MIPS itself, MIPS does not link ashldi3.o into the decompressor for BZ2.
-> It only does so for XZ and ZSTD.
-> 
-> Changing arch/mips/boot/compressed/Makefile would work, but since the change is
-> entirely wrong I would suggest perhaps reverting?
-> 
-> 
+Sergey
 
