@@ -1,130 +1,132 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35EE73EC804;
-	Fri,  2 Oct 2026 06:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2389C31D72E;
+	Fri,  2 Oct 2026 06:16:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921779; cv=none; b=MlH/yPl654cUEzzKFFQ0qDZ85oalqRF/pO1Ok5NYTNe5CCsvj9C2nn11XuxZMFH00nu72Z7Grii4GsLXxQCXU5RM8CI7wPWE56K6RPSggc2hnJ9ClIaNphMXa1R4aC5AV6qqaOJ7OrIGyFRzleni/NQNe+m4NN83qd9eAMRAg4M=
+	t=1790921842; cv=none; b=T8ptfVl76sUyybjNSpYPcdGOxqYkxwJOhWJ/xShAvsI2Q9odj5CA1r3cXVaWBVOgm9qwj3WstZDh0n/thA/KvDvuIrI+l4aI/6uzNc0tA4rvDZog7ug8kDJpgH/7Upp372/CweZ0MSGadW56czkPyvbCVBOFh4LhLPw0T0pJHT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790921779; c=relaxed/simple;
-	bh=n2F3ScOdCk4J5EcEF98ICSkibYoMkmmvKMdyQDe7dVc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fd7sRp5glhOjRx3rUjzO3h2zzIYbN8s6lnRpgEWS9YoDxN+1ExZiBFPWumtTfWSaL3G91S2o2XKtsMA2pZ7VZrhgUcQfKaa9ba33D3FScJP84b4qgKSuzcoJEwR9m6Dl7xcllW2YfcOpMDESKUpy+wNd6/dRwXsgaH+uExz3LKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ORIcdL5t; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790921842; c=relaxed/simple;
+	bh=AeAbliq0jIjbFeMmcYDWqBHXCoF/g9GmMVhpk3xrVxE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9Vk8NclHoKqM6UR8m8atJMN4SYzjAJexc1MPCCo1yynQkEFLQlHLbsi0umTZ7bOsYtiobCiOkVGl9X86o7yltm3dndwpOOiBARC1OCpjHh1CgZLBVqp5hefNporaGGWM1N9kNzJvmdBshYKb4+oLyjVf7+VGvOVCy27PyBsWrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dqma6TCI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ORIcdL5t"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57188169C;
-	Thu,  1 Oct 2026 23:15:57 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9EF963F763;
-	Thu,  1 Oct 2026 23:15:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790921760; bh=n2F3ScOdCk4J5EcEF98ICSkibYoMkmmvKMdyQDe7dVc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ORIcdL5tuE/H3yLMf1awoEeIaYAtuq3bPffTslRCyFDlHEyIyMGg8PAM/SZlTxdM6
-	 UUkgNj0e8USjKNQg8GIuiZbHKsUBt63MfmtRF21gxv0wH7uT5XPbyA/Uf25rWaBJRd
-	 SqwZLTtbCXIi/BvIHE9uFZFRyaiVqJ1XT+z7FS3Q=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-pm@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Subject: [PATCH v22 07/10] kernel: hibernate: Add an arch hook for preventing hiberation
-Date: Fri,  2 Oct 2026 07:15:03 +0100
-Message-ID: <20261002061507.1600269-8-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002061507.1600269-1-suzuki.poulose@arm.com>
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dqma6TCI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BB21F000FF;
+	Fri,  2 Oct 2026 06:16:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790921813;
+	bh=u/9gAXcvZw+wzTRHcyd2C2q/kOrZa5hf8+Yk0jX/Uwk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dqma6TCI0pQcbuM/AiwwahnDVha432Qz9O0PwaPS+FrXo6gfbm6mcA6PPhQnST/hF
+	 dZAvahul+BTnvNK7LMPRcdd339AQdg7WOWlxSa2I9Tw8AdKM92RJJX80Sqi7kYJPq6
+	 tUEx20BLVzKpuzrvTDzLwzedN0ACt1+XfoDP4rpQ=
+Date: Fri, 2 Oct 2026 08:16:47 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
+	bhelgaas@google.com, abelvesa@kernel.org, daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+	devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint
+ buses
+Message-ID: <2026100234-chaos-density-47c4@gregkh>
+References: <20260918152659.413268-1-elder@riscstar.com>
+ <20260918152659.413268-4-elder@riscstar.com>
+ <2026100159-retold-could-3468@gregkh>
+ <9c426950-b3f3-42fd-b31d-f14085a7d2d1@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9c426950-b3f3-42fd-b31d-f14085a7d2d1@riscstar.com>
 
-Add a hook to allow arch code disable hibernation. On arm64, with an RMM active,
-there could be pages that are delegated to the "Realm" security state. Any
-access to them are fatal (e.g., hibernate save image or restoring an image to
-a delegated page). pKVM host also has its restrictions on enabling hibernation.
+On Thu, Oct 01, 2026 at 02:19:14PM -0500, Alex Elder wrote:
+> On 10/1/26 7:06 AM, Greg KH wrote:
+> > On Fri, Sep 18, 2026 at 10:26:58AM -0500, Alex Elder wrote:
+> > > The TC9564 SoC incorporates a PCIe switch, which is connected via
+> > > the second PCI segment (0001) on the RB3gen2 platform.  The third
+> > > downstream port of that switch (pcie@3,0) has an embedded PCIe
+> > > endpoint that implements two PCIe functions.
+> > > 
+> > > The SoC implements other peripherals, and they will be accessed via
+> > > PCI endpoint bus.  Define the devicetree nodes representing these
+> > > buses, including the mapping of each BAR's address range to its
+> > > local address space.
+> > > 
+> > > The endpoint's ranges property must be defined, but it will be
+> > > updated dynamically to include all BARs.  As a result of this update,
+> > > the parent address portion of each range will reflect the specific
+> > > address assigned to the BAR.
+> > > 
+> > > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> > > Signed-off-by: Alex Elder <elder@riscstar.com>
+> > > ---
+> > >   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 30 ++++++++++++++++++++
+> > >   1 file changed, 30 insertions(+)
+> > > 
+> > > diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> > > index 3bb5fca8e2b13..5b7f5292a8864 100644
+> > > --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> > > +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> > > @@ -955,11 +955,41 @@ pcie@3,0 {
+> > >   			bus-range = <0x5 0xff>;
+> > >   			dev@0,0 {
+> > > +				compatible = "pci1179,0220";
+> > >   				reg = <0x50000 0x0 0x0 0x0 0x0>;
+> > > +				#address-cells = <3>;
+> > > +				#size-cells = <2>;
+> > > +				/* Ranges will be updated dynamically */
+> > > +				ranges = <0x0 0x0 0x0  0x83050000 0x0 0x0  0x0 0x4000>,
+> > > +					 <0x2 0x0 0x0  0x83050000 0x0 0x4000  0x0 0x80000>,
+> > > +					 <0x4 0x0 0x0  0x83050000 0x0 0x84000  0x0 0x200000>;
+> > > +
+> > > +				pci-ep-bus@4 {
+> > > +					compatible = "simple-bus";
+> > > +					#address-cells = <1>;
+> > > +					#size-cells = <1>;
+> > > +					/* Map 0x0-0x1fffff to BAR 4 */
+> > > +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
+> > > +				};
+> > >   			};
+> > >   			dev@0,1 {
+> > > +				compatible = "pci1179,0220";
+> > >   				reg = <0x50100 0x0 0x0 0x0 0x0>;
+> > > +				#address-cells = <3>;
+> > > +				#size-cells = <2>;
+> > > +				/* Ranges will be updated dynamically */
+> > > +				ranges = <0x0 0x0 0x0  0x83050100 0x0 0x0  0x0 0x4000>,
+> > > +					 <0x2 0x0 0x0  0x83050100 0x0 0x4000  0x0 0x80000>,
+> > > +					 <0x4 0x0 0x0  0x83050100 0x0 0x84000  0x0 0x200000>;
+> > > +
+> > > +				pci-ep-bus@4 {
+> > > +					compatible = "simple-bus";
+> > > +					#address-cells = <1>;
+> > > +					#size-cells = <1>;
+> > > +					/* Map 0x0-0x1fffff to BAR 4 */
+> > > +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
+> > > +				};
+> > >   			};
+> > >   		};
+> > >   	};
+> > > -- 
+> > > 2.53.0
+> > > 
+> > 
+> > This doesn't apply to the char-misc-testing branch :(
+> 
+> Sorry about that.  It does apply to to the for-next branch for
+> Qualcomm, so this should probably get merged through that path.
+> 
+> https://lore.kernel.org/lkml/20260918152659.413268-1-elder@riscstar.com/
 
-Add a weak arch hook to let the architectures have a say.
-
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>
-Cc: linux-pm@vger.kernel.org
-Cc: Sudeep Holla <sudeep.holla@kernel.org>
-Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
----
- include/linux/suspend.h  | 1 +
- kernel/power/hibernate.c | 8 +++++++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/suspend.h b/include/linux/suspend.h
-index b02876f1ae38a..a3815027773c5 100644
---- a/include/linux/suspend.h
-+++ b/include/linux/suspend.h
-@@ -401,6 +401,7 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data);
- int hibernate_resume_nonboot_cpu_disable(void);
- int arch_hibernation_header_save(void *addr, unsigned int max_size);
- int arch_hibernation_header_restore(void *addr);
-+bool arch_hibernation_available(void);
- 
- #else /* CONFIG_HIBERNATION */
- static inline void register_nosave_region(unsigned long b, unsigned long e) {}
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index d2479c69d71a4..9d9d53828542f 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -106,11 +106,17 @@ bool hibernation_in_progress(void)
- 	return !atomic_read(&hibernate_atomic);
- }
- 
-+__weak bool arch_hibernation_available(void)
-+{
-+	return true;
-+}
-+
- bool hibernation_available(void)
- {
- 	return nohibernate == 0 &&
- 		!security_locked_down(LOCKDOWN_HIBERNATION) &&
--		!secretmem_active() && !cxl_mem_active();
-+		!secretmem_active() && !cxl_mem_active() &&
-+		arch_hibernation_available();
- }
- 
- /**
--- 
-2.43.0
-
+I suggest sending it to whoever maintains that tree.
