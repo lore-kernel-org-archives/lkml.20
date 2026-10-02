@@ -1,43 +1,38 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD2934F24E;
-	Fri,  2 Oct 2026 07:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12E4442B1F;
+	Fri,  2 Oct 2026 07:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927749; cv=none; b=FU+e/GJ3nIOH/gCDXtc9DTJAKUpY9NQm9A0HBTX5xV8pLIQ1GSd7Skav3mmlM8dmE33tpKURIiozNCIjV/HDcKCUYCoStiJkSAeaI9eaqNT3geh0k53yZm9Q7DYuWJGvFrLkmw6lt74NU47N+F7HaHHRYg+8+7F6d7GBFssTuhA=
+	t=1790927756; cv=none; b=sx6iGARrdQjhjyxSyXpr9F2/K+TIwwpqlNZgwHmdGMxbumqXOwztH6Oc7dVxXpNsCK9R9rpcmP4+7wEApPsvWRLG+zJjV7HznyP4jEv1d/XQZz6tUHpU5SNck5lb++uqpI430HX+yai+0hfx3QeuqeETYOKPmFOjSEMvVl/xDOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927749; c=relaxed/simple;
-	bh=FMPbCZkDohbMH1ilSpGh1oB+EV4WDprAkdAnFaaMO0g=;
+	s=arc-20240116; t=1790927756; c=relaxed/simple;
+	bh=9zPAF1x7w4b4O/wUuZ7yYfzbblzDXBR8AlFVrlY/a3E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=st9VXVPnoREmWVMuOBfCn2C4mAOQlBOZ5pO4l9J1pfXv0c2FUg/JX3PRwwqE0INyHex7mSJirrHyyVJ/Nfq1N+h6Xw/AOWXGAevDdWnBsB7hpWaORx/75M8kElgqbX/dedZuLon5+/ws+cbpScnZhb3sr05oTm9kIkOob4uKz3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=iHLlfZY4; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=n+vYD2hpf4P+BXo/DA3VVhK06/ap0qQy10Z5r2Nve5xGuVhb6mxBA/h1budjvozz/kPvkb6VZy9Iu/QLDpPYkrG/72yZVIwD+fZGEBEnOp0qvIzsliEPkSjbFttEe6BzaQqWzvDBT8EtjGxQZTbIXDiaGEGZIliLVlOumCcwS08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RAPRfZY9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="iHLlfZY4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=Sa2n4mUQDXdRZHzBFPcaMMv0stwwLkzEYvfnu1Cc3/E=; 
-	b=iHLlfZY40xMfnZ18XIw5ZrH+PFjT0mUtuWpTULcGYq1QKXnu67+ZBWcUo1paJFGjEy3u9wHfT3O
-	xdREruzCOVY5eCHiu9R8MvRH303/uVQGLVb0nBpatDIw9hKk63vXrd9y/l94LN19U3I/IUZpHZJUk
-	oR2YSeBZlbGkitlKOEoNpmcU8yseEo5QLd7UYcPeQ0vzvi9SAJ1xRf9faLn3OaKJttLO/N3pqLnBQ
-	pb7qeRJjk//Gqvb5EL4xwsN7mWelbPMCyuBnhKWi0kV+cWSRnmeWibl6FWKRUw0f+AEYyY3iyi3En
-	5IjVr842hPLaR72+L73I88Je1h/OZNR4wuLg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xCY7K-00000002m7Q-0pC6;
-	Fri, 02 Oct 2026 15:55:43 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 17:55:42 +1000
-Date: Fri, 2 Oct 2026 17:55:42 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv2] crypto: talitos: fix probe IRQ ordering
-Message-ID: <ar9jfjxGNrFr0e49@gondor.apana.org.au>
-References: <20260924235119.141323-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RAPRfZY9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D741F000FF;
+	Fri,  2 Oct 2026 07:55:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790927754;
+	bh=MF9VnqJR9GzmtbMFyFGPlraGF5EnGO22S5qcs3GtAaU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RAPRfZY9TJQFcnIJk3BoK4Q4I6EzfZxMPHWOOVE6WmchRlt0e+Y4sPuJGp/HzOULr
+	 Ut5LxLk3Bf764kx2VzE4wbL1uk4wB+p4qvXIiGGlGSMXedHyLn+ghrDkPaYI1jEqXB
+	 +RfBAR8dViW6IbzjX7SRAXMW0PRisI/0vncIaKMg=
+Date: Fri, 2 Oct 2026 09:55:49 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] staging: rtl8723bs: refactor
+ PHY_ConvertTxPowerLimitToPowerIndex()
+Message-ID: <2026100229-cilantro-facing-f434@gregkh>
+References: <20261002-rtl8723bs-tx-pwr-limit-v2-0-48b180fb6f7f@gmail.com>
+ <2026100211-scenic-eligibly-58f5@gregkh>
+ <ar9fwqJ04CzzSy4L@debian>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,35 +41,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260924235119.141323-1-rosenp@gmail.com>
+In-Reply-To: <ar9fwqJ04CzzSy4L@debian>
 
-On Thu, Sep 24, 2026 at 04:51:19PM -0700, Rosen Penev wrote:
-> The talitos interrupt handlers schedule priv->done_task[] via
-> tasklet_schedule().  In probe(), talitos_probe_irq() ran before
-> tasklet_init(), so an interrupt arriving during that window (a shared
-> IRQ, or a completion pending from an earlier transmission) would
-> schedule an uninitialized tasklet.
+On Fri, Oct 02, 2026 at 04:39:46AM -0300, Leonardo Martins Martins wrote:
+> > When doing logic refactoring, testing on the real hardware is best.
 > 
-> Resolve the IRQ numbers before the tasklet_init() calls so the
-> done_task[] selection can see the secondary IRQ, and only request the
-> IRQs after the channel fifos are allocated and the device is
-> initialized.  Every structure the handlers touch is then fully set up
-> before interrupts are enabled.  This matches remove(), which frees the
-> IRQs before killing the tasklets.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v2: reshuffle code to avoid NULL derefs
->  drivers/crypto/talitos.c | 33 +++++++++++++++++++++++----------
->  1 file changed, 23 insertions(+), 10 deletions(-)
+> Makes sense, so should I be dropping patch 2 where the logic is
+> refactored, but still do patch 3 where the inner loop is extracted into
+> __phy_tx_power_limit_to_index() to reduce all the indentations?
 
-Please check
+Yes, that's probably best as it's easiest to "prove" it's correct by
+just looking at it.
 
-https://sashiko.dev/#/patchset/20260924235119.141323-1-rosenp%40gmail.com
+thanks,
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+greg k-h
