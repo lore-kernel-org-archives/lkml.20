@@ -1,121 +1,154 @@
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C84439F75
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5987D439014
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926648; cv=none; b=fHXL3VoGhNYrWfxU8ysFoXhRH/4IuLrxN36GuRkZl4ehfVC+BEQHnOb5dxqAG1X3qPm3e/JfFQxWX9T79hSVAum8oocRTUkq/ilGxf/MFTcjkQCK+PYpEu6DKnI6XiJzZYiTLpyqklbSAsqLOV4Nhjuha7DOmuruQB/omWrDEXg=
+	t=1790926664; cv=none; b=llC3Jr7a8Nz5Z6u6Xtsb7rzMW/k3Yk+ktzdXunO/KvNHaqpDf1NH2Kr4mX5EmXt+G+iYcMxWkru1cJKJegyod9dFaEmhXIxnyOonpvzXMKBRbLnDe91VtY5E4o0iWg8xrEcJq6EF8PksmOUpxbR2BCtPAdBISriC8TF96P6YrmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926648; c=relaxed/simple;
-	bh=VNSQiIS78JUU7jt6pwfNNsQymSeowY/qAakTDZ+Qxos=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hOamUBrqjGe/4rEL+FiykehtxU6dCq5f4xAdStS89MD15v1yZyxJnLNuKIj+lPLTZJW3ufpJBkyswxemqt3KByNFeoz5cW1sxyvnWFV+8KG1EQZf+1+L0IYhpOcYi3fWYrLNXqW1PxFENlpYoRMR/aE89FKaBBSmoMpw1riW//Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NRKrm1Eh; arc=none smtp.client-ip=91.218.175.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790926664; c=relaxed/simple;
+	bh=sYAyqQ6f9bRmVhsxj1veuLunk3nA6ckSjNhuKUxpq88=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rS0YeXo3BiwooZ23XUWjRe7o/BFLj59iW75UZAn6oVUiOsOlqZM72dHddtbiN8i1gbiuba7D9prkn2Z+ZbmUblu7m/2zOZDWeWhh2H41WbviD0tnrBSMoNWgfUWGdJFMylth4Gx0DQQ7fd9jIVOKz5h71b4u6r9aXQgoJU8Tmvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EWZxQ6cU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZeYoPVhP; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NRKrm1Eh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VNSQiIS78JUU7jt6pwfNNsQymSeowY/qAakTDZ+Qxos=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790926644; v=1; x=1791531444;
- b=NRKrm1EhkfYLkEFXQFQnauFXEN/06F8qL2cFZBkaxVNpb4qIwkeIDKoUKIa4AqjVquMA8jhn
- InwY0KXv6JKzPBY3HAtOxV1o91fZ2AERXPee3SoD2+hcb/8OdEodtWJrKLzU3UsxJJ5ZasOmZJT
- v8tSxPlyLT8+dVVNcm94VlR4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eac74f2a29dc7846;
-	Fri, 02 Oct 2026 07:37:23 +0000
-X-Mizu-Trace-ID: eac74f2a29dc7846
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5363165a-fdc2-451d-96f0-43d2d70e19de@linux.dev>
-Date: Fri, 2 Oct 2026 09:36:27 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EWZxQ6cU";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZeYoPVhP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790926662;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WV95wAdEBW1v5k5upi/D6jheWF0Dkl/DxQsG1HnT/70=;
+	b=EWZxQ6cUE+CJ2uDDFjubjrlIYY3GLy1X3MSekZmdFl5YK8f/4AjYbqTi4QyihkvNhqF8sI
+	dhhodhftzhl+TX36Gv3/kWKRlQgDqmYo0wLHC6ncbliWu0yr/wWoLTOkmp2rRYM4qY+M4Q
+	SveOuTxdK2aI3nfi2aaXSjWMBZM0gao=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-624-jKlIcJCyN4mHcwiIWnmGXw-1; Fri, 02 Oct 2026 03:37:40 -0400
+X-MC-Unique: jKlIcJCyN4mHcwiIWnmGXw-1
+X-Mimecast-MFC-AGG-ID: jKlIcJCyN4mHcwiIWnmGXw_1790926660
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a01b112fa2so28102755e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:37:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790926659; x=1791531459; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WV95wAdEBW1v5k5upi/D6jheWF0Dkl/DxQsG1HnT/70=;
+        b=ZeYoPVhPeBCYI4tJMUHvSWBzHL0JWHBXuNqDLibDCcGpPKpg5NROpaBTSMW2aFKpPD
+         VyDJt8AapoKubq7MHS7dqoQtIK/S63mb1iOI7J9my9KagNLCVPGJ9XSlENnUADsA9VLB
+         ivMtSeQu5WY0cJYks46WVRAnAHSAR/3d5wC0YssIgl53Je5G0e+aJW20mAt6NRUwvnZJ
+         +WntoqaX+z6IJ2zJFYXq0pe2C1/TCnHeUQjVWFEDLfz1Mdqkrl6hUcIwH49nkiyOO28J
+         8lnKYe1WRTA06/znEOoGrvxs/vKv9DqYJrAyjDIof5stnVC3QMU7aVUynEMf//T/B7Rl
+         ia1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790926659; x=1791531459;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WV95wAdEBW1v5k5upi/D6jheWF0Dkl/DxQsG1HnT/70=;
+        b=a8NXri9OzJBm2grpUR4/1mpy068XwivHLAu8noSxehss0rp/+bAEvgbyAs0vy3Z6Ml
+         2p8nxUUWyWSkoo55uQft5+87bU+R+wl5LV4YzORSmeSLSg3T65dX7oad+F54YUGn+Y8O
+         0TuwzoxAKfL/s8MoWfIs03kHf1cz+ieAe9mgmU2HqQ9eRNl9yoFHZkCivu2nHHoL1d87
+         qTKKaGZ7oSQ7s80AjU5pe/8dxNEcqxXjinkkbL5KoAYtlB0DojmYmYYsgFgNNfVOEonb
+         cX72EznorByFISJbL8ff9NFwpNcRLSwFQK7QYSG7hxORapwemaA6wfZtTrEvp/9FUYiu
+         Vx/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwoJqpLBzG5ZGMu6/Z0b7cSuY63FXXDZwCe2/bJtnTDxlzoBrRu8M2tHpK+UCn6Aks6/PSEBBOa53WOE1Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLi6v2YPXJqP+AbUN+Bagkf2X8biUywqaWwRKgfzL+1oDf0NW5
+	6R+Ro2tVdw5Bwc7CRNUp2LIw2R6fUoE50ScyyosB8h4ysgiwwbOjLtooTgzIsAamFWL9cj2wzAd
+	cYJvLbh4oMxhIDgEzEmgozTfsY7H6FHBYAKlLQYOpxDScyhKuwyqqMDRjIHBfzwcJMw==
+X-Gm-Gg: AYBFou0/tyI8fZGuRtPRCoW7pUglIH1DelOybGWKZ1PLFT0p4h9Biw8C0eai8J6V0/s
+	l4WcIIUfNJ2y6iqK5eI1kpRbn1CGPTQ1uaIRYm/jrhxWJW5iDvp7dCvh6/YZ11fSaWix9pUFd9c
+	ZgsPofrt5iYi+40b7PGmKPlqiFoxRUBdZ/wrf5GTmCSQ8Y9NLr0el7RM5JFCJkhq1fvlL2ihVVE
+	C50PlgqxPcr/a0Bi0hkRetZUEa4OSAy9+u3lS0i+PZzGsVMMYIGfqkwkiHBpPFbFeFPVk4cSddQ
+	bFUOGtwb1nxbxDWl1QsfW5ZwzmxPKXQiEsJmAd5TWIwhtFKCF+xaQE5WMq4Z1Lfu82naZcc3aH9
+	ahB50xMhiPWjCz/Xd7VDMVnOycJDFxNlOdO8leqBYA3vylhD4QjFhc1qDc/sz2EXy8w==
+X-Received: by 2002:a05:600c:4e8e:b0:49f:fe79:62f9 with SMTP id 5b1f17b1804b1-4a0276afe79mr34251335e9.25.1790926659528;
+        Fri, 02 Oct 2026 00:37:39 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e8e:b0:49f:fe79:62f9 with SMTP id 5b1f17b1804b1-4a0276afe79mr34250535e9.25.1790926658971;
+        Fri, 02 Oct 2026 00:37:38 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027da120bsm63581875e9.0.2026.10.02.00.37.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 00:37:38 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Maxime Ripard
+ <mripard@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
+ Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+In-Reply-To: <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+ <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
+ <arrAqg5n87INTHE6@beelink>
+ <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
+ <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <828c9108-2db1-45a6-9301-19159a094301@linaro.org> <ar4CRTMQGs5_nGKY@houat>
+ <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
+Date: Fri, 02 Oct 2026 09:37:37 +0200
+Message-ID: <xlv1cxtsft8e.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] soundwire: qcom: add multi-master support
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- robh@kernel.org, vkoul@kernel.org
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
- yung-chuan.liao@linux.intel.com, prasad.kumpatla@oss.qualcomm.com,
- jingyi.wang@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
- quic_srivasam@quicinc.com, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <20261001093806.634862-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261001093806.634862-3-srinivas.kandagatla@oss.qualcomm.com>
- <0ca6ee6a-020a-4705-8323-d524a813d3b5@linux.dev>
- <586046f1-8439-4353-b60d-dab6356de3ba@oss.qualcomm.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <586046f1-8439-4353-b60d-dab6356de3ba@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 10/1/26 13:06, Srinivas Kandagatla wrote:
-> 
-> 
-> On 10/1/26 11:53 AM, Pierre-Louis Bossart wrote:
->>
->>> @@ -192,6 +194,13 @@ struct qcom_swrm_ctrl {
->>>  	const unsigned int *reg_layout;
->>>  	void __iomem *mmio;
->>>  	struct reset_control *audio_cgcr;
->>> +	u8 num_lanes;
->>> +	bool is_dependent;
->>> +	struct qcom_swrm_ctrl *peer_ctrl;
->>> +	u8 peer_first_lane;
->>> +	u8 num_peer_lanes;
->>> +	bool is_primary;
->>> +	u32 peer_dpn_offset;
->>
->> nit-pick: do you need both is_dependent and is_primary? One would think
->> that a single variable would be enough, no?
-> I did try to do that which made the code bit confusing to read.
+Neil Armstrong <neil.armstrong@linaro.org> writes:
 
-ok
+Hello Neil,
 
->> also without context it's hard to understand if lanes are independent in
->> terms of transport or not, not sure what 'peer' means in a multi-master
->> setup with a primary controller and N dependent ones? Code like this
-> For now its one, but Yes, technically we could have more dependent ones,
-> I wanted to keep the patchset simple and right now the only have one
-> peer and i dont know if we have other setups with more dependent
-> controrllers.
+> On 10/1/26 08:50, Maxime Ripard wrote:
 
-even with 2 controllers, the 'peer' naming conveys a concept of equal
-status/rank/ability, which isn't quite the case, is it?
+[...]
 
->> function below is a bit cryptic...
->>
->>> +static struct qcom_swrm_ctrl *
->>> +qcom_swrm_port_target(struct qcom_swrm_ctrl *ctrl, u8 port_num, u32 *reg)
->>> +{
->>> +	u8 lane = ctrl->pconfig[port_num].lane_control;
->>> +
->>> +	if (ctrl->peer_ctrl && lane >= ctrl->peer_first_lane &&
->>> +	    lane < ctrl->peer_first_lane + ctrl->num_peer_lanes) {
+>>>
+>>> I don't want to add a supplementary maintenance burden for the sake of using a cool
+>>> technology which has serious drawbacks and dependencies on user-space even if looks
+>>> really cool.
+>> 
+>> Spoiler alert: v2 won't. I've got the in-kernel loader to work and thus
+>> you can have a built-in panel driver that works without user-space
+>> intervention. So this is not a topic of discussion anymore.
+>
+> It will still have users-space dependency, meaning the BPF files will need to
+> exist in the fs when drivers probes.
+>
 
-and what I meant here is that it looks like there's a special
-distribution of traffic between lanes?
+It doesn't have to AFAIU. The BPF programs could be built into the kernel
+image, just like firmware binaries could be built-in as well.
 
-This is not really well-documented in the MIPI spec. On the Intel side
-traffic can be moved at will between lanes, but it's not a requirement.
-There's also no MIPI guidance on how lanes are used e.g.
-a) a new lane is used only when bandwidth is exhausted on existing lanes or
-b) all lanes are used and clock is scaled according to bandwidth needs.
+> Neil
+>
 
->>> +		*reg -= ctrl->peer_dpn_offset;
->>> +		return ctrl->peer_ctrl;
->>> +	}
->>> +	return ctrl;
->>> +}
->>
->>
-> 
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
