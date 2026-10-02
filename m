@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA8C49AA24
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA7D49B1E7
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:08:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946524; cv=none; b=QNBwGPAkcFCpbc5/GeezZ7+eZv6qLjcQ0wwNVTlJcu97wq6NCjTBOK+xLKBZG/0RM+IQJYYrUdZ1UBDpRDqfT+GaOQxh63l6sCF+nsxZWNNzAmLcEhnBJ21zSOMvc48WKWHSSObPt+0+46j+kPg8wLUN9tK1/f9503qOmjIQCw0=
+	t=1790946534; cv=none; b=qvzD0p7cO2UISZzmVhpY739PX2JVkIxsd6J8/A5CdxTj6uvqStrEqTau11U70cV7D3qqMF4eRRSLFXPe9lEr1IjyYtRS3n0oSxtH4A8whszfli6cDdJcZhx3bWGEtQzCadI+f0q470GBNvmWDYwKmmNkM93s3FdASG3rFndpcQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946524; c=relaxed/simple;
-	bh=BsOmyTLRxXj5mV8UAW7p0quPoKvfnvvSiG/iz/+xEYU=;
+	s=arc-20240116; t=1790946534; c=relaxed/simple;
+	bh=AYSBucpVLMJSSeh/qGfbTNQGoN6rCWTOBYR7pNP9scQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HlKWMTIsBYDyq7BNkRx9XcPuGZzVRcKhutLozaJOkVbdtQIeLf42dKcuewHPtWoan9NY/GHIp/ei7jSE/Jnh6qkCdmVJtOEWD48gBG7SAATaxwphk7piA66+T/5aCYXwl5PyzbXREyRNrRklI4oWrpa7zGuuuGchwc8DboPXL2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IXMQifgX; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=SwHMQaInU7C8DLOdCSoHRGyb2XPzfM4jUf1saGwl2K+hHsVPRezx0xG8HlE606mB1q6QIvqnfyXaKXEVCjBuDEhUFMQP1rLg413KJke7yF7tr4r5iUTCa5xFlBvilBMvbLr0mvmSmkCN3gWeQhTMGDfQycSFGcZJzl1X2kAPZ/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=T7nXP197; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IXMQifgX"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="T7nXP197"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790946514;
+	s=mimecast20190719; t=1790946526;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=czBirh9gsxqopfneZqb59N/cedGnNYhxy5ysmWPWLCU=;
-	b=IXMQifgXXKzi149/JNSXkdp0DCZ0Plfz51LYnL4oKH7qJYwwCRJNzQh6isV5Ao2W3qyBPW
-	W+yCIkzBUgRoOFDDevdKbqeP0VHFfsTE1evTIfCZQeSOQTgBcxtji+uQl+I/0tTyO5zUOg
-	jj8UmTAG8K4Z6bQ80vxXvOAauIlMw64=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=eN97Wzb1hwaGIFrjsjx3HavMNO3OT/k+Ap5QlKepMp4=;
+	b=T7nXP1975stUxQPU8LNufexFoy3qPG5tGrSawMRaEf9/OjY1KPZI2c1JrlU3opRUNiJaAW
+	fTBpSMkfh9v3JgktAeOtNmCLTF/RSV60s14VFnkryzoVChIlrmqCP+2jPLImUOHJ1bfSeD
+	HNYZs4JySmS71+graldlWwDEnHpvNW4=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-418-1JIUFIEjORuZQTPXb4QapQ-1; Fri,
- 02 Oct 2026 09:08:29 -0400
-X-MC-Unique: 1JIUFIEjORuZQTPXb4QapQ-1
-X-Mimecast-MFC-AGG-ID: 1JIUFIEjORuZQTPXb4QapQ_1790946505
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-361-zxc_ipEqP0ychNpcLssyoA-1; Fri,
+ 02 Oct 2026 09:08:41 -0400
+X-MC-Unique: zxc_ipEqP0ychNpcLssyoA-1
+X-Mimecast-MFC-AGG-ID: zxc_ipEqP0ychNpcLssyoA_1790946517
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C60061954B30;
-	Fri,  2 Oct 2026 13:08:24 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AC6801954219;
+	Fri,  2 Oct 2026 13:08:37 +0000 (UTC)
 Received: from ShadowPeak.redhat.com (unknown [10.44.32.39])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7AFD2433;
-	Fri,  2 Oct 2026 13:08:18 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AC7F2754;
+	Fri,  2 Oct 2026 13:08:31 +0000 (UTC)
 From: Petr Oros <poros@redhat.com>
 To: netdev@vger.kernel.org
 Cc: Petr Oros <poros@redhat.com>,
@@ -69,9 +69,9 @@ Cc: Petr Oros <poros@redhat.com>,
 	intel-wired-lan@lists.osuosl.org,
 	linux-kernel@vger.kernel.org,
 	bpf@vger.kernel.org
-Subject: [PATCH iwl-net 03/10] ice: stop the LAN Tx queues when ice_vsi_open() fails
-Date: Fri,  2 Oct 2026 15:07:45 +0200
-Message-ID: <20261002130752.2597259-4-poros@redhat.com>
+Subject: [PATCH iwl-net 05/10] ice: report VF tx_dropped with tx_errors instead of tx_discards
+Date: Fri,  2 Oct 2026 15:07:47 +0200
+Message-ID: <20261002130752.2597259-6-poros@redhat.com>
 In-Reply-To: <20261002130752.2597259-1-poros@redhat.com>
 References: <20261002130752.2597259-1-poros@redhat.com>
 Precedence: bulk
@@ -83,68 +83,46 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-ice_vsi_cfg_lan() adds the LAN (and XDP) Tx queues to the scheduler and
-enables them in hardware. If anything after it fails in ice_vsi_open(),
-for example requesting the MSI-X vectors, the error path only frees the
-ring memory and leaves the queues configured. Every following open then
-fails to add the same queues again and the netdev can not be brought up
-until the driver is reloaded:
+ice_get_vf_stats() fills tx_dropped from eth_stats.tx_discards, which
+ice_update_eth_stats() never updates because the GLV_TDPC register it
+would come from is not implemented in E810 hardware. The Tx drops of a
+VF, such as switch drops on an anti spoof violation, malicious driver
+drops or TTL expiry, are counted by GLV_TEPC into eth_stats.tx_errors
+instead, so the VF always reports zero dropped packets.
 
-  ice 0000:04:00.2: Failed to set LAN Tx queue context, error: -5
-  ice 0000:04:00.2 enp4s0f2np2: Failed to open VSI 0x0010 on switch 0x0002
+With spoof checking on, a VF sending 60 valid frames and 30 frames with
+a forged source MAC shows:
 
-Stop the Tx queues on the error paths that run after ice_vsi_cfg_lan().
-The ice_up_complete() failure path already does it through ice_down(),
-so let it skip the new step.
+  vf 0 ... spoof checking on, link-state auto, trust off
+    TX: bytes  packets   dropped
+          3600       60        0
 
-There is no i40e counterpart of this fix, i40e does not add its Tx
-queues through the admin queue. It was found while verifying the
-previous patch. With the IRQ unwind fixed the warnings were gone, but
-the netdev still could not be opened again after the forced
-request_irq failure.
+Report tx_errors as tx_dropped, the VF stats have no separate error
+field. With the change the same test reports 30 dropped packets.
 
-Fixes: cdedef59deb0 ("ice: Configure VSIs for Tx/Rx")
+i40e fixed the same issue in commit 50b2af451597 ("i40e: report VF
+tx_dropped with tx_errors instead of tx_discards").
+
+Fixes: 730fdea40bef ("ice: implement VF stats NDO")
 Assisted-by: LLM
 Signed-off-by: Petr Oros <poros@redhat.com>
 ---
- drivers/net/ethernet/intel/ice/ice_main.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_sriov.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
-index d246cde36ae726..e62a8f544345a3 100644
---- a/drivers/net/ethernet/intel/ice/ice_main.c
-+++ b/drivers/net/ethernet/intel/ice/ice_main.c
-@@ -7561,13 +7561,13 @@ int ice_vsi_open(struct ice_vsi *vsi)
+diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
+index b21279f0f5f1e1..8faddf8ba0d523 100644
+--- a/drivers/net/ethernet/intel/ice/ice_sriov.c
++++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
+@@ -1640,7 +1640,7 @@ int ice_get_vf_stats(struct net_device *netdev, int vf_id,
+ 	vf_stats->broadcast  = stats->rx_broadcast;
+ 	vf_stats->multicast  = stats->rx_multicast;
+ 	vf_stats->rx_dropped = stats->rx_discards;
+-	vf_stats->tx_dropped = stats->tx_discards;
++	vf_stats->tx_dropped = stats->tx_errors;
  
- 	err = ice_vsi_cfg_lan(vsi);
- 	if (err)
--		goto err_setup_rx;
-+		goto err_stop_tx;
- 
- 	snprintf(int_name, sizeof(int_name) - 1, "%s-%s",
- 		 dev_driver_string(ice_pf_to_dev(pf)), vsi->netdev->name);
- 	err = ice_vsi_req_irq_msix(vsi, int_name);
- 	if (err)
--		goto err_setup_rx;
-+		goto err_stop_tx;
- 
- 	if (bitmap_empty(pf->txtime_txqs, pf->max_pf_txqs))
- 		ice_vsi_cfg_netdev_tc(vsi, vsi->tc_cfg.ena_tc);
-@@ -7593,8 +7593,14 @@ int ice_vsi_open(struct ice_vsi *vsi)
- 
- err_up_complete:
- 	ice_down(vsi);
-+	ice_vsi_free_irq(vsi);
-+	goto err_setup_rx;
- err_set_qs:
- 	ice_vsi_free_irq(vsi);
-+err_stop_tx:
-+	ice_vsi_stop_lan_tx_rings(vsi, ICE_NO_RESET, 0);
-+	if (vsi->xdp_rings)
-+		ice_vsi_stop_xdp_tx_rings(vsi);
- err_setup_rx:
- 	ice_vsi_free_rx_rings(vsi);
- err_setup_tx:
+ out_put_vf:
+ 	ice_put_vf(vf);
 -- 
 2.55.0
 
