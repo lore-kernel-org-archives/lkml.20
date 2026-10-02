@@ -1,109 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D67C41D63F;
-	Fri,  2 Oct 2026 12:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E872B44E055
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945909; cv=none; b=NzVGJ9vNXY1nuGQONSRPVsLKfWdp5SyRbQCyxvZ7iik4YzFzHdGxED7L8c5f3TBqP/AxY1oa44+C3sZB04YBwi/OL5U73y4IWCMbTTU1j42AEi8UHqViphrT42dauaOxIpw10k6Wfk5IIxTHW31cSStFgALG8/hqB4zZkQUzFeY=
+	t=1790945912; cv=none; b=Lt2ddBUn5tUK2KUoJYgHQCdx1vhp3orfkBmYkkoeDoH/hIbQ4ga9dvaiTrJeeeqXaJDBF3t9WDRTqOolGX2yIZI44JXfe7obplQfyTfuLBPwKrWJFH4J2Vg8ggg3usuTMIrwIm1hBLFBb7EyKe/XqXETahrLxdDk8sxsY2QzJMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945909; c=relaxed/simple;
-	bh=DpUR6uOIndM4PlTAVW6OCY4m4wz4r9tXf0VQ3uJ6zOU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HDL5FIiubaQJMT6y6jQ/ZM9mCoJfXTBNoLEZKzk6pCF5/Zh58Sf0ErZkxH2M87urpVRE2mjnOK7D9gcYW63JZCMs5BQlemGXEQZ0o79fOFSPNKY3QThOKQOyb0MKvSz5KMW4TXMn3EyhOhFWHSBjqsmdPR6U2FcDLPJEhHe4p3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kNI4b4Ky; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kNI4b4Ky"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790945907; x=1822481907;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DpUR6uOIndM4PlTAVW6OCY4m4wz4r9tXf0VQ3uJ6zOU=;
-  b=kNI4b4KyfeVh6YyigBYl835zhOCZF8mydXBryA0K7M+rOz88NIXJzxR3
-   y8UO6V8iRH9YRLsuWg2wNvi6xwy9nNRsuK3U8TxN7CZslPyLcsqJpLCuW
-   MJ4ZEHbUd0kVLZLG/ztX2Sf31Hbb5N2FuwL6+WTPTpEuqtAwd6V9i8B6d
-   /WrH5ZQ5CW630HcVs0739y4hvSXuQsdUrfWt7YccHKOzFtoe+S+aGo7xh
-   ljw885RXsPDAfsuOHhFWTQiZTI71qWwdntpMnJzJYNKUvR7/goYy35wqR
-   b0l5h4WbgavEJPCuxFY1aBkmVotB+HpC9DIQ4bWaNJyS5j6Xwtg7+gmil
-   g==;
-X-CSE-ConnectionGUID: Hv6izO03R9O4vaKQt7DSxg==
-X-CSE-MsgGUID: tn/5YLYWRT6s+qa/Z2al6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91573052"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="91573052"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:58:26 -0700
-X-CSE-ConnectionGUID: 3hQVQT88Tf6eNujsmXxNHA==
-X-CSE-MsgGUID: phuvjuzzTOqKScn2c1siFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="304205366"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:58:24 -0700
-Date: Fri, 2 Oct 2026 15:58:22 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
-Cc: Mika Westerberg <westeri@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro V
- 16S AI
-Message-ID: <ar-qbsmktRJbFoF-@ashevche-desk.local>
-References: <20261002101800.51506-1-abduvaliy.hbai@gmail.com>
- <ar-Ja2AVJs1TzMpg@ashevche-desk.local>
- <CAPGafd=-SfJoVMXtjwpahEkZ8nB9gTjGm+C5WvP+F-AdjsGPjg@mail.gmail.com>
+	s=arc-20240116; t=1790945912; c=relaxed/simple;
+	bh=1s9LkYW9vQaNEwdrxmpU6I56xK42aV+d3NuKHFDK8jI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=awQbcH+0EdsttRt9y2Kvwr2J7lvxQcH2UL+ZrwrBOPnmAvNNwVa8hGX5/HUhZlaxTesncLgj8sE3Wk5Il+o55DGuPV3/hw+bdojZxiTpyj3P9WDcZGFVmwjvwT1ZSSp23w4H6aiSh6BTHxlUtpbIe23pLe/gRcHv4wu23zszKIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45952ce9ee0so2773818fac.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:58:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790945910; x=1791550710;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hb8dNc9KXU0CqSWqEu6wVs+/kdzSrCWaupYjrQ0/MKY=;
+        b=fnGL1a+ypN33uAR/9ztM4lDDMGfoB4OC0Y2tb6ZB7tA5bSN3LpOUIBB5mm9SfuFZBF
+         RCvPJT4ZiPGo65Rco04hlbGWQzTWRh+/7ONaGbuvtVTuTr/HYYiujUVV0ck2ynA8ZHAA
+         ZKH4zYr3Gr2LZvw3AVxoFvtGvTwnVcEgFx5ylS4m41ZcshXA7ttpHIY2/lyfkxB+DDF0
+         FXD2ERnymJiTNMaeu4l77icxMNyg6q5TbiSEHA1XfuoknX/1R3cAUgdfRDqL/hAj1gIQ
+         UzTTySp4mT7uIpA0pcdziGdoGeLvhhxHY68/LeuZm/+Kj6ZvIrkK6b4cUG1gSPbhUqH1
+         K+LA==
+X-Gm-Message-State: AFuF++nOWN7AmKWWXS50gEhKCzvMg3xiJAA8+8mBGaXqRg9ucLdBcEAD
+	RCFbEjPw8lkZIrAFT00HSDtOgnIzU96UUhfcxB3uR6xCMSmEgrDAHGZ52DCreUo/tj8muOcgAHL
+	tKXJ0CLCcc83gEFVlmKuydKJXo//iuK/9zVwZtPCPQYgz44RvvH0BKx4fSoI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPGafd=-SfJoVMXtjwpahEkZ8nB9gTjGm+C5WvP+F-AdjsGPjg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:2f14:b0:4c1:f40e:b697 with SMTP id
+ 5614622812f47-4f52a264fa9mr1941588b6e.38.1790945909836; Fri, 02 Oct 2026
+ 05:58:29 -0700 (PDT)
+Date: Fri, 02 Oct 2026 05:58:29 -0700
+In-Reply-To: <6abf0753.eb639fcc.2b981.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abfaa75.f32479dd.202a09.0009.GAE@google.com>
+Subject: Forwarded: [PATCH] nvme: hold a controller reference while scan_work
+ is queued or running
+From: syzbot <syzbot+76c0f0ce8f1e846b4f84@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 02, 2026 at 05:17:02PM +0500, Abduvaliy Abdulazizov wrote:
-> On Fri, Oct 02, 2026, Andy Shevchenko wrote:
-> > On Fri, Oct 02, 2026 at 03:18:00PM +0500, Abduvaliy Abdulazizov wrote:
-> > > On the Acer Nitro V 16S AI (ANV16S-41) the internal USB camera
-> > > (0408:4035) works on Windows but never shows up on Linux.
-> >
-> > While this all sounds legit, I'm worrying that the pin can be used for
-> > something more. For the record, can you share the DSDT table (or entire
-> > `acpidump -o NitroV16S.dat` file) via some file exchanger so we may see
-> > that?
-> 
-> Sure, here is the full acpidump (BIOS V1.14):
-> https://github.com/abduvaliy-engineer/acer-nitro-anv16s-camera-fix/releases/download/acpidump-v1.14/NitroV16S.dat
-> 
-> What I found when going through it:
-> 
-> - Pin 0x0B shows up only once, in \_SB.GPIO._AEI, as
->   GpioInt (Edge, ActiveLow, ExclusiveAndWake, PullNone). Its _EVT case
->   only does M000 (0x390B), with no Notify.
-> 
-> - There is no GpioIo for it, and none of the M009/M010/M011 GPIO helpers
->   are called with 0x0B. The only static mapping of the GPIO bank in the
->   DSDT (OperationRegion GSMG at 0xFED81500) has fields for pins 23 and
->   40 only.
-> 
-> - The PCIe reset pins in the NVMe SSDTs (RSTM) are computed at runtime
->   from a platform table. Pin 11 is not one of them on this machine: it
->   reads low after Linux takes it, and both NVMe drives keep working.
-> 
-> So as far as I can see, the firmware drives the pin as an output for the
-> camera and lists it in _AEI without a real handler.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Thanks for sharing. I will wait for Mika's tag and apply if he has no
-objections.
+***
 
+Subject: [PATCH] nvme: hold a controller reference while scan_work is queued or running
+Author: kartikey406@gmail.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+
+syzbot reported a slab-use-after-free in nvme_query_zone_info(), called
+from the async namespace scan:
+
+  BUG: KASAN: slab-use-after-free in nvme_query_zone_info+0x4fd/0x6f0
+  Read of size 4 by task kworker/u8:13
+  nvme_query_zone_info
+  nvme_update_ns_info_block
+  nvme_alloc_ns
+  nvme_scan_ns
+  async_run_entry_fn
+
+The freed object is the effects log (ctrl->cels) allocated by
+nvme_get_effects_log(). It was freed by a write to the sysfs
+delete_controller attribute, which dropped the last reference on the
+controller via nvme_sysfs_delete() -> put_device() -> nvme_free_ctrl()
+-> nvme_free_cels() while the scan was still running.
+
+nvme_scan_work() waits for all of its async scan jobs before it
+returns, so the jobs cannot outlive the work. However, nothing keeps the
+controller alive while scan_work is pending or running, so the final
+controller reference can be dropped underneath it and the effects log is
+freed while the scan is still dereferencing it.
+
+Take a controller reference in nvme_queue_scan() when scan_work is
+queued, and drop it when nvme_scan_work() finishes. If queue_work()
+reports that the work was already pending, drop the extra reference
+because the pending instance already owns one. Convert the early returns
+in nvme_scan_work() to a common exit so the reference is dropped on
+every path.
+
+Reported-by: syzbot+76c0f0ce8f1e846b4f84@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=76c0f0ce8f1e846b4f84
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ drivers/nvme/host/core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index beea23d04a70..11599b0061b1 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -165,8 +165,11 @@ void nvme_queue_scan(struct nvme_ctrl *ctrl)
+ 	/*
+ 	 * Only new queue scan work when admin and IO queues are both alive
+ 	 */
+-	if (nvme_ctrl_state(ctrl) == NVME_CTRL_LIVE && ctrl->tagset)
+-		queue_work(nvme_wq, &ctrl->scan_work);
++	if (nvme_ctrl_state(ctrl) == NVME_CTRL_LIVE && ctrl->tagset) {
++		nvme_get_ctrl(ctrl);
++		if (!queue_work(nvme_wq, &ctrl->scan_work))
++			nvme_put_ctrl(ctrl);
++	}
+ }
+ 
+ /*
+@@ -4635,7 +4638,7 @@ static void nvme_scan_work(struct work_struct *work)
+ 
+ 	/* No tagset on a live ctrl means IO queues could not created */
+ 	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE || !ctrl->tagset)
+-		return;
++		goto out;
+ 
+ 	/*
+ 	 * Identify controller limits can change at controller reset due to
+@@ -4648,7 +4651,7 @@ static void nvme_scan_work(struct work_struct *work)
+ 	if (ret < 0) {
+ 		dev_warn(ctrl->device,
+ 			"reading non-mdts-limits failed: %d\n", ret);
+-		return;
++		goto out;
+ 	}
+ 
+ 	if (test_and_clear_bit(NVME_AER_NOTICE_NS_CHANGED, &ctrl->events)) {
+@@ -4679,6 +4682,8 @@ static void nvme_scan_work(struct work_struct *work)
+ 		/* Re-read the ANA log page to not miss updates */
+ 		queue_work(nvme_wq, &ctrl->ana_work);
+ #endif
++out:
++	nvme_put_ctrl(ctrl);
+ }
+ 
+ /*
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
