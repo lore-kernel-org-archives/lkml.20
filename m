@@ -1,244 +1,88 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 490E04A3D47
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BD031E84B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955673; cv=none; b=IGskC+2dAWwXjaWwD4qVGpqucEVUVfOb91YJ7myHZxlvvmyKkpe6fIWdNubFxfIHWGEk5sc8ArMf0Z4xVO1XHLAMBmtbsX1woKyctSb1ACNZM/U/F5AzIQ+zZWFe/GSeY0n4juQUDuAM3c/IbKT5oqGXoMhQDMYAiKCNcQwVDKc=
+	t=1790955779; cv=none; b=fsBQ6hDY8PKAVZe5Njvx4hhHCkFlTj+mm1SK7Gg2cAM0U/Do5QLJ52PcMLwAz/Kscz6XUM/xkf/TnaGNgI1SI/jfJ/FvrdcCzg6FK6QfG8vRIZEM7p8zP5z91Zj8E5YlPvqfhc42O025eInlxGH2kvSMGZaE+Nk7/3kvNJR++6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955673; c=relaxed/simple;
-	bh=LzOEdHs0jNTCVtBz7LvfPEq7oE9zsxZCEu7ObEikq4Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ec2LOrjolb5R8bxTikzkj5BmBtuqmT1P4JLNBCQW+fze1hUWkuF/j8tiQNqUXlTb3YTnUdNQkTlu/s7bdnxIVUheEsRPKPOXAx9cAXuwJSnYZAKoBXty6DVIze6iU/tX2d/0uXULTgdEO59aEiKYRu3CgHBVhd95X3eEt72XNsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nrHYaoQ+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790955779; c=relaxed/simple;
+	bh=7S9al65EP+IkxXQ5RtgQNtvrTeltqQQ6RpMdl2YTMv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P7POLYfaIp/O479YNeZVuPkT5MhCy/3VkwzH5+J278c0VwtfDNk2wmOOSlDk2dq3m3/gJycXuW92d/7Y3GSSgUyaV5h4Xr9UYh3oceWZj8Xr5U5EF3s2THMlXpoho4BNgI1hO/Zz4ZKCbW/znnrNLJwexZDCm9gmdWj52D/rxKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvdUXkGB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nrHYaoQ+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 897E4143D;
-	Fri,  2 Oct 2026 08:41:01 -0700 (PDT)
-Received: from [10.211.55.3] (unknown [10.57.85.160])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A8FC63F85F;
-	Fri,  2 Oct 2026 08:41:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790955664; bh=LzOEdHs0jNTCVtBz7LvfPEq7oE9zsxZCEu7ObEikq4Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=nrHYaoQ+NdR9XGroE9vHfEfblATE1CahFu8b9nhgEreZMi9tdfyQBpMXWdJt+LicQ
-	 Scbe8mbIH415x2BSWiWSIpe8xObR8ZGijvFWczH/VBXuQRPkrGuPmUmfc7IL3hNe+1
-	 GybiFKqpRkbEnI6mICAI+oOyyBfRZlkSbFuBtKcI=
-Message-ID: <5e0bc5e8-76e6-44e1-8036-9fadabd6bcb5@arm.com>
-Date: Fri, 2 Oct 2026 16:41:00 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvdUXkGB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BA171F00893;
+	Fri,  2 Oct 2026 15:42:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790955777;
+	bh=KqWqAAPlKwxZDka4vPFIdL9fJ2MD7gHMuh0eSJBUyIc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RvdUXkGBURvj9+GlFXWYdXsi+/yPP68ys9IVaxCvrJqaioIglvXzaGrUS18aQP9kr
+	 4FjVDTWi9fjWEThrUBiWS5AUuCxV5k/v+rN30KdsHnH3oaIRUN4OJ4u74ym8t2HuXV
+	 hLR/ICt3OQohgrTXAfyhcrgvPKrkf+n8sJDtXhCAFOqjyLKcG4N1K7JJBjrWyEZCAS
+	 OsxQ872xDCml/v3NwB9KyToGUuC8ZQU/Cyd8jOVCWUvKJQ08JcXjSrfZcGaFFKOojA
+	 xf6imembAorFL9gQAwFHYYzhMrDXZT3i3rPUWp3Oi5sWT1HjVqk3pLkkjp2gq7ShHY
+	 zztNnYIlG5ElA==
+Date: Fri, 2 Oct 2026 17:42:51 +0200
+From: Gao Xiang <xiang@kernel.org>
+To: Jingbo Xu <jefflexu@linux.alibaba.com>
+Cc: linux-kernel@vger.kernel.org, xiang@kernel.org,
+	linux-erofs@lists.ozlabs.org, Jingbo Xu <jefflexu@163.com>
+Subject: Re: [PATCH] MAINTAINERS: erofs: update my email address
+Message-ID: <ar_Q-2yEkQPpnEnv@XiangdeMacBook-Pro.local>
+Mail-Followup-To: Jingbo Xu <jefflexu@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org, xiang@kernel.org,
+	linux-erofs@lists.ozlabs.org, Jingbo Xu <jefflexu@163.com>
+References: <20260921030417.87932-1-jefflexu@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH v12 12/13] arm_mpam: change MPAM-Fb error IRQ to use a
- threaded IRQ handler
-To: Andre Przywara <andre.przywara@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
- Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
- linux-acpi@vger.kernel.org--cc, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261001153439.3295416-1-andre.przywara@arm.com>
- <20261001153439.3295416-13-andre.przywara@arm.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261001153439.3295416-13-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260921030417.87932-1-jefflexu@linux.alibaba.com>
 
-Hi Andre,
+On Mon, Sep 21, 2026 at 11:04:17AM +0800, Jingbo Xu wrote:
+> From: Jingbo Xu <jefflexu@163.com>
+> 
+> This email address will not be available in a few days.
+> Update my own email address to jefflexu@163.com.
+> 
 
-On 01/10/2026 16:34, Andre Przywara wrote:
-> When an MPAM MSC gets into an error condition, it can trigger an error
-> IRQ. We cannot really do much about those errors, but we at least query
-> and log the error, then disable MPAM functionality.
-> 
-> This error report relies on reading the MSC's error status register
-> (ESR) in the current hard-IRQ handler, which is not possible for MPAM-Fb
-> based MSC accesses, since they involve mailbox routines that might sleep.
-> The same is true for clearing the interrupt at the source, which requires
-> a (potentially sleeping) MSC access as well.
-> 
-> Change the error IRQ handler to be a threaded interrupt, but keep the
-> handling in the hard-IRQ part for MMIO MSCs. This is needed since the
-> CPU affinity check in the MSC accessors requires a non-preemptible
-> context.
-> When the MSC is using an MPAM-Fb based access, we push the work into the
-> threaded part of the handler, where the accessors are allowed to sleep.
-> Also forbid per-CPU interrupts (PPIs) for MPAM-Fb, as we cannot use a
-> threaded IRQ here.
-> 
-> The actual IRQ handler learns how to deal with errors. We cannot really
-> handle them, but we can try our best to disable the IRQ anyway.
-> Should the level IRQ line deactivation fail on the device side, we mask
-> the IRQ on the irqchip level, to prevent an interrupt storm.
-> 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+I will add your original
+Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+here.
 
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+> Signed-off-by: Jingbo Xu <jefflexu@163.com>
+
+Acked-by: Gao Xiang <xiang@kernel.org>
 
 Thanks,
-
-Ben
+Gao Xiang
 
 > ---
->  drivers/resctrl/mpam_devices.c | 77 ++++++++++++++++++++++++++++------
->  1 file changed, 65 insertions(+), 12 deletions(-)
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 63469f3b0a90a..08b1e84e3f794 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -2734,24 +2734,42 @@ static int mpam_disable_msc_ecr(void *_msc)
->  	return __mpam_write_reg(msc, MPAMF_ECR, 0);
->  }
->  
-> +/*
-> + * This will run as the threaded IRQ handler part when using MPAM-Fb, but
-> + * as the sole hard-IRQ handler for MMIO based accesses.
-> + */
->  static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
->  {
->  	u64 reg;
-> +	int ret;
->  	u16 partid;
->  	u8 errcode, pmg, ris;
->  
-> -	if (WARN_ON_ONCE(!msc) ||
-> +	if (WARN_ON_ONCE(!msc))
-> +		return IRQ_NONE;
-> +
-> +	if (msc->iface == MPAM_IFACE_MMIO &&
->  	    WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(),
->  					   &msc->accessibility)))
->  		return IRQ_NONE;
->  
-> -	mpam_msc_read_esr(msc, &reg);
-> +	ret = mpam_msc_read_esr(msc, &reg);
-> +	if (ret) {
-> +		pr_err_ratelimited("unknown error irq from msc:%u\n", msc->id);
-> +
-> +		/* Try out best here ... */
-> +		goto out_disable;
-> +	}
->  
->  	errcode = FIELD_GET(MPAMF_ESR_ERRCODE, reg);
->  	if (!errcode)
->  		return IRQ_NONE;
->  
-> -	/* Clear level triggered irq */
-> +	/*
-> +	 * Clear the level triggered IRQ. If that fails, we cannot do anything
-> +	 * about it, so ignore any errors. We will disable the IRQ either on
-> +	 * the device side or on the irqchip level next anyway.
-> +	 */
->  	mpam_msc_clear_esr(msc);
->  
->  	partid = FIELD_GET(MPAMF_ESR_PARTID_MON, reg);
-> @@ -2762,16 +2780,24 @@ static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
->  			   msc->id, mpam_errcode_names[errcode], partid, pmg,
->  			   ris);
->  
-> -	/* Disable this interrupt. */
-> -	mpam_disable_msc_ecr(msc);
-> +out_disable:
-> +	/*
-> +	 * Disable this interrupt on the device side. If that fails, disable
-> +	 * the IRQ on the irqchip level, as we must prevent further handler
-> +	 * invocations. We only take the interrupt once anyway, as we
-> +	 * are going to free the IRQ next, in mpam_disable().
-> +	 */
-> +	ret = mpam_disable_msc_ecr(msc);
-> +	if (ret)
-> +		disable_irq_nosync(irq);
->  
-> -	/* Are we racing with the thread disabling MPAM? */
-> +	/* Check whether we are racing with the thread disabling MPAM. */
->  	if (!mpam_is_enabled())
->  		return IRQ_HANDLED;
->  
->  	/*
-> -	 * Schedule the teardown work. Don't use a threaded IRQ as we can't
-> -	 * unregister the interrupt from the threaded part of the handler.
-> +	 * Schedule the teardown work. We have to defer it as we can't
-> +	 * unregister the interrupt from the threaded part of a handler.
->  	 */
->  	mpam_disable_reason = "hardware error interrupt";
->  	schedule_work(&mpam_broken_work);
-> @@ -2786,10 +2812,30 @@ static irqreturn_t mpam_ppi_handler(int irq, void *dev_id)
->  	return __mpam_irq_handler(irq, msc);
->  }
->  
-> -static irqreturn_t mpam_spi_handler(int irq, void *dev_id)
-> +/*
-> + * MMIO based MSC accesses must run in non-preemptible context, as they
-> + * might have affinity requirements to check.
-> + * MPAM-Fb based MSC accesses must NOT run in hard-IRQ context, as they
-> + * can sleep.
-> + * So split the IRQ handling up, depending on the MSC access type.
-> + */
-> +static irqreturn_t mpam_shared_hard_irq(int irq, void *dev_id)
->  {
->  	struct mpam_msc *msc = dev_id;
->  
-> +	if (msc->iface == MPAM_IFACE_MMIO)
-> +		return __mpam_irq_handler(irq, msc);
-> +
-> +	return IRQ_WAKE_THREAD;
-> +}
-> +
-> +static irqreturn_t mpam_shared_thread_irq(int irq, void *dev_id)
-> +{
-> +	struct mpam_msc *msc = dev_id;
-> +
-> +	if (msc->iface == MPAM_IFACE_MMIO)
-> +		return IRQ_HANDLED;
-> +
->  	return __mpam_irq_handler(irq, msc);
->  }
->  
-> @@ -2810,6 +2856,11 @@ static int mpam_register_irqs(void)
->  		/* The MPAM spec says the interrupt can be SPI, PPI or LPI */
->  		/* We anticipate sharing the interrupt with other MSCs */
->  		if (irq_is_percpu(irq)) {
-> +			if (msc->iface != MPAM_IFACE_MMIO) {
-> +				dev_err(&msc->pdev->dev,
-> +					"Only MMIO MSCs can use per-CPU interrupts\n");
-> +				return -EINVAL;
-> +			}
->  			err = request_percpu_irq(irq, &mpam_ppi_handler,
->  						 "mpam:msc:error",
->  						 msc->error_dev_id);
-> @@ -2821,9 +2872,11 @@ static int mpam_register_irqs(void)
->  					       &_enable_percpu_irq, &irq,
->  					       true);
->  		} else {
-> -			err = devm_request_irq(&msc->pdev->dev, irq,
-> -					       &mpam_spi_handler, IRQF_SHARED,
-> -					       "mpam:msc:error", msc);
-> +			err = devm_request_threaded_irq(&msc->pdev->dev, irq,
-> +							&mpam_shared_hard_irq,
-> +							&mpam_shared_thread_irq,
-> +							IRQF_SHARED | IRQF_ONESHOT,
-> +							"mpam:msc:error", msc);
->  			if (err)
->  				return err;
->  		}
-
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cc3cae2e378b..1008e14254c2 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -9681,7 +9681,7 @@ EROFS FILE SYSTEM
+>  M:	Gao Xiang <xiang@kernel.org>
+>  M:	Chao Yu <chao@kernel.org>
+>  R:	Yue Hu <zbestahu@gmail.com>
+> -R:	Jeffle Xu <jefflexu@linux.alibaba.com>
+> +R:	Jingbo Xu <jefflexu@163.com>
+>  R:	Sandeep Dhavale <dhavale@google.com>
+>  R:	Hongbo Li <hongbohbli@tencent.com>
+>  R:	Chunhai Guo <guochunhai@vivo.com>
+> -- 
+> 2.55.0
+> 
+> 
