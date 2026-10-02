@@ -1,47 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD0A46AA6F;
-	Fri,  2 Oct 2026 08:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A87332614;
+	Fri,  2 Oct 2026 08:33:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929963; cv=none; b=i0Qalay4YegbCuqKZyL8QRLhYunN3DLp6G4v7gu46ZDUOTKVApFXbf9sS+NAZ7AVR2h4F0xLNO0cwkTk/bXRhDKYWgF5Fo8idCT1wwxa7wLMeCNgn0Jvdy197CMCKpGiRy6vxJwKN+Kl9Gd79jyF1hibu9eNuiu/emBbCRXIaVM=
+	t=1790930014; cv=none; b=ZtxTttUZsrX/g0FmAMcGxnBaSKKUpmf5Z5PveDeq4SvIDThlqjJxjKRvZhSBsC8dzPIm7iqIVPEJiN0FbpBu5zXvWKA5haK+NwvLK6P8jNUEwECaShlW0XiF0nFRHbQBLE3RbRbYDxwnSVIaeZ88nS7uTgxyRL15T4bAQa0KxOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929963; c=relaxed/simple;
-	bh=njyLW2UtDcbiN0W3TdJ0xeuv6mgrNjxBq7CyDsFWJu0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jBxqH6LiazwNjBBHi7/IxV0fL2V6AQTDrm7nW/rwn7pJ/D7orYNwnPRWAC2Je20EXxZbbZ+6AKnY+Th6raLdYsuVLF5TzqhKSSnT0WvUMqxRAOwPW0qjCliSdCFLUQbKKZcb9Ab4KZO170lQ5nSVu4nZClo4LhQt8UdfJ8vkgDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8qY02aQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790930014; c=relaxed/simple;
+	bh=8bSgUAjvoed3ifVSKKLblPTqIymJ250z0XlQYQ0aH/c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rc+85hNn0RySVmY5lE5PEpj12BjRXlu1OawgIalE/MG7jqfP/DyGLRfZaluia4GrYPCwYrOQmMzjRw3oPxKhHWLHqxZziL42uRoLILjj1Z4xvpm4B8V9Ba6AgxWTtqCfJto8Yx9NTFfrN3gqKEZVmz5K5dosUXysN86qMRMSAO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+oDwnsO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8qY02aQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5926F1F000FF;
-	Fri,  2 Oct 2026 08:32:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+oDwnsO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5DC81F000FF;
+	Fri,  2 Oct 2026 08:33:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790929961;
-	bh=3w5wxiDZOhPLHQoea7TkZz2w5L1AzLS0BHSsxDUFa6Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C8qY02aQ8f1wHPD3EdVf3nLxS6MUHwpeyijZWOSCDNJcOLJbxIAGXdB1o9GoIE8N+
-	 4BjfHw+STGGXmT7qm72MAj1nX1rjSbo+AFIwvPFL05UTg8pbu3kdnwr1CtqM3dpOD+
-	 CPqSMLAKaxSK2Y/sVPwZAhcbnGOzmhWkGc5tN9Y+91RtkyCQMNm+J8Y1oGj6mzuXr2
-	 GJ00Fq9MjXTK/weOthR2/1zkRZoZdJKuNDhzKLa4cbCEr1/qdvKe8L3HCK1B/0/V3o
-	 6/WdqAdhnkBqaV003m665BQU3xLhv2yXGoMdEcjTYAwxqK9AVjUOu8HOU0f7TjQw7f
-	 fJGLMxyNohL3A==
-Date: Fri, 2 Oct 2026 10:32:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ali Rouhi <arouhi@sitime.com>
-Cc: "jiri@resnulli.us" <jiri@resnulli.us>, 
-	"vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>, 
-	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>, "ivecera@redhat.com" <ivecera@redhat.com>, 
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cjubran@nvidia.com" <cjubran@nvidia.com>, 
-	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v11 01/13] dt-bindings: dpll: allow hex unit
- addresses on output pins
-Message-ID: <20261002-vigorous-cyan-pegasus-d44fad@quoll>
-References: <20260930233714.87679-1-arouhi@sitime.com>
- <20260930233714.87679-2-arouhi@sitime.com>
+	s=k20260515; t=1790930012;
+	bh=8bSgUAjvoed3ifVSKKLblPTqIymJ250z0XlQYQ0aH/c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=l+oDwnsOJSaXLb2kcqw4yoJ5pZELYjckTpkqO/eWtTrWHdeRZRSRWsscvd/Mg68ME
+	 0hChhL6aqnp3Ddi0P06WpI9Avr5x8woEr8qdouC/K2XpXnnLmoGqcd2GyZYfViliSM
+	 9YkJftKj0nOimx89vbttpWeaN8Rvg+EkdVyn3F5skLqsSWBCY6YfKhpxTITYsyVZKS
+	 psx2w9oDmg4y74g06+QWeKif/XZ1SmRSynzOiYizZX/Kf58xRUpaiGcAhQvoNg8F6T
+	 VWHAnCjcs9ROS/xOGJaWz5JIsBUDw1/4/qhkVicz132pQuwza6YTheD9qGREgqSBgo
+	 wCl0UPAvZY6UA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Yury Norov
+ <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Burak
+ Emir <burak.emir@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner
+ <tglx@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
+ Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>, Lorenzo Stoakes
+ <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Uladzislau
+ Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus`
+ C function
+In-Reply-To: <CANiq72nXsGHbSQ1LfbG1zYaMaZv3X=u0+XzT6vHh=9vxLE8QTg@mail.gmail.com>
+References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
+ <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
+ <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
+ <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72kZh4a39hcy0g9sqEmzx3m+dcPRW=omOB2r5DhpRq3BXw@mail.gmail.com>
+ <87a4ozas7q.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72ki4Pc6y8og2ROLRSeRTZBbnpY41v5EC+qJaTiZWVhwAw@mail.gmail.com>
+ <TlsfpzyqG6QHcTMb-dOQPUP6uXU2G9urfH8AK0nzNO3j5rY0QWjn2ni9zhJ41CpVeppXhpH2E_yJ3LgUTibqbA==@protonmail.internalid>
+ <CANiq72nXsGHbSQ1LfbG1zYaMaZv3X=u0+XzT6vHh=9vxLE8QTg@mail.gmail.com>
+Date: Fri, 02 Oct 2026 10:33:19 +0200
+Message-ID: <87qzi8a4ds.fsf@t14s.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,31 +65,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930233714.87679-2-arouhi@sitime.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 11:37:16PM +0000, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> 
-> The output-pins node matches its children against "^pin@[0-9]+$", while
-> input-pins takes "^pin@[0-9a-f]+$".  A unit address is the reg value in
-> hex, so a device with more than ten outputs cannot describe the
-> eleventh: dtc wants pin@a for reg = <10>, and the output pattern refuses
-> it.
-> 
-> Use the input pattern for the outputs as well.
-> 
-> Fixes: 0afcee10dda1 ("dt-bindings: dpll: Add DPLL device and pin")
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Assisted-by: Claude:claude-4-opus [chat]
+"Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com> writes:
 
-: LLM
+> On Wed, Sep 30, 2026 at 1:38=E2=80=AFPM Miguel Ojeda
+> <miguel.ojeda.sandonis@gmail.com> wrote:
+>>
+>> I can do it.
+>
+> Actually, `cpumask.c` may be better -- that is where C defines it and
+> that helper has the right `#include`.
 
-(see current docs)
-With this fixed:
+I don't think we need to split the helper C files by the headers they
+are defined in. We can include multiple headers in a C file that
+logically lumps things together. If you are worried about finding things
+becoming difficult because they are not in the file one expect, I do not
+share the concern. I usually just grep in the directory through my
+editor.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+But I also don't care. If you want to put it in another file, I will not
+object at all.
+
+> Which in turn makes me wonder if we should also put the Rust one in
+> `cpumask.rs` instead, rather than `cpu.rs`.
+
+I don't think we need that kind of granularity at the moment. If things
+become messy, we can just refactor.
+
+> However, we do already have `nr_cpu_ids()` in `cpu.rs`, though, which
+> is however in `cpumask.h` in C.
+
+It's fine.
 
 Best regards,
-Krzysztof
+Andreas Hindborg
+
+
 
