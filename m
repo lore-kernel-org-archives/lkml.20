@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D04476CE8;
-	Fri,  2 Oct 2026 10:08:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2054B477291;
+	Fri,  2 Oct 2026 10:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935694; cv=none; b=GFDqgFN58tyYUjslySK23Zm4+ULOOZmNoHI6DMNA/ltY0bj6bsA++F6Pl+0JtgzDMiNlciXsk826e8DGQscKtb92R9PUi/SKdIKnvPNJ05Z+IYIh8XH+EDMfpiYZIioHwgzQbvj+kC3vYx/yjOLEEBvvIfMFlLn0QBKUATuANXw=
+	t=1790935748; cv=none; b=AGxOmTtuBSV4RleuxAhkeD25SYt0ZlZrXtyqiANfyTGdJzdONCDicgOPczTBWn41vTcbnqWmxqPC1jYYjEuccZtgz7CWrE3yiiERpwVDPqxr4NC+YEYK9ihkZLI9lBceHpA0tVstwmnd+eglQbjzH4TcLaDPNRkIVKrdZ6+skdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935694; c=relaxed/simple;
-	bh=37qcnODRwYw7ndXTbNaEj8b8seuguwmGkztJcQl0AaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Rq+Xbg4N6UvjxAH1B0fm36BPZ2ORfAXALSPxFR0p4ARkLuEGrAKukeMs3//xAsC+sJMiCGeC7GJYZhqKtMuk1EkkmwjvzGBZSkjXSV5CnCVm2fNIM6Z2D75tUp8dA2GJLf8H5GUBLD4v3Ta14ltAUAq1jTnHdK4DI5AqU0QR6UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKj/ePF6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790935748; c=relaxed/simple;
+	bh=nOXcDrUoaq7D3/iW07c5+YzJfmnlVVdbiOfZn8zRDFg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=YZp36PJ/mIbk0NKtCynCTBLtsrceGKlsP9I2aFODz8foCp4LeNmO+qco3O+6f3GPsWSJqNJUHd5zPPkAEOwkeBQjHA0swn4NEWV05ioz3xdRai88N9Wvvdx0+5Ti9liiSXYgANyQl1fryoxJr1n0Kzh9ZUyO7A9sO4c4dIJWpsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtJhHLb8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKj/ePF6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E50151F000FF;
-	Fri,  2 Oct 2026 10:08:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtJhHLb8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05DE21F000FF;
+	Fri,  2 Oct 2026 10:09:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790935693;
-	bh=LY9VxvcXwN76EizeDT/tvDrMhfgIEaCIidMTHshekyo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PKj/ePF6nHELeO2FNRdvzNz0hRjCk8BThq4MpGvDBAisk+vtScj48I6pdLshXBdpD
-	 LsCSNuoOMwchDIVEcxcGLdy1c3BX0eRu1gaMCuYRDkWyNVNGk/fgOrlaiHBel93VTq
-	 MbSlowB/eBsyHEBqzUsxgo6INyFboTuCGZONOZznhoCUrWeNCZ3zZD4GTz4BWklTz3
-	 cmMPK+AtOSYkeZJmpu0qH9HzzzIBw18pm1gk6AIQYagN8NdB9l+XeEjNJcPb9evXdm
-	 BMJ0qv5AS9K15prlFR3JRP2INdQiC64WIxcVBXeYARfhLUWr3NWX0cmN8ZzRh9DTO9
-	 amynbNBsuFLuw==
-From: Christian Brauner <brauner@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	linux-cifs@vger.kernel.org,
-	netfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: cachefiles: Fix unset error when calling netfs_prepare_write_failed()
-Date: Fri,  2 Oct 2026 12:08:07 +0200
-Message-ID: <20261002-zirkulation-serienweise-rodeln-6b433932eec4@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3227746.1790772118@warthog.procyon.org.uk>
-References: <3227746.1790772118@warthog.procyon.org.uk>
+	s=k20260515; t=1790935747;
+	bh=42gWHDf6qE5t6dpfm57PHhsfmnmVxaBF+alyU8miG1c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=gtJhHLb86ean7gBFJFYA9TuiGzTM4C3FG+cKNU0ehBeWyMY9mQj7qECiCPDTH/9Jf
+	 Q5RdWgCoS0CXh1zl/9lkqSU/xsKooc11ZNO4PTMJp9C3KqbQdmaURA+kRlLaOMiREL
+	 2ZPDtk9cH86EAo81E6SWf1khi+SUhkQ6xbouCSAV7C2fq53O7hoYZcqhIWZHfQod1i
+	 07dWxCmaiTEiOwtLqv1Z4kblKmG0BcKxM0kGHIyLYmQ8+1MeXie58cYW4zTOkedJC/
+	 8f9rvsspwVQwfZYXZeke+lOxqSoDV/bSb4M0aeO25hR69BjrmuM18C694NZhEmBcGU
+	 PkwzBzJog49xw==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Chaosheng Qu <quchaosheng000406@163.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ mfd@lists.linux.dev, linux-pwm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260930023923.49917-1-quchaosheng000406@163.com>
+References: <20260930023923.49917-1-quchaosheng000406@163.com>
+Subject: Re: (subset) [PATCH v3] dt-bindings: mfd: convert lp3943 to DT
+ schema
+Message-Id: <179093574476.188646.6343142834887336950.b4-ty@b4>
+Date: Fri, 02 Oct 2026 11:09:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,30 +47,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=brauner@kernel.org; h=from:subject:message-id; bh=37qcnODRwYw7ndXTbNaEj8b8seuguwmGkztJcQl0AaQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTtb+q49jVsw66SHWJc91bvOukql+s4v/tj9J+36c6fT +TNa707raOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiV5gZGZ7uCtP549bF6vpr h6n8nb25k742dP47otV5XdQqY/d0vi6Gf6YCOt+jA+e8DAoy2j/70PuJLkGPbq14+v6MzqMS39B Pt/gA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Wed, 30 Sep 2026 13:41:58 +0100, David Howells wrote:
-> Fix cachefiles to set subreq->error before calling
-> netfs_prepare_write_failed() otherwise netfslib will try (and fail) to
-> retry the subrequest (it shouldn't retry writes to the cache, but rather
-> abandon them).  This causes it to hang waiting for the request to complete.
+On Wed, 30 Sep 2026 10:39:23 +0800, Chaosheng Qu wrote:
+> Convert the LP3943 MFD binding from free-form text to DT schema.
+> 
+> The LP3943 is an I2C LED driver with two sub-devices, lp3943-gpio and
+> lp3943-pwm. The GPIO sub-device is covered by trivial-gpio.yaml, so only
+> the PWM sub-device gets a schema of its own.
+> 
+> The PWM schema documents ti,pwm0 and ti,pwm1, which select the output pins
+> of the two internal PWM channels and are read by pwm-lp3943.c with
+> of_property_read_u32_array().
+> 
+> [...]
 
-Applied to the vfs-7.4.netfs branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.netfs branch should appear in linux-next soon.
+Applied, thanks!
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+[1/1] dt-bindings: mfd: convert lp3943 to DT schema
+      commit: 88e0bfab55e131fb2179dc3eee5893e9f638926b
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+--
+Lee Jones [李琼斯]
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.netfs
-
-[1/1] cachefiles: Fix unset error when calling netfs_prepare_write_failed()
-      https://git.kernel.org/vfs/vfs/c/04b0415fa18a
