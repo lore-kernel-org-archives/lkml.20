@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411B535AC3B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985CA3ED135
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:24:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969046; cv=none; b=NsIyoJyrN9f4MWY9rqBemYP3HYNJi5F/jbFZy1ufEDNwF4xFqFjDW4PXSp838FPR+XON6R/28qQJ7dwYkbbCvcBDwcSjS4t5D0LIXqt76lF727bD+aQ3bFzbqgJqFZHYnJyH8dB3TEhI9W5Cron0RmWDsfM85mS1txbd5xrD93U=
+	t=1790969073; cv=none; b=sZGRwY7EEWjmAaQDyZ5LYzktYFXPbFsn7L/o6Viq8gpogzkrTqXui3L3S3Haorj0R6toPHRnjHQsN7Pa2DHCrLQCuq9HHCxngcz9sG+qKuXSY6mEqqAL06cE8oM9gx/pTyke0O2AMtl3m5vPJ7Oa/q3X5Z8S4FHIUdquBrh+t40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969046; c=relaxed/simple;
-	bh=auZJr2SkeRn8HhZlmY+Gcgh7DZ9Dy87FyOPOIlDak4c=;
+	s=arc-20240116; t=1790969073; c=relaxed/simple;
+	bh=ztTI6sjlmZy4XEuboGWTA283kjx7BG1aNt7QE/CJBEE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SryfX8cnPxx0NXDaDEOWjKlR47C28Av9Nft4uicfzO4Gj+3nP2bonIuQVWC8tYvsBJABACmhyPywwNR7vbJgGRfiVxAhpc5gZkA5n1iyhMFXZxMj5GhxXv29H1qk8WmnX+wZ84Jjs11+8m1cM7mBu9klHK+AG4j1xzzeWEu0hk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGSX/Kbt; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=XQKBeevz1r8xM21jo8C6iPOva+x7jS5pahEHERIS3TSwu2caiY0jC56dbD46LpdWVQWGYeXNS8vvmyvjZSR5c/NBxGSYy8soTJcFCc5NfJC35eUYGi1u70e6JX9YKHnmd32nK6aKyNpJLUYC+4YxCt+hPSnncTj5FVZOK20i1s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chO1Qb5t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGSX/Kbt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 339B21F000FF;
-	Fri,  2 Oct 2026 19:23:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chO1Qb5t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C3D1F000FF;
+	Fri,  2 Oct 2026 19:24:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790969044;
-	bh=o3DcXBfUguoi60aMXCNeicGNJ5nj03dbbSlS/dsM2Sk=;
+	s=k20260515; t=1790969067;
+	bh=1rzfgjzP5hpWkIDbVjSr96pef66B/RZc/I1AlCje57g=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BGSX/Kbts2HyomUYIll1ZSW1Dc6xBceYErF3oCIvBLGsnn+9W/iL8dUWzD10Xxshv
-	 ZN83CvovSLCevLrxWllAASgTHRUTKqmEDI8r3B61oraf+GBHIM9rlNJra3/KUEcZwc
-	 Gj3mYj5JVSkng+Z1vgJR2AZoiHbPmGwRvgg3WWugxxYNsWyLXNycxtqZyemtlKslJv
-	 Xr3zyVh84R34zkPGPo3zG7qHoDMJZ6WRceBLfPeQHeWmJJ2QYxjRNGKEp5Z65cWpBM
-	 UoaqMSQstAgxR6XPvPEi1TRTfgUaDiaxDCVp7Kq3iHcgWMIx1HNSyd6TRyX8eGGm+w
-	 vWH/q2umXu0wQ==
-Message-ID: <b63f546b-ee92-46c3-85bd-bc64dbaae367@kernel.org>
-Date: Fri, 2 Oct 2026 21:23:54 +0200
+	b=chO1Qb5t7ZzJSgbtGI4XzIshPjgG+GDMD8/31mCdnKdBDh7IfBgRZl6RoKm9acU+r
+	 uG9FaaPtSfnw587NCy+R4i6H6jHfljlL2nSucULJbn48Qwt96reOegxeFCyxRv8F3H
+	 vBV98RXnsWVYNEus0QuqJ5I8PoLZWt+fdM8ri3H0YBoUYChjK6ajBPFIx94OlD8FRi
+	 W9ONN7fN7FbEId9jwnw+18fftkrGnJroF/UyMQXV79Ba4TrdIeKb6XEV/DGCIYD69Z
+	 Jpo7LOA/m9z1YBkLaOkqWrpmK+4KzOLgbmlFGv3aJ/kqDRwnyL8YgsonJeJLImuc+m
+	 gcbAbyUnw1JHg==
+Message-ID: <cbb3ad03-a52c-4719-9be0-6cc7414ad870@kernel.org>
+Date: Fri, 2 Oct 2026 21:24:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 07/14] mm: shmem: allow THP support determination at
- folio allocation time
+Subject: Re: [PATCH v8 08/14] s390: move has_transparent_hugepage() out of THP
+ guard
 To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
  linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
  lance.yang@linux.dev
@@ -48,7 +48,7 @@ Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
  dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
  dev.jain@arm.com, usama.arif@linux.dev
 References: <cover.1789695931.git.luizcap@redhat.com>
- <f74ada750d1910f8ea7e55955eb0c330747b93d4.1789695931.git.luizcap@redhat.com>
+ <a2c5f62c812afa5b84ef16476efc99281930c124.1789695931.git.luizcap@redhat.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -95,63 +95,21 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <f74ada750d1910f8ea7e55955eb0c330747b93d4.1789695931.git.luizcap@redhat.com>
+In-Reply-To: <a2c5f62c812afa5b84ef16476efc99281930c124.1789695931.git.luizcap@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/18/26 03:45, Luiz Capitulino wrote:
-> In order to enable THP support in shmem today, besides the user
-> configuration required, the CPU must support PMD-sized pages. This
-> is the case because of the following has_transparent_hugepage()
-> usage:
+> A future commit will introduce a kernel API to allow for checking if the
+> CPU supports PMD-sized pages. This API will be based on the
+> has_transparent_hugepage() implementation but will be orthogonal to THP
+> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
 > 
-> - shmem_parse_one() and shmem_parse_huge(): Check if THP is built-in and
->   if the CPU supports PMD-sized pages
+> Move its definition out of the THP guard.
 > 
-> - shmem_init(): Since the CONFIG_TRANSPARENT_HUGEPAGE guard is outside
->   the code block calling has_transparent_hugepage(), the
->   has_transparent_hugepage() call is exclusively checking if the CPU
->   supports PMD-sized pages
-> 
-> While it's necessary to check if CONFIG_TRANSPARENT_HUGEPAGE is enabled
-> in all cases, shmem can determine THP size support at folio allocation
-> time. Therefore, drop the has_transparent_hugepage() usage listed above
-> while keeping the CONFIG_TRANSPARENT_HUGEPAGE checks.
-> 
-> Additionally, we need to check if PMD size order is supported in
-> shmem_getattr(). Use pgtable_has_pmd_leaves() for that.
-> 
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 > Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-> ---
->  mm/shmem.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 776dff8a848e..930657d05375 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -690,7 +690,7 @@ static int shmem_parse_huge(const char *str)
->  	else
->  		return -EINVAL;
->  
-> -	if (!has_transparent_hugepage() &&
-> +	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
->  	    huge != SHMEM_HUGE_NEVER && huge != SHMEM_HUGE_DENY)
->  		return -EINVAL;
->  
-> @@ -1524,6 +1524,8 @@ static int shmem_getattr(struct mnt_idmap *idmap,
->  	generic_fillattr(idmap, request_mask, inode, stat);
->  
->  	orders = shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0);
 
-I'm curious: why is that not handled inside shmem_huge_global_enabled() ? If PMD
-order is impossible (well, okay, it is possible, but we simply cannot map these
-things through PMDs), I would expect that we never list them as "enabled".
-
-(while shmem could allocate PMD folios, it would have to map them always through
-PTEs. I think this would be possible through some changes, but we can defer that
-to some future work).
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
