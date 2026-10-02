@@ -1,75 +1,80 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC673E5EC2;
-	Fri,  2 Oct 2026 10:15:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A9D480DD4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936116; cv=none; b=cGLwIv0CkytmSRQJgOYlfY04wDiieG2xLQMlP4U0lgd2D8xnNG++cvdC0m+HJUZIf6DAO/lbcSsrFbEqGDquB01JusXF4177jUY6T2dANl13JgSm1DGc2gsIMFt3CUDq+7kji0dVss8myQVmDONmbCQNb266aeKbzMi4+lVfZNM=
+	t=1790936119; cv=none; b=Mn2P1FJwcjwGZoPv7LAWZ9e7PX1YvuGXzRWVFgbRTfdtIf591mmkisjloV2oLpITyYg3KYgEURDawStn6bFzK5MG959EymoOkj864iVMb2lTVVXvt7Od9ak8sty1TSzV5KG9FGXuk/d3bXQWZGuQXZD2tWRG+u2hRB00zyJjXT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936116; c=relaxed/simple;
-	bh=DT12GOksE7GjrDIXoh5OAQzYhyg0q2vwBe7lXyavLxk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GFamJxpZPnzK0+5kr+uk1er/9IgqA00K+iQGG2FSNXwLSnMSI2+iPKDN20Ai4Nq5eEwfO86zh6o2jMC9qATaFK75bzHL5wvQxhrnDO0Ksp4TzupGEgN0pnhT9hZqxKneR/ydRtANKRkHJpWrCTCeTUXUldJETcw+cn9lkE5uP94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=RvSfYxaU; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1790936119; c=relaxed/simple;
+	bh=pTLaSLDRjdFZUmo2LOQFXFd/hb4XHH0ebppMkQK/InY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pRO0cFNnlsKBlIpTR4aQtfqWP4Viu+s/rHjiC7yYKlPZPt0FBClU+HFBVe+N9vTPSWpUTgGpreWThNnQqhtmFDcabb9JrnAjqSZUn57HyWkabOmF3TeLgfxybKAqEbniTlYDr9ILgEWchouzynH3Ihwr5ZQQJWU7LeMHI5Ioy2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lK1Oh/el; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="RvSfYxaU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=t3GNyx8h99NgX8niXh1MHUwUotPPytVSieieLf3lD7U=; 
-	b=RvSfYxaUdGVKdMlEuppKcdyuK6vENj1eGAtiO/X3C0uW5c/rftfbcDNkt4t4GtRYT702ry0LXe+
-	AW94QkykorcS120T8sUREMrsPK7OfTAi4WKeRC/wajchi98iFo9WgaNtRGT0VMEcCHMONejsNqXcX
-	r1dvPZDuPEfXVQ3ZRRl7/hZ0GUOtsqY6QCIUjkU3DaS6CNjACGTAaIC1x33+GgUwAdFmYeKPKuHw6
-	y8WnAQEAAyq9IByQqi95uOtzy7tTCUFCJ9pMWybEcX1tqut8bTQefI/EDRNRXFYK26oQyJm2dLwm/
-	slSRGhqB8pJ32NYnx21ukWV5YimCdvwFk5ew==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xCaIH-000000001iE-2uxD;
-	Fri, 02 Oct 2026 18:15:10 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 20:15:09 +1000
-Date: Fri, 2 Oct 2026 20:15:09 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: haren@us.ibm.com, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: nx - validate 'ignore' before subtracting in
- decompress
-Message-ID: <ar-ELZFhjUuXlZdl@gondor.apana.org.au>
-References: <20260925175839.3704942-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lK1Oh/el"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A0B1F000FF;
+	Fri,  2 Oct 2026 10:15:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790936118;
+	bh=nAeXOdWlJR8Wc4zjrO7mMgDhuXzh/GobOmkypTg4VEo=;
+	h=From:To:Cc:Subject:Date;
+	b=lK1Oh/elmPMu28qetsOcMS6qHF+ZTzjvGxd0/ysD3k4kAvCcfy6oxcXO8sa+MyFRB
+	 YcXw6XZnKp5RwnQPIsDNps7+NRfBH99cxReyPl+cOLMsy6y4gq0Fnp7I2fk7MG/V2K
+	 ODIfPLvwyd1gfube/broL0X6ZKp9cKNkhRI4WV9PQm8noZQkJ+FocoCsMm+hCZ4GCL
+	 k9bYYtl2TlNDYCXOkTUH0+Eee1B8TGLcj/BnLBsaMhFymICNHhL1FgXp4Dyo1IKLaE
+	 ZiYx5hOOT+clTcmxXtIDONHsHY3O8rSLGfoFdYupTafzTixUgCxy/AcetdBtE6ayNH
+	 GnCNSyu7i0ZCg==
+From: srini@kernel.org
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	Srinivas Kandagatla <srini@kernel.org>
+Subject: [PATCH 0/4] slimbus: patches for 7.4
+Date: Fri,  2 Oct 2026 11:15:02 +0100
+Message-ID: <20261002101506.1084743-1-srini@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925175839.3704942-1-qwe.aldo@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 02:58:39PM -0300, Aldo Ariel Panzardo wrote:
-> The decompress() function subtracts the header-supplied `ignore` value
-> (a u16 from the compressed stream) from `dlen` (the number of bytes
-> produced by the decompressor) without checking that ignore <= dlen.
-> 
-> If a caller decompresses a crafted buffer where `hdr->ignore` exceeds
-> the actual decompressed length, the subtraction wraps around to a
-> near-UINT_MAX value.  The subsequent memcpy() then copies gigabytes of
-> data past the destination buffer, causing an out-of-bounds kernel write.
-> 
-> Add a bounds check before the subtraction and return -EINVAL if the
-> value is inconsistent.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->  drivers/crypto/nx/nx-842.c | 3 +++
->  1 file changed, 3 insertions(+)
+From: Srinivas Kandagatla <srini@kernel.org>
 
-Patch applied.  Thanks.
+Hi Greg,
+
+Here are few slimbus patches for 7.4, Could you please queue
+these for 7.4.
+
+Patches include
+	- qcom-ngd-ctrl: implement disable_stream callback so clients
+	  can cleanly shut down a channel before switching frequency.
+	- qcom-ngd-ctrl: switch to platform_device_set_fwnode() and
+	  drop redundant dev_err_probe() calls around devm_request_irq().
+	- fix typos in comments.
+
+Thanks,
+Srini
+
+Bartosz Golaszewski (1):
+  slimbus: qcom-ngd-ctrl: use platform_device_set_fwnode()
+
+Hemanth Selam (1):
+  slimbus: fix typos in comments
+
+Pan Chuang (1):
+  slimbus: qcom-ngd-ctrl: Remove redundant dev_err_probe()
+
+Viken Dadhaniya (1):
+  slimbus: qcom-ngd-ctrl: Implement disable_stream callback
+
+ drivers/slimbus/qcom-ngd-ctrl.c | 82 ++++++++++++++++++++++++++++++++-
+ drivers/slimbus/slimbus.h       | 14 +++++-
+ include/linux/slimbus.h         |  2 +-
+ 3 files changed, 94 insertions(+), 4 deletions(-)
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.53.0
+
