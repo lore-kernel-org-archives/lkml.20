@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4040396D09
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40DE3A6B66
 	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790964560; cv=none; b=k4ybzS3HhbILLzDkrEG2eDlyovL3jYPgSKUM0T9J/Qkf3UVLY639ePGLGq0rHNVxqIq9ChzLXYH1tMjWr+gJ2qptqo8DOKLHP/v9qHTnXLTeRA5l9yf6Di3csB/GBuBZ6siiQku41GF9wgIENAgKxM1X4PiSDHjlNYNNREZqLzM=
+	t=1790964560; cv=none; b=Cq91+eWWuyf3QNHqDEddG2ibGwILfl0EmcfpNe+cAhNyD8+jKZVBTPU6dYyeH51QjgHvTXObei935Xv9A4VfQaemIpdN2GYSs1UjRkpbyxA2ULXW7qE3k01zjBSsR6aCCpUi6yw4IkIHx/rYMOMGj2vX4UNuc/gZTYX7eg8KDL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790964560; c=relaxed/simple;
-	bh=JVcZAIT4blingZlqDwuU8K//v4iaqW2865cNyjb1tss=;
+	bh=Zxi8ngAQE4N498c9vJY+1kq/fCnMAbsmZCNLE2Mkets=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RyoiYzCoc1cmD0W/wAUkuyP2IHRKXdRkqCnXczCtgT+37MPi3zZ3tCmQL0iQGGeiJKkGessHfHE834ka1LIOT9MJT+vWuXC+3PKx49HO/kyrORN2pjEBMIdKokvO6MMhBozEGPs8pdOhq6bCwPBFdI2dUCE1nE/rCINJhuoUHGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCQCGpPC; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=AggGraoFgdDKAP1DLkYWJduEfdE4kum4mcJaAVhfzKM/rBMvKv304xwTjaaubKQ4lXs0P/LWlPfdOeGSymBvMBLG8VipcF8+6qOUYnBVtftkRKa/+ZsQWgoJsrV92Q2ixVmsUblUUONnW47/BS/gdPoIoGDDhBH8/9z639elpRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JW1KR6lw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCQCGpPC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 83977C4AF19;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JW1KR6lw"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 76D8FC4AF14;
 	Fri,  2 Oct 2026 18:09:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790964560;
-	bh=JVcZAIT4blingZlqDwuU8K//v4iaqW2865cNyjb1tss=;
+	bh=Zxi8ngAQE4N498c9vJY+1kq/fCnMAbsmZCNLE2Mkets=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PCQCGpPCwBuQy7Wov0S7nBnupga2y129u/XtM2F6/O3uGuDX9ZyE9BpFutGZzS1Ax
-	 B/oKm3wmNfQcRxI7oxFo/yhUsRhdUyY84ju7R1ubqEXL7tswEAtzK3JLT+o5So4MJK
-	 Laxe540A0205nYKaaBAyFQsTlPSXhGNVo9FMsM1b+nch9ORiwo//zMKtfLmZyPM1cM
-	 n/I8vipYp9V36tocoYIKpXeht4fFVPWr14grl+8jDfoBSkkMmHZAJ+FKEIFQw3UxPO
-	 du7ecSZjCbEbADefoAEn05MYM+mQf7/DdI+aRK7h/zg8d3XqFz444r6AcN5Z72bgVP
-	 oKWErocbXlk9A==
+	b=JW1KR6lw8U30fdg7lnerzmKHzWDaPSvAsrfrrKgnswlIoJvw+7mgUMrpOa5CIWiqz
+	 z6LCUsc9dh34/H1HJ9pEH7CdWUFFcBjAvM1Uy7VH0eomE/F121+GkTK9z3lSJ2qqzJ
+	 Nv30gkDJNz4nxYkHi0efrxA6aM0vXIKQ3akeFajBarOOj1swj3SWmaabirEvXiic08
+	 5UIyIIXCeCUH/ct435upHaJWK+dKBCm0Q/Mf4QcN4rkxL74IJIDpF4GWDyNPbPA1Lk
+	 DVt8pbBPoN4lsy/RNpH5oL9tb4Z3HZ00VLxeqnN+N1izL8jtc5lqwvykbfTEuNWgom
+	 5zYdoTcgAq3lQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B885CA5FE4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 592A5CA5FE2;
 	Fri,  2 Oct 2026 18:09:20 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 12:09:14 -0600
-Subject: [PATCH 3/3] drm/nouveau/gsp: Fix NULL dereference in
- nvkm_gsp_gcx_ready()
+Date: Fri, 02 Oct 2026 12:09:13 -0600
+Subject: [PATCH 2/3] drm/nouveau: Fix NULL pointer dereference in
+ GET_ZCULL_INFO ioctl
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-my-fixups-v1-3-a83d20f9d3fe@gmail.com>
+Message-Id: <20261002-my-fixups-v1-2-a83d20f9d3fe@gmail.com>
 References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
 In-Reply-To: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -52,11 +52,11 @@ To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790964559; l=2861;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790964559; l=2253;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=2M9dEq49i0aD+XeaJ6avEiyZMMSw/YZ4lgbD6+NZKCg=;
- b=kH526DYovITBtZAg3q9UHXTnXfSCO9eGG6JfkQ3j7V4TQMnLPlDc5Y7BkzXsm1Qn3VmfBHDPU
- cA/QFTTRIYtBPr8vE2YpS4xvYAFPodPQJlB+JLn5GI0QlLEb4WIaRVq
+ bh=L2BiCR5h7zbMn466+3toqqoccEcp+N08ZHOKB4ykJHg=;
+ b=4trrWqnFSWvbtlBEh0oeA1WGLJkQkvPLNvZc26k6fM08kA0otSAlnbpbG5LmUZQ7LKRjpMoKS
+ yTaR7AD+jH5AmyNRrVZet8zuAASC1MLXOz6wePMPQG8dMyAhbdGHRK5
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -66,69 +66,47 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
-INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready() into
-nouveau_pmops_runtime_suspend() to consult GSP before runtime suspend.
+When graphics engine firmware fails to load or initialization aborts
+early, nvxx_gr(drm) returns NULL. Calling DRM_IOCTL_NOUVEAU_GET_ZCULL_INFO
+causes nouveau_abi16_ioctl_get_zcull_info() to dereference gr at offset
+0xf0 without checking for NULL, triggering a kernel page fault.
 
-On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=0, or missing
-GSP firmware blobs), device->gsp is instantiated but gsp->rm remains
-NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
-nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
-nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
-dereferenced gsp->rm->api, causing a kernel oops:
+Validate that gr is non-NULL before inspecting gr->has_zcull_info.
 
-  RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
-  Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
-  RAX: 0000000000000000 RDI: ffff8c9555fca000
-  Call Trace:
-   nvkm_udevice_mthd+0xa5/0x150 [nouveau]
-   nvkm_ioctl+0xcc/0x1d0 [nouveau]
-   nvif_object_mthd+0x110/0x1e0 [nouveau]
-   nvif_device_gcx_ready+0x36/0x60 [nouveau]
-   nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
-
-Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm (0x0),
-and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm->api.
-
-Fix by:
-0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
-   devices report GC6/GcOff ready and bypass the GSP call entirely.
-1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before inspecting
-   gsp->rm->api->gsp->gcx_ready.
-
-Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nvkm/engine/device/user.c | 2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Aug 14 09:21:52 frodo kernel: BUG: kernel NULL pointer dereference, address: 00000000000000f0
+Aug 14 09:21:52 frodo kernel: #PF: error_code(0x0000) - not-present page
+Aug 14 09:21:52 frodo kernel: Oops: Oops: 0000 [#1] SMP NOPTI
+Aug 14 09:21:52 frodo kernel: RIP: 0010:nouveau_abi16_ioctl_get_zcull_info+0x17/0xa0 [nouveau]
+Aug 14 09:21:52 frodo kernel: Code: 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 8b 47 40 48 8b 00 48 8b 80 70 02 00 00 <80> b8 f0 00 00 00 00 74 72 8b 90 c0 00 00 00 89 16 8b 90 c4 00 00
+Aug 14 09:21:52 frodo kernel: Call Trace:
+Aug 14 09:21:52 frodo kernel:  <TASK>
+Aug 14 09:21:52 frodo kernel:  drm_ioctl_kernel+0xae/0x100
+Aug 14 09:21:52 frodo kernel:  drm_ioctl+0x2e0/0x560
+Aug 14 09:21:52 frodo kernel:  ? __pfx_nouveau_abi16_ioctl_get_zcull_info+0x10/0x10 [nouveau]
+Aug 14 09:21:52 frodo kernel:  nouveau_drm_ioctl+0x58/0xc0 [nouveau]
+Aug 14 09:21:52 frodo kernel:  __x64_sys_ioctl+0xb9/0x100
+Aug 14 09:21:52 frodo kernel:  do_syscall_64+0xe2/0x560
+Aug 14 09:21:52 frodo kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Aug 14 09:21:52 frodo kernel:  </TASK>
+---
+ drivers/gpu/drm/nouveau/nouveau_abi16.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-index f78e6b9b4292..d469437eb991 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-@@ -201,7 +201,7 @@ nvkm_udevice_gcx_ready(struct nvkm_udevice *udev, void *data, u32 size)
- 	} *args = data;
- 	int ret = -ENOSYS;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+index cb1810dee8e5..0871ac025ace 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
++++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+@@ -357,7 +357,7 @@ nouveau_abi16_ioctl_get_zcull_info(ABI16_IOCTL_ARGS)
+ 	struct nvkm_gr *gr = nvxx_gr(drm);
+ 	struct drm_nouveau_get_zcull_info *out = data;
  
--	if (!gsp) {
-+	if (!nvkm_gsp_rm(gsp)) {
- 		args->v0.ready = NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
- 		return 0;
- 	}
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-index e475d0e8fa7b..9e07d67dcb0f 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-@@ -51,7 +51,7 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum nvkm_subdev_type type, int inst)
- int
- nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
- {
--	if (!gsp->rm->api->gsp->gcx_ready)
-+	if (!gsp || !gsp->rm || !gsp->rm->api->gsp->gcx_ready)
- 		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
+-	if (gr->has_zcull_info) {
++	if (gr && gr->has_zcull_info) {
+ 		const struct nvkm_gr_zcull_info *i = &gr->zcull_info;
  
- 	return gsp->rm->api->gsp->gcx_ready(gsp);
+ 		out->width_align_pixels = i->width_align_pixels;
 
 -- 
 2.55.0
