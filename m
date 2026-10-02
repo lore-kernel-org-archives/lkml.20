@@ -1,85 +1,85 @@
 Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF4F352020
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:17:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9C0284B2F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:18:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929071; cv=pass; b=i91ubHRSBYzHmZz5qUG5W4xi1Q2Mveac0h1+SEhVi2YwQzQbbFiPcFYCXyD5UqzqVatZVDHY0LaYgKcJzCrWY3D4NI+YMNQZHeK90LOVi9fLIecvCvUBFsl+UsAaHtMWL4fd87H/nT/G6kAWJb4N2P0dEcdT93PaNjvNUtCRXpk=
+	t=1790929085; cv=pass; b=B9Bb5wW90iKwwj/60QMk2oFvA4XYOASc6G+Yft0s32PmTCFQY2ounnacDW1SMMjjLODsC1zCLQU6bjMDFH/MTiv3s58szLwMKIf1IDGJVDfqWM2iJ8ER1aQsrr7rLgGCKpIrDU0A8DthknHFTP2oAFVkus+aI5UhedtmE8n85aw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929071; c=relaxed/simple;
-	bh=b7u6ms5Kn41L+dhwtIf0hPmwp8vzNweXFMOb2u0yicw=;
+	s=arc-20240116; t=1790929085; c=relaxed/simple;
+	bh=twBPHrY5BKr0n3iVtHv1M8Hxql+kPbMFNXvWJopuaBA=;
 	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e2cwULrFsQvRbjtDBuC2epIoLy7+dic1+uSjHBif+FagQfGenZIZU0YR5cOsVaAhtyIHBUA5pFCCpEnFVViENKoJqKSwW9Uv2bHmejNbKmbGUsFE3T7I6erAAtF1sL7JM+DExRGwjjMypco7Z6PM8AMyJaC017rogEfR/5nnT9s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n9qYWU77; arc=pass smtp.client-ip=74.125.231.171
+	 To:Cc:Content-Type; b=s3Bu1TQFs2RqxoJe2DfJq7ob2a7WGaDZTLh2LNPwBKGRqSeByR7IPkrrahuQjCrmBTNl0/dW4E1ANrywEwaz/CJUxVxzgk/xM7FIqGfkFgdNd0XnuDAe5Au94jrB+VGY+vclU5b86ZzU733f7qVdFGB5c20A1U7RVo+uUfGEbB4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oad4M3IL; arc=pass smtp.client-ip=74.125.231.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n9qYWU77"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-8226a912bc9so958562a34.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:17:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790929068; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oad4M3IL"
+Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6def0527340so553614eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:18:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790929083; cv=none;
         d=google.com; s=arc-20260327;
-        b=tC26C9ABdWIfUbr2YAqAzURxZfyMbsxf3esYl0VjtoXYDw2L5URMm4smFRrWNF9A5z
-         pfYk2EF7tbPTSua5P2e0f4Vydc+xRC3fzSR1A51ZYeNwMFvwX/TMS0V/nDZt/xZLj0OS
-         bGtMGj766ySpxl1isoy9RsS4OmbOS21C/OfbkJqRz10uo2yft1kl5lutq8NFnTPX1H/0
-         1EjRrzZXlpSkN7zhvHQwVQeEyFlXmCN1saEPAosmRCFpq6rBWD3ytp0pt6hxk71nbucz
-         vwKs/qScJwpjmfebnY2QKhyEm/PJN0V00rPFqzMg3tDHKz4nfkqgpLwN7fOpFvrI/shs
-         0hZQ==
+        b=fvLbOdbf6/j9IYVhKMklLnmzRQzihJPJzNELDspXB4DoJokYGQgmCJKICANlclbHLT
+         Z5Etq86LShMtDzcDSl9NTX1fIUR6Vi7XSaBfdJe/YgbXZitVDMXfdEuKX1c6mLRQDo6Q
+         f9EvcRQxoYIwxh4KuQ5b9Ybpow5HCVCnPmmGuQ/9+i2ULbJog5z9rVW1S390BSuimzhs
+         +OgYVoYxeSmzU3VSHlupB9pwePUep6EIadWF1hJPrFQHVV1OKjkPtDS3IP4d4RP9suUc
+         5NdV1bXUnNY54LWXrMw45e6iCS5i6D25PXX+3TD+yJv8IDr9C7MxvwGCgj9E8HS8HJrO
+         4Plg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:references:in-reply-to:from
          :mime-version:dkim-signature;
-        bh=qoH/7SdQ8OfbpSRw3KkFi+BkVsoYo5VaXFwLNXgWpzo=;
-        fh=y0gopbdN7uEeSKZt+7We+blbrk/gR14Eu0DM38XoNwI=;
-        b=aOEmlRrsqB9CP4ZGUbQdBDdH+YDGYYSMWo1opfLln8lGScQ0B+FcJpaJZ1YukY+Uwb
-         +ds0PWwHViGJQM1lCQzJ+vEoJTrW2z5KMyxSUVjeAtuvOjpnKEWIPo+fEpMzixMLZiUv
-         Q19s8EJ7/5mfzmyDRE5wx/wMLpFCg+iPrzcribv4ZgYE+u6RI4SzrXUbCPWBglIvvR8Z
-         Dy23m/g+HxiaF9iw0dDSxDv8JEJmUZDlFqYE54gKkRogIuB2hA483Tmsc5t8N4c7V86P
-         4pDl1UQWNzHbNwYbDXAIsyr3X6rxABsZe+alN0bOIKSNF7jT0l5vdTueyi6W8yfFlHdY
-         uyHw==;
+        bh=bpg9iRtZofswrYhKLOFSBMFWRKDxygadnyFAvbF7xh8=;
+        fh=2OgzZLaP4lKisojNBAWP5H4dhz9z0pa06fadNovYXKI=;
+        b=RuWcY/m8SCWc3S0zXXqx7UiWvqp3GgAgTJpaELKt89p9ejWTwuJklkTeHWrFxzHUGQ
+         rh1zbAQATwE84Acv+BiAc6xDauSX7mA9k7hCsLvDa4i7jzk7hquGDEBxZ0ifQF0gLn56
+         o5//+6V861n/6luXNDuzYgbeFGbvJXqp8vy7XH6fhNIgPLs/r7Q1rLttAmgf/BSHO/NR
+         fpnA1m40yxsn3LgfbPa/BCxmrnzD6joeRLoq3h7sT8ZzqWOqNZ706jePMY5KDMmXAcJQ
+         dw6lTHQ3Lt4HWuZE1Wif8oL1KavJMz7BHCn3YoBSIVziuYI6EN1reN140p8t/Qde3Hfp
+         GQTg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790929068; x=1791533868; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790929083; x=1791533883; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qoH/7SdQ8OfbpSRw3KkFi+BkVsoYo5VaXFwLNXgWpzo=;
-        b=n9qYWU77x+6HNR3uWRFzij6k044CllGBteTnHQbRUJ9YZKK6jqsc7pEst+Ak64wyXS
-         /5NOGeE9D8j04lX4rsp8YKhK4WZ2uKcyrip1WD/wALxdhj/HYFgpcbl5ZiMwQiX7kE1a
-         u2DLlR/hFY74zpOe9OcPGlpollFHOFylujIBX93Mp6/tw/Erw/HH0zuE2WhxZqZDomPb
-         RVVjsc9WEArJqyUWI9s/MQxiLQc5X6B5a/Td3NrcIIDaAp3MNqoWbi+juh3JNh6Awqup
-         BYSysYLsDHVYPS+5CNXIpj/7DdCSlgFrjVkDhf0n5Kdex2kllDq0WElTs4Ed3N17Zd2K
-         wOFg==
+        bh=bpg9iRtZofswrYhKLOFSBMFWRKDxygadnyFAvbF7xh8=;
+        b=Oad4M3IL+pVN9UnBDpC3dyYCyxqlsGmxSsLONHHMj9HFnwmJUUTSacJgUr901/0aLi
+         +0KsVvUnhaH+EhtIQytEPRUIRSM9BLh49P9veV310ycCAnIWVFIOHOUaU6YWGhj1JsoT
+         XwNPwdcCuefh06CZFt9UjvgkIf5x2xAOFgCYr0UPPIthjF6otTpMOU6uN08mjowbDptx
+         iN7kOzqL9FPkio7ESF6gNZLFXat8Ojm7jTeDlOlU6K3g4IycSy1U2VdEHaQ5afKBrqB4
+         m4fu/UCXQjmcOa1QVI8S+hTUvoaSgu2hmWpqu84nCZ/JLQZqvV8oAWEs2Wz7GDOypwbs
+         Geag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929068; x=1791533868;
+        d=1e100.net; s=20260707; t=1790929083; x=1791533883;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qoH/7SdQ8OfbpSRw3KkFi+BkVsoYo5VaXFwLNXgWpzo=;
-        b=aMWAwqe7mNFke8QrhV2VunYgi3XfH0P+0188QFIIeJoRY+apETc102JR4nCGh3govx
-         FTycmX2f4dLD2gDc1c0AmEs1B0V6i4AlaHlepnyA2pFfuvKOaxuFYtXDml9uo5qYvFjC
-         B12mZosh08Ltq7w7/Q/Jg1SqyiUrWGbl0TUYeRfbI6Arj6TkjLHsxpyDcV8xeenjn+Pp
-         YC5UlsyOjST9hu+5X182MBj2G7Sps0Ud0TezJMezs5+0hNdHUqVnDCsu+FceTBf3vRzQ
-         +499sBYUpeJWcWqU7fFm7nugFWWrV9ZwYTR+TlVcHfVTvB06QA2pckhH+WKQyb7aJvM4
-         SdeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpEg9SjoZ6DJrK9vh87reqZOimzCLRDYKuhfDd2kaEOb0JJ+SIANSdSK2l5Z9DCrv1iE83atnjzZ4mI+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL7mM1Q+xoHfztFSabgfCy4RWKzsj+yqP+JS0e4HcCEjW+Kr0u
-	x9TtY27cfeCRhTj5tB6RqTwf66zhnAvVjvSyGD1aG8DGs4jPid0Pq3WUfaXjkuJ/5pbGctYLq96
-	vIoERfQDqQ6TZnXqkTwNI52lR7iBR88I=
-X-Gm-Gg: AYBFou3sfwiZQQ2ehDu1OrER+g5EezW4gfTuPF1jmk2ujPWs11+olFDBp5anN4skauc
-	CdCq3Dt8Qp8/09lgrGKI1RSl9YXC/mjxHWpXiVaMlKPrZo4k9HEqg7Ch3mgieTK0c2zA/tf8VaO
-	RFrqpzh37lIUS7CCuGvRFU/lFCpOkZxsZVLgRrChLtUsdPvLyj+X2GbcWajSasIJ0CwDhEsqWmT
-	F5qXJcnQzfF1HxHX19eaVhIDTFMtg0sQCS94ILmuRM406nuXcfO2iq5XwGTNsr5CVBEdeDUTihc
-	LD7yHgkWOF6T/TQnrBMnrc13nBIJ4GCB+f7lSrQP811kVPFhey//PF5YFxKhGVKu+iYAsJRfXkV
-	MPSYfZVdommA2wenXJt5ALebo8i5dGqhF
-X-Received: by 2002:a05:6820:1527:b0:6c3:2390:c293 with SMTP id
- 006d021491bc7-6df341909bemr1497792eaf.32.1790929068351; Fri, 02 Oct 2026
- 01:17:48 -0700 (PDT)
+        bh=bpg9iRtZofswrYhKLOFSBMFWRKDxygadnyFAvbF7xh8=;
+        b=qyFfm7QM82miehL2jUHCxirzaVEPDwQiD7KNSRtirKYiCeRm9m+FlOrOG4qiSrWtkU
+         LFqzb5ORKMLCn+9q+Bfzm9slNXTnxldWrn9QbC1WfWzxyxiOUPrwJbRoFHe5eWo1aG7p
+         eoWXCOfuH/eLEU6eEXwlcLNmNEA5fPh098fJVRpO2VPh1COHDAzODc1l95P+QSNakrFg
+         NsnVN+cfyHnFJyYHdzyG5CAqdkLSTfMkFtCf/9xH76pFS/uZFiKGyHG4GX5cOW278Z13
+         Ae1AX5vXNIgWn64O3fxxa4rVSo4ZBtgzUL/l7i4zR7UeYOriqdMNK2LOdTCAYRPYzO7C
+         RjFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwq7+fs6TRN6AyOJUXquDRNQIdnrsgr5rZEQOPU5XfprJ9ni04jz9tXqpu3G0xVEJ1H28K8fbVCOzoP2Xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVjwg55ceFBS+Gdo+vyXQFSLA3IRVhIzCR/AwOKzam7U67qYvQ
+	GJfWWmCYUsmN1sHUqGV49JEAfQmJpuedIsoUTCcw6ZGc/5SLZbMDpZ+4SH6OwM0hJPWZNJhMjSh
+	Dd6oST4TYuuY211x/LPZgC9eP6wukOeE=
+X-Gm-Gg: AYBFou3rpD2VUk2d2P88DDJShS7iPRbr93jyoii/ouYyFLs9Ou5RNdD9bz8wlNSwg29
+	PHGkadbmgTtaJDwe7tiwzmkoclAB8eOpzCibHuYYloV8rNz6zGXP87mgLPlwkHd5nrC/0EScvEQ
+	Mz4cgH8mkYN7ADYy9ScSGmecZFwtW88A/1pFfJZSKHW1TRvw9+kCBzuhl7R2gXz43qzrcFGWCcw
+	WEzxmeClI4TAUx1MuMdNu3N4xPwCHxYFJLCdszlAQWxcsKv6gq0lEIm/nWO8fwU9V9IQmy1RCCs
+	w02RkMppKhP+jht0FavAxmLR5cOi2t78V4HKh0JqPqpba4Q0DrHW2A8b+b/ZcmtDRP4FiZNYHJS
+	4TQtDXuCZtKbLAMk9PPO+CYZC2qltSm9PFw==
+X-Received: by 2002:a05:6820:1787:b0:6b7:8415:d780 with SMTP id
+ 006d021491bc7-6df33b9a1c1mr1670231eaf.43.1790929078189; Fri, 02 Oct 2026
+ 01:17:58 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:17:47 -0700
+ Fri, 2 Oct 2026 01:17:57 -0700
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:17:47 -0700
+ Fri, 2 Oct 2026 01:17:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,10 +89,10 @@ MIME-Version: 1.0
 From: mauriziocasciano7@gmail.com
 In-Reply-To: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
 References: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
-Date: Fri, 2 Oct 2026 01:17:47 -0700
-X-Gm-Features: AclHuK94sf6-8POpQCO1mj6Jk4Vhv0wy6XkoJiDnIey6glgtlnk02WmTfcpubNw
-Message-ID: <CAO7O_xjcyeJcY060STXqG53nsLaKdhxeeHEHDUXbp8Wvj6OA1A@mail.gmail.com>
-Subject: [PATCH v8 07/15] media: atomisp: Add Yoga Book camera configuration
+Date: Fri, 2 Oct 2026 01:17:57 -0700
+X-Gm-Features: AclHuK_y4aZgp-8VABFxR2YWElsBKo_XUFzWtprIfFIUbpsBiWg0j3l3zIKhLyU
+Message-ID: <CAO7O_xgtBoo65XO5K7NMiRZX4QicQgEr1BgcBrk85kwGckS5Kw@mail.gmail.com>
+Subject: [PATCH v8 08/15] media: ov2740: support 288 MHz link frequency
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
 Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, 
 	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
@@ -103,68 +103,123 @@ Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-The Yoga Book YB1-X91 firmware lacks usable AtomISP configuration for
-both cameras. Rear INT3477 OV8858 uses four CSI-2 lanes and a WV517S
-actuator, while the front OVTI2740 firmware reports the wrong lane
-count.
+The Lenovo Yoga Book YB1-X91 front camera uses two CSI-2 lanes at a
+288 MHz link frequency. Add the matching PLL configuration and mode
+timing.
 
-Add the rear sensor configuration and a DMI-scoped two-lane override
-for OVTI2740:00. Add the front sensor configuration separately once
-its link frequency can be supplied at the same time.
+Reuse the existing 1932x1092 crop and mode register list so the Bayer
+order remains SGRBG across link frequencies. Cropping the CSI-2
+receiver output to a smaller processed frame is a userspace pipeline
+decision.
 
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 Assisted-by: LLM sparse
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- .../media/atomisp/pci/atomisp_csi2_bridge.c   | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov2740.c | 43 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 41 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-index cca91c6d71a5..56da454f0d9e 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-@@ -74,6 +74,12 @@ static struct gmin_cfg_var lenovo_ideapad_miix_310_vars[] = {
- 	{}
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index 830f5857d73f..ca33ef30267d 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -12,12 +12,14 @@
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/unaligned.h>
++#include <linux/units.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+
+-#define OV2740_LINK_FREQ_360MHZ		360000000ULL
+-#define OV2740_LINK_FREQ_180MHZ		180000000ULL
++#define OV2740_LINK_FREQ_360MHZ		(360 * HZ_PER_MHZ)
++#define OV2740_LINK_FREQ_288MHZ		(288 * HZ_PER_MHZ)
++#define OV2740_LINK_FREQ_180MHZ		(180 * HZ_PER_MHZ)
+ #define OV2740_SCLK			72000000LL
+ #define OV2740_MCLK			19200000
+ #define OV2740_DATA_LANES		2
+@@ -91,6 +93,7 @@ struct nvm_data {
+
+ enum {
+ 	OV2740_LINK_FREQ_360MHZ_INDEX,
++	OV2740_LINK_FREQ_288MHZ_INDEX,
+ 	OV2740_LINK_FREQ_180MHZ_INDEX,
  };
 
-+static struct gmin_cfg_var lenovo_yogabook_x91_vars[] = {
-+	/* The vendor driver and sensor modes use two CSI data lanes. */
-+	{ "OVTI2740:00", "CsiLanes", "2" },
-+	{}
+@@ -142,6 +145,14 @@ static const struct ov2740_reg mipi_data_rate_720mbps[] = {
+ 	{0x0312, 0x11},
+ };
+
++static const struct ov2740_reg mipi_data_rate_576mbps[] = {
++	{0x0302, 0x1e},
++	{0x0303, 0x00},
++	{0x030d, 0x1e},
++	{0x030e, 0x02},
++	{0x0312, 0x01},
 +};
 +
- static struct gmin_cfg_var xiaomi_mipad2_vars[] = {
- 	/* _DSM contains the wrong CsiPort for the front facing OV5693 sensor */
- 	{ "INT33BE:00", "CsiPort", "0" },
-@@ -83,6 +89,14 @@ static struct gmin_cfg_var xiaomi_mipad2_vars[] = {
+ static const struct ov2740_reg mipi_data_rate_360mbps[] = {
+ 	{0x0302, 0x4b},
+ 	{0x0303, 0x01},
+@@ -468,6 +479,7 @@ static const char * const ov2740_test_pattern_menu[] = {
+
+ static const s64 link_freq_menu_items[] = {
+ 	OV2740_LINK_FREQ_360MHZ,
++	OV2740_LINK_FREQ_288MHZ,
+ 	OV2740_LINK_FREQ_180MHZ,
  };
 
- static const struct dmi_system_id gmin_cfg_dmi_overrides[] = {
-+	{
-+		/* Lenovo Yoga Book X91L */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Lenovo YB1-X91L"),
-+		},
-+		.driver_data = lenovo_yogabook_x91_vars,
+@@ -478,6 +490,12 @@ static const struct ov2740_link_freq_config
+link_freq_configs[] = {
+ 			.regs = mipi_data_rate_720mbps,
+ 		}
+ 	},
++	[OV2740_LINK_FREQ_288MHZ_INDEX] = {
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mipi_data_rate_576mbps),
++			.regs = mipi_data_rate_576mbps,
++		}
 +	},
- 	{
- 		/* Lenovo Ideapad Miix 310 */
- 		.matches = {
-@@ -359,7 +373,10 @@ static const struct acpi_device_id
-atomisp_sensor_configs[] = {
- 	 * the sensor fails to start streaming when instantiating
- 	 * an i2c-client for the VCM, so it is disabled for now.
- 	 */
--	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),	/* OV5693 */
-+	/* OV5693 */
-+	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),
-+	/* OV8858 */
-+	ATOMISP_SENSOR_CONFIG("INT3477", 4, true),
- 	{}
+ 	[OV2740_LINK_FREQ_180MHZ_INDEX] = {
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mipi_data_rate_360mbps),
+@@ -502,6 +520,22 @@ static const struct ov2740_mode
+supported_modes_360mhz[] = {
+ 	},
  };
 
++static const struct ov2740_mode supported_modes_288mhz[] = {
++	{
++		.width = 1932,
++		.height = 1092,
++		.hts = 2160,
++		.vts_min = 1776,
++		.vts_def = 1776,
++		.vts_max = 32767,
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_1932x1092_regs_360mhz),
++			.regs = mode_1932x1092_regs_360mhz,
++		},
++		.link_freq_index = OV2740_LINK_FREQ_288MHZ_INDEX,
++	},
++};
++
+ static const struct ov2740_mode supported_modes_180mhz[] = {
+ 	{
+ 		.width = 1932,
+@@ -1179,6 +1213,11 @@ static int ov2740_check_hwcfg(struct ov2740 *ov2740)
+ 			ov2740->supported_modes_count =
+ 				ARRAY_SIZE(supported_modes_360mhz);
+ 			break;
++		case OV2740_LINK_FREQ_288MHZ_INDEX:
++			ov2740->supported_modes = supported_modes_288mhz;
++			ov2740->supported_modes_count =
++				ARRAY_SIZE(supported_modes_288mhz);
++			break;
+ 		case OV2740_LINK_FREQ_180MHZ_INDEX:
+ 			ov2740->supported_modes = supported_modes_180mhz;
+ 			ov2740->supported_modes_count =
 -- 
 2.53.0
 
