@@ -1,45 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67C3456E04;
-	Fri,  2 Oct 2026 12:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E5F420898;
+	Fri,  2 Oct 2026 12:58:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945923; cv=none; b=BnDFavfoarZ1pKemLs2bU1EXMkhCkdmeXp9BbO18kFtl7fSydsHpW6KvvB72R8ilzhDf0BFhmjMkWKnyptHaxws0Farp0DNXKoEmycT0vFBMvfscANLnRlIBK9oGES/avvBDfvp53ykaGcW31HNMObsdoiFOcmoMwhJlRjjMze4=
+	t=1790945928; cv=none; b=St1Oay8wvXDWyjryLc/131/YFdHXxBoDLnDHjHRIfNerWZhnHbDtNmjjgyGWMXDG+6TgXQ/QEm1YgUIY9R40fFejaCvb+z2gDYW/zYO2RdNtZa2p4ET5c2rUchjiuJ5WDOYw3vylvnbtxIGDuHAz0a1wbI1Ayk/3iuvxmn6zKbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945923; c=relaxed/simple;
-	bh=xNzzvSbc51cCr5Fc4km7Ggs6a26Cs5l2cnWUIKJUQGo=;
+	s=arc-20240116; t=1790945928; c=relaxed/simple;
+	bh=Y+Rtrc8J0oal32o4l3ds2RR1jg/GPbcWfm/RLqegbPg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=mCzwu9fMrE+7QuFWb37URC8/brjSEH9XIxsd5BQGrtTXVnlbdbjvjmpWrEs5gLZSQ2eeGCO3DjZWQ5vUYL6nS8Ic+nND/1VKEqA523UxxJUxZoARFxi6IudCOAVFRg85eNQuOBEMfPbX6OQewvSFCU9wJV9x+UcdBqUTNfVlGqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jcv3L+tB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tzDbhGtNS4lMEhh+HFVNkFJejG5NKbcFJ44CFUNNqXWvmJCWyAhrb9N1IiOg4ix+RhA1URn4d7zCWyC0E/hi/XrAPUNSCiLKf+3nbvKvXFv7WhYXfppFr5zCKcywYU20wyyH83HQ6XEjiHml8ezVqJrRPFkrtCHHkkbdxoL6plU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FO87h/0c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jcv3L+tB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AB081F000FF;
-	Fri,  2 Oct 2026 12:58:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FO87h/0c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84E21F000FF;
+	Fri,  2 Oct 2026 12:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945922;
-	bh=MxCdHBRqLiCyses9ZXUhEWZjiuwRWjHs0M5h8P8vfYA=;
+	s=k20260515; t=1790945927;
+	bh=hJwNWlOWtKBMogwZLPlA8tvbDgg0gOFsJLczUeA/flA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=jcv3L+tBH3LimxChE1JsfoALkgjn5vqIPZ7ek8Qstx2qOMDc+KkaCsUx5degoPI6d
-	 ZPFHynWLCrXwk7s15eMcUYvqAg69MYMAXiFQMU81A7wK0u1TarW2E4Sn0EEB6oJZVQ
-	 APf/nmS+KmtZgiRCDnaSjEEeXDn8J9wt98UlCvtqJdIDCgYMEhjol3nn5cfd90JWoJ
-	 3haVYfWnY98vNiB1KO8ioWVznqQeodY6NqUje11Sv7vd/9viWTIj4EPthMJZlPNXAd
-	 sNetjg1SZYZDJAjZFRrzMNFHWErrUmbzQEi14seC/4cIjlmOS8rEx8NdolN/Pj7DgX
-	 /TXB8mc9b6CFQ==
+	b=FO87h/0cWgITgLMQIVug6Shpq1ABoVFzq2W4Wizg2s1frJ5npX+PxzfUVsPcuIgL0
+	 /TapvhOmvA41bx1FO/nSDWpM1Vsqj5aIMQiS+N8Iafxxtt2yLivWf7fILDGLQuvNaT
+	 krWIOjtr2jz4BIga4jmiY7wECzieUg8VMV5RJp0ZWjYLLd6guyCBjTqnO+xUZHFt/W
+	 81hgVV4qct1uozmbk2VETx+QNZPeUjklsvaI1T40Up3a784e7vNLsRy+NAIHeIYZp4
+	 kkg+uQ6cCmlSaIlYUcj4BSasOEqTRCBVGVMg/pXH7btkY08mLnr0ako47zSFx93x5o
+	 KMC+y2eALZ1Mw==
 From: Mark Brown <broonie@kernel.org>
-To: Val Packett <val@packett.cool>, Dan Carpenter <error27@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Luca Weiss <luca.weiss@fairphone.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-janitors@vger.kernel.org
-In-Reply-To: <ar4C-0NIYXiAvxvv@stanley.mountain>
-References: <ar4C-0NIYXiAvxvv@stanley.mountain>
-Subject: Re: [PATCH] ASoC: codecs: aw88261: small cleanup in
- aw88261_set_tdm_slot()
-Message-Id: <179094041583.83544.1416484005770287015.b4-ty@b4>
-Date: Fri, 02 Oct 2026 12:26:55 +0100
+To: lgirdwood@gmail.com, Yuri Zaporozhets <yuriz@vodafonemail.de>
+Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, xingyu.wu@starfivetech.com
+In-Reply-To: <20261001192552.2904-1-yuriz@vodafonemail.de>
+References: <20261001192552.2904-1-yuriz@vodafonemail.de>
+Subject: Re: [PATCH] ASoC: dwc: Use OF match data again for StarFive JH7110
+Message-Id: <179093939752.83544.13483549514980783237.b4-ty@b4>
+Date: Fri, 02 Oct 2026 12:09:57 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,20 +44,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=broonie@kernel.org;
- h=from:subject:message-id; bh=xNzzvSbc51cCr5Fc4km7Ggs6a26Cs5l2cnWUIKJUQGo=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqv6p9iCVzPsQAYRcBZG43XkuEdlepHfR94eKnL
- mH5W2v9g6eJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar+qfQAKCRAk1otyXVSH
- 0NDEB/0U8ja5Bsi7wfRnXsmzlTAoCXRy2wVGPTCJGZuMySVJ4nlyzQx1Hi54dSD200WwX5g49aL
- FJC5xSlCweDFvdNJZXeSiWVzSNt7uEfc8GMm059HzIVf85ZnpySALGYs2vgSaSfWDq1zH/g+0xd
- +D5zY4z8OOHm/TqgQaTwygy2XEJ6nKdIHmaD5eJFhPpL0jhFqwi03STEXfadqAt3IWP0ITudaiq
- Nk9LqTdywy6M5F+tCbKYVOnARxXOO0YXrQcfQizY7qiTRf5o84Hs+BrdUIFZqs6yP0h1MR6zVG+
- ReseQzfjvYpZgC+RCvSSN/fyuLw7kT+zmdxDwDkRNZ/AMn+Y
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1130; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Y+Rtrc8J0oal32o4l3ds2RR1jg/GPbcWfm/RLqegbPg=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqv6qDlUnW1J32Dab+rOKrc2F2kOz2Am3Ee82wi
+ IGzseHOH4iJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar+qgwAKCRAk1otyXVSH
+ 0MqOB/9B/lknKOmSv1w0r+f5lsdXrpWxMeGUu3OpVZUNMvRlx9eN7q/bsdIZmKguLlHyZVrMqTf
+ B39djbsjSlIRtv3gfk54Gd8BjwrlKhkvnN4OrPb97s0MUZJhATSZsTYZhSDlhX7585o4sq2RAjn
+ npYozUJNEkPGHCD7aWAWJh7YoCmaSrjYR64sFUaCaZ4h2zmqgb6uaE3NlU5XacLfityVEAjP4MJ
+ pH4XjPEmsw3vaO2kBEazKDh8K0Y1SwWlI70y2/BudYP8Aky4KKH6T51A1v/PadvsTcXjqDG8G1Y
+ WxsPAhgsEEsLitbEngi7vagd8xvCZNNuWKg7LhhEzhXiZoV1
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 01 Oct 2026 09:51:39 +0300, Dan Carpenter wrote:
-> ASoC: codecs: aw88261: small cleanup in aw88261_set_tdm_slot()
+On Thu, 01 Oct 2026 21:25:52 +0200, Yuri Zaporozhets wrote:
+> ASoC: dwc: Use OF match data again for StarFive JH7110
 
 Applied to
 
@@ -70,8 +65,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: aw88261: small cleanup in aw88261_set_tdm_slot()
-      https://git.kernel.org/broonie/sound/c/015f14e42b22
+[1/1] ASoC: dwc: Use OF match data again for StarFive JH7110
+      https://git.kernel.org/broonie/sound/c/d532e2f5c288
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
