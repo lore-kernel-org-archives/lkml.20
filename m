@@ -1,84 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3080B41D11E;
-	Fri,  2 Oct 2026 10:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944C347ACD7
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936310; cv=none; b=uEdz33CZqD2F+8r0sgthffO2hbg1a9a3js/1Ny5/NAZ7JKcjwbiZZ5vYUftGKVm7TAuicF7/SF3P8PMzfsJAagVTr25Q1kOzI2XqHq4vQrEFF9k/54OzMvliL7h/qWfulF5OzLzh0cIR16g8MC6abYWic92BGKYd6K9Bku5WR+8=
+	t=1790936320; cv=none; b=girW53IpJL2fzP+HZx4VJsYh+u3B9nKUefY2AdYUB6CSaU9COLVFCUsHfAlmGvbWnGnVM19SgxgdlBlcEIsRsca1ro42icbOJezvRwdwYQfExXco1wBMFyrXb8EZAGC5dHH19EszOm1T4hBFYP26APQB5ReynUD6Cfej8dXX6FQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936310; c=relaxed/simple;
-	bh=EFvCrRBIWF5b7VjJlzEl/8QN+53YJGJq2xeX3a/6Rg4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a5NTJDiQ5GT2JUzp7P4pb2uXz1j+SOzxFzdrmZX7kuY/dapnofrbP6609IZWRBBNsof363fsuzVrG7AsqHfLa3yAuLpvkT2rn+3WnfD6e68QzaL8IcoAeqXU2sm74NvsINpYJcwwzhAPdur15hR3Xup3cbqfTafkwky5WExG2+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dO0QF7Fy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790936320; c=relaxed/simple;
+	bh=Mibw2iCp18VIFMlhV/kjcqAYiFGLy8WWeb9id2+XlQA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cNfnUogCDzpKfDRyw0/CapeyrzTRWrEi+wRm7aTpqGS00xCQeD2vVzpg4fl9GacZSyhFHxGLsYbZgtbqw8VpO2nW5bEhG/XlXiwsVnnpNvyu1+2opjayYAdcbKzkyAOgbgBQ76X9fAlXgxG3Sjnw+6iUdyCKByYmKEl0Z/gbPmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eLIIqjJf; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dO0QF7Fy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678BC1F000FF;
-	Fri,  2 Oct 2026 10:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790936308;
-	bh=EFvCrRBIWF5b7VjJlzEl/8QN+53YJGJq2xeX3a/6Rg4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dO0QF7Fy9SVQ3Fa+3btBoie+pDM8Lk1+P79E8N59Q1N4IH9/niZ/8pXqQp02wWRIR
-	 N76lMDD2MAON/2AcdCkav+7m03E7uXn8HvN7EMymSxBB167Fny+no+8iBoDnHQG2vX
-	 FHO264uotXxe9vgawMJBX5THTKcXj3pDtbdSD+QW05kEP+XMADvBf5ngIP0JQR4yXf
-	 jeZj/9IOUm/NrsSHNjBwCQaJfbiZ8ttVXj2WX4djoX9UzrvuCaQju70PQofstqfd2I
-	 kSJ+ymDKob9aZKysEpcibgHoMz5AQ2XWO8DC4CPqMOyW2BqOnfd7JHx4MB9yXaJjU/
-	 M651mDE9LyZyA==
-Date: Fri, 2 Oct 2026 11:18:18 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, kvm@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Andreas Grapentin <gra@linux.ibm.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, "David Hildenbrand (Red Hat)" <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, Gautam Gala <ggala@linux.ibm.com>, 
-	Hariharan Mari <hari55@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Hendrik Brueckner <brueckner@linux.ibm.com>, Ilya Leoshkevich <iii@linux.ibm.com>, 
-	Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Nico Boehr <nrb@linux.ibm.com>, Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, 
-	Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v9 23/24] KVM: s390: arm64: Implement basic page fault
- handler
-Message-ID: <ar-EcynSFG0BfW1E@gremlin>
-References: <20260930173441.66762-1-seiden@linux.ibm.com>
- <20260930173441.66762-24-seiden@linux.ibm.com>
- <e2742ccb-6b91-463c-a148-30b7e2f41e9a@app.fastmail.com>
- <e1569c6e-94df-4609-8d94-d6319b4171cf@app.fastmail.com>
- <ar5udQI9qDAtYrGi@gremlin>
- <20261001153005.314717-B-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eLIIqjJf"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a837b0c2bso89559366b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 03:18:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790936317; x=1791541117; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3ff/XvzxY93KOQfzC3a54rsMSJuWp3rTdaJjJYBq0PA=;
+        b=eLIIqjJfBCrYJLZZ5hQPmrBDOcHmEYfy7iQOgabtezoB5zSYeqLqroPxVlnLkBVEg8
+         C5s3RaHGIkG6d4Hf36KGrS1fV/qOWLk9V/wBIzj+I9pfqSDbVFoaEQdHApSqxfGQ7qq5
+         238y3mB63WU2a2bsijV3wYy/i2MwMZbx1PmpJ/j/3EXmR+suri5SAHtZtgN8zRZVUsX9
+         Lzzs5z1KTXozTmBImliEk0oFHCizPb4BHmNVCEJ0akEtVp3GjJfNigMUqF3oMMdsaBEb
+         Kpl7lldlAcHQWeP9EXETFtbSlzjb3ZSxW9Dy39ArLbD+nGUZiXtc1OS0fgKosAjNSX0B
+         zkhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790936317; x=1791541117;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3ff/XvzxY93KOQfzC3a54rsMSJuWp3rTdaJjJYBq0PA=;
+        b=I4UwClQh+FZX/+5wBOHqtcZqOZ7aNx35Royah4CppQ8qwZBxyN4wdU+q9yfJlYM96m
+         JXmfHMIBOnEE/aux+pRnERbcAojFlhJHa5Bq44oaIl1+4Fbvv+/kKdv3obH3ejnJi4PP
+         Kb9iPaNM+4uxpHEEPMKJ2vzkKzXffl9zKUgaFH6DJXQcQWcb1BSNf+Uc5tUTiNZ5AdSW
+         dFqtjRQxZbwgHlAYd5BDgngaWrnGSI3/LeB1HYhXhiG/gPZeLEFSLRpazAg9wBUJY5L0
+         S7mto2NuSNjndzHFkv2AVt+l4WsGcEDLzg5jGkSGaydDrG7K3V4U0SodJNu7mMY3iSXf
+         6VyA==
+X-Forwarded-Encrypted: i=1; AKwUvBy1mGpAFJnmxbBuSOfkKymh8vw2AfyxzDOUgPhj6xreJ1ccM5gmBTcX8SXE3EPcI9mhHfIBRSCruE9B6Ec=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRnI1LXoOOc+nurODIUqLGqb24YZY3RqKM7bkOZ36gefSGvHb4
+	e8KUc32odytqFzBew5FswKB3MVvpHEGviNjf+bb1+GCv/wSmQzEqMZ+Z
+X-Gm-Gg: AYBFou2ruGnJGk2IsmzuGgmniKd/FQRJYY+o18tA/GlMeWbzqwiYvAK5KMZwDYkoA4H
+	55HBTIU9uT+Edywn/5LTCGqMLdmki82hqIrDX5+B4AMvr0FBt7iXg1zacdNL0oknx/MXyvF5hdk
+	GAt47hTngd08KVn11itqpZCYuGFaaKH4mBov0zvvp4mHrWPrKlmOVXasXExm8+Qrej9jzW1DURQ
+	oTsrd7q0K6glYCvdEWj6s+uO1kohTflzSAqGDT1kY8lbU186jZFU1tyir+3MI3Q7PeBPgLpRORc
+	3ceL30dRT85nnu5k8DneFAIhhAsigQ6NsMR4K27dwPBETuZlrbnc+srfmllCEBUvlz5RHFkEm3b
+	A6u9olubW6Sdpeo8ySx7NRGRfVA9m8sNc12E4TlrDH1fwJUH8ZIwQhu4TnZ5LgeVHVvH7DzLGhi
+	Kn8ocpoUJmFDZgeWpPREiNeK+L1tYIyhjJQGkhUAEU8xsgTl/T4JhmtEYAXssZZwIwBfJwY78RK
+	WsvtJv1hJaszKqB8hoSvmVQHOrv
+X-Received: by 2002:a17:907:3f90:b0:c25:ca8a:8e25 with SMTP id a640c23a62f3a-c2e4a92bfffmr195136666b.1.1790936316710;
+        Fri, 02 Oct 2026 03:18:36 -0700 (PDT)
+Received: from omarchy.onca-albacore.ts.net ([185.139.138.218])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4ca4d8a7sm74934866b.1.2026.10.02.03.18.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 03:18:36 -0700 (PDT)
+From: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+To: Mika Westerberg <westeri@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+Subject: [PATCH] gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro V 16S AI
+Date: Fri,  2 Oct 2026 15:18:00 +0500
+Message-ID: <20261002101800.51506-1-abduvaliy.hbai@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001153005.314717-B-seiden@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 05:30:05PM +0200, Steffen Eiden wrote:
-> On Thu, Oct 01, 2026 at 03:36:26PM +0100, Lorenzo Stoakes (ARM) wrote:
+On the Acer Nitro V 16S AI (ANV16S-41) the internal USB camera
+(0408:4035) works on Windows but never shows up on Linux.
 
-> > Ah the s390 <-> kvm emulation stuff.
->
-> no, its not emulation :)
-> We use a hardware based acclearaion approach.
+The firmware drives GPIO 11 of AMDI0030 high to power the camera. The
+same pin is listed in \_SB.GPIO._AEI as an edge-triggered, active-low
+wake interrupt whose _EVT case only writes a debug code. gpiolib-acpi
+requests _AEI pins as inputs, which clears the output enable bit, so
+the camera loses power during boot.
 
-Sorry my apologies, I did know this but mr. brain didn't engage there :) rushing
-through mails (and been sick these last few days)...
+After boot the pin register reads 0x00447a00 (output value 1, output
+enable 0, line low). With the xHCI controller kept away from Linux
+(pci-stub), the camera port shows CSC=1, CCS=0: the camera was
+connected during boot and then dropped off.
 
-> > Or both conditions? One for the s390 guys.
-> >
-> so just the initialized test.
+Booting with gpiolib_acpi.ignore_interrupt=AMDI0030:00@11 keeps the
+camera powered; it enumerates and works with uvcvideo. Add a DMI quirk
+so this works out of the box, like the existing one for the Acer
+Nitro V 14 on the same pin.
 
-OK cool, so Arnd's suggestion as-is, then. LGTM!
+Closes: https://lore.kernel.org/linux-usb/CAPGafdkBb49YFV+d0rYjbi4QjifCUr1Wos6C5TZtDQzN6-pn+g@mail.gmail.com/
+Assisted-by: LLM
+Signed-off-by: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+---
+ drivers/gpio/gpiolib-acpi-quirks.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
---
-Cheers, Lorenzo
+diff --git a/drivers/gpio/gpiolib-acpi-quirks.c b/drivers/gpio/gpiolib-acpi-quirks.c
+index a0116f0..5cb0d5f 100644
+--- a/drivers/gpio/gpiolib-acpi-quirks.c
++++ b/drivers/gpio/gpiolib-acpi-quirks.c
+@@ -343,6 +343,22 @@ static const struct dmi_system_id gpiolib_acpi_quirks[] __initconst = {
+ 			.ignore_interrupt = "AMDI0030:00@11",
+ 		},
+ 	},
++	{
++		/*
++		 * GPIO 11 is the power enable of the internal USB camera.
++		 * The firmware drives it high but also lists it in _AEI with
++		 * an empty handler. Requesting it as an input turns the camera
++		 * off, so it never enumerates.
++		 * Found in BIOS V1.14
++		 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Acer Nitro V 16S AI"),
++		},
++		.driver_data = &(struct acpi_gpiolib_dmi_quirk) {
++			.ignore_interrupt = "AMDI0030:00@11",
++		},
++	},
+ 	{
+ 		/*
+ 		 * Wakeup only works when keyboard backlight is turned off
+-- 
+2.55.0
+
