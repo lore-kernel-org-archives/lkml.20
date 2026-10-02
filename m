@@ -1,357 +1,360 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D731470438;
-	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DED451071
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931473; cv=none; b=Ytv6x2A95fiDK++9AfUV4KThW9YrFbpThZ+F+AbKkyx5RB+P6uQFC2lqc/nyHz6ktx4LTtdcruUaCc8NAmtwDmJ67HoorydMOzmLUrE/IVnsJpYOf/74tP/wGocz4Bd2awoJdAmU0uotpDLkvmp9Pobotp/olOPWCnQjkBAwA2w=
+	t=1790931526; cv=none; b=U0Nff9DAlk6av+W69hK5XwRO8i4v9N7Gdi2r/qPWoo/9CsyX1dNrurFtLoNDEU/ZQHlsElWPacg+ga1FuKaa9Slnhs9isV9h/5M9FKbKJBozAdtiMFZiBIla3OkfuVKZAAoVqzrwm9S8pkOuqDc17zT8hIZ8iPNb3NFfj1Ewp3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931473; c=relaxed/simple;
-	bh=VOVZw5ctN2wvjhsiit9gl079ylcTkzPjvrREsts6Q2M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JjHQ77XWaRvPoRM1kACKktIlSYJ91J3NR80g/zpeD7G+jDB67KsDC04HiziSNIpwUxGD/+P5ySVJf+VC5DSvQEifbGrXaRt5kXHKEYXjjbh/4aV7bFqqaRKea9q8zfhp0q4u90c9S62iNt9Aamxl0GR+qxxITDA917mEY0QuY/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uCMSoZpa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790931526; c=relaxed/simple;
+	bh=tRo2eRCOI3ZEc8XSazV4JtjK9tViDEuWPcmVM6/d7RE=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Mok0qZuk2Xf1y5+/FjB0NmpFRypQfJ8ZFjWbtAqvWtd0e5SuYeXvWLrNGbcMuvhRGrIVG2/inAFp1U+US6virBdNdPduJLxvy4wbOBwQhOEFllGWtse4Cu3NqD/KkSem46M2FPF4JYHeUm4TQ8dncNzbsY5iki9L3Tgy/bPAkI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DLrWKPN7; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uCMSoZpa"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EDE4C4AF14;
-	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790931473;
-	bh=VOVZw5ctN2wvjhsiit9gl079ylcTkzPjvrREsts6Q2M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=uCMSoZpald6dprSVZtRDrv7K5X374l1y7e6nSqe057bTZ/I4ryNaoA/S4cYV4jCxa
-	 0T7FLgzo8RGxRTsxF+Jga2SKs+Pv2B2Nvp2/nX5ktIdcY/ZM7CkqksvcP7KMBTlPhZ
-	 D22cU6h7cJfipf52V3LLsJwjGymxB22dhbQiGYMjltFivl8v6ADn+rq0PSVPOeFCIW
-	 Ppp0I8jn1KyBtqNUb+H+WoJ+HbmW0qeUUEghx/b4Z/G63Nb//OBPZrFZJ3miCdJBJg
-	 Kl/4YRpXeQvGqz3ayWcJMTPylW+p8B89SxRbFOz8qnabk9RkhLwvCKeMlCgYuzafXH
-	 AqrhcG9zHbAUQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F25DCA5FD4;
-	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
-From: Maurizio Casciano via B4 Relay <devnull+mauriziocasciano7.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 10:57:53 +0200
-Subject: [PATCH v10 15/15] media: i2c: Add WV517S lens actuator driver
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DLrWKPN7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790931524; x=1822467524;
+  h=date:from:to:cc:subject:message-id;
+  bh=tRo2eRCOI3ZEc8XSazV4JtjK9tViDEuWPcmVM6/d7RE=;
+  b=DLrWKPN7Iq/Jp2L1lAKsZR5344bTUFUQBnT5u4wq49SZV8sDA6tPp34b
+   JC/IOYHDhHMUqmifD+qdjcKXrKfIwK9bjanMZseyG6whZU0fwMK68owhJ
+   8eSqeDdPprEh5I77s6STq1dHs9oQjpcgHpRIVwHQ+oDn7EryBXBy3PP7S
+   P4knx221CQ63/8qLEokqqn3THzGAuTBoi9lC8o11t8zQQzVMREX194rnz
+   4n4lrtfOXOh1lEpHMd1k7Zg30d8ii7/sgvE6hLgJla1oNvvF//gwY4Wyo
+   JD0aNdH0JRXCxSaNfWQ0vTB3QfdRwbmZY0/bI6FFtbK7+5ubJN8iyz+/D
+   Q==;
+X-CSE-ConnectionGUID: rYPfww8xTn+GqSEqmETilA==
+X-CSE-MsgGUID: 6YCoeO4gQDqPNoITV6VUUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94184772"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="94184772"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:58:43 -0700
+X-CSE-ConnectionGUID: pyfwTU1eRYysrGs8vFWrhg==
+X-CSE-MsgGUID: b8GLpEIBRBaGAWWK52Eyjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="302459484"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 02 Oct 2026 01:58:42 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xCZ6G-00000000SqE-0ey9;
+	Fri, 02 Oct 2026 08:58:40 +0000
+Date: Fri, 02 Oct 2026 16:58:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:x86:cleanups] BUILD SUCCESS
+ 2c6a75adb15f8fbeb7a8cc6b1f35beb21db20762
+Message-ID: <202610021602.Fz3YbVWT-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-15-817ec765b257@gmail.com>
-References: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
-In-Reply-To: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Nicholas Roth <nicholas@rothemail.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Bingbu Cao <bingbu.cao@amd.com>, 
- Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
- Andy Shevchenko <andy@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-staging@lists.linux.dev
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=8361;
- i=mauriziocasciano7@gmail.com; s=yogabook-kernel-20261002;
- h=from:subject:message-id;
- bh=cN4xNQG8q/HdEuc0Wjf4FvhFDxjo3L6jbbY/Z9bm1g8=;
- b=JTfNkL19VCo0YWr95Y8+Y0e7XgbbeKSdfhV2jthHQSr1H6/DsE/8pPTpMfBnNqqeq6opHprpA
- 9oxy51ldWgeBuP5FqtuWcyjBW2Hsy/qnmp8JNyTeJ+Y8PGmyL7Cr4y2
-X-Developer-Key: i=mauriziocasciano7@gmail.com; a=ed25519;
- pk=ODC2oSPBqt7ukC3AEDZNS7LIE21D8ke8TEHoNlxniNM=
-X-Endpoint-Received: by B4 Relay for
- mauriziocasciano7@gmail.com/yogabook-kernel-20261002 with auth_id=1099
-X-Original-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Reply-To: mauriziocasciano7@gmail.com
 
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/cleanups
+branch HEAD: 2c6a75adb15f8fbeb7a8cc6b1f35beb21db20762  x86/um: Remove unused <asm/required-features.h> header
 
-The Lenovo Yoga Book YB1-X91 rear camera contains a WV517S voice-coil
-actuator. Add a V4L2 lens subdevice exposing the standard 10-bit
-FOCUS_ABSOLUTE control and the device ringing-control mode.
+elapsed time: 1074m
 
-Use regmap for register access and tie control updates to runtime PM so
-the IPU bridge sensor link keeps shared power resources active. Propagate
-PM acquisition failures and restore the drive mode and controls after
-resume.
+configs tested: 283
+configs skipped: 128
 
-The register addresses and drive-mode value are derived from Intel's
-GPL-2.0 WV517 driver. Retain the Intel copyright notice and document the
-2026 copyright for this V4L2/regmap implementation.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Link: https://github.com/jekhor/yogabook-linux-android-kernel/blob/574bae692716f1b14093497bfab8a007fe8e460b/drivers/external_drivers/camera/drivers/media/i2c/wv517.c
-Assisted-by: LLM sparse
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
----
- MAINTAINERS                |   1 +
- drivers/media/i2c/Kconfig  |  11 +++
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/wv517s.c | 208 +++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 221 insertions(+)
+tested configs:
+alpha                              allnoconfig    gcc-16.1.0
+alpha                             allyesconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+alpha                randconfig-r2100-20260930    gcc-9.5.0  cocci
+alpha                randconfig-r2103-20260930    gcc-9.5.0  cocci
+alpha                randconfig-r2201-20260930    gcc-8.5.0  smatch
+alpha                randconfig-r2301-20260930    clang-17   sparse
+alpha                randconfig-r2307-20260930    gcc-10.5.0 sparse
+alpha                randconfig-r2308-20260930    gcc-8.5.0  sparse
+arc                               allmodconfig    clang-24
+arc                                allnoconfig    gcc-16.1.0
+arc                               allyesconfig    clang-24
+arc                                  defconfig    gcc-16.1.0
+arc                   randconfig-1000-20261002    clang-17
+arc                   randconfig-1001-20261002    clang-17
+arc                  randconfig-r2202-20260930    gcc-16.1.0 smatch
+arc                  randconfig-r2303-20260930    gcc-8.5.0  sparse
+arm                                allnoconfig    gcc-16.1.0
+arm                               allyesconfig    clang-24
+arm                                  defconfig    gcc-16.1.0
+arm                             dove_defconfig    gcc-16.1.0
+arm                       integrator_defconfig    gcc-16.1.0
+arm                         mvebu_v7_defconfig    gcc-16.1.0
+arm                   randconfig-1000-20261002    clang-17
+arm                   randconfig-1001-20261002    clang-17
+arm                   randconfig-1002-20261002    clang-17
+arm                   randconfig-1003-20261002    clang-17
+arm                  randconfig-r2200-20260930    clang-17   smatch
+arm                  randconfig-r2300-20260930    clang-17   sparse
+arm                          s3c6400_defconfig    gcc-16.1.0
+arm64                             allmodconfig    clang-24
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20261002    gcc-12.5.0
+arm64                 randconfig-1001-20261002    gcc-12.5.0
+arm64                 randconfig-1002-20261002    gcc-12.5.0
+arm64                 randconfig-1003-20261002    gcc-12.5.0
+arm64                randconfig-r2104-20260930    gcc-16.1.0 cocci
+arm64                randconfig-r2200-20260930    gcc-12.5.0 smatch
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20261002    gcc-12.5.0
+csky                  randconfig-1001-20261002    gcc-12.5.0
+csky                 randconfig-r2104-20260930    clang-24   cocci
+csky                 randconfig-r2106-20260930    gcc-16.1.0 cocci
+csky                 randconfig-r2200-20260930    gcc-14.3.0 smatch
+hexagon                           allmodconfig    gcc-16.1.0
+hexagon                            allnoconfig    gcc-16.1.0
+hexagon                              defconfig    gcc-16.1.0
+hexagon               randconfig-1000-20261002    gcc-13.4.0
+hexagon               randconfig-1001-20261002    gcc-13.4.0
+hexagon              randconfig-r2106-20260930    clang-24   cocci
+i386                              allmodconfig    clang-22
+i386                               allnoconfig    gcc-16.1.0
+i386                              allyesconfig    clang-22
+i386        buildonly-randconfig-1000-20261002    clang-22
+i386        buildonly-randconfig-1001-20261002    clang-22
+i386        buildonly-randconfig-1002-20261002    clang-22
+i386        buildonly-randconfig-1003-20261002    clang-22
+i386        buildonly-randconfig-1004-20261002    clang-22
+i386        buildonly-randconfig-1005-20261002    clang-22
+i386                                 defconfig    gcc-16.1.0
+i386                  randconfig-1000-20261002    gcc-14
+i386                  randconfig-1001-20261002    gcc-14
+i386                  randconfig-1002-20261002    gcc-14
+i386                  randconfig-1003-20261002    gcc-14
+i386                  randconfig-1004-20261002    gcc-14
+i386                  randconfig-1005-20261002    gcc-14
+i386                  randconfig-1006-20261002    gcc-14
+i386                  randconfig-1007-20261002    clang-22
+i386                  randconfig-1008-20261002    clang-22
+i386                  randconfig-1009-20261002    clang-22
+i386                  randconfig-1010-20261002    clang-22
+i386                  randconfig-1011-20261002    clang-22
+i386                  randconfig-1012-20261002    clang-22
+i386                  randconfig-1013-20261002    clang-22
+i386                  randconfig-2100-20260930    clang-22   cocci
+i386                  randconfig-2101-20260930    clang-22   cocci
+i386                  randconfig-2102-20260930    clang-22   cocci
+i386                  randconfig-2103-20260930    clang-22   cocci
+i386                  randconfig-2200-20260930    gcc-14     smatch
+i386                  randconfig-2300-20260930    gcc-13     sparse
+i386                  randconfig-2301-20260930    gcc-13     sparse
+i386                  randconfig-2302-20260930    gcc-13     sparse
+i386                 randconfig-r2100-20260930    clang-17   cocci
+i386                 randconfig-r2304-20260930    gcc-8.5.0  sparse
+loongarch                         allmodconfig    clang-24
+loongarch                          allnoconfig    gcc-16.1.0
+loongarch                            defconfig    clang-24
+loongarch             randconfig-1000-20261002    gcc-13.4.0
+loongarch             randconfig-1001-20261002    gcc-13.4.0
+loongarch            randconfig-r2300-20260930    gcc-8.5.0  sparse
+loongarch            randconfig-r2303-20260930    gcc-8.5.0  sparse
+loongarch            randconfig-r2308-20260930    gcc-10.5.0 sparse
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                              allyesconfig    clang-24
+m68k                                 defconfig    clang-24
+m68k                         m5272c3_defconfig    gcc-16.1.0
+m68k                        m5275evb_defconfig    gcc-16.1.0
+m68k                       m54418evb_defconfig    gcc-16.1.0
+m68k                 randconfig-r2202-20260930    gcc-15.2.0 smatch
+m68k                 randconfig-r2308-20260930    gcc-8.5.0  sparse
+m68k                 randconfig-r2309-20260930    gcc-8.5.0  sparse
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze                           defconfig    clang-24
+microblaze           randconfig-r2107-20260930    gcc-16.1.0 cocci
+microblaze           randconfig-r2304-20260930    clang-17   sparse
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+mips                            ip27_defconfig    gcc-16.1.0
+mips                            ip28_defconfig    gcc-16.1.0
+mips                         maltaup_defconfig    gcc-16.1.0
+mips                     maltaup_xpa_defconfig    gcc-16.1.0
+mips                            mtx1_defconfig    gcc-16.1.0
+mips                 randconfig-r2102-20260930    clang-17   cocci
+mips                 randconfig-r2103-20260930    clang-17   cocci
+mips                 randconfig-r2303-20260930    clang-17   sparse
+mips                 randconfig-r2309-20260930    gcc-10.5.0 sparse
+nios2                          3c120_defconfig    gcc-16.1.0
+nios2                             allmodconfig    clang-20
+nios2                              allnoconfig    clang-24
+nios2                                defconfig    clang-24
+nios2                 randconfig-1000-20261002    gcc-13.4.0
+nios2                 randconfig-1001-20261002    gcc-13.4.0
+nios2                randconfig-r2309-20260930    gcc-8.5.0  sparse
+openrisc                          alldefconfig    gcc-16.1.0
+openrisc                          allmodconfig    clang-20
+openrisc                           allnoconfig    clang-24
+openrisc                             defconfig    gcc-16.1.0
+openrisc             randconfig-r2101-20260930    gcc-9.5.0  cocci
+openrisc             randconfig-r2102-20260930    gcc-9.5.0  cocci
+openrisc             randconfig-r2104-20260930    gcc-9.5.0  cocci
+openrisc             randconfig-r2301-20260930    gcc-8.5.0  sparse
+parisc                            allmodconfig    gcc-16.1.0
+parisc                             allnoconfig    clang-24
+parisc                            allyesconfig    clang-17
+parisc                               defconfig    gcc-16.1.0
+parisc                randconfig-1000-20261002    gcc-14.3.0
+parisc                randconfig-1001-20261002    gcc-14.3.0
+parisc               randconfig-r2105-20260930    gcc-9.5.0  cocci
+parisc               randconfig-r2106-20260930    gcc-9.5.0  cocci
+parisc               randconfig-r2300-20260930    gcc-8.5.0  sparse
+parisc64                             defconfig    clang-24
+powerpc                            allnoconfig    clang-24
+powerpc                       arches_defconfig    gcc-16.1.0
+powerpc                       katmai_defconfig    gcc-16.1.0
+powerpc                       pcm030_defconfig    gcc-16.1.0
+powerpc               randconfig-1000-20261002    gcc-14.3.0
+powerpc               randconfig-1001-20261002    gcc-14.3.0
+powerpc              randconfig-r2101-20260930    clang-17   cocci
+powerpc              randconfig-r2305-20260930    gcc-8.5.0  sparse
+powerpc              randconfig-r2306-20260930    gcc-10.5.0 sparse
+powerpc              randconfig-r2306-20260930    gcc-8.5.0  sparse
+powerpc64             randconfig-1000-20261002    gcc-14.3.0
+powerpc64             randconfig-1001-20261002    gcc-14.3.0
+powerpc64            randconfig-r2100-20260930    clang-20   cocci
+powerpc64            randconfig-r2304-20260930    gcc-8.5.0  sparse
+powerpc64            randconfig-r2307-20260930    gcc-8.5.0  sparse
+riscv                             allmodconfig    clang-24
+riscv                              allnoconfig    clang-24
+riscv                             allyesconfig    clang-24
+riscv                                defconfig    gcc-16.1.0
+riscv              nommu_k210_sdcard_defconfig    gcc-16.1.0
+riscv                 randconfig-1000-20261002    clang-24
+riscv                 randconfig-1001-20261002    clang-24
+riscv                 randconfig-2000-20260930    gcc-14.3.0
+riscv                 randconfig-2001-20260930    gcc-14.3.0
+riscv                randconfig-r2103-20260930    clang-20   cocci
+riscv                randconfig-r2201-20260930    clang-17   smatch
+riscv                randconfig-r2305-20260930    clang-17   sparse
+s390                              allmodconfig    clang-17
+s390                               allnoconfig    clang-24
+s390                                 defconfig    gcc-16.1.0
+s390                  randconfig-1000-20261002    clang-24
+s390                  randconfig-1001-20261002    clang-24
+s390                  randconfig-2000-20260930    gcc-14.3.0
+s390                  randconfig-2001-20260930    gcc-14.3.0
+s390                 randconfig-r2101-20260930    clang-20   cocci
+s390                 randconfig-r2105-20260930    clang-24   cocci
+s390                 randconfig-r2105-20260930    gcc-16.1.0 cocci
+s390                 randconfig-r2107-20260930    clang-24   cocci
+s390                 randconfig-r2202-20260930    clang-18   smatch
+s390                 randconfig-r2306-20260930    gcc-8.5.0  sparse
+sh                                allmodconfig    gcc-16.1.0
+sh                                 allnoconfig    clang-24
+sh                                allyesconfig    clang-17
+sh                          apsh4a3a_defconfig    gcc-16.1.0
+sh                                   defconfig    gcc-14
+sh                    randconfig-1000-20261002    clang-24
+sh                    randconfig-1001-20261002    clang-24
+sh                    randconfig-2000-20260930    gcc-14.3.0
+sh                    randconfig-2001-20260930    gcc-14.3.0
+sh                   randconfig-r2302-20260930    clang-17   sparse
+sh                   randconfig-r2302-20260930    gcc-8.5.0  sparse
+sh                           sdk7780_defconfig    gcc-16.1.0
+sh                            se7780_defconfig    gcc-16.1.0
+sh                             shmin_defconfig    gcc-16.1.0
+sparc                              allnoconfig    clang-24
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20261002    clang-24
+sparc                 randconfig-1001-20261002    clang-24
+sparc                 randconfig-2000-20260930    gcc-10.5.0
+sparc                 randconfig-2001-20260930    gcc-10.5.0
+sparc                randconfig-r2102-20260930    clang-20   cocci
+sparc                randconfig-r2301-20260930    gcc-8.5.0  sparse
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    gcc-14
+sparc64               randconfig-1000-20261002    clang-24
+sparc64               randconfig-1001-20261002    clang-24
+sparc64               randconfig-2000-20260930    gcc-10.5.0
+sparc64               randconfig-2001-20260930    gcc-10.5.0
+sparc64              randconfig-r2107-20260930    gcc-9.5.0  cocci
+um                                allmodconfig    clang-17
+um                                 allnoconfig    clang-24
+um                                allyesconfig    gcc-16.1.0
+um                                   defconfig    gcc-14
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20261002    clang-24
+um                    randconfig-1001-20261002    clang-24
+um                    randconfig-2000-20260930    gcc-10.5.0
+um                    randconfig-2001-20260930    gcc-10.5.0
+um                   randconfig-r2302-20260930    gcc-8.5.0  sparse
+um                            x86_64_defconfig    gcc-14
+x86_64                             allnoconfig    clang-22   checkkconfigsymbols
+x86_64                             allnoconfig    clang-24
+x86_64      buildonly-randconfig-1000-20261002    gcc-14
+x86_64      buildonly-randconfig-1001-20261002    gcc-14
+x86_64      buildonly-randconfig-1002-20261002    gcc-14
+x86_64      buildonly-randconfig-1003-20261002    gcc-14
+x86_64      buildonly-randconfig-1004-20261002    gcc-14
+x86_64      buildonly-randconfig-1005-20261002    gcc-14
+x86_64                               defconfig    gcc-14
+x86_64                                   kexec    clang-22
+x86_64                randconfig-1000-20261002    gcc-14
+x86_64                randconfig-1001-20261002    gcc-14
+x86_64                randconfig-1002-20261002    gcc-14
+x86_64                randconfig-1003-20261002    gcc-14
+x86_64                randconfig-1004-20261002    gcc-14
+x86_64                randconfig-1005-20261002    gcc-14
+x86_64                randconfig-1006-20261002    clang-22
+x86_64                randconfig-1007-20261002    clang-22
+x86_64                randconfig-1008-20261002    clang-22
+x86_64                randconfig-1009-20261002    clang-22
+x86_64                randconfig-1010-20261002    clang-22
+x86_64                randconfig-1011-20261002    clang-22
+x86_64                randconfig-1012-20261002    clang-22
+x86_64                randconfig-1013-20261002    clang-22
+x86_64                randconfig-1014-20261002    clang-22
+x86_64                randconfig-1015-20261002    clang-22
+x86_64                randconfig-1016-20261002    clang-22
+x86_64                randconfig-1017-20261002    clang-22
+x86_64                randconfig-2100-20260930    clang-22   cocci
+x86_64                randconfig-2101-20260930    clang-22   cocci
+x86_64                randconfig-2102-20260930    clang-22   cocci
+x86_64                randconfig-2103-20260930    clang-22   cocci
+x86_64                randconfig-2200-20260930    gcc-14     smatch
+x86_64                randconfig-2300-20260930    gcc-13     sparse
+x86_64                randconfig-2301-20260930    gcc-13     sparse
+x86_64                randconfig-2302-20260930    gcc-13     sparse
+x86_64               randconfig-r2305-20260930    gcc-8.5.0  sparse
+x86_64                                rhel-9.4    clang-22
+x86_64                            rhel-9.4-bpf    clang-22
+x86_64                            rhel-9.4-bpf    gcc-14
+x86_64                           rhel-9.4-func    clang-22
+x86_64                     rhel-9.4-kselftests    clang-22
+x86_64                          rhel-9.4-kunit    clang-22
+x86_64                          rhel-9.4-kunit    gcc-14
+x86_64                            rhel-9.4-ltp    clang-22
+x86_64                            rhel-9.4-ltp    gcc-14
+x86_64                           rhel-9.4-rust    clang-22
+x86_64                           rhel-9.4-rust    clang-22
+xtensa                             allnoconfig    clang-24
+xtensa                            allyesconfig    clang-20
+xtensa                randconfig-1000-20261002    clang-24
+xtensa                randconfig-1001-20261002    clang-24
+xtensa                randconfig-2000-20260930    gcc-10.5.0
+xtensa                randconfig-2001-20260930    gcc-10.5.0
+xtensa               randconfig-r2201-20260930    gcc-10.5.0 smatch
+xtensa               randconfig-r2307-20260930    gcc-8.5.0  sparse
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6bdc32e7c8bf..9b0a6ef0bec8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28656,6 +28656,7 @@ S:	Maintained
- F:	drivers/media/i2c/ak*
- F:	drivers/media/i2c/dw*
- F:	drivers/media/i2c/lm*
-+F:	drivers/media/i2c/wv517s.c
- 
- V4L2 CAMERA SENSOR DRIVERS
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index b9961f77f0c4..9ccfa4b881f0 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -991,6 +991,17 @@ config VIDEO_DW9807_VCM
- 	  capability. This is designed for linear control of
- 	  voice coil motors, controlled via I2C serial interface.
- 
-+config VIDEO_WV517S
-+	tristate "WV517S lens voice coil support"
-+	select REGMAP_I2C
-+	help
-+	  This is a driver for the WV517S camera lens voice coil. The driver
-+	  supports 10-bit focus control and exposes the actuator through the
-+	  standard V4L2 lens sub-device interface.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called wv517s.
-+
- endif
- 
- menu "Flash devices"
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 351c41ef25f8..6c3b4f06b819 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -178,4 +178,5 @@ obj-$(CONFIG_VIDEO_VP27SMPX) += vp27smpx.o
- obj-$(CONFIG_VIDEO_VPX3220) += vpx3220.o
- obj-$(CONFIG_VIDEO_WM8739) += wm8739.o
- obj-$(CONFIG_VIDEO_WM8775) += wm8775.o
-+obj-$(CONFIG_VIDEO_WV517S) += wv517s.o
- obj-$(CONFIG_VIDEO_INTEL_CVS) += cvs/
-diff --git a/drivers/media/i2c/wv517s.c b/drivers/media/i2c/wv517s.c
-new file mode 100644
-index 000000000000..e252a423289d
---- /dev/null
-+++ b/drivers/media/i2c/wv517s.c
-@@ -0,0 +1,208 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * WV517S voice-coil motor driver
-+ *
-+ * Copyright (c) 2014 Intel Corporation.
-+ * Copyright (C) 2026 Maurizio Casciano <mauriziocasciano7@gmail.com>
-+ */
-+
-+#include <linux/container_of.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+
-+#define WV517S_MAX_FOCUS_POSITION	1023
-+#define WV517S_DEFAULT_FOCUS_POSITION	300
-+
-+#define WV517S_REG_FOCUS		0x41
-+#define WV517S_REG_DRIVE_MODE		0x43
-+#define WV517S_DRIVE_MODE_12_6_MS	0x0211
-+
-+struct wv517s_device {
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_subdev sd;
-+	struct regmap *regmap;
-+	bool resuming;
-+};
-+
-+static inline struct wv517s_device *to_wv517s(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct wv517s_device, sd);
-+}
-+
-+static const struct regmap_config wv517s_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 16,
-+	.max_register = WV517S_REG_DRIVE_MODE,
-+	.val_format_endian = REGMAP_ENDIAN_BIG,
-+};
-+
-+static int wv517s_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct wv517s_device *wv517s =
-+		container_of(ctrl->handler, struct wv517s_device, ctrl_handler);
-+	struct device *dev = wv517s->sd.dev;
-+	int pm_ret;
-+	int ret;
-+
-+	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
-+		return -EINVAL;
-+
-+	/*
-+	 * Runtime resume restores controls while the PM state is RPM_RESUMING.
-+	 */
-+	pm_ret = pm_runtime_get_if_active(dev);
-+	if (!pm_ret && !wv517s->resuming)
-+		return 0;
-+	if (pm_ret < 0)
-+		return pm_ret;
-+
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_FOCUS, ctrl->val);
-+
-+	if (pm_ret > 0)
-+		pm_runtime_put(dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops wv517s_ctrl_ops = {
-+	.s_ctrl = wv517s_set_ctrl,
-+};
-+
-+static int wv517s_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	return pm_runtime_resume_and_get(sd->dev);
-+}
-+
-+static int wv517s_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	pm_runtime_put(sd->dev);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops wv517s_internal_ops = {
-+	.open = wv517s_open,
-+	.close = wv517s_close,
-+};
-+
-+static const struct v4l2_subdev_ops wv517s_subdev_ops = { };
-+
-+static int wv517s_resume(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+	int ret;
-+
-+	/* Restore the vendor-recommended 12.6 ms ringing-control mode. */
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_DRIVE_MODE,
-+			   WV517S_DRIVE_MODE_12_6_MS);
-+	if (ret)
-+		return ret;
-+
-+	wv517s->resuming = true;
-+	ret = v4l2_ctrl_handler_setup(&wv517s->ctrl_handler);
-+	wv517s->resuming = false;
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(wv517s_pm_ops, NULL, wv517s_resume, NULL);
-+
-+static int wv517s_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct wv517s_device *wv517s;
-+	int ret;
-+
-+	wv517s = devm_kzalloc(dev, sizeof(*wv517s), GFP_KERNEL);
-+	if (!wv517s)
-+		return -ENOMEM;
-+
-+	wv517s->regmap = devm_regmap_init_i2c(client, &wv517s_regmap_config);
-+	if (IS_ERR(wv517s->regmap))
-+		return dev_err_probe(dev, PTR_ERR(wv517s->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	v4l2_i2c_subdev_init(&wv517s->sd, client, &wv517s_subdev_ops);
-+	wv517s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	wv517s->sd.internal_ops = &wv517s_internal_ops;
-+	wv517s->sd.entity.function = MEDIA_ENT_F_LENS;
-+
-+	v4l2_ctrl_handler_init(&wv517s->ctrl_handler, 1);
-+	v4l2_ctrl_new_std(&wv517s->ctrl_handler, &wv517s_ctrl_ops,
-+			  V4L2_CID_FOCUS_ABSOLUTE, 0,
-+			  WV517S_MAX_FOCUS_POSITION, 1,
-+			  WV517S_DEFAULT_FOCUS_POSITION);
-+	if (wv517s->ctrl_handler.error) {
-+		ret = wv517s->ctrl_handler.error;
-+		goto err_free_ctrl_handler;
-+	}
-+	wv517s->sd.ctrl_handler = &wv517s->ctrl_handler;
-+
-+	ret = media_entity_pads_init(&wv517s->sd.entity, 0, NULL);
-+	if (ret)
-+		goto err_free_ctrl_handler;
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+
-+	ret = wv517s_resume(dev);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	ret = v4l2_async_register_subdev(&wv517s->sd);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	pm_runtime_idle(dev);
-+
-+	return 0;
-+
-+err_disable_pm:
-+	pm_runtime_disable(dev);
-+	media_entity_cleanup(&wv517s->sd.entity);
-+err_free_ctrl_handler:
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+
-+	return ret;
-+}
-+
-+static void wv517s_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	pm_runtime_disable(&client->dev);
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+	media_entity_cleanup(&sd->entity);
-+}
-+
-+static const struct i2c_device_id wv517s_id_table[] = {
-+	{ .name = "wv517s" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, wv517s_id_table);
-+
-+static struct i2c_driver wv517s_i2c_driver = {
-+	.driver = {
-+		.name = "wv517s",
-+		.pm = pm_ptr(&wv517s_pm_ops),
-+	},
-+	.probe = wv517s_probe,
-+	.remove = wv517s_remove,
-+	.id_table = wv517s_id_table,
-+};
-+module_i2c_driver(wv517s_i2c_driver);
-+
-+MODULE_AUTHOR("Maurizio Casciano <mauriziocasciano7@gmail.com>");
-+MODULE_DESCRIPTION("WV517S VCM driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.53.0
-
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
