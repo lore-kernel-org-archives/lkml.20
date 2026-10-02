@@ -1,186 +1,82 @@
-Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739AB36998A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34E236998A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970552; cv=none; b=HzYFuDZvlrihm/7usu7w7diU/+zfruI88Y0HaojKMXlNLRh4EqVzvGz0uydphTAGG6laWf3Sx0kTOCY5DUVoFErurMD8M1Dxo2tlnvffnHoCcyOCWwsuAnPpRYZwDEayCnvei2aUxrVDj+mupT3Qv+c8Y8/DtmN0Be7MEnA2PJ0=
+	t=1790970606; cv=none; b=N8kVGhe1boyX5fHVlOmlpWEZSb3S0Rk7D2Pt+W/oqE+lliYR764GCRLkyQH4/jCYGt55gW52U2npr8ZedydwNrvoFcKOqVWhJ02gqgAtY1fX5F1HmUNoP1ytIyPfIhCPOvWuA0DQ6r9vH5oCU4RHAtrtLQx2DFXarzsWLP87Hzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970552; c=relaxed/simple;
-	bh=BA1c0FkHJccaJp4mZY2Xa5/jpWSQsLFKfIsyjBoOSVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WMGZpLG2V06MNfitwnD9GoAeuhDyvdEfMWF9FdQFtX887d33wUPQ600l2JplLSSHqzKBtj9JAqOv6RhjLFFvGJvU8fWLO/28cexZ3QWgR9kiTOKVVH2QPDrTRey2jpKd6nlHPQ0DUtRHEOuCHva2Y7N3bFnILMdu21n35Ga0Ug8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=QsejfObb; arc=none smtp.client-ip=74.125.229.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="QsejfObb"
-Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so7100613c88.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:49:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790970548; x=1791575348; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5Jk2g6BtdlmGdKtgGPAbggZvehqRrTlA+cJG1wv2zZM=;
-        b=QsejfObb/wmxhikAczTsark7ZpSrYCvIQl5XPSnMm/hGeLmkfX4dgBuSqy5CgGEo2b
-         fSZYLKo3Y0o9HWu2edVzj5GnPMsWOxTqDccXNCwmT/tZHdDu/Jr8eWsXFPojIkLYJVfE
-         iH1++2yXRyQjDl11Edeto+CvX2m+DJMtlYNxSIcgKjpRZUlOSd61XyvkXuObjjoOQbjK
-         OSofm00Jkxapfea2E+mJ08H8mF7QSWZ3rh1wqW3N9w0JfxS88eLQAB3dpYsX4ZmaW71y
-         wFPWNX1hzTIXoJVQPFvzY+IcsE1Mq8OQ4LMzvxhvguDf59ezkJxL89PtZyEgSifzPxJa
-         H/dA==
+	s=arc-20240116; t=1790970606; c=relaxed/simple;
+	bh=sYVV2RIVok6q2OTIAPPvve5voNT8NYsEhk+5bFbQIAw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=k2hMSbYlix3+RoxhhCwfAdCu1C0VHc4s7mkebiV+6NxjjyImlICQk9uFrXdIBBsywwBi12WLKvOh4u/essg4bloVa5KptuwJiJsHErH95hcoQlCkynYp4mzcR5LZGGCyrRUgnrT1opuH8Ybh5VgtL1EYBzdNB0rv47w9AuvHMxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c734afb8deso12705341b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:50:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970548; x=1791575348;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5Jk2g6BtdlmGdKtgGPAbggZvehqRrTlA+cJG1wv2zZM=;
-        b=hxe2Je5XMtlHXW1WXVvEGCRW9wMNPWpQtEJueFbm347yhwgcr9qxPUqYkdY/NXd+Ya
-         GpH5JI3pxdC52WSgXqwIiPaMV9nYtdUmK3qppJYKr7vkDe+ut/6LNb69v24X61odrsMT
-         WY5bYtHqXujS//Oz5PK1nSQJjtl83MS+nwwbu2/J8/Tl8lA+ynf7OW/unGVrnNn07rPR
-         eBgrFaFS/6+ZSq1d36ehVYb2tQlbGf6jhVlhoZ9276Hthc2+BlNtVDcpCT6gCEyFdckG
-         i8p5MLDLpzvYVdf7ss108hp5a4fq/a2Ezw7vudRwRkiBXZsBBBl+NAlpBE1iw+OYjD12
-         nTSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwnKwG8kHYX/y8jL9gpnkJFlLPSnjddMdm3wFWGXmfeMOmIZHSwfQu143ST7sjEswPhBc3fK6t+wEpeO1I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lesu+8JjJvoItQ/AlxzYVoL9bcfMmy02bhLYvNVgowkfC1oNUm
-	vGxhGsxyMP31Nn6At2re1EdXzhD9vSCUMBZCcDR1r9GuVRut3nWaCGIztQLvUc6ujLM=
-X-Gm-Gg: AYBFou3IlBMIm0cChvkj+QmdDp1FvRF77wiwqqNJ+N3mdfmN97ZKj+XP+LOvsNa4DcT
-	9FOrnNSujalyouinlArWT1MhkorhleojMOXLSg0+tWd+V+RKQ3vsb/pdQEEiQGju4bleWc1TIbB
-	Gw35hWj0Clq2YzwjbtCpvx1cvP49tdHxaMTCOvLFtLSRnAM3cyp+c5Lf+I/8IotTHOJkZLjoNg8
-	C/E4LLp0sJKtY1nGGZIvSQiadUJECEWH+CfoxylROGLMOs7CJx2GR1fkJPkva+heXq83OZwF+w9
-	SpqUQy/p31xBp3O8gAPSuJzOg1TeHzSkSfElYL5XSAUdVQYj1znhL4gjakDYrffBASJlVTVAMX2
-	6/9AVARTeeksqCTnBMYjzae5emqsmZRImAXqjcEhYDE64V6uDW6zEewLMM0PtyC+0fL4mZFvd8n
-	S+WTW4C849TstAoLNBnYdZeNG4JpZcZxgnQyB/nvOn+tjo9CDqxj9QaSzfzb0+5XG0EpxRmNC6p
-	3a2pl8c5tCGcSTT66UREK2vAnbh8LSlilG/XG+8j7hxtjuarow7QN7Pn7NiX6x9JygD46o1wgA7
-	lO5DLw==
-X-Received: by 2002:a05:701b:42c9:10b0:14f:b80a:33a5 with SMTP id a92af1059eb24-14fb8197636mr2873373c88.28.1790970548456;
-        Fri, 02 Oct 2026 12:49:08 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14fae9b3dfesm6697431c88.11.2026.10.02.12.49.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 12:49:07 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Christoph Schlameuss <schlameuss@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	avi@redhat.com,
-	cotte@de.ibm.com,
-	david@redhat.com,
-	mtosatti@redhat.com
-Subject: [PATCH 6.1.y] kvm: s390: Reject memory region operations for ucontrol VMs
-Date: Fri,  2 Oct 2026 15:49:03 -0400
-Message-ID: <20261002194904.21236-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790970603; x=1791575403;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VssoRLpYmZyHhaoCYbz3+JTPlPe4pJ6k7QrheMZgnf0=;
+        b=q89uzBqkiNvLdRaeAEZVUBPS40HAnuJ3/94fpZWMHxjB4MdeG/mN1tB0CA40dfIky0
+         fnd3mEh82VgPMdq+8vYVQNiEYhifX7uMiS9gs3H3ALa0NcwB1JVX9E1x8qRFqAjvC6q0
+         fzaQymjLAaBuoNsH5lWwczoOX0jC/cgeA3K9UoI+SgZqCVKdmBOd0xzz9jf7GzG5bITo
+         OaD0Qo3FuuZZ28Yq9mAi/kbTjqis3r1zsdj/SzL5+Ox/mWwUp0u9lPsoN6mpbGqoiGDb
+         T9MdhbdhVJnhSjer/YVYSoWaRm5hRfp5bWI4n8djeLiPgIoTtMtsiqDIuBZaxk/+AYCg
+         G9kQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJBPBqdqF8RR9unogufafl7fjw/cx5WKXGDe5sfp2Pu4SySWSz5RJ7A1dZibIyk2nss64mDHjywneFFaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++laI3HQCCgCZd4zDo/Krh9wdmCJ/nsdqECUrNAj7rGD5Q4zein/
+	lJgoBHzvwuG1/g/6RUx9UpbKfDjtgSjMzTBJgztrjRp/IW/8KoMf98j4HJsjuX5yVRudm01rJFB
+	ctKxuyle3hVEzz8FL8gdRwe0nyhu69Ux7UL0o+K/JBM8xu1cwE9YWwVY8q8U=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:178c:b0:4c3:7695:1177 with SMTP id
+ 5614622812f47-4f677447238mr504421b6e.6.1790970603737; Fri, 02 Oct 2026
+ 12:50:03 -0700 (PDT)
+Date: Fri, 02 Oct 2026 12:50:03 -0700
+In-Reply-To: <20261002194955.10010-1-adarshdas950@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac00aeb.34119e79.2f92f3.0001.GAE@google.com>
+Subject: Re: [syzbot] kernel BUG in btrfs_subpage_assert
+From: syzbot <syzbot+d490d04560554e6259b9@syzkaller.appspotmail.com>
+To: adarshdas950@gmail.com
+Cc: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Christoph Schlameuss <schlameuss@linux.ibm.com>
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-[ Upstream commit 7816e58967d0e6cadce05c8540b47ed027dc2499 ]
+This crash does not have a reproducer. I cannot test it.
 
-This change rejects the KVM_SET_USER_MEMORY_REGION and
-KVM_SET_USER_MEMORY_REGION2 ioctls when called on a ucontrol VM.
-This is necessary since ucontrol VMs have kvm->arch.gmap set to 0 and
-would thus result in a null pointer dereference further in.
-Memory management needs to be performed in userspace and using the
-ioctls KVM_S390_UCAS_MAP and KVM_S390_UCAS_UNMAP.
-
-Also improve s390 specific documentation for KVM_SET_USER_MEMORY_REGION
-and KVM_SET_USER_MEMORY_REGION2.
-
-[ Backport to 6.1.y: omitted KVM_SET_USER_MEMORY_REGION2 documentation
-  because that ioctl is absent from 6.1. ]
-
-Signed-off-by: Christoph Schlameuss <schlameuss@linux.ibm.com>
-Fixes: 27e0393f15fc ("KVM: s390: ucontrol: per vcpu address spaces")
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Link: https://lore.kernel.org/r/20240624095902.29375-1-schlameuss@linux.ibm.com
-Signed-off-by: Janosch Frank <frankja@linux.ibm.com>
-[frankja@linux.ibm.com: commit message spelling fix, subject prefix fix]
-Message-ID: <20240624095902.29375-1-schlameuss@linux.ibm.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and kvm s390 maintainers,
-
-I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-43819. It rejects memory-region ioctls before a
-ucontrol VM can dereference its NULL gmap.
-
-The corresponding 6.6.y backport is already in the 6.6.y stable queue.
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
-in 6.1.y.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-CVE: CVE-2024-43819
-Upstream: 7816e58967d0e6cadce05c8540b47ed027dc2499
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- Documentation/virt/kvm/api.rst | 6 ++++++
- arch/s390/kvm/kvm-s390.c       | 3 +++
- 2 files changed, 9 insertions(+)
-
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index 1bc61bf804f1f8..1f0f84501e59c8 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -1382,6 +1382,12 @@ The KVM_SET_MEMORY_REGION does not allow fine grained control over memory
- allocation and is deprecated.
- 
- 
-+S390:
-+^^^^^
-+
-+Returns -EINVAL if the VM has the KVM_VM_S390_UCONTROL flag set.
-+Returns -EINVAL if called on a protected VM.
-+
- 4.36 KVM_SET_TSS_ADDR
- ---------------------
- 
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index c7b4c0d37c87b0..0caaa462baf6f8 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -5587,6 +5587,9 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
- {
- 	gpa_t size;
- 
-+	if (kvm_is_ucontrol(kvm))
-+		return -EINVAL;
-+
- 	/* When we are protected, we should not change the memory slots */
- 	if (kvm_s390_pv_get_handle(kvm))
- 		return -EINVAL;
--- 
-2.39.5
-
+>
+> diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+> index 558b4a3f9633..98ea6a9a67f3 100644
+> --- a/fs/btrfs/inode.c
+> +++ b/fs/btrfs/inode.c
+> @@ -10813,10 +10813,17 @@ static bool btrfs_data_dirty_folio(struct address_space *mapping,
+>  	const u64 range_end = min_t(u64, folio_next_pos(folio),
+>  				    round_up(i_size_read(&inode->vfs_inode),
+>  					     fs_info->sectorsize));
+> +	int ret;
+>  
+> -	if (range_end > page_start)
+> +	if (range_end > page_start) {
+> +		if (btrfs_is_subpage(fs_info, folio)) {
+> +			ret = set_folio_extent_mapped(folio);
+> +			if (ret < 0)
+> +				return false;
+> +		}
+>  		btrfs_folio_set_fixup_dirty(fs_info, folio, page_start,
+>  					    range_end - page_start);
+> +	}
+>  	return filemap_dirty_folio(mapping, folio);
+>  }
