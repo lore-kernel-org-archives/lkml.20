@@ -1,123 +1,224 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0FF4968FF
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA8C3F9F3C;
+	Fri,  2 Oct 2026 14:05:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949904; cv=none; b=i0TqR/VYHLHjWcSdljdDapUoOpy319pNm45xf1J/PLaY107HAZczQ+mJoUZzzpQzw9LXyvLi2xRKw2i+/pzOgzVOJ26wUKUmfVc5H+DNg/SHVpefyBtm2+PWuhSJtU2RTHXyfbT/YPwmxllHl2QZqWVnKmuG6xzvoiTGb7gcDI0=
+	t=1790949926; cv=none; b=oml66BDHdDG7RaOtFUSs2g3MvmEIjpp6R+wo/B/tXFPNaFTp9NIAon613XTWe8WORxtulW5pklHrSNj6S7/u7xh/THbUK9/lST9QJdMYB1K+QiRpQ0Bx8igftbwxrMVGTXW/Wl8W5/wySi0gWJOilik/g328KD8IbJz4DzJTenc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949904; c=relaxed/simple;
-	bh=0aA08cUOcCkvWwT2S45HvZ1jn2zLufS3cFGbct+/1wc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IBSZI7rZ1F+NcSfBoCxYOsnMpVMUi06Cq2tpR/BI0MEmoo/6HVv9Dh3Ah1F5RVPWqpCcY4rP1guhYTZwTZdoinkl8AbWjUlRvfKiTggZYfL7wK7FIzAPdu/P7qUs7YXzJacKOOtio2kEhPcqpZvyS0Ju4xxltoYyc/VAum3634o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cJzdOkKB; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790949926; c=relaxed/simple;
+	bh=1vxcTXuBCxqXwoQBIzmW3rqlvuTa07ZNaVeUtHOifdM=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=QGpXFjEK6Ys5ufnCbKTY33oR0r2vAbH5xrFiaGHOTMZquMTDJ7GcZZJvvIehfyXbKGPN/7ng5S4V0yNWzN9g1H6INPOeuupAVynXPoagV3uKhUXtX4xpzeawTHmvn2MWig9+icblupIkgnF1Tz5oP3o8nk4hZSgKJlo+ptd070A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=dZhb3mgq; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJzdOkKB"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04be87so1765367c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:05:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790949899; x=1791554699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yWoTdtEhaANGiWjxC7mDCG65IUsbfc9dm1bjsFUluhU=;
-        b=cJzdOkKByWca2JovxDM2Vynyr8KLVmM4JkmHnzvnNeRh6yxnefc/y4Pp0oGJAOhH2+
-         xrAT8lx8L0N/tGHlQjLZ3+YmAgR7Qq8Lr/Frrpbh0rnSJbH4qS5P09Bs6Z+WZD8REO0H
-         9JdzalxWQCY/xlONSHdZh7/bKZiUXsA5mXfKfHt6+utPuQGV3DJ+XO7kBriQT8t2sIAB
-         qHsiDq7op9U9e22eE8V8b5azz3OmdJQqjRQ7dbQR29LUQim/aDN17x4EqcLAlAVm1AXk
-         OclwTHxtEqbu6enEiNwwKO06KnaLJEUPCt2FIubddcFF9LotqkbNlA/rAtjqNjFR19P3
-         n0pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790949899; x=1791554699;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yWoTdtEhaANGiWjxC7mDCG65IUsbfc9dm1bjsFUluhU=;
-        b=gn66mLOu+K9MchgoHUl+gdo556rh5qPjSDMBUulTMIuar0vZLQHBsWZAYtkBWN7gMJ
-         whqn0UxskCvsCQSQCaa4rZz8lJXWcx21HEuRe4ma9HhUJkBBROUTXo/p70mhpQUQsO2O
-         CYsBrDoeGHG3eM0wcuK13mqIRAs0NgaqRmdxsiqvdPsuIhEFsdllGtdLkOtCO29yN3uF
-         OfHDLkPuV0kjY1AeIHy8IuQAoXds8etBfc3jrjRru/7CjnPJFWNbhQ5d8itGx/seDp2W
-         kogM31Rhz77ahmmwlH8mFudJ7sMhGKO4HBqnEwIbU5XtzRD/+4Kzu8xYBw6im1FYnLbk
-         dC3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzOQJuZjaWzpl65WpxV0tWekFbmmrw1bTlDd0VNmKCv8qKAT5zJtgTMWXMcB/PUljhtY1JvHSTOENV7mws=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxAdgRrdNy0i9QGmbvyRMLd7lmpUbBVj7BEcbBun3lOeLvKHEQ
-	oevR2zPbacnocopw6PwEEhmCIjSOuykk5Z84t//dT97d5lnHI6JIdYrM
-X-Gm-Gg: AYBFou3LV1cDnUD/AT4Kgx23pS71tEZ2CklccJmhS4h7/xRcy8UnK3dBoA92EZyWHGJ
-	qsCFtMLDx6UD070MDX2TdmasnsFI8ewBMFYxsP/gSnWfzBIDXxD1ciqHeKHdL/G4c6CISSw2Kxo
-	xF4VJsIDcSui+BrRtfGHX0VDilj/z6FV2u305DX3MNTl10WyJJ/qm1l/6Pm1IYXCCSILvu/oBrt
-	E0pv4MzCPt5GLylV7kUZH6w23bc7GmJOFosOxJs7EMMP5hG+ZJ82J8ynLPiqwPKWCiAm5Jca+b1
-	6kmt0QD9YA4x2iNNN76HYAI7YrNpltNP2K2T5L3SzsjkZvaRW1T7Cz2wXQW9an20h6K3KTV7w4V
-	GRDSoZfeTdw4teGOcLYoGCMOrtGfSrR18iZjyedFH7ePoF3Vvm16BGckvl1eb7McLsBm46VXsNv
-	0jl0qwdGY4nVuSJESjvVWNftuCR3ubG/A9wGXyeo66DM8/Xnt6NnZAc2ENwtUSNcSE/VGIXJ83
-X-Received: by 2002:a05:7023:a4b:10b0:144:fedf:5789 with SMTP id a92af1059eb24-14f5bbfad09mr2830789c88.15.1790949898789;
-        Fri, 02 Oct 2026 07:04:58 -0700 (PDT)
-Received: from adi.. ([122.171.22.57])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f4766f92fsm6656244c88.16.2026.10.02.07.04.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 07:04:58 -0700 (PDT)
-From: Adi Prasan <itsadi2409@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	error27@gmail.com,
-	Adi Prasan <itsadi2409@gmail.com>
-Subject: [PATCH v3] staging: rtl8723bs: fix ie_length bound check in rtw_cfg80211_inform_bss
-Date: Fri,  2 Oct 2026 14:04:50 +0000
-Message-ID: <20261002140450.3209-1-itsadi2409@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260920142849.294162-1-itsadi2409@gmail.com>
-References: <20260920142849.294162-1-itsadi2409@gmail.com>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="dZhb3mgq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1790949882;
+	bh=BAoZsisDnlY0LO+TduzgC6g/Q+8iWDR6OcyZyRZyWNU=;
+	h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
+	b=dZhb3mgqrZGt9We8M7wy4kUi8RDLqBxp+dSeqrnGinNUgE3cp2JCb5g25ZszfRS0/
+	 3OQomL/ZZan98v95D1OLV91MUwsfSec3jzmKoviInvLYlqlKacVZT1GiqhK32xg9XR
+	 gYdceKx7LwwI51NMR/g3I6NMROCse5XRMAc6lO2lI/OSDbXiiZzAhaLAQYS2a4Ke0A
+	 k9lQIs+pvIsTnYyw+8whPYPvnv2FsL8YH1Qw6gKWEds1EM/YtypDZhAZe2jXUa76IP
+	 6WR91iWgzB5042mky/irVF1YtzY5eNSasK1Oy8mRFJw3jgAHLLqRe91tmGqdx21OnK
+	 Z+tWDurs/SNEw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hx9Wh1Pvtz4w1l;
+	Sat, 03 Oct 2026 00:04:31 +1000 (AEST)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v7 0/9] vfio/pci: Add mmap() for DMABUFs
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20261001153834.4a2528a2@shazbot.org>
+Date: Fri, 2 Oct 2026 15:04:49 +0100
+Cc: Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>,
+ =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org,
+ Manish Honap <mhonap@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A758FB87-95D3-4CE4-87C8-C50FF0ACE026@ozlabs.org>
+References: <20260924152159.49702-1-matt@ozlabs.org>
+ <20261001153834.4a2528a2@shazbot.org>
+To: Alex Williamson <alex@shazbot.org>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-The buffer bound check in rtw_cfg80211_inform_bss() checked bssinf_len
-(ie_length + header size) against MAX_BSSINFO_LEN (1000 bytes), but
-network.ies[] is only MAX_IE_SZ (768) bytes. This allowed ie_length
-values up to ~976 bytes to pass the check while a subsequent memcpy()
-from network.ies still only has 768 valid bytes, and other paths that
-write to network.ies consistently cap ie_length to MAX_IE_SZ.
+Hi Alex,
 
-Check ie_length against MAX_IE_SZ directly, which is the actual size
-of network.ies, and drop the now-unused bssinf_len/MAX_BSSINFO_LEN
-comparison.
+> On 1 Oct 2026, at 22:38, Alex Williamson <alex@shazbot.org> wrote:
+>=20
+> On Thu, 24 Sep 2026 16:21:43 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
+>> Dear Reviewers,
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>=20
+>> Along the way several related issues came up that warrant more
+>> eyes, and I'd be grateful for your input:
+>>=20
+>> 1. If VFIO fd is opened O_RDONLY, it currently can't be mmap()ed
+>>   (because PROT_WRITE is rejected in do_mmap(), and PROT_READ alone
+>>   drops the VM_SHARED so VFIO's mmap rejects it).  BUT it seems we
+>>   can export a DMABUF from it, and then pass the resulting fd around
+>>   for P2P writes.
+>>=20
+>>   I don't know if this is intentional/relied on/a known limitation,
+>>   or a bug?
+>=20
+> Seems like a bug.  In practice it's probably not very meaningful, the
+> user can still potentially change the device power state and trigger a
+> reset, but being able to source a writable dmabuf to a region on the
+> device fd that isn't itself writable seems semantically wrong.
+>=20
+>>   a) We could reject export w/ -EPERM unless the device fd's f_mode
+>>      has O_RDWR, to reflect the RW abilities of P2P
+>=20
+> This seems sufficient...
 
-Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
-Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
----
- drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Thanks, I=E2=80=99ll take a look then.  I should=E2=80=99ve said this is =
+cdev-centric=20
+(an explicit open O_RDONLY), as VFIO_GROUP_GET_DEVICE_FD always
+generates the fd with RDWR perms.  The path from container/group open
+through to device fd generation and then export is similarly=20
+semantically weird, but maybe less clear on effort vs benefit to fix.
 
-diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-index 27e7b8442d7b..7e964b15ae6d 100644
---- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-+++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-@@ -210,7 +210,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
- 	u64 notify_timestamp;
- 	s32 notify_signal;
- 	u8 *buf = NULL, *pbuf;
--	size_t len, bssinf_len = 0;
-+	size_t len;
- 	struct ieee80211_hdr *pwlanhdr;
- 	__le16 *fctrl;
- 
-@@ -218,8 +218,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
- 	struct wiphy *wiphy = wdev->wiphy;
- 	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
- 
--	bssinf_len = pnetwork->network.ie_length + sizeof(struct ieee80211_hdr_3addr);
--	if (bssinf_len > MAX_BSSINFO_LEN || pnetwork->network.ie_length > MAX_IE_SZ)
-+	if (pnetwork->network.ie_length > MAX_IE_SZ)
- 		goto exit;
- 
- 	{
--- 
-2.43.0
+So, for cdev open it looks like some plumbing, and that it won=E2=80=99t=20=
+
+conflict with this series, so I can look at that separately.
+
+>>   If we agree it's a bug, I want to do this fix (a), as we can now
+>>   export a DMABUF RW from an O_RDONLY device fd and then succeed to
+>>   mmap() the DMABUF with RW.  (That said, even with an O_RDONLY
+>>   device fd, the device state can still be changed/reset.  But it
+>>   feels cleaner to prevent export for a O_RDONLY device fd, and match
+>>   the device fd mmap() behaviour.)
+>>=20
+>>   In future, we could consider finer-grained RD/WR if there's a
+>>   future goal to tie DMABUF permissions to, say, iommufd
+>>   IOMMU_READ/IOMMU_WRITE permissions:
+>>=20
+>>   b) Instead of just failing if !O_RDWR, we could limit the
+>>      get_dma_buf.open_flags to the VFIO device fd's f_mode, such as:
+>>=20
+>>       VFIO device fd perms:    Export flags:           Result:
+>>       O_RDWR                   O_RDWR, O_RDONLY        OK
+>>       O_RDONLY                 O_RDONLY                OK
+>>       O_RDONLY                 O_RDWR                  -EPERM
+>>       O_WRONLY                 * -EPERM
+>>       *                  O_WRONLY                -EPERM
+>>=20
+>>     (Skipping WRONLY because a PROT_WRITE-only mmap() won't work,
+>>      though it probably should be included for P2P.)
+>=20
+> Certainly more complete, but I'm not sure there's a use case here that
+> really warrants the effort.
+>=20
+> Another angle to the dmabuf permissions is the region permissions
+> themselves.  We don't currently hit this since we're only exporting =
+PCI
+> BARs, but for instance Manish wants to protect the HDM decoder range =
+in
+> the vfio-cxl series[1].  Again, there's probably a simple solution to
+> simply consult the excluded ranges list, added in that series, and
+> reject dmabuf exports overlapping it.  I don't expect any action item
+> for this series though.
+
+Interesting, thanks.  Reading.
+
+> =
+[1]https://lore.kernel.org/all/20260916183540.3813685-1-mhonap@nvidia.com/=
+
+>=20
+>> 2. The mmap fault handler takes a bunch of locks non-interruptibly,
+>>   and potentially depends on a lot of DMABUF-related activities
+>>   completing.  I'd had a go at converting them to
+>>   interruptible/killable forms, but that revealed there seems to be a
+>>   wider issue if move/revoke doesn't complete in a timely fashion
+>>   (due to buggy importers).  Where I got to was that just updating
+>>   the fault handler won't fix the user experience of an unkillable
+>>   task, and move()/revocation will need thought too.  I don't intend
+>>   to fix this here but wanted to start discussion so we can address
+>>   it in a follow up.  There's now a dependency between mmap_lock in
+>>   the fault handler and the DMABUF resv (which might take a while to
+>>   resolve), though revocation will be rare in practice.
+>>=20
+>> 3. vfio_basic_config_write() has an error path if
+>>   vfio_default_config_write() fails that releases memory_lock but
+>>   doesn't un-revoke BARs in the case of PCI_COMMAND.MSE being
+>>   cleared.  When can the write fail, in practice, perhaps surprise
+>>   removal?
+>>=20
+>>   The effect on this series would be: a write of MSE=3D0 revokes =
+BARs,
+>>   vconfig[PCI_COMMAND]'s MSE becomes 0, but if the physical write
+>>   fails then the physical MSE remains 1 and BAR VMAs stay revoked.
+>>=20
+>>   This seemed a mess; fixing isn't as simple as un-revoking on the
+>>   error path since vfio_default_config_write() has already trampled
+>>   vconfig so that'd need unwinding.  It felt like a catastrophic
+>>   scenario where BARs staying revoked isn't a bad outcome, but want
+>>   to hear your experience of the likelihood of this issue.
+>=20
+> Our vfio-pci story around surprise removal and DPC is pretty weak, I'm
+> hoping that some of our parallel error handling work will shut down =
+the
+> device when this occurs.  For now, leaving the dmabuf revoked seems
+> like a reasonable thing to do.  In practice, I don't really see this
+> coming up other than in testing surprise removal of NVMe drives.
+
+OK, cheers.
+
+(Maybe a couple of these bullets are ~rhetorical, just to get a =E2=80=9Ck=
+nown
+wrinkle=E2=80=9D searchable somewhere.)
+
+>> 4. The exchange of a VFIO fd mmap()'s vma->vm_file with an implicitly
+>>   created DMABUF's file has implications on LSM.  For example, an
+>>   mmap will be checked against the policy for a VFIO fd, but a
+>>   subsequent mprotect() relates to the policy of the DMABUF file
+>>   (which is anon/unique to the mapping).  This is pretty confusing.
+>=20
+> Maybe I'm not seeing the issue, but this seems like correct behavior =
+to
+> me.  Policy decisions are made at creation time and later changing
+> protections on one object doesn't affect the other.  Thanks,
+
+I think this is a change in behaviour re LSM rule, should anyone have
+applied any to VFIO in any fine-grained way, so just flagging that.
+
+I=E2=80=99ll send v8 shortly, resolving Christian=E2=80=99s request.  As =
+ever, thanks
+for the input!
+
+
+Matt
 
