@@ -1,139 +1,188 @@
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF05F3438A0;
-	Fri,  2 Oct 2026 22:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48CD30D402;
+	Fri,  2 Oct 2026 22:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790981580; cv=none; b=Wn1QcaiUatxGoGW8qCqrDwsYC2ga2MopjHxqmbKe2AeXeaWOZGGm5183pRRoOAGfFzlI2e1nTBgmjPUw7PoVl265DzlH4NaIEl7uKTglmDhsrKcGTgldIvFhVND040lrj0s0kdHplKKpprccmNJWj9NbjC1GW7NEvE7QT8KCcoM=
+	t=1790981746; cv=none; b=tBhp+uvufkvmjEs6bZvIG33hlMnHyRnuULu8kJGXm8qqiX1C+pIUvRlRchGJrXsh+bS322jWt83sU/ufImR0oN0gO1ofDMbf3+h1RoUX07ToGxQXUjW01u/kUfUB0sFP9LlA9xszogLRLJc+J9FxS7F2BoWmiwchQGhizcaIbCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790981580; c=relaxed/simple;
-	bh=x2GGwuEyPxoeE58a4f+VomP2LJxuHLO2xxByMZSioNo=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=t5rb3XkRyInqb0qwfdkSWG7vRhEEZaX+cYwNV8OTkTQE28c0QZ7XlY7072m4vICpo2z0K/8QDtQAykdm+sy8CZXTWHdt6DWxi4ixjE+K+R/r3vAk2CkugX7qd5xVH7BYcciqqsL1NKAu1Guba3x3cJnHolgWMAzrnX5vblvwi9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=5XSmGmxD; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=iuQKT63R; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1790981746; c=relaxed/simple;
+	bh=WbrsyDuRwNJTwRcqSweZTFhGhy6Jwp0TcI1mJDP0/xQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=jvT6amAbeg2L8x+Y7kgA09uOCTHzcT7H+gSSGi0IDWhToarM2G7xiLF3OhBTW183fUSxTYSDLDiZ00CVOr1faAeoaXTc329ryvoqtAmFwhqjfuQ9Hm7aiK0olwdEu8l6cQzc86rhJg3PW53exfKsXzVdaLyKbAk5Qixp7rNtEcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7mgiFXK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="5XSmGmxD";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="iuQKT63R"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 692MqFA3024022;
-	Sat, 3 Oct 2026 00:52:21 +0200
-Received: from lubuntu-18.04 (host-95-234-228-71.retail.telecomitalia.it [95.234.228.71])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 362F11208F0;
-	Sat,  3 Oct 2026 00:52:11 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1790981531; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wuX6sXxsGm+xKYyKZxk/IWod2kEm36bV4CD9CG7o2fs=;
-	b=5XSmGmxDGQuSBiN/gLwzqqamFNgYkg1pAbjayp4KIxYJXN97eDsi/WuqcUcKPJV/GWennH
-	Zk2W7j9zUbSjOcAQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1790981531; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wuX6sXxsGm+xKYyKZxk/IWod2kEm36bV4CD9CG7o2fs=;
-	b=iuQKT63RKuHHE/8H2qrZynkbiox7Y7W3sBrBqhLtRFipF2X9t+rbjvCCRLUINHLRIRBecn
-	DzX7Of9q/bdrYqPy1PoGm/1hh5GVqqL+zghKqi5cxiCq+dn83ZyGDx1xG/Dix+whgdkkuD
-	6O8dQ1FrVSdbaC/PfPiyYunUTVUCa4xtyRpN6CAzGf8P/Bkl9fGt58qVEyNdpjGtlb53Go
-	NjUKhi26yGm9kMDoWOyReEH32aRvetwhgqQbfEckqdkfXuFj3HhmU5XNCj63YyjVcieVsc
-	3eMrb0fuklf7xNY6QDsHhevzw9qn/eiEJE6yUeKYK4JslKr9tGlInmQCIQ2xBA==
-Date: Sat, 3 Oct 2026 00:52:10 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: netdev-bot+sinfo@kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>,
-        Ido Schimmel
- <idosch@nvidia.com>, Simon Horman <horms@kernel.org>,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Kuniyuki Iwashima
- <kuniyu@google.com>,
-        Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Hui
- Peng <benquike@gmail.com>, Sashiko <sashiko-bot@kernel.org>,
-        Andrea Mayer
- <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net] ipv6: rpl: unclone the skb before modifying the
- packet
-Message-Id: <20261003005210.d9b3b56c46144fd990259e7f@uniroma2.it>
-In-Reply-To: <179087934758.1402591.6992807182585473895@kernel.org>
-References: <20261001182136.33-1-andrea.mayer@uniroma2.it>
-	<179087934758.1402591.6992807182585473895@kernel.org>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7mgiFXK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3799E1F000FF;
+	Fri,  2 Oct 2026 22:55:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790981745;
+	bh=XOjEC8uyWbqD359x8ka20z4mQO4Yg0kZahphsxZmvs0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=R7mgiFXKy++R6GgEPFPaHrS51wx6MPgzAu9gjhXmJ4d/e1U+MjoTrh0NpZE1EkFyj
+	 imZ0ybz654P4TN9chsmB/dCfngz7OhRtayg6AXwa7ttfz5qedYZa1CUk4Yx076Kz5y
+	 hmKgjatvC26TgqA06C4agSG/nst5p1BE/oYd1f6irNeKim+f5JMUtT+OcB9Fws/z1m
+	 zx2CsEfThX2ApsWeQk3OBIPOLBXvTjfNIfzSuMhQS0Xdwtk0AYpvKfCS/jztMJxQZ7
+	 ynXIU/igwz9woyKegxKuXY1W9WhzDa17uDQyCMgX5p4sYag9fJ357B92ynt6AiOzkV
+	 7abl2rK/wmwaA==
+Date: Fri, 2 Oct 2026 17:55:43 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Jeff Johnson <jjohnson@kernel.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+	ath11k@lists.infradead.org, ath10k@lists.infradead.org,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Subject: Re: [PATCH v3 3/8] PCI/ASPM: Transition the device to D0 (if
+ required) when enabling ASPM link states
+Message-ID: <20261002225543.GA374513@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708-pci-aspm-fix-v3-3-6bd72451746e@kernel.org>
 
-On Thu, 01 Oct 2026 18:29:07 +0000
-netdev-bot+sinfo@kernel.org wrote:
+[+cc Rafael because I'm not a power management user]
 
-> Hi!
+On Wed, Jul 08, 2026 at 04:30:17PM +0200, Manivannan Sadhasivam wrote:
+> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 > 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
+> Per PCIe spec r6.0, sec 5.5.4:
 > 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
+> "If setting either or both of the enable bits for PCI-PM L1 PM Substates,
+> both ports must be configured as described in this section while in D0."
 > 
-> [snip]
+> Currently, the callers of pci_enable_link_state_locked() (vmd, pcie-qcom)
+> transition the device to D0 themselves before enabling the link state. But
+> this is easy to get wrong and has to be duplicated by every caller.
+> 
+> Move the D0 transition into the shared __pci_enable_link_state() helper so
+> that all three APIs pci_enable_link_state(), pci_enable_link_state_locked()
+> and pci_force_enable_link_state() perform it, and only when the PCI-PM L1
+> PM Substates are getting enabled.
+> 
+> Now that the helper handles the transition, drop the redundant D0 transition
+> from the vmd and pcie-qcom callers.
+> 
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> ---
+>  drivers/pci/controller/dwc/pcie-qcom.c |  5 -----
+>  drivers/pci/controller/vmd.c           |  5 -----
+>  drivers/pci/pcie/aspm.c                | 23 +++++++++++++++++------
+>  3 files changed, 17 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+> index d8eb52857f69..45f4caeb0814 100644
+> --- a/drivers/pci/controller/dwc/pcie-qcom.c
+> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
+> @@ -1085,11 +1085,6 @@ static int qcom_pcie_post_init_2_7_0(struct qcom_pcie *pcie)
+>  
+>  static int qcom_pcie_enable_aspm(struct pci_dev *pdev, void *userdata)
+>  {
+> -	/*
+> -	 * Downstream devices need to be in D0 state before enabling PCI PM
+> -	 * substates.
+> -	 */
+> -	pci_set_power_state_locked(pdev, PCI_D0);
+>  	pci_enable_link_state_locked(pdev, PCIE_LINK_STATE_ALL);
+>  
+>  	return 0;
+> diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+> index d4ae250d4bc6..20597d2cf66e 100644
+> --- a/drivers/pci/controller/vmd.c
+> +++ b/drivers/pci/controller/vmd.c
+> @@ -762,11 +762,6 @@ static int vmd_pm_enable_quirk(struct pci_dev *pdev, void *userdata)
+>  	pci_info(pdev, "VMD: Default LTR value set by driver\n");
+>  
+>  out_state_change:
+> -	/*
+> -	 * Ensure devices are in D0 before enabling PCI-PM L1 PM Substates, per
+> -	 * PCIe r6.0, sec 5.5.4.
+> -	 */
+> -	pci_set_power_state_locked(pdev, PCI_D0);
+>  	pci_enable_link_state_locked(pdev, PCIE_LINK_STATE_ALL);
+>  	return 0;
+>  }
+> diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
+> index c04fb71de91c..6d6862fd2ebb 100644
+> --- a/drivers/pci/pcie/aspm.c
+> +++ b/drivers/pci/pcie/aspm.c
+> @@ -1524,6 +1524,17 @@ static int __pci_enable_link_state(struct pci_dev *pdev, int state, bool locked,
+>  		return -EPERM;
+>  	}
+>  
+> +	/*
+> +	 * Ensure the device is in D0 before enabling PCI-PM L1 PM Substates, per
+> +	 * PCIe r6.0, sec 5.5.4.
+> +	 */
+> +	if (state & PCIE_LINK_STATE_L1_SS_PCIPM) {
+> +		if (locked)
+> +			pci_set_power_state_locked(pdev, PCI_D0);
+> +		else
+> +			pci_set_power_state(pdev, PCI_D0);
+> +	}
 
-Hi,
+I think it's a great thing to get the power state management out of
+the callers of pci_enable_link_state().
 
-Yes, I triggered it. I reproduced it in a VM.
+But shouldn't we really have done this with pm_runtime_get_sync() and
+a corresponding pci_runtime_put()?  Setting the power state with
+pci_set_power_state() feels like it's too low-level and possibly racy
+for use like this.
 
-One namespace sends pings to fc00:2::1 through the RPL segment
-fc00::2, which belongs to a second namespace with rpl_seg_enabled=1.
-Each ping arrives with destination address fc00::2 and a routing header
-with Segments Left 1 that carries fc00:2::1. In the second namespace, a
-Python program opens an AF_PACKET socket and reads the queued frames
-only after the pings were processed. For each frame with a routing
-header, it prints the destination address and Segments Left.
-
-Without the fix, all these frames showed:
-
-  daddr fc00:2::1 segments_left 0
-
-These are the values written by ipv6_rpl_srh_rcv(), not the received
-ones. With the fix, all the frames with a routing header showed the
-received values:
-
-  daddr fc00::2 segments_left 1
-
-To reproduce it, I did not modify the kernel or use error injection.
-
-This is how the packet reaches ipv6_rpl_srh_rcv(), with some calls
-left out:
-
-__netif_receive_skb_one_core
-  __netif_receive_skb_core
-    deliver_skb               [orig: users=2]
-      packet_rcv
-        skb_clone             clone queued to the AF_PACKET socket
-        consume_skb(orig)     [orig: users=1, cloned=1]
-  ipv6_rcv
-    ip6_rcv_core              skb_share_check: no-op [orig: users=1]
-    [...]
-      ip6_protocol_deliver_rcu
-        ipv6_rthdr_rcv
-          ipv6_rpl_srh_rcv    writes into the data shared with the clone
-
-The reproducer is a shell script and a Python program.
-I can post it if it helps.
-
-Thanks,
-Andrea
+>  	if (!locked)
+>  		down_read(&pci_bus_sem);
+>  	mutex_lock(&aspm_lock);
+> @@ -1550,8 +1561,8 @@ static int __pci_enable_link_state(struct pci_dev *pdev, int state, bool locked,
+>   * touch the LNKCTL register. Also note that this does not enable states
+>   * disabled by pci_disable_link_state(). Return 0 or a negative errno.
+>   *
+> - * Note: Ensure devices are in D0 before enabling PCI-PM L1 PM Substates, per
+> - * PCIe r6.0, sec 5.5.4.
+> + * Note: The device will be transitioned to D0 state if the PCI-PM L1 Substates
+> + * are getting enabled.
+>   *
+>   * @pdev: PCI device
+>   * @state: Mask of ASPM link states to enable
+> @@ -1569,8 +1580,8 @@ EXPORT_SYMBOL(pci_enable_link_state);
+>   * can't touch the LNKCTL register. Also note that this does not enable states
+>   * disabled by pci_disable_link_state(). Return 0 or a negative errno.
+>   *
+> - * Note: Ensure devices are in D0 before enabling PCI-PM L1 PM Substates, per
+> - * PCIe r6.0, sec 5.5.4.
+> + * Note: The device will be transitioned to D0 state if the PCI-PM L1 Substates
+> + * are getting enabled.
+>   *
+>   * @pdev: PCI device
+>   * @state: Mask of ASPM link states to enable
+> @@ -1600,8 +1611,8 @@ EXPORT_SYMBOL(pci_enable_link_state_locked);
+>   * Note that if the BIOS didn't grant ASPM control to the OS, this does nothing
+>   * because we can't touch the LNKCTL register.
+>   *
+> - * Note: Ensure devices are in D0 before enabling PCI-PM L1 PM Substates, per
+> - * PCIe r6.0, sec 5.5.4.
+> + * Note: The device will be transitioned to D0 state if the PCI-PM L1 Substates
+> + * are getting enabled.
+>   *
+>   * Return: 0 on success, a negative errno otherwise.
+>   */
+> 
+> -- 
+> 2.43.0
+> 
+> 
