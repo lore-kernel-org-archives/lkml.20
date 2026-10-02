@@ -1,110 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196674477E7;
-	Fri,  2 Oct 2026 22:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268563F660D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790980027; cv=none; b=fza91s1AW5Ayo9uSKY4TsEC4WPpNgJo6fHsxbaD30AVcefLJjlmhJGDWzaRC8ISOuQrHYymVWTZ1OAwJqo9LQ10E7v+ox8psKoVObZV3ViXnIcjmhvYiCXJyS6ibMbMdNv+qNJsmFxJ/KEC0XkQ9p7CBnxa95tvKe7C1IbblxoE=
+	t=1790980098; cv=none; b=rasuathzCQ+s5OeYX4Ddq395aA8wRK1PHcApXP2/u/pzjqLW+t19Onql+s4onPA4H+wIkcQg608ZI2WgCdClV5yPnUPqW0VjgFUTNu3UbNubC1Mj7ju7J9y8acQxRF+vZ9H+fJHFFkN5u0QYfM2Q3e0+8Q5iHlWooFYqV3SmtV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790980027; c=relaxed/simple;
-	bh=rKUJ1Ht/OLxCT4JuW4/2eoRS1UlSZ4jSo532PpnCiZI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AUPH2+YmSysNSupsi/Oou9bR11XjBvuDU5l1CZ0nOsz9qKKwUtQYbzpeyyNW8GuKF8OdpuQsC6nhtf9TkQq7yae45ZVTumxcc9idoa3ZBlHu/6WBOciNZCPpQ5sYnEb66A0r+B3vYGrusKNUA+o85JMasmQ7Po3CkYR3gyy9Vrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ewi4IOFJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790980098; c=relaxed/simple;
+	bh=viZVgZTEOWBDWo0bJxuaEJyH1pxng8uJPGmDGrWWCXk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=SD09rt80gIqISzXJk+emsZBQSWWTY3X0dNCSOTBCYnra0rTrRirONRnIY0o4+KNDielAp8Z6uLXSebz/DlNK/+0AqGybRYTMqcY/9Lh7qjBC4DgR+WxxjRnL5A5CfL3SBmO9YrzkY1Sa0L00VRo3gW98XVqqNt4MCPMdUTJ1HKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wMreCSeY; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ewi4IOFJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2D61F000FF;
-	Fri,  2 Oct 2026 22:27:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790980025;
-	bh=XrFDa5YTwQsxjtBU29z2wtgxI1YYa8NMh9+Em7kIbVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ewi4IOFJxxoQ7Qg9VWdgyzC60dmnonJEslzal0W/O13I2WiUEd2OP/DezZ5E4pgi3
-	 7l1+sZFtSsPGxggjrflW+1IAZvAkZi2jJSVGKUYoRJlwBgQhmlb3UUY6La6gXNmPHU
-	 A3USpiyM1HyNfkNSLVznW0/MYCSV8gEg/Wf+/wBwuJwFAdTtC8Doqh9yVInGN1L6HI
-	 yS+4DARPK6rUH+NdAOIAkSrrom0PFGPpqiaJgzToMJAYeTKaK+YR96RrIeVOSR9Y2E
-	 6rvOSb6NFJ9v5Xk/Jn3g4y5f5nwYLV6XRmOJH0rwuteh6/RKU9XZcTPyFeB0Ptl+1J
-	 ePgpKPyaWT8Pg==
-Date: Fri, 2 Oct 2026 15:27:05 -0700
-From: Kees Cook <kees@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	linux-hardening@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v4 5/7] mm/slab: Provide kmalloc type fallback for bucket
- allocations
-Message-ID: <202610021520.5A076C2A0@keescook>
-References: <20260921075811.too.775-kees@kernel.org>
- <20260921075820.1718334-5-kees@kernel.org>
- <arJSz0r5u_78NWKe@pedro-suse.tail5790ac.ts.net>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wMreCSeY"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39512608fb1so57052a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:28:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790980096; x=1791584896; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6cEXwvHyHYypv1TjIMTLjauYp2kWmUbEs4O5rr+p48c=;
+        b=wMreCSeYPjL8f6twIufOEruV7I0Q7H0kmxFqN3arecpg90CUJR/ZFAtkmHglEod34N
+         4UZwwVyRcC3H8CIuWvT6Kc6kaHbVSY4VeNPLM5WJ03tvWYqzPAHNHDxgFx2n7Ulf6i5/
+         lHeOlQ5lbk/zDPhcTQ7NDYDL+tNP1XMm+fWy2/hUYwJ/GQdDNQ/lvk7XsDIZjZADDplA
+         DMooCqGDnFuQVfyjWckMM1FXLLOIpkveOMJwhA8MRIDqZH7fRLChd4i+gwl4ZHtjF+t8
+         Ml4LvUp27XgDNx5LOpA1es0knr2fo2IrC5/kC2WW1LlMzLtVk2hldCikI6ME9uRqWHgd
+         plZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790980096; x=1791584896;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6cEXwvHyHYypv1TjIMTLjauYp2kWmUbEs4O5rr+p48c=;
+        b=MU04Djw8PwNOEUW3/BPzmHnhkQ4s6HphDjOrQ2d3RB9IVvjNMRhrDL5iMKlSGtDNjB
+         OBhjS0q2gbVTCWX6SkcIZzFqBe45Kq5tgg9Sst8lwR9R/YXQIMuhN7kWRje15Dt9nBlK
+         Zwm2eMXRmU1xpoJmWSc8FaPKDodAqnJK8s1MiZqMwWnf1sKt9yTSD1LSaAex8betmFpF
+         GK7eXZOhQk2iezqer3o3rgRYlbuyjGGvbNmdqkdZX+0MtCLh/IocMCuzhgWaQuhAkEfC
+         9/3LXk6+WM7G7duSSEoYmowt3iEUhP3oTkMxHTiWIU+vsJ1pn03kPCG4rVq/HxX6e1F8
+         VFwg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYyxC7AeDLHrXHUZLKaFfmxei9GfD65EvhTQNzRs1ExOxkUSXcQiQFnML043paF458YFq22CZr+6AJJMQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKz4dfrVRMMevdcykBp0Ax9WeedXGNnENLhr5ygb01B6o7r4dP4
+	/9i2x+DM3Tra+3aznu3GA+s5FwNzxWdoAg5VapYC50SnbCY+x/8g7VYPjXir5cydKGYzz2ZXY4E
+	g3UQ7vg==
+X-Received: from pjbfr22.prod.google.com ([2002:a17:90a:e2d6:b0:3a0:b207:df5a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3f8c:b0:3a4:7730:33dd
+ with SMTP id 98e67ed59e1d1-3a78776199bmr395614a91.58.1790980096162; Fri, 02
+ Oct 2026 15:28:16 -0700 (PDT)
+Date: Fri, 2 Oct 2026 15:28:15 -0700
+In-Reply-To: <55452f6b9bd1dc241d0a9a0781fbda1c2850d2ce.1790101179.git.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arJSz0r5u_78NWKe@pedro-suse.tail5790ac.ts.net>
+Mime-Version: 1.0
+References: <cover.1790101179.git.ritesh.list@gmail.com> <55452f6b9bd1dc241d0a9a0781fbda1c2850d2ce.1790101179.git.ritesh.list@gmail.com>
+Message-ID: <asAv__Gozv6r3QWt@google.com>
+Subject: Re: [PATCH v5 9/9] KVM: selftests: Move memslot_perf_test off the
+ 256M ELF load address
+From: Sean Christopherson <seanjc@google.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 22, 2026 at 11:11:58AM +0100, Pedro Falcato wrote:
-> Big thanks for continuing this effort :))
-
-Thanks for starting it! :) I've had a few folks wanting it, so I'm happy
-to help.
-
-> On Mon, Sep 21, 2026 at 12:58:16AM -0700, Kees Cook wrote:
-> [...]
-> > +/*
-> > + * The kmalloc types a bucket set can hold a copy of. This is deliberately not
-> > + * enum kmalloc_cache_type: the KMALLOC_PARTITION copies are all "normal" to a
-> > + * bucket set, which already separates what they were there to separate, so
-> > + * indexing by those would mean up to KMALLOC_PARTITION_CACHES_NR unusable
-> > + * rows per set. Allocations of any type not listed here are served by the
-> > + * general caches.
-> > + */
+On Tue, Sep 22, 2026, Ritesh Harjani (IBM) wrote:
+> KVM selftests are built with -fno-PIE/-no-pie so the binary uses fixed
+> load addresses.
+> On powerpc64, GNU ld default links at 0x10000000 (256M) which is also
+> the MEM_GPA, so the identity map trips with the error:
+>   PTE already present at level: 4 gva: 0x10000000 pte:0xc00000000002018f
 > 
-> This sounds odd. Is there a good reason why KMALLOC_PARTITIONs are kmalloc_cache_types?
-> Perhaps that bit should be reworked instead?
-
-I'm not sure I follow. Do you mean the partition copies themselves
-shouldn't be kmalloc_cache_types? That predates this series. For a
-bucket set, they're all the same "normal" type, so a set indexed by
-kmalloc_cache_type would carry rows it can never use: on x86_64 with
-CONFIG_KMALLOC_PARTITION_CACHES=y, that's 20 rows (2240 bytes) per set
-instead of 2 (224 bytes). I've put the numbers in the commit log for
-v5.
-
-> [...]
-> > +	if (type <= KMALLOC_PARTITION_END)
-> > +		btype = KMEM_BUCKET_NORMAL;
-> > +	else
-> > +		return &kmalloc_caches[type];	/* No set holds a row for it. */
+> Put the test slots at 512M instead which is past the ELF.
+> e.g. failure w/o this fix:
 > 
-> Hitting this case sounds like a bug in the kernel. WARN_ON_ONCE()?
+> ./memslot_perf_test -s 514
 
-The next patch warns where a set could have held the row but wasn't
-created with it (an accounted allocation without KMEM_BUCKET_CGROUP).
-What's left here are types no set can hold, like DMA and reclaimable,
-and those already come from caches of their own, so falling back
-doesn't lose the separation.
-
-> Otherwise LGTM.
-
-Thanks!
-
--- 
-Kees Cook
+This, and any other adjustments/fixes to get common test functional on PPC needs
+to land *before* the tests are enabled.
