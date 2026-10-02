@@ -1,61 +1,63 @@
-Received: from mail-dy2-f36.google.com (mail-dy2-f36.google.com [74.125.229.36])
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A133C3E95A0
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F91F3EFFAF
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922583; cv=none; b=NoyaAE+Gx6sdFSasUCf0A/wLsTMUjTTvW57praP7T/z/oGpjxQ79zEKVk2nMz2XHnEXnwF3u3NQlA3hNovgQ/2Trnk1SMxhLqwOYduzFs1JxoQxrekMJ/Uy8PFXsC3j8ytQ5GKY0H5N8guRsxoG0rgE7lINlwm6kbgC1fPeVFTU=
+	t=1790922589; cv=none; b=kysuf4vkrp2PBzpctGtNiyasElzP25yxqv48OdZ6jKSCy4yO544Paj354u2wqOfEXRhx8t1CZY3QmkPBR5VvoxkQy+xFKU383Io6z0AB+HYAe3GTHgxjiVHf+jcfSkdNqTsq9SJvcbMBmCIO3J2wk/tC+7oeu4hqa9J2RqnnZQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922583; c=relaxed/simple;
-	bh=gyTGqOBUT1byslEbBLowM1lzNtpyhGlub203yUcrUJ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=efaW+WS3cQRPxGUSTEGLPLzjoYDUmnkIU8KLv+TKcjBrURyVV74FaVYwW92SDftqB0AjN/k0VJAv0NbOEhcVpmXgKv6u+wc8SXEhNTXHtBuolCzlLu+oRlxNgL0+ykVP1d6JTvM8AVVdi8vvUsqk8bEhUkWj5uy4XKc2RY0aPQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LLvg7ClW; arc=none smtp.client-ip=74.125.229.36
+	s=arc-20240116; t=1790922589; c=relaxed/simple;
+	bh=GNNcznWSFBk9BfsFx6sbFhNnUmqowOVWfdNrSDVGjJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=i21SRmPchi4CFxyvBX+d4fK9ozpX3nnKcLmK4d3IGX4s6eniyLFcx3Lx7sUH/vx4hndtm7geJVVb4atVzW9IXDnKk9X8X0ok/7wQOlOSJKe+ejGwAKlFbkDLS2c1HPTxVL9IVfOz2nDdcj36x6+qfC8SqZDcN+16SB+/zP9ObJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I/v7fW8o; arc=none smtp.client-ip=74.125.229.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LLvg7ClW"
-Received: by mail-dy2-f36.google.com with SMTP id 5a478bee46e88-328664c2da6so6207668eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:29:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I/v7fW8o"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144df39b6cfso5732865c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790922582; x=1791527382; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/3uKP316TAfLOs8D6w2CQrvf9oUDjp4A6r7z6eIgLW4=;
-        b=LLvg7ClW6BIIXdIiLvEn8xFMVK3b76fhfefxx6FrnvkvR3uqgGl3QKFgzO9hQbcRyx
-         opTjI5QMg0O595XDydJFEaufUyRMOTqruH+K6TgFZl7VR0CUIXkXTfKO15C6/tJi8yLD
-         724HNmId9BbMUod/9cJC9hTzEpXADHMxFc+wMgSLXXGgF03mS7TRVR2toZ2Yx3617f1E
-         La7Ny9vRcSBnU/w7PpRPiMmOIKEMJbfCQmW8C3lVke90IIvR2CIHaqomthJ/MChkWNBH
-         nxzMvkO7usSiVWP5PAgQHKdOQq4LICtgWJaY9nDYKbd/d7+DmpeE7Cye2FOqDBd8W12D
-         B70g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790922582; x=1791527382;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790922587; x=1791527387; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/3uKP316TAfLOs8D6w2CQrvf9oUDjp4A6r7z6eIgLW4=;
-        b=hLyE592HT1zGLZhRdLFrgC1ngaUWjHcIWLQQpi1ow7PneqvJd70filiHSdIKjiBfZv
-         uYweAiv+up1gXVBkZRIINbA0UZaw/XV2R4VdpUOuNIZKME854vROdKisfRnWzX2f9iZv
-         NJkQTfq0+2VjykEPmJenpmizA68Ot1/X6YZag5BnRwW9t54HpsyC5lTYfuq1QHyIQhRe
-         NF8ES0g0FqR/y16lD+sl4DPbmd3RZkhy4Oa3Bi87Y1jsSMYu0O/XWuBosmkDMkOKLevh
-         eut1mPwmjwL+JyM56SCsXmbCbJzPIq/qk9y7mzZgbRlYQAK8yC7kP1yFrSPMXDWSzSSs
-         Y2FA==
-X-Gm-Message-State: AFuF++nBaK+Ys4T1fTpjkaGlV3OYTEwvPP59Lv7h3OLMMHgVOuKcz+xV
-	wYzwIgNfM4fVYAkLJ+YnmLNBxVUQp3rCuQ2cYC0WV1VlWF68jF91+Xu6
-X-Gm-Gg: AYBFou1954N/nntIANYbB7/P9QYI/Bg7FcbQgNa57BzD+Neik0ASqFDzGDKNuHM+D+k
-	DQvU8dMq/BAQaoelwSZgbID0D/IOcD+qISRZeKqrIgE7/Wukoc9nK6oj7+6BQrjWQGauUF/gkoQ
-	AbfJXF7N9dWu4Skkpm8YXBu9We9gHQPqyIQ1cCrQk7hoeJBe1FZIxKak6xxmEF0VbE2RMXMzKfF
-	utVT/YX1wMqDNMMIPjCqgyLQRVbppOtCFnlvBH+30SD680FHQBF7FSWdeu/Xq/yKLsDphs0UnSf
-	qoOJcdPKrDD7dHMStj5jA66DnwTyy3xs0L4uFHNqrpoWPrH8ZSzPVhgDYnUFx2b8Mp7ZOsQApA9
-	gx4yM7MmNdadwr0RdIQF+N0mHLCxBX+i96YzWyXGmZhtVQxC56FxXbvwzr3T/CK/Pbmk5g2V164
-	6temEra0Ibht+G81KB9guFSkKyhROMPvPZgkf/oqBk1eySRZT4pkDTBQf95N+K+rMCK7n3TLqOw
-	J1Koi7ffMalBKPP
-X-Received: by 2002:a05:7022:f902:20b0:14b:588b:c80f with SMTP id a92af1059eb24-14f5b026980mr1769046c88.10.1790922581583;
-        Thu, 01 Oct 2026 23:29:41 -0700 (PDT)
+        bh=AOdg97xUtxa8AhSsk3nKT5LmiSCoT1EL2eRC7gkp05s=;
+        b=I/v7fW8osF5JTwEW+Xdq+lMaesAM/LNU2PlfjXUmMC2DdsiseSp4/3wXMHLuWXr4bp
+         bdarA+twEnAMTOZ5wfns/OdY44R8TxDtgfs6ZzB5B7XZERNVWgt63rC7K/l2gM+YF70l
+         tihX5Yf9jnlENm+/9Ts4cYM0EgvmVHk3Ke6Ri/aV86em4GLpbDyJ0sCKnMKs71582H9f
+         qNUCI5bhYmzq/D51ziY8s/bSecp5Sch7iq4P2pftI5vxMpxFJSbpn/LTphATegWTSeBp
+         M3mv9VEBKSBek/oBa2ekGtM+t0xMhLHIHUs3Ee2ngOWS5HBo619LYuN5796ZwN4B+T10
+         BQFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790922587; x=1791527387;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AOdg97xUtxa8AhSsk3nKT5LmiSCoT1EL2eRC7gkp05s=;
+        b=cqnoAQUhqx2B4a6+lPPSWZYF+rcOdloRWIPtyzod6161X7+w1MJ28HUPxv1qIExWa5
+         NIwAdBf9xPXhcwIW0rUKIeZTlUGUEMq9nC5LN1wsBtmEywFp3R/IILOboIkIRl/qgvKz
+         OI7pCi29M3wuwciRrTVLqHzeOCdwU4X3tytYO2sIx7LNtVPdNyZWo0oXmQZN9+FFGMcK
+         GYXF2LcFxOGvMU4Hf0Yh2p+0hQAI7S/5urDZtHW+78TLiCWuh0865OO0yXUdsTZihmwT
+         7ZE6dq7UQL8TbNB5HF9on3p9/l16NTKpzyVU6v107ZMn35tSeUmHl6N/wBKM0pTQAR7q
+         xffA==
+X-Gm-Message-State: AFuF++lE0qlS7QYkHsC4f4vOimXkjaaJxcwZXCSxs8SoFgrEJ7ak9ZTs
+	NOxty15SRogLLlA9XwGEsrkXDNaSQuV1Akep7pF1D0H/OvnvLSuOuf21
+X-Gm-Gg: AYBFou3siw0HW+/k8GYOZiIJqmtJnoZ/WPe6LCx4J9GfUHFopHm8Mjbb/5QelmmGPxL
+	Zg3JMDs/qaXjWBLpvkIvXRKANMrvwXElNMmFMi6GfD+UnY2u0WfkFofEZuVoFP08WY5D0xuDVUb
+	+RKIMdcDc0/x1m5146+k/J9+lZhH2wc1rliU7lMj7JlF0rAAAjd4URb0EdAbz2O6GGZVPApYu1O
+	nXGto8q4+dV85w4VQjfF251HNtqfLjxIjqL0I2w3mgfZCcewk17KMGd8RlrLQjLzEtZbvaqyVWO
+	+zdKyu2JqCs85eput8U+CWp9ZIHE6FLOuTSzprjznP+pR1aQpywzouG4VGKb5kfdmOOTdzkYwU5
+	S+L/GP+0RzBRIGNJkZTgdHGqOea7zcQuJ15N5RGJV7Av3Ta/vdZN6EBS+cpA/b9+0ZyXOg8+Sfl
+	zZ78IXX7bfXB1honGEN87ScSf6Ibp6jSVduxkwXEDOGsJBP0+G/Grobk+199eIigKina8I2nIij
+	2Zm9YFmAAm1A91yLFdrUUwCj8A=
+X-Received: by 2002:a05:7022:f509:b0:14c:be8e:69fc with SMTP id a92af1059eb24-14f5b9faf32mr1694735c88.15.1790922587359;
+        Thu, 01 Oct 2026 23:29:47 -0700 (PDT)
 Received: from debian.prasanth ([103.183.205.240])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm6236636c88.4.2026.10.01.23.29.37
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm6236636c88.4.2026.10.01.23.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 23:29:41 -0700 (PDT)
+        Thu, 01 Oct 2026 23:29:47 -0700 (PDT)
 From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 To: devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
@@ -67,11 +69,14 @@ Cc: linux-kernel@vger.kernel.org,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v8 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC support
-Date: Fri,  2 Oct 2026 11:59:31 +0530
-Message-ID: <20261002062933.26497-1-prasanth.padarthi10@gmail.com>
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v8 1/2] dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+Date: Fri,  2 Oct 2026 11:59:32 +0530
+Message-ID: <20261002062933.26497-2-prasanth.padarthi10@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261002062933.26497-1-prasanth.padarthi10@gmail.com>
+References: <20261002062933.26497-1-prasanth.padarthi10@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,22 +85,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes in v8:
-- Correct the reported validation configuration.
-- Validate the DTB with multi_v7_defconfig,
-  CONFIG_ARCH_ASPEED=y, and CONFIG_MACH_ASPEED_G6=y.
-- Preserve the reviewed DTS content and review trailers.
+Add the compatible string for the ASRock Rack B650D4U BMC,
+which is an AST2600-based server motherboard.
 
-Prasanth Kumar Padarthi (2):
-  dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
-  ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../bindings/arm/aspeed/aspeed.yaml           |   1 +
- arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 135 ++++++++++++++++++
- 3 files changed, 137 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index 9ba195b8f22d..4c9e96801c1a 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -81,6 +81,7 @@ properties:
+               - ampere,mtmitchell-bmc
+               - aspeed,ast2600-evb
+               - aspeed,ast2600-evb-a1
++              - asrock,b650d4u-bmc
+               - asus,ast2600-kommando-ipmi-card
+               - asus,x4tf-bmc
+               - facebook,anacapa-bmc
 -- 
 2.47.3
 
