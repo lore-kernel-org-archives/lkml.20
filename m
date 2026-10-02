@@ -1,120 +1,145 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012037.outbound.protection.outlook.com [40.107.209.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3371E175A85
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960332; cv=fail; b=QqUl5t7RqbAwP61LYMSvbHav9lG9VqgICP2AvLYYaEVMK6Z6eLUXa/huUyh7bDl4UWUF5AV2WpW5t90I/1q+XdQAP6M7EExICYr5tLZhexia4+rpyFOdO46GgTF6cfuxV6GYntcuneR0F6DoSXRImIkWZmjKKXyrL1tc0hsTNFI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960332; c=relaxed/simple;
-	bh=RGxHVMjtAfDn1yV/Fu1G74scftwF69+rxvBT+N+qscs=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aGyXitVCfXBc7uw7MDyRv5KFqO6BOr/BkbbtqwYqApEk/BEMttWr+3qMxaDDpkMssvR9yipnPkDiHjFkwWc5LzIFLmPZwfRGIh2LHESkQAgzUmtkthKJWirM8161tovRpf7/OQnOsrI6g0d2qP4c0/UzCVpbDPilR8OSe9kBwTY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=umodMw3P; arc=fail smtp.client-ip=40.107.209.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7734F7CD4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790960363; cv=none; b=DznkSZdlZHkmmpZ4zPgxyGTY7zNYo7Gmo5Jm2hmQTPLWtHw211P964lIdlzofnlEVL73CoUdu4xnr2ORpRm/Mn2caD7yHr9oMUGOO7fSQQ+5Ui6JAzHlclTUmFq3Y/X3vIOK242Sk1sMa/r+X5rvVEpVGzP6UWXCo00nHlrpW8M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790960363; c=relaxed/simple;
+	bh=32p8UUb1VYf7Pm89+rMdvvV0Z8gj2y0gc/4XkX9QnPY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TIFwg5WDd2r69jHoWfEUnD3PibbHO1xyAtiu2Bc48KtEUFkFD8uCltSfQ5OV3q400TC62TnejAiPEmFAPP5GKQrK/aEYNp5BBWs0GIJEsrQcrKmgzmNaXnyOLKPgZDHBguK6q5wiCK8cFU7xiTjV+fF6/Lbz4EAQDRNCvokghCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=WZLnEqhJ; arc=none smtp.client-ip=74.125.227.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="umodMw3P"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cWr3QUCQ0JOh+nl8DqrxXThWsebgg134IPAC1NmFhPS4W6j9jeoFTCT/VEa1xDmr2hJJk5ua88WbGGAnEy9TKTDo13LlVBIQKdA4pE4rxuDJZEXiQ53ij2Ugzz8IB0pTtkPaCtX5JBayYBCTZMZuVn85H6frnluFzHky8vFbsBJ1VddEYff9modD7H303tThFh/rbRhAAVkyDreV7T44gCjXTl3w3tNQvSqVrD+eEdtujdBrF4ET9vZMDyUaTOU4h/fIjSTRbJbZDso+FYvBL1A3Of8FbpIo7vLdpt6fJVDRuHLnxWRWwTzC1liQ+PCkEtg8hmaahaDnGomBuLxgew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QpE8Vw8UCJS+AESt1/Nz0tcemSMs1zaqbJC0UvflrYw=;
- b=yp+5cPMhnbt1Z7ySOp7IfzQwwiQ9+RBE0piQhu66wxs3JxYPuB2+QhqQ5WllVbnefm4Ixe9xa64VBiUsQqbc7Si9F7RzCcGRgmyTPDfRh4fyFxWsNdxImKQ0TAg0ZtU6B7TYQbTmqn52GJlLtXWXoFKPh2RqALsXofBerIe+M3mr1g41lRQhEHgrK5Cuu79X3n30ar5N3Qfe5wYb33hUTDxtYBPPCcMDeJr72TPzvWmTosjuJrhXtYoQfNMmu+QN3Pguhip+MpkC7t2TUY3Rak/7MnGLAjDoDI9fjewcCjm9epZa/uHsPJA4KELs5cS+06a3NBApOpwspiLpQ2Neow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QpE8Vw8UCJS+AESt1/Nz0tcemSMs1zaqbJC0UvflrYw=;
- b=umodMw3PhAGdKVG4QNB/1pSlZj7J80SF7hNUrjjk1iIwwsHzd/Si+wxOEA1Qa7b9u//4RXUC/nBH3CXCKT7MRpUvZotzJYe2G9yX/trs9S5beoRAnVfCepR3IdRY8qSLfqzLs3AAw2jqJkowLHqRuykD3pvF2r8QHgOoj5lDfzV+B5oD3vuZF5jajbbj2lmvtDOVrmo49MZpI3OaZrdReRH7LRwv3NYBJ5aOG7FGeySphobOrdLcRamZ4g4sUYENRXk9L4RHzM/KskW/OSJQxGB+Jy9itfEIZ6tIwyNzyKiPSgBEfAP0CnaKxHyFhdiQ53a/L5TrG/mlLpWgvc+Xbw==
-Received: from BY3PR10CA0007.namprd10.prod.outlook.com (2603:10b6:a03:255::12)
- by IA1PR12MB6307.namprd12.prod.outlook.com (2603:10b6:208:3e5::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Fri, 2 Oct
- 2026 16:58:40 +0000
-Received: from MWH0EPF000A6731.namprd04.prod.outlook.com
- (2603:10b6:a03:255:cafe::91) by BY3PR10CA0007.outlook.office365.com
- (2603:10b6:a03:255::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Fri, 2
- Oct 2026 16:58:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- MWH0EPF000A6731.mail.protection.outlook.com (10.167.249.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 16:58:40 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 09:58:14 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 2 Oct 2026 09:58:13 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Fri, 2 Oct 2026 09:58:12 -0700
-Date: Fri, 2 Oct 2026 09:58:12 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>
-CC: <joro@8bytes.org>, <will@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <jgg@nvidia.com>
-Subject: Re: [PATCH] iommu/dma: Clean up redundant MSI cookie check
-Message-ID: <ar/ipObv6hdgq4vH@nvidia.com>
-References: <214eb3e383431f48b517c4bd2ba4f329579a442e.1790958898.git.robin.murphy@arm.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="WZLnEqhJ"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a4805e15cfso3095658a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:59:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1790960361; x=1791565161; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zQhpLMTibM/LrulRiWGxm1vI28JIxcKeJZdFQ1aTjNs=;
+        b=WZLnEqhJzGfzY+JEnEEEgDCoHkX5WXpgoIXFLEPvoBKAQeZqfcRzfP1wNkHVRGqN1n
+         A315bLQ9FFx5sl9tEn2X4mQs4wrob51S27fmC6Au7GJlCESGAHSwBT8x+OLFKLpQxPEd
+         yU8XBaU8wkqqy0N6mJXg6b/zvpPK448BKQ8Dvx9BjPGV1NjHOXzfJSi7v4DaD+ab2Al5
+         DWkUK+sZDoLRb+oahCnJSQMmWVeJxw6CGFxTtTsyn1XuMBxTmxwIjsHWF59ZN9YQufQU
+         Jgen2zb1/fbdgnvk01N2sueo6IOqxN4jVnaBXL6XuDe6QZBeNvaqjUII2yLY8FWCGjvK
+         ZPsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790960361; x=1791565161;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zQhpLMTibM/LrulRiWGxm1vI28JIxcKeJZdFQ1aTjNs=;
+        b=V3Z64UDwEFgnBfxjCqm94vl8Wrm590UVk3TbEzyrcAysCujut/hSlACXFoGGACEsqv
+         Ll8tKYkG3QoHRSpoY+owF0iOp092fLKfI09WPMr9k4/D1WqxFLIEx8TqKbUNCMlvJkWD
+         ne5nGjXKfnxRHCDfWu7DzP5CMtl9ihU3Z9/Tvl7SPayAGW2zxl7Y+iZL7ETb6h1QuHbZ
+         AXbMeMa/6T3sXgpjs/1ac9OzJM5vfFfBlszlO/0vkUYn9Nh+HLQsTy3pAY7G+B50HfHP
+         gwg+xY46Q29QgGVhmN3t18OOeQETyPE6se+GqWUwkS03hBXS1KhHUtmlGYM9oVBrEAiw
+         BRjw==
+X-Gm-Message-State: AFq9FYIvWpgvMXo6tvhvyMov4/wpcGa4Bfz7PNxkepjadYAA6QE0hTe7
+	ilbplF5QrxdieRt1Cw/sIOONDweeJgOTgUefurU7a0DmXvLGPxlTBvGiTDWWCTj65XA=
+X-Gm-Gg: AYBFou2ivmj9tEN8nd+B4Jru9574OIOvFxYlcN5B5lGnadTB6nrTkUzisAHpSHkLY9N
+	3lCYyVB/pu9vtuNqKa36kWc5z2CJwy/tuwX247uvj6PbFPJ+wPrnH7rlLeOwgvVTt0RNHQ/gxP9
+	Y5U44jvLp13W8JuVH+r9QW43/XqJ97PmCI1qMfBdHbxe5IGreocHTWK1YggQYsEh0RdlTYF/kVX
+	giG8K2QmPpbBkUpE/fV+yrA3Yot8v41RAgbcFLHZTdlUV2xL2lMqqqgdBQE6A/bXiuCRqzEKX6Q
+	+OjdxjlIlcBtm41RlavNUvF9KFs3KrsLfJ/kzrRV6ZnTn6JudzudnyL5rmUqOKiBCpjFLLebtq3
+	YMKQKFMgH/RneAO4B9Y1wezkI1mfXZ3t8hg4a/DcZge7H6jFR0doBbDnlbF0XSjUSXIboKsYlp2
+	LckH5sTgqrGhoyXqcJZW8/HhYZ1IGi2yylYAmUxvhdKTU0PtzCefFB9ra8UJ2mUfDvq1YF987xF
+	skJhuLRHPpMdlyb0qfAJ8INBhK0
+X-Received: by 2002:a17:90b:3882:b0:3a4:c028:fd6e with SMTP id 98e67ed59e1d1-3a6ceaacd1bmr3230479a91.30.1790960360565;
+        Fri, 02 Oct 2026 09:59:20 -0700 (PDT)
+Received: from n37-012-226.byted.org ([115.190.40.12])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6cd5d88bbsm4900871a91.12.2026.10.02.09.59.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 09:59:20 -0700 (PDT)
+From: Qingwei Hu <qingwei.hu@bytedance.com>
+To: linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Gary Guo <gary@garyguo.net>,
+	Andrea Parri <parri.andrea@gmail.com>,
+	Guo Ren <guoren@kernel.org>,
+	Xu Lu <luxu.kernel@bytedance.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Qingwei Hu <qingwei.hu@bytedance.com>
+Subject: [PATCH v5 0/5] riscv: Use Zalasr for acquire and release operations
+Date: Sat,  3 Oct 2026 00:59:05 +0800
+Message-Id: <20261002165910.3818940-1-qingwei.hu@bytedance.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <214eb3e383431f48b517c4bd2ba4f329579a442e.1790958898.git.robin.murphy@arm.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6731:EE_|IA1PR12MB6307:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87edfd57-a122-4862-8bdb-08df20a668c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|22082099003|18002099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	F3iDTDlxXurZc9DXCkXk/MRuHUSY7ihgAtQ5S0U9p/pHbptnSemUjZLSdSudTmjPVldnyIj6m2o3mtaWAcTJAVOprmY/5uJigAM3YZuzRP1/IntFnRrH9Groyq3ow3jirl35TqgXYN8DJIIeAfU4k5LDeyWUSV8ZUbPhs3N69pk9YJqN4jbxnniGn1DtLZz9dSzlkiAU9wqmMSzxUzZvIs+QZ4bb8ggXQH4drpSLqaoS+v5UlySeBs0vE2Mn//wPU0pKLIKXd0oZ/tRXezAPOtvlbTDM14YSdfgB5PChqxm7XOuolbbtCqqA2sazUs+9XvuuikUgOMtpBpIJAW+lGdkiPNUteFwFTgtVCWNAldD9Z8sVqKSMbMn4heIaxHfy/JhNqYUJyO3TnKBfnhxLd4QM6CSNOWmShpHFud0+uyMQGi0ME6cGqP3Ri93vsDvhzXobpLbLf5InMTrzOp4WoLg8F4giPXIlJ7llhW/1iUozDhLaJ83P9DW+mEluFC8hL05cw68K5iFs9t82GKQTH/6wRRO2KNSkcJWs/Xae95VGxMeVpM5qdPYWjH5yx3/Ou2YphOAscjXGpSNLiAx3h/RnMg7UZvaI9lWbKjGps+C68ljRnrncybbFlyt+mjEO+bU7WAEjrtCHLWutzeP0U5F0y/X6S8z7b9Jd9vOWvfym3Lf7r5iDzP+N1tpKmcOZh0zZzVByisuAShvEwzc+fg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(22082099003)(18002099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	nSzT7bUMPHvkIlsvdGdI5MpEXAAV+j8fSFYjaeE8yWdN/mO14T3Ya1ZSzeMKsKoaRfpadCyoP1lB5XzR6gwFIzz52uQ2Ap/QLpGdcBJxrJ6J7EX+dxamtJf8EH0QH9KPx25lQRaKekg34MMc4FwYvyfS0yymhPoROZg+HOkEpbe0AN1EcwE+Mi10p92XrCSZd+dOxfGKwSqmrkEJ12024R0qqWcpejqyJiz5QPJ4OrPX5ila9zu+UXwXMFyb1CkkE50Cexx7ZV73xYIwd6o8gExP5F8V8Ff/8wTy6onO3eZjnO18yfFg7OEHbm9lWnQu9M8397Jnts39uP21EjfEvnsfrQ+aYbyhaUeNnCYmgTme+lDNusAyJyQkXo0V/O1XJFE7wTHk9IkNBLKr0YJspWD3PKmb2DVLJ3un8CULrOrhxgZExjLAOm3DoEuspNh2
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 16:58:40.3247
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87edfd57-a122-4862-8bdb-08df20a668c2
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000A6731.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6307
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 05:34:58PM +0100, Robin Murphy wrote:
-> The has_msi_cookie() condition only mattered transiently as an artefact
-> of the cookie rework being done in parallel with the sw_msi rework. Once
-> combined, calls to iommu_dma_sw_msi() are themselves dispatched based on
-> domain->cookie_type, so checking again is clearly redundant.
-> 
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+The Zalasr extension provides load-acquire and store-release
+instructions. The base ISA parsing, hwprobe, instruction definitions,
+and KVM support from v4 are already upstream. This series resubmits only
+the acquire/release optimizations that were left out.
 
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+The v4 implementation could mix fence-based and aq/rl mappings. That
+combination does not provide the RCsc ordering expected by Linux locking
+primitives unless the fence-based side is strengthened. It also needs to
+preserve the existing lowering on systems without Zalasr.
+
+Strengthen the remaining fence-based fallbacks on Zalasr systems before
+introducing annotated operations. Then use Zalasr for acquire loads,
+release stores, xchg, cmpxchg, and generic atomic acquire/release
+operations. Also use acquire loads in smp_cond_load_acquire() so the
+satisfying load provides the required ordering.
+
+Systems without Zalasr retain the existing lowering. Uniprocessor builds
+keep their existing plain AMO sequences where no inter-CPU ordering is
+required.
+
+Changes in v5:
+- Drop the base ISA, hwprobe, instruction definition, and KVM patches
+  that are already upstream.
+- Add a preparatory patch that strengthens fence-based fallbacks when
+  they can be paired with Zalasr acquire or release operations.
+- Select aq/rl annotations only when Zalasr is available and preserve
+  the non-Zalasr lowering.
+- Optimize smp_cond_load_acquire() with Zalasr acquire loads.
+- Rework xchg, cmpxchg, and atomic operations around the current
+  RISC-V atomic macros.
+
+v4:
+https://lore.kernel.org/r/20251020042056.30283-1-luxu.kernel@bytedance.com
+
+---
+
+Qingwei Hu (1):
+  riscv: Strengthen fallback barriers with Zalasr
+
+Xu Lu (3):
+  riscv: Apply Zalasr to smp_load_acquire/smp_store_release
+  riscv: Use Zalasr for xchg and cmpxchg ordering
+  riscv: Use Zalasr for atomic acquire and release operations
+
+Yunhui Cui (1):
+  riscv: Optimize smp_cond_load_acquire() with Zalasr
+
+ arch/riscv/include/asm/atomic.h  |  84 ++++++++++++++-
+ arch/riscv/include/asm/barrier.h |  97 ++++++++++++++++-
+ arch/riscv/include/asm/cmpxchg.h | 179 ++++++++++++++++++++-----------
+ arch/riscv/include/asm/fence.h   |   9 ++
+ 4 files changed, 298 insertions(+), 71 deletions(-)
+
+
+base-commit: 4982d3552a3bf94de503acf93433277d08421de6
+-- 
+2.39.5
+
