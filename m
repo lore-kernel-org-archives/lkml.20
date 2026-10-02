@@ -1,198 +1,114 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D7039022A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E867A399D00
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944325; cv=none; b=HdFFFdGQHzovRM3eydpOm+Mtp892IP+t8Ls1PVsA5pyxliWiva2GItF0nwekpqrz5g2TOFpvITYuTqtAQz/AaaV6S2wYlgabI+QcmKsBb2FgJcZe8scNzJOmS07ZRG42hQ75a1FIj2H7/2eW5G0Z3UdvsS6SkCSSXQd7pBPU/wk=
+	t=1790944327; cv=none; b=a/D38cdaSQG5bInitseUKRWA2HTFHv/ub5VG0XuMWcqRundAVDg9sO/pudis4SeYcgmZ6F/uhgezNBwOYcELf+ovP1q6pRI0Mq8/lpyHnkNBmWkNuZCpdQ63Wacqh5AgGBtaAsIGqtc57zSB32C8uC4LJzWttL3eBpQogxLvkXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944325; c=relaxed/simple;
-	bh=K2WLOvCouWwizZY/0nd5slNgHbO26Xtg/oTPG00nO+E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DrODk0/ZO4VpU5bZhsdelQMAoHHf0rVC9Jyp0MQyBwTVTciE4NKAdcuSD8NyzV5oPyil5a3c5dXlFjkYytDMRSOPP9dj0pBLZKxytDgvabBtqgCU38jcZIcMiaoMwmc++H1/7U+twqNHL3oi0/422/PU8BlV1nCHuzhu+mGtFtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=bqSlEv+E; arc=none smtp.client-ip=74.125.225.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790944327; c=relaxed/simple;
+	bh=2MGQRDDAI1k577IOX9WUkBgVhKyIN2RmBau/i8I5FO8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tNr9g4VOcDBYahN1xPoToReW0TymkjhDzbtpKlw4FbK3WI5aFpXgWtPYHpTYty7KMaB0yx0bHO/xHPnEIVzaWDDBdOSgnAcLmeFTuTb4ucawzIxHe4uufrAW/QsOkwLvsE4zWYamZ40oHhHWf1t5mAs+EIkldlyLzjelrDyndeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TXf51IBy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="bqSlEv+E"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b024549a2so2319560f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:32:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790944322; x=1791549122; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/phs7jHum1HKMD5+n/ngyLXVbU8kytKeDWtVqYb5TKY=;
-        b=bqSlEv+E3hyuHH/+48TYBiBuUPJG338zAH8I7DMAxOHktZiVfrw4D9gitpQAtKOzvq
-         /1ysrcpo6yLdoDayloh3G+03FzSxgNHOeXmUps6H9kReNufCq0M+dWRBa2cXkthprQ4K
-         h6ARV0zHXdh3EMOzTqIzxPRUCJauRGofJ44lcGihIyZS3rW1nMqZ1PPUf47TAdC32Sqz
-         1rfTj8s47AnrrAi6uOlYQ2FFBNptUpQj+qfKovMa7CZ7DWmFZK6h4+gy6Zii9BhBMyq1
-         N5dv8bcURxHhzwL/fAWzEyUFpZbZ+9WPiUkROMDejkNRD3L1Pum/D5Ugpl4RBSuG3xa9
-         W92g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790944322; x=1791549122;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/phs7jHum1HKMD5+n/ngyLXVbU8kytKeDWtVqYb5TKY=;
-        b=WFONRQb9VTSPsSIGzbbZbMYP1XKc7yPkmMjAJ8tR3wcssp6hZeCDYABlfBxLmn2lpn
-         OzxMoHcJ1w4uLC6g/0M9PA/KzM1xNqzZumVsSbf/9XaSDvQBXdmoyoJMgZ967fRf8vi8
-         UGG6XeFq5P9Ol1tiYauLrJC/0azFLOMLQIIuMarSHFNwZPBte2TTg+TlrfjXbhllWGMh
-         S6ydq7bACiFpZqa7MtbSoz35jewiCPULj+a6LESo1no0EGUx8HCqpy9CTH64eNbq7ogF
-         tHMegaOIzaRbFhqb2YP7Rvo2NFvzXguLlUqd3T7R0TjwddxhFY5zXJDAzurP2yW4LMJd
-         KTNA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGzv7vAI44CtoDRPAk9Akc4Q5aW2mlCcnuIRRepeV5oTyAUKTnOKVsHxZjpMkPOZ2nqw7hCf7tj+Ayyvo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4ZN7Qx9VaVsAgbIU4blUJSKAOIym6z6yY4DM2v8yv6pXjwVSu
-	+W3bX4RESmP7A5yVJogzI1djnXf3NUHvrH0ljSwJJbR4e30pfnOxfcjWjyu4enu1Y/Q=
-X-Gm-Gg: AYBFou1jjRNH9QAp+RijZoIthI7Dnxe5qxFOrJNNwxUrSqPKkMViqrzVsBU2zJmiey5
-	Q6XkJughPk7i+bWZkxhnsChwbHPwo1mFUnUOehPSIf2Z8sRLRpujCzjpJnMGqr2jdvA0vFXIGh5
-	UfujRLErcBZz2G9tUlFtbXOx1PY1omDmeYJhrj3BVo8lL0VLRl8iiP9CXjlx3jYriyDFCK8kMsk
-	qm8qcTSVjSEU0hjQTs6u9Gaca2CBL/i+dusflFOKiA7pQ/qpv1dl8SPyvTzMeDI2G9/cpEwKF1z
-	D1eiRkTjeGVFq8zLLjd7+WHaFSRGT4669368f9SORJBxvW/MLtnZSKK8PHE3uYT8+0oOw79WKD3
-	4T/Vp2w24ZMs1fZim1LrHRRZEciFMV8YBeO0ohtoh9FS2BL9zUL4xOBRMcrdD4rNrfxBdFk4jVV
-	qd5iEiCZJIPqXDKoGnSOaJpbiQmmK/WMPTujy6wg9eizb/GVNMNGtUitBBzbsf6c+Mfzob8C4JI
-	k6fCL42cXBVNjXCtJTB+x0=
-X-Received: by 2002:a05:6000:654:b0:488:8da2:4b16 with SMTP id ffacd0b85a97d-48b126f60ffmr4313323f8f.8.1790944322362;
-        Fri, 02 Oct 2026 05:32:02 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fad53sm6093994f8f.19.2026.10.02.05.32.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 05:32:02 -0700 (PDT)
-Message-ID: <3fffdf68-f2b0-42e2-a3a9-024cfa483760@suse.com>
-Date: Fri, 2 Oct 2026 15:32:00 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TXf51IBy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1791F00898;
+	Fri,  2 Oct 2026 12:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790944325;
+	bh=ZHC2G7Dqj4RURbiI1DmU8aCMw9IuodpVw5CWt6N1StU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TXf51IByO6TJ4sixU60Qd8VoJH42RU6CgKrQNGOo4lJJmM13swdOxawDL8fT/arLw
+	 DbokJ95rQ/pK7BE+94dUmed08L4vceILPAg1XH+ZZZxgYxBK/RJZWznucPMoy4Y/tQ
+	 +eWg3yReUVSKzd1lAu8EYEtucKR+oZPiV3xEWX3Sp/eIzMsb3viZ7/KVJDUH6l5BHQ
+	 DNxwH0OUmQcdxSB2MsVtbU7Ax4GfCDI0Sdn3JDKo9QWiHb1Sh+BKAyr0Cmim58jz5o
+	 RDSIKhikGoE6BNc7jS/F6viZMByN1PP2cGsehGpgjpW48UIUdDkYHPa4UdQGYMSo9d
+	 1sitZWByln8gg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 13/15] mtd: spi-nor: winbond: Add support for
+ W35T51NW-C/E
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Michael Walle" <mwalle@kernel.org>, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org, "Steam
+ Lin" <STLin2@winbond.com>
+In-Reply-To: <20261002-winbond-master-spi-nor-w35t-v1-13-a22a2f95c26e@bootlin.com>
+References: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
+ <20261002-winbond-master-spi-nor-w35t-v1-13-a22a2f95c26e@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 02 Oct 2026 12:32:04 +0000
+Message-Id: <20261002123205.0A1791F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/10] x86/virt/tdx: Convert the td_conf metadata
- reader
-To: Chao Gao <chao.gao@intel.com>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "bp@alien8.de" <bp@alien8.de>, "kas@kernel.org" <kas@kernel.org>,
- "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "x86@kernel.org" <x86@kernel.org>,
- "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-References: <20260930053901.22528-1-chao.gao@intel.com>
- <20260930053901.22528-8-chao.gao@intel.com>
- <763dcf982570e0ffcc69a6e1922fd2cc266539aa.camel@intel.com>
- <ca464aaf-1935-42ed-b486-4f4cb84ecd2a@suse.com>
- <48ed6f1bd588c6ccab398c5310fb1fc073c1e53d.camel@intel.com>
- <ar-jZEtCnt1Xwi-G@intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- xsFNBGcrpvIBEAD5cAR5+qu30GnmPrK9veWX5RVzzbgtkk9C/EESHy9Yz0+HWgCVRoNyRQsZ
- 7DW7vE1KhioDLXjDmeu8/0A8u5nFMqv6d1Gt1lb7XzSAYw7uSWXLPEjFBtz9+fBJJLgbYU7G
- OpTKy6gRr6GaItZze+r04PGWjeyVUuHZuncTO7B2huxcwIk9tFtRX21gVSOOC96HcxSVVA7X
- N/LLM2EOL7kg4/yDWEhAdLQDChswhmdpHkp5g6ytj9TM8bNlq9I41hl/3cBEeAkxtb/eS5YR
- 88LBb/2FkcGnhxkGJPNB+4Siku7K8Mk2Y6elnkOctJcDvk29DajYbQnnW4nhfelZuLNupb1O
- M0912EvzOVI0dIVgR+xtosp66bYTOpX4Xb0fylED9kYGiuEAeoQZaDQ2eICDcHPiaLzh+6cc
- pkVTB0sXkWHUsPamtPum6/PgWLE9vGI5s+FaqBaqBYDKyvtJfLK4BdZng0Uc3ijycPs3bpbQ
- bOnK9LD8TYmYaeTenoNILQ7Ut54CCEXkP446skUMKrEo/HabvkykyWqWiIE/UlAYAx9+Ckho
- TT1d2QsmsAiYYWwjU8igXBecIbC0uRtF/cTfelNGrQwbICUT6kJjcOTpQDaVyIgRSlUMrlNZ
- XPVEQ6Zq3/aENA8ObhFxE5PLJPizJH6SC89BMKF3zg6SKx0qzQARAQABzSZOaWtvbGF5IEJv
- cmlzb3YgPG5pay5ib3Jpc292QHN1c2UuY29tPsLBkQQTAQoAOxYhBDuWB8EJLBUZCPjT3SRn
- XZEnyhfsBQJnK6byAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJECRnXZEnyhfs
- XbIQAJxuUnelGdXbSbtovBNm+HF3LtT0XnZ0+DoR0DemUGuA1bZAlaOXGr5mvVbTgaoGUQIJ
- 3Ejx3UBEG7ZSJcfJobB34w1qHEDO0pN9orGIFT9Bic3lqhawD2r85QMcWwjsZH5FhyRx7P2o
- DTuUClLMO95GuHYQngBF2rHHl8QMJPVKsR18w4IWAhALpEApxa3luyV7pAAqKllfCNt7tmed
- uKmclf/Sz6qoP75CvEtRbfAOqYgG1Uk9A62C51iAPe35neMre3WGLsdgyMj4/15jPYi+tOUX
- Tc7AAWgc95LXyPJo8069MOU73htZmgH4OYy+S7f+ArXD7h8lTLT1niff2bCPi6eiAQq6b5CJ
- Ka4/27IiZo8tm1XjLYmoBmaCovqx5y5Xt2koibIWG3ZGD2I+qRwZ0UohKRH6kKVHGcrmCv0J
- YO8yIprxgoYmA7gq21BpTqw3D4+8xujn/6LgndLKmGESM1FuY3ymXgj5983eqaxicKpT9iq8
- /a1j31tms4azR7+6Dt8H4SagfN6VbJ0luPzobrrNFxUgpjR4ZyQQ++G7oSRdwjfIh1wuCF6/
- mDUNcb6/kA0JS9otiC3omfht47yQnvod+MxFk1lTNUu3hePJUwg1vT1te3vO5oln8lkUo9BU
- knlYpQ7QA2rDEKs+YWqUstr4pDtHzwQ6mo0rqP+zzsFNBGcrpvIBEADGYTFkNVttZkt6e7yA
- LNkv3Q39zQCt8qe7qkPdlj3CqygVXfw+h7GlcT9fuc4kd7YxFys4/Wd9icj9ZatGMwffONmi
- LnUotIq2N7+xvc4Xu76wv+QJpiuGEfCDB+VdZOmOzUPlmMkcJc/EDSH4qGogIYRu72uweKEq
- VfBI43PZIGpGJ7TjS3THX5WVI2YNSmuwqxnQF/iVqDtD2N72ObkBwIf9GnrOgxEyJ/SQq2R0
- g7hd6IYk7SOKt1a8ZGCN6hXXKzmM6gHRC8fyWeTqJcK4BKSdX8PzEuYmAJjSfx4w6DoxdK5/
- 9sVrNzaVgDHS0ThH/5kNkZ65KNR7K2nk45LT5Crjbg7w5/kKDY6/XiXDx7v/BOR/a+Ryo+lM
- MffN3XSnAex8cmIhNINl5Z8CAvDLUtItLcbDOv7hdXt6DSyb65CdyY8JwOt6CWno1tdjyDEG
- 5ANwVPYY878IFkOJLRTJuUd5ltybaSWjKIwjYJfIXuoyzE7OL63856MC/Os8PcLfY7vYY2LB
- cvKH1qOcs+an86DWX17+dkcKD/YLrpzwvRMur5+kTgVfXcC0TAl39N4YtaCKM/3ugAaVS1Mw
- MrbyGnGqVMqlCpjnpYREzapSk8XxbO2kYRsZQd8J9ei98OSqgPf8xM7NCULd/xaZLJUydql1
- JdSREId2C15jut21aQARAQABwsF2BBgBCgAgFiEEO5YHwQksFRkI+NPdJGddkSfKF+wFAmcr
- pvICGwwACgkQJGddkSfKF+xuuxAA4F9iQc61wvAOAidktv4Rztn4QKy8TAyGN3M8zYf/A5Zx
- VcGgX4J4MhRUoPQNrzmVlrrtE2KILHxQZx5eQyPgixPXri42oG5ePEXZoLU5GFRYSPjjTYmP
- ypyTPN7uoWLfw4TxJqWCGRLsjnkwvyN3R4161Dty4Uhzqp1IkNhl3ifTDYEvbnmHaNvlvvna
- 7+9jjEBDEFYDMuO/CA8UtoVQXjy5gtOhZZkEsptfwQYc+E9U99yxGofDul7xH41VdXGpIhUj
- 4wjd3IbgaCiHxxj/M9eM99ybu5asvHyMo3EFPkyWxZsBlUN/riFXGspG4sT0cwOUhG2ZnExv
- XXhOGKs/y3VGhjZeCDWZ+0ZQHPCL3HUebLxW49wwLxvXU6sLNfYnTJxdqn58Aq4sBXW5Un0Q
- vfbd9VFV/bKFfvUscYk2UKPi9vgn1hY38IfmsnoS8b0uwDq75IBvup9pYFyNyPf5SutxhFfP
- JDjakbdjBoYDWVoaPbp5KAQ2VQRiR54lir/inyqGX+dwzPX/F4OHfB5RTiAFLJliCxniKFsM
- d8eHe88jWjm6/ilx4IlLl9/MdVUGjLpBi18X7ejLz3U2quYD8DBAGzCjy49wJ4Di4qQjblb2
- pTXoEyM2L6E604NbDu0VDvHg7EXh1WwmijEu28c/hEB6DwtzslLpBSsJV0s1/jE=
-In-Reply-To: <ar-jZEtCnt1Xwi-G@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mtd: spi-nor: uninitialized memory read in write_sr1_and_sr2_and_c=
+heck_careful()
+--
 
+commit db0463242c1b895f1a8729e983049e5010571c6d
+Author: Miquel Raynal <miquel.raynal@bootlin.com>
 
-On 2.10.26 г. 15:28 ч., Chao Gao wrote:
-> On Fri, Oct 02, 2026 at 04:28:54AM +0800, Edgecombe, Rick P wrote:
->> On Thu, 2026-10-01 at 19:34 +0300, Nikolay Borisov wrote:
->>>> The comments are not strictly required, but probably fit into turning this
->>>> thing
->>>> into "hand coding". I think it's a nice addition. I wonder if we should make
->>>> the
->>>> "i * 2 + j" a bit clearer though?
->>>>
->>>> I'm not against leaving it as is for now. It helps that it doesn't morph too
->>>> much from the code getting moved. But I think the above falls a bit short of
->>>> hand coded quality.
->>>
->>> Perhaps this code warrants open coding? The code will end up looking
->>> like config_values[i][0] ... config_values[i][1] ....
->>
->> Yea that would be a good way to improve it.
-> 
-> Yes. With one less level of indentation, all three reads get the same
-> shape. I ended up with:
-> 
-> 	/*
-> 	 * cpuid_config_leaves[i] holds a CPUID leaf and sub-leaf number,
-> 	 * and the two u64s of cpuid_config_values[i] mark which bits of
-> 	 * that leaf's EAX/EBX/ECX/EDX the host can set to 0 or 1 for a TD.
-> 	 *
-> 	 * TDX_FIELD_CPUID_CONFIG_LEAVES and TDX_FIELD_CPUID_CONFIG_VALUES
-> 	 * give the field ID of each array's first element, and the rest
-> 	 * follow in order.
-> 	 */
-> 	for (i = 0; i < td_conf->num_cpuid_config; i++) {
-> 		ret = read_sys_metadata_field(TDX_FIELD_CPUID_CONFIG_LEAVES + i,
-> 					      &td_conf->cpuid_config_leaves[i]);
-> 		if (ret)
-> 			return ret;
-> 
-> 		ret = read_sys_metadata_field(TDX_FIELD_CPUID_CONFIG_VALUES + i * 2,
-> 					      &td_conf->cpuid_config_values[i][0]);
-> 		if (ret)
-> 			return ret;
+mtd: spi-nor: winbond: Add support for W35T51NW-C/E
 
-nit: Is this more readable:
+This commit adds support for the Winbond W35T51NW-C/E SPI-NOR flash
+devices. It defines their JEDEC ID and configures features like block
+protection and locking by setting SPI_NOR_HAS_LOCK and related flags.
 
-	int cpuid_config_val = TDX_FIELD_CPUID_CONFIG_VALUES + i * 2;
-	read_sys_metadata_field(cpuid_config_val...)
-	read_sys_metadata_field(cpuid_config_val+1...)
+> diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
+> index 05a80af3a6b93..0e350dcfbb755 100644
+> --- a/drivers/mtd/spi-nor/winbond.c
+> +++ b/drivers/mtd/spi-nor/winbond.c
+[ ... ]
+> @@ -633,6 +633,11 @@ static const struct flash_info winbond_nor_parts[] =
+=3D {
+>  		.id =3D SNOR_ID(0xef, 0x5b, 0x19),
+>  		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
+>  			 SPI_NOR_4BIT_BP,
+> +	}, {
+> +		/* W35T51NW-C/E */
+> +		.id =3D SNOR_ID(0xef, 0x5b, 0x1a),
+> +		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
+> +			 SPI_NOR_4BIT_BP,
 
-> 
-> 		ret = read_sys_metadata_field(TDX_FIELD_CPUID_CONFIG_VALUES + i * 2 + 1,
-> 					      &td_conf->cpuid_config_values[i][1]);
-> 		if (ret)
-> 			return ret;
-> 	}
+[Severity: High]
+Does enabling SPI_NOR_HAS_LOCK on this chip lead to an uninitialized memory
+read and random failures during lock/unlock operations?
 
+Since W35T chips disable reading SR2 via winbond_w35txxnw_nor_late_init()
+by setting nor->params->opcodes.read_sr2 =3D 0, lock operations eventually =
+reach
+spi_nor_write_sr1_and_sr2_and_check_careful() with an uninitialized buffer:
+
+drivers/mtd/spi-nor/swp.c:spi_nor_write_sr1_and_sr2_and_check_careful() {
+	u8 tmp[2];
+	int ret;
+	...
+	ret =3D spi_nor_read_sr1_and_sr2_careful(nor, tmp);
+	if (ret)
+		return ret;
+
+	if (sr[0] !=3D tmp[0] || sr[1] !=3D tmp[1])
+		return -EIO;
+}
+
+Because read_sr2 is 0, spi_nor_read_sr2_careful() safely returns 0 but leav=
+es
+tmp[1] completely uninitialized.
+
+When the code unconditionally evaluates if (sr[1] !=3D tmp[1]), tmp[1] cont=
+ains
+stack garbage, which will randomly not match sr[1]. Can this cause spurious
+-EIO failures for lock and unlock functionality on these chips?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-winbond-ma=
+ster-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com?part=3D13
