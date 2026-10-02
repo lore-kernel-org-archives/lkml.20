@@ -1,200 +1,209 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-219.mta1.migadu.com [95.215.58.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA7F31F986;
-	Fri,  2 Oct 2026 04:36:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790915790; cv=pass; b=esxBoZsmPJ2murCF34OeH61LMIPbX7fWQFl7N8LuyhFTeMh6iGEQxepCFXdWqfKH3n1CYnhLaE4RtaK7r2dEuMZIAg9/4fPk357Ea5T+J422sIhCFMKSAl1CBE+mstfbadL5bu3o9GRNfuLalQxSvUeszfj/7ay8FzEOlSxEd4Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790915790; c=relaxed/simple;
-	bh=tjARIWWXAKrPOpLAAgvWWBlYpWM/A3w0XsQnzs/AgeI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kPalJJJdvSf1CaBR5VEIl3wgijSpdx+Z0SuDZjQdsjELzyl31gggRlFd3qDb4cJEr5UgralKpgKzN7mltJBUoTWbOh7pIHcjNCzKr2iVYteNj07Xnuu4xfZAZXpzUfspLcca/YkknUpxdgfz/JALmEZWPioSyJcw+m4s2JMtP0c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=d57IANdL; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DCB361974
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.219
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790915802; cv=none; b=Ze211FcKsaMSXjDMyoMGEtq9bkT5MUittiL+q577U3R1f0VTdcFfD0cVcfFPbzboHPJTNnGgK2V46rfFPoM00TjksoneG92+xi8wC6yVborOn9Nrrm/QbBEcgFd/g2tAVnbmLzzvGlFs+rKVKUwghbgDs6y+A9EwX7i54BEW3iw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790915802; c=relaxed/simple;
+	bh=y/0CXx9eIXXSUi0htzgjyz98uoanzac/KLtq3JYsrjo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BQfCJZVDl8WSDsOr5vNF/s1ija+8soAVsCdyfh0LaPFyLEUCLmN5cQljihAT+0szetoGJqS92lizFCcbMVN//U4IFpQ2DgqcQD/9p/jmQKryZQpknBkx/lEYCx7JUqprwcuG8saw+hFIbYPBL8+5Z6UnUsL7g20K3jJOiydd5k4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xP7aSUJC; arc=none smtp.client-ip=95.215.58.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="d57IANdL"
-ARC-Seal: i=1; a=rsa-sha256; t=1790915753; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=FCQVotBVCBiiaAfA/DPaJ5dDH2RHi7k6GuPf/WAwWMcsf/FddZLJBR9bE5k5QkSFgumA7lcRGdO7vUfu7x/Qv9z6bzX8ujsP9R5Wz8Qy0QacZOwXDmmCdbE8tQmSmx5HzW9xN8VYe1tv88BQuBmU7vetka5G1PfB3fwLbBaCK+s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1790915753; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=LYH3lrtmd382qLFN+8gpL2fIcmxWlunJLTu7qnrvylg=; 
-	b=FECdSruecwVP2FW65//3qMJ7qXZ6r/91Tlk7M1R4Y35P8qI7qt/NYJbzIRUvl5nHMwfRO98VCv7GqUG+hB4fTBtsDQ1bkWSogPqC5SceCxAKi9484QE0LbYD9ZNwVT59UWvRIx+ZFlIQebMjau6XctK4gy19+UKu/frqUM55WZo=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790915753;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=LYH3lrtmd382qLFN+8gpL2fIcmxWlunJLTu7qnrvylg=;
-	b=d57IANdLUIYOjZoibmMbfzA0XBZPPDnzBNOC9SkPOXGA9sX6ycno7ycj4rJCZNOy
-	DBk4udazWUXvhUlYKq8mlWHdbvMIlXXls+XLx5dXt7xqGlFha/nMnSKUPDBI2TjZYsR
-	pD1prcKHgEqxazJbwWGHYL8JpcN0Jz+rAq4nl/80=
-Received: by smtp.zoho.eu with SMTPS id 1790915750257965.242228430571;
-	Fri, 2 Oct 2026 06:35:50 +0200 (CEST)
-From: Igor Velkov <iav@iav.lv>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: phy: postpone PHY interrupts during sleep with MAC-managed PM
-Date: Fri,  2 Oct 2026 07:35:48 +0300
-Message-ID: <20261002043548.1302145-1-iav@iav.lv>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xP7aSUJC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y/0CXx9eIXXSUi0htzgjyz98uoanzac/KLtq3JYsrjo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790915796; v=1; x=1791520596;
+ b=xP7aSUJCP1VTTt6HWpzfU6gfjbJUEIPtiK8ipSLspAPJnzEqFk/WM+JNBurF6U2QCmVsxMvG
+ 3PR1iwIg3AKQMVR7+YU7efgObTMGdGBxsTGYBdZZ+wpGtupWp9dgG2wr3Cg9QLQOQHoKY73d1nf
+ KBHl4A10s6law16XIbcTgVec=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d68e9918b237ea7b;
+	Fri, 02 Oct 2026 04:36:36 +0000
+X-Mizu-Trace-ID: d68e9918b237ea7b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <596bfb65-db2d-413b-8039-c921031b50fd@linux.dev>
+Date: Thu, 1 Oct 2026 21:36:24 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v4 00/12] bpf: make the vmlinux BTF an on-demand
+ loadable module (CONFIG_DEBUG_INFO_BTF=m) to save ~5.4 MB memory
+To: Jay Wang <wanjay@amazon.com>, bpf@vger.kernel.org,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Alan Maguire <alan.maguire@oracle.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Quentin Monnet <qmo@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Christian Heusel <christian@heusel.eu>, Luis Chamberlain
+ <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Sami Tolvanen <samitolvanen@google.com>, linux-modules@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-trace-kernel@vger.kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ linux-perf-users@vger.kernel.org, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
+ Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
+ sched-ext@lists.linux.dev, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ rust-for-linux@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hazem Mohamed Abuelfotoh <abuehaze@amazon.com>,
+ Bjoern Doebel <doebel@amazon.de>, Martin Pohlack <mpohlack@amazon.de>,
+ jay.wang.upstream@gmail.com
+References: <20261001225214.12351-1-wanjay@amazon.com>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <20261001225214.12351-1-wanjay@amazon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-mdio_bus_phy_suspend() and mdio_bus_phy_resume() return early when the
-MAC driver manages PHY PM, so the PHY never gets irq_suspended. A PHY
-interrupt that wakes the system fires as soon as resume_device_irqs()
-re-enables the line, before the MAC driver resumes, and phy_interrupt()
-runs the PHY driver's handler at once. If the MDIO bus was powered down
-in suspend, the MDIO access in that handler stalls the CPU.
+On 2026-10-01 3:52 p.m., Jay Wang wrote:
+> Based on and tested against bpf-next commit b5a4aa31abd6 ("bpf, cgroup:
+> Fix cgroup struct_ops query for a second attach type").
+> 
+> This series makes CONFIG_DEBUG_INFO_BTF a tristate, so that it can be
+> set to =m.  With =m the vmlinux BTF is carried by a module, btf_vmlinux,
+> that the kernel loads the first time user space asks for something that
+> needs the BTF.  On a system where nothing does, that saves ~5.4 MB of
+> RAM with a distribution config; on a system that uses BTF, it behaves as
+> with =y.  =y itself is untouched.
+> 
+> Problem
+> -------
+> 
+> The vmlinux BTF that CONFIG_DEBUG_INFO_BTF=y builds into the kernel
+> image takes ~5.4 MB of memory, resident from boot whether anything uses
+> it or not.  On small instances that is not negligible.
+> 
+> A distribution cannot simply turn it off for the users who do not need
+> it: it ships one kernel build for all its users, and BTF is not debug
+> info anymore.  CO-RE, fentry/fexit, kfuncs, struct_ops, sched_ext and
+> bpf-lsm all depend on it, so =n takes those away from everyone who does
+> use them.
+> 
+> Hence this series adds CONFIG_DEBUG_INFO_BTF=m: the BTF becomes an
+> on-demand module.  Users who never use BTF get the memory back; for
+> users who do, the first request that needs it loads it, and everything
+> works as with =y.
+> 
+> [...]
+> 
+>   Documentation/bpf/btf.rst                  |   68 ++
+>   Makefile                                   |    8 +-
+>   include/asm-generic/vmlinux.lds.h          |   32 +-
+>   include/linux/bpf.h                        |   15 +
+>   include/linux/btf.h                        |   11 +
+>   include/linux/btf_ids.h                    |    2 +-
+>   include/linux/compiler_types.h             |    2 +-
+>   include/linux/module.h                     |    2 +-
+>   include/trace/trace_events.h               |    2 +-
+>   init/Kconfig                               |    2 +-
+>   kernel/bpf/Makefile                        |    6 +-
+>   kernel/bpf/bpf_struct_ops.c                |    3 +-
+>   kernel/bpf/btf.c                           | 1085 ++++++++++++++++++--
+>   kernel/bpf/btf_vmlinux.c                   |   23 +
+>   kernel/bpf/inode.c                         |   44 +-
+>   kernel/bpf/preload/Kconfig                 |    4 +
+>   kernel/bpf/syscall.c                       |   51 +-
+>   kernel/bpf/sysfs_btf.c                     |   97 +-
+>   kernel/bpf/verifier.c                      |  172 +++-
+>   kernel/module/Kconfig                      |    2 +-
+>   kernel/module/main.c                       |    4 +-
+>   kernel/trace/bpf_trace.c                   |    3 +-
+>   kernel/trace/trace_events.c                |   10 +
+>   kernel/trace/trace_output.c                |    7 +
+>   kernel/trace/trace_probe.c                 |   16 +
+>   kernel/trace/trace_syscalls.c              |    6 +-
+>   lib/Kconfig.debug                          |   30 +-
+>   net/netfilter/Makefile                     |    6 +-
+>   net/xfrm/Makefile                          |    4 +-
+>   samples/bpf/Makefile                       |    6 +-
+>   samples/hid/Makefile                       |    6 +-
+>   scripts/Makefile.modfinal                  |   28 +-
+>   scripts/Makefile.vmlinux                   |    5 +
+>   scripts/gen-btf.sh                         |   53 +-
+>   scripts/link-vmlinux.sh                    |   25 +-
+>   scripts/package/PKGBUILD                   |    7 +
+>   scripts/package/kernel.spec                |    4 +
+>   scripts/package/mkspec                     |    7 +
+>   tools/bpf/bpftool/Makefile                 |    6 +-
+>   tools/bpf/resolve_btfids/main.c            |  217 +++-
+>   tools/perf/bpf_skel.mak                    |    8 +-
+>   tools/sched_ext/Makefile                   |    6 +-
+>   tools/testing/selftests/bpf/Makefile       |    6 +-
+>   tools/testing/selftests/hid/Makefile       |    6 +-
+>   tools/testing/selftests/sched_ext/Makefile |    6 +-
+>   45 files changed, 1936 insertions(+), 177 deletions(-)
 
-On Helios64 (dwmac-rk, RTL8211F with an interrupt line, Wake-on-LAN in
-the PHY) the wake interrupt reads INSR while the GMAC clocks are off,
-and the board hangs within a few suspend cycles.
+This series caught my attention because of the sheer amount of the code
+and the iteration speed. I've tried to read the cover (it was
+tiresome, please ask your "agent" to be concise), and fed the series
+to my bot.
 
-Set irq_suspended for these PHYs too. The PHY device is a child of its
-MDIO bus, so mdio_bus_phy_resume() runs after the bus is back (with
-stmmac, after the MAC) and replays the postponed interrupt then.
-phy_suspend(), phy_resume() and the state machine stay with the MAC
-driver.
+A question I had: is it really worth 2k of complicated kernel code to
+*maybe sometimes* save <10Mb of memory?
 
-Drop a pending rerun when the interrupt is freed: MAC drivers that close
-the interface in suspend free and request it again before the PHY
-resumes.
+And then the bot found this:
 
-Tested on Helios64 with 7.3-rc5, the GMAC powered down in suspend and
-Wake-on-LAN in the PHY: 20 of 20 magic-packet wakes. Without it the
-same setup hung within 1 to 7 cycles in 14 of 16 runs, some on
-instrumented builds; one run passed 25 cycles. ODROID-HC4
-(dwmac-meson8b, RTL8211F with an interrupt line): 10 of 10.
+     What systemd does at every boot
 
-Fixes: 1758bde2e4aa ("net: phy: Don't trigger state machine while in suspend")
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-This replaces the dwmac-rk change that kept the GMAC powered instead:
-https://lore.kernel.org/r/20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4@iav.lv
+     PID1 loads and attaches a BTF-dependent LSM program at every boot
 
-Build-tested on net: allmodconfig and allyesconfig with W=1, no new
-warnings.
+       src/core/manager.c:1026-1059, in manager_new():
 
- drivers/net/phy/phy.c        |  2 ++
- drivers/net/phy/phy_device.c | 43 ++++++++++++++++++++++--------------
- 2 files changed, 28 insertions(+), 17 deletions(-)
+       if (FLAGS_SET(test_run_flags, MANAGER_TEST_RUN_MINIMAL)) {
+               ...
+       } else {
+               ...
+               (void) bpf_restrict_fs_setup(m);
+       }
 
-diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
-index fce9bc7be330..cd189ecee55e 100644
---- a/drivers/net/phy/phy.c
-+++ b/drivers/net/phy/phy.c
-@@ -1507,6 +1507,8 @@ EXPORT_SYMBOL(phy_request_interrupt);
- void phy_free_interrupt(struct phy_device *phydev)
- {
- 	phy_disable_interrupts(phydev);
-+	/* A freed interrupt has nothing left to rerun on resume. */
-+	phydev->irq_rerun = 0;
- 	free_irq(phydev->irq, phydev);
- }
- EXPORT_SYMBOL(phy_free_interrupt);
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 94b2e85e00a3..948818964841 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -347,18 +347,19 @@ static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
- {
- 	struct phy_device *phydev = to_phy_device(dev);
- 
--	if (phydev->mac_managed_pm)
--		return 0;
--
- 	/* Wakeup interrupts may occur during the system sleep transition when
- 	 * the PHY is inaccessible. Set flag to postpone handling until the PHY
- 	 * has resumed. Wait for concurrent interrupt handler to complete.
-+	 * The MDIO bus may be powered down even when the MAC manages PHY PM.
- 	 */
- 	if (phy_interrupt_is_valid(phydev)) {
- 		phydev->irq_suspended = 1;
- 		synchronize_irq(phydev->irq);
- 	}
- 
-+	if (phydev->mac_managed_pm)
-+		return 0;
-+
- 	/* We must stop the state machine manually, otherwise it stops out of
- 	 * control, possibly with the phydev->lock held. Upon resume, netdev
- 	 * may call phy routines that try to grab the same lock, and that may
-@@ -375,13 +376,33 @@ static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
- 	return phy_suspend(phydev);
- }
- 
-+static __maybe_unused void mdio_bus_phy_resume_irq(struct phy_device *phydev)
-+{
-+	if (!phy_interrupt_is_valid(phydev))
-+		return;
-+
-+	phydev->irq_suspended = 0;
-+	synchronize_irq(phydev->irq);
-+
-+	/* Rerun interrupts which were postponed by phy_interrupt()
-+	 * because they occurred during the system sleep transition.
-+	 */
-+	if (phydev->irq_rerun) {
-+		phydev->irq_rerun = 0;
-+		enable_irq(phydev->irq);
-+		irq_wake_thread(phydev->irq, phydev);
-+	}
-+}
-+
- static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
- {
- 	struct phy_device *phydev = to_phy_device(dev);
- 	int ret;
- 
--	if (phydev->mac_managed_pm)
-+	if (phydev->mac_managed_pm) {
-+		mdio_bus_phy_resume_irq(phydev);
- 		return 0;
-+	}
- 
- 	if (!phydev->suspended_by_mdio_bus)
- 		goto no_resume;
-@@ -404,19 +425,7 @@ static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
- 	if (ret < 0)
- 		return ret;
- no_resume:
--	if (phy_interrupt_is_valid(phydev)) {
--		phydev->irq_suspended = 0;
--		synchronize_irq(phydev->irq);
--
--		/* Rerun interrupts which were postponed by phy_interrupt()
--		 * because they occurred during the system sleep transition.
--		 */
--		if (phydev->irq_rerun) {
--			phydev->irq_rerun = 0;
--			enable_irq(phydev->irq);
--			irq_wake_thread(phydev->irq, phydev);
--		}
--	}
-+	mdio_bus_phy_resume_irq(phydev);
- 
- 	if (phy_uses_state_machine(phydev))
- 		phy_start_machine(phydev);
--- 
-2.43.0
+https://github.com/systemd/systemd/blob/main/src/core/manager.c#L1026-L1059
+https://github.com/systemd/systemd/blob/main/src/core/bpf-restrict-fs.c#L27-L85
+
+Do those tiny VMs that you target run systemd with BPF LSM?
+I assume you target concrete VMs, not "small instances" in a vacuum.
+
+You can check this by booting them with =m and then:
+   $ lsmod | grep btf_vmlinux
+   $ systemctl --version  # look for +BPF_FRAMEWORK
+   $ cat /sys/kernel/security/lsm
+
+If the answer is "yes" for the majority of them, the whole project is
+moot, because the module will be loaded immediately on boot.
+
+My bot found more stuff implementation-wise...
+
+I suggest to slow down, stop burning tokens for a bit, and first try
+to figure out the important details:
+   - who will actually benefit from these memory savings and do they care?
+   - is it worth it in terms of implementation complexity?
+
+Even for LLM it's easier to deal with a 100 lines of code than with 2k.
+
+pw-bot: cr
+
+>   create mode 100644 kernel/bpf/btf_vmlinux.c
+> 
+> 
+> base-commit: b5a4aa31abd6fe90009b63e35dc18c67d041ec0c
 
