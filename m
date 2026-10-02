@@ -1,136 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F82E3C2775;
-	Fri,  2 Oct 2026 15:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562A44B8271
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956533; cv=none; b=kCaNf8T+/kYzp1QR6ByRkvX4O11aGpn+OOK0R8S2/pAAr3NN3oJCzTCbWZrYifsxDOHOWFlWFiF384YKuU7NApO6EmFpfYKZlSDzR2ynGNBYk3F2CfyerZJBqWBI7TPSfOtjtI8kPfrgz4ltWIlDbp4ZoWfkdiczg2VbeB70WxM=
+	t=1790956536; cv=none; b=UGoRRTz2SU/RweMY5ehLsszF+Z3rye1C1GsdbUdVoJqp0k1BWdLSqlvU2ZCFajMARHVZlsjyoEyFqupx3s91Ed/tW9YvP40rBfeufupmiZ7lwPfxAW1vqxNxGLex+GH8dMB9fR4fGI8QR22PdA8dn6NsM14XXhUMlFNYdQZ0R4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956533; c=relaxed/simple;
-	bh=v5xjyPMr7ysn1m26/wEJM6h5VhbBpaS/jh2iVTImae0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eQ4cj+M3EGMnqD8g2wneLjFyxjOPXpDRqSZEWCq/rcRCh298NmYi/wvMD50tE8bjiAraPXem766f5lL8s9cgeFfxNVYPJIzliNNM0CrfZZDHHfJZef4L55z/iE/tUTGv0Bwdm9ThwD7szDvZ/2VsF/uBItoJhLx/RLljAqRwNfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMDrC6gW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790956536; c=relaxed/simple;
+	bh=niryGSxJX4gME/6a0U2DNx8L2QBjbTB9EOlGt9+7IDo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A0BLv8N2ZmiJvCjsezB9jJE6gav01s5BS4Fg+iea07wqCd7GfpMAOkioR/Lb1MiZH3BCloWTHDRm/KIJx3RPv4dOOljUa86CXNPX1Xu2Rtq7t4O4XRlXrwNZ1P/jzfvmARe+lWf9mcawrAoKrEfXnrY64Sp4ZXlXaOv4J+WBYW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VR0+ORMW; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMDrC6gW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392FD1F000FF;
-	Fri,  2 Oct 2026 15:55:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790956532;
-	bh=pkuZWiE4qwA3AlHHyYAOQAj4r7NKq77EKJ2Yz3Nylho=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DMDrC6gW0jVNVl43vTuE5BYV7hMbFMI9Qg9b+KFodnvgGStg9YSOcn+uEpW/FzuZE
-	 hmChMav3VuJN/ZzkKsaFpFAl5aXQ2MMRCwWusztLVXx5MkLP7SeysXicPcNSFCug4q
-	 tQXpuTdaUTw0rjWRpbWMCC2SPBnpsXRdiEHtrb2I8pXRB8HdCKOLQhLkRqUYERRjLC
-	 zOj34Q7pHOsHcJUVKh3QybkZvczzocsr7B/nu+TXFylfKMn9UotVLyDUAMOqfEOyuI
-	 9AQUjWD0PLQlvzhZvKRelyx0IAdkMWYGYn0e0FlCDYuUijUrbe/fUZlQjrd1CTSMmx
-	 Suak45OaUKmmg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xCfbe-0000000GIMo-0HnW;
-	Fri, 02 Oct 2026 15:55:30 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com
-Subject: Re: [PATCH v4 00/18] KVM: arm64: Confine protected VM vCPU state to EL2
-Date: Fri,  2 Oct 2026 16:55:26 +0100
-Message-ID: <179095643711.351883.2924159912626438826.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261001135711.1640520-1-fuad.tabba@linux.dev>
-References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VR0+ORMW"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so204415e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:55:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790956532; x=1791561332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6ctxUkXm5BOo7/5u4JOJklLBmiQwzEkLfsaEZ1PEQrs=;
+        b=VR0+ORMWoI+Momzj9k23qVVJV4/eZqQ7rgkncf0RoOAr81IXaVNQxV3tDDejRMbkYE
+         0XBf1FtNObzyfDNTTqx67snPaTVnsi7UxeIF7HV0yx93Moy/zlIzcjFtzgsizqxkKMhI
+         ZPij4iwyLmsPYkhVNJtSChODRnOSPNUnSQHyWkA6nSWfuDSoCpgqcN2c5epul9KbD4Px
+         MdG36ern7TXCamP0G3GUBIvvVDl4YS9k+/o+odg/SNbkeeKc7SAF+80+WBGaCGMCyBog
+         VECqa9t+srLF3CqXzyRJzWwf+Xsx39wqgJpQrBrC+AawizLNVbYfecIc3CfPAKVRVqXh
+         287g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790956532; x=1791561332;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6ctxUkXm5BOo7/5u4JOJklLBmiQwzEkLfsaEZ1PEQrs=;
+        b=x8CrIo54ocrNkbTTlSuvf1Go/EmFiOaaSnA7FTd36mmTEgR7Kx25RkjZIlsUxN2qat
+         ebuWg+8YKzBmY14EZwxl3G3SRg2QC8xr1GDD2lzpyskvL6O2XwgRZZpV0WevyjyU3bAc
+         TWrVAIOwzd57okXXUWD8+ehXjjyf3+jd7xSDxL+b5DHanxT8/4zQrwKyWe3xZAloCrUK
+         LPHq2KIl4kNiOyP1q83n/s3tzST+zmVUt0FEbzD5xymguVIANU5/qXb5p4/1TB15K+E+
+         Pz7rzcCFXEKu0Hscvd6O5uFcqI0a2TAR/a9lDcB2w7tq2Ox6jPEJDtiKjc8/GAUND0/F
+         pu1w==
+X-Gm-Message-State: AFuF++mfDPnS+RHgtXNyD4d91olv96pN6kYq+h2cHxN6EbK34/D5gBso
+	azkx4TYgElHdmUoc/9jDaen88NHyZz8pBGCtFdfOO1NNqYm5jHr2z31F
+X-Gm-Gg: AYBFou1UTdJAcNe4v09NeRA6F2tunVi1/CNiBSd6BsjeovMSCTuds1IUSd9GPxSqfE0
+	UMtcX9phvYKe/Z/eUV7wbkFmMOHM7J1rh8sYX7bCn95984vXywtXVT5rgv8/9q29/atVYMnAkfM
+	l8OJBGeoKLqbOrASKvy1X7LxPK7Oj88fPsBJrqMCfI+iGW97T4cI3fXhCItPjCdaSMFaMyr4pD+
+	O02b1ueaqHjZKTAzUoWqTSWyFyzexPElF9ZHOi/GoN1XgI2qUvFMQ0629PAO0QWn58+W1yZHez4
+	gk9AkdBnv/UTO3hynxZkt/ep6KrhqRbBDXGOqMM56HJqkTjZDb4+bU0WJDL1GU7hCVMQ8HQLtsH
+	moBP38UeOirQLw/Nuq1H+h4PeDg5ZPRSlIJl7cn+2gnXh6wlY9tvHRrse3K8wu9IZUZiM+zaOE0
+	1Ap0lkhyvlqxOgwDuXjM3UOogdFVM1O5gcl9ix6Xda9J3vr/aW1BOMfIE1HdW9VVzHYDNLhcL80
+	pBWTBn5GH+pZf8kaRU1QiZ14gSZMWdqF1EwU7jyAg==
+X-Received: by 2002:a05:600c:1907:b0:4a0:3b9:f16b with SMTP id 5b1f17b1804b1-4a027459456mr60034955e9.0.1790956532121;
+        Fri, 02 Oct 2026 08:55:32 -0700 (PDT)
+Received: from localhost.localdomain ([182.189.185.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02854073csm81515965e9.3.2026.10.02.08.55.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 08:55:31 -0700 (PDT)
+From: Saad Anjum <saadanjum239@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Saad Anjum <saadanjum239@gmail.com>
+Subject: [PATCH v2] spi: bitbang: Drop duplicated word in file header comment
+Date: Fri,  2 Oct 2026 20:55:27 +0500
+Message-ID: <20261002155527.24845-1-saadanjum239@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, fuad.tabba@linux.dev, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, 01 Oct 2026 14:56:53 +0100, Fuad Tabba wrote:
-> Changes since v3 [1]:
->   - A protected vCPU that EL2 holds powered off reads as
->     KVM_MP_STATE_UNINITIALIZED, in place of a new bool. (Marc)
->   - The marshalling and PSCI patches access the host copy through the
->     vCPU accessors, with every assignment on one line. (Marc)
->   - The PC adjustment pair is kvm_adjust_pc_get()/put() and tests for
->     the hyp vCPU directly. (Marc)
->   - CPU_OFF clears the reset flag before its release of OFF, CPU_ON's
->     relaxed cmpxchg is ordered by its control dependency, and the
->     CPU_ON rollback stores OFF with a release. pkvm_reset_vcpu()
->     carries the CPU_ON/CPU_OFF sequence as a comment and drops its
->     WARN_ON(). (Vincent, Will)
->   - Collected Reviewed-bys.
-> 
-> [...]
+Commit 8ee46db14169 ("spi: bitbang: Add missing MODULE_DESCRIPTION()")
+updated the terminology in the file header from "SPI master controller"
+to "SPI host controller", but only the word "master" was replaced, so the
+header now says "controller" twice in a row.
 
-Applied to next, thanks!
+Drop the duplicated "controller" so that the comment matches the wording
+used by the Kconfig entry and the MODULE_DESCRIPTION() string.
 
-[01/18] KVM: arm64: Sync HCR_EL2.VSE back to the host vCPU under pKVM
-        commit: 3708f6342f010d66a767b587dc881f18d95ceb3e
-[02/18] KVM: arm64: Validate the host vCPU's VM before reading it under pKVM
-        commit: cf533b4d3630b229d78ad55567c5db2f365052a2
-[03/18] KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM
-        commit: a2bb5f5c67a95ac97fcd6859dab51be421cf26fe
-[04/18] KVM: arm64: Disable steal time for protected VMs
-        commit: a5b0f36a045e0e96f8e2e044403ff8e6464995e1
-[05/18] KVM: arm64: Introduce per-EC entry handlers for pKVM
-        commit: 66a5e82d2a8d113d5953d04e008447d6b779e03e
-[06/18] KVM: arm64: Skip fixed-feature state flush for protected vCPUs
-        commit: 06499de8f998e0ec975cb73adde936c12a8a1200
-[07/18] KVM: arm64: Add {flush,sync}_hyp_timer_state() primitives
-        commit: a8b2a7d0fe9c0eb493542bb1d306b68313e6a828
-[08/18] KVM: arm64: Add system register reset framework for protected VMs
-        commit: ceaf9e57f88711fa3c7775ee4fea4f6731f1a71c
-[09/18] KVM: arm64: Implement HVC handling for protected guests at EL2
-        commit: fe40ff87ead5c541ac4b42aa149b98052a1abca1
-[10/18] KVM: arm64: Handle PSCI calls for protected VMs at EL2
-        commit: 9d4ec80be2eb4745d877c6989f1e59c62a2e4da4
-[11/18] KVM: arm64: Restrict KVM_ARM_VCPU_INIT and PSCI version for protected VMs
-        commit: 0b7d843ef3bf0a791d9e92c8a85178fe2a5ee9ff
-[12/18] KVM: arm64: Prevent host PC adjustments for protected vCPUs
-        commit: fc519dabd86b07b7f7e285ce68b2993d370f64d3
-[13/18] KVM: arm64: Inject an UNDEF at EL2 for unhandled protected guest exits
-        commit: 3cfbad49ededd985555820d97b62a27f92506b52
-[14/18] KVM: arm64: Add per-EC entry/exit state marshalling for protected guests
-        commit: 872383bd12e116fc79cb4487b1740c84f23c4c23
-[15/18] KVM: arm64: Reject host access to protected VM private state
-        commit: ad4ebc3decaa19fad2c00868e237561b6ac004c6
-[16/18] KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off
-        commit: 25d726dddc237043327aed9a2b51a5b6336bc31a
-[17/18] KVM: arm64: Advertise the capabilities that protected VMs support
-        commit: 4957c24559e90592cfb60b6d4425296c2a7cd0e0
-[18/18] KVM: arm64: Document the protected VM userspace API
-        commit: 61ace86519fb830a7b271c2a1037c8db5f2f3333
+No functional change.
 
-Given how busy this merge window is, there were plenty of conflicts, most
-of them with your own patches. Please have a look at the way I resolved
-them and let me know if anything is on the bogus side of wrong...
+Signed-off-by: Saad Anjum <saadanjum239@gmail.com>
+---
+v2: Resending with the correct From/Signed-off-by - v1 went out under the
+wrong identity by mistake, sorry for the noise.
 
-Cheers,
+ drivers/spi/spi-bitbang.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	M.
+diff --git a/drivers/spi/spi-bitbang.c b/drivers/spi/spi-bitbang.c
+index fb288ed56..347265e80 100644
+--- a/drivers/spi/spi-bitbang.c
++++ b/drivers/spi/spi-bitbang.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * Polling/bitbanging SPI host controller controller driver utilities
++ * Polling/bitbanging SPI host controller driver utilities
+  */
+ 
+ #include <linux/spinlock.h>
+
+base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
 -- 
-Without deviation from the norm, progress is not possible.
-
+2.50.1 (Apple Git-155)
 
