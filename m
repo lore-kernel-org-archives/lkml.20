@@ -1,114 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E752DB7B8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0B022D4DC;
+	Fri,  2 Oct 2026 14:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949702; cv=none; b=qCwZ0Mx77TKMyNBp9dMEmi3BFm+irqwcGg5MwxdgkOKmL0i2a1a0p2jW02j7GLxjKYUXhm+/9vJX5yHsHszDdz5MtDHKCTFDdu1aeNkc/fU4fsaGacchlMHqRZfcjYtBN9OKA0extagIZromHpQevdM5R82G8eINtEmSgtYd16A=
+	t=1790949738; cv=none; b=naCLLT6/F8SDsRLLG0jfPVTCrnVRKHIVl+nxl6/s6557NEElGzdCX4s7fWlyxzzCQ/0Djx1EVS5b4hEdy2wXjDdVdqaTXgWwlzP7hwTvl9PGprDkZuzr1tWREBAT7L4XTBcuFfKLjZIJaRvQhL9CqjbQezFd8e0mYHZeHjvtOKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949702; c=relaxed/simple;
-	bh=ohPBNZ0mLuh/aVmQbkEfxdUHKmJOMnZd7BYfo4uAixI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BsDcQLifkZK1s8M+tAEFfF1hdtbp5qlY765wFRnbCSPN+ZaEUGcTkTQjWxLikz2sEWtQ8bjY7dIaIKJKZo3q7cqc8P/gtcaQhK+BEF7eokL5tVk9VRW+wzw76ukny3k+Nk4rTYzAZ9KpqA325it1duxnw+N/Je/qW1wNje4+kyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=Mf+0QauE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949738; c=relaxed/simple;
+	bh=AC554Ou05N1hw/cT7duBqRDHOUr+JTWVpBTr2ggZFqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cErTCQDPaHrNzVwh8R1nVco3NWEaGrGlv62CtsdEq+9H9IWruyt1jH/h1Zu6SUtkQtQGeH5gSbFV2O4WySbjWdzuZUyS35JoJtRL0Csn1Ug38LtTC9pWBKKXKEjA6dEhJ64dlt2E13OAAIlXoi3cs7+Gp/RicdlBPPPXfpzNkvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CIXGYEjh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="Mf+0QauE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4481F000FF;
-	Fri,  2 Oct 2026 14:01:40 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=Mf+0QauE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1790949696;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=k972xhq9FGe8bP1JIVBQJ/ysfk9mzYVsF4isXhz4+3o=;
-	b=Mf+0QauEjewwOVyLnJSD5A+3jFQHTJmgHkJvc+x3+HX/SZkRdEECZXk459rne5+jeMzNVw
-	+w0oBdeDKW6ACjIEgd84Gt+QBCw3TWKRW6gHMSbLzgnGrR6rjBmtRp/FvjQdo9bP/vxoNg
-	cuMYiTGcRLVarLqfMmqyVvnmZkBpw98=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id f6ff36d2 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Fri, 2 Oct 2026 14:01:36 +0000 (UTC)
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [GIT PULL] random number generator fixes for 7.3-rc6
-Date: Fri,  2 Oct 2026 16:01:10 +0200
-Message-ID: <20261002140110.1481971-1-Jason@zx2c4.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CIXGYEjh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18A311F000FF;
+	Fri,  2 Oct 2026 14:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790949737;
+	bh=iSSvV6DoYFNrgcl/md3k3IV9ZcypTzps793/msz7EC0=;
+	h=From:To:Cc:Subject:Date;
+	b=CIXGYEjhAPg4K6ZFaCcuCpDRnpGmyQDfYG3D7MoizYCpc4PDEOjcFq4AAdpd/ZDv2
+	 LTiLih2IhlEp96xE6vwAQLh7SmCAAEDpiz5+QtwM9ZL4cn9LQaI+WeP9Wm1rDt2xzZ
+	 ORu2b2lGtSy7VkixIKT9PBMg2BSfjXjoCSJffHk7Bct7mmOIUZJUL5mHVLDxbNb8h+
+	 Lh61cQxsJjuXP5J5XTYxBf4qxtD0TctNN8+Dz7mqPPCdHiZalufzI7IPKzU8gP8IM+
+	 iW57VOLzkZ0Q0tldBEzTFBz2X/rYPJudaCTV8lzWVwl/VgMXA1rJAhr74VToXHzW8i
+	 ZRVXFb38kW1hQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v3 0/2] tracing: Override trace_instance parameter
+Date: Fri,  2 Oct 2026 23:02:11 +0900
+Message-ID: <179094973121.609715.2103310055830923648.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+Hi,
 
-Please pull the following small set of updates to the random number generator
-and related code:
+Here is the 3rd version of the patches to change the "trace_instance="
+kernel parameter to be overridden by later parameters.
+The previous version is here:
 
-- VMGENID memory needs to be mapped with the decrypted tag, so that SEV-SNP
-  machines can boot.
-- A fix for an initialization race in VMGENID, followed by a cleanup.
-- Trivial kernel doc cleanups in siphash and random.c. Arguably this isn't a
-  true bug fix and would be for 7.4, but it's so insignificant, that I figure
-  it's fine.
-- A fix for a new compilation failure with recent clang on PPC and RISC-V, due
-  to generating an out-of-line memset in the vDSO.
+ https://lore.kernel.org/all/179091984881.537422.15308457677039592540.stgit@devnote2/
 
-The last fix has a conflict with linux-next, which you might encounter in the
-7.4 merge window: https://lore.kernel.org/all/ar5-4Yq3wtmXTWnD@sirena.org.uk/T/#u
+This version fixes some issues pointed by Sashiko and add more selftests.
+(the selftest is optional.)
 
-Thanks,
-Jason
+Currently if the user specifies the same name trace_instance at
+boot time, the later one is skipped.
+However, this does not allow user to override the trace_instance
+setting via bootloader if user specifies the default trace_instance
+in the bootconfig, because the bootconfig parameter is prepended to
+the kernel cmdline. (IOW, the bootconfig expects kernel parameters
+follow a LAST_WIN policy.)
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+To fix this issue, [01/02] splits the command line parsing loop
+and trace instance initialization loop. The parser checks the
+overlap of the trace instance name and overrides with the later one
+if those have the same name.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+This series also includes a test set as [02/02], which is based on
+the ftrace boottime test patchset [1], currently on probes/core.
 
-are available in the Git repository at:
+Detailed changes are here:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/crng/random.git tags/random-7.3-rc6-for-linus
+Changes in v3:
+ [01/02]
+  - Count the number of instances in enable_instances().
+  - Check whether source instance exists before the backup instance.
+  - Fix memmap_area leaking across loop iterations.
+  - Add array index range check for boot_instances array.
+ [02/02]
+  - Add test cases for overriding memory-mapped instances (@trace).
+  - Add test cases for overriding backup instances (=source).
+  - Add test cases for multiple tabs and empty strings.
 
-for you to fetch changes up to eb13a1ff271b0d180687eebb30611b0b276d5193:
+[1] https://lore.kernel.org/all/178649540853.438282.4271870161169100680.stgit@devnote2/
 
-  random: vDSO: avoid call to memset() when zeroing reserved parameter (2026-10-02 12:12:13 +0200)
+Thank you,
 
-----------------------------------------------------------------
-Random number generator fixes for Linux 7.3-rc6.
-----------------------------------------------------------------
+---
+base-commit: b15df7805dc52555e7c867d33a496edf5be11289
 
-Hemanth Selam (1):
-      random: vDSO: fix repeated word 'to' in comment
+Masami Hiramatsu (Google) (2):
+      tracing: Override the same name trace_instance= by latter one
+      selftests/ftrace: Add test case for overriding trace_instance parameter
 
-Jason A. Donenfeld (1):
-      virt: vmgenid: move to using dev_set/get_drvdata
 
-Karl Mehltretter (1):
-      random: fix vgetrandom_opaque_params kernel-doc
+ Documentation/admin-guide/kernel-parameters.txt    |    7 +
+ Documentation/trace/debugging.rst                  |   15 ++
+ kernel/trace/trace.c                               |  150 +++++++++++++++-----
+ .../cmdline-07-trace-instance-override.bconf       |    4 +
+ .../cmdline-07-trace-instance-override.cmdline     |    1 
+ .../selftests/ftrace/boottime/run_boottime_test.sh |    2 
+ .../tests/cmdline-07-trace-instance-override.sh    |  148 ++++++++++++++++++++
+ 7 files changed, 290 insertions(+), 37 deletions(-)
+ create mode 100644 tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
+ create mode 100644 tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
+ create mode 100755 tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
 
-Nathan Chancellor (1):
-      random: vDSO: avoid call to memset() when zeroing reserved parameter
-
-Randy Dunlap (1):
-      siphash: clean up kernel-doc comments
-
-Vitaly Kuznetsov (1):
-      virt: vmgenid: remap memory as decrypted
-
-Zhichen Wang (1):
-      virt: vmgenid: set driver_data before registering notification handlers
-
- arch/arm64/kernel/vdso/Makefile     |  2 +-
- arch/loongarch/vdso/Makefile        |  1 +
- arch/powerpc/kernel/vdso/Makefile   |  1 +
- arch/riscv/kernel/vdso/Makefile     |  1 +
- arch/s390/kernel/vdso/Makefile      |  1 +
- arch/x86/entry/vdso/vdso64/Makefile |  2 +-
- drivers/virt/vmgenid.c              | 11 +++++++----
- include/linux/siphash.h             |  8 ++++++--
- include/uapi/linux/random.h         |  2 +-
- include/vdso/getrandom.h            |  2 +-
- init/Kconfig                        |  5 +++++
- 11 files changed, 26 insertions(+), 10 deletions(-)
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
