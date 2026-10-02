@@ -1,125 +1,109 @@
-Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001BC374A12
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B8E47CA9D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935776; cv=none; b=GOXEPSNDkCvrOwm3zmsVaRK5U9iwBglbCQpYMgEuvZKvDnZdAy8Iq5COAS09vgnaa5Aa1UagYXcND4g+U9R/u4Zf7YQY+68jsj3ZQr5U+C8Qdk778h6+peTs8IQwJFmMshuX9X02eXPL7hjPhgEyctJ75mTn3mRhjrIm7pkoLEc=
+	t=1790935780; cv=none; b=tzBMBr/ZoOLfP9olDQpMbrYWILhddab/S2zoLlub/A1yPS0SOb9jAHEf96ro70AzJ/kaxB55jAyKQkyfgUL1wM5mmrAonwBrmJ7t3YA/V/nzy0lamF/QSXp2hsVPXN6MRO542uBRJpD/mlTK4z2c8azZTqU0ATf4r6ZMdYslCaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935776; c=relaxed/simple;
-	bh=Rpcyir0pucMYwxwpWT3J9PaLulRi5dtQNJE0Rr4sZxM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=STIu7WHwqcbPGv9y2IxksZWL5Z746NoY/XUtYoSUl48oJ45MJ4oR5gTrdPzshFFow6tXvea+2ce/jafP2QilV2bFw2A/35a8hv3T+jefZHMuVjmrRegpfDOLe0ls/KQJuJ8YSrtEBTeHN/uYS63iNcdFsMgpeKOW8aO4sMRDkng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EBKryzqF; arc=none smtp.client-ip=74.125.228.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790935780; c=relaxed/simple;
+	bh=kTIjevvHnI6tk3I7bdraP1aqxwTnNibc6cViojCA4r0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YSrxNEAjilywuj1eRK+wBjP5/+kIRBe+ZrZFipz2jr9IopZhJ15qbl+eI3OO54rk1gX+TgMMtgtGtBGlKUyIIhjEe0PB1ZIEhpI5I3tr4NFNNGcQBJSen708NQRWFrN1wRobLegOJ1l2pGrRSZ+7sp5d9uLBWGdfMr/cBIndzU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhVvlZIm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EBKryzqF"
-Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae19319854so4177748a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 03:09:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790935773; x=1791540573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
-        b=EBKryzqFqcfR5/P4sFDZ2d4sqtg89IR9iUAd+eCHQc+GQdaRaLm0h3CvomdR8Ui+KK
-         qtdwnOhp9vgaspoisjuY4rJr4wSyMgDX6TjC8kLz7XAsUPWXAI4B7sXsajJR1x9ayU0b
-         TwvBGyZfTSrXPWO9X6yLctO1yWBhY7yHhWd6JHdmIFxdzA4qW8WImgLfqLCS7YKinL/i
-         bZSu/rHGLRJxx+/UN9rNWflb6D0w1JfpYekadgoz20WChKzmpsk5+u2O06CDMwIpX8UK
-         AM0iFXg53SeI2tdHxJc6ta0F5+YnitnNzUYsL6QXcCBnefRpRqI1v+DfmHWNk/dWeZFI
-         zJow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790935773; x=1791540573;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
-        b=KGK5htMisZe9sbBqyNvkEoYUodRR97l+Kf+iCDfh0B9eTOPWa8Ox6F35zbcFwoHP+D
-         v5j+8RfAohQf79n3yp23CRbmPzSUPSX9yxxDvJ4TYfLC9tKnoNjk0TXLtUbeOL51TWGw
-         KEziKbwEMmyrtGVcKFJi0P743ZZDc9UvDYLkYHtVlgGooceNDdR6aw5n99Ss+U478nOp
-         hHxT3TYq0rJSW04N+wciq+FO0OVK9hZnLzDusHZxqh6xBqHu9VVnST2thU+erWVMcE2p
-         lsWj5YMyUSrzmf+/zyjb2thqXm1ojUHSZtpzclhpCan930jf8Mn2dA8FABl7FJ9w4DEi
-         2XiA==
-X-Gm-Message-State: AFq9FYLJirNIAvbS5wSxwSWvRLdFNhVNVmLV2/dXntSfKe3uYP9AAKV2
-	3qzWDvTvUYU0F8Vg6+eDLc9ujxurEvdb5rj6Jg3/1vn5IRMvv8U6fZHv
-X-Gm-Gg: AYBFou0l31CHHZDD5Nu+DJn6xgJsr8UPx9i4UCOGukpg3JIiEOrhgyc3PIPkSFhCWdO
-	o2CTeUYwoSaj50Ud0rsZX7PuxEMKf0+vpau472pYBtt929N2xeY8qUrYScDH6dStvCV5k9MV3fQ
-	2Ti0FYXIMh5/bSuugYjdjzMzqThvuOj3iPqwchNGOlGNuoVvwRsZ+TKwOXG1d5fmOjudQ0V92pY
-	i2TuGNSRcYETXq3Ndjka3TGUYb3jIceTyi9qWSY2D1kIbuQskXyJRXnzYp76gcjMUW5d9yaYT26
-	J0/+Uz5PUVD9bQjaCgx69nry/aM7oOCcKab1WY+TCFbzP0Qsx9XPL8vBwEW581YvPDjYkFDbkwZ
-	3e52EDHl4JJ4Irq27EDoJcd8M9X7EkMiJzImkrWzTLadhuXcQn0hxDPa4h9R9Rdd+whTL9VIQu5
-	uXt6QHgJWZazWC2fLeAfW/b1MZLHR0cqWarwUWyBLgo1pFXJ31zKWIOCyk3aJ5I23MXo88pg==
-X-Received: by 2002:a05:6402:5113:b0:6aa:985c:7bae with SMTP id 4fb4d7f45d1cf-6af9e2e13d3mr1400063a12.20.1790935772569;
-        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
-Received: from Ubuntu-24.04 ([62.171.228.246])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d889452sm753687a12.14.2026.10.02.03.09.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
-From: Alexander Kochetkov <al.kochet@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Siarhei Volkau <lis8215@gmail.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Alexander Kochetkov <al.kochet@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Revert "Input: matrix_keypad - force switch rows to input mode"
-Date: Fri,  2 Oct 2026 13:09:35 +0300
-Message-ID: <20261002100935.449473-1-al.kochet@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhVvlZIm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85DA1F000FF;
+	Fri,  2 Oct 2026 10:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790935778;
+	bh=kTIjevvHnI6tk3I7bdraP1aqxwTnNibc6cViojCA4r0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YhVvlZImIxqbuB1Yq+sA//Rjnrhz17zbePIJ3Hk12l5kR818rurMHr0iK1fKiEIN4
+	 +3SC+5eCeFgnA5mccvC/WsywRCPcTINbKsGABNrWkQmRL5z816D6nk3pVcta6jXMKD
+	 kQqL/rJZ1VIVxJl1oLK+V5U4VJOe1Q5W4ZfPCD/ppDm1g3oYiCeomoXB2l7zGoktNW
+	 ATyLovjbAJmTGV4MiVzlVezyw/JrrU1QS2iOvBeque3nEnazbzCiiupN2T8NI3D0TY
+	 dpvEcpS/8dYMSr00RAL3b3PfrnQu1MrTRMtgUXjUBfXaOvZfMAAHxuY+/VQgpJS6kX
+	 NurVf28Zra+Ag==
+Date: Fri, 2 Oct 2026 11:09:33 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, 
+	akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
+	surenb@google.com, mhocko@suse.com, peterx@redhat.com, dave.hansen@linux.intel.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
+Subject: Re: [PATCH] mm: don't ioremap COWed anon pages in
+ generic_access_phys()
+Message-ID: <ar-Cq0YNpQ6_3fDG@gremlin>
+References: <699ae98c.050a0220.340abe.0d31.GAE@google.com>
+ <20261001152524.171115-1-ngocthang2710.1999@gmail.com>
+ <32fe40e2-854a-47ec-9d95-93e23f9a7af4@kernel.org>
+ <ar9omYD3HcTDBpGA@gremlin>
+ <c6253814-0cf6-48f3-8f81-3285466dca45@kernel.org>
+ <9d43234f-93cb-4c86-a2a6-a3cdebf48f3b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9d43234f-93cb-4c86-a2a6-a3cdebf48f3b@kernel.org>
 
-This reverts commit 01c84b03d80aab9f04c4e3e1f9085f4202ff7c29.
+On Fri, Oct 02, 2026 at 12:04:27PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/2/26 12:02, David Hildenbrand (Arm) wrote:
+> > On 10/2/26 10:38, Lorenzo Stoakes (ARM) wrote:
+> >> On Thu, Oct 01, 2026 at 10:22:29PM +0200, David Hildenbrand (Arm) wrote:
+> >>>
+> >>
+> >> Sorry to say this looks schlopped.
+> >>
+> >> This guy has sent 10 series across 6 subsystems over ~21 hrs:
+> >>
+> >> https://lore.kernel.org/all/?q=f%3Angocthang2710.1999%40gmail.com
+> >>
+> >> Nguyen - please do not flood the kernel with patches, and please use the
+> >> Assisted-by tag for generated content.
+> >>
+> >> The original code you submitted is really not great even if the issue may
+> >> be valid.
+> >>
+> >> So I'd say somebody from the core team should take over this if we want to
+> >> come up with a patch.
+> >
+> > Yes, I'll take care of it.
+> >
+> > [...]
+> >>>
+> >>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> >>
+> >> This looks reasonable but I hate that we have 'special' CoW overrides like
+> >> this :)
+> >
+> > After sending this yesterday, I concluded that we can do this cleaner: just have
+> >
+> > bool normal_page;
+> >
+> > (naming suggestions?)
+> >
+> > that express that this is something refcounted with a struct page, like
+> > documented for vm_normal_page().
+>
+> Hmm, have to think about that once more, regarding VM_IO and if there are some
+> cases that would actually have to work in generic_access_phys().
 
-The commit makes every scan call gpiod_direction_input() on the row
-GPIOs. On pin controllers where GPIO input and interrupt are separate
-pinmux functions this switches the row pins out of interrupt mode, and
-enable_row_irqs() does not switch them back: it only unmasks the
-interrupts. Row interrupts then never arrive and the keypad stops
-working. Seen with a matrix keypad on an Allwinner A64 board (PINE
-A64-LTS); it works again with the commit reverted.
+Well, my series at least makes it easier to reason about VMA_IO_BIT!
 
-The workaround is not needed on Ingenic either: the author of the
-reverted commit re-tested all available JZ47xx SoCs and they all report
-the live pin state in interrupt mode, see the thread in Link.
+Though not sure if it really touches PFN map cases specifically.
 
-Fixes: 01c84b03d80a ("Input: matrix_keypad - force switch rows to input mode")
-Link: https://lore.kernel.org/all/4130C026-2A83-408B-836A-ECA044491C47@gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Kochetkov <al.kochet@gmail.com>
----
-The same three-line removal has been in use on Allwinner A64 hardware on
-top of v6.12.33; this version is rebased onto v7.3-rc5 and build-tested
-(arm64, CONFIG_KEYBOARD_MATRIX=m).
+>
+> --
+> Cheers,
+>
+> David
 
-Siarhei, Paul: you both agreed to the revert in the thread above, please
-reply with your Acked-by/Tested-by if you would like it recorded.
-
- drivers/input/keyboard/matrix_keypad.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
-index 8863b741d1a3..cda2888b2e56 100644
---- a/drivers/input/keyboard/matrix_keypad.c
-+++ b/drivers/input/keyboard/matrix_keypad.c
-@@ -134,9 +134,6 @@ static void matrix_keypad_scan(struct work_struct *work)
- 
- 	memset(new_state, 0, sizeof(new_state));
- 
--	for (row = 0; row < keypad->num_row_gpios; row++)
--		gpiod_direction_input(keypad->row_gpios[row]);
--
- 	/* assert each column and read the row status out */
- 	for (col = 0; col < keypad->num_col_gpios; col++) {
- 
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.43.0
-
+--
+Cheers, Lorenzo
