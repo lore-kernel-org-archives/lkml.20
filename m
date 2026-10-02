@@ -1,144 +1,137 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12464439014
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759B943DEA6;
+	Fri,  2 Oct 2026 07:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926939; cv=none; b=mtnUlps/7o/xgO4ekwwivjPpNrmzxYI/JU/DHpS5IlRIS8aLSB0+v9VBrj3ttnIe8Y2WhHxrE9VYmX1XACuEXcgafQdejlEblRS5EDINahZlsmmNNyiqX7eKb/BOdEoISTsK1+QRLAIWK6VpiFxV3/ggSrqHhtF8dGxJpAwebHU=
+	t=1790927072; cv=none; b=QZcO1ekysleViSB4JH10NiUN58BZSGYczLUn/f5tya4mG4ud7Gk5NviRcI0umNg42a3TzeeB5oBLAuXFFjBOfd9pgGndmOWe1s48tiQHNiEopL8GSnqV4CSs9TsE2ZIzBrD7hlIDbZQpqDFpOlIkpcdsFN3TJR/M7zWNWrsnH08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926939; c=relaxed/simple;
-	bh=+r3oF3KJa6nDKG6ojMwf7eYgUcgM/dO8XmdcYWxZgC4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Roj+XRZxBwR39YuouD5Z9ADadwPi+wKql3voBghZxrJ8o8Z8BeBetaAE83os0V6qEBz9NYxxhqbI56YvHwKy9RwbvIP6zlTTo75N178Bk+8AwVF+4BMYNJXeV48JtkEppgGH6c3FHMNo9vNALwzSxAG9jdQjaU0bamVm4ULLP7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=qxiA9lnO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cx4FxcWB; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1790927072; c=relaxed/simple;
+	bh=aL2PIsy9XXaXmH/PL0XoU8+bc7B0/QFL8gjIPqQmpzE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pejfyPbRvDRi7fsdBmy0Gpq1a4AqdM94kSFl0/oUFzuYaCB2mD7mTd3Iudc2paXYeyzNz4IU8BOUqavSf7r/h/Nfv7rHMy4tiJ0vagHy8PZSWpY+ouxGq/TKaDA+N/H1u+nrk8ps7MeXH2mLW+8Aa/FJBLyBVMM+9yyYULfDxHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=iQSF1Q1s; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="qxiA9lnO";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cx4FxcWB"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 4A5BE7A001D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:42:16 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-05.internal (MEProxy); Fri, 02 Oct 2026 03:42:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790926935;
-	 x=1791013335; bh=wKje34qKlqYuWVpjC8LnCp3hkR3I0KohUjlISc6RnSo=; b=
-	qxiA9lnObEJ0vS3vBsbfKYRtDjTflZWxahZ8F9k8ylhZMYqm55wJG3G2kpNqOE3M
-	WF3LgvdbL2bxmA83oU9/XXyCtAildcc2taJ2b0m+3DH/M7jlOjJ/6R/903et3RE2
-	EdrrutAFs3rTmo2tkYLOTY/s4Sd5gqAR/Fbf8pzvlkLgmJkkeLwq05mwEf2ov1Mb
-	HdDrGBVhnNeHx/ma2L5qcWyCO5JRwjXWF3F4pp/Zv6h7sMjBbdZ5HpuxAQerKByn
-	H9GZBqc57p0sEzjqWrTS1aoCr0rq5kUX7zEHrn2eFs7YAdMiyNv3X60QEDNwDfhV
-	/ernWIoTqOg8LrbFX1zDLA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790926935; x=
-	1791013335; bh=wKje34qKlqYuWVpjC8LnCp3hkR3I0KohUjlISc6RnSo=; b=c
-	x4FxcWBivcG3CWlnThM4pYqRTcBn3deQF1IxPUZBQyBm0cxw+D4c7Vd3uZO4kxUX
-	cIA8+Q6V8mOFniI9bXPxNv9T12BpD7YsCI8YfGKfV1sMAcgXfcycDLKtkJEkcDx4
-	ddHDCAPrFAmKZu7YLhgQCTGtUuFuqFFpJdnHlnL0k3bUsixSMFIesz7AfR0TAQHU
-	mKBOdfqp2bXD95GW9SbWPAlKZVn52L7qNLyKsmxCzTI/k+jJMHo30POf1zfrSkjT
-	lWD7swgiI5MDpR2iRoz1hPOH47adu94i1vrCcoU6naevdjhds1e28rcUC3pw7Z5c
-	dg6NmiElVi5phg57aG8ng==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790926935; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:llTTLwXhy0TUHyc7JUuCFTC/Nb/MXGLipVSYdphHP6+WB0+
-	44wbys1YBgSsvwFBuWejs4NBKxa1G0bJi/lR4IRNWL0IGj2lSrWx1zdYmuR7eDGv
-	qJIpjrKWqMy4jxtHPFPPglJNqe1JkRxkPahogsFfP2NhovFba0frTbD7OLLlbQSx
-	X7x2W66+Se3pxMxFua62mqDLsBeP2VZkohZ5zHHO6QCmIQlbxIfX3qzGMMkzzc6v
-	ODbFWROmKcJHi2yqMN8noN5nOraWYnLvUOu0SzGQuTDU+FmrQjiLG85zsjDEJlR7
-	HANeXWOn1pMNNjRxfCwSyH3FIPy4i+Yug60pHIg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:C+lnE5vg0lxH2++CQgwb2zEwnZ6wpePXoCKkQE8lDOk=:+r3oF3KJa6nDKG6ojMwf7eYgUcgM/dO8XmdcYWxZgC4=;
-X-ME-Sender: <xms:VmC_akbf5-l_09xFrVJWQj690-R7AOaKTHyHtMMKTOHdW6TxLDKe9A>
-    <xme:VmC_arRD3k4K0Vmpvtf_DVE-vLXXJRZkvMYcQWOIqlxLv2lv93o2wJuC-F73OSr9U
-    MJ3FHhYS6wFjpMWwdzsnqMU7FzBkAUwZYDoEqPRUIhtyEJSIl286eI>
-X-ME-Received: <xmr:VmC_aqdyetBDNXs_bdNttcQ2k7NL6qm3cRlVx3py-O6mVDHqNy4LOKH_oqSJlvbYBOqAmIBJ8G2kI7XqVRpFaYhtWti4hgmV>
-X-ME-Proxy-Cause: dmFkZTF/KvG14L6SoNmfOg+TwWUCpD3GD5fO5a5Up/H7w7pZTyfHzcF0fRTQ2O1u6hQ9R4
-    Q7nfL5vkCTEXPmhB2TmivQ3nxJZyYb9oMp6craEuOpvR6x+bBvlp+mjWoef/3nPUR9+sjR
-    KbptPwzO09bXD+oUF7wXwHtN8EvZQDnpeafnMDqZ3QczrPFfbIXz0DEXdMAklvLZ45W1dn
-    pg7KIyMYPOHuK6CRhLjE+D6ag8B3lADj4di6wXE8CSgE101HCWeqPHeeCIB8c44GqZLXSp
-    0/M9Z46IE2FWptS0HefnVORB0TBKGFgVNM7ytAPcjhr9Won4cicrR/JL0TjFkhcmtKPDTj
-    RiD+UNwBHBeq/utCwzdqbqyrJDNWWVwzYukVjszPAlLPmeV1TQLXVkF8uC+JAg5jk1vgK0
-    RhFUTUnqc8+qmfj8I4qC6Urc0R+NDdxqcN4tkO4UxaPbFuIltj7k070Zh+ojlDx3zzb8in
-    mKrt15g56KsRtfq2ST1fqS39zzIJub9Zun5HMj55kOdMNiJ+Dr4kc6rtUrQ3rnWBwNFe4L
-    yMpbWQYGalQovsWWW5X8Heqt8U4zxAobryEnRxjj84yPu4JoTlFkLbQiVpmfecdYTt1t3Y
-    dayXcsFmHsd/NE6+lWkK96g/1gexDqVOuBITOSr21on5cm+/BcwvqVtdlA1Q
-X-ME-Proxy: <xmx:VmC_ainFi54mGhaGvaVpT33B1Y2QwrkpsfuzSXw3-BkQc0yM3KIGxA>
-    <xmx:VmC_aniB3d-Qwe43HFsDK326bdWAlYLMeGiN4clTEaUARh_ofoM1Ow>
-    <xmx:VmC_arGGnX57Nk3oRyu2DGKDeExMVIlQkcnrdbvkGk8A7-H78PhDEQ>
-    <xmx:VmC_auyACyPdywHWb8ZAgJgjEfZu0vt6DtoV81-EB4smre2DMAfnrA>
-    <xmx:V2C_ahsnzylZtSpb0gg-iK7fxYlfdZ-0I1-oceBBStt76wY0I-81Y7D->
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 2 Oct 2026 03:42:12 -0400 (EDT)
-Message-ID: <79fd8985-1c19-46b8-8cc5-ca9c76142cd1@pobox.com>
-Date: Fri, 2 Oct 2026 00:42:11 -0700
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="iQSF1Q1s"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6927hopcF3646828, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790927030; bh=oH0+AyrPqVL+/j9iteNRUL5qj/8tZfnE2fNJIb0CWMM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=iQSF1Q1s1OOFvBwH/CPYc9PoLGfLKtEqY1uim3auXaA4KRcnIeQ0vrVvDdAs56/HM
+	 Zlt0THeMiHTrJXupQB9JngZs9Q1ORtg43h9l//lKIuK90xNrQb/RnLhh9LyyxyP6bi
+	 5pdFrG1sIGzPHWcU+xckrWPG6GUarRRKA4GdDXkymtJRFVS/AJrFkNyxFXdCN9OPIB
+	 CBbs8mVilFge2qshcmlqPA4zmfUYhnNDpnAz3b4MvAN7oCXm67GM7EJg0a3klfbaff
+	 rB8f+KjgTEj+/zR1993V3n9flU48d5wWZct0Wz2iGbbq9ZBMjkPJmdoT0s2g14RHfI
+	 pUa9nzDuJMwMw==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6927hopcF3646828
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 2 Oct 2026 15:43:50 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 15:43:35 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
+ (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 2 Oct 2026 15:43:35 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <jbrunet+clk@baylibre.com>, <sboyd@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <p.zabel@pengutronix.de>,
+	<cylee12@realtek.com>, <afaerber@suse.com>, <jyanchou@realtek.com>,
+	<bmasney+clk@redhat.com>
+CC: <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
+	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+	<eleanor.lin@realtek.com>
+Subject: [PATCH v15 11/11] arm64: dts: realtek: Add clock support for RTD1625
+Date: Fri, 2 Oct 2026 15:43:31 +0800
+Message-ID: <20261002074331.3066919-12-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261002074331.3066919-1-eleanor.lin@realtek.com>
+References: <20261002074331.3066919-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/752] 5.15.222-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152358.131179731@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 9/30/26 8:17 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.222 release.
-> There are 752 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.222-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Add the clock controller nodes and osc27m fixed clock for the
+Realtek RTD1625 SoC.
 
-Tested on 2 amd64 laptops (a Lenovo ThinkPad T14 Gen 1 and an Apple
-MacBook Air 13" 2017). Working well, no regressions observed.
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+---
+Changes in v15:
+- None.
+---
+ arch/arm64/boot/dts/realtek/kent.dtsi | 33 +++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-In particular, the MacBook Air that I used for testing has a SATA SSD
-and was affected by the SATA booting regression in 5.15.221, but with
-5.15.222-rc1 it boots again.
-
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
+diff --git a/arch/arm64/boot/dts/realtek/kent.dtsi b/arch/arm64/boot/dts/realtek/kent.dtsi
+index df0d5ee3b1b9..e4dc8903efa9 100644
+--- a/arch/arm64/boot/dts/realtek/kent.dtsi
++++ b/arch/arm64/boot/dts/realtek/kent.dtsi
+@@ -26,6 +26,15 @@ timer {
+ 			     <GIC_PPI 12 IRQ_TYPE_LEVEL_HIGH>;
+ 	};
+ 
++	clocks {
++		osc27m: osc {
++			compatible = "fixed-clock";
++			clock-frequency = <27000000>;
++			clock-output-names = "osc27m";
++			#clock-cells = <0>;
++		};
++	};
++
+ 	cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+@@ -141,6 +150,22 @@ rbus: bus@98000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 
++			cc: clock-controller@0 {
++				compatible = "realtek,rtd1625-crt-clk";
++				reg = <0x0 0x900>;
++				clocks = <&osc27m>;
++				#clock-cells = <1>;
++				#reset-cells = <1>;
++			};
++
++			ic: clock-controller@7088 {
++				compatible = "realtek,rtd1625-iso-clk";
++				reg = <0x7088 0x8>;
++				clocks = <&osc27m>;
++				#clock-cells = <1>;
++				#reset-cells = <1>;
++			};
++
+ 			uart0: serial@7800 {
+ 				compatible = "snps,dw-apb-uart";
+ 				reg = <0x7800 0x100>;
+@@ -205,6 +230,14 @@ isom_pinctrl: pinctrl@146200 {
+ 				reg = <0x146200 0x34>;
+ 			};
+ 
++			iso_s_cc: clock-controller@146310 {
++				compatible = "realtek,rtd1625-iso-s-clk";
++				reg = <0x146310 0x8>;
++				clocks = <&osc27m>;
++				#clock-cells = <1>;
++				#reset-cells = <1>;
++			};
++
+ 			ve4_pinctrl: pinctrl@14e000 {
+ 				compatible = "realtek,rtd1625-ve4-pinctrl";
+ 				reg = <0x14e000 0x84>;
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.0
+
