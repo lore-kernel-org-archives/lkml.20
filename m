@@ -1,143 +1,260 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9163F5BDB;
-	Fri,  2 Oct 2026 06:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33B5349AF4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922740; cv=none; b=TOguKF1adglvFsbi4+QXQO7Wjx6SQpWVTMwWi5lssb+IsUruStdss0vodXLSeMZjJ1Bp0gyMvi7kN9niPFoFFFuERzgJl6LOfcfyndywt7ccx7ZVVwKskeEnechOYRPhmzmdnzwwF54QbSfi3U78xrNFbbwvAmA33efCGuEGjmM=
+	t=1790922800; cv=none; b=HbNLVqiEgdNiMg9VEaKWfOWd/mlhAAUzIZXHrF3e0u6Beq3/VAeiiyiQa+AosaUhzZu5nliB2U9LN96zHhcOlgouXqlgpeVTaP+kcwbyMgyOshEeJeTelK/2xhrZN58oV6x99YBEiME5qpsQzApIqaDE7tDFKd1KVryOk1Pd8VA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922740; c=relaxed/simple;
-	bh=0MlqhVGlZfjV4o3jL12I5btdT7LeCX2J0S2S7sGTfRM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qlr5N22UEHKItjXMyT5HUJ7MKvOVrlKJAS5z/yJ6kU3m3ebq6/H+uUJxXmVtfE7BZJIuhkGod6u7BgWcnkylTEivEBEcs0d2l/0QOB3Ofh+cypM6dSNMX0Mq9nUhVdIeHKiMuh4m8w4R00/PSnfDuvmq/0CeLWnooRaOM16t2hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=CO3+Tmyl; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	s=arc-20240116; t=1790922800; c=relaxed/simple;
+	bh=FCZ6sIAIFfPswMpdAnsl3++lstKHkX6vjPLQMQ5mWXM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cNjvIC6tHiuDgQ77t1lo6fstOtsUfjk2EWPkyok9VyTCz5XoWYxudHalsnRGusgdRSfXKp0nS8PaJZlwUXrFcGFgsw3wb42dtO4rKHLzcsxH8bpK3OP02DP8YkJhLsX+d/7wxxnP5gxOgh9FgsfeCQfBB6+VXCN3al60DpxdyV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=RJnu3hL0; arc=none smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="CO3+Tmyl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=T5YDiEkzPVJahns0xgVaPE73pzUnza4kSuXdfoKusdI=; b=CO3+TmylPLELsu6FKCQ9kEQ7qV
-	1ULyQy2ZQ4BMwUbWHfFbM4Ym5kZ6LrTVQH5HaKnSOHD7P6mXZe44zLci45gRQz7ZvuHIoMRmnSBSy
-	RFMRvKehOfGsOQIkgJPDxRKukF7J2GHhnrVLpBwBC77367LskiU79DkxJUIxo9ErjpkL+e5swdUYt
-	Se6lzubuVxiBxaduTY+DPKmmZS7YH+Oyx/o5HkEpvfxtZBmB4lOXUS390HXpDdRB+WgXJYL14GU9W
-	sXbYTHlZbxnQHEnIFYdG4SnJeT2d+ziiD+CPoK5FZwiEjH9XoL63VPDimlgcoDeSuHJN112g+ywzZ
-	FOO4dbOA==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:43744 helo=[192.168.69.116])
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1xCWoa-00000002lbS-0alD;
-	Fri, 02 Oct 2026 08:32:16 +0200
-Message-ID: <ce32d95f-8a78-486c-966a-2ea0a686bcd6@norik.com>
-Date: Fri, 2 Oct 2026 08:32:14 +0200
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="RJnu3hL0"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-144f79153f5so296160c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:33:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1790922798; x=1791527598; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d7cgR6ZneSf8y5V7zAIslHSi/tYxEvm4mPs702VSwro=;
+        b=RJnu3hL0TG7nr5MeLbO+T3r4Xe/ui3MprWYPS2AWAdTULW3PADYLMjMrC6LRJiFWcq
+         K9MzczyXPPPa8LsydmJ3VmWeDLewwbPLiZCjube9INExHeZPQOz4zLKzNCvtdRDEGFMe
+         mmqn5LLmV/63fVokt5Lyg2l62yHCEeDqfKtPjFYm0XjR/1T1hKAEJQJLzxShvOWtE6kI
+         5c5mxLKwrT+91wB4SDTZ9d3FNCBuLnKaiRZhhkpzCQK6lpD7qf31BwXDni1Ej9OPjD4L
+         lm/RjImUpgfyipy124mu69Dm+AewjD4V8Ue7SITZsm2uOmK5+GbELSTGKPiMWXzD+xmC
+         JKCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790922798; x=1791527598;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d7cgR6ZneSf8y5V7zAIslHSi/tYxEvm4mPs702VSwro=;
+        b=bZSZQF48gcdz4og5TCo2zoAcvAzgkfMDdgjCQ016KYEtkZh7XGomPNdUbnXZyXduhE
+         JUrNPR0pZJJFRvTpHIsUGl3o498g/zKwZSp+IcW5jcwOU1wp7tDdvkwwL8vtTtKBF80k
+         /krBCluFBbwni4wOCflzsJrDsZvX7A8n86OglLQM7yUTKCbNtISlO/Jy2FZa714/zepG
+         aNhGndLjY6ptxJTzChs9KkEDwLYnJ61Jgi/mvyyV5M682VbTCC8nDYKXtJuFDX3IsfoG
+         yp128Bjf/r4XTbWL9TV7daoPMhu4IdDVNjvR/y9+U6ofk8A2flgQoCvBGzMYOlzt/6Jz
+         E0yg==
+X-Forwarded-Encrypted: i=1; AKwUvBze7JZtfTZ8cfJ5C3aYM+69RNatZYyCgcNJ2o2xCXJAigqkUsbowr4sZ+5LoJkhibuT63YWwyrqa0l0Zz8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mi+Cs0wBme6oAInrZBSWdmuxTJOxvmfeMSnBiaYn4Cx4tlOvG8
+	ZD9kr3tH/k6HviL6tmYj6OUddSFTVFW12Tc7f7SpsKFemLKNCvJjxKdhxoizohhK1dc=
+X-Gm-Gg: AYBFou0fnzK8stnSRGGl3j2/LEw1CdqIOi/h7MmA3mT+/KRtY+DYdUY3PWoMSnwmfPO
+	6owH3fGQCRozfiC8ZM8MD49dOsbcZeqxvPEGCIFbWEQkkCKlpFnpalWpyflmwgA4ukgcpe8AmQE
+	xK7LJ2MqSEZX1PGA/Rb1MZXg89P3nTV45Tm6L9lfEY32lEmo3rPr5qdZ7blROqMzRoTVWTTuVSW
+	K8HED8qq3Tw2S3hdRGMH3VVx+EeGSel8hOMWQPu0er2GdNDZQj4kvnElIIvVQgtsmJKW593fc6+
+	pEu5tvwZwe7HJ5HHV11SrVwfTQx2gzcIUek2UHHg+jRHO2djMIU9iDI4qMpYECBitamgOm6wD5Y
+	6g++6I7dmkBYv0bWzZ9Xw1aXjlHcy0PwdmU/t6JpKf5nAg2vSQkbrzqrKJivk/Vh2KYtnYhu4z5
+	Ojynl9dTtJqN1WMBGcjo3EBXqG5IkR1TSOi99cIQWxO1qAwsO5g7NDOICfCPWfSdLfUTxIXX7sy
+	NlRrw8g3OA=
+X-Received: by 2002:a05:7022:7e82:b0:149:f2b3:efcb with SMTP id a92af1059eb24-14dd10af1famr6118991c88.14.1790922797740;
+        Thu, 01 Oct 2026 23:33:17 -0700 (PDT)
+Received: from sw04.internal.sifive.com ([4.53.31.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm6315754c88.4.2026.10.01.23.33.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 23:33:17 -0700 (PDT)
+From: Zong Li <zong.li@sifive.com>
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	mark.rutland@arm.com,
+	andrew.jones@oss.qualcomm.com,
+	guoren@kernel.org,
+	david.laight.linux@gmail.com,
+	zhangzhanpeng.jasper@bytedance.com,
+	yang.yicong@picoheart.com,
+	nutty.liu@hotmail.com,
+	iommu@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Cc: Zong Li <zong.li@sifive.com>
+Subject: [PATCH v15 0/2] RISC-V IOMMU HPM support
+Date: Thu,  1 Oct 2026 23:33:10 -0700
+Message-ID: <20261002063315.1535817-1-zong.li@sifive.com>
+X-Mailer: git-send-email @GIT_VERSION@
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] ARM: dts: imx6: phycore-som: PMIC and PHY fixes
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, upstream@lists.phytec.de
-References: <20261001070947.1815279-1-primoz.fiser@norik.com>
- <ar5y_StTTBYDeck3@SMW015318>
-Content-Language: en-US
-From: Primoz Fiser <primoz.fiser@norik.com>
-Autocrypt: addr=primoz.fiser@norik.com; keydata=
- xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
- JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
- ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
- gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
- jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
- 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
- TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
- AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
-Organization: Norik systems d.o.o.
-In-Reply-To: <ar5y_StTTBYDeck3@SMW015318>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+This series implements support for the RISC-V IOMMU hardware performance
+monitor.
 
-On 10/1/26 16:49, Frank Li wrote:
-> On Thu, Oct 01, 2026 at 09:09:44AM +0200, Primoz Fiser wrote:
->> A few small fixes for the PHYTEC phyCORE-i.MX6 SOM:
->>
->> - Pin the DA9062 PMIC watchdog to /dev/watchdog0 (1/4).
->> - Raise the PMIC's SOC/ARM buck ceiling to 1.5V, needed once the
->>   1.2GHz OPP tier ([1]] requests 1.3V for VDD_ARM and the anatop
->>   LDO's 125mV dropout is added on top (2/4).
->> - Add phy-reset-duration to fec node for more robust reset pulse (3/4)
->>
->> [1] https://lore.kernel.org/all/20260923070505.494949-1-primoz.fiser@norik.com/
->>
->> Link to v1: https://lore.kernel.org/all/20260930102532.2262700-1-primoz.fiser@norik.com/
->>
->> Changes in v2:
->> - Drop patch #3 from v1 (converting to reset-gpios) due to potential
->>   backwards compatibility as suggested by Frank
->> - Convert patch #4 from v1 to patch #3 in v2 (use phy-reset-duration)
-> 
-> What branch do you work on? I can't apply.
+The RISC-V IOMMU PMU driver is implemented as an auxiliary device driver
+created by the parent RISC-V IOMMU driver. Therefore, the child driver
+can obtain resources and information from the parent device, such as
+the MMIO base address and IRQ number.
 
-This series depends on series [1] patch #4.
+It seems sashiko-bot is giving conflicting advice about whether to add
+a lock to ->read(). No matter if we add it or not, the sashiko-bot always
+suggests the opposite. Looking at no lock case again, sashiko-bot
+concerns about a BPF program calling bpf_perf_event_read() from NMI
+context and self-deadlocking against the IRQ handler, but that scenario
+cannot occur here:
 
-BR,
-Primoz
+  - bpf_perf_event_read() goes through perf_event_read_local(), which
+    refuses to call ->read() unless event_cpu == smp_processor_id()
+    (kernel/events/core.c). All events on this PMU are CPU-bound and
+    non-task-bound (->event_init() forces event->cpu = pmu->on_cpu and
+    rejects sampling events), so PERF_ATTACH_TASK is never set.
+  - More fundamentally, perf overflow interrupts are not NMIs on RISC-V,
+    and every pmu->lock critical section in this driver is held under
+    raw_spin_lock_irqsave(). There is no context that can interrupt them
+    and re-enter ->read().
 
-[1]
-https://lore.kernel.org/all/20260924065044.368341-1-primoz.fiser@norik.com/
+No other driver under drivers/perf/ uses a trylock or in_nmi() check in
+its ->read() callback, so dropping it also brings this driver in line
+with the rest.
 
+sashiko-bot also reported that migration calling trigger a NULL pointer
+dereference. I don't think this can happen on current mainline.
+perf_pmu_migrate_context() does not touch pmu->cpu_pmu_context unless it
+actually finds events to migrate. This used to be a real hazard: before
+commit bd2756811766 ("perf: Rewrite core context handling", v6.2-rc1)
+the first two lines were per_cpu_ptr(pmu->pmu_cpu_context, ...), which
+did dereference a pmu-owned pointer unconditionally. That is also why
+several in-tree drivers pre-seed thier ->cpu field with a real CPU number
+rather than a sentinel, and so do call perf_pmu_migrate_context() in
+this window, without any reported oops.
 
+Thank Joreg for reporting some differences with the spec.
+One issue is that the spec does not say if the counters must be
+continuous, or if the mask must be the same for all counters.
+Since non-continuous counters and different widths are very rare, the
+original driver assumed that all counters were continuous and had the
+same width. However, this does not follow the spec. I also fixed this
+problem in this version
 
-> 
-> Frank
-> 
->>
->> Primoz Fiser (3):
->>   ARM: dts: imx6: phycore-som: Set PMIC watchdog alias as default
->>   ARM: dts: imx6: phycore-som: Increase PMIC max SOC and ARM voltage
->>   ARM: dts: imx6: phycore-som: Add phy-reset-duration
->>
->>  arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi | 8 +++++---
->>  1 file changed, 5 insertions(+), 3 deletions(-)
->>
->> --
->> 2.34.1
->>
->>
+Changed in v14:
+- Rebased onto v7.3-rc5
+- Support sparse counters and the different width of each counter
+- Accecpt custom event ranges
+- Verify IDT supported in event
+- Add warning message if riscv_iommu_hpm_enable is failure
+- Remove raw_spin_lock for ->read() flow
+
+Changed in v13:
+- Reorder the registration of cpuhp action
+
+Changed in v12:
+- Rebased onto v7.3-rc4
+- Add raw_spin_trylock_irqsave for ->read() flow
+
+Changed in v11:
+- Rebased onto v7.3-rc3
+- Add riscv_iommu_hpm_disaable to destroy aux dev before MSI is freed
+- Fix CPU hotplug race risks reported by sashiko-bot as follows
+- Re-validate pre_count after reading hw counter
+- Move hwc-state into atomic critical section (pmu->lock)
+
+Changed in v10:
+- Optimize hi-lo-hi by do while for hypervisor case
+- Add raw spinlock for cpu hotplug race and IRQCHIP_MOVE_DEFERRED
+- Remove irq work mechanism for IRQCHIP_MOVE_DEFERRED
+
+Changed in v9:
+- Clear PMIP in irq handler on wrong CPU for re-triggering IRQ
+- Add a lock in offline_cpu to avoid cpu hotplug race condition
+
+Changed in v8:
+- Rebased onto v7.3-rc2
+- Add irq work mechanism for IRQCHIP_MOVE_DEFERRED case
+- Filter multiple cycle event case
+
+Changed in v7:
+- Rebased onto the v7.3-rc1
+- Remove raw spinlock
+- Check CPU matching at the beginning of irq handler
+- Add PERF_HES_STOPPED check before overflow handling
+
+Changed in v6:
+- Rebased onto the latest v7.3-rc
+- Use sysfs_emit instead of cpumap_print_to_pagebuf
+- Set up on_cpu and irq affinity by cpuhp callbacks
+- Change type of on_cpu from unsigned int to int
+- Reject filter operands of cycle event in event_init
+- Check return value of counter number and  masks in probe
+- Add raw spinlock for race condition (third commit)
+
+Changed in v5:
+- Pick up suggestions from sashiko-bot as follows
+- Fix event group validation for sw event
+- Bind IRQ to aux PMU dev instead of parent IOMMU dev
+- Clear OF bit when event is NULL
+- Improve hi-lo-hi patten
+- Add back IRQF_SHARED flag due to mismatch
+- Manage cpuhp and pmu register by devre
+
+Changed in v4:
+- Rebased onto v7.3-rc
+- Use is_sampling_event() instead of accessing vairable directly
+- Rename the matching name from "iommu.pmu" to "riscv-iommu.pmu"
+- Change the naming of PMU device for avoid ":" in PCIe case
+- Add suppress_bind_attrs attribute
+- Remove IRQF_SHARED flag
+- Set irq affinity to local CPU of IOMMU
+- Allocate ID by IDA for auxiliary device
+- Pick up suggestions from sashiko-bot
+
+Changed in v3:
+- Rebased onto v7.2-rc3
+- Use hi_lo_writeq/readq to access register
+- Pick comments from sashiko-bot as follows
+- Set IRQ CPU affinity
+- Remove IRQF_ONESHOT flag when request irq
+- Adjust cycle event check by checking event_id field only
+- Fix bug for group events verificaiton
+- Fix KASAN issue about casting 32-bit variable to unsigned long pointer
+- Clear IPSR pending bit before starting counter
+- Clear OF bit in event selector register in irq handler
+- Release irq by devm instead of explicit free_irq
+
+Changed in v2:
+- Rebased onto v7.2-rc1
+- Use hi-lo-hi mechanism to read counter.
+  Suggested by Guo Ren and David Laight
+
+Changed in v1:
+- Rebased onto v6.19-rc8
+- Pick all suggestions and feedbacks from v1 series
+- Add cpu hotplug implementation to avoid race enablement
+- Move PMU-related definition from header to c file
+- Change PMU driver to auxiliary device driver
+
+Changed in RFC:
+- Rebase onto v6.13-rc7
+- Clear interrupt pending before handling interrupt
+- Fix the counter value issue caused by OF bit in the cycle counter.
+- Invoke riscv_iommu_hpm_disable() instead of riscv_iommu_pmu_uninit()
+  in riscv_iommu_remove()
+
+Zong Li (2):
+  drivers/perf: riscv-iommu: add risc-v iommu pmu driver
+  iommu/riscv: create a auxiliary device for HPM
+
+ drivers/iommu/riscv/Kconfig      |    1 +
+ drivers/iommu/riscv/iommu-bits.h |   61 --
+ drivers/iommu/riscv/iommu.c      |   58 ++
+ drivers/iommu/riscv/iommu.h      |    4 +
+ drivers/perf/Kconfig             |   12 +
+ drivers/perf/Makefile            |    1 +
+ drivers/perf/riscv_iommu_pmu.c   | 1081 ++++++++++++++++++++++++++++++
+ 7 files changed, 1157 insertions(+), 61 deletions(-)
+ create mode 100644 drivers/perf/riscv_iommu_pmu.c
 
 -- 
-Primoz Fiser
-phone: +386-41-390-545
-email: primoz.fiser@norik.com
---
-Norik systems d.o.o.
-Your embedded software partner
-Slovenia, EU
-phone: +386-41-540-545
-email: info@norik.com
+2.43.7
 
