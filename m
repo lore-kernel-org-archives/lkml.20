@@ -1,170 +1,98 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F145D45D1B9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911DF44D00D;
+	Fri,  2 Oct 2026 08:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929946; cv=none; b=hNUL5LZR9DMwgdE8bcYG1wkXj9xE2+czOkujo0mkEGuTFGaQVTaHCtPw7cW2Avz8oOi3tqGXyLfz0y79UDCzoC3rc0M+V6njcDdHmwRzQRQnom76bVC4RIftnlXh3fRPwFEKHXVtHmBUh/R6J3cyX1mdBgNUrnwu3VW6/5rBfFQ=
+	t=1790929950; cv=none; b=Y9wJJgxDI8Qe86ksZiBR1aj8DBpP0+Vrv89P3yaAYey+PP+VBSNgHgbB2DLt92AU9fEsQn071m239LLBhJnapqF7atyymLcX3dVzNRT4L5WVE/eWT9zXl0DqdI0s0vqymGvPkU9sUbSJzHuvmskVBC3l3NlJexVKWThR2YU9Gk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929946; c=relaxed/simple;
-	bh=rm25fPbnkxJO7HK0YmIVPZ5xoj6VizjjzCiLuZ4wrBI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=m56DHqRvtkIJ1fkq9xZ685lKE5Dg3aQuZufTkm3pWYR/EOeNoXx2WXVOy9rnlXYyDLpZeETbQ0hjxyBGS+Z3ERYK1s+JKb92EdF1qOhCYFlpxQBEZGbVnu2Ty4gdWqTjZXw9KFHhAlEzfH3iF5fdY/7pCjOKJCmEaL7+B0NjQgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gOM8/Y/X; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790929950; c=relaxed/simple;
+	bh=jG1ybcula4zP4GIDKvPs5PsGrmogHMbwRQM6IAk7XO0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Erl9zvWv0aVJTV6uMgcGAz4QvGFeT8bU6mJAPdPXjtF4hpFAF90Dyt77eEBBq8zdNS4wMS5XDo2TQ0kCkSKoHI/j3Fp2v1cKHmWCHs0eaAJ6nX5m9RgW/DSJuWRZUEJz7CG9h5PvnsMWnt3pi/3YpnK4P23cr4TOSxx4mFA2MRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=do5RPuzz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gOM8/Y/X"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso46616785e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:32:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790929941; x=1791534741; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/bn76FEyPAPXjCUYSZydeUnbTPozt7o+Jc45Ge3nFyQ=;
-        b=gOM8/Y/X8QSRBJid0XZciWOdROVf+RMhL25AJV8yolknw87gSL5S/vwYMGFwT7H5hA
-         qXGE9lSVooIes0Vc4UgAG3LG/BZ9xd4DNEI8yalLTbWdnK7zo9E3qC4sQh/WZsg4g+ew
-         TG7vz7RjF0PXObU4LdFW+flyGSQAjElyrsiKimXf/Q7jeIyF6NdrWu8uAkgciAuvZWUo
-         OBv+8tLd9uDIxz+IKaeOrk3a4nX0buiJNmpeFmfK40wb3okDczzjrmsX/z5dAlEIMczF
-         Kckecudd1heVZnr6LXfMIgW2ybIFHdyDhajsaW9wnpYlPuRYwPKB9CVqflmDPXEMfUBh
-         lKMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929941; x=1791534741;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/bn76FEyPAPXjCUYSZydeUnbTPozt7o+Jc45Ge3nFyQ=;
-        b=WkGYuTa94dz5z7bYz8CNEYZRDy0RBmKA7Dqng6hLnw+EO2Yq9qBidZ6N5TrJNqxxre
-         z+kTWEskS1TyzkwJ8bueoZL/RlYCoHQjDcTg2+2KRKTx9PbJO/DPwyRBRcv0tI6XhT4+
-         9UILKNt+bOXlW1rNnS8UxkyTgfe7mIr9jumN8ZxoiKR9wVBEB7Ckya0WOiANd5nB2Rpp
-         ocLvlHZkGJ6HCkZF8ORY7CCBlOQpmaPVJrhTfqGTW+htpIwjWCztGsCF//z7JqmprwZN
-         940JESYZV0kVsbWoDAcj3Gf8vp52mtO7riG/TP/L4HvbCUQohtbd+5UeIR88cgiUxTMM
-         F5GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwn+2LmuFbK45Om3pyD8AxWTXxet/r84KWFiUJsGjJn6ixCBOGV6laNk4VfdlcXZXVnmrfs6Pd1YmBM+r8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4doY8+/+0kPgKRsGgmxMI6yan0hccxUATXGKCZCv8XKQXuUkw
-	21wj76JUsMIb50EiawfQv/tUnoiXx92h3U+dAg0igXSXTRUXWQsIdgr95KAtYDKq5Dk=
-X-Gm-Gg: AYBFou12Lbze/xgPopidwdGs31TAx7uk0ieAjRtdYdxJoPfTP8zh7w4/GyRxABqUqhB
-	l9uw/a7SXsnlMCl9IgXJXU5qKFEr7vv3GPCUzD+WDCuZ52SyJ0vo4Sxi3Gs6/HTdCVwCdSIxxzV
-	jU8nwJ2NvHX+a2Jqpfu7d6tJEG2GIEyRhnfpqdi6P3gRx9qdoo30sh3tQGXKgSaZT4gOwqkdkRI
-	LrxBy/o6YfV9yCwkW85rym724AXnZeGhdw07Jeysk6yLCBKMudM6srnQ5a//A2HZfL2OU7ZYojB
-	3uFM2kTKj0ZSjubRXVcsyw7HESe6IOMFClXx1RJktUCy1JSmDUU3xSaCDsRPrd9lMptnx1rMjVb
-	/FHTknI6U7BmSlEL3y1dhZ1tJCclDzX6uHGjGmhpAc2bjXQyEEt69Gdld+uWQs3SHsM24Y1RILf
-	TuD6WJg23kRy+1Qy9Oia0ewHaUaUQvZ0zKE0++iapP0njHmcXYm3RQIHrVCRwRNEM61Q==
-X-Received: by 2002:a05:600c:4e41:b0:49c:e27c:6b10 with SMTP id 5b1f17b1804b1-4a0274f9bfbmr42577955e9.3.1790929940907;
-        Fri, 02 Oct 2026 01:32:20 -0700 (PDT)
-Received: from zovi.suse.cz ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03feed16bsm42507905e9.4.2026.10.02.01.32.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 01:32:20 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rudolf Marek <r.marek@assembler.cz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Chris Snook <chris.snook@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Duncan Sands <duncan.sands@free.fr>,
-	Chas Williams <3chas3@gmail.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-watchdog@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-hwmon@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	netdev@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org,
-	linux-rtc@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] Remove obsolete __MODULE_STRING()
-Date: Fri,  2 Oct 2026 10:31:00 +0200
-Message-ID: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="do5RPuzz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431D31F008A7;
+	Fri,  2 Oct 2026 08:32:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790929946;
+	bh=ANFhZY5oTXIgXzJkgsjgPsIuJL50A78fEBGBYh3rZyE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=do5RPuzzz3tSANyIPWTUtoJpk700txOdRPbNqSrh5XADTyX8v0+RmCdMFV0YR4u6X
+	 MTGAEEha7yb3s/xI72yZWyN5Fknt+QT8pQGkai2eF7hxieSN/UNU7ypvtAxDlsdiOJ
+	 YbiSlzGe+G0oe+UmkIcpBBRDYWuBHzkii2b/U3INF/3oZyn+dk7+ZK/MkUL8at0fMU
+	 1si7zAA3qD5Gjlfx1wbxrEKTs3j3KiQOnz16XxgM2lFynKZWPhHxgamKy/aooWqXZw
+	 9Jt8EA6Z47BTB+COEVX9E+GgxI0mckFEVAekf+qz0ahzN5k6nxuWvk2DXzdlpLqzRU
+	 WeS3cpXnXZ7EA==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham
+ <kieran.bingham@ideasonboard.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 5/5] media: imx219: Add status polling using .detect()
+In-Reply-To: <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <20261001-v4l2-sensor-detect-v1-5-a45993be17b8@kernel.org>
+ <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
+Date: Fri, 02 Oct 2026 10:32:24 +0200
+Message-ID: <xhkdbece8v6xz.fsf@mkorpers-koolstof.csb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260919-module-string-d64816f203d9
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-__MODULE_STRING() has been an alias for __stringify() since "[PATCH]
-MODULE_PARM support for older modules" [1] in 2002-12. That change also
-moved it to the graveyard section at the end of linux/module.h
+Hi Dave,
 
-Replace the remaining uses of __MODULE_STRING() with __stringify() and
-remove the macro.
+Thank you for the review.
 
-Apologies for the wide distribution. Acked-bys are appreciated.
+On Thu, Oct 01, 2026 at 16:58, Dave Stevenson <dave.stevenson@raspberrypi.com> wrote:
 
-[1] https://git.kernel.org/tglx/history/c/136839a1b4
+> Hi Mattij
+>
+> On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
+> <mkorpershoek@kernel.org> wrote:
+>>
+>> Userspace needs to be notified when a sensor connection status
+>> changes (e.g. disconnected at boot, then later reconnected) so it can
+>> react accordingly.
+>>
+>> Add periodic polling using a delayed work that calls .detect() every
+>> 2s and sends a KOBJ_CHANGE uevent with HOTPLUG=1 on status changes.
+>> This mirrors the approach used by DRM connectors in output_poll_execute().
+>
+> AIUI DRM polls from within the framework (drm_probe_helper.c), not by
+> a workqueue in the individual drivers.
 
----
-Changes in v2:
-- Rebase on top of next-20260930.
-- Drop 'watchdog: Replace __MODULE_STRING() with __stringify()' since it
-  has already been queued on watchdog-next.
-- Split the hwmon changes into a separate patch.
-- Link to v1: https://patch.msgid.link/20260922-module-string-v1-0-c18766690185@suse.com
+Yes, that's my understanding as well.
 
----
-Petr Pavlu (3):
-      hwmon: Replace __MODULE_STRING() with __stringify()
-      drivers: Replace __MODULE_STRING() with __stringify()
-      module: Remove obsolete __MODULE_STRING()
+>
+> Admittedly V4L2 doesn't currently have a totally obvious place to
+> setup this, but it would be far less effort to have the polling
+> framework within the core code rather than driver.
+> Possibly initialised in __v4l2_async_register_subdev_sensor() based on
+> whether .detect is set, and cleaned up in
+> v4l2_async_unregister_subdev, with the workqueue calling .detect and
+> generating the udev event based on the return value? I think that's
+> feasible.
 
- drivers/comedi/comedi_fops.c                          |  5 +++--
- drivers/gpu/drm/drm_fb_helper.c                       |  3 ++-
- drivers/hwmon/fschmd.c                                |  3 ++-
- drivers/hwmon/nct7904.c                               |  5 +++--
- drivers/hwmon/sch56xx-common.c                        |  3 ++-
- drivers/hwmon/w83793.c                                |  5 +++--
- drivers/i2c/busses/i2c-kempld.c                       |  3 ++-
- drivers/net/ethernet/atheros/atl1e/atl1e_param.c      |  9 +++++----
- drivers/net/ethernet/atheros/atlx/atl1.c              |  3 ++-
- drivers/net/ethernet/atheros/atlx/atl2.c              | 11 ++++++-----
- drivers/net/ethernet/intel/e1000/e1000_param.c        | 15 ++++++++-------
- drivers/net/ethernet/intel/e1000e/param.c             | 16 ++++++----------
- drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c |  7 ++++---
- drivers/platform/cznic/turris-omnia-mcu-watchdog.c    |  3 ++-
- drivers/rtc/rtc-ds1374.c                              |  3 ++-
- drivers/thunderbolt/tb.c                              |  3 ++-
- drivers/thunderbolt/tunnel.c                          |  5 +++--
- drivers/tty/serial/8250/8250_platform.c               |  3 ++-
- drivers/usb/atm/speedtch.c                            | 15 ++++++++-------
- drivers/usb/atm/usbatm.c                              | 17 +++++++++--------
- include/linux/module.h                                |  4 ----
- 21 files changed, 76 insertions(+), 65 deletions(-)
----
-base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-change-id: 20260919-module-string-d64816f203d9
+I agree with you that the polling should not be done in every sensor
+driver.
+I did it this way to illustrate how this would all be tied together in a
+simple exemple (one sensor driver).
+
+If we move forward with this series, I'll rework this to
+be done in a generic way.
+
+Mattijs
+
+>
+>   Dave
+>
