@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F09A470121;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECC746F4A7;
 	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931473; cv=none; b=aVXL+t61qRdcFtwMRgsvwpW8TW3lf5+ENM88ccSg7Z0Tr6cUjxggUjWsRLBX9JVdPF8r5Uel9lzHB/PX4b+S5R1VaanTdrrZemTjL5yHcTXtAfpccyaAE5jjkmQBoo4z01li0vfqPFl57NJgCrnUbrZOTIMZjGB58+ytCUNpnm4=
+	t=1790931473; cv=none; b=hdBMqYcu7z8wwaaFlQgAtJzhQSu1kDK0Xbw7+OgeLWmBtF5IyV5dhb+Zcu6ESO66W5+hy9zXIIYa12SwkNRwU39dCu22O9Xzk/O9x1pVPfAkuE/b93zhx/C2XhPoaJrREpCR+9AgyPeVBHTHgtu3wxmwb/gEe54vo5ZTNDxq1VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790931473; c=relaxed/simple;
-	bh=jMM7S/IqcUtQXghund0XhiWoF9PS/cZInRPG/50Nh54=;
+	bh=7YBkccrkpgpNjhHUjGGIUrl1EFma6h7sNuthO9uXwzw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TBiR4CbDyod2DkCvqeS/jg+3WQTYPx9Xz44w9fjy59Byyl/edPsX04mUQB3QPGWzfe3ON2Nh11qntaA+zX0sqIaK6jD4kLlA3QHfGZPoLJadNJw3UBkQH6jJqQ9l92is4yBr+J9zmbQKItmnwzh5dCOe0VP1PCLYjEt1J6QqDCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qffX9kw9; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=q7iNhrN2KpaNOZ7iINZdSFOuM/HDY+yTp1pyZtZGn+ZSPR93Vbn3xRmxbhr/h4jnj5eNSMQ3hDiq5zy3LaIF2oouTSzLLfYUacbCAQL2Vz4l28Pynp9+XDxko7Cm9bhuX7wwC9tyhyfQRTftRQ5tJ2UISHTvt5KSxuBKeH6+tNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p5KtiKHJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qffX9kw9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 203BAC4AF1B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p5KtiKHJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 12B4AC4AF19;
 	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790931473;
-	bh=jMM7S/IqcUtQXghund0XhiWoF9PS/cZInRPG/50Nh54=;
+	bh=7YBkccrkpgpNjhHUjGGIUrl1EFma6h7sNuthO9uXwzw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qffX9kw9TMl+ZHlDqJNtJJA0WVPDryZtZfvXAj8BLQdkWv7h2z4B21vYKfGvIOCrx
-	 RdaXRLrVgDSzF4QiRAPs9ijLZWkeIvpzAwochTohFHCzXu83J9nxVhklmCacujw6Gl
-	 NgjeGR2Wqf1DKoisEGimsdJ33iPENNCM11PBfv2sNb4wXttwVWj/Il/0bXahYGU//U
-	 WDFokbvYNjWO2vJr1OLWLmv2upJN2YNbhnHAS65AFdNLXT+qwezooTlMwNRvmFDH2f
-	 V9rtagTDc9vNCIRPAPHGxDf1fl+f1ay6svQMVXqCAMcO+7O8/8HG3U88qDxiCtOw/g
-	 i1X3Lb48x3eRg==
+	b=p5KtiKHJCq7TBSrX07P/Oq2L9/BFXGiBVVkROcHA0iRsnOb2v4KqPWP1XOAC9k18+
+	 J6fAHCho7p3b6PtN3cqxGtR3QWA0vqBbm67aWu0JtWaK98twKWniqMhFIl+IpXfwSX
+	 slcCyxd+AFVmsGOf1/J8XmnAoKUXG8AoyTvLtQmffSG582oCwyAfmVENo5FzRQhZLb
+	 QHfBwQxVu57YuK2F5xb7DBu0s2G8q7jsrQz/fDtAHnW8yeKrhOnbH+BmFziw/YQdPX
+	 WKcGPvciLJeeFkLj5ypIqQ0nU5OlM+tq8/GwyZCHx0i5mx7pIHSX1AeBWMECw000s8
+	 zaoIuYHufP+AA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FCD3CA5FE0;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01F52CA5FE3;
 	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
 From: Maurizio Casciano via B4 Relay <devnull+mauriziocasciano7.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 10:57:52 +0200
-Subject: [PATCH v10 14/15] media: atomisp: allow raw Bayer capture
+Date: Fri, 02 Oct 2026 10:57:51 +0200
+Subject: [PATCH v10 13/15] media: atomisp: Use struct v4l2_area for padding
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-14-817ec765b257@gmail.com>
+Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-13-817ec765b257@gmail.com>
 References: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
 In-Reply-To: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-staging@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=4163;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=10562;
  i=mauriziocasciano7@gmail.com; s=yogabook-kernel-20261002;
  h=from:subject:message-id;
- bh=cRtGWWj24ZHI7nUInXtrMBY5Ib/ZQiVAfOJrxS6w5ug=;
- b=Xw+KQ2bbCUzORE4qX4zav1R9ku46xTqdTk71kdQQxp3NMhqXCvkdPxnBrD28n/vy83xmSS/FY
- cSkS09dxdN0CcuWdk62bFAB7/3jnpKx9sl+9pBakDxY15Tn5sj5RkGI
+ bh=0LKNqd72Z3lyR+Dr4VVQAGocBW28bzz7BxktKTUrPss=;
+ b=5GUxZVIAQrNTNbXmTOPLO1qtwOQE0YtMgnQNDZu1gbG2P9M7PC/05Tq6pqPKXvFQbHciOQkvP
+ 2vv9PRQ/eIjCVeYcpaLlHkKOmrpllh3zHGEsZv8JO5ZKxBJ2hYn1acE
 X-Developer-Key: i=mauriziocasciano7@gmail.com; a=ed25519;
  pk=ODC2oSPBqt7ukC3AEDZNS7LIE21D8ke8TEHoNlxniNM=
 X-Endpoint-Received: by B4 Relay for
@@ -69,113 +69,253 @@ Reply-To: mauriziocasciano7@gmail.com
 
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 
-AtomISP currently rejects all raw formats and silently substitutes
-YUV420. This prevents userspace camera processing stacks from obtaining
-unprocessed sensor frames.
+The padding helper passes width and height as four separate scalar
+arguments even though they form two logical dimensions.
 
-Enumerate only the raw format matching the sensor media-bus code and
-reconcile raw requests with the code selected by the sensor. Userspace
-opts in by selecting that raw V4L2 pixel format with VIDIOC_S_FMT.
+Pass the requested size and returned padding as struct v4l2_area values.
+This makes the dimensions explicit and simplifies all three callers.
 
-Raw formats expose the full sensor transport frame so ISP2401 can use
-its copy pipeline. Processed formats retain the existing global padding
-behavior; selecting a smaller receiver crop remains a userspace pipeline
-decision.
-
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Assisted-by: LLM sparse
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- drivers/staging/media/atomisp/pci/atomisp_cmd.c   | 14 +++++++++++---
- drivers/staging/media/atomisp/pci/atomisp_ioctl.c | 17 ++++++++++++++---
- 2 files changed, 25 insertions(+), 6 deletions(-)
+ drivers/staging/media/atomisp/pci/atomisp_cmd.c    | 69 +++++++++++++---------
+ drivers/staging/media/atomisp/pci/atomisp_cmd.h    |  6 +-
+ drivers/staging/media/atomisp/pci/atomisp_ioctl.c  | 15 ++---
+ drivers/staging/media/atomisp/pci/atomisp_subdev.c |  4 +-
+ drivers/staging/media/atomisp/pci/atomisp_subdev.h |  3 +-
+ 5 files changed, 54 insertions(+), 43 deletions(-)
 
 diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-index 4d4c0726d9de..e7b817fd779a 100644
+index 52c71cd86dec..4d4c0726d9de 100644
 --- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
 +++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -3822,8 +3822,7 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
+@@ -3562,9 +3562,9 @@ static void atomisp_fill_pix_format(struct v4l2_pix_format *f,
+ 	f->xfer_func = V4L2_XFER_FUNC_709;
+ }
+ 
+-/* Get sensor padding values for the non padded width x height resolution */
+-void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
+-			 u32 *padding_w, u32 *padding_h)
++/* Get sensor padding values for the non-padded size */
++void atomisp_get_padding(struct atomisp_device *isp, struct v4l2_area size,
++			 struct v4l2_area *pad)
+ {
+ 	struct atomisp_input_subdev *input = &isp->inputs[isp->asd.input_curr];
+ 	struct v4l2_rect native_rect = input->native_rect;
+@@ -3574,22 +3574,24 @@ void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
+ 	struct v4l2_mbus_framefmt *sink;
+ 
+ 	if (!input->crop_support) {
+-		*padding_w = pad_w;
+-		*padding_h = pad_h;
++		pad->width = pad_w;
++		pad->height = pad_h;
+ 		return;
+ 	}
+ 
+-	width = min(width, input->active_rect.width);
+-	height = min(height, input->active_rect.height);
++	size.width = min(size.width, input->active_rect.width);
++	size.height = min(size.height, input->active_rect.height);
+ 
+-	if (input->binning_support && width <= (input->active_rect.width / 2) &&
+-				      height <= (input->active_rect.height / 2)) {
++	if (input->binning_support &&
++	    size.width <= (input->active_rect.width / 2) &&
++	    size.height <= (input->active_rect.height / 2)) {
+ 		native_rect.width /= 2;
+ 		native_rect.height /= 2;
+ 	}
+ 
+-	*padding_w = min_t(u32, (native_rect.width - width) & ~1, pad_w);
+-	*padding_h = min_t(u32, (native_rect.height - height) & ~1, pad_h);
++	pad->width = min_t(u32, (native_rect.width - size.width) & ~1, pad_w);
++	pad->height = min_t(u32, (native_rect.height - size.height) & ~1,
++			    pad_h);
+ 
+ 	/* The below minimum padding requirements are for BYT / ISP2400 only */
+ 	if (IS_ISP2401)
+@@ -3617,8 +3619,18 @@ void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
+ 		min_pad_h += 2;
+ 
+ apply_min_padding:
+-	*padding_w = max_t(u32, *padding_w, min_pad_w);
+-	*padding_h = max_t(u32, *padding_h, min_pad_h);
++	pad->width = max_t(u32, pad->width, min_pad_w);
++	pad->height = max_t(u32, pad->height, min_pad_h);
++}
++
++static void
++atomisp_get_pix_padding(struct atomisp_device *isp,
++			struct v4l2_pix_format *f,
++			struct v4l2_area *pad)
++{
++	struct v4l2_area size = { .width = f->width, .height = f->height };
++
++	atomisp_get_padding(isp, size, pad);
+ }
+ 
+ int atomisp_s_sensor_power(struct atomisp_device *isp, unsigned int input, bool on)
+@@ -3806,7 +3818,7 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
+ 	const struct atomisp_format_bridge *fmt, *snr_fmt;
+ 	struct atomisp_sub_device *asd = &isp->asd;
+ 	struct v4l2_mbus_framefmt ffmt = { };
+-	u32 padding_w, padding_h;
++	struct v4l2_area padding;
  	int ret;
  
  	fmt = atomisp_get_format_bridge(f->pixelformat);
--	/* Currently, raw formats are broken!!! */
--	if (!fmt || fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
-+	if (!fmt) {
- 		f->pixelformat = V4L2_PIX_FMT_YUV420;
- 
- 		fmt = atomisp_get_format_bridge(f->pixelformat);
-@@ -3845,7 +3844,10 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
+@@ -3833,10 +3845,10 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
  	 * resolution + padding. Add padding here and remove it again after
  	 * the set_fmt call, like atomisp_set_fmt_to_snr() does.
  	 */
--	atomisp_get_pix_padding(isp, f, &padding);
-+	if (fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-+		padding = (struct v4l2_area) { };
-+	else
-+		atomisp_get_pix_padding(isp, f, &padding);
+-	atomisp_get_padding(isp, f->width, f->height, &padding_w, &padding_h);
++	atomisp_get_pix_padding(isp, f, &padding);
  	v4l2_fill_mbus_format(&ffmt, f, fmt->mbus_code);
- 	ffmt.width += padding.width;
- 	ffmt.height += padding.height;
-@@ -3865,6 +3867,12 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
+-	ffmt.width += padding_w;
+-	ffmt.height += padding_h;
++	ffmt.width += padding.width;
++	ffmt.height += padding.height;
+ 
+ 	dev_dbg(isp->dev, "try_mbus_fmt: try %ux%u\n", ffmt.width, ffmt.height);
+ 
+@@ -3853,8 +3865,8 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
  		return -EINVAL;
  	}
  
-+	if (fmt->sh_fmt == IA_CSS_FRAME_FORMAT_RAW &&
-+	    fmt->mbus_code != snr_fmt->mbus_code) {
-+		fmt = snr_fmt;
-+		f->pixelformat = fmt->pixelformat;
-+	}
-+
- 	f->width = ffmt.width - padding.width;
- 	f->height = ffmt.height - padding.height;
+-	f->width = ffmt.width - padding_w;
+-	f->height = ffmt.height - padding_h;
++	f->width = ffmt.width - padding.width;
++	f->height = ffmt.height - padding.height;
  
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-index 87c29a940f9b..9ce529b0c7b3 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-@@ -537,12 +537,17 @@ static int atomisp_enum_framesizes(struct file *file, void *priv,
- 		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
- 		.code = input->code,
- 	};
-+	const struct atomisp_format_bridge *format;
- 	struct v4l2_subdev_state *act_sd_state;
- 	int ret;
- 
- 	if (!input->sensor)
+ 	/*
+ 	 * If the format is jpeg or custom RAW, then the width and height will
+@@ -4274,11 +4286,12 @@ static int atomisp_set_fmt_to_snr(struct video_device *vdev, const struct v4l2_p
  		return -EINVAL;
  
-+	format = atomisp_get_format_bridge(fsize->pixel_format);
-+	if (!format)
-+		return -EINVAL;
+ 	v4l2_fill_mbus_format(&ffmt, f, format->mbus_code);
+-	ffmt.height += asd->sink_pad_padding_h + dvs_env_h;
+-	ffmt.width += asd->sink_pad_padding_w + dvs_env_w;
++	ffmt.height += asd->sink_pad_padding.height + dvs_env_h;
++	ffmt.width += asd->sink_pad_padding.width + dvs_env_w;
+ 
+ 	dev_dbg(isp->dev, "s_mbus_fmt: ask %ux%u (padding %ux%u, dvs %ux%u)\n",
+-		ffmt.width, ffmt.height, asd->sink_pad_padding_w, asd->sink_pad_padding_h,
++		ffmt.width, ffmt.height, asd->sink_pad_padding.width,
++		asd->sink_pad_padding.height,
+ 		dvs_env_w, dvs_env_h);
+ 
+ 	__atomisp_init_stream_info(ATOMISP_INPUT_STREAM_GENERAL, stream_info);
+@@ -4371,13 +4384,11 @@ int atomisp_set_fmt(struct video_device *vdev, struct v4l2_format *f)
+ 				V4L2_SUBDEV_FORMAT_ACTIVE,
+ 				ATOMISP_SUBDEV_PAD_SOURCE, &isp_source_fmt);
+ 
+-	if (atomisp_subdev_format_conversion(asd)) {
+-		atomisp_get_padding(isp, f->fmt.pix.width, f->fmt.pix.height,
+-				    &asd->sink_pad_padding_w, &asd->sink_pad_padding_h);
+-	} else {
+-		asd->sink_pad_padding_w = 0;
+-		asd->sink_pad_padding_h = 0;
+-	}
++	if (atomisp_subdev_format_conversion(asd))
++		atomisp_get_pix_padding(isp, &f->fmt.pix,
++					&asd->sink_pad_padding);
++	else
++		asd->sink_pad_padding = (struct v4l2_area) { };
+ 
+ 	atomisp_get_dis_envelop(asd, f->fmt.pix.width, f->fmt.pix.height,
+ 				&dvs_env_w, &dvs_env_h);
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.h b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
+index d3d1f2574e77..8a84e774f4d5 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.h
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
+@@ -225,9 +225,9 @@ int atomisp_makeup_css_parameters(struct atomisp_sub_device *asd,
+ int atomisp_compare_grid(struct atomisp_sub_device *asd,
+ 			 struct atomisp_grid_info *atomgrid);
+ 
+-/* Get sensor padding values for the non padded width x height resolution */
+-void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
+-			 u32 *padding_w, u32 *padding_h);
++/* Get sensor padding values for the non-padded size */
++void atomisp_get_padding(struct atomisp_device *isp, struct v4l2_area size,
++			 struct v4l2_area *pad);
+ 
+ /* Set sensor power (no-op if already on/off) */
+ int atomisp_s_sensor_power(struct atomisp_device *isp, unsigned int input, bool on);
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
+index 50366bf10f32..87c29a940f9b 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
+@@ -457,7 +457,7 @@ static int atomisp_enum_framesizes_crop_inner(struct atomisp_device *isp,
+ 					      const struct v4l2_rect *native,
+ 					      int *valid_sizes)
+ {
+-	static const struct v4l2_frmsize_discrete frame_sizes[] = {
++	static const struct v4l2_area frame_sizes[] = {
+ 		{ 1920, 1440 },
+ 		{ 1920, 1200 },
+ 		{ 1920, 1080 },
+@@ -470,15 +470,15 @@ static int atomisp_enum_framesizes_crop_inner(struct atomisp_device *isp,
+ 		{  800,  600 },
+ 		{  640,  480 },
+ 	};
+-	u32 padding_w, padding_h;
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(frame_sizes); i++) {
+-		atomisp_get_padding(isp, frame_sizes[i].width, frame_sizes[i].height,
+-				    &padding_w, &padding_h);
++		struct v4l2_area padding;
+ 
+-		if ((frame_sizes[i].width + padding_w) > native->width ||
+-		    (frame_sizes[i].height + padding_h) > native->height)
++		atomisp_get_padding(isp, frame_sizes[i], &padding);
 +
- 	if (input->crop_support)
- 		return atomisp_enum_framesizes_crop(isp, fsize);
- 
-@@ -555,8 +560,13 @@ static int atomisp_enum_framesizes(struct file *file, void *priv,
- 		return ret;
- 
- 	fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
--	fsize->discrete.width = fse.max_width - pad_w;
--	fsize->discrete.height = fse.max_height - pad_h;
-+	if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
-+		fsize->discrete.width = fse.max_width;
-+		fsize->discrete.height = fse.max_height;
-+	} else {
-+		fsize->discrete.width = fse.max_width - pad_w;
-+		fsize->discrete.height = fse.max_height - pad_h;
-+	}
- 
- 	return 0;
- }
-@@ -630,7 +640,8 @@ static int atomisp_enum_fmt_cap(struct file *file, void *fh,
- 		 *
- 		 * FIXME: fix the pipeline to allow sensor format too.
- 		 */
--		if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-+		if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW &&
-+		    format->mbus_code != code.code)
++		if ((frame_sizes[i].width + padding.width) > native->width ||
++		    (frame_sizes[i].height + padding.height) > native->height)
  			continue;
  
- 		/* Found a match. Now let's pick f->index'th one. */
+ 		/*
+@@ -491,7 +491,8 @@ static int atomisp_enum_framesizes_crop_inner(struct atomisp_device *isp,
+ 
+ 		if (*valid_sizes == fsize->index) {
+ 			fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
+-			fsize->discrete = frame_sizes[i];
++			fsize->discrete.width = frame_sizes[i].width;
++			fsize->discrete.height = frame_sizes[i].height;
+ 			return 0;
+ 		}
+ 
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.c b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
+index bdd2d9b18da2..495032966b00 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_subdev.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
+@@ -327,8 +327,8 @@ int atomisp_subdev_set_selection(struct v4l2_subdev *sd,
+ 
+ 		if (atomisp_subdev_format_conversion(isp_sd)
+ 		    && crop[pad]->width && crop[pad]->height) {
+-			crop[pad]->width -= isp_sd->sink_pad_padding_w;
+-			crop[pad]->height -= isp_sd->sink_pad_padding_h;
++			crop[pad]->width -= isp_sd->sink_pad_padding.width;
++			crop[pad]->height -= isp_sd->sink_pad_padding.height;
+ 		}
+ 
+ 		if (isp_sd->params.video_dis_en &&
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.h b/drivers/staging/media/atomisp/pci/atomisp_subdev.h
+index b12bb65be3f2..0045f380de74 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_subdev.h
++++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.h
+@@ -214,8 +214,7 @@ struct atomisp_sub_device {
+ 	struct media_pad pads[ATOMISP_SUBDEV_PADS_NUM];
+ 	struct atomisp_pad_format fmt[ATOMISP_SUBDEV_PADS_NUM];
+ 	/* Padding for currently set sink-pad fmt */
+-	u32 sink_pad_padding_w;
+-	u32 sink_pad_padding_h;
++	struct v4l2_area sink_pad_padding;
+ 
+ 	unsigned int output;
+ 	struct atomisp_video_pipe video_out;
 
 -- 
 2.53.0
