@@ -1,119 +1,116 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E0347534A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072CD472F89
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932559; cv=none; b=ldwm+qBVrrX72c8Lg8Y4ROcSf5Ilp985RQUM36HyysNunTbabzrvIIvb6a1FrZfHLfXOBPeNJz0k1qDo9nr5Soy6yp5MHDgif3b9WHN3nRswwYLRlQ3D8LwXqxrrI80+o8djbgonDrjgb8XCOnkVG9gRCtwIa7ua6hQt3YgAI84=
+	t=1790932587; cv=none; b=ajC88XRIAcbqNTz6L6ZU5v5YQ5cqM3/Ep56crq7W3DdKVTluS1NucSeS6pANRoql94+wcjKYgjiH4ERg3oh7Syh/E8HMEva3UwlRWlsijzF7W+k4thaPp3m4bqivi4WiitKeflUMfshJZKwZCSDFkzXO4s3djxUSA2wVZQTrQ1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932559; c=relaxed/simple;
-	bh=RVJuTH9dQx8sPj2A0T/4W/YMqBB1eS42ftDLNOb4H8E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G2yOFvZ/Q34O0Gb51AnqmS+YeI/WfgPrYViA9Z3GIVnmNon0utDotThhPUSpBrM1vLhyNy2CcXenGliNoHLnAgeZwDUilRm+nEgufLk2RLf0gQgWb04wV2UYKXpel/q8jrp80HMa1m46TQkbpOtNGEiG+7uJVPe1yweuFpQZpKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H+92Yi7h; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790932587; c=relaxed/simple;
+	bh=MEreik6J3EAEudynI1ROkdNWYq3JQgGtrAgtA06FjWU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mxnexdk3mopPn86eFHFI+XMyrfvpbNmzI/It7J72bNZX6+sJv4uAwhNdNQ371g2fGgyaOI6FDQGE3xHjNNZpOvIWJRTFGhw2CAIFFBzYAFOQSl32EzfVOpKYf7ynbYzWYg+lqwK9yaIY4RKvPFuXa+c6LFarcUuAEGzTyPptzUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=DDLu+I1s; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+92Yi7h"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af929e59dso2722010f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:15:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="DDLu+I1s"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b0591cf85so1213156f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790932556; x=1791537356; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jRPrTGUlYlRMvJF+ftPXWXm2emGl+fkBUfXA6bf3Pvw=;
-        b=H+92Yi7hVudwQRM/kXkv8j9Um0hz/nUEC7552OqPS+oUYhSotJdckR3vg+ioBISYZv
-         0MQplvrETbFoMPm2yGtfbiha3WQ5CDIeVkUcLjjgCNZjx3ut+FpEwRLJkWx3NY2veS1e
-         Ukxdbc7/5lMiUVHcUFTtsTvjeg1Sb+y8KCz6eeAFYfoH3YThHja+Y2mb7aeIefzh2kpj
-         eRsoLsoUcZKGSFbALtzCbwDF5dD/Zo+Ac9sUUBC1p5OtyPriHRUHvLpsTOo3u/GeqfR8
-         7bS4vjTCYPiGolRwMKFilxIkFE9KxxMau1oDMOquLQGJDGd+0jL83cgv+y2pV5zeGOyX
-         Pj/A==
+        d=linaro.org; s=google; t=1790932584; x=1791537384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j8FmFOHYSHqj+TvFJEfarN2rwBXQ1VT7J59Vq32Ksb0=;
+        b=DDLu+I1sXWyctHrsxcuYFld752NSkl2FA/GHFKjSN3PkTO3gUgxb6KnIvkQ9gKEvsf
+         otrQdJKfaLN7GjXPjpLcIV11rSECwIDIyd3CfirONe16XxfHO8bUDaCjG2UQb6Ax2cIM
+         EEQD/uODrQVWcVTU4sGc40WlLRDdo4OKKURxM5IBXLmO+Igr9TwnCHLcqNE+ldzWiyiW
+         Yqzh45wfOeZWpY7k1z3B7Ynvw8WpVgutRWBJpmO465kScHwiBca5GBZO8+bBzlh1ps61
+         v1sdJrsOPSdBWRgVQ1nPpQliCEiINBd0p9DdzbiC1yIW+95fSTELoMVlWSMMWO6zUwzW
+         nZLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932556; x=1791537356;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790932584; x=1791537384;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jRPrTGUlYlRMvJF+ftPXWXm2emGl+fkBUfXA6bf3Pvw=;
-        b=SUzUvkf8iX1UIOqyBmxL726aQaesvdGFUXPzCfIYdlLdo7UNR9HsvwHBB3F7WaEqzY
-         TQiWgUm6bz5TPaH+xJBNYLCQutQoyNlhw4mcz1uXddCTM/KwUR8XMr6dJv7K9/H9SK45
-         UOdkqJcPz50+Y1UR+cxyTaz5hQpTRvYm10OpsHKphy5IqDBS/aQA7UWj4oQb8Yq8TZVc
-         +TMwGfAgjYs3i0u+uV+zjEDy5XuuF/7Gpohpq3dDEXoTqCCys15UA1YFLd318B3C5Ug3
-         PzkxDRzzJOs87ft8vSUr4GJDr/NYimbrGFFqx8lbcUrBH2wTDCxpzJsb+GH95dIv+cUx
-         CUNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8tJiWSq4Bgeo/016LZkajhx88Se7VNeNi+FhJ1lJYMpPFvD1/i3bAp5AUni0N8+q3T+7br0dlYPs8HwU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGqv195mKkQCRAi4HIGTML1NDK107Fx79QgDQyDsW7Faw6JQnN
-	MP84wENIggatQjs9uIno1OUasS7Onl5hv+sCpwUGEtntNEft8hNBBxe5
-X-Gm-Gg: AYBFou0dxt0r64I3U+mlQsx92ZzqqGfkOoC6u9SXfB0kQLI6iSWqN2zQUwVibAK9hVx
-	wiUoS4johwdaU1Bp8EH8vBYkctr0SWMCTMOA4KAtfMWG9CPlwOCgXNPFiD4v5jmVvoGWOErNfly
-	6uXFJgx6eRcYDT1P+0k9Twxz0XIx0YfI+rrfJKe62ogiW7dviQYOw+H5n/KPvImwwOJZoYItJaK
-	CI+3FqmPQFG5Tv4hga7ms9bSGJN2jB1u+TqsJMLgSURP/fTVxLiFGToRJk/kFO8FgmcRk5VZehd
-	JKC7g0+qVbqzklNJIMy67rmj3fVZglYgOS77axcTjB/ne7gF3gLfKdgoCt5bkx7OS3jlFIgXcGs
-	fMl0Qy2gskOoH/kSNldfe9h7YQz/KCfJhtkZEs4sQmgB5LnRyParwHqZqWY0TfUO0o5Cc1MTyE/
-	7LcoXJOKrleEtCVOlCvdQsOFZAzWzXTnOB2OzIyOrrtK+O9A6ZVrRrN6mLnwVXGQ7nm5rKCo68x
-	fMIYfDx56hozosY8GS4wSZgD0HOrbpfBmoCDEN6CIFyhEPdSYVpoAp5B+KLYM6tm0kbKoGSAxWf
-	1cMKVgeqhnOrDBZJm0WOF6TWTdTAAhBrxrCFhe2BhRJR8wLD+Kv/kn5rDzcTYj1bFAk5Y9yf7Gv
-	X2JvKO0Gv8c0591Qs7VTfFMCHmyK+Qyca60YQuyVnx3Vz3Y0cdEMejOfI0LuQj1AlIdYA6AcPkY
-	YbiTk3
-X-Received: by 2002:a05:6000:4809:b0:48a:fcec:2a29 with SMTP id ffacd0b85a97d-48b1273b029mr4027458f8f.20.1790932555893;
-        Fri, 02 Oct 2026 02:15:55 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f89c3sm3966667f8f.34.2026.10.02.02.15.54
+        bh=j8FmFOHYSHqj+TvFJEfarN2rwBXQ1VT7J59Vq32Ksb0=;
+        b=fu5gUIt2tlJ0Hswq000//3mgpiv3JEoQQxae/+eSiNy8zd8BG7bu9Plyqq2RjaMYgG
+         GvTibhHhrt0Ufqy5nenhY/fUdEnJA6UgS6VuOXeE3lWfD3/v7fvowpxAOalqeiVTFQMb
+         WBudUZZqQp8lwuGasbD/gQSHZg5QCRGItbhO6RRIfTrvw2SQi6zdhvmjcggQBjF0MZEc
+         3GpyyD1QJiGWpUSM33Yxfh34qcfuL0iLtOiwL3p4BzapZg1KNDSv73XqnqT+ids5wAxf
+         pYrucoEKxZuSI2r1Omyz8jDNkhc2SEuJ0yxf2ENNorEE/TpEvL5NvqwlzJSSAk8YcKps
+         hYEA==
+X-Forwarded-Encrypted: i=1; AKwUvByTGDzJtuMyYYqiLzdpBqtMnaiE8jNomLXNsPnf2AZgJGJh1HV0iE/7fGxglYMUhHCk9XDYazsxp6MudEQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr4Y9HHFovCyU5a2wzH2oearzMsHZtafKcCeTYBaj+p1gRDDdg
+	YTZX6Xo2pBB1tueKS49bK5EfLeP51NS/KVUeFLOYkrhfIBw3iuQE3HAdT7y/t0FFVA4=
+X-Gm-Gg: AYBFou0vCixckbn63rT+drdNPOrnJkri1UGqU2UvCpSw9DPBi/7OBGuQY6DIL1XZJLb
+	LwKeQqsTRnjRe4DUxyekdV5nS4Uo4LWMAsz38nqLYCndo4nA0iBVphy8TA6EVW6aq0ojUp5TTnX
+	tDUPmTGPx4qdMeCg2csbB/RpSWqniE1QHqNEbGHhNnhhcYMyQgkycOZMSE39IIy28UhHQQEhcJG
+	CUe8TJjmpwvcD7JalDYp/uprQJNzkQQVB6+rqu1IYlDaJXUgJQFZL4Qi+P5ESCvNZHrmLio90WD
+	O6CBoERRXu8edQNScATOp2QViAmLjGcVYq4e7wNGk0cbZbQeSCD9licP7qmewa0oz6OI0E+CScx
+	/QGGl71T2McDfhK+GYnyvHJpd27G4tGC+WAtO6yB7copOOZmziyB3cqeAh1QjwGk3eICTUVx3Nc
+	JSHd6gBJzL84tMBW5D773ZDrel91hL3LLqBQjxc7/LQ2FzImGnxsRUQKTI7eJ4i2WSpPlAN08tr
+	T2jMEbceO0yfkcTeesw
+X-Received: by 2002:a05:6000:4816:b0:488:79e5:cb2b with SMTP id ffacd0b85a97d-48b127297c5mr3802494f8f.43.1790932584104;
+        Fri, 02 Oct 2026 02:16:24 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:15:55 -0700 (PDT)
-Date: Fri, 2 Oct 2026 11:15:52 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Billy Tsai <billy_tsai@aspeedtech.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
- <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen
- <ryan_chen@aspeedtech.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: iio: adc: Add syscon property for
- multi-SCU SoCs
-Message-ID: <20261002111552.000049d3@gmail.com>
-In-Reply-To: <20261002-succinct-voracious-orangutan-fdac5e@quoll>
-References: <20261001-ast27xx-adc-upstream-v2-0-2f9c15cc0064@aspeedtech.com>
-	<20261001-ast27xx-adc-upstream-v2-1-2f9c15cc0064@aspeedtech.com>
-	<20261002-succinct-voracious-orangutan-fdac5e@quoll>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Fri, 02 Oct 2026 02:16:23 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <jesszhan0024@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Nickolay Goppen <setotau@mainlining.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Alexey Minnekhanov <alexeymin@minlexx.ru>, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260924-qcom-novatek-nt51021-panels-v5-0-f5eaf5685c9c@mainlining.org>
+References: <20260924-qcom-novatek-nt51021-panels-v5-0-f5eaf5685c9c@mainlining.org>
+Subject: Re: [PATCH v5 0/3] Novatek NT51021 DSI panel IC driver
+Message-Id: <179093258297.2282096.1579513931131957273.b4-ty@b4>
+Date: Fri, 02 Oct 2026 11:16:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.1
 
-On Fri, 2 Oct 2026 11:03:33 +0200
-Krzysztof Kozlowski <krzk@kernel.org> wrote:
+Hi,
 
-> On Thu, Oct 01, 2026 at 05:50:36PM +0800, Billy Tsai wrote:
-> > The ADC's reference-voltage trimming data lives in a System Control
-> > Unit (SCU) register. SoCs with a single SCU instance let the driver
-> > locate it without any additional information, but SoCs such as AST2700
-> > that expose more than one SCU node need an explicit phandle to
-> > disambiguate which one holds the trimming data.
-> > 
-> > Add an "aspeed,trim-syscon" phandle property, and require it for the
-> > AST2700 compatibles since they are the first multi-SCU SoCs supported
-> > by this driver.
-> > 
-> > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-> > Assisted-by: Claude:claude-sonnet-5  
+On Thu, 24 Sep 2026 18:08:13 +0300, Nickolay Goppen wrote:
+> This series adds support for Novatek NT51021-based panels
+> for upcoming xiaomi-clover submission.
 > 
-> Your SoB is the last one.
+> Although according to datasheet, the IС has three power rails
+> in the use case of xiaomi-clover, all of them are wired to one
+> fixed regulator.
 > 
+> [...]
 
-And the Assisted-by should have just "LLM" instead of "Claude:claude-sonnet-5".
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+
+[1/3] dt-bindings: display: panel: Add Novatek NT51021
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/7d2dffd72625784945b8a467b6d47fbed6fe7d74
+[2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/94e45e3ad539291bdddb3cbf8f1803d42786c70f
+[3/3] MAINTAINERS: Add myself and Ryan Brue as maintainers of NT51021 panel driver
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/27282474cd58e274bc866fb881643cf93a1c01c5
 
 -- 
-Kind regards,
-Joshua Crofts
+Neil
+
