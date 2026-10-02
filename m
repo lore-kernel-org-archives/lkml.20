@@ -1,192 +1,162 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901EC3CB54E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969886; cv=none; b=i9x4DYxsX6PGkcM8XzDHYHCOqtMMJayrBFheHR77BWKYzsMrrkJKZHUDk2TPO+60b7Etfk+8NJdL6XgAP37cq42497fLvyehhy9AC7YXsRhqIk5/mhotsg8nSXd77fNgBWg3itPUEe3S1T16JqylufG7QJ3PAfI/M59LR4cwuMw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969886; c=relaxed/simple;
-	bh=QEO0aILy9z4JGdIIPQYRUNlkoPgqNfk0ePWg3gHPOAU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VZ3qYjeed3UAa1ezCIpu1MK7hJZTiGn2vMk0ncvZPeTkVBGN+PTKelA31uxtLIW8Wbom43vpvej/ke4LytMb+kQohssoneVAS/UMb9Ru5xuxExhS70trBDMEdDdKdknGdwrHtu02nxylR5p71cdx8IHbiP1rlhssY6D9uxUOOXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=HAgzcRXa; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82173FE356
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790969904; cv=fail; b=nGwSOBOGh1vN4yXYDo65NiEmveJGQQjhyIGShkSi6y25YOD+XT9ToJxFTqck8v5LB4P696H9jQhs47ChZKCc+UHT9/H/4rDN5hO5OjcL8HrcbSrQEzeHKbZM/8sXDbw+0nK2J53ZMhn0ZM0lX8t14ZR7FQbo+VcpmVjYlIUUkfw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790969904; c=relaxed/simple;
+	bh=0q4jygsyVs4MaZZzBZAxPEKsGFPfXbzT7Xgh3P4kkLk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=SBRfNuzHJcw30nRsVWzHvzu5rxNzjIZ6CXMWcyTPNStkEAtE7tRkZyPoz1jzdhpbooc/jQwo8twFNZsai16NgKQfaqs2XWJYz3dmLak13hLjOUuMbEmaR8ZEmwggtT8SeCbhSZYsCxYz44pOuIvxxlJ9JH2Gz7zcQXVLGQmm1ps=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Jk1iLssV; arc=fail smtp.client-ip=52.101.85.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="HAgzcRXa"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-149241d04f5so301314c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:38:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790969878; x=1791574678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EGgEtdhM8SzSotKxZXA7cTlPWzHiA22Nw8COOnRZiR4=;
-        b=HAgzcRXaHs3tN0+Mvxi6cKTmEP2gYUEJ0oryLP/pXYzGWG0hfoEx3vtDcLTPknZGaj
-         iuNewsHsJ7wrx+925FD2b5IqFkmWyFFhkHK/fGm/kfeSUbNw0gOt6VexeOZyqSwM3h6r
-         azNcOm9Qy+ffaxi2xgL47rInf5njuwbikUkLS6vqfU5JIgkUszNhQhUKrf+VhtfB2kG9
-         vbeRIJO44bOJsB8fW8opL4pQsKrh1F3TiKOeQy7nr8GBGN3ic/ypFeWXz64F9E8eH9qC
-         YwgP8eVjZfDIK3aPZaKP4nYHN23xlsI3NuO4n4IjL47VVddyU8qfal75x9VbyDN81pCe
-         9LWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790969878; x=1791574678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EGgEtdhM8SzSotKxZXA7cTlPWzHiA22Nw8COOnRZiR4=;
-        b=nNlls//kGamowyNbD/GjdVFjhN9njeJu7gnGtZmSwQQBBOV3dtrB6k9yLagtQoN2ss
-         /v1M7L9mbNvqSgfmry138hp9W46h80KjgS4RbQhK2eqi0vNrfZnwC+t4QgXW2hqNqJPw
-         Tm78+LyQLTOzwOppR9c+JphpKWUwFg20gSFJX1+BWg+mZ30SkGvEgUewgWV9c9J00E5Z
-         LnVUtJ4xBeqdrZaEVUxUHC95bZ9LXKZc/2guEbyLUjO7VI+IV4xJpTmOXnEchWOxQR+F
-         kioxzvcIQSSs+CpwQiHmfzwMkj3YmFefEpOsKAR5TkHoXBtVj40g4vtYbEAs7+ePsxXB
-         oT2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx8WJd/Jr94q1mlEyWgNqk4zbSE32mjE9HIQmrc0GZSadImr93Ag13h+udK01ynEtbs1fpcA2/PTRlfpps=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMattL9PBQ40SUjQmtHnCvZ4f8/jSz4eKk311cEZFrC7Ld+oXl
-	uts/GNLsv+oF6UGnsi9RHTWytB2G/CheQlwB1vp5DeTRl0QV+efxsbNLxh1SO0Sywrg=
-X-Gm-Gg: AYBFou2fk4emKMOcABpgBBulnW1GusN2JKS1nqfWzDRbtN+oU76H/hEHqLVZkSSappA
-	37d/6ay3PRFgMPQnxkSjm4zI1y6R92BNvFEo1aHXaUjvdDwAik/kEtO2Lnf8mgys415B2cT7pJH
-	L9Tvu7fhOqo9zOrgP+UeHm+BSX+87NLkE8pB3fmkPrOC/0QWtjX5nayi74GnUkZrOCna2RJFkWN
-	FDOK1sIc+mxJOlgZJnMPH+17hhB7+7DoVi//hwQ583lGXhgBEJoZOAb1Vh4kLCSeXTV523Q9RSM
-	28RWVfseUjMphAjoT+49XwOtyx/1vmUdEX//5+uY85vZpNG5RBGrDrFeBcv6zydCvAFSC6Gb61Q
-	OlyCHm87GZO4c/EN3N+O6MDr8pKekL2rquWKpJGxFlBKMNjfKQB7fkCG3oI87au4W3wL2s5HUKI
-	4H/MuqOp2Dm5clob1qVvjyHb0kaHxrOZrzXGAT88iwyvDmr6H7nD08C3r2W2xIdC9zkjzM9eWau
-	gd/xp+CrlunZrCv2pFty5JUnZb57p91Hlz6Ow3jWy9E5tJrV9FR02MZ6ZtPXUdFEqnS9GckQmfo
-	YT5j8Q==
-X-Received: by 2002:a05:701b:4518:20b0:149:49c:233 with SMTP id a92af1059eb24-151c38af23amr469208c88.27.1790969878266;
-        Fri, 02 Oct 2026 12:37:58 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14fae9b3dfesm6642483c88.11.2026.10.02.12.37.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 12:37:57 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Alex Hung <alex.hung@amd.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Daniel Wheeler <daniel.wheeler@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	"Pan, Xinhui" <xinhui.pan@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Simona Vetter <simona@ffwll.ch>,
-	Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 6.1.y] drm/amd/display: Validate function returns
-Date: Fri,  2 Oct 2026 15:37:52 -0400
-Message-ID: <20261002193753.20239-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Jk1iLssV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=syKScPseqE2o2HdfSFwY6pb+4+DM/9eMVFACPaYqgAdUsOctrTjRfRrMxG3RDPMK6WzVo35XP71SvJgI5vR+VIRBk5+0PMzpSyrRPGKYw7xgCwSWEG51Fr+M3OxNP4si2INOag8rj41FErNWH5fxHwy9ij+EVgvlVi4oG99xbrAw9oIZkP647rqraUWPYodgB83DXDRceX3ukYl013duvTlxjteSpHcyu9RP3CbQhhNTWI+WdF33gPFMyZuaAwwpwJrHXPzRLaeUFqKylJ/8e9YKGF4exNjeSyVA0l3NUdtqP0D1FdSIurLiLHE1qWTLKcV7yjuNmv3+DjZmcBGzQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+WPPCYQ2iFeVXSYQBiboM7o7sBtbPb9TwiJycjj0p8A=;
+ b=yHzbYmU1XRcRQuviUyUegVMRmmggcz4uFVFFm5V31+DdjVEpnqOaBmvqM+5o8ObQJkaS7P0oseGT0lzEWXggr+sDA3MTT5OwUAg5mb/dM0sXGZQsCkWxjoQ2eObkP2RiJKXjQSli41PSZxHJc7plctj1uh0GOHiEk25vmkKuns265yIINBd+6+YBGSufzK62J/UoB8IwLpYAGHS1/TEgn5Lp/cl33i0PmmksOD1OoXN7f2SMIAHqEVsk40gehwv0Xl9ntlUfhj/VB5nYu4SVG2T3qz+XeVvEf5E07TPYZj8sOYFjK5BLTlZVRb8WrHeNTGK76ffv+0J13QUmVEQXUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+WPPCYQ2iFeVXSYQBiboM7o7sBtbPb9TwiJycjj0p8A=;
+ b=Jk1iLssV2T+APE8akcIuKXWWmogC+zXFcFQBgrZ4tnN2b8EQa+p0qjBE5R/+9ZZoMHI0m25Twh6CYs3aSF1KqB76FkFUCQqlA6MO7S1SC0gmGWyY2QkQ8ny1TmR1iQH6WQT7rQNyqNbGIscXsbvwCXhm38ho2iXRK/rgc500Uf0eGjGkE4HTgJ3ASV9PwjefdNUldrcx1B5jtj7SAHF1dL80cSYDCRZi2yr+twy+0VniMM8alwPFyZmPzcqGWj/Pygifg8/iaPKV+59YRMdzTNmJmQaDSw5e37kFS3xUNCPChUtBbpt9qOR+9J15rrMERPNt9mkmOGFfeP+Xal7Wyg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by PH7PR12MB7938.namprd12.prod.outlook.com (2603:10b6:510:276::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
+ 2026 19:38:11 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Fri, 2 Oct 2026
+ 19:38:11 +0000
+Date: Fri, 2 Oct 2026 21:38:08 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Keep proxy donors with
+ slice left on the local DSQ
+Message-ID: <asAIIDSdSjwEjir9@gpd4>
+References: <20261001191216.2391359-1-arighi@nvidia.com>
+ <59be0f173a7bc73a5a7eb6927f635605@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <59be0f173a7bc73a5a7eb6927f635605@kernel.org>
+X-ClientProxiedBy: MI2PEPF00000B83.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::419) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|PH7PR12MB7938:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1201225a-d063-4c3d-7619-08df20bcb154
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|4143699003|10067099003|56012099006|6133799003|5023799004|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	fkXgAkj9xW0bTjPxdD6gyy79sdT6P3V1L0PgWloHfMR8vUFhldbf9HPmPUHdHBFTt9D+TgVK5jW6b008jwDthwxMLZV3vpA02AtaZC/aPcguYGfMtJ72zXn9U5mx/CVZhfmZYUKHziPIVO1OY4tJPP17pLIdeFgZ20einyOJ2FjiSYPwc9sN4EEnqwAVEAVhpjraeG1Dd+KG7joS4tuUvCVRfgqWBUPBpqHMKvrGqT8vR/miA+6ECtV54Y9Oulof6G6+5k7aD1Ib5EJDD/nQj193npmkEpPVeWSDUYpKFyh5xgNwWJzucRrbbELX0SF+HJZX9IUpn1PKFG8PTDrYH+TsdsyIgEhT0NrCz2u+ip/bUP9JkoDINQT+3f4E3XeFrYU4uMzaAVnfm8DXJ7ozttQWEtP9OdV7MRJj+4OiNyHU7+spy8590etV6416QgvTXLSuaMDGwCwAQ3vpYoWSBvq3hg6tGP+T3IX2XePwqFXJlnjSFdgCxMZlwFctcYN+zYCnun5QHkZjcVhUpAM5OHwrEipSuMuWFLV1zyKiLJ/4VqLZ2CgjGYwlktmQ5kqdQbDImjgHcbLcp1SVRhZugbAhgAYfsdgCnRODL/AaIQIwiqBwUsE/+I1g3TDMG4yI+fZ5Y5oFx4DVtsO8bUEr4uYUsk5jrzI5nigfq+lvDNU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(4143699003)(10067099003)(56012099006)(6133799003)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VOTw/OMGwEkAgJ20wC/f0AnUVRmmnKKnIo6Rur4jTwwWrSRvyaVk2pRuZHLi?=
+ =?us-ascii?Q?YEcNsGcH8tP6WHavuyFyCbpelOEJ/tdU/Z53otjQY0zr6IWyi5KH/YXltc1Q?=
+ =?us-ascii?Q?azg+eHg7723H0ExxzpZBI9/QfIuBCup8BBZjzuvGzqcCTTCV+N7SwrMu62/k?=
+ =?us-ascii?Q?YvrN4SsEvSsCG7wN2JCPBGTYyULxkzL/M/RFqTHWosgL2QMldUJ3cB/xOjlK?=
+ =?us-ascii?Q?M74JGuR8pyRP0oPa/SY/5VMLde2MS1L4rlgP9+MZ6NL/g/XxlZdpEoVhKc9l?=
+ =?us-ascii?Q?vnSk5/ZNiELECDzfSbmHWghaxY6qP5hE4Ep/10V3SlnPmCpMHFK6N433PG0U?=
+ =?us-ascii?Q?NNkGPUx7/sUjAbAq10P/u0nPb5BkTojoLINngulMg4GiNBd6OC6dFDZmhHzf?=
+ =?us-ascii?Q?rKEXSLsFexweh1LRDoFbBPr8/TYy3ETY0ravLjXQK9f2dn6e0/wfIwySaBKU?=
+ =?us-ascii?Q?SGayJPXvyMQ/Wi9xW1dLwVbS7HXxJzFHhgpGHLruGJh7E1F3jI9CLcz5c0Fy?=
+ =?us-ascii?Q?LD6x3Ujr7+djV86snnpXIzulTBy5Rxzhny97t9rC53Mbhafnj9MXyzGOMPtg?=
+ =?us-ascii?Q?6JJedW8sthucbhXVd3P+gB6EMtL6kb345hHek2UQuGvtrOrythmWo6q/lOFy?=
+ =?us-ascii?Q?R5Uwie4mCWMJuzNGKRBwjdWh5PZkYSYlGxlbK43XH1UaTyCzaZ5SlhOiEwyP?=
+ =?us-ascii?Q?9VCi4dOg83Zgf2l6qnJTzNrh4sGutdmyuyYy+Y9LOykQpVnRr2HKXSKc+W/O?=
+ =?us-ascii?Q?FFErYQwNWChZqx1vDluIyoA86wAn5gP6XMaXcwqdKTqHxIOf+m1Nx1NkCQ7a?=
+ =?us-ascii?Q?zwwi34wVqe7kHpOhTwmYhhShL2+MJ+mqIkfSXRby1KCLNqM/ha3y7djhO9jo?=
+ =?us-ascii?Q?IZTsDXwiwmrH4/r9vWw17n9iu1jFa4J9hrgFjhUZu5QvSlyuI0ZeaO5plZp5?=
+ =?us-ascii?Q?PPHMmtM1XF8aV/F+TUJaJFCUq7+hV7uiJpt8Cot3sAk2PGVyFH5WpAVtG0nj?=
+ =?us-ascii?Q?H4q3pgy1KgPpHj4pdLNOF54PjJVaz6kYugzK7mgPI30KLU+iarfGgAp6AEFQ?=
+ =?us-ascii?Q?USJxBHRR7Suv0R7g5hm/nF7IGVB73lPsjYbqwaloQFEb8L+oNshcXzbdWfXn?=
+ =?us-ascii?Q?0a0EdafBpM0WsEA3dmSkn4cwEb7V063vy72aumkLG14PrmHXQang4+nBIf/M?=
+ =?us-ascii?Q?2U3klgKp/gb0FSlxrzNdfg/zWb1copPFOOVTFDOv9RsAtXLpdkq6EyeXIpYG?=
+ =?us-ascii?Q?EeyfeCa2VDp3ciPN44OTN5rhSL6BGm4RPzNgXVIzFYT9Dyq7QOjQhPQPV62m?=
+ =?us-ascii?Q?KoT2Dwwd8FXvoOaIXMvXlbVLjO+uaIc4czO/LDQa0TSpJdjZpUabedtTJIfZ?=
+ =?us-ascii?Q?SDK186QYbMlUfBi6dn2+FfAprE/6dHmr3LfUzXVKHt2J/ZKaW4UI1fbNsclN?=
+ =?us-ascii?Q?JaKOjEzI3EMB3Lb6nrLg4IRXwNqzk8H0HKL2gtE+FUZNaJtzpAlUsy5bp0RW?=
+ =?us-ascii?Q?YpsdVosJQnZItj5/z/XVTPDSb3+Ly/s6HG1Cv1Q8vFRD/rI9EPB2yr5auyLP?=
+ =?us-ascii?Q?PhbQRlo/B+hRHoIykQbiJzgzghwkAlQwzC8LjgQD7KSzy7PA9FueEyWewuc9?=
+ =?us-ascii?Q?k2zwWrzRazx1+gq6kyaJuXA/5/7QhtGGXlPGgT+TAiimIUp4i1WBhNFX1ECA?=
+ =?us-ascii?Q?5AqrqDXRY5Nopa+im2sLJik0qs/6V2weU+bJYggXCJYMr5QY?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1201225a-d063-4c3d-7619-08df20bcb154
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:38:11.2470
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oKTMIiOAkaF5pGBha2Lt6qoIVg8xL3enBooGcc4yBItSunzIBa2C2cx3amMZ3qGoyiUsznRMBduBqFHJ9PUh/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7938
 
-From: Alex Hung <alex.hung@amd.com>
+Hi Tejun,
 
-[ Upstream commit 673f816b9e1e92d1f70e1bf5f21b531e0ff9ad6c ]
+On Fri, Oct 02, 2026 at 07:30:16AM -1000, Tejun Heo wrote:
+> Hello, Andrea.
+> 
+> On Thu, Oct 01, 2026 at 09:12:16PM +0200, Andrea Righi wrote:
+> > +			if ((p->scx.flags & SCX_TASK_IMMED) && !proxy_put) {
+> >  				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
+> >  				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
+> 
+> I wonder whether IMMED should matter for a blocked donor at all. IMMED
+> should trigger a reenqueue iff the task is not being serviced by a CPU. A
+> donor under proxy execution is being serviced. The CPU is working on its
+> behalf and there's nothing the scheduler can do to make it go faster by
+> placing it elsewhere. If so, a donor with slice left can stay on the local
+> DSQ regardless of IMMED and of which put this is, and
+> SCX_RQ_PROXY_PICK_PENDING isn't needed. The deferred local check would need
+> the same exemption as the task stays SCX_TASK_IMMED.
 
-[WHAT & HOW]
-Function return values must be checked before data can be used
-in subsequent functions.
+I think you're right, the donor's progress depends on its mutex owner, so
+re-enqueuing the donor alone can't make it run sooner. Therefore we can just
+keep it local, remove SCX_RQ_PROXY_PICK_PENDING and simplify the code.
 
-This fixes 4 CHECKED_RETURN issues reported by Coverity.
+> 
+> > +		/* Delegate retained donor admission to its owning BPF scheduler. */
+> > +		if (p->is_blocked) {
+> > +			if (WARN_ON_ONCE(!sch))
+> > +				goto switch_class;
+> > +			WARN_ON_ONCE(!(sch->ops.flags & SCX_OPS_ENQ_BLOCKED));
+> > +			scx_do_enqueue_task(rq, p, 0, -1);
+> > +			goto switch_class;
+> > +		}
+> 
+> Can this be folded into the following block? scx_do_enqueue_task() already
+> adds SCX_ENQ_BLOCKED, so a !p->is_blocked test on the ENQ_LAST condition
+> would route donors to the plain enqueue.
 
-[ Backport to 6.1.y: adapted the visual-panel, watermark, and
-  link-detection checks to their older locations. The upstream DMUB
-  run-list/D3 path is absent; the older dc_dmub_srv_cmd_queue() already
-  checks and logs idle-wait failures but, unlike upstream, still retries
-  the queue once afterwards. No DMUB queue change is included. ]
+Agreed.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and drm amd maintainers,
-
-I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-46775. It carries the three return-value
-checks that map to 6.1.y: visual-panel validation, p-state watermark
-propagation, and sink-detection validation during link-training retries.
-
-The upstream DMUB run-list/D3 path does not exist here. I left 6.1.y's
-older dc_dmub_srv_cmd_queue() unchanged. It already checks and logs the
-idle-wait result, but unlike upstream it still re-queues once after a
-failed wait, and checks that re-queue's status.
-
-The corresponding 6.6.y backport is already in the 6.6.y stable queue.
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
-in 6.1.y.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-CVE: CVE-2024-46775
-Upstream: 673f816b9e1e92d1f70e1bf5f21b531e0ff9ad6c
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c    | 3 +--
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c        | 3 ++-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c | 3 ++-
- 3 files changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 82b747c0ed693b..1d3d9a82c4637d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2808,8 +2808,7 @@ bool perform_link_training_with_retries(
- 		if (status == LINK_TRAINING_ABORT) {
- 			enum dc_connection_type type = dc_connection_none;
- 
--			dc_link_detect_sink(link, &type);
--			if (type == dc_connection_none) {
-+			if (dc_link_detect_sink(link, &type) && type == dc_connection_none) {
- 				DC_LOG_HW_LINK_TRAINING("%s: Aborting training because sink unplugged\n", __func__);
- 				break;
- 			}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 31bb7e782c6b1d..35e8f22d30204b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -396,7 +396,8 @@ void dc_dmub_srv_get_visual_confirm_color_cmd(struct dc *dc, struct pipe_ctx *pi
- 	enum dmub_status status;
- 	unsigned int panel_inst = 0;
- 
--	dc_get_edp_link_panel_inst(dc, pipe_ctx->stream->link, &panel_inst);
-+	if (!dc_get_edp_link_panel_inst(dc, pipe_ctx->stream->link, &panel_inst))
-+		return;
- 
- 	memset(&cmd, 0, sizeof(cmd));
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-index aacb1fb5c73eb5..d2eebe39a55e33 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-@@ -595,7 +595,8 @@ static bool hubbub2_program_watermarks(
- 		hubbub1->base.ctx->dc->clk_mgr->clks.p_state_change_support == false)
- 		safe_to_lower = true;
- 
--	hubbub1_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
-+	if (hubbub1_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
- 
- 	REG_SET(DCHUBBUB_ARB_SAT_LEVEL, 0,
- 			DCHUBBUB_ARB_SAT_LEVEL, 60 * refclk_mhz);
--- 
-2.39.5
+Thanks!
+-Andrea
