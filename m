@@ -1,112 +1,213 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7D43D9557
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D2B42B301
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790982543; cv=none; b=B9eht8IjlRXnXuK9WkoGul4u8ZEzZvrNHRKGV24oMcXHeiGblehuMohJx0l1iXV3VolnS29wxeL7RXj+1TGnKLRY5ZOtksbVK61rto3PvI+7Dd15z/ngJJnaYAMN6w7hmlPjD8DGNochG19n6n+8EsH19OMVFNJvkuEM/qu8GNM=
+	t=1790982598; cv=none; b=JLR9aE8UiOfqsuK+V0kezJ1Pn5244zs7BpeuWc4iBGeaPs8wahTWRfn+k+Gcm+v4CZ6aex6LF4/RcDoVP/2NvsGXExk6AI8BxtmukHlbZa6e9udxMcJ+yLHycJO9msbixkLLDFnOEO3kRas9GvkdYmgUwPb+v+HZ2k8xfb70slE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790982543; c=relaxed/simple;
-	bh=lsY16qoBp76EI6m2GKbX8iwe7Ff6nfXlRWDyOFKne1Y=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=jml3ehOQdbBX2Q0H72OJX3ws6GuOdwcAsgfi3YiSgWe7lGr6g4ncO5SviBzHRpfkRdvnHmiba8PsG4kGzknLBDKL1qaD0xfolBB0EpFiypE4EyLaJKu083YZyEa1naLmTmB7p6GqwhmmGZ3+pZkaEgfwT+lihU6LzfEGvvKNmBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4d2f0f77124so485108b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:09:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790982541; x=1791587341;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=O+d4/4cTSjKdwEburEGa9pKZvxhPY6qDjvECmwyykPA=;
-        b=PqlPdh0phV9DRTtk0KrWEPEIyKiK0Jv517M+ixb/swq5z9vPx3HtCoNnv3z49O/7Jb
-         /zFKWOD0fZK2lXU9lgdegzi1jGga5of7XLqXmdKuO9T+7HwGRiTkx1rWPx2AZUAfc/pI
-         nGuuQPwgxBIZAgsc4Xzg0UwLiBUbLwSNbOe/ixpJVwKp/pWqwQeVOlI50NiLHr80vFeo
-         6NQScPLjWvvVpF0qEKqeDUBeNnl9bIWowuOZQHY2GIr8VbHxhpDDWb4umF2SnQP1BA4Z
-         dGeJCHQevX15OtiquSOPZasghAG8M/1MIUy8yETip12MC6DxhC7l/qDwlE0mfhknoEI1
-         N53Q==
-X-Gm-Message-State: AFuF++kbTmzFhrqPDhF7JYT3rt4YwoxT+RO5bVdmBkkHopDrtbmZezZC
-	32tsFBvtJWrU9cyw2wn2zkQzwZzjoVz8TN7eoUOgvbs7GC3yCyc6YtvcPdyl8oU5CUfxObZAn4i
-	/bxV5yscZI1/TGvhdcXM/9ZkDA90p+dAnXDR2+RMslr9dEnV10v3/kwbB8K0=
+	s=arc-20240116; t=1790982598; c=relaxed/simple;
+	bh=QK12jZccLedIx3puWsmURa+Mnz+5+QlcZ+mqSy18S2w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H99G82rV1ZsW8ljhj8zul3zrj4xMO/PrDgchSvjvNRn29q9BMpZpPCLOMHnCG6c/lnCee5ywCOnT+LfgQ7/QrsjdlYF+Bbd35vQZ5MrojcXthF6RtgYri/TTqcVOFYUUmOY7yyOtGOJ64SxWQyXlkSw2KAOnuC0+qSGBN4C0PTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=1w5Noen7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=X02e8j4u; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="1w5Noen7";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="X02e8j4u"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id D2E6314000FF
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:09:53 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Fri, 02 Oct 2026 19:09:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790982593;
+	 x=1791068993; bh=/UxR25uWpM984v5kU8eNOhtzi69zPCfAweq3mLv2gYU=; b=
+	1w5Noen7uOLbH/esYU+XaygzFvfL14KebIWOx8cfbS1coU2lIgSgxescrrYF2C0x
+	AVIYAgDPm5FVIpsxvAv9nyqhmPB/0P5nZSWX+B1I/keUFYRyuomRb7CaLnUDdziu
+	LVzwFaQn58iUF4vFkjAUg3G4w9MPm3xsPmhr7bfXPLdlv9m91JCI3u1R7EO3iAll
+	t0lC51MAvLKjX2pXY+snQwOM32P90QMVM82qhpmsHm6kYIOGEcqJSDiwEfOOkbMA
+	FU4D1zsIoyc1TjY/fXMEaSnrLXeEkJESO8lN4mo9h1aiwLS1J1E4zjP9pZ/zZOgC
+	V5Qh1SuuIvNwxMatfVYOZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790982593; x=
+	1791068993; bh=/UxR25uWpM984v5kU8eNOhtzi69zPCfAweq3mLv2gYU=; b=X
+	02e8j4u5dGXA3jm2Wpb3+ON/KicSbg2Wlkrc3XrVgCTm9MxGSQw+NnifV+tkqldf
+	SGoXEUkuvLStTvnfPOS5vZ9igDxqXO/nBcLGrvNqYCpISY7Ss4fIlEoVz8nHN/IO
+	gThAqcu0M0Tmsf3SY8xxxnH2VYTjeZOPHj8YFLbDNbhNBRUUn5yLfEDlh/A6PbNv
+	PTRL7hN2zUuZwMMxKMuTedM9XkPk/EyqcglD9H4Bs5T7LpzmmmGgfgIbnnsqZxGf
+	XXBxRWw8l2LZjE0UofGz5Sp/YzRY4RREvSch6OgIIh1vdrE4b/G5yVtTvZSdmOqD
+	c6gw0Q8mYTaz+g7nRf0rg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790982593; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:ObwiTYIUVlX4fo6Q7x4PEU9Ve2mgos013n6HB8XaxcqXkW8
+	CTSE6uUBBXz5gqUSO4gD5Xd8l6dc11aZAYQRBsfFo95QvZsZyu5b+h7l1qDyIHUV
+	kWL8r3DeFhS8XvWDvSaczezzBKYaNg3d3cBPw1kajqCfqmtYjSQ86aIu8vWt8exY
+	AO3nodkPpkQR4ukfqO7DVernzAR1dxr+c/YHM2O05dRV58X6JYHZcUobLcCWyITY
+	0bDQOgWxptdfTiNxkxGGEU1JZGNzaotMq44iDDu/zWVN0Lh1qYtAMORn4RMoxHtL
+	SxbEBY0RI53ffeG9wyslQKJTCh3C9IZvb62HNyQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:SSOOM2bBfRc8S7PzpEaZvqUaqLe06UbPJoujimjiPug=:QK12jZccLedIx3puWsmURa+Mnz+5+QlcZ+mqSy18S2w=;
+X-ME-Sender: <xms:wTnAasW6xuG7Y4fBHRRXWYqBz9C558IQPlr2DBSHe5y3W3Rie3Kwfg>
+    <xme:wTnAagLDJE8h8m5WEvxXD76lvoaGU9Ln7JaYPS-jxteDHh1XZIc5HsZd28xp5XNn0
+    hTO6ILO2KA3_Z_XsUzAGbg57Ix9-KztseJIcuA5GEhmhQyKfd9dtxo>
+X-ME-Received: <xmr:wTnAaktnLh5XFHcCkFA1aYD_bLErD2i71T23wliERFCINsJ7ikXNZSfk0QZTGg>
+X-ME-Proxy-Cause: dmFkZTG2demwP3RbOPVfbzFvVn3o14zaLPORCEz0kFecatwO4dqPywF0iI4P1elJRTYhbP
+    UMttM0KAT5tUxpnf2pUHShtYc1+A6Y43HbO/4tTTbhGF3glTyq82CfSi+j2jPWq+8jBRaN
+    PnEzkXQUsJ37tQ9STPTtlTt48b+JO2zlVc0z0QaToZJDr488fn3oXEhlJWgqaJCztmadUH
+    RyIwXFz/CV4dX4U4zlyJwhgDQ4J+8/OW+rCJP1sR8E6RnswFnuDvD6DdqSFNt+vtc/7bRU
+    Kz2q9+eorQMRRJ5r+miFne7VHXyJ9H3EaLX79lxOjc+ffH8fphwIWlNROMkrAI+pExIYRw
+    tzaYvvDo7jfFrmgoAxARPMCOSkov5nLcICf5ogTusyUKkQfCIJajIxOjeXyc8Ozh5wm6Il
+    XCklIGbNwg2YBc8/sIdfOMqgz3IVec7bwi7lo4su57VVikILk6QcUSNx18CNCqqRROyrFI
+    lRoQq8ehkjuNlBNR4EcunAvee45Ki68vFBRfw/LgXq8wU8aaEcl2uePnBvBd8tlMr1a2/R
+    z7HoIIXWcw7EyN0DS8r1KGf85p4GZzs70hwnw5ud+XUcuQa1xqgf88bKf73E4nbiA4Oaaa
+    GJRYk51yADdKCyuqfxK/dpfX+tVCgPe6gCrtI5X8Y/CrMMST4kfkwln0l0og
+X-ME-Proxy: <xmx:wTnAat3ckw5bYiaj_sMFQ7otJUuu5hspag_HARnNQfJRQBmUXK9eWg>
+    <xmx:wTnAakMp25Ef1l4yVBw4NJRVkPV2VPG8qIN61M8yM5M0prHSsJrvLA>
+    <xmx:wTnAalXYW6zR4lLJ8KbYyBM7TcrctpM2qTkUdXJA3JIRtgAeBVduCw>
+    <xmx:wTnAahYamrjbxnzm-8CgHJ0rPnLBRiXd_uC3nC8e_BrIAKn7fZa0Fg>
+    <xmx:wTnAavYtdcFaKuHeGai4H--OdYyC15OmyZAIH0-csTXLzRpkUnSj2j8X>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 19:09:51 -0400 (EDT)
+Date: Fri, 2 Oct 2026 17:09:49 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>, bhelgaas@google.com,
+ mani@kernel.org, jjohnson@kernel.org, linux-pci@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+ ath12k@lists.infradead.org, mhi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ alex@shazbot.org
+Subject: Re: [PATCH v14 0/2] PCI: Add device-specific reset for Qualcomm
+ devices
+Message-ID: <20261002170949.59c3d47a@shazbot.org>
+In-Reply-To: <20261002214058.GA284603@bhelgaas>
+References: <20260917071651.14174-1-jtornosm@redhat.com>
+	<20261002214058.GA284603@bhelgaas>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:470b:b0:4ec:19e3:4072 with SMTP id
- 5614622812f47-4f529d205afmr3566025b6e.18.1790982541082; Fri, 02 Oct 2026
- 16:09:01 -0700 (PDT)
-Date: Fri, 02 Oct 2026 16:09:01 -0700
-In-Reply-To: <6abfe679.b50370da.302ea9.000d.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0398d.9ad129c8.3858c0.0009.GAE@google.com>
-Subject: Forwarded: [PATCH] wifi: ath9k: stop WMI event tasklet from
- rescheduling itself on probe failure
-From: syzbot <syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Fri, 2 Oct 2026 16:40:58 -0500
+Bjorn Helgaas <helgaas@kernel.org> wrote:
 
-***
+> [cc->to: Alex, +cc Jason]
+> 
+> On Thu, Sep 17, 2026 at 09:16:49AM +0200, Jose Ignacio Tornos Martinez wrote:
+> > Some Qualcomm PCIe devices (WCN6855, WCN7850 WLAN; SDX62/SDX65 modems)
+> > lack working reset methods for VFIO passthrough scenarios. These devices
+> > have no FLR capability, advertise NoSoftRst+ (blocking PM reset), and have
+> > broken bus reset (addressed by quirk_no_bus_reset, merged for v7.2).  
+> 
+> Specifically, 6a4f64c3a3ad ("PCI: Avoid SBR for Qualcomm
+> WCN6855/WCN7850 WiFi, SDX62/SDX65 modems").  I don't know what the
+> behavior was prior to that commit.  I suppose it was something
+> obvious?
+> 
+> > VFIO attempts to reset devices on every reassignment:
+> > - For the listed modems, without a proper reset capability, these devices
+> > never successfully initialize even on first VM assignment.
+> > - For the listed WLAN devices, without a working reset method, the attempt
+> > fails. On clean VM shutdown, the guest driver properly deinitializes the
+> > device via .shutdown/.remove callbacks, leaving it in a usable state despite
+> > the failed reset. However, on unclean VM termination (crash, force-off), the
+> > guest driver callbacks are not triggered, the device remains in an undefined
+> > state (DMA active, interrupts enabled, etc.), and without a working reset it
+> > cannot be reused.  
+> 
+> So IIUC, prior to these patches, these devices were functional when
+> passed through to several successive guests as long as the guests shut
+> down cleanly, but the resets done by VFIO didn't work, so the host
+> couldn't enforce isolation between those guests.
+> 
+> If true, I propose updating the commit logs to emphasize the lack of
+> isolation and de-emphasize the VM clean shutdown vs crash behavior,
+> e.g.:
+> 
+>   Resets of this device always failed prior to this commit, so VFIO on
+>   the host could not enforce isolation between successive passthrough
+>   users.
+> 
+>   If a guest driver deinitialized the device, it may have been
+>   functional if passed through to a subsequent guest, despite the lack
+>   of isolation.  Otherwise the device may have been left in an
+>   undefined state (e.g., DMA and interrupts active) and unusable.
+> 
+> It would also be great to have Alex's ack here.
 
-Subject: [PATCH] wifi: ath9k: stop WMI event tasklet from rescheduling itself on probe failure
-Author: kartikey406@gmail.com
+Yes, aiui it's an isolation and repeatability issue.  In fact, without
+knowing what's actually stored in the hardware, I'd suspect it's more
+the latter and the testing proves that.  Mani is really the one
+vouching for it from the hardware, isolation perspective.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+Standard reset methods have never worked on these devices and that's
+now evident by the quirks that disable them for these devices.  This
+fills the remaining gap by providing device specific resets for the same
+hardware.
 
+Both patches should properly reference the quirk_no_bus_reset commit,
+but otherwise these look correct, afaict.
 
-Since the init guards were consolidated, ath9k_wmi_event_tasklet()
-reschedules itself until priv->initialized is set. If
-ath9k_init_device() fails, initialized is never set, so the tasklet
-keeps rescheduling itself while the probe error path calls
-ath9k_destroy_wmi() and frees struct wmi. tasklet_action_common() then
-touches the freed tasklet, causing a slab-use-after-free.
+Acked-by: Alex Williamson <alex@shazbot.org>
 
-Make the tasklet drop its queued events and stop rescheduling once
-wmi->stopped is set, and call tasklet_kill() before freeing wmi in
-ath9k_destroy_wmi(). The probe error path already sets stopped and
-kills the RX URBs first, so the tasklet cannot be re-armed afterwards.
-
-Fixes: 1af8dc9ca726 ("wifi: ath9k: Clean up device initialisation guards")
-Reported-by: syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e91dc13b1b37759b3d9f
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/net/wireless/ath/ath9k/wmi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
-index 4a08babb6d9d..f8b174b0f209 100644
---- a/drivers/net/wireless/ath/ath9k/wmi.c
-+++ b/drivers/net/wireless/ath/ath9k/wmi.c
-@@ -122,6 +122,9 @@ void ath9k_stop_wmi(struct ath9k_htc_priv *priv)
+Thanks,
+Alex
  
- void ath9k_destroy_wmi(struct ath9k_htc_priv *priv)
- {
-+	struct wmi *wmi = priv->wmi;
-+	tasklet_kill(&wmi->wmi_event_tasklet);
-+	skb_queue_purge(&wmi->wmi_event_queue);
- 	kfree(priv->wmi);
- }
- 
-@@ -148,6 +151,10 @@ void ath9k_wmi_event_tasklet(struct tasklet_struct *t)
- 
- 	/* Check if ath9k_init_device() completed. */
- 	if (!smp_load_acquire(&priv->initialized)) {
-+		if (READ_ONCE(wmi->stopped)) {
-+			skb_queue_purge(&wmi->wmi_event_queue);
-+			return;
-+		}
- 		tasklet_schedule(t);
- 		return;
- 	}
--- 
-2.43.0
+> > Add device-specific reset methods using BAR-space hardware reset registers
+> > that exist in these devices:
+> > 
+> >   Patch 1: SDX62/SDX65 modem reset via MHI SoC reset
+> >   Patch 2: WCN6855/WCN7850 WLAN reset via SoC global reset
+> > 
+> > These are true hardware reset mechanisms (not power management or firmware
+> > error recovery), providing proper device reset for VFIO scenarios.
+> > 
+> > Testing shows stable operation over 100+ VM crash/reset cycles. Device-
+> > specific reset is position #1 in the reset hierarchy, so these devices
+> > will use hardware reset as their primary reset method.
+> > 
+> > Jose Ignacio Tornos Martinez (2):
+> >   PCI: Add device-specific reset for Qualcomm SDX62/SDX65 modems
+> >   PCI: Add device-specific reset for Qualcomm WCN6855/WCN7850 WLAN
+> > 
+> >  drivers/pci/quirks.c | 116 +++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 116 insertions(+)
+> > 
+> > ---
+> > v14: Address Bjorn Helgaas feedback:
+> >   - Split WLAN and modem resets into two separate patches
+> >   - Clarify commit message for WLAN devices: VFIO resets on every
+> >     reassignment, clean shutdown leaves device in usable state via
+> >     driver callbacks, but unclean termination is where the lack of reset
+> >     is critical
+> >   - No code changes from v13, only patch split and commit message
+> >     clarification (Mani's Reviewed-by retained)
+> > v13: https://lore.kernel.org/all/20260915223634.GA878346@bhelgaas/
+> > 
+> > --
+> > 2.54.0
+> >   
 
