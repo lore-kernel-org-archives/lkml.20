@@ -1,112 +1,99 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DCE330328
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921017; cv=pass; b=qLI12D2cS9sABGWqPdiJcLMy5pNL0gTNFjcXAzkAOa1zCOSq8NEC8kOTqXCFyyHRUba9NOnREg/Rkg6fkRNGftnCRQAykdlcA2eWkUjmO2K/UkHspPSWswD8XFZTy7oZ+W8Gdps7unXyI8crK3LG4oDwQA6GJZ0F/PwB8M8lK5Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790921017; c=relaxed/simple;
-	bh=c53hbdMVU2M7nFkWFf/TeQnEo56FeWIc3BaXR7jGvUo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Punpeydg13odhVFdovn0bZvAThhGnnzcNXT7BOAp2cg5XiczR4ftj5PjeHHLJkzFMAT1nv6XtDGlGfqKKQSx0gFu4AYR3jSNLgoNhzhG4r0Vf7yIXi6gPSypd+KxIMcrA3rpNwFlzqXiv3OPiLRg1nW4oGi3zEzEOepiLXnp//g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=JV4yeg8N; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F7A3AA4F9;
+	Fri,  2 Oct 2026 06:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790921046; cv=none; b=h9G5nQ2n1FKizCNC0ReOd6smeQSizH3Z5NsvHkfVCTxr2YhhK+9/Up83Z1qFiteMCcWvdIrmLE5iXjn3ixyr+a8uotJ5KL/7nMqq4A2AcmFH0lUnSTXvi/JHvYyzI/rvP4J62dK2Ir017YcUqk2jQOm1L/seyNzgeE1JXX+Dsyw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790921046; c=relaxed/simple;
+	bh=P2YaFlVSeH7dakudj/I+c5FgvdXTyfP7I0tX8V+8nbI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mKlMnICT+dyJSDtgg18p0+7Os5cEElRFMhKFud4nCrqXqr6h4YM+E58fXF/17aK3mcsRHbBTVgQQNrmBV59QB63hd/XBg/uwtlWHVxsV/5U1LL8nwEggT905C7FKQQjD0bt8nRdrUbBUzv591zlDRsWU4vkshVAopdjfEUsxCA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HaHfrfeU; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="JV4yeg8N"
-ARC-Seal: i=1; a=rsa-sha256; t=1790921001; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JkVhuMjCm65znCST4pEBBkey1WFOrGgWzgN44F+zsaKOpiL5CFPOsMBvugoG5Ew/Fx8yNDbyUd10ISYnUJm3KHFgGNqemA5izEyAFnmr7xu5IYbpTBetuGCacF6RWyoLgxPGA1BFHfUMMywo6PMP/JhhzvviPgAwNWTsxpL0jVs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790921001; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=H/b3ZecCY5G/AllBicLLSsJld6QmAdfE8Z3S96RwbBU=; 
-	b=jVPg89pjGMR3FvK2hSGSJ6LYbU6gBGAjyEKxjgHcNKV+o4ko9nPuJwttwC1rcSNq1X+0FcfxY2f/vfkK3AhE2pDOTnrMrSAXceSrNGETAZJC46srwKwBnY3bjCFdaUx8g4QmY93Dacxhky30+2QdXHKFxy4f08+F/LyL6sgr+q4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790921001;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
-	bh=H/b3ZecCY5G/AllBicLLSsJld6QmAdfE8Z3S96RwbBU=;
-	b=JV4yeg8NWBUjdslJo73npaXXZia/d4yjS7rlR3qEuf+pMiJvuXEfXMouyVIIkf2E
-	sKkOFe85RnWmfCMOh2A4YqmuBwO3BEVpuMIinV1zLnSoEuywH78YrhmEpxthtzRm9au
-	u4O6FzPGNe8MUE8qPofzqmLHKF8i1pY3gOZobJBU=
-Received: by smtp.zohomail.com with SMTPS id 1790920999443943.8416525323604;
-	Thu, 1 Oct 2026 23:03:19 -0700 (PDT)
-From: Junhui Liu <junhui.liu@pigmoral.tech>
-Date: Fri, 02 Oct 2026 14:02:57 +0800
-Subject: [PATCH] reset: anlogic: dr1v90: add __iomem cast for base from
- platform_data
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HaHfrfeU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790921045; x=1822457045;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=P2YaFlVSeH7dakudj/I+c5FgvdXTyfP7I0tX8V+8nbI=;
+  b=HaHfrfeUvFJyeYesocSoimt9Lx+zMBdB3/GJBN/ArrAIYLAc44BrnuvF
+   hHi8I1FV+vhu/jveHBeOctLoVNgdIJRJK4c0GxKpsQ7cTDxAGq8DA7ZsA
+   XRNMh/PRfUUIzM+U3hfaC6ffAv/mEDgGt20c9OFQeWN74FVnpN0u2QOBF
+   R9hzm75EqWIkn1/WlXyl/RgxOy6AbiYH4C2jMv2W6MbAa2hKi9Vs8j5EG
+   g2naf38nkY0PnP4rmWQN6gKJW0n/95oSrtJQN73kYPjZAIl2SsCwgmsyt
+   5gFfsU678Nw8Pvzcsq9qV/XsT9XOFhfgixkKZmI4hS9S0haDCMhf2o1yU
+   Q==;
+X-CSE-ConnectionGUID: LIQ5sLjeSdacnRES2IBCXA==
+X-CSE-MsgGUID: +464eqb9S6O9ecmXd++QVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91706922"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="91706922"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 23:04:04 -0700
+X-CSE-ConnectionGUID: kLLusgD8RIeBUT87MbHsYw==
+X-CSE-MsgGUID: JRn+AZwzRlS/lcktmvMdqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="279436940"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 23:04:01 -0700
+Date: Fri, 2 Oct 2026 09:03:56 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: xuanzhuo@linux.alibaba.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, guwen@linux.alibaba.com,
+	lulie@linux.alibaba.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
+Subject: Re: [PATCH net-next v1 1/1] eea: Drop temporary buffer by using %pEp
+ directly
+Message-ID: <ar9JTAoL7JcHF_NW@ashevche-desk.local>
+References: <20260929082722.3368741-1-andriy.shevchenko@linux.intel.com>
+ <179089728102.434549.12368098081790653201@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-dr1v90-cru-sparse-fix-v1-1-9cb87d3bdfb4@pigmoral.tech>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw6DMAxF0a0gj7Hk0A8tW0EMkuAUd0CRDagSY
- u8NdHie9O4Gxips0BQbKK9i8hkzXFlAHPz4YpQ+Gyqq7o7IYa9ufRJGXdAmr8aY5IvpUodreNx
- S8gT5Oynn+ey23d+2hDfH+YjBvv8AjwqUBXkAAAA=
-X-Change-ID: 20261001-dr1v90-cru-sparse-fix-f37b4b85ffa0
-To: Junhui Liu <junhui.liu@pigmoral.tech>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1638;
- i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
- bh=c53hbdMVU2M7nFkWFf/TeQnEo56FeWIc3BaXR7jGvUo=;
- b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLL2e8rxr3o88+t2PZ0ef58byun3zgTYSGXkGTxynrDii
- O/fZonKjlIWBjEuBlkxRRYuf/F/1jo8344ItN6HmcPKBDKEgYtTACZyYhMjw+2wyFny8TO3XeKI
- CTK6FXzly99O3pcLM/zXBbo8sW6JsGD4p7n4R8RD9fDrD/IF7rUcVduiEWGSpJj0fBJrWkCeP5s
- wLwA=
-X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
- fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179089728102.434549.12368098081790653201@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Kernel test robot reports:
+On Thu, Oct 01, 2026 at 11:28:01PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 
-drivers/reset/reset-dr1v90.c:114:20: sparse: sparse: incorrect type in assignment (different address spaces)
-drivers/reset/reset-dr1v90.c:114:20: sparse:     expected void [noderef] __iomem *base
-drivers/reset/reset-dr1v90.c:114:20: sparse:     got void *platform_data
+...
 
-The register base is passed from the CRU driver to the reset auxiliary
-device via platform_data, which is a plain void *, while rstc->base is
-void __iomem *. Add an explicit cast to restore the address space
-annotation.
+> [Severity: Medium]
+> Will this print only the first byte of rep->reply_str?
+> 
+> %pE does not look for a NUL terminator. It takes the buffer length from
+> the field width, and when no width is given it uses 1 byte:
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609302313.Ux3U0CdC-lkp@intel.com/
-Fixes: 9fd565971072 ("reset: anlogic: add support for Anlogic DR1V90 resets")
-Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
----
-This based on linux-next (next-20261001).
----
- drivers/reset/reset-dr1v90.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes, completely forgot how it works.
 
-diff --git a/drivers/reset/reset-dr1v90.c b/drivers/reset/reset-dr1v90.c
-index daa99c797b1a..317aa4ebe3d8 100644
---- a/drivers/reset/reset-dr1v90.c
-+++ b/drivers/reset/reset-dr1v90.c
-@@ -111,7 +111,7 @@ static int dr1v90_reset_probe(struct auxiliary_device *adev,
- 
- 	spin_lock_init(&rstc->lock);
- 
--	rstc->base = dev->platform_data;
-+	rstc->base = (void __iomem *)dev->platform_data;
- 	rstc->rcdev.dev = dev;
- 	rstc->rcdev.nr_resets = ARRAY_SIZE(dr1v90_resets);
- 	rstc->rcdev.of_node = dev->parent->of_node;
+pw-bot: cr
 
----
-base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
-change-id: 20261001-dr1v90-cru-sparse-fix-f37b4b85ffa0
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Best regards,
---  
-Junhui Liu <junhui.liu@pigmoral.tech>
 
