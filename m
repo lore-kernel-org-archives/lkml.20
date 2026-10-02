@@ -1,114 +1,83 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D7E149AA34
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861F42FE07D;
+	Fri,  2 Oct 2026 14:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950481; cv=none; b=o441muxK1OFE6VW8iXofG8O7WqN+NQnPjGP6FZMfWGxY5w+MLNHUc3XkpxfmZic5GNndwbNwb6LmAnJbv3sW5KKnVC/PZLZUjFR2hb15qKZ1U9RO5IiKPATeGQR2XChsL8Wz/Mvs4OFakK+Hv6DFLV2UJkpGF23T4lVK8ohAEKs=
+	t=1790950502; cv=none; b=msMZqv0DHYu/nV61rJpGv/LB5coZ819thOQF9LoOton59EwuilTBCygoGd4ux3taawFxSNbJqHtyH2xDS/pSI8cjez2WWNaVKr/1fP/+8doiQRBTwYhyEN/C78zsRQY9b+2zc5Qli4/0gKEhrGJxPNSAM9A2Ex1zwqO3CwPAGUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950481; c=relaxed/simple;
-	bh=j52YBQvyhm0qnm4xjwmBVEnjBVrMPDC8lohQo+T5vLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=un+fGBruqCdbAw2+g+mhPT+kDV5iPl7ALseI9Eb9HcUT3ajFiXDcfCx56bCtBfml/CSeOds+aNN/vls156H3ppzWym2dko7JTQOYQN0lBVEuQB8B+YhAYVCssZQCOQohnk1V6224LLDw0yJpPOktnZIoTnZ56tCi4+72fV/3ix4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SSv/2CMn; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790950502; c=relaxed/simple;
+	bh=pGs23D4u3ckYtC8BpfKB+xFMQDH4WAEDjJfi4D1e134=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=khnvuGUOKnguKYH8ncL9ih8+t2bHnwlEcZs362QNJ6BhCUzmvNjLpoOAVPj1ugjwoxGiBXBz2k/fdTMvXx5la1TSIK+IRFKE4lwqTnVTxyHywVxbrTSiGckg2RAq88gTAa265TcCA48y3oWHSRusCrxvK7j1VPXEbdHW3u+Gv4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7QQYL1N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SSv/2CMn"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EFCC497;
-	Fri,  2 Oct 2026 07:14:35 -0700 (PDT)
-Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D9C353F86F;
-	Fri,  2 Oct 2026 07:14:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790950478; bh=j52YBQvyhm0qnm4xjwmBVEnjBVrMPDC8lohQo+T5vLg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SSv/2CMn9K++VWgh78IGljwuILd5KO4eYt8+l6kpBl/pQuGDMTq6cwTkFXdVP9X6z
-	 7wMcsqH2Vcn8AQsT8y1xvZJZ0QojYnmN0NMZUkr56tAZqLAim37u9OTjMusaz7sKSl
-	 IxlG4GOiJCY9JEeFu+9zL/pQIqDtzxI/GnSKhUeQ=
-Message-ID: <73c68c98-5ef3-44e1-81b8-16de37cf10ee@arm.com>
-Date: Fri, 2 Oct 2026 15:14:33 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7QQYL1N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60EB41F000FF;
+	Fri,  2 Oct 2026 14:14:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790950501;
+	bh=6zgilu93Hp4FlU2A2Q+0E24y0uk6qApz0rFUUk+jie8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R7QQYL1Nqt64YeWSigZIxuY27nMZq8IArDoFjTRP1ex7LDXrfdfnoi/DeCe4ewvBv
+	 J+aYs2ahtRXbKTYd2IZJEaeMW2GE6vPhnRFAfmgsGc6zVUrUMgx0ncrZ7Wmtg3PNg+
+	 Y4agbe7YQKBZWjhgrKoKZbLhzUqp2SWvB1C7MEJ9mNsAoabBcqHjxKixMiUByeWh2o
+	 wMUf73wkyqMRhd8HnXu5vbtoW2PGIQJ74y1IZ6fNk4P8/MnNbRsdk6reNa4bypV1ki
+	 XsAjmqjn0F0oiaTK77tEJU1tF2e3LTjLw3gzoZtHJySHeil/vd7ExKpoUkw8rr0Ya3
+	 OTDTpiIYRBizQ==
+Date: Fri, 2 Oct 2026 15:14:55 +0100
+From: Simon Horman <horms@kernel.org>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	UNGLinuxDriver@microchip.com, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v9 11/15] net: lan966x: add PCIe FDMA support
+Message-ID: <20261002141455.GI13925@horms.kernel.org>
+References: <20260928-lan966x-pci-fdma-v9-0-a17caf60f89a@microchip.com>
+ <20260928-lan966x-pci-fdma-v9-11-a17caf60f89a@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 04/15] drm/panfrost: Skip NULL checks for clock
- enable/disabling
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-4-62beb08de207@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929-claude-fixes-v12-4-62beb08de207@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-lan966x-pci-fdma-v9-11-a17caf60f89a@microchip.com>
 
-On 29/09/2026 04:44, Adrián Larumbe wrote:
-> The clk_* API can deal with NULL clock objects, so we can do away with NULL
-> checks in client code.
+On Mon, Sep 28, 2026 at 09:32:59PM +0200, Daniel Machon wrote:
+> Add PCIe FDMA support for lan966x. The PCIe FDMA path uses contiguous
+> DMA buffers mapped through the endpoint's ATU, with memcpy-based frame
+> transfer instead of per-page DMA mappings.
 > 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> With PCIe FDMA, throughput increases from ~33 Mbps (register-based I/O)
+> to ~620 Mbps on an Intel x86 host with a lan966x PCIe card.
+> 
+> The RX path uses its own copy of lan966x_hw_offload() that reports back
+> when skb_vlan_untag() frees the skb, so the caller can drop the frame
+> instead of touching it.
+> 
+> XDP is not supported on this path yet, so do not advertise xdp_features
+> and reject program attach for PCIe instances.
+> 
+> Tested-by: Herve Codina <herve.codina@bootlin.com>
+> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 14 +++++---------
->  1 file changed, 5 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 5bf528f41278..b3a53504bd01 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -510,11 +510,9 @@ static int panfrost_device_resume(struct device *dev)
->  		if (ret)
->  			goto err_clk;
->  
-> -		if (pfdev->bus_clock) {
-> -			ret = clk_enable(pfdev->bus_clock);
-> -			if (ret)
-> -				goto err_bus_clk;
-> -		}
-> +		ret = clk_enable(pfdev->bus_clock);
-> +		if (ret)
-> +			goto err_bus_clk;
->  	}
->  
->  	ret = pm_runtime_force_resume(dev);
-> @@ -524,7 +522,7 @@ static int panfrost_device_resume(struct device *dev)
->  	return 0;
->  
->  err_resume:
-> -	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
-> +	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
->  		clk_disable(pfdev->bus_clock);
->  err_bus_clk:
->  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
-> @@ -545,9 +543,7 @@ static int panfrost_device_suspend(struct device *dev)
->  		return ret;
->  
->  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
-> -		if (pfdev->bus_clock)
-> -			clk_disable(pfdev->bus_clock);
-> -
-> +		clk_disable(pfdev->bus_clock);
->  		clk_disable(pfdev->clock);
->  	}
->  
-> 
+Reviewed-by: Simon Horman <horms@kernel.org>
 
