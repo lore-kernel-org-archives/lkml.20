@@ -1,110 +1,216 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AF3443C03;
-	Fri,  2 Oct 2026 10:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C0B47FAE5
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937524; cv=none; b=FuOTOzp7MQmQeR+rywfYuju1tygmnLOJft3OiDXUxpqwWbThtcfwApjQ8ZZB3ORODpf3yxK7oomDNct/4VzPMbuxsOqwKWuquGCUl/RrtLC6i02HKqeYEfTaYkmQMBL9gX359CvsgWi8GrvxZZ1g/4A34LqfjqZLj/qSVYdeawM=
+	t=1790937556; cv=none; b=WUKFDmXkZ9h4W2gFH9GrxAgMNc+O/l/HQ0wJ/4XJlBYCM8oTPjTmP+RQiIzrUysWqjLcNFfYK3CUA7ptMsB669DA7BT7iPxyKWzZUcEeSKjeOQ9weJavK5jb8342zfjQTacbfy5LYTWQWDMY7D/NQMQVGPE1t7je1TsBqldwAGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937524; c=relaxed/simple;
-	bh=I4Qxx5a6YA40o5Fjk2dWdK7ufH/s9Rp369XFg23yXqo=;
+	s=arc-20240116; t=1790937556; c=relaxed/simple;
+	bh=KtkrCiH2Hb/NMXldy9WUxOKupOTiAB7hAqMQ2sR7Kok=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jLd9eFLWVrVIdhtSG+qCTNztcttUo3jpYnxCXleC4mIYTd/53IR425Bwu7aSV+yrm+QYWXUYMKVV5zshihpEi68OE0uhf1QDhcOPV6NRKmVm2GV+REsalSUp7/MmfOGPVh75qDkueIwpjuczmCY2OkwWK1erOM2kuWXiEHfWdWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NiK9FQpD; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=c05YXSwT4GFUNoA3jMD9ccsHTd95cCToSQjnvqIhg/0DxPtKxQGV5Y/py28HktsClioRdZmXd4sFqzxg1s7honDl5SNssQNnY6mlypQ4XO/Pu68Tpx4yFHO31+G5PkdF1fzdopjRlW1o68NeqWdqxg2bFCoF7PJK6L8AiimKb64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iARhaPGj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=K+LWPdAN; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NiK9FQpD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790937522; x=1822473522;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=I4Qxx5a6YA40o5Fjk2dWdK7ufH/s9Rp369XFg23yXqo=;
-  b=NiK9FQpD0AiW+GKKOhUPvMDRm+NWFI/kz6SFzydmFlT8U/lE2XZUJrMh
-   1d2icKzVpaUNzrVbxrC90caQcd6MJjy9Lh3Km1oyeNNh97o+0o6bk91BE
-   FDhOPu4pMJouUzdydbKqhjeXYry00vDaSvwKkVi8f2ZsGDy+3RsnZMT6i
-   ElBfyYnwKZtmJA7n12b0jnCShXGtUY7dkN2HpY0Mrieod+fhxBY5RvMah
-   XgqVnM6VFf8mnJY7uAfL6tFXOTZ9PSFGicwx39Uj04rOyM/63s4k24DIM
-   WMR5v6+CxzqJRXGG4tYafBRxGOqoaBMR/SOgSZt5Lx4P/nYSJbAauvCpE
-   g==;
-X-CSE-ConnectionGUID: xzeOGfgsQR+y83uBVqCoJA==
-X-CSE-MsgGUID: PQSrJTC7TXOBai/cFh0qoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94414593"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="94414593"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:38:41 -0700
-X-CSE-ConnectionGUID: h4zMDUN7RsmpdfD8hw7QVQ==
-X-CSE-MsgGUID: iNsYPq3mTJCLZdROIRS2/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="314213939"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:38:38 -0700
-Date: Fri, 2 Oct 2026 13:38:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: radu.sabau@analog.com
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
-Message-ID: <ar-JrLr-JHDAT9U9@ashevche-desk.local>
-References: <20261001-adis16607-v1-0-9c89cee35d56@analog.com>
- <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iARhaPGj";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="K+LWPdAN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790937554;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MJkvDY/VxTHA+7Il1t54O0cGx3YczFz/IeL9Lev4wYw=;
+	b=iARhaPGjM9cdy8qCwKaU0RAsKfteZ+zeX+fAIb/bveHrOe8cLIanfV2FNpBKD8zJsyDHfR
+	3/O4UxegkYdDtAfqZG3/K16qw59Gj6LrkXdhkzD4TD6S7j5c1++/iHhSk4nLoAl8JP0pzM
+	f24vjs9V5r/uX0lA+qUJc8+qmakTgRA=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-586-vAsxNVt5P_yZNJMwrsD47w-1; Fri, 02 Oct 2026 06:39:10 -0400
+X-MC-Unique: vAsxNVt5P_yZNJMwrsD47w-1
+X-Mimecast-MFC-AGG-ID: vAsxNVt5P_yZNJMwrsD47w_1790937550
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-487038bc9b8so5496785f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 03:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790937549; x=1791542349; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MJkvDY/VxTHA+7Il1t54O0cGx3YczFz/IeL9Lev4wYw=;
+        b=K+LWPdAN7Tj6AQXAbTatlIMwPax9t1pynifbe8Ia/8cQhTlzSO4l+sqkctaapBfB90
+         6ZOYQ5s5V0wop+NRhx3QvInWt98XufgzDBCRy4r1HuO282EybgdqqovHAjpuSByT7eVa
+         aJtHTlBVpsSrjfrjXWVHCYEQJH7NuBB/npzdBbquaRl+7w3i51EZD7UmlCmhMdMtawo0
+         gx4ntOZUb4F/KKieFNJ4D/ylPvrnDnu4KTOdaBUsDdHLyNCEJKJKHudiRMaGyo6gTBAJ
+         9zOS/X4QSKnPIEUauFbMV/IfVornAGzuizp5inj93VLBIEmkJa+FQFuHSHLwR43qHu9A
+         FPzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790937549; x=1791542349;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MJkvDY/VxTHA+7Il1t54O0cGx3YczFz/IeL9Lev4wYw=;
+        b=dw/r3Tt+llGDQYILGCGNFolnJcKU5IXYRr0QWYrkaWYoIoKdceRqj2+5/QX9qG+BHe
+         TmgBm+i3iqpJiBGeFdIuyTjjJa57Up6VN2G3jy9ETZNKDBf/R94ILX3/9c1DpUcId9Tg
+         0EYbQvH+44z9PE1EjB2foPnguC3DNyWFjclhDNQHcmEOgU1Y0JK9c3volO9M8Rkj4lMe
+         4tNVIZdXTq6d7Z5MTfMUVZpHzu9ygW/3/NqzS0l60upPxsXSGNcIBk6C31FdHlzc0w5a
+         +7LdX9dzBnEh54IZB1OCDzS/ViPJqFlOl5cgUWb8RxwFzs5U+N0pRu0vZtbo6ATZCtDg
+         z3BA==
+X-Forwarded-Encrypted: i=1; AKwUvBwBoYhKhtcTTF5uKc9pBUfuKr65CjRMDChdpWULKx473Vg/jKHRFqOBNo9grICZGK8N8/2vth2H1tpnApg=@vger.kernel.org
+X-Gm-Message-State: AFuF++msWqNoEbbwH4YDYHBvwVL6PxjAcPj4J4wOtRp78AIgCUwzUrSU
+	mBQnoYd9tOi+IPY7C1XDj02OIlkFB1OtgUHVPgtbdASQp8dSTuw2Sp0vHgyuWeBSgouNunNq+w2
+	jgn8CvnvcI/LYo2GfQp8vtPOD9o/epMyjophd8YKVK1Sj43oL0VYNN2KC00U///AIWcwa0UcFMA
+	==
+X-Gm-Gg: AYBFou3fDeRtOCbSAicPzgMTID4yBREbT8m0O8wxrhXBeQnsVG9tLPgnkjiif5/oEUH
+	07jTd+CA0y9b/a4wIJVXYsDNNxALOGKwxmlVTJB3OioGaRUQlBxkl6FAMG0o1qnUnYyrcV4xXbO
+	DaMDdoC31Lju/OXGokPLKai5leuYHijNlnp5CgzRHcljHvy91lHYRtFBA7UzcDXUYNJXN3Ty2jR
+	eu2yUF4KUa1/xz4EOU/Pb2E8QlFHzmhc9Fidlm78zGTVgjHFfY0GsaK/IjrsHorSfPnrfeZNlmH
+	5czx+aUuYzu5RVMC62OPxJtaUzVmchaWwvw8ilMAM+szQOkjE4Gwpdmc8QLhlvuKRurdoBHSsj5
+	YeDG7
+X-Received: by 2002:a05:600c:4e50:b0:49f:faa3:3ca2 with SMTP id 5b1f17b1804b1-4a0275840aamr42202895e9.13.1790937549477;
+        Fri, 02 Oct 2026 03:39:09 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e50:b0:49f:faa3:3ca2 with SMTP id 5b1f17b1804b1-4a0275840aamr42202565e9.13.1790937549019;
+        Fri, 02 Oct 2026 03:39:09 -0700 (PDT)
+Received: from sgarzare-redhat ([178.99.185.246])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03fef174bsm38987125e9.2.2026.10.02.03.39.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 03:39:08 -0700 (PDT)
+Date: Fri, 2 Oct 2026 12:39:03 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: physicalmtea@gmail.com
+Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
+	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] vsock: reduce RX per-packet socket overhead
+Message-ID: <ar95red76pmfQwvF@sgarzare-redhat>
+References: <20261002074551.318789-1-physicalmtea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261002074551.318789-1-physicalmtea@gmail.com>
 
-On Thu, Oct 01, 2026 at 12:11:50PM +0300, Radu Sabau via B4 Relay wrote:
+On Fri, Oct 02, 2026 at 07:45:46AM +0000, physicalmtea@gmail.com wrote:
+>From: Jia Jia <physicalmtea@gmail.com>
+>
+>This series reduces per-packet socket overhead in the virtio-vsock RX
+>worker.
 
-> The ADIS16607 is a Precision MEMS IMU from Analog Devices featuring
-> triaxial gyroscope, triaxial accelerometer, delta angle, delta velocity,
-> and temperature channels. The device communicates over SPI Half-Duplex,
-> requiring custom read and write ops that differ from the standard ADIS
-> library protocol.
-> 
-> Three variants are supported:
->   - ADIS16607-1: ±125°/s gyroscope range
->   - ADIS16607-2: ±450°/s gyroscope range
->   - ADIS16607-3: ±2000°/s gyroscope range
-> 
-> All variants share a ±40g accelerometer range and an 8 kHz internal
-> clock.
-> 
-> Data is acquired via 32-bit burst reads over a single held-low CS
-> transfer, providing 24-bit real resolution for all inertial channels.
-> 
-> Supported features:
->   - Hardware FIFO mode with configurable watermark threshold
->   - External clock with direct and scaled synchronization modes
->   - Calibration bias for gyroscope and accelerometer axes
->   - Configurable data-ready interrupt pin (DIO1-4)
->   - Optional hardware reset via GPIO
->   - Sensor self-test on probe
->   - Sampling frequency control via decimation rate register
->   - DebugFS entries for serial number, device ID, firmware and revision IDs
+I did a quick look but IMO this is hard to review, please try to keep 
+patches as small as possible, e.g. where you are introducing ctx, store 
+ctx->net in a net variable, so you don't need to touch the entire 
+function, etc.
 
-Good, now split this to be a series of 5, for example.
+Please check https://docs.kernel.org/process/coding-assistants.html
+and also https://docs.kernel.org/process/submitting-patches.html
+ans also https://docs.kernel.org/process/maintainer-netdev.html#git-trees-and-patch-flow
+(I guess this is net-next material).
 
--- 
-With Best Regards,
-Andy Shevchenko
+I don't think this series was sent properly, I tried
+`b4 am 20261002074551.318789-1-physicalmtea@gmail.com` without success 
+and also looking at 
+https://lore.kernel.org/virtualization/20261002074551.318789-1-physicalmtea@gmail.com/ 
+I can't see the full series, please check your workflow.
 
+Also, is this for vsock core or just virtio-vsock? if it's just 
+virtio-vsock transports, please use "vsock/virtio" prefix.
+
+
+>
+>Patch 1: separate socket lookup from locked packet processing.
+>
+>Patch 2: keep one socket lock across a bounded run of established
+>STREAM/RW packets for the same native socket.
+>
+>Patch 3: reuse the locked socket for later packets with the same
+>address tuple.
+>
+>Patch 4: coalesce default write-space notifications while that
+>lock is held.
+>
+>Patch 5: defer the default readable callback until after the batch
+>unlocks. Custom callbacks retain per-packet notification behavior.
+>
+>Performance:
+>
+>Tested on single-stream AF_VSOCK (1 reader on Guest CPU0, virtio-vsock IRQ
+>on Guest CPU1, fresh QEMU guest per state, 16 balanced AB/BA pairs per
+>payload).
+
+What the host is using? vhost-vsock?
+
+>
+>End-to-end RX throughput (64K receiver buffer, SO_RCVLOWAT=1):
+>
+>  payload  baseline RX (G/s)  PATCH RX (G/s)  throughput change (95% CI)
+
+What G is? Gbit? Gbytes?
+
+>  256B     0.5722             1.0286          +79.76% [+75.40%, +84.23%]
+>  512B     1.1464             1.9779          +72.53% [+69.50%, +75.63%]
+>  1K       2.2714             3.6368          +60.12% [+56.92%, +63.37%]
+>  4K       3.9095             7.7160          +97.37% [+92.09%, +102.79%]
+
+Why stop to 4k?
+
+>
+>Fixed-syscall stress test (receiver buffer = sender write size; RX in G/s):
+>
+>  payload baseline RX PATCH RX throughput change (95% CI) recv() base/patch
+>  256B     0.2885       0.6737    +133.50% [+123.58%, +143.86%]  1048577/1048577
+>  512B     0.5631       1.2091    +114.71% [+104.97%, +124.92%]  1048577/1048577
+>  1K       1.5361       2.9678    +93.20% [+80.15%, +107.20%]     1048577/1048577
+>  4K       2.8378       6.1878    +118.05% [+109.15%, +127.33%]  538802/525645
+>
+>Request-response latency (Ping-Pong RTT, 10,000 requests):
+
+What tool did you used for both throughput and latency?
+
+>
+>  payload  baseline mean RTT (us)  PATCH mean RTT (us)  change (95% CI)
+>  256B     126.968                124.541              -1.91% [-3.35%, -0.45%]
+>  4K       130.362                126.664              -2.84% [-5.12%, -0.50%]
+
+Whys only this payload cases? For latency we should use even try small 
+payloads IMO like 64 bytes.
+
+Thanks,
+Stefano
+
+>
+>Diagnostic Guest CPU1 system-wide cycles (fixed-64K receiver, with perf):
+>
+>  Buffer size  baseline cycles/B  PATCH cycles/B  cycles change (95% CI)
+>  256B     15.287            13.630          -10.84% [-12.51%, -9.14%]
+>  512B      7.306             6.611           -9.51% [-10.92%, -8.08%]
+>  1K        3.811             3.458           -9.25% [-10.96%, -7.50%]
+>  4K        1.850             1.669           -9.75% [-11.78%, -7.67%]
+>
+>Jia Jia (5):
+>  vsock: split socket lookup from locked RX processing
+>  vsock: amortize RX socket locking for stream packets
+>  vsock: reuse same-flow socket lookup in RX batches
+>  vsock: coalesce RX write-space notifications in lock batches
+>  vsock: defer RX readable notifications until batch unlock
+>
+> include/linux/virtio_vsock.h            |  14 ++
+> include/net/af_vsock.h                  |   3 +
+> net/vmw_vsock/af_vsock.c                |   2 +
+> net/vmw_vsock/virtio_transport.c        |  48 ++++-
+> net/vmw_vsock/virtio_transport_common.c | 341 +++++++++++++++++++++++++++-----
+> 5 files changed, 357 insertions(+), 51 deletions(-)
+>
+>base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+>-- 
+>2.53.0
+>
 
