@@ -1,91 +1,87 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB400448CF6
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14033447806;
+	Fri,  2 Oct 2026 21:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975447; cv=none; b=cWJVDvCqOPVh0oVGcLJR699uSYsSjbWEWRCnKieL34hC6lEiukeoSCrSRduNH9hmTLRI+8WQAaG36JTaOhvCQR25Es3iZ5dEb9C/tEAjAUwST6pBuJPhBzijqGIyjghShtvWqvYScy+cuMi3bVxn8yVrlyJVHP/T4C5Q5Iqrn5A=
+	t=1790975449; cv=none; b=d+fVY9J28oASkv1N/coR3VuL90ol6m8zj25MXcISMQajeZIDB+WHqiPlbZRYWK5WhaAanjF8pF8MBC1NeDf1Akkxn/gXETKoSCosj7pY2tl6loot5h/tx7Zc9pTX0/3qDWIRanrIX+rhIYuqTz+rxpQPEsnGDfv/KdpckepbVT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975447; c=relaxed/simple;
-	bh=Vzgc4GQ6v8LJBLje/CCPKo/aEGgkQ+V4Jo/F5iolqEM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=hfwVB9NJqnCxuz5B4aGwuTD2Xi3DM9lgIPXV/FWnZHtF4Go1hgqQ5z1MWaOOWIYyLqTk77U2+RVI7wgNojtZg4lcILyOicAe5JzQXLAsTSiZpzt6Mc6EK02D833LniQ8GzwU5oDp9Xz9Esi5ih91xLBrwj5ctsMDnjF+RfnZ8a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i4eMFdtP; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790975449; c=relaxed/simple;
+	bh=uMQxJiedh5+aMpCouv/cCBo3FkLZHIU4H/N88t8Eol0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oOSD6WCA7mZLikY9zBQ7nmLo+TgDEbIsHYvDjqa4Jv5/YPJBhn8z2KHnURtxDu6Nkj8n3zqym0CIf5yt5jcJSvjsColLwCKMQPgVO7AoDWSpxH3HwjMt4JVAeizsrNZKQhCKwo+6phxMPL32u0CfY7aj8kirezEx0Cfz2dO4BNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KgpUlwsO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i4eMFdtP"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a4a053dcadso323479a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:10:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790975445; x=1791580245; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zj2KoOS6UMT82E67JqicQ3aNNrgjAhnNc2EUzwuzI9Y=;
-        b=i4eMFdtPFH5RKd8FcjqZD3l9jx8Xq4dYjpjGnWJUOY1z62jZ5NxlsdUOTGNonO6fBQ
-         mdkLVf1aV5qBfFaK+6LIxyiazMz9YxsIjWc22kkDqwuTjyOEbJb9e8X9Ojs+cC8+Kucn
-         ltT3mB6Onpt5lKqugwgAHzsLfo8Samwvf1FtRXJLuC4mHeX1C7BHlad0U/GSiYGg738M
-         Y7iEPTaRCqQVwDle/UlGQD34ReuDtX+Tn5PZeKQVbk7tmg96BX68Yrwu0+unQWrTpOQR
-         xDAUJA9b4F5brl49zc0ZDzNaNqH7QPvyfiafS7Tazp1SN1DMb7G4fO0Bv7pWgqLLjWGa
-         Xj+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790975445; x=1791580245;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zj2KoOS6UMT82E67JqicQ3aNNrgjAhnNc2EUzwuzI9Y=;
-        b=ssHXx25tBXU1ibxCR8RwsdjuzGhTyY2eAO1LUx9cB0mEO3IbDNOpGSIvXasaXQ0xmv
-         ZYWJNiAz2CacyqAIPc00ZKcaYXNu1V2bHEI7RDTehXFz7Xa5L6aFLproiREIB/hUAdmf
-         QX+iFoKnBRpyF6Zer3Eg2qqioZpz3BrGRxrSdj0mT0RPrvoo0mytAbpV/cFMG0A8LOX/
-         WD6EDI4KYQxFdi+5s6LMNcwsJC7V/9EUvWaVJvnoTI2jPycIZz/ghQSoEa7tq0CxdQNU
-         ouAlk6QodsPn9HQCvBVjJPmu74dzqehhTUkMM9NiYKrIgRoX/Ks61eAc86SCw8NpNic5
-         2gsg==
-X-Forwarded-Encrypted: i=1; AKwUvBzObjkhFaK1gzlJeptOk9Yb2ukvJ3LEALxsT9CE0+htT0fAc5olKLgqTy6xXwSyYIBSE1H9xjuwVJGApc0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQ5/CGrFAMkaPPSsj2xzHM7mmKghkEic29i7+OdNTflWNPbi/4
-	4GBvL4NnhdlMiGHmx54LAk6ZFRUBoR+F1ZuxGpyxc8Pf9J5z6ryyrwkEYhjNMJmO4vYy9xTIapV
-	GWxPdng==
-X-Received: from pjzr16.prod.google.com ([2002:a17:90b:510:b0:3a4:ac59:c8c1])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:dfd0:b0:3a4:f75d:d194
- with SMTP id 98e67ed59e1d1-3a6cec99dacmr3255802a91.36.1790975445008; Fri, 02
- Oct 2026 14:10:45 -0700 (PDT)
-Date: Fri,  2 Oct 2026 14:07:22 -0700
-In-Reply-To: <20260923155108.1550622-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KgpUlwsO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C2CF1F0089D;
+	Fri,  2 Oct 2026 21:10:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790975447;
+	bh=Xn7dPoylcas1ZooXl/0zpUpitso8fpXQksjbXJ52BZw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KgpUlwsOxXQ69ZoA8Uu4jacEkvGi5bzGvkTEwwDxOURHCYSPQxAyj6rExM0YPfkZp
+	 hEKrdtNepVcypbgxpi9M7MgcGyxEe41PwP7p2US6D7q4FWvo6Aydpm2GFPkAGLaqvx
+	 fIXBb0B/Z1WqP/SJCZW5TaoAyYswZPQuI0hiWaPJJEe2OOb161XPIfrpvphjJGRAyX
+	 xC02g5vAKqlOvwHVjeRWPqWS7XT/Yl00VQw9vczPMnzI5XGcQr7ddNHfz59qyexG+Y
+	 t8W+oL2+PtuKU/UoSNOttshAh3GEv+PQZVhiv6OslcAmWGKpQX9j5bFSIS8gf+g45C
+	 mVK0e/n+wUvvg==
+From: Sasha Levin <sashal@kernel.org>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Sasha Levin <sashal@kernel.org>,
+	netfilter-devel@vger.kernel.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ma Xinmeng <1564938642@qq.com>
+Subject: Re: [PATCH 6.1 1/2] netfilter: nf_tables: allow to create netdev chain without device
+Date: Fri,  2 Oct 2026 17:10:34 -0400
+Message-ID: <2026-10-02-1-daily-reply-0008-re-nf-tables-netdev-chain-6-1@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <tencent_3EF2E566E214C1068698C581DE374E1E3C09@qq.com>
+References: <ar4d_JbuojZJuazs@chamomile> <tencent_3EF2E566E214C1068698C581DE374E1E3C09@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260923155108.1550622-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <179097481958.4075691.8656886891917845607.b4-ty@b4>
-Subject: Re: [PATCH v2 0/3] KVM: SVM: Fix AVIC Physical ID table UAF
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Naveen N Rao <naveen@kernel.org>, Atish Patra <atishp@meta.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026 08:51:05 -0700, Sean Christopherson wrote:
-> Naveen's fix to clear AVIC Physical ID table entries if vCPU creation fails,
-> to ensure the CPU doesn't access the freed virtual  APIC state.
-> 
-> v2: Add prep patches to consolidate the table bounds checks.
-> 
-> v1: https://lore.kernel.org/all/20260903062856.2090499-1-naveen@kernel.org
-> 
-> [...]
+> This is a 6.1 backport of upstream commit 207296f1a03b; the hunk for
+> nft_delchain_hook() is dropped since that function is not present in 6.1.
 
-Applied to kvm-x86 fixes, thanks!
+This series only brings in the prerequisites. The UAF fix itself isn't
+in it:
 
-[1/3] KVM: SVM: Add paranoid helper for checking if vCPU is AVIC-addressable
-      https://github.com/kvm-x86/linux/commit/86a24feec191
-[2/3] KVM: SVM: Use "is AVIC-addressable" helper to sanity check load()/put()
-      https://github.com/kvm-x86/linux/commit/12e0d427c335
-[3/3] KVM: SVM: Clear AVIC Physical ID table entry if vCPU creation fails
-      https://github.com/kvm-x86/linux/commit/88c15bbd43ae
+  fc0133428e7a ("netfilter: nf_tables: Tolerate chains with no remaining hooks")
+  375f222800bc ("netfilter: nf_tables: Simplify chain netdev notifier")
 
---
-https://github.com/kvm-x86/kvm-unit-tests/tree/next
+2/2 also adds b9703ed44ffb ("netfilter: nf_tables: support for adding
+new devices to an existing netdev chain") to 6.1 without the later
+fixes for it, none of which 6.1 has:
+
+  043d2acf5722 ("netfilter: nf_tables: drop module reference after updating chain")
+  7eaf837a4eb5 ("netfilter: nf_tables: Fix a memory leak in nf_tables_updchain")
+  1e1fb6f00f52 ("netfilter: nf_tables: reject table flag and netdev basechain updates")
+  216e7bf7402c ("netfilter: nf_tables: skip netdev hook unregistration if table is dormant")
+  688c15017d5c ("netfilter: nf_tables: don't unregister hook when table is dormant")
+  4ffcf5ca81c3 ("netfilter: nf_tables: use rcu chain hook list iterator from netlink dump path")
+
+It also needs the netdev chain parts of a6134e62dba2 ("netfilter:
+nf_tables: join hook list via splice_list_rcu() in commit phase") and
+cf5fb87fcdaa ("netfilter: nf_tables: reject duplicate device on
+updates"); 6.1 only has their flowtable parts. Without 043d2acf5722,
+every base chain update that carries a hook leaks a reference on the
+chain type module.
+
+Could you send a single 6.1 series in upstream order: the two
+prerequisites, the fixes above, then fc0133428e7a and 375f222800bc?
+Please start each patch with its "commit <sha> upstream." line and add
+a cover letter. An ack from Pablo or Florian would help too.
+
+5.15 and 5.10 have the same UAF. Are you planning to cover them as well?
+
+-- 
+Thanks,
+Sasha
