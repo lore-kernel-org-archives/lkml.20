@@ -1,121 +1,202 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D673333F5B6
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AF1330301
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790954317; cv=none; b=Hu5D//GOLv3w9qCMrVSQOZ5+qjaIEgwncDiq4wwvL269U54KPDJKub5e/NiNP1DvmLCVgFgfkT1wv9rrtmuiLYDIp25mrNgSQLMQ5GpWJBK8vkNcw7Vg7d7Rxn9g8d6MJEdVB0jeOR/UUVB2CiZe0pq+Cn7TfWZI4sLvpto4NsI=
+	t=1790954344; cv=none; b=Sa1NW2XcO7sXjos1Ky+BSnZgNwP2xNZTZVk0KdV3Uwgg01bqKX7X+6Mp9VdWEYOKkwgHKP9tKQfnqfDbC34NHIkb1miAH61Uho4HmvUoVf/uMviPpkOEFI84q54lij0oESOoBPqTMv7GxHXhF40JItNXjIwJS+2tDplGqyiyRD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790954317; c=relaxed/simple;
-	bh=rfxft130ubu+lypHXPl3SulzpXMvGF8Gkn0UirwH194=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=hWTrhzEmIAj8wL50u+ZIzeQb5hRzl1k999EGXa+qY+4ZS/zKh89zc9CEWkFV2gUZ9CbdT+BCAg74a9Yf+TQkt+UhTQRLUwUWFvjhclAn9XZkUFXiieJf++cTI1ZoLZb+Xstne7vutmvOU9fTbMOViinROqOPLcEi80DNY5YMzjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MuX16dCA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GcKKXHX+; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790954344; c=relaxed/simple;
+	bh=jVrQyB0YjQv1an9nW6xTu/MYyqwJBX9rY/Xnvuxji7Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IPntToT+6brjdYsfqalaJzEKXJsanVKxnAUyBUn8evFm5JnTgymm+fB85tSllGkTMHtFrzZcEkDBpjdLAnvuGzmSOwhMDOMKveS2BRtfmETCcyGsY9jc1Hpv4lqpYqGxyhgamYwX5uJ9RFG85ZTnDZ651AtXJujsqsgGyjQc/Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=o06LiE7r; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xcrKeVdO; arc=none smtp.client-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MuX16dCA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GcKKXHX+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790954314;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B5HHSLHQ6EbhKxP++Q4gbaISPGsA/MwNTf6uTPkzsaE=;
-	b=MuX16dCAv6mQBVpqX5JtD+BOcvYgYQk17LHJgypPqb4eLG6peU/UyrROnT8tGIJNfMOFqG
-	lxfFdj4JUq/etK+zGoMWILHbvFXMN7yiEmJ078GpVvFiVJNGR6xa9j9aSyBijFMfD8Qr0Z
-	V7eFbj55wAuos1RjnfqwjlUaiEbBlSQ=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-297-MaCs9OfyN1Oq4BwMQbVBCw-1; Fri, 02 Oct 2026 11:18:33 -0400
-X-MC-Unique: MaCs9OfyN1Oq4BwMQbVBCw-1
-X-Mimecast-MFC-AGG-ID: MaCs9OfyN1Oq4BwMQbVBCw_1790954313
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so331250885a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790954313; x=1791559113; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B5HHSLHQ6EbhKxP++Q4gbaISPGsA/MwNTf6uTPkzsaE=;
-        b=GcKKXHX+1RbRrV4n9R4mGnwdCZpqkIRDNxuaj07M2VjyXI4cnRl3MKqk+beB1Vp8jD
-         BxTzIoRM0oqkHs9GmPmyqtNvkxQJ4nGbe0YlDHMLZ8VdoXON/IPJT3p2IA+Q+n/FKMwX
-         rZ2nnuxnQzUdtxUt+/8DOeGtSmBlYuG5fwtKVBjhdB6h1a4q8q6+SHEtDoOh5NpVu7aB
-         kIv0NW8xpmXidAzBVUT6UVhdtNvbj6H1FzfJsdVhVDnSHrWar93XDvzUEF+g9MzChgYT
-         NdS8in5+gIXKlxLL0f0lhzp13MWnZLzSUpxARQLmW2aizO5qE/q7N9172r6wGl2sIgnQ
-         JfKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790954313; x=1791559113;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B5HHSLHQ6EbhKxP++Q4gbaISPGsA/MwNTf6uTPkzsaE=;
-        b=MJfNIyo0jiK7PZFuw8ifbXHpbd6sjZ1GvIXDC6H2C0Sk1Nx60pd/nA74lrUY0jNw/1
-         q+caJpdPFNDrFBvAQSMaTlxbuwmyzAWZDsGFCiU5NQlGqtZAkWDOteamm1O82I4IrB4n
-         ltqbzyJFxam9Ro4sj3Y7Ya3f3Ch7VTSKrgyi0XwGWmDXNpXNHfvMVUx4AKtK+hJfhtj6
-         KrzSJ0ZstKriMbNQQW1jMg/3Rucl73rVBcLhtQwLd8Fq3qWa0yuYYjt4qQq3eQGzR2hl
-         /J+Ud9Z7cUDBMOP7bK1txJyt1VYrtY0gXxOWwqpgX3kGVijQRAzTWnduMDPbYE7VZBPf
-         KPqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwygdtj80dlo2hAyLzsZRCEWfllPV1tuldDOnKf7bnEOw3KcZeJTPG0avEsAWyhl13NyGXfcrxQzvc6eLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBDnoTvg3jf9iCuTmSGxWKaKRsJy4W/ENM424t6CnXJAT7Qv5L
-	1wrd7puOJZ1Y6LFuX3kWanbmBWDQtp8gQo2qOePbOyVfdxvf6n41XZp2NKX5uduhIYvG7zWUKR7
-	PSQq+J74qYI+l75+MHRYEdry7HcbFl3GGOzypXh704elWueiobXL4TxmiOoVafrcP7A==
-X-Gm-Gg: AYBFou3rKIc57mdggGny49Zdad+OVEBn0Jv99juitCPk6GE3Rl1na7goxauyzCBx+tN
-	adJ0YhnqS4GEebihDtBDImRU1NW5Mxb1a15b5q9DDdFB6oYxHCy7wEGvF+yrD8P9ood0VpuNwGH
-	A+hK1OV6Ffca09wdTNVdnpDz8nhYg7q6BtyspFc8DzOhjhpT689uLT9GoW039ig4aPUay89UXHm
-	dOdb8GOXf5Lw1y9XsIs3g0uWh6/sZSzy9uo/VRtJ9+C+eukSsKNOGSzR+SxgfgTOaTbubghngPQ
-	GuV/a6GsRsNfQwTMgVoVQ+n8tFcCRhbpwSNsgCcBuc9r1x/CDJ3XoAlgiceh45wOs0zv5PzjUpe
-	9z0LzY4p7plQgbwL/jY2BPN4GSuGpQGPO/d6ihy+6rv7Hn5fiMa4=
-X-Received: by 2002:a05:620a:1a10:b0:93c:65e3:df81 with SMTP id af79cd13be357-93cb5a5be1bmr1167443585a.13.1790954313070;
-        Fri, 02 Oct 2026 08:18:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a10:b0:93c:65e3:df81 with SMTP id af79cd13be357-93cb5a5be1bmr1167438485a.13.1790954312646;
-        Fri, 02 Oct 2026 08:18:32 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b682dfsm22236446d6.19.2026.10.02.08.18.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:18:31 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: linux-clk@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-kernel@vger.kernel.org
-In-Reply-To: <20261001052343.17966-1-rosenp@gmail.com>
-References: <20261001052343.17966-1-rosenp@gmail.com>
-Subject: Re: [PATCH] clk: mmp2-audio: add missing PM_CLK dependency
-Message-Id: <179095430450.795320.18251776137659753144.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:18:24 -0400
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="o06LiE7r";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xcrKeVdO"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 7240E140011C
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:19:01 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Fri, 02 Oct 2026 11:19:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790954341;
+	 x=1791040741; bh=exok25SpyXZd3gX6ipQfFWEl4jZLSb7Ia+fq53cNGAo=; b=
+	o06LiE7r6D+wrrAKCWo/y2HJdYZsXu+qCuFplXeDEDKyFOzhRpmgNRKaHH64NKwk
+	PQvsRxIJlhdkxyiglDsN1c5Mv7ok4vEZj94tcv4eLW4NNlN0GoMytwa4qHmBiZWZ
+	XrpH2c9sSJw2oFMwB3Gd6OycGVyCqHrg3VYFx9P2XrvEY9fODGuiY2v54OMZqggB
+	OZ6CzY8/a8X0naFaZKo+qolMjo5I0dpbKwmNYufq0IzIWoGw8dSMk4xSAIzm0DK9
+	nVIQEY1YE0TdnOuLpEa0MysvsTPR0x/uqqz5AJlcl6jDTdvCLWQ91KQFilcgBgby
+	JiBuCmS5yFfYLLyd07hqIg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790954341; x=
+	1791040741; bh=exok25SpyXZd3gX6ipQfFWEl4jZLSb7Ia+fq53cNGAo=; b=x
+	crKeVdO43ZsMGtr9IscPCBiacx8BkJovIFCgCchbY2AfK9K+JsiGPMlvdJD1dRCJ
+	Qt3cxDobgI7LsNbG715Z+kapUA78VxIuYzJFmU7VdAvxWDpiXxqzWxCYDx3jJ2RD
+	+O354e5kF3Ymgp4y/9KBkc16bG2G1bvUHIz111Zrm1ffBwbEPX7GubWbgsAQVHWs
+	xuqScH/NNu0dSRX+nEvAO/YUwB2iAi17FSlG8TwOUSOHmPqX4uXp2+HRtn/rjlMK
+	7KJFPXHwJ3WmPYWoMhTEUarBLo6/uic5ZYd9W/JUFrHr/QQUH6I7S0r0LyMRFy8y
+	SGnHirmJnkDg0XYk4NiiQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790954341; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:e9VobTHObflRe57tXZCvVu0yOpUK+pEclMmCOEmGZ1cBpJr
+	kRpq1A1n17j3sIsdPulpEe4zyOTc1az4qHaG0Gz7+C4niHset1g8CA7a94oKerS5
+	zbpOPWAfTnVK2ygQQKLr22v6Qbeqg/MGjZHSe9IW+U9Ie2+4OMvwVV7IAk98VIoL
+	mjEvqQjXi/LWUBznQln4oefW6qkYnFS/U3jflTafZ0Kkcxz8NsIFxk9++hceh7tA
+	9jsnhAqxaH7fNUDNx6LazrLDHbkSY2QNTVf9kDY88FJBYqzNtFBxdU2YrNZC5IrU
+	6WzvCgEr9AuFixJ/tuIhUMeehoeEzWOPE8VUX0w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:rcR4AlhBfS4SU4B4J2hScMCM/pCHKXGGgA/jTcxFVEY=:jVrQyB0YjQv1an9nW6xTu/MYyqwJBX9rY/Xnvuxji7Q=;
+X-ME-Sender: <xms:ZMu_arHtFvLRstWzC2xRsXrhL-Je4Bz2Nbd9fEyqpdwrNsf4wnIb6Q>
+    <xme:ZMu_aiaayZxvdwECaiGamf9Y19OR4bnn9RHr0RlXb2lXTpeJ-eM033sgpGad1Flzh
+    8zRmpGQ9FQkneeQupC03a0U3R1-zaeCYls79dRbXHL4u0n9fYA8JSg>
+X-ME-Received: <xmr:ZMu_atAhN2Xpzx4rvWCzMr2vEECM8DQUJqMj9xUS-cRRsCSOnv9HEvPkMWgwIx_tAFFHbJv17oOxXkwNUmtdaeNL2DGu3r4>
+X-ME-Proxy-Cause: dmFkZTGS2o/olsGiM+YCtTmRfiJhSyqP77cFNhetbZ//FshmazzBe+d2kPz/UCLsGeUHGd
+    pbOqLX8ttxmc3QBmmYjPPSw3CNlHhsO1Bx654+T6zUVpcwgQSpzUkWVcTr3cjPa1Jm6wzx
+    4I8rAeth6chNt2TlOFfDX9wmx/WKlc5/A8Cog0hmP7bTulpB7XkKGMaJpzo5BeuixJBAOP
+    oCUwcbSlQeYFgCwXlW8xV7pfWodo5xhOGp4ZlP5VJP2NOZQzNtW1SJxv30LXiqRc+aiJdg
+    kPB/6dLG/dI1VcMXC2Ak4w3aPwJZyNJAZRkPcgQrh76d0qT3dLl8t3fNaJ2v3VyRjCQtRs
+    NCIrFcrhjMjgG2a8ZpFNeZ4n4MqRVKj3grz87ZZOzCT0DlznpRghJglehIZvGu68N3+mv/
+    C6dtvB4Yrn89J786J0JoKGBJHpZg0A+XoqgyzNKahC7Eq1RzJWCjga7JY2cKMNIBJVIjmB
+    F7cy9jeHtBkML76n7O9izqsqjqRd1M18ryohG9C1z9ndUu1bDRAm9fEn0zX/4L4WKIVP8a
+    IY8jvBv6NBsiG5D4Ssad0mwNMN+oy089MupTuae8k9a5tYYRSxFHc4rZgMZBBipqCIvZ1c
+    HbLsta50zJLhs437vXCL1Hd/PMOqI01Ymfp6zG+17VnLswwUUF2KEH7elmQg
+X-ME-Proxy: <xmx:ZMu_aqlAA7tCkAayZhvsAW1ynM-tnBCfMqGj-jLojJxJySv1YivlrA>
+    <xmx:ZMu_auwb00nmKHVpaJkFV-aOe2Kc2XV5hI-c8bLqgTCAKUR_Cq6Zdg>
+    <xmx:ZMu_akQJcvSL7LYNv04KYWHiq3ltC1TGm4ibcsVzFBUMpKCpGCdBCQ>
+    <xmx:ZMu_am-YzzPlESZ21iDV0rBBbyWmA2UxPNEnBB-ClXV1z0mMIeYfrQ>
+    <xmx:Zcu_agH85nh0SjL7yBr3w-9G-IxelQ0EV9kwLUoWb8xplrCOPAtEGZol>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 11:19:00 -0400 (EDT)
+Date: Fri, 2 Oct 2026 17:18:58 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] media: rppx1: lsc: Fix and use LSC_SIZE_VALUE()
+Message-ID: <20261002151858.GA1933679@ragnatech.se>
+References: <20261002121643.418200-1-barnabas.pocze+renesas@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=295; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=8prFuF3c0ZcSADlIJcosM/6C/fhmNlZC3585kHSeKkQ=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL2n3Z1Ej3wYZPrzgPvHjunljL0XOnaf+BtPW9J1v/4C
- rlWmTlfOkpZGMS4GGTFFFmW5BoVRKSusr13R5MFZg4rE8gQBi5OAZhI/B5GhpUiOy/snDNJNjtS
- 6KlmH6sVl7/DZd+znxrD9x1cbfbg72ZGhpbbvFyLrU4Fi2xlymJw03IuCazbtHlvIFOi2R6GD2w
- 7mQE=
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002121643.418200-1-barnabas.pocze+renesas@ideasonboard.com>
 
+Hi Barnabás,
 
-On Wed, 30 Sep 2026 22:23:43 -0700, Rosen Penev wrote:
-> clk: mmp2-audio: add missing PM_CLK dependency
+Nice catch!
 
-Applied, thanks!
+On 2026-10-02 14:16:43 +0200, Barnabás Pőcze wrote:
+> Firstly, the size values are 10-bit unsigned integers, and there doesn't
+> appear to be an upper limit in the hardware documentation, and testing also
+> seems to confirm that 1023 works as expected, so the correct mask to use is
+> 0x3ff (1023), not 0x1ff (511).
 
-[1/1] clk: mmp2-audio: add missing PM_CLK dependency
-      commit: c5898623e0df6ae0e97c957183ebacc13a6626e1
+I have the fields (x_sect_size_{0,1}) in RPP_MAIN_PRE1_LSC_XSIZE_01 
+defined as 10-bits so it is documented right? The thing here is that the 
+incorrect define LSC_GRAD_VALUE was used where LSC_SIZE_VALUE should 
+have, and this masked the error, no?
 
-Best regards,
+> 
+> Secondly, actually use `LSC_SIZE_VALUE()` when populating the size registers
+> instead of using the `LSC_GRAD_VALUE()` macro.
+> 
+> Fixes: b39656efb71a ("media: rppx1: lsc: Add support for lens shade correction")
+> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+
+This fixes it correctly.
+
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+
+> ---
+>  .../platform/dreamchip/rppx1/rppx1_lsc.c      | 34 +++++++++----------
+>  1 file changed, 17 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
+> index 8badeca23e249..ffc52ca23dd99 100644
+> --- a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
+> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
+> @@ -57,7 +57,7 @@
+>  
+>  #define LSC_R_TABLE_DATA_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 12))
+>  #define LSC_GRAD_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 16))
+> -#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x1ff) | (((v2) & 0x1ff) << 16))
+> +#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x3ff) | (((v2) & 0x3ff) << 16))
+>  
+>  static int rppx1_lsc_probe(struct rpp_module *mod)
+>  {
+> @@ -157,24 +157,24 @@ rppx1_lsc_fill_params(struct rpp_module *mod,
+>  	write(priv, mod->base + LSC_YGRAD_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
+>  
+>  	v = cfg->x_sect_size;
+> -	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
+> -	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
+> -	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
+> -	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
+> -	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
+> -	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
+> -	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
+> -	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
+> +	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
+> +	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
+> +	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
+> +	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
+> +	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
+> +	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
+> +	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
+> +	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
+>  
+>  	v = cfg->y_sect_size;
+> -	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
+> -	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
+> -	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
+> -	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
+> -	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
+> -	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
+> -	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
+> -	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
+> +	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
+> +	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
+> +	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
+> +	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
+> +	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
+> +	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
+> +	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
+> +	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
+>  
+>  	/* Enable module. */
+>  	write(priv, mod->base + LSC_CTRL_REG, LSC_CTRL_LSC_EN);
+> -- 
+> 2.56.0
+> 
+
 -- 
-Brian Masney <bmasney@redhat.com>
-
+Kind Regards,
+Niklas Söderlund
