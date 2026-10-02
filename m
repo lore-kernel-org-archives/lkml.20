@@ -1,117 +1,151 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBCF42902A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946365; cv=pass; b=KDGXD7JzJQYFhaUE76DVwbUqRg7crX70/KngVO1cdGz+GK4HzpZ2LIaQjtvcuiU764Fj0P5xo479Svw92Y1R8+DoGRkgc6YRX+2qeY86F/sGRx0UdH/grMomuasUHkZzqkd36wjjR1Sd/YT9pyWRFmmuZ/YsYb2b2KBMr/3Cr/Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946365; c=relaxed/simple;
-	bh=E3o9mY11vfyNe7daMSPv/Jpy/COQ66uBOFgs4MlwYzE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PqJTQ7nctA8iqjN8F3vUCgY/WfmwhnrTnyaivQYmVj3pQJRcIJptLk6gWz9+kiqNBQ+B9TCyUlzhy4KWKI0Z3QzE+4MGsvZ5rKVAChm2ZNwoAbOWkuEbL8/BOD5Y2c1j8qn/ifTf/6uLNBGdxeQDEUZlRv/UmN8/gW30h2vxldk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pzOJoE/0; arc=pass smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8FD497B6B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790946395; cv=none; b=VFwafxGYJQxr3qRWa0WqGkSfSefViGNdq0/gb0VRDMZDu1Lg+/9JegsE6Xykcyr/Fu1LR3H3OP7q1HbHxt5DgqF4Y1aqDnWNnboUdVImlsG3XY8fS9KW55eB46bQPyLLmnXofHl1Agi0gZ2XFZEydXaD1M1abr8eVACo2WXSWFA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790946395; c=relaxed/simple;
+	bh=OxoSJ4srJKDimtpmkHPLj3pXrTAzJqY42lZbitdgufg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OUwx5cS5aoh+KhzczS++Ug6JMgsH5k+r1ZMl7e0drZs5qXC1VTXqEPHF7BG8jb6nev7hg3UUck17sCaOH1sTgwrNtyBA1qDvPlzAy+T8EJlscXUFHeyxq0rGfwORBs4Ap4swgLtFYb4Od+DG0O01i0oyK/8lar32yR0vvQCwtmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=iiRmpk+h; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pzOJoE/0"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5ba429b64c5so5732e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:05:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790946354; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rhSNDQPTC0kA6Rwr0LdANUlT9aX4B0pysw2zHAvKTdE91Ykw7aZUQhmVncHiUbaz6A
-         kqdS+1ZEr2++3rH9K4AW12WgWZ73XsPEFsyhrs4BdwGq0NRa3hd6IssHN28yL9MqT9Tl
-         iuvv13YzGIptonD/a0968PW+NC0xmo/xDLEDWEYGcFeTzwvkiwemPVnvdYzJKV6h9HRN
-         0JAxYEtjm3IXIyxWIU9JvECN3qfXyPkD0Xtu1xzBl5yQlkRZ6mRRRPB4Kt96fmHUP19t
-         B9RwYoLe7a5/QH/Ma4YPHJBszmt3iIsRUmYe1QYf9haJS2Qpfq+ogDZM3rmq7c/CX7qB
-         0Zcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=E3o9mY11vfyNe7daMSPv/Jpy/COQ66uBOFgs4MlwYzE=;
-        fh=Hv+lbTzqUyGDUM6yGIBJwFuQg6eePk9Oap8RfmxUU08=;
-        b=M7sAuhSNyqcV4Uwm+spt/U2XCrIo5gJ+ofiFQkEi7j4kwOtbBXeSE5tWvzuxUi9s63
-         eL3OiHxhmVqK+wKz5SS9ACDl12p5jigE+2ONzebZn38NzHtcMNhbJ0pjc02r/tfj2pWS
-         udAUBrKKrHg5tZMGzMAyVofx8YM89S6u2kUzjzVUhZ0+HDfCqu6FbH8R4M3Fm2E2kbVt
-         /aUj22JBBMSOSsBJrQ/CHJO8Biz3RM4z34uW357cgEwZr1AFS5OhZrqgQlVklgQFsBpO
-         x1fws6fx0t7eSRDTw/PHUQNTpPO4fb8Og5ewES/Ug0SdmGE+yjVXiekfkefq9tBREnKx
-         V1xg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="iiRmpk+h"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b590a5b5eso4663832eec.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790946354; x=1791551154; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E3o9mY11vfyNe7daMSPv/Jpy/COQ66uBOFgs4MlwYzE=;
-        b=pzOJoE/05ofXcf/NM5ADpf+Tn9P+KJUUJgJMQEgk2Y/R64/A47YD9cDI9s1JArtnPS
-         osAN0lat6bBssNC5Xv9K1H8x13KlRaqr6p0kyl6Pa4/2SxfAALJwf4tOSUgyl1D0oXAC
-         /2N7swd72npIbFy/9hlnX7SZN+jrzLrrbYZkArbAdSWn4GT2+JZN1RmaxmVkyvw4TJAm
-         YiEwMtUoYurkVV/ta3e5xirMpVDpEgIsdIWeM/NJyWSoeCrEPWYD+jv1nOWffnkYZlHC
-         quvN0djDkn9tV8wuMRttgNTOCAe4Pgn0j3H7+YIs5EXARvYLZF8wela2+os21dtIWoL2
-         5oCA==
+        d=ziepe.ca; s=google; t=1790946384; x=1791551184; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M1eeIXXEBO6PHS8yDF6wQU14zHl2iX5iGebTQR/5ZsM=;
+        b=iiRmpk+h+mOQdgRR1Qx3gxCq5NYPDrLHrtFOivjoAf8RykAQn6gnLZyAN5NrqYklyD
+         kBmZlPbIiNmSJc+cZC/u8Ik89bI5iKQ7lrmzAUlG/Szzi53t35jDWVfjjN8JXfWFyMg0
+         gPGr7CZmjgfFNck3mRFhKjFoNmP+OhFJam5god7v+NRvz3yb5FU/rLfhI3HhhyVPIwQ7
+         7X9LJr83MPILTdDxms7Zbyf/d/3R4zYUqlqEVFmuQikpL1RiDqalxxZm6Ibuo2RV7qTW
+         ih/vzI6uZgRRCYiwegb58fetO+4v8vbvOEVwYVFC3IA+d5yfCMfnIdHgWpZLQWGZ+bIw
+         Az+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790946354; x=1791551154;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E3o9mY11vfyNe7daMSPv/Jpy/COQ66uBOFgs4MlwYzE=;
-        b=PbCE8bLHeM8UAtBQAVnwuXgEUiumXrP/DhsDY1JKel6LWBSprdw3u0MnGxikvrKYIr
-         mT0xSWE/lS4t2UGWGh09ct4VYA5iwHF7nMbd1Jtz3K5fj367aXpg0XYegu0HpSl7SWbA
-         ojNxGqi89qEn23s4zZi5TanGgund9VOSXTwUCDA/ltSjD5WRLlvtNUZXRG27KYDFU+aQ
-         g4oR5nq4Ss3NEVTdh67UtbhU64wRUC6XqDnCZ56FYg2q5f1p19tAFjHlIxi+tjxr4iBf
-         SBDNpBgp2Lo8RNCt5nSijDHY5Yt1qBosUVgtMKZjZO8q1PQPR9mGcxsi4yWoKwbKqq9f
-         hR0g==
-X-Forwarded-Encrypted: i=1; AKwUvBzeRIBZ3Wo1t8tkpZ+1h7rvbEk8XnyUmbKD/XfBXtLy4Zp9WpU9PTTPk9y0fZ/EjeLyfN3AJM2mVa+T158=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8h23gs9TmLCt7FyeAzjLOOchugmrLX1iUvyHBJIIOzLRdjvH9
-	8HP0g0vDUY8t41e557dY6LqiW7FJvSYUAK5MKV2pNqzNsaMl0Dst4Rc2DJaEv5PhHskpOY24ISC
-	qG+lUpbE+GBZSp9Q70Oy79cCyaMjd4C9ipQagB5e2
-X-Gm-Gg: AYBFou2uC3frW0K+F8KIByoncf3NSb3ecOEN43StUufu+1RlsUIOB7O1YEyJz5pZilC
-	XABLS8Hnuw6Eu83Dpq2WNTi5ETlFrKGBCQGnBYnlRa70o683oh1uyB7W/SkyBNOyFTmpS3muV8d
-	yqrL8F3VvoMPVZl0t53EdFhHzLnP801T+0n6YfP27zPbv077vN5dc47uYcAOZIXC9GPdKQXZD4m
-	gv0Xw74gAf6u+rl+RSytFuWAoCFc6UBOguvz67le2j39GkZ6DB2kWt5iy19FILNP0bmcLnuepoX
-	dRR77MfN43RSVwOODatcaxJA/dcvc2ZuhFtreTI/TAxUJKPCt8zC9AKe+ymjcPyp8LB8EHAJRTl
-	nOlTq/L6Yl0LUgw==
-X-Received: by 2002:ac2:5b41:0:b0:5b1:5141:9156 with SMTP id
- 2adb3069b0e04-5bbe07ff867mr111076e87.9.1790946353509; Fri, 02 Oct 2026
- 06:05:53 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790946384; x=1791551184;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M1eeIXXEBO6PHS8yDF6wQU14zHl2iX5iGebTQR/5ZsM=;
+        b=sOPocio0bUZyGQCwltNEKQj73qUGCOgzc8+tKa95Lc+y49EvsYGwZptwAPkt6xF16Z
+         WXir5401LmUkZy2E1F9NwtwdMigQKrb9msVEbHhX+TtLuVYNaK6xzrDM+J/kR1oOutZB
+         uDzkjO5pws/W+d95gKsfUnjpbjL3fOfn1T490z1sF+yubH6lalwyFnq+9OyC5mO6J16T
+         qawfWsMyOFRQnum/aHwu4wwZZReJi1mru9XqWVUQ8Mp+k9IJpvs1bgBmsGTut/AeCR18
+         Q/XqQ6pMKifPEtUCFhjVK7WdxLR8JS6wxSuJVgQkfN5q91KUIh60LNS5ra6ziK2IC4r4
+         He7A==
+X-Forwarded-Encrypted: i=1; AKwUvByKoYcmJmW3gAT+AtB2fLCOhWqzR64l5JVEB+NNjf9Ua1q/cfaMz4cqAeBAW5ecjX9c+rBNdEFH6lGExac=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+0uzXiyvSKWQpDhRpWZNk3Y2euTAVofqgYcKSVI/wzo8RM4oC
+	OnpJCc/BDPXH1cxKSN6HW8/U5nob4Rhx0jeROjCnQEtbw98UMEBqir+aUHx9mCzSmqk=
+X-Gm-Gg: AYBFou06MkHE0DSk2M5POS+nhrF1yFdC2xuVoEYT8N/h+4GGiyG3MW90SpaA4g9ELnY
+	k4G/9zELXni6FSOVXdaeGvjmIwoYJlXWFaXAxM5AqvLQjTlMXomfmR8Hg324hMmJTGaCadUiiXd
+	1okZhHhs50fExUNkJML5ugo5E7HirVCZ8dR3JUC9rLpRqJIsXl2SO3YpMBgKGKx4rRZID+NnA25
+	TOGtj6xu6loUchl6RHGevPcmJUl+HToPR/xKiCzm/zG9AdngmScwOo9QktuZpxUQWFmAZvl8cVo
+	8QvZG3hr3SblYFmhIFB3X79CI7h3+92htEJ6G4MHxqSoopvBgND3fvpO5J1XZdVYzvcEEgTXLNW
+	GDGqS5koJf0pGjj5z9rPiUWB5qUChuoeiYZ688S8dS66Oe2Rhnj7QYCWK84mM5P99eRbrsBW04z
+	ueGrDudJFiM+VDqecZrJbiuVIZoQillYhezXaDgE69Rqe9
+X-Received: by 2002:a05:7022:1587:b0:148:c6ec:13b3 with SMTP id a92af1059eb24-14f5b71069amr3573874c88.17.1790946384348;
+        Fri, 02 Oct 2026 06:06:24 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f46da52aesm5332231c88.10.2026.10.02.06.06.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:06:23 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xCcxy-0000000GZnx-1o1m;
+	Fri, 02 Oct 2026 10:06:22 -0300
+Date: Fri, 2 Oct 2026 10:06:22 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Sonang Patel <sonangp@nvidia.com>, linux-coco@lists.linux.dev,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [RFC PATCH v6 11/11] PCI/TSM: Add reference-counted contexts for
+ vdevice providers
+Message-ID: <20261002130622.GB3481470@ziepe.ca>
+References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+ <20260917140159.1163281-12-aneesh.kumar@kernel.org>
+ <arq2Ql3-q9EApe3X@sonangrm.nvidia.com>
+ <20260928230834.GL163130@ziepe.ca>
+ <yq5av77ktyrs.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
- <20261001210703.1597150-6-suzuki.poulose@arm.com> <CA+EHjTxtatPyGcyvEyR129cqUiAYcO_cxRVtwZO0ckZsOnD7TA@mail.gmail.com>
- <86se2o2rbs.wl-maz@kernel.org>
-In-Reply-To: <86se2o2rbs.wl-maz@kernel.org>
-From: Fuad Tabba <tabba@google.com>
-Date: Fri, 2 Oct 2026 14:05:17 +0100
-X-Gm-Features: AclHuK-8Kjrfe19sfHmKlc-tMXZBvGMWfs-wEUp4fL4Zc1UtRtbnXSXF_N2l_2s
-Message-ID: <CA+EHjTwHuJ0u_TTP46zNFKFmBP124XHHLUVhkAUSyfhe92=41w@mail.gmail.com>
-Subject: Re: [PATCH v21 05/23] KVM: arm64: Track the type of VM in kvm_arch
-To: Marc Zyngier <maz@kernel.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
-	jonathan.cameron@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5av77ktyrs.fsf@kernel.org>
 
-Hi Marc,
+On Fri, Oct 02, 2026 at 11:44:15AM +0530, Aneesh Kumar K.V wrote:
+> Jason Gunthorpe <jgg@ziepe.ca> writes:
+> 
+> > On Tue, Sep 29, 2026 at 12:17:30AM +0530, Sonang Patel wrote:
+> >> On Thu, 17 Sep 2026 19:31:59 +0530, Aneesh Kumar K.V (Arm) wrote:
+> >> > +		if (is_pci_tsm_pf0(pdev)) {
+> >> > +			if (pci_tsm_disconnect(pdev))
+> >> > +				pci_warn(pdev, "TSM connection is still in use\n");
+> >> > +		} else {
+> >> > +			tsm_remove(pdev->tsm);
+> >> > +		}
+> >> 
+> >> What happens if the PCI device is removed (e.g. sysfs remove, surprise
+> >> hot-unplug) while the vDEVICE/TDI still exists?
+> >> Since removal cannot be refused, should the remove path still force
+> >> the unbind/unlock?
+> >
+> > vfio prevents that. It currently will block the sysfs remove until
+> > vfio is closed.
+> 
+> This came up during a Codex review of my patch set. The question is what
+> happens if function 1 is assigned to the guest and function 0 is then
+> removed through sysfs. Is that allowed? 
 
-On Fri, 02 Oct 2026 13:57:11 +0100, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> Just to make sure. Is that what you had in mind?
+It can happen and I don't know we can do anything to prevent it.
 
-A diff is worth a thousand words :) Yes, that's it. With that, every
-remaining hyp user of vcpu_is_protected() only runs with pKVM, so the
-kern_hyp_va() case in the macro can go too.
+> If so, it could be a problem because function 1 is not unbound and
+> can continue to be used, while
+> removing function 0 tears down DOE and IDE via:
+> 
+> 	pci_doe_destroy(dev);
+> 	pci_ide_destroy(dev);
 
-Cheers,
-/fuad
+Ah, PCI sig keeps on giving..
+
+The actual measurements are per function but the SPDM channel is per
+device!
+
+At least for RMM is this a problem? It looks like the spec handles
+this case the function 0 destroys IDE and commands related to the
+other functions will just start failing.
+
+So I would expect the OS implementation here to have similar
+properties that even though function 0 is gone the other functions
+still 'work' in that they get the RMM defined failures for these
+conditions.
+
+Basically, this shouldn't result in a TSM hot unplug of function
+1.. Trying to do multi-device operations is always a locking mess it
+should be avoided.
+
+Jason
