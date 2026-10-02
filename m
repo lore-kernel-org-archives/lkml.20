@@ -1,148 +1,148 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2894F4D37A9;
-	Fri,  2 Oct 2026 14:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114BB2D0C92;
+	Fri,  2 Oct 2026 14:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953179; cv=none; b=Fq1EZh5NAc7bPFBjSacYLz7Nt6Z6csylZHuiJgmQPdjSijZdLuLNg98m/QO4ucUBMRUWCU7yeXxAAhaLVqbY5h5bzIbkY6k1Rub7Zzfz2GoEOzo6XQQ/G9wwEfUYGJuJWs2F5WbHGW5FYvbdqLlrsu7mgpZ45CrsId1NqihKz4w=
+	t=1790953202; cv=none; b=az0kzXrLst7bzUAcMB0mOA5sy8KWtOEjo3Wi4NBg7Dj99gByGvV43pph3fqUDunA1GToJ+KCuTIREwdnG1XJrKB24baa7PjG8KsGNtXial7kVCkrA442G0pX7TChBWn9YwIdu9phvxdR3MyIEY0SLTMd20s/9As4DHiZYS6KD8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953179; c=relaxed/simple;
-	bh=EjJiyWEVzIv+EYVjRWKfSHuh6pXYQN9zKQWzSK4N740=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=ok0ADI9xNJ5qKAwj7cFHJ+VLtxm0RSDx/CCzKJBHWmm5+JSPUoRAHawwDXmWuVXuNfQrsSpRbb5SXckwbhMl43L5NTCT36aCkhoyOHMsJX+iaih/+mzef3EQposppKvQJD+PAKEDhufHdC5i/RpNTk8grWndG5UDC/K+KZ8o3AI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WjkkhHrq; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790953202; c=relaxed/simple;
+	bh=gPpfEYoQDXiKMurcBkxxhaoyk9+LOrizdBTSMV0u32s=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Cig+PE8fLnrYc8Bm1ddkhGAXFPvlr9kb8bqfSp+V5NBB0cZ7Mul6r7hrGlT76YngGS54GYD71V2mI8Djp7qLkOykCTKycHc8NxemClkMitP/YIjDtflaQdhuJBfi2GeIXqtdc3H+ViRQbyssbQG9N8rWW+SO7GBGGSS0bnGN7Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=hiYO379a; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WjkkhHrq"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c66:25c2:6a77:c271:6ec1:599])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7FA48177;
-	Fri,  2 Oct 2026 16:57:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790953056;
-	bh=EjJiyWEVzIv+EYVjRWKfSHuh6pXYQN9zKQWzSK4N740=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=WjkkhHrqJ58yhAoIqmu+sJY8+voBQSXxp0ofSqdKg/Eo6PvisGcPOBZ1fOcnri/xk
-	 4vdmPubuMjIFkj9wanci8s7iru2wAphmr7fAoTQphZUPptj8cmN2qHVR3tMhwRmO3X
-	 O3TeRjIlnOO96iTiWNyz8lwf2gBN2YM3Dd7XJnh4=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="hiYO379a"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19413A4AB8;
+	Fri,  2 Oct 2026 16:59:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790953193; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=pXn703aOIjISemvjW7SqSYgESFNqSmJXUCU165M1Fr8=;
+	b=hiYO379a2JrVAMN12K+8M4nzv4aoMDawt/E/KmtAWiumBOaJXZ39gvhfuXkRj4zeZBnmdt
+	u2P9So1KX+/VmAyvQzURenGsqL+NFRrj9JNGUsmKjx/WSGCh15gvHFnCIRKwA0GNC8tkxq
+	796xpxuzYZcJWmjnafK0pynf5N4P/+5f1HkB9s01q4APJwN+IjCSCcVyy3qhkL7uKzTc95
+	TQr9NJBdDF9BS4laG+WJiQPNqRlfHcrWluflKz528lsRy+hgCnGzSOJTTvWYsBEJ4tdmf+
+	daeBNC1XcB1+Ob0IppU2HipznxklPjF3JQYoEzMgtrzxrhCLUdRxN8TSRraZyA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261002121643.418200-1-barnabas.pocze+renesas@ideasonboard.com>
-References: <20261002121643.418200-1-barnabas.pocze+renesas@ideasonboard.com>
-Subject: Re: [PATCH v1] media: rppx1: lsc: Fix and use LSC_SIZE_VALUE()
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, =?utf-8?q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-To: =?utf-8?q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>, Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, Jai Luthra <jai.luthra+renesas@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Niklas =?utf-8?q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Fri, 02 Oct 2026 20:29:23 +0530
-Message-ID: <179095316356.241161.8061915232187490938@freya>
-User-Agent: alot/0.13.dev38+g8e372ce37.d20260925
+Date: Fri, 02 Oct 2026 16:59:46 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, Jitendra Vegiraju
+ <jitendra.vegiraju@broadcom.com>, thomas.petazzoni@bootlin.com,
+ =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, Peter Robinson
+ <pbrobinson@gmail.com>, Joe Damato <joe@dama.to>
+Subject: Re: [PATCH net-next v3 1/3] net: rss: Require indir table size or
+ hash key size to support RSS
+In-Reply-To: <20261002142806.1299041-2-maxime.chevallier@bootlin.com>
+References: <20261002142806.1299041-1-maxime.chevallier@bootlin.com>
+ <20261002142806.1299041-2-maxime.chevallier@bootlin.com>
+Message-ID: <da1589545fdaf4f3c7ed3b0059366bcf@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Barnab=C3=A1s,
+Hi Maxime
 
-Quoting Barnab=C3=A1s P=C5=91cze (2026-10-02 17:46:43)
-> Firstly, the size values are 10-bit unsigned integers, and there doesn't
-> appear to be an upper limit in the hardware documentation, and testing al=
-so
-> seems to confirm that 1023 works as expected, so the correct mask to use =
-is
-> 0x3ff (1023), not 0x1ff (511).
->=20
-> Secondly, actually use `LSC_SIZE_VALUE()` when populating the size regist=
-ers
-> instead of using the `LSC_GRAD_VALUE()` macro.
->=20
-> Fixes: b39656efb71a ("media: rppx1: lsc: Add support for lens shade corre=
-ction")
-> Signed-off-by: Barnab=C3=A1s P=C5=91cze <barnabas.pocze+renesas@ideasonbo=
-ard.com>
+On 2.10.2026 16:28, Maxime Chevallier wrote:
+> A point can be made that devices that report a 0-size indirection table
+> and 0-length key size don't really support RSS. Let's return 
+> -EOPNOTSUPP
+> in that case, and skip these devices during DUMP requests.
+> 
+> This however also reports -ENOTSUPP for devices that only supports flow
+> hash fields ops now.
 
-Good catch, thanks for the quick fix.
+nit: -EOPNOTSUPP
 
-Reviewed-by: Jai Luthra <jai.luthra+renesas@ideasonboard.com>
+> 
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
+>  net/ethtool/ioctl.c | 6 ++++++
+>  net/ethtool/rss.c   | 7 +++++--
+>  2 files changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
+> index 27b0e2e275dc..d32b403c8d3a 100644
+> --- a/net/ethtool/ioctl.c
+> +++ b/net/ethtool/ioctl.c
+> @@ -1444,6 +1444,9 @@ static noinline_for_stack int 
+> ethtool_get_rxfh(struct net_device *dev,
+>  	if (ops->get_rxfh_key_size)
+>  		rxfh_dev.key_size = ops->get_rxfh_key_size(dev);
+> 
+> +	if (!rxfh_dev.indir_size && !rxfh_dev.key_size)
+> +		return -EOPNOTSUPP;
+> +
+>  	if (copy_from_user(&rxfh, useraddr, sizeof(rxfh)))
+>  		return -EFAULT;
+>  	user_indir_size = rxfh.indir_size;
+> @@ -1554,6 +1557,9 @@ static noinline_for_stack int 
+> ethtool_set_rxfh(struct net_device *dev,
+>  	if (ops->get_rxfh_key_size)
+>  		dev_key_size = ops->get_rxfh_key_size(dev);
+> 
+> +	if (!dev_indir_size && !dev_key_size)
+> +		return -EOPNOTSUPP;
+> +
+>  	if (copy_from_user(&rxfh, useraddr, sizeof(rxfh)))
+>  		return -EFAULT;
+> 
+> diff --git a/net/ethtool/rss.c b/net/ethtool/rss.c
+> index d4a1a4724b67..cb9bead0cedd 100644
+> --- a/net/ethtool/rss.c
+> +++ b/net/ethtool/rss.c
+> @@ -129,6 +129,9 @@ rss_get_data_alloc(struct net_device *dev, struct 
+> rss_reply_data *data)
+>  	if (ops->get_rxfh_key_size)
+>  		data->hkey_size = ops->get_rxfh_key_size(dev);
+> 
+> +	if (!data->indir_size && !data->hkey_size)
+> +		return -EOPNOTSUPP;
+> +
+>  	indir_bytes = data->indir_size * sizeof(u32);
+>  	total_size = indir_bytes + data->hkey_size;
+>  	rss_config = kzalloc(total_size, GFP_KERNEL);
+> @@ -449,7 +452,7 @@ rss_dump_one_dev(struct sk_buff *skb, struct 
+> netlink_callback *cb,
+> 
+>  	if (!ctx->ctx_idx) {
+>  		ret = rss_dump_one_ctx(skb, cb, dev, 0);
+> -		if (ret)
+> +		if (ret && ret != -EOPNOTSUPP)
+>  			return ret;
+>  		ctx->ctx_idx++;
+>  	}
+> @@ -457,7 +460,7 @@ rss_dump_one_dev(struct sk_buff *skb, struct 
+> netlink_callback *cb,
+>  	for (; xa_find(&dev->ethtool->rss_ctx, &ctx->ctx_idx,
+>  		       ULONG_MAX, XA_PRESENT); ctx->ctx_idx++) {
+>  		ret = rss_dump_one_ctx(skb, cb, dev, ctx->ctx_idx);
+> -		if (ret)
+> +		if (ret && ret != -EOPNOTSUPP)
+>  			return ret;
+>  	}
+>  	ctx->ctx_idx = ctx->start_ctx;
+
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
 Thanks,
-Jai
-
-> ---
->  .../platform/dreamchip/rppx1/rppx1_lsc.c      | 34 +++++++++----------
->  1 file changed, 17 insertions(+), 17 deletions(-)
->=20
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c b/drivers=
-/media/platform/dreamchip/rppx1/rppx1_lsc.c
-> index 8badeca23e249..ffc52ca23dd99 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
-> @@ -57,7 +57,7 @@
-> =20
->  #define LSC_R_TABLE_DATA_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff)=
- << 12))
->  #define LSC_GRAD_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 16))
-> -#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x1ff) | (((v2) & 0x1ff) << 16))
-> +#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x3ff) | (((v2) & 0x3ff) << 16))
-> =20
->  static int rppx1_lsc_probe(struct rpp_module *mod)
->  {
-> @@ -157,24 +157,24 @@ rppx1_lsc_fill_params(struct rpp_module *mod,
->  	write(priv, mod->base + LSC_YGRAD_1415_REG, LSC_GRAD_VALUE(v[14], v[15]=
-));
-> =20
->  	v =3D cfg->x_sect_size;
-> -	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
-> -	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
-> -	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
-> -	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
-> -	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
-> -	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]=
-));
-> -	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]=
-));
-> -	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]=
-));
-> +	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
-> +	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
-> +	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
-> +	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
-> +	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
-> +	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]=
-));
-> +	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]=
-));
-> +	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]=
-));
-> =20
->  	v =3D cfg->y_sect_size;
-> -	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
-> -	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
-> -	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
-> -	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
-> -	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
-> -	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]=
-));
-> -	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]=
-));
-> -	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]=
-));
-> +	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
-> +	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
-> +	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
-> +	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
-> +	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
-> +	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]=
-));
-> +	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]=
-));
-> +	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]=
-));
-> =20
->  	/* Enable module. */
->  	write(priv, mod->base + LSC_CTRL_REG, LSC_CTRL_LSC_EN);
-> --=20
-> 2.56.0
->
+Nicolai
