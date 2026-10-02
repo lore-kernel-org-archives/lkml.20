@@ -1,56 +1,56 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC3D3C5DC5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17344443E36
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790965606; cv=none; b=bpaqsIqB32A5VZnHujmIazrDdCT4nHanlH8Oz/OxP9/YXtTLEwD5ugoqVQRr9EXGqfvdlGpsdchO6bmwbsc6GnDW48IxbRyeI6kOiQ0cNZxaJarqwgPVwjbXmr+c61GatMJhGhnAYAIye88qyWn2vYAqhjT69bxqRXmBAoEcv8M=
+	t=1790965611; cv=none; b=EQhsC8ZHDKgD8zHMuMPdBccNe4B1FQxLrctMqSf7oxLwA/B8wLDLwLtIoBBalB4Q5ctDy27Xot9MNVtOyJcQOiMOF4egca84JEXfottO8GHJYaPHKLgVyt9gouTE8qVDnoFSqhE22efGAzu2hNh16F8noQtqByEzVvsxVNLPfZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790965606; c=relaxed/simple;
-	bh=THnXJBqCEp76bRi/zt48ou4hhkXWnfuDOAk76GDqaJY=;
+	s=arc-20240116; t=1790965611; c=relaxed/simple;
+	bh=sceLqC/0HXug/mJWV7t6yNkapRYO0ZNHFU/nLsxP1jM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=s6mGESQnaRrlJo9XQ7PkOLbkLBsO+7+Zwv//xw/Re9bW32bo8HV526bDaXL3x0ofjqVd33/Z5RyHSDYOkmIEcUZPLh69N8WARDV5N6FkyiOCh0HA4fecXmsal72u5RWVFvIXfuxjeVHr/Zb3XdpjQ2sgCKwHGCLCU2Otdw/DohY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oj1tiOgT; arc=none smtp.client-ip=74.125.82.198
+	 To:Content-Type; b=c/AQ0KeEY3rsDTN+Nd9S3gb4GKlJsH5UyaGA7E6ON8FjDPHT/G0fjI7PkjouoyJwovyBWV/VD4unV8jT24GJvhyq41VHj/bzDEH1WK+glQjcA5T8zQASDY+W1Hl2cp9qOnahMnKFL6U7sgcjNHt6SKPidBq/pwlrE7BkDb6naho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mws78MV6; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oj1tiOgT"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34ef0362d95so2048648eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:26:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mws78MV6"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-34bbf2e3c5cso9671757eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:26:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790965604; x=1791570404; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790965609; x=1791570409; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LTqnSjYHzwSjBDIa+/XWyePVjmJ8ZrQHbfovXuP56sk=;
-        b=oj1tiOgThmPchqRZPbQxCIcwnpsd136ZTwC5ZFlm2HhXNCcvDKGfy/4STkHSAcf8ul
-         T7pSBIasEnGcxiqeFeVjJyF9wcGqBTct1GRfGY4si85xX5gHqlyCBWvm8SXZEUn2ZDHW
-         BXQ7ql1OJE/4rBc4seDEXxigT7kdy0LiGcTrdcofktP60YBjnrw2jq7GJDpdkGd2dLH6
-         3klOVGj/oyqMrE8DVYRj/ysyyin1G5ONyQ7JU+wKKn0PhhCHLp0IoSttUVC80LF6UXAH
-         6CRuRHZblwuB3aDN4ew5Dq61q5TGqVq24/LTlytxsyUHvfr2gDjpKD6jhLOCnmnuNcOv
-         UJkA==
+        bh=n1N6DAVYbk5i++BVBpocC3cJA7vKFAd5ixF05QyYdmw=;
+        b=mws78MV6d1p8OJgecu6Ve8C+gQXhgbHPwIo517ykFqO5YtRqdhLirOwa6W7QZH9ihn
+         i8pmTaGs9s5COxpJEDnVMWrErrKZQ7ocDGtc+U/0imyb7/9NYEUkjjyNLGjTt2izUpQn
+         flLu0kjMa3DTKTVgDSIfvgCuSYyScRITKGsrVqf2ZKC4BAbqbW7THUzxaBt7Vardasmd
+         cAQ0gGjcTSn3EYyYA+01QOXXSlxX8yIe5G+TH/vf1OgcM6dmUfnmq6sBrYDDCG4NPGck
+         /J7M5PsrUfgv6isWAObLFFQnkKJVN8M20seza5lBDv3cR6+L30jWYTK2NJ0Rd148vH4+
+         aV3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790965604; x=1791570404;
+        d=1e100.net; s=20260707; t=1790965609; x=1791570409;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LTqnSjYHzwSjBDIa+/XWyePVjmJ8ZrQHbfovXuP56sk=;
-        b=IpP2aWXJZPGaDGhpWY7d1rI4EeWLo+3liIB3o6UQiq1JP4MR7R4w/CIvRoNsbEhnhR
-         Z8bCcMSCPg3jrphNzzy2fWhwfCJa23xHvRGECSwJsfowwS2dLjv9RLfGc1GjTkgmKREC
-         tn4Hl9Wy+kQojHmIKB1YSkFtcaqZtperVnl0680Lj+1rdXonwq+v2wT0RikfEh1Dlk/+
-         pJDXWdUA+XppEtTIXZ8UkV4pYJ1B20Ih1iZ45umul4hVu4GZRbpXU3ME5AoB+S/+ftqH
-         jPbw0N9UhuxmdhvVCE5zCm4YrlBRT13EiaT88yRfY/rbAF3GxmsQ3IRUTsyRZcDRVtSP
-         YqVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwC1asx7sNEzYjN7v8/d1C4L/3RlJ7pQBVCx7SgSCIWGwDPgD4WOBQfOMzPzU+AUA0IWMlfoBB2ldVkoQw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgh7VKwdJF2UcCUy5fIHRNvMp6LjbPAcf2hLwC35GtZ80wciYN
-	GOdYA2XTx1nEhoR6GTuIdJNS1Jr53WLBfattzxkoCuZcy47/yZb0Ufju8cZUJqtDPLqF3bSBwDU
-	1b/Bv78JRiA==
-X-Received: from dycac13.prod.google.com ([2002:a05:7301:550d:b0:34d:ccf:1fc9])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:50d7:b0:34c:e77c:f930
- with SMTP id 5a478bee46e88-35111525897mr534532eec.36.1790965602869; Fri, 02
- Oct 2026 11:26:42 -0700 (PDT)
-Date: Fri,  2 Oct 2026 11:26:11 -0700
+        bh=n1N6DAVYbk5i++BVBpocC3cJA7vKFAd5ixF05QyYdmw=;
+        b=uygeUhazUVIcn86ezzcA1UJDq1ndJDv8YTFCoBsQvlXSPWhrQUNzTs3RcxJ2jNm1vI
+         G6rIGfzxhEl6mcb3PwSNSaOcBezJjigrpUZa2ehuZKb5HMRa4Ww1VZe8/wyA5FIVHh/j
+         3K3kB0vl7WqpS8EwhVi03fEC7MAjjLgnhC4IdlE4tWXx9Wv48Z1At3WoBRTaP7PiTjJf
+         o7RLKMTrMQKrLtWDoSJnkP9a98HNSQhDn3TSET/3pdQnb5SLQi1bWBeAj3T+G8llKlwW
+         LxlbroXMrnXoC794xVse7pcjvW1wTfHwoxNayamNixy6oadO3lw0IgrNnqZHFxwcHXXu
+         8VSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUBsQUGG01Y3RIZ9Ex5gW20xTUb/TDFMOOEuYjRTGHL+mIiGvGWsv3N5F+EbTPuvMyfmMquMiut3dxsj8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNT0L9TuEiBczpljNIBNw/DPKjizfIIBpWQznm1cBaCG3D6vGQ
+	zVgM1k+IY9bvXZ7q4+a0hnWBpXi6UsRn9SDziJZV+tkutBAyO6pVqiAXvwUuOKRCNSKHov6Q6Mn
+	MUrNHg59Dtw==
+X-Received: from dlbur23.prod.google.com ([2002:a05:7022:ea57:b0:144:c2b6:8f47])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4346:b0:144:c127:dd1b
+ with SMTP id a92af1059eb24-14f5d2b508cmr4529457c88.39.1790965608489; Fri, 02
+ Oct 2026 11:26:48 -0700 (PDT)
+Date: Fri,  2 Oct 2026 11:26:13 -0700
 In-Reply-To: <20261002182624.3259797-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261002182624.3259797-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261002182624.3259797-3-irogers@google.com>
-Subject: [PATCH v1 02/13] perf python: Quietly stop processing events when a
- callback raises
+Message-ID: <20261002182624.3259797-5-irogers@google.com>
+Subject: [PATCH v1 04/13] perf python: Lazily resolve sample callchains
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -74,299 +73,269 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-When a session callback raises a python exception the callback returned
--1 causing reader__read_event() to print a "processing failed for event
-of type: ..." error. This is redundant with the python exception that is
-raised from process_events(), and corrupts the display of a TUI that
-raises from a callback to deliberately stop processing, such as when
-cancelling a background load.
+Previously, pyrf_event__new() eagerly resolved the sample's address
+location and callchain (including DWARF/FP unwinding and symbol lookup)
+for every sample with a callchain, even when the Python callback never
+accessed event.callchain (such as in ttimechart.py).
 
-Instead set session_done so that processing stops and return success,
-the pending exception is then raised by process_events(). As a single
-event may still cause further callbacks, for example multiple
-call_return callbacks followed by a sample callback, skip calling python
-while an exception is pending.
+Move callchain resolution to pyrf_sample_event__get_callchain() so that
+callchains are only unwound and resolved when event.callchain is
+accessed, reusing the sample's cached pevent->al via
+pyrf_sample_event__resolve_al().
 
-The session whose callback raised resets session_done after processing
-so later sessions process all their events. As session_done is a global,
-a session processed concurrently in another thread may be stopped early
-too. Count the stop requests so that such a session raises an error
-rather than silently dropping events.
+Because process_events() borrows the event and sample during the
+callback, callchains are never copied in the common case. Only when a
+callback retains a reference to the event beyond its return
+(Py_REFCNT(pyevent) > 1), the callchain was not already resolved during
+the callback, and the callchain is synthesized or LBR-merged (not backed
+by event_copy) does pyrf_event__copy() allocate a copy of
+sample->callchain.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/python.c | 149 ++++++++++++++++++++++++++++++++-------
- 1 file changed, 122 insertions(+), 27 deletions(-)
+ tools/perf/util/python.c | 160 +++++++++++++++++++--------------------
+ 1 file changed, 79 insertions(+), 81 deletions(-)
 
 diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
-index 95140dfaef9c..5b4963d5784d 100644
+index a40e89c1b329..251b7d517ad5 100644
 --- a/tools/perf/util/python.c
 +++ b/tools/perf/util/python.c
-@@ -4120,6 +4120,11 @@ struct pyrf_session {
- 	 */
- 	u64 call_return_last_db_id;
- 	u64 sample_last_db_id;
-+	/**
-+	 * @callback_raised: A python callback raised an exception and requested
-+	 * that event processing stops, see pyrf_session__callback_raised().
-+	 */
-+	bool callback_raised;
- 	char *vmlinux_name;
- 	char *kallsyms_name;
- 	char *symfs;
-@@ -4439,6 +4444,55 @@ static PyObject *pyrf_call_return__new(struct call_return *cr)
- 	return (PyObject *)pevent;
- }
+@@ -100,7 +100,7 @@ struct pyrf_event {
+ 	struct addr_location al;
+ 	/** @al_resolved: True when machine__resolve been called. */
+ 	bool al_resolved;
+-	/** @callchain: Resolved callchain, eagerly computed if requested. */
++	/** @callchain: Resolved callchain, lazily computed. */
+ 	PyObject *callchain;
+ 	/** @brstack: Resolved branch stack, eagerly computed if requested. */
+ 	PyObject *brstack;
+@@ -727,28 +727,19 @@ get_tracepoint_field(struct pyrf_event *pevent, PyObject *attr_name)
  
-+/*
-+ * Number of times a python callback has requested that event processing
-+ * stops, see pyrf_session__callback_raised().
-+ */
-+static unsigned int pyrf_session__stop_requests;
-+
-+/*
-+ * A python callback raised an exception.
-+ *
-+ * Returning an error to the session code would cause reader__read_event() to
-+ * print a "processing failed for event of type: ..." error to stderr. This is
-+ * noise, and in the case of a TUI corrupts the display, when a callback raises
-+ * to deliberately stop processing (e.g. cancelling a background load) and the
-+ * error message is redundant with the python exception that is raised anyway.
-+ *
-+ * Instead request that event processing stops by setting session_done and
-+ * return success. The exception remains pending (PyErr_Occurred()) and
-+ * pyrf_session__find_thread_events() returns NULL so python raises it.
-+ *
-+ * Note, session_done is a process-global rather than per-session. Were
-+ * multiple sessions processing events concurrently in different python
-+ * threads then an exception in one would stop all of them. Only the session
-+ * whose callback raised clears session_done, and the other sessions detect
-+ * the stop request, using pyrf_session__stop_requests, and raise an error
-+ * rather than silently dropping events.
-+ */
-+static int pyrf_session__callback_raised(struct pyrf_session *psession)
+ static int pyrf_sample_event__resolve_al(struct pyrf_event *pevent)
+ {
+-	struct evsel *evsel = pevent->sample->evsel ?: pevent->evsel;
+-	struct evlist *evlist = evsel ? evsel->evlist : NULL;
+-	struct perf_session *session = evlist ? evlist__session(evlist) : NULL;
+-	struct machine *machine;
+-
+ 	if (pevent->al_resolved)
+ 		return 0;
+ 
+-	if (!session)
+-		return -1;
+-
+ 	/*
+-	 * Use pevent->machine, which pyrf_event__new() initializes either from
+-	 * the machine resolved by perf_session (machines__find_for_cpumode(),
+-	 * preserving DEFAULT_GUEST_KERNEL_ID == 0 for default guests) or via
+-	 * sample.machine_pid when pyrf_event__new() is called with a NULL
+-	 * machine.
++	 * Use pevent->machine, which pyrf_event__new() initializes while the
++	 * session callback is active and pyrf_event__copy() clears after
++	 * resolving pevent->al if a reference is retained beyond the callback.
+ 	 */
+-	machine = pevent->machine ? pevent->machine : &session->machines.host;
++	if (!pevent->machine)
++		return -1;
+ 
+ 	addr_location__init(&pevent->al);
+-	if (machine__resolve(machine, &pevent->al, pevent->sample) < 0) {
++	if (machine__resolve(pevent->machine, &pevent->al, pevent->sample) < 0) {
+ 		addr_location__exit(&pevent->al);
+ 		return -1;
+ 	}
+@@ -924,23 +915,15 @@ static PyObject *pyrf_sample_event__srccode(PyObject *self, PyObject *args)
+ static PyObject *pyrf_sample_event__insn(PyObject *self, PyObject *args __maybe_unused)
+ {
+ 	struct pyrf_event *pevent = (void *)self;
+-	struct thread *thread;
+-	struct machine *machine;
+ 
+-	if (pyrf_sample_event__resolve_al(pevent) < 0)
+-		Py_RETURN_NONE;
+-
+-	thread = pevent->al.thread;
+-
+-	if (!thread || !thread__maps(thread))
+-		Py_RETURN_NONE;
+-
+-	machine = maps__machine(thread__maps(thread));
+-	if (!machine)
+-		Py_RETURN_NONE;
++	if (pevent->sample->ip && !pevent->sample->insn_len) {
++		if (pyrf_sample_event__resolve_al(pevent) < 0 ||
++		    !pevent->al.thread || !pevent->machine)
++			Py_RETURN_NONE;
+ 
+-	if (pevent->sample->ip && !pevent->sample->insn_len)
+-		perf_sample__fetch_insn(pevent->sample, thread, machine);
++		perf_sample__fetch_insn(pevent->sample, pevent->al.thread,
++					pevent->machine);
++	}
+ 
+ 	if (!pevent->sample->insn_len)
+ 		Py_RETURN_NONE;
+@@ -1097,10 +1080,53 @@ static PyTypeObject pyrf_callchain__type = {
+ 	.tp_as_sequence	= &pyrf_callchain__sequence_methods,
+ };
+ 
++static int pyrf_sample_event__resolve_callchain(struct pyrf_event *pevent)
 +{
-+	psession->callback_raised = true;
-+	pyrf_session__stop_requests++;
-+	session_done = 1;
++	struct callchain_cursor *cursor;
++	struct pyrf_callchain *pchain;
++	struct callchain_cursor_node *node;
++
++	if (pevent->callchain || !pevent->sample->callchain || !pevent->machine)
++		return 0;
++
++	if (pyrf_sample_event__resolve_al(pevent) < 0)
++		return 0;
++
++	cursor = get_tls_callchain_cursor();
++	if (thread__resolve_callchain(pevent->al.thread, cursor, pevent->sample,
++				      NULL, NULL, PERF_MAX_STACK_DEPTH) != 0)
++		return 0;
++
++	callchain_cursor_commit(cursor);
++	pchain = PyObject_New(struct pyrf_callchain, &pyrf_callchain__type);
++	if (!pchain)
++		return -ENOMEM;
++
++	pchain->nr_frames = cursor->nr;
++	pchain->frames = calloc(pchain->nr_frames, sizeof(*pchain->frames));
++	if (!pchain->frames) {
++		Py_DECREF(pchain);
++		PyErr_NoMemory();
++		return -ENOMEM;
++	}
++	for (u64 i = 0; i < pchain->nr_frames; i++) {
++		node = callchain_cursor_current(cursor);
++		pchain->frames[i].ip = node->ip;
++		pchain->frames[i].map = map__get(node->ms.map);
++		pchain->frames[i].sym = node->ms.sym;
++		callchain_cursor_advance(cursor);
++	}
++	pevent->callchain = (PyObject *)pchain;
 +	return 0;
 +}
 +
-+/*
-+ * session_done stops the reader loops, the ordered_events and deferred sample
-+ * flushes, and auxtrace__flush_events(), but some callbacks may still happen
-+ * after a callback has raised. For example, a single sample may generate
-+ * multiple call_return callbacks, and perf_session__flush_thread_stacks()
-+ * delivers call returns for the remaining stack entries (skipping it would
-+ * only defer those callbacks until the threads are deleted). Calling into
-+ * python with an exception pending is an error, and the events would be
-+ * discarded anyway, so callbacks check this and skip calling python.
-+ */
-+static bool pyrf_session__exception_pending(void)
-+{
-+	return PyErr_Occurred() != NULL;
-+}
-+
- static int pyrf_session__call_return_process(struct call_return *cr,
- 					     u64 *parent_db_id,
- 					     void *data)
-@@ -4446,7 +4500,7 @@ static int pyrf_session__call_return_process(struct call_return *cr,
- 	struct pyrf_session *psession = data;
- 	PyObject *pyevent, *ret;
+ static PyObject *pyrf_sample_event__get_callchain(PyObject *self, void *closure __maybe_unused)
+ {
+ 	struct pyrf_event *pevent = (void *)self;
  
--	if (!psession->call_return)
-+	if (!psession->call_return || pyrf_session__exception_pending())
++	if (pyrf_sample_event__resolve_callchain(pevent) < 0)
++		return NULL;
++
+ 	if (!pevent->callchain)
+ 		Py_RETURN_NONE;
+ 
+@@ -1646,13 +1672,31 @@ static int pyrf_event__copy(struct pyrf_event *pevent)
+ 	size_t copy_size = orig_event->header.size;
+ 	int err = -EINVAL;
+ 
++	/*
++	 * If a session callback retained a reference to pevent, resolve its
++	 * address location and callchain now while pevent->machine is still
++	 * live and thread->maps reflects the point in time of the sample.
++	 */
++	if (pevent->machine && pevent->evsel) {
++		pyrf_sample_event__resolve_al(pevent);
++		if (pyrf_sample_event__resolve_callchain(pevent) < 0) {
++			pevent->machine = NULL;
++			if (!pevent->event_copy) {
++				pevent->event = &zero_event;
++				pevent->sample = &pevent->sample_storage;
++			}
++			return -ENOMEM;
++		}
++	}
++	pevent->machine = NULL;
++
+ 	if (pevent->event_copy)
  		return 0;
  
- 	if (!cr->db_id)
-@@ -4463,12 +4517,10 @@ static int pyrf_session__call_return_process(struct call_return *cr,
- 		return -1;
- 
- 	ret = PyObject_CallFunctionObjArgs(psession->call_return, pyevent, NULL);
--	if (!ret) {
--		Py_DECREF(pyevent);
--		return -1;
--	}
--	Py_DECREF(ret);
- 	Py_DECREF(pyevent);
-+	if (!ret)
-+		return pyrf_session__callback_raised(psession);
-+	Py_DECREF(ret);
- 	return 0;
- }
- 
-@@ -4480,6 +4532,9 @@ static int pyrf_session_tool__sample(const struct perf_tool *tool,
- 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
- 	u64 sample_db_id = ++psession->sample_last_db_id;
- 
-+	if (pyrf_session__exception_pending())
-+		return 0;
-+
- 	if (psession->crp) {
- 		struct addr_location al, addr_al;
- 		struct thread *thread = NULL;
-@@ -4510,6 +4565,10 @@ static int pyrf_session_tool__sample(const struct perf_tool *tool,
- 
- 		addr_location__exit(&addr_al);
- 		addr_location__exit(&al);
-+
-+		/* A call_return callback may have raised. */
-+		if (pyrf_session__exception_pending())
-+			return 0;
- 	}
- 
- 	if (psession->sample) {
-@@ -4524,7 +4583,7 @@ static int pyrf_session_tool__sample(const struct perf_tool *tool,
- 		ret = PyObject_CallFunction(psession->sample, "O", pyevent);
- 		Py_DECREF(pyevent);
- 		if (!ret)
--			return -1;
-+			return pyrf_session__callback_raised(psession);
- 		Py_DECREF(ret);
- 	}
- 	return 0;
-@@ -4536,9 +4595,19 @@ static int pyrf_session_tool__context_switch(const struct perf_tool *tool,
- 					     struct machine *machine)
- {
- 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
--	PyObject *pyevent = pyrf_event__new(event, sample->evsel, psession->session, machine, NULL);
-+	PyObject *pyevent;
- 	PyObject *ret;
- 
-+	if (pyrf_session__exception_pending()) {
-+		/*
-+		 * Skip calling python, but keep the machine's thread state
-+		 * consistent as perf_event__process_switch() would have been
-+		 * called had no python callback been registered.
-+		 */
-+		return perf_event__process_switch(tool, event, sample, machine);
-+	}
-+
-+	pyevent = pyrf_event__new(event, sample->evsel, psession->session, machine, NULL);
- 	if (perf_event__process_switch(tool, event, sample, machine) < 0) {
- 		Py_XDECREF(pyevent);
- 		return -1;
-@@ -4548,12 +4617,10 @@ static int pyrf_session_tool__context_switch(const struct perf_tool *tool,
- 		return -ENOMEM;
- 
- 	ret = PyObject_CallFunction(psession->context_switch, "O", pyevent);
--	if (!ret) {
--		Py_DECREF(pyevent);
--		return -1;
--	}
--	Py_DECREF(ret);
- 	Py_DECREF(pyevent);
-+	if (!ret)
-+		return pyrf_session__callback_raised(psession);
-+	Py_DECREF(ret);
- 	return 0;
- }
- 
-@@ -4563,21 +4630,23 @@ static int pyrf_session_tool__stat(const struct perf_tool *tool,
- {
- 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
- 	struct evsel *evsel = evlist__id2evsel(session->evlist, event->stat.id);
--	PyObject *pyevent = pyrf_event__new(event, /*evsel=*/NULL, psession->session,
--					    /*machine=*/NULL, NULL);
- 	const char *name = evsel ? evsel__name(evsel) : "unknown";
-+	PyObject *pyevent;
- 	PyObject *ret;
- 
-+	if (pyrf_session__exception_pending())
-+		return 0;
-+
-+	pyevent = pyrf_event__new(event, /*evsel=*/NULL, psession->session,
-+				  /*machine=*/NULL, NULL);
- 	if (pyevent == NULL)
- 		return -ENOMEM;
- 
- 	ret = PyObject_CallFunction(psession->stat, "Oz", pyevent, name);
--	if (!ret) {
--		Py_DECREF(pyevent);
--		return -1;
--	}
--	Py_DECREF(ret);
- 	Py_DECREF(pyevent);
-+	if (!ret)
-+		return pyrf_session__callback_raised(psession);
-+	Py_DECREF(ret);
- 	return 0;
- }
- 
-@@ -4586,20 +4655,22 @@ static int pyrf_session_tool__stat_round(const struct perf_tool *tool,
- 					 union perf_event *event)
- {
- 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
--	PyObject *pyevent = pyrf_event__new(event, /*evsel=*/NULL, psession->session,
--					    /*machine=*/NULL, NULL);
-+	PyObject *pyevent;
- 	PyObject *ret;
- 
-+	if (pyrf_session__exception_pending())
-+		return 0;
-+
-+	pyevent = pyrf_event__new(event, /*evsel=*/NULL, psession->session,
-+				  /*machine=*/NULL, NULL);
- 	if (pyevent == NULL)
- 		return -ENOMEM;
- 
- 	ret = PyObject_CallFunction(psession->stat, "Oz", pyevent, NULL);
--	if (!ret) {
--		Py_DECREF(pyevent);
--		return -1;
--	}
--	Py_DECREF(ret);
- 	Py_DECREF(pyevent);
-+	if (!ret)
-+		return pyrf_session__callback_raised(psession);
-+	Py_DECREF(ret);
- 	return 0;
- }
- 
-@@ -4680,6 +4751,7 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
- 	psession->crp = NULL;
- 	psession->call_return_last_db_id = 0;
- 	psession->sample_last_db_id = 0;
-+	psession->callback_raised = false;
- 	psession->vmlinux_name = NULL;
- 	psession->kallsyms_name = NULL;
- 	psession->symfs = NULL;
-@@ -4847,11 +4919,34 @@ static void pyrf_session__delete(struct pyrf_session *psession)
- 
- static PyObject *pyrf_session__find_thread_events(struct pyrf_session *psession)
- {
-+	unsigned int stop_requests = pyrf_session__stop_requests;
- 	int err;
- 
- 	CHECK_INITIALIZED(psession->session, "session");
- 
-+	psession->callback_raised = false;
- 	err = perf_session__process_events(psession->session);
-+	if (psession->callback_raised) {
-+		/*
-+		 * Clear the early stop requested by this session's callback, in
-+		 * pyrf_session__callback_raised(), so that later sessions process
-+		 * all their events. That function is the only writer of
-+		 * session_done in the python module, so resetting it here after
-+		 * processing is sufficient and there is no need to also reset it
-+		 * before processing.
-+		 */
-+		session_done = 0;
-+	} else if (stop_requests != pyrf_session__stop_requests && !PyErr_Occurred()) {
-+		/*
-+		 * A callback of a session being processed concurrently, in
-+		 * another thread, raised and set session_done which may have
-+		 * stopped processing this session's events early. Raise an error
-+		 * rather than silently dropping events.
-+		 */
-+		PyErr_SetString(PyExc_RuntimeError,
-+				"Processing events may have stopped early as a callback of a concurrently processed session raised an exception");
-+		return NULL;
-+	}
- 
- 	if (PyErr_Occurred())
+ 	/*
+ 	 * Clear borrowed pointers immediately so that even if copying fails,
+-	 * pevent does not retain dangling pointers to the caller's stack or
+-	 * ring buffer.
++	 * pevent does not retain dangling pointers to the caller's stack,
++	 * ring buffer, or session.
+ 	 */
+ 	pevent->event = &zero_event;
+ 	pevent->sample = &pevent->sample_storage;
+@@ -1759,7 +1803,7 @@ static PyObject *pyrf_event__new(const union perf_event *event, struct evsel *ev
+ 	perf_sample__init(&pevent->sample_storage, /*all=*/true);
+ 	pevent->sample = sample_arg ?: &pevent->sample_storage;
+ 	pevent->evsel = evsel ? evsel__get(evsel) : NULL;
+-	pevent->machine = machine;
++	pevent->machine = NULL;
+ 	pevent->callchain = NULL;
+ 	pevent->brstack = NULL;
+ 	pevent->al_resolved = false;
+@@ -1777,11 +1821,8 @@ static PyObject *pyrf_event__new(const union perf_event *event, struct evsel *ev
  		return NULL;
+ 	}
+ 
+-	if (!evsel) {
+-		if (!pevent->machine && session)
+-			pevent->machine = &session->machines.host;
++	if (!evsel)
+ 		return (PyObject *)pevent;
+-	}
+ 
+ 	sample = pevent->sample;
+ 	if (session && session->evlist && perf_guest && sample->id) {
+@@ -1802,49 +1843,6 @@ static PyObject *pyrf_event__new(const union perf_event *event, struct evsel *ev
+ 	pevent->machine = machine;
+ 	if (machine && machine->pid > 0 && !sample->machine_pid)
+ 		sample->machine_pid = machine->pid;
+-	if (machine && sample->callchain) {
+-		struct addr_location al;
+-		struct callchain_cursor *cursor;
+-		u64 i;
+-		struct pyrf_callchain *pchain;
+-
+-		addr_location__init(&al);
+-		if (machine__resolve(machine, &al, sample) >= 0) {
+-			cursor = get_tls_callchain_cursor();
+-			if (thread__resolve_callchain(al.thread, cursor, sample,
+-						      NULL, NULL, PERF_MAX_STACK_DEPTH) == 0) {
+-				callchain_cursor_commit(cursor);
+-
+-				pchain = PyObject_New(struct pyrf_callchain, &pyrf_callchain__type);
+-				if (!pchain) {
+-					addr_location__exit(&al);
+-					Py_DECREF(pevent);
+-					return NULL;
+-				}
+-				pchain->nr_frames = cursor->nr;
+-				pchain->frames = calloc(pchain->nr_frames,
+-							sizeof(*pchain->frames));
+-				if (!pchain->frames) {
+-					Py_DECREF(pchain);
+-					addr_location__exit(&al);
+-					Py_DECREF(pevent);
+-					return PyErr_NoMemory();
+-				}
+-				struct callchain_cursor_node *node;
+-
+-				for (i = 0; i < pchain->nr_frames; i++) {
+-					node = callchain_cursor_current(cursor);
+-					pchain->frames[i].ip = node->ip;
+-					pchain->frames[i].map =
+-						map__get(node->ms.map);
+-					pchain->frames[i].sym = node->ms.sym;
+-					callchain_cursor_advance(cursor);
+-				}
+-				pevent->callchain = (PyObject *)pchain;
+-			}
+-			addr_location__exit(&al);
+-		}
+-	}
+ 	if (sample->branch_stack) {
+ 		struct branch_stack *bs = sample->branch_stack;
+ 		struct branch_entry *entries = perf_sample__branch_entries(sample);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
