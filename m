@@ -1,85 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010026.outbound.protection.outlook.com [52.101.84.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4699431E824;
-	Fri,  2 Oct 2026 19:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968873; cv=none; b=DYwy5Yn9pFuQKu/ndJP8I64cwpKbf5m4XtyVDiF9Z9rcJiPBO8Jlfl7jCRCbNs3t9b273Nfm1g1abAxKv0F9smLXlDfHeR/akKKRnOREOZJlXyqoGP0tFTu6bj+CyHwu2HFNyWVU81UHN898nPenYt7gjc0sTYn/XNNlmoncFTI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968873; c=relaxed/simple;
-	bh=PP9J+oyLqRV9tkgj7WBN+AyMzFH8/Jp0KaFp6pHE0DQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uHs/hYS/z16JNiYSD/cQPefh/xRpDWyQ6DGbVY8Z0PYrCZ3KrsGx8GJoIkT+fh7x0VASAFTliLuvjWdw3k1iffTL5/ym8L6KN/pIbXr6EJu4gAMwamJhkV76hN8iELewnZl8QwH8u6+mz1P/6Rket5mbfwct13VkpzbzB+83U6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBHsSDNp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F2F36F8E6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790968973; cv=fail; b=nwu1rit5M4ym1EgorudzUKg1ZDTVoGC5X9IcE0v8av45N1jZT5PWY8aHwM2W8LLPB/5578/CECMq8oYuicfG0yDNuH1D0TeD1SvCNZAUojVoqB3SJMEsA+f1uWim1p+wZxGrT1exZ1D0mFDFiulpe+Nm5YU++6XpD505tXo6r3E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790968973; c=relaxed/simple;
+	bh=NVYFU2ag33cQLIvQhoHqK2jderS2AcndXYcHTN+x5yY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=QeNlr8cgx5zkQvWWMHWEnFeXnf2skB3ShLVM48gtwoU/ZjCpaCar2aYDOyVgzuRqrlgYE3XTeDBKmYWE2bP+HjY60qgZKxH2ttDitGrp6TqQuFfqMzZZUpzTAVOe0fWfsWrGkn5aEDkYLVIuL/rj4jJCfh42j6K9EYoji4k9Fc8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZGNA3sQK; arc=fail smtp.client-ip=52.101.84.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBHsSDNp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D641F00893;
-	Fri,  2 Oct 2026 19:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790968871;
-	bh=y6ZufPODuIHzGF3QNb5bOqql0/Xf5uMartGb9nYO4gI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EBHsSDNp7SJRGlgzs1s4PvOgtoI+WThEUd6L3zusu14fF9Utndhrof2SlWJ0i39Pe
-	 9T26TGOv85czWPVV7eDQXIPcm+GnstsRvy7bnniBlBr06sjbs5zVXiUfbAJKt7wFUS
-	 IHKxtSWvSyFeWy8eHkFsK0IlLb0Gqvi+Q/IiYy+/gxptoTtALdupBaU0TWhdtgEtOo
-	 8jKr/9WKYjKSH3LgPyhy9N7QeycHORIo0YPIWrXdGLHd6ay0+BofOOWNVw9iIp23re
-	 X2F1VUs7t7NeY2p3NQsglPI4wW7nGfL2vE4+9mVc7+PQ1RXIjh0q2jnKhtz/utdKvB
-	 4mNxoaGwLxrLA==
-Date: Fri, 02 Oct 2026 09:21:11 -1000
-Message-ID: <ccbcb8e5f806ae1d29164b53551d61ef@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Liz Fong-Jones <lizf@honeycomb.io>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jens Axboe <axboe@kernel.dk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Xin Yin <yinxin.x@bytedance.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ian@honeycomb.io
-Subject: Re: [PATCH v5 2/3] writeback: let foreign flushes reach dying cgwbs
-In-Reply-To: <20261001-wb-dying-cgwb-flush-v5-2-8361eb8c65c6@honeycomb.io>
-References: <20261001-wb-dying-cgwb-flush-v5-0-8361eb8c65c6@honeycomb.io>
- <20261001-wb-dying-cgwb-flush-v5-2-8361eb8c65c6@honeycomb.io>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZGNA3sQK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aVsHl/lcbfVtcxjKJ2U6u0toH32h93oYnALFSSE8AU0CVmESfSnCPpGllacnd1Qy68ppaplQyixUHHa+9IVWUBdIM3v1GuJMlq+xPJwOXNm4GeOZuZoIzigxZsIuq0wR2ydF80638R/P8fv8BOJe+ENHM2PIIQV5zQ0H330uYfEvZqeURovwilV1RLoH3MwFre7Fy0hjOZBnrc8UXgbeXbdzQMpPPhG7ZilW3uw9sXU2iWBu1BTlCEM4pI/hIxX+eByiXZ2E2lGx4suIVhiu5+iOFT6zLtZK37Ru75IgdKAg4jgMlmb3IiX1AX2LNRkZChMSHugDhkqtVqQ0l0/KWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MlMGaqKAsgQFgWCXAYibGV/KOxVYgv5A6dZveyIsXiU=;
+ b=twcYMvO+UVGNUs/syuWGwqWcZQksjzmEa3f814mYz3ngpyUz76PDQIlbSqQK99QOSPYHO3ig3ApUgwmfm3uTdMR+uh2gQiJnoGQtf5Br7Fh0jtpWnIYCVbA8ValkFu4of3S1InhxQJLkVgSNWKMMoHarjIZ7Ecw76QSW6ZvG6lrNNHj2gKFeJfzMmVqjdYksZlz27HlQ9HxdHybUfLMq9DDoJBTdAW7pa4w8NWaDl6pGlAomAhZ10aRGA+HNhDVTCudbQYodtDKspEHGF6xVXC3PUCvs62DRQv2ZCz26scRbKQ6DWGuyB6XIDh3ozmam3fw0gcMLe0zP9rV40r8zkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MlMGaqKAsgQFgWCXAYibGV/KOxVYgv5A6dZveyIsXiU=;
+ b=ZGNA3sQKVblA7lHd8l27MpMeJQ0vH35RTkjQx62spOxFbvEY5wLwNs7GKuyiHO6SKT2hos35yaBVA6sq6clY6CXXOSsaoJCGOv2/4zMQj5X0397irC2YTmau8vaNnRUmMOufvcv9Fu1W1IcxziNS5lQ83qDW9O+Wsi28xhrnNdWOgKeiaj9reiB/gIpWerHNO6PaOGUOtmFAE6wTRewHpFsPxApPWEebCVp4Cel2eXK1MDppbRFz8zoNy/RWNWmKpTGC3v8W81pxxjC2H5qLPwthKJ176olvuhOWQX16DT4xd02uSWP0uVQz4ZivttOi/5vPlbU5/6CI8fOAsjgSVg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI9PR04MB056237.eurprd04.prod.outlook.com (2603:10a6:290:d1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 19:22:48 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 19:22:47 +0000
+From: Frank.Li@oss.nxp.com
+To: Anatolij Gustschin <agust@denx.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	linuxppc-dev@lists.ozlabs.org (open list:LINUX FOR POWERPC EMBEDDED MPC5XXX),
+	linux-kernel@vger.kernel.org (open list)
+Cc: vkoul@kernel.org,
+	imx@lists.linux.dev
+Subject: [PATCH 1/1] powerpc/512x: lpbfifo: use dmaengine_submit() instead of ->tx_submit()
+Date: Fri,  2 Oct 2026 15:22:33 -0400
+Message-ID: <20261002192239.143422-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7P222CA0021.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:33a::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB056237:EE_
+X-MS-Office365-Filtering-Correlation-Id: 720e29b2-4790-4aab-6473-08df20ba8ad5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|23010399003|366016|921020|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	yoj9E7ShNRTAIIZr2SOWPmWbiH/62X8SGskN6RzxEA93aXdNyaM6vundZSKcm4x3OXj3x6KphDgg+eFIO2Z2ZIFaUDFkg6+GmJzwutWXwYpVQAHxF4YiSnjOpQvjaF2kBUhKs7otj1ZIreGxrRBfzy0PE+5V23SVcDNZkp2ZzkXuz23eespBVj2jhb/Tl4JorVyEQgMuqhw/WGs4/MktflZ5J6w7erT14bgx3Jvv0/Jpx00tw5Y4z0L3mlVSNqkoQ0THnfOVw++EyeUyQzlDC0fJl0zn/CKQxvw4lXJLeGXZ6wisHftreAfwcyBackC0MXULOKTA5RLg4rnegJXPcnQ7s2D4Nmi6ZU8iHVmmoeipFPzSs2kELikWaJiBOKFMNjqr7NAZu1tHa4VZO9o1Q1rC2kpPubUR3dHvrfaV3475kxp8MotV7bk0TglAfETqDCsUAyWyDyK28XXmHcT2lquIPH9YpXvjrNTMHYzXEKxJB7qw9Z6hckZziXOBJHq9CltDBvvlDLd7JRlqm/gVptV0t62+L0Lws1hZqSPkvLROLklvR2QPhttltIgj3G7Z6BW/E06Nl2APyZfQyEJ5n7217NdjIwX+EOQsxD52G0d7OZWhFiT+Bu1cnmooutjoGm8cQLwPV25Em5US+4Kdh7/KnGC6oPG+sBG+tkGdzdvIKyXRJs9VspJlcWN/p4PRb0IMU7Dwe78Tpr2vIdLU/Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(23010399003)(366016)(921020)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QBLGvCqNEhY7OQslR1SnjE70KBCXUWDHIaT3/bqD8IAHMfg0BCq3y62JtZuy?=
+ =?us-ascii?Q?31a+NHdJu+TKkUibcsULscUmFVTketgnbjfohJ4CNOXA9xseKUKZaLu2+4EE?=
+ =?us-ascii?Q?CpT+k4zRwr2r8EKwvauNV9whzB+k8utkOtPixtcPxyKyFoH5LZ1NSUow3VWc?=
+ =?us-ascii?Q?JxzBkh1YSbSTNY/nndVu7WyCOHD/cVSsRUNrs70cNFNnnbLGBesQN8NPFaWP?=
+ =?us-ascii?Q?ae1o+LWh8vhCC56yo5SrHcWj4Xw8JP/2aLNdrZEYK53viGnZtRBbgFlohJUy?=
+ =?us-ascii?Q?f3tPNZzf6sQU5UsivP0MnaT4dpnK/2S6WDPT6SpxnCqHYQBKvrNUXmb/C1WV?=
+ =?us-ascii?Q?aaEQs067quzEEMwWC1BYonyJsq/UcAG3vwqnuLouDBCu+sFk6os64Qz9GtOR?=
+ =?us-ascii?Q?j8QJAMiX4GPuJw+RKcFfNzAJ0tUM+8IvX8o1U1KZX2TuyYtQG7Ql+eu9sVtI?=
+ =?us-ascii?Q?Sx7m35tFWywERjReakhAU1nPMRY6Gnf4R4MXOMIkIyfrQnVF77uPEoEoGen1?=
+ =?us-ascii?Q?sPLcLNskNw7RwumlUReJ/RBaZynoLUEkqIYnt3ACD46X290NxejefBr8TGdo?=
+ =?us-ascii?Q?KW2WwEytoaS9syn9P5no4tO70RDAdTz2FjbJjRbD6JSV+fWfDxvf05D/MSI3?=
+ =?us-ascii?Q?nrSskAoJrl3482BGbQmjVM03Jt9Rxu/ysK694Y+hqHQvUoX4wTRroqFr7tlH?=
+ =?us-ascii?Q?WYbugG0CzFFfCcDT7xfcBakuDi44CbGOo48XIBLf82wLROYULqS8aWdt8UjM?=
+ =?us-ascii?Q?rPkteu6vCb1o6pEOqIGPKovpGzPsNb+eK4XYduPT4rovNdrSICFDILhxQ6qw?=
+ =?us-ascii?Q?D/+aLUU9ns7boali/aKXUphRL+0jrkC7JswR1UpH0w5G12UWs0JB11iqN5AU?=
+ =?us-ascii?Q?d/m3ErxxYDv7+unwp4f39I/cP5JXBSQ6E88zdNo5Kz9W+WCu9PhEVrJzs5sJ?=
+ =?us-ascii?Q?KS41ZrZJJoYvnsMSGUvUj1wwD58GF3D+l7/8qeCNvefDbBwDLMkAyRAp7q/A?=
+ =?us-ascii?Q?Ea+6bAf40XvuNlhcqNfy/8MVWVWxt8doGG1S0YFxAdBe9Y1m8Yv4ODd4OYes?=
+ =?us-ascii?Q?PWTR1Neumm++eMuoI+cGMMJKCREzrdmbwvmlmVsH+r7DgOekymtqNxN8Jdb1?=
+ =?us-ascii?Q?wFRwj3sXzXWjQyCSuWnkaQq3V7kANk9aaAtKYvNrkdx4IMY/GPRs2c/odkU2?=
+ =?us-ascii?Q?/O2uh9K5NE91BR+AMFVs3g5ZidVs9pIHLjmAgbswey5YnFUyhYyIaxKmBwsr?=
+ =?us-ascii?Q?/pvZTrfOo5p6G+r6GKmsvoYnisqtvVf9EJ2DOAHpE4ailoJblB/84EgT9nuz?=
+ =?us-ascii?Q?8qgmUqB1s29yUETEOyzK5iZ9UjJwke1CQd3LizpDkHflXAWzOVqMcnnu04/5?=
+ =?us-ascii?Q?5qLOCrh51mm15+jPiaE9PlRqs8Dg1pquxVJo+noijnOop3jtcezIdxihVe75?=
+ =?us-ascii?Q?qKEVFRWqPbwScWZjfwSa1+FP3gqUYY9XorItBty+ONYGxwBgjZp98yVFCQDQ?=
+ =?us-ascii?Q?DszIdxfF6HeVA1+vkNla9fTz7qdn5eJLKPEabSz87I7NkEx+DCq9BKGHmFUB?=
+ =?us-ascii?Q?6Em+DTJfEV1aCyL+d31qF9Y7Q5BSMg8RuKsR0Wn18ORfHTX7Dg0IQqaqLurv?=
+ =?us-ascii?Q?nDIDme5Ub+1dAKdnPGmuxvps/6QdyYmc2TD0tGSFViV8T+Wj4gJmKcxCy5lt?=
+ =?us-ascii?Q?4nZdaUBrzIlgaO8TMBRbyPF/VHLGcDTsnlmY3ub9hDvGL+m3Ju+liaFLtM4z?=
+ =?us-ascii?Q?Ovyjs/IOKM0a34qqmj+gr8pos6HyxibzfghDdNlrmJ7TeDsRINN0?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 720e29b2-4790-4aab-6473-08df20ba8ad5
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:22:47.8815
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tx8fh+JFQsVJNatncbogIW8x25hjzq8DEIxVjcktORCbg/GqXksE3G6kAiZ7pbJdEAZMiXZ0hTqRx7OKYo6USGPDXARL+92KPloBvb6itqQJMwLCV9grXaFP+j8CX9sZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB056237
 
-Hello, Liz.
+From: Frank Li <Frank.Li@nxp.com>
 
-On Thu, Oct 01, 2026 at 11:50:20PM +0000, Liz Fong-Jones wrote:
-> + * The wb may have been killed and its blkcg association may be stale.  This
-> + * is what foreign flushes want: they target the wb that owns the dirty
-> + * inodes, which can be a killed one.  Use wb_get_create() to get a wb to
-> + * attach inodes to.
+Replace direct dma_async_tx_descriptor->tx_submit() call with the
+proper dmaengine_submit() API wrapper.
 
-The next patch attaches inodes to what this returns. Maybe just say that it
-returns the wb in @memcg_css's slot, killed or not?
+Assisted-by: LLM
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ arch/powerpc/platforms/512x/mpc512x_lpbfifo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> + * This function uses css_get() on @memcg_css and thus expects its refcnt
-> + * to be positive on invocation.  IOW, rcu_read_lock() protection on
-> + * @memcg_css isn't enough.  try_get it before calling this function.
+diff --git a/arch/powerpc/platforms/512x/mpc512x_lpbfifo.c b/arch/powerpc/platforms/512x/mpc512x_lpbfifo.c
+index f251e0f682620..5f1f8310c30cf 100644
+--- a/arch/powerpc/platforms/512x/mpc512x_lpbfifo.c
++++ b/arch/powerpc/platforms/512x/mpc512x_lpbfifo.c
+@@ -310,7 +310,7 @@ static int mpc512x_lpbfifo_kick(void)
+ 	out_be32(&lpbfifo.regs->pkt_size, bits);
+ 
+ 	/* 5. Finally kick DMA off */
+-	cookie = dma_tx->tx_submit(dma_tx);
++	cookie = dmaengine_submit(dma_tx);
+ 	if (dma_submit_error(cookie)) {
+ 		ret = -ENOSPC;
+ 		goto err_dma_submit;
+-- 
+2.43.0
 
-This describes cgwb_create(), so wb_get_create() is where it belongs.
-
-The struct bdi_writeback comment in backing-dev-defs.h and wb_dying()'s
-still describe the old lifetime rule. Can you update them too?
-
-Acked-by: Tejun Heo <tj@kernel.org>
-
-Thanks.
-
---
-tejun
