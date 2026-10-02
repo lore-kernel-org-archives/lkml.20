@@ -1,154 +1,191 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6904398F5;
-	Fri,  2 Oct 2026 07:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926683; cv=pass; b=U33744G/LM/8O/GGxWqrskvlBNP5nTB/XcA3Zx3MysZalokjWfHvInP2WgECIBRHwYnanHHEpPmVswgiqI9uFyLIQuBFcYUhg/dx0ivinC6z0mlQ0r4+HCYM4QUc8XSFZJOgQ7snzKKW0lbpAJ/dlsjIv7Zz4VvlXSmL7T65S40=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926683; c=relaxed/simple;
-	bh=oYlQ21R4HQlx3vVK0kr8E8QTtj8C3t8fpkgT41RyBPg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T89YKUTE2zqbWzCautmIXV+p11c4vpG30jT01eHwAEKw02ApG6fbgLopAoJ/m56RtQTZiY5aA0mr1RkJs4quIFLSkAWpKQoicXdl6SfDfmQ/8QtBasEDgWw2fTAGzjwmxPwZ5mzmZyMyp3aX7lmgHgJuNKuM9xGpk6u1AF4opVo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=LuXWrZqB; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6049443DA3A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790926712; cv=none; b=j2JLS9cE2u4zdP3txtubBRsYxmaGCM1AW5JjyaPqswTayqCIJDr8ol3eDinzSPzANB4+GY8mk+UH1fevJ9Ppe5Tyg8QtyEL++WY5z5M/0/tqsDmp15UuYywn8vRZq4D9LtcIJQ5CFfK7/kdcBslu8UA6JRPBVIUd931/r2ZcRpw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790926712; c=relaxed/simple;
+	bh=uxpK6vzv53tP4a7NeeHGhYR+8OkiQgrSzeHoa5Cljy4=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=O0ZQaOZviJux4nokxy/pPmvAs370lVHA20D2xd9NV94f8HbusHQBywR8qJHhHHEqqKAgrcq+t8HREAtJAKw096zH+H3boQ2PsDRdT8i1sqSSsOhlSvbc2lqm6e5N0sqGiRIn23S43liloy2UFJLKz+9lsVJEev31MPo99c2KrAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K92ZDcGX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="LuXWrZqB"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 144F5201C7E;
-	Fri, 02 Oct 2026 09:37:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790926677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ioPGJibz7gaYFz5Z6bnx7RTmBLJohx6gGPI543XIhYs=;
-	b=LuXWrZqBZ088UzvwjEBBEJavVSr52TfqHbcU0eMIhcVtOL3FDNSmyTgQ1VInImrgt+F/8/
-	PndRygh1A8fWfhSzjWesIWBvEaFlp6HYKYX6wgAREkzUQeuZnFiIEdM7prFfrffdgaZamC
-	FlVCqO9oaD0lXqZeme5iGCQXBMVM90QJbCOfmsGJt7UF9y+yVWgOOchJjtCLBrFx3m5w4p
-	pWHWypOyl80CmMu3+/NoY4iDQ7DHuIQoD7+oHfPILhIwxsD7rDVwDIqAZ/G7ge3CBJGwQH
-	EMkSL46h7Fp/CckSnTpIHideS1RoPjc9m2foAqn2ENiNCQhqjjtckSAfgk6tPg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790926677; a=rsa-sha256;
-	cv=none;
-	b=d3BKUpRyZadCo2T5P/Bn5nZWFPfRWuzoiw+NE671pZelAKQsGFWTN5BjneuBMI0981o/+m
-	OlWrjiJ6okLOyN+BUpy1hE8sfL7xWPz0Z1wlAbTA5a9zBHsE4xHQoqUuDJfDQh4rlDE2/1
-	6BV6XBsJDyXFHk/fxRxL1x5XK1dDGIVgv7KQNCvre9Pz1/sS53iX/Ski4ayrH4Rx+9nxAt
-	2Ep6GYzYE6X4BS65XEpjZ0re60MXIumuUsNJs9CGlwI7EPGcwQki5uf1FKiLLaB36PtMra
-	YxpsrUTyMRwMM+ciJTPvgQgpn9HwWJA4RovvBSitHJ89+dR8VuBM3V1SWHR0Cg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790926677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ioPGJibz7gaYFz5Z6bnx7RTmBLJohx6gGPI543XIhYs=;
-	b=QAnLDb5eFGCrgnCI8qpbNAq0fum/wvEfE+pG+9XwN+5NR/pNrYBi8x1/GAKwTzGfBP9xSl
-	pQPezcdW9bzqU/JXGN2sxm5Rbg9iD4pJZ30W8i7oxwtoQnMc+6B2Aag6UNu0ID0LPpaZdk
-	zZS8CJOc/jmOeWluzfsSeoZZqIB1GaGYyZunf/sSBFbzqU0MZPyBFws/3ocEU91bh1dKWr
-	7KYk//6INrH96zlR6hEFT+/kPSOz1Br4wMQqyrk7/du8UScH1NUk+CQi4lUOUkR8E5RN1U
-	167MZXMzLwViZOc6wOQxjHHLO4Uc9uoLRILG6IdDaVmZ9aifVdk6ItCdfv4BKA==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xCXq9-003r9X-00;
-	Fri, 02 Oct 2026 09:37:57 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xCXq8-000000079hr-3kgU;
-	Fri, 02 Oct 2026 09:37:56 +0200
-Date: Fri, 2 Oct 2026 09:37:56 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Networking <netdev@vger.kernel.org>,
-	Javen Xu <javen_xu@realsil.com.cn>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: manual merge of the net-next tree with the net tree
-Message-ID: <ar9fVCfceZG7Nz3l@pengutronix.de>
-References: <ar5vAxEqS8tO8aVT@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K92ZDcGX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F9A1F00898;
+	Fri,  2 Oct 2026 07:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790926711;
+	bh=XtSWMODzZRMemFY6O5+w7nKBIt1ojmfxNPujwIIo1pM=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=K92ZDcGXpNj2kZ7B7rF76L6o74uWMwVDHLV7RHruKiu5sPyzSaww5VbOy5uQQOSTD
+	 EsduIzswJnKxxlAdP3JDCELv9cEf20A1IdGwStTBJYFWfNAjyoURDto43inFoGSzGn
+	 jx91um3s8BySk4y6tdNDDn50IYXSVlQnknAseEu+QIy3Dk2DEEJPuWAGQ450zGJBj5
+	 uZOEzwYYLV4tvrfYkgxwiFhZ9RfVSDgSe2f0l75647aeAoH6AFRzlntrF9fpC9N8EZ
+	 gaoKqwL3AjPWOXHFq8XVPWbeEWAgneTwtix7yB8UHkKkdIf00ML6hukTf06zXFRISS
+	 h1D3udUEBJAkQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id C080D198003A;
+	Fri,  2 Oct 2026 03:38:28 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 03:38:28 -0400
+X-ME-Sender: <xms:c1-_aoMxJIXM9u8qgLYFXh1jD3wmlA1Sp70YqaVBLFjeH0WXCH1U2A>
+    <xme:c1-_apyaN0-TmpoZAuWIxhRfTU_PoSLvMmkwDWQ8xfnFBq3Z4lu0h4nyQ5y34ImFk
+    A2kPbR5DtCk_l4uH3WHfsnGYyBuAZ2_ObHRtRhZzujPZ3IVGJsmQxVg>
+X-ME-Proxy-Cause: dmFkZTFj5SHra/C1CsSY6JjKDNLgrncTSuKCsVZg37Q6vWpK6cQ0urV5rL0EOpMpw74RH0
+    v6mXpnl1+qfRY2aOEZ5gc08XjonARkwl3nYAm00P+hNLt6QoQOmYyss2I5et+iz+6GsY4x
+    MYJIHbE36C+uLmzYlsDoXyRulQRWj4IsCnwbIGJsA3aX3tzZOR01oRm0QzIMdxf8vIW7kl
+    I8qNm6BEyxt/q76vUVI9/St5IIBKXv4F31DoVCsSeCF0q5EEeKU40Y8AeJ56E4oGhqi9tz
+    NJBwnnq7DD/nzgeemIai7mErXg1/rt52kINa6mp2Smb3YlgXDP6Jtu8YNhFyhSQ8EaSioa
+    O6vR2LZ5WeNxms2YL+D2KtEwAO0u2N1yXjp9JfdalfkDgwSe5AA9EkV9n2cQKoYxruc2MD
+    hOIoQKgsZwoMdQa3kOGv2/6i9zBKgIvUlvcBu8CgIL0kMu0M1fSfPP3/bZcXmJ7RiLtiQy
+    72VRIFV5T3sAe4X646InkTuYBJPqIlELJR3NMdCvMxPvxYpH51LqCWWOnPNjipF2YH4caz
+    VuVjNgKj3mA8EUzR49+IWjXrT4WnKFZXF8Tomns8NYsHSy/2fcK/Z93uHCwJkHbl/toJe0
+    zrmNp19pEe8FUJAPDr3+pW/Tp2GNcL1C+dhLx0SG1nPHQx2cqIVtYtfUwvlw
+X-ME-Proxy: <xmx:dF-_auwRaVuocg_eq8roLK1nmoQMTq0XZbJZgLsD8Vr7qCMtAJNQKw>
+    <xmx:dF-_aie62EG-HBNmU39K6joMXustf7BxZvNZXO-O9e8jaZTptoZVeA>
+    <xmx:dF-_ar4O9bcO-pnCqLopyJHtkA6_hh-E9dBvj-D-KMp3jlcG2DnfIw>
+    <xmx:dF-_avKANjwW3ItwfDM7kWOwzDN1vaUjpKufblGRReVc5Bi0FJpnJA>
+    <xmx:dF-_aryWdE2Z6djpuv_k0hHdhpuW9ab9YEn3Bgl4TeKlzz3ysBxj-qXJ>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id E7824F80084; Fri,  2 Oct 2026 03:38:26 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Fri, 02 Oct 2026 09:38:05 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Linus Walleij" <linusw@kernel.org>, "Bill Wendling" <morbo@google.com>,
+ "Jeremy Kerr" <jk@ozlabs.org>
+Cc: "Bartosz Golaszewski" <brgl@kernel.org>, "Kees Cook" <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ codemender-patching+linux@google.com
+Message-Id: <7e847715-6bd5-4f69-a9a6-339788810fec@app.fastmail.com>
+In-Reply-To: 
+ <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
+References: <20260928063824.1386524-1-morbo@google.com>
+ <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
+ <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
+ <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
+ <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
+Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ar5vAxEqS8tO8aVT@sirena.org.uk>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-Hi Javen,
 
-On Thu, Oct 01, 2026 at 03:32:35PM +0100, Mark Brown wrote:
-> Hi all,
-> 
-> Today's linux-next merge of the net-next tree got a conflict in:
-> 
->   drivers/net/ethernet/realtek/r8169_main.c
-> 
-> between commit:
-> 
->   3cdeaef1754ab ("r8169: disable EEE on RTL8168h/8111h")
-> 
-> from the net tree and commit:
-> 
->   8a3c76523e449 ("r8169: add support for phylink")
-> 
-> from the net-next tree.
-> 
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
-> 
-> diff --cc drivers/net/ethernet/realtek/r8169_main.c
-> index ee1bc9bd04470,1d06ddff98327..0000000000000
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-> @@@ -5474,22 -5619,6 +5619,12 @@@ static int r8169_mdio_register(struct r
->   		return -EUNATCH;
->   	}
->   
-> - 	tp->phydev->mac_managed_pm = true;
-> - 	if (rtl_supports_eee(tp))
-> - 		phy_support_eee(tp->phydev);
-> - 	phy_support_asym_pause(tp->phydev);
-> - 
-> - 	/* mimic behavior of r8125/r8126 vendor drivers */
-> - 	if (tp->mac_version == RTL_GIGA_MAC_VER_61)
-> - 		phy_disable_eee_mode(tp->phydev,
-> - 				     ETHTOOL_LINK_MODE_2500baseT_Full_BIT);
-> - 
->  +	/* Keep EEE off but the version stays EEE-capable so that link-up
->  +	 * still clears the MAC TX-LPI bits.
->  +	 */
->  +	if (tp->mac_version == RTL_GIGA_MAC_VER_46)
->  +		phy_disable_eee(tp->phydev);
->  +
->   	/* PHY will be woken up in rtl_open() */
->   	phy_suspend(tp->phydev);
+On Thu, 1 Oct 2026, at 23:24, Linus Walleij wrote:
+> On Thu, Oct 1, 2026 at 10:05=E2=80=AFPM Bill Wendling <morbo@google.co=
+m> wrote:
+>> On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@kernel.=
+org> wrote:
+>> > On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@google=
+.com> wrote:
+>> > > On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@goo=
+gle.com> wrote:
+>> > > >
+>> > > > The 'data' pointer field in 'struct acpi_gpio_mapping' is assoc=
+iated
+>> > > > with the 'size' field, which represents the number of elements =
+of
+>> > > > type 'struct acpi_gpio_params' allocated for 'data'.
+>> > > >
+>> > > > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
+>> > > > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
+>> > > > attribute.
+>> > > >
+>> > > > Analysis of allocation, assignment, and access points shows tha=
+t the
+>> > > > pointer is never accessed before the count is set, which guaran=
+tees that
+>> > > > this annotation is safe and will not cause runtime panics or
+>> > > > false-positive bounds checks.
+>> > > >
+>> > > > Cc: codemender-patching+linux@google.com
+>> > > > Assisted-by: LLM
+>> > > > Signed-off-by: Bill Wendling <morbo@google.com>
+>> > > > ---
+>> > > >  include/linux/gpio/consumer.h | 2 +-
+>> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+>> > > >
+>> > > > diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio=
+/consumer.h
+>> > > > index fceeefd5f893..2b80cf7aa7e7 100644
+>> > > > --- a/include/linux/gpio/consumer.h
+>> > > > +++ b/include/linux/gpio/consumer.h
+>> > > > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
+>> > > >
+>> > > >  struct acpi_gpio_mapping {
+>> > > >         const char *name;
+>> > > > -       const struct acpi_gpio_params *data;
+>> > > > +       const struct acpi_gpio_params *data __counted_by_ptr(si=
+ze);
+>> > > >         unsigned int size;
+>> > > >
+>> > > >  /* Ignore IoRestriction field */
+>> > >
+>> > > There's a problem with 'drivers/firmware/efi/libstub/Makefile'. C=
+lang
+>> > > needs a compiler flag to support the "__counted_by_ptr" attribute
+>> > > referencing a field *after* the pointer, like in this patch. Howe=
+ver,
+>> > > the Makefile blasts the flag away for x86 platforms. Below is a h=
+ack
+>> > > that copies the part of the top-level Makefile that adds the flag=
+. I
+>> > > don't think that's a good solution. The comment in the driver's
+>> > > Makefile says that the stub code executes before the kernel does,
+>> > > which I assume is why a lot of the flags are blown away... In any
+>> > > event, I'm not sure how best to address this.
+>> >
+>> > But is this a problem with the current patch?
+>> >
+>> > Does libefistub use <linux/gpio/consumer.h> in any way, shape
+>> > or form?
+>> >
+>> It's being #included transitively:
+>>
+>> In file included from drivers/firmware/efi/libstub/efi-stub-helper.c:=
+12:
+>> In file included from ./include/linux/efi.h:20:
+>> In file included from ./include/linux/rtc.h:18:
+>> In file included from ./include/linux/nvmem-provider.h:16:
+>> ./include/linux/gpio/consumer.h:670:55: error: use of undeclared
+>> identifier 'size'; did you
+>>       mean 'ksize'?
+>>   670 |         const struct acpi_gpio_params *data __counted_by_ptr(=
+size);
+>>       |                                                              =
+^~~~
+>>       |                                                              =
+ksize
+>> ././include/linux/compiler_types.h:392:64: note: expanded from macro
+>> '__counted_by_ptr'
+>>   392 | #define __counted_by_ptr(member)
+>> __attribute__((__counted_by__(member)))
+>>       |
+>>        ^~~~~~
+>> ./include/linux/slab.h:602:8: note: 'ksize' declared here
+>>   602 | size_t ksize(const void *objp);
+>>       |        ^
+>
+> Hm I see.
+>
+> Certainly Jeremy or Ard will have an idea about how to solve this,
+> so paging them in.
+>
 
-I guess this quirk should be folded in to rtl8169_get_lpi_caps() or
-rtl_supports_eee(). Can you please take a look at it? I do not have
-access to any stand alone realtek MACs.
+libstub code never executes in the context of the kernel, but only in
+the context of the boot firmware. Generally, we disable instrumentation
+there that has a significant runtime component, basically because we
+cannot crash or panic the kernel before we have even booted it.
 
-Best Regards,
-Oleksij
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Can we just #define __counted_by_ptr(...) to nothing when building
+from that Makefile?
+
