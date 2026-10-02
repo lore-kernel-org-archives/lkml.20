@@ -1,140 +1,110 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B747332614
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1DD44163B;
+	Fri,  2 Oct 2026 07:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927101; cv=none; b=jVXCDHMoP1lEZbLyLNB4vB0PChy6ekImgvAih8j0xzsl3QAXaOPPQALJjooiEpN7clF6oW+P8Xrx+Wenv00lyOWgt/SkekyxXJZHLhZ0KcmTJhDtmd7sU3YXtnJp+tBd4oodfDaFTDeJkuRjV3KPo2EItActR7GFKmXAMtOVnR4=
+	t=1790927129; cv=none; b=e24q8nxpgB2CCeYpxpdnMMVl/3to12tyXdjvvVF7gQToeRL+ZK1chlfHzEcnm0qU2Y0QxYgoj+hXaKINHNB637Qg8u/gWNBaha9rAGlvntUNpEW4ONuK9Hrcg7QZ6l9uhpkWZBWJbdyrEDOdw5wiFzTXvxEcmJlatDoofPeP7qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927101; c=relaxed/simple;
-	bh=LCowhYnbnLJAxxRVQo+xU8WuDn4NOmon65GBpuJWhT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H0VL/HGihlzcwgJx/L8ZwDYj2knXQjejKBzugdsC44UvUae11qXQqecWKyzGfUlcCb9ruIMPbJ3jRAg9a2b2v8dGTyCasxImocn6L0OP6L7fZK1zoRxdUXvIg+jcQRfkG72wJ1znO4JVi+8N57S7exjjCz4PBDUxNzi1MLVZUW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=FO6EpnZK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pShE01vy; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1790927129; c=relaxed/simple;
+	bh=VxAFUhl8JDPZUyOTuk8XIlOz7AqK4lBsD6qFrsqfLkY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=u02K/wBlsBs1EaDARUcaPoBhr0A4xknXBU5lp8rKy6wAlSp1T+Isxl/eJj3TmYifIZ4UV/C12IsuztxEmiwC/bhVvIB2dRxBYTy3NMQ4leNsIo4DrelwPCWzDiEMl9KUu9ppqgu9QL49aW9JsfMOrG0DU5ZVDK6keeOkuf1e27E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwWcNgs1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="FO6EpnZK";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pShE01vy"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id E70BD1D000AA
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:44:58 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-01.internal (MEProxy); Fri, 02 Oct 2026 03:44:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1790927098;
-	 x=1791013498; bh=vbej2bTTSB21ru4WE29aXHTSgKeX3cUAZE657bwipZA=; b=
-	FO6EpnZK01mwyIxcSHQ3G1pL0AdnlY4lcI07zmxTvzFSlbHyZrFMsxh8sPg15JVd
-	YiqtSrztRpAJk3YjWHxwtE8qSvq5Lhn+LOx9Yb6QFDHHjXyTb0x5Ci6Ybhkt/cDr
-	nYZB8mvlCPabGs25yl6Ql3c2a+aWEm8ybYFYcH7Y14Fg7m7lB073fVXcbTVcwUsJ
-	hGbcgLUSGdvwEQB9JNjj5ehMOrl32E4CKy1+xrsD/kAZxgoljONrF9MAXpnF4e8O
-	XQ/HiI3RO+ztYKNcrax312xPSn8bZrJLabq4/R1cq2qeQmlkfuAmXkx+EnicdHDa
-	tSnERlWT1nbnFhd0IS+vHg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790927098; x=
-	1791013498; bh=vbej2bTTSB21ru4WE29aXHTSgKeX3cUAZE657bwipZA=; b=p
-	ShE01vyz9yw/MAbE8qP5wfq0Zxkdb7BGuEM7gZs8GkC6jBjDoRYIjbMl+gxzbvYo
-	2EroBqFJw6MI/qOQFVCYrtQG/wSwcwOXhUGYlBBkWKF4jziH45sl9i0ntVFMPW7p
-	zLM0hrpaNlbr/Q2X+3C9PCzLXb/m1rh+6NlzxdvvHdPaqnv6KovPtrN1iROm4dKo
-	EIFtGCY59dRMZ7BtxFovQrIZha5a26PwoxNUfGM/+wCFM2eXc7tN1uEKIp8ltZsb
-	K1nzRaCv1V4+l2UJsHuo/oNURYlhRiH7PwaJMHZAVV32jDFxVTBAx0/EXJJddjMt
-	Fg7IR0gsz5jf7FGFL/ZIw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790927098; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Zsyf/QjnXVwZvfl1w0e38/YsrEZR/OmzBSf5LnQVHEaNct0
-	/6gu0j3tyZn58P/8BeO/OYrFBuoKJgbahQEEJRy39eGn8FpnJREW8BbEX6u9uV1/
-	UZ75g5x+PIxrjkIHAriXXIAOrteJuanq8Ig4ckZqgmH7+YL3WdPbrQJ/744nXhKR
-	g7HzNzIAg22+NYur+dzR49KLr4O13V3RdW1VFnyBbH7LUJO2NHEHmTlQN7JxZloI
-	5shVCSDySMrOGhcgsjzvbm66XomrTrgKEyHkBArSDGSzXVVFGvpD1B9K4BKJwlQh
-	egyPoQdjGnfLbTuJG0r8XpgiF4nRwzPZtTRq8Tg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:Zpegsnv+z1EJ+i75zrU2zk17RqslZ38hPfVx60lh0lI=:LCowhYnbnLJAxxRVQo+xU8WuDn4NOmon65GBpuJWhT4=;
-X-ME-Sender: <xms:-WC_ar9DNaBTqTwZNdLv-ehPfZtYwDwhrcnVVHuYfzy_RUjh8JD_tA>
-    <xme:-WC_ajnBogNieaN5RSRRRpxJyuxcq6jqeW8l2e47Z11aEup1kF7yBGOZ9c2mDnQR0
-    zZhobDaA9s14YVNu6_MAVodloOEUaoBTGdJ4Tb3FWMYVFpcQkaRHhI6>
-X-ME-Received: <xmr:-WC_akhihV1JmpAVRAIzmE3tXUSG3xloVFGtseRWKM1tObdk3Vs7cgHWWNvlfEYIUDMDRdNrWpLs2NIb805ZISJtjH66okCW>
-X-ME-Proxy-Cause: dmFkZTF/KvG14L6SoNmfOg+TwWUCpD3GD5fO5a5Up/H7w7pZTyfHzcF0fRTQ2O1u6hQ9R4
-    Q7nfL5vkCTEXPmhB2TmivQ3nxJZyYb9oMp6craEuOpvR6x+bBvlp+mjWoef/3nPUR9+sjR
-    KbptPwzO09bXD+oUF7wXwHtN8EvZQDnpeafnMDqZ3QczrPFfbIXz0DEXdMAklvLZ45W1dn
-    pg7KIyMYPOHuK6CRhLjE+D6ag8B3lADj4di6wXE8CSgE101HCWeqPHeeCIB8c44GqZLXSp
-    0/M9Z46IE2FWptS0HefnVORB0TBKGFgVNM7ytAPcjhr9Won4cicrR/JL0TjFkhcmtKPDFP
-    xznIvqrEpncKk9+jTnqctjvKZwCDpCGcbvoFf0coZfuGun22dcEpY6rByVwpTXV+nJkBSr
-    kMgTPNBpBdYF2JzwZmJhqyaQ1Zvou/fJB7mf4AoA+jzd7HDXNnsHY0LBX66EDgFmlOvYxC
-    0rH689BKlb1CW2jkng8NrSxCe8Ht5QRkQmvdQi/Wl6SPToBtHwCJLgOXWCaLbehAGJI2m0
-    pOdzMwVHkvL3L+RqLi19c2z7GN0vFJyJiyC81BjfCWwZObgxPCMcAfzEhjGGRSaS/CPwpE
-    cmO9AEAw18YY8xErVFnL/ZbWqxE3RvFmZYkLJYnzwBRNz0ImxXK6ws1qehmA
-X-ME-Proxy: <xmx:-WC_arZy6gUS2dzYVLBIYQHaUFFp9JfDQz6pW7-WJEJ2gmtJQo2laQ>
-    <xmx:-WC_aoEUFjd6eEUDDFrZCzzcEzWJnBlHRdvyj4FPLX_nnGlEwuutwg>
-    <xmx:-WC_aoY3GtAR6dml2jefi_dyKbbsWszJl316sIbzGGBUHDYCoJgONA>
-    <xmx:-WC_ap0pXpZGVexq2pXC_K8A0GGQIlikhAHElAbe489ZlEDMVYSmvw>
-    <xmx:-mC_aqSFKbS7K3itCFMCpIXQ99U7yNy8ZSH1PgySMt54-MozPjU1KWHJ>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 2 Oct 2026 03:44:55 -0400 (EDT)
-Message-ID: <0113c472-9893-4fb4-9e6f-2e38b68d59b9@pobox.com>
-Date: Fri, 2 Oct 2026 00:44:54 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwWcNgs1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0764E1F00898;
+	Fri,  2 Oct 2026 07:45:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790927127;
+	bh=4pEj+dUpf/d2gtpJtogfdsGqq/vlK1UHl2zJvGkpm1o=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=KwWcNgs1MZlqMxkfT7IHQb0OgwD7uDuXfJyzPT4PoK4aierCb6akK8Ud86GORFDv3
+	 AeYTaWRJgaBprMblb4+8OSzCbmnQ561UFRCL3BwGU7ArdYgcmIMbGZv1UzGyVTvCSw
+	 BrH+8oQjNu5w6+x/NEtjGj4V0CYfvNi4Vt86NFe3RAesC8vfcabSS9YUnTgvWpqsk2
+	 o8kuO+P0ujBJtxcH9HgVYb9EeNa9mMTgEP6HQWZJbAKaPSjnnA6wUPGfTx3pl8/8d0
+	 heq3BkcD0Qsc3A3fIGSl81fovsXvgC8EhbdaLI0Fexpnk1Qd+HSAZ/xQLs87/HaJcH
+	 9VDQQjACNzo/Q==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7A137198003A;
+	Fri,  2 Oct 2026 03:45:24 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 03:45:24 -0400
+X-ME-Sender: <xms:EGG_ao84nIIcq10xNEojAybswkNjRDuAzPK8g6y_Rj5MoNxZJpy7tQ>
+    <xme:EGG_arhit_jhYrvz4lnSPkVlz5C8Asx6LO543nX1kWA_1IKbVF6SLW4QXURGNcUa-
+    k-3q_2kVg5zdRpAEMZQJNHm0EK4SUqo1CH5DiqfUSkq79ckJJTLpqw>
+X-ME-Proxy-Cause: dmFkZTFkqu6HjImMUOMNeLbIKN4w3bg+6B0rzZnczP8X0ylnRs3MLgSfzeIYu2qbH5cZyb
+    Bj2VyJyRPgPRhfGQlY39HXL7G139EP4EEHUdh6l0Wn/QcimQNWGpIfWt0UVWH8zMP3lpUK
+    ez4LbVUVyWIVviWYqBYHlq52/gyKTF3eLd8kAHoe57a33p1LGn/X2FOWjFlJwUcemBor42
+    98Xdk38Cz5LQNNpdGbXYydUjePzoVC3jh8U0zuLFnGUbawTFYuqSJhXrmBy0dzbJ5fZWb0
+    AYAmbrf37DCnOWWlbazYPOIAVF6hSk+Cr3xdlzu25u60XCf4KhonTC8aDsttKBDIU9eWNV
+    6NBwXYn2LePslm7eStEvf7j8T2HoHe+jyGr0dMFdudBfNrW2m5et70K9/TySyUNCHfnh9l
+    oDReYD/YaAiHgseIOKpZa4ZP+801FbfiyYJ9zUdf6czikkKhFs653ByIszbuS4ETrl7HN+
+    PdZS7TqLxGd8h+G/VHuZtH0QapgTSkSZTrxZRay+kzyBHZa2D8wG0v34DXGAxBJ02iRiR1
+    Ygni2Cn4Hh3rjPoNtvH+d7ShdYI+XwrYIh0JczBkDqZTA+YZedtSE1VE9p5U0p132ynreQ
+    EtlhGEJThFxig5pIWYbAoOTgFMJGI+zDGkyECUs7IQEbByXM7uJyoMNyZTNQ
+X-ME-Proxy: <xmx:FGG_ajvuPZ5K4_AqhIkpf-74NH61GqjnXP4xFGh1gSVyabhuQePjLw>
+    <xmx:FGG_amIMKGB6H_D1DSzkpQc2r9irEeWGZDA311vbL2tG18yucdVBjw>
+    <xmx:FGG_aqMChE_8fMwucIVB6rlbURvBoZjNDTbPvIjcnt2jSUmDjX2AQg>
+    <xmx:FGG_aiCHRpeqZUpVgt9iXRpCWpnFOng0CZAvLkn9mkgDToG8eSu_iQ>
+    <xmx:FGG_aqWlWhyfWUpXSGhONnXV9US1aaqGAdj6cS4J_QbLOQf4jq968mMH>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C7008F80084; Fri,  2 Oct 2026 03:45:20 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/457] 7.2.9-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260930152346.024115587@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Fri, 02 Oct 2026 09:44:59 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>
+Cc: "Francesco Valla" <francesco@valla.it>,
+ "Mario Limonciello" <mario.limonciello@amd.com>,
+ "Javier Martinez Canillas" <javierm@redhat.com>,
+ "Jocelyn Falempe" <jfalempe@redhat.com>, "Sam Ravnborg" <sam@ravnborg.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Randy Dunlap" <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <001eb42a-ec22-474a-83c6-371f1f4b2b8c@app.fastmail.com>
+In-Reply-To: <20261001195847.141192-3-maximpedraza@gmail.com>
+References: <20261001195847.141192-1-maximpedraza@gmail.com>
+ <20261001195847.141192-3-maximpedraza@gmail.com>
+Subject: Re: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image size
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/30/26 8:21 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.9 release.
-> There are 457 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.9-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1) and an arm64
-virtual machine. Working well, no regressions observed.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+On Thu, 1 Oct 2026, at 21:58, M=C3=A0xim Pedraza Padilla wrote:
+> The DRM splash client reads the boot graphics the firmware left behind
+> through bgrt_tab and bgrt_image_size. Built as part of drm_client_lib,
+> which can be a module, it then fails to link:
+>
+>   ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol=20
+> 'bgrt_tab' undefined!
+>   ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol=20
+> 'bgrt_image_size' undefined!
+>
+> Export both. They are filled in once, early in boot, and only read
+> after that.
+>
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Mind making these __ro_after_init while at it? Conceptually, they
+already are and should be annotated as such for robustness. This
+becomes more important once we expose them to modules.
+
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
