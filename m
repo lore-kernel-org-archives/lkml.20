@@ -1,148 +1,146 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B88964C33EF
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916304C33EF;
+	Fri,  2 Oct 2026 15:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953296; cv=none; b=OHE5Whb25KkOUfzT6gxe1y0mSmW3MUOYutH5FpUTI7NgCYAkDwfbmzFaPzOTLCzm6o5HtAJrk3BJ4fT0du7ett6NRgPnSfQw+VAoT06sqzrkgMZ/8osKBegIf8EZR9He2HkqB510EgLdGgiVyFyORMDvO252zV2/XPZEXhdf7qY=
+	t=1790953303; cv=none; b=JB0/SiFrOYWIubZuwsDY7WIYWFoIkryxhkI9vEA63nCQDUtaIE1HsyV8bTGKmhDzDUT8jCrzD8S7MMTYAIC2LjcMqFCh7DmqmbxPWED4JfIJ9KUw8KzM4qkTktN+UaHKqHV0Cr/rR2n6r++3Hwp5oFyxTdFMPxy2CnYSFxsEqo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953296; c=relaxed/simple;
-	bh=CSPMny85UEPu5DAMEUzTlLa9GbYv296ddDiSXLN8qbE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iaZK/ZI84KOkKag26J+EqdCV/N+Zq0Tw7rigMS0PXtG6gMwCKZ26KtDSiRYdytnfWWrC1K8qFnaokbnJM2rDt8rGlOdiGTEL7KKNS98mnnYJCeZ2NkJVvtlF/ITtA547K5G/pvhKc9tNSgshSUXtUczGwY5hMRWm0HhrGmSlI+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EZdMJh0a; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790953303; c=relaxed/simple;
+	bh=3Z0KT34f0XtmMYAcAoyNgh9a3GESnDB5sl8kKCWE/Kg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EzBpQjZi4AolCmXSolNiuNiOlHYeVtrdKEuaEoDM/zxciuTbVLduQ+il0C4lz/s2PSG87/m1PuCx0oFR/DjdB2crn2cRMI02p5wglDFtc0QPN7zhJ+sZIPnlmewLSpxY49vovaWOUiE3gcbJcEuhcDd7tiwVNr0LH7WfOW3acYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BJAwBtg3; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EZdMJh0a"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 85FF9497;
-	Fri,  2 Oct 2026 08:01:30 -0700 (PDT)
-Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE7043F86F;
-	Fri,  2 Oct 2026 08:01:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790953293; bh=CSPMny85UEPu5DAMEUzTlLa9GbYv296ddDiSXLN8qbE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=EZdMJh0aGT+xBbnYX3SZk2cZxFhlLx/bKWaq0iYVGvmVongZITAnp28emds7GNERB
-	 fir79ce2ZqPLQGo6kV30/fqvYva/1TUFIxFreC1u3oPpyb//K09zqkMnukUnaiM/oD
-	 oZWX6lPgxtSkWARWFxd69vl6mGqBmPH9fsb20tkE=
-Message-ID: <4efe1c1e-5fef-410f-90c7-6638486706d0@arm.com>
-Date: Fri, 2 Oct 2026 16:01:30 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BJAwBtg3"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2B7254E41111;
+	Fri,  2 Oct 2026 15:01:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EA0C1603DC;
+	Fri,  2 Oct 2026 15:01:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9813B1032826B;
+	Fri,  2 Oct 2026 17:01:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790953294; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lBIhAf1zrMsSuoUnlVj3Mn8SpEqQ7vAdxnvxFNwqdm8=;
+	b=BJAwBtg3SRxQiKkUd98CQfJriI1NmxyIRi1HPy8WHcO8KEu67fyFC4AHTd2ktheJgusJek
+	EB/rU0konL1L4MztwOwF9eb1RrJx+B+smBPcuFY5HyXNADkSyUrRqJ15wYw2SxpUkhiWGl
+	9XMd7VsNTumNiaVvmM81PHR+sB/Bk61qu/eJhytIFhkElnvJcT/iU+thMcw0Yk0B+npmWQ
+	iUVzEI/RLsPenvDLEUa6Tge8qLwqDslKj4p+dPCKtNPohlBe9XVE2wUaKCNgyRPGqzu8IN
+	tVCXUGj8QKKNOL/vuJ8cTYfILTWjC3Y7KNrWb6dcUS1XgBRxsb7QuhXFYkeqUQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Fri, 02 Oct 2026 17:01:06 +0200
+Subject: [PATCH v7 2/7] clk: nuvoton: ma35d1: Avoid possible error pointer
+ dereferencing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/12] arm_mpam: Add missing mon_sel locking in MBWU
- save and restore
-To: Ben Horgan <ben.horgan@arm.com>
-Cc: reinette.chatre@intel.com, fenghuay@nvidia.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dave.martin@arm.com, andre.przywara@arm.com, Gavin Shan <gshan@redhat.com>
-References: <20260917145617.2202986-1-ben.horgan@arm.com>
- <20260917145617.2202986-5-ben.horgan@arm.com>
-Content-Language: en-GB
-From: James Morse <james.morse@arm.com>
-In-Reply-To: <20260917145617.2202986-5-ben.horgan@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-perso-ma35d1-upstream-clk-v7-2-cbd991fa6270@bootlin.com>
+References: <20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com>
+In-Reply-To: <20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Ben,
+MA35D1 registration helpers store their parent_hw argument straight into
+the parent data, without checking it first. In case of registration
+failure an error pointer will be stored in the table, which is then
+forwarded to the clk core, which treats any non-NULL parent as valid
+handles.
 
-On 17/09/2026 15:56, Ben Horgan wrote:
-> The mon_sel_lock is used to protect the mbwu_state, as well as h/w accesses
-> that use MPAMCFG_MON_SEL. However, in mpam_restore/save_mbwu_state(),
-> mbwu_state is accessed without holding the mon_sel_lock.
+Bail out early when the parent is an error pointer, instead of building
+the parent data.
 
-This is me being sloppy - I was only worried about concurrent writers, not
-use of the array itself. But this is clearly better!
+This issue is mostly theoretical in practice, since reaching such an
+error would involve a very early -ENOMEM.
 
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+ drivers/clk/nuvoton/clk-ma35d1-divider.c |  3 +++
+ drivers/clk/nuvoton/clk-ma35d1-pll.c     |  3 +++
+ drivers/clk/nuvoton/clk-ma35d1.c         | 13 +++++++++++--
+ 3 files changed, 17 insertions(+), 2 deletions(-)
 
-> Add the missing locking.
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+index e992e7c30341..57a7b4ed3b5e 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+@@ -90,6 +90,9 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
+ 	int ret;
+ 	int i;
+ 
++	if (IS_ERR(parent_hw))
++		return parent_hw;
++
+ 	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
+ 	if (!div)
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-pll.c b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+index c7c0dc91a012..92424e9c669d 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-pll.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+@@ -336,6 +336,9 @@ struct clk_hw *ma35d1_reg_clk_pll(struct device *dev, u32 id, u8 u8mode, const c
+ 	struct clk_hw *hw;
+ 	int ret;
+ 
++	if (IS_ERR(parent_hw))
++		return parent_hw;
++
+ 	pll = devm_kzalloc(dev, sizeof(*pll), GFP_KERNEL);
+ 	if (!pll)
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index 1a857f28310f..ceebcbd8c18b 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -130,10 +130,19 @@ static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
+ 				     const int *parent_idx, int num_parents)
+ {
+ 	const struct clk_hw *parent_hws[MA35D1_MUX_MAX_PARENTS] = {};
++	struct clk_hw *parent;
+ 	int i;
+ 
+-	for (i = 0; i < num_parents; i++)
+-		parent_hws[i] = (parent_idx[i] >= 0) ? hws[parent_idx[i]] : NULL;
++	for (i = 0; i < num_parents; i++) {
++		if (parent_idx[i] < 0)
++			continue;
++
++		parent = hws[parent_idx[i]];
++		if (IS_ERR(parent))
++			return parent;
++
++		parent_hws[i] = parent;
++	}
+ 
+ 	return clk_hw_register_mux_hws(dev, name, parent_hws, num_parents,
+ 				       CLK_SET_RATE_NO_REPARENT, reg, shift,
 
+-- 
+2.55.0
 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index e349db525882..d39d210574a6 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -1652,17 +1652,26 @@ static int mpam_restore_mbwu_state(void *_ris)
->  	u64 val;
->  	struct mon_read mwbu_arg;
->  	struct mpam_msc_ris *ris = _ris;
-> +	struct mpam_msc *msc = ris->vmsc->msc;
->  	struct mpam_class *class = ris->vmsc->comp->class;
->  
->  	for (i = 0; i < ris->props.num_mbwu_mon; i++) {
-> -		if (ris->mbwu_state[i].enabled) {
-> -			mwbu_arg.ris = ris;
-> -			mwbu_arg.ctx = &ris->mbwu_state[i].cfg;
-> -			mwbu_arg.type = mpam_msmon_choose_counter(class);
-> -			mwbu_arg.val = &val;
-> +		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
-> +			return -EIO;
->  
-> -			__ris_msmon_read(&mwbu_arg);
-> +		if (!ris->mbwu_state[i].enabled) {
-> +			mpam_mon_sel_unlock(msc);
-> +			continue;
->  		}
-> +
-> +		mwbu_arg.ris = ris;
-> +		mwbu_arg.ctx = &ris->mbwu_state[i].cfg;
-> +		mwbu_arg.type = mpam_msmon_choose_counter(class);
-> +		mwbu_arg.val = &val;
-
-> +		mpam_mon_sel_unlock(msc);
-> +
-> +		__ris_msmon_read(&mwbu_arg);
-
-Dropping and re-taking the lock in __ris_msmon_read() means everything we cached
-in mbwu_arg could in principle change. I don't think it does - but if we're trying
-to be robust/unsurprising: we probably need a __ris_msmon_read_locked(), or because of
-that cfg pointer - always get the caller to take the lock.
-
-This is better - so we shouldn't let perfect be the enemy of good.
-
-~
-
-Turns out you clean this up in a few patches time. It's theoretical, so the order
-doesn't matter.
-
-
->  	}
->  
->  	return 0;
-> @@ -1680,12 +1689,12 @@ static int mpam_save_mbwu_state(void *arg)
->  	struct mpam_msc *msc = ris->vmsc->msc;
->  
->  	for (i = 0; i < ris->props.num_mbwu_mon; i++) {
-> -		mbwu_state = &ris->mbwu_state[i];
-> -		cfg = &mbwu_state->cfg;
-
-Yeah, I was only worried about concurrent writes. But this is clearly better.
-
-
->  		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
->  			return -EIO;
->  
-> +		mbwu_state = &ris->mbwu_state[i];
-> +		cfg = &mbwu_state->cfg;
-To check - do you agree we don't need to worry about the array being free()d?
-Because the first thing teardown does is disable the static-key and unregister
-the cpuhp callbacks, it shouldn't be possible to reach this code before the
-array gets freed...
-
-
->  		mon_sel = FIELD_PREP(MSMON_CFG_MON_SEL_MON_SEL, i) |
->  			  FIELD_PREP(MSMON_CFG_MON_SEL_RIS, ris->ris_idx);
->  		mpam_write_monsel_reg(msc, CFG_MON_SEL, mon_sel);
-
-
-Reviewed-by: James Morse <james.morse@arm.com>
-
-
-Thanks,
-
-James
