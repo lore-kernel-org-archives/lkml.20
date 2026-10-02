@@ -1,90 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.adriel.eu (mail.adriel.eu [51.75.77.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FF83D76;
-	Fri,  2 Oct 2026 16:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4681531716D;
+	Fri,  2 Oct 2026 16:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.75.77.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957942; cv=none; b=Tn1GhjCTC8RRGXFb/6WP7pH+KecXzbg2QII5IkfhhC6StqcTFRieRBrwryJ6mlFPdxO5HdYBXp0zrhxlaAkt5LWR9wHvj60ly0lIZEGNUJFXMlnT+6UuSZm27EwtYONQTaVobnCvCfc3FTFFxEEgk8VqUKEg/txQSzXp5SMWfh4=
+	t=1790958027; cv=none; b=M9u8STo11/2/QEnbrL8YIBQwxEc+HLf25vuzbJds+jC+gYXzbgCGraUJFf36dO16NoRW61AvsIoEX4DiGYfal8Tk6TH9n5RPwO6JXb1Tt81t64MB7sPX7vSmsJqWJ6GTN3TolGsHbGKW5NI1ZGfDUktwfL3DMB7QQPzDGyL61sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957942; c=relaxed/simple;
-	bh=B48fwaa56pY4U+My0GqpvR9gOogOUEm2JeWSv86s0YU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YmOhKp01dR5enYubV2e4ERzzcsr0gKD2bW9kOcKtUxJIzGclxP82kIncUFnGxV6Z/y5f2niT0MrklL0Bd8MWspHx1BRuw0NKgwNtDk2f5eYiAB5hE6p805jqm3f6cB1kElUW1Csau7bhmGsfjYxdjTfx2aRfRBWEsLB/DukOrAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSacBtJO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790958027; c=relaxed/simple;
+	bh=kGwamAOcW69QieVU0Eb5n3DQQ18Its6iwsGa4DSTG+k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k0Up4AOvLbSBPO6I10U01JY1wJllILi/I6EYwYPKijjB337Q7SHJ4AGEX6ZrAJcAqVmVvYIe+Dj6mHtnB+PlF+sebZEzPcI94Wba+MOf4DTn5j5KHbCVU3Znjuwim98ZtLJSZh0n8ztk6Q17o/ZzEVcWuFEt03eu9e5B+sv9uMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adriel.eu; spf=pass smtp.mailfrom=adriel.eu; dkim=pass (2048-bit key) header.d=adriel.eu header.i=@adriel.eu header.b=fZFBEGoQ; arc=none smtp.client-ip=51.75.77.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adriel.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=adriel.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSacBtJO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6141F000FF;
-	Fri,  2 Oct 2026 16:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790957940;
-	bh=eWmjm7vEKisLYbLXL6w0pR7Ro/v6UckZORlsLJ3XLUc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cSacBtJO4kq0zNSOtsryekHLMV6tj7igTBIjf8XbrtphydCvD0SpPvQ9qi8Bsp95X
-	 VYHWi9DQfKKRHlk//+wWPcuwBJC8FqkSnBTlurHiKnk6lf9yAGXNGKUPCBBzSH48FW
-	 Ve5GkkPqkDBeKpvVz6Z6ggXFztrVGlIm8QHdsSSbHfL42+CRoj5gzgjcejfV+VQliW
-	 zEoMsCYjwvi779FxQLcRUcvJ+weCAnEPuY+syc4lppS4WdzSIx5FoiEy/O3vmUGuQr
-	 nI2ZUs0kvrJt36wF9tDsmSVl7H08QlDwbVUc1jkORyY7xez1YX+XMC/6l8MXQaM1c+
-	 mwHqH0lB4gxYA==
-Date: Fri, 2 Oct 2026 18:18:57 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>, Leo Yan <leo.yan@arm.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf python: Track linked libraries as extension
- dependencies
-Message-ID: <ar_ZcRqAZxwQpr4O@x2>
-References: <20261001-james-perf-stale-python-build-v1-1-dd3b14644606@linaro.org>
- <CAP-5=fVsTGp+_gsk-yCiK58A7O3LuK0okOuHwuVr+xgiSHVGLQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=adriel.eu header.i=@adriel.eu header.b="fZFBEGoQ"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1020F261ACF;
+	Fri, 02 Oct 2026 12:11:44 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adriel.eu; s=dkim;
+	t=1790957510; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=rT6Ok/TgsDsjnHJNnNtEOfsiLGxANnzqLzd/ug7vm/s=;
+	b=fZFBEGoQ2HSiEJgD6RIFFwytlm9LB/v0DbiugHciPs+Uwul3i0zKpaxUViyaXX6lBd2Afy
+	8+3sC8KhlmTkErPYnKecKn9KqEAawrZiBSgIVB1j/r151nBpGIgxwZoi5nDaUBKAFjFP6/
+	I//rjUXgO+1w3Cf9RzNj2LB4NULNKtQ9mv7Mu59M+36/dXRLuQHq7h+Hg6Ds7Q3Fe3suD1
+	SQkuirFZWt50JHQB2QPmVtxZOd5soxYLayVe3xG1f8U1LPGf3ZsLG3+WtWdNLwpZAJS2gB
+	5IJuG655JBSJCZd6aEL9XIqaOXi7Z4ZGLm66P0hR2vJHLytx6qgc57AmYE0Xlg==
+From: Adriel Santos <adriel@adriel.eu>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+	Nitheesh Sekar <quic_nsekar@quicinc.com>,
+	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Gilberto Conde <gilbertorconde@gmail.com>,
+	George Moussalem <george.moussalem@outlook.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pinctrl: qcom: ipq5018: replace gcc_plltest with pwm2 on gpio12
+Date: Fri,  2 Oct 2026 13:09:58 -0300
+Message-ID: <20261002160958.908424-1-adriel@adriel.eu>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAP-5=fVsTGp+_gsk-yCiK58A7O3LuK0okOuHwuVr+xgiSHVGLQ@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 01, 2026 at 09:25:02AM -0700, Ian Rogers wrote:
-> On Thu, Oct 1, 2026 at 8:48 AM James Clark <james.clark@linaro.org> wrote:
-> >
-> > Since the Python extension switched to linking perf libraries, setup.py
-> > only lists util/python.c as a source. The libraries are supplied through
-> > LDFLAGS, which setuptools does not consider when deciding whether the
-> > extension needs to be rebuilt.
-> >
-> > When a library changes, make invokes setup.py, but setuptools can skip
-> > the build and the recipe copies the stale cached extension back into
-> > python/. This leaves perf and its Python module running different
-> > versions of the same code.
-> >
-> > Pass the linked library paths to setup.py and declare them as Extension
-> > dependencies so that library changes trigger a rebuild. Include
-> > EXTRA_PERFLIBS in the shared library list so that both make and
-> > setuptools track those inputs as well, preserving the existing linker
-> > order.
-> >
-> > Fixes: 9dabf4003423 ("perf python: Switch module to linking libraries from building source")
-> > Assisted-by: Codex:GPT-6-Astra
-> > Signed-off-by: James Clark <james.clark@linaro.org>
-> 
-> Reviewed-by: Ian Rogers <irogers@google.com>
+The pingroup table has gcc_plltest at function 5 of gpio12 and does not
+offer pwm2 on that pin, so the pinmux core rejects a request for pwm2 on
+gpio12 as an invalid group. On the hardware, function 5 of gpio12
+carries the PWM2 output: the Xiaomi AX3000T v2 drives its blue status
+LED from PWM2 on gpio12.
 
-git am complained, applied manually:
+The vendor kernel shipped on that router (Linux 4.4, stock firmware
+2.0.28) has pwm2 in this slot. Its pingroup table, as read from the
+firmware image, lists these functions for gpio12:
 
-⬢ [acme@tb-x2-perf perf-tools-next]$ patch -p1 < ./20261001_james_clark_perf_python_track_linked_libraries_as_extension_dependencies.mbx
-patching file tools/perf/Makefile.perf
-Hunk #1 succeeded at 538 (offset 12 lines).
-Hunk #2 succeeded at 571 with fuzz 1 (offset 12 lines).
-patching file tools/perf/util/setup.py
-⬢ [acme@tb-x2-perf perf-tools-next]$
+  gpio, blsp0_spi, blsp0_i2c, blsp1_uart0, _, pwm2, qdss_tracedata_a,
+  _, _, _
 
-- Arnaldo
+and has pwm3 at function 4 of gpio13, matching commit c6c159fcdb4e
+("pinctrl: qcom: ipq5018: add missing pwm3 function on gpio13").
+
+Measured on the board: with gpio12 set to each of the 16 function
+values in turn, and PWM2 held at 0% and then at 100% duty, the pad
+level read back from GPIO_IN follows PWM2 only at function 5. There it
+does not follow PWM channels 0, 1 or 3, and the LED switches with PWM2.
+Functions 4 and 7, which the table leaves empty, do not carry PWM2.
+
+Put pwm2 in function 5 of gpio12 and list gpio12 in pwm2_groups. Drop
+gpio12 from gcc_plltest_groups: none of its functions is gcc_plltest
+any more, and selecting it would trigger the WARN_ON() in
+msm_pinmux_set_mux().
+
+Fixes: 725d1c891658 ("pinctrl: qcom: Add IPQ5018 pinctrl driver")
+Assisted-by: LLM
+Signed-off-by: Adriel Santos <adriel@adriel.eu>
+---
+
+Notes:
+    - The vendor table was read from the stock kernel image: each pingroup
+      descriptor was found by its register offsets (0xc000 for gpio12), and
+      its function array decoded with the image's own function name table.
+      That table still lists gpio12 in gcc_plltest_groups, which this patch
+      drops for the reason given above.
+    - George Moussalem's OpenWrt port of this board first put pwm2 on gpio12
+      at function 7. At function 7, and at function 4 (pwm3's slot on
+      gpio13), the pad stays high at both 0% and 100% duty, which is why the
+      message mentions those two.
+    - This applies on top of George's "pinctrl: qcom: ipq5018: update PWM
+      groups and corresponding pin functions", which Bartosz has applied for
+      v7.3; the two touch different pins.
+    - Tested on the Xiaomi AX3000T v2 with an OpenWrt 6.18 kernel carrying
+      the same table change: the blue LED (pwm2 on gpio12) and the yellow
+      LED (pwm3 on gpio13) switch with their PWM channels. This patch was
+      build-tested on pinctrl-qcom/for-current (arm64, W=1, built-in and as
+      a module). It has not been booted on a mainline kernel.
+    - Prepared with an AI coding assistant (Claude). It found the mismatch
+      while I was bringing up the board, wrote the measurement and
+      table-decoding scripts, and drafted the change and this message. I
+      confirmed the LED behaviour on the hardware and reviewed the change
+      and the evidence.
+
+ drivers/pinctrl/qcom/pinctrl-ipq5018.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-ipq5018.c b/drivers/pinctrl/qcom/pinctrl-ipq5018.c
+index 84392fe258..28b23bb5e1 100644
+--- a/drivers/pinctrl/qcom/pinctrl-ipq5018.c
++++ b/drivers/pinctrl/qcom/pinctrl-ipq5018.c
+@@ -361,7 +361,7 @@ static const char * const blsp1_uart0_groups[] = {
+ };
+ 
+ static const char * const gcc_plltest_groups[] = {
+-	"gpio10", "gpio12",
++	"gpio10",
+ };
+ 
+ static const char * const gcc_tlmm_groups[] = {
+@@ -555,7 +555,7 @@ static const char * const qdss_cti_trig_in_b0_groups[] = {
+ };
+ 
+ static const char * const pwm2_groups[] = {
+-	"gpio44",
++	"gpio12", "gpio44",
+ };
+ 
+ static const char * const qdss_cti_trig_out_b1_groups[] = {
+@@ -688,7 +688,7 @@ static const struct msm_pingroup ipq5018_groups[] = {
+ 	PINGROUP(9, sdc1_clk, qspi_clk, _, qdss_tracedata_a, _, _, _, _, _),
+ 	PINGROUP(10, blsp0_spi, blsp1_uart0, led0, gcc_plltest, qdss_tracedata_a, _, _, _, _),
+ 	PINGROUP(11, blsp0_spi, blsp1_uart0, _, gcc_tlmm, qdss_tracedata_a, _, _, _, _),
+-	PINGROUP(12, blsp0_spi, blsp0_i2c, blsp1_uart0, _, gcc_plltest, qdss_tracedata_a, _, _, _),
++	PINGROUP(12, blsp0_spi, blsp0_i2c, blsp1_uart0, _, pwm2, qdss_tracedata_a, _, _, _),
+ 	PINGROUP(13, blsp0_spi, blsp0_i2c, blsp1_uart0, pwm3, qdss_tracedata_a, _, _, _, _),
+ 	PINGROUP(14, pcie0_clk, _, _, cri_trng0, qdss_tracedata_a, _, _, _, _),
+ 	PINGROUP(15, _, _, cri_trng1, qdss_tracedata_a, _, _, _, _, _),
+
+base-commit: 19fc4240358be2a25ce8e0a49a2819588ed61c5d
+-- 
+2.47.3
+
