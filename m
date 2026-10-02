@@ -1,113 +1,161 @@
-Received: from va-2-113.ptr.blmpb.com (va-2-113.ptr.blmpb.com [209.127.231.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021095.outbound.protection.outlook.com [40.107.130.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3033803F1
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.113
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925997; cv=none; b=pj8qErO7ZsxbbGB5x7g1/GaLI0QekfVPavttN5B1H41YATd3nVtdZpN5oC9tcZfJVzL3IiAD8C1o9ACB+y5PJi3/1nYJNFIRSe99VIWT0Ro46Vf2JdvM8pr8ZEEB0zSpLfiLkyfi7QSO30DDK03Dio8EbB0jtd+FiFp6tSAFLCg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925997; c=relaxed/simple;
-	bh=mSIV37ULCWuX5sejNFGsoWbiBPpjYupTX2D/uvYO8x4=;
-	h=Subject:To:Cc:Content-Type:In-Reply-To:From:Message-Id:
-	 Mime-Version:References:Date; b=Th93okV9T5DP8aHVQ8QclnJ5KrUJn9H+HtR+ow4COscjNb1dZfJRL3fzpqdwchhOklamIEK1b86fNxWUQaAOXmB6cCJvtODnlgbHnRIGL2wC+GQVzrrlkawOMkI90RjHXPtg3KVF1207Qtuz6PAz1wk+Pon1tKQX5Q+d0Z4KXto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=m6VM6w7m; arc=none smtp.client-ip=209.127.231.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C14140DFC8;
+	Fri,  2 Oct 2026 07:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790926044; cv=fail; b=ksv2ELfXaX4SnXjv8KsNOjI8mem3BtLwZUJQQcKoFK+O6cN6e2RqRDl7MpxF8A+73cb/mjaBrX7I8LERfR1kcjCMyMz781vF0+2foZMFQz94jnM+lSGo2D0fT7iQfzHKg6YqZB40oI9cB5QtRTtt5hDkiGcawCnbL0EdsI0RJsA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790926044; c=relaxed/simple;
+	bh=mdaamrUea+jNGZKviijtg8UvFRdy69eSHupYyVNJykQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LkjiE9n38GwNas5uGNgonat14dPX5fe1WO5A0j0Fi8MV/+FEjNvt9jcAZdZDxfpVjY7BaFz5HJF9PId6oTgZ59+Am/gJRK+/yju9Jwv+rBe0FpAvEWoSJ7nq3QJ46wQW6ArEAueXNuEb/mICN6Q3m+NMY+wNqT75pJ/1MPtviH4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com; spf=pass smtp.mailfrom=vaisala.com; dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b=Ow1Ctthi; arc=fail smtp.client-ip=40.107.130.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="m6VM6w7m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790925979; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=P0IgipywrUbAu38a6mE+/+11vCB9AwvCN/MVBbWhCew=;
- b=m6VM6w7mFZhABMGalawLn62qLOVR31W/nCEZZzb1k7wNDes6arNkt/jVZ0QswVmb9TWCD9
- BLQzsMjhPLdd2aDw4dinlvPL08kTHMzzvP1dHfoqxFK+IgvEQOr7mRoTLpnYucXSMaJqHb
- 8JfSstE5qKQvJvUUyF8TH+LgNZ816vmGsD2FRM4VbPXuyQJcOHdoACmHDUUiRRVD+i5MZ6
- 3FVL7jiGfyjVatuWCPpziF6bOg51bFGbQdQ7DVutpW4EY0IOTXNWoLh8JH6dOOYk4SPvdK
- gWEBX4XghtyVc3jbdFV9AyNHkxUFgI4575PwLZsdiVRoz03lDLrG2hZI/C97nQ==
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference with MPOL_WEIGHTED_INTERLEAVE policy
-X-Lms-Return-Path: <lba+26abf5c9a+772aaa+vger.kernel.org+lizhe.67@bytedance.com>
-To: "Gregory Price" <gourry@gourry.net>
-Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>, 
-	<liam@infradead.org>, <rppt@kernel.org>, <mhocko@suse.com>, 
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <ziy@nvidia.com>, 
-	<joshua.hahnjy@gmail.com>, <ying.huang@linux.alibaba.com>, 
-	<apopple@nvidia.com>, <linux-mm@kvack.org>, <linux-doc@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
-Content-Transfer-Encoding: 7bit
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+	dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b="Ow1Ctthi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C6bw4qq9fK1DeEjIRMw5fgigQW6FkiaOMJIiNTi5YjTpDCqMhh0A+dpf9iYqTu5QSGNl3EAJ/kqDLsLf9W6pWdbvwlN4aR63K/myRXxoF0nHGHhiRburED7C33JyF9ey7oAaY6Fc5b7ZQzeT/xSU91Ljky6GL+1LaSpzOsNxbdn+HdQLM5jd7H2P7/i7aHaP3cyx/XdE38rWFbI3+D+OEQu3Ef0UYZ1g4wfl6dY2cEATFG++nQ/QkbNPT1nRoIQtd+4IkgRQmUZsWkTHC4Id1jUjFmU2kPLE/VzhUyZ2qAl7S7SvuavbOKKl9+7wNry3+REFJTNLOkPS2+gOxGR8YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mdaamrUea+jNGZKviijtg8UvFRdy69eSHupYyVNJykQ=;
+ b=rVak+41BP8TAyxRmyPKYnKL1llu5EB0Ljp4WiOT+7O7I1tAu7RwQPkJRleDMsvBGDtlcQFW2haCsRz4mRmOVmpNZ3qrLV262zoFxXEKmD42VpOZzQa4tnoZigOpEZVI0YhFJfrLrZsy1AUjItMRqZouEyAc1BWFIgVx5B8ae+Bo9mzExkQuZz6reD9n36DaLclkeS7EYDj48tq+qQMiw1tNgrbG6uTBBpOvgi5qKrv1mejpRkQ3rKnAU1zOqi3B1BTnvZnBNx4Ahr+rqs2MmnI8M9JBWOqDt5WuoZQYg6eLfZL+qK0peoKtFaTmh13vQjWdwvzi8atGFF+mW5qmFSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mdaamrUea+jNGZKviijtg8UvFRdy69eSHupYyVNJykQ=;
+ b=Ow1Ctthi6XWYv+F0/h3Iutbk1H2dBceCKXFVim1T3IaTZ1nD2+7tKBcU7w3WOOXY0RZ1z3Or+wLCO7dBkazT4Hi0h3Gt/eyzsq23Zl7qoqJRqU9t9HjTTSkZY/UPsnKqt+qyL8j/zbjKk4PGNlhsYFXhIMZ+mezcqo5lmL+nib9euuyvzj1vo5Jzz3sfanS1aACQ7ap7PJ9S4YfVJVIWfQc3SyKiT5tSh4vevZyKl2pPlowy4/6lFdKlfVqWj0kb+MflgpwW9J16qM/ZHPdq1Aa0QFI6uBDTwCrtp+478tV/7Mbl5xgNpZ/x47HbP+hMd+ZHXW3qRqAHpseZ9CsQBA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com (2603:10a6:20b:3a6::23)
+ by MI9PR06MB910975.eurprd06.prod.outlook.com (2603:10a6:290:ae::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 2 Oct
+ 2026 07:27:13 +0000
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17]) by AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17%4]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 07:27:13 +0000
+Message-ID: <77d6748d-19bc-48a8-b956-c4bd2f77fa57@vaisala.com>
+Date: Fri, 2 Oct 2026 10:27:11 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/8] serial: max310x: convert RS485 delays from
+ milliseconds to bit-times
+To: Hugo Villeneuve <hugo@hugovil.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Tapio Reijonen <tapio.reijonen@kolumbus.fi>
+References: <20260929-max310x-rs485-sw-delay-v5-0-ae46afa583f2@vaisala.com>
+ <20260929-max310x-rs485-sw-delay-v5-3-ae46afa583f2@vaisala.com>
+ <20261001151125.1cf9daecf48174999aa676f0@hugovil.com>
+Content-Language: en-US
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+In-Reply-To: <20261001151125.1cf9daecf48174999aa676f0@hugovil.com>
 Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <arz-iKWj1gRO3ALw@gourry-fedora-PF4VCD3F>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Message-Id: <93721275-3b50-49a5-9c4a-37bc181a098d@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GV3PEPF0001DBC1.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:401::6a4) To AM9PR06MB7907.eurprd06.prod.outlook.com
+ (2603:10a6:20b:3a6::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260930072617.64665-1-lizhe.67@bytedance.com> <arzLw18RiTN6Hmey@fedora> <7df34f77-2c52-47a3-a495-d782009ab543@bytedance.com> <arzR_QtoMPtM5kUB@gourry-fedora-PF4VCD3F> <e195b784-8a78-4bbb-97ed-168dd86b3d89@bytedance.com> <arz-iKWj1gRO3ALw@gourry-fedora-PF4VCD3F>
-User-Agent: Mozilla Thunderbird
-Date: Fri, 2 Oct 2026 15:25:54 +0800
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR06MB7907:EE_|MI9PR06MB910975:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a5b0a6c-afed-482e-2198-08df205693d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	uNQtG7u4QSWS+g8hcDRvE0ffa8/1Nve1pa0zbo2bwlx2cchMq/8l/RtTShVsR84ZehLN4e9HBCiPHoLGR7FVv1DzQ0WZG2U7RtR0A5pKfFTh6Kb2/Cl2NvFWklBCxyCbU84Cfq4FWMXpfJ86yUain7p6BisL0GRIl6AG6tZGaWXlFzgENnc+ZJs0m7xuHG2rGmzoFlCW3W2sbjKJIf/mFOa/ru6Eg2CwhNQqHx30bUJHsF/BgJXjCoxGdVHxmlvuBfe71FwpIAUmXg0Csh8SotXc0nAVgagjJBaQy1DSSlWVHlOxQ3x6DQlM8z2yDbex6kQz6WMu+A68fQt08VPl7oLO3zWbyKu0YLrE4OmEkSSx1rUFsyWoIdcPbvCEV3VcjkVK8F3L14WEP12iAQI99C+wUVfURTI/vIaLoBgqD7wFpNCTmsGNsDAqKRlQWc/ygv9ari2Ymi/20+yIrobrEzrY5R4lbJpw46MAjH8/yqFSwPWJ5AKFRrXcT2lOlc5TcM/pONNdl/Vi2v+6RY+uODUxzABafykqDXykqNCdKHpS+g2mbdYPiPU8xduEgaNF9s9H9Nsm9phd2emC9XEgO9iCnxHW4dcSdh9SDT2k+pJgHIXX7FUJ2y/X6hyZZb8bdVuuANTDkoqw6MWNnMvRyA1mOoKKt1ig/RH+MZlz3OA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR06MB7907.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZmhnbkJPVk5KNjNMaTdlZWlJV20reXg5NXBCUlJUaFJEclJCT1FoaERMRUNB?=
+ =?utf-8?B?TkhzVFVoZE9DdUVkL3IycmJ5cTNmZHUzNTNMeDNPcDJGSEJBLy8wM3FhQ2xR?=
+ =?utf-8?B?MHh0UUVwYlVVcVBBY3RCYWJsdnF4S05JRmwrbzl3WmN0UXYwRXFmcEpVOTdz?=
+ =?utf-8?B?TTVSZDRmQnI1ejhRMmRERmRtbGh3NGxsTUUxT2tqSTdONzlNeUVCdThEWmly?=
+ =?utf-8?B?Mk9YaERRMnJra0lKaDhJMk9iMW9maGVZOE1LTjZ2QkhZalhQbHlKNDJJWDdN?=
+ =?utf-8?B?Q28wNGIrM0FIcWhraHJia0c3SmNoZEUzSHQwdmlMOHhaM3h5RTdMUjQrZDQx?=
+ =?utf-8?B?ZkMvTUtmUDNIMi8rTGd6K2dOV2NUUkRVVlU2Y1JqQnFwb2Zla25abDdVa1Av?=
+ =?utf-8?B?bkxBaEpvL0NnSmRTaVFGaFpvS3pwdUp3L1VXZ28wWDVzZHY4S2tOWXZsYW55?=
+ =?utf-8?B?ZFFMSU5LUXptaTBTQ3lVQ0FVRzREcVhzdzY2UGY1ZHNETHNQeHdnTGwxdlA0?=
+ =?utf-8?B?UjA0cEs3MnNtVUwxeldoN1lOK3dMN1NOcU8yV1VZc1UyclMrMFhrUjJtakpj?=
+ =?utf-8?B?d2l1ODJyUFpoS3pNbDk0UG0vbWdpenlKUWV3YW1vUDdSckRyTEQ5ZnIzLzQ3?=
+ =?utf-8?B?ZmNCUzMzZjFIUmgzTWowN1dTM3J5SjM0LzhZdHJ2N2wzRDg1WkxMamQvcjFZ?=
+ =?utf-8?B?NC9pZlBQQ2lJbmxqelFoYWNoOUJiWEtuemtiR04zYnNiV2Y5K2oyKzdyUjha?=
+ =?utf-8?B?Ny9GTVhDTUovTWpkdng2UUdseG5HL05BRFVVb3FLSjRmVXF6T0dtaEMyOUVu?=
+ =?utf-8?B?ZkI3UVdVVGxHamF2cGZJWk42dGRITXBFK1lORjd4eGhwOFExV0tYRkM0Y0th?=
+ =?utf-8?B?TEtQL0xlbFRjWFpreEZyY3g5enZySGRQdEgyZkhkWmFsVkxDVHA4WDNWS1VD?=
+ =?utf-8?B?UGNEcnFWWi9xeGFrS1dPNjBMeWlaQ2pDNHpIak5rVENjQlB6SGszaHh4ZUxL?=
+ =?utf-8?B?QkNhSFE3NFJsUlBUSFAzMG9WOWRBNkYra2xWV3czL1c5Yy9FNlY1R1B6U3Vp?=
+ =?utf-8?B?TnROV3o2R2hncEkyalFQZ0dlNkRWSXBjdGtVQ1dqS1Q4Z3BCWXM0T2FaeVk1?=
+ =?utf-8?B?LzB1cGdEN1JZR0o3d285N01TWnlCM2J4QkxUUllkOExSeTZRbUUvNFJTcDVm?=
+ =?utf-8?B?VFpTcTIxRUQ1RllLREk4eXBZK1R2VHlOK05DZkIyam5TVHhTSDlvMWtoaWxu?=
+ =?utf-8?B?aGlVVzFoSTA2a3VsNzQ3M1Jyd3MxVVMzUWRHYVhFU3ZWSVNvS3ZJRitZZ3dB?=
+ =?utf-8?B?NWlHVVYzcTg2VkYyY0RrVGdOVkFsUXo5ZG5UdUtibFMwa0tnSTBvTThTLzZE?=
+ =?utf-8?B?UzFKL0NBYjVUZktDNnF4dHlrTTU5SmNQeFduNWJ0SVUyUHg2NURkb3kxd05G?=
+ =?utf-8?B?VHRTSm1iRVkyN3E1Q09VN000Q0FOb1UwOS9NR01RZEl1TG1nRkcwMFgrWE5F?=
+ =?utf-8?B?cHdwS3dqM1dZb3czR3Y0WHFFV2EranV4UTVIenJCQU1uNmViUzlYOExzaTZI?=
+ =?utf-8?B?YmxpbWY3ZmFyVFpzT0FhSWRtclQ4OEN2NGVKNVl5OXNOV21vY3R4OFZzUWdM?=
+ =?utf-8?B?QXBYSXMrSjJiaGMwZDVRL0pMVmJxZ2JIQUZJRVR0SXkyQjdrZ1FMTkxqS25N?=
+ =?utf-8?B?T2N5U0xrK0plTGxqa3hzVFByRXRYSi9UWmhUMEZvRE0wVVZlYSt5dHRydW5P?=
+ =?utf-8?B?Z3k4cEdHOTh5aU5RSlNuQStjWnExTjhENmFqUGhmd2RRdld5cnpzYVFKL0NG?=
+ =?utf-8?B?Nml4M3VaOFUzOUxTUWc3dW9TQ2dvN09jNVVydXF1eTBpSGQwMEFIMUs2TFMr?=
+ =?utf-8?B?UCs3dG9TNVltZmZIdUpvWWxWWFNZbW5JbWNtaW83ZGVoSCtxb2xDVHRhTURN?=
+ =?utf-8?B?cXBJSXI1cWpTdjFaT3VzME5QcEl3V0hKVjdVaGt3YVNZb2ZSN2pNSWVKRGxy?=
+ =?utf-8?B?QlNhYkJ1UFR4enFKR1lBeGNGeVNNM0xzM1RUNjlpT1JINWptS29kKzRUS3ds?=
+ =?utf-8?B?MGt6aVVnb041UENaeVE3Zm9uTU1hTXBRNzNNUUVBTGtNbjRuQlVBTmVnVWt3?=
+ =?utf-8?B?b0xIdmVxVUczTExoSW9qS0Qzdm9WWlBWR3ZXK1Q4ZHFHWXZrYkw2WVJ5N1Iv?=
+ =?utf-8?B?LzAzSkltY0l5bWNEeGRQeEkxYW40SHNCc3VJNkpPNG1mOGlLWjI5MG9GbkVJ?=
+ =?utf-8?B?bUpDYmtGYVJQeVcrU2ZqQTFTRjlCd0tnT3ZpKzE2Qk5TTk9ZVVhrSTBHdmZw?=
+ =?utf-8?B?cjlyTHdRMFpzVVdFRkJ4TENOUzBjQ0tOTWFpMFZGdlN5STQ2Z3FEZFFKWTZ4?=
+ =?utf-8?Q?DjnJOr11MgUMkw2Q=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a5b0a6c-afed-482e-2198-08df205693d4
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR06MB7907.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 07:27:13.0126
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: btTJ4aPBvUYUxHRQY6eiO11uQdUitYR0s6PYgPdZekViW4xckNicBN6sI6zuEFl6CuEhePQZiT8BSZE9F36xlAk4M6OikiOYeL0Wh1GncqE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR06MB910975
 
-On 9/30/26 8:25 PM, Gregory Price wrote:
-> On Wed, Sep 30, 2026 at 07:22:10PM +0800, Li Zhe wrote:
->> Yes, that makes sense to me.
->>
->> I do not see a reason to keep the MPOL_F_MORON handling limited to
->> specific policy cases. The flag already means that migrate-on-fault
->> placement should target the accessing CPU's node, and the nodemask check
->> is the common constraint we want for all policies that opt in to this
->> behavior.
->>
->> I will rework v2 to handle MPOL_F_MORON before the policy-specific
->> switch. Then the switch can remain responsible for the non-MPOL_F_MORON
->> misplaced logic, while MPOL_BIND, MPOL_PREFERRED_MANY, MPOL_INTERLEAVE
->> and MPOL_WEIGHTED_INTERLEAVE can share the same migrate-on-fault path.
->>
-> I do think it's worth breaking this up a bit, we can decide whether we
-> want to apply it to interleave separate of the larger change.
->
-> there is also slightly different behavior for task-mempolicy and
-> vma-mempolicy, because vma-mempolicy applies interleave via index while
-> task mempolicy does it based on a rolling counter, so you'll want to
-> think about what happens on repeated faults
->
-> i.e.
->
-> 1) fault in a VMA interleaved based on idx
-> 2) a bunch of tiering and pageout/swap happens
-> 3) we fault a page back in based on idx - that means this page is
->     forever-faulted onto that location rather than taking that as an
->     indication that maybe it should be local
->
-> Maybe we're ok with that, but we should probably think about it a bit.
->
-> We may also want to limit this based on NUMA balancing being in tiering
-> mode vs normal mode.  This only makes sense in tiering mode, in my
-> opinion.  In normal mode i'm not sure it makes as much sense - and
-> that's probably where this all came from.
->
-> tl;dr: If we want to change this behavior for interleave, we should
-> probably give more thought for how it should apply more generally
-> instead of just hacking on support to one or two modes.
-Agreed. I think this is the right direction.
+Hi Hugo,
 
-The repeated-fault case for VMA interleave is a good example of why
-simply enabling one or two modes could bake in odd semantics. I do not
-have a good generic answer for that yet. Although we might be OK with
-that behavior, it deserves more thought before being folded into the
-interface.
-
-I also agree that the current motivation fits memory tiering better than
-normal NUMA balancing. For the next step, I will take a step back and
-think more carefully about how migrate-on-fault should apply more
-generally, especially around the boundary between memory tiering and
-normal NUMA balancing.
-
-Thanks,
-Zhe
-
+On Thu, 1 Oct 2026 15:11:25 -0400, Hugo Villeneuve wrote:
+> > never shorter than requested, and capping at the 15 bit-times the
+> > 4-bit field can hold. Centralize the HDPIXDELAY and MODE1.TRNSCVCTRL
+> > programming in max310x_set_rts_ctl_params(), called from
+> > set_termios() (the conversion depends on the baud rate), the
+> > rs485-config worker and startup(), which each had their own copy.
 >
-> ~Gregory
+> Could this centralization be done in a separate patch, without
+> any functional changes intented, in order to facilitate the
+> review of this patch?
+
+Yes, good idea. In v6 this becomes two patches: one that only
+introduces max310x_set_rts_ctl_params() and folds the three existing
+copies into it, still writing the raw millisecond values (no
+functional change), and this one, which then only adds the baud
+caching and the millisecond-to-bit-time conversion inside the helper.
+
+Your earlier comment on this patch is also folded in: break_ctl()
+keeps the single max310x_rts_ctl(port, break_state) call at the end
+instead of duplicating it in both branches.
+
+Tapio
+
