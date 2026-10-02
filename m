@@ -1,201 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334DF40E8C5;
-	Fri,  2 Oct 2026 07:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790924759; cv=none; b=RrPSZuUxZoJB2qgCbg/tMLdnThIs1xmsQnGzSYoCCcx1Tvpg8LhgtsYssISoiEV0gbl98yeu7t8wIDGb/dtHLthmgZpJO+kk9c3rfGkWIdBFB37gkz6vIX2T7E2sJXE+th0ZFX9Avk9DDyEclHKLUtqEzeMWb/uBfvyVd689InQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790924759; c=relaxed/simple;
-	bh=PqB4BefQKB+N9c4UoRFQMwHiB6grwC9vxUrHb3rB8hI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=iukQs5E++UMq2eqj7XSZEnSyA8B5Sr1XIGyukZ4Gv/9EMe2UDEx9GTd4N7JNlirwPcmJAKd0K1EQYhwOdj58GgtEJMWrEhN2ySOar6JoNy2n78Bdsceu/h8aCVhOaBZBA7w4wohhFpDGzW0nbJOmcZHLpuaMaboySbo/Ls4+q2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBPHev7d; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E657633A9E9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790924798; cv=pass; b=qVtiyCixTdYvg+wLgFmQIsi+uZ8lQmLspr9sDq/CnhZtjd00NdZ5uV6qGWBiN6YykY8db/byB9jvresDHyfXaO50IZIZ4FNf2OoBnD7xu8nWqHaSOZA2pWER3XyLpHAApWBoxeel1sclqg390jMkikqkLdNsItBpZqe9s0UAqto=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790924798; c=relaxed/simple;
+	bh=p5mHTSid7ZHG73d5vk/neGkwUD4BDQU+cFE79JqE43I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TWysgrUMH6QFzzalrpTeGI+FiJAdsA1ShWTWpzvdqpwSidQIJTC9SkyAV00Z0b7c6vCqwE40xD6/PgWWWK2xH6u6GV3Lwq2uwXNydsDmrHc7kAELxtXdEnCTpB8LYz6dy2Bq66RbOng90GmY62liTGBH1nlfRtLkUzucb+9/CcE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DfCbAi8G; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBPHev7d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDDD1F000FF;
-	Fri,  2 Oct 2026 07:05:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790924757;
-	bh=q+RvJ5qQrWBaQpl+ZByeC1Yxk5dq3iA4mzzIbyaM97Q=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=JBPHev7dzw5KD3Do2o8jF2ClqL/VcD0yCkArauPDfrzaWNjSv0XIlRwHjQBeniken
-	 NuNKmbo1MBwL69yqS5Sd8ywgt1EEYGe/6Wj7zcDEOhAnrr1K3MC70BRFm7u9B4iM1N
-	 4I03aUKcH1MBgVKhfTFIKagNUEA0JPLd9zbULjK3Db7lYftI6JNGvu1ciQ80IVvVG5
-	 EgGTQrKbozWbbm+kwXtj74BDBhrPgfQoXRujJt4scdrIStbreYpXI2f1hrMueTIlQF
-	 rEwp9zrdvfowaI03UERnsKaFeZl0IaxTOFnnbweIZS/4kslHiNxS3xEO94PnbKiKho
-	 TgLz7N0kwYc9Q==
-Message-ID: <81e1e5ae-0aab-4584-81e6-3fc9c2634d07@kernel.org>
-Date: Fri, 2 Oct 2026 09:05:15 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DfCbAi8G"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c99260bd9so307591eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:06:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790924795; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aq0Z5MX0gn6E05ARz0k7/vHic3wqRV75xZRZZHRIJe2PsGWAMZ1uWwv+xg3lfW2X04
+         wc2dQrNobUup6sVqAHSexHc/3c3Ub46XF2hKVWpfP+B+3AKDUdt+8VI/SEFogbrDfdhF
+         T905iE6WWhlOe2Aw8qXCrwYsQ2OK6VhKOTsXBYwZ9Bcp+84i6IagNXMVU8lzF99UTYuE
+         EyYgvISnKWQebKRVP7pZq2BqqiqNJ9/4THdp86GDSlixz7sLZI++o9G6kBFGzsPFt/ct
+         kq64sAqjIQejaL3qJaGMsen4hmOQmJ2l0nvNinnaeZSNG+6R2lpgK4Bv7udUvvja54iH
+         BOOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=p5mHTSid7ZHG73d5vk/neGkwUD4BDQU+cFE79JqE43I=;
+        fh=ZTjoLVVX68AXv5QNqxnKTpx4i9kzLAzt/n+tSWuT7Ts=;
+        b=m2UqqUi0yvNiouJZfOyoFyAs7M9pQsNDQf8B21XPz7r2LQ1IG1z9TFc6RG6rs2O+cx
+         AlfJqpqyDx+YxtCdo97DWiKNW2QKjfcpbKrj1KeNvFGx9NftdvFKGPxgbG34zvNgJV94
+         W32/O7AJm50kXqcuUDtKF99VTbk/jjull2fADIsU1UZ0IxB5o2MPpOn6GwEKc5c1/2kJ
+         fkBxXODDShLlJNFXtStmNemPlmNLcj1TNf3dT/qtvzIp5neJoqZFZOm7VA7OcEoaCb4a
+         gmjtHsP8YGeFq8LUgnQU9I+yzccDEK86vWMqKIj7zJcCigg9+NNQYvC569v4cfUBJ+lS
+         cpFw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790924795; x=1791529595; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p5mHTSid7ZHG73d5vk/neGkwUD4BDQU+cFE79JqE43I=;
+        b=DfCbAi8G4hznGrFWoblcSqWRCssxNIT46MMEbrJ5S3UutsGsLkvze3DaVQ/O8j2fi+
+         0B/NSFJykr+lMUIsHAh3x0EKXpMSQykxwm5LtWnVZP23YXhJYeyEwXbcC97oXQKMmI71
+         8YRJde+nZu8M/u8Qb2ikM0Q1YeLmu0QV253CjcAG8AcbIX69TAn8bVZ7YxjiJzNB4rNp
+         TFyX9VSmuV+zcbdul1Q12k9UNyypiyqY7VsQe14RP4ISvnAy0f0iZ0gc86FWVekS3ZVS
+         k+9YM+3F8thpHkd3TzGv6izWCD0S1mKsbA3YN0x6BiCC7CkB4Am/CCwX5A4lbQZ3qS+c
+         MqJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790924795; x=1791529595;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p5mHTSid7ZHG73d5vk/neGkwUD4BDQU+cFE79JqE43I=;
+        b=gLHMM7MyatjUGM+61Jox4vWZEXHhEQn3+ewYyiae4Iwz7jI91IsY4Kopry/UY1Co+b
+         pOsDgO2WSgFEoDvrehB+0vruNBUukXz+39lDJJzrCCJ7Druxlht2xiRwyypbCNhJwVxQ
+         KXNkZl7pJx3p5wstDJeK9sI6jYEPK+8+NFtLV2E035I8SbjZQDneFVf2ngvGA1k5FyEP
+         UZr3TJfjHXXmh/22CIA/i3Ocmard9Qqwz6016xRLgNOqLCPhb1CU/8sD2owBISm8a7XE
+         iFfR+RdhYh65jhIIRqQNMJN0l4yxP8yqtpeAM30mnfoYsXfOrPOVkQbnCGrB+shny8zP
+         zR1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz2+SNmGUwhaEzrhBXpF0J7mDUIh9nGJnR7t+HotHNPBqbXjV3qWf0GuM4DbZs3TCNcyMPaqYUTS4/rC5s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzzJz20FfIB0PQbsks0REytuziW7c4ZGyY5ppwDQA44SG1lmGU
+	3XbSHZ7cSLmTiKMoC5Vz2jvl1yGHgKY9Nh1NCjk/1WbldxRbDgy1OQ72Lg0bzGHNAvnPRsMe/cF
+	s13inTkcYx7yMCuKxoCpO5CGxuE9bKwc=
+X-Gm-Gg: AYBFou0ad0XQUD+WQwCZK2/t+E9cZNUV48zgDmOY2FeWb1cI11g7gySXian8LkGUMaE
+	7JBoSrICneecn+fJJ7LjiJuDP5FR7Xt7dbfBizrG9VEsFzKZTS3pVHwQUsrINunrif+LUdWB1Wi
+	/2l2BBVkFFlfEbu3F6lHZg1QFBrgcS7DjEik8g3Jpc/u1avfAUDi6NQtY/uwkVsNu3WMuKMbvKe
+	khQwtQayWR3skhiW8/coyfL5+RDm7dg03BVdgQOYiU6jYb1jW5f624czXh00jH0zwmCzDW4V798
+	FLDf8vcl0hnnecZEYDjF9sx2jAHS4pIMez7uTQ6a4Jsclm8Q01vwZQU9qjGt1nltkjwR9WNeiR4
+	0tJzJnVbR8kFCz6bsoxZHRyJ2J8PMpa27S9N9r2i3m4qAqOO0QA0Y6J9KfeCWmx8pDhmygJ63BZ
+	I/9XswDJzwnPSOD8jHS0/8hQYCXiYO3CNvWvMyg6HnCYrImAbz81rcuVWBvZFXIw==
+X-Received: by 2002:a05:7300:54c3:b0:34b:47b2:677e with SMTP id
+ 5a478bee46e88-34f14ff2bb8mr3462444eec.1.1790924794805; Fri, 02 Oct 2026
+ 00:06:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 31/40] mm/vma: introduce vma[_flags]_is_persistent()
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-31-4583d8a23bca@kernel.org>
- <9bbdf4e8-6984-4477-a183-f0b236047381@kernel.org>
- <3557015d-23dd-41ef-9832-78b58587f3f4@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <3557015d-23dd-41ef-9832-78b58587f3f4@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260917051147.98775-1-tweek@google.com>
+In-Reply-To: <20260917051147.98775-1-tweek@google.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 09:06:21 +0200
+X-Gm-Features: AclHuK8lJ9lWMbMYvuPCA4PNhehiCTluRjGb1PR9k0qMsRR1b7vJrjMUZYoSk6M
+Message-ID: <CANiq72=SX8xxCAzf6tcQb1CUoa_f8Y9fxVSqEBsSwqUtfsxn6g@mail.gmail.com>
+Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
+To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/2/26 09:02, David Hildenbrand (Arm) wrote:
-> On 10/2/26 08:59, David Hildenbrand (Arm) wrote:
->> On 9/17/26 18:22, Lorenzo Stoakes (ARM) wrote:
->>> Introduce vma[_flags]_is_persistent() for the purposes of identifying
->>> mappings that are persistent in the sense that bytes to the mapping stay
->>> there, and bytes read from the mapping are the same unless changed by
->>> actions taken by userland.
->>
->> That's extremely confusing, sorry. We have to find a better name for that.
->>
->> Is this really all about user pages (pagecache, anon) that we would find through
->> the rmap?
->>
-> 
-> It's also about droppable mappings AFAIKs. How many more users will we have for
-> that function?
-> 
-> If it's "no others" then please don't add a helper function with misleading
-> names for it and just keep the special "dumpable" check in the new form in
-> madvise_vma_behavior().
+On Thu, Sep 17, 2026 at 7:11=E2=80=AFAM Thi=C3=A9baud Weksteen <tweek@googl=
+e.com> wrote:
+>
+> Module authors may have non-ASCII characters in their names. In C,
+> `MODULE_AUTHOR` allows arbitrary string literals which are emitted as
+> raw UTF-8 bytes into the `.modinfo` section, and multiple in-tree
+> modules use non-ASCII author names.
+>
+> Originally, the single `author` field permitted arbitrary string literals
+> including non-ASCII characters. When support for multiple authors was
+> introduced in commit 38559da6afb2 ("rust: module: introduce `authors`
+> key"), it reused the `expect_string_array` helper that had originally bee=
+n
+> added for module aliases. Because that helper enforced an ASCII check,
+> `authors` inadvertently became restricted to ASCII-only string literals.
+> Later, when the macro parsing was rewritten to use `syn` in commit
+> c578ad703ae9 ("rust: macros: use `syn` to parse `module!` macro"), this
+> restriction was carried over by using AsciiLitStr in `authors` type.
+>
+> Change the element type of `authors` in `ModuleInfo` from `AsciiLitStr`
+> to `LitStr` so that UTF-8 author names are permitted.
+>
+> Fixes: 38559da6afb2 ("rust: module: introduce `authors` key")
+> Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
 
-Talking to myself ... the more usage I see of the vma_is_persistent() the more I
-think this shouldn't be a helper at all. Especially not one with such a
-confusing name :P
+Applied to `rust-next` -- thanks!
 
--- 
 Cheers,
-
-David
+Miguel
