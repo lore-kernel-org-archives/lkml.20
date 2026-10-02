@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04F747D948
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59977457E64
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934987; cv=none; b=C9rsjdzt5/gYB+6t7ELH+KqoFizxysCgIo5/lpBcDdM0meFYrChMmP9vs183nw73hwKbLa77XlynFge0Ufqq4buV4zjNGF88Ex359uiVgyYHgWbNzhakiEWYZL259lWmceM+oCYMN8s1/1RCm1hTUgew1l2hnBq3d1Md66vxyQE=
+	t=1790934992; cv=none; b=RifksA3i3GoCXZwZNtB3l0nRNrw5hqf8BTiMUQ6yZxaYHGs5G6T7elzGpmGdiq1J54Tddx47AXyChFKkvV3/5j8bPgbFAeuddc0f3YkL4U/JEQv9CVnXKOSLTk89pIqsyWrsr1efONaQ/He4Y4uHYKKIR7/YziPuRe/rvFDujgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934987; c=relaxed/simple;
-	bh=tZ9+wDL6rWNTsZNFf4VIK3WwHrcNDZjVqDRCGrUUBnU=;
+	s=arc-20240116; t=1790934992; c=relaxed/simple;
+	bh=Gqph+pRQ2PnxiCPetGAbfk568P6MjZ14SuRBF6mfi6M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RKB2Mu2okE25RC7SWwqWl54C5e/JPinK1nRtCgGNB2UNfvZFPTsKsE3oJlmHvCvFzloOqVDL0X3+6jWjyl8398CEpBhwqkMYKUJrc8qPsZ2Lsq+qQWHp3UyapX0P22qpS1QnxOikx7UZDcp1o/bE7Vht686opN6HYdmYimpL4TQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P3cgA1ar; arc=none smtp.client-ip=95.215.58.179
+	 MIME-Version; b=SiB0AcwVfYj9vzZOKpIkwNsM8obtV04C1O/9i6TU/b/rwrjIAev03bIOsduinhrm9Zl1dfbdglupjur/pqOsIF9Ff9QtcrLRZ8jQf2tMA3agBxMECaQj17Gz1n2btSzaxc0G+0sE/JpS75pgl9Fwo7S+8ltQqR7DqCchHrSeQ+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gPbxyHM3; arc=none smtp.client-ip=91.218.175.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P3cgA1ar"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gPbxyHM3"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tZ9+wDL6rWNTsZNFf4VIK3WwHrcNDZjVqDRCGrUUBnU=;
+DKIM-Signature: a=rsa-sha256; bh=Gqph+pRQ2PnxiCPetGAbfk568P6MjZ14SuRBF6mfi6M=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790934983; v=1; x=1791539783;
- b=P3cgA1arufy0XFSaVdY3EeZqsSQWwCVF9/2rCfXFQMLW9SKHf3b6zbcE5lL+oqj+eEs7egAG
- YL3vlwkznYQm61fA/eTRWV+vlX0fLp6LWomEGqoh8d3dHXPxsiB5k7ZtTMoxkmG2xrkU4N76eIC
- jwtek618cHbMJIeoXnyNOMZc=
+ t=1790934989; v=1; x=1791539789;
+ b=gPbxyHM3n85SE/ngJ0pgAd0Kfdl2Hx1F+rVpKTGTHQz004h5DLET6qiR7Mn0jZXJyHO6wyps
+ 1i9Yq2JoaLoOYQWcVwf1TV/M+6Ok5OeS26nFykwYeq3PTZSvZE06E5GWbnoBLLx3yXnAHXiTQsy
+ pDa3npPYGLCyZSAiRR3Djkf0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 6322d5cd786ef910;
-	Fri, 02 Oct 2026 09:56:23 +0000
-X-Mizu-Trace-ID: 6322d5cd786ef910
+Received: by mta12.migadu.com with ESMTPS id 53404ca15399baf8;
+	Fri, 02 Oct 2026 09:56:28 +0000
+X-Mizu-Trace-ID: 53404ca15399baf8
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -62,9 +62,9 @@ Cc: ying.huang@linux.alibaba.com,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v8 09/30] mm/debug_vm_pgtable: test PMD swap-exclusive helpers
-Date: Fri,  2 Oct 2026 02:52:23 -0700
-Message-ID: <20261002095503.3585565-10-usama.arif@linux.dev>
+Subject: [PATCH v8 11/30] mm: split PMD swap entries into PTE swap entries
+Date: Fri,  2 Oct 2026 02:52:25 -0700
+Message-ID: <20261002095503.3585565-12-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002095503.3585565-1-usama.arif@linux.dev>
 References: <20261002095503.3585565-1-usama.arif@linux.dev>
@@ -76,76 +76,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An architecture that picked a PMD exclusive bit overlapping the swap type
-or offset field would otherwise only be caught by data corruption at
-runtime. Mirror pte_swap_exclusive_tests() at PMD level.
+Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
+or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
+handler - has to be able to split that entry too. A swap PMD already passes
+the pmd_is_valid_softleaf() gate, so without this it reaches
+__split_huge_pmd_locked() and falls through to the present-PMD path, which
+pmdp_invalidate()s it and calls pmd_page() on a non-present entry.
 
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+No reference counting is needed: a swap entry pins no folio, and swap_map
+is already one per slot, so the PTEs simply take over what the PMD held.
+
+The migration-only entry point cannot reach the new branch:
+page_vma_mapped_walk() never hands back a swap PMD, and
+__split_huge_pmd_locked() already asserts that to_migration_entries
+implies a present or device-private PMD.
+
+Test the pre-split old_pmd rather than re-reading *pmd in the trailing
+folio_remove_rmap_pmd() gate, so every entry-type test in the function
+interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
+leaves the PMD present as far as software is concerned.
+
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- mm/debug_vm_pgtable.c | 40 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ mm/huge_memory.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/mm/debug_vm_pgtable.c b/mm/debug_vm_pgtable.c
-index 2875fd22d7bb0..863111c6d4eb3 100644
---- a/mm/debug_vm_pgtable.c
-+++ b/mm/debug_vm_pgtable.c
-@@ -802,6 +802,45 @@ static void __init pte_swap_exclusive_tests(struct pgtable_debug_args *args)
- 	WARN_ON(memcmp(&entry, &softleaf, sizeof(entry)));
- }
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 1df4f619620b4..24d116ae1fc30 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3306,6 +3306,11 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
+ 						 vma, haddr, rmap_flags);
+ 		}
++	} else if (pmd_is_swap_entry(*pmd)) {
++		old_pmd = *pmd;
++		soft_dirty = pmd_swp_soft_dirty(old_pmd);
++		uffd_wp = pmd_swp_uffd(old_pmd);
++		anon_exclusive = pmd_swp_exclusive(old_pmd);
+ 	} else {
+ 		/*
+ 		 * Up to this point the pmd is present and huge and userland has
+@@ -3443,6 +3448,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
+ 			set_pte_at(mm, addr, pte + i, entry);
+ 		}
++	} else if (pmd_is_swap_entry(old_pmd)) {
++		pte_t entry = softleaf_to_pte(softleaf_from_pmd(old_pmd));
++
++		if (soft_dirty)
++			entry = pte_swp_mksoft_dirty(entry);
++		if (uffd_wp)
++			entry = pte_swp_mkuffd(entry);
++		if (anon_exclusive)
++			entry = pte_swp_mkexclusive(entry);
++
++		for (i = 0, addr = haddr; i < HPAGE_PMD_NR; i++, addr += PAGE_SIZE) {
++			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
++			set_pte_at(mm, addr, pte + i, entry);
++			entry = pte_next_swp_offset(entry);
++		}
+ 	} else {
+ 		pte_t entry;
  
-+#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-+static void __init pmd_swap_exclusive_tests(struct pgtable_debug_args *args)
-+{
-+	swp_entry_t entry;
-+	softleaf_t softleaf;
-+	pmd_t pmd;
-+
-+	if (!has_transparent_hugepage())
-+		return;
-+
-+	pr_debug("Validating PMD swap exclusive\n");
-+	entry = args->swp_entry;
-+
-+	pmd = softleaf_to_pmd(entry);
-+	softleaf = softleaf_from_pmd(pmd);
-+
-+	WARN_ON(pmd_swp_exclusive(pmd));
-+	WARN_ON(!softleaf_is_swap(softleaf));
-+	WARN_ON(memcmp(&entry, &softleaf, sizeof(entry)));
-+
-+	pmd = pmd_swp_mkexclusive(pmd);
-+	softleaf = softleaf_from_pmd(pmd);
-+
-+	WARN_ON(!pmd_swp_exclusive(pmd));
-+	WARN_ON(!softleaf_is_swap(softleaf));
-+	WARN_ON(pmd_swp_soft_dirty(pmd));
-+	WARN_ON(memcmp(&entry, &softleaf, sizeof(entry)));
-+
-+	pmd = pmd_swp_clear_exclusive(pmd);
-+	softleaf = softleaf_from_pmd(pmd);
-+
-+	WARN_ON(pmd_swp_exclusive(pmd));
-+	WARN_ON(!softleaf_is_swap(softleaf));
-+	WARN_ON(memcmp(&entry, &softleaf, sizeof(entry)));
-+}
-+#else  /* !CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
-+static void __init pmd_swap_exclusive_tests(struct pgtable_debug_args *args) { }
-+#endif /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
-+
- static void __init pte_swap_tests(struct pgtable_debug_args *args)
- {
- 	swp_entry_t arch_entry;
-@@ -1322,6 +1361,7 @@ static int __init debug_vm_pgtable(void)
- 	pmd_leaf_soft_dirty_tests(&args);
+@@ -3470,7 +3490,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 	}
+ 	pte_unmap(pte);
  
- 	pte_swap_exclusive_tests(&args);
-+	pmd_swap_exclusive_tests(&args);
- 
- 	pte_swap_tests(&args);
- 	pmd_softleaf_tests(&args);
+-	if (!pmd_is_migration_entry(*pmd))
++	if (!pmd_is_migration_entry(old_pmd) && !pmd_is_swap_entry(old_pmd))
+ 		folio_remove_rmap_pmd(folio, page, vma);
+ 	if (to_migration_entries)
+ 		put_page(page);
 -- 
 2.53.0-Meta
 
