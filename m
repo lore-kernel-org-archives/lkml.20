@@ -1,46 +1,46 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011071.outbound.protection.outlook.com [40.93.194.71])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010009.outbound.protection.outlook.com [52.101.201.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F1337A498;
-	Fri,  2 Oct 2026 11:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0800F45041C;
+	Fri,  2 Oct 2026 11:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790940811; cv=fail; b=XKND2ZH2kVcUoj97laxVIVtM+oQp/l/2Gs2b+gIgttk6+Z8MMR2xBBykiK7GFvcvSmYBSDJno237KjiIu2VhSMyjvJnGga9nCzNAh/v7RhRsgdBI64k3jszNKKG61MlwVuwbltmFMZZ5/wNXU28BjrOwgRlqdUCgYPNK7WrVb3U=
+	t=1790940812; cv=fail; b=bnt0mdQsKjoHomZZUpVPDwf2n4FEeqFVaKLkNjeSMHV6g1q1i2gkDLFeAQdLOKv3BtGVMK/6uQMGcE3Fm8UnSOUr4dSJkKv5c4zuoggyX6vD8udaTJ+b2x/9ThKhLWwx4UoNKYQwDlhFByQC+szPqzz17trobOZNrV5vAPRacDo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790940811; c=relaxed/simple;
-	bh=CWWM/slTh2qrUiXCUSQLnbOBEEsxSWMx2KZkwJnWakk=;
+	s=arc-20240116; t=1790940812; c=relaxed/simple;
+	bh=h8mavkQELnRRHH1AQhUGeUNnqTZGJw5gtJEKq23FV/o=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qh0LqjpuVedC5LFgQh3YCISD+YadtJXGoGpdRv9Po2zKaa/heVdHZiYjC9/T+ya/73Ng6pPd66Uezi2fJNtIVUou/OU5LoeoKpJjBIv7dt3U4Njj/xgQlouieLrwBZMMITsoxmYrnSMYUfDtvFblSJAEWkwYGVZ2tyPfi66Be6A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JhIK79lQ; arc=fail smtp.client-ip=40.93.194.71
+	 MIME-Version:Content-Type; b=rq1r8/tfnTltGPHlqffZhguSrAapegD7WegUqXphByRBwzBWaiDXDOd3woYLruZbFTHb4ByBWcerCsqDYo8X8IuJMbrQTPjronRiAYth4+dlSPtotwxvBoNpP1ikNNxqHSOaXd8M/VPv2juR4a8k/NT6sa/mNvp+Wr3SzLQxxv0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sIDw9RMz; arc=fail smtp.client-ip=52.101.201.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JhIK79lQ"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sIDw9RMz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AaOtl9ykvur9LQ2YTog/m+e0MPAE9sLmgskRdmgv3OG6E3Rsp9GHKwle4wMZ2YVPbcvCwVxteScSSZ8X7FsE8xR++/URaAbXjjFpHtG74No1P9RYLD6DsHzKI3Vs7h9P1LFDFtHhpc6xnmIMaFJ4ssN4Mt5bF+epgz9mdIG9gcEDB8sjX4FFTUnfn0HSxR40nsp8Da+Zz65XjfNDy++hvEJsT8QJeh8cSko17sQJ4slJXq1ViSXs4NuCK4FUfiz/FbX46rmBaClz5LyCPII1H7lJG8frd65rcb0iH2LLTygg5AVrauUWJcPXE+gKUbOLBQH5U2tKPMcsqxQspeU9XA==
+ b=Uw7FC5eBw+EwzAKA/b0fv+wCtyFEq+1wom/fL/ZVc9SdnduYU5febHmq91PwLd/l+Qhbo/Tnc70x7HY39Ikbt2YDNWQxtdYdyLjG9HUYD66iWlxrTgYWIrIQdYKB2EQeqYd4IHx6noCzo3QJvosabhVXeTW0O0daA8Fun6GiqKK5tX+FLfMgDTz5Mvyn9fnSqaKHzreQQWApmC0H1+Xo4uUCAi7cy5Wer4Dq0e5D5JJGZ9ASTk/4qW5bhh0LzsBOo9c4/3I6fxRgiTkpgMXqjYSyd0eigg7NV9lhP7JKtJRYhMj60ospWB/CCtxtGAbfAI/s3RfRpE/F6TIxLBJhyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KmRdJru6A5jPqmN2THG4uDL2xxTAeZNsOPag9ass4Zs=;
- b=E1qphrmzStverQjdeowJUDJJYXMwJOYwOOS7jEfMpcXRXhbp2QZR8+pT4PCe2c5+sNEk3AUK4I+By/xVxWxGGHcyt0a/z/+aUL4Re832brldU0HEFBJjevXSGBery9vW9Xy3EUWNFXT1vmAxG9BCOGbI5sv8gjlou3lJy+8XTGnLedHxaRjag/Nkx1osMg1n40u6mqHLdquHToMWoxdNp9e4ycJxXikSNJcLz2O0zTXlhqRPQmZLVGfvZTb/IHIUuQPtj4CG/1Kyzl8/HnD/XF9iLVUPfg+YKmodTzl2E/crrI/A/3owCXNptxf3UTcPkUXi6l7r/ib1BphiI7vUCg==
+ bh=P+neAz8ui9/+9MBAtsz1yqHkBag3pLiNtYJX53LRWWY=;
+ b=pwMM9yqyN5FpXLvA0bKB9h42ZYD5puJFmoqa7IpZ2yx9sT3tU/FOg/8Nn60FJZqWNYL89oFA15W5DXFBqK96f8hCC9GXchy8oQC+SXDno6ohnoV5gAJOdQ1Pu5RmeAEOVn5Js8Zp1HXcVu+wBhx02d+Yc12QwJic+6fT7652+vZvxEQFu2dTIvna3o529bF0QBRCG5fzS8FzZi1ZrZy31zIFyPNEeQ+MDTMeWZgMawaH5d6VbcLX1cTSZc5aNgt5VhfDV3uc1YHjKARkAreS97bWEY0vk3uubFLe9Ri8Xcd627B9tpzjeIYhSGUgR9/Mvv1vZsfc1T06eKcfbyWxPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KmRdJru6A5jPqmN2THG4uDL2xxTAeZNsOPag9ass4Zs=;
- b=JhIK79lQa9LyIKEwC+Ro24o7p8tzqK4ArJLbN5qGIa4NHGqQ3SkyYgDIWKO6WyjlPv+ttd0/ZOcc9kf7Md5atTqmVK5FiacSHa1BjIL6bGrAgmkVxHATU0mptEE8szcZNbXoLevzh5EAtbLqT77nnjRLK4KIpbEaI/j8hJxUifk=
-Received: from CH0PR03CA0346.namprd03.prod.outlook.com (2603:10b6:610:11a::32)
- by DM4PR12MB6040.namprd12.prod.outlook.com (2603:10b6:8:af::14) with
+ bh=P+neAz8ui9/+9MBAtsz1yqHkBag3pLiNtYJX53LRWWY=;
+ b=sIDw9RMz1P03B9ddzdsTAhrztqimFrY8NiCcnOGvTofepXlHkaODnUp76lq7hy7kGim7Ecy+fB1UO+OC+ZWRjVnPGHmDLhL890MrAoStoWoSEBJkMQgKuCTewknaTAPC4Wjmh3pGA0oBJkneyJ+hoKt+Uc9Y9FC1KsZu+etGCbs=
+Received: from CH0PR03CA0337.namprd03.prod.outlook.com (2603:10b6:610:11a::27)
+ by SN7PR12MB7323.namprd12.prod.outlook.com (2603:10b6:806:29a::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 11:33:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
+ 2026 11:33:27 +0000
 Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
- (2603:10b6:610:11a:cafe::75) by CH0PR03CA0346.outlook.office365.com
- (2603:10b6:610:11a::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 11:33:25 +0000
+ (2603:10b6:610:11a:cafe::1f) by CH0PR03CA0337.outlook.office365.com
+ (2603:10b6:610:11a::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Fri, 2
+ Oct 2026 11:33:26 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 11:33:25 +0000
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 11:33:26 +0000
 Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 06:33:20 -0500
+ 2026 06:33:22 -0500
 From: Vishal Badole <Vishal.Badole@amd.com>
 To: <bp@alien8.de>, <yazen.ghannam@amd.com>, <tony.luck@intel.com>,
 	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Vishal Badole <Vishal.Badole@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v3 1/2] EDAC/amd64: Mask UMC chip select to the four implemented selects
-Date: Fri, 2 Oct 2026 17:02:03 +0530
-Message-ID: <20261002113204.3358815-2-Vishal.Badole@amd.com>
+CC: Vishal Badole <Vishal.Badole@amd.com>
+Subject: [PATCH v3 2/2] EDAC/amd64: Set zn_regs_v2 for all Family 1Ah models
+Date: Fri, 2 Oct 2026 17:02:04 +0530
+Message-ID: <20261002113204.3358815-3-Vishal.Badole@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261002113204.3358815-1-Vishal.Badole@amd.com>
 References: <20261002113204.3358815-1-Vishal.Badole@amd.com>
@@ -77,76 +77,77 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|DM4PR12MB6040:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9be1b84-8e54-4608-20eb-08df2078f928
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|SN7PR12MB7323:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87d8b5a8-d757-46dd-5fe0-08df2078f9d4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|18002099003|22082099003|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|11063799006|56012099006|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	c3mUoZNw/wy0/S1BqARnSDf/Zjv7gMQ/lGW6VIitpbVYDU+Gl0DloTaXIglA8f+RGmHBnYcN3V54srR2pc8xTCTh3qsHOkA4J3A9E4cnLWr++KenmVsPZlsWVIgOcUXe4LEBvaINDqY+o8DYedVG63YQcIuAIraG/HMKM6vcBxdUA60vQSU/35cc4GLHPtaoLwarQ5fo8fesLyb15gDIzRZXv9mxDOkm0AJXo61kPTShPDDzuugPBbf7k88ztcBBkN9BkjkSmreh40Z7VYIRppNzsOHYq5vjUxcya0l3saT+e5W0F4NFL40sxZPKAEn8dobrEityisTHS9w2lfUJJ1OBJ3e6wpRAez0EaqYIWdCMiVrokOwKMhTJfLeB2xHRx/FqFcwU2bfV5PW+SW49S14mW3D8dVIivVDaALixGR5p4WtcC+UDPm9QmNw8gn8WrQJG67s8Rt6TG4WFauX+RTfnbnVw/Su4YVZBlxREXwxrwqE/RcA4NkRu/7Za7R416Zlex68Ufzr2Y7bQe7Z0Tz7lS29TtBANzOqh0zpni+tKDKmHugs/TsDrc54FrAi5KJ+VsRrUvk/zjJfqvBKR87ioNrZpjnm6AbyFW2nMbyH7ykIT7ACPeIQp9Gfg158lvuW5zTjJqISnoJb1qsD6EISQnfJUhUMzlVqInt9DDutCusy759TfC6Bo44umDDtJawzsncpvMj/1eFf5fwBY5A==
+	1FkhJ5ttzaXtFrL4A0TDhDb2DiCnuXIKQzNispsEvwkC6s1dliDAzS2CN7eNAxQfCatt4WweEheEjCfPlKbDhFTTfdk/4/jC4bbhFgseOE5LBv7ZnkgWJIdh8nUwOC+I/Hy0DPKay+mmRcwqBBr5FwXEdiSv5bqL7qJqyQVFsTeHqMPxMNtODEQJabikHKU/jrksZL3KlJdOtzgQQ0xeu5k8pxinaCYYSIB5jjkZ3ai52s1jntLjK6PGmyw+q9Fp7KWdxvn67ylQg5l6rLqomP3K07G5qXViVlzkQYYSCZVMLtMmbyljBN7dAy8Vg8zml8XUqmbTWelqdcQza1YesPBejrWvzyQLpWikgS+lTq8RbIK1eBhdKVT9dUW8osLRtaeSdLiX2k53f0cVqBSXrS7XKJSgfpDglDFo+1SD7OSig+Etmu9hx8f/83jFWRYwiO0jH0l0jQE6g/3FffjVO2mlckUtUb+JJAW5ksHHRmtTvTqtwhoTmVnbdngu6CKjsmE+cia/U+P0/G+5ArfVIFhbCrJa07bWmzl30/ZbIgVutyFVvXmMy/EXjpQBJqj0OuIgSKIo6k2vL9JT59kDOygw6it/lESHjq5Mvj0GFKgrJkkpxP6laT1EbhTumPb77iwufa1TjVXOFx7rIlbdtg/XK8CW8qzWccj1Ptqex1h5tcroBFCLmTMW2NnektZwcF+T3qDAAKia5vPlRhFlrg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	okHSf2K23hiLejc4uVjONYwQK1cCYoPcAntx6JK7Hpzlx8bUjsJSATz0ZZzPcAWMW7VAbEZMT9MBpVSzpxYjFFeXAuvZPQ/7w3mtVg64bLcC+koLijlE9GSgbsNu6ITGu0NgcRCDRVTPkXbP7rePWI6A23cH/NixGGrodco0GXz828kwfu6PY317wLmnZslq9/eJl8/cUYK50y8EfxdiNq9IoF691caKyU1Z8c3PRXTIIr+Rn0Lw7niY5tMWKcCPMBRIvHZcKKaKmvCYlRhAwWsmCsjkbwwt347QKslEHY/4TdAX9bhttbXG0hsnWFzxU9lmaBI2CAfQfnlrH6myU4w2PRuKUrA8NZezrXvPZ/6HhduiGb0SPL49w1chOTQK7jzGML6BJYbE2fx/re/nScIovuB7g/1ezSwnzgwe57Axw9rryDv/1EZsP8o50gKm
+	NRSMeW89F32scxnW6pZuikoUZDcb+JdB0NMeEgCAMGSC9iZaUdf51Qdqe3ULdacu0HIMGRpY236helKdrt78KgTjXvllwCbNfDXxHcoHcWsl11DKXSM2XnXKPzQ8drj3SIxIHBCQZ0gQVoijEsIhYyrCLbo4lQHkZ6yG6A9UisLL82hfhgFwDwe7/Tvagwf+Y3g/9CLwMuQ7lCZCmEat9FRZ0+MXpZJgwBQ0/EDgKnp45y9hQvLrUaxK37tw5jd0s8B9Wtjf8A/sTVIJQM4c+4VxVLHA0f5fKh+dS/wt9QH5n9Mf4CGssmxeUSIbncJQBIN2aPZ1WdD6EJe1FFBRhqnZCpJMQj3jdiPqFkdUFdQMITrV9h+ml4cSNYheVVpAmi4dc6oCskfgGK4/dxrjCZ0TklnwLU2TmNyLjqYkJ1NEtuZ8hCyoilVek2ORmGZE
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 11:33:25.7661
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 11:33:26.8967
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9be1b84-8e54-4608-20eb-08df2078f928
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87d8b5a8-d757-46dd-5fe0-08df2078f9d4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CH1PEPF0000AD7C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6040
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7323
 
-For DRAM ECC errors, the chip select value can be found in the
-MCA_SYND[ErrorInformation] field.
+All Family 1Ah models use the v2 register layout. Today zn_regs_v2 is
+set in each model case. This works, but a new model could forget to set
+it and read the UMC registers at the wrong offsets.
 
-ErrorInformation[2:0] was first documented in Zen1. The 3 bit field
-implied that up to 8 chip selects may be used.
+Set zn_regs_v2 once at the Family 1Ah level so it applies to all models
+uniformly, and drop the per-model assignments.
 
-However, all Zen-based systems have only ever had up to 4 chip selects.
-So only bits [1:0] would contain a valid chip select value.
+No functional change intended.
 
-Future systems are redefining the field to ErrorInformation[1:0]. This
-matches the existing 'up to 4 chip selects' implementations. And it
-frees up the extra bit for other decoding.
-
-Change the current chip select mask from 0x7 to 0x3 to prepare for the
-decode change.
-
-Fixes: 713ad54675fd ("EDAC, amd64: Define and register UMC error decode function")
-Cc: <stable@vger.kernel.org>
 Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
 Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
 Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
 ---
- drivers/edac/amd64_edac.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/edac/amd64_edac.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
-index 475235c402e8..0c0d11c72925 100644
+index 0c0d11c72925..708fc1b4a999 100644
 --- a/drivers/edac/amd64_edac.c
 +++ b/drivers/edac/amd64_edac.c
-@@ -2796,13 +2796,13 @@ static inline void decode_bus_error(int node_id, struct mce *m)
-  * the instance_id. For example, instance_id=0xYXXXXX where Y is the channel
-  * number.
-  *
-- * For DRAM ECC errors, the Chip Select number is given in bits [2:0] of
-+ * For DRAM ECC errors, the Chip Select number is given in bits [1:0] of
-  * the MCA_SYND[ErrorInformation] field.
-  */
- static void umc_get_err_info(struct mce *m, struct err_info *err)
- {
- 	err->channel = (m->ipid & GENMASK(31, 0)) >> 20;
--	err->csrow = m->synd & 0x7;
-+	err->csrow = m->synd & 0x3;
- }
+@@ -3887,23 +3887,19 @@ static int per_family_init(struct amd64_pvt *pvt)
+ 		break;
  
- static void decode_umc_error(int node_id, struct mce *m)
+ 	case 0x1A:
++		pvt->flags.zn_regs_v2   = 1;
++
+ 		switch (pvt->model) {
+ 		case 0x00 ... 0x1f:
+ 			pvt->max_mcs            = 12;
+-			pvt->flags.zn_regs_v2   = 1;
+-			break;
+-		case 0x40 ... 0x4f:
+-			pvt->flags.zn_regs_v2   = 1;
+ 			break;
+ 		case 0x50 ... 0x57:
+ 		case 0xc0 ... 0xc7:
+ 			pvt->max_mcs            = 16;
+-			pvt->flags.zn_regs_v2   = 1;
+ 			break;
+ 		case 0x90 ... 0x9f:
+ 		case 0xa0 ... 0xaf:
+ 			pvt->max_mcs            = 8;
+-			pvt->flags.zn_regs_v2   = 1;
+ 			break;
+ 		}
+ 		break;
 -- 
 2.34.1
 
