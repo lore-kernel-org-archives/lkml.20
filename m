@@ -1,135 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010061.outbound.protection.outlook.com [52.101.84.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7786481A83;
-	Fri,  2 Oct 2026 10:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937852; cv=none; b=HERb3ni7lTLBzc3iVtcHQo05yQa/jigotL08P/vgxUxnt+TKaUC2tYsNbcndSL4fFKYmyp0jn4eX+b1UO1Jt3r/VefzKpqpNRXZ/MjfBpyJAqEh6Uskd1j5y/hW/4mIurAA/EAP3WEMnsFMJvYyF50nh6w8N6CxxYQtWywB9pZ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937852; c=relaxed/simple;
-	bh=PjVwAzQCYGwPKJzDeGxqId1aM2ZU3GoeWQRCOEC9spI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=BVe6HApYOnULPhaa+CcL6dXwpbdjFutfI1owdLIFjWJ2SjgSlk622FDMk6zkb7iOOwQMvEctQhsYnhwkSHxqyanzoXD9eybBeCTas44qhYD/U4PRTsALptlefYKppMFz6cX23gQLbIE6AXEMmSTPosSE6Qg588KdrN68JDAGijo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqyL+NJV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B05948032F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790937858; cv=fail; b=HYAnocIAcZI/dYwtoY70frgoLSsAIsoOk00CB6VBoTGGpcuLZzMrzFKWGVaeXygmpYH3PFkFiAgDRkri5srukgC2usry9r5rOUz1XcVQQ4OVZiVIOdbcMdyNAt7e5Y+OqdFDeMLvixwiCOYms2omx4CZ4zdxYlGbkwlpAJODrbo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790937858; c=relaxed/simple;
+	bh=ZbmMgZiTAuaqlDAPOGjZy/Y3uwJCPas1T02eWZ1bT0c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=fNachDj7r6iHccwxNstySFqiEclilDrGvH0hNzL2GtACeL5fpbKvZBEnC2lJb/RF/OXzTxTFBDT/eGmKQ0wtWYZmJcB3DzEFH5IvxkSXcT5QjEjFO25qpVPi/Q1yplfRhe3rNX07NYU9J7P/kmV+STNnsX0D/nDM5NHFnAlDNd8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=QckDrOAe; arc=fail smtp.client-ip=52.101.84.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqyL+NJV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8221F00893;
-	Fri,  2 Oct 2026 10:44:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790937850;
-	bh=h7N9N0HQ+Zh/gY8vIC7G35LJ75G5/SbSrtWyyePbhUk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=jqyL+NJVbKRZpwVzBRVfBtMkeH/Q7Nq+qvy9RiMFROqZ5ox5cWXhzqis9zXocX5uf
-	 UzKzQE+PO8/7lo7lT2TeVh0jhjY1eci+LDaSxI5jn9jRl2pwmMkSkEF+94nzagvrJ9
-	 6mkOHVagEwV3ZGbu7+6s3LW5rWKDkAfoi5rJAeNa1grp2ZvCTKSfEPIDtBE2tAv4AZ
-	 tJcpF7ZmxQzznB0+LmqaE7dOeWqrWBl24aCETdN/s5Vil1pdWInQWt3y8Uch+GOXGT
-	 EFSh+W5koi2wA4qJ3acfsMpCtJkXEkwkhnsosoN1gfM0CnUbe/U+ZsQMPkb1ygc6CA
-	 2jh8uZttdHN7Q==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id E29DA198003A;
-	Fri,  2 Oct 2026 06:44:07 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 06:44:07 -0400
-X-ME-Sender: <xms:84q_akNtFc_m8IqPCfS01lwOwwnlb6iwWNsSeaP5LZ8Jjrp2-u3vaQ>
-    <xme:84q_alyLnBtn5FwbzjNapuvaHdpW6B-9vMFARV_dsiXL0fQeSzgwbddu0dCiSkc9Q
-    8a2BM8XfbeYmeTnHApNqSlnH258O4q4an5JOkGoh9Bf2h4vXoUmWHXOXQ>
-X-ME-Proxy-Cause: dmFkZTF7v0Xj1DEnpcO6BUVol6zWmZrAP6o7CWAwbHkhXdIDi5sSS7yp1xr9ZZPwIBhJBB
-    GkXBQz9VF+JXcH7vt+0sFjJAGbofjSSmv/RNp/LtXy9wWYXx2hZ+b1RMskCVZPHKUMdb/m
-    ZOatOHoCpXj0a+5ph5ldA1jKzb1ltDN2+7xxma8A6JrRxHKh638T16bFurO/dM3C7Lti8D
-    l/JWE5GelKR6yNokvgG58ndMj85oi1Q3eGlSCRPSxw3CuPN09v6V+xYj8U2BkOzdi/fyBS
-    Xeh6AuR5w7wBeoV114P0zZ9HmLX+orpjQGx0T/RZyJ/U+SYak5JNnunLMEXnRZNElXI3XV
-    OmfKF7I5/l5lJnHfEL1ffIWJ6vZSfAFCrcfhH2R4hURERo3ZLyFgUBJy6AkKWfx5oahjhO
-    kjKgD+tn6FMYK89N3OwEmM57+lmjU8qMO3A9WB7oNAkRwqmBeA0AGLLdfJqFVcdIYOYwDV
-    eOzEY0V5ipQDOL6KuHdtjC2oOw5qfkEDmH14PvAQ1UL/G99OsCNlKojPtxe2MiYvhCEFXd
-    ogosyg4Dsto/Hmajt8Kjzp/RXiqy1ufa5tQqCnEpscgFXTTte47mdqfwnxJ+2KgJLVZsNF
-    M9zx7lZhfKryMkBBxV+1yQBZIpjjYmZmVW2IPzuUKeoMh4/QNIgBPgM2vR4A
-X-ME-Proxy: <xmx:94q_ak_C4KXvsHtNobGGfNaogyMfAk7tajGtMizHpGLeRGI7KN3JPQ>
-    <xmx:94q_aqL784SESyq09pYFL_dX5zdWPonTeW-K4xVghEmHPEnLG2wN2Q>
-    <xmx:94q_ap9rnmPKD8H6SvD-Ar5lpL9lk22OtJkTznBkS8wPTWnTfhtGWA>
-    <xmx:94q_amFF_UHjAHVfwQESOn13ThpYvSt5tGXuLALn_hdrm_xAzwHLAw>
-    <xmx:94q_apMIXONDJhbdtCTvo8nI1N2KYDTGljkHYRXIG5A1aaccZY-RK2sY>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 99395F80090; Fri,  2 Oct 2026 06:44:03 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="QckDrOAe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zGNB5Vlq/caZsO4RCpvKvyMkYplxADj+2OrjxHkNj8hdU98E+gFvk9vLkxGM6l68zXF/pSx++swVQl/6y/WHzJ4fj0rKnnVXKHxKaO6zaCoXMyoSEUygV1NkeZ+4hZ1Ihaid7iOxpusDuhxpThkgkOA+hTbprBMk1Hpq5eqd8AjwNKBJ95z22Iq2ITRHqTp8DjoUdxFEJlyIIBsBGAKZXd3PfT1HuA/jhTaAe4zZ40elRg+0yJ972DdaBWZ1MYrRPoEjkij05VLsutK6UukL08/w6rAH1C3qgAUbQLSLogCvmylhOtOdhfzfOxl9sLmrjyZtofEepZfXeoUDF8BBAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wti1/ic+tFuZRhkQBnQgON5/duaVEeCqHwbWaV4Bke4=;
+ b=fZUk6JIvGva0zldUq0oTYlIc39rZcXjw1KfS/YNhRGJXa9+xIc0P7VdxCcFqI/DwwRnbTOyHHSV7Zb7xGJjIO4aoFGXb6I19g8XE9pOjadXcu2/TQRFX6PTLdV2ek+fgkxU6qLIzzctBifoVN23dFA7Xv+BT5Veq9zCyqjPz0A30Xtsa8/tZhJPzerJd7CB9xXsA5Fzo4E7KmvPLDS0jxr92kCf3JpONLn5Z3iix1PD+iC4sK7BR5LsW12DAAxR5ATaNFLdfU8K4DsjsQhtNUiLAypt4XBVYGGoAlcQpCUFAm/doDJWO6eVxOTxAehAkrg0PNV/hDckU1yqXHtXeVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wti1/ic+tFuZRhkQBnQgON5/duaVEeCqHwbWaV4Bke4=;
+ b=QckDrOAeuRPRffUDB5EJqqSdxu4gk0KsQwnlt8wPchH5tbYy8jYhhvsYOp5G9CfwYzg3+FHlSnn2tywGGOYYMJk54YIi+lfgtd8SVoT5WDrf3KI/sq+qgoJtzvyXdKIt1/PJaemHrOxKPQBRsZfVAL1DXC0QZtmTLTtwJIK7t68I7Ex0PYUB9yD1wN+NiCJ0Pm+XncRk5vqTt4hGhVdlT/2qcRzxE1PjL2alN/nIxaMtq8iMtxEsEMR6qdzykp/n9KzSK2BM7Sfe54kg50Iu2b9utQ6BeB6xiMB5DGFU4WbzHB3L10MQWf+tXdf4wVSREaXO4E+PhU/ZT7atAhvogg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17) by GVXPR04MB9951.eurprd04.prod.outlook.com
+ (2603:10a6:150:118::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 2 Oct
+ 2026 10:44:10 +0000
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 10:44:10 +0000
+Date: Fri, 2 Oct 2026 13:44:06 +0300
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Christophe Leroy <chleroy@kernel.org>, linux-kernel@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] soc: fsl: dpio: Free the IRQ before releasing the I/O
+ object
+Message-ID: <ajjy7y3ycnfqrofts457he5zlv34ncqg3n3g2qxgdgod5vbb2u@u56cc6pxihau>
+References: <20260917200136.75721-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917200136.75721-1-mhun512@gmail.com>
+X-ClientProxiedBy: AS4P251CA0027.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d3::13) To MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 12:43:43 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- "Jani Nikula" <jani.nikula@linux.intel.com>
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>,
- "Francesco Valla" <francesco@valla.it>,
- "Mario Limonciello" <mario.limonciello@amd.com>,
- "Javier Martinez Canillas" <javierm@redhat.com>,
- "Jocelyn Falempe" <jfalempe@redhat.com>, "Sam Ravnborg" <sam@ravnborg.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <9cf259a5-6083-433c-8544-ca3f6286334e@app.fastmail.com>
-In-Reply-To: 
- <CAEUXW=GKRstrsZniQSU0un6r--a2VrRjpZCe5meUyyxunJ-E7w@mail.gmail.com>
-References: <20261001195847.141192-1-maximpedraza@gmail.com>
- <20261001195847.141192-3-maximpedraza@gmail.com>
- <5c92c6f27b0778124d2365603374f70bd9b69b8d@intel.com>
- <CAEUXW=GKRstrsZniQSU0un6r--a2VrRjpZCe5meUyyxunJ-E7w@mail.gmail.com>
-Subject: Re: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image size
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|GVXPR04MB9951:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03b6e4cd-f114-4e5f-b0c8-08df2072178e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|22082099003|11063799006|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	BFhT0Rs7hzh2bKNIId2BJwomcs9jl7QLBe8JnZ2wJJflZvrjYzVJv2tw3wgH8gY9Ufo0zi904a+1l4GtSUSD9zvRhTAQ0IFQ7F6KlD8wR33EV4AK1SSdlAff792zJoulZTQ9yHRd1qxgT6HRRF9bik9Hcotb/H4gOkGwL5c/ICEte60DYf5I88Fuf6DPn2DpC19gbQEYaPjdIZd2OvR74AwtDp4yCkh899MKqKQDfRjmhlbkXXSxFRa72sVudhqQBkA+EUqXD5bUeGZ9eQht+YN15mVNCzyi/aYWvgvCpcCS3HOApZqiYkxgGxoSVvDCSPhmOj3bwSjiwyAIK43hm79OvAAxlV5bIhCfEORS+zwA2ECUp2Nn48DuKPjkcIH0EJl/62aG7xGcwk7MX5DPFdWwts29yNgHsnYe8e3ODmrqHUnopm/T5P8XENiWAkOjL0mOdsiRa7UXWL7vPNj0lG0+/ywuQOsph1xSZlyT4I7ejdGlxCDN5taQTenhwj6R8JUp/iroVuZtbyGwXIFn1yEOljU1B5g5FoyXmIubjg9udq3lvpdYzQ/jyiG1zeTj9frQP2y2+A6ArbQ5dYNw/N3CXtkyxvUP0viGp/l8OS+XhOU9yrXr1/d1LBh5zqmFIEL0BX0S1Ufk7Z5Xz7oLBGBr6DSAiIEEa1uXh0cu7Ts=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(22082099003)(11063799006)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wwHoWHJyxr/cEHiS5u5jm20BHR8aCsqMH5YI34OtwRGOvtBtBNQVBrT8EWvw?=
+ =?us-ascii?Q?xUJnS2GKKRj0B+y5PPELkOJQUkCZS6OU8mJzhpqKyUgsIddexZpJgvIFrgVE?=
+ =?us-ascii?Q?EdFzeRYvLmpJrp3PzUPnf4/b5WdAQvecgDHA+VroJL09Xbrf4h3gGet5+2dW?=
+ =?us-ascii?Q?Q9i93cKhYgMhjMeDWxKZe8PjyaxwO2RUp08iBvkUkWPcxZ6lNZBJ2/ignbFh?=
+ =?us-ascii?Q?ACRkKFFO/Ug2ijppGHOsZx6oAyy+HwXRPI8PUijZAhkbaVECVGA96jYSZeak?=
+ =?us-ascii?Q?4LEkU9RZXS4Z68wcrM8XfRY5ZqrOZSR1UVx7Og67gHAcSy0rAN1Hwt5gDcmX?=
+ =?us-ascii?Q?RdxL35WWfTzZyqAdC9yB+Qy03Fq/TlTPM001cGawMQhQwVthRVmbTHyUH7JI?=
+ =?us-ascii?Q?pIkcqghnBC/5Q7cSHUuIkuUYRk3hNRo9nR06MIyPv1gDbULUHPIxq7JQps1P?=
+ =?us-ascii?Q?MSN8cQCuSCeAl3Wwqzeqed1OhzyO1j7bw7EBKnUQW/EbShGMRKu3wGhpUVuD?=
+ =?us-ascii?Q?WjBb5l8LuR/rwnyIxCV6K0BJ66XCYjD/J66noCNiDLR60dQLXYSQ4rxgkGvI?=
+ =?us-ascii?Q?TTB4wkFdM7uOeDOwRCMYcpfCup6yWd0m/3BDjzBPjzt0eydDawciU1scHfzs?=
+ =?us-ascii?Q?ktTyDkcmvJaJuJrPgA2YasDlQxlFc54FCu79X0E4xYIRAmT5HRPS5xp9zM9m?=
+ =?us-ascii?Q?Cjbz/lBick1VLIW3lhbma5Ofb2sWQw2w8XyC2J1EtUTrJkfDl9CmNDeWvWL7?=
+ =?us-ascii?Q?wy2VcBqhWQo/b0uOh0cQf/q/UduXYEw82wisdXugP325QndPxjdYithKS/qH?=
+ =?us-ascii?Q?ly53mBWPpz8zsR/YGwuIUt6YAMi0zgSAqFl7Re7XOCnSuqaCk3+Ozmwv7AsE?=
+ =?us-ascii?Q?MBARqiJ9VSGXEgw3VCfBhCyFdqDlJcudKKP6DwIezPyTL4OOq6iUd0/or1se?=
+ =?us-ascii?Q?LDxRJDE6ulrElKS/hNYDTpwFZKvsYHmWdKGHvgx56eQV27o/NoH/MCoj/Kb/?=
+ =?us-ascii?Q?gmEmhQytCRoLPzaRl5zHnyW8VGnk8Egz06wYYL5xTKR50cHnUxpdRHqKMJwA?=
+ =?us-ascii?Q?+TPDcR0XVBxtglbHxkoTdZGk+eG3TrsfzRzrNY33gs+FId7UYzNRxgUg3uGd?=
+ =?us-ascii?Q?+fjpiz7EcgDrZOIp1oksRjuNDFtY36W7zYw322fA0LTT38r8GrDUCocioJye?=
+ =?us-ascii?Q?LGoUVh12A6f4y5HWhVCbDXCRz7XmI+/wAoxKz65pvQTRjhBRaifXE9ODFrQn?=
+ =?us-ascii?Q?muDhi9sZVAH+tG2/NWMZVmIGRLgk5/53cj0StBVCgqweC/PGOyB3GOLEIHU6?=
+ =?us-ascii?Q?NOj1l1EuEbUQpOjXA4BzABle9IBDR+BnuLbGInWdg+4tqk6E/HJQDsYwT6sv?=
+ =?us-ascii?Q?xqkDoJJMqwwmz7gQaO4YSjH978HW+rArfXXFgqwcf6mYA9j6RXn4b3TDvNlF?=
+ =?us-ascii?Q?sGmKkE+xGrSlHDve6Mr1lID2v6/LOQbWxeBYprKD1JWnpBvrefaj6eu7yCIy?=
+ =?us-ascii?Q?oesqf7A3mTQB0bcw9QWOoDRUpIEmdIZ5CO3yMouGioq2fDFCuvNb5IDqLAVz?=
+ =?us-ascii?Q?MbUzy7h0BorUGom9YaYyXD5iw0bUmZdKlOS0jdoqfAzUKUNy5OvZeGEqSEyX?=
+ =?us-ascii?Q?qGKViu+EAqLiMiAWBFAgzSk/Ey2h/264PqlELMtDpLlY0CAJjcziMGjA8yRr?=
+ =?us-ascii?Q?HtPXpS5PJh2unpYZ0hsdXxygj6S8IS3+W2wYsKAEVKQGBzyMC12m/ZXp62Kj?=
+ =?us-ascii?Q?5VaJzTI4qg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03b6e4cd-f114-4e5f-b0c8-08df2072178e
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 10:44:10.3917
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CdpmzpNSDi5oyfu1gEgySuFFz3LMuqLQsaJzASG8lsOYwPz2GhxlWkQG09vnpiwYLNutVzw8kKacMkFI9Ll8mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9951
+
+On Thu, Sep 17, 2026 at 04:01:36PM -0400, Myeonghun Pak wrote:
+> The DPIO interrupt handler accesses priv->io, but dpaa2_dpio_remove()
+> releases that object before tearing down the interrupts. The IRQ was
+> requested with devm_request_irq(), and unregister_dpio_irq_handlers()
+> only clears its affinity hint. fsl_mc_free_irqs() returns IRQ resources
+> to the MC resource pool without freeing the handler. An interrupt can
+> therefore access the freed I/O object before devres releases the IRQ.
+> 
+> Explicitly free the managed IRQ before returning its resource to the
+> pool, and perform IRQ teardown before releasing the I/O object. This
+> also waits for an in-flight handler while the object is still valid.
+> 
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+> 
+> Fixes: 993fec7e11ca ("bus: fsl-mc: dpio: add the DPAA2 DPIO object driver")
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/soc/fsl/dpio/dpio-driver.c |    6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/soc/fsl/dpio/dpio-driver.c b/drivers/soc/fsl/dpio/dpio-driver.c
+> index d5198ffc4455..fa82cdcc4922 100644
+> --- a/drivers/soc/fsl/dpio/dpio-driver.c
+> +++ b/drivers/soc/fsl/dpio/dpio-driver.c
+> @@ -263,6 +263,8 @@ static int dpaa2_dpio_probe(struct fsl_mc_device *dpio_dev)
+>  static void dpio_teardown_irqs(struct fsl_mc_device *dpio_dev)
+>  {
+>  	unregister_dpio_irq_handlers(dpio_dev);
+> +	devm_free_irq(&dpio_dev->dev, dpio_dev->irqs[0]->virq,
+> +		      &dpio_dev->dev);
 
 
-On Fri, 2 Oct 2026, at 12:31, M=C3=A0xim Pedraza Padilla wrote:
-> Hi Jani,
->
-> On Fri, 02 Oct 2026, Jani Nikula wrote:
->> Data is not an interface.
->>
->> If these will be used more, perhaps it would be better to wrap access=
- to
->> them in functions? I think most of the time it will help with
->> maintenance.
->>
->> And you can add stubs for CONFIG_ACPI_BGRT=3Dn where they belong,
->> i.e. include/linux/efi-bgrt.h instead of drm_splash.c like in patch 11
->> of this series.
->
-> Agreed, and the same goes for your comment on patch 3. For v5 I would
-> replace the export with accessors in efi-bgrt.c, stubbed in
-> efi-bgrt.h for CONFIG_ACPI_BGRT=3Dn:
->
->       bool efi_bgrt_has_image(void);
->       phys_addr_t efi_bgrt_image_address(void);
->       size_t efi_bgrt_image_size(void);
->       u8 efi_bgrt_status(void);
->       u32 efi_bgrt_image_offset_x(void);
->       u32 efi_bgrt_image_offset_y(void);
->
-> The splash client then drops its own wrappers and stubs, and the
-> "static inline" in drm_splash.c go as well.
->
-> drivers/acpi/bgrt.c is the only other user of bgrt_tab and
-> bgrt_image_size. I can move it to the accessors too, so that both
-> variables become static, if that is wanted; otherwise they stay
-> global for it and are no longer exported.
->
-> Ard, this changes the patch you acked, so I will not carry your
-> Acked-by unless the above works for you. Both variables become
-> __ro_after_init either way, as you asked.
->
+I would suggest moving the devm_free_irq() call inside
+unregister_dpio_irq_handlers() so that we keep the register_ and
+unregister_ in sync.
 
-This sounds good to me - please cc me again on the result and
-I'll take another look.
-
+Thanks,
+Ioana
