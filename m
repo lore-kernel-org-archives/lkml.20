@@ -1,138 +1,93 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE39B2E8DEF;
-	Fri,  2 Oct 2026 04:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C522E3FE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790915295; cv=none; b=SPbskC7fH9D/2V8ytRK3Y9Jkx11gKGambwv+/8w92mQBQ/kz8Ivbzy8Ww0+J5brgu+SD1zB1IE/O/X995eV4/JnuISQ+CQiw/bujzanSBAHmyPbokgIUUmUoil0gja4QtV3te4lXlF0P7z6LeGNj2RmzYHnMfdVSodRJ0VbZhkU=
+	t=1790915406; cv=none; b=Nrq9sDYF5CdwRGXHncTwV5pZbuvsUKziW0OYVMEeTXXDMegXclqMHUWjNd69xKK/ra1Io35xsrBWxrtKproYMf333tgpH74GaJSdZnqWKOl90E6G9RUrL4/S52fZ91sKNEgUoeTSOFWj4WajZT2D1ah4smMqPLY3V39C3HJZXK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790915295; c=relaxed/simple;
-	bh=a4qrZ3X6BrJUGLnKmxbLrkWWyO0rfby/1oQ4/m5PD4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dxF01wJVX6HNTFNz+lwNgVWAfnpl/FbDmxrgaTQsihSIeOA8RSyBZoDhgWg4E+tNe4xR9JjEqzR2L3qKKKyI3DgUQu895aYlSVygUfO7nzBfGOfvS3gEj4NgVkzQefrP7isoUNc53JCNccAMfROH0Xv0Whlrp61yi2JeeUGWRLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=UK5JgBiI; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790915406; c=relaxed/simple;
+	bh=skCxL5kgdq4Im1kbeyxs95mJwjBNLk/dld2S/AnhFok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bXf7Sv78kKzOZLepVYabDNbHTVL0svuAeep9c5LyadcHX2hDz0QdAhpmqqigWRuxbRucPOIK9RdVeNSnrIjS8MG7Ganm9J2BVG/QpOu+kQjWr3xIjfQX3jwa7GIi7Ss/ajf9Rzk5FPqWuqn8okdd4pcLiPGnozHIZW5oT15HliA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QChkMo/b; arc=none smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="UK5JgBiI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=eiPSa5YFJ1phU1r39n7VBqvcMjKS3pHdOT6GwqZHAck=; b=UK5JgBiIH5CF0uXUUBDtetiyi7
-	2FjjH1pqrwY6HX70Hs2mceUhL+GpWUrDyYU/WULS5H1k1nvpvHOcOHxoXcXA/q5rR29yyuaWssN4a
-	BZeie7mlx3r4GcjhVd3DaAl3dQ2IfvteJVDnxoggbJyRSW969s9c0A0U1HV1gx5PszFoRkvx4IcwW
-	WfC+xdIzo/PIS26r/CZBDb4biAPGH08Osbwpae1LIKcHyoRXqOkQC/UoYNzCQc20JvUuzq5zW3QND
-	I1bLLmLHW5MC7xJ60hoh0Ow02I5jOG/GDPUQqf3LLGXq/rF064Cs1s3n8b0uz8h7ogsBs9pfgnDES
-	WnYOe/nw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCUsV-0000000AbIn-2rN7;
-	Fri, 02 Oct 2026 04:28:11 +0000
-Message-ID: <a6baf8b0-1ce0-4ee7-a5ea-b50bd314c7c5@infradead.org>
-Date: Thu, 1 Oct 2026 21:28:11 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QChkMo/b"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34cde269e1bso1863696eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:30:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790915404; x=1791520204; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n1DNGli8LEQ3653hox2gDIOPWeBMifJ/aaLwIpGsDdc=;
+        b=QChkMo/bx93LprKtoop79FKHHb9feuKERQ5ooPzPsiuYAXO6JXLTwdWd9ZO4SdQzqE
+         IO11vw6xVvmW5C7CTixxGVZvD2fKQ3o4KdK3LjxdRwbEbNmAi1w+RXVb7jKLy+dAi8ZI
+         XIwoBwB/LS0n6rEElNvFiQKQs3C99mtyK14XjmbE+6uI5aAh4PTM+KzPHB5hC4RTAWjZ
+         O4Bt5NaNTamqgV4jb7Ny+Ecx/cYgV6EQ4gYEYmd6I2Q5x2Rj/mL+NmrXKw/xZ25gQ1S/
+         S3y/4Nkt3kQ1T6k44it2cIvKv+bYjmPBMPL7cBq+nlYudJ+RnpvfrXrbwu1HoyxRmBrn
+         qZSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790915404; x=1791520204;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n1DNGli8LEQ3653hox2gDIOPWeBMifJ/aaLwIpGsDdc=;
+        b=mADfAM+Az8ua1RszSfmEctbJdHAXKP2OHZvbjnZoe+mELL8tAS1eiALqrHe5pES3G3
+         NUXOUuy2M3QopRxJiXVESARPWGBWl/5w4vUp29Q7eP5A7SkxUjvmCiG1G9ILBO7l3vaR
+         XTDpaVtKNqk1LDz+HtzqdArCStqkGaxXnArLJQ/hf34rQBGR2uL17GydOnW/kPjFHw/g
+         dEEpnc82XiSTNKN/J6xuG/ih0SD6asiHcEa1wdwW0wRIl7kIRrWQ6PZS/mufxTbQBpDQ
+         xOJ7cJfML74Nsy6rtel5CMXCshv9XukPos2I91dpI82p1G3A9ht1JgPKl4ySdZEEYXUb
+         XSiw==
+X-Forwarded-Encrypted: i=1; AKwUvByJ0UnSGvmw+OUYYYBQ7t1O8QNDPU53E0OkkWFstLzQ5zFhPo8Zw31YN81TsPRvZMNYg0cGewr8/0ONyAk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJtK8ozkQYiaqfA1bVyp22IE04nUNbyRcPYB1benYCVhXXGwt5
+	UZPOp3RZM0qWXSwY3zUwo26yZA0yuAgaR40ewiq2OcLRCs966avlbUM4
+X-Gm-Gg: AYBFou2FZFqFgiGxBJplXA6MPhzCiCrSCvHqQ9UpHSAxphvrMiJyAGeURi0aUGR19/z
+	Mlj1GEjXnBq0RC5AhDLS/ggSb7Rq2H4ZfWW/j5Ek+uLzgsXWVmeebgvhwFUJm9hqFQ6AansUMmM
+	3Hyux4UV9bK8SWxCzl2lyYRp8Mj5KKAh2Xg2b+9+psSe8uPNP21TqxsqaCLhCbcNLaMN1HFACVc
+	81sIoI6tyFkH6iTvuLo0XIocJ55JHIJUK5sgGZzAaXzGqjkSXC2PbG0xRsKZJ+TfkQy1vkmgfF4
+	WPc+LlDAUtluQgjIcoNI/yk3uwvoXeWZnJgUrNinJj8/8tsVO7nKawIW6B+ukjBzVwbdmZMsm5A
+	aeyu+pgBNqFmni3JTMB0AJSqrhC2JVZKRwtKmDVyU87+0HkKm4t3f499srwjAijzFOLCBwmt63S
+	bHQCZLqYoQAlslyc+rj6M/qeJHkhNucv1LkeCiwHEhbqJZ6CXWfpU8LqtEvGktcImMKGm02KCvZ
+	x08kGFO/OLyaHKNaRxQWkJV3XstzQk6gyOj1niB
+X-Received: by 2002:a05:693c:8808:10b0:33c:259a:759 with SMTP id 5a478bee46e88-34f21996151mr1636583eec.36.1790915403809;
+        Thu, 01 Oct 2026 21:30:03 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:786c:ba70:85d5:57bf])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fd9698sm2802618eec.23.2026.10.01.21.30.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 21:30:02 -0700 (PDT)
+Date: Thu, 1 Oct 2026 21:29:58 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Diederik de Haas <diederik@cknow-tech.com>
+Cc: Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: cyttsp5 - convert to DEFINE_SIMPLE_DEV_PM_OPS
+Message-ID: <ar8zQtjdc88JWHpn@google.com>
+References: <20261001175415.159900-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: kdoc: strip DOMAIN_NS() wrapper in function
- prototypes
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, mchehab@kernel.org,
- aleksandr.loktionov@intel.com, bvanassche@acm.org, tudor.ambarus@linaro.org
-References: <20261002041520.42061-1-emmaonana18@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261002041520.42061-1-emmaonana18@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001175415.159900-1-diederik@cknow-tech.com>
 
+On Thu, Oct 01, 2026 at 07:53:18PM +0200, Diederik de Haas wrote:
+> The use of SIMPLE_DEV_PM_OPS got deprecated in commit
+> 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
+> 
+> So convert the pm ops to use its replacement: DEFINE_SIMPLE_DEV_PM_OPS.
+> This also allows us to drop the __maybe_unused attributes.
+> 
+> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
 
-
-On 10/1/26 9:15 PM, Omokefe Emmanuel Onanaroghene wrote:
-> kernel-doc fails to parse functions whose names are wrapped in the
-> DOMAIN_NS() namespace macro, e.g. in
-> drivers/iommu/generic_pt/iommu_pt.h:217:
-> 
->   ... expecting prototype for iova_to_phys(). Prototype was for
->   DOMAIN_NS() instead
-> 
-> function_xforms is the designated place for unwrapping function-name
-> macros, but it has no entry for DOMAIN_NS(), so the macro name is kept
-> as the prototype and the real name leaks into the parameter list.
-> 
-> Add a transform expanding DOMAIN_NS(op) to op, following the existing
-> DEFINE_IDTENTRY_IRQ precedent.
-> 
-> Add a regression test for the wrapped iova_to_phys() declaration.
-> 
-> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-
-Thanks.
-
-> ---
->  tools/lib/python/kdoc/xforms_lists.py |  6 ++++++
->  tools/unittests/test_kdoc_parser.py   | 22 ++++++++++++++++++++++
->  2 files changed, 28 insertions(+)
-> 
-> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
-> index e3dda2fe8a53..5e8bd9117895 100644
-> --- a/tools/lib/python/kdoc/xforms_lists.py
-> +++ b/tools/lib/python/kdoc/xforms_lists.py
-> @@ -91,6 +91,12 @@ class CTransforms:
->          (CMatch("__diagnose_as"), ""),
->          (CMatch("DECL_BUCKET_PARAMS"), r"\1, \2"),
->          (CMatch("DEFINE_IDTENTRY_IRQ"), r"static void \1(struct pt_regs *regs, u32 vector)"),
-> +        #
-> +        # DOMAIN_NS() wraps a function name with a namespace prefix
-> +        # (see drivers/iommu/generic_pt/iommu_pt.h). Unwrap it so the
-> +        # real function name is parsed.
-> +        #
-> +        (CMatch("DOMAIN_NS"), r"\1"),
->          (CMatch("__cond_acquires"), ""),
->          (CMatch("__cond_releases"), ""),
->          (CMatch("__acquires"), ""),
-> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
-> index c4a76ed13dbc..4b47a858824a 100755
-> --- a/tools/unittests/test_kdoc_parser.py
-> +++ b/tools/unittests/test_kdoc_parser.py
-> @@ -418,6 +418,28 @@ class TestSelfValidate(GenerateKdocItem):
->          """
->          self.run_test(self.SOURCE, [self.DEFAULT.copy()], self.EXPORTS)
->  
-> +class TestDomainNs(GenerateKdocItem):
-> +    def test_domain_ns_wrapped_function(self):
-> +        source = """
-> +            /**
-> +             * iova_to_phys() - Return the output address for the given IOVA
-> +             * @domain: Table to query
-> +             * @iova: IO virtual address to query
-> +             */
-> +            phys_addr_t DOMAIN_NS(iova_to_phys)(struct iommu_domain *domain,
-> +                                                dma_addr_t iova);
-> +        """
-> +
-> +        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
-> +        patcher = patch('builtins.open', new_callable=mock_open,
-> +                        read_data=dedent(source))
-> +        with patcher:
-> +            _, entries = kernel_doc.parse_kdoc()
-> +
-> +        self.assertEqual(len(entries), 1)
-> +        self.assertEqual(entries[0].name, "iova_to_phys")
-> +        self.assertEqual(entries[0].warnings, [])
-> +
->  #
->  # Class and logic to create dynamic tests from YAML
->  #
+Applied, thank you.
 
 -- 
-~Randy
+Dmitry
