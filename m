@@ -1,72 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-bc0c.mail.infomaniak.ch (smtp-bc0c.mail.infomaniak.ch [45.157.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC643D3D00;
-	Fri,  2 Oct 2026 12:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2B43EEACB
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945012; cv=none; b=MP1EQ14kkSlufS12xA+aWZoiK1G0bQfmAq0kPaDEFQwjtahlrsW5eBP6FevXUONBgOzr3MESntp0c7iJJOMi4Ly+FR+S/iayXaI7MZed9Efu64Sre6KuH32j2PUpPGOLu2vAFv2C9z86GkU09brp6UV3nUqBeV/gMA9rgscnMoI=
+	t=1790945073; cv=none; b=AEthEU85Zgk4sVRR8uz3nL7baWwgGkKYFG6kby8TnN2pmMzBCfNpuLZoJp9AunJlKUhq8CufZ9DKtyvxrR9fxtuyDy2hCufAXnRW4nPlUG/R6wz5q5Bh5HhbSRY44sqoQMYmI07rzet/+L8EVbAiyrW+jzeA7kXDM+IXxit5DLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945012; c=relaxed/simple;
-	bh=zJcziKd1NK/JZ2DEGOXXA3DuNYQ4d2g5B9pjgV5Cuf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b7ewwtOFfsGntWTXoMrxBeM62KomEK9S813tkUB7SLBUwBLpsiOLC9jo2O1YUatuL0F1L0qmdPuGC71KXp/io/f0HtRORj2n7sKZ2jyr+1NK4/2vC26wPZ4NV7DMe9ZeqZR2gJICDTii1PbgLCmNmDQhG1mD/0CdJQfa5TsgSfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCtr2o36; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790945073; c=relaxed/simple;
+	bh=fCP3y+UyE5wBkErl4gEJ4ImbTskW9pwJqn0xpY9ZXOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Mjy8Z3R2Ljze70eVQ1QQKA+rC5DZemgFNtshTsPRJMZ1yrDtL/TYAUv/H/GRSy+IpOWv/Nyx3oRZ9+C5hxjegasv0F9+6RLp7rRELbA4hI2kegmQrWD5Cf6Hou7RC8LkVa9thfhuxxNNEhSKUN0ETpg5ohFPA5xECvna1YwbJeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=K82sV/mt; arc=none smtp.client-ip=45.157.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCtr2o36"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726981F000FF;
-	Fri,  2 Oct 2026 12:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945011;
-	bh=cRJpN84UVix6BcTqUJ5o6iEEWxr1NuZClp/FPA6fygI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TCtr2o36F1O/MpLu8S3DVZvnMEXNteH1EF159izrvp2NbFmzHYg/yyMwMCVGnDPCk
-	 qvwN0+PMOWC97aXUjmVOOWsr10Jr46yrcaBEcGol3Ky11scrHfRRnkMGdyTXjmD6ik
-	 RzLd8OYLXhBIqDBEC9ujOKGRv9KWtgQPpOA0yzNJJJOru709QUBP7XTw5qK1yhn+Ro
-	 6bCvCbwjms+nzquCZXMHQQZEUcvM66224A424lehzwFH2brMyWpWPPWH7knLk1UL9b
-	 /5L8tRsoV2wbh15rD+hc8Ij9SQ9a61teJdCWW1pPSHs909dGbK+SFztY9ArfH0EkJI
-	 lnuXt+pa9xdOA==
-Date: Fri, 2 Oct 2026 13:43:24 +0100
-From: Will Deacon <will@kernel.org>
-To: Tomohiro Misono <misono.tomohiro@fujitsu.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="K82sV/mt"
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hx7lB5n8LzL2y;
+	Fri,  2 Oct 2026 14:44:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1790945062;
+	bh=i7ufAMCOn1n0AGYSKdW4etgQSu8QLJHfHHn4CH4w3bA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=K82sV/mt9qG062ApUoEylQZTHBjRviT2vofw1meLxfLbmTfZBD2fOEpQViQVSc3yX
+	 SE3KD/SmstMBbZSYvpQgK0WFAlb8sQF8j3Mk/0DDjqQIsSdEqOX6/I7O9N9FeYjViz
+	 7mIHxpEh6Em0Sg9eEKietpvh1Pv4VbTe/mFcewlc=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hx7l8733tzDgC;
+	Fri,  2 Oct 2026 14:44:20 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: Christian Brauner <brauner@kernel.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	"Serge E . Hallyn" <serge@hallyn.com>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Daniel Durning <danieldurning.work@gmail.com>,
 	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Kohei Enju <enju.kohei@fujitsu.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 2/4] arm64: tlb: Add tlbi workaround for FUJITSU-MONAKA
- Erratum E#030001
-Message-ID: <ar-m7DUSMhe0euXC@willie-the-truck>
-References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
- <20261002-monaka-fix-for-upstream-v1-2-4aec0b0cbe34@fujitsu.com>
+	Justin Suess <utilityemal77@gmail.com>,
+	Lennart Poettering <lennart@poettering.net>,
+	Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>,
+	Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>,
+	Shervin Oloumi <enlightened@google.com>,
+	Tingmao Wang <m@maowtm.org>,
+	kernel-team@cloudflare.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: [PATCH v4 1/8] landlock: Rename quiet_masks to quiet_access
+Date: Fri,  2 Oct 2026 14:43:54 +0200
+Message-ID: <20261002124409.1277970-2-mic@digikod.net>
+In-Reply-To: <20261002124409.1277970-1-mic@digikod.net>
+References: <20261002124409.1277970-1-mic@digikod.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-monaka-fix-for-upstream-v1-2-4aec0b0cbe34@fujitsu.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On Fri, Oct 02, 2026 at 07:26:50PM +0900, Tomohiro Misono wrote:
-> FUJITSU-MONAKA Erratum E#030001 affects FUJITSU-MONAKA CPU
-> when using 64k page size.
-> 
-> On affected FUJITSU-MONAKA CPUs, range-based TLBI operations
-> targeting a VA or IPA may fail to invalidate TLB entries when
-> addr[34:29] == all 1 && addr[28:0] == 0 for 512MB mappings.
-> The affected instructions are:
->   RVA[L]E{1,2,3}*, RVAA[L]E1*, and RIPAS2[L]E1*.
-> 
-> Work around the erratum by issuing additional non-range
-> TLBI instructions corresponding to the affected VA or IPA
-> range-based TLBI operations.
+The base stores the fs/net/scope quiet bitmasks in a struct access_masks
+field named quiet_masks.  A following commit adds the sibling struct
+permission_masks field quiet_permission for capabilities and namespaces.
+quiet_masks drops the access category and keeps the type half ("masks"),
+while quiet_permission keeps the category and drops the type half, so
+the two read as an inconsistent pair.
 
-Why don't we just avoid using range invalidation on these parts instead?
+Rename the base field to quiet_access, giving the symmetric,
+category-named pair quiet_access/quiet_permission that also matches the
+UAPI handled_access_*/quiet_access_* naming.  This is a
+no-functional-change rename.
 
-Will
+Cc: Günther Noack <gnoack@google.com>
+Cc: Tingmao Wang <m@maowtm.org>
+Reviewed-by: Tingmao Wang <m@maowtm.org>
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+---
+
+Changes since v3:
+https://patch.msgid.link/20260726161400.3010511-5-mic@digikod.net
+- Adapt the rename to the split ruleset/domain and logging code.
+- Add Reviewed-by: Tingmao Wang.
+
+Changes since v2:
+- New patch.
+---
+ security/landlock/domain.c   |  2 +-
+ security/landlock/domain.h   |  4 ++--
+ security/landlock/log.c      |  6 +++---
+ security/landlock/ruleset.h  |  4 ++--
+ security/landlock/syscalls.c | 10 +++++-----
+ 5 files changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/security/landlock/domain.c b/security/landlock/domain.c
+index 4031b581be07..c66663f8cd8b 100644
+--- a/security/landlock/domain.c
++++ b/security/landlock/domain.c
+@@ -479,7 +479,7 @@ landlock_merge_ruleset(struct landlock_domain *const parent,
+ 		return ERR_PTR(err);
+ 
+ #ifdef CONFIG_SECURITY_LANDLOCK_LOG
+-	new_dom->hierarchy->quiet_masks = ruleset->quiet_masks;
++	new_dom->hierarchy->quiet_access = ruleset->quiet_access;
+ #endif /* CONFIG_SECURITY_LANDLOCK_LOG */
+ 
+ 	return no_free_ptr(new_dom);
+diff --git a/security/landlock/domain.h b/security/landlock/domain.h
+index caa3d19d2c43..03f24382537c 100644
+--- a/security/landlock/domain.h
++++ b/security/landlock/domain.h
+@@ -130,10 +130,10 @@ struct landlock_hierarchy {
+ 		 */
+ 		log_new_exec : 1;
+ 	/**
+-	 * @quiet_masks: Bitmasks of access that should be quieted (i.e. not
++	 * @quiet_access: Bitmasks of access that should be quieted (i.e. not
+ 	 * logged) if the related object is marked as quiet.
+ 	 */
+-	struct access_masks quiet_masks;
++	struct access_masks quiet_access;
+ #endif /* CONFIG_SECURITY_LANDLOCK_LOG */
+ };
+ 
+diff --git a/security/landlock/log.c b/security/landlock/log.c
+index a8578a6f2ce9..3f9ae1bacb23 100644
+--- a/security/landlock/log.c
++++ b/security/landlock/log.c
+@@ -436,7 +436,7 @@ is_denial_quieted(const struct landlock_request *const request,
+ 	if (object_quiet_flag) {
+ 		const access_mask_t quiet_mask =
+ 			pick_access_mask_for_request_type(
+-				request->type, youngest_denied->quiet_masks);
++				request->type, youngest_denied->quiet_access);
+ 
+ 		return (quiet_mask & missing) == missing;
+ 	}
+@@ -447,10 +447,10 @@ is_denial_quieted(const struct landlock_request *const request,
+ 	 */
+ 	switch (request->type) {
+ 	case LANDLOCK_REQUEST_SCOPE_SIGNAL:
+-		return !!(youngest_denied->quiet_masks.scope &
++		return !!(youngest_denied->quiet_access.scope &
+ 			  LANDLOCK_SCOPE_SIGNAL);
+ 	case LANDLOCK_REQUEST_SCOPE_ABSTRACT_UNIX_SOCKET:
+-		return !!(youngest_denied->quiet_masks.scope &
++		return !!(youngest_denied->quiet_access.scope &
+ 			  LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET);
+ 	/*
+ 	 * Leave LANDLOCK_REQUEST_PTRACE and LANDLOCK_REQUEST_FS_CHANGE_TOPOLOGY
+diff --git a/security/landlock/ruleset.h b/security/landlock/ruleset.h
+index cf77f1806a95..8ebdd4fa098f 100644
+--- a/security/landlock/ruleset.h
++++ b/security/landlock/ruleset.h
+@@ -182,11 +182,11 @@ struct landlock_ruleset {
+ #endif /* CONFIG_TRACEPOINTS */
+ 
+ 	/**
+-	 * @quiet_masks: Stores the quiet flags for an unmerged ruleset.  For a
++	 * @quiet_access: Stores the quiet flags for an unmerged ruleset.  For a
+ 	 * merged domain, this is stored in each layer's struct
+ 	 * landlock_hierarchy instead.
+ 	 */
+-	struct access_masks quiet_masks;
++	struct access_masks quiet_access;
+ 	/**
+ 	 * @handled_masks: Contains the subset of filesystem and network actions
+ 	 * that are handled by this ruleset.
+diff --git a/security/landlock/syscalls.c b/security/landlock/syscalls.c
+index 1d02d57f4c48..17d8e9b7b0c6 100644
+--- a/security/landlock/syscalls.c
++++ b/security/landlock/syscalls.c
+@@ -280,9 +280,9 @@ SYSCALL_DEFINE3(landlock_create_ruleset,
+ 	if (IS_ERR(ruleset))
+ 		return PTR_ERR(ruleset);
+ 
+-	ruleset->quiet_masks.fs = ruleset_attr.quiet_access_fs;
+-	ruleset->quiet_masks.net = ruleset_attr.quiet_access_net;
+-	ruleset->quiet_masks.scope = ruleset_attr.quiet_scoped;
++	ruleset->quiet_access.fs = ruleset_attr.quiet_access_fs;
++	ruleset->quiet_access.net = ruleset_attr.quiet_access_net;
++	ruleset->quiet_access.scope = ruleset_attr.quiet_scoped;
+ 
+ 	/*
+ 	 * Emits before anon_inode_getfd() installs the file descriptor, while
+@@ -382,7 +382,7 @@ static int add_rule_path_beneath(struct landlock_ruleset *const ruleset,
+ 		return -EINVAL;
+ 
+ 	/* Checks for useless quiet flag. */
+-	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_masks.fs)
++	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_access.fs)
+ 		return -EINVAL;
+ 
+ 	/* Gets and checks the new rule. */
+@@ -423,7 +423,7 @@ static int add_rule_net_port(struct landlock_ruleset *ruleset,
+ 		return -EINVAL;
+ 
+ 	/* Checks for useless quiet flag. */
+-	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_masks.net)
++	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_access.net)
+ 		return -EINVAL;
+ 
+ 	/* Denies inserting a rule with port greater than 65535. */
+-- 
+2.55.0
+
