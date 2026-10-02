@@ -1,140 +1,132 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1361F31D366
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E926731D366
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790978104; cv=none; b=V2KK8aSTT7PTm0jSMN0pM6aQ1EgAJ5hVUcx8mF63Xutcl1UXyVzA8QSa623iCNCHYlfYBbOEHVGTzSv8CvNDDlLFz/8GclFoZ1YsTSZmhjTVGxXDhG+A7CLBvOMKt1myp/3wU0niWbVj4p+t3+jLodKJw4HfgwHAOLJ78QY6f8E=
+	t=1790978108; cv=none; b=qgquAeMablXju42WG+VhdVMTVcyHPDZwSMn8gAI9m9KsVDkcJpToKSPPPJ3IdYv1S/u8Qqgc4nu8Y1RreEYTO5Cl3ZU4WoheLDOmPUjMflb5fWwNqfvTqCxf6P+RQ6VHSuefDGlS3LyrAykfU1ikNowdwWn49BM4UTnYpmwJKbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790978104; c=relaxed/simple;
-	bh=VD3Hz/9DzNsRGxMWcveNGmeZZzofDchA7Ax7edN5DOI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HJJGmidnqNbnh7iStV/q20FXmXISpOwMC2vIHqpC7/MTNoffbboPBFUWVAa637eY1pHvpoB5WUG+hsSVAr1SSsyLXDifcQI+Qwws4USIXr+emLlyzXEez5aQpFiqLspcIcN+oq5lEU/wt95Q31rmrtGaj2X1Fr7AN/spyAIycrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=NLGDTOUa; arc=none smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	s=arc-20240116; t=1790978108; c=relaxed/simple;
+	bh=EhqcVucYSakqM14c2cM72pxGNwF8rHEoxZY5/G9rgTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tSkZokgPqUGHMd5Ey1NvFPVqCPFraCLP59KsR2ZFNsZUeSll17qrHLIgX3kiuSUPd0Uf8oMYohAb1Sz2rYXmQ85e1tapPQBJlzLziaxGPYkCogRzZMHlsDF/oBiD2sCGRTmJLwFwTknvYpawI3frb136Rib8RM14za7QTMgaMHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QSrekQ3K; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="NLGDTOUa"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8871ada1a26so141997b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:55:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QSrekQ3K"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f38so171165ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:55:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1790978101; x=1791582901; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hBay+pkpwERtZ4nN6gmSwBzZpZ+h9K9WoaUNPQ21Vl0=;
-        b=NLGDTOUav1QAkA0nWFIf37Mc0x+1A/+Ct8w9MG4i7jB2y9HFtlKYBCf+dMc5Z2f5wa
-         4pwRynadwxTFWfFEnL3/TZcukXdSGCCg7yVxLb1lPLClZHYd6BUUdwzOX3BRahjZFgrk
-         DZu+Nw/0NQBoqKNOMviVxPNeZlHsy3E00GDoLYBcyYYHDiEtDj3yfsRprsEA9fvWTeEO
-         88KuZCXqUOwfWeJVA0twXpgENPPeUYOV7RYE2OTt+fnLH2toWTFM3a23fwLz2nxEVBaq
-         brhRbcrPDkIGYym9iTrbOevAFYZoax11ejYasOfPViY/hSN7x/kuD+DSJeaLLr2PXqaI
-         Tihw==
+        d=gmail.com; s=20251104; t=1790978106; x=1791582906; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vwlbxNoSoLRMmJKLl4CKJFzcuVtF8rGKpkUB89vx4iQ=;
+        b=QSrekQ3KSP90ReN5/lR1HWMhenlnpgaWUtts+UgcwaBH8bLNKXdBY4lM+4TjhzDQeO
+         BrOnsCFHBM6hAZADoThwu5wULC7BdtHS6PMXuM0D9s5KGm6kXu4BNXMda1npK6ak2qti
+         Hqm7xX90kPANwcJyZmrR0b7vsaJIgPtv0IOs77JcI9uqakuzI2Ivf8YXjfVwLc3gOIgN
+         y2k2k5MZS+fZE30hhkko8+822lAR8IsCxUsrkSLPyCYkJs68fLP7cntk6/z/D6gsNv/D
+         I8aGfFyUVh2lQe5SlSzKlt+UXubbuNFNyEfl79kV11TSJ5QEL6DZu8Ulrs4TWs1l+Pwx
+         7tOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790978101; x=1791582901;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=hBay+pkpwERtZ4nN6gmSwBzZpZ+h9K9WoaUNPQ21Vl0=;
-        b=beg/yiE/k9+7KU3Aw98kIxx5Wo+gcp6Fh11cX7wvrCJTBM59FeHr7Bj/89/9M/5Tw+
-         nn225LOXLYpKuGu9GO4G50IQ+O0fsnsOcEeClNDZo33cRqbgiA3zR4o4jwFV9jOAshuT
-         iIGA/jiUDiM6V4JMtrYIAWtETwmN3Hn3Gsr2rX7k8YBiooLPwxRB4a/8r7i1Fw9uH2Ar
-         oL8/NY7SDZB12mX9YiCknbX6tkY4oGuS71mfNkjxMP3uxPuC490T/PD7La8izbKUWAUh
-         Z0RjEm8d8qq5QmWyS1oHYODjxKRG6pqYlNoqDnNlS0cZtiPbkGGZE953Zfe40X10V60u
-         /ucg==
-X-Forwarded-Encrypted: i=1; AKwUvBxX8sWmvan5PKOZezjKshV9D4hgApW1vHDmzMqmHN9ukEjLhJokL8xVvELKopcVMzzPbAFCrU5s5ktUWHk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlojLnotN6T+g/xwkHrLqhzMISQ0R6xaiE9QgQ1/rKI0oeVUAS
-	5FxcTemOnFab98/7WraYFxYKWRGCle3+Nd+3Ll8leHw33DQuC4h2r0HfoJGrUMKr9Gw=
-X-Gm-Gg: AYBFou1/TV/yHBsD5YmcTF62BG1i/locefDgHUi3dXWiHwMR53fkVUVJHW/PAGEjGSu
-	xYCJKmMiwIVYTDmWwd2dlDOlMVyzE+lC6CvW4VqmYMGGjcDgAGDdDhlU7BF2PdwnNZUnq0fWewg
-	E6no/Bp3xKc1WeV2Km+x5CpSSfL9ljn3YhY8nRdQfmundHlxR1Z335WxNNCe97v6MkiyStfk2TO
-	qBrDKQdimsWeT2yShp6YtrQtBXxhiPmPrZt7pztXO3I7H2A9VKcDnrX24nR/NmipcJkPkyQW8Gv
-	LhShbb1W46BqNzvtf+xcwxyEETCOwzgbFdPShbeGvgfH2LIcyilv3pmjrzpZzlDy+pfBjP3JUWT
-	p0RBV36h6kveU7hGj+jNPjRr6xOL7BX0KO30WjcxluTXaWrwmEh5vtcyKAGlciaCqXAXoT0R7vo
-	+qFzMAib4Ljn+eAVFaAON7gHz6uPfwtywMXbl3GfhYU0IoX2bHPTYRtYgIrdB+x11Ny3NovGnbx
-	88Et2AAIWnesdJ0ZdUiayFUlMLBelcw5Z1VGJ/ZF0PPth/T8ouScg==
-X-Received: by 2002:a05:690c:660d:b0:8ac:e42d:35a with SMTP id 00721157ae682-8ae94ce98acmr4734927b3.49.1790978100965;
-        Fri, 02 Oct 2026 14:55:00 -0700 (PDT)
-Received: from [192.168.2.129] ([2600:1700:220:59e0:24a9:81b6:f7c4:c7f7])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae328ee37asm14837137b3.10.2026.10.02.14.55.00
+        d=1e100.net; s=20260707; t=1790978106; x=1791582906;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vwlbxNoSoLRMmJKLl4CKJFzcuVtF8rGKpkUB89vx4iQ=;
+        b=i2ewyvvbhqnwUnGdmS5b4b5FHKiL5Xjws4DmhUIunjzBxSuGjDcqFD5wy7L/P5ebm3
+         icouTgIcMH4PvwW2y+agduaFVKB61AVyaBk3sYLEcibt6oWlyrH7Ac+VSbg6sfyXUF9k
+         8jBTQe2yT4kR1c2MkS6QO8QD85pom7/pKwr2rRsAt1tcm0Gm0mrvhD3sOJTBhwAyu+NA
+         4ra6G0ry1aoSNhkhTAGR49EcIjvjb7Y5cYZMTjyn15SR5bFFYhWlIzKw/2LqMj8mJxfB
+         lCCjvIvkqiECuI3lthmoJYCD174hl0FXT6Ri6Y/0a4CupRZlp5Al0KV7Lx3pI5J/dyqd
+         kt7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxk5WwCkMyqnGnUnexrAURrgFpwIQKHl1AUFVhAj/G0XLT0IEtHuZNyiKrYmp74M2xKhAM5E4vPAk+S+Ss=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVrdo0WyMrciOppN6CzEHSDIB5Gh2VMcAgGs4a6zfJld+/iBNZ
+	xzjoIsO0LMLyurtWx1fxalfw1C+KQqirNdkandDq8gqQoH+LpHN2VALN
+X-Gm-Gg: AYBFou1nlrkZoSOZLTSFjbeOkg6yN3VPm/H0sHgb8XqwIN11eOQcH3urZEeQa4UBR5Z
+	FhnhpYkgIJnwRQdpjKXtaAQuIM8bgWEjHWiBr1mH13svG0iBVmjeEjkQj1GbMBkODfhZVPNz833
+	w8KQMvLkEhZkjgZyi+qnREnnI/43W8i1wJrJNMGXM42w7WEFj4oKqCxcInejCJBGgi1YcIO8F0D
+	gqOMEFp3STPiuNfSMOII383j660KkIv4z+xb4Y/ZQW/F8vgl3RhjhDpheK7LVhOXod46SzFHaYg
+	SYDSm/eb4t+A4soshxU8bYiRJin8xjdbphCF+BZ5v0G1TSSwc7nGtK0lOGU9IEweXPJ2wn+7JiS
+	T4iNUoYQSfd0VDgzvRGuYptoiJe9hZsY/S7NZiP+otsRLzTX7KITjdaRZUMsTrk7C1PiDDmX6O2
+	NeI6BI5z02gG2LQkUQLAK3wHDAc6oKP2FuSm1GiLFEVd9siUTu7jH5DsFO7eRquAVzt+UhLxyNo
+	ZdrbNnaOtD9W3OYj4ICQT+NC+El/4Gxi9nJZxa+NJaUfwpUZkqf6H9CKds5nerSTK54OTh6qk2o
+	uKkVlD1jISUcBeUOzuSM/iWVuDaBaeGVN4/YmxawQROvhdQ=
+X-Received: by 2002:a17:90b:28ce:b0:3a0:b40d:827 with SMTP id 98e67ed59e1d1-3a6f321f4b9mr1342400a91.0.1790978106232;
+        Fri, 02 Oct 2026 14:55:06 -0700 (PDT)
+Received: from 0xiviel.ip (122-63-128-121.mobile.spark.co.nz. [122.63.128.121])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4a1bfesm185515a91.12.2026.10.02.14.55.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 14:55:00 -0700 (PDT)
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Date: Fri, 02 Oct 2026 16:54:46 -0500
-Subject: [PATCH] selftests: breakpoints: Skip step_after_suspend_test on
- systems without a wakeup capable RTC
+        Fri, 02 Oct 2026 14:55:05 -0700 (PDT)
+From: Eva Crystal <0xiviel@gmail.com>
+To: Lizhi Hou <lizhi.hou@amd.com>,
+	Min Ma <mamin506@gmail.com>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Max Zhen <max.zhen@amd.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	sashiko-bot@kernel.org
+Subject: [PATCH] accel/amdxdna: document trusted mailbox ring geometry and drop the power-of-two check
+Date: Sat,  3 Oct 2026 09:58:14 +1300
+Message-ID: <20261002205814.178031-1-0xiviel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <67698952-6394-44a8-01fe-3e3558b7cb4c@amd.com>
+References: <67698952-6394-44a8-01fe-3e3558b7cb4c@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-breakpoints_rtc-v1-1-a3b6542a0fdf@oss.tenstorrent.com>
-X-B4-Tracking: v=1; b=H4sIACUowGoC/yXMQQqDMBBA0avIrBuIUULwKqUUjRMdhSgzsRSCd
- ze2y7f4P4MgEwp0VQbGDwltsaB+VODnPk6oaCwGo42ttTZqYOzXfaOY5M3JK22dbZwb2zYEKNX
- OGOj7Oz5ff8sxLOjTvYHzvACTQei/cwAAAA==
-X-Change-ID: 20261002-breakpoints_rtc-0686388d44ff
-To: Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-X-Mailer: b4 0.15.1
+Content-Transfer-Encoding: 8bit
 
-This test puts a system into suspend state and uses CLOCK_BOOTTIME_ALARM
-to wake the system up. This alarm can only wake up systems that have a
-wakeup capable RTC source. On systems without such an RTC (for example,
-most RISC-V boards), this test puts the system into suspend and just
-hangs, requiring power cycling.
+The mailbox ring buffer geometry comes from AMD signed firmware, through
+the management or mailbox information block, or through the CREATE_CONTEXT
+response, and the driver trusts it by design.
 
-clock_getres(CLOCK_BOOTTIME_ALARM) fails with EINVAL on such systems,
-so add a check based on that to skip this test on systems without a
-wakeup capable RTC source.
+The power-of-two test on rb_size was a firmware debugging aid. Nothing in
+the driver derives a mask, a shift or a modulo from rb_size, so no code
+depends on the property it tested. The ring index wrap is handled by the
+explicit comparisons in mailbox_send_msg() and mailbox_get_msg().
 
-Signed-off-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Replace the test with a comment that records the design, so that
+automated review does not flag the absence of a bound here again.
+
+Suggested-by: Lizhi Hou <lizhi.hou@amd.com>
+Link: https://lore.kernel.org/all/67698952-6394-44a8-01fe-3e3558b7cb4c@amd.com/
+Signed-off-by: Eva Crystal <0xiviel@gmail.com>
 ---
- tools/testing/selftests/breakpoints/step_after_suspend_test.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+The pkg_size check in xdna_mailbox_send_msg() is left in place on
+purpose: it bounds a driver-supplied size, and with Max Zhen's pool
+patch (20261002161122.1350075-1-max.zhen@amd.com) it is the only bound
+on the write into a pre-allocated message slot.
 
-diff --git a/tools/testing/selftests/breakpoints/step_after_suspend_test.c b/tools/testing/selftests/breakpoints/step_after_suspend_test.c
-index ca2aaab9e4ca..727790259429 100644
---- a/tools/testing/selftests/breakpoints/step_after_suspend_test.c
-+++ b/tools/testing/selftests/breakpoints/step_after_suspend_test.c
-@@ -18,6 +18,7 @@
- #include <sys/timerfd.h>
- #include <sys/types.h>
- #include <sys/wait.h>
-+#include <time.h>
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 05c3786de135..c4a36858668f 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -513,11 +513,13 @@ xdna_mailbox_start_channel(struct mailbox_channel *mb_chann,
+ {
+ 	int ret;
  
- #include "kselftest.h"
- 
-@@ -158,11 +159,21 @@ void suspend(void)
- 	int err;
- 	int count_before;
- 	int count_after;
-+	struct timespec res;
- 	struct itimerspec spec = {};
- 
- 	if (getuid() != 0)
- 		ksft_exit_skip("Please run the test as root - Exiting.\n");
- 
+-	if (!is_power_of_2(x2i->rb_size) || !is_power_of_2(i2x->rb_size)) {
+-		pr_err("Ring buf size must be power of 2\n");
+-		return -EINVAL;
+-	}
+-
 +	/*
-+	 * CLOCK_BOOTTIME_ALARM cannot wake up systems that don't have a
-+	 * wakeup capable RTC from suspend. Check if we have a wakeup-capable
-+	 * RTC to prevent this test from causing the system to hang after
-+	 * it suspends.
++	 * The ring buffer geometry, rb_start_addr and rb_size for both the
++	 * x2i and the i2x channel, comes from AMD signed firmware, through
++	 * the management or mailbox information block, or through the
++	 * CREATE_CONTEXT response. The driver trusts those values by design
++	 * and does not bound them against the mapped region.
 +	 */
-+	if (clock_getres(CLOCK_BOOTTIME_ALARM, &res) != 0)
-+		ksft_exit_skip("No wakeup-capable RTC for CLOCK_BOOTTIME_ALARM\n");
-+
- 	timerfd = timerfd_create(CLOCK_BOOTTIME_ALARM, 0);
- 	if (timerfd < 0)
- 		ksft_exit_fail_msg("timerfd_create() failed\n");
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20261002-breakpoints_rtc-0686388d44ff
-
-Best regards,
---  
-Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-
+ 	mb_chann->msix_irq = mb_irq;
+ 	mb_chann->iohub_int_addr = iohub_int_addr;
+ 	memcpy(&mb_chann->res[CHAN_RES_X2I], x2i, sizeof(*x2i));
