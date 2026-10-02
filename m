@@ -1,45 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f33.google.com (mail-dl2-f33.google.com [74.125.229.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1047847252A;
-	Fri,  2 Oct 2026 09:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D4E1F938
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933291; cv=none; b=qArIDdDd4uy/QwUdIBqejLj4Uv0o1H2lMNsni5O1EGYW5olJLHRNNBVjjOPFLqWqzyYY6OeXpBhME2M8blwV2E9CqFMf0RJCUWnZPLgDnh9KSayh3R6zRkJzoSLRI3Mov6MeyYIL83GrVqRQ0KWWnvGlfEjF0m91kPx2Q3hkGFs=
+	t=1790933305; cv=none; b=NCrSk9vJ+Xz+2nbKVkWtNJ3XCBkRZNzD+iLRvDafEwHZpUlaTLc1S1W0oeR5f+tEdoZ2GBKE+VG0lVT/aaP9QcjKgrcRv0TCNfLE5HHIM1rlrI6kkdxS8yqtOisDMr3W1SpkMBn/uzyeyeyBleblHTVZqtpvrZFG2qpfuCs7XxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933291; c=relaxed/simple;
-	bh=GhZLFjWh7++VbgqwiZXUPUiSt5lrvUXbGyf0Uee2g/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FtgXIfCqX3PJfw4vUZHuRq0L9GPbotfU7My7z1XhmWzgnTaZ+ER1SAm56sDWU27ucBP/HOFHLStKhPLqDuNZE5k5IlTf3P5jckAXMTVvH5p4sUlA676GlMN9BQxKj23qtypPm5tqrbP9ARh9AzlkTqWzVT7jlQ8FMhB6wVayVw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dHN++6fZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790933305; c=relaxed/simple;
+	bh=tsuaYRXNLmb551fr7i7sn+dPJ7NhzMn88WF918CGBx0=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KjhsxcUfnDh14kV2iJm3s6gi3KRWRBYxkCD1wqS3Sm8fUiD9hgCmtLZ1NpLKMne67RXYXugXr2lD/OQIcr+G5b+IyvnKAOLwUYioGidluONudeUN9ilqGAZQRun776Zv99dTGv9cDVJGyX4jat9KluR6l2JKQtE4f5KjeCcLtQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihoNZOiV; arc=none smtp.client-ip=74.125.229.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dHN++6fZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE851F00893;
-	Fri,  2 Oct 2026 09:28:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790933289;
-	bh=MdAeds9Rn5ejHFbGOvaWtfpF3b+9skQtlDhRS0wmEHE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dHN++6fZVpKjXzePoFtLfLd3/MqlUFPLOW1U1e8dt93RSSSgW1q2neMOPMS3mJaHi
-	 pBxoCtzdiDrUe6/lYaZcqjdoEfVUlCUFLCPOmw7rJMglfJFsNmglOaoQkDsQnnQD3c
-	 KRW3OOvNq/x6Z8GWn6YcqU+LxZF4rtj9e9CYv9R8=
-Date: Fri, 2 Oct 2026 11:28:02 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Document the Nord
- DWC3 controller
-Message-ID: <2026100256-enquirer-glorify-c80a@gregkh>
-References: <20260917-nord-usb-dwc3-dt-v2-1-8f88aa30c434@oss.qualcomm.com>
- <CAMRc=Mf=Uw549oV0sAdkEKn0YWGbGs3WJDvwT9QT68Wof_M1jw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihoNZOiV"
+Received: by mail-dl2-f33.google.com with SMTP id a92af1059eb24-1438e88300cso7864484c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:28:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790933303; x=1791538103; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Dzk0FhsAtQa7VZB+Dgj776CLsrZWObscUvWBIN8rkJU=;
+        b=ihoNZOiVDx3d+A6En85M7MD+JSmVnKZHeaiwYR3OXrbN6TfUD/3JAFardg/4PBsqzL
+         R5Jmgz9Zgt7Q5UAATd2ZlHIs2VYrTJEgpIdYqHEQo2FogSth6TECdHESCVZZpn04so3R
+         YoLF5hOqG+UgRvFSc8byPg0oGrgIh4SUmwkaZmgtEjFH1sHeqPe0uCmRBjrroCdn+qUJ
+         BTscBicWDESpQ51zKle+xAowgSY1ywPNw1rrXydkMwneUQ6zr6tiGqz1PWy79QqOG4Yk
+         8WjI4I/t6WP3yBUQs5jzG6yyqv93efatFsQKRvZtX+oKTA3mWuf/ayBMO1iOsRPck/XU
+         dJ1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790933303; x=1791538103;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dzk0FhsAtQa7VZB+Dgj776CLsrZWObscUvWBIN8rkJU=;
+        b=yW3kYyEP8Sq7yNf0dFqFNM+UjSwIKNLiJkNOx7Wc7OYtB0uQR7nr/cXSiDgSouR5GN
+         dYDuzBGYxFwoU7Z/r/U/wzrK6mhv3wprYJVHwIESUaHm8fz9asClpjFgHrxWQkj9U8Hs
+         YXRlCutxRrICnOJj9RNQPyANyKBLzUNCsjnLgLtWS9lF4zP6FDQHdoA/5oCkGItvQSbK
+         Ry9OS1igkj0VcJcM68IPQZPh5mVw1EWsqp3fvA7wke+0Bque+3DmMRlFX3IkReWsZ9SG
+         x8pLbNoPVVYS6LBElhZF5FlKil2Lzn6e/iqxhQR8IwciztsetLeN/gCp+83R0g3IfRhI
+         JnzQ==
+X-Gm-Message-State: AFuF++k2P/6UwFc2HRRcBx/cgSlO1JTQtxWoGcTHNzvGxTSclKQMBkEd
+	kGIWuPanWkHR410R++ols0iGcPlB0s6zSMZiuzkimauQepckAQJvqH0i
+X-Gm-Gg: AYBFou02BgJ1skbrZ7IJlI5v3cxEueBJdVKjwh03vQbBCai/eAKomvqTdYiXZEuECrf
+	S+hOS1gssAtercNwDU+Ie2Bm1Vda0mjUjvECDuiNhVqKmu0xlbUcjuFMttMPLxgBF8hhfkM75Lo
+	2EyoasXXx5mlzkPbpnLfqEmqoun7qWCuTCR4PNUDNv7KeJytCsrye2TAkE4KNvqsIj08fGfgJ/x
+	ki73nVw1bfEzttrwom2lMzV4SWNnat+aILa3TEDQMDx8l33UzUFeLm+mRSOe9PrxnjrPatYJEBZ
+	Oo0GP5ZFLg7kwPIN4U+UE5h8aLuSdw969nsIf9NfN1bdWPQ7tQunTq0I62o4Psshd3iFCZSn8mh
+	jm24jB+e2uGT0QRi81DmRxjG0AmgJSyeSAq70BX2Vw5/Ix54kqpup/4H58uPjcB06IEdMCaBPAP
+	Yu7NWVP2uUXUCPY/WnqO4yQCu3R9j3OkNUgX/gK107k+nGW4AsVZgCyaAUnXlNR67y9xkmCgO/W
+	bRwWbzAuRcyIxozLWipPkbe5m/Mjj9fVvU9dQ4A4c6N/EkHcTrnCLaKM/YBRKaN2elRZLGWREG2
+	0ANx
+X-Received: by 2002:a05:701b:4281:20b0:149:49c:233 with SMTP id a92af1059eb24-14f5bdf3b15mr2385023c88.27.1790933302395;
+        Fri, 02 Oct 2026 02:28:22 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (158.95.44.30.netskope-rdns.com. [158.95.44.30])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f468c08absm4645586c88.8.2026.10.02.02.28.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 02:28:20 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Fri, 2 Oct 2026 06:28:16 -0300
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH RFC 3/3] iio: core: use kstrtodec64() to parse
+ fixed-point values
+Message-ID: <zo6yokvdhts7sa7kd3f4i2wraa34df24znvus7rqawdjlmsi3l@rujyvtp7i5bm>
+References: <20261001-e-notation-v1-0-75187bf06c10@analog.com>
+ <20261001-e-notation-v1-3-75187bf06c10@analog.com>
+ <ar60h2px1C8hM4-O@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,26 +81,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMRc=Mf=Uw549oV0sAdkEKn0YWGbGs3WJDvwT9QT68Wof_M1jw@mail.gmail.com>
+In-Reply-To: <ar60h2px1C8hM4-O@ashevche-desk.local>
 
-On Fri, Oct 02, 2026 at 11:47:26AM +0300, Bartosz Golaszewski wrote:
-> On Thu, 17 Sep 2026 19:07:00 +0200, Bartosz Golaszewski
-> <bartosz.golaszewski@oss.qualcomm.com> said:
-> > Add a compatible for the DWC3 USB controller found on the Qualcomm Nord
-> > SoC.
-> >
-> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > Link: https://lore.kernel.org/r/20260901103300.60803-1-shengchao.guo@oss.qualcomm.com
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
-> > Changes in v2:
-> > - Fix the interrupt constraints for Nord: we also require hs_phy_irq
-> > - Link to v1: https://lore.kernel.org/all/20260901103300.60803-1-shengchao.guo@oss.qualcomm.com/
-> > ---
+On 01/10/26 22:29, Andy Shevchenko wrote:
+> On Thu, Oct 01, 2026 at 12:34:58PM -0300, Rodrigo Alencar via B4 Relay wrote:
 > 
-> Greg: could you please queue this for v7.4?
+> > Replace the open-coded __iio_str_to_fixpoint() parser with
+> > kstrtodec64(), so sysfs writes of fixed-point values also accept E
+> > notation. The scale passed to kstrtodec64() comes from fract_mult, which
+> > is a power of ten, 10^n, so ffs(10^n) = n + 1. The fractional part only
+> > keeps the sign when the integer part is zero, as before.
+> > 
+> > The dB suffix for scale attributes is now handled by a separate
+> > iio_str_to_fixpoint_units() helper. It strips an optional trailing
+> > newline and the "dB" or " dB" suffix before parsing.
+> > 
+> > When there is no fractional part (fract_mult == 0, or dec_scale == 0 for
+> > 64-bit values), try base-autodetecting kstrtoll() first so hexadecimal
+> > and octal input keeps its meaning ("010" is still 8). Fall back to
+> > kstrtodec64() on -EINVAL to accept E notation.
+> > 
+> > As a side effect, inputs that used to be rejected for integer-only
+> > attributes are now accepted. An invalid octal number such as "08" is
+> > parsed as decimal 8, and a fractional value such as "1.5" is truncated
+> > to 1, matching how kstrtodec64() drops digits beyond the requested
+> > scale.
 
-Sure, now applied, thanks.
+...
 
-greg k-h
+> > +static int iio_str_to_fixpoint_units(const char *str, const char *units,
+> > +				     int fract_mult, int *integer, int *fract)
+> > +{
+> > +	size_t units_len = strlen(units);
+> > +	size_t num_len = strlen(str);
+> > +	const char *dec_str = str;
+> > +	char buf[64];
+> > +
+> > +	if (num_len && str[num_len - 1] == '\n')
+> > +		num_len--;
+> > +
+> > +	if (num_len > units_len &&
+> > +	    !strncmp(str + num_len - units_len, units, units_len)) {
+> > +		num_len -= units_len;
+> > +		if (str[num_len - 1] == ' ')
+> > +			num_len--;
+> > +		if (num_len >= sizeof(buf))
+> > +			return -EINVAL;
+> > +		memcpy(buf, str, num_len);
+> > +		buf[num_len] = '\0';
+> > +		dec_str = buf;
+> > +	}
+> > +
+> > +	return iio_str_to_fixpoint(dec_str, fract_mult, integer, fract);
+> > +}
+> 
+> This won't support cases when we have too many leading 0:s.
+> All these functions should also strip leading and unneeded 0:s.
+
+sorry, I messed up when replying to this (doing a proper group reply now).
+
+It does support leading zeros just as kstrtodec64() (there are test cases
+for that) does so, but when handling those units in the end the buffer is
+being limited to 64, which I think it is enough (19 digits can hold real
+decimal value, the rest could be the decimal point, signs, termination char
+and leading zeros). In a practical use case, how many leading 0:s you would
+expect to be supported?
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
