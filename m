@@ -1,130 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f18.google.com (mail-wr2-f18.google.com [74.125.225.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D9E457E58
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE32B4AEBC5
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950686; cv=none; b=NH/ESYBElWz/HiBtzA7HREqGWUYWYbw4lImTGWf2xXH04u12aZJJTeHIKIXqi3x2gWc07A5BLZPiclf0SZ2h/U2FDcwSxJC7M/6XeVQxoGGjVonJaDPd5mNne3mHU8GC2ua4puU5Uh0JMAFdioX7x6xNTQWMKYVqL2gEbyQB3qI=
+	t=1790950716; cv=none; b=uJt37J9uBWAMa200AEIETKvwlEdIc0KWtXiszGp7dGdNMfhU/DO6johTARah67qubWowNzpap6iHXd24eFujfSXzjy6IlZqoiDMBkhQccmadn44rkXtEdbK7cTf4mYKbHy9fSbsvc3eBgQFJeoL3o/EaecQ3LQuefK7qFUTVNHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950686; c=relaxed/simple;
-	bh=NenvuYZGdfGWmIY7YgQLfKZKlknQZ8chX/MutBqmwmo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LtklGtGGBm+SsJ1W8SFOnRUme5uUfZFVty5Wlk8l3FjcqaFsokXwLUNyFgggkHQoPUBGmmr4Id39bGiFgXMpsq5gR9o6WZiaM2GJf3RnH8V4EROX4BnhQPCd2GwOkCMtLKPuujlBPbr7Bxd1lkxF/YrvlNh3j7SDUgoPgRagDjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oappmKQy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790950716; c=relaxed/simple;
+	bh=mVrY1h4VM0WjmBdXQxbCJ0p4pbr64cOHAzGY03MhcDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=INypjMUvP2cjaB38UQr9V8dd6f/XhKI3+LU8XEgfl9Yg1MV6t02aEnSnyCglAiAMWdZ4hCSlqUzRQeDRXwjo+Yj5kfsHMf5GYjlDv/Y/HzbBcEa/q9MJoghISr2ySkpfPKNTp8DafgEnetlXPQNUnsl0h4Ahq0c9frigrgppRLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6YZesFD; arc=none smtp.client-ip=74.125.225.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oappmKQy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8FA41F00901
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:18:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790950684;
-	bh=0uOM3jWz9hTdESdoL/7PR8IoiwAtC5PATol6n9clR1w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oappmKQya7E9Zo7YvGbz225Wzyq9o2rw3IkqXrNEP986A+djebCRgzN1ysoUo49KR
-	 Y3zwqRU23muhQZHXWWOUht7UDXXxDd97rIh5r0+f95SHYAGKsMQOS723ZGtMNlZ+hn
-	 gPy9sQhFMULcctANzXMz394AQljzN89hPcRjnFBPJxGaKqtI7Q6qIImyjX1dP8qUdh
-	 EeYxjSsVJWcgPp98mLiL0CzXPIlhCZdWBhTfAcLHiJeWFMIO/ma69M2wW+eBMQwxuj
-	 4Rf5fU9EaLkITmAdsQNanXa9dv2jzoOIA4sq4JVVR142LtdxAZQVTbWVRYgBTJr/5z
-	 MaKGZ0aqoUZ9Q==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so12178656a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:18:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBziwmbFBolKS3G6/h0Xu82fsgBELWBDoe0mrH3JvOjiYmszU3IhyI/9I76W35wTXEUQ2oNpUnUIsrMZjOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyuAvxA++BtBtsWCP96h4zMlalaJqoP6NhOtB2AIZelzFPWdmx
-	IRtfeOcSaPyl/66j0noW8atEfNbPlINktxrBr0gwCD5qwcV1lYaMMxHXWt7B7dUnL+hUx8IJqsK
-	dGUsDXvh0cAtx0SZlm313RA70pez9Hjo=
-X-Received: by 2002:a05:6402:44d5:b0:6a9:ce42:e684 with SMTP id
- 4fb4d7f45d1cf-6af9e022740mr1653386a12.4.1790950683375; Fri, 02 Oct 2026
- 07:18:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6YZesFD"
+Received: by mail-wr2-f18.google.com with SMTP id ffacd0b85a97d-48b0fc598f8so1092754f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:18:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790950713; x=1791555513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oTJy/ywZsqawpC6LBguje6pTwsPWoUHyJE3z7+IKeVI=;
+        b=q6YZesFDi5uMMqqbXWa8QDGczU9asq1NfZ31hoJ0lni0yjpmGYbXuq/rerDQ3b3osL
+         H8HveP23Kpu9GxvwycevHrPr27hqZSJ47MjS+8RlopyKrX9ipfsD2kClT3Ni6uFSK3iE
+         QuYVl7lycZiik+dLIXll9mx9R+xISVo52LMwy5tjrO2gN68JFLuma24IY2vUPGrHEjy2
+         7uvrbzbfFA4Au12PgdRAzldKbBPe/8THy/9guSsoPUL+HJBnk4nWAeKr/bOLrcj8zfY8
+         kqk8B3a0qBhmDcY1mdJgnNUT3qslkq4VD9pSl/izsfwed5as+7YgpW0Qyk9dIhAonNYI
+         OY+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790950713; x=1791555513;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oTJy/ywZsqawpC6LBguje6pTwsPWoUHyJE3z7+IKeVI=;
+        b=QJg9hKPOsOXRSbGvL53yax3+SZysG6Ifzu9I9iYHmzl9ea1+Y7RBkwDa0K03S0ZBgj
+         7TU3XV0hiw22/MACGylUWztLw8lbUe6KuwmrYe7aGzOYoFj09lLaYdE7IHgldiaiqgW4
+         RcT1ssGMo5MIRs0QAcNctUN3tFG6CSOKLslAPfwfeKR51PimMf+/RjUFeVqaCBNDCNUV
+         3kUW1t3X+inLRso4w35Qm7Jw7W/kW3yRP27EgZ4En2DRmmMgxN+FTuschiOi2+L8ONlv
+         Lt6sgmTBh5yrA2Ud6RzShrpmm8JgahRhGvT7ZRcNBag/MCBvZ1YNe1LJ9GZXO9GIwGBT
+         +btQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwntKG8nNVaIWO02pcIN43sWmHb2JWaTqOHT2suF8d89BSISAhXV2gXFE8kdnSLbmRtmRO8T5OEQYmb3xU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiL5QG3/9bf+fhNwNKIlaS5N88yu00oKaMUu2STfMV6gOgIITY
+	X6ASy+QbtypkF47AcWAjdh9yRnz4wzYV27zYJQBC9IYFMwA6td9rr/rj9wyShg==
+X-Gm-Gg: AYBFou2L11hVFAQ7Sj1BXpIdI6PXo0jKiX4wIg4gQ3jcgaXl6UkQvFsUTdc3/DNneXo
+	xiaA6NjvjySOqOphXblJpl3lesEKHfC1BWYBfXBuM0MPxqcNzjT+F9lkvnOD2FNoQKFc9hoOHl6
+	TxGHiNheicBWgd+fi17TdpUrctF8Cp0GVsjHNRBVgK3LyowyvszLrmCpjKJRed3Xj4y9qkJlLo+
+	iR3ij0k+qL/t6/+EdFcstF33nBKjovRHRu74rOL1p4NpEQSKHzkLb4HfTVTx17A3Oz3m6Qg8NIl
+	fmCpsHBM91rcye2tNN2+RkVjHoNF19zeSzuhB/zXmDawcvkrr0ETP70f5vvFZhYwuMPUWTcmSCX
+	jGjYk1KPAlq9ufPIlCsRLV6EVjTsPf+hmX47JDmCR5/KaFHchVq5xx2fZGm6ze/qUNQLN7qz+qP
+	dtiDGC0JjxlH/wnp3FOuTLRd92YSqMGH3dMeP4BGiEhCQQ2GbF7bI2wNmpj2loJIeqWPDDlpVD8
+	YLvdIOhnA==
+X-Received: by 2002:a05:6000:40ca:b0:48b:ef1:3101 with SMTP id ffacd0b85a97d-48b12754490mr4958512f8f.19.1790950712668;
+        Fri, 02 Oct 2026 07:18:32 -0700 (PDT)
+Received: from foxbook (bfj133.neoplus.adsl.tpnet.pl. [83.28.47.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fada5sm5684961f8f.24.2026.10.02.07.18.31
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 02 Oct 2026 07:18:32 -0700 (PDT)
+Date: Fri, 2 Oct 2026 16:18:28 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Wen Xiong <wenxiong@linux.ibm.com>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, wenxiong@us.ibm.com, Brian King
+ <brking@linux.vnet.ibm.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ Joel Stanley <joel@jms.id.au>
+Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
+Message-ID: <20261002161828.365ff859.michal.pecio@gmail.com>
+In-Reply-To: <561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
+References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+	<20261002102931.3cb06009.michal.pecio@gmail.com>
+	<561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002095503.3585565-1-usama.arif@linux.dev> <20261002095503.3585565-4-usama.arif@linux.dev>
-In-Reply-To: <20261002095503.3585565-4-usama.arif@linux.dev>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Fri, 2 Oct 2026 22:17:51 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5yr0xqAUUKftz_RL-SCp02RdFB=aK0sP+uDDwXZPUmxA@mail.gmail.com>
-X-Gm-Features: AclHuK_4yoHncqxrokiRpDq18m_ydAvkbPTMAsmKGSie1oxuSHyShV6peln57f8
-Message-ID: <CAAhV-H5yr0xqAUUKftz_RL-SCp02RdFB=aK0sP+uDDwXZPUmxA@mail.gmail.com>
-Subject: Re: [PATCH v8 03/30] loongarch: mm: add PMD swap-exclusive helpers
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, chrisl@kernel.org, 
-	kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org, 
-	ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>, willy@infradead.org, 
-	youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com, 
-	shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org, baohua@kernel.org, 
-	dev.jain@arm.com, baolin.wang@linux.alibaba.com, 
-	Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, 
-	Vlastimil Babka <vbabka@kernel.org>, lance.yang@linux.dev, linux-kernel@vger.kernel.org, 
-	nphamcs@gmail.com, shikemeng@huaweicloud.com, yosry@kernel.org, 
-	qi.zheng@linux.dev, luizcap@redhat.com, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi, Usama,
+On Fri, 02 Oct 2026 09:05:36 -0500, Wen Xiong wrote:
+> On 2026-10-02 03:29, Michal Pecio wrote:
+> > What exactly happens after kexec?
+> > Why a PCI reset in particular?
+> > Are we sure it's not a bug elsewhere?
+> >   
+> After executing a kexec boots on a bare metal machine, the USB 
+> controller disappeared.
 
-On Fri, Oct 2, 2026 at 5:55=E2=80=AFPM Usama Arif <usama.arif@linux.dev> wr=
-ote:
->
-> Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
-> swap round-trip, which makes PG_anon_exclusive have to survive in a swap
-> PMD and not just in a swap PTE.
->
-> A LoongArch swap PMD is the swap PTE value plus _PAGE_HUGE, and
-> _PAGE_SWP_EXCLUSIVE sits outside both the type and the offset field, so t=
-he
-> PMD helpers can use the same bit.
->
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  arch/loongarch/include/asm/pgtable.h | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/arch/loongarch/include/asm/pgtable.h b/arch/loongarch/includ=
-e/asm/pgtable.h
-> index cf29a4c8ac593..87fecc3a51001 100644
-> --- a/arch/loongarch/include/asm/pgtable.h
-> +++ b/arch/loongarch/include/asm/pgtable.h
-> @@ -351,6 +351,25 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pt=
-e)
->         return pte;
->  }
->
-> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
-> +{
-> +       pmd_val(pmd) |=3D _PAGE_SWP_EXCLUSIVE;
-> +       return pmd;
-> +}
-> +
-> +static inline bool pmd_swp_exclusive(pmd_t pmd)
-> +{
-> +       return pmd_val(pmd) & _PAGE_SWP_EXCLUSIVE;
-> +}
-> +
-> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
-> +{
-> +       pmd_val(pmd) &=3D ~_PAGE_SWP_EXCLUSIVE;
-> +       return pmd;
-> +}
-I think the order should be pmd_swp_exclusive, pmd_swp_mkexclusive and
-pmd_swp_clear_exclusive. That looks more natural.
+Sure, but what does it mean exactly?
+Not even showing up in lspci output?
 
-The riscv version is already like this, but others are not.
+Is this our problem and not PCI subsystem's?
+Are we sure it's not a bug elsewhere?
 
+(Last time somebody reported issues with kexec,
+it turned out to be an obscure Intel IOMMU bug).
 
-Huacai
-
-> +#endif
-> +
->  #define pte_none(pte)          (!(pte_val(pte) & ~_PAGE_GLOBAL))
->  #define pte_present(pte)       (pte_val(pte) & (_PAGE_PRESENT | _PAGE_PR=
-OTNONE))
->  #define pte_no_exec(pte)       (pte_val(pte) & _PAGE_NO_EXEC)
-> --
-> 2.53.0-Meta
->
+Regards,
+Michal
