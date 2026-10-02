@@ -1,132 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out28-169.mail.aliyun.com (out28-169.mail.aliyun.com [115.124.28.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8738F51597E;
-	Fri,  2 Oct 2026 17:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAC050EBFE;
+	Fri,  2 Oct 2026 17:42:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790962934; cv=none; b=Nvmdw0h8p6gRZvNGCsZaeqPIlHLV52f8IxjwokKeP/iZUG1vzbbPGK/3Q41dbbaHZ0iDTeF8PHzMyrOBR4xR7OvJR9zP+qDTLEWfYWjhOirMHPoXhG0A3OyJBPKWQhInMo1SdikwMDYMbeU/P0iIwy/0LCpq8wPhbPAvYd+77JQ=
+	t=1790962970; cv=none; b=kNYCYQ5Ypxhizl2SL1n9JdL0cf4uHTIWCt6HT6xtMtjXXR/+dU+/WEGG7BENPBGOmKd6FLkc4HApten8lG5Z7MyhRt4XY79lvRTe9b/zFUrAxZbVOaQK8bdztyKZtXUlprzQ8rv91uJSwc/AoOLw862SbG6hf88qmqph2p3Sl8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790962934; c=relaxed/simple;
-	bh=ySmUfiueg+zy+uHJkj/4+LaFw5QbXcW3U8cDZXq6jEk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K1WPWdJ4JKXd82JMJOJWsgbvp08YoT1YjYNhjtdCByfjwgxXd1+og61x7IzYCf5N7ltc826b/pQCki5p7zsmzNJUq2WIsmw/twvfnLYE0up6ZI4TIm+Epnv//uw0OYKc9V/CPnOznOHDSM37z1/w4J7GryuGmzQCS8xINuxeX/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P0z+MKzi; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P0z+MKzi"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 652D1C2BCF4;
-	Fri,  2 Oct 2026 17:42:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790962933;
-	bh=ySmUfiueg+zy+uHJkj/4+LaFw5QbXcW3U8cDZXq6jEk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=P0z+MKziFDI+fli0LhckeQt6diJVIU9cYzj/iHn6no/XHndj1JMuOxLNfVrwQbAUq
-	 WtCsqBqiTLge5RI+hEb4CDdNGtCIqmH8ht9q7RfrieSMcoty/dok6n+EABfeWMk0Nl
-	 TTD0TQbwptIaKFaEtcTNBvR5v3xD9hULAtsKGzOjJtvBs1N/k5MCE36UW5WVLECn5k
-	 HxeJ1Z3tt0TBougGmi7WktKFbUFullW+MK8f35gw/3ykpeT79D1wpGIOtk4VouwQiT
-	 DxiEbtof/V9sYrg4ck6R8ftVuUWraHNahztyAu/O8ZWIKsbPtExHYjuhOjbIYzAY7U
-	 dsmBUPcqaRv1Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5122DCA5FC4;
-	Fri,  2 Oct 2026 17:42:13 +0000 (UTC)
-From: Ali Resool Tuama via B4 Relay <devnull+aliresool567.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 20:42:12 +0300
-Subject: [PATCH v2] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
- GameSir G7 SE
+	s=arc-20240116; t=1790962970; c=relaxed/simple;
+	bh=OzVedd07akaAmAmmalEsohxJy7bGhL5JQ4JNZdAgjMA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=EtN0ZAYj6WUWgImOPviFeBZlNICUOaeq59wgnsfR9/5o4hus4j0Cq0SyS39fJe2dbz9PABHzYw/qpzDNWC1Mkz0r5jmUXI9vv9xW6cwx1YEXGSMDRVW/jqskHIlsCjSE04bVH7jo97LrtByYOK60LHIPkHAMkCWsThWr1X6PvpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436758|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0208765-0.00028719-0.978836;FP=10617128616479989265|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032023038;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jTk7nUd_1790962637;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jTk7nUd_1790962637 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 03 Oct 2026 01:37:18 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mmyangfl@gmail.com,
+	horms@kernel.org,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: [PATCH net-next v11 6/7] net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
+Date: Sat,  3 Oct 2026 01:37:05 +0800
+Message-Id: <20261002173706.1225502-7-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261002173706.1225502-1-kyle.switch@motor-comm.com>
+References: <20261002173706.1225502-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-master-v2-1-24b05d8792b5@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNwQ7CIBAFf6XZs5hCUxBP/ofpAXDbrpFioDaah
- n+X1qPHSebNWyFhJExwrlaIuFCiMBUQhwrcaKYBGd0Kg6iFrLVQzJs0Y2RKa6ta2zQ1SijyM2J
- P7z107X6cXvaObt7WmzFSmkP87E8L37y/6MIZZ1r2/akVmlvRXgZv6HF0wUOXc/4CMf+HZ64AA
- AA=
-X-Change-ID: 20260927-master-799b75b330e6
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ali Resool Tuama <aliresool567@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790962931; l=2770;
- i=aliresool567@gmail.com; s=20260927; h=from:subject:message-id;
- bh=9ZSSjiM2avTu7kQAcgRfCkpowkxycBnoAQrsblaGhXc=;
- b=k4ZzvnKVBJx+wQg4up7zVG4XrzjB7zf8daV7By0ZeG++iAwrbvWyOA5SianTEDJbYPDJh0VMx
- QroLNjUkNBaDQJCMe30Qo4yDmZJFmklciKHLCtlNWrb+OnaMAhA0Uwj
-X-Developer-Key: i=aliresool567@gmail.com; a=ed25519;
- pk=s/zyZoG6z3JyJokqs9ZIcSAb8PgriZ1QW+mgffBV90w=
-X-Endpoint-Received: by B4 Relay for aliresool567@gmail.com/20260927 with
- auth_id=1071
-X-Original-From: Ali Resool Tuama <aliresool567@gmail.com>
-Reply-To: aliresool567@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Ali Resool Tuama <aliresool567@gmail.com>
+Add support for Motorcomm YT922x tags with 8bytes. which includes
+ethertype field (default to 0x9988).
 
-The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
-then re-enumerates in a mode it picks from how the host enumerated it.
-
-When the configuration descriptor is fetched the Linux way, 9 bytes
-followed by the full 80, the controller disconnects about 1 ms after
-its string descriptors have been read, before SET_CONFIGURATION, and
-comes back as 3537:1082, a generic HID gamepad without force feedback.
-
-When the configuration descriptor is fetched in one 255-byte request,
-as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
-which xpad already supports, including rumble.
-
-Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
-makes no difference; the configuration descriptor request size alone
-decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
-identity, as is already done for the ShanWan Wireless Gamepad.
-
-Cc: stable@vger.kernel.org
-Assisted-by: claude-opus-5-5
-Signed-off-by: Ali Resool Tuama <aliresool567@gmail.com>
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
 ---
-Tested on 7.2.7 (x86_64, xHCI) by setting usbcore.quirks=3537:10a0:r at
-runtime. With it, the controller settles as 3537:1010 on every plug-in,
-is bound by xpad as "GameSir G7 SE", and rumble works through xpad's
-force feedback. Without it, it settles as 3537:1082 every time. The
-patch itself is against v7.3-rc5.
+ MAINTAINERS          |   2 +
+ include/net/dsa.h    |   2 +
+ net/dsa/Kconfig      |   6 +++
+ net/dsa/Makefile     |   1 +
+ net/dsa/tag_yt922x.c | 109 +++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 120 insertions(+)
+ create mode 100644 net/dsa/tag_yt922x.c
 
-usbmon of the 3537:10a0 enumeration without the quirk: GET_DESCRIPTOR
-(CONFIGURATION) with wLength 9, then 80, then string descriptors 0, 2,
-1 and 3. The port reports a disconnect about 1 ms after the serial
-number string, and the SET_CONFIGURATION that follows fails with
--EPROTO. With the quirk, the only difference is a single wLength 255
-configuration request, after which the device re-enumerates as
-3537:1010.
----
-Changes in v2:
-- Use my full real name in From: and Signed-off-by:
-- Link to v1: https://patch.msgid.link/20260927-master-v1-1-96ff85291b25@gmail.com
----
- drivers/usb/core/quirks.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-index b5b577f..a4bcbe9 100644
---- a/drivers/usb/core/quirks.c
-+++ b/drivers/usb/core/quirks.c
-@@ -612,6 +612,9 @@ static const struct usb_device_id usb_quirk_list[] = {
- 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
- 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3011f995437f..1a48e4570c69 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18433,11 +18433,13 @@ F:	drivers/net/phy/motorcomm.c
  
-+	/* GameSir G7 SE */
-+	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
+ MOTORCOMM YT921X ETHERNET SWITCH DRIVER
+ M:	David Yang <mmyangfl@gmail.com>
++M:	Kyle Switch <kyle.switch@motor-comm.com>
+ L:	netdev@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml
+ F:	drivers/net/dsa/motorcomm/
+ F:	net/dsa/tag_yt921x.c
++F:	net/dsa/tag_yt922x.c
+ 
+ MOXA SMARTIO/INDUSTIO/INTELLIO SERIAL CARD
+ M:	Jiri Slaby <jirislaby@kernel.org>
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6f6f..5a173fe2bb87 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -62,6 +62,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_KSZ8463_VALUE		34
+ #define DSA_TAG_PROTO_MT7628_VALUE		35
+ #define DSA_TAG_PROTO_KS8995_VALUE		36
++#define DSA_TAG_PROTO_YT922X_VALUE		37
+ 
+ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
+@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
+ 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
+ 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
++	DSA_TAG_PROTO_YT922X		= DSA_TAG_PROTO_YT922X_VALUE,
+ };
+ 
+ struct dsa_switch;
+diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+index 4f44bf3ede23..86802058678c 100644
+--- a/net/dsa/Kconfig
++++ b/net/dsa/Kconfig
+@@ -233,4 +233,10 @@ config NET_DSA_TAG_YT921X
+ 	  Say Y or M if you want to enable support for tagging frames for
+ 	  Motorcomm YT921x switches.
+ 
++config NET_DSA_TAG_YT922X
++  tristate "Tag driver for Motorcomm YT922x switches"
++  help
++    Say Y or M if you want to enable support for tagging frames for
++    Motorcomm YT922x switches.
 +
- 	/* DELL USB GEN2 */
- 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
+ endif
+diff --git a/net/dsa/Makefile b/net/dsa/Makefile
+index 1f9cc30e9988..0ef6dfce3b92 100644
+--- a/net/dsa/Makefile
++++ b/net/dsa/Makefile
+@@ -45,6 +45,7 @@ obj-$(CONFIG_NET_DSA_TAG_TRAILER) += tag_trailer.o
+ obj-$(CONFIG_NET_DSA_TAG_VSC73XX_8021Q) += tag_vsc73xx_8021q.o
+ obj-$(CONFIG_NET_DSA_TAG_XRS700X) += tag_xrs700x.o
+ obj-$(CONFIG_NET_DSA_TAG_YT921X) += tag_yt921x.o
++obj-$(CONFIG_NET_DSA_TAG_YT922X) += tag_yt922x.o
  
-
----
-base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
-change-id: 20260927-master-799b75b330e6
-
-Best regards,
---  
-Ali Resool Tuama <aliresool567@gmail.com>
-
+ # for tracing framework to find trace.h
+ CFLAGS_trace.o := -I$(src)
+diff --git a/net/dsa/tag_yt922x.c b/net/dsa/tag_yt922x.c
+new file mode 100644
+index 000000000000..3c9fef651cf5
+--- /dev/null
++++ b/net/dsa/tag_yt922x.c
+@@ -0,0 +1,109 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Motorcomm YT922x Switch Extended CPU Port Tagging
++ *
++ * Copyright (c) 2026 Kyle switch <kyle.switch@motor-comm.com>
++ *
++ */
++
++#include <linux/etherdevice.h>
++
++#include "tag.h"
++
++#define YT922X_TAG_LEN 8
++
++/*
++ * To define the from cpu tag format 8 bytes.
++ */
++#define YT922X_TAG_NAME		"yt922x"
++#define YT922X_TAG_PORTMASK_0	BIT(15)
++#define YT922X_TAG_PORTMASK_M	GENMASK(8, 0)
++#define  YT922X_TAG_PORTS(x)		FIELD_PREP(YT922X_TAG_PORTMASK_M, (x))
++#define YT922X_TAG_FORCE_DST	BIT(9)
++#define YT922X_TAG_PRIO_M	GENMASK(12, 10)
++#define YT922X_TAG_PRIO_EN	BIT(13)
++#define  YT922X_TAG_PRIO(x)	(FIELD_PREP(YT922X_TAG_PRIO_M, (x)) | YT922X_TAG_PRIO_EN)
++#define YT922X_TAG_RX_PORT_M	GENMASK(5, 2)
++
++static struct sk_buff *
++yt922x_tag_xmit(struct sk_buff *skb, struct net_device *netdev)
++{
++	unsigned long ports;
++	__be16 *tag;
++	u16 ctrl;
++
++	skb_push(skb, YT922X_TAG_LEN);
++	dsa_alloc_etype_header(skb, YT922X_TAG_LEN);
++	tag = dsa_etype_header_pos_tx(skb);
++
++	tag[0] = htons(ETH_P_YT921X);
++	ports = dsa_xmit_port_mask(skb, netdev);
++	/*To fill in the case where the port index is not 0 */
++	ctrl = YT922X_TAG_PRIO(skb->priority) | YT922X_TAG_FORCE_DST |
++	       YT922X_TAG_PORTS(ports >> 1);
++	tag[1] = htons(ctrl);
++	if (ports & BIT(0)) {
++		/* To fill in the case where the port index is 0 */
++		ctrl = YT922X_TAG_PORTMASK_0;
++		tag[2] = htons(ctrl);
++	} else {
++		tag[2] = 0;
++	}
++	tag[3] = 0;
++
++	return skb;
++}
++
++static struct sk_buff *
++yt922x_tag_rcv(struct sk_buff *skb, struct net_device *netdev)
++{
++	unsigned int port;
++	__be16 *tag;
++	u16 rx;
++
++	if (unlikely(!pskb_may_pull(skb, YT922X_TAG_LEN))) {
++		kfree_skb(skb);
++		return NULL;
++	}
++
++	tag = dsa_etype_header_pos_rx(skb);
++
++	if (unlikely(tag[0] != htons(ETH_P_YT921X))) {
++		dev_warn_ratelimited(&netdev->dev,
++				     "Unexpected EtherType 0x%04x\n",
++				     ntohs(tag[0]));
++		kfree_skb(skb);
++		return NULL;
++	}
++
++	/* Locate which port this is coming from */
++	rx = ntohs(tag[2]);
++	port = FIELD_GET(YT922X_TAG_RX_PORT_M, rx);
++	skb->dev = dsa_conduit_find_user(netdev, 0, port);
++	if (unlikely(!skb->dev)) {
++		dev_warn_ratelimited(&netdev->dev,
++				     "Couldn't decode source port %u\n", port);
++		kfree_skb(skb);
++		return NULL;
++	}
++
++	/* Remove tag and update checksum */
++	skb_pull_rcsum(skb, YT922X_TAG_LEN);
++	dsa_strip_etype_header(skb, YT922X_TAG_LEN);
++
++	return skb;
++}
++
++static const struct dsa_device_ops yt922x_netdev_ops = {
++	.name = YT922X_TAG_NAME,
++	.proto = DSA_TAG_PROTO_YT922X,
++	.xmit = yt922x_tag_xmit,
++	.rcv = yt922x_tag_rcv,
++	.needed_headroom = YT922X_TAG_LEN,
++};
++
++MODULE_DESCRIPTION("DSA tag driver for Motorcomm YT922x switches");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_YT922X, YT922X_TAG_NAME);
++
++module_dsa_tag_driver(yt922x_netdev_ops);
+-- 
+2.25.1
 
