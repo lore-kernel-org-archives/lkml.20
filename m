@@ -1,166 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBB11FE451
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6FF4AA414
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961746; cv=none; b=T8hr6L0QZeHqVUHvE6mIzKYkMsbxAGJHufMf7T60uCCbKI/eCk05CwAKhhW53g9cOlfj3DltCAROv9LI/tVzRxUNk27MWcfmfmqc/ZXpwAOPYDtmkJoJIzRyymIxsgMBIwIzLBWpk3aGDeCpMTuhS9Wclv+ySB+hawOUZwBhuFY=
+	t=1790961757; cv=none; b=K8Yfel2VXg4W3afXuDg1bjJawEEczusGC8gfsTiM/QBPaNxgKUX5naFj2Bar4FtncJuML2vNmNaZnFNyrMmQhws2eiKLHzoyTnsaK54vkdukINAlLLw28jzVLWkP5LOkWf/9k0LB91nQbBKQQVze4/Gaoddf+oxzLNYBxQ5E8hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961746; c=relaxed/simple;
-	bh=wfkQTCtihLuQmkMLSwbhTu0nmBiQEOBAVacLI6it58U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tPmG5S4qYlk5vdv+/GYvv1z5hBUC6SGpwaD742u1P1cTdXbh8Rf8t8If/mOnqhRTJ7U6xUDPKWEeUX8ZdYjfJZ6wKz03pqgxYmYgksMejX6p35D3SI17dWDV7qoURYddcYNbXk10M0mnBLzubOCCGcAAUEIoiTPyPSaHAOCkW3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f4b6DvWM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JxquiZya; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790961757; c=relaxed/simple;
+	bh=3hC4ZG/Muv7E3rSs55EszcoCbB9WgbEU+0lDJRoQr+M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TSiAkwAtBDfx+n0ZuXoTk75suwZ7Q/4Bq7oIttvIPZU5OP77FplkEbiiX1ntxchbuX1dJxPOi/qquwkQo88ZG1NOwUsJKoK3tyXeOx78KfDxRyL9KfbrV4dtjiFFTHRKKMJNASspxrdS2mUQqy4smMOXYsTvpOju+y+/k2I0IR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yl9+SmW7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f4b6DvWM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JxquiZya"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692H68Om671106
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 17:22:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tR5tyXwtqll8A7xHJC6SBeUbgFbK2QmhJ4Eo1XroUTY=; b=f4b6DvWMKkZ4SuUv
-	SMc4ECK+16+u/XjEnUJDUXU+RI6+O5P66DCqWtdKyizQolxNe3p2Mwck6Wa8oaD4
-	wjPrFHKxekDCVFLvUR+cPZQ4MuUVYVxQdmhivEcKAdEFbdoVkQfk8IP54PHrbrfb
-	kLZ2gCEFqeVdyyyVanpwKo0k1SSsDj3FD4robtkr1ahtQiimE+nwOxNU0zHmHMWo
-	vS6wb3pslb0tUU0UTYd1XCgMd/U7jXFFNT/N0DGbrOsU+XZ1lEp9zxQbB/3HI8Rj
-	ji7jgi9eJcxAemgb5C5ur3eIUgt1EAAoG9ASxaZ64nITp7dCN+J23IYuleYZwOEA
-	iNxwIQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1vxec9q4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:22:16 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a4a0017549so180254a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:22:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790961736; x=1791566536; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tR5tyXwtqll8A7xHJC6SBeUbgFbK2QmhJ4Eo1XroUTY=;
-        b=JxquiZyaLYW9rEi2BLzsb9xykanhQc9wqF1DtFB1YKeNcdh85W999oi0wS43RhXPZ2
-         IwBcdZRvuFWA7oTyRcNQ5GCaRVNAVDE0gOl+XeXyuqx/CclivNis3HyQwAuvvAKM7guE
-         uTFZPkDEfqPGn+hIgVJX1vEp5SoYHVCVKd35CjxUwj9SPS9ayMZtXA2h/0GSr0AYGFpL
-         rUsTdrvX6Qz6JxaeQQNJnZJchmnJPzh4SX4GAj5qYQXBAKdXue3uPmL7e2R4krp2Cfl6
-         0n4wgTqcMuzSfqsjj+omFsiqp+PSmz8ba1O3NxKkO8tbJLcbSGhJgbbfQ5fsm7lOIK5a
-         Wlqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961736; x=1791566536;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tR5tyXwtqll8A7xHJC6SBeUbgFbK2QmhJ4Eo1XroUTY=;
-        b=wUVhjV4H+zBKJ3mdJCNGD+DQDmEHJ3eArJnjymt0C4wPlLWEKEcbv/cVLepFnwtGJH
-         DDWTc7P5RA2sn3W+t1uZPA8vRYQi7hqKIFk3UPNbtetKsgMkI1tq+gKIMR3k93yO1wIF
-         4iZi7WnJYXlKJOU8ONtY/UvH+uImm2x3aBTw5nx8Nhn1pMs5s0KjK3xJjB/bE9gGicKv
-         uQakgX1Cks92iNB1im6Zqsf2god/6D2HVqbCc953OLC1S+ITluYYE0igNP4gGqpfvvvg
-         SCQtP/Hpd2ZqP0ipYodMZ1lxwymGuN8K/SybGgsb1upUzP2HZSG2SNb++ql1K0AiCWCT
-         ykFA==
-X-Forwarded-Encrypted: i=1; AKwUvBxbTJm8+BRZaIHJHX26kDb0/XdJjLcc8CQXEXPx9Fu70QtEeAxlna71Q7Zu1nHshhDjQV78pWJrqRP0pQo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuDpBMJ/HhxYFJw3NwEVDM7F0KhWJqrG99ykLX9O8YfYqBjUf4
-	NhN1KCrcvTFIahMETPXCjI5bMpvuRbdPE4kuxHFI4UCzZqVmvZXCyP5Kg2GyFNesDYNpzZ7ZMGk
-	u1DYjJpPpDBZ7ME+O/x1XrXPvbYfZ6a6mRvk+O2EytKWyFiHlZFK3r8t/7NriZ3mg+E0=
-X-Gm-Gg: AYBFou1Sx9WlX0akXqIeXiYuJHj3h+hLhW4WU8higNyNuDPut4iSPUouUs5koP54fCI
-	GwcvqolXmwog7NGL0iSiKuB7/p2zh+WmWv+HNDjKnNbQoKKutTUyG8ICC9vFkWuz1y9odXpjbAC
-	ul8bh6OH9/TidqFYlSRaTvGF6biBvc1GysAf2vutCXzkQW9DVtWoGuFKJGh1PhAfhdDgdYzd8h5
-	4+yVWD8SoDYJ5+1zQ9NLnrSHEHeiUPEE62E46cV9bQOTqmSWKxlWdF4YIOT6EaFmLUwLb0Bqqz+
-	gHg8yiYlbE3fwvN35cQa5ZU3ucetaIuDHcR+SQq733XOcnuHor3yX+HhlXnXxILqr5J2xJ9hyoQ
-	Y6wzDtpkqNkjQoNCDl8yO4q3DHbcD
-X-Received: by 2002:a17:90b:4a4a:b0:3a6:f90b:20cd with SMTP id 98e67ed59e1d1-3a6f90b2630mr1609533a91.6.1790961736206;
-        Fri, 02 Oct 2026 10:22:16 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a4a:b0:3a6:f90b:20cd with SMTP id 98e67ed59e1d1-3a6f90b2630mr1609499a91.6.1790961735611;
-        Fri, 02 Oct 2026 10:22:15 -0700 (PDT)
-Received: from [192.168.0.195] ([124.123.196.90])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f43a12c9sm10811502a91.2.2026.10.02.10.22.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 10:22:15 -0700 (PDT)
-Message-ID: <3acac1a0-a64d-4549-946d-874df45c3dac@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 22:52:08 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yl9+SmW7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 233A61F000FF;
+	Fri,  2 Oct 2026 17:22:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790961749;
+	bh=5lsjsTCc8qCQhiVuFfa42WrZNK8Mcw0OaXI8JZ8FGXY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yl9+SmW7uiPIKufU9PyJ3SGWFauI5TSTTT0hqCX26igAsxWwP4C0wdRJlusL0XT6e
+	 6qUVcal33Wgq5hV8kMhH6SlNsbX7Gic7xRiIBj+1zRmEuJe9d2V0ek0TW3I3XJ8qhb
+	 w8dU3ppjs4DI5xzt9Nmf+yU0UP7oGO3DmKnq0Q57T6KihY3UODADh6IheHupoTccdK
+	 Rp/R23GYDV247Vso7MaOdwy6lNKIGfJiz9vw5SpT34wcOCUW+hOrvcoClO62x69x1k
+	 +q2TGgu/KLBDVJMeg7evnyhjKJC+XpbnUfjeqCze1u0gx3+ymRPGrGRgx+NtBl0r0q
+	 BJNbkFvaFuv8Q==
+Date: Fri, 2 Oct 2026 18:22:26 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Felix Gu <ustc.gu@gmail.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>, conor.dooley@microchip.com,
+	daire.mcnamara@microchip.com, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] soc: mpfs: use kref cleanup on probe failure
+Message-ID: <20261002-useable-progeny-f984e157d19f@spud>
+References: <20260924110054.1553880-1-lgs201920130244@gmail.com>
+ <CAN4SLj2Rf2jT3tkQNexBueqLy4DMEppqj0V+BPTw02D6vzeyKg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] clk: qcom: Add lpass audio clock controller driver
- for Glymur
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260925084635.112399-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260925084635.112399-4-srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <20260925084635.112399-4-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=fdc4WEQF c=1 sm=1 tr=0 ts=6abfe848 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=3s5aCXBOHJDmPDD1+4kJVA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=6XYEiC8ceDmu1LDSX3kA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: 8OnqRJIPthK_NWlYLWPozjRVxC3YINNR
-X-Proofpoint-ORIG-GUID: 8OnqRJIPthK_NWlYLWPozjRVxC3YINNR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2OSBTYWx0ZWRfX2FfBXWG0dKZT
- mH/kiuqLvgBBI1Xv/Md9APLUmjVxbHyftzBFqI4aw3iuL9Wpdx8U4w33vXjJ9TQ9oSkSHlSc3kh
- UxxHjuAOBBM+cRRY/2a5XDleSw8LA5WI/kBbkLZFC/VIoJWzW7Q1nFPm4nCwGk4Y+xTjDOC8yw9
- 9J0x+7Dlk90qUqHnCV+WE7aKpcvxys432wc0s8qjij/m5QbK7jLVMGwRBZoEKNhHKJ9kxWFY0ap
- QK6xLIITYMY7xTCEbPBjfMKrHxRCTBrtW0EUAsPKFKhXGld/XMiuv2eZRU2BCKNpCGEMk+LKq4R
- yMACFO30gED0L5weD66b3/HW1DugEWNiJUcPkoLDU2odxxNNMAQ0HW4PlKMe+KxgcB79937bpOG
- etFn56G/ApfJQdvBs9yIf8FdoAEifvfdpMtCW/BoM37lFdJAfiVoZFm9uS+jre0wKVZn16pc7uT
- Tx8yUPGoByZF6L23YnA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2OSBTYWx0ZWRfXyRMABRHz4Rvn
- AfandQ9yXjxWn+jyWwOOXtDI1HBUC0njE+0f5URVnlsWd2o3IRuDLGaYtrjz51Byeleoa1utzQX
- LEPX8Yw29MLA+Y6MeAqxiY2enZuYx9A=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_05,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020069
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sVkLHppJgi9/7moi"
+Content-Disposition: inline
+In-Reply-To: <CAN4SLj2Rf2jT3tkQNexBueqLy4DMEppqj0V+BPTw02D6vzeyKg@mail.gmail.com>
+
+--sVkLHppJgi9/7moi
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Sep 25, 2026 at 12:04:16AM +0800, Felix Gu wrote:
+> Hi Guangshuo,
+>=20
+> On Thu, Sep 24, 2026 at 7:01=E2=80=AFPM Guangshuo Li <lgs201920130244@gma=
+il.com> wrote:
+> >
+> > After kref_init(), the device_get_match_data() failure path jumps to
+> > out_free_channel. That path frees the mailbox channel and then falls
+> > through to kfree(), bypassing mpfs_sys_controller_put() for the initial
+> > reference.
+> >
+> > Call mpfs_sys_controller_put() on that path and return immediately. The
+> > existing kref release callback then performs the matching cleanup, and
+> > the return prevents a second free through out_free. This is the minimal
+> > change needed to keep the initialized lifetime balanced.
+> >
+>=20
+> I don't think this is a fix.  mpfs_sys_controller_put() does the same
+> mbox_free_channel() + kfree() the current path already does.
+
+Why would it not be a fix? Maybe you mixed up the delete and put?
+
+static void mpfs_sys_controller_delete(struct kref *kref)
+{
+	struct mpfs_sys_controller *sys_controller =3D
+		container_of(kref, struct mpfs_sys_controller, consumers);
+
+	mbox_free_channel(sys_controller->chan);
+	kfree(sys_controller);
+}
+
+static void mpfs_sys_controller_put(void *data)
+{
+	struct mpfs_sys_controller *sys_controller =3D data;
+
+	kref_put(&sys_controller->consumers, mpfs_sys_controller_delete);
+}
+
+the kref_put() that wraps mpfs_sys_controller_delete() decreases the
+refcount and is the matching action for the kref_init() during probe.
 
 
+> > Fixes: 75ef23397558 ("soc: microchip: mpfs-sys-controller: fix resource=
+ leak on probe error")
 
-On 9/25/2026 2:16 PM, Srinivas Kandagatla wrote:
-> Add support for the lpass audio clock controller found on Glymur based
-> devices. This would allow lpass peripheral loader drivers to control the
-> clocks and bring the subsystems out of reset.
-> 
-> Currently this patch only supports resets as the Q6DSP is in control of
-> LPASS IP which manages most of the clocks via Q6PRM service on GPR rpmsg
-> channel.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  drivers/clk/qcom/Kconfig          | 11 +++++
->  drivers/clk/qcom/Makefile         |  1 +
->  drivers/clk/qcom/lpasscc-glymur.c | 68 +++++++++++++++++++++++++++++++
->  3 files changed, 80 insertions(+)
->  create mode 100644 drivers/clk/qcom/lpasscc-glymur.c
+Unfortunately, without a signoff, I cannot apply this.
 
-Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> > ---
+> >  drivers/soc/microchip/mpfs-sys-controller.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/soc/microchip/mpfs-sys-controller.c b/drivers/soc/=
+microchip/mpfs-sys-controller.c
+> > index 0400a01b2338..379e4f649faa 100644
+> > --- a/drivers/soc/microchip/mpfs-sys-controller.c
+> > +++ b/drivers/soc/microchip/mpfs-sys-controller.c
+> > @@ -174,7 +174,8 @@ static int mpfs_sys_controller_probe(struct platfor=
+m_device *pdev)
+> >         return 0;
+> >
+> >  out_free_channel:
+> > -       mbox_free_channel(sys_controller->chan);
+> > +       mpfs_sys_controller_put(sys_controller);
+> > +       return ret;
+>=20
+> If you do keep this, the out_free_channel label no longer fits.
+
+True.
 
 
--- 
-Thanks,
-Taniya Das
+--sVkLHppJgi9/7moi
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar/oUQAKCRB4tDGHoIJi
+0imKAQDBUedm8kAA2bcq5e6HZ4PkcCF0/UMnApZud9og9CGxDAEA/xqEI1UbmZxj
+WrPLoPUTBoFfjjX1LbqVRxnzOz2bMQc=
+=JjLu
+-----END PGP SIGNATURE-----
+
+--sVkLHppJgi9/7moi--
