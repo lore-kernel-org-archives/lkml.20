@@ -1,133 +1,127 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A113233AD9B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC6F4457B6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790977055; cv=none; b=XcUQqH3IKZJ3QfeX4VOF5QGXiq5Qiwvl37q+czy7ycD07rQEXezozvwniGKbpH0IZzrVtOyHrt74t9qvAZVNTbQMcXpNAUaNr9T5kQ5AbGRTGaEz4j5rBgImNva5h9iI6A4FgTdjhaX/GSlVLj/VKsLHIxL4WboHgA39STvK+W0=
+	t=1790977248; cv=none; b=Uh6I+GLcqd5/WHDna7f3wR/awLi57cvrcytw4vG35tjjdNNpwa7DlHHXrwuLYFZbjpJ+1flkaAQIaPnHqkrEdd+bn9hARtt4bcxt5KlA0aAo7YRwhAjgY4weTSMYJS9iSbb2Rf4z4Ty4BKOX1b+nSFkRNXS/BYvB2y1+gGr0lHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790977055; c=relaxed/simple;
-	bh=SUjaD6tIerY+rYMMjTk6ZmP0ta+AXSZOoHHDkrV3fkY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ISQA+VE6QGMn8dD+/4vqQ+r48ciKQ4o2gbEPX0oM0FxV4UvMMb6rZoo0ExtkC4khDys9Tduxr2o7d1+dVbnfBVduqyA0Njcb2WxcQsjlWKlhaotDFCmkvTVgx2AVP11txltDKO/DepfZW1YaT6ESzqJ+nn8Fn4cSwwjuHIfnqNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d7ffab1so498275b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:37:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790977052; x=1791581852;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zn2F5X3Pz1I49VxF138KyXhfQ5DCV5OswZnHiOYaRMk=;
-        b=WkX9mb4tMqAQfYK2n5Ftp6tnIY08oLgvrrJSdw8TBFxB/jSwMqIg5ExZ4mZc36+cjL
-         7PP6bWS8zJsux8MCt4SMBKIqvmKSDP6rwnOkxtF8RoxPiud6GoC2jijzohdS7LKU3RQk
-         Xl0SKZbt7hsFun/XtWbKkj+fwNIClgVs9QsA7nilOccA2mAjnqnLBLliTI7n9bbz2zjg
-         uNvuN5uKew4BAsc9D/PDyr0pP1cBOZ1LLO/gsZz/rNEPWbcNjSgkEgk03Gl0CxbG3V5k
-         x8agtchKJr6/hW37uy1ZyZHLnTMQk8XQTt+MPrp9h37mNJ4gEOimVk0cZzNtgM6IdlLk
-         2ltw==
-X-Gm-Message-State: AFuF++ndh2Lz/Ge6+4x/fKO16kAI2LkvGFndONkYH9ZC45yP2ZGB6MeJ
-	9yTfs5oW433o8tvProQpzhCP7SYEvxa1si3omZjA4P1xJlxiujs6yM82Iep1RzDpxPkVoklrnI1
-	4k4ZkFADJGHgPQIImUlN8sPCOkypafpKktM75fP6zuwIijH90iNtumyKHiAM=
+	s=arc-20240116; t=1790977248; c=relaxed/simple;
+	bh=zbX4cnEABElDWqQNtrSVaBW0Ked0tvk4MWPkaGIt+6w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FMAg2YqI8zaA3sK/Toe8cFCUiQy9wlo9xTpnlFStx10cFsutcl/kNZKO5W1x+XCdWQqyftgwMuCNSl1QmKcLouheHpY0m8NNggTpCnQ9ESAok4iIxIej3/PJ3/sMtOQrBB6AW0/ae0A0J4imxJFC48bnqAcvRY9lBalU5WBv0zM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=mLqABnr1; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="mLqABnr1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:date:subject:mime-version:content-type:content-transfer-encoding:
+	references:in-reply-to:to:cc:cc:content-type:date:from:subject:to;
+	s=s1; t=1790977246;
+	bh=AtjuBaVBtKpkdhX//57sGHQwbbwgWOKhzo+1Wz1Aci4=;
+	b=mLqABnr13OiWgyHlPw+Q6L1xwFRMf59LA4KL/GPNFu6E0UcmPMWvI/OD9Ld85nWikp59
+	rTrAC22X2fDyipD8zSJo6HPpaBZqFSvXwBqMG6938x+svJhaDOShuJcKWNH2OqerkLNYUg
+	87lZyXLvi8O/bd2LS2R0MRytxa9ci5zDHoRJ2TXIvG2Zdllt3gw8t+DF5nGg3MEEj7cCfA
+	hWzQNHLkHGSX7YyoEvfwwAYP2+olMoDwBMZgJaMLdlztccLbhgzBhD8QoRg954Xl3+spZ/
+	ersBJ8a1XT9nXlsCipX5xJmKj4Z1NP+oiEg2OtLJ6xb50U9o0ghG6nWSnTkTZoyw==
+Received: by recvd-75d778fcc7-5kxrw with SMTP id recvd-75d778fcc7-5kxrw-1-6AC024DD-89
+	2026-10-02 21:40:45.735661736 +0000 UTC m=+276011.229270050
+Received: from [127.0.1.1] (unknown)
+	by geopod-ismtpd-64 (SG) with ESMTP
+	id Dm-Ltn01QA6RCONnft8w1g
+	Fri, 02 Oct 2026 21:40:45.667 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Date: Fri, 02 Oct 2026 21:40:46 +0000 (UTC)
+Subject: [PATCH v6 1/3] writeback: clear the old wb's dirty IO state after
+ switching inodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2206:b0:4e6:76eb:b991 with SMTP id
- 5614622812f47-4f30a64c83cmr5348302b6e.29.1790977052608; Fri, 02 Oct 2026
- 14:37:32 -0700 (PDT)
-Date: Fri, 02 Oct 2026 14:37:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0241c.34119e79.2f92f3.000a.GAE@google.com>
-Subject: [syzbot] [kernel?] KCSAN: data-race in do_notify_parent_cldstop /
- wait_consider_task (4)
-From: syzbot <syzbot+0f4d5234b6cb5e479e5d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, luto@kernel.org, peterz@infradead.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-wb-dying-cgwb-flush-v6-1-1991b4e2dcff@honeycomb.io>
+References: <20261002-wb-dying-cgwb-flush-v6-0-1991b4e2dcff@honeycomb.io>
+In-Reply-To: <20261002-wb-dying-cgwb-flush-v6-0-1991b4e2dcff@honeycomb.io>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1707; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=zbX4cnEABElDWqQNtrSVaBW0Ked0tvk4MWPkaGIt+6w=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqwCTbHKmybgMSFWqYOqVuQ0Q7s0V2yCJ8XziZ8
+ O9DxyOHsXeJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCasAk2wAKCRClztTjl62v
+ wgx8B/4u0V1aMjqcyxUZ2wpnLOD6jkCcwOUPNMiqsi2tdsqyI4sUvELleVgSO7stj7CtUBhmfyP
+ y5BccMCdn3YXbVUth3FLOdlBADfDF9xMyedYUi7eGyHdx654JCb39LRXXgq00ZgMPGDcFXOFp8t
+ JfqU4pvOMfIoA3GLvyPYeUf5MHSU4Im8ceRA9MrjSRBdxID/FnNy1Z5m/deP81YvfJL5F/Z8IWs
+ TQ6DGTnqHpiU3JZUz4qsFg+AerhKP7Jl44yeh3vZ6XpbnT1YpGL9a32vT+a4F/F9cmmWfkEGr7T
+ 4Fk7vF5HVdFQ3JgduiBf+nT4+TCyTOWREbf2yCkJVo4HIokb
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeRuMe7SjpKgd?=
+ =?us-ascii?Q?7aS6gNAUxeCWSVoTlVEi+vyXOAV69PW5X0TyP=2Fa?=
+ =?us-ascii?Q?GVc9EGvWcV06Em37=2Fa2Gjb+6BNEPhCoIj7cfrzO?=
+ =?us-ascii?Q?fb8fws2abvC0Mqt17cKlzm9Yxlq6pdtKip5IF5h?=
+ =?us-ascii?Q?PHZ4n+5dhyZFmL+0ezYVF=2FyVdCXOzybvrJKsgfp?= =?us-ascii?Q?szcO?=
+To: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Tejun Heo
+	<tj@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner
+	<hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+	<shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ian@honeycomb.io, Liz Fong-Jones
+	<lizf@honeycomb.io>
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
 
-Hello,
+Switching a dirty inode to another wb can leave WB_has_dirty_io set on
+the old one. inode_do_switch_wbs() moves the inode onto new_wb->b_dirty
+through inode_io_list_move_locked(), which only updates new_wb, and
+nothing calls wb_io_lists_depopulated() on old_wb. A live wb clears the
+bit on its next dirty to clean transition, but a wb that gets no more
+inodes, such as a dying one, is freed with its avg_write_bandwidth still
+in bdi->tot_write_bandwidth, which wb_split_bdi_pages() and
+wb_min_max_ratio() divide by.
 
-syzbot found the following issue on:
+Call wb_io_lists_depopulated(old_wb) after the switch loop in
+process_inode_switch_wbs(), while old_wb->list_lock is still held.
 
-HEAD commit:    5e0f8396d480 Merge tag 'hid-for-linus-2026100201' of git:/..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12a48bf5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
-dashboard link: https://syzkaller.appspot.com/bug?extid=0f4d5234b6cb5e479e5d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Test: after the last patch in this series switched a replaced wb's dirty
+inodes away, BdiWriteBandwidth stayed at 411700 and 407820 kBps with no
+writers and b_dirty, b_io and b_more_io all empty; with this patch it
+read 0, in 3 of 3 runs.
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/a60e785a1197/disk-5e0f8396.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a44e17a91920/vmlinux-5e0f8396.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/3cc64997d7b1/bzImage-5e0f8396.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+0f4d5234b6cb5e479e5d@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KCSAN: data-race in do_notify_parent_cldstop / wait_consider_task
-
-write to 0xffff8881049cca94 of 4 bytes by task 6287 on cpu 0:
- wait_task_stopped kernel/exit.c:1369 [inline]
- wait_consider_task+0x5db/0x15f0 kernel/exit.c:1555
- do_wait_pid kernel/exit.c:1657 [inline]
- __do_wait+0x33c/0x500 kernel/exit.c:1692
- do_wait+0xb6/0x230 kernel/exit.c:1733
- kernel_wait4+0x19f/0x210 kernel/exit.c:1892
- __do_sys_wait4 kernel/exit.c:1920 [inline]
- __se_sys_wait4 kernel/exit.c:1916 [inline]
- __x64_sys_wait4+0x91/0x120 kernel/exit.c:1916
- x64_sys_call+0x108f/0x2550 arch/x86/include/generated/asm/syscalls_64.h:62
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-read to 0xffff8881049cca94 of 4 bytes by task 6289 on cpu 1:
- do_notify_parent_cldstop+0x1fa/0x2f0 kernel/signal.c:2396
- ptrace_stop+0x2fa/0x590 kernel/signal.c:2514
- ptrace_signal+0x52/0x240 kernel/signal.c:2820
- get_signal+0x799/0xf10 kernel/signal.c:2999
- arch_do_signal_or_restart+0x96/0x480 arch/x86/kernel/signal.c:337
- __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
- exit_to_user_mode_loop+0x15d/0x8c0 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x212/0x360 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-value changed: 0x00000013 -> 0x00000000
-
-Reported by Kernel Concurrency Sanitizer on:
-CPU: 1 UID: 0 PID: 6289 Comm: syz.3.813 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-==================================================================
-
-
+Suggested-by: Tejun Heo <tj@kernel.org>
+Assisted-by: Claude:claude-opus-5-5 checkpatch sparse
+Assisted-by: Claude:claude-fable-5-1
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ fs/fs-writeback.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index d26b2cf05283..050d507aa554 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -566,6 +566,12 @@ static void process_inode_switch_wbs(struct bdi_writeback *new_wb,
+ 		}
+ 	}
+ 
++	/*
++	 * inode_do_switch_wbs() only updates @new_wb's dirty IO state.  Clear
++	 * @old_wb's if its IO lists are now empty.
++	 */
++	wb_io_lists_depopulated(old_wb);
++
+ 	spin_unlock(&new_wb->list_lock);
+ 	spin_unlock(&old_wb->list_lock);
+ 
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-- 
+2.53.0
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
