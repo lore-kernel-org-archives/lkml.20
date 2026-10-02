@@ -1,60 +1,61 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAAA4A92FE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE0138E8BE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790982444; cv=none; b=c8NXus4DlGnFV8mPnxCum+XDY7puIdtKSDyUvgQTwdG26/yT02KSm2CtznmNjIid4p7nWL0ZaHSBU8cLvyPzKTB/Ejk7kPTW1DReYpRp5X5dGADkTMR8dHJNAw3vZWDUfnfKoYld60mmWLnj5U1X8IdgwDk7WkZF9q5KPQ9rOdU=
+	t=1790982446; cv=none; b=Ga8WqhSyYBF0wuvZRunDhivKP76icEnV12apyWuPBsygVh706cNDIcEfxNAURA6JEMquBiXY86QWl1GK0qVqrImbL4/rjVAWgBOAeo30m1UeLLsYFbTlhCLqnQOz6OMYrBPDOsO3DI6S8N4dEsDRXCSaKdRv6S4YxSTzfw5bMwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790982444; c=relaxed/simple;
-	bh=RGgoyqq4R7KoPnFF8uisNnEGFVRPpl23zQf4XjNBF4c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DP1+ybTlZw5Mpc6ZCOYZIBVXoRVfqPdrZdLbedkmfC1RDebINEVYoGu0haWq7VIVWwvAN+PxoncZY35Y5FAwscgtdXdx2ROvUKfKBy/hXFruz7iq1bWEWsBBjfU/9w0WGkTEEIFWlOBhWEjZZ+41ThJDQEJM1eOCFL0f+bhoig4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=arzz32pc; arc=none smtp.client-ip=74.125.229.41
+	s=arc-20240116; t=1790982446; c=relaxed/simple;
+	bh=0Ye5uRCpFYj10aSEKZ4sOZLoRrzXYNiOUhVoX1kC7Ew=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E+E/Y+SuKG2RBr1EzRehDokE4ZRCAcx40B4jGxmq0a/gjUyab4YK0xASnnReJSHwiCOUkq5KKsCjf0okI/QznjLi0A4cCOacP33lCbOG+iKxUljG8SMHhEV8+9moMBU7eGhMdwiQ14K+MZ1sNgiIG1pJ3zANwErwf75k0RsWYvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=mClFcRsK; arc=none smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="arzz32pc"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34bffc8105eso115461eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:07:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="mClFcRsK"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3510f00d974so134015eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:07:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790982439; x=1791587239; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2WeCGbzmbDMCGHEECOh1TDjR3OoHLvO5PyQaBzCE8Lc=;
-        b=arzz32pcwfMXM2R5++aFzaSPf2fSZH9pb2V+jsj+clYGO4eyuevU8LGkIcbMXpxW1H
-         vvkIKiaA0/fXNyGb3T+JmAD1A9roMaUUhbVKuSiug1EQfFH071tYhNDdQI5j26AMDrBn
-         2TgrDplLUZHJu28zsQtkVE16U+aK6PDCj6nmM=
+        d=chromium.org; s=google; t=1790982441; x=1791587241; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5Yhq5TvFbCkOnmQ0HyRqBja4cyWrB7IIoElNmyWi5U0=;
+        b=mClFcRsKNyiTE/6xvZYFvQZa5uS8eNuLvzYRqYie7sBUycYyhEl3XSWpSDqaQUg5NZ
+         TPjjVhCkD9yZ7QoMHqufTkqk9eDdyU4rsTxLT9/z8LnNHUz+Q642wqlSMcvUxEmFthyH
+         6doEHrMqeynv70LU34kDxuJdfJ/ZO4uiNNONE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790982439; x=1791587239;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2WeCGbzmbDMCGHEECOh1TDjR3OoHLvO5PyQaBzCE8Lc=;
-        b=HDbINSQLJjdjL5lJKLNQv2eujiDPPmvcCyD1fztZ3FUfX3nzuZyp0iT6V2ACZGQYZk
-         H8++sp5GiF7vzRnS4Mg4vxAIwnZuK08P0erdLTSJy6Je4GIigGHT0iW0q7FuNFrnxAcT
-         xKXqua97zK/s3k8ela0zKr4nwAJCcDQg/XfzARlNvBFVJ+AJEGdRDr3/+/gaAYV4WDsR
-         RXG8uvZVVMnxRaIRFrPJmcDPft338ElnXbWSBVUGs8YVrAlBDb0dF1LSxA0ig16cjyyh
-         Ck4jaNJxc52Orz16uKNRasopu6T/puJV0T95PgXS1Khjt6sfQpfDS47w1f+7DZ0xq4Hq
-         9KGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxx4/EPAdaC4R8D5oFkW8agrCrEq6pu85rSvXeH1SeSTzzXg/ha/OFSSzEstqvvN7bkMES+qCmSlettgag=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJhpOUNKpQi74pQ3CSSMthfL6hW5Kkm5pIeGjkRkCQ/T6RwtWt
-	IYCrO0bIrK9zIlv7U/4i28vVzUpFDmfQHhdMI73T7KvGLpgj+ZzjDw8ewEKNEZnd1Q==
-X-Gm-Gg: AYBFou29TVPN938+GKR7hx+kIQSdfTeM4ed2HOLqGL4ofgX0azbsoPxDIsGNeWCldmW
-	lz+xdZWzLGnABNMgTWREnB2Fd9qxMLL3GRi99dG37BPccSTbE+qitjQCA7yciinfAHyrEqXEgTo
-	mjHx65sjKAEYlZiZG9hTjqxADXYqG4d4dvHwVaLS9Oob5XMwe5rFxLAM1lGnMSPsbQUXRlLo7k3
-	6J1XXif06fZ/skj7QI7QpjvkzP8z9Wx5WxOYJTfk86P0DYkFBJ5H50xgb0j/PdWc6uUve0GmBxB
-	RfF2Ek4L0pq/REivVIoGP+iOTQv34QvR7ct44uvPkchq4T/z4fk70hyk0vbfjEZLMlSEnJn76aB
-	hB1SAK2AB2dCDWYOUasiVMTotlOXt9503v/de7K6X4uSHYxcisSlNM7ngPtiJ9Lu4Yo1CR2cWIL
-	Gnh1BTWBEO3K8UhdKmpjwAVJjVuIKHlyuvOI+mWtm9CIS+SzuayEIInDv8FZjzqEKjuoxpvOa3N
-	p5RMUxwl1b248V4WD165gVzb9SLM1pYfq+qaA==
-X-Received: by 2002:a05:693c:83c3:20b0:33b:f5b7:f494 with SMTP id 5a478bee46e88-34f1509e567mr5123379eec.13.1790982438582;
-        Fri, 02 Oct 2026 16:07:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790982441; x=1791587241;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5Yhq5TvFbCkOnmQ0HyRqBja4cyWrB7IIoElNmyWi5U0=;
+        b=ZAK001dvYhKvG2ygy4S1te1ae5PG1O/jx1Itpif1OEzjbKL1DraJ7kTS5k/vd1DqCQ
+         e005T1g3JXfDQDayr+wIzPp/m97xs5Z16cBpDw4r7vGLpiD1u4+YNmhhXaAkD//wnz68
+         A17+imBCZTI9DFZ+yeUQW/M3GSswLx4fcpq4zv2Ea1vo+/Utxf85af/zLK3gfDYvsRRi
+         NolOxwMsDpDli2MWf8ileVzbBcqbrSSGfINQ1NBMNA0/ync/EyA7+0LfJ0N/N1bn3pqq
+         IIOI9YA3fajV+5+mRv68JNuJtLSD2JxT5m7OqQPBOJkdawoW9Toz7a79CjqDdvTRg/LY
+         zjpw==
+X-Forwarded-Encrypted: i=1; AKwUvBww/6d4/jhgOhmtWdk9mtKZfGnDe8gWtMq8mg8cDwRPeCaKaWbTLOPFx4E0hKdibINxzXKxCnhDX7oj0Go=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/kEwsA/L/HVSq9c1z6MZgJ5QAfTwFtDSlFZ+sBWtCegq01NLn
+	rj2YUoaEoml0MuDHn9Z1WX9XLTzt79BRsLRhIMGsvauSVhGXBreuN/Gopca+skooGQ==
+X-Gm-Gg: AYBFou0aTwFSNhg+8r+eMY4XKLG4cM+2QaR85zPKYhizHvX1TDA3tCWYy8UAxiQ/0mo
+	z3K9Sdn7cMjpvfjR8FWEqg7Jkr1idCx5BZ8fmXIfnF4b7uHZd4zJms2Ym+QfVHoRL5rntDPipM+
+	5z0xau+kEmoj8BQzHlGjI7oEdTQq2Vyk/gKrOOz40YHuNuJpZZ41D5J1D31tIek5I2GO7Itn7Vh
+	/9sscXQ9mqk8abyipc/rJFE93+MNh4xJ1w/AIUx1zfDNSgYSSSAtHJPMrZMxF/M/ql0i/1M8z6z
+	fp1eJmghoQZd42EjFws1h+F+w8wKwdnDMc42QiRVeCxvnQJXJ87Lc6iHBNH0yj4w7xvnuihb5ra
+	XIVk3GB87SXnxo6wAYgQBc4dwkqQib6siB8fGfuwYQ6wjng7tU0ZaslXYdd/BqVSIHxmITGwedH
+	7d3HlOeDGTfXpF/ntRdK/N5ps7AyCBvRfboVEv+ErhoXFfYJ6V2RqOvONmy0NLYzxIQuYwZMFgU
+	TBtDCC6TP//Uguollr+cOb+xQgKOtXzHSDs1w==
+X-Received: by 2002:a05:7301:5f18:b0:33e:d4ae:e10e with SMTP id 5a478bee46e88-35111552a86mr1003826eec.40.1790982441123;
+        Fri, 02 Oct 2026 16:07:21 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:b0dc:e72e:e96b:3323])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-34f14f98527sm8357014eec.16.2026.10.02.16.07.17
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-351143b577bsm702253eec.15.2026.10.02.16.07.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 16:07:17 -0700 (PDT)
+        Fri, 02 Oct 2026 16:07:20 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: linux-pm@vger.kernel.org,
@@ -70,79 +71,48 @@ Cc: linux-pm@vger.kernel.org,
 	Fabrice Gasnier <fabrice.gasnier@st.com>,
 	linux-arm-kernel@lists.infradead.org,
 	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 0/5] PM: runtime: Improve autosuspend child to parent propagation
-Date: Fri,  2 Oct 2026 16:03:04 -0700
-Message-ID: <20261002230714.507921-1-briannorris@chromium.org>
+Subject: [PATCH 1/5] PM: runtime: Only queue an idle check for RPM-linked suppliers (part 2)
+Date: Fri,  2 Oct 2026 16:03:05 -0700
+Message-ID: <20261002160309.1.If69ddc515c2e9fd4338441e87688b9d690d2ef36@changeid>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20261002230714.507921-1-briannorris@chromium.org>
+References: <20261002230714.507921-1-briannorris@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-See patch 3 for the primary change here.
+Commit be5755f023e7 ("PM: runtime: Only queue an idle check for
+RPM-linked suppliers") was incomplete. There are two other cases where
+we perform idle checks on non-DL_FLAG_PM_RUNTIME suppliers -- in
+pm_runtime_set_suspended(), and in cases were we failed to resume
+suppliers.
 
-In short: today, children can resume/suspend without extending the
-autosuspend expiration of their parent. For parents where their activity
-is largely driven by their children, this makes it easy to experience
-"premature" suspend.
+Fixes: 5244f5e2d801 ("PM: runtime: Defer suspending suppliers")
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
+Noticed while touching this function in subsequent work.
 
-Many .runtime_idle() implementations seem to try to work around this
-problem, and one in particular (stm32-adc) documented their problems
-heavily in c537d3457542 ("iio: adc: stm32-adc: fix runtime autosuspend
-delay when slow polling").
+ drivers/base/power/runtime.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-This is an attempt to improve the PM core, as suggested in review for that
-change:
-https://lore.kernel.org/all/CAPDyKFp=KTf8=zGBSzPYqhjnZpY8xwvjCeM1e-WTKT1QLSxaDA@mail.gmail.com/
-
-This will make it easier to simplify many other drivers too, as a
-significant use of .runtime_idle() is to simply extend a parent's
-last_busy timestamp, as a proxy for "last activity performed by a
-child".
-
-The changes:
-
-1) Preparatory fix, noticed while making the following changes
-
-2) Because the last_busy mathematics get a little more complex, I have
-   to change last_busy to use an atomic64_t type
-
-3) Propagate last_busy from dependent devices (children, consumers) to
-   their dependencies (parent, suppliers)
-
-4) Add KUnit tests
-
-5) Remove the pm_runtime_mark_last_busy() workaround from the stm32-adc
-   driver
-
-To follow on with #5: I believe almost every other .runtime_idle()
-implementation in the tree can be removed after patch 3. (There are a
-handful of drivers that should just use autosuspend. And perhaps 2 or 3
-other drivers that do other non-trivial work with .runtime_idle(). But
-most are redundant.) I may work on that next, if this works out.
-
-- Brian
-
-
-Brian Norris (5):
-  PM: runtime: Only queue an idle check for RPM-linked suppliers (part
-    2)
-  PM: runtime: Convert last_busy to atomic64_t
-  PM: runtime: Propagate last_busy from dependent to dependency
-  PM: runtime: Add tests for last_busy propagation
-  iio: adc: stm32-adc: Drop runtime_idle()
-
- drivers/base/power/runtime-test.c | 101 ++++++++++++++++++++++++++++++
- drivers/base/power/runtime.c      |  29 ++++++++-
- drivers/iio/adc/stm32-adc-core.c  |   9 +--
- include/linux/pm.h                |   3 +-
- include/linux/pm_runtime.h        |   2 +-
- 5 files changed, 132 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+index 655c0b8af095..e70726b499e7 100644
+--- a/drivers/base/power/runtime.c
++++ b/drivers/base/power/runtime.c
+@@ -343,6 +343,9 @@ static void __rpm_put_suppliers(struct device *dev, bool try_to_suspend)
+ 
+ 	list_for_each_entry_rcu(link, &dev->links.suppliers, c_node,
+ 				device_links_read_lock_held()) {
++		if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
++			continue;
++
+ 		pm_runtime_release_supplier(link);
+ 		if (try_to_suspend)
+ 			pm_request_idle(link->supplier);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
