@@ -1,83 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA693F9F3C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477C7495531
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949649; cv=none; b=rVFU2PypW5mbmR38sFy0yn20bhfjAcuHMGqR9VxRF6BqsBuJBBOe35nf0GDCnN7yVSSWWh+nevUSlGGV4dpiS19ixiHZRTBvimPsbdbaCtXBWnks8NXH1WL6HQMbmvsNA0mppn3A4pv/u9QrcSM4sZZgMhgWXOJEbM/yZJhjME0=
+	t=1790949658; cv=none; b=ROu7RBl2o0NzHAX7Gv+6QDPiE6zbHbkogBbsEBfGSd3FT4OsOPfTsJUuRZNxrDZ629ShXMIghGIdOwXxF5UXVVX+gsmsmqw9VGenyg3pHy6asNf1GhhveZVs9uEE/c+r0vxplF1xiLxvNdPDOwyZs7XFRxLCNIaooBh+V9W4BpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949649; c=relaxed/simple;
-	bh=j6SQHdbSgMcQ/gHg94JtmIoiBt1Sro6dTxqa7imo5iA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qop9/lULfprVSUin/nNqvtRkwZim+pPJosbjEoNBa/WDr7j7k8aS40y4Bmu21n1dIMFdfXcD8X/XxfiFFozf1S3MhA34SSQQlkPb80BvDnnJMg1nvJiG/cIQccFG93RjZ3WTSTKjQRp+RPoFNrzCzJJFPX3kBJwJl4BX0DlwWzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYzvfQ8o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949658; c=relaxed/simple;
+	bh=DRAvvI0YSWAV4/cc0GFAC87VP0z9Cqrr3WrGE8zAh7U=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=eblyZ133PwLESNVqjXu/NLre6HiSxMcZJXrVPTR+dgWNoFbqR7fFN+dgIrARWwdb6d3DXqJo60hEBClbzBNeDzwAf3gd1BrYZ1a5e2IYp1u2dxse5lJqU/0ncxtBtuVmHu4yS8pIztg24cYdtwfnj7K0cm4y4GdNd1dXE7p9zM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=HP1HFJ28; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYzvfQ8o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07A11F00893;
-	Fri,  2 Oct 2026 14:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949647;
-	bh=wW+usV49Hq4KSQaZfj7w72/oaCFS8UTUq2zzksz+k+4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aYzvfQ8oRLk1Q38eLu4xjkTEjKzzwx0LjWfvQzR7IhPwQ/hfr8bkZNGWiB6P5SASv
-	 2LF63vEPjr7kQ783XlUeM/HSRGCoLQbYgq3PMQeW46AS6wOX+ug4xnLPTZfTjo8AtG
-	 ggGFRnldVc7DNG1B6Yrm6m09bsNGumZCvJ3o4ORLYxlZgCSqFJcUH/yEjR4halyMk6
-	 jTTxPgLcw6G9LlgYBO7rFpFNccQt8IAvv61gsATNq7mkw86TAywwiGDvMsTbffXpJH
-	 y9OqmUoLFXRc52V/scmRU8YfgEKqJ4cQQfeGFEND1z56pERihYkTiqEdCnqEqYCog5
-	 dD1eEBcf/jTWA==
-Date: Fri, 2 Oct 2026 15:00:42 +0100
-From: Will Deacon <will@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64/boot: Don't set PMUv3p9 FGT2 bits without PMUv3
-Message-ID: <ar-5CnttybD-1ojM@willie-the-truck>
-References: <20260930121212.3101361-1-fuad.tabba@linux.dev>
- <ar-xtsSOqwWK9jWQ@willie-the-truck>
- <CA+EHjTzT+2M40GfyxHp6p6OugjoA2BRSkbFK-PMeLGz+qCUM9w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="HP1HFJ28"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa135d6e97so12118651a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:00:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1790949652; x=1791554452; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FhuCqWE46Oix2LB6rL8UWqZIc/9YnixRqUY7dkp01xw=;
+        b=HP1HFJ286+rFhqKsPXbzEjuG2iTGCEU7Pc8pl0wGKIMPlnHPOKKZdt/ZyMrybieTql
+         r3Of7ozbjk1msl8k4BX+kLQRdbIz7MX6Yg6BPs9z+czkTNwn/G8wgiQy9zE9RpnevYqB
+         h/EcBngPFSQqzDU2J2XRx9LVVwdqRMqtNknaMZ7zFhBu8e1W3qXNxSP2A3Yio1SSnh9F
+         i9PGlj+Vga4n/fDU2yGUkyfP2MpWcZwnA0gWOpWLtSbodM2E8XpYAzy4GXhsBPQETnKe
+         Hd1VdPShdQKbCOngVDI36FS14nxUpt4M+hSkx8ImxGtxZPANj/yxURLh2IDP48mF0CRU
+         9Vfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790949652; x=1791554452;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FhuCqWE46Oix2LB6rL8UWqZIc/9YnixRqUY7dkp01xw=;
+        b=H60iAc9F9K7fBYSy61k/vI/XRkZDu3ut94IRyT7lkaGv+QUTj95je7v2JcZTFWU429
+         sLSzQPLeZTHXhSM598+QjL4mjO1KvyPHUlRqCwcUFOZsfpPNlR7sKQQ4GI4bXkuovDP9
+         uqtsh3gWjKPUVpPExg9nCTVw3vRn6mMlHsIyQ19rSzQ0zm/+1/yfsfPmxu4kDq9WUp1/
+         CUUCCMsGWVGL9H6OBxGSTHGaG+qC1BskUiMFIg3UTqRg8y3frotKYjvSU8GypaFOU+xl
+         3Lg6eVCoJQY7X7+pOwA/pZiUUFPP4mADQBERN+ya4kpvFx0KLvBOTlhZQrWfGOZsexsc
+         nVeg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6Y8YRXOWgusFugdiBy5Kpf6Mf2AgVeAUsHYb/vA085XRy6V2ji33n1/WUrcQPtbeg3ajydZ7OhHMWwNs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4nm/NRdVrr/8wkOOaWq/GnFEdApPs/6VbvqYNb6G6LjCdaMqg
+	qM5YgM001wztXqqPKEfnfb2t7vLISLsMX/ltS6FOHWgZVPhfe8M1AZWfezOFCT8YlRk=
+X-Gm-Gg: AYBFou2Bw1nGpH30RVsxu4gVxxtPII/Mf5YBNNds2yWc1tEv6lLhLc4RHHbEl6s1Z+F
+	+R14KZZ5PNa5nfkZih+j8Ko5umWD9Gtn65yVf28p9UkPGGbVOO0XRZ3ICeVL45uobi6OUDThsJx
+	/05LhnnBQ8YJxwRStZJOp1xrxsvXMNNYxYE+rRsChqOawCfijMKl1jovGrRvBiCxXi6asAuZmOu
+	YWD4Xk+M0lTBldIjFBQoIp7TuXanOJVoxzv7rgNwL5cNJ9k8dT6r3cEJfSUuRJ+NHUHf9/rver9
+	QgPBp1DVdcZtJoNhk1oITEGpnxZG4BQNZEXyn4X4keda83QQ48hiWn8yg59hGfBXJQX+sSrU71P
+	bg2Ab/JYe6jNny1qFoScR1Y8gRbgu8k6XZFeHKWGap0iX9+Kkm6OFSLpZhnMhyKFhQv01/hlwJZ
+	Z0I9kLkFo0vXFw9cCDQxHo2uKIrikOXARiAj9AbrLUfTIn0HC70r+KCyOt/6NUjGvWTd5iTefcc
+	WvjAJqaYtCvd52p+vDCFrbULJ9O/Y5xgfalCCDITH4=
+X-Received: by 2002:a05:6402:3228:b0:6ac:7d0c:2cb8 with SMTP id 4fb4d7f45d1cf-6af9e342728mr1802843a12.30.1790949651896;
+        Fri, 02 Oct 2026 07:00:51 -0700 (PDT)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d8a5361sm944608a12.21.2026.10.02.07.00.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 07:00:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTzT+2M40GfyxHp6p6OugjoA2BRSkbFK-PMeLGz+qCUM9w@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 02 Oct 2026 16:00:49 +0200
+Message-Id: <DLUENYYQNULZ.BMYEQYCFZ258@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Rob Herring" <robh@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>
+Cc: "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
+ <phone-devel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, "Krzysztof Kozlowski"
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: panel: Add Novatek NT37705
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
+ <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
+ <20260918213518.GA2337779-robh@kernel.org>
+In-Reply-To: <20260918213518.GA2337779-robh@kernel.org>
 
-On Fri, Oct 02, 2026 at 02:54:47PM +0100, Fuad Tabba wrote:
-> On Fri, Oct 02, 2026 at 02:29:26PM +0100, Will Deacon wrote:
-> > Are you sure #8 is the correct immediate for the ccmp? My reading of the
-> > pseudocode is that it should be #9, but this instruction has always confused
-> > me and I hate the fact that it doesn't take another condition code mnemonic
-> > instead of a raw immediate value.
-> 
-> My read is that #8 is right. From the CCMP (immediate) pseudocode in the
-> Arm ARM (DDI 0487 M.d, C6.2.81), flags start out as the nzcv immediate
-> and are only overwritten by the compare when the condition holds:
-> 
->       var flags : bits(4) = nzcv;
->       ...
->       if ConditionHolds(condition) then
->           ...
->           (-, flags) = AddWithCarry{datasize}(operand1, NOT operand2, '1');
->       end;
->       PSTATE.[N,Z,C,V] = flags;
-> 
-> So when PMUVer == IMP_DEF the ne fails and NZCV = 0b1000, i.e. N=1, V=0.
-> LT is N != V (Table C1-1), so b.lt is taken and we skip. #9 would give
-> N=1, V=1, so we'd fall through and set the bits on an IMP_DEF PMU.
+Hi Rob,
 
-Aha, that table is pretty helpful, thanks.
+On Fri Sep 18, 2026 at 11:35 PM CEST, Rob Herring wrote:
+> On Fri, Sep 18, 2026 at 04:40:04PM +0200, Luca Weiss wrote:
+>> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
+>>=20
+>> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
+>> from BOE) using it.
+>>=20
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> Link: https://lore.kernel.org/r/81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@ker=
+nel.org/
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>> ---
+>>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 +++++++++++++++=
++++++++
+>>  1 file changed, 72 insertions(+)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt3=
+7705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705=
+.yaml
+>> new file mode 100644
+>> index 000000000000..1c796599f6fc
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.ya=
+ml
+>
+> Did novatek,nt37705 get dropped as a compatible, but the filename=20
+> remains?
 
-I think you're right -- I missed the inversion at the end of
-ConditionHolds().
+That's how himax,hx83112a.yaml and himax,hx83112b.yaml are as well,
+which I have upstreamed before. I *really* don't have strong opinions
+either way, but as in the email referred to in "Link:" the versions I
+have upstreamed before have been accepted without issue, and even
+discussion pointing in the way I have done things here.
 
-I'll pick this up next week.
+>
+>> @@ -0,0 +1,72 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Novatek NT37705-based DSI display panels
+>> +
+>> +maintainers:
+>> +  - Luca Weiss <luca.weiss@fairphone.com>
+>> +
+>> +description:
+>> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED =
+panels.
+>> +
+>> +allOf:
+>> +  - $ref: panel-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    contains:
+>
+> As sashiko reports, "contains" is too loose.
 
-Will
+Will fix, seems to also be an issue in the hx83112a/b yamls.
+
+>
+>> +      const: boe,bj631jhm-t71-d900
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  vddio-supply:
+>> +    description: I/O voltage rail
+>> +
+>> +  dvdd-supply:
+>> +    description: Digital voltage rail
+>> +
+>> +  vci-supply:
+>> +    description: Analog voltage rail
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - reset-gpios
+>> +  - vddio-supply
+>> +  - dvdd-supply
+>> +  - vci-supply
+>> +  - port
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/gpio/gpio.h>
+>> +
+>> +    dsi {
+>> +        #address-cells =3D <1>;
+>> +        #size-cells =3D <0>;
+>> +
+>> +        panel@0 {
+>> +            compatible =3D "boe,bj631jhm-t71-d900";
+>> +            reg =3D <0>;
+>> +
+>> +            reset-gpios =3D <&tlmm 12 GPIO_ACTIVE_LOW>;
+>> +
+>> +            vci-supply =3D <&vreg_l19b>;
+>> +            vddio-supply =3D <&vreg_l9b>;
+>> +            dvdd-supply =3D <&vreg_oled_dvdd_1p2>;
+>> +
+>> +            port {
+>> +                panel_in_0: endpoint {
+>> +                    remote-endpoint =3D <&dsi0_out>;
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>> +
+>> +...
+>>=20
+>> --=20
+>> 2.55.0
+>>=20
+
+
