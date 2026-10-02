@@ -1,111 +1,104 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47EC3F327C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C76E14D487C;
+	Fri,  2 Oct 2026 15:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956179; cv=none; b=pZOFxxK3aQOoX5H1+dJbMX23UGL9sEWVfGraVR+fHK0snbp5RVB8PqXKsZDfSukuYHCG64FMZCxdxl7AOzLU7LlBf+vS+iOSqDaV1WwD3fi1XHH9vi/nARkUHs7FIfjuonSRu9Ja/X2eU+hKPowEEeDbZQDrqu7XJKlQdvC13Y8=
+	t=1790956229; cv=none; b=kOqdm70y2FNxDyWFEo5UWo3baiakn9o/1gFWMUAgwILv9+Albux0utbt+rNPRWbOCCgoBUgN9cEEKnDyGpd8e+9r/0x62lJTnwVOD+8kdVSw7bQb+CkWgImTuD6ySPtP3wrTPfMMcNXlUt3pCfE5HVg/WSbBHnvkUrcaIj1KWD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956179; c=relaxed/simple;
-	bh=c3qAoLCDM/k5+TOJO+TjT2BWcWeWqZHWdxB3z2xzy4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r3dyIIIZ/fYnTXRQ7XzIKyW6bFrPBysqdQ7SSumY26L4ltqbV3ssW0ydOtwu7Rr5U4OjIqyOyKyLEvIsIFqsX33BixZEo5+wtSoKgqcYqc5iI9KTqR80DLIoj3Qb71z5sT8vOFujFxEacg2k6IuOCz8K/ov+I4RmJCQl861nd4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CohWvxbb; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790956229; c=relaxed/simple;
+	bh=addLhb0y53M6moXzrK6ciKSDwv0bF0n4zaTd5bS4+ec=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E487pFVIhkiTUFA/87pGYs2rCAViRnY8FdvZo+W1thX4Z79kIzq2dX1FDKkPbbFG4Qv8hNTcbmlENB51UQfjlHq3wqdZIr3DDuV8U0TnQo7kdstMT0MfZXD7eX7bONvW0El0SKlts219qBJvVSYgNo2V5BHAgQBKQVfewjzZBzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dIc0SqhS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CohWvxbb"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a09e2d0f7dso291145e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:49:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790956169; x=1791560969; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FYHcsVKthAuktHy8Ms39HRVTDQV0P7YdD/+UrF62aBY=;
-        b=CohWvxbb3bTx2ybUQSULV5De8EZo+PapagOEhVKXc+4ntH/itLNv+n12bi3GpIqWf2
-         +cm5iRchS7+e24gQmdZ/FaRerfmUWzAsccfD1wtLOImooVyschKKYnpa8ulVyi4GWoVe
-         vI0Myo0e9UsALMWw1XiR66HkX9E6B/TwlfRrBqUTm2JX4JJ8a7qHWT2bRLhXRI45zlzP
-         AdSGL8vTCGR4bA6V7ZjEdsAFY73acWeRmBsQhgxw8G1J2a4l4Y+r8roFUa7nrxelHUSG
-         4zzfVuJXMRrK3mFKjwRqqerZUDAytmKZdsuFq3xVgtH9R1CQw9CJEw5oVShcDl38VUPE
-         OKSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790956169; x=1791560969;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FYHcsVKthAuktHy8Ms39HRVTDQV0P7YdD/+UrF62aBY=;
-        b=UdxecBnBO7M0bJm/yavztD0NMg4N7/8hqVqX7h2mZJjFYlx+qHPDo5+IqjF/vL1yms
-         fVUEYxgc0Yv27C5R23xiQ5HqOLey/5yq8GefKJ4ORlknysmFvwJ9Tk7GbBR472b0DeHM
-         UfGaJ+uklTufenV19Z8M7rMgKg8X3GjdwzmHROlgKK8LO3/2luncx4AEzsko8tEs6z2G
-         Ld5C2RL9kSSdjqVXwmGF8wmXv6vPW8Qp7YE77Qs4CNJwORHBwjSaUscJWwy/YVnWbjaH
-         TxPhPbhbReZjgkvvk1VUrE3uvuxuxDaxec+WK2L3TTgxGefUhLc0+lluN58HYNMXXpjd
-         MDeQ==
-X-Gm-Message-State: AFuF++mifXhJ9H9SPImIxNTo8lIscTMCQ+CqZq19BCE3VPihyQPhgr8U
-	ABIAjp5s8J/MtnLqhIGCMuCas6ut6kqbV9B9IXcGk/nJj+tcJcioAgCP
-X-Gm-Gg: AYBFou13uW8QILmWNquLBJJ+TaMzIKSAjq/WRtUpMPcYa6RXS0XkfSf3Y+M3Iona1Bv
-	7cgVzlgSATsWa3RbZfPTL+aFI9PkZEXyETBC4RFfEUI+8leEaWS3X0O97amvZqvcAuK3Fj1MTN5
-	VNNOgKann6ziQcOjTT5gyDyHhleDWo3rzXfySp3fSGCRyKxoZm9WKPeeRZGn6zJnLWbONXG9x7c
-	poN/yCo0v/++xGsRAqY2twa+v24RZYNI1A6EdYj9yi05l6Fsp/RqNnnJoWomBt+HRXOLXVuA5iY
-	sw7hRW6GVW9b5MWjBWIBSHRmpnHQbxcly20Td1EW6Oq9Avs1Kfky6Ci9y/bn7SUxhjKI5G7Adzt
-	GHPrP7W0i2c0FtkBjZaXzkqvx58FscvnCjFbiIHJXZ3cyFH44oh++f3IYzgaYkQWtsJiJOwvIO7
-	KHqXs9C32bIuCR5TrSDZLyEMnmQaf6HxGYL8PnYqkLOC7aTAbriS6NzLc5Qu1oyLQiEAVEmrchx
-	thUwtQKrhSFnyk3uRvrHOWQHn8ITWNiU5BYOkNy9S1+DQENnw==
-X-Received: by 2002:a05:600c:6995:b0:4a0:159b:d283 with SMTP id 5b1f17b1804b1-4a0275857a7mr54816795e9.30.1790956168547;
-        Fri, 02 Oct 2026 08:49:28 -0700 (PDT)
-Received: from localhost.localdomain ([182.189.185.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027740a2fsm108345025e9.13.2026.10.02.08.49.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:49:28 -0700 (PDT)
-From: Saadanjum01 <saadanjum239@gmail.com>
-X-Google-Original-From: Saadanjum01 <271059546@formanite.fccollege.edu.pk>
-To: Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Saad Anjum <saadanjum239@gmail.com>,
-	Saadanjum01 <271059546@formanite.fccollege.edu.pk>
-Subject: [PATCH] spi: bitbang: Drop duplicated word in file header comment
-Date: Fri,  2 Oct 2026 20:49:19 +0500
-Message-ID: <20261002154919.13919-1-271059546@formanite.fccollege.edu.pk>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dIc0SqhS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E5FDD2F;
+	Fri,  2 Oct 2026 08:50:17 -0700 (PDT)
+Received: from [10.211.55.3] (unknown [10.57.85.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EFF853F882;
+	Fri,  2 Oct 2026 08:50:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790956221; bh=addLhb0y53M6moXzrK6ciKSDwv0bF0n4zaTd5bS4+ec=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dIc0SqhSeSEZ/CM/AXGJdNLXtW0qvBRe6LGaQceAFTxDl2JXb5l1nqfpXkBBCwt0o
+	 ppPo9dofMYeflUMRn+pJr9K+j9HrGjjkXXaIrtTO30cB8XZO/flVYhZKFU5Ih092NU
+	 xY/dPfvJiyPGAr3QokJAAotPvX3tbzS7/jGzn7eg=
+Message-ID: <02c82cdd-6fc5-4b54-99cd-32d88cca956d@arm.com>
+Date: Fri, 2 Oct 2026 16:50:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH RFC v2 01/10] arm_mpam: Fix the RIS index range check in
+ mpam_ris_create_locked
+To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>,
+ Rob Herring <robh@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
+ <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Andre Przywara <andre.przywara@arm.com>, Drew Fustini
+ <fustini@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+ trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+ ganapatrao.kulkarni@oss.qualcomm.com,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
+ <20260914-mpam-resctrl-dt-knp-support-v2-1-bf6645bb2f65@oss.qualcomm.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260914-mpam-resctrl-dt-knp-support-v2-1-bf6645bb2f65@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Saad Anjum <saadanjum239@gmail.com>
+Hi Yin,
 
-Commit 8ee46db14169 ("spi: bitbang: Add missing MODULE_DESCRIPTION()")
-updated the terminology in the file header from "SPI master controller"
-to "SPI host controller", but only the word "master" was replaced, so the
-header now says "controller" twice in a row.
+On 14/09/2026 10:37, Yin Li wrote:
+> The RIS selector field is defined as MPAMCFG_PART_SEL_RIS (bits 27:24),
+> which is 4 bits wide and gives valid indices 0..15. MPAM_MSC_MAX_NUM_RIS
+> is defined as 16, so the check should use >= to reject index 16 and
+> above. The previous > check incorrectly accepted index 16 as valid.
+> 
+> Fixes: 01fb4b822472 ("arm_mpam: Add the class and component structures for firmware described ris")
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
-Drop the duplicated "controller" so that the comment matches the wording
-used by the Kconfig entry and the MODULE_DESCRIPTION() string.
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 
-No functional change.
+Thanks,
 
-Signed-off-by: Saadanjum01 <271059546@formanite.fccollege.edu.pk>
----
- drivers/spi/spi-bitbang.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Ben
 
-diff --git a/drivers/spi/spi-bitbang.c b/drivers/spi/spi-bitbang.c
-index fb288ed56..347265e80 100644
---- a/drivers/spi/spi-bitbang.c
-+++ b/drivers/spi/spi-bitbang.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * Polling/bitbanging SPI host controller controller driver utilities
-+ * Polling/bitbanging SPI host controller driver utilities
-  */
- 
- #include <linux/spinlock.h>
-
-base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
--- 
-2.50.1 (Apple Git-155)
+> ---
+>  drivers/resctrl/mpam_devices.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index dd422c56fbb1..6da217abf689 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -552,7 +552,7 @@ static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
+>  
+>  	lockdep_assert_held(&mpam_list_lock);
+>  
+> -	if (ris_idx > MPAM_MSC_MAX_NUM_RIS)
+> +	if (ris_idx >= MPAM_MSC_MAX_NUM_RIS)
+>  		return -EINVAL;
+>  
+>  	if (test_and_set_bit(ris_idx, &msc->ris_idxs))
+> 
 
