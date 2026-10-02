@@ -1,43 +1,43 @@
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3823EC827;
-	Fri,  2 Oct 2026 07:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADA143DEDB;
+	Fri,  2 Oct 2026 07:44:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927073; cv=none; b=cZmM+mX3Psae6IysKtbBzyJTA5JMX1u688eS1uY3TDbjcAaYC+KE7ScuUUgoemrg6gAk+oJzgxOMaM0P8whurv7jR0EN/c92j04KFE2sg5mM7yiNgdt4QR7tVZZrhPY/Pbwul4WiLz925uI/RdRvDkMIHRD9fYf/JyjVHXkbCTs=
+	t=1790927074; cv=none; b=bHZm0a+KO7bbNN0OkuvDMIkan1kdOfb6XVWaHAo6ZuMKkBC66SgusFOTV0VtkeYb6monTipc/EUlzg961yleW+Z4aZerCcxvl0I2i1hUG3dFc/V6tlkcxNx9C+FJpEZfjVmtLWmISuhdCDDmHu5k9WdvYeGJW0ahTIa2erdN9Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927073; c=relaxed/simple;
-	bh=UzTimtPjSioQJBhQUy582YW6+VREZeKZRWoU8CDx7e0=;
+	s=arc-20240116; t=1790927074; c=relaxed/simple;
+	bh=OluAUDYSC6aMBbK1yHFZ1RIL2PH6zxe4FwqCaHXl85o=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=malP6DpliFhIaIXKrcKdF7YpHjo5OC1N0OYiD63D48oqkjehi+n//xUmpZykskWGrLtRI8XtGltL+VyNb0Z2JOozuqcJC3ArjSKF4dkJI8wpgDmuTxGnaVQJEw6RPNJIiLqcjOiYckls4G3yJMiyiCsIbpADLZkV549THSo6I2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Lcpw/cCd; arc=none smtp.client-ip=211.75.126.72
+	 MIME-Version:Content-Type; b=NIv89H8t1a4/5R+AXYnzWA8yjAPljB5o9W/H+GAESpDeqUORjIttJL9hIHo7xfYSzz2Fjm4sN3KqHEbfYL9yWijPg1MYRUiYZMH8x2P1WEL9wXpQEnWNJc/awW+YMjanwXNs9QJ79EQ/pDHHgeDeUJrExMPI+pP6wm02RwEx7js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=sNQYpjxz; arc=none smtp.client-ip=211.75.126.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Lcpw/cCd"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6927hlhhF3646800, This message is accepted by code: ctloc85258
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="sNQYpjxz"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6927hnoL73646819, This message is accepted by code: ctloc85258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790927027; bh=SgNemasrnnBTeB2QQLiC07WfJ392qU9L3kmu6dEc/N8=;
+	t=1790927029; bh=ri2HpUjT8qOrOMqbL2h+R1txn9sz+vfKeiacwgzeYJM=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=Lcpw/cCdGVv0GsXEgIwkXJLB2XuRNfzUJRRX6KeVLHyo4L2qMNh3ViU/RfY3cnF4t
-	 QirwTAOJK7Csl8GPl3nq7W1SsfGJIFA7xMdQWBO5a+DP2sYN+5UIR76BbLirAP9szi
-	 F1Yvt/KcWuz01q+p0NecQMR5FK7+I5bg2nHz69TedTsoOTTKmkj3fXtm+/7DoT78oG
-	 R1VqyJJwoYT7BHQUsy62ciDM4VONhHScPhocHpqBP6I3DhcNXQCjF8apvE5Eqg8uiX
-	 1V4wlL9GzHUtTH4alzxYJTjpD7qZJZh1L7KxbUilN2CCc5B0sMI8iWtuwCWIks5ZDA
-	 jW8XHZBzh7WlA==
+	b=sNQYpjxzr5zOue+wvwPKIHzThVYDGZfVfbCVZ9iI7uaCkFEnA9D1uLvYIjEGDyUr1
+	 iKMd4tOpu1zWdA6qMKC44HVuZH1IPRvGjjLjHLxwclGGM2wkthyiEMlQHw1l7vs+Ne
+	 CbHrq/oTtDAtLyDP+GsMiEPoKRfNyeMxUqYDwHTkB4/C/lqRcfU0CnTOwVblAVbrrQ
+	 Vg8GnTiN+8r3IP6eVDbZ05N+k9DLpj4ovF1XRz77+ahT5zUn0fpS1PmpcNkf9TcA77
+	 0lrhbv1Xxmqoyw2xr+qGtEFp1+ai0VhcGPq/Syn36j/9otCFwLbDGMNc43LhV2VTOU
+	 pbSrjonx4Pxqw==
 Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6927hlhhF3646800
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6927hnoL73646819
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 2 Oct 2026 15:43:47 +0800
+	Fri, 2 Oct 2026 15:43:49 +0800
 Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
  RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 2 Oct 2026 15:43:32 +0800
+ 15.2.2562.49; Fri, 2 Oct 2026 15:43:33 +0800
 Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
  (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 2 Oct 2026 15:43:31 +0800
+ Transport; Fri, 2 Oct 2026 15:43:33 +0800
 From: Yu-Chun Lin <eleanor.lin@realtek.com>
 To: <jbrunet+clk@baylibre.com>, <sboyd@kernel.org>, <robh@kernel.org>,
 	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <p.zabel@pengutronix.de>,
@@ -47,10 +47,10 @@ CC: <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
 	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
-	<eleanor.lin@realtek.com>
-Subject: [PATCH v15 02/11] reset: Add Realtek basic reset support
-Date: Fri, 2 Oct 2026 15:43:22 +0800
-Message-ID: <20261002074331.3066919-3-eleanor.lin@realtek.com>
+	<eleanor.lin@realtek.com>, Brian Masney <bmasney@redhat.com>
+Subject: [PATCH v15 07/11] clk: realtek: Add support for mux clock
+Date: Fri, 2 Oct 2026 15:43:27 +0800
+Message-ID: <20261002074331.3066919-8-eleanor.lin@realtek.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261002074331.3066919-1-eleanor.lin@realtek.com>
 References: <20261002074331.3066919-1-eleanor.lin@realtek.com>
@@ -65,207 +65,130 @@ Content-Type: text/plain
 
 From: Cheng-Yu Lee <cylee12@realtek.com>
 
-Define the common reset operations backed by a regmap-based register
-interface for Realtek SoCs.
+Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
 
-This library exports the standard reset control operations (assert,
-deassert, and status) to be utilized by other specific Realtek reset
-drivers. The implementation supports handling an optional write-enable bit
-required by certain Realtek reset controllers.
+The implementation supports parent selection and rate determination through
+regmap-backed register access.
 
 Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
 Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 ---
 Changes in v15:
-- None.
+- Simplify 'rtk_clk_regmap_mux_get_parent()' to return the result
+directly.
 ---
- MAINTAINERS                              |  1 +
- drivers/reset/Kconfig                    |  1 +
- drivers/reset/Makefile                   |  1 +
- drivers/reset/realtek/Kconfig            |  8 +++
- drivers/reset/realtek/Makefile           |  2 +
- drivers/reset/realtek/reset-rtk-common.c | 73 ++++++++++++++++++++++++
- drivers/reset/realtek/reset-rtk-common.h | 29 ++++++++++
- 7 files changed, 115 insertions(+)
- create mode 100644 drivers/reset/realtek/Kconfig
- create mode 100644 drivers/reset/realtek/Makefile
- create mode 100644 drivers/reset/realtek/reset-rtk-common.c
- create mode 100644 drivers/reset/realtek/reset-rtk-common.h
+ drivers/clk/realtek/Makefile         |  1 +
+ drivers/clk/realtek/clk-regmap-mux.c | 38 ++++++++++++++++++++++++
+ drivers/clk/realtek/clk-regmap-mux.h | 43 ++++++++++++++++++++++++++++
+ 3 files changed, 82 insertions(+)
+ create mode 100644 drivers/clk/realtek/clk-regmap-mux.c
+ create mode 100644 drivers/clk/realtek/clk-regmap-mux.h
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4cd437266dd5..16c9ba043126 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23030,6 +23030,7 @@ M:	Cheng-Yu Lee <cylee12@realtek.com>
- M:	Yu-Chun Lin <eleanor.lin@realtek.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/clock/realtek*
-+F:	drivers/reset/realtek/*
- F:	include/dt-bindings/clock/realtek*
- F:	include/dt-bindings/reset/realtek*
- 
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index eda9c698a95f..eda8f42954f2 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -452,6 +452,7 @@ config RESET_ZYNQMP
- 
- source "drivers/reset/amlogic/Kconfig"
- source "drivers/reset/hisilicon/Kconfig"
-+source "drivers/reset/realtek/Kconfig"
- source "drivers/reset/spacemit/Kconfig"
- source "drivers/reset/starfive/Kconfig"
- source "drivers/reset/sti/Kconfig"
-diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-index 489fafd6bbe3..486a8d0048ac 100644
---- a/drivers/reset/Makefile
-+++ b/drivers/reset/Makefile
-@@ -2,6 +2,7 @@
- obj-y += core.o
- obj-y += amlogic/
- obj-y += hisilicon/
-+obj-y += realtek/
- obj-y += spacemit/
- obj-y += starfive/
- obj-y += sti/
-diff --git a/drivers/reset/realtek/Kconfig b/drivers/reset/realtek/Kconfig
+diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+index 840aff067b61..217ccaf5644a 100644
+--- a/drivers/clk/realtek/Makefile
++++ b/drivers/clk/realtek/Makefile
+@@ -4,4 +4,5 @@ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
+ clk-rtk-y += clk-rtk-common.o
+ clk-rtk-y += clk-pll.o
+ clk-rtk-y += clk-regmap-gate.o
++clk-rtk-y += clk-regmap-mux.o
+ clk-rtk-y += freq_table.o
+diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/clk-regmap-mux.c
 new file mode 100644
-index 000000000000..5ddf8e5c09c7
+index 000000000000..01017a90d0ef
 --- /dev/null
-+++ b/drivers/reset/realtek/Kconfig
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+config RESET_RTK_COMMON
-+	tristate "Realtek common reset driver" if COMPILE_TEST
-+	help
-+	  This option enables the common reset controller library for
-+	  Realtek SoCs. It provides shared reset control operations
-+	  (assert, deassert, status) that other Realtek-specific reset
-+	  drivers can use.
-diff --git a/drivers/reset/realtek/Makefile b/drivers/reset/realtek/Makefile
-new file mode 100644
-index 000000000000..6d68e41748bf
---- /dev/null
-+++ b/drivers/reset/realtek/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_RESET_RTK_COMMON) += reset-rtk-common.o
-diff --git a/drivers/reset/realtek/reset-rtk-common.c b/drivers/reset/realtek/reset-rtk-common.c
-new file mode 100644
-index 000000000000..6900932b0a32
---- /dev/null
-+++ b/drivers/reset/realtek/reset-rtk-common.c
-@@ -0,0 +1,73 @@
++++ b/drivers/clk/realtek/clk-regmap-mux.c
+@@ -0,0 +1,38 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Copyright (C) 2019-2026 Realtek Semiconductor Corporation
++ * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
 + */
 +
++#include <linux/clk-provider.h>
 +#include <linux/export.h>
-+#include <linux/module.h>
 +#include <linux/regmap.h>
-+#include "reset-rtk-common.h"
++#include "clk-regmap-mux.h"
 +
-+static inline struct rtk_reset_data *to_rtk_reset_controller(struct reset_controller_dev *r)
++static u8 rtk_clk_regmap_mux_get_parent(struct clk_hw *hw)
 +{
-+	return container_of(r, struct rtk_reset_data, rcdev);
-+}
-+
-+static inline const struct rtk_reset_desc *rtk_reset_get_desc(struct rtk_reset_data *data,
-+							      unsigned long idx)
-+{
-+	return &data->descs[idx];
-+}
-+
-+static int rtk_reset_assert(struct reset_controller_dev *rcdev,
-+			    unsigned long idx)
-+{
-+	struct rtk_reset_data *data = to_rtk_reset_controller(rcdev);
-+	const struct rtk_reset_desc *desc;
-+	unsigned int mask, val;
-+
-+	desc = rtk_reset_get_desc(data, idx);
-+	mask = desc->write_en ? (0x3U << desc->bit) : BIT(desc->bit);
-+	val  = desc->write_en ? (0x2U << desc->bit) : 0;
-+
-+	return regmap_update_bits(data->regmap, desc->ofs, mask, val);
-+}
-+
-+static int rtk_reset_deassert(struct reset_controller_dev *rcdev,
-+			      unsigned long idx)
-+{
-+	struct rtk_reset_data *data = to_rtk_reset_controller(rcdev);
-+	const struct rtk_reset_desc *desc;
-+	unsigned int mask;
-+
-+	desc = rtk_reset_get_desc(data, idx);
-+	mask = desc->write_en ? (0x3U << desc->bit) : BIT(desc->bit);
-+
-+	return regmap_set_bits(data->regmap, desc->ofs, mask);
-+}
-+
-+static int rtk_reset_status(struct reset_controller_dev *rcdev,
-+			    unsigned long idx)
-+{
-+	struct rtk_reset_data *data = to_rtk_reset_controller(rcdev);
-+	const struct rtk_reset_desc *desc;
-+	unsigned int val;
++	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
++	u32 val;
 +	int ret;
 +
-+	desc = rtk_reset_get_desc(data, idx);
-+	ret = regmap_read(data->regmap, desc->ofs, &val);
++	ret = regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
 +	if (ret)
-+		return ret;
++		return 0xff;
 +
-+	return !((val >> desc->bit) & 1);
++	return (val >> clkm->shift) & clkm->mask;
 +}
 +
-+const struct reset_control_ops rtk_reset_ops = {
-+	.assert   = rtk_reset_assert,
-+	.deassert = rtk_reset_deassert,
-+	.status   = rtk_reset_status,
-+};
-+EXPORT_SYMBOL_NS_GPL(rtk_reset_ops, "REALTEK_RESET");
++static int rtk_clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
++{
++	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
 +
-+MODULE_DESCRIPTION("realtek reset infrastructure");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/reset/realtek/reset-rtk-common.h b/drivers/reset/realtek/reset-rtk-common.h
++	return regmap_update_bits(clkm->clkr.regmap, clkm->mux_ofs,
++				  clkm->mask << clkm->shift, (u32)index << clkm->shift);
++}
++
++const struct clk_ops rtk_clk_regmap_mux_ops = {
++	.set_parent = rtk_clk_regmap_mux_set_parent,
++	.get_parent = rtk_clk_regmap_mux_get_parent,
++	.determine_rate = __clk_mux_determine_rate,
++};
++EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_mux_ops, "CLK_REALTEK");
+diff --git a/drivers/clk/realtek/clk-regmap-mux.h b/drivers/clk/realtek/clk-regmap-mux.h
 new file mode 100644
-index 000000000000..3ea35d9573a4
+index 000000000000..ad524bb86a19
 --- /dev/null
-+++ b/drivers/reset/realtek/reset-rtk-common.h
-@@ -0,0 +1,29 @@
++++ b/drivers/clk/realtek/clk-regmap-mux.h
+@@ -0,0 +1,43 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * Copyright (C) 2026 Realtek Semiconductor Corporation
-+ * Author: Yu-Chun Lin <eleanor.lin@realtek.com>
++ * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
 + */
 +
-+#ifndef __RESET_REALTEK_COMMON_H
-+#define __RESET_REALTEK_COMMON_H
++#ifndef __CLK_REALTEK_CLK_REGMAP_MUX_H
++#define __CLK_REALTEK_CLK_REGMAP_MUX_H
 +
-+#include <linux/reset-controller.h>
-+#include <linux/types.h>
++#include "clk-rtk-common.h"
 +
-+struct regmap;
-+
-+struct rtk_reset_desc {
-+	u32 ofs;
-+	u32 bit;
-+	bool write_en;
++struct rtk_clk_regmap_mux {
++	struct rtk_clk_regmap clkr;
++	unsigned int mux_ofs;
++	unsigned int mask;
++	unsigned int shift;
 +};
 +
-+struct rtk_reset_data {
-+	struct reset_controller_dev rcdev;
-+	const struct rtk_reset_desc *descs;
-+	struct regmap *regmap;
-+};
++#define __rtk_clk_regmap_mux_hw(_p) __rtk_clk_regmap_hw(&(_p)->clkr)
 +
-+extern const struct reset_control_ops rtk_reset_ops;
++#define __RTK_CLK_REGMAP_MUX(_name, _parents, _ops, _flags, _ofs, _sft, _mask) \
++	struct rtk_clk_regmap_mux _name = {                                    \
++		.clkr.hw.init =                                                \
++			CLK_HW_INIT_PARENTS(#_name, _parents, _ops, _flags),   \
++		.mux_ofs = _ofs,                                               \
++		.shift = _sft,                                                 \
++		.mask = _mask,                                                 \
++	}
 +
-+#endif /* __RESET_REALTEK_COMMON_H */
++#define RTK_CLK_REGMAP_MUX(_name, _parents, _flags, _ofs, _sft, _mask)               \
++	__RTK_CLK_REGMAP_MUX(_name, _parents, &rtk_clk_regmap_mux_ops, _flags, _ofs, \
++			     _sft, _mask)
++
++static inline struct rtk_clk_regmap_mux *to_rtk_clk_regmap_mux(struct clk_hw *hw)
++{
++	struct rtk_clk_regmap *clkr = to_rtk_clk_regmap(hw);
++
++	return container_of(clkr, struct rtk_clk_regmap_mux, clkr);
++}
++
++extern const struct clk_ops rtk_clk_regmap_mux_ops;
++
++#endif /* __CLK_REALTEK_CLK_REGMAP_MUX_H */
 -- 
 2.43.0
 
