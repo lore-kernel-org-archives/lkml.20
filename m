@@ -1,185 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013056.outbound.protection.outlook.com [40.107.162.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F289D3F54C4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969347; cv=none; b=kc6EarMz/3FgILD/1Wb7agpscKOyg7ELAzfWQAIUUsD+3iWHCaVb4SbqgDDTn4FLNbaYstG89/FPEHupaRLkfmuovWeUWY2j9f/Ze57KqYETKXQNnSVlgFoSgWa02GJg6q/wiI1246dNx5zxxomiTL+Ush7qZUlDJVAxFsjaQoA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969347; c=relaxed/simple;
-	bh=QTxcsJdDdi0EVr/cGd9tJhfzHlRVRQX3w8RiQjVNFm4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VOOGuc4Oqf35zK3QpjFdyVQNnP+Z2NRHt6Z3mezfp2Yp7gm5rRja3UfK8bma03vCzLNXc/c8gnqqpQ2Lq9d+1KuKAqXH0VpTaxnSqMkKtk26lxCD0vZg7BN2pSNT1kyE41DkQhW8pMZvtoXiidMGXrXm11fdHk5Pc8YoNdzz+Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJ4LUrq2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E849A3F0AB8;
+	Fri,  2 Oct 2026 19:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790969345; cv=fail; b=LhVXHR5ylmIQDhWFGAoh6Th/SWiXXsWKV65W9ecZhxifI3fiWAsOZ6jo0f9qS9lwktiuj8KYfAt4rhrFXDE/VvBzGVqlz+Q1vL30WnyD5nVEhKzX/veUTVr+9oVi3Euo2zYAefkJgw7Dh3eDdR4g6BDJPSkUx9J/TQeR4oJrHPw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790969345; c=relaxed/simple;
+	bh=07Txt+2oBkV0TdJPFJBSn+TEldk9NvO94ZZsW7Qbu2I=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=FmBHEIwnitUe4DVK9oABTBeIDWg0r5rHhhkZMPyMRkzGruMjpBJ7aZDCw0hXhOY7KHIjFzA3vJONcv5iIA5BWUvR/7qUgM+MbrzzVg3Im6hkrNPIbwy6KovTj3pzWib3wSvnfCO/i1Vh/4Hd/Cc6LvZBQwi64ICz3uo7Ut2ws+U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=knZsGqPa; arc=fail smtp.client-ip=40.107.162.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJ4LUrq2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46A2A1F000FF;
-	Fri,  2 Oct 2026 19:28:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790969342;
-	bh=wKiXHVPNbskbxRmcfJdeYAcs9CbqQ6iFfiXid0l2arE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EJ4LUrq2ySsTcAFWwrouLXGqbGx0gDjPBo1eFRga3iviClLlVxzME6YVWlMjFIPJf
-	 AJO0MtJRNMpMl8g5ZZvH9/J/WQVhJjgyiJgLaSOeM848tS3ga/1aRE8W/HGuWIFGOi
-	 3w8HlOEnnbAP/tgVZOaS1498d2CkaQefzqB0yL4dFNIUIGTaWCmU2Crmmnj7IP170g
-	 N3ZhdXHW7v2IEWsut9D87g+qnfcybe17e4Vqg8V42vemd8hVcHaa66LZD2LNleHRQO
-	 6Z4ub+CVvhbbSGTeeligZmbHknC4rVW1eeAqxDv9wYzmoayZuNtgQNeKqA9kUM50Eu
-	 zOhAHpX8BuI3g==
-Message-ID: <f54d5d75-5cc1-488b-b640-76163419cf4d@kernel.org>
-Date: Fri, 2 Oct 2026 21:28:51 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="knZsGqPa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u/UTnjOgQl0HVP0JzShfdtkzNzezVNUnqd0mb6jPeApRlRd5S4BbETAg3ECkRNN/inJJwlwXJFpvnK/ZaBqmwD9gQZy0fM7KUoGgBUvEYpcHceCGzoj9yTIVj7Dts/CWUxEEhX5rF/XKJhVdTwYQBpsem98qGWMgVYg3BTDhcTNQ+NJWiT96CeDVwEwj0VSMDy5AhG/HUAc9yYfBXak3QfUIY3n17fQtYJeuTPv+1UJg9ug3oyFqI77PMaBGgZGVTnARHAZ7ZuEf7kmGu7h7rPWiNGydw0Nl61gmEOkVS9hGm2i/zAzrf5QiabEjvOb1eK882PvKNjXESHDunzr7Hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wub4uH3FnIVOEJKSBbAIcWMWakkHoBlwMGanKxRl2kM=;
+ b=XMcECFOFEyreJx4be0q1aYTGrOwjSBTRJ93sj6r8THbKWRQ9gbHAWIDbTymLUCJkgBDC+0fPuXvxuLn299D4t0SuT9hRZ5YJUJvscsaa7fVaD2TrgNZFboo7TYR9FWzgG9EDzyIlHloRoJnCuvBSP7s+BR/c40UdD7ptJjsB3X5CeB+e7L8IpADqp+ME8GURUZjO1IhL+Bk8X3ch2uep4PCxNtvklu7ETePbTxYJgR9UL71t/UD66CLciwOmwnY/2ZG6u92VRccaXOQebqtqS6/2bDCXcxUIqDSXhmPr1++RZm+8T9nEW1CaJdB4Fe3kqfxW6N3E8YWZmgASyGuq3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wub4uH3FnIVOEJKSBbAIcWMWakkHoBlwMGanKxRl2kM=;
+ b=knZsGqPac8EpQm52l0s1flKa8h7gah7h/hyqRWM55QGInZfJI16jZcY7U/QE+n8hyIBswa2SUhgd00xe2jacQQXqE6AWg95Bcz2OdY4uaMgxlkSn0nJGykNfk/XAdHRe7097o4MDVHApBwua1hY4htTZuSpe7IU3FKV+JxrUrAiXfLRftPL+6qgNO9QhTw/MgC15ZRzpjI7B75Y5QlWB0JXCPxxl8KRUSTseJ7h+lP3+Urfnizh0FUXVEHM/+2lffinw8nTWDk+9E4NciIJsJ8QmGcKHeqnMtHgalrJHinb7hgcSCy3dlBh0Zm5MvJp6YUUUSt2YTV8UBzhH89AqYw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI9PR04MB056237.eurprd04.prod.outlook.com (2603:10a6:290:d1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 19:28:56 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 19:28:56 +0000
+From: Frank.Li@oss.nxp.com
+To: Bin Liu <b-liu@ti.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org (open list:MUSB MULTIPOINT HIGH SPEED DUAL-ROLE CONTROLLER),
+	linux-kernel@vger.kernel.org (open list)
+Cc: vkoul@kernel.org,
+	imx@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 1/1] usb: musb: use dmaengine_submit() instead of ->tx_submit()
+Date: Fri,  2 Oct 2026 15:28:49 -0400
+Message-ID: <20261002192850.166127-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CY5PR18CA0008.namprd18.prod.outlook.com
+ (2603:10b6:930:5::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 09/14] powerpc: move has_transparent_hugepage() out of
- THP guard
-To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
- lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <05a71b6011a6eab7b096f262485fcb8b4987976f.1789695931.git.luizcap@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <05a71b6011a6eab7b096f262485fcb8b4987976f.1789695931.git.luizcap@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB056237:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a4ae3bb-6b34-4028-b577-08df20bb66aa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|19092799006|23010399003|366016|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	af24N65cYXTOuo4EVla6SBJmU6W/DpSssOUmRSmEX8IgK1VobLl+b9C29nLzuldpX5SdkUx4StLyWmmQmbn0Mjz0oERGKIaY+74hWH1Msyuha0OaIuNm3d2//p4OQnrTtfppu7NUVpHNpCtqkjvjIT3Lkn0Ca4PWwPiUfADnNS/ldqY/4inPDWVc30Os4sSRNNZWWoYBSNbZiGMmLxvsV9z8u0MToafKrZ6Ey0OSR5fV1HdbRFqlE4JI9zBgRQd51x96YGtTFpfvH6Il1bAFT5GZhmy/szY3eagw3rZNi2J3btxJ7Bf0sNGz+ngZZ+vhfSOBz5NjTS1YxRnT9+LIjc3ykva/yOBM1KXmPFmkTzhWuX7XeUQvw3U2a4S26VJ7LoOS1pOPTZw//sOQW5OeWuW9OlKjSzOVNXXbmzXZjTZCuQAvJ7Hog7swt8hLcqAtTH8vrGNuLzdn/it8xQQ3b7CtTSutZQqGvAvzZ6s9UQboczvQQir3RnCrBuH4JbUB0IIuiBECz2kFbev6CaGBPkPh1urj1sQAE6RnUcvDmXy7w8B3QyZtCOst6VrzKRtykr97xci5af37dsCIz7tfwCANjIuUlnE6rmU+4qDTa5t5Zjtntrs33ggxSgDGQkcDQzbW7LBRvJiLr3+a+jwbiM5+hFneNG3HWfVeNkdnDf0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(19092799006)(23010399003)(366016)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kI2Q/H9Ngd+Ojv9teeB9Ws/E4xbjeuL0EJcLHppMVOt+2ogsTiBD+4CT03c9?=
+ =?us-ascii?Q?F5l+dyjWGaOjwnVg6UU6OTGnl2RXLk7MHEWrDUGDXGY9eNOO7IpaHo2o3Lzk?=
+ =?us-ascii?Q?S7EqAy5CCAAlC41sz/3G1nEdjC7CJsC7a6VjCna1yhKknqiDJNGx//peda9E?=
+ =?us-ascii?Q?0TPx6yxxntPeyl3pKhMskMsb7917s97h8DuFyd6VonL2ppSzkMuJSDZIq7WE?=
+ =?us-ascii?Q?6CDupk2HKmB6wS3QFGYOPdRgSRyN/kgzEeGxexko7CE9H8lrKhpv1AtY+Axh?=
+ =?us-ascii?Q?ztlLqc+7lPDuYBbp6355L8s4D1u1e/B9JbnmG+lNtuAfJcJ9/TXJq47gqMAI?=
+ =?us-ascii?Q?k3VuA6AGOw9oSDabb9LuXUyzARFV7BNCHkh48safIwYVDYPD4fPt6n6FdNQM?=
+ =?us-ascii?Q?phcxmILRoRocy7Q+3rEvzJNuoloJOtUZyhVnqI10Q2IFS1lBF3GDogq6wQu5?=
+ =?us-ascii?Q?6xWlcUOBZky2EJFXb4HGHrLUCd+a/B/b0wTOf/FMeFy+R0qZiLnaq5npgwzH?=
+ =?us-ascii?Q?sozx1szokAqyl1pA/Aw+oeyYFl6TaExg9y4KvtSS4TMAQMqNTKSGZMfvCL+J?=
+ =?us-ascii?Q?0kFEXMD9WhfQEInpxVYY4oMXE7joj8gel2s6YDjnx5gOHdzEdqs/e2nHuaT7?=
+ =?us-ascii?Q?gLLfnEd284Tb//9wDheUCmZSH0Ux6t71HQqwbPACuw92yi5r0YVfUoUteQ70?=
+ =?us-ascii?Q?kwe9IJ9K0/SQeAr7NxkJkLgsExhnAtQVcJUm5Xpg47UhHuXbZ05aepkATCxx?=
+ =?us-ascii?Q?Plicp9Ir7xehwvbc5Y5CW14pIxHX1TgOh+4sLy+5izwV3xo0trIUNvuQs37x?=
+ =?us-ascii?Q?7bAhEyz0HQXcgqZ3mg/LdMevZU7aiQ2efuUTdLLm5zaQAOSuzkAm0XXzGrRQ?=
+ =?us-ascii?Q?0HyqH3IfS7aHb8ZGHXoFMhlNfGoKko7ZWH1Tso0QBWSrOxetymcjerXiHwl3?=
+ =?us-ascii?Q?7m/srgOcaZw4bxf2Hwo+TCvQGmnMb0SoiVvOFlDmObKUzj5FADcvHyNDe0+Y?=
+ =?us-ascii?Q?4zb8PxIIszwyE0syDaxO3jiVtF7TRM34aV+19Ej7xfBWFVR0sZHhXMHWuU/C?=
+ =?us-ascii?Q?qtHTfHRKN4GJIS4fHWz/kunOHLJK2yz6CPBPno6PB/4sjaTGCxhw7M81WX4q?=
+ =?us-ascii?Q?Jh9yawl1MwlgnmqIidVSTYQV53onQRJ32mu4fW52fAZpJLT3EOo9fB4/u02e?=
+ =?us-ascii?Q?6YlnZFeLJW9g0Q2qQEQu6xe4MwcL/reUJqcNZSGR+vA6Kq3pqD1oqLcXsG3v?=
+ =?us-ascii?Q?ldlFggVm4VvOXGbhq55AqOsR2/x77bk6K8pJKXWLwnwR6sYxxnKqall7QUhA?=
+ =?us-ascii?Q?0qoRMLboI9C+/OHYOAd0dNSL7tCFGqbRWkaaBfnBwLcbwRY6QVosaFFtyQTV?=
+ =?us-ascii?Q?wrUyW0XdvCxNsRdFMnfOiWIEpOuTTncvkjjAqqJVH2njvcKrflkDTi/4gfKn?=
+ =?us-ascii?Q?WkUMnoeVolVTrNV/aY8LiLIxTAGaRDVZpRmXAEXFY3dWg0W7ZlxmFIycNINr?=
+ =?us-ascii?Q?2yuM8k/JhJCITej48Ra4RufkQ2nz3F7oGzSQb8j7hgP2Bv8WOtUujA7Ja00F?=
+ =?us-ascii?Q?Wul48WsXRD0KKF5wENPK16CXUlJn0IagbH2J3xC2C9RhYWnBLnZFqlczgqTv?=
+ =?us-ascii?Q?wFMA6tc+QAev+p28Sr2rpbi7xcoHg3Gjn3Bkj9KJsxRG+VsOfp7azvQ0zECF?=
+ =?us-ascii?Q?zzIJKwmFsCtQbKe2PJl8sVIVZhNgtB7VR942san6dfzorQ3gBJrTLKi0Gt82?=
+ =?us-ascii?Q?7w91wqCvz1EwNT6yAmrCOQptO/oQdpS+9mSI86JDwIog2EbhHTN3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a4ae3bb-6b34-4028-b577-08df20bb66aa
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:28:56.4759
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pxfXAM9c64H2bkvIh45vwTwA2vokGdg6fz63BNcCDmK/o5WcdHNH+dl4pc7FjN4bZvnUQANtHDTR1lEB2w/CpQoGqulWs/06nJs/cC7DRytW6BIU++oI3GfHWG0FtYDW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB056237
 
-On 9/18/26 03:45, Luiz Capitulino wrote:
-> A future commit will introduce a kernel API to allow for checking if the
-> CPU supports PMD-sized pages. This API will be based on the
-> has_transparent_hugepage() implementation but will be orthogonal to THP
-> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
-> 
-> Move its definition out of the THP guard.
-> 
-> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-> ---
->  arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
->  arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
->  arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 +++++++++---------
->  arch/powerpc/include/asm/book3s/64/radix.h    | 14 +++++++-------
->  arch/powerpc/mm/book3s64/hash_pgtable.c       |  4 ++--
->  5 files changed, 20 insertions(+), 20 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/book3s/64/hash-4k.h b/arch/powerpc/include/asm/book3s/64/hash-4k.h
-> index 8e5bd9902bed..79511e6abfca 100644
-> --- a/arch/powerpc/include/asm/book3s/64/hash-4k.h
-> +++ b/arch/powerpc/include/asm/book3s/64/hash-4k.h
-> @@ -165,9 +165,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
->  extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
->  extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
->  				       unsigned long addr, pmd_t *pmdp);
-> -extern int hash__has_transparent_hugepage(void);
->  #endif
->  
-> +extern int hash__has_transparent_hugepage(void);
->  #endif /* !__ASSEMBLER__ */
->  
->  #endif /* _ASM_POWERPC_BOOK3S_64_HASH_4K_H */
-> diff --git a/arch/powerpc/include/asm/book3s/64/hash-64k.h b/arch/powerpc/include/asm/book3s/64/hash-64k.h
-> index 7deb3a66890b..a4a44a112ff9 100644
-> --- a/arch/powerpc/include/asm/book3s/64/hash-64k.h
-> +++ b/arch/powerpc/include/asm/book3s/64/hash-64k.h
-> @@ -278,9 +278,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
->  extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
->  extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
->  				       unsigned long addr, pmd_t *pmdp);
-> -extern int hash__has_transparent_hugepage(void);
+From: Frank Li <Frank.Li@nxp.com>
 
-Without some of these helpers in place, I assume actually using PMD leafs
-without THP would require some more work. (which is not the goal of this series,
-just asking).
+Replace direct dma_async_tx_descriptor->tx_submit() calls with the
+proper dmaengine_submit() API wrapper in musb_cppi41 and ux500_dma.
 
-I do wonder whether the architecture should instead simply say "not supported"
-if !CONFIG_TRANSPARENT_HUGEPAGE?
+Assisted-by: LLM
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/usb/musb/musb_cppi41.c | 4 ++--
+ drivers/usb/musb/ux500_dma.c   | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-That should still enable your series: using mTHP without PMD support.
-
-[...]
-
->  
-> -static inline int radix__has_transparent_hugepage(void)
-> +static inline int radix__has_transparent_pud_hugepage(void)
->  {
-> -	/* For radix 2M at PMD level means thp */
-> -	if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
-> +	/* For radix 1G at PUD level means pud hugepage support */
-> +	if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
->  		return 1;
->  	return 0;
->  }
-> +#endif
->  
-> -static inline int radix__has_transparent_pud_hugepage(void)
-> +static inline int radix__has_transparent_hugepage(void)
->  {
-> -	/* For radix 1G at PUD level means pud hugepage support */
-> -	if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
-> +	/* For radix 2M at PMD level means thp */
-> +	if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
->  		return 1;
->  	return 0;
->  }
-
-You are swapping both implementations, which might create some unnecessary churn
-I think.
-
+diff --git a/drivers/usb/musb/musb_cppi41.c b/drivers/usb/musb/musb_cppi41.c
+index 28e958fcc862c..37a009a4bd500 100644
+--- a/drivers/usb/musb/musb_cppi41.c
++++ b/drivers/usb/musb/musb_cppi41.c
+@@ -169,7 +169,7 @@ static void cppi41_trans_done(struct cppi41_dma_channel *cppi41_channel)
+ 
+ 		dma_desc->callback_result = cppi41_dma_callback;
+ 		dma_desc->callback_param = &cppi41_channel->channel;
+-		cppi41_channel->cookie = dma_desc->tx_submit(dma_desc);
++		cppi41_channel->cookie = dmaengine_submit(dma_desc);
+ 		trace_musb_cppi41_cont(cppi41_channel);
+ 		dma_async_issue_pending(dc);
+ 
+@@ -469,7 +469,7 @@ static bool cppi41_configure_channel(struct dma_channel *channel,
+ 
+ 	dma_desc->callback_result = cppi41_dma_callback;
+ 	dma_desc->callback_param = channel;
+-	cppi41_channel->cookie = dma_desc->tx_submit(dma_desc);
++	cppi41_channel->cookie = dmaengine_submit(dma_desc);
+ 	cppi41_channel->channel.rx_packet_done = false;
+ 
+ 	trace_musb_cppi41_config(cppi41_channel);
+diff --git a/drivers/usb/musb/ux500_dma.c b/drivers/usb/musb/ux500_dma.c
+index bbb4978c0cd5f..7b62527ea3f74 100644
+--- a/drivers/usb/musb/ux500_dma.c
++++ b/drivers/usb/musb/ux500_dma.c
+@@ -118,7 +118,7 @@ static bool ux500_configure_channel(struct dma_channel *channel,
+ 
+ 	dma_desc->callback = ux500_dma_callback;
+ 	dma_desc->callback_param = channel;
+-	ux500_channel->cookie = dma_desc->tx_submit(dma_desc);
++	ux500_channel->cookie = dmaengine_submit(dma_desc);
+ 
+ 	dma_async_issue_pending(dma_chan);
+ 
 -- 
-Cheers,
+2.43.0
 
-David
