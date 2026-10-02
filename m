@@ -1,107 +1,102 @@
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4C32DEA74
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961823; cv=pass; b=V7CuxfTIMuBfkZw75JKDs0k/Q38guJGNAM9LmGAb8yQfFnarieavQBo2Yao1fzvQl14GxAzbeZInAifGNXVNKRGG9xvAMFW4c/peWBcYht/IientQ12neYbS1v2yyZOxNwqCSZT0/Zxy035i49pRh+7AXqLWFniSjAgtzc+E5Fc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961823; c=relaxed/simple;
-	bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZqFR43X6fZN1lu+9ZzmK74KfCtaMSCbNXTbN2c+sYOydSKd+FhkT3KSwRj/ojy3+2nnNYsEnIakSxqnpmPeacI6QZ7bh9a1dlsBf5z9W44mUHgXy4pCwwP5ZND3njAar6OHewrTo4eB/3GJ+H3IZ1BDBAZD3xe63qMJ03epf128=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E8gLYag4; arc=pass smtp.client-ip=209.85.160.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E89361953
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790961873; cv=none; b=H+SPYJUHTqgTQyDUq4vFbvS4WCtieVo65ZosUOsfEEP4pp3JSbW+m3VQ+eRFyaBm5wI7YVMp7qWjtThSQJtZK/oLFL9An10MK4CBVPaJyN25AoGEgiV1lTbPx6Z+PKJNIFv2Qpt+ZgkDFQ3Bz++M20suLQxTWxr2AeHSxiRTxR4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790961873; c=relaxed/simple;
+	bh=/hzSHFAg0tY3IxfWAaNBagJ3FOg+DNKGlERuwizamgo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qR5lnyfoScvR7qRUJt2YZwhd0YyXKVHoObtJzsFFt7JRYK7Mywljp0f38muCpK18t8uU+QKStP+kdASyJ95RaRvEg4fpbHyiVw+j6ybBYmGBoBp/NoRPDRxKwqkoWzXJedNMpJXAObnPbHivyGfJQ+SPDHZvt2oMBeLuglPmpmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=puDW9+52; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E8gLYag4"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-48e2d5a69c4so794695fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:23:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790961815; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b6z9noFWLZ2Gy3ux7DjSnUAo1iMIc7u1JIhOLTmBH98rktmR77OYNENKlsXtcmVTnD
-         3WPYFEHrbAuUBRA+YaVnacRH7auWXKgppeON9rK/Dx45KxmTxZ6CaNXt+GZYiqIi6bf4
-         D4exOo/kSW4pJ/SBR+JKL44dgriIaZtoV82VqkDpHm8PymJJgfC/HFBpvj26PEoQTzDF
-         9k7/vrzyaMwXbjRIpQCXSOeklO3heeoK8Xmp/aZSKBV5dZlaRw4DuAU/9gU2Ky6LHEPC
-         VlDYOz4OvlSHzwXfC8LOxlhtpIaVL77ENlG/SBYrGRFuv1QJpvzYmDfSs+bdiiveOB07
-         umCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
-        fh=cN396lpvliGnqEzym2YTIOgVbQ13TXOQ93BfP35lH6s=;
-        b=aAIIxzaDQcQRiPj+qJbbuK/87+RX7MRY4SRAoUJNK/crWAxEv2Qu/iuXfvKqsFVLZq
-         ecxnG3ScFcIcM63k/EZ5YY7NLRUjczef4fkxY756ujxXZ1hkI00IjshsqLtqbfqN/dSa
-         tbAyAXH6HeaKWCbEFXYwanCgetWkodrXznqgGimv0ipn1WyXXuLHdwzcN0H8ucBqBOqt
-         bt+WUOpIa2cwppC4SuU/qghA5r33yE7tohSmfmYLSBuGkYLn0F5Fr6fkxf7zeBxI6k0+
-         SjkOaXjrO/Vxqe2FNxiq6/FC2AS4RbkwWdA347SX09avbAQxne154X/KfHRK1+OOXHOd
-         PV9w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="puDW9+52"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso347415e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:24:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790961815; x=1791566615; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
-        b=E8gLYag4dZCzvI+Uf/NbVF420DDHqjbqefxKp25f/qJg4wb1IlO8RD8F7e8R5kQUVC
-         0jHKcdbW26iDzh0Nd9XwQiO1zpb2fo1m0qokrf1V1JyVyUMfxNkPVZIHWm1034qXvQO8
-         Br565nvphwmOuhmEFPE1+MFVnk0xSa2Z/8/hXDN77QYReAziyLq75Zdgz9l1K9TIFlnf
-         tHaUa0EHgKKPRNDYQKiS9k8c80JTZp/XaRFbPtNMiqngXs6iuS9bNEbV1CmLJ4RbUGfC
-         BXQoV44bfZdt5QJFCM3uo+EWuJ0Uz3RLhza9MXfvvLhw8F109iQiisjcjGGX2SbNESR6
-         SeIw==
+        d=gmail.com; s=20251104; t=1790961870; x=1791566670; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/hzSHFAg0tY3IxfWAaNBagJ3FOg+DNKGlERuwizamgo=;
+        b=puDW9+52E1Ix7xfkhDSSejmJKQ+6wEXz4ZQPFlNWkB3bw1F57qWOgEYCj0bHVaNx6v
+         BnPKqIEnoIKqVGbARra5aprqLR4FEC050ZmVMFp1jOTwU/1M87PjMA1FbQXOmJ6eHJhT
+         SuyAuvEU6zGQAmm4i3VCCU6fLcfGJXOzCn9Xm+aASAHuT5i0vY+2c0t3AWqymsYEFRy9
+         L3BJdbHgV4Q3SKBiWrQ7yuXpF21TdIKiuDObMqu1b4RTMOJyHyFHhIugq60b3GK8ZyzW
+         k9SXyfOqJa5w957b1ob6deWIJUuTGS8W6OMlh4TvZbO+qEyd0TsCJ8DARe7EW5DpKCNG
+         1njw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961815; x=1791566615;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
-        b=iJVGOZTXXC9SeBGXzMx/GR0EP5LfhjPAEwanTXfutbN/yaCk1dznYOTnRKmdTtlhTO
-         MaPAVQ/m2F/ynQhd3zkqlJPYbc6TOxobLnP3Bp4+9/1UaAXoiGP4R7/1rac4fZd9wVv2
-         OksTJD90qneG5t1OylK8rH7LNUorVEyjQkx6c2HgXshobTrTSUV5BQ090uv944ljquyC
-         hkDgMWMuqrq0ZupPBVTUItK80u11tdV7Jj7M83YSsIp0L+rG0HNb5y1G6uJHjLe4oTuI
-         Dkh/19nnUL0Y3JU39EPdLBQJMXjyT2tdnukohBNwBaTEy8jZDNSgMcFfq3k9rMDaEnBi
-         R7aQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzCcpMWOyRRwv8+vPKd8BryQucqFD3wWC/AhAp8dtqQcVnCFWKKnTiTL0klkMfpclUo/pBiPVdr3dsVfNw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhOGkNEBNno355/0I5EqLbI0S4oZ2vQ7llae+NPwBLD0quiSfA
-	jYTe1vwr5BUVs5BFi0ZSmfhyvslllr9Xa3AJ1nEwIYmIzRglSJ20XcjT92p3I84P06BSp2ZiidH
-	goxoggSKR3u0T59shp3jL6piEsbjErWg=
-X-Gm-Gg: AYBFou3R1wCxa5tg5sAtHHDXtb1eYazfuT9JSqCLWtUCiPdqiDjVmebpdX+wbmUC9qZ
-	1Bp5Pk4GnNAP65DnwROV5wxRVK/YrvjKUCrKtL5qAUokLvmNXwm0QpuTS1k0Yt+rbKpkSlPnkCl
-	xneFiAQb4+SWSD1/Oc7Ajma72C029Q/ltQjubLNid32U9RlX413EaK7XWmH1OboleGMMPgDxVN/
-	REfRWFllCpN+G+WvpvGOFYOpBWUmuWm4qwedpEzYy99mvp3wfMOKrtmPo6INn46cMU32pybTFNy
-	mZ+RKcFo5T7DBcLyQ8FtIwCLhg5ulg/C4W8hcP+jMPS03RRQ1ijl4KeCIk9+BAjPXnk=
-X-Received: by 2002:a05:6870:e18e:b0:49d:d850:8170 with SMTP id
- 586e51a60fabf-49e3a8c248cmr24800fac.23.1790961815496; Fri, 02 Oct 2026
- 10:23:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790961870; x=1791566670;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/hzSHFAg0tY3IxfWAaNBagJ3FOg+DNKGlERuwizamgo=;
+        b=dmsDc+pGDPwCD24R0sd0Yiv0EnGfL7lQ5qrmYkD/UX2xwgg+IgNDPbtEwQVNuONCxu
+         XhTJi0rAAI4JYrgAcQt4MtgPLeky4m2egvppROk4zu/W4czeWORpknYLLJrQ1KRircSE
+         7/eSXCnDJmDA7C3rxbxsXEAgdis7IEge3oCYRwfi6FHUr0kiREah9nxvqMefmwXT6Er2
+         x1PpKxEK0PtL87jwK3oP4S64MQCHHo0QsacfaRdKB6X3X/iOxuB0n1KB/20uKgvInNQK
+         GiL9IDpMPDBqpUAphNHqqsti/Q/UDJFhbNASn4uK/w421/s1neUCnG5xgNtxIYGMcDEs
+         3DHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx73yaj+JbWXrJ67vnDXHoLDKFt7GGZorRKYpataKphVAG7baUyKgd7qWFZFkhL1o2kl8PopmVDcCtTzP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8cMXJjuG8nlXGcG6ZpqW1bNjyZWuAVYrXJKrHqk1tQ9ELrlkg
+	3fiVsNicSbAyA3jw9Mlqh6BfX0kGOFyrwfSyHrbZx07HuvOsB2TPMWki4urd4Q==
+X-Gm-Gg: AYBFou0kV1h2teueyByc2ZIAIpnCxB3hV06xbYgZOnarywgQCpqboVLe5Kei0pLmRM1
+	K0YhFfGPFhzbwLvIo2cmgcua3QvzHmiAnvY79bGZfUvalMwCUTliOMbVYoOPjRMLNYCrxp/F3lf
+	GU3bF+INZdc3fSI/EmQzCSgZjSDgh72uqCKOZitx0bMsiExLg1SxQmSP6V98OiiLcoBJiPs2fi3
+	vVw2yc2YFYwE9i1CvuYIaCjHpFet6uF1zYOsTguIITXIbPLHce0rpyozUi+cHAK4i6Vh1rMFT60
+	2Vwxz3rAPK2EgcPCwXE7joGxSFMRiTEDe2rm/ruF6njI48822TjPTP2evhF1Q0lwihxjeoDQzkF
+	9F08v+/LtAnWmPV5NA3Rub+4AdElAKSHXUG8UiFoIIOegwOcsUklMwHYQpeaQpWNyFwlkpWdO74
+	WORCUHPUg0moBmA3eEZ0DnFafK7oasrQwdXP317inkSmMJ+Iy02b55DGq//2SrgdyExDvBOX1qS
+	q46Tw==
+X-Received: by 2002:a05:600c:6387:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-4a168105db2mr1745665e9.33.1790961869769;
+        Fri, 02 Oct 2026 10:24:29 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.11])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48b380facfesm7512539f8f.23.2026.10.02.10.24.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 10:24:29 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Pierre Pinon <pierre@pinon1.fr>
+Cc: hansg@kernel.org,
+	jason.z.chen@intel.com,
+	jimmy.su@intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com
+Subject: Re: [PATCH v2] media: i2c: ov08x40: Implement get_selection
+Date: Fri,  2 Oct 2026 19:24:20 +0200
+Message-ID: <179096167726.2508.10599420708324219706@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002094913.28722-1-pierre@pinon1.fr>
+References: <20261002094913.28722-1-pierre@pinon1.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com> <20261002153302.5c64819d@jic23-hlaptop>
-In-Reply-To: <20261002153302.5c64819d@jic23-hlaptop>
-From: nasser <abdelnasserhussein11@gmail.com>
-Date: Fri, 2 Oct 2026 20:23:23 +0300
-X-Gm-Features: AclHuK-al5mseWXmh0Z-6X6KwSRpq7Wu9lvhjorTUxxTKLXGZtC6BdvJZuUovys
-Message-ID: <CANpqX3YLq5ckiwjaS19YCVknmz7pRsZXw_f1hht0eWwxn-3s-w@mail.gmail.com>
-Subject: Re: [PATCH 0/3] staging: iio: accel: adis16203: fix axis mapping and cleanups
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: gregkh@linuxfoundation.org, nuno.sa@analog.com, 
-	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
-	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com, error27@gmail.com, 
-	narcisaanamaria12@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Jonathan,
+Hi Pierre,
 
-My apologies for the noise.
+v2 works here on the Lenovo Yoga Slim 7x Gen 11 (2-lane, libcamera 0.7.2
+simple pipeline). A 1920x1080 request selects the binned 1928x1088 mode,
+which reports crop (0,120)/3872x2192 within bounds 3872x2432, and the
+full-resolution stream uses 3856x2176.
 
-Thank you for pointing this out. I will drop these patches and ensure
-I base all my work on linux-next.
+Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11
 
-Best regards,
-Abdelnasser
+> I can send a separate fix that picks the default mode according to
+> mipi_lanes, if that sounds right to you.
+
+Yes, please do. It makes no sense to default to a mode a 2-lane board
+can't use.
+
+Oleg
