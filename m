@@ -1,272 +1,111 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B6D31283E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A01209F43;
+	Fri,  2 Oct 2026 03:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790912428; cv=none; b=S4yDhlMaO3x/+rbUxrXPpeSys5EY7yiReB91k0tnHR/XVGMXgKWezCxsCoVPG26SjMp9rbiBohY2sbarQXL5hAECTmIoYlqLmX635cKLnalOUnx2XNU26SfgsOLA5Gu1tyv33PHxrhEtpfH72hHnkzhxTfHimXNSRyTVqYXdErQ=
+	t=1790912537; cv=none; b=r5cmQyW1OopZ0YPKs5JjDYjKQ/aAPTPDUTbpeyRXPKSa6dwDC4lrM2WWpsdEekiQD3v7Ge939NQPxUEGAIRX2bwy2Q+6ByChD7mTGiTYUZMNWqx+Hcl2vjEIkkfdSmskvGEV2jmcsif1r+jNZUVrn7YSSVNzgwVE106nnDzAElw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790912428; c=relaxed/simple;
-	bh=7DEnIPBCCKwg3iRZ58S7DgxGVdPCoT4ozRQnpe3AmZc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=FPMWTYOLNCg4dNKbzjhMOj0eo7H0/C5sOvUU9hkM6NtCOTH41BwJsxnb4oSxFzKu1ZNqxURUYNzkbDhbXZEPSDgckt6UVC1rrDuE1W1Cyw1kmxea5irr1RHg3qgMlBEdsKYzmL6FdH54OS1wZi1PAP0FONjhDAt46uoQgq+8gTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so2811939b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 20:40:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790912425; x=1791517225;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kMwz3JG6cUfXRqV2RJX7PZeX+DHxAQ564iCLriDAmU0=;
-        b=GVNbp5j+hzb+KpREe5bqT7UaLltuRDTAJ9tR25sd7jpB/fnADw8BkniWDM0wq9NJ0g
-         s+S7iWKXlSiFJvH0Q0ffWBIay6eRc7DIf3zLibmlSZotrvXnCBN0CXghZKkGp6FL3wkN
-         om+vaGA1abrK427OLkUVs1xmyHKr+9mJ33fEIsL6BNFdopJb7TXvF18SD9qzix+4941b
-         lYoCVerzHdYq072MoZVM41fiuTs13dE0Ry4Oavk03tH2n5Qe3sqPrcx8I1gjDdKzSHcI
-         jEcNGMgTZKAzsZn+oBOIJQQ9IJ3+fAgQjKDARaeVpKg801IpQkpSlVk7pvf0IGetW8iI
-         XaCA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9L/9UX57hSLbLDFDQtPSMsLdoo0qUOeUtFNscWGOFYSzg/cE8WBDGyfI1mySpoTtV/oTHV0b08Vs3vsY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBJcu5v7r/eWqdD18hrCCq12Fp83Oaq1EZEyP68qssCheGKVDb
-	hg9K/qMDz13R5P04pYBwPw4sVYWIN/dgvw6w/YsNRoK7lKqv1V2yYACTab9N/xevVW/rMQXgjls
-	sP8Ka/TeDADuvLFJHLUW1f3LpAH/eZtb3yl8eANp5FsYWc6YBJ0ydLGMgYEw=
+	s=arc-20240116; t=1790912537; c=relaxed/simple;
+	bh=DtviaBrkqHC80UYi6LzyyHJpYQgme1f6uG9UBQSsu/4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ak3SeMDQ6R/lP5mtpCas4kYHJcpDbl3hRAnN4MgAVg7GJkg4EpStmSexpD10CT8sXTBS5tCyKvdZTR7fempEkZVeJKwQ9/IWv1BS97/XbFo33ys7E/AvTffxAwOomhryA30sHGahMfVekCv200zfdLz4qN5jL2usAS0wRFolp/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 3c441500be1311f19a56ed5b684f684d-20261002
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:3812c682-6555-46da-a844-5cf90b389a2b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:c97e038e4a0afbd360ce8fc115b8facc,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3c441500be1311f19a56ed5b684f684d-20261002
+X-User: xiongxin@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiongxin@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1910903092; Fri, 02 Oct 2026 11:42:04 +0800
+From: Xiong Xin <xiongxin@kylinos.cn>
+To: rafael@kernel.org,
+	lenb@kernel.org,
+	pavel@kernel.org,
+	james.morse@arm.com,
+	hch@lst.de
+Cc: will.deacon@arm.com,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiong Xin <xiongxin@kylinos.cn>
+Subject: [PATCH v3 0/4] PM: hibernate: flush icache for restored pages from task context
+Date: Fri,  2 Oct 2026 11:41:56 +0800
+Message-Id: <20261002034200.920546-1-xiongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c161:b0:4c4:a240:9c3a with SMTP id
- 5614622812f47-4f526a4f2eamr1151205b6e.4.1790912425656; Thu, 01 Oct 2026
- 20:40:25 -0700 (PDT)
-Date: Thu, 01 Oct 2026 20:40:25 -0700
-In-Reply-To: <6a74a7ae.01d0871a.3a0d52.001f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abf27a9.b50370da.302ea9.0008.GAE@google.com>
-Subject: Re: [syzbot] [nvme?] possible deadlock in __sock_release (2)
-From: syzbot <syzbot+2398b0f6924a70b7de12@syzkaller.appspotmail.com>
-To: hch@lst.de, johannes@sipsolutions.net, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	netdev@vger.kernel.org, sagi@grimberg.me, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+Hello,
 
-HEAD commit:    d24e8ac715de Merge tag 'net-7.3-rc6' of git://git.kernel.o..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=161b2725580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=2398b0f6924a70b7de12
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1443cbf5580000
+With `hibernate=nocompress`, load_image() submits the read bios
+asynchronously and hib_end_io() completes them from hardirq/softirq
+context.  The flush_icache_range() call there, added by the
+commit f6cf0545ec69 ("PM / Hibernate: Call flush_icache_range() on pages
+restored in-place"), ends with kick_all_cpus_sync() on ARM64 and so
+triggers the WARN_ON_ONCE(!in_task()) in smp_call_function().
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2398b0f6924a70b7de12@syzkaller.appspotmail.com
+This series fixes it by keeping the flush in task context, and first
+closes three pre-existing holes in the restore error paths that the
+rework would otherwise trip over.
 
-nvme nvme0: failed to connect socket: -512
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz-executor294/6008 is trying to acquire lock:
-ffff888028dcf540 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
-ffff888028dcf540 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x86/0x260 net/socket.c:734
+Patch 1 resets clean_pages_on_read when load_image() finishes, so that
+a failed nocompress resume can no longer leak the flag into a later
+compressed resume, where it made hib_end_io() call flush_icache_range()
+from interrupt context for the reused ring pages of
+load_compressed_image().  The flag is also cleared as soon as the load
+is known to have failed, so that the bios still in flight do not flush
+from interrupt context during the final drain.
 
-but task is already holding lock:
-ffffffff8ff50aa0 (nvmf_dev_mutex){+.+.}-{4:4}, at: nvmf_dev_write+0xa6/0xb60 drivers/nvme/host/fabrics.c:1402
+Patch 2 stops snapshot_write_next() from releasing all snapshot pages
+in place when one of its internal allocations fails: the read bios do
+not take page references, so freed pages could be handed out again
+while the device is still writing the image data into them.  The image
+is now released by the outer error paths, after swsusp_read() has
+drained the batch.
 
-which lock already depends on the new lock.
+Patch 3 makes the error exits of load_compressed_image() wait for the
+read bios that may still be in flight before the ring pages are freed,
+like save_compressed_image() and load_image() already do.
 
+Patch 4 defers the flush on the nocompress path: hib_end_io() now only
+records the restored page on a per-batch list, and load_image() flushes
+the pages once hib_wait_io() has returned, preserving the asynchronous
+batched I/O.
 
-the existing dependency chain (in reverse order) is:
+Patches 1 to 3 are new in v3; the per-patch changelogs are in the ---
+sections of each commit.  Many thanks to sashiko for the v2 review,
+both findings are addressed.
 
--> #4 (nvmf_dev_mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       nvmf_dev_show+0x26/0x210 drivers/nvme/host/fabrics.c:1446
-       seq_read_iter+0x32f/0x1270 fs/seq_file.c:231
-       seq_read+0x344/0x4d0 fs/seq_file.c:163
-       vfs_read+0x1e4/0xb40 fs/read_write.c:572
-       ksys_read+0x12a/0x250 fs/read_write.c:716
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Xiong Xin (4):
+  PM: hibernate: reset clean_pages_on_read after load_image()
+  PM: hibernate: do not free the image in place while restore I/O is in
+    flight
+  PM: hibernate: drain pending reads in compressed image load errors
+  PM: hibernate: flush icache for restored pages from task context
 
--> #3 (&p->lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       seq_read_iter+0xe1/0x1270 fs/seq_file.c:183
-       kernfs_fop_read_iter+0x46c/0x610 fs/kernfs/file.c:290
-       __kernel_read+0x397/0xad0 fs/read_write.c:532
-       integrity_kernel_read+0x7e/0xb0 security/integrity/iint.c:28
-       ima_calc_file_hash_tfm+0x25e/0x350 security/integrity/ima/ima_crypto.c:222
-       ima_calc_file_hash+0x1e3/0x380 security/integrity/ima/ima_crypto.c:280
-       ima_collect_measurement+0x94f/0xb30 security/integrity/ima/ima_api.c:300
-       process_measurement+0xdfe/0x2350 security/integrity/ima/ima_main.c:425
-       ima_file_check+0xc3/0x110 security/integrity/ima/ima_main.c:685
-       security_file_post_open+0xc4/0x210 security/security.c:2755
-       do_open fs/namei.c:4839 [inline]
-       path_openat+0x5cd/0x2440 fs/namei.c:5000
-       do_file_open+0x20e/0x430 fs/namei.c:5029
-       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
-       do_sys_open fs/open.c:1423 [inline]
-       __do_sys_openat fs/open.c:1439 [inline]
-       __se_sys_openat fs/open.c:1434 [inline]
-       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ kernel/power/snapshot.c |  9 ++-----
+ kernel/power/swap.c     | 55 +++++++++++++++++++++++++++++++++++------
+ 2 files changed, 50 insertions(+), 14 deletions(-)
 
--> #2 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       process_measurement+0x5ab/0x2350 security/integrity/ima/ima_main.c:319
-       ima_file_check+0xc3/0x110 security/integrity/ima/ima_main.c:685
-       security_file_post_open+0xc4/0x210 security/security.c:2755
-       do_open fs/namei.c:4839 [inline]
-       path_openat+0x5cd/0x2440 fs/namei.c:5000
-       do_file_open+0x20e/0x430 fs/namei.c:5029
-       file_open_name+0x1c3/0x3e0 fs/open.c:1375
-       filp_open+0x2e/0x50 fs/open.c:1392
-       kernel_read_file_from_path_initns+0xec/0x240 fs/kernel_read_file.c:159
-       fw_get_filesystem_firmware drivers/base/firmware_loader/main.c:549 [inline]
-       _request_firmware+0x733/0x13c0 drivers/base/firmware_loader/main.c:873
-       request_firmware+0x35/0x50 drivers/base/firmware_loader/main.c:948
-       reg_reload_regdb+0x85/0x460 net/wireless/reg.c:1067
-       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
-       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
-       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2575
-       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-       netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
-       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1364
-       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1919
-       sock_sendmsg_nosec net/socket.c:800 [inline]
-       __sock_sendmsg net/socket.c:815 [inline]
-       __sys_sendto+0x48b/0x4e0 net/socket.c:2281
-       __do_sys_sendto net/socket.c:2288 [inline]
-       __se_sys_sendto net/socket.c:2284 [inline]
-       __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+-- 
+2.25.1
 
--> #1 (cb_lock){++++}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
-       genl_release+0x7e/0x1d0 net/netlink/genetlink.c:697
-       netlink_release+0x105e/0x2000 net/netlink/af_netlink.c:735
-       __sock_release+0xb3/0x260 net/socket.c:735
-       sock_close+0x1c/0x30 net/socket.c:1526
-       __fput+0x3ff/0xb50 fs/file_table.c:512
-       fput_close_sync+0x118/0x250 fs/file_table.c:617
-       __do_sys_close fs/open.c:1560 [inline]
-       __se_sys_close fs/open.c:1545 [inline]
-       __x64_sys_close+0x8b/0x120 fs/open.c:1545
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
-       inode_lock include/linux/fs.h:1024 [inline]
-       __sock_release+0x86/0x260 net/socket.c:734
-       sock_close+0x1c/0x30 net/socket.c:1526
-       __fput+0x3ff/0xb50 fs/file_table.c:512
-       __fput_sync+0xd7/0x100 fs/file_table.c:604
-       nvme_tcp_alloc_queue.isra.0+0xd6d/0x1770 drivers/nvme/host/tcp.c:1985
-       nvme_tcp_alloc_admin_queue drivers/nvme/host/tcp.c:2171 [inline]
-       nvme_tcp_configure_admin_queue+0x26/0x530 drivers/nvme/host/tcp.c:2325
-       nvme_tcp_setup_ctrl+0xa4/0xa20 drivers/nvme/host/tcp.c:2455
-       nvme_tcp_create_ctrl+0x970/0xd90 drivers/nvme/host/tcp.c:3083
-       nvmf_create_ctrl drivers/nvme/host/fabrics.c:1361 [inline]
-       nvmf_dev_write+0x4ee/0xb60 drivers/nvme/host/fabrics.c:1408
-       vfs_write+0x2aa/0x1050 fs/read_write.c:685
-       ksys_write+0x12a/0x250 fs/read_write.c:739
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  &sb->s_type->i_mutex_key#13 --> &p->lock --> nvmf_dev_mutex
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(nvmf_dev_mutex);
-                               lock(&p->lock);
-                               lock(nvmf_dev_mutex);
-  lock(&sb->s_type->i_mutex_key#13);
-
- *** DEADLOCK ***
-
-locks held by syz-executor294/6008: 1, last CPU#2:
- #0: ffffffff8ff50aa0 (nvmf_dev_mutex){+.+.}-{4:4}, at: nvmf_dev_write+0xa6/0xb60 drivers/nvme/host/fabrics.c:1402
-
-stack backtrace:
-CPU: 2 UID: 0 PID: 6008 Comm: syz-executor294 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
- inode_lock include/linux/fs.h:1024 [inline]
- __sock_release+0x86/0x260 net/socket.c:734
- sock_close+0x1c/0x30 net/socket.c:1526
- __fput+0x3ff/0xb50 fs/file_table.c:512
- __fput_sync+0xd7/0x100 fs/file_table.c:604
- nvme_tcp_alloc_queue.isra.0+0xd6d/0x1770 drivers/nvme/host/tcp.c:1985
- nvme_tcp_alloc_admin_queue drivers/nvme/host/tcp.c:2171 [inline]
- nvme_tcp_configure_admin_queue+0x26/0x530 drivers/nvme/host/tcp.c:2325
- nvme_tcp_setup_ctrl+0xa4/0xa20 drivers/nvme/host/tcp.c:2455
- nvme_tcp_create_ctrl+0x970/0xd90 drivers/nvme/host/tcp.c:3083
- nvmf_create_ctrl drivers/nvme/host/fabrics.c:1361 [inline]
- nvmf_dev_write+0x4ee/0xb60 drivers/nvme/host/fabrics.c:1408
- vfs_write+0x2aa/0x1050 fs/read_write.c:685
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb8f5809ede
-Code: 08 0f 85 f5 e1 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007fb8f57b21a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fb8f57b26c0 RCX: 00007fb8f5809ede
-RDX: 0000000000000037 RSI: 00007fb8f5859618 RDI: 0000000000000003
-RBP: 0000000000000021 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
-R13: 0000000000000002 R14: 00007ffdf198cb10 R15: 00007ffdf198cbf8
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
