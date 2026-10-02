@@ -1,120 +1,137 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE36647254D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7772A33D6FA;
+	Fri,  2 Oct 2026 09:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932883; cv=none; b=IT6YBN+7uK67UojkMbG3NTe2TLrs3RrGouk/71K2rCxelJKYx2wvzP+7yBtu4qcexETFoZqcKLu9PJewgkHNkTZglYhkpC8TIvnQPDr80D6LAlcYQXqIiurSgzPc3FuG1GOiH6totoKWGhNZd7tErW9CsDsvTjO4wZwRsV3N/X4=
+	t=1790932925; cv=none; b=l2760fU1FS3D6agZiJtKFmPjM91kjGboDy63+wjG99uOMZMyotvrtSzD7Lo7Udcc7dVK1VAuJ5mxtF0iyWtGa5EBq4aO7D/ecz4R7mJOFWfX59sJHDLqIQ/67Jy7LMc3qKWSNaW0gGN0raYkNJXKzyU8wLexNrvg2AoFp58zhnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932883; c=relaxed/simple;
-	bh=q8WJrseoE/kdUf7SKPGM0R/KR+dIfSqwElqBeMaralk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jeLufMrLDo7e1EfRLiCHqW7FEV1SzpAChHGTLEPMC1br2JP9md5fdy21pLO5gaCl9KH2VulYe7N7PSklWocYN4Ij9MSOAP54C3BrqpK4EBH9mQ0MBvVjGg/bYBW3RxziN3WS+DvIfdzqXMsb2mtac59zGUAx4HnoY2hssrUhMe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ntZ4zosL; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790932925; c=relaxed/simple;
+	bh=Nt5EyLv2fa36Fy83aGx/2D36CTVlUMueBXMpWlZ6ROg=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=kxDPRfcDpRd71g6VrB6LowvT5+zEE3WEto0ln32wHDXp+ubExs+m4oPehuvNsY4hoFwURm5/Zsej2y4jg2komMn7TNfput7PTCpn63xguFh3QNw2IoFKujQvuhxPxhzmfsKNjHge0uanhBLejLX3XrKxoTA69PJavEILd4+pODs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GpTxvhJf; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ntZ4zosL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=u9ergtYYHUXVdb3fBfoORzF1nd08xTwKjVKvujrYIPg=; b=ntZ4zosL/P8rYDVbtlBIwPMFAH
-	6Bm6EnwvULu6d5ILKpbqfzjxPArrMiQqZFGobDks1xTnYC5Cadb8skw/p2mEdoIekElL2KO6+4RVc
-	guZMLSUg2Te9Z7Nll1GTrePnUEFPmnLWv7Diy5CzMLpAdg6OXEhM5g0lQsFC2emVwiwqN57zxlfZ3
-	bLxJbrMbSYz9CwnNs4dLJnc7heJsOpimTvWShHbpAA96MM7sJeazFgx3Ig7JuSGW0rbi0jKNTFIHv
-	64K7gcZqzuGOrv58yI2PcwPe05f8p3J0QPG5hYkVA4/v0tYsCHEAZ3Zr9dFMUjfY7RDegvPZsj9ZG
-	zGjZbpuw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xCZRs-0000000GWp6-0Pvv;
-	Fri, 02 Oct 2026 09:21:00 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 03322300390; Fri, 02 Oct 2026 11:20:59 +0200 (CEST)
-Date: Fri, 2 Oct 2026 11:20:58 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Juri Lelli <juri.lelli@redhat.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	David Haufe <dhaufe@simplextrading.com>,
-	Cao Ruichuang <create0818@163.com>,
-	Furkan =?utf-8?B?w4dhbMSxxZ9rYW4=?= <frn1furkan10@gmail.com>
-Subject: Re: [PATCH v2] sched/deadline: Make dl-server nohz full aware
-Message-ID: <20261002092058.GA409038@noisy.programming.kicks-ass.net>
-References: <20260513-upstream-fix-dlserver-nohzfull-b4-v2-1-d3e9cbe5c845@redhat.com>
- <20261001142735.GT2009045@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GpTxvhJf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790932924; x=1822468924;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=Nt5EyLv2fa36Fy83aGx/2D36CTVlUMueBXMpWlZ6ROg=;
+  b=GpTxvhJfgDmdL+WuxYDVS7Dd3sN/992oC1DquKu3Cc66PN4XTRpKveBv
+   u9sHM1JaimcJlXtHFP488sFTblH2WbVRE94fuhEA7hwq0LFXU5Ku2RoTy
+   ayagxPsr5ZR89qTxfao3jA9tWLFhHnpn8gY9f13Ev6EjTGOzMRtc+KxCz
+   VJSXCuDZ8I/FmJLHAvkx35msEql85ODVB82BTYeItvJ/aU483W87fRci2
+   CG5+I+B4qvTR7c2Xg89Ggi7V7solLBKTQrwiAmQtOZvT3hfQ7qCr1dKO/
+   llZu/zxyiCF/IvwvjGV3HGS2jej/hPuZheLbXiFXPO3fqWK/F4bMUNbsV
+   w==;
+X-CSE-ConnectionGUID: WfuPCUicT6iYcI3z+qmamQ==
+X-CSE-MsgGUID: NE7HOWtYS3qkmwVGHgBmNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90557661"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90557661"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:22:03 -0700
+X-CSE-ConnectionGUID: 06h8DB5gRWSN9CV3dAG2Ag==
+X-CSE-MsgGUID: rylX1TlzS/mE7df6bmtAVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="296972"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.243])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:21:57 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 2 Oct 2026 12:21:52 +0300 (EEST)
+To: =?ISO-8859-15?Q?Milo=A8_Vlku?= <vlku.milos.fun@gmail.com>, 
+    Chris Taraszka <chris@miget.com>, 
+    TuteMthCD <matias.civadda2342001@gmail.com>
+cc: Anton Karasev <uselessfire@gmail.com>, qby140326@gmail.com, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, W_Armin@gmx.de, 
+    ilya.gladyshev@linux.dev, foxido@foxido.dev, kento@kekto.ru, 
+    ericted8810@gmail.com, chris@miget.com, matias.civadda2342001@gmail.com, 
+    btx342@gmail.com, wleizc7319@gmail.com, wolf109909@outlook.com, 
+    i@rsplwe.com, bozhenpeng93@gmail.com, martiya.ar@gmail.com, 
+    aleksejirlik@"gmail.com."
+Subject: Re: [PATCH v6 5/5] platform/x86: bitland-mifs-wmi: Add per-machine
+ ops table
+In-Reply-To: <CAObHBTxHQDfVH8Su1DLABtC5uUsAGBBk=KvcCOvtTs5gMGamnA@mail.gmail.com>
+Message-ID: <094577b3-7b96-72b6-4ef2-a5d1db457401@linux.intel.com>
+References: <20260929134503.17249-1-qby140326@gmail.com> <20260929134503.17249-6-qby140326@gmail.com> <20260930015058.3076905-1-uselessfire@gmail.com> <CAObHBTwnv+kEaFdCp+cr31HtdSo3CaRq84T8vr-Pm75yZMTHqQ@mail.gmail.com>
+ <CAObHBTxHQDfVH8Su1DLABtC5uUsAGBBk=KvcCOvtTs5gMGamnA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001142735.GT2009045@noisy.programming.kicks-ass.net>
+Content-Type: multipart/mixed; BOUNDARY="8323328-2103700365-1790932364=:1156"
+Content-ID: <58a7a029-f367-3239-dee5-b474576ac249@linux.intel.com>
 
-On Thu, Oct 01, 2026 at 04:27:36PM +0200, Peter Zijlstra wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 0663c00c41c0..5388bde93410 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -401,6 +401,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se);
->   */
->  static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
->  {
-> +	enum hrtimer_mode mode = HRTIMER_MODE_REL_HARD;
->  	struct hrtimer *timer = &dl_se->inactive_timer;
->  	struct rq *rq = rq_of_dl_se(dl_se);
->  	struct dl_rq *dl_rq = &rq->dl;
-> @@ -459,8 +460,10 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
->  	dl_se->dl_non_contending = 1;
->  	if (!dl_server(dl_se))
->  		get_task_struct(dl_task_of(dl_se));
-> +	else
-> +		mode |= HRTIMER_MODE_PINNED;
->  
-> -	hrtimer_start(timer, ns_to_ktime(zerolag_time), HRTIMER_MODE_REL_HARD);
-> +	hrtimer_start(timer, ns_to_ktime(zerolag_time), mode);
->  }
->  
->  static void task_contending(struct sched_dl_entity *dl_se, int flags)
-> @@ -1061,6 +1064,7 @@ static inline u64 dl_next_period(struct sched_dl_entity *dl_se)
->   */
->  static int start_dl_timer(struct sched_dl_entity *dl_se)
->  {
-> +	enum hrtimer_mode mode = HRTIMER_MODE_ABS_HARD;
->  	struct hrtimer *timer = &dl_se->dl_timer;
->  	struct dl_rq *dl_rq = dl_rq_of_se(dl_se);
->  	struct rq *rq = rq_of_dl_rq(dl_rq);
-> @@ -1112,7 +1116,9 @@ static int start_dl_timer(struct sched_dl_entity *dl_se)
->  	if (!hrtimer_is_queued(timer)) {
->  		if (!dl_server(dl_se))
->  			get_task_struct(dl_task_of(dl_se));
-> -		hrtimer_start(timer, act, HRTIMER_MODE_ABS_HARD);
-> +		else
-> +			mode |= HRTIMER_MODE_PINNED;
-> +		hrtimer_start(timer, act, mode);
->  	}
->  
->  	return 1;
+--8323328-2103700365-1790932364=:1156
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <0f932454-0725-531a-b22c-5bf2dd13f436@linux.intel.com>
 
-Bah, this would require something like:
+On Fri, 2 Oct 2026, Milo=A8 Vlku wrote:
 
-  hrtime_start_on(timer, act, mode, rq->cpu);
+> Follow-up to my own mail: I have now run those values rather than only
+> reading them out of the tables.
+>=20
+> Built current pdx86 for-next with Chris's GET-only function-id change
+> and balanced 1 / quiet 2 / performance 3 / full speed 4 on top. All four
+> profiles apply and read back correctly, checked against the EC register
+> each time:
+>=20
+>   low-power            -> QFAN 2
+>   balanced             -> QFAN 1
+>   balanced-performance -> QFAN 3
+>   performance          -> QFAN 4
+>=20
+> All three power-profiles-daemon profiles work as well, so the desktop
+> slider works end to end on TM2307.
+>=20
+> Two things fell out of that:
+>=20
+> - Without Chris's change every one of those writes fails with -ENOMSG
+>   here, exactly as you described, and with it all of them succeed. So
+>   that is a Tested-by from a second board if it is useful.
+>=20
+> - No machine-specific capability check is needed on this one.
+>   WMI_FN_SYSTEM_AC_TYPE is unimplemented, Armin's work reports that as
+>   -EOPNOTSUPP, and bitland_pp_check_capability() already treats that as
+>   "skip the check". The stock one is fine as-is.
+>=20
+> So the TM2307 entry comes out as just a mode map plus a DMI match.
+> Attached, against the v9 ops table and checkpatch-clean, in case it is
+> useful to have in hand while you write the TM2309 one. I will resend it
+> properly once that series settles -- posting it now mainly so the values
+> sit somewhere concrete, and Mingyou can fold it straight into v10 if
+> that is easier than carrying a separate patch.
 
-which we don't currently have. The problem is that on remote enqueue, we
-can start the dl-server remotely, and it then being pinned, means its on
-the 'wrong' CPU.
+Hi Milos,
 
-Doing remote hrtimer_start isn't entirely trivial either. So scrap this
-for now :-(
+The profile map approach used by Mingyou's patch 5 is not generic enough=20
+to handle all variation out there so please don't base on top of that.
+
+We're currently trying to build a generalized approach for the known=20
+profile variations:
+
+https://lore.kernel.org/all/20260928153902.139956-1-chris@miget.com/
+https://lore.kernel.org/all/20260928064918.80526-1-matias.civadda2342001@gm=
+ail.com/
+
+AFAIK, Chris has not yet sent the updated series which would have the=20
+latest version of the generalized profile approach. But once that is out,=
+=20
+you should base your model's profiles on top of it.
+
+--=20
+ i.
+--8323328-2103700365-1790932364=:1156--
