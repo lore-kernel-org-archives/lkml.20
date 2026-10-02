@@ -1,87 +1,63 @@
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16AB499F2E;
-	Fri,  2 Oct 2026 14:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49357382381;
+	Fri,  2 Oct 2026 14:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950819; cv=none; b=HaXY3UIOrPwbStkKQcsCE04qAmpfgTWLEYLexQ6uYnzMCBgUO1/ie+6E2dZokDnkjFWOZI4fecrpThL511Pt72CSq8FCsosJguokKwwok79i8TEBDBwYZ6y3IEppK4Q4qgj+VHnVEd2OK/JCcS1skTquP3OifQ5ec+Ugh5FUvwk=
+	t=1790950820; cv=none; b=IZgKQNhuYW5b0m4JXYIszNo2SkMVoClnXq0Yj7j2AxLoddNz2E39KbpieSxbuXO3eBlkr7a4XeU/+udc/qtikKQFZKth7+XhxsFkmJHAWOaFyWAP7kaTdJ2qJV6hA+fFfIlIjzufeettjw14h9ur2PkHW3HqbNjSF7sgSOrbHnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950819; c=relaxed/simple;
-	bh=6/u7dHvVpuy9dLkFtTOwJyTFLmWAbKnWIHrGFm82i4Q=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
-	 In-Reply-To:MIME-Version; b=gqUawTGfOi1pUYGlwMClqAYGQWsk/n4+rosrWeY4bE+CTrSCwwzZRHS6O2Eh2E6OpO+IlF8fzdYxu9pVgDArnuEBC32icoMjBIm24K+DJMTifkINlCeRw5itkZhLFMaTBdgQiOi7ZQbp3pSXir22ydwt2uDZ9njU6vQZR6c7NUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=kyGB4KDE; arc=none smtp.client-ip=46.48.77.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
+	s=arc-20240116; t=1790950820; c=relaxed/simple;
+	bh=LITY+t8n//on0/3D8WBhlk9G13HuGGeIpZrGWPvfzas=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KA9z2KIfcnQJXlXSCvFxXWpRiwyEm69L4n2uQy913FNkEft/VuFCaFTUgkPa8PwdahSsrTI9A/ghlY/S8hz71GIxOm95nCyoYyWxFLVWi5tHQJLxDrOWUPTxHdcZVQ62pOfkGPZumB1JW1s7Ny2wN42bq2+zT9xd3PRfPyJbRzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=omENPTd/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="kyGB4KDE"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AE876FFC8C285C4098958881CFAFE742@prosoftsystems.ru>
-Content-Transfer-Encoding: base64
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1790950808; h=from:to:date:message-id:subject;
-	bh=6/u7dHvVpuy9dLkFtTOwJyTFLmWAbKnWIHrGFm82i4Q=;
-	b=kyGB4KDEO/E3bt68t/EZn+7anfjAFp1Tpm955tHIG1hAn13x0asX/QzY9Bw8q1b30UCbR6dNwa+
-	r8e40m1kCVOxkpL/NefmQ2sZStqxhltlY/ZMT/Spw7Lg4VZcPFLrUGvBR98Yt+/sMxJFLxUPbNnf5
-	txsFCYUnjDQpqv8w5fP03txom74B/HgxUbbkg4qHMXFucE7H5UapvDHf0uboJY+ixqz1SOhsY/m3q
-	oX9LrCKaC1F5FsshmFOgBLtbv3rYjp8HjamzROc5AtgmQrPYR4Je8ugK+4i7CnQhnV1lFDCsDcpED
-	wTRtPRy4v/0PuXPANiS1VmxC9lNpH+DzObeg==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 2 Oct
- 2026 19:20:08 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 2 Oct 2026 19:20:03 +0500
-Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
- ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Fri, 2 Oct 2026
- 19:20:03 +0500
-From: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
- =?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-To: "netdev-bot+sinfo@kernel.org" <netdev-bot+sinfo@kernel.org>
-CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "mgr@kernel.org"
-	<mgr@kernel.org>, "davem@davemloft.net" <davem@davemloft.net>,
-	"benato.denis96@gmail.com" <benato.denis96@gmail.com>,
-	"aleksandr.loktionov@intel.com" <aleksandr.loktionov@intel.com>,
-	"u.kleine-koenig@baylibre.com" <u.kleine-koenig@baylibre.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "shaojijie@huawei.com"
-	<shaojijie@huawei.com>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-Subject: Re: [PATCH net v2 0/3] net: fealnx: fix card-index overflow and PCI
- device teardown
-Thread-Topic: [PATCH net v2 0/3] net: fealnx: fix card-index overflow and PCI
- device teardown
-Thread-Index: AQHdUne62MTefemLtkmJUzgYZc/gMLbp98eAgAABsoA=
-Date: Fri, 2 Oct 2026 14:20:03 +0000
-Message-ID: <e95524a48ea6666a1d0c78d3dbd9a570e0f875a7.camel@prosoftsystems.ru>
-References: <20261002140954.261779-1-r.zhambakiev@prosoftsystems.ru>
-	 <179095043961.1402591.2720135629640976917@kernel.org>
-In-Reply-To: <179095043961.1402591.2720135629640976917@kernel.org>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="omENPTd/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6A51F00893;
+	Fri,  2 Oct 2026 14:20:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790950813;
+	bh=BGOxvfHN6O4PeXtNTSU1Wm11e0LbAQUwGvTW7m/K2ac=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=omENPTd/q1I6eXxvCYCzaW3Y2s3PDwLxGR98xFyRoqWjuORJUwXcr8sC9bMn64d9W
+	 XoHKKpRu5QUIOeHb7SI6w0VHfPb7eY9Jsk7e26/akSWtTesbASszZM22NfYJ0G9qfN
+	 U+SDP/fjX2zxIQVJ4EgwHQ6i0U83FkY2PPS28KDZh0DuABJ5VYHb4uym+rp+9U3zjm
+	 YIOrpY5ywYjLJ3/sqJy2QljRgK8t4n1E6KlOHowuNX/oJ7szSWpVjr4drbdZjufRmg
+	 TUb0AuwRVeOa+04lR1ks4QvgPsY+AcYv1fm5GmF1gNvdcQlzk4Oa6CF4F58j7zWYEn
+	 VxX2t3BF95LIw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Hubert Mazur <hmazur@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Stanislaw Kardach <skardach@google.com>,
+	Michal Krawczyk <mikrawczyk@google.com>,
+	Slawomir Rosek <srosek@google.com>,
+	Atish Patra <atishp@meta.com>,
+	Atish Patra <atish.patra@linux.dev>
+Subject: Re: [PATCH 6.18.y] mm/execmem: make the populate and alloc atomic
+Date: Fri,  2 Oct 2026 10:19:55 -0400
+Message-ID: <2026-10-01-1-daily-reply-0011-re-execmem-populate-alloc-atomic-6-18@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930-execmem-atomic-6-18-y-v1-1-bd35d4523aab@meta.com>
+References: <20260930-execmem-atomic-6-18-y-v1-1-bd35d4523aab@meta.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-T24gRnJpLCAyMDI2LTEwLTAyIGF0IDE0OjEzICswMDAwLCBuZXRkZXYtYm90K3NpbmZvQGtlcm5l
-bC5vcmcgd3JvdGU6Cj4g0JLQndCY0JzQkNCd0JjQlSEg0J/QuNGB0YzQvNC+INC/0L7Qu9GD0YfQ
-tdC90L4g0L7RgiDQstC90LXRiNC90LXQs9C+INC+0YLQv9GA0LDQstC40YLQtdC70Y8uINCd0LUg
-0L/QtdGA0LXRhdC+0LTQuNGC0LUg0L/Qvgo+INGB0YHRi9C70LrQsNC8INC4INC90LUg0L7RgtC6
-0YDRi9Cy0LDQudGC0LUg0LLQu9C+0LbQtdC90LjRjywg0L/QvtC60LAg0L3QtSDRg9Cx0LXQtNC4
-0YLQtdGB0YwsINGH0YLQviDQvtC90LgKPiDQsdC10LfQvtC/0LDRgdC90YsuCj4gCj4gCj4gSGkh
-Cj4gCj4gVGhpcyBpcyBhbiBhdXRvbWF0ZWQgbWVzc2FnZS4gVGhpcyBzZXJpZXMgbG9va3MgbGlr
-ZSBhIGZpeCwgYnV0IGl0cwo+IGNvbW1pdCBtZXNzYWdlcyBzZWVtIHRvIGJlIG1pc3Npbmcgc29t
-ZSBpbmZvcm1hdGlvbjoKPiAKPiDCoC0gV2hhdCBoYXJkd2FyZSB0aGUgY2hhbmdlIHdhcyB0ZXN0
-ZWQgb24uIEZvciBkcml2ZXIgZml4ZXMgcGxlYXNlCj4gwqDCoCBtZW50aW9uIHRoZSBkZXZpY2Ug
-KGFuZCBpZiByZWxldmFudCBmaXJtd2FyZSB2ZXJzaW9uKSB1c2VkIGZvcgo+IMKgwqAgdGVzdGlu
-Zywgb3Igc2F5IHRoYXQgdGhlIGNoYW5nZSB3YXMgbm90IHRlc3RlZCBvbiByZWFsIGhhcmR3YXJl
-Lgo+IApUaGUgY2hhbmdlIHdhcyBub3QgdGVzdGVkIG9uIHJlYWwgaGFyZHdhcmUuCg==
+> Please apply this fix to the 6.18.y stable tree.
+
+Queued for 6.18, thanks.
+
+-- 
+Thanks,
+Sasha
