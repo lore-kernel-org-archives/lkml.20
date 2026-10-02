@@ -1,278 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A9646E007;
-	Fri,  2 Oct 2026 14:02:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E004B36B91A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949758; cv=none; b=f58brOT4gG6xl/hq1dcePVJQwJNaiKhNy0Ree9rGSx1OM/6xLjrJqCBzv3MCFKbJGzkERJgh4LoDFJpzUjXxppS8cMgpbGm5q2TMGS+LasA0iGzCx8gtHsfgWDmuavXMErXU5iyzie9ZYw8+IK8YoKXtyE9lJfO38/VlXr0ALzo=
+	t=1790949817; cv=none; b=CDzRNsJyLD5Ze//6+loDC6PubBdHP4n89nEYuOKdVY+bOKb4+ajd0+bDQs6HBSI2veZ0kZC11eYD8CW/7hDeHdCMlbh86AM3bUd/gffgitEoTT8288YgJaDtMgCdgZx475BCuoN6S4Dr303PHAOqjJxuqGyMfax/ba20jpNbOLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949758; c=relaxed/simple;
-	bh=W5dAhDEtmMtVVSaIvKnT2LgLJqc/CcbUxG6q+WTHIQ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KUoWn8rdFMnOHIBpyYo0rBLz9+bIZLwM6w5XwhVwDiivKU+QKNVzo7Ho2jndPP3egSwSTep/8lg4IbxkdqyazGlDaiK6PajAa31P30FYNb7vGMon3p5WkCNSvgQdp9HoD1oSuOl8OCmQOahJQX4SUdcSIWZUE1uT5qQdRwCTnNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKKizei0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949817; c=relaxed/simple;
+	bh=gWwfdqjbo5/JYZBSynfxpMN46VuFVrXGoHfSEvxFFA0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CtJvYsJ4gZOLFbUBi9Fd9SM2oPHIB3z/QesorrU4wUgUkFPEkbI+ojvg8IqBeyXELSRVghF9n81a9BOGCE0mYwCeU8Ay2Zz4/xWorLqFz8ZJCeIepzTochbABUtl/N9cm68c8sFzz+28QZ6X/rHpbzJL7c6VZrrMbJM0rmUar/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eKoc2jCl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKKizei0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892231F00898;
-	Fri,  2 Oct 2026 14:02:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eKoc2jCl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAF3D1F000FF;
+	Fri,  2 Oct 2026 14:03:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949756;
-	bh=XKEFP5bYfn1KrlzLnxZ61iwyI5TCKxS6l5WDp28/Hc4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FKKizei09Jx778cqzBwSFbjojNNHOyUG4BkVjsElmVNuRJ0jlzrnV4tTk2sMpC695
-	 /SydW4Wzbgo30Nr0kmFNGxJ6gY/7+/XT2KgsGpc8AGvtKA9N6zNDHpadqjeFbWzBRw
-	 V2iRMrLIGmlRsG6ji11287N5cgLi9ZNCcEDivWHZnGSkGNyYgneG8+hwznsVD7k1iF
-	 iLSqeDHN6C+ROeg+B0gb+coleP2VleR+YBI0edySdiS6H89SAjyRoMUna6LGNRZtxI
-	 Sw/g5BErMmB4rPWNWFzlfA4/54jcXeJZbame3dAL23sCWq9df3tRgGSAWz3dA+bLIn
-	 UZ6VZy0E5IDaQ==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v3 2/2] selftests/ftrace: Add test case for overriding trace_instance parameter
-Date: Fri,  2 Oct 2026 23:02:32 +0900
-Message-ID: <179094975229.609715.3664484413379599809.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179094973121.609715.2103310055830923648.stgit@devnote2>
-References: <179094973121.609715.2103310055830923648.stgit@devnote2>
-User-Agent: StGit/0.19
+	s=k20260515; t=1790949816;
+	bh=gWwfdqjbo5/JYZBSynfxpMN46VuFVrXGoHfSEvxFFA0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eKoc2jClDyYguaZFoi6WI+m4U2zVSs0I7XA5Umw1GJSBUKpkJBfkdyaGTEyorjZFX
+	 hNhl4DZ+INOhPFnqYhXqh+WoOJoer+Z89yZmf0ZxL7Lg97E9zZT3jm7Kc/CCCst9u4
+	 3vdDN37e2fvWz7cRsSuRKAWWE+71BpKefEDwbtH5p8nvU9/7SPLQ5xcdAU1Kq+t38B
+	 kYfTCTGnQTdOSuLsVAumxJEPwb0C/nKUOCc2hzySMbKg0cd+tP9TDxAuJe6kjiLtfR
+	 SpFVwzdKnr/RO2BpDaAfrCRUhoty+oZseiSp6sKMFtot99Cf3V8HQjj6lSuJRMbEZl
+	 zTHIiP77MOXiw==
+Date: Fri, 2 Oct 2026 15:03:31 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, 
+	akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
+	surenb@google.com, mhocko@suse.com, peterx@redhat.com, dave.hansen@linux.intel.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
+Subject: Re: [PATCH] mm: don't ioremap COWed anon pages in
+ generic_access_phys()
+Message-ID: <ar-5iLzr-1LH09pa@gremlin>
+References: <699ae98c.050a0220.340abe.0d31.GAE@google.com>
+ <20261001152524.171115-1-ngocthang2710.1999@gmail.com>
+ <32fe40e2-854a-47ec-9d95-93e23f9a7af4@kernel.org>
+ <ar9omYD3HcTDBpGA@gremlin>
+ <c6253814-0cf6-48f3-8f81-3285466dca45@kernel.org>
+ <9d43234f-93cb-4c86-a2a6-a3cdebf48f3b@kernel.org>
+ <ar-Cq0YNpQ6_3fDG@gremlin>
+ <494d436c-e3b3-4b65-8a6c-1059d9f468d4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <494d436c-e3b3-4b65-8a6c-1059d9f468d4@kernel.org>
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Fri, Oct 02, 2026 at 02:19:00PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/2/26 12:09, Lorenzo Stoakes (ARM) wrote:
+> > On Fri, Oct 02, 2026 at 12:04:27PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 10/2/26 12:02, David Hildenbrand (Arm) wrote:
+> >>>
+> >>> Yes, I'll take care of it.
+> >>>
+> >>> [...]
+> >>>
+> >>> After sending this yesterday, I concluded that we can do this cleaner: just have
+> >>>
+> >>> bool normal_page;
+> >>>
+> >>> (naming suggestions?)
+> >>>
+> >>> that express that this is something refcounted with a struct page, like
+> >>> documented for vm_normal_page().
+> >>
+> >> Hmm, have to think about that once more, regarding VM_IO and if there are some
+> >> cases that would actually have to work in generic_access_phys().
+> >
+> > Well, my series at least makes it easier to reason about VMA_IO_BIT!
+> >
+> > Though not sure if it really touches PFN map cases specifically.
+>
+> I'm more concerned about someone using this function on VM_MIXEDMAP | VM_IO with
+> a memory page that has a struct page but is actually not memory. So we could get
+> something that vm_normal_page() would flag but generic_access_phys() could
+> actually read ... I'll have to explore the generic_access_phys() users once more.
 
-Add a boot-time tracing test case to verify that specifying multiple
-trace_instance= parameters with the same instance name overrides earlier
-definitions:
+Hmm that could be a problem also for struct page's that are there but you're not
+supposed to access for other reasons to as well?
 
-   - Verifies that a kernel command-line trace_instance= parameter
-     overrides an earlier trace instance defined via bootconfig
-     (kernel.trace_instance).
-   - Verifies that a later kernel command-line trace_instance=
-     parameter overrides an earlier trace_instance= on the same
-     command line.
-   - Verifies overriding a memory-mapped trace instance (@trace).
-   - Verifies overriding a backup trace instance (=source).
-   - Verifies parsing parameters containing multiple tabs and
-     gracefully handling empty strings.
-   - Confirms that the overridden instance has its previous events
-     disabled, new events enabled, and flags (such as traceoff)
-     properly applied.
+Definitely need to be careful about that.
 
-Assisted-by: LLM
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
-Changes in v3:
- - Add test cases for overriding memory-mapped instances (@trace).
- - Add test cases for overriding backup instances.
- - Add test cases for multiple tabs and empty strings.
- - Add dmesg and basename to required busybox applets.
----
- .../cmdline-07-trace-instance-override.bconf       |    4 +
- .../cmdline-07-trace-instance-override.cmdline     |    1 
- .../selftests/ftrace/boottime/run_boottime_test.sh |    2 
- .../tests/cmdline-07-trace-instance-override.sh    |  148 ++++++++++++++++++++
- 4 files changed, 155 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
- create mode 100644 tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
- create mode 100755 tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
+>
+> All way to complicated (and you series improves things).
 
-diff --git a/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf b/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
-new file mode 100644
-index 000000000000..74d8be54a798
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
-@@ -0,0 +1,4 @@
-+kernel.trace_instance = "boot_map@trace,sched:sched_switch",
-+			"bak_to_norm=boot_map",
-+			"bak_from_norm,sched:sched_switch",
-+			"foo,sched:sched_switch"
-diff --git a/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline b/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
-new file mode 100644
-index 000000000000..3c16bb0f3545
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
-@@ -0,0 +1 @@
-+reserve_mem=12M:32M:trace trace_instance=foo^traceoff,sched:sched_waking trace_instance=bar,sched:sched_switch trace_instance=bar^traceoff,irq:irq_handler_entry trace_instance=boot_map^traceoff@trace,sched:sched_waking trace_instance=bak_to_norm^traceoff,irq:irq_handler_entry trace_instance=bak_from_norm=boot_map trace_instance="tab1,sched:sched_switch		tab2,sched:sched_switch" trace_instance=tab1^traceoff,sched:sched_waking trace_instance= trace_instance="" trace_instance=,
-diff --git a/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh b/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh
-index 6e8593d5a2c5..1d30adc388a6 100755
---- a/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh
-+++ b/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh
-@@ -46,6 +46,8 @@ BUSYBOX_APPLETS=(
- 	grep
- 	sleep
- 	sed
-+	dmesg
-+	basename
- )
- 
- usage() {
-diff --git a/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh b/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
-new file mode 100755
-index 000000000000..960a3cf54d97
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
-@@ -0,0 +1,148 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (C) 2026, Google LLC.
-+# Check trace_instance= override with bootconfig and kernel command-line
-+TRACEDIR="/sys/kernel/tracing"
-+
-+if [ -f /proc/bootconfig ] && \
-+   grep -q "dump_bconf" /proc/cmdline 2>/dev/null; then
-+	echo "=== /proc/bootconfig ==="
-+	cat /proc/bootconfig
-+	echo "========================"
-+fi
-+
-+check_instance() {
-+	instance="$1"
-+	old_event="$2"
-+	new_event="$3"
-+
-+	if [ ! -d "$TRACEDIR/instances/$instance" ]; then
-+		echo "FAIL: trace instance $instance does not exist"
-+		exit 1
-+	fi
-+
-+	if [ -n "$old_event" ] && \
-+	   [ -f "$TRACEDIR/instances/$instance/events/$old_event/enable" ]; then
-+		ENABLE=$(cat "$TRACEDIR/instances/$instance/events/$old_event/enable")
-+		if [ "$ENABLE" = "1" ]; then
-+			echo "FAIL: overridden event $old_event" \
-+				"is still enabled in instance $instance"
-+			exit 1
-+		fi
-+	fi
-+
-+	if [ -n "$new_event" ]; then
-+		if [ ! -d "$TRACEDIR/instances/$instance/events/$new_event" ]; then
-+			echo "FAIL: event $new_event does not exist in instance $instance"
-+			exit 1
-+		fi
-+
-+		ENABLE=$(cat "$TRACEDIR/instances/$instance/events/$new_event/enable")
-+		if [ "$ENABLE" != "1" ]; then
-+			echo "FAIL: event $new_event is not enabled in instance $instance ($ENABLE)"
-+			exit 1
-+		fi
-+	fi
-+
-+	TRACING_ON=$(cat "$TRACEDIR/instances/$instance/tracing_on")
-+	if [ "$TRACING_ON" != "0" ]; then
-+		echo "FAIL: tracing_on is not 0 in instance $instance ($TRACING_ON)"
-+		exit 1
-+	fi
-+}
-+
-+check_backup_instance() {
-+	instance="$1"
-+
-+	if [ ! -d "$TRACEDIR/instances/$instance" ]; then
-+		echo "FAIL: trace instance $instance does not exist"
-+		exit 1
-+	fi
-+
-+	# Backup instances have a trace buffer file
-+	if [ ! -f "$TRACEDIR/instances/$instance/trace" ]; then
-+		echo "FAIL: backup instance $instance has no trace file"
-+		exit 1
-+	fi
-+
-+	# Backup instances are read-only and do not have tracing_on
-+	if [ -f "$TRACEDIR/instances/$instance/tracing_on" ]; then
-+		echo "FAIL: backup instance $instance unexpectedly has tracing_on"
-+		exit 1
-+	fi
-+
-+	# Backup instances do not support enabling events
-+	if [ -f \
-+	   "$TRACEDIR/instances/$instance/events/sched/sched_switch/enable" ]; then
-+		echo "FAIL: backup instance $instance unexpectedly has enabled events"
-+		exit 1
-+	fi
-+}
-+
-+check_mapped_instance() {
-+	instance="$1"
-+	old_event="$2"
-+	new_event="$3"
-+
-+	check_instance "$instance" "$old_event" "$new_event"
-+
-+	# Check dmesg to confirm physical mapping occurred
-+	if ! dmesg | grep -q "mapped boot instance $instance"; then
-+		echo "FAIL: memory-mapped instance $instance was not mapped at boot"
-+		exit 1
-+	fi
-+}
-+
-+# Test 1: bootconfig trace_instance overridden by cmdline parameter
-+check_instance "foo" "sched/sched_switch" "sched/sched_waking"
-+
-+# Test 2: cmdline trace_instance overridden by subsequent cmdline parameter
-+check_instance "bar" "sched/sched_switch" "irq/irq_handler_entry"
-+
-+# Test 3: memory-mapped (@trace) instance in bootconfig overridden by cmdline
-+check_mapped_instance "boot_map" "sched/sched_switch" "sched/sched_waking"
-+
-+# Test 4a: backup instance in bootconfig overridden by normal
-+# instance in cmdline
-+check_instance "bak_to_norm" "" "irq/irq_handler_entry"
-+
-+# Test 4b: normal instance in bootconfig overridden by backup
-+# instance in cmdline
-+check_backup_instance "bak_from_norm"
-+
-+# Test 5: instances separated by multiple tabs, where first is overridden
-+check_instance "tab1" "sched/sched_switch" "sched/sched_waking"
-+# tab2 was not overridden, so its original event should remain enabled
-+if [ ! -d "$TRACEDIR/instances/tab2/events/sched/sched_switch" ]; then
-+	echo "FAIL: instance tab2 event sched/sched_switch does not exist"
-+	exit 1
-+fi
-+ENABLE=$(cat "$TRACEDIR/instances/tab2/events/sched/sched_switch/enable")
-+if [ "$ENABLE" != "1" ]; then
-+	echo "FAIL: instance tab2 event sched/sched_switch is not enabled ($ENABLE)"
-+	exit 1
-+fi
-+
-+# Test 6: Verify empty strings and malformed entries did not create
-+# bogus directories
-+for dir in "$TRACEDIR/instances"/*; do
-+	[ -d "$dir" ] || continue
-+	bname=$(basename "$dir")
-+	case "$bname" in
-+		foo|bar|boot_map|bak_to_norm|bak_from_norm|tab1|tab2)
-+			;;
-+		*)
-+			echo "FAIL: unexpected trace instance directory found: $bname"
-+			exit 1
-+			;;
-+	esac
-+done
-+
-+# Test 7: Verify no kernel warnings or assertion failures were triggered
-+if dmesg | grep -q "WARNING: CPU:"; then
-+	echo "FAIL: kernel warning triggered during boot"
-+	exit 1
-+fi
-+
-+echo "PASS: cmdline-07-trace-instance-override"
-+exit 0
+:) well there's still a lot of complexity in there, one battle at a time...
 
+>
+> --
+> Cheers,
+>
+> David
+
+--
+Cheers, Lorenzo
