@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F725497B8E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2912A499F14
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:08:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946528; cv=none; b=fjsOywCgZVufTsl5zvqhsmJsvoHUT+eveaCBRsi6qDtYOpQckCAtTlTKTsyNsfu+UUuMwSW5pRX629XNk9W7t6JecxMP1RCga+FHZI6R6HTvdRvoNuMYLWHeqwiFPdccwJJ18lpZgjvV/bDRldLd+7XQRTDt4C2G7B7YX9dbZTg=
+	t=1790946535; cv=none; b=sZrDifiHbCBjZgr6DGPeNiGx5scKGg0KdcZw1WNKUrrgMNAilf6tfUHcILNqbEx/DhHWc70Vd5FtG0RpaWPQX5TLKeXeqpatukdTAjycHJPl4+S2XF5ZMNFNx47+oECshz0+pMD9spjyKnb7ubbsKMNyrNru4Syz0utTRaw7+cE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946528; c=relaxed/simple;
-	bh=ThYM+Cb0UPvXejry89ZS7usDzAHNwrgtQvYbDxz7njo=;
+	s=arc-20240116; t=1790946535; c=relaxed/simple;
+	bh=JZbZ1gDJTGYtB97/ftYBiUi4XE3J5NHIhXFYh5eucHQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q7dcCmcXwUS0JF7kU7kGMbLc+UZrjJMYd4ojJMWw+UNKEd3KpG5wQNBjmTbv85QwDKyx+L3werMqNp+khtR3IF7v0sKX4JIYj0BB5l9WilIRmPKDoKIpXUumZIeWE+e9E+ERBZx8AeBa0VkCAasjHNTQZUyPcpgfbPydxsFyz4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CtrD76HQ; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=i41KX0ZBbbZQThA3dQM8bb+zcZrk3V2WdF+4Kun2UPiAW/gwz2n0hN6c8RHSnmDlIFT7ZQbMtcsSPnigaKTf4wU1qqNMiH0WUuqgG3s4TpeFdZRx+A3B3imyvYYNsaJBNFQ6sxN2gxc3hk/Z3GOXssRYnLXxQo5sdJ6ZYcA/Ipc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EL01K1Y4; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CtrD76HQ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EL01K1Y4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790946522;
+	s=mimecast20190719; t=1790946530;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YulG5bJgMGBjiytjh2Hc9hcOj+okxOhkE66bat0zKVI=;
-	b=CtrD76HQkDg0v2T5IQpH+ublYEpvVXmAQZKuqOgHNSg4FApoaxoZXlcOTla6Nh8TmTQTU8
-	XigTiQ4V0ac0TvbssLU2Q4doMeytwYcWCab4I0S0DFA3F9pK2ooym3UmoAqqGavSv65VUN
-	vGt7nAXDsMSjReMTLpWs//dGk9Iv4FA=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=HVAaLUhTqMoBr0N22nVTfsPLBxCK3PYhH7rimPVG0u0=;
+	b=EL01K1Y4GhMBJFUx10ZKEG1qEoR0vBMGYRbDHHL9d6cR38Ad9pRBTTO3T3avVE8i+ZKEnw
+	daimy1rufxaIgPISb3QtpxmQ9viWW74k6HQEvwY4QNS4azb9mjqHJeqjkVwHIQUiheuHFW
+	d56E0N/f2CK6zF2DboBFJUqaj63/DVQ=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-353-HZ9L1NsWNp6DG-FSepvN4g-1; Fri,
- 02 Oct 2026 09:08:35 -0400
-X-MC-Unique: HZ9L1NsWNp6DG-FSepvN4g-1
-X-Mimecast-MFC-AGG-ID: HZ9L1NsWNp6DG-FSepvN4g_1790946511
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-119-eqv7YGLcP727CC3BAZGHdA-1; Fri,
+ 02 Oct 2026 09:08:47 -0400
+X-MC-Unique: eqv7YGLcP727CC3BAZGHdA-1
+X-Mimecast-MFC-AGG-ID: eqv7YGLcP727CC3BAZGHdA_1790946525
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4B3151955D9F;
-	Fri,  2 Oct 2026 13:08:31 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A3401195423D;
+	Fri,  2 Oct 2026 13:08:44 +0000 (UTC)
 Received: from ShadowPeak.redhat.com (unknown [10.44.32.39])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 33670754;
-	Fri,  2 Oct 2026 13:08:25 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1B627433;
+	Fri,  2 Oct 2026 13:08:37 +0000 (UTC)
 From: Petr Oros <poros@redhat.com>
 To: netdev@vger.kernel.org
 Cc: Petr Oros <poros@redhat.com>,
@@ -69,9 +69,9 @@ Cc: Petr Oros <poros@redhat.com>,
 	intel-wired-lan@lists.osuosl.org,
 	linux-kernel@vger.kernel.org,
 	bpf@vger.kernel.org
-Subject: [PATCH iwl-net 04/10] ice: restore the default XPS map after a netdev TC change
-Date: Fri,  2 Oct 2026 15:07:46 +0200
-Message-ID: <20261002130752.2597259-5-poros@redhat.com>
+Subject: [PATCH iwl-net 06/10] ice: keep adding MAC filters after one that already exists
+Date: Fri,  2 Oct 2026 15:07:48 +0200
+Message-ID: <20261002130752.2597259-7-poros@redhat.com>
 In-Reply-To: <20261002130752.2597259-1-poros@redhat.com>
 References: <20261002130752.2597259-1-poros@redhat.com>
 Precedence: bulk
@@ -83,80 +83,53 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-ice_cfg_xps_tx_ring() programs the default XPS map only once per ring,
-guarded by ICE_TX_XPS_INIT_DONE. netdev_reset_tc() and
-netdev_set_num_tc() drop all XPS maps of the device, but the bit is never
-cleared, so the default map is not programmed again.
+ice_add_mac() returns as soon as one entry of the list fails, including
+-EEXIST for a filter that is already programmed for the VSI. The rest of
+the list is never added. ice_vsi_sync_fltr() treats -EEXIST as success,
+so the skipped addresses are considered synced and their traffic is
+dropped until they are removed and added again.
 
-Since commit 122045ca7704 ("ice: config netdev tc before setting queues
-number") ice_vsi_open() calls ice_vsi_cfg_netdev_tc() after the Tx
-queues have been configured, so the map is wiped right after it was
-written on every open and stays empty:
+In a test that adds 50 multicast addresses to a port in a burst with
+the port MAC address in the middle of it, 19 of them were left without
+a filter.
 
-  # cat /sys/class/net/enp4s0f0np0/queues/tx-*/xps_cpus
-  0000
-  0000
-  ...
+Continue with the next entry on -EEXIST and report it once the whole
+list has been processed. Other errors still stop the loop.
 
-A DCB reconfiguration ends the same way through ice_vsi_cfg_tc().
+There is no i40e counterpart of this fix, i40e keeps its MAC filters in
+a hash with a state per filter and syncs them differently. It was found
+while building a reproducer for the MAC filter overflow handling that
+i40e fixed in commit e58872398684 ("i40e: fix disabling overflow
+promiscuous mode") and commit 7363115efb04 ("i40e: do not force filter
+failure in overflow promiscuous").
 
-Clear ICE_TX_XPS_INIT_DONE in ice_vsi_cfg_netdev_tc(), which resets the
-netdev TC state, and configure the netdev TCs in ice_vsi_open() before
-the Tx queues so the default map is applied after the reset, not before
-it.
+Commit bbb968e8b34c ("ice: Fix issues updating VSI MAC filters") dealt
+with the same problem for the VF MAC filter requests, which are now
+added one by one with -EEXIST tolerated, but left ice_add_mac() and the
+PF filter sync as they were.
 
-i40e fixed the same stale bit in commit 82e0572b2302 ("i40e: Fix not
-setting default xps_cpus after reset").
-
-Fixes: 122045ca7704 ("ice: config netdev tc before setting queues number")
+Fixes: 89f3e4a5b762 ("ice: Do not bail out when filter already exists")
 Assisted-by: LLM
 Signed-off-by: Petr Oros <poros@redhat.com>
 ---
- drivers/net/ethernet/intel/ice/ice_lib.c  | 6 ++++++
- drivers/net/ethernet/intel/ice/ice_main.c | 6 +++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_switch.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_lib.c b/drivers/net/ethernet/intel/ice/ice_lib.c
-index 5e183314e0d792..416e2d6a6f1709 100644
---- a/drivers/net/ethernet/intel/ice/ice_lib.c
-+++ b/drivers/net/ethernet/intel/ice/ice_lib.c
-@@ -3218,6 +3218,12 @@ void ice_vsi_cfg_netdev_tc(struct ice_vsi *vsi, u8 ena_tc)
- 	if (vsi->type == ICE_VSI_CHNL)
- 		return;
+diff --git a/drivers/net/ethernet/intel/ice/ice_switch.c b/drivers/net/ethernet/intel/ice/ice_switch.c
+index 2ee5cb6ffdab1f..239d4d9633baa6 100644
+--- a/drivers/net/ethernet/intel/ice/ice_switch.c
++++ b/drivers/net/ethernet/intel/ice/ice_switch.c
+@@ -3659,7 +3659,9 @@ int ice_add_mac(struct ice_hw *hw, struct list_head *m_list)
  
-+	if (vsi->tx_rings)
-+		ice_for_each_txq(vsi, i)
-+			if (vsi->tx_rings[i])
-+				clear_bit(ICE_TX_XPS_INIT_DONE,
-+					  vsi->tx_rings[i]->xps_state);
-+
- 	if (!ena_tc) {
- 		netdev_reset_tc(netdev);
- 		return;
-diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
-index e62a8f544345a3..8a21f87eb6ca21 100644
---- a/drivers/net/ethernet/intel/ice/ice_main.c
-+++ b/drivers/net/ethernet/intel/ice/ice_main.c
-@@ -7559,6 +7559,9 @@ int ice_vsi_open(struct ice_vsi *vsi)
- 	if (err)
- 		goto err_setup_rx;
+ 		m_list_itr->status = ice_add_rule_internal(hw, ICE_SW_LKUP_MAC,
+ 							   m_list_itr);
+-		if (m_list_itr->status)
++		if (m_list_itr->status == -EEXIST)
++			status = -EEXIST;
++		else if (m_list_itr->status)
+ 			return m_list_itr->status;
+ 	}
  
-+	if (bitmap_empty(pf->txtime_txqs, pf->max_pf_txqs))
-+		ice_vsi_cfg_netdev_tc(vsi, vsi->tc_cfg.ena_tc);
-+
- 	err = ice_vsi_cfg_lan(vsi);
- 	if (err)
- 		goto err_stop_tx;
-@@ -7569,9 +7572,6 @@ int ice_vsi_open(struct ice_vsi *vsi)
- 	if (err)
- 		goto err_stop_tx;
- 
--	if (bitmap_empty(pf->txtime_txqs, pf->max_pf_txqs))
--		ice_vsi_cfg_netdev_tc(vsi, vsi->tc_cfg.ena_tc);
--
- 	if (vsi->type == ICE_VSI_PF || vsi->type == ICE_VSI_SF) {
- 		/* Notify the stack of the actual queue counts. */
- 		err = netif_set_real_num_tx_queues(vsi->netdev, vsi->num_txq);
 -- 
 2.55.0
 
