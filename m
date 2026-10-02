@@ -1,159 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC121C5D5E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790910216; cv=none; b=CgN6ZMR4vtXO4dwtBnSj9jzfIKp89d+Z9Vk7fUtBvcqOvlDp0nttFI2up92OBNXiidwg0bbQ+fBC6rqD3ZQKIzOM9EruZso2cK044skhJr2IiRzGS/jX8GKV2NTHgMnCA/jAMQvUY1U83zBl7A/poGtJwhRVm4miBGCBNZQ0lMc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790910216; c=relaxed/simple;
-	bh=R5uGZziUWDsA1Ci/pCr6s5hpqjNrZYBUeqFKIURcGa0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QXKiq9hSHWyCJzQS7H5XQOI6BPQ98s/JINDH+tV/CQ6RNU8d+RO+4biSs+RMccR/AqykAcu3+dnnHwFKn0uASvj+MKp4KGNgh4pUy78zag+gkJqsXS+lVmJIJulOJuCSiND1ed6rbaZgXV1sx7a+UqpH+aBfAq26KdwH0GcVKEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dDVyVZWs; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A4529346F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.137
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790910299; cv=pass; b=E7h0y8UBXYzw8bFu2vWAOdiXTXz99IghSFm66wNxv2rI/TPyfLDGdMzIbzeutMk21eC+sJTbJ7KuLncsur1yodeoeJyDlmbEEWjb+2IeshSzWu9GB84JrOoyc0KvClJn3P4S0Rlffidk2Ic1vVmsn1cpVUnYmEnXfEnAij2Gbiw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790910299; c=relaxed/simple;
+	bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ukWNYSUmXphKWU+e1oAHe1tiafSxZ7DkbhN/e45mV3SMkVNtU1WAUR4hjVJvvC+Zujvj8dzv9FROT94KlxP64Is67wYDgtGjxcohTdwrDXoyzIgCs+jOPH5QebxP4LkvpJl1uobFbGB9DvwPehZo0vCtHnQcDY4K8UoKC2jb99o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fF+ugGIs; arc=pass smtp.client-ip=74.125.227.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dDVyVZWs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790910213; x=1822446213;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=R5uGZziUWDsA1Ci/pCr6s5hpqjNrZYBUeqFKIURcGa0=;
-  b=dDVyVZWsk/G1ZO2fG/wcLA6pUo5rkXpnXfYf48Tt/VPvrkXb4MVdp+4k
-   6sO1/pr+58y6wLwVm/qgDL+p+N2VQNAIDEayPkDl+dJnP4A31xrZPdWOi
-   EkJZSVzS8QUe6ZyjDJSQvLe9HHQhJlhLDT5bdkSyPN0jQ2k9X2X5FmOJu
-   r8lLZukQp13KQSynu3+MWyQ/UNjTXdyqgK6DQ3ZBP7JdHEe4p6BWChCo6
-   SQCM4mcfY+wu/AaF7XWxh7bvcNDfhonHgG1oZncRdcRUGCq1uM4+JxBDb
-   mochwQbzjnCsJcHiibBx2vMF9qw0YFs78DZEGSQcs4eAoEvtjMaInf2WG
-   A==;
-X-CSE-ConnectionGUID: +UjE5IR0Qs6PfCZQvIh4Yw==
-X-CSE-MsgGUID: KXMCTCJeQ9yqvLDeHQ/mOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="95492992"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="95492992"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 20:03:32 -0700
-X-CSE-ConnectionGUID: eSiPyL4ETDijiCl2MLOARA==
-X-CSE-MsgGUID: Uhtg7cSbTCeBgO4x5+/fjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
-   d="scan'208";a="168957"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.241]) ([10.125.111.241])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 20:03:30 -0700
-Message-ID: <2a0bf5e8-281f-4c9f-a0ea-ac195604eae9@intel.com>
-Date: Thu, 1 Oct 2026 20:03:28 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fF+ugGIs"
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3a4fe110578so988526a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 20:04:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790910298; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rdAH7GXQsfT0NjL99bxQMRInQTsWYgfwu1Ud5aOf3jPTdjLvxkG1xNmgyA8a0YA9iL
+         md2FA6s2zJxhl0lpAopvMy7Liff6sPU9ID7+wO2otp+Yms82d+Qb9jHRVBAwr1smP/so
+         n3fI6rgl9yoiyHZOnhVSTuLej6+R8bhm6RptNsAVJ4HuSOfpe1K5Zrkbpw03hVj7Tu8i
+         4j9q6e93D/4Y42Qus2CJKm0RbNvrrE7Hepau12m9kEyZsRJjUyYpwlzNQt9JBzeICJ1A
+         DrEkRZKqCE4QCrIhnnTB/ZeAWZDhKt0RJiZuIhABCIvbvtQDypFVNJZITLcgTOUEK6n/
+         JDUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+        fh=/8ZpeTg8LL9GdXVpocY2w1qcgcxLCMqg1FQTurUDbl0=;
+        b=IbgApOdd8XYJb+ULT/ZFwFuASCbBEWti+G3YLMN/udWR9jeprMY5kIjbAa00k4Wp8i
+         6kxC0jL1tSGVffeS9jpq8xyvcCrhjFzs/E6hwuXAl7p8g0CeJ2pwSEee9OzxaIAW+mEW
+         Zsp4CWergllwCunxtHWSkrBB1KoXOFEnZEAEWePe8UcXOlDh9w0sqah150uIIfS8fIvC
+         bELm/zbgghdrs07lVZghqp04eFQTC+enh7Qgubndki9IQxCyZELJ2fVhCyHlWFbH1cTC
+         wF4Ufk56apyZ/xV4ZAhjqPfOdL8APBZBN6H4nXh/5yJwni9H43y01c88oTNx98NlCeYT
+         JU/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790910298; x=1791515098; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+        b=fF+ugGIsqVoAISGueIGHQzsEMEjDQN67RSHVC5LgLMTU561Z3eVP49udVLEnIAH4TB
+         vfyLv+QIqSCuOfpY/xXe08MVU0k7G0OfHEiCuoTf0Flh2tTNCRq3lspQio2Rfzv5VET3
+         gI41UAVTGtBEXH/Gg5SQo665umTEx8ZRyVx0NvwCMpUxcnQ8ItW3qgZvJnVYG7SY5xHy
+         LcMWTUTpRERNXylD8qxRSQxAO2YZ5vcfxko2m9DgmcS7cGR5nE2CHMF4CJfl/tka61cE
+         ONXx0RY3/qaVPe4n+Y4JFTjA9OlnW4r/0r1qZTV3CyPXN9s6LNdvrnWYdqDlejFIWsl8
+         IchA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790910298; x=1791515098;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+        b=wixjaMb1qOTPJh1NbRMIS8DxT9eZp+rMV1UQ47TpW7fnUY8VcyV7en2pCrWwjLyCsx
+         LNnmgBTKmrYOtsQFoM/S+POJ8NYPZBRaDtoBHgTLHu9nYpjd5VEnLqe1j4punPz5a7V+
+         veBoFLW4Tso7OgCqOBiGiK89vee8D/lvQ/3iX5c5JsPcGT/HSAyoNAnYXRKzZd3HLkip
+         OfFPSxdChxS7M1F0QRglxEq/hDIOa2ueqsqScUG85f6NNvC+hbc9nVTzv1DqVpcPmBwD
+         LDDC3rBFkwdJqbZMNDYXesEZoh7lLj2/Cnyx9JmWRRUQ3FiKGUoQbOSSuZDuoznbzFd/
+         IgxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzS23MIaRJhGa9qZyZFRE2TfnGo2Bq/2MIAPqWbzbPACg15nkdQgJ0f//HpN41vJUEPxnBP4wgQCU+Ki74=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKko8NvYMHpyni01+JQwkuwuUclObJybIOqB1JembCSfI2scByj
+	/KN23ICIlHSqSq35Y5Qo21vzMQrjAwD+wcTxxEuvRCEJyyQgs8WGHdNSXg+0ca4QYllpN6l5CGI
+	m4BcTf+p9QwYShRfvGz6UURt7OcGhGv4=
+X-Gm-Gg: AYBFou3rWI5kbYur7lVi+mJi2eLHZcVk8OSkwdlBWY/LX8PW/nnqyjbcz1JEaF8RErC
+	/CpjsnP2h14xnC0L+RwYcDv2Fkp2Iqg1IYMdve8S3TzUvvLctzobZ+p7kybuy1eJGVHi6Kdp7YO
+	/Y3CJQstktAjVXQI4soYWp6LXU67qwAVSd9HMYC40+GaNjy8IjQrg8PZ52ciQcEski/XYTZiDky
+	higj8Ej3Wh/qsRLg+znAFG6660EWEFWxWA5lw4SqvQwlO4qISZOpLf4rApdkWaDXNXpIS0PsSgb
+	eLmy02jZ5t/fXaxPdcwhCR1JjhhHi+vS3is5KJwtQYfByyeGu8rn9xdP
+X-Received: by 2002:a17:90a:4ca7:b0:3a6:ddca:112b with SMTP id
+ 98e67ed59e1d1-3a6ddca11b8mr489962a91.21.1790910297480; Thu, 01 Oct 2026
+ 20:04:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvdimm/pmem: remove test_and_clear_pmem_poison()
-To: Kaitao Cheng <kaitao.cheng@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
- Alison Schofield <alison.schofield@intel.com>, Ira Weiny <iweiny@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
- nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>, Oscar Salvador <osalvador@suse.de>
-References: <20260923055318.57485-1-kaitao.cheng@linux.dev>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260923055318.57485-1-kaitao.cheng@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260929075106.74731-1-suwangquanta@gmail.com>
+ <20260929075106.74731-2-suwangquanta@gmail.com> <20260930-curious-narwhal-of-calibration-62442d@quoll>
+In-Reply-To: <20260930-curious-narwhal-of-calibration-62442d@quoll>
+From: Su Wang <suwangquanta@gmail.com>
+Date: Fri, 2 Oct 2026 11:04:46 +0800
+X-Gm-Features: AclHuK-KfgGwZ7bu_T0onXf5TVB_lsME61cxwHa_OQd7XBi3kxomvlalflHsano
+Message-ID: <CANoBHH2a_Qu=eMoQ9GFYYn-MVg7zhVZJbiBRP6L+roU2zp3d7g@mail.gmail.com>
+Subject: Re: [PATCH v14 1/2] dt-bindings: arm: aspeed: add Meta Ventura board
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au, 
+	andrew@codeconstruct.com.au, ryan_chen@aspeedtech.com, 
+	billy_tsai@aspeedtech.com, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, patrick@stwcx.xyz, Steward.Shih@quantatw.com, 
+	Martin.Peng@quantatw.com, Fred.Zhang@quantatw.com, p.k.lee@quantatw.com, 
+	"Sue.Wang" <Sue.Wang@quantatw.com>
+Content-Type: text/plain; charset="UTF-8"
 
+>
+> On Tue, Sep 29, 2026 at 03:51:05PM +0800, Sue Wang wrote:
+> > Document the new compatibles used on Meta Ventura.
+> >
+> > Signed-off-by: Sue Wang <suwangquanta@gmail.com>
+>
+> Please respect our time. Actually other contributors time as well.
+>
+> <form letter>
+> This is a friendly reminder during the review process.
+>
+> It looks like you received a tag and forgot to add it.
+>
+> If you do not know the process, here is a short explanation:
+> Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+> versions of patchset, under or above your Signed-off-by tag, unless
+> patch changed significantly (e.g. new properties added to the DT
+> bindings). Tag is "received", when provided in a message replied to you
+> on the mailing list. Tools like b4 can help here. However, there's no
+> need to repost patches *only* to add the tags. The upstream maintainer
+> will do that for tags received on the version they apply.
+>
+> Please read:
+> https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+>
+> If a tag was not added on purpose, please state in the patch changelog
+> or cover letter why and what changed.
+> </form letter>
+>
+> Best regards,
+> Krzysztof
+>
 
+Thanks for the reminder, I'll add the Acked-by tag back in the next version.
 
-On 9/22/26 10:53 PM, Kaitao Cheng wrote:
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> The pmem driver provides test_and_clear_pmem_poison() only to handle
-> the CONFIG_MEMORY_FAILURE dependency of TestClearPageHWPoison().
-> The wrapper has no other pmem-specific behavior.
-> 
-> Define the HWPoison test-and-change helpers to return false when
-> CONFIG_MEMORY_FAILURE is disabled.  This allows pmem to call
-> TestClearPageHWPoison() directly in all configurations.
-> 
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Acked-by: Muchun Song <muchun.song@linux.dev>
-> Reviewed-by: Oscar Salvador <osalvador@suse.de>
-
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-
-> ---
-> Changes in v2 (David Hildenbrand, Oscar Salvador):
-> - squash patch#1 into patch#2.
-> 
-> Link to v1:
-> https://lore.kernel.org/all/20260903053535.17611-1-kaitao.cheng@linux.dev/
-> ---
->  drivers/nvdimm/pmem.c      |  2 +-
->  drivers/nvdimm/pmem.h      | 12 ------------
->  include/linux/page-flags.h |  1 +
->  3 files changed, 2 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
-> index 30a51c365ce8..5fb86595e8bd 100644
-> --- a/drivers/nvdimm/pmem.c
-> +++ b/drivers/nvdimm/pmem.c
-> @@ -80,7 +80,7 @@ static void pmem_mkpage_present(struct pmem_device *pmem, phys_addr_t offset,
->  		 * here since we're in the driver I/O path and
->  		 * outstanding I/O requests pin the dev_pagemap.
->  		 */
-> -		if (test_and_clear_pmem_poison(page))
-> +		if (TestClearPageHWPoison(page))
->  			clear_mce_nospec(pfn);
->  	}
->  }
-> diff --git a/drivers/nvdimm/pmem.h b/drivers/nvdimm/pmem.h
-> index a48509f90196..76870505dd79 100644
-> --- a/drivers/nvdimm/pmem.h
-> +++ b/drivers/nvdimm/pmem.h
-> @@ -1,7 +1,6 @@
->  /* SPDX-License-Identifier: GPL-2.0 */
->  #ifndef __NVDIMM_PMEM_H__
->  #define __NVDIMM_PMEM_H__
-> -#include <linux/page-flags.h>
->  #include <linux/badblocks.h>
->  #include <linux/memremap.h>
->  #include <linux/types.h>
-> @@ -31,15 +30,4 @@ long __pmem_direct_access(struct pmem_device *pmem, pgoff_t pgoff,
->  		long nr_pages, enum dax_access_mode mode, void **kaddr,
->  		unsigned long *pfn);
->  
-> -#ifdef CONFIG_MEMORY_FAILURE
-> -static inline bool test_and_clear_pmem_poison(struct page *page)
-> -{
-> -	return TestClearPageHWPoison(page);
-> -}
-> -#else
-> -static inline bool test_and_clear_pmem_poison(struct page *page)
-> -{
-> -	return false;
-> -}
-> -#endif
->  #endif /* __NVDIMM_PMEM_H__ */
-> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-> index ae2ebaed6d4d..3dc79c0c5adf 100644
-> --- a/include/linux/page-flags.h
-> +++ b/include/linux/page-flags.h
-> @@ -655,6 +655,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
->  #define __PG_HWPOISON (1UL << PG_hwpoison)
->  #else
->  PAGEFLAG_FALSE(HWPoison, hwpoison)
-> +TESTSCFLAG_FALSE(HWPoison, hwpoison)
->  #define __PG_HWPOISON 0
->  #endif
->  
-
+Best regards,
+Su Wang
