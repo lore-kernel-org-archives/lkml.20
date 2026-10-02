@@ -1,449 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E79636492D;
-	Fri,  2 Oct 2026 23:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F4B1F938;
+	Fri,  2 Oct 2026 23:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790985443; cv=none; b=W86mjJbnbhqU2kWKR/6e9ht5X8a5V0WzyWE1skxapnA05ph0uXMtxPAOHhgTcm/yymT9cBnXdQiEjAwjjbQGT1JAmp6IWSQ4fHUp9dEPsBMBOHkuHvQAzwy8pH7AUJj692izRKunwDf/1H26DnkJzAuGDGfrTVp6OuJCu/BuPfo=
+	t=1790985476; cv=none; b=F0pxPIsy+Np0nyVQtgO2IOa8f7WMyzEjanh5Uwrbzx/e6LMA1FgcJ4/xhyM0iLLSIbivjlt2VbJ84A/ClzclmerCZE8mSr4ftQZhft3SqIXp8w6eMCpTEKkAaYF0CDGo26Nsu8dMrSrsPTdZe+nO6+dmL49BmEW4x+oE+z1eLt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790985443; c=relaxed/simple;
-	bh=MwHomMcaIGAJeLS0pirIgMQx72FkZGIMdR11bJ70Iy4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ZkqNh3PY6wn5kKsfNZHRsXGIvlM7e7FBa3GZMwdeOnGyzgtCI5ea8BR5leHRS2d2r87HtMo8Rr5WNYrde54ma0BpVbVW2n1Zbt5B0KPJEyo0t0AFZ9Yvx4l32b8JRXujrd5l/9I2Ye44+CLpsRTqv15uDHKxjeZlyLc+t3asu/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjqucX5z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790985476; c=relaxed/simple;
+	bh=3nUcFROvnFrIVmiERC1HTVfCqP0nxNJMr2n8zO2lnA8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qg50/dhxVFX8R6r+ssou/4XW2/l2aENrQwptLe3BVBSUVPq/5u2CrlUH1VfBbKgsy3oyssTOf4mEDROLkw0XcwAIRI/s0RDTIZnWEtruaaAFwE3+24+uZolZOwI1E29bJpySq3caaU2Pk8SJ2l5EjyhzE/D9ENNbuKRN6DRq2ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rwjga7cC; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjqucX5z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 537451F00893;
-	Fri,  2 Oct 2026 23:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790985441;
-	bh=27VM1RagX5aVBxyuC3IIh2m01meKNDgoljCXBPuEApc=;
-	h=Date:From:To:Cc:Subject;
-	b=JjqucX5z7/8T2/zg81YGhMdhhuG52Bfsn6odqwcvvWL6p+L5AfthZCiXO/VFCaThF
-	 t27cvXi/3PMWaITzMTam6wXZJTAjaftD2sOsrUJ3soWgykDS55xUDbaVijWwWBvpKd
-	 SKBeOgxKEiZjKnVgA/PAS04TjJIR2W88unX7D1oFI/IF8e/Pm5x/f3LdMYWDukMkSt
-	 vQID4UMJ/LCY3VqBU9d8PYraQX4W6jLaMJ7xKE5vWTpZ5WHjZEWPhc/4YbeLYpS1Fa
-	 E6HnriEg7pAlmCpB4Mn4pyUBpB5JC3sEiGuf3AhPhBPXdsjMU0zoB+vLSIvhJY/Mo7
-	 dHx/Yhk2tN3YA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 19B611AC57CE; Sat, 03 Oct 2026 00:57:13 +0100 (BST)
-Date: Sat, 3 Oct 2026 01:57:13 +0200
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the landlock tree with the jc_docs tree
-Message-ID: <asBE2fWPEmruN_dj@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rwjga7cC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790985475; x=1822521475;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=3nUcFROvnFrIVmiERC1HTVfCqP0nxNJMr2n8zO2lnA8=;
+  b=Rwjga7cCHUELrHGpjkK3uNJcSm0UUjwcpOakuEMB9nUNirBg53I4MRU1
+   Ye4FaYkO2FP/Dr6klkClJTpHcPBtvrb7LCYBo0uAGr8UuIgTlfSqPG4rp
+   EPt1/GoCbUox2Z0Q/Gp4Pp5w6HsRu0YLgPoG18sdk8Ma35xMkZ4ASl45v
+   87gIr6hLg0dcwpjQhL2LZ+dVwLTph/3FPm6NZduP9hhkfM2D019uRUGtg
+   wg4BYONtijDQhukXWL9VXOEoYh/qQpoWk+Jp2QPJ7ZoqX6Mh4x+6J8tTD
+   BcVuG7pA+V4mF/G9bnC8U5gP7ZR7Yb3dM/KmYsXY+Dq/h0mBcuoGzbgR2
+   A==;
+X-CSE-ConnectionGUID: oGOVswvBQaKK40h3jjxpNg==
+X-CSE-MsgGUID: HtCdaH1MT8OSOhvaOCJ45g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="90967019"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90967019"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 16:57:54 -0700
+X-CSE-ConnectionGUID: fUdsXD40Rq+CwkXiGS58Bw==
+X-CSE-MsgGUID: 8QbEIFLbS6G+MMZMIfw8IA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="281087790"
+Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.108.45]) ([10.125.108.45])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 16:57:53 -0700
+Message-ID: <48d34fdc-d891-4175-81df-2217068176dd@intel.com>
+Date: Fri, 2 Oct 2026 16:57:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wyNCOcc/CS7CRyXw"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 09/16] cxl: Refresh cached PCI HDM decoder settings
+To: Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20261001092227.3004747-1-smadhavan@nvidia.com>
+ <20261001092227.3004747-10-smadhavan@nvidia.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261001092227.3004747-10-smadhavan@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---wyNCOcc/CS7CRyXw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On 10/1/26 2:22 AM, Srirangan Madhavan wrote:
+> Early PCI discovery creates the HDM cache, while later CXL enumeration and
+> decoder operations provide updated programming state.
+> 
+> Refresh the PCI snapshot when decoders are enumerated, committed, or reset
+> so reset recovery need not walk the CXL topology. Ignore updates when no
+> cache exists and reject decoder-count mismatches.
+> 
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+> ---
+>  drivers/cxl/core/hdm.c | 58 ++++++++++++++++++++++++++++++++++++++++++
+>  include/cxl/cxl.h      | 22 ++++++++++++++++
+>  include/linux/pci.h    |  6 +++++
+>  3 files changed, 86 insertions(+)
+> 
+> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
+> index b6a8fe83d336..d6b3afbffa3e 100644
+> --- a/drivers/cxl/core/hdm.c
+> +++ b/drivers/cxl/core/hdm.c
+> @@ -753,6 +753,44 @@ static void cxl_decoder_snapshot(struct cxl_decoder *cxld,
+>  	}
+>  }
+>  
+> +static void cxl_hdm_refresh_decoder(struct cxl_hdm *cxlhdm,
+> +				    struct cxl_decoder *cxld)
+> +{
+> +	struct cxl_port *port = cxlhdm->port;
+> +	void __iomem *hdm = cxlhdm->regs.hdm_decoder;
 
-Today's linux-next merge of the landlock tree got a conflict in:
+reverse xmas tree pls.
 
-  security/landlock/syscalls.c
+> +	struct cxl_decoder_settings *settings;
+> +	struct cxl_hdm_info *info;
+> +	struct pci_dev *pdev __free(pci_dev_put) =
+> +		cxl_port_get_uport_pci_dev(port);
 
-between commit:
+You can move this outside of declaration block. It's one of the exceptions. 
 
-  2ef355c4e6864 ("docs: landlock: fix ENOMSG condition in create_ruleset ke=
-rnel-doc")
+Also, is there any reason to reference a PCI device specifically? Can't you just get the 'struct device' and use exclusively that in this function? Prefer to keep the function neutral here rather than hard code it to PCI and I don't see anything specific to PCI that needs the hard coding. core/hdm.c should use 'struct device'. It does not have a PCI dependency before this. Also you may break cxl_test as it uses platform devices instead of PCI devices.
 
-=66rom the jc_docs tree and commit:
+As an aside, can you please do me a favor and run cxl_test for your series? Having it passing all regression tests is one of the requirements for us to accept CXL patches. We will help you fix any issues crop up if you need it. Of course adding new regression tests for reset to test the new core functions would be awesome and much appreciated. 
 
-  dfec62ac8b246 ("landlock: Enforce namespace use restrictions")
+> +
+> +	if (!pdev || !hdm)
+> +		return;
 
-=66rom the landlock tree.
+Go ahead and do the block like:
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+	struct pci_dev *pdev __free(pci_dev_put) =
+		cxl_port_get_uport_pci_dev(port);
+	if (!pdev)
+		return;
 
-diff --combined security/landlock/syscalls.c
-index 400a2f928de31,fb5af318b69bb..0000000000000
---- a/security/landlock/syscalls.c
-+++ b/security/landlock/syscalls.c
-@@@ -20,6 -20,7 +20,7 @@@
-  #include <linux/fs.h>
-  #include <linux/limits.h>
-  #include <linux/mount.h>
-+ #include <linux/ns/ns_common_types.h>
-  #include <linux/path.h>
-  #include <linux/sched.h>
-  #include <linux/sched/signal.h>
-@@@ -30,11 -31,13 +31,13 @@@
-  #include <linux/uaccess.h>
-  #include <uapi/linux/landlock.h>
- =20
-+ #include "cap.h"
-  #include "cred.h"
-  #include "domain.h"
-  #include "fs.h"
-  #include "limits.h"
-  #include "net.h"
-+ #include "ns.h"
-  #include "ruleset.h"
-  #include "setup.h"
-  #include "tsync.h"
-@@@ -98,7 -101,10 +101,10 @@@ static void build_check_abi(void
-  	struct landlock_ruleset_attr ruleset_attr;
-  	struct landlock_path_beneath_attr path_beneath_attr;
-  	struct landlock_net_port_attr net_port_attr;
-+ 	struct landlock_namespace_attr namespace_attr;
-+ 	struct landlock_capability_attr capability_attr;
-  	size_t ruleset_size, path_beneath_size, net_port_size;
-+ 	size_t namespace_size, capability_size;
- =20
-  	/*
-  	 * For each user space ABI structures, first checks that there is no
-@@@ -111,8 -117,9 +117,9 @@@
-  	ruleset_size +=3D sizeof(ruleset_attr.quiet_access_fs);
-  	ruleset_size +=3D sizeof(ruleset_attr.quiet_access_net);
-  	ruleset_size +=3D sizeof(ruleset_attr.quiet_scoped);
-+ 	ruleset_size +=3D sizeof(ruleset_attr.handled_permissions);
-  	BUILD_BUG_ON(sizeof(ruleset_attr) !=3D ruleset_size);
-- 	BUILD_BUG_ON(sizeof(ruleset_attr) !=3D 48);
-+ 	BUILD_BUG_ON(sizeof(ruleset_attr) !=3D 56);
- =20
-  	path_beneath_size =3D sizeof(path_beneath_attr.allowed_access);
-  	path_beneath_size +=3D sizeof(path_beneath_attr.parent_fd);
-@@@ -123,6 -130,18 +130,18 @@@
-  	net_port_size +=3D sizeof(net_port_attr.port);
-  	BUILD_BUG_ON(sizeof(net_port_attr) !=3D net_port_size);
-  	BUILD_BUG_ON(sizeof(net_port_attr) !=3D 16);
-+=20
-+ 	namespace_size =3D sizeof(namespace_attr.permissions);
-+ 	namespace_size +=3D sizeof(namespace_attr.allowed_namespace_types);
-+ 	namespace_size +=3D sizeof(namespace_attr.quiet_namespace_types);
-+ 	BUILD_BUG_ON(sizeof(namespace_attr) !=3D namespace_size);
-+ 	BUILD_BUG_ON(sizeof(namespace_attr) !=3D 24);
-+=20
-+ 	capability_size =3D sizeof(capability_attr.permissions);
-+ 	capability_size +=3D sizeof(capability_attr.allowed_capabilities);
-+ 	capability_size +=3D sizeof(capability_attr.quiet_capabilities);
-+ 	BUILD_BUG_ON(sizeof(capability_attr) !=3D capability_size);
-+ 	BUILD_BUG_ON(sizeof(capability_attr) !=3D 24);
-  }
- =20
-  /* Ruleset handling */
-@@@ -172,7 -191,7 +191,7 @@@ static const struct file_operations rul
-   * If the change involves a fix that requires userspace awareness, also u=
-pdate
-   * the errata documentation in Documentation/userspace-api/landlock.rst .
-   */
-- const int landlock_abi_version =3D 11;
-+ const int landlock_abi_version =3D 12;
- =20
-  /**
-   * sys_landlock_create_ruleset - Create a new ruleset
-@@@ -197,14 -216,13 +216,13 @@@
-   * returned errors are:
-   *
-   * - %EOPNOTSUPP: Landlock is supported by the kernel but disabled at boo=
-t time;
--  * - %EINVAL: unknown @flags, or unknown access, or unknown scope, or too=
- small
--  *   @size;
-+  * - %EINVAL: unknown @flags, access, scope, or permission, or too small =
-@size;
-   * - %EINVAL: quiet_access_fs, quiet_access_net, or quiet_scoped is not a
-   *   subset of the corresponding handled_access_fs, handled_access_net, or
-   *   scoped;
-   * - %E2BIG: @attr or @size inconsistencies;
-   * - %EFAULT: @attr or @size inconsistencies;
--  * - %ENOMSG: empty handled_access_fs, handled_access_net, and scoped fie=
-lds.
-+  * - %ENOMSG: all handled access, scope, and permission fields are empty.
-   *
-   * .. kernel-doc:: include/uapi/linux/landlock.h
-   *     :identifiers: landlock_create_ruleset_flags
-@@@ -273,16 -291,22 +291,22 @@@ SYSCALL_DEFINE3(landlock_create_ruleset
-  	    ruleset_attr.scoped)
-  		return -EINVAL;
- =20
-+ 	/* Checks permission content (and 32-bits cast). */
-+ 	if ((ruleset_attr.handled_permissions | LANDLOCK_MASK_PERMISSION) !=3D
-+ 	    LANDLOCK_MASK_PERMISSION)
-+ 		return -EINVAL;
-+=20
-  	/* Checks arguments and transforms to kernel struct. */
-  	ruleset =3D landlock_create_ruleset(ruleset_attr.handled_access_fs,
-  					  ruleset_attr.handled_access_net,
-- 					  ruleset_attr.scoped);
-+ 					  ruleset_attr.scoped,
-+ 					  ruleset_attr.handled_permissions);
-  	if (IS_ERR(ruleset))
-  		return PTR_ERR(ruleset);
- =20
-- 	ruleset->quiet_masks.fs =3D ruleset_attr.quiet_access_fs;
-- 	ruleset->quiet_masks.net =3D ruleset_attr.quiet_access_net;
-- 	ruleset->quiet_masks.scope =3D ruleset_attr.quiet_scoped;
-+ 	ruleset->quiet_access.fs =3D ruleset_attr.quiet_access_fs;
-+ 	ruleset->quiet_access.net =3D ruleset_attr.quiet_access_net;
-+ 	ruleset->quiet_access.scope =3D ruleset_attr.quiet_scoped;
- =20
-  	/*
-  	 * Emits before anon_inode_getfd() installs the file descriptor, while
-@@@ -377,12 -401,12 +401,12 @@@ static int add_rule_path_beneath(struc
-  		return -ENOMSG;
- =20
-  	/* Checks that allowed_access matches the @ruleset constraints. */
-- 	mask =3D ruleset->handled_masks.fs;
-+ 	mask =3D ruleset->layer.handled.fs;
-  	if ((path_beneath_attr.allowed_access | mask) !=3D mask)
-  		return -EINVAL;
- =20
-  	/* Checks for useless quiet flag. */
-- 	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_masks.fs)
-+ 	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_access.fs)
-  		return -EINVAL;
- =20
-  	/* Gets and checks the new rule. */
-@@@ -418,12 -442,12 +442,12 @@@ static int add_rule_net_port(struct lan
-  		return -ENOMSG;
- =20
-  	/* Checks that allowed_access matches the @ruleset constraints. */
-- 	mask =3D ruleset->handled_masks.net;
-+ 	mask =3D ruleset->layer.handled.net;
-  	if ((net_port_attr.allowed_access | mask) !=3D mask)
-  		return -EINVAL;
- =20
-  	/* Checks for useless quiet flag. */
-- 	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_masks.net)
-+ 	if (flags & LANDLOCK_ADD_RULE_QUIET && !ruleset->quiet_access.net)
-  		return -EINVAL;
- =20
-  	/* Denies inserting a rule with port greater than 65535. */
-@@@ -435,13 -459,164 +459,164 @@@
-  					net_port_attr.allowed_access, flags);
-  }
- =20
-+ static int add_rule_namespace(struct landlock_ruleset *const ruleset,
-+ 			      const void __user *const rule_attr,
-+ 			      const u32 flags)
-+ {
-+ 	struct landlock_namespace_attr ns_attr;
-+ 	access_mask_t mask;
-+ 	u64 allowed_types, quiet_types;
-+ 	int ret;
-+=20
-+ 	/*
-+ 	 * Namespace rules support no add-rule flags.  In particular,
-+ 	 * LANDLOCK_ADD_RULE_QUIET is filesystem/network only.
-+ 	 */
-+ 	if (flags)
-+ 		return -EINVAL;
-+=20
-+ 	/* Copies raw user space buffer. */
-+ 	ret =3D copy_from_user(&ns_attr, rule_attr, sizeof(ns_attr));
-+ 	if (ret)
-+ 		return -EFAULT;
-+=20
-+ 	/* Informs about useless rule: empty permissions. */
-+ 	if (!ns_attr.permissions)
-+ 		return -ENOMSG;
-+=20
-+ 	/*
-+ 	 * The permissions selector must match
-+ 	 * LANDLOCK_PERMISSION_NAMESPACE_USE.  The valid set is a single bit
-+ 	 * today, so this is an exact match now; the check broadens to a subset
-+ 	 * test once another supported permission is added.
-+ 	 */
-+ 	if (ns_attr.permissions !=3D LANDLOCK_PERMISSION_NAMESPACE_USE)
-+ 		return -EINVAL;
-+=20
-+ 	/*
-+ 	 * Checks that permissions match the ruleset constraints.  This also
-+ 	 * makes quieting require the category to be handled.
-+ 	 */
-+ 	mask =3D landlock_get_permission_mask(ruleset);
-+ 	if (!(mask & LANDLOCK_PERMISSION_NAMESPACE_USE))
-+ 		return -EINVAL;
-+=20
-+ 	/*
-+ 	 * Informs about useless rule: neither allows nor quiets anything.  A
-+ 	 * quiet-only rule (empty allowed set) is legal.
-+ 	 */
-+ 	if (!ns_attr.allowed_namespace_types && !ns_attr.quiet_namespace_types)
-+ 		return -ENOMSG;
-+=20
-+ 	/*
-+ 	 * Stores only the namespace types this kernel knows about.  Unknown
-+ 	 * bits are silently accepted for forward compatibility: user space
-+ 	 * compiled against newer headers can pass new CLONE_NEW* flags without
-+ 	 * getting EINVAL on older kernels.  Unknown bits have no effect because
-+ 	 * no hook checks them.  The quiet bitmask suppresses logging of denials
-+ 	 * attributed to this layer; see landlock_log_denial().
-+ 	 */
-+ 	allowed_types =3D ns_attr.allowed_namespace_types & CLONE_NS_ALL;
-+ 	quiet_types =3D ns_attr.quiet_namespace_types & CLONE_NS_ALL;
-+=20
-+ 	mutex_lock(&ruleset->lock);
-+ 	ruleset->layer.allowed.ns_types |=3D
-+ 		landlock_ns_types_to_bits(allowed_types);
-+ #ifdef CONFIG_SECURITY_LANDLOCK_LOG
-+ 	ruleset->quiet_permission.ns_types |=3D
-+ 		landlock_ns_types_to_bits(quiet_types);
-+ #endif /* CONFIG_SECURITY_LANDLOCK_LOG */
-+ #ifdef CONFIG_TRACEPOINTS
-+ 	ruleset->version++;
-+ #endif /* CONFIG_TRACEPOINTS */
-+ 	trace_landlock_add_rule_namespace(ruleset, flags, ns_attr.permissions,
-+ 					  allowed_types, quiet_types);
-+ 	mutex_unlock(&ruleset->lock);
-+ 	return 0;
-+ }
-+=20
-+ static int add_rule_capability(struct landlock_ruleset *const ruleset,
-+ 			       const void __user *const rule_attr,
-+ 			       const u32 flags)
-+ {
-+ 	struct landlock_capability_attr cap_attr;
-+ 	access_mask_t mask;
-+ 	u64 allowed_caps, quiet_caps;
-+ 	int ret;
-+=20
-+ 	/*
-+ 	 * Capability rules support no add-rule flags.  In particular,
-+ 	 * LANDLOCK_ADD_RULE_QUIET is filesystem/network only.
-+ 	 */
-+ 	if (flags)
-+ 		return -EINVAL;
-+=20
-+ 	/* Copies raw user space buffer. */
-+ 	ret =3D copy_from_user(&cap_attr, rule_attr, sizeof(cap_attr));
-+ 	if (ret)
-+ 		return -EFAULT;
-+=20
-+ 	/* Informs about useless rule: empty permissions. */
-+ 	if (!cap_attr.permissions)
-+ 		return -ENOMSG;
-+=20
-+ 	/*
-+ 	 * The permissions selector must match
-+ 	 * LANDLOCK_PERMISSION_CAPABILITY_USE.  The valid set is a single bit
-+ 	 * today, so this is an exact match now; the check broadens to a subset
-+ 	 * test once another supported permission is added.
-+ 	 */
-+ 	if (cap_attr.permissions !=3D LANDLOCK_PERMISSION_CAPABILITY_USE)
-+ 		return -EINVAL;
-+=20
-+ 	/*
-+ 	 * Checks that permissions match the ruleset constraints.  This also
-+ 	 * makes quieting require the category to be handled.
-+ 	 */
-+ 	mask =3D landlock_get_permission_mask(ruleset);
-+ 	if (!(mask & LANDLOCK_PERMISSION_CAPABILITY_USE))
-+ 		return -EINVAL;
-+=20
-+ 	/*
-+ 	 * Informs about useless rule: neither allows nor quiets anything.  A
-+ 	 * quiet-only rule (empty allowed set) is legal.
-+ 	 */
-+ 	if (!cap_attr.allowed_capabilities && !cap_attr.quiet_capabilities)
-+ 		return -ENOMSG;
-+=20
-+ 	/*
-+ 	 * Stores only the capabilities this kernel knows about.  Unknown bits
-+ 	 * are silently accepted for forward compatibility: user space compiled
-+ 	 * against newer headers can pass new CAP_* bits without getting EINVAL
-+ 	 * on older kernels.  Unknown bits have no effect because no hook checks
-+ 	 * them.  The quiet bitmask suppresses logging of denials attributed to
-+ 	 * this layer; see landlock_log_denial().
-+ 	 */
-+ 	allowed_caps =3D cap_attr.allowed_capabilities & CAP_VALID_MASK;
-+ 	quiet_caps =3D cap_attr.quiet_capabilities & CAP_VALID_MASK;
-+=20
-+ 	mutex_lock(&ruleset->lock);
-+ 	ruleset->layer.allowed.caps |=3D landlock_caps_to_bits(allowed_caps);
-+ #ifdef CONFIG_SECURITY_LANDLOCK_LOG
-+ 	ruleset->quiet_permission.caps |=3D landlock_caps_to_bits(quiet_caps);
-+ #endif /* CONFIG_SECURITY_LANDLOCK_LOG */
-+ #ifdef CONFIG_TRACEPOINTS
-+ 	ruleset->version++;
-+ #endif /* CONFIG_TRACEPOINTS */
-+ 	trace_landlock_add_rule_capability(ruleset, flags, cap_attr.permissions,
-+ 					   allowed_caps, quiet_caps);
-+ 	mutex_unlock(&ruleset->lock);
-+ 	return 0;
-+ }
-+=20
-  /**
-   * sys_landlock_add_rule - Add a new rule to a ruleset
-   *
-   * @ruleset_fd: File descriptor tied to the ruleset that should be extend=
-ed
-   *		with the new rule.
-   * @rule_type: Identify the structure type pointed to by @rule_attr:
--  *             %LANDLOCK_RULE_PATH_BENEATH or %LANDLOCK_RULE_NET_PORT.
-+  *             %LANDLOCK_RULE_PATH_BENEATH, %LANDLOCK_RULE_NET_PORT,
-+  *             %LANDLOCK_RULE_NAMESPACE, or %LANDLOCK_RULE_CAPABILITY.
-   * @rule_attr: Pointer to a rule (matching the @rule_type).
-   * @flags: Must be 0 or %LANDLOCK_ADD_RULE_QUIET.
-   *
-@@@ -458,11 -633,21 +633,21 @@@
-   *   &landlock_path_beneath_attr.allowed_access or
-   *   &landlock_net_port_attr.allowed_access is not a subset of the ruleset
-   *   handled accesses)
-+  * - %EINVAL: A nonzero &landlock_namespace_attr.permissions is not
-+  *   %LANDLOCK_PERMISSION_NAMESPACE_USE or is not handled by the ruleset;
-+  * - %EINVAL: A nonzero &landlock_capability_attr.permissions is not
-+  *   %LANDLOCK_PERMISSION_CAPABILITY_USE or is not handled by the ruleset;
-   * - %EINVAL: &landlock_net_port_attr.port is greater than 65535;
-   * - %EINVAL: LANDLOCK_ADD_RULE_QUIET is passed but the ruleset has no
-   *   quiet access bits set for the corresponding rule type.
-   * - %ENOMSG: Empty accesses (e.g. &landlock_path_beneath_attr.allowed_ac=
-cess is
-   *   0) and no flags;
-+  * - %ENOMSG: &landlock_namespace_attr.permissions is 0, or both
-+  *   &landlock_namespace_attr.allowed_namespace_types and
-+  *   &landlock_namespace_attr.quiet_namespace_types are 0;
-+  * - %ENOMSG: &landlock_capability_attr.permissions is 0, or both
-+  *   &landlock_capability_attr.allowed_capabilities and
-+  *   &landlock_capability_attr.quiet_capabilities are 0;
-   * - %EBADF: @ruleset_fd is not a file descriptor for the current thread,=
- or a
-   *   member of @rule_attr is not a file descriptor as expected;
-   * - %EBADFD: @ruleset_fd is not a ruleset file descriptor, or a member of
-@@@ -495,6 -680,10 +680,10 @@@ SYSCALL_DEFINE4(landlock_add_rule, cons
-  		return add_rule_path_beneath(ruleset, rule_attr, flags);
-  	case LANDLOCK_RULE_NET_PORT:
-  		return add_rule_net_port(ruleset, rule_attr, flags);
-+ 	case LANDLOCK_RULE_NAMESPACE:
-+ 		return add_rule_namespace(ruleset, rule_attr, flags);
-+ 	case LANDLOCK_RULE_CAPABILITY:
-+ 		return add_rule_capability(ruleset, rule_attr, flags);
-  	default:
-  		return -EINVAL;
-  	}
+	if (!hdm)
+		return;
 
---wyNCOcc/CS7CRyXw
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> +
+> +	guard(rwsem_write)(&cxl_rwsem.dpa);
+> +	info = pdev->hdm;
+> +	if (!info)
+> +		return;
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasBE1gAKCRAv73Ows9A4
-iYUrAPwNeFPFXIl9kbQID3wwASyoM1Q6a/YcPsy7DJ0BMh0CPQEA22zF0ztbZpqE
-+bpQyb40BZE9kNnt3cnkAPR4IaKB5wA=
-=y19W
------END PGP SIGNATURE-----
+Could use a blank line here.
 
---wyNCOcc/CS7CRyXw--
+> +	if (cxld->config.id < 0 || cxld->config.id >= info->decoder_count) {
+
+Maybe just create a local ptr for cxld->config given all the places you need to access its members.
+
+> +		pci_warn(pdev, "CXL HDM decoder %d exceeds cached count %d\n",
+> +			 cxld->config.id, info->decoder_count);
+> +		return;
+> +	}
+> +
+> +	info->global_ctrl = readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
+> +	settings = &info->settings[cxld->config.id];
+> +
+> +	/*
+> +	 * A disabled decoder's software object may retain its old range and
+> +	 * target state. Leave only the decoder id in the cached settings so stale
+> +	 * state is not restored as an enabled decode.
+> +	 */
+> +	*settings = (struct cxl_decoder_settings) {
+> +		.config.id = cxld->config.id,
+> +	};
+> +	if (cxld->config.flags & CXL_DECODER_F_ENABLE)
+> +		cxl_decoder_snapshot(cxld, settings);
+> +}
+> +
+>  static int cxl_decoder_commit(struct cxl_decoder *cxld)
+>  {
+>  	struct cxl_port *port = to_cxl_port(cxld->dev.parent);
+> @@ -804,6 +842,7 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
+>  	}
+>  	port->commit_end++;
+>  	cxld->config.flags |= CXL_DECODER_F_ENABLE;
+> +	cxl_hdm_refresh_decoder(cxlhdm, cxld);
+>  
+>  	return 0;
+>  }
+> @@ -876,6 +915,7 @@ static void cxl_decoder_reset(struct cxl_decoder *cxld)
+>  	writel(0, hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
+>  
+>  	cxld->config.flags &= ~CXL_DECODER_F_ENABLE;
+> +	cxl_hdm_refresh_decoder(cxlhdm, cxld);
+>  
+>  	/* Userspace is now responsible for reconfiguring this decoder */
+>  	if (is_endpoint_decoder(&cxld->dev)) {
+> @@ -1086,6 +1126,23 @@ static int devm_cxl_enumerate_decoders(struct cxl_hdm *cxlhdm,
+>  	int i;
+>  	u64 dpa_base = 0;
+>  
+> +	if (is_cxl_endpoint(port) && hdm) {
+> +		struct pci_dev *pdev __free(pci_dev_put) =
+> +			cxl_port_get_uport_pci_dev(port);
+> +
+> +		if (pdev) {
+> +			guard(rwsem_read)(&cxl_rwsem.dpa);
+> +
+> +			if (pdev->hdm &&
+> +			    pdev->hdm->decoder_count != cxlhdm->decoder_count) {
+> +				pci_warn(pdev,
+> +					 "CXL HDM cache decoder count mismatch: cached=%d hdm=%d\n",
+> +					 pdev->hdm->decoder_count, cxlhdm->decoder_count);
+> +				return -ENXIO;
+> +			}
+> +		}
+
+So we can't have a 'struct pci_dev' in core/hdm.c without breaking cxl_test. I think we can move this block into a helper function that's in core/pci.c. Maybe call it something like cxl_check_cached_decoder_settings(). I'm open to ideas. That way cxl_test can create a mock function and override it. See something like cxl_await_media_ready() in tools/testing/cxl/ on how to fixup cxl_test. Until we add support code for decoder saving etc in cxl_test, it can just do nothing now.
+
+DJ
+> +	}
+> +
+>  	cxl_settle_decoders(cxlhdm);
+>  
+>  	for (i = 0; i < cxlhdm->decoder_count; i++) {
+> @@ -1124,6 +1181,7 @@ static int devm_cxl_enumerate_decoders(struct cxl_hdm *cxlhdm,
+>  			put_device(&cxld->dev);
+>  			return rc;
+>  		}
+> +		cxl_hdm_refresh_decoder(cxlhdm, cxld);
+>  		rc = add_hdm_decoder(port, cxld);
+>  		if (rc) {
+>  			dev_warn(&port->dev,
+> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+> index 67c81be47fbb..e200c5c56b92 100644
+> --- a/include/cxl/cxl.h
+> +++ b/include/cxl/cxl.h
+> @@ -82,6 +82,28 @@ struct cxl_decoder_settings {
+>  	u64 target_or_skip_reg_val;
+>  };
+>  
+> +/**
+> + * struct cxl_hdm_info - cached CXL HDM state for a PCI device
+> + * @decoder_count: number of entries in @settings
+> + * @hdm_bar: PCI BAR containing the HDM decoder capability
+> + * @hdm_offset: offset of the HDM decoder capability in @hdm_bar
+> + * @hdm_size: size of the HDM decoder register block
+> + * @global_ctrl: HDM decoder global control register
+> + * @dvsec_ctrl: CXL DVSEC control register
+> + * @dvsec_ctrl_valid: whether @dvsec_ctrl contains valid state
+> + * @settings: per-decoder programming state
+> + */
+> +struct cxl_hdm_info {
+> +	int decoder_count;
+> +	int hdm_bar;
+> +	resource_size_t hdm_offset;
+> +	resource_size_t hdm_size;
+> +	u32 global_ctrl;
+> +	u16 dvsec_ctrl;
+> +	bool dvsec_ctrl_valid;
+> +	struct cxl_decoder_settings settings[] __counted_by(decoder_count);
+> +};
+> +
+>  /*
+>   * Using struct_group() allows for per register-block-type helper routines,
+>   * without requiring block-type agnostic code to include the prefix.
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1e..7bb37fcb556d 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -339,6 +339,9 @@ struct pcie_link_state;
+>  struct pci_sriov;
+>  struct pci_p2pdma;
+>  struct rcec_ea;
+> +#ifdef CONFIG_CXL_RESET
+> +struct cxl_hdm_info;
+> +#endif
+>  
+>  /* struct pci_dev - describes a PCI device
+>   *
+> @@ -566,6 +569,9 @@ struct pci_dev {
+>  #ifdef CONFIG_PCI_DOE
+>  	struct xarray	doe_mbs;	/* Data Object Exchange mailboxes */
+>  #endif
+> +#ifdef CONFIG_CXL_RESET
+> +	struct cxl_hdm_info *hdm;	/* CXL HDM decoder state */
+> +#endif
+>  #ifdef CONFIG_PCI_NPEM
+>  	struct npem	*npem;		/* Native PCIe Enclosure Management */
+>  #endif
+
