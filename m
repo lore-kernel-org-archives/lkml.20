@@ -1,37 +1,37 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69892330301
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0D67080D
 	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:20:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790954408; cv=none; b=lbLOsdSize6Fy2awhbqVQce+BLnrwnq+/nqGu6aeghx4QFwcHcoQi12Na19ByUTMA12p6lqcUl9MGuHATlNOXXvm1DNYjZiJXlyp/LYGZBbbo4+gLzyastNcc57O146LZNgyvGhMaaUQh2Pef1ZJvV2VERYctezPFXtUo37GP8g=
+	t=1790954409; cv=none; b=sYbFNtXZxT5+fB2hAYNGemRFX2foMPVKQO7OPdsPiIg36TlLBSD4Ofh3if+0sju0fsNa5FednF+TEE1VwaOYrhpyQ9pCuATkctvYQzBKXPgyATAZGRZ+rEdgDEXzkEh2kkr9JtRT3tuMo4Mx9QczN4j5EvOy76dpwAls1VLW3yU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790954408; c=relaxed/simple;
-	bh=D5wHx7ed/BRzm/wT5ADKjd8NkDCtLnef7iNDmTQ5ukg=;
+	s=arc-20240116; t=1790954409; c=relaxed/simple;
+	bh=g/a0zE3GlmtSloj4BLhTXpKoPKZn+g7/FbiLzspajz8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r2dFwRyAOi6vWfTAc3fKdv2caSkt0TyZ8uygkIrmC0dnU7P2eywJoY02oWP7yB2/DIWqHP7JzG4weP81DqerCZNPyzcekEmD6aGre970fojdk9wf9ueKWjrKoArAxmK0BDJ1W2pl01zq7nAg8H7ViUXiSoGpnxtAggbOATqQDkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=nlH3Kq+Q; arc=none smtp.client-ip=90.155.92.199
+	 MIME-Version; b=F8JFR7C8P6j16LRFdKaAhVUG0xRSsj/yy/eu9fhtJAJw+jHuYWZrLYwl9dPh1aReQgjjDTC4FfunkRpsNRKuwMuJWZ0CwWUBg41xmN12kPT0kjt4MA7VvM38OkiHgUik7VsOyGXrFU+Z/e4Qsjq3DgE1F9ckNRggkDPC9WWGLZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BqHzbyeT; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="nlH3Kq+Q"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BqHzbyeT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=CZCNA5hXD8rEJ+ya1t/91nO9EvU/rN6ZxDBsiQB0+iQ=; b=nlH3Kq+QzPvsI1oA+vl2nN3uyT
-	3u5p/GrqaroCuDn+P4sZjdlIOA6HYXnhzMgDHlKwDefMEpDN/M0kJndxd/bGDuSkDzDsT52bPhPWG
-	s3CG+usSdd1vQENVLjrEtHcgMw9bu0F187mOKOmg50U6BYJGSeMvLVRpv6NvMeQSnUrxO40WmLzMp
-	G59gia6yrat1rEfGuF61+RDi8bKdtmYQBqi7KKPmrODagq0xnvTxXu5wKQ4EOCZBLxYc5jyGUWZTB
-	HvSTnKvEDYULu9SyEDzW4WAaJXyEe6zNk7K8vf7jI2AsGiCA29gScJiTvjvbZeJQ9MykGtqsWtBQw
-	gAxHjRwQ==;
+	bh=/Xtzlc4MKtN/ybKpqClt3CVRXBWPmpbb7mGbAWUMgnA=; b=BqHzbyeThEfglNAuNisiPYABrO
+	SjDJKNcwBAB+pel9ZzPvWu0szGC0CHz2YilOVMrVvXc8dWskcvU8ikANLsPaggZPdLktmWNG0F/gq
+	xG/0cS6ubkYCLHKqgqkZDjLgFjJoSjYn34rygKWINF4YOJIk30zd+Iq0scIgqy0NfVKLGRiscP1Z+
+	i3PuSY5ZhNPyOQ3Yue+wrWVZsTGUYL50KiCYeuO0DtsrW09DeBKEefeGVrad2b8DRRpfLe9V5x9kh
+	27Ve9NIjb+ncIEWu8Ulj5ZFW9R5CExE4mKFpvBMb8lFbHDLvv/Tpuqb//xII5958A4canRzvE2WuQ
+	YRruJ6ag==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1xCf34-000000064CR-2zi2;
+	id 1xCf34-000000064CS-2zke;
 	Fri, 02 Oct 2026 15:19:47 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xCf31-00000000IAu-3lqx;
+	id 1xCf31-00000000IAx-45IT;
 	Fri, 02 Oct 2026 16:19:43 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: Thomas Gleixner <tglx@kernel.org>,
@@ -48,9 +48,9 @@ Cc: Stephen Boyd <sboyd@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw2@infradead.org>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH 1/2] arm64: Support inlined clocksource reads for the arch counter
-Date: Fri,  2 Oct 2026 16:19:37 +0100
-Message-ID: <20261002151938.69857-2-dwmw2@infradead.org>
+Subject: [PATCH 2/2] timekeeping: Use inlined counter read in ktime_get_snapshot_id()
+Date: Fri,  2 Oct 2026 16:19:38 +0100
+Message-ID: <20261002151938.69857-3-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261002151938.69857-1-dwmw2@infradead.org>
 References: <20261002151938.69857-1-dwmw2@infradead.org>
@@ -66,122 +66,185 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Commit 2e27beeb66e43 ("timekeeping: Allow inlining clocksource::read()")
-allows an architecture's clocksource::read() to be inlined, and was only
-wired up for x86_64 thus far in commit b27801189f7fc ("x86: Inline TSC
-reads in timekeeping").
+Every instruction between a PPS/hwstamp caller's triggering event and
+the counter read inside ktime_get_snapshot_id() displaces the returned
+timestamp from that event. When the clocksource supports inlined
+reads, read the counter directly in tk_clock_read_snapshot(), avoiding
+the indirect call. The inlined read cannot provide a hardware
+snapshot, so clear the chs struct after the read instead of
+beforehand.
 
-Add the corresponding ARCH_WANTS_CLOCKSOURCE_READ_INLINE support for the
-arm64 arch counter, allowing the indirect clock->read() call in the fast
-paths to be replaced with a direct sysreg read. A static key selects
-CNTPCT vs CNTVCT as appropriate, and the inline support is only
-advertised for the plain (no erratum workaround) read paths.
+Also bypass the clock_id case statement for CLOCK_REALTIME, which is the
+common and latency-critical caller.
 
-Measured on a Cortex-A53 at 1.35GHz (12.5MHz arch counter): the
-interval from a raw counter read in the caller to the counter read
-inside ktime_get_real_ts64() drops from 30.2ns to 23.4ns, mean of 1M
-iterations. Every ktime_get*() user of tk_clock_read() benefits
-similarly. Except ktime_get_snapshot_id(), which I shall get to shortly.
+Measured on a Cortex-A53 at 1.35GHz (12.5MHz arch counter), with
+inlined clocksource reads enabled: the interval from a raw counter
+read in the caller to the counter read inside the function drops from
+49.9ns to 41.2ns with the inline read, and to 38.8ns with the dispatch
+bias, mean of 1M iterations.
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/arm64/Kconfig                     |  1 +
- arch/arm64/include/asm/clock_inlined.h | 26 ++++++++++++++++++++++++++
- drivers/clocksource/arm_arch_timer.c   | 21 +++++++++++++++++++++
- 3 files changed, 48 insertions(+)
- create mode 100644 arch/arm64/include/asm/clock_inlined.h
+ kernel/time/timekeeping.c | 110 +++++++++++++++++++++++++-------------
+ 1 file changed, 73 insertions(+), 37 deletions(-)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b5a51b0ef944..25795b87cd41 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -94,6 +94,7 @@ config ARM64
- 	select ARCH_WANT_FRAME_POINTERS
- 	select ARCH_WANT_HUGE_PMD_SHARE if ARM64_4K_PAGES || (ARM64_16K_PAGES && !ARM64_VA_BITS_36)
- 	select ARCH_WANT_LD_ORPHAN_WARN
-+	select ARCH_WANTS_CLOCKSOURCE_READ_INLINE
- 	select ARCH_WANTS_EXECMEM_LATE
- 	select ARCH_WANTS_NO_INSTR
- 	select ARCH_WANTS_THP_SWAP if ARM64_4K_PAGES
-diff --git a/arch/arm64/include/asm/clock_inlined.h b/arch/arm64/include/asm/clock_inlined.h
-new file mode 100644
-index 000000000000..fe997412bc7d
---- /dev/null
-+++ b/arch/arm64/include/asm/clock_inlined.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _ASM_ARM64_CLOCK_INLINED_H
-+#define _ASM_ARM64_CLOCK_INLINED_H
-+
-+#include <linux/jump_label.h>
-+#include <asm/arch_timer.h>
-+
-+struct clocksource;
-+
-+/*
-+ * Set by the arch timer driver when it selects the physical counter
-+ * (kernel booted at EL2); otherwise the virtual counter is used. The
-+ * driver only advertises CLOCK_SOURCE_CAN_INLINE_READ when it selected
-+ * a plain (no erratum workaround) sysreg read matching this function.
-+ */
-+DECLARE_STATIC_KEY_FALSE(arch_timer_inline_read_pct);
-+
-+static __always_inline u64 arch_inlined_clocksource_read(struct clocksource *cs)
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index ea2e6e55f37b..f0768efb8cff 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -304,6 +304,30 @@ static __always_inline u64 tk_clock_read(const struct tk_read_base *tkr)
+ 	return clock->read(clock);
+ }
+ 
++static inline u64 tk_clock_read_snapshot(const struct tk_read_base *tkr,
++					 struct clocksource_hw_snapshot *chs)
 +{
-+	if (static_branch_likely(&arch_timer_inline_read_pct))
-+		return __arch_counter_get_cntpct();
++	struct clocksource *clock = READ_ONCE(tkr->clock);
++	u64 count;
 +
-+	return __arch_counter_get_cntvct();
++	if (static_branch_likely(&clocksource_read_inlined)) {
++		count = arch_inlined_clocksource_read(clock);
++	} else if (unlikely(clock->read_snapshot)) {
++		*chs = (struct clocksource_hw_snapshot){ };
++		return clock->read_snapshot(clock, chs);
++	} else {
++		count = clock->read(clock);
++	}
++
++	/*
++	 * Unless it's *used* by ->read_snapshot(), this can be cleared
++	 * *after* the clocksource is read, allowing the clocksource to
++	 * be sampled sooner.
++	 */
++	*chs = (struct clocksource_hw_snapshot){ };
++	return count;
 +}
 +
-+#endif
-diff --git a/drivers/clocksource/arm_arch_timer.c b/drivers/clocksource/arm_arch_timer.c
-index cc9a8b399004..1c3d503d881a 100644
---- a/drivers/clocksource/arm_arch_timer.c
-+++ b/drivers/clocksource/arm_arch_timer.c
-@@ -133,6 +133,13 @@ static noinstr u64 arch_counter_get_cntvct(void)
- u64 (*arch_timer_read_counter)(void) __ro_after_init = arch_counter_get_cntvct;
- EXPORT_SYMBOL_GPL(arch_timer_read_counter);
- 
-+#ifdef CONFIG_ARM64
-+#include <asm/clock_inlined.h>
-+
-+/* Selects CNTPCT in arch_inlined_clocksource_read() */
-+DEFINE_STATIC_KEY_FALSE(arch_timer_inline_read_pct);
-+#endif
-+
- static u64 arch_counter_read(struct clocksource *cs)
+ static inline void clocksource_disable_inline_read(void)
  {
- 	return arch_timer_read_counter();
-@@ -917,6 +924,15 @@ static void __init arch_counter_register(void)
- 		} else {
- 			rd = arch_counter_get_cntvct;
- 			scr = arch_counter_get_cntvct;
-+			/*
-+			 * A plain sysreg read with no erratum workaround
-+			 * matches arch_inlined_clocksource_read(); allow the
-+			 * core timekeeping code to bypass the indirect call.
-+			 */
-+#ifdef CONFIG_ARM64
-+			clocksource_counter.flags |=
-+				CLOCK_SOURCE_CAN_INLINE_READ;
-+#endif
- 		}
- 	} else {
- 		if (arch_timer_counter_has_wa()) {
-@@ -925,6 +941,11 @@ static void __init arch_counter_register(void)
- 		} else {
- 			rd = arch_counter_get_cntpct;
- 			scr = arch_counter_get_cntpct;
-+#ifdef CONFIG_ARM64
-+			static_branch_enable(&arch_timer_inline_read_pct);
-+			clocksource_counter.flags |=
-+				CLOCK_SOURCE_CAN_INLINE_READ;
-+#endif
- 		}
+ 	static_branch_disable(&clocksource_read_inlined);
+@@ -321,6 +345,22 @@ static __always_inline u64 tk_clock_read(const struct tk_read_base *tkr)
+ 	return clock->read(clock);
+ }
+ 
++static inline u64 tk_clock_read_snapshot(const struct tk_read_base *tkr,
++					 struct clocksource_hw_snapshot *chs)
++{
++	struct clocksource *clock = READ_ONCE(tkr->clock);
++	u64 count;
++
++	if (unlikely(clock->read_snapshot)) {
++		*chs = (struct clocksource_hw_snapshot){ };
++		return clock->read_snapshot(clock, chs);
++	}
++
++	count = clock->read(clock);
++	*chs = (struct clocksource_hw_snapshot){ };
++	return count;
++}
++
+ static inline void clocksource_disable_inline_read(void) { }
+ static inline void clocksource_enable_inline_read(void) { }
+ #endif
+@@ -1219,18 +1259,6 @@ noinstr time64_t __ktime_get_real_seconds(void)
+ 	return READ_ONCE(tk->xtime_sec);
+ }
+ 
+-static inline u64 tk_clock_read_snapshot(const struct tk_read_base *tkr,
+-					 struct clocksource_hw_snapshot *chs)
+-{
+-	struct clocksource *clock = READ_ONCE(tkr->clock);
+-
+-	if (unlikely(clock->read_snapshot))
+-		return clock->read_snapshot(clock, chs);
+-
+-	return clock->read(clock);
+-}
+-
+-
+ /**
+  * ktime_get_snapshot_id -  Simultaneously snapshot a given clock ID with
+  *			    the corresponding monotonic raw and the underlying
+@@ -1263,36 +1291,41 @@ void ktime_get_snapshot_id(clockid_t clock_id, struct system_time_snapshot *syst
+ 	if (WARN_ON_ONCE(timekeeping_suspended))
+ 		return;
+ 
+-	switch (clock_id) {
+-	case CLOCK_REALTIME:
+-		tkd = &tk_core;
+-		offs = &tk_core.timekeeper.offs_real;
+-		break;
+-	/* Map RAW to MONOTONIC so the loop below is trivial */
+-	case CLOCK_MONOTONIC_RAW:
+-	case CLOCK_MONOTONIC:
+-		tkd = &tk_core;
+-		offs = &offs_zero;
+-		break;
+-	case CLOCK_BOOTTIME:
+-		tkd = &tk_core;
+-		offs = &tk_core.timekeeper.offs_boot;
+-		break;
+-	case CLOCK_AUX ... CLOCK_AUX_LAST:
+-		tkd = aux_get_tk_data(clock_id);
+-		if (!tkd)
++	/*
++	 * Bias the dispatch for CLOCK_REALTIME: it is the overwhelmingly
++	 * common caller (PPS, PTP cross-timestamps) and the most
++	 * latency-critical -- everything ahead of the counter read
++	 * displaces those callers' timestamps from their triggering event.
++	 */
++	tkd = &tk_core;
++	offs = &tk_core.timekeeper.offs_real;
++
++	if (unlikely(clock_id != CLOCK_REALTIME)) {
++		switch (clock_id) {
++		/* Map RAW to MONOTONIC so the loop below is trivial */
++		case CLOCK_MONOTONIC_RAW:
++		case CLOCK_MONOTONIC:
++			offs = &offs_zero;
++			break;
++		case CLOCK_BOOTTIME:
++			offs = &tk_core.timekeeper.offs_boot;
++			break;
++		case CLOCK_AUX ... CLOCK_AUX_LAST:
++			tkd = aux_get_tk_data(clock_id);
++			if (!tkd)
++				return;
++			offs = &tkd->timekeeper.offs_aux;
++			break;
++		default:
++			WARN_ON_ONCE(1);
+ 			return;
+-		offs = &tkd->timekeeper.offs_aux;
+-		break;
+-	default:
+-		WARN_ON_ONCE(1);
+-		return;
++		}
  	}
  
+ 	tk = &tkd->timekeeper;
+ 
+ 	do {
+-		struct clocksource_hw_snapshot chs = { };
++		struct clocksource_hw_snapshot chs;
+ 
+ 		seq = read_seqcount_begin(&tkd->seq);
+ 
+@@ -1911,8 +1944,11 @@ int timekeeping_notify(struct clocksource *clock)
+ 	 * If the clocksource has been selected and supports inlined reads
+ 	 * enable the branch.
+ 	 */
+-	if (tk->tkr_mono.clock == clock && clock->flags & CLOCK_SOURCE_CAN_INLINE_READ)
++	if (tk->tkr_mono.clock == clock && clock->flags & CLOCK_SOURCE_CAN_INLINE_READ) {
++		/* The inlined read cannot provide a hardware snapshot */
++		WARN_ON_ONCE(clock->read_snapshot);
+ 		clocksource_enable_inline_read();
++	}
+ 
+ 	tick_clock_notify();
+ 	return tk->tkr_mono.clock == clock ? 0 : -1;
 -- 
 2.43.0
 
