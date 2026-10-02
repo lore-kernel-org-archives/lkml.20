@@ -1,187 +1,477 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-pz2-f21.google.com (mail-pz2-f21.google.com [74.125.228.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613934E020E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960389; cv=pass; b=JHHY7gvGCAQ2jtF47XJgVnYs6b47fx1yklqJ3cYOm8YM/79uQhd2yaKFuw6CSnrCE2L/aL5BCpt9mQw9zM4+TNsq849A/wsQiyLJtiI2CF/IgX015WwLPcF7sYe6MvJUl5mcW/Pg44kQOVrteDjBamp9/T6Lgy1HCY3zSE+aX4M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960389; c=relaxed/simple;
-	bh=EHkJtd8Eu6RlYIDachMsn7gB1X9/FWHuhTARdLq36AQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JwpHJjix/FB2uxlmVA+fNMOCC3eXikZL7SofrfXy63EgZcW0SeA3dzOKZhb5UPHjpgtC3xhcFBzd4R7S3yVHbBIKUx2m3LAF7bSd02AwuxlTV3ebVz16niMhR7UQy16w2HDZEGsD9zr54xs0UoT9uGzoV2347ib5w9JPIQR668I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpIzZ8Fe; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D774D0CDF
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790960388; cv=none; b=ffxiL1sbySGCN6jp8RCca5aMywzd5oj/ZDwO01krkIhlzI5oEELM5NO30vxQrh+bRtM2LW7Ddsap+xo6atFVRzKrbMtu4JhJqXjfYUL7x8nuQElsL83cteE7ucZ64ec70PRcWTsK0Jpb5rXLkteBZDA0lb1tkZKPEu0q/TnSYr8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790960388; c=relaxed/simple;
+	bh=cGxj2bFT+Q1rbyuH9cWCMXDaMWD6XJBoDbvLhnBXqgg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=DusxGknTomTuacNAl1NLqhXi/9ay+7R/geeAjobmhHz+TkYc7Vqz55FFpzqxL1/u44ZnTN72aBviTn6z+ZP64ETWJhYklmMtLRGdncWvMm5FfRAq2fbrsNCwLU7LwRVfgx4rKBt0lQ0bEGJn18TehrbWED1PDR4PONGcELP1Dps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=YrD8bmOo; arc=none smtp.client-ip=74.125.228.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpIzZ8Fe"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340d23b6a9eso595048eec.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:59:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790960386; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YkcsziPPeGFBRtiNpv8H9fi0uQOLuWzMYt3pTzw8bNu3B/n/Akm++mRfQ0X7IsqG1L
-         e683hNfXWItMOEieVTfGDvyBBUDKu2rWNwI2VBVYkhHhQd868mGIqfs4/EdXhYhRulw7
-         t1j+l9sAsRlD8jdqJhaRVDxsJAzM1xShRZsRfRcmeKjccuKAz3ErxD4bZrUVTKz+7NBS
-         1anUPu1tVejPYzgF+5T7n+iT9kE7ozsSIudTDqvVbapnyY0JPdFv+nAeYbr18AeQl0r5
-         ra3nYKKZeCWBpsqiOVZKfn8SK2DcHPA9LBzQ/iQmmlNzUYro5JtgM0rk+kOWxh1qCX/0
-         PLXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
-        fh=kvxD9cwwj2K5btMpBVHT/YTIX5mL8TvzLl3Gw0K01hI=;
-        b=d6pUoICd4YyjYko0VIrnzxCAb/xzkOp8AZEMQ1fthFXiEnBHpbalZdQWBz/BnPRbRH
-         DnYhnrW8L7GZTWYXBczSz5OSYBgQ/p9Shv04AScuagtaJFoTmd+5qU/gS4i+8aHIVl2y
-         aIKLIDv1QCj5FozLrIFxyN5YIH8rHdaJJpBacXCUyI0LA+fFyypVl+DKQEcDgqwHWEDd
-         /CnGZ4Nk3lHEbsNxO8FPjCNGxCDSWlwqVNvAWC6Tmjsf0a58YxUaYmYPP+2/7HMKH8Eu
-         +iXKt3J7sMDLeK7xhOWaw5cZiLb2op/W8pjp27Gt2jINnnasU1DIvsXjQlQMe+XBzfPq
-         clSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="YrD8bmOo"
+Received: by mail-pz2-f21.google.com with SMTP id 41be03b00d2f7-cc4cacd3409so4719774a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:59:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790960386; x=1791565186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
-        b=mpIzZ8Fewhzw18Tfl3XgkOPOU1uONme0BMiA89Cy0Ed9IromRZD2/aKV6/49tOojkt
-         GGflUKA/eaF3C19qoANFMP7tELK9jL2rH0AJG1lmNefizVTtwwjZwdzo8ZyMgz/I/M+B
-         KnQ/pZE7RI88BZBdzoO3pDZEPAt8toVzDjEzTCJHl6+5nWlRYvTdPq/3v+UH4K4TJNVc
-         AYHCmUjwexQBIbpRk+0ANUUfs7d4R5uQu8s8KBNwIsnjo77EyfVL6c+CJG2N2tLeDxHx
-         KtfgRIa1f3IDIyeh/vAF3V9IepbtNT88mQs5iCzsTglwrmcG/OmyTfV8Ge4JIzj/nDlL
-         dnTw==
+        d=bytedance.com; s=google; t=1790960386; x=1791565186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wr4LtdUbpqcAeSn0rG32NGieF132dt6UAMZa+jOZzQA=;
+        b=YrD8bmOoSpPvipA6DTvSO1f9sXo/W/2TPSkm88EuEDoOJ3EXRB4RBAM1XbQVqW+bH5
+         mUP9n2mBAfZAJVBIteYp2a0yuQUExfUeSMyeqN6P1RAkFuy9HfM9EH2UFDBuryRNzrN7
+         jcTwpku2qhJuG9UmGec+aT2ZOc8CAPeHqfA9R5FPAFHg3J1r5McgWHkY50tEuxKtB0WC
+         BWIgDMdtheM88JQ6A/95MJlj9yXtQ8q2oowZE2hFK3Wvw+YMUmz/y35sWc6HPZY9FiGw
+         ieucDORh+eCBp248lDgnVh+8ZLRKLrL8+EG1puhfH01fctLzYcrkyDl7p9+5KoTlzBHb
+         zEVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790960386; x=1791565186;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
-        b=F+GUSik3h/BIkI7xkx9eGIB+buqCt2B097caq/Ln/p4PUAKWk6Sv6uZUIkJfUrKNtx
-         MehtnL61TdWLRhih97IKRvqTeK4C2/gCHFMcDsPc1TsO7Qjp0FU2anI8ALsqJ40TUCaH
-         0GODcnDeazTHrw10ctAgJK+DUlMnwhAJFBhbbqlLpp3YjFluZ0i6q28tZcdwFIuQfpky
-         5wDMJRdrJISn1xysf7JFiZDpjUyJu5S5hN2J9NXp/xbVbNs0+ZT0QSabEZHWE85lZMlc
-         Jn6AvxUndt+yMrfIf9qET2iM0nlEW6vZivUhGnfoZI7/22WQ0PQYJtTwwMXCkWXJtZMP
-         LJhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwlCK5qiCcOnyAQ1o4sJM9q2nPlmPJJj7HOntmeQKrgqP2+ljk7xhaAOHMQbFHhLxnMT114JyooElOxQs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeOtVx3ARZJAq280R3tiPLoaYNdn3bfGJ0V1yRMTFoDhgjme2k
-	LfR9irL9FBFd4Dg0bJL6IXCVPHx6IMuSBbg8lfTgSZSjOsbF5yoLfx6ELP6xW0YXbPlb4/RQfQ6
-	y7+FjxZ2aZoPYaP2gevHhsXu4Kpkja/g=
-X-Gm-Gg: AYBFou0rZQw0gNtVTm+5BBBb/EsAAtvQ4BznqZJtQcgzJnv+jrpXI8g1YgjQqo67epY
-	B9jQrinQt9T7jM49oGbiwjMVPs6aNfHeG5tNuYfdrEO7Fk69MflUHbD87y2Hk5Of+W/27gzlGcp
-	01GiYAjXDvd8O6IXZGJ55tV6Q8aslrA1scKJnrF5fGjo6SCGbvAp417BH+cP1NR7z623uZaUkKV
-	I+yPvrG9hwQ2auV4po0Fis4oECOqzjdZUGnDIQR5YG71wIfYzd4eY7w9YRYWebw02bE4H82kHnL
-	YJihCEWt4GOaCCdo+XuaqVITBAFpZaOWYXZZ4yTOWUfFSLJtpZbt+N8GLdCiJMzVYWcBRZEV5IT
-	udzVj6KNaCfNRDdBW4GWU5oz6aEYnA0K47yqrozIJ6r6ZOp6adAnNZArVUCwvqmW4x3AIMkQpww
-	49tiozh46UQFj1F9oyonOEoMlMrGzdP5JD6M7lAc6Ed5amS+jJbrRSzykAcQRwSA==
-X-Received: by 2002:a05:7301:468a:b0:340:f698:fd56 with SMTP id
- 5a478bee46e88-34f1507015fmr4716231eec.2.1790960386330; Fri, 02 Oct 2026
- 09:59:46 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wr4LtdUbpqcAeSn0rG32NGieF132dt6UAMZa+jOZzQA=;
+        b=ITf+PYBIstQfdwA5OkPRhVUiR4OWGosPxUhuJ/fza16XtGDjEJipsjJd1G58aUQ3Dj
+         xNPQCbF1ooqQ5lFmGHfiwwIPnK7aR1K3bA7sz4EWvCUTBS/p1lL4LryxKx7jHILUm4Xt
+         d45oRjvZxri+WTqC8UrBTILlPf0y/hfLHpAVLoLKVykQr/Ch0iuiV0srt90TFr7JvJVY
+         CRdQ5feBSZLn9xmmzd/c2uMEtHFath6b6WQqwhQ+Vza5Yv+gGSWq1fnfA7ZdOZQOAz+i
+         FSnYvFfyX5aSwGGiL7LLBGczys6LjjmERbGqoXp4etS5L2wTSABj/FBh293CorOgxAC2
+         Ax/w==
+X-Gm-Message-State: AFq9FYJvfZTcVCors6BLmjHq/zeBKuNsX464kbzv7W4OuTMFCPoQQnX7
+	j08HjtVhhSvIYGE8lYxjSQmr6aeHGiv6ZryiC976RBvnyJCndtcwuouLvCUKyjwg6SU=
+X-Gm-Gg: AYBFou1e8xCw3OrMOYVe4to+b1P8cw36GFgBQ6INIuFxf9+UcKn+OIh5vzcOUisDXQl
+	utLWeKIsLujRpXv0U5ehRhrpDM2/0FieIJesuYPXC9KkHpp+j0G3BAWcncgOW3K6USdbBVXUxIM
+	3l7tP2osfyUpERI3/HMfBNxCrFuVZHR7xUKUUAOM3mkdRzXdjz+PF5R7nVb/yvfg+yidaDvpb6i
+	rFUpiuC5si8Fv2n5hgYUtAlO5IgtqGJx0Kan6Tc91i9WzGyUksh0Z5yB1oe7Gykr/6LIsLg+QJh
+	dpVexTgyxEAQhRWnj5VAZtWXI2dKKneeBIYY/I6tIGbr13zpLCY77i5PP6Ot1Y+RMASNpKyWy3X
+	AO/OdNhdHvq3JTdXAIcAijmdhS9Wm3AjXZmcJ52wGATV2e/2Yu+ZA9K2ase62lY2LCQEv5i41BH
+	OQlv6lQHRuEH8/OWtAtQSXHDdlagIPt5Pa4u3CX4/aCKQh0tkf9XMA8rY1hc/OrtEVXFoLRRBBp
+	jHuokTPHyEuSofkxq4GIxmhbyAT
+X-Received: by 2002:a17:90b:528d:b0:3a0:d2f3:fa80 with SMTP id 98e67ed59e1d1-3a6ce647e72mr3012020a91.6.1790960386164;
+        Fri, 02 Oct 2026 09:59:46 -0700 (PDT)
+Received: from n37-012-226.byted.org ([115.190.40.12])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6cd5d88bbsm4900871a91.12.2026.10.02.09.59.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 09:59:45 -0700 (PDT)
+From: Qingwei Hu <qingwei.hu@bytedance.com>
+To: linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Gary Guo <gary@garyguo.net>,
+	Andrea Parri <parri.andrea@gmail.com>,
+	Guo Ren <guoren@kernel.org>,
+	Xu Lu <luxu.kernel@bytedance.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Qingwei Hu <qingwei.hu@bytedance.com>
+Subject: [PATCH v5 4/5] riscv: Use Zalasr for xchg and cmpxchg ordering
+Date: Sat,  3 Oct 2026 00:59:09 +0800
+Message-Id: <20261002165910.3818940-5-qingwei.hu@bytedance.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261002165910.3818940-1-qingwei.hu@bytedance.com>
+References: <20261002165910.3818940-1-qingwei.hu@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917-cv-v4-0-547ef5727451@nvidia.com> <20260917-cv-v4-1-547ef5727451@nvidia.com>
-In-Reply-To: <20260917-cv-v4-1-547ef5727451@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 2 Oct 2026 18:59:31 +0200
-X-Gm-Features: AclHuK_QhqfJYiyMedO2piq5-wcrguEMff8QxYGEopB8UiRg5ASf89kljYpIsb8
-Message-ID: <CANiq72m0PLhT=-ODzQtX7k3jn6=XXpESDUbnHcAmR-1gFqR7uQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
- constant expressions
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 10:35=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.c=
-om> wrote:
->
-> from constants without a verbose turbofish syntax.
-> For example, `const { NonZero::new(1).unwrap() }` can be written as
+From: Xu Lu <luxu.kernel@bytedance.com>
 
-Word wrap or newline?
+RISC-V implements acquire and release xchg/cmpxchg operations with a
+directional fence before or after a relaxed atomic instruction. Fully
+ordered LR/SC fallbacks use sc.rl followed by a full fence.
 
-> +/// Creates a value from an integer constant expression, with validity c=
-hecked at build time.
+Keep those sequences as the default alternatives. On Zalasr systems, use
+aq or rl annotations on the LR, SC, AMO, or CAS instruction and replace
+the matching fence with a nop. Use lr.aq together with sc.aqrl for fully
+ordered LR/SC fallbacks. Direct fully ordered AMO and CAS paths are
+already annotated and remain unchanged.
 
-Maybe:
+Apply the alternatives to both the Zabha/Zacas paths and their LR/SC
+fallbacks while retaining the instruction-set option scopes required by
+newer toolchains. Relaxed operations do not gain alternative entries.
 
-  ... a constant value ("cv") ...
+Signed-off-by: Xu Lu <luxu.kernel@bytedance.com>
+Co-developed-by: Yunhui Cui <cuiyunhui@bytedance.com>
+Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+Co-developed-by: Qingwei Hu <qingwei.hu@bytedance.com>
+Signed-off-by: Qingwei Hu <qingwei.hu@bytedance.com>
+---
+ arch/riscv/include/asm/cmpxchg.h | 186 +++++++++++++++++++------------
+ 1 file changed, 114 insertions(+), 72 deletions(-)
 
-since we explain that in the commit message, but not in the actual
-documentation :)
+diff --git a/arch/riscv/include/asm/cmpxchg.h b/arch/riscv/include/asm/cmpxchg.h
+index 39f8195c9fd6c..eac60cf91b9b5 100644
+--- a/arch/riscv/include/asm/cmpxchg.h
++++ b/arch/riscv/include/asm/cmpxchg.h
+@@ -16,8 +16,12 @@
+ #include <asm/processor.h>
+ #include <asm/errata_list.h>
+ 
+-#define __arch_xchg_masked(sc_sfx, swap_sfx, prepend, sc_append,		\
+-			   swap_append, r, p, n)				\
++#define RISCV_SELECT_OLD(old, ...)	old
++
++#define __arch_xchg_masked(lr_alt, sc_alt, swap_alt,			\
++			   lr_sfx, sc_sfx, swap_sfx,			\
++			   z_lr_sfx, z_sc_sfx, z_swap_sfx,		\
++			   prepend, sc_append, swap_append, r, p, n)	\
+ ({										\
+ 	if (IS_ENABLED(CONFIG_RISCV_ISA_ZABHA) &&				\
+ 	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZABHA)) {		\
+@@ -25,7 +29,8 @@
+ 			prepend							\
+ 			"	.option push\n"					\
+ 			"	.option arch, +zabha\n"				\
+-			"	amoswap" swap_sfx " %0, %z2, %1\n"		\
++			swap_alt("	amoswap" swap_sfx " %0, %z2, %1\n",\
++				 "	amoswap" z_swap_sfx " %0, %z2, %1\n") \
+ 			"	.option pop\n"					\
+ 			swap_append						\
+ 			: "=&r" (r), "+A" (*(p))				\
+@@ -43,10 +48,13 @@
+ 		__asm__ __volatile__ (						\
+ 		       prepend							\
+ 		       PREFETCHW_ASM(%5)					\
+-		       "0:	lr.w %0, %2\n"					\
++		       "0:\n"						\
++		       lr_alt("	lr.w" lr_sfx " %0, %2\n",		\
++			      "	lr.w" z_lr_sfx " %0, %2\n")		\
+ 		       "	and  %1, %0, %z4\n"				\
+ 		       "	or   %1, %1, %z3\n"				\
+-		       "	sc.w" sc_sfx " %1, %1, %2\n"			\
++		       sc_alt("	sc.w" sc_sfx " %1, %1, %2\n",		\
++			      "	sc.w" z_sc_sfx " %1, %1, %2\n")	\
+ 		       "	bnez %1, 0b\n"					\
+ 		       sc_append						\
+ 		       : "=&r" (__retx), "=&r" (__rc), "+A" (*(__ptr32b))	\
+@@ -57,19 +65,23 @@
+ 	}									\
+ })
+ 
+-#define __arch_xchg(sfx, prepend, append, r, p, n)			\
++#define __arch_xchg(swap_alt, swap_sfx, z_swap_sfx,			\
++		    prepend, append, r, p, n)				\
+ ({									\
+ 	__asm__ __volatile__ (						\
+ 		prepend							\
+-		"	amoswap" sfx " %0, %2, %1\n"			\
++		swap_alt("	amoswap" swap_sfx " %0, %2, %1\n",	\
++			 "	amoswap" z_swap_sfx " %0, %2, %1\n")	\
+ 		append							\
+ 		: "=r" (r), "+A" (*(p))					\
+ 		: "r" (n)						\
+ 		: "memory");						\
+ })
+ 
+-#define _arch_xchg(ptr, new, sc_sfx, swap_sfx, prepend,			\
+-		   sc_append, swap_append)				\
++#define _arch_xchg(ptr, new, lr_alt, sc_alt, swap_alt,			\
++		   lr_sfx, sc_sfx, swap_sfx,				\
++		   z_lr_sfx, z_sc_sfx, z_swap_sfx,			\
++		   prepend, sc_append, swap_append)			\
+ ({									\
+ 	__typeof__(ptr) __ptr = (ptr);					\
+ 	__typeof__(*(__ptr)) __new = (new);				\
+@@ -77,22 +89,26 @@
+ 									\
+ 	switch (sizeof(*__ptr)) {					\
+ 	case 1:								\
+-		__arch_xchg_masked(sc_sfx, ".b" swap_sfx,		\
++		__arch_xchg_masked(lr_alt, sc_alt, swap_alt,		\
++				   lr_sfx, sc_sfx, ".b" swap_sfx,	\
++				   z_lr_sfx, z_sc_sfx, ".b" z_swap_sfx,\
+ 				   prepend, sc_append, swap_append,	\
+ 				   __ret, __ptr, __new);		\
+ 		break;							\
+ 	case 2:								\
+-		__arch_xchg_masked(sc_sfx, ".h" swap_sfx,		\
++		__arch_xchg_masked(lr_alt, sc_alt, swap_alt,		\
++				   lr_sfx, sc_sfx, ".h" swap_sfx,	\
++				   z_lr_sfx, z_sc_sfx, ".h" z_swap_sfx,\
+ 				   prepend, sc_append, swap_append,	\
+ 				   __ret, __ptr, __new);		\
+ 		break;							\
+ 	case 4:								\
+-		__arch_xchg(".w" swap_sfx, prepend, swap_append,	\
+-			      __ret, __ptr, __new);			\
++		__arch_xchg(swap_alt, ".w" swap_sfx, ".w" z_swap_sfx,\
++			      prepend, swap_append, __ret, __ptr, __new);\
+ 		break;							\
+ 	case 8:								\
+-		__arch_xchg(".d" swap_sfx, prepend, swap_append,	\
+-			      __ret, __ptr, __new);			\
++		__arch_xchg(swap_alt, ".d" swap_sfx, ".d" z_swap_sfx,\
++			      prepend, swap_append, __ret, __ptr, __new);\
+ 		break;							\
+ 	default:							\
+ 		BUILD_BUG();						\
+@@ -101,22 +117,36 @@
+ })
+ 
+ #define arch_xchg_relaxed(ptr, x)					\
+-	_arch_xchg(ptr, x, "", "", "", "", "")
++	_arch_xchg(ptr, x,						\
++		   RISCV_SELECT_OLD, RISCV_SELECT_OLD, RISCV_SELECT_OLD,\
++		   "", "", "", "", "", "", "", "", "")
+ 
+ #define arch_xchg_acquire(ptr, x)					\
+-	_arch_xchg(ptr, x, "", "", "",					\
++	_arch_xchg(ptr, x,						\
++		   RISCV_ZALASR_SMP_ALTERNATIVE, RISCV_SELECT_OLD,	\
++		   RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		   "", "", "", ".aq", "", ".aq", "",		\
+ 		   RISCV_ZALASR_SMP_ALTERNATIVE(			\
+-			RISCV_ACQUIRE_BARRIER, RISCV_FULL_BARRIER),	\
++			RISCV_ACQUIRE_BARRIER, __nops(1)),		\
+ 		   RISCV_ZALASR_SMP_ALTERNATIVE(			\
+-			RISCV_ACQUIRE_BARRIER, RISCV_FULL_BARRIER))
++			RISCV_ACQUIRE_BARRIER, __nops(1)))
+ 
+ #define arch_xchg_release(ptr, x)					\
+-	_arch_xchg(ptr, x, "", "",					\
++	_arch_xchg(ptr, x,						\
++		   RISCV_SELECT_OLD, RISCV_ZALASR_SMP_ALTERNATIVE,	\
++		   RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		   "", "", "", "", ".rl", ".rl",			\
+ 		   RISCV_ZALASR_SMP_ALTERNATIVE(			\
+-			RISCV_RELEASE_BARRIER, RISCV_FULL_BARRIER), "", "")
++			RISCV_RELEASE_BARRIER, __nops(1)), "", "")
+ 
+ #define arch_xchg(ptr, x)						\
+-	_arch_xchg(ptr, x, ".rl", ".aqrl", "", RISCV_FULL_BARRIER, "")
++	_arch_xchg(ptr, x,						\
++		   RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		   RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		   RISCV_SELECT_OLD,					\
++		   "", ".rl", ".aqrl", ".aq", ".aqrl", ".aqrl", "",\
++		   RISCV_ZALASR_SMP_ALTERNATIVE(			\
++			RISCV_FULL_BARRIER, __nops(1)), "")
+ 
+ #define xchg32(ptr, x)							\
+ ({									\
+@@ -135,10 +165,11 @@
+  * store NEW in MEM.  Return the initial value in MEM.  Success is
+  * indicated by comparing RETURN with OLD.
+  */
+-#define __arch_cmpxchg_masked(sc_sfx, cas_sfx,					\
++#define __arch_cmpxchg_masked(lr_alt, sc_alt, cas_alt,				\
++			      lr_sfx, sc_sfx, cas_sfx,				\
++			      z_lr_sfx, z_sc_sfx, z_cas_sfx,			\
+ 			      sc_prepend, sc_append,				\
+-			      cas_prepend, cas_append,				\
+-			      r, p, o, n)					\
++			      cas_prepend, cas_append, r, p, o, n)		\
+ ({										\
+ 	if (IS_ENABLED(CONFIG_RISCV_ISA_ZABHA) &&				\
+ 	    IS_ENABLED(CONFIG_RISCV_ISA_ZACAS) &&				\
+@@ -151,7 +182,8 @@
+ 			cas_prepend							\
+ 			"	.option push\n"					\
+ 			"	.option arch, +zacas, +zabha\n"				\
+-			"	amocas" cas_sfx " %0, %z2, %1\n"		\
++			cas_alt("	amocas" cas_sfx " %0, %z2, %1\n",	\
++				"	amocas" z_cas_sfx " %0, %z2, %1\n")	\
+ 			"	.option pop\n"					\
+ 			cas_append							\
+ 			: "+&r" (r), "+A" (*(p))				\
+@@ -169,12 +201,15 @@
+ 										\
+ 		__asm__ __volatile__ (						\
+ 			sc_prepend							\
+-			"0:	lr.w %0, %2\n"					\
++			"0:\n"							\
++			lr_alt("	lr.w" lr_sfx " %0, %2\n",			\
++			       "	lr.w" z_lr_sfx " %0, %2\n")		\
+ 			"	and  %1, %0, %z5\n"				\
+ 			"	bne  %1, %z3, 1f\n"				\
+ 			"	and  %1, %0, %z6\n"				\
+ 			"	or   %1, %1, %z4\n"				\
+-			"	sc.w" sc_sfx " %1, %1, %2\n"			\
++			sc_alt("	sc.w" sc_sfx " %1, %1, %2\n",		\
++			       "	sc.w" z_sc_sfx " %1, %1, %2\n")	\
+ 			"	bnez %1, 0b\n"					\
+ 			sc_append							\
+ 			"1:\n"							\
+@@ -187,10 +222,11 @@
+ 	}									\
+ })
+ 
+-#define __arch_cmpxchg(lr_sfx, sc_sfx, cas_sfx,				\
++#define __arch_cmpxchg(lr_alt, sc_alt, cas_alt,				\
++		       lr_sfx, sc_sfx, cas_sfx,				\
++		       z_lr_sfx, z_sc_sfx, z_cas_sfx,			\
+ 		       sc_prepend, sc_append,				\
+-		       cas_prepend, cas_append,				\
+-		       r, p, co, o, n)					\
++		       cas_prepend, cas_append, r, p, co, o, n)		\
+ ({									\
+ 	if (IS_ENABLED(CONFIG_RISCV_ISA_ZACAS) &&			\
+ 	    IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZACAS) &&			\
+@@ -201,7 +237,8 @@
+ 			cas_prepend					\
+ 			"	.option push\n"				\
+ 			"	.option arch, +zacas\n"			\
+-			"	amocas" cas_sfx " %0, %z2, %1\n"	\
++			cas_alt("	amocas" cas_sfx " %0, %z2, %1\n",\
++				"	amocas" z_cas_sfx " %0, %z2, %1\n") \
+ 			"	.option pop\n"				\
+ 			cas_append					\
+ 			: "+&r" (r), "+A" (*(p))			\
+@@ -212,9 +249,12 @@
+ 									\
+ 		__asm__ __volatile__ (					\
+ 			sc_prepend					\
+-			"0:	lr" lr_sfx " %0, %2\n"			\
++			"0:\n"						\
++			lr_alt("	lr" lr_sfx " %0, %2\n",		\
++			       "	lr" z_lr_sfx " %0, %2\n")		\
+ 			"	bne  %0, %z3, 1f\n"			\
+-			"	sc" sc_sfx " %1, %z4, %2\n"		\
++			sc_alt("	sc" sc_sfx " %1, %z4, %2\n",	\
++			       "	sc" z_sc_sfx " %1, %z4, %2\n")	\
+ 			"	bnez %1, 0b\n"				\
+ 			sc_append					\
+ 			"1:\n"						\
+@@ -224,9 +264,10 @@
+ 	}								\
+ })
+ 
+-#define _arch_cmpxchg(ptr, old, new, sc_sfx, cas_sfx,			\
+-		      sc_prepend, sc_append,				\
+-		      cas_prepend, cas_append)				\
++#define _arch_cmpxchg(ptr, old, new, lr_alt, sc_alt, cas_alt,		\
++		      lr_sfx, sc_sfx, cas_sfx,				\
++		      z_lr_sfx, z_sc_sfx, z_cas_sfx,			\
++		      sc_prepend, sc_append, cas_prepend, cas_append)	\
+ ({									\
+ 	__typeof__(ptr) __ptr = (ptr);					\
+ 	__typeof__(*(__ptr)) __old = (old);				\
+@@ -235,25 +276,35 @@
+ 									\
+ 	switch (sizeof(*__ptr)) {					\
+ 	case 1:								\
+-		__arch_cmpxchg_masked(sc_sfx, ".b" cas_sfx,		\
++		__arch_cmpxchg_masked(lr_alt, sc_alt, cas_alt,		\
++				      lr_sfx, sc_sfx, ".b" cas_sfx,	\
++				      z_lr_sfx, z_sc_sfx, ".b" z_cas_sfx,\
+ 				      sc_prepend, sc_append,		\
+ 				      cas_prepend, cas_append,		\
+ 				      __ret, __ptr, __old, __new);	\
+ 		break;							\
+ 	case 2:								\
+-		__arch_cmpxchg_masked(sc_sfx, ".h" cas_sfx,		\
++		__arch_cmpxchg_masked(lr_alt, sc_alt, cas_alt,		\
++				      lr_sfx, sc_sfx, ".h" cas_sfx,	\
++				      z_lr_sfx, z_sc_sfx, ".h" z_cas_sfx,\
+ 				      sc_prepend, sc_append,		\
+ 				      cas_prepend, cas_append,		\
+ 				      __ret, __ptr, __old, __new);	\
+ 		break;							\
+ 	case 4:								\
+-		__arch_cmpxchg(".w", ".w" sc_sfx, ".w" cas_sfx,		\
++		__arch_cmpxchg(lr_alt, sc_alt, cas_alt,			\
++			       ".w" lr_sfx, ".w" sc_sfx, ".w" cas_sfx,\
++			       ".w" z_lr_sfx, ".w" z_sc_sfx,		\
++			       ".w" z_cas_sfx,				\
+ 			       sc_prepend, sc_append,			\
+ 			       cas_prepend, cas_append,			\
+ 			       __ret, __ptr, (long)(int)(long), __old, __new);	\
+ 		break;							\
+ 	case 8:								\
+-		__arch_cmpxchg(".d", ".d" sc_sfx, ".d" cas_sfx,		\
++		__arch_cmpxchg(lr_alt, sc_alt, cas_alt,			\
++			       ".d" lr_sfx, ".d" sc_sfx, ".d" cas_sfx,\
++			       ".d" z_lr_sfx, ".d" z_sc_sfx,		\
++			       ".d" z_cas_sfx,				\
+ 			       sc_prepend, sc_append,			\
+ 			       cas_prepend, cas_append,			\
+ 			       __ret, __ptr, /**/, __old, __new);	\
+@@ -264,48 +315,39 @@
+ 	(__typeof__(*(__ptr)))__ret;					\
+ })
+ 
+-/*
+- * These macros are here to improve the readability of the arch_cmpxchg_XXX()
+- * macros.
+- */
+-#define SC_SFX(x)	x
+-#define CAS_SFX(x)	x
+-#define SC_PREPEND(x)	x
+-#define SC_APPEND(x)	x
+-#define CAS_PREPEND(x)	x
+-#define CAS_APPEND(x)	x
+-
+ #define arch_cmpxchg_relaxed(ptr, o, n)					\
+ 	_arch_cmpxchg((ptr), (o), (n),					\
+-		      SC_SFX(""), CAS_SFX(""),				\
+-		      SC_PREPEND(""), SC_APPEND(""),			\
+-		      CAS_PREPEND(""), CAS_APPEND(""))
++		      RISCV_SELECT_OLD, RISCV_SELECT_OLD, RISCV_SELECT_OLD,\
++		      "", "", "", "", "", "", "", "", "", "")
+ 
+ #define arch_cmpxchg_acquire(ptr, o, n)					\
+ 	_arch_cmpxchg((ptr), (o), (n),					\
+-		      SC_SFX(""), CAS_SFX(""),				\
+-		      SC_PREPEND(""), SC_APPEND(			\
+-			RISCV_ZALASR_SMP_ALTERNATIVE(			\
+-				RISCV_ACQUIRE_BARRIER, RISCV_FULL_BARRIER)), \
+-		      CAS_PREPEND(""), CAS_APPEND(			\
+-			RISCV_ZALASR_SMP_ALTERNATIVE(			\
+-				RISCV_ACQUIRE_BARRIER, RISCV_FULL_BARRIER)))
++		      RISCV_ZALASR_SMP_ALTERNATIVE, RISCV_SELECT_OLD,	\
++		      RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		      "", "", "", ".aq", "", ".aq", "",		\
++		      RISCV_ZALASR_SMP_ALTERNATIVE(			\
++			RISCV_ACQUIRE_BARRIER, __nops(1)), "",		\
++		      RISCV_ZALASR_SMP_ALTERNATIVE(			\
++			RISCV_ACQUIRE_BARRIER, __nops(1)))
+ 
+ #define arch_cmpxchg_release(ptr, o, n)					\
+ 	_arch_cmpxchg((ptr), (o), (n),					\
+-		      SC_SFX(""), CAS_SFX(""),				\
+-		      SC_PREPEND(RISCV_ZALASR_SMP_ALTERNATIVE(		\
+-			RISCV_RELEASE_BARRIER, RISCV_FULL_BARRIER)),	\
+-		      SC_APPEND(""),					\
+-		      CAS_PREPEND(RISCV_ZALASR_SMP_ALTERNATIVE(	\
+-			RISCV_RELEASE_BARRIER, RISCV_FULL_BARRIER)),	\
+-		      CAS_APPEND(""))
++		      RISCV_SELECT_OLD, RISCV_ZALASR_SMP_ALTERNATIVE,	\
++		      RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		      "", "", "", "", ".rl", ".rl",			\
++		      RISCV_ZALASR_SMP_ALTERNATIVE(			\
++			RISCV_RELEASE_BARRIER, __nops(1)), "",		\
++		      RISCV_ZALASR_SMP_ALTERNATIVE(			\
++			RISCV_RELEASE_BARRIER, __nops(1)), "")
+ 
+ #define arch_cmpxchg(ptr, o, n)						\
+ 	_arch_cmpxchg((ptr), (o), (n),					\
+-		      SC_SFX(".rl"), CAS_SFX(".aqrl"),			\
+-		      SC_PREPEND(""), SC_APPEND(RISCV_FULL_BARRIER),	\
+-		      CAS_PREPEND(""), CAS_APPEND(""))
++		      RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		      RISCV_ZALASR_SMP_ALTERNATIVE,			\
++		      RISCV_SELECT_OLD,					\
++		      "", ".rl", ".aqrl", ".aq", ".aqrl", ".aqrl", "",\
++		      RISCV_ZALASR_SMP_ALTERNATIVE(			\
++			RISCV_FULL_BARRIER, __nops(1)), "", "")
+ 
+ #define arch_cmpxchg_local(ptr, o, n)					\
+ 	arch_cmpxchg_relaxed((ptr), (o), (n))
+-- 
+2.39.5
 
-I would also say "at compile time", and possibly mention it is usable
-in const context (we use "build time" for things like `build_assert!`,
-which can be much later, e.g. link time).
-
-> +    };
-> +    // Using `FromConst<V>::VALUE` means const generic expressions can't=
- be used, since it requires
-
-Newline between these two lines?
-
-> +/// Types that can be created from an integer constant expression valida=
-ted at build time.
-
-Ditto (please see above).
-
-> +/// Implement this trait to make a type usable with [`cv!`]. Use the [`c=
-v`] macro, not this trait
-
-The second intra-doc link should also have a `!` for consistency.
-
-> +    /// Fails the build if `V` is not a valid value for `Self`.
-
-[`Self`]
-
-> +                // CAST: the macro is only used for types up to 64 bits =
-wide, so `MIN` and `MAX`
-
-"CAST: The"
-
-> +                // CAST: the assert above confirmed that `V` fits in `$t=
-ype`.
-
-Ditto.
-
-> +                // SAFETY: the assert above confirmed that `value` can b=
-e represented within `N`
-
-Ditto.
-
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
-
-One thing before that, though: are these assertions expected to fail?
-
-    const X: i64 =3D 1 << 31;
-    const Y: i64 =3D cv!(1 << 31);
-    assert_eq!(X, Y);
-
-Or:
-
-    const X: u64 =3D 2 << 31;
-    const Y: u64 =3D cv!(2 << 31);
-    assert_eq!(X, Y);
-
-Because that is quite surprising, especially since we say "with the
-target type inferred from the context" in the documentation.
-
-I hope that helps & thanks Eliot for working on this!
-
-Cheers,
-Miguel
