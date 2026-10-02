@@ -1,97 +1,80 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E391361DCB
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:48:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9A12DC357;
+	Fri,  2 Oct 2026 20:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790974114; cv=none; b=kQjcbl3IY7HU1UFih0yUBRjZ8u4EcWVw4cdPXdcTpkgh5kDd+IDJrXu0qVT++ztSKQO21uglkuDVaKv6DBUHtn+UuEz25gWu6uXDu3eFjSowADRiegnMdxQY8PZW3FOGCZy0owUgoI2PQDKNoKoavPKGFnRZ04kPZdBaRVvR0o0=
+	t=1790974116; cv=none; b=TrAApx+mwOB05Wm1z7g7Ma3cmC6UleGmnb47OYzPWYifzFDwaGOWwY8q9cBjeKrtff/w4j2iiUmbQzzhYC5E9VttEtwUI1YU1eqkrvFPTlAqAyNZj/0HQEHx1qnTG3JqF1BWlSK5uRFh7SWA2SQg054rYhlp94cTl0wInu0Z2ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790974114; c=relaxed/simple;
-	bh=Xn8v821wbWVD9E8elR4jk6DR05TUKT+raE3vBfYoiWk=;
+	s=arc-20240116; t=1790974116; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tWgjZSBoOas+b3RYAGK89gefwEhplYoO1SvlvnvZ4pHSvjHNjI8vJTXHnapBi3R9X8xCf+b4mSI0tCG4NwYrgjRfzk/e3Ux+EbMKnOLBNIkN6GS4z9SdashJX8BRA0Vzlro53/HJkf08lxMuGVUuM3F0jytrrz0eF7xAzDxmGI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3yDgnh4; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=PX9MkbslvGRhhL+giqIUvBfWTWKBGXA1yHRtMHk0asm/Qq4XK5RyH9TXWDkVSlu8PR1yoQwnF7xHtoKWbvvaSERAS02ytt9IXjFU9PgUxU7BePe6Ykis0HJ/2+l0bIsalBUPAD43NDLfRZaW3Gy/puITNxiNzX89JAtgOZZ9JmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7LlxC9J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3yDgnh4"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a16747813aso71665e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:48:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790974111; x=1791578911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Xn8v821wbWVD9E8elR4jk6DR05TUKT+raE3vBfYoiWk=;
-        b=W3yDgnh4EBKl3QI7sjCfiOrEXK1iXL0bYzdLzcM+gVqWycAdgRj4vAH+ZPbuU3Q1S3
-         DD/dWZbIPtSzshcJ5TCK2eedmcrt784I5RocLHf8oIAPOGVYaIIwlXOqV/ljhssxT2EB
-         k4hStBPnO/F2+ivizZ6Dx1tKtBhi63+f1sJOoPa4pMwa3RWjTMLLKkGg/i2+mcMxYTUW
-         /HN9Cg2lO09zKgdW8M2abtMuqJPzukBiOimWM3u/Hbh6iZhdkR57F9Lr5zsgtA1xq7PX
-         +K3g+0v6/mDBYkl5hppKMtKPEQmRaQOElk/DdkkcSN3t8XsOzM6+PR8SvZ+NRZRkvVYU
-         cjzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790974111; x=1791578911;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xn8v821wbWVD9E8elR4jk6DR05TUKT+raE3vBfYoiWk=;
-        b=pv7YruEugvuXEnkDUOkKp3/NCyQCZ62yNqth60+fB9NgYNv0gD0UaR7M3SOYreo/nM
-         W4eH09C4ccfrzd9w7cB2cap+NM48wNPJ2S1RyY6nSsfxUnsBwB7jB1MkpNSDQm2sHz9b
-         Ttbd2E3DP4CXjgR89gUanrXOqV7wwR+kQ9d5P28wuFpmGsWsuxeQp7IGwIYR4ClbaCnq
-         nnYzZTygMrjQNko2ubwVLRI5F7DcW9zELyTK6tMtuLdGWhnp+mt+0YmZrjTWFwGAQ+Ke
-         h6nli2kmeK+1zc2VtCrisG7OppsoFZM5GRLTA4OOGvJ0QGB6puWgmsiU8Z0XkCeJhL4+
-         cpjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvJiyRsN6UJDrR4cX58AvjBt9Zqha9P8XMCZbLgac4v3tsx088Fct5D/sp2keQkdy1HwnqIuhdp4ooOS0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE/GbKVbWqfMN6Bz1PvPlj8lZvZoqYNSZMRDpLWPihGo+mRvbP
-	HV+Iyvmv11M8N7WRDj+4Fu4aTORW3mQ+ca5YC8U9njg787e0Dr6gLkQS
-X-Gm-Gg: AYBFou3z1BaQuwm11JV4lVpp1+2JlYkQ7AALKSTF4GK171XOfoZfRl812lu4R7DiQNV
-	C0tAKxTCHt1dQKvML07R+4Bj4nCZa2t1EFIMJu4hP2ufTTpxnvSAxz8+Z0ri+B4qnjOlYKoZ6JA
-	lq8vUmWTyVIhmKKs2pqeYqjOVSkdZVQAC5JLDRlqMc7dKa4RpK5bofkMkw9DEZ6/d/hQHx48eul
-	9OiFVCuBZSpuBRDLsJbkOOR/OZEMFJvnYIqGtsQ1Yzkv2Lt7sRWuMKvHdZXFirfNpopVn961WkT
-	xWdcUgDBDGtuyty6zYmREokBaEiNTvRI3AMMzigjDa048jFfCbsTpmSOfyjXB6RuXi3adCYB59J
-	D2ivqwR8fFlqHYgYrdPGdiig8BctZ4OjLv/uHYkiEQipfTfRG3TQMT14FqlKRyNsPvYIKhOlHLw
-	fkfrvposArIoI94Wq+DxpuODKm/1O1WqtMXWK7zjb8eBS3y3vu5AF5tHfUsSQ0dAOEoXNNVWSAS
-	iqqjmCiOWs3MRG+dqz2KVB+xgJMkq5YFg==
-X-Received: by 2002:a05:600c:609a:b0:4a0:1c98:de52 with SMTP id 5b1f17b1804b1-4a02755c4d1mr65627725e9.1.1790974110562;
-        Fri, 02 Oct 2026 13:48:30 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.118.71.106])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff3cab2sm39343925e9.2.2026.10.02.13.48.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 13:48:29 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	alexander.deucher@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	skhan@linuxfoundation.org,
-	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix kernel-doc warnings for cgs register typedefs
-Date: Fri,  2 Oct 2026 21:46:40 +0100
-Message-ID: <20261002204803.27695-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
-References: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7LlxC9J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D937E1F000FF;
+	Fri,  2 Oct 2026 20:48:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790974114;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O7LlxC9J9jBUEQYTtDRqimj0KUXceMLQ8g9t20+nPzzbB2yrOGJkXcqg4YrUYdXo4
+	 5TkfXBhOQBEi0TxKiencu1083XC6SPMGHoDTnaoZm8bLXWyBmMN1OMYz1P4NJKg4zV
+	 TvmdtZwkROLdrTNfJKM61XwPDNOdM8fDYwPPr1RjLDtXkovkDc8x+0zwp9OU28gHyx
+	 EffKKu46aGEg7EkIZw46fleM7bv7SL5aCIRU8MC7iF6MXb1c0WIDo7NeAfgHC3vZOE
+	 i35hTnmni3L98A0pIY38dpqxP+OxVtZXgUmpall0zL3619E7iOd5yro1HT7ff/YFeS
+	 pUaBnmA4GRtaw==
+From: netdev-bot+sinfo@kernel.org
+To: Artem Dinaburg <artem@trailofbits.com>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, David Arinzon <darinzon@amazon.com>,
+ Shahar Itzko <itzko@amazon.com>, Simon Horman <horms@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Shay Agroskin <shayagr@amazon.com>,
+ Arthur Kiyanovski <akiyano@amazon.com>, Noam Dagan <ndagan@amazon.com>,
+ Saeed Bishara <saeedb@amazon.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: Re: [PATCH 6.1.y] net: ena: Add validation for completion descriptors
+ consistency
+Date: Fri, 02 Oct 2026 20:48:33 +0000
+Message-ID: <179097411333.1402591.9823193935815787447@kernel.org>
+In-Reply-To: <20261002204534.26297-1-artem@trailofbits.com>
+References: <20261002204534.26297-1-artem@trailofbits.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+Hi!
 
-On 10/2/26 13:38, Christian König wrote:
-> We should potentially just completely nuke those typedefs since they
-> are actually an unnecessarily layer of indirection.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Yes, the cleanup is necessary, but the four comments don't just name the typedefs, they're the only prose describing the operations (MMIO vs indirect access, offset/space/index semantics, return values). Should i relocated onto the struct cgs_ops members or the cgs_read_register macros?
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Thanks,
-Omokefe
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
