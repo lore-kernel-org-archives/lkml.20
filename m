@@ -1,92 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D540D420898;
-	Fri,  2 Oct 2026 12:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6EA46A5ED;
+	Fri,  2 Oct 2026 12:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945934; cv=none; b=Dq1DATWiFIvdaPvST0T+1rqxVTxmzIyG0aRTPx5c+xQhIwsbH2XAmRSJyONk8k+1fLDv7USo2tthjo5LBrmUKKJdnYuZuqixxfNf6Wnl8D794pUl0ty33u+76LBNk34BqwUpGOe4XUuTWFgGzuzlaGOPuSNAZhEAfTwzoGeu18c=
+	t=1790945940; cv=none; b=q/uAkDlLfcV2djyN6SbrP4m6D3FQUfv5w/zaUdft/5ilOIHobUWnbi5hZax2Y3Kc9kFDskFRJD4gwkVrgo9MXTR6nxu6Fp5g7977rS3zhvp+UhOYrp4jxEMZYNGRIN2C3AZwhBQIiBCDYbztKI5Ga79/7SrRuVdOIB5Q6rHWo3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945934; c=relaxed/simple;
-	bh=ZZog2DmzD6JYHzIOPkxymMrGPQfxhMFEozr7PgktX+M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=CdwoScDkT251BYzLJQzq4A4wk62l6uLX++bXP8aBn+dy584nbfJoXynDPgfJtXY2Mf3tQ67Vh4D2FlD3cMA7YqyGD2qNsq5sblHw8pW8nWCCgUo5L5OQcNCRixDDxXNTkSoL31QSoiZX8bM2a9HEsJegsFh/cmICmh0j6xhHjks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E9fle4+S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790945940; c=relaxed/simple;
+	bh=eDlED5ew6H8c4ZWJY0EHaZYMLLSwvyeX18XvQ6ajX1E=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=u7qjyZdgCrc/0Fj33gVOjMuXgf2ClUR/NHm2nTCl0NaDlUFSOLKHbdlsU5Nl/3dycmIlXrx3MBWuzGiorxkvmscMNx6LUPLdhD3aWZoi0D0Xsd4HWlMvK1qpjwr3LP3MtuOqJpAKf3MX5CZO3+tx74f3kcIar97nt1/+PrtNOyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=NcKN2MyW; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E9fle4+S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373C51F000FF;
-	Fri,  2 Oct 2026 12:58:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945932;
-	bh=+2V7CaCvNrpvmbbJwh1WNIboZ7/7dvdjBHWJRak6y1Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=E9fle4+ShkEJyX93P+zCxQYNpaiuneKl3cDuESA0qdhga/zr0Ff9pWRe2/xTdmvjB
-	 AEbEc4auXu8VPovNsWl5nIOEtRIM5wkOzM6GdyK/QSDaT2gNyJItsXcLCARk3Hsb6j
-	 +GbRVebu96DSgkaQ3+mOmF2lTpnyPpBBtlehuvJz9ASppldg3jTh1AyfDtmGxOZTYA
-	 J9eHakUB9H0dbNy1OIjXT4OCUGJVbHs4EoFCMrnXVA8Ka+LO8qgj6mMMG1UZ98hBkJ
-	 zjFWDJblHXXQ6Dc9QZsiPF95hn9nOqfcxjokndQLJRkOyhxJgrSVhhsRIyfgU430bk
-	 Tk1hl2Acsveqw==
-From: Mark Brown <broonie@kernel.org>
-To: corbet@lwn.net, Jesse Jeronimus <jesse.jeronimus@gmail.com>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, 
- dlechner@baylibre.com, skhan@linuxfoundation.org, rdunlap@infradead.org, 
- linux-spi@vger.kernel.org, linux-doc@vger.kernel.org, 
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261002110752.89529-1-jesse.jeronimus@gmail.com>
-References: <20261002110752.89529-1-jesse.jeronimus@gmail.com>
-Subject: Re: [PATCH] Documentation: devres: Remove non-existent SPI
- register helpers
-Message-Id: <179094140888.83544.16333779168176030027.b4-ty@b4>
-Date: Fri, 02 Oct 2026 12:43:28 +0100
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="NcKN2MyW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=TwORAxSGg+yvhJp2lHAg2JjKNw9fRngBXpq+v7zbc18=; b=NcKN2MyW5Oh3nt35oVAh/KwhVN
+	WK4oGLSi/earH9N96D7rySm85FSGg60bAE3sSQ+8xUoskIzjQGCXPScyJHHdH2xglWoYpDYchIg8c
+	erWxNUBbTpZLSlIsR3GNWjiVYMthHmUA1iCdlSYl7raN/mH3/9CYjxl9jup4rIBzGKjouLleUL9Kt
+	Xx+7l5jmfm11BN0Nl7QzXLYi8SjTLiZnhLbSe4fLkh0PrFx58LVShxiaDnKJIZU7lVhoNz8GNVF6Z
+	762R+fSKY+wMvnL993oo1N/TXKo78IcmPRc7bkxcV/DjSkkDIxQfTL4aVqRoSQQ0tnR/am74wkrot
+	8WhV+qKg==;
+Received: from [::1] (port=60642 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xCcqq-00000000dMA-1Zsr;
+	Fri, 02 Oct 2026 14:58:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ZZog2DmzD6JYHzIOPkxymMrGPQfxhMFEozr7PgktX+M=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqv6qHzcBcA5vqVY30uOJacgpKRb5KhxuteVUaF
- O9UU4iPNHSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar+qhwAKCRAk1otyXVSH
- 0J9+CACApkMvr45KcscqprNr05WFgzHatE5NaDuGAQfG3KTKeaqP/9A4Go4QB+/L8Q795h/BS1v
- V9DUWAEn7XLRhXUt5yE7UkJwVpxmobyBFlPsfDa28YkaK9ENi0R9d1lCj4kOOJjcNbJxsx2q8+h
- 94Z7+c3mlClSGd1ZQC2SH+UyM4/l6W/S/fxgtGtGJKqxU2+LQp5S8J/5Bsp6bLI95m7xnyIp6XP
- Pyu9f+Z7a5CjxUP/QF6yYvnytfWWTfa1AfAn8yyv0X+Fj/3g+TWqMsUV0T9VaYqLi6AzYaxuGD4
- 2/4bt2kdyRkjAyay7ew410tzzUZf/BZuVkVAK7fiOEQii9jx
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Date: Fri, 02 Oct 2026 14:58:56 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jon Maloy
+ <jmaloy@redhat.com>
+Subject: Re: [PATCH net] tipc: protect received keys from concurrent flush
+In-Reply-To: <DU4P189MB375051910F8C241624FD6E93C6892@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+References: <20260930115708.349540-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <DU4P189MB37502D602C60A78B58AFDDA1C6892@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+ <df6d6c550f8e7ed7bad690ae9c581645@oss.cyber.gouv.fr>
+ <DU4P189MB375051910F8C241624FD6E93C6892@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <75be117cb8f1ee8fd19ceba4181b6ff6@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Fri, 02 Oct 2026 13:06:46 +0200, Jesse Jeronimus wrote:
-> Documentation: devres: Remove non-existent SPI register helpers
+On 2026-10-02 14:50, Tung Quang Nguyen wrote:
+>>>>  [   12.986077] BUG: KASAN: double-free in
+>>>> tipc_crypto_key_flush+0x401/0x530
+>>>>  [   12.987937] Free of addr ff11000002268080 by task peer/112
+>>>>  ...
+>>>>  [   12.991938]  kfree+0x163/0x430
+>>>>  ...
+>>>>  [   12.991983]  tipc_crypto_key_flush+0x401/0x530
+>>>>  ...
+>>>>  [   12.992152]  tipc_nl_node_flush_key+0x174/0x210
+>>>> 
+>>> Please update your changelog with decoded stack trace.
+>> 
+>> You mean the full trace including the parts I snipped?
+> 
+> A full stack trace would help me track back the calling flow. Of 
+> course, your need to decode (e.g, +0x174/0x210 to line number etc.) the 
+> stack trace using:
+> linux/scripts/decode_stacktrace.sh
 
-Applied to
+Thanks for this advice, I never used that but will tkae a look.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+>>> Do you have a reproducer ?
+>> 
+>> Yes, I have.
+> 
+> Please share it to me. It could be good to run and observe if there is 
+> another stack trace based on different conditions (other concurrencies 
+> etc.)
 
-Thanks!
+No problem, I will do that shortly.
 
-[1/1] Documentation: devres: Remove non-existent SPI register helpers
-      https://git.kernel.org/broonie/spi/c/d220c9443db6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Regards,
+Jérémy
