@@ -1,125 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4463F491597
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E046C4A1E1A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946566; cv=none; b=N5qozn9wxVPiV35tFHfEl9Un3fK0X5lSN13pKT94cmIsiQv6IiRRSvfBlSFdPk2XzAmX2B5I9XvcVWUbCtaiNWtFlNpY1YlPeJ8kU/u2IdqYGL1N4Aqd1VIHMAzO7+s2bFDXGammz8Wg8ATFOh4M9y5eGLN2wPqBIAiuBW+bGjo=
+	t=1790946573; cv=none; b=dlpK17603/jck0XwglUZX2NDKlKo5f8qH8MOOUUhLCZgS2iCoSz0paDmdm8ycunjVGrUz6iFp2WvbgYQaqtSGZTxIPhT18IZPyRdRnHV6ejOUBuFA/B8Hx8zSaZ7SnSRqm1YQ7ZGY+u9t0Cz6PhG1Fe9ozbgIvZViypGFAYg0QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946566; c=relaxed/simple;
-	bh=NILLfHoGRMOikRV0fS50d3oroJdYD2VHjU2ELpDYkaY=;
+	s=arc-20240116; t=1790946573; c=relaxed/simple;
+	bh=FKY+rQrM7Z18mX3wbyKDLfHo7zNYWHKgod4sRdzAurk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uk6HVx3e+o9tOzj7kQul7/gwAjUt3Rrmn+7snMoNKPgs2t3oFhXBeInxMuhwY11iRuultiJD0181MW6623Yoq3jkIpLw2O/Ekot21GxPtOTfeNY8MZL3MgfcOoKzTlsPSjacQXLeukJQ98AnOXMczQGyemlnciYsctENJP1ea9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hg0SIkif; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version:Content-Type; b=ZrOa0PxtNTUU1y/+gU303Yt4HEAR5sQtGAn/bQTRY1nHtTOWMTNKJUr2qOEBBS6KjEEHGKdSPLlo+MaOi/vJCAQ5TKRy7lSv+wqzlH9pt6U9VsKHCO3FmIXx7jgYqDEYi4VWqrTYBOlzlBj0xwNxtDWlVBrWIJ3MbMG9c7zysdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=RpXcwATK; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hg0SIkif"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790946557;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zJ7coCqPywFU4p+9fADiFNkr/yo4IXM4jkVfcEsVsKU=;
-	b=Hg0SIkifz/ZTtv/uTZo2RT2rS9gR3dX8QkE48MXrDvMFxSh2Gu+Vg37AnuxZkuHYwSjAbl
-	FoG5nozYcDAxKdbRQsSL4gPiMVzxiuQPl2yUMHkQtvPAWpyGL94osrY3nsD57bTLdiscyl
-	k17v8zK3GNHHgvu9HwJJXYRO+tzjbF8=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-652-BLZtcfimP7KX1xoF7cxTcg-1; Fri,
- 02 Oct 2026 09:09:13 -0400
-X-MC-Unique: BLZtcfimP7KX1xoF7cxTcg-1
-X-Mimecast-MFC-AGG-ID: BLZtcfimP7KX1xoF7cxTcg_1790946550
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3CB5218011D4;
-	Fri,  2 Oct 2026 13:09:10 +0000 (UTC)
-Received: from ShadowPeak.redhat.com (unknown [10.44.32.39])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4CC44767;
-	Fri,  2 Oct 2026 13:09:04 +0000 (UTC)
-From: Petr Oros <poros@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Petr Oros <poros@redhat.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Henry Tieman <henry.w.tieman@intel.com>,
-	Anirudh Venkataramanan <anirudh.venkataramanan@intel.com>,
-	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
-	Jesse Brandeburg <jbrandeb@kernel.org>,
-	Preethi Banala <preethi.banala@intel.com>,
-	Kiran Patil <kiran.patil@intel.com>,
-	Dan Nowlin <dan.nowlin@intel.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	intel-wired-lan@lists.osuosl.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH iwl-net 10/10] ice: fix unsigned stat widths
-Date: Fri,  2 Oct 2026 15:07:52 +0200
-Message-ID: <20261002130752.2597259-11-poros@redhat.com>
-In-Reply-To: <20261002130752.2597259-1-poros@redhat.com>
-References: <20261002130752.2597259-1-poros@redhat.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="RpXcwATK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=KZjE+aJ4X+OqBxNEC4kYnyi3sOPxXey2hjWtTIRy3TE=; b=RpXcwATKgD3GA4eeikau6CnLBO
+	LdPpjqfIww+7LsNxanj8VUZB2FMcGjB4rARfcJQkjXWsPTEiSIOrm/3YOZ3+Qh6RsK9xIIpcQSt/+
+	H14XV958hnXmFOXE8863UqZRTEVM90dgQKX0D86ZcgZN1eL19Ik7Y6VxRMnw8qdf/2mUnz4vfo+zZ
+	uQNlGT+vrbDkruJaH1x7hs/FBHmVGcz+V6GBFbEpDAQCcSBeKGmL2/GtpPExqLkslJanwA3FaZ2zl
+	5RcHS9axOUEI9SdfAx/UEwaldv6TgsNpcR3/3JX2dOCX6trTZqpdkYqeIvQrADIKv4j3OOufIY6Hg
+	SrGJwHlw==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Russell King <linux@armlinux.org.uk>, Johan Jonker <jbx6244@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>
+Subject: Re: [PATCH] ARM: rockchip: smp: enable CPU1 for rk3066a
+Date: Fri, 02 Oct 2026 15:09:10 +0200
+Message-ID: <7009090.MHq7AAxBmi@diego>
+In-Reply-To: <545b78a0-159b-4ebd-9e2a-47d519c98bf9@gmail.com>
+References:
+ <20260829-cpu-v1-1-33dca576db92@gmail.com> <2667576.VLH7GnMWUR@diego>
+ <545b78a0-159b-4ebd-9e2a-47d519c98bf9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-tx_restart, tx_busy, rx_buf_failed and rx_page_failed in struct ice_vsi
-are u32, but ice_update_vsi_ring_stats() fills them with sums of the
-64-bit per ring counters. The values are truncated and the ethtool
-statistics exported from them wrap at 2^32 while the ring counters keep
-counting.
+Hi Johan,
 
-Make them u64 like tx_linearize next to them.
+Am Sonntag, 30. August 2026, 13:17:15 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Johan Jonker:
+> On 8/29/26 23:59, Heiko St=C3=BCbner wrote:
+> > Am Samstag, 29. August 2026, 01:40:57 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Johan Jonker via B4 Relay:
+> >> From: H=C3=BCseyin BIYIK <boogiepop@gmx.com>
+> >>
+> >> RK3066a CPU1 fails to come online. Fix by using
+> >> a similar mailbox construction as in use with
+> >> other Rockchip SoCs.
+> >=20
+>=20
+> > "RK3066 CPU1 fails to come online with recent kernels....[rest]" or so
+>=20
+> Not recent..
+>=20
+> > and also please use the line length up a resonable length like around 7=
+0> to 75 characters.
+> >=20
+> > Also, is it known, why that happens - i.e. what changed?
+>=20
+>=20
+> What loader chain did you use then?
+>=20
+> This guessing!!!:
+> From TRM: RK PX2/rk3066a supports to boot from internal bootrom or embedd=
+ed SRAM
+> Currently rk3066 U-boot doesn't remap, so we end up in ROM code waiting f=
+or deadbeaf:
+>=20
+> void main(void)
+> {
+>         deadbeaf =3D 1;
+>         if ( !(__mrc(15, 0, 0, 0, 5) & 0xF) )
+>         {
+>                 __set_CPSR(0xD2u);
+>                 __set_CPSR(0xD3u);
+>                 DELAY_write(24);
+>                 CRU_CLKSEL();
+>                 DELAY(10000);
+>                 MAIN_LOOP1x4();
+>                 DNL_LOOP();
+>                 while ( 1 )
+>                         ;
+>         }
+>         __set_CPSR(0xD3u);
+>         while ( deadbeaf !=3D 0xDEADBEAF )
+>                 __wfe();
+>         secondary_startup();
+> }
+>=20
+> Can't put a precise time tag on it since when.
+> Let us lead by what current available open source loaders solutions can d=
+o.
+> Please advise here.
+> How far does a fixes tag have to go back?
 
-i40e fixed the same truncation in commit 3b8428b84539 ("i40e: fix
-unsigned stat widths").
+So ... found time to test a bit:
+=2D Both my Marsboard (RK3066) and Radxa Rock (RK3188) currently have a
+  u-boot that is really old ... 2017.09 / 2017.11 to be exact.
+=2D Both boards can bring up the other cores just fine
+=2D It seems there the remap was still enabled:
+  https://git.u-boot-project.org/u-boot/u-boot/-/blob/v2017.11/arch/arm/mac=
+h-rockchip/rk3188-board.c?ref_type=3Dtags#L31
+=2D You cannot require people to update their bootloader, only work around
+  old versions.
 
-Fixes: fcea6f3da546 ("ice: Add stats and ethtool support")
-Assisted-by: LLM
-Signed-off-by: Petr Oros <poros@redhat.com>
----
- drivers/net/ethernet/intel/ice/ice.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Right now you end up with a meshup of different parts.
+In the old codepath, sram_addr+4 contains the kernel-start-address, which
+now gets overwritten, breaking older loaders.
 
-diff --git a/drivers/net/ethernet/intel/ice/ice.h b/drivers/net/ethernet/intel/ice/ice.h
-index 6c596e5a315175..a985b81efbe2d6 100644
---- a/drivers/net/ethernet/intel/ice/ice.h
-+++ b/drivers/net/ethernet/intel/ice/ice.h
-@@ -344,10 +344,10 @@ struct ice_vsi {
- 	u64 tx_linearize;
- 	DECLARE_BITMAP(state, ICE_VSI_STATE_NBITS);
- 	unsigned int current_netdev_flags;
--	u32 tx_restart;
--	u32 tx_busy;
--	u32 rx_buf_failed;
--	u32 rx_page_failed;
-+	u64 tx_restart;
-+	u64 tx_busy;
-+	u64 rx_buf_failed;
-+	u64 rx_page_failed;
- 	u16 num_q_vectors;
- 	/* tell if only dynamic irq allocation is allowed */
- 	bool irq_dyn_alloc;
--- 
-2.55.0
+So the way forward would be:
+=2D add code that disables remap on both rk3066+rk3188, hopefully resulting
+  in the same behaviour indepent of the loader used
+=2D change to use the bootrom path for all socs in rockchip_boot_secondary()
+  so just remove the conditional around it
+=2D drop the rockchip_smp_prepare_sram() part, as it's not needed anymore
+
+
+Heiko
+
 
