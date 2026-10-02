@@ -1,175 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAA63E8C77;
-	Fri,  2 Oct 2026 19:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEBD53C342D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790967767; cv=none; b=Sbfp2e/4noOFTwVYwEAdDVHDPwpF6j6dvHwdw0nEkD8vQEHdoWq4Fo4aqpzYcpomJ/vUHJvwGgTSqcuRd6D52Qs7ufhnxnU+JcQ/1ew0UiUgW7t82gol2Tg7MVgnXR9Cs929K2e9yA6rJIHVhHS+j2vMCbVBA4uqTROQOVBTfGg=
+	t=1790967820; cv=none; b=fLkVEdNwu+XQL38wis3hG2kOvkdqRL6FRSNWds1PXuDr7zD4gvbFAHhrgtDdD0ZxU11EbLJlNk8AQQGlCyky295KuxDfjTysYIkjj4l6IECbeor3/9iIB8Dq0MEPdla5Y3E2mYWnKDFPxD2YgMbJ5pBGg6wfMfheHzuvNXHl6Lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790967767; c=relaxed/simple;
-	bh=HdJ0kcwGez1QOFo/k6IasmkzidJ997+L73a0ylxwx/0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YgNrNT2l1QkSej3jWE8SmQkp8PW9M+ixJFGfrcvtxB4hL2Y9eI9zDCWZc06dJvB4FW6N7sgeBVJR9aOXmypNoWFwB7bKp1/eNyXNg0qbJ1+ZhZilXu3sCbt1gNebgkbiLMmT3NVRZeMQ8zwGRpFnsF/viMa7dK7omXJpzjJLVaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZ31VBEK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790967820; c=relaxed/simple;
+	bh=TbnVt3gQWmpcMUUHHajzpHckoRHYF737sR5u33zz6ek=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KF41Y3fYTALElVuT2uae3VefKqMsAGkU0uctQlP2+ol9LWxugAdzm1dkxYv9jEcyLyLAO1MhUZ/HfxXCfzXo3XHL/Mimk9UxgdkbZHEM29w4ulIiDjBbONxXe6LxQXyO4tpYQFk5vcU193pYvBopDueAAyrqtmk04fk8/mEfhPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jWixvWMS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZ31VBEK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1EB1F000FF;
-	Fri,  2 Oct 2026 19:02:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790967766;
-	bh=zZT1sFx0zhXU9FqGRVTPkZ49g+AbixUgdpI2NAEKwOE=;
-	h=From:To:Cc:Subject:Date;
-	b=jZ31VBEKXWstDqWjf+dGRL/tHxrsKxOiOf51S4z8fxrM3V8KPXKS+dTk0qK0uhg/a
-	 gWnwyzyGC0vckW3cCZ+jD0s05L+u98uqV9ArrVh6h9CMFaO8UKw/QFWwL9hA0BpI5H
-	 mDz/vPd4mfCWjWS8/yevenwaa8vZ51aoTCNFahQ7bVUWRrGWHgUOtivtTN7KxzNt12
-	 /tAPhWU9Gl+IclgAGun75wdhiN0PsRK2YaQcZSoska52S1HjasCiGc/vJopnmeU/OK
-	 9/4oBCpy2wo7if/y9Wkb1Wdh7lnmXwY7XoSQXZARcT1fO43lQWFg0XHUzeErXTAwEQ
-	 1DHqStT14nqTQ==
-From: Sven Peter <sven@kernel.org>
-To: soc@lists.linux.dev
-Cc: asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sven Peter <sven@kernel.org>
-Subject: [GIT PULL] Apple SoC DTS changes for v7.4
-Date: Fri,  2 Oct 2026 21:02:30 +0200
-Message-ID: <20261002190232.6449-1-sven@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jWixvWMS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D64142F;
+	Fri,  2 Oct 2026 12:03:33 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 400513F85F;
+	Fri,  2 Oct 2026 12:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790967817; bh=TbnVt3gQWmpcMUUHHajzpHckoRHYF737sR5u33zz6ek=;
+	h=From:Subject:Date:To:Cc:From;
+	b=jWixvWMSQPprN4sDVPjylBBh9xxN+fGM4CMWg+dngp8op8RPklL+hjpGHySgOFIZR
+	 NQYhoAM6dgDnNfPeMAMKzNwzT91riT+Sjln7YBHwCLi6tfjhEXjStm4YLx58H2fHEz
+	 MxK9NdKLMw69ej719T258THTalBSVG8P4maHrb3M=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v13 00/14] fix several inconsistencies with sysfs
+ configuration in etmX
+Date: Fri, 02 Oct 2026 20:03:21 +0100
+Message-Id: <20261002-separate_etm_cfg_v2-v13-0-fe429d8d96fb@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPn/v2oC/33NywqDMBAF0F+RrJvijMZoV/2PUiRPzcIHiUiL+
+ O+NbioFu7yXuWcWEox3JpBbshBvZhfc0McA2SUhqhV9Y6jTsSCYYpFWADSYUXgxmdpMXa1sU89
+ IMwalgKJU0loSl6M31r129vGMuXVhGvx7/zJDutX/wXhEUwqSA9MVq5CLu/DdVQ0d2bwZ4GiwE
+ wOioVEiKzUDnvMfAw8G5icGRkOgzEGj5Qrl11jX9QM+ylotPwEAAA==
+To: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5779; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=TbnVt3gQWmpcMUUHHajzpHckoRHYF737sR5u33zz6ek=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqv///eNenjJHKMCxTJOH7tptKpRUK4ca1T6/DG
+ bxCtbP/rNuJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCar///wAKCRBt1cPRWsUx
+ M1MNDACKezudDcFRYbvFgi6Eur4LQmQY7SHC1Dxl44XhkeY0RQ32j2VUFP7JCAZLyMgMLVQ/uFf
+ jqvZAoD1osyZGwga9NPkoGMbzgMnYhu4dAKNHpSSOZtePCwQMhS6YgAKxxsG5Koqlq+LeLT25PN
+ q7RwdZnlM1Z9hXaHf8qJpBY64N65w3SUTqkYRvYdSOMC+oA10/sAN+xGDXDTbapC4lRqNclazdh
+ K/zI8Ft8IkTABtaLEjApfhUxvU+AMUunL9qqa+ZkqUFiioFM0rp+bpDLzysTehSVdt0qBQphBSD
+ 6qhinJPNtoqIw7RFS35jQXQPEVvTRtK9Ld+FXh3RZ4kpkY/RKv/TsTWo/G2sUcxfA6RvPfIxNlp
+ pALWTINtbD3MyyGWycksG55Qa7r0Shq/z53kqLoUbUwI8s2yLU54XWGMnlOuePT2ONr0HgWMjDP
+ mPvggbGMrZd9vq6FQTosiUdEdCdb3DrxzMI1pIN6vbF5pSB1+/3iRWhgpLJ9LMj2hui/Q=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+The current ETMx configuration via sysfs can lead to the following
+inconsistencies:
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+  - If a configuration is modified via sysfs while a perf session is
+    active, the running configuration may differ between before
+    a sched-out and after a subsequent sched-in.
 
-are available in the Git repository at:
+  - If a perf session and sysfs session tries to enable concurrently,
+    configuration from configfs could be corrupted (etm4).
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/sven/linux.git tags/apple-soc-dt-7.4
+  - There is chance to corrupt drvdata->config if perf session tries
+    to enabled among handling cscfg_csdev_disable_active_config()
+    in etm4_disable_sysfs() (etm4).
 
-for you to fetch changes up to a8ac6027e82415f431bbba49ab535c44f2edaf4d:
+To resolve these inconsistencies, the configuration should be separated into:
 
-  Merge patch series "Initial Apple Silicon A18 Pro device trees and dt-bindings" (2026-09-25 22:59:47 +0200)
+  - curr_config, which is applied configuration for the current session
+  - config, which stores the settings configured via sysfs.
 
-----------------------------------------------------------------
-Apple SoC DTS changes for 7.4
+and apply configuration from configfs after taking a mode.
 
-- Initial device trees for all machines with the base M4 SoC and the
-  A18 Pro based MacBook Neo. As usual, the PMGR nodes are responsible
-  for the majority of the diffstat. This is enough to boot with all
-  cores to a serial console but future work will be required to make
-  these useful for users.
-- Fixes for a whole bunch of dt-check-style issues for M1/M2/M3
+Patch History
+=============
+from v12 to v13:
+  - add r-b tags
+  - Link to v12: https://lore.kernel.org/r/20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com
 
-Signed-off-by: Sven Peter <sven@kernel.org>
+from v11 to v12:
+  - rename active_config to curr_config.
+  - rename config to sysfs_config.
+  - remove redundant config argument in etmX_args.
+  - add read-back and copy from curr_config to sysfs_config TRCSEQSTR
+    (seq_state).
+  - add r-b and t-b tags.
+  - Link to v11: https://lore.kernel.org/r/20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com
 
-----------------------------------------------------------------
-Janne Grunau (16):
-      arm64: dts: apple: Fix style issues for t600x multi die .dtsi
-      arm64: dts: apple: Fix style issues for t602x multi die .dtsi
-      arm64: dts: apple: Fix style issues for t6031 multi die .dtsi
-      arm64: dts: apple: t603x: Fix all blank line dt-check-style issues
-      arm64: dts: apple: t8122: Fix blank line related dt-check-style issues
-      arm64: dts: apple: t603x: Fix child-name-order dt-check-style issues
-      arm64: dts: apple: t8122: Fix child-name-order dt-check-style issues
-      arm64: dts: apple: t8122: Fix child-address-order dt-check-style issues
-      arm64: dts: apple: t6031: Fix continuation alignment
-      arm64: dts: apple: t8122: Fix continuation alignment
-      arm64: dts: apple: t6030: Fix most property-order dt-check-style issues
-      arm64: dts: apple: t603[12]: Fix most property-order dt-check-style issues
-      arm64: dts: apple: t8122: Fix most property-order dt-check-style issues
-      arm64: dts: apple: t6032-j575d: Remove unused "framebuffer0" label
-      arm64: dts: apple: t603x: Break overly long lines
-      arm64: dts: apple: t8122: Break overly long lines
+from v10 to v11:
+  - replace direct register read from etm3 sysfs with IPI.
+  - fix issue cntr_val and others field which required to be shown after
+    sysfs session disable.
+  - prohibit the write for some etm3 sysfs while sysfs session is
+    enabled.
+  - drop locktype change in etm3
+  - Link to v10: https://lore.kernel.org/r/20260911-separate_etm_cfg_v2-v10-0-1b715d95927a@arm.com
 
-Sven Peter (6):
-      arm64: dts: apple: t602x: Fix cpus node indentation
-      arm64: dts: apple: t6030: Fix cpus node indentation
-      arm64: dts: apple: t6032: Fix cpus node indentation
-      Merge patch series "Initial Apple Silicon M4 device trees and dt-bindings"
-      Merge patch series "dt-check-style strict fixes for Apple M3, M3 Pro/Max/Ultra"
-      Merge patch series "Initial Apple Silicon A18 Pro device trees and dt-bindings"
+from v9 to v10:
+  - rebase to coresight/next
+  - https://lore.kernel.org/all/20260725113645.57519-1-yeoreum.yun@arm.com/
 
-Yureka Lilian (15):
-      dt-bindings: arm: cpus: Add Apple M4 CPU core compatibles
-      dt-bindings: interrupt-controller: apple,aic2: Add apple,t8132 compatible
-      dt-bindings: arm: apple: apple,pmgr: Add t8132 compatible
-      dt-bindings: power: apple,pmgr-pwrstate: Add t8132 compatible
-      dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible
-      dt-bindings: i2c: apple,i2c: Add t8132 compatible
-      dt-bindings: pwm: apple,s5l-fpwm: Add t8132 compatible
-      dt-bindings: arm: apple: Add M4 based devices
-      arm64: dts: apple: Add minimal t8132 (M4) device trees
-      dt-bindings: arm: cpus: Add Apple A18 Pro CPU core compatibles
-      dt-bindings: arm: apple: apple,pmgr: Add t8140 compatible
-      dt-bindings: arm: power: apple,pmgr-pwrstate: Add t8140 compatible
-      dt-bindings: interrupt-controller: apple,aic2: Add t8140 compatible
-      dt-bindings: arm: apple: Add A18 Pro based devices
-      arm64: dts: apple: Add minimal MacBook Neo device tree
+from v8 to v9:
+  - add feat_csdev_lock guard interface.
+  - set feat_csdev->drv_spinlock as NULL for etmv4_drvdata.
+  - https://lore.kernel.org/all/20260629090007.1718746-1-yeoreum.yun@arm.com/
 
- Documentation/devicetree/bindings/arm/apple.yaml   |   32 +
- .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    2 +
- Documentation/devicetree/bindings/arm/cpus.yaml    |    4 +
- .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
- .../bindings/interrupt-controller/apple,aic2.yaml  |    2 +
- .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
- .../bindings/power/apple,pmgr-pwrstate.yaml        |    2 +
- .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
- arch/arm64/boot/dts/apple/Makefile                 |    7 +
- arch/arm64/boot/dts/apple/t6001.dtsi               |   11 +-
- arch/arm64/boot/dts/apple/t6002.dtsi               |   18 +-
- arch/arm64/boot/dts/apple/t600x-die0.dtsi          |    3 +-
- arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |    2 +
- arch/arm64/boot/dts/apple/t600x-nvme.dtsi          |    2 +
- arch/arm64/boot/dts/apple/t6021.dtsi               |   10 +-
- arch/arm64/boot/dts/apple/t6022.dtsi               |   18 +-
- arch/arm64/boot/dts/apple/t602x-common.dtsi        |    2 +-
- arch/arm64/boot/dts/apple/t602x-die0.dtsi          |    2 +
- arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |    2 +
- arch/arm64/boot/dts/apple/t602x-nvme.dtsi          |    2 +
- arch/arm64/boot/dts/apple/t6030-pmgr.dtsi          |    1 -
- arch/arm64/boot/dts/apple/t6030.dtsi               |  277 ++---
- arch/arm64/boot/dts/apple/t6031-base.dtsi          |  191 ++--
- arch/arm64/boot/dts/apple/t6031-die0.dtsi          |   63 +-
- arch/arm64/boot/dts/apple/t6031-dieX.dtsi          |   94 +-
- arch/arm64/boot/dts/apple/t6031-gpio-pins.dtsi     |   18 +-
- arch/arm64/boot/dts/apple/t6031-pmgr.dtsi          |    6 +
- arch/arm64/boot/dts/apple/t6031.dtsi               |   16 +-
- arch/arm64/boot/dts/apple/t6032-j575d.dts          |   10 +-
- arch/arm64/boot/dts/apple/t6032.dtsi               |  193 ++--
- arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi     |   15 +-
- arch/arm64/boot/dts/apple/t8122-j504.dts           |   10 +-
- arch/arm64/boot/dts/apple/t8122-j613.dts           |    9 +-
- arch/arm64/boot/dts/apple/t8122-j615.dts           |    9 +-
- arch/arm64/boot/dts/apple/t8122-jxxx.dtsi          |    5 +-
- arch/arm64/boot/dts/apple/t8122-pmgr.dtsi          |    1 -
- arch/arm64/boot/dts/apple/t8122.dtsi               |  256 +++--
- arch/arm64/boot/dts/apple/t8132-j604.dts           |   35 +
- arch/arm64/boot/dts/apple/t8132-j623.dts           |   18 +
- arch/arm64/boot/dts/apple/t8132-j624.dts           |   18 +
- arch/arm64/boot/dts/apple/t8132-j713.dts           |   35 +
- arch/arm64/boot/dts/apple/t8132-j715.dts           |   35 +
- arch/arm64/boot/dts/apple/t8132-j773g.dts          |   25 +
- arch/arm64/boot/dts/apple/t8132-jxxx.dtsi          |   48 +
- arch/arm64/boot/dts/apple/t8132-pmgr.dtsi          | 1130 ++++++++++++++++++++
- arch/arm64/boot/dts/apple/t8132.dtsi               |  467 ++++++++
- arch/arm64/boot/dts/apple/t8140-j700.dts           |   54 +
- arch/arm64/boot/dts/apple/t8140-pmgr.dtsi          |  777 ++++++++++++++
- arch/arm64/boot/dts/apple/t8140.dtsi               |  207 ++++
- 49 files changed, 3595 insertions(+), 552 deletions(-)
- create mode 100644 arch/arm64/boot/dts/apple/t8132-j604.dts
- create mode 100644 arch/arm64/boot/dts/apple/t8132-j623.dts
- create mode 100644 arch/arm64/boot/dts/apple/t8132-j624.dts
- create mode 100644 arch/arm64/boot/dts/apple/t8132-j713.dts
- create mode 100644 arch/arm64/boot/dts/apple/t8132-j715.dts
- create mode 100644 arch/arm64/boot/dts/apple/t8132-j773g.dts
- create mode 100644 arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
- create mode 100644 arch/arm64/boot/dts/apple/t8132-pmgr.dtsi
- create mode 100644 arch/arm64/boot/dts/apple/t8132.dtsi
- create mode 100644 arch/arm64/boot/dts/apple/t8140-j700.dts
- create mode 100644 arch/arm64/boot/dts/apple/t8140-pmgr.dtsi
- create mode 100644 arch/arm64/boot/dts/apple/t8140.dtsi
+from v7 to v8:
+  - accept @Leo Yan' suggestion to handle error.
+  - small minor fixes following @Suzuki' suggestion.
+  - https://lore.kernel.org/all/20260519154812.254884-1-yeoreum.yun@arm.com/
+
+from v6 to v7:
+  - rebase on coresight/next
+  - add ETM_MAX_SEQ_TRANSITIONS define
+  - remove redundant patch relavent cpu-hotplug as coresight-pm patch
+    merged.
+  - https://lore.kernel.org/all/20260422132203.977549-1-yeoreum.yun@arm.com/
+
+from v5 to v6:
+  - fix missing of calling cscfg_csdev_disable_active_config()
+  - add rb & fixes tags.
+  - add ss_status field in etm4x_drvdata to expose STATUS and PENDING bits.
+  - https://lore.kernel.org/all/20260415165528.3369607-1-yeoreum.yun@arm.com/
+
+from v4 to v5:
+  - add rb-tag.
+  - fix underflow issue for nrseqstate.
+  - fix wrong check in etm4_sspcicrn_present().
+  - remove redundant fields on etmv4_save_state.
+  - rename caps->ss_status to ss_cmp.
+  - fix wrong location of etm4_release_trace_id.
+  - https://lore.kernel.org/all/20260413142003.3549310-1-yeoreum.yun@arm.com/
+
+from v3 to v4:
+  - change etm_drvdata->spinlock type to raw_spin_lock_t
+  - remove redundant call etmX_enable_hw() with starting_cpu() callsback.
+  - fix missing trace id release.
+  - add missing docs.
+  - https://lore.kernel.org/all/20260412175506.412301-1-yeoreum.yun@arm.com/
+
+from v2 to v3:
+  - fix build error for etm3x.
+  - fix checkpatch warning.
+  - https://lore.kernel.org/all/20260410074310.2693385-1-yeoreum.yun@arm.com/
+
+from v1 to v2
+  - rebased to v7.0-rc7.
+  - introduce etmX_caps structure to save etmX's capabilities.
+  - remove ss_status from etmv4_config.
+  - modify active_config after taking a mode (perf/sysfs).
+  - https://lore.kernel.org/all/20260317181705.2456271-1-yeoreum.yun@arm.com/
+
+---
+Yeoreum Yun (14):
+      coresight: etm4x: read-back TRCSEQSTR at disabling and prohibit modifying seq_state while enabling.
+      coresight: etm4x: prohibit modifying cntr_val while session is enabled
+      coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
+      coresight: etm4x: fix inconsistencies with sysfs configuration
+      coresight: etm3x: fix inconsistencies with sysfs configuration
+      coresight: etm3x: remove redundant cpu online check on etm_enable_sysfs()
+      coresight: etm4x: introduce struct etm4_caps
+      coresight: etm4x: exclude ss_status from drvdata->config
+      coresight: etm4x: remove s_ex_level from config
+      coresight: etm4x: rename local config as curr_config referring drvdata->curr_config
+      coresight: etm4x: rename drvdata->config to sysfs_config
+      coresight: etm3x: introduce struct etm_caps
+      coresight: etm3x: rename local config as curr_config referring drvdata->curr_config
+      coresight: etm3x: rename drvdata->config to sysfs_config
+
+ drivers/hwtracing/coresight/coresight-config.c     |  18 +-
+ drivers/hwtracing/coresight/coresight-config.h     |  22 +
+ drivers/hwtracing/coresight/coresight-etm.h        |  48 +-
+ drivers/hwtracing/coresight/coresight-etm3x-core.c | 196 +++--
+ .../hwtracing/coresight/coresight-etm3x-sysfs.c    | 461 +++++-----
+ drivers/hwtracing/coresight/coresight-etm4x-cfg.c  |  14 +-
+ drivers/hwtracing/coresight/coresight-etm4x-core.c | 567 ++++++------
+ .../hwtracing/coresight/coresight-etm4x-sysfs.c    | 961 +++++++++++----------
+ drivers/hwtracing/coresight/coresight-etm4x.h      | 199 +++--
+ 9 files changed, 1340 insertions(+), 1146 deletions(-)
+---
+base-commit: a3281934612608db9e1d24aaf913c846e913de89
+change-id: 20260911-separate_etm_cfg_v2-3518a168cbff
+
+Best regards,
+-- 
+Sincerely,
+Yeoreum Yun
+
