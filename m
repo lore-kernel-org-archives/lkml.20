@@ -1,280 +1,142 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7447F481238
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D378481238
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939746; cv=none; b=EL7mrxzrNvc4akVg7N+/2O98ugtGGgl9qyyS6mLmnWPDq5TRz4BK13s0ic1tTsm/PbCKu+WLyMHCxm6WapX08TjcxfU1sOYNEA87HCLi5q3Aw0knuoaKXhBn6vye3UCt/0mejqlFY+ISzZw/TV6Q5h7JI6PvlUj8W2pmnYucQsU=
+	t=1790939765; cv=none; b=tZl9dDy3IRRa8EFD9X0R3IW8807stZRJXoN9qDXVgv4HFbq6AM/vBOpNrydiGLYPF8XGcgNXunKbye6fF2ytFYnnN/he05sjSzHVqEOI+JGVvyiyTJBJxgLc3UIm6gfA9ysTlAYNtXQYjMbZcajjZ2Y0vuM87rloV8S0YhwnweY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939746; c=relaxed/simple;
-	bh=M3rPYMcpTIRHBZ3NVVSsH8snhyXO8wiBrkIMArVMaI0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Z3vlA+iQlCOcdyeZFqDqWp5nDocYHmhwODQVEXJwKBoGuoEs7YcCasWHnmzsjldF1ZffUZnTggQq6riACtEE1BLJz7o4ulxMYMyu/ZPf725i5BuI/Emleg/uMi1Yxx/LtPCEB9YRCY38pAkZ/rOw5u1AWrCGVoMzaAl+8J6eCws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gEe+QpTm; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790939765; c=relaxed/simple;
+	bh=rLjD7PTRxRLm6zR7cdPqYXDYyMN4xlD9erFhXKlSNn8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Niu22AHB0GKguMs1pYYWKfTDHvOUc+vcZfcxlUotyDAuUK68B1707w96fdXmE5RAZk0rTwcED7QiEPPURqNEBuy9IB8Vm7d9p6lNSphFQwuZ1IXNpw0VQ1Tkw71EgQSf5h26GgcyIl3vv6vDu+FW3WFrCI5SUhyTxx0kgURlqjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=F6e8jeA3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=caGEv8CX; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gEe+QpTm"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0280d4f56so4254815e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790939732; x=1791544532; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OUfzXk7gzJEOddY/hfe9OLAQHpkFenB0R/fhaQZ1l64=;
-        b=gEe+QpTmNePj+81ejwBEnb6ufcwPNt/OXBvu31fxtSL+GMxUdcOrKW3TZ5PwXGPTD7
-         5tGbL8/oU/HtEO5aLvCxqEvAR8lYzyMXAgR7e0H0zu46Svfcw3tHuUKsy/sdNSfmWu6d
-         DrNV8I4jcIxnnU+zRbdd7ii+snFEuVtn9R/5grbP3KVVWDucHr9oy7TleI8k04Q2fLAt
-         VHYTmITWbwQOTgCX5ERgIHAtBive+PsWtwFejZSP99HEoMKUesjBR2M/eFYDs1aVMf1/
-         3lNe5e2ZyRluOIYkrmDAAFuvegOpwVzo7nowAcTIfT9tn3sYeeztRFFOqhdhLKRg91mx
-         GprA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790939732; x=1791544532;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OUfzXk7gzJEOddY/hfe9OLAQHpkFenB0R/fhaQZ1l64=;
-        b=GG4Y7oegX2iGIVeuRJ0VnHhea9f5/NwqLGf+5FcCzHXa5CG7Jl54D1TLrhs0tmvcKt
-         I+i9aklVnoWH7D9sVT2cUlt2g739bwWZm/5agzQ0o6OLqOGN9d9c3G2LUt2nj+FCOqUL
-         tkorR7xGN3IIy8ryzHvJWPkWDnSQcGBFBTlq014sP7IKsPtahz0ve4xpOViQYxhuWUVm
-         NPY4KG8EY7lXRsKMM7iDTpOkOoeNJEJivCxPDznwJEh+bnHitYtHtXWCZkRu19CghHdj
-         J/X6A5jHz21wh1Ut6EmNniopnXLEsxjiGQ0f8VNaGa1wmEuwMWW+8oWbQqpBmNnECyAy
-         lirQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjgwLnZwEb51OJB+Llcfsm2QH9uDJyrhYBOIbwwpTGQOjwjl783/UU0VXt510Z9gfNJkjilJBx1f8P/Rc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCLr8gN7w6hRFpHF+9Od7PzpwVyvSlaDF1jcbGmTGGj4/LUtSQ
-	XT6R4RhvtLBHNA3ZpkkNbG6thlmltM7nIEsFcOWoQd25ng6qUg7SJ7uUp6h/HvLQFvs=
-X-Gm-Gg: AYBFou03ZA77nr0mD0/c2MbQ4x6+QS0OQRLzagc6srMUmgvAmbedk3ga7/KdAwUmGzy
-	WmvXboMpKahCInnd54R0U9qJp4vBmgzJhatXiuQQ2aTqNadJulDAA2hGDWyD5MzqjRjGfKqhWjH
-	VvN234vce/6nDD/t8lLD3F9fndnYeXf0Uzm2WTze49JEdxCltjipFGh5zEich93Ar/vgdoIWpYR
-	YjBpvI2k+5pbQJAozfZTmxhCwNz7rrs2xrSCwZbYqAQCr23gubjYcbEUcAF240baNaWZ4Ys968e
-	gwR+ATxH9Utbwy1urH1B9xtlDLWO15mEiCDMRAoHlHbmN63K8EU7iTubEFRFIg4iQgUzdH1Lq16
-	CcNELaBCuBeh4bafvhUzXJayw4kr8W55YBrT0lL59iZxtohP9QuRNXk/hCrkTJEoVTx8yNaxaMu
-	MYTj84EUE0XVw5xCNozWnpZMKBbSaVOF0eog4Yr8HeLELRCf41GDjIWBeUy8dtp3UxpDfRbCnJL
-	w==
-X-Received: by 2002:a05:600c:4e8e:b0:49f:ce78:3561 with SMTP id 5b1f17b1804b1-4a02759b360mr45109215e9.18.1790939731921;
-        Fri, 02 Oct 2026 04:15:31 -0700 (PDT)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38306dd4sm4752986f8f.43.2026.10.02.04.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 04:15:31 -0700 (PDT)
-From: James Clark <james.clark@linaro.org>
-Date: Fri, 02 Oct 2026 12:15:14 +0100
-Subject: [PATCH v3 4/4] perf: cs-etm: Respect --no-itrace option
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="F6e8jeA3";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="caGEv8CX"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 160421400151
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:16:03 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Fri, 02 Oct 2026 07:16:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790939762; x=
+	1791026162; bh=p6P809YcEFkgZYt3dJBX9HFU16JBGD60jWrOGj9WhIM=; b=F
+	6e8jeA3Sjgohv+3K5lXyiBi5JOgA+lmGMiUKerbuNQLJmrCfx9vzND1QynNHPVO2
+	Fk5lafsqpdcvaLD7FE4U472GAde2vxEkCqVXHM8AWxcL0Eyfgtt6ffuO6QUwMZVR
+	2WeRzSj13bTWmwgY/d4M0Bg71/Z0datxnjPFCUOK9DmgNOYHlybwsrX/fd0AgNgW
+	v1LoEVyQUWUMyTTtdfybiQSctv7BT6i+wDFmXdJZp50mL2u+xa+aNsyYvu789cw4
+	kqDRK4yxzdx0G7u1nqmYEnvTwFYJwGjVpopSzG+BYdgP+sLww22fF41QJ6wSFiw0
+	s8Pmicf9VfZv+4BVStX7A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790939762; x=1791026162; bh=p6P809YcEFkgZYt3dJBX9HFU16JBGD60jWr
+	OGj9WhIM=; b=caGEv8CXFpU5L/754PZtURUwBdWoRG3+RoXodZdqeXP/P+7MKv9
+	ZCrtXzmWxso2c1hRadrPbGbSMltSuhjyga4luTSfx/Td5N8hlyt2y6iQzqm0Rf42
+	DUSXBC+alfkiMeTM2kZlJdIAsgw2Fnx2Jvx2crdYvxrV+oVBVTLWVgWgGuSvecvk
+	Trg5MeeB3MobaBmzrSzDWMN90Kqtzm3iTvrzJfw29NIxrYnFTJ29GasDKJ/RV1PQ
+	us3gKgwwHbL80eqoP++ypWe0EoaS1SYpEnLgXlbxPxyi0wWTVo4FMeiH6hP1xWr6
+	SuOpfjBbkJQUrXFlJ31VYk2Ohhlc7dR/P9g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790939762; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:ReLqxzpfaLZisExdGUChsJ2Ag/GmWTvIaBKr4LTaedhpSBK
+	GLwxi1yi+ca3Uyn9AInGrMM9NxQ/MgJ/srcVfzTl3U/I1IWrE9OAe2Ba6+0OWRmy
+	KRkv05k0isu6PXv/jns57K1/hzkjC/onjettiPXJJAaNZ6/efPfNKi12p4qBZSBf
+	RR95yNSeNLKIWiqZUdRue/TkpTBmK4ZKboDbYzQuj/Z3sxAPhUmn31Bfu/DWRGpa
+	nm6FxjM1NMCBwki7iLc+Tk3xRWpbhC8ESj16+kCjNcw1knlP5d4IVrRNVL5Djoss
+	/QJ6oFNiHP/XAgEAZxJLEiewQCYAxKWKjtcD7BA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:bMo8HEqw+XiMNM/BAcO6Jb6FU65Q3QvxVC76RxujU7U=:rLjD7PTRxRLm6zR7cdPqYXDYyMN4xlD9erFhXKlSNn8=;
+X-ME-Sender: <xms:cZK_ag6-CP6f_gb4D9vDrUfKp-kO5w-tbenjwAuJx9mWU5VIiGin9Q>
+    <xme:cZK_assRmizyXeB7qZONd9_cj0AasuywH0VBcJ01oUWCh1xyr4tY3CiPq4YB16nXz
+    X9WIJWDhA8H5A-GQlht_sY78I8qqaAlE0GEg9z7YIRxC9vt_PISqtk>
+X-ME-Received: <xmr:cZK_atvB4az53u0LPZllRCclPWfZnepNl-2tLnc0qjPBWYF6SPHlsz2bcOw>
+X-ME-Proxy-Cause: dmFkZTF/1tmYHgENW9/vj2pjkxCWxNZLy8cBqZqyG3QR22/biSzxfwGmM0SNSCX6B8CTEE
+    sTzdhH4DefA/ogWq1+xZTNoNZrv6+eNRhC6+EKZ43s7HCM42zfU73HzR2hp18zMWUeDanj
+    nxI3Hsq2s2NNJtxrBlAYWBwbjBSzuVnIQ62G1K7EAvF8nxwpnIK8LqmG8FleX8g1/NWWpi
+    i1Eh2+rwWq/y+BB22y+2UHlhiK/LMUG1G01oG+O68qFEFivbqh0vsu2iQJcAgmsoyUHgKb
+    2X88Uhgm2hGpfWmFleq/C55jouc3ELdga+uqGFmcFxDT3Q/oEEbXjFkgRaCAjW0VAlUlRn
+    LXrejEbLijsGaWjNJTbbc/kFtaVuZERxtZs35DIxuCMbVK1PbOlz+gLxbYzN8M7tlMJrXb
+    H5uKuiaO1wu3o6GytFsZVTuVzV/AzbDF98dPu52yFu+a45CF+Kf+AVGMuCL6SpIpMisDMu
+    0wxgfWqDeTJc//eTAYYV8TXEO0GiIKxfOHTycUJfvcnE4hXUDAw7zG3CXh8cZlX1wNEc8N
+    ThB2MNbWoK5+/sdViJhb+PNKJxmKRborKpl5atJcuQKgh0aRJZQUeAOYYa1ZzfDHj3WRcx
+    Bni6Sf9xGhOISLmEPi9f40Y0UDnDSYb9DFWqjbqmIKjw56KodkXu3u3MpcCg
+X-ME-Proxy: <xmx:cZK_aksEFhpnf2XrsNIkehG_MjzhnzDXag4QhVowuDSSLodFy_hB1g>
+    <xmx:cZK_at627sWI4UwsAEjGi4nVkv1kWsFyI5fHLsy-rvBaWfLyfHYs5A>
+    <xmx:cZK_anCbdeKfxXLXEBQWC4AwHYFsC-_AY3rYHeGjX9R9_M2gwiPsaA>
+    <xmx:cZK_atvqTj6y68xOYjd3PE6Vu9ALp2gQG3B6BNdDCaZa-VlXoghpmQ>
+    <xmx:cpK_aoT9JCIbXUKFqB5glVomIPxrr6D9r_jz6HtYdW7-B16y63O03yx6>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 07:16:01 -0400 (EDT)
+Date: Fri, 2 Oct 2026 12:16:00 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>
+Subject: Re: [PATCH v4 09/13] mm/collapse: separate scanning a PTE table from
+ collapsing it
+Message-ID: <ar-SFw5YYJhv7esG@thinkstation>
+References: <20260928100630.21870-1-kirill@shutemov.name>
+ <20260928100630.21870-10-kirill@shutemov.name>
+ <9bf6623e-ad1b-415c-9720-6063a1ac11ea@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-james-cs-hw_id-output-failure-v3-4-1d8b6ef339c8@linaro.org>
-References: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
-In-Reply-To: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
-To: John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>, 
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, Leo Yan <leo.yan@arm.com>, 
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9bf6623e-ad1b-415c-9720-6063a1ac11ea@kernel.org>
 
-If there is a bug in decoding then Perf will exit early and you can't
-investigate by using the raw dump mode. Make the --no-itrace option stop
-Coresight decoding after printing the aux header so decode errors don't
-stop the rest of the samples being printed.
+On Thu, Oct 01, 2026 at 10:34:54AM +0200, David Hildenbrand (Arm) wrote:
+> So I suggest the following in the context of this patch here:
+> 
+> 	collapse_scan_pmd
+> 	-> collapse_scan_file
+> 	-> collapse_scan_anon
+> 
+> 	collapse_pmd
+> 	-> collapse_anon
+> 	-> collapse_file
 
-pmu_type and evsel_is_auxtrace need to be set so that the
-unleader_auxtrace() behavior is the same as without --no-itrace.
 
-Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: James Clark <james.clark@linaro.org>
----
- tools/perf/util/auxtrace.c |  2 +-
- tools/perf/util/auxtrace.h |  1 +
- tools/perf/util/cs-etm.c   | 66 +++++++++++++++++++++++++---------------------
- 3 files changed, 38 insertions(+), 31 deletions(-)
+Fine with me.
 
-diff --git a/tools/perf/util/auxtrace.c b/tools/perf/util/auxtrace.c
-index ed2113190785..2557cbec37b3 100644
---- a/tools/perf/util/auxtrace.c
-+++ b/tools/perf/util/auxtrace.c
-@@ -123,7 +123,7 @@ static int evlist__regroup(struct evlist *evlist, struct evsel *leader, struct e
- 	return 0;
- }
- 
--static bool auxtrace__dont_decode(struct perf_session *session)
-+bool auxtrace__dont_decode(struct perf_session *session)
- {
- 	return !session->itrace_synth_opts ||
- 	       session->itrace_synth_opts->dont_decode;
-diff --git a/tools/perf/util/auxtrace.h b/tools/perf/util/auxtrace.h
-index 5012bead1b92..c29a8444f08e 100644
---- a/tools/perf/util/auxtrace.h
-+++ b/tools/perf/util/auxtrace.h
-@@ -650,6 +650,7 @@ void auxtrace__free(struct perf_session *session);
- bool auxtrace__evsel_is_auxtrace(struct perf_session *session,
- 				 struct evsel *evsel);
- u64 auxtrace_synth_id_range_start(struct evsel *evsel);
-+bool auxtrace__dont_decode(struct perf_session *session);
- 
- #define ITRACE_HELP \
- "				i[period]:    		synthesize instructions events\n" \
-diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index c0152549e3e2..bdcf94813129 100644
---- a/tools/perf/util/cs-etm.c
-+++ b/tools/perf/util/cs-etm.c
-@@ -965,7 +965,7 @@ static int cs_etm__flush_events(struct perf_session *session,
- 	struct cs_etm_auxtrace *etm = container_of(session->auxtrace,
- 						   struct cs_etm_auxtrace,
- 						   auxtrace);
--	if (dump_trace)
-+	if (dump_trace || auxtrace__dont_decode(session))
- 		return 0;
- 
- 	if (!tool->ordered_events)
-@@ -3002,7 +3002,7 @@ static int cs_etm__process_event(struct perf_session *session,
- 						   struct cs_etm_auxtrace,
- 						   auxtrace);
- 
--	if (dump_trace)
-+	if (dump_trace || auxtrace__dont_decode(session))
- 		return 0;
- 
- 	if (!tool->ordered_events) {
-@@ -3552,27 +3552,49 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 	int err = 0;
- 	int aux_hw_id_found;
- 	int i;
--	u64 *ptr = NULL;
-+	u64 *ptr = (u64 *) auxtrace_info->priv;
- 	u64 **metadata = NULL;
- 
--	/* First the global part */
--	ptr = (u64 *) auxtrace_info->priv;
--	num_cpu = ptr[CS_PMU_TYPE_CPUS] & 0xffffffff;
-+	etm = zalloc(sizeof(*etm));
-+	if (!etm)
-+		return -ENOMEM;
-+
-+	session->auxtrace = &etm->auxtrace;
-+	etm->auxtrace.free = cs_etm__free;
-+	etm->auxtrace.evsel_is_auxtrace = cs_etm__evsel_is_auxtrace;
-+	etm->auxtrace.process_event = cs_etm__process_event;
-+	etm->auxtrace.process_auxtrace_event = cs_etm__process_auxtrace_event;
-+	etm->auxtrace.flush_events = cs_etm__flush_events;
-+	etm->auxtrace.free_events = cs_etm__free_events;
-+	etm->pmu_type = (unsigned int) ((ptr[CS_PMU_TYPE_CPUS] >> 32) & 0xffffffff);
-+
-+	/*
-+	 * Don't go further than the minimum required to identify this event as
-+	 * auxtrace with cs_etm__evsel_is_auxtrace() so unleader_auxtrace()
-+	 * works.
-+	 */
-+	if (auxtrace__dont_decode(session))
-+		return 0;
- 
- 	/*
- 	 * Bound num_cpu by the event size: the global header consumes
- 	 * CS_ETM_HEADER_SIZE bytes, and each CPU needs at least one u64
- 	 * metadata entry after that.
- 	 */
-+	num_cpu = ptr[CS_PMU_TYPE_CPUS] & 0xffffffff;
- 	priv_size = total_size - event_header_size - INFO_HEADER_SIZE -
- 		    CS_ETM_HEADER_SIZE;
- 	if (num_cpu <= 0 || priv_size <= 0 ||
--	    num_cpu > priv_size / (int)sizeof(u64))
--		return -EINVAL;
-+	    num_cpu > priv_size / (int)sizeof(u64)) {
-+		err = -EINVAL;
-+		goto err_free_etm;
-+	}
- 
- 	metadata = zalloc(sizeof(*metadata) * num_cpu);
--	if (!metadata)
--		return -ENOMEM;
-+	if (!metadata) {
-+		err = -ENOMEM;
-+		goto err_free_etm;
-+	}
- 
- 	/* Start parsing after the common part of the header */
- 	i = CS_HEADER_VERSION_MAX;
-@@ -3631,13 +3653,6 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 		goto err_free_metadata;
- 	}
- 
--	etm = zalloc(sizeof(*etm));
--
--	if (!etm) {
--		err = -ENOMEM;
--		goto err_free_metadata;
--	}
--
- 	/*
- 	 * As all the ETMs run at the same exception level, the system should
- 	 * have the same PID format crossing CPUs.  So cache the PID format
-@@ -3647,7 +3662,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 
- 	err = auxtrace_queues__init_nr(&etm->queues, max_cpu + 1);
- 	if (err)
--		goto err_free_etm;
-+		goto err_free_metadata;
- 
- 	for (unsigned int j = 0; j < etm->queues.nr_queues; ++j) {
- 		err = cs_etm__setup_queue(etm, &etm->queues.queue_array[j], j);
-@@ -3685,7 +3700,6 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 	etm->session = session;
- 
- 	etm->num_cpu = num_cpu;
--	etm->pmu_type = (unsigned int) ((ptr[CS_PMU_TYPE_CPUS] >> 32) & 0xffffffff);
- 	etm->snapshot_mode = (ptr[CS_ETM_SNAPSHOT] != 0);
- 	etm->metadata = metadata;
- 	etm->auxtrace_type = auxtrace_info->type;
-@@ -3712,14 +3726,6 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 			    "you can specify the itrace option 'T' for timestamp decoding\n"
- 			    "if the Coresight timestamp on the platform is same with the kernel time.\n\n");
- 
--	etm->auxtrace.process_event = cs_etm__process_event;
--	etm->auxtrace.process_auxtrace_event = cs_etm__process_auxtrace_event;
--	etm->auxtrace.flush_events = cs_etm__flush_events;
--	etm->auxtrace.free_events = cs_etm__free_events;
--	etm->auxtrace.free = cs_etm__free;
--	etm->auxtrace.evsel_is_auxtrace = cs_etm__evsel_is_auxtrace;
--	session->auxtrace = &etm->auxtrace;
--
- 	cs_etm__setup_timeless_decoding(etm);
- 
- 	etm->tc.time_shift = tc->time_shift;
-@@ -3797,13 +3803,13 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 
- err_free_queues:
- 	cs_etm__free_queues(etm);
--	session->auxtrace = NULL;
--err_free_etm:
--	zfree(&etm);
- err_free_metadata:
- 	/* No need to check @metadata[j], free(NULL) is supported */
- 	for (int j = 0; j < num_cpu; j++)
- 		zfree(&metadata[j]);
- 	zfree(&metadata);
-+err_free_etm:
-+	session->auxtrace = NULL;
-+	zfree(&etm);
- 	return err;
- }
+collapse_file() has been using collapse as the verb all along, so my
+namespace argument was not much of one.
+
+> You should mention that collapse_single_pmd() is only temporary.
+
+Will do.
+
+> I'd just not add that doc if you intend to remove the whole thing in the same
+> comment.
+
+Ack.
 
 -- 
-2.43.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
