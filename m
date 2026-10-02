@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-150.mta0.migadu.com [91.218.175.150])
+Received: from mta1.migadu.com (out-145.mta1.migadu.com [95.215.58.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2530948125B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D434468C06
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935029; cv=none; b=OF1K46liyo1Onrg3qxnPZaI6C0mgt5KAYuSuyio2VY4YSjeMt3FdLue+eDQYwd5SaWAU5ZrY+WtVHxpt7q9va7XhfEY9wmq9oTMUxx/AXae2yUOtW3oF+FT6rPITwvjHpgTTk+d3GI9gwf954OXt8Q05ublIQugP7Uz1jrMl4Fk=
+	t=1790935032; cv=none; b=IsvqFxNKnoMEzxrs8SJOZpyI5rvwzHhQOoIDjh9USVYVBvgis6lTsb5QEqGdrOr12rtP+Sub6b3xGoN6LMz7RreUHTzCwWu/E4vKAx0ihb6EPBQnxB+NQZsRIVdltvd0CplStgyZgmn2hMC+ovcwpw0b3qdMFtQaKS7rxf2Cz2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935029; c=relaxed/simple;
-	bh=52my7Ds1LJ1DHVTSsdRA7MBIeNU6HZuTroAZD3VRoTc=;
+	s=arc-20240116; t=1790935032; c=relaxed/simple;
+	bh=7cWRiY61ttsBLvX5i9ElmLypjZl7WDBKL9U4yzhj3UM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AgoclkhdCVicKlnFBiaEtADEi1RICjlKsho5qWNQL2i5SwNoj5f6xB+pX37dj+EJWgyr2J//MGOwJ5gjmV5mEE9ApD54U7ytn6/lQa5b1ETKrWCbCllSCwQ9BjvxoHehyIHfKjCJ7sf7GviOliADCaNHp2roGI4M7J7vPNIdEsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LY39kZdC; arc=none smtp.client-ip=91.218.175.150
+	 MIME-Version; b=f7gwIuf0wY4TZ7eky8AmsFZK0dCbrIlVODwACTN4CmjcHrtCp6/YKt1EuQ0EfVQBKsXbngNIj/6BjnSKr/m4vu8polgQW7vXf32/ObWVrpqxjxC2y+iRPPTFYhpLNOK7AsLpfKj2wFIrt3WFi3eWdFxZx2ZNSdNdDaKuKB+nzRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ms8P+k99; arc=none smtp.client-ip=95.215.58.145
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LY39kZdC"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ms8P+k99"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=52my7Ds1LJ1DHVTSsdRA7MBIeNU6HZuTroAZD3VRoTc=;
+DKIM-Signature: a=rsa-sha256; bh=7cWRiY61ttsBLvX5i9ElmLypjZl7WDBKL9U4yzhj3UM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790935026; v=1; x=1791539826;
- b=LY39kZdCizl4I+vJLqnY3cigY21QEBTwI/SdtMwl0Mqmxodx9AQJxTxhI0+hK5hY+9MjRh5O
- 7dHtbBAsyvI62Mm4ApfSy3uMI7Ahy4GZklhc9E0qKfUJVyr7vadGQD3+gyPFaaGvN4VKvmaCW/U
- BNHQ3Rra5wHKIoXpwYwWLAEk=
+ t=1790935028; v=1; x=1791539828;
+ b=ms8P+k99mL4Xm5d2JSr4KWzr5ADzTLyRHvqnZWLFRi+qbq6LtHEHQzT30/NQsWLysPHSlu2J
+ 7rcgonHAR8/J27x64Ew1vIUJNQp8XDZttQUq9e0f6Ux4y+Y7Za8D2se7xP2CaKxwaC/wKlt6K7R
+ ulCXxjMu8RGSQts99+zniTlA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 97a2097a84c32ae4;
-	Fri, 02 Oct 2026 09:57:05 +0000
-X-Mizu-Trace-ID: 97a2097a84c32ae4
+Received: by mta11.migadu.com with ESMTPS id 0f29b55ffbe886d7;
+	Fri, 02 Oct 2026 09:57:08 +0000
+X-Mizu-Trace-ID: 0f29b55ffbe886d7
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -62,9 +62,9 @@ Cc: ying.huang@linux.alibaba.com,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v8 19/30] mm: free PMD swap entries in zap_huge_pmd()
-Date: Fri,  2 Oct 2026 02:52:33 -0700
-Message-ID: <20261002095503.3585565-20-usama.arif@linux.dev>
+Subject: [PATCH v8 20/30] mm/madvise: free PMD swap entries with MADV_FREE
+Date: Fri,  2 Oct 2026 02:52:34 -0700
+Message-ID: <20261002095503.3585565-21-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002095503.3585565-1-usama.arif@linux.dev>
 References: <20261002095503.3585565-1-usama.arif@linux.dev>
@@ -76,40 +76,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-zap_huge_pmd() assumes any non-present PMD it clears references a folio, so
-a PMD swap entry would reach normal_or_softleaf_folio_pmd() and warn.
-Worse, nothing would release the slots it points at: unmapping a
-swapped-out THP would leak the whole PMD's worth of swap.
+madvise_free_pte_range() only calls madvise_free_huge_pmd() for a present
+THP, and its PTE loop cannot descend into a non-present PMD, so MADV_FREE
+over a swapped-out THP silently does nothing. Over the same range as PTE
+swap entries it frees every slot, which is what userspace gets today.
 
-Handle it before the folio lookup, as zap_pte_range() already does for a
-PTE swap entry.
+Free it at PMD granularity when the advice covers the whole PMD, and split
+and let the PTE path handle the subrange when it does not.
+
+zap_deposited_table() moves above its new caller; it is otherwise
+unchanged.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- mm/huge_memory.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ mm/huge_memory.c | 34 +++++++++++++++++++++++++---------
+ mm/madvise.c     |  2 +-
+ 2 files changed, 26 insertions(+), 10 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 56eb87fa98376..9cf7c4747cac9 100644
+index 9cf7c4747cac9..c3d37dd84f523 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -2605,6 +2605,16 @@ bool zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 	arch_check_zapped_pmd(vma, orig_pmd);
- 	tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+@@ -2424,6 +2424,15 @@ vm_fault_t do_huge_pmd_numa_page(struct vm_fault *vmf)
+ 	return 0;
+ }
  
-+	if (pmd_is_swap_entry(orig_pmd)) {
-+		softleaf_t entry = softleaf_from_pmd(orig_pmd);
++static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
++{
++	pgtable_t pgtable;
 +
-+		zap_deposited_table(mm, pmd);
-+		spin_unlock(ptl);
-+		swap_put_entries_direct(entry, HPAGE_PMD_NR);
-+		add_mm_counter(mm, MM_SWAPENTS, -HPAGE_PMD_NR);
-+		return true;
-+	}
++	pgtable = pgtable_trans_huge_withdraw(mm, pmd);
++	pte_free_defer(mm, pgtable);
++	mm_dec_nr_ptes(mm);
++}
 +
- 	is_present = pmd_present(orig_pmd);
- 	folio = normal_or_softleaf_folio_pmd(vma, addr, orig_pmd, is_present);
- 	has_deposit = has_deposited_pgtable(vma, orig_pmd, folio);
+ /*
+  * Return true if we do MADV_FREE successfully on entire pmd page.
+  * Otherwise, return false.
+@@ -2448,6 +2457,22 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		goto out;
+ 
+ 	if (unlikely(!pmd_present(orig_pmd))) {
++		if (pmd_is_swap_entry(orig_pmd)) {
++			softleaf_t entry = softleaf_from_pmd(orig_pmd);
++
++			if (next - addr != HPAGE_PMD_SIZE) {
++				spin_unlock(ptl);
++				__split_huge_pmd(vma, pmd, addr);
++				goto out_unlocked;
++			}
++
++			pmdp_huge_get_and_clear(mm, addr, pmd);
++			zap_deposited_table(mm, pmd);
++			spin_unlock(ptl);
++			swap_put_entries_direct(entry, HPAGE_PMD_NR);
++			add_mm_counter(mm, MM_SWAPENTS, -HPAGE_PMD_NR);
++			return true;
++		}
+ 		VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
+ 				!pmd_is_device_private_entry(orig_pmd));
+ 		goto out;
+@@ -2502,15 +2527,6 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	return ret;
+ }
+ 
+-static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
+-{
+-	pgtable_t pgtable;
+-
+-	pgtable = pgtable_trans_huge_withdraw(mm, pmd);
+-	pte_free_defer(mm, pgtable);
+-	mm_dec_nr_ptes(mm);
+-}
+-
+ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		pmd_t pmdval, struct folio *folio, bool is_present)
+ {
+diff --git a/mm/madvise.c b/mm/madvise.c
+index fbb72ab49aa64..70acb39b8b3dd 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -678,7 +678,7 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 	int nr, max_nr;
+ 
+ 	next = pmd_addr_end(addr, end);
+-	if (pmd_trans_huge(*pmd))
++	if (pmd_trans_huge(*pmd) || pmd_is_swap_entry(*pmd))
+ 		if (madvise_free_huge_pmd(tlb, vma, pmd, addr, next))
+ 			return 0;
+ 
 -- 
 2.53.0-Meta
 
