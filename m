@@ -1,168 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013003.outbound.protection.outlook.com [52.101.83.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B9B5172D5;
-	Fri,  2 Oct 2026 20:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790972116; cv=none; b=akbk/V4LrxLoSg1pJHvgJC1Ied+XVyPM6fVzVWe2K2Szuh3Lfe/xevKTpaMq7DW8xJn8xqxVZ2Y7Q08hVwYWHVTe/fLlvRrF2ZjR3X9cM4OzMcYDdYvFAV1UbEESWFLJZtAIDm0Mw4a5jdYjbFF51kIbUa+tcccj6LULD5wikW0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790972116; c=relaxed/simple;
-	bh=Ue4xjfWPlwQ6fQWJe2kgGFfvSix+i4cTBvU6YyC7v0g=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=bQaolnRmDKdLkJl2lL139Brh2hbHQDIJ/NtTf1zFwTOuTX9oOlBxEpERRc+AI6XRNJqXbLyNmWZ0yO4w7KV3QzHXNOB8VOLrITg+JWCySLSc0lcCX3lOybC5bEFwzUIeaAszrZWCELVBf8bTVW59dvC8ugpiZuZvpU59cYSX8Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWLapAOy; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70C4311C1B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790972186; cv=fail; b=lmAH4u0zEJrUz9GFNJ/7GNSuvOgbF08P2TXocF+X9rdBcAup+s4tD6ub3LPZylI/hyR8xMWbLoy72UD11M8qEknYZzcBpM1pLd0l/8KGosJa7/osz8O2wZlQ0/ddct2BbBllNb/Tkz2QX8qDiPtGRG14rUjNpxisARg3AO6lFFw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790972186; c=relaxed/simple;
+	bh=WoYXubDxzeb75vMquQGlpEnP2GOp8sUURNF6Bpj2LCw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=iaHimLXPzZJzyWEt/6XZNbEZrwbz93P9SJoFVTt+AawPApDntMiNeKu8Q40YuTg2wdAfFXwlggWgGeQH3u7ZJMGyqPl1QrNGhjlbdo9hBGNhb8OkQ2UZ87aQM+rZ2BLnUHJ0VEq6oI52k8FVwUmEpbng04jDdUZvh+6BPa2NPDI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=nTm7GF4d; arc=fail smtp.client-ip=52.101.83.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWLapAOy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1881F000FF;
-	Fri,  2 Oct 2026 20:15:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790972115;
-	bh=BSgXFsOyzdqxoC0iBHweIF6GPmDqgY9jRrynJS6jg2s=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=NWLapAOyMuPHEiJoplwA9fSWyO5PULkmXkOaDiIR9nI2YSoMUW/NFCWvf80MV3MJ1
-	 HNxgCEDp+1j0sqnB8dgK+H//94agbKpMqbgp9t/a0vl/K1isJRlC4bo/qRlJoTssYS
-	 8ZmdyHFTQOA+P4XHs8P4ekH12Jn+gwclnehQqafMM719OD6VR1NIXmB/CH6eSSRtkc
-	 lCMUFdZIjejqkpWDZbvf2vmYk4WoPEZ/p0lle9I4FjObxwlurQfQf2wVN2uphrhGsV
-	 ERogMynRZguUMY9bIR6dOzOR+PY8dHCnIfWXhHOAh5ZSSzcxE6WQW/FSOd0jVD2FHh
-	 3gOioyJMe9kBA==
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="nTm7GF4d"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=imHE+RZV9s+PonouTNPWowqrLzyixAFoBasPmur3FDl5GmjoQI9eJAPiUXyHBPEOo9cWt4yjkXXxTxRGU11m5DoBKc27vbFUksY7R7bw4efD3nPpgk1jVTXpr85FdzL+UluVFYcB1DAvOvA5PaRutsLJu4DhHp9pZFxTX9z8r6b/JQdJw2ZnjurUCq3PAhJkJ0ktQg6pY5vK1CqSjuh3UGmb0h+8WUWSVe+LljRt6VC1gwXj/0u0e6UbmVNm2m0/0JcO4e+/pODnmL1BwlVbNxwe0o4wvRZd/zCi07J4NQ7jgkTDZWEG1kf5NL4GTUxZOGoKtJF10gRNk5IeCs4pog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aPCwM296zFcvhs+5odVmGVtZMleIM10FdLXW0oHVsco=;
+ b=nIAZmlZBiRFibtiozdBwiXe5bcsLiO+KcGJsF4NiBoW7XhxLWKmnvJgNUgC/3qIAxvH9T7lzxRSBf3YGm4lF+hVlHf6qDCgiQqYl1i5vpt3E/aTwJjQvCnPazKPTLtmNZdPhtPqecKrgsEJLNiU97Q9i01196gPyBIHWjXK2WrkG2iudG4Ip9uLwy83Z38qry2d9az4ie7ozh77j6ZOW7NTmbOKY2BB0PhQvLp9YPrJ+1Bi/ar+OeYKT48eE7jUh4QgMfaZEBp1dvOzCqwCe1TuGcrbf3GB19aXcLjI6eVxDa8nWsNuRNW4QBsq//sSfdKwbPYLeBCfNOI5M94slUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aPCwM296zFcvhs+5odVmGVtZMleIM10FdLXW0oHVsco=;
+ b=nTm7GF4d8kL4AgJbJVCLrq3Jp7LDiUmjm3sKaiRG33cs5UJ52NkShzMwwVzz897dDpVebYG4hqUPBiuyGgLsl5lwjLiPFDSkRkGmWtntKJgMAftcFtFpocClJMx0eKxgwGQ0GDwyIjMnW7Z70gBISBuBKlEUa9o1QI9tiTBKN+/ihShKz7pyEZhn+Al6wbl7uCNc1qqM2tTKTAHR96CcDynXXY7kqDGtG2u2siwAHZfWCRGyc9nxEA1c7z3CyPHW/RzBeMuyji2+suNpsLnOmZsKAMKTMljU+mvGSeKGjrv9yiA2mYzhfWgvzLlPENGnG1IIbPxUu/cFKkZLt1mzew==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
+ by DU0PR04MB9322.eurprd04.prod.outlook.com (2603:10a6:10:355::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 20:16:21 +0000
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de%4]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 20:16:21 +0000
+From: Frank.Li@oss.nxp.com
+To: Kyungmin Park <kyungmin.park@samsung.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	linux-mtd@lists.infradead.org (open list:ONENAND FLASH DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Cc: vkoul@kernel.org,
+	imx@lists.linux.dev
+Subject: [PATCH 1/1] mtd: nand: use dmaengine_submit() instead of ->tx_submit()
+Date: Fri,  2 Oct 2026 16:16:07 -0400
+Message-ID: <20261002201614.245240-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7P220CA0133.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:327::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4] scripts/config: honor $KBUILD_OUTPUT by default
-From: Nathan Chancellor <nathan@kernel.org>
-To: Dmitry Voytik <voytikd@gmail.com>
-Cc: Nicolas Schier <nsc@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nicolas Schier <n.schier@fritz.com>, Rong Zhang <i@rong.moe>, 
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
-In-Reply-To: <20261001214618.283635-1-voytikd@gmail.com>
-References: <20261001214618.283635-1-voytikd@gmail.com>
-Date: Fri, 02 Oct 2026 22:15:08 +0200
-Message-Id: <179097210878.309835.10523307262544578337.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3651; i=nathan@kernel.org;
- h=from:subject:message-id; bh=Ue4xjfWPlwQ6fQWJe2kgGFfvSix+i4cTBvU6YyC7v0g=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFkHBM7d08hjO/aobOP+4M+uuvWnrbwjLHSqLilf/CRq/
- ntDXHlwRykLgxgXg6yYIkv1Y9XjhoZzzjLeODUJZg4rE8gQBi5OAZjITX1Ghplxgv4C5nl2jb1a
- G19/CW4LPdP99GkW2xrz+ZOinG+KNzMyzPrHvFI52I9Ppus356Fd77pjmh7v++Kbxx5qcHTFnl1
- tfAA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|DU0PR04MB9322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 327420da-5488-44d8-2e1c-08df20c205ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|19092799006|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	xl0WzzsVqaw+e7OuIGhWv8uRGLUEIfM6zvBWw9+vkzZX/JOW58uLukFlsq3hl4W/TqVMOdyeoJ9e+ESe44V065CDzlYZPSTarp7D07XAqgG9zXannvvQP45Ml9zT1HkPBG0rhcwhxUenSGFtHXU1Les1Ni0HXJTg3/TJRJMRTeGas7xuWvrNrm6/0qQSoc4r3oV62CwaL79GjxJkVFjXzUK9JxMT7a+vE3smVOehPYO1bsbuX/Y6hptXK3xR1yvh2bvQPTO7hI0Muq+xSGGVjLJcApL5Gkf7djIBgSse4i+avdRJ34J465efjPXq6j7Xv8zqQxmU+wXoet/VMl6n8oogigwE3CJ5bvaEwD8+haLeHS/VjOxrZWYxkbCbv6TknMwv4951IV8bvVzSy0AcVqwlyypCW6EgNN4qnJeXlwoPvw2MLPFn8nRlWWGHR0qWKh1FNEZb2hH+qMar6vhAENxhAD8Pt+i8vK6k/KX0atsSaBEqag4v353kyCFGJqMRByAKQ61AO2yDsHdFKIP+nxcGpFeV4YGhQXBa06bz/cEiQ5/lE2/m1zDW4UfIBC8N1B30aibEwpjjei20XTsHaDLFsusUQCqeBM2Bti+W8VmPbyeLAt0HkPan+C2I8wjl7IFOd2/aI0mdyLIdlxA8nWhtiBYg8l9rTtS0PiS00Mo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(19092799006)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fIR9fjWdy9cOx5ibXltazI6u85kAXS9CkNmnswWJQMruyHi8HVw5nRS7Yi6f?=
+ =?us-ascii?Q?+SUIz4oQWN9duHaZR+hY72Uu8yUPSKe5ACQZWKwi4vvFn7pFiqhmSE4rnSg7?=
+ =?us-ascii?Q?v/BmnXwb9ew19KTfA/TD2WzlmXNg0vYuQYJwwVC0zIGG6oLKmue6x1C1g+or?=
+ =?us-ascii?Q?TAwIcJ2Gpm4leymKIWCRhyYnJPsueAo6FHLa9UCTUO5azO3fY1pyZFMbV9JY?=
+ =?us-ascii?Q?OOYGO3hcV0W7c7q5G7EjtsKs/+gK8H7LokSbhR1qwSAQEeixuyK6iGJizUYd?=
+ =?us-ascii?Q?iby1ntyE9bcHPSt448ClqAdsgDScNNqsXfWnD8erkbg1Pqt+yxX9pZpAlDtt?=
+ =?us-ascii?Q?hsXGNUp3QMm9M2POUxQKobHpL1RvgP2H0jZcBkn5mhdOb+wwdMZDFnC+KRdQ?=
+ =?us-ascii?Q?ooXFtI6cH8TKK7Rh0OuMs/Dc9LSzJ4Yg9gEOzTfgOH4RhkGj7UWuIN5F+7b3?=
+ =?us-ascii?Q?lm23pkeVUtE1IH4DzO61QLMGCTrva4qzCUPhnnuW7s9USPkpRLdVXBZKUNXG?=
+ =?us-ascii?Q?G6jLDRDd5bF9c+sJGFp+C6tSZetuBOB4Fmi8aTRlmXfwfFobhP6lxZE9UmL2?=
+ =?us-ascii?Q?Gk9OTmIievTFrZju4X6uttYhBBPqpu/mcjFQDM2g2oDbFA73OYc19cphetPB?=
+ =?us-ascii?Q?Hvxg4J0BhUQBMUtcdTVAYMvefZXW+2emBU3tdRrS/XlXthJfOmVn04+pHxbL?=
+ =?us-ascii?Q?pxKml9pkWLIB6g7Kuo2yYSIUIoGI2ImjuobBFxkV5NcOO5v7sxd63M5x3VTL?=
+ =?us-ascii?Q?sSKYquoEtI+VsU6tf+yHBbsKknXiebIiPcOJP/Kf/va/Q+LpdGVYeHgqj3n4?=
+ =?us-ascii?Q?DIsT0hLu7/CsaVSPTyqZaDHU9MX5DG05HOb11daEiL6bm2MuS1ZyL0P+8wdY?=
+ =?us-ascii?Q?8CUqGwYdi5u66hcFvlFLM5ehpV1up/47ANGZiKiEkIrFFJTLnqlj1RFw6dAo?=
+ =?us-ascii?Q?52NIak67MYh4h+PKvYE6viGh0A7qtmN0oMTDxEQu7NoKRMu47da/xD/VWeMl?=
+ =?us-ascii?Q?ZTgjx/Y/do4vmDJey1lqdIibytcGRLmNrc3vcd3t4wC6cSCUY/AFBE1J/7oN?=
+ =?us-ascii?Q?eHbVJuMaSTcRnSiv4k9aUMUb5hTdPmherfuy9TRRcr+4HTLuihytf8LHdPjr?=
+ =?us-ascii?Q?LqXk6+70niq51VRZMqi7vmdlRLCXmwhx401pCO4LTOxngFAOWMmTmruhVR57?=
+ =?us-ascii?Q?FiipTMegDN12edqyu1jESXXSKERhcUfTIO6GXgZYfoU0o1xsgXSGKt/1lLRy?=
+ =?us-ascii?Q?9HpB85aYRUi2bf/Vc6v/qZQIAEU7E9roqQgSrNCdbLYAkTySh57XewnF6o5y?=
+ =?us-ascii?Q?O8k8jDZ588keM0Xq9AjYqhr/mz+/iJ9dLqoRbDTOkFcCVgxfoJx5tgSVUTVe?=
+ =?us-ascii?Q?QyaW2bmW+EVz0KVOoviC/cbvmgCMdzoIsrwdo6n0z5p8MX3emGsHuThriSPU?=
+ =?us-ascii?Q?PxfuAN6eIfU/mCIyBLuPy/0il1hWZgNQffa6nRueuPgCUD3YIbGrIv1WXOcr?=
+ =?us-ascii?Q?/1DtvejGYAya1yKpYkuwSyDc5ctaitXMDfY3uQqvy0zzlob2nADf4yMT2AaM?=
+ =?us-ascii?Q?tzi73F0KxXVHoI+cpALULC5IRpcA/ZSOz63a2CUhHFhVQiORafNMIg0PPwAX?=
+ =?us-ascii?Q?BPv1kJp9IqDlSjwcwzvQgSfXn5am3mr+8kg55ni/R1JPcAhqJbm1/9T+CIsR?=
+ =?us-ascii?Q?T6i7rtera+O1eOXtP6nS6x2UviPRleTQ7hBWLtrKuUCD17S4RLCoW9I6PZZy?=
+ =?us-ascii?Q?/VNwtxJ1FsLDgqSepkKTcq+6AS/FrxcBIpQC2TaditbtVtHRIeqP?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 327420da-5488-44d8-2e1c-08df20c205ee
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 20:16:21.4534
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BxLzZPBw0Rd0q0YHbuKrmcSw90LnD81VG4L9ESo+2fCR1fezODM/w0njmJYUB5330qFlBH768Hf8x11RJSiz27l1h+fAqePXw0fOf6mex8iSuoV8E03S43hqqLSEgkvp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9322
 
-Hi Dmitry,
+From: Frank Li <Frank.Li@nxp.com>
 
-> If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
-> 
-> Fix the issue when the script silently updates a stale .config in
-> the root directory, while the user expects ${KBUILD_OUTPUT}/.config
-> to be updated.
-> Handle properly if the config file is a relative path.
-> 
-> The problem can be worked around with --file, but this is easy to miss,
-> and is inconsistent with how the Makefile and other tools work
-> (e.g., scripts/diffconfig).
-> 
-> How to reproduce the issue:
-> 	rm .config
-> 	export KBUILD_OUTPUT=.out
-> 	make defconfig
-> 	./scripts/config \
-> 	       -e CONFIG_UBSAN
-> 	grep: .config: No such file or directory
-> 
-> How the patch was tested:
-> 	make mrproper
-> 	export KBUILD_OUTPUT=.out
-> 	make defconfig
-> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config || echo "OK"
-> 
-> Test the basic usage:
-> 	./scripts/config -e CONFIG_UBSAN
-> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
-> 
-> Test --refresh picks up correct config file by using $KBUILD_OUTPUT
-> 	./scripts/config -d CONFIG_UBSAN
-> 	./scripts/config --refresh -e CONFIG_UBSAN
-> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
-> 
-> Test --file takes precedence over $KBUILD_OUTPUT and
-> a relative path is handled properly
-> 	./scripts/config -d CONFIG_UBSAN
-> 	mkdir .out2
-> 	cp .out/.config .out2/.my_config
-> 	grep "CONFIG_UBSAN=y" .out2/.my_config
-> 	./scripts/config --file .out2/.my_config --refresh \
-> 	       -e CONFIG_UBSAN
-> 	grep "CONFIG_UBSAN=y" .out2/.my_config && echo "OK"
-> 	ls .out/.out2 || echo "OK"
-> 	ls .out/.out || echo "OK"
-> 
-> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
-> ---
-> v4:
->  - Addressed Nicolas Schier's comments - dropped the change how '--refresh'
->    is handled
->  - Implemented conversion of $FN to the absolute path which helps with
->    '--refresh' and relative paths
->  - Documented testing steps in the commit message
-> v3:
->  - Added an example in the commit message how to reproduce the issue
-> v2:
->  - Addressed comments by sashiko:
->    - https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
->    - use basename when --refresh is used
->    - remove echo which can be misleading when --file is passed
-> v1:
->  - https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
-> ---
->  scripts/config | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/scripts/config b/scripts/config
-> index 32428ea909c2..0b28fc498195 100755
-> --- a/scripts/config
-> +++ b/scripts/config
-> @@ -130,6 +130,10 @@ on_exit() {
->  trap on_exit EXIT
->  
->  FN=.config
-> +if [ -n "${KBUILD_OUTPUT}" ]; then
-> +	FN=${KBUILD_OUTPUT}/${FN}
-> +fi
-> +
->  CMDS=()
->  while [[ $# -gt 0 ]]; do
->  	if [ "$1" = "--file" ]; then
-> @@ -143,6 +147,7 @@ while [[ $# -gt 0 ]]; do
->  		shift
->  	fi
->  done
-> +FN=$(realpath "$FN")
+Replace direct dma_async_tx_descriptor->tx_submit() calls with the
+proper dmaengine_submit() API wrapper.
 
-Sashiko has a couple of comments here:
+Assisted-by: LLM
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/mtd/nand/onenand/onenand_omap2.c     | 4 ++--
+ drivers/mtd/nand/raw/fsmc_nand.c             | 2 +-
+ drivers/mtd/nand/raw/intel-nand-controller.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-  https://sashiko.dev/#/patchset/20261001214618.283635-1-voytikd%40gmail.com
-
-The second comment around KBUILD_OUTPUT / '--file' beginning with '-' is
-a fairly contrived example but sticking '--' in there does not seem like
-an unreasonable hardening move.
-
-As for the first comment, I am not sure I want to rely on 'realpath -m'
-since that is a coreutils-ism and up until now, this could work on any
-operating system (as least as far as I can tell). Maybe we could do
-something like
-
-  FN=$(realpath -q -- "$FN" || echo "$FN")
-
-to just try and hobble along if we cannot resolve $FN properly but maybe
-there is a better solution that I am just not seeing at the moment.
-
+diff --git a/drivers/mtd/nand/onenand/onenand_omap2.c b/drivers/mtd/nand/onenand/onenand_omap2.c
+index 0793251ada3b3..644498187d8fa 100644
+--- a/drivers/mtd/nand/onenand/onenand_omap2.c
++++ b/drivers/mtd/nand/onenand/onenand_omap2.c
+@@ -340,9 +340,9 @@ static inline int omap2_onenand_dma_transfer(struct omap2_onenand *c,
+ 	tx->callback = omap2_onenand_dma_complete_func;
+ 	tx->callback_param = &c->dma_done;
+ 
+-	cookie = tx->tx_submit(tx);
++	cookie = dmaengine_submit(tx);
+ 	if (dma_submit_error(cookie)) {
+-		dev_err(&c->pdev->dev, "Failed to do DMA tx_submit\n");
++		dev_err(&c->pdev->dev, "Failed to do dmaengine_submit\n");
+ 		return -EIO;
+ 	}
+ 
+diff --git a/drivers/mtd/nand/raw/fsmc_nand.c b/drivers/mtd/nand/raw/fsmc_nand.c
+index 08ef4425559c3..837c23c63aeb2 100644
+--- a/drivers/mtd/nand/raw/fsmc_nand.c
++++ b/drivers/mtd/nand/raw/fsmc_nand.c
+@@ -524,7 +524,7 @@ static int dma_xfer(struct fsmc_nand_data *host, void *buffer, int len,
+ 
+ 	tx->callback = dma_complete;
+ 	tx->callback_param = host;
+-	cookie = tx->tx_submit(tx);
++	cookie = dmaengine_submit(tx);
+ 
+ 	ret = dma_submit_error(cookie);
+ 	if (ret) {
+diff --git a/drivers/mtd/nand/raw/intel-nand-controller.c b/drivers/mtd/nand/raw/intel-nand-controller.c
+index 0a4f5ff111334..94d2161bf5a1a 100644
+--- a/drivers/mtd/nand/raw/intel-nand-controller.c
++++ b/drivers/mtd/nand/raw/intel-nand-controller.c
+@@ -324,7 +324,7 @@ static int ebu_dma_start(struct ebu_nand_controller *ebu_host, u32 dir,
+ 
+ 	tx->callback = callback;
+ 	tx->callback_param = ebu_host;
+-	cookie = tx->tx_submit(tx);
++	cookie = dmaengine_submit(tx);
+ 
+ 	ret = dma_submit_error(cookie);
+ 	if (ret) {
 -- 
-Cheers,
-Nathan
+2.43.0
 
