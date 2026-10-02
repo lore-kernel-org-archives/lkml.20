@@ -1,65 +1,65 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83594E9C0E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E907F4E7801
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955099; cv=none; b=HHd5jtOQozFzSd1SeJB/dirVhAZFl7SJsQdyktEg7BAGi1sFSrVZx355TQ8VWS5RqlulB5pxdG2XEu9PyEDdaDSGfe74b5aDl0w2pSatvgMv9wFmc/LdrFSWeu6cufZ7bt2lsvveeR+/8pXnaqnBr9FVlrcs/yDCEQf0yQoHO9s=
+	t=1790955104; cv=none; b=SRsupL/l412LcCoz6oE2iNU4KTHcaXaN6yBBGL/f9S2oxq9PYU/bkQP4aHaQnXUo1xdTmgsXL6ptT4dFcqryf3Dqr/qNb+VrxsHHizNkaHq/hQ1iVkttzamyg5HQKsPHeiKHujWwt7ViecqgwBI0/iXXK1PBZd8vvEpxBe/BmLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955099; c=relaxed/simple;
-	bh=waLTXygKBCktHFWWQLS7oUUGuXCOyf/dKmOnz5GRwSk=;
+	s=arc-20240116; t=1790955104; c=relaxed/simple;
+	bh=2J6SXiwkGloD50adt2uznCUJvmWrr+iY1RxYvqVx4yk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cEAHm78qbqsjVW7ogOCyPk3BzBf6Uy3sSLepwJ7NV2xISjkwm78jQ+ogckAN36+sRHHDqdJvSvjAszc0ZWxrZLg5olJWAglNUmKZvLTj8YLglyOwc1MmHh+vMxeXr8ky28QYyGMHtOq+WzkZNeiBpBbg4Ank1+0JQqYc7/k5bmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nv80etwF; arc=none smtp.client-ip=74.125.228.40
+	 MIME-Version:Content-Type; b=pvYV/q1t5HABoAWScysYwr38MhAVAoDqy7SCzx4iQRgU1lSHmvFGpvMJw2wkjnxI4jVKlQb2pizZ8nnvEiDZdXq5qJjr/015VQ2l3Sk1zkpECsJvXm84EQMhOSSpPamKhjk6hWtVs2lsXgN7jwEdHMNEF9IMjb9yBjU5ZG1pzoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z22vnxow; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nv80etwF"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc74520b20bso2107601a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:31:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z22vnxow"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc7a15ba46fso2466633a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:31:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790955097; x=1791559897; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790955102; x=1791559902; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=a924JpHyOL6O0gTjq5zDam9XIZaPuYCQ6ZzQWo3jo2Y=;
-        b=Nv80etwFMWnDQjLo3NqLXq2IcUbqyjdbK1zlgAWCu9/noaanVhuUi8kkLxtmLowI5/
-         FOmomr25NtsGBJY0vXuBStiJFhIlxf88tOed9i/SBwcUoY9fLEbVngV5F+Qs6E5kX3iQ
-         jY0TbjF+IizuYf95SjsTO/CKyOqNxUtDor/bRcjxxcc4wlN96wCTIiKb3lbkHlEX1QOE
-         jsSwN/+eCWADbCWYwj7jc/AAM7XI81+aLAkQyI14Am2z6o9HZ4z4zO33B6RokAfT7LxN
-         PCRqnYe+XyzBCrOxohL3aSLqZIMOhdZp9o6s8q46fYpo37gfwrpwPWT7xCT+19pEXYCF
-         5a9A==
+        bh=lhWJv/Sr5r2WufVYqpSpDEuHYpseWlo5GmvOXtRn5ww=;
+        b=Z22vnxowl/RKASTbPrddB19gfCLYVjChrl28m1i4KPjMZ2oF0Vu5x4pgW7sqdQl+VP
+         SaWAM9EYXB47EY+zZoly8Y2mOXVOLJx9V+o/bf+Yy5tMdBO+r621FHG1EFXpGHIdi8fA
+         50ndMAL4xOhZNSQahf6GYLtNEbz2l+5BpReG5GggrEogjrwmc1ucWJC2/WCnGE3A2hKj
+         s/9dhDFdBePGgMHMR76Ey3cx39MZj84+mO+9tivCWlzlg8PbHv+ZFrvwwpRsKZ0Rn3L+
+         JEcWELa1hE5/mJAgSs1smrGU/3p99Q5FNUS1A6ApdcXJOyoMRz81vXTwChIrB4HdtFbm
+         tX3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955097; x=1791559897;
+        d=1e100.net; s=20260707; t=1790955102; x=1791559902;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=a924JpHyOL6O0gTjq5zDam9XIZaPuYCQ6ZzQWo3jo2Y=;
-        b=jZwiIU/5xd+sVli+tNBtmqDUR8+Xvha02n5JBY3CkDziB4MgJyjiDOYUEti0idiosm
-         KGDl2gZ96EyOlSZphyehPTbri1MVE85gdVfwTCP13hq0YX6cQwCU+E+paNTHp0/BF0j8
-         +M8c9P+aF+2jGUmpJtca2/+/OB6P7bghDfmOQzIPUPBW0VZX6OZJM8mdiOYCzMiu6GcA
-         hDbJl9HkyA6KkWwQWQFuwwsj1CYZRoSqsGusIk75m4vwkQeJQYfsHqHNa77jGnxIi8il
-         Bc/WvSdVJ6Vo5erC2xBor2+UU5Hslc85aq5NQygteVjqgL0mqWPRWz6x1eGc2bHiBy1T
-         db7g==
-X-Forwarded-Encrypted: i=1; AKwUvByOOxxLDZ7up76gvF1guD4fpibREIo38qMTJxFbk2Klh0q9VIxcl1LPIJig9oTZ87zda4ylh3nMxd4Sotc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJzm6nPPPIewzJcGSho9LCgI8uYLH78Fu1CluCnnqF6Z6DIjut
-	FrsBijRH7BZdxwtLTDl9y9rJodtmkTEmRyfy7msp9VNxpqFboTYqQU6j
-X-Gm-Gg: AYBFou05G4p/m18rfEf6cBQ8+nNvkSQ/61TMW1n6tB2+hcfG3wh5WxFdjM8EHyZeZze
-	CyYDU2z6L04JKuFqPYTXUta7Ggel1l6geAAc66aGtoW2AxeK/1j/e0Me/AEh3mrngyNQZS4U2Wk
-	8KRwIRlgRVH9rD4cWcpdqlqJsToNM49BVyW9tU6XGKVQD2SPfIZXFvgZVWvaWo4WvPKffM+69vg
-	Px/Ey0+xqXYISiys9Ky4G9nKAXILFbeBaVyI8HG9sLFmnOrxYFC2rbYPHz9MdwIVoZi92IZmn00
-	ze+IjV6gB3xonEn7SlIPAapMeQmZUJdsxgrSXl5qVyfBhr/7ZIjL2Y12lyedT8Bw2YU37GKCkqj
-	9oRd0je6oxOh+1LiAU/SMjF185GRofhl2o7GuqraczuZlgRsbRZYdIZSfI3jHyVsJLHn1zN0jkT
-	NlDD414AwlfY2uCXVbCCEWnpplg+P8OEdgxV5lruZeglSKa91sImpSMtzEirdH1L/qoK5goa6WN
-	FsIWMsvuUGLD60Q6SvZ874=
-X-Received: by 2002:a17:90b:5483:b0:3a4:b509:88be with SMTP id 98e67ed59e1d1-3a6ce981729mr1746671a91.15.1790955096935;
-        Fri, 02 Oct 2026 08:31:36 -0700 (PDT)
+        bh=lhWJv/Sr5r2WufVYqpSpDEuHYpseWlo5GmvOXtRn5ww=;
+        b=fLQSrSqdQbkjIfAFeTNfO1x6zTkrhGjxcJ3Nkb383uJ6uvblZBqP9S1lTyDC3VjBdS
+         U1wRlUDtm4Ty2b0m4H23e6oBsDrbEAgGe82uRYQsb2eMzd4OdaDEJ79Z/1MxY41s33MJ
+         b9R4LkidQTnAdPaGXoJpqCV81JJNSh6bbbFNuSUATrNzSn6t2628y+Lm49MVN+plkwZd
+         zmrZqZ1a0At5b9+aLNPbIXirfIueYhvOwmPh7ncCC8XPEUXFu75rLgJqwseld1TtzPVk
+         Raxmfag92gbRE0weJHklvpDFGblYabTDC5Va3ZzK39Sr8eamr7hWBix2Kta1LPWm/jl1
+         UhXw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4G7w1qDs0KqlyXuV1UM/jprcAcdpXjrXLqn8BodF6pVjW/ZKaFXBPS91snZvaiP2CyNnpZ94N4yyVevI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4WHFmafgfiK2isLWsQYO0OKb5/jZ312Oj/hAexV7CTQJGvV40
+	54Lmp67GOKA5lKgNmJ3GHBrtZgyVs8oPXrvzO8n5uQtNO/wwL7hqvE7L
+X-Gm-Gg: AYBFou17pUGKk8HUcuU7LLeEIBHMX6/97kWDUsF3gTVjUuLXDemX0SPpLSehSJfBR3c
+	7EOhc47eBDcTR2PD9wEpSLtru3JQ/TVpQ8CkrHTAN3LDyNVV77cvWtH5gp2A68g4VKk++Fb8Wbu
+	FKn+1nRGvzjd8hdXO0K4m37lHevaop1nWYBgvp1UWzGsOsAEq/XSimRcgVIa6IJvnoFJpaZ44pc
+	V2seMGgPrxy5B8X1WO0ssnWzNJ1Bn0NS0XbqiQEN8g451gRPpAYMGhVhFTobocruu+T4e2UD7MO
+	BtV3Q+vRyuipUNM0zXJAEx7RlPST5S0gX/40x1m1Pp5sxsht+JaeHgH5lLT9OPQD5MpoilF+KRU
+	jHI285wew8aBs/nz0QBCrLhvenMUd3/7ROa9pyr0xG4/JNHs2zFlkR2kygeuJOKULeYmemSAWdK
+	PzUncke6rEaiv8Ud++05hKpXX+hmbAaeihPcInXEdqpKqG8tqYtJmQ/PoHopJz+oQajQEjgv39Z
+	7h6NZGjKM++rgVSFevJDg==
+X-Received: by 2002:a17:90b:5790:b0:3a4:a4d1:a987 with SMTP id 98e67ed59e1d1-3a6ce98c1afmr2755867a91.32.1790955101976;
+        Fri, 02 Oct 2026 08:31:41 -0700 (PDT)
 Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6fc716b5esm1649468a91.14.2026.10.02.08.31.34
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6fc716b5esm1649468a91.14.2026.10.02.08.31.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:31:36 -0700 (PDT)
+        Fri, 02 Oct 2026 08:31:41 -0700 (PDT)
 From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 To: Thomas Gleixner <tglx@kernel.org>,
@@ -70,10 +70,11 @@ Cc: Yury Norov <yury.norov@gmail.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	David Laight <david.laight.linux@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH v7 4/5] vdso: Move BITS_PER_BYTE and BITS_PER_TYPE() to vdso/bits.h
-Date: Fri,  2 Oct 2026 23:31:02 +0800
-Message-ID: <20261002153104.1347978-5-zhanxusheng@xiaomi.com>
+	Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH v7 5/5] vdso/gettimeofday: Assert that the clockid fits into the u32 bitmask
+Date: Fri,  2 Oct 2026 23:31:03 +0800
+Message-ID: <20261002153104.1347978-6-zhanxusheng@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261002153104.1347978-1-zhanxusheng@xiaomi.com>
 References: <20261002153104.1347978-1-zhanxusheng@xiaomi.com>
@@ -86,76 +87,53 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-lib/vdso/gettimeofday.c is built into the vDSO, where linux/bits.h is not
-available.  The next patch wants BITS_PER_TYPE() there.
+__cvdso_clock_gettime_common() and __cvdso_clock_getres_common() convert
+the clockid into a bitmask and match it against VDSO_HRES, VDSO_COARSE,
+VDSO_RAW and VDSO_AUX:
 
-Move BITS_PER_BYTE and BITS_PER_TYPE() from linux/bits.h to vdso/bits.h.
-linux/bits.h already includes vdso/bits.h, so its users are unaffected, and
-vdso/datapage.h already pulls vdso/bits.h into the vDSO translation units.
+	msk = 1U << clock;
 
-tools/perf/check-headers.sh tracks both headers, so update the tools copies
-in lockstep to keep that check quiet.
+vdso_clockid_valid() rejects anything above CLOCK_AUX_LAST beforehand,
+and CLOCK_AUX_LAST is 23, so the shift count is in range.  Nothing
+records that dependency though.  Raising MAX_AUX_CLOCKS beyond 16 moves
+CLOCK_AUX_LAST to 32 and makes the shift undefined.
+
+Add a BUILD_BUG_ON() at both conversion sites.  The condition is on a
+function parameter rather than a constant, so it relies on the compiler
+deriving the range from the vdso_clockid_valid() bail-out above it.  gcc
+13 and clang 18 both do: the x86 vdso64 and vdso32 builds stay clean, and
+raising MAX_AUX_CLOCKS to 17 trips the assert.
 
 Suggested-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609080117.XY9u2XZ9-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202609300510.Ej5t8KO8-lkp@intel.com/
 Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 ---
- include/linux/bits.h       | 2 --
- include/vdso/bits.h        | 2 ++
- tools/include/linux/bits.h | 2 --
- tools/include/vdso/bits.h  | 2 ++
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ lib/vdso/gettimeofday.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/bits.h b/include/linux/bits.h
-index b7509f15718e..7f48e6af1fe7 100644
---- a/include/linux/bits.h
-+++ b/include/linux/bits.h
-@@ -9,8 +9,6 @@
- #define BIT_WORD(nr)		((nr) / BITS_PER_LONG)
- #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
- #define BIT_ULL_WORD(nr)	((nr) / BITS_PER_LONG_LONG)
--#define BITS_PER_BYTE		8
--#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- /*
-  * Create a contiguous bitmask starting at bit position @l and ending at
-diff --git a/include/vdso/bits.h b/include/vdso/bits.h
-index 388b212088ea..a0b6d404495a 100644
---- a/include/vdso/bits.h
-+++ b/include/vdso/bits.h
-@@ -6,5 +6,7 @@
- 
- #define BIT(nr)			(UL(1) << (nr))
- #define BIT_ULL(nr)		(ULL(1) << (nr))
-+#define BITS_PER_BYTE		8
-+#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- #endif	/* __VDSO_BITS_H */
-diff --git a/tools/include/linux/bits.h b/tools/include/linux/bits.h
-index b7509f15718e..7f48e6af1fe7 100644
---- a/tools/include/linux/bits.h
-+++ b/tools/include/linux/bits.h
-@@ -9,8 +9,6 @@
- #define BIT_WORD(nr)		((nr) / BITS_PER_LONG)
- #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
- #define BIT_ULL_WORD(nr)	((nr) / BITS_PER_LONG_LONG)
--#define BITS_PER_BYTE		8
--#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- /*
-  * Create a contiguous bitmask starting at bit position @l and ending at
-diff --git a/tools/include/vdso/bits.h b/tools/include/vdso/bits.h
-index 388b212088ea..a0b6d404495a 100644
---- a/tools/include/vdso/bits.h
-+++ b/tools/include/vdso/bits.h
-@@ -6,5 +6,7 @@
- 
- #define BIT(nr)			(UL(1) << (nr))
- #define BIT_ULL(nr)		(ULL(1) << (nr))
-+#define BITS_PER_BYTE		8
-+#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- 
- #endif	/* __VDSO_BITS_H */
+diff --git a/lib/vdso/gettimeofday.c b/lib/vdso/gettimeofday.c
+index f7a591aba59f..ef4dcc614489 100644
+--- a/lib/vdso/gettimeofday.c
++++ b/lib/vdso/gettimeofday.c
+@@ -285,6 +285,7 @@ __cvdso_clock_gettime_common(const struct vdso_time_data *vd, clockid_t clock,
+ 	 * Convert the clockid to a bitmask and use it to check which
+ 	 * clocks are handled in the VDSO directly.
+ 	 */
++	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
+ 	msk = 1U << clock;
+ 	if (likely(msk & VDSO_HRES))
+ 		vc = &vc[CS_HRES_COARSE];
+@@ -438,6 +439,7 @@ bool __cvdso_clock_getres_common(const struct vdso_time_data *vd, clockid_t cloc
+ 	 * Convert the clockid to a bitmask and use it to check which
+ 	 * clocks are handled in the VDSO directly.
+ 	 */
++	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
+ 	msk = 1U << clock;
+ 	if (msk & (VDSO_HRES | VDSO_RAW)) {
+ 		/*
 -- 
 2.43.0
 
