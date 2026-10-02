@@ -1,66 +1,68 @@
-Received: from mail-dy2-f40.google.com (mail-dy2-f40.google.com [74.125.229.40])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423BD12CDBE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443FE30D3E5
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790904332; cv=none; b=EobS1KP+4/ctnWNAN62BTkv4+o0koA+OsHT7k3lcTqRXCGIfQGPPWqI40F6se29RvgVrcdO2aHh7AkwTmO8n6TtbKOi3HZVztJeLEJxZsSzUf39NqqhwyPljwwUuYpLgrL+1NzooG7Gn5RbJQuGAmaZkVjSyQ2pX0pW2V5cVU4Y=
+	t=1790904335; cv=none; b=ZRShf3l1zuF4t3g/9ZtkX8ib5GS9B1HzaCGu7tpZc7PcDIw3IjRgJQR/ouOad8N2wWus1lgbYAtajGJrNoXaz5hJALb73myYfBmigeh9+BzkleeKfYt8Q2R5ti5qHSxx6hSWatrx47QBSVxM6FRWki8ZMy0e8eNVK3Ygf5hcmgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790904332; c=relaxed/simple;
-	bh=mEitigUFmLclhBao+X6JF0CNd1qXwjRVSJbQ/BYfq8U=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Jsqdf3Bp3cCPAgokU64dLZvmUj3Dd7whcnn6BXjnhwXNt5KP8+pwzOD9fHf6WZgM8opc3tDltay/bXQWJKik+kV0Uty1SCg3W3IDhsab06pQ09BZXgkju/x9rFl9+04IO2gdYkPwT21XQK3rlDj2FybrJLgi3sWPtqXTfaJX15Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/k/lsRf; arc=none smtp.client-ip=74.125.229.40
+	s=arc-20240116; t=1790904335; c=relaxed/simple;
+	bh=4CjT8ufJpcqztcTZxIF9G3YU/1gY4Ai/30qtfASr6ZM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pMARLjGhjBydJDhExZHXG2/x6JSchY2NTQIkz1TCkJW1zwWncmL7teb+YbiOn/84YulLca8878+hCrKUzO/eu++TbehtwcB4+jyBVSCmeZ5OIT+hMwUItzXrNq7+16odlByS+T/xUdndFqZD/7q1Jqp1KUlkqzhFBzxvhdT/F50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aUlLjRuo; arc=none smtp.client-ip=74.125.229.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/k/lsRf"
-Received: by mail-dy2-f40.google.com with SMTP id 5a478bee46e88-34ea9118159so1197428eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 18:25:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aUlLjRuo"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b4f2d90c4so3098268eec.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 18:25:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790904330; x=1791509130; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=G6UX0d8wcE3FCfnSy6NmrZ53ZLwwwBzpYO6pRbLaARg=;
-        b=A/k/lsRfqxVfhUCqYInFCpoB6k3mM76Nc30R3X1Tn7gPKmMxY9DE7essQGfeMUpOb3
-         WIKDEnFkY+uDtsQS3l4rXTpC9KYZ0G2jqQ0kXkUiJfZIFullXvSpX2ByeifzglAQRm4s
-         YPoEu8VIYAjWi0n70SQun3A4f/wSv47Wp8mE7mhYdR+/IvGpFKufEia9RUR3ytbDbfQf
-         w0KYSbpEMFNfHxnzUjSyILBqXs4ojSwY3XkGFKT0nTpxzDNBX/N7jfmRjTt04gPfeM3c
-         FMTvOzzFXyNqxTuifz1JGX1sSO3tn7Ra57MAWO4iLCR9cO738iet5bv6/G2GLto85i0u
-         kXZA==
+        d=gmail.com; s=20251104; t=1790904333; x=1791509133; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vPgFvdEmNg2LQpD8kOy9w7TP6bBLZB6pMvT63vXQ9SY=;
+        b=aUlLjRuo7Xhz9SEYay4l30DfF61++4mGnRM1qbbNLQneeXevSbYirkHDBkf19bubTb
+         D496AyIR/AWDKkrwGqA5jBfLhKj0aKXmSkDHN7m/XKtBWbq2AyQVrqciRV6Su8nFq41b
+         iEa3w441wtMd5c3yVlnFixSuDoQ5VkBnq8nUJIKkHcUC6ZHH8sTrDi5wehCDkKJwVJq8
+         nbyOhwd+0PPwo8vXgO3tvgMllkZGVnTWUD64B3gJd9aWOkIkNolMem4C6xzAZDXD8z30
+         VoVTSpC4jLcuaDgBsvdGiA0HQZVuStArNfGntuuCdf0eUg3PJGV1SUmGBIsEB5+H2jcU
+         sQ+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790904330; x=1791509130;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=G6UX0d8wcE3FCfnSy6NmrZ53ZLwwwBzpYO6pRbLaARg=;
-        b=Wt+ME/Ons1Ldl2FFjRE0VZPd9cW2TrOMEdnfgDo+1TDn6Nmi5yu9YzJ2wQQ1WFSdoy
-         6HgMRbbKSvoa3OjILpWlV1PtXvq31NPrwYCkRU70Io68/lMw6SgscIGcpbNBn5ShHcib
-         7pX5HWaE/5roMHlCK60eUu1DjapNBhcKoiUBOWmGNYZGCILH9OhcXaIT8QghX5d0Ct25
-         0w8kfzUTm4JmEs6YgPLNBl832zasOZItsHoQuZwsCLFhhvyMX80+GUVtSFsLelPuYDMJ
-         rPd8y74R59qMDeth96MYP/d+7HNttRsHb6DZaVbyQ5/3oD81g6wwLjOjPjWEVaqnOI/J
-         AvvA==
-X-Forwarded-Encrypted: i=1; AKwUvBx4RT2avvH/LfQAJz81gAcqd23BcrjoGMSpI5kGeTiMvoynqZQtraVQaXg0rR/DveWIVAttvp/L9tQ4boA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIumBfsDcf2mm9/O76C02XNSFliemuglOx+r4ce/onJq+Ok+9tt
-	3ccm2ekip3Uhw9lwYHzRx+uH2o9hEBvyzMaaJLuYrDa2rhWqDj76F7JT
-X-Gm-Gg: AYBFou2tXPytekyh2eCokzuDXZdEv2i47ugL6dis710b/NN8YAhA144tSypLIIx1+nB
-	fR8kVAQTrl4R5wVfGU719VWBYDYzwzkPnHD7pXbFCYsO90AB9IvHNVL750GZhFU8hO8GOiObZ7J
-	VSxLKIP6s2FXRyc4Z26e7NhWGwCR4WktRf25Vfa54jqNnm27m9Flyi/6Bgh+qtKmgNZfMXV6W6Z
-	aTZp2GxQKN77hM12K4+CwaxxTKK6ARsXX/Zsd1biQ6sBenJvKldXJyb/0oUKniAtc5WpuyKdjgu
-	3LagwR0OSwrrbS9v7bMgtxmiVAmubZINDjl3ZwFpy1sBNIgX6FmDckZnxpHYg073k5W2MDkrs7M
-	svjXMdL2mx+yEXi5+8EDMwtv20MurZHXOM73n8CvQtpS9tXxLL0LpzSghjpNQBWDW5ioJfULDqo
-	oXAMGiM+NppsHbPS/kJn1ypwxWpfEf7ZgVSaLU+n3FbQlE01MVhe+qhyh3ykmYdXfqyQ==
-X-Received: by 2002:a05:693c:6385:10b0:34c:94a7:b783 with SMTP id 5a478bee46e88-34f15085393mr1226098eec.12.1790904330115;
-        Thu, 01 Oct 2026 18:25:30 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790904333; x=1791509133;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vPgFvdEmNg2LQpD8kOy9w7TP6bBLZB6pMvT63vXQ9SY=;
+        b=jBB3Y8jBDI0QvKt8pAlg0bharrgYy61Lw6N0ncV9LnIbEqKZ7J/o/BzIliF/LIaxLs
+         6G3UX0wziWFCNY/xTqgEZKK2WuJBDlx7Ge+djWeBhAx5gGfQwbZ+m6PwL8PXhl9RmU5s
+         JHuvNKFJzNEQ9E2TCvfeFhH4NnHyAqvIYtJsC9rSh4n2Mbz9wvFUryaOEjRx5xtsy6P5
+         Z1+8zQMRUKLyi6dFPiMD0BTSvZI7kJXN7KDr8RsaOOv0mrpjmj4U/wPKFyKf2GouE3Jh
+         MlscNlAbg2RDKX/oecQ4GmnWxBFVMrmKsV48gcHVVlX5A+FbjcgpmCLUCDNbKf2WDWlj
+         Iknw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzvNgDmobSsnle2I24/nLQ7MWEoM/Wt/rf7FmQBFnzA9m8Ih+0JzEfoVhqYJp0D7FxHxjetbxFqMzXnJw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKS4PIRXrwyDzvejGB9S6N3V+VPW0UM+LplntNrNVIjxwvplG0p
+	HSwalE//QEaEqEEw/nSvX8YimrJCiCvitBT3HpVe3f3n1Eyqo1azljC+
+X-Gm-Gg: AYBFou1cDNMHj4p2hKwapCiWsnt+uukSH05JCgR7j79d4Dmigg6fzbUnNYrdG/l5lVL
+	jMAhKaGm2cJMCru3aBtt0aKHqyv2uu/TS3vMthljGmZRnCGXnWE7YrGte0XST7s7SFnZbcZKKWG
+	XR5y1HpbGgGRe50jNKMCkhgIXorUY624OgzBlhmOnxn6AwK2gGHSK++kLrSKmvZfEFdg/ie7HsK
+	PnxkF4IYN91Ob2YltJZE4xyB9P95uSe/OVXdY4LJxTuiD1eFsTeT7jWGe0grSoi5A8+H87TIIPj
+	3OHlytazSMnTwuR0AukMgBcfENI8eXt7Zx8duxLwYy3Mx5LRMlfzyuMV4blUGjQQde4eRq8wxCp
+	wBTRamqyROADwD1Rsjoj1POGOUbG7ogwK5GjOLo4anChovG/SYZfSSTnYBff6aAgAxVSFWDqOtM
+	ehjG2VnBZrgSy5EkfF07rhWLd2Y8yKTfc+P+t/gdhBrnBfEBpfyIt+JmBlq2h0/4EhaA==
+X-Received: by 2002:a05:7300:828b:b0:34b:354b:79b9 with SMTP id 5a478bee46e88-34f15086754mr1109729eec.12.1790904333162;
+        Thu, 01 Oct 2026 18:25:33 -0700 (PDT)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f984e4sm1837223eec.17.2026.10.01.18.25.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f984e4sm1837223eec.17.2026.10.01.18.25.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 18:25:29 -0700 (PDT)
+        Thu, 01 Oct 2026 18:25:32 -0700 (PDT)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Subject: [PATCH v2 0/2] mm/migrate: speed up move_pages() node queries
-Date: Fri, 02 Oct 2026 09:25:25 +0800
-Message-Id: <20261002-bug-mm-move-pages-stat-batch-v2-0-f73b5d20519f@gmail.com>
+Date: Fri, 02 Oct 2026 09:25:26 +0800
+Subject: [PATCH v2 1/2] mm/migrate: walk runs of consecutive pages in
+ do_pages_stat_array()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,10 +71,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAUIv2oC/43NQQ6CMBCF4auQrh1DGwriynsYFgMOZRJLSVsbD
- endrZzA5fcW/9tFIM8UxLXahafEgd1aoE6VmBZcDQE/ioWqVSvrWsL4MmAtWJcINjQUIESMMGK
- cFphbhaon1Je2EyWxeZr5feTvQ/HCITr/Od6S/K1/hpMECUrrsaNe6q5pbsYiP8+Ts2LIOX8BM
- hftjMgAAAA=
+Message-Id: <20261002-bug-mm-move-pages-stat-batch-v2-1-f73b5d20519f@gmail.com>
+References: <20261002-bug-mm-move-pages-stat-batch-v2-0-f73b5d20519f@gmail.com>
+In-Reply-To: <20261002-bug-mm-move-pages-stat-batch-v2-0-f73b5d20519f@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
  Matthew Brost <matthew.brost@intel.com>, 
@@ -84,42 +85,248 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-move_pages() with a NULL node list reports the node of each page, and
-RDMA and KV-cache engines call it on every page of buffers spanning
-hundreds of gigabytes. do_pages_stat_array() walks the page tables from
-the top for every address, at about 105 ns per page.
+move_pages() with a NULL node list reports the node of each page. RDMA
+and KV-cache transfer engines use it to find where large registered
+buffers live, querying every 4K page of buffers that span hundreds of
+gigabytes.
 
-Patch 1 walks runs of consecutive pages with walk_page_range(). Patch 2
-raises the do_pages_stat() chunk from 16 to 512 pages so that a run can
-cover a whole PTE table. Together they bring the per-page cost from
-104 ns to 12.3 ns with 4K pages and from 90.6 ns to 2.0 ns with THP,
-and a 16 GiB buffer of 4K pages from 486 ms to 52 ms.
+do_pages_stat_array() looks up the VMA and walks the page tables from
+the top for every address, taking and dropping the PTE lock each time.
+That costs about 105 ns per page, so a 16 GiB buffer takes 486 ms.
 
+Callers almost always pass consecutive addresses. Group them into runs
+and walk each run with walk_page_range(), which looks up each VMA and
+PTE table once and answers every page under it while holding the lock.
+Report pages as folio_walk_start() with FW_ZEROPAGE found them: the node
+of a normal folio, -EFAULT for the zero page or an address outside any
+VMA, and -ENOENT otherwise. Handle PUD and hugetlb leaves in their own
+callbacks so that the walk never splits them.
+
+On 7.3-rc5 in a 16-vCPU VM, querying every page of a populated 4 GiB
+buffer:
+
+                before    after
+  4K pages      105 ns    31.9 ns
+  THP           90 ns     23.1 ns
+
+Suggested-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
-V1 -> V2:
-- Walk the runs with walk_page_range() and a pmd_entry callback instead
-  of extending folio_walk_start() by hand (Zi Yan)
-- Raise DO_PAGES_STAT_CHUNK_NR from 16 to 512 in a separate patch, with
-  numbers for each chunk size (Zi Yan)
-- Re-measure everything in one run on a VM that now has two NUMA nodes,
-  with the test bound to CPU 0, so the baselines differ from v1 (16 GiB
-  of 4K pages: 486 ms instead of 440 ms)
+ mm/migrate.c | 188 ++++++++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 162 insertions(+), 26 deletions(-)
 
-v1: https://lore.kernel.org/r/20261001-bug-mm-move-pages-stat-batch-v1-1-255b7e915744@gmail.com
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 15b45832bcfa7..f4d8bfb9b7b4a 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2451,44 +2451,180 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
+ 	return err;
+ }
+ 
++struct pages_stat_walk {
++	unsigned long start;
++	int *status;
++};
++
++static void pages_stat_set(struct pages_stat_walk *psw, unsigned long addr,
++			   unsigned long end, int stat)
++{
++	int *status = psw->status + ((addr - psw->start) >> PAGE_SHIFT);
++
++	/* end wraps to 0 for the last page of the address space */
++	for (; addr != end; addr += PAGE_SIZE)
++		*status++ = stat;
++}
++
++static int folio_stat(struct folio *folio)
++{
++	if (is_zero_folio(folio) || is_huge_zero_folio(folio))
++		return -EFAULT;
++	if (folio_is_zone_device(folio))
++		return -ENOENT;
++	return folio_nid(folio);
++}
++
++/* Report pages the same way folio_walk_start() with FW_ZEROPAGE finds them. */
++static int pages_stat_pud_entry(pud_t *pudp, unsigned long addr,
++				unsigned long end, struct mm_walk *walk)
++{
++	struct page *page;
++	spinlock_t *ptl;
++	pud_t pud;
++	int stat;
++
++	if (!IS_ENABLED(CONFIG_PGTABLE_HAS_HUGE_LEAVES))
++		return 0;
++	pud = pudp_get(pudp);
++	if (pud_present(pud) && !pud_leaf(pud))
++		return 0;
++
++	ptl = pud_lock(walk->mm, pudp);
++	pud = pudp_get(pudp);
++	if (pud_present(pud) && !pud_leaf(pud)) {
++		spin_unlock(ptl);
++		return 0;
++	}
++	stat = -ENOENT;
++	if (pud_present(pud)) {
++		page = vm_normal_page_pud(walk->vma, addr, pud);
++		if (page)
++			stat = folio_stat(page_folio(page));
++	}
++	pages_stat_set(walk->private, addr, end, stat);
++	spin_unlock(ptl);
++	walk->action = ACTION_CONTINUE;
++	return 0;
++}
++
++static int pages_stat_pmd_entry(pmd_t *pmdp, unsigned long addr,
++				unsigned long end, struct mm_walk *walk)
++{
++	struct vm_area_struct *vma = walk->vma;
++	struct page *page;
++	spinlock_t *ptl;
++	pte_t *ptep;
++	pmd_t pmd;
++	int stat;
++
++	pmd = pmdp_get_lockless(pmdp);
++	if (IS_ENABLED(CONFIG_PGTABLE_HAS_HUGE_LEAVES) &&
++	    (!pmd_present(pmd) || pmd_leaf(pmd))) {
++		ptl = pmd_lock(walk->mm, pmdp);
++		pmd = pmdp_get(pmdp);
++		if (pmd_present(pmd) && !pmd_leaf(pmd)) {
++			spin_unlock(ptl);
++			goto pte_table;
++		}
++		stat = -ENOENT;
++		if (pmd_present(pmd)) {
++			page = vm_normal_page_pmd(vma, addr, pmd);
++			if (page)
++				stat = folio_stat(page_folio(page));
++			else if (is_huge_zero_pmd(pmd))
++				stat = -EFAULT;
++		}
++		pages_stat_set(walk->private, addr, end, stat);
++		spin_unlock(ptl);
++		return 0;
++	}
++
++pte_table:
++	ptep = pte_offset_map_lock(walk->mm, pmdp, addr, &ptl);
++	if (!ptep) {
++		walk->action = ACTION_AGAIN;
++		return 0;
++	}
++	for (; addr < end; addr += PAGE_SIZE, ptep++) {
++		pte_t pte = ptep_get(ptep);
++
++		stat = -ENOENT;
++		if (pte_present(pte)) {
++			page = vm_normal_page(vma, addr, pte);
++			if (page)
++				stat = folio_stat(page_folio(page));
++			else if (is_zero_pfn(pte_pfn(pte)))
++				stat = -EFAULT;
++		}
++		pages_stat_set(walk->private, addr, addr + PAGE_SIZE, stat);
++	}
++	pte_unmap_unlock(ptep - 1, ptl);
++	return 0;
++}
++
++static int pages_stat_hugetlb_entry(pte_t *ptep, unsigned long hmask,
++				    unsigned long addr, unsigned long end,
++				    struct mm_walk *walk)
++{
++#ifdef CONFIG_HUGETLB_PAGE
++	spinlock_t *ptl;
++	pte_t pte;
++	int stat = -ENOENT;
++
++	ptl = huge_pte_lock(hstate_vma(walk->vma), walk->mm, ptep);
++	pte = huge_ptep_get(walk->mm, addr, ptep);
++	if (pte_present(pte))
++		stat = folio_stat(pfn_folio(pte_pfn(pte)));
++	pages_stat_set(walk->private, addr, end, stat);
++	spin_unlock(ptl);
++#endif
++	return 0;
++}
++
++static int pages_stat_pte_hole(unsigned long addr, unsigned long end,
++			       int depth, struct mm_walk *walk)
++{
++	/* No VMA at all is -EFAULT, a VMA without the page is -ENOENT */
++	pages_stat_set(walk->private, addr, end, walk->vma ? -ENOENT : -EFAULT);
++	return 0;
++}
++
++static const struct mm_walk_ops pages_stat_walk_ops = {
++	.pud_entry	= pages_stat_pud_entry,
++	.pmd_entry	= pages_stat_pmd_entry,
++	.hugetlb_entry	= pages_stat_hugetlb_entry,
++	.pte_hole	= pages_stat_pte_hole,
++	.walk_lock	= PGWALK_RDLOCK,
++};
++
+ /*
+  * Determine the nodes of an array of pages and store it in an array of status.
+  */
+ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
+ 				const void __user **pages, int *status)
+ {
+-	unsigned long i;
++	unsigned long i, n;
+ 
+ 	mmap_read_lock(mm);
+ 
+-	for (i = 0; i < nr_pages; i++) {
+-		unsigned long addr = (unsigned long)(*pages);
+-		struct vm_area_struct *vma;
+-		struct folio_walk fw;
+-		struct folio *folio;
+-		int err = -EFAULT;
++	for (i = 0; i < nr_pages; i += n) {
++		unsigned long addr = (unsigned long)pages[i] & PAGE_MASK;
++		struct pages_stat_walk psw = {
++			.start = addr,
++			.status = status + i,
++		};
+ 
+-		vma = vma_lookup(mm, addr);
+-		if (!vma)
+-			goto set_status;
++		/* Walk runs of consecutive pages in one go */
++		for (n = 1; i + n < nr_pages; n++) {
++			unsigned long next = (unsigned long)pages[i + n] & PAGE_MASK;
+ 
+-		folio = folio_walk_start(&fw, vma, addr, FW_ZEROPAGE);
+-		if (folio) {
+-			if (is_zero_folio(folio) || is_huge_zero_folio(folio))
+-				err = -EFAULT;
+-			else if (folio_is_zone_device(folio))
+-				err = -ENOENT;
+-			else
+-				err = folio_nid(folio);
+-			folio_walk_end(&fw, vma);
+-		} else {
+-			err = -ENOENT;
++			if (next != addr + n * PAGE_SIZE || next < addr)
++				break;
+ 		}
+-set_status:
+-		*status = err;
+-
+-		pages++;
+-		status++;
++		if (walk_page_range(mm, addr, addr + n * PAGE_SIZE,
++				    &pages_stat_walk_ops, &psw))
++			pages_stat_set(&psw, addr, addr + n * PAGE_SIZE, -EFAULT);
+ 	}
+ 
+ 	mmap_read_unlock(mm);
 
----
-Qiliang Yuan (2):
-      mm/migrate: walk runs of consecutive pages in do_pages_stat_array()
-      mm/migrate: raise the do_pages_stat() chunk to 512 pages
-
- mm/migrate.c | 206 ++++++++++++++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 177 insertions(+), 29 deletions(-)
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20261001-bug-mm-move-pages-stat-batch-f62a29ea5867
-
-Best regards,
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+2.43.0
 
