@@ -1,77 +1,105 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A0E4FDA7E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CCC47F3B5;
+	Fri,  2 Oct 2026 17:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961310; cv=none; b=rYv8OiN/NwFEbB2B9tWZbSMEbIl0xjTihuIqXQyFkUPQqyDV/blfqMIDl9wxg9fTmklN/bUe40n/yrcRJarR1eiWmFVkDZn/z+ezhWEWEWS1bGHABHbpzpcKiw8YG61XcKQHHhCxateaSFT5vk0ckzfBJCmuYyXjyma6ooEVQkc=
+	t=1790961313; cv=none; b=GeLrOSqPVamxMg6LWWyKvZ08fj5xg4P6NBbkOEeoqHVlAg1KYClSWpivsGTmrgjPHC637QaErJkYBa7RrqujKGwB2Np/DMAKejUKX25ft5cWX99ebsAylu1gLTxJXgJ28MOvwnsyHGBRC96NHT/3sIP1C9n600YbcOulqUW3dJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961310; c=relaxed/simple;
-	bh=14EMFgsiFMdgbUFOogueXl4bVCClPF8xEpWoFi5WzUQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=DvNwmU0jpkfaw5Qqt4GNyeb3gpMKOpJ9JnHfYPng37cmz6kV2IHFWR0rFxSRXcT9u+mzOOjYfXuufpg0ttUCAIkhpeAtdPnI/ItWbWCFY9bLgrRL9TZfWoxgNRFcssuKp2b23n42e69Oq77cKQ3ZEAl+MUn/8SDHaO9QwPXjv+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-8227ad6ddfaso197209a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:15:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961302; x=1791566102;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CBikqlH4+Pvhr/TPbSUYuPjAvbOJucjrVxXATrsZS9k=;
-        b=jHmFtgllFjPxasdg5mJ3UFXT+Vk8rEybxLyQRqHU1d/qUeuTjPa4C32neJza8UG/Ip
-         fld3azmBvC60pT+AsprPu52L+VAaHic80tclV2pURD91q91CF13/Ardxp/pU3SfdXql2
-         /fDo0WUJmDpFGC9RoFrVeoin1EYa0e7I/1Eoxeof6+drdTtA8JllhcIdMd/qCP+yropF
-         R6rUkZWI0n1cssjYxfM80Vy1lYb/lE+iprHlkprqYDtV2RtTh14hvsArvpONWZ8dbRDB
-         WbJWdY4s/Uw+22pKiAIwS7A54TJjMbYHHuW/mkI/5H+5x5/hyLoaWPg/FeVV2WnYFxNM
-         exNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxiBY0ZSAQZ6AyvLknkBLlHxOhiHlMDyG4wVhu1rZnafwwALLikmwFWpgKZn1ZRbKDCAKyBXz2gzvgHNL8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mj/YD42oT2GgQsVCseoQcWZcULJRLz+HDyoEDWG7ruaHTgzR3y
-	pjAbZLkOSfhS1MzK0v/YlDFbD1rfMJVAsizkdgdrsC3++Xxcc26IN63Bdtx1p+CTW8mVRrLUXPd
-	0D7Xf2xFgvfjn5IcovO8E2u6OaoW5iGL2kH4y7d5irM1gvRGw/b5sKvt7EpU=
+	s=arc-20240116; t=1790961313; c=relaxed/simple;
+	bh=iobRN+K5wRBlMHtDKMCLc31ofXdSq97nC5LHjyuxmmA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hWT7UxHlL01BcpNGy75uWUZgRyk5rdHOT+Lqgwb8r49IefGsvgxvVSx55qQFXwtRLkOEtlFpRhLf/7N0fTyMugej1j7faPv+zUkNhqcvCX7xLYSwVfas0gYg4uKgOA4HFmTuT21gkhbPfgudU88x+aL7k8UH2fbzh12V4xXT0xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQ0wN87P; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQ0wN87P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1754A1F000FF;
+	Fri,  2 Oct 2026 17:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790961304;
+	bh=WQPluei+NWGBB68zDDNHLmlcK6K1wc2kGH8Ruob1/Hg=;
+	h=From:To:Cc:Subject:Date;
+	b=MQ0wN87P8qcXU/Y14LujlCXQDVE5PNQBuAdVG2LeIA8QCR2QOphYZPkXjmUcrjO/3
+	 xAUR2fxvGHFV79qp97MYNv40DvXR1rP4i3JRpVCOtOWb1XR18uX3Orp2ThtY3xe6Sb
+	 W8t/sPIPf/G7qtiDnrJ8wxhT6g2xlFX40D4YXIvRvjTduhbJlLYT6RPULWfNYqCpRJ
+	 3dE5SDOD0Jj5q/7CIXrTtXP/MKSgLo9aJbp0225ac0c56dwYXjUlNT9CSGoG5u8ToL
+	 GYQJSL3KNCU8zmRAqvgc+cNQV9EOzDqRphiUqoH1kr+FcO7dnEuF8LCqZd5rFMVd1R
+	 3+HqRQ702EnFg==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] regulator: dt-bindings: Drop obsolete MAX8925 .txt binding
+Date: Fri,  2 Oct 2026 12:14:54 -0500
+Message-ID: <20261002171455.2719968-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:e85:b0:4f1:7c39:8a7c with SMTP id
- 5614622812f47-4f52aeaa216mr2377157b6e.62.1790961302560; Fri, 02 Oct 2026
- 10:15:02 -0700 (PDT)
-Date: Fri, 02 Oct 2026 10:15:02 -0700
-In-Reply-To: <6abc1c9e.00649fcc.35d151.00e6.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abfe696.7503fbd6.2d3f6.0024.GAE@google.com>
-Subject: Re: [syzbot] [ntfs3?] WARNING in truncate_setsize
-From: syzbot <syzbot+0e70362e1726b5a7502e@syzkaller.appspotmail.com>
-To: almaz.alexandrovich@paragon-software.com, fred@cloudflare.com, 
-	linux-kernel@vger.kernel.org, ntfs3@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com, zohar@linux.ibm.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has bisected this issue to:
+The mfd/maxim,max8925.yaml schema describes the regulators for this
+device. Remove the obsolete text binding.
 
-commit b80bed5c871a80151351342c065579405ce77145
-Author: Mimi Zohar <zohar@linux.ibm.com>
-Date:   Tue Jul 28 00:39:41 2026 +0000
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../bindings/regulator/max8925-regulator.txt  | 40 -------------------
+ 1 file changed, 40 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/regulator/max8925-regulator.txt
 
-    ima: Instantiate file_truncate and path_truncate hooks
+diff --git a/Documentation/devicetree/bindings/regulator/max8925-regulator.txt b/Documentation/devicetree/bindings/regulator/max8925-regulator.txt
+deleted file mode 100644
+index 0057695aae8f..000000000000
+--- a/Documentation/devicetree/bindings/regulator/max8925-regulator.txt
++++ /dev/null
+@@ -1,40 +0,0 @@
+-Max8925 Voltage regulators
+-
+-Required nodes:
+--nodes:
+-  - SDV1 for SDV SDV1
+-  - SDV2 for SDV SDV2
+-  - SDV3 for SDV SDV3
+-  - LDO1 for LDO LDO1
+-  - LDO2 for LDO LDO2
+-  - LDO3 for LDO LDO3
+-  - LDO4 for LDO LDO4
+-  - LDO5 for LDO LDO5
+-  - LDO6 for LDO LDO6
+-  - LDO7 for LDO LDO7
+-  - LDO8 for LDO LDO8
+-  - LDO9 for LDO LDO9
+-  - LDO10 for LDO LDO10
+-  - LDO11 for LDO LDO11
+-  - LDO12 for LDO LDO12
+-  - LDO13 for LDO LDO13
+-  - LDO14 for LDO LDO14
+-  - LDO15 for LDO LDO15
+-  - LDO16 for LDO LDO16
+-  - LDO17 for LDO LDO17
+-  - LDO18 for LDO LDO18
+-  - LDO19 for LDO LDO19
+-  - LDO20 for LDO LDO20
+-
+-Optional properties:
+-- Any optional property defined in bindings/regulator/regulator.txt
+-
+-Example:
+-
+-	SDV1 {
+-		regulator-min-microvolt = <637500>;
+-		regulator-max-microvolt = <1425000>;
+-		regulator-boot-on;
+-		regulator-always-on;
+-	};
+-
+-- 
+2.53.0
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1302e035580000
-start commit:   ce1e0223d8ad Merge tag 'devicetree-fixes-for-7.3-2' of git..
-git tree:       upstream
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=1082e035580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=1702e035580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
-dashboard link: https://syzkaller.appspot.com/bug?extid=0e70362e1726b5a7502e
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=143da725580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=113236c9580000
-
-Reported-by: syzbot+0e70362e1726b5a7502e@syzkaller.appspotmail.com
-Fixes: b80bed5c871a ("ima: Instantiate file_truncate and path_truncate hooks")
-
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
