@@ -1,292 +1,173 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692B73CE4BE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790983436; cv=pass; b=Cmi9sIXv3VSBoyn8ZXc2MDggju+gts0Gsk5i33BqbdoPb0BPHJpOd+SToDVHbdpptJ4IcwUpVbse5sRUpGGhvXXfl3uf2jVXDKnVU51CxbI5GXQWxbrk6d1Iz1UCilm05cLPVUv1YVxazJEWUbHAyT7RiW7utIZ0LDaPTGuFiIE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790983436; c=relaxed/simple;
-	bh=RRu9tqdBY3AuiE+QNEPO/+zvxhldBrdnI2YOZOTmnGg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ik7lFk8joDmBmCWuvfzZI7nTeep7STY7H8JgJfEzWcMroa/WlHr51MNdB+dJynhIzBumVzK4OPIJJJG3yH4Wz4MJvgAgeDX1EIHHFrzeFHQd0gajJHebBSdo1j9AFhLNF5A9eKsMCd6Ub+0dpJkrQDgC0hmpMYdmVEHKIyR2gmE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vmbQC762; arc=pass smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vmbQC762"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e2e4ef20beso22155ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:23:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790983434; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PfPs4aixKt4FEP+qrqkGeCtf09LpqdWQXfh6ah+EN0bgPfOEZ6n7QC/23iuaGEEzwd
-         9Z82oy1+S5fGEkZAHhd/LTiMKsdOfFne7AOTsacI74gvZ02UWqLjWSpCQ0zCmIvBRURn
-         AtQecZdslLGctWPUnB5lY6LudYlgsIvNPLXmaljFGTbfcv9LtR2EyxFbjO/YqdlJGAOj
-         pQyK3209L5wfaVC2PUepm8qkUdSXbW7ew5SjianIXicpDNBJ+1dUz0yiHn3aCn3XhcMw
-         vew2tqqLctagjJFevIPJ+MZTaXBmoYV23erJpD6Szhxlfk/XtkAmX0a+2A1fifiiyFSh
-         VVhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yRPB82VFJ90lfQ7njnr7XC8e8HLChtcDRi7BTmzq/ag=;
-        fh=x2dXtvVEq9uyl+GnL2acNn4JHup35LN9AlgBfdqLn6Q=;
-        b=rr87eFNc+AuEGBPg3nFNqa36W4KbwR91eV2NXbx5HBz2yuqjWthpkbge6e6J6C3kux
-         sG+rd4y9ljg+Em2XsJKa5UBCvI9Xv2VynH2yU+voAD8QHXFItxicrDulAasaMZMelJQh
-         dWIJbFkgAcqUAKX8m/oG9E1UXenk+spo8gfyTFOClwiICvkgmCiAW9b5NjpiTtV8myaV
-         //qfJ5Zp0f+o36HS735pGGru49Khetu9qmT3QP6pm42bgna3JGQgylr9WauOzGXSOEby
-         wY7L1ok3dUyXHiFFiHpUMe0A+dBxzmZ8rLH7Toi8ejZA1KsB3bxgvi6eENJSTv9d9Imz
-         mr/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790983434; x=1791588234; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yRPB82VFJ90lfQ7njnr7XC8e8HLChtcDRi7BTmzq/ag=;
-        b=vmbQC762YIx+c+b9Jcnd2ztRovdm6zNGjHZ6GeiASMwD7pmAJ3ugMenjclUjOA3dLb
-         rJ2IdzxHW+vqGiiN30lJyeK3aZ/OmBpQJuqJRei45nG6YI2iQe4O8m8zln4qQiY1PCaZ
-         X/KboT6nAaJ90wI442SPH86gBBG9WrhYcUuD2dtXmINFla2bQP+mcQsXgwX5GkYQZghF
-         nBjbDfMZBYywTv/ogVf9WAy99T2cSG7LfWQRkzCwSfgVAGYTLDGRpwNN9YAZ3YL6NKPe
-         w+srLCT9yHBfyP9dGe2aRGF27nmApJAUCigXBZDjq6EuBvxttRjC3krG41YGyn5E6WE5
-         8GjA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E409547071
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790983527; cv=none; b=XzQqCtau4x0T2K5fu70BKsDx+OO8IGHFhB1JfdlpC+pzKbvmvXErRai0WRBbf7YKo5PDUwknYZ7cZYzLrctSYg/vlbbQpbvXH4Gk/BAiKOI7k1mlS6UbBB4nXG+8LhwDEmCMumN/NlXUEzwbOQocDzEriQeEbJDyPOuermElRQM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790983527; c=relaxed/simple;
+	bh=u2KMLv+tlXITwimzd/Ty9/jX3M9EHu28LToNoV9H398=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=WVewBqoEiZDDXp1XuJ6Rl3ouVR5L52wdxzhHN8+Rg38+/oLr1ST9E/PioAr0NL+C/b9TFJzDI8IcWLpmMHRLLyvLmE63gObd04WJL7Nh/G7k5cv7DwYRNpCykz/R3junIJ3MzLdsRCYRlE3vof3S8VWQ/rMN8wCFsKaiw5zWjEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e4dso645423b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:25:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790983434; x=1791588234;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790983525; x=1791588325;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yRPB82VFJ90lfQ7njnr7XC8e8HLChtcDRi7BTmzq/ag=;
-        b=a+y0fZtLMKlU9rdY4rciTmohLq3Sd3iSbkgOIyQyYQFegwFXNf0AN1vllarE8okGZS
-         VziTA7MQVUyqGl4aNMCFYpyGZjKvGhCCklDxJekEP5MmOYQUodMoWJg7Jyns6prJPTHV
-         Bti/x9W3vssiXICT2EYqobdH8+3bzfPy/DMmXgmOTCSCcRtnH3i5yiPhl/Yju5xKzjR8
-         SaznwHjgMcnp0K+zRR/DxmadXf+KqMdtQyGtBlOoWyQadrAyv7QK2nQqexw8FChV7z7n
-         bShlIE3iBFDgI8/tGM2e4H+btor08fECOjyo8/AeFG9fVQnW4wvd30vmmkFttd3yyyaM
-         1MBw==
-X-Forwarded-Encrypted: i=1; AKwUvBxft2Cxvl0NL7b4Lh4M6gRYdNvkw9979oJH4dHv5bKrJRpwMFHLE6gpdht1O+6MDZkFEZ5gkrln5V7bCBU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJekWwfeFI04i+I9+a8BQbnyCAEguUlDyTUXg+JF/jPhAFvZFzk
-	s5S25WNUbHIQmpBKyScN8K+kxCfNMG8qdOyP8NrEYPENBTf0aZy4uNRYQNGCP5HmJPARH4OQTKf
-	dip3WXHChsKFKoMyyjl33NoD4Kr1DbOKa2KyzNHLX
-X-Gm-Gg: AYBFou1eqFtr5n8fVSfiKNiFHAV6zof4XV+2qUErlqwLGJHKLWarnH1oeUWT0iZ4F7V
-	w/qo+rl2jvrRWfGlIHfPK13SJjaY0/QXT/meF/So2WowtnTazInDaH3GDdgkI1WuwaOhl7pto3I
-	IPn/GT0VUpPVX1YqFnsJm2h9zyTWhAewrlUtM+X2y1WZAJrpN5otm1FdAD+nW9N33hnJpgJbHrv
-	heNxxXZRzsFEXxrpv5+t+hILKLpvx2BKXj2jRqExLyLKbKtCEg+6CFkKOm6sEVjE03TwKJ+1opw
-	P0sgGqdmgUVFe8jkSN6Ir8vMbfnUXkaumX0xKAGBwZZ2uJpBlnPZ4TMd7EbeJkmIlsXHzFlsMjh
-	j9pphOOFYB/o6M1y2OJTK+4HzpbH5+s4xeN+M72JDraDmUZdjUVtRZg==
-X-Received: by 2002:a17:903:3c2b:b0:2c9:d89f:fd98 with SMTP id
- d9443c01a7336-2e530c1b194mr2089565ad.1.1790983433055; Fri, 02 Oct 2026
- 16:23:53 -0700 (PDT)
+        bh=dIjf4HqhU53sGKU8lTmxHgeawGfnk4d9WAw94g/v+Sw=;
+        b=MqoVfFA/p7917yIuyspv6GegFNHNbFxm5PzxPfbD1v7M2Cq2xVGjhz9+YS/hKEYMoF
+         h5gpLgUMnCdcef6YF01Zi6PC+H2JArQ6dtZgjB2J+ZaxZARELCf10XNhMVkCwC3CFfiS
+         u6eJXhYHoBSjpxsG0LvMqj6vnsjAs3KOEl8HHg4saAbP/BqOXOEJMnN2FPstButn8Mdw
+         Fwo0qG3p/kQlwUnPxyIgQGKjGNsRP8hHOgXTv4QU/JNB6uLI4Eki/iUcK+FY4r5mOrsh
+         0dpAoUiOQRGPLctdf7TYkx7Xa4pCnLF19Hhvor0S6DY+U06IfYNbb/Lp0IR1u7ODhl2F
+         dAfg==
+X-Gm-Message-State: AFuF++n7GWb1ucok/z8lXqaPF2G9nL1oDnc6OGHVgoF1Gp16kyyjinMa
+	/ni4vvGX3pB8t1BQLSmwcCrPPvzujnNsL6bS56OZ6c0GKFd7cwQNbzTHX9XBDU1/zIxXokYm2G2
+	XMPDP2xHwB1AH31XfmHvXM9/anykBCNR0J4pyn6hXbh8p/PScbmMT1GAYenc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930190428.1130007-6-hramamurthy@google.com> <179093559163.434549.8853251921845038273@kernel.org>
-In-Reply-To: <179093559163.434549.8853251921845038273@kernel.org>
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-Date: Fri, 2 Oct 2026 16:23:41 -0700
-X-Gm-Features: AclHuK97xos_v4EowLQemIo8YleA2mrgDLsr55DFbDKD09wvx5nu-a-y-m1obAo
-Message-ID: <CAEAWyHdJiwb_SEgmUw0TMn-kh6SNzrg3Xwr9wac=E8DpXr-hCA@mail.gmail.com>
-Subject: Re: [PATCH net-next v9 05/12] gve: refactor gve_init_priv for reset path
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
-	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
-	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
-	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	przemyslaw.kitszel@intel.com
+X-Received: by 2002:a05:6808:6d91:b0:4cb:f21b:6f90 with SMTP id
+ 5614622812f47-4f529d37106mr3399532b6e.35.1790983525067; Fri, 02 Oct 2026
+ 16:25:25 -0700 (PDT)
+Date: Fri, 02 Oct 2026 16:25:25 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac03d65.81dddff3.363068.0002.GAE@google.com>
+Subject: [syzbot] [raid?] general protection fault in md_handle_request
+From: syzbot <syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
+	syzkaller-bugs@googlegroups.com, yukuai@fnnas.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 2, 2026 at 3:06=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wrot=
-e:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The commit message says "These changes are only code movement,
->   no functional change".
->
-> Pre-existing issues:
-> - [Medium] This problem wasn't introduced by this patch, but a hard reset
->   leaks the AdminQ dma_pool and its buffer.
->
-> --
->
-> gve: refactor gve_init_priv for reset path
->
-> This patch splits gve_init_priv() so that gve_probe() now does the AdminQ
-> setup (the new gve_adminq_init()) and the device property negotiation
-> (gve_adminq_get_device_properties()). Device setup moves into a new
-> gve_setup_device() helper. gve_reset_recovery() now calls
-> gve_adminq_init(), gve_adminq_verify_driver_compatibility() and
-> gve_setup_device() directly, instead of gve_init_priv(priv, true).
->
-> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
-thernet/google/gve/gve_main.c
-> > index addfd8dc1a1a2..2fe280cf7e680 100644
-> > --- a/drivers/net/ethernet/google/gve/gve_main.c
-> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
->
-> [ ... ]
->
-> > @@ -2566,15 +2541,32 @@ static int gve_reset_recovery(struct gve_priv *=
-priv, bool was_up)
-> >  {
-> >       int err;
-> >
-> > -     err =3D gve_init_priv(priv, true);
-> > -     if (err)
-> > +     err =3D gve_adminq_init(priv);
->
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but does a hard reset leak the
-> AdminQ dma_pool and its buffer here?
->
-> A hard reset is gve_reset(priv, false), or gve_reset() after gve_close()
-> fails. Either way it goes through:
->
-> gve_reset_and_teardown()
->   gve_trigger_reset()
->     gve_adminq_release()
->       gve_clear_admin_queue_ok(priv);
->   gve_teardown_priv_resources()
->     gve_adminq_free()
->
-> gve_adminq_free() then returns early, because ADMIN_QUEUE_OK is already
-> clear:
->
-> void gve_adminq_free(struct gve_priv *priv)
-> {
->         if (!gve_get_admin_queue_ok(priv))
->                 return;
->         gve_adminq_release(priv);
->         dma_pool_free(priv->adminq_pool, priv->adminq, priv->adminq_bus_a=
-ddr);
->         dma_pool_destroy(priv->adminq_pool);
->         ...
-> }
->
-> So dma_pool_free() and dma_pool_destroy() never run. Then
-> gve_adminq_init() here calls gve_adminq_alloc(), which puts new
-> allocations in priv->adminq_pool and priv->adminq. The old pool and
-> buffer are lost.
->
-> The same thing seems to happen when gve_teardown_device_resources() calls
-> gve_trigger_reset() after a failed AdminQ command.
->
-> The baseline gve_init_priv(priv, true) path leaked in the same way. The
-> later "gve: simplify reset logic" patch in this series appears to fix it.
+Hello,
 
-Like the AI notes, this issue is pre-exisiting and most of the reset
-related issues are fixed in the following patch =E2=80=9C"gve: simplify res=
-et
-logic"  in the same series.
+syzbot found the following issue on:
 
-> That patch makes gve_adminq_release() static and calls it only from
-> gve_adminq_free(). It also stops gve_adminq_release() from clearing
-> ADMIN_QUEUE_OK and removes gve_trigger_reset().
->
-> > +     if (err) {
-> > +             dev_err(&priv->pdev->dev,
-> > +                     "Failed to alloc admin queue: err=3D%d\n", err);
-> >               goto err;
-> > +     }
-> > +
->
-> [ ... ]
->
-> >       if (was_up) {
-> >               err =3D gve_open(priv->dev);
-> >               if (err)
-> > -                     goto err;
-> > +                     return err;
->
-> [Severity: Medium]
-> The commit message says:
->
->   These changes are only code movement, no functional change.
->
-> Is that accurate? The patch seems to change behaviour in a few places.
->
-> First, gve_adminq_init() writes the version string before it allocates
-> the AdminQ:
->
->         gve_adminq_write_version(&reg_bar->driver_version);
->         return gve_adminq_alloc(priv);
->
-> gve_reset_recovery() now calls this helper. That means the driver version
-> string is written to the BAR0 driver_version register on every reset,
-> resume and recovery. Before this patch, gve_write_version() ran only once=
-,
-> from gve_probe(). gve_recover() still does this at the end of the series.
->
-> Second, the order of device accesses in gve_probe() changes. The version
-> write now comes after the max_tx_queues/max_rx_queues ioread32be() reads
-> and after alloc_etherdev_mqs(). AdminQ registration,
-> VERIFY_DRIVER_COMPATIBILITY and DESCRIBE_DEVICE now run before ctrl_ops i=
-s
-> set, before map_db_bar() and before alloc_ordered_workqueue().
+HEAD commit:    6474fa070f2b Add linux-next specific files for 20260929
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14dfe035580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3477d5a04d788556
+dashboard link: https://syzkaller.appspot.com/bug?extid=89a9ab2a134d092fffae
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10d876c9580000
 
-Both these two changes listed here prepare the driver for the addition
-of the new control plane - the version write is now done as part of
-Adminq init specifically since this won=E2=80=99t be needed in the mailbox
-mode.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com
 
-And in mailbox mode,  the control plane has to be setup and the device
-properties negotiation has to happen before we try to allocate the
-net_device. Since the max TX/RX queues that the device supports comes
-from this negotiation.
->
-> Third, when gve_open() fails here, the old goto err path logged "Reset
-> failed! !!! DISABLING ALL QUEUES !!!" and called gve_turndown(). Now the
-> function just returns. Neither gve_reset() nor gve_resume() logs the
-> error, so a failed re-open after reset or resume leaves nothing in the lo=
-g.
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000003: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
+CPU: 1 UID: 0 PID: 6372 Comm: syz-executor143 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+RIP: 0010:md_handle_request+0xadd/0xe60 drivers/md/md.c:417
+Code: 24 90 00 00 00 48 8b 84 24 a8 00 00 00 42 80 3c 20 00 74 08 48 89 df e8 f1 b2 93 f9 48 8b 1b 48 83 c3 18 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 d4 b2 93 f9 4c 8b 1b 48 8b bc 24
+RSP: 0018:ffffc9000415f5c0 EFLAGS: 00010206
+RAX: 0000000000000003 RBX: 0000000000000018 RCX: ffff88802b29ddc0
+RDX: 0000000000000000 RSI: ffffffff8e9dafe5 RDI: ffff88802b29ddc0
+RBP: ffffc9000415f778 R08: ffffffff88a749bc R09: 0000000000000000
+R10: 0000000000000009 R11: 0000000000000000 R12: dffffc0000000000
+R13: 1ffff9200082bf70 R14: ffff88807e3680c8 R15: ffff88807e368238
+FS:  000055556ca3c400(0000) GS:ffff888124723000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f8a7dc59000 CR3: 000000007831e000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __submit_bio+0x27f/0x340 block/blk-core.c:681
+ __submit_bio_noacct block/blk-core.c:724 [inline]
+ submit_bio_noacct_nocheck+0x4e8/0xa40 block/blk-core.c:792
+ bio_await block/bio.c:1506 [inline]
+ submit_bio_wait+0x12a/0x250 block/bio.c:1524
+ __blkdev_direct_IO_simple block/fops.c:115 [inline]
+ blkdev_direct_IO+0x1167/0x18e0 block/fops.c:451
+ blkdev_read_iter+0x223/0x420 block/fops.c:849
+ new_sync_read fs/read_write.c:493 [inline]
+ vfs_read+0x595/0xa80 fs/read_write.c:574
+ ksys_pread64 fs/read_write.c:764 [inline]
+ __do_sys_pread64 fs/read_write.c:772 [inline]
+ __se_sys_pread64 fs/read_write.c:769 [inline]
+ __x64_sys_pread64+0x196/0x220 fs/read_write.c:769
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f8a7dca9077
+Code: 48 89 fa 4c 89 df e8 98 1e 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffc5a7b78d0 EFLAGS: 00000202 ORIG_RAX: 0000000000000011
+RAX: ffffffffffffffda RBX: 000055556ca3c400 RCX: 00007f8a7dca9077
+RDX: 0000000000001000 RSI: 000055556ca3e000 RDI: 0000000000000009
+RBP: 0000000000000096 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffc5a7b79e0
+R13: 00007ffc5a7b79d4 R14: 00007ffc5a7b7954 R15: 00007f8a7dc59000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:md_handle_request+0xadd/0xe60 drivers/md/md.c:417
+Code: 24 90 00 00 00 48 8b 84 24 a8 00 00 00 42 80 3c 20 00 74 08 48 89 df e8 f1 b2 93 f9 48 8b 1b 48 83 c3 18 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 d4 b2 93 f9 4c 8b 1b 48 8b bc 24
+RSP: 0018:ffffc9000415f5c0 EFLAGS: 00010206
+RAX: 0000000000000003 RBX: 0000000000000018 RCX: ffff88802b29ddc0
+RDX: 0000000000000000 RSI: ffffffff8e9dafe5 RDI: ffff88802b29ddc0
+RBP: ffffc9000415f778 R08: ffffffff88a749bc R09: 0000000000000000
+R10: 0000000000000009 R11: 0000000000000000 R12: dffffc0000000000
+R13: 1ffff9200082bf70 R14: ffff88807e3680c8 R15: ffff88807e368238
+FS:  000055556ca3c400(0000) GS:ffff888124623000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f8a7dd14100 CR3: 000000007831e000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	24 90                	and    $0x90,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	00 48 8b             	add    %cl,-0x75(%rax)
+   7:	84 24 a8             	test   %ah,(%rax,%rbp,4)
+   a:	00 00                	add    %al,(%rax)
+   c:	00 42 80             	add    %al,-0x80(%rdx)
+   f:	3c 20                	cmp    $0x20,%al
+  11:	00 74 08 48          	add    %dh,0x48(%rax,%rcx,1)
+  15:	89 df                	mov    %ebx,%edi
+  17:	e8 f1 b2 93 f9       	call   0xf993b30d
+  1c:	48 8b 1b             	mov    (%rbx),%rbx
+  1f:	48 83 c3 18          	add    $0x18,%rbx
+  23:	48 89 d8             	mov    %rbx,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+  2f:	74 08                	je     0x39
+  31:	48 89 df             	mov    %rbx,%rdi
+  34:	e8 d4 b2 93 f9       	call   0xf993b30d
+  39:	4c 8b 1b             	mov    (%rbx),%r11
+  3c:	48                   	rex.W
+  3d:	8b                   	.byte 0x8b
+  3e:	bc                   	.byte 0xbc
+  3f:	24                   	.byte 0x24
 
-Hmm, actually the only visible effect here is the dropping of the log
-line which will be back in the next patch. gve_turndown() does nothing
-at this point, because NAPI is already disabled and carrier is already
-off. The following patch rewrites this path anyway.
 
->
-> The only place this is mentioned is the v3 changelog below the ---
-> line, and that text is dropped when the patch is applied. The changelog
-> says "don't free device resources if gve_open() fails in the reset path".
-> The baseline err label did not free device resources either, though.
->
-> The later "gve: simplify reset logic" patch adds a "Failed to start
-> queues ... DISABLING ALL QUEUES" message in gve_recover(). At this commit=
-,
-> though, the message is missing.
->
-> Could the commit message describe these changes, instead of calling the
-> patch only code movement?
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-I can call out these changes in the commit message and bring the log
-line back if there is a need for another respin. These issues on their
-own don=E2=80=99t merit a respin IMO.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
->
-> >       }
-> >       return 0;
->
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260930190428.1130007-1-hramamurthy%40google.com
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
