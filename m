@@ -1,137 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47440443C13;
-	Fri,  2 Oct 2026 08:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C23E443C19;
+	Fri,  2 Oct 2026 08:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929294; cv=none; b=UW1AUm0dZ8tbdnRqnmaURPz3AmhY6xl6LCQuUdnv5SbeZ/E4C432EipTfs1UQnhIeA699jLIMkJLHowPL7Z4q+83QEimYzdpz0wbVQ8n8+zL0CUjkTwHFQJxfQhnO/+YcCNYf/Jx9whpmUeXHTA81JiyKQyx0vZFbCFnZFIWP5o=
+	t=1790929321; cv=none; b=jFOlJggABDxlsasIdVn/caIzZCoIsgjdf+PBZWNrYiq1/BMY7GetzX0I46jN420zaVL2Dnut6vxAwneQV2t6BjCgGJCwgeOhqSAgty0c7z79n3O+WUOOeNK628QvUUEqnBD85J/kvwyXCD4lTYKKU0aTLP56/GFLBuGrieoeLwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929294; c=relaxed/simple;
-	bh=sBePC58/1nGIQTG/U0OECcc/vsriPHIVEWXQtkPb018=;
+	s=arc-20240116; t=1790929321; c=relaxed/simple;
+	bh=NqmIdOOl4FuLzeQUPQSUrqrh/s3QDVKtCFQwUL77cjU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N5K3AnjoPg3rr1ohbCvz0geua8DSLbeyJjhME6rCbdBXw36mxX9uDXG37DbwRKWNchftF8J+KqnMlV5185vYAHQtxMVHzljh5lDO9WstL+rRmDN/3rVch3OCpOOoA++BRzx9mMyZJ8NKnzidC55lZj8ysLZ86Er/yodS/iw8k6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1Jo48x3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NMWsgUr4Rw2Rg5DAUY8B0bisx0bKOw0LDcfmtlcabPAz2uYhr3aSjSgUoCqWUp1TRht60a4pewxGeexBZrLkBanXLzawvw1CVlvvokdLt5BQQucK5J+1ao34Orage2SsZYnpKw0dqDgnlbmn7F+Qhrlq80GncAF5DmAuurUVPYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Qfp54zQh; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1Jo48x3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4171F000FF;
-	Fri,  2 Oct 2026 08:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790929292;
-	bh=7eeSp1C4/hTG60Jp34wAdK2R8RaYhjX2x/k5gS4VDsA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a1Jo48x3eK+3CwWMOkAhjll5meQzqEbqaTwc40gmqkzpON3plc8y9sWMEvUGQQDZy
-	 H7B4D/eQz/4NDRF9QY+QzwFwaQJJ8LTz7+Y+p0Ns3BkQrVG/Ofy+idki3yGS/of7lr
-	 lNaDNnbIx+yKGiZcS8ndFsYLmctBNf/QO/egtWxamOU5htqTOMlJqqpuR9tJbyovf3
-	 ueWQJJFfle4C1oXjaW0ohBsvMqUr8vvPMuH7a3vaS8hXsOwk3QJ36KdasThxxCnhHP
-	 KcrwugeZdIX8AIQk5KeuzjsLyrh5Rq4vqFerfQaMSVC4+Ze0yQ0EPdB8PutgJ8LhFI
-	 Bz7Eqvygmqp6Q==
-Date: Fri, 2 Oct 2026 10:21:30 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Prathamesh Shete <pshete@nvidia.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] Enable PCIe WAKE# as a system wake source on
- Tegra234
-Message-ID: <ar9pfNZstgn9pPXK@orome>
-References: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Qfp54zQh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=C2l/w1/cJtGJsDYl8CqQ6vSAImyUr3hMkhvRN65B828=; 
+	b=Qfp54zQhoixoCFlxVrDLFxGBc0HoMqLKbl0AZMv1HsPy3CO8DbKVrOQgCqa4Y0H0o/6LXhZgcsO
+	EZV6ytea8VJiSMA7a4QHpGzY4/x5yvr0kQL6bCNyqMHBMxRAY7CwTNKYzbV+cP5V1YTenPwlsHoQp
+	pAdExIxs5jototGTZkCCA8NdJkuvscPfYx4+u4WU3M+jWjt9XnqjrqeAgD6PQKjdTQH8vtKUNZM8p
+	ykw36km27G705FoYbB0uXEBQmtk3DX/ZbCGY6zbFiFUbFuglhiS7thVOYC0f4FNSLeQQTSVPTQGlf
+	SjJR1lxcCgdjK2F2jwiZJJrkLIlS8dYO5e+Q==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xCYWV-00000002maY-2W3N;
+	Fri, 02 Oct 2026 16:21:44 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 18:21:43 +1000
+Date: Fri, 2 Oct 2026 18:21:43 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	stable@vger.kernel.org, Thara Gopinath <thara.gopinath@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Stanimir Varbanov <svarbanov@mm-sol.com>,
+	Eneas U de Queiroz <cotequeiroz@gmail.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Demi Marie Obenour <demiobenour@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Abel Vesa <abelvesa@kernel.org>
+Subject: Re: [PATCH v8 00/14] crypto: qce - Fix crypto self-test failures
+Message-ID: <ar9plydRjLKihyij@gondor.apana.org.au>
+References: <20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com>
+ <CAMRc=MdWZhLy7AXd2OiVsaT92xTh1EF+B+LNo2b-1D2TO3rAmA@mail.gmail.com>
+ <arJGAjRRC-5EPjH6@gondor.apana.org.au>
+ <CAMRc=MdMbAw5pfOOnV0ppdZyKqFe8c+ypt0e92vZqxhO4dSmGg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6gn3v7gdvmn6udrx"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
+In-Reply-To: <CAMRc=MdMbAw5pfOOnV0ppdZyKqFe8c+ypt0e92vZqxhO4dSmGg@mail.gmail.com>
 
+On Tue, Sep 22, 2026 at 04:52:36AM -0700, Bartosz Golaszewski wrote:
+>
+> Yes, this does help but does it mean changes from cryptodev/master are not fed
+> into linux-next?
 
---6gn3v7gdvmn6udrx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 0/2] Enable PCIe WAKE# as a system wake source on
- Tegra234
-MIME-Version: 1.0
+I don't think so.  I just checked the latest linux-next and it
+contains the top commit from cryptodev/master:
 
-On Mon, Sep 07, 2026 at 05:01:32PM +0530, Manikanta Maddireddy wrote:
-> The P3768 carrier board used by Jetson Orin NX and Orin Nano routes the
-> PCIe WAKE# signal to Tegra234 main GPIO L.2. Nothing in the kernel
-> currently describes that signal, so a suspended system cannot be woken
-> by a PCIe endpoint.
->=20
-> This series wires it up in two steps.
->=20
-> Patch 1 adds the PMC wake event mapping for GPIO L.2. This is the piece
-> that lets the GPIO interrupt be armed as a system wake source during
-> suspend, rather than being treated as an ordinary interrupt that is
-> masked along with the rest of the GPIO controller.
->=20
-> Patch 2 describes the signal in device tree, on the root port of the C8
-> controller. C8 is the controller with the onboard Ethernet NIC on this
-> carrier, so describing WAKE# there is what makes wake-on-LAN usable.
-> The property is consumed by the generic PCI core in
-> pci_configure_of_wake_gpio(), which looks it up on the OF node of the
-> PCI device itself, so no controller driver change is needed.
->=20
-> The two patches touch different subsystems but are only useful together,
-> so they are posted as one series. Patch 2 depends on patch 1 to have any
-> effect.
->=20
-> Testing:
->=20
->   - Verification:
->     - Verified suspend-to-RAM functionality with no spurious pending
->       wake sources observed.
->     - Verified wake up through GPIO L.2 using an Ethernet magic packet.
->     - Verified the reported wake source after resume.
->     - Verified that regular Ethernet traffic does not trigger an
->       unintended wake-up.
->     - Confirmed Ethernet connectivity and normal network operation
->       after resume.
->     - Repeated multiple suspend/resume cycles to verify consistent
->       behavior.
->   - make ARCH=3Darm64 CHECK_DTBS=3Dy is clean for the two affected boards,
->     tegra234-p3768-0000+p3767-0000 and -0005, with dtschema 2026.6.
->   - checkpatch --strict reports no issues on either patch.
->=20
-> Note: the series is based on the linux-next 20260817 snapshot rather
-> than a maintainer tree; see the base-commit trailer below. Happy to
-> rebase onto whichever tree you prefer.
->=20
-> Manikanta Maddireddy (2):
->   soc/tegra: pmc: Add PCIe wake event for Tegra234
->   arm64: tegra: Add PCIe wake GPIO for Jetson Orin NX/Nano
->=20
->  .../boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi     | 10 ++++++++++
->  drivers/soc/tegra/pmc.c                                |  1 +
->  2 files changed, 11 insertions(+)
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=d4930f6e1546a78d77ed881fb022965441eae937
 
-Both patches applied, thanks.
-
-Thierry
-
---6gn3v7gdvmn6udrx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq/aYcACgkQ3SOs138+
-s6FvNRAAhLIRO5DxfJQ6+4ddNyH5Bm2Rq6FcGZwFcUTz2Sx8Fhwv4eqkypaeD/lQ
-DnTxudWMLRJexm0ByQOYO1VGWLG903f1kSgzC+pdyfkLt5WuS5oXXn7OLBh85nFU
-lavG5luMTRjZJ7Cj5b3Go6fL+HLDZUW5rk8bl1RQbUmQRxnMOllHRpBBGDtIHm1R
-pwk741DWD2rIqYkLw9L5RVmuSmeKEHEmiU+OxO+nWQGF1CH20K7/Hc3WavcHnMQf
-7L+YXryvpe30LG1e3IXft0x2ruwEtlD369XZU1rDNNRvMeCUCzx04CpsVNODHXcI
-pAJg3PyL+1iR15UuisUc0yDjToIp8q+NAOlSJBpb7AG5d+GLz50uFeb/GLQVA+/n
-GDFec+i+JOe13EEu+liehZzN0viQpyRZX2i7aJ7l9NadGSKms0wN6nFnvn3AS0Qi
-WK8g/CIuB3hOTfIIreIWYu2zwJZKUYog6tqZgsr1T/IUWpcWOeaqpz+1EBr0mAyZ
-BtUrkDYKJNrcWQxpgRMkxVuXbfwJyLd0ErqwTDEPNRQRNLK2JntLYU8g05TIhk80
-PxrGZclM/jLQx5pSr617dmVSAVC5wXe7oNQVmKY+AfJiqNjOTHzsuxqOl6Kj/+ah
-PTfUz2Yvhhwfm00IL1NsSWo3jTSoPknr6+E0GJLzlbek4r7Ua8o=
-=M3Rn
------END PGP SIGNATURE-----
-
---6gn3v7gdvmn6udrx--
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
