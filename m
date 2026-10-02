@@ -1,337 +1,645 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C313624C3
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFCB73E557D;
+	Fri,  2 Oct 2026 06:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921737; cv=none; b=rinMdPCv5LR8uWRpzPCePqQje75qSp+mxkciMXbsTF1UuWrIcpv0eWp/xGPNhLWr8eYGlGONiU3GHFCPV4p5rLBu5BnZUsWyD+K9Qo/NiMOutH1vNHoVehoyI+HyPpd7cEVj31tZnkxzYWYx7572F3kkG6hZRof3AMeC+B93wDg=
+	t=1790921741; cv=none; b=XT5ySjOvt5INVhTOiGlWivGDzt+6AJsK5gVsGxa1+A9wEBZR/agsN6i/ehHEJ86oXNQVFHPT0wkZ5rnWseSwlqcdLY++tErMesjlkx32DxTUyTdQ7ZD2vAMfpnsI2Zg1qqHMIE/I6kM1sZOVn4zQYRTAa1APcPZq0DVOCr80ino=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790921737; c=relaxed/simple;
-	bh=cCWTomR+IxE8n110azN/buoa+QOBIeOrS7DImRQP20I=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Q0Q/mtsFvmGhrRtrw6i+KlyIfE1n5z3s++iUzMe41RgtTEIXaEJUGpYc0XtYOBcFCMf/0ZYVeMFXc/Fk2PndXR63Rhb6IeqKO8XXMl8XbGz0W5jumwz/lA8UtVDrwHxmNwhdGFgp727ElwdNglOMdTmueDckIFCtJqhVjCn9RLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-82315dbce25so134759a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:15:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790921734; x=1791526534;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VHl164KF9QmUiHMYC+0V/c2CfiNGjgIdO8kbSXlbTVs=;
-        b=E0sRu5U7V3Gyr26ISs85+Z4pZKi2com20dcZPzO7gh88QRAZl0mDlEBC8Lrsm5kkrZ
-         Ga4Fd9Q/1tgkixbV14AhMnPNK0jHyPti9csrPmGg6QP1BDGz9zxcDL79qhQaWHysPFM+
-         OtFyXyCdeZ6kYAC+3eGV34KwmpLDN4MhGDhxoctJ7F8wwSiTRml+jUp737XJZBeqg0zU
-         IIDpMCKKX+daFyz6z/xnfRbh9oC48PxfnvOVcwhgIm1jaSAargEIAn8CbVZ0+9qfRRn+
-         ipZ0JHJlmLVmRhcxtuLDjwkznF04iGTNmlz1OJSL7DXeVajGyYF0yPFhI1qlzwx5tyxI
-         FsYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSK4FAltmkNk0UNUxPGgcs7ZLWezzeo0uE2zhGXZh/3ak/mFRIMHNZQucaU55TzHIyt5QGx/EksMGFrgQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyEt6mr3f7WjJrt28iQsbOmHwhU3YIus2SaS8aHugQ8kV1CMTg
-	Ytp0JKsZ/BcrjV5JKwAzL8FWhKBRj1ojosfJtbjyysMgbfqU4Hy6AmGsJYMN+LpyFMAHvEK5s2o
-	xTFWzcgLBj8i8jFvNXXdqlVyuNMAnMDZy8VNiZgLUiuSyIXhRDFYdP+l4WF8=
+	s=arc-20240116; t=1790921741; c=relaxed/simple;
+	bh=NlN4FJUb8MedDpRUw0/80ZI1RiKLpUaK2oPSvbsHuCY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QkN/EJPC5XMlgCXbLjn+RcsUROLeSNAAzvJzq9+BuEvigKsvQE9S3RpRQ4egHas/pwXOWJHLwoIWu7n+NyItuV4wRSdqFWWBjFnodo2KKnduK65dX+SYda2DIqJZ3R/TVCcYGs+B36vLU9qz4mVqYeSAyabbLjB4wHG6k1zT1oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rf0iq3jg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rf0iq3jg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A58F71476;
+	Thu,  1 Oct 2026 23:15:34 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 731713F763;
+	Thu,  1 Oct 2026 23:15:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790921737; bh=NlN4FJUb8MedDpRUw0/80ZI1RiKLpUaK2oPSvbsHuCY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=rf0iq3jghOAr3daG4M5BIDY3ubuDZHQ7S0stx1zEHw/rWemUUGjOI5Oip4MpnMB7/
+	 7SYqlRhZYfiQAov6n53JSvcGjQbiFOIK7DIASQcKERV03sf6xzLks8pp15+71i1TO0
+	 UEX+ObuZv8eDgB39zhEo9EwtMxeyr4gL0k5FBHUU=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v22 01/10] firmware: arm_rmm: Add SMC definitions for calling the RMM
+Date: Fri,  2 Oct 2026 07:14:57 +0100
+Message-ID: <20261002061507.1600269-2-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261002061507.1600269-1-suzuki.poulose@arm.com>
+References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1315:b0:4e6:76eb:b997 with SMTP id
- 5614622812f47-4f52a5776f4mr1201120b6e.62.1790921734140; Thu, 01 Oct 2026
- 23:15:34 -0700 (PDT)
-Date: Thu, 01 Oct 2026 23:15:34 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abf4c06.9b478af7.e8d7a.0007.GAE@google.com>
-Subject: [syzbot] [bluetooth?] possible deadlock in rfcomm_run
-From: syzbot <syzbot+0adf2aef8ca78b84c4df@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Steven Price <steven.price@arm.com>
 
-syzbot found the following issue on:
+The RMM (Realm Management Monitor) provides functionality that can be
+accessed by SMC calls from the host.
 
-HEAD commit:    d266640c6c76 Merge tag 'driver-core-7.3-rc5' of git://git...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1586b315580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=0adf2aef8ca78b84c4df
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+The SMC definitions are based on DEN0137[1] version 2.0-bet3
 
-Unfortunately, I don't have any reproducer for this issue yet.
+[1] https://developer.arm.com/documentation/den0137/2-0bet3/
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-d266640c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/b8d2ccf5a23e/vmlinux-d266640c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/0b1dbd9ea9d5/bzImage-d266640c.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+0adf2aef8ca78b84c4df@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Tainted: G             L     
-------------------------------------------------------
-krfcommd/3367 is trying to acquire lock:
-ffff888062feb940 ((wq_completion)hci3){+.+.}-{0:0}, at: touch_wq_lockdep_map+0x9c/0x1c0 kernel/workqueue.c:4111
-
-but task is already holding lock:
-ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2096 [inline]
-ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_run+0x30b/0x5550 net/bluetooth/rfcomm/core.c:2205
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #6 (rfcomm_mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       rfcomm_dlc_open+0x92/0xac0 net/bluetooth/rfcomm/core.c:426
-       rfcomm_dev_activate+0x83/0x110 net/bluetooth/rfcomm/tty.c:112
-       tty_port_open+0x156/0x1f0 drivers/tty/tty_port.c:769
-       rfcomm_tty_open+0xad/0x490 net/bluetooth/rfcomm/tty.c:745
-       tty_open+0x2cc/0xe20 drivers/tty/tty_io.c:2110
-       chrdev_open+0x234/0x6a0 fs/char_dev.c:411
-       do_dentry_open+0x6ab/0x14d0 fs/open.c:996
-       vfs_open+0x82/0x3f0 fs/open.c:1101
-       do_open fs/namei.c:4837 [inline]
-       path_openat+0x19fa/0x2440 fs/namei.c:5000
-       do_file_open+0x20e/0x430 fs/namei.c:5029
-       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
-       do_sys_open fs/open.c:1423 [inline]
-       __do_sys_open fs/open.c:1431 [inline]
-       __se_sys_open fs/open.c:1427 [inline]
-       __x64_sys_open+0xfe/0x1d0 fs/open.c:1427
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #5 (&port->mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       class_mutex_constructor include/linux/mutex.h:253 [inline]
-       uart_set_termios+0x8e/0x690 drivers/tty/serial/serial_core.c:1646
-       tty_set_termios+0x64d/0x980 drivers/tty/tty_ioctl.c:341
-       set_termios+0x5c8/0x880 drivers/tty/tty_ioctl.c:516
-       tty_mode_ioctl+0x17e/0xd40 drivers/tty/tty_ioctl.c:803
-       n_tty_ioctl_helper+0x47/0x2b0 drivers/tty/tty_ioctl.c:982
-       n_tty_ioctl+0x53/0x340 drivers/tty/n_tty.c:2496
-       tty_ioctl+0x11b4/0x1640 drivers/tty/tty_io.c:2774
-       vfs_ioctl fs/ioctl.c:51 [inline]
-       __do_sys_ioctl fs/ioctl.c:597 [inline]
-       __se_sys_ioctl fs/ioctl.c:583 [inline]
-       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #4 (&tty->termios_rwsem){++++}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
-       class_rwsem_write_constructor include/linux/rwsem.h:270 [inline]
-       n_tty_flush_buffer+0x25/0x1b0 drivers/tty/n_tty.c:349
-       tty_buffer_flush+0x239/0x310 drivers/tty/tty_buffer.c:248
-       tty_ldisc_flush+0x68/0xf0 drivers/tty/tty_ldisc.c:388
-       tty_port_close_start+0x306/0x500 drivers/tty/tty_port.c:648
-       tty_port_close+0x26/0x170 drivers/tty/tty_port.c:703
-       tty_release+0x40e/0x1300 drivers/tty/tty_io.c:1718
-       __fput+0x3ff/0xb50 fs/file_table.c:512
-       task_work_run+0x150/0x240 kernel/task_work.c:233
-       resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
-       __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
-       exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
-       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-       syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
-       do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #3 (&buf->lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       tty_buffer_flush+0x72/0x310 drivers/tty/tty_buffer.c:236
-       tty_ldisc_flush+0xad/0xf0 drivers/tty/tty_ldisc.c:388
-       hci_uart_flush+0xed/0x630 drivers/bluetooth/hci_ldisc.c:255
-       hci_uart_close+0x1d/0x90 drivers/bluetooth/hci_ldisc.c:292
-       hci_dev_open_sync+0x126f/0x25e0 net/bluetooth/hci_sync.c:5480
-       hci_dev_do_open+0x2a/0xb0 net/bluetooth/hci_core.c:431
-       hci_power_on+0x131/0x630 net/bluetooth/hci_core.c:923
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #2 (&hdev->req_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       hci_dev_do_open+0x22/0xb0 net/bluetooth/hci_core.c:429
-       hci_power_on+0x131/0x630 net/bluetooth/hci_core.c:923
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 ((work_completion)(&hdev->power_on)){+.+.}-{0:0}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       process_one_work+0xa32/0x1b10 kernel/workqueue.c:3372
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 ((wq_completion)hci3){+.+.}-{0:0}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       touch_wq_lockdep_map+0xad/0x1c0 kernel/workqueue.c:4111
-       __flush_workqueue+0x131/0x1200 kernel/workqueue.c:4153
-       drain_workqueue+0x175/0x3b0 kernel/workqueue.c:4317
-       destroy_workqueue+0xc3/0xa30 kernel/workqueue.c:6155
-       hci_release_dev+0x14d/0x630 net/bluetooth/hci_core.c:2717
-       bt_host_release+0x6b/0xb0 net/bluetooth/hci_sysfs.c:100
-       device_release+0xd2/0x270 drivers/base/core.c:2640
-       kobject_cleanup lib/kobject.c:689 [inline]
-       kobject_release lib/kobject.c:720 [inline]
-       kref_put include/linux/kref.h:65 [inline]
-       kobject_put+0x1f7/0x640 lib/kobject.c:737
-       put_device+0x1f/0x30 drivers/base/core.c:3884
-       device_release+0xd2/0x270 drivers/base/core.c:2640
-       kobject_cleanup lib/kobject.c:689 [inline]
-       kobject_release lib/kobject.c:720 [inline]
-       kref_put include/linux/kref.h:65 [inline]
-       kobject_put+0x1f7/0x640 lib/kobject.c:737
-       put_device+0x1f/0x30 drivers/base/core.c:3884
-       hci_conn_put include/net/bluetooth/hci_core.h:1689 [inline]
-       l2cap_conn_free net/bluetooth/l2cap_core.c:1856 [inline]
-       kref_put include/linux/kref.h:65 [inline]
-       l2cap_conn_put net/bluetooth/l2cap_core.c:1869 [inline]
-       l2cap_chan_destroy net/bluetooth/l2cap_core.c:494 [inline]
-       kref_put include/linux/kref.h:65 [inline]
-       l2cap_chan_put+0x352/0x3f0 net/bluetooth/l2cap_core.c:521
-       l2cap_sock_release+0x1db/0x280 net/bluetooth/l2cap_sock.c:1533
-       __sock_release net/socket.c:735 [inline]
-       sock_release+0x91/0x1c0 net/socket.c:763
-       rfcomm_session_del.isra.0+0x16b/0x250 net/bluetooth/rfcomm/core.c:718
-       rfcomm_process_rx net/bluetooth/rfcomm/core.c:2030 [inline]
-       rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2115 [inline]
-       rfcomm_run+0x6f6/0x5550 net/bluetooth/rfcomm/core.c:2205
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-other info that might help us debug this:
-
-Chain exists of:
-  (wq_completion)hci3 --> &port->mutex --> rfcomm_mutex
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(rfcomm_mutex);
-                               lock(&port->mutex);
-                               lock(rfcomm_mutex);
-  lock((wq_completion)hci3);
-
- *** DEADLOCK ***
-
-locks held by krfcommd/3367: 1, last CPU#1:
- #0: ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2096 [inline]
- #0: ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_run+0x30b/0x5550 net/bluetooth/rfcomm/core.c:2205
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 3367 Comm: krfcommd Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- touch_wq_lockdep_map+0xad/0x1c0 kernel/workqueue.c:4111
- __flush_workqueue+0x131/0x1200 kernel/workqueue.c:4153
- drain_workqueue+0x175/0x3b0 kernel/workqueue.c:4317
- destroy_workqueue+0xc3/0xa30 kernel/workqueue.c:6155
- hci_release_dev+0x14d/0x630 net/bluetooth/hci_core.c:2717
- bt_host_release+0x6b/0xb0 net/bluetooth/hci_sysfs.c:100
- device_release+0xd2/0x270 drivers/base/core.c:2640
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x1f7/0x640 lib/kobject.c:737
- put_device+0x1f/0x30 drivers/base/core.c:3884
- device_release+0xd2/0x270 drivers/base/core.c:2640
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x1f7/0x640 lib/kobject.c:737
- put_device+0x1f/0x30 drivers/base/core.c:3884
- hci_conn_put include/net/bluetooth/hci_core.h:1689 [inline]
- l2cap_conn_free net/bluetooth/l2cap_core.c:1856 [inline]
- kref_put include/linux/kref.h:65 [inline]
- l2cap_conn_put net/bluetooth/l2cap_core.c:1869 [inline]
- l2cap_chan_destroy net/bluetooth/l2cap_core.c:494 [inline]
- kref_put include/linux/kref.h:65 [inline]
- l2cap_chan_put+0x352/0x3f0 net/bluetooth/l2cap_core.c:521
- l2cap_sock_release+0x1db/0x280 net/bluetooth/l2cap_sock.c:1533
- __sock_release net/socket.c:735 [inline]
- sock_release+0x91/0x1c0 net/socket.c:763
- rfcomm_session_del.isra.0+0x16b/0x250 net/bluetooth/rfcomm/core.c:718
- rfcomm_process_rx net/bluetooth/rfcomm/core.c:2030 [inline]
- rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2115 [inline]
- rfcomm_run+0x6f6/0x5550 net/bluetooth/rfcomm/core.c:2205
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+Tested-by: Gavin Shan <gshan@redhat.com>
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ Changes since v19:
+  * Fold the 'padding' only union in rec_exit to the previous group of fields
+  * Add static_assert to make sure the struct field offsets match the spec
+  * Rename 'padding' fields to 'sizer' which they really are
+  * Add MAINTAINERS entry for the new header file under ARM64
+ Changes since v18:
+  * Use _ULL version for masks spanning beyond 32bits
+  * Add GENMASK, FIELD_GET, FIELD_PREP for RMI_ABI_VERSION_*
+  * Consistent naming for masks, order the remaing ones by MSB to LSB
+  * Rename RMI_RETURN_ => RMI_RESULT and add relevant Rmi types for
+    clear indication on what they represent.
+ Changes since v17:
+  * Use GENMASK()/BIT() for masks consistently
+  * Rename RMI_{ADDR_RANGE, DONATE}_SIZE => RMI_{*}_BLOCK_SIZE
+  * Reorder the definitions for MSB to LSB
+  * Add definions for RMI_OP_MEM_*CONTIG and RMI_OP_CAN*_CANCEL
+ Changes since v16:
+  * Updated definitions to RMM specification v2.0-bet3.
+---
+ MAINTAINERS                   |   1 +
+ include/linux/arm-smccc-rmi.h | 516 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 517 insertions(+)
+ create mode 100644 include/linux/arm-smccc-rmi.h
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6215fcb077705..ed82c55bf566f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3953,6 +3953,7 @@ F:	Documentation/arch/arm64/
+ F:	arch/arm64/
+ F:	drivers/virt/coco/arm-cca-guest/
+ F:	drivers/virt/coco/pkvm-guest/
++F:	include/linux/arm-smccc-rmi.h
+ F:	tools/testing/selftests/arm64/
+ X:	arch/arm64/boot/dts/
+ X:	arch/arm64/configs/defconfig
+diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc-rmi.h
+new file mode 100644
+index 0000000000000..655726b374624
+--- /dev/null
++++ b/include/linux/arm-smccc-rmi.h
+@@ -0,0 +1,516 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2023-2026 ARM Ltd.
++ *
++ * The values and structures in this file are from the Realm Management Monitor
++ * specification (DEN0137) version 2.0-bet3:
++ * https://developer.arm.com/documentation/den0137/2-0bet3/
++ */
++
++#ifndef __LINUX_ARM_SMCCC_RMI_H_
++#define __LINUX_ARM_SMCCC_RMI_H_
++
++#include <linux/arm-smccc.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/build_bug.h>
++#include <linux/sizes.h>
++#include <linux/stddef.h>
++
++#include <asm/page.h>
++
++#define SMC_RMI_CALL(func)				\
++	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,		\
++			   ARM_SMCCC_SMC_64,		\
++			   ARM_SMCCC_OWNER_STANDARD,	\
++			   (func))
++
++#define SMC_RMI_VERSION				SMC_RMI_CALL(0x0150)
++
++#define SMC_RMI_RTT_DATA_MAP_INIT		SMC_RMI_CALL(0x0153)
++
++#define SMC_RMI_REALM_ACTIVATE			SMC_RMI_CALL(0x0157)
++#define SMC_RMI_REALM_CREATE			SMC_RMI_CALL(0x0158)
++#define SMC_RMI_REALM_DESTROY			SMC_RMI_CALL(0x0159)
++#define SMC_RMI_REC_CREATE			SMC_RMI_CALL(0x015a)
++#define SMC_RMI_REC_DESTROY			SMC_RMI_CALL(0x015b)
++#define SMC_RMI_REC_ENTER			SMC_RMI_CALL(0x015c)
++#define SMC_RMI_RTT_CREATE			SMC_RMI_CALL(0x015d)
++#define SMC_RMI_RTT_DESTROY			SMC_RMI_CALL(0x015e)
++
++#define SMC_RMI_RTT_READ_ENTRY			SMC_RMI_CALL(0x0161)
++
++#define SMC_RMI_RTT_DEV_VALIDATE		SMC_RMI_CALL(0x0163)
++#define SMC_RMI_PSCI_COMPLETE			SMC_RMI_CALL(0x0164)
++#define SMC_RMI_FEATURES			SMC_RMI_CALL(0x0165)
++#define SMC_RMI_RTT_FOLD			SMC_RMI_CALL(0x0166)
++
++#define SMC_RMI_RTT_INIT_RIPAS			SMC_RMI_CALL(0x0168)
++#define SMC_RMI_RTT_SET_RIPAS			SMC_RMI_CALL(0x0169)
++#define SMC_RMI_VSMMU_CREATE			SMC_RMI_CALL(0x016a)
++#define SMC_RMI_VSMMU_DESTROY			SMC_RMI_CALL(0x016b)
++
++#define SMC_RMI_RMM_CONFIG_SET			SMC_RMI_CALL(0x016e)
++#define SMC_RMI_PSMMU_IRQ_NOTIFY		SMC_RMI_CALL(0x016f)
++#define SMC_RMI_ATTEST_PLAT_TOKEN_REFRESH	SMC_RMI_CALL(0x0170)
++
++#define SMC_RMI_PDEV_ABORT			SMC_RMI_CALL(0x0174)
++#define SMC_RMI_PDEV_COMMUNICATE		SMC_RMI_CALL(0x0175)
++#define SMC_RMI_PDEV_CREATE			SMC_RMI_CALL(0x0176)
++#define SMC_RMI_PDEV_DESTROY			SMC_RMI_CALL(0x0177)
++#define SMC_RMI_PDEV_GET_STATE			SMC_RMI_CALL(0x0178)
++
++#define SMC_RMI_PDEV_STREAM_KEY_REFRESH		SMC_RMI_CALL(0x017a)
++#define SMC_RMI_PDEV_SET_PUBKEY			SMC_RMI_CALL(0x017b)
++#define SMC_RMI_PDEV_STOP			SMC_RMI_CALL(0x017c)
++#define SMC_RMI_RTT_AUX_CREATE			SMC_RMI_CALL(0x017d)
++#define SMC_RMI_RTT_AUX_DESTROY			SMC_RMI_CALL(0x017e)
++#define SMC_RMI_RTT_AUX_FOLD			SMC_RMI_CALL(0x017f)
++
++#define SMC_RMI_VDEV_ABORT			SMC_RMI_CALL(0x0185)
++#define SMC_RMI_VDEV_COMMUNICATE		SMC_RMI_CALL(0x0186)
++#define SMC_RMI_VDEV_CREATE			SMC_RMI_CALL(0x0187)
++#define SMC_RMI_VDEV_DESTROY			SMC_RMI_CALL(0x0188)
++#define SMC_RMI_VDEV_GET_STATE			SMC_RMI_CALL(0x0189)
++#define SMC_RMI_VDEV_UNLOCK			SMC_RMI_CALL(0x018a)
++#define SMC_RMI_RTT_SET_S2AP			SMC_RMI_CALL(0x018b)
++
++#define SMC_RMI_VDEV_GET_INTERFACE_REPORT	SMC_RMI_CALL(0x01d0)
++#define SMC_RMI_VDEV_GET_MEASUREMENTS		SMC_RMI_CALL(0x01d1)
++#define SMC_RMI_VDEV_LOCK			SMC_RMI_CALL(0x01d2)
++#define SMC_RMI_VDEV_START			SMC_RMI_CALL(0x01d3)
++
++#define SMC_RMI_VSMMU_EVENT_HANDLE		SMC_RMI_CALL(0x01d6)
++#define SMC_RMI_PSMMU_ACTIVATE			SMC_RMI_CALL(0x01d7)
++#define SMC_RMI_PSMMU_DEACTIVATE		SMC_RMI_CALL(0x01d8)
++
++#define SMC_RMI_PSMMU_ST_L2_CREATE		SMC_RMI_CALL(0x01db)
++#define SMC_RMI_PSMMU_ST_L2_DESTROY		SMC_RMI_CALL(0x01dc)
++#define SMC_RMI_DPT_L0_CREATE			SMC_RMI_CALL(0x01dd)
++#define SMC_RMI_DPT_L0_DESTROY			SMC_RMI_CALL(0x01de)
++#define SMC_RMI_DPT_L1_CREATE			SMC_RMI_CALL(0x01df)
++#define SMC_RMI_DPT_L1_DESTROY			SMC_RMI_CALL(0x01e0)
++#define SMC_RMI_GRANULE_TRACKING_GET		SMC_RMI_CALL(0x01e1)
++
++#define SMC_RMI_GRANULE_TRACKING_SET		SMC_RMI_CALL(0x01e3)
++
++#define SMC_RMI_RMM_CONFIG_GET			SMC_RMI_CALL(0x01ec)
++
++#define SMC_RMI_RMM_STATE_GET			SMC_RMI_CALL(0x01ee)
++
++#define SMC_RMI_PSMMU_EVENT_CONSUME		SMC_RMI_CALL(0x01f0)
++#define SMC_RMI_GRANULE_RANGE_DELEGATE		SMC_RMI_CALL(0x01f1)
++#define SMC_RMI_GRANULE_RANGE_UNDELEGATE	SMC_RMI_CALL(0x01f2)
++#define SMC_RMI_GPT_L1_CREATE			SMC_RMI_CALL(0x01f3)
++#define SMC_RMI_GPT_L1_DESTROY			SMC_RMI_CALL(0x01f4)
++#define SMC_RMI_RTT_DATA_MAP			SMC_RMI_CALL(0x01f5)
++#define SMC_RMI_RTT_DATA_UNMAP			SMC_RMI_CALL(0x01f6)
++#define SMC_RMI_RTT_DEV_MAP			SMC_RMI_CALL(0x01f7)
++#define SMC_RMI_RTT_DEV_UNMAP			SMC_RMI_CALL(0x01f8)
++#define SMC_RMI_RTT_ARCH_DEV_MAP		SMC_RMI_CALL(0x01f9)
++#define SMC_RMI_RTT_ARCH_DEV_UNMAP		SMC_RMI_CALL(0x01fa)
++#define SMC_RMI_RTT_UNPROT_MAP			SMC_RMI_CALL(0x01fb)
++#define SMC_RMI_RTT_UNPROT_UNMAP		SMC_RMI_CALL(0x01fc)
++#define SMC_RMI_RTT_AUX_PROT_MAP		SMC_RMI_CALL(0x01fd)
++#define SMC_RMI_RTT_AUX_PROT_UNMAP		SMC_RMI_CALL(0x01fe)
++#define SMC_RMI_RTT_AUX_UNPROT_MAP		SMC_RMI_CALL(0x01ff)
++#define SMC_RMI_RTT_AUX_UNPROT_UNMAP		SMC_RMI_CALL(0x0200)
++#define SMC_RMI_REALM_TERMINATE			SMC_RMI_CALL(0x0201)
++#define SMC_RMI_RMM_ACTIVATE			SMC_RMI_CALL(0x0202)
++#define SMC_RMI_OP_CONTINUE			SMC_RMI_CALL(0x0203)
++#define SMC_RMI_PDEV_STREAM_CONNECT		SMC_RMI_CALL(0x0204)
++#define SMC_RMI_PDEV_STREAM_DISCONNECT		SMC_RMI_CALL(0x0205)
++#define SMC_RMI_PDEV_STREAM_COMPLETE		SMC_RMI_CALL(0x0206)
++#define SMC_RMI_PDEV_STREAM_KEY_PURGE		SMC_RMI_CALL(0x0207)
++#define SMC_RMI_OP_MEM_DONATE			SMC_RMI_CALL(0x0208)
++#define SMC_RMI_OP_MEM_RECLAIM			SMC_RMI_CALL(0x0209)
++#define SMC_RMI_OP_CANCEL			SMC_RMI_CALL(0x020a)
++#define SMC_RMI_VSMMU_FEATURES			SMC_RMI_CALL(0x020b)
++#define SMC_RMI_VSMMU_CMD_GET			SMC_RMI_CALL(0x020c)
++#define SMC_RMI_VSMMU_CMD_COMPLETE		SMC_RMI_CALL(0x020d)
++#define SMC_RMI_PSMMU_INFO			SMC_RMI_CALL(0x020e)
++#define SMC_RMI_RMM_DEACTIVATE			SMC_RMI_CALL(0x020f)
++#define SMC_RMI_PDEV_STREAM_INFO		SMC_RMI_CALL(0x0210)
++#define SMC_RMI_GPT_INFO			SMC_RMI_CALL(0x0211)
++
++#define RMI_ABI_MAJOR_VERSION	2
++#define RMI_ABI_MINOR_VERSION	0
++
++#define RMI_ABI_VERSION_MAJOR_MASK		GENMASK(30, 16)
++#define RMI_ABI_VERSION_MINOR_MASK		GENMASK(15, 0)
++
++#define RMI_ABI_VERSION_GET_MAJOR(v)	FIELD_GET(RMI_ABI_VERSION_MAJOR_MASK, (v))
++#define RMI_ABI_VERSION_GET_MINOR(v)	FIELD_GET(RMI_ABI_VERSION_MINOR_MASK, (v))
++#define RMI_ABI_VERSION(major, minor)				\
++	(FIELD_PREP(RMI_ABI_VERSION_MAJOR_MASK, (major)) |	\
++	 FIELD_PREP(RMI_ABI_VERSION_MINOR_MASK, (minor)))
++
++/* RmiResult Type definitions */
++#define RMI_RESULT_STATUS_MASK		GENMASK(7, 0)
++/* RmiResultDataLevel field */
++#define RMI_RESULT_DATA_LEVEL_MASK	GENMASK(15, 8)
++/* RmiResultDataIncomplete fields */
++#define RMI_RESULT_MEMREQ_MASK		GENMASK(9, 8)
++#define RMI_RESULT_CAN_CANCEL_MASK	BIT(10)
++
++#define RMI_RESULT_STATUS(ret)		FIELD_GET(RMI_RESULT_STATUS_MASK, ret)
++#define RMI_RESULT_DATA_LEVEL(ret)	FIELD_GET(RMI_RESULT_DATA_LEVEL_MASK, ret)
++#define RMI_RESULT_MEMREQ(ret)		FIELD_GET(RMI_RESULT_MEMREQ_MASK, ret)
++#define RMI_RESULT_CAN_CANCEL(ret)	FIELD_GET(RMI_RESULT_CAN_CANCEL_MASK, ret)
++
++#define RMI_SUCCESS			0
++#define RMI_ERROR_INPUT			1
++#define RMI_ERROR_REALM			2
++#define RMI_ERROR_REC			3
++#define RMI_ERROR_RTT			4
++#define RMI_ERROR_NOT_SUPPORTED		5
++#define RMI_ERROR_DEVICE		6
++#define RMI_ERROR_RTT_AUX		7
++#define RMI_ERROR_PSMMU_ST		8
++#define RMI_ERROR_DPT			9
++#define RMI_BUSY			10
++#define RMI_ERROR_GLOBAL		11
++#define RMI_ERROR_TRACKING		12
++#define RMI_INCOMPLETE			13
++#define RMI_BLOCKED			14
++#define RMI_ERROR_GPT			15
++#define RMI_ERROR_GRANULE		16
++
++#define RMI_CONTINUE_KEEP_GOING		0
++#define RMI_CONTINUE_STOP		1
++
++#define RMI_OP_MEM_REQ_NONE		0
++#define RMI_OP_MEM_REQ_DONATE		1
++#define RMI_OP_MEM_REQ_RECLAIM		2
++
++#define RMI_OP_CANNOT_CANCEL		0
++#define RMI_OP_CAN_CANCEL		1
++
++#define RMI_DONATE_STATE_MASK		GENMASK(18, 17)
++#define RMI_DONATE_CONTIG_MASK		BIT(16)
++#define RMI_DONATE_COUNT_MASK		GENMASK(15, 2)
++#define RMI_DONATE_BLOCK_SIZE_MASK	GENMASK(1, 0)
++
++#define RMI_DONATE_STATE(req)		FIELD_GET(RMI_DONATE_STATE_MASK, req)
++#define RMI_DONATE_CONTIG(req)		FIELD_GET(RMI_DONATE_CONTIG_MASK, req)
++#define RMI_DONATE_COUNT(req)		FIELD_GET(RMI_DONATE_COUNT_MASK, req)
++#define RMI_DONATE_BLOCK_SIZE(req)	FIELD_GET(RMI_DONATE_BLOCK_SIZE_MASK, req)
++
++#define RMI_OP_MEM_DELEGATED		0
++#define RMI_OP_MEM_UNDELEGATED		1
++#define RMI_OP_MEM_CONDITIONAL		2
++
++#define RMI_OP_MEM_NON_CONTIG		0
++#define RMI_OP_MEM_CONTIG		1
++
++#define RMI_ADDR_TYPE_NONE		0
++#define RMI_ADDR_TYPE_SINGLE		1
++#define RMI_ADDR_TYPE_LIST		2
++
++#define RMI_ADDR_RANGE_STATE_MASK	GENMASK_ULL(63, 62)
++#define RMI_ADDR_RANGE_ADDR_MASK	GENMASK_ULL(51, PAGE_SHIFT)
++#define RMI_ADDR_RANGE_COUNT_MASK	GENMASK(PAGE_SHIFT - 1, 2)
++#define RMI_ADDR_RANGE_BLOCK_SIZE_MASK	GENMASK(1, 0)
++
++#define RMI_ADDR_RANGE_STATE(r)		FIELD_GET(RMI_ADDR_RANGE_STATE_MASK, (r))
++#define RMI_ADDR_RANGE_ADDR(r)		((r) & RMI_ADDR_RANGE_ADDR_MASK)
++#define RMI_ADDR_RANGE_COUNT(r)		FIELD_GET(RMI_ADDR_RANGE_COUNT_MASK, (r))
++#define RMI_ADDR_RANGE_BLOCK_SIZE(r)	FIELD_GET(RMI_ADDR_RANGE_BLOCK_SIZE_MASK, (r))
++
++enum rmi_ripas {
++	RMI_EMPTY = 0,
++	RMI_RAM = 1,
++	RMI_DESTROYED = 2,
++	RMI_DEV = 3,
++};
++
++#define RMI_NO_MEASURE_CONTENT	0
++#define RMI_MEASURE_CONTENT	1
++
++#define RMI_FEATURE_REGISTER_0_S2OASZ			GENMASK_ULL(40, 33)
++#define RMI_FEATURE_REGISTER_0_L0GPT_BLOCK_DELEGATE	BIT_ULL(32)
++#define RMI_FEATURE_REGISTER_0_PMU_NUM_CTRS		GENMASK(31, 27)
++#define RMI_FEATURE_REGISTER_0_PMU			BIT(26)
++#define RMI_FEATURE_REGISTER_0_NUM_WPS			GENMASK(25, 20)
++#define RMI_FEATURE_REGISTER_0_NUM_BPS			GENMASK(19, 14)
++#define RMI_FEATURE_REGISTER_0_SVE_VL			GENMASK(13, 10)
++#define RMI_FEATURE_REGISTER_0_SVE			BIT(9)
++#define RMI_FEATURE_REGISTER_0_LPA2			BIT(8)
++#define RMI_FEATURE_REGISTER_0_S2SZ			GENMASK(7, 0)
++
++#define RMI_FEATURE_REGISTER_1_PPS			GENMASK(16, 14)
++#define RMI_FEATURE_REGISTER_1_L0GPTSZ			GENMASK(13, 10)
++#define RMI_FEATURE_REGISTER_1_MAX_RECS_ORDER		GENMASK(9, 6)
++#define RMI_FEATURE_REGISTER_1_HASH_SHA_512		BIT(5)
++#define RMI_FEATURE_REGISTER_1_HASH_SHA_384		BIT(4)
++#define RMI_FEATURE_REGISTER_1_HASH_SHA_256		BIT(3)
++#define RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB		BIT(2)
++#define RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB		BIT(1)
++#define RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB		BIT(0)
++
++#define RMI_FEATURE_REGISTER_2_REALM_MAX_VDEVS_ORDER	GENMASK(14, 10)
++#define RMI_FEATURE_REGISTER_2_NON_TEE_STREAM		BIT(9)
++#define RMI_FEATURE_REGISTER_2_VDEV_KROU		BIT(8)
++#define RMI_FEATURE_REGISTER_2_PDEV_MAX_VDEVS_ORDER	GENMASK(7, 4)
++#define RMI_FEATURE_REGISTER_2_ATS			BIT(3)
++#define RMI_FEATURE_REGISTER_2_VSMMU			BIT(2)
++#define RMI_FEATURE_REGISTER_2_DA_COH			BIT(1)
++#define RMI_FEATURE_REGISTER_2_DA			BIT(0)
++
++#define RMI_FEATURE_REGISTER_3_RTT_S2AP_INDIRECT	BIT(6)
++#define RMI_FEATURE_REGISTER_3_RTT_PLANE		GENMASK(5, 4)
++#define RMI_FEATURE_REGISTER_3_MAX_NUM_AUX_PLANES	GENMASK(3, 0)
++
++#define RMI_FEATURE_REGISTER_4_MEC_COUNT		GENMASK_ULL(63, 0)
++
++#define RMI_MEM_CATEGORY_CONVENTIONAL		0
++#define RMI_MEM_CATEGORY_DEV_NCOH		1
++#define RMI_MEM_CATEGORY_DEV_COH		2
++#define RMI_MEM_CATEGORY_NONE			3
++
++#define RMI_TRACKING_RESERVED			0
++#define RMI_TRACKING_NONE			1
++#define RMI_TRACKING_FINE			2
++#define RMI_TRACKING_COARSE			3
++#define RMI_TRACKING_INTERMEDIATE		4
++
++#define RMI_GRANULE_SIZE_4KB	0
++#define RMI_GRANULE_SIZE_16KB	1
++#define RMI_GRANULE_SIZE_64KB	2
++
++#define RMI_GPT_PAR_RESERVED           0U
++#define RMI_GPT_PAR_PLAT               1U
++#define RMI_GPT_PAR_HOST_NOT_CREATED   2U
++#define RMI_GPT_PAR_HOST_CREATED       3U
++
++/*
++ * Note many of these fields are smaller than u64 but all fields have u64
++ * alignment, so use u64 to ensure correct alignment.
++ */
++struct rmm_config {
++	union { /* 0x0 */
++		struct {
++			u64 tracking_region_size;
++			u64 rmi_granule_size;
++		};
++		u8 sizer[SZ_4K];
++	};
++};
++
++static_assert(sizeof(struct rmm_config) == SZ_4K);
++
++#define RMI_REALM_PARAM_FLAG_MEC_POLICY_MASK	GENMASK(8, 7)
++#define RMI_REALM_PARAM_FLAG_LFA_POLICY_MASK	GENMASK(6, 5)
++#define RMI_REALM_PARAM_FLAG_DA			BIT(3)
++#define RMI_REALM_PARAM_FLAG_PMU		BIT(2)
++#define RMI_REALM_PARAM_FLAG_SVE		BIT(1)
++
++#define RMI_HASH_SHA_256			0
++#define RMI_HASH_SHA_512			1
++#define RMI_HASH_SHA_384			2
++
++struct realm_params {
++	union { /* 0x0 */
++		struct {
++			u64 flags0;
++			u64 s2sz;
++			u64 sve_vl;
++			u64 num_bps;
++			u64 num_wps;
++			u64 pmu_num_ctrs;
++			u64 hash_algo;
++			u64 num_aux_planes;
++		};
++		u8 sizer0[0x400];
++	};
++	union { /* 0x400 */
++		struct {
++			u8 rpv[64];
++			u64 ats_plane;
++		};
++		u8 sizer1[0x400];
++	};
++	union { /* 0x800 */
++		struct {
++			u64 sizer2;
++			u64 rtt_base;
++			s64 rtt_level_start;
++			u64 rtt_num_start;
++			u64 flags1;
++			u64 max_num_vdevs;
++		};
++		u8 sizer3[0x700];
++	};
++	union { /* 0xf00 */
++		struct {
++			u8 sizer4[0x80];
++			u64 aux_rtt_base[3];
++		};
++		u8 sizer5[0x100];
++	};
++};
++
++static_assert(offsetof(struct realm_params, rpv) == 0x400);
++static_assert(offsetof(struct realm_params, rtt_base) == 0x808);
++static_assert(offsetof(struct realm_params, aux_rtt_base) == 0xf80);
++static_assert(sizeof(struct realm_params) == SZ_4K);
++
++/*
++ * The number of GPRs (starting from X0) that are configured by the host when
++ * a REC is created.
++ */
++#define REC_CREATE_NR_GPRS		8
++
++#define REC_PARAMS_FLAG_RUNNABLE	BIT(0)
++
++struct rec_params {
++	union { /* 0x0 */
++		u64 flags;
++		u8 sizer0[0x100];
++	};
++	union { /* 0x100 */
++		u64 mpidr;
++		u8 sizer1[0x100];
++	};
++	union { /* 0x200 */
++		u64 pc;
++		u8 sizer2[0x100];
++	};
++	union { /* 0x300 */
++		u64 gprs[REC_CREATE_NR_GPRS];
++		u8 sizer3[0xd00];
++	};
++};
++
++static_assert(offsetof(struct rec_params, mpidr) == 0x100);
++static_assert(offsetof(struct rec_params, pc) == 0x200);
++static_assert(offsetof(struct rec_params, gprs) == 0x300);
++static_assert(sizeof(struct rec_params) == SZ_4K);
++
++#define REC_ENTER_FLAG_FORCE_P0		BIT(7)
++#define REC_ENTER_FLAG_DEV_MEM_RESPONSE	BIT(6)
++#define REC_ENTER_FLAG_S2AP_RESPONSE	BIT(5)
++#define REC_ENTER_FLAG_RIPAS_RESPONSE	BIT(4)
++#define REC_ENTER_FLAG_TRAP_WFE		BIT(3)
++#define REC_ENTER_FLAG_TRAP_WFI		BIT(2)
++#define REC_ENTER_FLAG_INJECT_SEA	BIT(1)
++#define REC_ENTER_FLAG_EMULATED_MMIO	BIT(0)
++
++#define REC_RUN_GPRS			31
++
++struct rec_enter {
++	union { /* 0x000 */
++		u64 flags;
++		u8 sizer0[0x200];
++	};
++	union { /* 0x200 */
++		u64 gprs[REC_RUN_GPRS];
++		u8 sizer1[0x600];
++	};
++};
++
++static_assert(offsetof(struct rec_enter, gprs) == 0x200);
++static_assert(sizeof(struct rec_enter) == SZ_2K);
++
++#define RMI_EXIT_SYNC			0x00
++#define RMI_EXIT_IRQ			0x01
++#define RMI_EXIT_FIQ			0x02
++#define RMI_EXIT_PSCI			0x03
++#define RMI_EXIT_RIPAS_CHANGE		0x04
++#define RMI_EXIT_HOST_CALL		0x05
++#define RMI_EXIT_SERROR			0x06
++#define RMI_EXIT_S2AP_CHANGE		0x07
++#define RMI_EXIT_VDEV_VALIDATE_MAPPING	0x08
++#define RMI_EXIT_VSMMU_COMMAND		0x0a
++
++struct rec_exit {
++	union { /* 0x000 */
++		u8 exit_reason;
++		u8 sizer0[0x100];
++	};
++	union { /* 0x100 */
++		struct {
++			u64 esr;
++			u64 far;
++			u64 hpfar;
++			u64 rtt_tree;
++		};
++		u8 sizer1[0x100];
++	};
++	union { /* 0x200 */
++		u64 gprs[REC_RUN_GPRS];
++		u8 sizer2[0x200];
++	};
++	union { /* 0x400 */
++		struct {
++			u64 cntp_ctl;
++			u64 cntp_cval;
++			u64 cntv_ctl;
++			u64 cntv_cval;
++		};
++		u8 sizer4[0x100];
++	};
++	union { /* 0x500 */
++		struct {
++			u64 ripas_base;
++			u64 ripas_top;
++			u8 ripas_value;
++			u8 sizer5[0xf];
++			u64 s2ap_base;
++			u64 s2ap_top;
++			u64 vdev_id_1;
++			u64 vdev_id_2;
++			u64 dev_mem_base;
++			u64 dev_mem_top;
++			u64 dev_mem_pa;
++		};
++		u8 sizer6[0x100];
++	};
++	union { /* 0x600 */
++		struct {
++			u16 imm;
++			u8 sizer7[0x6];
++			u64 plane;
++		};
++		u8 sizer8[0x100];
++	};
++	union { /* 0x700 */
++		struct {
++			u8 pmu_ovf_status;
++			u8 sizer9[0xf];
++			u64 vsmmu;
++		};
++		u8 sizer10[0x100];
++	};
++};
++
++static_assert(sizeof(struct rec_exit) == SZ_2K);
++static_assert(offsetof(struct rec_exit, esr) == 0x100);
++static_assert(offsetof(struct rec_exit, gprs) == 0x200);
++static_assert(offsetof(struct rec_exit, cntp_ctl) == 0x400);
++static_assert(offsetof(struct rec_exit, ripas_base) == 0x500);
++static_assert(offsetof(struct rec_exit, imm) == 0x600);
++static_assert(offsetof(struct rec_exit, pmu_ovf_status) == 0x700);
++
++struct rec_run {
++	struct rec_enter enter;
++	struct rec_exit exit;
++};
++
++static_assert(sizeof(struct rec_run) == SZ_4K);
++
++/* RMI_RTT_UNPROT_MAP_FLAGS definitions */
++#define RMI_RTT_UNPROT_MAP_FLAGS_S2AP_MASK		GENMASK(22, 19)
++#define RMI_RTT_UNPROT_MAP_FLAGS_MEMATTR_MASK		GENMASK(18, 16)
++#define RMI_RTT_UNPROT_MAP_FLAGS_LIST_COUNT_MASK	GENMASK(15, 2)
++#define RMI_RTT_UNPROT_MAP_FLAGS_OADDR_TYPE_MASK	GENMASK(1, 0)
++
++/* RMI_RTT_PROT_MAP_FLAGS definitions */
++#define RMI_RTT_PROT_MAP_FLAGS_LIST_COUNT_MASK		GENMASK(15, 2)
++#define RMI_RTT_PROT_MAP_FLAGS_OADDR_TYPE_MASK		GENMASK(1, 0)
++
++/* S2AP Direct Encodings, used in RMI_RTT_UNPROT_MAP_FLAGS_S2AP */
++#define RMI_S2AP_DIRECT_READ			BIT(1)
++#define RMI_S2AP_DIRECT_WRITE			BIT(0)
++
++#endif /* __LINUX_ARM_SMCCC_RMI_H_ */
+-- 
+2.43.0
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
