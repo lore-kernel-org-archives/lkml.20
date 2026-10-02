@@ -1,63 +1,65 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F5833DEE9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D06A348C52
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790915194; cv=none; b=tlpCU16vU09flT94aBtLV+qXnE0aREDI3snIo1HhB19ImWxx+abVD0dMN+jAqBg87lY6JS+KForJxgyUEdd/O/sNJNxjKZDYTHpPv5H9+T7mUcLclbSDtD3YnJVE7pkNEbZef8LuXDRhwUzBg3dD1QYo6ESp9aZHIo4p99lF+pI=
+	t=1790915197; cv=none; b=f9UCGDZK28DR6YDUg3hfYUfJOK6VZQ9E83Or6ueJOOwlnQl5DW+7KztVkE4gtEDgm/ppw79emOFFjBrib4EDjYYBDQWQp/yLTNYCiJK3ep2iJb7qJXNvD0vvRZ5CKQmtjTzMZhfoUVczn2YvCmdUUW7IkALofFBYLuD4LIdUw2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790915194; c=relaxed/simple;
-	bh=Qsz1ondFtEZv9xSn3042JC36WDtLaOsnrBeBLxf3mF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fK8BQI3Jh5BQXAw1T1G6uyaxF0378PncTw48CFwwmjupQ3oo2ri7Iapq01hiHnybFlJ6ivzUVzHV+1DSmoqxG2spUD3a17ADcwfhpDWG5QicXU3s2pVHOZM3rmLkFi/B1tHecDmjB5BOPhPbATZSfSpXCIJQSjWk1JI7+X46OEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o8EfumMi; arc=none smtp.client-ip=74.125.227.169
+	s=arc-20240116; t=1790915197; c=relaxed/simple;
+	bh=LCR2JBPCr9b9PvvbUIwHG1o1bbom3rQF9fJDcnI02NM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N08tMjz844ANx4vRzJ3zgzuMdZoMmYnY7sKgCDfpIvlFI/S82ZmvlzFHSFFq0BZpdu7G2KnwEtl1qLVZqFIbf+T+epgPPHLwhEzQH2lhG4lFCnPNUbh+DEMCc/jVUXzQNUCrE4jQurtwxgK8qBUGdEuPQumSclylsjkxp8sxdhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U1WssdSG; arc=none smtp.client-ip=74.125.227.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o8EfumMi"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a6d43df6bcso223579a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:26:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U1WssdSG"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4c0da0145so1545669a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790915192; x=1791519992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vNWgHWFntjdcQwxESc9utnvqb5FHGViZ7zWGBxebvww=;
-        b=o8EfumMiqpcNLpY5Gy3w0w+Y3hEYjlMm/VIuIXTKFkyCuP/00AmM1yS8ecfV1T+gsT
-         NswW1PTZgbdDHW6c5MkaEEcVw9a7RwaJvpz43aIXcCtvU8Je5HwV45/7cE+fzMZ5O1f4
-         p+vZUY5ZrKmM4aVAySKWJ4g91vN4M1iqVxVJQI5slU2HluF5JsMW3qpkhKin1r5xVMYN
-         vk3WKOtpqy4t3X8+vgBZf7IVdo993OSe5ab7HmYXv78bEIyjTam4b2i4TIiJfZQ6QfUj
-         XUr7cZuAOvI5j4Twu/e+aiZKtVs0xj8fw3O5b3XnB2NycPv4awMR/WWU2E54VP+x9imh
-         KM0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790915192; x=1791519992;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790915195; x=1791519995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vNWgHWFntjdcQwxESc9utnvqb5FHGViZ7zWGBxebvww=;
-        b=Dv7fOEovFx1DKYXs3pOD96EGzRzHra/iXixh0hs84xiRGVGLtwELP4NjMgzlnJt6Y/
-         wWgy1WYeCGnQQ+38RktSD2Pq3E1aQDNE+3NUKjNCneS5Hx2HzCpO8GyS900VO4mtYERe
-         Ewjlek2IK5Bjq1H2QV/+L3G25rpHZFw5HnIbZqNr16WcbgFFlWlUl/r/tKPzzD/i2GDJ
-         Kb6V2eIBHmXxJP5WoukF+kM+69iYpOf/JSbjJKfsZJnQFBwhZT0bqXtB+b07hwUgdhwn
-         sIXUma5Evla+r56450bKsQL0flYb1TY2oRdfBwFzJsebXcQ4WV4gkmVCvxKYq9B8m4vt
-         LAow==
-X-Forwarded-Encrypted: i=1; AKwUvBx1cfg31QTYB/WhSwaX0uvBBSD27bvKd4pNdziioRyAKssplJU33o5o9on9yjOloS5MJVkazKAs++gWKcc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKX9a9SJ3TFTi/i063sgcKGsWJcdSdvbrEuiKJGYih0x8EesIRa
-	OR/ZzV5IjnlXMZJZKIIQFX3eoySqIKJtNCwSlDaAlpjWHlhunynCBo9N
-X-Gm-Gg: AYBFou1LxXC7+wq0yPq/i7ulIK9GS4Vj48mJ4SDejGEG+yNA1NxbFnNJK7CQvMBB6+g
-	5nNtv30PK0JO86TyAcJWToww0NhNeXLCbeWt/ILRrsF91yovp37MV1AmYt/Ejd+0iZ3YKGUU4K0
-	+P85kJJ206kG6SfnmTHTWvN3T87MJkVZNeDjNIhXQ6Jjx2OeON33SVOITeU5+hpEwxoFCAYigv1
-	7AN6cpo0aIW49pxtfOJmMYZgoRjKdYd6HLs6HFargeK/Wk40BquR6vW+6amu/6s6nlYxDQOVoak
-	l6Dkba85AQEppwF9TjPMu2PTicxQX+aCMcSeeLx11aClRqK5IQ6iv39+p94I+IpJcqtMF4TdQTb
-	zpeJ7RFqeKCQqjUSrzxK8fRVlL5KyQBaLdE9OIULqZS2tvv+WroMRHLaM62UZLGt5RnBcKDpVs3
-	KuPmc7yTfq7sEGM2arnS/+NhYoBnjcodXQtR8+FmF2wW9c39TPQUq07U1HAJGxJvvsTrMG7bWyv
-	8pGsSDLuZyFPjeHDGJabz02QUKS7td3fvpTJnNiIBmhlDrEdxq9GWDvTJSX+4SmJex1hCI47Ovq
-	wp93xvcZyzCPwqD/G7//o3oA9JTv0CBIz29bqD0JhP3DhsfPSmhaVRdmZFs=
-X-Received: by 2002:a17:90b:2684:b0:3a0:b809:b9e7 with SMTP id 98e67ed59e1d1-3a6ce5a1ea0mr1461129a91.4.1790915192125;
-        Thu, 01 Oct 2026 21:26:32 -0700 (PDT)
+        bh=ch59/OCcOGgQy9W6cxXyKxD4pGxnDPiLx3tiRY8B8Ow=;
+        b=U1WssdSGmm/Wedg96jNwSeOudt9KMnnuPuto8yXw9OuttC70rjoeECeWC10+xauxkA
+         LdrLkA9TBK7y6ya1a+cHD9S0X5VAQjtjpYfa3PO8LbshYiWVkWRKakadUb9m0bZVbD1X
+         NXnskSjwEUYaHtIktBDaPAIDVIzz+2/msRQFzl0gqLCZ3h044JTtFJWAEFE9iC0ukYMS
+         mTlx90yt9oqljB9dgf4naONrQ4235LAphzJID1zfBiHaiH/sFd1dkeZHeySYwfeHBjzX
+         HHYi3B26y5PlTxaNMtglMg7YR6AeRnJpvBQAVOUTHySyzhEQbnCR4tj8q47llhOv/vI5
+         /jcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790915195; x=1791519995;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ch59/OCcOGgQy9W6cxXyKxD4pGxnDPiLx3tiRY8B8Ow=;
+        b=De30GVFUxhZebNr4rrimCI8ge1u9L5v8SHH6aP1YzIwAIUdsM/uFAxhtHtkUH1LwnQ
+         QIv35LuAGfib8xPIKFYIHy7mIL6Dq5xIzcNX86c1ndZk+weqzTqCOcOq/hjpV6xtl6yI
+         ZnsbbG7fdvXTFhMRbC8scbtcovGDywp7RjgVNtGWH1hoomd4mlzWfqOkw+GRodGmjn5g
+         UNSduQzTJ7YMoAtFMR7+LpzIaw1xT6vYbk5pmTGlabbDck99wptsLrW+sjDXPIZmku/r
+         geWrNon4nrS23ORBpDw9oXX5Ufoigr5puyVJCBmpEGSM/BhYLwbsUTJCtFJUsqABp/Z+
+         qfQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0/l9bl9yzi7IpoSMbhzU21QTZksnEa31UiS+daclH+kAoowIeh2SEvnTPLmYntcEUhmvthQUdEOmXsM4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4wBp4mJemJF+0aJloD5yJQh4ETMwAa+evFVL/MRAG4NwEPqqT
+	dhhQwTvfuuBKrPTTHth0J6ea/mlpeivgLDYLYfp9WGqLrt5pw/tEnKj2
+X-Gm-Gg: AYBFou2VDXo0HVgNCwTyfK4UYFhuMiXtPqNeDhrgtY+lz4lSfqDZYEeNtOGwaZx4s03
+	3oToP4Yj4d2Fw8YhqaCclsuZnd0cAW1mn3NNsV3rKhE2ZNJuEWmD2HEOP2UZxVEWPYZ7bC80cCt
+	LHXjPPB+mOO3pOmuJIKqUxm4Ayn03F+foZh3ouaLZEozNUKqsrrWIupTzXAzkr5bKB0nqZPsAgg
+	FTtv2GRelsZSUfMkMQGuVIRcD4E/lXQ558f7WGbljycyj9n41gLeNFKOl7JxHX003yDpO+EqIqo
+	O08cmBRqt/EJRP9gwJ0CqR2opi4UX+ydqFtOqyfWFYfyHEw6hx6jSkxWvAr5TO2Tf7aTl5eWBzY
+	zboQQUG12Xuy9Pv87ttlrXBkzfpA/ZXNQCRIGvERNcLucF0YWn8qGDSOek4CsxKDZE13qLRylYg
+	xsKsqPUCLdNGHXN6vCB7rBX06nMAE/LkBM2PPKiHN11bRbcJtg6ctwtMDBwh+oCNFLP5LRhjTMr
+	/cJ2UtnTwKL0CVwZOCJcaYbavdndhpWzTksPGp8CEP/DbQR7nIA6dbwYAcMRVBx/pgqKRdyl3bf
+	jVgIeBaIeGv9McO0ZEKRv5Cw01l9a41/6xTiE08NuHwlr4jQcycetNMNRwqp
+X-Received: by 2002:a17:90a:da8b:b0:3a0:79e6:b45d with SMTP id 98e67ed59e1d1-3a6ceb1393dmr1425867a91.54.1790915194596;
+        Thu, 01 Oct 2026 21:26:34 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6cd5ddb51sm2205054a91.14.2026.10.01.21.26.29
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6cd5ddb51sm2205054a91.14.2026.10.01.21.26.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 21:26:31 -0700 (PDT)
+        Thu, 01 Oct 2026 21:26:34 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Jan Kara <jack@suse.com>
 Cc: linux-fsdevel@vger.kernel.org,
@@ -65,10 +67,12 @@ Cc: linux-fsdevel@vger.kernel.org,
 	syzbot+799a0e744ac47f928024@syzkaller.appspotmail.com,
 	syzbot+43fc5ba6dcb33e3261ca@syzkaller.appspotmail.com,
 	syzkaller-bugs@googlegroups.com
-Subject: [PATCH RESEND 0/3] udf: fix double allocation from the unallocated space table
-Date: Fri,  2 Oct 2026 12:26:24 +0800
-Message-ID: <20261002042627.1677228-1-matthias.goergens@gmail.com>
+Subject: [PATCH RESEND 1/3] udf: don't let the extent type hide an exhausted free-space table extent
+Date: Fri,  2 Oct 2026 12:26:25 +0800
+Message-ID: <20261002042627.1677228-2-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261002042627.1677228-1-matthias.goergens@gmail.com>
+References: <20261002042627.1677228-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,63 +81,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Honza,
+udf_table_new_block() takes the first block of the free-space table
+extent closest to the goal.  It keeps that extent's type and length
+together in goal_elen, subtracts one block, and deletes the extent only
+if goal_elen then reaches zero.  UDF 2.60 section 2.3.7.1 requires the
+free-space extents of an Unallocated Space Entry to be of type 1
+(allocated but not recorded), and mkudffs writes them that way.  For
+such an extent the type bits keep goal_elen non-zero, so taking its last
+block leaves a type-1 extent of length zero behind, starting at the
+block after the extent, which is in use.
 
-Resent because the first posting went out without threading; nothing
-else has changed.
+The next allocation that picks this empty extent returns that in-use
+block.  Subtracting a block from 0x40000000 then borrows from the type
+bits, and the extent becomes type 0 with a length of 2^30 - blocksize:
+about a gigabyte of "free" space overlapping live metadata, the other
+table extents and whatever lies behind the partition.  From then on
+blocks are handed out twice, or past the end of the partition.
 
-A filesystem made with "mkudffs --space=unalloctable" hands out blocks
-that are still in use, for two separate reasons.
+Extents that udf_table_free_blocks() adds are type 0, where the check
+works, so only tables written by mkudffs or by another implementation
+are affected.  Nothing more than filling such a filesystem is needed:
+on a fresh 1 MiB "mkudffs --space=unalloctable" image, creating empty
+files until the partition is full writes file entries over the reserve
+volume descriptor sequence and the backup anchor, and df then reports a
+negative amount of used space.
 
-Patch 1: udf_table_new_block() keeps the extent type in the length
-word, so an exhausted type-1 table extent (the type mkudffs writes)
-survives as a zero-length extent pointing at an in-use block, and the
-next allocation from it underflows into about a gigabyte of "free"
-space.  Filling a fresh 1 MiB image with empty files is enough to
-overwrite the reserve VDS and the backup anchor.  This is the double
-allocation behind the two syzbot reports linked in the patch.
+On syzbot's images the same double allocation is what the two reports
+below trip over.  In the first, ftruncate() extends a new file with
+enough hole extents to need a chain of allocation extent descriptors;
+one AED is placed on another inode's file entry, and a later one is
+placed on the block of the AED currently being filled, which
+udf_setup_indirect_aext() zeroes, so __udf_add_aext() finds
+lengthAllocDescs out of step with its cursor.  In the second, an AED
+is placed past the end of the device, sb_getblk() fails, and the error
+path of udf_do_extend_file() calls udf_truncate_extents() on an extent
+list that no longer covers i_size.
 
-Patch 2 checks the table once at mount and refuses read-write access
-if it is damaged, for example by the bug in patch 1.
+Keep the type separately from the length, as udf_table_prealloc_blocks()
+already does.
 
-Patch 3: when a file's extent list ends in an empty allocation extent,
-udf_next_aext() returns 0 with its outputs describing the continuation
-descriptor, and udf_discard_prealloc() frees that block a second time
-instead of the preallocated blocks.  On a table the block is then
-handed out twice, and the fsx runs of generic/091 and generic/263 read
-back bad data, with or without patches 1 and 2.  On a bitmap the
-preallocated blocks leak.
-
-With the series, fstests -g quick (2 GiB images; KASAN, UBSAN and
-lockdep enabled) passes generic/091 and generic/263 on a table.  The
-remaining failures (generic/131, 360, 563, 634 and 777, and a hang in
-generic/346) are the same without the series and on a bitmap, where
-the series changes no result.  The reproducers are below the --- of
-patches 1 and 3.
-
-The series is based on your for_next and applies to v7.3-rc5 as well.
-
-Thanks,
-Matthias
-
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+799a0e744ac47f928024@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=799a0e744ac47f928024
+Reported-by: syzbot+43fc5ba6dcb33e3261ca@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=43fc5ba6dcb33e3261ca
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 ---
-For stable: patch 3 builds on the int return of udf_next_aext()
-(b405c1e58b73, v6.12, also backported to 6.6.y) and applies as is to
-6.6.y and later; older stable trees need a trivial adaptation.
+Reproducer, with mkudffs from udftools:
 
-Matthias Goergens (3):
-  udf: don't let the extent type hide an exhausted free-space table
-    extent
-  udf: check the unallocated space table when it is loaded
-  udf: leave udf_next_aext() outputs alone at the end of the extent list
+  truncate --size=1M udf.img
+  mkudffs --blocksize=512 --space=unalloctable udf.img
+  mount -t udf -o loop udf.img /mnt
+  mkdir /mnt/d
+  i=0; while touch /mnt/d/f$i 2> /dev/null; do i=$((i + 1)); done
+  df /mnt
+  umount /mnt
+  dd if=udf.img bs=512 skip=2047 count=1 | od -A n -t u2 -N 2
 
- fs/udf/balloc.c |  9 ++++--
- fs/udf/inode.c  | 21 ++++++++++---
- fs/udf/super.c  | 80 ++++++++++++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 102 insertions(+), 8 deletions(-)
+Without this patch df shows a negative used count, and the last block,
+the backup anchor (tag identifier 2), now holds an extended file entry
+(266).  With it, file creation stops when the partition is full, df
+shows it 100% used, and the anchor is intact.
 
+ fs/udf/balloc.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-base-commit: ba5855e74bcd761123e39f4708834a0015a74a8b
+diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
+index 30cec5600149..2ec577b4321c 100644
+--- a/fs/udf/balloc.c
++++ b/fs/udf/balloc.c
+@@ -572,7 +572,7 @@ static udf_pblk_t udf_table_new_block(struct super_block *sb,
+ 	uint32_t elen, goal_elen = 0;
+ 	struct kernel_lb_addr eloc, goal_eloc;
+ 	struct extent_position epos, goal_epos;
+-	int8_t etype;
++	int8_t etype, goal_etype = 0;
+ 	struct udf_inode_info *iinfo = UDF_I(table);
+ 	int ret = 0;
+ 
+@@ -623,7 +623,8 @@ static udf_pblk_t udf_table_new_block(struct super_block *sb,
+ 			goal_epos.block = epos.block;
+ 			goal_epos.offset = epos.offset - adsize;
+ 			goal_eloc = eloc;
+-			goal_elen = (etype << 30) | elen;
++			goal_elen = elen;
++			goal_etype = etype;
+ 		}
+ 	}
+ 
+@@ -647,7 +648,8 @@ static udf_pblk_t udf_table_new_block(struct super_block *sb,
+ 	goal_elen -= sb->s_blocksize;
+ 
+ 	if (goal_elen)
+-		udf_write_aext(table, &goal_epos, &goal_eloc, goal_elen, 1);
++		udf_write_aext(table, &goal_epos, &goal_eloc,
++			       (goal_etype << 30) | goal_elen, 1);
+ 	else
+ 		udf_delete_aext(table, goal_epos, &freed);
+ 	brelse(goal_epos.bh);
 -- 
 2.55.0
 
