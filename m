@@ -1,104 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDCF4BE443;
-	Fri,  2 Oct 2026 23:11:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77590345736
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790982715; cv=none; b=n4oL/reo2VG6nfSvjmoKlMpPNMnWpFG6Sk2WmiQcv2e4pUwHHixc+oSVdEUIOTGgokRs2/Lc4+XPQKf8mLCPvgnu9QANybnqR/vVaS3S/YPAAC8WDl4pd5En0PAiQhKm4x9qV38H8z/q5qOtDCFXqFRpg+j3cFE+LVKmiE4LE80=
+	t=1790983055; cv=none; b=XyMNp/wvPfzORxReHEZTu2rIFvhEZ6g/epQodl1V2VAcu5q13YM6atEWUtfjNebtzMWcwSYImC4x0/satr1V4HYs4yQNClUFgLXGHaq2+14muzddXKCys7d3Lw2rJggnvay7EhKel653ayt6bLm3LTOMQdgGAomYweypQH8lQes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790982715; c=relaxed/simple;
-	bh=Qg1UBe7pY9qBC27d8UoP7JV+IBLSCT+tqgRgQ4ycH9s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fwn511qRlY7lSzrGOTS8tJmhYkxYEIeHLVR6hDFKnQ+8tsP7U7ecvyZq9IadjXZ2MTGuYivCtcEkIJ3rOVynCuarg5fBFXmnLPrM6p+wwF/2xAnLEc/V8qtQi+TTwrtRJqmUGBrTxh2JF8SvrEOY2D48d8g7J4q0BJOi8bYVsUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZOYi8Acd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790983055; c=relaxed/simple;
+	bh=vQYW8NkeknDFxmdsiHCPbZW1E67XgtFXdvWKpJk6Ejw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=kC7R0JPkeKA8naMxOCsJ9LOTQPiEJbZwSpgJ4uLffDQHahVFw4+tDK2Kqd0XzRypH1C2PZtXtLt+UyLqP5AYI0ww+V7ppykY0erdwLmttt4yq+fKwJgCSWRFo1Q96itNgxO7MAJwYVXNV7gZUY28Lmu29kA1GJ0znKIoZ747WQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=m/YBucrX; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZOYi8Acd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4FB1F000FF;
-	Fri,  2 Oct 2026 23:11:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790982714;
-	bh=wGJL9Dq3oS9dB0mFzdoCJmdQpea+lx2mM7lSgkaajm8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZOYi8Acd3mm3RYq7Ae7+7ZG9TZVcqpNhVjBQfBe6lEqKmc8q5VHhdBid2IvkSaBtJ
-	 0jgIh7hS0qQA/EftmD9fBEc5xNSFqHXFNETWPztJ6tcGKmTUEViEZCcwHdmbkOnQpl
-	 EZRW/53plQ60QkkMlrvFcsVD5lVWf7bG+/EXdZLBabKNyz/CRKdpyD+ftW6uCr5jqa
-	 Ex/gzuQgC7Xl6OrLw5XPnjJ3gWn/z3qIKXXr4wBB9YjTre2/g2SPTDxnZLNEgyYJd9
-	 nXc8Th9ANhWAeNXNGrRp8zb43G7ntLe0YtyU+CVupmOW9T5xzFL9247NHcfmsK58ab
-	 GxHfrxNsbR/7A==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id B933B1AC57CE; Sat, 03 Oct 2026 00:11:49 +0100 (BST)
-Date: Sat, 3 Oct 2026 01:11:49 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	KBuild Mailing List <linux-kbuild@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Subject: Re: linux-next: manual merge of the bpf-next tree with the kbuild
- tree
-Message-ID: <asA6NZ4QKp4k4nGD@sirena.co.uk>
-References: <asAzcgDsbNEFIfKV@sirena.co.uk>
- <20261002230632.GA314599@ax162>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="m/YBucrX"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39aee9b4cf2so73825a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:17:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790983053; x=1791587853; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CI6qAqATyeIeEDwUgJX5pEeRwbkwR8o7zikonxdsfbU=;
+        b=m/YBucrXaS1oY1UcUs1yHHFQh+irOkCDEUA01jHXC2loJzkBnBDO3qsYxip5kIjniR
+         iJAtRNMRjm/KoTXzmWkYV9W2E11CX130j9JX26Tal1ksietcRlqZpqUiPn4BGqc33i5d
+         wEu6SGcUwAX31/oT0qXFRx+37+CREcLc+cwDhcsH1LUP7V5CcEPghVA/EdWBjpeoUwhW
+         S4UglP2j1ovjH+XUARqtq36Cuyo9xeM/bDdi5JpHVwKxvx8VFeSeHx/yxBauWyffRyjs
+         BIGM+uo3R6yAGa7wsRRd24jr9j4B9GAd+rXewvG33+WlftjsG1SwPXvPZgdUdH1LVxo5
+         iv+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790983053; x=1791587853;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CI6qAqATyeIeEDwUgJX5pEeRwbkwR8o7zikonxdsfbU=;
+        b=t+STNGoG8uM2M/yvthjT/lQYQAbPjVa1o1sb/rgJSW7wThDy0s/MqKeE3roBT0OzRM
+         +9TVUQ8nN59Nv0r2fyA9ce49YwbdSzJzsDXOl80maWi5v3NOx7vkj7PAEdaWrWpVNova
+         KIZ1F7JxEomIrBhlUY/5R4dPHE7nZ/gBTzQhZwRF3732zTmNjqfHP38+VctEU8sO4hc+
+         jnd5IO4Tmyq7E+5A3ulqpxt+eg7I9wPRQCJMP5ag9Lk1A9aKjIgkMuAQ78n537pEVLAi
+         FG45bPPmkdt1Fv0+tapVenuB7HgNXcfoDPbL4LmXugNcvM9/NJEaKI7hrWeqW+7pl1xY
+         +3sg==
+X-Forwarded-Encrypted: i=1; AKwUvBzVpUMpM+nQFAHh1zsmFxlhkMFmk9BnjfIpMZnYOBZ1CzIUTwAlhQoMjYsgarfXpa4fcmwHLGpBbczEPz4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkI84idAnMVdB0UiKHfCFe6tuDDu1ESl7orrvG8uh1FILXE5GH
+	cvhc93F5hU/a+Cd9dbCkGLyZFtKszqGo3T72g2722Hj3vBuae9rRVscZ2/DbXxyOA9MCaKk1Usz
+	rrjBdrw==
+X-Received: from pjbnm15.prod.google.com ([2002:a17:90b:19cf:b0:3a4:a25d:8869])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:55ce:b0:3a4:a383:f9cf
+ with SMTP id 98e67ed59e1d1-3a6ce7cea1bmr4001396a91.38.1790983052501; Fri, 02
+ Oct 2026 16:17:32 -0700 (PDT)
+Date: Fri, 2 Oct 2026 16:17:31 -0700
+In-Reply-To: <e61df396-356f-4ef2-9c3a-db3c05cb5c52@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mdPHBtUdV1DkW8Cb"
-Content-Disposition: inline
-In-Reply-To: <20261002230632.GA314599@ax162>
-X-Cookie: revolutionary, adj.:
+Mime-Version: 1.0
+References: <e61df396-356f-4ef2-9c3a-db3c05cb5c52@linux.alibaba.com>
+Message-ID: <asA7ixFlhNJpANoR@google.com>
+Subject: Re: [PATCH v2] x86/kvm: introduce pv idle time
+From: Sean Christopherson <seanjc@google.com>
+To: He Rongguang <herongguang@linux.alibaba.com>
+Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, hpa@zytor.com, vkuznets@redhat.com, 
+	geert@linux-m68k.org, sammiee5311@gmail.com, lirongqing@baidu.com, 
+	schuster.simon@siemens-energy.com, kai.huang@intel.com, 
+	shannon.zhao@linux.alibaba.com, x86@kernel.org, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Vineeth Pillai <vineeth@bitbyteword.org>, 
+	Josh Don <joshdon@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
++Vineeth and Josh
 
---mdPHBtUdV1DkW8Cb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, Jul 21, 2026, He Rongguang wrote:
+> Hi, this patch introduces a PV mechanism for guests to publish their
+> vCPU idle state and accumulated idle time to the host. This allows
+> the host to efficiently determine whether a vCPU is currently in its
+> idle loop, and knows vCPU idled for how long. QEMU patch and ARM64
+> support patch will follow in a subsequent series.
+> 
+> The guest writes a GPA pointing to a struct kvm_idle_time via
+> MSR_KVM_PV_IDLE_TIME. When entering idle, the guest sets the flag field
+> to KVM_PV_VCPU_IDLE. On idle exit, it clears the flag back to
+> KVM_PV_VCPU_RUNNING and adds the elapsed idle duration to idle_accum
+> (in nanoseconds).
+> 
+> The host can read the flag at any time through
+> kvm_arch_is_vcpu_pv_idle() to make better scheduling or resource
+> allocation decisions. For example, host may overcommit those vCPUs
+> which are mostly idle. An in-guest agent may be absent, or may not
+> report the status in time.
+> 
+> The accumulated idle time provides visibility into per-vCPU usage for
+> monitoring purposes. An in-guest agent can report VM CPU usage, but
+> this PV mechanism allows the host to obtain guest CPU usage even when
+> no agent is installed. This is especially helpful when the hypervisor
+> enables exitless-hlt/mwait (for better guest performance) or when the
+> guest uses idle halt-polling, both of which make QEMU vCPU thread usage
+> deviate from the actual in-guest vCPU usage.
+> 
+> This feature is advertised via KVM_FEATURE_PV_IDLE_TIME in CPUID leaf
+> 0x40000001. Guests enable it by writing the appropriate MSR during
+> initialization, similar to the existing steal time mechanism.
+> 
+> Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
+> ---
+> v2:
+> - grab kvm->srcu in kvm_arch_is_vcpu_pv_idle() before calling into
+>   kvm_read_guest_offset_cached().
+> - return KVM_MSR_RET_UNSUPPORTED instead of 1 in MSR handling if
+>   !guest_pv_has(feature).
+> - in set MSR handling, set vcpu->arch.pv_idle_time.msr_val after
+>   kvm_gfn_to_hva_cache_init() return success.
+> - in kvm_arch_is_vcpu_pv_idle(), remove ghc->memslot check, let
+>   kvm_read_guest_offset_cached() handle it.
+> - in kvm_arch_is_vcpu_pv_idle(), no need to use struct kvm_idle_time
+>   local variable, it is too big, just use __u64 flag is enough.
+> - remove some straightforward code comments.
+> 
+> v1:
+> -
+> https://lore.kernel.org/kvm/36863cf7-61b9-4885-946d-1608179fcab4@linux.alibaba.com/T/#u
+> ---
+>  arch/x86/include/asm/kvm_host.h      |  7 +++
+>  arch/x86/include/asm/kvm_para.h      | 19 ++++++++
+>  arch/x86/include/uapi/asm/kvm_para.h | 24 ++++++++++
+>  arch/x86/kernel/kvm.c                | 68 +++++++++++++++++++++++++++
+>  arch/x86/kernel/process.c            |  7 +++
+>  arch/x86/kvm/cpuid.c                 |  3 +-
+>  arch/x86/kvm/x86.c                   | 69 ++++++++++++++++++++++++++++
+>  7 files changed, 196 insertions(+), 1 deletion(-)
 
-On Sat, Oct 03, 2026 at 01:06:32AM +0200, Nathan Chancellor wrote:
-> On Sat, Oct 03, 2026 at 12:42:58AM +0200, Mark Brown wrote:
+I really, really, reaaaaally don't want to take on any (more) PV scheduling ABI
+in KVM, if possible.  And I definitely don't want to take a bunch of one-off
+hooks, e.g. for idle tracking and then for something else a few months/years
+later.
 
-> > I fixed it up (see below) and can carry the fix as necessary. This
-> > is now fixed as far as linux-next is concerned, but any non trivial
-> > conflicts should be mentioned to your upstream maintainer when your tree
-> > is submitted for merging.  You may also want to consider cooperating
-> > with the maintainer of the conflicting tree to minimise any particularly
-> > complex conflicts.
+Vineeth and Josh are working on PV scheduling via sched_ext and I assume additional
+communication channels.  I'm guessing idle state is one of the things that'll get
+communicated to the host?  I don't know the exact status of their work, but they've
+got a slot in the sched_ext MC at LPC:
 
-> Thanks, the 'source' line looks correct to me now. Did you also shuffle
-> CC_OPT_INLINE_MEMSET into scripts/Kconfig.toolchain like below? You had
-> it right in
-
->   https://lore.kernel.org/ar5-4Yq3wtmXTWnD@sirena.org.uk/
-
-> but the patch changed slightly since that resolution ('4294967295' to
-> '4294967294') due to a problem I reported
-
-That will be delayed for today since the scripting has got confused by
-me moving machines in the middle of running the merge but it has gone in
-later in the merge so it should be there in the final tree, and
-hopefully in the right place next time I run -next (due to LPC/MS it'll
-be spotty at best this week, I and everyone likely to provide backup are
-all in Prauge).
-
---mdPHBtUdV1DkW8Cb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasA6NQAKCRAv73Ows9A4
-icbrAQCi71c2N/fBwDD5SxPZ72da6XxIuVJSK56u4TV8G9zi2gD/Tp0Pe/83URQa
-xX4/VcCmG6bwA/eNxu/ZfGrkCwS8dwk=
-=DnDE
------END PGP SIGNATURE-----
-
---mdPHBtUdV1DkW8Cb--
+https://lpc.events/event/20/contributions/2482
