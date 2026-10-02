@@ -1,64 +1,64 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7749A4F68AB
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9EB4F646E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956016; cv=none; b=YuaqiuKWNLznKDBqaQvcPrkNOGvAaU8mrjpUPbyiLDWPyHDymaXC0tlQ7FksveWU7pSh3K13a6wHQjySfJRQEDH+Z8F6AnT/TjAtee3zVFWU9c3IrvpP9STce3rHSKWMeaoaJAzs84NH9FN+cFj50w4uK+f7hQcFb4l1dtRRVZ4=
+	t=1790956020; cv=none; b=pm8pe6bZoqbsyT6J06lRGlZgyFMUyEfgQeB3eH7kzwOQPe1ZN9V+a1+9hLI3uakbe6HMPtfV7E0X9HkALp5lT/wo6eB/JTFo6FLcKubCU/svhmSDmrd7l583q2kdbKWC2q8FXvZecoBYSW4p+TrJ6xVQPsklssWT4Juh9yPzTIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956016; c=relaxed/simple;
-	bh=8LDacuZaZ8swaQleVc5TrMEGU/bkjmMF4l7WP1XooQg=;
+	s=arc-20240116; t=1790956020; c=relaxed/simple;
+	bh=n8KoiOBH8fykndO08qZrOhzcBdxH4PnCFyAy1h8McjE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lEqk5tnlo/UnPObSGeui//v1CMF81cHSz/Tem1HliFdZ8x6d8n+41GqanHRVBbXyR/BedkiT6Uv1r47oSrqHUz8n71BhmLYdA6bdw7wLfmnNDOhS543Pz3h1JL0fUEYtnYq4Xx4goGGbBxrSN0KIHUGcl8IZ3I1zpuLQyAD+VeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3Qe+LA/; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=V1I2xBi6CfmDddUhqdJBzW+WOfUpltRhVlhGvUmDARQB+Gr+tVtyrF0Ln/LUzGcnUIsPX9T4PJGz8J+0wuTuEOAwSGLZESf9fbRjnNSPji6BFobqoW+BeWEkvSs0ar+rv4Muv1/yX7ePt+AEF0p8HQlGJzUCvCVQCEQMmLB5dRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fa3JsTzk; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3Qe+LA/"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2e2bfc2540cso21326175ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:46:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fa3JsTzk"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so37844405ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790956014; x=1791560814; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790956018; x=1791560818; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Pka2rlWSvPrqgR6Hzv68haUoZpXlk1pZ3oLkuapj80Q=;
-        b=m3Qe+LA/Hn5wZMrIlRjPTaTU05S6PplJPmpkD8QguNapBjC7JSy2H9Wz1NoqONvOeF
-         yJ8imfW1zqTgX/NdiKNqhjcdTE/mTnjEhMcFBp0fHV+SQJUAMxXFIxpnUT11JCgPojrl
-         tFqsjsPI0menzWSVvRc0goLp1We0zp8qnzVxTtjiE9SlP/cYC+VoXx4F2glOu1P0ahua
-         oh3tftASlclGnn/4NJKY/LAKhX7Ou8HE4xJqrQwu1cb4Hg6d16KmWy6zRNrHofG6p9hT
-         zLs5vxGnSFWWlSYe7s2hVdpCl5eXaET2W5xqqtgE3bosklIjdZhblWpLyxuJdVg3Uhb6
-         Vdmg==
+        bh=Xjw6qoPxLNaGbusPK32A1qkrQ15mneg4DB9BIdUbtrI=;
+        b=fa3JsTzkHNbbKgEw1EInUqRmk75vx9YW+7SYNwkeufAmCQgpcMNpInni1N2IfZvsRJ
+         B4psqEKQtjAvefJy5ZxTPikXCJYmvcZ8RWSlYVXzCV4+QEqnS9+lZcPym3Kkf1JcO7Se
+         Ya2njAmyu3TG3yOpXewNI0fv7lQx1Nst2a8N+9yvaQqO+hZHiMnEMQZoticDmQINnrNc
+         hsSyIe4jAmhWuMmvX1rdY94N9AfcdNqGQHSxwQjw2hR5UGYNYIxBx2b8lVeHP1MbC6Do
+         9AtKhCw2+sd+cxeVhFtbgYlintihqbCITNP8YwMNwOs7oolO6cJ+BcsHz3tAVNI4BGy0
+         x6Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790956014; x=1791560814;
+        d=1e100.net; s=20260707; t=1790956018; x=1791560818;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pka2rlWSvPrqgR6Hzv68haUoZpXlk1pZ3oLkuapj80Q=;
-        b=l3x0khGfGtl76nhoJTp3ZpQ/SEFfxFRNV07FthLxWZXBTGVzsIuzEOBYylGfAwPwaI
-         M+H/QdfzIm6z4nCuTHelTGjtRqJ+Xm3UwqelbbZawOt8KZtjGCX0vF5tnMmKtw2uMEjh
-         9l5Vm5/6O67sUB+lxJb1G/RBs99xSbrrXJ8VWs+tOQgL7NNVZ72QU4lGoveryQkfs5+v
-         mQ2tTDr7u2jjhfFB6kTJcbRSaa78iorVUNUcXRQ8Qfm89U5L7gwTELOXC04DT/8bj33o
-         c5RjbuZ9HkL11y8O1JEN0Bvxwpccjfum0+yAor8OqXFuXY6p30CgQvmX4WeGHi3EmHL6
-         aPcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwrAGCSAJZgwUrDdGKvRLn4Rhdc6gR+W6fkafjvcuZdVN4xt4dMvMgWCzahf34wY/VnL7xbQ/aMcxYLgNc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAFPfh2/ClO/1GaxUOshIJafYK51dXbRMwGZw5iqk6ov+YcFmB
-	6CU2Cfp8TPuPnTz0NMDuAxsFyicvRo5v6Nx3FybZW0mtZgOaZY0zR7ad
-X-Gm-Gg: AYBFou3sn8rN2FaDTBy2URdlfTkL0fh8Si6jV6YtCVRW+xLHXqKjkXWNNAyVTWIdMbN
-	mwq/1fYchcvBS1btu7N7XAEtXE0hBHRTOpV0iqYcdrsXJRmu8XEfHT/riq6RXfrnredlK/aTZgv
-	AcJZi7yBL3Ws50wd80F/ML/xEWSs1qx/kBBP1o/pnWzWye7Tw1HA7ZFc7GEAcqcH0DZj/msuiVj
-	3CfcoHHED/+72FdLdwkLQtQ7Scii6WXtLPSmnhZ/PjyZ4C+ZtqCFNDkqJeJHqkp4A456nkUy9A1
-	A9riwb7OcRvA9lUBhDRkg2RbA9DUK93lciuVFyrSf+WnkHToyup1K2qurJ7s25gbU3nTGoNahEO
-	lkXWNaZC3fTXLwGfF2cEfwvwhAnpbUmV6P22/FI2+OSHadPfWKZJyFyjmErHwzCls5GUhrtbqbV
-	f4cKC5r0bauetorlD+HpGro4lo6S1TEtKz9y2eeRSxEm6pLN2hG7r91lXVXpCHJts/ZiLwi79NO
-	1e7WJPpShpE
-X-Received: by 2002:a17:902:e5c8:b0:2df:3872:f289 with SMTP id d9443c01a7336-2e49b64bdddmr35973405ad.28.1790956013699;
-        Fri, 02 Oct 2026 08:46:53 -0700 (PDT)
+        bh=Xjw6qoPxLNaGbusPK32A1qkrQ15mneg4DB9BIdUbtrI=;
+        b=wUVVLjUVx/GNsJLAieeFIiVmBC9OSmohPV4unWZvX0F7r7s/TdSV5h64OxkWFXwQCr
+         Y5eggbyv8EkRp006iCI9C4AgoHTOC4gud0ZbBMNl3Xy1cKh88yR6I8s8UuI+c6bL2n8P
+         Vgoz5h17ctgNQq9FMbcIEWaCcCK2M8YLH5SeqS2dwFWFrz6qtROOd/PvVp+m9f43+d8a
+         jABbQ4tu6v440yPRnHAph2nDdpV7mcC4pdxZq6pILKm9IT4vnYdY8wj7coh8oDKnjGKK
+         2TuFfh4xCJaEAaZLKrZnQYBEY3slhoD9nDN90UwKgGeYKP4tCImWXkwyT+dxg+UbBvYJ
+         0OMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxIvAAPzKHYj1IIZslNFrsAIOLRtX0lOn98vo8mnk79HouoyNhHSLIvseKP/HImk7TG4pBNIAh8jf3VR/s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5rQBI+bvN1CMUlDjLFKbOnaj7uTTJO9XWrcfdgczoXs7hNHAo
+	O6vjevDZBADW2WlbqD9WP9DDTsysdxoLN5E7qPvlTVdr+vvyeB+O/e6t
+X-Gm-Gg: AYBFou0cMbnfy+TOZH4+O2S3NmIQ5/72OyNjuQiikVsuqx6Deoa0cRV4wCucsmjwcQJ
+	DgnCvUzT4XVy6+VxyqY8jMSzHevUAAYEYY4EwU0IGrBi9gy7uSU03S7P4NCJ6JrvxN/mN5DZSmn
+	KACGRJS4lcZXfjOy2LRtBK96GuK5WIKefl3AV+5bzBvJ3F+3XWJZuo5uBVn9Q1zeBkYKNiSHmGW
+	tl4oQBzzlRwJoIoixalZcfUnNL6gIjO+OPeSVrqQBu3ZECog/gNh9UfiXjxL+cSFoje+RtiHVlB
+	cI67MDEoOpkgBkF/iYxXV9PxHa/mGZWkhOvrRfRhlxkTNtEHcR/oEFFqw4DLfR5Hv6t2Z99IuJm
+	yNtSk3HG2eoc+M25ogApaluWSpCP7fd5sRqlLY/GthprrQApf+2aUlg83+ttEwitZoCEHdnvusD
+	3dFEDs8zAFzWABr7Ewtfr51bl2ejK+5CvLM5guVxsYgfq1MTpO0e+ZfftIx6il/Z4hw8/E0bcLf
+	5vftbwDqMdd
+X-Received: by 2002:a17:902:e752:b0:2e2:ca82:6262 with SMTP id d9443c01a7336-2e49b6d120dmr29672815ad.33.1790956018470;
+        Fri, 02 Oct 2026 08:46:58 -0700 (PDT)
 Received: from localhost.localdomain ([202.8.105.115])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6d9a88sm9785075ad.53.2026.10.02.08.46.49
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6d9a88sm9785075ad.53.2026.10.02.08.46.54
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 08:46:53 -0700 (PDT)
+        Fri, 02 Oct 2026 08:46:58 -0700 (PDT)
 From: Jemmy Wong <jemmywong512@gmail.com>
 To: Tim Chen <tim.c.chen@linux.intel.com>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -72,9 +72,9 @@ Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
 	Valentin Schneider <vschneid@redhat.com>,
 	K Prateek Nayak <kprateek.nayak@amd.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] sched/fair: Rename group_imbalanced to group_pinned_imb
-Date: Fri,  2 Oct 2026 23:46:33 +0800
-Message-ID: <20261002154634.71878-3-jemmywong512@gmail.com>
+Subject: [PATCH v2 3/3] sched/fair: Rename sgc->imbalance to sgc->pinned_imb
+Date: Fri,  2 Oct 2026 23:46:34 +0800
+Message-ID: <20261002154634.71878-4-jemmywong512@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261002154634.71878-1-jemmywong512@gmail.com>
 References: <20261002154634.71878-1-jemmywong512@gmail.com>
@@ -86,143 +86,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The name dates back to the original group_imb heuristic, which flagged
-a group when the load difference between its busiest and idlest CPU
-exceeded the average task load. Commit 6263322c5e8f ("sched/fair:
-Rewrite group_imb trigger") replaced that heuristic: the flag is now
-set only when a lower domain fails to balance because tasks are pinned
-by cpus_ptr (LBF_SOME_PINNED), and kept while all tasks are pinned
-(LBF_ALL_PINNED). The name was carried over unchanged and later became
-group_imbalanced in commit 0b0695f2b34a ("sched/fair: Rework
-load_balance()").
+sgc->imbalance does not describe a load skew either. It is set only
+when a child domain failed to balance because some tasks were pinned by
+cpus_ptr, and the parent then classifies the group as group_pinned_imb
+so that it can force a migration.
 
-Today the name no longer matches the condition:
+The unqualified name is easily confused with env->imbalance, the amount
+of load still to move, and with imbalance_pct. And after the previous
+rename, sg_imbalanced() returns group_pinned_imb, so the helper and the
+group type no longer agree.
 
- - group_classify() checks group_overloaded first, so a group whose
-   load really is skewed is usually not classified as imbalanced,
-   while a flagged group may carry a single extra task.
-
- - calculate_imbalance() does not measure any imbalance for this type;
-   it moves one task (migrate_task, imbalance = 1).
-
- - Elsewhere in fair.c "imbalance" consistently means the amount of
-   load to move (env->imbalance, imbalance_pct, calculate_imbalance(),
-   the lb_imbalance_* schedstats), and imbalanced_active_balance() uses
-   "imbalanced" for repeated balance failures, unrelated to this flag.
-
-Rename it to group_pinned_imb. The "pinned" prefix names the cause that
-raises it, an imbalance the balancer could not fix because tasks are
-pinned by cpus_ptr, and distinguishes it from the unqualified
-"imbalanced" uses above. The enum is local to fair.c, so no tracepoint,
-schedstat or other user-visible interface is affected.
+Rename the field to pinned_imb and its reader to sg_pinned_imb().
 
 No functional change.
 
 Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
 ---
- kernel/sched/fair.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ kernel/sched/fair.c  | 24 ++++++++++++------------
+ kernel/sched/sched.h |  6 +++++-
+ 2 files changed, 17 insertions(+), 13 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index bcb9987952b9..49de871ee7ab 100644
+index 49de871ee7ab..0f773e1af9f5 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -10579,7 +10579,7 @@ enum group_type {
- 	 * The tasks' affinity constraints previously prevented the scheduler
- 	 * from balancing the load across the system.
- 	 */
--	group_imbalanced,
-+	group_pinned_imb,
- 	/*
- 	 * There are tasks running on non-preferred LLC, possible to move
- 	 * them to their preferred LLC without creating too much imbalance.
-@@ -11938,7 +11938,7 @@ group_type group_classify(unsigned int imbalance_pct,
+@@ -11832,7 +11832,7 @@ static inline bool check_misfit_status(struct rq *rq)
+ }
+ 
+ /*
+- * Group imbalance indicates (and tries to solve) the problem where balancing
++ * sgc->pinned_imb indicates (and tries to solve) the problem where balancing
+  * groups is inadequate due to ->cpus_ptr constraints.
+  *
+  * Imagine a situation of two groups of 4 CPUs each and 4 tasks each with a
+@@ -11860,9 +11860,9 @@ static inline bool check_misfit_status(struct rq *rq)
+  * subtle and fragile situation.
+  */
+ 
+-static inline int sg_imbalanced(struct sched_group *group)
++static inline int sg_pinned_imb(struct sched_group *group)
+ {
+-	return group->sgc->imbalance;
++	return group->sgc->pinned_imb;
+ }
+ 
+ /*
+@@ -11937,7 +11937,7 @@ group_type group_classify(unsigned int imbalance_pct,
+ 	if (sgs->group_llc_balance)
  		return group_llc_balance;
  
- 	if (sg_imbalanced(group))
--		return group_imbalanced;
-+		return group_pinned_imb;
+-	if (sg_imbalanced(group))
++	if (sg_pinned_imb(group))
+ 		return group_pinned_imb;
  
  	if (sgs->group_asym_packing)
- 		return group_asym_packing;
-@@ -12401,10 +12401,10 @@ static bool update_sd_pick_busiest(struct lb_env *env,
- 		/* Select the group with most tasks preferring dst LLC */
- 		return update_llc_busiest(env, busiest, sgs);
- 
--	case group_imbalanced:
-+	case group_pinned_imb:
- 		/*
--		 * Select the 1st imbalanced group as we don't have any way to
--		 * choose one more than another.
-+		 * Select the 1st group with pinned tasks as we don't
-+		 * have any way to choose one more than another.
+@@ -13870,10 +13870,10 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
+ 		 * We failed to reach balance because of affinity.
  		 */
- 		return false;
+ 		if (sd_parent) {
+-			int *group_imbalance = &sd_parent->groups->sgc->imbalance;
++			int *pinned_imb = &sd_parent->groups->sgc->pinned_imb;
  
-@@ -12653,7 +12653,7 @@ static bool update_pick_idlest(struct sched_group *idlest,
- 		break;
+ 			if ((env.flags & LBF_SOME_PINNED) && env.imbalance > 0)
+-				*group_imbalance = 1;
++				*pinned_imb = 1;
+ 		}
  
- 	case group_llc_balance:
--	case group_imbalanced:
-+	case group_pinned_imb:
- 	case group_asym_packing:
- 	case group_smt_balance:
- 		/* Those types are not used in the slow wakeup path */
-@@ -12786,7 +12786,7 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
- 		break;
- 
- 	case group_llc_balance:
--	case group_imbalanced:
-+	case group_pinned_imb:
- 	case group_asym_packing:
- 	case group_smt_balance:
- 		/* Those type are not used in the slow wakeup path */
-@@ -13049,11 +13049,11 @@ static inline void calculate_imbalance(struct lb_env *env, struct sd_lb_stats *s
- 	}
- #endif
- 
--	if (busiest->group_type == group_imbalanced) {
-+	if (busiest->group_type == group_pinned_imb) {
- 		/*
--		 * In the group_imb case we cannot rely on group-wide averages
--		 * to ensure CPU-load equilibrium, try to move any task to fix
--		 * the imbalance. The next load balance will take care of
-+		 * In the group_pinned_imb case we cannot rely on group-wide
-+		 * averages to ensure CPU-load equilibrium, try to move any task
-+		 * to fix the imbalance. The next load balance will take care of
- 		 * balancing back the system.
- 		 */
- 		env->migration_type = migrate_task;
-@@ -13184,13 +13184,13 @@ static inline void calculate_imbalance(struct lb_env *env, struct sd_lb_stats *s
- /*
-  * Decision matrix according to the local and busiest group type:
-  *
-- * busiest \ local has_spare fully_busy misfit smt asym imbalanced llc overloaded
-+ * busiest \ local has_spare fully_busy misfit smt asym   pinned   llc overloaded
-  * has_spare        nr_idle   balanced   N/A   N/A  N/A  balanced  N/A  balanced
-  * fully_busy       nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  balanced
-  * misfit_task      force     N/A        N/A   N/A  N/A  N/A       N/A  N/A
-  * smt_balance      nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  balanced
-  * asym_packing     force     force      N/A   N/A  N/A  force     N/A  force
-- * imbalanced       force     force      N/A   N/A  N/A  force     N/A  force
-+ * pinned_imb       force     force      N/A   N/A  N/A  force     N/A  force
-  * llc_balance      force     nr_idle    N/A   N/A  N/A  nr_idle   N/A  balanced
-  * overloaded       force     force      N/A   N/A  N/A  force     N/A  avg_load
-  *
-@@ -13245,11 +13245,11 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 		goto force_balance;
- 
+ 		/* All tasks on this runqueue were pinned by CPU affinity */
+@@ -13973,21 +13973,21 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
+ out_balanced:
  	/*
--	 * If the busiest group is imbalanced the below checks don't
-+	 * If the busiest group has pinned tasks the below checks don't
- 	 * work because they assume all things are equal, which typically
- 	 * isn't true due to cpus_ptr constraints and the like.
+ 	 * We reach balance although we may have faced some affinity
+-	 * constraints. Clear the imbalance flag only if other tasks got
++	 * constraints. Clear the pinned flag only if other tasks got
+ 	 * a chance to move and fix the imbalance.
  	 */
--	if (busiest->group_type == group_imbalanced)
-+	if (busiest->group_type == group_pinned_imb)
- 		goto force_balance;
+ 	if (sd_parent && !(env.flags & LBF_ALL_PINNED)) {
+-		int *group_imbalance = &sd_parent->groups->sgc->imbalance;
++		int *pinned_imb = &sd_parent->groups->sgc->pinned_imb;
  
- 	local = &sds.local_stat;
+-		if (*group_imbalance)
+-			*group_imbalance = 0;
++		if (*pinned_imb)
++			*pinned_imb = 0;
+ 	}
+ 
+ out_all_pinned:
+ 	/*
+ 	 * We reach balance because all tasks are pinned at this level so
+-	 * we can't migrate them. Let the imbalance flag set so parent level
+-	 * can try to migrate them.
++	 * we can't migrate them. Let the pinned flag stay set so the parent
++	 * level can try to migrate them.
+ 	 */
+ 	schedstat_inc(sd->lb_balanced[idle]);
+ 
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e656c7059bf8..14ce0f6e6027 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2257,7 +2257,11 @@ struct sched_group_capacity {
+ 	unsigned long		min_capacity;		/* Min per-CPU capacity in group */
+ 	unsigned long		max_capacity;		/* Max per-CPU capacity in group */
+ 	unsigned long		next_update;
+-	int			imbalance;		/* XXX unrelated to capacity but shared group state */
++	/*
++	 * Set when a child domain cannot balance pinned tasks.
++	 * XXX unrelated to capacity, but it is shared group state.
++	 */
++	int			pinned_imb;
+ 
+ 	int			id;
+ 
 -- 
 2.54.0 (Apple Git-157)
 
