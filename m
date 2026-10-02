@@ -1,35 +1,66 @@
-Received: from smtpcmd01-g.aruba.it (smtpcmd01-g.aruba.it [62.149.158.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775C444BCBE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CDE31D366
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929816; cv=none; b=RIn6V3hbF4xKx8g80XZYACwM1YLSFZsx2OoDKcBmdJgpAGDKKMvi+AjSdBRsOKatu2YDHq93l+8IJuua6oP7iAwT0EiBsSG6HExH6hosNl3ErGOBF/nZXG/XtHbXYt9GldZUPGSKF3qvngfy5AAhYfc98yEp7VvOMZC88cNyP6M=
+	t=1790929821; cv=none; b=oqa3bzrphvr+QPT6Q/q31DoY3C14I770N/AFr4i2mBhUclFa/Nw6JvgpfZvhu1ULFveC+lNCDR+HZ201BKGRFXqP59KnwoQrCPnT+1rjQC4YIQ1c+p+i+nKJERzAmxzXx81W5v2l93xFRYL4A64A1GbuDBM6SDSHWQ9MQNzZXLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929816; c=relaxed/simple;
-	bh=7tAEpGOIqScLSAA63E8UVzmGWrZ5G+RtT+6a0WIokYs=;
+	s=arc-20240116; t=1790929821; c=relaxed/simple;
+	bh=mFtxl5/Gm1OY/mivsw46cQL6dbR00tCDJXGvVeL0WIY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P8ZWr+Tbsk27gpiDGqX+Uz6p78pCO0ttco0zQO6Qix7ImOu3EddMz3sqLx04GX9sB3CPI+vNMVn6/4uoN9NE6cdFIKQTUQCiJNisXSnPBHecwUNrane2oWTUtypl39BScAA7SQ1HEFl/knQPxRWDuP0McCam/KaWOldZ8unVNRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=KDymqCj7; arc=none smtp.client-ip=62.149.158.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	 In-Reply-To:Content-Type; b=Y9prTByb4VQmoI0Jaj3Mv9DaC2kV8bF6KTKJx7zLT2Bx/rwMhh4u6GfBKeLNmHo9eP2p7jJMRe4NnG20oLau57CY06bXGxXjx79Zf0fwZwbDtUDooWWY962x+XTQ/OTWn4PNvMpdg3blspQlKVn7jWizzv1xmjbARIQaD/NPG5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BU1obN82; arc=none smtp.client-ip=74.125.228.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="KDymqCj7"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id CYeZxh9u3XmotCYeZx47mk; Fri, 02 Oct 2026 10:30:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790929804; bh=7tAEpGOIqScLSAA63E8UVzmGWrZ5G+RtT+6a0WIokYs=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=KDymqCj7ietzqDOsBY3vGUtUn+IV6xVmppCr0u9Pj+MATq05zkCX9KVeRl9Naqe8W
-	 0JiHZ/UOwsIP93lWGVnLUDqRT6yP61K2y3/FyJx7U8gN/I+dHqNkbv/Fpu0z4w7sVq
-	 5j6udif9EC8pC5stoptMYs34UnasnH1LOk0Yf5H7QKY0odREsuqvaaugT31g0aUG3T
-	 akEjVbNI5HJlsPIEMc1l3DYvpgw6HYRnKV/foBIZBjfMQd0sHEwJFC13zY3/jZABgG
-	 i4nLyJWbXAjJBGnS5GDVCGW8ZRrRzYlWl+fj9/kc1Xl0bpnRf1rBbBJ0j1mB2JLdV0
-	 PXm54BUGkFnXw==
-Message-ID: <0d5d56ca-89fa-4f09-bd24-9c730dd27656@enneenne.com>
-Date: Fri, 2 Oct 2026 10:30:03 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BU1obN82"
+Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae7aa02cb6so2494250a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:30:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790929818; x=1791534618; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZJ8EqEzCSNGuomB4HNPiazOZ9EdB5EupWIEnORPY1M0=;
+        b=BU1obN82sDQj+KexCu8UfYH8EApTXDLy+WKJzmbAHfQJLOb0LMd1q1ryhIqmO2TCE8
+         cQGrhRBvrOHja/J1FTvpmGLwu6ElPYty4OX8qgycw1FI7+YqTIVVODyoOR4p8CSnSXZ1
+         LLX32KSU4RtarijYLah/Lv3y24TDVE/EgA5Li3kKJ/KPbl2ucD6INqobuTD2Od6rNYIi
+         WTwHTXecjEnNF4M8NRwmnsWgmpLkicwcp8w8iMG56MWxT4gHCzVGfNEIEWN4vSP3bUbl
+         UFT40h92CX8ApTo9hj+BGRoThmZ5Redj0uu/zhOkBImRxrnMnGyjIDgqC8OaYlPQO7jq
+         +eoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790929818; x=1791534618;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZJ8EqEzCSNGuomB4HNPiazOZ9EdB5EupWIEnORPY1M0=;
+        b=LCrjTpEluxZfNR7NU2nc5WLEGRG0sQNXJV/kFQFkx5HNp5WhZrEx6H2EEeevsj8RbB
+         60NgW9QpJBwUNgFKZ79ugbRKrwI8d1v6eKG/qyJ4KFFV9OsB0wSechNopUOkhhy++vBD
+         k2gMuJCrRzkdMuuyTkyPviZTbkdBTOXiQEx/c+uKx5u5eKxVxlwcOKEqKzGu+5ymjhDA
+         UsQJMjfaaj30/AwRLzg+I1zLz+8SjHLkKz8pVvfJ1BpRWKK4qL7D842Mh7LBO2aLsUaC
+         nWX5e3sXl3kF3KO3MuDMRu7tRKG3b7WZK+LCCzfIFpJ57zEZoJPHQkb3WxA4YlQFLJ2d
+         wRjw==
+X-Gm-Message-State: AFq9FYKsMTq+UmGWd862qAqQQTvIJreAYAPrBsODcWklA3uu3NN6XHLC
+	Fs9RXNdXmHbw9DcE/shIK3nvTu+o/H0FLLGe2mIYwxyF6JndvXFFvfOpHNrKxKrY1D0=
+X-Gm-Gg: AYBFou0V9Clh8XZQ/G9XNfGllwAycg9rrOe/AlGwrfz2/Dzc16XJIP9fB5y8E2kJf/5
+	CE0gMZVqAOPT/paoahZRZc+OTwFkXAgU+OpfBNKl/qAu3AtbILs2UCaGs+fP/5mtc2l8ZBj6inQ
+	jW91Ll66osKIp9OOben8UtJO8XF3cyDX9KQZo7QG5NIsxFGoWROGqYQt3Hp7seAxi0QUjo/rabW
+	GLAT8At8QTIZTHr63rC03lmQcy9Xmv6kulZQy48uI88aBsU3mWY7lWgf4V+2lF6FX2tm7fd+COm
+	wjmncamZ9/SHgIEgWLehy9Z6aSXyGu9EP/dA44Lz3Xb88F6aG5ZD5qfyRwOQDLL3RjpLuW8gTVo
+	Im4BaHsb1RGYKpoz7Joj33BroqxVTK7yJlmfv/bpxtPR9vd7eRV9Q8lYYpf4KEbo52Vr5pB7yC5
+	jAV2GWNPfQQESb5I5eKOuhzWDj+QMGUvOePxMXpQ6NSdFXj06AefHPSJ0Rl2k/gvq4X4pmw031B
+	9QiNlO7Kent
+X-Received: by 2002:a05:6402:27c9:b0:6aa:f0e:a15f with SMTP id 4fb4d7f45d1cf-6af9e34833cmr1207427a12.38.1790929817404;
+        Fri, 02 Oct 2026 01:30:17 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.210.127])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9edb7ee3sm522636a12.3.2026.10.02.01.30.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 01:30:16 -0700 (PDT)
+Message-ID: <e76bff98-b854-4f31-ba16-7a700f286450@linaro.org>
+Date: Fri, 2 Oct 2026 09:30:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,258 +68,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] [DO NOT MERGE] timekeeping: Apply extrapolated
- ntp_error to clock snapshots
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- John Stultz <jstultz@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- Ryan Luu <rluu@amazon.com>, Julien Ridoux <ridouxj@amazon.com>,
- linux-kernel@vger.kernel.org, David Woodhouse <dwmw@amazon.co.uk>
-References: <20261001202134.33929-1-dwmw2@infradead.org>
- <20261001202134.33929-6-dwmw2@infradead.org>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20261001202134.33929-6-dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfDR9qVwGuw0AUB1zsmOT2m4urLR2px2o98PSShPtqNnDaPqm2P12cIkTAnA17j73tSVOgSMhnkC/9369c34WOSzwrkrjc7es6s4H5oM3Wx6bUQiohO1V
- q4h+Kxar6yoRc/0qwx92iu/wTjWfXvqJOmr3HHjMlspxtxiA2ZIjKYONr/rRsAIEphp+6hZfJNcHeb2mN2qLOVNwNmFnsCztSX78DMxK1Jqkivjw1jAZ1pnp
- zRfV/+2fBtwJ2WIzK0SFzpJ326MlkB/Xyu3h+M0BOdmTKebVadf60sOr4Xt2/nOHu+f5HNBSBnFC7Tb4kIQKbynq7XB2ZtosfDCVAYL5e4PAW+LKk5n1IIoG
- lTDBBeAPgrR7BpesDrFLlZC+vodDUi/+7go+xl5IeRnNvUPbyi4Pkla1xChu6RrZKuN7Pjh/lKKQfDc5HkT588qB+tQCnA==
+Subject: Re: linux-next: manual merge of the phy-next tree with the v4l-dvb
+ tree
+To: Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+References: <ar5wFFE64tWhmCKg@sirena.org.uk>
+ <52ef6837-7183-402d-acc6-8ca15c7e27ca@kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <52ef6837-7183-402d-acc6-8ca15c7e27ca@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 01/10/2026 22:21, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
->
-> The time reported in ::systime of a system_time_snapshot is known to be
-> slightly inaccurate because of the way that the reported realtime clock
-> sawtooths around the *intended* time series, limited by the integer mult
-> value used to calculate the inter-tick times, and designed to ensure
-> smoothness and monotonicity for its consumers.
->
-> It is particularly inaccurate in a tickless kernel, where ntp_err_mult
-> is not adjusted on each tick, allowing the reported clock to diverge
-> from the intended time for a large number of ticks before re-converging.
->
-> This appears to be the reason why CONFIG_NTP_PPS is not enabled on
-> tickless kernels — because at that scale of precision, the realtime
-> snapshot at the time of the pulse bears little relation to the time the
-> kernel *actually* believes it to be, thus introducing random errors into
-> the PPS phase correction.
+On 02/10/2026 06:33, Krzysztof Kozlowski wrote:
+> On 01/10/2026 16:37, Mark Brown wrote:
+>> Hi all,
+>>
+>> Today's linux-next merge of the phy-next tree got a conflict in:
+>>
+>>    Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>>
+>> between commits:
+>>
+>>    42b96f94929c9 ("dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema")
+>>    a93b9de71466f ("dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Glymur compatible")
+>>
+>> from the v4l-dvb tree and commit:
+> 
+> Why were these taken via v4l/media tree?
+> 
+>>
+>>    3b0140f37d25b ("dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema")
+>>
+>> from the phy-next tree.
+>>
+> 
+> 
+> Best regards,
+> Krzysztof
 
-Since enabling NTP_PPS on tickless kernels no longer depends on this
-patch, I think this paragraph should go.
+That's my error.
 
->
-> It would be better for callers of get_device_system_crosststamp() and
-> ktime_get_snapshot_id() to receive the *accurate* time, not the
-> sanitized version provided to gettimeofday().
+I merged the csiphy series to linux-media because I had a dependency to 
+avoid zero conflicts with linux/phy
 
-With 1-4 applied the correction at a PPS edge should be in the tens of
-ns you measured: is it worth having ts_real differ from clock_gettime()
-for that?
+However I inadvertendly picked up  a93b9de71466f ("dt-bindings: phy: 
+qcom,x1e80100-csi2-phy: Add Glymur compatible") when picking up the 
+CAMSS changes from Glymur.
 
->
-> Compute the deviation in snapshot_ntp_error() and add it to the returned
-> ::systime so the snapshot lands on the ideal line. It sums four terms in
-> ns << NTP_SCALE_SHIFT before converting to signed ns:
->
->   - tk->ntp_error, the deviation as of the last update;
->   - (cycle_delta * ntp_err_frac), the fractional-mult drift accrued
->     since then (cycle_delta is at most a tick on a tickful kernel, but
->     many ticks' worth under NO_HZ);
->   - (cycle_delta * ntp_err_mult), subtracting the applied +1 mult dither
->     over the same span;
->   - the sub-nanosecond fraction dropped when the read was truncated to
->     whole ns (low shift bits, exact despite the multiply overflowing).
->
-> The helper uses the timekeeper selected for the requested clock id, so
-> all NTP-disciplined clocks are corrected, including the AUX clocks (each
-> has its own NTP instance); only CLOCK_MONOTONIC_RAW is undisciplined and
-> gets no correction. The residual is then a single clocksource cycle, the
-> same bound as a tickful kernel.
->
-> Note that this *unconditionally* changes the ::systime returned by all
-> snapshot and cross timestamp consumers (PTP SYS_OFFSET_PRECISE/EXTENDED,
-> etc.): it is now the ideal NTP-disciplined time rather than the raw
-> accumulated clock.
+b4 shazam a..c without scrubbing the b which should have gone via Vinod.
 
-With CONFIG_NTP_PPS this also changes the timestamps PPS_FETCH returns
-to userspace: I think PPS should be named here.
-
->
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Assisted-by: LLM
-> ---
->  include/linux/timekeeper_internal.h |  5 ++
->  kernel/time/timekeeping.c           | 71 +++++++++++++++++++++++++++--
->  2 files changed, 72 insertions(+), 4 deletions(-)
->
-> diff --git a/include/linux/timekeeper_internal.h b/include/linux/timekeeper_internal.h
-> index 85d123bcb270..1f69479dd846 100644
-> --- a/include/linux/timekeeper_internal.h
-> +++ b/include/linux/timekeeper_internal.h
-> @@ -99,6 +99,10 @@ struct tk_read_base {
->   * @ntp_err_mult:		Multiplication factor for scaled math conversion
->   * @err_drain:			Extra mult bias repaying ntp_error beyond the
->   *				dither's reach; sized at second boundaries
-> + * @ntp_err_frac:		Fractional part of the per-cycle NTP-ideal mult that the
-> + *				integer @mult truncates, as a fraction of 2^32 in
-> + *				clock-shifted nanoseconds per cycle. Describes the
-> + *				working point of the +-1 mult dither.
->   * @cs_tick_adj:		Per-second adjustment handed to NTP via ntp_clear()
->   *				accounting for the difference between the nominal
->   *				NTP interval and the real time taken by the
-> @@ -190,6 +194,7 @@ struct timekeeper {
->  	u32			ntp_error_shift;
->  	s32			ntp_err_mult;
->  	s32			err_drain;
-> +	u64			ntp_err_frac;
->  	s64			cs_tick_adj;
->  	u32			skip_second_overflow;
->  	s64			skew_delta;
-> diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-> index 48d916a6c433..83c3e5ef9c5f 100644
-> --- a/kernel/time/timekeeping.c
-> +++ b/kernel/time/timekeeping.c
-> @@ -431,6 +431,7 @@ static void tk_setup_internals(struct timekeeper *tk, struct clocksource *clock)
->  	tk->tkr_mono.mult = clock->mult;
->  	tk->tkr_raw.mult = clock->mult;
->  	tk->ntp_err_mult = 0;
-> +	tk->ntp_err_frac = 0;
->  	tk->err_drain = 0;
->  	tk->skip_second_overflow = 0;
->  	tk->skew_delta = 0;
-> @@ -1241,6 +1242,55 @@ static inline u64 tk_clock_read_snapshot(const struct tk_read_base *tkr,
->  	return clock->read(clock);
->  }
->
-> +/*
-> + * snapshot_ntp_error - record how far a snapshot's ::systime is from the
-> + * ideal NTP-disciplined time at @now, in signed nanoseconds, so a caller
-> + * can land exactly on the ideal line by adding it to ::systime.
-> + *
-> + * The value is summed in ns << NTP_SCALE_SHIFT from four parts:
-> + *
-> + *  - tk->ntp_error, the deviation accumulated as of the last timekeeping
-> + *    update (tkr_mono.cycle_last);
-> + *  - (cycle_delta * ntp_err_frac), the fractional-mult drift accrued over
-> + *    the cycles read since then -- at most a tick on a tickful kernel, but
-> + *    potentially many ticks' worth under NO_HZ;
-> + *  - (cycle_delta * ntp_err_mult), subtracting the applied +1 mult dither
-> + *    over the same span;
-> + *  - the sub-nanosecond fraction that ::systime dropped when the read was
-> + *    truncated to whole ns (the low @shift bits, exact even though the
-> + *    multiply overflows).
-> + *
-> + * CLOCK_MONOTONIC_RAW is not NTP-disciplined and carries no error. Every
-> + * other clock id uses its own timekeeper @tk -- including the AUX clocks,
-> + * which each have their own NTP instance.
-> + */
-> +static s64 snapshot_ntp_error(const struct timekeeper *tk, clockid_t clock_id,
-> +			      u64 now)
-> +{
-> +	u64 cycle_delta;
-> +	u32 nes;
-> +	s64 tmp, err;
-> +
-> +	if (clock_id == CLOCK_MONOTONIC_RAW)
-> +		return 0;
-> +
-> +	cycle_delta = (now - tk->tkr_mono.cycle_last) & tk->tkr_mono.mask;
-> +	nes = tk->ntp_error_shift;
-> +
-> +	/* Insane deltas from marginal clocksources: skip the extrapolation */
-> +	if (unlikely(cycle_delta > tk->tkr_mono.clock->max_cycles))
-> +		return tk->ntp_error >> NTP_SCALE_SHIFT;
-> +
-> +	err = tk->ntp_error;
-> +	err += ((s64)mul_u64_u64_shr(cycle_delta, tk->ntp_err_frac, 32) -
-> +		(s64)cycle_delta * tk->ntp_err_mult) << nes;
-> +
-> +	tmp = (s64)(cycle_delta * tk->tkr_mono.mult + tk->tkr_mono.xtime_nsec);
-> +	tmp &= (1ULL << tk->tkr_mono.shift) - 1;
-> +	err += tmp << nes;
-> +
-> +	return (err + (1LL << (NTP_SCALE_SHIFT - 1))) >> NTP_SCALE_SHIFT;
-> +}
->
->  /**
->   * ktime_get_snapshot_id -  Simultaneously snapshot a given clock ID with
-> @@ -1264,6 +1314,7 @@ void ktime_get_snapshot_id(clockid_t clock_id, struct system_time_snapshot *syst
->  {
->  	ktime_t base_raw, base_sys, offs_sys, *offs, offs_zero = 0;
->  	u64 nsec_raw, nsec_sys, now;
-> +	s64 ntp_error;
->  	struct timekeeper *tk;
->  	struct tk_data *tkd;
->  	unsigned int seq;
-> @@ -1326,10 +1377,12 @@ void ktime_get_snapshot_id(clockid_t clock_id, struct system_time_snapshot *syst
->
->  		nsec_sys = timekeeping_cycles_to_ns(&tk->tkr_mono, now);
->  		nsec_raw = timekeeping_cycles_to_ns(&tk->tkr_raw, now);
-> +
-> +		ntp_error = snapshot_ntp_error(tk, clock_id, now);
->  	} while (read_seqcount_retry(&tkd->seq, seq));
->
->  	systime_snapshot->cycles = now;
-> -	systime_snapshot->systime = ktime_add_ns(base_sys, offs_sys + nsec_sys);
-> +	systime_snapshot->systime = ktime_add_ns(base_sys, offs_sys + nsec_sys) + ntp_error;
->  	systime_snapshot->monoraw = ktime_add_ns(base_raw, nsec_raw);
->
->  	/*
-> @@ -1581,6 +1634,7 @@ int get_device_system_crosststamp(int (*get_time_fn)
->  	ktime_t base_sys, base_raw, *offs;
->  	u32 clock_was_set_seq = 0;
->  	u64 nsec_sys, nsec_raw;
-> +	s64 ntp_error;
->  	u8 cs_was_changed_seq;
->  	unsigned int seq;
->  	bool do_interp;
-> @@ -1647,9 +1701,10 @@ int get_device_system_crosststamp(int (*get_time_fn)
->
->  		nsec_sys = timekeeping_cycles_to_ns(&tk->tkr_mono, cycles);
->  		nsec_raw = timekeeping_cycles_to_ns(&tk->tkr_raw, cycles);
-> +		ntp_error = snapshot_ntp_error(tk, xtstamp->clock_id, cycles);
->  	} while (read_seqcount_retry(&tkd->seq, seq));
->
-> -	xtstamp->sys_systime = ktime_add_ns(base_sys, nsec_sys);
-> +	xtstamp->sys_systime = ktime_add_ns(base_sys, nsec_sys) + ntp_error;
->  	xtstamp->sys_monoraw = ktime_add_ns(base_raw, nsec_raw);
->
->  	/*
-> @@ -2460,6 +2515,7 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
->  {
->  	u64 ntp_tl = ntp_tick_length(tk->id);
->  	s64 skew = ntp_get_skew_delta(tk->id);
-> +	u64 dividend;
->  	u32 mult;
->
->  	/*
-> @@ -2480,8 +2536,15 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
->  		 * scale it back up to the full per-tick rate for the mult bias.
->  		 */
->  		skew *= NTP_INTERVAL_FREQ;
-> -		mult = div64_u64((tk->ntp_tick + skew) >> tk->ntp_error_shift,
-> -				 tk->cycle_interval);
-> +		dividend = (tk->ntp_tick + skew) >> tk->ntp_error_shift;
-> +		mult = div64_u64(dividend, tk->cycle_interval);
-> +		/*
-> +		 * Stash the fractional part of the per-cycle ideal mult that
-> +		 * the integer @mult discards, scaled by 2^32, in clock-shifted
-> +		 * ns per cycle.
-> +		 */
-> +		dividend -= (u64)mult * tk->cycle_interval;
-> +		tk->ntp_err_frac = div64_u64(dividend << 32, tk->cycle_interval);
->
->  		/*
->  		 * Rate adjustments are conceptually applied mid-tick in order
-
-Ciao,
-
-Rodolfo
-
--- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
+---
+bod
