@@ -1,206 +1,172 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023089.outbound.protection.outlook.com [40.107.162.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709D848034C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9374352C28;
+	Fri,  2 Oct 2026 11:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.89
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790941118; cv=fail; b=M80ob8+XBx6hvHQoZFcZmPu5dMyL63RC1yC3I7ZuXhWn6+xh4Wy4jmF7VQ8y3qtxf6Y1uMUOthcVsjJ7Hg3aeGyl1vX4C3B8LTXsg/jPXlrExO67Ki3nudFLSMuXHRQCncnxRl9SyZ5msdDe3zMZE5s2cqxXOGkglhvAMkP5mB8=
+	t=1790941148; cv=fail; b=uiEhLC9/lRu5AF+5jOTOH1Wqg6fogvqNcrtoSeVa89/2X61VBWzw81+E31fpbvvFnwKmQPiTTlnhAM7pbqYY62V8qx7RXMQ5TCmNCwT9QWrizqSRI4PwxZe7vQQYT/2zUG2yJMq0mcjO/NqQl0ZuhVq5d/C2rqu6M7jU9sf+VWI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790941118; c=relaxed/simple;
-	bh=fk4GYRbdEANi0oN2WIKO4uz4KpIvmYLjyho3kbMkBa4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=TDCUfC8MErDlfDyQPZxUZv/6ausqunl2AkLjGyYv0knZVXjhtgwTxjl11N6ZBhshs/ka2P8dQu1wt7utgfnYnzm/FotyI6PJQn0H92xteCoQwf1ePlUSQjhM/zXGNAQU6j8dTTbXZYvJNsm3VRv4/U9VX8OtBlzt8CW0rG+BmpQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ZvIW5Lx/; arc=fail smtp.client-ip=52.101.85.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790941148; c=relaxed/simple;
+	bh=zdiGdfqHmtGE7sXZyHB3l+t/SlJs6GTT8n5f3f6efbM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C6ln8r2GX8KA9Om6ii23KmhKN6Z7i9+zbb26qqovU8fzUsgvYEOxFItVKkGoUH+b/SzCBmWO7/+DFBeJ2ESjGnvdtWCtFL9silhtPtVJbAR7fmT9QCuybB9bLZlLDDnWWKjgrIMclcCHy7eE3ZXuRZ20wy/ld+++/KMExi20l2U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de; spf=pass smtp.mailfrom=ziehl-abegg.de; dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b=oAtHaEMU; arc=fail smtp.client-ip=40.107.162.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziehl-abegg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziehl-abegg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ZvIW5Lx/"
+	dkim=pass (1024-bit key) header.d=ziehl-abegg.de header.i=@ziehl-abegg.de header.b="oAtHaEMU"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VHcutkD98wdDzGvumG5Brzf9ecjAFMEI6dBsfWxaDualZmYVurAkvkJru04GNCJVdJFAjGkijoDgzttQDX+6x5RDGTBQ9VaWPrpPRluXqj31CFg2ExAC9sUjP+3BFb8+qZZ52hh8NmglpffGHkBsIM26jY+mj9DQYowchDikcIVju2cqu9Z+cP5+GPa+FjK0WbfUW+hhHeYQIr2sMISgxfSddZ/C8tCFB9bHsngLX2xo7Cf+2It29W9OW26VvvapTA7bSuJBcEvQ07MOP4aq0TDl+e5TzrSw0I1QxzpYJyB7Vx6LB6EfhjzLh5t02Kn6X/Jt0Qufk0UPtlB9M0d46A==
+ b=J2DhOiivu5lXiPbn7LXJFQwbdFIkz8gzRwKnTDNF4OJxb5seHCePjM6Qoo10f/LEYo2Dfgc7f8sVdcb+CcsD0K+PqXajc7b4SRzbwN3mjF7czBjKCyH2J4uafiPQSzUqQP5aKkwyjNn41DJ7rIsPB9ZOpDuQe2OOpu7K6Ft/rCfmB3gFJeuMgMpCtDX8jQWrAMRx/7YZcvb0hIey24FXXGxPrUmM3Lr7W5kAOSVcQtJcUbgor8ppUyyLvxYqkF3WTF/eyszYFGrgY4fR71L/r2S8NP1NnUJAiAewLiVqjZsis+UtZgB4kPf/WfczhqDoc2oqPN5NznDwoF+Vu6Qj9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qmR1xWxrP3uVX5BSQEM3E+3INTnl02c004Hfy/4njSk=;
- b=cD10fvBarUEdfzdeXD0DFd1OeEETJzU08JtRqQP2dYRmxed4e861vMm+VeqJOjJo2lY+pBc6UFlB8pjdLD7teS2ckk+tsYxCBXuFC1H0JW82iXre5Ap3lgdS9gPSPpnfJLROViZlktA9vNj+w0fYj9Euu6J9BzrUDMiAP5M690MUwzas1aTpcGRTDEbYQHhPr60AYoueTNmNhzz84DaiaX+4IzEtZSN4pEHTiwyyjqLlxmK3zuN6B3qNgWjCYtIbUq6v95GyCtnvvgMHfRpwUOX8piEY57VpnL2kuIOZj3H57+EgxmgCuhhgdjKKaaeiZr0d1GFhJR2k5jUAElOT4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=zdiGdfqHmtGE7sXZyHB3l+t/SlJs6GTT8n5f3f6efbM=;
+ b=EREk1mXrVYpKMcMyraow+xXX8/m46v5jNol+qbqrAr0XzgR6WWZY6nNRwqpVTtblWS2fB8W7E9/OCJ2GjteAzPD1XimM7NQHgW3vCPcrMDaJJLLIvB7Wkxg6SM8TxILGkxQ1Rw7Mb6vWaARmldry2K1rSShn/eARboViGnbvr58P0qZeqRD0lMdOlT8u/0Kr6CEjLwDRfreI8tdqU7DMjzTRdolSjvIYB5qr7wjjhR+Bmx8pmH/AOOVcXZaGmaY6wlFxjwuiMsKk1NgyOUHVsLS0hR0g5MvF6WQh0id1xgUR9u1eys5IOBeKEQl7yynW742wEi56hg7+HFrV4bTmWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 13.74.137.176) smtp.rcpttodomain=hugovil.com smtp.mailfrom=ziehl-abegg.de;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=ziehl-abegg.de; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziehl-abegg.de;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qmR1xWxrP3uVX5BSQEM3E+3INTnl02c004Hfy/4njSk=;
- b=ZvIW5Lx/+gA4n7q8pPJg8H4hyTOAigwjNl3wE+Ds4TwLQS+5irMxRZHfD1qOxT19FfGOzf+gkmDskLarCDLCifdMCuRxHHeUhfqolrwonr1bRRIZzbqdo9qKsB+9TqeOKlPoay7WTIHfXmgwSyTKe6LKPm9xy5pL7HHcNUumtAU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV1PR12MB999306.namprd12.prod.outlook.com (2603:10b6:408:3f8::23) with
+ bh=zdiGdfqHmtGE7sXZyHB3l+t/SlJs6GTT8n5f3f6efbM=;
+ b=oAtHaEMUKPTzKtQLsMAt+cHoJ2fwYs5oIHJ9Jac//uUO+0ZFfpppJtyDvJue+y2rKGQyIVqNnBzTioxp80qPb9cvVUkKnilo/k963j2jyBF7BTEZco2khw/ueuU5pP4l7mDIgWgI+EcmuiOBc8aJY5sa/Q3s1dMAhFgHZ0+EAuI=
+Received: from AS4P192CA0014.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5da::14)
+ by BR0PR02MB742772.eurprd02.prod.outlook.com (2603:10a6:2c8:2c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 2 Oct
+ 2026 11:39:04 +0000
+Received: from CPH1EPF00000520.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5da:cafe::70) by AS4P192CA0014.outlook.office365.com
+ (2603:10a6:20b:5da::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
+ Oct 2026 11:39:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 13.74.137.176) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none header.from=ziehl-abegg.de;
+Received-SPF: Pass (protection.outlook.com: domain of ziehl-abegg.de
+ designates 13.74.137.176 as permitted sender)
+ receiver=protection.outlook.com; client-ip=13.74.137.176;
+ helo=eu21-emailsignatures-cloud.codetwo.com; pr=C
+Received: from eu21-emailsignatures-cloud.codetwo.com (13.74.137.176) by
+ CPH1EPF00000520.mail.protection.outlook.com (10.167.241.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 11:39:03 +0000
+Received: from DB3PR08CU002.outbound.protection.outlook.com (40.93.64.86) by eu21-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Fri, 02 Oct 2026 11:39:02 +0000
+Received: from AS9PR05CA0085.eurprd05.prod.outlook.com (2603:10a6:20b:499::21)
+ by AMVPR02MB12501.eurprd02.prod.outlook.com (2603:10a6:20b:775::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 11:38:34 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 11:38:34 +0000
-Message-ID: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
-Date: Fri, 2 Oct 2026 13:38:30 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix kernel-doc warnings for cgs register
- typedefs
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
- skhan@linuxfoundation.org
-References: <20261002021750.13596-1-emmaonana18@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261002021750.13596-1-emmaonana18@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0448.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2026 11:39:00 +0000
+Received: from DU6PEPF0000A7DE.eurprd02.prod.outlook.com
+ (2603:10a6:20b:499:cafe::54) by AS9PR05CA0085.outlook.office365.com
+ (2603:10a6:20b:499::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
+ Oct 2026 11:39:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 178.15.18.66) smtp.mailfrom=ziehl-abegg.de; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=ziehl-abegg.de;
+Received-SPF: Fail (protection.outlook.com: domain of ziehl-abegg.de does not
+ designate 178.15.18.66 as permitted sender) receiver=protection.outlook.com;
+ client-ip=178.15.18.66; helo=mail.za.ziehl-abegg.de;
+Received: from mail.za.ziehl-abegg.de (178.15.18.66) by
+ DU6PEPF0000A7DE.mail.protection.outlook.com (10.167.8.38) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 11:38:59 +0000
+Received: from vEX02.za.ziehl-abegg.de (10.1.201.106) by
+ DEKUN-EX01.za.ziehl-abegg.de (10.1.200.169) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Fri, 2 Oct 2026 13:38:13 +0200
+Received: from localhost (10.1.200.37) by vEX02.za.ziehl-abegg.de
+ (10.1.201.106) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Fri, 2 Oct
+ 2026 13:38:13 +0200
+From: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
+To: <hugo@hugovil.com>
+CC: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>, <gregkh@linuxfoundation.org>,
+	<jirislaby@kernel.org>, <linux-serial@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <tobias.gannert@ziehl-abegg.de>,
+	<joachim.knorr@ziehl-abegg.de>, <david.laight.linux@gmail.com>,
+	<Maarten.Brock@sttls.nl>, <crescentcy.hsieh@moxa.com>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH v2 RESEND] serial: sc16is7xx: fix TX gap caused by kfifo circular buffer wrap-around
+Date: Fri, 2 Oct 2026 13:38:04 +0200
+Message-ID: <20261002113804.1235444-1-paultyson.mbewe@ziehl-abegg.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261001120921.97b56c43423f40fcff265e97@hugovil.com>
+References: <20260930143207.542930-1-paultyson.mbewe@ziehl-abegg.de> <20261001120921.97b56c43423f40fcff265e97@hugovil.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV1PR12MB999306:EE_
-X-MS-Office365-Filtering-Correlation-Id: c00349f7-bcce-4f2e-9fc4-08df2079b131
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: DEKUN-EX02.za.ziehl-abegg.de (10.1.200.170) To
+ vEX02.za.ziehl-abegg.de (10.1.201.106)
+X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30232.005
+X-TM-AS-Result: No-10--1.022700-8.000000
+X-TMASE-MatchedRID: u1zqiMeMcrpxHKHpX0oMcmyJrxBqx5NCz6TRdW3x1JxlIB58l+haoR5o
+	KJXDoW/PuN5HWW7Uv2xpUfxmW8xINIxm1LjQpCqoW8gh3wzbqBNczpnN5SayTVo7GmCOJYd128g
+	AxP/Ts6J4P0Lv165tYxec2TfXZ0BDRk6s6cAq1PTHhyirdw/CUWoE++m/YTuvXjUa5WCPzqkb1m
+	WuENC5Oqcmqg40BkLbjineMlypRVEY61dnw7QU7H7cGd19dSFd
+X-TM-AS-User-Approved-Sender: No
+X-TM-AS-User-Blocked-Sender: No
+X-TMASE-Result: 10--1.022700-8.000000
+X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30232.005
+X-TM-SNTS-SMTP: D400075916FA7FEBB84D6BFAEDBC505D55A447843A2FDCDE30ED5715CBC093142000:8
+X-EOPAttributedMessage: 1
+X-MS-TrafficTypeDiagnostic:
+	DU6PEPF0000A7DE:EE_|AMVPR02MB12501:EE_|CPH1EPF00000520:EE_|BR0PR02MB742772:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b884970-79de-4bb5-e310-08df2079c254
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info-Original:
+ PjqSphLaio87WOJb6dL6g6EseQGKzlKqlvHr6PGSa04SHl6ZnZzl69VcLp+Qw1Zhkfx2uAI/+ezvbbhq+IefSwHfLacDUCDlJjPzYV0HDgLraV9kgHeoUFNqcymV5KA4ZYQj5xARgrNGfKA+iEHFB19+awIJGYpu2qcIm3/eYKll5qTaYY31Kiudq0errLGP04wiJNFC5xBWEV1a4N0SgcpBToheohBlf0T9FtwFHpGYosn2euPm6Jhi+ZuLYxDNIWZyHaFKYWWU5SNZq1CL5f1UA/aS8JA4jDs3krjpYp1hVYvU7vNdiOivGE4OWg8SkxbrCwTp8gE/c6Xrixo4CIvUSFKXpoShbWlfZrjHHB5xOEfs+VH02FK/TOFAB/0CWP+HwwBC6QzUuQSFPRxNHNIXaFLqRSIQFn6wUFYYAMUvQRY+YwIZCd9Q+FsIL/QKeqLwbGwMQaps1BjBWE+AzP2zVapNFEwpcDDAaYXo+rwWqRKgBBj/pVVRseZw2sXe60KZb8Ab4WfKY74+IiD46dTx7wmd0PyClsPIMwIfPw40iGJHZ+8iMuat131mETc31NipwULAtP3SATa+p/U2eksQomHssgmVtk8AszvI02o+UcVOSU8ZfbvO0T40QyoyQmYrC1/kAZfW7OqKO+fEzKSdm9+KcVAgitgH24LHO5CMKERjCxch7bDOC67EP1S+vnhKCd94d1f+O6t8fZ4/Yg==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:178.15.18.66;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.za.ziehl-abegg.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked: 3WLCMsWuk70tzmyCK82727alsPCSFneXd53eZiUe1yXX19pJhaEQYWlYDjtjSWpcHFhwUnkt0CpAkNwFV/lVq+ahb86lYBSgVa01R4sDMVf6zjD7E/gkv/UOGWmYM/MmOSKq0Fk5WjRLKXtOV88tz2UWvzzJRL48K9CT/a1fzGpj7uK3HYc+AxJU5vvSL5MKlNgeGwsGVCyoNCV7yqrM2g7TvknCTYk8VZHnwvTKYEzsx2yt0pANWQv1ZdWxQh7D36R99NW4lxIK2UQt5wISvqH2psip424KMJm6S/2AMvW+KIFp9Ej6+LDjxmAqjftqgd1QnGEqcmSnzYRitN0jJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMVPR02MB12501
+X-CodeTwo-MessageID: ee05f93b-7a0d-4aca-87d4-c097f3a2423e.20261002113902@eu21-emailsignatures-cloud.codetwo.com
+X-CodeTwoProcessed: true
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ CPH1EPF00000520.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	f5789500-da8c-4d37-55a8-08df2079c013
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|22082099003|18002099003|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|35042699022|14060799003|1800799024|23010399003|376014|82310400026|36860700016|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	9s89wNNmgDTqYjAjs4ntaUT/PXNQnzYp59biC8vedj24VvXZa4JVactWlLWpqRnoao8LmTrYoGyO7LzvM3wqrPHMhrh9TbHZe6oik5RRBr8nQvs5FM9PFEbzKLMipHfhIzdcv011IuDJBg+2I2KXXOb7esvVDDBTmDmmD96b2ROD6/9mTZpHO7kkypkZm+aicQRKhLVyqDBmGRAmef8z0Wk3Xld5ubiz9CryT4pwz0yzNSyE1lOmELkGxKCNwYmRiJZBpNebYJM7FgFptDQ5ArTO+s0mfQZZQIBF3GYtmTMC0BGF+9oYKnJPvk9p/Nr9WgHRcEPqwdVEgMfgGzr1MFXkwA2ikjVvuwHd7raqHAGa1iu/oMsbn30kX9AZNKtxDZSnzUErVH0tWqMPYbwz7ikfl2gb7vTH2a/sQxAVSzR+AOJtwjqvl/7gPXrPGhU6h/Zt+Q/G5xClOKNY9lf3CpMQgzxoilVHQFyIg54CraC1gtyWJaZGCezuBU/VmHvZQ8FXqq8BZMT08SHbl3O7oA4NIwnE5eZOHriP6tAp2LxEScDBFSiG5NzhAYa/FBYc+w1FQM188e79MS6yuCLdv2WVZIM6bMdfb+r01YYno2uGqCcUdP6sG5+lGA29OFiZjspNGvn7wXUCI8rqYTT2JAv8dk+XACpwpTBeNmKYPzo=
+	HhQY4Ll2xJMTJZZ38hQvDKt1Y04yhfZqZCElQXzK6TA7zTz9LX93MnqhkG+AyYzC8la8vMC5D0BCEmSKyDYGAQyfOEgm2tHpLyc0fBFFvCL2OFKKkoF1huLZF8vm/VUnv5uu4xdABQqNQbR31UIJyImfu43Y9XdNdKwAu5lyqsDFZR0FOXweCJ5PsvY/IG3Kk7uVYbmWwbcOSuQkVamSw0oZisYnQIpVRjdBml9ER923eewB7rLPpDWHNFqXfKPEDVFWMAc7qVuCwkO98YDbqzGZjy2/OzoadWyWRHt6SnrewCCfTrXp6rwfeD9QOxaPY50PBXKOX2H/PZ1Qaeh34e2zcqJx54I1YoyPD3fP6vNDQ1m/U9qXVWdCQS8KMjpigoHbE63jW9mNReeENAWouVx0oxk18cFBsLdlrk4DS2Sh5b1bSoQ5mi0Eh5+cJN7s1l099BoGBTjDl8o8ESoEsewNJznmwvc/r5jMgx4pyMX440p+U+WMyTvWSdbFwf7cEBB9ge6pjhbsc+ZDq2KR/MezGxNuSz8LVl1BtghRUaMaSbQDqMOdhGEwFIVHKUg9Gpp6F9Q9A76d83gh71vEKpKSG4jvgKCCGV7OQI0pwfaS41Dnw6JtkJ+iJwuUGL7oPsC8GHu0VRvRvQvl8nFVKU/P8Rad8cq07rB6lp/AGJU9Ajqv6Lfv8aOjey+kmAdHaLS6mrq7v4TeI7tAeaAz+A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:13.74.137.176;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eu21-emailsignatures-cloud.codetwo.com;PTR:eu21-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(35042699022)(14060799003)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eUhlN1pQS29lSExGYUttT2NBWUNwRkc4enQyODdBbWZ2OVo3SmhqeHNwV2I1?=
- =?utf-8?B?VzAzbmJBdjd6bmpqMWtaNjNQZ0s1SU5SL080bE50akJvdWVrK0QrZFBzck5x?=
- =?utf-8?B?V1NYdkYwRWlSMnljNVFwZUpnaDQ1RWVRYkt4SkZ1eER2RXZncStDWDJ1aW43?=
- =?utf-8?B?VXJ0TWNqclh0SSsxMkdReWdxYTV2SkxwK3cwaDBKUDJiYTVnL0VMODdydndK?=
- =?utf-8?B?eEVuckIvdm5oaktLSjZtMVpaSEhiUlpHWU1aNE5RZ2lzY3lwcmZpYkV5aGJp?=
- =?utf-8?B?My9RRzM3UnFDaHV5QVlzNGxRZXh6NVFSVzArc0hFUGVXNkt0cUVYUFVGYXll?=
- =?utf-8?B?cG1BMnpRcXgyVitrSThBOUgwUFNZTFlOY1V3K2hzL2lIWlMrMWIzYlp5cWQy?=
- =?utf-8?B?VVhabXBoTFZFMVpJdUFvVnNPWHFCdWw4MDZnWkpzVU0yWjlwTHJJNS9oUlhC?=
- =?utf-8?B?ZDVjWmJlTGJPdERyTU13a0p6MGUramM0ME1HWnU4a2ZRZExTbEp0YTBNOEN2?=
- =?utf-8?B?aDFpKzZFVGQrTVduRzRSU3J6TlpQL1ZmaHNJSnRWM3VIaGtuTlRPQmw4MExl?=
- =?utf-8?B?RDFCODdTN242QjdrT1VSbjE5RVRLeE1Cc0EyUWZMNEZqNEJRQ1A1NDN6NXps?=
- =?utf-8?B?WmxiQnB2T3NKZEpNcXRFZ2N6elZKWU5KRjNiOXAvTlh1R09WdkVlTy9NZDlH?=
- =?utf-8?B?TjFscEt4ZVE5QVJKdVNUcytBWDR4d1BpaGhFS3BXS0NVdmsxR3ZyMkRzaDVk?=
- =?utf-8?B?NWhXTHI1bmZPLzdNdEpwSTl2ckdqdkJqejRVc3pORXBjbjQxeUs1d293eWdm?=
- =?utf-8?B?OVp3SFY0NUl6TlA0TGc5SWV4cytueGpGSWVLSnppc2tsOFJWTy9URFhYeHd2?=
- =?utf-8?B?RUczUEFlSVFMVm9lMTlhV2tnRFYzTnE5M0tLM0ErV1ppTFhRQzRETkJnMGxZ?=
- =?utf-8?B?VVFGV3dSZDlwTkhaUVFhZm05YldGZk1EQW9tcDJEeUNUdEZXUWFsdXhETnQ2?=
- =?utf-8?B?MGNHTFUxQWY0MitUZjZWeHR1emJpU21GZWFiVjQ3R1VqWkRtMEdFd2QyOE9E?=
- =?utf-8?B?MzFtam5kUkhoS2xXNi8xWmxzSG1jTFRJZy9xNFFuK3VsMVdUOVFTZUM5TXM4?=
- =?utf-8?B?b2c1dmtMWTFGK3Z4b0c2ckp0WEZrdlcvZ09VamJkTlFtTVVDNFpIMWFxSFIr?=
- =?utf-8?B?c1VUd01CYUdBZVYwWGZmdWZBeWg4T2NxVnZrMXdDL0ZCYUN1d1pEb2RqaXdi?=
- =?utf-8?B?OGFtZ21ST0JPMjU2MWdnbGlHbzhZLzREbGsvZktDV0FSbG9CUDRrdS8xR3NF?=
- =?utf-8?B?aTIvYWMvdXpYcWx6U1BPY1dMQjNVVWFzSExDSFhCS1pEUGRoR3JXQndhMG9T?=
- =?utf-8?B?Y3pTbEhxMHc2SmFrVVNyMXJDaFhRbDVOWWgzYlhBQUJjRHNVU1FvTlYydmg5?=
- =?utf-8?B?RkpCdkUxeU9VVE5nR21BV2tVSmh4eXg4Y2J6cWRMUVAyUitEQUk1ZUsxOTlY?=
- =?utf-8?B?MG5BUWlyaC9XcjloZ0pMbDFrSHdlcFZJNEtFdWJQclh0QjB0S205YmtITFQ4?=
- =?utf-8?B?K3VlVXFMenBXMHJnejlwWnl5Z2Y2MnpIbElQdzJQWkZRVHhYTEs0OGR2YTRN?=
- =?utf-8?B?eGdKN3RtMlVSKzdMMTZNT2FBS1ZFM1dickhYQkxHUTB4OGxKSmJ0OGxVM29i?=
- =?utf-8?B?MjV4Y3ErUFFybkNyQzFSRk5KZkU5aFhHeU5jMkptQ1J0TVp6WXpJSzc3aWxr?=
- =?utf-8?B?Zm03T3pUTDRTWlkyZFFKcGFWNFhpemNJVnRhRGk4eThYZ0pyVTZxNk1TUit6?=
- =?utf-8?B?L2c2TnRleUxyUzBkbzl3Mis4UUxsdksxNVYzTlAzRFhSbTVCbjZrd2ZSaGZh?=
- =?utf-8?B?MGZkL3hHNVd6NTdFVXhQdnl1Tm1jT0ZYVUlTNzJoUGZaMFpZckVmbjY0ODNx?=
- =?utf-8?B?T2JDYld1RU1icUFLTm9pSlVuUnB4bDZhMUhIc3RSOExWd1RaY1ZORFg2T1h2?=
- =?utf-8?B?Uk4vN2ZjTFBzbllLeGNpRXBQdjBJRUREalVZSGFJRmRoaE54aG5NMktvTUgx?=
- =?utf-8?B?U1Z2VjlqVytRRDREVkhjQVdySHlsV0N5c2R4OU4rZmpjUnJEY2pGMVlRNUxW?=
- =?utf-8?B?ZWlycXlKMlJtYzBtNG42T2tkanM2OSsra0RJSm8yQkUxZi9WbytaSFcwUVJI?=
- =?utf-8?B?em43QmJsc3VZbzl0N3lyenR6VStOVlhMU0lnTEtWRStadW0rNjdnbGp4SlFM?=
- =?utf-8?B?blJ1aDZDb2xUOVE5Y0lvMHh3d3BqYjlQQjk1QVhZRnFiUHhORjBTbjEydkZm?=
- =?utf-8?Q?bHSOzNVsiUqgdCXYsW?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c00349f7-bcce-4f2e-9fc4-08df2079b131
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 11:38:34.7223
+	04SDmujxzWWzYMC8+6aBsWHz7Pxw+0sqRYmLsae58zSkqd2SYtaWwmrdRkafRO6HE1ZcwkGkgDUu/z9aQH6RmeaoT17Ci4P7beBQlJ5I/D1TD1nsrs44Ja1wBBpib6W9Zwrni5VZVa21QR2wg16uFHRBR1MoXR1V6M3S4mQoQot4H5fLFOHKSqIi7e0zUcTvQGl4zHRgeQKWHfxznU1cXs+LlHHjXQ+ysu11Wfop+VW1JfngG7k7gK1t7Q2smXq8V6/1875S6kWzstSPc7AEnadC78cYQpyy6BdHMw7YeAyuchFo4xxy5lBW0jgfuLaghezvgCW0gFBzJ+5mTWpFpdNmCpDkXFTJgNWdylVKAoA7vSsLfLdtsVm8v+1Ne7ycQt7vjp3AYigcQNsIqd4xvq0H5z7F8nafYtDm4bIgj3IwsXhLNTxY0ezHUscmFo+v
+X-OriginatorOrg: ziehl-abegg.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 11:39:03.1443
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: byvUFG6COqcm1QCdKkP4+jmwKOWl2uBI8OYB+n6Ao+frEyuZsVZRtg2a4J05JV7U
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999306
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b884970-79de-4bb5-e310-08df2079c254
+X-MS-Exchange-CrossTenant-Id: 11a5c065-3ef5-41f0-92f9-a77cbf208c03
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=11a5c065-3ef5-41f0-92f9-a77cbf208c03;Ip=[13.74.137.176];Helo=[eu21-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF00000520.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR02MB742772
 
-On 10/2/26 04:17, Omokefe Emmanuel Onanaroghene wrote:
-> kernel-doc reports prototype mismatches for the cgs register accessor
-> typedefs, whose comments do not use the documented typedef format, e.g.:
-> 
->   drivers/gpu/drm/amd/include/cgs_common.h:89 ... expecting prototype
->   for cgs_read_register(). Prototype was for uint32_t() instead
-> 
-> Use the typedef comment format for all four accessors (also restoring
-> the dropped _t suffix) and replace the wrong @offset with the real
-> @space/@index params in the two indirect-register comments.
-> 
-> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Hi Hugo,
 
-We should potentially just completely nuke those typedefs since they are actually an unnecessarily layer of indirection.
+Thanks for reviewing and testing on both boards.
 
-Regards,
-Christian.
+Greg had already queued the clean v2 resend in tty-linus before your
+reply arrived, so I won't send a duplicate v3 unless requested. I
+appreciate the Reviewed-by and Tested-by tags; I hope recording them
+here in the thread is sufficient.
 
-> ---
->  drivers/gpu/drm/amd/include/cgs_common.h | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
-> index f40b6a03fe63..3a25c3c75a3a 100644
-> --- a/drivers/gpu/drm/amd/include/cgs_common.h
-> +++ b/drivers/gpu/drm/amd/include/cgs_common.h
-> @@ -81,7 +81,7 @@ struct cgs_firmware_info {
->  typedef unsigned long cgs_handle_t;
-> 
->  /**
-> - * cgs_read_register() - Read an MMIO register
-> + * typedef cgs_read_register_t - Read an MMIO register
->   * @cgs_device:        opaque device handle
->   * @offset:    register offset
->   *
-> @@ -90,7 +90,7 @@ typedef unsigned long cgs_handle_t;
->  typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
-> 
->  /**
-> - * cgs_write_register() - Write an MMIO register
-> + * typedef cgs_write_register_t - Write an MMIO register
->   * @cgs_device:        opaque device handle
->   * @offset:    register offset
->   * @value:     register value
-> @@ -99,9 +99,10 @@ typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned off
->                                      uint32_t value);
-> 
->  /**
-> - * cgs_read_ind_register() - Read an indirect register
-> + * typedef cgs_read_ind_register_t - Read an indirect register
->   * @cgs_device:        opaque device handle
-> - * @offset:    register offset
-> + * @space:     indirect register space
-> + * @index:     register index
->   *
->   * Return:  register value
->   */
-> @@ -109,9 +110,10 @@ typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum
->                                             unsigned index);
-> 
->  /**
-> - * cgs_write_ind_register() - Write an indirect register
-> + * typedef cgs_write_ind_register_t - Write an indirect register
->   * @cgs_device:        opaque device handle
-> - * @offset:    register offset
-> + * @space:     indirect register space
-> + * @index:     register index
->   * @value:     register value
->   */
->  typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
-> --
-> 2.43.0
-> 
-
+Thanks
+Paul
