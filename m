@@ -1,501 +1,293 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D0A443C02;
-	Fri,  2 Oct 2026 07:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1011743CEF5
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926756; cv=none; b=r8t3cy7JegyZxUozlTuhVkonOM/7w98Y9dcxppuj0TELvWTFwXAxTxWoTnxK5Cn1EHXrKa+SRcIZiPIcjuJHuA7mvH+WRjgZa83Bg3W7TaNIq+Xkj9oKdSaWdKTkUW7gFsmdnpCJYCTxvly6ebukulauVGXExCvI8ST1dZgwjCU=
+	t=1790926764; cv=none; b=D/4AQ+ucR+8Fd2p2vnaWiwc5JBen1wDECo+4MF98tEKc1niRj6Tw+4kqh8TtVnN+C4+hZb7zTM/mvyXSKbab9PYH/HrET8r0SFOyZkEqR+MvfBD/OkP0idhx8X5k3VAks9qsWmCxbSdaxsVdrx6Wg9C9+E7L3xMG14G3Q9xx+BM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926756; c=relaxed/simple;
-	bh=sZCTOabKZ4Mm55sPjZyBa4b9L80szipCIeKoA+aAuYo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=i7tGGBpnNuJRar6qd5p8ZYMCpBJRXufV6kDxlVwIRSVxCBEfz/2kwT2oEhu8LXxdPLhwagvNwnBwBnHN+c0ahUORLHVC9nvD2b9V/WKfyAbhxnDNTUmT5avzh1MetuyCODqOf30aJ/z6SPYHSFFq8Tux2w557/CYdcdBPAKIxzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqXVx1yt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790926764; c=relaxed/simple;
+	bh=CzmDZ/wH/56FUzFgARFzfpa/0ZupMVwrU7mJXCtI7S0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=P6nz8tXZo4OgYm3JJEz+NGXRtlFW5OEQ1EbKTSsATSQk+GJh0wk2q44IsV7tWSwADK1uL1tpUeGCEBOYjMjowDt5cKuHRhAwhsVymgV9pKRJ6qQd2tmcbXBUECH9JhpGGvHcB9pqjBB6Uuh38GEIxPFlb4iL/LN+xHDjKoj0FYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=X2xrJSJO; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqXVx1yt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9BC1F00893;
-	Fri,  2 Oct 2026 07:39:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790926753;
-	bh=HxGYrLXS+nAHHOrFU/8EkXDQxvkIzVEf9fptDYBDd/Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YqXVx1ytVTQ+y0zWtWCcezIwjMZU4/X4C6ulkadIN/5o4RuarH+wa9FHqG/zI+GLj
-	 5v0x7IU5JHIF5gpOsQ5POTI7KoSI8FwK7j6rV849dTzoVjD9cJbYJpvK4DX2HQnuxn
-	 KM8cLcs/i2CN5pAE1Xce4Ds/N0LYRKoh9JWs4nNfzDgd0aTkgg2SjowGGv8fOWLfnS
-	 b4q1CwZCpnOwcCW1c0871cTBPHp3G8bUWlU4u9rpkDwux2v7sodb390iS6EzGT7X6Y
-	 FWi699ritAGg4kEGB5aXRCmgcRWSF1Trov+KvdaieP0+BTj3nqZI2oYRqRoofIcIai
-	 7oNdCa8dkM32w==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Fri, 02 Oct 2026 09:38:59 +0200
-Subject: [PATCH v3 2/3] dt-bindings: ASoC: nvidia,tegra30-ahub: Convert to
- json-schema
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="X2xrJSJO"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so1779528f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:39:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790926760; x=1791531560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HtusxkcwYuaOiThkZo32xth6vfJtdesZfR+wxZipLek=;
+        b=X2xrJSJOQwETnrxmoMh3KMFBtJbjl9GglqDYF+kb9DRHSsmlphrA2tTvl9CiDzkNzG
+         I9BuER6rTtSaESNtoqAdAhu9vxtJpG6mjEccfUxvQxsKDgOD7YbJRwon5qRqiTssmeYB
+         Jzprlu4gNUXnxjmXFTlOxUvde0WwjHe7NpMRuxzmXLMpdaIq8HENFLCQLlbuqdEbpzGo
+         9LmGvG85a4pw0D0IAhzn60LTwAMytXyP2EY86h3FtGCfh52vjuXg6r//yuFIJs5hKkoF
+         WzVuLHtVANWYbZKRn5SSXhkdHWg6OkQ0CFqHbJgjJt3mCHYx8QyzTE+tcwVXAqlpBU4z
+         kuFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790926760; x=1791531560;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HtusxkcwYuaOiThkZo32xth6vfJtdesZfR+wxZipLek=;
+        b=YR9hpOng6TAb+qxxEFVK3pDWv50vml+1A72hHCrf3OuFMswK/hAVa7owFEVAoBrv+L
+         HPHQWXOXNiwY52B0FrtBE0gW2pljfM8Io9pgbjJ9dNX+yovFt74jXhh/c0dh/Dc+09Qx
+         dziL7Y6dBoTigm/dIlcYuWzCvZ5ix79xRvw6jfZ6XzOielbT9WzogZmsKN2dDGxnlnCo
+         cLLvG/kDatXAIFuKTQfq8yZZip+Ix6hy1gNx3THMFcz9ANNyrTgsXD0h66OI+tQnEA4X
+         zCTVGD9jrz+sEyBcSyrK60vLBCMEPKp6gVpr9emcmEgrsh1OPOAiMyG1LU1y6p+/Tkix
+         iwkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPpWrlVkCVR2moj+m5XOx9tQ0FR/77nLgoA7I7kwBl8GZxiA7vezJH/0Kl1a47bmSTfnfP+qLaSIqt7t0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIR3J9fgODMRKz+nxYcpEkVY08xfNIK6CaTqc0I2F8vlJBUZwtZ
+	99tYZ5maa1Be4JWl3ZZpNmb+I5bLi3OXhZ2FYJDRJTjLwiV7MNbMOBrJP2mQdF3Z8tE=
+X-Gm-Gg: AYBFou18+viitjfjiqXUWrCpkGbzXslrUkLgXemRZt8D4sJlpqkSxs5fOf9+f1F7HSa
+	GUvD4vGCjOpk77cFu8TlNb562dBfjBu0QIdc6qj+sflIVFV9ply4xc4Q3NHa7y5gCXMxcLvO6eF
+	N6lWm8nyUmdxGmWoK8egsosKdNZaOFYZiRl5N7vT1x4VniRHkUI/2GrFNYzZ9XsQHirx2DFIMmz
+	CjAxqZ2lgUuqi7xGsQgXyhIOx3zhp2X0TEWFKs54zAwIWRcVrAXzOSMDGZ9ODBb2m9DaiIANwvn
+	ngyixc+gletFqqJ875J/lC7pyPkgEsfJ3XExx/Gt5+4qwhLX9Eh0/n/+vPyS1ml88qsdv6F88mx
+	dc+xVQp69bOPKEM2cTuQTbePftcOeDzl1okocvyH7eMqF+WQSAtEfXN8vNaHhzvxO8bJAFqSQsN
+	1r8K6EslR1Xn7q9mxAijuXjvRoKOwwD7FndfYiRO7bTRYFiN4fPUhI/LqF/yrtF5IZmxZ5ezVIB
+	5CzY6pXJyxZmvq09Fro9k1o8RHnurRhlG09nx80hi4Qd8+ynrU=
+X-Received: by 2002:a5d:5010:0:b0:48a:ffcc:5b50 with SMTP id ffacd0b85a97d-48b12744206mr2302441f8f.40.1790926759988;
+        Fri, 02 Oct 2026 00:39:19 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38105239sm5444144f8f.33.2026.10.02.00.39.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 00:39:19 -0700 (PDT)
+Message-ID: <02ec6d43-f803-491c-a793-410ae80ac987@linaro.org>
+Date: Fri, 2 Oct 2026 09:39:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <artlIYhgbskRJXDQ@houat>
+ <27bc999f-ef3a-450d-a4ea-57ac45508705@linaro.org> <ar4C329Cm5hzB3kH@houat>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <ar4C329Cm5hzB3kH@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-as3722-bindings-v3-2-21c179b72a95@nvidia.com>
-References: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
-In-Reply-To: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, 
- linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12167; i=treding@nvidia.com;
- h=from:subject:message-id; bh=RZtfTyblMtM5FY5IpojD3YaH1hZxAG4rUDybvDQ2HUg=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqv1+ZWeGzdRMLeDyITPdDsFVwsdDkw3McYZKhM
- pTVP18SZgeJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCar9fmQAKCRDdI6zXfz6z
- oeJmD/9rtW0nIuiO51bu/HrErro8K4GDZ8THM3s6ivrR6YxU8Kj3sPG0lV/eyepdCqx/Me+4Vsn
- QlKQoJacqNKrdf0g+jxa6dCzFAdVt968KPXM91CI0hkHOQ+TbHffTfeAuzWag4ul6UuJayeXXei
- xRC0ZI4nj6SWnImBuXnzDpfr+0+xgRMLS+5dvc27v1IK6rIu/Po37ON36iQm5gG8ih6HfcEgmA/
- ljTF8zsY5+HvkA9NYQPbibir+kjt4VOzxLqRNC3dsZ/jKoNN7zPt8mm4Y/KBkW7/OacvSfhi7tG
- hsKthjqGeQZDjsyVQ1kuMLdglgVA8VUZmSqsXh1RAn539wqhAPxnGSlCtblXPTSZNpTLNWsAz6/
- /rxo6lG5YGoQhYugAmFZV8/CZ/07I260E6coKEfpYn43CsaV0C8ww8HHVN4Z6bjQ5J7bb1DN0ik
- OHFaR3iu502kTMb+oSxcSHZaLea/LLp9DbTYN72H8KqBpurlWGgB3FZUcpkMMvkGDCEEKkcQqai
- FIZ7y9YRuVAkiLe/ZRVy6oAHNw8AjZgOUfQoLaMNKJME52SyCUcmaXGHZDgTUs+ApVtJDMze1TH
- 6B36uJp2lDG6XKZLIkiqNRAv8lfd6E52TMZtTAz2kSp1f4Z6KnGbmaz8KyZlIdjeYriOSg2Utks
- B3Xquj9naqklfNA==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-From: Thierry Reding <treding@nvidia.com>
+On 10/1/26 09:01, Maxime Ripard wrote:
+> On Wed, Sep 30, 2026 at 03:49:12PM +0200, Neil Armstrong wrote:
+>> On 9/29/26 09:27, Maxime Ripard wrote:
+>>> On Mon, Sep 28, 2026 at 09:20:12PM +0200, Neil Armstrong wrote:
+>>>> On 9/28/26 19:24, Benjamin Tissoires wrote:
+>>>>> On Sep 28 2026, Neil Armstrong wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> On 9/28/26 18:22, Maxime Ripard wrote:
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>>>>>>> difficult to support and require pretty much a panel driver for each
+>>>>>>> panel produced. Most of them are pretty simple, and require an opaque
+>>>>>>> initialization sequence that is usually poorly documented.
+>>>>>>>
+>>>>>>> This creates a tension between OEMs and distros because OEMs will
+>>>>>>> typically get a new panel to react to a sourcing issue during
+>>>>>>> production, and thus need some swift turnaround between getting their
+>>>>>>> new panel and it being operational in the OS. Distributions on the other
+>>>>>>> hand can take years to ship a kernel with that new panel driver.
+>>>>>>>
+>>>>>>> To solve this, I followed the example of HID-BPF and wrote a panel
+>>>>>>> driver that will rely on BPF programs to perform the panel
+>>>>>>> initialization. That way, we can ship the programs separately from the
+>>>>>>> kernel, and with a different lifecycle. If this driver is accepted, the
+>>>>>>> plan is to have a userspace component started by udev to identify and
+>>>>>>> load the right BPF program for the panels found on the device.
+>>>>>>
+>>>>>> This is kind of late for serious applications except if we manage to
+>>>>>> solve the bootloader to Linux display engine transition.
+>>>>>>
+>>>>>>>
+>>>>>>> This driver is fully functional and works with both 5" and 7" Touch
+>>>>>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
+>>>>>>> typical panel driver in multiple ways:
+>>>>>>>
+>>>>>>> - BPF programs can only be loaded by userspace. This leaves us with two
+>>>>>>>       choices:
+>>>>>>>
+>>>>>>>       * We prevent the driver from loading until the script itself is
+>>>>>>>         loaded. This has the side effect of preventing any other output to
+>>>>>>>         be used until the initramfs is ran at the earliest, and possibly
+>>>>>>>         ever if the loader isn't installed for example.
+>>>>>>
+>>>>>> This adds a dependency on user-space behavior and if somehow the
+>>>>>> initramfs doesn't load for a reason we won't have a way to display
+>>>>>> an error.
+>>>>>>
+>>>>>>>
+>>>>>>>       * Or we probe the driver all the time, but only report it as connected
+>>>>>>>         once a program has been registered. This is somewhat unconventional,
+>>>>>>>         but allows the other outputs to be functional, *and* allows the user
+>>>>>>>         to force the output if their panel doesn't require any
+>>>>>>>         initialization or during debugging. I chose this solution.
+>>>>>>
+>>>>>> Both options are not really great...
+>>>>>>
+>>>>>>>
+>>>>>>> - It's not a panel driver, but a bridge one, which is also pretty
+>>>>>>>       unconventional. This is required because panel drivers don't have
+>>>>>>>       access to a detect callback that is required for the above, but I also
+>>>>>>>       think that the recent work from Luca blurs the line from panels and
+>>>>>>>       bridges and we'll end up going that road anyway.
+>>>>>>
+>>>>>> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
+>>>>>> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
+>>>>>> a proper way to describe the display/panel/monitor independently of the DDIC.
+>>>>>>
+>>>>>> At first glance it's a nice driver, but moving the timings into a blob moves something
+>>>>>> into possible proprietary binaries with possible closed licence and distribution
+>>>>>> restriction so it's a downgrade for the same of bringing up a panel faster.
+>>>>>
+>>>>> Quick answer on this, because I had the very same questions regarding
+>>>>> HID-BPF:
+>>>>> - in BPF, you can require (and by default it does) that only GPL
+>>>>> 	compatible BPF programs are loaded, closing the argument of "closed
+>>>>> 	licence and distribution restriction"
+>>>>> - also, a BPF program can be disassembled much easier than a binary
+>>>>> 	blob, and I remember Alexei showing me an example where you get almost
+>>>>> 	the source code from the BPF object in just one pass.
+>>>>
+>>>> Right, it "solve" one of my question, but doesn't really solve the issue
+>>>> of vendors providing "GPL" bpf programs with source available "somewhere".
+>>>
+>>> Would you be ok if I was to make a tool to decompile a BPF program into its
+>>> source file equivalent?
+>>
+>> Not really, I don't see the point TBH.
+> 
+> Cool, another moving goalpost then.
+> 
+>>>> Another big issue is the API, I don't want to keep the current API as-is,
+>>>> we plan to support more advanced panel features and use try to use the
+>>>> atomic states to support rate switching for example, and I'm not confident
+>>>> it's a good idea since there's no "simple" and "forever valid" API
+>>>> to initialize panels...
+>>>
+>>> So, a couple of things here. First, I really don't think we should
+>>> extend the panel API, like at all. But let's discuss that at Plumbers, I
+>>> don't think it's very relevant to this discussion anyway.
+>>
+>> It is, and I'll expose why we need to get out of this deprecated API
+>> as soon as possible, we are seriously keeping the ability to provide
+>> support for advanced panel features which are implemented in vendor
+>> kernels.
+> 
+> I guess I'm not the one working on out-of-tree panel drivers then. But
+> yeah, I don't dispute that statement.
+> 
+>> The API was ok when DSI was added and we didn't have generalized atomic
+>> modesetting, why would you not want panels to embrace atomic ?
+>>
+>> I don't understand, please elaborate.
+> 
+> Again, you're putting words in my mouth. I never said I don't want
+> panels to embrace atomic. I said we shouldn't extend the panel API, I
+> told you twice what I meant exactly by that:
+> 
+> https://lore.kernel.org/ksummit/20260604-grinning-determined-falcon-0e8b01@houat/
+> 
+>> I acknowledge it might sound a bit like "let's burn the whole thing to
+>> the ground", but what you just described sounds an awful lot like what
+>> the bridge API already does.
+>>
+>> Let's acknowledge that drm_bridge isn't just about bridge anymore, make
+>> panels bridges, and we're done.
+> 
+> https://lore.kernel.org/dri-devel/20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org/
+> 
+>> It's not a panel driver, but a bridge one, which is also pretty
+>> unconventional. This is required because panel drivers don't have
+>> access to a detect callback that is required for the above, but I also
+>> think that the recent work from Luca blurs the line from panels and
+>> bridges and we'll end up going that road anyway.
+> 
+> So, yeah, my point is we already have an atomic API to support panels:
+> it's the bridge one. If your plan is to make the panel API an equivalent
+> to the bridge API, then it just makes no sense when all consumers are
+> handling bridges anyway. Just write a bridge driver for your panel IC,
+> and you're done. It works today, and you don't have to extend anything.
+> And you can embrace your atomic panel.
 
-Convert Tegra AHUB bindings from the free-form text format to
-json-schema.
+I have no precise plan yet, but my idea is close. Since we basically program
+the DDICs in panel drivers, which are bridges, just move them as bridges with
+perhaps a set of panel DDIC helpers to reduce the burden to write a full
+bridge driver and then declare the actual physical panel as connected to
+the final bridge connector.
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
-Rob, you gave a reviewed-by on v2, but Sashiko flagged that the per-SoC
-constraints don't properly match on Tegra132. The only change (well, in
-addition to the subject prefix fixup) compared to v2 is changing the
+Having a proper "panel" described would be the key to the move, but the more
+I dig the more it needs to be a generalized solution across DRM.
+I had some feedback about how this would solve issues people struggle have
+with advanced monitors arrangements and advanced features like Tiled Display, etc...
 
-    const: nvidia,tegra124-ahub
+But yeah let's meet in Prague a discuss about this, I'll be pleasure to you
+again in person, it has been a while !
 
-match to:
+Neil
 
-    contains:
-      const: nvidia,tegra124-ahub
-
-It's a really minor change and I suspect your Reviewed-by would stand
-regardless, but I thought it best to resend this to make sure.
-
-Changes in v3:
-- use correct matching for per-SoC property constraints
-- fix subject prefix
-
-Changes in v2:
-- add compatible to the list of required properties for i2s child nodes
-- use consistent style for description properties
-- add correct set of possible compatible strings
-- add per-SoC constraints for resets and dmas
-- wrap overly long lines
-- fix yamllint warnings
----
- .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
- .../bindings/sound/nvidia,tegra30-ahub.yaml        | 289 +++++++++++++++++++++
- 2 files changed, 289 insertions(+), 88 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
-deleted file mode 100644
-index 0e9a1895d7fb..000000000000
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
-+++ /dev/null
-@@ -1,88 +0,0 @@
--NVIDIA Tegra30 AHUB (Audio Hub)
--
--Required properties:
--- compatible : For Tegra30, must contain "nvidia,tegra30-ahub".  For Tegra114,
--  must contain "nvidia,tegra114-ahub".  For Tegra124, must contain
--  "nvidia,tegra124-ahub".  Otherwise, must contain "nvidia,<chip>-ahub",
--  plus at least one of the above, where <chip> is tegra132.
--- reg : Should contain the register physical address and length for each of
--  the AHUB's register blocks.
--  - Tegra30 requires 2 entries, for the APBIF and AHUB/AUDIO register blocks.
--  - Tegra114 requires an additional entry, for the APBIF2 register block.
--- interrupts : Should contain AHUB interrupt
--- clocks : Must contain an entry for each entry in clock-names.
--  See ../clocks/clock-bindings.txt for details.
--- clock-names : Must include the following entries:
--  - d_audio
--  - apbif
--- resets : Must contain an entry for each entry in reset-names.
--  See ../reset/reset.txt for details.
--- reset-names : Must include the following entries:
--  Tegra30 and later:
--  - d_audio
--  - apbif
--  - i2s0
--  - i2s1
--  - i2s2
--  - i2s3
--  - i2s4
--  - dam0
--  - dam1
--  - dam2
--  - spdif
--  Tegra114 and later additionally require:
--  - amx
--  - adx
--  Tegra124 and later additionally require:
--  - amx1
--  - adx1
--  - afc0
--  - afc1
--  - afc2
--  - afc3
--  - afc4
--  - afc5
--- ranges : The bus address mapping for the configlink register bus.
--  Can be empty since the mapping is 1:1.
--- dmas : Must contain an entry for each entry in clock-names.
--  See ../dma/dma.txt for details.
--- dma-names : Must include the following entries:
--  - rx0 .. rx<n>
--  - tx0 .. tx<n>
--  ... where n is:
--  Tegra30: 3
--  Tegra114, Tegra124: 9
--- #address-cells : For the configlink bus. Should be <1>;
--- #size-cells : For the configlink bus. Should be <1>.
--
--AHUB client modules need to specify the IDs of their CIFs (Client InterFaces).
--For RX CIFs, the numbers indicate the register number within AHUB routing
--register space (APBIF 0..3 RX, I2S 0..5 RX, DAM 0..2 RX 0..1, SPDIF RX 0..1).
--For TX CIFs, the numbers indicate the bit position within the AHUB routing
--registers (APBIF 0..3 TX, I2S 0..5 TX, DAM 0..2 TX, SPDIF TX 0..1).
--
--Example:
--
--ahub@70080000 {
--	compatible = "nvidia,tegra30-ahub";
--	reg = <0x70080000 0x200 0x70080200 0x100>;
--	interrupts = < 0 103 0x04 >;
--	nvidia,dma-request-selector = <&apbdma 1>;
--	clocks = <&tegra_car 106>, <&tegra_car 107>;
--	clock-names = "d_audio", "apbif";
--	resets = <&tegra_car 106>, <&tegra_car 107>, <&tegra_car 30>,
--		<&tegra_car 11>, <&tegra_car 18>, <&tegra_car 101>,
--		<&tegra_car 102>, <&tegra_car 108>, <&tegra_car 109>,
--		<&tegra_car 110>, <&tegra_car 10>;
--	reset-names = "d_audio", "apbif", "i2s0", "i2s1", "i2s2",
--		"i2s3", "i2s4", "dam0", "dam1", "dam2",
--		"spdif";
--	dmas = <&apbdma 1>, <&apbdma 1>;
--	       <&apbdma 2>, <&apbdma 2>;
--	       <&apbdma 3>, <&apbdma 3>;
--	       <&apbdma 4>, <&apbdma 4>;
--	dma-names = "rx0", "tx0", "rx1", "tx1", "rx2", "tx2", "rx3", "tx3";
--	ranges;
--	#address-cells = <1>;
--	#size-cells = <1>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
-new file mode 100644
-index 000000000000..26077c3ce198
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
-@@ -0,0 +1,289 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/nvidia,tegra30-ahub.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NVIDIA Tegra30 AHUB (Audio Hub)
-+
-+maintainers:
-+  - Thierry Reding <thierry.reding@gmail.com>
-+  - Jon Hunter <jonathanh@nvidia.com>
-+
-+description:
-+  AHUB client modules need to specify the IDs of their CIFs (Client
-+  InterFaces). For RX CIFs, the numbers indicate the register number within
-+  AHUB routing register space (APBIF 0..3 RX, I2S 0..5 RX, DAM 0..2 RX 0..1,
-+  SPDIF RX 0..1). For TX CIFs, the numbers indicate the bit position within
-+  the AHUB routing registers (APBIF 0..3 TX, I2S 0..5 TX, DAM 0..2 TX, SPDIF
-+  TX 0..1).
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: nvidia,tegra30-ahub
-+      - const: nvidia,tegra114-ahub
-+      - const: nvidia,tegra124-ahub
-+      - items:
-+          - const: nvidia,tegra132-ahub
-+          - const: nvidia,tegra124-ahub
-+
-+  reg:
-+    minItems: 2
-+    maxItems: 3
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: digital audio clock
-+      - description: module clock
-+
-+  clock-names:
-+    items:
-+      - const: d_audio
-+      - const: apbif
-+
-+  resets:
-+    minItems: 11
-+    maxItems: 21
-+
-+  reset-names:
-+    minItems: 11
-+    maxItems: 21
-+
-+  ranges: true
-+
-+  dmas:
-+    minItems: 8
-+    maxItems: 20
-+
-+  dma-names:
-+    minItems: 8
-+    maxItems: 20
-+
-+  "#address-cells":
-+    enum: [1, 2]
-+
-+  "#size-cells":
-+    enum: [1, 2]
-+
-+patternProperties:
-+  "^i2s@[0-9a-f]+$":
-+    type: object
-+    required:
-+      - compatible
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - ranges
-+  - dmas
-+  - dma-names
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          const: nvidia,tegra30-ahub
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - description: APBIF registers
-+            - description: AHUB/AUDIO registers
-+
-+        resets:
-+          maxItems: 11
-+
-+        reset-names:
-+          items:
-+            - const: d_audio
-+            - const: apbif
-+            - const: i2s0
-+            - const: i2s1
-+            - const: i2s2
-+            - const: i2s3
-+            - const: i2s4
-+            - const: dam0
-+            - const: dam1
-+            - const: dam2
-+            - const: spdif
-+
-+        dmas:
-+          maxItems: 8
-+
-+        dma-names:
-+          items:
-+            - const: rx0
-+            - const: tx0
-+            - const: rx1
-+            - const: tx1
-+            - const: rx2
-+            - const: tx2
-+            - const: rx3
-+            - const: tx3
-+
-+  - if:
-+      properties:
-+        compatible:
-+          const: nvidia,tegra114-ahub
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - description: APBIF registers
-+            - description: AHUB/AUDIO registers
-+            - description: APBIF2 registers
-+
-+        resets:
-+          minItems: 13
-+          maxItems: 13
-+
-+        reset-names:
-+          items:
-+            - const: d_audio
-+            - const: apbif
-+            - const: i2s0
-+            - const: i2s1
-+            - const: i2s2
-+            - const: i2s3
-+            - const: i2s4
-+            - const: dam0
-+            - const: dam1
-+            - const: dam2
-+            - const: spdif
-+            - const: amx
-+            - const: adx
-+
-+        dmas:
-+          minItems: 20
-+
-+        dma-names:
-+          items:
-+            - const: rx0
-+            - const: tx0
-+            - const: rx1
-+            - const: tx1
-+            - const: rx2
-+            - const: tx2
-+            - const: rx3
-+            - const: tx3
-+            - const: rx4
-+            - const: tx4
-+            - const: rx5
-+            - const: tx5
-+            - const: rx6
-+            - const: tx6
-+            - const: rx7
-+            - const: tx7
-+            - const: rx8
-+            - const: tx8
-+            - const: rx9
-+            - const: tx9
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: nvidia,tegra124-ahub
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - description: APBIF registers
-+            - description: AHUB/AUDIO registers
-+            - description: APBIF2 registers
-+
-+        resets:
-+          minItems: 21
-+
-+        reset-names:
-+          items:
-+            - const: d_audio
-+            - const: apbif
-+            - const: i2s0
-+            - const: i2s1
-+            - const: i2s2
-+            - const: i2s3
-+            - const: i2s4
-+            - const: dam0
-+            - const: dam1
-+            - const: dam2
-+            - const: spdif
-+            - const: amx
-+            - const: amx1
-+            - const: adx
-+            - const: adx1
-+            - const: afc0
-+            - const: afc1
-+            - const: afc2
-+            - const: afc3
-+            - const: afc4
-+            - const: afc5
-+
-+        dmas:
-+          minItems: 20
-+
-+        dma-names:
-+          items:
-+            - const: rx0
-+            - const: tx0
-+            - const: rx1
-+            - const: tx1
-+            - const: rx2
-+            - const: tx2
-+            - const: rx3
-+            - const: tx3
-+            - const: rx4
-+            - const: tx4
-+            - const: rx5
-+            - const: tx5
-+            - const: rx6
-+            - const: tx6
-+            - const: rx7
-+            - const: tx7
-+            - const: rx8
-+            - const: tx8
-+            - const: rx9
-+            - const: tx9
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/tegra30-car.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    ahub@70080000 {
-+        compatible = "nvidia,tegra30-ahub";
-+        reg = <0x70080000 0x200>,
-+              <0x70080200 0x100>;
-+        interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&tegra_car TEGRA30_CLK_D_AUDIO>,
-+                 <&tegra_car TEGRA30_CLK_APBIF>;
-+        clock-names = "d_audio", "apbif";
-+        resets = <&tegra_car 106>, <&tegra_car 107>, <&tegra_car 30>,
-+                 <&tegra_car 11>, <&tegra_car 18>, <&tegra_car 101>,
-+                 <&tegra_car 102>, <&tegra_car 108>, <&tegra_car 109>,
-+                 <&tegra_car 110>, <&tegra_car 10>;
-+        reset-names = "d_audio", "apbif", "i2s0", "i2s1", "i2s2",
-+                "i2s3", "i2s4", "dam0", "dam1", "dam2",
-+                "spdif";
-+        dmas = <&apbdma 1>, <&apbdma 1>,
-+               <&apbdma 2>, <&apbdma 2>,
-+               <&apbdma 3>, <&apbdma 3>,
-+               <&apbdma 4>, <&apbdma 4>;
-+        dma-names = "rx0", "tx0", "rx1", "tx1", "rx2", "tx2", "rx3", "tx3";
-+        ranges;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+    };
-
--- 
-2.55.0
+> 
+> Maxime
 
