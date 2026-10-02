@@ -1,162 +1,131 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82173FE356
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969904; cv=fail; b=nGwSOBOGh1vN4yXYDo65NiEmveJGQQjhyIGShkSi6y25YOD+XT9ToJxFTqck8v5LB4P696H9jQhs47ChZKCc+UHT9/H/4rDN5hO5OjcL8HrcbSrQEzeHKbZM/8sXDbw+0nK2J53ZMhn0ZM0lX8t14ZR7FQbo+VcpmVjYlIUUkfw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969904; c=relaxed/simple;
-	bh=0q4jygsyVs4MaZZzBZAxPEKsGFPfXbzT7Xgh3P4kkLk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=SBRfNuzHJcw30nRsVWzHvzu5rxNzjIZ6CXMWcyTPNStkEAtE7tRkZyPoz1jzdhpbooc/jQwo8twFNZsai16NgKQfaqs2XWJYz3dmLak13hLjOUuMbEmaR8ZEmwggtT8SeCbhSZYsCxYz44pOuIvxxlJ9JH2Gz7zcQXVLGQmm1ps=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Jk1iLssV; arc=fail smtp.client-ip=52.101.85.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC533DDB19
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790969984; cv=none; b=mF6raY26x1CZbdXzSqRV7zlbKZbuZByYsKeFrRUmNjzx4p6gHLs3QX+ubEC2sDooSzX2HltJKqPdFMeka+1mqSIazaL3bIO75Q9bwl+KhREcSXZMw7ojZuMB44huVj5NzzTUV19KQl/LLi+jwCxoxKTDfE+DHClJv6iU8WAaGZs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790969984; c=relaxed/simple;
+	bh=PsiLckdoCXlaU6XGuMWWxAwtoHeZw/ZbAbJywb95DOQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=tfeJ1jVlFZPnNQato9Iu8/HVzlJRXAhTIg3V939KIN3ARSjq5bwl0h03OT7asHE90uE1Wp8R0Qx7NfLsyHkuqnXgwn8v30GlG0mv2DGcHrq15v0baTMQEo16+6b3kjnIBqJIlXshKHEP0ZQENTz0UXs2tJ+WoGi83LJ2KIeUSp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=O8O3CVgu; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Jk1iLssV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=syKScPseqE2o2HdfSFwY6pb+4+DM/9eMVFACPaYqgAdUsOctrTjRfRrMxG3RDPMK6WzVo35XP71SvJgI5vR+VIRBk5+0PMzpSyrRPGKYw7xgCwSWEG51Fr+M3OxNP4si2INOag8rj41FErNWH5fxHwy9ij+EVgvlVi4oG99xbrAw9oIZkP647rqraUWPYodgB83DXDRceX3ukYl013duvTlxjteSpHcyu9RP3CbQhhNTWI+WdF33gPFMyZuaAwwpwJrHXPzRLaeUFqKylJ/8e9YKGF4exNjeSyVA0l3NUdtqP0D1FdSIurLiLHE1qWTLKcV7yjuNmv3+DjZmcBGzQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+WPPCYQ2iFeVXSYQBiboM7o7sBtbPb9TwiJycjj0p8A=;
- b=yHzbYmU1XRcRQuviUyUegVMRmmggcz4uFVFFm5V31+DdjVEpnqOaBmvqM+5o8ObQJkaS7P0oseGT0lzEWXggr+sDA3MTT5OwUAg5mb/dM0sXGZQsCkWxjoQ2eObkP2RiJKXjQSli41PSZxHJc7plctj1uh0GOHiEk25vmkKuns265yIINBd+6+YBGSufzK62J/UoB8IwLpYAGHS1/TEgn5Lp/cl33i0PmmksOD1OoXN7f2SMIAHqEVsk40gehwv0Xl9ntlUfhj/VB5nYu4SVG2T3qz+XeVvEf5E07TPYZj8sOYFjK5BLTlZVRb8WrHeNTGK76ffv+0J13QUmVEQXUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+WPPCYQ2iFeVXSYQBiboM7o7sBtbPb9TwiJycjj0p8A=;
- b=Jk1iLssV2T+APE8akcIuKXWWmogC+zXFcFQBgrZ4tnN2b8EQa+p0qjBE5R/+9ZZoMHI0m25Twh6CYs3aSF1KqB76FkFUCQqlA6MO7S1SC0gmGWyY2QkQ8ny1TmR1iQH6WQT7rQNyqNbGIscXsbvwCXhm38ho2iXRK/rgc500Uf0eGjGkE4HTgJ3ASV9PwjefdNUldrcx1B5jtj7SAHF1dL80cSYDCRZi2yr+twy+0VniMM8alwPFyZmPzcqGWj/Pygifg8/iaPKV+59YRMdzTNmJmQaDSw5e37kFS3xUNCPChUtBbpt9qOR+9J15rrMERPNt9mkmOGFfeP+Xal7Wyg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by PH7PR12MB7938.namprd12.prod.outlook.com (2603:10b6:510:276::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
- 2026 19:38:11 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Fri, 2 Oct 2026
- 19:38:11 +0000
-Date: Fri, 2 Oct 2026 21:38:08 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Keep proxy donors with
- slice left on the local DSQ
-Message-ID: <asAIIDSdSjwEjir9@gpd4>
-References: <20261001191216.2391359-1-arighi@nvidia.com>
- <59be0f173a7bc73a5a7eb6927f635605@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <59be0f173a7bc73a5a7eb6927f635605@kernel.org>
-X-ClientProxiedBy: MI2PEPF00000B83.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::419) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="O8O3CVgu"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso1156525e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:39:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790969981; x=1791574781; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ECA2Ii7AnEG4kznNqv+ar3v6vnQStjMbIFJDndf3wus=;
+        b=O8O3CVguB/cpdLiaePG1wc3dkUF3m4Rr1SzXZ/Jvux4g/nUv1wYLWrd2E05E6R8RUo
+         Ahcc6Yby3tRRHNnraQaQ9qziBEN1FDaAzuxrroKjyoFd3m5l6/W2Lg3cJo7eXWu5iF9k
+         5knff6gWFqmBnc4/ZJYEDqdrMlrqPdgyYJaX8Jvh70hJViqk1RO+4bQK+vkbQz+nQS1n
+         WQotfUvo9QAdOJGmfqnISP2HksjTl11lT6J+hbu14VVKU01JgT8bEX/kvYABo5OJ7aAS
+         wP6I0MGTQYmUOugSRGc8hVpDp9md8hQdmQS6/Yco7FDGbZX/rUFbL0H7obYfVUO2XplV
+         C7Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790969981; x=1791574781;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ECA2Ii7AnEG4kznNqv+ar3v6vnQStjMbIFJDndf3wus=;
+        b=kugSB9Nwb2PoYdTKowySTvZZJotDQFCbSw1YwcZsqR21akWwVBmQrdRKPHx9lwpIs0
+         oHgsuTAty7dQgwCjDaTzecx56+xQfGrMLwt1MK+n9yMQfgTc3aRGzfI5tZBeN3G9WYoN
+         QwEGo58vExSHgUryU63E2qMjyIsAcZNlSfcApxTC7DPchLdvnxecfcLxHNt7n7yYJLGT
+         Fsmbe8aQpxCjhWBXwVrU3j9ceaWUJloTKIjFG13X6YkNIbEH7A3HRMBlaUtmqC6P8a2D
+         RA6kE26Q6Y8oX3yuKKvCcxOMDksKWr3fjeuFe40Lp11R0Mmrm1amKNv1cb7kpotDlMly
+         tXaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtcQAIDmSclKRTVGIxMYjTYiMebJnFUBiCnBg0w77iljjFo1yvVpqJMJxFNwXQ5WpOFi8t/J32fGxWWqE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+fV7HpLfEzyGtra1VkenrgmSnw3UJLk4NVQouJ7F0qsDbJqwM
+	VDF+J218C0+NBkwEqWZo+uhDsWnVRnrZyAgsyiH94NMGDnpopnYaE3ovjlzfOxUNUgw=
+X-Gm-Gg: AYBFou1uZCU7uO2YfnYyeE2LModwv8qwE9HDXu/o8JTICEI3755XwFOOFz3wyfToc+u
+	vQcDlot2IImAh0cPPhCMsj4cZuZ8+qqZ7QAL6ShUrQ+AhBvG9emyXA/7EAk0J6VXroGQw1En2Ma
+	p2s+n52cEoc5nXDqffSPGzfvjI1zx7bBt3yU2DAsM2j5ss3gAMwW9xX/KO7Rn8g0fbYJQb0ApHl
+	ak2GQHMo7062s/U+RH/rM3A7XEb3v3UTFtg/H8MpDhKIUDSs4vr6j8UZo3H6Bq6WCAIBj2XoytS
+	Pfa/Cr2O1VLtT/pcbyNEM+JmktVmlDolSxW3IiISVMvSm5Z83GXVqkw7iDJgGr8rXOPepmvyDdd
+	ekvHDy2iEonYCjg3CEARPmQ1upvAYjAb3lNiCj6bQVhQcFsA3k5dSVaB5xWkVPalWuFISA1qha+
+	x2uRo3F8J68uEyv2DKy6eRCOZMMsXXTQA1lHq8O/5t8QXOGYUWru41CAqksuDamt0RJLNu5p+Ql
+	VL7JhdYe/gUqvYk6zo=
+X-Received: by 2002:a05:600c:354a:b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a027447475mr68982555e9.0.1790969981261;
+        Fri, 02 Oct 2026 12:39:41 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm104389955e9.4.2026.10.02.12.39.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 12:39:40 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Igor Velkov <iav@iav.lv>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
+References: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
+Subject: Re: [PATCH v2 0/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: fix
+ the SPI NOR
+Message-Id: <179096998039.3351815.5090635259555854831.b4-ty@b4>
+Date: Fri, 02 Oct 2026 21:39:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|PH7PR12MB7938:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1201225a-d063-4c3d-7619-08df20bcb154
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|4143699003|10067099003|56012099006|6133799003|5023799004|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	fkXgAkj9xW0bTjPxdD6gyy79sdT6P3V1L0PgWloHfMR8vUFhldbf9HPmPUHdHBFTt9D+TgVK5jW6b008jwDthwxMLZV3vpA02AtaZC/aPcguYGfMtJ72zXn9U5mx/CVZhfmZYUKHziPIVO1OY4tJPP17pLIdeFgZ20einyOJ2FjiSYPwc9sN4EEnqwAVEAVhpjraeG1Dd+KG7joS4tuUvCVRfgqWBUPBpqHMKvrGqT8vR/miA+6ECtV54Y9Oulof6G6+5k7aD1Ib5EJDD/nQj193npmkEpPVeWSDUYpKFyh5xgNwWJzucRrbbELX0SF+HJZX9IUpn1PKFG8PTDrYH+TsdsyIgEhT0NrCz2u+ip/bUP9JkoDINQT+3f4E3XeFrYU4uMzaAVnfm8DXJ7ozttQWEtP9OdV7MRJj+4OiNyHU7+spy8590etV6416QgvTXLSuaMDGwCwAQ3vpYoWSBvq3hg6tGP+T3IX2XePwqFXJlnjSFdgCxMZlwFctcYN+zYCnun5QHkZjcVhUpAM5OHwrEipSuMuWFLV1zyKiLJ/4VqLZ2CgjGYwlktmQ5kqdQbDImjgHcbLcp1SVRhZugbAhgAYfsdgCnRODL/AaIQIwiqBwUsE/+I1g3TDMG4yI+fZ5Y5oFx4DVtsO8bUEr4uYUsk5jrzI5nigfq+lvDNU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(4143699003)(10067099003)(56012099006)(6133799003)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VOTw/OMGwEkAgJ20wC/f0AnUVRmmnKKnIo6Rur4jTwwWrSRvyaVk2pRuZHLi?=
- =?us-ascii?Q?YEcNsGcH8tP6WHavuyFyCbpelOEJ/tdU/Z53otjQY0zr6IWyi5KH/YXltc1Q?=
- =?us-ascii?Q?azg+eHg7723H0ExxzpZBI9/QfIuBCup8BBZjzuvGzqcCTTCV+N7SwrMu62/k?=
- =?us-ascii?Q?YvrN4SsEvSsCG7wN2JCPBGTYyULxkzL/M/RFqTHWosgL2QMldUJ3cB/xOjlK?=
- =?us-ascii?Q?M74JGuR8pyRP0oPa/SY/5VMLde2MS1L4rlgP9+MZ6NL/g/XxlZdpEoVhKc9l?=
- =?us-ascii?Q?vnSk5/ZNiELECDzfSbmHWghaxY6qP5hE4Ep/10V3SlnPmCpMHFK6N433PG0U?=
- =?us-ascii?Q?NNkGPUx7/sUjAbAq10P/u0nPb5BkTojoLINngulMg4GiNBd6OC6dFDZmhHzf?=
- =?us-ascii?Q?rKEXSLsFexweh1LRDoFbBPr8/TYy3ETY0ravLjXQK9f2dn6e0/wfIwySaBKU?=
- =?us-ascii?Q?SGayJPXvyMQ/Wi9xW1dLwVbS7HXxJzFHhgpGHLruGJh7E1F3jI9CLcz5c0Fy?=
- =?us-ascii?Q?LD6x3Ujr7+djV86snnpXIzulTBy5Rxzhny97t9rC53Mbhafnj9MXyzGOMPtg?=
- =?us-ascii?Q?6JJedW8sthucbhXVd3P+gB6EMtL6kb345hHek2UQuGvtrOrythmWo6q/lOFy?=
- =?us-ascii?Q?R5Uwie4mCWMJuzNGKRBwjdWh5PZkYSYlGxlbK43XH1UaTyCzaZ5SlhOiEwyP?=
- =?us-ascii?Q?9VCi4dOg83Zgf2l6qnJTzNrh4sGutdmyuyYy+Y9LOykQpVnRr2HKXSKc+W/O?=
- =?us-ascii?Q?FFErYQwNWChZqx1vDluIyoA86wAn5gP6XMaXcwqdKTqHxIOf+m1Nx1NkCQ7a?=
- =?us-ascii?Q?zwwi34wVqe7kHpOhTwmYhhShL2+MJ+mqIkfSXRby1KCLNqM/ha3y7djhO9jo?=
- =?us-ascii?Q?IZTsDXwiwmrH4/r9vWw17n9iu1jFa4J9hrgFjhUZu5QvSlyuI0ZeaO5plZp5?=
- =?us-ascii?Q?PPHMmtM1XF8aV/F+TUJaJFCUq7+hV7uiJpt8Cot3sAk2PGVyFH5WpAVtG0nj?=
- =?us-ascii?Q?H4q3pgy1KgPpHj4pdLNOF54PjJVaz6kYugzK7mgPI30KLU+iarfGgAp6AEFQ?=
- =?us-ascii?Q?USJxBHRR7Suv0R7g5hm/nF7IGVB73lPsjYbqwaloQFEb8L+oNshcXzbdWfXn?=
- =?us-ascii?Q?0a0EdafBpM0WsEA3dmSkn4cwEb7V063vy72aumkLG14PrmHXQang4+nBIf/M?=
- =?us-ascii?Q?2U3klgKp/gb0FSlxrzNdfg/zWb1copPFOOVTFDOv9RsAtXLpdkq6EyeXIpYG?=
- =?us-ascii?Q?EeyfeCa2VDp3ciPN44OTN5rhSL6BGm4RPzNgXVIzFYT9Dyq7QOjQhPQPV62m?=
- =?us-ascii?Q?KoT2Dwwd8FXvoOaIXMvXlbVLjO+uaIc4czO/LDQa0TSpJdjZpUabedtTJIfZ?=
- =?us-ascii?Q?SDK186QYbMlUfBi6dn2+FfAprE/6dHmr3LfUzXVKHt2J/ZKaW4UI1fbNsclN?=
- =?us-ascii?Q?JaKOjEzI3EMB3Lb6nrLg4IRXwNqzk8H0HKL2gtE+FUZNaJtzpAlUsy5bp0RW?=
- =?us-ascii?Q?YpsdVosJQnZItj5/z/XVTPDSb3+Ly/s6HG1Cv1Q8vFRD/rI9EPB2yr5auyLP?=
- =?us-ascii?Q?PhbQRlo/B+hRHoIykQbiJzgzghwkAlQwzC8LjgQD7KSzy7PA9FueEyWewuc9?=
- =?us-ascii?Q?k2zwWrzRazx1+gq6kyaJuXA/5/7QhtGGXlPGgT+TAiimIUp4i1WBhNFX1ECA?=
- =?us-ascii?Q?5AqrqDXRY5Nopa+im2sLJik0qs/6V2weU+bJYggXCJYMr5QY?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1201225a-d063-4c3d-7619-08df20bcb154
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:38:11.2470
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oKTMIiOAkaF5pGBha2Lt6qoIVg8xL3enBooGcc4yBItSunzIBa2C2cx3amMZ3qGoyiUsznRMBduBqFHJ9PUh/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7938
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-Hi Tejun,
+Hi,
 
-On Fri, Oct 02, 2026 at 07:30:16AM -1000, Tejun Heo wrote:
-> Hello, Andrea.
+On Fri, 02 Oct 2026 21:36:45 +0300, Igor Velkov wrote:
+> Two fixes for the SPI NOR flash on ODROID-HC4. Patch 1 lets the flash
+> probe after a boot from SD that bypasses the SPI flash. Patch 2 lowers
+> the clock to 40 MHz, where reads stop returning corrupted data.
 > 
-> On Thu, Oct 01, 2026 at 09:12:16PM +0200, Andrea Righi wrote:
-> > +			if ((p->scx.flags & SCX_TASK_IMMED) && !proxy_put) {
-> >  				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
-> >  				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
+> U-Boot takes this device tree from dts/upstream and gets the fixes with
+> the next sync.
 > 
-> I wonder whether IMMED should matter for a blocked donor at all. IMMED
-> should trigger a reenqueue iff the task is not being serviced by a CPU. A
-> donor under proxy execution is being serviced. The CPU is working on its
-> behalf and there's nothing the scheduler can do to make it go faster by
-> placing it elsewhere. If so, a donor with slice left can stay on the local
-> DSQ regardless of IMMED and of which put this is, and
-> SCX_RQ_PROXY_PICK_PENDING isn't needed. The deferred local check would need
-> the same exemption as the task stays SCX_TASK_IMMED.
+> [...]
 
-I think you're right, the donor's progress depends on its mutex owner, so
-re-enqueuing the donor alone can't make it run sooner. Therefore we can just
-keep it local, remove SCX_RQ_PROXY_PICK_PENDING and simplify the code.
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.4/arm64-dt)
 
-> 
-> > +		/* Delegate retained donor admission to its owning BPF scheduler. */
-> > +		if (p->is_blocked) {
-> > +			if (WARN_ON_ONCE(!sch))
-> > +				goto switch_class;
-> > +			WARN_ON_ONCE(!(sch->ops.flags & SCX_OPS_ENQ_BLOCKED));
-> > +			scx_do_enqueue_task(rq, p, 0, -1);
-> > +			goto switch_class;
-> > +		}
-> 
-> Can this be folded into the following block? scx_do_enqueue_task() already
-> adds SCX_ENQ_BLOCKED, so a !p->is_blocked test on the ENQ_LAST condition
-> would route donors to the plain enqueue.
+[1/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the SPI NOR HOLD# and WP# pins
+      https://git.kernel.org/amlogic/c/0b825126590879812321cdab53786fcd906f7761
+[2/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: run the SPI NOR at 40 MHz
+      https://git.kernel.org/amlogic/c/b44e2be772f866985cafdf90355285069ea68495
 
-Agreed.
+These changes has been applied on the intermediate git tree [1].
 
-Thanks!
--Andrea
+The v7.4/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
+
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
+
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
+
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+
+-- 
+Neil
+
