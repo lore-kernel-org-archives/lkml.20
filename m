@@ -1,68 +1,33 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5693CE4BE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342663F54C4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969398; cv=none; b=qAAO6O7yo33es/mfNgyDlwu+b4RwYGIV6K4Vdr2fv/eWvddFVB2wQCnR43/tTg8GKlnn+/A268HFOfEtUGG8XBZ6Bhnu0TdNLSnptkg8jXe9matXrHxw7lbulPZEDHsz0d2lV/biKgG5ulvmc2bapyZJaEo63IiadkN4OZ6B5eA=
+	t=1790969404; cv=none; b=XqLnuVbWYicqq7Dcv0UJ/16Y2eKjPMBSWAWD3jSDgo0ldQbakcgONWFoFC/DAm4WtAp5Q+yZDSo2wOWlnREZ4fTuihp7BYJdXl9LdxR4DC0wz1vnxj0BjMchVJgyOGBXi5U0AEafksljC6TKETvzJgiVN6bWBC0MueLMJz4MU/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969398; c=relaxed/simple;
-	bh=gYX5tGbv5Wzep53IGVNll4lhze1F8DYjm44G83CG9KA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Zv0MLW7dnPbv2bUwRPB98fuYUbmdxiWroRlroTy6slICUGS6CqqmfZyW9fzH3mP37elU4YXUikHeHeykJ63JizL9pNb+PqlO3QWt+iuFbB0YDEtCTRf+UNosLy03kJSTctDgclmMbT8X7Bf2BwnUbmWfweTZHLZkIORxW78CRbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lr9mzQX1; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790969404; c=relaxed/simple;
+	bh=KeCHMNAL7ie1YahX0TC0alXyMADKL94hB8PWzyyQXhI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=drCdCPGiItJzzTreH+0wJq/dGbwlul3c4NEJ96xNqzRUxO+a324pI3HJIsnPlro4I804AaQeBF79PVxvtyMOvE5w++dzqZ+ZSsErsSoJnUJpNRzgbiiyp7/AaTRXHerJP4SFl0HJ9juTZ0pp6TnpcTVZmUcdBIMVAVZz1GaZBZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UY1eYCoq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lr9mzQX1"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso941682f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:29:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790969389; x=1791574189; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cztgwljGD8oX4kZgQ1gsJ1QSEaSYmGWQ7py1olDlbuE=;
-        b=Lr9mzQX15dgg6gdyNByNl+Equil13ZCaDpqXO87nWZIqpDQARe7vJi/FrMqUTD6BFt
-         dJ2d050iZqEaulwK2sJiCyHIxpPLtaeZuzGIazDaXKjQlaxCh2DiKYZ+WOQKYcMqPwv4
-         /w/bP5izw773klXkfMdqI7R4ZQIlTXpslF3FvunVwxwNrTnOVPTR3fLF34gtyyBZKrlC
-         p65lqy4Q3fkOZbtznw/MivsRhfrM7Oy2Lz5pbbkm15uMjrc7oXt1UW/Sj+1nCTv7qlCL
-         GhUYjVGXn0t1IHE2ML2S9UagfumpJFokkKrz4Rx5gkFogoVMRlD/NWE5Dk6AZxBJ3sWd
-         Lcjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790969389; x=1791574189;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cztgwljGD8oX4kZgQ1gsJ1QSEaSYmGWQ7py1olDlbuE=;
-        b=Qf/dECFIP1v5UcCGYUUEaR+FGKkqXaacEzd2NEQj7J05rbz/6rSDoWgiVREACFh8SW
-         q5cLtkdknQlZSzeW8dPza5pmvHpxKYkdqWlPrHKxwNOmFrTOmsZGCO1uLP70xvlE0FT0
-         aqCgUfskNl8B+8ARvsxKdU1pWhpv8mEtXJTpBATvUiGJgbZ74HHAlGNDSVv4vzqYZi5+
-         w+dmHJ5lASxBn/f3pTraZU6nNC+eAv+MPjc8Iv+BVNEcYCT0Xu7eFu58ghsjSx9Di/8G
-         tpAtYfK5LGhnnJIIL0Ej6Mu+4ZX97gWnuqQ6F3X7zyGWO1kZ8V73dkbh13UxfTCN/eFn
-         PaAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmyiLNtIRnl8Mm5yYE68/cFzklSSPt2yUscWqOzsa3PQDQsngmZ2U7P2opQF6UrQIpmys5vyCk1lASZSc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMD8vJzN46ttc5M5/TDp1oDnmXToFEpPl65A9AJ3Smml4ID/mR
-	RNDvMxWRgQVN168+GaMYhePb83Z+vTkS0w7laBZAUKIUPCxLK6CyrD83611M1/Wyz3s=
-X-Gm-Gg: AYBFou3C49FI59vzcIkQJGYAt8Ev4P+iJpBhfNWpPbEI9PB6ROS9wd8j48BA3UdcBc+
-	g6jukOtBlUmb52JKSTpxw+34cszphjTQujlxG3y7zB7MQpKWbH5P5IWroiANA/9EATgtr7I9xOq
-	headwgpQTOsxVO57CL4+eHVIADDmK9OXdDimhxdH7tCJ2BnmTU+TqN9IHQkHQtkvKLL54YHcZtA
-	7WTx69IS0+i4RziZV86iHhD0GALQLQnm200g4IZRZ7TIdFzRyb0mgs4x8rUoyWSYIewYIDytNSk
-	r/js4YNvL9NGkSNRXuaMOSD3jJujh3ttYyfoz5QoeyYJkKTX9rHN5D4aA8v1WM4YswWsSRhzioR
-	3fmUm0fb04oqGKxhmYu2oYrHOPI2CadRUOpCJJ/VGgMUWpDwTLg1xbtdvXimwJCuGgsg27FEGLy
-	KnHgQKiYfFZ9dZQ8aijdOv4jz+GHrNBfBDkRYLB6rWNY3OZC4UzYW9XmGSO5+cMLBlLiGWGYqJV
-	Kbi0S/ryl7o7I738rp1EJy5lzfH12BAibe9p8SelmtM0hs4+4s=
-X-Received: by 2002:a5d:5d13:0:b0:488:75e4:f5b6 with SMTP id ffacd0b85a97d-48c4801c1aemr625756f8f.54.1790969389014;
-        Fri, 02 Oct 2026 12:29:49 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380facfesm8184812f8f.23.2026.10.02.12.29.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 12:29:48 -0700 (PDT)
-Message-ID: <23235204-8e5f-4fa7-a900-66acfcfc593a@linaro.org>
-Date: Fri, 2 Oct 2026 21:29:47 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UY1eYCoq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951F11F00893;
+	Fri,  2 Oct 2026 19:29:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790969402;
+	bh=T5Q1vlWTZYu8dcSVsk3FgjnrVw1Vrz/A7ClrLHICgII=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UY1eYCoq9AABTrmQZAVFGqeKp4Nz5nt8y9WFd4bbrO5p6Ohu03Cqb0vbTK5U6LHPa
+	 9Wxw2u4L4+KxiU2R6GrGCq14HFGEce94ZFUweEqJuSZn56X/LyR36uotcLAcmHwEBb
+	 sz78xKwiGgFhoos4IXo78QeLVjhY6Ny+yNLB09ocZQy/KkDGfV3lz98RJ0yWfP4ck3
+	 nDi8XrDub9buBLz1QyFaPOxlrTUSuw1d0+5lftDnlWo7YHILx8q7pKsSex2DuHeqUV
+	 ONEUhdyFeQqVLFyXD0ZJqjFk4ue1hn6SB9x0Ftv3962crofg8/sosyJq/tpZXg31Lj
+	 w07uyg/Xs6aiQ==
+Message-ID: <cfa883b8-3df5-4bb9-990d-cb7e165e37ae@kernel.org>
+Date: Fri, 2 Oct 2026 21:29:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,112 +35,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 1/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the
- SPI NOR HOLD# and WP# pins
-To: iav@iav.lv, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
- <20261002-hc4-spi-nor-v2-1-8366a4f91049@iav.lv>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261002-hc4-spi-nor-v2-1-8366a4f91049@iav.lv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v8 10/14] mips: move has_transparent_hugepage() out of THP
+ guard
+To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
+ lance.yang@linux.dev
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com, usama.arif@linux.dev
+References: <cover.1789695931.git.luizcap@redhat.com>
+ <13b8b68cde4d6cccd6eb9b73cfe083145bd1f014.1789695931.git.luizcap@redhat.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <13b8b68cde4d6cccd6eb9b73cfe083145bd1f014.1789695931.git.luizcap@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/2/26 20:36, Igor Velkov via B4 Relay wrote:
-> From: Igor Velkov <iav@iav.lv>
-> 
-> The SPI NOR flash uses six lines, but nor_pins covers only four: data,
-> clock and chip select. Nothing claims HOLD# (BOOT_3) and WP# (BOOT_7),
-> so they keep the boot ROM setting. After a boot from SPI they are in
-> the nor function and the flash works. After a boot from SD with the
-> button under the board, they stay eMMC data lines pulled low, and
-> spi-nor reports "unrecognized JEDEC id bytes: 00 00 00 00 00 00".
-> 
-> Add them as a separate group in meson-g12-common.dtsi rather than to
-> nor_pins: whether HOLD# and WP# reach the SoC depends on the board. The
-> HC4 has eMMC disabled and takes both groups.
-> 
-> Tested on ODROID-HC4: with BOOT_3 and BOOT_7 set back to eMMC with
-> pull-down and spifc rebound, the flash fails as above without this
-> patch and probes as a 16 MiB mtd0 with it.
-> 
-> Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
-> Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
->   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi    | 9 +++++++++
->   arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 2 +-
->   2 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-> index 00609d2da674..3135566df880 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-> @@ -615,6 +615,15 @@ mux {
->   						};
->   					};
->   
-> +					nor_hold_wp_pins: nor-hold-wp {
-> +						mux {
-> +							groups = "nor_hold",
-> +							       "nor_wp";
-> +							function = "nor";
-> +							bias-disable;
-> +						};
-> +					};
-> +
->   					pdm_din0_a_pins: pdm-din0-a {
->   						mux {
->   							groups = "pdm_din0_a";
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> index 3ece30a0a1ff..c4b93d6619f2 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> @@ -126,7 +126,7 @@ &sd_emmc_c {
->   
->   &spifc {
->   	status = "okay";
-> -	pinctrl-0 = <&nor_pins>;
-> +	pinctrl-0 = <&nor_pins>, <&nor_hold_wp_pins>;
->   	pinctrl-names = "default";
->   
->   	flash@0 {
-> 
+On 9/18/26 03:45, Luiz Capitulino wrote:
+> A future commit will introduce a kernel API to allow for checking if the
+> CPU supports PMD-sized pages. This API will be based on the
+> has_transparent_hugepage() implementation but will be orthogonal to THP
+> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Same thought as for the previous commit: it would be fine for now for the
+architecture to simply say "not supported" without CONFIG_TRANSPARENT_HUGEPAGE,
+right?
 
-Thanks,
-Neil
+-- 
+Cheers,
+
+David
