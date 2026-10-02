@@ -1,114 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF06309EEB;
-	Fri,  2 Oct 2026 00:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFC030C617;
+	Fri,  2 Oct 2026 00:43:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790901779; cv=none; b=uaHLJDqeccaLy5djk12fVui54wWJ1d8Y0xwZtJ8zMtkXFP+Td4ogYPh93KHpFblH/OUcaytabUy15Nw0qMHcV2RTAnhyxNkpNpgj/B++L0YhXVkO4HdWW0wIUmD1mB36dWc8vr8k0EGNRlxH7nYnuv9OgqTAtwvvbkANSz7cgmM=
+	t=1790901784; cv=none; b=cpTu64rWZ9s4JNwhklJ9jLCaSOuYHYyJg2lwDFFWnLWgS8QmgSXyGIQHVpFM/uuc/8q8Cfi9ThBHHg1mKT5zf8q+WcBsSvY4EtZimx72DYQPxNnLaq7843xVkQDiWpG2fOCSWibG2z+U7HiL6aUJp9OrCyjRZJvjL1Hr8CgMKo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790901779; c=relaxed/simple;
-	bh=xlDEjZZKuSLha8AII70E2wBWYiGTxzyZ/6Eyq94vTV8=;
+	s=arc-20240116; t=1790901784; c=relaxed/simple;
+	bh=abQ+JO9hruGWn6WaF1OiSdjhYYc9dFsLWxfOLDtBe/4=;
 	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=Ibq1s4z0eiQdz7pAGm0h56Qtd3CfqcfvIrFtOfmMSufsKUHlO8Koa6Qgf49C6kOfJuimJhA2RXwhqx97Zvvuu4C7pg7fZiPDvtsWLlXyxSw5T+g16BJ+JyXSNnBDTv4lFdkfpJUXZcUbLzE3Q4EqoSIo21fNq2UukUkwrRIOycQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QbdFKNsD; arc=none smtp.client-ip=100.103.45.18
+	 Subject:From:To:Cc:Date; b=qCH/j2ccMQheWNfyvALWSXuLaBUZJxFEA27fih7c2u+XeuPoU/TMZicgcrLhH2Ysv8vVDynoZ6sM3SJb5NbRP5JIgsGEerTcYWDDKawbuTNuok5DzNTjn1LwDu6RaP+67kLbslkxU7hz0n7M3XJ9XBXBPDa8NL1GE5vHi9kmGqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a72UDrm8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QbdFKNsD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412DA1F000FF;
-	Fri,  2 Oct 2026 00:42:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a72UDrm8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6411F00893;
+	Fri,  2 Oct 2026 00:42:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790901778;
-	bh=nFLFXcA/4RBw2fj95Jket0MhjElIbHt78J88KbonwBU=;
+	s=k20260515; t=1790901780;
+	bh=+IVQat6jMa0Qb32XqDWrtVJ0Z4xKJddQ/YKBar6myOo=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=QbdFKNsD/PYFOLm1QVvRNYcU0boOaYOQX50XTYWcHi6uY2UJqav8DWnM5UflhK84e
-	 q1g2LQxMI04mXR8H8mTQmYAnQOC4hmVcu99++0BW4btQ+QP57SEr4KmSmtdStVgFto
-	 JLHsuTAXxrJzyraWlQkIOUgIlDF1LsOftdZIWktsuI3rsR6lihv04/Vpk/Qtxgv/NZ
-	 OHb4x0gujuZTjrEb4NTpmnjH+m7P4Wph6DLJhWjUU6SUUi9wpQaUqBRwSIhLKKQgG3
-	 bup2ufKY9PWEMHkRTDMWjT5YaaQ6qQaQJR375xNeEMLxq2yL4AekNNjgw8MHfzchi+
-	 QsD8AIQNX1fwA==
-Content-Type: multipart/mixed; boundary="===============8121513199621662962=="
+	b=a72UDrm8jV5IT7cr7OLdW/C3tKv28jvFT5+GnQdZmIsObEqXGUznmisw7XaIB2DL7
+	 QjBQSNfRNDoIomO1nlRmDON8NpjrJ3A3Jb78NrxEzpkRSNPJmO7C8f8Kl+fQ5EceNz
+	 XOpZI001TZKCwNcmCA0044b0SDU89ObTVaJPxiJuiuf2KWEpwDKOL6rGoIMUU2TxkR
+	 5yFJqiKFlYDIN4E5QhD3JNXYQL18gl2tETruuTKqgFAft2jeVJiU4Qw/DkXVIbhmx3
+	 vZ+Y38UbnkgKaWzC7g+pxV05fANoDxvHD2tgYGaKPBQ7A+Lb3jdOc6tauj0t7+hLhX
+	 4xM3XUjOLgmVA==
+Content-Type: multipart/mixed; boundary="===============4267361010074826107=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <80c5e55099a95df4966760c0ee7022cbcd1b57b379412c45b5706f6b0f491423@mail.kernel.org>
-In-Reply-To: <20261001152042.124445-10-gmonaco@redhat.com>
-References: <20261001152042.124445-10-gmonaco@redhat.com>
-Subject: Re: [PATCH v2 09/15] tools/rv: Copy stripped bpf_atomic.h from libarena
+Message-Id: <bc804b8da940cc0dab648ec1bec497c3e1097999c1a7a2cea204896c3cd7fd3d@mail.kernel.org>
+In-Reply-To: <20261001152042.124445-2-gmonaco@redhat.com>
+References: <20261001152042.124445-2-gmonaco@redhat.com>
+Subject: Re: [PATCH v2 01/15] sched: Add task enqueue/dequeue trace points
 From: bot+bpf-ci@kernel.org
-To: gmonaco@redhat.com,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,rostedt@goodmis.org,gmonaco@redhat.com
-Cc: alexei.starovoitov@gmail.com,namcao@linutronix.de,wen.yang@linux.dev,tobias.schaffner@siemens.com,vmalik@redhat.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  2 Oct 2026 00:42:57 +0000 (UTC)
+To: gmonaco@redhat.com,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,mingo@redhat.com,peterz@infradead.org
+Cc: namcao@linutronix.de,kprateek.nayak@amd.com,gmonaco@redhat.com,alexei.starovoitov@gmail.com,wen.yang@linux.dev,tobias.schaffner@siemens.com,vmalik@redhat.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  2 Oct 2026 00:42:59 +0000 (UTC)
 
---===============8121513199621662962==
+--===============4267361010074826107==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> tools/rv: Copy stripped bpf_atomic.h from libarena
+> sched: Add task enqueue/dequeue trace points
 
-TL;DR: The CONFIG_X86_64 kconfig extern in bpf_atomic.h may make BPF monitors
-fail to load (-EINVAL) on hosts without a readable kernel config, but only in
-the bisect window until a later patch fixes it.
+TL;DR: Commit message only: the changelog just restates the diff and doesn't
+explain why the new sched_enqueue/sched_dequeue tracepoints are needed, a
+question Peter Zijlstra raised on v2 that went unanswered.
 
-> diff --git a/tools/verification/rv/bpf_monitors/bpf_atomic.h b/tools/verification/rv/bpf_monitors/bpf_atomic.h
-> new file mode 100644
-> index 000000000000..f834ea91c9d3
-> --- /dev/null
-> +++ b/tools/verification/rv/bpf_monitors/bpf_atomic.h
-> @@ -0,0 +1,105 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/* Copyright (c) 2025 Meta Platforms, Inc. and affiliates. */
-> +#ifndef BPF_ATOMIC_H
-> +#define BPF_ATOMIC_H
-> +
-> +#include <vmlinux.h>
-> +#include <bpf/bpf_helpers.h>
-> +
-> +extern bool CONFIG_X86_64 __kconfig __weak;
+>     sched: Add task enqueue/dequeue trace points
+>
+>     Add trace points into enqueue_task() and dequeue_task().
+>
+>     Signed-off-by: Nam Cao <namcao@linutronix.de>
+>     Suggested-by: Peter Zijlstra <peterz@infradead.org>
+>     Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+>     Co-developed-by: Gabriele Monaco <gmonaco@redhat.com>
+>     Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
 
-Can this extern make every BPF monitor fail to load on a host that has no
-readable kernel config?
+Peter Zijlstra asked about the rationale for these tracepoints in the v2
+thread:
 
-smp_load_acquire() and smp_store_release() reference CONFIG_X86_64, and
-include/rv/da_monitor.h uses these macros (da_monitoring(),
-da_monitor_start(), da_monitor_reset_state()), so each monitor object ends
-up with a CONFIG_ kconfig extern.
+  "As is I'm clueless as to why we want this, since the Changelog also
+  offers none."
 
-The __weak attribute does not make it optional in that case.  In libbpf,
-bpf_object__resolve_externs() sets need_config for any extern whose name
-starts with "CONFIG_", and then requires the config file to be readable:
+  https://lore.kernel.org/all/20261001154934.GT88198@noisy.programming.kicks-ass.net/
 
-    if (str_has_pfx(ext->name, "CONFIG_")) {
-        need_config = true;
-        continue;
-    }
-    ...
-    if (need_config) {
-        err = bpf_object__read_kconfig_file(obj, kcfg_data);
-        if (err)
-            return -EINVAL;
-    }
+No reply was found in the archive, and the changelog above still consists of
+the single sentence restating the diff.
 
-bpf_object__read_kconfig_file() returns -ENOENT when neither
-/boot/config-$(uname -r) nor /proc/config.gz exists.
-
-Once f5fc86049b84 ("tools/rv: Add BPF monitors") includes this header via
-da_monitor_bpf.h, open_bpf_monitor() calls bpf_object__open_file(path, NULL)
-followed by bpf_object__load(obj).  That load would fail with -EINVAL on
-self-built kernels without CONFIG_IKCONFIG_PROC, or in containers without
-/boot/config-*.
-
-The series fixes this later in 3b66b9d4a13a ("tools/rv: Define CONFIG_X86_64
-statically for BPF monitors"), which passes .kconfig = "CONFIG_X86_64=y|n"
-through bpf_object_open_opts.  So the failure is limited to the bisect
-window f5fc86049b84..3b66b9d4a13a^.
-
-Could that fix be folded in before f5fc86049b84, or could this header
-resolve the architecture at compile time, so that every step of the series
-stays loadable?
+Could the changelog explain why the sched_enqueue and sched_dequeue
+tracepoints are needed?
 
 
 ---
@@ -116,4 +83,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36944413541
---===============8121513199621662962==--
+--===============4267361010074826107==--
