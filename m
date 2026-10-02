@@ -1,100 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5709478859;
-	Fri,  2 Oct 2026 10:30:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E69E47F3D5;
+	Fri,  2 Oct 2026 10:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937046; cv=none; b=c+ccW9d4sI2z/0aEPJhBlNJVjdh1gJzgoRybvbrJ6sMMlxqvEYuBQab4RTNcJjnezN6gjbXJ5Xt2vSQrp3Id/AOKgypwWDWXEqNro9yxqTTifn+n6Bvl9piIDP3K/HOcHwOuFUNUH6eVjSRUv+96wz/0h9PIzwzw2KNfNIhGcrc=
+	t=1790937056; cv=none; b=cfb0dDrUQLhDEPylPNbrHmUhgaeWAVKHj+nrk7gz0utGYglbcOSNatFBYBHQGSmycKeehp3+jgvzDKgm9YOhTj9XtJoMuf6SffyHaOWeDPHFfx22CXUtTWtc5eNTcQuDl2/O1uLJ60AGw2QX5DVyvFq+dma2Se4IENLS0VwK3RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937046; c=relaxed/simple;
-	bh=za7qNb0TLjJ58DaEWYAlKuUTCS/PrWaTuliDAKdudNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZlJDE1/MwzGQ/8kYehdH4ZJc/YjYsPotxalEloMQfC7Cnx6g5RmhDdrl9tUpEsji7Tuu/Ba1vpyXfDftCrnjh2LJSsI8GYrzyWj1ZNTGT6+oe+LVOe85YV+stdjxKzgwQmIl8AhCGnbj1Z2kauebAQOH0jvC57WQTutNLJnHfzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz/dBXkw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790937056; c=relaxed/simple;
+	bh=pIGH0V5kadC2PW1/kTwCEjTJea3M+mAnHiCuYdJOJL8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=AG1MuJkP6jLop5vmwN4NyVwvzHfxtbbl5WcUQqT53Ek9oXhoH7enbTzTuc3AKG63LyxBne/Jn8RPn3cICrYfeneZXD94MLfKvaDb2BZCdRKi4fhi6JSklccYGTD3FLXih6JSWSbubxj0m3aXwn6hwyxRyl1FJ3flC+X6+0RwA2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZ66Sp4o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz/dBXkw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72041F000FF;
-	Fri,  2 Oct 2026 10:30:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZ66Sp4o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EFA21F00893;
+	Fri,  2 Oct 2026 10:30:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790937041;
-	bh=9nuK3YV/XzBe+ru33Wrf1ZVJGYfxXNazzoLOdqnc7qM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bz/dBXkwXQpEPp0WOqI05zyaoICaN1LJKCCejUcr+QwF4H6QzHP3VV6ZsfMR7LIe3
-	 TzVXlHn7sVUhKkzNYmlxOGDQIm7PiHbvH7YUNaC0BQek+BE40SS358Ry9zWhZnRzGz
-	 +zXWQpAu3zQEZZRK1IDpSN93nUghh1CPIm32B39dtH95mwuauyI3v44+G9IRmK1ETA
-	 BEoFzaxD84+4NwYBDq1T6MCoUVq1fyja6TYI0ibZqyqm2hDvn8XMARkQ/5sJjEbK94
-	 CdJAe2Vq/bk9bDaU7BcFVImBVvcEVSuV9dthPlZcAkmNaYDrDVeXy9t6MIlSiSgmry
-	 RDUy/jY6CMBSg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 6FFF3F40067;
-	Fri,  2 Oct 2026 06:30:39 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Fri, 02 Oct 2026 06:30:40 -0400
-X-ME-Sender: <xms:z4e_alnd5P4unqns0iPA0wWiiobHfzaEJbLdRXcd7CEzTOv1aF9tiw>
-    <xme:z4e_arNJkel_2KK8_Dtzg_v8hmBgqyqA6VEOz3A_SnnkYdP4LvZxGzVpFpk2va_hJ
-    RRh1OyLQH3ebnqHtGPNJZ05ZAOZh85lZo5Y8XQO2xPYfLq_ViAFQvA>
-X-ME-Received: <xmr:z4e_ahzT3dKM91tsY1-30knwZXcwS47i8Op8vqS1RIvygf4n4Jmxf34du5_u>
-X-ME-Proxy-Cause: dmFkZTE1dEoi5AaCsnClKv3jc8uYgvvv6Mm/jlDkqzOHiKsnaoXj3ZHEAmPkqSieazWQas
-    YuWKW9LSi/hYkuWyQ8e5vG7M2YBVg1CrahRrHPzqQ25oAIiVADYEIgZFmWW1bgU+Uze3O2
-    MAuZDZPS6pnbsgSW8RYJf7g0AuVES0az1mt4p+h1J4N5qdd+LAI58he/0HODPbGAJjRa0G
-    BelSVhB4HNAJRejW3FNweOBdQm8Tzt79B27QQJduLm+Ylj2lcEWkHa8oO22xnw81VyBv1i
-    I2jFp5kKLZZr1HvjzE9A5T+JNlhabat+DsuV6IAFFyBBxS0VcEl30okuGztrCoBQle7VDE
-    Nk6OAwxpXM2g2ZIEp6zmCEtrbVFFU7GLiuXRNKdShNb+5/kSo43M3/N6MjoCTkHt9TTxPn
-    oqgwQgbitbfX7MDSN2IdFOxqW9zTOf/ys5niHM+VWOns8CL4E92kVnWJxpqIfbz56ISwnT
-    I7fG9vHKxl3dgM4KhxbtjjXKARx985wbxM0TbpDzXfw1iHqiU5GsEwTWteqY/XQjnftf2Z
-    KiQujnudeAetFVvJYA2fPVUe6dyhqCRXWYWAFuftaw5sRJm2LzDV71rIX1BO+/yZ2vExmY
-    CAzrz5EbHGuwrsLY2O3Qxi2L8ktDEmpyv3T0KNmhwPjtcUCLJIm9PqjWLRCQ
-X-ME-Proxy: <xmx:z4e_agsvVRVzEBO1KQAV0f2l6ggrOdhhFLJIYfnr51MIoLbZ3k6Fig>
-    <xmx:z4e_asbu1xlMSUXHClHzdm1KUNShSinGdZug6NemKGZgB3z9GpsmUg>
-    <xmx:z4e_an0BqQeztI9PkHbfc2InRoPBl3fgZn0vdgpgmKNbN8zN-Xzbqg>
-    <xmx:z4e_amtga0CBujI5_HcYR_eTcUsO0SFV8cob6lj93wGWaUJpSx1j6A>
-    <xmx:z4e_ajD_jemGbbpXDcJZZEPslNY2MHyGhLEBfekZbwK-QSgmE3M4zULk>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 2 Oct 2026 06:30:38 -0400 (EDT)
-Date: Fri, 2 Oct 2026 12:30:38 +0200
-From: Boqun Feng <boqun@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>, Lyude Paul <lyude@redhat.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] Improvements and fixes on SpinLockIrq patch series
-Message-ID: <ar-HztKCh7CKvzbH@MacBook-0RXW5>
-References: <20261001082519.16195-1-boqun@kernel.org>
- <20261002094244.GU88198@noisy.programming.kicks-ass.net>
+	s=k20260515; t=1790937048;
+	bh=yc1IIMGlaCGdOYuzLXeOZBI2ciPC6+7oDnRuG9aAllo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=FZ66Sp4o7Ynls3fytrnOjtk/CrgeHP9ASYQVydHFPboylqwYLdtqUery7iWpmi5K8
+	 9dnhkPkoZrQiSZzbnXUJ3pTL5WwfhXXb+ZZepfdF+2tal5DtNpBDrlhsecPoTB1aJh
+	 XLg+eVhtPbkIIV0ZipdVW+9nLkdbcOakEQ1lWTKYTE4VQb2lB1FBUkZf6r33JvqSmq
+	 aLdAZ8wxys3xapvDETxAhe/9moexdSv49/X7kQgZqaaL7cmSMnskwd8Jitqgw6MWYL
+	 RI6WRHijtD1Wrp3mIihow5l4Vr3rNOYfwgcKxJXtqnkY2CK0aclA2XPB8pSWnZ0+k0
+	 1o4nB+ayPjVPg==
+Date: Fri, 2 Oct 2026 12:29:43 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: Lee Jones <lee@kernel.org>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    mfd@lists.linux.dev
+Subject: Re: [PATCH 31/38] mfd: ioc3: add IP34 system-board entry to
+ ioc3_infos[]
+In-Reply-To: <20261002100204.GB13860@google.com>
+Message-ID: <6951329d-5ef5-b090-33e6-7af38e1d3893@kernel.org>
+References: <cover.1790857966.git.kaloz@kernel.org> <e9b125b8ab2422717072f447c318eff41062bd79.1790857966.git.kaloz@kernel.org> <20261002100204.GB13860@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002094244.GU88198@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-On Fri, Oct 02, 2026 at 11:42:44AM +0200, Peter Zijlstra wrote:
-> On Thu, Oct 01, 2026 at 10:25:14AM +0200, Boqun Feng wrote:
-> > Hi Peter,
-> > 
-> > I realized that v1 [1] was left on the list so I just want to respin it.
-> > Just to refresh the memory, v1 was requested [2] as separate patches for
-> > changes between v4 and v5 in the main series. I also include the
-> > refcount_interrupt kunit test Kconfig change in this version as well.
-> > Based on v7.3-rc5.
-> 
-> The first should now be in tip/locking/urgent, while all but the BPF one
-> are in queue/locking/core, which will be promoted to tip/locking/core
-> after the robot had a go at it.
+Hi Lee,
 
-Thanks! I resend the bpf fix v3:
+On Fri, 2 Oct 2026, Lee Jones wrote:
 
-* https://lore.kernel.org/lkml/20261001082519.16195-4-boqun@kernel.org/
+> On Thu, 01 Oct 2026, Imre Kaloz wrote:
+>
+>> Register the Fuel system board's on-board IOC3 and its M48T35, whose
+>> year register counts from 1968 as on other IP35-family machines.
+>> Bridge-side detection was already merged in commit 2c4288719806 ("MIPS:
+>> PCI: Add detection of IOC3 on IO7, IO8, IO9 and Fuel"), which matches
+>> the board part number "030-1707-"; the cell table had no entry to go
+>> with it. Without one the IOC3 falls to the CAD DUO default, which
+>> instantiates no serial cell, so Fuel comes up with no ttyS0.
+>
+> I received 26 and 31.  Where is the rest of the set?
+>
+> I'd like to have full context please.
+>
 
-Regards,
-Boqun
+Sorry about that, my send used get_maintainer per patch, so you only
+got the two mfd changes. The whole set with the cover letter is here:
+
+https://lore.kernel.org/all/cover.1790857966.git.kaloz@kernel.org/
+
+The series adds SGI IP35 (Fuel, Tezro, Origin 300/3000) support to
+the IP27 platform code. The two mfd patches are the IOC3 side of it:
+26 adds the IOC4 variant found on these boards and 31 adds the Fuel
+system board's cell table entry so its IOC3 gets a serial cell. They
+apply on mainline with nothing else from the set, 31 on top of 26,
+but are only useful together with the platform patches.
+
+Happy to resend the full series to you if you prefer to have it in
+your inbox.
+
+
+Thanks,
+Imre
