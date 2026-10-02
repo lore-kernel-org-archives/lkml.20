@@ -1,119 +1,594 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055863BFE3F;
-	Fri,  2 Oct 2026 07:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BE741E6DB;
+	Fri,  2 Oct 2026 07:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925672; cv=none; b=ssVvsGAAHJDBoHp4Sns9REDIXXHFswFG4JkItI+406sHR0I7InyqqOKNGIBjKKr0Dlz8INOdCb2xVq35NXgoQP+/5tIieSVYAw42s9dIlHlV1oJZ4FB7xB1Z4LhO2HoTJIxXKYR+gl1omNUBILnx89opeFY4lrAer0PdFNQj8Iw=
+	t=1790925690; cv=none; b=mGsoUQrHSo3bPVRP3oA8EAruBL8NPVnKvEhUSrSNhhNHzXrgdy/j8/3OHqkupilAUknn/Pw3RhNcT8EFmTawJfHxXoXC4I2s1YRl4e5enk2SF0A1ppyzakmWqUbpFq4Xty0Q7mhKqf6wpBDz8SCYKjVJcyv9XD8VUvNKn/UhUCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925672; c=relaxed/simple;
-	bh=3J+gWf/EvUIiwl4D1r1V0mUWXaQNQOB16CE77PPjS38=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z10/Zcut8B/YEqqh2TvzK9NnHeBhbHlX3emY2Dv7UaaLu4jl/61sAxJaqSOv14HVoMOQm1X5RwU4lQbXeg19JpMcOEmhr8Ht3b9XmBlJv/4TxM74KPS8mAeM8PUA0l03IMfg9xV+RzFztq+okIcHYuHEwu5xeykx/6OJ7DvUzhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CaOAFOd0; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790925690; c=relaxed/simple;
+	bh=VF1dyT2d8ISh9JUdaZtQyAEBN95HZYzpDXhQ8rNiiT8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=idwpCAb1Vlw3yBDyq10cRQS9tZHO7lJQ0Dg8VEBEW9XlGQtNNY48Sy6NO+wJ7YUgQpTw5Rr0VGllsoukIqwZkGEDEpa7GuNOzUyzXXaMySOjcFNBu2mnULNYtAfadzXZsUsRCQlY9fWekdpYhjshAHaf89UK8lQEIj6vYxsrUlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=lzpxc+TD; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CaOAFOd0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790925670; x=1822461670;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3J+gWf/EvUIiwl4D1r1V0mUWXaQNQOB16CE77PPjS38=;
-  b=CaOAFOd04EKd+nNhJuUTDqkZmgrtnOGMZ/wClABnMm/mwQUvWLKafwbU
-   Yyir4bRiMnRJYnMOgEX4p4Gkc81eRVxpNcpH6DmWwwwymuaBG1cZ0DVKU
-   Gn48XXwSjA31Uta2XBsdazGLJhFFfGBjQzWyvS3BULZ6ApjalYtcoxFOO
-   AQD/d3I2aC/dZXNhUFoV+x2f0ODeFd6pvzhZjiEPnXhXRS0gMFcJdN9HI
-   XqTmamrgIH1JIlPzJrBKqV5hgmIG0aF1wWeViMetajzXXSNKPSUE4xsJK
-   IPdrlFR2wIC2pHwQQOU+p/1egt0jOy5LwoCUCTQoyIdFoutV1weA+GF2m
-   g==;
-X-CSE-ConnectionGUID: 65DbhD0wQDCHDTmtkcEXfw==
-X-CSE-MsgGUID: KoQubyiNQ6udGI4eky6kZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="117220933"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="117220933"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:21:08 -0700
-X-CSE-ConnectionGUID: FWtsk2H+QCuR2qczpae6Bg==
-X-CSE-MsgGUID: 6hGA015tRqOB5o6Fr8V08Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="275317062"
-Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.205])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:21:07 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 0ACF311F817;
-	Fri, 02 Oct 2026 10:21:04 +0300 (EEST)
-Date: Fri, 2 Oct 2026 10:21:04 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 5/5] media: imx219: Add status polling using .detect()
-Message-ID: <ar9bYNbuJHwpxlyk@kekkonen.localdomain>
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <20261001-v4l2-sensor-detect-v1-5-a45993be17b8@kernel.org>
- <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="lzpxc+TD"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1790925678;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FPD/w3mLXOpjupMEfY4m0ASQO+sJS0phE9dLbJED75Y=;
+	b=lzpxc+TD4echQxbgLgshvmFcboT4zCJ4/uh9KUMcjAQIZJfLu2C/mQixdn+DtpEOT3zRcW
+	Qy6YDzS09dBN01T9eyKNJv7QHIcHnluueDcoqTCnglukISBfvydj+sp4fa297IGAA/XqVB
+	OUCgryG9xnHEJZyB0liVxEgX5DlartU=
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>,
+	linux-crypto@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH v2] lib/crypto: sparc/aes-xts: Add optimization using the AES opcodes
+Date: Fri,  2 Oct 2026 09:21:10 +0200
+Message-ID: <20261002072110.1221579-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Dave, Mattij,
+Implement aes_xts_encrypt_arch() and aes_xts_decrypt_arch() with the AES
+opcodes, for AES-128 and AES-256, two blocks per iteration. AES-192,
+which IEEE 1619 does not specify, and data that is not 8-byte aligned
+are left to the generic code.
 
-On Thu, Oct 01, 2026 at 04:58:57PM +0100, Dave Stevenson wrote:
-> Hi Mattij
-> 
-> On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
-> <mkorpershoek@kernel.org> wrote:
-> >
-> > Userspace needs to be notified when a sensor connection status
-> > changes (e.g. disconnected at boot, then later reconnected) so it can
-> > react accordingly.
-> >
-> > Add periodic polling using a delayed work that calls .detect() every
-> > 2s and sends a KOBJ_CHANGE uevent with HOTPLUG=1 on status changes.
-> > This mirrors the approach used by DRM connectors in output_poll_execute().
-> 
-> AIUI DRM polls from within the framework (drm_probe_helper.c), not by
-> a workqueue in the individual drivers.
-> 
-> Admittedly V4L2 doesn't currently have a totally obvious place to
-> setup this, but it would be far less effort to have the polling
-> framework within the core code rather than driver.
-> Possibly initialised in __v4l2_async_register_subdev_sensor() based on
-> whether .detect is set, and cleaned up in
-> v4l2_async_unregister_subdev, with the workqueue calling .detect and
-> generating the udev event based on the return value? I think that's
-> feasible.
+The tweak is kept as little-endian words, so that multiplying it by x is
+a 128-bit shift done with addcc and the VIS3 addxc. A little-endian
+store and an ordinary load through a stack slot give it in the byte
+order of the data, and the slot is cleared on return. The routines open
+a register window, as %g4-%g6 belong to the kernel.
 
-Sounds good to me.
+With that, xts-aes-lib no longer has to be kept off SPARC. Register it
+there again, with the priority x86 and RISC-V use, so that it also
+outranks an xts(ecb-aes-sparc64) instance (priority 300).
 
-I'd also put this behind a Kconfig option, the use case is rather special.
+On a T7-1 (M7), MiB/s unless noted:
 
-Also there are different approaches to this: in some cases you may want to
-know the values written to the device's registers get updated so you write
-and read, then some devices might crash in a way they're not doing their
-real job while still allowing reading registers as usual. These are rare
-cases though.
+                               xts(ecb-aes-sparc64)  xts-aes-lib
+  AF_ALG, 64 KiB, AES-128                     415         1092
+  AF_ALG, 64 KiB, AES-256                     390          936
+  dm-crypt on brd, AES-256:
+    sequential read                          1399         2559
+    sequential write                         1472         3480
+    4 KiB write latency, QD1 (us)            40.6         32.7
 
-Should the interval be at least configurable? That indeed further suggests
-the use of controls for this.
+dm-crypt now matches aes-cbc-essiv on the same ramdisk.
 
+On a T4-1, AF_ALG AES-256 goes from 238 to 544 MiB/s, and AES-128
+from 252 to 616.
+
+Tested with CONFIG_CRYPTO_SELFTESTS_FULL, and against OpenSSL over
+random keys, tweaks and lengths, on both machines.
+
+Link: https://github.com/sparclinux/issues/issues/106
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+v2:
+- Rebased on libcrypto-next, on top of 572af6872e52 ("crypto: aes - Fix
+  undesired override of some optimized AES modes"), and register
+  xts-aes-lib on SPARC again
+- Give it the priority x86 and RISC-V use
+- Drop Fixes:, Closes: -> Link:
+- Commit message compares with the xts template only
+
+The assembly is unchanged from v1.
+
+QEMU does not have the SPARC crypto opcodes yet. That is being discussed
+on qemu-devel [1] and tracked in sparclinux#77 [2].
+
+[1] https://lists.gnu.org/archive/html/qemu-devel/2026-09/msg09494.html
+[2] https://github.com/sparclinux/issues/issues/77
+
+v1: https://lore.kernel.org/all/20260929211218.4194135-1-stian@itx.no/
+
+ arch/sparc/include/asm/opcodes.h |   6 +
+ crypto/aes.c                     |   9 +-
+ lib/crypto/sparc/aes.h           |  75 +++++++
+ lib/crypto/sparc/aes_asm.S       | 340 +++++++++++++++++++++++++++++++
+ 4 files changed, 423 insertions(+), 7 deletions(-)
+
+diff --git a/arch/sparc/include/asm/opcodes.h b/arch/sparc/include/asm/opcodes.h
+index ebfda6eb49b26..f1cb1a26be8fc 100644
+--- a/arch/sparc/include/asm/opcodes.h
++++ b/arch/sparc/include/asm/opcodes.h
+@@ -96,5 +96,11 @@
+ 	.word	0xbbb02303;
+ #define MOVXTOD_G7_F62		\
+ 	.word	0xbfb02307;
++#define MOVXTOD_L4_F56		\
++	.word	0xb3b02314;
++#define MOVXTOD_L5_F58		\
++	.word	0xb7b02315;
++#define ADDXC_L1_L1_L1		\
++	.word	0xa3b44231;
+ 
+ #endif /* _SPARC_ASM_OPCODES_H */
+diff --git a/crypto/aes.c b/crypto/aes.c
+index 73f3aa856be4e..9508a975d8eaf 100644
+--- a/crypto/aes.c
++++ b/crypto/aes.c
+@@ -702,17 +702,12 @@ static struct skcipher_alg skcipher_algs[] = {
+ 		.decrypt = crypto_aes_xctr_crypt,
+ 	},
+ #endif
+-	/*
+-	 * Don't register library-based "xts(aes)" on architectures where it
+-	 * might block a "better" implementation from being instantiated via the
+-	 * "xts" template.  This exclusion is temporary and will go away when
+-	 * the library AES-XTS is optimized for SPARC.
+-	 */
+-#if IS_ENABLED(CONFIG_CRYPTO_XTS) && !IS_ENABLED(CONFIG_SPARC)
++#if IS_ENABLED(CONFIG_CRYPTO_XTS)
+ 	{
+ 		.base.cra_name = "xts(aes)",
+ 		.base.cra_driver_name = "xts-aes-lib",
+ 		.base.cra_priority = (IS_ENABLED(CONFIG_RISCV) ||
++				      IS_ENABLED(CONFIG_SPARC) ||
+ 				      IS_ENABLED(CONFIG_X86)) ? 500 : 110,
+ 		.base.cra_blocksize = AES_BLOCK_SIZE,
+ 		.base.cra_ctxsize = sizeof(struct aes_xts_key),
+diff --git a/lib/crypto/sparc/aes.h b/lib/crypto/sparc/aes.h
+index e354aa507ee07..e1a060cf49539 100644
+--- a/lib/crypto/sparc/aes.h
++++ b/lib/crypto/sparc/aes.h
+@@ -133,6 +133,81 @@ static void aes_decrypt_arch(const struct aes_key *key,
+ 	}
+ }
+ 
++#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
++void aes_sparc64_xts_encrypt_128(const u64 *key, const u64 *input, u64 *output,
++				 size_t len, u64 tweak[2]);
++void aes_sparc64_xts_encrypt_256(const u64 *key, const u64 *input, u64 *output,
++				 size_t len, u64 tweak[2]);
++void aes_sparc64_xts_decrypt_128(const u64 *key_end, const u64 *input,
++				 u64 *output, size_t len, u64 tweak[2]);
++void aes_sparc64_xts_decrypt_256(const u64 *key_end, const u64 *input,
++				 u64 *output, size_t len, u64 tweak[2]);
++
++/* len is always a positive multiple of AES_BLOCK_SIZE here. */
++static __always_inline bool
++aes_xts_crypt_sparc64(u8 *dst, const u8 *src, size_t len,
++		      u8 tweak[AES_BLOCK_SIZE],
++		      const struct aes_xts_key *key, bool cont, bool enc)
++{
++	const struct aes_key *k = &key->main_key;
++	const u64 *rk = k->k.sparc_rndkeys;
++	const u64 *rk_end = rk + 2 * (k->nrounds + 1);
++	const u64 *in = (const u64 *)src;
++	u64 *out = (u64 *)dst;
++	u64 t[2];
++
++	/* The assembly code has no AES-192 and needs 8-byte aligned data. */
++	if (!static_branch_likely(&have_aes_opcodes) ||
++	    k->len == AES_KEYSIZE_192 ||
++	    !IS_ALIGNED((uintptr_t)dst | (uintptr_t)src, 8))
++		return false;
++
++	if (cont)
++		memcpy(t, tweak, sizeof(t));
++	else
++		aes_encrypt_arch(&key->tweak_key, (u8 *)t, tweak);
++
++	if (k->len == AES_KEYSIZE_128) {
++		if (enc) {
++			aes_sparc64_load_encrypt_keys_128(rk);
++			aes_sparc64_xts_encrypt_128(rk, in, out, len, t);
++		} else {
++			aes_sparc64_load_decrypt_keys_128(rk);
++			aes_sparc64_xts_decrypt_128(rk_end, in, out, len, t);
++		}
++	} else {
++		if (enc) {
++			aes_sparc64_load_encrypt_keys_256(rk);
++			aes_sparc64_xts_encrypt_256(rk, in, out, len, t);
++		} else {
++			aes_sparc64_load_decrypt_keys_256(rk);
++			aes_sparc64_xts_decrypt_256(rk_end, in, out, len, t);
++		}
++	}
++	fprs_write(0);
++
++	memcpy(tweak, t, sizeof(t));
++	memzero_explicit(t, sizeof(t));
++	return true;
++}
++
++#define aes_xts_encrypt_arch aes_xts_encrypt_arch
++static bool aes_xts_encrypt_arch(u8 *dst, const u8 *src, size_t len,
++				 u8 tweak[AES_BLOCK_SIZE],
++				 const struct aes_xts_key *key, bool cont)
++{
++	return aes_xts_crypt_sparc64(dst, src, len, tweak, key, cont, true);
++}
++
++#define aes_xts_decrypt_arch aes_xts_decrypt_arch
++static bool aes_xts_decrypt_arch(u8 *dst, const u8 *src, size_t len,
++				 u8 tweak[AES_BLOCK_SIZE],
++				 const struct aes_xts_key *key, bool cont)
++{
++	return aes_xts_crypt_sparc64(dst, src, len, tweak, key, cont, false);
++}
++#endif /* CONFIG_CRYPTO_LIB_AES_XTS */
++
+ #define aes_mod_init_arch aes_mod_init_arch
+ static void aes_mod_init_arch(void)
+ {
+diff --git a/lib/crypto/sparc/aes_asm.S b/lib/crypto/sparc/aes_asm.S
+index f291174a72a1d..640e2ff8716b0 100644
+--- a/lib/crypto/sparc/aes_asm.S
++++ b/lib/crypto/sparc/aes_asm.S
+@@ -2,6 +2,7 @@
+ #include <linux/linkage.h>
+ #include <asm/opcodes.h>
+ #include <asm/visasm.h>
++#include <asm/asi.h>
+ 
+ #define ENCRYPT_TWO_ROUNDS(KEY_BASE, I0, I1, T0, T1) \
+ 	AES_EROUND01(KEY_BASE +  0, I0, I1, T0) \
+@@ -1541,3 +1542,342 @@ ENTRY(aes_sparc64_ctr_crypt_256)
+ 	retl
+ 	 stx		%g7, [%o4 + 0x08]
+ ENDPROC(aes_sparc64_ctr_crypt_256)
++
++#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
++	/* XTS.  The tweak is kept in %l0/%l1 as little-endian words, so that
++	 * multiplying it by x is a 128-bit shift.  XTS_TWEAK_BE stores it to
++	 * a stack slot little-endian and reloads it big-endian, the byte order
++	 * of the data.  The slot is cleared before returning.
++	 *
++	 * A register window is needed because %g4-%g6 belong to the kernel.
++	 * %l6 points at the slot and %l7 holds 8: an access with an immediate
++	 * ASI cannot also take an immediate offset.
++	 */
++
++#define XTS_DOUBLE							\
++	srax		%l1, 63, %l2;					\
++	and		%l2, 0x87, %l2;					\
++	addcc		%l0, %l0, %l0;					\
++	ADDXC_L1_L1_L1						\
++	xor		%l0, %l2, %l0;
++
++#define XTS_TWEAK_BE(A, B)						\
++	stxa		%l0, [%l6] ASI_PL;				\
++	stxa		%l1, [%l6 + %l7] ASI_PL;			\
++	ldx		[%l6 + 0x00], A;				\
++	ldx		[%l6 + 0x08], B;
++
++	.align		32
++ENTRY(aes_sparc64_xts_encrypt_128)
++	/* %i0=key, %i1=input, %i2=output, %i3=len, %i4=tweak */
++	save		%sp, -192, %sp
++	mov		8, %l7
++	add		%sp, 2047 + 176, %l6
++	ldxa		[%i4] ASI_PL, %l0
++	ldxa		[%i4 + %l7] ASI_PL, %l1
++	ldx		[%i0 + 0x00], %g1
++	subcc		%i3, 0x10, %i3
++	be,pn		%xcc, 10f
++	 ldx		[%i0 + 0x08], %g2
++1:	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	XTS_TWEAK_BE(%l4, %l5)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	ldx		[%i1 + 0x10], %o5
++	xor		%o5, %l4, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F4
++	ldx		[%i1 + 0x18], %o5
++	xor		%o5, %l5, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F6
++	ENCRYPT_128_2(8, 0, 2, 4, 6, 56, 58, 60, 62)
++	MOVXTOD_G3_F60
++	MOVXTOD_G7_F62
++	MOVXTOD_L4_F56
++	MOVXTOD_L5_F58
++	fxor		%f0, %f60, %f0
++	fxor		%f2, %f62, %f2
++	fxor		%f4, %f56, %f4
++	fxor		%f6, %f58, %f6
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++	std		%f4, [%i2 + 0x10]
++	std		%f6, [%i2 + 0x18]
++	subcc		%i3, 0x20, %i3
++	add		%i1, 0x20, %i1
++	brgz		%i3, 1b
++	 add		%i2, 0x20, %i2
++	brlz,pt		%i3, 11f
++	 nop
++10:	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	ENCRYPT_128(8, 0, 2, 4, 6)
++	MOVXTOD_G3_F4
++	MOVXTOD_G7_F6
++	fxor		%f0, %f4, %f0
++	fxor		%f2, %f6, %f2
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++11:	stxa		%l0, [%i4] ASI_PL
++	stxa		%l1, [%i4 + %l7] ASI_PL
++	stx		%g0, [%l6 + 0x00]
++	stx		%g0, [%l6 + 0x08]
++	ret
++	 restore
++ENDPROC(aes_sparc64_xts_encrypt_128)
++
++	.align		32
++ENTRY(aes_sparc64_xts_encrypt_256)
++	/* %i0=key, %i1=input, %i2=output, %i3=len, %i4=tweak */
++	save		%sp, -192, %sp
++	mov		%i0, %o0
++	mov		8, %l7
++	add		%sp, 2047 + 176, %l6
++	ldxa		[%i4] ASI_PL, %l0
++	ldxa		[%i4 + %l7] ASI_PL, %l1
++	ldx		[%i0 + 0x00], %g1
++	subcc		%i3, 0x10, %i3
++	be,pn		%xcc, 10f
++	 ldx		[%i0 + 0x08], %g2
++1:	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	XTS_TWEAK_BE(%l4, %l5)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	ldx		[%i1 + 0x10], %o5
++	xor		%o5, %l4, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F4
++	ldx		[%i1 + 0x18], %o5
++	xor		%o5, %l5, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F6
++	ENCRYPT_256_2(8, 0, 2, 4, 6)
++	MOVXTOD_G3_F60
++	MOVXTOD_G7_F62
++	MOVXTOD_L4_F56
++	MOVXTOD_L5_F58
++	fxor		%f0, %f60, %f0
++	fxor		%f2, %f62, %f2
++	fxor		%f4, %f56, %f4
++	fxor		%f6, %f58, %f6
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++	std		%f4, [%i2 + 0x10]
++	std		%f6, [%i2 + 0x18]
++	subcc		%i3, 0x20, %i3
++	add		%i1, 0x20, %i1
++	brgz		%i3, 1b
++	 add		%i2, 0x20, %i2
++	brlz,pt		%i3, 11f
++	 nop
++10:	ldd		[%o0 + 0xd0], %f56
++	ldd		[%o0 + 0xd8], %f58
++	ldd		[%o0 + 0xe0], %f60
++	ldd		[%o0 + 0xe8], %f62
++	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	ENCRYPT_256(8, 0, 2, 4, 6)
++	MOVXTOD_G3_F4
++	MOVXTOD_G7_F6
++	fxor		%f0, %f4, %f0
++	fxor		%f2, %f6, %f2
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++11:	stxa		%l0, [%i4] ASI_PL
++	stxa		%l1, [%i4 + %l7] ASI_PL
++	stx		%g0, [%l6 + 0x00]
++	stx		%g0, [%l6 + 0x08]
++	ret
++	 restore
++ENDPROC(aes_sparc64_xts_encrypt_256)
++
++	.align		32
++ENTRY(aes_sparc64_xts_decrypt_128)
++	/* %i0=&key[key_len], %i1=input, %i2=output, %i3=len, %i4=tweak */
++	save		%sp, -192, %sp
++	mov		8, %l7
++	add		%sp, 2047 + 176, %l6
++	ldxa		[%i4] ASI_PL, %l0
++	ldxa		[%i4 + %l7] ASI_PL, %l1
++	ldx		[%i0 - 0x10], %g1
++	subcc		%i3, 0x10, %i3
++	be,pn		%xcc, 10f
++	 ldx		[%i0 - 0x08], %g2
++1:	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	XTS_TWEAK_BE(%l4, %l5)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	ldx		[%i1 + 0x10], %o5
++	xor		%o5, %l4, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F4
++	ldx		[%i1 + 0x18], %o5
++	xor		%o5, %l5, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F6
++	DECRYPT_128_2(8, 0, 2, 4, 6, 56, 58, 60, 62)
++	MOVXTOD_G3_F60
++	MOVXTOD_G7_F62
++	MOVXTOD_L4_F56
++	MOVXTOD_L5_F58
++	fxor		%f0, %f60, %f0
++	fxor		%f2, %f62, %f2
++	fxor		%f4, %f56, %f4
++	fxor		%f6, %f58, %f6
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++	std		%f4, [%i2 + 0x10]
++	std		%f6, [%i2 + 0x18]
++	subcc		%i3, 0x20, %i3
++	add		%i1, 0x20, %i1
++	brgz		%i3, 1b
++	 add		%i2, 0x20, %i2
++	brlz,pt		%i3, 11f
++	 nop
++10:	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	DECRYPT_128(8, 0, 2, 4, 6)
++	MOVXTOD_G3_F4
++	MOVXTOD_G7_F6
++	fxor		%f0, %f4, %f0
++	fxor		%f2, %f6, %f2
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++11:	stxa		%l0, [%i4] ASI_PL
++	stxa		%l1, [%i4 + %l7] ASI_PL
++	stx		%g0, [%l6 + 0x00]
++	stx		%g0, [%l6 + 0x08]
++	ret
++	 restore
++ENDPROC(aes_sparc64_xts_decrypt_128)
++
++	.align		32
++ENTRY(aes_sparc64_xts_decrypt_256)
++	/* %i0=&key[key_len], %i1=input, %i2=output, %i3=len, %i4=tweak */
++	save		%sp, -192, %sp
++	sub		%i0, 0xf0, %o0
++	mov		8, %l7
++	add		%sp, 2047 + 176, %l6
++	ldxa		[%i4] ASI_PL, %l0
++	ldxa		[%i4 + %l7] ASI_PL, %l1
++	ldx		[%i0 - 0x10], %g1
++	subcc		%i3, 0x10, %i3
++	be,pn		%xcc, 10f
++	 ldx		[%i0 - 0x08], %g2
++1:	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	XTS_TWEAK_BE(%l4, %l5)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	ldx		[%i1 + 0x10], %o5
++	xor		%o5, %l4, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F4
++	ldx		[%i1 + 0x18], %o5
++	xor		%o5, %l5, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F6
++	DECRYPT_256_2(8, 0, 2, 4, 6)
++	MOVXTOD_G3_F60
++	MOVXTOD_G7_F62
++	MOVXTOD_L4_F56
++	MOVXTOD_L5_F58
++	fxor		%f0, %f60, %f0
++	fxor		%f2, %f62, %f2
++	fxor		%f4, %f56, %f4
++	fxor		%f6, %f58, %f6
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++	std		%f4, [%i2 + 0x10]
++	std		%f6, [%i2 + 0x18]
++	subcc		%i3, 0x20, %i3
++	add		%i1, 0x20, %i1
++	brgz		%i3, 1b
++	 add		%i2, 0x20, %i2
++	brlz,pt		%i3, 11f
++	 nop
++10:	ldd		[%o0 + 0x18], %f56
++	ldd		[%o0 + 0x10], %f58
++	ldd		[%o0 + 0x08], %f60
++	ldd		[%o0 + 0x00], %f62
++	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	DECRYPT_256(8, 0, 2, 4, 6)
++	MOVXTOD_G3_F4
++	MOVXTOD_G7_F6
++	fxor		%f0, %f4, %f0
++	fxor		%f2, %f6, %f2
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++11:	stxa		%l0, [%i4] ASI_PL
++	stxa		%l1, [%i4 + %l7] ASI_PL
++	stx		%g0, [%l6 + 0x00]
++	stx		%g0, [%l6 + 0x08]
++	ret
++	 restore
++ENDPROC(aes_sparc64_xts_decrypt_256)
++#endif /* CONFIG_CRYPTO_LIB_AES_XTS */
+
+base-commit: 9ca77aa621027149c43551308112eba06b1de3af
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
