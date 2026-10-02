@@ -1,168 +1,110 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E3535676B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273CE353A73
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790914110; cv=none; b=SBx0ao03E0eamI0t/6opzUO9+xvkC5XCu34pQO13nRzFNPusI7WHPIHbk9czdk6uX9zp7ujpa1c+iHphUMD+xwhWPpJgXKPvsTUsByiagFPn/O3hpd99lDQiPqmvlzC2B+qtyMMMrb1iZVD7SEyUedH56ODBfsZVRbyxtWErSrg=
+	t=1790914132; cv=none; b=umuugL9oY/ChinbF8a9oFHUe/JRFMSJF3p0xAAeIeRczG+4FegM9kjt/1WryMIjLMKTNiVTcX62CDkLSU7rWgwICmX84kWeZk7/8YLrMoEqCVTY2aZ28laek2J3E8Wq3REmm6dNuGNsQf6nm6fA9CMjMidvSJSxrzOxAbhnm86U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790914110; c=relaxed/simple;
-	bh=XxuR4V6flJexrudr1v4kOBAI37rC+/aNdKk/vImQRnI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TylOGEhd3aJLaeGR29PaXeu9FxPP4nq00Xs/O7QoAJPPFjsl6XUv6NZ3VCqbuEEx0XFUsSU7+nPsWRUxsiyFeIqsTZMPip39AC8KvYBpTdq/r23XSmUvuLsPj/Rnu0jSAigwpNPJRyMI9pdYIT3RYH76Gt8hzN0tyw+X/QTr92E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y83VFH1z; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790914132; c=relaxed/simple;
+	bh=7XRI4vbBHvoU0c00q1fKY0+7WXPupjkAVjxqudbQDSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pBFDoq8MeDGkfBe9n4uRqa/lmgWigOJBCyfqxDwUs6EQg+nRCeyvpdT4IpYewJSdu8z5nehTGYpCFviwKESWf8RUh8MjW5boWX95DGhN2EdVkJO9Hd3s+CDDL7V2mnkbzA0wuniOBnoPYB0qlFccWGZq1/R/osMCp2VJZF37x6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnUFcrsJ; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y83VFH1z"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so6737345eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:08:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnUFcrsJ"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so2214576a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:08:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790914109; x=1791518909; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2Ub6XH25lfLy++mrqdvv7EIfPuPzxSLopDfg1ndI1Os=;
-        b=Y83VFH1zlkFZ/mwAFwcM2D7Fi0TqpiSNHVa20dJmX5hobq9lLpzXh0llK7sDVDEsvQ
-         4Wh1YMm+W4+C8XHs3NLcqjRX5DjeLAGqHunc238+E940Sma+ahIvTwYqAtoZoclvfI3R
-         KisNJwENcR4+yjm/XhpBaBpt0Miw7PB3mH9L1cglM96mRVP3aXdM4aIbMvbI15iYWjaz
-         L3tryjO8gT5QPdc95aKE1ctR1LLNXgCvBo5RPzgQtEf8QGHZZ+ju88TN2IKWcbSpunHr
-         WLLJoUUNZDaCdM5v6fcN589MDQu074JTU2B3c+7NP80pOlL2p17ZoMDED8OF48YS6Q7j
-         ys0w==
+        d=gmail.com; s=20251104; t=1790914130; x=1791518930; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v6O/z/8/5Yc9n97DG94yFXZDvw4y/3pPf2qeqOHuqdA=;
+        b=MnUFcrsJtdWQVFnaJWb+zK58yPZ0DkTHAGdDfct9luuyV01dATgBC4GntKsv2BduGA
+         LD5ChDx/7or6Q89Jx+G7UUJvjEXBmwPlbgDpd/QVpVkBZg0PjcqmO8kZhgdaxgtBoURc
+         ubm8dWdIDTKOkQ+74wdCJTJt5cGE7XeWdVQj6HJUvjhLy5k4PMWa7eVc9gVuTiAbhgn6
+         HeUshb5uCzqybRXz++LL92uei92P1L7KsPmO/s4BFCiBCKlym3N9HZA5q7UlHhjA4Z6w
+         mK2pPYopoOOR4LntbuwIBY+posM5mdA7jzKW14PdOCFwhJbHcAfCJQjxrI56wwrdsQqd
+         EYEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790914109; x=1791518909;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2Ub6XH25lfLy++mrqdvv7EIfPuPzxSLopDfg1ndI1Os=;
-        b=jBTDiklbANBJjshMriPqmm0ZFfCqbcyINELEDKQWaKMtH7KKE0o9uftMqR5tXtU7cJ
-         NGPXIPdyCPoF1ym6ucrlSBWhebs/CrkMAN2ZNgmhN2raA6WTi6Nz+PxfX2xnddIiWw9U
-         +epMK+ZUgCqKfL3VF1ornJEQUYyvo17l1vye7DbXrFvYrxaJSGxA8+X53NRZWyHD7clQ
-         QsnJk6Rg9ODODNpbrB+88OYO6l0qVSUWrOTeLPF9luFMHOx6hTrrzTecO4kE4sW2wtWr
-         1PfBdVyEA5H3ihClaFsI04/bNpXcLcjlaFscT9ySFvYSveHkkeZk9D0Od/EQBxO9gu3f
-         pUNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwpjAjQN2rZaU1XqwtDzWJ7pafIOHZg7VHukNRr4k+nUID4lpvhaPounZtp6sFQd0AoYeYTtndr+aQzO8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/3XEp2Ci+iYHg6MTorg8smiNdVbQo6eQVSmFiIFliPgdCfSK5
-	MFD5wsVAh6xDR3iETL/xN7Z644fZAu6kKIEPoKRV1HnwIs/5Uu038ApVkBOkoA==
-X-Gm-Gg: AYBFou1HkM5OoTEwAuDrDuRhbobsyzKXg9Ert9mdG98+6dbaICiU0kROxcqLqqxbu94
-	saawSvDq9mPbQEQycWO8DEgivwMZ3UCHnorh/XwUD4KBlcAIvVMsmdkq8NSHeiLHNVsUEK/rzOp
-	p8FhYtc13bihMh/dVPdxyZvqhTP1BYb1jPKY6OZSRZvCgDEb86gGXRRC/AgNqpqRJ0pTvP7E/UQ
-	m+8F/t8Nmctt2O0XcE3PP9lNBNzQ/7omtCiI7nQjIugSOzo51uVq5r6o2Ix89tS2H4Z9DtkRBTT
-	c+kskUToSfbim3jd24Se09pzLqcn87CdyoNEvFPGZfstQDCLIyty92kG7+aNZXNw5jQhUqzsCs8
-	fySzpfcj7YyAnt1UyjGvllgeqHL5b64XXeGkx/CqQx5qwLgFvp1r8lARpsYUbJ2YRNg946R7ozx
-	lq4ckqkzJK5vfMNWaUe4seolLxHSMfrhDUQT2xTUuojjiZy0kjNYIV9GYjAfU0ep1ZWAHaJ5crg
-	v+jAoNuwd0gBw==
-X-Received: by 2002:a05:7301:4887:b0:344:7aad:8eb5 with SMTP id 5a478bee46e88-34f150ed00fmr1547768eec.23.1790914108463;
-        Thu, 01 Oct 2026 21:08:28 -0700 (PDT)
-Received: from [127.0.1.1] ([2804:14d:9ea1:8718:27b5:8987:8e28:81fb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35105dd1dfasm492558eec.8.2026.10.01.21.08.26
+        d=1e100.net; s=20260707; t=1790914130; x=1791518930;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v6O/z/8/5Yc9n97DG94yFXZDvw4y/3pPf2qeqOHuqdA=;
+        b=h0da6IKdQhzwfdFqrpUAVwDPin+dhVx745vrAbRtpmlghhMCnhE4rjWrEArFD6TDSr
+         IIrcitG98ujOtZXip/Tp045EtzNkKsHdcTwQh1TWkY3bLXRXb8WIn7/xRVNnfJs+X8lP
+         MNJjC6HgKJU637eUb42L7Ihm2dxxLGOPgG7l34lbzh1clD/RzOwJ8bz0vPfg1lcY/zgS
+         RMYnsTBV24SYvL1MYz4D/Wbdy8Snq6uTI0h8Abzo9Y+YLGehGjibKvvbh35x5RCvUKTh
+         lvQdLDlaEGYwibthXq/nsjb0XEySWUtP9CGGFOaI7t3KVALHVa5p91HhTkyz6OYuwjZt
+         nGHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwF6PpSXusFt0E9gjyCltRrd9m4Dj0vtyw8kCn2x3av9dZiS0Zdej7Pu/aLEc31yeD4ymo7Sl7TzVX4FSo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsFVoR9OgvayIspvY+P7+lyvv/xBUCNK5WqPxH6xR6YiWgmx9r
+	mz2Ao7IuthleijiKbUHKO9O22j2k3Ww0teVh2Ar2XWWLvT6fyqqcHM1dDOPn4AFV
+X-Gm-Gg: AYBFou2QS/TUxjY1N+Kh1l3yfDO+oOdny0Od5JSF8zVjCnGq5wxI72fLXDpgw+UNxsW
+	wXIGzHrkbGRyK+o0SBjLD3SWRERSt0reZu08EBdEJz3ZzS3XD7668R6R0Md+hgioK5VEdtH1J5m
+	BQPhlLxHxYM++5TgtUIdcfU7o4sMd6UjhaWhC68Mwyk7WXZCW8i7RfK9Rm8eXtycsiYMgQD+Gz2
+	g0TnKh/YX7aUgcTnnJHGEVif6Eu4hR2LvTq2IRkm3qpbqpCZy/U+NR19NCuAHoIrXpOKFnnRTzw
+	/kj7UltFZdz/EWiysPaxlWNtupEWk+FxFO3k3RhsVL5J2NXk+TQ/iCdfCEzaohqaeDr7pYgQV5Y
+	/2ml5ndVcgTkpjx+uiIt3xyod1yCMWBqb1AyZhZo1zxupkZZhyfEYlncE9UicpxgpqOsXbjj+CM
+	kiodQ17JP/R1IQdJM9n2oDONaJqFcuBXBjYOMOpppfAQv4uiqn7nBONH85EjW3emLnSqgy6QYLe
+	i2ttv6DXCvK+rniHXPlx5a9hpZu+PI97ckx7JzfhOHHF8M6
+X-Received: by 2002:a17:90b:134c:b0:3a0:eec6:b065 with SMTP id 98e67ed59e1d1-3a6ce97cf78mr843635a91.13.1790914130355;
+        Thu, 01 Oct 2026 21:08:50 -0700 (PDT)
+Received: from localhost.localdomain (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ccc92646sm2119079a91.1.2026.10.01.21.08.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 21:08:28 -0700 (PDT)
-From: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
-Date: Fri, 02 Oct 2026 01:07:37 -0300
-Subject: [PATCH v2 3/3] staging: rtl8723bs: extract inner loop in
- phy_tx_power_limit_to_index()
+        Thu, 01 Oct 2026 21:08:50 -0700 (PDT)
+From: Artem Novak <artem122novak@gmail.com>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cacioandpepe <artem122novak@gmail.com>
+Subject: [PATCH RESEND 0/2] sh: add initial SH7305 CPU support
+Date: Thu,  1 Oct 2026 22:07:58 -0600
+Message-ID: <20261002040800.131862-1-artem122novak@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-rtl8723bs-tx-pwr-limit-v2-3-48b180fb6f7f@gmail.com>
-References: <20261002-rtl8723bs-tx-pwr-limit-v2-0-48b180fb6f7f@gmail.com>
-In-Reply-To: <20261002-rtl8723bs-tx-pwr-limit-v2-0-48b180fb6f7f@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Leonardo Martins Martins <dev.lmmrtns@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790914100; l=2909;
- i=dev.lmmrtns@gmail.com; s=20260813; h=from:subject:message-id;
- bh=XxuR4V6flJexrudr1v4kOBAI37rC+/aNdKk/vImQRnI=;
- b=8l/zHfRhbiFDJY0bEDe2wCN48tReEPfOHU7zPSk2USjZTqtiLPR0DgRB7Elr8Sqdhz8tJ6/Ee
- ir8Rc+qx0zEDSIvvDNwMKGhjoP5YGBNP7OFbYufHvG1LaLYZmqZDsRO
-X-Developer-Key: i=dev.lmmrtns@gmail.com; a=ed25519;
- pk=dOFSCpUL7hbyVftAaUGDebsgsSl9Uk/Tx0Aqpd4Bcng=
+Content-Transfer-Encoding: 8bit
 
-phy_tx_power_limit_to_index() iterates over an array with 5 indexes,
-making the code deeply nested, move the inner loop into an auxiliary
-static function to reduce nesting and improve readability.
+From: cacioandpepe <artem122novak@gmail.com>
 
-Signed-off-by: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
----
- drivers/staging/rtl8723bs/hal/hal_com_phycfg.c | 48 ++++++++++++++------------
- 1 file changed, 26 insertions(+), 22 deletions(-)
+Add initial SuperH support for the Renesas SH7305 processor.
 
-diff --git a/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c b/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-index 937441aa7dfee50857d37e0d0aa1415037b8cc60..f9f79bead66dcf3df155b505156f2ff73ea5fbed 100644
---- a/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-+++ b/drivers/staging/rtl8723bs/hal/hal_com_phycfg.c
-@@ -713,35 +713,39 @@ s8 phy_get_tx_pwr_lmt(struct adapter *adapter, u32 reg_pwr_tbl_sel,
- 	return pwr_lmt;
- }
- 
-+static void __phy_tx_power_limit_to_index(struct hal_com_data *hal_data, struct registry_priv *r,
-+					  u8 regulation, u8 bw, u8 channel, u8 rs)
-+{
-+	s8 tmp_pwr_lmt = hal_data->TxPwrLimit_2_4G[regulation][bw][rs][channel][RF_PATH_A];
-+	s8 tmp;
-+	u8 path;
-+	u8 pwr_base;
-+
-+	for (path = RF_PATH_A; path < MAX_RF_PATH_NUM; ++path) {
-+		if (hal_data->odmpriv.PhyRegPgValueType == PHY_REG_PG_EXACT_VALUE)
-+			pwr_base = hal_data->TxPwrByRateBase2_4G[path][rs];
-+		else
-+			pwr_base = r->reg_power_base * 2;
-+
-+		if (tmp_pwr_lmt != MAX_POWER_INDEX) {
-+			tmp = tmp_pwr_lmt - pwr_base;
-+			hal_data->TxPwrLimit_2_4G[regulation][bw][rs][channel][path] = tmp;
-+		}
-+	}
-+}
-+
- void phy_tx_power_limit_to_index(struct adapter *adapter)
- {
- 	struct hal_com_data *hal_data = GET_HAL_DATA(adapter);
- 	struct registry_priv *r = &adapter->registrypriv;
--	u8 pwr_base = 0x2E;
- 	u8 regulation, bw, channel, rs;
--	s8 tmp = 0, tmp_pwr_lmt = 0;
--	u8 path = 0;
- 
- 	for (regulation = 0; regulation < MAX_REGULATION_NUM; ++regulation) {
--		for (bw = 0; bw < MAX_2_4G_BANDWIDTH_NUM; ++bw) {
--			for (channel = 0; channel < CHANNEL_MAX_NUMBER_2G; ++channel) {
--				for (rs = 0; rs < MAX_RATE_SECTION_NUM; ++rs) {
--					tmp_pwr_lmt = hal_data->TxPwrLimit_2_4G[regulation][bw][rs][channel][RF_PATH_A];
--
--					for (path = RF_PATH_A; path < MAX_RF_PATH_NUM; ++path) {
--						if (hal_data->odmpriv.PhyRegPgValueType == PHY_REG_PG_EXACT_VALUE)
--							pwr_base = hal_data->TxPwrByRateBase2_4G[path][rs];
--						else
--							pwr_base = r->reg_power_base * 2;
--
--						if (tmp_pwr_lmt != MAX_POWER_INDEX) {
--							tmp = tmp_pwr_lmt - pwr_base;
--							hal_data->TxPwrLimit_2_4G[regulation][bw][rs][channel][path] = tmp;
--						}
--					}
--				}
--			}
--		}
-+		for (bw = 0; bw < MAX_2_4G_BANDWIDTH_NUM; ++bw)
-+			for (channel = 0; channel < CHANNEL_MAX_NUMBER_2G; ++channel)
-+				for (rs = 0; rs < MAX_RATE_SECTION_NUM; ++rs)
-+					__phy_tx_power_limit_to_index(hal_data, r, regulation, bw,
-+								      channel, rs);
- 	}
- }
- 
+The first patch fixes SH4 compiler flag fallback handling for toolchains
+which support SH4A targets but do not provide the plain -m4-nofpu
+option.
 
+The second patch adds the SH7305 CPU subtype, processor name and CPU
+probe.
+
+This is the first small architecture level part of ongoing SH7305
+enablement. Platform specific clock, interrupt controller, timer and
+board support are intentionally left for separate patches.
+
+The SH7305 support has been compile tested with GCC 14.3.0 targeting
+big endian SH4A.
+
+cacioandpepe (2):
+  sh: guard SH4 no-FPU compiler fallback
+  sh: add SH7305 CPU subtype support
+
+ arch/sh/Kconfig                 | 9 +++++++++
+ arch/sh/Makefile                | 2 +-
+ arch/sh/include/asm/processor.h | 2 +-
+ arch/sh/kernel/cpu/proc.c       | 3 ++-
+ arch/sh/kernel/cpu/sh4/probe.c  | 3 +++
+ 5 files changed, 16 insertions(+), 3 deletions(-)
+
+
+base-commit: 551c722f40809618230001baccf219193e22fc5a
 -- 
-2.47.3
+2.55.0
 
