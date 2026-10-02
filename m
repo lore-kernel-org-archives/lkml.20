@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECC746F4A7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D731470438;
 	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931473; cv=none; b=hdBMqYcu7z8wwaaFlQgAtJzhQSu1kDK0Xbw7+OgeLWmBtF5IyV5dhb+Zcu6ESO66W5+hy9zXIIYa12SwkNRwU39dCu22O9Xzk/O9x1pVPfAkuE/b93zhx/C2XhPoaJrREpCR+9AgyPeVBHTHgtu3wxmwb/gEe54vo5ZTNDxq1VQ=
+	t=1790931473; cv=none; b=Ytv6x2A95fiDK++9AfUV4KThW9YrFbpThZ+F+AbKkyx5RB+P6uQFC2lqc/nyHz6ktx4LTtdcruUaCc8NAmtwDmJ67HoorydMOzmLUrE/IVnsJpYOf/74tP/wGocz4Bd2awoJdAmU0uotpDLkvmp9Pobotp/olOPWCnQjkBAwA2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790931473; c=relaxed/simple;
-	bh=7YBkccrkpgpNjhHUjGGIUrl1EFma6h7sNuthO9uXwzw=;
+	bh=VOVZw5ctN2wvjhsiit9gl079ylcTkzPjvrREsts6Q2M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q7iNhrN2KpaNOZ7iINZdSFOuM/HDY+yTp1pyZtZGn+ZSPR93Vbn3xRmxbhr/h4jnj5eNSMQ3hDiq5zy3LaIF2oouTSzLLfYUacbCAQL2Vz4l28Pynp9+XDxko7Cm9bhuX7wwC9tyhyfQRTftRQ5tJ2UISHTvt5KSxuBKeH6+tNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p5KtiKHJ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=JjHQ77XWaRvPoRM1kACKktIlSYJ91J3NR80g/zpeD7G+jDB67KsDC04HiziSNIpwUxGD/+P5ySVJf+VC5DSvQEifbGrXaRt5kXHKEYXjjbh/4aV7bFqqaRKea9q8zfhp0q4u90c9S62iNt9Aamxl0GR+qxxITDA917mEY0QuY/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uCMSoZpa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p5KtiKHJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 12B4AC4AF19;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uCMSoZpa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EDE4C4AF14;
 	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790931473;
-	bh=7YBkccrkpgpNjhHUjGGIUrl1EFma6h7sNuthO9uXwzw=;
+	bh=VOVZw5ctN2wvjhsiit9gl079ylcTkzPjvrREsts6Q2M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=p5KtiKHJCq7TBSrX07P/Oq2L9/BFXGiBVVkROcHA0iRsnOb2v4KqPWP1XOAC9k18+
-	 J6fAHCho7p3b6PtN3cqxGtR3QWA0vqBbm67aWu0JtWaK98twKWniqMhFIl+IpXfwSX
-	 slcCyxd+AFVmsGOf1/J8XmnAoKUXG8AoyTvLtQmffSG582oCwyAfmVENo5FzRQhZLb
-	 QHfBwQxVu57YuK2F5xb7DBu0s2G8q7jsrQz/fDtAHnW8yeKrhOnbH+BmFziw/YQdPX
-	 WKcGPvciLJeeFkLj5ypIqQ0nU5OlM+tq8/GwyZCHx0i5mx7pIHSX1AeBWMECw000s8
-	 zaoIuYHufP+AA==
+	b=uCMSoZpald6dprSVZtRDrv7K5X374l1y7e6nSqe057bTZ/I4ryNaoA/S4cYV4jCxa
+	 0T7FLgzo8RGxRTsxF+Jga2SKs+Pv2B2Nvp2/nX5ktIdcY/ZM7CkqksvcP7KMBTlPhZ
+	 D22cU6h7cJfipf52V3LLsJwjGymxB22dhbQiGYMjltFivl8v6ADn+rq0PSVPOeFCIW
+	 Ppp0I8jn1KyBtqNUb+H+WoJ+HbmW0qeUUEghx/b4Z/G63Nb//OBPZrFZJ3miCdJBJg
+	 Kl/4YRpXeQvGqz3ayWcJMTPylW+p8B89SxRbFOz8qnabk9RkhLwvCKeMlCgYuzafXH
+	 AqrhcG9zHbAUQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01F52CA5FE3;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F25DCA5FD4;
 	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
 From: Maurizio Casciano via B4 Relay <devnull+mauriziocasciano7.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 10:57:51 +0200
-Subject: [PATCH v10 13/15] media: atomisp: Use struct v4l2_area for padding
+Date: Fri, 02 Oct 2026 10:57:53 +0200
+Subject: [PATCH v10 15/15] media: i2c: Add WV517S lens actuator driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-13-817ec765b257@gmail.com>
+Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-15-817ec765b257@gmail.com>
 References: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
 In-Reply-To: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-staging@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=10562;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=8361;
  i=mauriziocasciano7@gmail.com; s=yogabook-kernel-20261002;
  h=from:subject:message-id;
- bh=0LKNqd72Z3lyR+Dr4VVQAGocBW28bzz7BxktKTUrPss=;
- b=5GUxZVIAQrNTNbXmTOPLO1qtwOQE0YtMgnQNDZu1gbG2P9M7PC/05Tq6pqPKXvFQbHciOQkvP
- 2vv9PRQ/eIjCVeYcpaLlHkKOmrpllh3zHGEsZv8JO5ZKxBJ2hYn1acE
+ bh=cN4xNQG8q/HdEuc0Wjf4FvhFDxjo3L6jbbY/Z9bm1g8=;
+ b=JTfNkL19VCo0YWr95Y8+Y0e7XgbbeKSdfhV2jthHQSr1H6/DsE/8pPTpMfBnNqqeq6opHprpA
+ 9oxy51ldWgeBuP5FqtuWcyjBW2Hsy/qnmp8JNyTeJ+Y8PGmyL7Cr4y2
 X-Developer-Key: i=mauriziocasciano7@gmail.com; a=ed25519;
  pk=ODC2oSPBqt7ukC3AEDZNS7LIE21D8ke8TEHoNlxniNM=
 X-Endpoint-Received: by B4 Relay for
@@ -69,253 +69,287 @@ Reply-To: mauriziocasciano7@gmail.com
 
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 
-The padding helper passes width and height as four separate scalar
-arguments even though they form two logical dimensions.
+The Lenovo Yoga Book YB1-X91 rear camera contains a WV517S voice-coil
+actuator. Add a V4L2 lens subdevice exposing the standard 10-bit
+FOCUS_ABSOLUTE control and the device ringing-control mode.
 
-Pass the requested size and returned padding as struct v4l2_area values.
-This makes the dimensions explicit and simplifies all three callers.
+Use regmap for register access and tie control updates to runtime PM so
+the IPU bridge sensor link keeps shared power resources active. Propagate
+PM acquisition failures and restore the drive mode and controls after
+resume.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+The register addresses and drive-mode value are derived from Intel's
+GPL-2.0 WV517 driver. Retain the Intel copyright notice and document the
+2026 copyright for this V4L2/regmap implementation.
+
+Link: https://github.com/jekhor/yogabook-linux-android-kernel/blob/574bae692716f1b14093497bfab8a007fe8e460b/drivers/external_drivers/camera/drivers/media/i2c/wv517.c
+Assisted-by: LLM sparse
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- drivers/staging/media/atomisp/pci/atomisp_cmd.c    | 69 +++++++++++++---------
- drivers/staging/media/atomisp/pci/atomisp_cmd.h    |  6 +-
- drivers/staging/media/atomisp/pci/atomisp_ioctl.c  | 15 ++---
- drivers/staging/media/atomisp/pci/atomisp_subdev.c |  4 +-
- drivers/staging/media/atomisp/pci/atomisp_subdev.h |  3 +-
- 5 files changed, 54 insertions(+), 43 deletions(-)
+ MAINTAINERS                |   1 +
+ drivers/media/i2c/Kconfig  |  11 +++
+ drivers/media/i2c/Makefile |   1 +
+ drivers/media/i2c/wv517s.c | 208 +++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 221 insertions(+)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-index 52c71cd86dec..4d4c0726d9de 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -3562,9 +3562,9 @@ static void atomisp_fill_pix_format(struct v4l2_pix_format *f,
- 	f->xfer_func = V4L2_XFER_FUNC_709;
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6bdc32e7c8bf..9b0a6ef0bec8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28656,6 +28656,7 @@ S:	Maintained
+ F:	drivers/media/i2c/ak*
+ F:	drivers/media/i2c/dw*
+ F:	drivers/media/i2c/lm*
++F:	drivers/media/i2c/wv517s.c
  
--/* Get sensor padding values for the non padded width x height resolution */
--void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
--			 u32 *padding_w, u32 *padding_h)
-+/* Get sensor padding values for the non-padded size */
-+void atomisp_get_padding(struct atomisp_device *isp, struct v4l2_area size,
-+			 struct v4l2_area *pad)
- {
- 	struct atomisp_input_subdev *input = &isp->inputs[isp->asd.input_curr];
- 	struct v4l2_rect native_rect = input->native_rect;
-@@ -3574,22 +3574,24 @@ void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
- 	struct v4l2_mbus_framefmt *sink;
+ V4L2 CAMERA SENSOR DRIVERS
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index b9961f77f0c4..9ccfa4b881f0 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -991,6 +991,17 @@ config VIDEO_DW9807_VCM
+ 	  capability. This is designed for linear control of
+ 	  voice coil motors, controlled via I2C serial interface.
  
- 	if (!input->crop_support) {
--		*padding_w = pad_w;
--		*padding_h = pad_h;
-+		pad->width = pad_w;
-+		pad->height = pad_h;
- 		return;
- 	}
++config VIDEO_WV517S
++	tristate "WV517S lens voice coil support"
++	select REGMAP_I2C
++	help
++	  This is a driver for the WV517S camera lens voice coil. The driver
++	  supports 10-bit focus control and exposes the actuator through the
++	  standard V4L2 lens sub-device interface.
++
++	  To compile this driver as a module, choose M here: the module will be
++	  called wv517s.
++
+ endif
  
--	width = min(width, input->active_rect.width);
--	height = min(height, input->active_rect.height);
-+	size.width = min(size.width, input->active_rect.width);
-+	size.height = min(size.height, input->active_rect.height);
- 
--	if (input->binning_support && width <= (input->active_rect.width / 2) &&
--				      height <= (input->active_rect.height / 2)) {
-+	if (input->binning_support &&
-+	    size.width <= (input->active_rect.width / 2) &&
-+	    size.height <= (input->active_rect.height / 2)) {
- 		native_rect.width /= 2;
- 		native_rect.height /= 2;
- 	}
- 
--	*padding_w = min_t(u32, (native_rect.width - width) & ~1, pad_w);
--	*padding_h = min_t(u32, (native_rect.height - height) & ~1, pad_h);
-+	pad->width = min_t(u32, (native_rect.width - size.width) & ~1, pad_w);
-+	pad->height = min_t(u32, (native_rect.height - size.height) & ~1,
-+			    pad_h);
- 
- 	/* The below minimum padding requirements are for BYT / ISP2400 only */
- 	if (IS_ISP2401)
-@@ -3617,8 +3619,18 @@ void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
- 		min_pad_h += 2;
- 
- apply_min_padding:
--	*padding_w = max_t(u32, *padding_w, min_pad_w);
--	*padding_h = max_t(u32, *padding_h, min_pad_h);
-+	pad->width = max_t(u32, pad->width, min_pad_w);
-+	pad->height = max_t(u32, pad->height, min_pad_h);
+ menu "Flash devices"
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 351c41ef25f8..6c3b4f06b819 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -178,4 +178,5 @@ obj-$(CONFIG_VIDEO_VP27SMPX) += vp27smpx.o
+ obj-$(CONFIG_VIDEO_VPX3220) += vpx3220.o
+ obj-$(CONFIG_VIDEO_WM8739) += wm8739.o
+ obj-$(CONFIG_VIDEO_WM8775) += wm8775.o
++obj-$(CONFIG_VIDEO_WV517S) += wv517s.o
+ obj-$(CONFIG_VIDEO_INTEL_CVS) += cvs/
+diff --git a/drivers/media/i2c/wv517s.c b/drivers/media/i2c/wv517s.c
+new file mode 100644
+index 000000000000..e252a423289d
+--- /dev/null
++++ b/drivers/media/i2c/wv517s.c
+@@ -0,0 +1,208 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++/*
++ * WV517S voice-coil motor driver
++ *
++ * Copyright (c) 2014 Intel Corporation.
++ * Copyright (C) 2026 Maurizio Casciano <mauriziocasciano7@gmail.com>
++ */
++
++#include <linux/container_of.h>
++#include <linux/device.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++
++#define WV517S_MAX_FOCUS_POSITION	1023
++#define WV517S_DEFAULT_FOCUS_POSITION	300
++
++#define WV517S_REG_FOCUS		0x41
++#define WV517S_REG_DRIVE_MODE		0x43
++#define WV517S_DRIVE_MODE_12_6_MS	0x0211
++
++struct wv517s_device {
++	struct v4l2_ctrl_handler ctrl_handler;
++	struct v4l2_subdev sd;
++	struct regmap *regmap;
++	bool resuming;
++};
++
++static inline struct wv517s_device *to_wv517s(struct v4l2_subdev *sd)
++{
++	return container_of(sd, struct wv517s_device, sd);
 +}
 +
-+static void
-+atomisp_get_pix_padding(struct atomisp_device *isp,
-+			struct v4l2_pix_format *f,
-+			struct v4l2_area *pad)
++static const struct regmap_config wv517s_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 16,
++	.max_register = WV517S_REG_DRIVE_MODE,
++	.val_format_endian = REGMAP_ENDIAN_BIG,
++};
++
++static int wv517s_set_ctrl(struct v4l2_ctrl *ctrl)
 +{
-+	struct v4l2_area size = { .width = f->width, .height = f->height };
++	struct wv517s_device *wv517s =
++		container_of(ctrl->handler, struct wv517s_device, ctrl_handler);
++	struct device *dev = wv517s->sd.dev;
++	int pm_ret;
++	int ret;
 +
-+	atomisp_get_padding(isp, size, pad);
- }
- 
- int atomisp_s_sensor_power(struct atomisp_device *isp, unsigned int input, bool on)
-@@ -3806,7 +3818,7 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
- 	const struct atomisp_format_bridge *fmt, *snr_fmt;
- 	struct atomisp_sub_device *asd = &isp->asd;
- 	struct v4l2_mbus_framefmt ffmt = { };
--	u32 padding_w, padding_h;
-+	struct v4l2_area padding;
- 	int ret;
- 
- 	fmt = atomisp_get_format_bridge(f->pixelformat);
-@@ -3833,10 +3845,10 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
- 	 * resolution + padding. Add padding here and remove it again after
- 	 * the set_fmt call, like atomisp_set_fmt_to_snr() does.
- 	 */
--	atomisp_get_padding(isp, f->width, f->height, &padding_w, &padding_h);
-+	atomisp_get_pix_padding(isp, f, &padding);
- 	v4l2_fill_mbus_format(&ffmt, f, fmt->mbus_code);
--	ffmt.width += padding_w;
--	ffmt.height += padding_h;
-+	ffmt.width += padding.width;
-+	ffmt.height += padding.height;
- 
- 	dev_dbg(isp->dev, "try_mbus_fmt: try %ux%u\n", ffmt.width, ffmt.height);
- 
-@@ -3853,8 +3865,8 @@ int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
- 		return -EINVAL;
- 	}
- 
--	f->width = ffmt.width - padding_w;
--	f->height = ffmt.height - padding_h;
-+	f->width = ffmt.width - padding.width;
-+	f->height = ffmt.height - padding.height;
- 
- 	/*
- 	 * If the format is jpeg or custom RAW, then the width and height will
-@@ -4274,11 +4286,12 @@ static int atomisp_set_fmt_to_snr(struct video_device *vdev, const struct v4l2_p
- 		return -EINVAL;
- 
- 	v4l2_fill_mbus_format(&ffmt, f, format->mbus_code);
--	ffmt.height += asd->sink_pad_padding_h + dvs_env_h;
--	ffmt.width += asd->sink_pad_padding_w + dvs_env_w;
-+	ffmt.height += asd->sink_pad_padding.height + dvs_env_h;
-+	ffmt.width += asd->sink_pad_padding.width + dvs_env_w;
- 
- 	dev_dbg(isp->dev, "s_mbus_fmt: ask %ux%u (padding %ux%u, dvs %ux%u)\n",
--		ffmt.width, ffmt.height, asd->sink_pad_padding_w, asd->sink_pad_padding_h,
-+		ffmt.width, ffmt.height, asd->sink_pad_padding.width,
-+		asd->sink_pad_padding.height,
- 		dvs_env_w, dvs_env_h);
- 
- 	__atomisp_init_stream_info(ATOMISP_INPUT_STREAM_GENERAL, stream_info);
-@@ -4371,13 +4384,11 @@ int atomisp_set_fmt(struct video_device *vdev, struct v4l2_format *f)
- 				V4L2_SUBDEV_FORMAT_ACTIVE,
- 				ATOMISP_SUBDEV_PAD_SOURCE, &isp_source_fmt);
- 
--	if (atomisp_subdev_format_conversion(asd)) {
--		atomisp_get_padding(isp, f->fmt.pix.width, f->fmt.pix.height,
--				    &asd->sink_pad_padding_w, &asd->sink_pad_padding_h);
--	} else {
--		asd->sink_pad_padding_w = 0;
--		asd->sink_pad_padding_h = 0;
--	}
-+	if (atomisp_subdev_format_conversion(asd))
-+		atomisp_get_pix_padding(isp, &f->fmt.pix,
-+					&asd->sink_pad_padding);
-+	else
-+		asd->sink_pad_padding = (struct v4l2_area) { };
- 
- 	atomisp_get_dis_envelop(asd, f->fmt.pix.width, f->fmt.pix.height,
- 				&dvs_env_w, &dvs_env_h);
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.h b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
-index d3d1f2574e77..8a84e774f4d5 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.h
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
-@@ -225,9 +225,9 @@ int atomisp_makeup_css_parameters(struct atomisp_sub_device *asd,
- int atomisp_compare_grid(struct atomisp_sub_device *asd,
- 			 struct atomisp_grid_info *atomgrid);
- 
--/* Get sensor padding values for the non padded width x height resolution */
--void atomisp_get_padding(struct atomisp_device *isp, u32 width, u32 height,
--			 u32 *padding_w, u32 *padding_h);
-+/* Get sensor padding values for the non-padded size */
-+void atomisp_get_padding(struct atomisp_device *isp, struct v4l2_area size,
-+			 struct v4l2_area *pad);
- 
- /* Set sensor power (no-op if already on/off) */
- int atomisp_s_sensor_power(struct atomisp_device *isp, unsigned int input, bool on);
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-index 50366bf10f32..87c29a940f9b 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
-@@ -457,7 +457,7 @@ static int atomisp_enum_framesizes_crop_inner(struct atomisp_device *isp,
- 					      const struct v4l2_rect *native,
- 					      int *valid_sizes)
- {
--	static const struct v4l2_frmsize_discrete frame_sizes[] = {
-+	static const struct v4l2_area frame_sizes[] = {
- 		{ 1920, 1440 },
- 		{ 1920, 1200 },
- 		{ 1920, 1080 },
-@@ -470,15 +470,15 @@ static int atomisp_enum_framesizes_crop_inner(struct atomisp_device *isp,
- 		{  800,  600 },
- 		{  640,  480 },
- 	};
--	u32 padding_w, padding_h;
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(frame_sizes); i++) {
--		atomisp_get_padding(isp, frame_sizes[i].width, frame_sizes[i].height,
--				    &padding_w, &padding_h);
-+		struct v4l2_area padding;
- 
--		if ((frame_sizes[i].width + padding_w) > native->width ||
--		    (frame_sizes[i].height + padding_h) > native->height)
-+		atomisp_get_padding(isp, frame_sizes[i], &padding);
++	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
++		return -EINVAL;
 +
-+		if ((frame_sizes[i].width + padding.width) > native->width ||
-+		    (frame_sizes[i].height + padding.height) > native->height)
- 			continue;
- 
- 		/*
-@@ -491,7 +491,8 @@ static int atomisp_enum_framesizes_crop_inner(struct atomisp_device *isp,
- 
- 		if (*valid_sizes == fsize->index) {
- 			fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
--			fsize->discrete = frame_sizes[i];
-+			fsize->discrete.width = frame_sizes[i].width;
-+			fsize->discrete.height = frame_sizes[i].height;
- 			return 0;
- 		}
- 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.c b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-index bdd2d9b18da2..495032966b00 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-@@ -327,8 +327,8 @@ int atomisp_subdev_set_selection(struct v4l2_subdev *sd,
- 
- 		if (atomisp_subdev_format_conversion(isp_sd)
- 		    && crop[pad]->width && crop[pad]->height) {
--			crop[pad]->width -= isp_sd->sink_pad_padding_w;
--			crop[pad]->height -= isp_sd->sink_pad_padding_h;
-+			crop[pad]->width -= isp_sd->sink_pad_padding.width;
-+			crop[pad]->height -= isp_sd->sink_pad_padding.height;
- 		}
- 
- 		if (isp_sd->params.video_dis_en &&
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.h b/drivers/staging/media/atomisp/pci/atomisp_subdev.h
-index b12bb65be3f2..0045f380de74 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_subdev.h
-+++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.h
-@@ -214,8 +214,7 @@ struct atomisp_sub_device {
- 	struct media_pad pads[ATOMISP_SUBDEV_PADS_NUM];
- 	struct atomisp_pad_format fmt[ATOMISP_SUBDEV_PADS_NUM];
- 	/* Padding for currently set sink-pad fmt */
--	u32 sink_pad_padding_w;
--	u32 sink_pad_padding_h;
-+	struct v4l2_area sink_pad_padding;
- 
- 	unsigned int output;
- 	struct atomisp_video_pipe video_out;
++	/*
++	 * Runtime resume restores controls while the PM state is RPM_RESUMING.
++	 */
++	pm_ret = pm_runtime_get_if_active(dev);
++	if (!pm_ret && !wv517s->resuming)
++		return 0;
++	if (pm_ret < 0)
++		return pm_ret;
++
++	ret = regmap_write(wv517s->regmap, WV517S_REG_FOCUS, ctrl->val);
++
++	if (pm_ret > 0)
++		pm_runtime_put(dev);
++
++	return ret;
++}
++
++static const struct v4l2_ctrl_ops wv517s_ctrl_ops = {
++	.s_ctrl = wv517s_set_ctrl,
++};
++
++static int wv517s_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++{
++	return pm_runtime_resume_and_get(sd->dev);
++}
++
++static int wv517s_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++{
++	pm_runtime_put(sd->dev);
++
++	return 0;
++}
++
++static const struct v4l2_subdev_internal_ops wv517s_internal_ops = {
++	.open = wv517s_open,
++	.close = wv517s_close,
++};
++
++static const struct v4l2_subdev_ops wv517s_subdev_ops = { };
++
++static int wv517s_resume(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct wv517s_device *wv517s = to_wv517s(sd);
++	int ret;
++
++	/* Restore the vendor-recommended 12.6 ms ringing-control mode. */
++	ret = regmap_write(wv517s->regmap, WV517S_REG_DRIVE_MODE,
++			   WV517S_DRIVE_MODE_12_6_MS);
++	if (ret)
++		return ret;
++
++	wv517s->resuming = true;
++	ret = v4l2_ctrl_handler_setup(&wv517s->ctrl_handler);
++	wv517s->resuming = false;
++
++	return ret;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(wv517s_pm_ops, NULL, wv517s_resume, NULL);
++
++static int wv517s_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct wv517s_device *wv517s;
++	int ret;
++
++	wv517s = devm_kzalloc(dev, sizeof(*wv517s), GFP_KERNEL);
++	if (!wv517s)
++		return -ENOMEM;
++
++	wv517s->regmap = devm_regmap_init_i2c(client, &wv517s_regmap_config);
++	if (IS_ERR(wv517s->regmap))
++		return dev_err_probe(dev, PTR_ERR(wv517s->regmap),
++				     "failed to initialize regmap\n");
++
++	v4l2_i2c_subdev_init(&wv517s->sd, client, &wv517s_subdev_ops);
++	wv517s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	wv517s->sd.internal_ops = &wv517s_internal_ops;
++	wv517s->sd.entity.function = MEDIA_ENT_F_LENS;
++
++	v4l2_ctrl_handler_init(&wv517s->ctrl_handler, 1);
++	v4l2_ctrl_new_std(&wv517s->ctrl_handler, &wv517s_ctrl_ops,
++			  V4L2_CID_FOCUS_ABSOLUTE, 0,
++			  WV517S_MAX_FOCUS_POSITION, 1,
++			  WV517S_DEFAULT_FOCUS_POSITION);
++	if (wv517s->ctrl_handler.error) {
++		ret = wv517s->ctrl_handler.error;
++		goto err_free_ctrl_handler;
++	}
++	wv517s->sd.ctrl_handler = &wv517s->ctrl_handler;
++
++	ret = media_entity_pads_init(&wv517s->sd.entity, 0, NULL);
++	if (ret)
++		goto err_free_ctrl_handler;
++
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++
++	ret = wv517s_resume(dev);
++	if (ret)
++		goto err_disable_pm;
++
++	ret = v4l2_async_register_subdev(&wv517s->sd);
++	if (ret)
++		goto err_disable_pm;
++
++	pm_runtime_idle(dev);
++
++	return 0;
++
++err_disable_pm:
++	pm_runtime_disable(dev);
++	media_entity_cleanup(&wv517s->sd.entity);
++err_free_ctrl_handler:
++	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
++
++	return ret;
++}
++
++static void wv517s_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct wv517s_device *wv517s = to_wv517s(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	pm_runtime_disable(&client->dev);
++	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
++	media_entity_cleanup(&sd->entity);
++}
++
++static const struct i2c_device_id wv517s_id_table[] = {
++	{ .name = "wv517s" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, wv517s_id_table);
++
++static struct i2c_driver wv517s_i2c_driver = {
++	.driver = {
++		.name = "wv517s",
++		.pm = pm_ptr(&wv517s_pm_ops),
++	},
++	.probe = wv517s_probe,
++	.remove = wv517s_remove,
++	.id_table = wv517s_id_table,
++};
++module_i2c_driver(wv517s_i2c_driver);
++
++MODULE_AUTHOR("Maurizio Casciano <mauriziocasciano7@gmail.com>");
++MODULE_DESCRIPTION("WV517S VCM driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.53.0
