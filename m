@@ -1,150 +1,152 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AFF3C10B6
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970998; cv=pass; b=HCF3sdDluiD78qzrZHmf4nIjCXXhyxfwRwjZ7+OzQHZ+clQWnazznYQU3481YnTpOzwsE+dyxdqBbvk1eNb/K1+eXnsQ7DB2e3ohsMKmC46Gt36snX6IKztiQ/ajB/7BqJ1YDbf6Rws/hWiEnR9CzJ27pHxes9n/FYAiICBusT4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970998; c=relaxed/simple;
-	bh=1ioCZTbb41W9FUOixCvFBhIck+r0y9BJGbVcKNL0CmM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=atZEeK9EHsjnLnFL9WDJrMhzhdJ8emEMOJskwUSPdckQeaI2Ym9LaTwQAe1JFAMmZhhY2ElmywahZG7SL3O/ei7cm+3tn9u47i7KWv2wIM7d/nCIkqf2vwUmstvl5Aus4RyE/fmxX1STJoO1lW2uV3XFaHayRU3ffOLEwvlT0qg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=shneLzs2; arc=pass smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4554C3C10B6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790971028; cv=none; b=ttaSBwmey6INYhP+YXu8nX+1B/eWbJcvgxBp2xc5Nr2HHnzGjJEI+epIw1QnTKOhHo5xrjeQKgJhMziZpRSv3Vas13rxA2cILRzDGpj5zpbGJFzA9HQr9xRpMNcouun2NL8OXQTuGndCya2kKCVwkzEy7850tx+ccvgiEGMx7io=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790971028; c=relaxed/simple;
+	bh=u+AOCaj6H+sVhBdJRSYLOHdqWPibeQxtAivV8c9JEuQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eCLqB9j8FSpujmU4gQPdA1C67fI48xiu+/bdbTCmTiRI8TpEpRCnxNDRpNIn1y2Ef2GpNlcd4h76APzV8LTvvAF50rByZ506qeAnqVGZps0PlS7yxhed1tYnKLllaYPhykeZZ4+0JrGPuxHbmHkwgWJaVqWmnuTfAfUi1jgVoMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=Od5KauoA; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="shneLzs2"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2e43f3d1fdso19508466b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:56:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790970992; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eQbmjYYeVQNWJPnyaq+hW1g4eaaXHYxzywk6+auCqFe8vDJX9QOPm0HggFB5PA9sA7
-         VDij7FseN+qj3AyXN552k+QqHJr/m/91Hs8jURhsOcBmfTFtKrSfSIXT3l0Zl9eXHda3
-         svl5oSJzSJKgQJkXPX1sCmldi0nah2/f9wI+aqUoAv8iOMHstQmAZ2NO8QjDiVSQVP3Z
-         4p/dHGE2IZp18BFQWt1UhQi7fJWueIAOsjhq7YN8s768ui0rFnDjHaN9U6WG4bOtHZhx
-         U+rdwEW8LYveuhpQCqTBamzdj4OlBZ+gB8Oi+RqYAat+L+Jbhcg/VJ/FOvGiR1sPp7eN
-         gsXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BIxB+o9asvwUGZP/ehweqbShcz/sSoH+9KFLtoHp1eA=;
-        fh=gP1JriRfE+TmH8DxBxxhhkw5J1qopg5U/unZYWTHGto=;
-        b=EOsQhrrcYauGsG+RtjvN8YLSxFeARplAcQ+ppUoOcdMvdxRcvVN72UAk2VhOVg4B7I
-         O4WwJx87k/h2XrIVmPPeUDywNKeblHwO2OKcqNXHVOGt0Q1xJMiHJm8jppm+aN5bE9oJ
-         ChgEwB5TJ5zD1yzY11jMoRJlWexZh6+4pOlcJBWx07XvNIHaarzi9kKyZFORrum2loME
-         tAEnN6PJ+nqcgcuNM94FzOSWDrc6A/uH2ghd6b7A5A5xRrv4d3cal9+IrfWrNzwddWe+
-         9YztQAz+AW8gFMC7j72W6CDlklqpi+ofqZ8/wfKHUyaKME2n+8Mu+6AA9O0XYYdzouCl
-         Bk7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Od5KauoA"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917aca1aee5so1782166d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:57:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790970992; x=1791575792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790971026; x=1791575826; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=BIxB+o9asvwUGZP/ehweqbShcz/sSoH+9KFLtoHp1eA=;
-        b=shneLzs2LcbQqXPDXmIKxYXwzvwAachuoY+x8UQrViCAmsHLcjX1FXUmxsAaCB+kTt
-         yrQMiLHtIa8sb8Im1a+kTcoTFRewgZu9kIJmtwi5xrHXdKGzWjwFvc2bcoWWxVI4fXhJ
-         6vKVtkUGPnG7NZZZQP8huarE6qJiozTZaQZc9lUq8q1zRE8qYY6K7J95RJaK/sStE5ec
-         8hBEA94tN8ozciaenW2v2o0yn4HIRbFDrrV7LAp0fog4ylNqUaBDun/nAgitycpXjuhy
-         Qp5oAmSxiZldk7XSYPRdpgqOPxNCZ7gsTP26qQf/cRhtXmPV1fvhGSqhb8POCYQ0edbE
-         2rmw==
+        bh=5xr7pX17mvH2aCY+fCJUZRujhX//jXl3D3Nc+GjIbpY=;
+        b=Od5KauoASJeOT0rwCOn/DNhmhOtIclo4yMuMptgt5PqPCBYfAc/3h26hVfwyc95YQk
+         RthvDcSD6OZLYQ7Xwp8CVRBR5iaD/OaH3V1Oc5qsjUw47/0/dQR8IV/ycjzNzEidjg6+
+         6wle0kr9M+20Jjh+IDDY1ioN/LnDrAPWYE71GueGa+rCugn4M6+9o713aX6qsRqMpS5N
+         etFmWRZS38XJrwxPyOmlwBv70my86hEriJnLftu/8AJmXxiJiEIBTS0Q6yeNhAzvK3PF
+         5Kicp76vCkWK9cqbaEWD5M/h9/dahT5UuCcR1Ybcb5pC5F/R4bpPIQZ/4BgWF6yMR8Hr
+         Rbjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970992; x=1791575792;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790971026; x=1791575826;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BIxB+o9asvwUGZP/ehweqbShcz/sSoH+9KFLtoHp1eA=;
-        b=0atv/zFWkFwjnYC4CFeDnctcytHdpd7vIk7sODE0jPd084Mv22Pif0a3xjrez4w4FI
-         q08wGN4KkmLvFxqTzseh2pTQQGNvDE5MDYWo0oSQ8eHND33SbsZeWsUol+ErhWSfInv6
-         +J21945YYJx86GKmqOgbtg5eae6xE+ryIWp+CIUmyrtJQuqXvetulOkb+YUFx1pyaf+X
-         wWGFpvyNzNr97XtCbT1Lf9Rf2zkewBFCjVQTIwAQJ6n8Uy9l5BeO+/E+muK1iVObJS85
-         PXl9Dr6asBFrGxpeUp7TqjVdLyY6PAfzwXXZcq8c+k2R5EjakDMFPVp1dbY6jy2xDoqd
-         kfBw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSe7MqgzlowGmQUHu1XljcjRkUS31qnuOPTKop4kWKku+Y/tOEGnJd99Ewz9oxyT/jAH9Golc8KzSfuO4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgg2ukU+jGndOQk7bTcCtekyBRZBg/icTmsyTph0jgaVTJPSOL
-	jlJKGFDDWlqDVGamrcWtFZo1AvmIlANKexzBtBWujMUS1J6YglHcnNk8iFhQdW6rzo7hP5ATolG
-	+qlKE+SMfAVVoagcbuyNEph3zWFmNFhwejmbeoA==
-X-Gm-Gg: AYBFou2d3oj4dLde3+3MJ6xRqYwTuRmTQTY4d//7RTNuyD1BYd9yaoMiolfLGtZMkT5
-	uEzLU9rHUeIZIfwakRkJFXSIq181CH5gndeA5qtDK+qhMuNanKdVEFChou670BNFADylvtqMSrR
-	E6WhT4kjruQcbxzq1OC71zgYOR3OlIZMealnAnNH0DCKvaDxKtdlT1hMXoqwOK5sIXkfucOJrg+
-	agfWwIII6xik45S61ZO64MWau1MxIei+8D6Tc+6SWWUIvGDZed0HmnYRTZjC8FyEOKfaGMDt2bn
-	mFt/IWXRWADSZ/FkuBfADt71RmUsk8I1vW4DTzM21ooxZAPsPNxl2G13dn5IBFp5kB1dtalD2es
-	Y7Wcqs/K56Jbrlgq1RnrnU4idXAZCg0lzpJ/uoDdAfLLKJ6er4NyROfEL2ywzK+CHBlkg
-X-Received: by 2002:a17:907:970c:b0:c21:9b4b:2690 with SMTP id
- a640c23a62f3a-c2e6ed18a3cmr18544566b.17.1790970992289; Fri, 02 Oct 2026
- 12:56:32 -0700 (PDT)
+        bh=5xr7pX17mvH2aCY+fCJUZRujhX//jXl3D3Nc+GjIbpY=;
+        b=x5D7efAqHN9EyF1U3YYACgFMnjbFqNHNrCr0IAKP03fRQsA3kQvhKFeen8rzR4zfJO
+         eC3znqbDcsNU/E9pJ26FfmfDIMfmcCcsJsUMjJM99dDP7ggOmwtspP1x4Q7G3cWVJd3t
+         nYClEeMm0LeEzWct+W5OHoMPsOrhkAo3nXYgkXbgZxXd9k1vEL8ZYwiHt/vSul8Gik/k
+         Ws7JNnw55PqIlYuo4VocMdJYyEs4SnpgagMygvS5X9vUwUOEhNxWbNSN1GLLR7Dq8Qn4
+         81uZYlZccIHqWEie6yQvRjSfDPotV8R9NUWkrOWLUY3OpgR7Vak+cPgfaidGEgINPQvN
+         X8wA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlOcLt7m0ttWeH+sXbt30Nb1RMiqHQKi0GZGXbU8vXDQZmr6LZ+PP075YK+k2IW7nywjVKrGjCQfyC1ic=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYmtXanGVE6VtY2Wuw57m6tki1YcFiXs92R4BFUdzfHK6Q42wu
+	BVsvob7h7k0t48WkKv/itVthGd82q9kCBnAKrA+ctLfZsf88QbXX8uWMv1qIxynxdx0=
+X-Gm-Gg: AYBFou1K4nveVECscxvN/yUjuQf9h3s6TD8YSMSPX0FasqoPiMeso+Mr9+arrT+y1VM
+	OTashOYMdgPrUb4yPaBgp+JW0FEQqpFV0d0T8zM/uKgtmvAVe3ZMsO5hEXzZzoC+78TR38omNeV
+	sQdsR2NEVVw0KzaQAwN0/8hPt1VScQCE5hcR+xABN6myZ9wfXo2pXVkRMonkbSkyVwvWsT5p35I
+	bWJlYMBsM9TbhgGwCVaTQ+BLivtVEw48WEv6s2wh4MGrRcsvkRoeGQoXX23j2k5oivzTcD190ia
+	wmCkFnFpvGOVQUjmp6XLo5+yBBNFOcM2T+Mmr7OnGi0XSQBvokV0MxM9f3HfMtl2Tqp2cCZoKP6
+	KcMH9+eoVraRkssVMaBIZZRzlkGA9gQqBusyMo4+f8t9r8qKxzQDWJTrfE9xfaVMAlFvxwvvbfD
+	VJt8y/O6QJw/LwwuIaTjMIJqdGKmHImQ2JvvA6ukw4ZnXDeNdRdL9UaIRL5zmAjcswO55ZZ936L
+	yr469EpnM3qEg==
+X-Received: by 2002:a05:6214:d46:b0:917:a8b7:c824 with SMTP id 6a1803df08f44-9195d0a24fdmr7529476d6.7.1790971025988;
+        Fri, 02 Oct 2026 12:57:05 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-919442ce1c4sm20271766d6.3.2026.10.02.12.57.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 12:57:05 -0700 (PDT)
+Message-ID: <60c0db37aa1ba8674a0b205473075ab6cb0ed39b.camel@ndufresne.ca>
+Subject: Re: [PATCH 0/3] media: rockchip: Modernize PM_OPS
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Diederik de Haas <diederik@cknow-tech.com>, Dafna Hirschfeld	
+ <dafna@fastmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+  Mauro Carvalho Chehab	 <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Detlev Casanova	 <detlev.casanova@collabora.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,  Jacob Chen
+ <jacob-chen@iotwrt.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 02 Oct 2026 15:57:04 -0400
+In-Reply-To: <20261001173610.158931-1-diederik@cknow-tech.com>
+References: <20261001173610.158931-1-diederik@cknow-tech.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-4HyN8OfCN+SaQY/bAsCV"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917204209.97699-1-mhun512@gmail.com> <arpa-Ps8l8LOwbbx@tzungbi-laptop>
- <CAMMMRMe7g7yj1iOTOc+TCWe=+1cjFA1rG7H=VfjnrY3p7XCKFg@mail.gmail.com>
-In-Reply-To: <CAMMMRMe7g7yj1iOTOc+TCWe=+1cjFA1rG7H=VfjnrY3p7XCKFg@mail.gmail.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Fri, 2 Oct 2026 15:56:19 -0400
-X-Gm-Features: AclHuK9fCvmhfjw1X8Jezy7cxwwOQzz6bhBUeiEHh3Z9gHIC1eoTF30hT-F_4tI
-Message-ID: <CAGEsz8G+bdyroK=Fb=YpgWvp+Z3HOGbqkTPt-dYO8u_+26_ULA@mail.gmail.com>
-Subject: Re: [PATCH] platform/chrome: cros_ec_typec: Stop altmode work before
- unregistering ports
-To: Andrei Kuchynski <akuchynski@chromium.org>
-Cc: Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>, 
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
-	Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
+
+
+--=-4HyN8OfCN+SaQY/bAsCV
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Thanks for the feedback. I've moved the work quiescing into
-cros_typec_unregister_altmodes() so partner disconnects are covered too.
+Hi,
 
-Pending partner work can still queue responses during driver removal,
-so the port work stays disabled until that completes, then is reset and
-re-enabled for reconnection. Final port teardown now uses
-cancel_work_sync().
+Le jeudi 01 octobre 2026 =C3=A0 19:34 +0200, Diederik de Haas a =C3=A9crit=
+=C2=A0:
+> A bunch of new PM_OPS macros got introduced in commit
+> 1a3c7bb08826 ("PM: core: Add new *_PM_OPS macros, deprecate old ones")
+>=20
+> Straight up copied from that commit message:
+>=20
+>     These new macros are very similar to their SET_*_PM_OPS() equivalent.
+>     They however differ in the fact that the callbacks they set will alwa=
+ys
+>     be seen as referenced by the compiler. This means that the callback
+>     functions don't need to be wrapped with a #ifdef CONFIG_PM guard, or
+>     tagged with __maybe_unused, to prevent the compiler from complaining
+>     about unused static symbols. The compiler will then simply evaluate a=
+t
+>     compile time whether or not these symbols are dead code.
+>=20
+> So convert the rockchip media components which used the old macros to the
+> new ones.
+>=20
+> Diederik de Haas (3):
+>   media: rkvdec: Switch to modern PM_OPS
+>   media: rockchip: rga: Switch to modern PM_OPS
 
-I'll send v2 with these changes.
+I'm taking the two first, thanks!
 
-2026=EB=85=84 10=EC=9B=94 1=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 11:40, =
-Andrei Kuchynski <akuchynski@chromium.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
-=84=B1:
->
-> On Mon, Sep 28, 2026 at 12:18=E2=80=AFPM Tzung-Bi Shih <tzungbi@kernel.or=
-g> wrote:
-> >
-> > On Thu, Sep 17, 2026 at 04:42:09PM -0400, Myeonghun Pak wrote:
-> > > partner altmodes. Disabling also prevents a partner callback from
-> > > requeueing the work while its driver is being removed. Use the common
-> >
-> > Would the work be scheduled even if the driver is about to remove()?
-> >
-> > > diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platfo=
-rm/chrome/cros_ec_typec.c
-> > > index 50a68819ceb7bbfbd888ca919d678d4c75237c26..e91bbc219c07706729493=
-5dd5602c1aec636cfa6 100644
-> > > --- a/drivers/platform/chrome/cros_ec_typec.c
-> > > +++ b/drivers/platform/chrome/cros_ec_typec.c
-> > > @@ -378,6 +378,7 @@ static void cros_unregister_ports(struct cros_typ=
-ec_data *typec)
-> > >               if (!typec->ports[i])
-> > >                       continue;
-> > >
-> > > +             cros_typec_altmodes_stop(typec->ports[i]);
-> >
-> > Shouldn't this be called in cros_typec_unregister_port_altmodes()?
->
-> This should be called in the very beginning of cros_typec_remove_partner(=
-),
-> or even in cros_typec_unregister_altmodes(). The idea is to stop the queu=
-e
-> when the partner no longer exists.
-> Partner disconnection rather than port teardown ought to trigger this.
->
-> Thanks,
-> Andrei
+>   media: rkisp1: Switch to modern PM_OPS
+>=20
+>  drivers/media/platform/rockchip/rga/rga.c           |  9 ++++-----
+>  drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c | 11 +++++------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.c     |  9 +++------
+>  3 files changed, 12 insertions(+), 17 deletions(-)
+
+--=-4HyN8OfCN+SaQY/bAsCV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasAMkAAKCRDZQZRRKWBy
+9LnsAQCEQh8/fK0EjxA2qyBxHJJCZTj66w+XssQ/r5decbAYxwD+NAlRMgWmM5Q8
+DCLHzSESx4CgbNEx6od60qqNuMc9Bgs=
+=z221
+-----END PGP SIGNATURE-----
+
+--=-4HyN8OfCN+SaQY/bAsCV--
