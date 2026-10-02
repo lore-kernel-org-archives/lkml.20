@@ -1,212 +1,139 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D02446AA95
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932006; cv=none; b=jIskadBC8isuB804jKPE4A1GznYBazwYjje3LtEBN/f6Qs6BmFa8zV2qlVItbvZhINPAfCSdtDL4n0tzmgHdgpY5IerKEwBeSAp0Pmf+OAwWSkUK5LTmnPjT4cGV/ltF7kaW6eAW2TlUGxAFEEgOQU8qmp4atTskgK7jgWspoq4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932006; c=relaxed/simple;
-	bh=kDMZJFIYNLpENyTsWhs6Qg3bWlNKfFJpixhYOyF9GVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ee5YLiQqcNXix0SK24SO7e6o+uQaFrPA8JJ0yFwNZRkKpI2fdWgmYZjKESarEsXDDQGUaVyJ1g7+ouIIfV14f+gy0DSao17oXslSlbm7M23NwLUT+odPkWgRp4VJCvRzCcnp+uyOdNNlFAOp9RAViPpOBPU1LaOfA68zPwi9Rw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rn+ZlQ8Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X18a3gem; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4F146AA95
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790932036; cv=pass; b=l8o5kaAUHHlzeEuvXZCpWgoG83qYsjKnBapkQ4bI0efa5nK7kZXw5mkp+KPSRwVypylY8/B09rHBGfag6aBK4Mq24n8/St7nG3jhTRHDBf9YqZGDB64b+3c3v7NUIGKZb9y7ahAWy++SGfhv6bZVizGiiuQkXh3Ldov/cWai6zI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790932036; c=relaxed/simple;
+	bh=6asYzfWcqkpjsT6QII5zc3j/Jwh7cBWVPuz7U/pndck=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oHgZ51ClEznOrXNYkkeiJFF2h/T8/eGliVt9WTNprOM/m2rlZ6umoNa4Wms6v8/1rDpVMNtZ/XQqs995UsF7zfsKrGOXmJf/p0OTeR98Ydr5NRIoAo7H7jOFb4L5BE57JcDr8bWuLxfAccoOkPy3om8T+B4nK8LS//Bua2r2WjQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kKkQ07Qu; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rn+ZlQ8Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X18a3gem"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925jsQs036969
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 09:06:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=m3e22T5Ei+HeBmJThbj0uNqY
-	cEf7ihFqents8vMEUus=; b=Rn+ZlQ8QldP1jrxGM5PRYz24yepuy89350RsrrWc
-	Q+aRe0f+9wBE9wOepUkA/3d5FOWJpLF7XFVuRlh5bv3ob2BtYM0DjaqNjRYH3lVt
-	puvCftbFgiokSzf8xvTx+7nCsxR2VpnwE8d7NAbCyrLRlAAITRBtSIe2EVEaJFuD
-	c95xQ38c+5Hpnt2a0koWxSUeJLPd/ipguvFm+7i7KswIQD9q6AC9gOsQbPyrnf6Z
-	zZJzgMDC6H3siJKLnHh+keIliYFyhGUsIEI+DZ1ofEAceIxtPfeWztOrI6xECqNM
-	JKkhdsbnxx6ZFN05jkR3zw5uuSCdxVMmN0bypEw+aeOurw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1tbgbbb4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:06:43 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ce7a85f04so109641085a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:06:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kKkQ07Qu"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c28125492so304854eec.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:07:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790932034; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bnUgPTioH4RlTWgpcor4COF4LIrt73hu3QriSbgeQT9VolrMIjYR9Oldbh0aSj3Yit
+         4xqDgbbmX8ciM3OcrR1JS+KGWymb69a1j1gBGWeqIW83XLsrPdquBB+vv0SW8cfcykSV
+         /dgu6Ifo20J1xx/7DxWKFP3bNX2NhBPWynvxzLPIow/pjGllRQfezpoDGpxAmI1gaJfx
+         qt1o+g0D6jxdbPxQuXyQ+QK/g0Hox5RWt6E57fDLixXAZFAfT40QvxGExgNYnS01c1Td
+         QFT2skLBd04hmFwD0n7XQevkCaZ0hk/lvM06Ym/1KlXQ7hcgmqYAJHNjd/FcuPf9oPEd
+         6asw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6asYzfWcqkpjsT6QII5zc3j/Jwh7cBWVPuz7U/pndck=;
+        fh=eg96ywFBsFbbzSKbOzPRwUySA5CJBVZSBPWYXRaWong=;
+        b=IMmhJtUOGW5cuh/BQ7aJaz7uroKXrCV4d1sssC6aYZshEEXoi5l4OUddwJAUNE1G/F
+         aXjq4niP9Q+ZCC1JYwUIdfT6GxdqgyQoWxz9659exIeOLo05lOaxJZ+FZvVrKGgDoE/6
+         F5KYXaCziA+ta47r/YtfS46NjWkUIbPfrnrQC58PpY1udqxizZe3ErROffvHHGUUf4RO
+         sxkSnh4aTCik+RHGlkK24WHiwdgPIwh/CCbGtX6nxgAYHnjCizRJpALwWgNFefavKQWN
+         L2D6U/RMMtlnQTZ9iKx7+YpuGPXvK1dNOCcxQdU05DUXNLmpBx+DitYOIv/lRUNK3G0a
+         C4LA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790932003; x=1791536803; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790932034; x=1791536834; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=m3e22T5Ei+HeBmJThbj0uNqYcEf7ihFqents8vMEUus=;
-        b=X18a3gemGfmDU3M9j+Icv/ggKoQ5ynMXw1a4PYZtMvwwmUYFow5n56unXbUdk2wg+f
-         WzTYI7GK9w5Eihn3owFPgipa8Y+B2OzIpcrjNdn6uoKmLNwLBWhA2vqRYMPa7rsF1Lfj
-         ph79E6KxjA6ku6+3/WueplmSi+QavuGuf3xwWQjtklq0ke7kPvJnKsl/42BB2ukArOrh
-         pIhXSanI89Fb2vZkgnMwguWJTc1nsiF11VzAoj+e7qppEN0t/sK5iiA5AT4Zsiy9mIBS
-         l6v6R7rQRu+Wse3GSOOKPMPfYHxgqdwxv3OmiknFA0DtC8DaGoHWK11OeMnMnEAMg2dp
-         RUZw==
+        bh=6asYzfWcqkpjsT6QII5zc3j/Jwh7cBWVPuz7U/pndck=;
+        b=kKkQ07QutNr4y+SGRojLktAZvrjADk+7kx6zTKs0tf/h5XCNj2gSM5TaUYjpEGKaaz
+         Iyo/G/s5MULaAgk3c/WYUkiZM0oaDGpAQWuUwu6Mjt6ZG2jler1kM2MydTs9ZWoG95KA
+         +2y8yil1tIOdK5O53fBTgTkqgPSxTqACnmj0TkjrxLuyXO+Gi2ltXt0EZlb0EbelVUw/
+         4vLq7k2VpYsEaaf++mN88gmiFI901a6mae9o07cp55VS4fGqNK4W9RnxWyyU2EgSLBlS
+         vFCgUseLHRKtJQIHigSQRy3t18Nvc3qqspDu4wsbRVF7rhcxG/u1XdqZ9MFR2q9E6W0/
+         dJOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932003; x=1791536803;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790932034; x=1791536834;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m3e22T5Ei+HeBmJThbj0uNqYcEf7ihFqents8vMEUus=;
-        b=uXYzHdGdjICxDymm6SasyH3Y10GWRu64TAIGYo7+jm0ChHFoZdtd17f9Yh3VSMbMvx
-         cONYADcwb48FdxisNT7YtH0SXGm51APQKeMJL4Ey9zukyDmjYbLGB0jk6VDGmO9sPtmB
-         Jm5EZ/etU7U7xp4pjp2eWeEWxQU38qiJSoc44EIEuBckAcFONrLVC5uzEhchTyEuqPHX
-         PTjWUdZx4kSY87GH+8VmOT9MY+m+tWw1JVwwXeUaiPwS3ps5WzSHxZzhisd2EaFvsWoz
-         oCT4DdwtkW0bTlUI2fESNtRkqWj6hCWjJUyUtaYz7CFtGx+0Nc822ps3FK7gp7S+VPx6
-         q2og==
-X-Forwarded-Encrypted: i=1; AKwUvBwrgTlUgGYwbAqtx64YcFFzrFPfwNXWjdmCHKRdp6LwrBJUjR4CuuerJ2l8NCr0h6t+zRIbD7MJQVoC/GI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5QDkUVJhiBXOWF1UVanvN5n5wDS/7RSpT2sWMvRRpvmlNhkka
-	ZPRLvj9BLennjyH3sq+/CqK0s+Ih3Y+pTS044/Hw6qU7wZi2BLfa0gM2lYqLHPT6HgNsAZC8Kqv
-	YksrfCESMSdGqHEcVrcQyp9sHh4sUIeW/lkjkcB/c1MbeuYg6uPI2pTdABRL6yEJRTpU=
-X-Gm-Gg: AYBFou2eoDbp8xq4G9Vxbi7U8WczDMpho2glkyDM27/PZbi61tl2ft6fqAEjFiGF4qM
-	iTBadIlkzPjO2sWF33lLjv64iXMIze1SeFIZEo+1Ba5M8qHgyb/rkaBm45yFgsRQCNNhkkjkSib
-	FbDyTqHxGwt83XSSoqpTZpxUy1Z1tCPFV0PCAuPisAxYPxAKhiJM82512waG7C78b1iojYWmOYl
-	xgsLY6fHERRIr3GJwhLGiuq9W2sbliZ2JCl1C43im2g6LrjOXHDYCEzXQsoKkrkmXhl9LC1FVX0
-	XTcUmWdcTsAhKqBwgRFnAkAYsCgNL5M+LFI0yhs5xG5Ez6tbBQg6QY6xVxbWSt3mF6T0snDUf7s
-	ZbhY35+bQMtmTG4UXVCjW
-X-Received: by 2002:a05:620a:8804:b0:93c:612e:9b51 with SMTP id af79cd13be357-93cf18a7807mr337159485a.55.1790932002675;
-        Fri, 02 Oct 2026 02:06:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:8804:b0:93c:612e:9b51 with SMTP id af79cd13be357-93cf18a7807mr337153385a.55.1790932002076;
-        Fri, 02 Oct 2026 02:06:42 -0700 (PDT)
-Received: from mai.linaro.org ([2a05:6e02:1041:c10:f14c:b716:c104:4712])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03950375dsm22387125e9.1.2026.10.02.02.06.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:06:41 -0700 (PDT)
-Date: Fri, 2 Oct 2026 11:06:34 +0200
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
-        Tzung-Bi Shih <tzungbi@kernel.org>,
-        Guenter Roeck <groeck@chromium.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
-        avaneesh.dwivedi@oss.qualcomm.com,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>,
-        Francesco Valla <francesco@valla.it>
-Subject: Re: [PATCH v15 5/6] power: reset: Introduce PSCR Recording Framework
- for Non-Volatile Storage
-Message-ID: <ar90GoaxTV8pjonY@mai.linaro.org>
-References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
- <20260924-pscrr-framework-v15-5-7af87107e0d3@oss.qualcomm.com>
+        bh=6asYzfWcqkpjsT6QII5zc3j/Jwh7cBWVPuz7U/pndck=;
+        b=izFw5+ldYGPvSZdIHpSyMIga+ufqvhhNDIL04/+EoB3KW5UL7eksFbFf2fncoHu93l
+         nDoA5UZgQHNAH0cfXTE342o0Uq0Hr5giwY0ENtwgWymVAciRCT0kWB6jSCjBqz7a5aCk
+         nstjb/8/aJWty/PDcF0LOhlwFexVkg7Va4qwdkCeHK2+fktLOyxtm/v+bmd0pV4SJ0VI
+         zmtqbaEgjDxK8j77SqioD0DMFKfx4dVc+9QryRII2PKTyFXkRVIBzcsZ+XWWk9DIP4qB
+         OBgFBCFvJnaoj4GdchgZCeL57VwyqoxmTHkkFm80mt+JssobnpXPQuIpD68nG66iWwHs
+         7xUg==
+X-Forwarded-Encrypted: i=1; AKwUvByRqABEtFWSABfPAQ9QB0gwp68inHelNZYbO68IqOP81FWwXkq6NBU8kBj4AP7BvirIbNPPm8SFDr4vbig=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHYfD9Njr9hvtOWpMWhG0CEhjD3bDyv4Xol2Ok1+JNAFdREeEC
+	zWm1t5+lmf3myJqmyQCm9OypTf+tJ3x3RgVzSoWMTt3+gNEgkrO393jICMKnSVi99AJRyQSWD0Z
+	grETKcMlDBNgm6SLhOf5pSPrXUCA7p7Q=
+X-Gm-Gg: AYBFou2UJwXiLa8Q57iqvabvnpUOd9u269yrkCVkEN/n8Ma+eF3zkMT4cZWcV3SoIUf
+	EuiaBsu4jmHua8UurqIp5/BIIqiBIaZDwy7FIRY+0ky1r1hc+V9x/ZxCxJJS1VfgPtkuRpz6caQ
+	i1Jf0f0cY4rG3dn+v4EKT0ThkLjyAC/m7tLNevYq8GP15dFZPUa6K1ddmQyeCq6fZ9tMuzz0Gnn
+	D2snQTn6kRr7rPXZrQaTItyqorDzGJA3zzgM2I9B9iMmC/9vyoaHlLLjmmTLgQGgjaprsqUDluS
+	5ZuYtoXzQquDlN2/HUgvdYz+gQvryJdZgwaj96uHz15wPCuNX7+NYeBcQFHKUYbkJ4oRk5IGdyf
+	cwuvtiI/LwYUGD4czmXeBYucjAtlnmqtHK2OAjRMXxpKKBtpFaLsqQup/tFateSo1bBySjCyY4c
+	oveMLpwuauiPtsr37tMDRTiNqvyASrPCPbB68q1Z6Tg9YUJRD9U08=
+X-Received: by 2002:a05:7300:54c3:b0:34b:47b2:677e with SMTP id
+ 5a478bee46e88-34f14ff2bb8mr3926108eec.1.1790932033786; Fri, 02 Oct 2026
+ 02:07:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-pscrr-framework-v15-5-7af87107e0d3@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfX144m3yy0dqTA
- VcXn3tv+3iF3Cq5EWFLJ3LYyGPzxf3A837gj9aPYe22oyS6DqKuKdQoSrrZmK9ybAA8jgnA3zA7
- cZF2zCkmyDNHm1DDoSp2/dKZ5Iz7zZs=
-X-Authority-Analysis: v=2.4 cv=QY7zLcbv c=1 sm=1 tr=0 ts=6abf7423 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=wJk3McD_gWb6CrzzaM8A:9
- a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfX0OR4ThZicgdE
- yZcIsOMnUGfsd83/oCJmKXmUINp9e55W6FJLQ3WlwfbAEvH9/ReOEtRtPrqsReerPd0Fga74sbX
- UP33U52rlZIyeAn1WWbyMEl2kFGWwuyJezcxdv/a5ncjPPPj5FWsXICQy7w48ZRBeP9Mn14CPI1
- pAXh5EV2b8tTVKjxWKngN76wUrr08V5PRQluGlKwuejX8MVyA9yq0x5JnQrS44nDrRMOc7bgLHX
- xyaqU1klK6UfBEN2sabY4yBRaJLEx1BdMy3skRa5o6CdshL9IFj47S0VrkB1i/h2FGIlj6qVoqo
- 3argrGvGaxmG+lXZntiiexhtzOoKvnKbSvD5F35Xc60B8CztaprPMOYEliF4w+3Oik8MU9zmBWe
- 1QFXRiqWVTEYXgPYG1mvbv5qL+Huf+lWDq9RlITZGDzKG8ZdQ97dOBswLqrVA20UZtdvMyPtc36
- yXEQ7vlanzkYVPYq2yg==
-X-Proofpoint-ORIG-GUID: v9S9x8pEqCFJKzW-OpnGIQCFGDyAwknW
-X-Proofpoint-GUID: v9S9x8pEqCFJKzW-OpnGIQCFGDyAwknW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
- bulkscore=0 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020036
+References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
+ <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org> <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
+ <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set> <CANiq72kZh4a39hcy0g9sqEmzx3m+dcPRW=omOB2r5DhpRq3BXw@mail.gmail.com>
+ <87a4ozas7q.fsf@t14s.mail-host-address-is-not-set> <CANiq72ki4Pc6y8og2ROLRSeRTZBbnpY41v5EC+qJaTiZWVhwAw@mail.gmail.com>
+ <TlsfpzyqG6QHcTMb-dOQPUP6uXU2G9urfH8AK0nzNO3j5rY0QWjn2ni9zhJ41CpVeppXhpH2E_yJ3LgUTibqbA==@protonmail.internalid>
+ <CANiq72nXsGHbSQ1LfbG1zYaMaZv3X=u0+XzT6vHh=9vxLE8QTg@mail.gmail.com> <87qzi8a4ds.fsf@t14s.mail-host-address-is-not-set>
+In-Reply-To: <87qzi8a4ds.fsf@t14s.mail-host-address-is-not-set>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 11:07:00 +0200
+X-Gm-Features: AclHuK-RObMvbRFt28R6tCI9hkGgaSU-cAI22KyuJJxz2MS6peiMo9quk4wXYGg
+Message-ID: <CANiq72=j1nD6Qy9qKwNKjBw1gc8RPr8CmXKXSSNBp7mARv48VQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus` C function
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Burak Emir <burak.emir@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 12:38:46PM +0530, Faruque Ansari wrote:
-> Introduce the Power State Change Reasons Recording (PSCRR) framework: a
-> generic mechanism to record why the last power state change (shutdown or
-> reboot) happened - under-voltage, thermal, watchdog, software-triggered,
-> etc. - so a postmortem reason survives a reboot or an abrupt power loss.
-> 
-> PSCRR is built around providers. A provider is either a hardware reason
-> source (a PMIC, SoC reset controller or watchdog exposing a reset cause)
-> or a recorder that persists the reason across a power cycle (an NVMEM or
-> RTC scratch cell). Each provider gets a directory under
-> /sys/kernel/pscrr/providerN/ exposing its name, backing device, the set
-> of observed reasons (as tokens), its capabilities, the reasons it
-> supports and - for recorders - a record policy. The reason set is
-> deliberately not collapsed to a single winning cause, since resets are
-> often multi-causal.
-> 
-> Reasons are the numeric enum psc_reason values from reboot.h, shared with
-> the POWER_ON_REASON_* vocabulary, so they store compactly in small
-> battery-backed cells. The current reason (get/set_psc_reason(), set by
-> the thermal/regulator/hw_protection paths) is written to every recorder
-> from the reboot notifier.
+On Fri, Oct 2, 2026 at 10:33=E2=80=AFAM Andreas Hindborg <a.hindborg@kernel=
+.org> wrote:
+>
+> I don't think we need to split the helper C files by the headers they
+> are defined in. We can include multiple headers in a C file that
+> logically lumps things together. If you are worried about finding things
+> becoming difficult because they are not in the file one expect, I do not
+> share the concern. I usually just grep in the directory through my
+> editor.
 
-[ ... ]
+Of course, it doesn't need to be a strict split. But, where possible,
+I think it is better to match the C side for the helpers, because they
+are thin wrappers that need to be updated and maintained at the same
+time as the C side.
 
-> +menuconfig PSCRR
-> +	bool "Power State Change Reasons Recording (PSCRR) Framework"
-> +	depends on POWER_RESET
-> +	help
-> +	  Enables the Power State Change Reasons Recording (PSCRR) framework.
-> +
-> +	  PSCRR records why the system last shut down or rebooted into
-> +	  non-volatile storage, so the reason survives the reset and can be
-> +	  read by the bootloader or early user space on the next boot. Reasons
-> +	  come from software (thermal or regulator hardware-protection events,
-> +	  a watchdog pretimeout, a kernel panic, a controlled reboot) or from
-> +	  hardware reset-cause registers (PMIC, SoC reset controller, watchdog).
+In any case, I mentioned it especially because `cpumask.h` already
+exists and because it avoids an extra `#include` as I mentioned.
 
-[ ... ]
+> I don't think we need that kind of granularity at the moment. If things
+> become messy, we can just refactor.
 
-> +static int pscrr_reboot_notifier(struct notifier_block *nb,
-> +				 unsigned long action, void *unused)
-> +{
-> +	guard(mutex)(&pscrr_lock);
-> +
-> +	/*
-> +	 * A reboot, halt or power-off that reaches here with no more specific
-> +	 * reason is software-initiated by definition. Record it as such rather
-> +	 * than leaving it unattributed; a real cause set earlier (thermal,
-> +	 * under-voltage, ...) is already latched and left untouched.
-> +	 */
-> +	if (get_psc_reason() == PSCR_UNKNOWN)
-> +		set_psc_reason(PSCR_SOFTWARE);
-> +
-> +	pscrr_record_current();
-> +
-> +	return NOTIFY_DONE;
-> +}
-> +
-> +static struct notifier_block pscrr_reboot_nb = {
-> +	.notifier_call = pscrr_reboot_notifier,
-> +};
+Just in case: `cpumask.rs` already exists, i.e. we are not adding new
+granularity (or what do you mean by "at the moment" otherwise?)
 
-I'm worried about the mechanism. The call to set_psc_reason() sets a
-global variable and pscrr_record_current() write its value to the
-NVMEM backend.
-
-That is done from the reboot notifier.
-
-Is this notifier called in all cases, eg. watchdog reset or emergency
-reboot ? It sounds possible the reason is set but then the notifier is
-not called thus not written in the non-volatile medium, no ?
-
-[ ... ]
+Cheers,
+Miguel
