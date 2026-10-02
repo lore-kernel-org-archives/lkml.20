@@ -1,237 +1,133 @@
-Received: from mta1.migadu.com (out-100.mta1.migadu.com [95.215.58.100])
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143EA4248A1
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790974708; cv=none; b=SB6FC/mpMXa3o7EviYt9ReX56ka6/qjIyVCRdsxfrliCClNS+fdJn7RPC4+92Z1CvorYn5pfiL1XG09SQYHaD65CK24YWCpkALYMj0yiFYxF5iIra7RPCrrMX5dREfhEGhZysssfKr9teKvxULBm5D7O0GGICjk38jHZw4f8bSM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790974708; c=relaxed/simple;
-	bh=cyE7xCmOBBATCOr27hlaYfNiIVy0ZG/W7o34fqS3PW0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D1xUuSeFJYz7NqeRzpcwC1HjzdJoBTyKcrIA3oMBCordSf//gWQAg9cZcHnPRUW6H7BjqDJS91jEOxoijJq2xlH+WBId2kb1dfSe322fC80CRmbXiHHpqND7iFF76YKHJ6AIPFpajZ2g6AUb8SaegYNBOwzlHP9e3fGjtTdJPFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=E+ZJz+J/; arc=none smtp.client-ip=95.215.58.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D4E3911CD
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790974749; cv=pass; b=WidJbqHKJp6Yi4JObnypyVDYiAAxjjxo2i1zs4zm0TFRx/c/ZHwRIrr0wZ6Ia+diUIeqPmC/yj1R6sPtB01wgyaSLBiCV9OTMD9Sc67NEHSB6+UG2NbirTA6j4BanFVh6MaPgGvQfOwSnI12WbBa7ZNEUbEx6fDOvue31lHDUuY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790974749; c=relaxed/simple;
+	bh=d4zdnmEn5Tm+oEX/jZM8tuqzZh7o94u1nWOKMJtTrOc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JSibZyxCxAvRe01JF0mWg2xYUbB9x39kbc6YPp4zG43mXdHEQB/yrskYhVJTZnvzkhSmAzk44G8t4LAkbJmWMEMcALykTgCl3PmUcckynFxP8vqE84LLeNpkflEumsbeJxtUJOMARgOhlrOMr1wOTlpDu97+/KZR97gRPgDVE0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ex3deoJy; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="E+ZJz+J/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cyE7xCmOBBATCOr27hlaYfNiIVy0ZG/W7o34fqS3PW0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790974702; v=1; x=1791579502;
- b=E+ZJz+J/40/AAclJPurQG13c8L/v6SGvDe7AsodJVSk5Wv7jPgnI9Hk59qnxMiZO+AlrKFHM
- Kt9bFxQRYcV+ghzL9z8JUBJRiLY35PTCmFSmZWe47mc0LxhrfFChHsNFKHpZINd6G1dcOuXH4PG
- LiZQoLk7UxvH+/ArkcPSE7aY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 16a5b7b703a7aea2;
-	Fri, 02 Oct 2026 20:58:20 +0000
-X-Mizu-Trace-ID: 16a5b7b703a7aea2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <44315425-c505-46fe-8379-f19d78ff3abb@linux.dev>
-Date: Fri, 2 Oct 2026 13:58:06 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ex3deoJy"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c5d196b0bso1713eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:59:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790974747; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q6tbYJxXv7fVkss5T/94vxvACGW4d6DIM+AgL5BO6YbCOUEuyIfCqDQUWtrH5gMgNW
+         aS1FaVubRuSVr60bD/idC4uA+0tqlLVl3lS5zvzX2K1xheX8Vx18jtRf3ShCoJu4ZjSh
+         1KM4HEjODW6u50vYCvtDcBMGlS2WH5Sm21GarCzV7FK5p6LcuvCGLRneNQYj+lQJ20ku
+         3FZ4a/T/a9gAWeVmr0LcL18W54HzcAUlN2EiG6YzVJfMz2CvpeqwTJ2cbcmd6QYzTufl
+         EXIIVrXl6E6TkeQcnjn8QhdUacJyCT21+rc4MitYjaBAi0hfFkuLzfnXCAt1qy4iwM+i
+         bOAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AzHVDpXK5KLxpfOZ22bo8Tz/Bpd7WZiqFmkifAIRfvI=;
+        fh=IE4+7pyYcLEiOTip/GUPRK5vsHYMXKUAlxhEORhtQbA=;
+        b=rhUef72PZe68KmjrKb+tiLeNgLjrEKk+OQSzRvEPuIaMLGDuSWswdOAcm5Gm2m96Mm
+         lYPGiqRPjhBzqJQ66zYkjOhzNefPLC3PA/C6ic9PZbPGckrgCyaTSJEWJne6i97fMdg9
+         o8Xy9+07SXRuOYI+c0XFRCTDm5vFh36dZPnDxWmdux88ZdjA54FJlfE2u5MHAtIQsxzW
+         upybhKQeSFmm9su+45PHXCW+WRVwn16CAdGMf8VICEmiZySvHN9YqHpdig+55Jn72eP7
+         Ge80QLpW5LEua01YlLFINBczDTLPguFOuiOmxA1FYb0LLx3wFTCPqy0S0M205hJ3GjQh
+         fujg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790974747; x=1791579547; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AzHVDpXK5KLxpfOZ22bo8Tz/Bpd7WZiqFmkifAIRfvI=;
+        b=Ex3deoJyZ7/qPIqZpKAUYvjZ5wu5lTkgigguZq5Yp/doAfy3ZraKwBt94L1Hl3eTfS
+         JGSkNk504EFy5qR/sBSQzWRqra/KcBO6IlcWgWVLPvVifGy5FL6vwauxCiUe0LRPO9Xq
+         O8JnPuWp1CazTF0RZiLljAh9XfZ+x8I3W7LueeiCncAdY1/jMDKCrtOqCV/GY7sF9gS/
+         VQqANzBlUPaEi+kZULq709/OJdRwHQPePo6g3oshSeIM56oWspvaocu1PLRrktDLcCnd
+         swZvJxDJhPkvABdv1idZwG1fP1IxjlVtV3HSgKTpttcqYg/gSojjS9LT9i/0eS6jJ6hr
+         /xeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790974747; x=1791579547;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AzHVDpXK5KLxpfOZ22bo8Tz/Bpd7WZiqFmkifAIRfvI=;
+        b=JLut/5SsTEqXG3R/hPGRm+peZt3J3FSgCH04/47c0g1DAKY2U8xdvopMFu3LzY9/Kq
+         zZnIBPA1kRBDcuiPch7QHGtUWfcB+QcmFHFWk4VXrX+HRrM9/zi1RI/sqNkWYyF4Oizf
+         VOx2NYMMhGhiGL+zT8v7w0xHngGUuUHV20uJ5zjwc8D4B7/NWpr5MCpvgdbBXJ3SOlYp
+         QaFcwtlZTlHDIeukP6C+cyD3j4N8MNb5bn7XRJo8q2p36krZ90E8/j7xQlQ+MLFitb5L
+         zsQmt84i85ufZttvc65ZedUvjte9FUnKmIDEwlyzmzQYKWwFJlqm0EL50UODJsvGpKUK
+         x3Tw==
+X-Forwarded-Encrypted: i=1; AKwUvBxmwDQuNZ2L7/iDcsYw7Ut9gDhzUGPe+8b0qkdm0pgueOqj8cf9A2Ftb+GPlBhqSK8iwkQ2JOdUG2avfqw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/6fnOakIbdupTd7+9yTnf+1edNGnkC5SgZd8MKkW5AdD+mT7j
+	VHSnpKyPyoTT09EZvo90/aW1W8wPQvon7sg10MyMcOqcxtVdUkp0GfP2PEe/jyQrYGrg9UkvtA+
+	0yR7/1WbZw26EgH5InORaREN+aZ4o+VU=
+X-Gm-Gg: AYBFou2Kc16uA1qYAS5CmISTx2Ntu19xoCe7pdJIW8CbQsFc5ycjeuhHZovm/I/Cqh+
+	+zpMM4v+D9jXPbd4a4U/cYHIPGwCB7oRQLSsI/9y/OOqZplTTOvC1G+oN+le7o4BuAeQHNNtSOY
+	EnP0Q9eUcq27KoTj74+ePixsMbz7hbDDOCTTkMUGBoNjAs2ayQPfBLRCf5gYHQrTEvSa7LfYfTR
+	hMeoz2359tzeY8PWemtQVwCXwgfl8qNdW1JxaqPQIP/ekOfbBN2gMhpfZtL9mgPTyvyC+B3PAkR
+	ZlnZnDTnHMl1chfxRZMUIzc0bNHgoEbBk1Qg8916lilsPZz3jIWjQM+7Yv2eXTDs0H8ALOECa0f
+	1T8ibhmyxfFOK+AFEeASNKg6c6OG9kR/anZsTw87UuwHQP7aL+hXZRqZ3SuNlDqKLB9nplZ1mW/
+	XuFNMe4nFUWNPEhCDkBcDtKczEg95EyglUBxjQJZQx1W3FQ8XviFo=
+X-Received: by 2002:a05:7300:54c3:b0:34b:47b2:677e with SMTP id
+ 5a478bee46e88-34f14ff2bb8mr6999038eec.1.1790974747077; Fri, 02 Oct 2026
+ 13:59:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v4 00/12] bpf: make the vmlinux BTF an on-demand
- loadable module (CONFIG_DEBUG_INFO_BTF=m) to save ~5.4 MB memory
-To: Jay Wang <wanjay@amazon.com>, bpf@vger.kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
-Cc: alan.maguire@oracle.com, martin.lau@linux.dev, yonghong.song@linux.dev,
- jolsa@kernel.org, qmo@kernel.org, nathan@kernel.org, nsc@kernel.org,
- linux-kbuild@vger.kernel.org, linux@weissschuh.net, christian@heusel.eu,
- mcgrof@kernel.org, petr.pavlu@suse.com, samitolvanen@google.com,
- linux-modules@vger.kernel.org, rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
- acme@kernel.org, namhyung@kernel.org, irogers@google.com,
- linux-perf-users@vger.kernel.org, jikos@kernel.org, bentiss@kernel.org,
- linux-input@vger.kernel.org, tj@kernel.org, void@manifault.com,
- arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev,
- shuah@kernel.org, linux-kselftest@vger.kernel.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, arnd@arndb.de, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, abuehaze@amazon.com, doebel@amazon.de,
- mpohlack@amazon.de, jay.wang.upstream@gmail.com
-References: <596bfb65-db2d-413b-8039-c921031b50fd@linux.dev>
- <20261002073422.14253-1-wanjay@amazon.com>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20261002073422.14253-1-wanjay@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260803-pr-ratelimited-v5-0-a77d456de974@google.com> <20260803-pr-ratelimited-v5-3-a77d456de974@google.com>
+In-Reply-To: <20260803-pr-ratelimited-v5-3-a77d456de974@google.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 22:58:53 +0200
+X-Gm-Features: AclHuK8s0H8deXBzdQyOJ58OT7ccmt_U5WfDrJaJxOcsbsZlXNomLs2P-gq80PM
+Message-ID: <CANiq72m2h=g5AWQQqfUKkgFfj1vCMEDbVJ25UE4a=zu-MUs=Qg@mail.gmail.com>
+Subject: Re: [PATCH v5 3/5] rust: add pr_*_ratelimit! macros for printing
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Lyude Paul <lyude@redhat.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Trevor Gross <tmgross@umich.edu>, 
+	Waiman Long <longman@redhat.com>, Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jay, thank you for taking the time to reply.
+On Mon, Aug 3, 2026 at 9:30=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> wr=
+ote:
+>
+> +    pub const unsafe fn new_static(name: &'static CStr, interval: i32, b=
+urst: i32) -> Self {
+> +        Self {
+> +            inner: Opaque::new(bindings::ratelimit_state {
+> +                lock: kernel::sync::lock::spinlock::raw_spin_lock_unlock=
+ed(name),
+> +                interval,
+> +                burst,
+> +                ..pin_init::zeroed()
+> +            }),
+> +        }
+> +    }
 
-On 2026-10-02 12:34 a.m., Jay Wang wrote:
->> A question I had: is it really worth 2k of complicated kernel code to
->> *maybe sometimes* save <10Mb of memory?
-> 
-> There are many reasons this is worth it.  The main ones:
-> 
-> 1. This did not start from a number we picked, but from a real use
->     case: users who run large fleets of small instances, 1 GiB of
->     memory or less, with their workloads sized to fit.  We are not able
->     to disclose more detail, but for them 5.4 MB on every instance is
->     real money, and it can be exactly what pushes a workload over its
->     memory budget and onto the next instance size.  That is why we took
->     this on, even though we knew it would not be a small change.
+Sashiko is right here -- missing `// INVARIANT`.
 
-Ok, good to know there is a real customer for this.
+> +        // We don't set `RATELIMIT_MSG_ON_RELEASE`, so the function name=
+ parameter is not used.
 
-Obviously I don't know any details of the use-case apart from what
-you've shared. But bear with me trying the customer's hat on:
+This seems inverted as well.
 
-   - I am running a workload on a legion of 1GiB instances
-   - I care about memory footprint a lot, because it directly
-     translates into the amount of compute I pay for
-   - If I know I don't need BPF on the workload, and these 5.4 MB
-     bite me, I can just turn off BPF
-   - If I know I need BPF, then those 5.4 MB must be loaded anyways, so
-     I have to look for savings elsewhere
+I hope that helps!
 
-What I find strange is for a user of this scale *to not know* whether
-BPF will be used in the workload or not, which is what lazy load may
-solve.
-
-One thing I can imagine is an opaque workload: untrusted (AI agents
-etc), end-user-defined (including BPF usage), or confidential.  But in
-these cases, what are the chances that BPF is used there? They are
-high, BPF is very widespread.
-
-I can also imagine normal workload not needing BPF, but when something
-goes wrong an observability or security thing turning on that loads
-BPF programs. But this contradicts the "5.4 MB may push workload over
-1GiB" premise: you still need to reserve/swap memory for just-in-time
-BPF-based tools, otherwise you OOM.
-
-I of course may be missing something, happy to be corrected.
-
-> 
-> 2. Loading code and data only when a system needs them is what kernel
->     modules exist for.  And most of them take well under ~1 MB once
->     loaded (nf_conntrack, overlay, vfat); even big ones like ext4, kvm
->     and btrfs stay around 1-2.5 MB.  The vmlinux BTF is 5.4 MB.
-
-True. At the same time BPF without vmlinux BTF is barely useful. And
-it is trusted by the verifier. Both are addressed by BTF being
-built-in in the kernel image.
-
-> 
-> 3. We are not alone in trying to keep BTF out of memory until it is
->     needed.  The inline BTF work [1] plans to deliver its data, which
->     is even larger, through a module too.  The .BTF.link record and the
->     resolve_btfids option that serve both are already part of this
->     series (patch 10), so this is not machinery for the vmlinux BTF
->     alone.
-
-The inline data is different. It's bigger by it's nature, and it has
-more specific users: tracing tools. The userspace tools are able to
-themselves decide whether to use that data. The kernel only needs to
-make it available.
-
-In comparison, as you yourself noted in the cover:
-
-     CO-RE, fentry/fexit, kfuncs, struct_ops, sched_ext and bpf-lsm
-     all depend on vmlinux BTF
-
-> 
->> Do those tiny VMs that you target run systemd with BPF LSM?
-> 
-> Not necessarily, and that is the image's choice.  Even with BPF LSM
-> built in and bpf in CONFIG_LSM, memory-conscious users can turn it off
-> at boot with an lsm= list that leaves it out, and then systemd does not
-> load restrict_fs at all.
-> 
-> And even where user space is in the way, which as above it does not
-> have to be, the answer is to fix user space so it gets this win too,
-> not to give up on it.
-> 
->> If the answer is "yes" for the majority of them,
-> 
-> "The majority" is also hard to pin down here: what runs at boot
-> depends on the user space packages built into each image, and on the
-> workload.
-
-Yes, it is hard to pin down. Which is why we first need to figure out
-whether the alleged memory savings actually help anyone.
-
-Adding code to the kernel is not free. More complexity means bigger
-bug surface: more opportunities for concurrency bugs, security bugs
-etc. Especially runtime loads with retries and stuff. I'm sure you
-understand the future cost of all that.
-
-So the bias shouldn't be "let's implement a big thing that might
-hypothetically help someone". It's backwards IMO.
-
-> 
-> So the question should be what it takes to make this work, not whether
-> to drop it because it is complicated.  If there are ways to cut it
-> down, or issues found in the implementation, we would be happy to take
-> them and go through every one.
-
-The question is in the trade-off.
-
-Would you run a million line python program to search for a string in
-a text file? No, that's absurd. But you could.
-
-I'm not saying 2k line patch series is unacceptable in principle. It
-may be justified. But I am not convinced it is justified in this case.
-
-Let's say we (as in kernel devs) decided that we want to reduce
-vmlinux BTF size, and only load it when necessary. Here are a couple
-of alternatives, simpler in comparison to CONFIG_DEBUG_INFO_BTF=m,
-although still a bit complex:
-
-   * Compress it.
-
-     $ ls -lah /sys/kernel/btf/vmlinux
-     -r--r--r-- 1 root root 6.7M Jul 18 01:54 /sys/kernel/btf/vmlinux
-     $ tar --zstd -cf /tmp/vmlinux.btf.zstd -C /sys/kernel/btf vmlinux
-     $ ls -lah /tmp/vmlinux.btf.zstd
-     -rw-r--r-- 1 isolodrai users 2.2M Oct  2 10:11 /tmp/vmlinux.btf.zstd
-
-     3x win right there.
-
-     Keep zstd-compressed blob in the kernel image and decompress and
-     parse it synchronously on first use.
-
-     Here is a prototype (vibe-coded, obviously):
-  
-https://github.com/kernel-patches/bpf/compare/bpf-next_base...theihor:bpf:vmlinux.btf.zstd-20261002
-
-   * Use an external blob.
-
-     Ship /lib/modules/$r/vmlinux.btf, checked against a SHA-256
-     recorded in the image. The catch is a synchronous file I/O under
-     caller locks, so this is less straightforward.
-     But this should cover embedded case that Alan has mentioned.
-
-     Here is a prototype:
-  
-https://github.com/kernel-patches/bpf/compare/bpf-next_base...theihor:bpf:vmlinux.btf.external-20261002
-
-Both alternatives avoid kernel-module loading machine. If we think
-harder, we may come up with something even more clever.
-
-I don't particularly prefer one approach over the other, including the
-module one. Maintainers probably have a better intuition on that.
-
-The point I'm trying to make is that if you could achieve similar
-memory savings with say 500-line well encapsulated diff (or even
-better: by refactoring, simplifying, deleting code) it would have
-already landed.
-
-And if it was a 50-line patch, the discussion on whether anyone cares
-wouldn't be relevant, because it's so cheap.
-
-As it stands, it's not clear (to me at least) in what circumstances
-we'll get the promised memory savings at all.
-
-> 
-> 
-> [1] https://lore.kernel.org/bpf/20260916074118.1007116-1-alan.maguire@oracle.com/
-
+Cheers,
+Miguel
