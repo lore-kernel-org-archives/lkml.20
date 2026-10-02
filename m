@@ -1,292 +1,355 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A8F29DB8F;
-	Fri,  2 Oct 2026 21:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975611; cv=fail; b=K8IDIUtsn5UZC+1EWN/SMfJ7z8wc7oXJWzIhR6VcpTIxg1loyj4g0FZ1zeFnsFRMWdA8oqELwnEnuPjBRkStpk5JfwCWq5bgUJ71q6+ohKaabYW+orKi1oDGTAiGS5vvlV4lmdU3QNiyeM/3YgZ1NzrHfHNS5SZZ568bkINbsfQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975611; c=relaxed/simple;
-	bh=IKmnnWinaKDVIIBEDD/jzcBySRbhimTR7EpH4dERO50=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=JPzmM7uRWYD/Ji06TYyHe0/t34acM+5Y+KpOi4iV232JQNZMY/ACpnZy7GEu7JSTh3xFUeBJAlhKOrXixShc1FX8TKicAnmON9950QIn/URi5adX0nBxvnD5OatoEsO9/1Bs/GlVIWf3Tu5IinTOkB9Wcd089AmNAnGSpBbO80Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=nU7+1zsM; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=Gj1RdoEO; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92657385D61;
+	Fri,  2 Oct 2026 21:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790975658; cv=none; b=Yr7YJ1PqJ2M4zCNz/WMU9+hNGWlbEpWsSmrH85a74D+e3Llyk8DufmICGL8g5PkdKQ0Bl8vLLRm7+S1JzYaUYAWAocPf51JTujPVeM4Kkhm4tfd9yV2AZ+WtaZH8Ai0J/aQJ7AUOMYlUtxVoeX2r78fR9/tZobpNYcqRb8bH2hs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790975658; c=relaxed/simple;
+	bh=gxOxPe1i1bf2CvZNxQXlXOmrmGNHtLm4zYGZ70H3rK0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WwH4qWsgsMPZ5nOtOHnUhXwNrBlGbJjcPkj4MJ/ow5Woksv+2pgPeStaz3ezBxlfQ8MIX7DU72zw6hG4a53rA+TDmCeraVHwI8vpAz6ACu1O7wsoJ2Ifxd2S1rUip6yRwkoj/w1tmCwlUmO7shBCXHz88gRO7wLa9XzTlixOfSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dTkjFZVU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="nU7+1zsM";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="Gj1RdoEO"
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692Ec1F83288013;
-	Fri, 2 Oct 2026 21:13:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=KeqJ03neGWpW1La3nhIjr7kB8CkqLW7PjlLqeIWFU7k=; b=
-	nU7+1zsMjtepAOPzVi5Qe9gm9m58Zi1vz+hoNR4GghwxaoIpyc9u/OEJWO80mJvl
-	w/v1tSClvbkmFGn9PJPE19lw7Wt+KF1/0KPuo+1OD6J5GfeZpeuxFIhDFshzSWhI
-	9F3oq1ZzI5yKJhp3fRGblo94+wSNjta2/2uAJcHrefiRx78l4HL0rl+h2Dmek6wR
-	B4eiBvqlmBnOODipEc73FnRVmNwxkO7j1LEMC55mjJ9LcqFt64FEQhWjzUARUNTL
-	6WR9cYRzO+r+eu1eF+V4TxGlKH7C5ke2b1uN+gtXQsDufMYPrj9qFuRAEUiHTmTs
-	g0f1U3TQITgxNRRpRDuXXQ==
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gx5ns4m0t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 02 Oct 2026 21:13:08 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 692L5bvM023091;
-	Fri, 2 Oct 2026 21:13:07 GMT
-Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010005.outbound.protection.outlook.com [52.101.201.5])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4gx4gu4adj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 02 Oct 2026 21:13:07 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fYOeJksvwkDzgqNRrlj0wzVK1UuQfdEuPVDSeadP4rE+70UytC/gOIGd33ZOI8KbCEVCY7SjF3Yr8RnvhB7Ci+bKUv0iWdCJl+ha2LE1IoaDJCHTHWyXK5yYgSHV5xKzMkPbJxGTGGY41BdRxY7o9fL8zJ7etGY0VV/mRcbeWR0okccJfS2vmqttjrCe0Fv1tM6J7TSp/uPa3ulUUx2uurbEiOuJSZ/u3dzUM8NkhRtWFgoCgs8DGlmjxIUdvpdvluQy02eSms5Jpgo5kXgZQzUsEPbDBUICup1IPF/9qGHsVD05qYJjiGPQm4YPLcowrv4GRJJ3ICM5r93mi/jEBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KeqJ03neGWpW1La3nhIjr7kB8CkqLW7PjlLqeIWFU7k=;
- b=AzkF+2QwXh0A8mMPxMR6fRStwD6yDwRiH3UNPCfEZmHs1hOfx5MwdnvpZb2m/ZUD62zMCFPdrHp0nQEcaytGliVaSIcJADh6nD7i8o3w3ExYomCnB51hXnHcFCqbq2lAB9XZUwyDATNt7Rjq1GXIkiaI7rzTEcpRPxYCD21mA6Dy6OkHqPTcnGVudqBvgxNUfV4oHAl/trXL4qvjrbiKj9r8KbIfREDrltfLtHA4LbcZ8s4rE1AytxxztDv32nuc3rvCTvNL9h0LI2yPKCgEqyh1hNj/vLwkuAGtFiGu1KgfFvbs9XVxWWySc4iC2XdT2pqiroJi+nfZFSJjhIlpaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KeqJ03neGWpW1La3nhIjr7kB8CkqLW7PjlLqeIWFU7k=;
- b=Gj1RdoEOwlBAPPVNkpWdtpry4MEM85OWo3E/PiwQdxLXvIZF+iqRRuVjRmz2EQXt2GuglWwdPv3PQRZEMdo671PSvXyXJfGRoV15BSfvAFJ0hqXDLrJkuovmK8cdPeJOpPVTNTv17Br3stuxkeWZuNCNZZZf9IwvkaSHIIqBjYw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by CH3PR10MB7833.namprd10.prod.outlook.com (2603:10b6:610:1ad::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.9; Fri, 2 Oct 2026
- 21:13:02 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%7]) with mapi id 15.21.0496.008; Fri, 2 Oct 2026
- 21:13:01 +0000
-Message-ID: <bf8ac5bb-91f0-410a-ac00-535a2d005e72@oracle.com>
-Date: Sat, 3 Oct 2026 02:42:52 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1.y] nvme-fabrics: use reserved tag for reg read/write
- command
-To: Artem Dinaburg <artem@trailofbits.com>, stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Sasha Levin <sashal@kernel.org>,
-        Chunguang Xu <chunguang.xu@shopee.com>,
-        Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>,
-        Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>,
-        Jens Axboe <axboe@kernel.dk>, linux-nvme@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20261002204646.26451-1-artem@trailofbits.com>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <20261002204646.26451-1-artem@trailofbits.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0301.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::13) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dTkjFZVU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A9B1F000FF;
+	Fri,  2 Oct 2026 21:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790975656;
+	bh=3pSEFKHHA11fkddNRPHdVL9Of6KrGfueFlWk5ShnrYY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dTkjFZVUhvsy0U3ZUVhcf30ce/SJU0hkuouBJkfoDpjJO7XaNAUk0Loz8r2+TdMma
+	 sHn8OMuj/1mDqzZnmdtYBO/Pj9euPwchj38q27qcgcDWRTDE9sa2Fh5oOqDkvvwAJr
+	 undkcncvkEWErZDr4+63fYQoceDxs1XQHPfNjWAxy2wOG41beHp7oIf1GdDSVRlb9q
+	 /2tb2l9Zviv2TTBSJ74wh2dknCz1uyzwckwTThts1ZJtrJwI7uKdmuB6yGSPTuwBww
+	 mASRPm3FEYOx54V/SRpPOaxch4KVxBdlKuxzwYkbZ7Awvi/iaixHQY+EiVTeZdGBdu
+	 9cbOG8Of9+nHA==
+Subject: Re: [PATCH net-next v13 1/9] net: dsa: add tag driver for LAN9645X
+From: netdev-bot+sashiko@kernel.org
+To: jensemil.schulzostergaard@microchip.com
+Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ woojung.huh@microchip.com, linux@armlinux.org.uk,
+ Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
+ geert+renesas@glider.be, magnus.damm@gmail.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Fri, 02 Oct 2026 21:14:14 +0000
+Message-ID: <179097565449.434549.6566178471820291955@kernel.org>
+In-Reply-To:
+ <20260929-dsa_lan9645x_switch_driver_base-v13-1-827c2d3617f2@microchip.com>
+References:
+ <20260929-dsa_lan9645x_switch_driver_base-v13-1-827c2d3617f2@microchip.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|CH3PR10MB7833:EE_
-X-MS-Office365-Filtering-Correlation-Id: c45be75c-7197-4317-5c81-08df20c9f0e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|22082099003|18002099003|3023799007|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	+lEwjcUS5gu7gbWXo0f+aEdFbaPTO7/8aDqfpnhWj/12Vv1tL2SCBIKuTIthq+RLRjLvZWj4IfRkVFhr+X7JbEZDfhk5bUtuUIZUXF/emtSLPOd06BlNNZBfi98Fj7LHkHScA0x1ZV7fLB8LDqByQC82Y9JlGglqYYAPAXa6eJn41wIJaImkwMxiIPD+3K5kcheLdPj3noxttYLJzx/3SHs0hl0S+4H6r/qQbWTR82JzX4RlSgkQl8aaQhe3KDEGyadHPk9NTeSI84XGC4R7fzAQaRiJybY5BJwqdUBPtCgSebZtt3H8kIlxxrCcw1UbNKWHvxo/3mTff7vgKsqyrfurLHt78i0lRVbn/IRigms3KRgjOXE2XyLlVUEKrZIMY3toTQ7NX/QrLJnrS9mQj+ZS5cNZt38mBgdqcBdUaySb5aodg+jzD+LcUDfuBWKRV5L/QCwfZg+ydigRE/BSItisQQmKq63LOrbxbB73hy2rumxK6yPQAt8x9sVMknQoU0RtCXxlnHrFlTP6wmau9PT1ZDYGNfusMUw9qhH4GvupHOclIQvYOVVRm9QdOw/VpT+DaMajtASeoRtDa5PBoP0WjCuZWeROV5TRXUD9sl8Un8W9OvuJZ+TSOpHDQDwGVQE7mpFjHaJcCUAwxJtivl4nbM4jJ3yeKLI/HbKQ0So=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aXhlNmNqZGdPU1BnUmVYWCtxWGpHK0xqYWpqZGNNcmNKc0t4Rmo4c2J0V1BD?=
- =?utf-8?B?eklSQm9ySnV1TFI3TmNGc0hHc2tVb1VPZmRjYXY0Rm1CdllyR1JnZ2MyWUdz?=
- =?utf-8?B?ekg2eW9BV3Zkb1NDd0o2bk0rWmpFL24zcHIwTVVPQVQzeTg3SXI4N3FFZUh1?=
- =?utf-8?B?a0FJeVFPK3Vpanh2R0RiQ0Q2L1prRFV3UjFTR0w3NUQxSzlPRDNINC9jSEc5?=
- =?utf-8?B?RStiMDY1aC9IV1ZBZ0pxdTFubkFSek15aWpQTExsMWM2eW1hTDZ2OTJJQ0lN?=
- =?utf-8?B?UDRNc2Nqam1oc252cC9PN3d6anM5TlhndVV1MGxoc0ZSUkdpcjhDMWNrOFNI?=
- =?utf-8?B?Mm41SDhranB1cUV1c1ZLK3h5amlYMEN2bFdTL1B5SWJJcFFCaDBkemRQV3pr?=
- =?utf-8?B?WHlwbnhnVmgramNRb0JsSngrTHRNcjd2Q1ZoaFBKbFgvYkJjbElhL1F4SG91?=
- =?utf-8?B?WWF6SENRbjUvNlJtRUZKY1B1UGNGaEg2ZjlZNFRZQW4rNzBlSnowMGVjRlVw?=
- =?utf-8?B?VlNHQkFjZExOL05wRXNqNnFjNWNiK3dGRzRHQnRtUE1SbzdwS01wODFSSmlp?=
- =?utf-8?B?VkRwa3pYVTBnMFlKZ01SV0FsclcyQ3pEYkFLVUV1bVVtaGxucjBma0JFYzlu?=
- =?utf-8?B?NHA1emxnTXNPNTZvbnhaN0t1VnQ3Y2Y2Ym03WFBWL292L05qdTFkRE5IYjJV?=
- =?utf-8?B?MktUelFYWEpEU2ZtZ20xKzI0L29CZWJ5M1ZKbU4xYnhGZTREWGpFOEZaYjdk?=
- =?utf-8?B?WkpyRFN1TUJYSkFHVEU0amdqQ20yNklVdUFObThSRVdlT2RPWE9xOE1UVHBV?=
- =?utf-8?B?NmtqcVU0eUl4MTJMV2lMb1V0c04vSDR2ZVJ6MU1jeFpIMnQreFA4SmR1WlU4?=
- =?utf-8?B?V1VRT2VZQ0Q5bmE5OVZ4OHZWcTIxbDVSbmMzQURtN1FZc01rR3AwUzdlTVFz?=
- =?utf-8?B?Rlp1TFB2WERGdlE4Znp0clMySEV3QWFjbG0yZEp4UnpZT3pHSTB1ai80L3hD?=
- =?utf-8?B?a2ErbmFlT0RnaVAvZlZHUEVQaGZFK0tiakRSelBodVFBSGdCOWt5aGtSMjJi?=
- =?utf-8?B?Y05mZUFZb1A5T2RNQ3ZOdUw3bk1PdVpHem8vU3I1Q04vdXVrbnpzTnMxT1Rq?=
- =?utf-8?B?cVlITDJURUVEUS9lVW50RUtkU1daMTdQZHMzQWpRNFRKajZ0a01CK2JSVnZI?=
- =?utf-8?B?VTBtVklmZmhmSUZMVEVJZjVuWk1JUGU4b2NxeXlhYVVQZGZqZGNEYXhUWVlX?=
- =?utf-8?B?eWRSRHpGMG00NmpYclczSDZXclNxZTdLZjZsSExKNnh1a3I0enJLZ0ZUVHpo?=
- =?utf-8?B?dzBsQnJBd3ZRSVFobDFlNnplRzdsWGU4dVM1SE9wSytxRjR4dGdXbTdnSFhk?=
- =?utf-8?B?cWsyY3dRR2hJZzRxUVdFVkVXY0J4MDlTNFRNQ3ZYQVpoSjdLOXdtN25nMXF2?=
- =?utf-8?B?bm9kaUtwQzhObkVMTVVCcDZDSytGWHFtR3QzODliZWQ2VUorZnIwc2ltRkpO?=
- =?utf-8?B?bDlqR09ZanlCNndDWHFzb1I0OGVBUWpJamlLYkcvdTRmdGlxVGc5Zy92cnFy?=
- =?utf-8?B?SG5XV0lMNi85UkNNUVJDMVNjWGpLMk1nODFYTHF2M0pNTkFCd3M2Qjd6Vnc5?=
- =?utf-8?B?eHpNbWkzS1pOOFdHSm5HK3JaWjVod1VCYWhjL3haWEU5VTRyM3FYK0Uxa2I5?=
- =?utf-8?B?dHFwUUEwMllKVlhnRTY5MkpEMTdnS0krcjlGMmhOeWNjSUovUTlhZm43a05z?=
- =?utf-8?B?V3kyY3NrMHc4a2o4aXg0TEdLNEM4bUc0dHdOZUNXR0MydkpETURkZFlremEx?=
- =?utf-8?B?RktHdUdtYVZLamJhTkZFQmpmSWFVcE9xWjZJUmN3emdmczI0T1pyWjAwSGYv?=
- =?utf-8?B?dy9hSURNbXptMW9ncW9JRElSUHlzSy9BNVVYYVZtWkdwYlo1U00weHBiTE80?=
- =?utf-8?B?ZGpDclZUTFgwa3dpcnNxajh6UzZqeWh4M2dlcXFlVm95ZzFIMXl5ZVZkMWo2?=
- =?utf-8?B?K25nZ0ZPOUJnMjVMUzduVFRrT2tXQ2czMVZFVDcxVy8vMjlIRG5vWXN3OE4y?=
- =?utf-8?B?UUcwZ0NQN216dkgxMVI4bFJKZVJubWZuTzBEd0JWL3RuYm81a1kwMjJrVHFk?=
- =?utf-8?B?MVlkeFVYSi9uYi9xRXVvK2IzdE0rbm9GY2xQc3ZuZE9qMGp6N05NTmN3TnMz?=
- =?utf-8?B?Tnp5WVpNbk1rSnVsRWgwU3Ivb1l1dUQwTVdFaURPTXBlUmRrUnp6NHFMYmN4?=
- =?utf-8?B?eElDcWI2UnRNeldXOEpwUGtwalVOM0ZmZ0xyR1orVFZIYzNNWmxPQnRFVE9F?=
- =?utf-8?B?SVdtTW5PNUFVVytDMDVXemZDK09paUtzRW4vYU9yVUh5R1F6SGVTZ2dFZ293?=
- =?utf-8?Q?FdGoYeoC5B/U40ZuAEkgdXtCvfkVTk+WjZnF3?=
-X-Exchange-RoutingPolicyChecked:
-	Gscr0c3DsSb/2zx2DDoaa1OfUgjnNBb9evreLkJMdwpfm8N2XqYJUVTamqiiKfKMuOnQrmszaeheUQWRKQsKnxB/+TmsdKZodwtH/27ChGo+gx4dXb5OxnfMJD1T3LLMlbG1UA89zDXsCJYZq0aSBY+ntNSSH9mb2gGJBiJP89Yh5VlUpHMczKMwZUYgoV1MZtEjBchFRG/og5whTiw224JV67Jtj7qxqp8t6/336VLdDPvPr/EqTRONB8IK94GZWjOyV+hGbtyPaF33CeNPMszJc8YFfdtyhgmDILVrRM448/BiRSG74wlPhY9CBXuOeZryiQVMSsoK93D3KpZIbg==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	33UTBGFihgHz9PL3ckqiSsgYISEVbBIyq3XUScV5WYlGrPrvsuN0e0S+2ZOLMonnK+MBk22DsBJnfHbwh7LyQqskHFSAuH5xSu1crUwjqGngjMvd9P2pM8ZgFDIK6RGfo4TXR/VjSPA7kmIPK8M4UN8yddAn394Hrriak4+goL+l7daN8GTbPyZWyaU+QJrAUCT3bi/MslkFMZ8zqrXkizFvkTO075YfdMd65L0z6Tb0wHH2l/Bw7wNQRkT8V/dWJjnweX0a3YNDBY0Xz0TwB6LJg24fRSjtTF4rqxHs8+BEto1FCqrXsJiZ47SPCDsWYRz4upS1cFxqA8M+PQoubs0WmcGRXMGkWdRMA+KYHAfVJDWSuZtByYGbbUfbWf35V91ZqM7qezm/ZoHKmfRsYXcUTrLls+WdzyVWOsc7Oo9DsytuAOhs5fbE33NPxfoQhAV1BHTiS5RF5ZePGX+MddjYVkgZlzMU5NU5KEbxbsVEZmACMBQGCLt2MwJlEmn9tSkrIjJG+dU3yO3aXgL51lHDMfu0ciyEr8s2Z7XK5MHwnpUOKPXdY8rRcXEzUvCntmWlM8w/OCJzFLSKH5ElTlckhEHDdXI4WHFUD38bizE=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c45be75c-7197-4317-5c81-08df20c9f0e6
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 21:13:01.3156
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xyoVN4g+UkCwxJDGVIm0CC3gP+M7sHWta7uGbW1cDRVfIfyw3KS0xvVS7Lf/nDbCeMqwYE75BoFYha2AEjTK5I11TACWqHlw7ld0JlsO7cpmuxMiy+FPxmD6N+VwzJc6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7833
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_06,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0 mlxlogscore=999
- mlxscore=0 spamscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2609040000 definitions=main-2610020084
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4NCBTYWx0ZWRfX2NA5YqM2p9yS
- lAyZt1TX5njYtPniLP2fXEoy3tvUtdBiX/78yBK8amR0NRPEO7C1qqwmKnTTb+aHcyOfPl9wiYq
- KomdJ9H8Im9TuCmMv5QT/3srXc7cbqBUAh2waRRNa5ObC1IkLe7Xa+zCXPlNfhHkHlmD6NQJMY1
- BAIYxNF7YZ9tYcvuOiFrbefKPHSIDjDz/wNu3i3dGwKSytwF++kcC0o8D2F6VX1baan3CqolfFM
- Iern5EFw46dz5SJZ+lSmkk64ZJsrB6rils6VuM83MGxULsH4PGOqAHk0fyfP3mPXxmXot2V/mZx
- LTA7MEJNdBYZfZuCRe6WaI/1aKoSYegPvZzRDoxAlAH8uJUPEugzOh6Ev9ldwSE9lS50umZlQVI
- aMoeub37+kWYTOgLKvGrKWjg2lN6nQ6S57/06sY10fb3Sau7aGO/Cq8n2qTHQBIJBSdN2lHwoBi
- rgWAgnDJ1aCWvuJl2ljGwtXQnZguYnkzEtE58Qnw=
-X-Proofpoint-GUID: R7HrS3TqHnW31ELvQxqQevyXkuGDOjiV
-X-Authority-Analysis: v=2.4 cv=T8QZ3PKQ c=1 sm=1 tr=0 ts=6ac01e64 b=1 cx=c_pps
- a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=3I1J8UUJPc9JN9BFgKH3:22 a=J2gJbEVsAAAA:8
- a=Ikd4Dj_1AAAA:8 a=VwQbUJbxAAAA:8 a=rP-kOlJ0AAAA:8 a=8JIV_2OXxlVeOeLDeyoA:9
- a=QEXdDO2ut3YA:10 a=Bt_igOxda4ASFyQEjNxY:22 a=A60uPr_FG5abr3nATN9e:22
- a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12108
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA4NCBTYWx0ZWRfXw6VBUc8e+LaH
- +lHgifrqwHaLPVqYKrwK7SsPPtxLScX4HiyEgTDCnHXLpxsM5HhwyBYbVmPfdztNM+HAOdMPdrP
- XEybiqM3jRRS3+FvDIigTASaN4nbiMKjtyR2XldFo4J1WeWKW4Zi
-X-Proofpoint-ORIG-GUID: R7HrS3TqHnW31ELvQxqQevyXkuGDOjiV
 
-Hi Artem,
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-On 03/10/26 2:16 am, Artem Dinaburg wrote:
-> From: Chunguang Xu <chunguang.xu@shopee.com>
-> 
-> [ Upstream commit 7dc3bfcb4c9cc58970fff6aaa48172cb224d85aa ]
-> 
-> In some scenarios, if too many commands are issued by nvme command in
-> the same time by user tasks, this may exhaust all tags of admin_q. If
-> a reset (nvme reset or IO timeout) occurs before these commands finish,
-> reconnect routine may fail to update nvme regs due to insufficient tags,
-> which will cause kernel hang forever. In order to workaround this issue,
-> maybe we can let reg_read32()/reg_read64()/reg_write32() use reserved
-> tags. This maybe safe for nvmf:
-> 
-> 1. For the disable ctrl path,  we will not issue connect command
-> 2. For the enable ctrl / fw activate path, since connect and reg_xx()
->     are called serially.
-> 
-> So the reserved tags may still be enough while reg_xx() use reserved tags.
-> 
-> [ Backport to 6.1.y: used the older BLK_MQ_REQ_RESERVED request flag. ]
-> 
+Critical: 0 · High: 1 (1) · Medium: 2 · Low: 3
 
-^^ Usually this line goes after upstream commit message.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Signed-off-by: Chunguang Xu <chunguang.xu@shopee.com>
-> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-> Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Keith Busch <kbusch@kernel.org>
+- [High] In lan9645x_xmit_get_vlan_info() (net/dsa/tag_lan9645x.c), any
+  frame with no in-band tag matching the bridge protocol gets IFH_TCI…
+- [Medium] lan9645x_netdev_ops sets no .flow_dissect, so
+  __skb_flow_dissect() (net/core/flow_dissector.c:1083-1098) falls back…
+- [Medium] When the IFH-classified VID equals the port pvid,
+  lan9645x_rcv() skips restoring the tag (tag_lan9645x.c:451-453).
+- [Low] In lan9645x_xmit_get_vlan_info(), the condition `skb_headlen(skb)
+  >= VLAN_ETH_HLEN && ntohs(hdr->h_vlan_proto) == proto` treats a VLAN…
+- [Low] In lan9645x_xmit_get_vlan_info(), the guard `skb_headlen(skb) >=
+  VLAN_ETH_HLEN` in front of vlan_remove_tag() does not cover every byte…
+- [Low] lan9645x_rcv() always restores the classified VLAN as
+  ETH_P_8021Q.
 
---> Here.
+Pre-existing issues:
+- [High] lan9645x_xmit() calls dsa_port_bridge_dev_get(dp)
+  (include/net/dsa.h:774-778, `dp->bridge ?
 
+--
 
-thanks,
-Harshit> Assisted-by: LLM
-> Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
-> ---
-> Hi Greg, Sasha, and nvme maintainers,
-> 
-> I am working through the small CVE backports still missing from 6.1.y.
-> This one addresses CVE-2024-41082. It reserves a request tag for
-> controller-register I/O during reconnect and reset.
-> 
-> The corresponding 6.6.y backport is already in the 6.6.y stable queue.
-> The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
-> in 6.1.y.
-> The target-specific adjustment is recorded in the bracketed note above.
-> 
-> Could you please queue it for 6.1.y?
-> 
-> CVE: CVE-2024-41082
-> Upstream: 7dc3bfcb4c9cc58970fff6aaa48172cb224d85aa
-> 
-> AI assistance: An LLM helped identify, adapt, and validate this backport; I
-> reviewed the resulting code and validation evidence.
-> 
-> Thanks,
-> Artem Dinaburg
-> 
->   drivers/nvme/host/fabrics.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/fabrics.c b/drivers/nvme/host/fabrics.c
-> index ffe433c4708941..2d0dace26d8f78 100644
-> --- a/drivers/nvme/host/fabrics.c
-> +++ b/drivers/nvme/host/fabrics.c
-> @@ -153,7 +153,7 @@ int nvmf_reg_read32(struct nvme_ctrl *ctrl, u32 off, u32 *val)
->   	cmd.prop_get.offset = cpu_to_le32(off);
->   
->   	ret = __nvme_submit_sync_cmd(ctrl->fabrics_q, &cmd, &res, NULL, 0,
-> -			NVME_QID_ANY, 0, 0);
-> +			NVME_QID_ANY, 0, BLK_MQ_REQ_RESERVED);
->   
->   	if (ret >= 0)
->   		*val = le64_to_cpu(res.u64);
-> @@ -199,7 +199,7 @@ int nvmf_reg_read64(struct nvme_ctrl *ctrl, u32 off, u64 *val)
->   	cmd.prop_get.offset = cpu_to_le32(off);
->   
->   	ret = __nvme_submit_sync_cmd(ctrl->fabrics_q, &cmd, &res, NULL, 0,
-> -			NVME_QID_ANY, 0, 0);
-> +			NVME_QID_ANY, 0, BLK_MQ_REQ_RESERVED);
->   
->   	if (ret >= 0)
->   		*val = le64_to_cpu(res.u64);
-> @@ -244,7 +244,7 @@ int nvmf_reg_write32(struct nvme_ctrl *ctrl, u32 off, u32 val)
->   	cmd.prop_set.value = cpu_to_le64(val);
->   
->   	ret = __nvme_submit_sync_cmd(ctrl->fabrics_q, &cmd, NULL, NULL, 0,
-> -			NVME_QID_ANY, 0, 0);
-> +			NVME_QID_ANY, 0, BLK_MQ_REQ_RESERVED);
->   	if (unlikely(ret))
->   		dev_err(ctrl->device,
->   			"Property Set error: %d, offset %#x\n",
+net: dsa: add tag driver for LAN9645X
 
+This adds a DSA tag driver for the Microchip LAN9645x switch, which uses a
+front port as the NPI CPU port. On extraction, frames carry a 16 byte long
+prefix plus a 28 byte IFH. On injection, frames carry only the IFH. On
+receive, the classified VLAN is restored as a hwaccel C-tag unless it
+equals the port pvid.
+
+> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> new file mode 100644
+> index 0000000000000..f54646d4b3947
+> --- /dev/null
+> +++ b/net/dsa/tag_lan9645x.c
+> @@ -0,0 +1,474 @@
+
+[ ... ]
+
+> +static struct sk_buff *lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
+> +						   struct net_device *br,
+> +						   u32 *vlan_tci,
+> +						   u32 *tag_type)
+> +{
+
+[ ... ]
+
+> +	hdr = skb_vlan_eth_hdr(skb);
+> +	br_vlan_get_proto(br, &proto);
+> +
+> +	if (skb_headlen(skb) >= VLAN_ETH_HLEN &&
+> +	    ntohs(hdr->h_vlan_proto) == proto) {
+> +		vlan_remove_tag(skb, &tci);
+
+[Severity: Low]
+What happens when the VLAN header is not fully in the linear area?
+
+Because of the skb_headlen() check, a tagged frame with a short linear head
+goes to the else branch. The original 802.1Q tag then stays in the payload,
+and IFH_TCI is set to br0's pvid.
+
+dsa_user_xmit() does not linearize the skb here. The user netdev inherits
+NETIF_F_SG from conduit->vlan_features in dsa_user_setup_tagger(). The
+AF_PACKET PACKET_TX_RING path, tpacket_snd()->tpacket_fill_skb(), copies
+only hard_header_len (14) bytes into the linear area.
+
+Could the rewriter then push a second tag, so the frame goes out
+double-tagged or in the wrong VLAN? Would a pskb_may_pull() of
+VLAN_ETH_HLEN before this check avoid that?
+
+[Severity: Low]
+Is the VLAN_ETH_HLEN check enough for vlan_remove_tag()?
+
+When h_vlan_encapsulated_proto is an 802.3 length, vlan_set_encap_proto()
+also reads the two bytes after the VLAN header:
+
+include/linux/if_vlan.h:vlan_set_encap_proto() {
+	...
+	rawp = (unsigned short *)(vhdr + 1);
+	if (*rawp == 0xFFFF)
+	...
+}
+
+lan9645x has no needed_tailroom, so dsa_user_xmit() does not pad the frame.
+skb_put_padto() in lan9645x_xmit() only runs after this function returns.
+
+Take an 18 or 19 byte frame such as DA SA 8100 TCI <len>. Can this read
+uninitialized tailroom past skb_tail_pointer()? The only effect is whether
+skb->protocol becomes ETH_P_802_3 or ETH_P_802_2, but KMSAN would likely
+report an uninit-value.
+
+> +		*vlan_tci = tci;
+> +	} else {
+> +		rcu_read_lock();
+> +		br_vlan_get_pvid_rcu(br, &tci);
+> +		rcu_read_unlock();
+
+[Severity: High]
+Is br_vlan_get_pvid_rcu() being passed the right device here?
+
+br comes from dsa_port_bridge_dev_get(), so it is the bridge master. This
+call returns the pvid of br0's own VLAN group. That VID is unrelated to the
+egress port and to the VLAN the bridge forwarded the frame in, because
+br_handle_vlan() already cleared the tag for an egress-untagged VLAN.
+
+lan9645x_xmit() then writes that VID into IFH_TCI with IFH_BYPASS set, so
+the rewriter uses it as the classified VID:
+
+	lan9645x_ifh_set(ifh, 1, IFH_BYPASS, IFH_BYPASS_SZ);
+	...
+	lan9645x_ifh_set(ifh, vlan_tci, IFH_TCI, IFH_TCI_SZ);
+
+The later "net: dsa: lan9645x: add vlan support" patch changes
+lan9645x_vlan_port_apply_egress(). It programs a hybrid port (one untagged
+VLAN plus tagged VLANs) as LAN9645X_TAG_NO_PVID_NO_UNAWARE, with PORT_VID
+set to the untagged VID. In that mode every frame is tagged unless
+VID == PORT_VID or VID == 0.
+
+For example, say br0 has pvid 1 (the default), and swp1 has VLAN 10 as
+pvid/untagged plus VLAN 20 tagged. A frame sent by the host in VLAN 10 (from
+br0.10, or ARP flooded by the bridge) reaches this code untagged and gets
+VID 1. So does a frame forwarded in software in VLAN 10.
+
+Would the switch then send it on the wire tagged with VLAN 1 instead of
+untagged in VLAN 10?
+
+> +		*vlan_tci = tci;
+> +	}
+
+[ ... ]
+
+> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
+> +				     struct net_device *ndev)
+> +{
+> +	struct dsa_port *dp = dsa_user_to_port(ndev);
+> +	u32 vlan_tci, tag_type;
+> +	u32 qos_class;
+> +	void *ifh;
+> +
+> +	skb = lan9645x_xmit_get_vlan_info(skb, dsa_port_bridge_dev_get(dp),
+> +					  &vlan_tci, &tag_type);
+
+[Severity: High]
+This isn't a bug introduced by this patch. The racy pattern is in the DSA
+core and is already used by tag_ocelot, tag_sja1105, tag_dsa and others;
+this tagger adds another user of it.
+
+dsa_port_bridge_dev_get() reads dp->bridge twice on the TX path. It holds
+no lock and uses neither READ_ONCE() nor RCU:
+
+	return dp->bridge ? dp->bridge->dev : NULL;
+
+The following path runs under rtnl:
+
+del_nbp()
+  netdev_upper_dev_unlink()
+    dsa_port_bridge_leave()
+      dsa_port_bridge_destroy()
+
+It clears dp->bridge and, on the last reference, frees the dsa_bridge
+without waiting for a grace period:
+
+net/dsa/port.c:dsa_port_bridge_destroy() {
+	...
+	dp->bridge = NULL;
+
+	if (!refcount_dec_and_test(&bridge->refcount))
+		return;
+	...
+	kfree(bridge);
+}
+
+TX on the user port (AF_PACKET or locally generated traffic) is not
+quiesced at that point.
+
+Can a concurrent lan9645x_xmit() read ->dev from freed memory, or reload
+dp->bridge after it became NULL? The result is then passed to
+br_vlan_enabled(), br_vlan_get_proto() and br_vlan_get_pvid_rcu().
+
+[ ... ]
+
+> +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
+> +				    struct net_device *ndev)
+> +{
+
+[ ... ]
+
+> +	dp = dsa_user_to_port(skb->dev);
+> +
+> +	if (dsa_port_is_vlan_filtering(dp) && vlan_tci) {
+> +		u16 port_pvid = 0;
+> +
+> +		br_vlan_get_pvid_rcu(skb->dev, &port_pvid);
+> +
+> +		/* The tag is restored as a C-tag, not as the TAG_TYPE the IFH
+> +		 * reports. The classifier recognizes both TPIDs as VLAN tags,
+> +		 * so an S-tag has already been used for classification by the
+> +		 * time we get here. Restoring it as 802.1AD would make the
+> +		 * bridge push it back into the payload and reclassify the frame
+> +		 * to the port pvid, on a different VID than the one the
+> +		 * hardware forwarded it on.
+> +		 */
+> +		if ((vlan_tci & VLAN_VID_MASK) != port_pvid)
+> +			__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q),
+> +					       vlan_tci);
+
+[Severity: Medium]
+What happens to a double-tagged frame whose outer VID equals the pvid?
+
+The later "net: dsa: lan9645x: add vlan support" patch sets
+ANA_VLAN_CFG_VLAN_POP_CNT=1 without VLAN_INNER_TAG_ENA, so VLAN-aware ports
+pop exactly one tag.
+
+Take outer VID 100 (the pvid) with an inner C-tag 200. The frame is
+extracted with popcnt == 3, the inner tag is still in the payload, and
+IFH_TCI reports VID 100.
+
+No tag is restored here in that case. eth_type_trans() in dsa_switch_rcv()
+then sets skb->protocol to 0x8100, and __netif_receive_skb_core() turns the
+inner tag into hwaccel VID 200 via skb_vlan_untag().
+
+Would the software bridge then classify the frame to VLAN 200, while the
+hardware forwarded it in VLAN 100?
+
+[Severity: Low]
+The commit message says this assumes an 802.1Q bridge:
+
+    This assumes a bridge vlan_protocol of 802.1Q, which is the only
+    protocol the driver offloads.
+
+The later "net: dsa: lan9645x: add vlan support" patch documents the same
+limitation. Is anything enforcing it?
+
+DSA does not handle SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL, and
+__br_vlan_set_proto() sends it with SWITCHDEV_F_SKIP_EOPNOTSUPP. So an
+802.1ad bridge cannot be refused that way.
+
+On such a bridge, __allowed_ingress() sees skb->vlan_proto !=
+br->vlan_proto. It pushes the tag back into the payload and classifies the
+frame to the pvid. Terminated frames on non-pvid VLANs would then land on
+the pvid, or be dropped if the port has no pvid.
+
+lan9645x_xmit_get_vlan_info(), on the other hand, handles 802.1ad
+explicitly:
+
+	*tag_type = (proto != ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
+					     LAN9645X_IFH_TAG_TYPE_C;
+
+Should 802.1ad bridges be refused in port_bridge_join? Should xmit and rcv
+also handle an 802.1ad bridge the same way?
+
+> +	}
+> +
+> +	return skb;
+> +}
+> +
+> +static const struct dsa_device_ops lan9645x_netdev_ops = {
+> +	.name			= LAN9645X_NAME,
+> +	.proto			= DSA_TAG_PROTO_LAN9645X,
+> +	.xmit			= lan9645x_xmit,
+> +	.rcv			= lan9645x_rcv,
+> +	/* Covers the extraction prefix too, since dsa_tag_protocol_overhead()
+> +	 * sizes the conduit MTU from this.
+> +	 */
+> +	.needed_headroom	= LAN9645X_TOTAL_TAG_LEN,
+> +};
+
+[Severity: Medium]
+There is no .flow_dissect callback here, so __skb_flow_dissect() falls back
+to dsa_tag_generic_flow_dissect(). That helper assumes the tag overhead is
+exactly needed_headroom:
+
+include/net/dsa.h:dsa_tag_generic_flow_dissect() {
+	...
+	*offset = tag_len;
+	*proto = ((__be16 *)skb->data)[(tag_len / 2) - 1];
+}
+
+Does that hold for this tagger? Whenever the rewriter popped tags,
+lan9645x_rcv() skips a 4 or 8 byte ifh_gap_len between the IFH and the
+real DMAC.
+
+The later "net: dsa: lan9645x: add vlan support" patch sets
+ANA_VLAN_CFG_VLAN_POP_CNT=1 on VLAN-aware ports. So every tagged frame
+received on those ports has a 4 byte gap.
+
+For those frames, would the generic dissector take SMAC or gap bytes as the
+EtherType and use the wrong network header offset? That would misdirect RPS
+and skb_get_hash() on the conduit.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2%40microchip.com
