@@ -1,200 +1,103 @@
-Received: from mail-ua2-f42.google.com (mail-ua2-f42.google.com [74.125.226.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764CB33DEC2
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953332; cv=pass; b=jFaeLBYRfh96AM7Gn4KCg8Msa+Q2uk/CEaNIMOWFE44/06aYOoI/8MPFamOVmOWCXzlimCWyEO5S7BWujJrcWL3FocTZUJ7xbGaq6NDptV1bzl/AZvu+WITwtXdFS+a3QrU6uu9W7ZScjpoTjgIihAi9/0TYrdzOkPnOaWVt83Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953332; c=relaxed/simple;
-	bh=Nihuo5Y1J+JNGMGXPcGfvABsTM685RdMjow6I2pzz/Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GoZvdmMKgYTfxa2t6B9VLagkRae/L+hpVCEI559ySFz+pmylOy12rdyPJQPs4tMFtEhddAgA12HZNM/U2uu2xafL0rT3Ax3dfdTZGzRnnVwG2QEYKRZhdE8FCWo/bvtWjq3MNPTHLONia8coReDyeiImwuT0wnKAgxwGYTapU/U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nZ1iw2Dc; arc=pass smtp.client-ip=74.125.226.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5633429038;
+	Fri,  2 Oct 2026 15:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790953411; cv=none; b=ufDL2Al7zRwvYntCKJwim6UKl1sqSz+gPkcor9q/mitoTumL3AFaWobWKtW/KzKjMDRw7TpfbuR02E8bg3mD4PudvjkAXBipXWo5H+40Xh4HXY5a5EpjcXAhP8zqvF/uzl0W2ZhI9HUOd7sEFo4BG44pNDJx4WXCUTKPKsWnfrE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790953411; c=relaxed/simple;
+	bh=9KS8vKruLblAiH9NnFSBjkmQCirDt7L9TPxV4Tpz0MU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RiqZqZeZVhh6TunoKs5rjD7TLOCd4d4W8RNCg/ek7d0YDQA7WuLnMN8SFIlGrCiJRoJ4jZwCXyz0J7PwP94qNRCogLofDuzXPIJVJI5GJTbrjTbmwIl+0xLiGDhxHxTccESw1NRFfmrqXCNCvyHWvadZYORuicC0oxUDMkRAkRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=rg3zDtff; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nZ1iw2Dc"
-Received: by mail-ua2-f42.google.com with SMTP id a1e0cc1a2514c-988c9594872so2308822241.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:02:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790953329; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KBgoCHhKZthg19WFYKFV1UA8yfkoYK8kxXgRvRLbW9I1DAWs04vofSrf/2PmCT6Re/
-         F6qEQLAJWdxx79GVgBiFbwOAo4Nd59BQHvm3j4p4aZMHDsU25YdQi/+z8MiWdbOdBdWR
-         +vKoWCSAqS1YqpqTrs89EvaP5kN/aU+JqXCUiicq6Uw1ShIAP/vnRFT1dWS9wYV+uMsV
-         btEIndo3tb49k8J1X4hmGz00Eua9EGpS2AhEIgin528megMDfOzlOap2TSJO4hP2tUml
-         +IQRZM3fYzrnY1iXLE1PNzYK07cf9hBGRaFC1xJ1FgCAaCGrM0RhTItYKtyJfxmPeq64
-         hk3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/8BetBBJofDyU9wdLFm7iPoNavj8+VQriTK4PJhous8=;
-        fh=3M0rnhFO1pbRlwom/sWOkYnVawtYhHFA+u3otGK53mA=;
-        b=QO/V0mVzq8B4LOPlcnvnOsH0U1ioex22ukNJPKKFfiSLkprP3hK980EqFazZ/C8/vx
-         3w1lNW7GJgIPnYOA/7FyLfxApIFEmK5kGQSNql7tLhgOOiaaep8QCM5IZ7yKPTNbhUYV
-         2biLpBX84fxpvw9FFpJvPh/UwReEj3hn9BAGL5KrqVLNcset+XEc7wINBmch2iMFNsDA
-         GaslnRc92DWKYXKjl3x0bwu9jpLUq1Z6kdkWE7F978+/RecS5zEVu6/55vYD4AgPSAnm
-         vQHAa3f8mmHdp39YD8BbtT+UCO8fbEekWgvX8S58jd1dn8Nw1wjlkfSkQZZ83WrrgC9I
-         iRnQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790953329; x=1791558129; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/8BetBBJofDyU9wdLFm7iPoNavj8+VQriTK4PJhous8=;
-        b=nZ1iw2DcbFCIXrvS9PhsOlB4jZHj935CKxY75sctKg1izARnvVxWjMZmR1gf3SV5qk
-         vO0CaXSlYq3sn7SLtRMXxw6wNoKP/TujZLSH+dgB85YNKMMWQA2PF/3ZLT1eNQ9bbkWY
-         8ifu3asCjqzjFoKX5XZBydwgOxjOE7Lxx36jxo5CaY6dscX/Fkd5LIW4u4QJYQmnpyWQ
-         NgBO2pWhGLah+hjsL74HXSgClQmqUMIPhK5xz4svr2nyj0uWj/t8Lp8XIcRm88F05e7/
-         pKjLOUNPKFPX2uIsKk3ASi51Vpa+43pZDWh3x2Mt4PELC5LJ5jDgi/osEh+cac1f/hqQ
-         deGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790953329; x=1791558129;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/8BetBBJofDyU9wdLFm7iPoNavj8+VQriTK4PJhous8=;
-        b=wCkGV/xRYcfX52boy4naSTuygCnFkHthEwoLokT+aL35HsbsAIUi+g5znjl9gMlO4N
-         +Bugf2RS+4LhQYKyPS2PPGL0cBS7dnHduTtJIOYFKZQBwUSmPupmufcghmdgHg3XWH86
-         d6tHLstyggdx2JOEUzyron0z16h8iwqzM4U5jDHyQC1yCtmQwXBY3da5QOk+1ds9Kf9Z
-         /PrCF7Spl4TgMBGjmIdsAVr41EbwAUjtb52Uc9XH8CYBdbYOXCneia6y8JIevJsJbluA
-         5ROQvbrefnZiA3v+hRg2QxPsEOcFPse63Tet2VxsYA3OVdC4z9145nr6VEeEFCRP45YS
-         d+kw==
-X-Forwarded-Encrypted: i=1; AKwUvBwW+E1UH+s+cnlFH6ACXZAqXM1ww4A6f/4OmFxCOvoaBaxmX1bqe3eDrjCRxSv7Kz+BRV0kXnlmCDmEFV8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCoPjCeyVdTRMpqKvBaTSkIUfHZs4oir2zxKwth2M7kTX/m7bF
-	SZ2rHPeUpEXjJ+F/EiFcZ0q8yn+ntaJ3q/C3Dh0ETWVFYtqiSt8bnzFd8m5FiIc9NBtvp4NlYsn
-	1+QTvJolmBZIN16j8mNZJyf3fjn8fa/4bPXerMCLmFw==
-X-Gm-Gg: AYBFou1DWS9glxsI9cj0GkbNHuO66rQqD+ONztKe0i9rLvZKA5G1Le7ovYBsSevfTWU
-	icF84si3+u1+pW6PXXolsX1AYeIYQywDxIii4MCbEGTLg0uslihohUSQmKUV3XjZtNmThMcvxQX
-	p7rk1JOp8EiuVr9KSsoWq1tFFPu963pz8iwCv1eDn22cDt/ryDc9faL7T6PhTd6w785DmQJdCFT
-	5VzwqPRNTh+JPNRJ9aKyJfdtfjEXWKrVkXlAX9Q6mBMXYCv6lbUO7uuVAoZAf6jWW10p42836bv
-	7AiI7BkfTaSBxqkafmLI4ns0YAwH5DCcnR8+b/wI65WB4BhQ0ZU+JXsrVNzJjFzuK+5upqTEuio
-	=
-X-Received: by 2002:a05:6102:80a1:b0:7b7:e1bc:b070 with SMTP id
- ada2fe7eead31-7c0f5caaa75mr904078137.31.1790953329113; Fri, 02 Oct 2026
- 08:02:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="rg3zDtff"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F19DDA4AC9;
+	Fri,  2 Oct 2026 17:03:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790953407; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=x/MJBDqmB30yXiiaaC3oc1LfHicMLmpYGqZN8EI9MmY=;
+	b=rg3zDtffUpYW3sJIRbuHNGJ2c82rEtPZwG5+3WSR7UUbvc4HTNWTODhjAO9BUJ01mE4t4A
+	iPAoAKNLHmNUkUNP/8g3BjhYyaM42jc9+CflLI+sGkmdYuDMEp7YIfrEMB2oz1n5EVNcqy
+	H8HSE+L44wMBKeAE28WxfM5EKIcsMavb+Cah1M1fPUzqhkOGPLAeuBy2ELTZGBSHRhymtq
+	E/ODnJcqwtu2g/hdenaaNo4utNIdzY2SKeeFVZ2zXgLX5btzYpOmlc9NVz/y76iFErV7yq
+	FR81T52iRXD4pni4vEeK4K53a+1Bp/UxoGTOp4EXm45G2LWrtKfgPHLE0YsdwA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Subject: [PATCH net-next 0/7] net: bcmgenet: support larger MTUs
+Date: Fri, 02 Oct 2026 17:03:18 +0200
+Message-Id: <20261002-nb-genet-mtu-nn-v2-v1-0-96dc6d54cbee@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CGME20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c@epcas5p1.samsung.com>
- <20260927152738.3673504-1-alim.akhtar@samsung.com> <20260927152738.3673504-2-alim.akhtar@samsung.com>
-In-Reply-To: <20260927152738.3673504-2-alim.akhtar@samsung.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 2 Oct 2026 16:01:55 +0100
-X-Gm-Features: AclHuK8ij08G6Gr-EgDhgI61gJxwT1zt3h2boZhljCMfEb9c1DxgDHs5LAOtRr4
-Message-ID: <CADrjBPrXYX4_d9dJ=SUqHf-eMDyuSpSChkuTsrPHfo2ZNh2mMw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add support for Exynos8855 SoC
-To: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: krzk@kernel.org, robh@kernel.org, conor+dt@kernel.org, linusw@kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, 
-	linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQ6CQAwFf4X0bJNScQ/8CvEg+hZ7oJLdlZAQ/
+ t2V4yQzs1NGMmTqm50SVsv28QrtpaHn++ET2F6VSUVDK6LsI09wFJ7Ll915Ve5ExxtCvEqIVMM
+ lIdp2Tgf6q46t0P04fm/kpyxuAAAA
+X-Change-ID: 20261002-nb-genet-mtu-nn-v2-402b5e6f306f
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Justin Chen <justin.chen@broadcom.com>, 
+ Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, 27 Sept 2026 at 16:09, Alim Akhtar <alim.akhtar@samsung.com> wrote:
->
-> Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
-> This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
-> different then the previously support SoC.
-> Reuse the offset as much as from already supported SoC
->
-> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-> ---
+Larger MTU aka. jumbo frames are requested often by Raspberry Pi users, but
+the hardware has its quirks with larger frames, so it never got done. Dave
+Stevenson's PoC [1] had the receive side working and Justin checked the RTL
+what the hardware does with long frames, which got me past the rest.
 
-Small nit: If you send another version, the last sentence could be
-updated slightly for clarity. Something like
-"Reuse the offsets as much as possible from already supported SoCs"
+GENET never sets dev->max_mtu, and the packet ready thresholds cut frames
+off at their 2048 byte reset default. With this the receive dropped them as
+fragmented and transmit never sent them out. See commit messages of the
+patches for more details.
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+Patches 1 to 5 implement the MTU as far as one descriptor reaches (3564
+bytes with 4K pages). Patch 6 pads around a transmit quirk where a frame
+ending just past the threshold stops the transmitter [3]. Patch 7
+reassembles the fragments the hardware produces above it, which gets the
+ceiling to 16347 [2].
 
->
-> *Changes in V2:
->         - Fixed Sashiko review comments
->                 - [Low] watchdog: confusing reuse of CLUSTER0 macro for CLUSTER1
->                 - [Low] watchdog: space-based alignment for EXYNOS8855_RST_STAT_REG_OFFSET
->
->  drivers/watchdog/s3c2410_wdt.c | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
-> index 7053963fb0ac..007c05ed2c7b 100644
-> --- a/drivers/watchdog/s3c2410_wdt.c
-> +++ b/drivers/watchdog/s3c2410_wdt.c
-> @@ -58,6 +58,7 @@
->  #define S3C2410_WATCHDOG_DEFAULT_TIME  (15)
->
->  #define EXYNOS5_RST_STAT_REG_OFFSET            0x0404
-> +#define EXYNOS8855_RST_STAT_REG_OFFSET         0x10
->  #define EXYNOS5_WDT_DISABLE_REG_OFFSET         0x0408
->  #define EXYNOS5_WDT_MASK_RESET_REG_OFFSET      0x040c
->  #define EXYNOS850_CLUSTER0_NONCPU_OUT          0x1220
-> @@ -73,6 +74,7 @@
->
->  #define EXYNOS850_CLUSTER0_WDTRESET_BIT                24
->  #define EXYNOS850_CLUSTER1_WDTRESET_BIT                23
-> +#define EXYNOS8855_CLUSTER1_WDTRESET_BIT       25
->  #define EXYNOSAUTOV9_CLUSTER0_WDTRESET_BIT     25
->  #define EXYNOSAUTOV9_CLUSTER1_WDTRESET_BIT     24
->  #define EXYNOSAUTOV920_CLUSTER0_WDTRESET_BIT   0
-> @@ -281,6 +283,26 @@ static const struct s3c2410_wdt_variant drv_data_exynos850_cl1 = {
->                   QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_CNT_EN,
->  };
->
-> +static const struct s3c2410_wdt_variant drv_data_exynos8855_cl0 = {
-> +       .mask_reset_reg = EXYNOS850_CLUSTER0_NONCPU_INT_EN,
-> +       .mask_bit = 2,
-> +       .mask_reset_inv = true,
-> +       .rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
-> +       .rst_stat_bit = EXYNOS850_CLUSTER0_WDTRESET_BIT,
-> +       .quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-> +                 QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-> +};
-> +
-> +static const struct s3c2410_wdt_variant drv_data_exynos8855_cl1 = {
-> +       .mask_reset_reg = EXYNOSAUTOV920_CLUSTER1_NONCPU_INT_EN,
-> +       .mask_bit = 2,
-> +       .mask_reset_inv = true,
-> +       .rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
-> +       .rst_stat_bit = EXYNOS8855_CLUSTER1_WDTRESET_BIT,
-> +       .quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-> +                 QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-> +};
-> +
->  static const struct s3c2410_wdt_variant drv_data_exynos990_cl0 = {
->         .mask_reset_reg = GS_CLUSTER0_NONCPU_INT_EN,
->         .mask_bit = 2,
-> @@ -400,6 +422,8 @@ static const struct of_device_id s3c2410_wdt_match[] = {
->           .data = &drv_data_exynos7 },
->         { .compatible = "samsung,exynos850-wdt",
->           .data = &drv_data_exynos850_cl0 },
-> +       { .compatible = "samsung,exynos8855-wdt",
-> +         .data = &drv_data_exynos8855_cl0 },
->         { .compatible = "samsung,exynos990-wdt",
->           .data = &drv_data_exynos990_cl0 },
->         { .compatible = "samsung,exynosautov9-wdt",
-> @@ -723,6 +747,7 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
->         /* Choose Exynos850/ExynosAutov9 driver data w.r.t. cluster index */
->         if (variant == &drv_data_exynos850_cl0 ||
->             variant == &drv_data_exynosautov9_cl0 ||
-> +           variant == &drv_data_exynos8855_cl0 ||
->             variant == &drv_data_gs101_cl0 ||
->             variant == &drv_data_exynosautov920_cl0 ||
->             variant == &drv_data_exynos990_cl0) {
-> @@ -740,6 +765,8 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
->                 case 1:
->                         if (variant == &drv_data_exynos850_cl0)
->                                 variant = &drv_data_exynos850_cl1;
-> +                       else if (variant == &drv_data_exynos8855_cl0)
-> +                               variant = &drv_data_exynos8855_cl1;
->                         else if (variant == &drv_data_exynosautov9_cl0)
->                                 variant = &drv_data_exynosautov9_cl1;
->                         else if (variant == &drv_data_gs101_cl0)
-> --
-> 2.34.1
->
+Tested on a CM4 (GENET v5). MTU 1500 is unchanged, MTU 9000 reaches 991/987
+Mbit/s. Pierre-Marin Leclercq tested on a Pi 4 (also GENET v5) with various
+MTU sizes.
+
+[1] https://github.com/raspberrypi/linux/pull/7614
+[2] https://github.com/raspberrypi/linux/pull/7617#issuecomment-5669564355
+[3] https://github.com/raspberrypi/linux/pull/7617#issuecomment-5735557324
+
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Nicolai Buchwitz (7):
+      net: bcmgenet: let the caller decide whether to start the PHY
+      net: bcmgenet: allow a continuation descriptor without the alignment pad
+      net: bcmgenet: rename ENET_MAX_MTU_SIZE to ENET_MAX_FRAME_LEN
+      net: bcmgenet: derive the receive buffer length from the MTU
+      net: bcmgenet: allow the MTU to be changed
+      net: bcmgenet: pad transmit frames out of the packet ready window
+      net: bcmgenet: reassemble jumbo frames from status block fragments
+
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 303 +++++++++++++++++++++++--
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h |  19 +-
+ 2 files changed, 295 insertions(+), 27 deletions(-)
+---
+base-commit: 071876fd50482a68603a9460d80dd6dd58827ee1
+change-id: 20261002-nb-genet-mtu-nn-v2-402b5e6f306f
+
+Best regards,
+-- 
+Nicolai Buchwitz <nb@tipi-net.de>
+
