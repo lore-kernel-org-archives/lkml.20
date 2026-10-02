@@ -1,134 +1,184 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C83D361DD0
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC19C3E0094
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976788; cv=none; b=pQpYGbCcs/C3m3+5DvOK4x7ep8I2DA7NZDpxAtN8W2ct7sL50xqyOfp5ySqj8DnT9XNUn7puhPl+bYRZeP96JykjtiNkPsac0reHEV7v3XZqEfCKLk0+V2HJzMvTGdeJQ/KiVliYqFhrfGgbIvGxGuhKOdP5dqAoJLoOs0AJjpc=
+	t=1790976845; cv=none; b=OJES7uY+/8C9+te75vHx5UU/alDE1hhN4CCLXm6ZdKWdL8DPPhNef3BA4Z5ml9Yg2Hxnqeb0qhIQTiJs919jFTjBeHBOf/bTxFd+fQcyKzxOdIBVXKTjE6o2lZ1judjQCU722MgBnJUwAkrz0St1xVn7993VokmrEcXHHSqSSdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976788; c=relaxed/simple;
-	bh=ub1scIj3BF8CHOFPhajO4ma191C3gPpOV34BmAIx/e8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=o07Wpjxj0APK2ee7bd4ppQIV3zDFbVh5TnEbAIVv9/WV29R4wgx/JwwEYtNZ6zfW72IAQpjRwwr+YTITFIqG0/hpWZq09lER2KEqtq1qEK4vFTuEvJUDv6H4yjuRLioUGBk/j4TJL0AqOMWFuiUeUcIGwVl+Ui7r33+xMUbj3KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TL30/8MW; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790976845; c=relaxed/simple;
+	bh=KtGosJfddYAwoSjt+t/v6Wmy77qByIHLXhEvvJSbxZU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=JBdtftK3go2bt0iKyu0TrfVwLa4qvPaqrQuvvULMn8mcfoiDP22j9nujFgGtr1XH3+rzvXWsow1R7FvRbe37PKUsRQBSb05TD+tlHrbtRd3qIDXehVUTT0j7aW94lyjn29K3y/JNPWN0rvUT0zLFtFXroVS80nSli52pllmGuXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qTu3ZsPX; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TL30/8MW"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so1766405e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:33:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qTu3ZsPX"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc51591102fso25064a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:34:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790976785; x=1791581585; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+JXXVqov+h6l/s57fJo22fn6XLlN1F4hCqMTncjYdxs=;
-        b=TL30/8MWUWa8tL2IjZXt5Rw2nJkc2hDXv27PV9EYxeDuooAasAqQMotPOUJKi+zJI9
-         CQKpC/CyqXnxQaTss6chjEm21QVLYmVU/IuQdOO10Q0GT8G9kSmAHZxBW3WIOwrCqZxe
-         lNVfY3nZ3MP8xaQ3db68jMh9ue3dZlK8q69lnjQn3P9v7EYuWmV3i6weRpD4i3Zgud1+
-         N9bofWcNAmRpHuF38aWkex0cVXrKn0wY0UJH4HS6th6DJqflS8BAG924uadtGx4MSo+4
-         NX1Z05Y+LmXSJrYu5lApQG0aMWtPeU1k0h+/wfPfvc0rIiFniyuHb3r6uasYrgRlVRh0
-         ut7A==
+        d=google.com; s=20251104; t=1790976843; x=1791581643; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rj4Ox5w5JNhyqVG7cubcpAmNAm1wO8qUFvi1UJFFaF0=;
+        b=qTu3ZsPXDJZgjbKV0hiGLj6xkujLmeOjteXHpZISXHcAdu6Nvyi2wZFO2vCBK2IRAz
+         PkivsW5CKdwp2px5qOe9jRo47hDfRz41atl4luSa1y2jdQcA+r9FWOEWr5agpIo+wUsx
+         OmPjLMYepepzNhojSTa5Y0S6Vu08ndSnzmsog6OPJW4U9YBkaQQxMcmObR7IjL5jl2KP
+         owXjdVmBIHiAwiFaHnby8z6YPweJuxWBWSrq0zrjuiBCL1CPxsnDNRns3hvpzCqCKR8U
+         jnN4as0SFRIgzs8JkoLHUcFm+0NTdrvREjmyBvVXeetizbaQTysZPfFYvHkS1tSVehsg
+         bvpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790976785; x=1791581585;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+JXXVqov+h6l/s57fJo22fn6XLlN1F4hCqMTncjYdxs=;
-        b=dUrPvlhGBWJx5o+faPzIUBmYY3s7PZ5ZBd2HmpoxLkt+WDjDFUF9xiVKjLAbrtNwE+
-         TvapZS0MEN06RpJ6Iq6mBQbGncsrcLgSebS2pfOk2uCzAuZpU/xHCR2qIeNuir9mqF0r
-         pmM3Tcip8IR80F/c7xdIWFqWmZbG2752FKnQ9m31QvaIIaHfRNLId3jG4teKQA2um9U5
-         CCg3XJNySJDkx85iT2DiTI24jsPjrvpQbYAkc2243jmQpAJiYXr/XT9SZLcS83rWl1kO
-         h92IUQjYIGnhDVG/5UaPLUEHgMJ+ckB0etm8u1ZUaM5O6KluNkntTTUkWLCcanyv7D4w
-         00Yg==
-X-Forwarded-Encrypted: i=1; AKwUvBzpINZoc//FQYsG+P7G3O+SxPjYzctJkm7FYtMoNcwk0O3QC9g7uT89BFKs0cZ8qIQEVel5byIr4VAIPGc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3kQ5uiQDxo6YAu7K6hE9l5N0SNMv3s4wQfjl0xVb+JzBpd8Zh
-	oAKFfVtbLgm7T7tvv8K8ZCVH/wUi4ZpSs46XoOrjrB35wNdkSY97kxuU
-X-Gm-Gg: AYBFou3jDDs3xTPhttDXBi2E/JugbIjRhIv3MnbXI5VD+7V0tykGCS/kTq1+WAKlyc5
-	GYSU7dSOGW8bY7659bh/6vsoHKpnbKsGCOKSYE5FSuO8WDuDTxir+xEaxo+k9y0w2opKGisDb1k
-	k2M4/jb1Daf/cVVjJMcuT9xjdiSmVM0qu4lTGQgy/wPPoSpKG45RLekmpDiLJr8slDDDs5fW+Zp
-	t+mMLmDeYL1Dc903F0/VnOkZna2lnZatO30IsC1w8lNy/H3YJwf2zr2rMHlZ8pZEYMvAPUJoa5O
-	8mcQdbJahVSx275ORqlxSAhd3LeJU+6tBvBXVnbcHbOLsEY6BisT2KUwakIdK4TvoqgdD57PQ6s
-	94hYO3ARVhDnCVA0/JQfl5LfNIoMn9Qm4NnLa8tgubrc9hgDLUiDo0hM34R4ieAlj0dkhUT2oCh
-	Bw2Yit1yzZ8tpD7EnSrrKbJHm9dLesfS3XMigjwmwh3fYa9I/7vUjcGsSY/9uWwY/uz3DEWetca
-	g6EEL03wg==
-X-Received: by 2002:a05:600c:4505:b0:4a1:62b8:9e8c with SMTP id 5b1f17b1804b1-4a162b8ae34mr37980065e9.33.1790976784731;
-        Fri, 02 Oct 2026 14:33:04 -0700 (PDT)
-Received: from foxbook (bfj133.neoplus.adsl.tpnet.pl. [83.28.47.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02854073csm101584085e9.3.2026.10.02.14.33.03
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 02 Oct 2026 14:33:04 -0700 (PDT)
-Date: Fri, 2 Oct 2026 23:33:00 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alan Stern
- <stern@rowland.harvard.edu>, Oliver Neukum <oneukum@suse.com>, Ming Lei
- <ming.lei@canonical.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: hcd: Cancel BH giveback works on removal
-Message-ID: <20261002233300.705d5a7f.michal.pecio@gmail.com>
-In-Reply-To: <20260823125831.6ea35650.michal.pecio@gmail.com>
-References: <20260823125831.6ea35650.michal.pecio@gmail.com>
+        d=1e100.net; s=20260707; t=1790976843; x=1791581643;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Rj4Ox5w5JNhyqVG7cubcpAmNAm1wO8qUFvi1UJFFaF0=;
+        b=VxFvsO0XQIQ/YlMTykuFrDoQasAEWBjC1VHafVq/IYSdkZw6sWdBxLi+7kFobLdO6m
+         bXnPp3V4xz8eO/0LdOOYHE/3x/aIhRxoU6pGO070elhRC5GURn88Se1szvyuONAWQG19
+         Lf9eBFgBSKLVwdMtnvCCLeu/iF1pOKy0LJTJyAsassPo9jB85vgV1BIUGKrRTLuCOSNP
+         oh8m9Th2jOuA6GRCniZJYTfdyUJTDWIE/4CjtHwy8oH00ZwtWsCqUWptuz7Yo43WBj6i
+         tJznjsCev4ak183T1I/4cf0vyTXvRuFG/Q9RXbJoqEvjSlIwt1JoHAWEj2g00DgQSnhp
+         83Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9L7exaAi8hsTP6jxW1NE/knyAx2z5/3Y4t4FbOYiexubP8t/9LB+Ffs1uP+7Mu8/nLixizpZAClqb4bA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPuvUpQHsnOoxcYUWHfZ4UZ07vcoVjsqksEGdr7ZOEhR604Vup
+	llJCSxN1AjKf84bVZFKPxwpMMOoz+wtGnbgFQ9uhupAzEOssudhgEs6H57Y0u71RbvB/Pu47Tub
+	pSMpx2g==
+X-Received: from pgho5.prod.google.com ([2002:a63:fb05:0:b0:cc7:aab6:f8a6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:39ac:b0:3a4:a7eb:1da7
+ with SMTP id 98e67ed59e1d1-3a6ce7f8bcbmr3309606a91.42.1790976842739; Fri, 02
+ Oct 2026 14:34:02 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri,  2 Oct 2026 14:34:01 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261002213401.4109199-1-seanjc@google.com>
+Subject: [kvm-unit-tests GIT PULL] x86: Misc changes
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sean Christopherson <seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 23 Aug 2026 12:58:31 +0200, Michal Pecio wrote:
-> Turns out, we do actually need to flush them, because workers use the
-> 'high_prio_bh' and 'low_prio_bh' members of 'usb_hcd' for a brief time
-> after all URBs are completed to track pending completions and possibly
-> reschedule themselves, see usb_giveback_urb_bh() implementation.
-> 
-> Flushing would suffice if the works don't reschedule themselves, but
-> cancel_work_sync() is more robust against stray completions.
-> 
-> Syzbot may have found the issue due to unlucky hard IRQ timing. It can
-> be reproduced by adding udelay(3000) in the work function, disabling RH
-> autosuspend to maintain the status URB and unbinding a real HC:
-> 
-> [10818.828029] ehci-pci 0000:00:12.0: USB bus 1 deregistered
-> [10818.828077] hcd_release freeing high_prio_bh ffff88814a950978
-> [10818.829211] usb_giveback_urb_bh still running on bh ffff88814a950978
-> 
-> Reported-by: syzbot+cade843a1e4af0651f5e@syzkaller.appspotmail.com
-> Link: https://lore.kernel.org/linux-usb/6a8a5047.dbb3a75c.13dd47.003e.GAE@google.com/
-> Fixes: 94dfd7edfd5c ("USB: HCD: support giveback of URB in tasklet context")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-> ---
+Please pull a random set of x86 changes.  This is basically the set of things
+that I could quickly/easily review, and/or were causing problems in my test
+setup.
 
-Hi Greg,
+Note, "x86/run: Use separate "-accel" option to configure the accelerator"
+breaks the intel_iommu test if KUT is run with ACCEL="kvm,kernel-irqchip=on"
+due to the test requiring a split-IRQCHIP via "-M q35,kernel-irqchip=split".
+I'm pretty sure I'm the only person that does ACCEL="kvm,kernel-irqchip=on",
+and I want to unblock running KUT with notify-vmexit enabled.
 
-Any interest in this fix? If you think it's too theoretical I can
-drop the stable tag, but this code just isn't really correct.
+Thanks!
 
-Syzbot has found another case: primary HCD of vhci-hcd is freed
-if secondary HCD creation fails (e.g. USB bus number limit). This
-(again) races with the giveback work still using the primary HCD
-after unlinking its root hub URB.
+The following changes since commit 5a221342a025948fa7d84f0c404748f6ba57f3ad:
 
-https://lore.kernel.org/linux-usb/6abb3515.c6a7fab7.e5ea7.0459.GAE@google.com/
+  svm: Add SMI handler for svm_intr_intercept_mix_smi test (2026-09-08 15:33:43 +0200)
 
-> slab-use-after-free in usb_giveback_urb_bh+0x441/0x560 drivers/usb/core/hcd.c:1692
->
-> Freed by task 1:
-> hcd_release drivers/usb/core/hcd.c:2690 [inline]
-> kref_put include/linux/kref.h:65 [inline]
-> usb_put_hcd drivers/usb/core/hcd.c:2704 [inline]
-> usb_put_hcd+0x149/0x1f0 drivers/usb/core/hcd.c:2701
-> vhci_hcd_probe+0x342/0x4e0 drivers/usb/usbip/vhci_hcd.c:1415
->
-> Last potentially related work creation:
-> queue_work include/linux/workqueue.h:700 [inline]
-> usb_hcd_giveback_urb+0x330/0x4a0 drivers/usb/core/hcd.c:1758
-> usb_rh_urb_dequeue drivers/usb/core/hcd.c:845 [inline]
-> unlink1+0x418/0x510 drivers/usb/core/hcd.c:1580
+are available in the Git repository at:
 
-Regards,
-Michal
+  https://github.com/kvm-x86/kvm-unit-tests.git tags/kvm-x86-2026.10.02
+
+for you to fetch changes up to 1aaec1f90618ef3cb7a4661bbec2228456050f7f:
+
+  x86/pmu: Relax overcounting checks to allow for 1 VM-Exit per 5000 nops (2026-10-02 09:22:08 -0700)
+
+----------------------------------------------------------------
+KVM-Unit-Tests x86 changes:
+
+ - Disable virtual PMU support when running the MSR tests as newer versions of
+   QEMU will log an error when trying to create a vPMU across vendors (the test
+   runs with vendor=GenuineIntel to validate SYSENTER MSRs "fun").
+
+ - Play nice with VMMs (or hardware) that strictly adhere to the PCI spec when
+   handling 0xCF8/0xCFC accesses.
+
+ - Add a PV IPI testcase to verify KVM can deliver PV IPIs to vCPUs with APIC
+   ID 255.
+
+ - Finally add better backtraces for leaf functions on x86.
+
+ - Add a test to verify KVM correctly handles ICEBP+TASK_SWITCH.
+
+ - Add a testcase to validate KVM's handling of DEBUGCTL on nVMX transitions.
+
+ - Use "-accel" instead of "-machine" to set the accelerator.
+
+ - Add test coverage for active-low DR6 bits, and for Bus Lock Detect #DBs.
+
+ - Apply the "PMU instructions/branches overcount" errata to all AMD CPUs and
+   massage the guardrails to get the tests passing on modern CPUs without
+   completely sacrificing test coverage.
+
+ - Misc cleanups and fixes.
+
+----------------------------------------------------------------
+Chenyi Qiang (2):
+      nVMX: Remove the IA32_DEBUGCTLMSR access in debugctls test
+      x86/vmx: (Re)Add a nVMX test to validate load/save of DEBUGCTL
+
+Igor Mammedov (1):
+      x86/svm: work around Virtual VMLOAD/VMSAVE bug on Naples and Rome
+
+Irene Wang (1):
+      x86: pci: Support unaligned register access in PCI config read/write
+
+Jeremiah McReynolds (1):
+      x86/msr: Disable PMU for MSR tests
+
+Jim Mattson (5):
+      x86/apic: Skip PV IPI test if feature is not supported
+      lib: Hoist test selection logic to library for code reuse
+      x86/apic: Support subtest selection via command line
+      x86/apic: Introduce send_pv_ipi()
+      x86/apic: Add a test for a PV IPI boundary condition
+
+Mathias Krause (1):
+      x86: Better backtraces for leaf functions
+
+Paolo Bonzini (1):
+      taskswitch: add test for ICEBP delivery via taskgate
+
+Sandipan Das (1):
+      x86/pmu: Check for PMIs irrespective of PMU version
+
+Sean Christopherson (6):
+      x86/debug: Set all active-low DR6 bits when resetting DR6
+      x86/debug: Run the "debug" test with the host CPU model
+      x86/debug: Verify that KVM correctly emulates DR6 active-low and fixed-1 semantics
+      x86/debug: Add actual test coverage for Bus Lock Detect #DBs
+      x86/pmu: Treat all AMD CPUs as having instruction/branch overcount errata
+      x86/pmu: Relax overcounting checks to allow for 1 VM-Exit per 5000 nops
+
+Xiaoyao Li (2):
+      x86: Use "accel" to require KVM for "cet" and "lam" testcases
+      x86/run: Use separate "-accel" option to configure the accelerator
+
+Yexuan Yang (1):
+      x86/lam: Allocate test page from AREA_LOW instead of AREA_NORMAL
+
+ lib/argv.c          |  14 ++++
+ lib/argv.h          |   3 +
+ lib/x86/asm/pci.h   |  23 ++++--
+ lib/x86/msr.h       |   1 +
+ lib/x86/pmu.c       |   7 ++
+ lib/x86/processor.h |   1 +
+ x86/Makefile.common |  22 ++++++
+ x86/apic.c          | 144 +++++++++++++++++++++++++++++--------
+ x86/debug.c         | 162 ++++++++++++++++++++++++++++++++----------
+ x86/lam.c           |   6 +-
+ x86/pmu.c           |  26 ++++---
+ x86/realmode.c      |   4 ++
+ x86/run             |   2 +-
+ x86/svm.c           |  26 +++++++
+ x86/taskswitch.c    |  46 +++++++++++-
+ x86/unittests.cfg   |  24 +++++--
+ x86/vmexit.c        |  15 +---
+ x86/vmx_tests.c     | 199 +++++++++++++++++++++++++++++++++++++++++++---------
+ 18 files changed, 580 insertions(+), 145 deletions(-)
