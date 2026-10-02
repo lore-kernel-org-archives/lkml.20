@@ -1,142 +1,242 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E953E1CE8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8498480DC7
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942757; cv=none; b=gjCdjDW14T82GPPg6IamVscGmYN4oeisIS5PDhxnplZMXKyCxTvbEe19EvQ8d/r2CtXAlCuYdLwxDRCRt8PR/HqwjYwhymJgFLZXum7OrqYsSiFIm7ljVX/wepmAxCDqFtIbuuX02njEVW/wMhk4MvcZPIUvTV4NiDgeMWHgD78=
+	t=1790942801; cv=none; b=fxnH7oiOUYQISP65yLkTSgUMn+ghd+hVv995aVZMkPNTs5fFWO3tvr4nzzq2+Y8tph4AkU1wZRH+S5SwD+XFjwE03Da5DW3u31aQ257tK84Dql1AmWcF8j+SHJX9F6xgiAQ1bcNeol9RV3J4OaNk6zs/WwU2iftRrTbY0vW4uik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942757; c=relaxed/simple;
-	bh=iGqWnKHBIV73YEyVdtTTJUbEM1wUTqX9O3tRPHVLZUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eqXYx7ZmXzh63Mo5O4CCmIgkgE7ZDoNapp+hLajhQtzN1JfOXCEK7C98EyI5S0Q3+FqHDK3/k3EteHH6TY76H/ERpeU0D2WVRmzMCOyn5y0cReXyRj1ZQAcfVbioGa2NOAMvcl3CB1quVdLP+KHTrVhZZfrOuIMYT1xwokJQh90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=qIFcsZOH; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790942801; c=relaxed/simple;
+	bh=hwhN7ylH0IzICDJthPY0R5DKp5YVqDcYo+79FZEuHsU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aT9tteXNiKhmeZUI0HUuT9gHRQpmh1RU4xcnxkMv2GKzxMYkGUfQIqAnsWkW3B4lS3fGYKes5mPDWPXy3O1OKWl1xNfqkRZzHDBVvE2z26/PrUGwAVb8OTjQbmIRhuEV9pYe1qceUXiTswnQu+XvytnkXHMbMUc/4I6A3aYBG4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=a7bm9Zut; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="qIFcsZOH"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so57309565e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:05:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790942754; x=1791547554; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=59ow6xTzZEIjngnzpCRDDNtxBrP9iJr2uOu5/gWZ8+c=;
-        b=qIFcsZOHxPttQhcXwwa8l9EfT8Lw/8KH8apZ0Vb2rEc9GeiIa2l4IQ0DdU+BiA7eax
-         MXPXXBGqRqKhwIa886Kr1aYjoXwVKKWq4rDIr8LD3DYswt1FqnanBMMOHB1+m2U1KQhJ
-         /3FdOXUNJX5IEvn1HxxUjpmVhNA2VPKHyiNEU4dyPgDLATNmS78cTGQH+hrepny8b6WI
-         aPf/jn14Yy33QU3KgEKdzM/VEt9zUd8yVysHBrr/XdRvZbhY/FsCrQk5bh31vCbm1AD1
-         U/096HSfEyBc3PbpDZmgHbhxjfM9+UHMY+nZXfQnshumgJb37xbAjqtCm7h9syh7K7Cq
-         NgXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790942754; x=1791547554;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=59ow6xTzZEIjngnzpCRDDNtxBrP9iJr2uOu5/gWZ8+c=;
-        b=VMMD/1pnQN4tpnCew6V4N9o0hoO7CnI01uxpPb+e/JVQAOrf7GnmWaZvCDG9X6D70m
-         XbcXtkaECw/4fCydF3BnFEhAtUvsnxWj5vq1lDC7232+RlS/jF6Ll3ezAnrWF+1i9RLI
-         k3VocyEIlqcFMlThFK6wB0J3qGWVl11ICtYuJH/BLTVgSBMRgLsDMLSBdw1YSHI1vCCx
-         BGCcWzelhpBok+DDp4ABdwXcH+lmTreBFtGsLO9nePW8feh61yMLVqF59ijPlD9WBQau
-         C2WxeKyyMIyzLTVwhasMtpqeycqgVcATE/5nHgSnkQDprRZrFrTPcoZDWbmK5sC6Ulbn
-         bl3g==
-X-Forwarded-Encrypted: i=1; AKwUvBw5NL1UtOIKSiDGK0eZgHYRXwIDRE6WQJ2YRmT/RGj0iAuoGHG3U+REux+vb6WYa0BMdb+vDtHxywYHWN0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC7HqzKQu0DDmF/Ys7/cTn1UTxD60wQHLBVL+bPGGQPtQRVjj0
-	p5T3lxu0ZP3em1XixTk6DQIZvjx3gXyUfHVMcbzDduBztp//YB/kBbHR9IZ87JhSdKCPCqzK3rf
-	mijmi
-X-Gm-Gg: AYBFou3OKqMNr7tfkiOVFLXOO4u3NP3u5U19gl4k/LQ0mM0ZJCsgL+BTFAPaeK/c6yI
-	kFpngpV6PwrMqnFlrcLowrYq80Je8yL3m0+96gtkPDUDOMLieQGjg3o46fshoGzkAu7Tbp/Dmqm
-	22lFInsd3arvUcn3hQPEwkaf1MOb8J9Xq+xvPekzDwIWF5V0ztxOvSVtm4j3gx5afT/y2wOyHpv
-	owWOlhTnAp853sBsUPA9iK3lpY+sXqg+B2Zwf8tsykqmGI28q5TKu4nMAxMnIPaXiqlScWjuFRd
-	Pi6X7mci2EYv0NB8pduKSoc/MVAxUQXofIryGvZUV5z1oqUoKrX5mLRYwP5xu/lASDsj/0H5+3H
-	LNmdKJF+JMms6qoLjswJ8OLy3IQ9cE2fVSrP9uI9gpuv26TRXFN5aOrRam1QWu2eLxSjXivY/9/
-	0jN8NeahM5Lv+V0CA1UgxqDBea3TTJa+LdkvJOMfyaoimpGPlfzcaj+6Qp0Di1We0K4Nw=
-X-Received: by 2002:a05:600c:1c1a:b0:4a1:6424:41bd with SMTP id 5b1f17b1804b1-4a164244596mr13162505e9.27.1790942753805;
-        Fri, 02 Oct 2026 05:05:53 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([2620:10d:c092:500::7:9b19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f0858sm5763893f8f.8.2026.10.02.05.05.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 05:05:53 -0700 (PDT)
-Date: Fri, 2 Oct 2026 08:05:51 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, 
-	rppt@kernel.org, mhocko@suse.com, corbet@lwn.net, skhan@linuxfoundation.org, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, linux-mm@kvack.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
- with MPOL_WEIGHTED_INTERLEAVE policy
-Message-ID: <ar-b2nxDbQjcDbLY@gourry-fedora-PF4VCD3F>
-References: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
- <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
- <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
- <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com>
- <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org>
- <ar5eC22VfSFlMw3W@gourry-fedora-PF4VCD3F>
- <44d15437-6aae-4d7c-bfd4-296276583826@kernel.org>
- <cac17315-7157-4f97-8ad4-98ef268f1b8a@bytedance.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="a7bm9Zut"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=5R72zJezzcO4+Kz+L42SpTWw5vtZsB6tAUvnYi0Cegg=; b=a7bm9ZutbGbQ46yvCLz5Gj3wYC
+	dQHAqBA9vc1GbHKJz8s9pXrQ1DXH7n9tK7GSwrWcde7Gr+8NCaz+CSq+wTJLCqFQexuTuWv1inCUL
+	4aRk6IKJ3kEprEi2zNG2j8za3ULyRAI+6DpOFxz99PoS6tYiT7gBCFDqKqP8Rt8przs+DbHQzOoYy
+	M9HP8reuxLUBZJVwSSXodJJffQwNbKqIX8pG6DHnJSrxw5tXDYD0RLAQ77UYfQ55kdviBzfN255TU
+	Q756nT5C7s6rDWsmiSyLJMD2luGx9lMBWcW867So69twFtJGIXguYKmTWGctOC2l7m3dp1rLSrFyO
+	8URIWVSw==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xCc1m-00AabO-83; Fri, 02 Oct 2026 14:06:14 +0200
+Message-ID: <61833dde-ad6a-4b1a-8540-6cc0db80bb3d@igalia.com>
+Date: Fri, 2 Oct 2026 09:06:09 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cac17315-7157-4f97-8ad4-98ef268f1b8a@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/vc4: Set DRM DMA device directly from HVS and V3D
+To: Daniel Drake <dan@reactivated.net>, Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260928-drm-dma-device-2-v2-1-8e8b6288cd31@reactivated.net>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260928-drm-dma-device-2-v2-1-8e8b6288cd31@reactivated.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 04:15:45PM +0800, Li Zhe wrote:
-> On 10/2/26 3:56 PM, David Hildenbrand (Arm) wrote:
-> > I can understand the "random initial placement will help if you cross your
-> > fingers" argument from Zi.
-> >
-> > But then the question really is whether the app should then change the policy
-> > after the initial placement was done and the weighted stuff no longer makes a
-> > lot of sense.
-> Yes, that model makes sense if the application or runtime can
-> cooperate with the policy switch.
+Hi Daniel,
+
+LGTM, just some nits below:
+
+On 28/09/26 17:16, Daniel Drake wrote:
+> vc4 uses of_dma_configure() during bind to set the DMA configuration of
+> the drm device by borrowing the configuration of one of its component
+> devices.
 > 
-> One limitation is that this is not fully transparent for existing
-> workloads. set_mempolicy() updates the calling task's policy, and
-> mbind() updates VMAs in the calling mm. move_pages() and
-> migrate_pages() can move pages of another process, but they do not
-> change that process's future allocation policy.
+> This violates driver model expectations that IOMMU probing and domain
+> attachment occur before driver binding - see commit bcb81ac6ae3c ("iommu:
+> Get DT/ACPI parsing into the proper probe path").
 > 
-> So I agree this staged approach is worth considering, but it also has
-> some deployment cost for workloads that cannot participate in the
-> policy switch.
->
+> With the introduction of the bcm2712-iommu driver behind the vc4 hvs
+> device, a warning is triggered:
+> 
+>      vc4-drm gpu: late IOMMU probe at driver bind, something fishy here!
+> 
+> Instead of configuring the virtual aggregate device, adopt the pattern
+> used by sun4i/sun8i/exynos where candidate DMA-capable hardware components
+> register themselves as the device to use for DRM allocations via
+> drm_dev_set_dma_dev(), provided a DMA device has not already been
+> assigned.
+> 
+> HVS will typically bind first and claim the DMA device. The gen6 36-bit
+> DMA mask configuration was moved into vc4_hvs_bind() accordingly. For
+> older generations, vc4's v3d component continues to be available as a
+> fallback, and the default platform bus 32-bit DMA mask is retained.
+> 
+> Fixes: da8e393e23ef ("drm/vc4: drv: Adopt the dma configuration from the HVS or V3D component")
+> Signed-off-by: Daniel Drake <dan@reactivated.net>
+> ---
+> Changes in v2:
+> - Fix vc4_bo_purge() to also use the selected DMA device for freeing
+>    allocations
+> - Link to v1: https://lore.kernel.org/r/20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net
+> ---
+>   drivers/gpu/drm/vc4/vc4_bo.c  |  3 ++-
+>   drivers/gpu/drm/vc4/vc4_drv.c | 27 ---------------------------
+>   drivers/gpu/drm/vc4/vc4_hvs.c | 14 ++++++++++++++
+>   drivers/gpu/drm/vc4/vc4_v3d.c |  8 ++++++++
+>   4 files changed, 24 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
+> index 49ea2ed0996b..320c5a0c71ed 100644
+> --- a/drivers/gpu/drm/vc4/vc4_bo.c
+> +++ b/drivers/gpu/drm/vc4/vc4_bo.c
+> @@ -303,7 +303,8 @@ static void vc4_bo_purge(struct drm_gem_object *obj)
+>   
+>   	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
+>   
+> -	dma_free_wc(dev->dev, obj->size, bo->base.vaddr, bo->base.dma_addr);
+> +	dma_free_wc(drm_dev_dma_dev(dev), obj->size, bo->base.vaddr,
+> +		    bo->base.dma_addr);
+>   	bo->base.vaddr = NULL;
+>   	bo->madv = __VC4_MADV_PURGED;
+>   }
+> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+> index 616caf9d9915..62f1a5731e33 100644
+> --- a/drivers/gpu/drm/vc4/vc4_drv.c
+> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
 
-if the use-case is vma (mbind), such a switch can make sense.
+Could you clean up the headers of vc4_drv.c? I believe of_device.h and
+dma-mapping.h might not be needed anymore.
 
-if the use-case is task policy (set_mempolicy), such a switch is
-not a realistic solution.
+> @@ -273,16 +273,6 @@ static void vc4_component_unbind_all(void *ptr)
+>   	component_unbind_all(vc4->dev, &vc4->base);
+>   }
+>   
+> -static const struct of_device_id vc4_dma_range_matches[] = {
+> -	{ .compatible = "brcm,bcm2711-hvs" },
+> -	{ .compatible = "brcm,bcm2712-hvs" },
+> -	{ .compatible = "brcm,bcm2835-hvs" },
+> -	{ .compatible = "brcm,bcm2835-v3d" },
+> -	{ .compatible = "brcm,cygnus-v3d" },
+> -	{ .compatible = "brcm,vc4-v3d" },
+> -	{}
+> -};
+> -
+>   static int vc4_drm_bind(struct device *dev)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+> @@ -295,8 +285,6 @@ static int vc4_drm_bind(struct device *dev)
+>   	enum vc4_gen gen;
+>   	int ret = 0;
+>   
+> -	dev->coherent_dma_mask = DMA_BIT_MASK(32);
+> -
+>   	gen = (enum vc4_gen)of_device_get_match_data(dev);
+>   
+>   	if (gen > VC4_GEN_4)
+> @@ -304,21 +292,6 @@ static int vc4_drm_bind(struct device *dev)
+>   	else
+>   		driver = &vc4_drm_driver;
+>   
+> -	if (gen >= VC4_GEN_6_C)
+> -		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
+> -	else
+> -		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+> -
+> -	node = of_find_matching_node_and_match(NULL, vc4_dma_range_matches,
+> -					       NULL);
+> -	if (node) {
+> -		ret = of_dma_configure(dev, node, true);
+> -		of_node_put(node);
+> -
+> -		if (ret)
+> -			return ret;
+> -	}
+> -
+>   	vc4 = devm_drm_dev_alloc(dev, driver, struct vc4_dev, base);
+>   	if (IS_ERR(vc4))
+>   		return PTR_ERR(vc4);
+> diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+> index e715147d091c..305770c87dcf 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hvs.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+> @@ -22,6 +22,7 @@
+>   #include <linux/bitfield.h>
+>   #include <linux/clk.h>
+>   #include <linux/component.h>
+> +#include <linux/dma-mapping.h>
+>   #include <linux/platform_device.h>
+>   
+>   #include <drm/drm_atomic_helper.h>
+> @@ -1662,6 +1663,19 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+>   		hvs->regset.nregs = ARRAY_SIZE(vc4_hvs_regs);
+>   	}
+>   
+> +	if (vc4->gen >= VC4_GEN_6_C) {
+> +		ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/*
+> +	 * Use the HVS as the DRM device's DMA controller for buffer
+> +	 * allocations if one has not already been configured.
+> +	 */
 
-In userspace we tend to use task policy by way of numactl:
+I have the impression that this comment is not needed. v3d's comment
+adds an interesting information, but this one seems redudant.
 
-  numactl --interleave=all ./my_program
+> +	if (drm_dev_dma_dev(drm) == drm->dev)
+> +		drm_dev_set_dma_dev(drm, dev);
+> +
+>   	if (vc4->gen >= VC4_GEN_5) {
+>   		struct rpi_firmware *firmware;
+>   		struct device_node *node;
+> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+> index f32410420d3e..1f76d4850122 100644
+> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
+> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+> @@ -10,6 +10,7 @@
+>   #include <linux/platform_device.h>
+>   #include <linux/pm_runtime.h>
+>   
+> +#include <drm/drm_drv.h>
 
-This calls set_mempolicy for the numactl task and then exec's into
-my_program with the inherited mempolicy.  That mempolicy is dup'd on
-fork / clone.
+I believe this include is not needed.
 
-Changing the mempolicy from that point requires every task in the
-workload to call set_mempolicy() again.
-
-There is no way to externally change another task's mempolicy.
-
-I attempted this during the initial weighted-interleave exploration:
-
-https://lore.kernel.org/all/20231122211200.31620-1-gregory.price@memverge.com/
-
-but we did not see the need for it once we landed on sysfs controls for
-weights.  In addition - there are MANY `current` assumptions hard coded
-into the mempolicy and cgroup stack - getting such things dug out would
-be (will be?) very painful.
-
-~Gregory
-
+Best regards,
+- Maíra
