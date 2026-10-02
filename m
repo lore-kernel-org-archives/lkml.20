@@ -1,60 +1,55 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32D0243956;
-	Fri,  2 Oct 2026 05:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790917409; cv=pass; b=NQwkOULiDqDk7Y66UwwN5U4hHXtRE1shn2uiZ1YjbZuqvU5Y2RMRPlNSTvWeveHJ0kHKMskxFV735sNzj33K+DnG0fOJ+DMc0dW6UXYZ9TiRxVye1PghHOhC0W6uBlR6QeVf+zIlukLahiWLl1JcGE0BZp+QZUrtYECDEkSu7yI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790917409; c=relaxed/simple;
-	bh=BLMNrDgxACzGi99l170eKJbmjXh9J3cRiHm4aJWe0HM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uKyobOkK/6AoRxlKgsLT1XuLmFz6HRBrjqnuMyz1gCSjsxzspDgtiSiUkxmMXw9B3R3S5WPqUEi0OZFZKnVfskXOlCOtDw+SkaQAEJTdKsql+IJ2sLJOPA+bo5kP7DMqubgyMJmXoKiFfH+jym8GYXeax5U4MmRU8AdVMTaHNEE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=WCvTyV3e; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB80E34D4F9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 05:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790917877; cv=none; b=okgYJDrTv6svRGnRyRnOWwfl4KXjkxgedSy1fUQPdqcuCJNJfMNoikzZRQe53KrxFb6sR/qOS2kjfb3+uw6Tb0RtaWA4TvKWd77M/EA2EeAbc93/bMmIm6SlJP99iz3nLxScjalhQJRwP0/KujLMVelnYejH6nZHWSliA+6g8nc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790917877; c=relaxed/simple;
+	bh=R9uOh3aj39TzSM25DgmMMe4T/4tSG0J65/5dA+myGig=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dqWExWiKfJZVWTUnJBgUGXsJo2pXOipHHP4kLQ31yOGsyiaD2sg7U9BMbRXSjFNhDmosL4pAjS+j/NpjXSYsByTNEth5jPZhZebxlsKOvEsRMIjhmFWrXbNRZMEFVyxsSXB9LsSB9IjHEpQob+811NcQxRv6As7K0VcgwAm7ppA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TiPKIS91; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="WCvTyV3e"
-ARC-Seal: i=1; a=rsa-sha256; t=1790917388; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=Aoc0mfBRfnPpzyEWolhA1gknLafd51H0Qg0/uH6xi7jsyKdo+a60mudz7c2/N0ohkpGGiGyQXiK5YjakFKP4NAWJBYf8Ob2Mleo9Do7WqGckNBXu6OhSa7xCPchw6Q6KsZbotpUgvos+n59CXeeq1cRC+rLpXphGrEqke1eWEFg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1790917388; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=BLMNrDgxACzGi99l170eKJbmjXh9J3cRiHm4aJWe0HM=; 
-	b=fMNmI2Y74oxfoys0be5wp8FVA43Cw/KcNC1S36ufxY7dUZKKgk1FbIMUcntSLOQNP68zOYeQKpPABYbCVFdu0ZHLtSjLNnwiWp/SVH1aygprgrOPQJ80I6j5jiIn72xumkd26wp6hisNGLYRl38KSmkRpYWVuZAReG5xZR+LL/g=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790917388;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=BLMNrDgxACzGi99l170eKJbmjXh9J3cRiHm4aJWe0HM=;
-	b=WCvTyV3efuAN7hyElToowKuAF+JRAv0rNjM6XlJXaEqC7jLr4ODEaxur2hgGzkfp
-	YXrMdup89y9D9/ur5V9Pf2XmFs4u2lUU2X5HURSOr6yMOk5SvINnuAXdxuDZ2Pvhg9m
-	6ocRp2oJ5qKZLCNwkdqHj0/4EgpnMVwB+LILknNs=
-Received: by smtp.zoho.eu with SMTPS id 1790917386036309.6963347801815;
-	Fri, 2 Oct 2026 07:03:06 +0200 (CEST)
-From: Igor Velkov <iav@iav.lv>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Igor Velkov <iav@iav.lv>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: postpone PHY interrupts during sleep with MAC-managed PM
-Date: Fri,  2 Oct 2026 08:03:04 +0300
-Message-ID: <20261002050304.1331175-1-iav@iav.lv>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002043548.1302145-1-iav@iav.lv>
-References: <20261002043548.1302145-1-iav@iav.lv>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TiPKIS91"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790917874;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=rslogmTZ8oBKCAlJVPMzfVZf7AJ0I+8AQLCt4b/DRsM=;
+	b=TiPKIS91M4foaN5+cU3qJFKOPpOVVVWx7c2CIjMMDBoX/VLnM4RoNyad5yp1y3zJiiNvZR
+	cv7rvsSGaVGfGjh2oeUC4125uvzyfuJFmBOKYxqyEq/gRYsuEanK3B8gJrsBqUXD4BkFlL
+	gxGRRWS4kjwty7146J9tPMHri+etyic=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-370-PVHOFOk3N0i68oviNCrfLA-1; Fri,
+ 02 Oct 2026 01:11:11 -0400
+X-MC-Unique: PVHOFOk3N0i68oviNCrfLA-1
+X-Mimecast-MFC-AGG-ID: PVHOFOk3N0i68oviNCrfLA_1790917870
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1346E1955F70;
+	Fri,  2 Oct 2026 05:11:10 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1B8D71956095;
+	Fri,  2 Oct 2026 05:11:06 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH] media: i2c: imx471: Fix register size for IMX471_REG_DPGA_USE_GLOBAL_GAIN
+Date: Fri,  2 Oct 2026 13:11:00 +0800
+Message-ID: <20261002051100.261507-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,8 +57,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-+Cc Rafael, who acked the commit this fixes.
+The IMX471_REG_DPGA_USE_GLOBAL_GAIN register was incorrectly defined as a
+16-bit register, preventing global gain from enabling correctly. As a
+result, only the green channel gain was applied instead of the intended
+global gain.
 
---
-Igor Velkov
+Change the register size to 8 bits to ensure global gain is properly
+enabled.
+
+Link: https://lore.kernel.org/linux-media/35240e45-c73b-4425-923a-c1026386ed3c@slotpi17m12/
+Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor driver")
+Signed-off-by: Kate Hsuan <hpa@redhat.com>
+---
+ drivers/media/i2c/imx471.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84340..b442b083286d 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -46,7 +46,7 @@
+ #define IMX471_ANA_GAIN_DEFAULT			0
+ 
+ /* Digital gain control */
+-#define IMX471_REG_DPGA_USE_GLOBAL_GAIN		CCI_REG16(0x3ff9)
++#define IMX471_REG_DPGA_USE_GLOBAL_GAIN		CCI_REG8(0x3ff9)
+ #define IMX471_REG_DIG_GAIN_GLOBAL		CCI_REG16(0x020e)
+ #define IMX471_DGTL_GAIN_MIN			256
+ #define IMX471_DGTL_GAIN_MAX			4095
+-- 
+2.55.0
+
