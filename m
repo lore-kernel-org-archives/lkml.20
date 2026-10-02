@@ -1,168 +1,185 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6480F45198A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDD838B140
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979597; cv=none; b=HnwLwEI9+A3S6hnuxrIeZeZNVRBaKYwsQdomStiFjdJqLRI6ArojxFdiVm+huUeLby8cDT+fsr6NT8fELeBA3QFFUAR2L3LR6gL0Ce1RxpZCNTSIxgUgzDnB7OtTNLw4dD2x4vmc49h00wSGM4/p0POON/4bwtZ+wWARwqO1fB4=
+	t=1790979763; cv=none; b=UnVN5g3fKRjT9coPYWN/oBsBeEgn5IZRyjXRPnLgGT09jJWfej+PS69vIEnJ6s8xmgArk81yzKgtxaPp+MIGGg5Gf+uKZuzH+zq+8IRoZcse0Z644oGwmOd1Ep7czHUADGPe7PoEsNcfdR9jd70j7Br7puy2gFnaiHCtme8o9qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979597; c=relaxed/simple;
-	bh=Ih6lWXVnEFre+v9zrwzRmmdo7jH/Yws9UsTpBnmtnIc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aW3WGIMu2i/AsAy8qyKD9kpcs7tSoauGQojnkyCd3LXXFy1DSLCKgdzWCUSiHYsiUYIYHrlo0FzDKMkvvejJbN0ZDPgqys/RbzI8PWVhy/lZRy6xmMZMa6WjA9VzNZ+1JBoo+pXiamBAoKQCXF2iGWT9pgedJRs3iJqm0VWXhas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Au+ktloC; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790979763; c=relaxed/simple;
+	bh=ScfvD79sgs2Vat+cL4e4CEoajY40pfZY49jjBwP9WrY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=giO149WlrK/9OnfFNoSSR26bsIuHz4YjjP5ac7QLUULMjC6tYjNfZ9CBtjFnlBfM+2W9VnqLQcCUPAk4AUFPfY2JNS5kAmzWUJs1MtQ+iswxkCTpvzxPPS98pA33VnJcAmTdZ+VBMK8uBVHEk+qOPijB5XedUEPkpcAnCOktGnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PzVn+FXd; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Au+ktloC"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e1195040aso53533066b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:19:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PzVn+FXd"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b06bb6e40so2289f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:22:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790979593; x=1791584393; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iI79X65k5sE53QTcdTBS+HaqtjRvgMdMXAnjEVa6Oas=;
-        b=Au+ktloCRDdrmL2Q9vyDQX14aDNG2e4JN/IduozknA4CgcNxJlYPasF63PFuu8FwFW
-         nez/NYf45cKJZA8kdUc/UCzHJBtItaMu8cdOVO6xB2XXf6bQqpXD9rlH0+kuNDh9Rt3h
-         AFw/Hl0fOOWjvv5flv7TaFC8Y9Jh5mnRo5kBU=
+        d=gmail.com; s=20251104; t=1790979760; x=1791584560; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1p+8K3ZAE2Wd9BveZGzLca0KXy8ZklAi1ODYJChFqOQ=;
+        b=PzVn+FXdbVxG8OdfmyHRfFLS/Q/rgVU3NcXvNI89qfsh8RZ6X8xlYKEHHfeuZEd5ET
+         AjexCYrrP/LOzh7pkwblvYhippeRxqy6wflQlRIrwuM0D8BlnXqwotkQXSZZq2vKdHKi
+         3ODdlV0D8ArsmOAYjwPJbZH6jCbKRldaeaFhYAcsgMOuuGYUqRfqQSkUhZUeSiZ/pVO6
+         KdH0cBOcYhy/jtlqjx1rwZARHWOk2iyWlkUe00VT0pyQU/l7hghrVxfMc8r2jkG5kN1O
+         ctETsjl64v4/36+ms1OYpXUesX9gcaS6FIuOSyYNb2em/1XpfXVrh4yAdSY5mXoQ61Ru
+         BTJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790979593; x=1791584393;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iI79X65k5sE53QTcdTBS+HaqtjRvgMdMXAnjEVa6Oas=;
-        b=V0UQwDfiC+0uLkOUyMtg3gMa0PhHjq58dEhQKVQNtReCfCzCGD7L5TH/gM4FzYTx2A
-         bqHiralsi7VO0S3gxLBeSSKHgKkputtUwNB6DeQFaokab7KxT9Hk42j56FhdB40ttS1o
-         ew8Gwxzph8GATSfBLUDgy30+CyAF24/3koDVH+uwee7Si+66tUYTzOW0Qy0F3zQZMyEh
-         mDusUxf6+hTB768FilyrdhWdAKOR1JySQpzIiWZ+QswWoUCp373JhmZLd+guYBhVIAJi
-         S+xsHbdiBXRWoGtdz27oSpoUuOEBCr6ujc5NlInx+nhVBU62R3DUCLC4T6PikkZehdrK
-         BmNg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYiZVnrg6TXQtlbURUVvgvZqHR9TiC2DpIGO9ZPcP+5mqr5cYiAtLItVsGfmmh1aU8D+3bdO8kp9UFUH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lydAytGLjAY/nsobwqz7rtvdiyf6l225TuWyFjg6OxPxYsnIbM
-	FFLq0iJLiZw86sOHvhhbl9n678vs0TmNDSfxS4TY2vSGYb0lBl2dIVC3jO3Z+bMgI+TsAlP0ru7
-	m05CnhA==
-X-Gm-Gg: AYBFou2wlHHtR/uud8Qb+uZmlT4XUt+IOlN9RxEeBZ0gVa9hjA5sxyaCmppsY4JpIKv
-	MhYpEKFpzE5NTNve9PQr/Jxvn+lRnAm0pZ3qjNVHdriCSwHJPTH3aaIblhUsBeAA03hok/Pu/7o
-	m2QLYn2+sgS/w50fLmjpQvMW8KU22GjD4UEfEA3xM57D04egE8EfDEPOAWCNLqmJqgDMgRamGEj
-	lrGlcdyZyR4TveAxg7Ba+OAB7sof4ACggRfSpVl+RgsvFHRsiT7ODGxnl5UeNHjnNCEj0kL4vDB
-	VWgDgSFHYEV1k3oQ5J24p2mpvw8LCVRzzZLSH9OLy8cgRXPOLsiVYoZFi7jHlS9TM1AO9ZrJNWX
-	6A9lOCxBv3FL9Z/tjV6I3AIkd9Cm4qRrFDT+1buvXkU82Av94R41tjoiA7kx1CTZnWqDOIAxDwr
-	9QdNvT4l1glJ43x0J+IdTyuUUQOWFBizFe4hLvWLhb3KcXOif6KuX15Dfa5wXVGlrbAowFKVrmU
-	wVVnuK6nRjqFR5IjRjXsBrsK2dAK4z0EU4acA5Q7eCnOgvv
-X-Received: by 2002:a17:907:3d52:b0:c2a:46a2:5b57 with SMTP id a640c23a62f3a-c2e4ad568c9mr309123566b.10.1790979593507;
-        Fri, 02 Oct 2026 15:19:53 -0700 (PDT)
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com. [74.125.225.98])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd260d1sm137427166b.29.2026.10.02.15.19.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 15:19:53 -0700 (PDT)
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so239239f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:19:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5WibineiiXqCZyck4gs6RUa3V1DgnWa7UwvsuBXMBjHsEp0SeblSomO8IC1ZGjaIkNPimWztNThdD2Vg=@vger.kernel.org
-X-Received: by 2002:a05:6000:27cd:b0:48b:e25:21e6 with SMTP id
- ffacd0b85a97d-48b1272d22cmr5204353f8f.15.1790979591148; Fri, 02 Oct 2026
- 15:19:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790979760; x=1791584560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1p+8K3ZAE2Wd9BveZGzLca0KXy8ZklAi1ODYJChFqOQ=;
+        b=BZukFbNnfHWVgK9MkKqiZ1Kj6+icU4mmwQ6m/0mrIImsbeCNaJRBgI6pnr8R+hE5UT
+         vj+DHCD02e5ArmDl4RIdXHASVw/LLXyKdUwYruxf9nzQ+Hm7urSDU6ezZsCscjiXoqZp
+         xi48zYlpYmiFkUAtD6n9IGsAyCaJStGPCj4cbjd1b1aEqNDJ2G8ysUhsEyi6E2559szU
+         zYKxxaqEHK6Nz1MWj/TKHZQTgq5OFWcBaxlc3/0vzkTQ3akqJhusnoQ/awiBePyli9/1
+         MqNlWiw1d7WLKCGkEdzy48WYCnUMtwewgGrAA9VJGgFuHU6dvgbNFvRlFpehtr8WIYxR
+         ah7A==
+X-Forwarded-Encrypted: i=1; AKwUvBx3vgIO7h5U8kYmFiEVhouaZjIiBB3dG8duPfbIqlOD7s5FOh8YC6EcAQDIsAzmmUZ0qBV/9VVL6WfQq50=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLv+7CblsANo/8a0NMNXmBrMHiX9172PJetKvi9kWqXepLKu5HF
+	UA/mBnunf4mnAcQeq2T/0jIGtpAOfFzWW7bfvmRmfkzYJbuEOkPR6eE+
+X-Gm-Gg: AYBFou1ksPe5sCuwIm4Eccv3U0WzDJEKuso0PSZyNVOCpOIqXdsRF4CkDr7FkOgiRBz
+	cF6+f41mgE32VepZY5u91zw2FcV9r02TBqcrSPAKr0PJ+WIoyVoQrXTBeADZpvEbhsA9YqTDYCi
+	KPAb5al9Jbf5j89wabwHfbeYdcA6GxhLGQvFxXVXiVpCEkZlJ9RZANyrtMAUpQMvPTmq9P/9JJk
+	tl1t19MfIUfOaf67rsZ3p7qzMNQDrqBi+t/Y46TLX37Owya4mQno8i70BzykRUw/89tGImz4K1u
+	TNTSTTZIXLaOEZdVSywKp+JVuSPSIFQTGbFydhAdVZKysPXTdQk3goSsdOvdw/tCgwb4DwdcEbx
+	9IT0KnzvLX3PgcDWUNg0qemm7btm0NIJtwOuJdTLGrcTSIvxk14dKoJ9OSBdChngE/BC1mpyyiW
+	mxik1ForXKxBZCOwC74DTp47KhJK1d5r5HYU7g5BQFj+saMGYjP9h+OC0mLPOHGv/NLFZ5DEcEh
+	nJG+iBllUnxS0MfGbsbOhZj/Nrvm8hyX38eNwsDX0lFt9lN0jRhj37Fg30zPPzZDPcptaar2g==
+X-Received: by 2002:a05:6000:471d:b0:488:654b:54d4 with SMTP id ffacd0b85a97d-48c4800c54fmr789838f8f.50.1790979759701;
+        Fri, 02 Oct 2026 15:22:39 -0700 (PDT)
+Received: from voyt-laptop-dell.fritz.box ([2001:9e8:bd72:9d00:f921:4d9f:368c:5042])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8ab4sm7961657f8f.35.2026.10.02.15.22.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 15:22:39 -0700 (PDT)
+From: Dmitry Voytik <voytikd@gmail.com>
+To: Nicolas Schier <nsc@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <n.schier@fritz.com>,
+	Rong Zhang <i@rong.moe>,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	Dmitry Voytik <voytikd@gmail.com>
+Subject: [PATCH v5] scripts/config: honor $KBUILD_OUTPUT by default
+Date: Sat,  3 Oct 2026 00:21:19 +0200
+Message-ID: <20261002222119.393508-1-voytikd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002175000.1-brads@mainlining.org> <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
- <B6936CB8-9A77-4DE5-BC6F-F924E2FA7EE6@mainlining.org>
-In-Reply-To: <B6936CB8-9A77-4DE5-BC6F-F924E2FA7EE6@mainlining.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 2 Oct 2026 15:19:39 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U-uH7iTA8Gs_vTqzbKjpk9uwCiSRGbPchmJc7DAWR43w@mail.gmail.com>
-X-Gm-Features: AclHuK9trCkhwZg4Kyj1Vq9Hpc5Tb2ciTGZu4Wr68oniNgcekM3uaNWLSOk9oLI
-Message-ID: <CAD=FV=U-uH7iTA8Gs_vTqzbKjpk9uwCiSRGbPchmJc7DAWR43w@mail.gmail.com>
-Subject: Re: [PATCH] watchdog/perf: reject empty config before the raw event parse
-To: Bradley Morgan <brads@mainlining.org>
-Cc: akpm@linux-foundation.org, blum@kernel.org, tglx@linutronix.de, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
 
-On Fri, Oct 2, 2026 at 3:17=E2=80=AFPM Bradley Morgan <brads@mainlining.org=
-> wrote:
->
-> On 2 October 2026 23:12:33 BST, Doug Anderson <dianders@chromium.org>
-> wrote:
-> >Hi,
-> >
-> >On Fri, Oct 2, 2026 at 10:46=E2=80=AFAM Bradley Morgan <brads@mainlining=
-.org>
-> >wrote:
-> >>
-> >> Date: Fri, 2 Oct 2026 17:39:13 +0000
-> >> Subject: [PATCH] watchdog/perf: reject empty config before the raw eve=
-nt
-> >parse
-> >>
-> >> Commit 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
-> >> manual NUL-termination") replaced strscpy(buf, str, sizeof(buf)) plus =
-a
-> >> manual buf[len] =3D 0 with strscpy(buf, str, len). strscpy() writes
-> >> nothing at all when the count is zero, so on a comma directly after
-> >> the "r" prefix, nmi_watchdog=3Dr,1 for example, len is 0, buf stays
-> >> uninitialized, and kstrtoull() parses whatever stack garbage is there.
-> >>
-> >> The old code was safe here by accident, strscpy() filled the whole
-> >> buffer before buf[len] =3D 0 overwrote the comma position, so a zero
-> >> length just produced an empty string and a clean parse failure.
-> >>
-> >> Treat an empty config the same as an overlong one and return early.
-> >>
-> >> Fixes: 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
-> >manual NUL-termination")
-> >> Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> >> ---
-> >>  kernel/watchdog_perf.c | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/kernel/watchdog_perf.c b/kernel/watchdog_perf.c
-> >> index cf05775a96d3..cca0485ba28c 100644
-> >> --- a/kernel/watchdog_perf.c
-> >> +++ b/kernel/watchdog_perf.c
-> >> @@ -301,7 +301,7 @@ void __init hardlockup_config_perf_event(const cha=
-r
-> >*str)
-> >>         } else {
-> >>                 unsigned int len =3D comma - str;
-> >>
-> >> -               if (len > sizeof(buf))
-> >> +               if (!len || len > sizeof(buf))
-> >>                         return;
-> >>
-> >>                 strscpy(buf, str, len);
-> >
-> >I fed your patch to my AI, and it wasn't happy with it. While you fix
-> >one corner case, the larger problem is still there.
-> >
-> >Image if `str` is "300,panic". Then `comma - str` will be 3. Passing 3
-> >to `strscpy` will copy at most 2 characters so it has room to use the
-> >3rd character as termination. That means `buf` will have "30", not
-> >"300". Oops.
-> >
-> >My AI suggests the correct fix is to change the "len >" to "len >=3D"
-> >and then pass "len + 1" to strscpy().
-> >
-> >if (len >=3D sizeof(buf))
-> >  return;
-> >
-> >strscpy(buf, str, len + 1);
->
-> Makes sense. Do you think you could put this into a separate patch, or
-> would you like me to respin? :)
+Fix the issue when the script silently updates a stale .config in
+the root directory, while the user expects ${KBUILD_OUTPUT}/.config
+to be updated.
+Handle properly if the config file is a relative path.
 
-In the end, it's up to Andrew. If it were me, I'd request you respin.
-The patch is currently in Andrew's "provisional" tree
-(mm-nonmm-unstable), so if you send a v2 he will just drop the old
-patch and replace it with your v2.
+The problem can be worked around with --file, but this is easy to miss,
+and is inconsistent with how the Makefile and other tools work
+(e.g., scripts/diffconfig).
 
--Doug
+How to reproduce the issue:
+	rm .config
+	export KBUILD_OUTPUT=.out
+	make defconfig
+	./scripts/config \
+	       -e CONFIG_UBSAN
+	grep: .config: No such file or directory
+
+How the patch was tested:
+	make mrproper
+	export KBUILD_OUTPUT=.out
+	make defconfig
+	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config || echo "OK"
+
+Test the basic usage:
+	./scripts/config -e CONFIG_UBSAN
+	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+
+Test --refresh picks up correct config file by using $KBUILD_OUTPUT:
+	./scripts/config -d CONFIG_UBSAN
+	./scripts/config --refresh -e CONFIG_UBSAN
+	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+
+Test --file takes precedence over $KBUILD_OUTPUT and a relative
+path is handled properly:
+	./scripts/config -d CONFIG_UBSAN
+	mkdir .out2
+	cp .out/.config .out2/.my_config
+	grep "CONFIG_UBSAN=y" .out2/.my_config
+	./scripts/config --file .out2/.my_config --refresh \
+	       -e CONFIG_UBSAN
+	grep "CONFIG_UBSAN=y" .out2/.my_config && echo "OK"
+	ls .out/.out2 || echo "OK"
+	ls .out/.out || echo "OK"
+
+Test --file can accept files with hyphen:
+	./scripts/config -d CONFIG_UBSAN
+	cp .out/.config -- -my_config
+	grep "CONFIG_UBSAN=y" -- -my_config || echo "OK"
+	./scripts/config  --refresh \
+	       -e CONFIG_UBSAN --file -my_config
+	grep "CONFIG_UBSAN=y" -- -my_config && echo "OK"
+
+Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+---
+v5:
+ - Per Nathan Chancellor's suggestion, improved handling $FN path by
+   realpath
+ - https://lore.kernel.org/lkml/179097210878.309835.10523307262544578337.b4-review@b4/
+ - Documented the new test scenario in the git commit message
+v4:
+ - Addressed Nicolas Schier's comments - dropped the change how '--refresh'
+   is handled
+ - Implemented conversion of $FN to the absolute path which helps with
+   '--refresh' and relative paths
+ - Documented testing steps in the commit message
+v3:
+ - Added an example in the commit message how to reproduce the issue
+v2:
+ - Addressed comments by sashiko:
+   - https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
+   - use basename when --refresh is used
+   - remove echo which can be misleading when --file is passed
+v1:
+ - https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
+---
+ scripts/config | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/scripts/config b/scripts/config
+index 32428ea909c2..7e84c3d4e621 100755
+--- a/scripts/config
++++ b/scripts/config
+@@ -130,6 +130,10 @@ on_exit() {
+ trap on_exit EXIT
+ 
+ FN=.config
++if [ -n "${KBUILD_OUTPUT}" ]; then
++	FN=${KBUILD_OUTPUT}/${FN}
++fi
++
+ CMDS=()
+ while [[ $# -gt 0 ]]; do
+ 	if [ "$1" = "--file" ]; then
+@@ -143,6 +147,7 @@ while [[ $# -gt 0 ]]; do
+ 		shift
+ 	fi
+ done
++FN=$(realpath -q -- "$FN" || echo "$FN")
+ 
+ set -- "${CMDS[@]}"
+ if [ "$1" = "" ] ; then
+-- 
+2.55.0
+
