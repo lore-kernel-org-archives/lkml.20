@@ -1,92 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83A82BE655;
-	Fri,  2 Oct 2026 14:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F20EE49891F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951793; cv=none; b=OWXFVTP0cRxU9T7Iec0dDUQWPwNg88uSmND0uGPEgTwWdryDimE4ybYKQUyB45GlgRZanhwr6QIMaBqxNmLVcVQLjf/FBh5LnrCVIvooBj4MI0TZ8uVh/wTF9wr8lRck6/9mHZ3KXK6zropc8dWvmjo1b5j3MCB4jOOMiFfJxZM=
+	t=1790951842; cv=none; b=GYy/IDNQBqomFEtln32f02Wniamvz12w0wQyTVBJgXlENLp6e+ppZDTyG5wXQXulc1oTJjkkdoOtSK9ZaGxz/Fm3Wqo3uuyHinZt/35dy97gGJDphtarScANVWvJhEOeiEFReyGLnQHpPd4UUY4MrGLwdptiPj4fyoVDaZECN3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951793; c=relaxed/simple;
-	bh=slpYjfvppyIYCvee4mbPKEgF5KZtNosKvyE5AxWLmic=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N0rE3c6bUEoI47285u+Ulked8xQjYoD1lBcjU0I0qcSCv8bPHlRr1lgmwUCVDAwcFuL+duuKMUOsIonjY/yJbJjmlKvjMZ0y9ox/6IaW9YXN7emk3vniTpct80NM9pwTnCwcVjKp4o27aA6OguaR1pxl80JiPAMTJptxFUsrS+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kc1hpE5A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790951842; c=relaxed/simple;
+	bh=3dn54dCsXnCXYpAf3hPzLT2h82Gv0QxovmmmqR8Z4VY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z/le1TtDwh3IIjW86VDdkjn2UfyCffVc/mAYLiplYjTNmqEVnSEVuhVl1GzVWGtm/z/ymIo59lYKEVdw2TQJbaYs8K4RrVKzJbjI9hoLhIWRSaBVWQme0XZsmiGCJV5/qXh8OK+dfi2BBFoaTPGPJLxgirEgP5amJs30zub5Iuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZolcFSF1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kc1hpE5A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E959E1F000FF;
-	Fri,  2 Oct 2026 14:36:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790951791;
-	bh=YaXAl32+bJwu3Ubi8gzjduwO4aL0flsfqwPdvVWa9Kc=;
-	h=From:To:Cc:Subject:Date;
-	b=kc1hpE5AqE8Xj5dP3BGj9j9it+sPlQj6jilIyzY67TjShxNrN4rl30fvv013IJaT9
-	 mKPB3v95kTB4r1MIv613BRAyghPLsW6HpMRbP2RjJnRI6kAohzwx3dDvAv6s61b/nC
-	 tB8+hHgg6fN4jLgCMWHthvl4maCc4u5V6HvpR7NkmOOxGcEMvvikTqrv5LioAOXIYw
-	 QV+DgtpQHRCdkJxqdPBkQL4HwgRKcPxNLJNj3DJNUTtv9FddYZHSnuNLE3RO2icNCk
-	 kKJFgVAHGmkqQJz/du6zKww+Hc6WxvW5qG7p+aQDfrrNL7cdKgdU4ZAM0fqKK7+zjf
-	 UvRYhUmAqAy/g==
-From: Thorsten Blum <blum@kernel.org>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Can Peng <pengcan@kylinos.cn>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: stm32 - drop redundant initializations
-Date: Fri,  2 Oct 2026 16:35:53 +0200
-Message-ID: <20261002143556.43214-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZolcFSF1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 448B2497;
+	Fri,  2 Oct 2026 07:37:11 -0700 (PDT)
+Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C4983F86F;
+	Fri,  2 Oct 2026 07:37:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790951834; bh=3dn54dCsXnCXYpAf3hPzLT2h82Gv0QxovmmmqR8Z4VY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZolcFSF1k/4mgxhd7ju3tNWLJZj/nQ2OI9v9kQjBmnIShSIOihLVCuTpuNbDgys9C
+	 oh4h2c769yFE6v+NiQpj9HYlZYaI9I+29pgCkZDBcCgBmfohB3LLy+49KpNtreEwhE
+	 wBgg5x14GqF2ZaIc4wyUFbAlqONHPvIumAwTHDWk=
+Message-ID: <6c2953cd-ec0e-4579-ad7a-be189fa1838a@arm.com>
+Date: Fri, 2 Oct 2026 15:37:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1465; i=blum@kernel.org; h=from:subject; bh=slpYjfvppyIYCvee4mbPKEgF5KZtNosKvyE5AxWLmic=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFn7D/owf9lk7Cno7JfuESMu8/PI270a6mrOc8vnT5/89 kzoxxlyHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjARLU1Ghofq92Qk28/deKOk OJ3ts3cuv/qav7n6V5dsdJmzkeG36UyG/w5Za1ZdKns+QcviBBdL2iXuW8FrCyamTDcXbcy/oJ8 4ixMA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 08/15] drm/panfrost: Move all DRM device
+ initialisation into device_init()
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-8-62beb08de207@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260929-claude-fixes-v12-8-62beb08de207@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The variables are reassigned before their initial values are read - drop
-the redundant initializations.
+On 29/09/2026 04:44, Adrián Larumbe wrote:
+> Ideally the probe() function will do as little as possible, and all device
+> initialisation and registration should happen inside the panfrost device
+> subsystem, just like it's done in Panthor. This also simplifies resource
+> unwinding in the error path.
+> 
+> Do the same thing for DRM driver remove, as in, sweep most of the action
+> into panfrost_device_fini(), just like we did for device probe.
+> 
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/char/hw_random/stm32-rng.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-index f5bfe54c01dc..d3fc910f674a 100644
---- a/drivers/char/hw_random/stm32-rng.c
-+++ b/drivers/char/hw_random/stm32-rng.c
-@@ -156,7 +156,7 @@ static int stm32_rng_conceal_seed_error_cond_reset(struct stm32_rng_private *pri
-  */
- static int stm32_rng_conceal_seed_error_sw_reset(struct stm32_rng_private *priv)
- {
--	unsigned int i = 0;
-+	unsigned int i;
- 	u32 sr = readl_relaxed(priv->base + RNG_SR);
- 
- 	writel_relaxed(sr & ~RNG_SR_SEIS, priv->base + RNG_SR);
-@@ -187,7 +187,7 @@ static int stm32_rng_read(struct hwrng *rng, void *data, size_t max, bool wait)
- {
- 	struct stm32_rng_private *priv = container_of(rng, struct stm32_rng_private, rng);
- 	unsigned int i = 0;
--	int retval = 0, err = 0;
-+	int retval, err;
- 	u32 sr;
- 
- 	retval = pm_runtime_resume_and_get(priv->dev);
-@@ -264,7 +264,7 @@ static uint stm32_rng_clock_freq_restrain(struct hwrng *rng)
- {
- 	struct stm32_rng_private *priv =
- 	    container_of(rng, struct stm32_rng_private, rng);
--	unsigned long clock_rate = 0;
-+	unsigned long clock_rate;
- 	uint clock_div = 0;
- 
- 	clock_rate = clk_get_rate(priv->clk_bulk[0].clk);
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 49 ++++++++++++++++++++++++++++
+>  drivers/gpu/drm/panfrost/panfrost_drv.c    | 52 +-----------------------------
+>  2 files changed, 50 insertions(+), 51 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> index 9f2b1967a398..c6bf3d0663df 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/pm_domain.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <drm/drm_drv.h>
+>  
+>  #include "panfrost_device.h"
+>  #include "panfrost_devfreq.h"
+> @@ -228,8 +229,15 @@ static int panfrost_pm_domain_init(struct panfrost_device *pfdev)
+>  
+>  int panfrost_device_init(struct panfrost_device *pfdev)
+>  {
+> +	bool device_initialised = false;
+>  	int err;
+>  
+> +	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
+> +	if (!pfdev->comp)
+> +		return -ENODEV;
+> +
+> +	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
+> +
+>  #ifdef CONFIG_DEBUG_FS
+>  	mutex_init(&pfdev->debugfs.gems_lock);
+>  	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
+> @@ -291,8 +299,35 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+>  	if (err)
+>  		goto out_perfcnt;
+>  
+> +	device_initialised = true;
+> +
+> +	/* The reason we must manually set the PM status and usage counter is
+> +	 * we have just powered the device up but did not go through the PM
+> +	 * runtime resume callback, so we need to update these ourselves.
+> +	 */
+> +	pm_runtime_get_noresume(pfdev->base.dev);
+> +	pm_runtime_set_active(pfdev->base.dev);
+> +	pm_runtime_mark_last_busy(pfdev->base.dev);
+> +	pm_runtime_enable(pfdev->base.dev);
+> +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+> +	pm_runtime_use_autosuspend(pfdev->base.dev);
+> +
+> +	/*
+> +	 * Register the DRM device with the core and the connectors with
+> +	 * sysfs
+> +	 */
+> +	err = drm_dev_register(&pfdev->base, 0);
+> +	if (err < 0)
+> +		goto err_disable_rpm;
+> +
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> +
+>  	return 0;
+>  
+> +err_disable_rpm:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_disable(pfdev->base.dev);
+> +	panfrost_gem_fini(pfdev);
+>  out_perfcnt:
+>  	panfrost_perfcnt_fini(pfdev);
+>  out_job:
+> @@ -311,11 +346,22 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+>  	panfrost_reset_fini(pfdev);
+>  out_pm_domain:
+>  	panfrost_pm_domain_fini(pfdev);
+> +
+> +	if (device_initialised) {
+> +		pm_runtime_set_suspended(pfdev->base.dev);
+> +		pm_runtime_put_noidle(pfdev->base.dev);
+> +	}
+> +
+>  	return err;
+>  }
+>  
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+> +	pm_runtime_get_sync(pfdev->base.dev);
+> +
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_disable(pfdev->base.dev);
+> +
+>  	panfrost_gem_fini(pfdev);
+>  	panfrost_perfcnt_fini(pfdev);
+>  	panfrost_jm_fini(pfdev);
+> @@ -326,6 +372,9 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
+>  	panfrost_clk_fini(pfdev);
+>  	panfrost_reset_fini(pfdev);
+>  	panfrost_pm_domain_fini(pfdev);
+> +
+> +	pm_runtime_set_suspended(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  }
+>  
+>  #define PANFROST_EXCEPTION(id) \
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> index 907d4a14a0b5..f77780c72a1a 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -830,7 +830,6 @@ static const struct drm_driver panfrost_drm_driver = {
+>  static int panfrost_probe(struct platform_device *pdev)
+>  {
+>  	struct panfrost_device *pfdev;
+> -	int err;
+>  
+>  	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
+>  				   struct panfrost_device, base);
+> @@ -839,50 +838,7 @@ static int panfrost_probe(struct platform_device *pdev)
+>  
+>  	platform_set_drvdata(pdev, pfdev);
+>  
+> -	pfdev->comp = of_device_get_match_data(&pdev->dev);
+> -	if (!pfdev->comp)
+> -		return -ENODEV;
+> -
+> -	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
+> -
+> -	err = panfrost_device_init(pfdev);
+> -	if (err) {
+> -		if (err != -EPROBE_DEFER)
+> -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
+> -		goto err_out0;
+> -	}
+> -
+> -	/* The reason we must manually set the PM status and usage counter is
+> -	 * we have just powered the device up but did not go through the PM
+> -	 * runtime resume callback, so we need to update these ourselves.
+> -	 */
+> -	pm_runtime_get_noresume(pfdev->base.dev);
+> -	pm_runtime_set_active(pfdev->base.dev);
+> -	pm_runtime_mark_last_busy(pfdev->base.dev);
+> -	pm_runtime_enable(pfdev->base.dev);
+> -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+> -	pm_runtime_use_autosuspend(pfdev->base.dev);
+> -
+> -	/*
+> -	 * Register the DRM device with the core and the connectors with
+> -	 * sysfs
+> -	 */
+> -	err = drm_dev_register(&pfdev->base, 0);
+> -	if (err < 0)
+> -		goto err_out1;
+> -
+> -	pm_runtime_put_autosuspend(pfdev->base.dev);
+> -
+> -	return 0;
+> -
+> -err_out1:
+> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> -	pm_runtime_disable(pfdev->base.dev);
+> -	panfrost_device_fini(pfdev);
+> -	pm_runtime_set_suspended(pfdev->base.dev);
+> -	pm_runtime_put_noidle(pfdev->base.dev);
+> -err_out0:
+> -	return err;
+> +	return panfrost_device_init(pfdev);
+>  }
+>  
+>  static void panfrost_remove(struct platform_device *pdev)
+> @@ -891,13 +847,7 @@ static void panfrost_remove(struct platform_device *pdev)
+>  
+>  	drm_dev_unregister(&pfdev->base);
+>  
+> -	pm_runtime_get_sync(pfdev->base.dev);
+> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> -	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+> -	pm_runtime_set_suspended(pfdev->base.dev);
+> -	pm_runtime_put_noidle(pfdev->base.dev);
+> -
+>  }
+>  
+>  static ssize_t profiling_show(struct device *dev,
+> 
+
