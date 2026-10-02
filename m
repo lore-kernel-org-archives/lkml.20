@@ -1,82 +1,104 @@
-Received: from mail-m12752.qiye.163.com (mail-m12752.qiye.163.com [115.236.127.52])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F388D36654C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC16F488223;
+	Fri,  2 Oct 2026 11:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790940304; cv=none; b=SVEUMscL73XNA/szLyZ+4mUd7cK32de/wUNvy7/qSm5jTG1gfMTw0pSLerdzbM1cbIhFwNmsKCA+C0fS2/LDxu3CF5Nhg+TY5Z6lQ18x17LkFPtKZnnka0yG3ML8TZAawwTRvexpa8Lsz2rUHZKT197lBNcKE2/2Yt3/JnFgCGc=
+	t=1790940326; cv=none; b=Hj/1Isi8WmEo8jcysT9WRpS2AHeiSA4UQxHN9DOe9lL/m/xSq/gfFIDzs0tVBeuIDT277voD+Bq8iG/D0LgKRKdrFmIT2Cxso+/To5IkG9U66crzRI7gZTxDhrqU0rZ3YryuTQDvCy7U82MldPxDkhASpP7a5OgtnRDKGrVfWG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790940304; c=relaxed/simple;
-	bh=dq0F/aAHNUe9FAnuGbaCA4qaGRIMaIj30+EbugzODEw=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ioPynvcFDEPBhzDmsma+ccuW8aHewYHs7ZtdDRBQLJLo4G9nINaJoO6yAbxvnavpzdtp7FlCOAoDuEEJmc63YDJcGBT1URY5JyDNhgpdgPkWTgEwZdAPJT2UdBAtmV/wU9TTF8h/9KEhemhbYOIcrpyWiLGVZ7HDpdIMIXvqVJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=KXigI8v2; arc=none smtp.client-ip=115.236.127.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1790940326; c=relaxed/simple;
+	bh=rXKDfpXJyNTb6XomWcRa/rYsUpu8ud1luicyyI8Ujds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HRPo2lWCPq4vPg5zYP/iCD2DrgSr7d3LDgHt3ze1X2TMRq88N9r2IJqvqsZ9M57nOZRppFXii4z0Y93sWgL7YnFIJZpKjLM54XG+OwaKYtyiimeFkbK6mmO3RuWxCTV9MlYZkYKcHYj/9R+mihC+DtnF7jTuXMXUVAeQlOPrYsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fm32CMEq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="KXigI8v2"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4fd13e284;
-	Fri, 2 Oct 2026 18:09:13 +0800 (GMT+08:00)
-Message-ID: <0c542580-7da3-4cf8-ab0e-9e513842a556@rock-chips.com>
-Date: Fri, 2 Oct 2026 18:09:11 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fm32CMEq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5AF51F000FF;
+	Fri,  2 Oct 2026 11:25:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790940325;
+	bh=VDnaG8ES1kgEtz+L3OdHjOgrH6Sl7lj4ASDqs5ASdL0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fm32CMEq6YjufXbEd1WTX0th7pgJGNVwhI683WdbZqydnB59XCI2FvSpWMusALNvy
+	 DB3v90xse6AJBlSJ+KCiRmDxcbfC15VrKeLhNppilRFoCxtQtd5PcyLEuuTjeZTmVu
+	 HAZH5tuythh7b8gNnboEybnT/ELOVB5mYlvX9bZDutwHmZJ7nd4jXEXZzL0xRn9NxL
+	 pY7b/D5LMPGmfp9b0U4rfBmsqDnVyRMS8uXoZR1Uux5gSONzy9M1w8ogt2ZWOj8TAh
+	 RIksj+Ro0vSlEgOKSNObb98eV6WPV5qGfyGx0RSOPJfLKAxqtX1sJyDXwJFdLY6kWB
+	 aG2xAh4/AH9KQ==
+Date: Fri, 2 Oct 2026 11:25:21 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Anup Patel <anup@brainfault.org>, Guodong Xu <docular.xu@gmail.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Bo Gan <ganboing@gmail.com>
+Subject: Re: [PATCH v3 5/6] irqchip/aclint-sswi: Add support for SpacemiT K3
+Message-ID: <20261002112521-GKA60800@kernel.org>
+References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
+ <20260918-k3-aclint-v3-5-cf4fd4050e14@pigmoral.tech>
+ <20260919000611-GKF297024@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: akpm@linux-foundation.org, cel@kernel.org, kuba@kernel.org,
- martink@posteo.de, linux-kernel@vger.kernel.org, shawn.lin@rock-chips.com
-Subject: Re: [PATCH] mailmap: update entry for Andy Yan
-To: Andy Yan <andyshrk@163.com>, alex@sverdlin.org
-References: <20260924105052.768760-1-andyshrk@163.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20260924105052.768760-1-andyshrk@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0fc16e21a03a4kunm2a1a7772a092d2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHUtKVk8YTh9NHk5OSBgYGFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=KXigI8v2lCWQvclx+rBrcNDA8G+BNuIFKTbuWOT7tXvLL7sOLdyde2ZeQhsO9+x5WPxKCZ+gemx6HUAWVHuJAVsRdSNu214ruj/WSoDyIJxucKqamzrj9keaPbyZdwEIl1wJDszj13IZNF9goQ0NiN9s2QsLX0yTErg/YH1ZXvU=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=EGN6ewbDrQzwkBMATRb8aP3C2LC/82egWXy2aB2zssw=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260919000611-GKF297024@kernel.org>
 
-Hi Andy
+Hi Thomas Gleixner, Radu Rendec
 
-在 2026/09/24 星期四 18:50, Andy Yan 写道:
-> I will use andyshrk@163.com for future review and discussion.
+On 00:06 Sat 19 Sep     , Yixun Lan wrote:
+> Hi Thomas Gleixner, Radu Rendec
+> 
+> On 00:29 Fri 18 Sep     , Junhui Liu wrote:
+> > Add a match entry for the spacemit,k3-aclint-sswi compatible. The K3
+> > SSWI device requires no special handling and can use the existing
+> > generic ACLINT SSWI initialization function.
+> > 
+> > Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> > ---
+> >  drivers/irqchip/irq-aclint-sswi.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> Ping irqchip subsystem maintainer, how do you expect to handle this patch?
+> There are some dependencies between dt-binding, the driver and DTS file..
+> 
+> Would it be ok if I take it together via SpacemiT SoC tree? and probably with
+> your Acked-by? Thanks
 > 
 
-Since your rockchip work email is not receiving emails properly, I would
-appreciate it if this patch could be merged as soon as possible.
+Just FYI, I've queued this patch at spacemit soc tree for v7.4 merge
+window, but let me know if there is problem, thanks
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+https://lore.kernel.org/spacemit/179093990819.1237110.17149048431287759426.b4-ty@b4/
 
-Thanks.
+> > diff --git a/drivers/irqchip/irq-aclint-sswi.c b/drivers/irqchip/irq-aclint-sswi.c
+> > index ca06efd86fa1..d3ef2cd3b5c5 100644
+> > --- a/drivers/irqchip/irq-aclint-sswi.c
+> > +++ b/drivers/irqchip/irq-aclint-sswi.c
+> > @@ -179,6 +179,7 @@ static int __init generic_aclint_sswi_early_probe(struct device_node *node,
+> >  }
+> >  IRQCHIP_DECLARE(mips_p8700_sswi, "mips,p8700-aclint-sswi", generic_aclint_sswi_early_probe);
+> >  IRQCHIP_DECLARE(nuclei_ux900_sswi, "nuclei,ux900-aclint-sswi", generic_aclint_sswi_early_probe);
+> > +IRQCHIP_DECLARE(spacemit_k3_sswi, "spacemit,k3-aclint-sswi", generic_aclint_sswi_early_probe);
+> >  
+> >  /* THEAD variant */
+> >  #define THEAD_C9XX_CSR_SXSTATUS			0x5c0
+> > 
 
-> Signed-off-by: Andy Yan <andyshrk@163.com>
-> ---
-> 
->   .mailmap | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/.mailmap b/.mailmap
-> index 1f5540bc33f1..9a2ddcf1c7da 100644
-> --- a/.mailmap
-> +++ b/.mailmap
-> @@ -101,6 +101,7 @@ Andy Chiu <andybnac@gmail.com> <andy.chiu@sifive.com>
->   Andy Chiu <andybnac@gmail.com> <taochiu@synology.com>
->   Andy Shevchenko <andy@kernel.org> <andy@smile.org.ua>
->   Andy Shevchenko <andy@kernel.org> <ext-andriy.shevchenko@nokia.com>
-> +Andy Yan <andyshrk@163.com> <andy.yan@rock-chips.com>
->   Anilkumar Kolli <quic_akolli@quicinc.com> <akolli@codeaurora.org>
->   Anirudh Ghayal <quic_aghayal@quicinc.com> <aghayal@codeaurora.org>
->   Antoine Tenart <atenart@kernel.org> <antoine.tenart@bootlin.com>
-
+-- 
+Yixun Lan (dlan)
