@@ -1,78 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79723E2746;
-	Fri,  2 Oct 2026 06:20:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F08A3EFFAF
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922029; cv=none; b=gyvTYYritTfcqQrlz3vbAe6JfYhgdX9aPkQ2HqcM/0rLnLTfJHef6AJRWg7xdR5EM2yvByXFtiCxs6pZu1bvNFbWj63OMK8r7jVNR5uB7xyjE0Bh/hhFoHD+gU1H0WOKh4VpjbsdKpiKbk92Sna+wPdOLFs2u9Lcdt2n8oVPHHw=
+	t=1790922263; cv=none; b=s69gY43PFDKftdtW3iE9NYkVWGhrJYh0jrGgH9qYE/tA5dkG/XuCTAXgUSxsIdcrRMtVzq8PkZuH6PMdmEhkYIu3KB5/99xdGesLk6ThDF+zMdBIBPPdXRIxE0mamLRe3ypOrFH0Az+6y+Bt2+ltDXTQoTPn6IP/NSDK9tr0S5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922029; c=relaxed/simple;
-	bh=N2xlH7moLExgSooszNWK9s90Q08woipaKqmmNrP7L1g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QnOkbqtkHLcdW4f7k3veWphHNA75Ha7Pd8CDcm6EvlKU0uoJ3F7KFnCbBMD6zvU3LuXFutv3Pp+j8S4PeUNAsaZXPDYQ0W49QUTTIWciQsRWNcBqXWxY1kMx9tIyyNt0bF9kNorjtNoioVjLZl9zCM1wTWfN+2Q0f/AY2tgn7Yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kPbE0rK/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790922263; c=relaxed/simple;
+	bh=IaKifjqocU1xSRPFTseTlb2gBR+d+jcwrU7mx/rSlOk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WH2Xwbj0FvnYNVdHNIMR5geJJ3z5X9guSzJFfmSf4/qtPnLSiSgXtU/YP5OhOmzzuDTGBTaLXBPaL9BiihTo/y5wZ4AdCIuVphGBxv8bGHhbtlV0iHkpvy9sVmgd1keU4ns3TmF61x0yNMAdwcCRpggMgjwbj6M+O6DBDZA5liI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qn0yDeR+; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kPbE0rK/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B251E1F000FF;
-	Fri,  2 Oct 2026 06:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790922028;
-	bh=h+GNKfvT/CSPXWEy6/55Z2GIGxdBf9QnI6GN09v8VPQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kPbE0rK/0hA5FMgw2EF3MoSynmMuGhoXduX8vKbT5W974H1Wu7IsMZ/gVkPjHl8EN
-	 sYCaDNYvNWXsDuEhau0Irqc/BfbDhghszM+yUEW3CjU+7n6NTewZn8B9aRyCpzSDm2
-	 tFg7e27GAz4erjq0GJZNzDBt3ClWimJHRiG6vjwc=
-Date: Fri, 2 Oct 2026 08:20:21 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Babanpreet Singh <bbnpreetsingh@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: Release the TX descriptor on
- error paths
-Message-ID: <2026100200-emphasis-overgrown-0a95@gregkh>
-References: <20260820035203.7-1-bbnpreetsingh@gmail.com>
- <6c1c602f-2b6d-40f6-8cd4-617239554b15@kernel.org>
- <20261001232520.7-1-bbnpreetsingh@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qn0yDeR+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IaKifjqocU1xSRPFTseTlb2gBR+d+jcwrU7mx/rSlOk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790922256; v=1; x=1791527056;
+ b=qn0yDeR+YFiEwVeUDCd2hoPiF8TrW3lGBTDqzjaSJnbkOaMtizPjTM7z52/daMkd6hxEalXX
+ YJ1ouIdj31MZC/BYvDQCs6IN3IXtidVBh6wro5TU1yp7IfK9znbAtMtjth8epjyqbPD1nd4GVv/
+ ah80ciyriQRE7QlF+D6QvZkA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 00b72635893027bd;
+	Fri, 02 Oct 2026 06:24:16 +0000
+X-Mizu-Trace-ID: 00b72635893027bd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ffd241f1-3f75-44c6-93b1-1482b7a17a5b@linux.dev>
+Date: Fri, 2 Oct 2026 14:24:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001232520.7-1-bbnpreetsingh@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] selftests/bpf: Use the new NMI_BITS definition
+To: Boqun Feng <boqun@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Will Deacon <will@kernel.org>,
+ Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>,
+ Alice Ryhl <aliceryhl@google.com>, Lyude Paul <lyude@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexei Starovoitov <ast@kernel.org>
+References: <20261001082519.16195-1-boqun@kernel.org>
+ <20261001082519.16195-4-boqun@kernel.org> <ar5cbL_ywJVP9m_s@MacBook-0RXW5>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <ar5cbL_ywJVP9m_s@MacBook-0RXW5>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 11:25:20PM +0000, Babanpreet Singh wrote:
-> Hi Srinivas,
+On 1/10/26 21:13, Boqun Feng wrote:
+> On Thu, Oct 01, 2026 at 10:25:17AM +0200, Boqun Feng wrote:
+>> The definition of NMI_BITS was out of sync after the introduction of
+>> HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
+>>
+>> Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>> Signed-off-by: Boqun Feng <boqun@kernel.org>
+>> ---
+>>  tools/testing/selftests/bpf/bpf_experimental.h | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
+>> index 2893bf06ff25..4bf7390994bf 100644
+>> --- a/tools/testing/selftests/bpf/bpf_experimental.h
+>> +++ b/tools/testing/selftests/bpf/bpf_experimental.h
 > 
-> Static analysis, then reading. smatch flagged the txn->msg check in
-> qcom_slim_ngd_xfer_msg() and while I was looking at that function I
-> noticed the two returns between tx_msg_get() and tx_msg_post(). I do not
-> have a SLIMbus target. The -ENOMEM consequence in the commit message is
-> derived from the code rather than observed: tx_head only moves in
-> qcom_slim_ngd_tx_msg_dma_cb() and in the re-init path, so a descriptor
-> that is claimed and never posted has no way back into the ring.
+> Per sashiko's report, seems I need the following to make it work:
+
+Sashiko is correct.
+
+BPF compilation context is different from kernel compilation context. It
+cannot directly use
+IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS)) when compiling BPF
+objects.
+
 > 
-> Verification was build only.
+> diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
+> index 4bf7390994bf..94143cf0ab0d 100644
+> --- a/tools/testing/selftests/bpf/bpf_experimental.h
+> +++ b/tools/testing/selftests/bpf/bpf_experimental.h
+> @@ -367,6 +367,9 @@ extern int bpf_cgroup_read_xattr(struct cgroup *cgroup, const char *name__str,
+>  extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
+>                                struct bpf_dynptr *value_p) __weak __ksym;
 > 
-> On the stable tag: I can send a v2 with Cc: stable and the "found by
-> static analysis, compile tested only" wording.
+> +extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __kconfig __weak;
+> +#define IS_ENABLED(cfg) (cfg)
 
-We have no context here at all, please never top-post, as my bot says:
+Correct.
+
+IS_ENABLED is unnecessary here.
+
+The below patch passed the BPF ci [1].
+
+[1] https://github.com/kernel-patches/bpf/pull/14197
+
+> +
+>  #define PREEMPT_BITS   8
+>  #define SOFTIRQ_BITS   8
+>  #define HARDIRQ_DISABLE_BITS   8
+> 
+> ?
+> 
+> [Cc Leon and Alexi]
+
+Please cc BPF list, BPF maintainers, and me when respinning.
+
+Thanks,
+Leon
+
+> 
+> Regards,
+> Boqun
+> 
+---
+
+From 4c1b9a6f6404aa25d1d300465dba4bee9a139668 Mon Sep 17 00:00:00 2001
+From: Boqun Feng <boqun@kernel.org>
+Date: Thu, 1 Oct 2026 10:25:17 +0200
+Subject: [PATCH 1/3] selftests/bpf: Use the new NMI_BITS definition
+
+The definition of NMI_BITS was out of sync after the introduction of
+HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
+
+Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Signed-off-by: Boqun Feng <boqun@kernel.org>
+---
+ tools/testing/selftests/bpf/bpf_experimental.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/bpf/bpf_experimental.h
+b/tools/testing/selftests/bpf/bpf_experimental.h
+index 2893bf06ff25..b567a48f1dce 100644
+--- a/tools/testing/selftests/bpf/bpf_experimental.h
++++ b/tools/testing/selftests/bpf/bpf_experimental.h
+@@ -367,11 +367,13 @@ extern int bpf_cgroup_read_xattr(struct cgroup
+*cgroup, const char *name__str,
+ extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
+ 			       struct bpf_dynptr *value_p) __weak __ksym;
+
++extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __weak __kconfig;
++
+ #define PREEMPT_BITS	8
+ #define SOFTIRQ_BITS	8
+ #define HARDIRQ_DISABLE_BITS	8
+ #define HARDIRQ_BITS	4
+-#define NMI_BITS	1
++#define NMI_BITS	(1 + 3*CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS)
+
+ #define PREEMPT_SHIFT	0
+ #define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
+-- 
+2.55.0
 
 
-A: http://en.wikipedia.org/wiki/Top_post
-Q: Were do I find info about this thing called top-posting?
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-A: Top-posting.
-Q: What is the most annoying thing in e-mail?
-
-A: No.
-Q: Should I include quotations after my reply?
-
-http://daringfireball.net/2007/07/on_top
