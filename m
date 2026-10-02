@@ -1,126 +1,130 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CCC4FB9C3
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960CA4BA1F5
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790959674; cv=none; b=G+Dwke3qP/QU43/B+RST2Oaln3YW1zJI2RvAdYP+Fv7xs76Oxu5GlruBc8c+R/u3tR4hCdm+Bo1mglfux+cEdhbyE8VggCDrXjTCdZ14BmbQigOFnhYFHiXJdyoYA4wPsWHPVj1nSk5vGJM00ggM5lgo/oX7zrdtqzaeKiO4Llw=
+	t=1790959719; cv=none; b=AWndKAqEcJfNvFo0DI0dcY0VUeINJYX6AWz5Pgy4DCXlNucFZwsKbS+YL3808vwyOaO5HFIjuvuMgtQxID0dKMZ+nFOdtuAMFWYtcc2Pcl9o3Y6qqm2irzkJaWMVD8b3mZ04D2szJY7Zdo6gWKhE7sBmYUW9VHdTwzGqOXFjXfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790959674; c=relaxed/simple;
-	bh=GfLGRzNdrUQtKcYv331zMoj3Gl5JEVaaZYE2NszLXF8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B3dPvFNCUtlReajoRXKoUojq24rCfkMy7OdHC4cdmEmgwLdFM0YfRYSmt8N1k0DUDatC0kJazzOMjaOuwiZKRCrryck8JujogWGwR+0Sxc8F26OpUt9RQBj5bRVZYhG5v4ipcMsw8MZg41uLKEGokFnSx6edZRTZJ+khysLRbsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=NFLU+lFN; arc=none smtp.client-ip=74.125.229.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1790959719; c=relaxed/simple;
+	bh=6ODwo+16pMIfil4k6galug19W/vck29CbEXmoNYWtB4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=H2qZM3BY6Rfyuq2Stvl7m6A2lyV6rfkba4t5+L4EvdmyhOynEum/mOrH1/i5GIkojIOmIjZCOLsl7k0EtwXumuRMeqty1KHcNEv/Z85Dms7EWiCb6xhPg7jyo1d83+bVxuYR7J/RsncscEta44D5qeoH2NaadYeoIhcOuLOVSp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VdGSH7Io; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="NFLU+lFN"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-149d5ec8e96so2220046c88.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:47:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VdGSH7Io"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso8814067a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:48:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790959670; x=1791564470; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M8FgFfsrFu7NaKoGhtbGJNDz2Gwi+BLzqOzLKsff8ag=;
-        b=NFLU+lFNR6hO9d50Zwufb2z/NzoVmMAl14UGet0DeHq6a5obEDMoeHrWveApPng8wK
-         L2Aij0Dx+ZGh0ym+MwiBe1srkNL/sI1GV9WK5XVo0f3J+lwdC3OvgRaAhhNVtU6l2nvt
-         B6ToeVUaI6qo6hX30dPKw0+GBYyOQogyDgC9whYikB2FevRCPhsVr6YXwhw7ukTasVMT
-         hxYSWPZRHZgwUCu/GQ/9ixGiq3aJr5RyLwiAKfDFZjSOPXYgBSPaYKHjvR5pR6NdpaI0
-         5xCQImOjoE25lHcIU0TwuhGlY2timDR7pPpxdf92aWoY4f3tA0AsrX4cfbGpBKiIVsyt
-         +0Jw==
+        d=google.com; s=20251104; t=1790959718; x=1791564518; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IpRTn+KD9NJK57wJTMwL/20JlRBVAu7bzDg4EAe9yBY=;
+        b=VdGSH7IoLKlBqYx/FXjoF4l2/WCyrvC9FQKkflUEiMMgB9AosVQSzSUIEDJ5vHv6e9
+         LFK9w3XqWxkiv+A7Oe9J2TCAqqxJsuqGlhC+8ZbrhLtO+ofZqRYeo40HDgYY9ZQV7uH8
+         2+EtkEwkQoIhgzc3CQZDOmySwYISe6Sv5y6yC5aSK0UUAEvhBiymwEvmcFEixIk2k+bX
+         6jgxl/2vj7krS6i56+vqh3F/JRCydGS+nOkabIB1Vpm1Vz5Id6G4W28Qyfht6Xf4utDO
+         upBFysRpecbWMopzZQtXZjlej9jVtpapWr+v2c7+GiYap7WuwIhUyAwJxDvbzkj1B5KJ
+         rxag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790959670; x=1791564470;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M8FgFfsrFu7NaKoGhtbGJNDz2Gwi+BLzqOzLKsff8ag=;
-        b=gXUw+M/BGIB4REkpXw9/VU3fGx2YFjBfS5RjTG+kQo7LSUXsYD/7I2mbdbn32gZsr8
-         tVlIha/zlWHTrVmNbqdTH7H8XIsW+KII3KWmlL2B8xSZdKkXKZIlKhpnlU3guZ6jrUMf
-         0rowcysyyUDBANbMu52ajTTDOhx1tzMAdB96DFScaPpJokGj/7j/QXiRhAEImn11Dlwh
-         y6I0B5NSHGwBRwGUAjJboeetUqY3ukjdPfOhCCP879oiSILPgfwKyP+sHPbaMfqWS/Fw
-         lZmRIQ08Qzb+OS/IAn5Ti3RoEzFyRawl8ED2DavqASrDBKeTa/miBGf4M5uNs2PZfGFe
-         YWTg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2Ube8rC2EfK2dYOwpMdRBc+mDgFDXy6tU2H8PJ6FDniCacDd/4zvcQHkKR+IZs19+P10IFBCWIwOAnYo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nC/3Bog7JmRv12fWsX9IaeElgyE3G0AuCvL/T50XGrtt5aeiAt
-	W9LbeXHKaC8c87EMn5fBcTBIP3sL5aLgoACHpAX26P3JIr8EEYOmvofKOWgB23zpncU=
-X-Gm-Gg: AYBFou36QKjpNSsJxoun8kZIhb9uprIevNW/AWbQP/71OdB3JRuMh4hkcL4UewbOu6i
-	H6uqDKiNPANaFGdqy3aWCPeoIYuZxn5chZHAUAR3vS9cNOPCM7NLQd4HQIh7YqSWXFMFlJcrgcX
-	QMM2DIsxkSvmkXikHea26Ge5DqeJRHP8+cEGMtq6PjQ5WhZhuGOVosYe3Gkm2PPpRcjolXNLA32
-	JDDXzTJ8pcM5elUbvDs6Of8RP8AUb6p0Z453mYdSYqpOKx5L9GTGds77l1ZOD9G7MhKuC3iEMpF
-	Q4WAG8iVQ/bcHZh9Sp/epl9CLaskYcNN97DXM89KxX1GJJ9Bf0Kr6DFs2bP6sfb9IXOHH5MMm4D
-	XeKLh9RJPEq/yYYd1i9s0/hgDTqE7x4ityCcLnIulf15Yz5O+uCF0bocgUyoCUOL9/LEsAjQPR7
-	IYaSwoZvJoD5XiBMpwedQLeNBah7YJwAkqcmW/7E2zxAjg
-X-Received: by 2002:a05:7022:5f1c:b0:146:852d:60b7 with SMTP id a92af1059eb24-1508932185fmr1788544c88.8.1790959670092;
-        Fri, 02 Oct 2026 09:47:50 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fee0afsm8489793c88.5.2026.10.02.09.47.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:47:49 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xCgQG-000000008FP-19Pb;
-	Fri, 02 Oct 2026 13:47:48 -0300
-Date: Fri, 2 Oct 2026 13:47:48 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: Pranjal Shrivastava <praan@google.com>, iommu@lists.linux.dev,
-	Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Daniel Mentz <danielmentz@google.com>,
-	Ashish Mhetre <amhetre@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev
-Subject: Re: [PATCH v11 11/16] iommu/arm-smmu-v3: Add CMDQ_PROD_STOP_FLAG to
- gate CMDQ submissions
-Message-ID: <20261002164748.GD3481470@ziepe.ca>
-References: <20260929034510.2023173-1-praan@google.com>
- <20260929034510.2023173-12-praan@google.com>
- <ar1yNtr7Kp2OTcDd@nvidia.com>
- <ar3yWUmi8E0k37Ml@google.com>
- <ar6gY9grmdMZcN/M@nvidia.com>
+        d=1e100.net; s=20260707; t=1790959718; x=1791564518;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IpRTn+KD9NJK57wJTMwL/20JlRBVAu7bzDg4EAe9yBY=;
+        b=QIvZO0/5J4dtwqr+nJwSiVMjiICPhNia9VyCiR6zs+zh7T9S6/6gazaE4ZuVAEug3A
+         IOKR5o7oBUn2fFGzE1lX211ihPd0HF4p6Zlan6OwFyCBFfor8YP61ZbeZic/3WGkJjAN
+         DY5QPxaV7s8sKROXNrrJkEF6A3/6mVNtjZQKFgtJIxbqxPS9Z5lQAsN6GRZscNch5OQQ
+         nkE7upjki7h3u1KBGTg458+IP+7WPWXRaeL/ard4/vXo8mG1HpkpE8QbHZuuJDgVzO2V
+         /41ZraUTVZ1DX6u/KwzQYk+0jzT+iMHkicQegaV+UWfDoEp1i+Qen95ErBG7Eu/R3pDw
+         ewEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwuLuGXOj1utrBBH2WmK1QIqEKiAol1l1kLrTrzbMrcaHwuhDoqzW8mz0ShK18RIEarHDZanR65slQXrEw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYVp/w2ZMlauX2C7tT/VximXawgqZOYCWud70LXG81TKSS8P0b
+	oBSpPc2OyzGDmq4CaSJbO0w2EubwTYLUUoK98hB//Enhd4HGSMCY9dELTlUAMh+YxCGotviBNwi
+	eylKaQQ==
+X-Received: from pgme16-n1.prod.google.com ([2002:a05:6a02:6c90:10b0:cca:4a92:2716])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4f42:b0:39d:f247:bab
+ with SMTP id 98e67ed59e1d1-3a6ce5fa392mr2970671a91.6.1790959717666; Fri, 02
+ Oct 2026 09:48:37 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri,  2 Oct 2026 09:47:50 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar6gY9grmdMZcN/M@nvidia.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261002164750.3981742-1-seanjc@google.com>
+Subject: [GIT PULL] KVM: x86: Fixes for 7.3-rc6+
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sean Christopherson <seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 01, 2026 at 11:03:15AM -0700, Nicolin Chen wrote:
+Please pull a few more fixes.  These aren't _that_ urgent, so feel free to
+punt these to 7.4 if you think we're throwing too much into late RCs.
 
-> > So we can't issue ATC_INVs during suspend (the EP is already down), nor
-> > during resume (the SMMU resumes *before* the EP is made active). The EP
-> > can't use its ATC while suspended, and if it loses power/resets on the
-> > way back to D0 (from D3cold, or D3hot with No_Soft_Reset=0), it comes 
-> > back with an empty ATC.. same assumption the PCI reset path makes today
-> > (pci_dev_reset_iommu_prepare()).
-> 
-> In that case, would the STOP flag be too late? It's only set in
-> the middle of the SMMU suspend. So, an ATC command (via doamin
-> invalidation) might be issued prior to the Point of Commitment,
-> which will be timed out due to the unresponding EP?
+That said, I'd really like to get the AVIC fix into 7.3 as I very deliberately
+didn't tag it for stable@.  The fix depends on what ended up being the changes
+to hold kvm->lock for all of vCPU creation, which I don't really want to
+encourage folks to backport to LTS kernels.  So, if we squeak the AVIC fix
+into 7.3, which is presumably the next LTS, we'll save a one-off backport.
 
-How can you ever fix that?
+Thanks!
 
-How does power management really work, is it expected that the end
-device is already quieted by its driver?
+The following changes since commit 973ea70393e885e540f714904e51bc6cac80e3d7:
 
-Could the first step in power management install a blocked STE? Then
-we don't have to worry about ATC desync and that automatically stops
-generating new ATC invalidations if we go and detact the domains too
+  KVM: SEV: Do cache maintenance on the source VM *before* clearing SEV state (2026-09-28 17:11:49 -0400)
 
-Maybe I'm wondering if power management should involve the core code
-so it detaches all the domains from the device, setups up blocking and
-then the iommu itself could power ofF?
+are available in the Git repository at:
 
-Jason
+  https://github.com/kvm-x86/linux.git tags/kvm-x86-fixes-7.3-rc6
+
+for you to fetch changes up to b3e6212dea2e4328a841ceb37f377583176dc735:
+
+  KVM: x86: Use active memslots for the per-vCPU MMIO cache (2026-09-30 06:40:49 -0700)
+
+----------------------------------------------------------------
+KVM x86 fixed for 7.3-rcN
+
+ - If creating a vCPU ultimately fails, clear its entry in the AVIC Physical ID
+   table used by hardware to perform IPI Virtualization and delivered posted
+   IRQs.  I.e. plug the same use-after-free hole related to IPI virtualization
+   and posted IRQs that was fixed for APICv by commit b41f2ca6c0601 ("KVM: VMX:
+   Fix stale PID-pointer table entry left after vCPU free").
+
+ - Use set_page_dirty_lock() instead of set_page_dirty() when marking a page
+   dirty after writing back SNP firmware's desired CPUID state to userspace.
+   Using set_page_dirty() is unsafe if the page/folio isn't locked (as pointed
+   out by its function comment's big DANGER warning, which no one reads given
+   the number of bugs of this exact nature).
+
+ - When checking for an MMIO generation match, use the memslots for the current
+   vCPU context (non-SMM vs. SMM), as a misbehaving guest can coerce KVM into
+   incorrectly identifying a write as MMIO in order to bypass KVM's
+   write-tracking.
+
+----------------------------------------------------------------
+Jann Horn (1):
+      KVM: SEV: Fix page dirtying in sev_gmem_post_populate()
+
+Jinu Kim (1):
+      KVM: x86: Use active memslots for the per-vCPU MMIO cache
+
+Naveen N Rao (AMD) (1):
+      KVM: SVM: Clear AVIC Physical ID table entry if vCPU creation fails
+
+Sean Christopherson (2):
+      KVM: SVM: Add paranoid helper for checking if vCPU is AVIC-addressable
+      KVM: SVM: Use "is AVIC-addressable" helper to sanity check load()/put()
+
+ arch/x86/kvm/svm/avic.c | 22 ++++++++++++++++------
+ arch/x86/kvm/svm/sev.c  |  2 +-
+ arch/x86/kvm/svm/svm.c  |  6 +++++-
+ arch/x86/kvm/svm/svm.h  |  1 +
+ arch/x86/kvm/x86.h      |  4 ++--
+ 5 files changed, 25 insertions(+), 10 deletions(-)
