@@ -1,126 +1,133 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE6A3F54D9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F46B35AC3B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968526; cv=none; b=K77N/lyJTcX7/nO0ngpAFoPmgQtGgAgqGljn8sqvENRXucc3TSyk0M30hRPkSvk60asA/dHIX2lts939PxjCh2c8H9luFniWIZ+SfphlJcs3f3Q+sEKM4Bl8YJ3HpnKiykEAk0R9abgq3DXM36pHHyc1zNWVzPVp5L/0NZmKyNg=
+	t=1790968528; cv=none; b=N2Q5nFrCHjNVgjmemmt5uPFw7EIlugEqj8ddL4zppIWbEjr2nqie63mh6KW/Y0t3gqJXnbewHt6H1H8C3ZXV+claHWc7ZO2Huw8xmFWomI/PDCMIXnavn1IVvR/L240tiFYfg/xtCUmu21ny83R9ibyqCCshic1yi8vaO2tE0rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968526; c=relaxed/simple;
-	bh=0v6EsoR5T+lucdH/eGhXBeOr7Ze3sxH1Mqvmwg12+vs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=egmkr1y6X+ioCvpSMDXA6O8JlQZnZMxcAJyJn0xKJobHUi/TZYCxHOjbREagsZOEUV+Mactyhzqk2RY1PzYLE7gVkR04VaZRRvjDoj9irqPgygBUXY2UBUuv+3sKeYfaWDs5v6CNTqfPRtIiAUgOMCF6QBxQ9vBuaLyGbbYut/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F73AVCVu; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790968528; c=relaxed/simple;
+	bh=pgvIgCP6n6t+IplT8bFgRUQZKyyLvcUhswrqy4yC+jU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dZ2cRaypABwBuCvhMNMsaYmlojq2G2lQcJNWINKhnzIlxexvs/HNot1I6uEREfPHlWeF5pxBimHpBvHxeyB4qGR0ySzYgC1/uxL1IUqlUmu/0PPvlIO5JFbx/4g3Z6UX6XsBT+/g/Ykrn7WJ3HdYf6PGLE1r4mtOuSXqTE/Ukmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+zS7V+N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F73AVCVu"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so1326555e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:15:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790968523; x=1791573323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1Z3J1wTRaL7AOg2V1HNOvyAPEeXuGFQq5prc0aUbI2M=;
-        b=F73AVCVu+7ekD5xjlNRVXCf/At7gGzEk2sS8qEW27lgLP+Lepaf4HMCowjrl31qP15
-         pPLDpPn2uaEt9l7MzvjsbfThWNQYq8FX9BUUffTeL3544vNN6hv8QP29Tmb8eAMWrjXi
-         Ozd40c7GpMdsujsUeACMXZunzO24m1+au59VeY/ZcjSqv/5hy9FDMfy7+nHHMrFhHK7I
-         yk7TpXtJxsH963KGgZEfLa5JUUDLu89WhBLGD2Of8ytq9zAL3oPFSA7drpqQ4edm9c42
-         g4J8H/CuAlBt/Cd4x0upT8qrQdrGsFpABAaMeXtogh9FuMNBtTs+qWU4zdCUBbBmEsB5
-         U4Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790968523; x=1791573323;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1Z3J1wTRaL7AOg2V1HNOvyAPEeXuGFQq5prc0aUbI2M=;
-        b=0DX7jBklsFQSBA4RYjNkZapHZzyEtI/d5KaPRKm4wYUftT2MC83QrOVYpdBgz3WBnU
-         AldauD97o962f8WTHc5bmIBKwqJEOLOc9Ri6ZqJdwYvmWBuqP8Yf6SAC5ERb7JUloODL
-         EYGVSRPgZjVrfWci1hvEhRnCnx+bFi+SvVPMtbGphgWbSzvYHYTYD2NbqedEouCLH2xi
-         wFMatcoEpSqZiidp+eqW6lQAwDprLwf/iQee+ed23Q4My70GopABybnc+Wc94as/saQy
-         8FIlrpU4GnxoStMjjcgtPtj2WU3q3ONl2zRSqsnpuqxt5mZPZiAOW2ruRL/GMliHwKjJ
-         Mgdg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGF5qpXwC3JZtpoVfvFr0dmD2T+MmHpp4zgQom7i8VZubKYFih4s/GD5KO6Hi53GcCJK8w4ewVawFfOCw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nR6uGzDJ/2ZoMRASdZM0N7hcY4EkPS2lxMSyJtUXr/kVJMNGqy
-	CRXncbQhSbXZCO/LRo1OY4CHjLyhooBLvGBiISxvqiKKhhpZkCg2ywpf
-X-Gm-Gg: AYBFou1tUajfp8edDG+okyVDieSclL2ad7qtR5sg3nLhLLbQgqB2/INXGmhWvyXw/+I
-	bhu5n6TeG1L777Ht5SeUaYEBjA8mhl2VES9pDdjL+yw8qLOXR6fIuGrCreQRfKmsVP4e86nCMqm
-	A1fwso5qRqv+hyGC5r+9G+POphzyoS6Kt1kocem7RwDPd+XoPsMzFPwls6vf+KKjEyXZasT4HNi
-	Dict7jwC4RFbhN4WW2nlMxXomkKrXizWZKoX8vuWHKL5cXVeoer/MJVRMELeR3ebvlPK5HFtyuL
-	TyYGDCY80Liv2TTYHmEIcF99fizGm2nqgcQ8Fvug8KT0M4Hoj3a2DXVdsIDaGjRUI9RWiNpqpMd
-	LewHnIOZt79PvYWfyML9H51fuo9p7BAFJasVRCFdMNY1JyLAghBuPm/0xKz3w4jcz0r8SgJ7zco
-	ThuLBdeZ35I6CS7+Sa6arMWBvjy6lNHjwBT/g2a9IgTeFqSiLarWjw01CaNpjzkOn8uI78JpyCn
-	8a/J86ZJm1G10afykiesM0QVQpIbanG9aE2hhA7tGeVqm1teSQf
-X-Received: by 2002:a05:600c:3b01:b0:49f:dd9f:6038 with SMTP id 5b1f17b1804b1-4a027573634mr54711305e9.25.1790968523131;
-        Fri, 02 Oct 2026 12:15:23 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm81151145e9.4.2026.10.02.12.15.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:15:22 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 9/9] platform/x86: hp-bioscfg: fix oops on short integer attribute buffer
-Date: Sat,  3 Oct 2026 00:14:34 +0500
-Message-ID: <20261002191434.58529-10-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002191434.58529-1-meatuni001@gmail.com>
-References: <20261002191434.58529-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+zS7V+N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B101F00893;
+	Fri,  2 Oct 2026 19:15:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790968526;
+	bh=RAXYnozfOjCNJd3fS51e4tA12PwRRvWlhRu6gPGg5pY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=i+zS7V+NWrt9FcmmtNbilvGk8AMgrsDPvEmr8qyID+GbT+wn8dKLGm16QlZPm1pQD
+	 CKW8GGJzBm926RYbyIJNe8AoOjuVfbkfEPlD7A/NEc6FSqj7IU9vHV3ok3gxgU0c1u
+	 pIjm42i8CB4j1ze7Zo0RVVBKXLazV/rV9e5a3W1WUHWJYbHRGQkVyvW4vD0TEN7BjO
+	 Fn6wXKf4VNKhqvSv4lCS3zpywrOK3PZBrEAwSx8fuYfMnH06VEUVr0nWbdab+p8Z/0
+	 +gG5thxvIRcSkF432btKAabqBmB8URlAqma9xQ/lsXRq52b4ty9B4wJsNIkDg/V1cs
+	 yXCcpJ8YSxAFg==
+Message-ID: <388b396c-2dca-492d-8873-c9c672ac30f2@kernel.org>
+Date: Fri, 2 Oct 2026 21:15:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 04/14] drivers: dax: use pgtable_has_pmd_leaves()
+To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
+ lance.yang@linux.dev
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com, usama.arif@linux.dev
+References: <cover.1789695931.git.luizcap@redhat.com>
+ <700b622814a2b294083f9066631f655cf61c3070.1789695931.git.luizcap@redhat.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <700b622814a2b294083f9066631f655cf61c3070.1789695931.git.luizcap@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-hp_populate_integer_elements_from_buffer() ignores the return value of
-hp_get_string_from_buffer(). When fewer than 2 bytes are left in the
-buffer, dst_size is 0, kcalloc() returns ZERO_SIZE_PTR and
-hp_get_string_from_buffer() fails without writing to it, so
-kstrtoint() faults on address 0x10.
+On 9/18/26 03:45, Luiz Capitulino wrote:
+> dax_align_valid() uses has_transparent_hugepage() to check if PMD-sized
+> pages are supported, use pgtable_has_pmd_leaves() instead.
+> 
+> Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
+> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+> ---
+>  drivers/dax/dax-private.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dax/dax-private.h b/drivers/dax/dax-private.h
+> index 607a53a91f58..18a6295aa766 100644
+> --- a/drivers/dax/dax-private.h
+> +++ b/drivers/dax/dax-private.h
+> @@ -121,7 +121,7 @@ static inline bool dax_align_valid(unsigned long align)
+>  {
+>  	if (align == PUD_SIZE && IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
+>  		return true;
+> -	if (align == PMD_SIZE && has_transparent_hugepage())
+> +	if (align == PMD_SIZE && pgtable_has_pmd_leaves())
+>  		return true;
+>  	if (align == PAGE_SIZE)
+>  		return true;
 
-Return the error instead.
+The main part why we don't see any change is that dax_align_valid() is wrapped
+in the #ifdef CONFIG_TRANSPARENT_HUGEPAGE today.
 
-Compile tested only.
+Might we worth spelling that out in the patch description.
 
-Fixes: 6f2c06d5a467 ("platform/x86: hp-bioscfg: int-attributes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Changes in v4:
- - New patch
-
- drivers/platform/x86/hp/hp-bioscfg/int-attributes.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-index a27907066..14317b7fd 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/int-attributes.c
-@@ -331,7 +331,12 @@ static int hp_populate_integer_elements_from_buffer(u8 *buffer_ptr, u32 *buffer_
- 	// VALUE:
- 	integer_data->current_value = 0;
- 
--	hp_get_string_from_buffer(&buffer_ptr, buffer_size, dst, dst_size);
-+	ret = hp_get_string_from_buffer(&buffer_ptr, buffer_size, dst, dst_size);
-+	if (ret < 0) {
-+		kfree(dst);
-+		return ret;
-+	}
-+
- 	ret = kstrtoint(dst, 10, &integer_data->current_value);
- 	if (ret)
- 		pr_warn("Unable to convert string to integer: %s\n", dst);
 -- 
-2.43.0
+Cheers,
 
+David
