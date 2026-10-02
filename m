@@ -1,211 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA103C9898
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7963C9898;
+	Fri,  2 Oct 2026 13:53:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949127; cv=none; b=jUyBkWHhFtfuRwYBytqMUm5m6sabfWMCTkGMhFdZ4W5SbZ8VMs7RMNekxeFIWEV/qyRRgWXfSjEyypKetTuJNLScpnOmkA4szFrFqDvN6ElGSCDaSAOhbpTRNB1kpOKLiDaXmY6B87dIBvSutddqiBQMzlSpvGZZesQ0BDkvQYw=
+	t=1790949217; cv=none; b=W0iCh7RJhSrXr5gDqFBpv8sUDy55716IXZhjJwEfMcRKtrAj8IOicOoTVCtSBLn/lGyWvBKROipw/JJgJ2FhgvNFTkr3in5nsKMZB6vLd7Lmm1yWfoCqEVCgMmDBc2QXvdJT5RK2IKw74wC8YnQda0LpR9v6JFWcqfzhlhCBq9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949127; c=relaxed/simple;
-	bh=vQn/UvxJai8olpk7tjD6vcaqv6ea4A8jc/8qu8mr2j0=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=JsBx/NdSz32qrfHblpKZxlpz1D1IIVD/OSZwLoXZcrKo5VdYgqObdb6iGvpBZqaSrtNZEEqVdY12xxrFLaQsrXLbcvcPqRrBUvIvO2X0dvF+OBgTYki19ZU3rFJJFkHn79arffLbdSW9aYiFY3/Mt7LYVsxzdwBe0BYD8UAzQUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8v8bHSe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949217; c=relaxed/simple;
+	bh=Ib2Exxpb6GDQ+ica47E+ivBnH1RE36bOqhtyFLu7+Ck=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jiQz57X1FPq3rVLDdBzXlaoP6yVlOmiLShE1Ey+8kMFlophz21X9eAR8vE9Iid1+ChK8+9+488Yw8VkrWFMNoHC+wD0g3aOZULk10IipSco3h+biyVVvspM7vpOJtKJkK9qKgyETC5+Ran50a0bYU+dJ//CjJQj/npGcEJ2Iik0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9dixHpt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8v8bHSe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5AD1F00898;
-	Fri,  2 Oct 2026 13:52:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9dixHpt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0FF1F000FF;
+	Fri,  2 Oct 2026 13:53:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949125;
-	bh=9ajHiX0c3BZlGKVhGi19LA0Q3JMxAbGSQmVWKZD04Kc=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=U8v8bHSeIKnYzEGVjjXu58dcdkHiznGproyZLQQMvxKWY6P34C1PdgJLFg9A40dgV
-	 /vJHLWjn6xicP/fO4Q6NO1QLSTAYP4p/C3U+6nZbfV2Fc23+gliX773s3rR/wLQN1O
-	 OPbxnA7MSbvC4c54HgUqYrvHS+I0tAApDjU3BYelMJW2QrBOAdeWknIQgeocx+Ayxe
-	 1CuKTRnGroS3MVKkgCTJtOjpb/TpkK94oI0a515z8NUBJ8o7vi+4KBhYCYpiyn1jd0
-	 UKRU3b2+KBaSA79/lT6n7nrJxvhkE7VGSKSl8FipByRsL578+cHeKg5VpG2hxSu2Ba
-	 T07ghOCb8p8Sg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8AA41198003A;
-	Fri,  2 Oct 2026 09:52:03 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 09:52:03 -0400
-X-ME-Sender: <xms:Abe_avHHQaBIk_Kyd-HZmoQarPXkbP3vcarq6wv32pmNXPA8VyizFg>
-    <xme:Abe_anJ7X4FdkGzKv6ldOc0cuvZx2wyQVMWXgukiZBdLFfzNlA9PToYGwLaFWt_oD
-    tbyvlVtMFOyy0nbnKL0Fl9vyWOL789cuFA1eFfCBJ98MRdCXMdRIYNG>
-X-ME-Proxy-Cause: dmFkZTG2SSBU1HgYU8SrPtS3kHNUyFjkNQvrAXFQxeRX8qWJTtNZLjMsW3FnZ0iC6MYfOy
-    rAwjazHrYGy/mElACwfLCAwHkbqCJ2WW4+7xYcCrvqeig1Z0tTUGx7Ss65vbH/rNbwSI2h
-    FjuArhUdWk+87U8t0m0mnNLagvIM0sxR7S0VStKZq99NUWfCr0jCWQmtbJM4YmcQpzkj+j
-    nEcnidtTdgXVMOGibVaPQjcs+AyO4gRKxc2D2xRt+YG7eL0t9Jl6c6tLmqC6aRj7L/PR3Y
-    KqqKvWbUwQywfZrwcGu3+/KzldX6/1pLck64ueEoWz8cMAQWOxHzybeyHLbFdivCglVbBH
-    L87AljYz/+Y31wVP4HNEf/N+D3fHik+ZXIG+J0rnmOf2JfOY9COo1zUey8SAY4ZKe4Kj1N
-    GAoHhDUTIwjIGk0cb65X7vdeCWquehLOYYc/b3VIRS7qiBrCu1/WBkd0jgeZCOpwt0mgqh
-    9wjsCKrDTbyN3A+IlaJSDSd1O/qZNAKPXNAinDNGuNGpaJAqki5CETKNMO2XNnURg+IO1x
-    XPZgIiaa/1OrerB8LnOWb7bKYcPS+8vXd2hqcf21ZLoQ7sypj3tm3LgXfZjgBFTvv9ut15
-    +EMf/yn+AffDgEwx0WgWQzRiDu+5tVi4GJMBdZUqNbgR6SDp9GoCwG3qWEbQ
-X-ME-Proxy: <xmx:A7e_ajrfhb4LSYXmjhYe2Np45yl3qm9DtiRLJPqdjmAgYfCn47p_5Q>
-    <xmx:A7e_al04eD3Qs0bFUexXCETGwQuySv7w7YJlzcQQFzLgaqgjfkATjw>
-    <xmx:A7e_arxPClRhNYvSdS3J-9nNZivWZH-uJWb-y5UMO2O_C531QSqzsg>
-    <xmx:A7e_ahhhz_d1AlIwOBSeFHBheOwQxeLU9t26EexMW6zcB-8t2t3kIg>
-    <xmx:A7e_auoq9h3Jg2KeZNLjpX59OARLq7wA8Sg5S5bwlK2xcyAUSxdIZN8z>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id B111DF8008E; Fri,  2 Oct 2026 09:52:01 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1790949215;
+	bh=6QedBmex4n5aliVhPrDMZaYmH+5Us9ELZ/NjmQMJ20c=;
+	h=From:Subject:Date:To:Cc;
+	b=c9dixHpt1bmNJCW8NRCuKyXlZHerIX2bHFt7Fs9jGINJxpYcu9xWY7AEG/MOFPB5+
+	 ZoncibSl0WfJF2EzuART25YHq7MJ63rqS8JrDSlPqcS6TnqhDWwXwRG3PSeOVLBvag
+	 hEJPndhXKvL4+14oV4dexFsBBygbkiH69T3kai9ML52y+CozbAnBwMJTIs8ME9dKVv
+	 a5P89mTHTemiJDIMLMIjAm2TwMeGXq29fS/gc2UOSkU4gEFuapOJzPlWPR4eheKazM
+	 sOxuG0Wnxg24FpvenZ72wgKfJ5bTkRb+1W2RY58H2nsGL/t2+1eQjmlJLdnn79VqI8
+	 qKl3w3valJTiQ==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 00/21] mount: more bugfixes, trapped in the Black Lodge
+ edition
+Date: Fri, 02 Oct 2026 15:52:31 +0200
+Message-Id: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 15:51:40 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Bill Wendling" <morbo@google.com>
-Cc: "Linus Walleij" <linusw@kernel.org>, "Jeremy Kerr" <jk@ozlabs.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "Kees Cook" <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- codemender-patching+linux@google.com
-Message-Id: <4c92ca0e-c502-4a63-a2a2-bbf53db5e40f@app.fastmail.com>
-In-Reply-To: 
- <CAGG=3QWKEgeggp+OcVsS4QLOX1zxN23HHZp1SfHX0rQVA_7nDQ@mail.gmail.com>
-References: <20260928063824.1386524-1-morbo@google.com>
- <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
- <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
- <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
- <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
- <7e847715-6bd5-4f69-a9a6-339788810fec@app.fastmail.com>
- <CAGG=3QWKEgeggp+OcVsS4QLOX1zxN23HHZp1SfHX0rQVA_7nDQ@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2w6CMBBEf4Xss0va0ojxV4wPvSxSja3pApIQ/
+ t0WH8/MnNmAKQdiuDYbZFoChxQLyFMDbjTxQRh8YVBCnaUQCr8pv/Cd5jjhEFZi1GjVxfded1I
+ ogiJ+Mh1V8W73P/Nsn+Sm+lQX1jChzSa6sUbLwNi3uj1uYd9/6A+5vpYAAAA=
+X-Change-ID: 20261002-work-mount-fixes-4-b28d7d43102e
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>, 
+ Jann Horn <jannh@google.com>, Neil Brown <neil@brown.name>, 
+ Amir Goldstein <amir73il@gmail.com>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3862; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=Ib2Exxpb6GDQ+ica47E+ivBnH1RE36bOqhtyFLu7+Ck=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTt3x7BJpueWHbTwGui4gWF3cts/nf8/XRjefzqJaq6H
+ FlzvyW/7ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZhIWQHD/7qit/3Nbn/Xq4vO
+ mrzy20bbS5aPbnz4Kr6K2dHioTNjuAIjw4RWtvONS1zDbt9c8PuGv8+ucz5v2BLKLJy87m+6dsz
+ UmBEA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
+More bugfixes from work in this area:
 
+- unhash a dentry before detaching the mounts on it to avoid leaking
+  sensitive data
+- don't reveal overmounted entries in refwalk
+- refuse F_SET_RW_HINT on an immutable inode
+- refuse an automount below a mount that is in no namespace
+- handle mount locking for automounts correctly
+- don't update the access time on nullfs
+- never expire a locked mount
+- keep the lock on a mount that a propagated copy is moved beneath
+- decide the subtree check under mount_lock
+- keep the private nullfs instance in knullfs
+- nothing is mounted on or written through knullfs
+- let a filesystem refuse fsnotify marks on its objects
+- refuse file locks on nullfs
+- refuse leases and delegations on nullfs
+- take no inode lock on an immutable directory
 
-On Fri, 2 Oct 2026, at 14:44, Bill Wendling wrote:
-> On Fri, Oct 2, 2026 at 12:38=E2=80=AFAM Ard Biesheuvel <ardb@kernel.or=
-g> wrote:
->> On Thu, 1 Oct 2026, at 23:24, Linus Walleij wrote:
->> > On Thu, Oct 1, 2026 at 10:05=E2=80=AFPM Bill Wendling <morbo@google=
-.com> wrote:
->> >> On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@kern=
-el.org> wrote:
->> >> > On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@goo=
-gle.com> wrote:
->> >> > > On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@=
-google.com> wrote:
->> >> > > >
->> >> > > > The 'data' pointer field in 'struct acpi_gpio_mapping' is as=
-sociated
->> >> > > > with the 'size' field, which represents the number of elemen=
-ts of
->> >> > > > type 'struct acpi_gpio_params' allocated for 'data'.
->> >> > > >
->> >> > > > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
->> >> > > > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by=
-_ptr
->> >> > > > attribute.
->> >> > > >
->> >> > > > Analysis of allocation, assignment, and access points shows =
-that the
->> >> > > > pointer is never accessed before the count is set, which gua=
-rantees that
->> >> > > > this annotation is safe and will not cause runtime panics or
->> >> > > > false-positive bounds checks.
->> >> > > >
->> >> > > > Cc: codemender-patching+linux@google.com
->> >> > > > Assisted-by: LLM
->> >> > > > Signed-off-by: Bill Wendling <morbo@google.com>
->> >> > > > ---
->> >> > > >  include/linux/gpio/consumer.h | 2 +-
->> >> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
->> >> > > >
->> >> > > > diff --git a/include/linux/gpio/consumer.h b/include/linux/g=
-pio/consumer.h
->> >> > > > index fceeefd5f893..2b80cf7aa7e7 100644
->> >> > > > --- a/include/linux/gpio/consumer.h
->> >> > > > +++ b/include/linux/gpio/consumer.h
->> >> > > > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
->> >> > > >
->> >> > > >  struct acpi_gpio_mapping {
->> >> > > >         const char *name;
->> >> > > > -       const struct acpi_gpio_params *data;
->> >> > > > +       const struct acpi_gpio_params *data __counted_by_ptr=
-(size);
->> >> > > >         unsigned int size;
->> >> > > >
->> >> > > >  /* Ignore IoRestriction field */
->> >> > >
->> >> > > There's a problem with 'drivers/firmware/efi/libstub/Makefile'=
-. Clang
->> >> > > needs a compiler flag to support the "__counted_by_ptr" attrib=
-ute
->> >> > > referencing a field *after* the pointer, like in this patch. H=
-owever,
->> >> > > the Makefile blasts the flag away for x86 platforms. Below is =
-a hack
->> >> > > that copies the part of the top-level Makefile that adds the f=
-lag. I
->> >> > > don't think that's a good solution. The comment in the driver's
->> >> > > Makefile says that the stub code executes before the kernel do=
-es,
->> >> > > which I assume is why a lot of the flags are blown away... In =
-any
->> >> > > event, I'm not sure how best to address this.
->> >> >
->> >> > But is this a problem with the current patch?
->> >> >
->> >> > Does libefistub use <linux/gpio/consumer.h> in any way, shape
->> >> > or form?
->> >> >
->> >> It's being #included transitively:
->> >>
->> >> In file included from drivers/firmware/efi/libstub/efi-stub-helper=
-.c:12:
->> >> In file included from ./include/linux/efi.h:20:
->> >> In file included from ./include/linux/rtc.h:18:
->> >> In file included from ./include/linux/nvmem-provider.h:16:
->> >> ./include/linux/gpio/consumer.h:670:55: error: use of undeclared
->> >> identifier 'size'; did you
->> >>       mean 'ksize'?
->> >>   670 |         const struct acpi_gpio_params *data __counted_by_p=
-tr(size);
->> >>       |                                                           =
-   ^~~~
->> >>       |                                                           =
-   ksize
->> >> ././include/linux/compiler_types.h:392:64: note: expanded from mac=
-ro
->> >> '__counted_by_ptr'
->> >>   392 | #define __counted_by_ptr(member)
->> >> __attribute__((__counted_by__(member)))
->> >>       |
->> >>        ^~~~~~
->> >> ./include/linux/slab.h:602:8: note: 'ksize' declared here
->> >>   602 | size_t ksize(const void *objp);
->> >>       |        ^
->> >
->> > Hm I see.
->> >
->> > Certainly Jeremy or Ard will have an idea about how to solve this,
->> > so paging them in.
->> >
->>
->> libstub code never executes in the context of the kernel, but only in
->> the context of the boot firmware. Generally, we disable instrumentati=
-on
->> there that has a significant runtime component, basically because we
->> cannot crash or panic the kernel before we have even booted it.
->>
->> Can we just #define __counted_by_ptr(...) to nothing when building
->> from that Makefile?
->>
-> Doing it in the Makefile is tricky, because of how the "c_flags"
-> variable is defined and used. I couldn't find a good way to do it.
-> Instead, I inserted "#undef __counted_by{_ptr}" at the top of the
-> affected files. It's gross. If there's a way I'm missing, please let
-> me know.
->
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (21):
+      namespace: unhash a dentry before detaching the mounts on it
+      namei: don't reveal overmounted entries in refwalk
+      fcntl: refuse F_SET_RW_HINT on an immutable inode
+      selftests/filesystems: check that an immutable inode takes no write hint
+      namespace: refuse an automount below a mount that is in no namespace
+      namespace: handle mount locking for automounts correctly
+      nullfs: don't update the access time
+      namespace: never expire a locked mount
+      namespace: keep the lock on a mount that a propagated copy is moved beneath
+      selftests/filesystems: check that a lock lands on the right mount and stays
+      selftests/filesystems: check the atime of the empty mount namespace root
+      selftests/filesystems: check that an automount below an overlay layer is refused
+      fhandle: decide the subtree check under mount_lock
+      namespace: keep the private nullfs instance in knullfs
+      namespace: nothing is mounted on or written through knullfs
+      fsnotify: let a filesystem refuse marks on its objects
+      nullfs: refuse file locks
+      nullfs: refuse leases and delegations
+      readdir: take no inode lock on an immutable directory
+      selftests/filesystems: add a helper that holds a readdir in a page fault
+      selftests/filesystems: check that reading the root of an empty mount namespace stalls nobody
 
-Does that even build?
+ fs/fcntl.c                                         |   3 +
+ fs/fhandle.c                                       |  20 +-
+ fs/mount.h                                         |   1 +
+ fs/namei.c                                         |  29 ++
+ fs/namespace.c                                     |  78 ++--
+ fs/notify/mark.c                                   |   4 +
+ fs/nullfs.c                                        |  43 +-
+ fs/readdir.c                                       |  13 +-
+ include/linux/fs.h                                 |   3 +
+ tools/testing/selftests/filesystems/.gitignore     |   1 +
+ tools/testing/selftests/filesystems/Makefile       |   2 +-
+ .../selftests/filesystems/empty_mntns/.gitignore   |   2 +
+ .../selftests/filesystems/empty_mntns/Makefile     |   5 +-
+ .../filesystems/empty_mntns/nullfs_atime_test.c    | 129 ++++++
+ .../filesystems/empty_mntns/root_readdir_test.c    |  45 +++
+ .../selftests/filesystems/overlayfs/.gitignore     |   1 +
+ .../selftests/filesystems/overlayfs/Makefile       |   1 +
+ .../filesystems/overlayfs/automount_in_layer.c     | 174 +++++++++
+ tools/testing/selftests/filesystems/readdir_hold.h | 224 +++++++++++
+ tools/testing/selftests/filesystems/rw_hint_test.c | 129 ++++++
+ .../filesystems/umount_propagation/Makefile        |   2 +-
+ .../umount_propagation/locked_mount_test.c         | 432 +++++++++++++++++++++
+ 22 files changed, 1305 insertions(+), 36 deletions(-)
+---
+base-commit: cbade031e2ebb3ca0a423b1804ce87908b27c229
+change-id: 20261002-work-mount-fixes-4-b28d7d43102e
+
