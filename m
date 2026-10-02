@@ -1,194 +1,171 @@
-Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+Received: from mail-wr2-f38.google.com (mail-wr2-f38.google.com [74.125.225.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C36353A67
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934795; cv=pass; b=jvfzKasYp0cJ7gTy5Aa/prXS4Dnz1JGkrVFd98WJTZCArhqC8XqWtVk44q6d1ZFTHJkudMNLRazEEqpN+rmZjVd4ygq6tpIUOM9vE7/n6X/E6mT3vymrZi2Utb/rX/6CZNvyTxseNxd5pqEcby9wvEb/3gmeL8RXLgz/X2abVoI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934795; c=relaxed/simple;
-	bh=I2iVAnQjuB2efbREqOoIFm3u1ZAEbnkLwA/mRmKPRhA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g+WWoE+hi6mRG2FqyK5Td/bi22igWYBK/nZKIsiv1htOBZDm7xZBWTloplB7ELBrtJhWunZFJXYS6UuFK660yQWYkudmDMCG8RezrCfny5R1oyuJ060RF8jVNujrbdoD2pD7s2H1/Z4Qg5hLe7EN1eVbaYQuse0fpH7YQ0ohxW8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iUMCz4qm; arc=pass smtp.client-ip=74.125.228.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96204331A53
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.102
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790934818; cv=none; b=nNwHSoPajigMb9o1mmtdeVcW+HULuZtiNaMcfgCYyJz9/fqVHYk3cO+jEDXzas7zQ+SFROuQ1btiXcxRXP7fzRZtsFLYFvcGNTAZpCAOUdkSHag2A2fMhNjusGaV1ukNV7TdgwM+6Wgc7/bNAz6/wBKUN0aya5ElHwT5OVGxvO8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790934818; c=relaxed/simple;
+	bh=zt3Vto8vq19QPh6KBS6XymZhc2OLvztLzf1Qnpyz4zY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CTuTapLPCT6fRRPgkMsGJJj/RJWZeUbLZcQuIHxWyxFhnh/W0Df7Ts6CxFB7DaiF6LJ3LPGV2TYhO40ZYVqUxyQy6eEfkVEHbQ9vpqZgqcxfRgxtaAPfxikdK6H+Bkrb6eBqfszje32fR22irah1wfWFSdlpCAy3lj+tRBHVNmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qoCb4Zyh; arc=none smtp.client-ip=74.125.225.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iUMCz4qm"
-Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae19959791so3762745a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:53:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790934790; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XFY80AhNppjwdEhq1JDDiKcgUo60Qg6HfuK1XRMZFW3H5CnjZVPRvOVWiShBtKa0jX
-         +WrSiEgO2Hef9HDjLtnEc//j+eEcR5boev+r+LdAkv8b6KBcoyg4SYDxO29ifYyKW3tw
-         0lPZMBG/QW3YJsRZA/G/DsO+ZY85lPHAwiqo12kTYZholtYyJnK7HlZUogSGoM4LO/g9
-         Z6KtzfcvgHKtmOux4U1z1S6yjMBF3k7iGH1HZU+dqMUEP8lRz3ZnF8FDk++EtD4t225Q
-         IjV0xj/SjkVMdAxzZgNQX6ip4ieckMk5ZGHldZJ5pxE0tvYXuh0r3tPE9XBpwDdXxFNL
-         SJMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4arSkmG1a9JYvWYFRd6H2E/qKnzAPGl35h03AYNFrrI=;
-        fh=o0Ow/npA+2bw2LelgakL05sSqj4ZDUWzYdZPmvBp3bM=;
-        b=OWfKJLpQGhpjQ7i7mxvLBYUdE5va0aL80mX9pBVhEgSVws7mhmDufwGU8x/TbHDQBB
-         nWJmfxtPnBkVRO5YBwLcXyfvYLGdV1WWRdVj/kSpLNOapniING+cLt/7fJF0K4ZUt3py
-         zOCnvtVC/WtKhFJ0RqYSUtjmNYrnfYig4pigLxbC87bpGUh7NIwqcohmDjlKMdGJ/hHI
-         HzZ4Ru0sOqh6dqB9Zmi+wty0dba4cVjdArUD++nqXaXfMNlB1EE7h7cfNxX7VIpr3BW7
-         kQ96vS9YY0zZhlcdUz4POttXgRZ64xkzKecKoEWN7OiJf+XtgFnQ6kVsSjCGFX645Lrf
-         FE3g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qoCb4Zyh"
+Received: by mail-wr2-f38.google.com with SMTP id ffacd0b85a97d-482f6350f89so4502375f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:53:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790934790; x=1791539590; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790934815; x=1791539615; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4arSkmG1a9JYvWYFRd6H2E/qKnzAPGl35h03AYNFrrI=;
-        b=iUMCz4qmERGAlenNan6CUNOieacNgnSjS8mHjPiYzXWcLS1E32pe3W3AsKwPpGRlpL
-         lf9hvXbQkeBLQCRc/gvTsb1hIpXnEKTqW/W4Vyv0pI9ewAb4uGLFRTGaw+NK9zkBhnt1
-         1U2wUwC/IR4H812RxRukMhNzOPzsiBpcuC15NMPEsTR5LgpoMKdqgBc6WIkXbKkAysDF
-         jK+4+eQWAt+wCOxR3IsjIvsrC+sw+97G55N6mHHK6586adrnKWvrc6+aPLJVhyP1r1Qd
-         odISBgTUAjpmhJu1wmXSlfw+Uue0GUraOhPoS2tA2kJ6xiXKdSE9EgeVIs+Ly4GQFCaX
-         FS7w==
+        bh=uNC9YCP8AT7IxNNn4b5VtrbR3K2PgY3ERGLBHswr9ww=;
+        b=qoCb4ZyhM6d94X00v+OcJ+83zrA1fVq9aFe+IDFoSMNbDmCUwt3FtRTfRNzntcV6Xu
+         isgDKuSI9UrGgUoiJrq/ALqSM5gf30gk73/F5wBU8P/rsFTozWnVIO5+wWmZvWG1BjPA
+         D7N2tBLK6eAMCe7H40XOUZzfaG1z1XwM/1WRXkoiM1/5oIFay4T9imUnfoikGZSW1ipB
+         FGjDBSEILdKQfO+8u7x8/jW+Av73I9rNHgPkaC+w5hod9WYkzaUYvGfP+MWzx4JU8hQD
+         QelYt/H+lracsgB2B6dnrgg1B0+zuIT8NEJowynBr0QesrXPFhbvozpRue0Cv8MdbpBU
+         Vgtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790934790; x=1791539590;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790934815; x=1791539615;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4arSkmG1a9JYvWYFRd6H2E/qKnzAPGl35h03AYNFrrI=;
-        b=pBEhkI93y5wdOCVZCUaZbdyebk8zwY4FpSNUEVc5GEmjUbnmYXhwVQwh376bYxNkHD
-         1tri80ek4ApjpePso2RUqGbtRfOBHHyBCme1dMNuWuCo100Pqd5YFK0fIVVQsYmzepHm
-         sJmzURepNp5iM9MhInudGiq47Y8sMFH5IzaRj9pp7/i/DIyJGAjGtBwyG/fBEEVh1Yzh
-         ch9WbCdnmpOipCuLmNWZZDw9K6TXV0E4fYRHRd7CYLxBIlt3zTn9fufrh7HTp2QGW39W
-         93SqPTdnUC9jvSsneGwJw4yEU/3MOougwVe9g0BkksM3E0oV6Z9TdqwkTgg42M7WqkiB
-         ga/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxHML9Fpqi5I8peSAUGdSriJpIAecPBudSYyYojwJ6zXrhBiOZssduRKhlDgegufjv9Xi1TPmNSk1GZys8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZI2Vdf8owDmpqnGwFpyfI7or6gU3D41LxPcV9KThr/khU+pKN
-	RabXzPJXHHKlQy39nkOVIuPqvT5jfkMdfmQPRGMVnDmXSI36oMkUKmJOHthvn3V0kFn6NIbjd/D
-	bZnIg/VtzUf1204ulnfi30GNNM8YooA041TkB
-X-Gm-Gg: AYBFou0YGy4phyv1Z4WrdjFo1+IHvBGveWvotelvOK73kn/SeT7JWUe3zhnwrmIKIfs
-	nod8n8uP1vsnVtG3PEcY5LnDVWCTKN0v43Iw+wtENFIQEJsmtcKeZ2prJnXc0xPuvXvPPFxotov
-	SXVeCpJmff6wqVbG2LRw9Y1/OadUnwfGECC4f+f64IdRI2pZqnrSpT5UhqSTImuQPFvC5kU6q77
-	LX8VmlnARaDGIkT7PXEHZv0fJIL6Dq9CX/gzgIMAPtZi7hGnIyUQt7nQjlMTcFyA/25GSrfeKjf
-	6331nbHBORi8ewGPK1csXoOa7LcVY8KX4F7jtwRo2mzB0ile9881QlVqtm4K9llNZp75x5qQRM3
-	q4NIuHwin9I3o/yb9kXXEUEE+ebM+KPfB80GTszs/gXU=
-X-Received: by 2002:a05:6402:401b:b0:6ab:eb3e:ef50 with SMTP id
- 4fb4d7f45d1cf-6af9e31f56dmr1449604a12.36.1790934789894; Fri, 02 Oct 2026
- 02:53:09 -0700 (PDT)
+        bh=uNC9YCP8AT7IxNNn4b5VtrbR3K2PgY3ERGLBHswr9ww=;
+        b=1ir0izMRfbYsZPDkuMTwgkKo1/HEgzwyMWmXMia0PEfyCJcfe3yx1IhGcnQi8Mk8d2
+         CXtlYVFgXcKy/tinAyqv5jTP4Ji0yA3NiQO3C4Jvmn4NtEDBzNKDfJSLWoupyTkDUT7G
+         l/RX3RuulDm4QvOXQiPMWZFg5kfyc+fnjxAeFDyKeW3LFyLwrTRF6I7WGN5R6WS5u6uS
+         E2TvpElwB7fIakvTAm3iL9aYCszTAHApfaiNZNkO/02lSL2QmbD8eMnfwxuI0Vznp+JA
+         KqIooo2WryyxgFiFxBUjEKF9HpdBh4/iNVcwV4rzu+ZbduULoBvPpaft71eNmQ+Rxmot
+         J57Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzb4rOitnejg3GbE06QpEk7vP0nPSO686Hg7SmldqJXVPiDwodTHOHrBY7xPpMWVwByXAs/FY837TMtbwo=@vger.kernel.org
+X-Gm-Message-State: AFuF++neJR7qs7tYd5hU44s7yCwsZYDs2xm6blouwuF3JRfUVyksgYjh
+	EAdUh/VjWh6Yv9e5+2kvKkFNaH6to2OMNibNcqRiZwAT/H1Hh+n0GmgHg2VtVv7u
+X-Gm-Gg: AYBFou0YjlSqbopZnzGJNETKkO9wlx1cFKyiLHftgcfK8XD7iV70ZaErhOtfw08utoJ
+	VuCAJTye0OFPwlsv6tOUs4WeHRs5sIItRKD8xY3eqs2ORf7Mk+VDjd56TXz0bTYbuBzzrJPMrY9
+	+CL9Le/pOl1dpCMtl2O7rPJnAimI6lGoypcB7W6KtuGxO2oCVW3uf8TF8pN05meV1I8nyhIG7TT
+	HqcQkN7YqILIpWHc900fZ5bE1EHKaJzn/oZw15EiNey21VJcGEccrJjj2VlqT9/pWTpjkKRudgH
+	appFzTxkrgp0cQqrrDQEmWRnefVQjrHPWkfKQ2ao98jHCN6FAKBm9oPKwX5CrDtc9/A1DletG1m
+	gKJjukUWeWZ4E1cD04bjqs322DKO9MsHBfC3oNcptonZrmDOSxkhcIbQeHfrmkQDS3x0rhWxtKt
+	zRi9W+shV0ufrKqSw3IJj70qBeiOA/zSC3pwWJ2PFWhWJvH+I6YBqwO8pR3u+JieCw53y/TP4jg
+	JZSjeT2FfdJ7bdQNfp/D9ULOOt8NnQZTq0GdVa43M3JVQ==
+X-Received: by 2002:a05:600c:1f87:b0:4a0:1efa:c74c with SMTP id 5b1f17b1804b1-4a0275a1d54mr38515505e9.20.1790934814461;
+        Fri, 02 Oct 2026 02:53:34 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02854073csm58305185e9.3.2026.10.02.02.53.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 02:53:34 -0700 (PDT)
+Date: Fri, 2 Oct 2026 10:53:33 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, kernel test robot
+ <lkp@intel.com>, Josh Law <objecting@objecting.org>,
+ oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org, Linux Memory
+ Management List <linux-mm@kvack.org>, linux-mips@vger.kernel.org, Bradley
+ Morgan <brads@mainlining.org>
+Subject: Re: arch/mips/boot/compressed/decompress.c:undefined reference to
+ `__ashldi3'
+Message-ID: <20261002105333.6f77abd0@pumpkin>
+In-Reply-To: <ar4050mdKL_W8yI9@pedro-suse.tail5790ac.ts.net>
+References: <202609301826.MFaFMsmd-lkp@intel.com>
+	<20260930120159.7e4f29a82d461bd8b040454e@linux-foundation.org>
+	<ar4050mdKL_W8yI9@pedro-suse.tail5790ac.ts.net>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001165018.415526-1-mattst88@gmail.com>
-In-Reply-To: <20261001165018.415526-1-mattst88@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Fri, 2 Oct 2026 11:52:58 +0200
-X-Gm-Features: AclHuK_05I1u_F6UhWNrqTl3drg919aiOwzfaMNOjFx2ztu5WOZ_5uYX6J9Ws-s
-Message-ID: <CA+=Fv5Rznjz2qYiM4rtFs8iB3PefHJ4CdJxS7O+DcStWbS4kQw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] alpha: replace dead links in Kconfig help text
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Matt,
+On Thu, 1 Oct 2026 11:30:09 +0100
+Pedro Falcato <pfalcato@suse.de> wrote:
 
-On Thu, Oct 1, 2026 at 6:50=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> The Linux/Alpha FAQ, the unix-ag LX164 overview, the Rawhide install
-> HOWTO and the Ruffian FAQ are all gone. Point the "Alpha system type"
-> help at the system and motherboard lists on the alphalinux.org wiki
-> instead, give LX164 a one-line description in place of its link, and
-> drop the others.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/Kconfig | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-> index 92cc7bb8d29a..7c1cc676ddfe 100644
-> --- ./arch/alpha/Kconfig
-> +++ ./arch/alpha/Kconfig
-> @@ -127,9 +127,10 @@ choice
->           run on any supported Alpha system. However, if you configure a
->           kernel for your specific system, it will be faster and smaller.
->
-> -         To find out what type of Alpha system you have, you may want to
-> -         check out the Linux/Alpha FAQ, accessible on the WWW from
-> -         <http://www.alphalinux.org/>. In summary:
-> +         To find out what type of Alpha system you have, see the system =
-and
-> +         motherboard lists at
-> +         <https://alphalinux.org/wiki/hardware:systems> and
-> +         <https://alphalinux.org/wiki/hardware:motherboards>. In summary=
-:
->
->           Alcor/Alpha-XLT     AS 600, AS 500, XL-300, XL-366
->           DP264               DP264 / DS20 / ES40 / DS10 / DS10L
-> @@ -184,8 +185,8 @@ config ALPHA_EIGER
->  config ALPHA_LX164
->         bool "LX164"
->         help
-> -         A technical overview of this board is available at
-> -         <http://www.unix-ag.org/Linux-Alpha/Architectures/LX164.html>.
-> +         AlphaPC164-LX, a 21164A-based single-board computer using the
-> +         Pyxis chipset.
->
->  config ALPHA_MARVEL
->         bool "Marvel"
-> @@ -224,14 +225,11 @@ config ALPHA_RAWHIDE
->         select HAVE_EISA
->         help
->           AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machine=
-s.
-> -         See HOWTO at
-> -         <http://www.alphalinux.org/docs/rawhide/4100_install.shtml>.
->
->  config ALPHA_RUFFIAN
->         bool "Ruffian"
->         help
-> -         Samsung APC164UX.  There is a page on known problems and workar=
-ounds
-> -         at <http://www.alphalinux.org/faq/FAQ-11.html>.
-> +         Samsung APC164UX.
->
->  config ALPHA_RX164
->         bool "RX164"
-> @@ -372,9 +370,7 @@ config ALPHA_SRM
->         help
->           There are two different types of booting firmware on Alphas: SR=
-M,
->           which is command line driven, and ARC, which uses menus and arr=
-ow
-> -         keys. Details about the Linux/Alpha booting process are contain=
-ed in
-> -         the Linux/Alpha FAQ, accessible on the WWW from
-> -         <http://www.alphalinux.org/>.
-> +         keys.
->
->           The usual way to load Linux on an Alpha machine is to use MILO
->           (a bootloader that lets you pass command line parameters to the
-> --
-> 2.54.0
->
-Nice cleanup work!
+> On Wed, Sep 30, 2026 at 12:01:59PM -0700, Andrew Morton wrote:
+> > On Wed, 30 Sep 2026 18:36:50 +0200 kernel test robot <lkp@intel.com> wrote:
+> >   
+> > > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> > > head:   551c722f40809618230001baccf219193e22fc5a
+> > > commit: d4dba3b9c03a326cfa73833d6b166aeb442f82b5 lib: decompress_bunzip2: fix 32-bit shift undefined behavior
+> > > date:   6 months ago
+> > > config: mips-randconfig-r2300-20260930 (https://download.01.org/0day-ci/archive/20260930/202609301826.MFaFMsmd-lkp@intel.com/config)
+> > > compiler: mips-linux-gcc (GCC) 15.2.0
+> > > sparse: v0.6.5-rc1
+> > > reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260930/202609301826.MFaFMsmd-lkp@intel.com/reproduce)
+> > > 
+> > > If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> > > the same patch/commit), kindly add following tags
+> > > | Fixes: d4dba3b9c03a ("lib: decompress_bunzip2: fix 32-bit shift undefined behavior")
+> > > | Reported-by: kernel test robot <lkp@intel.com>
+> > > | Closes: https://lore.kernel.org/oe-kbuild-all/202609301826.MFaFMsmd-lkp@intel.com/
+> > > 
+> > > All errors (new ones prefixed by >>):
+> > > 
+> > >    mips-linux-ld: arch/mips/boot/compressed/decompress.o: in function `get_bits':  
+> > > >> arch/mips/boot/compressed/decompress.c:(.text+0xf4): undefined reference to `__ashldi3'
+> > > >> mips-linux-ld: arch/mips/boot/compressed/decompress.c:(.text+0x168): undefined reference to `__ashldi3'  
+> > 
+> > I dunno, I'd be suspecting a toolchain issue here?
+> > 
+> > --- a/lib/decompress_bunzip2.c
+> > +++ b/lib/decompress_bunzip2.c
+> > @@ -135,7 +135,7 @@ static unsigned int INIT get_bits(struct bunzip_data *bd, char bits_wanted)
+> >  		}
+> >  		/* Avoid 32-bit overflow (dump bit buffer to top of output) */
+> >  		if (bd->inbufBitCount >= 24) {
+> > -			bits = bd->inbufBits&((1 << bd->inbufBitCount)-1);
+> > +			bits = bd->inbufBits & ((1ULL << bd->inbufBitCount) - 1);
+> >  			bits_wanted -= bd->inbufBitCount;
+> >  			bits <<= bits_wanted;
+> >  			bd->inbufBitCount = 0;
+> > @@ -146,7 +146,7 @@ static unsigned int INIT get_bits(struct bunzip_data *bd, char bits_wanted)
+> >  	}
+> >  	/* Calculate result */
+> >  	bd->inbufBitCount -= bits_wanted;
+> > -	bits |= (bd->inbufBits >> bd->inbufBitCount)&((1 << bits_wanted)-1);
+> > +	bits |= (bd->inbufBits >> bd->inbufBitCount) & ((1ULL << bits_wanted) - 1);
+> >  
+> >  	return bits;
+> >  }
+> > 
+> > 32-bit MIPS should be able to do this?  
+> 
+> FWIW the patch seems entirely bogus. I don't think you can have inbufBitCount >=
+> 32. If you could, then the patch would still not fix anything, because
+> bd->inbufBits is an (32-bit) unsigned int.
 
-I applied the series cleanly to my for-next branch and build-tested
-every commit with the Alpha defconfig. I also built the final tree
-with these configurations:
+The 1 should probably be 1U (or possibly 1UL is 64bit values can happen on
+64bit) rather than 1ULL.
 
-  Generic SMP, NR_CPUS=3D32
-  Wildfire SMP, NR_CPUS=3D32
-  Wildfire SMP, explicit NR_CPUS=3D4
-  Wildfire with SMP disabled
-  Marvel SMP, NR_CPUS=3D32
-  DP264 SMP, NR_CPUS=3D4
+Wasn't the problem being solved '1 << 31' being undefined (or UB) and one of
+the static checkers deciding that should never shift a signed value left?
+That is entirely bogus anyway.
+It is only non-portable because C allows 1's compliment and sign overpunch
+for negative integers, gcc supports neither (and I think the next C standard
+mandates 2's compliment).
 
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+That is separate from shift right of negative values being UB to allow for
+cpu that don't have a sign replicating shift (all modern ones do).
+Think about it, for a shift/rotate left you need one of 0/carry/high-bit and
+for shift right 0/carry/low-bit so two instruction bits can select one of
+0/carry/low-bit/high-bit (giving the often implemented but undocumented shift
+left that replicates the low bit).
+
+David
+
+> 
+> As per MIPS itself, MIPS does not link ashldi3.o into the decompressor for BZ2.
+> It only does so for XZ and ZSTD.
+> 
+> Changing arch/mips/boot/compressed/Makefile would work, but since the change is
+> entirely wrong I would suggest perhaps reverting?
+> 
+> 
+
