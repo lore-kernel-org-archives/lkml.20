@@ -1,93 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C46476060
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5E243B83F9;
+	Fri,  2 Oct 2026 09:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933767; cv=none; b=Tnzqf7JQSF6uvl6kknhy1amgisFgGMZSHWF4VVYo+CUEFjIz3Ek+8NNQ7fHY+39VRGauqE3MXbAoLxHQMQSOOA5Liwyo2/Jp1OjbB+q66GUuZcaPu1DQSoiHAVrUlMx1weqSFGk7PrRhqXwcLw/YQtg+RnzKDrkXlxxZUSyY/VA=
+	t=1790933804; cv=none; b=ONl9zarnjxGDb5lSW9Hi66vOlem8QpLcOSTmwOQ1kSP5KmD6d374pulgYS/B7jZitlLTvGUaJ2PgZKkhNVEY0HzKqArtLOfbAJ1k0Q/OvdrIujBeKHaED8OcLBPvNE/9MaDk0MZiGA+FjjySUuzZuZkfr9Sn8SK8sP+acFChm7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933767; c=relaxed/simple;
-	bh=Zsf1pQQB4VKLLPcQEDPxR20kxES93Ju+kbUXY1R7SuQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=QnMIcnUHsfym3qREO1V0GsR7EECy81DVVe4cTnm50xnVNjPZI+37vuN2pePNvKCaJBPOsIeJogWDAiR1LOvX3jL1+i6UC3rEaTxCE0SwYgNBIjjyRWqhZUidEUAUDDbCYC2RVFIS6N7yHKWHrnjcAyzPXr+bWwvOyyPMQtRyXO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3xDb/U/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790933804; c=relaxed/simple;
+	bh=m6d1llwAmb/6rvyw6Fa3xaMJy1jmVRx3TAvoRSX48u4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=naR0LtcdOencuDQDjEDqjcrMFp5L2Z/Uw+GbrldISCuDdMXE124l9QFVPfSTY6fUqfTP3LMVzXTo4OgNumM9704rcyB4/bIE1IYHOQBJwbKctYXbOV5JNnMEQ+QjJN3qawu7YVNCJtOTwbE5A9GjJBrqvIisgw07RrlXoLvLTi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=S3JF48p0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3xDb/U/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADEA51F00898;
-	Fri,  2 Oct 2026 09:36:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790933763;
-	bh=2HOOhH0E1YJ9KgLS3UcZUXn52umFkKx4pRVoJtCyU9s=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=B3xDb/U/o64r/OF6zXASGxFRhoz73eYAWHYZo5Fh6ICzTQLP+niukQnagQTDIKo05
-	 0AKfHH/R+x+mapjUL2E55ML3rlXZOoNEnAqHBmuvZZNHiz1ApVOb1lm/2xIF1RGW7N
-	 eEyRyHSBQw59hcjlArcLdx6FU5jj7jCD5dJEF9QKJDP3jyYQvAdUq3Ee6lp7IOvQA6
-	 8G2uX1KQAN63nJT0IWGDblaqnSzF59vU1kB0rAbGfKSgzYAG0TkI4+P/YQyDQtHehL
-	 B+1VtPx3WQRsG7gfLhOWWgAQQN+TLpH6lCbC/mmfdrBTgsFR026r1EyuP+Vbq1oK++
-	 S0lLcRjLeNvGw==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id F09B31980047;
-	Fri,  2 Oct 2026 05:36:00 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 05:36:00 -0400
-X-ME-Sender: <xms:_3q_ahh-HJdABBbvD_5im8EdgMxCGd-HrnbiGai43kR6XB5hWrg-gQ>
-    <xme:_3q_ag0UGtrnrbEgI1FL-EmYj3GY4pWocrmSSmAJlpXb-RqgtRJBGhWRhYfgcaq-S
-    oV1Gt2tis8nnCL3rRuMsRmiRG7TRXyACMq2xQI4gzWu3FiWUbgUkDhL>
-X-ME-Proxy-Cause: dmFkZTEhlZQ+oN4nxptpdl3sC99hekWaxst6CLnUWxQRpCoMQJgi3Wz0gzlx5qkinSJZ54
-    MpTXPfc5XR/eI61UzzKUdjoJYu3IeO2xiwOiaWbhY4kELxV6g6mv3TwoczCv8tNBeNvQ7Q
-    YgKIBii7K9yk66lcJPvzm7M2CNmI/le/J/jYKDKLiDn4S1RAfi/HM76HbE8KLmNZ4HgcOc
-    rdWBwJWEHaTWWi+bj+8hDUtjf9QY/HnFeai8UVZzwfyYKi22zo25Y7Pu413zalqpXx2G3h
-    XeAGHhQcjGQuWFHVOcl40qPoAGNty4JOve3FrWszBiTXVIPqzSf4/CcxCrz5vPHiJ+dwAw
-    01elM3Wvi1cYIb+WyvKpe8kaJ/Oo0GKtD0nn6YkH7ndfqmR7sMdO1/gY4aV5SVswMVjg0C
-    d9ZDexBgoiOmSDu7NsfJQNJsPFhXq5ZdEVvGLByCF4f1PyNuqDA85Fi9kp4gg9EwhSYK6A
-    S2b4NjC3Zp/V42E1qmWSIT9zbNHGzrkhTIvEPxW1aEKMCl37kVU3Hy8p4IwwYzJEfyhilD
-    kG4vDfWsmjzwluc0PdaWlpOvlen4h85Y/1QJkHh2wiIwyMhLuD2j4h0VPplgbg4J6yDPiF
-    NW8DGOZDGsWDspDKAsYqNG27BtLY/ruEKkFXLFAgzoY6M82ZPgqeUOgBm04w
-X-ME-Proxy: <xmx:AHu_atM5k9v3fCIN5VRm7voLfSgKeeOUgJNvXez69ALCaNTAkBo1jw>
-    <xmx:AHu_apSgFPDPqUcYi758DZEcooKQLfUzSBRIV_LzGk-GoLsNL9s5ig>
-    <xmx:AHu_ajgm84fgPKnX8C14KAETTKvksQI5uqEblnJH4xhs4X5PMr0hRw>
-    <xmx:AHu_aq-0rbETmmenGgxPHk8WNvlbo8XHHmW-G3RozenZ15F8n15n3w>
-    <xmx:AHu_aiGfpxiW2scrgWq9kkbhZNLVJYqD5QdC7EQsHsBr3qSPe5RZn9AG>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4E3B9F8008A; Fri,  2 Oct 2026 05:35:59 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="S3JF48p0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99409497;
+	Fri,  2 Oct 2026 02:36:37 -0700 (PDT)
+Received: from [10.57.8.170] (unknown [10.57.8.170])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4C3A43F86F;
+	Fri,  2 Oct 2026 02:36:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790933801; bh=m6d1llwAmb/6rvyw6Fa3xaMJy1jmVRx3TAvoRSX48u4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S3JF48p0f8QJMV6r1pz19sdCCW4wn/aoQsLCt+GMjkj9L4mlxGoCI+0AHLYhunlPo
+	 rktjKpOWNSjJGwMDb+CICRkSDYpuY8WgMA6POjYnD3/Glk3ZDfFYVcM3EMylfzXzGN
+	 H1q3B8QEf/oy491jjkpob+aHb5iGVWUm3x9/WKQU=
+Message-ID: <7c0846df-97ff-4461-98fc-7d094c91ba29@arm.com>
+Date: Fri, 2 Oct 2026 10:36:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 11:35:39 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, "Jason A . Donenfeld" <Jason@zx2c4.com>,
- "Herbert Xu" <herbert@gondor.apana.org.au>
-Message-Id: <421b8d6e-1a95-47ad-9e0a-35b390cb6ade@app.fastmail.com>
-In-Reply-To: <20261002034405.49886-1-ebiggers@kernel.org>
-References: <20261002034405.49886-1-ebiggers@kernel.org>
-Subject: Re: [PATCH] lib/crypto: x86/aes-ctr: Remove some unreachable code
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 18/23] KVM: arm64: CCA: Don't expose unsupported
+ capabilities for realm guests
+Content-Language: en-GB
+To: Fuad Tabba <tabba@google.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
+ jonathan.cameron@oss.qualcomm.com
+References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
+ <20261001210703.1597150-19-suzuki.poulose@arm.com>
+ <CA+EHjTyyKxW2TT9XpjSDkdjWEuGyWmA_isDpOnoyri8ikxZN4A@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTyyKxW2TT9XpjSDkdjWEuGyWmA_isDpOnoyri8ikxZN4A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 02/10/2026 10:34, Fuad Tabba wrote:
+> Hi Suzuki,
+> 
+> On Thu, 01 Oct 2026 22:06:58 +0100, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+> [...]
+>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> [...]
+>> +static inline bool kvm_vm_ioctl_allowed(struct kvm *kvm, unsigned int ioctl)
+> [...]
+>> +       r = kvm_get_cap_for_kvm_ioctl(ioctl, &ext);
+>> +       if (WARN_ON_ONCE(r < 0))
+>> +               return false;
+> 
+> The fix [1] is in -rc5, so a rebase conflicts here. Please make sure
+> to carry it into this copy, i.e., a plain "if (r < 0)".
 
-On Fri, 2 Oct 2026, at 05:44, Eric Biggers wrote:
-> In the AES-CTR and AES-XCTR code that handles a remainder of '4*VL < LEN
-> < 8*VL', first 4 full vectors are processed, leaving 0 < LEN < 4*VL.
-> After that, five different cases are handled depending on whether there
-> are 0, 1, 2, 3, or 4 full vectors remaining.  But the case of 4 vectors
-> is never reached there, making the code handling it unused.  Remove it.
->
-> With that done, the '.Lxor_tail_partial_vec_3\@' block would be reached
-> only via an unconditional jump.  Therefore, relocate it to the only
-> place that jumps to it.  This allows removing the jump at the end of the
-> '.Lxor_tail_partial_vec_2\@' block and making it fall through.
->
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
->  lib/crypto/x86/aes-ctr-avx-x86_64.S | 18 ++++++------------
->  1 file changed, 6 insertions(+), 12 deletions(-)
->
 
-Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
+> 
+> With that:
+> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Thanks Fuad, like I mentioned, I have flagged this with Marc and he was 
+happy to fix as part of the conflict resolution.
+
+Suzuki
+
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20260914093838.1082637-1-fuad.tabba@linux.dev/
+
