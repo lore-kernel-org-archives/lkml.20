@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C45480345
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07267480DE9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:14:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936057; cv=none; b=Mbz8A2uJSTZgjGE0esWlBwMIZod/C3JZ+q/0V4dWS2RbSlt8f4NquQnynTDp3UrTde0Y30XUtAc8Ggqqdw20qA1LBTZnicjr8V7MHvNpQcmKAI72NKW0WXeEdyKc5BbUhM6PUTVk4BrgBHO2jgN0og6JNrClDGet/RWXiTYDiE8=
+	t=1790936058; cv=none; b=a+L45ZLS+yYj0+5u7dJUguaAdHtMzRqnPcnrAF6eCuVfKTwvrEcCwbbjCwIXQXPKov8cRuBFS9NI5JhaMXcp/jif44ez27SH2BPbnFMJ4fLw2F9G/YnFf4DlmOjTUR7hHRW0rWHPmsS3CYWZes9lmQMV5UPcIl1heRg9o2dlnCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936057; c=relaxed/simple;
-	bh=jRHxfKExzJ0RhQLUCZgSRqYeviIR390q9cNePRowPHY=;
+	s=arc-20240116; t=1790936058; c=relaxed/simple;
+	bh=bQ2VJNz85yTDUPyqufpo/KoAj24VVw/EB4ZsZkLst8g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JLhbQR91SBRuznw1tG77a/Bom73vzkqwvh5WZMfPO909jcMevKDb/3zP/r9sYd66SQZuF7kPT60OvzTndYTrMetlEHc/KcVEgfR6WGShtmGC6fFxFRguNrkcetRAzjgdnqRmNj0Ia78a+L3GdM56kFAJEkNqoMJGDmuWDAM/wco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRv6qwPv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uirOFZ5DvBpTbP21jNJ00xnG/V/LYNYt8AgR0D3qorEYxHoLhrRGi4Jys0teV8I/jGVuT/QDRWQCw+uSqm6nuvk5WcZd/lTuO52vOsBcETl6jV9hSROGCRY7sqokNw4+KK27iQTmLtmOrlzZp0oYftXQNAO2mAkLHlL3++6Rjzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3ftYu5Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRv6qwPv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71FCC1F00893;
-	Fri,  2 Oct 2026 10:14:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3ftYu5Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22CE1F000FF;
+	Fri,  2 Oct 2026 10:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790936055;
-	bh=rLZuNWID/fpUSRzMnmbL9QLBV7bJ81D8XhIMIJaLm/4=;
+	s=k20260515; t=1790936056;
+	bh=704o1efPMbOJQEadnU5pQYbte47NkjF4oh2h5K648uQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PRv6qwPvRS3qDRMwRzLiCV5ErnZMVHsLk6lvP1W3V6M2aOD9FdkFc24Zlr2LigHkg
-	 8cgiHSfXNABMBSuNj/EZnsNfLbaSZck0H9Q5ccbERWeuFRDDIRHylMwFQFikzqkLam
-	 Cc/Ek46N+jIkjc7W1R8TIw7WEBx+LE0dvSE4LY9hsMXgytdufBNTxEOqMqzPtQWBSs
-	 xRFZO744cz2BgZaidaAKLfaFJSL09+2FxARPAAQzktHJtpgIU6bEfF2Xr8IHWMtDhi
-	 glPSIpmxfk/9+G3nLrdGQ28zi/2SeI6vTAXQ1+afKt+yNVGBbpQ8X84lA78JKIDt2C
-	 gG5V11UqKH8bA==
+	b=E3ftYu5ZbFJBdRRlUt+D4XEWXM6Ooc9eVTT19jiIggK3TJi7ggRSaSnXpue3wO7pC
+	 5SovfavtppTGsnCoUcT6hPVsg575YZnBZWC2OPjMi5QAVWRQGKeXjaym83vhaQN5o0
+	 AQ0TeVDwWbGOmfb2dAYqmHDNoUKac5TN9aMk5+SeDbThDiiOQU0tpVuSQyWYOKz2B9
+	 dFP1a4mic+MnxgxB22Qxl5cZCuCj6cLUk1mudtmfzVvZXt3Q0haXBQJr66XvbS+gyC
+	 uE045+1JV5GOIx168P3AtVirxXOHUYkxEQaN1RYi7xeNlkv/xNS3l3KdwC4P6aBix0
+	 Z73OXwSAjU3Vg==
 From: srini@kernel.org
 To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
-	Judith Mendez <jm@ti.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Kees Cook <kees+treewide@kernel.org>,
 	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 3/9] nvmem: uniphier-efuse: Enable for K3 SoCs
-Date: Fri,  2 Oct 2026 11:13:46 +0100
-Message-ID: <20261002101352.1084447-4-srini@kernel.org>
+Subject: [PATCH 4/9] nvmem: core: Add const to pattrs allocation type
+Date: Fri,  2 Oct 2026 11:13:47 +0100
+Message-ID: <20261002101352.1084447-5-srini@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002101352.1084447-1-srini@kernel.org>
 References: <20261002101352.1084447-1-srini@kernel.org>
@@ -46,35 +45,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Judith Mendez <jm@ti.com>
+From: Kees Cook <kees+treewide@kernel.org>
 
-Add ARCH_K3 dependency and set to always build for K3 architecture.
-The uniphier-efuse driver must be builtin to support early probe of
-k3-socinfo during boot. The k3-socinfo driver requires the efuse
-provider for reading silicon revision information on AM62p device.
+In preparation for making the devm_kmalloc family of allocators type
+aware, we need to make sure that the returned type from the allocation
+matches the type of the variable being assigned. (Before, the allocator
+would always return "void *", which can be implicitly cast to any
+pointer type.)
 
-Signed-off-by: Judith Mendez <jm@ti.com>
-Reviewed-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+The assigned type is "const struct bin_attribute **", but the converted
+allocation type would be "struct bin_attribute **", which is the same
+type without the const qualifier. As there is no general way to safely
+add const qualifiers, take the size from the assignment target instead.
+No change in allocation size results.
+
+Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
+drivers/nvmem/core.o
+
+Assisted-by: LLM coccinelle
+Signed-off-by: Kees Cook <kees+treewide@kernel.org>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
 ---
- drivers/nvmem/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/nvmem/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-index c36c2a4c2a0b..df65e7ecfa21 100644
---- a/drivers/nvmem/Kconfig
-+++ b/drivers/nvmem/Kconfig
-@@ -541,8 +541,9 @@ config NVMEM_U_BOOT_ENV
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 0556d140170a..19edc9ab0282 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -485,7 +485,7 @@ static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
+ 	/* Allocate an array of attributes with a sentinel */
+ 	ncells = list_count_nodes(&nvmem->cells);
+ 	pattrs = devm_kcalloc(&nvmem->dev, ncells + 1,
+-			      sizeof(struct bin_attribute *), GFP_KERNEL);
++			      sizeof(*pattrs), GFP_KERNEL);
+ 	if (!pattrs)
+ 		return -ENOMEM;
  
- config NVMEM_UNIPHIER_EFUSE
- 	tristate "UniPhier SoCs eFuse support"
--	depends on ARCH_UNIPHIER || COMPILE_TEST
-+	depends on ARCH_UNIPHIER || ARCH_K3 || COMPILE_TEST
- 	depends on HAS_IOMEM
-+	default y if ARCH_K3
- 	help
- 	  This is a simple driver to dump specified values of UniPhier SoC
- 	  from eFuse.
 -- 
 2.53.0
 
