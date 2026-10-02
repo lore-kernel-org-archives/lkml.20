@@ -1,110 +1,168 @@
-Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989C645198A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6480F45198A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979590; cv=none; b=OnroTCO/tpNGDckd8+0WsPEuAEi1sHhhBLkvXZIcggwyDN4U+C8sBGuqV0Ik+fYTB9oivoiqP7+sDsOViJQs6QrnqjcnCQewo8yo6Yg5GPuSZss4HxPSGmAUAy9JVpdxAAhRAuNKYblX8N95/dfhj1WCuA/oZlzvh3iAvZJ1MV0=
+	t=1790979597; cv=none; b=HnwLwEI9+A3S6hnuxrIeZeZNVRBaKYwsQdomStiFjdJqLRI6ArojxFdiVm+huUeLby8cDT+fsr6NT8fELeBA3QFFUAR2L3LR6gL0Ce1RxpZCNTSIxgUgzDnB7OtTNLw4dD2x4vmc49h00wSGM4/p0POON/4bwtZ+wWARwqO1fB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979590; c=relaxed/simple;
-	bh=LIeypzTLxZFUaXt5ugGV2tt9HvkLhl45i2GZQQOzRtA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nevp9DLgn18It4ID3aKr3YPmUOJjZQ/6IY9R+l58Afelfc322Qx8DSnIggTCPH2AOQXltkf8OC/sFC/0tq9jG8CNG5iCWcy+RZeQltRa8XLHO31FPRSJ2OoldDo2ephgkx6xaqLD454l2ZyVjKuqS9ZUP6PpiArkVzlRcWJUZEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BhepoCzX; arc=none smtp.client-ip=91.218.175.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790979597; c=relaxed/simple;
+	bh=Ih6lWXVnEFre+v9zrwzRmmdo7jH/Yws9UsTpBnmtnIc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aW3WGIMu2i/AsAy8qyKD9kpcs7tSoauGQojnkyCd3LXXFy1DSLCKgdzWCUSiHYsiUYIYHrlo0FzDKMkvvejJbN0ZDPgqys/RbzI8PWVhy/lZRy6xmMZMa6WjA9VzNZ+1JBoo+pXiamBAoKQCXF2iGWT9pgedJRs3iJqm0VWXhas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Au+ktloC; arc=none smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BhepoCzX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LIeypzTLxZFUaXt5ugGV2tt9HvkLhl45i2GZQQOzRtA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790979584; v=1; x=1791584384;
- b=BhepoCzXqCV6+2aFXT/5CmOqdAoSYoHbqDxEnkF4m0Xvdqb6AWvH8+ChwpvQPvS343Ccuu3o
- J42qH3XqO24w3NmnS8ix4Pe+F7ROpe3BO3JCMsVAwMHUneXcpT9E/0xfeCr/FHmKGgh1yIX2Baa
- kARXwtyunWysy7L0cbgpXQKM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2a1b46a32a9d1e0a;
-	Fri, 02 Oct 2026 22:19:43 +0000
-X-Mizu-Trace-ID: 2a1b46a32a9d1e0a
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 2 Oct 2026 15:19:38 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Tejun Heo <tj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	JP Kobryn <jp.kobryn@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Michal Koutny <mkoutny@suse.com>, Amery Hung <ameryhung@gmail.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	John Fastabend <john.fastabend@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev, 
-	Donet Tom <donettom@linux.ibm.com>, Greg Thelen <gthelen@google.com>, 
-	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, bpf@vger.kernel.org, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/4] memcg_ext: memcg policy through cgroup-attached
- struct_ops
-Message-ID: <ar_fuYs_-qS46dVk@linux.dev>
-References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
- <bda525506b3fb3e61da28a112f28abba@kernel.org>
- <arw4rjVkm2ob9ioL@linux.dev>
- <bc6815954b8d08e75deadd43e1a2192c@kernel.org>
- <ar2kvmCPR9q31V8M@linux.dev>
- <31a871a07fccc99e953a2d633fc51edc@kernel.org>
- <ar7H__jzvWVtqSn5@linux.dev>
- <c1fdbe4f99352a102b38c7d131215d5a@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Au+ktloC"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e1195040aso53533066b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:19:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790979593; x=1791584393; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iI79X65k5sE53QTcdTBS+HaqtjRvgMdMXAnjEVa6Oas=;
+        b=Au+ktloCRDdrmL2Q9vyDQX14aDNG2e4JN/IduozknA4CgcNxJlYPasF63PFuu8FwFW
+         nez/NYf45cKJZA8kdUc/UCzHJBtItaMu8cdOVO6xB2XXf6bQqpXD9rlH0+kuNDh9Rt3h
+         AFw/Hl0fOOWjvv5flv7TaFC8Y9Jh5mnRo5kBU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790979593; x=1791584393;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iI79X65k5sE53QTcdTBS+HaqtjRvgMdMXAnjEVa6Oas=;
+        b=V0UQwDfiC+0uLkOUyMtg3gMa0PhHjq58dEhQKVQNtReCfCzCGD7L5TH/gM4FzYTx2A
+         bqHiralsi7VO0S3gxLBeSSKHgKkputtUwNB6DeQFaokab7KxT9Hk42j56FhdB40ttS1o
+         ew8Gwxzph8GATSfBLUDgy30+CyAF24/3koDVH+uwee7Si+66tUYTzOW0Qy0F3zQZMyEh
+         mDusUxf6+hTB768FilyrdhWdAKOR1JySQpzIiWZ+QswWoUCp373JhmZLd+guYBhVIAJi
+         S+xsHbdiBXRWoGtdz27oSpoUuOEBCr6ujc5NlInx+nhVBU62R3DUCLC4T6PikkZehdrK
+         BmNg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYiZVnrg6TXQtlbURUVvgvZqHR9TiC2DpIGO9ZPcP+5mqr5cYiAtLItVsGfmmh1aU8D+3bdO8kp9UFUH8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lydAytGLjAY/nsobwqz7rtvdiyf6l225TuWyFjg6OxPxYsnIbM
+	FFLq0iJLiZw86sOHvhhbl9n678vs0TmNDSfxS4TY2vSGYb0lBl2dIVC3jO3Z+bMgI+TsAlP0ru7
+	m05CnhA==
+X-Gm-Gg: AYBFou2wlHHtR/uud8Qb+uZmlT4XUt+IOlN9RxEeBZ0gVa9hjA5sxyaCmppsY4JpIKv
+	MhYpEKFpzE5NTNve9PQr/Jxvn+lRnAm0pZ3qjNVHdriCSwHJPTH3aaIblhUsBeAA03hok/Pu/7o
+	m2QLYn2+sgS/w50fLmjpQvMW8KU22GjD4UEfEA3xM57D04egE8EfDEPOAWCNLqmJqgDMgRamGEj
+	lrGlcdyZyR4TveAxg7Ba+OAB7sof4ACggRfSpVl+RgsvFHRsiT7ODGxnl5UeNHjnNCEj0kL4vDB
+	VWgDgSFHYEV1k3oQ5J24p2mpvw8LCVRzzZLSH9OLy8cgRXPOLsiVYoZFi7jHlS9TM1AO9ZrJNWX
+	6A9lOCxBv3FL9Z/tjV6I3AIkd9Cm4qRrFDT+1buvXkU82Av94R41tjoiA7kx1CTZnWqDOIAxDwr
+	9QdNvT4l1glJ43x0J+IdTyuUUQOWFBizFe4hLvWLhb3KcXOif6KuX15Dfa5wXVGlrbAowFKVrmU
+	wVVnuK6nRjqFR5IjRjXsBrsK2dAK4z0EU4acA5Q7eCnOgvv
+X-Received: by 2002:a17:907:3d52:b0:c2a:46a2:5b57 with SMTP id a640c23a62f3a-c2e4ad568c9mr309123566b.10.1790979593507;
+        Fri, 02 Oct 2026 15:19:53 -0700 (PDT)
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com. [74.125.225.98])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd260d1sm137427166b.29.2026.10.02.15.19.52
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 15:19:53 -0700 (PDT)
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so239239f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:19:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy5WibineiiXqCZyck4gs6RUa3V1DgnWa7UwvsuBXMBjHsEp0SeblSomO8IC1ZGjaIkNPimWztNThdD2Vg=@vger.kernel.org
+X-Received: by 2002:a05:6000:27cd:b0:48b:e25:21e6 with SMTP id
+ ffacd0b85a97d-48b1272d22cmr5204353f8f.15.1790979591148; Fri, 02 Oct 2026
+ 15:19:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c1fdbe4f99352a102b38c7d131215d5a@kernel.org>
+References: <20261002175000.1-brads@mainlining.org> <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
+ <B6936CB8-9A77-4DE5-BC6F-F924E2FA7EE6@mainlining.org>
+In-Reply-To: <B6936CB8-9A77-4DE5-BC6F-F924E2FA7EE6@mainlining.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 2 Oct 2026 15:19:39 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=U-uH7iTA8Gs_vTqzbKjpk9uwCiSRGbPchmJc7DAWR43w@mail.gmail.com>
+X-Gm-Features: AclHuK9trCkhwZg4Kyj1Vq9Hpc5Tb2ciTGZu4Wr68oniNgcekM3uaNWLSOk9oLI
+Message-ID: <CAD=FV=U-uH7iTA8Gs_vTqzbKjpk9uwCiSRGbPchmJc7DAWR43w@mail.gmail.com>
+Subject: Re: [PATCH] watchdog/perf: reject empty config before the raw event parse
+To: Bradley Morgan <brads@mainlining.org>
+Cc: akpm@linux-foundation.org, blum@kernel.org, tglx@linutronix.de, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 02, 2026 at 06:25:08AM -1000, Tejun Heo wrote:
-> Hello, Shakeel.
-> 
-> On Thu, Oct 01, 2026 at 03:56:47PM -0700, Shakeel Butt wrote:
-> > We are in agreement on (1) and (2) completely. For (3), I am fine with removing
-> > the sync enforcement, but for throttling points for bulk operation sites,
-> > I think we should only add them when there is an actual use case for that
-> > or someone complains about overrun from those sites.
-> 
-> On (3), if removing synchronous enforcement wouldn't regress anything,
-> that's fine, but why was it added in the first place?
-> 
+Hi,
 
-I added the sync enforcement to replace a Google internal feature which, on
-memcg OOM, allows node controller couple of seconds to either increase the max
-limit or let the memcg die. With sync enforcement, memory.high helped in simple
-benchmarks. However later testing on some realistic Google workloads, I found
-out that several thousand threads are very normal of typical Google workload and
-memory.high sync enforcement is not effective on applications with large amount
-of threads. In addition, there were workloads which on noticing blocked threads,
-keep forking more threads. At the end implementing that feature using
-memory.high didn't pan out.
+On Fri, Oct 2, 2026 at 3:17=E2=80=AFPM Bradley Morgan <brads@mainlining.org=
+> wrote:
+>
+> On 2 October 2026 23:12:33 BST, Doug Anderson <dianders@chromium.org>
+> wrote:
+> >Hi,
+> >
+> >On Fri, Oct 2, 2026 at 10:46=E2=80=AFAM Bradley Morgan <brads@mainlining=
+.org>
+> >wrote:
+> >>
+> >> Date: Fri, 2 Oct 2026 17:39:13 +0000
+> >> Subject: [PATCH] watchdog/perf: reject empty config before the raw eve=
+nt
+> >parse
+> >>
+> >> Commit 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+> >> manual NUL-termination") replaced strscpy(buf, str, sizeof(buf)) plus =
+a
+> >> manual buf[len] =3D 0 with strscpy(buf, str, len). strscpy() writes
+> >> nothing at all when the count is zero, so on a comma directly after
+> >> the "r" prefix, nmi_watchdog=3Dr,1 for example, len is 0, buf stays
+> >> uninitialized, and kstrtoull() parses whatever stack garbage is there.
+> >>
+> >> The old code was safe here by accident, strscpy() filled the whole
+> >> buffer before buf[len] =3D 0 overwrote the comma position, so a zero
+> >> length just produced an empty string and a clean parse failure.
+> >>
+> >> Treat an empty config the same as an overlong one and return early.
+> >>
+> >> Fixes: 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+> >manual NUL-termination")
+> >> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> >> ---
+> >>  kernel/watchdog_perf.c | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/kernel/watchdog_perf.c b/kernel/watchdog_perf.c
+> >> index cf05775a96d3..cca0485ba28c 100644
+> >> --- a/kernel/watchdog_perf.c
+> >> +++ b/kernel/watchdog_perf.c
+> >> @@ -301,7 +301,7 @@ void __init hardlockup_config_perf_event(const cha=
+r
+> >*str)
+> >>         } else {
+> >>                 unsigned int len =3D comma - str;
+> >>
+> >> -               if (len > sizeof(buf))
+> >> +               if (!len || len > sizeof(buf))
+> >>                         return;
+> >>
+> >>                 strscpy(buf, str, len);
+> >
+> >I fed your patch to my AI, and it wasn't happy with it. While you fix
+> >one corner case, the larger problem is still there.
+> >
+> >Image if `str` is "300,panic". Then `comma - str` will be 3. Passing 3
+> >to `strscpy` will copy at most 2 characters so it has room to use the
+> >3rd character as termination. That means `buf` will have "30", not
+> >"300". Oops.
+> >
+> >My AI suggests the correct fix is to change the "len >" to "len >=3D"
+> >and then pass "len + 1" to strscpy().
+> >
+> >if (len >=3D sizeof(buf))
+> >  return;
+> >
+> >strscpy(buf, str, len + 1);
+>
+> Makes sense. Do you think you could put this into a separate patch, or
+> would you like me to respin? :)
 
-> > Now, setting aside the default behavior of memory.high, I want to provide
-> > additional flexibility to users for (3) specifically. One specific case is
-> > letting users opt in to async reclaim instead of the other forms of memory.high
-> > enforcement. Basically, users can specify that instead of having their
-> > application threads throttled, they would prefer async reclaim to bring their
-> > usage back below memory.high.
-> 
-> As for flexibility, we already have a gradient of enforcement around
-> memory.high. Is the need here to make the shape of that gradient
-> configurable? Can you give specific examples where this is needed?
-> 
+In the end, it's up to Andrew. If it were me, I'd request you respin.
+The patch is currently in Andrew's "provisional" tree
+(mm-nonmm-unstable), so if you send a v2 he will just drop the old
+patch and replace it with your v2.
 
-The concrete example I have is the kswapd like async reclaimers (plural) per
-memcg. Kswapd is woken up on free pages falling below low watermark and then
-when free pages fall below min watermark, allocators get throttled (enter direct
-reclaim). I want to apply similar concept to memcg (but with right cpu
-accounting and more concurrency). 
-
+-Doug
