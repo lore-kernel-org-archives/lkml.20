@@ -1,143 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9560044F548;
-	Fri,  2 Oct 2026 08:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3821B2D8376
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790930073; cv=none; b=lrVAQqCkGgM80N/efSDejYhPS155J8A5TOX4xywpHkFesSP6kuO8pUfw73lBkVsI0IMwVwYFsJz1+HOG6zKEgiOh5hUGBBIBusmqKc9qD3vYolnqUFF7G6RhvCrUhvrniuzmilaHwl/tSI8ZFsoDEg/1W/i6BYwKSwPhPaTmq7c=
+	t=1790930083; cv=none; b=NhYDJ+LN/npIOBQjQtZ6H3/uOzzt8tNJRBnm9tcdmsBktWrkDHr09ithWG3lDY4/Dip98Yh+cEUknoj9eAaUeGyyOTrU3K3eX8ZY7Na1KnWXkqYyzsSdoTX/nMEC33Bvj3nm7Nc2zGRoxiMJtena23oI9TzPneMV7ipejRJcnOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790930073; c=relaxed/simple;
-	bh=9KlofZvJbEKRfC9/pPIiIB0BQQWbJgdRDIvxhFmb7jg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GuJE7Y917dBgGIAOoB+B2UoMdi/bBdRVCq6ei6PFqtlyeKyX38z5U6QmDHGdUJgWjAtJHtLZ6cU9BKyfnWmWrMr3ejxv8VuATvuodhq3ZXmvOXb/+M0JYhMfC5RkZuf1RszBsnSyz33ymf1bPJ4Ti2QaKGWLDkAFc+5VSG7ngJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dk3zUdNZ; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dk3zUdNZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790930072; x=1822466072;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9KlofZvJbEKRfC9/pPIiIB0BQQWbJgdRDIvxhFmb7jg=;
-  b=dk3zUdNZDTOsvDB0ZcBEBaOb0ZGFlvIZpnKrNlF+IWonw5MsoZnr0Kpt
-   kdPDo9cJ9gnvbWoeCi0/DZzr42JVudu2xj8dAcAlRTahIP/sEcXCy6wDd
-   1eNrDtSQaO6lZBZV9UN17lmk/l8mEmt6TuGzOai7sse50Ia/iAX/yuKQe
-   zEZw2kOCs0LPDIgUcJloL/Zo3A+KzV4nF8sHYyomZS7nwzpePcuRQNB2d
-   y0lLDzfPbOxdMn2OUFNcNhoNNrK4sNBmaWYfNK9mjxcd92uGVl14Y7Y3w
-   5kyYePJrYSy8oKueEJnTbvDoEM6nx3k2jSRXlNOStaLISKaxlUPNKzHXv
-   g==;
-X-CSE-ConnectionGUID: RBYVs5ssSbSROUGiRYyPGA==
-X-CSE-MsgGUID: 2eEJ5CjXRauejP8ERvCj1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102369776"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="102369776"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:34:31 -0700
-X-CSE-ConnectionGUID: D+ozLVgTQLWiIdHdGnSY6Q==
-X-CSE-MsgGUID: oWQTTd30TXKky1l7gTyKtw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="304166086"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 01:34:27 -0700
-Date: Fri, 2 Oct 2026 11:34:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: adc: aspeed: Use syscon phandle for trimming
- data when available
-Message-ID: <ar9skaV0Vii8oX6G@ashevche-desk.local>
-References: <20261001-ast27xx-adc-upstream-v2-0-2f9c15cc0064@aspeedtech.com>
- <20261001-ast27xx-adc-upstream-v2-2-2f9c15cc0064@aspeedtech.com>
+	s=arc-20240116; t=1790930083; c=relaxed/simple;
+	bh=gp6tTt/2AsFlbEcXVh3ymB17Cd6Yx0SW78nb0mvhW0I=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=sX4QIU0Mia5rsbz58HDfBYCSmv80d/59TpB3++WbAbSWXyNn+O7UlFYINWvdUZFzoZij2nX6JT2Q2XUCv5Y19AV42n30c5FXXbFTFdsrZHZC9eGU3u9UHjaUSm66mRmW5qJjofpBdmfgQrEabzUtcoT5fqYwSuQIX2d9drADnTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a45b3f0bdfso11884838b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:34:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790930081; x=1791534881;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=L55zhFUQ/zR0FXxQ/DUi+hgQ/HbwY1hRO/ys5NezLiE=;
+        b=rEHGQph+HDVJcAnMQSA7BoBXfqIo/6qW7TbK+TbHGtzjgjNqKvg1S/R7qs94TykxXy
+         OEAG2a8YYYX79cUZwMj6bywSxYNZu6gxmJnPxe/KJC73vNCAl0nQW7rD1w+IDZtHl5qV
+         vonMqVM/ARhk+8Bk/UfGdTQQmKmNnObTPkE0quvjPnU6BNI7eogDzUQ8ehm0tRWANuPQ
+         FMZC4420WX/7xkf71Qtuw2t9wXfy7ACcDZLKtDeOOPyy/PEjTdHzNfYegI01OZ/Azf/a
+         CDDSVj2RPvVaBBpppY0udIYSHaM2cd1T5mDHDZYTt8j6vDEXgRwWDusd2LYni7dEdkQU
+         MBeQ==
+X-Forwarded-Encrypted: i=1; AKwUvByalyubMV2OsaqMBZ0wwU0ofvlIOgaAB8kSttO2Rg+Z+RqvNlz5TQIklZyAM14G1D7NraWEB2BpYMUQKIo=@vger.kernel.org
+X-Gm-Message-State: AFuF++koSs2y0oaWqzLDusvb2gEIMQdYaF0lyN5cKZx4PCZZPSh30Lbd
+	vuA6xKIU9PNqC9LhQTq8raUBPQRwPVsTA65ClcFxTNeFUyETeAVJ//YUQJ/mIW65TtLVcfpF2IB
+	OKgeuuhXhvPgeulh+ZiIoe/LZaprnqw6D1HIY18j4rt3d/DO2uj+07XinN3k=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-ast27xx-adc-upstream-v2-2-2f9c15cc0064@aspeedtech.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:c1ed:b0:4e7:8e25:37e5 with SMTP id
+ 5614622812f47-4f528de2927mr1375772b6e.17.1790930080991; Fri, 02 Oct 2026
+ 01:34:40 -0700 (PDT)
+Date: Fri, 02 Oct 2026 01:34:40 -0700
+In-Reply-To: <6abc1c9e.00649fcc.35d151.00e6.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abf6ca0.9b478af7.e8d7a.0008.GAE@google.com>
+Subject: Re: [syzbot] [ntfs3?] WARNING in truncate_setsize
+From: syzbot <syzbot+0e70362e1726b5a7502e@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, linux-kernel@vger.kernel.org, 
+	ntfs3@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 01, 2026 at 05:50:37PM +0800, Billy Tsai wrote:
-> aspeed_adc_set_trim_data() locates the SCU holding the ADC's
-> reference-voltage trimming data with of_find_node_by_name(NULL,
-> "syscon"), a global search that matches the first device-tree node
-> named "syscon" regardless of which SCU instance it actually is.
-> 
-> On AST2700, which splits its SCU into "syscon0" (soc0) and "syscon1"
-> (soc1), both nodes share the same node name "syscon" and only differ
-> by label and unit address, so the lookup always resolves to syscon0
-> even though the ADC's trimming data lives in syscon1.
-> 
-> Use the new "aspeed,trim-syscon" phandle property when present to look
-> up the correct regmap directly, falling back to the old global by-name
-> search when the property is absent so existing device trees keep
-> working.
+syzbot has found a reproducer for the following issue on:
 
-...
+HEAD commit:    ce1e0223d8ad Merge tag 'devicetree-fixes-for-7.3-2' of git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=128a2bf5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
+dashboard link: https://syzkaller.appspot.com/bug?extid=0e70362e1726b5a7502e
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=143da725580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=113236c9580000
 
-> -	syscon = of_find_node_by_name(NULL, "syscon");
-> -	if (syscon == NULL) {
-> -		dev_warn(data->dev, "Couldn't find syscon node\n");
-> -		return -EOPNOTSUPP;
-> +	scu = syscon_regmap_lookup_by_phandle_optional(data->dev->of_node, "aspeed,trim-syscon");
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/4167e1ad25c1/disk-ce1e0223.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a0a74c8dec59/vmlinux-ce1e0223.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/f6caa72edd70/bzImage-ce1e0223.xz
+mounted in repro #1: https://storage.googleapis.com/syzbot-assets/ce7727430629/mount_0.gz
+mounted in repro #2: https://storage.googleapis.com/syzbot-assets/3c66bb202e74/mount_15.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=166d9b15580000)
 
-Do not dereference of_node, use dev_of_node(), it will help in the future
-if we want to reorganise firmware nodes in the struct device.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0e70362e1726b5a7502e@syzkaller.appspotmail.com
 
-> +	if (!scu) {
-> +		/*
-> +		 * No "aspeed,trim-syscon" phandle: either a single-SCU SoC, or a DTB
-> +		 * predating the property. Fall back to the old global
-> +		 * by-name lookup for backward compatibility.
-> +		 */
+------------[ cut here ]------------
+ifs_is_fully_uptodate(folio, ifs) != folio_test_uptodate(folio)
+WARNING: fs/iomap/buffered-io.c:295 at ifs_free+0x34a/0x410 fs/iomap/buffered-io.c:294, CPU#0: syz.2.150/6677
+Modules linked in:
+CPU: 0 UID: 0 PID: 6677 Comm: syz.2.150 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:ifs_free+0x34a/0x410 fs/iomap/buffered-io.c:294
+Code: 41 5f 5d e9 88 60 c1 ff e8 23 45 61 ff 90 0f 0b 90 e9 d5 fe ff ff e8 15 45 61 ff 90 0f 0b 90 e9 12 ff ff ff e8 07 45 61 ff 90 <0f> 0b 90 eb c7 44 89 e1 80 e1 07 80 c1 03 38 c1 0f 8c 08 fe ff ff
+RSP: 0018:ffffc900067676f8 EFLAGS: 00010293
+RAX: ffffffff82659269 RBX: 0000000000000008 RCX: ffff88802f4d1f40
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000082661001 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: fffff940003198e9 R12: ffff88802b6f6b84
+R13: ffff88802b6f6b00 R14: ffffea00018cc740 R15: 0000000000000000
+FS:  00007f882fd2c6c0(0000) GS:ffff888125bc3000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb4d045cd58 CR3: 00000000349ee000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ folio_invalidate mm/truncate.c:140 [inline]
+ truncate_cleanup_folio+0xcb/0x190 mm/truncate.c:160
+ truncate_inode_pages_range+0x2c4/0xd80 mm/truncate.c:404
+ truncate_inode_pages mm/truncate.c:485 [inline]
+ truncate_pagecache mm/truncate.c:798 [inline]
+ truncate_setsize+0xcf/0xf0 mm/truncate.c:823
+ ntfs_setattr+0x267/0x590 fs/ntfs3/file.c:739
+ notify_change+0xbb8/0xec0 fs/attr.c:556
+ do_truncate+0x1c2/0x250 fs/open.c:68
+ vfs_truncate+0x4b7/0x540 fs/open.c:118
+ ksys_truncate+0xf3/0x1c0 fs/open.c:142
+ __do_sys_truncate fs/open.c:154 [inline]
+ __se_sys_truncate fs/open.c:152 [inline]
+ __x64_sys_truncate+0x5b/0x70 fs/open.c:152
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f883070e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f882fd2c028 EFLAGS: 00000246 ORIG_RAX: 000000000000004c
+RAX: ffffffffffffffda RBX: 00007f8830996180 RCX: 00007f883070e159
+RDX: 0000000000000000 RSI: 0000000000008da7 RDI: 0000200000000940
+RBP: 00007f88307a506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f8830996218 R14: 00007f8830996180 R15: 00007ffcdd2b2178
+ </TASK>
 
-So, why not doing
 
-	struct device_node *np;
-	const char *propname;
-	...
-	np = dev_of_node(data->dev);
-	propname = "aspeed,trim-syscon";
-	if (of_property_present(np, propname)) {
-		scu = syscon_regmap_lookup_by_phandle(np, propname);
-		...
-	}
-	...
-
-?
-
-> +		syscon = of_find_node_by_name(NULL, "syscon");
-> +		if (syscon == NULL) {
-> +			dev_warn(data->dev, "Couldn't find syscon node\n");
-> +			return -EOPNOTSUPP;
-> +		}
-> +		scu = syscon_node_to_regmap(syscon);
-> +		of_node_put(syscon);
->  	}
-> -	scu = syscon_node_to_regmap(syscon);
-> -	of_node_put(syscon);
->  	if (IS_ERR(scu)) {
->  		dev_warn(data->dev, "Failed to get syscon regmap\n");
->  		return -EOPNOTSUPP;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
