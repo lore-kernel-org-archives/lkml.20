@@ -1,123 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-5.mta0.migadu.com [91.218.175.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E30A4AB1D0;
-	Fri,  2 Oct 2026 13:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5914BD362
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949336; cv=none; b=I0lRDAim1vPNzmtKHLKuPDpZy3lgazKbYpIVLLbWclmmjZ16XpeeMsLZXtKaY0mP7E0tjLy+l9W9f4U/s/LqydoT1ILxTM6SLeML/ax89UeLiS+blAtidAxltsoVYd1dqNx+t2isMmt7Vq+t6rPjydM8AY0QdwJAqlTYAiCpag8=
+	t=1790949339; cv=none; b=hv8zDdZVE+1X7Mlax3UTsZLt3jYxidPUHovNC8u0wCv0bpjGFT24mFTvbjDCR+ZPpZSyKINjPZNJE9zPfc7Q7N1cawlJ3HZi19Qp1xZr5rXScxLM0zhdDmaIg0+iv+acgymVk2uKaSEUhZoT8G8j2W3LQ1JkjcYPDrZJhOahwpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949336; c=relaxed/simple;
-	bh=2kzDVsObb9Ct7NqxEGSKl9YO7zCZZOw64eoh61FFWFE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fMO94VCZuuUi96fIzz6KlAW/5Qve/9BSRgQB/I7ZKdVCuqe/q+pr4i7qTKzZi8SCUtUDyaklgjbqwowsxEhnsXZPQs6YgxDnFQg+Uq4CykegZRJ/pjFPU8BTiOQBpPe2iw6GHa7GbGy6/IXu47k0G8Ly2/tLJEKu5vAevq6MdhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pW6YdM+W; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790949339; c=relaxed/simple;
+	bh=NxRWmaItSzHiNP+iJ+lnvfwn/WnhlxFvjpyIKAD7kDc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Fj+U4nIislhN072y+C6Z5atY/r7EMBzmBm9gaSffFf0XP9AuZOEWMIetqKNf7OC2THBg//kFJsgz4KUoZAsGGf/ArSmTH9vM4LswVQt3ySDRDBT3MA+FgvR6hIFnST4ho7XS3vD3oamF630uT+GHTyz0P6/Wn6+UDCjHNh+rZMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=odAhpm1Q; arc=none smtp.client-ip=91.218.175.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pW6YdM+W"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AE8A8C2BCF4;
-	Fri,  2 Oct 2026 13:55:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790949335;
-	bh=2kzDVsObb9Ct7NqxEGSKl9YO7zCZZOw64eoh61FFWFE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=pW6YdM+WvVGykGKjKzhZolfJ54Qxctosma1cJ9ajYvWBVQv9QpZF3dEzMR5tC4DAn
-	 y0QT4fF3PmovpcqTlriTD9U6K8W7fpUHVm/FMl3u7+P1qGjKsKQ7PNHZ6wofo21Wzl
-	 6DYvY8e8TwSJ3TCbYdzVKAfO8u+IxKY3zBtaQ8hlfcseXbZvZqGuQMXpuS4jxZT3Wr
-	 IZmS9tzWQz7VwgJToRTWKGfSnh2kIinfZtKMHLlMugBrgQkvUK60KjTxuq99L8tB5i
-	 9G33drQ9Lt+OX7BfEirt0ir9Hz4rhaQGqWsJVp2G3VKquoJKwbo795jkW8DYICoGJi
-	 9mkfcjesF0oeA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D1C9CA5FC4;
-	Fri,  2 Oct 2026 13:55:35 +0000 (UTC)
-From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 10:55:35 -0300
-Subject: [PATCH] clk: qcom: mmcc-sdm660: enable the parent when
- pclk0_clk_src changes rate
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="odAhpm1Q"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NxRWmaItSzHiNP+iJ+lnvfwn/WnhlxFvjpyIKAD7kDc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790949335; v=1; x=1791554135;
+ b=odAhpm1Q1UT068OTbgGiH2kCS22APaDZ44DzAL/Ywkj5xJYRY37NrAn376PGCBnfi+gd9Xor
+ sxo3Vmy7hya+rmE+9xtC5bm29vj/ntxP5lJKXg6GnI4RN1yJWCA6xbdE7pFJuaXPxenYV98SPRp
+ 5PMQ+z2FOtbo0teUvrA+q+6E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f72c8588b31d1e0b;
+	Fri, 02 Oct 2026 13:55:29 +0000
+X-Mizu-Trace-ID: f72c8588b31d1e0b
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5ba4065fa07so8299e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:55:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwgria2ep1E78752PhuHytsNwSiUdCYh3knxbSEJvfoKRgIKd39/9+4P4b9lnh5EPFhjeQd+IOiKs4OSWs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBw5dtOZUCvSQ2Buzecnk1SB3BYNQ3bOw2M2DQVNWPKQ6YRpgR
+	Tz6PnlqwhNz6caaUg3IjcR7mjDg9JF6VjV6WDxVKtk2ZIcJAgC50FY89H5u3Yc5USQf3tnrcTSv
+	JGNcGpiXYyBId+MBFOl9rswtT/vSkrT3ZJPEolA2w
+X-Received: by 2002:a05:6512:124e:b0:5b4:74e2:4171 with SMTP id
+ 2adb3069b0e04-5bb7c95878amr126055e87.4.1790949323822; Fri, 02 Oct 2026
+ 06:55:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-sdm660-pclk0-parent-enable-v1-1-d6ff889144e4@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJW5MCXsW4KNNBR7CQDhgTw
- t2tuPnJ2/wNlLOwwqXaIPNbVKZUYE8V0COkO6PEYnDGeWuMQ40v7w3ONA6lIXNakFPoRsbGujO
- 1gWobGyiDOXMvn2N+vf2ta/dkWn5H2PcvDq8Y634AAAA=
-X-Change-ID: 20261002-sdm660-pclk0-parent-enable-8123c9ac71d8
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
- Martin Botka <martin.botka@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Fabricio Akio <fabricioakio@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790949334; l=2042;
- i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=UJ72pjAY0/NNTs1ZuCPwUI9TXq4wpNAkoyf3mD77/xY=;
- b=q2cfb5tDrUIFY55Z+7QVGgYP4ymbCdvNt/yDM1AvYKXiImd30fBS1SfmZrBLMZyH6mVSYOmVz
- jTqdTQ9cP7QB6CEHYpRhwCdDPyOpOji7iXh75dE1bDQt8n7omv5DrEI
-X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
- pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
-X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
- auth_id=1076
-X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
-Reply-To: fabricioakio@gmail.com
+References: <20260930121212.3101361-1-fuad.tabba@linux.dev> <ar-xtsSOqwWK9jWQ@willie-the-truck>
+In-Reply-To: <ar-xtsSOqwWK9jWQ@willie-the-truck>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 2 Oct 2026 14:54:47 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTzT+2M40GfyxHp6p6OugjoA2BRSkbFK-PMeLGz+qCUM9w@mail.gmail.com>
+X-Gm-Features: AclHuK8F5q6n8ZekSRW4HmigvutSZ6LtavhLlT8nBy_1uvzPoiEI4YC6OWepcRo
+Message-ID: <CA+EHjTzT+2M40GfyxHp6p6OugjoA2BRSkbFK-PMeLGz+qCUM9w@mail.gmail.com>
+Subject: Re: [PATCH] arm64/boot: Don't set PMUv3p9 FGT2 bits without PMUv3
+To: Will Deacon <will@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Anshuman Khandual <anshuman.khandual@arm.com>, "Rob Herring (Arm)" <robh@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Fabricio Akio <fabricioakio@gmail.com>
+On Fri, Oct 02, 2026 at 02:29:26PM +0100, Will Deacon wrote:
+> Are you sure #8 is the correct immediate for the ccmp? My reading of the
+> pseudocode is that it should be #9, but this instruction has always confused
+> me and I hate the fact that it doesn't take another condition code mnemonic
+> instead of a raw immediate value.
 
-pclk0_clk_src is fed by the DSI PHY PLL, which
-dsi_pll_14nm_vco_set_rate() resets and only clk_prepare() restarts. The
-DSI host sets the link rates before it prepares the PLL, so the RCG is
-updated against a stopped source, and if it is enabled at that point
-the update times out:
+My read is that #8 is right. From the CCMP (immediate) pseudocode in the
+Arm ARM (DDI 0487 M.d, C6.2.81), flags start out as the nzcv immediate
+and are only overwritten by the compare when the condition holds:
 
-  pclk0_clk_src: rcg didn't update its configuration.
+      var flags : bits(4) = nzcv;
+      ...
+      if ConditionHolds(condition) then
+          ...
+          (-, flags) = AddWithCarry{datasize}(operand1, NOT operand2, '1');
+      end;
+      PSTATE.[N,Z,C,V] = flags;
 
-Seen on a board whose simple-framebuffer node lists the pixel clock:
-the RCG then reads enabled at msm's first modeset.
+So when PMUVer == IMP_DEF the ne fails and NZCV = 0b1000, i.e. N=1, V=0.
+LT is N != V (Table C1-1), so b.lt is taken and we skip. #9 would give
+N=1, V=1, so we'd fall through and set the bits on an IMP_DEF PMU.
 
-Set CLK_OPS_PARENT_ENABLE so the core prepares the PLL around the rate
-change, as dispcc-sm8250 does for its pixel clock sources since
-commit acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for pixel
-clocks").
+Agreed on the raw immediate, it's horrible.
 
-Fixes: 5db3ae8b33de ("clk: qcom: Add SDM660 Multimedia Clock Controller (MMCC) driver")
-Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
----
-Tested on the Motorola Moto X4 (SDM630, payton) with the sdm660-mainline
-7.2.y tree, sdm660_defconfig, DRM_MSM=m: without the flag the warning
-fires in most boots, with it never. At the stall the RCG reads root-on
-and the PLL stopped. With the display built in, clk_disable_unused()
-also prepares the PLL under this flag, and some boots then log "DSI PLL
-lock failed".
----
- drivers/clk/qcom/mmcc-sdm660.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/clk/qcom/mmcc-sdm660.c b/drivers/clk/qcom/mmcc-sdm660.c
-index 9f8b8e29fa0f..bc95d0de75a3 100644
---- a/drivers/clk/qcom/mmcc-sdm660.c
-+++ b/drivers/clk/qcom/mmcc-sdm660.c
-@@ -984,7 +984,8 @@ static struct clk_rcg2 pclk0_clk_src = {
- 		.parent_data = mmcc_xo_dsi0pll_dsi1pll,
- 		.num_parents = ARRAY_SIZE(mmcc_xo_dsi0pll_dsi1pll),
- 		.ops = &clk_pixel_ops,
--		.flags = CLK_SET_RATE_PARENT | CLK_GET_RATE_NOCACHE,
-+		.flags = CLK_SET_RATE_PARENT | CLK_GET_RATE_NOCACHE |
-+			 CLK_OPS_PARENT_ENABLE,
- 	},
- };
- 
-
----
-base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
-change-id: 20261002-sdm660-pclk0-parent-enable-8123c9ac71d8
-
-Best regards,
---  
-Fabricio Akio <fabricioakio@gmail.com>
-
-
+Cheers,
+/fuad
