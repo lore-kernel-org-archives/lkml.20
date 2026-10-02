@@ -1,174 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D61366562;
-	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7834636729D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944146; cv=none; b=R7kv3WPM7lEg8eJwTssyh5zUboBqt7fKi1rgRlQOtOaUUoAWAruZJ/qoZEUmbqVatb4RKsqP9Bxkw9Ay0RQnYSOi/Vhm3cMa5otZXetryQFw+haibEnn4bNpCNS2wCDEAZAzp7ZgBWsXYu/0vX5Ievm7SOxYFjtOIn+lBeLLW80=
+	t=1790944165; cv=none; b=FfzcY7Ckt7Fpg2vnKG7Gmj+sYB5vKV1gm4b/Ps9q/oOoKpiaaWQ/yHyJQ+WjB4HXPSyhe8AG9bZkSQOtdZpIalVNWsx3Jg4fsWEO8vHXbcoM+OqqZbI4OCOJz1N8mMrG5yjuT2oRAlUIhJG29qDiJk8/zDv4BFISYmfyG5CVXDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944146; c=relaxed/simple;
-	bh=ciRbaJTfwAJ3dOyS9/3Y9bAYt1vcab+c0z1GDcG2YtE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=flI3Jd3Cd11fpPSoMJY6mopqcUqByFnYalfuZMqqbjv0n4iqo+HHg1h/4Rn7RA5ewd7Dd2y29hSqHO+Y0KkJZN2qk7i4Ol1Ask70UCzCMXixVkpQ+YmWjS+nguHpw/kQC4OL9+gNFbb0j+FSK/gpr7EA461buhMkvkvejqTsqv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMRhZpoq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790944165; c=relaxed/simple;
+	bh=/SmbkDQpZHuJT90gfdRgTTwptHj6UtLs+VE6WKjkUZU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OGJJkEOVxJYspYrp77cIN86irBtHrCc5rcoSr6wsXiAIUNk/u0e4fuXHgNlnakrfQKLEu+a86/ukocy0LO+Bci02WEBE7jEWVjOWP1vMgkgCu7Y5+eJi0HS1JPjjchsBCyCl+zHSAHlEEYEXwHdkVjHiw6MSuM1ftxjiSXxn2lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AvF3DKOr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMRhZpoq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DA91C2BCF4;
-	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790944146;
-	bh=ciRbaJTfwAJ3dOyS9/3Y9bAYt1vcab+c0z1GDcG2YtE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=XMRhZpoqS3ZpVV5qHWKNBnEa1Cjack7NXR5+zEF9AQHjufF3Nzje0Xwd/5jeZ1QN+
-	 AtTgHKJ1t4m0U2nTVgSx51eE764s4ZsvBJP+PvKKbnI7jqhED04K7K1tZO+r9tKEYf
-	 3SL+cNmMrkKD9AHk5BAID2xK4o9DRErD/vcVv4jtZ7kyIRbzZ9ROEMTXYEaqclgdWK
-	 vI2vcM0eI5UTroefA5kZXsLNyEouhBiBeBmlPpojuOeu8WH80y8z3pb3TdIpK9bmz3
-	 QFC2F56fzJlTmfXO5fgdvVxaJ151VHqzf1Cw7K/m7ZvW14HKnDWS6DT0xaKJpwS2yj
-	 CmV2atk51jvsQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15CF3CA5FDD;
-	Fri,  2 Oct 2026 12:29:06 +0000 (UTC)
-From: Fredrik Nyberg via B4 Relay <devnull+fredrik.nyberg.volvocars.com@kernel.org>
-Date: Fri, 02 Oct 2026 14:28:57 +0200
-Subject: [PATCH net] net: usb: ax88179_178a: fix rx frame length for
- non-last packets
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AvF3DKOr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7735C1F000FF;
+	Fri,  2 Oct 2026 12:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790944164;
+	bh=brwoog3BfsxnFj5jfLmGicwdCrEeJjaJKW1IPoCrBMI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AvF3DKOrinV6x/duYGjajWGIMVpKWo2zS4B7aQUTg4xHHvNdZ44pu5OkIPMphrJlA
+	 xQqJcEabf/psPRZ6umqNupARzgY4w+y07P6iWxOif+efIbrEyY/iw7+FhrskR8vEHK
+	 Xr+a5ykPbTjahiN848KYcYcpUlpgVDPCLqlHgQqajPiwTXvkHHupNX4W0AxB47BVCt
+	 gZiPP8w1t87pppUJFc1uD5VoGiQb8WqpV9XqaI1HMI5S+f0WtZaZR/7v9gsm0mNNYd
+	 f3s4klF9x/bsymPN7kDVSYR+mfz7lgVblu/dgTpWmaAiq542YQSQ9GuMrFH1lszbTg
+	 UAbNf7QTaEy9A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 08/15] mtd: spi-nor: Fix SWP for octal DTR chips
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Michael
+ Walle" <mwalle@kernel.org>, "Pratyush Yadav" <pratyush@kernel.org>
+Cc: "Steam Lin" <STLin2@winbond.com>, linux-mtd@lists.infradead.org, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <20261002-winbond-master-spi-nor-w35t-v1-8-a22a2f95c26e@bootlin.com>
+References: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
+ <20261002-winbond-master-spi-nor-w35t-v1-8-a22a2f95c26e@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 02 Oct 2026 12:29:23 +0000
+Message-Id: <20261002122923.7735C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com>
-X-B4-Tracking: v=1; b=H4sIAIijv2oC/yWMQQqDMBQFryJv3Q9JEE16ldKFid/2i6Ql0RIQ7
- 97ULmdgZkfmJJxxbXYk/kiWV6ygLw3Cc4gPJhkrwyjTaaUMDcVa3TtKhRaOZH1oXavYWd+hRu/
- Ek5RzeEPkFfe/zJufOay/FY7jC2PISDp3AAAA
-X-Change-ID: 20261002-ax88179-rx-len-8bc4940e98b6
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>, 
- Jose Alonso <joalonsof@gmail.com>, stable@vger.kernel.org, 
- Fredrik Nyberg <fredrik.nyberg@volvocars.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790944143; l=4935;
- i=fredrik.nyberg@volvocars.com; s=20261002; h=from:subject:message-id;
- bh=IRKcnIrPbqh8pcvFDSL7Xq7XQH9sQAAtncyR8eGC+EY=;
- b=yeLr4ykB1Bo2Pi9/VFxQzGmWnJCsZ/hSK5WU7sEibPp11igOTBJiDZswizNHZuEvBq8DCclLF
- D1dlfW5tiGbAp7XFUnT9rqx5nXF2ZYITnLYJmTBIxhvhCx3vFPtbkN0
-X-Developer-Key: i=fredrik.nyberg@volvocars.com; a=ed25519;
- pk=qID6RVpkd1ixl+9o9DvizyEtYlu5k5KPZfGbD6OqhwI=
-X-Endpoint-Received: by B4 Relay for fredrik.nyberg@volvocars.com/20261002
- with auth_id=1100
-X-Original-From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
-Reply-To: fredrik.nyberg@volvocars.com
 
-From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mtd: spi-nor: uninitialized stack memory read causes spurious -EIO=
+ in SR2 check
+--
 
-Commit 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about
-skb->truesize") replaced skb_clone() with a copy into a new skb for
-every packet of a bulk-in transfer except the last one. The copy skips
-the 2-byte IP alignment pseudo header but still copies pkt_len bytes,
-and pkt_len includes that header. Each of these frames is therefore
-delivered with two extra trailing bytes: the 0xeeee pseudo header of
-the next slot when the frame ends on an 8-byte boundary, or slot
-padding otherwise. The last packet is still trimmed to pkt_len - 2.
+commit 7f40280ba9ff306f160cda218a293f8e370be331
+Author: Miquel Raynal <miquel.raynal@bootlin.com>
 
-IPv4 and IPv6 trim the extra bytes, so most traffic is unaffected.
-Anything that relies on the frame length is not. MACsec takes the ICV
-from the last 16 bytes and drops every such frame as InPktsNotValid. In
-our setup that was 0.2-1.2% of received MACsec frames, depending on how
-many frames shared a transfer, including service discovery multicast.
+mtd: spi-nor: Fix SWP for octal DTR chips
 
-Allocate and copy pkt_len - 2 bytes, like the last-packet path.
+During the recent rework of status registers handling, we mostly focused
+on quad capable devices, partially skipping ODTR devices in our mental
+model. It seems that many (if not all?) ODTR devices have no SR2 read
+opcode and have other control mechanisms. Because of that, the current
+support in swp.c is broken, because reading back the written value may
+or may not lead to the expected result.
 
-Fixes: 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about skb->truesize")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
----
-Found on Ubuntu 6.8.0-138-generic, whose ax88179_178a.ko carries this
-change (it imports __netdev_alloc_skb and skb_put, not skb_clone), with
-an ASIX AX88179 (0b95:1790, bcdDevice 1.00) on a USB 3.0 port and a
-1000 Mb/s link. The code is unchanged in current mainline.
+Let's extend the _careful() suffix to the helper reading back the values
+and comparing them. Maybe this "carfulness" will have to be moved back
+to the core, it is a bit early to state it. For now, let's just make
+sure that we read back 0s without errors when virtually accessing SR2 on
+those chips.
 
-Bulk TCP from an embedded board (Linux 4.14, stmmac) into the AX88179,
-captured with tcpdump on the sender's Ethernet interface and on the
-receiver, and matched frame by frame:
+[ ... ]
 
-  path            frames  +2 bytes  other differences  InPktsNotValid
-  802.1Q 16 MB/s    5812      2665                  0               -
-  MACsec  5 MB/s    6208        15                  0            +14*
-  MACsec  5 MB/s    6112        32                  0            +31*
+> diff --git a/drivers/mtd/spi-nor/swp.c b/drivers/mtd/spi-nor/swp.c
+> index 7e667e4ca84d5..e9cf2ca232341 100644
+> --- a/drivers/mtd/spi-nor/swp.c
+> +++ b/drivers/mtd/spi-nor/swp.c
+> @@ -240,6 +240,25 @@ static int spi_nor_read_sr1_and_sr2_careful(struct s=
+pi_nor *nor, u8 *sr)
+>  	return spi_nor_read_sr2_careful(nor, &sr[1]);
+>  }
+> =20
+> +static int spi_nor_write_sr1_and_sr2_and_check_careful(struct spi_nor *n=
+or, const u8 *sr)
+> +{
+> +	u8 tmp[2];
 
-  * counter window slightly shorter than the capture
+[Severity: High]
+Does this allocate uninitialized memory on the stack?
 
-- No frame was lost or changed apart from the two extra bytes. RX
-  checksum offload on or off made no difference.
-- In the 802.1Q run every frame ended on an 8-byte slot boundary. Of the
-  frames that were not the last in their transfer, 2662 of 2664 had the
-  extra bytes, always ee ee; of the last frames, 3 of 3148 did. Transfer
-  membership was inferred from receive timestamps, so a few frames are
-  misclassified.
-- A usbmon capture of 1393 bulk-in transfers showed that the device
-  reported the correct length (pkt_len = frame length + 2) for all 2458
-  IP frames and that every slot started with ee ee. For the 1061 aligned
-  packets that were not last, copying pkt_len bytes from data + 2 takes
-  exactly the next slot's ee ee, so the bytes are added by rx_fixup, not
-  by the device.
+> +	int ret;
+> +
+> +	ret =3D spi_nor_write_sr1_and_sr2(nor, sr);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D spi_nor_read_sr1_and_sr2_careful(nor, tmp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (sr[0] !=3D tmp[0] || sr[1] !=3D tmp[1])
 
-To reproduce without MACsec: turn GRO off, receive a bulk TCP stream on
-the adapter while running tcpdump, and count frames of 64 bytes or more
-that are longer than their headers plus the IP total length. On an
-affected kernel many of them end in ee ee. I can send the small script
-I used.
+[Severity: High]
+Does this unconditionally compare tmp[1] against sr[1] even when it contains
+uninitialized stack data?
 
-Tested with this change applied to the 6.8.0-138 driver, built as a
-module, back to back with the stock module on the same setup (8 MB per
-path, matched frame by frame against the sender capture):
+In the call chain spi_nor_read_sr1_and_sr2_careful() ->
+spi_nor_read_sr2_careful(), if the device lacks a read_sr2 opcode and is not
+quad-enabled, the function falls back to returning 0 without populating the
+sr2 value.
 
-  driver   path    RX csum  frames  +2 bytes  InPktsNotValid  retrans
-  stock    802.1Q  on         5792      2835               -        -
-  stock    MACsec  on         6141        25             +23      +21
-  patched  802.1Q  on         5818         0               -        -
-  patched  MACsec  on         6299         0              +0       +0
-  patched  802.1Q  off        5820         0               -        -
-  patched  MACsec  off        6255         0              +0       +0
+If tmp[1] remains uninitialized, this check might fail and return -EIO
+sporadically for devices lacking a read_sr2 opcode, such as the ODTR devices
+targeted by this patch. Could this lead to unpredictable failures during
+lock and unlock operations?
 
-With the patch every received frame was identical to the sent one.
-ax88179_rx_fixup() is the same in 6.8.0-138 and in net, and the patch
-builds on net with W=1 without warnings.
----
- drivers/net/usb/ax88179_178a.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Would zero-initializing tmp avoid this issue?
 
-diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
-index 81d8412ce8..cba1dc95d3 100644
---- a/drivers/net/usb/ax88179_178a.c
-+++ b/drivers/net/usb/ax88179_178a.c
-@@ -1457,11 +1457,11 @@ static int ax88179_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 			return 1;
- 		}
- 
--		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len);
-+		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len - 2);
- 		if (!ax_skb)
- 			return 0;
--		skb_put(ax_skb, pkt_len);
--		memcpy(ax_skb->data, skb->data + 2, pkt_len);
-+		skb_put(ax_skb, pkt_len - 2);
-+		memcpy(ax_skb->data, skb->data + 2, pkt_len - 2);
- 
- 		ax88179_rx_checksum(ax_skb, pkt_hdr);
- 		usbnet_skb_return(dev, ax_skb);
+> +		return -EIO;
+> +
+> +	return 0;
+> +}
 
----
-base-commit: 71a77ab76e74131a101f4d2d2afb0dcbf81b4e3c
-change-id: 20261002-ax88179-rx-len-8bc4940e98b6
-
-Best regards,
---  
-Fredrik Nyberg <fredrik.nyberg@volvocars.com>
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-winbond-ma=
+ster-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com?part=3D8
