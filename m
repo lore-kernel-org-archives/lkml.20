@@ -1,88 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A525A3921F1;
-	Fri,  2 Oct 2026 12:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A905471410;
+	Fri,  2 Oct 2026 12:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945163; cv=none; b=ESeL1lN3kCbTmu6OwU+aTdStEOumtVDWrokeACD+dvnj/1HpSij1+FIr1h4hw6Igj53WLI8Jtp+wMof0JijxuZ2zFqM7250XT4PS9cAlB6/Tqby0a9iHr5kSoT5UoGi3dnzOWJ93va5hMWCLcx8XRNNXdlr9625JnqGvFXv/3Jk=
+	t=1790945165; cv=none; b=eL8I2R1Q9t9NH61E2ZmwVXYW5acGYkwR8QO1YDZW5jWwmxylGFYeh5yc2aWCYDDQjLBGIo4mARJ4hYHH8JO/2QWPYi8ZX0M9p56O+LXqWghN9hkYfrl9vrJ3fG1FB+msdH2Cab18ydTktudr2hp8sUdzJUAL4HnFfZWqgmQOldk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945163; c=relaxed/simple;
-	bh=TbZgjai+kDrZAPaKC3HYnXR5EAAvBGmpFQl0ndVI3l8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XdoNIRlxzWOmhvly/rta+BKbOv5H19bVepXPvp1ReFkr6Di0x2KFUdD2T4+DL6oReKqfevYYZIFs7iP2b6HS5FcAXl/nJlGUfrliYICEsj2laEOytHsC3N4lN5dPhUk4zdKCpFlC5JPlsZYhuqRaOMlXg4nA1iL1+jWzIeki4F0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogJs8tcB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790945165; c=relaxed/simple;
+	bh=y/5qNTY3gi1pdf3VAhXQmxVMwN1BC9VnwtTYM8QIL5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=crN0s5dklwr0IrlR6hIet7B8szK2rr7t5mcPbuBZ1R0Bgz+YcHLF5cJLRe6ETk2hfQuVpwghhlAd6jI/bdrwubz1wb5Jjp8CsM3HXw82ld2URSWH+4jQo2zrmGEPNa5NrOf9GJurNfkA328QUbcg9vQEe/Gch2EZaAo2QA7sez4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Y0Uhqhib; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=cR7j1UN+; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nAzGVghz; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=KprUFIVe; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogJs8tcB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8521F000FF;
-	Fri,  2 Oct 2026 12:46:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945162;
-	bh=qCPk/TFUlQ1A+V4nab13llI+cpwiph0XkA1bls2wHQk=;
-	h=From:To:Cc:Subject:Date;
-	b=ogJs8tcB2wp0RIXBZIqb0DowEBvLNgX9+qXin0b4S9qpeIhcaWYeSiM3nI6lpwFjz
-	 A3JrgUm5YnuhAF3TuBCDj6rHVoE/drPqNsGHq48KSdVO4U1kBe2OA2toQqS/0+sIw6
-	 Px9+5WALfQMFwFULxrPg/GJ+5cr/KY5kJ1wkOWSXUPbMeXbap12oW1NvuxB8x4S3pm
-	 mwPEIiYFVZqzIeKuz0PWce9GD/Ozho3/ufO5KExCINx8dDz0bdkJe782HZZYpwVdLk
-	 apHO2yvLkcYfHU5d5dM1Z5Mwx+lP2YFChA8SPZf+0RueTXutRPnGT9temKCAYMHbLZ
-	 UHaBJchTCCMXA==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Peter Korsgaard <peter@korsgaard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Peter Korsgaard <jacmet@sunsite.dk>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: c67x00: fix uninitialized data access
-Date: Fri,  2 Oct 2026 14:45:46 +0200
-Message-ID: <20261002124558.3495203-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Y0Uhqhib";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="cR7j1UN+";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nAzGVghz";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="KprUFIVe"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 78A9E21E5B;
+	Fri,  2 Oct 2026 12:45:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790945114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JL48vtFnHAkTFcU3Jpa+lK2hy/s/M2uCud3mS5RbsDo=;
+	b=Y0UhqhibtRHmUJ+e/xKZJxkuDF2a9HO44UEMoD6ECktEuiRer6j3Qms6Chy/zptjrjYCIP
+	/0p6UGfYG4Slnom+0A2HhgAFgag0aa5oISMSuUGRQFY0ff+nvjX0KvkzlfHtH3ZTaRRMR4
+	QCmCBBn2nxNQpn5rgey+8dk7guQUZI8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790945114;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JL48vtFnHAkTFcU3Jpa+lK2hy/s/M2uCud3mS5RbsDo=;
+	b=cR7j1UN+Udf9ZMxyhQzGNFyQr0cd1ljkOQ/Xo2Quw8lpPH8TN2wx3LqvRW843GRLzOvV6/
+	0tCp4iRYykuy47BA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=nAzGVghz;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=KprUFIVe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790945110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JL48vtFnHAkTFcU3Jpa+lK2hy/s/M2uCud3mS5RbsDo=;
+	b=nAzGVghzM80zG2Zu0ewcrri6xzOAmw6X0zeKSMQigu6iYfrOfnoZ7QsoG4DcW3sySUKBFj
+	feQLjsx0t99qv25PgRT4v+1Cm7efPqo5GODyzLJPCcUYVsBWUJJX3r8a49xEJwH/69Vots
+	V+vaSLrMdIbwIWv3Rj6/4E66dK2xxIc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790945110;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JL48vtFnHAkTFcU3Jpa+lK2hy/s/M2uCud3mS5RbsDo=;
+	b=KprUFIVeypvNIMM8l9Z+lA6ZzKjdM9g5Ybkk4QVzjnIN2y+A/P4ZQcBw7Z9BPZPGiEvwik
+	BYubQP1qrswe27Dg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DD6713C9A;
+	Fri,  2 Oct 2026 12:45:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id yB6zGVCnv2r1TwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 02 Oct 2026 12:45:04 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 15F04A13C2; Fri, 02 Oct 2026 14:44:49 +0200 (CEST)
+Date: Fri, 2 Oct 2026 14:44:49 +0200
+From: Jan Kara <jack@suse.cz>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Subject: Re: [PATCH] ext4: wipe moved dirents with their real length
+Message-ID: <4zi7wmvjhwe7xph3hxawcuhlocifrnv56545tlxbs4u2r7lto3@kbusw76tettq>
+References: <20261002004127.1332310-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002004127.1332310-1-adrianox@gmail.com>
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 78A9E21E5B
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org,syzkaller.appspotmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[09bec78ee77613a3efdd];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
+X-Spam-Level: 
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Thu 01-10-26 21:41:27, Adriano Cordova wrote:
+> After copying a dirent to the new block, dx_move_dirents() wipes the
+> source entry using the on-disk rec_len.  Use the length already
+> computed for the copy instead because the on-disk rec_len is untrusted
+> and a corrupt value makes the memset() run out of bounds.
+> 
+> Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+> Tested-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 
-Randconfig builds for s390 using gcc-10.5 revealed that the
-c67x00_ll_husb_init_host_port() writes bogus data into the
-registers:
+Not that this would be wrong per se but the explanation doesn't really
+satisfy me :) If the rec_len on disk is wrong, we have a larger problem
+with corrupted source directory and we shouldn't have reached
+dx_move_dirents() in the first place. So how come directory entry
+validation in dx_make_map() didn't catch the corruption? Did syzkaller
+somehow managed to corrupt the directory entry between dx_make_map() and
+dx_move_dirents()? If yes, that is the bug that needs fixing, not trying to
+suck up corrupted directory entries in dx_move_dirents()...
 
-drivers/usb/c67x00/c67x00-ll-hpi.c: In function 'c67x00_ll_husb_init_host_port':
-drivers/usb/c67x00/c67x00-ll-hpi.c:288:3: error: '*(u16 *)((char *)&data+-452)' is used uninitialized in this function [-Werror=uninitialized]
-  288 |   hpi_write_word(dev, COMM_R(i), data->regs[i]);
-      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+								Honza
 
-I have not seen this error before, but the compiler is clearly correct
-and the bug has been in the driver since it was added in 2008.
-This particular build has CONFIG_INIT_STACK_NONE=y and CONFIG_UBSAN=y,
-but I don't think that alone is sufficient to find the bug.
-
-Change this to write zeroes instead, which may still not be what
-is intended but at least avoids the undefined behavior and the
-warning about it.
-
-Fixes: e9b29ffc519b ("USB: add Cypress c67x00 OTG controller HCD driver")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/usb/c67x00/c67x00-ll-hpi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/usb/c67x00/c67x00-ll-hpi.c b/drivers/usb/c67x00/c67x00-ll-hpi.c
-index 7a214a3a6cc7..3825552dc024 100644
---- a/drivers/usb/c67x00/c67x00-ll-hpi.c
-+++ b/drivers/usb/c67x00/c67x00-ll-hpi.c
-@@ -306,7 +306,7 @@ void c67x00_ll_set_husb_eot(struct c67x00_device *dev, u16 value)
- static inline void c67x00_ll_husb_sie_init(struct c67x00_sie *sie)
- {
- 	struct c67x00_device *dev = sie->dev;
--	struct c67x00_lcp_int_data data;
-+	struct c67x00_lcp_int_data data = {};
- 	int rc;
- 
- 	rc = c67x00_comm_exec_int(dev, HUSB_SIE_INIT_INT(sie->sie_num), &data);
+> ---
+>  fs/ext4/namei.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+> index a6386c1d237f..71e9e7c9a7fd 100644
+> --- a/fs/ext4/namei.c
+> +++ b/fs/ext4/namei.c
+> @@ -1860,10 +1860,8 @@ dx_move_dirents(struct inode *dir, char *from, char *to,
+>  
+>  		/* wipe dir_entry excluding the rec_len field */
+>  		de->inode = 0;
+> -		memset(&de->name_len, 0, ext4_rec_len_from_disk(de->rec_len,
+> -								blocksize) -
+> -					 offsetof(struct ext4_dir_entry_2,
+> -								name_len));
+> +		memset(&de->name_len, 0, rec_len -
+> +		       offsetof(struct ext4_dir_entry_2, name_len));
+>  
+>  		map++;
+>  		to += rec_len;
+> -- 
+> 2.51.0
+> 
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
