@@ -1,176 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8973E3C4F;
-	Fri,  2 Oct 2026 19:02:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAA63E8C77;
+	Fri,  2 Oct 2026 19:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790967753; cv=none; b=KKiPFm8a988J6S6Cvdb+qWaotz2lZcpDmV6DfHA4mt0fJzHp9eawm0aM3TU42pehK0ktCAc0C9NlZn49phW5tv7IQpAffH4Z39QXTzBAR8zxRlez0NFRQ6QLDCpyBRadZ/aw28g2D/q2fnaoclsuppcnnNlgl5WhxZiwgRFZov8=
+	t=1790967767; cv=none; b=Sbfp2e/4noOFTwVYwEAdDVHDPwpF6j6dvHwdw0nEkD8vQEHdoWq4Fo4aqpzYcpomJ/vUHJvwGgTSqcuRd6D52Qs7ufhnxnU+JcQ/1ew0UiUgW7t82gol2Tg7MVgnXR9Cs929K2e9yA6rJIHVhHS+j2vMCbVBA4uqTROQOVBTfGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790967753; c=relaxed/simple;
-	bh=ep0gakqrWUNOkDkSCuiUiDCh8YBSa3WIuNLOuzbb0eU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VEP1cvJPeWVJ6l8BfKH5tnXMUm3KGOXVNN3g5eH6XaCEN3W4OKumsotqwUCOyv/+qGwCClelvTNIrvo/l44jjRj+ARJvEnfCzRQaKT095JW0tu3VVPDM8WU7seL3nRqmUsx6QbUVOOlS5xakv+hSXyjT6weUQ4EjRjcXHPPZ1nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3kj6oe3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790967767; c=relaxed/simple;
+	bh=HdJ0kcwGez1QOFo/k6IasmkzidJ997+L73a0ylxwx/0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YgNrNT2l1QkSej3jWE8SmQkp8PW9M+ixJFGfrcvtxB4hL2Y9eI9zDCWZc06dJvB4FW6N7sgeBVJR9aOXmypNoWFwB7bKp1/eNyXNg0qbJ1+ZhZilXu3sCbt1gNebgkbiLMmT3NVRZeMQ8zwGRpFnsF/viMa7dK7omXJpzjJLVaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZ31VBEK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3kj6oe3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26DBC1F000FF;
-	Fri,  2 Oct 2026 19:02:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZ31VBEK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1EB1F000FF;
+	Fri,  2 Oct 2026 19:02:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790967751;
-	bh=iWcGFdgC9LNjco2uUW50o8hYtbySo0I9amNBjcQMnVE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G3kj6oe3pXTypo/UOJ2V189bhrPf0OTBYsxFQl3s+s7E0Cw/SK28rEAJwfLnhcAUW
-	 lHUJC0C1TONRC1VQCkQHKjyVYLPgW+YKFKcRfb9/hAOL/JbyGahyqjSTnVAusUUsqH
-	 ZasMgwU5nNz2BzzHl0OkmCAs0JfVwq7KyLRtXatK4bFKphiUymCKObjq0vf5tRB8Ut
-	 38nBMPUNGqjfbaUicOCSIOxgOCmQwIcID7fe5JbTwAPEibzMpt1GbUjwjx8pAMvq6u
-	 5VOMh8R2wXrOIXiDVl3GwxxtrLMVPXZM+8r+yTz8Fpqml7fo2esOXn9XWW/I+2Aq4w
-	 S+fb1D9vbibdw==
-From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
-To: Magnus Karlsson <magnus.karlsson@intel.com>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	io-uring@vger.kernel.org
-Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	David Wei <dw@davidwei.uk>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	linux-doc@vger.kernel.org,
+	s=k20260515; t=1790967766;
+	bh=zZT1sFx0zhXU9FqGRVTPkZ49g+AbixUgdpI2NAEKwOE=;
+	h=From:To:Cc:Subject:Date;
+	b=jZ31VBEKXWstDqWjf+dGRL/tHxrsKxOiOf51S4z8fxrM3V8KPXKS+dTk0qK0uhg/a
+	 gWnwyzyGC0vckW3cCZ+jD0s05L+u98uqV9ArrVh6h9CMFaO8UKw/QFWwL9hA0BpI5H
+	 mDz/vPd4mfCWjWS8/yevenwaa8vZ51aoTCNFahQ7bVUWRrGWHgUOtivtTN7KxzNt12
+	 /tAPhWU9Gl+IclgAGun75wdhiN0PsRK2YaQcZSoska52S1HjasCiGc/vJopnmeU/OK
+	 9/4oBCpy2wo7if/y9Wkb1Wdh7lnmXwY7XoSQXZARcT1fO43lQWFg0XHUzeErXTAwEQ
+	 1DHqStT14nqTQ==
+From: Sven Peter <sven@kernel.org>
+To: soc@lists.linux.dev
+Cc: asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Mina Almasry <almasrymina@google.com>
-Subject: [RFC net-next 15/15] Documentation: xsk: Document page-pool zero copy
-Date: Fri,  2 Oct 2026 21:00:16 +0200
-Message-ID: <20261002190018.696925-16-bjorn@kernel.org>
+	Sven Peter <sven@kernel.org>
+Subject: [GIT PULL] Apple SoC DTS changes for v7.4
+Date: Fri,  2 Oct 2026 21:02:30 +0200
+Message-ID: <20261002190232.6449-1-sven@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002190018.696925-1-bjorn@kernel.org>
-References: <20261002190018.696925-1-bjorn@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Describe AF_XDP zero copy on page-pool drivers: the aligned 4 KiB
-UMEM requirement, how the headroom reaches the driver through the
-queue configuration, the device-chosen offset in fragment
-descriptors, the scatter-gather layout, buffer ownership, provider
-locking, and the order in which a driver enables it.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-Signed-off-by: Björn Töpel <bjorn@kernel.org>
----
- Documentation/networking/af_xdp.rst | 65 +++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-diff --git a/Documentation/networking/af_xdp.rst b/Documentation/networking/af_xdp.rst
-index cc3f0d16b28f..bdf4029aedeb 100644
---- a/Documentation/networking/af_xdp.rst
-+++ b/Documentation/networking/af_xdp.rst
-@@ -346,6 +346,71 @@ Note that a UMEM can be shared between sockets on the same queue id
- and device, as well as between queues on the same device and between
- devices at the same time.
- 
-+Page-pool backed zero-copy
-+--------------------------
-+
-+Drivers which use the queue management API can obtain UMEM frames through a
-+page-pool memory provider. This is selected by the driver when zero-copy mode
-+is requested and does not require a new userspace flag. The FILL ring remains
-+the source of receive buffers and all normal AF_XDP ownership rules apply.
-+Once installed, the driver remains an ordinary page-pool consumer: allocation,
-+DMA synchronization, recycling, release, and refill use the normal page-pool
-+interfaces, while provider callbacks hide the UMEM-specific operations.
-+
-+The initial provider requires 4 KiB base pages and aligned 4 KiB chunks.
-+Unaligned chunks are rejected. Configured UMEM headroom is supported. The
-+provider requests it through the queue configuration, and the driver includes
-+it in the receive DMA offset; with multi-buffer packets it applies to the first
-+descriptor as described below.
-+
-+Like the normal XSK buffer allocator, provider-backed page-pool allocation and
-+recycling run in the receive queue's NAPI context. A queue restart prepares
-+its replacement before it stops the current queue, so two page pools can use
-+one provider for a short time. A provider lock serializes FILL-ring
-+consumption and the provider's buffer stack. It is taken once per page-pool
-+refill of up to 64 buffers, not per packet. Generic XDP cannot redirect to a
-+provider-backed socket; its copy-mode receive path retains the existing XSK
-+receive lock.
-+
-+UMEM frames retain the direct XSK ownership model. The provider does not add a
-+per-frame reference count, generation, ownership bitmap, or quarantine state.
-+A frame moves between the FILL ring, the owning NAPI context, and userspace;
-+userspace must not publish a frame which it does not own. Page-pool teardown
-+accounting protects the lifetime of the pool, not ownership of an individual
-+UMEM frame.
-+
-+Provider-backed buffers do not leave that context as kernel-owned memory.
-+``XDP_PASS`` copies the packet to kernel-backed skb storage before returning
-+the UMEM buffers. Redirects other than a compatible XSKMAP target likewise
-+copy to kernel memory. A compatible XSKMAP transfer publishes the UMEM
-+descriptors directly to userspace; returning them through the FILL ring makes
-+them available to the same queue context again.
-+
-+For multi-buffer packets, fragment descriptors are assembled in transient
-+kernel-owned storage belonging to the RX queue. They are never stored in the
-+user-writable UMEM, and are consumed before the NAPI context starts the next
-+packet.
-+
-+The copy on ``XDP_PASS`` is intentional: an skb may outlive the receive NAPI
-+poll, whereas a provider frame must be returned by the context which allocated
-+it. Applications which expect most packets to pass to the network stack should
-+therefore account for this copy when choosing page-pool backed zero-copy.
-+
-+Drivers may impose additional layout and queue requirements. The initial fbnic
-+support accepts configured UMEM headroom from 0 through 256 bytes in 128-byte
-+increments (up to 512 bytes including ``XDP_PACKET_HEADROOM``).
-+Packets larger than its selected header-data-split threshold require an
-+``XDP_USE_SG`` socket and an XDP program with fragment support. Their
-+continuation descriptors start at offsets chosen by the device.
-+When these restrictions are not met, a bind forced with ``XDP_ZEROCOPY``
-+fails with an error; automatic mode may fall back to copy mode.
-+
-+On a running device, installing or removing the provider restarts the
-+selected hardware queue.
-+Applications should populate the FILL ring before binding when possible. If
-+the ring is empty, the kernel schedules the queue once after installation;
-+the usual ``XDP_USE_NEED_WAKEUP`` rules apply after that.
-+
- XDP_USE_NEED_WAKEUP bind flag
- -----------------------------
- 
--- 
-2.55.0
+are available in the Git repository at:
 
+  https://git.kernel.org/pub/scm/linux/kernel/git/sven/linux.git tags/apple-soc-dt-7.4
+
+for you to fetch changes up to a8ac6027e82415f431bbba49ab535c44f2edaf4d:
+
+  Merge patch series "Initial Apple Silicon A18 Pro device trees and dt-bindings" (2026-09-25 22:59:47 +0200)
+
+----------------------------------------------------------------
+Apple SoC DTS changes for 7.4
+
+- Initial device trees for all machines with the base M4 SoC and the
+  A18 Pro based MacBook Neo. As usual, the PMGR nodes are responsible
+  for the majority of the diffstat. This is enough to boot with all
+  cores to a serial console but future work will be required to make
+  these useful for users.
+- Fixes for a whole bunch of dt-check-style issues for M1/M2/M3
+
+Signed-off-by: Sven Peter <sven@kernel.org>
+
+----------------------------------------------------------------
+Janne Grunau (16):
+      arm64: dts: apple: Fix style issues for t600x multi die .dtsi
+      arm64: dts: apple: Fix style issues for t602x multi die .dtsi
+      arm64: dts: apple: Fix style issues for t6031 multi die .dtsi
+      arm64: dts: apple: t603x: Fix all blank line dt-check-style issues
+      arm64: dts: apple: t8122: Fix blank line related dt-check-style issues
+      arm64: dts: apple: t603x: Fix child-name-order dt-check-style issues
+      arm64: dts: apple: t8122: Fix child-name-order dt-check-style issues
+      arm64: dts: apple: t8122: Fix child-address-order dt-check-style issues
+      arm64: dts: apple: t6031: Fix continuation alignment
+      arm64: dts: apple: t8122: Fix continuation alignment
+      arm64: dts: apple: t6030: Fix most property-order dt-check-style issues
+      arm64: dts: apple: t603[12]: Fix most property-order dt-check-style issues
+      arm64: dts: apple: t8122: Fix most property-order dt-check-style issues
+      arm64: dts: apple: t6032-j575d: Remove unused "framebuffer0" label
+      arm64: dts: apple: t603x: Break overly long lines
+      arm64: dts: apple: t8122: Break overly long lines
+
+Sven Peter (6):
+      arm64: dts: apple: t602x: Fix cpus node indentation
+      arm64: dts: apple: t6030: Fix cpus node indentation
+      arm64: dts: apple: t6032: Fix cpus node indentation
+      Merge patch series "Initial Apple Silicon M4 device trees and dt-bindings"
+      Merge patch series "dt-check-style strict fixes for Apple M3, M3 Pro/Max/Ultra"
+      Merge patch series "Initial Apple Silicon A18 Pro device trees and dt-bindings"
+
+Yureka Lilian (15):
+      dt-bindings: arm: cpus: Add Apple M4 CPU core compatibles
+      dt-bindings: interrupt-controller: apple,aic2: Add apple,t8132 compatible
+      dt-bindings: arm: apple: apple,pmgr: Add t8132 compatible
+      dt-bindings: power: apple,pmgr-pwrstate: Add t8132 compatible
+      dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible
+      dt-bindings: i2c: apple,i2c: Add t8132 compatible
+      dt-bindings: pwm: apple,s5l-fpwm: Add t8132 compatible
+      dt-bindings: arm: apple: Add M4 based devices
+      arm64: dts: apple: Add minimal t8132 (M4) device trees
+      dt-bindings: arm: cpus: Add Apple A18 Pro CPU core compatibles
+      dt-bindings: arm: apple: apple,pmgr: Add t8140 compatible
+      dt-bindings: arm: power: apple,pmgr-pwrstate: Add t8140 compatible
+      dt-bindings: interrupt-controller: apple,aic2: Add t8140 compatible
+      dt-bindings: arm: apple: Add A18 Pro based devices
+      arm64: dts: apple: Add minimal MacBook Neo device tree
+
+ Documentation/devicetree/bindings/arm/apple.yaml   |   32 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    2 +
+ Documentation/devicetree/bindings/arm/cpus.yaml    |    4 +
+ .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |    2 +
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |    2 +
+ .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
+ arch/arm64/boot/dts/apple/Makefile                 |    7 +
+ arch/arm64/boot/dts/apple/t6001.dtsi               |   11 +-
+ arch/arm64/boot/dts/apple/t6002.dtsi               |   18 +-
+ arch/arm64/boot/dts/apple/t600x-die0.dtsi          |    3 +-
+ arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |    2 +
+ arch/arm64/boot/dts/apple/t600x-nvme.dtsi          |    2 +
+ arch/arm64/boot/dts/apple/t6021.dtsi               |   10 +-
+ arch/arm64/boot/dts/apple/t6022.dtsi               |   18 +-
+ arch/arm64/boot/dts/apple/t602x-common.dtsi        |    2 +-
+ arch/arm64/boot/dts/apple/t602x-die0.dtsi          |    2 +
+ arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |    2 +
+ arch/arm64/boot/dts/apple/t602x-nvme.dtsi          |    2 +
+ arch/arm64/boot/dts/apple/t6030-pmgr.dtsi          |    1 -
+ arch/arm64/boot/dts/apple/t6030.dtsi               |  277 ++---
+ arch/arm64/boot/dts/apple/t6031-base.dtsi          |  191 ++--
+ arch/arm64/boot/dts/apple/t6031-die0.dtsi          |   63 +-
+ arch/arm64/boot/dts/apple/t6031-dieX.dtsi          |   94 +-
+ arch/arm64/boot/dts/apple/t6031-gpio-pins.dtsi     |   18 +-
+ arch/arm64/boot/dts/apple/t6031-pmgr.dtsi          |    6 +
+ arch/arm64/boot/dts/apple/t6031.dtsi               |   16 +-
+ arch/arm64/boot/dts/apple/t6032-j575d.dts          |   10 +-
+ arch/arm64/boot/dts/apple/t6032.dtsi               |  193 ++--
+ arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi     |   15 +-
+ arch/arm64/boot/dts/apple/t8122-j504.dts           |   10 +-
+ arch/arm64/boot/dts/apple/t8122-j613.dts           |    9 +-
+ arch/arm64/boot/dts/apple/t8122-j615.dts           |    9 +-
+ arch/arm64/boot/dts/apple/t8122-jxxx.dtsi          |    5 +-
+ arch/arm64/boot/dts/apple/t8122-pmgr.dtsi          |    1 -
+ arch/arm64/boot/dts/apple/t8122.dtsi               |  256 +++--
+ arch/arm64/boot/dts/apple/t8132-j604.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j623.dts           |   18 +
+ arch/arm64/boot/dts/apple/t8132-j624.dts           |   18 +
+ arch/arm64/boot/dts/apple/t8132-j713.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j715.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j773g.dts          |   25 +
+ arch/arm64/boot/dts/apple/t8132-jxxx.dtsi          |   48 +
+ arch/arm64/boot/dts/apple/t8132-pmgr.dtsi          | 1130 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8132.dtsi               |  467 ++++++++
+ arch/arm64/boot/dts/apple/t8140-j700.dts           |   54 +
+ arch/arm64/boot/dts/apple/t8140-pmgr.dtsi          |  777 ++++++++++++++
+ arch/arm64/boot/dts/apple/t8140.dtsi               |  207 ++++
+ 49 files changed, 3595 insertions(+), 552 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-j604.dts
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-j623.dts
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-j624.dts
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-j713.dts
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-j715.dts
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-j773g.dts
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
+ create mode 100644 arch/arm64/boot/dts/apple/t8132-pmgr.dtsi
+ create mode 100644 arch/arm64/boot/dts/apple/t8132.dtsi
+ create mode 100644 arch/arm64/boot/dts/apple/t8140-j700.dts
+ create mode 100644 arch/arm64/boot/dts/apple/t8140-pmgr.dtsi
+ create mode 100644 arch/arm64/boot/dts/apple/t8140.dtsi
