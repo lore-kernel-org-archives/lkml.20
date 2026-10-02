@@ -1,98 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911DF44D00D;
-	Fri,  2 Oct 2026 08:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C2A463B7A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929950; cv=none; b=Y9wJJgxDI8Qe86ksZiBR1aj8DBpP0+Vrv89P3yaAYey+PP+VBSNgHgbB2DLt92AU9fEsQn071m239LLBhJnapqF7atyymLcX3dVzNRT4L5WVE/eWT9zXl0DqdI0s0vqymGvPkU9sUbSJzHuvmskVBC3l3NlJexVKWThR2YU9Gk4=
+	t=1790929948; cv=none; b=LwGYz/75joTQTPSSbiEBa4Z2BUPJii0Wt3Cb2XGx7uFXMPy3XTp2yygyrCja7gmTyWlLlIfQWeXEr1gllaR3knupwPw+0ev9q1k6Vv659Mf81yKEu9u6PIYncRa2WDY+Bsza3wyupFi0h5XVXcqLIa6+WqWHbUEOTut2ARbkZmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929950; c=relaxed/simple;
-	bh=jG1ybcula4zP4GIDKvPs5PsGrmogHMbwRQM6IAk7XO0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Erl9zvWv0aVJTV6uMgcGAz4QvGFeT8bU6mJAPdPXjtF4hpFAF90Dyt77eEBBq8zdNS4wMS5XDo2TQ0kCkSKoHI/j3Fp2v1cKHmWCHs0eaAJ6nX5m9RgW/DSJuWRZUEJz7CG9h5PvnsMWnt3pi/3YpnK4P23cr4TOSxx4mFA2MRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=do5RPuzz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790929948; c=relaxed/simple;
+	bh=EgqUB+DoKqq6OdA2iGZBD4HDoUMih1j7Hjl6LdTfq+g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IrrqwUmpc0lJYAts5sdNkO4xAxbNwc14rdSue5JFiLtj9cgDER/CZ8Ji/srEEM54BF7fe+K5btjmIK1KCmQMENpszbhgfKU2125M/XXUt8Ls9PJzRS4TypVkLV9cQHOJFE6alN4AVa6neA0U9zW93mpL3p2mM1V/WQr8N5+Dnvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Nyn3a88T; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="do5RPuzz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431D31F008A7;
-	Fri,  2 Oct 2026 08:32:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790929946;
-	bh=ANFhZY5oTXIgXzJkgsjgPsIuJL50A78fEBGBYh3rZyE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=do5RPuzzz3tSANyIPWTUtoJpk700txOdRPbNqSrh5XADTyX8v0+RmCdMFV0YR4u6X
-	 MTGAEEha7yb3s/xI72yZWyN5Fknt+QT8pQGkai2eF7hxieSN/UNU7ypvtAxDlsdiOJ
-	 YbiSlzGe+G0oe+UmkIcpBBRDYWuBHzkii2b/U3INF/3oZyn+dk7+ZK/MkUL8at0fMU
-	 1si7zAA3qD5Gjlfx1wbxrEKTs3j3KiQOnz16XxgM2lFynKZWPhHxgamKy/aooWqXZw
-	 9Jt8EA6Z47BTB+COEVX9E+GgxI0mckFEVAekf+qz0ahzN5k6nxuWvk2DXzdlpLqzRU
-	 WeS3cpXnXZ7EA==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham
- <kieran.bingham@ideasonboard.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>,
- Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 5/5] media: imx219: Add status polling using .detect()
-In-Reply-To: <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <20261001-v4l2-sensor-detect-v1-5-a45993be17b8@kernel.org>
- <CAPY8ntCBcUXte5pAG+i0SRNC-z6GOjakfgGLjDm7D=z91A3uhg@mail.gmail.com>
-Date: Fri, 02 Oct 2026 10:32:24 +0200
-Message-ID: <xhkdbece8v6xz.fsf@mkorpers-koolstof.csb>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Nyn3a88T"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af9f88c95so1174253f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:32:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790929942; x=1791534742; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5JuY5wMUTyN0P+KeYJB0ZAeckebQaYADB7Uozry53MU=;
+        b=Nyn3a88TOZtlgUwXBQxc99DKzD5cFPgYsqvYvDeQwuAmd8ZmJn0iuNV/Q+c1/wucVB
+         zzUsZx4MycUbiDevM2/3mVWsrsq83OvHZitjpilMq50kbLXwEAuL/gkDz8kmL2rID9TN
+         9C9duiA8OpJDOe81uhktZU2HpmpC2ZJKWCJDRaojX5FQpEm2OJv7z5TcKeCwwh/20hRp
+         qwchnpBQY39cOcpQkuR4dYP7JgRuh+jDGQpoxkCcpKst2Gwm6+fbG1WmEd/Bl1nUIwTO
+         QlzwsvcYDuZoIhYKWAvxKLTusMQYC1w3u9iaDJE3GRLFswFPJIiFSo2GHrKbY8tu2GsM
+         yhcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790929942; x=1791534742;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5JuY5wMUTyN0P+KeYJB0ZAeckebQaYADB7Uozry53MU=;
+        b=cHbuja/IP52Fn4aNPY2RVdbE5Vs4i2RNeGmPuI2hH3pZKM3jWdyb7URU7Y8rEFAlYG
+         tHAcqqPz0jLKAzgBsPyrWKQhZ4FSBaZ/e+Z0aP7QfxsVA7V4uwUfJJgfcom7LmSM/zS4
+         dnwHRkNdEBTAQwkbtLUcIhUQxmDzwFIQUTnKG4se9u+1DtlPwt+9gv1U9C6XWGSdRBWS
+         EtYcPRHw5oNim13eFCga71yC/ekBYxer+E0N7iss1SY3p7khEyVBWYTql9q9eJuK82Jx
+         dBHThcNbHe4D2hzwBKX7NbENDcINLZhACHtUVzaWaSUwlEubUEUd+yIEZ8QqKV0twgot
+         80tg==
+X-Forwarded-Encrypted: i=1; AKwUvBxZJ+0Ih0vHS7onCmlxAoZCOKHmPNZtWS+5tdtei0e0W/vg8SH1ROKoWzZyhaz1CGYRIMPxG9t178/5PRs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8o91ZqAvxFXbBZu42+WFcM2NnFczo+y7sCqjjxIma2YdoWp/J
+	MvTpggr/elVXNpxNIZ6CC2Sm7WpnhzgvGArABNJzFeVK46j+ixENei/CYnXzlAT5W6I=
+X-Gm-Gg: AYBFou1sz2ge8OKp/9uRvjoyEujV/3QmrOeRGYcFOyOH00YIlCb6U7KPIKHTILL8m4K
+	pvELAMbC4NIAUsf+rQK6rX86jxnI1yy9GJ2d46RrNeOHmi8s2bKw/AFhURVukA5hmcpXUyTatv7
+	x03YjAaahaduLNxvIFXmnB1/e9xd0i9Y0lb9+fvLbYCUayCIB2hWmlKVxFy+5WyseQs2OaN7EBL
+	LdYAYovDnCi2iejaHZNClpGGe0WHOSOi8MIhvBoxmQel3JG0x24FE0Zm8/3qL17XlpvnY1ew7xJ
+	9wxXBEGTehHP08ZiQuc5J4IX2NY450NHGielTEfeIPPplaz5lSmK9ENmuhwfOC5thznsAtpzB1G
+	41XwqluE/BnNkn0azqsjSSOy1fgPQtKqI+2s9vi92Udru1qcCnqUAc3LCZ1ZFvJ/lF7x0JW48Zg
+	EUTVqrBRcxlcfemoLPrpmTA1qDiMwcSq5Q6niS0XDoCyc9B8+x5ghnreJAbY7rxsZmM5E=
+X-Received: by 2002:a05:600c:548c:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a027534bd7mr33259805e9.5.1790929942490;
+        Fri, 02 Oct 2026 01:32:22 -0700 (PDT)
+Received: from zovi.suse.cz ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03feed16bsm42507905e9.4.2026.10.02.01.32.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 01:32:22 -0700 (PDT)
+From: Petr Pavlu <petr.pavlu@suse.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rudolf Marek <r.marek@assembler.cz>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Duncan Sands <duncan.sands@free.fr>,
+	Chas Williams <3chas3@gmail.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-watchdog@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-hwmon@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	netdev@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org,
+	linux-rtc@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/3] hwmon: Replace __MODULE_STRING() with __stringify()
+Date: Fri,  2 Oct 2026 10:31:01 +0200
+Message-ID: <20261002-module-string-v2-1-fc7438acaf4d@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
+References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Dave,
+__MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+MODULE_PARM support for older modules" [1] in 2002-12. That change also
+moved it to the graveyard section at the end of linux/module.h
 
-Thank you for the review.
+Replace the remaining uses of __MODULE_STRING() with __stringify() in
+preparation for its removal.
 
-On Thu, Oct 01, 2026 at 16:58, Dave Stevenson <dave.stevenson@raspberrypi.com> wrote:
+Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
+Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+---
+ drivers/hwmon/fschmd.c         | 3 ++-
+ drivers/hwmon/nct7904.c        | 5 +++--
+ drivers/hwmon/sch56xx-common.c | 3 ++-
+ drivers/hwmon/w83793.c         | 5 +++--
+ 4 files changed, 10 insertions(+), 6 deletions(-)
 
-> Hi Mattij
->
-> On Thu, 1 Oct 2026 at 13:55, Mattijs Korpershoek
-> <mkorpershoek@kernel.org> wrote:
->>
->> Userspace needs to be notified when a sensor connection status
->> changes (e.g. disconnected at boot, then later reconnected) so it can
->> react accordingly.
->>
->> Add periodic polling using a delayed work that calls .detect() every
->> 2s and sends a KOBJ_CHANGE uevent with HOTPLUG=1 on status changes.
->> This mirrors the approach used by DRM connectors in output_poll_execute().
->
-> AIUI DRM polls from within the framework (drm_probe_helper.c), not by
-> a workqueue in the individual drivers.
+diff --git a/drivers/hwmon/fschmd.c b/drivers/hwmon/fschmd.c
+index 019fc32bf318..df9418a86c83 100644
+--- a/drivers/hwmon/fschmd.c
++++ b/drivers/hwmon/fschmd.c
+@@ -35,6 +35,7 @@
+ #include <linux/miscdevice.h>
+ #include <linux/uaccess.h>
+ #include <linux/kref.h>
++#include <linux/stringify.h>
+ 
+ /* Addresses to scan */
+ static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
+@@ -43,7 +44,7 @@ static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
+ static bool nowayout = WATCHDOG_NOWAYOUT;
+ module_param(nowayout, bool, 0);
+ MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+-	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
++	__stringify(WATCHDOG_NOWAYOUT) ")");
+ 
+ enum chips { fscpos, fscher, fscscy, fschrc, fschmd, fschds, fscsyl };
+ 
+diff --git a/drivers/hwmon/nct7904.c b/drivers/hwmon/nct7904.c
+index 976b8a008e44..04e1a8e6db37 100644
+--- a/drivers/hwmon/nct7904.c
++++ b/drivers/hwmon/nct7904.c
+@@ -23,6 +23,7 @@
+ #include <linux/i2c.h>
+ #include <linux/hwmon.h>
+ #include <linux/watchdog.h>
++#include <linux/stringify.h>
+ 
+ #define VENDOR_ID_REG		0x7A	/* Any bank */
+ #define NUVOTON_ID		0x50
+@@ -113,12 +114,12 @@
+ static int timeout;
+ module_param(timeout, int, 0);
+ MODULE_PARM_DESC(timeout, "Watchdog timeout in minutes. 1 <= timeout <= 255, default="
+-			__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
++			__stringify(WATCHDOG_TIMEOUT) ".");
+ 
+ static bool nowayout = WATCHDOG_NOWAYOUT;
+ module_param(nowayout, bool, 0);
+ MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+-			__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
++			__stringify(WATCHDOG_NOWAYOUT) ")");
+ 
+ static const unsigned short normal_i2c[] = {
+ 	0x2d, 0x2e, I2C_CLIENT_END
+diff --git a/drivers/hwmon/sch56xx-common.c b/drivers/hwmon/sch56xx-common.c
+index a385aae3bb0f..febb8ba7dc2c 100644
+--- a/drivers/hwmon/sch56xx-common.c
++++ b/drivers/hwmon/sch56xx-common.c
+@@ -18,13 +18,14 @@
+ #include <linux/watchdog.h>
+ #include <linux/uaccess.h>
+ #include <linux/slab.h>
++#include <linux/stringify.h>
+ #include "sch56xx-common.h"
+ 
+ /* Insmod parameters */
+ static bool nowayout = WATCHDOG_NOWAYOUT;
+ module_param(nowayout, bool, 0);
+ MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
+-	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
++	__stringify(WATCHDOG_NOWAYOUT) ")");
+ 
+ #define SIO_SCH56XX_LD_EM	0x0C	/* Embedded uController Logical Dev */
+ #define SIO_UNLOCK_KEY		0x55	/* Key to enable Super-I/O */
+diff --git a/drivers/hwmon/w83793.c b/drivers/hwmon/w83793.c
+index c6ef04c69856..e1f2708b5db6 100644
+--- a/drivers/hwmon/w83793.c
++++ b/drivers/hwmon/w83793.c
+@@ -34,6 +34,7 @@
+ #include <linux/notifier.h>
+ #include <linux/reboot.h>
+ #include <linux/jiffies.h>
++#include <linux/stringify.h>
+ 
+ /* Default values */
+ #define WATCHDOG_TIMEOUT 2	/* 2 minute default timeout */
+@@ -57,13 +58,13 @@ static int timeout = WATCHDOG_TIMEOUT;	/* default timeout in minutes */
+ module_param(timeout, int, 0);
+ MODULE_PARM_DESC(timeout,
+ 	"Watchdog timeout in minutes. 2<= timeout <=255 (default="
+-				__MODULE_STRING(WATCHDOG_TIMEOUT) ")");
++				__stringify(WATCHDOG_TIMEOUT) ")");
+ 
+ static bool nowayout = WATCHDOG_NOWAYOUT;
+ module_param(nowayout, bool, 0);
+ MODULE_PARM_DESC(nowayout,
+ 	"Watchdog cannot be stopped once started (default="
+-				__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
++				__stringify(WATCHDOG_NOWAYOUT) ")");
+ 
+ /*
+  * Address 0x00, 0x0d, 0x0e, 0x0f in all three banks are reserved
 
-Yes, that's my understanding as well.
-
->
-> Admittedly V4L2 doesn't currently have a totally obvious place to
-> setup this, but it would be far less effort to have the polling
-> framework within the core code rather than driver.
-> Possibly initialised in __v4l2_async_register_subdev_sensor() based on
-> whether .detect is set, and cleaned up in
-> v4l2_async_unregister_subdev, with the workqueue calling .detect and
-> generating the udev event based on the return value? I think that's
-> feasible.
-
-I agree with you that the polling should not be done in every sensor
-driver.
-I did it this way to illustrate how this would all be tied together in a
-simple exemple (one sensor driver).
-
-If we move forward with this series, I'll rework this to
-be done in a generic way.
-
-Mattijs
-
->
->   Dave
->
+-- 
+2.55.0
