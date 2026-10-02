@@ -1,239 +1,137 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C912C3B83F9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825524734EB;
+	Fri,  2 Oct 2026 09:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933809; cv=none; b=gLQOvclvI4yrLY8T0Z31jltORQkR3dYabY87AwSeVODfl32XUvXysKfVBlV7yQ8CzPDkua1vYACgZzi7ILs/Z4kcb5ENqHVmhfa0jdiL3qzAhjps4C8HHoHT5qDngwlRsA46tYRdBoS8oHUUDgeBRASQtB19UIdGKq21KWfBa28=
+	t=1790933838; cv=none; b=uQ/Ftyc+6VeGoxEkE/lTOQbwXN7ywY205xTyIJg9QKnXGG3/FN1rFltAk+aJxmszerSQKz/b5gFjbuWQUB0sI3p9UZ5b7RO7sOYzrE4yLt3lbQtnpgRxZnYYrcVO2DAIhECa/urJ7n4zbgCBIcrzFKps81ZmH6uY1sY/1c2V9/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933809; c=relaxed/simple;
-	bh=z33Ck6U5ewHhtYxiMGjmYlUv95YqoxkGbEoU7jIwWjk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DXwz2DmlfWoWpMEQenpe5EtpOYJejHzXscsG0K1fE6bn8ERwoJFc5/Li7T5VhvW2mpjehpcwUg661UK5lZoprRK5kgQw74Dc0W3WAewVra7GPCvX6s9I4u+cts8I2JRqgkfoRfuUvaY+MqqSM6smMCKniAHPec4MtakfE5HXP9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=njoMS+OK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RBgkrjGf; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tMr46N1B; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jV/WIWxd; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790933838; c=relaxed/simple;
+	bh=vkAnse3lUenZrbluf+TC/dwnO7fgQNXovdcKA+wUiQk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=fQljbHsKZyjgaIhBj/E+mGih7Psk6qEsNZbSxv1+tzivNGJeRlbuLxH9D3cTS9UWgVO0egyXURT/70EsD05TXDlte8chnR250d8VNz/ncFwA/FH1pf4UTD+jIgOK4+yLks9owfzqh2TF5eebniw6riWDXBvG4JA6PpM2Zpfy/mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K6rk7NZV; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="njoMS+OK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RBgkrjGf";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tMr46N1B";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jV/WIWxd"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 996AD1FE33;
-	Fri,  2 Oct 2026 09:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790933801; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uc7M9cwpj/769FWo/9YrJrpEe7SA7xSRS90z28j/gZA=;
-	b=njoMS+OK4KjH44KD6o7n3AlfaZF1h36Vz8zvunkE7iMBjOOYD5owjHgtMw4T4M1tWXfNIX
-	Z/236kbev1RfVNrQDN5Qr3TIeP0yoKPr5Qtmag+x/Vnhtbm1+9hJx827FzCiQhIYtNqVw3
-	PCA+hqq+iI3s6Pk5jaQHS1LYUTsvH6s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790933801;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uc7M9cwpj/769FWo/9YrJrpEe7SA7xSRS90z28j/gZA=;
-	b=RBgkrjGff65OLSVuRTll7bQYl+aQt0OVR/w0n9XsNtJs0iZpBCr0eBLgUUVOvC0P640QAY
-	ZoHZXGs2a8DompCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tMr46N1B;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="jV/WIWxd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790933797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uc7M9cwpj/769FWo/9YrJrpEe7SA7xSRS90z28j/gZA=;
-	b=tMr46N1BuhdNk75zSnI7kPrZcAGnVVkpIcvgogrhZz/1CfQRrAOXgAICcLQm/nTC78xTZq
-	Wce7T+jOfPK1abp7BfmP1V56TPpix9xaFnn+/Uz47hCzf6RYbNPFs8Rq8rMKglNRYEe6D9
-	O0VQec04T3c5NKikyv/au9AonvreVBQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790933797;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uc7M9cwpj/769FWo/9YrJrpEe7SA7xSRS90z28j/gZA=;
-	b=jV/WIWxd67OjoXQ4nJIsY5FZJrtTezRi6EKY7yUAVvSTFLDE2y1pv7d+Trl5CeigQnbAKe
-	HGkQYZz1Acx63BBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5F51C13BEC;
-	Fri,  2 Oct 2026 09:36:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id u7OADiV7v2qvBAAAD6G6ig
-	(envelope-from <hare@suse.de>); Fri, 02 Oct 2026 09:36:37 +0000
-Message-ID: <09c64ac0-8f05-4815-bb17-481614d2db91@suse.de>
-Date: Fri, 2 Oct 2026 11:36:36 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K6rk7NZV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790933836; x=1822469836;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=vkAnse3lUenZrbluf+TC/dwnO7fgQNXovdcKA+wUiQk=;
+  b=K6rk7NZVPWVc3ivjD6cOB9IeKWKLSNDpPHSLmSNGGIJ769xjHRlKHGYE
+   Jg2AsXx6dpLh4PRss/SLcS2f2d0TMdD6JvDp40P8pY9qCaXnOLZJFpyN0
+   bBPnaRNw+LEeiWwXgvJR1Ig2SYv3WctYYFX0z0pth14l/ECXKXkTmcJZf
+   jeag3UkdcylPpYmTD6zRHdEYk+IeKGn6jHSgsOlxKhIQ5q7cE1WCsqdUm
+   wxappFRBgSvrjVzb/RSlR2JIjyDGCw4L+nGQTUq2VgnSgcAnYwpSgAvjw
+   fYyTOZwbla6lTKEzC8R0Oa2h2AKyqknnLIYM3T/5v95INXMuQy0zXkrLR
+   w==;
+X-CSE-ConnectionGUID: 381VHtr9TFKYUed5YyXyyw==
+X-CSE-MsgGUID: 6U0HTMkxTOejXNQ6ZCGF1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90729748"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90729748"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:37:16 -0700
+X-CSE-ConnectionGUID: g685PMKrQRORckEJrD+6Vg==
+X-CSE-MsgGUID: petXPvW8S/y8A57wLp05cQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="276267967"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.196])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:37:10 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: =?utf-8?Q?M=C3=A0xim?= Pedraza Padilla <maximpedraza@gmail.com>, Maarten
+ Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ard
+ Biesheuvel <ardb@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: Francesco Valla <francesco@valla.it>, Mario Limonciello
+ <mario.limonciello@amd.com>, Javier Martinez Canillas
+ <javierm@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg
+ <sam@ravnborg.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, Shuah
+ Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-efi@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image
+ size
+In-Reply-To: <20261001195847.141192-3-maximpedraza@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261001195847.141192-1-maximpedraza@gmail.com>
+ <20261001195847.141192-3-maximpedraza@gmail.com>
+Date: Fri, 02 Oct 2026 12:37:07 +0300
+Message-ID: <5c92c6f27b0778124d2365603374f70bd9b69b8d@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] nvme-multipath: fix path state evaluation for
- failfast and ANA
-To: Krishna Iyer <kiyer@crusoe.ai>, kbusch@kernel.org, axboe@kernel.dk,
- hch@lst.de, sagi@grimberg.me
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- nilay@linux.ibm.com, saravanand@crusoe.ai, sjpark@crusoe.ai
-References: <20261001094857.74567-1-kiyer@crusoe.ai>
- <20261001094857.74567-2-kiyer@crusoe.ai>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261001094857.74567-2-kiyer@crusoe.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,crusoe.ai:email,suse.de:dkim,suse.de:email,suse.de:mid];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -4.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 996AD1FE33
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/1/26 11:48 AM, Krishna Iyer wrote:
-> nvme_available_path() has two problems that keep I/O queued when it
-> should be failed:
-> 
-> 1. When fast_io_fail_tmo expires, NVME_CTRL_FAILFAST_EXPIRED is set and
->     the path is skipped, but the function still falls through to
->     nvme_mpath_queue_if_no_path(). If delayed_removal_secs is configured
->     the I/O is requeued indefinitely, defeating fast_io_fail_tmo. Only
->     fall through to queue_if_no_path when there really are no paths;
->     if a path exists but its failfast timer has expired, fail instead.
-> 
-> 2. A LIVE controller counts as a usable path regardless of the namespace
->     ANA state. A path whose ANA state is inaccessible or persistent-loss
->     cannot serve I/O, so it should not count as available. ANA change is
->     transient and bounded by ANATT, so keep queueing while it resolves.
-> 
-> Also kick the requeue work from nvme_update_ns_ana_state() when a path
-> does not transition to live, so parked I/O is re-evaluated when an ANA
-> transition leaves the namespace inaccessible.
-> 
-> Move nvme_state_is_live() above nvme_available_path() so it can be used
-> there.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
+On Thu, 01 Oct 2026, M=C3=A0xim Pedraza Padilla <maximpedraza@gmail.com> wr=
+ote:
+> The DRM splash client reads the boot graphics the firmware left behind
+> through bgrt_tab and bgrt_image_size. Built as part of drm_client_lib,
+> which can be a module, it then fails to link:
+>
+>   ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt=
+_tab' undefined!
+>   ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt=
+_image_size' undefined!
+>
+> Export both. They are filled in once, early in boot, and only read
+> after that.
+>
+> Reported-by: Mario Limonciello <mario.limonciello@amd.com>
+> Closes: https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b9786=
+96482@amd.com/
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: M=C3=A0xim Pedraza Padilla <maximpedraza@gmail.com>
 > ---
->   drivers/nvme/host/multipath.c | 26 +++++++++++++++++++-------
->   1 file changed, 19 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-> index 11871f5f18c2..0d6c05f0808b 100644
-> --- a/drivers/nvme/host/multipath.c
-> +++ b/drivers/nvme/host/multipath.c
-> @@ -509,9 +509,15 @@ inline struct nvme_ns *nvme_find_path(struct nvme_ns_head *head)
->   	}
->   }
->   
-> +static inline bool nvme_state_is_live(enum nvme_ana_state state)
-> +{
-> +	return state == NVME_ANA_OPTIMIZED || state == NVME_ANA_NONOPTIMIZED;
-> +}
+>  drivers/firmware/efi/efi-bgrt.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/firmware/efi/efi-bgrt.c b/drivers/firmware/efi/efi-b=
+grt.c
+> index 1da451582812..746a8fb3a337 100644
+> --- a/drivers/firmware/efi/efi-bgrt.c
+> +++ b/drivers/firmware/efi/efi-bgrt.c
+> @@ -17,7 +17,10 @@
+>  #include <linux/efi-bgrt.h>
+>=20=20
+>  struct acpi_table_bgrt bgrt_tab;
+> +EXPORT_SYMBOL_GPL(bgrt_tab);
 > +
->   static bool nvme_available_path(struct nvme_ns_head *head)
->   	__must_hold_shared(&head->srcu)
->   {
-> +	bool failfast = false;
->   	struct nvme_ns *ns;
->   
->   	if (!test_bit(NVME_NSHEAD_DISK_LIVE, &head->flags))
-> @@ -519,10 +525,16 @@ static bool nvme_available_path(struct nvme_ns_head *head)
->   
->   	list_for_each_entry_srcu(ns, &head->list, siblings,
->   				 srcu_read_lock_held(&head->srcu)) {
-> -		if (test_bit(NVME_CTRL_FAILFAST_EXPIRED, &ns->ctrl->flags))
-> +		if (test_bit(NVME_CTRL_FAILFAST_EXPIRED, &ns->ctrl->flags)) {
-> +			failfast = true;
->   			continue;
-> +		}
->   		switch (nvme_ctrl_state(ns->ctrl)) {
->   		case NVME_CTRL_LIVE:
-> +			if (!nvme_state_is_live(ns->ana_state) &&
-> +			    ns->ana_state != NVME_ANA_CHANGE)
-> +				continue;
-> +			return true;
->   		case NVME_CTRL_RESETTING:
->   		case NVME_CTRL_CONNECTING:
->   			return true;
-> @@ -531,6 +543,9 @@ static bool nvme_available_path(struct nvme_ns_head *head)
->   		}
->   	}
->   
-> +	if (failfast)
-> +		return false;
-> +
->   	/*
->   	 * If "head->delayed_removal_secs" is configured (i.e., non-zero), do
->   	 * not immediately fail I/O. Instead, requeue the I/O for the configured
-> @@ -887,11 +902,6 @@ static int nvme_parse_ana_log(struct nvme_ctrl *ctrl, void *data,
->   	return 0;
->   }
->   
-> -static inline bool nvme_state_is_live(enum nvme_ana_state state)
-> -{
-> -	return state == NVME_ANA_OPTIMIZED || state == NVME_ANA_NONOPTIMIZED;
-> -}
-> -
->   static void nvme_update_ns_ana_state(struct nvme_ana_group_desc *desc,
->   		struct nvme_ns *ns)
->   {
-> @@ -926,8 +936,10 @@ static void nvme_update_ns_ana_state(struct nvme_ana_group_desc *desc,
->   		 * is not live but still create the sysfs link to this path from
->   		 * head node if head node of the path has already come alive.
->   		 */
-> -		if (test_bit(NVME_NSHEAD_DISK_LIVE, &ns->head->flags))
-> +		if (test_bit(NVME_NSHEAD_DISK_LIVE, &ns->head->flags)) {
->   			nvme_mpath_add_sysfs_link(ns->head);
-> +			kblockd_schedule_work(&ns->head->requeue_work);
-> +		}
->   	}
->   }
->   
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+>  size_t bgrt_image_size;
+> +EXPORT_SYMBOL_GPL(bgrt_image_size);
 
-Cheers,
+Data is not an interface.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+If these will be used more, perhaps it would be better to wrap access to
+them in functions? I think most of the time it will help with
+maintenance.
+
+And you can add stubs for CONFIG_ACPI_BGRT=3Dn where they belong,
+i.e. include/linux/efi-bgrt.h instead of drm_splash.c like in patch 11
+of this series.
+
+
+BR,
+Jani.
+
+
+>=20=20
+>  struct bmp_header {
+>  	u16 id;
+
+--=20
+Jani Nikula, Intel
