@@ -1,71 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B1F3815E4;
-	Fri,  2 Oct 2026 08:52:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BC3405F7
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:52:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931162; cv=none; b=UszjzU+lH8IZBDp7YOKHuezxOxn5j0sJi+tDsS223oAx44RajMmKNA/A9qd1ypB+1cSAsAhFdFNrvTA+IjBAu89XMwuACaTaIrYcMUHk0C13+b0RjAhJR8EanqlDYS0/mqXGb2t5GIwujL4c3+bXrPfsE+xccWOY/PEdy/RGYJ8=
+	t=1790931176; cv=none; b=Ly1clYfTVmU1UUzWzrO6vvMneT4OSu0aPNR2VkJK+E+Aa1ZFkRQ1amtAeybbznuJt5z5cgEsPbNXqRMMQvv5kGu68dbDJK4LDvQ5T3rMWhAw9UD5iojsxCdZnxemTaSc6c3hQdkTKknAyGbOQ1xEoACWktxPqDIyLT+FaGqjRD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931162; c=relaxed/simple;
-	bh=iXHsLNEIgTdVkQf252hrq1bGqMSRsvZLxR8EVqQ/E3U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TeCVZj/nPMwpWajiN6m9ZOtfOmWa0l+meL30eZxlDMdMKAWRXym9/HxkLYgV4k8RmcSHmMF7sZA5eyPRadEZNVPxnuAOoKup6JjeeGHlPGAQqtMUOmH1uZoKo9WvZ8U/oxsBVk855It//BVoB0r+w37kKeG4Sju39YT9ELCv2nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sg/y24rR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790931176; c=relaxed/simple;
+	bh=1HRuClBs+9wcnXTCDpjs1Go7ysobHRZWvHIHP9aB3II=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Wd7l7EHjUSbZc+8Hf1oaytuci06FYVjoam7cyk3S3uxrRAIHXkA498TzjZMHgZDBzj3lpO5Hst56cSucuygFlGvO/fvLU3YTC02bZEpl/FWhKx9WmS8xBsmSwoGx4hYKkFLSFeoc7hhnW/AvnLaFmIOLN1vx2ES6nyYUMt2EmqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kWs1Nk6Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sg/y24rR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11A01F000FF;
-	Fri,  2 Oct 2026 08:52:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kWs1Nk6Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80D21F0089F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:52:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790931161;
-	bh=ElvCQz9IYbz+BJxp9eo1Z5bEYL8XU0GKr6zST1/WuR0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sg/y24rRAcEXOhQRX8+aKshGrVMw8+4m9vNZEP9K5iFQrTKLW4ZLuPHs9+sv+9msv
-	 O1N1itY/xt9lsgDyQqHRzIJ5SsVySeboTU3exeOYAQJGNGj369euUwm4ldyMkzqIqT
-	 3K82DO85lc332822y3Xp3wSZkrJIwz19cMj4Y/RSusL+SButTyfeNR41JvhHsz331r
-	 o7QOhXGirmwgGDC9sP4RHvYvbU9Sx81gVs1cRkqrSlO2x6VL6SRbkqo7jXq99GUcrX
-	 Ux4TXXY/qbU2FW6HLPTK/49qZLOVFO8RBi+8u5xVcESjn3cIe7zeR8slNIkTfh1weh
-	 6UXtOh5mg0bbg==
-Date: Fri, 2 Oct 2026 09:52:37 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] reset: scmi: Set the device for the reset controller
-Message-ID: <20261002-statuesque-blond-hog-fe0388@sudeepholla>
-References: <20261002084142.1570378-1-hayashi.kunihiko@socionext.com>
+	s=k20260515; t=1790931174;
+	bh=II2i7KXaSjS5yiJDHC8RNg96Czr9lF05UVBVD37FVSg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kWs1Nk6QkbpFIqApAlg9PdNinUPVcMF5EX68nOHiOvEJoEzywc17J3RRIga90CL/d
+	 Z042lxfzSkzbDC33veTk4QMuDJChC/RsgIYubTF3Dbu68bj5vr0ucf+YGm1oz4jR9v
+	 p3HyKZisGUSwpSxrpDRLgij1B4YS1fx/XjVlcFbZbpdn2/VTBx+BFTVsXW23miVXWC
+	 rxQ24M2uj+akTw+3dDhVJs28KRBAE8D6DOFDvCSNzsebnPOKa7I09OGqOx0iYE+w9U
+	 NCWg2f7OivApouHlIoPZXxBu2f3NliUJh5wBhj6sgCK6Ipa8mKhuuuWboN0kthDZyo
+	 k8OjSa8DmhtUQ==
+Received: by mail-oo2-f41.google.com with SMTP id 46e09a7af769-8177a7fc354so3869758a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:52:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwXypKkAz2gPJrrjtOjVHO/STq2JmtdsNN+YhSebnD5SyZTr45mrUxwbOD8537j8VmFgdSp9BxRsLMgs7U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lV7OF/g/IzCoGja6196BiuNE92g9RWPwc2ZQHvMpzirIzcwYIR
+	ZzXmGnxXAVXBsNUdZSS9W7fPFasRxyOThwk2ntvdYn49EV5t4AvghI4pAA1LLg8dIKD03ZEPuru
+	q56JWdIbKyqdGjeI30svvl4mfSlYhdLY=
+X-Received: by 2002:a05:6820:221c:b0:6de:ba4f:aef7 with SMTP id
+ 006d021491bc7-6df35746daamr1487310eaf.74.1790931174179; Fri, 02 Oct 2026
+ 01:52:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002084142.1570378-1-hayashi.kunihiko@socionext.com>
+References: <20261002-tls-fix-sk-kcsan-err-v1-0-baa0ba056323@proton.me> <20261002-tls-fix-sk-kcsan-err-v1-1-baa0ba056323@proton.me>
+In-Reply-To: <20261002-tls-fix-sk-kcsan-err-v1-1-baa0ba056323@proton.me>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 2 Oct 2026 10:52:42 +0200
+X-Gmail-Original-Message-ID: <CAL4WiirRTTzrAu6vqA6KWU5z3mK6_GTPzJY_tsR0M-nbPeiMxg@mail.gmail.com>
+X-Gm-Features: AclHuK9Jv6gTNJU_9I5u2gA0R-3jGf7ZShcueDTlOKFlchkVBn6m45fEhIemxxs
+Message-ID: <CAL4WiirRTTzrAu6vqA6KWU5z3mK6_GTPzJY_tsR0M-nbPeiMxg@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] tls: annotate lockless access to sk->sk_err
+To: quanyeyang@proton.me
+Cc: John Fastabend <john.fastabend@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Sabrina Dubroca <sd@queasysnail.net>, "David S. Miller" <davem@davemloft.net>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 02, 2026 at 05:41:42PM +0900, Kunihiko Hayashi wrote:
-> SCMI reset driver does not set rcdev.dev when registering its reset
-> controller.
-> 
-> If rcdev.of_node is not available, the reset core tries to obtain
-> the firmware node from rcdev.dev. However, rcdev.dev is also NULL,
-> causing a NULL pointer dereference.
-> 
-> Set rcdev.dev to the SCMI device.
-> 
+On Fri, Oct 2, 2026 at 9:29=E2=80=AFAM Quanye Yang via B4 Relay
+<devnull+quanyeyang.proton.me@kernel.org> wrote:
+>
+> From: Quanye Yang <quanyeyang@proton.me>
+>
+> kTLS sits on the same struct sock as TCP. do_recvmmsg() and
+> getsockopt(SO_ERROR) still call sock_error() without the socket lock
+> and clear sk_err with xchg().
+>
+> tls_rx_rec_wait() already peeks when data has been copied and consumes
+> otherwise, but the outer if (sk_err) is an unmarked load. On the
+> no-data path that check-then-sock_error() window can return 0 after
+> another thread consumes the error. Call sock_error() once and only
+> return when it is non-zero; keep READ_ONCE() on the peek path.
+>
+> tls_sw_sendmsg_locked(), tls_push_data() and bpf_exec_tx_verdict()
+> read sk_err twice. Fold those unmarked loads into one READ_ONCE()
+> and use that value as the returned errno. The field is still not
+> consumed there.
+>
+> Link: https://lore.kernel.org/netdev/3d9d442f-f168-43da-87b0-010ad5a78365=
+@redhat.com/
+> Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+> ---
+>  net/tls/tls_device.c |  5 +++--
+>  net/tls/tls_sw.c     | 45 ++++++++++++++++++++++++++++++---------------
+>  2 files changed, 33 insertions(+), 17 deletions(-)
+>
+> diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+> index f11d0528fc43..03ce83a9d4e9 100644
+> --- a/net/tls/tls_device.c
+> +++ b/net/tls/tls_device.c
+> @@ -444,8 +444,9 @@ static int tls_push_data(struct sock *sk,
+>         if ((flags & (MSG_MORE | MSG_EOR)) =3D=3D (MSG_MORE | MSG_EOR))
+>                 return -EINVAL;
+>
+> -       if (unlikely(sk->sk_err))
+> -               return -sk->sk_err;
+> +       rc =3D -READ_ONCE(sk->sk_err);
+> +       if (unlikely(rc))
+> +               return rc;
+>
+>         flags |=3D MSG_SENDPAGE_DECRYPTED;
+>         tls_push_record_flags =3D flags | MSG_MORE;
+> diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+> index d1ad31986cf2..12e4458b44bb 100644
+> --- a/net/tls/tls_sw.c
+> +++ b/net/tls/tls_sw.c
 
-Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+It seems you missed tls_encrypt_done() ?
 
-Worth adding fixes tag IMO
-
-Fixes: c8ae9c2da1cc ("reset: Add support for resets provided by SCMI")
-
-Hi Philipp,
-
-Can you please take this in your next round of fixes and/or updates ?
-
--- 
-Regards,
-Sudeep
+Thanks!
