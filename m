@@ -1,89 +1,106 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFBB367B86
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2C22F9D82
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973216; cv=none; b=nshu4g80suUp24WRueYkPt61bOhVI5SBb3kfuVFGdvQnz+bBBTvgTq462JtqHoWXpGLwEbxY/bSxLawnmEGGQKMqBTAtt81RhUEKLoaWr2cp6GEJxTdJik2cjlhecTngXvp65kz/H5/QapcQ8jyYnGq6Jz1HuVmhlTpA4xzVZLU=
+	t=1790973228; cv=none; b=kfu9tunDZ92JsTUgL8NTjEzwI+lRreKWjQujpsy3p/FiGvjR1apnsAQTIDkjz1TydkC5cAI8aUnkb0V0DVGgDJQnh3GlxSMIKlHUzRKInExIZiMBmIbPLoZqqLJYnhQzOPmQYbISYEPR1U9vMfst8QHjCMGbgSrkECf7+2JciSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973216; c=relaxed/simple;
-	bh=mkjv//+y7zh6wyp51u7RnjK0x5syo2h1ZKUZdwBTUt0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bP7YmNk9s1D9BkGig/KHZLhtRCaP7UiYmLfWW6F8i5684btTNJNCFp+IC8hfK+71sIGzAfKXPlSnGss1PvKeD6rJkFFA9HHR4FZNoK1Ed/AuyNi5YQo1wurfm7abc1s9M7bW6vuwNXmIE/D9p059UJ4DZYDoIMxGFMrAwHuc6YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c307941971so367791b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:33:34 -0700 (PDT)
+	s=arc-20240116; t=1790973228; c=relaxed/simple;
+	bh=u034o5ljXz5CJToLKeVCwXtqDGV74CDcIcp4GPXFAwE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X4LXXroie6JFSxF+gtN3YJZTiYMeRIimMsXNUbYcQTDOc16hMVTBlaM6RTpNAW4U2R2ULt6fO1fX6Y0Jl6X16aISgilbAvhYX3WZ4KmkxN3hAHt6tgdifPr+URKaPHraeU7Aa7kEqlcyaeMWhKdq+Ni6lBE5I4EY+xwEXa1RZlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=rBydKLru; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="rBydKLru"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39d654f02baso186318a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:33:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790973226; x=1791578026; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H0lo09yz30+6G0Y3ATt3g2hzJILuJM31qXCKjPdHWfs=;
+        b=rBydKLrunRF09vY1woEoY9pRijncB4yEl2/h0tQxaueqmhOQNkwTI37WoiY3mm5q1j
+         KAJPvnNoWX96HONTpqoLOKqO9C5fSiHRD2Q0YjLbFaROZStMgrl36+mn+I5uBS4GBdhh
+         zFXWtDQER+ml7vuBMjZt8dCueqKiGgdKEfOQiPVdRUD42tbdhNMey7M0EVJ6ikhvM0Pu
+         aYi6sgaayFirxjB/tIUp/arwcZQU3Xn1b73Yy2J2uOUOI2f8XxjhHJR19gRjPF2yMFJ/
+         jtBnTYCDouHO6E3oFEHQd3exTmA2vw1T6XNa+JITBxN3aqdGqyH1LRu1n6JkkaM494sX
+         Y5cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790973213; x=1791578013;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kW7axytshc47DovEV4O1GtbDR6sHYpDI18xoyUEZ+g8=;
-        b=P9J0xG6IqqSnUOF1dq5Kj/Z+Jrd+GZUldhA45A9bC3Sah5MHdv0EJ6awCm9PNYABBp
-         UL9CtyPbMxIpBEeXPRw1VWREX0PDqTqPQi55ppO/XtuLhX7A0tO6mFMN4F+QAbUS8/0x
-         +N6YaoeUW6mL3O6+oY0aFPszpCKfPZtOLV/PIR237FLUYhdMi+ENicm01yXSJw8Op6Dh
-         RoE+jf8uCoQ1peN+fP61sJ3ghL+ibDo9WBzmdk+t3jwW1ZLCPhUfo46TP9Q0Flh3sbri
-         rmhJHvqNpHrAYuC1haZni9QczCzs+4pqqtE3LBavrjy3JBZl/bVF7gmlv7kpUbKR27ab
-         ymwA==
-X-Forwarded-Encrypted: i=1; AKwUvByI61sZKbRpE2IXsqkEEVrT8rQ9V5H+/YOEx8GkSQwGXRLZAndGzfngiF5f4TT3ur2pRJUwQWW3n1WD/Xo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYjigIp5W55QRkONR5HNoezjnUzmBQm5uCNfx4QewJJSE2yV2W
-	EhT0mVLkWQRs5aFL7XDOZ2kwdc5XH/GRbSwsfLWBQHrzdwd6/FVEoLzkfT50D19O11Xt9QNNSth
-	qi9UKrFBxvfe5YZNQbndtMcCWDBO8eIRYSlJTTBU8/4hljD3rWdbeFDUf3MY=
+        d=1e100.net; s=20260707; t=1790973226; x=1791578026;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=H0lo09yz30+6G0Y3ATt3g2hzJILuJM31qXCKjPdHWfs=;
+        b=RHqneHphnR3wC62DM1Wsyzry2Hy/RN6ga4uGOENjC28PSZAuv8F4HEn+usM+AbLo77
+         4ejCwKM5n/xsGzBLP3o9p/2/XsbAS7dpr0n3YrzTTj4xGxVeHclvX1D4gYRN4Tocv4h5
+         EATtcAZddvxVDqr4VKwERVlsYDepWr5FDbZLtGW51kSc5KHyHQWaPaURDx+l7KQrJvHl
+         4e22sX2PmDyJlGDCD6T9QIROOew/8djFS8ufZtWxQlB7aVqmTUFZfplKJXCkLN8vBk0R
+         Mu/RPCgekt414MNUnxff/wrM+/j7Emz8mN6wHxw5jxzx+UoirV18WexRyrcJf+yTASWq
+         AIjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8KF7c0G6iNScnp6fTTK1VXbmaVe2fw3ttLuCQvbxGq/NCJkjXLK6oGm5TXIWyQclAPhMNnmuLl/Az4HY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJGxJQJsULeoYMn0Syi+Nd2AbW85yL8NorteDb5OaiHWMb+Dow
+	aNZEtMyy8/On8XXEmGPq/zo9xJfVmuCsBTUVDqR9SXY+w68D05qeHMY51711MeSJ2G8=
+X-Gm-Gg: AYBFou0jMvL1BxrqQyAa1wmnhK3OcwUBkgbhJ8VUbZSLpZswymH9RyC3VPvJhRgGP4d
+	FWRG8cKJxSouugiQmdn+S4x+ikzYYmXPK3D4E8tZvQwaEqh9ybOfx4TKXgNxu1+vxSeKR5v7oVJ
+	0LgzkTX2kaXUEIHJ01h/ilj0Ty2GbCmTzOZEz8o1yoaahqN4fFFKkJbT/YczYdvfC0jXMNI3oq6
+	OW31HY9uoxGTdOnx993XF31yFYW55s1X35AuIwKDHBkl4mlrbBHnlkjxLpfqef9HuIvgVvFtGpr
+	kI+Sq2lRozrfunvv25KoBE4SKU9Y456ExSS7wY1Siz86jc2HzQsUq/2TcbSLpJvTcaJjOldLjho
+	IcED9wCX4FvoyD75A55NbHTbOjyG+quJTuXd2cow3C24LDjvvQTfw3WVtq8PwRsFAS2SB4uAr28
+	MphOWIrIXzeRFFyEszHPexvOF0kaKWrN55ai7M5tU5zuqKsN/hL4d47ou26U/bGpxJHkxDk8o35
+	jcvL9v5Ciad
+X-Received: by 2002:a17:90b:2648:b0:3a7:8350:3f7d with SMTP id 98e67ed59e1d1-3a7835042d5mr285148a91.34.1790973225601;
+        Fri, 02 Oct 2026 13:33:45 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:45::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f47cb357sm10111101a91.17.2026.10.02.13.33.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 13:33:44 -0700 (PDT)
+Date: Fri, 2 Oct 2026 13:33:44 -0700
+From: Joe Damato <joe@dama.to>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [PATCH net-next v2 2/5] eea: Remove unneeded assignment
+Message-ID: <asAVKJ7YgvVMQSzV@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+References: <20261002100035.863275-1-andriy.shevchenko@linux.intel.com>
+ <20261002100035.863275-3-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6809:245:10b0:4f5:5dbd:1328 with SMTP id
- 5614622812f47-4f55dbd1397mr1809095b6e.42.1790973213378; Fri, 02 Oct 2026
- 13:33:33 -0700 (PDT)
-Date: Fri, 02 Oct 2026 13:33:33 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0151d.34119e79.2f92f3.0006.GAE@google.com>
-Subject: [syzbot] Monthly netfilter report (Oct 2026)
-From: syzbot <syzbot+list0253702bfe7b2098992c@syzkaller.appspotmail.com>
-To: fw@strlen.de, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	netfilter-devel@vger.kernel.org, pablo@netfilter.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002100035.863275-3-andriy.shevchenko@linux.intel.com>
 
-Hello netfilter maintainers/developers,
+On Fri, Oct 02, 2026 at 11:59:20AM +0200, Andy Shevchenko wrote:
+> The initial err is not used anywhere, drop the unneeded assignment.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/net/ethernet/alibaba/eea/eea_adminq.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 
-This is a 31-day syzbot report for the netfilter subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/netfilter
-
-During the period, 4 new issues were detected and 1 were fixed.
-In total, 12 issues are still open and 201 have already been fixed.
-There is also 1 low-priority issue.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 140     Yes   INFO: rcu detected stall in rescuer_thread (2)
-                  https://syzkaller.appspot.com/bug?extid=d5f7a5097c24c7c2dbbb
-<2> 15      No    BUG: workqueue lockup in batadv_tt_purge
-                  https://syzkaller.appspot.com/bug?extid=61b202fdc410840f0198
-<3> 10      Yes   WARNING in nf_ct_bridge_post
-                  https://syzkaller.appspot.com/bug?extid=a8ba738fe2db6b4bb27f
-<4> 4       No    WARNING in nf_flow_table_extend_ct_timeout
-                  https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
-<5> 108     Yes   INFO: task hung in nfnetlink_rcv_msg (5)
-                  https://syzkaller.appspot.com/bug?extid=c4b20b80ee6a7a2f5012
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Reviewed-by: Joe Damato <joe@dama.to>
