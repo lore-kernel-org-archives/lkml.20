@@ -1,94 +1,44 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171C94EF14B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F3B4EF15F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955934; cv=none; b=Qu/jtPuHtJei7mWzbo/FVo4anRzMqfg7RtjHN+iaD6IrRcufEvmkqXCja9iDHw5KnbTY1JaZecFmFxweHw/aF8fNcmHDPDHjt5/WKGuhGW5iX3Gks1a91Z5qif/elbxsCLCW9pR91SmcHrvhx0hBMywFOc7iK2w9YGj9dhZlDZM=
+	t=1790955937; cv=none; b=kGS+X8VysgjXNc0GebZP3PEhL5T5VfX/7dJjY+i8I21ogFJhlg3HByTtDutEf+sHtU98pCVcfxD/RZpwrihzgKDNyYwjbLGF9vQ21KiL8X+AOFNk6SHuhv3HXv9wKFZUF9aCW4ewWpExPGfAvaon3eauGqWGiFG3nzT+kgyExu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955934; c=relaxed/simple;
-	bh=Lkq2thXBra+9jyaZNWFz8y5q88bfRFP5x4L8/XdL6qY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ME6sqluSCm1pLXETIIBiIz+vyeLBLsq2smwJW/CUd4Q/E4yHLEk/LdwWJFkaqQDHcdRVunvZ0VjQkJazRVXT5nPRZwIBAWdjaejv4RcGDOqdQsQF0wogzwvVsJdvrZL3T546DQ2cvpiWUej4cSFa2Bva8MQ/KZDfn3bC7tOVY50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Y21N3SuB; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790955937; c=relaxed/simple;
+	bh=JDitukbJGHFn93LLNvIES8E0vg7uyi62NzSdy2zA+q4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dJyD918/7cTHc6SLiDdzhJNpvA1C5GOdms9hRlHXKqvCOw31JX69jvWI0Vq4lHKCVSpw4LWggYnsnI0a6N8ibiNop5EHW2tOkcZD6HciDcgXvbquoy8VNcQ2R5HF3sGxW+8oeWqHxS1GovbJyJzL+mHDTJsYtK7AdMzQe9jnIY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=gMyQCY77; arc=none smtp.client-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Y21N3SuB"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso340255e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790955929; x=1791560729; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1AczkvEVMwyiADmz9Aen/RP9scTy6HPzxTwLuS0NkCE=;
-        b=Y21N3SuBGYYsFcZBa3CwfSEgUBGXst6qWulZGmb721PRcYeEn3x/ZjZxsMYrCTCc6F
-         +caem5jICeN2eB8TN39xvX3uxbLUYnAPQ1OV/gatVJs+pr8ilg8Stl3+P0dZXrDRuWjO
-         eua2nVm4X1lgC2lB0ZUBfdG2n667K5wADLMyVbLRfJFHkaxCEDP3XWRxsG/a0XQHnwOy
-         qG/VEmDMIc52XN/l33KN7Kmeiirj5JAufjWpomhVQ/Bfc/ucN0AbE/ZQFLzp0L3u+q/l
-         YhR4oFl4b0VyoQqAb2eDhHjpKKdkHGjfUn+LpBgfH+/U26Sncz26gcakwiwcCL570amK
-         WLuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955929; x=1791560729;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1AczkvEVMwyiADmz9Aen/RP9scTy6HPzxTwLuS0NkCE=;
-        b=NWdS5WZw7xb8HJFnAFWwXZECNLFsgHXrJPPxOWvFWA7OHIg3xA271stKtzlil5SCXQ
-         dCtmCts3k5HFUEz9Fa+i5J5Tqwu3BWM4Ffc2J9/LaqBlL9oViYxRLMp1qsFSDjtU5tki
-         u58yoqy8F/dOSiwUPDVCAuZCTWGEN1ry9GgHBBiZWCg2AawfgejEVJdBFfiOViYKvySl
-         UtP/br2asVyn6gVeKpmKgPTYCincb2HEET3r4XIMmhZTPhgMGTW+/epDY/MAfhbo+qbp
-         G2sfyOHL6c6X0kF/pt3+crFLAaB+WvdInvBVZ+j4snDd/bG8YiMOnEodIz+hMZgweeqo
-         qzWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzwRoO1cs+9AF3A2GLoBrkg0UqR2ny1ylxRuT7G94Tpx5frppi4QX6D6aQ8jRVCHUVnxgSZquXb+0qObso=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgM436wPiZRqQUotLxxXSNbu6IA1XLHgP6yCsr3tjefQkdFbaK
-	0YEtPZ3xk+Y5OTpf3fGEZZQreuYShGrNaSXUi3V+cbNZ8mU1/afVx45CCmLUoWMGR4E=
-X-Gm-Gg: AYBFou2yMwgghp8lnkitQgAsN4nWfR63eezwrCrdraiEBs6+RkGToKZYKiI45suLZ/o
-	J3g/gy9B+7s7KItro7qFipC5Xnk8TTp444nADxBWjCYCVgHaBD1dTfhX6ZnNxGDuu6zOCjuN6tq
-	2C4H5v9CabB54WE8bYwXELnZoZerK33DN0uwAE7F8bwjFnYQx0VS350R45PjwgMOCIZR+aqgmJF
-	R7UrMULUN0dURMF4+rw40v9ZgQk6HcyegD7+zVcBdfCD3FNNJYVbicsFLsF4gQyBIJ63BzGUh38
-	BSYKiA3h9zpfpmBwzzS09ZKxs2rOvhBTjK+SoXYP0eoqkIAC+XCEZH98gTuBHB7k6MCkM3uokPk
-	FwW5DYMJq4Y4DsoocUYbBsiQ8bzcmWjySJlkRUrhiKz7VpRlkpUA6dxX8o9CAxANDI24yWhLIsU
-	xx0JvxkvqZONa7n7WD+U//cUBdhpt29vKu5/Sg53BgauPEiM7QbeaXPC9WJI3geyMmOSXS3oxP0
-	IZH3icxIF03z2/e
-X-Received: by 2002:a05:600c:19c8:b0:4a0:2540:b46 with SMTP id 5b1f17b1804b1-4a027559795mr67180475e9.12.1790955929334;
-        Fri, 02 Oct 2026 08:45:29 -0700 (PDT)
-Received: from vingu-cube.home ([2a01:e0a:11f4:3020:718b:4747:291c:e5d8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:45:28 -0700 (PDT)
-From: Vincent Guittot <vincent.guittot@linaro.org>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
+	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="gMyQCY77"
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [186.210.89.241])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id B339A1210F5;
+	Fri,  2 Oct 2026 12:45:20 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1790955921;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=4POLpI7xh1Z/RDP/EUuFH7XSIXGsB/pWdF+/Kq5mRQw=;
+	b=gMyQCY77qm3HuMsdLtoG5EQrwSW0eI4CLxn5MJCj1m1sKpBxoZAp/fWNX4Zj/7cEN2xR65
+	tmcllIOjPNbHcnadoItBWTm8OjYmn6AwHbJVL2/iNOAEgqmAEI8aqIG3XQt2BRIaXddKS/
+	4HQF/obBxUvCXcbaXPVq/4ILvQeiiXLuw1sjM3w8wIIm+OhLX13jTeI1ykzVMBJMVsvWun
+	RDkZDuqTNHihggygi+7VOADvVl5jhYV2+4+I0jt7rNATZmvdhLDxfLDnQk9zfKZOOpxAL4
+	ocgB7Ys0PjE6YT/mXJVFXGbXRDRVBRNxpWRoK4URNU3a5zF5d9WBN4H2JeYvKw==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Dan Carpenter <error27@gmail.com>,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	lukasz.luba@arm.com,
-	rafael@kernel.org,
-	linux-pm@vger.kernel.org,
-	tj@kernel.org,
-	void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	sched-ext@lists.linux.dev
-Cc: qyousef@layalina.io,
-	christian.loehle@arm.com,
-	pierre.gondois@arm.com,
-	sshegde@linux.ibm.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 17/18 v2] energy model: Remove unused em_cpu_energy()
-Date: Fri,  2 Oct 2026 17:44:14 +0200
-Message-ID: <20261002154415.2270586-18-vincent.guittot@linaro.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002154415.2270586-1-vincent.guittot@linaro.org>
-References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH v5] staging: rtl8723bs: return bool from check_pending_xmitbuf
+Date: Fri,  2 Oct 2026 12:43:50 -0300
+Message-ID: <20261002154350.120639-1-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,128 +47,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove the unused function em_cpu_energy()
+check_pending_xmitbuf() returns only true or false. To accurately
+describe the function's behavior, rename it to has_pending_xmitbuf()
+and change the return type to bool. Propagate the return type through
+one of the call chains.
 
-Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 ---
- include/linux/energy_model.h | 97 ------------------------------------
- 1 file changed, 97 deletions(-)
+v2: Add missing "staging: " prefix to commit message.
+v3: Change one of the call chains to also return bool.
+v4:
+    - rtw_transmit_thread(): rename err -> xmit_status.
+    - check_pending_xmitbuf(): rename ret -> xmitbuf_pending.
+    - check_pending_xmitbuf(): remove unnescessary if statement.
+    - rtl8723bs_xmit_buf_handler(): remove queue_pending and directly
+      check the value returned by check_pending_xmitbuf() instead.
+v5:
+    - Rename check_pending_xmitbuf() -> has_pending_xmitbuf().
+    - Rebase against latest staging-testing tree.
 
-diff --git a/include/linux/energy_model.h b/include/linux/energy_model.h
-index 89cf109cbca6..c4f9558b58d1 100644
---- a/include/linux/energy_model.h
-+++ b/include/linux/energy_model.h
-@@ -244,97 +244,6 @@ em_pd_get_previous_state(struct em_perf_state *table,
- 	return -1;
+ drivers/staging/rtl8723bs/core/rtw_xmit.c        | 16 +++++++---------
+ drivers/staging/rtl8723bs/hal/hal_intf.c         |  2 +-
+ drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c   |  9 +++------
+ drivers/staging/rtl8723bs/include/hal_intf.h     |  2 +-
+ .../staging/rtl8723bs/include/rtl8723b_xmit.h    |  2 +-
+ drivers/staging/rtl8723bs/include/rtw_xmit.h     |  2 +-
+ 6 files changed, 14 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+index 57b3690bc48af..00a3c031e12eb 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
++++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+@@ -2463,37 +2463,35 @@ struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpri
+ 	return pxmitbuf;
  }
  
--/**
-- * em_cpu_energy() - Estimates the energy consumed by the CPUs of a
-- *		performance domain
-- * @pd		: performance domain for which energy has to be estimated
-- * @max_util	: highest utilization among CPUs of the domain
-- * @sum_util	: sum of the utilization of all CPUs in the domain
-- * @allowed_cpu_cap	: maximum allowed CPU capacity for the @pd, which
-- *			  might reflect reduced frequency (due to thermal)
-- *
-- * This function must be used only for CPU devices. There is no validation,
-- * i.e. if the EM is a CPU type and has cpumask allocated. It is called from
-- * the scheduler code quite frequently and that is why there is not checks.
-- *
-- * Return: the sum of the energy consumed by the CPUs of the domain assuming
-- * a capacity state satisfying the max utilization of the domain.
-- */
--static inline unsigned long em_cpu_energy(struct em_perf_domain *pd,
--				unsigned long max_util, unsigned long sum_util,
--				unsigned long allowed_cpu_cap)
--{
--	struct em_perf_table *em_table;
--	struct em_perf_state *ps;
--	int i;
--
--	lockdep_assert(rcu_read_lock_any_held());
--
--	if (!sum_util)
--		return 0;
--
--	/*
--	 * In order to predict the performance state, map the utilization of
--	 * the most utilized CPU of the performance domain to a requested
--	 * performance, like schedutil. Take also into account that the real
--	 * performance might be set lower (due to thermal capping). Thus, clamp
--	 * max utilization to the allowed CPU capacity before calculating
--	 * effective performance.
--	 */
--	max_util = min(max_util, allowed_cpu_cap);
--
--	/*
--	 * Find the lowest performance state of the Energy Model above the
--	 * requested performance.
--	 */
--	em_table = rcu_dereference_all(pd->em_table);
--	i = em_pd_get_efficient_state(em_table->state, pd, max_util);
--	ps = &em_table->state[i];
--
--	/*
--	 * The performance (capacity) of a CPU in the domain at the performance
--	 * state (ps) can be computed as:
--	 *
--	 *                     ps->freq * scale_cpu
--	 *   ps->performance = --------------------                  (1)
--	 *                         cpu_max_freq
--	 *
--	 * So, ignoring the costs of idle states (which are not available in
--	 * the EM), the energy consumed by this CPU at that performance state
--	 * is estimated as:
--	 *
--	 *             ps->power * cpu_util
--	 *   cpu_nrg = --------------------                          (2)
--	 *               ps->performance
--	 *
--	 * since 'cpu_util / ps->performance' represents its percentage of busy
--	 * time.
--	 *
--	 *   NOTE: Although the result of this computation actually is in
--	 *         units of power, it can be manipulated as an energy value
--	 *         over a scheduling period, since it is assumed to be
--	 *         constant during that interval.
--	 *
--	 * By injecting (1) in (2), 'cpu_nrg' can be re-expressed as a product
--	 * of two terms:
--	 *
--	 *             ps->power * cpu_max_freq
--	 *   cpu_nrg = ------------------------ * cpu_util           (3)
--	 *               ps->freq * scale_cpu
--	 *
--	 * The first term is static, and is stored in the em_perf_state struct
--	 * as 'ps->cost'.
--	 *
--	 * Since all CPUs of the domain have the same micro-architecture, they
--	 * share the same 'ps->cost', and the same CPU capacity. Hence, the
--	 * total energy of the domain (which is the simple sum of the energy of
--	 * all of its CPUs) can be factorized as:
--	 *
--	 *   pd_nrg = ps->cost * \Sum cpu_util                       (4)
--	 */
--	return ps->cost * sum_util;
--}
--
- /**
-  * em_pd_nr_perf_states() - Get the number of performance states of a perf.
-  *				domain
-@@ -407,12 +316,6 @@ em_pd_get_previous_state(struct em_perf_state *table,
+-signed int check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
++bool has_pending_xmitbuf(struct xmit_priv *pxmitpriv)
  {
- 	return -1;
+ 	struct __queue *pqueue;
+-	signed int	ret = false;
++	bool xmitbuf_pending;
+ 
+ 	pqueue = &pxmitpriv->pending_xmitbuf_queue;
+ 
+ 	spin_lock_bh(&pqueue->lock);
+ 
+-	if (!list_empty(&pqueue->queue))
+-		ret = true;
++	xmitbuf_pending = !list_empty(&pqueue->queue);
+ 
+ 	spin_unlock_bh(&pqueue->lock);
+ 
+-	return ret;
++	return xmitbuf_pending;
  }
--static inline unsigned long em_cpu_energy(struct em_perf_domain *pd,
--			unsigned long max_util, unsigned long sum_util,
--			unsigned long allowed_cpu_cap)
--{
--	return 0;
--}
- static inline int em_pd_nr_perf_states(struct em_perf_domain *pd)
+ 
+ int rtw_xmit_thread(void *context)
  {
- 	return 0;
+-	s32 err;
++	bool xmit_status;
+ 	struct adapter *padapter;
+ 
+-	err = _SUCCESS;
+ 	padapter = context;
+ 
+ 	allow_signal(SIGTERM);
+ 
+ 	do {
+-		err = rtw_hal_xmit_thread_handler(padapter);
++		xmit_status  = rtw_hal_xmit_thread_handler(padapter);
+ 		flush_signals_thread();
+-	} while (err == _SUCCESS);
++	} while (xmit_status == _SUCCESS);
+ 
+ 	complete(&padapter->xmitpriv.terminate_xmitthread_comp);
+ 
+diff --git a/drivers/staging/rtl8723bs/hal/hal_intf.c b/drivers/staging/rtl8723bs/hal/hal_intf.c
+index 1443875d13694..9653ab3ad893d 100644
+--- a/drivers/staging/rtl8723bs/hal/hal_intf.c
++++ b/drivers/staging/rtl8723bs/hal/hal_intf.c
+@@ -229,7 +229,7 @@ void beacon_timing_control(struct adapter *padapter)
+ 	rtl8723b_SetBeaconRelatedRegisters(padapter);
+ }
+ 
+-s32 rtw_hal_xmit_thread_handler(struct adapter *padapter)
++bool rtw_hal_xmit_thread_handler(struct adapter *padapter)
+ {
+ 	return rtl8723bs_xmit_buf_handler(padapter);
+ }
+diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+index 6624d2aac4bcc..de99998616b99 100644
+--- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
++++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+@@ -115,11 +115,10 @@ static bool rtl8723_dequeue_writeport(struct adapter *padapter)
+  *_SUCCESS	ok
+  *_FAIL		something error
+  */
+-s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter)
++bool rtl8723bs_xmit_buf_handler(struct adapter *padapter)
+ {
+ 	struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
+ 	bool queue_empty;
+-	u8 queue_pending;
+ 	s32 ret;
+ 
+ 	if (wait_for_completion_interruptible(&pxmitpriv->xmit_comp)) {
+@@ -132,9 +131,7 @@ s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter)
+ 	if (ret)
+ 		return _FAIL;
+ 
+-	queue_pending = check_pending_xmitbuf(pxmitpriv);
+-
+-	if (!queue_pending)
++	if (!has_pending_xmitbuf(pxmitpriv))
+ 		return _SUCCESS;
+ 
+ 	ret = rtw_register_tx_alive(padapter);
+@@ -199,7 +196,7 @@ static s32 xmit_xmitframes(struct adapter *padapter, struct xmit_priv *pxmitpriv
+ 		phwxmit = hwxmits + inx[idx];
+ 
+ 		if (
+-			(check_pending_xmitbuf(pxmitpriv)) &&
++			(has_pending_xmitbuf(pxmitpriv)) &&
+ 			(padapter->mlmepriv.link_detect_info.higher_busy_tx_traffic)
+ 		) {
+ 			if ((phwxmit->accnt > 0) && (phwxmit->accnt < 5)) {
+diff --git a/drivers/staging/rtl8723bs/include/hal_intf.h b/drivers/staging/rtl8723bs/include/hal_intf.h
+index 7b63116525cab..763ff6f3cb535 100644
+--- a/drivers/staging/rtl8723bs/include/hal_intf.h
++++ b/drivers/staging/rtl8723bs/include/hal_intf.h
+@@ -222,7 +222,7 @@ void rtw_hal_set_chnl_bw(struct adapter *padapter, u8 channel, enum channel_widt
+ void rtw_hal_dm_watchdog(struct adapter *padapter);
+ void rtw_hal_dm_watchdog_in_lps(struct adapter *padapter);
+ 
+-s32 rtw_hal_xmit_thread_handler(struct adapter *padapter);
++bool rtw_hal_xmit_thread_handler(struct adapter *padapter);
+ 
+ void rtw_hal_notch_filter(struct adapter *adapter, bool enable);
+ 
+diff --git a/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h b/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
+index d02ead67777a0..acf0ac9e5a755 100644
+--- a/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
++++ b/drivers/staging/rtl8723bs/include/rtl8723b_xmit.h
+@@ -406,7 +406,7 @@ void rtl8723bs_free_xmit_priv(struct adapter *padapter);
+ s32 rtl8723bs_hal_xmit(struct adapter *padapter, struct xmit_frame *pxmitframe);
+ s32 rtl8723bs_mgnt_xmit(struct adapter *padapter, struct xmit_frame *pmgntframe);
+ s32	rtl8723bs_hal_xmitframe_enqueue(struct adapter *padapter, struct xmit_frame *pxmitframe);
+-s32 rtl8723bs_xmit_buf_handler(struct adapter *padapter);
++bool rtl8723bs_xmit_buf_handler(struct adapter *padapter);
+ int rtl8723bs_xmit_thread(void *context);
+ 
+ u8 BWMapping_8723B(struct adapter *Adapter, struct pkt_attrib *pattrib);
+diff --git a/drivers/staging/rtl8723bs/include/rtw_xmit.h b/drivers/staging/rtl8723bs/include/rtw_xmit.h
+index c5cb814789d86..14ceae47918b2 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_xmit.h
++++ b/drivers/staging/rtl8723bs/include/rtw_xmit.h
+@@ -432,7 +432,7 @@ void enqueue_pending_xmitbuf(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmit
+ void enqueue_pending_xmitbuf_to_head(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
+ struct xmit_buf *dequeue_pending_xmitbuf(struct xmit_priv *pxmitpriv);
+ struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpriv);
+-signed int	check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
++bool has_pending_xmitbuf(struct xmit_priv *pxmitpriv);
+ int	rtw_xmit_thread(void *context);
+ 
+ u32 rtw_get_ff_hwaddr(struct xmit_frame	*pxmitframe);
 -- 
-2.53.0
+2.43.0
 
