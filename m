@@ -1,181 +1,105 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5371E41D12C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E9B466B66;
+	Fri,  2 Oct 2026 12:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945779; cv=none; b=G9pJZCRzlPGsURkx5hWwSSdNfYFyX/p6fzsAfqnF0/VLseNRSkHVHRe6vsbq5ahh/EVce7v490ky2pULyoBCHraCl7hbHUqQ6yk1BGjEL7JSM9XBu4DQYNVJgj/IrQJAHlcWukJI5u53veArI7IFgM+PXDyXjneO+U/uEi6yEiY=
+	t=1790945786; cv=none; b=e2YtqYaAmHjXSLJtFrmgaPr/4XCcE8LL3OiiDZkDQfzN02D2SVN4TowxEyH+DauxXBhBTEZ+S3P0tVJz6IqW86hc5X4FqMOTphfVQYvy1kab5YZGKjrwjQLHkImrp3cJSm1TNwAfh67OIVUH+pabYRdQcHva/XQ5wvaPTFlLfzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945779; c=relaxed/simple;
-	bh=mzpmjqzmjT5iR3bDi3+YDm5VlnxaZBMQ4+yBadz9T54=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=qaTuc0u4AXGH6TZ2uQiHmMNxOtWq9Hi/7ba0HponoDH9lFCaPhURJAdSCkSIC8ePxUBSg6Szt2zMoYPPH305tGSBb0Iizr15FmQpl84zjfWNI0vgTH/AlLSojetf+XvhIVeieJ8h8HIRkMjPTTmigFeVkRaBO18tUoudvsTNQYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=O3f+VWJs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Y5pcdj66; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1790945786; c=relaxed/simple;
+	bh=JSaGC6D2aEiZZ3unlrXNp9uBN0sRn/bRihi+jjKpA3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NhKeZGNxAN8Z0IeDrK26L8iQPq9lxhn+5ypkY45nbEeyI8985h6kbC6I/tLUkfuVv9QYJiES61T1AXjxJIzGARVvxyuO1CQ/n7iWRHsCn5fS+r9gCWBiiNFtbo/4/9cs5WlIV0SF9KCQObnnBxuqYsJvdHhx1o2uNhF1CbInbgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S59jwEf3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="O3f+VWJs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Y5pcdj66"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 9B2E17A013B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:56:16 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Fri, 02 Oct 2026 08:56:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1790945776;
-	 x=1791032176; bh=BMazx/2pEY3oqmEHc3jzJPxtOpg46BGaKTnViFsPJWc=; b=
-	O3f+VWJsBedlI62g44o9PRhtKIcO6nlcd9CqC+piRh4C7x8TO5qhPmYIEuusW3ug
-	9ozesYJt27QseFf6Tyyf+Z8XgbeZqGHUqn/wmp7zIK/PtPSIKPQdc+VwVG++owHF
-	x2gLnPYMXpDMkJIshov19uZC3Y1uzpgtSc2UkPRpmlx8Kf9wiQL6GzbTcUKTL7rg
-	d+pi9cen6yLWCCZ8z0CzQEsAKzV40k+WpmAff1Tj9rbyUdn2exMveIOD8bSKcoww
-	DBzGgFCbjPhF+fzxkVWaP6QshWXLcALvBd92zj18Ry/GyLi41/JvDuWzrY2emub3
-	Ebq+dTLnSJCR4IC2m20gJg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790945776; x=
-	1791032176; bh=BMazx/2pEY3oqmEHc3jzJPxtOpg46BGaKTnViFsPJWc=; b=Y
-	5pcdj66KKOoejACYSIfZwNxEysjwYKoz8BCRC1gV36+/B9bmpUV5Ynwii48cp/8N
-	nz5bPTla8+iRCUzRBOrMLXBy9Ad5dQVew45idHj787oVICYaTt78bq5EhSlLUOhQ
-	28IWwPYokpKbXEsTUseiYOJDsCFbTD7Wdxup2cB5co+n0YBDgX45c6xag3nXcCSw
-	tZnkFL/HJFJe5I0u/SmGzpxDV3mXubE9M22V2D9tN3CruIosmB1JWtphZP3lqpWD
-	DvVg4Whx4AL2IwOReXw5jZBCH1EaIbDIg6RuX0AxHW2WhX6BSB4I1zC/5/CZS54H
-	pqmz8euBs4VuL9RjHtVUQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790945776; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:0vcr5z24qbvETwNZBzPj0R+3Zsh8lTs4f9h7h8G/WJijmo1
-	RfvBThoqepoAYjL0MHKmm4/dO6w2H2sX7Ycg/U0nrwEfXfq4U7KZzofL5lU0HgSo
-	TbAGbkhC8O55XtRoIdKL67l30VZvBIJYsRp368Dg9nj+gXj4rcpm7IKmIK0e6d9V
-	hinimP79I6+GoR5nch6UOhlBA/dENeTV7fYJiAvqBn5YXrDWtewmnwNDKKcQhbTw
-	EXB3dfzz5JkDgHg+KlDtsbiAO6zl5GBfg7+petzZuR7Lwk69g3YbJdn7GgkB9apm
-	Xz3ea+2MQXvshn0Pm53CHDTap9nuvz3WGz5L1HA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:bDep90g3SXoJusc2tpIqZzw2ddMHz+gYUaXOOAfwQ7Q=:mzpmjqzmjT5iR3bDi3+YDm5VlnxaZBMQ4+yBadz9T54=;
-X-ME-Sender: <xms:76m_amXRpsaSBsX0Ftlw1rU7Sj5G6BfCYPe7gm11E6vI-glkfm8Q4w>
-    <xme:76m_ata50u-izPWPUnZlrq9BgOVJLLyk_Ha8P99AbIPnL79Uc2z2XowSzmp2fGYIY
-    Q0xSGpWv6KMXNkw8EL8dD7UJcVxbYu2xSbV1qYiIw9x08rwohP7uT8>
-X-ME-Proxy-Cause: dmFkZTFI5S09W8s8qCiE0wSLFhR5t6TIDxa9CarWsNoJZiOx1R7RICYSPWTpHan0afxVGz
-    qB9/Q7QGs5BljMkVVeB4CThbG03ts1u1g7pzqtGEkNyA9y+KD91ME6rsxb7aR95PPLoyJC
-    TznemOhw097axNELfPVzpVMmbWhSSCG82wbQkD0OpcaVv0LMb+wrTNZp+3BiUwHiU78uIy
-    ZRhroBLCAucvacn5VH76FvZ71gRL54qQtyNGMdnZNBEbElhn9xyIEhffusdSkCALVHw+lh
-    dE7TMu3ffSd9THlukdx3PTAgtMRtjKhcnnjDj8EL5ezGGSTqyMJnCSPXKBinP4pWtAL+MS
-    Dr7P/oHmacXnH+bLlW/VukeeOO/St7k7xMJBmmli8iLylwf37fZc0gP5yrt3doKAWsgX/T
-    1KbjDXjFqkNVZWxa7XNCa/3SHd6V37v3n/+GxAsqdnJ0rTtwDlyBfEX+dK5eexDfJ6H+nV
-    QwXqMjbfHZbar1URlRpKqdz5Cr9DS32SfTtYrkJ9wrrfP5GB5By7Lx4ZkvSRub0YcYtYNs
-    rEVp7gj4CL8N6tIj98RSMwc8er6dX+Z4kEijL+a6A0RBlJ2hJ91iiAqw+xhyftK3GXWzmQ
-    v8G4i1tFQAcbAIGnx61aWongI/xOhn0wwQAMb/go31VTNdM9BIqQvRhF/yyw
-X-ME-Proxy: <xmx:76m_al7DBO8x9Xp9gW-nzSqI-7yaJ3P7tXo4OBZJdJReXULCymFd0A>
-    <xmx:76m_alKnA6qtL831OV6jHNFNUgPWzMy8nrvkfQm_jHQVeMDH7KyUOQ>
-    <xmx:76m_auvFvfIQS8toVtUwW_WeVel-O6mnQnX3Oua7wjIAcNbCVWw8kg>
-    <xmx:76m_akLV8afpJW9LS9cbSsottFIzTAzo6KQfETFByBbhsKuy_JTk4g>
-    <xmx:8Km_ahCfTUQOfAcm88IuXu6FX0N1sX-1Y1bA2dK_YV0AU8LeunqU0AMq>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 6DB8B2C0006F; Fri,  2 Oct 2026 08:56:15 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S59jwEf3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000C91F000FF;
+	Fri,  2 Oct 2026 12:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790945784;
+	bh=+/Nk7usIdpaU9Rho8UOq02EsWGAHz4ioL5GfUEnCfwY=;
+	h=From:To:Cc:Subject:Date;
+	b=S59jwEf3fC5XrSOD/8WzV2QA7dvwovNSh3xhFFg0Zczg9X8i6YMubkEnoR2N9s+W3
+	 i3AmfZNnOFZRT4yCVEvlNQ8k+APRyz9yRdfPGGtoyziZP7ADXNAvO/Td9WihZcyPOy
+	 e0YFjVfFVyWLHEyZajaS4nuPgwzk6VIX27Wh8Mb/l5gjHl4fcdjxVBbO4fzE1gh0/I
+	 VmrZkMsEIn01X3OzfShtE0jWT1iD4wt1YmdL4kDmSHwHWVo6HUhOyXJpKfcRVgS1Ai
+	 JlidNTGGw6vLatxoG0kS0ddl0drl/IRt0Tbx0J2EtqM6zddQQUpyCZeo4KP+ooWgly
+	 mJnzH5zsXQR2Q==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	kernel-team@meta.com (reviewer:META ETHERNET DRIVERS),
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Mina Almasry <almasrymina@google.com>
+Subject: [PATCH net v3 0/2] eth: fbnic: Queue and channel count fixes
+Date: Fri,  2 Oct 2026 14:56:13 +0200
+Message-ID: <20261002125617.409447-1-bjorn@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A21iI5Udebv-
-Date: Fri, 02 Oct 2026 08:55:55 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Hans de Goede" <hansg@kernel.org>, "Huang Wei" <huangwei@kylinos.cn>
-Cc: 
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org, thisisamirv@gmail.com
-Message-Id: <000acb24-7aef-4718-89ea-0dffd1ab34d9@app.fastmail.com>
-In-Reply-To: <2aa11257-5bef-4739-9994-a511a29b4141@app.fastmail.com>
-References: <20260918161539.2676619-1-huangwei@kylinos.cn>
- <178975590278.29716.17309474720733695095.b4-ty@b4>
- <3d4bb6df-a3db-41a7-a568-b268efaa1c93@app.fastmail.com>
- <2aa11257-5bef-4739-9994-a511a29b4141@app.fastmail.com>
-Subject: Re: [PATCH v2] platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to non-standard
- thermal/fan quirk tables
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026, at 8:20 AM, Mark Pearson wrote:
-> On Fri, Sep 18, 2026, at 6:00 PM, Mark Pearson wrote:
->> On Fri, Sep 18, 2026, at 2:25 PM, Ilpo J=C3=A4rvinen wrote:
->>> On Sat, 19 Sep 2026 00:15:39 +0800, Huang Wei wrote:
->>>
->>>> The Lenovo ThinkPad X9-14 Gen 1 uses a non-standard Embedded Contro=
-ller
->>>> firmware (ECFW) whose thermal and fan registers are not located at =
-the
->>>> classic addresses. On this model the thermal registers sit at 0xA8-=
-0xAF /
->>>> 0xB8-0xBF and the fan registers use the non-standard offsets, inste=
-ad of
->>>> the legacy 0x78-0x7F / 0xC0-0xC7 (thermal) and 0x2f / 0x84 (fan).
->>>>=20
->>>> Because the model is not covered by the existing quirk tables, the =
-driver
->>>> probes the legacy thermal addresses during init, reads back 0x00 fr=
-om
->>>> every register, concludes the EC is "misbehaving" and disables all
->>>> thermal sensor access:
->>>>=20
->>>> [...]
->>>
->>> Thank you for your contribution, it has been applied to my local
->>> review-ilpo-next branch. Note it will show up in the public
->>> platform-drivers-x86/review-ilpo-next branch only once I've pushed my
->>> local branch there, which might take a while.
->>>
->>> FYI [if applicable to your patch], as per Linus' policy change, also
->>> fixes are mostly routed through for-next unless the fix is for a
->>> commit introduced in the most recent cycle or is clearly a regression
->>> fix.
->>>
->>> The list of commits applied:
->>> [1/1] platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to non-standard=20
->>> thermal/fan quirk tables
->>>       commit: bb0f3a5d6b9844b70ad696b9470762028f6d86ec
->>>
->>> --
->>>  i.
->>
->> Just a note that I have a ticket in to the FW team to confirm this=20
->> (LO-4662). This platform was Linux certified so I was a bit puzzled a=
-t=20
->> it being different, but I think the proposed patch is correct. Just=20
->> making sure (and to figure out how we missed it...)
->>
->> I don't mean to hold up the review - just noting that this is being=20
->> verified and confirmed on the Lenovo side for completeness
->>
-> Confirmed that this patch is correct - the X9-14 uses the non-standard=20
-> implementation. Thanks for the fix - we should have caught this one :(
->
-> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Mark
+Two fixes for what fbnic tells the core about its queues.
 
-Sorry - I need to retract the above. We did a bit more checking on the s=
-pecifics, as my colleague noticed some inconsistencies, and some of the =
-offsets used are unique to this platform.
+Patch 1 keeps the channel layout across suspend. Resume rebuilt it
+from the queue counts, turning standalone channels into combined ones
+or dropping combined queues, even with an unchanged IRQ count.
 
-We need more time to check it and get the updated spec from the FW team,=
- But we don't think this patch is correct I'm afraid. We're working on t=
-he correct solution.
+Patch 2 publishes the real queue counts at probe and on "ethtool -L"
+while down, instead of at the next open.
 
-Can I (belatedly) nack this one please.
+Resume with fewer IRQs than the layout needs now fails instead of
+shrinking the layout. That case is left for a separate change.
 
-Mark
+Changes in v3:
+- Split into two patches, one per bug, each blaming the commit that
+  introduced it.
+- Keep num_napi across suspend instead of a separate num_napi_cfg.
+- Drop the -ENOSPC check on resume, so an interface that is down no
+  longer fails resume. (Breno, Sashiko)
+- Skip ndo_stop when no NAPI vectors are allocated.
+- Drop Breno's Reviewed-by, since the resume path changed.
+
+Changes in v2:
+- Keep the configured NAPI count and restore it on resume. v1
+  recomputed it from the queue counts, which changed dedicated rx and
+  tx layouts even when the vector count was unchanged. (Breno,
+  Sashiko)
+- Fail resume with -ENOSPC when fewer vectors come back than the
+  configured layout needs. (Sashiko)
+- Fix the comment and commit message that did not match the code.
+  (Breno, Sashiko)
+- Keep the RSS indirection reset in fbnic_netdev_alloc().
+- Drop Breno's Reviewed-by, since the resume path changed.
+
+v2: https://lore.kernel.org/netdev/20260924191817.1843726-1-bjorn@kernel.org/
+v1: https://lore.kernel.org/netdev/20260915180859.4157646-1-bjorn@kernel.org/
+
+Björn Töpel (2):
+  eth: fbnic: Preserve channels across resume
+  eth: fbnic: Publish real queue counts
+
+ .../net/ethernet/meta/fbnic/fbnic_ethtool.c   |  7 ++++
+ .../net/ethernet/meta/fbnic/fbnic_netdev.c    | 36 ++++++++++++++-----
+ .../net/ethernet/meta/fbnic/fbnic_netdev.h    |  3 --
+ drivers/net/ethernet/meta/fbnic/fbnic_pci.c   |  9 -----
+ 4 files changed, 34 insertions(+), 21 deletions(-)
+
+
+base-commit: 71a77ab76e74131a101f4d2d2afb0dcbf81b4e3c
+-- 
+2.55.0
+
