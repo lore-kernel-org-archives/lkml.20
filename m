@@ -1,179 +1,94 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405AC233944
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961249; cv=pass; b=BzhIfpTNeLOEQXt2C0d1HbsiHTsN7G9CKTPWMVXLdTOOnX/O1p1kfPA94cmMsEGZtomjgoJzB7QKz9AVjpRjhj+Emx9wPKF3NRNNdxuj3AMYi3fMw4I8Ui2UvNIoR8J/kYxwX4BLCf07ia4fxX/kPvQD+ytC6/TCBV0cBgKhiL0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961249; c=relaxed/simple;
-	bh=V1geDr4Q9jb3CHPs03vi1oxUrTZqJBIQgowXVd1lGE4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jxASd6a88et3kFHB7nr27luJ/SNAyfEw2uHBTpjc+gDlVeaK14WbV7PebvKPKFAF97X7wufPMFAFEvYH3CPdd6B8+Bxr00ChkXe8HGR5JaME1rqyBaLXotjBRBD13ZWcc6awBHLXBeYsNDDU5su5T688Uy5Jzm7C3AJ7liDhtms=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eOJU3Jyt; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76A3C2D0C92;
+	Fri,  2 Oct 2026 17:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790961250; cv=none; b=aMWQrqqaSEo6jZGuBeBq+wUqugv2oYpi7eFG5qYwNUQSOFlS4yIVBSueKHpBH4VyWuRewNmn+1XwU0a7ODcgy44kAk+HIga+8pPdcl5Dh9G3chbuG0OuHdAczqua2IYA0O5dgsQNWBVtqhaG5Iq43ljBSrXkQgDS/4CXTCKGEBI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790961250; c=relaxed/simple;
+	bh=bl3TUcuEor0ntvv140M+GUV3h7G2r8r6Edcjw0sDACk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WW76VNfA7tO6iOcmM7EPZl+ZBzQ4ZH4Ov4w5JsHQu0m5ZO7T56am7lHzfc9KWV96cJxYdY41sDdu4qBqnsvjpfsmtAM1pVsLHfw4pHs0bDkQXxxsO65xPsOsqyN/CcGqB0pXT1asE7+weyNZb3pw6uqmFJrQExQ1VdgIj03C07E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FygPz1yn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eOJU3Jyt"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b3e517e6dso2324163eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:14:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790961247; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lR0NkBXsFwA4h84IA+0Vzvv25cZ+dXe4hagyl3JWehsUQ1nrrbYYJhy3cwLxBVKvn9
-         +S4aZ3nykxHlyB/eYuXV2UEkEdfdxtZ9hiH7BZ72EQhXVePnwbqB2QgPDuCxxBjwhWEK
-         cxUVOBot2MAY85jMHgodZDzmJ2WriyrNUR6BDpnow20NpZq9HAP8CBhrbVDpDnJiPcLZ
-         TfpxE/fMKmDUIlakHMSb7fWP9/yGuZS3iBZTHL/zqO8y5LrJSgFS1MX5vM2tCjN9+giY
-         1deGaAaWJVKCBqNPD57bL4unz0/BMddII1CrR/LQWv71deh+KxM5cQOJEP5Ou5wqJMDw
-         oW4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6PocmUxgWMjbbvGJ9B7t0eFYaL42gWwJOSSvEAluiu4=;
-        fh=/TwWtvnXypRdkSibJzzwkItw3dXE25L2MM2KLYyYATg=;
-        b=spVT7mRnLH0tL6BMLC27Ed/J9GOfycQF6qjtQ/jpV9+IKN/K31ZG8g1uN18GcH5Pxv
-         Ra3A/bfOjWNbeNnyjwEzVEO/nrIy0WJCXNuzD0hBKdI+m9mMDLjrfJI98RR18uuF/WLR
-         ICP9xV9GwgEd9SzEHDRy0jKyvtGNAhX5l8trE04QT7oAA0zROQazZTiWCgBH93f9EOJa
-         wtE6vjS/aUTxKzideLBrHrKRIxmlahbPQkw3wvkTTzf+Cm/1byFRF5WBBdZtnYGhUT9Z
-         193/KTMAOpd+bMNNW59XHmaHPLUoQCIy4r0SUJld20B+Q2YDYJ+VLelC4PQ0u0+nA2L+
-         Ou4A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790961247; x=1791566047; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6PocmUxgWMjbbvGJ9B7t0eFYaL42gWwJOSSvEAluiu4=;
-        b=eOJU3Jyte5d8ySoZ0xhWAIqIjGNtmgbt3M9ra3cQsUG8NdPttcDlJFCmWGx1Cjexy8
-         GOYxwgTmAiOIRjZgFzRHJQJMN4EmKtiS3MFG5aenIIne3t1BaPKQBURMB5t4THWqd1qj
-         lECPlCihVGjkBPYRlsYSyF5kOKlDxFmxOn2ry84U4SxpX8BzSWGcYJJa19dG7NQbhdtE
-         T0bz/Z11GVO1NYwzYoDINLVYkBHBxbqARfnl68ypkDt0Kmz8VfzjtWedTrQ4R/OGNlNn
-         kKx8ZaOVR5Z07+8f5Qvb+uMK/2tffSvRBUtJPlz0eSiLDKU/YhxvOJMqRYYU9TwG2HV8
-         Z4QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790961247; x=1791566047;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6PocmUxgWMjbbvGJ9B7t0eFYaL42gWwJOSSvEAluiu4=;
-        b=gDC/yHXCZKZjMvpPL7DUXioYAS92PMPpK4kC4J3Mz8rzOdZ2FOkNdv4yCyhWrBGDPQ
-         3mN1kOykzVmQA+eW2AIVPoGVku5AVSdURubf3tpRI3/FqrB5amtau+jVZLClS8J+27Gu
-         9esJael9rLNrAMZCYZBW2+8daHw8lqbQKpM6832JeIci1uIWE2lOPsPhL8YpazB6VCHx
-         zy/dGi13DyYi617UDAz+CoePM8TpUUS/29SoIQe3lf5BgZMpVrW3HpnaHqvKpjkJuwCf
-         k9Zo6YehTQTCJUb+IHtXC2/rz6+VLc+jQB8OahkuzUrTmWZpQCpuxF/JfjYG5dH5KT5C
-         L8Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwhQLYaFONOEsWxDndqOZYHewujz0IOuALaiWwFW0PJiuOXjYqC1g656o7cnACVcfsmztm/CwOW9E3jn2M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgFsKPcviq6ZN7x6SUTsPmsr/88jyd7QROXLeSKjBZPUz9vrQe
-	BDrSzEwcoyUJKgfDRUee0ZAIWzffFcVhPpeoAUtL8mwlij42M6Bbe9cPtXpr9ePwwMPsikBVSXJ
-	3qzmEnD58BudQblmE/OyqBQQG5VaCafO5pQGVQg9wLqPPgO2ddDzpkCE+dks6Kw==
-X-Gm-Gg: AYBFou0m/Bko9EWgCwdXzTsEVxV+r3JZidR1fr+kd8/afUvGcUuGnYsvhEHIPRHlD7A
-	CfmWOWo+UoEKXdcBn9+W1M3Uv2I5lUrnQ/74x9leG9KsZOm5jBJD7qF9exjiJssu1JPAJILBVAo
-	sAJ4DiuhtyvD1X1LB59Ii7pRIPcRFW9AXTUqWwIsL16kVIRqL6iY/kZTl8hJlK5ROVyDSGynn47
-	RwhaYKusqmBbX1wZ+HKA1+s8b3LIVP0UiVze+wEMmngnlh3L1UyrMPDm9sqVD+vhg2zYOV5uJq/
-	AIFvuH4XU82xnNaDyTa/qiPYQpWx0+MqWWrdaAKOM6MV0jmOUL57mP6aJi2bBQrCYBTE4dBy6ik
-	0PyqNL8t7Rg==
-X-Received: by 2002:a05:701b:240b:b0:14e:ef2:87a9 with SMTP id
- a92af1059eb24-14f5c7e226dmr3813823c88.37.1790961246440; Fri, 02 Oct 2026
- 10:14:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FygPz1yn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 47F012F;
+	Fri,  2 Oct 2026 10:14:04 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4A4FA3F85F;
+	Fri,  2 Oct 2026 10:14:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790961247; bh=bl3TUcuEor0ntvv140M+GUV3h7G2r8r6Edcjw0sDACk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FygPz1ynvgOKgzWas1VAzqnRikEpOTFZb0IC5AyA9jGyaYTxxZl8eM4HuSAUY2mV/
+	 E6oewknrFjcMEvJ5Xf+8ef2VmNhnrqwSNd/XrP9OxY8guAXR0sTc6pFwcjQtnwkJjx
+	 lf8PTo+eWjaYdkMl4vw+MdT6nBdZz+r6CrSs1RdA=
+Date: Fri, 2 Oct 2026 18:14:05 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/4] perf cs-etm: Synthesize missing HW_ID mappings
+ for raw trace
+Message-ID: <20261002171405.GG1208404@e132581.arm.com>
+References: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
+ <20261002-james-cs-hw_id-output-failure-v3-3-1d8b6ef339c8@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002054832.64980-1-namhyung@kernel.org>
-In-Reply-To: <20261002054832.64980-1-namhyung@kernel.org>
-From: Chun-Tse Shao <ctshao@google.com>
-Date: Fri, 2 Oct 2026 10:13:29 -0700
-X-Gm-Features: AclHuK9VhxPkDkfZkrrejoavaGoHEbztoCol2C-Wir0VJ8hdF5f0ZEuZfD3egGA
-Message-ID: <CAJpZYjXK2qhkCn_ixge_1vEKjXzn_4tzPT=i9NqYg6HbYdWG6Q@mail.gmail.com>
-Subject: Re: [PATCH] perf stat: Fix aggregation of cgroup events
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Ian Rogers <irogers@google.com>, 
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-	linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-james-cs-hw_id-output-failure-v3-3-1d8b6ef339c8@linaro.org>
 
-On Thu, Oct 1, 2026 at 10:48=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
-wrote:
->
-> I got a report that perf stat with BPF and cgroup is broken with
-> aggregation like per-socket or node.  On my machine, running the
-> following command shows the problem.
->
->   $ sudo perf stat -a --bpf-counters --per-socket -e cycles \
->     --for-each-cgroup /user.slice,/system.slice  sleep 1
->
->    Performance counter stats for 'system wide':
->
->   S0       12      <not counted>      cpu_atom/cycles/                 us=
-er.slice
->   S0       16      <not counted>      cpu_core/cycles/                 us=
-er.slice
->   S0       12      <not counted>      cpu_atom/cycles/                 sy=
-stem.slice
->   S0       16      <not counted>      cpu_core/cycles/                 sy=
-stem.slice
->
->          1.002798147 seconds time elapsed
->
-> That's because there's a logic to make the whole event failed if result
-> from any CPU looks bad when aggregation is enabled.  Normally it
-> considers bad when an event has no enabled and running time.  But it's
-> possible for a cgroup event to have no chance to run on some CPU during
-> the window and then it will have 0 enabled and running time.  Let's not
-> treat them as errors.
->
-> After the fix, the same command produces:
->
->    Performance counter stats for 'system wide':
->
->   S0       12          5,094,112      cpu_atom/cycles/                 us=
-er.slice
->   S0       16         28,075,944      cpu_core/cycles/                 us=
-er.slice
->   S0       12          1,516,568      cpu_atom/cycles/                 sy=
-stem.slice
->   S0       16          5,569,575      cpu_core/cycles/                 sy=
-stem.slice
->
->          1.003231856 seconds time elapsed
->
-> Reported-by: Chun-Tse Shao <ctshao@google.com>
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+On Fri, Oct 02, 2026 at 12:15:13PM +0100, James Clark wrote:
 
-Tested-by: Chun-Tse Shao <ctshao@google.com>
+[...]
 
-Thanks for the fix!
+>  static struct cs_etm_queue *cs_etm__get_queue(struct cs_etm_auxtrace *etm, int cpu)
+> @@ -314,12 +317,11 @@ static int cs_etm__map_trace_id_v0(struct cs_etm_auxtrace *etm, u8 trace_chan_id
+>  		return -EINVAL;
+>  
+>  	/*
+> -	 * If the queue is unformatted then only save one mapping in the
+> -	 * queue associated with that CPU so only one decoder is made.
+> +	 * Ignore HW_IDs for unformatted, a decoder will be made
+> +	 * unconditionally later.
+>  	 */
+>  	if (etmq->format == UNFORMATTED)
+> -		return cs_etm__insert_trace_id_node(etmq, trace_chan_id,
+> -						    cpu_metadata);
+> +		return 0;
 
+Nitpick: It seems to me that we can move the
+etmq->format == UNFORMATTED check into cs_etm__process_aux_output_hw_id().
 
--CT
+This avoids duplicating the check in both cs_etm__map_trace_id_v0()
+and cs_etm__process_trace_id_v0_1(), and makes it more apparent that
+the unformatted case does not use HW_ID at all.
 
-> ---
->  tools/perf/util/stat.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/tools/perf/util/stat.c b/tools/perf/util/stat.c
-> index 25f31a17436828aa..6da3dbbde0e2ad8d 100644
-> --- a/tools/perf/util/stat.c
-> +++ b/tools/perf/util/stat.c
-> @@ -381,6 +381,10 @@ static bool evsel__count_has_error(struct evsel *evs=
-el,
->         if (config->aggr_mode =3D=3D AGGR_GLOBAL)
->                 return false;
->
-> +       /* cgroup events may not be scheduled on some CPUs */
-> +       if (evsel->cgrp)
-> +               return false;
-> +
->         /* it's considered ok when it actually ran */
->         if (count->ena !=3D 0 && count->run !=3D 0)
->                 return false;
-> --
-> 2.55.0
->
+It's up to you whether to keep it as is or update it. Either way:
+
+Reviewed-by: Leo Yan leo.yan@arm.com
+
+P.S. Although I contributed the initial idea, the change is now quite
+different from the original patch I shared. Please feel free to drop my
+name if you prefer.
