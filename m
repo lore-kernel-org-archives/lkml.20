@@ -1,153 +1,138 @@
-Received: from mail-dl2-f33.google.com (mail-dl2-f33.google.com [74.125.229.161])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D4E1F938
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54337472F8D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933305; cv=none; b=NCrSk9vJ+Xz+2nbKVkWtNJ3XCBkRZNzD+iLRvDafEwHZpUlaTLc1S1W0oeR5f+tEdoZ2GBKE+VG0lVT/aaP9QcjKgrcRv0TCNfLE5HHIM1rlrI6kkdxS8yqtOisDMr3W1SpkMBn/uzyeyeyBleblHTVZqtpvrZFG2qpfuCs7XxM=
+	t=1790933308; cv=none; b=jFoZPQgoRxGA/60kw0CMwEH/8xbMTe8bvIh++hgQW0xMaIdh/erIVEMF6bmoeugu0ODLLg8bEvxOj41OBUisHUIlvEVfZ8qXaNUTZDc6JN8yJRPZ3E8v1vqyMhaVtYQPklkviXpQm0w/AG6SZ26ZmSw3f+bS9XpPTlBdyseP6Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933305; c=relaxed/simple;
-	bh=tsuaYRXNLmb551fr7i7sn+dPJ7NhzMn88WF918CGBx0=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KjhsxcUfnDh14kV2iJm3s6gi3KRWRBYxkCD1wqS3Sm8fUiD9hgCmtLZ1NpLKMne67RXYXugXr2lD/OQIcr+G5b+IyvnKAOLwUYioGidluONudeUN9ilqGAZQRun776Zv99dTGv9cDVJGyX4jat9KluR6l2JKQtE4f5KjeCcLtQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihoNZOiV; arc=none smtp.client-ip=74.125.229.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790933308; c=relaxed/simple;
+	bh=28V3Kxby+YZlF9FWLtqHZaq2wjTysNjYXVOheRP2p4Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=RFXJQO2rwn1RctwqP3uG2ssGmCmsVUWvXr27UrI9Gz8tv/9Sv362RpueG/PhoVgxGWeJeCyD4G3JHsVl5tRJJOLGfuHUt+rHPl33w2ALVpIb1OpkETeG2tcez8gj/chuFBO8wyahMKUSYloylbiuLSA3nRTNLWgHKoVx/eZK/3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=o5L1UytK; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihoNZOiV"
-Received: by mail-dl2-f33.google.com with SMTP id a92af1059eb24-1438e88300cso7864484c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:28:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="o5L1UytK"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a00d8bec5aso24177255e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:28:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790933303; x=1791538103; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dzk0FhsAtQa7VZB+Dgj776CLsrZWObscUvWBIN8rkJU=;
-        b=ihoNZOiVDx3d+A6En85M7MD+JSmVnKZHeaiwYR3OXrbN6TfUD/3JAFardg/4PBsqzL
-         R5Jmgz9Zgt7Q5UAATd2ZlHIs2VYrTJEgpIdYqHEQo2FogSth6TECdHESCVZZpn04so3R
-         YoLF5hOqG+UgRvFSc8byPg0oGrgIh4SUmwkaZmgtEjFH1sHeqPe0uCmRBjrroCdn+qUJ
-         BTscBicWDESpQ51zKle+xAowgSY1ywPNw1rrXydkMwneUQ6zr6tiGqz1PWy79QqOG4Yk
-         8WjI4I/t6WP3yBUQs5jzG6yyqv93efatFsQKRvZtX+oKTA3mWuf/ayBMO1iOsRPck/XU
-         dJ1g==
+        d=linaro.org; s=google; t=1790933304; x=1791538104; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9/xGjEmegI8pTO7Ox5jxESlFHhUmyOfP4GxHY3lbaDc=;
+        b=o5L1UytKjTPeJppITrQlbdNjBGOD7wHLM99SZBGPDBaE3vAW/F1ZClUWngCihKspjS
+         qFInK4HXswkrQlWn+Q5YU3pzQ0EsswgY8pJPKeNLduHxOBAjSpcyjuk2KPxxAvDsbaBE
+         7FeerGnDuEIKDtMcUuo3pF/nhf1Ki11pfoQZqvm25DqQvj2dMxKNQlqAroEapn/Kj+WE
+         fyfsP06MKCQ1az0rUtOlTWmpD9/lC4PlCm8HqoGkGo55BKigQjuJtHVPWSI13mxXzmbH
+         B0F3lrbH84U0CLScFDDAoyaK7Hd3spwXRoP8HI4b0c6Q6/a1wgfwNwnIfGXAC4nfgJ2h
+         17mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790933303; x=1791538103;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790933304; x=1791538104;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Dzk0FhsAtQa7VZB+Dgj776CLsrZWObscUvWBIN8rkJU=;
-        b=yW3kYyEP8Sq7yNf0dFqFNM+UjSwIKNLiJkNOx7Wc7OYtB0uQR7nr/cXSiDgSouR5GN
-         dYDuzBGYxFwoU7Z/r/U/wzrK6mhv3wprYJVHwIESUaHm8fz9asClpjFgHrxWQkj9U8Hs
-         YXRlCutxRrICnOJj9RNQPyANyKBLzUNCsjnLgLtWS9lF4zP6FDQHdoA/5oCkGItvQSbK
-         Ry9OS1igkj0VcJcM68IPQZPh5mVw1EWsqp3fvA7wke+0Bque+3DmMRlFX3IkReWsZ9SG
-         x8pLbNoPVVYS6LBElhZF5FlKil2Lzn6e/iqxhQR8IwciztsetLeN/gCp+83R0g3IfRhI
-         JnzQ==
-X-Gm-Message-State: AFuF++k2P/6UwFc2HRRcBx/cgSlO1JTQtxWoGcTHNzvGxTSclKQMBkEd
-	kGIWuPanWkHR410R++ols0iGcPlB0s6zSMZiuzkimauQepckAQJvqH0i
-X-Gm-Gg: AYBFou02BgJ1skbrZ7IJlI5v3cxEueBJdVKjwh03vQbBCai/eAKomvqTdYiXZEuECrf
-	S+hOS1gssAtercNwDU+Ie2Bm1Vda0mjUjvECDuiNhVqKmu0xlbUcjuFMttMPLxgBF8hhfkM75Lo
-	2EyoasXXx5mlzkPbpnLfqEmqoun7qWCuTCR4PNUDNv7KeJytCsrye2TAkE4KNvqsIj08fGfgJ/x
-	ki73nVw1bfEzttrwom2lMzV4SWNnat+aILa3TEDQMDx8l33UzUFeLm+mRSOe9PrxnjrPatYJEBZ
-	Oo0GP5ZFLg7kwPIN4U+UE5h8aLuSdw969nsIf9NfN1bdWPQ7tQunTq0I62o4Psshd3iFCZSn8mh
-	jm24jB+e2uGT0QRi81DmRxjG0AmgJSyeSAq70BX2Vw5/Ix54kqpup/4H58uPjcB06IEdMCaBPAP
-	Yu7NWVP2uUXUCPY/WnqO4yQCu3R9j3OkNUgX/gK107k+nGW4AsVZgCyaAUnXlNR67y9xkmCgO/W
-	bRwWbzAuRcyIxozLWipPkbe5m/Mjj9fVvU9dQ4A4c6N/EkHcTrnCLaKM/YBRKaN2elRZLGWREG2
-	0ANx
-X-Received: by 2002:a05:701b:4281:20b0:149:49c:233 with SMTP id a92af1059eb24-14f5bdf3b15mr2385023c88.27.1790933302395;
-        Fri, 02 Oct 2026 02:28:22 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (158.95.44.30.netskope-rdns.com. [158.95.44.30])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f468c08absm4645586c88.8.2026.10.02.02.28.18
+        bh=9/xGjEmegI8pTO7Ox5jxESlFHhUmyOfP4GxHY3lbaDc=;
+        b=GokwWWfD0gI+xi1krqlcvo2MvSlQyGETlOVotE3MxU4jVtBmVSjJD77QonJuzOYCYI
+         4br/lj5p4YNqPMwDGWHbWC4ytvLriD9iM2Qq96X2wNfVlrLZSnEhQ+1kcoFYB9E6SGPL
+         mQAH+50OZ2Ili9F6aMP/j4TBHQZscj/XqvkRmU3byNfeiVUxrqIhPM4py+nPsCHnzIFO
+         dPMFaik/JLQJUdoaNXCsE53GCxzEdtzyDv/3JJKGeffV9qDsxrNMUANwWlR/zGtAI9uA
+         Zn8L0Bx5vPBb0amU1BtgCKa+ASQVbzNV73UZKxMWwTy9Oy63QM4sLjbQzPhQcwVV0Dn5
+         g0KA==
+X-Forwarded-Encrypted: i=1; AKwUvByHeYCbnOE+zOuiQJCCwuB5tJCSWlDx4Egl1rU2hTIkt1c7wSAbFZxhe5rpWlrX8212zPrPa9isUoOfnnM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsWm+wTF2ijMeEqOE9gm5TQtFmN4reP7vN5+FWxjR8ohK4Voy1
+	u8kJt8YSG89X0+XcorK68GXT+h/Nr5rhtyqw/u4kuUP8GmF6lydiq9SrkK1C6lKzWIE=
+X-Gm-Gg: AYBFou3/E3zXfv6DmF4d17iKSBebsKWgsC50u753hlELni6bEboY/ioAr2Taok+yd5Y
+	95q5M21Aq9zSAulJ2y2cl2B6Y1zY7hmDF1yVTBRks9F9MrDLXs0xzSJ3ckWcHQFhWTMcMrV6Y3X
+	2kfn/xKyBojicn93NcFAfa2WZ6WnH0sV+vLrjj5XZRuxc5B0MG+vt7LRl0rcQTBDGtbZ/i1DXKD
+	aqbtoW5OltbJy97gFe8g+Tc2p17ddFlxR2gH7QMZf+IB67A9UGVedkB6AKSS7QwQuGZEbZzSSTV
+	Xvh2mGJ5617fPNOVITou3RP13m5/0sS96KA0t+kwSNhbsPxLB8o8BFJN5Fo3jtoI6QBWrE+YeyV
+	RA+NH80GQ6KV3xgnzcYzFha+VGQjCNjmbLI7x9pv12PDMyk4tn/a3RXdhMK9zhXqBkhR1jiFjbq
+	6LoZAFB9NKvUkUibaRx4PmvL+fW2LaubdU9P9FlTz3Y7x3blswQXrjvQQb3x/tVHtif+L0jlqC6
+	P/llNSsyA7uj5a/PN0=
+X-Received: by 2002:a05:600c:840e:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-4a0276ea428mr38917245e9.27.1790933304386;
+        Fri, 02 Oct 2026 02:28:24 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03950375dsm22989995e9.1.2026.10.02.02.28.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:28:20 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Fri, 2 Oct 2026 06:28:16 -0300
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH RFC 3/3] iio: core: use kstrtodec64() to parse
- fixed-point values
-Message-ID: <zo6yokvdhts7sa7kd3f4i2wraa34df24znvus7rqawdjlmsi3l@rujyvtp7i5bm>
-References: <20261001-e-notation-v1-0-75187bf06c10@analog.com>
- <20261001-e-notation-v1-3-75187bf06c10@analog.com>
- <ar60h2px1C8hM4-O@ashevche-desk.local>
+        Fri, 02 Oct 2026 02:28:23 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Chuan Liu <chuan.liu@amlogic.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
+References: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
+Subject: Re: (subset) [PATCH v2 00/12] soc: amlogic: clk-measure: Add
+ support for more SoCs
+Message-Id: <179093330346.2296861.8852172233922608550.b4-ty@b4>
+Date: Fri, 02 Oct 2026 11:28:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar60h2px1C8hM4-O@ashevche-desk.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-On 01/10/26 22:29, Andy Shevchenko wrote:
-> On Thu, Oct 01, 2026 at 12:34:58PM -0300, Rodrigo Alencar via B4 Relay wrote:
+Hi,
+
+On Sun, 20 Sep 2026 18:25:02 +0800, Chuan Liu wrote:
+> This patch series adds clk-measure support for the Amlogic A5, A4, S7,
+> S7D, S6 and A9 SoCs, listed in the order of their release.
 > 
-> > Replace the open-coded __iio_str_to_fixpoint() parser with
-> > kstrtodec64(), so sysfs writes of fixed-point values also accept E
-> > notation. The scale passed to kstrtodec64() comes from fract_mult, which
-> > is a power of ten, 10^n, so ffs(10^n) = n + 1. The fractional part only
-> > keeps the sign when the integer part is zero, as before.
-> > 
-> > The dB suffix for scale attributes is now handled by a separate
-> > iio_str_to_fixpoint_units() helper. It strips an optional trailing
-> > newline and the "dB" or " dB" suffix before parsing.
-> > 
-> > When there is no fractional part (fract_mult == 0, or dec_scale == 0 for
-> > 64-bit values), try base-autodetecting kstrtoll() first so hexadecimal
-> > and octal input keeps its meaning ("010" is still 8). Fall back to
-> > kstrtodec64() on -EINVAL to accept E notation.
-> > 
-> > As a side effect, inputs that used to be rejected for integer-only
-> > attributes are now accepted. An invalid octal number such as "08" is
-> > parsed as decimal 8, and a fractional value such as "1.5" is truncated
-> > to 1, matching how kstrtodec64() drops digits beyond the requested
-> > scale.
-
-...
-
-> > +static int iio_str_to_fixpoint_units(const char *str, const char *units,
-> > +				     int fract_mult, int *integer, int *fract)
-> > +{
-> > +	size_t units_len = strlen(units);
-> > +	size_t num_len = strlen(str);
-> > +	const char *dec_str = str;
-> > +	char buf[64];
-> > +
-> > +	if (num_len && str[num_len - 1] == '\n')
-> > +		num_len--;
-> > +
-> > +	if (num_len > units_len &&
-> > +	    !strncmp(str + num_len - units_len, units, units_len)) {
-> > +		num_len -= units_len;
-> > +		if (str[num_len - 1] == ' ')
-> > +			num_len--;
-> > +		if (num_len >= sizeof(buf))
-> > +			return -EINVAL;
-> > +		memcpy(buf, str, num_len);
-> > +		buf[num_len] = '\0';
-> > +		dec_str = buf;
-> > +	}
-> > +
-> > +	return iio_str_to_fixpoint(dec_str, fract_mult, integer, fract);
-> > +}
+> The clock names for the clk-measure channels are kept consistent with
+> those used by the clock driver as much as possible, making it easier to
+> identify the relationship between the clk-measure channels and the
+> corresponding clocks in the clock driver.
 > 
-> This won't support cases when we have too many leading 0:s.
-> All these functions should also strip leading and unneeded 0:s.
+> [...]
 
-sorry, I messed up when replying to this (doing a proper group reply now).
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.4/drivers)
 
-It does support leading zeros just as kstrtodec64() (there are test cases
-for that) does so, but when handling those units in the end the buffer is
-being limited to 64, which I think it is enough (19 digits can hold real
-decimal value, the rest could be the decimal point, signs, termination char
-and leading zeros). In a practical use case, how many leading 0:s you would
-expect to be supported?
+[01/12] dt-bindings: soc: amlogic: Reordering compatible of clk-measure
+        https://git.kernel.org/amlogic/c/b6dd5a5465bb1c24279c1b18d9ee738c996f9ec6
+[02/12] dt-bindings: soc: amlogic: Add clk-measure compatible to support more SoCs
+        https://git.kernel.org/amlogic/c/668232197683898b1dbab05d6f1e7f93084160c1
+[03/12] soc: amlogic: clk-measure: Support more measurement channels
+        https://git.kernel.org/amlogic/c/abb63af22300c59e0e8dca322c21ed186ba7e51f
+[04/12] soc: amlogic: clk-measure: Align compatible entries with DT bindings
+        https://git.kernel.org/amlogic/c/8c6e2215b7ce72901e6aa2fecc4166d75e60c7e8
+[05/12] soc: amlogic: clk-measure: Add support for more SoCs
+        https://git.kernel.org/amlogic/c/5508eab53e4b79a1b45f78713cab6e7154131800
+[06/12] soc: amlogic: clk-measure: Optimize CLK_MSR_ID to reduce memory usage
+        https://git.kernel.org/amlogic/c/a848d72aab71e19ea78180f2502ad7d12818723f
+
+These changes has been applied on the intermediate git tree [1].
+
+The v7.4/drivers branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
+
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
+
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
+
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 
 -- 
-Kind regards,
+Neil
 
-Rodrigo Alencar
