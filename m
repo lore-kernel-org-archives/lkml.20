@@ -1,140 +1,101 @@
-Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFCC2773D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EED2BDC13;
+	Fri,  2 Oct 2026 01:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790903642; cv=none; b=mwiAomtqjKNjghBZ6AilF3oqInCmWUTBse7k0aMqNPZvjt02vuYwnLAL2bwzm4BVvnYUkSzB49u+ntNh9GU72/e2D56bsgoTY5vjV79DCbkj11Zltl8BqG6IhUBELKgCYRJXV/a7w9uzPN+fWVJKB+3NGzE+2G8wDrruQLIGZgs=
+	t=1790903695; cv=none; b=mTGj3PV0dSNmc6a5nO7o2NHg2WUjBTrBOuWEj0Ku1I8LMCSTc+v0ctQKUluC36BR4+HtDpmLFJ0hVh7e7mb0zdBs0gx7P5/9EQ73q/8cTUSpKsHqS/eg2IavtjaYQ+6WpZ1cd5bFFyzv/TQNdy+dz0azBsV+qwDhRnIcKMhgGw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790903642; c=relaxed/simple;
-	bh=NWX2xZSeNthE4d+FVcGdGWkc32k8tGi3zDx/87hg2j4=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UgRW3V34rJei5SjOcwnIucjGK92Xo6YIv+JooX/RdtkZEkGJ4HnsX23jNxpn7C+taajXGb6EQDHbQqau0I00IG+fWvUUr81vAD4mcZYnjlUVjDmeVHfDVpwkCtwXXoSjSc9vcCUuVwXdz4usax92uBbBdr01434YPNlpK9xiH1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p+a8rVr8; arc=none smtp.client-ip=95.215.58.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790903695; c=relaxed/simple;
+	bh=kJeiPXEqqe2jBfpzVOQzJubu7bI6/1LxnAK03RogTOQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NuXyOhcdBo5chwzjhmaIsYqxVzsHJGi/5h0/VbFp4fMaTLkf/AOFc/pjeahe8SSqXSbfK5HrmbVKwVlPqfhOJaTr/16PNxPM30KMI4fIWy+0VVO1K8Jp/7z1mgUDHM3RjzJpjQgVcvFCfCjA5Gye7L1hSUVKz4YSEIbvua6PcmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZLNUkVp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p+a8rVr8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NWX2xZSeNthE4d+FVcGdGWkc32k8tGi3zDx/87hg2j4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790903636; v=1; x=1791508436;
- b=p+a8rVr81NcJJcfxxPvcAE5oHHNJXWPDJiJJHG6aDo0cgZ3g/hqhJvST6DeXPDrKKNfK73Nd
- mizzwlztS/s+4+YQw80HMi3LAIX6g88tdJkPAf0aLYTbL2NmTFyZ0WQ/eW5Vkf6EHzbnWjk7w4S
- InxLzehMTgIIP+r16eOg/d3U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 06414f6154828934;
-	Fri, 02 Oct 2026 01:13:56 +0000
-X-Mizu-Trace-ID: 06414f6154828934
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5382c8744bac2a1d17fd96f76aa6a5245cf8a94e.camel@linux.dev>
-Subject: Re: [PATCH bpf 1/1] bpf, riscv: Fix stack arguments of struct_ops
- trampolines
-From: KaFai Wan <kafai.wan@linux.dev>
-To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>,  Andrii Nakryiko <andrii@kernel.org>, Eduard
- Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil
- Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- =?ISO-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,  Pu Lehui
- <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>, Paul Walmsley
- <pjw@kernel.org>,  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- bpf@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 09:13:45 +0800
-In-Reply-To: <20261001154038.2265210-1-kafai.wan@linux.dev>
-References: <20261001154038.2265210-1-kafai.wan@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZLNUkVp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57B51F000FF;
+	Fri,  2 Oct 2026 01:14:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790903694;
+	bh=pN48guGyVZCLfN0dodsjvJRJb4LaHXzMzQ3TOQGn714=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mZLNUkVp2txF5p0tmVd1lXbE8VNf8RYs+aHb7FLAwBH0qzQtcskLyE6+qgc2csVhT
+	 poW7isplHSQEc1C6KKT7iR7U+orxq2yEOFt+P4uzIallZQ1+veRqZ0gftgU8HioFyP
+	 RqZLV5pq90rL/QsibgCTSLC8Cyz3uyApbmsglvlvvxI5Xh90rFFeFczgdkrhrUOOpk
+	 LVlwLqlREGXxlxQKyB0L2BJG+08qkfkOgytrm+18vn1YnQWrbVRIRIq24TQll4oNXR
+	 f0d1Vg4qyOthKABmZMCeQAadRpFlqBQfK9tYjgIVzT3Xdp1Obf5DSlizlSTSRpcDZP
+	 Xx25j5MZpwSlA==
+Date: Thu, 1 Oct 2026 18:14:53 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Birger Koblitz <mail@birger-koblitz.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Andrew Lunn
+ <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Huacai Chen
+ <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, Jianhui Xu
+ <neuromoments@gmail.com>
+Subject: Re: [PATCH net-next v14 03/14] ax88179_178a: Fix endianness of
+ pause watermark register
+Message-ID: <20261001181453.23ffac71@kernel.org>
+In-Reply-To: <20260929-ax88179a-v14-3-a1f2249e42ea@birger-koblitz.de>
+References: <20260929-ax88179a-v14-0-a1f2249e42ea@birger-koblitz.de>
+	<20260929-ax88179a-v14-3-a1f2249e42ea@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-10-01 at 23:40 +0800, KaFai Wan wrote:
-
-I ran the tests yesterday and didn=E2=80=99t notice that Pu Lehui had alrea=
-dy sent the same patch. Please
-ignore this. Sorry for the noise.
-
-> When a struct_ops trampoline takes more than 8 arguments (up to 12), the
-> 9th and beyond are passed on the stack. store_args() copies them into the
-> trampoline frame using a hard-coded FP + 16 base:
->=20
-> 	emit_ld(RV_REG_T1, 16 + (i - RV_MAX_REG_ARGS) * 8, RV_REG_FP, ctx);
->=20
-> That offset only holds for fentry trampolines, where the traced function'=
-s
-> T0/FP are saved at FP - 8/FP - 16 and its stack arguments start at FP + 1=
-6.
-> A struct_ops trampoline is called directly, so its stack arguments start =
-at
-> FP + 0 and store_args() reads the wrong words. BPF programs then see garb=
-age
-> for arg9 and beyond, which fails the selftest:
->=20
-> =C2=A0 struct_ops_multi_args/test_trampoline_stack_args:FAIL
->=20
-> Pass the stack argument base offset to store_args(): 0 for struct_ops
-> trampolines, 16 otherwise.
->=20
-> Fixes: 6801b0aef79d ("riscv, bpf: Add 12-argument support for RV64 bpf tr=
-ampoline")
-> Signed-off-by: KaFai Wan <kafai.wan@linux.dev>
+On Tue, 29 Sep 2026 05:18:51 +0200 Birger Koblitz wrote:
+> The 16-bit pause watermark register is little endian as
+> described in the ASIX 4.1.0 out-of-tree driver. Correct the
+> register byte sequence but also swap the configuration values
+> used in the code in order to keep the current behaviour.
+> 
+> The endianness is relevant for 16-bit writes to the register.
+> 
+> Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 > ---
-> =C2=A0arch/riscv/net/bpf_jit_comp64.c | 8 ++++----
-> =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_com=
-p64.c
-> index 01fe66774f02..4ae6674f58ed 100644
-> --- a/arch/riscv/net/bpf_jit_comp64.c
-> +++ b/arch/riscv/net/bpf_jit_comp64.c
-> @@ -875,7 +875,7 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_t=
-ype old_t,
-> =C2=A0	return ret;
-> =C2=A0}
-> =C2=A0
-> -static void store_args(int nr_arg_slots, int args_off, struct rv_jit_con=
-text *ctx)
-> +static void store_args(int nr_arg_slots, int args_off, int stack_base, s=
-truct rv_jit_context
-> *ctx)
-> =C2=A0{
-> =C2=A0	int i;
-> =C2=A0
-> @@ -883,8 +883,7 @@ static void store_args(int nr_arg_slots, int args_off=
-, struct rv_jit_context
-> *ct
-> =C2=A0		if (i < RV_MAX_REG_ARGS) {
-> =C2=A0			emit_sd(RV_REG_FP, -args_off, RV_REG_A0 + i, ctx);
-> =C2=A0		} else {
-> -			/* skip slots for T0 and FP of traced function */
-> -			emit_ld(RV_REG_T1, 16 + (i - RV_MAX_REG_ARGS) * 8, RV_REG_FP, ctx);
-> +			emit_ld(RV_REG_T1, stack_base + (i - RV_MAX_REG_ARGS) * 8, RV_REG_FP,
-> ctx);
-> =C2=A0			emit_sd(RV_REG_FP, -args_off, RV_REG_T1, ctx);
-> =C2=A0		}
-> =C2=A0		args_off -=3D 8;
-> @@ -1179,7 +1178,8 @@ static int __arch_prepare_bpf_trampoline(struct bpf=
-_tramp_image *im,
-> =C2=A0	func_meta =3D nr_arg_slots;
-> =C2=A0	emit_store_stack_imm64(RV_REG_T1, -func_meta_off, func_meta, ctx);
-> =C2=A0
-> -	store_args(nr_arg_slots, args_off, ctx);
-> +	/* skip slots for T0 and FP of traced function */
-> +	store_args(nr_arg_slots, args_off, is_struct_ops ? 0 : 16, ctx);
-> =C2=A0
-> =C2=A0	if (bpf_fsession_cnt(tnodes)) {
-> =C2=A0		/* clear all session cookies' value */
+>  drivers/net/usb/ax88179_178a.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
+> index 81d8412ce8e2fac981df076ea1385e6e87525cfe..2ed46ab62c0065d32040439f31d44f118d7e9952 100644
+> --- a/drivers/net/usb/ax88179_178a.c
+> +++ b/drivers/net/usb/ax88179_178a.c
+> @@ -32,8 +32,8 @@
+>  #define AX_ACCESS_EEPROM			0x04
+>  #define AX_ACCESS_EFUS				0x05
+>  #define AX_RELOAD_EEPROM_EFUSE			0x06
+> -#define AX_PAUSE_WATERLVL_HIGH			0x54
+> -#define AX_PAUSE_WATERLVL_LOW			0x55
+> +#define AX_PAUSE_WATERLVL_LOW			0x54
+> +#define AX_PAUSE_WATERLVL_HIGH			0x55
+>  
+>  #define PHYSICAL_LINK_STATUS			0x02
+>  	#define	AX_USB_SS		0x04
+> @@ -1619,11 +1619,10 @@ static int ax88179_reset(struct usbnet *dev)
+>  	dev->rx_urb_size = 1024 * 20;
+>  
+>  	*tmp = 0x34;
+> -	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_LOW, 1, 1, tmp);
+> +	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_HIGH, 1, 1, tmp);
+>  
+>  	*tmp = 0x52;
+> -	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_HIGH,
+> -			  1, 1, tmp);
+> +	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_LOW, 1, 1, tmp);
+>  
+>  	/* Enable checksum offload */
+>  	*tmp = AX_RXCOE_IP | AX_RXCOE_TCP | AX_RXCOE_UDP |
+> 
 
---=20
-Thanks,
-KaFai
+Looks like I already applied this as commit a4e22e9253e7ed ?
+Please rebase on latest net-next it should drop you, and then repost
