@@ -1,160 +1,197 @@
-Received: from mail-ej2-f40.google.com (mail-ej2-f40.google.com [74.125.228.168])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE0A4398F5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929394; cv=pass; b=oFx7Ag49yGlQGZykV79eSnQqvbng1Ks3Y2Cdhc3TBnkWTA/K/tQqit8PcAsWjVeey3Xurzfu+OV4z6LLcVOR+672twm7PIymP9SrYOj739pYHAbWyrceWlXSSQsfvOfwmP3b2qY2Gt79jQkn1TpJ4zrBSVtAJ/td4+wxvMS6DmU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929394; c=relaxed/simple;
-	bh=m82XSMNTiLgC95D6B78sYDiC94k+qp/Rz1jZL0ad/lY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HsPe0zhw7nS7tGGbz4VX8pJwefH0sZHtw45CBHhBidepJ1je4TerLdsTquQmWHZv30nthitQ4K/bt+YTRzpbtGMrIjkuZNomSn8A9oSokDZbsMsmJYqxVKaPg6MH1mVZ2c6LpYpbC2EKa4BVpJGLUSpu8dCgEz9ydJFqJQYuODY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfReRHDv; arc=pass smtp.client-ip=74.125.228.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534434483A6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790929424; cv=none; b=UYg5E/IxNXO3WJp/3CY30MzRzKc0hNMvQj2ZoxCCdyI9uRieywky8DdYVEMAMkzn11AXdOwtIWd2BjrPVVJByhl19nNxHHF/cp6bJbHpQAMoKrz3Ctuniy9fanGmIuS7At1Rzb2OOKjYLuu0qM7I0EvSf45NC5XhRqsj09DmU+4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790929424; c=relaxed/simple;
+	bh=fJ3u01aHHcgk6IPnVawD1Y/lFZZj9DoX4Zon6NUmFag=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=qxxiJN79DiBmmQkvXJEjXbVxvVPoHf58Jm7S5VBCiM7PhyK7QM4pWRKsTW3Q+a5YBqXGAV6xzC597bmSsNLKcOZ6pRK/9QtgBoh6YDGioF8YUuo+rztup3TEOfsILRXtbRfsbPnp5z5IaizoyyllY+k2XM1HcmGmwTz38Xk14GI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C1MPRG27; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfReRHDv"
-Received: by mail-ej2-f40.google.com with SMTP id a640c23a62f3a-c2e402001e8so217217166b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:23:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790929391; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GjQ+nhcCYPODEah7TDUqV9vO+ISoIXQNBb2KciZtxeZbwk1ghWJvcZU05IPNrbE9uO
-         HYdgu1IF6lFHRf5eR4toy38y72WarBKaJ8muRllUs6Gfr9T37j9qMtS5r4muhOkm4uOV
-         hKoAxF5xxpxzt5lF1NRbS97+Nlsz4YwImnu1YLwNvA/qrCHfL7gqo/9LHpuwIoSLs3Dk
-         jArfT/Hz0/FuwQmjkKzm+6kNt0Em7WvUpVpPe4m8gdO3Gj5ohH7ZW9radwE/qJl3bwII
-         ZnHB4a7FddgyZkS67+JNcyyckZBSIixUgvCN7DB72RhyqwdRwHv85UawyIUBMi07ep0o
-         J3gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Qtouuun/tbyI61TUwPZhkjhbB6nZifAWeutrTpGNCnw=;
-        fh=CwtnIvWoHFajuLyIr4aBWD+MjbC5edEFTnjNLqye/U4=;
-        b=DbyDzG6nxDBxhflZS58pd31oUoNOB+vxpKHOXfx9UE0MUEpIZmHVq9Vgwva5jk+8cc
-         7h6l+gVA4/h9PV00AZBOUd3VaLj2NV9R4A4JZy1WLN/62bRwcrD/puMrqZIh4yHmkRSu
-         ZkhMLv+Jy7VZvZUsVgbSeep2qtwqcjx0L9gaWWeP0a6qiDpDqVPq7z9PnTeGCEQ4aBci
-         HrhypXog+6l9aTeJVqTfN1UuCT0bx5DX6m1vTZfG+eT9+VZ4sH9gbqQkQDp1AJVGasfV
-         URtiDNTl0+y3A0G89z1DSKrS8S8jJABgJbJWY84UwzdWzYBwfUxX2j3MT1NnE+L8N/PY
-         oNFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C1MPRG27"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4fc935a11so5285635a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:23:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790929391; x=1791534191; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qtouuun/tbyI61TUwPZhkjhbB6nZifAWeutrTpGNCnw=;
-        b=AfReRHDvSrGBGoehdBJBSMqxKN3Z4JokX9hetvuT4rdHkjVV7QDPc9GwODb/hsNJam
-         ONRt6GAx/1izJ8G/0xLw9sNv/rfEqLlnYflwEwAQTeYF0d4kwsnK20tWMmySxaAvR+Jw
-         JCjpzKYUr0iq2NvbgPw2HpofnhEIi54oP5GKCwH4orfj88H847X8FAnxzBGUTF+MglPb
-         4ZJduZhwDV+zDY/nF8GmT8XzW7ZSiTU/JWrJ1Fk75sOtwJJwCCDCEOtuORcLKNMVeB3E
-         ZKejrTZYY/uhHf7lxCJepZ99AM61ji9jaOYyS6aejZxMkJvYqmIYT03W/o08GPC1Nkja
-         ygCw==
+        d=google.com; s=20251104; t=1790929423; x=1791534223; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pFjbU9pSZseB8ygpaiaapqJgIpAPCinx+umBz2pZzas=;
+        b=C1MPRG27RVpzZBSK7Jr/3+k0Rim67FzHemFZAqyIqOyHktJESpV+7N5rOyj0zrqADU
+         7SjjfSC553hHXInhxhWkjZ/TfmpsMR3soQ5oM1qr3hgTqcAfwJ2lNFGXzFs146XoOwEE
+         rpftkD/mYacNB98FQXuIV/hWzGY4qx/SNTdAtLp+qhkZnzMMh+BaF/qKGj8Do1vsEONj
+         TDHUmUoH77RKnG6a0gYjEI+YfNgVC/ktx3Og72Kpue61rgz9QDcx962T8ssYdcUeMQYc
+         7+ereJDJ01i2yJb9fG32BW3706w2KB+B1bEmbsUJf1sFfdHsA83hhfFOOOjD5krfkGTD
+         T/Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929391; x=1791534191;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790929423; x=1791534223;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Qtouuun/tbyI61TUwPZhkjhbB6nZifAWeutrTpGNCnw=;
-        b=uoE+V53v/TPHRq/IRglc2ovOL26tADwbpy3C3hRmjxKop4hUQWsaVCPJJxpBQwG4zl
-         N/yWaOiZA6kaW9c+0NbB65D18rbqP+GMSXIo9tDXOdfl/Qhcly4YREymoy6uAXwrCGtd
-         jyJyjF78GUZOqiGtxaTB4TlM6v8TWCQHY+C7CaWSz9wHsd2GTeZIyBVbnZZzAfowQgyk
-         FnxkAHa1UkKZFsse24ObgefkBw5APF5jnQBSKlKNXcFARjK6e2bwl/Ky3AtFfmbIGkta
-         jN48TuwD3PT3liU8yyfrfnaHL5ifRcd/QB9cK1cDivm/AOIS9kGf3kysY4+Kdg3WiZ3d
-         gMlg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1TpXVUx5AxrjnfKrWXLhSHF7g9i2DDWlJFposK4fACoR5EHt84cr18lh+N27yP2XIYtI2Qk25TIIhFwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3xX2lR8xP2jxrrtHZXqLFbUZeEuMMSfHSdyDKsriBcS0L1enL
-	akGOnO9MUZcCWaUkqVrnJ2Rjak+ri61+Zx4Ti3Y3Vj0rotGR29h12qzg1NToS3cze30G3//bm+j
-	N2YmJ9jdlHspxBX+3JPD5GZJNkAomp1U=
-X-Gm-Gg: AYBFou3Ol5GcseqRz23c3VK8tYScpSliU54Wl8t13iPrP04y3z+qLQhLJOMGam3k/BN
-	N9rBRQtpIEF8CQx45QwSYLcoZRV4BDIksSLM2zcML9x1qBw02k5pUM+yl6cLbzLNjzSJkcILysF
-	KNHJZAKZEc53TDMY17sXbEOZZgc7qQHMq7mL+CSaKKmOjfW5G4xhKKeFD2GEzS5UfvaIp/SmPZC
-	rbzqne08oh/KHdcTHSvrwPelUhSu34FVzI6cgm7P2GHNOE1HHu65Dwyq8J1JFATr2gAEm1nN/WL
-	w0+Xmhsd042lXoIL11/RfyvjTplF41TC9TGcKV8gj+hyeL62/3QkNuC8WW9k/vLb1zeAFiKsxmH
-	u9uo90urfheODOjbuCr5esNyRgfmZ+9cJgbYsmgaiMKmAXXoHzI7nwoTcwktGLTRPvHU3jOo1Q4
-	7FT3eI5jSgDWF7K+SOT1K9Kf4AvrkFEDyPeOvb8POZZz6Hps0auWzt
-X-Received: by 2002:a17:907:5c7:b0:c29:f5d5:5a9c with SMTP id
- a640c23a62f3a-c2e4b241d7fmr137425766b.38.1790929391172; Fri, 02 Oct 2026
- 01:23:11 -0700 (PDT)
+        bh=pFjbU9pSZseB8ygpaiaapqJgIpAPCinx+umBz2pZzas=;
+        b=2lc06xlnVTLH7C4fsEF8c3+kugZVpZ0pKf6xIwB7hLndzLx7a36qkOk6EFkzOZdqol
+         Xy5rJKo5+6u2EqliEQTKnZlQ90s2V4a3DD/hSMX86o8rJXSRmAisLzKJFh4QC1+1PBEU
+         vQ8ILoTbrZ6KzBs/UWOLZ9HvJ6+UiNow3AYOQstvUP6/sziIdBOvuWIxcZKBzhuDRQjb
+         tlf9zyYnmkCZrAtSDpexZFBWAJN6CkTslKlXrroe54Pe26JX4ufEAXo2oNC7EKGk/tKF
+         FAXnD8S8rkdpcTx1PZ+e0K7xUFR4XKFlRE3gIKL0xJnkszfLh/klyjPz57sIq/wh2uQr
+         6dzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHTFMzeex09FZJ30x7GnjYQUOGFOmG6UBdG/T+QxraP/gvD5g3vu370fWMklbRcwPQ9yBOW7vy920sRRM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n86uA0mPAiBX0YJXZIgwn+MtkSltK0u0KTsdyfm2uhI8LCbawW
+	Q6pDHxRwMjicxXjevvNMobMrF7BLvZab6Be0k3mmO2Gl2EFD/ob3JeygM90XcEK0K75n0aMZJfi
+	Ba7O/1bPjyuoN9IMEeQ==
+X-Received: from pgbco13.prod.google.com ([2002:a05:6a02:34d:b0:cc9:f746:40bb])
+ (user=starchang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:4327:b0:3d7:dfbf:7435 with SMTP id adf61e73a8af0-3e0bcef9a61mr2333431637.25.1790929422228;
+ Fri, 02 Oct 2026 01:23:42 -0700 (PDT)
+Date: Fri,  2 Oct 2026 08:23:36 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
- <CAO7O_xjcw60io6maT2J_dPOxMcAe5k_=u6UCuo59nsd_0W+4xw@mail.gmail.com>
-In-Reply-To: <CAO7O_xjcw60io6maT2J_dPOxMcAe5k_=u6UCuo59nsd_0W+4xw@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 2 Oct 2026 11:22:35 +0300
-X-Gm-Features: AclHuK_S5b7kz2s_hkF12XOALWuj04SzAGhc0YKCIgdaLJIkJrUOPC2GCBhIOzI
-Message-ID: <CAHp75VdeXCDBpvsom2YokbS2QbbCzrGGf_NXYdLFTq3cLeam_g@mail.gmail.com>
-Subject: Re: [PATCH v8 02/15] media: ov8858: support 19.2 MHz clock and manual
- white balance
-To: mauriziocasciano7@gmail.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Nicholas Roth <nicholas@rothemail.net>, 
-	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261002082336.608201-1-starchang@google.com>
+Subject: [PATCH net] net: Fix Hole-196 vulnerability by dropping unicast
+ ARP/IP in L2 BMC
+From: Star Chang <starchang@google.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, davem@davemloft.net, linux-kernel@vger.kernel.org, 
+	wangroger@google.com, Star Chang <starchang@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 2, 2026 at 11:17=E2=80=AFAM <mauriziocasciano7@gmail.com> wrote=
-:
->
-> Support both 19.2 MHz and 24 MHz input clocks. Move the PLL and
-> global-timing registers out of the common mode tables and select register
-> settings for the detected revision, lane count, input clock and 360 MHz
-> link frequency when starting the stream. Use the actual input-clock rate
-> when calculating the reset delay.
->
-> Add standard red and blue balance controls for the sensor's manual white
-> balance registers. V4L2 defines red and blue balance relative to green bu=
-t
-> does not define a standard green-balance control, so keep green at unity.
-> Accumulate errors while programming all three channels.
->
-> The manual white-balance register definitions and programming follow
-> Intel's GPL-2.0 OV5670 driver, so retain its 2017 Intel copyright notice.
+Wi-Fi 802.11 to 802.3 frame translation allows attackers to inject
+unicast L3 packets or ARP payloads inside GTK-encrypted L2 broadcast
+and multicast (BMC) frames (the "Hole-196" vulnerability).
 
-...
+While the `drop_unicast_in_l2_multicast` sysctl was introduced to drop
+unicast IPv4/IPv6 packets received over L2 BMC, it had several gaps:
 
-> -#define OV8858_LINK_FREQ               360000000U
-> -#define OV8858_XVCLK_FREQ              24000000
-> +#define OV8858_LINK_FREQ               (360 * HZ_PER_MHZ)
-> +#define OV8858_XVCLK_FREQ_24MHZ                (24 * HZ_PER_MHZ)
-> +#define OV8858_XVCLK_FREQ_19_2MHZ      (19200 * HZ_PER_KHZ)
+1. ARP packets were not checked in `net/ipv4/arp.c`, allowing attackers
+   to perform ARP poisoning via L2 BMC frames (`group-arp-unicast`).
+2. Enforcement lacked DHCP client (UDP port 68) exemption, which could
+   discard legitimate DHCP server responses sent via L2 broadcast.
+3. Dropped packets were silently discarded without warnings or MIB stats.
 
+Enhance `drop_unicast_in_l2_multicast` sysctl enforcement:
+- Extend sysctl checks to `net/ipv4/arp.c` (`arp_process()`) to drop
+  unsolicited ARP Replies and ARP Requests with a non-zero unicast
+  Target Hardware Address (tha) received over L2 BMC.
+- Exempt Gratuitous ARP (GARP) and RFC 5227 Address Announcements
+  (`sip == tip`) from L2 BMC unicast drop logic so they defer to the
+  `DROP_GRATUITOUS_ARP` sysctl, preserving VRRP/HSRP router failover.
+- Exempt non-fragmented DHCP client traffic (UDP dest port 68) in
+  `net/ipv4/ip_input.c` and safely reload `ip_hdr(skb)` after
+  `pskb_may_pull()` to prevent dangling pointer access.
+- Log rate-limited warnings (`pr_warn_ratelimited`) and increment MIB
+  error counters (`IPSTATS_MIB_INHDRERRORS`) for dropped frames.
 
-Sakari, you see, still inconsistent. If we really want to use
-multipliers for XVCLK, I would prefer to see the same one, so 24000 *
-HZ_PER_KHZ.
+Signed-off-by: Star Chang <starchang@google.com>
+---
+ net/ipv4/arp.c       | 29 +++++++++++++++++++++++++++++
+ net/ipv4/ip_input.c  | 27 +++++++++++++++++++++++++--
+ net/ipv6/ip6_input.c |  2 ++
+ 3 files changed, 56 insertions(+), 2 deletions(-)
 
-...
+diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
+index d409f606aec0..ad23db2e2f59 100644
+--- a/net/ipv4/arp.c
++++ b/net/ipv4/arp.c
+@@ -791,6 +791,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
+ 	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
+ 		goto out_free_skb;
+ 
++/*
++ * Hole-196 defense for ARP:
++ * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
++ * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
++ * that specify a non-zero unicast Target Hardware Address (tha).
++ *
++ * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
++ * require (sip == tip) and tha matching sha (tha == sha). Only valid
++ * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
++ */
++	if ((skb->pkt_type == PACKET_BROADCAST ||
++	     skb->pkt_type == PACKET_MULTICAST) &&
++	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
++		bool is_valid_garp = (sip == tip) && tha &&
++				     !memcmp(tha, sha, dev->addr_len);
++
++		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
++			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
++					     dev->name);
++			goto out_free_skb;
++		}
++		if (dev->addr_len == ETH_ALEN && tha &&
++		    is_valid_ether_addr(tha) && !is_valid_garp) {
++			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
++					     dev->name);
++			goto out_free_skb;
++		}
++	}
++
+  /*
+   *	For some 802.11 wireless deployments (and possibly other networks),
+   *	there will be an ARP proxy and gratuitous ARP frames are attacks
+diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
+index 9860178752b8..f863aa293020 100644
+--- a/net/ipv4/ip_input.c
++++ b/net/ipv4/ip_input.c
+@@ -456,10 +456,33 @@ static int ip_rcv_finish_core(struct net *net,
+ 		 * this is 802.11 protecting against cross-station spoofing (the
+ 		 * so-called "hole-196" attack) so do it for both.
+ 		 */
++		/* Hole-196 defense:
++		 * Drop unicast IP packets received over L2 BMC frames.
++		 * Exempt DHCP client responses (UDP port 68).
++		 */
+ 		if (in_dev &&
+ 		    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+-			drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
+-			goto drop;
++			bool is_dhcp_resp = false;
++
++			iph = ip_hdr(skb);
++			if (iph->protocol == IPPROTO_UDP && !ip_is_fragment(iph) &&
++			    pskb_may_pull(skb, iph->ihl * 4 + sizeof(struct udphdr))) {
++				const struct udphdr *uh;
++
++				iph = ip_hdr(skb);
++				uh = (const struct udphdr *)(skb_network_header(skb) +
++							    iph->ihl * 4);
++				if (uh->dest == htons(68))
++					is_dhcp_resp = true;
++			}
++
++			if (!is_dhcp_resp) {
++				net_warn_ratelimited("Drop unicast IP %pI4 in L2 BMC on %s\n",
++						     &iph->daddr, dev->name);
++				__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
++				drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
++				goto drop;
++			}
+ 		}
+ 	}
+ 
+diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
+index 8972863c93ee..caf9811f6352 100644
+--- a/net/ipv6/ip6_input.c
++++ b/net/ipv6/ip6_input.c
+@@ -278,6 +278,8 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
+ 	    (skb->pkt_type == PACKET_BROADCAST ||
+ 	     skb->pkt_type == PACKET_MULTICAST) &&
+ 	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast)) {
++		net_warn_ratelimited("IPv6: Drop unicast IP %pI6c in L2 BMC on %s\n",
++				     &hdr->daddr, dev->name);
+ 		SKB_DR_SET(reason, UNICAST_IN_L2_MULTICAST);
+ 		goto err;
+ 	}
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-> +/* Keep input-clock programming separate from the common sensor setup. *=
-/
-> +static const struct regval ov8858_24mhz_360mhz_r1a_2lane[] =3D {
-> +       {0x0302, 0x1e},
-> +       {0x0303, 0x00},
-> +       {0x0304, 0x03},
-> +       {0x030e, 0x00},
-> +       {0x030f, 0x09},
-> +       {0x0312, 0x01},
-> +       {0x031e, 0x0c},
-> +       {0x4837, 0x16},
-
-> +       {REG_NULL, 0x00},
-
-Please, drop trailing commas in the terminator entries, like above.
-
-> +};
-
---=20
-With Best Regards,
-Andy Shevchenko
