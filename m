@@ -1,183 +1,136 @@
-Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83E935FF58
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB92628B4E2;
+	Fri,  2 Oct 2026 04:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790916056; cv=none; b=mHUydvLwoH5aGbINvebfTNi3qsKy1t+DPbDAE8OkmiieB1X3Mlslr0nzdtwZkcpO6y77RtVQxUI7I5zvecupUaFav4J03hIZkQf7evdZHdkbwy7nh3JgJiciw3z/1xyrndlSzipjkF3Aqpj0fW9u9b3RXktviKeP+2BJFDgeklo=
+	t=1790916329; cv=none; b=Yq/Ec+OWEU0Tu9O8211DAtGin8wwnyMGDU2s27n5o8hc9VDSLwsNyKAs3WUjMjhtEOHtcBFrHZOBj8JehX0rn+M5DC/VmVqtTKalZQ2yvCSLphetXNxElK1t8bjJmqAk9csYVgjVXfuhB1OHCBcDXdzcoR1f2GCOTU4nICzu4jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790916056; c=relaxed/simple;
-	bh=3GiF/F59t2XnQ+ScY1DItyDBwlG5LFfzw638Jucz8rk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tX0wc3ZQ8CkuNSakP6XbnFNRLIIJw2jYxZAk7xueB0n1OFyU+5+iK+pO4i2ftzxp+UoIis/Ik10lETYuweAGyhrPmvpobE4DATDt4j1laq7PSYGnWttcnGctRNCMyeb21vHEBWLWH3/ixLKyfhWzVyJZQbzzZZw44ZDgnK5K4Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cIWhJ09X; arc=none smtp.client-ip=74.125.231.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790916329; c=relaxed/simple;
+	bh=wyAORYeusP4vcptey9/n2NPgydi9/Gw5lAe0phtrrvg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RoRHws6PKxOPRJniEBpygCnTUZbHr5rlhyAJ/fmhherkZJW0bBU+6V8OVfRfYFUviv0ZrSf2EdbJyOxUO3tMzEsccdueURb3el5Q/NtY3nXroYeKnpxLGv3F45BNkLM6OPm16L3X9puJygFYrf75GDfU+vxgFRXSXnJcB1kUMWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=c5RRVgnq; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cIWhJ09X"
-Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4e7b5de66d0so3603751b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:40:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790916053; x=1791520853; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+aNuBHrd5RMEXmJ5WPHyWr9jcSxnvnt7cywTSQ93A8M=;
-        b=cIWhJ09XRqTYgUs3LWboT5O+SyVbVfRIb8F8TDXXIgOB7zvUhdQunaUnH1eY8y9hee
-         2oypUXvDYspNli4xf1Z3VpH0nHfr8D+rrQPW/tsdzp6XfbMlE5fn0CxFetExrS4Ss04a
-         /x3eq4/o5BQ3h9kD4MCZrtNxRfEbnRB4JMvtflW4wmr4lr1QMniMqZuuF8agTlUKEGF3
-         2LeD4IQz36zpNhBN9MQwas60Qmyovpt8o6DBtlF7ExNOY351ozi5WzMKrrW+A5nHlmCH
-         If84auHepKoZFSa3Zf8NZoWy8laTDw4DlEVUUlQQAWxqW2ZJK9a8N5L8XITvOmrFYVxK
-         g5mQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790916053; x=1791520853;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+aNuBHrd5RMEXmJ5WPHyWr9jcSxnvnt7cywTSQ93A8M=;
-        b=z6S3nvLG92KSR4yrLyrQA9An9zY751qALIGo5np+awLOu2TdxUso8Lc9w5cFtl8RPQ
-         fe74bjGGkzyIXHroA189H7lCXmq5hw+gL+mVQjBL/pdUAZix+kTYmoerbS5Hr63bjPxr
-         QYGFxH25KsAjAXsaD0fERC2/UAhiU0bhCfAtakgPYva9ZoNM+UDp7qlJYxdPzmOHxXS1
-         tf5WKqJIWa4kYHE/da5G2MpCe8A7LtkIZhSv8NjGrETU3nO0pqT+/osz2pYUnEH4gruP
-         NWmq1rW3vVHZT0ltpIGCmB+wlPbcLP5mkBi2YK+AjG5RlIT6NEybntUoXhW0LO8xoSUx
-         VMOA==
-X-Forwarded-Encrypted: i=1; AKwUvBywu2n3uGd9o+vzJ592mOnCfop74USytZ9C/3noEBWznaZ9RCVLCrSiJkbuZ5qgexqAoYKvIFX/7ImNsHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWP5u/wCEWVzRMwuAUqxegycj4OiUApS7iCqcK4e2j+LdVj8NG
-	3+xHQ0MWcZ5vATsnp72a1t+lKajmcFqlcYGXK+86WAnOWHirhWP206hj
-X-Gm-Gg: AYBFou19jFmW6OeoHXCslgzyNwnpCzf/tZuFpqjVIiz5zlfKpB5OYbGd4A7PWdZbIpW
-	l4oQzolIyNh+OqsOBM5TmSGev8FKS19dqNmpeS08/WLGuHbd4eyTvAZ52VOu0EUx8N0On4tqCIZ
-	Y5MJvvlA5Bswws8Tv2e3tmfm8AqAZBLZUA0nCZHrvgDBHanj00QuG4W0BixB7u1OQPlxt1LZjOD
-	ZQbiK5qSw5DeHFMU0AVvK3vBD+ePDiENoYQyYIpvMzJbJYeK16UoJUSgzewGKc0DsY9ZA/q5weN
-	NUvyhftVb2Dksl83UfKV/Yg4k5d+7D8Vhk/4uWwNoeuqlUrqFHWGPy9xXAGp6TLI879IsG8697j
-	Fe6AJjpQfrLaFGkIY2/e0BmKIncI7KZYnMlu+GGwf3SG3cwHk2wPcwqtLQv6F6ycddBje2XOPjB
-	GtHQodw5p5fT8ryZib62qE5aogb1e2vmEErdv2/mYbsdxbA9NgXb951rRoWkN0ZahQ54B4
-X-Received: by 2002:a05:6808:13c2:b0:4ea:bd4e:5cc5 with SMTP id 5614622812f47-4f52ab8b76amr1425589b6e.46.1790916053267;
-        Thu, 01 Oct 2026 21:40:53 -0700 (PDT)
-Received: from localhost ([2a03:2880:12ff:3::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f523da65c2sm1217527b6e.5.2026.10.01.21.40.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 21:40:52 -0700 (PDT)
-From: Matthew Wood <thepacketgeek@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>,
-	bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] bpf, arm64: Fix text_mutex critical section in bpf_arch_text_poke()
-Date: Thu,  1 Oct 2026 21:40:48 -0700
-Message-ID: <20261002044050.1277356-1-thepacketgeek@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="c5RRVgnq"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6922ZUxa1680368;
+	Fri, 2 Oct 2026 04:44:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=98Wq12
+	iIlaIraiVSCF0jeRQmWRURkESi4objlUGIYfQ=; b=c5RRVgnqbtU4LjUDFWU0iQ
+	Hww3dMcTWV1YiRHd8g6woW1i5QIv6hLvN3pMSHoSeDQNaCNuAfU9FSQMYxy7U/g2
+	QAmDcFkmDtufWs3FTkXGlS4zqM2kyEumqIRC7njcEI9oyzlEi00hmkrZKyg7l0ck
+	amovJtZc0Iwx6kpaxkHF4R+XLCcOQxKc2kYeCr3KdUTox/Aak+zdXXWWFsSSDftl
+	F8bVbGZvCaE5Hreqkoe0xq8opP2XacktCTLb8Ncx0/s9vTvkTNHp174YQUzD/NxK
+	cc3070aif4h/b2n0U0RvkujGYcevZUWxNIRYvn//RBxCs6235NouD0MT8QVQsMHw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qrqe8p-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 04:44:57 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6922KDs81834253;
+	Fri, 2 Oct 2026 04:44:56 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h1y2dhagc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 04:44:56 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6924isI147776040
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 2 Oct 2026 04:44:54 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 43AD320043;
+	Fri,  2 Oct 2026 04:44:54 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6836420040;
+	Fri,  2 Oct 2026 04:44:52 +0000 (GMT)
+Received: from [9.124.216.180] (unknown [9.124.216.180])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  2 Oct 2026 04:44:52 +0000 (GMT)
+Message-ID: <37b02446-1e54-4ea1-9532-11056053de6c@linux.ibm.com>
+Date: Fri, 2 Oct 2026 10:14:51 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [ANNOUNCE] v7.3-rc4-rt1
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        Thomas Gleixner <tglx@linutronix.de>, linux-rt-devel@lists.linux.dev
+Cc: LKML <linux-kernel@vger.kernel.org>, linux-rt-users@vger.kernel.org,
+        Steven Rostedt <rostedt@goodmis.org>,
+        Maarten Lankhorst <dev@lankhorst.se>
+References: <20260922144152.x2J3_tNz@linutronix.de>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20260922144152.x2J3_tNz@linutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAxOCBTYWx0ZWRfX6rzjqGf53FZd
+ BwACgFfzH0XWOQ2PQ3+HvyVzlFKnsPbCcmx018kMQMCWQfGfVryMiezZqwm7N1ov6+niYKN8yLG
+ eSmCWJQWoXOX2JEsFS5GnGXjOeuJ85beHSznYpTFoMuX/KPQVslympCCRLEWbwWiintmiMvLL/T
+ IniQOAtuI2ykDXibyry2BQl9wx8LxeRR8SjQ+0KP/bWQZ6ZpTeGgnn4C9pcWEtd3AHVLoiPIwqn
+ m6cW3ZQrOg2NsU4OelWnsend96TypV+EHtvlz3RhDfcsZt0Kuuwu/6biiTHWjVCZrdET6tFHwq7
+ FersjydK66r9chj8JwVsJRLmNxkGxLj0ZMiZ0sksi7F0UQlPI+sHcH5TMfmv6T0QWAwisbd1aPE
+ PSvBO2o0IlU7VfKz6AgnGertX61WYRQ7G383O8XY+Qdkn3Kz1Kj72fAOv8798rO2KtXTCmelguO
+ B1Mk3449ig+6hJZfOvg==
+X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6abf36c9 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=DQibb4ZKopN1BLnJEHUA:9
+ a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+X-Proofpoint-ORIG-GUID: vQvH7_aSxS0iulhrs5hhgItPoqTZXnUb
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAxOCBTYWx0ZWRfX2uls8LkMKnIS
+ aXfK1eY4jV7tV/LvWWrAPl58nqxqGIfWLmSQOpWCX+DQA4DNXxHLcyfH+j3kJjvPrFWqBH/md8/
+ dcpjo2u9qNuQIsWGf4ETKIDiq3vOrBU=
+X-Proofpoint-GUID: vQvH7_aSxS0iulhrs5hhgItPoqTZXnUb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_01,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1011 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610020018
 
-Widen the text_mutex critical section in bpf_arch_text_poke() to cover
-the page permission changes made while updating a bpf prog's plt target.
-When a long-jump trampoline is attached to or detached from a bpf prog,
-the plt target at the end of the prog is currently updated before
-text_mutex is taken, by temporarily making the page writable:
 
-	set_memory_rw(page);
-	WRITE_ONCE(plt->target, plt_target);
-	set_memory_ro(page);
 
-Leaving this outside text_mutex assumes the page belongs only to the
-prog being poked, whose pokes are already serialized by its trampoline
-lock. Commit 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory
-management") broke that assumption; it switched the arm64 JIT to the bpf
-prog pack allocator, which packs programs into small chunks of large
-shared allocations, without updating bpf_arch_text_poke(). Since then,
-unrelated progs (and their plts) commonly share a page. Two CPUs
-attaching to or detaching from different target progs in the same page
-hold different trampoline locks, so their permission changes can
-interleave:
+On 9/22/26 8:11 PM, Sebastian Andrzej Siewior wrote:
+> Dear RT folks!
+> 
+> I'm pleased to announce the v7.3-rc4-rt1 patch set.
+> 
+> Changes since v7.2-rt5:
+> 
+>    - Rebase to v7.3-rc4
+> 
+> The printk related changes are all gone. What is left in the queue is
+> PowerPC, i915 and a sysfs file:
+> - PowerPC
+>    Some progress has been made. What is left is a pseries related MMU
+>    change, a patch dropping KVM_MPIC (which is e500 only) and a stack
+>    protector related workaround.
+>    The stack protector workaround might work with a different fix since
+>    only arch/powerpc is using boot_init_stack_canary().
+> 
 
-	CPU A                           CPU B
-	set_memory_rw(page)
-	                                set_memory_rw(page)
-	                                WRITE_ONCE(plt_B->target, ...)
-	                                set_memory_ro(page)
-	WRITE_ONCE(plt_A->target, ...)  <- permission fault
+Thanks Sebastian.
 
-This was hit on a 64K page arm64 machine:
+It is nice to see a little progress has been made atleast.
+But it was mostly my mistake that I couldn't get time to work on it.
 
-  Unable to handle kernel write to read-only memory at virtual address ffff80008f46d5f8
-  FSC = 0x0f: level 3 permission fault
-  pte=00c00200ea5a0783
-  pc : bpf_arch_text_poke+0x214/0x238
-  Call trace:
-   bpf_arch_text_poke+0x214/0x238 (P)
-   __bpf_trampoline_link_prog+0x1c8/0x470
-   bpf_trampoline_link_prog+0x64/0x90
-   bpf_tracing_prog_attach+0x318/0x4a8
-   bpf_raw_tp_link_attach+0x104/0x258
-   bpf_raw_tracepoint_open+0x6c/0x90
-   __sys_bpf+0x134c/0x3e10
+Let me see if we can atleast get these ppc patches upstream.
+Most seems sensible to me.
 
-Fixes: 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory management")
-Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
----
- arch/arm64/net/bpf_jit_comp.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-index 475e70653454..66fab0bfd3da 100644
---- a/arch/arm64/net/bpf_jit_comp.c
-+++ b/arch/arm64/net/bpf_jit_comp.c
-@@ -3338,12 +3338,20 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
- 		 */
- 		plt_target = (u64)&dummy_tramp;
-
-+	/* pages of the bpf prog pack are shared between progs, so the
-+	 * set_memory_rw()/set_memory_ro() window below must be serialized
-+	 * against other pokers too.
-+	 */
-+	mutex_lock(&text_mutex);
-+
- 	if (plt_target) {
- 		/* non-zero plt_target indicates we're patching a bpf prog,
- 		 * which is read only.
- 		 */
--		if (set_memory_rw(PAGE_MASK & ((uintptr_t)&plt->target), 1))
--			return -EFAULT;
-+		if (set_memory_rw(PAGE_MASK & ((uintptr_t)&plt->target), 1)) {
-+			ret = -EFAULT;
-+			goto out;
-+		}
- 		WRITE_ONCE(plt->target, plt_target);
- 		set_memory_ro(PAGE_MASK & ((uintptr_t)&plt->target), 1);
- 		/* since plt target points to either the new trampoline
-@@ -3357,10 +3365,11 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
- 	/* if the old target and the new target are both long jumps, no
- 	 * patching is required
- 	 */
--	if (old_insn == new_insn)
--		return 0;
-+	if (old_insn == new_insn) {
-+		ret = 0;
-+		goto out;
-+	}
-
--	mutex_lock(&text_mutex);
- 	if (aarch64_insn_read(ip, &replaced)) {
- 		ret = -EFAULT;
- 		goto out;
---
-2.53.0-Meta
+But then would come heavy lifting on function and performance verification.
+That's a different beast altogether.
