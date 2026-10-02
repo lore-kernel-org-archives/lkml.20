@@ -1,128 +1,227 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4BF442FC9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB123815E4;
+	Fri,  2 Oct 2026 08:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790930643; cv=none; b=JwzbfmTf8YZQGEDidvfep7AcWZ9rX/R+cQwCeDdSW1YBTsSASL63TwIr67gEZwDn0xHxRyqWiDCdRc+VbADYmp4RhWX16EhttbsXMADGb1bamfoeif9N4gXiBRHD00QrPDE5Q/LoB/CJja5QUOTxkyXrc6t0DL/oYZ0UQ2ldFoE=
+	t=1790930644; cv=none; b=k1ovLIZmYM7pTkElWOkS73rqh0QguOuVYdpJj4yMowoC61JpJK+GooJg58A/DziE62z0g+Q/qO7DEgC20bjhkQWyeOKQtvoRDGW9WfXzFGPVvSb/H5hpb50UzySyET7uLBUyr/LE4ZBjBVu4qVsB9FY42IJLbGTAMHezCfQ0Abg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790930643; c=relaxed/simple;
-	bh=VkyfvI4JFYrHbohS/9ZHexkHJcpRb70LNq8ohC/ZJd8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DBaFxoFitM4fGbDZGxemm/dh24fqgQXUBpYHcnw/WiPTTk3nlImQd9cj7ALXqWihg/9lN/oEFodeOMYNok2btVwDbIRqXl9aSTS/d5k0dWhgtZKZr/Btpz+CeqAYIIvCbzlvWyihMhbmRuULEZMa/bQZoRqoWHM41H0NbAisojM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cJMgg6z1; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790930644; c=relaxed/simple;
+	bh=WMXtorft3yFSsxaaQVsOoB9M+UsRVtahEneyXQcysGY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n/o0uDU7Rsgu63ai5xx0KvZWJCVpWKAOhEbJikeVIxO0bgevHej3FpPtf0xpRLrcMbzD1QFYjvTk7ew4RoBUms2nTEt30Ijl5wenj3ygThWfR5CVrEBVDakNtzyormJpPbzh6opMNf3UvqIfHYqaOYDoPbusSnc/lx1Eq3RED9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vwe8P+39; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJMgg6z1"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a01ff8c098so10855475e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:44:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790930640; x=1791535440; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6dhi0KckrbogHHoZX7wC0NbCcVaNRSNuFfvNHe9W2GM=;
-        b=cJMgg6z11PTs1OBryr/rjuGqZpLyP7YtWohyCOP3Buecw5gv3TocVhEGosUGJoYkBC
-         z8NJbsInfV8leY04lT4i4bTu0+SpaW6qHNJz526RhnjxShbUUHCj0i5aVHm9HTBZ0xoz
-         FBCD7Qg91ua7YIqFh2p2MDAcrIcapfdQG/7Qn9zkeappQ8qVqafSeM0LHd58NvysTg8w
-         dGBmcI136PQnyJ//drwfreIbu/wAcpEu6zZZcWiP/8UHxUFdPFS4tCNRvbC6xP+W2jkP
-         b3lUtkKzYtqXmR1CiU42Lr62cevbmTmFQKydhpubO09gf4opqq3B8GFpxWeJYkZFLrNz
-         KDMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790930640; x=1791535440;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6dhi0KckrbogHHoZX7wC0NbCcVaNRSNuFfvNHe9W2GM=;
-        b=FPDoJMV9B0EBYEi+C1Pk28hp4wFEXaN6X8+iY1L48b5sDnhZ6CwPApEDsSdnNFgG9E
-         Uq1mc1p4ULE71VUrA9uLlDD7XvsYcq1gS+WOXzKirysIsi62GgKTsMp+EKImTS2Teayb
-         3ko6CIjHYU3kUqxr3YXcB+CjkVftTCKAtmpKky2jhX5OzYCc0ek1d/pxNZ5bBtj4Dvma
-         OM8D+4cEw0gioldGLG9/DdUxqsfhTSkjz38d0dNWHvUEocGhvsAY+8WlGpz4LwsUju5w
-         1GCFqF47QS048JBEunrw9mWI0Mthq26beO9bom1wELq2e7NymxFvZNIQG4TXAwGqhaQO
-         iE2g==
-X-Forwarded-Encrypted: i=1; AKwUvBx1BC3prCxS/uG4/+dYs39IDSGQj0cxpnVYCu9WRG6OQRYOTAWG0imzYH7t+kY0duwjLVAab3PXuILO49c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmiq2fgJybHnX+nrJeWkT9tvO2Q2vzo7dmVwL8zUX49gEUmjiV
-	1v05P/R5OXYv+5xeANiUcSyQL+SnHiuYMbH0GCJkXG1FNi2+BAYan9Z8o+5yMw==
-X-Gm-Gg: AYBFou28psbvZaBzE4x4iDjotKlI4O18wBrUQ1FYR+9xQq4xr8yDlpLiC4Iwsjl+JSj
-	JlF3zdpGkm9hUAZcyFBsk89UQ+QSsbj2FIjQG3h7s7VOoAUzSq/I3fK5n43/cZK2NUrv311QX1r
-	ZMAb4MmvuBSluIDQuywFVXEnZi/hZdpr2oZNJFhPNAb0A+zosnel28cpX3o973rrmGy2CsegedE
-	1tKlJmbdhvxM9kBGrgtVuHdkeaCxlVORcUPVXPRlyEP6LRWRe3tpWsrR0hmXx1ZAjb8ch2z5ruL
-	iPAoKGf5ba/AZ3kx3vS7Ym66/ClGNYA4zHi8KNaP61DKk6oP9c/7KEhdIHYlJN/UliQnY5Xm1F4
-	gQeTN/TlYvAPA6R9TRSCnZQk1X9J0tQzg7j/CY6sO4m1pNNsbfRkstGzfi0KePg1xbqKhfLH87P
-	joGjzZAElu4LaiXWvH7HO2jbz4EWkXtpQRxlzHK8Cx2Cy19lPjaDbFxfGkG9gYdOI1js7P4VyDd
-	4d8NorPQPQQA7c2KD8j
-X-Received: by 2002:a05:600c:3501:b0:49f:fd40:80fa with SMTP id 5b1f17b1804b1-4a0276b78f7mr35135585e9.34.1790930639550;
-        Fri, 02 Oct 2026 01:43:59 -0700 (PDT)
-Received: from foxbook (bfj133.neoplus.adsl.tpnet.pl. [83.28.47.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394e6c5asm43917315e9.2.2026.10.02.01.43.58
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 02 Oct 2026 01:43:59 -0700 (PDT)
-Date: Fri, 2 Oct 2026 10:43:55 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Dane Linssen <linssendane@gmail.com>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, Mathias Nyman
- <mathias.nyman@intel.com>, Alan Stern <stern@rowland.harvard.edu>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: r8152: RX stops until rebind after -EPROTO on the bulk-in
- endpoint
-Message-ID: <20261002104355.698eaf00.michal.pecio@gmail.com>
-In-Reply-To: <CAM6_QD-CbYSsmic5LhpMi-aMXuC_VaniELBzaBeWO8SWm4UONA@mail.gmail.com>
-References: <CAM6_QD_PoTdwdM7DvzzgHRs-G5EvQu-c5oNGve=GuKV4wFYAvQ@mail.gmail.com>
-	<CAM6_QD_xAyTFVvYKvCrrZmS+fV5DBBje9V=VdkDMMSpt2ussRg@mail.gmail.com>
-	<20260928120343.49e02c07.michal.pecio@gmail.com>
-	<CAM6_QD-CbYSsmic5LhpMi-aMXuC_VaniELBzaBeWO8SWm4UONA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vwe8P+39"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858461F000FF;
+	Fri,  2 Oct 2026 08:43:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790930642;
+	bh=QaW3NvlDbie2nX8q04QLao6HBP5b6PgxRU/jNxrvHlo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vwe8P+39JCuHBizogmo2GNh1ALOKZtDQnio60+ojHg0sgpeiqScLp79z3mbw02V8F
+	 EYxN83kKfoU1dBWiYlTSNvqPO1sv2qLGQOHtGQ88RqyFySjslidqooaKnggLK/gJKG
+	 IWC5bqdlh9R7rDJ83vR8KTnnawGa9boU4Lb7HKydbTNBsoXeXWf2WMnkMILp6bICUN
+	 iHO/PMicuO4lycVHpnBubmnWdEzmOyVRE765syr056W+9jA4+6LnbRxAw4zEa6ohWa
+	 6CAE+VUsdlJvbi6bS41ZcL7w0M7FG61svR56MHeK92o8dhMmvZCsTExm2N2AYdnoxH
+	 W1EwRBuRDq0NQ==
+Date: Fri, 2 Oct 2026 09:43:55 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [PATCH v9 2/4] kselftest: mm: replace usage of /proc/self/smaps
+ for __check_pmd_huge()
+Message-ID: <ar9utGn5OEWjZUd9@gremlin>
+References: <20261001-fix_split-v9-0-0f4ba8bbdbdf@arm.com>
+ <20261001-fix_split-v9-2-0f4ba8bbdbdf@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261001-fix_split-v9-2-0f4ba8bbdbdf@arm.com>
 
-On Mon, 28 Sep 2026 14:48:05 +0200, Dane Linssen wrote:
-> Andrew:
-> As far as I can tell it isn't a regression. The adapter is new
-> (2026-09-17) and has only run 7.2.5 and 7.2.6, which don't differ in
-> r8152 or xhci. e765ab012f73 ("usb: xhci: Improve Soft Retries after
-> short transfers", v7.1) should make it rarer, not more common.
+On Thu, Oct 01, 2026 at 10:17:52PM +0100, Yeoreum Yun wrote:
+> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> made by memalign().
+>
+> The underlying VMA may start at a different address from the aligned
+> address returned by memalign(). Furthermore, a subsequent
+> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> already set.
+>
+> This causes split_huge_page_test to fail because the check_pmd_huge()
+> helpers incorrectly require the address returned by memalign() to
+> match the VMA start address reported in /proc/self/smaps.
+>
+> Instead of relying on /proc/self/smaps, use /proc/self/pagemap and
+> /proc/kpageflags to detect huge-page mappings checking PAGE_IS_HUGE
+> and PAGE_IS_FILE according to type of huge page.
+>
+> Since shmem pages are also file-backed, simply check whether the page
+> is file-backed.
+>
+> Fixes: 642bc52aed9c ("selftests: vm: bring common functions to a new file")
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 
-IDK if it's a regression or not, but the symptoms seem consistent
-with a know problem which exists since forever.
+LGTM so:
 
-> Michal:
-> > Out of curiosity, what's your xHCI chip?  
-> 
-> Intel Sunrise Point-LP, 8086:9d2f (i5-8250U), so not ASMedia. The
-> other host with the same adapter, which hasn't stalled, has an Intel
-> Comet Lake-LP, 8086:02ed.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-OK, thanks.
+Thanks for doing this! :)
 
-> > As a bandaid, you could try increasing MAX_SOFT_RETRY or this:
-> > https://lore.kernel.org/linux-usb/20260905101837.4b7849c5.michal.pecio@gmail.com/  
-> 
-> Thank you. Would you like me to try this to gather more data? If not,
-> I already have a userspace watchdog that rebinds r8152 when the LAN is
-> unreachable and the bulk-in endpoint shows virt_state 0x40.
+> ---
+>  tools/testing/selftests/mm/vm_util.c | 78 ++++++++++++++++++++++--------------
+>  1 file changed, 49 insertions(+), 29 deletions(-)
+>
+> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> index a0ab78ceedb1..a3c3a2706c22 100644
+> --- a/tools/testing/selftests/mm/vm_util.c
+> +++ b/tools/testing/selftests/mm/vm_util.c
+> @@ -351,24 +351,6 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
+>  	return entry;
+>  }
+>
+> -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
+> -		  uint64_t hpage_size)
+> -{
+> -	char buffer[MAX_LINE_LENGTH];
+> -	uint64_t thp = -1;
+> -	char *entry;
+> -
+> -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
+> -	if (!entry)
+> -		goto err_out;
+> -
+> -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
+> -		ksft_exit_fail_msg("Reading smap error\n");
+> -
+> -err_out:
+> -	return thp == (nr_hpages * (hpage_size >> 10));
+> -}
+> -
+>  static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+>  		uint64_t hpage_size)
+>  {
+> @@ -410,20 +392,51 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+>  	return ret;
+>  }
+>
+> -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +enum check_huge_type {
+> +	CHECK_HUGE_ANON,
+> +	CHECK_HUGE_FILE,
+> +};
+> +
+> +static bool check_huge_type(uint64_t categories, enum check_huge_type type)
+>  {
+> -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> +	const bool file = categories & PAGE_IS_FILE;
+>
+> -	if (!pmd_pagesize)
+> -		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> +	switch (type) {
+> +	case CHECK_HUGE_ANON:
+> +		return !file;
+> +	case CHECK_HUGE_FILE:
+> +		return file;
+> +	}
+>
+> -	if (hpage_size == pmd_pagesize)
+> -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
+> +	return false;
+> +}
+>
+> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
+> +static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> +		  uint64_t hpage_size, enum check_huge_type type)
+> +{
+> +	int pagemap_fd;
+> +	int nr_pmd_mappings = 0;
+> +	uint64_t categories;
+> +	char *start = addr;
+> +	char *end = start + len;
+> +
+> +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> +	if (pagemap_fd < 0)
+> +		ksft_exit_fail_perror("open pagemap");
+> +
+> +	for (; start < end; start += hpage_size) {
+> +		categories = pagemap_scan_get_categories(pagemap_fd, start);
+> +		if (!(categories & PAGE_IS_HUGE))
+> +			continue;
+> +		if (check_huge_type(categories, type))
+> +			nr_pmd_mappings++;
+> +	}
+> +	close(pagemap_fd);
+> +
+> +	return nr_hpages == nr_pmd_mappings;
+>  }
+>
+> -bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+>  {
+>  	uint64_t pmd_pagesize = read_pmd_pagesize();
+>
+> @@ -431,12 +444,13 @@ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+>  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+>
+>  	if (hpage_size == pmd_pagesize)
+> -		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
+> +		return __check_pmd_huge(addr, len, nr_hpages, hpage_size,
+> +					CHECK_HUGE_ANON);
+>
+>  	return check_large_folios(addr, len, nr_hpages, hpage_size);
+>  }
+>
+> -bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+>  {
+>  	uint64_t pmd_pagesize = read_pmd_pagesize();
+>
+> @@ -444,11 +458,17 @@ bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size
+>  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+>
+>  	if (hpage_size == pmd_pagesize)
+> -		return __check_pmd_huge(addr, "ShmemPmdMapped:", nr_hpages, hpage_size);
+> +		return __check_pmd_huge(addr, len, nr_hpages, hpage_size,
+> +					CHECK_HUGE_FILE);
+>
+>  	return check_large_folios(addr, len, nr_hpages, hpage_size);
+>  }
+>
+> +bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> +{
+> +	return check_huge_file(addr, len, nr_hpages, hpage_size);
+> +}
+> +
+>  int64_t allocate_transhuge(void *ptr, int pagemap_fd)
+>  {
+>  	uint64_t ent[2];
+>
+> --
+> 2.43.0
+>
 
-You could try it. We may consider increasing retries in mainline if
-this turns out to solve real world problems. Though so far, in the only
-reported case of 3 retries not working, 10 retries over a span of 100ms
-weren't helping either...
-
-> I only enabled it after the two stalls I reported. In the 19 hours
-> since, including 71 minutes above 5k rx packets/s (peak about 29k),
-> there hasn't been a single "Transfer error" message, and no stall. So
-> nothing random so far. The next stall will show whether it's a burst.
-
-Any results yet?
-
-Regards,
-Michal
+--
+Cheers, Lorenzo
