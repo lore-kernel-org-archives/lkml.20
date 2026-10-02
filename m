@@ -1,149 +1,232 @@
-Received: from outbound.mr.icloud.com (mr-2006i-snip4-11.eps.apple.com [57.103.70.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E868F12CDBE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.70.93
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B76E247280
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790904968; cv=none; b=Y778eeEz1vlfPBmTu3g+e72zXXOKK+6FYoUGSB1J8FTZcFqoooP72t/YzNDAVHMvyJd2h9R4sUo5SyWlItg/t+k6zdHbyixX3JdkXyHJFYcyGHyNH1LXuSWpjks7fy5PSzAp/VU3XM6wIGaBm2IP7qRLPXETMHoMp3f0gDHRRJY=
+	t=1790905052; cv=none; b=pNdpzsFEhYCvLG0NqJjquLHi7zLSN2KD4VD7EH6dtxxPBHS/jy0Xpiod8qeO36ZcuV+I9YFYm6pb2gB7/yx3XGAKyXDEnhMoLlTghgT3U+LhBYdAWDMXCj9IjzZdQMBwkSu6nHuVe90vkkm/z/uD6PGTfBIXsabXIAk79iutdP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790904968; c=relaxed/simple;
-	bh=NCX6I72rsB99eALfg1CbYVhbcLBTeT6QhLF8YlCwwtI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tau3+HM/wm9rTDbc7q/W0muDRNdDQ7QRNFmLeh4RvIhMQSsYp4hZmXgoltHJlLiWpCuGgM8FokJc4Bt7hyNxqMshK+GqbS2uRx4NTs5dZwlnqLFPJFEUSBfvLmB2EKkwRwo5caq/AZDObAI2rYKCSkp01ni3CRaiWAiVlFDu2QM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=RZIVbPlk; arc=none smtp.client-ip=57.103.70.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="RZIVbPlk"
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-100-percent-11 (Postfix) with ESMTPS id B33191800142;
-	Fri, 02 Oct 2026 01:36:02 +0000 (UTC)
-X-ICL-RepId: 01a0fa41-0e35-734f-b0f5-ffb83ee1c039
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhKCkMFWhxBDUkdXA5bEhVdRVUXUhlHGFc4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgNAGRBWAVhWXQVNGlwYWQ8cHUtWWg5bBEcUFxtcABcbRgIEIwJfAEUCXglWATAXD1ZNUBtfAkIPHBNWFRMAXg8PTAtIAVsGWwJCCUkAWAdbHEEPQQNeGlofFkMdQRhfBXIZWhRcGFNFUR9URhMZThtXTVAbXwJCDw==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1790904966; x=1793496966; bh=OT7TrhBf3j83+NSyRipu0I+E2qluLlwof8zeu7m4rn4=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=RZIVbPlkb0Vv7BOhnXd/C0aeEN/UBhbt27alcKQsl3Kv/CLMFNqy5i/1r4/bClYxC/kgRl3ChUdFdG+zgPr104WdbTM2B8lvYdEP+81W7N5qJHwbpOEkdpnkVRZ/barsvAuo8iZQ3QQcuIGonsFJWTll2IHE1Usvx0tffoy6i6JlZM2WdOQe1a7p3E9nK8tr9DMglnjP588qF+zgHq/S3Rd6LOHbniADkFJ/q6QSug03bszra9PqLBkHEErjdv25x6EVDRlJD29PcLdCCR0F2vHPz7DaNduOEHhraxRw43qmueEf5E1rQkDUmbA3w3OHyebczInTcMTRZ2IcunEY+g==
-Received: from 252-PC-L.device.rit.edu (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-100-percent-11 (Postfix) with ESMTPSA id E1CFE18002A5;
-	Fri, 02 Oct 2026 01:36:00 +0000 (UTC)
-From: Finn Zeruhn <fzeruhn@icloud.com>
-To: dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	jani.nikula@intel.com,
-	contact@scrumplex.net,
-	linux-kernel@vger.kernel.org,
-	Finn Zeruhn <fzeruhn@icloud.com>
-Subject: [PATCH] drm/edid: add non-desktop quirk for Pimax VR headsets
-Date: Thu,  1 Oct 2026 21:35:00 -0400
-Message-ID: <20261002013500.16903-1-fzeruhn@icloud.com>
-X-Mailer: git-send-email 2.56.0
+	s=arc-20240116; t=1790905052; c=relaxed/simple;
+	bh=yUAC/5VsxeWve7cnT8ouSGtp/dbrg+oflB6NdwSHnYQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=ZlJaSwrS1zGa9k0eHmxEmYpSFRXJqGmnO8ym1BHGmJ6Gg7Oj2konp1zSamB+GHi8mC0DQAEx/fYUlr1DaswM9zgZRJJfv3+UGIP+kX1p/t3EIrh1Nzx8sfkk/D1iVf7VmmFjKS+bBt3wm2KHoF0OjeH52w7dM7CLv4dIOH12yq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4eb0b989f0eso2581522b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 18:37:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790905049; x=1791509849;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vsMU2tbyBwgu3R71DI4hbY4+W8irSZULn5e09aRfibg=;
+        b=G7otqKnKBMogmD/46nYStUrvu4RjPB4Tk5jdixYiizXkZxZFo33enb7OY7agl5cY3W
+         dVbr9VWzqCwXMEW9aT/1ju5ORZYvaYu98smc7cvI4epDmWCXog/7a565PnIlbWAYDLj7
+         +i94pabDs2viMiuymu8GUFT9GEiGZOxaku3BTpjpLLXcpEX3SVGGSlRx35vZiQymMgmF
+         oyiSQS9Qc6zGJ9UhpBvB/jS9Sm/v18FjBPfbKu9NENBjGJTORnBA32k16OMDzbpIKkl/
+         ICbvPRzgjv46+CIH58AGVHCx8KfQdewrTGcG1Hp5hMs45x6xDvQvBjZ5gPnoGuOmg6hG
+         ZLeg==
+X-Forwarded-Encrypted: i=1; AKwUvBzom+cxjyrPCk2kz82R5/h2KZbqVkhygN/KQ75H6fjwR3pxSijqGQtqZ9iQv4TOFfpq92BuE6uPaAH3pDc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mynwuzdLiIrphq9XgDcZZA+s8psBHXxx5HBZsZrmfhcKI1mJeB
+	8IqQT04iKeq9zurcapweG2FBdiaSepgh+EA3B69Oi6sXrIrBIQA3YDa1E4OS91VAbN0iW8uFAxa
+	L9OBGkIhpTIaj3bEIIVK4AXrz1gp1ryPz5XFgB//m2+mMJ8GDGzLGuXysgEo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: VcLxTvQjpYWfbd2nmfOK8FtjqJV3gm_h
-X-Proofpoint-ORIG-GUID: VcLxTvQjpYWfbd2nmfOK8FtjqJV3gm_h
-X-Authority-Info-Out: v=2.4 cv=Y+71cxeN c=1 sm=1 tr=0 ts=6abf0a84
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10
- a=UWokjQvqbcQA:10 a=VkNPw1HP01LnGYTKEx00:22 a=e5mUnYsNAAAA:8 a=v3ZZPjhaAAAA:8
- a=--jmYVTuTiGZAk_VZKAA:9 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAwNiBTYWx0ZWRfX1Nd9NxieFTwx
- tFVq+0V6ZC6vRf34PrdiMI0/l6Hi6ou/4ubPnK1y0ds9sY6YJczHDf/VJYPE+4bmptJZER3Qffe
- Akd7539vqWQsUbng+A9Om0vX/asUiVTlB6L83kaqjqDm03VRSWBN+j5uYIUj6YNdRldvAZYk2tQ
- GGuyrR2yv5/7termUUaDjXsGluIYBlmEXbVRgTNWHFajj+Wnsq7JyhxaVhGVlbAcBTNZsOqMWwk
- VnOJnPxN6HvCP1Wd9t050FGUSSBQMnpb+lQeT+gXUgF1kBZ2BKYqiCM4vhxGyr3yWTu4t2I/7P+
- TOSulkdhSaUnDN5JChjSHXFSb1ljfkePbk8HYejHg4h9163yi2LNWVuL5fdm1c=
-X-JNJ: AAAAAAABidaxNK+g8hIzWwsqq56ti3nXpWZZ5hdFD1l2CjfvMQi+DRtTrs0J2uG+8KqCRk
- p8pWHdYri8l5PZPrpHsGcUWy4oBZoyDeId3A1Rl8XQuFxR/iPq5I4X+1gQfb9UYCaDyXYb
- 7rU4jTR+yIVjWAzD1zopJuB5IfdFbEvRdDTM5Wr9Xb9Vw4DpWWmKn9SGaHjMFUXtfDNk1U
- rq8/j+odVaeAV6l30J8ZhTaLpoB1uWes3CXMpnu2ApYQBB+LhDsMac9XIclcZNEtOjY+Zv
- 9Jr0jocVRjF9QroMyFMhwxtNUtG66kN5x0C9AORWYYVU8gD00YOnRFwSFsC3u2qZIf+KJw
- GnWRjFGWY51NZZXhmILFcF5Z95q5iZ6f3wZrVHE4nlGPUgcYFwBjrSK3qtgbMRnwE1kSrP
- uePmijnS/GJKxtml0ZLXx7O74I8CDSZyFmNfi6fAUSqu7H1oDFaMoL2pmnqMe3YCYqhNs+
- Pr0eCbsFfBQgs6yRCdNnGvFovlYWMsTGNGMFYt11jO4i9UFM5Ew9E3ybUwYb6cHbgL7ppt
- l2vQwxVBc7eAdaKPdY3uLUuyeDih6KiIrdpodm/Syttzu49cmQ1GbFLP9BEmMlIrcxvSWM
- cn33/e8YHjZUVYqavxmUOJZQQlJtOoUSNhXCYmdQzkLS2lhnrreQwI8YG4T71q8t1cNVL9
- SrOapqmGRRNuplg38xQCbY+URQC9IEK3JpXoMJeWctEtjcNDk59iaz2rVmr7nLKawik4QV
- dFkBEUZuLjxPfYDSzVd710IzORNb0vNij8+sBWdWT51AoWucQuckf1U8Z5mYbOsE7hjnY4
- RzpnaL8p6hYJh9TRxkbkQHjAd4xpuUKMQCpkiuJfMApMGDsI5pj/w2WcjqM5FR+9Vh2v8+
- /imkwv3B+GfOMtl5RnQFPhNyXOqSk5SE95IzinH7CLwnVp6LeVA0EZAR+PYOA9OCNAVP2A
- xL1jUha8D2UlVpz7RRKG5GJWrBI2JfFlPYlc94KXG4YlKjHL2Y82yNVCJUo06u5Zico5vi
- 3cwr1altKFmJBPUQRQXAp0+8lnjXxEB7iPD6N4xy1D/2/7/kkTgkDuGK2wV55gyEqII9vM
- VcVWJgNtLzqOJpWGiKxEMi23xOviEReSD+C/xUAsHrnJ5nx8KAZhb7qova3jS5QRO/MNSf
- rpftWHer8JwUaVM/t+R4bNtPCoZt2jrqEH+uf14XDeb8oKmrvtIWcRwVSZePAHGHUW0Bu/
- u8Na3fSD1+hKZphAhtSUVjeKXWM6MXiD3lJZpZ+NikongAq9TjrRGRHaDm9GXWZc2Sd6q0
- gxz12Xi2eOobWHSGdwMuBrYQKgXkq6Vf09jDe0xp0LaGQLfdmg
-X-Apple-Category-Label: MTE1NzgzMjUxMzU6JGNhdGVnb3J5JF9QZXJzb25hbCw=
+X-Received: by 2002:a05:6808:23cc:b0:4d6:9133:cfe1 with SMTP id
+ 5614622812f47-4f30b6ff3f7mr4192828b6e.38.1790905049307; Thu, 01 Oct 2026
+ 18:37:29 -0700 (PDT)
+Date: Thu, 01 Oct 2026 18:37:29 -0700
+In-Reply-To: <6abf0753.eb639fcc.2b981.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abf0ad9.7503fbd6.2d3f6.0013.GAE@google.com>
+Subject: Re: [syzbot] [nvme?] KASAN: slab-use-after-free Read in nvme_query_zone_info
+From: syzbot <syzbot+76c0f0ce8f1e846b4f84@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, hch@lst.de, kbusch@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
+	sagi@grimberg.me, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Pimax headsets reporting PVR 0x1019 do not identify themselves as
-head-mounted displays in their EDID, so desktop environments treat them
-as a regular monitor and extend the desktop onto them. The EDID has no
-Microsoft VSDB and the DisplayID product type is 0.
+syzbot has found a reproducer for the following issue on:
 
-Add a non-desktop quirk. The ID is shared by the modern Pimax headsets,
-including the Dream Air and the P2-series P2A.
+HEAD commit:    d24e8ac715de Merge tag 'net-7.3-rc6' of git://git.kernel.o..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16c2d3f5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=76c0f0ce8f1e846b4f84
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17a1cbf5580000
 
-Tested on a Pimax Dream Air: the connector now reports non-desktop,
-KWin leaves the output alone and offers it for DRM leasing.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+76c0f0ce8f1e846b4f84@syzkaller.appspotmail.com
 
-EDID of the Dream Air:
+==================================================================
+BUG: KASAN: slab-use-after-free in nvme_query_zone_info+0x4fd/0x6f0 drivers/nvme/host/zns.c:47
+Read of size 4 at addr ffff88803745a5f4 by task kworker/u8:13/5985
 
-00 ff ff ff ff ff ff 00 42 d2 19 10 01 00 00 00
-ff 23 01 04 a5 00 00 78 00 30 fd ae 50 3b b2 23
-0c 47 4a 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 00 00 00 10 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 fc 00 50
-69 6d 61 78 0a 20 20 20 20 20 20 20 00 00 00 fd
-08 3c 64 e9 7b ff 01 0a 20 20 20 20 20 20 02 c2
+CPU: 0 UI
+CPU: 0 UID: 0 PID: 5985 Comm: kworker/u8:13 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: async async_run_entry_fn
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ nvme_query_zone_info+0x4fd/0x6f0 drivers/nvme/host/zns.c:47
+ nvme_update_ns_info_block+0x1b2e/0x2af0 drivers/nvme/host/core.c:2430
+ nvme_update_ns_info+0xc6/0xd90 drivers/nvme/host/core.c:2553
+ nvme_alloc_ns+0x1a9f/0x3e50 drivers/nvme/host/core.c:4293
+ nvme_scan_ns+0x79d/0x910 drivers/nvme/host/core.c:4483
+ async_run_entry_fn+0x9f/0x580 kernel/async.c:129
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-02 03 0f c0 23 09 07 07 83 01 00 00 e2 00 4a 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 42
+Allocated by task 13:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ nvme_get_effects_log+0x13a/0x280 drivers/nvme/host/core.c:3422
+ nvme_alloc_ns_head drivers/nvme/host/core.c:4037 [inline]
+ nvme_init_ns_head drivers/nvme/host/core.c:4153 [inline]
+ nvme_alloc_ns+0x25f0/0x3e50 drivers/nvme/host/core.c:4267
+ nvme_scan_ns+0x79d/0x910 drivers/nvme/host/core.c:4483
+ async_run_entry_fn+0x9f/0x580 kernel/async.c:129
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-70 12 2b 00 00 03 01 28 43 08 04 88 bf 1b bf 01
-c7 80 2f 00 ff 0e 2f 00 1c 80 00 00 cf 39 03 08
-bf 1b bf 01 c7 80 2f 00 ff 0e 2f 00 1c 80 00 00
-dd 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90
+Freed by task 5948:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6801
+ nvme_free_cels drivers/nvme/host/core.c:5165 [inline]
+ nvme_free_ctrl+0x1e4/0x6b0 drivers/nvme/host/core.c:5183
+ device_release+0xd2/0x270 drivers/base/core.c:2640
+ kobject_cleanup lib/kobject.c:689 [inline]
+ kobject_release lib/kobject.c:720 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ kobject_put+0x1f7/0x640 lib/kobject.c:737
+ put_device+0x1f/0x30 drivers/base/core.c:3884
+ nvme_sysfs_delete+0xc9/0xf0 drivers/nvme/host/sysfs.c:500
+ dev_attr_store+0x58/0x80 drivers/base/core.c:2509
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Link: https://gitlab.freedesktop.org/drm/misc/kernel/-/issues/40
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
+The buggy address belongs to the object at ffff88803745a000
+ which belongs to the cache kmalloc-4k of size 4096
+The buggy address is located 1524 bytes inside of
+ freed 4096-byte region [ffff88803745a000, ffff88803745b000)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x37458
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c032140 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c032140 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4974, tgid 4974 (udevd), ts 23285385277
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ tomoyo_realpath_from_path+0xb6/0x690 security/tomoyo/realpath.c:251
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x2af/0x3c0 security/tomoyo/file.c:776
+ tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+ security_file_open+0xb5/0x1e0 security/security.c:2739
+ do_dentry_open+0x588/0x14d0 fs/open.c:973
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+page last free pid 4967 tgid 4967 ts 22520049234 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:361
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
+ alloc_filename fs/namei.c:147 [inline]
+ do_getname+0x35/0x390 fs/namei.c:187
+ class_filename_flags_constructor include/linux/fs.h:2586 [inline]
+ do_sys_openat2+0xc7/0x1e0 fs/open.c:1416
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff88803745a480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88803745a500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88803745a580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                             ^
+ ffff88803745a600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88803745a680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
 ---
- drivers/gpu/drm/drm_edid.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 3148038747b6..e5cadbeaaea7 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -278,6 +278,9 @@ static const struct edid_quirk {
- 	EDID_QUIRK('H', 'V', 'R', 0xaa01, BIT(EDID_QUIRK_NON_DESKTOP)),
- 	EDID_QUIRK('H', 'V', 'R', 0xaa02, BIT(EDID_QUIRK_NON_DESKTOP)),
- 
-+	/* Pimax VR Headsets */
-+	EDID_QUIRK('P', 'V', 'R', 0x1019, BIT(EDID_QUIRK_NON_DESKTOP)),
-+
- 	/* Oculus Rift DK1, DK2, CV1 and Rift S VR Headsets */
- 	EDID_QUIRK('O', 'V', 'R', 0x0001, BIT(EDID_QUIRK_NON_DESKTOP)),
- 	EDID_QUIRK('O', 'V', 'R', 0x0003, BIT(EDID_QUIRK_NON_DESKTOP)),
-
-base-commit: 589e63c53a9a57cd3c14cff2ea42ad606c1e2a24
--- 
-2.56.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
