@@ -1,126 +1,115 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84564BA1F5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737563AAF54;
+	Fri,  2 Oct 2026 14:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952369; cv=none; b=tWKRhhAQPxELBCxT79exWkThhXm9yA1PoMXWZGrkJ6qX0O4byTZumiCn7jVcskj+cRbvw5ISmf7mXbLV9U2V+48OWM3cMSYMG9h4Hte4n6g8z0zgbuzIgEtBHDUKFf5ceOBd+3wEa0CPKg1K3BkhsRoDfnLKPq/NZO1vMq6JFSI=
+	t=1790952452; cv=none; b=RQ93BYcDBrAP0DxHem/C24s6UoRRpTO1YcHL/MhFYwH8GAQGTkbAk56O31QB8QyD/FQQEfd2ggWZszufZDzci73qxLOoktgKd9Q6Kfo1o1wOP77EoGp4NDvQBSNt1E1C5Er+Yvi5bw7inCggmj65Ek/ZEFV+4UL6vnI3HaEn+7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952369; c=relaxed/simple;
-	bh=ZQlWcwgWptLVRnqN8KpFHq/07zl8IaxueqcKb/qUE/o=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ZDwrjpNhCBCyQK09MjLWMglMxRHN/hbxm9EdTyw1rV9IqSjmqhFQ8I4t/z29QFmHqZXKxw8V1yOP0rMVTpvFf8FjY3pE6kvRHEVyEPLjXmPRLKlddMu3zX4+Rkbv7ErPqaM6yY6f0tayqEWZbcu3CpUqtQBtpmDMu3ReZGeT2OU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=DU8r+6Qo; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qDr11TER; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1790952452; c=relaxed/simple;
+	bh=5MPNjmJ+BjyoBpyy8aDHziAkJaXEvGGoOK0vhTcaAFo=;
+	h=From:Date:Subject:To:Cc:Message-ID:MIME-Version:Content-Type; b=ulcWs9jLWasJkqh8DGJ910B5DNmbo4LZhC4LStE0yRjikH3L661N5GwdD5cXplwhugovcR3O+zzgBhnqBHSmSnKbafa2yRCwa554yIMWZwBFLcjWyaK2eVq/X0RePbKon+pliXQ7lasf286IKLLvlk+U1ki9HAEXj5Z4LMY3T40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tTO6+4UJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="DU8r+6Qo";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qDr11TER"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 88D317A00F5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:45:55 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 10:45:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790952351;
-	 x=1791038751; bh=L8ScQo2XHsL22y6tdy6WV3wIGjP5rt+oMt5Jee7tGn0=; b=
-	DU8r+6QooSxJXE+GJf9M3HKYd/HfJ6KvSGX+F0iibBV31YUB9jhdtAQQXmBKoqkK
-	zIpr8HfVKKxt9GT2C+z6wYEZ6Q1GDWtmb+6rZxEvg5XS1O08JgI/dpnBlY0ZLOJ6
-	unSUuzPVR/OnZJAph3cQ2g4Vo3FmYFKw4mk2WAxTtfjbgXc2Ckae/BBu6HisGrYZ
-	Mb7jwi3JJycmUxWOE6s6D6+CPTBwdC6Dnyq84Fr1pYMLvc0AaPJ2AXzIcqB+Dx/1
-	NzacYJmbEYfBLNu5YLJ+JRPk8QhlJeoU3O+DTIRnaJCHvuHo9QwzR2yikSK4zcb1
-	mVImT7vA7Rtn5az6Ke5STw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790952351; x=
-	1791038751; bh=L8ScQo2XHsL22y6tdy6WV3wIGjP5rt+oMt5Jee7tGn0=; b=q
-	Dr11TERg14l/tRrkzb070KNhyqTfzuM8lbktBwRaTfPEiRcvmf5k+d3B5fPP+ZCI
-	VHKNp+tViOjyPcKkDL7QE7yHI5kJocjEKgNg4UxC5i15XuBn1hdQx/UUFUZ3DeOU
-	vab4mDW0ITZyGmXMPfaAspACTs2Nh1SZOlI2Ohb+AItxyQfq8zGD+1ic6wwdRJdv
-	fRFL9oOH9LNFAfmFVTE3sORhO/bDzq71uGwCyf0sjS2gQGCpWzmh/Bf4rxRrDQSC
-	09V8WDdOlvAUGqnH4mh6sBYsG5ZG4A85CuO8Eev3t8I3LVixnwAKIV2R/sN5EXKS
-	EfqlHWYeE6PhLox/IyBNQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790952351; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:fwYDUAwzo5FvtTnwU1NfzOHmpaxdI3v2wBN9EdP90q6GFAm
-	ACE7sQH2F+WPEQdI/YD8vpuBzCsNALazlU/BQ6ysyb8gxKvX8+Zu9AcFp4icHZ0D
-	IUlbNasM4YT7NM47y2XvBn9awlw08HGAuiOng8I9OID6JkHSg6OAdfyQDAwCJtPk
-	gisrdH1zoOCw/3oL6Dc/1gbxFOWxaeD5mGbfH9Dc8avNFvzGl28OljvTzmgDGQyI
-	ytr9OOvMjkGKfXTtMeteZlZ3+xGo8gqOdbTg2Xmt0HLZ3o46AzTXLCaN5cxZttJT
-	71sObgaM6dUHjIyPuCBfTqcLxZhIK+9cNyzlWcQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:KPwX5aka5VYDXiAA1fI3Hls54BYaGNzPqNKeVN846/M=:ZQlWcwgWptLVRnqN8KpFHq/07zl8IaxueqcKb/qUE/o=;
-X-ME-Sender: <xms:nMO_ap6ULmmmdXI86LWJvzbZd_6LfUxwK29ICjZgA7sWeowTtG76dQ>
-    <xme:nMO_ahsPkoObpQEYnW40qCMwgtzSJ1sHLKvIhSt3vQjWkjfVTlTA8tqxxeEsj7pXG
-    1eKnBTiYa-BO26xVs6VtSrGpZzNpK2oOyKNG4qt9Mh1seuISEBU3LE>
-X-ME-Proxy-Cause: dmFkZTF9Oq0glzIMNMGryai4UmT1G6mPHvT/F92K6D2yEKlpGreaufoUs2nxbaXfd+lnnH
-    M5TP27iH4vwFvc79soTqe7haIDsn8U4fD0LVCRAA+XdVLwKKyxg9WkFEMJWUwif3Dky1gM
-    xhcRyICh/qWBNySas4rg/dAQiHiCxi4dHZE51Ze+YqMHZLf0Ptb6tPFJAlexj0kDM4K0MH
-    d9NjhNTVN8HdMzO5TzTsvuggd6nbg4t1hJfblsdX/2zURACTcczyULOuF2+iQoj661r2bl
-    MkJNM/muUOElaUlk3e6eOQoAOvc21hT7zDk2BguP1t7fDrhirj7ysuDGO+apB8bzqGU0Jm
-    b1f5ziayS85CSQyFrjDwbX8bwewZG6x3Zp507BFV8Vy9msvMCYpgiI5M0MXYJ76q2OcLYt
-    1SgrcgiKRbc7K0W3iVQk0n6iLNIK5gF3ItGmgLT1zZS/r5Jew6hI7B+1PePGBjKwTxUIm1
-    A9txD6fArXK1O5dMckdUgNfPhq2kIfNC+xCDpwYtWteBp8yjB5LefyB1frKC/WxFPCvQtu
-    GYhKsoU4WMIAODl8IYAmwa3PtkAvakHCvFmlvS6woWIVrR/Zv2BQfGxUYe2jBGBNTBzsj9
-    YhGIcpHoNSKDkdSnVIbpfoGLtkOO/Fm+KItRjvAIHgLvkOZmXjpDFfqpQzPw
-X-ME-Proxy: <xmx:ncO_ahl2u0s3daDM9bl1KugX1RVQl9uSBEZ5gxaSS_5hzphZSBktOA>
-    <xmx:ncO_amIu5Ru3ERNjssNPp5McznZEidSAnEvFe28bs082k5KOqOI52w>
-    <xmx:ncO_au6aDu2XBdaXGy-FN5w1QEVpMyrMt5JHl182JxMvPBgC3zJKyA>
-    <xmx:ncO_ai3qAdVkpkR8aol0N8P3v7OlOrLaFWBfHuO2dMxOFJndPj-kQg>
-    <xmx:n8O_aj7ucERi3L_--pVAdwnQ7gr3n6xdB3mURb55rIaE7vVqtUPYiQ34>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 7DCBE32A008E; Fri,  2 Oct 2026 10:45:48 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tTO6+4UJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E5904C2BCF4;
+	Fri,  2 Oct 2026 14:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790952452;
+	bh=5MPNjmJ+BjyoBpyy8aDHziAkJaXEvGGoOK0vhTcaAFo=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=tTO6+4UJsCjoDZWcFxZUqsJ+Stp9AHHo6L2TFeI1eeCFoIHQktSmwbWBTpc2lcTa4
+	 GGIr8Q+xwapcc1uiy11c3cseBqZKrrZKK3EgFK5gzsY0xLKpiPh588lUAqsmW3yiYz
+	 jPAkIFO0dfOZ972t4zMHvlnce9cCL9B+zk9FuzzwR2pfkCzNeTiWGoxZQIvcrLwggD
+	 PUjsXs2Q3+vQO5P4//ZsW9cCOGJiT+Knc2iHB1IqyohLogqTMZ4wL46xzgAgJQTe1T
+	 a+ZwOozN6xB/QNKEUbCQVNJUPnFXDtKl9h2UKQYWgnr0SZpvqigdlHVEsRzULSmxun
+	 75JFir9RemIWQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C137ACA5FC4;
+	Fri,  2 Oct 2026 14:47:31 +0000 (UTC)
+From: Miguel Garcia via B4 Relay <devnull+miguelgarciaroman8.gmail.com@kernel.org>
+Date: Fri, 02 Oct 2026 16:46:20 +0200
+Subject: [PATCH v2] ACPI: device-id: document struct acpi_device_id
+To: rafael@kernel.org, u.kleine-koenig@baylibre.com
+Cc: kmehltretter@gmail.com, andriy.shevchenko@linux.intel.com, 
+ corbet@lwn.net, linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Miguel Garcia <miguelgarciaroman8@gmail.com>
+Message-ID: <179095238036.1979087.7916496223328936920.acpi-device-id-docs-v2@gmail.com>
+X-Mailer: b4 0.13.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AHul4omuBXlV
-Date: Fri, 02 Oct 2026 16:45:28 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Alex Elder" <elder@riscstar.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: daniel@riscstar.com, bhelgaas@google.com, linux-kernel@vger.kernel.org,
- "kernel test robot" <lkp@intel.com>
-Message-Id: <954a3942-11fe-4ffe-94dd-9c5a461b9a6d@app.fastmail.com>
-In-Reply-To: <6f1e101e-9c15-4166-8ec2-346e587d6b33@riscstar.com>
-References: <20261002140738.393453-1-elder@riscstar.com>
- <6f1e101e-9c15-4166-8ec2-346e587d6b33@riscstar.com>
-Subject: Re: [PATCH v2] misc: Kconfig: tc9564: fix and simplify dependencies
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790952380; l=2136;
+ i=miguelgarciaroman8@gmail.com; s=default; h=from:subject:message-id;
+ bh=sE0IoEcH5Ya0LQYTgZVL1op2QwyPf67lPf4oqCTCPP8=;
+ b=duxYzq36gHOld9OWlUN/wZIC3SIgrxKd0JnSRug5alTTW7QdgJ4VPguHyntvDeBg8iX5vB200
+ HR6yNwUP7WzBLhON0vIVsFZU8pxl5+n20VYZyuPQZE+Z6Dp/jy96/Ry
+X-Developer-Key: i=miguelgarciaroman8@gmail.com; a=ed25519;
+ pk=EtrxRdQ/icT1qmJwjNNAVoBUhKKWwrhU2m6QT/xu6bM=
+X-Endpoint-Received: by B4 Relay for miguelgarciaroman8@gmail.com/default
+ with auth_id=1101
+X-Original-From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+Reply-To: miguelgarciaroman8@gmail.com
 
-On Fri, Oct 2, 2026, at 16:35, Alex Elder wrote:
-> On 10/2/26 9:07 AM, Alex Elder wrote:
->> The TC9564_PCI config option selects PCI_DYNAMIC_OF_NODES.  But that
->> depends on OF_IRQ, and TC9564_PCI does not satisfy that dependency.
->> Simply adding "depends on OF_IRQ" results in a recursive Kconfig
->> dependency, so we need to satisfy it in a different way.
-> OK this still isn't right.  I'm testing with a SPARC build
-> and it's got a circular dependency again.  Please DO NOT
-> TAKE this version of the patch.  I will send v3, which
-> will address the original dependency issues AND will
-> complete a sparc-defconfig and sparc64-defconfig build
-> successfully.
+From: Miguel Garcia <miguelgarciaroman8@gmail.com>
 
-You still have the 'select PCI_QUIRKS', which should be
-'depends on' as well.
+struct acpi_device_id lacks kernel-doc, so extracting documentation from
+its header describes ACPI_DEVICE_CLASS() but not the matching table entry.
 
-       Arnd
+Document the four members, ID and class-code matching, and the table
+terminator. This complements the documentation header-split work
+without changing its include directives.
+
+Link: https://lore.kernel.org/all/aqEWUBf1pewPP_K2@monoceros/
+Assisted-by: LLM
+Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
+---
+Changes in v2:
+- Use ACPI_DEVICE_CLASS() in the commit message, as requested by Andy.
+- Move the drafting and validation notes below the commit message.
+- Describe the related header-split work without assuming its status.
+- No change to the source diff.
+
+v1: https://lore.kernel.org/r/20260913095111.2543502-1-miguelgarciaroman8@gmail.com/
+
+An LLM drafted this comment and changelog after being asked to address
+the missing documentation noted in the header-split discussion. The
+field descriptions were checked against the ACPI matching code. The
+extracted documentation passes kernel-doc and a focused Sphinx HTML
+build with warnings treated as errors; checkpatch reports no warnings.
+
+ include/linux/device-id/acpi.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/include/linux/device-id/acpi.h b/include/linux/device-id/acpi.h
+index 65800cefd..8c3b30ebf 100644
+--- a/include/linux/device-id/acpi.h
++++ b/include/linux/device-id/acpi.h
+@@ -9,6 +9,16 @@ typedef unsigned long kernel_ulong_t;
+ 
+ #define ACPI_ID_LEN	16
+ 
++/**
++ * struct acpi_device_id - ACPI device matching table entry
++ * @id: NUL-terminated hardware ID (_HID) or compatible ID (_CID) to match.
++ * @driver_data: Data private to the driver.
++ * @cls: PCI-defined class, subclass and programming interface code (_CLS).
++ * @cls_msk: Mask selecting the class-code fields to match.
++ *
++ * Use @id for ID matching or ACPI_DEVICE_CLASS() for class-code matching.
++ * Terminate the table with an entry whose @id is empty and @cls is zero.
++ */
+ struct acpi_device_id {
+ 	__u8 id[ACPI_ID_LEN];
+ 	kernel_ulong_t driver_data;
+-- 
+2.43.0
+
+
+
