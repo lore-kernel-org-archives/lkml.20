@@ -1,515 +1,222 @@
-Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch [185.125.25.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f37.google.com (mail-vs2-f37.google.com [74.125.227.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D492F3F661D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945084; cv=none; b=YsFF5mHFK0dftvHj0GQ/JfkMXTyZtPsHcn4dwSnCY+OrJVmGt7xxQDx0kAbslysilk3vpgHzDyveLYiM0gcFVBPs6C8esyFx2Nw9zdWbZjdAFmMqcaLw9ZBYS51lT0NOzgbuHnP7c9z/r8vcSQ1IgKFhtK7jL13Mon3QyXvXAm0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945084; c=relaxed/simple;
-	bh=UEn2UtQiKpLmvLLH1ZHAWMpfuU7SSXfFHIte9Xd77ac=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fnsKxi4r2I0ebXI/k/PHwxHXEBvT1lL61JI2Dzuho8c75LbUrDb600lczKhZG3H1pz+DvAUiw9x5TKh3URQ+EfD/crLQ7mmOqyHo/U5lDHsHnfLOCp7afsOJjxEVNr/tlN67OggowbWuTAoWKwhq6BCDHttLk8pt2RKeB1NDJhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=bM+Uuv0O; arc=none smtp.client-ip=185.125.25.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908A547A87E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790945097; cv=pass; b=C3pHW0ii67PBuqXCEsnWu575hsZmhgy3Fgk8RUhkHlgxYi+gk/RYb2S6Q/RJ9txu66LzVPWjcHjps4Y/DkxyDviD+QBZbYgyg/6GjtaNwwsPk4ruQMGGE2/qqXAy/Diwi5xfbfOdIByQNmme4ukp4Cqd8WuJpdtFSEhDmrJMu2c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790945097; c=relaxed/simple;
+	bh=g9QfHi8EzjRCWHnUBkrwS8yo0cu4ylZ5SZytJAxSQ9Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QU62WWouGcvxaAHBaZIlQBu+WNhAyMpVdOMVtE8jhG6FSdqeI7mSbVQQURPCDiReyRPAHJLRVV+KzNSfebNN2XkYdGMvyHf4rkTNyeLjFgKqlTfLslTsFb6riKH2ud+ChLDzq8uaIwHYySjIelevoVwcgPwKT9gyttbrPZNJvI0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=t1/SzPtT; arc=pass smtp.client-ip=74.125.227.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="bM+Uuv0O"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hx7lR29WZzMMf;
-	Fri,  2 Oct 2026 14:44:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1790945075;
-	bh=P+RE6q4lNGDvAoUCc3115T+UTHs2cQ/g5bCEOmTiYMo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bM+Uuv0OOhvurjW6f/BTN0g7ErzgcQ9RB3joXnbEyU0yi63iHHmfF3alYqn2E/tT3
-	 6JKWOmXzqI4dRyPDUWrlPM1h3UeKyj5ID+cSOTwMpBYw89n9evtNlV1S/wZlv6Qy1m
-	 sL/BqZeTR0NGYWfcMoF8f49uBSzCPRSSBQPMQX0s=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hx7lQ0sFkzSgp;
-	Fri,  2 Oct 2026 14:44:34 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	Paul Moore <paul@paul-moore.com>,
-	"Serge E . Hallyn" <serge@hallyn.com>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Daniel Durning <danieldurning.work@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Justin Suess <utilityemal77@gmail.com>,
-	Lennart Poettering <lennart@poettering.net>,
-	Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>,
-	Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>,
-	Shervin Oloumi <enlightened@google.com>,
-	Tingmao Wang <m@maowtm.org>,
-	kernel-team@cloudflare.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [PATCH v4 7/8] samples/landlock: Add capability and namespace restriction support
-Date: Fri,  2 Oct 2026 14:44:00 +0200
-Message-ID: <20261002124409.1277970-8-mic@digikod.net>
-In-Reply-To: <20261002124409.1277970-1-mic@digikod.net>
-References: <20261002124409.1277970-1-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="t1/SzPtT"
+Received: by mail-vs2-f37.google.com with SMTP id ada2fe7eead31-7ba698eb7cfso1500620137.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:44:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790945086; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JA4/sc75mnFl80s1gRv4WnKog5MqWH57yTY7tMsaaMYHw7jiQrWRPikEDDZjBC5iH7
+         Aac5V8I+uCHB+UYW4JGdnqGO/NMkfkGXbQUIerrKqgiyv+w3bay5dRhWuRfpU24ZIb3L
+         dEsW5qa5vy/kfvaRL6x2DpX/T6Lo57KJcm3+paG35jKzWjC4N1dGknMBAynXC3YeTu85
+         YS2F5yeRTVas8o6lMOvLFsp/CX9uKZH3WSeG3sR3cgF/eYVAKb4i0hRNKapeYMr0Ysl1
+         p5ZWs4Z7MhHJEyEX09USBWc0itlrTMGvr4PYBDFn8R6+5iRXOY0zrZ+CIYDOtQrMGqVM
+         hisA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ErdmA/wWdWdz3Q1T8+D4rKzpmGRrXQnnjgGThiMrKlY=;
+        fh=/vuE32mdku4h2IsLsFZBXIgy1zAB5umCa0OiXTf7qbw=;
+        b=TMZeX7eWqkXrubK07tQrAUaDKf3WdLTKBHaI1TNBHa6BB6WPQPOngpfE2JVZWijutn
+         WzDcB7ww5v0OmFL7Tgd5Ilz9Zme1MFXxkxVxIrtVOBWjIZE9A61llWn42mVV4KiSOD0j
+         NQokCBH0DROsc+cSHXujh/dNd/O+CDTnCPZgoUsNE/MZAtQD2PFekpjoCpNgXAeznL+U
+         asGDnn3SOfeUjH5xQI1Ycd3C46j4CR96f27FOMf9YK6cnEAQ6YBZ203HOKWFFBMtC2qR
+         9E2qpxJJtYYlVqXfJyIk+/lGlLqenA+wh4f7BWDdDrnsx15V+Wa1FLD0TI+9fr5RN+6q
+         9T8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790945086; x=1791549886; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ErdmA/wWdWdz3Q1T8+D4rKzpmGRrXQnnjgGThiMrKlY=;
+        b=t1/SzPtTPzxep1BpfG4ZxuzMwcZhlOV8lonbOZJjpLt8BIkNabFrrClCPnLuwm9wgX
+         7b/Q54+InRgujDMldIQbuRpNEDEVdVrEaIKduFeWASu+EqbCP303a5W9V/Q0FqcwVtQW
+         MjpoT6nfFsYXna6FGQRm7AZgduLyS1RLFtondxXTYTiZJBIQ2efi/ngcgfyKq5gIzH0V
+         f49/V/UMDn5+6u/BtcDgXrqEtYNuJZI1ANmnKd8usg8guJ9VsGjhzfGqUmnMojWYT+2i
+         3r9ln59xaOjxoedKcXKTtjnRlnp5BdRkeLRKzbwaBqt+1zItyOIoTGq7JtRVel5L7fPn
+         XM4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790945086; x=1791549886;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ErdmA/wWdWdz3Q1T8+D4rKzpmGRrXQnnjgGThiMrKlY=;
+        b=qi1OO5ecUUfCzGwkVnAJuiqVHYsol5fowxNP7htDwhdJtgc2d8pTEcKaFDI+bYIf85
+         7h4+HWOeMt85fJeapY8guGrT+eJx7BIl2KvecOciozfY5EOnt2IcYq1XU9PikjypP4Df
+         ft+69aBzmTYtZq9JUFn57HRmvT5C71e2LeVTVhd4TnesH9Z9VbdtOICOjfAOcWz5Ry3c
+         mdh/QKEn5S7FnqGxzpPQjemr/V+LEDcw3Q3c9X/9bcxEvJ7i1rMhQfOj9X43iqIGZB3H
+         6UAsWVooiSHX+zUs35YWdRCl4/c27ArQZyVN0AgQyo4tOmjvdLaJ3xqkDAvprPMYX7Ou
+         qliw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+HD1tQshl7m5XrIYWaKns8m294SExCvLay5WGoBxo49aeV1SEAmWs/TXxRZKcdRh4EwgI1B2HGMc1rkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ99qvczqjCnSqyCXBo7U04wxvQiH4aoN9K2m6M0VpwIWNoy01
+	kyn4UXmQJiIRGOD4Vu3zNjrjStLg/s8PjtNX1R20NpqYPWQG5aqzn0UFeSDmNoAKigNAOl+M6L4
+	liY/2ENs1eEWPVb9ne6YG7CLpbgm9ZKg9gxWcY+A=
+X-Gm-Gg: AYBFou1upI7dqaWlsD9AtYyApDb0Vo2zkpUAa58MsU6b5MF5AO8B37ULjApyK5zATdn
+	p0sdZKUre+bsOe1JhROHVZd/Snq90z9TfF1/xKgtIMLKqduDaNUpNGuuw3zNSiUAxAaYkz70EGa
+	pCJZiZHOEN0S5Hy2mLpLN7pIp8jpnNJM9dTm7EDXXOt4w3XNm36Rx0UnE55/8poi8dUXiz67VU7
+	/cKN8wwNP1BlucTOXf+N0sLzH6ix3ag5R+U71OuU8pZQ2KihSbpVD4AJ8s8iuAf1KeVTG8MAphS
+	nbJSo0ODD2cowm/RR9K9e4XJ5DGNcFZdCLlAa9NyITZZZl5+EOH/JMsnTBpVv9AOROsGm/Dw1/5
+	fgyv5KPXgUIX4YNE+qCnp
+X-Received: by 2002:a05:6102:1627:b0:779:5049:87b2 with SMTP id
+ ada2fe7eead31-7c0ef026e4fmr542712137.0.1790945085222; Fri, 02 Oct 2026
+ 05:44:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+References: <20260928063824.1386524-1-morbo@google.com> <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
+ <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
+ <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
+ <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com> <7e847715-6bd5-4f69-a9a6-339788810fec@app.fastmail.com>
+In-Reply-To: <7e847715-6bd5-4f69-a9a6-339788810fec@app.fastmail.com>
+From: Bill Wendling <morbo@google.com>
+Date: Fri, 2 Oct 2026 05:44:28 -0700
+X-Gm-Features: AclHuK_2BHsoBwbSP1Le028scX0dX0GO_oD4fcefHQV9KFQAl-gpbu7HNCV6U34
+Message-ID: <CAGG=3QWKEgeggp+OcVsS4QLOX1zxN23HHZp1SfHX0rQVA_7nDQ@mail.gmail.com>
+Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Jeremy Kerr <jk@ozlabs.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Extend the sandboxer sample to demonstrate the new Landlock capability
-and namespace restriction features.  LL_CAP takes a colon-delimited list
-of allowed capabilities, parsed with cap_from_name(3) from libcap so
-names and numeric strings are both accepted.  LL_NS takes a
-colon-delimited list of allowed namespace types by short name.  Add
-best-effort degradation for older kernels that predate the
-LANDLOCK_PERMISSION_* features.
+On Fri, Oct 2, 2026 at 12:38=E2=80=AFAM Ard Biesheuvel <ardb@kernel.org> wr=
+ote:
+> On Thu, 1 Oct 2026, at 23:24, Linus Walleij wrote:
+> > On Thu, Oct 1, 2026 at 10:05=E2=80=AFPM Bill Wendling <morbo@google.com=
+> wrote:
+> >> On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@kernel.o=
+rg> wrote:
+> >> > On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@google.=
+com> wrote:
+> >> > > On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@goog=
+le.com> wrote:
+> >> > > >
+> >> > > > The 'data' pointer field in 'struct acpi_gpio_mapping' is associ=
+ated
+> >> > > > with the 'size' field, which represents the number of elements o=
+f
+> >> > > > type 'struct acpi_gpio_params' allocated for 'data'.
+> >> > > >
+> >> > > > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
+> >> > > > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
+> >> > > > attribute.
+> >> > > >
+> >> > > > Analysis of allocation, assignment, and access points shows that=
+ the
+> >> > > > pointer is never accessed before the count is set, which guarant=
+ees that
+> >> > > > this annotation is safe and will not cause runtime panics or
+> >> > > > false-positive bounds checks.
+> >> > > >
+> >> > > > Cc: codemender-patching+linux@google.com
+> >> > > > Assisted-by: LLM
+> >> > > > Signed-off-by: Bill Wendling <morbo@google.com>
+> >> > > > ---
+> >> > > >  include/linux/gpio/consumer.h | 2 +-
+> >> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >> > > >
+> >> > > > diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/=
+consumer.h
+> >> > > > index fceeefd5f893..2b80cf7aa7e7 100644
+> >> > > > --- a/include/linux/gpio/consumer.h
+> >> > > > +++ b/include/linux/gpio/consumer.h
+> >> > > > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
+> >> > > >
+> >> > > >  struct acpi_gpio_mapping {
+> >> > > >         const char *name;
+> >> > > > -       const struct acpi_gpio_params *data;
+> >> > > > +       const struct acpi_gpio_params *data __counted_by_ptr(siz=
+e);
+> >> > > >         unsigned int size;
+> >> > > >
+> >> > > >  /* Ignore IoRestriction field */
+> >> > >
+> >> > > There's a problem with 'drivers/firmware/efi/libstub/Makefile'. Cl=
+ang
+> >> > > needs a compiler flag to support the "__counted_by_ptr" attribute
+> >> > > referencing a field *after* the pointer, like in this patch. Howev=
+er,
+> >> > > the Makefile blasts the flag away for x86 platforms. Below is a ha=
+ck
+> >> > > that copies the part of the top-level Makefile that adds the flag.=
+ I
+> >> > > don't think that's a good solution. The comment in the driver's
+> >> > > Makefile says that the stub code executes before the kernel does,
+> >> > > which I assume is why a lot of the flags are blown away... In any
+> >> > > event, I'm not sure how best to address this.
+> >> >
+> >> > But is this a problem with the current patch?
+> >> >
+> >> > Does libefistub use <linux/gpio/consumer.h> in any way, shape
+> >> > or form?
+> >> >
+> >> It's being #included transitively:
+> >>
+> >> In file included from drivers/firmware/efi/libstub/efi-stub-helper.c:1=
+2:
+> >> In file included from ./include/linux/efi.h:20:
+> >> In file included from ./include/linux/rtc.h:18:
+> >> In file included from ./include/linux/nvmem-provider.h:16:
+> >> ./include/linux/gpio/consumer.h:670:55: error: use of undeclared
+> >> identifier 'size'; did you
+> >>       mean 'ksize'?
+> >>   670 |         const struct acpi_gpio_params *data __counted_by_ptr(s=
+ize);
+> >>       |                                                              ^=
+~~~
+> >>       |                                                              k=
+size
+> >> ././include/linux/compiler_types.h:392:64: note: expanded from macro
+> >> '__counted_by_ptr'
+> >>   392 | #define __counted_by_ptr(member)
+> >> __attribute__((__counted_by__(member)))
+> >>       |
+> >>        ^~~~~~
+> >> ./include/linux/slab.h:602:8: note: 'ksize' declared here
+> >>   602 | size_t ksize(const void *objp);
+> >>       |        ^
+> >
+> > Hm I see.
+> >
+> > Certainly Jeremy or Ard will have an idea about how to solve this,
+> > so paging them in.
+> >
+>
+> libstub code never executes in the context of the kernel, but only in
+> the context of the boot firmware. Generally, we disable instrumentation
+> there that has a significant runtime component, basically because we
+> cannot crash or panic the kernel before we have even booted it.
+>
+> Can we just #define __counted_by_ptr(...) to nothing when building
+> from that Makefile?
+>
+Doing it in the Makefile is tricky, because of how the "c_flags"
+variable is defined and used. I couldn't find a good way to do it.
+Instead, I inserted "#undef __counted_by{_ptr}" at the top of the
+affected files. It's gross. If there's a way I'm missing, please let
+me know.
 
-Allow creating user and UTS namespaces but deny network namespaces, as
-an unprivileged user.  The first command succeeds and sets the hostname
-inside the new UTS namespace; the second is denied because the network
-namespace type is not allowed:
-
-  LL_FS_RO=/ LL_FS_RW=/proc LL_NS="user:uts" \
-    ./sandboxer /bin/sh -c \
-    "unshare --user --uts --map-root-user hostname sandbox \
-    && ! unshare --user --net true"
-
-Allow only user namespace creation and CAP_SYS_CHROOT, denying all other
-capabilities and namespace types.  An unprivileged process creates a
-user namespace, which requires no capability, and calls chroot inside it
-using the CAP_SYS_CHROOT granted within that namespace:
-
-  LL_FS_RO=/ LL_FS_RW="" LL_NS="user" LL_CAP="cap_sys_chroot" \
-    ./sandboxer /bin/sh -c \
-    "unshare --user --keep-caps chroot / true"
-
-Allow user namespace creation but deny network namespaces, and quiet the
-network-namespace denials with LL_NS_QUIET so the denied creation is not
-audit logged.  The negated second command makes the whole line succeed:
-
-  LL_FS_RO=/ LL_FS_RW=/proc LL_NS="user" LL_NS_QUIET="net" \
-    ./sandboxer /bin/sh -c \
-    "unshare --user --map-root-user true && ! unshare --user --net true"
-
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Günther Noack <gnoack@google.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: Serge E. Hallyn <serge@hallyn.com>
-Cc: Tingmao Wang <m@maowtm.org>
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
----
-
-Changes since v3:
-https://patch.msgid.link/20260726161400.3010511-12-mic@digikod.net
-- Bump the sample's latest supported ABI to 12.
-- Gate namespace and capability permissions and rule calls on ABI 12.
-  Consume unsupported settings before executing the sandboxed command.
-- Reject capability numbers that cannot fit in the UAPI's 64-bit mask.
-- Expand the Kconfig help from filesystem-only wording to the complete
-  sandboxer policy and state the libcap development-file dependency.
-- Clarify that quiet capability and namespace members suppress audit
-  logging, and that quieting alone still restricts the permission.
-
-Changes since v2:
-https://patch.msgid.link/20260527181127.879771-9-mic@digikod.net
-- Rebased for ABI 11: bump LANDLOCK_ABI_LAST to 11 and extend the ABI
-  back-compat fall-through with a new case stripping the LANDLOCK_PERM_*
-  handled bits for ABI < 11.
-- Adopt the renamed capability and namespace rule attributes: the rule
-  bodies use perm plus allowed_capabilities / allowed_namespace_types
-  (matching the per-member quiet restructuring in the enforcement
-  patches).
-- Add LL_CAP_QUIET and LL_NS_QUIET to quiet capability and
-  namespace-type denials (per-member, merged into the allowed rule).
-
-Changes since v1:
-https://patch.msgid.link/20260312100444.2609563-11-mic@digikod.net
-- Rename LANDLOCK_PERM_NAMESPACE_ENTER references to
-  LANDLOCK_PERM_NAMESPACE_USE (companion change to the introducing
-  commit).
-- Replace handled_perm = 0 with a per-bit mask in the ABI compat
-  fall-through, mirroring the doc example so future ABI extensions
-  adding new LANDLOCK_PERM_* bits do not get stripped.
-- Parse LL_CAP values with cap_from_name(3) from libcap so users
-  can pass capability names (e.g. "cap_sys_chroot") in addition to
-  numbers.  cap_from_name accepts both: the canonical name lookup
-  is case-insensitive, and a numeric-string fallback maps "18" to
-  CAP_SYS_CHROOT identically to the previous numeric-only path.
-  Drop the BITS_PER_TYPE workaround and the manual numeric bound
-  check (cap_from_name does the right thing in both cases).  Link
-  the sandboxer against libcap by adding userldlibs += -lcap in
-  samples/landlock/Makefile.  Update help text and example command
-  to show capability names (suggested by Günther Noack).
-- Rename the LL_CAPS env var to LL_CAP for consistency with the
-  singular form of all other sandboxer env vars (LL_NS, LL_FS_RO,
-  LL_FS_RW, LL_TCP_BIND, LL_TCP_CONNECT, LL_SCOPED, LL_FORCE_LOG).
-  Internal symbols renamed accordingly: ENV_CAPS_NAME -> ENV_CAP_NAME,
-  populate_ruleset_caps() -> populate_ruleset_cap().
-- Tingmao Wang's v1 Reviewed-by is not carried forward to v2: the
-  cap_from_name() / libcap migration is a material implementation
-  change requested by Günther Noack that was not part of his
-  review.  Cc'd instead.
----
- samples/Kconfig              |   6 +-
- samples/landlock/Makefile    |   1 +
- samples/landlock/sandboxer.c | 230 ++++++++++++++++++++++++++++++++++-
- 3 files changed, 232 insertions(+), 5 deletions(-)
-
-diff --git a/samples/Kconfig b/samples/Kconfig
-index a75e8e78330d..b18efc19b85d 100644
---- a/samples/Kconfig
-+++ b/samples/Kconfig
-@@ -166,8 +166,10 @@ config SAMPLE_LANDLOCK
- 	bool "Landlock example"
- 	depends on CC_CAN_LINK && HEADERS_INSTALL
- 	help
--	  Build a simple Landlock sandbox manager able to start a process
--	  restricted by a user-defined filesystem access control policy.
-+	  Build a Landlock sandbox manager able to start a process restricted
-+	  by user-defined filesystem, network, scope, namespace, and capability
-+	  policies.  This sample requires the libcap development headers and
-+	  library.
- 
- config SAMPLE_PIDFD
- 	bool "pidfd sample"
-diff --git a/samples/landlock/Makefile b/samples/landlock/Makefile
-index 5d601e51c2eb..b30239c8a281 100644
---- a/samples/landlock/Makefile
-+++ b/samples/landlock/Makefile
-@@ -3,6 +3,7 @@
- userprogs-always-y := sandboxer
- 
- userccflags += -I usr/include
-+userldlibs += -lcap
- 
- .PHONY: all clean
- 
-diff --git a/samples/landlock/sandboxer.c b/samples/landlock/sandboxer.c
-index 030583273f3f..4a86ae6d4552 100644
---- a/samples/landlock/sandboxer.c
-+++ b/samples/landlock/sandboxer.c
-@@ -12,17 +12,20 @@
- #include <arpa/inet.h>
- #include <errno.h>
- #include <fcntl.h>
-+#include <limits.h>
- #include <linux/landlock.h>
- #include <linux/socket.h>
-+#include <sched.h>
-+#include <stdbool.h>
- #include <stddef.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-+#include <sys/capability.h>
- #include <sys/prctl.h>
- #include <sys/stat.h>
- #include <sys/syscall.h>
- #include <unistd.h>
--#include <stdbool.h>
- 
- #if defined(__GLIBC__)
- #include <linux/prctl.h>
-@@ -62,6 +65,10 @@ static inline int landlock_restrict_self(const int ruleset_fd,
- #define ENV_TCP_BIND_NAME "LL_TCP_BIND"
- #define ENV_TCP_CONNECT_NAME "LL_TCP_CONNECT"
- #define ENV_NET_QUIET_NAME "LL_NET_QUIET"
-+#define ENV_NS_NAME "LL_NS"
-+#define ENV_NS_QUIET_NAME "LL_NS_QUIET"
-+#define ENV_CAP_NAME "LL_CAP"
-+#define ENV_CAP_QUIET_NAME "LL_CAP_QUIET"
- #define ENV_SCOPED_NAME "LL_SCOPED"
- #define ENV_QUIET_ACCESS_NAME "LL_QUIET_ACCESS"
- #define ENV_FORCE_LOG_NAME "LL_FORCE_LOG"
-@@ -69,6 +76,8 @@ static inline int landlock_restrict_self(const int ruleset_fd,
- #define ENV_UDP_CONNECT_SEND_NAME "LL_UDP_CONNECT_SEND"
- #define ENV_DELIMITER ":"
- 
-+#define ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
-+
- static int str2num(const char *numstr, __u64 *num_dst)
- {
- 	char *endptr = NULL;
-@@ -232,6 +241,166 @@ static int populate_ruleset_net(const char *const env_var, const int ruleset_fd,
- 	return ret;
- }
- 
-+static __u64 str2ns(const char *const name)
-+{
-+	static const struct {
-+		const char *name;
-+		__u64 value;
-+	} ns_map[] = {
-+		/* clang-format off */
-+		{ "cgroup",	CLONE_NEWCGROUP },
-+		{ "ipc",	CLONE_NEWIPC },
-+		{ "mnt",	CLONE_NEWNS },
-+		{ "net",	CLONE_NEWNET },
-+		{ "pid",	CLONE_NEWPID },
-+		{ "time",	CLONE_NEWTIME },
-+		{ "user",	CLONE_NEWUSER },
-+		{ "uts",	CLONE_NEWUTS },
-+		/* clang-format on */
-+	};
-+	size_t i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ns_map); i++) {
-+		if (strcmp(name, ns_map[i].name) == 0)
-+			return ns_map[i].value;
-+	}
-+	return 0;
-+}
-+
-+/*
-+ * Parses a colon-delimited list of namespace type names into a bitmask.
-+ * Returns 0 on success (mask 0 when the variable is unset or empty), or 1 on a
-+ * parse error.
-+ */
-+static int parse_ns_list(const char *const env_var, __u64 *const mask)
-+{
-+	int ret = 1;
-+	char *env_ns_name, *env_ns_name_next, *strns;
-+
-+	*mask = 0;
-+	env_ns_name = getenv(env_var);
-+	if (!env_ns_name)
-+		return 0;
-+	env_ns_name = strdup(env_ns_name);
-+	unsetenv(env_var);
-+
-+	env_ns_name_next = env_ns_name;
-+	while ((strns = strsep(&env_ns_name_next, ENV_DELIMITER))) {
-+		__u64 ns_type;
-+
-+		if (strcmp(strns, "") == 0)
-+			continue;
-+
-+		ns_type = str2ns(strns);
-+		if (!ns_type) {
-+			fprintf(stderr, "Unknown namespace type \"%s\"\n",
-+				strns);
-+			goto out_free_name;
-+		}
-+		*mask |= ns_type;
-+	}
-+	ret = 0;
-+
-+out_free_name:
-+	free(env_ns_name);
-+	return ret;
-+}
-+
-+static int populate_ruleset_ns(const char *const allowed_env,
-+			       const char *const quiet_env,
-+			       const int ruleset_fd)
-+{
-+	struct landlock_namespace_attr ns_attr = {
-+		.permissions = LANDLOCK_PERMISSION_NAMESPACE_USE,
-+	};
-+
-+	if (parse_ns_list(allowed_env, &ns_attr.allowed_namespace_types))
-+		return 1;
-+	if (parse_ns_list(quiet_env, &ns_attr.quiet_namespace_types))
-+		return 1;
-+
-+	if (!ns_attr.allowed_namespace_types && !ns_attr.quiet_namespace_types)
-+		return 0;
-+
-+	if (landlock_add_rule(ruleset_fd, LANDLOCK_RULE_NAMESPACE, &ns_attr,
-+			      0)) {
-+		fprintf(stderr,
-+			"Failed to update the ruleset with namespace types: %s\n",
-+			strerror(errno));
-+		return 1;
-+	}
-+	return 0;
-+}
-+
-+/*
-+ * Parses a colon-delimited list of capability names into a bitmask.  Returns 0
-+ * on success (mask 0 when the variable is unset or empty), or 1 on a parse
-+ * error.
-+ */
-+static int parse_cap_list(const char *const env_var, __u64 *const mask)
-+{
-+	int ret = 1;
-+	char *env_cap_name, *env_cap_name_next, *strcap;
-+
-+	*mask = 0;
-+	env_cap_name = getenv(env_var);
-+	if (!env_cap_name)
-+		return 0;
-+	env_cap_name = strdup(env_cap_name);
-+	unsetenv(env_var);
-+
-+	env_cap_name_next = env_cap_name;
-+	while ((strcap = strsep(&env_cap_name_next, ENV_DELIMITER))) {
-+		cap_value_t cap;
-+
-+		if (strcmp(strcap, "") == 0)
-+			continue;
-+
-+		if (cap_from_name(strcap, &cap)) {
-+			fprintf(stderr, "Failed to parse capability \"%s\"\n",
-+				strcap);
-+			goto out_free_name;
-+		}
-+		if ((unsigned int)cap >= sizeof(*mask) * CHAR_BIT) {
-+			fprintf(stderr, "Capability \"%s\" is out of range\n",
-+				strcap);
-+			goto out_free_name;
-+		}
-+		*mask |= 1ULL << cap;
-+	}
-+	ret = 0;
-+
-+out_free_name:
-+	free(env_cap_name);
-+	return ret;
-+}
-+
-+static int populate_ruleset_cap(const char *const allowed_env,
-+				const char *const quiet_env,
-+				const int ruleset_fd)
-+{
-+	struct landlock_capability_attr cap_attr = {
-+		.permissions = LANDLOCK_PERMISSION_CAPABILITY_USE,
-+	};
-+
-+	if (parse_cap_list(allowed_env, &cap_attr.allowed_capabilities))
-+		return 1;
-+	if (parse_cap_list(quiet_env, &cap_attr.quiet_capabilities))
-+		return 1;
-+
-+	if (!cap_attr.allowed_capabilities && !cap_attr.quiet_capabilities)
-+		return 0;
-+
-+	if (landlock_add_rule(ruleset_fd, LANDLOCK_RULE_CAPABILITY, &cap_attr,
-+			      0)) {
-+		fprintf(stderr,
-+			"Failed to update the ruleset with capabilities: %s\n",
-+			strerror(errno));
-+		return 1;
-+	}
-+	return 0;
-+}
-+
- /* Returns true on error, false otherwise. */
- static bool check_ruleset_scope(const char *const env_var,
- 				struct landlock_ruleset_attr *ruleset_attr)
-@@ -369,7 +538,7 @@ static int add_quiet_access(const char *const env_var,
- 	return 0;
- }
- 
--#define LANDLOCK_ABI_LAST 11
-+#define LANDLOCK_ABI_LAST 12
- 
- #define XSTR(s) #s
- #define STR(s) XSTR(s)
-@@ -397,6 +566,22 @@ static const char help[] =
- 	"* " ENV_UDP_CONNECT_SEND_NAME ": remote UDP ports allowed to connect "
- 	"or send to (client: use as destination port / server: receive only from it)\n"
- 	"(caution: sending requires being able to bind to a local source port)\n"
-+	"* " ENV_NS_NAME ": namespace types allowed to use\n"
-+	"  (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
-+	"* " ENV_NS_QUIET_NAME
-+	": namespace types whose denial should not be audit logged\n"
-+	"  (same value format as " ENV_NS_NAME
-+	"; quieting an allowed member is inert,\n"
-+	"  as an allowed member is never denied; setting it alone still\n"
-+	"  restricts namespace use, denying every type)\n"
-+	"* " ENV_CAP_NAME ": capabilities allowed to use, as names or numbers\n"
-+	"  (e.g. cap_net_bind_service, cap_sys_admin, 18)\n"
-+	"* " ENV_CAP_QUIET_NAME
-+	": capabilities whose denial should not be audit logged\n"
-+	"  (same value format as " ENV_CAP_NAME
-+	"; quieting an allowed member is inert,\n"
-+	"  as an allowed member is never denied; setting it alone still\n"
-+	"  restricts capability use, denying every capability)\n"
- 	"* " ENV_SCOPED_NAME ": actions denied on the outside of the landlock domain\n"
- 	"  - \"a\" to restrict opening abstract unix sockets\n"
- 	"  - \"s\" to restrict sending signals\n"
-@@ -423,6 +608,8 @@ static const char help[] =
- 	ENV_TCP_BIND_NAME "=\"9418\" "
- 	ENV_TCP_CONNECT_NAME "=\"80:443\" "
- 	ENV_UDP_CONNECT_SEND_NAME "=\"53\" "
-+	ENV_NS_NAME "=\"user:uts:net\" "
-+	ENV_CAP_NAME "=\"cap_sys_admin\" "
- 	ENV_SCOPED_NAME "=\"a:s\" "
- 	"%1$s bash -i\n"
- 	"\n"
-@@ -451,6 +638,8 @@ int main(const int argc, char *const argv[], char *const *const envp)
- 		.quiet_access_fs = 0,
- 		.quiet_access_net = 0,
- 		.quiet_scoped = 0,
-+		.handled_permissions = LANDLOCK_PERMISSION_NAMESPACE_USE |
-+				       LANDLOCK_PERMISSION_CAPABILITY_USE,
- 	};
- 	bool quiet_supported = true;
- 	int supported_restrict_flags = LANDLOCK_RESTRICT_SELF_LOG_NEW_EXEC_ON |
-@@ -552,7 +741,12 @@ int main(const int argc, char *const argv[], char *const *const envp)
- 		supported_restrict_flags &=
- 			~LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS;
- 		set_restrict_flags &= ~LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS;
--
-+		__attribute__((fallthrough));
-+	case 11:
-+		/* Removes LANDLOCK_PERMISSION_* for ABI < 12 */
-+		ruleset_attr.handled_permissions &=
-+			~(LANDLOCK_PERMISSION_NAMESPACE_USE |
-+			  LANDLOCK_PERMISSION_CAPABILITY_USE);
- 		/* Must be printed for any ABI < LANDLOCK_ABI_LAST. */
- 		fprintf(stderr,
- 			"Hint: You should update the running kernel "
-@@ -597,6 +791,26 @@ int main(const int argc, char *const argv[], char *const *const envp)
- 			~LANDLOCK_ACCESS_NET_CONNECT_SEND_UDP;
- 	}
- 
-+	/* Removes namespace handling if not set by a user. */
-+	if (!getenv(ENV_NS_NAME) && !getenv(ENV_NS_QUIET_NAME))
-+		ruleset_attr.handled_permissions &=
-+			~LANDLOCK_PERMISSION_NAMESPACE_USE;
-+	if (!(ruleset_attr.handled_permissions &
-+	      LANDLOCK_PERMISSION_NAMESPACE_USE)) {
-+		unsetenv(ENV_NS_NAME);
-+		unsetenv(ENV_NS_QUIET_NAME);
-+	}
-+
-+	/* Removes capability handling if not set by a user. */
-+	if (!getenv(ENV_CAP_NAME) && !getenv(ENV_CAP_QUIET_NAME))
-+		ruleset_attr.handled_permissions &=
-+			~LANDLOCK_PERMISSION_CAPABILITY_USE;
-+	if (!(ruleset_attr.handled_permissions &
-+	      LANDLOCK_PERMISSION_CAPABILITY_USE)) {
-+		unsetenv(ENV_CAP_NAME);
-+		unsetenv(ENV_CAP_QUIET_NAME);
-+	}
-+
- 	if (check_ruleset_scope(ENV_SCOPED_NAME, &ruleset_attr))
- 		return 1;
- 
-@@ -680,6 +894,16 @@ int main(const int argc, char *const argv[], char *const *const envp)
- 		}
- 	}
- 
-+	if ((ruleset_attr.handled_permissions &
-+	     LANDLOCK_PERMISSION_NAMESPACE_USE) &&
-+	    populate_ruleset_ns(ENV_NS_NAME, ENV_NS_QUIET_NAME, ruleset_fd))
-+		goto err_close_ruleset;
-+
-+	if ((ruleset_attr.handled_permissions &
-+	     LANDLOCK_PERMISSION_CAPABILITY_USE) &&
-+	    populate_ruleset_cap(ENV_CAP_NAME, ENV_CAP_QUIET_NAME, ruleset_fd))
-+		goto err_close_ruleset;
-+
- 	if (!(set_restrict_flags & LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS) &&
- 	    prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
- 		perror("Failed to restrict privileges");
--- 
-2.55.0
-
+-bw
