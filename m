@@ -1,199 +1,118 @@
-Received: from mail-wr2-f32.google.com (mail-wr2-f32.google.com [74.125.225.96])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72453ED11B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790923685; cv=pass; b=OOkvpI7I/m5fcM0ZNt8usyTImPzFcafaEsKRo2Iqf3nF6xmqgg08QroGo6q3xZgCbfWwM3j+yUjFWqZuh0L3YERKmuEJXx6Q9PI4zrCMxztAzD7SdW4i1/Ts+p6DpRi21vDpRGw8qBEz9RM71ej8Suqu1CfHfGuug0PzQ0FAopg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790923685; c=relaxed/simple;
-	bh=IfxCsQfIXOhm9duIZ5PaRvU0vF/ULsc6oL/xWYLg1cs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lq45H+NhgAPgwvG/2FU+sMGbSEGbLPaYy86Wns8UM4SRF27wetPVLAcPFhi7+yaSGMAPwfk4ML8bZZzY1p2t4UqIqgKelxv1KPvFe2t0AHEQuq//34ZtGR/mY9Atg3kn45WtHtQWBHfI0WDDwPvNqN1zeRaRM7BSGn+CxoC26E0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=BHVDLLJ9; arc=pass smtp.client-ip=74.125.225.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AC514883F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790923747; cv=none; b=QQWDkhmkjiZJ1SNIPzkzUvozH19aqUAWM9R5/rjlDkOnnlqCCkDzR6LDjqjDcnpWnofbuPzKk22xhq9XzeugTyR4E9DyRYRsjkwZjZy4hj1AlDDZa7m1KUwA5lcZ5e7x19LO8Ybwb2bewHDGWUz+NXyYAHo2u6kcpkBHY7PAXyc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790923747; c=relaxed/simple;
+	bh=jkLNCTWwDR/A0PYyLfoK8BT0KyzncgH2/Xvj2/jk2n4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oJaUH9zqck/NHhlDsNzAzSYENoiaaFAJnAXmtYDpFKM57qA3dvgjYKoh1zvfeXbsx4sRe9oM0Oso1ZkaCsxXEjOxtscftwJraR3aW+M/0U4p/PA37gxobktJuyf99vO7pbyLjs1h4uoXYHJz3/UfRKkIrFJFUawkCtlY8CIyyP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j1+Cy/QU; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="BHVDLLJ9"
-Received: by mail-wr2-f32.google.com with SMTP id ffacd0b85a97d-482f6350f91so4215486f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:48:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790923682; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V16uateRqKPBvpYugOZfoUgQ35dwotRSrPXiH5WyVVB0vItwDXXoSHkuwgYU5ibxht
-         jcD+b5lVDVzT92me5hc7dub7tcizCemnYbdt1HaK6ibRrHTPrUChOGTXhzPzV4Bsdmqd
-         JwigFU6aIKsH+6Tov8ldOmxtawYi/YQKHfZGxksIhsLzU1fF+9WcNIdWerL+Wz44kbWT
-         x1/cz+atn0M2mvAyt0nw/X/BI3H14kHSQdDRhJHCwOOd2k8eLS4i4TE6JoDL937Xei2f
-         MtfX1eTAcgua4wMlh6J4Z7Z9PFVehaa0Dvf7ZYfDv3P0hUafRHv2ges3LBEPmibVPmpr
-         J75A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vMIvcSqpnAcev0LvZqzsQlju0HUUMmzyz0rX4omO44Q=;
-        fh=D5uJfl/WIv8+DkL++tu7kJOSj721PjYwBf9mNgIto2I=;
-        b=K1OEdEDo1PG3+0v4SnN49GTA/A0KnBLBsWLvXaAdMxod7uoliKmkWR2T87vsEBx07i
-         t3ecZSVDsmSvthYV+xZGTa8BmoZQfVSBV9z3ExQ4QCBod5tHDgC2f03G/EjpomFrYpBh
-         89PHeSZROG3xzDaZPceeoUamnJHGo/PlKtLeCMyb5BTbkmU7c7iBmg/mQ0UmdcEQvKDg
-         /73Cm0w2ftlUECvCOTZwrSqZpcN05W9aPiZy5f6AwhCtFGyrzaUzQKZ14tQu+NLtBtgl
-         lLnljBwLnx9K1jkGGH23YJjB6u5XK0wIVhTVK1eh4m7wjKgS9q9qV9bIPO/ShWr39FXT
-         Vkfw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j1+Cy/QU"
+Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-88826f3ff80so784712b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:49:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1790923682; x=1791528482; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vMIvcSqpnAcev0LvZqzsQlju0HUUMmzyz0rX4omO44Q=;
-        b=BHVDLLJ98SNjt4c3210jaPmlJxRWBtB2xHenM0ZL7qPrNyzXHih8R6jD5wTy+3TW9j
-         4fG0Z7EIMCdHf2vuRwhcdRFM78/NM+o+HhmHW+umZPGeQojn3T5yoBztH87ay89oWaJV
-         JV53QMyu29SPbb1brDR/bsQpWXINrPpXTRFbtA+h4RblnFe7c6oBwNZ1JDLYTfov84Ve
-         QXpaVJzYBWTjBLPD6fDdTeh95XY22YBg14ILhnFxQJ6Ueq6gZMwq5r4Mu4/3mSTaFbXp
-         mNxpFaEfmMsBsSIPz+1wdliKcV5TAfXer9SGujP4Tml2fkLFocCXFimPHHFf6RVdyii9
-         VoZw==
+        d=gmail.com; s=20251104; t=1790923745; x=1791528545; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b2I2VmL6WnuxgQWDSKKBuDVc6+oZPGkIWa4vAQHTcFI=;
+        b=j1+Cy/QUq1tSw66Eea31BuEQaK6xc4D/x2503Pst3kTJ1lhR6fLGbXuhU/Y9PuQsLO
+         iU0VW7bUkXn93k+y7hhkbfcOTfuRaI2D7KjXUNM5yauJ9DIuoT2LU0NYBq2kDt7yyjmW
+         UKiBmcjReq7iNxrM0Xt4Y594liQknvOf+JXJ0ZGr3ShG/2GghF+c1pLjAeqtoeu9xvic
+         J0iEzbhbk4vZ1lHpenVASm6FkIjVSFsfiDCY4P63S9iqlcL0DT5OfFqiQMBlQwBeRby3
+         ZwlTXk/+NmPfmJDwY8CLadwfZ6uKJC3TkpERvybj6tYuS2yoe41JYP0UbD56UMHMyTYB
+         UShQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790923682; x=1791528482;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vMIvcSqpnAcev0LvZqzsQlju0HUUMmzyz0rX4omO44Q=;
-        b=I6wcEALiGFZsnggGr3z/c5WlFxjKC7eYsK0Xj8EzpYuGiIyN0kxVeRm2/QNuY6JLtt
-         MqSlau3hBF63aVaS7AA+grjFa5ea+oGSPJQTlGtv8ITbiHWsueN5dN9QD1vAKpLMh/3X
-         bh/mKIVt0od8gARc8lif9PgNCusqkNRmkNp4KJN7jPWSvgzC7HRFShKQ6F1zs0a0iqo7
-         Wj4qRA7N7GHtjo+wZOJVNTtzWOvbrpRizChfIxeP1WNzkn3Mni1hyFjcSlDnLAN85o5V
-         hDJh9azsYsbi81lJvUyGjn9wtlJyCaVUKYtw578T2tQZLDFDVEx3BpHphlnGXw1t2+xY
-         hfIg==
-X-Forwarded-Encrypted: i=1; AKwUvByk/O4eY+aGfbJ7fBp0bewG5Hh+3vbiHTWnXbw3pGpP9tNcD37a2LhjAG5/QTZ4J4L9lI4+weq3GKRqHEg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjUyZa7dNZCItHLzMbsQv+le3gllz5u19febZWuoo+Y5vsDIq0
-	eRzwSaSFZ+/SbLWJkzwfeSlLv9/lSgtFHErCyg1wjz6qpmBT0wbotYwkwsWyAG5zkNtiVummWjG
-	7em9jELB45qFVzzJ8l3VQ9SC1i54xqQU1snwpvQNMgQ==
-X-Gm-Gg: AYBFou0sb9EQS/sb9dfEphsYMUFXombZZRbJixttkVv47niazG+vkgAcXbjPWVp8ZQd
-	xdzoE6DH8wjPPLJow0sdjH2GEUajg86JjE8uNJrgNBUfG1L1jCCm11K/S87YuDJFVJiqfYlCaNz
-	c3gkcG58et8iwP0FupzZzDFDGo/2FbTewL9vYom5HSMd9Wnmh9SuDjQjRpijvwDA+/HsvpVjy7t
-	vo1TXJQVUlOym7fLE2hZ8X2wCQzLgAuGBrJEjf61hpaoPNxb2sK1MtK6mmOBiJzxzKvYBa6dAJO
-	mKQCu9n/E3HyeGUVPYyqDhaFNybnEa1Hd3az1RSYtd1VIKenPv/PonF2u5I0Y/A9WXRtewtFnRp
-	3yeymLDG929T7jGYJ8HqVq9VfF+QyMEV18ZxRPFBlrnAGZMXPGH8+4OoOHQZsQ1OF4d5Xyi10UF
-	pj
-X-Received: by 2002:a5d:64c9:0:b0:487:91e:d8ed with SMTP id
- ffacd0b85a97d-48b12702290mr3229174f8f.2.1790923681806; Thu, 01 Oct 2026
- 23:48:01 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790923745; x=1791528545;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b2I2VmL6WnuxgQWDSKKBuDVc6+oZPGkIWa4vAQHTcFI=;
+        b=oXiiF7+2fnRPjD9D9Vg/0ytcguVK1/UCs0PRS4MblLmznZaoOn2hZmeBdqcxEpI1JG
+         VZSNzjNHwAxAuK+aqTjtoHeNGJrB9u9ndtGOicvYXRUDx1DgHndsxf8IdxiyCvhZ8kso
+         N1n3c2xY+SjZNenMNnZnbAt+1RqNEHYjQPEkqloRASES8fc9A1rRON7ZbvcmXpUKZzKY
+         1CYecQefVn17/BAFnJhDLAVk3snPXh5bLEsnCs/PZdhE8CoQ4eTb39MxzXvcqctyu5yi
+         XSghX4Xz0ikOkwbnqkhDyjzbbl9pY6t/5GNLLcgYITKLekUFk3+/7ViBECESwi757rxy
+         /sdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwT3WpS1PKURTHM18sx56+BQOFX7VSXEfTUjjyrpY+0frQcbzW3i2chqDP2fxfpfbkEs/Wj1umoiJmUjoE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZlYSGSAAItCmZXaO8Y+qx2NQJFWjD4pd7YuI4+IUkg/2UsTL6
+	Z259ELYtltEnLQ5qah6+sh+Dji4W6JbJVBLSd+ncTj1kLvucgPNQqrHa+2Xne34E
+X-Gm-Gg: AYBFou3+AWp1AuJXYx2edze/ixNcTE8/uxjUhicJ/0UUi338+dkarrAN0tyyodj7GrQ
+	VNe6WGBIguO4ldeBfEXef+i2BNo1ypemAH26XeM7OU3+12V0G6cllgail2i8Yzox4fm4WHFB9bd
+	B+jFXHASIcg3ypmC7RoIY+k2jKC7wsV2JbXumXJhroJn0T3bEqJKF0ng8zuUx0dP90BvyK88I+7
+	ZIX1cZK3NXJJeawc86oCkaUJ1EZgWWsWMm+gMhxDTxORSf1NfNXxxAhoBk15X1PcUnhX4fV5IVb
+	PGM/WmkjWn6r2eBGyhWVkVbsWw/gcN8ChmVASBpZg8+1iOEUq/wFadNmOiZfTHKJKDQseC1WWdT
+	uIuQBIxjqzwfCYuh+Psp4zqweDoC8FiLXIXRlvz71Zlgkoo/nfXlBlJGine8GvJrsdK+11x8B6W
+	xFnNcx+zOaafx7JlNkb773pNN3ejiU5il8n7dBNdguGqpfCUY09Hsf87odJupsoL2O8Eu6c1Wli
+	CTAixNnMWpwnI/pq/R4y5fXgz7OewIcxQeGPv3NTeCO3tkEzLZb+2rO1JnKiig0Tx7kDuBI/w==
+X-Received: by 2002:a05:6a00:b89:b0:87a:50f9:2930 with SMTP id d2e1a72fcca58-88af5ac3f05mr1926461b3a.55.1790923744971;
+        Thu, 01 Oct 2026 23:49:04 -0700 (PDT)
+Received: from codespaces-2362ac.m2fxbej512jepnsor2itp05j3d.ix.internal.cloudapp.net ([207.46.224.87])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0b8f5b20sm573055b3a.11.2026.10.01.23.49.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 23:49:04 -0700 (PDT)
+From: Seongjae Jeong <jsjlee1020@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	jsjlee1020@gmail.com
+Subject: [PATCH] f2fs: avoid unnecessary reads in f2fs_update_meta_block()
+Date: Fri,  2 Oct 2026 06:48:53 +0000
+Message-ID: <20261002064853.37782-1-jsjlee1020@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721024236.14761-1-xb@ultrarisc.com>
-In-Reply-To: <20260721024236.14761-1-xb@ultrarisc.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 2 Oct 2026 12:17:49 +0530
-X-Gm-Features: AclHuK9UOCVZ6vodJjvCC76-FwtaW02UpOlI0apEZivkAZ5yfpYjH_mX6sQE75Y
-Message-ID: <CAAhSdy0fqbBTfzab1H96a5B469mzuMmi4c54opPXw1-+z8_Pvw@mail.gmail.com>
-Subject: Re: [PATCH] RISC-V: KVM: Add SBI DBTR extension forwarding
-To: Xie Bo <xb@ultrarisc.com>
-Cc: Atish Patra <atish.patra@linux.dev>, kvm-riscv@lists.infradead.org, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 8:12=E2=80=AFAM Xie Bo <xb@ultrarisc.com> wrote:
->
-> The SBI headers define the Debug Triggers extension and its function IDs,
-> but KVM does not currently allow a VMM to expose DBTR to a guest.
->
-> Add DBTR to the KVM SBI extension list and forward its calls to userspace
-> through the existing KVM_EXIT_RISCV_SBI path. Keep the extension disabled
-> by default so that userspace must explicitly enable it through the SBI
-> extension ONE_REG interface before running the VCPU.
+When the packed SSA feature is enabled, f2fs_update_meta_block()
+uses f2fs_get_meta_cache_retry(), which reads the target block from
+disk if the cache entry is not uptodate.
 
-Blindly forwarding SBI DBTR calls to KVM user-space will not work because
-(just like SBI PMU) we will be sharing HW debug triggers between host and
-guest where KVM RISC-V will have a separate path through the perf subsystem
-to configure debug triggers for guests.
+However, f2fs_update_meta_block() overwrites the entire filesystem
+block with memcpy(), so the existing contents are not needed.
+Partial updates to packed SSA blocks are handled separately in
+write_sum_block().
 
-We (Qualcomm) are already working on a series for SBI DBTR virtualization
-in KVM RISC-V so stay tuned.
+Use f2fs_grab_meta_cache() unconditionally to avoid reading blocks
+that will be fully overwritten. Also remove the error check, since
+f2fs_grab_meta_cache() retries allocation failures internally and
+does not return an error pointer.
 
-Regards,
-Anup
+Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+---
+ fs/f2fs/segment.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
->
-> Signed-off-by: Xie Bo <xb@ultrarisc.com>
-> ---
->  arch/riscv/include/asm/kvm_vcpu_sbi.h | 1 +
->  arch/riscv/include/uapi/asm/kvm.h     | 1 +
->  arch/riscv/kvm/vcpu_sbi.c             | 4 ++++
->  arch/riscv/kvm/vcpu_sbi_forward.c     | 7 +++++++
->  4 files changed, 13 insertions(+)
->
-> diff --git a/arch/riscv/include/asm/kvm_vcpu_sbi.h b/arch/riscv/include/a=
-sm/kvm_vcpu_sbi.h
-> index c1a7e3b40..53406b02f 100644
-> --- a/arch/riscv/include/asm/kvm_vcpu_sbi.h
-> +++ b/arch/riscv/include/asm/kvm_vcpu_sbi.h
-> @@ -104,6 +104,7 @@ extern const struct kvm_vcpu_sbi_extension vcpu_sbi_e=
-xt_rfence;
->  extern const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_srst;
->  extern const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_hsm;
->  extern const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_dbcn;
-> +extern const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_dbtr;
->  extern const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_susp;
->  extern const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_sta;
->  extern const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_fwft;
-> diff --git a/arch/riscv/include/uapi/asm/kvm.h b/arch/riscv/include/uapi/=
-asm/kvm.h
-> index 504e73305..047d82f05 100644
-> --- a/arch/riscv/include/uapi/asm/kvm.h
-> +++ b/arch/riscv/include/uapi/asm/kvm.h
-> @@ -221,6 +221,7 @@ enum KVM_RISCV_SBI_EXT_ID {
->         KVM_RISCV_SBI_EXT_SUSP,
->         KVM_RISCV_SBI_EXT_FWFT,
->         KVM_RISCV_SBI_EXT_MPXY,
-> +       KVM_RISCV_SBI_EXT_DBTR,
->         KVM_RISCV_SBI_EXT_MAX,
->  };
->
-> diff --git a/arch/riscv/kvm/vcpu_sbi.c b/arch/riscv/kvm/vcpu_sbi.c
-> index 46ab7b989..ed21239c5 100644
-> --- a/arch/riscv/kvm/vcpu_sbi.c
-> +++ b/arch/riscv/kvm/vcpu_sbi.c
-> @@ -70,6 +70,10 @@ static const struct kvm_riscv_sbi_extension_entry sbi_=
-ext[] =3D {
->                 .ext_idx =3D KVM_RISCV_SBI_EXT_DBCN,
->                 .ext_ptr =3D &vcpu_sbi_ext_dbcn,
->         },
-> +       {
-> +               .ext_idx =3D KVM_RISCV_SBI_EXT_DBTR,
-> +               .ext_ptr =3D &vcpu_sbi_ext_dbtr,
-> +       },
->         {
->                 .ext_idx =3D KVM_RISCV_SBI_EXT_SUSP,
->                 .ext_ptr =3D &vcpu_sbi_ext_susp,
-> diff --git a/arch/riscv/kvm/vcpu_sbi_forward.c b/arch/riscv/kvm/vcpu_sbi_=
-forward.c
-> index 5a3c75eb2..8ac31b53f 100644
-> --- a/arch/riscv/kvm/vcpu_sbi_forward.c
-> +++ b/arch/riscv/kvm/vcpu_sbi_forward.c
-> @@ -26,6 +26,13 @@ const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_dbcn =
-=3D {
->         .handler =3D kvm_riscv_vcpu_sbi_forward_handler,
->  };
->
-> +const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_dbtr =3D {
-> +       .extid_start =3D SBI_EXT_DBTR,
-> +       .extid_end =3D SBI_EXT_DBTR,
-> +       .default_disabled =3D true,
-> +       .handler =3D kvm_riscv_vcpu_sbi_forward_handler,
-> +};
-> +
->  const struct kvm_vcpu_sbi_extension vcpu_sbi_ext_mpxy =3D {
->         .extid_start =3D SBI_EXT_MPXY,
->         .extid_end =3D SBI_EXT_MPXY,
->
-> base-commit: b95f03f04d475aa6719d15a636ddf32222d55657
-> --
-> 2.54.0
->
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 794e0d99fc7c..51858f64e43e 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -2844,13 +2844,7 @@ void f2fs_update_meta_block(struct f2fs_sb_info *sbi,
+ {
+ 	struct f2fs_cached_block *entry;
+ 
+-	if (!f2fs_sb_has_packed_ssa(sbi))
+-		entry = f2fs_grab_meta_cache(sbi, blk_addr);
+-	else
+-		entry = f2fs_get_meta_cache_retry(sbi, blk_addr);
+-
+-	if (IS_ERR(entry))
+-		return;
++	entry = f2fs_grab_meta_cache(sbi, blk_addr);
+ 
+ 	memcpy(cache_address(entry), src, F2FS_BLKSIZE(sbi));
+ 	f2fs_mark_cache_dirty(entry);
+-- 
+2.53.0
+
