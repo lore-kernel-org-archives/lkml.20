@@ -1,128 +1,136 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D1339D3EC
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916BE214813
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:27:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969240; cv=none; b=bASBaGukpi1gvD/o93gxKBgdORj3SJvljsevkIzyCx37xHkdZUXq26XjxuaTfnDGUkDrRtas1Tkl0j+Nk5Ck5eb9YcaG+NO4xL16t+FSoCOXqFxS/neLuR89O6hTdBzSxmQPP8w8CDTlMnWrcUpzs4v81Rv6fkIPQZUcPsl+e1I=
+	t=1790969250; cv=none; b=Xn2o4KY+PPIX/9aH78oZoW935R+GTXU5aIXIxJBw3WaqWdxJkccjo5xodMPO0SOfmT9ebrvXYZDJnhlvI9X50F7a9oYaQ8LN4O+qaoQwKtenZWS98PiGJ8fye9g/dsoU+tx/nBXQppGi8VnUZ8GDgTlIP9oVetyHTAMfwl+Becs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969240; c=relaxed/simple;
-	bh=bu+VqBxA6nqZV6JK7oBUZFdnjDL9VBnPUZknJyXfTEA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=EsRgDdVi7Jn5TtY+gIm/M4j2z8b+IVt231Clm1Ehk+Z0tgPirxGatbtqE1pYGw2KKup25t18uWtEqajNoRD74Eo2GVDhCetU8jW0J2iepQUwawbaUItDAI13iSMzX72MLmyFc5KmcpPGPnA33djdrQCBg4+4vppk91vtkspviAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kgVve89I; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
+	s=arc-20240116; t=1790969250; c=relaxed/simple;
+	bh=3SrAKRxVKoiz36qd1iw66PRVuCuWO6FT5+hCHo27x28=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mEgMY5negZQHj+V6IRGYoxVDajBP3P+RvMM3lTakBlVCsHQBK+pA1OU7igCCQb8q9+55bFvbzMUnrIcsCj6HwVTMtH/oZ1D851/zIE67eQW37oK5h2Sc3quI2sQngmSNnOEXJLuuWOvhUm+DpWkp7XPqHhMAJUuF+B3xMa8EvZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YS9o4Pq0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kgVve89I"
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-807383233b9so300246a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:27:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790969238; x=1791574038; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ncPdKQ8yTurzGsf8xW/nALnmFn+Mq36jdGYCCaGLUmk=;
-        b=kgVve89IJug1pg1CHulhfqadjs/KnYp9EmujGEpD9jAxCroZtN25/v7sQHir43y+/R
-         cdr36fFTY2qmdFFcGclWqNpQ/WicJAgtYBIXSryJ1WiKadB6QT3wK0Hqr/esHttTSeZd
-         0GPdobT9+8lrxdYpd/I8ifas/rawR5wazGIS68ons+cDb8Kaf9QFE7+IBudiq8id4edi
-         2NzO1taL7KlvteppMZrQ9lGfHVPLOW0mE+/W6J57UMZa0AlCdVt6eLxIEylEIgUsDtWR
-         3ROoo/JcSyiv/FHiX5xX3YjCOhDkgbSc4sH83a53DgJch3VT7lkResVmqj3OLmj0BOLZ
-         1pVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790969238; x=1791574038;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ncPdKQ8yTurzGsf8xW/nALnmFn+Mq36jdGYCCaGLUmk=;
-        b=lutU6N8rHWOfM4cFu2iafhsvEggNrFPOMSRBTV8oR96oCx02FlaA95rn5brdN8EtGF
-         nrTQXZC3o81i1E+hOFE1fznQT5C2Avrr0AOwd4FSVcgMl/oeUj204QE5KWXmUzBms6mf
-         BA8V3c9IhzvGm+LTPv/pdepVOOJkPhzsaEU/QNbhCN6mq7scS5xbj5x/VigM2ssgTOkk
-         FhJ8iABkHdWlKQdguuulBhBiW326PrAgtsmiqbOGHxxK5B0DjoSzcFfpJ+UkmODycNd/
-         eafteMfEFfgUki/eCEQwrsD6VwV2pE7nTIlMRkLd/P/IPaI3OGjJkyqSVWpENOryC911
-         s24w==
-X-Forwarded-Encrypted: i=1; AKwUvBzHfUaul1tCoaashLQgMVh3D71DFhkKQDTy7GIm0VYttI1K+50qfUiRclT4fcGIh0oQe+2zEHAhEwqbVTU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjDSWouB7Hj7K9ANjpTxFpPEda9bdHFm4l98DD3NPEh5jQvPOX
-	EwOEABDMSrLwDcngRIT2BrEXZ0UMk62KqTqrYBS51vjHbLFdaieM5GZnxWmdjOFksnHMKsi1c8K
-	bPAis+hcMv6+2sKraT/5oW3ltJw==
-X-Received: from ilgw6.prod.google.com ([2002:a92:d2c6:0:b0:506:ef1b:4df4])
- (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:e8b:b0:4d6:92b3:5c84 with SMTP id 5614622812f47-4f52b3b318amr2241563b6e.65.1790969237696;
- Fri, 02 Oct 2026 12:27:17 -0700 (PDT)
-Date: Fri, 2 Oct 2026 12:27:17 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YS9o4Pq0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B331F000FF;
+	Fri,  2 Oct 2026 19:27:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790969249;
+	bh=TMLh6+kpgnlTMAS7jCwws3JUzVdAB4NK/Gtu/GGQ6go=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YS9o4Pq0335A+yCQuWG4Lsen37G2h6e9pTCh0mfvusPgL8a7VR36qoCuginbtio3S
+	 HmQ+RNY3qpa/vWmy8XPS9kUoHeiTZk1bdQL7B8dMncshh2Zpl3PnBC3of1w0o94MLj
+	 EMDI7pkpMgD7vUdXf8fJC1wKdXfJQ3XiAG80jFufIig//Nr5T45ZWU7us57UQtrEPu
+	 gN+Z7BdZP7Jw0DQ8B6myqbY4djgb5wOoU6h5Q/Ktl4LnpralyNfQPXdtdHsXBLSR4X
+	 YbomdDFA/lHVPoxqw6zZOBeWE2HGC1lzV1Kld0Dm554XWEl6fw+kmq8Wpx2FgbcUWZ
+	 A80dN6DE1rs7g==
+Date: Fri, 2 Oct 2026 20:27:22 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	akpm@linux-foundation.org, david@kernel.org, Mike Rapoport <rppt@kernel.org>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com, pbonzini@redhat.com, 
+	Borislav Petkov <bp@alien8.de>, Tal Zussman <tz2294@columbia.edu>, 
+	Rik van Riel <riel@surriel.com>, Matt Fleming <matt@readmodwrite.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <asAE3kLFDUx5v0Nw@gremlin>
+References: <arZHp8hjYFXE8Rkt@gremlin>
+ <arde/t0zQNEkWqi5@pcnci.linuxbox.cz>
+ <areOeRwZOez0eHm7@gremlin>
+ <arotyz5g6LozSjb1@pcnci.linuxbox.cz>
+ <arwNebjYXyGqrp32@pcnci.linuxbox.cz>
+ <arzRBv9ceJsxJppI@gremlin>
+ <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
+ <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
+ <ar9yRqq6cBxHDWKA@gremlin>
+ <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vche6ZJWdSDr0I4rHXQ1VBItxgTw
- rtb5DCH7zD/SoakMLpWKyV81HSKBU1dUXhKfMDpvZjY86Xxnt0oGnMZkjnLEt4aNTtuvQzg9oS zUPnOCYN+/92uP2zL7YWQ9xht2w+AUQhweQAAAA==
-X-Change-Id: 20261002-maintainers-stackinit-230afe234e5a
-X-Developer-Key: i=justinstitt@google.com; a=openpgp; fpr=E8700888482CBCD3779E67F32D8CB922E382C412
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1342; i=justinstitt@google.com;
- h=from:subject:message-id; bh=em/u6WKwpECTiM0kW20l7ZVcgcWotbdCG2m2BRLAdig=;
- b=owEBbQKS/ZANAwAKAS2MuSLjgsQSAcsmYgBqwATpg6HcQDcbs0Sc7kv6X/jG0rp0jhy5uUBYB
- YN0AKFI7JyJAjMEAAEKAB0WIQTocAiISCy803eeZ/MtjLki44LEEgUCasAE6QAKCRAtjLki44LE
- Epf+D/9H9Mr7Tz4O3pj/Zf3dGy7MvN27BQBqAPaocE4hE/wz8EkCbN8zr4lnLNJL+nhskzaEN2l
- v+VFL0djqVbIJrqHG3i1iElOnCcTDUBJ+dEK5aqtGfm1BojJknO906b7f5LSBz3SsvQb3QKRrf7
- 0DccU4AjmlxSb4XNJotp9AjC+Tu+KRC1eq85qZQxpzCVwDYZ9HPamgsV8XtzjvKXsBDHMk1ifNR
- ejua2rrLlN9gtiOu2RDBVHAkp6k4aYBKxLUA8eX8/spSGXuVX1QCYns1hJknnDg+xNw9uTE/4k+
- JudGy3edRZPXZ03I50Yt0sbRnnBzwXJYKpj6GCPN0JpqogrniDMK0Wagaib+j3xODlt0iKJVqyo
- U2vxO3fGFL5/nVOXg4YOirZOkTqibVhobA57wTpE/cLMeNt+J4y4qrAQ79jEinCl48sD6pwYZ9k
- fWfa4WAFEnk014Oyqifvj3ggKsxjaxOYDExrji7yMOYhyBPDYz1NqHJvgz/g5y3uc7w6JXs+BrB
- 1zvEPEOlzHjpweQQox/UillbAujy1KhSagD81rR475PjjwxD4nXvNk+APhQgyZqr5q3M5m5Q2pc
- EZNeQK7jjwbNPSo0x4sVK+a99PDrMSMU1BGA+Cy7o16TlQ+hD+Qd4tLOxhYROHqxiev7KvSYp9E ipSsmSPRvJLKBoA==
-X-Mailer: b4 0.15.2
-Message-ID: <20261002-maintainers-stackinit-v1-1-27112a221527@google.com>
-Subject: [PATCH] MAINTAINERS: Add stackinit KUnit test to HARDENING
-From: Justin Stitt <justinstitt@google.com>
-To: Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>
-Cc: linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-kselftest@vger.kernel.org, 
-	Justin Stitt <justinstitt@google.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
 
-From: Justin Stitt <justinstitt@google.com>
+On Fri, Oct 02, 2026 at 04:55:39PM +0200, Nikola Ciprich wrote:
 
-Noticed while preparing a patch to lib/tests/stackinit_kunit.c: the file
-is not listed in MAINTAINERS, so get_maintainer.pl does not suggest Kees
-or linux-hardening for changes to it, only the catch-all list.
+> > The fact you've seen this on a Milan machine (EPYC 7343) is new information
+> > so that could be useful for the report, so if you can reproduce _without
+> > the fix_ first that'd be very useful to know!
+>
+> well, not so good news here.. I tried the reproducer on multiple
+> lab machines and also on one drained production box on which we've
+> experienced one crash and wasn't able to get a single hit so far.
+> Here's the list of machines:
+>
+> hostname   	 CPU	   	RAM    kernel		microcode
+> pocstdv1b	EPYC 9124	384G	6.18.31lb9.01	0x0a101158
+> labtest		EPYC 9274F	64G	6.18.20lb9.01	0x0a101158
+> lbxovav6d	EPYC 9124	1.5TB	6.18.31lb9.01	0x0a101158
+> prfjazv1g	EPYC 7343	1TB	6.18.53lb9.02	0x0a0011de
+> nrbphav4a	EPYC 7343	1TB	6.18.15lb9.01	0x0a0011de
+>
+> I'll leave it running for few hours, and report back. If I'm able to reproduce,
+> I'll try recommended workarounds and report as well.
 
-before:
-  $ ./scripts/get_maintainer.pl -f lib/tests/stackinit_kunit.c
-  linux-kernel@vger.kernel.org (open list)
+Thanks for trying that!
 
-after:
-  $ ./scripts/get_maintainer.pl -f lib/tests/stackinit_kunit.c
-  Kees Cook <kees@kernel.org> (maintainer:KERNEL HARDENING
-  "Gustavo A. R. Silva" <gustavoars@kernel.org> (reviewer:KERNEL HARDENING
-  linux-hardening@vger.kernel.org (open list:KERNEL HARDENING
-  linux-kernel@vger.kernel.org (open list)
+Yeah, it might have been tuned to the zen arch rather than milan so that could
+be making it less effective unfortunately.
 
-Signed-off-by: Justin Stitt <justinstitt@google.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+> (and lots of more addresses, truncated)
+>
+> crash> vtop 0xffff986002783a50
+> VIRTUAL           PHYSICAL
+> ffff986002783a50  582783a50
+>
+> PGD DIRECTORY: ffffffffa0836000
+> PAGE DIRECTORY: 143a7801067
+>    PUD: 143a7801c00 => 80000005800001e3
+>   PAGE: 580000000  (1GB)
+>
+>       PTE         PHYSICAL   FLAGS
+> 80000005800001e3  580000000  (PRESENT|RW|ACCESSED|DIRTY|PSE|GLOBAL|NX)
+>
+>       PAGE         PHYSICAL      MAPPING       INDEX CNT FLAGS
+> fffff2715609e0c0  582783000 ffff996e5a8932d9 7f6a1589e  1 2ffff800020938 uptodate,dirty,lru,active,owner_2,swapbacked
+>
+> crash> search -p -m 0xfff0000000000fff 582783a50
+> 3c600964f0: 8000000582783067
+> 11e238a54f0: 582783e67
+>
+> should you need anything else, please let me know
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4f72b4ac27ee..019f443af051 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14164,6 +14164,7 @@ F:	include/linux/ucopysize.h
- F:	kernel/configs/hardening.config
- F:	kernel/kstack_erase.c
- F:	lib/tests/randstruct_kunit.c
-+F:	lib/tests/stackinit_kunit.c
- F:	lib/tests/usercopy_kunit.c
- F:	mm/usercopy.c
- F:	scripts/Makefile.kstack_erase
+Thanks! The LLM has informed me that it got that wrong but it was interesting
+data (...!) which suggests guest memory page tables might have somehow ended up
+there.
 
----
-base-commit: 5e0f8396d4805a3e7f753fa58c8c55f1f3cc2160
-change-id: 20261002-maintainers-stackinit-230afe234e5a
+Could you try:
 
-Best regards,
---  
-Justin Stitt <justinstitt@google.com>
+    crash> p d_hash_shift
+    crash> eval (0x5560450b >> D) * 8 + 0xffffb18900a00000
+                                          D = the d_hash_shift value
+    crash> eval (B & 0xfffffffffffff000)
+                                          B = the hex result above
+    crash> vtop B
+    crash> rd -64 P 512
+                                          P = the hex result of the second eval
+    crash> search -p -m 0xfff0000000000fff PHYS
+                                          PHYS = the PHYSICAL column from vtop
 
+  And for the pages the physical search found:
+
+    crash> kmem 0x1ae234000
+    crash> kmem 0x24f0e2000
+    crash> kmem 0x103360000
+    crash> rd -p 0x1ae234000 512
+
+Thanks!
+
+--
+Cheers, Lorenzo
