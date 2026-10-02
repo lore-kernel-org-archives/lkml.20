@@ -1,244 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F91519916;
-	Fri,  2 Oct 2026 20:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15F73E49CA
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790972813; cv=none; b=AN0CqBrRKPeY4avxSlcjO2/h/GPkul4BFwj8tavkxXfqvUoE8hq79x1ykSMOtxMrH9rQQPNfWEXDXQFdu+NOzggl7mmHEoLDBGBBegkwnmUd+DVeqkCELCNgGmsL9wtcvb8pqzKib4GpNs94o1e0BdX7ktg+6DaYH8AyWbI3o20=
+	t=1790972908; cv=none; b=hdhTOEAHH97LLc3rhuWPuVQ5efOu8u9YNlFANFaJywTPtMgXYmtdYoWXt958cYcf1VnkthndFDWY2lJXB6k3zNMKnqL3VrOie3XJ8WgKa+7FrC1csRf3sh2JLxEg+Qdc3mhT+1nPSI/TeJ0eVGQ5UJNnBmSjD7NKzLYEIu77GNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790972813; c=relaxed/simple;
-	bh=imIDw8fCVy38A9h/x7FZkyIQg0B0IMA+BYK0uCUgVCE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TJbcAYWenywE3XiAMA2IMb2XL70vPTz1oX7X3y88l96hNIWsNGdDRKKhOw3z9D6oeMLw3aoDrUYi/4mEYn13Ex0J0jemgtxW5jbTcsCY0xWRSeOHRSC19/CW/fWW++vIAhx4LmDgQQiA0bIU0s+iotJnEF9OKsjvWNrWtJ+ZmBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h4+AIpqL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790972908; c=relaxed/simple;
+	bh=oMrg/JcSLSgC4x3ZoCTn3lh3asbXbcffptazbw4Kz/I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SagfWj+JZwif6O1cYdzL6WwD9tMhozTakyiJ5i1kNCX9jJlk0jLN7n92NAibHV0GrGFAE2gOc0WJYdAmMSLBmAj+s6cCAxB9JjIb28cQSeour1fraNnESlW7duSu/exxMWRqOl74ROG8B6ohGL6jgIcGFoN319EYeu4UVxOdBeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wl5w8h1J; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h4+AIpqL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7359E1F000FF;
-	Fri,  2 Oct 2026 20:26:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790972800;
-	bh=tWF81GupOPiYz8DCKS1yJfWgC9i7VWNImgSAZo/oATQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h4+AIpqL9MJyUCNxnKtMPZViW7xx4423x75vdqVuQSN81wCGIZ3uIo5Fpk6j8gcC2
-	 M8t23fldE1KkYMNnVRM55yty+gvSo4ddCYy4qCsQt9FzOocRXIWdKPdPhbBBJ1HoO3
-	 K6JUDcxWYVHQqIKvHBzOh57nXNwidQ14FaJJqxX5CqaAgphKak9J3RyQLhIl95EYSQ
-	 3qY9AwEpGF4V/RimJEXVTMkQWe8ltXXsbOZyE+yA0DetM3l6HyXO7i3/zyrrO0avaV
-	 UyccYxtbBxwozDI/AjunD9WI5Mt3LLtzRf+YBTk+kwM1PgsByipIuzD/1LzUFyMDWd
-	 d5Au//UMoigyg==
-Date: Fri, 2 Oct 2026 21:26:34 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Emil Renner Berthing <kernel@esmil.dk>, Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-hardening@vger.kernel.org, netdev@vger.kernel.org,
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v5 00/23] Add basic clocks and resets for JHB100 SoC
-Message-ID: <20261002-doorbell-recycler-f386e3b8d5a4@spud>
-References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
- <20260930-grafting-undertake-ff3e01060284@spud>
- <ar_4NBLHrq2W7_vc@redhat.com>
- <20261002-amigo-joyfully-6894bdfa17e3@spud>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wl5w8h1J"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af4663da5so229664f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:28:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790972905; x=1791577705; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0Pq1olcgehbSi55FB4Scf0q8Uf4BPvEP/mIxGiWXIGM=;
+        b=Wl5w8h1JNRBeU1ZCpeMxtl6SrSV+w81LHOZKLXZYvHD3Ybex1g/QULNb21iCEMLMen
+         yJiJsANtq5AT/nhp181k273RC1J5hYO1oUCpFk+PhjLQ0fz4IWpQQ2kw5kEy/+p9k4yw
+         OWa4zkTY76V+ip0/Md7+WvW7eRaWXFo67FIkBWlLDwULr1cq6rvIgh7PbaqK6eCO9zWr
+         19UYZ4rPtrXJo20VprsBMjJ766gb3CtATjHv6a6ZVDFptalt0oYvzEb1Tio6x8kRDTGs
+         RV7WeRTGhRPth2jEo2ly1WM5fLrZSxUX9X7d+vfCIwiZbob8b/UJZqY7wDyV2MhKPwH1
+         rdhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790972905; x=1791577705;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0Pq1olcgehbSi55FB4Scf0q8Uf4BPvEP/mIxGiWXIGM=;
+        b=0KGoLsJwRMgexLNrqRffTMkVDebvR+HPvOBesWn9TH5hsCHhsDiqlmEu7aWyI80zhG
+         q9LcHrUZexsLibxNTVtRaeFzjRTaAy38MX8/B2rM0Hbd+Mr0Klc8rrUlrjXbhRpeFvAo
+         aE2whEtTZiI0jbrJqguMZqotDgL9PUWd3ta2kfvaRdq2ZzbnuU59dDH5ipJxS7h/kDc/
+         qlTN4MZqdpotAQkY6w2kZOC7k7wRvIlbKXPHd6OfbOFpZRm6SnoI3bl8mEelhPG7MkA3
+         73nAqoTT9UfaUAk1sBIh6kS6HiPlThqc9+mOzC4u+wx2um5kjKg5yzSfYyWGr/BSVSMZ
+         qE+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwth6ONyYmHhIkD7Ru8BeJKVxE0if2d38tn2xctPLO0Nih5gLFY9sb3/jHg8p++4Nlt6zth6n8G0Ip3Fdg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2hlw7xsqGcY5WwkqUz8DG6BjUS+g6Qxz4BEeVbHb/Qn1mpBGV
+	1SEa/P72mSSwOSuvyVwl8v4359Bsf3xPPQxWKcr5RwlEr6Mi2VJ6uNep
+X-Gm-Gg: AYBFou30ECRvsau3UdatT4UASa7JK96sa5zyAXIZtwg26InCIh0+G+eg5k2xg5rZ1MW
+	Pl4qDMtgQrMXTyOQik9GgA+NTffY4sdk/MNgJL2BKvWsJEM+KjQkWENhOGpDc2kfQkzeh5wmYfT
+	cZ23bjNj9qomwr7NjZq0qTemvGVsVf4sXuW8ECVO/TAHe3X//fXy7+jUjHyKK9deHXE4YrKhBAF
+	HblJccjqg64dOym3HQUZrrixJeRaQpFrtIoq7mthoB/zpTS6sKf0ki2jJHzGkcIhEbs0AzLFy97
+	liv2ne04CBgEBQanpm2I4j5QSE7qOOF0A8ZZwSb7BlhspmqYiE7uSvt467D6m0+gn4U80CvnQfE
+	uW1/SyDpvvCbP4Y0RXA5WqlWs8lutBSuzmPIZu3tdoOE0q9wuh9nbxti05tWfL5N+7m++d7JtJq
+	fj2RQEYifR7z0oxTPqzxyIk3DjFc4jJCaKB0owE8PI5/o+TnLx1gJGGBxUmhwruX/ezMehZaK30
+	gb3AiAhvN+1ifyzPnBYDo8BOCJGnM1BsuDISr8S1MCHa0lyx3DDSMOnAh4OPfgsN1yRiWlANp5i
+	tbBL+g==
+X-Received: by 2002:a05:6000:605:b0:488:89af:e95b with SMTP id ffacd0b85a97d-48b126d2949mr7371021f8f.8.1790972904852;
+        Fri, 02 Oct 2026 13:28:24 -0700 (PDT)
+Received: from arch ([37.142.150.50])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104d58sm8334335f8f.28.2026.10.02.13.28.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 13:28:23 -0700 (PDT)
+From: Aviv Vaknin <vaknins33@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] pid_namespace: make zap_pid_ns_processes() freezable
+Date: Fri,  2 Oct 2026 23:28:20 +0300
+Message-ID: <20261002202820.3433318-1-vaknins33@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="19rhacsLviSpo5YF"
-Content-Disposition: inline
-In-Reply-To: <20261002-amigo-joyfully-6894bdfa17e3@spud>
+Content-Transfer-Encoding: 8bit
 
---19rhacsLviSpo5YF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+When the init of a pid namespace exits, zap_pid_ns_processes() waits
+until all other pids in the namespace are freed. A tracer outside the
+namespace that does not reap its traced zombies keeps those pids
+allocated, so this wait has no upper bound, and while it lasts every
+suspend attempt fails:
 
-On Fri, Oct 02, 2026 at 09:11:44PM +0100, Conor Dooley wrote:
-> On Fri, Oct 02, 2026 at 02:30:12PM -0400, Brian Masney wrote:
-> > Hi Conor,
-> >=20
-> > On Wed, Sep 30, 2026 at 11:43:22PM +0100, Conor Dooley wrote:
-> > > FYI clock folks,
-> > >=20
-> > > On Wed, Sep 30, 2026 at 05:42:54AM -0700, Changhuang Liang wrote:
-> > > > The JHB100 SoC includes CRG (Clock and Reset Generator) for multiple
-> > > > subsystems:
-> > > >=20
-> > > > The JHB100 SoC is divided into multiple subsystems, and basically
-> > > > each subsystem includes a CRG(Clock and Reset Generator):
-> > > >  - sys0crg/sys1crg/sys2crg/
-> > > >  - per0crg/per1crg/per2crg/per3crg/
-> > > >  - voutcrg
-> > > >  - vcecrg
-> > > >  - gpu0crg/gpu1crg
-> > > >  - cpucrg
-> > > >  - usbcrg
-> > > >  - host0crg/host1crg
-> > > >  - pcierpcrg
-> > > >  - husb0crg/husb1crg
-> > > >  - husbcmncrg
-> > > >  - husbd0crg/husbd1crg
-> > > >  - npucrg
-> > > >=20
-> > > > In the current series, we will only add the following CRG:
-> > > >  - sys0crg/sys1crg/sys2crg/
-> > > >  - per0crg/per1crg/per2crg/per3crg/
-> > > >=20
-> > > > The remaining CRG will be implemented in future series.
-> > > >=20
-> > > > This series depends on the series:
-> > > > https://lore.kernel.org/all/20260806122553.182449-1-changhuang.lian=
-g@starfivetech.com/
-> > > > and it has been tested on the StarFive JHB100 EVB-1.
-> > >=20
-> > > If this revision of the series is acceptable, I'd (although I'm not a
-> > > listed driver maintainer) like to send you a PR as I've done in the p=
-ast
-> > > for Starfive stuff so that I can get some of these binding patches th=
-at
-> > > contain headers as part of a shared tag to be able to unblock a bunch=
- of
-> > > the soc tree stuff. With conferences next week I understand that, wit=
-h it
-> > > being -rc5, it's probably this doesn't make v7.4 but I figured it was
-> > > worth getting my intentions out there!
-> >=20
-> > I am going through this series now, and I have a few minor changes to
-> > the clk drivers themselves.
-> >=20
-> > Feel free to send a pull for the bindings and headers though.
->=20
-> Okay, PR below.
->=20
-> I won't put this tag into my linux-next branch until the drivers are in
-> the clock tree, but it'll let me get my ducks in a row, particularly
-> beneficial given next week I'll be somewhat AFK! Duck alignment is
-> currently ongoing in the "jhb100" branch in my repo..
->=20
-> Thanks Brian, Conor.
->=20
-> btw, will you be at LPC or OSSEU?
+  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
 
-=2E.. As I went about aligning more ducks, I recalled that the syscon/pll
-series also depends on some of the binding header files in this series.
+Neither wait is freezable. The first loop sleeps in do_wait(), which
+returns -ERESTARTSYS on the freezer's fake signal; the loop then clears
+TIF_SIGPENDING and waits again without ever freezing. The final loop
+sleeps in TASK_INTERRUPTIBLE, and since nothing clears TIF_SIGPENDING
+there, schedule() returns immediately after the first freeze attempt
+and the task spins until the wait ends.
 
-I've made another tag with an additional binding that you'll need to
-apply the clock patches in this series:
-https://lore.kernel.org/all/20260828095608.19955-2-changhuang.liang@starfiv=
-etech.com/
+Sleep in TASK_INTERRUPTIBLE | TASK_FREEZABLE in do_wait(), so that the
+freezer can freeze tasks waiting there directly, and in TASK_IDLE |
+TASK_FREEZABLE in the final loop, like coredump_task_exit() does.
 
-This tag will actually appear in linux-next as of the next iteration,
-because the socinfo driver I will definitely submit as 7.4 material.
+This was hit with Chromium-based browsers: crashpad ptrace-attaches the
+threads of a crashed renderer, which is a pid namespace init, and does
+not reap those killed during the dump.
 
-Thanks,
-Conor.
+Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
+Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
+Cc: stable@vger.kernel.org # 6.1+
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
+---
+v2:
+- Make do_wait() freezable instead of calling try_to_freeze() after
+  kernel_wait4() (Oleg).
+- Drop the comments.
+- Drop the acks and the review tag, since the approach changed.
+- Retested on v7.3-rc5 with the reproducer from v1, also unprivileged:
+  freezing completes in 0.001 s, the zap task stays idle, and reaping
+  the zombies still ends the wait.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+v1: https://lore.kernel.org/r/20261001121254.883973-1-vaknins33@gmail.com
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+ kernel/exit.c          | 2 +-
+ kernel/pid_namespace.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-are available in the Git repository at:
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 97686af89..b54cc7b2b 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -1751,7 +1751,7 @@ static long do_wait(struct wait_opts *wo)
+ 	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
+ 
+ 	do {
+-		set_current_state(TASK_INTERRUPTIBLE);
++		set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
+ 		retval = __do_wait(wo);
+ 		if (retval != -ERESTARTSYS)
+ 			break;
+diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
+index 8bc9edb40..127a5fd23 100644
+--- a/kernel/pid_namespace.c
++++ b/kernel/pid_namespace.c
+@@ -269,7 +269,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+ 	 * free_pid() will awaken this task.
+ 	 */
+ 	for (;;) {
+-		set_current_state(TASK_INTERRUPTIBLE);
++		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+ 		if (pid_ns->pid_allocated == init_pids)
+ 			break;
+ 		schedule();
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/ clk-star=
-five-jhb100-plus-soc-header
+base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
+-- 
+2.55.0
 
-for you to fetch changes up to c4a545d3e428e9600d670fa8a08098b7bc82d5ec:
-
-  dt-bindings: soc: starfive: Add StarFive JHB100 syscon modules (2026-10-0=
-2 21:17:31 +0100)
-
-----------------------------------------------------------------
-jhb100 clock binding + syscon binding shared tag
-
-This is a second shared tag for the Starfive jhb100 clock bindings, between
-the riscv soc tree and clock tree.
-
-Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
-
-----------------------------------------------------------------
-Changhuang Liang (8):
-      dt-bindings: clock: Add StarFive JHB100 System-0 clock and reset gene=
-rator
-      dt-bindings: clock: Add StarFive JHB100 System-1 clock and reset gene=
-rator
-      dt-bindings: clock: Add StarFive JHB100 System-2 clock and reset gene=
-rator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-0 clock and reset =
-generator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-1 clock and reset =
-generator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-2 clock and reset =
-generator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-3 clock and reset =
-generator
-      dt-bindings: soc: starfive: Add StarFive JHB100 syscon modules
-
- Documentation/devicetree/bindings/clock/starfive,jhb100-per0crg.yaml      =
- |  70 ++++++++++++++++++++++++++
- Documentation/devicetree/bindings/clock/starfive,jhb100-per1crg.yaml      =
- |  70 ++++++++++++++++++++++++++
- Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml      =
- |  76 ++++++++++++++++++++++++++++
- Documentation/devicetree/bindings/clock/starfive,jhb100-per3crg.yaml      =
- |  76 ++++++++++++++++++++++++++++
- Documentation/devicetree/bindings/clock/starfive,jhb100-sys0crg.yaml      =
- |  63 +++++++++++++++++++++++
- Documentation/devicetree/bindings/clock/starfive,jhb100-sys1crg.yaml      =
- |  71 ++++++++++++++++++++++++++
- Documentation/devicetree/bindings/clock/starfive,jhb100-sys2crg.yaml      =
- |  64 +++++++++++++++++++++++
- Documentation/devicetree/bindings/soc/starfive/starfive,jhb100-syscon.yaml=
- | 115 ++++++++++++++++++++++++++++++++++++++++++
- include/dt-bindings/clock/starfive,jhb100-crg.h                           =
- | 554 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- include/dt-bindings/reset/starfive,jhb100-crg.h                           =
- | 189 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 10 files changed, 1348 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100=
--per0crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100=
--per1crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100=
--per2crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100=
--per3crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100=
--sys0crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100=
--sys1crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100=
--sys2crg.yaml
- create mode 100644 Documentation/devicetree/bindings/soc/starfive/starfive=
-,jhb100-syscon.yaml
- create mode 100644 include/dt-bindings/clock/starfive,jhb100-crg.h
- create mode 100644 include/dt-bindings/reset/starfive,jhb100-crg.h
-
---19rhacsLviSpo5YF
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasATegAKCRB4tDGHoIJi
-0gNVAQDDCEw/giCQo5Gwo5U4UO0qJ8YzsmgsgM5J++eAapwcUAEAna5ZUJoPL6B9
-VEOP9JmwIIKAejBVDHKexT2t1AgjaAQ=
-=ZFHw
------END PGP SIGNATURE-----
-
---19rhacsLviSpo5YF--
