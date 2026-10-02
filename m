@@ -1,120 +1,97 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8BC443C03;
-	Fri,  2 Oct 2026 10:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08EE044470A;
+	Fri,  2 Oct 2026 10:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937440; cv=none; b=INWmYr8SKV+Ym+ELNu0+Fj705a7npqhYmx00JrjvIC5R91BDlCEGMjw3jhrQkdKfDTa/WHD0X9TjPrzZi+EKozmwmqOvskJ6Vcw24if7GOqyQwKwTEfbUYJxmoqVhcTHO6w2iu+yDfuHlzVvpYARepTrtGXJzX8nKJJLq3G9Z6Q=
+	t=1790937458; cv=none; b=IqhMzZt07m2HgGCUxjZrq8nggk59IELQs/Tkzh5q2NMp07bmT6dhbFy6f81wwp44AlKXUOU3lKjKWxQvoyZTmAttS0pJAhoWy7Y675osBcqHmiCt02Jzk1WyzAAGDnEsQCc6Z3FI9kS95wHA21fdiJIeAIib60QPm0Ouo93lmmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937440; c=relaxed/simple;
-	bh=jH0zJKhJDpGeUx0aj/4GWlL2wulR23VoVr1DzwHc7JM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cIF3YLq9ioa1fqdQyQ84BjO/PjLfEKWXpqHqcmzQTFn7rhny6hRbJQUa1VFBSkivht15AJy3ZKJXBDjBfw7+9SN7On485gX/dJHeF/7iiRU3Ql/7MDgw4DAhFdmxYXOj3OlXjpkavbp4Qs7ThrluoUuH1fhUvjJOuyXwoA9uCCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=etbYxNpd; arc=none smtp.client-ip=192.198.163.19
+	s=arc-20240116; t=1790937458; c=relaxed/simple;
+	bh=MpQ8nLdNnR81vCVjCCsNhls8ahzgzhGE4VA7PIrgLQA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YutonODdxGHYpJT6/sU1TGaZNea8MlrgZ5L4SB6kEKSBm2YbV9xPuMzIbO/XRDWKFbJuN0UXfs5JGf8MsGwMuAId+iLLPGc9DAbXFkUE6NAxW0m5/0xlaXdDONLUjmeiQZNPLHf5qLpi5qNXS80IQAfgeX4YyXQfo5zpc5nXK+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TLQ/bvNe; arc=none smtp.client-ip=198.175.65.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="etbYxNpd"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TLQ/bvNe"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790937439; x=1822473439;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jH0zJKhJDpGeUx0aj/4GWlL2wulR23VoVr1DzwHc7JM=;
-  b=etbYxNpd9gAlfMAa3fZKDkkW5Cf6lFNy3iMIeqyR/g93x/9HhIfgubuQ
-   9UwxtV4jkfb/93KJ+boswdwZWBFPoB6jS2bRlFoTIaRmutYsQStc0ovh9
-   HN2piWljFOoKsH2Ev1gEpKh2YLPleYR7qW2U4VuT7pS6NjNiWeoosXZ3z
-   vXH5kmG4q3B76MjMwsz/Elw8nptXKU0HPO+VQFTKbVm2Hm5lRF8SIlJsl
-   tFjRtoZgBWzb+EoKqrjIL+BPeg+csmfQRATBhiND1YEQRoAbOZg9xUP8r
-   tznsV0wDPP0VvAx/0b7bUwqCRLm+fDoNQqcrMWn3LGZLpyC/Yl4t2N55w
-   Q==;
-X-CSE-ConnectionGUID: RaQPauXVTiuJ17DHS2KW6Q==
-X-CSE-MsgGUID: tt2zw4uQRCeM3oisuurbxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90603503"
+  t=1790937457; x=1822473457;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MpQ8nLdNnR81vCVjCCsNhls8ahzgzhGE4VA7PIrgLQA=;
+  b=TLQ/bvNeilVj/aZjed4hVISyu4T+zyYrM0Czgxq+Fp6AnK7mOkygxiyg
+   XQHNy2Xy89sMhm6djYJP9BNXzyUyEgK+Pj65RXfqctnuQtgYi1vGb6Ox5
+   2Rq/a9djjcIvwF7oqAWSdvtLG8k0gsNoN1ZrhLDT8bprNdLna0LOkbpem
+   fUz4d7rAQdyhLIVYg1hUEwehiBCy5dig1kxFdxhNP9kRZYdUbUow9AGvJ
+   Y+G742gNE8m7YFcGp+VSH9lhOMmtHSio2wrJ48qp7PjnYgXw+Cf6ZTp7W
+   Pw6pWSrrAV4wScj741GboMcLqLf4Xla9tnkiqGzyD9N48szZXzCKS0UeF
+   A==;
+X-CSE-ConnectionGUID: b3WynWKfT/ixjz072AXe0Q==
+X-CSE-MsgGUID: 7Gbp9299QxqsKcDSmfLlSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94414526"
 X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90603503"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:18 -0700
-X-CSE-ConnectionGUID: 7YpK8SfsQG2N7oeJE1U7vQ==
-X-CSE-MsgGUID: bHgGHFg4S1eZMgZU164BVQ==
+   d="scan'208";a="94414526"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:36 -0700
+X-CSE-ConnectionGUID: WoWMfcBxTRWhFgAfLso6+A==
+X-CSE-MsgGUID: S2m75JnTTWaYzJjpdnoIqA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="284286585"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.244.235]) ([10.245.244.235])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:15 -0700
-Message-ID: <8707533e-8cbc-4046-92af-90b55031383d@linux.intel.com>
-Date: Fri, 2 Oct 2026 13:37:13 +0300
+   d="scan'208";a="314213711"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:34 -0700
+Date: Fri, 2 Oct 2026 13:37:31 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+Cc: Mika Westerberg <westeri@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro V
+ 16S AI
+Message-ID: <ar-Ja2AVJs1TzMpg@ashevche-desk.local>
+References: <20261002101800.51506-1-abduvaliy.hbai@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: Unlock for command abort polling
-To: Michal Pecio <michal.pecio@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Pedro Fonseca <pedro@fonseca.com.pt>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260824095944.1c8335fa.michal.pecio@gmail.com>
- <20261002113302.3fe23d24.michal.pecio@gmail.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20261002113302.3fe23d24.michal.pecio@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002101800.51506-1-abduvaliy.hbai@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/2/26 12:33, Michal Pecio wrote:
-> On Mon, 24 Aug 2026 09:59:44 +0200, Michal Pecio wrote:
->> xhci_abort_cmd_ring() requests abort, waits for the CRR bit to clear,
->> drops xhci->lock and waits for the Command Ring Stopped event.
->>
->> The CRR wait timeout is 5 seconds as suggested by xHCI 4.6.1.2, which
->> means that if the xHC fails to complete the operation at all, we poll
->> with the lock held and IRQs disabled for several seconds. If any other
->> CPU tries to acquire the lock, it will spin likewise. IRQs get delays,
->> drivers log errors, tasks freeze, it's a mess.
->>
->> So drop the lock earlier, before waiting for the CRR bit. It should be
->> safe - the sole caller sets cmd_ring_state to CMD_RING_STATE_ABORTED
->> before calling us, which will prevent others from ringing the command
->> doorbell and interfering with the abort. Queuing new commands during
->> this time poses no danger, and if the command we try to abort actually
->> completes concurrently, existing code already needs to deal with this.
->> And in my testing it does - it's trivial to trigger this on ASM1042,
->> where Address Device can't be aborted, but it completes as soon as the
->> offending device is unplugged, including during abort attempt.
->>
->> Note that the lock still covers reinit_completion(), so it won't race
->> with complete() being called by the event handler. And works are not
->> reentrant, so another timeout can't expire while the lock is dropped.
->> We will configure timeout anew when restarting the ring.
->>
->> One other difference is that now we also drop the lock if abort fails.
->> This too should be harmless. Commands queued during this time will be
->> released like any other pending commands. If the aborted command does
->> complete before we regain the lock, it's a waste, but not regression.
->>
->> Reported-by: Pedro Fonseca <pedro@fonseca.com.pt>
->> Link: https://lore.kernel.org/linux-usb/16f65081-5a3c-4c30-9811-9017796a3373@fonseca.com.pt/
->> Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
->> ---
->>
->> This has been annoying me and various others for years, only the latest
->> incident is listed above.
->>
->> I expected a nightmare of race conditions, but after finally taking a
->> serious look I think it really is quite simple. It helps that the lock
->> was already being dropped and existing code seems to handle it fine.
+On Fri, Oct 02, 2026 at 03:18:00PM +0500, Abduvaliy Abdulazizov wrote:
+> On the Acer Nitro V 16S AI (ANV16S-41) the internal USB camera
+> (0408:4035) works on Windows but never shows up on Linux.
 > 
-> Hi Mathias,
+> The firmware drives GPIO 11 of AMDI0030 high to power the camera. The
+> same pin is listed in \_SB.GPIO._AEI as an edge-triggered, active-low
+> wake interrupt whose _EVT case only writes a debug code. gpiolib-acpi
+> requests _AEI pins as inputs, which clears the output enable bit, so
+> the camera loses power during boot.
 > 
-> Any thoughts about this one? Seems we haven't got any response from
-> Pedro, but the patch worked for me (and it solves an annoying bug).
+> After boot the pin register reads 0x00447a00 (output value 1, output
+> enable 0, line low). With the xHCI controller kept away from Linux
+> (pci-stub), the camera port shows CSC=1, CCS=0: the camera was
+> connected during boot and then dropped off.
+> 
+> Booting with gpiolib_acpi.ignore_interrupt=AMDI0030:00@11 keeps the
+> camera powered; it enumerates and works with uvcvideo. Add a DMI quirk
+> so this works out of the box, like the existing one for the Acer
+> Nitro V 14 on the same pin.
 
-Just added this and a couple of others of your patches for my for-usb-next branch
+While this all sounds legit, I'm worrying that the pin can be used for
+something more. For the record, can you share the DSDT table (or entire
+`acpidump -o NitroV16S.dat` file) via some file exchanger so we may see
+that?
 
-Thanks
-Mathias
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
