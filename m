@@ -1,136 +1,111 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77492FFDEA;
-	Fri,  2 Oct 2026 20:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD1A3BBA0A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973754; cv=none; b=uKjevBvqDDpNlDkGcAmGsv1AcAGas8FgrCKhZanuc6lA7eGC4syGUnGYpkqUSqaVSG+HTukse340u39f9LWKlqgLMcPlHCWOxbn/qEblHOkwEUdRv0u4GjNdF+tmhIOn2GxAKAgv+hVklS3LKKPTrgw+VGf2TWbHs4SOxZZU4XY=
+	t=1790973770; cv=none; b=dF9iXppqDW/wofIFC1Tqz3ZX1z+J5ePhokqrBfq+Eou0iaiF5wFSyT3GHn7FG7DYuJd1DyHNOGXC0AyVRDBk4jbphLrNCurb67XgVM5h/j2ZbD1Gq5B3FWtD+rpKUzbl9kwizQjOUGK2mh9A+Sf0jS4R/A4q8c8V7ULExTNq9eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973754; c=relaxed/simple;
-	bh=Oc39FeL0TokucPuY9FbV5p65O8+TC0abLNbXBbGxlvk=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=dUMbfX053IyDZOv7VYuQd34b37twG9+Q9nWCnMVA7YmU7p3Vt+ADZ+hBjQ8ONd3MWZq7Z6o/+ylnHC2KZZ9RoKQF7xzjOiYlDmKT/7v6qbXTmxAcLLboTiuWiuXwpP4bYXU/feGYxKCnOpoA1uEfqPhkDY776ER1nJDNO88zGOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=xb8h+dTC; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1790973770; c=relaxed/simple;
+	bh=dwtRjKhkCOURZox5r4dxPrPathbBrVq4ooD8VGaPU4Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pyMMrEs1ELU2L881Y7sFANCAAuZWg9iYdqkgIS829ITKrgT+ApCewIwtN74G1hA89zogV4DdTBULzv8gcNZFgup5jprYBfVdtG7idGZakPFzMjL29iDGCyyGo7irW7Jw5+HlwbBui3k/5vV2K8Zf48SrG+ra5w/ozoi2T1IGVw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=h0YCIXag; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="xb8h+dTC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:Subject:Cc:To:From:
-	Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=6hc86ywzTBUbmMRmQu0woMFmHlCOIAamMlpF2NOCxYQ=; b=xb8h+dTCelyO/W8Q3YoY5pTurZ
-	xsZtPzu1NETwFea1Q0rxcxe2KH3x6w98bXZV1W2Pk/ElmWFnJjeUaATSs9Mo61Q+T5KPEXcHF9P9Q
-	B0HPL0X55oYcvskogDhxyKNOCI0kiFLpjulDQ7cSrfetzQvAnxA+LGLme6/0vUSZuh6IhsNKx0cl2
-	kRMEvZ6ECw2dO1JnhE5SLMdnR18Y2J6icxPIjPmGkYsGyBlKMkWOsfppKi99pvWzNG/rIz0rQmPlt
-	++DxBhThgCmH9Cquh9QlAX1QMW6iejqJBWyk6e0sQ5opL1OTnYLN5kg4iO0yW2wE/Fv/k9hjAmVXN
-	ZwMCIVgw==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xCk5I-00000002nrC-0ooy;
-	Fri, 02 Oct 2026 17:42:24 -0300
-Message-ID: <7af974fcbddc7e739dc7d18aaf1ea69f@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
-Subject: [GIT PULL] smb client fixes for 7.3-rc6
-Date: Fri, 02 Oct 2026 17:42:23 -0300
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="h0YCIXag"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb65437so235424a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:42:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790973768; x=1791578568; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t8zMcjeud7Qi3pjmuZ+bReUAhacHTxYCcXspTMMKof8=;
+        b=h0YCIXagHWC87iDO8cJil/XKUZkQbcBmIUhAV0eBNgl4uS7RuHqQZgEZaUyqm9eF6U
+         iqM9XoRCPV05nC6QV8VGqsoAvg/JS6ccSi4XP0eqqMTnUr347VkIYZWXOEYYJtpUCGAs
+         P4wqKyGTUoiook+7F+baiceuFKw5gQz5gP3+dH22w7NT1rfY/RhARBJV9yjfrk0TIF91
+         GNl5BUFcvfydv6C/pTVTwbC4SOxarf4LftOt2ICCEAS0L49EMp4mtTZ7XNjERgVO1tF0
+         8tYJ4BN7jWb4gZVPXzDZhIIcWkJFnzNJTAuGy1ZV04l5FnotcP2sh5xIQH7mq3AdE9st
+         cfZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790973768; x=1791578568;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=t8zMcjeud7Qi3pjmuZ+bReUAhacHTxYCcXspTMMKof8=;
+        b=sUKhLSL3USab4uyqJKi4Fb0jrb3ir0nJCzqTmwAFyf6NEZJjrBCGfqD9+033156NK1
+         2d+JwX1uz5Z0wVhImBpqUlaSlE9paGiLD3atOeiQw5hL96jNWMYJRZuAODARcJhuscSf
+         AIa+9Ig1EXq3uKCVgdcbwiS12BLjF7SM3DBzbr2+0fklR1OybThTy6fzMeFUhJT6Xggr
+         vlyoZVc+AfSC9HRXnoYHK5v4+juIB5NJPOaHw1UwW86GHdk6CzaLeDRcIytgIJoK6qA/
+         9ILMVbJJSsJ9Ztxt75cDYLbIpASY2V+VYIc/cl5xBZTRzphtwQ6HMT5aYapMHvstIbgW
+         Mz4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwJFSB1MEE6amKvcqlAB1qxxTLD4ay+UCOrkFT2V173thtr4sJZdj2L3STCHKMMJfvQl0CIP8XCwWOidrE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcdelbyxqOLjxG03PPAOLjA785ZHHO3EdF0BmAX1QTUdl43jP+
+	hJ6IukM7vljY6qWptlgMMtSaG2Zy8PU87DfKCZifBVWMuTgvcFwoEDP5Se4XqPXS+0I=
+X-Gm-Gg: AYBFou1LHKtgL1efWckPso3itjN9MAnxthI3+0eRaKPkLDzekD1wEUaHvFcuWwRSj0U
+	2XNv7OWxTMyAKfN+fFVkPTCdjLfAAnV2LmtG8X3VIln4xncGKSFn33+sUopybqzGSbyhsvXtap4
+	8Yv6dgK6qw0jafLhjnnLWFMVZpwVYjylnDVLEHk+Gv/UqC09rlxKq3MlRY4R5h+GgFVe23VC/FQ
+	E8JcbqfBt8iVZILuNKS9Xc+UKI08WD7FecI4RwswN1LShEsvjijJfok713JiO38dJ7UW4ByMC2O
+	+a2dNWuczw7KO7R+z2ystqVO+lqXa0GsG1sJyQq0fTksP/EeK/jaKPjKkzM+8iDcoTtb6d20Dui
+	zHDj5kNKejKhvq8gRKRIFVx1/QxMjFanKF4TxQRFTbyZUSANKb4cyXAqDS/P/AaoAqfMIGwiveH
+	DGTZRGc090xnIO1uWj3xsYRYNA4SEYKFHsC7aHDf3jQkzIKI/oXoAlCSaif/qQueqrtqwSeXPan
+	AwvbeHA8ck=
+X-Received: by 2002:a17:90b:254c:b0:3a0:cd4d:5133 with SMTP id 98e67ed59e1d1-3a6ce3ba9f9mr2700696a91.2.1790973768501;
+        Fri, 02 Oct 2026 13:42:48 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:7::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6ac83dsm12018545ad.40.2026.10.02.13.42.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 13:42:47 -0700 (PDT)
+Date: Fri, 2 Oct 2026 13:42:47 -0700
+From: Joe Damato <joe@dama.to>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [PATCH net-next v2 5/5] eea: Use 2-argument strscpy()
+Message-ID: <asAXR0eSlKPlT2Bd@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+References: <20261002100035.863275-1-andriy.shevchenko@linux.intel.com>
+ <20261002100035.863275-6-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002100035.863275-6-andriy.shevchenko@linux.intel.com>
 
-Linus,
+On Fri, Oct 02, 2026 at 11:59:23AM +0200, Andy Shevchenko wrote:
+> From: Andy Shevchenko <andy.shevchenko@gmail.com>
+> 
+> Use 2-argument strscpy(), which is not only shorter but also provides
+> an additional check that destination buffer is an array.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/net/ethernet/alibaba/eea/eea_adminq.c  | 4 ++--
+>  drivers/net/ethernet/alibaba/eea/eea_ethtool.c | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>
 
-Please consider pulling these smb client fixes for v7.3-rc6.  They fix
-a series of data corruption and I/O error bugs found by running
-generic/363 (fsx) in a loop against Windows Server 2022 and Samba.
-All -stable material.
-
-Thanks,
-Paulo
-
-----------------------------------------------------------------
-The following changes since commit f14572c203d57492e1d4e5d7851a3b143e083b82:
-
-  Merge tag 'cifs-fixes-7.3-rc5' of https://git.manguebit.org/linux (2026-09-25 13:30:04 -0700)
-
-are available in the Git repository at:
-
-  https://git.manguebit.org/linux tags/cifs-fixes-7.3-rc6
-
-for you to fetch changes up to 19465a9aeb664f1d710d0d22c07c31bfb7c85446:
-
-  smb: client: split cifsFileInfo bitfields to avoid shared-byte RMW races (2026-09-30 23:17:30 -0300)
-
-----------------------------------------------------------------
-smb client fixes for v7.3-rc6
-
- - Stop data dirtied past EOF through an mmap from reappearing as file
-   content once the file is extended by a write, truncate, zero range,
-   copy range or clone range
-
- - Flush dirty data and drain in-flight I/O before operations that
-   assume the pagecache and the server agree on the file: querying
-   allocated ranges, the O_TRUNC open, interior zero range, and
-   server-side copy/clone
-
- - Stop a genuine size-extending zero range or preallocate from being
-   refused with -EOPNOTSUPP when the inode is not read caching, by
-   querying the server's authoritative EOF instead of trusting a stale
-   cached i_size
-
- - Zero the untransferred tail of a short read, both in the netfs
-   read-gaps path (where stale folio content could otherwise be written
-   back to the server) and in the DIO/unbuffered read collector, and
-   tell a real EOF apart from a stale cached remote_i_size after a lease
-   downgrade
-
- - Require stable pages on signed connections so a buffered write can't
-   modify a folio whose signature has already been computed and is in
-   flight, which the server rejected with STATUS_ACCESS_DENIED and the
-   client surfaced as -EIO
-
- - Split several cifsFileInfo flags out of a shared bitfield byte so
-   concurrent updates taken under different locks no longer clobber each
-   other through a byte-level RMW
-
-----------------------------------------------------------------
-Frank Sorenson (1):
-      smb: client: split cifsFileInfo bitfields to avoid shared-byte RMW races
-
-Paulo Alcantara (15):
-      netfs: clear post-EOF pagecache when extending a file via write
-      smb: client: clear post-EOF pagecache when extending a file via truncate
-      smb: client: discard post-EOF pagecache when extending a file via zero range
-      smb: client: discard post-EOF pagecache when extending a file via copy range
-      smb: client: discard post-EOF pagecache when extending a file via clone range
-      smb: client: flush and commit data before querying allocated ranges
-      smb: client: drain outstanding I/O before truncating on O_TRUNC open
-      smb: client: flush dirty data before zeroing a range
-      smb: client: drain and invalidate before server-side copy/clone
-      smb: client: only require read lease for size-extending zero range
-      netfs: zero gaps in read-gaps folio to avoid writing back stale data
-      smb: client: only require read lease for size-extending preallocate
-      netfs: zero the tail of a short DIO/unbuffered read
-      smb: client: distinguish real EOF from a stale remote_i_size on read
-      smb: client: require stable pages for signed connections
-
- Documentation/filesystems/netfs_library.rst |  26 ++++++
- fs/netfs/buffered_read.c                    |   7 ++
- fs/netfs/buffered_write.c                   |   9 ++
- fs/netfs/direct_write.c                     |   9 ++
- fs/netfs/internal.h                         |   2 +
- fs/netfs/misc.c                             |  99 +++++++++++++++++++++
- fs/netfs/read_collect.c                     |  24 +++++
- fs/smb/client/cifsfs.c                      |  41 +++++++--
- fs/smb/client/cifsfs.h                      |   5 +-
- fs/smb/client/cifsglob.h                    |  10 +--
- fs/smb/client/file.c                        |   5 +-
- fs/smb/client/inode.c                       |  24 +++--
- fs/smb/client/smb2ops.c                     | 130 +++++++++++++++++++++-------
- fs/smb/client/smb2pdu.c                     |  10 ++-
- include/linux/netfs.h                       |   2 +
- 15 files changed, 347 insertions(+), 56 deletions(-)
+Reviewed-by: Joe Damato <joe@dama.to>
