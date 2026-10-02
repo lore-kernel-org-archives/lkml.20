@@ -1,74 +1,72 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BC448034C;
-	Fri,  2 Oct 2026 10:12:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0494374A12
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935969; cv=none; b=btdFJdNwpdjf9Utz/MjHqzV2RzmZzn+WrBE+YluHeWUdqowJCL/XiyDBgqZv4AFmcyQUw51epJcTqoLs1roqeo7KwjARKeIWAo75PurB05edvNsP9EB0YnX7XZzdS7VSY/5Rg+D17egy5mAxqLni3tDLoGUAE8BNf+P17ijXJ+A=
+	t=1790935997; cv=none; b=aJwY5OIZxPwFx897O6tJ2TDBGlW3NcDifPrWp+Qs3ZQGxxzZp+gC6yJ+rKnCavIx6nvh4um7IIQ4vZ+oYpZR4fNsKOdst4CN2JVdRZk+doqvoVKs6i9tLy91frH931C9HZc5wHYoe4blbYO6OZFnp2Sab5hfMuT8Yrcd39Upypc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935969; c=relaxed/simple;
-	bh=ELzx1Myt0HbycjxOUesaE4UMaAKuLIOUQrMmgEck3iM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HU5P9h9U1osGECsdRW1AQKQBC578AFBV+xxy06v7gYZ5OQwGbN+6oX/7L2CDqirMv1u2ITMkN11jxiTTyoVUTyzmbvXtXRXkuj+iHfYdJOq2Uuz91ryqyVuTlUG9QjUNPKQlVclFp7VIq03HghoTkiXhZ9HgeR+SAN0dGGzSlNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=V5qw1LVn; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1790935997; c=relaxed/simple;
+	bh=0TziyYKDj7lsy4oxuwEcSQRZvnxYwSWjNt9MaK2xNjE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HUx90PfC54/Om1XBjGVtMYNM+421BVl1I7uswc0NSU1jCxnHjPCkRXSECpbp0tEKh87Nlt0H/dAGCi2LdUZOrCFiEtp7SrvudP/6vJlcDWy43F2vZ8afWnRSfl4yuCGlrwPZKv/QH+7ZC3LNycedjzOZMXEv05X05UQJpM30/5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrsBYU7I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="V5qw1LVn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=O82th6InjMMx3QQFoBLa7VrOx3w6ri8p45sSvWxRJHE=; 
-	b=V5qw1LVngYI323NGZkU15q8M7mYZdWhLqzoAWVv/vRf+z5BaCjbW1TnAlZUktFXfBfRSqQzMbNy
-	gM4QwnQRSphefu98lW/Pb2j5d+8UOLoskMQXHGcxtOw6UwJZWAULV+ttiwGYC+wbqc4/Ze5TNX+5+
-	Pf7t2ihNeCNm6KzU3qKtP5FsOImfsjobxG87pxQLopuJc6ZVXHmF2S4Z0S6wxRMxbaQODlZ7Wp5Ym
-	+0fTO3HOUkeNzTCOeIDR+rjoBH6X31saJENkTrezSZ7fwCRYMKS9vuE1x3+JQRKsKaprGEJKdplL7
-	izOXn8mb/FkAv2vKxp2xgciRZfnw7ABWmK9A==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xCaFm-000000001hR-0TNC;
-	Fri, 02 Oct 2026 18:12:35 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 20:12:34 +1000
-Date: Fri, 2 Oct 2026 20:12:34 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Olivia Mackall <olivia@selenic.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Olivier Sobrie <olivier.sobrie@silexinsight.com>,
-	Waleed Ziad <waleed94ziad@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwrng: ba431 - fix reported byte count
-Message-ID: <ar-Dkl6ekb9pRb28@gondor.apana.org.au>
-References: <20260924093401.113713-2-blum@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrsBYU7I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A3B1F000FF;
+	Fri,  2 Oct 2026 10:13:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790935996;
+	bh=lI9xWGDFFQUiE5UlLBkEcybxf/qxmdHiV+cxfzBaT/4=;
+	h=From:To:Cc:Subject:Date;
+	b=YrsBYU7IKdnTMM7YivCTipqyGD/2I35egzjkUl5oSVPyqjLrGm2lFVgXJP9t4AKGt
+	 li1Un5woKIwktVROjI7CC1PnYpHnJZIs/FA8b64c4GDpNcbQZ3zRl5++oHOMM9J0pI
+	 YZ4Dg+kM+KXB/+JtQ91bMH1u9NazDOP5qFurm/gQu9pa+KPUouAFN2vTMscV4iEpnq
+	 kFPm/oswjULyE2dOp2x3PQVh2kGJf1xp56RSSZIoC6UaZbL/ebpxdhAThnlJBGBy8h
+	 TO656jJzpRxkOpk5w1J4199YWEP1ilZDK+ljIdYO1bd+vlYYN4tOnnQlhp0cCI/uwd
+	 spLRrlnUfvSMw==
+From: srini@kernel.org
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	Srinivas Kandagatla <srini@kernel.org>
+Subject: [PATCH 0/2] misc: fastrpc: patches for 7.4
+Date: Fri,  2 Oct 2026 11:13:00 +0100
+Message-ID: <20261002101302.1084243-1-srini@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924093401.113713-2-blum@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 11:33:59AM +0200, Thorsten Blum wrote:
-> Use the size of the buffer element instead of the pointer size to report
-> the number of bytes read. Since data is a u32 pointer and sizeof(data)
-> is 8 bytes on 64-bit systems, using the pointer size reports twice the
-> number of bytes actually read.
-> 
-> Fixes: 0289e9be5dc2 ("hwrng: ba431 - add support for BA431 hwrng")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/char/hw_random/ba431-rng.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+From: Srinivas Kandagatla <srini@kernel.org>
 
-Patch applied.  Thanks.
+Hi Greg,
+
+Here are few fastrpc patches for 7.4, Could you please queue
+these for 7.4.
+
+Patches include
+	- downgrade expected DSP info, reserved-memory and session
+	  messages to dev_dbg/ratelimited to reduce console noise
+	- switch to devm_of_reserved_mem_device_init() for proper
+	  release on device removal
+
+Thanks,
+Srini
+
+Jianping Li (1):
+  misc: fastrpc: Reduce console noise from expected DSP info, reserved
+    memory and session messages
+
+Mukesh Ojha (1):
+  misc: fastrpc: Use devm_of_reserved_mem_device_init()
+
+ drivers/misc/fastrpc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.53.0
+
