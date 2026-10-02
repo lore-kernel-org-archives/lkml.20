@@ -1,165 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921E94B95BA
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7C536F8E6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790964937; cv=none; b=T+oHeW0y6cc09FheqZ+JylEDcq65R0TQx1HCpu2U0vnCNfy9hdlpa7sZeMp/2I9NOEnCtHJltV2WQ3DNWL5wMvLhDa2Ukkrsmb27Hro0htACc65DMMw/b7nDnSp+ArIlZI7mSTmIqpORWNCfuu3kYpPY+NPIt/KLS6uGHJEGGnw=
+	t=1790965131; cv=none; b=fZiotYp3PmIq28xW9qXZ+tFR42df1ycSFbx+KTAbNMCrgqOT4uh9feTpoWCTDFHGLdN9uxjwx9d5h9XTREhm4ypijzYHuyP8Q1hfuV3sH9cFyojU5n3Spvg47nF+0AmgVGUDfIZO+7i5PgX+PM8D36NjFjHcJw4mfAl/CzyPd1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790964937; c=relaxed/simple;
-	bh=F0gGbR5q+8ZNBhlfJSYCuzbZi8ZLWTCZx4EKW1WC/hc=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=T1eC4aE7mPQ+2SUOTW9p0WC+TQ/cZoV2qjyrIF9I7V65TLapHOJkzx9pnyTZ5ATUlmDzPNVLm2FA46hMyIyA5x2Eh8427nzPkVtKZaX3S+m1Bj/02HIrng/Ob5a4hJpQEEekPdTfHL/LMcXdc5UueEH90bC1oCJQIkywU7x6G4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DBfcbRJk; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790965131; c=relaxed/simple;
+	bh=q1iSZPpA793Q+w4WY8YfDeHvEFRic5k335ibdfXa7qw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DURm25xD0NWnGWknYJrCvck+v7bqVEAUkSSafZrD819BHkNecH41SWhefQeJrqvsWSaa0LOe6mt+dxhEtowTHAhQGaBVJDObqtrRkVkrlPApWhykNficfcM5yaGZ8tDPrZb6cqvAgXPaOKQ0VZdWQ8cj7IIiYMG7ijRqALF2L3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=ipOQ2oYT; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DBfcbRJk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790964935; x=1822500935;
-  h=date:from:to:cc:subject:message-id;
-  bh=F0gGbR5q+8ZNBhlfJSYCuzbZi8ZLWTCZx4EKW1WC/hc=;
-  b=DBfcbRJkY0aUz0aP7Ivbtj8v43FsC+U8pSKM0DL1Vh5vwniS9xWbvKkc
-   Y7TAXRHvpo4Paj/CQkYX0MWgk7tzhbVtbPSw21Z7iSbSn/IN92iIDY535
-   xhEP1g29XvV6ThJWO5EBqW2FhcrpQUGHT767FmAsDZPko0IJCZ02jJP63
-   f7MREHQnIoVaU01EpbxJj5M7Wi8tqGCIWUCDUAN9xdxXVy6cZQWwLreS2
-   hIGkncDQpd+FTbjpW7ubAP32bRcDwkkR5V0NkvOU3hc4HjaWVkyI+HGVj
-   MfvlNvJSKviT5zLxQXlXbbMr7cH/lfct+ChpMi6nvm595LewTV3NmCotC
-   A==;
-X-CSE-ConnectionGUID: AICl503+TUalInMrIPkygg==
-X-CSE-MsgGUID: f0vGl5gzQKqc8Lm7+Qwkug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="91599820"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="91599820"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 11:15:35 -0700
-X-CSE-ConnectionGUID: q+Z50eV1TLuMVu36jwtG0g==
-X-CSE-MsgGUID: IxEcKs1TShGSmRNkonPsGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="314297726"
-Received: from igk-lkp-server01.igk.intel.com (HELO 3fb566d470b1) ([10.211.93.152])
-  by orviesa001.jf.intel.com with ESMTP; 02 Oct 2026 11:15:27 -0700
-Received: from kbuild by 3fb566d470b1 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xChn2-000000000i7-3hbW;
-	Fri, 02 Oct 2026 18:15:24 +0000
-Date: Fri, 02 Oct 2026 20:14:52 +0200
-From: kernel test robot <lkp@intel.com>
-To: Roman Li <Roman.Li@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: 
- drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c:1114
- dcn42_clk_mgr_construct() warn: inconsistent indenting
-Message-ID: <202610022042.MekHL73j-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="ipOQ2oYT"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6768a9fc0e8so336857d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:18:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790965127; x=1791569927; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q1iSZPpA793Q+w4WY8YfDeHvEFRic5k335ibdfXa7qw=;
+        b=ipOQ2oYT10gRk+wfaf5+PCoSCdiO8SBdZp8epf0/IL2QyWJ96EAIOWi/rGGD2ZV2Xv
+         +KktXFBQ9be8t5GEArI/G7Q75fq/b+iaMPjFM/6vJPlrToN/hXpNx8JMh7/VaB9AYEUF
+         e1auCzwb4uQv0NjxNARoUZHPD3bMqcOAQLGibVwapmdjDgOWZQYXjdsBosvIcy8MG7f5
+         InWUY3up1p649k9PX54XVzdcD0g8ZezKpqt7pexo+79JCoAljirRymzogyfWFOh+cdGp
+         8Dcoc0/mCXf6YQX8remHFyxdECFX+d26mtN8G+VA/H7BLpW4Tqan+faMdPo4ANKlmwg6
+         bEdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790965127; x=1791569927;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=q1iSZPpA793Q+w4WY8YfDeHvEFRic5k335ibdfXa7qw=;
+        b=gJhec0Iw7ofht5MENNVuHD8ijUCDCUs/WdAjqnRjwxkwbYd7iENVzKjQal0QsjjW95
+         O/72g73Y0tkcQ9uo6jUw1AvTJPvX4XtK9llHBwmC4x9gS7+Tg+kW4JIjGsUgmDV8uZeG
+         5y42OZ9L1gMX71+VPgGMgz0LdbrtMiMPiOH/5PwwEuvoM7GN8+AHMfC3C7qBRj1sBc/g
+         Tff3mrXtkEP+YSKUMJ+9VNX+NkO2vM/DanboniNV8MJcZP5MjEq3R8S4vimns1WJYuDl
+         ynazSi5s+BLF6sPsXoouoEyAnGip8HYil7ZVRrltkUeKcGdde40mg5kW66uCMoMfZuBd
+         HnaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwvuzXnrBzdMhkCUo/GbpDliJj2RUYh4jLPSYq7jApz3+WzdT+P9ZRVtIS4yhO+QaPTDe8LmY8T5ZKtK/8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9I/39Ezik4+wO5vE+tgiFprIsWcfOqCpjiBuTNgtJnTIIGn0v
+	BCkDDKR0BF/PDvV/GrhVSpDvyD5Xm8+m6N6WeOqMflcMMMiT8Zvis9UY/ZIoy/XtMuw=
+X-Gm-Gg: AYBFou28StqHMuUdf9CztuAHISXKfY3Qw8AI0wIePdl2qMjNhIUutg0hvPQ6ctjpDF7
+	KFnC5TJjIjqwEYufwmlxXVMDoKu3IYcxWE9OAM5yrCxmTXu705X4ipp8CtmHPiuq+A1gqoaNPEe
+	mWaVqU2A+O4eodTEwK3KwApmojgRFuQ/FTzWVp3h0pi+mLt/ZbUyz9f8/mmaI8HkJAUxt7mZcfG
+	dLOyyPFNbSlK/9QFjeV72fht8MeH8Hy+0E5YzzRGJEOTumxe/hceSMk8Ly4Et3PCEnBTX3l8YkA
+	jPAutUTiLDumr7XZN5cuf3fJ5Dq3Yf/72hQLvDrauojfbo9S0q6x3P1i9CWUtgePezzd+xdZd33
+	FhcySqq5HOprhaauec6kbIob9wns/0H+mXqZNk6NBwoO5Pd3qgn3cindq/LWlYL1SLlcMzD3ava
+	D20/5vg8BYBWx/K/u1gBk/9+tep/TSQiyKdAV1BqpGZ1R8rPlgbiC2SnIgp1lXPBNog0ek7i0FA
+	Hx2hf8JWct0kvScp88MMXmuiBKJ9BQ8RYgbftOpavp0LT72fBwcb33LIi/0ES8p62eJ0CDKPJTI
+	mgztLmmn2LtulF8uQ+4tl1PNCT2/GYo6xffggbbTCKHY5okdtoteDvprcy4=
+X-Received: by 2002:a05:690e:400c:b0:676:938c:5634 with SMTP id 956f58d0204a3-677bd328dbdmr179940d50.38.1790965127243;
+        Fri, 02 Oct 2026 11:18:47 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:ec77:47c8:250:c58? ([2600:1700:6476:1430:ec77:47c8:250:c58])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677ac50d04asm1467036d50.6.2026.10.02.11.18.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 11:18:46 -0700 (PDT)
+Message-ID: <e03cec7e17be27fde6b51957c61fb6958b9832ad.camel@dubeyko.com>
+Subject: Re: [PATCH v3 0/2] hfsplus, hfs: fix B-tree node leak on
+ hfs_btree_open() error path
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Mahmut Emin Kurhan <guvenlik@noroxi.com>, linux-fsdevel@vger.kernel.org
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 02 Oct 2026 11:18:43 -0700
+In-Reply-To: <20261001213807.1519745-1-guvenlik@noroxi.com>
+References: <0de056179e3e0a7c4ef525cdb143647b7493dc71.camel@dubeyko.com>
+	 <20261001213807.1519745-1-guvenlik@noroxi.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
-commit: 6b2dd7d37badd8bf076875397f9f39b494258ca7 drm/amd/display: Enable dcn42 DC
-date:   7 months ago
-config: i386-randconfig-r2201-20260923 (https://download.01.org/0day-ci/archive/20261002/202610022042.MekHL73j-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-smatch: v0.5.0-9187-g5189e3fb
+On Thu, 2026-10-01 at 23:38 +0200, Mahmut Emin Kurhan wrote:
+> This is v3 of the hfsplus/hfs B-tree node leak fix, rebased onto the
+> for-next branch of the HFS/HFS+ tree as requested.
+>=20
+> The leak is unchanged: hfs_btree_open() can fail after the head node
+> has
+> been inserted into tree->node_hash, and the error path does a bare
+> kfree(tree) without freeing the hashed nodes. The fix factors the
+> node-hash freeing out of hfs_btree_close() into hfs_bnode_hash_free()
+> and
+> calls it from both hfs_btree_close() and the hfs_btree_open() error
+> path.
+>=20
+> Changes since v2:
+> =C2=A0- rebased on for-next; the extracted helper now wraps the hash_lock
+> =C2=A0=C2=A0 serialized close loop introduced by commit dce0e0248205
+> ("hfs/hfsplus:
+> =C2=A0=C2=A0 serialize B-tree close against folio release") (Slava Dubeyk=
+o)
+> =C2=A0- on the open error path the tree is not published yet, so the lock
+> is
+> =C2=A0=C2=A0 uncontended but kept for consistency
+> =C2=A0- no functional change to the leak fix itself
+>=20
+> v2:
+> https://lore.kernel.org/linux-fsdevel/20260930232312.1405042-1-guvenlik@n=
+oroxi.com
+>=20
+> Mahmut Emin Kurhan (2):
+> =C2=A0 hfsplus: free cached B-tree nodes on hfs_btree_open() error path
+> =C2=A0 hfs: free cached B-tree nodes on hfs_btree_open() error path
+>=20
+> =C2=A0fs/hfs/btree.c=C2=A0=C2=A0=C2=A0=C2=A0 | 40 +++++++++++++++++++++++=
+-----------------
+> =C2=A0fs/hfsplus/btree.c | 41 +++++++++++++++++++++++------------------
+> =C2=A02 files changed, 46 insertions(+), 35 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 6b2dd7d37bad ("drm/amd/display: Enable dcn42 DC")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610022042.MekHL73j-lkp@intel.com/
+The patchset looks reasonable to me. Let me run xfstests for the
+patchset. I'll share the results ASAP.
 
-New smatch warnings:
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c:1114 dcn42_clk_mgr_construct() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:1060 dcn42_optimize_bandwidth() warn: inconsistent indenting
-
-Old smatch warnings:
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:279 dcn42_init_hw() error: we previously assumed 'dc->res_pool->funcs->update_bw_bounding_box' could be null (see line 274)
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:560 dcn42_program_rmcm_luts() warn: inconsistent indenting
-
-vim +1114 drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
-
-bd096a56da7cad1 Roman Li 2026-02-02  1077  
-bd096a56da7cad1 Roman Li 2026-02-02  1078  void dcn42_clk_mgr_construct(
-bd096a56da7cad1 Roman Li 2026-02-02  1079  		struct dc_context *ctx,
-bd096a56da7cad1 Roman Li 2026-02-02  1080  		struct clk_mgr_dcn42 *clk_mgr,
-bd096a56da7cad1 Roman Li 2026-02-02  1081  		struct pp_smu_funcs *pp_smu,
-bd096a56da7cad1 Roman Li 2026-02-02  1082  		struct dccg *dccg)
-bd096a56da7cad1 Roman Li 2026-02-02  1083  {
-bd096a56da7cad1 Roman Li 2026-02-02  1084  	clk_mgr->base.base.ctx = ctx;
-bd096a56da7cad1 Roman Li 2026-02-02  1085  	clk_mgr->base.base.funcs = &dcn42_funcs;
-bd096a56da7cad1 Roman Li 2026-02-02  1086  	clk_mgr->base.regs = &clk_mgr_regs_dcn42;
-bd096a56da7cad1 Roman Li 2026-02-02  1087  	clk_mgr->base.clk_mgr_shift = &clk_mgr_shift_dcn42;
-bd096a56da7cad1 Roman Li 2026-02-02  1088  	clk_mgr->base.clk_mgr_mask = &clk_mgr_mask_dcn42;
-bd096a56da7cad1 Roman Li 2026-02-02  1089  
-bd096a56da7cad1 Roman Li 2026-02-02  1090  	clk_mgr->base.pp_smu = pp_smu;
-bd096a56da7cad1 Roman Li 2026-02-02  1091  
-bd096a56da7cad1 Roman Li 2026-02-02  1092  	clk_mgr->base.dccg = dccg;
-bd096a56da7cad1 Roman Li 2026-02-02  1093  	clk_mgr->base.dfs_bypass_disp_clk = 0;
-bd096a56da7cad1 Roman Li 2026-02-02  1094  
-bd096a56da7cad1 Roman Li 2026-02-02  1095  	clk_mgr->base.dprefclk_ss_percentage = 0;
-bd096a56da7cad1 Roman Li 2026-02-02  1096  	clk_mgr->base.dprefclk_ss_divider = 1000;
-bd096a56da7cad1 Roman Li 2026-02-02  1097  	clk_mgr->base.ss_on_dprefclk = false;
-bd096a56da7cad1 Roman Li 2026-02-02  1098  	clk_mgr->base.dfs_ref_freq_khz = 48000; /*sync with pmfw*/
-bd096a56da7cad1 Roman Li 2026-02-02  1099  
-bd096a56da7cad1 Roman Li 2026-02-02  1100  	clk_mgr->smu_wm_set.wm_set = (struct dcn42_watermarks *)dm_helpers_allocate_gpu_mem(
-bd096a56da7cad1 Roman Li 2026-02-02  1101  				clk_mgr->base.base.ctx,
-bd096a56da7cad1 Roman Li 2026-02-02  1102  				DC_MEM_ALLOC_TYPE_GART,
-bd096a56da7cad1 Roman Li 2026-02-02  1103  				sizeof(struct dcn42_watermarks),
-bd096a56da7cad1 Roman Li 2026-02-02  1104  				&clk_mgr->smu_wm_set.mc_address.quad_part);
-bd096a56da7cad1 Roman Li 2026-02-02  1105  
-bd096a56da7cad1 Roman Li 2026-02-02  1106  	ASSERT(clk_mgr->smu_wm_set.wm_set);
-bd096a56da7cad1 Roman Li 2026-02-02  1107  
-bd096a56da7cad1 Roman Li 2026-02-02  1108  	/* Changed from DCN3.2_clock_frequency doc to match
-bd096a56da7cad1 Roman Li 2026-02-02  1109  	 * dcn32_dump_clk_registers from 4 * dentist_vco_freq_khz /
-bd096a56da7cad1 Roman Li 2026-02-02  1110  	 * dprefclk DID divider
-bd096a56da7cad1 Roman Li 2026-02-02  1111  	 */
-bd096a56da7cad1 Roman Li 2026-02-02  1112  	clk_mgr->base.base.dprefclk_khz = 600000;
-bd096a56da7cad1 Roman Li 2026-02-02  1113  
-bd096a56da7cad1 Roman Li 2026-02-02 @1114  		clk_mgr->base.smu_present = false;
-bd096a56da7cad1 Roman Li 2026-02-02  1115  
-bd096a56da7cad1 Roman Li 2026-02-02  1116  		if (ctx->dc_bios->integrated_info) {
-bd096a56da7cad1 Roman Li 2026-02-02  1117  			clk_mgr->base.base.dentist_vco_freq_khz = ctx->dc_bios->integrated_info->dentist_vco_freq;
-bd096a56da7cad1 Roman Li 2026-02-02  1118  
-bd096a56da7cad1 Roman Li 2026-02-02  1119  			if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
-bd096a56da7cad1 Roman Li 2026-02-02  1120  				dcn42_bw_params.wm_table = lpddr5_wm_table;
-bd096a56da7cad1 Roman Li 2026-02-02  1121  			else
-bd096a56da7cad1 Roman Li 2026-02-02  1122  				dcn42_bw_params.wm_table = ddr5_wm_table;
-bd096a56da7cad1 Roman Li 2026-02-02  1123  			dcn42_bw_params.vram_type = ctx->dc_bios->integrated_info->memory_type;
-bd096a56da7cad1 Roman Li 2026-02-02  1124  			dcn42_bw_params.dram_channel_width_bytes = ctx->dc_bios->integrated_info->memory_type == 0x22 ? 8 : 4;
-bd096a56da7cad1 Roman Li 2026-02-02  1125  			dcn42_bw_params.num_channels = ctx->dc_bios->integrated_info->ma_channel_number ? ctx->dc_bios->integrated_info->ma_channel_number : 4;
-bd096a56da7cad1 Roman Li 2026-02-02  1126  		}
-bd096a56da7cad1 Roman Li 2026-02-02  1127  		/* in case we don't get a value from the BIOS, use default */
-bd096a56da7cad1 Roman Li 2026-02-02  1128  		if (clk_mgr->base.base.dentist_vco_freq_khz == 0)
-bd096a56da7cad1 Roman Li 2026-02-02  1129  			clk_mgr->base.base.dentist_vco_freq_khz = 3000000; /* 3000MHz */
-bd096a56da7cad1 Roman Li 2026-02-02  1130  
-bd096a56da7cad1 Roman Li 2026-02-02  1131  		/* Saved clocks configured at boot for debug purposes */
-bd096a56da7cad1 Roman Li 2026-02-02  1132  		dcn42_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, clk_mgr);
-bd096a56da7cad1 Roman Li 2026-02-02  1133  
-bd096a56da7cad1 Roman Li 2026-02-02  1134  	if (clk_mgr->base.smu_present)
-bd096a56da7cad1 Roman Li 2026-02-02  1135  		clk_mgr->base.base.dprefclk_khz = dcn42_smu_get_dprefclk(&clk_mgr->base);
-bd096a56da7cad1 Roman Li 2026-02-02  1136  	clk_mgr->base.base.clks.ref_dtbclk_khz = 600000;
-bd096a56da7cad1 Roman Li 2026-02-02  1137  	dce_clock_read_ss_info(&clk_mgr->base);
-bd096a56da7cad1 Roman Li 2026-02-02  1138  	/*when clk src is from FCH, it could have ss, same clock src as DPREF clk*/
-bd096a56da7cad1 Roman Li 2026-02-02  1139  
-bd096a56da7cad1 Roman Li 2026-02-02  1140  	dcn42_read_ss_info_from_lut(&clk_mgr->base);
-bd096a56da7cad1 Roman Li 2026-02-02  1141  
-bd096a56da7cad1 Roman Li 2026-02-02  1142  	clk_mgr->base.base.bw_params = &dcn42_bw_params;
-bd096a56da7cad1 Roman Li 2026-02-02  1143  }
-bd096a56da7cad1 Roman Li 2026-02-02  1144  
-
-:::::: The code at line 1114 was first introduced by commit
-:::::: bd096a56da7cad1c93c0138a64478b43f5a94736 drm/amd/display: Add dcn42 DC resources
-
-:::::: TO: Roman Li <Roman.Li@amd.com>
-:::::: CC: Alex Deucher <alexander.deucher@amd.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Slava.
