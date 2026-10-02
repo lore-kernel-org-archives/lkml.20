@@ -1,176 +1,168 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6670353A73
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 05:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790919024; cv=pass; b=cY7oNj0Vrp0BZz7jPhY2gW05zkYPCigCeymRBUxGbkAqUW423W/BV6GFKp/Mayh2sQDAFcCfeHL07ramMnTIXVqgntYIMpkbB0Lyw3mwuCUNb3rjwQU62SFhx6fuvNzhabjuDRIkz5mzW1HhPWS5ODATJza3/jodFn4c3zbYDmY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790919024; c=relaxed/simple;
-	bh=2FN2drQCDcOIEhnWtNx7hv9cEpL2yj/Gwb4Ajj9yhKQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O77VdkqyhXmUAwCC5mbIGObzJm+Zj9Pv/RlQco0kDzAUyjAB8oxMj2BAuTkkkqH9FQPo+1aV04dTUfwbmFIH8Vy4g0EGjwH9i9NvJ/hGoPHwvFc0qVBffnvEGixuLyvYNJyZMyYQDnSf9G/GDpP1kX15+oQokyNIk37IFHzieo0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kdy8br0M; arc=pass smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kdy8br0M"
-Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-6756f62025aso4046441d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 22:30:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790919021; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AcKDanL5txLnkglinGtDY1wpEbX8GlOuVBT00W8i3OpEeflV2SMlrYr1fUCZyqwZa5
-         ngYqL2tqORo34yXuV3FVUPfeBK1DoiejGYUDdcnZnuzu3laA3arqzZgLS7BmZVlzwlo1
-         zJmBdXANtvkHOZTEtEcebWSvgZupUxgZes5P7m3b+FBP2h2IGWKei16YkZD7ivpidRPq
-         DNRZpmZvjZG6ZqWpkQ+aEumj6PuwzMy8B8lcIBvXHcToX/8FrLmpOUFsqO+K24Loqwht
-         E0YanG2uYaGI5tCBVdXgjhIXTGa1aM1vSMJOL66teovi67lrpK9ezPjjADJY7LNj9Du1
-         mGxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=j4RSpQmQv+xAXJttA29f+V90nwjJ9XXA1sdJdukgetA=;
-        fh=0oNBPofqayT6aj+OWkrZChFfO6vU1XqR07hBpoMnAlI=;
-        b=Q2Dfcnv1rZ5D/h6hUDcM/Jkbn9kdPwXydl8muP7klegW7Fg1e4AYgf8px62tBPvKHj
-         /6hMWVS3mL8RSJq/GV/9FX3aOjGbFStNMZRyaHIL9BDzexADI6Wsjx08GcBuuGl94J6t
-         IT4kPASEjYruMmaZYaKQDmWy9MxCIkTqG9BIyd5FDLFH1MAOHUiGV5EwzkQeyS1t71y7
-         PxZiXzkTc6stLwRa5DB3u8Eq7yZ6XcxIOWlQqA8M4mPlNdulckeD1GzlwY+lX02qNPYI
-         ZG2DYdLpkoixjhyguenFVSNVh0H4pLl1XHfhFoIXMVSRslYWTPciaEr+gjRGh7tzC6ss
-         kfmw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790919021; x=1791523821; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j4RSpQmQv+xAXJttA29f+V90nwjJ9XXA1sdJdukgetA=;
-        b=kdy8br0MEo8XgFOEeqaGH3yHZMfrKMfcclL3ElZSNJkXy3hsevJ2UIjxOdcdq2DteI
-         1DZ0+j5okspRpzQrzARc1pHT3rgbcMpVT9eXnCBGPIWH/4kF7RSXehR4CIrxrPsSxtNh
-         Z6SwLYwNNA2dut9JnzIYjKd3+05i0OrCJq9aU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3922609FD
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 05:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790919150; cv=none; b=a5+wu5JGEQG/KKZ6ox6dXawiCyVP6S46qrmdbHQQ6BL1245w6qSFavgjubQfwvYcJlEhr6IxYVwMqR9uK9fEM+o4DpF+2+k33/4Hscy9WxE55x7S/N3GLhlgBOLGIXb96Gcjd08/C4TMQmmfOtdDt4nWo1+OqsWo7U+MHWURg+0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790919150; c=relaxed/simple;
+	bh=2pSnaHR0dLqqhKvGwe1MH9NgzMKRsufCm8qL9qOs+Ew=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=p+Fwi2gairuq+UcnB6k2dI/1OGhDtzj7mBULDNV9ueDUr12gFSkKbmeIbTj7u+v077ZfiKGU/1f4rDranBZddGsD8n4ey0xI92gaHLZfIvzF3ZsxXwbs7dFHwwkLNJndnyy9Ft4/UE5wF6f2vIdwbUBjrKxVs/TmkVRxMYiJO8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-81447a16061so4254557a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 22:32:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790919021; x=1791523821;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790919148; x=1791523948;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j4RSpQmQv+xAXJttA29f+V90nwjJ9XXA1sdJdukgetA=;
-        b=IQeiw/xv7bM4aObCzILKnoOFAJNDRdAOfoo0K53bjCMYa6/ZRt5SzveC4xUxYNPey2
-         OGCbHaNLyobHFlZC0uww09TBX04K2OjE4qmMpxtLpShab5E6YE6zua5FuNse9Z92CEdA
-         iEmIxnz5GHpzUAVO+DJ1TNVM1Dkc299xFQQgHeUSA+Y7n/bRE1hOQmM62ANwUbaOQRMn
-         Fki1bNFzbM5XLIg5YyvHUj51CClvQs3yh5YX/iymb4r3vbv/QjsUiaig1a6kGOMpI44R
-         dGuMZgKPL0QWr2GmZAnHDOrjC1LG48i66nqu5JkrPXnv/35lEN3W44Wlvbt7ZWZuoo+b
-         Pt2w==
-X-Forwarded-Encrypted: i=1; AKwUvBx17XQneR5cApGA0k05eB28eFDmnJZZX38g0lS+QYtvHt8Jrgf1Yq+UkUcnoABGQ3FWRafi84fSxicd7Cc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJx0tmhEvlETQFebEX4BR+X9scXuaz0yOn/z5tE71AR0eeESt50
-	ayd1sPM1mRcwNAbohLArWQ4m2aUP6f3j2NucwJgFTuxnA07CNN6rCw5XsuYc8z85DwuKeMMwHRK
-	bVqHCWeZfHlcZ2hgr5kAU2pe7Dx4PdZ1h17EaztJg
-X-Gm-Gg: AYBFou3ESJ/G7rntwR38rsL+1vfhyVN0xwNwQYfBhmGsaHMAqOdyIVzOA95D8QS+N9d
-	LcMcCoccW02Kn++Xnp2NTwj1d4n3SuXdKyJUYGn+tOrcY4cplZcG/UkA5KW+T+iJ0RUWcfFb0SA
-	xxW4HEOtn7e/OdeOMNxJAhowjxlG3qlz9Z422OVcX62QXtk9T5yZpDiIWxRyNX0grFuaJ5clN8q
-	2HBYSAa//mmzbir6L73I6SpYyygnexcDLVjTY/yoWuEn38pb3DuDrOPo3zDIdPFJGvjVrAAFpCm
-	ydWxVdm7g1oYCRSg329xPwCcaK3dCMkroqyBPwS2qBgtFHTw+AIx48dymMZF7mIx0xJKZC3VjGR
-	FcPMUu/u1/qgKj5cIHT48
-X-Received: by 2002:a05:690e:169f:b0:677:aee3:424e with SMTP id
- 956f58d0204a3-677aee34305mr399083d50.43.1790919021591; Thu, 01 Oct 2026
- 22:30:21 -0700 (PDT)
+        bh=8fhLhuAHVPy61Xa+qU8I+dMZ+S9hoNa+YZFJU+sQNQE=;
+        b=q+baiRVvJNAfi7Oar2Rr4cy4DhVlYSsjc+skBAh/M4sVb4VaXNAemBZF9YdDQOQo2p
+         AWa8sMyPYQ7ETSEm1SXnBrz77YNcjZMaC9G0ScsGjGSYjP0bV6/WG9wEgU+S/igtWZD2
+         +3cBcoWSjQR/x3fQW5KdxSRiEd/lUMbm6EkTH+H6wmIirIeUpcHs8Opl46GC8rMRD052
+         i/rjvXaBHMOVPempjHZxQG9ixcoR3JIJuuEU6NOGoLqjSyhbsOABZGF3Rb2petu7R/T5
+         cLwmyDBVHOD/9AJ1IkznSzinX3pvRBdrhs1hbGeeoAe1YUxy9QzfKS50GoCVBBdcLZEj
+         bkvA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2LouJ3sPFFJAidql9rzhVm7xxuBFoX3H9CqqEvYnEo0ZpEVTsDv8zT/2vGuRF6pvRWqmlJtzDqHzizFQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpPIm2XBBZf5l0bPFpVe4YwJYgDj6mDERcQFVhVcGOEld1/h0p
+	DZb77Mh2FwGGExEoNoLLHi05TIJxLJnP7jjd6ArlhVH15jwn2SPKp5Sonw00KuF1/S8n1M3Q4Gr
+	XbAN54Rxbhwbhn+zoRy8RzPN5tHKrX0EHW4PZIqb8IdtWkuOlBR01BmXH1F0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001110630.1476797-1-wenst@chromium.org> <2026100144-defraud-subarctic-b726@gregkh>
-In-Reply-To: <2026100144-defraud-subarctic-b726@gregkh>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 2 Oct 2026 13:30:10 +0800
-X-Gm-Features: AclHuK8KtFG9iG6pzsLsK7sS5kycLBWn6HiRtg9sOfQ7De-Rt36thM7LOfPqgRA
-Message-ID: <CAGXv+5Feu=pR0tE7qWyBCTGhLufR8QTyjSo-+DAS5BQwaO4FQA@mail.gmail.com>
-Subject: Re: [PATCH v3] usb: hub: Set proper message when usb_hub_create_port_device()
- fails
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>
+X-Received: by 2002:a05:6808:c169:b0:4f4:724e:34d7 with SMTP id
+ 5614622812f47-4f529c2b58cmr1178960b6e.28.1790919147837; Thu, 01 Oct 2026
+ 22:32:27 -0700 (PDT)
+Date: Thu, 01 Oct 2026 22:32:27 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abf41eb.b50370da.302ea9.000a.GAE@google.com>
+Subject: [syzbot] [bluetooth?] general protection fault in rfcomm_dev_shutdown
+From: syzbot <syzbot+4a807caf7680652d53b6@syzkaller.appspotmail.com>
+To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 7:23=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Oct 01, 2026 at 07:06:30PM +0800, Chen-Yu Tsai wrote:
-> > Right now when usb_hub_create_port_device() fails, it prints a separate
-> > error message to say which port failed, but otherwise leaves 'message'
-> > set to the default "out of memory", which is somewhat misleading.
-> >
-> > Use a small buffer on the stack to put the custom formatted error messa=
-ge
-> > in and use it as the error message.
-> >
-> > Assisted-by: LLM # local reviews
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> > ---
-> > Changes since v2:
-> > - Simplify to just using a small buffer on the stack (Alan)
-> >
-> > Changes since v1:
-> > - Explicitly track and free the allocated custom error message instead
-> >   of using devm_kasprintf()
-> > - Link to v1:
-> >   https://lore.kernel.org/all/20260728100005.413868-1-wenst@chromium.or=
-g/
-> >
-> > Sorry Andy, I ended up not using your __free(kfree_const) patch. My LLM
-> > was telling me that it won't work correctly if CONFIG_USB=3Dm.
-> > ---
-> >  drivers/usb/core/hub.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> > index 0e929a4c9fa1..d7f39e86b24c 100644
-> > --- a/drivers/usb/core/hub.c
-> > +++ b/drivers/usb/core/hub.c
-> > @@ -1480,6 +1480,7 @@ static int hub_configure(struct usb_hub *hub,
-> >       unsigned int pipe;
-> >       int maxp, ret, i;
-> >       char *message =3D "out of memory";
-> > +     char msg_buf[32] =3D {};
->
-> Why are you initializing this?
+Hello,
 
-It seemed sane. I guess this probably isn't needed.
+syzbot found the following issue on:
 
-> >       unsigned unit_load;
-> >       unsigned full_load;
-> >       unsigned maxchild;
-> > @@ -1756,8 +1757,8 @@ static int hub_configure(struct usb_hub *hub,
-> >       for (i =3D 0; i < maxchild; i++) {
-> >               ret =3D usb_hub_create_port_device(hub, i + 1);
-> >               if (ret < 0) {
-> > -                     dev_err(hub->intfdev,
-> > -                             "couldn't create port%d device.\n", i + 1=
-);
-> > +                     snprintf(msg_buf, sizeof(msg_buf), "couldn't crea=
-te port%d device", i + 1);
-> > +                     message =3D msg_buf;
->
-> Please just do what the other errors do, set message to something else
-> and leave the dev_err() here.  That way no extra stack space is needed.
+HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=155ee3f5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=4a807caf7680652d53b6
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-OK.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-> And how did you hit this?
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/3e4fb9949c4f/disk-551c722f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/fc47c1d4ab50/vmlinux-551c722f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d29008ae09f9/bzImage-551c722f.xz
 
-My other series adding pwrseq to USB hub port power controls [1] would let
-usb_hub_create_port_device() return -EPROBE_DEFER if the pwrseq provider
-isn't available yet. Due to probe ordering it is always unavailable the
-first time around, as the regulator supplying the pwrseq device (M.2 slot)
-hasn't probed yet.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4a807caf7680652d53b6@syzkaller.appspotmail.com
 
-BTW that patch series really needs a look over from the USB maintainers.
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000008: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
+CPU: 1 UID: 0 PID: 9467 Comm: syz.4.1031 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+RIP: 0010:rfcomm_dev_shutdown+0x48/0xb0 net/bluetooth/rfcomm/tty.c:131
+Code: 8d b3 e0 03 00 00 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 26 32 48 f7 4d 8b 36 4d 8d 7e 40 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 09 32 48 f7 49 83 3f 00 74 16 e8
+RSP: 0018:ffffc90006937bf0 EFLAGS: 00010212
+RAX: 0000000000000008 RBX: ffff8880538c2000 RCX: 0000000000080000
+RDX: ffffc9000f182000 RSI: 0000000000000325 RDI: 0000000000000326
+RBP: 0000000000000400 R08: ffff8880538c2237 R09: 1ffff1100a718446
+R10: dffffc0000000000 R11: ffffffff8aefbc10 R12: dffffc0000000000
+R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000040
+FS:  00007f1514ff66c0(0000) GS:ffff888124dc8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000110c2cbda1 CR3: 0000000038298000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ tty_port_shutdown+0x1bf/0x220 drivers/tty/tty_port.c:372
+ tty_port_close+0x4e/0x150 drivers/tty/tty_port.c:705
+ tty_release+0x359/0x1670 drivers/tty/tty_io.c:1718
+ __fput+0x418/0xa50 fs/file_table.c:512
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f1516d9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f1514ff6028 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007f1517026090 RCX: 00007f1516d9e159
+RDX: 0000000000000000 RSI: ffffffffffffffff RDI: 0000000000000000
+RBP: 00007f1516e3506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f1517026128 R14: 00007f1517026090 R15: 00007fff99ef4628
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:rfcomm_dev_shutdown+0x48/0xb0 net/bluetooth/rfcomm/tty.c:131
+Code: 8d b3 e0 03 00 00 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 26 32 48 f7 4d 8b 36 4d 8d 7e 40 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 09 32 48 f7 49 83 3f 00 74 16 e8
+RSP: 0018:ffffc90006937bf0 EFLAGS: 00010212
+RAX: 0000000000000008 RBX: ffff8880538c2000 RCX: 0000000000080000
+RDX: ffffc9000f182000 RSI: 0000000000000325 RDI: 0000000000000326
+RBP: 0000000000000400 R08: ffff8880538c2237 R09: 1ffff1100a718446
+R10: dffffc0000000000 R11: ffffffff8aefbc10 R12: dffffc0000000000
+R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000040
+FS:  00007f1514ff66c0(0000) GS:ffff888124dc8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f508245e000 CR3: 0000000038298000 CR4: 0000000000350ef0
+----------------
+Code disassembly (best guess):
+   0:	8d b3 e0 03 00 00    	lea    0x3e0(%rbx),%esi
+   6:	4c 89 f0             	mov    %r14,%rax
+   9:	48 c1 e8 03          	shr    $0x3,%rax
+   d:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
+  12:	74 08                	je     0x1c
+  14:	4c 89 f7             	mov    %r14,%rdi
+  17:	e8 26 32 48 f7       	call   0xf7483242
+  1c:	4d 8b 36             	mov    (%r14),%r14
+  1f:	4d 8d 7e 40          	lea    0x40(%r14),%r15
+  23:	4c 89 f8             	mov    %r15,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+  2f:	74 08                	je     0x39
+  31:	4c 89 ff             	mov    %r15,%rdi
+  34:	e8 09 32 48 f7       	call   0xf7483242
+  39:	49 83 3f 00          	cmpq   $0x0,(%r15)
+  3d:	74 16                	je     0x55
+  3f:	e8                   	.byte 0xe8
 
 
-Thanks
-ChenYu
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-[1] https://lore.kernel.org/all/20260916075745.3549953-1-wenst@chromium.org=
-/
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
