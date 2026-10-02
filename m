@@ -1,73 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C24433F8BE;
-	Fri,  2 Oct 2026 11:58:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE2C33F8BE;
+	Fri,  2 Oct 2026 11:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942285; cv=none; b=fGrtJAFpxvHaBkKwY+FoZQmKGboS6rXzqm8yHwePE4rnB/vtBTnIkItp9ndQpdsSTt1KJUmjdPRSEgMIIiEeRhvzzjhjgEu/JF0eXLHbzM9zIGLhNf1Egd163K7d4NMW00ZO/pvZOO/ZBoDeYjNp+cr/870wqnPIS9oJTEfcnOs=
+	t=1790942303; cv=none; b=r76opVkdGsbWC0jksvuMSo7+LzP7VA+G6WvYePRKyHqQEUboWqqXskseRb9u9aSsIT9sjGqjwtqT8zpfbjD3qGMcQpBXQ6tHT4NsZsab3wWuuKn4uk3GTVo43mMYflmW/zOXtABLd1u5bqbOd75zNHbIkEhTu8ym3HEaECwXYsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942285; c=relaxed/simple;
-	bh=IDgVVrz2uLssWE5i/jVJJU+yOsHXT0qxmKJX/eAV9ww=;
+	s=arc-20240116; t=1790942303; c=relaxed/simple;
+	bh=y8jPDf+6mm3PC8XWaZvvFSGvCBKYymreyrtCjqLKE38=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=XGecFW7ql5HixASmWipehr9kv/Nw7r1BhlV9woZPByl73pUiReYgsJy8Qm1t9xbDG232RRBXviMPWxbPh7IQCpSzA1bcbHnKI7EtFlBTQfDNrn+g4S3zuyf1aBU+JjZLAzOg3O24gotapx4BbcnPrHvpGO11rLXAOj0VA9TQhLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9xiJsmn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=qxWj0GZzOn4kTyjiC/k9SrfyRZck6sqvL+76f9hIfoqXefnmQTWBn7a1Lmtt2tVDCHCFE8T7Saf2whE2JCbYT4LNvl5nAOTWKQqt8eQD696NRUYj+Hs7jBGoccKF8rmPpv/NtOpR4nBRlkbqWQR1rHsMigZmu+bPWLhYvC621Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCPAhEJ7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9xiJsmn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3343F1F000FF;
-	Fri,  2 Oct 2026 11:58:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCPAhEJ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6CC71F000FF;
+	Fri,  2 Oct 2026 11:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790942283;
-	bh=ydK8dbGhrgDhsj/8beDwLlAXJVHl8tc6mfeYtxgUlUw=;
+	s=k20260515; t=1790942301;
+	bh=hzkSbE7lAnQLxmBsoqCgYHqsGr6wmuyBs1kj6JBcB0o=;
 	h=Date:From:To:Cc:Subject;
-	b=A9xiJsmnYjQzhaGRCXOmUk24ByH4hUE9tNXS9lE2QwxVHvW1RLRI4Jxw7ONIdVmSx
-	 R8UGjiz1tMQaTr0ZzZcSX5zB5/Xl5OBTiOxt3rWxv/xDqJcTqqRMMOdQwt3SQfK39B
-	 WILbTy15+Dj36bXQ3dYSGvv2IWHoXkkZwaF8vtlewIvb1d3xrryxdTZ0hLgBJyWV4m
-	 a1WiqIMYKYhaqTmDpPpERFRFpiMPJiy2XL2WOajk9Uug+rgBHqB6oQgm/p3npbCpqv
-	 fJxX+Y+F3yz3/NYprbiLtY2QNYEqDMrsUvpl+ig4EHOX1ffGbKVapJ6VPvqPZ+1swN
-	 XPvYB/99WP6+w==
-Date: Fri, 2 Oct 2026 12:57:59 +0100
+	b=VCPAhEJ7TKw+7pjNfnQofcOaAfBCxZso9kEe4SLB9wbZ8DXIgBdYIxQ5JDatIUBZM
+	 fO5KZN2da8yAlrNUYeiZEPcbDgH4fUmceyHicvcjjGg1X5rX6WECR/3Az7ahylUJn/
+	 JN9+m/54FZaKyV1mxKWhZFqhM405OPqO6HxYpWlDLtkY2uCT9lOYY60GieLgqNnn75
+	 xlZ3Vf/MCMakvSCk+3SCt4/EnD9r1bFIy1nff/PbVpLpT2LquWv56te1/j+R0oO7ci
+	 UEeNy/nCkB+uIk2TbvbsGQxw/TKgQtHLGhfzOJ1V+GoQdxC6u8I8cqJ+vyjTx1WdLJ
+	 eeQy0M43epJCA==
+Date: Fri, 2 Oct 2026 12:58:18 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kevin Hilman <khilman@baylibre.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	soc@lists.linux.dev, Thomas Huth <thuth@redhat.com>
-Subject: linux-next: manual merge of the omap tree with the arm-soc tree
-Message-ID: <ar-cR1FLtZBS7dpn@sirena.org.uk>
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: linux-next: manual merge of the rust-timekeeping tree with the rust
+ tree
+Message-ID: <ar-cWpOhcuo85ttt@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3hBYHKv2gBJELt6+"
-Content-Disposition: inline
-
-
---3hBYHKv2gBJELt6+
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
 Hi all,
 
-FIXME: Add author(s)/SOB of conflicting commits.
 
-Today's linux-next merge of the omap tree got a conflict in:
-
-  arch/arm/mach-omap2/control.h
+  rust/kernel/Kconfig.test
 
 between commit:
 
-  cbd33c61480b8 ("ARM: omap2: remove omap24xx support")
+  cd56a1c858ff3 ("rust: bug: add a KUnit test for warn_on!")
 
-=66rom the arm-soc tree and commit:
+from the rust tree and commit:
 
-  9d458ad3ec155 ("ARM: OMAP2+: Replace __ASSEMBLY__ with __ASSEMBLER__")
+  a9aba476d42df ("rust: time: add Delta::to_jiffies_timeout() for timeout conversion")
 
-=66rom the omap tree.
+from the rust-timekeeping tree.
 
 I fixed it up (see below) and can carry the fix as necessary. This
 is now fixed as far as linux-next is concerned, but any non trivial
@@ -76,37 +67,26 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --cc arch/arm/mach-omap2/control.h
-index 3ab1c6e6dde67,e4f4b16958084..0000000000000
---- a/arch/arm/mach-omap2/control.h
-+++ b/arch/arm/mach-omap2/control.h
-@@@ -18,7 -18,11 +18,7 @@@
- =20
-  #include "am33xx.h"
- =20
-- #ifndef __ASSEMBLY__
-+ #ifndef __ASSEMBLER__
- -#define OMAP242X_CTRL_REGADDR(reg)					\
- -		OMAP2_L4_IO_ADDRESS(OMAP242X_CTRL_BASE + (reg))
- -#define OMAP243X_CTRL_REGADDR(reg)					\
- -		OMAP2_L4_IO_ADDRESS(OMAP243X_CTRL_BASE + (reg))
-  #define OMAP343X_CTRL_REGADDR(reg)					\
-  		OMAP2_L4_IO_ADDRESS(OMAP343X_CTRL_BASE + (reg))
-  #define AM33XX_CTRL_REGADDR(reg)					\
-
---3hBYHKv2gBJELt6+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq/nEYACgkQJNaLcl1U
-h9DlKgf/RBOJ++/ASMoO8BYHxt4kuPobQ0Q03Piw9PJ3kdyV3lTju1LRjpqn2ECF
-7/teDjHbWcr5I0wuRNJ8wpCwm/slnAZbtOSxX4fUYfgbPQutFsRjSvxhPH1ZyGWa
-0VlJqzJKTuqXJQLTViZ0VWOmAgbbRvzCHl/U0EWSiMQq6xlbNG1CzB3VWUUbH/nt
-ksNGfXTZQOE3K8x9kEGtxJ/X2gxv/wkr+mHtH+wv32aeDGSJTU3maPFsPNUalmWD
-mcSwSi57dTkS9hQQCifZLlzX3yZ7uLEER+yQkRhkx3SQuwHbokMxee7TTmxXdYpL
-SNFFLdksm0/hOIS0jGfAcp6vV9aL2Q==
-=DjnY
------END PGP SIGNATURE-----
-
---3hBYHKv2gBJELt6+--
+diff --cc rust/kernel/Kconfig.test
+index 966b07872ba15,0087749995d2b..0000000000000
+--- a/rust/kernel/Kconfig.test
++++ b/rust/kernel/Kconfig.test
+@@@ -83,12 -83,11 +83,18 @@@ config RUST_BITFIELD_KUNIT_TES
+  
+  	  If unsure, say N.
+  
+ +config RUST_BUG_KUNIT_TEST
+ +	bool "KUnit tests for the Rust BUG/WARN functionality" if !KUNIT_ALL_TESTS
+ +	depends on BUG
+ +	default KUNIT_ALL_TESTS
+ +	help
+ +	  This option enables KUnit tests for the Rust BUG/WARN functionality.
+++
++ config RUST_TIME_KUNIT_TEST
++ 	bool "KUnit tests for the Rust time API" if !KUNIT_ALL_TESTS
++ 	default KUNIT_ALL_TESTS
++ 	help
++ 	  This option enables KUnit tests for the Rust time API.
+  	  These are only for development and testing, not for regular
+  	  kernel use cases.
+  
