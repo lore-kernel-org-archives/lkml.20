@@ -1,307 +1,116 @@
-Received: from mail-wr2-f18.google.com (mail-wr2-f18.google.com [74.125.225.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AFB3EFD07
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB5E42B301;
+	Fri,  2 Oct 2026 23:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790982652; cv=none; b=MHEbxTg1A3wYZLYGmFi+BC1+1TGtruulrgdCvoGxnVRNBTnFNBh8mIOKUTGkZX0UGdIO09hfNHzxpwOwAT9RZLe2w4143pfJsUBeZmjwydqeNkO66gnDV106B/9bazZcrabsUcIDJTDlWRIEXS/wjNl9mde7335Y7u6daNAwnPI=
+	t=1790982694; cv=none; b=tP9v+bPHs+LeUp70BMQ5SoVNl1+SZD+D+2hGoFDWsnoH1Su2wyJy3CYO3pujdHGj+VcpAoJldxmUqOQQDj/oSmLMNMGd13wxps07zjO+vellnBg9t4i8KCwZTEPn29kNQy10mJr1maEigi8xQPsIefQsiVVWb/gR8wJV9bddZAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790982652; c=relaxed/simple;
-	bh=NpmzQmIY13xWYtyfBz/1J0Ez76d7G6HcJmDQiz1+ri4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UXqpry+aBb4J3omT5bwYwMcC2sqpKhk5MgjD+nGN1TFXiFN4cd0SMY2wsdJKq6Ui+WcG4afK12iFf9n/aCLfPRStiRlEPJf8SbgZ0WSu3X3Rzvx1YttezwL537SwZ+QRk5Q7UL0zH5uqtkj5BpAtnE6Bfn4zAzFaSRXLKGWcu/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QNuDzr4A; arc=none smtp.client-ip=74.125.225.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790982694; c=relaxed/simple;
+	bh=AuGTrggSMMdoLaFPyZC7inBFjquZSoja7nsY11s+2D0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NSMJg2nBzkOmv7Ax/RgcnGxT8X0ysWLanSk6QPnqOWuDH0ArsZciWi4/7nJetAYmp2vlD198ieGjwoKJeLylNthSZ/SQp+gCvQJn3jXEM4CUCcq5dMyEVIbOAhEmY/+QQwfaA2yOFYFTgSmKJsfNPt94LXWzMuwU/ZmWV53gHqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlKtFw36; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNuDzr4A"
-Received: by mail-wr2-f18.google.com with SMTP id ffacd0b85a97d-48b0fc598f8so208540f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:10:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790982649; x=1791587449; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ws6bJPQmVcNrG3rQzGbCXRbhstrZhw8G1K1q80pps2I=;
-        b=QNuDzr4AkHE50nYWW7Y+NGbFVAx4L8LspGP8w1XI976bPm0vt92r1ZG3Ne+DLa18ul
-         KdCAKEUjV8eOy3DPHZjxCnfHO9JoIhTCrs+Xa0wbWB5O4sifAQ+BstZnNVBG5vZn7eTU
-         6+f/mK99lCpN9d/Jj7BP3PqWu5ZeXZxQB61qQZzmQTBByhm2VTKQh2IJc01M8zeH3mG+
-         hdSk/lqqcaORxwky3F7sk3m5AP0Su5+ZSiNfnaJ6cd9QpdTVXn+q7S0XyQQNgoKnwbIu
-         KeDAwf6T1/eiDYjNV7dQrXvHe4oyS/nzGlcplP3i+9ds8GVpDSTgUl87HrxNdTGZQZxc
-         lqBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790982649; x=1791587449;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ws6bJPQmVcNrG3rQzGbCXRbhstrZhw8G1K1q80pps2I=;
-        b=ImFfN/MR5Qm4vZOCcGasSL5c6ugNP4OG0wiojnW6+GGqqAbQzNFyLqe1mQZw+6Aadj
-         qP68l5TceodhlQvfKDRcGDJZufeTbGfZOCLzR8ePejcLszE++Rk+Promft0aYp7zZ9zY
-         ur9JnXkEtqPhHuVRgMsSQ5rFzGzPKqPFV8+kfifouLybEpugr71E/Y8pxMQLggKicaim
-         U8WL2iCXsdKq0vIV6dUpkDNIsRcUnCZFqjKttJqsFIs2ciBqfMZHZMkZkLIX+gwJpi8e
-         22pcnUIIEmcx/u1XPfczKxjjrxNJDH8aDT8ruIfUX+jnCt66LaLM1kEeNr65pAcqaV81
-         f3mg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdOhpVktV6Ygzw6xsBUbBsMKqNMnv7YKuphlPVKlqXDBO9gC0wmbARpqE8Wd56Yw7zeIRBKACmPRLvGfQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ19ozKb1AHvqjkh9nIUcJjJQtqgSzbc5oM3aT8e2zvoSle58vN
-	AEIvgQv6yByIDGq9qLqMO5cjAF0jZTnTbvLRQDBRtKKBvX6JNx9rzxXd
-X-Gm-Gg: AYBFou0YKhB/gvKXX5TefU+BC72D7DDTmc0E/kbcNKXKBVNfDyeH6uWd4lwDUX9Vco9
-	Q0ZCNdgjxcqc2SCNgsmwBsnQZzn2t+hK2DKkP1+UIHaN0igmN5uwzN3msF2Ays74SkLmSgZ0Gd7
-	5GuaTyzrY8LY4FEGpz9gK/mvkYfR39Bckr9XkRqjrhd74c5yJCQlMxDpyRebWxXevD3quUO3txX
-	shOvz1ATlUw1BNCLfSURouhOp5JuvKchpMHvEnKVqm8TpiNgXvPUOK9ryc41g4kVyb012IbfmVh
-	wSYzagqpWc1QByYEm2hCEhqk/R31XVU5+L0OviCtZjNi1W20aA/9IEHITPxP3hU1Vlc+SGFwj81
-	VXYIhIYswVcI0iO0RPi/Eymvfy6rJKFjVkLrfREKsrMfNgemj05wWez3Xc5e4D6Iw31lgObbs0f
-	po0rRwckKvbDYLC2H1cYRHc+R20jPLaf50ZmQvkl5HUboAsB5o25yeQ901bP6L2xFl9RJm9sGl3
-	nkXyKcIlE9NV11QQMtLXNZvq3Zqkj+MitQFddrAzsfW/QAEroCsFf+izjAQslqQ8Qm9pNc9HJjx
-	m3HD4A6li5syOyI7iG9u3w==
-X-Received: by 2002:a05:6000:2287:b0:48a:f5ab:4ad6 with SMTP id ffacd0b85a97d-48b12754112mr7380951f8f.15.1790982648666;
-        Fri, 02 Oct 2026 16:10:48 -0700 (PDT)
-Received: from omarchy ([2a02:ff0:1e10:93f:ce47:40ff:fef1:ce77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fab11sm8372266f8f.16.2026.10.02.16.10.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 16:10:48 -0700 (PDT)
-From: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
-To: pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlKtFw36"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262921F00893;
+	Fri,  2 Oct 2026 23:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790982693;
+	bh=il8A1RVRfAP3LmRZEt7D66Nfnu4TVGi121lkczSMSiQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JlKtFw36eMlMokCbuuuhmSgbjFdvD0tBMPp4BfTVPh4znMWqlOezpIfvnGghA7Lt9
+	 1/ulIEAd9JSdiW2+8S9+59b7c1R5f1loUnQMEet6ohlEp9rT80vC6BxYfkihNGWSHH
+	 GhTejv/kjnALRVLtt7jKiCmLct37U6U78GlulMI4tRTIl3ioPWHlYZdpD39ONoDZjC
+	 wGGtCMaf+yyp1cYUQzEsBgJOJUUtK5Z9hqmKDhrtNSomzwyGtE+YMUoz3AVBWmfhOz
+	 jF0zD+5Jkk4eP3lU5K+TtK4ZF/29zAaLrA+ODnU+QiQXToxOyBESzh7HW6OflkMYDL
+	 OhYhb6szA80uw==
+From: Kees Cook <kees@kernel.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-mm@kvack.org,
+	Pedro Falcato <pfalcato@suse.de>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	linux-hardening@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Mina Almasry <almasrymina@google.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
 	linux-kernel@vger.kernel.org,
-	rtl8821cerfe2@gmail.com,
-	Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
-Subject: [PATCH rtw-next 2/2] wifi: rtw88: pci: warn when a TX ring stops advancing
-Date: Sat,  3 Oct 2026 02:10:13 +0300
-Message-ID: <20261002231013.11792-3-abdurrahmankaradag19@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002231013.11792-1-abdurrahmankaradag19@gmail.com>
-References: <20261002231013.11792-1-abdurrahmankaradag19@gmail.com>
+	cgroups@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next v5 1/7] mm/slab: Mark the kmem_buckets_create() context as a Context: section
+Date: Fri,  2 Oct 2026 16:11:21 -0700
+Message-Id: <20261002231132.1646573-1-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261002231120.late.500-kees@kernel.org>
+References: <20261002231120.late.500-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1768; i=kees@kernel.org; h=from:subject; bh=AuGTrggSMMdoLaFPyZC7inBFjquZSoja7nsY11s+2D0=; b=owGbwMvMwCVmps19z/KJym7G02pJDFkHrGSLN2YfELwjaF+9xSuq945av3Z70zMbxZzA3XpLR C84B2/oKGVhEONikBVTZAmyc49z8XjbHu4+VxFmDisTyBAGLk4BmMj/3wz/y/i2W0Ve4VA4uefW tHu/j8hE5eiVPDzOc8TywXvtMDvLFYwM0/k2L172aIVZ9fylfqsrn0V4f+0p/2MleMr164qMbzG F/AA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
-On RTL8821CE the hardware read index of a TX ring can stop moving while
-the driver keeps submitting descriptors. The link stays associated and
-RX keeps working, so from userspace this is a dead network with no
-explanation: ping and curl report 100% loss and nothing appears in the
-log.
+kmem_buckets_create() had the same sentence about calling context as
+kmem_cache_create(), but lacked the "Context:" prefix, so kernel-doc
+rendered in the body instead of as a "context" section.
 
-A watchdog dumping the TXBD registers caught five of these across three
-boots, all with station power save off and REG_TXPAUSE at 0x00. Two
-examples:
+Give it the missing prefix. Additionally fix the "a interrupt" typo
+__kmem_cache_create_args() had.
 
-    2026-08-28 22:05  BEQ 0x3a8: 0x003c003a, unchanged over four
-                      samples; read index 0x3c, write index 0x3a, one
-                      descriptor free, so avail_desc() < 2 had already
-                      stopped the BE queue
-    2026-09-14 17:48  BEQ 0x3a8: 0x00c9004c -> 0x00c90068; read index
-                      0xc9 frozen while the write index ran from 0x4c
-                      to 0x68, 124 descriptors free falling to 96
-
-The second is the more common shape: the ring is still mostly empty and
-no limit has been reached, yet traffic is already gone. Rewriting the
-host write index does not restart it, so simply reissuing the doorbell
-is not sufficient to recover the condition.
-
-This patch does not recover from it either; I do not have data showing
-which recovery works. It only makes the condition visible: once per
-watchdog round, compare each AC ring's hardware read index with the
-driver's write index, and warn if it has not moved for three rounds
-while descriptors are in flight.
-
-Only the four AC rings are checked. BCN has no index register, and
-MGMT, HI0 and H2C are drained on events of their own - HI0 in
-particular is the after-DTIM group queue in AP mode and may
-legitimately sit still for a whole DTIM interval. The hardware read
-index and a snapshot of the host write index are taken together under
-irq_lock, so a submission cannot change the write index between the
-two. The check is not run while scanning, because rtw_watch_dog_work()
-returns before reaching it. A ring with nothing in flight has read
-index equal to write index and is skipped, so an idle device is never
-reported. The recorded history is discarded whenever the ring is empty,
-whenever REG_TXPAUSE is set and when the rings are reset, since samples
-from before say nothing about the ones after. The warning is emitted
-once per episode and rearms as soon as the index moves.
-
-This is the detection half of a patch I sent and withdrew in September;
-the doorbell rewrite it used as recovery turned out not to work, and is
-gone.
-
-Signed-off-by: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
+Fixes: b32801d1255be ("mm/slab: Introduce kmem_buckets_create() and family")
+Assisted-by: LLM
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Hao Li <hao.li@linux.dev>
+Signed-off-by: Kees Cook <kees@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw88/hci.h  |  7 ++
- drivers/net/wireless/realtek/rtw88/main.c |  2 +
- drivers/net/wireless/realtek/rtw88/pci.c  | 83 +++++++++++++++++++++++
- drivers/net/wireless/realtek/rtw88/pci.h  |  3 +
- 4 files changed, 95 insertions(+)
+ mm/slab_common.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/hci.h b/drivers/net/wireless/realtek/rtw88/hci.h
-index d4bee9c..432333e 100644
---- a/drivers/net/wireless/realtek/rtw88/hci.h
-+++ b/drivers/net/wireless/realtek/rtw88/hci.h
-@@ -12,6 +12,7 @@ struct rtw_hci_ops {
- 			struct sk_buff *skb);
- 	void (*tx_kick_off)(struct rtw_dev *rtwdev);
- 	void (*flush_queues)(struct rtw_dev *rtwdev, u32 queues, bool drop);
-+	void (*tx_stall_check)(struct rtw_dev *rtwdev);
- 	int (*setup)(struct rtw_dev *rtwdev);
- 	int (*start)(struct rtw_dev *rtwdev);
- 	void (*stop)(struct rtw_dev *rtwdev);
-@@ -271,6 +272,12 @@ static inline enum rtw_hci_type rtw_hci_type(struct rtw_dev *rtwdev)
- 	return rtwdev->hci.type;
- }
- 
-+static inline void rtw_hci_tx_stall_check(struct rtw_dev *rtwdev)
-+{
-+	if (rtwdev->hci.ops->tx_stall_check)
-+		rtwdev->hci.ops->tx_stall_check(rtwdev);
-+}
-+
- static inline void rtw_hci_flush_queues(struct rtw_dev *rtwdev, u32 queues,
- 					bool drop)
- {
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index 0f23498..a6adbda 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -273,6 +273,8 @@ static void rtw_watch_dog_work(struct work_struct *work)
- 
- 	/* make sure BB/RF is working for dynamic mech */
- 	rtw_leave_lps(rtwdev);
-+
-+	rtw_hci_tx_stall_check(rtwdev);
- 	rtw_coex_wl_status_check(rtwdev);
- 	rtw_coex_query_bt_hid_list(rtwdev);
- 	rtw_coex_active_query_bt_info(rtwdev);
-diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wireless/realtek/rtw88/pci.c
-index ff751bf..50c9fae 100644
---- a/drivers/net/wireless/realtek/rtw88/pci.c
-+++ b/drivers/net/wireless/realtek/rtw88/pci.c
-@@ -473,6 +473,13 @@ static void rtw_pci_reset_buf_desc(struct rtw_dev *rtwdev)
- 				BIT_CLR_H2CQ_HOST_IDX | BIT_CLR_H2CQ_HW_IDX);
- }
- 
-+static void rtw_pci_tx_stall_reset(struct rtw_pci_tx_ring *ring)
-+{
-+	ring->last_rp = U32_MAX;
-+	ring->stall_rounds = 0;
-+	ring->stall_warned = false;
-+}
-+
- static void rtw_pci_wake_stopped_queues(struct rtw_dev *rtwdev,
- 					struct rtw_pci_tx_ring *ring)
- {
-@@ -503,6 +510,8 @@ static void rtw_pci_reset_trx_ring(struct rtw_dev *rtwdev)
- 	for (queue = 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
- 		ring = &rtwpci->tx_rings[queue];
- 
-+		rtw_pci_tx_stall_reset(ring);
-+
- 		if (!ring->queue_stopped)
- 			continue;
- 
-@@ -819,6 +828,79 @@ static void rtw_pci_tx_kick_off_queue(struct rtw_dev *rtwdev,
- 	spin_unlock_bh(&rtwpci->irq_lock);
- }
- 
-+/*
-+ * A TX ring with descriptors in flight advances its read index within
-+ * milliseconds. When the hardware stops consuming them the ring just goes
-+ * quiet: the link stays associated, RX keeps working, and nothing says that
-+ * TX has died until the ring fills and the queue is stopped. Report it once
-+ * per episode, where an episode ends as soon as the read index moves again.
-+ *
-+ * Only the four AC rings are checked. BCN has no index register, and MGMT,
-+ * HI0 and H2C are drained on events of their own - HI0 in particular is the
-+ * after-DTIM group queue in AP mode and may legitimately sit still for a
-+ * whole DTIM interval.
-+ */
-+#define RTW_PCI_TX_STALL_ROUNDS		3
-+
-+static void rtw_pci_tx_stall_check(struct rtw_dev *rtwdev)
-+{
-+	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
-+	struct rtw_pci_tx_ring *ring;
-+	u32 bd_idx, cur_rp, wp;
-+	bool paused;
-+	u8 queue;
-+
-+	paused = rtw_read8(rtwdev, REG_TXPAUSE);
-+
-+	for (queue = RTW_TX_QUEUE_BK; queue <= RTW_TX_QUEUE_VO; queue++) {
-+		ring = &rtwpci->tx_rings[queue];
-+
-+		/* a paused ring is not advancing on purpose, and samples
-+		 * taken before the pause say nothing about the ones after
-+		 */
-+		if (paused) {
-+			rtw_pci_tx_stall_reset(ring);
-+			continue;
-+		}
-+
-+		spin_lock_bh(&rtwpci->irq_lock);
-+		bd_idx = rtw_read32(rtwdev, rtw_pci_tx_queue_idx_addr[queue]);
-+		cur_rp = (bd_idx >> 16) & TRX_BD_IDX_MASK;
-+		wp = ring->r.wp;
-+		spin_unlock_bh(&rtwpci->irq_lock);
-+
-+		/* nothing in flight, so there is no observation to carry
-+		 * into the next round
-+		 */
-+		if (cur_rp == wp) {
-+			rtw_pci_tx_stall_reset(ring);
-+			continue;
-+		}
-+
-+		/* the ring is draining. last_rp is U32_MAX until the first
-+		 * sample with descriptors in flight, and no index can equal
-+		 * that, so that sample lands here and only records.
-+		 */
-+		if (cur_rp != ring->last_rp) {
-+			ring->last_rp = cur_rp;
-+			ring->stall_rounds = 0;
-+			ring->stall_warned = false;
-+			continue;
-+		}
-+
-+		if (ring->stall_warned)
-+			continue;
-+
-+		if (++ring->stall_rounds >= RTW_PCI_TX_STALL_ROUNDS) {
-+			ring->stall_warned = true;
-+			rtw_warn(rtwdev,
-+				 "tx ring %u: read index unchanged at 0x%03x for %u watchdog rounds, write index 0x%03x, %d descriptors free\n",
-+				 queue, cur_rp, ring->stall_rounds, wp,
-+				 avail_desc(wp, cur_rp, ring->r.len));
-+		}
-+	}
-+}
-+
- static void rtw_pci_tx_kick_off(struct rtw_dev *rtwdev)
- {
- 	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
-@@ -1637,6 +1719,7 @@ static const struct rtw_hci_ops rtw_pci_ops = {
- 	.tx_write = rtw_pci_tx_write,
- 	.tx_kick_off = rtw_pci_tx_kick_off,
- 	.flush_queues = rtw_pci_flush_queues,
-+	.tx_stall_check = rtw_pci_tx_stall_check,
- 	.setup = rtw_pci_setup,
- 	.start = rtw_pci_start,
- 	.stop = rtw_pci_stop,
-diff --git a/drivers/net/wireless/realtek/rtw88/pci.h b/drivers/net/wireless/realtek/rtw88/pci.h
-index 04630d1..c6c9a63 100644
---- a/drivers/net/wireless/realtek/rtw88/pci.h
-+++ b/drivers/net/wireless/realtek/rtw88/pci.h
-@@ -189,6 +189,9 @@ struct rtw_pci_tx_ring {
- 	struct sk_buff_head queue;
- 	bool queue_stopped;
- 	unsigned long stopped_queues;
-+	u32 last_rp;
-+	u8 stall_rounds;
-+	bool stall_warned;
- };
- 
- struct rtw_pci_rx_buffer_desc {
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index b19ba1b31484..270408ce5a9d 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -311,7 +311,7 @@ __kmem_cache_alias(const char *name, unsigned int size, slab_flags_t flags,
+  * &SLAB_TYPESAFE_BY_RCU - Slab page (not individual objects) freeing delayed
+  * by a grace period - see the full description before using.
+  *
+- * Context: Cannot be called within a interrupt, but can be interrupted.
++ * Context: Cannot be called within an interrupt, but can be interrupted.
+  *
+  * Return: a pointer to the cache on success, NULL on failure.
+  */
+@@ -422,7 +422,7 @@ static struct kmem_cache *kmem_buckets_cache __ro_after_init;
+  *		to/from userspace.
+  * @ctor: A constructor for the objects, run when new allocations are made.
+  *
+- * Cannot be called within an interrupt, but can be interrupted.
++ * Context: Cannot be called within an interrupt, but can be interrupted.
+  *
+  * Return: a pointer to the cache on success, NULL on failure. When
+  * CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned, and
 -- 
-2.55.0
+2.34.1
 
