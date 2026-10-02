@@ -1,133 +1,91 @@
-Received: from mta0.migadu.com (out-239.mta0.migadu.com [91.218.175.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47CB446C0B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD6F2EBBA1
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928221; cv=none; b=gYcevbPIfjfRnrpOwgvDLZvetCFRu7reTHgHTqj9ZmfjnKvIQRBy8iyARU4EWo5ghi9GDalLwz4F9Se4f9l4dhDe9D72gUDifWF/d1Gua06a+lUnblelp9V+DzT7GQsbsWcgm7QEoJVKceMXgkm6C8baPyhE4m+EhaPdq9oequY=
+	t=1790928277; cv=none; b=ZVxRfqwALFNS7TGASmhQo9bIslVdyv53NJP7zMGTaF7AwBinFVTqZMsGcC4/4wbCdhbFDN2Y/fVxyEF2/32lqhAJrvW+i/s7DD/72SPPLVuv7tWNlDRbdCakmRyJ70N3xTQ9Y9QjOCz8uJFunUvjBsE/BJ2Tg4cZzu3iB3IJeRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928221; c=relaxed/simple;
-	bh=CE54ArF9CfZSFzFjBXuY+9dl8X+yjhtgmfmzwiHATzM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GB+Jjaxmo3E8+3tPEhdg92moJDzMruT+I0qlRH7tUq2/AVYAU2hJlIN2PycuRv/L5qeiDmiwC6wuZktJjLmYphOKhRI6a3eedNY26nKQqqRGmxwOv/mO7HkIqTOV5EA3pYRsrHufQVqnU7A/r7xyjfDpsVvTslQVrjeggyZv2vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ds3++d5y; arc=none smtp.client-ip=91.218.175.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790928277; c=relaxed/simple;
+	bh=OwvzYqkwhaHes4+aK1zzj8QFdyVQ8grtIBJDfwQ60Cg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=e3TC8SfBICWO3eYCMwUdTCAsSh+HxW2mKhTEOjadxfNpvodToZPNuwXCPkwj1DAtweN8ablHWUm86KyKh8MNwDdogYLT8r4XwlMaJz2TfvwF3RVHBa0ChtRCGNHbYmoH9nZ+atVBGCJaAjC/fzuvYHbgmzQV4TEp202G3StH7/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fmGyyz56; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ds3++d5y"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CE54ArF9CfZSFzFjBXuY+9dl8X+yjhtgmfmzwiHATzM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790928212; v=1; x=1791533012;
- b=Ds3++d5yfDk3weHdTLBg3OgvNzweIJnH6GRoSyfTW1ra7WqtBBSuaC1czrtFxSira0HEyujf
- Y8HxXqfT27CknSgNDgx89MZxLDRzOu9z7WQUTgayBxIIWxxmgFdjrK+ah3ev8EZrxRsZTpkjLXO
- vzfCowrKNNGEbhnXRi904XKc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3000c729e5b3d0a9;
-	Fri, 02 Oct 2026 08:03:32 +0000
-X-Mizu-Trace-ID: 3000c729e5b3d0a9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4fc25ca5-bd57-4df0-a8e1-cf6bb9ba2fcb@linux.dev>
-Date: Fri, 2 Oct 2026 09:03:28 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fmGyyz56"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED67E1F000FF;
+	Fri,  2 Oct 2026 08:04:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790928271;
+	bh=P7GQ3Wny2G3hGvg66ZzEFWU9/Nt6DMywTTL6lfbgK4s=;
+	h=Date:From:To:Cc:Subject;
+	b=fmGyyz56DBNm0p/UGwihjav+ERWCpQgcvcozd+VfjiR2GVaBGUCJ32w/ySR4BfkNN
+	 rNcr499/i3C13CdqUqDmfBEBqSSo9dYm+F1uBkWKohmtodK0/EcbLiPKO413yDemic
+	 DyAmxvsDMHBqhEvoeyx28Zm6IlK5voXkbmj4j+MjN0gMIZrErQhyxQtbxS/EO/JvTM
+	 rA2skQFVmD4sxSWZwnJv50XTAXVKiCH+MG12DrJWebR+PYjJoB+RiwpwHYBI6g0qfv
+	 XmR3Ldl1RvSIfstODZE0dElVytLOQSY9WVxg631wV0e9fpOOPJGOwNNsFvMJJY0J/6
+	 f2d7UBM1A9FPQ==
+Date: Fri, 2 Oct 2026 10:04:27 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Jiri Kosina <jikos@kernel.org>, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] HID fixes for 7.3
+Message-ID: <ar9lU7uxSwvV57e9@beelink>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
- bpf_reg_state->id [NFC]
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>,
- bpf <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-2-vineet.gupta@linux.dev>
- <DLDKB6BTHVXE.PFK87O3QY1J5@gmail.com>
- <f575fe19-a5a0-4f43-b1bd-cdec2c6e9830@linux.dev>
- <DLH1MDZPU5G0.228555JR34D3N@gmail.com>
- <76ca0a2e-dd9a-41c9-90e4-5fd3c9171172@linux.dev>
- <CAADnVQKKWBV+pFMAStB_-POKveeO83RiXU+VKeua3odSu-Xrmg@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CAADnVQKKWBV+pFMAStB_-POKveeO83RiXU+VKeua3odSu-Xrmg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On 9/16/26 5:36 PM, Alexei Starovoitov wrote:
-> On Wed, Sep 16, 2026 at 2:24 PM Vineet Gupta<vineet.gupta@linux.dev> wrote:
->> On 9/16/26 2:02 PM, Alexei Starovoitov wrote:
->>> On Tue Sep 15, 2026 at 1:17 AM UTC, Vineet Gupta wrote:
->>>> Back when I started, keeping it NFC made more sense. But with all the
->>>> nuances discovered in the process, I'm inclined to drop the NFC stance
->>> What is NFC ?
->> non functional change aka refactoring.
->> Like I said when I started I wanted to keep the id / flag breakout
->> purely non functional. But given that splitting it does change one thing
->> (mentioned below) - I'm dropping NFC attribution.
->>
->>>> and make functional changes - there's at least one which is the
->>>> following accepted pre-series and now rejected.
->>>>
->>>>          old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
->>> that's a red flag, no? The refactoring patch shouldn't have
->>> any changes to selftest and veristat numbers?
->>> Unless I'm missing it again.
->> Yes understood except that it is no longer refactoring.
-> NFC is gcc probably lingvo? In kernel people just put in the commit
-> log "No functional changes", so it's easier for humans and for AI
-> to review patches.
-> So pls skip such unusual tags in the future,
+Linus,
 
-Yes keeping kernel's existing conventions makes sense, although LLMs 
-understand what NFC is.
+please pull from
 
-> but keep the first patch as "No functional change".
+  git://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git tags/hid-for-linus-2026100201
 
-Just to rehash since the meaning of first has moved significantly.
+to receive HID subsystem fixes for 7.3, namely:
 
-1. Now the first change (patch 1/x and its test 2/x )  is no longer the 
-compound id conversion, but coerce_reg_to_size_sx / 
-coerce_subreg_to_size_sx change to fix the errno range case, as 
-suggested by you. It is a functional change, with following improvement:
+=====
+- Revert of the Bolt integration into hid-logitech-dj (Benjamin Tissoires)
+- A couple of buffer overflow in Intel-thc-hid (Even Xu)
+- A couple of Sashiko findings fixes in hid-multitouch and HID-BPF (Aldo
+  Ariel Panzardo and Benjamin Tissoires)
+=====
 
-    === VERDICT CHANGES: 3 ===
-        mov32sx_s8_negative_range     failure -> success
-        mov64sx_s32_negative_range    failure -> success
-        mov64sx_s8_negative_range     failure -> success
+Thanks.
 
-    === total_insns:  0 changed among 1242 both-passing, 0 worse ===
-    === total_states: 0 changed among 1242 both-passing, 0 worse ===
+----------------------------------------------------------------
+Aldo Ariel Panzardo (1):
+      HID: multitouch: stop the release timer from being rearmed on remove
 
-2. The second change (3/x and its test 4/x) is accumulating add_const 
-deltas (w3 = w0; w3 -=1). This makes the 32-bit link with delta special 
-handling of zext unnecessary so its a prereq for the series.
+Benjamin Tissoires (3):
+      Revert "HID: logitech: add Bolt receiver support for Logitech HID++ devices"
+      HID: bpf: cast size to ssize_t when checking hid_bpf_hw_request
+      selftest/hid: add test for negative return codes for hid_bpf_hw_request
 
-3. I guess you are referring to the patch to convert compound id to 
-broken out id + flags (5/x ) is also technically a functional change - 
-due to the state comparison behavior improvement that fell out of the 
-seemingly mechanical conversion and is clearly called out now. However I 
-verified it in isolation (on top of 4 prior of course) and there are no 
-veristat or selftest changes with it (just a cosmetic name change due to 
-base_id -> id)
+Even Xu (2):
+      HID: Intel-thc-hid: Intel-quicki2c: Fix buffer overflow
+      HID: Intel-thc-hid: Intel-quickspi: Fix buffer overflow
 
-    === VERDICT CHANGES: 0 ===
-    === total_insns:  0 changed among 1247 both-passing, 0 worse ===
-    === total_states: 0 changed among 1247 both-passing, 0 worse ===
+Tomasz Pakuła (1):
+      HID: universal-pidff: Add support for Turtle Beach VelocityOne Race
 
+ drivers/hid/bpf/hid_bpf_dispatch.c                 |  2 +-
+ drivers/hid/hid-ids.h                              |  3 ++
+ drivers/hid/hid-logitech-dj.c                      | 48 ++------------------
+ drivers/hid/hid-logitech-hidpp.c                   | 51 ++--------------------
+ drivers/hid/hid-multitouch.c                       |  2 +-
+ drivers/hid/hid-universal-pidff.c                  |  1 +
+ .../intel-thc-hid/intel-quicki2c/pci-quicki2c.c    |  6 ++-
+ .../intel-thc-hid/intel-quickspi/pci-quickspi.c    |  3 +-
+ tools/testing/selftests/hid/hid_bpf.c              | 31 +++++++++++++
+ 9 files changed, 51 insertions(+), 96 deletions(-)
+--
 
-I presume that is what you were asking for ?
-
-Thx,
--Vineet
-
+Cheers,
+Benjamin
