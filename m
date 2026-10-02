@@ -1,122 +1,226 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17543437456
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101B341CB5E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926236; cv=none; b=MGommD3IzdOsaupgC/DkY/9kFbxwI7mB6jTdTmInO1vhN1TXzWRD3s3ZIPFoc4/fepH+3HuovXXyMyViL02bogBNFuDWwxlr4bAOFHDJ2sAF7+O7Cr0fy8oM/XXbWbkKRfEXgTQQcsurXDcjkpbX9cJUdX+/VpjBSLo5S+V398g=
+	t=1790926276; cv=none; b=lKGhbmyBwYOmNN4Lj4ceB1j7G+SlcK8EM6ViXwhiXvTUJXqV0CnP0Nfag5JKlYNH4x/OBdt+O8A1uPLHT8jz9ogHCBUMdAVryMzmHdz7dJ7BEDLq9mHtoJqhafrjUeaMoInu7bU4FA0w5x9nxdBbU+H4ZLuz14M9GVXZNpqSAAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926236; c=relaxed/simple;
-	bh=5GAmtYJRjyXO7QNDSg0XRLjnCIHj2W2dwtcdfFCVFRM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aiwqwUg1fXIlLPky/z/vMFUWZDbijlyh/+UiYNZeM3oaDqBslVhgIGkri/stlGcec94d5+P1mmPLrgb94aPqKUjs/QWMJbi+lbphPG7T7JQF+9/e3giwRxHNy69peUwnBOqojJX7DMQtXIVphNBAClPytrSO1eLSBr0Qvods5Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jn4QPVrO; arc=none smtp.client-ip=74.125.227.42
+	s=arc-20240116; t=1790926276; c=relaxed/simple;
+	bh=ZFBbFTMC7wSj1pMVI+p+Wl7hxRwcDsJIRVtqqT1sS68=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HxRg+Q1dfjZN2j669MdVr1fjpHZEZ8xDqmJDO1R8tBnB8L397tez3S+hiXcE8Uj/2YJNyXVTYIq08QdbxOp17d9s4mHTEuGDDAahCN18K6JqTe82dFCKT1XVHG9D/wIbi0DaZ/sGgMCmiotQceC5l8PSoeur/Opps3jjZCttx0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dxTWC1CS; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jn4QPVrO"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c98e1942dfso6332172e0c.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:30:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dxTWC1CS"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b3e517e6dso1866166eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:31:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790926234; x=1791531034; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3DhBRZUBEMxswOFupavtILwkZxnofD7tHbJ4YNRXjDY=;
-        b=Jn4QPVrOK+PsMbxuo/cVMeVKdthQhN79Zmk4rQsfo08dK8iLvNbXZ1NhITX7m+Bptx
-         udzBJ+HcXGy0x/8zNSGBIKqulCfKgjuRloWRrbsI9eoJm3yHZ4G0rMnlR0fGPJ+YTCne
-         MGYiwej0nny6UxZzBu8J8qzPk11S+Gy7Q6bsrxpxWFePnlSjl/pHBUHfquknxUWuz/+0
-         7n0Lhrj/VKSwzNN4+wjdq903KMhv6HUDIzeOj+STHpCf9a/skjIvHBUrkH9BvCAnmDrX
-         lKtBJM5DvKx5rfToFzKDb7MdZ564yJDRzGxjl4achbYBXm01vnDsT/vN0MosxRWbNnVI
-         lvdA==
+        d=gmail.com; s=20251104; t=1790926274; x=1791531074; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xsLYGjShPtiiH52PUv85LU1cMxKjqepVYNFiRNQ0vZw=;
+        b=dxTWC1CSngbzat/ZtfD0ttYViQIp/WL7VhCMxysGTPiUF/CbOsOezyMSbjMhB9qOp6
+         Z1lJcx5/yJ7F6wSUnkg/+Kj+c96yAJoLCNmmU/uhjbelS2vH+bnXhLVHVlxf/NiC8PqZ
+         sPB05Bkcze//qGFCym3tqpM2kYkYAQFYRCoCxN1rJKgMvbuk5ao4VrR4nfb0WbOpImk+
+         Un1i1GFUh1ANaF63fFkv2EFUO3Ocy584lSkEEHwlnUhknSf/zStuJPwutTESyBORwTvb
+         cR+e/iA4YRUZZsFV7lR0zvsoxWdMlInx4YoY3+KniTqOQO41BVqJKeCbuk3E2IAcxbIz
+         KjlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790926234; x=1791531034;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3DhBRZUBEMxswOFupavtILwkZxnofD7tHbJ4YNRXjDY=;
-        b=l5S3ArXW8QGw6eVNoVgWtRPxAx/mw78JgaiqKImY3nqXVvo1G7MOTW9R0w1XNVNI8x
-         QwhvvZzLw7mYRGj5vcci2fqkB3x+GPwKClnCTOV9uXwr4JvW+3PMIjeMGx9spF79kURo
-         5l9i9hEFrZtmiPao8AoLMoxxX8QmbD+DBDqVIfHjJVA80TUulr6F8Rtf/ATJL+HvRwMi
-         S1PRLTiGcYcUrVjmZr2e/1NlJoPQ38nCkvkuPocErBIqCgeKid065OKKFFDKiZLlsWHt
-         YCiCC/jdXFIwVrj+524mFPhLkj/okkZXjmjaHQdCLlgEE6GvkC+YjtsBwQbZx8vpjOK4
-         uzKA==
-X-Forwarded-Encrypted: i=1; AKwUvBwgksZcBqFPHMquMnGBs/nypIkn3m1g1nxuoCC7mKjagbm0srh3Wj7SANBzqPZGuIngYjlZNioQEZn2/Uo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKA2ILIkYR8IARpiRxq/ws/FORhmdxr+8WpJfT6suAuSEDAquAr
-	atKW7JfGIn8iEF+nK0H2e6ZJfeZXrl9W1m8LL/ZyW2rQFOzRaubVtEnjtd2CwA==
-X-Gm-Gg: AYBFou0lqmPblnLTzPDeBPkAOd2lg/bnuGKqAEOk58MNGKZ+QlugZLDn0He82muduF0
-	ZyOPoy0kAl1UKovM3KhRyet8eDiaUHF8caYEo1kt202LbSFsAWkSpdMHCG9vpUwZG8AZMAYgCH+
-	PQUJ86Xxm6utqVHVU8cOsQqEJRK5f2VENCTNLM+M4/DrTufPBIZ1dE5wllyLFgVvH64ZAMR0LGE
-	a04ba8qVGUgI9ms/bG+3Dn2d74kw+xrOYFjpipzeOblY9Mx+9Qj5ro6PXfn13iZfn4Tqfq4LY23
-	A2BmOorC38xIgz3B1xEagLCAPEdmix4Uw/v+p3TczA6YFDsQrm1OS+RrX6DVNvmht1T/Ew5QtOf
-	djADkTwFLNIXhmYdsbf7X30Wbx7kbhzjpmgbi7Sz4WSLbavIqyl2xNUb6k8FbgTLbgfWM88tB5P
-	uDOna+v9KKlDYwCsNvRozXILRzVreSVO1jcRunUseCLY8y6MFH0B1Q5toG663Fu74=
-X-Received: by 2002:a05:6122:6b93:20b0:5c9:a60b:e5a3 with SMTP id 71dfb90a1353d-5dab1a52819mr421807e0c.14.1790926233732;
-        Fri, 02 Oct 2026 00:30:33 -0700 (PDT)
-Received: from debian ([2804:14d:9ea1:8718:c77c:8:a40d:84f2])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da62d10534sm2647081e0c.13.2026.10.02.00.30.31
+        d=1e100.net; s=20260707; t=1790926274; x=1791531074;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xsLYGjShPtiiH52PUv85LU1cMxKjqepVYNFiRNQ0vZw=;
+        b=hjoYZ/bVM5HdnO2doXEfHpSzNH6oCJi+TQnbxA6NxLLs7QfgjuqPrJ7R6Y7/CYqjYb
+         KvuXDV0mHvi8S1Rn1mIsM9Wm7s1hrmRTFiAgRIw7HR2oVfu8X/kFsWtDXDtgvhW21UXq
+         Ht4yvmAEiTILkRDX8Tsdi8O4l/LVPdGcmdNQ2/zCtvj4pud2QjeNo0bps/npSoLlHage
+         3RgmDs2Cz27jmf7uPRB9dFv1ru9DHFuqTGZ9N1Al8/tJ3eSwfThGwUwhJvDF2gkBA0rP
+         R15MQzfpwhCN63/236xp3BIFlY1hikTCcJwUeK2aOTgrcLJabGGwZYHxdaOXTxpqyEa5
+         oI7w==
+X-Forwarded-Encrypted: i=1; AKwUvBx20HEBG+PgLblU81E5c+CC7vVGvVqqJsIbJ5RqjwcP2Eo2XG9MGpiRDvTKpthyfuj+qUKhCszj0fZ0YKY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKK50xCicCZ4rTWNdglZKR8oRyVp5Bs6oH0rfVnVlnpNwyFYBCl
+	VYAN6trhlux7r7ec7Tb5ZKDaqrmcTFDMwFoBALZW3HtHUqP6/7oOLrcd
+X-Gm-Gg: AYBFou1yHVZjkUk0vBOAKIzZZItXyEuVln+KRRCN+jBuJwh5A7J4Ppusqp/iGWaIX2V
+	4hzXcqkbFTNsIxTFuhpbNQ3bL/CEah7nuBBLEB6c27kdn0hvbx//GVUIobTJRcGXPGWSp6m1GiM
+	wBRfvcJlZa5cOMwpBXiif63GMevSkhJS178cgCosu7pm8CRKVhWBcpIafYyGQ3HRh1MgocRALBZ
+	jhOXfSWtFZOp72NyUdhTu+AUYJxm2Cp1lFkMgoUBySGmHwpPX4t10uvHf2AJr9zZErJbH2kyOnb
+	UZ+TSejSqnfP2aqTEpRTDGXjlFYZ+dc3Ou2dFEf1W0RZEFVJzPH6rYbnw0Ffz6vHeO1+oczDy/J
+	BO4gwtZNWscqHFOI1PzAKPyY1kY1oyHlV+LvZCTtkMbAZLNjJNfJD8QwRsOjTk9/O+6HX3mhRgZ
+	5uZoAbgi4GJc9ZwscwRNpKvHtbZxpi+tD8JybaTq+vLaETOWwOSvjYNTG4Rhe8CEdMwwEt4hwUI
+	6qXVMG9vHEeHb+uzS70IkSU4x0kws2KHD967eFpqEBpnGzuSbHJcnar8T2rMgZaIFqb2TtLsPnG
+	t69ZrVIQ0UITPrjrMxXcKlZ0EQv9DXZaWREp5U6EOBpE5o8sWesZMdJlFbM=
+X-Received: by 2002:a05:7301:1a11:b0:327:c036:1c7a with SMTP id 5a478bee46e88-34f15077dcfmr1779187eec.10.1790926272837;
+        Fri, 02 Oct 2026 00:31:12 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fdb478sm3912341eec.22.2026.10.02.00.31.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 00:30:32 -0700 (PDT)
-Date: Fri, 2 Oct 2026 04:30:27 -0300
-From: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] staging: rtl8723bs: rename local vars in
- phy_tx_power_limit_to_index()
-Message-ID: <ar9dk-Ja8tqS7ufC@debian>
-References: <20261002-rtl8723bs-tx-pwr-limit-v2-0-48b180fb6f7f@gmail.com>
- <20261002-rtl8723bs-tx-pwr-limit-v2-1-48b180fb6f7f@gmail.com>
- <2026100258-probing-reactive-1191@gregkh>
+        Fri, 02 Oct 2026 00:31:12 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Christian Brauner <brauner@kernel.org>,
+	intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915: look up shmem folios by index for writeback
+Date: Fri,  2 Oct 2026 15:31:07 +0800
+Message-ID: <20261002073107.2209644-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026100258-probing-reactive-1191@gregkh>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 08:09:28AM +0200, Greg Kroah-Hartman wrote:
-> On Fri, Oct 02, 2026 at 01:07:35AM -0300, Leonardo Martins Martins wrote:
-> > In phy_tx_power_limit_to_index(), there are many mixed-case local
-> > variables, rename them to adhere to the linux kernel coding style.
-> > 
-> > Signed-off-by: Leonardo Martins Martins <dev.lmmrtns@gmail.com>
-> > ---
-> > Renamed Variables:
-> > 	pHalData -> hal_data
-> > 	Adapter -> adapter
-> > 	BW40PwrBasedBm2_4G -> pwr_base
-> 
-> "power_base"?
+Since commit 776a853a43c9 ("i915: Use writeback_iter()"),
+__shmem_writeback() starts writeback on no folios at all.  In
+WB_SYNC_NONE mode writeback_iter() only returns folios tagged
+PAGECACHE_TAG_DIRTY, and shmem never sets that tag: it dirties folios
+with noop_dirty_folio(), because shmem relies on LRU-based swap writeout
+rather than on the dirty tag (see the comment in __folio_mark_dirty() in
+mm/page-writeback.c).  The loop before that commit looked pages up by
+index and tested the page dirty flag, so it did write.
 
-Yeah power_base does seem better.
+This affects the shrinker's I915_SHRINK_WRITEBACK pass and the i915 TTM
+backend, which both call __shmem_writeback().  The pages stay dirty and
+on the LRU, so reclaim still swaps them out later; what is lost is the
+early writeback.
 
-> 
-> > 	rateSection -> rs
-> 
-> What's wrong with "rate_selection"?  We have lots of characters you can
-> use :)
+Go back to walking the object by index, with the folio API.  Mapped
+folios are still skipped.  Unlike the old loop, do not wait for a folio
+lock, since this also runs from the OOM notifier; a locked folio is left
+to reclaim.  shmem_write_folio() returns with the folio unlocked except
+for AOP_WRITEPAGE_ACTIVATE, so unlock it only in that case.  It may
+also split a large folio, so read the folio size only after writing, to
+find the next index.
 
-Here I used rs instead of rate_section because I saw it being used
-like that in rtw88, and I also saw the "Naming" section of
-Documentation/process/coding-style.rst where it says local variable
-names should be short and to the point.
+I came across this while measuring an earlier patch of mine to this
+loop, which changed nothing because the loop never visits a folio.
+This patch was measured without Intel hardware, with a test-only mock
+selftest in a QEMU guest with swap.  Dirty, unpinned objects of 1 to
+256 MiB, with and without THP, went through i915_gem_shrink() with
+I915_SHRINK_WRITEBACK.  Before this patch, no page was written in any
+case; with it, every page that was not mmapped was.  The contents read
+back intact after swap-in, and the mock selftests give the same results
+as before.  This has not been tested on hardware.
 
-Regardless, I don't have any strong opinions on these variable names,
-rate_section is also fine, so I'll just use that in v3.
+Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
+Cc: stable@vger.kernel.org # v6.16+
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+This replaces my two earlier patches to this loop, which can be dropped:
+the loop they change never visits a folio.
 
-> 
-> > 	tempValue -> tmp
-> > 	tempPwrLmt -> tmp_pwr_lmt
-> > 	rfPath -> path
-> 
-> Why isn't this in the changelog text?
+https://lore.kernel.org/all/20260915062924.2410550-1-matthias.goergens@gmail.com/
+https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergens@gmail.com/
 
-Oh it really should be, my bad.
+In 6.18.y and 7.2.y the call is shmem_writeout(folio, NULL, NULL)
+instead of shmem_write_folio(folio), with the same return convention.
 
-Best Regards,
-Leonardo Martins
+In review of 776a853a43c9, Christoph asked for this loop to move behind
+a shmem API instead of living in drivers, and Matthew agreed:
+
+https://lore.kernel.org/all/Z--XtaM7Z3zbjzAu@infradead.org/
+https://lore.kernel.org/all/Z-_hQwNeiOnNYJVp@casper.infradead.org/
+
+I kept this fix inside i915 so that it is one patch for stable.
+
+The test harness is not part of the patch; I can post it if that helps.
+Testing on Intel hardware under memory pressure would be very welcome.
+
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 56 ++++++++++++++++++-----
+ 1 file changed, 44 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index ef9440166295..54424e434f3b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -304,28 +304,60 @@ shmem_truncate(struct drm_i915_gem_object *obj)
+ 	return 0;
+ }
+ 
++/* Start writing a locked folio to swap.  It is unlocked on return. */
++static void shmem_writeback_folio(struct folio *folio)
++{
++	int ret;
++
++	folio_set_reclaim(folio);
++	ret = shmem_write_folio(folio);
++	if (!folio_test_writeback(folio))
++		folio_clear_reclaim(folio);
++
++	/* shmem_write_folio() unlocks the folio unless it returns this. */
++	if (ret == AOP_WRITEPAGE_ACTIVATE)
++		folio_unlock(folio);
++}
++
+ void __shmem_writeback(size_t size, struct address_space *mapping)
+ {
+-	struct writeback_control wbc = {
+-		.sync_mode = WB_SYNC_NONE,
+-		.nr_to_write = SWAP_CLUSTER_MAX,
+-		.range_start = 0,
+-		.range_end = LLONG_MAX,
+-	};
+-	struct folio *folio = NULL;
+-	int error = 0;
++	pgoff_t nr_pages = size >> PAGE_SHIFT;
++	pgoff_t index = 0;
+ 
+ 	/*
++	 * shmem marks folios dirty with noop_dirty_folio(), which does not
++	 * set PAGECACHE_TAG_DIRTY, so writeback_iter() would find none of
++	 * them.  Look up each folio of the object by index and test its
++	 * dirty flag.
++	 *
+ 	 * Leave mmapings intact (GTT will have been revoked on unbinding,
+ 	 * leaving only CPU mmapings around) and add those folios to the LRU
+ 	 * instead of invoking writeback so they are aged and paged out
+ 	 * as normal.
+ 	 */
+-	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
+-		if (folio_mapped(folio))
+-			folio_redirty_for_writepage(&wbc, folio);
++	while (index < nr_pages) {
++		struct folio *folio;
++
++		/*
++		 * Skip folios that are absent or locked: this runs from the
++		 * shrinker and the OOM notifier, so do not wait for a lock.
++		 */
++		folio = __filemap_get_folio(mapping, index,
++					    FGP_LOCK | FGP_NOWAIT, 0);
++		if (IS_ERR(folio)) {
++			index++;
++			continue;
++		}
++
++		index = folio->index;
++		if (!folio_mapped(folio) && folio_clear_dirty_for_io(folio))
++			shmem_writeback_folio(folio);
+ 		else
+-			error = shmem_write_folio(folio);
++			folio_unlock(folio);
++
++		/* Writing may have split the folio, so read its size only now. */
++		index += folio_nr_pages(folio);
++		folio_put(folio);
+ 	}
+ }
+ 
+
+base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+-- 
+2.56.0
+
