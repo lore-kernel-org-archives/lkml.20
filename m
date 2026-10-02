@@ -1,105 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CCC47F3B5;
-	Fri,  2 Oct 2026 17:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961313; cv=none; b=GeLrOSqPVamxMg6LWWyKvZ08fj5xg4P6NBbkOEeoqHVlAg1KYClSWpivsGTmrgjPHC637QaErJkYBa7RrqujKGwB2Np/DMAKejUKX25ft5cWX99ebsAylu1gLTxJXgJ28MOvwnsyHGBRC96NHT/3sIP1C9n600YbcOulqUW3dJA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961313; c=relaxed/simple;
-	bh=iobRN+K5wRBlMHtDKMCLc31ofXdSq97nC5LHjyuxmmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hWT7UxHlL01BcpNGy75uWUZgRyk5rdHOT+Lqgwb8r49IefGsvgxvVSx55qQFXwtRLkOEtlFpRhLf/7N0fTyMugej1j7faPv+zUkNhqcvCX7xLYSwVfas0gYg4uKgOA4HFmTuT21gkhbPfgudU88x+aL7k8UH2fbzh12V4xXT0xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQ0wN87P; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FFF4FC8CB
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790961348; cv=pass; b=EHiHz/eCq0nd/oZteBFWTJuA3YxRwwqf41EEcsTpQglHRni+ePQjpShY82qmS4vlCERjCuMmllHMwkJv35UbHGLnZEEr4QlSCBBSTprw5yqdJOYOzqjCE3x1lMkhRNPxjCEGJCuouJQ9mV9+lb5j4ShOXsrVH9jLsyZYReceyqk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790961348; c=relaxed/simple;
+	bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oyscdBOrRj8UITn1IJZeiTneob75Ym4c8IzOBc9bECzlgDzjM3Lj+pl1Je8e88Uw1hstW/8oB9TS34j9DfjdRspr7tbo9UDyuxiur2x1LOitYmJ6IrXdNimpkPZ9zdqAcC3ixcAH8FdG/gAvQUNol+DAo0KT50XWIGcqL96h+kc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qPr7oCgb; arc=pass smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQ0wN87P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1754A1F000FF;
-	Fri,  2 Oct 2026 17:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790961304;
-	bh=WQPluei+NWGBB68zDDNHLmlcK6K1wc2kGH8Ruob1/Hg=;
-	h=From:To:Cc:Subject:Date;
-	b=MQ0wN87P8qcXU/Y14LujlCXQDVE5PNQBuAdVG2LeIA8QCR2QOphYZPkXjmUcrjO/3
-	 xAUR2fxvGHFV79qp97MYNv40DvXR1rP4i3JRpVCOtOWb1XR18uX3Orp2ThtY3xe6Sb
-	 W8t/sPIPf/G7qtiDnrJ8wxhT6g2xlFX40D4YXIvRvjTduhbJlLYT6RPULWfNYqCpRJ
-	 3dE5SDOD0Jj5q/7CIXrTtXP/MKSgLo9aJbp0225ac0c56dwYXjUlNT9CSGoG5u8ToL
-	 GYQJSL3KNCU8zmRAqvgc+cNQV9EOzDqRphiUqoH1kr+FcO7dnEuF8LCqZd5rFMVd1R
-	 3+HqRQ702EnFg==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] regulator: dt-bindings: Drop obsolete MAX8925 .txt binding
-Date: Fri,  2 Oct 2026 12:14:54 -0500
-Message-ID: <20261002171455.2719968-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qPr7oCgb"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-350e6de7dfeso87408eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:15:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790961339; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mk8lTdsd9QiHKB0/cViHVTHPoFloAtx55m2nuJAnafhxM+tigLbRQAxCT5Y93vwqLi
+         s1thg6hT1cKTNNQ/Fmn8x5922ul8xwNfhtn6d3ajbVanwtNkGdmGuS9VjSbBz5XKLKoF
+         Xd7ME66llzAKZzkfWfN0EMKPwB/x5WC2u6IP5EmmFBCt+X47K7iPku309fwMwu1AZ+Lw
+         BnjrsgClR0A7I1sTM1F2ZBWn4u3kFUxqCctrg2MCSLGggU4OrFyUEegVpgM3wUxUgaMJ
+         CG6hp8Enir3Kewh5X2ECwnqs1gZhZ+863FJVlvWY9hnDACRXiJPimjO+WIKa0Z69lI8v
+         wCVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+        fh=eWu2GwkXgkPpukeGKgFpTSnR6OagnbGF88htCSUiyKY=;
+        b=Tgx6bhT9blSRcX46MkLsJ9SBy7r16WX9P08+oAc6YZS+R5K8v7OZyBqNypFoJtYGdT
+         pON7gRCr5ZL0ZL6w+TK/E82tsj/lJL1+qteQFEBk62S91smXd45uP7IuhmxM1E5Ietm9
+         MtlPjDIrRFXbyem/1hMFOsk/fJk4IEFx08bbwKhu94d5YF0Wrq2RV1qXtslevad2GUiJ
+         oSRcUKcvBKRpmHoG23FE/0hhrj1MAD1dxF9T+pyeCEJ5JNWwbDhjLVyd0SJ+w+5n/GHr
+         2WPd/5bvZQEtU1G4PkwlwNbuHvIxEuw4Px+eE+xyk23cvb6Sxv8U+wkU9SjM9ZSDTW1P
+         7VFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790961339; x=1791566139; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+        b=qPr7oCgbCmVmsVRGhY/mlyRZc7AnEiwwEDhns/GQw2KpwtMejOPlZtLG0t7EhUjJbX
+         riZCohM6eQUTfHAhxYJk2lZ7ZalM/rV50oooeLx2kQ70HuXzhYYqX19OIzoifElzz8f+
+         isrJZRN2131FEhhK7im8v5sTKr94UUXh/d0aMhcS3G9+74CxqXQxpRqgJTFEdEKyo/UR
+         fgFWoCsSoUaa29pDk4cYIYmrKlmyYC92ks3vOOSa9NlEdFgoPr3M+mrQNdpyZ1w2hvIs
+         eRrsrMnh0zNVBvJNOzCwc9EhXmxk5rEMuyMdmPbDByIettcZa3nvmijIciBfAEEnqlYm
+         GV3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790961339; x=1791566139;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+        b=24GFkYYjhS8nStgiv91h/hlFJOQDO/TLEyfSIXp+ZTU+MelZrjlx8tX6RUKygDMRjn
+         SBRkYB10jDknWzMkAUEu9caSKvtD3OV1RE4By0sUiFxTcWp+cKzqxiZnqyLDujGWGyNE
+         uV2PxjOG09cygNUysuVsayPS928UTD2W5rT91/BkbOLTsfHlLqWDpdKMpVcIbPEGMCvV
+         vhMADfkp/5/T/hoFZRKrqL/uNeZaaTPJVOusf7aHyauvJOhGVu86dk2RA3va2QkVJ5b5
+         AfECiPWAA+jA3T2RehMH+KuVjPQECTW+8vfepJZCwxE7g9VhjgeS416iaP6clGwNCgCd
+         y6wA==
+X-Forwarded-Encrypted: i=1; AKwUvBy8N4t4WL8lFDFRpGi2F3BRXKKQq7mRihhYI9HA48vNopuMw4fCCyhZPNh4ci/wcfut8N7Qi4xckfbkc0A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuZW8tD09Fe6bZ3YJrK4dtrTrRPqgOxndy7Xf0ru4zdOm6bewo
+	1XcfmLHFDQh+vhTGwxWaiWyfWCFL5k2oQtqhHWuwtSgZub6WwoBUnztkvtPpIa4bpj+sQgYCwl1
+	Gp5VhCMmiIBlDBmV16LUf6yjTaP0Oalg=
+X-Gm-Gg: AYBFou3xvgPnK067wz6UGn1jGUbwK9V8J+XBj3Oo0z0l1IgtubZ2a4V+VV4TJmOiLoh
+	Uz4OTbcBonT8vvnTm9Zrtg5aU91r3yTJK6hbP7ZUWBWjX1+TDXuroJ8/I3tUxX4jJjULNP6mVoC
+	wc0wqbB5H9PQsYiCs1dcOltlct/hH73pgA5yrtoWT/7euMPKnQvJoNy5nX4UgH/Yuy8ePjpsHFD
+	ELkOQtc5cBiQMR+NDHSvMGNOagjFNphIk9YiV97hOmZtbIU2mqIBaVr1h8PP7H2VpGKht8AwJBC
+	m6U3+QIoYvGZlk8e1QWYPnJSFNEbyNZGdZ06vuLSkEwJkdl/QVz3Wff2iprtmuXACFLrcR8owIc
+	KL/u2/fisYUDy2lvmipf+ZWTvugcvdGmNZyjkd/+/1bSGRiawkt8BRpKbtr3pKDjYkZsxXAS9rq
+	/7ZifPeldlqPnyz+mmVawyvcqWiTtTvhNm05jgXMnH0tpN1/b3BbQ=
+X-Received: by 2002:a05:693c:8951:20b0:34c:15b5:b4e7 with SMTP id
+ 5a478bee46e88-34f1503d60cmr5903420eec.2.1790961339293; Fri, 02 Oct 2026
+ 10:15:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260902-cv-v3-0-0f90659e711d@nvidia.com> <20260902-cv-v3-1-0f90659e711d@nvidia.com>
+ <DLFPWSS3LZSN.12G96EM0FI18C@nvidia.com> <DLHFKT44IHW9.2QWQB0O0LJHJJ@nvidia.com>
+In-Reply-To: <DLHFKT44IHW9.2QWQB0O0LJHJJ@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 19:15:27 +0200
+X-Gm-Features: AclHuK8WU7MmTRz2zVr217nxxpeT8qmaOpCUrJpN90HnuhJSuc8jn6MdcGDQfTo
+Message-ID: <CANiq72mrp7qw5jikznfRoWMjcWk3Vwm3dzPdWcC1AZ8jGzdibw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
+ constant expressions
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, 
+	dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The mfd/maxim,max8925.yaml schema describes the regulators for this
-device. Remove the obsolete text binding.
+On Thu, Sep 17, 2026 at 9:59=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
+m> wrote:
+>
+> Will send the next version based on drm-rust-next, but Miguel please let
+> us know if it's ok to take through drm-rust-next. Thanks!
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/regulator/max8925-regulator.txt  | 40 -------------------
- 1 file changed, 40 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/regulator/max8925-regulator.txt
+Ok, given the recent discussions, let's move this forward... I have
+replied in v4 with the Acked-by, although with some feedback.
 
-diff --git a/Documentation/devicetree/bindings/regulator/max8925-regulator.txt b/Documentation/devicetree/bindings/regulator/max8925-regulator.txt
-deleted file mode 100644
-index 0057695aae8f..000000000000
---- a/Documentation/devicetree/bindings/regulator/max8925-regulator.txt
-+++ /dev/null
-@@ -1,40 +0,0 @@
--Max8925 Voltage regulators
--
--Required nodes:
---nodes:
--  - SDV1 for SDV SDV1
--  - SDV2 for SDV SDV2
--  - SDV3 for SDV SDV3
--  - LDO1 for LDO LDO1
--  - LDO2 for LDO LDO2
--  - LDO3 for LDO LDO3
--  - LDO4 for LDO LDO4
--  - LDO5 for LDO LDO5
--  - LDO6 for LDO LDO6
--  - LDO7 for LDO LDO7
--  - LDO8 for LDO LDO8
--  - LDO9 for LDO LDO9
--  - LDO10 for LDO LDO10
--  - LDO11 for LDO LDO11
--  - LDO12 for LDO LDO12
--  - LDO13 for LDO LDO13
--  - LDO14 for LDO LDO14
--  - LDO15 for LDO LDO15
--  - LDO16 for LDO LDO16
--  - LDO17 for LDO LDO17
--  - LDO18 for LDO LDO18
--  - LDO19 for LDO LDO19
--  - LDO20 for LDO LDO20
--
--Optional properties:
--- Any optional property defined in bindings/regulator/regulator.txt
--
--Example:
--
--	SDV1 {
--		regulator-min-microvolt = <637500>;
--		regulator-max-microvolt = <1425000>;
--		regulator-boot-on;
--		regulator-always-on;
--	};
--
--- 
-2.53.0
-
+Cheers,
+Miguel
