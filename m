@@ -1,162 +1,140 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BDD33A9E9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886B7414430
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790924849; cv=none; b=KFHwZPO4YChUAkvbILLRUe9FHfmdoSl8H1D9r3Co+z82tC97VA8YuZVMHPV/rgo61ODu/dWfgEYIpE+Je6gJyRmQ2XWtRl9epG8tjlG/1IaeJunjL/gFUB/FyEZciC1UCz5YW1rcIrr3x74U4FVRwdngHwsm6GuP8FDud20njxo=
+	t=1790924880; cv=none; b=GmqcCTzZ6vfebBl58xz/cIGgeTE9D3LxITm/Kx1OY0FTdGiRvTgL7IkgAeY3e4VY5Z3opgMFb5r3kV91kQGcb7TUrh72+TpcnYURJ3GTuCCwqvK4IBfNucDmtUxkazxiYxXLplj5evmJ2Ampsnz10FphPUKacAmi/thwGiXQ8nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790924849; c=relaxed/simple;
-	bh=p86aoLipPnmeBSCQWRntvEIsHN7hwNunducQ3JxHt+k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T8TRyisPmmpGqATOzChA68EuAwELjfot990fm6TcJn/5bF9UJl6nP6TbausA3iffOQSwgygEd9nr3ABdHaElwNoTS2Y/d5KLfLqnk/gum6l9h1zl1e8SmXxMPDSY3GtNNZ8FflFEvj84nTQYvlU0FiDHu2nmeev4hgI7qr32PQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BpO/XKKZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Riy4XrLi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790924880; c=relaxed/simple;
+	bh=LpUy2Y1w/G5Q3IxHxcSWocshtWJTMQsLmw8IXEWGS88=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=c7I0mvH55rth5YPUEs200SEhJkpvl943bA1C5B9sa7yiv3QQx/BHol6jwUGekOh6hgswbUDtGhgIAcY12XkuxSEIXR6s8cNEZos38/G9hH+QGESQO60Cp/S5EiYcyBusAJO1coyEiqdkbzEsvrCAHMcBnBkF4gwc5n8aR6lywFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FbbNHz7S; arc=none smtp.client-ip=74.125.225.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BpO/XKKZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Riy4XrLi"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925itk94019610
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 07:07:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9I+i3UIX4gVXyxWiJ+Cg4JTVO0MXqaK0GV0dmAfVfSk=; b=BpO/XKKZUeyr+8US
-	UjRKKSbDUo5AyXUeAqtVBZWAez2jKfY098dA/oY8kM0mG1v2uYNLcqj2/oYm8j7Z
-	cabMaUqTC35a/WYTOrIizr+j1qoN/8fNKF4Vp4x0FKv7jQ2cskH2eB5u6Ru9yoHJ
-	+ZEXyfjHGy7/6iLmZG1kQl+Vb0quGzMgoaZIH0EXOsopGaGEOm9THHHRNVz7PJSe
-	MVX1kbW7AhQrFt4m1qAouwkQ0lUHO1JSl0LaoOGpTr2tqZgYnxdxZkCFdGAckJiD
-	My3gOcv8g7RnApdNoD903atljeoz47BrKIxQDJH4tykr/xw2I6JxsuOclkBUlKDx
-	LrYstA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1rvqbh69-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:07:26 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so1950078985a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:07:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FbbNHz7S"
+Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-48b0622cc90so1088194f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:07:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790924846; x=1791529646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9I+i3UIX4gVXyxWiJ+Cg4JTVO0MXqaK0GV0dmAfVfSk=;
-        b=Riy4XrLiisj1xthrch5BtKkeoXbw2GzYnjMj4HKZQraBDraGZzKF/C/qE1GRbjw5cf
-         CSPfr0DUKHjvWBS1kx58yLzkd3+pCkQ8fizQqajEvsTJ+C5rHlcJeGEcUA3B1bLqMUPi
-         oq0BzIeehuwfuGbfYe4kf+/h3xZzd+PlhrpwW2iP2gPtsG+h0YfS5lctB828ILP3weXu
-         SonfuDtpesfmvPRXLJpaCWziuteQTHxotuPG5+I52sJfMk2n4jkB5V/XFYHP4rgtRiUO
-         xkOmwebjYVtXqu71+sUzo0G6fmeULQO+MA0W1n9Q3fgEEMaASrF8+BVPuLlALjlyRNxM
-         zksA==
+        d=gmail.com; s=20251104; t=1790924876; x=1791529676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lqdQB+3qbWBs9BdmeFMcXI7bQfwAeguI+SXZ5In6E8g=;
+        b=FbbNHz7SpXi548wMWDsHOIc7RIAXt5QdgTwE5FHzMyMoAqZgvQjv/jw1AGeMMi8pEe
+         QVSrQ8qd7m8CimCLs7sr2mR8or/uvbn7YbWeL4S35hEVNsGwxD0lFCe53Ud7MRwkWc6E
+         cWyfbIgKY6xiw6j/F7FKKikcc+CbprDZ4Wq6209ydcT/s7oHc64Twovk4lxePKn/oi0S
+         wDLGjKFDSAlQnNq67kTbnt6NSbGLnbwbRIlRyTTR8Y8ivRIUtK9xqkGHK3akJIhGMtjJ
+         qCwNLE/3FNdeD0qp7tEkrVZdPpW9vixojpHzuRQDrPQCRK4L6nCjY6iBXf3uYyn2D2BB
+         gJtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790924846; x=1791529646;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790924876; x=1791529676;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9I+i3UIX4gVXyxWiJ+Cg4JTVO0MXqaK0GV0dmAfVfSk=;
-        b=OinkyUYWrziCds4X0EsJKtnVV8JRMKmn7Ut7iaYH5SKVd+Cd+zBlo39rNtEeabpTtX
-         0BOCGtEIp9e73HlvMzeX9ri6wpsmY5Q7XJBET61Lrjk3ywRVY5ZSLBAoGPHwqao1iUOo
-         XHTONprXdNlE0adD1VAEHG1+ky9yL4aFbxxNBakZuGnHNA6Sl9/UiZnelR0txJxiPwA6
-         EvrIuJJgyr04GeEfARI7HC4vahVX6+oenjiouaaGskicG6mDQtJAjTUzqQP9c+30Soh7
-         fmUln1ejeQ+zLxSxJRqjQWJwQVwern8j4SRyAAbAyQiR6Sfp9VWTJGXqVWumA6SqxasW
-         S5zw==
-X-Forwarded-Encrypted: i=1; AKwUvBxNfkdJZaIjdCBeaAedHlhOAEwrNjMZIIMNJ70tiNFgMSt2VZe/cSmRjMuLaGLJHeq80YeS/9NBmsU3T/c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkzxlAbr+PAyOymKVOhvTnfW0YNZ4zqOhD6nV5J5N2Zq8F+j63
-	X9SHXJAJannI6MfzVPBII+GKBWRRwd6zvHLKN6EwAE3rLlsMqodo4xJHDXKQacszsyzG0jAvfM2
-	ntUl+ksqyNpqwXRlBNx1D8UYfQDBiJSlTXS0tRXne/pmnRvoX9+8hRIItY0a7/PzhXWqqS5+2wH
-	s=
-X-Gm-Gg: AYBFou0OSHK/RpB1QuqXeLxu3l5bv7NF02EGgtdfMzK9vS3S8sfy+0kq+uaUvQTzBEU
-	EuTvE7ZbHhDX9Il1IvZkAhM3HE0Yk1N5QdbfYf04SuhF0kvqvuztNOZ/vUnI/IBKLl/Z2ODTsZu
-	nu7+k+GXDVX4gGIlz1S4yS6+Vp1JoV5oN0y5Clb3czhJglHbGOp+56okJw8edvNVoEyNJNY00OH
-	9PJD7f+MB7bP6CvQ8/kYBHlFJdkMEGV+4BVFo4nmn7DSjDnMm2/R+JEp8kc+F4GfMzMMUhNnp5b
-	p6TlS7k1UqNwt0414f4bMB+IipJAO76rcPtEYZWF4xHpY4bwGfF2y5cQx7Wg/a30pA0NtNWgj/6
-	XsjZcyP/R8JEaWVRozvMhWcO6Xs488jEXiVl6iSqsMxuPtdsM14Zbd4hpgZyCyg==
-X-Received: by 2002:a05:620a:1992:b0:937:1097:feb8 with SMTP id af79cd13be357-93cf16d9c55mr286861385a.24.1790924845390;
-        Fri, 02 Oct 2026 00:07:25 -0700 (PDT)
-X-Received: by 2002:a05:620a:1992:b0:937:1097:feb8 with SMTP id af79cd13be357-93cf16d9c55mr286856885a.24.1790924844881;
-        Fri, 02 Oct 2026 00:07:24 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:f14c:b716:c104:4712? ([2a05:6e02:1041:c10:f14c:b716:c104:4712])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm61000175e9.6.2026.10.02.00.07.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 00:07:23 -0700 (PDT)
-Message-ID: <415c5fa8-d5b2-4030-9618-07cf828c8d01@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 09:07:21 +0200
+        bh=lqdQB+3qbWBs9BdmeFMcXI7bQfwAeguI+SXZ5In6E8g=;
+        b=JwmQRx3P1QIcqqfAMVr7VXgHLPePqyXN2T+f+AEX74I55k7Lb6PBsZmJPtWBnu58AU
+         F4ThttdAjdd/wUFwpONaWwWHVLD28mKWCSBeNwAlhV6GXDizuNYRXUU4wnDWXxxP5FAB
+         oOrMJ6jb/aUSj4IJnREV1UVUuu9HZzTANQqUltSCKSWk+08TFu3RlPnO+UiMEhl8bt6G
+         ZajbgIcDW2Sl5hbCS7VqDElwRrgZTN0hTFB2fqfzv81aScjNXhS58Entiaiyo2qbMxOM
+         b22GrdAypCzgv6+xmnM+KZeMU/UB5DJ1m5Po/aoPXoc9KrYUbmSR7L8RdpsApUAhdPRs
+         ZgZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwfpgDdsQ+0zLhPXJtsDKbIZE+ZZg8U8Rl/BOQAE1+AXsuM30Z641ABczAlRLrc+714+gjIlNDdMGpSMFk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKs7yVQtJfip67eecS+94mye5yrYglP6idTSMQMv8eD9UX4gbGR
+	0kOypftUO14Pi1/QYv0aw94yPciDNzz6gXQ6ofR2JBuFTDau6QmVyXWt
+X-Gm-Gg: AYBFou1Ne9hbhtqSuc9yEJ0Z86B4OWs0N3FctWlLIa9wRp73gqoyfQhn1RI/WEq0ZDc
+	r9Oa45LWbtXpmkcMp4guqWrGrImXNm9QCnarn6lTwWlUgs6afErYKEA72NzMqdETLbyTfIwQANy
+	BxsTL/lw1aflQNQWUhnJKQlvYPpu45U32yFCaFuGbkhPkyJLFqLJLY+nRG+y+7IMcdmJn0B7esi
+	S2aWeCtFqBpshnck47hT7munEzzf4+SOfeeuFPz+PYirM/RunAVnAQ4DBqx/49Oc9WVJeCFyTli
+	aiuErfrr5Th1PBN9qQESErXCkg6EvPugk5Zm82ZFH67no1K7QrpzMhy+2xdsi4x2ut4Ptwj8zJc
+	RGgp/KQ6MbK7XzuZDlfsU11pAqs4Bnu807JxldC6IEzy9gzQOVWToxHrIwHpXVjdz/2BzcOLerX
+	aFvNDhLXkb62Oa7G5AUmJU7mfDE0iuZy3TawSrC19QPofAz2tr3frW4eEkluM1gR2ldMul1dSdf
+	gKw/KGNgkhzGhObB6mIuv0W6vqSb77sgcdDYc9mhQ5+ZF+KkbeHSjBQFHpSd9g6yLjP4asyaWLD
+	vg==
+X-Received: by 2002:a5d:5e84:0:b0:48b:1ed:db34 with SMTP id ffacd0b85a97d-48b12747ac0mr2993279f8f.45.1790924875458;
+        Fri, 02 Oct 2026 00:07:55 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253e6bsm3121772f8f.6.2026.10.02.00.07.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 00:07:54 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Gianluca Anzolin <gianluca@sottospazio.it>,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	raghunathpalla.0209@gmail.com,
+	syzbot+4a807caf7680652d53b6@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: RFCOMM: Fix NULL tty_dev dereference in rfcomm_dev_shutdown
+Date: Fri,  2 Oct 2026 08:07:52 +0100
+Message-Id: <20261002070752.84486-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 1/6] power: Extend power_on_reason.h for upcoming
- PSCRR framework
-To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
-        Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
-        Tzung-Bi Shih <tzungbi@kernel.org>,
-        Guenter Roeck <groeck@chromium.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
-        avaneesh.dwivedi@oss.qualcomm.com,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>,
-        Sebastian Reichel <sebastian.reichel@collabora.com>
-References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
- <20260924-pscrr-framework-v15-1-7af87107e0d3@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260924-pscrr-framework-v15-1-7af87107e0d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAyOCBTYWx0ZWRfX1kKvatXB9mQN
- ADDGkQ9fTOcwwf1vau7j7oBKtq/LGvdXl97BJSlK2PKKxdtK24t6L/Bra4/vuzMYMjXy+kNge0i
- R/4r2QzYHkDNjEKEJLGsgt/LVNioiJCgjl7qdHNLiEEdmVxFTHagpinOcvnF8ZOGgxsTp88vwY6
- D2igv74v19xTR3U3mhdwf5+nfdjZMNI0p4o8hnFAPH8zaphIYppHeS/Dsn4Yg/oCORCbXXzCsbu
- a6rqz92KTy4XKjVWHAkKbDz9DB4OJ9IxkjloVpZeHsHM9hcUN4XwwV7pLeRu4A967agNCFJbSAN
- NaEivjOSDbcZOJonjfTztdhaJ2E4Pdfu1yZMgYJLdcCadNVUBrdrq6XYZUsJesugNROm7YcI6zE
- eNPG+w3e1WZCtkn7FdNtpfj2v6c7izyRBTBj10eExo6TxInN/FOcQ19tZFsPJ61FDUYauqgm0BV
- +OzVDoCoaP1TK5GK3DQ==
-X-Authority-Analysis: v=2.4 cv=JIauIMKb c=1 sm=1 tr=0 ts=6abf582e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=QX4gbG5DAAAA:8
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=FITrd37hvkKM1ztSptAA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-GUID: Ou01CTN4dP2ioP4VhJmZhLXoMS4_jvNN
-X-Proofpoint-ORIG-GUID: Ou01CTN4dP2ioP4VhJmZhLXoMS4_jvNN
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAyOCBTYWx0ZWRfX8ciWBuxJ+rWq
- RXSkfEBLZ/TQAFbF7CG1Ylt822AmldkQzn0fCEouIEZ9rTGgjoh8eGPrtGrX3+DJfIsLFz6SLl9
- Z7iOb6TsR0EJTB/T6KKEdP2ro4g+VEk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 impostorscore=0 bulkscore=0
- spamscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610020028
+Content-Transfer-Encoding: 8bit
 
-On 9/24/26 09:08, Faruque Ansari wrote:
-> Prepare for the introduction of the Power State Change Reason Recorder
-> (PSCRR) framework by expanding the power_on_reason.h header. This
-> extension includes new power-on reasons:
-> - POWER_ON_REASON_OVER_CURRENT for over-current conditions.
-> - POWER_ON_REASON_REGULATOR_FAILURE for regulator failures.
-> - POWER_ON_REASON_OVER_TEMPERATURE for over temperature situations.
-> - POWER_ON_REASON_EC_PANIC for EC panics.
-> - POWER_ON_REASON_EXTERNAL for an external reset source.
-> 
-> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-> Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Reviewed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+syzbot hit a NULL pointer dereference in rfcomm_dev_shutdown() when an
+RFCOMM tty is closed.
+
+rfcomm_dev_add() puts the new device on rfcomm_dev_list first and only
+then registers the tty device and saves it in dev->tty_dev. If that
+registration fails, dev->tty_dev is never set at all. The device can be
+looked up in the meantime, so an open() of /dev/rfcommN gets through
+rfcomm_tty_install() and attaches to it. When that tty is closed again,
+rfcomm_dev_shutdown() uses dev->tty_dev without checking it:
+
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
+  RIP: 0010:rfcomm_dev_shutdown+0x48/0xb0 net/bluetooth/rfcomm/tty.c:131
+  Call Trace:
+   tty_port_shutdown+0x1bf/0x220 drivers/tty/tty_port.c:372
+   tty_port_close+0x4e/0x150 drivers/tty/tty_port.c:705
+   tty_release+0x359/0x1670 drivers/tty/tty_io.c:1718
+   __fput+0x418/0xa50 fs/file_table.c:512
+
+rfcomm_dev_destruct() already copes with a NULL dev->tty_dev. Add the
+same check to rfcomm_dev_shutdown(), so the tty device is only moved
+when it was actually registered.
+
+Fixes: cad348a17e17 ("Bluetooth: Implement .activate, .shutdown and .carrier_raised methods")
+Reported-by: syzbot+4a807caf7680652d53b6@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=4a807caf7680652d53b6
+Cc: stable@vger.kernel.org
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+---
+I reproduced this on next-20261001 with a small program that creates and
+releases rfcomm0 in a loop while two other threads keep opening and
+closing /dev/rfcomm0, with a vhci controller up so the open gets as far
+as rfcomm_dev_activate(). It crashed within about ten seconds every time.
+With this patch applied it ran for five minutes without any problems.
+
+ net/bluetooth/rfcomm/tty.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/bluetooth/rfcomm/tty.c b/net/bluetooth/rfcomm/tty.c
+index dc3cdf614def..198c7dd1a95b 100644
+--- a/net/bluetooth/rfcomm/tty.c
++++ b/net/bluetooth/rfcomm/tty.c
+@@ -128,7 +128,7 @@ static void rfcomm_dev_shutdown(struct tty_port *port)
+ {
+ 	struct rfcomm_dev *dev = container_of(port, struct rfcomm_dev, port);
+ 
+-	if (dev->tty_dev->parent)
++	if (dev->tty_dev && dev->tty_dev->parent)
+ 		device_move(dev->tty_dev, NULL, DPM_ORDER_DEV_LAST);
+ 
+ 	/* close the dlc */
+-- 
+2.34.1
+
