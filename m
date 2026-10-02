@@ -1,223 +1,132 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434433537FF
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5122A4E3259;
+	Fri,  2 Oct 2026 16:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957842; cv=none; b=jSxrdj8KuD+XSYoey/QwVz4VUrB9oFdHfdOBNAVe8aXB0t5VW9/IK3skqOQXGeIpe2zw4bPP61NBbqWYvam+buDgcEyaupttAIyWfIzn+LrBj4C8eCyJPBjunIeWJPN6OdyNP/getbAPpxfxEmOLO9kowSwklqB4Ad206d+Ot3w=
+	t=1790957842; cv=none; b=mFPAFBxt9Wkb+wz1CaSPrj/j6Jru47BMORPtXB62J48P5XBgs7sfm6xWunzsDptNvizzLUfwLPau1sa3sxxZhhaZ0bLGb81CAUz0NVb6Fv/mDJkE1U5umO6OLXGq+c9RgaYRnmn+QlnoxK9o2hpnqbun4vFjsY3lqqaepOUcNwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790957842; c=relaxed/simple;
-	bh=MyBN7nnBw3QNPXaan5Cq3lLqlU0H/yPFUpqJdz0cWdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tZFhvJ3OgLVj30oOAiRdzovU3n3NEWsmyXEvvKq8+IIeehn0t+RMYka6+wyay9e/ky8N+qMkt6itF4W3VCi0/VsRwfmh7n3vP3rNTLVlm3xIKK+LzMLGwcB9uLDbSK/CP6Wl2Z3mEQPrbPfAaqRqi07w8Uc9Sm4oL30hVfv8BWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PIZmf2lG; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=7KZCFvKm+b+K+u6GwHqW+UpEcbSm4wGhlvkIvWsYoQA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J4mtJpIjgh+T8Do14dgfrO59UIj1OYuq+UPcl+RwsAopqcS8qN8Y1zloE/KA1JKYgR9mP6tGw7cWkNFf4c37KMTUl1NZtIiJvzdAEhY3vLCa0Ka4BCGyWhpoqNNM9BzaQBlvVcLGM9rohccJwvp/luHt4cpdoM3pGTXlRlYvUmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sowa075W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PIZmf2lG"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056ac81fso12112571a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:17:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790957838; x=1791562638; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/WnmIAjuSEnHEbu2FskxY54VtxWjUv46LMUAmUQRpBk=;
-        b=PIZmf2lGRmxOScwuaRvB3PEAbt1nnUTKXz6leG3cIOT3b8NgPFUax4wk4Ihyjq5Qji
-         NiIsv3GRkm3/XcvW925tPM4t7AJUwiXmazcFOv2uSul+L8JtLYg1OvK7V05TTat+QhZh
-         mrS3GJuL9SnzopetrVT5LuwplO1TnH6d9jOi3erswD0RXB4CBj7eyaD/K8OZXR9sISNL
-         5VzV9A2Yb7czt3bLMy4rmlKMoofR2TiCtcKLSxjLpm2FMPwPy8YoOjhED05G/mDJypP/
-         rwm4b2nqJ9/Nauq0xwMSYyixXoDQmQMy+8FZqDjz4LZivpKGNlh8a5sTc8XSA7M3qkHY
-         Ov6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790957838; x=1791562638;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/WnmIAjuSEnHEbu2FskxY54VtxWjUv46LMUAmUQRpBk=;
-        b=szLmU9JkcT8nwkBWlXS49UqmhOYS+LOkdozXekvTcFH6hRVbP7gDYIfBoJmEg6PS4w
-         07nLvYdYpOk1KouRtMcvHr608VkpdYvD5k6W9e9E8+oVdC74/VdbEPV5fg5ej66Ifb8j
-         oNG/UcGWMa164KPVrxUyqGRsQZQosdA+6KQhSzc85dHdJGdgGTkhMPh4z2i3HxKCAe6p
-         /Vm+gvy5kDYW/QPWSrtMFWMWvMlglffjefNr+N24y5wiXgHzTFYWDKglun7TmMaiZEyw
-         G8E5MLazsCHpoXMAK9yuSY3bo15jC7tRTB75uLFcsEtAKuEMO64A96tjKyaLrDc/SkHk
-         JFwQ==
-X-Gm-Message-State: AFuF++lZSaTjEOoJfAOP1WpvaPqFnCqNJo9boxKunOs/jmgqoK8MP2ax
-	LEE0ZKapcLtzwgY7/fk2yhYyDppxbmfo+ZDTkLmfLZg0fOLmu+fXQsn4
-X-Gm-Gg: AYBFou29zDkvzTJ/hQe3SV0XEKOrCwJvkDZJsXfFKxHUW0if7by3SopLriZgMNwud3r
-	xgvPdZEnI/y7FbSWmgIMtFk1oS2ZS7CkLVxJqrTLIDfySB6mQLQjmbZqoyJWo2RKgLFOFPQJy4p
-	c3OGw0D9oD948wpU0n1ODkL9piYAVU7R0Pc2gx879sN2IGrUPc3WAtgfYGw14tX03yt7BYqaBvS
-	k8VUF9eWO5NA04fKxbTsjvPsiRNkxY73dh5JCjjJq5+vRaFwF2N3Rgl2YR1biV7fEOUQJSy0KyX
-	fTr4+qfMcckH/4UPmCBmbwuFjVtRVLpWP4VZ3tIvZqsKSgEecK2EnooSSXsMnimz3pkACyhOfCx
-	KO7GwT/iEH+AtycpKjLwza1jpzoQH7CxAMIbaZ0JRPkFChSgp2CUXGS2X5yD8cMWO2pXOiuyaNf
-	tAvVq4Q9BAWG7+aBa6ruH4XE+Ob3OvWuZDkjuff4jYpz7KyjjEvlR9wqq9A4hzEOrMCigCJVG5M
-	bUQRHX0QNCbMj+fAqH1kh0RkZjLbrAkmQmEWD7BF4ZfHIxHhtQ=
-X-Received: by 2002:a17:907:9693:b0:c29:3c97:c994 with SMTP id a640c23a62f3a-c2e4ae1e30emr252668166b.35.1790957838142;
-        Fri, 02 Oct 2026 09:17:18 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf5f4e4sm106437166b.42.2026.10.02.09.17.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:17:16 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: sparclinux@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: linux-kernel@vger.kernel.org,
-	Magnus Lindholm <linmag7@gmail.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Michael Chan <mchan@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH 6/7] tg3: normalize inherited M3000 register byte order
-Date: Fri,  2 Oct 2026 18:14:28 +0200
-Message-ID: <20261002161515.932316-7-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002161515.932316-1-linmag7@gmail.com>
-References: <20261002161515.932316-1-linmag7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sowa075W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A3A1F00893;
+	Fri,  2 Oct 2026 16:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790957840;
+	bh=NpzoYDSIrYMJBSmUGDfAe3nxtL+kqV99j9xz34JxBI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sowa075WaK/403zLdKGJIdu6BkJHte5GM84lUjV6vBSBG/6jtX26KXOhfIkfQYVgY
+	 Lyk0oi7AQ+e5u4GXQH4zzOfkeTd6BIEE5FtO9nWCHY6N/iTb+ahUELDtECWRmK5Ciw
+	 vsvDrt/bWKD0rH51e29h3PgdDQuT0UHXjKBEWE1T17irrKrSJe6dZPBsFSkHIM4Ll3
+	 XaPNWeyuLw+tCooxP/4NTiX5tcNGPLj7KkCPM8wh8nv4eSkF1C4LyYCGk6dyh5kTMD
+	 uZrmq6AxQI+dTmK+lAE8K5KllbhPb/Z31eaHhIEYlWS2aVIEBedQAg4wPBos/qPf2Q
+	 N67k8Lk6lp4dA==
+Date: Fri, 2 Oct 2026 18:17:16 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: adrian.hunter@intel.com, atomlin@atomlin.com, howardchu95@gmail.com,
+	james.clark@linaro.org, jbrnak@redhat.com, jolsa@kernel.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	mingo@redhat.com, namhyung@kernel.org, peterz@infradead.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 2/2] perf trace: Increase TRACE_AUG_MAX_BUF to 128 and
+ document beauty_map encoding
+Message-ID: <ar_ZDG16S_lyZ8Ol@x2>
+References: <ar6nzTSj17IxCy0j@x2>
+ <20261002065440.2781176-1-irogers@google.com>
+ <20261002065440.2781176-2-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002065440.2781176-2-irogers@google.com>
 
-M3000 firmware can leave BCM5718 vendor registers byte-swapped while
-standard PCI fields retain normal byte order. Match the Fujitsu 10cf:165a
-subsystem, IKKAKU model and swapped revision/product signature before
-restoring host control; reject failed PCI accesses or register readbacks.
+On Thu, Oct 01, 2026 at 11:54:40PM -0700, Ian Rogers wrote:
+> With sockaddr arguments copied as buffers via beauty_map_enter, the
+> 32-byte TRACE_AUG_MAX_BUF limit only held 2 bytes of sa_family plus 30
+> bytes of AF_LOCAL sun_path, truncating longer socket paths such as
+> "/var/run/.heim_org.h5l.kcm-socket".
+> 
+> Since struct augmented_arg already reserves PATH_MAX (4096) bytes,
+> increase TRACE_AUG_MAX_BUF to 128 (SS_MAXSIZE, the size of struct
+> sockaddr_storage), which covers all 110 bytes of struct sockaddr_un
+> without changing map sizes. Also document the 1-based negative
+> -(arg_idx + 1) encoding used in beauty_array for paired length
+> arguments.
+> 
+> Suggested-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Keep this in probe so failures can abort initialization; SPARC firmware
-enumeration skips PCI_FIXUP_EARLY. Normal rebinds and other platforms
-retain their existing path.
+Thanks, tested and applied.
 
-Use tg3.h's MISC_HOST_CTRL_BYTE_SWAP and TG3PCI_GEN2_PRODID_ASICREV;
-the inherited state was observed on M3000 hardware.
+- Arnaldo
 
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- drivers/net/ethernet/broadcom/tg3.c | 91 ++++++++++++++++++++++++++++-
- 1 file changed, 89 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
-index 73a4b569b03e..9335bcc0d8d3 100644
---- a/drivers/net/ethernet/broadcom/tg3.c
-+++ b/drivers/net/ethernet/broadcom/tg3.c
-@@ -56,6 +56,7 @@
- #include <linux/hwmon-sysfs.h>
- #include <linux/crc32.h>
- #include <linux/dmi.h>
-+#include <linux/of.h>
- 
- #include <net/checksum.h>
- #include <net/gso.h>
-@@ -16248,6 +16249,83 @@ static bool tg3_10_100_only_device(struct tg3 *tp,
- 	return false;
- }
- 
-+/* M3000 firmware can leave the on-board BCM5718 registers byte-swapped. */
-+static bool tg3_is_m3000(struct pci_dev *pdev)
-+{
-+	struct device_node *root;
-+	const char *model;
-+	bool match;
-+
-+	if (pdev->vendor != PCI_VENDOR_ID_BROADCOM ||
-+	    pdev->device != TG3PCI_DEVICE_TIGON3_5718 ||
-+	    pdev->subsystem_vendor != 0x10cf ||
-+	    pdev->subsystem_device != 0x165a)
-+		return false;
-+
-+	root = of_find_node_by_path("/");
-+	match = !of_property_read_string(root, "model", &model) &&
-+		!strcmp(model, "IKKAKU");
-+	of_node_put(root);
-+	return match;
-+}
-+
-+static int tg3_m3000_fw_byteorder(struct tg3 *tp, u32 *misc_ctrl_reg)
-+{
-+	struct pci_dev *pdev = tp->pdev;
-+	u32 prodid, expected_prodid, normalized, readback;
-+	int reg, err;
-+
-+	if (!tg3_is_m3000(pdev) ||
-+	    (swab32(*misc_ctrl_reg) >> 28) != ASIC_REV_USE_PROD_ID_REG ||
-+	    !(swab32(*misc_ctrl_reg) & MISC_HOST_CTRL_BYTE_SWAP))
-+		return 0;
-+
-+	/* Standard PCI fields are normal; verify the swapped vendor registers. */
-+	reg = TG3PCI_GEN2_PRODID_ASICREV;
-+	err = pci_read_config_dword(pdev, reg, &prodid);
-+	if (err)
-+		goto config_error;
-+	expected_prodid = swab32(prodid);
-+	if ((expected_prodid >> 12) != ASIC_REV_5717) {
-+		dev_err(&pdev->dev, "M3000: unexpected swapped product ID %08x\n",
-+			prodid);
-+		return -ENODEV;
-+	}
-+
-+	normalized = (swab32(*misc_ctrl_reg) & MISC_HOST_CTRL_CHIPREV) |
-+		     tp->misc_host_ctrl;
-+	reg = TG3PCI_MISC_HOST_CTRL;
-+	err = pci_write_config_dword(pdev, reg, swab32(normalized));
-+	if (err)
-+		goto config_error;
-+	err = pci_read_config_dword(pdev, reg, &readback);
-+	if (err)
-+		goto config_error;
-+	if (readback != normalized) {
-+		dev_err(&pdev->dev, "M3000: host-control readback mismatch %08x\n",
-+			readback);
-+		return -EIO;
-+	}
-+
-+	reg = TG3PCI_GEN2_PRODID_ASICREV;
-+	err = pci_read_config_dword(pdev, reg, &prodid);
-+	if (err)
-+		goto config_error;
-+	if (prodid != expected_prodid) {
-+		dev_err(&pdev->dev, "M3000: product-ID readback mismatch %08x\n",
-+			prodid);
-+		return -EIO;
-+	}
-+	*misc_ctrl_reg = readback;
-+	dev_info(&pdev->dev, "M3000: normalized firmware register byte order\n");
-+	return 0;
-+
-+config_error:
-+	dev_err(&pdev->dev, "M3000: PCI config access at %#x failed (%d)\n",
-+		reg, err);
-+	return pcibios_err_to_errno(err);
-+}
-+
- static int tg3_get_invariants(struct tg3 *tp, const struct pci_device_id *ent)
- {
- 	u32 misc_ctrl_reg;
-@@ -16272,8 +16350,17 @@ static int tg3_get_invariants(struct tg3 *tp, const struct pci_device_id *ent)
- 	 * sure that indirect register accesses are enabled before
- 	 * the first operation.
- 	 */
--	pci_read_config_dword(tp->pdev, TG3PCI_MISC_HOST_CTRL,
--			      &misc_ctrl_reg);
-+	err = pci_read_config_dword(tp->pdev, TG3PCI_MISC_HOST_CTRL,
-+				    &misc_ctrl_reg);
-+	if (err && tg3_is_m3000(tp->pdev)) {
-+		dev_err(&tp->pdev->dev, "PCI host-control read failed (%d)\n",
-+			err);
-+		return pcibios_err_to_errno(err);
-+	}
-+	err = tg3_m3000_fw_byteorder(tp, &misc_ctrl_reg);
-+	if (err)
-+		return err;
-+
- 	tp->misc_host_ctrl |= (misc_ctrl_reg &
- 			       MISC_HOST_CTRL_CHIPREV);
- 	pci_write_config_dword(tp->pdev, TG3PCI_MISC_HOST_CTRL,
--- 
-2.43.0
-
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/builtin-trace.c                            | 8 +++++++-
+>  tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c | 8 ++++----
+>  2 files changed, 11 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+> index c34c9f129836..4094141461f9 100644
+> --- a/tools/perf/builtin-trace.c
+> +++ b/tools/perf/builtin-trace.c
+> @@ -4174,7 +4174,12 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
+>  				continue;
+>  
+>  			bt = sc->arg_fmt[i].type;
+> -			/* Copy a sockaddr as a buffer sized by the next argument, e.g. addrlen. */
+> +			/*
+> +			 * Copy a sockaddr as a buffer sized by the next
+> +			 * argument (i + 1), e.g. addrlen. A negative entry
+> +			 * -(j + 1) encodes the 0-based length argument index j
+> +			 * as 1-based so arg 0 is -1 rather than 0.
+> +			 */
+>  			if (strcmp(name, "sockaddr") == 0 && field->next &&
+>  			    strstr(field->next->name, "len"))
+>  				beauty_array[i] = -((i + 1) + 1);
+> @@ -4210,6 +4215,7 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
+>  				     strstr(field_tmp->name, "siz") ||  /* size, bufsiz */
+>  				     (strstr(field_tmp->name, "len") && strcmp(field_tmp->name, "filename")))) {
+>  					 /* filename's got 'len' in it, we don't want that */
+> +					/* 1-based negative index of length arg j. */
+>  					beauty_array[i] = -(j + 1);
+>  					can_augment = true;
+>  					break;
+> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+> index 0b2ef9541f84..28ebb9a72776 100644
+> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+> @@ -28,7 +28,7 @@
+>  
+>  #define MAX_CPUS  4096
+>  
+> -#define TRACE_AUG_MAX_BUF 32 /* for buffer augmentation in perf trace */
+> +#define TRACE_AUG_MAX_BUF 128 /* for buffer augmentation in perf trace */
+>  
+>  /* bpf-output associated map */
+>  struct __augmented_syscalls__ {
+> @@ -514,9 +514,9 @@ u64 ZERO = 0;
+>   * value in the beauty_map. This is the relation of parameter type and its corresponding
+>   * value in the beauty map, and how many bytes we read eventually:
+>   *
+> - * string: 1			      -> size of string
+> - * struct: size of struct	      -> size of struct
+> - * buffer: -1 * (index of paired len) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
+> + * string: 1			          -> size of string
+> + * struct: size of struct	          -> size of struct
+> + * buffer: -(0-based index of paired len + 1) -> value of paired len (maximum: TRACE_AUG_MAX_BUF)
+>   */
+>  static inline int augment_arg(struct syscall_enter_args *args, int i,
+>  			      unsigned int *beauty_map,
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
