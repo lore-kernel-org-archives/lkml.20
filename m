@@ -1,322 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D39253340;
-	Fri,  2 Oct 2026 15:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F82E3C2775;
+	Fri,  2 Oct 2026 15:55:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956526; cv=none; b=EpmU0MP0lTIRU1BCSfhfzHczPu84Ly6uOR32Y8zzf8F6BXwH2jruS2eMitOWzjKfWIYka9hkbeGPww9aDYDq+2HDyCWOyXkN0OoCEpTNr9jD7bUdqw5JRk8IniUptgu21fxHZnOLKQa8b+emYMYo1bnMbxsB/D0rBJhfLGiAhiQ=
+	t=1790956533; cv=none; b=kCaNf8T+/kYzp1QR6ByRkvX4O11aGpn+OOK0R8S2/pAAr3NN3oJCzTCbWZrYifsxDOHOWFlWFiF384YKuU7NApO6EmFpfYKZlSDzR2ynGNBYk3F2CfyerZJBqWBI7TPSfOtjtI8kPfrgz4ltWIlDbp4ZoWfkdiczg2VbeB70WxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956526; c=relaxed/simple;
-	bh=KH1UWl5VeB6hAgaMlflVxWfiK3gRO3gxjWFR2LGVmBw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=srA6UN8KTK/LBBo3QKAHScRQHYw8EG9oBz/nX58gTFn9l1dYQPofKb2bMU2pPWnwAOGTyL/72BDNsu4/SM7gxEKFskgtH8JqPUZSe9jzuJgZ68DehP6d122I0DI+CuVl4GK3Sna5SbA30IMC5kUknGc9Qm9fcQneJaxHUbAjH1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qs/IrjqB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790956533; c=relaxed/simple;
+	bh=v5xjyPMr7ysn1m26/wEJM6h5VhbBpaS/jh2iVTImae0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eQ4cj+M3EGMnqD8g2wneLjFyxjOPXpDRqSZEWCq/rcRCh298NmYi/wvMD50tE8bjiAraPXem766f5lL8s9cgeFfxNVYPJIzliNNM0CrfZZDHHfJZef4L55z/iE/tUTGv0Bwdm9ThwD7szDvZ/2VsF/uBItoJhLx/RLljAqRwNfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMDrC6gW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qs/IrjqB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DEBB1F000FF;
-	Fri,  2 Oct 2026 15:55:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMDrC6gW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392FD1F000FF;
+	Fri,  2 Oct 2026 15:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790956524;
-	bh=2ng9SKCBg1G/ma+Mp8f8fqCiS/P7/Xy23pBv8pxKv/4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qs/IrjqB1Fc4QXRM78/IxqxrbUDRfXuKWx4/HkQc/Qf2RPMIY8kQ36WSK9afD395N
-	 ZTZ8FsvQ7uXl39Z7acfyIsMBim0yT+UDCv2ZKGTymhY3dXOe738+yuDCuxGXEx2nB0
-	 RTX8MgDZPm5lAvR9zGa3Tj/+rqrJKQxwh/cYF9aJBCy3MhG9oE7ifiiXMBBlIzBSa+
-	 4m6Hung47p0R1viXVIc01IsbDmq9PB8dGndCgFnROC3NdQ+7VbKkC8GaNBZ5rEV4nd
-	 +oWMBTMAq0Me/VNlktgtU/NTES73bNqhghGgjbDbmCO/CEOmqqr8+SecjlnKKx+RL/
-	 ri+Vw89AUx1MA==
-Date: Fri, 2 Oct 2026 23:35:23 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 08/20] dt-bindings: reset: add Synaptics SL261X SoCs
-Message-ID: <ar_POzPRppAwK7ui@xhacker>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-9-jszhang@kernel.org>
- <20260929-sprang-stir-af07a907ccb2@spud>
- <ar0npPCHX1P5Gjzx@xhacker>
- <20260930-legend-helium-ca5a0ff56709@spud>
+	s=k20260515; t=1790956532;
+	bh=pkuZWiE4qwA3AlHHyYAOQAj4r7NKq77EKJ2Yz3Nylho=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DMDrC6gW0jVNVl43vTuE5BYV7hMbFMI9Qg9b+KFodnvgGStg9YSOcn+uEpW/FzuZE
+	 hmChMav3VuJN/ZzkKsaFpFAl5aXQ2MMRCwWusztLVXx5MkLP7SeysXicPcNSFCug4q
+	 tQXpuTdaUTw0rjWRpbWMCC2SPBnpsXRdiEHtrb2I8pXRB8HdCKOLQhLkRqUYERRjLC
+	 zOj34Q7pHOsHcJUVKh3QybkZvczzocsr7B/nu+TXFylfKMn9UotVLyDUAMOqfEOyuI
+	 9AQUjWD0PLQlvzhZvKRelyx0IAdkMWYGYn0e0FlCDYuUijUrbe/fUZlQjrd1CTSMmx
+	 Suak45OaUKmmg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xCfbe-0000000GIMo-0HnW;
+	Fri, 02 Oct 2026 15:55:30 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	mark.rutland@arm.com,
+	steven.price@arm.com,
+	vdonnefort@google.com,
+	qperret@google.com
+Subject: Re: [PATCH v4 00/18] KVM: arm64: Confine protected VM vCPU state to EL2
+Date: Fri,  2 Oct 2026 16:55:26 +0100
+Message-ID: <179095643711.351883.2924159912626438826.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930-legend-helium-ca5a0ff56709@spud>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, fuad.tabba@linux.dev, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, Sep 30, 2026 at 05:49:18PM +0100, Conor Dooley wrote:
-> On Wed, Sep 30, 2026 at 11:15:48PM +0800, Jisheng Zhang wrote:
-> > On Tue, Sep 29, 2026 at 08:44:13PM +0100, Conor Dooley wrote:
-> > > On Tue, Sep 29, 2026 at 02:14:05PM +0800, Jisheng Zhang wrote:
-> > > > Add device tree bindings for the resets on Synaptics SL261X SoCs.
-> > > > 
-> > > > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > > > ---
-> > > >  .../bindings/reset/syna,sl261x-reset.yaml     | 40 ++++++++++
-> > > >  include/dt-bindings/reset/syna,sl261x-reset.h | 80 +++++++++++++++++++
-> > > >  2 files changed, 120 insertions(+)
-> > > >  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> > > >  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
-> > > > 
-> > > > diff --git a/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..8cfec17df800
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> > > > @@ -0,0 +1,40 @@
-> > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > +# Copyright (C) 2026 Synaptics Incorporated
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/reset/syna,sl261x-reset.yaml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: Synaptics SL261X reset controller
-> > > > +
-> > > > +maintainers:
-> > > > +  - Jisheng Zhang <jszhang@kernel.org>
-> > > > +
-> > > > +description: The reset controller node must be a sub-node of the chip
-> > > > +  controller node on SL261X SoCs.
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    enum:
-> > > > +      - syna,sl261x-soc-reset
-> > > > +      - syna,sl261x-system-reset
-> > > > +
-> > > > +  "#reset-cells":
-> > > > +    const: 1
-> > > > +
-> > > > +required:
-> > > > +  - compatible
-> > > > +  - "#reset-cells"
-> > > > +
-> > > > +additionalProperties: false
-> > > > +
-> > > > +examples:
-> > > > +  - |
-> > > > +    chip: chip-control@f7e10000 {
-> > > > +        reg = <0xf7e10000 0x1000>;
-> > > > +
-> > > > +        chip_rst: reset {
-> > > > +            compatible = "syna,sl261x-soc-reset";
-> > > > +            #reset-cells = <1>;
-> > > > +        };
-> > > 
-> > > Why can't this just be part of the parent node?
-> > 
-> > Good question! IMHO, the reasons are:
-> > 
-> > 1. the so called Gbls(Gbl means global) such as mcuGbl and
-> > chip control Gbl contain not only reset, pinctrl and clk/plls
-> > but also some other registers for different purposes, e.g in the
-> > chip control gbl, there are some registers to control eth phy sel(RMII
-> > or RGMII), and TXC 90 degree selection etc. These registers will
-> > be used by the Ethernet driver;
-> > 
-> > While there's no pinctrl regs in avioGbl and vppGbl. In the vppgbl,
-> > there are some registers for DPHYTX etc.
-> > 
-> > As can been, in different Gbls, there maybe different purposes registers, no
-> > obvious patterns.
-> > 
-> > So the question here is why not split the gbl into different register
-> > spaces, and abstract each space for each function group?
+On Thu, 01 Oct 2026 14:56:53 +0100, Fuad Tabba wrote:
+> Changes since v3 [1]:
+>   - A protected vCPU that EL2 holds powered off reads as
+>     KVM_MP_STATE_UNINITIALIZED, in place of a new bool. (Marc)
+>   - The marshalling and PSCI patches access the host copy through the
+>     vCPU accessors, with every assignment on one line. (Marc)
+>   - The PC adjustment pair is kvm_adjust_pc_get()/put() and tests for
+>     the hyp vCPU directly. (Marc)
+>   - CPU_OFF clears the reset flag before its release of OFF, CPU_ON's
+>     relaxed cmpxchg is ordered by its control dependency, and the
+>     CPU_ON rollback stores OFF with a release. pkvm_reset_vcpu()
+>     carries the CPU_ON/CPU_OFF sequence as a comment and drops its
+>     WARN_ON(). (Vincent, Will)
+>   - Collected Reviewed-bys.
 > 
-> No, you misunderstood. I'm not asking for the register space to be
-> split, I am asking why you cannot do
-> | syscon@f7e1000 {
-> | 	compatible = "syna,sl2610-soc-syscon", "syscon";
-> | 	reg = <0xf7e10000 0x1000>;
-> | 	#clock-cells = <1>;
-> | 	#reset-cells = <1>;
-> | };
-> With this kind of thing, you can either use the auxiliary bus or
-> MFD_CELL_NAME() to create the other devices. The latter is good if
-> you've got a region with clocks that also has resets thrown in, the
-> former is probably better if you have a syscon with a genuine
-> assortment of different functions that you're going to be looking up via
-> phandle.
+> [...]
 
-I see your points now. But there are two problems with this solution:
+Applied to next, thanks!
 
-1. Besides reset, pinctrl and clk, the so called "Gbl" also contains
-registers for other purpose, e.g DPHYTX, when we need the driver for
-DPHYTX, I assume I could also go with the auxiliary bus or MFD_CELL_NAME(),
+[01/18] KVM: arm64: Sync HCR_EL2.VSE back to the host vCPU under pKVM
+        commit: 3708f6342f010d66a767b587dc881f18d95ceb3e
+[02/18] KVM: arm64: Validate the host vCPU's VM before reading it under pKVM
+        commit: cf533b4d3630b229d78ad55567c5db2f365052a2
+[03/18] KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM
+        commit: a2bb5f5c67a95ac97fcd6859dab51be421cf26fe
+[04/18] KVM: arm64: Disable steal time for protected VMs
+        commit: a5b0f36a045e0e96f8e2e044403ff8e6464995e1
+[05/18] KVM: arm64: Introduce per-EC entry handlers for pKVM
+        commit: 66a5e82d2a8d113d5953d04e008447d6b779e03e
+[06/18] KVM: arm64: Skip fixed-feature state flush for protected vCPUs
+        commit: 06499de8f998e0ec975cb73adde936c12a8a1200
+[07/18] KVM: arm64: Add {flush,sync}_hyp_timer_state() primitives
+        commit: a8b2a7d0fe9c0eb493542bb1d306b68313e6a828
+[08/18] KVM: arm64: Add system register reset framework for protected VMs
+        commit: ceaf9e57f88711fa3c7775ee4fea4f6731f1a71c
+[09/18] KVM: arm64: Implement HVC handling for protected guests at EL2
+        commit: fe40ff87ead5c541ac4b42aa149b98052a1abca1
+[10/18] KVM: arm64: Handle PSCI calls for protected VMs at EL2
+        commit: 9d4ec80be2eb4745d877c6989f1e59c62a2e4da4
+[11/18] KVM: arm64: Restrict KVM_ARM_VCPU_INIT and PSCI version for protected VMs
+        commit: 0b7d843ef3bf0a791d9e92c8a85178fe2a5ee9ff
+[12/18] KVM: arm64: Prevent host PC adjustments for protected vCPUs
+        commit: fc519dabd86b07b7f7e285ce68b2993d370f64d3
+[13/18] KVM: arm64: Inject an UNDEF at EL2 for unhandled protected guest exits
+        commit: 3cfbad49ededd985555820d97b62a27f92506b52
+[14/18] KVM: arm64: Add per-EC entry/exit state marshalling for protected guests
+        commit: 872383bd12e116fc79cb4487b1740c84f23c4c23
+[15/18] KVM: arm64: Reject host access to protected VM private state
+        commit: ad4ebc3decaa19fad2c00868e237561b6ac004c6
+[16/18] KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off
+        commit: 25d726dddc237043327aed9a2b51a5b6336bc31a
+[17/18] KVM: arm64: Advertise the capabilities that protected VMs support
+        commit: 4957c24559e90592cfb60b6d4425296c2a7cd0e0
+[18/18] KVM: arm64: Document the protected VM userspace API
+        commit: 61ace86519fb830a7b271c2a1037c8db5f2f3333
 
-2. where should the driver(s) and dt-bindings doc be put?
-I assume drivers/soc/synaptics/ and
-Documentation/devicetree/bindings/soc/synaptics?
+Given how busy this merge window is, there were plenty of conflicts, most
+of them with your own patches. Please have a look at the way I resolved
+them and let me know if anything is on the bogus side of wrong...
 
-Kindly correct me if I misunderstood something.
+Cheers,
 
-Thanks
-> 
-> > Two blocking
-> > points make this impossible and ugly: different reg space may not be
-> > aligned at 4KB boundary, e.g reset: 0x350 ~ 0x37c; eth phy sel:0xa18;
-> > some registers which belong to similar functionality, e.g clks, may not be
-> > adjacent.
-> 
-> This sort of thing, with non-adjacent clocks is still possible, you have
-> a regmap just like before.
-> 
-> > So the best way is to abstract these GBLs via. "syscon", "simple-mfd", and
-> > put necessary subnodes such as reset, pinctrl and clks under the GBL
-> > node. If the registers in GBL is misc control, pass the syscon phandle
-> > to the main driver, e.g I planed to pass the syscon phandle to GMAC
-> > driver to control the RMII/RGMII selection.
-> 
-> And you can get the regmap from other drivers by doing phandle or
-> compatible based lookups just like before.
-> 
-> > 
-> > 2.follow current bg2 and bg2q style
-> > e.g arch/arm/boot/dts/synaptics/berlin2q.dtsi
-> > 
-> > IMHO, why bg2 and bg2q dtsi files are implemented as current
-> > style is due to the above point 1.
-> 
-> Unfortunately, this is the berlin2q devicetree showing its age, we've
-> been pushing people away from nodes that exist just to probe a driver
-> and don't provide any additional value. Something like
-> | chip-control@f7e10000 {
-> |     reg = <0xf7e10000 0x1000>;
-> | 
-> |     chip_rst: reset {
-> |         compatible = "syna,sl261x-soc-reset";
-> |         #reset-cells = <1>;
-> |     };
-> | 
-> |     chip_clk: clock {
-> |         compatible = "syna,sl261x-soc-clock";
-> |         #clock-cells = <1>;
-> |     };
-> is exactly the pattern we are trying to avoid.
-> 
-> Cheers,
-> Conor.
-> 
-> > 
-> > Kindly let me know if there's a better solution.
-> > 
-> > > From a quick check of the dts, the node with this subnode didn't also
-> > > have a system-reset node too, so there's no conflict or anything of that
-> > > nature.
-> > > 
-> > > > +    };
-> > > > diff --git a/include/dt-bindings/reset/syna,sl261x-reset.h b/include/dt-bindings/reset/syna,sl261x-reset.h
-> > > > new file mode 100644
-> > > > index 000000000000..7034f58aae5b
-> > > > --- /dev/null
-> > > > +++ b/include/dt-bindings/reset/syna,sl261x-reset.h
-> > > > @@ -0,0 +1,80 @@
-> > > > +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-> > > > +/*
-> > > > + * Copyright (C) 2026 Synaptics Incorporated
-> > > > + *
-> > > > + * Author: Jisheng Zhang <jszhang@kernel.org>
-> > > > + */
-> > > > +
-> > > > +#ifndef _DT_BINDINGS_SL261X_RESET_H
-> > > > +#define _DT_BINDINGS_SL261X_RESET_H
-> > > > +
-> > > > +/* ACPU subsystem */
-> > > > +#define RST_SOC_SDIO0		0
-> > > > +#define RST_SOC_USB0		1
-> > > > +#define RST_SOC_EMMC		2
-> > > > +#define RST_SOC_GETH0		3
-> > > > +#define RST_SOC_SDIO1		4
-> > > > +#define RST_SOC_USB1		5
-> > > > +#define RST_SOC_GETH1		6
-> > > > +#define RST_SOC_USB0PHY		7
-> > > > +#define RST_SOC_USB0CORE	8
-> > > > +#define RST_SOC_USB0MAHB	9
-> > > > +#define RST_SOC_USB1PHY		10
-> > > > +#define RST_SOC_USB1CORE	11
-> > > > +#define RST_SOC_USB1MAHB	12
-> > > > +#define RST_SOC_UART0		13
-> > > > +#define RST_SOC_UART1		14
-> > > > +#define RST_SOC_UART2		15
-> > > > +#define RST_SOC_UART3		16
-> > > > +#define RST_SOC_I2C0		17
-> > > > +#define RST_SOC_I2C1		18
-> > > > +#define RST_SOC_SPI0		19
-> > > > +#define RST_SOC_SPI1		20
-> > > > +#define RST_SOC_SPI2		21
-> > > > +#define RST_SOC_SPI3		22
-> > > > +#define RST_SOC_APBTIMERS	23
-> > > > +#define RST_SOC_APBSYSCNT	24
-> > > > +#define RST_SOC_APBWDT		25
-> > > > +#define RST_SOC_APBGPIO		26
-> > > > +#define RST_SOC_APBDMA		27
-> > > > +#define RST_SOC_GPUCORE		28
-> > > > +#define RST_SOC_NPUCORE		29
-> > > > +#define RST_SOC_AVIOAIOG	30
-> > > > +#define RST_SOC_AVIOVPPG	31
-> > > > +#define RST_SOC_AVIOVIPG	32
-> > > > +
-> > > > +/* system subsystem */
-> > > > +#define RST_SM_ADCCORE		0
-> > > > +#define RST_SM_ADCPRST		1
-> > > > +#define RST_SM_CAN0PRST		2
-> > > > +#define RST_SM_CAN0SRST		3
-> > > > +#define RST_SM_CAN1PRST		4
-> > > > +#define RST_SM_CAN1SRST		5
-> > > > +#define RST_SM_GPIOPRST		6
-> > > > +#define RST_SM_GPIOSRST		7
-> > > > +#define RST_SM_I2CM0PRST	8
-> > > > +#define RST_SM_I2CM0SRST	9
-> > > > +#define RST_SM_I2CM1PRST	10
-> > > > +#define RST_SM_I2CM1SRST	11
-> > > > +#define RST_SM_I3CPRST		12
-> > > > +#define RST_SM_I3CSRST		13
-> > > > +#define RST_SM_PDMPRST		14
-> > > > +#define RST_SM_PDMSRST		15
-> > > > +#define RST_SM_PVTHSRST		16
-> > > > +#define RST_SM_PVTPRST		17
-> > > > +#define RST_SM_PWMPERIRST	18
-> > > > +#define RST_SM_PWMPRST		19
-> > > > +#define RST_SM_SPIMPRST		20
-> > > > +#define RST_SM_SPIMSRST		21
-> > > > +#define RST_SM_SPISPRST		22
-> > > > +#define RST_SM_SPISSRST		23
-> > > > +#define RST_SM_UART0PRST	24
-> > > > +#define RST_SM_UART0SRST	25
-> > > > +#define RST_SM_UART1PRST	26
-> > > > +#define RST_SM_UART1SRST	27
-> > > > +#define RST_SM_UART2PRST	28
-> > > > +#define RST_SM_UART2SRST	29
-> > > > +#define RST_SM_UART3PRST	30
-> > > > +#define RST_SM_UART3SRST	31
-> > > > +
-> > > > +#endif /* _DT_BINDINGS_SL261X_RESET_H */
-> > > > -- 
-> > > > 2.53.0
-> > > > 
-> > 
-> > 
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
 
 
