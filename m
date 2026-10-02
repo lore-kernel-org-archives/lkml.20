@@ -1,79 +1,204 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54BD749A3AF;
-	Fri,  2 Oct 2026 13:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D5C49E14B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946644; cv=none; b=py7xkSMXyOhuryA3tscZLrHfAM4WUGGBN8y9bqrqmF0R90XKL2ph4TbI+BSR0cnlBwc0Re9zCuL2p1pp2NojaWZPBWixGIOvH+Tr56VyYsGouwg4KWafdMlbAR/KnU/PU1Gu03vzMEPXFL+i/VVY9v5n/MSTIU3QHlBhPMTDMqo=
+	t=1790946646; cv=none; b=JULe4w23pgdbQVW3ov9SFzfQDHf4A0/e5+CUFSqqKyZyBgTpUE4ZQOKIbJO6XwANoZ//IF7D6JOV+gRPcAtbh9kdGHPNYwOTYSAiCx/30hABeie/73De7fcbnXcO+BxEjwL0m/HKYoVIBNeUvqZAJZt7pgFnpZkJLR/WFij6Hgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946644; c=relaxed/simple;
-	bh=O9qAXfSNd9NNc6BfSIg0k7Umhi4nsbNeqt5uiHuVnJo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XwRNtAHL61Ex3fVRbJD3OPewxBLBh/Y+1cikVKj7BS6lSUn5iW7KtGV70Yfm0/xm671jBLZfoxSkOFdNJfNOTiSS2LXuR7bui8+P/ClteEEM1kwMOiA6GIh9cpSiOLfAK1b/wA/cgKX3ieb/IPWeFYSPReux4bpPXlQaoIY2ys4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TvUKc/n0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790946646; c=relaxed/simple;
+	bh=VYu2s7V7tuI3j4DSs+/I3dDcWFXXgIVo+r3pYJ3vuXo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G6O9eH2ooBXcWOIy0oitGKJjWqf2RkOwzubL1B7dh4WRyYm748iXO9ELGA2iqZseUmKTzC7mQ12FbvvZ+l9qTIKz4bLfXXAOS4UDJcAEuH0jAUtXoCDiGtOUrQLlStTkE57NPd6SQyFkrxGgYyzbPkVkcZIyWqHDV9mBme/Jfzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njXxYPHL; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TvUKc/n0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52DC2497;
-	Fri,  2 Oct 2026 06:10:32 -0700 (PDT)
-Received: from [10.57.8.170] (unknown [10.57.8.170])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A46133F85F;
-	Fri,  2 Oct 2026 06:10:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790946635; bh=O9qAXfSNd9NNc6BfSIg0k7Umhi4nsbNeqt5uiHuVnJo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TvUKc/n0sjb4WDRQ07F+4BkYbOxgyiB2mxnuB8rQI06A3qAbwMiFuyCHfXf+hGr8M
-	 n6H+4gjuzlBeOlfDwc06mQ7avohuIYjKggc9aVN3ReSU9UWVISWu/JuGK+DUZEar3R
-	 00IYnRRT9wyCBGFAXQ9z+t6CLv8X0M2rcvfOqBYI=
-Message-ID: <bda01f30-acd1-4b79-9e15-75e839c198b9@arm.com>
-Date: Fri, 2 Oct 2026 14:10:29 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njXxYPHL"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340f56c44b0so3276377eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:10:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790946639; x=1791551439; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H/ZMPlbFfkEDnolicQDHcuBaOmTguhoV9ZPfz4BueHg=;
+        b=njXxYPHLqlSTQCfmWxQTS56u/FqU4t33udH4Chlz/GQlAv1PrH9HnyDl5bryrcE8DA
+         Juk3p/UC21lfWhNwJwnRRwYHEbZnPig6JLeZBygz5WIYUQ2gwvOPNewuqVrlMUEC2rnT
+         KOdOLt8tO6oCN07SgGEbrRpKSQnE3qIIvZM+dReiXsVo4nL7FPP/JviAqTWX855dAP9B
+         Tsy9POz16W8zlJUCPhqzdQRxvqT/XK2aRLYPUMu9jDQXws/0RCqAmWQCQ2k58ULprlKl
+         Dt/N99OeSgjgqw8Jeq7KfGSx9/kBG5s8rzpdHe9/ECCTmHgpAv9U7sKFKg9kkLdeYp6t
+         zorA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790946639; x=1791551439;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H/ZMPlbFfkEDnolicQDHcuBaOmTguhoV9ZPfz4BueHg=;
+        b=PMSruGCRb+4eJG7Gg7HnYQ2oVMdgJsx08pWQMVJma539CFMOEU6Qcryq0OvNkBaE1L
+         +VLojr4RNLxf+JsgxA2rpRrNjINpXIrpqeO4Ci85wQSidCP0ppN/RlegVVTePS9IKiN1
+         QgAMeThpceo12BMOvyac/cYF4muRoQv+4G7l8lF3osuIbyt4hhUtjtLxpHvfd/jvWBHw
+         qxK9XHrw7cJXncIPtAsXOSf7OPlsmRpFBUL4g9WikBVa8a8UjnOFcDM4xDqEzcr2smJW
+         D5YLx0U9uwxPvirUXUq7yp+GPN4l9fDWoPkcvgd4HdAXLXAB0TnaYjTPYphCaIzl6d1E
+         IpIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz8VeW+xMLbxxpY9fa01/xAkcGsW+gcCstQU3fFyarQTar9vG2freBuMuEEP2PtRk87ADgsYopuh2vUw0w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICFBmmKzB3PGr7SEqVROLiqzpwcmXFzeyIPJoGPqji2pxEJKEs
+	YSUlR+awgvah9BY1XNmTLtWdks4TSZtwDETj6P2PMiT6uSrg9WTZjlEc
+X-Gm-Gg: AYBFou1EoNYtlZi6cdzGwHeVLG+H0OrWS/W/8cBn3oo9nEWp65XwZS5dhC5bZk7TfEt
+	uahRVtYHEZugTKK1PwwziqCRokgkG3zUDAEvlJehPcZykbYh5qxYU7ACmTMKxKQmMQqI7BwcPnE
+	rR4L8bRP5IbRoZYwHyBRiAzPV0g8RykAzc0wfbLaGL7x7W2UnJMCEeobcP8OK9r1RiuWXrtrfqU
+	wrtGnZGEiKuU0LeXaUSJRrjEW86h6vB1iL0vstjte3W9lZ/y3wzwah4qXM5R7zBzku7X+bt7lE5
+	1cbrS00OfiVBLWs6ggaW5hd8JKp31nScS2Gj2Js53FM8URqn+OJeUTULtdyMyYj7dWkZyzQ7X0T
+	v2sYn9nA9foN3jcLIys8HBVRn1xVMAh0SLLZRbi3xY0/naY8UiTnal1WbqJlwQA2e4YypT3zxjw
+	ZfF9iPR7J3UUlrztk340Um7lotieeAqo4+ZfeKSwQG0MuGMTLlJ5HvTkqP2MCMiY/9oA==
+X-Received: by 2002:a05:7300:3f11:b0:346:7c2c:1d25 with SMTP id 5a478bee46e88-34f219c110amr3175792eec.41.1790946639090;
+        Fri, 02 Oct 2026 06:10:39 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f0672c739sm7309347eec.3.2026.10.02.06.10.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:10:38 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Fri, 02 Oct 2026 21:10:21 +0800
+Subject: [PATCH v5 01/12] sched/isolation: Enforce nohz_full as a subset of
+ isolcpus=domain at boot
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 05/23] KVM: arm64: Track the type of VM in kvm_arch
-Content-Language: en-GB
-To: Fuad Tabba <tabba@google.com>, Marc Zyngier <maz@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
- catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
- jonathan.cameron@oss.qualcomm.com
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
- <20261001210703.1597150-6-suzuki.poulose@arm.com>
- <CA+EHjTxtatPyGcyvEyR129cqUiAYcO_cxRVtwZO0ckZsOnD7TA@mail.gmail.com>
- <86se2o2rbs.wl-maz@kernel.org>
- <CA+EHjTwHuJ0u_TTP46zNFKFmBP124XHHLUVhkAUSyfhe92=41w@mail.gmail.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <CA+EHjTwHuJ0u_TTP46zNFKFmBP124XHHLUVhkAUSyfhe92=41w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-wujing-dhm-v5-1-78a6996d87ad@gmail.com>
+References: <20261002-wujing-dhm-v5-0-78a6996d87ad@gmail.com>
+In-Reply-To: <20261002-wujing-dhm-v5-0-78a6996d87ad@gmail.com>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, 
+ Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Anna-Maria Behnsen <anna-maria@linutronix.de>, Tejun Heo <tj@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Shuah Khan <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>
+Cc: Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-On 02/10/2026 14:05, Fuad Tabba wrote:
-> Hi Marc,
-> 
-> On Fri, 02 Oct 2026 13:57:11 +0100, Marc Zyngier <maz@kernel.org> wrote:
-> [...]
->> Just to make sure. Is that what you had in mind?
-> 
-> A diff is worth a thousand words :) Yes, that's it. With that, every
-> remaining hyp user of vcpu_is_protected() only runs with pKVM, so the
-> kern_hyp_va() case in the macro can go too.
+HK_TYPE_KERNEL_NOISE and HK_TYPE_DOMAIN are configured independently
+when nohz_full=/isolcpus=nohz and isolcpus=domain are passed as
+separate boot parameters, or when nohz_full=/isolcpus=nohz is passed
+without isolcpus=domain at all.  Nothing stops a CPU from ending up
+tick-suppressed (nohz_full) while still scheduled as part of the
+normal, non-isolated sched domain, which defeats the point of
+isolating it from kernel noise in the first place.
 
-Ack ! That does make things simpler. Marc beat me to it.
+A CPU with the tick stopped must always be excluded from the normal
+scheduler domain: HK_TYPE_KERNEL_NOISE's housekeeping set has to stay
+a superset of HK_TYPE_DOMAIN's.  Checking this while __setup()
+parameters are still being parsed is order-dependent: rejecting
+nohz_full= the moment it is seen, before a later isolcpus=domain on
+the same command line has been parsed yet, would discard a
+perfectly valid combination just because of argument order.
 
-Cheers
-Suzuki
+Check the invariant once in housekeeping_init() instead, which runs
+after every __setup() cmdline parameter has been parsed regardless of
+order.  Disable HK_TYPE_KERNEL_NOISE rather than panicking or leaving
+the inconsistency in place: this gives the same end state as not
+having passed nohz_full=/isolcpus=nohz at all.
 
-> 
-> Cheers,
-> /fuad
+housekeeping_cpumask() only dereferences the real per-type masks once
+housekeeping_overridden is enabled; before that every call returns
+cpu_possible_mask regardless of housekeeping.flags.  Enable the static
+key before the subset check runs, not after: checking first would
+compare cpu_possible_mask against itself for both sides and never
+reject anything.
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ Documentation/admin-guide/kernel-parameters.txt | 12 ++++++++++++
+ kernel/sched/isolation.c                        | 24 ++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index e75344f4e0cde..cd4fb6d752a6c 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -2810,6 +2810,11 @@ Kernel parameters
+ 			  so to protect individual CPUs the 'cpumask' file has to
+ 			  be configured manually after bootup.
+ 
++			  When 'domain' is configured through a separate
++			  isolcpus= or nohz_full= invocation, every 'nohz'
++			  CPU must also be a 'domain' CPU; a combination that
++			  violates this is rejected at boot with a warning.
++
+ 			domain
+ 			  Isolate from the general SMP balancing and scheduling
+ 			  algorithms. Note that performing domain isolation this way
+@@ -4564,6 +4569,13 @@ Kernel parameters
+ 			Note that this argument takes precedence over
+ 			the CONFIG_RCU_NOCB_CPU_DEFAULT_ALL option.
+ 
++			When isolcpus=domain is also given, every CPU in
++			this list (or in isolcpus=nohz) must also be in
++			the isolcpus=domain list: a tick-suppressed CPU
++			must always be excluded from the normal scheduler
++			domain.  A combination that violates this is
++			rejected at boot with a warning.
++
+ 	noinitrd	[Deprecated,RAM] Tells the kernel not to load any configured
+ 			initial RAM disk. Currently this parameter applies to
+ 			initrd only, not to initramfs. But it applies to both
+diff --git a/kernel/sched/isolation.c b/kernel/sched/isolation.c
+index 156025ef81b75..c6a41095a9002 100644
+--- a/kernel/sched/isolation.c
++++ b/kernel/sched/isolation.c
+@@ -171,8 +171,32 @@ void __init housekeeping_init(void)
+ 	if (!housekeeping.flags)
+ 		return;
+ 
++	/*
++	 * housekeeping_cpumask() only dereferences the real per-type masks
++	 * once housekeeping_overridden is live; before that it always
++	 * returns cpu_possible_mask regardless of housekeeping.flags, which
++	 * would make the subset check below vacuously pass for every type.
++	 * Enable it first so the check actually sees the parsed masks.
++	 */
+ 	static_branch_enable(&housekeeping_overridden);
+ 
++	/*
++	 * A nohz_full CPU must always run on an isolated sched domain:
++	 * reject nohz_full=/isolcpus=nohz unless isolcpus=domain covers
++	 * at least the same CPUs.  Checked here, after all __setup()
++	 * cmdline parsing has run, so the outcome does not depend on
++	 * which of the two parameters came first on the command line.
++	 */
++	if ((housekeeping.flags & HK_FLAG_KERNEL_NOISE) &&
++	    !cpumask_subset(housekeeping_cpumask(HK_TYPE_DOMAIN),
++			    housekeeping_cpumask(HK_TYPE_KERNEL_NOISE))) {
++		pr_warn("Housekeeping: nohz_full=/isolcpus=nohz must be a subset "
++			"of isolcpus=domain, disabling nohz_full\n");
++		housekeeping.flags &= ~HK_FLAG_KERNEL_NOISE;
++		if (!housekeeping.flags)
++			return;
++	}
++
+ 	if (housekeeping.flags & HK_FLAG_KERNEL_NOISE)
+ 		sched_tick_offload_init();
+ 	/*
+
+-- 
+2.43.0
 
