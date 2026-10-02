@@ -1,49 +1,73 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D58457E64;
-	Fri,  2 Oct 2026 10:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5709478859;
+	Fri,  2 Oct 2026 10:30:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937029; cv=none; b=o6suYB6vi8bXnu/72gp/roxXnv1IaAPP9qcwhIV4qbS+zgXAgKQs9ytLzPDRcqOR2obeny1VslOs1de5bCCTHvXSDunm+RR1w0IGmhUNz1dj9kSILTXuITyb/R1aEijDVcTD3LOtm4oF/cgom3cp/GAnJjJUukOemZyVbFAF4yg=
+	t=1790937046; cv=none; b=c+ccW9d4sI2z/0aEPJhBlNJVjdh1gJzgoRybvbrJ6sMMlxqvEYuBQab4RTNcJjnezN6gjbXJ5Xt2vSQrp3Id/AOKgypwWDWXEqNro9yxqTTifn+n6Bvl9piIDP3K/HOcHwOuFUNUH6eVjSRUv+96wz/0h9PIzwzw2KNfNIhGcrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937029; c=relaxed/simple;
-	bh=NmRTtrX3c0NVyjxrY1zGG1uYeTrlOqEaLry9eP5TkwU=;
+	s=arc-20240116; t=1790937046; c=relaxed/simple;
+	bh=za7qNb0TLjJ58DaEWYAlKuUTCS/PrWaTuliDAKdudNY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LTR0WEIfWAydx3rXNpxgM+X2nrG3+VvtEcyn4nlDpC32BcpR142MsuVfszzCTmBgLLU270XCvyGin1PJ8fY4NnXBFuB559t2ttH3GrCnK3zHQD3O2dxz978HWimFM9Zm87nQzKss7jYMLK75v3R1S9hhQaTXcz7UYCRz6Ct5p88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=KRm5pRr0; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZlJDE1/MwzGQ/8kYehdH4ZJc/YjYsPotxalEloMQfC7Cnx6g5RmhDdrl9tUpEsji7Tuu/Ba1vpyXfDftCrnjh2LJSsI8GYrzyWj1ZNTGT6+oe+LVOe85YV+stdjxKzgwQmIl8AhCGnbj1Z2kauebAQOH0jvC57WQTutNLJnHfzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz/dBXkw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="KRm5pRr0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=goidX4y0mXKn7jrXINEO2VnJ7ujOWyUtvQ6PGsR2fRs=; b=KRm5pRr0xAfpjjTpTUizNLBVto
-	68ilqaVhaODJ4P6Fej8unx3O+FJDoDvP0w0GbP0biha0NUx5dOZufRHYHFz0DpVZTFvcT/1moXtkv
-	wRNIBvJ32+ghE5lLOMYraSemamc09pQOyIcTFhFXa48KLUx+FJjIzEK+gRLSfVCFsTuEtC5CRFl8o
-	T1VwEKD3lbu1Q+FrHIAPUFxerMCOilwsF+afToegbmEM31Vhh8ql3ervpdMyrI6oEj7D4MGOH7KEl
-	67yuizx9D6pv6lltOBMNsIKgn+nzWz1GhkzvjJdChjPD2oqjb9qBH5PZXAIcrw3GWwVLDRV2GVL1Y
-	a/ynZZvg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xCaX0-000nsr-2k;
-	Fri, 02 Oct 2026 10:30:23 +0000
-Date: Fri, 2 Oct 2026 03:30:18 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Guillaume Nault <gnault@redhat.com>, Akinobu Mita <akinobu.mita@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: fix NULL dereference in skb realloc fault
- injection devname filter
-Message-ID: <ar-Hj5DhKuZeUisY@gmail.com>
-References: <20260930122013.110284-1-yanhaishuang@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz/dBXkw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72041F000FF;
+	Fri,  2 Oct 2026 10:30:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790937041;
+	bh=9nuK3YV/XzBe+ru33Wrf1ZVJGYfxXNazzoLOdqnc7qM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bz/dBXkwXQpEPp0WOqI05zyaoICaN1LJKCCejUcr+QwF4H6QzHP3VV6ZsfMR7LIe3
+	 TzVXlHn7sVUhKkzNYmlxOGDQIm7PiHbvH7YUNaC0BQek+BE40SS358Ry9zWhZnRzGz
+	 +zXWQpAu3zQEZZRK1IDpSN93nUghh1CPIm32B39dtH95mwuauyI3v44+G9IRmK1ETA
+	 BEoFzaxD84+4NwYBDq1T6MCoUVq1fyja6TYI0ibZqyqm2hDvn8XMARkQ/5sJjEbK94
+	 CdJAe2Vq/bk9bDaU7BcFVImBVvcEVSuV9dthPlZcAkmNaYDrDVeXy9t6MIlSiSgmry
+	 RDUy/jY6CMBSg==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 6FFF3F40067;
+	Fri,  2 Oct 2026 06:30:39 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Fri, 02 Oct 2026 06:30:40 -0400
+X-ME-Sender: <xms:z4e_alnd5P4unqns0iPA0wWiiobHfzaEJbLdRXcd7CEzTOv1aF9tiw>
+    <xme:z4e_arNJkel_2KK8_Dtzg_v8hmBgqyqA6VEOz3A_SnnkYdP4LvZxGzVpFpk2va_hJ
+    RRh1OyLQH3ebnqHtGPNJZ05ZAOZh85lZo5Y8XQO2xPYfLq_ViAFQvA>
+X-ME-Received: <xmr:z4e_ahzT3dKM91tsY1-30knwZXcwS47i8Op8vqS1RIvygf4n4Jmxf34du5_u>
+X-ME-Proxy-Cause: dmFkZTE1dEoi5AaCsnClKv3jc8uYgvvv6Mm/jlDkqzOHiKsnaoXj3ZHEAmPkqSieazWQas
+    YuWKW9LSi/hYkuWyQ8e5vG7M2YBVg1CrahRrHPzqQ25oAIiVADYEIgZFmWW1bgU+Uze3O2
+    MAuZDZPS6pnbsgSW8RYJf7g0AuVES0az1mt4p+h1J4N5qdd+LAI58he/0HODPbGAJjRa0G
+    BelSVhB4HNAJRejW3FNweOBdQm8Tzt79B27QQJduLm+Ylj2lcEWkHa8oO22xnw81VyBv1i
+    I2jFp5kKLZZr1HvjzE9A5T+JNlhabat+DsuV6IAFFyBBxS0VcEl30okuGztrCoBQle7VDE
+    Nk6OAwxpXM2g2ZIEp6zmCEtrbVFFU7GLiuXRNKdShNb+5/kSo43M3/N6MjoCTkHt9TTxPn
+    oqgwQgbitbfX7MDSN2IdFOxqW9zTOf/ys5niHM+VWOns8CL4E92kVnWJxpqIfbz56ISwnT
+    I7fG9vHKxl3dgM4KhxbtjjXKARx985wbxM0TbpDzXfw1iHqiU5GsEwTWteqY/XQjnftf2Z
+    KiQujnudeAetFVvJYA2fPVUe6dyhqCRXWYWAFuftaw5sRJm2LzDV71rIX1BO+/yZ2vExmY
+    CAzrz5EbHGuwrsLY2O3Qxi2L8ktDEmpyv3T0KNmhwPjtcUCLJIm9PqjWLRCQ
+X-ME-Proxy: <xmx:z4e_agsvVRVzEBO1KQAV0f2l6ggrOdhhFLJIYfnr51MIoLbZ3k6Fig>
+    <xmx:z4e_asbu1xlMSUXHClHzdm1KUNShSinGdZug6NemKGZgB3z9GpsmUg>
+    <xmx:z4e_an0BqQeztI9PkHbfc2InRoPBl3fgZn0vdgpgmKNbN8zN-Xzbqg>
+    <xmx:z4e_amtga0CBujI5_HcYR_eTcUsO0SFV8cob6lj93wGWaUJpSx1j6A>
+    <xmx:z4e_ajD_jemGbbpXDcJZZEPslNY2MHyGhLEBfekZbwK-QSgmE3M4zULk>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 06:30:38 -0400 (EDT)
+Date: Fri, 2 Oct 2026 12:30:38 +0200
+From: Boqun Feng <boqun@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Will Deacon <will@kernel.org>,
+	Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>, Lyude Paul <lyude@redhat.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Improvements and fixes on SpinLockIrq patch series
+Message-ID: <ar-HztKCh7CKvzbH@MacBook-0RXW5>
+References: <20261001082519.16195-1-boqun@kernel.org>
+ <20261002094244.GU88198@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,38 +76,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930122013.110284-1-yanhaishuang@cmss.chinamobile.com>
-X-Debian-User: leitao
+In-Reply-To: <20261002094244.GU88198@noisy.programming.kicks-ass.net>
 
-> --- a/net/core/skb_fault_injection.c
-> +++ b/net/core/skb_fault_injection.c
-> @@ -19,8 +19,8 @@ static bool should_fail_net_realloc_skb(struct sk_buff *skb)
->  	struct net_device *net = skb->dev;
->  
->  	if (skb_realloc.filtered &&
-> -	    strncmp(net->name, skb_realloc.devname, IFNAMSIZ))
-> -		/* device name filter set, but names do not match */
-> +	    (!net || strncmp(net->name, skb_realloc.devname, IFNAMSIZ)))
-> +		/* device name filter set, but no device or names do not match */
->  		return false;
->  
->  	if (!should_fail(&skb_realloc.attr, 1))
+On Fri, Oct 02, 2026 at 11:42:44AM +0200, Peter Zijlstra wrote:
+> On Thu, Oct 01, 2026 at 10:25:14AM +0200, Boqun Feng wrote:
+> > Hi Peter,
+> > 
+> > I realized that v1 [1] was left on the list so I just want to respin it.
+> > Just to refresh the memory, v1 was requested [2] as separate patches for
+> > changes between v4 and v5 in the main series. I also include the
+> > refcount_interrupt kunit test Kconfig change in this version as well.
+> > Based on v7.3-rc5.
+> 
+> The first should now be in tip/locking/urgent, while all but the BPF one
+> are in queue/locking/core, which will be promoted to tip/locking/core
+> after the robot had a go at it.
 
-I think something like this untested approach reads better:
+Thanks! I resend the bpf fix v3:
 
-diff --git a/net/core/skb_fault_injection.c b/net/core/skb_fault_injection.c
-index 4235db6bdfad55..63a397f761133c 100644
---- a/net/core/skb_fault_injection.c
-+++ b/net/core/skb_fault_injection.c
-@@ -18,6 +18,9 @@ static bool should_fail_net_realloc_skb(struct sk_buff *skb)
- {
-        struct net_device *net = skb->dev;
+* https://lore.kernel.org/lkml/20261001082519.16195-4-boqun@kernel.org/
 
-+       if (!net)
-+               return false;
-+
-        if (skb_realloc.filtered &&
-            strncmp(net->name, skb_realloc.devname, IFNAMSIZ))
-                /* device name filter set, but names do not match */
-
-
+Regards,
+Boqun
