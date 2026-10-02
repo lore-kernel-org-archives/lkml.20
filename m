@@ -1,164 +1,154 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90B4214813
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE16F370D47
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928754; cv=none; b=DusBKY3jFPgQ+a5UgkbxEd++6Vjs+BjNgZrN2KTbnCKg/R4Zcpr59cdmCKQcw/05FwxEE6/ahrogqCSux2xhbhVg8KpzuU5K2la7D/bQhZAeilioCsE8r3k47U2ycONIo9HzrABjZYCsBTthTfCSasB29W6vdV+j/5m5FrhqMg0=
+	t=1790928803; cv=none; b=XtsVUtIPZ8BA60nocWV/wr4t4xiJb57RtRydPdAjvUttAWsujxBJ0QrTVD+gp1E25BjK81MmDXrMBHuttd4QctF09ti5qYloPPFT8SGGlcAB86+yFeq5k5UeibcC6gE911zThmEs03pi94OHsSFGZAQzZWDxA+jAlzN1ykzxoMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928754; c=relaxed/simple;
-	bh=mUZoqT4FOwpYQh+KuejEClG/eAu/MteILsXR+W6iLyA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Jq7Lti5uLzno5NS8G8KogBqq6GHBe8i7V2zlm4QWUc46oWUg7BZyCWr/cMa0xGB9lYbShB3wlxz1ZJepN3iKzUQQsrc7zZMw30J77kxjuPdQ66Osa5E0X0I3+K1mlF3DMLeVI8TxztLQik+nm5rpwQcuYSlMvCC3vos/Y41dNQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oG00bPZ9; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790928803; c=relaxed/simple;
+	bh=FIwJLiPALQ/U7ZadAFSF7n+UTfRqG1gRPg3GkEYdBT4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BRaogzE50n88bEuUXIRn3XIfJ3TO/9UvKE5InJ7XFPwq6w52L/X6+WRDmmwqQYLVArA6Hzmox2+Jkh/aAKvDylaZi1GfZbkvAQVzlKF11Ly/VvT5tW2TTdaKoQ+eVi/2pci1aeA7AsjySClN76zu+NZ+2+bIsxJiK2Qbq3zlmMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rhi3l8+L; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oG00bPZ9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso54603675e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:12:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rhi3l8+L"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e36so2606558a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:13:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790928751; x=1791533551; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790928801; x=1791533601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xs5oz1JmPTBBqK5n7Rqihg5Y4URFjfrr+i3MIUtEfRY=;
-        b=oG00bPZ9ql6uofGzm/HmsIgK9TWGjpboudpOyxqjuCv/xdTw7x4IPb/lXzMLgiLMbA
-         9chcUQ8w9sI8L5RFP9SZfk4o7GxBDe/08RYVvQerq9mmFh99QVT7wZiQ7ho0ANGqdvg9
-         FBHa5bJ9Pt/SK0r2ylwG0CRNk51+AbAT9rZ1lCTQKEjWpTQAFB+kJuZcPUTUD1H6ke+O
-         jveYJX++4mFKb23ujCiZBgIl+YuVisCSUx2xcAvNzisEu5k9568n4CUKr0oFmC/dgKqP
-         tTCbw6ukgK8FNxQqKtJwhlb0l5jzUJgTzkXCQzdS5EKUDOshA/YJ5OaQ+OPCEijtnGWH
-         dyAQ==
+        bh=JRkehR6QhzTUqhAnAiS8EO3o0r2RIFdddFBrAAp0J8s=;
+        b=rhi3l8+LjoUzFlgK7wSjbQXd/illpt0avK9TUQhkBnzx5rGp/Q5UKbmA5M4G2wIoEf
+         3nN2PaicPcuk4vu2e3JxzOKHNWB9UxQ5WbZm5T6pl0veJRZazlBVOAWDg+RQ5wsUo15e
+         uIkeoNA8wCNhaOhnlYIq8knvDLwUlb37OnNZca8HDRQdeUiQ3AAVgH7tO/DqCJ0oBQTB
+         EnwzIP64+MhcnoKN5WxS/UWZf1213LU/00s6uI3E9nVkVion8YkPRwNK8lHin83BG/vX
+         UA6dj0gqMe2KIqlM9TM0xwjTXUUP6fueoDTqw/rBlMzIxoVIthDLQFmnY+pWTJnN+bgO
+         btqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790928751; x=1791533551;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xs5oz1JmPTBBqK5n7Rqihg5Y4URFjfrr+i3MIUtEfRY=;
-        b=0179rzLWVL2M6fS5vvwSzyLngmfq1D1uWcrTJW95p+2H/zUHXUYZ+aUh4P0DuoGlKy
-         UHrSEO4R+higYgWqnfbZ6WpYaI4HAfP+y7p5IiwW9DqRAx/1xt7CH5vSsL33M2lQYRJE
-         alzYNj9Pv8thXj1zk0fu78aoazUH8GMsmn/JiyhJrjfmRUb/NWii46dEI0kRp6qHuwgn
-         5NxlOv+f1R5Fa0Cr9PJgjqE8OmRFIhyomzZFL8qxKy7t78jlIH6mjOQ/pDCK5UFpZ59J
-         yx+gZsWv/bF8oGWilG+ZPv9o/XcQZl9IN1vGFEVOdqn5ORvyHnUgFh+pP5illYyphZsv
-         zDrg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxnl6BtWfLoIyZZx+GG8cBYchN59z53OIYVit3yYRYx+4C/6c5nZ4T2mEhDWry9RNsLS92d1wSbSSQOOQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwpV04Vx2MLHGZlnkR5ikUezJjGCMXzcHYqsr7tBufy9Fm3uwu
-	4c52irTXG4SJYDOwlBkfgFd9OmSoRNQTVaFlT33LqXSLevr7Gan0SMcqGdukNcCjDzE=
-X-Gm-Gg: AYBFou1KrhFbxiIJsmL7O42sDRZxjV7iJt/dV1m82OZzrdztalgBRXKO4z4R82O2FEP
-	0YY5nAt5AJAW2Cn9cFRayaqgXrAPODWvW4dLTW7ov6XG+ZOGrpdF9Mx/lJK3rP9aYxQkhNL/OF9
-	aAjMr0iaJFO+o7yjSopQtTFqM+D3q5gHdfs+JSP4ejhDaIYfEryXH+mlptDGKFkDBC1MhixXFVv
-	FrN4iYeyYnUiuvgI0qKTFW6L1EdTPSrHRwIALS5kCvPjYrUH4iIXeHAQCtij9tUNGCeI18+alx7
-	A8Xx18z3vlISMmQjU/KUKSotc15gIzD0rotghEsklieCtTyEEl60eV1J6LyeOKP8V9YjFP0ZGiG
-	PfIQByUZ/0bvXFYfapGpMLAsUN5cADv+ZoVwYeNHifjQoSPQcctT0D0TwVAxcVd3iMUEpReBt8A
-	pHvyw7mpIfnFB6CHYngHRNwDt0qeReGg+F9Kgg0Y0Df61QsixL70bAqf5R7WtxtuKQDxuG4m2bW
-	FxwcKov19rVjwHGB44Ns4mMtGRKHlFdm3qJoWFx4Cgw4Zy81q4=
-X-Received: by 2002:a05:600c:c3ce:10b0:4a0:317:1996 with SMTP id 5b1f17b1804b1-4a02769f2a5mr24217955e9.27.1790928750805;
-        Fri, 02 Oct 2026 01:12:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394c937csm30885075e9.1.2026.10.02.01.12.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 01:12:30 -0700 (PDT)
-Message-ID: <cd764af7-3fa9-4b35-9c0d-9a0b863e464e@linaro.org>
-Date: Fri, 2 Oct 2026 10:12:29 +0200
+        d=1e100.net; s=20260707; t=1790928801; x=1791533601;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JRkehR6QhzTUqhAnAiS8EO3o0r2RIFdddFBrAAp0J8s=;
+        b=Llr3BlA0QzX/UUUlroMW6uqHn3oS0mLf4xLWkFCfoiKRVId3JVKfVIYKb5ZtYIBRmR
+         cwC0LxYXe+mctROtlH6uNWUWrk514Q47bjQHv3jGul5ZIeA8skYbCE8biEVaZlufhpOW
+         y9lQupPhu8H3Gqse7kgFXpKBi+Awn1WJr5twQeVnF4iXcQdh12EuvPHn3Wq9qsCg9XZD
+         q0KzXq1BwokZ8VoBJ42OhjFve2Q6Nkacel4WMJOvhwZyqrr52qkmK3oJS2deYucmueez
+         QGF6zsYcsjVRmaaqZBb7yUfvk8N3iMqeZEL8m7qnpHK2fOnmqARIuNUtVc/xB38glP74
+         b/zA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/Mrhqlb02PqTPtAlLd+w/UzIySFBTd4UCvyirxvcn3ci0nrRKObqk0zUsHA2tuUN8h0XZO1S31sXoIkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKrhmTa6yJsKkuZUn+dXUm39zNMQFzWCctM6NUqNfi8OUoVCfX
+	zski3llnHQoeF8IwuZQotiPazxyI8sLYMWDdahFsJFBTWRqkvOJ0TlgY
+X-Gm-Gg: AYBFou2lt1zs9C6vUxV8b2y3BEYksSsIZtm8U93pWjxikzlCM9RlPZ6fD6lXzJVfGyu
+	d8o9ACeUaMYg38yH9Y+UZQMVC29Y8LTRW4LpNCPmhjMvBtcIRDYFTn8gOptiuQtXn2iJwIbcJVv
+	4SB9GK34B0kIM+qxPl5pWEB9ibAu98KMLUwqvKFM0IVYKTZ7phRIhR2zj20LQmZE1yJKJlHedXz
+	LWoLPaCpwOfjo0uhvMVRFq1JHcVBjp4IaEY50KkRMdcOSXX1wBV/IFFgY4TPaulzr/B71Mu0neg
+	BkArJL858iP9Jl3Wg2aSNRHLrizNZQLd1rktsuM336r5pP7vHkjY+aRXV2fH9Eo4kPmO7+almpE
+	v5480Ky2uV11d5E8il86vbpvTrSKROomemLsj6IfHVUPj7PTa7jpbZRmTMBpK2T5JRUTvf6Eiry
+	EsGDDLJHGpLWTvH56+ghV6qwmF/R2VMDR3xzFGKNyo6tN8l8G9u6ppDYd+ovnF2CCuD+1/CxLwS
+	cfXtvc=
+X-Received: by 2002:a17:90a:d64b:b0:39d:f08e:e6e7 with SMTP id 98e67ed59e1d1-3a6ce3570eamr805756a91.9.1790928800962;
+        Fri, 02 Oct 2026 01:13:20 -0700 (PDT)
+Received: from hnkz-ubuntu-server ([2404:7a80:860:3300:f22f:74ff:feda:3295])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6f8525c0esm692758a91.4.2026.10.02.01.13.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 01:13:20 -0700 (PDT)
+From: Kazuki Hanai <hnkz.64@gmail.com>
+To: hughd@google.com
+Cc: Kazuki Hanai <hnkz.64@gmail.com>,
+	baolin.wang@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	gabriel@krisman.be,
+	andrealmeid@igalia.com,
+	brauner@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] tmpfs: fix unicode_map leaks in casefold option handling
+Date: Fri,  2 Oct 2026 17:13:03 +0900
+Message-ID: <20261002081306.637148-1-hnkz.64@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260827152516.805622-1-hnkz.64@gmail.com>
+References: <20260827152516.805622-1-hnkz.64@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2] drm/panel: ronbo-rb070d30: Ignore DCS errors in
- disable()
-To: Hsieh Hung-En <hungen3108@gmail.com>, dianders@chromium.org,
- jesszhan0024@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-References: <20261001004940.110776-1-hungen3108@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261001004940.110776-1-hungen3108@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/1/26 02:49, Hsieh Hung-En wrote:
-> If rb070d30_panel_disable() returns an error, drm_panel_disable() skips
-> clearing panel->enabled. unprepare() still powers the panel off, but the
-> next drm_panel_enable() sees the panel as already enabled and does
-> nothing, so the panel stays dark.
-> 
-> Always return 0 from disable(). A failed ENTER_SLEEP_MODE is still logged
-> by mipi_dsi_dcs_enter_sleep_mode_multi().
-> 
-> Suggested-by: Douglas Anderson <dianders@chromium.org>
-> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
-> ---
-> 
-> Notes:
->      Changes in v2:
->      - Add a comment explaining why the error is ignored (Doug)
->      
->      This applies on top of:
->      https://lore.kernel.org/all/20260929080143.559685-1-hungen3108@gmail.com/
->      
->      v1:
->      https://lore.kernel.org/all/20260930013029.3241267-1-hungen3108@gmail.com/
->      
->      Compile-tested on arm64 with W=1; not tested on hardware.
-> 
->   drivers/gpu/drm/panel/panel-ronbo-rb070d30.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-> index ebe6352db..9adf97aba 100644
-> --- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-> +++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-> @@ -87,7 +87,13 @@ static int rb070d30_panel_disable(struct drm_panel *panel)
->   	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
->   
->   	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> -	return dsi_ctx.accum_err;
-> +
-> +	/*
-> +	 * Returning an error would leave panel->enabled set, causing the
-> +	 * next enable to be skipped even after unprepare powers off the panel.
-> +	 * The helper above already logs any command failure.
-> +	 */
-> +	return 0;
->   }
->   
->   /* Default timings */
+shmem_parse_opt_casefold() stores the unicode_map returned by
+utf8_load() in ctx->encoding. A filesystem context can receive the
+casefold parameter more than once, and a second successful parse
+overwrites the stored map without releasing it.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+The map is also leaked when an unmounted filesystem context is freed.
+This includes the temporary context used for remount, because
+shmem_reconfigure() does not take ownership of ctx->encoding.
 
-Thanks,
-Neil
+Reject a second casefold setting, clear ctx->encoding after transferring
+ownership to the superblock, and release any remaining map from
+shmem_free_fc().
+
+An unprivileged user can repeatedly create tmpfs filesystem contexts,
+set the casefold parameter, and close them from a user namespace. This
+causes unbounded kernel memory consumption and can result in a local
+denial of service.
+
+Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
+Cc: stable@vger.kernel.org
+Suggested-by: Gabriel Krisman Bertazi <gabriel@krisman.be>
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+---
+Changes in v3:
+- Reject a second casefold option instead of unloading and replacing the
+  first map, as suggested by Gabriel.
+- Reword the commit message to describe the remount and close paths.
+
+Changes in v2:
+- Keep Fixes, Cc, and Signed-off-by in a single trailer block.
+
+ mm/shmem.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 848316eaa7f4fb..1bd004c3dde20b 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -4509,6 +4509,9 @@ static int shmem_parse_opt_casefold(struct fs_context *fc, struct fs_parameter *
+ 	struct unicode_map *encoding;
+ 	char *version_str = param->string + 5;
+ 
++	if (ctx->encoding)
++		return invalfc(fc, "casefold parameter cannot be specified twice\n");
++
+ 	if (!latest_version) {
+ 		if (strncmp(param->string, "utf8-", 5))
+ 			return invalfc(fc, "Only UTF-8 encodings are supported "
+@@ -4998,6 +5001,7 @@ static int shmem_fill_super(struct super_block *sb, struct fs_context *fc)
+ 
+ 	if (ctx->encoding) {
+ 		sb->s_encoding = ctx->encoding;
++		ctx->encoding = NULL;
+ 		set_default_d_op(sb, &shmem_ci_dentry_ops);
+ 		if (ctx->strict_encoding)
+ 			sb->s_encoding_flags = SB_ENC_STRICT_MODE_FL;
+@@ -5095,6 +5099,9 @@ static void shmem_free_fc(struct fs_context *fc)
+ 	struct shmem_options *ctx = fc->fs_private;
+ 
+ 	if (ctx) {
++#if IS_ENABLED(CONFIG_UNICODE)
++		utf8_unload(ctx->encoding);
++#endif
+ 		mpol_put(ctx->mpol);
+ 		kfree(ctx);
+ 	}
+-- 
+2.53.0
