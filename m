@@ -1,127 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C884480DE9;
-	Fri,  2 Oct 2026 11:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FB782E8B64;
+	Fri,  2 Oct 2026 11:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939652; cv=none; b=KQB+mZ8GvQgCsW4mp8w/piks8W0Ymel8h0IrIgwMybN5ffIUUhdOm94c3dRalcq8Xq6IfYXVewSoAikA3CQmm8+7VQSex0SUFrqiVl7XrUEmLZtlGtL0C2xlmX4L9+NIm1enO8Y1o0WARN9WekCof6inMPVB8hhdmO83z83XG8s=
+	t=1790939672; cv=none; b=ORocxMx9eIqp3kTtuX9uKcqPnVo0ba0G2KqSvsK4izD6vJ2Max7rfFJV0qKgBjHEFYHZgCYU9/n8TUtIBeEewVtrGwmS3nCnNPZBadSnjKFV7hFfr6bFc2EGZy0lUr/Yj9aGx9uP/MY5q/Kd5I/VexM9HMs8AY8fdtfbAk/hHOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939652; c=relaxed/simple;
-	bh=M9A2j2b+LvTA+CCk88HdqIQprknuVodgMr3vmxC0KCE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WaqHgdnjaEVYVJ47npwe9RHzys+2nIrZUbzZ7w7LQ1P7oD5O2BWA9tjwUlbEsSUPlbVIZVyjRtRgecfTYPEfPhuFLWOByc8V8BoIGb5crGcmncxhVsOxItS5udwu3tW7WCfv9LFRkpbVqSEhRdGPmEzDxYta6CtDPeGlET6UJLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OxdVvSa/; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790939672; c=relaxed/simple;
+	bh=W2Hmxi+s93iFNrhdbv2gdnA0AexPn4miXdEMsN0lpQY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=E75Csq+jcULDMhb9fgdsAhHYjPgkR2nHeSI0IU6TpXYg5qVo84s/xFMtFIUbsCRcieHM6EDxLjp1MVZeZ7bV6Jn2dFsEDuJr6WNwyBogrY4OJvdvF/axu8N8OcVCK/sNXxlyc2q6hNELVmRFUelac1PFfNxE8FvR+bsdKDuA+VM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m5xU/Mpg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OxdVvSa/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790939648; x=1822475648;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=M9A2j2b+LvTA+CCk88HdqIQprknuVodgMr3vmxC0KCE=;
-  b=OxdVvSa/l3WbenSuY4ic5ydiS6byYHgwXpKTiyq6Jn/b7zIdNAdRDEe+
-   KFpEz4Ysk0UjN4jviUyJLwkChAPEJ3vUwanYRDxXrQlF58KmXvZB5QSbD
-   TyjF4k4l/Hyqdw3lRyf94pME94muTNHffq0rOImt7ChDkY+9xEfgFj+sB
-   U6dahW4wU5ZqSbpUQC2R0yKggClqsiFRytS8R5WFLBn4nnI4ElqP0cbUc
-   HjFW/VOSwj/qe59V8WCux46p+sgeIohAfTeZhCD0vKnT7kH/SaBxsXofe
-   pH4uXiDFxh3cz2B/aHIXfpVSTycuOstMjHszHNPjODtepvi2qoIBBGPPq
-   Q==;
-X-CSE-ConnectionGUID: DnzIOVSHTkKjXtRUQoLhGw==
-X-CSE-MsgGUID: sKGX+8A8QnKiPAMExaa+cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="79262710"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="79262710"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 04:14:06 -0700
-X-CSE-ConnectionGUID: //byfMWlT7qGjR3dW6wcnA==
-X-CSE-MsgGUID: 8qagSd+VQae+EwsmnLDWTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="284290456"
-Received: from smithj1-mobl2.amr.corp.intel.com (HELO [10.125.108.26]) ([10.125.108.26])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 04:14:04 -0700
-Message-ID: <a22e9873-19b1-43d8-a542-2c2bc3fb512a@intel.com>
-Date: Fri, 2 Oct 2026 04:14:03 -0700
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m5xU/Mpg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8FB9497;
+	Fri,  2 Oct 2026 04:14:26 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0A4803F85F;
+	Fri,  2 Oct 2026 04:14:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790939670; bh=W2Hmxi+s93iFNrhdbv2gdnA0AexPn4miXdEMsN0lpQY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=m5xU/MpgU6umZSRKZKmvQkjaeAgcQkBqaG1OB1IM28VEY/2CgT7lF4mLXKKhtQ0IK
+	 paZrqGOWOQFHAsyOjDWOitQdpiUhya5oXkxjDTPrh0PlAm5vr5hbN2FfxDnpudlMr9
+	 Emn/briwJaFoaZavY1afGDCZlNQyMHLHaxBvaizY=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	David Matlack <dmatlack@google.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Josh Hilke <jrhilke@google.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Wu Fei <wu.fei9@sanechips.com.cn>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/3] KVM: selftests: Check dirty-ring size before enabling
+Date: Fri,  2 Oct 2026 12:14:22 +0100
+Message-ID: <ar-SDkBLBV0GDCDV@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ar7XFr51N_oK7hN-@google.com>
+References: <20260929113711.2064390-1-leo.bras@arm.com> <20260929113711.2064390-3-leo.bras@arm.com> <ar1xne00AHnJ-p_d@google.com> <ar5yW30S75THCfdV@LeoBrasDK> <ar6SHjnMYNqiEpVa@LeoBrasDK> <ar7XFr51N_oK7hN-@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC][PATCH] x86/mm: Disconnect RWX module checking from execmem
-To: =?UTF-8?Q?Fr=C3=A9d=C3=A9ric_MARIE-JOSEPH?=
- <fredericmariejoseph@gmail.com>, Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, Aaron Tomlin <atomlin@atomlin.com>,
- Borislav Petkov <bp@alien8.de>, Daniel Gomez <da.gomez@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- linux-modules@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Petr Pavlu <petr.pavlu@suse.com>, Sami Tolvanen <samitolvanen@google.com>,
- Thomas Gleixner <tglx@kernel.org>, x86@kernel.org
-References: <20261001201952.ACC7B6D6@davehans-spike.ostc.intel.com>
- <CAHD2OOc5-Hd6fLp_idt8X3hH-vKnQsRPV1j=zv8JZ9NRAuijAw@mail.gmail.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <CAHD2OOc5-Hd6fLp_idt8X3hH-vKnQsRPV1j=zv8JZ9NRAuijAw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On 10/2/26 02:20, Frédéric MARIE-JOSEPH wrote:
-> On 10/1/26 13:19, Dave Hansen wrote:
->> Link: https://lore.kernel.org/all/20261001-x86-fault-spurious-rw-
->> v1-1-7fe1189b5efd@imperva.com/
-> Thanks for turning this into a patch. Not sure about the link.
-> It points to Hitesh Murali's spurious_kernel_fault_check() patch;
-> In case of typo this one is my report:
-> https://lore.kernel.org/lkml/
-> CAHD2OOfP=h=qS6nP4dtn7RTQqMEqOvXD+iURXJ7Rgc5KFjgi5A@mail.gmail.com/
+On Thu, Oct 01, 2026 at 02:56:38PM -0700, Sean Christopherson wrote:
+> On Thu, Oct 01, 2026, Leonardo Bras wrote:
+> > On Thu, Oct 01, 2026 at 03:46:51PM +0100, Leonardo Bras wrote:
+> > > On Wed, Sep 30, 2026 at 01:31:25PM -0700, Sean Christopherson wrote:
+> > > > On Tue, Sep 29, 2026, Leonardo Bras wrote:
+> > > > >  void vm_enable_dirty_ring(struct kvm_vm *vm, u32 ring_size)
+> > > > >  {
+> > > > > -	if (vm_check_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL))
+> > > > > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING_ACQ_REL, ring_size);
+> > > > > -	else
+> > > > > -		vm_enable_cap(vm, KVM_CAP_DIRTY_LOG_RING, ring_size);
+> > > > > +	long cap = KVM_CAP_DIRTY_LOG_RING_ACQ_REL;
+> > > > > +	int max_size = vm_check_cap(vm, cap);
+> > > > > +
+> > > > > +	if (!max_size) {
+> > > > > +		cap = KVM_CAP_DIRTY_LOG_RING;
+> > > > > +		max_size = vm_check_cap(vm, cap);
+> > > > > +	}
+> > > > > +
+> > > > > +	TEST_ASSERT(max_size > 0,
+> > > > 
+> > > > Rather than open code this, which is kinda sorta going to show up in multiple
+> > > > places, what if we do this as a prep patch?  Then vm_enable_dirty_ring() can use
+> > > > kvm_get_dirty_ring_cap() (completely untested).
+> > > 
+> > > Sure, if you think it's useful :)
+> > 
+> > Oh, vm_check_cap() is different than kvm_has_cap()/kvm_check_cap():
+> > IIUC, the vm* version will check if the extension is enabled in the current 
+> > VM,
+> 
+> No, the VM-scoped version checks if the VM *can* support the capability in its
+> current configuration, e.g. some capabilities are fundamentally incompatible with
+> certain VM types.
+> 
+> > while the kvm* version will open a new /dev/kvm fd and check the 
+> > extension there, probably meaning the CAP is available in the system.
+> > 
+> > So, maybe we would need a slightly different approach?
+> > I.E. have the kvm_get_dirty_ring_cap() to use the VM version, and 
+> > have dirty_ring_supported() to start the new /dev/kvm fd and free it later?
+> > 
+> > What do you think?
+> 
+> It's not necessary in this case.  All KVM_CHECK_EXTENSION calls feed into
+> kvm_vm_ioctl_check_extension_generic(), the only difference is that the @kvm
+> pointer will be NULL when called on /dev/kvm.  While some capabilities do behave
+> differently if @kvm is valid, the majority do not, including the dirty ring ones:
+> 
+> 	case KVM_CAP_DIRTY_LOG_RING:
+> #ifdef CONFIG_HAVE_KVM_DIRTY_RING_TSO
+> 		return KVM_DIRTY_RING_MAX_ENTRIES * sizeof(struct kvm_dirty_gfn);
+> #else
+> 		return 0;
+> #endif
+> 	case KVM_CAP_DIRTY_LOG_RING_ACQ_REL:
+> #ifdef CONFIG_HAVE_KVM_DIRTY_RING_ACQ_REL
+> 		return KVM_DIRTY_RING_MAX_ENTRIES * sizeof(struct kvm_dirty_gfn);
+> #else
+> 		return 0;
+> #endif
+> 
+> I.e. the VM version and /dev/kvm version will always yield the same result.  Very
+> theoretically that could change, but it's unlikely.  And we can always update
+> KVM selftests in the unlikely case a specific VM type comes along that doesn't
+> support the dirty ring even when the broader architectures does.
 
-Heh, thanks for catching that! I've got too many things in flight at
-once, I'm afraid.
+All right then, thanks!
+Leo
