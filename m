@@ -1,79 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450073B14A3;
-	Fri,  2 Oct 2026 21:40:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F5346AA9C;
+	Fri,  2 Oct 2026 21:41:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790977258; cv=none; b=mK8oUN8x2g2TMYV2FaFY0nBPGtsM/LEYeo94RMv2padsX4GqWM0Iupvtj4ny9rqzY6IQ46NqWefa+1+TsjxrKuKHnbpIQF4MFcbNqdbTkudxwmDCX2Vd3paAILRER98eYYWZ4K98aZw99lFlcHjFbDribufdrSeefA7Vl+hM3Yw=
+	t=1790977262; cv=none; b=sMSzZd2lnYenoyYF395BDHROvKTcfHZ4QWBEQpiMhPsqcir6w/Wt7lY7qNMidDH+adGQnrNV39j/ZxgIc/d8ayVS3axGrKKet+5tdhQdMf3k7griFLq1cDZpNkyfkLKXU/sCo38xf+iZqHw+oQt5QmqAcH/v9xHVfRjWczxmd9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790977258; c=relaxed/simple;
-	bh=NAkFTmvg730AgZlNr86bUkFUfLNOFFvtU++kj9V10Vs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cEFRafKdgLT9U3BX4NC5Iu3XTe3+SJBeUBJIX5oMz6wcTUxXG7XiFEafshyWqLirAR0/hcTgYK/sh+RpjyftueIUWR6cKlLgOVoGBnjdcQ+SHkrJSPlgmmawbsOoX849BbHMa55GK1jgttCeMPVP2oHrxnXCMibwwdz9uzAZfzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePxE/Tg+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790977262; c=relaxed/simple;
+	bh=Jo/5dugZh4Ny+wdhiWvf9iwKHvuRL9KA6JlWJlTgqFY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=ecZXFHxmtbRLw4UoP7ez82RYnOypFabyv9WObiitZZqD5ZZd3wHobrCKff79BGQw2B0hOYhckQq5XJbevj6NtizE7GQs8eCzAbGtOxxcJv+jSBgoaCpgH2E29jFXlMbEym5uKGn4EgUdSmezSus7/PODs6mouqSaXIi9912/90o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLeXmgTD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePxE/Tg+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0F41F000FF;
-	Fri,  2 Oct 2026 21:40:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLeXmgTD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093F71F000FF;
+	Fri,  2 Oct 2026 21:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790977256;
-	bh=u0hCgW0Qhfb91gOeAiXaNjAVp+70LZr8J+/P9EJFUMU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ePxE/Tg+Fzuv07ZN6rpry3Zt7vERvAfPUD8I+x3AwCijqQkzZSymhBX9ZZ973ANG4
-	 clPT1IPgBxBGlMYTfEMFjKEKHTfJzTqIOxDY7SVc+L0U19bYDgXS/KwjG6R612LRP/
-	 3fB/iYMRB1zQZJGsmgvmGFVlGX18EUvW2yV5b8mxn67HE+MYyCacV7vBczY/65hkTq
-	 i9IIoPaELau/5J5yKLIrzeuxsNZZivQed5/WhZWpyN2uljD/ONvhPAkLn6vLinLa2r
-	 PqPZIMHPwr1C9/Yy0G5U5pQEqj/sh4HZkDw470xBswOBKpQW/bfAbRXouz5F5DOah0
-	 t2PLoxDQcVk4Q==
-Message-ID: <7b0146ca-956a-4075-8577-10c96f881fe5@kernel.org>
-Date: Fri, 2 Oct 2026 16:40:55 -0500
+	s=k20260515; t=1790977260;
+	bh=61/R3wV1NWOE7HoqVebj9mBBmgNaHG+WOnm/3sC4cmQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=QLeXmgTDJEE8p5eWTzIXSvYXsfvtao+l8O8886gPdU1izn35ejFHcWBvDWnftjgDw
+	 ZxiJvtS1vONSgMAEkyW0mOlyURTGbgSjHJmpKwbfQ5NsVblwokR3GXK5u7ff//bVL6
+	 mp9IiYPz+CmRPKkF4c754VWqF5xLjibG8VtpoQVu8Sf/BzmHHfTUukmPdmfFStm5iz
+	 4TSRk9l1CBq54U+4nwwnqkKrmG2Vef2V1GChyQjuWaJ7JxLi7JgQVxU1TI2dntf3Li
+	 tPQhO8cho59LNs5j6EegyuBt3w9L4GjFadc1h2kcML6BaiShNUh58so/5IER2kHC8N
+	 j7LQiwQDB//hg==
+Date: Fri, 2 Oct 2026 16:40:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>,
+	Alex Williamson <alex@shazbot.org>
+Cc: bhelgaas@google.com, mani@kernel.org, jjohnson@kernel.org,
+	linux-pci@vger.kernel.org, linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+	mhi@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v14 0/2] PCI: Add device-specific reset for Qualcomm
+ devices
+Message-ID: <20261002214058.GA284603@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] EDAC/altera: Refactor exit paths in altr_portb_setup()
-Content-Language: en-US
-To: Rounak Das <rounakdas2025@gmail.com>, Borislav Petkov <bp@alien8.de>
-Cc: Tony Luck <tony.luck@intel.com>, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261001171556.57548-1-rounakdas2025@gmail.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20261001171556.57548-1-rounakdas2025@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917071651.14174-1-jtornosm@redhat.com>
 
+[cc->to: Alex, +cc Jason]
 
+On Thu, Sep 17, 2026 at 09:16:49AM +0200, Jose Ignacio Tornos Martinez wrote:
+> Some Qualcomm PCIe devices (WCN6855, WCN7850 WLAN; SDX62/SDX65 modems)
+> lack working reset methods for VFIO passthrough scenarios. These devices
+> have no FLR capability, advertise NoSoftRst+ (blocking PM reset), and have
+> broken bus reset (addressed by quirk_no_bus_reset, merged for v7.2).
 
-On 10/1/26 12:15, Rounak Das wrote:
-> altr_portb_setup() has a single caller, socfpga_init_sdmmc_ecc(), which
-> looks up the same SDMMC ECC node and holds a reference to it across the
-> call. Pass that node in instead of looking it up a second time. This makes
-> altr_portb_setup() lose its lookup and its of_node_put() calls. The caller
-> drops its reference at every path.
+Specifically, 6a4f64c3a3ad ("PCI: Avoid SBR for Qualcomm
+WCN6855/WCN7850 WiFi, SDX62/SDX65 modems").  I don't know what the
+behavior was prior to that commit.  I suppose it was something
+obvious?
+
+> VFIO attempts to reset devices on every reassignment:
+> - For the listed modems, without a proper reset capability, these devices
+> never successfully initialize even on first VM assignment.
+> - For the listed WLAN devices, without a working reset method, the attempt
+> fails. On clean VM shutdown, the guest driver properly deinitializes the
+> device via .shutdown/.remove callbacks, leaving it in a usable state despite
+> the failed reset. However, on unclean VM termination (crash, force-off), the
+> guest driver callbacks are not triggered, the device remains in an undefined
+> state (DMA active, interrupts enabled, etc.), and without a working reset it
+> cannot be reused.
+
+So IIUC, prior to these patches, these devices were functional when
+passed through to several successive guests as long as the guests shut
+down cleanly, but the resets done by VFIO didn't work, so the host
+couldn't enforce isolation between those guests.
+
+If true, I propose updating the commit logs to emphasize the lack of
+isolation and de-emphasize the VM clean shutdown vs crash behavior,
+e.g.:
+
+  Resets of this device always failed prior to this commit, so VFIO on
+  the host could not enforce isolation between successive passthrough
+  users.
+
+  If a guest driver deinitialized the device, it may have been
+  functional if passed through to a subsequent guest, despite the lack
+  of isolation.  Otherwise the device may have been left in an
+  undefined state (e.g., DMA and interrupts active) and unusable.
+
+It would also be great to have Alex's ack here.
+
+> Add device-specific reset methods using BAR-space hardware reset registers
+> that exist in these devices:
 > 
-> Convert the remaining unwinding to one goto label per resource. Each
-> exit path undid its own acquisitions by hand, so commit 7d5a36a5490d
-> ("EDAC/altera: Fix device node reference leaks in the SDMMC ECC setup")
-> had to add the same of_node_put() calls to four of them.
+>   Patch 1: SDX62/SDX65 modem reset via MHI SoC reset
+>   Patch 2: WCN6855/WCN7850 WLAN reset via SoC global reset
 > 
-> While at it, replace the two comments on the PortB IRQ index with one
-> that describes the interrupt layout, and select the index with a
-> ternary.
+> These are true hardware reset mechanisms (not power management or firmware
+> error recovery), providing proper device reset for VFIO scenarios.
 > 
-> A devres_open_group() failure now also prints the common error
-> message. No other functional change intended.
+> Testing shows stable operation over 100+ VM crash/reset cycles. Device-
+> specific reset is position #1 in the reset hierarchy, so these devices
+> will use hardware reset as their primary reset method.
 > 
-> Suggested-by: Borislav Petkov (AMD) <bp@alien8.de>
-> Link: https://lore.kernel.org/all/20260926185955.GAargWKzpAwXXC4CQW@fat_crate.local/
-> Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
+> Jose Ignacio Tornos Martinez (2):
+>   PCI: Add device-specific reset for Qualcomm SDX62/SDX65 modems
+>   PCI: Add device-specific reset for Qualcomm WCN6855/WCN7850 WLAN
+> 
+>  drivers/pci/quirks.c | 116 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 116 insertions(+)
+> 
 > ---
->   drivers/edac/altera_edac.c | 45 ++++++++++++++------------------------
->   1 file changed, 16 insertions(+), 29 deletions(-)
->
-Very nice, this looks good to me!
-
-Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+> v14: Address Bjorn Helgaas feedback:
+>   - Split WLAN and modem resets into two separate patches
+>   - Clarify commit message for WLAN devices: VFIO resets on every
+>     reassignment, clean shutdown leaves device in usable state via
+>     driver callbacks, but unclean termination is where the lack of reset
+>     is critical
+>   - No code changes from v13, only patch split and commit message
+>     clarification (Mani's Reviewed-by retained)
+> v13: https://lore.kernel.org/all/20260915223634.GA878346@bhelgaas/
+> 
+> --
+> 2.54.0
+> 
