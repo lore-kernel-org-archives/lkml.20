@@ -1,163 +1,126 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC403E00B5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:35:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F7E4D487C
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951754; cv=none; b=bUcH3WLr6cqgBEJJVej8QJUAWU92abxsc893zmmwBp3iE7cagSmJcDciRPKynGfBqRX8Fi1Bxn0RHZE+37J/QufGgLCIT4pXxPgah9ScbQDsrxfZZPV+RzHejRZKw6a48QEl88EGzjlRf4hDKaShTcln2sMVrvroSgT5vNnBFlw=
+	t=1790951755; cv=none; b=Ko1Uth+CQK6DziTcQ3u5O1FtY3aY1VGC4dso2qCoECTvCeMRy3Btcz+vzaeZOW0LsTTGeITiCHQD992Qc6Z/udfmz9PxRcFuiBSuFulqJhyOR3ZZHVGRGQh1LUgUUDjo5y/HsgibI7WjBz8tuKhlx8xDqQ0aj//4O8OwQS/zaxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951754; c=relaxed/simple;
-	bh=sEskR/3ExQTLHI71NqLlpzs/JE6M5OOwwHG9YZNTZAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zgahh2yVJC1Jd3HcgtqL07nJ53DW0zC4wKPbu/obH+YxxBKIPIGXUNX4HzjJw9Apmvu2bapGym5Hwgdmv9nOTHvN1+j/jBWDNebxlK3LItog/tD34wHOK7FwBOkwrs7TMCB7FoWuxZyfJvPtmMg2XTovynJE4RxidWaCtPrfG0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OM7fjLjt; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790951755; c=relaxed/simple;
+	bh=sl/5SK0AkE7KgGawmgwiBrMyZ410mcBRygWLmXnAT18=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mOHZl00Of7/KyABvGlAbIvsQWApj5h9SzXVEJ6pP8hxHmue6FP921C4JOHfg0aY83s0/BAj9OGg6jmlmW0nZLiteCAuCbG0dZq8fh2VsHe6I3GwWd4XkduIgY8t1w9gPVhprAIwWDz1Vea9XsGLW1+XAsWs9hPBM8sYadir454s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citymesh.com; spf=pass smtp.mailfrom=citymesh.com; dkim=pass (2048-bit key) header.d=citymesh.com header.i=@citymesh.com header.b=g9sEWNcX; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citymesh.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citymesh.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OM7fjLjt"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605c198fdso12166759a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:35:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=citymesh.com header.i=@citymesh.com header.b="g9sEWNcX"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48aff58e6abso1787177f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:35:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790951750; x=1791556550; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tnnaK1bgjoHXdx4TLwgBNAZANL+ZBN5rHCxr30tdrTw=;
-        b=OM7fjLjthjUwEd0GpjeI8BQRE7H8dKViyY9tMVjlOk3mh4SRm1wpryj8WyanqV+qeX
-         bc2PbvW09240D6r9g+3PRl3XtqISSfiCWEhTZ9Xdk5NU2C4KPil/aUP/NgzIypJw0eSt
-         ybZsGUurjdNY6uXbz/+sU2EJVKu8Aci92SWB0+XKUZh+yw9fh0hsFi76LsyoJEY0QmOp
-         gYANqf/kmpL6bpm22VIKnMFmlfk8vYTjYwaXjSEydMEzH6ows7TgL1yzGo7ZijNPSxzQ
-         06PQxgreAxbPjVa80MvNyldbr+hB9vG5sjTifjO5fFiHF74F3BJvnejqLnEGYdz8XNGq
-         BtuA==
+        d=citymesh.com; s=google; t=1790951751; x=1791556551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k+YxcSkfcoEfck7Zuecwp5VWL5LwdnUB1Sk9JzZnEL8=;
+        b=g9sEWNcX6iltrGeEB/iSEXsS/ONz/k2u9AyWOtXa3biN+bzuz4YKAjApdcTMsxVfJk
+         KWChsbnahloS34Ofl/sxIoRnuqcdxrNwbpVmiGGICWsieE1dDR7wW1qe6cpM8BpKEX6o
+         MsuCwibntLe+TEekbibaI91Y32NAb8dggeAu5MAPxOhD2f4RilGhZvUirOqSFh08g6Sa
+         JQ17AdmlrCyg5qpxaRfgLNLuwF0lO8Gb4d4k32Zdb8JZsZneaH3xUUhGMaiivp0JFNSx
+         l0Lr+vMURPovHcPi4k1MA9twiSeSpwKlF6ozOQ2PpLlK6kuCTYaDyzjGa7KqxLpmlIbe
+         IQVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790951750; x=1791556550;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790951751; x=1791556551;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tnnaK1bgjoHXdx4TLwgBNAZANL+ZBN5rHCxr30tdrTw=;
-        b=axpGhKp0q3SY5mr0LvARXUsDU6n1K3h63RI52BUWugJKh9Vm9C9eHz96atJfZtKT16
-         KwufpV0bV3IKm6bMzfEqFR+VqOGbtV64uliDOVG4Q+96STfDVNdgBm/gH8YRa3RwbJcS
-         2nX+bhP+SzZAc8pQsQYwV9h3jWjsESDrtPoRwStqMQuO2w2hVFFozEajtT8RAo6gx32h
-         qLB94ofQrI4DomuJpi+bOYvZMEpVycnAiu+dh4LQ1kefrUhzZ7i3qZAjKUdkO+Srm313
-         9xe9hBtUDy2110aTmVWj8i3vGmxU/9APWUTzaiXPUZ0JnYKid9SBAQegDJNYDkUUuGmo
-         Z16A==
-X-Forwarded-Encrypted: i=1; AKwUvBzpnTCtmXx4+qm3tjU6gJHTWhWzBqv5QhBB3Kbo+IqO5E0f18Lz7L3NvP75guc3HuGLYAeNT6fhw1aWAeo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJP8zq5uvAxf3beRJXthPjLO9WlFSl8yA+4UdXC2mmBbm82AA6
-	jlqk3rL/b9/JVDvAKGJomIHfNxjma9G5BVZ1dVcI1dP7+LAFRTlVkAMV4SVJNdG3ExM=
-X-Gm-Gg: AYBFou2pnydSpU2A+3+7U9tTNVngxd2iXpMQXN9Ap0XapGAPsqXP4mHC3Zbr9VuR9bE
-	aLG3Z4NZ0DKgFAg8CuzFNRBZGoDxQfZemHaHhnnTxudkL0DMgFwgo3xEVg1TQEuzqgx57L6G0qc
-	EGWNWus+cZeIJ5Up4sZ9ZVmB6uAlGsDGGpOiD1qe8kcqOGeGEBY/mg6m/HhHk1IFW2+FCu3/aF4
-	gbeQTbem9H0/2diH6fUPKkLldY7gg1p+RvDoQ9KVtszviXJeuJT2L7YKePUBkuCssio0IHSzdQL
-	eRRltjUZtWc2Ej5ZgXs5OiwPLSJ0/pyovr0yLrCUDiuBfMu/dCd2Op8nQ/wo/XEfdaOO9a8a6Km
-	5gxHG71oHkS9Z4I4FAyyItEK+Mj+ZSMIXne17E9Dodmt81Q98UnBe1+stKEWx2q80VkfyJPWoCX
-	nLKZaYtUQfQLZoyj8u06jky1oLzWdcHr0h5PoHF6cdUK4/U7kvKY1eFEgr8yqAEGPJMtB5ELosa
-	1HQjoekNbER
-X-Received: by 2002:a05:6402:254b:b0:6aa:fac1:3bff with SMTP id 4fb4d7f45d1cf-6af9e357989mr2066365a12.32.1790951749730;
-        Fri, 02 Oct 2026 07:35:49 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.210.127])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d873682sm929326a12.10.2026.10.02.07.35.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 07:35:49 -0700 (PDT)
-Message-ID: <45d79c84-cc76-4bee-835d-ed11ce07bf2f@linaro.org>
-Date: Fri, 2 Oct 2026 15:35:48 +0100
+        bh=k+YxcSkfcoEfck7Zuecwp5VWL5LwdnUB1Sk9JzZnEL8=;
+        b=PN2kCR1oShmuOpK+BkEWIHScU9RlmaSbQ+C9onD0yop3B75WTrXgeZgwB56+B63xhP
+         XVNqakaeoKZMeahaiB6h7W9AdQCV9PCec46RRmFab4dbfAwR8eZL+j0Oys+Nb/OnpOpX
+         ipyq6JArt9sBo9ePAia6nvoE+oXUT0yKeFTFdWGoIOZ2nBDqc4yDfKi+THGNraYrrG8h
+         iGUYrw3d2YVA/4OY6gjezAs6O87afCKta5YivAOjV0FH2G+mKM4M8LMM5Yt2851VT+9Z
+         Z1FFnUfrNbUO1U0ZeJhwjg9dAptxNvfqdpMKOpGs9S3QfJ6tRQsPHZd2CXh0PgV+HsNt
+         PLTw==
+X-Forwarded-Encrypted: i=1; AKwUvBwO/756y3moRCDa/dZCVT1S+TQrwwJ3BqXSVO3WxPE6OHvB4yO7Y+EsAk08VMA4G9xA+tnKERYUIdRQvl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4FnHvMOfppZGW3RLf/YowEe05kLrC5HYFQ/itRDEh68ZB54gA
+	dmtLsmTCgXpcxcYFfiYTfNT7tcmy4xrAi46KDP1H3oqxuCJbzNvj519YUAoSozH7kSo=
+X-Gm-Gg: AYBFou0fTxpsuoNgTWEfygbc6oyDQCjbiWkdo46S3f2F6FLQ8daf3bMJRPssgsoXafo
+	QlYnTI0pAnsPo2tB6Vxc3TtedtIdOqVcNhVuDzP0zwXz0ninNP4yB28RRs3uzbpAHvLwGRm9sxb
+	hzJ9/gggCqEZxgb9UdFq/9XgbtBwA9GbD+KWceitUnT9Moa41ijKT0khr9JJ+24J85zrtKnfcF+
+	FtIi/Xt6XaWpqsaev8IuNfTeEoFK9Ipcq2l4hWSoRJAlSPzBIXhrsuQhvBMBovQ6L1dALpA0/LL
+	jdACPmoNPHFktKuwJvwgT+Z8blCuWi6tG3kJHKGzJHvTwpUXuX3tLwyCIbMB/DYuWevVMOmKC8+
+	c4eFTm/VzznRAEMHB8pebEAMb2uCKs0nxqpnCc/+Hi6zpKDMMWcU2s2xLN/AtcHR2Zht2z+YY8w
+	v2vvCJo8v0v/FZViuXVC+M0EVL1L2DGpHtBz3YNujrQe+VyOr1BjfbCAmJbrsveoMwuoI=
+X-Received: by 2002:a05:600c:8717:b0:4a0:2867:d8a9 with SMTP id 5b1f17b1804b1-4a02867da4cmr44371235e9.30.1790951751358;
+        Fri, 02 Oct 2026 07:35:51 -0700 (PDT)
+Received: from koen-nuc11.. ([2a09:bac0:1000:2ef::4e:6c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f67cbfesm8715315ad.28.2026.10.02.07.35.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 07:35:50 -0700 (PDT)
+From: Koen Vandeputte <koen.vandeputte@citymesh.com>
+To: netdev@vger.kernel.org
+Cc: quic_subashab@quicinc.com,
+	quic_stranche@quicinc.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	dnlplm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Koen Vandeputte <koen.vandeputte@citymesh.com>
+Subject: [PATCH net-next 0/4] net: rmnet: optimize hot paths to alleviate CPU/memory bottlenecks
+Date: Fri,  2 Oct 2026 16:35:25 +0200
+Message-ID: <20261002143529.3217189-1-koen.vandeputte@citymesh.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/15] media: qcom: camss: vfe: Add support for VFE
- 1190
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
- <20260923-hawi-maili-camss-v1-6-cbbb42e534ef@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260923-hawi-maili-camss-v1-6-cbbb42e534ef@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/09/2026 12:02, Nihal Kumar Gupta wrote:
-> drivers/media/platform/qcom/camss/camss-vfe-gen4.c
+While testing embedded ARM platforms over a high-speed
+private 5G SA network, we observed severe CPU and memory
+bottlenecks limiting overall throughput.
 
-So I'd like to completely drop the genX.c stuff it is not descriptive.
+Examining the rmnet driver revealed several opportunities
+to significantly increase efficiency,
+particularly on the RX deaggregation hot path.
 
-For example:
+This patch series addresses these bottlenecks by optimizing
+memory allocations, reducing unnecessary payload copies,
+and improving timestamping efficiency.
 
+Test Environment
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen3.c 
-b/drivers/media/platform/qcom/camss/camss-vfe-gen3.c
-index 93d16b0951e99..f2001140ead12 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-gen3.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-gen3.c
-@@ -12,13 +12,43 @@
-  #include "camss.h"
-  #include "camss-vfe.h"
+Hardware: IPQ4019 (Quad ARM Cortex-A7 @ 717MHz), 512MB DDR3, USB 3.0
+Modem: Telit FN990A40
+OS: OpenWRT-based
+Network: Private 5G SA (n78, 50MHz band, 4x4 MIMO, 1Gbps core uplink)
 
--#define BUS_REG_BASE                   (vfe_is_lite(vfe) ? 0x200 : 0xC00)
-+#define IS_VFE_690(vfe) \
-+           (vfe->camss->res->version == CAMSS_8775P)
-+
-+#define BUS_REG_BASE_690 \
-+           (vfe_is_lite(vfe) ? 0x480 : 0x400)
-+#define BUS_REG_BASE_780 \
-+           (vfe_is_lite(vfe) ? 0x200 : 0xC00)
-+#define BUS_REG_BASE \
-+           (IS_VFE_690(vfe) ? BUS_REG_BASE_690 : BUS_REG_BASE_780)
-+
-+#define VFE_TOP_CORE_CFG (0x24)
-+#define VFE_DISABLE_DSCALING_DS4  BIT(21)
-+#define VFE_DISABLE_DSCALING_DS16 BIT(22)
-+
-+#define VFE_BUS_WM_TEST_BUS_CTRL_690 (BUS_REG_BASE + 0xFC)
-+#define VFE_BUS_WM_TEST_BUS_CTRL_780 (BUS_REG_BASE + 0xDC)
-+#define VFE_BUS_WM_TEST_BUS_CTRL \
-+           (IS_VFE_690(vfe) ? VFE_BUS_WM_TEST_BUS_CTRL_690 \
-+            : VFE_BUS_WM_TEST_BUS_CTRL_780)
-+/*
-+ * Bus client mapping:
-+ *
-+ * Full VFE:
-+ * VFE_690: 16 = RDI0, 17 = RDI1, 18 = RDI2
-+ * VFE_780: 23 = RDI0, 24 = RDI1, 25 = RDI2
-+ *
-+ * VFE LITE:
-+ * VFE_690 : 0 = RDI0, 1 = RDI1, 2 = RDI2, 3 = RDI3, 4 = RDI4, 5 = RDI5
-+ * VFE_780 : 0 = RDI0, 1 = RDI1, 2 = RDI2, 3 = RDI3, 4 = RDI4
-+ */
-+#define RDI_WM_690(n)  ((vfe_is_lite(vfe) ? 0x0 : 0x10) + (n))
-+#define RDI_WM_780(n)  ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
-+#define RDI_WM(n)      (IS_VFE_690(vfe) ? RDI_WM_690(n) : RDI_WM_780(n))
+Methodology
 
-In other words VFE 690 and VFE 780/880 don't share the same write-master 
-index.
+Results are based on the average of 10 consecutive speedtests against
+a local speedtest server located in the same datacenter.
 
-So they aren't the same silicon.
+Performance Results (Download)
 
-I'll go and find the Kaanapali thread but the feedback here will apply 
-there.
+Before: ~318 Mbps average (Peak: ~353 Mbps)
+After:  ~389 Mbps average (Peak: ~458 Mbps)
 
-Name the files per their silicon version not some genX.c moniker, please.
+Koen Vandeputte (4):
+  net: rmnet: use fast monotonic time for tx aggregation
+  net: rmnet: optimize rx deaggregation memory allocation
+  net: rmnet: conditionally expand skb headroom in ingress handler
+  net: rmnet: optimize rx handler by replacing skb_linearize with
+    pskb_may_pull
 
-It _looks_ like 690 and 780 will need to be separated so, I'd like to 
-move away from this misleading genX notation - it may mean things to 
-qcom but I feel we are burying inappropriate hacks inside of convenient 
-gen files.
+ .../ethernet/qualcomm/rmnet/rmnet_config.h    |  4 ++--
+ .../ethernet/qualcomm/rmnet/rmnet_handlers.c  | 10 ++++----
+ .../ethernet/qualcomm/rmnet/rmnet_map_data.c  | 24 ++++++++++---------
+ 3 files changed, 21 insertions(+), 17 deletions(-)
 
----
-bod
+-- 
+2.43.0
+
