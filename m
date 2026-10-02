@@ -1,107 +1,163 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA64D30F52B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C043033E6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952930; cv=none; b=r4LMmr7QWDppRwl/pNrTKzINEjZU56WClQhN4TAgelvDlvIVw9Nn45L/mQKJYCXRMXdYdhxU6MkBsLeXPhY3xGO+/CbyOHhn5+KtGBBGMou5fuf22qWteN/i5ObT7NUjDc5pohHpUnx+3Bqizs8u5JQkh5gCA33ORp4eO07jP28=
+	t=1790952955; cv=none; b=QbOvb3IOsaPvWtt5Yr0XYmzKjajA6nZew48wkkrcgjjxH7AbIEaI8drdE4vZhQx+vKQmtf4ZCx8F75GGw5HxPaDBIM8eQigpOlPhpc9DzPQ5JwrlrFfZYIn9jOPrNRtzW8rda9byVcwCQVhL1PGREixPz/usam9eqaiQI/BqJJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952930; c=relaxed/simple;
-	bh=vL/NAW4pI59cTO2nOfUaBkDeGt8grGQZ57Ks3hj6950=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=FjfBT+8rHsJjf4vQgc5ZJmDyivZFCT4LKoyuyt5otcd3MX6wp9dkkULRMvolJwOelk4En5qfy7IAECXYdfgwCFA/BziJmAm6BCudGn8YhP0t6YOqMZPSioO5P6irYyqvaMjZ4UaqqrDERT3SZt/AnBsSBoNpvheHHuVnaDdwK5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com; spf=pass smtp.mailfrom=korsgaard.com; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=Tx9x/W0E; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korsgaard.com
+	s=arc-20240116; t=1790952955; c=relaxed/simple;
+	bh=mWawWoT/4zGtCooTZRrFjQzDVEsQ87rz1F1yEWua8Jw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K3CW8U5bteyxL268jvIi8NmEz1tl/mKSHNXdiwsMkwGsG+K54hFEFDFO3f+wQdGBwL5VYxoDrK+FO4tRNU8aMvinHdwx+ILkF0B3f8x8vlO+7lAwW6z76nYxfsR2rsNf9v+tGPUwdHmQwiaqpOXi/duRTWVs2S1o1bxKop8uDOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=WIcj47sU; arc=none smtp.client-ip=74.125.231.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="Tx9x/W0E"
-DKIM-Signature: a=rsa-sha256; b=Tx9x/W0Ef/V8PJllx8oSJRi1Thykxg/0uSCj159+UMQP8FJSGPpWJyxHoZcgwpgnVnFzb67WWxy74iXguH+fd3m0ynIP7myDimbUFWuexpUZCKWeXHk/pMPmSEA+I5/5Fsrhs/+/GULMGru45HqZt8nwKRn6C7s0l+sutVvPxM5kHMYV22lfpVZ2I5z/uQnrPz2Oede0AaFCibImnZgPaodfrgMjtc6w+6Y2YMIEk0oAYNhpQC9ihtxnf/DvKd7+1lwVaxtNH716pkXNXIL12oumdsUbPM1KvDdDTbVzhneNPNad53VpMzGIrXPPPh3XD+9pNB42f4WN+AkUFPcuiw==; s=purelymail1; d=purelymail.com; v=1; bh=vL/NAW4pI59cTO2nOfUaBkDeGt8grGQZ57Ks3hj6950=; h=Feedback-ID:Received:Received:From:To:Subject:Date;
-Feedback-ID: 21632:4007:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1831802679;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Fri, 02 Oct 2026 14:55:09 +0000 (UTC)
-Received: from peko by dell.be.48ers.dk with local (Exim 4.98.2)
-	(envelope-from <peter@korsgaard.com>)
-	id 1xCefE-00000009Cqd-0WvU;
-	Fri, 02 Oct 2026 16:55:08 +0200
-From: Peter Korsgaard <peter@korsgaard.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,  Peter Korsgaard
- <jacmet@sunsite.dk>,  Arnd Bergmann <arnd@arndb.de>,
-  linux-usb@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: c67x00: fix uninitialized data access
-In-Reply-To: <20261002124558.3495203-1-arnd@kernel.org> (Arnd Bergmann's
-	message of "Fri, 2 Oct 2026 14:45:46 +0200")
-References: <20261002124558.3495203-1-arnd@kernel.org>
-Date: Fri, 02 Oct 2026 16:55:08 +0200
-Message-ID: <871pa8rw37.fsf@dell.be.48ers.dk>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="WIcj47sU"
+Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-492d8c4add0so11239fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:55:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790952951; x=1791557751; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+aS1nFHs1o26b9G5lmQi2V+h1cf11SB88eiBbPfTjO4=;
+        b=WIcj47sUpRFBtqjA0GLnqxuCUFXZM9zyHz5gg4gBKWQx6HMuiZ8lRfhKIY5HE+sUxw
+         RpzuxqokkIjOVEwQHyhZuDe1L1h3wvnOH4kwi9sJKMQ3sscQhA17KGS44KU1BvOxwmEy
+         npKm3GOYK8Q5K9UC9C08WBbCqLi0bnZKYG1dVyKcFpruoSnNhfoMyX0o4fZcyTzpUHUa
+         adcU3ZG6vU4pclmuuG2KHBidl33DCRFxIQ+wQQPXr4lMNI65bVyn9U2fdGIEtg5GjXu2
+         /mxjwVwp2qBKTIsPlp4kDQ0ktwYC6DxO1Q7o6az586tuKp1kmv0KruFNwtEdPnq+op93
+         kTGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790952951; x=1791557751;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+aS1nFHs1o26b9G5lmQi2V+h1cf11SB88eiBbPfTjO4=;
+        b=POaASEGjjpnp9X5Bfmedjj1oc7FwQgCovjdtvzj+a+yrgvrIPgDp/xG+p8N4x/d9S5
+         Hc8T5wkWd4P5dA8e893rKyAXIU/8oBQC5nZ+lPQNePXsu8EzoRvgostskzsSg5IYruzJ
+         EoI3ZdSW0BwHH+OtMNbnAi2SkJc2MAVG6W8NsXNhPmpZwlj6X+1bQcq92wfBoJ7NdYgE
+         +3kmIWilPDBLPQRVmlHm1C8H+bEV2pyBAUtXsy8vH7en6iMtiSHX2564bKTtwk1o8plP
+         KyllKwlY4kt7h+oDnsIBT4g+AnX1C/liMGS/0fzmEvrhxMt/2oI/OF6eW1Py5l3MjIP9
+         GkVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxZUoUcnHuaGGc0LmMv/rjeyJ30gLJWtJGmsQBpcxe//UUB3a3NEJX10ttr8T+pTeL/M3LqPgcmIAPG7/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWHSh8FPg7XS4o9gsoJ/IPoUvGTR/A2HvhLLHa+yoWCVIpj1gp
+	qwbd2e/Y/M5FvY1nzyXDRl2BySlmiSzRhCF0FZc4vRsTotmm+Y2IkP1o7vRaovoa68w=
+X-Gm-Gg: AYBFou1Daosi95/mbDg2ocDs7Qrkxa/2PXjnbPRjkzt+/NPyuIUL9vl5QO+whBNRSKm
+	VjbWgklfU1ZLX81Dg9wutTRoqKhzLZDc8u8QnMMq/YBcZFkwBAgr3GeRqEYSAGvSqx5uMgXnZen
+	t0j9nNAvNYhWYi3jZjm30xfGBrC2kfZos9I8KasN3f5cdMBfqVURMpa+++VordzDNvtZFuQr38R
+	1/CvZwbD6X8SQMQNzlV7NCV3MGZN9XLWXxSHzMnDeOLEH23YlttLZt57gDSOnIC5M4itpJywPkn
+	MF2bX2PLAJZHkbufflbm6+lAwOJRhmaA2v5/W9t640Bzm6nWGRfmPJ8XjyPoYqzYz9LbsIijczv
+	MVOKsPAAHLpVQEu9v0MXKPxE5TVH3bWFE4+c2xEeiEMKFvjFIa/VlRkiUXTCAs+Abp/r3lpJDf4
+	D2LwCoEd+X6+8q8vK9e5agC6/0ttweTeJYvKmxIzlc1pHHE7wceb7CGJJWveOj7dZ2BorzHXqtx
+	CuBODoumpVuMZG52qn/1GGXa0fKPrSe53JJ/72AAHAtUifcz3aHnWg=
+X-Received: by 2002:a05:6808:1828:b0:4f3:68d6:f12c with SMTP id 5614622812f47-4f528de5ecfmr2380933b6e.24.1790952950725;
+        Fri, 02 Oct 2026 07:55:50 -0700 (PDT)
+Received: from [192.168.2.38] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f5243d47absm1998187b6e.8.2026.10.02.07.55.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 07:55:50 -0700 (PDT)
+Message-ID: <ff775d61-d0fc-4ce7-a3a2-91789570ce45@kernel.dk>
+Date: Fri, 2 Oct 2026 08:55:49 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring: fix out-of-bounds bvec access in
+ io_vec_fill_kern_bvec
+To: Ming Lei <tom.leiming@gmail.com>, =?UTF-8?Q?=C3=96mer_Mete_Kaya?=
+ <omermetekaya0@gmail.com>
+Cc: Gabriel Krisman Bertazi <gabriel@krisman.be>, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261001143003.755790-1-omermetekaya0@gmail.com>
+ <87se2pwhzh.fsf@mailhost.krisman.be>
+ <20874bd2-f827-4ef8-9855-dc8aaec874fa@gmail.com>
+ <CACVXFVMrjhACs9mQMkJJxYXsTyh=a1ZHUmg1i9hK2+TZdwbXFQ@mail.gmail.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <CACVXFVMrjhACs9mQMkJJxYXsTyh=a1ZHUmg1i9hK2+TZdwbXFQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
->>>>> "Arnd" == Arnd Bergmann <arnd@kernel.org> writes:
+On 10/2/26 12:04 AM, Ming Lei wrote:
+> On Thu, Oct 1, 2026 at 2:55?PM ?mer Mete Kaya <omermetekaya0@gmail.com> wrote:
+>>
+>>
+>>
+>> On 10/1/26 18:36, Gabriel Krisman Bertazi wrote:
+>>> ?mer Mete Kaya <omermetekaya0@gmail.com> writes:
+>>>
+>>>> for_each_mp_bvec() dereferences src_bvec[bi_idx] in the loop condition
+>>>> before the body is entered, with no guard against bi_idx reaching
+>>>> imu->nr_bvecs. iov_kern_bvec_size() stops iterating when i reaches
+>>>> imu->nr_bvecs even if bi_size is still non-zero, so the fill loop can
+>>>> walk past the end of the bvec array and overrun res_bvec[].
+>>>>
+>>>> Open-code the loop with an explicit bi_idx < imu->nr_bvecs check before
+>>>> the dereference, matching the termination condition in
+>>>> iov_kern_bvec_size().
+>>>
+>>> Do you have a reproducer?  This should be checked in iov_kern_bvec_size.
+>>> We make sure it doesn't go through imu->len which should match bv_len,
+>>> IIUC.
+>>
+>> Yes I checked more and looks like the *bug* is unreachable via existing
+>> in-tree callers.>>
+>>>> Fixes: 1045afae4b88 ("io_uring: support vectored kernel fixed buffer")
+>>
+>> It doesnt fix something broken actually, more like a defensive refactoring.
+>>
+>>>> Signed-off-by: ?mer Mete Kaya <omermetekaya0@gmail.com>
+>>>> ---
+>>>>  io_uring/rsrc.c | 7 ++++++-
+>>>>  1 file changed, 6 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+>>>> index 51b46e624..3d29a0c7b 100644
+>>>> --- a/io_uring/rsrc.c
+>>>> +++ b/io_uring/rsrc.c
+>>>> @@ -1614,8 +1614,13 @@ static int io_vec_fill_kern_bvec(int ddir, struct iov_iter *iter,
+>>>>              struct bio_vec bv;
+>>>>
+>>>>              bvec_iter_advance(src_bvec, &bi, offset);
+>>>> -            for_each_mp_bvec(bv, src_bvec, bi, bi)
+>>>> +            while (bi.bi_size) {
+>>>
+>>> bi.bi_size is the first condition of for_each_mp_bvec.  Do you really
+>>> need an open coded loop?  If there is an issue, can we just add the
+>>> check below?
+>>
+>> mp_bvec_iter_bvec() is called in the for-loop condition not the body:
+>>
+>>     for (iter = (start);
+>>         (iter).bi_size &&
+>>             ((bvl = mp_bvec_iter_bvec((bio_vec), (iter))), 1); <-***
+>>         bvec_iter_advance_single(...))
+>>
+>> src_bvec[bi_idx] is dereferenced before the loop body is entered.
+>> A check inside the body executes after the out-of-bounds read has
+>> already occurred. The open-coded loop is the way to check bi_idx
+>> before the dereference. The question is "should the kernel be defensive
+>> itself or trust the callers?". If you find these kinds of defensive
+>> controls unnecessary, happy to withdraw the patch instead of releasing v2.
+> 
+> bio/bvec iterator is written in this way from begining.
+> 
+> So it looks you should work on improving the iterator helper, instead
+> of open code for the single user only.
 
- > From: Arnd Bergmann <arnd@arndb.de>
- > Randconfig builds for s390 using gcc-10.5 revealed that the
- > c67x00_ll_husb_init_host_port() writes bogus data into the
- > registers:
+Indeed, it's a generic helper. If there's a potential issue in that
+helper, then that is where the fix should go - not having users
+open-code the iteration.
 
- > drivers/usb/c67x00/c67x00-ll-hpi.c: In function 'c67x00_ll_husb_init_host_port':
- > drivers/usb/c67x00/c67x00-ll-hpi.c:288:3: error: '*(u16 *)((char *)&data+-452)' is used uninitialized in this function [-Werror=uninitialized]
- >   288 |   hpi_write_word(dev, COMM_R(i), data->regs[i]);
- >       |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
- > I have not seen this error before, but the compiler is clearly correct
- > and the bug has been in the driver since it was added in 2008.
- > This particular build has CONFIG_INIT_STACK_NONE=y and CONFIG_UBSAN=y,
- > but I don't think that alone is sufficient to find the bug.
-
- > Change this to write zeroes instead, which may still not be what
- > is intended but at least avoids the undefined behavior and the
- > warning about it.
-
-Sorry, I don't have access to the documentation anymore :/
-
-
- > Fixes: e9b29ffc519b ("USB: add Cypress c67x00 OTG controller HCD driver")
- > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Acked-by: Peter Korsgaard <peter@korsgaard.com>
-
-I wonder if we have any users anymore? I have myself not have access to
-any platforms with this cypress controller for the last 10+ years or so,
-so maybe the driver should just be dropped?
-
-
-> ---
- >  drivers/usb/c67x00/c67x00-ll-hpi.c | 2 +-
- >  1 file changed, 1 insertion(+), 1 deletion(-)
-
- > diff --git a/drivers/usb/c67x00/c67x00-ll-hpi.c b/drivers/usb/c67x00/c67x00-ll-hpi.c
- > index 7a214a3a6cc7..3825552dc024 100644
- > --- a/drivers/usb/c67x00/c67x00-ll-hpi.c
- > +++ b/drivers/usb/c67x00/c67x00-ll-hpi.c
- > @@ -306,7 +306,7 @@ void c67x00_ll_set_husb_eot(struct c67x00_device *dev, u16 value)
- >  static inline void c67x00_ll_husb_sie_init(struct c67x00_sie *sie)
- >  {
- >  	struct c67x00_device *dev = sie->dev;
- > -	struct c67x00_lcp_int_data data;
- > +	struct c67x00_lcp_int_data data = {};
- >  	int rc;
- 
- >  	rc = c67x00_comm_exec_int(dev, HUSB_SIE_INIT_INT(sie->sie_num), &data);
- > -- 
-
- > 2.53.0
-
+So please take a look at the root cause instead, I'll ignore this patch.
 
 -- 
-Bye, Peter Korsgaard
+Jens Axboe
