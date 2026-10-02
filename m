@@ -1,167 +1,147 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF5F51121D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC1F36F8E6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790965138; cv=none; b=kGNtmuT0syfgSTUoby1AdqMUIM5xmKoaPCkyaeMWOt5hNjCoXecUMVmjQg8dCU30MO2Xm4+OXEFzzVnzoN9AWQMNyv4rbv+Jm3OVITeZo3zMpuUjpXVD7Xm7Ca96mR48tbFN+8kjeSk+5qfucPQ44sy6LhNblVB3xSvKly6lIcc=
+	t=1790965274; cv=none; b=F9Fl90j7djXhScCJ1TRcjDPWoDg6AZ9T45CBkCDrjJz40M/vVHJY0aC+E2nEne8X6XtWzghTMhu0kTTa4HTX2KCbN7CYmr6RHuUXtBwn0c5eBsNRbUykHPglxcNNtgU5mhY5PwRgrO2a+kmfcbdC/w41cUXTdez3s3wdFXwh+vQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790965138; c=relaxed/simple;
-	bh=xxjspIqmx+CpULEpM4hqjXrOZ9/SSoODxlcNQ+6Tp2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ov9+9KWBGvHn+ukNV8CPEVdXYXJlWqmSdspOkRRlYqKdBYi2zYOzUVHs0UC3zGaSgowdSkEZF2Bd2OgRGyd0U2ccJsyg/aHobLnHBuUwidCCDavHvqKFuXAVl1Pb5cFIfKbBzK4b+0+lk9pYqMqRHzUi3o5OF6KN9wfsyNrJlRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Xc4eG+pT; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790965274; c=relaxed/simple;
+	bh=7f/S7CoJrGk1q7EYAcbYAyAPHACsfynPJdO3xTOSshk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CDhATucS75YQQT85shwgATmqb7Kv56TzOrisr1qLQku2BuTxX08ZmB5FfEPoN+fQq0nmIMz8XbZo+9Z0pFWWULQGa1CmMSJD7WEMeBr5hNSH/bfUEViZ23HI7C48g26/5CGiPvXJ93xKk8CPPYueK8VH+y8Y4+J/iHF3oB1ihmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JafEFYsg; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Xc4eG+pT"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-939fc329d35so83724085a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:18:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JafEFYsg"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a006d3fe83so833085e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:21:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790965133; x=1791569933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SdYgs3CqbUtHm8RpvjRA9eQJchSjfk11RvrZH/hrmmc=;
-        b=Xc4eG+pTRyNj0/77dvvO7G1GRgOtknJxhKpk0H1k7A6hIkji8ss6fvCbiv1/aujwK6
-         ae6oAt5XgNfu5zugRJB8vLqzZ046/LDjGCGWWuwaHAAqtlowvs2qk8YUvUTMmtQ/RbuA
-         GVy/WIKn7ykh35Wv/7zj77BtWKbLgOonbDkd/JmfzQkpgjK04tPZjLqimYNtUg/Jqq0S
-         MjTMV0eJLPBFTXCtKdKVFR9l4xmzBHqM7b2v3MCULgIi5P0TEPrmo+/dThdFKmPGDVOM
-         dVceqPkeFRMsP+6sRACTM+6Q8y/tEt5T1boUJcown3P2ixhPrTBi6FaUAASBZofcTpsE
-         QUzg==
+        d=gmail.com; s=20251104; t=1790965271; x=1791570071; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ujd5qi4nwlP9wXVvUg5o3lKTuuQK4FVXJHYGoARDBmU=;
+        b=JafEFYsg9VYEkrOCSs4TXuikoACGuIunIwOahVbd4OMx2gR6e1gHU05/ZXqnwMgWyx
+         1MVIzf6yFnlOkVlhNaRgkmwWHRDld7ykjr++gyztRmppOrB5ZQjsSTvx1lyox6ApUFH7
+         IXDEMSmarJF9S8BdgqFxsWdHqJwoWEtdG4vxFlruUsLv1eGnmGOnIB507o5VvouVe0ik
+         EXMhktMjWVhOwVJ2Iu7ChgBpAh7VG4TtyNz6KVHptlkdf0nkfvM5tcejd7VxQ5luHiG8
+         uHAx3bzqWasrZ0AgpEVbuTY3IG5V7KemCUcCxmDNtknqcdQZxEv6Yecgwo6VrCfHnPvL
+         NN1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790965133; x=1791569933;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SdYgs3CqbUtHm8RpvjRA9eQJchSjfk11RvrZH/hrmmc=;
-        b=VUCxmFcG+KfHR0Fn3DNN8/HT58kYIOdG/xe++JDJft//lmVFFkZ9vLkIcFgZP7pYRg
-         7R8QJ5+mQ+k9oh/ZurbRR1Jmx3I00II58iNzEtZFgdW4ZcvWjKoX3xwxTMcpahcNnnkK
-         kQJ0JXfxhe8jQXxc/L/hbUZZhaoPfs1+jMX9iVIWW+K2eZDPNOl5pjabW/SDWeX2wyiW
-         QvK5uW1yFI2ocLLalShe/m8r56TEDOXJerBEKZDLE5g73PDfJ/sGQAi119/OXBw4VdDv
-         lX67huIvXvJMlJL0wpBlYWU967nW3w0j0YtN/rjtGNP8B61+zaOp+mN7Ep5IWN7Dv+Qw
-         GocA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+/S8SMQdIC9hhmH4PkA7MIvBxJqmLAAYozqKuf2Rpd5kREsFzHLZ9Uu4Gg/cSGPIBNyhLTBaMl30NfUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nu8XN2VG5BlVKTv6lHY9C5fb86fiOU/ckyJ7xOPT5vBPCYFwz6
-	YlHTsDPu4XO4Ixf3wSHKEZdsbkw6DUk2igsPKMukACDF86DhfktFw/1O02WglZ60OjU=
-X-Gm-Gg: AYBFou248UB4y2sebLtfDkrQGkS1/5jfrNUOfp7Jb9GI+P/3mk+WFXQNxA3Umug5GH0
-	GVlN0DXDqdP4otyN5CyoXajwBOybRc9F0n3urbgk6l2VV7MU1mYwGIcztCTTYGKMhZ2LwWHqdmq
-	nF5pLYHuzq2rMgjy3+wgkAHx/+f7w5hOLX1ul67ei0BNr5TLHDvQvPc1VEfzB16i1DD55TkIPKa
-	Vr6FSwCkjJ6V/5dvudU8kKZVzNBZFg0iB1mm2bPMUMEt51R4r56TpR4tToFV7cDO6vw1LwyyKGx
-	fKkMp8hQL5G/b1/gO5q4FNtMm7B0jkNpkE9Pl8DmAvi+5Psx3B2I7Gu2NUcy9jrPe5MGOM1BRik
-	FzZR0qNimWdKMdcabi0J3/NZoLidaIgEfEMzsuY+4Hg8OpG6bNeu+Yhs+l1w1uxt8EoCdc5aCW1
-	2WwvExLijkyz/AssTmc7c/jIHu8j1tEAh2Et+Z527rHUKNDq8CzCpabbqWcBPwHJQMnOd6PFVSn
-	iB0
-X-Received: by 2002:a05:620a:290a:b0:93a:2e8:5aff with SMTP id af79cd13be357-93e50f8199dmr34926885a.21.1790965133295;
-        Fri, 02 Oct 2026 11:18:53 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca280e59sm286107585a.35.2026.10.02.11.18.51
+        d=1e100.net; s=20260707; t=1790965271; x=1791570071;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ujd5qi4nwlP9wXVvUg5o3lKTuuQK4FVXJHYGoARDBmU=;
+        b=d3gevH8eSxbMCbISbsOViEcazz1QudeiHwbdgLkon3vFGznvaEFI3Euz30sOR1Utno
+         xrBxkJfcVRlJ2zj0TpKpAqu/sOUzQUG3iG1+MuliOffzhuOE0ADHlnPfrK9QDm7S4nuI
+         3kCMkSVrjd+q2DHC/Luk5P9XzBa5bqmOG8E05nq4sGV15wP4L2Q+kHNCavNiFUJk6Grs
+         5CkLoiqSaudKIVztT7a1MCjZr1wKKta0dmm4v/0isrgED6roIUHfLof+Lx0l246kpIKd
+         l02fEDNXY3PfsgHdLrKSpmdTHRNtWt3B5WFL2oKTS+NNhvPDpjZ3L5qMgahlwxcZezSG
+         5DBg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUdas/gVPfJSp7Tc8TBrAX5sVNIA11prNMfUw3PvsJd/F5AT2vaCiLarPhLLlmV9I2G7o85NMFyB9bTpo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlytUtG5mK/PvTNfNL2VpUcmmUY3NqSb/Q3uOPTGLr2giUHTjs
+	LhOgjRj1u0P7NMN2+J3LspHe5n2WbRwZnq4IUXmZo18XBKkgHtSMnW6Y
+X-Gm-Gg: AYBFou3FHKJrZiNJmkbD3foDNQihj9+5avujtvDX7V4P0K/t3giefWw0TKZlPVuTZpg
+	mj1EjJ9IkEIgSEa5GhQUldz/Em4+yAkW0bBhHlHiwJUTuvdPQ2Qog+U8UTJZ69AYTksS6+HRtR+
+	M0ToTGWRcMa+7D1eOS7Bgg/Yv+4TW1VAuNN3g4pW8Amx9wfpm/jKlBc6/FGYPniAUJSJYhtX5ik
+	qKFovNmABTVwKnuPKtLgqNgVNtyHaLGBwacEq95XkbMekgoJHeqSSc86cDy18PisWS0LSatLlj8
+	GqhaqT3a0O3tJngPaHW34OcjCD2beEn806C7SZayvYcz2u2aupwVXOf4EnzhkxkLXJQuFD9X9il
+	7enWv8GCK/3ekDVVhBXFNau1i0JkFfHfqnI9XDGqyxGFIKWniY7rCSweYD6SpImMDIoiJw2Zfwg
+	YiQXRfGttLgL5mCd4d2Vxnkhfo43byK1ryET3nhi+4RvC5tdBrSPthABpuQssnZ4qkPOTu/zC6v
+	GtTrF1Xen0=
+X-Received: by 2002:a05:600c:4ca6:b0:49c:ff66:7d88 with SMTP id 5b1f17b1804b1-4a01eb24989mr74619405e9.7.1790965271047;
+        Fri, 02 Oct 2026 11:21:11 -0700 (PDT)
+Received: from strix.localnet ([197.250.100.117])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm7546193f8f.26.2026.10.02.11.21.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 11:18:52 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	abelvesa@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Thompson <daniel@riscstar.com>
-Subject: [PATCH] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
-Date: Fri,  2 Oct 2026 13:18:48 -0500
-Message-ID: <20261002181849.790275-1-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
+        Fri, 02 Oct 2026 11:21:10 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Brian Masney <bmasney@redhat.com>
+Cc: linux-clk@vger.kernel.org, Brian Masney <bmasney+clk@redhat.com>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ mturquette@baylibre.com
+Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver (v2)
+Date: Fri, 02 Oct 2026 21:20:59 +0300
+Message-ID: <ZjjQUfHaR8iccs1M_cLsRA@gmail.com>
+In-Reply-To: <ar_Jt4eIPy1-uq1-@redhat.com>
+References: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com> <ar_Jt4eIPy1-uq1-@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="nextPartH9UaHpHZRbKrBREmICrngA";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-The TC9564 SoC incorporates a PCIe switch, which is connected via
-the second PCI segment (0001) on the RB3gen2 platform.  The third
-downstream port of that switch (pcie@3,0) has an embedded PCIe
-endpoint that implements two PCIe functions.  The SoC implements
-other peripherals, and they will be accessed via PCI endpoint bus.
+--nextPartH9UaHpHZRbKrBREmICrngA
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Brian Masney <bmasney@redhat.com>
+Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver (v2)
+Date: Fri, 02 Oct 2026 21:20:59 +0300
+Message-ID: <ZjjQUfHaR8iccs1M_cLsRA@gmail.com>
+In-Reply-To: <ar_Jt4eIPy1-uq1-@redhat.com>
+References: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com> <ar_Jt4eIPy1-uq1-@redhat.com>
+MIME-Version: 1.0
 
-Record the PCI VID/PID compatible string for the embedded PCI functions
-attached to the third downstream switch port.  Define the pci-ep-bus
-sub-nodes for each, along with the #address-cells, #size-cells, and
-ranges properties for both the endpoint and its pci-ep-bus node.
+Hi Brian,
 
-For PCI endpoint bus, a PCI function's ranges property will be updated
-dynamically to incorporate the address ranges assigned to each BAR
-during PCI enumeration.
+Am Freitag, 2. Oktober 2026, 18:11:51 Ostafrikanische Zeit schrieb Brian 
+Masney:
 
-Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
+> The commits in the pull have the changelog in the commit message. For
+> example:
+> 
+> https://gitlab.com/stefandoesinger/zx297520-kernel/-/commit/75e4151c9e157d84
+> c8c6c365893ecf33d221bca5
 
-			===== PLEASE NOTE =====
+Doh, right, a merge doesn't strip them like a git-am does. I'll keep that in 
+mind for the next pull request.
 
-A version of this patch was previously included in this series:
-  https://lore.kernel.org/lkml/20260918152659.413268-1-elder@riscstar.com/
-The first two patches in that series are now in char-misc-next
+> I went to the last series and cherry picked the relevant commits.
 
-This patch must go through the Qualcomm tree.  However for this to
-function correctly, it depends on this code getting merged:
-  https://lore.kernel.org/lkml/20260924222444.1351466-1-elder@riscstar.com/
+Thanks, that works for me. And yes, they were identical.
 
-I sent this message today to clear up any ambiguity about whether/when
-this patch should be merged (probably not yet).
+Cheers,
+Stefan
 
-					-Alex
+--nextPartH9UaHpHZRbKrBREmICrngA
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-			=======================
+-----BEGIN PGP SIGNATURE-----
 
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 24 ++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmq/9gsbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiISQQAJDoXziAeaDE07B/kRlD
+TMRWOtATrwrG5lKmW7BtzBnVA5nz2up4jWpVJvyqkT07v38KHnFde0WG8OQDH1sV
+/SilvR3Qd/kMoUUB9Ah1H70ka9PvTfewBn3GpOn7jOo4QPOaGgM1NI5QUuha8jpU
+fzEtqAk97Doyl2ZEoGMkiMKygEnUu6IC/wUFjSf6n+apZbf+M3YA0zhvpVXRqsat
+B2i+mBafNrqQNQBKzui5FZovbxChN86hnb23j8shDGTV3QGusiNB7F60Pz7rRXcY
+1K7MMEjVdJj3pMyLgsmyOubtl3pFP3Gii1EioKU2FKSRTE311xXXBX2GHOEj4zUn
+ja5Xb4TVYIJoolB7kEpU0B/k6KllVo5QS+3LAeV8oPZoVzzND9qZoANuS5vv+4Y9
+FJ7OGYUDAN+fCxPma50hscRsAyxAmvMjjykL3pZu8aL7jhKjpzZKsBs/KBxZOCqg
+lNjrVcwhq9NGMyxnxPXCsiNEbcrhZo9IjVwADpTpLmdUczHYNhp7wLkyg94HFbaY
+3ertTJlEYbbYADBf9UnwvY0TBdH2H9kX/kBfu9Ko6CRngMt8jBSL0XIwMf3XHKiO
+znmTjBITCE5XsqHPu0XIXey3hHQGIyC33egqIdv7yXjTZy70XHEp95xiLbE3dJ4H
+4W2k/yhZQCNjiKxeiIWywcJH
+=0hJV
+-----END PGP SIGNATURE-----
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index 909039816a216..0e3bbdaf4661f 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -955,11 +955,35 @@ pcie@3,0 {
- 			bus-range = <0x5 0xff>;
- 
- 			dev@0,0 {
-+				compatible = "pci1179,0220";
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;	/* This will be updated dynamically */
-+
-+				pci-ep-bus@4 {
-+					compatible = "simple-bus";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					/* Map 0x0-0x1fffff to BAR 4 */
-+					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-+				};
- 			};
- 
- 			dev@0,1 {
-+				compatible = "pci1179,0220";
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;	/* This will be updated dynamically */
-+
-+				pci-ep-bus@4 {
-+					compatible = "simple-bus";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					/* Map 0x0-0x1fffff to BAR 4 */
-+					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-+				};
- 			};
- 		};
- 	};
+--nextPartH9UaHpHZRbKrBREmICrngA--
 
-base-commit: 705529dab1fa872d8b53b09c95e1b03a95573376
--- 
-2.53.0
+
 
