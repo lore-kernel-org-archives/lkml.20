@@ -1,150 +1,204 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FFC53E49D2
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D5130D406;
+	Fri,  2 Oct 2026 15:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955345; cv=none; b=pLXSXrMaXMkmuUzGgJTcgErCKD9SjeELsYyuFaUGFhFzRxvQQh0nORSUcIu47nW5YDsFJcHq5EgTN99m1bnFMUiMzBll8Dypzmx3+6kKrFOoq5wvVMEDNVwoAcWrCpALAFfbJWHNlri07M1lMZWFvVQ2Kll1rH/2B0xqnEPL5EM=
+	t=1790955372; cv=none; b=rYaeFpQgsfR1J2sVXckRZsNeiBD0Lsh5MUXfVZmGPFa4d02d+exWghnA6wWC2+rJDFGdbIM+ggbEBfGRb+a7qxKjPxdJ0OvaRAPLeqY5Jz0V7CIi3X3wwvRQSkMa/ZrQR5Fze3OR9CM1df0H95lbthc6FUUCj3EVwcJH0zavcjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955345; c=relaxed/simple;
-	bh=Ey7NB0qS8ZKugxYGyiBGHdk7OWdkE3p8zHjWGF3bJIU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VemxGJk+FM4Ew6PQTS4Tf+osEUixD78fY9iu28iwSfdizzHcIknDGYgcduLwgCjw3QZwEB8PhHE7wfgBLpQuQYtdzjwCsTmB0IgHE4X/tGmUvmMyK0VMQv4GpWRJHwbHIP4y2veSw8jacCEFrvg8EUFXd94HbYZPAtc03T4l3FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DQs0wtCC; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DQs0wtCC"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 660BE143D;
-	Fri,  2 Oct 2026 08:35:39 -0700 (PDT)
-Received: from [10.211.55.3] (unknown [10.57.85.160])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 938703F882;
-	Fri,  2 Oct 2026 08:35:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790955342; bh=Ey7NB0qS8ZKugxYGyiBGHdk7OWdkE3p8zHjWGF3bJIU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DQs0wtCCgfEpU67TSvbohdw6qNHUkNJsGw92h4qZqWNL0cUCqrQv85AdepTt58uCF
-	 Bt0GMxEaN4JTO9wdQsnxKA3+CpF0o4pGW4CuSMBpopq4pelsJMalKLMKqhL5GYs/CB
-	 OJ3URr3fW5C9idBqNqj7NeZ0I/Mqy8PfqUdd33Eg=
-Message-ID: <99c7f8d2-b65a-4e8b-bb7e-1de16fed3190@arm.com>
-Date: Fri, 2 Oct 2026 16:35:37 +0100
+	s=arc-20240116; t=1790955372; c=relaxed/simple;
+	bh=iMsPJk4DUMkPq2TRuY+sGfv1QCWE56zGUzD9qzF3LNs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dKX5E77pqfFX2n5lgvQzBQ0Wfjdt+BiO3CQHop+ZmcXyA9iQMBAdRo6uNIrDuDbsj5BTfDbHOyMN29dpiaQIazBKWkBrXRHsiAETPsjC9HKWcYb5yxoWUDKkEkAlk74h4iuibWosGyfSywSpxDAtFwtt2N7pEEJ9Kpp0oI4OK7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06714133|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0162146-0.000265364-0.98352;FP=16929337455097240818|13|2|16|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jTkAIV-_1790955034;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jTkAIV-_1790955034 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 02 Oct 2026 23:30:38 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v24 0/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+Date: Fri,  2 Oct 2026 23:30:31 +0800
+Message-Id: <20261002153034.934814-1-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH v12 08/13] arm_mpam: propagate MSC access errors for
- interrupt control
-To: Andre Przywara <andre.przywara@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
- Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
- linux-acpi@vger.kernel.org--cc, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261001153439.3295416-1-andre.przywara@arm.com>
- <20261001153439.3295416-9-andre.przywara@arm.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261001153439.3295416-9-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Andre,
+This patchset mainly implements the phy8824 driver. The phy8824 is
+an Ethernet PHY that provides one 10G SerDes output to four 2.5G ports.
+The driver mainly covers two application scenarios:
+ 1. external PHY8824
+ 2. PHY8824 embedded in a switch.
+The patchset mainly consists of three parts:
+ 1. the DTS for the phy8824
+ 2. a generic template testmode configuration api.
+ 3. the phy8824 functional functions.
 
-On 01/10/2026 16:34, Andre Przywara wrote:
-> Allow the functions dealing with interrupt registration and enablement
-> to check for and return errors, and propagate MSC read and write errors
-> from the lower level up.
-> This does not cover the IRQ handler yet, as this needs some more
-> attention.
-> 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+changes in v24:
+1) Fix the typo during sds init.
+2) Add priv->sds_initialized to indicate whether the SDS extended
+registers shared by the four channels have been initialized.
 
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+changes in v23:
+1) Remove meaningless comments in driver.
+2) Using #define to replace magic numbers during PHY8824 init.
 
-Thanks,
+changes in v22:
+1) Using motorcomm,package-mode to replace phy-mode in DTS.
+2) The corresponding parsing has also been updated, using
+   "motorcomm,package-mode".
 
-Ben
+changes in v21:
+patch 1: 1) Add maintainer for motorcomm,yt8824.yaml.
+    2) Using 10g-qxgmii instead of usxgmii.
+patch 3: 1) Change the usxgmii space to serdes space.
+         2) Add lock operation during phy-package init in probe()
+         3) Add check for whether auto-negotiation is enabled
+         when updating the link status in read_status().
 
-> ---
->  drivers/resctrl/mpam_devices.c | 23 +++++++++++------------
->  1 file changed, 11 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index b876f4d2e9a77..60f6a39176ea1 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -1118,7 +1118,9 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
->  	}
->  
->  	/* Clear any stale errors */
-> -	mpam_msc_clear_esr(msc);
-> +	ret = mpam_msc_clear_esr(msc);
-> +	if (ret)
-> +		return ret;
->  
->  	spin_lock(&partid_max_lock);
->  	mpam_partid_max = min(mpam_partid_max, msc->partid_max);
-> @@ -2681,9 +2683,7 @@ static int mpam_enable_msc_ecr(void *_msc)
->  {
->  	struct mpam_msc *msc = _msc;
->  
-> -	__mpam_write_reg(msc, MPAMF_ECR, MPAMF_ECR_INTEN);
-> -
-> -	return 0;
-> +	return __mpam_write_reg(msc, MPAMF_ECR, MPAMF_ECR_INTEN);
->  }
->  
->  /* This can run in mpam_disable(), and the interrupt handler on the same CPU */
-> @@ -2691,9 +2691,7 @@ static int mpam_disable_msc_ecr(void *_msc)
->  {
->  	struct mpam_msc *msc = _msc;
->  
-> -	__mpam_write_reg(msc, MPAMF_ECR, 0);
-> -
-> -	return 0;
-> +	return __mpam_write_reg(msc, MPAMF_ECR, 0);
->  }
->  
->  static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
-> @@ -2790,11 +2788,12 @@ static int mpam_register_irqs(void)
->  				return err;
->  		}
->  
-> -		mutex_lock(&msc->error_irq_lock);
-> +		guard(mutex)(&msc->error_irq_lock);
->  		msc->error_irq_req = true;
-> -		mpam_touch_msc(msc, mpam_enable_msc_ecr, msc);
-> +		err = mpam_touch_msc(msc, mpam_enable_msc_ecr, msc);
-> +		if (err)
-> +			return err;
->  		msc->error_irq_hw_enabled = true;
-> -		mutex_unlock(&msc->error_irq_lock);
->  	}
->  
->  	return 0;
-> @@ -2815,8 +2814,8 @@ static void mpam_unregister_irqs(void)
->  
->  		mutex_lock(&msc->error_irq_lock);
->  		if (msc->error_irq_hw_enabled) {
-> -			mpam_touch_msc(msc, mpam_disable_msc_ecr, msc);
-> -			msc->error_irq_hw_enabled = false;
-> +			if (!mpam_touch_msc(msc, mpam_disable_msc_ecr, msc))
-> +				msc->error_irq_hw_enabled = false;
->  		}
->  
->  		if (msc->error_irq_req) {
+changes in v20:
+patch 1: Add phy-mode description in properties in motorcomm,yt8824.yaml
+
+changes in v19:
+patch 2: Replace the int type with the u16 type for test_mode.
+patch 3: 1) Merge yt8824_utp_normal_test_mode_paged() and
+         yt8824_utp_invalid_test_mode_paged() into 
+         yt8824_utp_set_template_test_mode().
+  2) Add a fatal error return when phy-mode is missing in
+         the DTS.
+
+changes in v18:
+1. Split the template_testmode() into a small patch 
+   and optimize the implementation.
+2. Optimize the definition and initialization of 
+   interface_mode by adopting the existing approach.
+
+changes in v17:
+patch 1: Remove redundant description.
+         Use phy-mode instead of motorcomm,interface to describe the
+         interface.
+         Add the required checks.
+patch 2: Use phy-mode to get interface mode.
+         Need return after init configuration is done to avoid falling
+         into the error path.
+
+changes in v16:
+1. Add DTS documentation.
+2. Fix redundant initialization.
+
+changes in v14:
+1. Refactor the error return path to preserve and return the initial error,
+   rather than letting later errors mask it.
+
+changes in v13:
+1. Fix the lock release issue on the error path to prevent potential
+   deadlock or resource leak.
+2. Add a func yt8824_restore_defaults() to restore configuration on
+   the error path,ensuring the hardware/device is left in a known
+   good state upon failure.
+
+changes in v12:
+1. Refactor the yt8824_read_status() function to ensure proper state
+   synchronization between hardware registers and the phy_device structure.
+
+changes in v11:
+1. Clean build_clang warning.
+
+changes in v10:
+1. Within the interface that swaps to the USXGMII reg space,the lock
+   include shared_lock and mdio mutex must remain held throughout 
+   the entire operation and should only be released after all steps
+   have completed.
+2. Improve the template interface in phy-c45.c
+3. Fix the handling of some failure paths.
+
+changes in v9:
+1. Add shared_lock mutex prevents UTPs from interfering with each other 
+   due to swapping reg space.
+
+change in v8:
+1. Clean up format warning.
+2. Fix exception handling code logic based on Sashiko/Gemini.
+3. Remove interrupt/handle function
+
+changes in v7:
+1. Refactor the using of mdio lock
+  In all cases of swapping to the USXGMII side interface, lock the MDIO bus
+  at the beginning, switch to the UTP address space after the operation is
+  completed, and then release the lock.The purpose of doing this is to
+  ensure that it will not affect other UTPs operating in the UTP address
+  space.
+2. Rename YT8824_RSSR_FIBER_SPACE to YT8824_RSSR_USXGMII_SPACE.
+
+changes in v6:
+1. Add  test mode helper in phy-c45.c
+2. Refactor the using of swapping paged for utp and fiber
+
+changes in v5:
+1. Fix diffs issue which caused by unexpected whitespace.
+2. Fix "exceeding 80 columns" warning.
+
+changes in v4:
+1. Remove motorcomm,yt8xxx.yaml, will update in other patch thread
+2. Fix locking issue. Since every interface requires switching of space, 
+   the bus is already locked during the space switching process in
+   phy_select_page(), other operations within the interface cannot 
+   be locked again before unlock in phy_restore_page().
+3. Fix warning log identified during the inspection process using
+   checkpatch.pl.
+4. Fix the way of using common api in phy_package.c
+
+
+changes in v3:
+1. Using common apis defined in phy_package.c to handle shared top
+extend register space.
+2. Add dts demo in motorcomm,yt8xxx.yaml.
+3. Fix unnecessary redundant judgments.
+4. Fix BMCR registers operation using magic number.
+5. Rename function based on its approximate functionality.
+
+changes in v2:
+1. Remove duplicate code and replace it with existing api.
+
+Kyle Switch (3):
+  dt-bindings: net: Document Motorcomm YT8824 PHY package
+  net: phy: Add support for Template Control register for PMA
+  net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+
+ .../bindings/net/motorcomm,yt8824.yaml        |   78 +
+ MAINTAINERS                                   |    2 +
+ drivers/net/phy/Kconfig                       |    3 +-
+ drivers/net/phy/motorcomm.c                   | 1926 ++++++++++++++++-
+ drivers/net/phy/phy-c45.c                     |   23 +
+ include/linux/phy.h                           |    1 +
+ include/uapi/linux/mdio.h                     |   12 +
+ 7 files changed, 2042 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+
+-- 
+2.25.1
 
