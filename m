@@ -1,146 +1,152 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F8B4848AD
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA80486BAB
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939054; cv=none; b=fqkKUTBCWknATU8homHFlPRHBlpYeyGlWzNoPTKxovZPCmIr9X6ZzC3/F4kNlMH80CQTak/KxQz1BLWDPWo4xVJm51/EnolqEY5vwQsPyyjLnLhohnEbU2c64BTkWHLFminMrGGWgeyJZ1a7y5EZ5+jEFFgXDdo6xPVFqGsBbUY=
+	t=1790939065; cv=none; b=pUROhTKaUNgJLSBQHTJI1TiZj9yaerDKq4KBmNGFGT8j2nS1DJrmy0yACjZxg09PFSeV5eXr0VuFD2mz2VsHO/flGRtDQ6yiYOc8GBrKQClF0ndR2RXUIhgNvrI7ye/lvZZfszxhGjaQfVtgcea6mPG0Qy8vNy3+GMedFaaZ9PM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939054; c=relaxed/simple;
-	bh=EiDnjZi2h0pRKoiVbnzpkW/8VgM3LAqYOqBc5Wh7GeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=drHXnll5jkeopoSn0fIHCRFpZ4zrNmCBy0rwTJIt/waw8ZVOQuhwUmnuJNPKrZfZ3iZFGYYTyp052UC2ldkWv7mEOaeXvahNjrH1SQyTY/PmIvLBX7hLAuq2WWYa6GuvpGBSM4muxqgYL4Sqp642jDpn+rI5vzVMrobr8zuDZCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=QekrnzXi; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=es2mM9/h; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1790939065; c=relaxed/simple;
+	bh=mLgYdA8LNeIVBIhVKv4DKZ5z4KQrG5eRjIhue9LVJ4M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=G7NQVEyXFq2XUYQC49A4MjLgYZgVSCZb1pIhmK7Ibok1sNOKrD10c8N0Y3VSyyGV+uHOmMArRBRnk2/KbXbGeTjBYF2083dycsbJ2SfIQlKpuCwyOuNDtab5x6k/oWD7/Dvbaj72ar864izm+quZsiq5E4E2r6B5qAKVObCYyRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JeFzUXqt; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="QekrnzXi";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="es2mM9/h"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id B79141400144
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:04:09 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Fri, 02 Oct 2026 07:04:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1790939049; x=
-	1791025449; bh=V+CspCPuUrV1DZQwM4VsM3gftFdzU2algsvWjKSKcew=; b=Q
-	ekrnzXigrPsPQk+k59ixw7EuVN1vJkDK77wtQ8msXjmm3lG8+09rr8TX6ouMMtA8
-	JULVwj9eAOXvr0OZ3cAYjE+4uia6z56O7hCfxB0coS3DL4oTBmt4yEHfoL7WtvZf
-	sOKas9LGw01pkIih7srvcZnfb5NNEooy6bAx7yuMBTdv9RBaMzjL9DZdYmOwqcmS
-	s0Vj3K9vYbfQJl+9FRA+MJtPppyiNVwmeiuN1qGxvxD+qbJK/n0Xr4yPsCcp/dbs
-	Vg/gWyDAWUjpF0a5g19tvgozNnHEOoXf5sVqN/G54INPq9gTFyc/ycJ0S1kCTdb5
-	jb6ujMimOx89Qb0k4Z+EA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790939049; x=1791025449; bh=V+CspCPuUrV1DZQwM4VsM3gftFdzU2algsv
-	WjKSKcew=; b=es2mM9/hFxAg6etPPqWoGCLcfup4dLXuAGXaaye1ZDLmnZi/Zo1
-	utDYEKOdDqIuCovcHwFBV0XWvnW3g/nlCUEkDVmtydDssblFHXCK0hL7ZDfUbGxz
-	mVBFuGPLBqqeNXOiktpNrbdRkmGsAw4x8xbd+CVxg+uCaM3lPwx1QiG183R2350A
-	Nnj9yg4pqUKax6tQTeAaMLazgqScEUGku+XVG/2sNLWnUlia7KbS4xErKYfID3PI
-	Nx8M3WjFm/549RkEO7lF/N7cTXdKpaYmBuDT5RFT3iu69xZJX+Ir1dB31XTv6CPF
-	3Jd2VmruFqzfxKuVKHBqgKha9qGK99snseQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790939049; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:uu4KNTpeIe4y++MPsX6yUP6v3vMTM4iEZOBsAlzMmN/PVab
-	iwZFgJHMTM4aNzP02/fp41jJaB9+PFf90BRRlRKSSGDGahLkSle2kGAfAHL+nS6m
-	gqHfPTYCIJFgCIyApW8F7BfqTifNOFIxfuTslyp26e6XvkvDQeWnRicCP+9INAh1
-	CsoYNCa9u8gDxehxL1OJKtS9BwdZED83ME81JZRfiUx3gwqXcvEvNCC+SG/ac8rz
-	TVCcJMPIz4hEg2fYat5GnBDbDapF5q08y/N4d5TqeOvUG0r9bGMEtDT+DED8iZJj
-	Ss3BLPqWbXS7hbRm8yI61Rtl1HjufGGzQQvsgNg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:B703GFyu9om6K0t7rMkPEQo13XbBpyozKr1P++By2lU=:EiDnjZi2h0pRKoiVbnzpkW/8VgM3LAqYOqBc5Wh7GeU=;
-X-ME-Sender: <xms:qI-_al_XW29hKuV2_QY5CdbR_7-Rnky7igCnrBvkRKcNb9mmPOpDXA>
-    <xme:qI-_anXIzSgfEZihc5ZWQSzjw2cekbDaUAZfTGsNzo_a79V1YaSCX2yI9CJEYCBdb
-    Ro08lwYBYYRMtXiG0zwfipIygxjiMYNCovxgwusK7Xduj5basbGsPo>
-X-ME-Received: <xmr:qI-_aqYJzFIIKnBrwgTgfilLJZnOl8W8L3SofRVEA38IxyXxBMZ1obZ8cmg>
-X-ME-Proxy-Cause: dmFkZTELHcSiMMxlJw34NEVhTb/tP/q7rUftRVhStCDqy5afz8mIQLkM5/U6lzTbT7wY1t
-    Dubz0b8qAjMVg1fBerCV70MIYPXwjQR1Xz6+u+kNvHS5IrQdijxYHnd4qgJKDCU+uIkK3M
-    A63URQ30c7172S1e+9w+Qm3u6+POqC7A6FtqE4x2etFFOPGJrz6rJ98hbHRzwQv29fwAL9
-    IPjyzfA8vfYEFs4w8WrH6fofLmF0ER614Rx3E3d9vKsUe+oZtGkLeLSS/bnnjuQWuRXFTN
-    5ZhU3Bia6r2PTTckhuHZyDCdJwSMZDSG9+naPwBLIwHKr8medxM4MSNsZ9CZ/AEU1mm8C8
-    DpDa4BcIxtRxk31Lvhwnba/kRwh7hZqBGjukZhBOiktQRPseP5nJBqCJoQEOJh6FArRiV3
-    0TFoQSip5obzK9i2xEDlmLAS8BLEcxp58c1/w97k9xdD91B2MLNNOqYElFNy2p09CrpdE3
-    /mT2CTyZ0ll3n8FFgdNMJvxPO8OeJqHxxO73aQQCtT8ZAHxyheqVwJf/gZQz0+jShj+F/L
-    z6BbbHoffeY3ABEmB7vh5+q3bR5aI3g1DRZKI2MYrvVT1osmvjY7CQ5m4IBxOXeI7t/P9f
-    MCwzWznWWqeVTdn+agZgcubO+TD9JJZ1+gotwC6gVatu6CFB9TnliCUtvgzw
-X-ME-Proxy: <xmx:qI-_ahoMuzxjxda9e-7WWILqqvVQ6OzqIi_j6vp9kffK2nJX1wx6JA>
-    <xmx:qI-_ah47Y6ZgaFBM22xfNaCTp1eEivnjXpbLcDQu-mh2pQxmtbY5PQ>
-    <xmx:qI-_arWglGbLtLsWf3LLz-Sm9sv-rZsimrjasxCkOY_vibiLudrPJA>
-    <xmx:qI-_avtVZV38vE--ZyoG_9VSBELsTtz4DbkeCKUwlql_akeSOXO1PQ>
-    <xmx:qY-_alg1zRRH5BVUKeLJX6ccgS3g8IqsybqWkk-BMI3G2z4Vz4N9Ka2y>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 2 Oct 2026 07:04:07 -0400 (EDT)
-Date: Fri, 2 Oct 2026 12:04:06 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v4 08/13] mm/collapse: call collapse_file() from
- collapse_single_pmd()
-Message-ID: <ar-PTlqz0nq5Z90P@thinkstation>
-References: <20260928100630.21870-1-kirill@shutemov.name>
- <20260928100630.21870-9-kirill@shutemov.name>
- <DLRF245BL299.14P8UWBF8SAJJ@nvidia.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JeFzUXqt"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a163f2555aso1554275e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:04:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790939060; x=1791543860; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4HWvBIY2tEG2DSLTqqgJSdpMrQ0RYX+Wo9cgrgvmKcM=;
+        b=JeFzUXqtOyKA47TvK7V3k3GlrTM2x8HM17YrUPreJT2NbBME61ZWFSRSKyNrnvIeAg
+         8y3S/bklomnBHXjaioSes2QuPtpnjxyhSpDYVIly7/mW2TfJfuvQXTe/DPlXJCrnz856
+         /wL0LITPjKu3VFRByDymv541nxECW6vG/vjPfW5JjYR+RJoOwvrkzVX+ePqt3MbSIdPm
+         Z5xf6nn14EYzDWNmSL66o6mLJGnDLk4cR6+i4L+zfbs+/jqjWHBT2olg9QOxNBHIYVSK
+         gdMzJXUUGeqsWsRBdbVbhU+pgJM/lUpZOkkewtO3ajCiLOD6NA2iI7boqWhj9xIK6DP7
+         0LSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790939060; x=1791543860;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4HWvBIY2tEG2DSLTqqgJSdpMrQ0RYX+Wo9cgrgvmKcM=;
+        b=pYSpDKRVa9AwOVNawjckoSvv7yU3jZ3UwEL8rQPMhFNbf8kyCxGy7jR5V0kCINeabr
+         f0zSea6d8a54Q80OLb+SzDpzXKRrlLZFaNqotgvX00KHGSdBwsaOZWqKF4lnodZIjcDm
+         5aw+jceWk7VKDXvK/t5Q+LEH29YePp/syFQ37tWq1Q2I0OFE4cFTtiVGdKetOsXTUeTi
+         eDB2SeIiRlFJ5Dw3hHKW8mY/nFHWgNfGA8bDtxjbGZj6TFlJT5Z593bxKWqj8+bzQCbV
+         cZ6v0AkgCfbqWFDPMjlMBosUyTZymHcMy596n+vchkO1rdysAho/JFJAuVk0DSodV9aV
+         J0Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBzA1gcqgNQxl3So7cSZSFJKmBjA6WlhM4MYF8I7AqRBfwZ00+DdVMwwmO2OfAhXK28frNtDRzjFXJSEM/Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWL12YQqjG2Vj1L3wJrilAv9ql2yXj08bJqDXl0j3f+P1q3mDR
+	m59FT4ssRj61RVcuZCKwht0AIxKIvmJPwttJYGdOoT5S/lbuhlBOVtQf+32oryIc8rg=
+X-Gm-Gg: AYBFou1fEIKHiMmYAwLM7P1TtPYOe69HycTh/0rKFqRW4WF/iBWdRf15qBqKRhsf1C8
+	y/6wL4M0EkVEaUWekX1lEq+vSEzfZ1PP2S0B87swCNGupdaySSjtgHtzTm6Z5jcBv/z1n0uhT2p
+	GIeZ84cGr1P4gc6B/TOHFQ1BbseskWhvbagKpD5xppqJ5lsql2zY/zgXF69ADYPajhWK2Ejm6IQ
+	1W3GZcKmC7kG8TQvpeW2Tqm9IxBi0vAX+rvnnKt642t13gwEXvjWvzvQGVahvSu/n8s69ZFZGKO
+	7CuCsid7U1kddwTIbgIYyKx3lTpzbfYdQEkBch2TOc7Oq+lkv9GzF+d9g8irRJT/2l8OAk/Q60P
+	oeikRHAF8wGksSKuB2Np50NIEjKenA3Dl36HIZWW87dgOnwyCJQjMNkVM3/6odb+OTrIvtIME7o
+	GMXuB4FOOX2mfbzwot/AVZd1f2ofT0svJxtCzzZNP7zpcGoNDwam9lJb1mrtPWzcDNaGrDGSyA9
+	w==
+X-Received: by 2002:a05:600c:4e48:b0:4a0:561:d0fa with SMTP id 5b1f17b1804b1-4a02769cf5amr46752105e9.18.1790939059584;
+        Fri, 02 Oct 2026 04:04:19 -0700 (PDT)
+Received: from pop-os.local ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280c6597sm75669465e9.9.2026.10.02.04.04.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 04:04:19 -0700 (PDT)
+From: James Clark <james.clark@linaro.org>
+Subject: [PATCH v2 0/4] perf: cs-etm: HW_ID improvements
+Date: Fri, 02 Oct 2026 12:03:52 +0100
+Message-Id: <20261002-james-cs-hw_id-output-failure-v2-0-7a194aa61173@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLRF245BL299.14P8UWBF8SAJJ@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJmPv2oC/4WQS26EMBBEr4K8Tke2+RhY5R7RKGrs9uBowMQ2J
+ NGIu8cwi1lm+WpRr7rvLFJwFFlf3FmgzUXn5wzypWB6xPlK4ExmJrlsuOINfOJEEXSE8fvDGfB
+ rWtYEFt1tDQTC8MbwSpLtGpY7lkDW/Zz975cHB/pasyY9wqclSw9Hw+unY52tDxOmRAYWCpDGQ
+ GggV0LNSckSUVlO/SYP2YCRQPtpcqkvVCuqVre17BSXlbWkUPEO9aC0rqzuuJJKCNWwY9boYvL
+ h9/zCJs5d55hWin8O3gRw6ExdSmNw0Lp8u7kZg3/14cou+77/AXxPQ4xiAQAA
+X-Change-ID: 20260706-james-cs-hw_id-output-failure-1d06d042ef96
+To: John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>, 
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, Leo Yan <leo.yan@arm.com>, 
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
+ linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Clark <james.clark@linaro.org>
+X-Mailer: b4 0.15.2
 
-On Mon, Sep 28, 2026 at 09:41:18PM -0400, Zi Yan wrote:
-> On Mon Sep 28, 2026 at 6:06 AM EDT, Kiryl Shutsemau wrote:
-> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> >
-> > collapse_scan_file() reads the page cache to decide whether a table is
-> > worth collapsing and, when it is, calls collapse_file() itself.  The
-> > caller cannot get between the decision and the collapse.
-> >
-> > Move the collapse_file() call up into collapse_single_pmd(), so the scan
-> > stops at the decision.
-> >
-> > Two things change with it.  The writeback retry re-runs collapse_file()
-> > alone instead of rescanning first; collapse_file() repeats the scan's
-> > checks under the page cache lock anyway.  And mm_khugepaged_scan_file
-> 
-> So the new version is a little faster by saving a file scan?
+The driver might not always be able to write HW_IDs, but we don't need
+them for unformatted mode anyway, so fix that in commit ("perf cs-etm:
+Synthesize missing HW_ID mappings for raw trace").
 
-On the writeback retry, yes: one page cache walk less per retry.
+Include some other minor improvements encountered on the way to appease
+Sashiko, like properly freeing queues and ("perf: cs-etm: Respect
+--no-itrace option") makes debugging broken Coresight perf.data files
+easier.
 
-But that path is MADV_COLLAPSE only, after a dirty page sent the first
-collapse_file() back and the writeback has run, so it is rare and the
-saving is small. Not measured.
+Signed-off-by: James Clark <james.clark@linaro.org>
+---
+Changes in v2:
+- Drop driver changes and move to https://lore.kernel.org/linux-perf-users/20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org/T/#t
+- Don't process any HW_IDs for unformatted queues, just create decoders
+  unconditionally with trace ID 1.
+- Use zfree() instead of etmq->decoder = NULL
+- Remove dependency on "[PATCH v2 00/14] perf cs-etm: Per-thread mode
+  fixes and snapshot wrap support", it wasn't functionally dependant,
+  just touching some of the same lines.
+- Link to v1: https://patch.msgid.link/20260821-james-cs-hw_id-output-failure-v1-0-9d532ddabcc3@linaro.org
 
-The scan rate change is in the next patch, where a refused file table
-no longer costs khugepaged a relock.
+---
+James Clark (3):
+      perf: cs-etm: Don't add global v0 HW_IDs to unformatted queues
+      perf cs-etm: Free partially created queues
+      perf: cs-etm: Respect --no-itrace option
 
-Not measured on the file side either, but it is the same shape as the
-anonymous scan, where the relock per refused table was most of the cost
-of a pass over memory that is already huge.
+Leo Yan (1):
+      perf cs-etm: Synthesize missing HW_ID mappings for raw trace
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+ tools/perf/util/auxtrace.c                      |   2 +-
+ tools/perf/util/auxtrace.h                      |   1 +
+ tools/perf/util/cs-etm-decoder/cs-etm-decoder.c |  12 +-
+ tools/perf/util/cs-etm-decoder/cs-etm-decoder.h |   2 +-
+ tools/perf/util/cs-etm.c                        | 184 +++++++++++++++---------
+ 5 files changed, 123 insertions(+), 78 deletions(-)
+---
+base-commit: 78148c85297024ffe7a709acb7cc4fc907271176
+change-id: 20260706-james-cs-hw_id-output-failure-1d06d042ef96
+prerequisite-change-id: 20260605-james-cs-unformatted-per-thread-fix-50e723aa7f0e:v2
+prerequisite-patch-id: 1aa32269a3a7dc76840dd8a24cb5a8715507e898
+prerequisite-patch-id: ef471f468351462f67efa58a09a3461306ac5a0a
+prerequisite-patch-id: c78946cf4ec1c7722570865403a3562625bdaa33
+prerequisite-patch-id: 0b953eee0252db3c7ba3ef1e3397048a94482ca2
+prerequisite-patch-id: 27da72c2f01bcc68205bbcc14d5019369c02cb83
+prerequisite-patch-id: 365c6d5f71c754e4c690b5ebed3453565bb5b809
+prerequisite-patch-id: 64e9419a41082a2db3daf255baf0fb40efbae5dd
+prerequisite-patch-id: 1dc2e6ef8e76b369736b4c88560302861b2e4faf
+prerequisite-patch-id: b7de38ec4d90f5b45d56390a4e5919a1d6439951
+prerequisite-patch-id: 3548d5b161cfb8c11a166ca2b3228ca4821f1ca0
+prerequisite-patch-id: 97e66600218a2b32e5b21d0abcb6321590f98de9
+prerequisite-patch-id: 292282b20bd8ad7d096ee7ffbc55dcfb75455f53
+prerequisite-patch-id: c80259b47850ba65c985c85a29c8cf4948463d59
+
+Best regards,
+--  
+James Clark <james.clark@linaro.org>
+
