@@ -1,87 +1,90 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A5A371067
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7FE23ABB9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790947518; cv=none; b=rW0q/SC/yLbJoVrVE5s4IXUywDsy1RsLKhnURIfeP2zQxUe6zO/kr0msWYDGqe864KgcRNzzSevzQW84kNyqbqYLvwYSv9dgZpGgQnTrxm6aMsuJt4GnaC3YnW8cynQA2fERJoHdy84utRDdDaCkmri0LTaJrpKIKQcP+9KwBxc=
+	t=1790947530; cv=none; b=LTd8bs6ev//RGpRmN/JHeJJC+YT2YrcCPoAvV2yt/Mk4bSPb/azWmOHy2nf+Sx5C0Sx3ikNhIugRNhIpcFEpg/8IFL8CG5O+vIR8Kgq2H0xWNL7CRvAxp0HuZFLrRMtyzTwUUZPr5KLeeXJ+Ez12wvH1jz4DWV5qbV8f2GIRe/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790947518; c=relaxed/simple;
-	bh=CeUTDK8UskaWLRe6cd8YaVvVkaHfr4p4lFdGwAMcwUE=;
+	s=arc-20240116; t=1790947530; c=relaxed/simple;
+	bh=K4jTrfgTfJ+9k229kXW4lIhQAyxGYt/ORZ6zdtNbXNw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GEkLN4qIBDufWAPbMvQ8qg0gRirvqAGG2DTZxuRRaTVlSRcBzJWe6rsxAw++5NU7uLqFnYT6va8SUNuKWicQ8k1B5yOParEQmG0iPd2HYkO8zKFyhhdSXzZ6R6uals18liYok7iOJiCL+0nKRYie/junnITs6VKvrMmbc7GkGc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HR6AjEEr; arc=none smtp.client-ip=74.125.229.43
+	 MIME-Version:Content-Type; b=MhafDCJgoaTeEFHPZ6si8vaxizqi6ewSvZDxQbys7LECC0Z6n22DCPZS++8Y6CG0d5aQ4DSLiVf0fWZItsX5gE8/zhH3uEQURb9TNY6CsTwd0r/uGCgjpnisyUahhUNd2XNQvfcVOR1GjpsOkf6WY7BbVNSREDgs6RKFnamcBy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DaUVNaVU; arc=none smtp.client-ip=74.125.82.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HR6AjEEr"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b1743e9c7so2089626eec.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DaUVNaVU"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-34e0b5014e8so1335107eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:25:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790947516; x=1791552316; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790947528; x=1791552328; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7RY0E+uq3VziEyUgNcdccbA0uSJfCvboTGuc7W3OBnE=;
-        b=HR6AjEErz2PiL7y4spse2vxZcFFHstr7SbrVIzyT/OwIUHbV7yl0K9BMdhxKMpB8ru
-         WKMSI0j2u5lNC7cgARWjtOnzsUrLqo2bHbQkfTzkQrz7UD9c4s0/qxkzwOorW41I3rX4
-         EYwpfGco0Xux6FyiSzv/LeAvTgSXDqIMQmeRBVDjsvSaKE4hsNCZ/A2y6OWt0xWkSFUF
-         H7mGyexvKrkAM6mHSBemQbhcSyteBu+TiQsKa03S56cGJVMa963sPJGKe1sp9t/sf9O7
-         Cr/n7E9SVnG9xpgxmv2uV5KjiO8PDgQastD5MDybiPLLr7w0ZFZEBaiLYGY9InnMzAri
-         ZjeA==
+        bh=K4jTrfgTfJ+9k229kXW4lIhQAyxGYt/ORZ6zdtNbXNw=;
+        b=DaUVNaVU3kKlZ9Cp0zn0u6Swm3YHsMAEMeONg+754vO4y6E4JOQ0MXbd0S6ig0xO81
+         WhEvXKAyfDeZzjJ7ndCU+Vx9Eyegw3gn+eHmu+g/3ZQL+ro/pq9nO1rrDylVUZx692VP
+         k09CW54BqQZ463T90TD7HZIRrgUQ/nHwdFqnOQpIrw5ogTjn7Jh0uYoQqfF0pi/wObtM
+         S75sy7hiWky+3ZQSwkB86lhapQ5nPECccoTxWM/GbgRzzvlr+3IjWFVRh3jtEUXoVO1D
+         jzfJVHi+Er64gOot8Lhyz/5P4lcTvIKkKEVX6HofYUb5Gku/zK2Q3N0zZVzgA4pFdTtW
+         A5AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790947516; x=1791552316;
+        d=1e100.net; s=20260707; t=1790947528; x=1791552328;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7RY0E+uq3VziEyUgNcdccbA0uSJfCvboTGuc7W3OBnE=;
-        b=iP3oaGQe3cMVsNcOJVanogjLgalzp1ccvczXcZO7J+zc5HTbLQjOCUzFfwGdYbXZ8y
-         0m58F555QDyEVTxZMXTLFmMMiq9ZNoUQgk6C2ky83WxYycvIzRZPR+ZyE2WQC9jeR6zY
-         5A5YgcbC673b51e5Ud5Fb99BtUHrYwBoSJbGFa4sA1zuSQnGzIIV0TeJkx0o3/V2pZve
-         Y2dXr4u/9d0BVRj4U8U0Ss7YIeU75JfuWTD3WcgZuEzIW2DAMYufpefDyekpW+d0YAX8
-         LOeNxg41UKyi6XSR12G7+q4yBPIecu6cb3zPdOxhm/zKfsvLEjxgqXh4n13yONPT26Yu
-         wQhg==
-X-Forwarded-Encrypted: i=1; AKwUvBzi1X1mjV0fXNRlkn+TDF9u9ZLekPp4F7LW8TExszShcQV0MsddHNMkqljCF9nOmVw6mnVEtWq+D8mmptg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtk9B5a7pi4R59FowZAW75dqpaj5kWO6gdHfv9NU8iQb48L7o5
-	Bq4ajLiduX6/NG+PLG0yMZrQ8ce6MmT4qhXbnwvD0qrpCIoliUx2hxfw
-X-Gm-Gg: AYBFou1CQeH85QP0HEghPgy7ng8eFUp40uM0A6zT4dfjP9UPFy4ITWeVny8tnpuqGe8
-	KvipAsqnydW5bLnCNMxQKiSodU9Mt6H1rLuDAc6W+JZoZX6p6JGB00Aq/BmRdzhLX8rXkUupKem
-	91lf8V7ybxh92Y1PybTAaSBtfll07VAHlGaKqKFkrZTjB8MxzOiVyF06XJzrnyIZLDlmgqOPsKI
-	AwR267iVi7By60tryiaWyfEYJRo9E8Q8PKtuuoJIAjmrPjoSCn3/aVSK/t2On3fxFwX2hjLTcbc
-	7p/PHyfSb2Y3u7ruEqQYqtVyKCpkxEMAkpEzNaeKnPd0Dl2faSaK2ZJ9TZJX306POaP5i69hJeJ
-	9CoWqrIogwvdKP9h5PjyA9if0ytZv1f3OSTMh+IWdX5pG4Ck45WuNWmA4Vki4/XKb+y4vqx8QfH
-	QQFIpNgDA6J5oBWI/HHNt3Cr94GtGzEi5z1vISyU7G+Ol6O0+/B12QsTU94DcbcA==
-X-Received: by 2002:a05:693c:26cb:b0:34c:4f53:60bc with SMTP id 5a478bee46e88-34f15075fffmr2692379eec.12.1790947515566;
-        Fri, 02 Oct 2026 06:25:15 -0700 (PDT)
+        bh=K4jTrfgTfJ+9k229kXW4lIhQAyxGYt/ORZ6zdtNbXNw=;
+        b=yf4cKcw6a6mOQYDtfBV1jvpHBdEjphCbTO28Gf5P1HZV8o1RzCqx7YmWWz4S0Mh+mm
+         sn7sw0dDKESNfsjp5VNjl4/PHKwkH1BIxkqMgBuwO1F7haDcEGuxm+9IMsdAlcLyd6rC
+         AIgmSeoF9EOuKoDP9IwS8njkMDr6HZku/lvkrzaAm61lbIYjvxgxwSDSb7uwneq241yP
+         fgGF3mvK8hkyfT23hki2K4ZYPX3HWxF4o4yAF9WvE4oqU9W0GxUEti+vszP9K7Lv1z0p
+         w9l20tLUY+ZSgUqX3c0ZWqF8qXjlEKQz73i0lI/hRf03HWh1GHLhnktU7bHUHthO7soe
+         2fug==
+X-Forwarded-Encrypted: i=1; AKwUvBx/05UYV14USiP6KaCDcM7a7rYjUwbuLreTz/aZq9tAsYDqx83WhJcklypzsNzkb3amRxo34pXFez7DdtM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mB6XnIju3570R/i1W8SxAqvyJkE1xBhQp2Snec8c1W7yENAdKY
+	SdIOqllWKWl7ISqOL0uDGAGR4N9DHqr3F4a8q92atIg5mjRRMChhCLSp
+X-Gm-Gg: AYBFou0qO1PkX2H17oGODjGCkNNpLpDFdOEHtmVe7QHFrPRTD+SfsJmRH2UE9d4ax8t
+	bRecXFohE8yumy2X5Jk0ZQkgu9ajlZafAXmBdtn0UQ7TwlWzjG8yW4RCth8w5iyM137JxT6VoXn
+	Ybq2DoiPHp/AO/fRKMLpgFg9qGzFIFZcGFW5UFkUkyLpoT2XHLebntsBcEq6N3pVW2eE26IYXfE
+	7hEXt9fC8ohZSX3S+Yh+PmRQVW27d3FllvSU0ipCeU1B4my4DJhojL9jGqzvz+3GkPnB+eS8cTQ
+	UCEs923I1Zosx2OYCkc6D9fcWyaF73t36wgiO8WndCnuNVCgEeMSYJ5+G4LJAoew3Ma7DK/K1qO
+	vuzPju/QB2TxwaNa5uBOFruGKDgaNvoRx5H5Fa+FKo4xhNrJV1TiBtih9xkWPHFo9iJKhZRyb02
+	gczU2tQR93aH3i0Tj5eWlsrxqtMf7sBbXo+hIrwp+WibowCGC4yyLGkwZkI25uCg==
+X-Received: by 2002:a05:7300:de46:b0:34a:bf38:25d6 with SMTP id 5a478bee46e88-34db6bfab2bmr6045475eec.17.1790947527780;
+        Fri, 02 Oct 2026 06:25:27 -0700 (PDT)
 Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f303e3sm8194198eec.5.2026.10.02.06.25.09
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f8e9c7sm7474982eec.14.2026.10.02.06.25.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 06:25:15 -0700 (PDT)
+        Fri, 02 Oct 2026 06:25:27 -0700 (PDT)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>,
+To: bot+bpf-ci@kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
 	John Fastabend <john.fastabend@gmail.com>,
 	Andrii Nakryiko <andrii@kernel.org>,
 	Eduard Zingerman <eddyz87@gmail.com>,
 	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
 	Martin KaFai Lau <martin.lau@linux.dev>,
+	martin.lau@kernel.org,
 	Song Liu <song@kernel.org>,
 	Yonghong Song <yonghong.song@linux.dev>,
 	Jiri Olsa <jolsa@kernel.org>,
 	Emil Tsalapatis <emil@etsalapatis.com>,
 	Ihor Solodrai <ihor.solodrai@linux.dev>,
 	Shuah Khan <shuah@kernel.org>,
+	mason@kernel.org,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH bpf-next 0/4] bpf: Apply the rewrites of bpf_do_misc_fixups() at once
-Date: Fri,  2 Oct 2026 21:25:06 +0800
-Message-ID: <20261002132506.4108655-1-odys.yuan@gmail.com>
+Subject: Re: [PATCH bpf-next 2/4] bpf: Queue the rewrites of bpf_do_misc_fixups() and apply them at once
+Date: Fri,  2 Oct 2026 21:25:16 +0800
+Message-ID: <20261002132516.4109511-1-odys.yuan@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <DLUBNPLXRU86.358M4SOQJIGWI@gmail.com>
-References: <20261001-bpf-verifier-patch-batch-v1-0-a12df8a09160@gmail.com> <DLUBNPLXRU86.358M4SOQJIGWI@gmail.com>
+In-Reply-To: <4b74d8c73be2889b1c85c0b9819dbb7c83c535c46342b7ed11412763abda70b9@mail.kernel.org>
+References: <20261001-bpf-verifier-patch-batch-v1-2-a12df8a09160@gmail.com> <4b74d8c73be2889b1c85c0b9819dbb7c83c535c46342b7ed11412763abda70b9@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,52 +94,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 11:39 AM Alexei Starovoitov wrote:
-> That's not going to fly.
-> After this series there are two implementations of the same thing.
+> Take a backward may_goto whose grown offset is exactly -32768 (S16_MIN).
 [...]
-> Jiong's RFC converted all passes and deleted the old code in the
-> last patch:
-> https://lore.kernel.org/bpf/1562275611-31790-1-git-send-email-jiong.wang@netronome.com/
-> Pls do the same in one series. One-off patches can be add + commit.
+> Should the JEQ-or-gotol decision be deferred until the final offsets are
+> known?
 
-Agreed. v2 will move all passes to the list, turn
-bpf_patch_insn_data() into add + commit, and remove
-adjust_insn_aux_data(), bpf_adj_branches() and the per-patch adjust
-helpers in the last patch. That also covers the bot's comment on
-patch 1.
-
-> That's veristat on x86.
-> test_progs loads pyperf with BPF_F_TEST_RND_HI32, and s390, riscv,
-> powerpc need zext. bpf_opt_subreg_zext_lo32_rnd_hi32() does more
-> patches than misc_fixups there, I think, and it has one call site.
-
-Right. On x86 with BPF_F_TEST_RND_HI32:
-
-                  patches          load time
-                  zext    misc     flag off   flag on
-  pyperf180       4610     930     0.587 s    1.390 s
-  pyperf600       7620    1530     1.496 s    4.105 s
-
-Patching is 67% of the profile of pyperf180 with the flag, 57% in
-bpf_opt_subreg_zext_lo32_rnd_hi32() alone. v2 will report both cases.
-
-> That's unexpected. Pls share the perf report.
-
-perf record -F 4999 --all-kernel -g -- veristat -q pyperf180.bpf.o,
-bpf-next 6a75c73eebd4, x86_64 VM:
-
-  Children    Self
-   50.66%    0.12%  bpf_compute_live_registers
-   50.43%    0.00%  bpf_compute_subprog_arg_access
-   50.29%    0.67%  analyze_subprog
-   49.47%    8.99%  compute_subprog_args.constprop.0
-   39.08%    8.43%  arg_track_join
-   25.71%   25.67%  __arg_track_join
-   24.97%    0.62%  do_check_common
-   21.49%    0.04%  __bpf_patch_insn_data
-    4.07%    3.99%  arg_track_eq
-
-pyperf180 has 2 subprogs, on_event and the global __get_frame_data,
-but analyze_subprog() ran 458 times during that veristat run, which
-loaded 6 programs counting libbpf's probes.
+This is a real regression, and it is wider than one displacement: any
+backward may_goto whose offset fits in s16 before the patches between
+its target and itself are applied, but not after, now gets a JEQ and
+fails at commit. Those patches are already queued when the loop
+reaches the may_goto, so v2 will add their growth to the offset before
+may_goto_expand() picks the encoding, which gives the old choice, and
+add a selftest around the boundary.
