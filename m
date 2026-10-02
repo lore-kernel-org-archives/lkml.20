@@ -1,305 +1,211 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010065.outbound.protection.outlook.com [52.101.56.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E953E00B5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951049; cv=fail; b=sIManu9/1vPK+azuE2HAG9eE8jX8d9rb9UZbKPLKoFfXvsSPB4gFdPQv1GaYTMEcWTF9/VdZupbLBwmlTOjuM95CWMXVVCzxVivlmIXaJdGzMdqA5GIwxQFAmpriV197I9I6NsY6xa/vJZ8VHDheRTB5iHJ7DYG8rYQzjH4t8+0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951049; c=relaxed/simple;
-	bh=sMLlRMQNcH+Gn7tFCBeUe3yQ+F7ftwbBNEd4w9FU0kU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fwIloqtvXWNqMUK9KQ2q9ONUIlQnZy/qBUxWsO+CNqD/iA3n20Yi7aYasS7tJIqnjoCgYLPUQo9D6Rq7uCSlkMWq5YB+w/aWNGUyy5XaDl7o1Jaoo8CJDJxw3pRZ3uOi4o4OQhSZsyi2pVy5nSKbY3rtwaJ6yErUNfpE92lmgW0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QS+fRIpg; arc=fail smtp.client-ip=52.101.56.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAB32D9797
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790951062; cv=none; b=iEFeVFn1qLC8xO4NcdgmHqp8G1CJluFzikOvqSt19kvjqzbTzQv6D5cFQJX6dubQCFrdXk8gLL2FmzdiFne8VEDJ0ZLrrQsvVxE4X+lpJ71+bkpat0fxzACG39YiT++avF488wej5Av0HFtijE2JvBlsNVfAG5hEH+itaNMfQFY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790951062; c=relaxed/simple;
+	bh=0bk7kqOQ3ufcT+Mc6z2yj6bXAr9WWnYHEVALJJx1CS4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P40sQILWo2hm6TxQ3HO1+P1JeZ2PDUOAWzKtHSXvK5R+iDybtqaYf/JJEwDkjiUSS98SCourhVDskjO3qI2dWciW0zDd5DBnaPm0fVFych8AFsKCB06RAVSUPtqAyrMY+mQtoB3mR1IermNT4wDXq2Eh0YkbmWG/5rOE4FI5KHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0+VEU8jS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t9txnZW9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZncI0ZHD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+fQGFDT3; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QS+fRIpg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AjSHtVkxoskEiJU/jiUxKGPD4XavhleKw5aZvCRapqxxpMIkzlR4FjLddUbwXHqmHwd2uAyz+qqPzL4CxKBxUTTKhifBGyvkCBR05r6QeBZ/qp3eQRNPxLhaOC26LSS8Jb7S4DVO53zbRM8ASpHlfNZedKQgcIwFCkWPBKZMm+0q6jzm1q1vJ1Nu4VOTliHdqVfLa1btZKZgzyFNtkn/PpHi5EtGA82F/7uO5duVM2gKnZ4HRWoL5/Vlw1qHgbwHfTdiilsOCiRA64DWJkVXOpLyWyOT2DLdePObOcgu3LhtHOnMiwz4ANwzZKeWO/eYrdm1twz3uh749apXwgPPDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=THezMQbgVnErsfGSUPDTd1u28V0DxX/L2d5a9tiDw40=;
- b=NUuUAjdiwHnrqsciI6A9zrrX020SMSSEXLOMmaXygG6huoeff0J4EJIWFF0mFlfmvisaiUG+wq2GfTqAY9WDacsFGzH+DsW7Bo6cvNBdSrlh0deMPUimN+XUXWbp1z7P3NJkL9On39LlXPbSRIKnLoUuKgodqfIxSWP/ZnqF8pk2PZXIay0HUnPgdTc4rz3IEa2hgO2qjEXkeFPC7yE7tSp9A2jSF251NVKWShOqaRfa9y+t+jUv8+v21HgG7lFuPS3eBpV7A4OLCF21zcZ2U7mvh5H5EIly/FQFpUMSnojuTutYnEf2GTtqa0of6bIi0aV8AX6yZEYM44NtPiNxTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=THezMQbgVnErsfGSUPDTd1u28V0DxX/L2d5a9tiDw40=;
- b=QS+fRIpgeYxtKH74ZP+kmOkQWfAd0f4/LuxouN+dG7hVSIrahYarB+m0sV8XFx2VaK3Yto0W99/SK6dJLgsMOk4rKepDKwkNfkgaZolDGdP4nj4dlRHLY9a0RpWkBEoWL6DWVISppISraQQR4zKtsSbfaNfyQRNcM6XhqT4EV8hkwMrqhFYsktBoCL5rJHiAx0qWCdw+zt8bgRUsaFy4CK5lMZ6v4Vxa7lZGgYJaAx9PrY4NsAIcVEV2Qwemsyw7UesJNhRAyLaUyaDMhy6GHghe7kM9ipbpMO6pDfFEmE2vf/Ae4qlZCo3SYPGPZGip6myFj6Kj09hkyUj9GRZIzA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by PH8PR12MB6867.namprd12.prod.outlook.com (2603:10b6:510:1ca::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 2 Oct
- 2026 14:24:01 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%6]) with mapi id 15.21.0451.022; Fri, 2 Oct 2026
- 14:24:01 +0000
-Date: Fri, 2 Oct 2026 16:23:56 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Vladimir Vdovin <deliran@verdict.gg>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>, Hui Su <sh_def@163.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] sched_ext: Drive the NUMA balancing scan for SCX
- tasks
-Message-ID: <ar--fEmqMyX8odNn@gpd4>
-References: <20261002124559.10367-1-deliran@verdict.gg>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002124559.10367-1-deliran@verdict.gg>
-X-ClientProxiedBy: ZR0P278CA0160.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:41::18) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0+VEU8jS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t9txnZW9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZncI0ZHD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+fQGFDT3"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A391721E30;
+	Fri,  2 Oct 2026 14:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790951054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
+	b=0+VEU8jSmyjNeYNEiuQzuUWs+Xor+pWJ7/9lIa11Y/3iA3Yeb68ijV3BrbJqJwBIVHXL/e
+	5fATdWHS3VLJh6Z82EVwuaqerNpXQtCHq9Zt6lytxulPY2F/PMzZZBfnNlnr5i5ox3vWWD
+	usy1Egflh4+3QKzSu1z8e6sqRBM0a6A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790951054;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
+	b=t9txnZW97H1P+0WE3mw++Fn5Md9J3eG8aDo9pMF1UbgGD6vU9fDmPe1Wuf4tQugYXI9h3A
+	wFwmVJo4I3vsi0CQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790951050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
+	b=ZncI0ZHDiUMhRI+MvCpHAZutzKEYk4L4tWV1IrBnq2tzvGYTtxgYQ9JnKWq8no8WwSavCZ
+	+HWc5kIsj6MTY0/SxuYIP/cl9crT9hqf9fbL3HbAmS7US/F2LPx7T8f7XLK0YUrgDhcwKx
+	v1eza+sO1TN8IL3QmZ5AVDyHv6JRhWM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790951050;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q9nWLyt2r9hby9CPMFpc04BYUPpRYn+tUbcNwqB8KBw=;
+	b=+fQGFDT3l6yI58R8SW1Uh0jqxyqqrk/+0fThT58vWcwrmquhurU8wX/hRBTmYrHvPukCjK
+	FWGt/RJ6JVNu4zCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 80A52139A3;
+	Fri,  2 Oct 2026 14:24:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id GKeuE4m+v2oeOwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 02 Oct 2026 14:24:09 +0000
+Date: Fri, 2 Oct 2026 15:24:07 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Pan Deng <pan.deng@intel.com>
+Subject: Re: [PATCH v2] mm/vma: don't remove VMA from rmap if pgoff unchanged
+Message-ID: <ar-9z-Ls26elb5JI@pedro-suse.tail5790ac.ts.net>
+References: <20260930-speed-up-inplace-rmap-v2-1-ac1aa19708aa@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|PH8PR12MB6867:EE_
-X-MS-Office365-Filtering-Correlation-Id: b198c000-c70d-4874-976a-08df2090cdba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|7416014|22082099003|18002099003|6133799003|10067099003|5023799004|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ApWaaJriOvXjlJng1WYvVpdkqsQWNC1NUUtp0Rk+LiHIbvozTyhG8ykWhgPD6S0hSd6I8rc74K+f310WXiL0sFDa2DWMIF9FGGMQOrLtB7ZlXqOoT2htsIz77caMAdGpHOA27zde1gIERQDgK/DW4hv95IV0rIpFMjhdqEQ0pRGpBVSEfJtCTx3rPTuivZHZnfu93Yh2uWWcQFx4OX52MORT2x56Bsky8RDpzi5BeD75ALrUlW4P/41LeHAqfMyd9xPRKHIDKBdlG5JQyOOAGU2TEv9ArBYdxOn3CeoFbJb23ER0GitHrSPtJQpJndEeFe8w7MH2jXErUg5fYqlQJ1CkL+3lYZJsUeoXC3fwv+hRYbB2O/RjstR4L5VKhiGGqYfSUFN8LQZvfpvK7oyvZP7jPT5qfYWFpqH8CkGMzKNPNesA6y9DG3Q9DtIYeKo/HfQYcxZOWpaVQUNUCbzfF1Kdz7BIaTUfYotcsMAmXI4BCqAwnGoR1wk+Q3mOOUL2lY2CWJkOpBMULwxcJzjoLajS4Ab1KaWNjVS1ORl48GZndcjytCkdQFVkGn4LgX6Xn7UdP01Vl8ee2wMylsijBLJ709s1gXm5qjJ9JbcDPnbctFibJs6xiU49ALGFqsZJ9MSAPChw3NJET03t7/BioiFzW9E7gRo3YY50HV4ndMs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(7416014)(22082099003)(18002099003)(6133799003)(10067099003)(5023799004)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3gF4GfjRQ9p0QYJEnkAzU/JFz3/mLJaey+fERcNsfwGP7A1067kBXRC7p+sR?=
- =?us-ascii?Q?qbGDEkWWJj+eZqOyqZOY5m4oWmXKzWoVVx5p5bKbo+ezptIgyVpG58WoRieM?=
- =?us-ascii?Q?Idbn5EsR8bm8fJH/EEMpUVFe+XsM6jvqlc/B80dNHpJifsFeCO5Zx5t1WqQa?=
- =?us-ascii?Q?qroHDyISBHAee+Wz1t0gxBoMSeNK9LJwrz8OaXKecE9WeO0sMv6L0qT3/W2K?=
- =?us-ascii?Q?lk8CiGdkiqbuuF3GL9iGo0WFdz6YFCQDoMDXAhCnYAcB0F//KNSAOL1HYzlM?=
- =?us-ascii?Q?VM/hD9qPD+jAE08YT6BxmKYSo20G+Mnzb60m4Z1kxqcywjzROnzEzOaxyh2M?=
- =?us-ascii?Q?1Rzg5R1Fyx3IO0qFEanWq7SCHQMAJ1BHsqXfykot2vqGttGNlfKyE4B1572c?=
- =?us-ascii?Q?Jjagnb6/JgNJTaIw+MzNZu2Tvzwwrv86vwd7yEINcNOEfHJ1RAkvVB/DiUqG?=
- =?us-ascii?Q?4qOBAC+8V3LWpZkiRqG6lvWrxRaZu+9XcCkzDyGCscG8CP5abXKKIbFptZQE?=
- =?us-ascii?Q?qe12DaXH55Mpu/7ZxjVeP9qhTsLkSUNqCYJGXT74wYYM2bsS8iLSH0dkOyJL?=
- =?us-ascii?Q?RkF100Ty+teyeER27+JME8ZJraC5dOeuVq9hRCF4ciuLpkM3S7bduIJVoo1o?=
- =?us-ascii?Q?uCGeWDFRUca3PhYN0lb4ZgWT5lTytRB+qXjSDenTKb5fDRyrUTT9A0EHrA6g?=
- =?us-ascii?Q?mrVsOMxw68CnMporJ5BMgTmqVphcy17/iNj9faW8lECmho5n51V8WhuCY18z?=
- =?us-ascii?Q?mc+ukeI85Vi5GNhHKyb2RV1Oq1n65WUn+yFeLmiPOtkAmT3qo20b29Kj734S?=
- =?us-ascii?Q?9WPwBSYUsouq85WS7Qh/XUfl8h5LriMByi6W2UnE9o1MKMhZBc5jmYxLQVY6?=
- =?us-ascii?Q?+z/3ShJvDDcxj9V/gTrweCIBgYs714sFPIXS65BtC028VjHlWcabjNDfkhmX?=
- =?us-ascii?Q?jStIKq97Wqa8qzaNXNTwfarI230lFt+p3QjgWvBvqB+ymV4r+967FSPL/Caf?=
- =?us-ascii?Q?B/MhtesKA0efI4Cp9Jtq+DApj/tEC265R51szmTvekpcMUsjtUdqr6wKGOLo?=
- =?us-ascii?Q?O5FwHjhK3not1Lux2QOnb0aWXZCGPJ/KmnpeLgloP26z+Ctd/nqilmrxlUZx?=
- =?us-ascii?Q?2ssf5jSQ+/B+JB6eW8o/J98CmWPIhhQtDMAeZZmM5O4ofVWfmJ/iUc6gIoB5?=
- =?us-ascii?Q?qzKLPAm5vtpD0CxRoHzcnNHQetuB94AsrEHAGGdhqrNoKtVw25uWxPyFGMR4?=
- =?us-ascii?Q?rB4OsbVOujhEVU0g81bvxDRbIlQCo9teKco14EpCPFLSrXukoUl8FTubJsdh?=
- =?us-ascii?Q?lytQWVR2+725XpoRfuPIitZGnk5lNv6zxqqF7qCyjRAreNNqeAPCkFNW2jtj?=
- =?us-ascii?Q?5dA7mVUgsED8DUhJ04I2F4HwsODbBW/lduSdFoVuglTj75S5NoFlxn3jl8GU?=
- =?us-ascii?Q?HgcZOfkH3AHZoxb/vjfCFhHPsumhHkRlDuYDx0l+4e6CvAXtIaXoK0FrYW9A?=
- =?us-ascii?Q?UoZSuFX4ec945F3aFhkU64dq7B2NBRnZSBnbXSX5oisMhZD4BsSrZ/0TEF5y?=
- =?us-ascii?Q?ToIqNCtM7W5RQmu1MCvlD0m0cKliJbwQifwHYd7cwIjxCwyxeBFkK/+rS/TK?=
- =?us-ascii?Q?v4YxDfP8WjPCp/3crOWAmzJ1JOK7nrSHm+8uII/GQuUuvGA3PqXcSR7uWchR?=
- =?us-ascii?Q?xd4XECRK3AX1w9CP7q6KxWs59LZVE+RXLLIz08kytEy7uk7m?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b198c000-c70d-4874-976a-08df2090cdba
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 14:24:01.3520
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0NEHiVCdvE2JhL28yno0wiz2qjfOcUEGHP/SOFh1IXHkZTzZHf1idRDEbYyuqgaZoEECPLq7KD8uiBPVSs0TrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6867
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-speed-up-inplace-rmap-v2-1-ac1aa19708aa@kernel.org>
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,intel.com:email,imap1.dmz-prg2.suse.org:helo,surriel.com:email]
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi Vladimir,
+On Wed, Sep 30, 2026 at 06:53:36PM +0100, Lorenzo Stoakes (ARM) wrote:
+> When updating a VMA, vma_prepare() unconditionally removes it from its rmap
+> interval trees under the rmap lock, and vma_complete() reinserts it before
+> releasing the lock.
+> 
+> This is wholly unnecessary if its page offset (file rmap) or anonymous page
+> offset (anon rmap) is unchanged.
+> 
+> So, track whether they will change in the newly introduced
+> vp->file_pgoff_unchanged and vp->anon_pgoff_unchanged fields, and use them
+> to determine whether to remove the VMA or not.
+> 
+> The rmap lock keeps things safe as no rmap walks can concurrently occur
+> during the operation.
+> 
+> Additionally, some architectures (arm, parisc, nios2, csky) have dcache
+> flush rmap walkers which take only flush_dcache_mmap_lock(), which is
+> likewise held across the operation.
+> 
+> If the VMA remains in the tree, it's necessary to keep the augmented
+> rb_subtree_last field updated to reflect its changed range.
+> 
+> Provide mapping_rmap_tree_[pre, post]_update() and
+> anon_rmap_tree_[pre, post]_update_vma() (replacing the existing logic in
+> the anonymous case) to handle both the changed and unchanged cases.
+> 
+> For the anon rmap case, with CONFIG_DEBUG_VM_RB set, avc->cached_vma_last
+> is also updated when propagating in place.
+> 
+> When performing a VMA shrink or a split where the VMA is the lower one, the
+> page offset cannot change, so set the flags unconditionally in these cases.
+> 
+> When merging VMAs the page offset is unchanged only in some cases, so
+> update init_multi_vma_prep() to set the flags only if the page offsets
+> remain the same.
+> 
+> Finally, while we're here, also update expand_upwards() similarly.
+> 
+> These changes ultimately result in less rmap lock contention.
+> 
+> Pan Deng reported results using the UnixBench/excel benchmark on a 2-socket
+> 192 core, 384 thread x86-64 system for v7.3-rc4 with/without the patch
+> applied:
+> 
+> Execl Throughput, index score:
+> 
+>                     avg    %stdev      min        max
+>   v7.3-rc4        3511.5     0.44%    3494.5    3543.4
+>   + patch         4069.0     0.48%    4047.4    4109.5 (+15.9%)
+> 
+> Average wait on file rmap lock in ms, 5 runs per kernel:
+> 
+>                avg      %stdev     min       max
+>   v7.3-rc4    9.470     2.91%     9.070     9.820
+>   + patch     8.420     3.34%     8.100     8.770 (-11.1%)
+> 
+> Profiling data obtained during the operation highlighted the file rmap lock
+> as the primary source of contention.
+> 
+> Suggested-by: Pan Deng <pan.deng@intel.com>
+> Reviewed-by: Rik van Riel <riel@surriel.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-On Fri, Oct 02, 2026 at 03:45:31PM +0300, Vladimir Vdovin wrote:
-> Automatic NUMA balancing is effectively off for every task in the ext
-> class, even when kernel.numa_balancing is enabled.
-> 
-> The periodic scan is queued from the fair tick only:
-> 
->   task_tick_fair()
->     if (static_branch_unlikely(&sched_numa_balancing))
->             task_tick_numa(rq, curr);
-> 
-> task_tick_scx() has no counterpart, so task_numa_work() never runs for
-> an SCX task and no PTEs are made PROT_NONE. The fault side does not
-> depend on the scheduling class: task_numa_fault() still accounts faults,
-> runs task_numa_placement() and migrates misplaced folios. It just never
-> gets anything to work on.
-> 
-> Numbers from a 2-node, 160-CPU KVM hypervisor on 6.18.5 with a BPF
-> scheduler attached, detached for five minutes, then attached again:
-> 
->                          SCX      fair (5 min)   SCX again
->   numa_pte_updates/s     0        2.4M - 3.9M    0
->   numa_hint_faults/s     ~0       10K - 34K      200 - 300, decaying
-> 
-> Those five minutes under fair changed the placement data considerably.
-> Measured from the BPF scheduler, as a share of task runtime:
-> 
->                                          before    after
->   task has no numa_preferred_nid         58%       10%
->   task runs on its numa_preferred_nid    37%       83%
-> 
-> So under SCX p->numa_preferred_nid stays at whatever the last fair
-> period left behind, tasks created while a BPF scheduler is loaded never
-> get one, and memory is never migrated towards its users. A BPF scheduler
-> that wants to keep tasks close to their memory has nothing to read and
-> no way to start the scan itself.
-> 
-> Call task_tick_numa() from task_tick_scx(). It only needs
-> p->se.sum_exec_runtime, which SCX maintains through update_curr_common().
-> 
-> Keep task placement out of it: after a fault numa_migrate_preferred()
-> calls task_numa_migrate(), which picks a CPU from fair load statistics
-> and moves the task. Those statistics say nothing about SCX tasks and
-> CPU selection belongs to the BPF scheduler, so skip that step for them.
-> Scanning, fault accounting, numa_preferred_nid and folio migration keep
-> working.
-> 
-> Signed-off-by: Vladimir Vdovin <deliran@verdict.gg>
+Looks great, thanks!
 
-Thanks for looking at this! I actually have a patch series in my backlog to
-introduce NUMA-balancing support in sched_ext. It makes NUMA hinting scans
-opt-in for BPF schedulers and exposes a task's preferred NUMA node to BPF.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-It also lets a BPF scheduler set a per-task memory target, which NUMA balancing
-can use when migrating pages after hinting faults. I think that could give
-schedulers a useful way to coordinate CPU and memory placement, includeing when
-device locality constratins CPU choice.
+<snip>
 
-We're actually going to discuss this topic at LPC next week in Prague during the
-sched_ext MC session.
-
-I can probably send the patch series at this point, it's not completely
-well-tested, but it might be useful to have it on the list, so that we can start
-discussing and improving it. I'll keep you in the loop.
-
-Thanks,
--Andrea
-
-> ---
-> This is an RFC: the patch applies to v7.3-rc5 but has not been built or
-> run yet. The numbers above are from an unpatched 6.18.5 and only show
-> the problem. I would like to agree on the direction before testing it
-> properly.
-> 
-> Questions:
-> 
-> 1. Is the missing scan intentional, or has nobody needed it so far?
-> 
-> 2. Is calling a fair.c function from the ext tick acceptable? It keeps
->    the logic in the class tick, in line with the per-class approach from
->    the "sched: Fix execution-context tick handling under proxy
->    execution" discussion, but it does make task_tick_numa() non-static.
->    I can rebase on top of that series once it settles.
-> 
-> 3. Is skipping task_numa_migrate() for SCX tasks the right split, or
->    should the BPF scheduler get a say there through an ops callback?
-> 
-> 4. Should this be opt-in through an ops flag, so that BPF schedulers
->    that do not want the scan overhead are unaffected?
-> 
->  kernel/sched/ext/ext.c | 3 +++
->  kernel/sched/fair.c    | 14 +++++++++-----
->  kernel/sched/sched.h   | 5 +++++
->  3 files changed, 17 insertions(+), 5 deletions(-)
-> 
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index e56c3c9..82c7d6a 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -3840,6 +3840,9 @@ static void task_tick_scx(struct rq *rq, struct task_struct *curr, int queued)
+> index 077e23694143..ad6be42cc65a 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -201,8 +201,15 @@ static void init_multi_vma_prep(struct vma_prepare *vp,
+>  	if (vp->file)
+>  		vp->mapping = vma->vm_file->f_mapping;
 >  
->  	if (!curr->scx.slice)
->  		resched_curr(rq);
-> +
-> +	if (!queued && static_branch_unlikely(&sched_numa_balancing))
-> +		task_tick_numa(rq, curr);
->  }
->  
->  #ifdef CONFIG_EXT_GROUP_SCHED
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 57360f5..669c8ab 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -3642,6 +3642,14 @@ static void numa_migrate_preferred(struct task_struct *p)
->  	if (task_node(p) == p->numa_preferred_nid)
->  		return;
->  
-> +	/*
-> +	 * CPU selection for SCX tasks belongs to the BPF scheduler, which can
-> +	 * act on p->numa_preferred_nid itself. The statistics used below only
-> +	 * describe fair tasks anyway.
-> +	 */
-> +	if (task_on_scx(p))
+> -	if (vmg && vmg->skip_vma_uprobe)
+> +	if (!vmg)
 > +		return;
 > +
->  	/* Otherwise, try migrate to a CPU on the preferred node */
->  	task_numa_migrate(p);
->  }
-> @@ -4630,7 +4638,7 @@ void init_numa_balancing(u64 clone_flags, struct task_struct *p)
->  /*
->   * Drive the periodic memory faults..
->   */
-> -static void task_tick_numa(struct rq *rq, struct task_struct *curr)
-> +void task_tick_numa(struct rq *rq, struct task_struct *curr)
->  {
->  	struct callback_head *work = &curr->numa_work;
->  	u64 period, now;
-> @@ -4696,10 +4704,6 @@ static void update_scan_period(struct task_struct *p, int new_cpu)
->  
->  #else /* !CONFIG_NUMA_BALANCING: */
->  
-> -static void task_tick_numa(struct rq *rq, struct task_struct *curr)
-> -{
-> -}
-> -
->  static inline void account_numa_enqueue(struct rq *rq, struct task_struct *p)
->  {
->  }
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index e656c70..f6774bc 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -2133,6 +2133,7 @@ extern int migrate_task_to(struct task_struct *p, int cpu);
->  extern int migrate_swap(struct task_struct *p, struct task_struct *t,
->  			int cpu, int scpu);
->  extern void init_numa_balancing(u64 clone_flags, struct task_struct *p);
-> +extern void task_tick_numa(struct rq *rq, struct task_struct *curr);
->  
->  #else /* !CONFIG_NUMA_BALANCING: */
->  
-> @@ -2141,6 +2142,10 @@ init_numa_balancing(u64 clone_flags, struct task_struct *p)
->  {
->  }
->  
-> +static inline void task_tick_numa(struct rq *rq, struct task_struct *curr)
-> +{
-> +}
-> +
->  #endif /* !CONFIG_NUMA_BALANCING */
->  
->  int task_llc(const struct task_struct *p);
-> 
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> -- 
-> 2.47.0
-> 
+> +	if (vmg->skip_vma_uprobe)
+>  		vp->skip_vma_uprobe = true;
+> +	if (vma_start_pgoff(vma) == vmg_start_pgoff(vmg))
+> +		vp->file_pgoff_unchanged = true;
+> +	if (vma_start_anon_pgoff(vma) == vmg_start_anon_pgoff(vmg))
+> +		vp->anon_pgoff_unchanged = true;
+
+FWIW I kinda would've liked to abstract this out to rmap code, but a quick look
+shows that it is likely to become a header dependency hell if put in rmap.h. Could
+perhaps have been separated out to a function call.
+
+Anyway, your call :) This version already hides most of the ugly to
+interval tree code.
+ 
+
+-- 
+Pedro
