@@ -1,145 +1,120 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86019175A83;
-	Fri,  2 Oct 2026 00:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3891223ABBE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 00:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790899686; cv=none; b=tCm0qWIScvRlaqgizYEuobYj2mOun91xABdSYr1y6BhgVmoTJl39Tsa34VEgzn84TijOMAJi2P0QPQeGDXwhpTwVv1dZlIisHP6CxbzMlkx/dho9bg+gpicQDQ0WWWYYCLGVXnA4V/RIkhlEUGIE0fWhxe+mkSWn7S7/o8dux80=
+	t=1790900217; cv=none; b=gaqcpzP2lU6L8+yGAur7nWkDMCT4TMYqDu+dISxz1acku5M2sm/dfmeA9bkGq0r9IHwJZPi3R0rgIfMJ9TyRKns/uGu2H+T2rKavOGe/grTTsx1N4W59h+QJeHM78KPD3X2hkKxkGmYSzZtnM2kc+nCnpNUxtMLh4F69BB9eb24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790899686; c=relaxed/simple;
-	bh=YMZdP7dghJMrLNJEzTCyTqwv/NuQuslcMFv6ITtjYe4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F8igT6gWU2HVvvWmZ6KCdSs/vzzP5ltPdtASh/z6H9vX3Ew2xs3TgZa8966BoDR2IEP2aouf8XcAXeMQbCLOMKXRIkgkPKYz2LO/k4StcV8AOLtqecqmwsGR+IvbYwgCaixsYn1N4RU92/epS3ZLdjgAf4wPOqoYgda5797sWgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Jx7/5K/3; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790900217; c=relaxed/simple;
+	bh=q+6Q4y6H48Avufnw/sWDV+vkmXuakE9O0dv+vfnCP1Q=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=tSJGJE6donBMk/bGWSUTpU8n7qi5cXmCTJsRUHzUjvBt8BqvfYundpk3Mcp8yZT86VP4oiQ6K9x9icZR/PnvFkBi399eX8FyMqZGvQ/Pj4o7mvUHWYxwVPTMOThHeiJZ0okV1x5FBy37m/51V5t33YDzRSNVoQ6SJwY+dvXmD1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UxdjpzR2; arc=none smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Jx7/5K/3"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E1E20929;
-	Fri,  2 Oct 2026 02:06:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790899570;
-	bh=YMZdP7dghJMrLNJEzTCyTqwv/NuQuslcMFv6ITtjYe4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Jx7/5K/3SlRom+qybx7wms1uOB5RtlQ8vGr1fmcE4ccB33IWPYiI++DdmaH+a9FXU
-	 gxqSrLcOqXHSSy+UJ6/Mmo4bc9TJnuDETvV3HPeuINbYUE5JxQhDnVyNMe9mVsggCw
-	 1Wq2DQKMmV1hlO1s2T6vG+PGRUwk7+vCBbqJlBxw=
-Date: Fri, 2 Oct 2026 03:08:01 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
-	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Do not read beyond the
- uvc_status_control memory
-Message-ID: <20261002000801.GC9061@killaraus.ideasonboard.com>
-References: <20260813-uvc-status-11-v1-1-2cf43e9590b0@chromium.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UxdjpzR2"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67583c777abso1072291d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 17:16:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790900212; x=1791505012; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rOgGB5KCdvmsyYEL6jVLup/+Bx353wLBXoi6WGMPE+0=;
+        b=UxdjpzR2UzzLpH4PrgCMKqbUj3yzCWVRe2n+6F3CacNyaA86Y/3bRKTVQ0p8btAvFT
+         eBVXKiBZT5h0gH0jMpSlRgIbxIFGcEz0IK8VknxwHCxnJPhp2UvMmqg3EIvCYCzKaacL
+         OrU1LkKzuuUykcG9q0tzOKYCbg+qJ7SMyHUlBI1/t8rYAJiC5kWiabS34tlwNYH+ol2F
+         BVF7XuFslARhm9WWHw2zzb7c0SROzsDcmZ/xlPSpgpZYF1lJnBaDk6dDOimPkfJPJvYy
+         efKcCpVIkg7HgvX4yf6ZkgcpPFwGLzuX9SbKknJDXDhvelJIwqJENKnp5CswY49c31wy
+         RQqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790900212; x=1791505012;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rOgGB5KCdvmsyYEL6jVLup/+Bx353wLBXoi6WGMPE+0=;
+        b=ZS9Ps08H8Vx2W0zB/QFao7cV6dFyLG2hMg/IC9I9DBZgMmRaKm/28dRahAzh6hpsrp
+         aNz3L9mn2OCq6UwoWUhcse5b3Vbek9hHsY3r5O240chG14bZm26kf81+pVyRndzx1EK6
+         whvCtVSCAB8RjTnuHfbf/wWYNAiMZ5DrOluq/NkEMIyOEP7oCKmzR8N6F2jg51mb28Hd
+         VUKXdyItaFRvL7rpHvxhJpIiWc3gKzYhOLYPcXhtOq1sE6DQau5ndCAK6g1ygj98tStJ
+         E/YgU71tm8XPzHQNkGXC33yjA84jNzDbQhOvXAOsX0Xfs+ACM9byP/MuxpMmDV4JbZ9n
+         ywFw==
+X-Forwarded-Encrypted: i=1; AKwUvByXff+KktNLsoIBUrLwJhVlcMX3RqEuQy5tboHj4y1iXSMxe9spqGmhYFkJTUiSThyc/0Dy6HcaPMSW8XI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJc6A3CZq3NADBB9m2yQ8i02Wj7GuWNqUI/3CC7pxHCt7p8cIWo
+	k5zVDdYf1yaKOKDF0CQdHNS+eF9UAhQ14FipCRvV9wBctA5fD+6HgyZ+
+X-Gm-Gg: AYBFou0o+mgbPklc9tuADTOutep1S3VY+ME9uYCP/PtfdrS9xFGxJgOSmmLlq9llklx
+	juV57VDwysvtM+K6DFtLq11J0xWbcB1pfhOeSkXBuJKnpVX5v1IACE4ScNKelq6j2dgD989BhAu
+	s8tKPI6S2ksq//ulCgM3cAkYNmwaIiDif8IVbjaukrHyE5XhJSJsfCxAfYlJOfeHJQuzDTbeZT0
+	p5TyiqblDOiwd9FFj0jHg3hDDqrTfKJ0g8DwslKdtZb6DvdqklB2vw7bRCOdF5+20VNpieocQ9W
+	wAtSEgi7PEuccpGlTyT5f7W6UmILEwf0FcpnjW5baQxooXnTZCioh9qFXIoVLyzze7rewdSa1Tm
+	uhaQ5zmbl1wWoaFim1olPNrf3zz7vqM/1NWTA5obloDPM0smaS6ap2mTsDVUdcjnn18XxGHLCCt
+	g54G6zONEQ5I+CUXKK3oJOiV9qoZEtENiaDpukHyW4rc75SoURTOe6Be/SzFpqKigy0VrLXfHyu
+	g47qYtznkm7bGAFt5fQXQH55QInsjxYa8ajnJO3poS/34LHjhjS
+X-Received: by 2002:a05:690e:24d1:b0:672:c99f:5f5a with SMTP id 956f58d0204a3-67691115553mr1514703d50.8.1790900212088;
+        Thu, 01 Oct 2026 17:16:52 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33ee086bsm3230397b3.46.2026.10.01.17.16.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 17:16:51 -0700 (PDT)
+Date: Thu, 01 Oct 2026 20:16:51 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Daniel Zahka <daniel.zahka@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Shuah Khan <shuah@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, 
+ Willem de Bruijn <willemb@google.com>
+Cc: netdev@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.678a05ecc978@gmail.com>
+In-Reply-To: <20260930-psp-defeat-v2-1-f266e7447129@gmail.com>
+References: <20260930-psp-defeat-v2-0-f266e7447129@gmail.com>
+ <20260930-psp-defeat-v2-1-f266e7447129@gmail.com>
+Subject: Re: [PATCH net-next v2 1/4] selftests: drv-net: psp: swap closed for
+ connected sockets in assoc tests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260813-uvc-status-11-v1-1-2cf43e9590b0@chromium.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Hi Ricardo,
-
-Thank you for the patch.
-
-On Thu, Aug 13, 2026 at 08:43:24PM +0000, Ricardo Ribalda wrote:
-> When we receive an event from the camera we only receive 11 bytes. If a
-> v4l2 control is mapped into a UVC control beyond those 11 bytes, right
-> now the code is blindly reading those.
+Daniel Zahka wrote:
+> Future work will only allow rx-assoc and tx-assoc to be performed when
+> the sock is in TCP_ESTABLISHED state.
 > 
-> Add a check in the event handler to ignore controls that are not
-> available in those 11 bytes.
-
-I tried to see where the 11 bytes size came from, and couldn't find any
-mention of it (direct or indirect) in the UVC spec.
-
-Checking my UVC descriptors collection, here are the wMaxPacketSize I
-see for the control interrupt endpoint (the first column is the number
-of devices):
-
-     11 wMaxPacketSize     0x0004  1x 4 bytes
-     89 wMaxPacketSize     0x0008  1x 8 bytes
-     37 wMaxPacketSize     0x000a  1x 10 bytes
-      2 wMaxPacketSize     0x000c  1x 12 bytes
-    238 wMaxPacketSize     0x0010  1x 16 bytes
-      3 wMaxPacketSize     0x0017  1x 23 bytes
-     12 wMaxPacketSize     0x0020  1x 32 bytes
-     41 wMaxPacketSize     0x0040  1x 64 bytes
-      1 wMaxPacketSize     0x4000  1x 0 bytes
-
-16 bytes is by far the most common value, but smaller and larger sizes
-are not uncommon. It seems we shouldn't harcode the size to 11, but
-instead dynamically size the buffer based on the endpoint max packet
-size, and, more importantly, validate the mapping offset and size
-against the actual transfer length. The length is passed to
-uvc_event_control() and is then lost when calling
-uvc_ctrl_status_event_async(). It should be passed to the function
-(subtracting the header size), stored in uvc_ctrl_work, and used in
-uvc_ctrl_status_event_work() to pass it to uvc_ctrl_status_event().
-
-One additional upside of that change is that we will be able to pass the
-correct length to uvc_ctrl_status_event() in uvc_gpio_event().
-
-What do you think ?
-
-> Cc: stable@vger.kernel.org
-> Closes: https://sashiko.dev/#/patchset/F0F008459FFA835D%2B20260813074632.2021311-1-raoxu%40uniontech.com
-> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 4 +++-
->  drivers/media/usb/uvc/uvcvideo.h | 3 ++-
->  2 files changed, 5 insertions(+), 2 deletions(-)
+> Several assoc_ tests, as well as dev_rotate_spi, test using the rx-assoc
+> and tx-assoc uapi calls against sockets in TCP_CLOSE state.
+> These tests don't involve sending or receiving data, nor involve looking
+> up psp device by dst entry, so using a disposable disconnected socket
+> was just a convenience. These can be replaced by a disposable loopback
+> socket.
 > 
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 3ca108b83f1d..3061f388f57b 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2158,7 +2158,9 @@ void uvc_ctrl_status_event(struct uvc_video_chain *chain,
->  	list_for_each_entry(mapping, &ctrl->info.mappings, list) {
->  		s32 value;
->  
-> -		if (uvc_ctrl_mapping_is_compound(mapping))
-> +		if (uvc_ctrl_mapping_is_compound(mapping) ||
-> +		    DIV_ROUND_UP(mapping->offset + mapping->size, 8) >
-> +		    UVC_STATUS_CONTROL_LEN)
->  			value = 0;
->  		else
->  			value = uvc_mapping_get_s32(mapping, UVC_GET_CUR, data);
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4a222f..ae5e6b6fdd98 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -559,10 +559,11 @@ struct uvc_status_streaming {
->  	u8	button;
->  } __packed;
->  
-> +#define UVC_STATUS_CONTROL_LEN 11
->  struct uvc_status_control {
->  	u8	bSelector;
->  	u8	bAttribute;
-> -	u8	bValue[11];
-> +	u8	bValue[UVC_STATUS_CONTROL_LEN];
->  } __packed;
->  
->  struct uvc_status {
+> The loopback sockets are IPv4, where the sockets they replace were
+> AF_INET6. This doesn't reduce coverage, since the assoc handlers accept
+> any TCP socket and don't look at the address family.
 > 
-> ---
-> base-commit: 7b1734e1761258d78651263706182f1d772c0d3b
-> change-id: 20260813-uvc-status-11-99b9e27a8ea9
+> Some users of rx-assoc and tx-assoc on closed sockets are left if they
+> validate errors that are returned before the kernel will check the
+> socket for TCP_ESTABLISHED.
+> 
+> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
 
--- 
-Regards,
-
-Laurent Pinchart
+Reviewed-by: Willem de Bruijn <willemb@google.com>
