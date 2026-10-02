@@ -1,273 +1,182 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681943BED55;
-	Fri,  2 Oct 2026 09:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932107; cv=none; b=Gka4o//Cj4YBNjFTAn5oIbwGeYHU9gWVUbymvoNZRTsxwv1DI1qL4A8ZCzmheOzmJI1b8IAwKGkpeFVtx5PgliUKdGNro/0zDyo5zC34R3Va0xPfu+YIhq1pAf5ItVTjRBGIVLAaYfFBBm7Om6wsCt6r//hZclWVqj/qHfEJkmQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932107; c=relaxed/simple;
-	bh=uh+8xPEfv3dx8Z2ERM/aBuaV0s17xGFwDu3bTK3kREA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gVAwKS67J18Q7y4GkplO25Uoh3A8T+Ug0GZLeDFvv7mPvdZJ2lLFntG1odvM2D5/DGLkHVEvTr/qU6DmtMUO98OXNSX/YAo0/Z19w/OpF7AFOYUsRU0JqbJ3kqu70AHt0XaJ4wG2GMk8eDs90qkyB7N5n2z3EKjH87Ey+I+5+OE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=jg6RlR1V; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC9638F251;
+	Fri,  2 Oct 2026 09:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790932108; cv=pass; b=j+DIMNzfBDnwbMNGyQ7kcw6FWtGdIk7pUb+aBAcTePZMgROjxMGerQD0eT4jac8sCFa/HOb9x3RuYYiCogOEXMFDIK8GX0hO593fAc/h9ZRjChO11LTWPPj+hY3XFQzFIoucnubtBmhB806uYnnZTTGPckXal1t+xGqUZnmE360=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790932108; c=relaxed/simple;
+	bh=SxNAnGwYgghYI9SlRTIjv1LGA4j9kEXCh9dTYQ+IioA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=umX7QQlbKnpj3t3VlbU2zEMgEPgNSAqy9GEF3dexIcyA4F41IvdueVdHR/CDrHtqSI8gw8NqwAwzIproUDM2u2koGjWvSo4ghgkk6bYCmuhpUlL57EFjsccJ1PcCIPYuCQGT+Pd7i+R6zxOU8NWN1RkXh72vlAKOaUi0Os5PgGc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=guDdqKD4; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="jg6RlR1V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790932105; x=1822468105;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=uh+8xPEfv3dx8Z2ERM/aBuaV0s17xGFwDu3bTK3kREA=;
-  b=jg6RlR1V2yWtqOahYWQjY9yf5BIDcQtDxqyJxjC/HX9VYpdUEupB6mCV
-   r9dpMcIS/jkp48d1wkPM9OkqLoDkSw4yr3aUKlhf2Cowk72elPJNPPO4z
-   oa/P6uNZRpmxqI/YAN1d8j03ojI/h3XBG7uYGWnorlxdj+ulmDncYpGEs
-   vu78uVDIosJGi8D3WqegNxFGqF8Rh6BHnFqLXAl4DNhn0uUX9BZKcDw8B
-   Mw4HhVcgvGriLboZlWPPz/rbJiqKis7wDjjnt51eBCidrB0c5N8NHgiw3
-   Wu4pZ4pjxXp2WzE4klyRhrbF4SXh3/cFW7QHwpw6rJAXcIXr22NrGtKQi
-   A==;
-X-CSE-ConnectionGUID: XG2rWf+9Rb6Uj2ZpZ+fT9A==
-X-CSE-MsgGUID: eSArrbxaTpKCJNLD2pkXog==
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="64776131"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 02 Oct 2026 02:08:24 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 2 Oct 2026 02:08:23 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Fri, 2 Oct 2026 02:08:19 -0700
-Date: Fri, 2 Oct 2026 11:08:19 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
-	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
-	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
-	<horms@kernel.org>, <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH net-next v9 12/15] net: lan966x: add PCIe FDMA MTU change
- support
-Message-ID: <20261002090819.m6oyc75kplipcf7o@DEN-DL-M70577>
-References: <20260928-lan966x-pci-fdma-v9-12-a17caf60f89a@microchip.com>
- <179092641967.434549.1766859316698814287@kernel.org>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="guDdqKD4"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5999720196E;
+	Fri, 02 Oct 2026 11:08:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790932103;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l99jnKZHJb7HazCntOdV3ExQiyvLfl26SZ+ORlybioM=;
+	b=guDdqKD4yYk+js8a0RQz1grbfrgrtEQWnU7IYdzX5uqDnZlzOnYd0FqCfYMv/4/oqlIO9X
+	P4SLmHLja7PYEpPMDyy0lILmJ6uSusOfPNmo4ykxsmAxNuts9Cr3ES53FV9wBdfZHovPUs
+	s2DUBWtkjBguAPIgNtxNXC7rySFu3O5pqhMn1AvqrknQOpYrcyLbWKAxiXnLYFkw4dzMjx
+	YTIzG7+BryKGsghsO+kNABDGxxCNJU+zzDUUZlIpTBV50t+h693b1UD1K/4xlyqhR+mVTY
+	ebPWnyWPi0cIvX9X9axttz/eDSgf0Kvdln7FBwV1KNT+NE9uW5NG5GIZOsLQUg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790932103; a=rsa-sha256;
+	cv=none;
+	b=TGxbP2vN5o0ZZUZ4nC2HX3pqpmBmu5Jo2Y9pPdBgAi6VJp21QhLCwN6YlDnWUah6+CyzAZ
+	rzER8piYuK6Oizh+Au6ltxdk3p12NrFdLEZgqz6Kg/rwe6ossx0yDYvTsuMYr+qJMZrDUa
+	GuUKjZsYOglvYUBJK7dEauNICsO7tUK6heMkSQfP/KkDcr0QiBD2YFbZevLTFkR0Ipm5Ha
+	toZVBqrfZyjwEi3VhJFlNHQT8FN8BApo5dgwycuhg9PTvKOuZjG/CAOy7RYz8xkkSlht2u
+	OUMSPr77xh66ziK6HrADhJEn1aNACAdx4hCnmaxrqVy9i+r2hmiRmrHntMgnmQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790932103;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l99jnKZHJb7HazCntOdV3ExQiyvLfl26SZ+ORlybioM=;
+	b=cb0NKr2ckBSpGMtOm3IMDQXYacz3DTH0Jv44p3a9zguHPgMmT5ZHGI5vYI5H6L5Fu3cGeZ
+	LcMYDbDWAhuP3J7K8lltysFd2Bem83eQmQbN2vkh96rkEg20MG80VY2FMb85Y+g9Pijotv
+	DWJa0QqTnnHaTJdbYmVbJioMHCHw1dWkGFOCSmbNyiST55HRzGpBcfESrLCGcGriXGp+mp
+	/dFUz3e4TZw9yJTkzHwjkLXnPlMazbKDxnFOXqPU7GmjcQEx6iZh/oWjQsFlyQlilCetxV
+	yWsAAAYUB3kmpeBeUsZ9FWA6BtOu81jng6tXsPCaxKWhSEmHnDDp9Jniq6WWdQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xCZFf-003rkK-0s;
+	Fri, 02 Oct 2026 11:08:23 +0200
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 064105B83C9;
+	Fri, 02 Oct 2026 09:08:22 +0000 (UTC)
+Date: Fri, 2 Oct 2026 11:08:22 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH can-next v3] can: gs_usb: add workarounds for HScanT USB
+ to CAN adapter
+Message-ID: <20261002-rousing-axolotl-of-effort-29c26a-mkl@pengutronix.de>
+References: <20261002-gs_usb-hscant-v3-1-f9b2b2319079@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lijdutfyrx7z6mrq"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179092641967.434549.1766859316698814287@kernel.org>
+In-Reply-To: <20261002-gs_usb-hscant-v3-1-f9b2b2319079@pengutronix.de>
 
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] lan966x_fdma_pci_resize() uses `lan966x->rx.lan966x` to decide
->   whether the rings exist, and that field does not track ring state.
-> - [Low] lan966x_fdma_pci_reload() frees and ATU-unmaps the old rings and
->   reprograms LLP right after lan966x_fdma_rx_disable() and…
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the patch
->   explicitly acknowledges the hazard and fixes only the PCIe side.
-> 
-> --
-> 
-> net: lan966x: add PCIe FDMA MTU change support
-> 
-> This adds MTU change support to the lan966x PCIe FDMA path. On an MTU
-> change, the contiguous ATU-mapped RX and TX rings are reallocated at the
-> new size, and the old buffers are kept if allocation fails. The PCIe DCB
-> ring is capped at 256, FDMA_PCI_MAX_MTU is advertised as max_mtu when the
-> FDMA is in use, and the resize is skipped until lan966x_fdma_pci_init()
-> has built the rings.
-> 
-> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> > index f511e70613141..758554c951c52 100644
-> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> 
-> [ ... ]
-> 
-> > +static int lan966x_fdma_pci_reload(struct lan966x *lan966x, int new_mtu)
-> > +{
-> > +	struct fdma tx_fdma_old = lan966x->tx.fdma;
-> > +	struct fdma rx_fdma_old = lan966x->rx.fdma;
-> > +	u32 old_mtu = lan966x->rx.max_mtu;
-> > +	int err;
-> > +
-> > +	napi_disable(&lan966x->napi);
-> > +	lan966x_fdma_tx_disable_netdev(lan966x);
-> > +	lan966x_fdma_rx_disable(&lan966x->rx);
-> > +	lan966x_fdma_tx_disable(&lan966x->tx);
-> 
-> [Severity: Low]
-> lan966x_fdma_rx_disable() and lan966x_fdma_tx_disable() both throw away
-> the result of the FDMA_CH_ACTIVE poll:
-> 
-> 	readx_poll_timeout_atomic(lan966x_fdma_channel_active, lan966x,
-> 				  val, !(val & BIT(fdma->channel_id)),
-> 				  READL_SLEEP_US, READL_TIMEOUT_US);
-> 
-> __lan966x_fdma_pci_reload() also ignores the result of the CPU queue drain
-> poll. After that, the old rings are freed and ATU-unmapped straight away.
-> 
-> If a channel is still active when the poll times out, could it follow the
-> old DCB chain into memory that has already been unmapped and freed?
-> 
-> The timeout is READL_TIMEOUT_US (100 seconds), so this would need wedged
-> hardware. The platform lan966x_fdma_reload() uses the same sequence. It
-> might still be worth checking the poll results and bailing out before
-> freeing the old rings.
-> 
-> > +
-> > +	lan966x->rx.max_mtu = new_mtu;
-> 
-> [ ... ]
-> 
-> > +	/* Free and unmap old memory. */
-> > +	fdma_free_coherent_and_unmap(lan966x->dma_dev, &rx_fdma_old);
-> > +	fdma_free_coherent_and_unmap(lan966x->dma_dev, &tx_fdma_old);
-> 
-> [ ... ]
-> 
-> >  static int lan966x_fdma_pci_resize(struct lan966x *lan966x)
-> >  {
-> > -	return -EOPNOTSUPP;
-> > +	int max_mtu;
-> > +
-> > +	/* Nothing to resize until fdma_pci_init() has built the rings; it
-> > +	 * sizes them from DEV_MAC_MAXLEN_CFG, which the caller already set.
-> > +	 */
-> > +	if (!lan966x->rx.lan966x)
-> > +		return 0;
-> 
-> [Severity: High]
-> Does rx.lan966x actually show whether the rings have been built?
-> 
-> In lan966x_fdma_pci_init() it is set before either ring is allocated or
-> ATU-mapped:
-> 
-> 	lan966x->rx.lan966x = lan966x;
-> 	lan966x->rx.max_mtu = lan966x_fdma_get_max_frame(lan966x);
-> 	...
-> 	err = lan966x_fdma_pci_rx_alloc(&lan966x->rx);
-> 	if (err)
-> 		return err;
-> 
-> It is not cleared on the init error paths or in
-> lan966x_fdma_pci_deinit(). Init and deinit both run without RTNL while the
-> port netdevs are registered, so ndo_change_mtu can reach this check during
-> those windows.
-> 
-> First, lan966x_remove() tears down the FDMA before the netdevs are
-> unregistered:
-> 
-> 	lan966x->ops->fdma_deinit(lan966x);
-> 	lan966x_cleanup_ports(lan966x);
-> 
-> lan966x_fdma_pci_deinit() calls napi_disable() and frees both rings. An
-> MTU change in that window passes this check and reaches
-> lan966x_fdma_pci_reload(), which calls napi_disable() a second time.
-> 
-> Would napi_disable_locked() then spin forever on NAPIF_STATE_SCHED |
-> NAPIF_STATE_NPSVC with RTNL held? That would leave unregister_netdev() and
-> every other RTNL user blocked. The probe unwind at cleanup_fdma has the
-> same ordering.
-> 
-> Second, if lan966x_fdma_pci_tx_alloc() fails in init, the RX ring is freed.
-> However, rx.fdma.dcbs still points at it and rx.lan966x stays set. The
-> probe unwind jumps to cleanup_ptp and skips fdma_deinit, so the netdevs
-> stay registered until lan966x_cleanup_ports(). An MTU change in that
-> window runs lan966x_fdma_pci_reload(), which calls:
-> 
-> 	fdma_free_coherent_and_unmap(lan966x->dma_dev, &rx_fdma_old);
-> 
-> Can this free the stale RX buffer a second time? The newly allocated,
-> ATU-mapped rings would then leak while the FDMA runs on them.
-> 
-> The same thing looks possible when the ATU map fails inside
-> lan966x_fdma_pci_rx_alloc(), because fdma_alloc_coherent_and_map() frees
-> dcbs without clearing the pointer.
-> 
-> Third, lan966x_probe() registers every port netdev in lan966x_probe_port()
-> before ops->fdma_init() runs. A concurrent MTU change, for example udev
-> applying MTUBytes, could pass this check while init is still sleeping in
-> dma_alloc_coherent() inside rx_alloc or tx_alloc.
-> 
-> Reload would then snapshot a half-built struct fdma, clear atu_region, and
-> rewrite db_size and size while init is still filling them in. Could that
-> leak or double-map ATU regions, or leave LLP pointing at freed memory?
-> 
-> The commit message says:
-> 
->   Skip the resize until lan966x_fdma_pci_init() has built the rings;
-> 
-> The check does not seem to do that. The resize, init and deinit paths are
-> also unchanged at the end of the series.
 
-I dismissed this issue in v7, and Simon gave his RB. In short, all these windows
-come from the probe init order and the netdev registration.
+--lijdutfyrx7z6mrq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can-next v3] can: gs_usb: add workarounds for HScanT USB
+ to CAN adapter
+MIME-Version: 1.0
 
-> 
-> > +
-> > +	max_mtu = lan966x_fdma_get_max_frame(lan966x);
-> > +	if (max_mtu == lan966x->rx.max_mtu)
-> > +		return 0;
-> > +
-> > +	return __lan966x_fdma_pci_reload(lan966x, max_mtu);
-> >  }
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but the platform backend has
-> the same pre-init window, and the guard added here only covers PCIe.
-> 
-> lan966x_fdma_change_mtu() in lan966x_fdma.c has no equivalent check:
-> 
-> 	max_mtu = lan966x_fdma_get_max_frame(lan966x);
-> 	if (max_mtu == lan966x->rx.max_mtu)
-> 		return 0;
-> 
-> 	return __lan966x_fdma_reload(lan966x, max_mtu);
-> 
-> rx.max_mtu is still 0 before lan966x_fdma_init() runs. So an MTU change
-> after register_netdev() in lan966x_probe_port() always continues down:
-> 
-> lan966x_port_change_mtu()->lan966x_fdma_change_mtu()->
->     __lan966x_fdma_reload()->lan966x_fdma_reload()
-> 
-> >From there, lan966x_fdma_rx_disable() does:
-> 
-> 	struct lan966x *lan966x = rx->lan966x;
-> 	...
-> 	lan_rmw(FDMA_CH_DISABLE_CH_DISABLE_SET(BIT(fdma->channel_id)),
-> 		FDMA_CH_DISABLE_CH_DISABLE,
-> 		lan966x, FDMA_CH_DISABLE);
-> 
-> rx->lan966x is still NULL at that point. Can this oops under RTNL?
-> 
-> Would a check in the common caller, or an equivalent guard in
-> lan966x_fdma_change_mtu(), cover both backends?
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-lan966x-pci-fdma-v9-0-a17caf60f89a%40microchip.com
+On 02.10.2026 11:01:56, Marc Kleine-Budde wrote:
+> The HScanT is a RISC-V-based USB-to-4-channel CAN-FD adapter that is
+> compatible with the gs_usb protocol. The device ships with firmware
+> version 0x00010007 and requires several quirks to function properly.
+>
+> The HScanT firmware specifies 5 channels, but the =C2=B5C contains only 4
+> m_can IP cores. To work around this issue, change the value of `struct
+> gs_device_config::icount` to 3, which corresponds to 4 channels.
+>
+> The HScanT supports CAN-FD with different bit-timing constants for
+> arbitration and data rate. The firmware reports that it supports
+> CAN-FD (GS_CAN_FEATURE_FD), but does not support querying the data
+> bit-timing constants (GS_CAN_FEATURE_BT_CONST_EXT). As a result, the driv=
+er
+> uses the arbitration bit-timing constants for the data rate.
+>
+> According to EcuBus-Pro (a cross-platform CAN analyzer), if the
+> firmware supports GS_CAN_FEATURE_FD, it also supports querying the
+> data bit timing constants. Fix: Add GS_CAN_FEATURE_BT_CONST_EXT if
+> GS_CAN_FEATURE_FD is set.
+>
+> The HScanT firmware requires a USB High Speed Hub, bail out if device is
+> connected to slower USB Hub.
+>
+> The HScanT firmware requires In-URBs with a length of at least 512 bytes.
+> If In-URBs with a length of less than 512 bytes are used, the firmware do=
+es
+> not send any In-URBs.
+>
+> When using In-URBs with exactly 512 bytes (=3D maximum packet length of t=
+he
+> endpoint), 512-byte In-URBs are sent, immediately followed by a 0-byte
+> In-URB. This results in a "short read" error in
+> gs_usb_receive_bulk_callback(). This can be avoided by using In-URBs with=
+ a
+> length of 513 bytes.
+>
+> Add the GS_CAN_FEATURE_QUIRK_HSCANT_URB_SIZE quirk to allocate In-URBs th=
+at
+> are 513 bytes in size and work around these issues.
+>
+> This driver supports up to 255 channels per USB interface. The HScanT
+> device has 4 channels, but the firmware requires that each channel be bou=
+nd
+> to a USB interface via the USB request
+> "GS_USB_BREQ_HSCANT_SET_INTERFACENUMBER_ENDPOINT." Add a quirk to
+> "GS_CAN_FEATURE_QUIRK_HSCANT_BIND_CHANNEL" to bind the CAN channel to USB
+> interface 0 during "gs_can_open()".
+>
+> Link: https://github.com/cherry-embedded/HSCanT-hardware
+> Link: https://github.com/ecubus/EcuBus-Pro/blob/86f6e1bab0de/src/main/doc=
+an/candle/api/candle.c#L307-L313
+> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> ---
+> Changes in v3:
+> - Link to v2: https://patch.msgid.link/20260928-gs_usb-hscant-v2-1-a7c1c0=
+2460e9@pengutronix.de
+
+Doh, forgot to mention changes in v3:
+
+- described GS_CAN_FEATURE_QUIRK_HSCANT_URB_SIZE in more detail
+- use ensure that GS_USB_QUIRK_HSCANT_IN_URB_SIZE ist bigger than a
+  struct gs_host_frame CAN-FD frame _with_ timestamps, not just a struct
+  gs_host_frame CAN-FD without timestamps
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--lijdutfyrx7z6mrq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCar90hAAKCRDMOmT6rpmt
+0hNgAP46ihq46LXb49VfoB7onFyiOlmZnU7OOqX/twWcMo3fZgD+Oxj2nekgiifL
+nnypr23/NGCvSxxy8Lxh2DTabZeqDgg=
+=euht
+-----END PGP SIGNATURE-----
+
+--lijdutfyrx7z6mrq--
