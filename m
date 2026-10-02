@@ -1,64 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2762E4CDDF7
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF674DE726
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790954293; cv=none; b=WmIckzAA/LI+y94R76mhEDn/Sxk2a0o/lOF3XV2TDeO4bNrFt9O23aDpc2jT8sDSsfWRA6ilylgVO3hP7FN00Ba3rz9E6dAXE/boxiSGsFTOeEOtbwDPd4RGG5Ixq/hGzPQ/7KmOh1tGa4ht+3ZVSqi5tAoxfCeahQc5ZflJiD8=
+	t=1790954299; cv=none; b=BzLtVeayjEdCR/hWZNhpdcWn76L3xPZmwz3Qqlw8mo98e7TgIkpPwo9JBUPbO8zQHM2+Zg+ZDUQffg+Bn1uLrXghpR/EvaKPykw0rlHI3qporwJzMKgyZOqRYRpeN0ft3zg5RPe0EFYMRKCcTS23eg3IkfrxyYBUk21rxU7Is+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790954293; c=relaxed/simple;
-	bh=7THB1bL6y55WFNbY5y6Yh5aafq0UxTzyNixj6H7ABJs=;
+	s=arc-20240116; t=1790954299; c=relaxed/simple;
+	bh=48pnpLrsNRRFw/BuDP4IQLUokASxIvtg9aK2A4dG4uU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uyChZujQbVxq+IHTN9XXbrAQYzP27rh7vzAFooe31rO58g40aaxG98JArcqz+ZuqQBGsQpjvYg7VMl2N9heLHe07nK1A1LtCOXLuZhRdIGjk5pH0C3EQ+Mq4JEkLPytBdacablYraUfOwxIT/56RfPS4y3N77Xr8cGlTStAyf4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RecOqUnP; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=eaVKiAOdNknjmB1arJPLib30iRH6Pghr9F0dk1zn8m7/Pwka1NEjFeqAy8KObHM9LO0yb8ZwDqfPvmhPIxoMfeyHAIhZNeD21VvBFgknfppAfvmE9te0od1gkKrwmZRR0mE+kFuf9rNOVPOw5KApJU3iMyAiIFHZ0BKGj0pTeY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EZ30wt5b; arc=none smtp.client-ip=74.125.228.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RecOqUnP"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfd1so156600a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:18:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EZ30wt5b"
+Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7d7111700so1423907a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:18:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790954291; x=1791559091; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790954297; x=1791559097; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CaFaqYtL6ykn5j8JV46Jis92rLHH6YNIdL4TlyVyI/Y=;
-        b=RecOqUnPMDxGl+jyQlRm6qyroTQmhwUPJ8x9PWnbQWMGOZrRGcf7lyh14d5I1Wew5L
-         di2PaEIZdhdtcQHXt4v7mc3vS7uD6osTfidS+PopK8rqUijavsUkNdp0zwwXMUDaXZ6g
-         s3d9cobbl5tP3VHdvmW+PvfZWkVR/+R3zNd+zQwOfi1Hk9HYPYqVo02OTEaqtM1jXr6Z
-         qdn/XGfR5eQ5nSb6P8nY1OWol4yzfmr8auKpfh2deyYdrX3r4/VU6RJqHBFiZXdwX7mR
-         EN3Ry2lnQGdljpbrUjcMo3tksT0nBHchCOBazF/bS0EgY+0lmMEpOv7+b2JypG/7Vt8v
-         6LCg==
+        bh=rZO64Fd7np0oAanh2aG6LBLWQXHVyyFIOZxkTvF0HyE=;
+        b=EZ30wt5bO+s3XYB3QHtBaphLY6SvJu2sZc5zUQKdyAr+ACgHRxyO/h2kSa/iqKjkjN
+         sxobQRIYtj78Iwrxxv3C00/5Yc2Can/DMhaqhgQgRnCn4yga3c9Hn/K8+CYIAqCxeety
+         X/9YBh4GPFm3MQDSKWWZI99EXCpDPcuUVcJ8Vyoyrxb/wkc2rfHzG5K8OD1T7CxKZrVI
+         RvR6TTnSJtaDESd5Zr32Np6xszcMDLPPTBhrkt27Jboim+YxhesLRA1RNHHqZWGrxTfr
+         76l1Tlo+txkNPrwU5IILEJDLMuOowytrFdf9kAGUsPIjcUKaWVs48KcOgzpJOpW+DwGO
+         UWjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790954291; x=1791559091;
+        d=1e100.net; s=20260707; t=1790954297; x=1791559097;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CaFaqYtL6ykn5j8JV46Jis92rLHH6YNIdL4TlyVyI/Y=;
-        b=LXueigZkL4bYMXsx7rbmzJ1vUh4OFobG6TDOZIl+X/bd9FP494PLmuWPvOPll8cj5w
-         i3m9vrH5JkCfg1lx7FFL8SKE/baT0ruqGEE9RbV72XvLjo+NtaPYHM9BfE9XaD+wWclp
-         Z5/STeIvM+/wuxxkxpdCwyzzHrfE/ECqvuWWwnbIekfpIh6Id1Ur+CJgo/y6Z2f01mT6
-         RROayVhnEWBpiv6AGlmvOQ72ZYfe8lBGWDAvtqKdgzYAlgaAeu50U3T9tYFQgqOjp+Yb
-         ukFJMVVW+4F04SEp/v66nDqeE9MCoEARG4KZEFX4KScgxvoLWI2FlUo5FOrss7fXsLci
-         yPvA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkBREmwI7nCYyI3TxoZwWfCZ0Drt0lAU/vAnCBB4OSBzzQfLQ9yH1uTAPIRFg48L2Zfrp0Wj56vf8WHKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhl/nWDR63d5C+PRAddRglJbdVP4Olz1bQ1OwlvBiwXm6TcdhQ
-	yKxkCOmw+UOUHh8ho6dssjlE1RbK3inu975oaVZ44Kt/9VjDh6w6By8n
-X-Gm-Gg: AYBFou2ssM2TZT5futIzo/ZwPJXWJ/toAvnjI7O80aoS0f3dYVd532JQRR69RQZRFE8
-	V/+zWPxc7JILBYN5eCeIEJqV5fj8ikpKczFfEZUezHMDl0AoRs98whfAyuLGVPjQmfZqIMgmpyc
-	OpruE/0wGrFxzfBUJvbQG0PaLDwaoKW2Zps8P8HtDkn9YUTIgn8n8ihTfRgpoBxF74SkBKDTo53
-	jbxqJiaV3aTpl7IZnEE5EaAHDp2hJb25FyTP31ZJKKk65DOxSQeI8GsgZUSo7gNLveu24EVywwI
-	OnZ499GOTDi9wMsF7bMZU/80VjTh2GPWIwgedZeVMV7FX8jyxZSTYYglUCxCq8kJh2Bdq/hIWZ5
-	btFIkR9cFLPoEuWMlD9O4mpbvYycFpMbKXPFPpPO3VHW/qsq3qiid8oDtGKsTuNhQJtCRl9n+7W
-	raT+HgeuOeufEGBqYVHsBR7llHGW3L96rzyadlkUQAZB+Fz1DJF1PV8fdUylo7qenmWrLDsOYDi
-	7Z0qQHWal9TMWcaMw==
-X-Received: by 2002:a05:6a21:670b:b0:3d2:df:1854 with SMTP id adf61e73a8af0-3e0bcac222emr2755480637.6.1790954291088;
-        Fri, 02 Oct 2026 08:18:11 -0700 (PDT)
+        bh=rZO64Fd7np0oAanh2aG6LBLWQXHVyyFIOZxkTvF0HyE=;
+        b=jtMnZd5zZt7K9zI2f1a8m5CDGQQiRu3PqIwqotfa682uq3cmXmLHYOnAvKw0GPSMnw
+         z1Q3xRf87HjMLXckqEgNV2NH9acyUL+338AB35Wl8K8SoplCQRP17HEWUxgA0jIQ3CM3
+         fHWTiQy8omKZAC+E6X7vx/+bkUUoX9NELttnO6JXQ0x0I2pbFwtcpD7fzASGWzNwz6Vy
+         VlNECuTNRQmRANloW5f2CY2SObzTgT/EgSKFzG2iLwAeyIyoZ63bJfjiS/HV+lXAzmF3
+         hpeSvOc7/aBS6e+WHUt2M1IttwCsfBkpSZT9oir/FB+OsXxM+ylJEnDtcROI3lbSeJOH
+         6ljw==
+X-Forwarded-Encrypted: i=1; AKwUvBzaB/0xdjVdQkK8X84w1GmJztn83GzDvvyEz9S4KIg03e3DdrS3LqI3ixIm8XpzCkY84OrzbTyFbqGAHJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPwpFqnE9H5uPaHmtUOLlTw10Wyu2ZTRPADYxcJx4zqyCPVewG
+	WXvr6cbBAjjFHwDIL0qMkBqLPtMioOjwuFSFDK/2Tjlp36Ca9X3Jll63
+X-Gm-Gg: AYBFou1Dm5xBmVcJoDT4ArodwH2riQvDwWVMlF5FAmCwOKMaKuspHFchzClTws19npz
+	TIORk+NPSLs2DX8hJBp6eKwiMd2uf9sTzw7UHDYKHPtxquBSlRhqa4cxt28V91vkl4dFC6NaTIV
+	GDMcbxu0AuMk5NqLzI4RlRwXCog5kW4jq1HPQ5D1rSMYNo8PGDT0h3RzqlaTzsyo2avgnZw4OlZ
+	0tAEJrU1khhvqKChzqU0FbBDx9gp/m11O72PADJEzc3Js1xQnR/8reanYPucQy7Qa6IQnFy3vS0
+	LbfD+Os472nTmYVfAUvn98H/bLBHruOZXdMUHx0ky0z+AOYgKc8vVlOi09cd0W5yVO69nkh81GD
+	7YDlq/Dgese6uuPbLY2zHz5y/bZLSOJay9DJlq40njlVs7x1CB0h48CZQiFYp+F0Z5YFGJa6HFY
+	NYE9/GwTzk0BuEYBwTV0HK2phUuZexp1WbWKqa0Xxn+NlX3Vw1X7CdVz6HuPSh/HujP1+hgyXHW
+	sWTQtR+3iuTWXcKDQ==
+X-Received: by 2002:a17:90a:d60e:b0:3a7:a34:6f98 with SMTP id 98e67ed59e1d1-3a70a347737mr571685a91.54.1790954296137;
+        Fri, 02 Oct 2026 08:18:16 -0700 (PDT)
 Received: from kernel.tail6741c6.ts.net ([185.220.238.43])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f73551f2sm1166635a12.7.2026.10.02.08.18.06
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f73551f2sm1166635a12.7.2026.10.02.08.18.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:18:10 -0700 (PDT)
+        Fri, 02 Oct 2026 08:18:15 -0700 (PDT)
 From: Kunwu Chan <kunwu.chan@gmail.com>
 To: arnd@arndb.de,
 	anna-maria@linutronix.de,
@@ -67,11 +67,10 @@ To: arnd@arndb.de,
 	tglx@kernel.org
 Cc: linux-arch@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Subject: [PATCH v2 1/2] rwonce: Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU()
-Date: Fri,  2 Oct 2026 23:17:55 +0800
-Message-ID: <20261002151757.3605081-2-kunwu.chan@gmail.com>
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v2 2/2] timers/nohz: Mark got_idle_tick accesses as same-CPU races
+Date: Fri,  2 Oct 2026 23:17:56 +0800
+Message-ID: <20261002151757.3605081-3-kunwu.chan@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261002151757.3605081-1-kunwu.chan@gmail.com>
 References: <20261002151757.3605081-1-kunwu.chan@gmail.com>
@@ -83,51 +82,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Per-CPU variables are sometimes accessed from different execution
-contexts on the same CPU, typically task context and an interrupt or
-NMI handler.
+got_idle_tick is a per-CPU flag set by the tick interrupt handler in
+tick_sched_do_timer() and read and cleared by the idle path in
+tick_nohz_idle_got_tick().  The flag is intentionally accessed without
+ordering or locking; a concurrent set can be overwritten by the clear.
 
-A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
-intentional race but does not express where the racing accesses are
-expected to come from. This distinction allows concurrency tools such
-as KCSAN to tell an intentional same-CPU context race apart from an
-access that may race across CPUs.
-
-Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
-to a per-CPU variable which are intended to race only with accesses
-from other execution contexts on the same CPU. For now, they are
-simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
-and tool behaviour are unchanged.
+Use WRITE_ONCE_THIS_CPU() and READ_ONCE_THIS_CPU() to identify these
+as intentional races between execution contexts on the same CPU,
+rather than accesses that may race across CPUs.
 
 Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Suggested-by: Paul E. McKenney <paulmck@kernel.org>
 Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- include/asm-generic/rwonce.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ kernel/time/tick-sched.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/asm-generic/rwonce.h b/include/asm-generic/rwonce.h
-index 52b969c7cef9..4d4e009a4489 100644
---- a/include/asm-generic/rwonce.h
-+++ b/include/asm-generic/rwonce.h
-@@ -61,6 +61,17 @@ do {									\
- 	__WRITE_ONCE(x, val);						\
- } while (0)
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+index a7893a079a83..eb6065c8a90d 100644
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -269,7 +269,7 @@ static void tick_sched_do_timer(struct tick_sched *ts, ktime_t now)
+ 	}
  
-+/*
-+ * {READ,WRITE}_ONCE_THIS_CPU() identify accesses to a per-CPU variable
-+ * which are intended to race only with accesses from other execution
-+ * contexts on the same CPU, e.g. task and interrupt context.
-+ *
-+ * For now, these are simple wrappers around READ_ONCE() and
-+ * WRITE_ONCE().
-+ */
-+#define READ_ONCE_THIS_CPU(x)		READ_ONCE(x)
-+#define WRITE_ONCE_THIS_CPU(x, val)	WRITE_ONCE(x, val)
-+
- static __no_sanitize_or_inline
- unsigned long __read_once_word_nocheck(const void *addr)
+ 	if (tick_sched_flag_test(ts, TS_FLAG_INIDLE))
+-		ts->got_idle_tick = 1;
++		WRITE_ONCE_THIS_CPU(ts->got_idle_tick, 1);
+ }
+ 
+ static void tick_sched_handle(struct tick_sched *ts, struct pt_regs *regs)
+@@ -1246,8 +1246,8 @@ bool tick_nohz_idle_got_tick(void)
  {
+ 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
+ 
+-	if (ts->got_idle_tick) {
+-		ts->got_idle_tick = 0;
++	if (READ_ONCE_THIS_CPU(ts->got_idle_tick)) {
++		WRITE_ONCE_THIS_CPU(ts->got_idle_tick, 0);
+ 		return true;
+ 	}
+ 	return false;
 -- 
 2.43.0
 
