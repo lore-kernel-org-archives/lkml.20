@@ -1,182 +1,136 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1DF3EC689
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968240; cv=pass; b=Pt1HrzbeRiQwS9euxwlv/Ke51uogJMnWxCiKYBQjVrcVB20uRxSGtXEJCJMfJcRGzXGBTnVrO61OnxNTUjSKlMTxea31C/RNnErBA5bJbkk3LjKr6VkRJl0jZ4bE+oXAvK5D8/Mlfkc/HXGGFMM4jSiosH1hhbQMol03DPCPdf4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968240; c=relaxed/simple;
-	bh=bsxydAaPsvIqgzCDdgepFd5N8ZM77CrkcYUouC6m0XQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SzI4vn45DP6rqQeTy+DHA48WmkERK5FJBjLJKHS7xeSqOuCQTNwR3KjP27rhees8mwNBpKaCuLHmN78R3sFUS1gNffhQSXgz6f5kKEvrIRJhazNI6hZG2wddvk77ySPsgbbdKk6dEUWq/QewHYKpmKaahLzA3HRbnNCbnzqZ/AQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MpWUieh5; arc=pass smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BEA332EBC
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790968248; cv=none; b=aIHXZSmpYB8KuI+Sz5wfh6isFg47M2tY012mYHDd5yEZFQjO5DMPFwSL7AnQJaCD8KwYlkE9M+qe3ukL1z+vrmd7OQWl/otGoif7BKxU8aNEosMcbc4ObJByVWD6HH7syuAUytl7oTwaALo8P9KUKvwvwFXPCr9kP3Q54fxpOjQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790968248; c=relaxed/simple;
+	bh=38O0AiYv7sXZCfgiUvA0Jw+V6OPDeMpifWbiiyBPEcA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gYqLzP1dJbKYZaEok8L9Jzp9fqoo6Isbsy09njtL+liEbYM0wjhd6JGc8N459sffMzlCQDr4aODxgeTv4Dzu0zbDqNcv3tIO7g8PSkJ25Mt/GV+0xhSte32crTAUBvhz6Xh8Hn7/SHukffk5Dz+IDrjZHm4Loh3GxbL98TP8FU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O1s8x/Wb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=i9tukCWK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MpWUieh5"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7bf18d0c220so1073641137.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:10:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790968237; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TMBJRKIgO538tE7zCmyXLN8MsmpjZ7Dh/Dfg6mF8Ro1XFA72PgG78yelh1gzpRl6JT
-         9PrTxqvKZigtrRc4OxkgzCkityDb6ZQNoAdkzMl5iUg7r+CRQRU9BiJnd6X6KxtuBNF9
-         8dgcZZxjHVsR5YaPeONx8XZdkxVCYEdk/fHocrnSK0fArRyw3m28xfkT4YaJdkYszf15
-         Uch+YRzicFMMMIXYEfFticCrnI9ub5Lb6r49BmQZgJbB7Z3yVXJ+GOJJIPpFvmq8RfbD
-         CCdH/Ti87wi4zrK7fBxMphHP5BURV+ZZ321aYG3mFOFH/RoJZhfYdcEq5Wzlie2dfiPQ
-         oZGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
-        fh=aq4hAYQXkIq3cau5a7sraLRtZ6M/qTRt6ExBjmPhKLM=;
-        b=HzyUBooFW9x4/Pg19KCF9aXG6G0hNpxAEgCHP1Ovmdx2xOXl1DuIzWQpLySqNngGET
-         3GcYGGlibC23VIQ4tG8jiGnhqzFVhMpuXJd6l7drTFdBj57jQP7eQFOSBrJY9IKcl0s+
-         r6EiSKBS1k6rVzW3fr1sTJaYgi7iUqCBtFSDxTnkz9g8wFOTlPMI/1Jnbewa3WONN4uI
-         F8J0uN/CBB24J6VtIe5BOIrZliORZRE1Kzu+QS2FqMw5ydgMx4D5SV4UVOYnYjh0lQ9r
-         n/IVy5CeJkHtKCYJCjtTZ9PH/k29drY9p9x7+6W2tHX5POBODNBskPLQgAziWhghtPx9
-         JvJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O1s8x/Wb";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="i9tukCWK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790968243;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SqOef5FaraL1edtYgsKupndEumwwwfe19d9XZdXNw+I=;
+	b=O1s8x/WbHLcJT6nmwv0KDAgyJw9/yYj7aTCHTPt5rFcx8UUf4oPmbM1+O5OOoZkBAPjtIC
+	UjZ/IyWoDOQL9GCUSBD1EdZ7EPQn0h9BgkS6iWJ08r8A82VdcEBpw0+tJoE+ulYjF+QXqn
+	EMFV3oOq5JmpIpCaZbJSrwRToaRk3Fc=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-594-Df6B1ONBPOCJuvVHW_X0tA-1; Fri, 02 Oct 2026 15:10:42 -0400
+X-MC-Unique: Df6B1ONBPOCJuvVHW_X0tA-1
+X-Mimecast-MFC-AGG-ID: Df6B1ONBPOCJuvVHW_X0tA_1790968242
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb7f9bb86so448133185a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:10:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790968237; x=1791573037; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
-        b=MpWUieh5KV2AG+IQIUSpElS5gIlw8r9GB3j/emKZ2T+UAwxcPLdIPMYqDP2I7FK7k4
-         I62j9w0rfucSGqTGSn8CVwvj5biGK5bIjNmJSanbRm+xoMviqve7fvujZsmrAF1nVm7R
-         xe0Gq3Xno/AJm1/NvpyFz01z2PfjEShFwEwbvmql+sdF4hK8AvNF2okxL2MQzOKtPVGr
-         bZw/xN4hNUdXGTNZzsLlO+9YwTlYZiD2y8knzusoKcU8LEKVtvJU/GK+VeLcMcm5dEjK
-         ezgQGE+yFuNK1AgOzCHyvZewbuKvQ5WiVcWt7G3TbJRLSvD05V7IXkGBsNt0GsJllpZ4
-         B5og==
+        d=redhat.com; s=google; t=1790968242; x=1791573042; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SqOef5FaraL1edtYgsKupndEumwwwfe19d9XZdXNw+I=;
+        b=i9tukCWK8tTrAx3Eq7Gidiyg3HaP9rWy6Q+eoK4pCmG8TeZNn3vwWqkiemcK9JDZKj
+         hWzXRXGsOwNR4wFxebn7mrUwvMvzDphDsEZyK1CaSW7YWGEZUSa80r4kI/efX8NNzy+l
+         pjVFa4b18gBkFtY3ayeJynx5JO747j7BPHYMeKP4fch+zDDvinwSgml1RNiyBFVXLsmm
+         o8Z0TMMSBbLUjeR6K47GfHmCw1z0KBHBbEQ7iDT73u95Z8L3YfkoO3guQ0KoJmwXEmlf
+         Zmwi6hpO9BrLB7h1EXnygrb9ycKxNSpIQ44VZWz9LDdYvKKLy1FDK6moFiypnSlZZrSW
+         Z6Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790968237; x=1791573037;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790968242; x=1791573042;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
-        b=s+4d0jopyG4YW8CkcwtnPwybn8rTPFy/khjy09AutUU1wfWDZ5waPNjsgry7fsM2uc
-         4RuLmr2UHwjVkNBQH7Kl6MB9cxriTBvT34Ttfk67IZ6TwZLUexzoK7S0rkbBs/ndo62C
-         L9B1LGpTxGV1ybNFthnPE3aK1kj3GWHZs98KHGZ4MidYK7mL+wdLGM7uRiPtsLBvmJ4r
-         pTw6PqrRY+kwiGhRSvps77LdxeaD8DoSRXEko6sj6KlKc0LueCQjZBl/SB5b14RFQPht
-         /cC0O6eXPNV5nccQbz6UlSREpuxq9RcguEOVoLvkemNMb1eoVYl+7/3DW/vw6qRRSsF+
-         HWig==
-X-Forwarded-Encrypted: i=1; AKwUvBzLjM8UasU8HwRW0qhmBRJYR7SzSRndCI2tUaAp39xmz34haqoa2M3xQo1ismOv9k1rPD7rE4mC6Rcoh48=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKApm45HQfvXLimZIdQelk5aZR+CJgyQOj510iSLeKS6Z0vi+R2
-	yU3ztWHz2iUM4ZYht5A+3NUSjdy3QOYJQAmY9Xf+cPyQ5duYa8FT8338MAyjCroHGpK0yqNuEyy
-	XCB02unQ3ps4qfWqfEYotcQE8CRkk+PKtm+YI
-X-Gm-Gg: AYBFou0CVK9BMpf6xiXUpIy5iIBkQl7Qj0gD6HaEdJsJiEyYZblw7s0HyU5B81jYz3B
-	M8AHZ7Zs7/CCWEX5m2kLLAKnOjus3Q0x9WNhneGWrjFRg3WZrBBVFvjaLi0K8vnbBOXCgI96Du/
-	BeMANEgBg2QjRVDzlZG9sgXwCY+usr7Li4MMaMRuSRvF6gefuxdRHhthu+poyDI2Nc/wE8GhFzW
-	qWjd/lbxv+OXA7ksMzEIRLDX2Zg2A5GELQsz36FdRENNbw/ONTPzP9MHdeOfhukDruJZ5Hq9bB7
-	oV9F27YIfU+QE5L1Ka5Srztqq0SmdSm6pIu1yrI32aLpvKcNPsyIcznpcrar2zEYS5H7DgJFcku
-	nRcdYFXFo9jBcoGhG7MbH0BOhSnmIrSPBYQ==
-X-Received: by 2002:a05:6102:e0a:b0:7b5:4700:3a58 with SMTP id
- ada2fe7eead31-7c0f54adbebmr792755137.31.1790968237259; Fri, 02 Oct 2026
- 12:10:37 -0700 (PDT)
+        bh=SqOef5FaraL1edtYgsKupndEumwwwfe19d9XZdXNw+I=;
+        b=UvwL7/tF61PN0ihuxlU5scZMpFj53Yh0kC4kWnLINvRO4JS8rowXUAIyFSroamffXI
+         Fd95v3tOazrHV3/HjPnxANAo3PXyjXQCQRW6WkSPUqqcgOdpyijwM98ZUp2L2LPZyxN/
+         jQXG8mxchA4bUgVVekgk1VGLezxGTzGce96bwowMWy60hsjDJfC+V5nuUVGd/8MiB6d6
+         d2Qf1nmc+gRmeh/GgQCKQLRANlSdNWBMJJdhVH3LRSGi/GRWIkFBo9ToVtD0sjeEZA7A
+         vYrZQMw0mLQ7uakS8goLelFvBJnkit4CG1pkWpkzvTyFKrQXQc2JiJ1AtLRccLA0fBpO
+         IVUg==
+X-Forwarded-Encrypted: i=1; AKwUvByNwdecgpvAjb7M/SWJVl4syE17pYNibbVQMueE2E0pszcQWHYKCczkaxwwc3LH/y+Am2igFVYuwmoWG8E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgh6qNP4oqcaG+S3rUe8+L0Lnm8uJSKBDUM7HY9ZGdP0sap9AX
+	hWe5p0S7aJzXlrpxdVF2q5IyPonMdWuh+YtooT7bAUmt8y9R4N8RCez4Q0evyyizLZCvxT6qp0z
+	iUo8xWSj1BausEV2+my4+DfMmn1bnY4cJepNYaBj3+O0RY4zoNRhQirl3FDgoH3BG9w==
+X-Gm-Gg: AYBFou0dxuVbyUUW6SvkGW7CwKpkMOVr5kJwegql2O2jrKwZViXYZSxjAG+XGta+qOR
+	bTsP3C9ZkyG2nzNrPdpWwi3HxL/Xf7f5b8nXhtkXifuiUAIc4sghFZGkRDA/7NHh6A7J5jX41Yb
+	QYqYOMPREwLufUwCqJjNfVdZP7kY38kDIsmKd57LiurCth7fmfu83SfG/dEyGzbRB/vXVYba9Jz
+	cuaxCF2of56tnvzvvkTbMGJZ7cTJ65wWh/YQRrNa2LEMcKwahM5A6EdYn/RpJROkRmotlV7daDt
+	baYzEn5l62S7nNz4lLdOf6a/9xME89AMx6DFGhbwahuFhPq+5zSNBo90pAiBgLe19JD8hiJu2mT
+	B0nKaDxsHu8FyAw==
+X-Received: by 2002:a05:620a:278a:b0:93b:d7a0:d9e7 with SMTP id af79cd13be357-93cf19d98b0mr663874985a.65.1790968241785;
+        Fri, 02 Oct 2026 12:10:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:278a:b0:93b:d7a0:d9e7 with SMTP id af79cd13be357-93cf19d98b0mr663869285a.65.1790968241277;
+        Fri, 02 Oct 2026 12:10:41 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb ([2600:382:7723:4eba:66b1:961f:1a2d:af55])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e457a4e20sm177796785a.40.2026.10.02.12.10.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 12:10:40 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Yixun Lan <dlan@kernel.org>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+In-Reply-To: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
+References: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
+Subject: Re: (subset) [PATCH v2 0/2] riscv: dts: anlogic: dr1v90: fix clock
+ dtbs_check errors
+Message-Id: <179096822701.834873.13625187278784966753.b4-ty@b4>
+Date: Fri, 02 Oct 2026 15:10:27 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815-null-fixes-v1-2-0df9dda951fb@gmail.com> <20261002171818.281885-1-Capitain_Jack@yahoo.com>
-In-Reply-To: <20261002171818.281885-1-Capitain_Jack@yahoo.com>
-From: jim.cromie@gmail.com
-Date: Fri, 2 Oct 2026 13:10:10 -0600
-X-Gm-Features: AclHuK8zRY0hMOMSSnnxlFny3tvMylToD5uT6sSAGguetyweFEx6Xv_BTi4bCcs
-Message-ID: <CAJfuBxwGvKQrT_CVtvk7xX7pbf8WyE+LS=KAFyc9zSxD=v686Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/nouveau: Fix NULL pointer dereference in
- GET_ZCULL_INFO ioctl
-To: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-hi Daniel,
-
-thanks for testing this -
-I didnt want to screw with my firmware,
-but you're clearly prepared to do so.
-
-I just sent rev-3, with another null-ptr fix I need locally.
-Im pretty certain the patch you tested is unchanged,
-but if you could test rev3 that would be marvelous.
-
-fwiw - mine is a GA107
-
-01:00.0 VGA compatible controller: NVIDIA Corporation GA107M [GeForce
-RTX 3050 Ti Mobile] (rev a1) (prog-if 00 [VGA controller])
-Subsystem: ASUSTeK Computer Inc. Device 125c
-Physical Slot: 0
-Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
-Stepping- SERR- FastB2B- DisINTx+
-Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort-
-<TAbort- <MAbort- >SERR- <PERR- INTx-
-Latency: 0, Cache Line Size: 64 bytes
-Interrupts: pin B disabled, MSI(X) routed to IRQ 101
-IOMMU group: 10
-Region 0: Memory at fb000000 (32-bit, non-prefetchable) [size=3D16M]
-Region 1: Memory at fe00000000 (64-bit, prefetchable) [size=3D4G]
-Region 3: Memory at ff00000000 (64-bit, prefetchable) [size=3D32M]
-Region 5: I/O ports at f000 [size=3D128]
-Expansion ROM at fc000000 [disabled] [size=3D512K]
-Capabilities: <access denied>
-Kernel driver in use: nouveau
-Kernel modules: nouveau
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=638; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=CgnHm+pOx1EqQqkPIiwdM7WFpAfZXzamTaQBTcq0Abw=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLIOMK67m3Ay+Nfj4xaHN4q8WRyRc17z+nwBXWfeqNKTg
+ S/i4v5HdZSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjCRnzwMf/g6Vd3Fj0zZvYw5
+ 59vrz2JdzDF6dxfteFI0a+OuPs7sxhpGhusXj6rYutcsk9M9XGoSrvh16X6Tc91XZQUFWH/3ipZ
+ KcwEA
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
 
-On Fri, Oct 2, 2026 at 11:18=E2=80=AFAM Daniel Campos Ramos
-<Capitain_Jack@yahoo.com> wrote:
->
-> Hi Jim, Lyude,
->
-> This one repeats here every time.
-> Setup: an RTX 3060 (GA106) passed through to a VM, kernel 7.3-rc1,
-> Mesa 26.1.6 (Debian testing), firmware-nvidia-gsp not installed.
-> nouveau probes with "gr: firmware unavailable", so nvxx_gr() is NULL.
-> As soon as KWin starts, Mesa's NVK asks for the zcull info and the
-> kernel oopses:
->
->   BUG: kernel NULL pointer dereference, address: 00000000000000f0
->   RIP: 0010:nouveau_abi16_ioctl_get_zcull_info+0x17/0xa0 [nouveau]
->   Comm: kwin_wayland
->
-> kwin_wayland dies with it, so the whole session goes, not only
-> acceleration.
->
-> With this patch alone the zcull oops is gone, but the next NULL
-> dereference follows right away, in GETPARAM with
-> NOUVEAU_GETPARAM_GRAPH_UNITS:
->
->   RIP: 0010:nvkm_gr_units+0x9/0x30 [nouveau]
->
-> With this patch plus Zhenhao Wan's "drm/nouveau: prevent NULL deref of
-> gr in GETPARAM_GRAPH_UNITS", there is no oops: KWin starts and
-> composites, and NVK refuses the device cleanly (vkEnumeratePhysicalDevice=
-s
-> returns VK_ERROR_INITIALIZATION_FAILED).
->
-> To reproduce: a Turing or newer card on nouveau without
-> firmware-nvidia-gsp, then start any Vulkan or zink client.
-> Both fixes are needed for a desktop to survive a missing firmware
-> package.
-> Whatever helped find it, the bug is real, it repeats, and the check is
-> the obvious one.
->
-> Disclosure: I did this testing with an AI assistant, Claude Code
-> (Claude Opus 5.5). It built the kernels, ran the VM and read the
-> traces under my direction; I checked the results on the hardware.
->
-> For this patch, tested together with Zhenhao's:
->
-> Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
->
-> Daniel
+On Sat, 03 Oct 2026 00:28:38 +0800, Junhui Liu wrote:
+> riscv: dts: anlogic: dr1v90: fix clock dtbs_check errors
+> 
+> The external CAN and watchdog clocks are optional board-level inputs to
+> the DR1V90 CRU. The current binding requires both inputs, causing the
+> common SoC device tree to provide fixed-clock placeholders without the
+> required clock-frequency property. Consequently, dtbs_check reports:
+> 
+> [...]
+
+Applied, thanks!
+
+[1/2] dt-bindings: clock: anlogic,dr1v90-cru: make external clocks optional
+      commit: ca4983a301063d9cf8d0ef556883f90a94a0bd32
+
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
+
