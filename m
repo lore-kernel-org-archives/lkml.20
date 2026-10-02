@@ -1,145 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C173945D939
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A113233AD9B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976996; cv=none; b=ITetfwVpZ+Aq0Z4NMhub0Us8m6C7gN3JHikv8we3zeIdhUzsDjyw01K/m5gfGxMN4AssuSQRrkYPtXw0kLOhBMDTtX/mpJLjyHIQNLOm0hJPZjy/q0wzdeCJTwlnD0ae8bP/lQUOgobQfSenYCFr0ItKHyKp6ZbKv4eY8/idxrQ=
+	t=1790977055; cv=none; b=XcUQqH3IKZJ3QfeX4VOF5QGXiq5Qiwvl37q+czy7ycD07rQEXezozvwniGKbpH0IZzrVtOyHrt74t9qvAZVNTbQMcXpNAUaNr9T5kQ5AbGRTGaEz4j5rBgImNva5h9iI6A4FgTdjhaX/GSlVLj/VKsLHIxL4WboHgA39STvK+W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976996; c=relaxed/simple;
-	bh=0SkmrcqK3/V5SNi0TtrnPL4ttC+EtvZ3quhkJzheAq4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gD+WPIwuvLQimza2dLAjnlIpYjuCMa6qXI/7fomOz4faGRJRcHaCVTiujW4XM4fpPc4N3t/H0N92GJf2aLBa3oJ8pggJACO/0N+ZS1uLbxSRxmi8Eh85O4XACIUHvx/AyVZp0oz0UwStR8WM+abDkDnHIqYn2xyymmR4jHASy10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DKgDdwW4; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DKgDdwW4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790976991; x=1822512991;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=0SkmrcqK3/V5SNi0TtrnPL4ttC+EtvZ3quhkJzheAq4=;
-  b=DKgDdwW4RJ5uMzNuWGDqWZHdvZQB/xs2189AnqumEc/2vqu5Mv4b549g
-   6E81yeQoZ2cDJRMZAnwvJRRWlxJ4T6Yp4h94TVnIZ9irUduKOzscPUP47
-   9ubIWCA3AeorItV22BebIWPfA/ZR0+mnLk71bHHuKZRl76HmP9uEd8aNy
-   MhE34vl7qyCDWa3zpO8XqfaNSY5jeCw4X/bOaP1rTcameMRzEl5LHAURM
-   b1NK7CW9XTxIorRO3YbeakQMIthVlfvfllwuYH3uoo0eMYRJ5fel5D+Gj
-   hvnuyhMI3iXTW/3amyfVLbAVtnINm3Uq1DnD/4gTTzy4LS1lk3WGoYrU8
-   w==;
-X-CSE-ConnectionGUID: QCmkuAUCQgiF5s1VucWrmw==
-X-CSE-MsgGUID: kfNRANOgSGGHDqWYVliQaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="101078599"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="101078599"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 14:36:26 -0700
-X-CSE-ConnectionGUID: mtjbZGTAQmW9D0HeVJAV7g==
-X-CSE-MsgGUID: DBwWWoHBS3yaOPZA3I/8GQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="274150050"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.68]) ([10.125.108.68])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 14:36:25 -0700
-Message-ID: <b71a4c1c1ea96f786672f1c18f39a85252f4baa3.camel@linux.intel.com>
-Subject: Re: [PATCH v2 1/3] sched/fair: Add smt_balance and llc_balance to
- the decision matrix
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Jemmy Wong <jemmywong512@gmail.com>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot	 <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt	
- <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman	
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak	 <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 14:36:24 -0700
-In-Reply-To: <20261002154634.71878-2-jemmywong512@gmail.com>
-References: <20261002154634.71878-1-jemmywong512@gmail.com>
-	 <20261002154634.71878-2-jemmywong512@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	s=arc-20240116; t=1790977055; c=relaxed/simple;
+	bh=SUjaD6tIerY+rYMMjTk6ZmP0ta+AXSZOoHHDkrV3fkY=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ISQA+VE6QGMn8dD+/4vqQ+r48ciKQ4o2gbEPX0oM0FxV4UvMMb6rZoo0ExtkC4khDys9Tduxr2o7d1+dVbnfBVduqyA0Njcb2WxcQsjlWKlhaotDFCmkvTVgx2AVP11txltDKO/DepfZW1YaT6ESzqJ+nn8Fn4cSwwjuHIfnqNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d7ffab1so498275b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:37:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790977052; x=1791581852;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zn2F5X3Pz1I49VxF138KyXhfQ5DCV5OswZnHiOYaRMk=;
+        b=WkX9mb4tMqAQfYK2n5Ftp6tnIY08oLgvrrJSdw8TBFxB/jSwMqIg5ExZ4mZc36+cjL
+         7PP6bWS8zJsux8MCt4SMBKIqvmKSDP6rwnOkxtF8RoxPiud6GoC2jijzohdS7LKU3RQk
+         Xl0SKZbt7hsFun/XtWbKkj+fwNIClgVs9QsA7nilOccA2mAjnqnLBLliTI7n9bbz2zjg
+         uNvuN5uKew4BAsc9D/PDyr0pP1cBOZ1LLO/gsZz/rNEPWbcNjSgkEgk03Gl0CxbG3V5k
+         x8agtchKJr6/hW37uy1ZyZHLnTMQk8XQTt+MPrp9h37mNJ4gEOimVk0cZzNtgM6IdlLk
+         2ltw==
+X-Gm-Message-State: AFuF++ndh2Lz/Ge6+4x/fKO16kAI2LkvGFndONkYH9ZC45yP2ZGB6MeJ
+	9yTfs5oW433o8tvProQpzhCP7SYEvxa1si3omZjA4P1xJlxiujs6yM82Iep1RzDpxPkVoklrnI1
+	4k4ZkFADJGHgPQIImUlN8sPCOkypafpKktM75fP6zuwIijH90iNtumyKHiAM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:2206:b0:4e6:76eb:b991 with SMTP id
+ 5614622812f47-4f30a64c83cmr5348302b6e.29.1790977052608; Fri, 02 Oct 2026
+ 14:37:32 -0700 (PDT)
+Date: Fri, 02 Oct 2026 14:37:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac0241c.34119e79.2f92f3.000a.GAE@google.com>
+Subject: [syzbot] [kernel?] KCSAN: data-race in do_notify_parent_cldstop /
+ wait_consider_task (4)
+From: syzbot <syzbot+0f4d5234b6cb5e479e5d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, luto@kernel.org, peterz@infradead.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 2026-10-02 at 23:46 +0800, Jemmy Wong wrote:
-> The group-type matrix was introduced in commit 0b0695f2b34a
-> ("sched/fair: Rework load_balance()"). When commit fee1759e4f04
-> ("sched/fair: Determine active load balance for SMT sched groups")
-> added group_smt_balance and commit f38cc2f0d8a3 ("sched/cache:
-> Prioritize tasks preferring destination LLC during balancing")
-> added group_llc_balance, neither commit updated the matrix table.
->=20
-> Both types are only tagged on non-local groups in update_sg_lb_stats(),
-> so their local columns are N/A.
->=20
-> As busiest, group_smt_balance is only set when dst_cpu is idle and the
-> SMT group runs more than one task. Against a local has_spare or
-> fully_busy group it goes through the nr_idle checks, where a non-SMT
-> dst group may also force the pull via smt_vs_nonsmt_groups(). Against a
-> local imbalanced or overloaded group the local group is busier and the
-> pair is balanced.
->=20
-> As busiest, group_llc_balance is not an unconditional force. Against a
-> local has_spare group it forces the pull when prefer_sibling is set,
-> because the group_llc_balance test comes before sibling_imbalance() in
-> sched_balance_find_src_group(). SD_PREFER_SIBLING is only cleared for
-> NUMA domains. Against a local fully_busy or imbalanced group the nr_idle
-> checks apply, and against a local overloaded group the local group is
-> busier and the pair is balanced.
->=20
-> No functional change.
->=20
-> Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    5e0f8396d480 Merge tag 'hid-for-linus-2026100201' of git:/..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12a48bf5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
+dashboard link: https://syzkaller.appspot.com/bug?extid=0f4d5234b6cb5e479e5d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/a60e785a1197/disk-5e0f8396.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a44e17a91920/vmlinux-5e0f8396.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/3cc64997d7b1/bzImage-5e0f8396.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0f4d5234b6cb5e479e5d@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KCSAN: data-race in do_notify_parent_cldstop / wait_consider_task
+
+write to 0xffff8881049cca94 of 4 bytes by task 6287 on cpu 0:
+ wait_task_stopped kernel/exit.c:1369 [inline]
+ wait_consider_task+0x5db/0x15f0 kernel/exit.c:1555
+ do_wait_pid kernel/exit.c:1657 [inline]
+ __do_wait+0x33c/0x500 kernel/exit.c:1692
+ do_wait+0xb6/0x230 kernel/exit.c:1733
+ kernel_wait4+0x19f/0x210 kernel/exit.c:1892
+ __do_sys_wait4 kernel/exit.c:1920 [inline]
+ __se_sys_wait4 kernel/exit.c:1916 [inline]
+ __x64_sys_wait4+0x91/0x120 kernel/exit.c:1916
+ x64_sys_call+0x108f/0x2550 arch/x86/include/generated/asm/syscalls_64.h:62
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+read to 0xffff8881049cca94 of 4 bytes by task 6289 on cpu 1:
+ do_notify_parent_cldstop+0x1fa/0x2f0 kernel/signal.c:2396
+ ptrace_stop+0x2fa/0x590 kernel/signal.c:2514
+ ptrace_signal+0x52/0x240 kernel/signal.c:2820
+ get_signal+0x799/0xf10 kernel/signal.c:2999
+ arch_do_signal_or_restart+0x96/0x480 arch/x86/kernel/signal.c:337
+ __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+ exit_to_user_mode_loop+0x15d/0x8c0 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x212/0x360 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+value changed: 0x00000013 -> 0x00000000
+
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 1 UID: 0 PID: 6289 Comm: syz.3.813 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+==================================================================
 
 
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> ---
->  kernel/sched/fair.c | 16 +++++++++-------
->  1 file changed, 9 insertions(+), 7 deletions(-)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 57360f5cdde4..bcb9987952b9 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -13184,13 +13184,15 @@ static inline void calculate_imbalance(struct l=
-b_env *env, struct sd_lb_stats *s
->  /*
->   * Decision matrix according to the local and busiest group type:
->   *
-> - * busiest \ local has_spare fully_busy misfit asym imbalanced overloade=
-d
-> - * has_spare        nr_idle   balanced   N/A    N/A  balanced   balanced
-> - * fully_busy       nr_idle   nr_idle    N/A    N/A  balanced   balanced
-> - * misfit_task      force     N/A        N/A    N/A  N/A        N/A
-> - * asym_packing     force     force      N/A    N/A  force      force
-> - * imbalanced       force     force      N/A    N/A  force      force
-> - * overloaded       force     force      N/A    N/A  force      avg_load
-> + * busiest \ local has_spare fully_busy misfit smt asym imbalanced llc o=
-verloaded
-> + * has_spare        nr_idle   balanced   N/A   N/A  N/A  balanced  N/A  =
-balanced
-> + * fully_busy       nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  =
-balanced
-> + * misfit_task      force     N/A        N/A   N/A  N/A  N/A       N/A  =
-N/A
-> + * smt_balance      nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  =
-balanced
-> + * asym_packing     force     force      N/A   N/A  N/A  force     N/A  =
-force
-> + * imbalanced       force     force      N/A   N/A  N/A  force     N/A  =
-force
-> + * llc_balance      force     nr_idle    N/A   N/A  N/A  nr_idle   N/A  =
-balanced
-> + * overloaded       force     force      N/A   N/A  N/A  force     N/A  =
-avg_load
->   *
->   * N/A :      Not Applicable because already filtered while updating
->   *            statistics.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
