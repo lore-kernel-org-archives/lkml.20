@@ -1,39 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC5E25F7B9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C5641168B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975781; cv=none; b=lqPGHmxPkGa9/ca2WOevbkzxxPjU0r+mMfGmZNl+kGQjygOwlKBjq9p6wDhPQJs14RM3Wle6QYwupSggiTCN3Vuq8lz0PZCKaTunwoj11ekNiuYEvSDstm9TjaNJJR+yV/is93OkxUqYgFAXYk3MkOB1F/1lzn1OAY5v9bWJMPc=
+	t=1790975798; cv=none; b=hTzjaoSaw9bT3gw6Qn5EuTdcrZ70FePjMlsavIktEOIQ4oqzbzidB9wpibOHbXc2e7wh9g4IfMJXpDzj0nEoR44+bWIclQzzU8YbmIiv89EkXfWk4LoFUdb6V06ChUgfVlfc6jRj66Bo0MR/RlPEAyqvky41/7HKLJwuLpc3LHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975781; c=relaxed/simple;
-	bh=iWJINnlDrOftowfoGhxkJf705MBebOzL7c4W6AMdQ70=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IydbEm+Q5fW1DuGRCiOH7CTe/cCwNQlpGpoCD+N5zOprSxKdr8CGnrO3dd+lsHZcd9pfptuNDRrFE3ykNM0vwNnW5/azsmX/H+aZ3LFoE5e4gljzb9EunSCf8gThg0z3HMiNRPSJd3g3r2QTqDbeE3GfrIVtporjuU2T+Y9S40w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fB79RhAe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790975798; c=relaxed/simple;
+	bh=4D4aVPOSEl2A+owPYn+PFyy4iq7bP4clkJ3jbHNggNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lUK5cxYMghUw0w4znHC3d85THS48dclEM2LglDRsmCxn/RBf9W+EAdy3XTdqrk6oPoKlLLkuuG1Bz3ZxZkDjrJzhjd02BM+k/Y+0NshUrSYHT/DMbV7Qe4lk8O+E1y8piIAjJ2lk05Y1hPpRoS6iRU9KaKxxItAGZasZj90l8VE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=noroxi.com; spf=pass smtp.mailfrom=noroxi.com; dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b=R1gbvmoh; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=noroxi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noroxi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fB79RhAe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F2B71F000FF;
-	Fri,  2 Oct 2026 21:16:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790975779;
-	bh=OKYnKgYrHClMD1obTpPvxEWFYDGIOLzE5fVt8z/a5gk=;
-	h=From:To:Cc:Subject:Date;
-	b=fB79RhAevy+lGoRCC9aSnrE2JEX8D24OumGbd7yfBddkzY0E2VKiH7n/5fIP2C/dt
-	 BevKf52tBD3QQXRR84OGfhMC+GNQoXqyY72uwB7N73OISOivowwNNtKzHrCT7T5ZcL
-	 QGtgCBV54giEdTE+ksx8MVpog/1afiw8h+k4BZGRQlVLlgPSJwzIRuOcJ+VMvvIK5k
-	 48xtreiX7cSTHZ/CBbevtU0tjJRcZJByPmG99JMpYOhCNyocO5ZqGEK+jYjKx+wZtc
-	 RFiHea44dnVAlurC073PGNwM0EKW6AxQXHN58D9zWV3djoC+r8CHIcmSE4aCWMs/ri
-	 OPxKpLr+UeaKA==
-From: Borislav Petkov <bp@kernel.org>
-To: X86 <x86@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	stable@kernel.org
-Subject: [PATCH] x86/CPU/AMD: Fix AMD TLBI Erratum #1718
-Date: Fri,  2 Oct 2026 14:16:17 -0700
-Message-ID: <20261002211617.1001617-1-bp@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b="R1gbvmoh"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5bb5d3229d1so1158754e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:16:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=noroxi.com; s=google; t=1790975794; x=1791580594; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VZJBRY4CFdwM/oZuJvFUBIMnKMIGNgLTvno3oAn5Pmk=;
+        b=R1gbvmoh3QCIpGDFBx6Xn8S+nCZEqmpPUDmBTcQKKlyTj/+KSm7ryGZ7EbtNxqh+wg
+         ry/R+2gVZzSXlAsxghI9TPcEWT7OGgPk//ifuMztNJshC3g0FzaeD25Axs3TcMpiMqV+
+         LTieJA07sGOV4ov4qn2VF6ZD1WjfxmyCXoKkeaoauIgSAY1ldVMOGb2AKnyDE6fJ3+AM
+         BMy36HrYf+A+O9vO6LqmW+qRwbF4TU+XafWY/Ly/U8VTLVCLtlIoBguLKsO7TIWJ06J2
+         RHcf1QhY4W1j7Zg9yV+fiSR1FLWMwNAkU9rmfbwGTiYg15vP7dgV3haIsQU8vOwWKNIa
+         vGSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790975794; x=1791580594;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VZJBRY4CFdwM/oZuJvFUBIMnKMIGNgLTvno3oAn5Pmk=;
+        b=SpHhXJa/ctDJXL5XCRjPCucwXUr7jKfQHrRUGBKGY0iS5U0bE1m83cv8rAsLUtDYrl
+         zKzwDFQ/x/ItYC7sX0Ke0ZuoDKLDIzquSL4YJKJL+GRXwm41xJKWuf6GNf9ewOOAqOAM
+         7ZTw5Vhn+0G84BBPLQQGsS3kHTRmLxl7kmq22dATZBBLQrHmvGqcisNJCrSQujb3jHcp
+         niA2tvWuIL5045aAVSM+M8Pq/+dR9H6qrmOm/D3HdT221juQRpUteE+uBDZxxiOMzZ1c
+         5c0ovvGyy0Ea1w/+TMQFBuE8+zfWVtrvdWb0FxME+wPsUgNGrxgpsGEZXRoEEyswiH7A
+         21kA==
+X-Forwarded-Encrypted: i=1; AKwUvBx7JasDmiuws+gxMya/YSYh3FdUm+VhkSOd9B8X56O0wj/zSK7y4oAxLO59phHZeWNFBtpXNmpZ+IaA8L0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9sQPnnOBpFVGqZu4022jH3H6YjyDscwFo3WjDV3mHErZvm4Yu
+	jaEvWdugM4Ywn6cAAwMQEDPKAE9xtU3V6Q/hXkQEatLndszJdCAxdGcAV0VpIRPd7q0l
+X-Gm-Gg: AYBFou0ixONIIoNV9u6iuR1BDKNxKQjn/rvlD2SxCYMYhOslwPt9hNWmDwRLn0q7UX/
+	ozCmsJGGH7LquwfaJus6JneMAB5f1bxcnv6QVfYrSkxp3MHRc87qZTHuUAVwKPPa7CuL4YXaaE5
+	PpP8+MYNlvQXo7BfQ5U0u2j/GTNW9qsdyfixpzSHOdok9eX/lmSkmvHTu2rQHmrURn9AfNCyL82
+	TKDwB8r67nmkfktAekb9dCHfaLdycPQJISyFZFH7sN10yJ5nA6Zn8hOor2eWCAGdpDo7o2T1ZhU
+	g80eSuxZvS+8ui0mMRViGkD6ILmAG4LFf0qgKLD/3d12qYT+ro7jHbQcDKflfuq3odqLfydJg9t
+	Iw6I4cZ1S3+Pb8KeyQjYNhpYnIqFLJ6BAH8J3CV3oFtZ99SqQ6h2ka80SGKLB7or4pk7wTWsxSo
+	pz8t8am0ps6P2ciOM2Zr+FGJxHkcpEcaKjqNHooqBt4M9SecvwkqaW8PhR5MQfhuXtZsaQw1Ig
+X-Received: by 2002:a05:6512:3d21:b0:5ba:4287:9372 with SMTP id 2adb3069b0e04-5bb9bc61684mr1343221e87.61.1790975794231;
+        Fri, 02 Oct 2026 14:16:34 -0700 (PDT)
+Received: from lab01.. ([2a01:4f9:1a:a462::2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c79f7easm1015600e87.57.2026.10.02.14.16.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 14:16:33 -0700 (PDT)
+From: Mahmut Emin Kurhan <guvenlik@noroxi.com>
+To: Slava Dubeyko <slava@dubeyko.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Frank Li <frank.li@vivo.com>,
+	linux-kernel@vger.kernel.org,
+	Mahmut Emin Kurhan <guvenlik@noroxi.com>
+Subject: [PATCH v3] hfsplus: annotate extents_lock nesting to silence lockdep false positive
+Date: Fri,  2 Oct 2026 23:16:26 +0200
+Message-ID: <20261002211626.1576625-1-guvenlik@noroxi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <8078649d8c1405e0a207d06efe4ec0189d3eef76.camel@dubeyko.com>
+References: <8078649d8c1405e0a207d06efe4ec0189d3eef76.camel@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,74 +79,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Borislav Petkov (AMD)" <bp@alien8.de>
+lockdep reports a possible recursive locking on
+HFSPLUS_I(inode)->extents_lock when truncating or extending a file on a
+crafted image: the regular file holds its own extents_lock and, while
+freeing or allocating blocks, reads the allocation file, whose
+->get_block() takes the allocation file's extents_lock.  These are two
+different inodes locked in a fixed order, so it is not a real deadlock,
+only a missing nesting annotation.
 
-The processor may fail to invalidate a TLB entry while executing an
-INVLPGB/TLBSYNC instruction pair.
+tree->cnid and inode->i_ino share the CNID namespace, so fold the
+B-tree tree_lock subclass helper and the extents_lock classification
+into a single hfsplus_lock_class(cnid): the allocation file gets its own
+subclass and every other inode uses the default, while the catalog,
+extents and attributes B-trees keep the subclasses they had.  Take
+extents_lock with mutex_lock_nested() at the sites that nest.  A genuine
+recursion on one inode's extents_lock -- including the allocation
+file on itself -- is still reported.
 
-Detect the erratum and apply a software workaround when a microcode fix
-is not present.
+Found via coverage-guided fuzzing (syzkaller + lockdep) by Noroxi.
 
-Fixes: 82378c6c2f43 ("x86/mm: Use INVLPGB for kernel TLB flushes")
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Cc: <stable@kernel.org>
+Signed-off-by: Mahmut Emin Kurhan <guvenlik@noroxi.com>
 ---
- arch/x86/include/asm/cpufeatures.h | 3 +++
- arch/x86/include/asm/tlb.h         | 6 ++++++
- arch/x86/kernel/cpu/amd.c          | 4 ++++
- 3 files changed, 13 insertions(+)
+Slava, this is the reworked version you suggested: one CNID-keyed
+hfsplus_lock_class() serving both the B-tree tree_lock and the inode
+extents_lock, instead of a second enum/function.
 
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index f70ee74b5f92..fe84cf4e97d3 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -477,6 +477,8 @@
- #define X86_FEATURE_NO_NESTED_DATA_BP	(20*32+ 0) /* No Nested Data Breakpoints */
- #define X86_FEATURE_WRMSR_XX_BASE_NS	(20*32+ 1) /* WRMSR to {FS,GS,KERNEL_GS}_BASE is non-serializing */
- #define X86_FEATURE_LFENCE_RDTSC	(20*32+ 2) /* LFENCE always serializing / synchronizes RDTSC */
-+
-+#define X86_FEATURE_TLBSYNC_SFW_NO	(20*32+ 4) /* TLBI Erratum #1718 fixed in microcode */
- #define X86_FEATURE_VERW_CLEAR		(20*32+ 5) /* The memory form of VERW mitigates TSA */
- #define X86_FEATURE_NULL_SEL_CLR_BASE	(20*32+ 6) /* Null Selector Clears Base */
- 
-@@ -587,4 +589,5 @@
- #define X86_BUG_TSA			X86_BUG( 1*32+ 9) /* "tsa" CPU is affected by Transient Scheduler Attacks */
- #define X86_BUG_VMSCAPE			X86_BUG( 1*32+10) /* "vmscape" CPU is affected by VMSCAPE attacks from guests */
- #define X86_BUG_SEAMRET_INVD_VMCS	X86_BUG( 1*32+11) /* "seamret_invd_vmcs" SEAMRET from P-SEAMLDR clears the current VMCS */
-+#define X86_BUG_TLBI			X86_BUG( 1*32+12) /* "tlbi" AMD TLBI Erratum #1718 */
- #endif /* _ASM_X86_CPUFEATURES_H */
-diff --git a/arch/x86/include/asm/tlb.h b/arch/x86/include/asm/tlb.h
-index 866ea78ba156..eba925c85f52 100644
---- a/arch/x86/include/asm/tlb.h
-+++ b/arch/x86/include/asm/tlb.h
-@@ -110,6 +110,12 @@ static inline void __tlbsync(void)
- 
- 	/* TLBSYNC: supported in binutils >= 0.36. */
- 	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
-+
-+	if (!static_cpu_has_bug(X86_BUG_TLBI))
-+		return;
-+
-+	/* TLBSYNC: supported in binutils >= 0.36. */
-+	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
+The B-tree tree_lock keeps CATALOG/EXTENTS/ATTR (same values as before).
+For extents_lock the only real nesting is a regular file's extents_lock
+(held in truncate/extend) over the allocation file's extents_lock (taken
+from its ->get_block() during block alloc/free), so the allocation file
+gets its own subclass and everything else uses the default.  That also
+drops the FIRSTUSER file/folder ambiguity from v2.
+
+One behaviour change worth flagging: hfsplus_lock_class() returns
+HFSPLUS_DEFAULT_MUTEX for an unexpected CNID where the old
+hfsplus_btree_lock_class() called BUG().  The B-tree callers still only
+pass CAT/EXT/ATTR, so this affects only the now-shared default path.
+Happy to keep a WARN there if you prefer.
+
+v3:
+ - rework hfsplus_btree_lock_class() into a single CNID-keyed
+   hfsplus_lock_class() shared by tree_lock and extents_lock (Slava
+   Dubeyko); drop the separate enum/function and the FIRSTUSER check
+v2:
+ - shorten the comment, rename the subclass, use FIRSTUSER (superseded)
+ fs/hfsplus/bfind.c      |  2 +-
+ fs/hfsplus/extents.c    | 18 +++++++++++-------
+ fs/hfsplus/hfsplus_fs.h | 39 +++++++++++++++++++++------------------
+ fs/hfsplus/super.c      |  2 +-
+ fs/hfsplus/xattr.c      |  3 ++-
+ 5 files changed, 36 insertions(+), 28 deletions(-)
+
+diff --git a/fs/hfsplus/bfind.c b/fs/hfsplus/bfind.c
+index ca9813f58a..ed72d61f64 100644
+--- a/fs/hfsplus/bfind.c
++++ b/fs/hfsplus/bfind.c
+@@ -27,7 +27,7 @@ int hfs_find_init(struct hfs_btree *tree, struct hfs_find_data *fd)
+ 	hfs_dbg("cnid %d, caller %ps\n",
+ 		tree->cnid, __builtin_return_address(0));
+ 	mutex_lock_nested(&tree->tree_lock,
+-			hfsplus_btree_lock_class(tree));
++			hfsplus_lock_class(tree->cnid));
+ 	return 0;
  }
- #else
- /* Some compilers (I'm looking at you clang!) simply can't do DCE */
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 54e14ed276b5..40463bad1078 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -1049,6 +1049,10 @@ static void init_amd_zen5(struct cpuinfo_x86 *c)
- 		msr_clear_bit(MSR_AMD64_CPUID_FN_7, 18);
- 		pr_emerg_once("RDSEED32 is broken. Disabling the corresponding CPUID bit.\n");
+ 
+diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
+index eb7c11524d..ae1369a4cb 100644
+--- a/fs/hfsplus/extents.c
++++ b/fs/hfsplus/extents.c
+@@ -150,7 +150,8 @@ int hfsplus_ext_write_extent(struct inode *inode)
+ {
+ 	int res;
+ 
+-	mutex_lock(&HFSPLUS_I(inode)->extents_lock);
++	mutex_lock_nested(&HFSPLUS_I(inode)->extents_lock,
++			  hfsplus_lock_class(inode->i_ino));
+ 	res = hfsplus_ext_write_extent_locked(inode);
+ 	mutex_unlock(&HFSPLUS_I(inode)->extents_lock);
+ 
+@@ -261,7 +262,8 @@ int hfsplus_get_block(struct inode *inode, sector_t iblock,
+ 	if (inode->i_ino == HFSPLUS_EXT_CNID)
+ 		return -EIO;
+ 
+-	mutex_lock(&hip->extents_lock);
++	mutex_lock_nested(&hip->extents_lock,
++			  hfsplus_lock_class(inode->i_ino));
+ 
+ 	/*
+ 	 * hfsplus_ext_read_extent will write out a cached extent into
+@@ -430,7 +432,7 @@ int hfsplus_free_fork(struct super_block *sb, u32 cnid,
+ 				     total_blocks);
+ 		total_blocks = start;
+ 		mutex_lock_nested(&fd.tree->tree_lock,
+-			hfsplus_btree_lock_class(fd.tree));
++			hfsplus_lock_class(fd.tree->cnid));
+ 	} while (total_blocks > blocks);
+ 	hfs_find_exit(&fd);
+ 
+@@ -454,7 +456,8 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
+ 		return -ENOSPC;
  	}
-+
-+	if (cpu_has(c, X86_FEATURE_INVLPGB) &&
-+	    !cpu_has(c, X86_FEATURE_TLBSYNC_SFW_NO))
-+		set_cpu_bug(c, X86_BUG_TLBI);
+ 
+-	mutex_lock(&hip->extents_lock);
++	mutex_lock_nested(&hip->extents_lock,
++			  hfsplus_lock_class(inode->i_ino));
+ 	if (hip->alloc_blocks == hip->first_blocks)
+ 		goal = hfsplus_ext_lastblock(hip->first_extents);
+ 	else {
+@@ -576,7 +579,8 @@ void hfsplus_file_truncate(struct inode *inode)
+ 	blk_cnt = (inode->i_size + HFSPLUS_SB(sb)->alloc_blksz - 1) >>
+ 			HFSPLUS_SB(sb)->alloc_blksz_shift;
+ 
+-	mutex_lock(&hip->extents_lock);
++	mutex_lock_nested(&hip->extents_lock,
++			  hfsplus_lock_class(inode->i_ino));
+ 
+ 	alloc_cnt = hip->alloc_blocks;
+ 	if (blk_cnt == alloc_cnt)
+@@ -597,7 +601,7 @@ void hfsplus_file_truncate(struct inode *inode)
+ 			hfsplus_dump_extent(hip->first_extents);
+ 			hip->first_blocks = blk_cnt;
+ 			mutex_lock_nested(&fd.tree->tree_lock,
+-				hfsplus_btree_lock_class(fd.tree));
++				hfsplus_lock_class(fd.tree->cnid));
+ 			break;
+ 		}
+ 		res = __hfsplus_ext_cache_extent(&fd, inode, alloc_cnt);
+@@ -612,7 +616,7 @@ void hfsplus_file_truncate(struct inode *inode)
+ 				     alloc_cnt - start, alloc_cnt - blk_cnt);
+ 		hfsplus_dump_extent(hip->cached_extents);
+ 		mutex_lock_nested(&fd.tree->tree_lock,
+-				hfsplus_btree_lock_class(fd.tree));
++				hfsplus_lock_class(fd.tree->cnid));
+ 		if (blk_cnt > start) {
+ 			hip->extent_state |= HFSPLUS_EXT_DIRTY;
+ 			break;
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index 916e6552e3..22b961b454 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -30,11 +30,19 @@ typedef int (*btree_keycmp)(const hfsplus_btree_key *,
+ 
+ #define NODE_HASH_SIZE	256
+ 
+-/* B-tree mutex nested subclasses */
+-enum hfsplus_btree_mutex_classes {
+-	CATALOG_BTREE_MUTEX,
+-	EXTENTS_BTREE_MUTEX,
+-	ATTR_BTREE_MUTEX,
++/*
++ * Nested-locking subclasses shared by the B-tree tree_lock and the inode
++ * extents_lock.  Both are keyed by CNID (tree->cnid or inode->i_ino), so one
++ * mapping serves both.  The allocation file gets its own subclass because a
++ * regular file's extents_lock is held across block alloc/free, which takes the
++ * allocation file's extents_lock in turn; every other inode uses the default.
++ */
++enum hfsplus_mutex_classes {
++	HFSPLUS_CATALOG_MUTEX,
++	HFSPLUS_EXTENTS_MUTEX,
++	HFSPLUS_ATTR_MUTEX,
++	HFSPLUS_ALLOC_MUTEX,
++	HFSPLUS_DEFAULT_MUTEX,
+ };
+ 
+ /* An HFS+ BTree held in memory */
+@@ -547,25 +555,20 @@ static inline __be32 __hfsp_ut2mt(time64_t ut)
+ 	return cpu_to_be32(lower_32_bits(ut) + HFSPLUS_UTC_OFFSET);
  }
  
- static void init_amd(struct cpuinfo_x86 *c)
+-static inline enum hfsplus_btree_mutex_classes
+-hfsplus_btree_lock_class(struct hfs_btree *tree)
++static inline unsigned int hfsplus_lock_class(u32 cnid)
+ {
+-	enum hfsplus_btree_mutex_classes class;
+-
+-	switch (tree->cnid) {
++	switch (cnid) {
+ 	case HFSPLUS_CAT_CNID:
+-		class = CATALOG_BTREE_MUTEX;
+-		break;
++		return HFSPLUS_CATALOG_MUTEX;
+ 	case HFSPLUS_EXT_CNID:
+-		class = EXTENTS_BTREE_MUTEX;
+-		break;
++		return HFSPLUS_EXTENTS_MUTEX;
+ 	case HFSPLUS_ATTR_CNID:
+-		class = ATTR_BTREE_MUTEX;
+-		break;
++		return HFSPLUS_ATTR_MUTEX;
++	case HFSPLUS_ALLOC_CNID:
++		return HFSPLUS_ALLOC_MUTEX;
+ 	default:
+-		BUG();
++		return HFSPLUS_DEFAULT_MUTEX;
+ 	}
+-	return class;
+ }
+ 
+ static inline
+diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
+index ff7d6b3336..49059bf3e7 100644
+--- a/fs/hfsplus/super.c
++++ b/fs/hfsplus/super.c
+@@ -152,7 +152,7 @@ static int hfsplus_system_write_inode(struct inode *inode)
+ 	hfsplus_inode_write_fork(inode, fork);
+ 	if (tree) {
+ 		mutex_lock_nested(&tree->tree_lock,
+-				  hfsplus_btree_lock_class(tree));
++				  hfsplus_lock_class(tree->cnid));
+ 		int err = hfs_btree_write(tree);
+ 		mutex_unlock(&tree->tree_lock);
+ 
+diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+index 21a1c196c7..f540d4c382 100644
+--- a/fs/hfsplus/xattr.c
++++ b/fs/hfsplus/xattr.c
+@@ -264,7 +264,8 @@ static int hfsplus_create_attributes_file(struct super_block *sb)
+ 						    sbi->sect_count,
+ 						    HFSPLUS_ATTR_CNID);
+ 
+-	mutex_lock(&hip->extents_lock);
++	mutex_lock_nested(&hip->extents_lock,
++			  hfsplus_lock_class(attr_file->i_ino));
+ 	hip->clump_blocks = clump_size >> sbi->alloc_blksz_shift;
+ 	mutex_unlock(&hip->extents_lock);
+ 
 -- 
-2.53.0
+2.43.0
 
