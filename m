@@ -1,139 +1,127 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3E9F30649C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6834E020E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955301; cv=none; b=ccqt/gAyT1iibga++d4Vu1JXSL1RB8sQLbxuNsBqsx97cU+4qQJC3hGw+HIDBgCh/GPwNyHne0EdC1ArvCp/6SlUssF/GpSOJJgTsHfl6hc07QLGBNZ9g/t9EtzxgAgXO/gvrf2JpEsUMVMmpA0ANr0xkBnHChHYM7iTS6bR/PM=
+	t=1790955320; cv=none; b=jqP4+Ueml0sLYlk1CBzMPjnA0QdXwmckLMJ7d3Am+WUlmsljuwT5d3vwQWiekMiOAxiqr7ATXbmIbrspdvsPz6quvt0fBqniS7ztZxZ1A+ZTb2qGpM/Qf+5HqH1k2voScibuzU5Vy5/zexAxHfunWYMAyAXsimcrKe2hMJuFL8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955301; c=relaxed/simple;
-	bh=trtR+s01elaDJMhAurTszPiTKfZo8xAqeqlZBtV1GTo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tyfFyij1tBF91iCP3B+bZ7VqwJEpdK02U3ivtMuGx/hN5meFlNULtL+rwPKKvUOww0EL//+0YPTqg0KZXekCWvqK+e0bmdYCW0dLYj2ooHico+MtjYMxUSxTcr/j3oVrBsjSoQdtHCcds3+/QLWaNBgRy7f3wopZbg41CKBttYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VEXuqrMX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790955320; c=relaxed/simple;
+	bh=bgMeIh1vpMW5r0Z2UUaueYfyJsodKGJ3R8+jL/Snwco=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=RXS5zxuKYVD59kFYJyK8qCd3CHDWWSZOfXZY8kCU6AHRlts+u9F6PMwAEgro94CKN9h1i6500n+iHU/tMsniW5/2rC0tNMQQyw2RzZrpnQ4rNyQDaa/yESmDTxaofkcv89fMctdM9s4PUDE/9XtJMVfBEAWX9TvizPSQg1d4i6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FBmidAss; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VEXuqrMX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 73E23143D;
-	Fri,  2 Oct 2026 08:34:55 -0700 (PDT)
-Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4C5103F85F;
-	Fri,  2 Oct 2026 08:34:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790955298; bh=trtR+s01elaDJMhAurTszPiTKfZo8xAqeqlZBtV1GTo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VEXuqrMXiFXFNSutxilLVc1xl52bHGqQswylLZqFvnMUrcIwI06Caqk927r8F9WJK
-	 9nladCFAkoTAOl03d6kqpdw7OlRw/TjcN8LONEkvvUKMmmtE0pGnLojeik3iE8DejM
-	 EerFmP3YjGr+4ee/d//KRDKvtI87g62aRj/TElEc=
-Message-ID: <c43e07c5-863e-4997-aab5-69654e51fa28@arm.com>
-Date: Fri, 2 Oct 2026 16:34:52 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FBmidAss"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so74429885ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:35:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790955318; x=1791560118; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ulPJ+yIIyvNEzuRqB5Fotp1huOAGEZ6P6NiuujPsDU=;
+        b=FBmidAssnLL52ChGak5KzhMgpNrjYc5MoABoyvaf9mJCWhCUKxk3kmZXlWk8Fumdpl
+         Wqate9JI2pgbrC9yCmenfGC9xdamy3mW6zR6lkJFDn9VM3Ic901yUsDWBNc5CEoK4qYR
+         7rHo0WlTWB/I0ZFX7HVF3hl2KaQb10W5U9+3axktChYzHylnDXsf76GnbqnsmrEmULIx
+         +jPFp6774TjcQNOx/zDg5CNulqggsW9mO94m9dUeTkEG0gs5PiR14rRQiifeVkOs7ask
+         zNd+TUaMhGDGt4Zrm80e3pvdfM5WRhizp9bgfE/3yleLWCWBEWifol+2LgEu9/313cyV
+         eBvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790955318; x=1791560118;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/ulPJ+yIIyvNEzuRqB5Fotp1huOAGEZ6P6NiuujPsDU=;
+        b=H3CRvmWMaN9W4J4+sutbcMsemRc0K/DQ0/GHHWorFd8iSCLdfleW8AqEzo/jPUS2vD
+         VucNAQfthFHUSuX6QiACjAVFYt004I0PTsshLjWRGpghvf3YizOP82+kzWM3NDOHVPIN
+         zI7UnkvFK95pLjbg1z81ZbhoIAN+9DAXqdAwOfmnub49AOHkHdGbWw7nOadeTcslpCyl
+         cmQhOZ76a6rJhnnhYEENasCv+bYa5IRe+f0tV0e8JlrTismcQDujHUfj9hmQgUw7Vp5L
+         kRyJcQb1vDtryHCkV8KpezM4NAqh0vIuTABUgcC2YpClXlRjHgiyq96ugMgSh0iivucJ
+         npFw==
+X-Forwarded-Encrypted: i=1; AKwUvBzQUsEJL+/2Xmkes6+9DHKqCoK2ivqlSdN/lNJyHQF6LriLd/sMGVqQejCcOm5hx/3OIXyxiUoxNRiFXYo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzgvFclnM+HPVsobmywx1V9lRAHMINQuX6bymKIE+NpAnKpA23
+	BqUUA4gXFcKfkQS8V7oVjBAkRHo1BLWtbavv2P1nqdWy60E1NVxmFNRsjJb1bjzG3EnYwe3ylZb
+	k5pCsQA==
+X-Received: from plq5.prod.google.com ([2002:a17:903:2f85:b0:2e2:f17b:1655])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:8c3:b0:2df:9305:8909
+ with SMTP id d9443c01a7336-2e49b6ab32dmr26853235ad.17.1790955317254; Fri, 02
+ Oct 2026 08:35:17 -0700 (PDT)
+Date: Fri, 2 Oct 2026 08:35:16 -0700
+In-Reply-To: <20261002151942.491680-1-bruno.produit@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 14/15] drm/panfrost: Introduce a reset lock
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-14-62beb08de207@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929-claude-fixes-v12-14-62beb08de207@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261002151942.491680-1-bruno.produit@trailofbits.com>
+Message-ID: <ar_PNEIvsQMQPMLg@google.com>
+Subject: Re: [PATCH] KVM: x86: Cancel PIT timer on failed creation
+From: Sean Christopherson <seanjc@google.com>
+To: Bruno Produit <bruno.produit@trailofbits.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, kvm@vger.kernel.org, 
+	Kyle Zeng <kylebot@openai.com>, linux-kernel@vger.kernel.org, 
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On 29/09/2026 04:44, Adrián Larumbe wrote:
-> So as to avoid accessing HW register while a reset is ongoing, a read/write
-> semaphore that envelopes the reset sequence will help driver entry points
-> avoid racing with it. For now, the only such racy entry point is the ioctl
-> that returns the current GPU timestmap.
-
-Typo: s/timestmap/timestamp
-
+On Fri, Oct 02, 2026, Bruno Produit wrote:
+> From: Kyle Zeng <kylebot@openai.com>
 > 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-
+> Cancel the PIT hrtimer if PIT creation fails after registering the PIO
+> device. This matches normal teardown and ensures the timer no longer
+> uses the PIT before its memory is freed.
+> 
+> KVM registers the PIT's PIO device before registering the optional dummy
+> speaker device.  If speaker registration fails, a vCPU can have already
+> programmed channel 0 and armed pit_state.timer through the published PIT
+> device. When I/O bus registration became fallible, its cleanup did not
+> cancel the timer before freeing the PIT.
+> 
+> Fixes: 090b7aff2712 ("KVM: make io_bus interface more robust")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
 > ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 2 ++
->  drivers/gpu/drm/panfrost/panfrost_device.h | 1 +
->  drivers/gpu/drm/panfrost/panfrost_drv.c    | 9 ++++++---
->  drivers/gpu/drm/panfrost/panfrost_job.c    | 1 +
->  4 files changed, 10 insertions(+), 3 deletions(-)
+>  arch/x86/kvm/i8254.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 94d2de341838..80d8f6aed090 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -481,6 +481,8 @@ bool panfrost_exception_needs_reset(const struct panfrost_device *pfdev,
->  
->  void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int)
->  {
-> +	guard(rwsem_write)(&pfdev->reset.lock);
-> +
->  	panfrost_gpu_soft_reset(pfdev);
->  
->  	panfrost_gpu_power_on(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
-> index a0b9a2145fc9..63452febb1cf 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-> @@ -165,6 +165,7 @@ struct panfrost_device {
->  	struct {
->  		struct workqueue_struct *wq;
->  		struct work_struct work;
-> +		struct rw_semaphore lock;
->  		atomic_t pending;
->  	} reset;
->  
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index f77780c72a1a..571a26b84126 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -41,9 +41,12 @@ static int panfrost_ioctl_query_timestamp(struct panfrost_device *pfdev,
->  	if (ret)
->  		return ret;
->  
-> -	panfrost_cycle_counter_get(pfdev);
-> -	*arg = panfrost_timestamp_read(pfdev);
-> -	panfrost_cycle_counter_put(pfdev);
-> +	/* We should not read timestamp register while the GPU  is being reset */
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		panfrost_cycle_counter_get(pfdev);
-> +		*arg = panfrost_timestamp_read(pfdev);
-> +		panfrost_cycle_counter_put(pfdev);
-> +	}
->  
->  	pm_runtime_put(pfdev->base.dev);
->  	return 0;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-> index ab65786bf63b..4ddf4b722ddf 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -877,6 +877,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
->  	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
->  	spin_lock_init(&js->job_lock);
->  	mutex_init(&pfdev->sched_lock);
-> +	init_rwsem(&pfdev->reset.lock);
->  
->  	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
->  	if (js->irq < 0)
-> 
+> diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
+> index 1982b0077..b7875345f 100644
+> --- a/arch/x86/kvm/i8254.c
+> +++ b/arch/x86/kvm/i8254.c
+> @@ -793,6 +793,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
+>  fail_register_pit:
+>  	mutex_unlock(&kvm->slots_lock);
+>  	kvm_pit_set_reinject(pit, false);
+> +	hrtimer_cancel(&pit->pit_state.timer);
 
+Given that the timer can be armed if and only if the PIT was successfully registered,
+wouldn't this suffice?
+
+diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
+index 1982b0077ddd..33d772c7160b 100644
+--- a/arch/x86/kvm/i8254.c
++++ b/arch/x86/kvm/i8254.c
+@@ -790,6 +790,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
+ 
+ fail_register_speaker:
+ 	kvm_io_bus_unregister_dev(kvm, KVM_PIO_BUS, &pit->dev);
++	hrtimer_cancel(&pit->pit_state.timer);
+ fail_register_pit:
+ 	mutex_unlock(&kvm->slots_lock);
+ 	kvm_pit_set_reinject(pit, false);
+
+
+>  	kthread_destroy_worker(pit->worker);
+>  fail_kthread:
+>  	kfree(pit);
+> -- 
+> 2.53.0
+> 
