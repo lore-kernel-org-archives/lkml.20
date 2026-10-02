@@ -1,97 +1,138 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C4D424655;
-	Fri,  2 Oct 2026 20:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6403D4968EC;
+	Fri,  2 Oct 2026 20:31:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973058; cv=none; b=cIDl4QDDjBNm5sgHWmSFU03F5wFNajZQ1hUjWjca11EQ+zQcI3wCioETCeGQUFqV7dMsbILiGlJqMbF/IO7pGfp2NaEQRKyDTF7Pr2HYRUk4RpqHzZOnNQR4Ph/Np7hlR7EfzROjytYG0uXZ9yJ3RxA3omiMgF2zqQaUDLSQLSE=
+	t=1790973073; cv=none; b=FpjJUu8oXKxCQoRizaa6fErw6yeyEcF1x2O2mkqm3C7OMC33gNXRxpNwK0i+kXDssaN1wNM6t6eC9KEBWe4F2Wc6bc9f4XfshZSWw2dHiisUxwy96CxAePzIU9OdgbgTw2zkYvROB4U9TM61sIl3go2lgmzyadGS5KrtfotinD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973058; c=relaxed/simple;
-	bh=Uyo2TrSeXDlUHQS1CGR0Bgo59RRrDPOcyOuuDynewT8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OwIr8G1Pr/YyImOiBpsldySV/W7HzUfwv85IrIctW0xcNNRCV6LAj7KNgjlmPPD7hNPXvsTXOfVXyJtqNz7IcEDAnn6j+6NkFKj1j/295lTjljGjcVhNyrjGrICQMVP62Le5a4Hho0sLAj2BN2fmWU/RBW3RIukiCyjy7acX6lU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=fSaQ5SB2; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790973073; c=relaxed/simple;
+	bh=Jt//0zORUjqMAZAfskjZ8vmMwU4akzPkIqM/XgZLRrk=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=PD6EuSxE/lRseh53tBZOLwdrOl/BRtgBnq3uCVYbvUUCHGQapT63pCONbT+nKzGTByQM6MYXWe//+w4rPMOeKs8HVDjVPA727Y8xbr8uL5hgZxJNDplWA7iDHvTOYNJSOBEWXuDYXwWY9hJ6VXRBL8GmdKQ0Hnbdl28EWVkvyVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=JoWFynLp; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9yvIpN7M; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="fSaQ5SB2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=Uyo2TrSeXDlUHQS1CGR0Bgo59RRrDPOcyOuuDynewT8=;
-	t=1790973048; x=1792182648; b=fSaQ5SB2xIMCrMGGJ6Sg5T60qWP1d5UgRJdUCvcxWY+M/4B
-	TzDz/1HWXGlhZDRUA0UjFV6uKH/BoD1/42aE6aLB7KckBCAt3Z7ca9zzjGoaLhHK65AJ9sMQgaZ27
-	2jEG1M4bsntJMYnlJAZrwzXV1Fm5K4EFRoTRF4RHbJxDaWm9oR0y0X9XJk18lqzjFzRV3gaWOZYTW
-	hWwdtdMwh28d3authh3tT/BYQC/+Z21t8RI2bcYgz2owOioQ3wn29tYZI2mp2udMTDygxH99ZLFp6
-	+Xy/Ie1ofOaBXjydlfsd7OhjOUnvZWixCKVcByh5JsiYiHmjTIGsHMg17NMJdJBg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xCjtt-00000001nXW-1sZC;
-	Fri, 02 Oct 2026 22:30:37 +0200
-Message-ID: <649cc93941ed71c60d08151d8d13570f5e5319ef.camel@sipsolutions.net>
-Subject: Re: [PATCH net v3] wifi: nl80211: document sta-info nested attribute
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Hilal Rahmatullah <hilalrahmatullah11@gmail.com>, "David S. Miller"
-	 <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
-	 <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Donald Hunter
-	 <donald.hunter@gmail.com>, "open list:NETWORKING [GENERAL]"
-	 <netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Date: Fri, 02 Oct 2026 22:30:36 +0200
-In-Reply-To: <20261002132500.0b71889b@kernel.org>
-References: <20260816101216.20947-1-hilalrahmatullah11@gmail.com>
-		<20260817084713.7a7694d6@kernel.org>
-		<6ae7fd5e4d24bdeb0f0df057f767107e08567640.camel@sipsolutions.net>
-		<7fc3e2730ebea674abf750a39c53d6ee307a907e.camel@sipsolutions.net>
-	 <20261002132500.0b71889b@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="JoWFynLp";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9yvIpN7M"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790973059; bh=kY9pfHR4BXX5Gd5bWbFhgVK
+	EYCasw0neJs/hvnXh3jc=; b=JoWFynLpLzcP399dzDnUtnTW/3fsg4UxYfcbEPz4sLmLH8KSYT
+	HPduli38S/mXe1qUjIvrynmJ5LbOm6HxxCx5tgqIGSbYFZRcKb+PZl7h9DKuoXCgIp/RBc1/uEX
+	joIZABTwowxWmbhGWgWSjTu8Wxzsz3Au4AGXdW8Z81N0rUYth2di/JRWUky3oQhGnI494uPrIWT
+	qi8F3tHA0tD+U8LIwV+QXKd/artSgK5UX2Z8ZOhEOotXpTjz5eriQ+gfcGfIKgpg/FIGp1a3qmQ
+	SXFGMe68B09Aizod2cTn8cHjnJdmHYi5NTdw1RjIryLhoJ9qB9kQOB9g5DhZkkVNshA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790973059; bh=kY9pfHR4BXX5Gd5bWbFhgVK
+	EYCasw0neJs/hvnXh3jc=; b=9yvIpN7M5F09KohKB4kOG8mFjjlZzx3Na+XFtONxzX7Kdz7pSz
+	hz847bQVBwXs1v03tqXvBwsV+VSqh27HnVDQ==;
+Date: Fri, 02 Oct 2026 21:30:58 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Aviv Vaknin <vaknins33@gmail.com>, Christian Brauner <brauner@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>
+CC: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+ "Eric W. Biederman" <ebiederm@xmission.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] pid_namespace: make zap_pid_ns_processes() freezable
+In-Reply-To: <20261002202820.3433318-1-vaknins33@gmail.com>
+References: <20261002202820.3433318-1-vaknins33@gmail.com>
+Message-ID: <1EEB6D9F-78FB-4E6E-9191-A9452139561C@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-10-02 at 13:25 -0700, Jakub Kicinski wrote:
-> >=20
-> > There's a license issue - we have ISC license on nl80211.h now, but
-> > Donald and Hilal picked GPL/syscall/BSD-3 for the yaml and of course
->=20
-> That license is required for all netlink specs, FWIW
-> It's totally my fault if it's wrong, I just didn't want it to be
-> _just_ GPL since that would propagate to use space code which
-> we want to be permissive about. The spec is effectively a uAPI
-> description it should be public domain in my non-layer mind.
+On 2 October 2026 21:28:20 BST, Aviv Vaknin <vaknins33@gmail.com> wrote:
+>When the init of a pid namespace exits, zap_pid_ns_processes() waits
+>until all other pids in the namespace are freed. A tracer outside the
+>namespace that does not reap its traced zombies keeps those pids
+>allocated, so this wait has no upper bound, and while it lasts every
+>suspend attempt fails:
+>
+>  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
+>
+>Neither wait is freezable. The first loop sleeps in do_wait(), which
+>returns -ERESTARTSYS on the freezer's fake signal; the loop then clears
+>TIF_SIGPENDING and waits again without ever freezing. The final loop
+>sleeps in TASK_INTERRUPTIBLE, and since nothing clears TIF_SIGPENDING
+>there, schedule() returns immediately after the first freeze attempt
+>and the task spins until the wait ends.
+>
+>Sleep in TASK_INTERRUPTIBLE | TASK_FREEZABLE in do_wait(), so that the
+>freezer can freeze tasks waiting there directly, and in TASK_IDLE |
+>TASK_FREEZABLE in the final loop, like coredump_task_exit() does.
+>
+>This was hit with Chromium-based browsers: crashpad ptrace-attaches the
+>threads of a crashed renderer, which is a pid namespace init, and does
+>not reap those killed during the dump.
 
-Oh, sure. But BSD-3 isn't (advertising clause), and people copy at least
-the nl80211.h file around to other projects. And the syscall exception
-doesn't really talk about distributing that code. So presumably going
-from ISC to this would require people to update even their binary
-distribution's docs (where it's built in) ...
+Suggestion: We could do a ASCII table of the bug to make it "look" cool, I mean, you certainly don't have to.
 
-> > that carries over to the generated .h file, not sure if that's an issue
-> > for downstream projects but might be with advertising clause? Could we
-> > change it if I'm adding >10k new lines from nl80211.h? :)
-> >=20
-> > I can post it but ... is it worth it? Not even sure it would
-> > significantly simplify our lives, although the generated header file
-> > with documentation is much more regular in that it always has the type,
-> > etc. (which is what Jouni was asking about)
->=20
-> Well, I certainly don't care so my choice would be not to have to review
-> the code gen changes (:
+My tag stands:
 
-Fair :)
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-I'm not really sure it gives _that_ much benefit ... I guess I'll mull
-it over and maybe run it by some wifi people.
+>
+>Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
+>Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
+>Cc: stable@vger.kernel.org # 6.1+
+>Suggested-by: Oleg Nesterov <oleg@redhat.com>
+>Assisted-by: Claude:claude-opus-5-5
+>Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
+>---
+>v2:
+>- Make do_wait() freezable instead of calling try_to_freeze() after
+>  kernel_wait4() (Oleg).
+>- Drop the comments.
+>- Drop the acks and the review tag, since the approach changed.
+>- Retested on v7.3-rc5 with the reproducer from v1, also unprivileged:
+>  freezing completes in 0.001 s, the zap task stays idle, and reaping
+>  the zombies still ends the wait.
+>
+>v1: https://lore.kernel.org/r/20261001121254.883973-1-vaknins33@gmail.com
+>
+> kernel/exit.c          | 2 +-
+> kernel/pid_namespace.c | 2 +-
+> 2 files changed, 2 insertions(+), 2 deletions(-)
+>
+>diff --git a/kernel/exit.c b/kernel/exit.c
+>index 97686af89..b54cc7b2b 100644
+>--- a/kernel/exit.c
+>+++ b/kernel/exit.c
+>@@ -1751,7 +1751,7 @@ static long do_wait(struct wait_opts *wo)
+> 	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
+> 
+> 	do {
+>-		set_current_state(TASK_INTERRUPTIBLE);
+>+		set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
+> 		retval = __do_wait(wo);
+> 		if (retval != -ERESTARTSYS)
+> 			break;
+>diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
+>index 8bc9edb40..127a5fd23 100644
+>--- a/kernel/pid_namespace.c
+>+++ b/kernel/pid_namespace.c
+>@@ -269,7 +269,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+> 	 * free_pid() will awaken this task.
+> 	 */
+> 	for (;;) {
+>-		set_current_state(TASK_INTERRUPTIBLE);
+>+		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+> 		if (pid_ns->pid_allocated == init_pids)
+> 			break;
+> 		schedule();
+>
+>base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
+>
 
-Thanks :)
 
-johannes
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
