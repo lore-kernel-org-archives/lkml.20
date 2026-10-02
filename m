@@ -1,113 +1,126 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39589415F3B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F64342C51C
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925782; cv=none; b=LO1FjFXC4I1eZWfEMm8CXtKwqRnyqID/1MUx+abyWM/HVvizRgeD4M/Qg4TOCTjpQ4ApFND/XPIQ9HxZPflrj3IQUEQXTRAZTOSoGUKWRWNZtB/rw+FINDQUT6neHGI1pKJbRUaQ2HBk83AY/BN1S4L+WCeiF1tZ1WU3jSinDNI=
+	t=1790925831; cv=none; b=uPsRX5P7v83Osdgb19FDoAV+DSu26eTvco8tqSf1bleG0lukZcRwWVHWiOTWxpMrSH44n1HANy/6iMwvRHGcXuymFSH3yg3hC+a0vdCN0gSlJ8bN7Cab75yZBGO5vEyE8rWDHTKAp4ad5ESjGNACGyPV/AhuyXbTHNv307Pxu94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925782; c=relaxed/simple;
-	bh=lsrf0jsN7EgcEDWYmJA3Mw8QxEs/CL0J8Fp7vM7zsAw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Jx9lb41JVnrxavBF646FDRyKsVJOUkYYHZHW5fXgHsl5EHU6muY0yWAXVzZCyhI6ZSlpVkJSHqeBZnr4dJ4IJEDbrSTZw6Wv1hOm5DfbLWCvMF+qZFwpDYl6oa0QuGr3phevuntuieaHhdD4cM81wELmMWRMoJtzmxtn3DHclKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.54])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wT_CW79qxa5fCQ--.28708S2;
-	Fri, 02 Oct 2026 15:22:43 +0800 (CST)
-Message-ID: <fe6bd298fe7560f3aeb566532d2bf3d60d5a5304.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm/verisilicon: use ERR_CAST instead of
- ERR_PTR(PTR_ERR())
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Aryan Sinha <sinha.aryan03@gmail.com>, Maarten Lankhorst
-	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 15:22:42 +0800
-In-Reply-To: <20261001163104.51165-1-sinha.aryan03@gmail.com>
-References: <20261001163104.51165-1-sinha.aryan03@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1790925831; c=relaxed/simple;
+	bh=aehX07tXcClaa0qrFr7rI9C7ikNEWSssO6nsmHIatUQ=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=Vdh4U3+gr5sDIo2b5uAjg194gQDWi38IAVGXzc6i3dB6brxtdfLNT4eqn3cbmQQHkL/or2y/ni/jBy0MgtYR37+Zg0ja3EDSZPRQL7KUGMEsNOohaiz5UZGxaY3h1fkJt8GLjtDDIWgfq/iZ112Q7w6OurV2WD835atT7E8y8ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=isP/iQu7; arc=none smtp.client-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="isP/iQu7"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aehX07tXcClaa0qrFr7rI9C7ikNEWSssO6nsmHIatUQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790925816; v=1; x=1791530616;
+ b=isP/iQu7FuYOBT9ByB+d2ubcLBvN30xxqoO4r52UG/8rVGmRFgiw7P98RphTSshplNkz4v5e
+ pRJ15KHQ/Ljj63JQbVuhGPG448tRhC7fV6OWakHaHeEAYf0hJK8Ynw/LwEaqN729lwhRvDY5OiJ
+ 7dUsVnFbTXarhT37ajA1rXi4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 21994e6c724f157f;
+	Fri, 02 Oct 2026 07:23:36 +0000
+X-Mizu-Trace-ID: 21994e6c724f157f
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAC3wT_CW79qxa5fCQ--.28708S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1xAr4fGr4UJr13tr4ktFb_yoW8AFyrpa
-	yjvay0yryrZw47Xr9rAa1qkFy5AasrKwsagr47JwsYvr4vyF1DWFn8Ary5AF98Jay7GrWS
-	qF4vkF1FkryI9FUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkYb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k2
-	0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
-	8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41l
-	IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
-	AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
-	jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU89Z23UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Date: Fri, 02 Oct 2026 07:23:36 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <a2b6f0773b075286fedf0014fd5b6634d3a5ec2e@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v6 4/6] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, luka.gejak@linux.dev
+In-Reply-To: <10b9f8b9-87e1-43c9-8c15-27f5475f5f09@gmail.com>
+References: <20261001091835.67909-1-luka.gejak@linux.dev>
+ <20261001091835.67909-5-luka.gejak@linux.dev>
+ <10b9f8b9-87e1-43c9-8c15-27f5475f5f09@gmail.com>
 
-=E5=9C=A8 2026-10-01=E5=9B=9B=E7=9A=84 22:00 +0530=EF=BC=8CAryan Sinha=E5=
-=86=99=E9=81=93=EF=BC=9A
-> ERR_CAST says the same thing without the round trip through an error
-> code.
+October 1, 2026 at 22:39, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mai=
+lto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821cer=
+fe2%40gmail.com%3E > wrote:
 
-Yes, I didn't know this thing yet when I was creating this driver.
-
-```
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-```
-
-Thanks for this patch!
-
-Icenowy
 
 >=20
-> Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c | 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc.c=C2=A0=C2=A0 | 2 +-
-> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
+>=20On 01/10/2026 12:18, Luka Gejak wrote:
 >=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> index dc7c85b07..32f9984d8 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> @@ -322,7 +322,7 @@ struct vs_bridge *vs_bridge_init(struct
-> drm_device *drm_dev,
-> =C2=A0	bridge =3D devm_drm_bridge_alloc(drm_dev->dev, struct
-> vs_bridge, base,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bridge_funcs);
-> =C2=A0	if (IS_ERR(bridge))
-> -		return ERR_PTR(PTR_ERR(bridge));
-> +		return ERR_CAST(bridge);
-> =C2=A0
-> =C2=A0	bridge->crtc =3D crtc;
-> =C2=A0	bridge->intf =3D intf;
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> index 0b8a35d09..af8e33c96 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> @@ -172,7 +172,7 @@ struct vs_crtc *vs_crtc_init(struct drm_device
-> *drm_dev, struct vs_dc *dc,
-> =C2=A0	primary =3D vs_primary_plane_init(drm_dev, dc);
-> =C2=A0	if (IS_ERR(primary)) {
-> =C2=A0		drm_err(drm_dev, "Couldn't create the primary
-> plane\n");
-> -		return ERR_PTR(PTR_ERR(primary));
-> +		return ERR_CAST(primary);
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	/* Create our cursor plane */
+>=20>=20
+[...]
+>=20>  +static void rtw8723b_sdio_restore_pad_ctrl(struct rtw_dev *rtwdev=
+,
+> >  + bool keep_pta_owner)
+> >  +{
+> >  + u32 before;
+> >  + u32 after;
+> >  +
+> >  + if (!rtw_is_8723bs(rtwdev))
+> >  + return;
+> >  +
+> >  + before =3D rtw_read32(rtwdev, REG_PAD_CTRL1);
+> >  + after =3D before & ~(BIT_LNAON_WLBT_SEL | BIT_SW_DPDT_SEL_DATA);
+> >  + if (keep_pta_owner)
+> >  + after |=3D BIT_PAPE_WLBT_SEL;
+> >  + else
+> >  + after &=3D ~BIT_PAPE_WLBT_SEL;
+> >  + if (after =3D=3D before)
+> >  + return;
+> >  +
+> >  + rtw_write32(rtwdev, REG_PAD_CTRL1, after);
+> >  +}
+> >=20
+>=20Is this function still needed if rtw_mac_pre_system_cfg() doesn't
+> touch REG_PAD_CTRL1?
+>=20
 
+Not=20needed anymore, I missed it. It and its call sites are removed in v=
+7.
+
+> >=20
+>=20> +
+[...]
+> >  +static void rtw8723b_fill_txdesc_checksum(struct rtw_dev *rtwdev,
+> >  + struct rtw_tx_pkt_info *pkt_info,
+> >  + u8 *txdesc)
+> >  +{
+> >  + struct rtw_tx_desc *tx_desc =3D (struct rtw_tx_desc *)txdesc;
+> >  + const u8 *data =3D txdesc;
+> >  + int words =3D 32 / 2;
+> >  + u16 checksum =3D 0;
+> >  +
+> >  + /* Unlike the shared 8723x helper, the checksum is not inverted he=
+re. */
+> >  + le32p_replace_bits(&tx_desc->w7, 0, RTW_TX_DESC_W7_TXDESC_CHECKSUM=
+);
+> >  +
+> >  + while (words--) {
+> >  + checksum ^=3D get_unaligned_le16(data);
+> >  + data +=3D sizeof(__le16);
+> >  + }
+> >  +
+> >  + le32p_replace_bits(&tx_desc->w7, checksum,
+> >  + RTW_TX_DESC_W7_TXDESC_CHECKSUM);
+> >=20
+>=20This function can just call fill_txdesc_checksum_common() from tx.h.
+>=20
+
+Thanks, I didn't catch it. It does call it in v7.
+
+Best regards,
+Luka Gejak
