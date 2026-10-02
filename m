@@ -1,225 +1,159 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013065.outbound.protection.outlook.com [40.93.201.65])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D307A226CFE;
-	Fri,  2 Oct 2026 03:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790910070; cv=fail; b=jHMB8FVm6v7MgKliy5jE+6pCSK1UkOYdJIiS0VCHdJJnAY7mp+EUNmFr0xq0Wr+AU+Hkiy66G6LHA3O1q5ztL72YJRfMrA+9g1dhY7FCJKVMafNK7VjZFJUDiWFQl4dRxiy7pnvDzZ8NXOIVlzEZd+SUvS6CKpSS02m2k6Gd1JA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790910070; c=relaxed/simple;
-	bh=ficZQnUrErGLewCcqPX/moaFxe6rf59fPQmWd5a1viY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ncdRqRxR6ey9JbnEsHGOkL4U6u9yeCrAUWsissZmA9CQQHwy0t2d9Lv0BJROEAo4PgLOtb3eJa1Uz9VbGlKgiJe423ZHG5WydiZZJdJUCKYbSlYLvfcPEKPKVwLNBGAF7rQ9VY6KqHmEMDFPB1h7FrthX9s0d0HN+KpGXCq0LNc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=AsXQbZ/0; arc=fail smtp.client-ip=40.93.201.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC121C5D5E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790910216; cv=none; b=CgN6ZMR4vtXO4dwtBnSj9jzfIKp89d+Z9Vk7fUtBvcqOvlDp0nttFI2up92OBNXiidwg0bbQ+fBC6rqD3ZQKIzOM9EruZso2cK044skhJr2IiRzGS/jX8GKV2NTHgMnCA/jAMQvUY1U83zBl7A/poGtJwhRVm4miBGCBNZQ0lMc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790910216; c=relaxed/simple;
+	bh=R5uGZziUWDsA1Ci/pCr6s5hpqjNrZYBUeqFKIURcGa0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QXKiq9hSHWyCJzQS7H5XQOI6BPQ98s/JINDH+tV/CQ6RNU8d+RO+4biSs+RMccR/AqykAcu3+dnnHwFKn0uASvj+MKp4KGNgh4pUy78zag+gkJqsXS+lVmJIJulOJuCSiND1ed6rbaZgXV1sx7a+UqpH+aBfAq26KdwH0GcVKEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dDVyVZWs; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="AsXQbZ/0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e1vjTVvgVqlgc47Sbkl229QQiy8MHlrZ28/yprGUwDvZxq0QrFs98t7RkCXS7YBsqDdf3H/ngRVpt9MyD8zutzUTSxu5DZaRymWtsV8GkBrKeUAgp/aWsfEfiJYb3yu0myfMhlB5K9bagqa9dtcA17zUHnw8WOqHTVHBVUc/Ho/XsDx3SFdF7fecqbjfTyTqayhk415LHZrV0r4bE+bL42F3TnJMCJKxfR0bOXuGuj3TcNM2nIzmMJjSU/yx7bgGXRDrhPSobyGMKa1Fj383z88bn3Biw2Yf7DuZJnyJHLrXJtGwOsuwrYkjcn0ruIyhkvhtOlzRMNQnrMAl/Mbplw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ANWFlMr1yveEcSzw9yiQm3eA8o0eaeTPHOT5Gz2Kiz8=;
- b=OgzgvpZCz+F7+mie2Y1jcXQJBunH9AhOY0sBgV25l3hLksNCQjZHQiLjQv51aPE4+YefMaaV23JweOMtC/X7LE7gIOfjFR3A8K9kfKkS7ANr8VUkgzCo6Br4zzM3RYn6dz+1kU09ni7rnSjmYiAtQyH1+FGpaBcnOG8PxdjyUMNo3ECDN9GroDm8xhirrsH1Q9lfEMIosYYJ/HW3B8ImGV3vtQmq7cte/afKCBId1mt/z4nIocmBX8D71Q74v+LDE1cxpLY8wDCmEa4d1gOzUm53+oGItLqy1Kw3+yBw8Ju6riqT0Q/OCB/MfRKI8PaaxFOD/TAkoIhaXRVaf3QDHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ANWFlMr1yveEcSzw9yiQm3eA8o0eaeTPHOT5Gz2Kiz8=;
- b=AsXQbZ/03Wr2aBTRnYk2nuLg62SGaGb8cb2QT7QrQBRqR3P0qZYGPQSetj4AVYUy7hEraoQBRPlcDENyiR6AlwQUEYYZrECTvAKC0bbJIJ/HyLvsRsD69fvts8xsCVpw4uu6N6YXro3TrI7FCknPkfRh4Z8eOqL2RR7IrTtVKk12R0DhCYIkF9qi7EtHU6r7ob1yl5LogADUo9MaUo3Ypw3wItWoBDmC/ztLuUB8RzsWGom9tQ5HtzyAB4i+rd1AqC9kcY575qW0E9MzImXv/W+2PMKqnWghQ46UgKjZM4n+jiI+NuPnzJ91OQo4PLOu3bd3ZqdLJWNlPgyBlLT1MA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from CH0PR03MB6179.namprd03.prod.outlook.com (2603:10b6:610:d2::22)
- by SN7PR03MB7155.namprd03.prod.outlook.com (2603:10b6:806:359::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Fri, 2 Oct
- 2026 03:01:06 +0000
-Received: from CH0PR03MB6179.namprd03.prod.outlook.com
- ([fe80::60aa:1bfd:62a1:2ddf]) by CH0PR03MB6179.namprd03.prod.outlook.com
- ([fe80::60aa:1bfd:62a1:2ddf%3]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
- 03:01:06 +0000
-Message-ID: <bd75547f-b254-42ab-9df0-fc16d8dfa8e7@altera.com>
-Date: Fri, 2 Oct 2026 11:00:58 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: altr,agilex72-clkmgr: add
- Agilex72 clock manager
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- Brian Masney <bmasney@redhat.com>,
- Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1790651166.git.evon.chiam@altera.com>
- <db3dd69fc666cca536488a75da122ff173995030.1790651166.git.evon.chiam@altera.com>
- <20260930-scrupulous-immortal-saiga-f2b24f@quoll>
-Content-Language: en-US
-From: "Chiam, Evon" <evon.chiam@altera.com>
-In-Reply-To: <20260930-scrupulous-immortal-saiga-f2b24f@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0172.namprd03.prod.outlook.com
- (2603:10b6:a03:338::27) To CH0PR03MB6179.namprd03.prod.outlook.com
- (2603:10b6:610:d2::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dDVyVZWs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790910213; x=1822446213;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=R5uGZziUWDsA1Ci/pCr6s5hpqjNrZYBUeqFKIURcGa0=;
+  b=dDVyVZWsk/G1ZO2fG/wcLA6pUo5rkXpnXfYf48Tt/VPvrkXb4MVdp+4k
+   6sO1/pr+58y6wLwVm/qgDL+p+N2VQNAIDEayPkDl+dJnP4A31xrZPdWOi
+   EkJZSVzS8QUe6ZyjDJSQvLe9HHQhJlhLDT5bdkSyPN0jQ2k9X2X5FmOJu
+   r8lLZukQp13KQSynu3+MWyQ/UNjTXdyqgK6DQ3ZBP7JdHEe4p6BWChCo6
+   SQCM4mcfY+wu/AaF7XWxh7bvcNDfhonHgG1oZncRdcRUGCq1uM4+JxBDb
+   mochwQbzjnCsJcHiibBx2vMF9qw0YFs78DZEGSQcs4eAoEvtjMaInf2WG
+   A==;
+X-CSE-ConnectionGUID: +UjE5IR0Qs6PfCZQvIh4Yw==
+X-CSE-MsgGUID: KXMCTCJeQ9yqvLDeHQ/mOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="95492992"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="95492992"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 20:03:32 -0700
+X-CSE-ConnectionGUID: eSiPyL4ETDijiCl2MLOARA==
+X-CSE-MsgGUID: Uhtg7cSbTCeBgO4x5+/fjA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; 
+   d="scan'208";a="168957"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.241]) ([10.125.111.241])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 20:03:30 -0700
+Message-ID: <2a0bf5e8-281f-4c9f-a0ea-ac195604eae9@intel.com>
+Date: Thu, 1 Oct 2026 20:03:28 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR03MB6179:EE_|SN7PR03MB7155:EE_
-X-MS-Office365-Filtering-Correlation-Id: db201bc2-c849-4834-2620-08df20316695
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|11063799006|56012099006|4143699003|260925021911599003|260925022911599003|260925021311599003|10067099003|22082099003|55112099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	AWex7bEMwBnIYrSGWi8TzZ7Szt2Fj5Gn2/MLNYk2wOL61FnsdEnF6X813DlFWJ2k/X/14tvVqhheGE1xdsVATWFc29zNY/epSBG1FgUEdUQXLK+b+io9qwT0p8TtXnWLhSI84q+ZTMFL6k7+bEPcrmoLD1tqd/3VT4Zi5YKJQYqPvVw2zrC/8D4mPFk1EQM1/K6S/i/pDiKaBqvA3J04uicO0qX5SkhELuENjDJkrVixAymtaHdwMAk86ZYb8CHUPEZjyofdLmDiq2sKQJXcp6phgpQiPGOiDIfp1TjhTWA20hNN5XLCzNDjMdSctEIuTzAkBbRkQxtVeUGTP7wipuO526TQ+iFnkfTOMinF53/tlIOo3GDV6QvDDWEU0GSyYOIacc5oa3cR/mZt799MZrI2VAygjiBsadY2KG3bMh+XMIbDH2cKbuh8R5Q5pd6HiiP8NYchFvTW0G6VJzwNADLTL7/kIAwwJO/waiquVHs7xm32RuT9aJ15PN9RDaXHyCNzxM+6bM/beGmqrne6/rLLtjUDhi5KWo35OBmTi7zxpVx5gx2TvSFpbD34ENk+Vhr2BSGwVT9mpd7yvSRTBlLKMgSMnBfCwKSge2FGDcZa1+2SF/Pc1LiHWn50aj/9
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR03MB6179.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(11063799006)(56012099006)(4143699003)(260925021911599003)(260925022911599003)(260925021311599003)(10067099003)(22082099003)(55112099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N0JOQzBtUDRvbjA0REM5MHVCck9RVjlWYnN4Nk9HbGhpMG42VG0zU1I0c2sy?=
- =?utf-8?B?LzN5bU90UnVERXViK09sN2dTSzlIbm4xSkZPanVuMDk1N0ZFaS9nNDRjcFlY?=
- =?utf-8?B?V2pNUXlXWlhwRWZNaHdkYUtSN2E2SnM2VllpckJFZmtFM2drM0ZTNm42TUFz?=
- =?utf-8?B?UlIwTGU2TEFHUGQvdVpINElnUU5ZWm0raHZHM3poTG14QjI4VXhhdVl0R2RV?=
- =?utf-8?B?OUJQTnNodVhEdFF1UGpuOGhXbktiVjUyUFhMb3FlNy8reG5kVHViY0h3c1hy?=
- =?utf-8?B?eFJ5Z0Y0SWQ0dGd1MnhQeHExMlRVOFZBTWEzdFdYSUliMDNmOG9tMWpMSjR5?=
- =?utf-8?B?amRKbjk3WTJmNHc1MjhIRHFZYjVXUnFUeG5jOEE5K1BVL05aOFYzWVJESDVQ?=
- =?utf-8?B?YUYxUXdkSnZRaldPbXo2SEU1VXpoNC9KZk5xR0gxK2lmVExSelhOSXBjcHZ5?=
- =?utf-8?B?U3pZU2VVSTJzbWliM0xabkprMld0OURCckRuNVU5dENOOVUxRHd5MStkbTM0?=
- =?utf-8?B?bHIvMmw5S2tScDBWUGhrZlVPYzQ5VVRld3Blb2dQUXhBd0NRSmZCVEhaWEpK?=
- =?utf-8?B?Z0NuZXBMREpZbTlmWUh4Vks4aStJRWs2cUdaaHNWb3NCcUtYZDlEblYzZmQ4?=
- =?utf-8?B?N3N2RnJnbXhGUjI4eFFGWVdMVmkwdC9tYjJ1bHI5V1g0dHJPSGdIT01rMTJR?=
- =?utf-8?B?cm9ndEhYRnhUdHM2YjNCSlk1MXNpbm9odDFTVTV4SDVyeFArZE5CeDdEaVFE?=
- =?utf-8?B?Y3c3SkxDTWJOVVVxMFpSSjMzcXNIYTluQnNMV1ZtcUY2ZE4zZGUzRUh5Q0h2?=
- =?utf-8?B?MXJuUVNKZE83bkR1YjJnQkVwN2ZWcUlTYWxsd2wzNzlJUHJDUVZhSHErY2xy?=
- =?utf-8?B?dkR0Vkg0TjE0S3d3SnFVbXlLRHN6ZHBac05HUmxwK3F1RUF1cEkzRzhzZWNu?=
- =?utf-8?B?aUtucXNVVVNnQ1lUdFdBajh3TUtlU2dwMVptcEkzTCs3Wk5PbUxFM0NZcFZu?=
- =?utf-8?B?L2hLZTQwQUZpZXJTSGdwTDFTUi9HN1ArWEtuMEJpS3UreUFMZS9sdzFFMmhC?=
- =?utf-8?B?VXJhRjRvRk1OSDJLd3ZOb0NQaTFEQjZvMnFtRURHZGhVOTBoME1reThhc25I?=
- =?utf-8?B?TEJhcDJ0OGpJLzg2clg2ZSswN1IyMlE1M0o3Tm5raE9hSUJ5NDFvKytuQ01P?=
- =?utf-8?B?dUJlQWtEWEtOQVpwa1ZUQnpRYmd0RUlWN2s3UXJpU3hxcTJyczlQbHNnZmxy?=
- =?utf-8?B?VHVCRVNHanE5NGRtdXNqb1kyOVNUblp3czU5NHlyOUhGSklYc1hGZU1nWWZr?=
- =?utf-8?B?MEYxRnVxNEx0MG1zNzJib2tTMmNVNHE5aXFTMUhWaEdRMkdTK1dUYXZpTXM1?=
- =?utf-8?B?UnJlK0FDUWVGUDYrcFZpL0ZpYSsvZzlQNkZiYjNNa3I5OENKTUV6cTh2MG1B?=
- =?utf-8?B?bmp0VHJlMnFucUZpTkdxZ3pudFBLSjFaeGhGTGNhVjhmNXByaFBoYmdIR0p2?=
- =?utf-8?B?SU1GTm1JSnVjY3I2ZjFwbDhyOSt0VE1VaGN1U1NSd1NUR2NLWWlEWTdWQktZ?=
- =?utf-8?B?KytJSUdjTHNWVkh3WXhMNkh2aW1va0xTMnNFdEp2ZEpEYThBZTJuZjhKTlVQ?=
- =?utf-8?B?UjQzZmFyUFN1dkJTNmJGZ0JidklFZDEybHFMRkVwQklpUCtPWVlKUVJsdU42?=
- =?utf-8?B?bjZFeks5eXp4cTJ1ckRzSXZMV2JiakZ6K1hBclE3bUw2VnNhU0ZuOTQ0M3k2?=
- =?utf-8?B?b0QrQmFJeHBhbTJsRlFoc05mWnVEcUw2ZjY2d0wydk12VmxNQ1RYZmRNb0Fx?=
- =?utf-8?B?bUtYUWpMbzZqL0ROQkEwOFBQYVlnT3ZmK1B4Yi91dGNBMmRIMVZQa1UwdERp?=
- =?utf-8?B?Z3ppZXlVT3plZkZla1hncy9BVGsvclppQnNVYzVsZ3VQZGo3dG5ZNDFHMlM2?=
- =?utf-8?B?UWNoVTBQTHJ3NXBMZ1lBeWV4cFNycFdFcDVoWTJualcyVmM2NnFaN2gvTDdx?=
- =?utf-8?B?R2NYZURBWVRqanZBNGVDeHVHRXF4Z0Y1aHlsemgvTnFyNWZkam1lb29VYTFE?=
- =?utf-8?B?SG54YTREcW9BdHM0RW5IOFdzWkN5YXFqU2xDYWpBR0oxR0c2UHU4NHFqOHU4?=
- =?utf-8?B?MWRDaGUwYlVRVDdkY3hiQUtPSGpicWNDbTVSK2p2aWEyNXB4QjY2ZnhIdUpz?=
- =?utf-8?B?RGRaOVJYQTIvUHVWd1N6OEVPS3AvaUpVcnpXcTVoVEZ0dlZ0dFhGQlVISXIr?=
- =?utf-8?B?cFFjclNYVS80Q3RXWm1FNEZQdWpJdlhKRnZqcTFJS2dlWFNCR05UelpkY3A0?=
- =?utf-8?B?ekQ1NnBBU0RrcnVkZjFQWkdrVTVwek1xeVBRM25SUVdicGJ0QTJBUT09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db201bc2-c849-4834-2620-08df20316695
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR03MB6179.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 03:01:06.0645
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bfEfJvcUQFMx+8TPgpaUiCdImESthhYfj4rw2cb6TQFyVEN+Xvcxk37lACtm2lAqPc6dei269KcevmWe15EYag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR03MB7155
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] nvdimm/pmem: remove test_and_clear_pmem_poison()
+To: Kaitao Cheng <kaitao.cheng@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Ira Weiny <iweiny@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
+ nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Kaitao Cheng <chengkaitao@kylinos.cn>, Oscar Salvador <osalvador@suse.de>
+References: <20260923055318.57485-1-kaitao.cheng@linux.dev>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260923055318.57485-1-kaitao.cheng@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
 
-Please find my reply inline.
 
-On 9/30/2026 6:48 PM, Krzysztof Kozlowski wrote:
-> On Tue, Sep 29, 2026 at 05:38:12PM +0800, evon.chiam@altera.com wrote:
->> From: "Chiam, Evon" <evon.chiam@altera.com>
->>
->> The Agilex72 clock manager exposes four register regions: the clock
->> manager itself plus three general purpose PLLs.
->>
->> Add the schema and the clock ID header that consumers index.
->>
->> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
->> ---
+On 9/22/26 10:53 PM, Kaitao Cheng wrote:
+> From: Kaitao Cheng <chengkaitao@kylinos.cn>
 > 
-> Where is patch 3/3?
+> The pmem driver provides test_and_clear_pmem_poison() only to handle
+> the CONFIG_MEMORY_FAILURE dependency of TestClearPageHWPoison().
+> The wrapper has no other pmem-specific behavior.
 > 
-Patch 3/3 was sent here:
-https://lore.kernel.org/all/d6a2a5026a6a00d0b7ecfae76ff299f5b9752686.1790661931.git.evon.chiam@altera.com/
+> Define the HWPoison test-and-change helpers to return false when
+> CONFIG_MEMORY_FAILURE is disabled.  This allows pmem to call
+> TestClearPageHWPoison() directly in all configurations.
+> 
+> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
 
-I accidentally sent it with different threading metadata, so it did not 
-appear in the same v2 thread. Sorry for the confusion. I will resend the 
-full series as v3 with proper threading.
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 
->> Changes in v2:
->> - Subject: dropped the redundant "binding" suffix.
->> - Reworded the commit message.
->> - Dropped the external fixed-clock nodes from the example; they are not
->>    relevant to this binding.
->> - Dropped AGILEX72_NUM_CLKS from the clock ID header; it is not part of
->>    the binding. The driver derives it instead.
->> - Added the clocks and clock-names properties for the four external
->>    reference clocks, made them required, and used them in the example.
+> ---
+> Changes in v2 (David Hildenbrand, Oscar Salvador):
+> - squash patch#1 into patch#2.
 > 
-> ...
+> Link to v1:
+> https://lore.kernel.org/all/20260903053535.17611-1-kaitao.cheng@linux.dev/
+> ---
+>  drivers/nvdimm/pmem.c      |  2 +-
+>  drivers/nvdimm/pmem.h      | 12 ------------
+>  include/linux/page-flags.h |  1 +
+>  3 files changed, 2 insertions(+), 13 deletions(-)
 > 
->> +  clocks:
->> +    items:
->> +      - description: External oscillator input
->> +      - description: Internal oscillator divided by 2
->> +      - description: Internal oscillator divided by 10
->> +      - description: FPGA fabric to SoC free running clock
->> +
->> +  clock-names:
->> +    items:
->> +      - const: osc1
-> 
-> osc
-> 
->> +      - const: cb-intosc-div2-clk
-> 
-> Drop -clk
-> 
-Will fix in v3 to remove the redundant -clk suffixes.
->> +      - const: cb-intosc-div10-clk
-> 
-> Names are odd, seems like you put here source clock names, not the
-> actual logical names of the inputs.
-> 
-Will address in v3 by using logical input names.
->> +      - const: f2s-free-clk
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - reg-names
->> +  - clocks
->> +  - clock-names
->> +  - '#clock-cells'
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    clkmgr: clock-controller@915c000 {
-> 
-> and drop unused label.
-> 
-Will remove the unused label in v3.
-> Best regards,
-> Krzysztof
-
-Thanks and best regards,
-Evon
+> diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+> index 30a51c365ce8..5fb86595e8bd 100644
+> --- a/drivers/nvdimm/pmem.c
+> +++ b/drivers/nvdimm/pmem.c
+> @@ -80,7 +80,7 @@ static void pmem_mkpage_present(struct pmem_device *pmem, phys_addr_t offset,
+>  		 * here since we're in the driver I/O path and
+>  		 * outstanding I/O requests pin the dev_pagemap.
+>  		 */
+> -		if (test_and_clear_pmem_poison(page))
+> +		if (TestClearPageHWPoison(page))
+>  			clear_mce_nospec(pfn);
+>  	}
+>  }
+> diff --git a/drivers/nvdimm/pmem.h b/drivers/nvdimm/pmem.h
+> index a48509f90196..76870505dd79 100644
+> --- a/drivers/nvdimm/pmem.h
+> +++ b/drivers/nvdimm/pmem.h
+> @@ -1,7 +1,6 @@
+>  /* SPDX-License-Identifier: GPL-2.0 */
+>  #ifndef __NVDIMM_PMEM_H__
+>  #define __NVDIMM_PMEM_H__
+> -#include <linux/page-flags.h>
+>  #include <linux/badblocks.h>
+>  #include <linux/memremap.h>
+>  #include <linux/types.h>
+> @@ -31,15 +30,4 @@ long __pmem_direct_access(struct pmem_device *pmem, pgoff_t pgoff,
+>  		long nr_pages, enum dax_access_mode mode, void **kaddr,
+>  		unsigned long *pfn);
+>  
+> -#ifdef CONFIG_MEMORY_FAILURE
+> -static inline bool test_and_clear_pmem_poison(struct page *page)
+> -{
+> -	return TestClearPageHWPoison(page);
+> -}
+> -#else
+> -static inline bool test_and_clear_pmem_poison(struct page *page)
+> -{
+> -	return false;
+> -}
+> -#endif
+>  #endif /* __NVDIMM_PMEM_H__ */
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index ae2ebaed6d4d..3dc79c0c5adf 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -655,6 +655,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
+>  #define __PG_HWPOISON (1UL << PG_hwpoison)
+>  #else
+>  PAGEFLAG_FALSE(HWPoison, hwpoison)
+> +TESTSCFLAG_FALSE(HWPoison, hwpoison)
+>  #define __PG_HWPOISON 0
+>  #endif
+>  
 
