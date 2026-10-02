@@ -1,155 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF67C4189C2
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:50:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B61B43BDD0;
+	Fri,  2 Oct 2026 07:50:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927427; cv=none; b=GVmrHtgYZMnfmQ6pbNGrvHQNvXJm/+qjg9uLhNaXGiHIMjjrXgXDkCHW+uyIL+a/jWDJzZ22FBQUG1nGMaPiGCKZeCigdPOiRXQi/JnCBvNODJfPpTHcHtX8BJUgzSh1j8lyFjwImTqrhtzSpfsvN2yy/cPlr7BG+H4fXE3Lfk0=
+	t=1790927436; cv=none; b=OvBRL+NsUXakrEnRuxtoKLb4+1hgsIvey040azLbPJORkjB81Kx17E+74EKUX5Yd8/A/m+9FxveF2F22/+Qm8a3ia5KD/v213chQ9qafL5UYxjMQ4gc/5x7wxtPYwF0rA9KILQWAOMRT71sHh5VklroZmUh/YVeB7a/1RCZb8iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927427; c=relaxed/simple;
-	bh=Uuw9YcGk9lfdEVRwjqrzUmYDlAJl7TAqXFgwWW6Q8r8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KuUxOAjsz7aLu7PQWARw3mii2Rothj/OfMzCBMwV/9+Vg6QJ6xuI8Rb7UwRN4uRvTCAiFUquX1NxSsVfRolVPVyXeAjU8VDQBomw1ynLM/1HaloNz8CPdFt8P8MRRrQgl2o/pLwgn98GhbC963H8oYqfBPXe/0M+Ib5C/zEnqxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=opAULVzs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790927436; c=relaxed/simple;
+	bh=ddZ/0Ika27klzKF3I+d/d7JLE2NqOUP4YHYyI3E85/I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HKdNO188MHPrZNiCyFAZzl0Ht3GmUIqbTyoQrCouVhQLn5Dgfl3Wz7hn/DMgXF6VJzgnHHz/PLr6gXnfj4MoJtTHfIHjSpm/CtpymzomQEVBfcSAjTG1U67zgxN+j5uldI7RGtoKVOQYHDBDu01A417YhgX5n1YTsAxP/5AE4cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVw7lvMo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="opAULVzs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97B081F008A7
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:50:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVw7lvMo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE6F01F00893;
+	Fri,  2 Oct 2026 07:50:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790927425;
-	bh=Uuw9YcGk9lfdEVRwjqrzUmYDlAJl7TAqXFgwWW6Q8r8=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=opAULVzserwDb623yWkTcdiUML85+eUnznNSm2bz9BbqvYiGAwrYmMs4N5G3AI2Do
-	 SRosiiL4LqIJdn0j+5KRGCF1G3rI/z7WcudA0XxY2wuaOUQNGF8GzuhELil6VrQcbJ
-	 v+TtUe+v2C1s+wtC3hMFSXsxHqN1FKtST0gYH+D7h7EmZfo0fHDxSX+eIdcwsLqHnu
-	 EFnpu+wg5W/KoHhGajA0x9yUeS5bjGFxqyZsD6terQGNrPrL27SuXwsYIg196Tt1fC
-	 XqubiQjLbY8o+gzwBYblVy+/WkIt0LHmaHO2rXQrKBashx7FIBhHhrwuY19KS9LYe9
-	 12slgzEAXYrqA==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a783ec301dso13403581fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:50:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxC/YppHegjOKJpBuDQ4f0qqpXnTfLMPiCHs332R7OPGC39qv5sdRWu1ybUL9rOfoHkOqMqxB+mFcNORW0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ01O0Yh7fkSyUR2lhEv91hF+FPdrGEYZ3FOh6I20/nu7Y/spsM
-	01ZgT4zuXwxIbTCaQRIgzOt4LPoEouPhh40OiAzQOfpasp5AFHF90e3YhlqbQ6yTVjMM3kd37/W
-	sUbrhpvBBqtKzOoVQFehJHxDJpdiejpM=
-X-Received: by 2002:a05:651c:a107:10b0:3a3:74b9:8a79 with SMTP id
- 38308e7fff4ca-3a8877f2af4mr3028011fa.18.1790927423980; Fri, 02 Oct 2026
- 00:50:23 -0700 (PDT)
+	s=k20260515; t=1790927435;
+	bh=+Pc5nkrvJxxyhhPfWbKf32Vct+MxV8Z2P9Zl0wY1/k8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gVw7lvMoGqVLws9vQal+E+SIdYRd8U/eI136EhycJtrNhAccjVkInfoBhm7Jb+Vdh
+	 fNLRHZBdv6xRlI0etsNET9uk6Pw7rkKRHiXUfWeLmVu58i+GFxw5yhsijnjdKD0LLz
+	 hPPL69QId6FDxroqWH6kQGdWskTBAO2vTAVpyLyOCfJUvKPijceyz3HlbqsvXBj9UO
+	 PaAPZGVZB+9BDW9CvZxF4DC3jmgqxs8jgsFQWqvrFLks3lfy97yUIDphEdA+Ld4mGj
+	 zOe2HSvaCAT9sznLF9wQ+Kw9HgDLKm095R2YdfLOuVnZVGLXZ6N+mg2Nf9fEW1hiVn
+	 NNjWPO8mOLyNg==
+Date: Fri, 2 Oct 2026 09:50:33 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Aniruddha Rao <anrao@nvidia.com>
+Cc: jonathanh@nvidia.com, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/5] firmware: tegra: bpmp: Add ACPI and MBWT support
+Message-ID: <ar9iNawW4HzCx19I@orome>
+References: <20260929095915.2215685-1-anrao@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
- <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
- <20260927132707.5f484946@posteo.net> <20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
- <20260930160541.040ccc0e@posteo.net> <20261002-matted-tux-5b4059bc305a@wendy> <20261002094816.64349979@posteo.net>
-In-Reply-To: <20261002094816.64349979@posteo.net>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 2 Oct 2026 15:50:08 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65YP7WM-FKKJJuEpGWO3xyY1KAhWjw39hgHE=Ns2a0zzw@mail.gmail.com>
-X-Gm-Features: AclHuK_HVE57bDVsQlmhG-VM5VBilmJ8qnl2ozGwoiccAzLaGGbOy91FR-N2-UM
-Message-ID: <CAGb2v65YP7WM-FKKJJuEpGWO3xyY1KAhWjw39hgHE=Ns2a0zzw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware spinlock
-To: Wilken Gottwalt <wilken.gottwalt@posteo.net>
-Cc: Conor Dooley <conor.dooley@microchip.com>, 
-	Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, Bjorn Andersson <andersson@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Andre Przywara <andre.przywara@arm.com>, Bastian Germann <bage@debian.org>, 
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="enqzndaxjwx6gx6i"
+Content-Disposition: inline
+In-Reply-To: <20260929095915.2215685-1-anrao@nvidia.com>
+
+
+--enqzndaxjwx6gx6i
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v5 0/5] firmware: tegra: bpmp: Add ACPI and MBWT support
+MIME-Version: 1.0
 
-On Fri, Oct 2, 2026 at 3:48=E2=80=AFPM Wilken Gottwalt
-<wilken.gottwalt@posteo.net> wrote:
->
-> On Fri, 2 Oct 2026 08:32:51 +0100
-> Conor Dooley <conor.dooley@microchip.com> wrote:
->
-> > On Wed, Sep 30, 2026 at 02:05:47PM +0000, Wilken Gottwalt wrote:
-> > > On Wed, 30 Sep 2026 20:02:21 +0700
-> > > Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog> wrote:
-> > >
-> > > > Hi Wilken,
-> > > >
-> > > > > Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspi=
-nlock" line to
-> > > > > the driver in the sun6i_hwspinlock_ids struct, drop
-> > > > > "allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and u=
-pdate the yaml
-> > > > > file accordingly?
-> > > >
-> > > > Thanks for looking at it. Bjorn hasn't replied yet, so I looked a b=
-it
-> > > > more at the naming. I'd like to keep the A31 fallback: it's the usu=
-al
-> > > > pattern, other blocks in this dtsi do the same (timer, I2S, LED
-> > > > controller), and Conor already acked the binding in 2/3. If Bjorn
-> > > > prefers a driver entry instead, I'm fine to change it.
-> > >
-> > > Yeah, Conor was a bit quick to act here, such things happen often wit=
-h patchsets
-> > > made out of documentation/devicetrees and code. Though, the get clock=
- and resets
-> > > patch is fine. The driver could use some modernization.
-> >
-> > I dunno, was I too quick to act? The patched looked correct to me, sinc=
-e
-> > it was using a fallback to a device that it appears to be compatible
-> > with. Had the series done what you're suggesting, my review feedback
-> > would have been to tell the Tien to add a fallback.
->
-> I'm just not sure how to actually do it right, because so many SoCs inclu=
-de that
-> feature. That is why I asked how you would do it having more insight as a
-> subsystem maintainer. It just looks incomplete to me. In the past I actua=
-lly
-> verified it working with H2, H2+ and H3, none of them being
-> "allwinner,sun6i-a31-hwspinlock".
+On Tue, Sep 29, 2026 at 09:59:10AM +0000, Aniruddha Rao wrote:
+> This series adds ACPI support to the Tegra BPMP driver and support for
+> Memory Bandwidth Throttler (MBWT) controls exposed by BPMP firmware of
+> some Tegra platforms.
+>=20
+> The current BPMP driver depends on device tree bindings. This series
+> keeps the existing DT path unchanged while adding an ACPI transport path
+> for BPMP firmware requests.
+>=20
+> MBWT controls are accessed through BPMP firmware requests. This series
+> defines the MBWT BPMP ABI, adds MBWT helper functions, and exposes a
+> narrow sysfs interface when firmware reports support for the required
+> MBWT requests.
+>=20
+> Aniruddha Rao (5):
+>   firmware: tegra: bpmp: Move channel initialization to helper
+>   firmware: tegra: bpmp: Add ACPI support
+>   firmware: tegra: bpmp: Add the Memory Bandwidth Throttler ABI
+>     definitions
+>   firmware: tegra: bpmp: Add MBWT BPMP helpers
+>   firmware: tegra: bpmp: Add MBWT sysfs interface
+>=20
+>  .../ABI/testing/sysfs-platform-tegra-bpmp     |  48 ++
+>  drivers/firmware/tegra/Makefile               |   1 +
+>  drivers/firmware/tegra/bpmp-private.h         |  39 ++
+>  drivers/firmware/tegra/bpmp-sysfs.c           | 207 +++++++++
+>  drivers/firmware/tegra/bpmp-tegra186.c        |  14 +
+>  drivers/firmware/tegra/bpmp-tegra210.c        |  13 +-
+>  drivers/firmware/tegra/bpmp.c                 | 415 +++++++++++++++---
+>  include/soc/tegra/bpmp-abi.h                  | 161 ++++++-
+>  include/soc/tegra/bpmp.h                      |   2 +
+>  9 files changed, 849 insertions(+), 51 deletions(-)
+>  create mode 100644 Documentation/ABI/testing/sysfs-platform-tegra-bpmp
+>  create mode 100644 drivers/firmware/tegra/bpmp-sysfs.c
+>=20
+> Changes since v4:
+> - Move BPMP channel allocation and ping setup/teardown into the
+>   SoC-specific init/deinit operations.
+> - Add an optional init_providers operation for DT child and provider
+>   registration after BPMP communication is established and the firmware
+>   tag is read.
+> - Add an ACPI BPMP init operation for the BMRQ ping path.
+> - Remove ACPI-specific setup and teardown conditionals from the common
+>   probe path.
+> - Drop the redundant NULL check after device_get_match_data().
+> - Explain the transport and provider initialization phases in the ACPI
+>   support commit message.
+> - Explain why DT registers an incoming MRQ_PING handler while ACPI only
+>   sends an outgoing ping request.
+> - Describe MBWT bandwidth groups and traffic types with platform data so
+>   firmware instance and VC type values can vary between platforms.
+> - Document the sysfs hierarchy using platform-defined bandwidth-group and
+>   traffic-type names.
+>=20
+> Changes since v3:
+> - Update the sysfs ABI Documentation date to September 2026 and target
+>   release to 7.4.
+>=20
+> Changes since v2:
+> - Rename the non-ACPI transfer helper to tegra_bpmp_transfer_channel().
+> - Keep the common BPMP message validation in tegra_bpmp_transfer().
+> - Remove duplicate message validation from the ACPI transfer helper.
+> - Move the MBWT helpers near probe and document why they are needed.
+> - Rename bpmp-tegra-sysfs.c to bpmp-sysfs.c.
+>=20
+> Changes since v1:
+> - Dropped the SoC Kconfig patch.
+> - Kept the existing DT path unchanged while adding ACPI support.
+> - Reworked ACPI matching to avoid a dummy ops table.
+> - Added explicit error handling for short ACPI BMRQ responses.
+> - Folded MBWT helpers into bpmp.c.
+> - Reworked MBWT sysfs into per-traffic bandwidth attributes.
+> - Removed software bandwidth range checks.
+> - Use NVCLINK consistently in commit messages and documentation.
+> - Avoid platform-specific or transport-specific MBWT wording.
 
-Even if all the SoCs had them, if no one enabled and tested them, then they
-wouldn't have entries in the binding or dtsi files.
+Applied, thanks.
 
-> > > > Bjorn, what do you think? Just stay with the "allwinner,sun6i-a31-h=
-wspinlock"
-> > > > string or add all the possible combinations like
-> > > > "allwinner,sun8i-h2-plus-hwspinlock" or "allwinner,sun8i-a83t-hwspi=
-nlock".
-> > > > I mean, it is just a naming game and there are 10+ SoCs supporting =
-this
-> > > > spinlock register file
-> >
-> > All devices compatible with the a31 should use the a31 as a fallback.
-> >
-> > >
-> > > > > Oh, and I may be able to test it against the D1, I own a Sipeed N=
-ezha.
-> > > >
-> > > > That would be great. You don't need FreeRTOS for it: I tested with =
-a
-> > > > small Linux module that takes each lock and checks the status
-> > > > register. I can clean it up for the single-core D1 and send it.
-> > >
-> > > Uhm, the Linux-only test doesn't work as a hwspinlock test, it misses=
- the entire
-> > > point of the primitive. A hwspinlock arbitrates between two independe=
-nt agents,
-> > > in this case, Linux running on the C906 core and FreeRTOS running on =
-the HiFi
-> > > DSP, both sharing the same memory bus and other hardware. If Linux is=
- the only
-> > > one who ever takes the locks, it is simultaneously writer and reader =
-of the status
-> > > register, so the test cannot fail even for a broken (or fake) impleme=
-ntation. That
-> > > would basically test nothing at all, well, maybe it would be some kin=
-d of bring-up
-> > > test, but overall quite useless.
+Thierry
+
+--enqzndaxjwx6gx6i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq/YkYACgkQ3SOs138+
+s6F3bA//cq/B0PZhoRS+EnpJvSQ+cflJK29IKgYI27ueF0Mi07HmWAnDSemd4zUo
+iHVE8N5ubqYpUcAPseqyCNjtsHsxklev5waJ+ZTwbuaq3ypClQ8zDCKh53lUtWVF
+uM2fFidEo2hjBLQPQtgyTP2yo0VE3+Qx9OU7N9daK5hB5UA5eVFxZ16jVQYoP1d4
+zRdMMeLau8euTIaBSgjs3b9Q1GS0m8fHFzaYHTih2xYupOc7ZlOFbBzORTnnyN56
+BaC1fL4B4JFyGTPNVUJ7j4m8/e/MPlF0oHRNrg2/LGVCTn4JPHGSqOGf+oezVoEw
+1DIjVT+4NpsjOWYN2cWy+2hjo4MmLBSdJlcQ/prqHtKBvk3I4SlFq3yWXxDpe3Ot
+9KEtK0A+tQ7stLJAxS87DB8+6dlHzMFYf9B/B2/wJ5wDPmvSH3UTVVGG57o25HBP
+C85OBti+M98rDn4r6xDTi3cOL4DaXvJSItj+JUtt5H6vPYKpsAruGd5HRLDmXS0e
+OzK6UKoaoENqShMNexY+VPyMcvaoTG+bR6jG7bwrFLoNixebHe2ThejUy0TphAxy
+fcdXRXnN1dC7n0eANzrPQe07fvM1rcbb+CShxJqxVp91Ym7otpcUXh01hr5FjGLR
+1eqGCxbuH1uE2h+lybuiLOp6xCsqD+js6QxK2g+eL1EKdIKw5d4=
+=ptmA
+-----END PGP SIGNATURE-----
+
+--enqzndaxjwx6gx6i--
