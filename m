@@ -1,77 +1,77 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E499476CF6
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD68472772
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932590; cv=none; b=n0U7S6E3h6pTNp3cUOixn86oVkpbA8/maTt7Oq/Lm3wDZoTLW7RemAmdl+mynKJxSMWTmEB2TMxD972rfW+FhMruLDbtpFyquQmz5v6a6Q+zDLSTXfjMGLHkJjlT6rljo7Ve6lPp9LrAz5hjhNzmRhLnNM4nazdSyMekozT54W4=
+	t=1790932592; cv=none; b=BE0XH5rL4i1+qCX8M7JabvfDDo66LsX6WFaoRlRWxURCSz7iwKKow6klZetGM+wg0mNTctvCFFmwdr8RNHf5ZzDQpzDCDJE9qQJbMU+eJ8T1Vbo3dzM+rjt+Q9WO/aiNeih0Plq0dR5It/xtMeRkAwzem4ndbsTspSyM4+2J4Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932590; c=relaxed/simple;
-	bh=ASIRIPQOZcDvhxr3ddvbKqL88EpOSIQJKUuTlyXbJsA=;
+	s=arc-20240116; t=1790932592; c=relaxed/simple;
+	bh=c1MekjqISxF0fGn1yJW4FB6LYLWcYNOjlAKoEXUwTOg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TUokZYMtGo/eYyGuyL1JwCyzZDhbgKAMedIA3/bq+GMBflKMTD/0zL8BHPB2nzb9fB2ZePjt49mFDcG6KzitGbKXNt4x0GuDegasx6dXxx9cjK5UOfv6CyR1aG+qqmDXuDijpKBfDh67qvKKVuWiQFIGp3+2BdSDa1szGU8V4pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=A/ygneT+; arc=none smtp.client-ip=74.125.225.97
+	 MIME-Version:Content-Type; b=nSmydERF1OfoJIQAnUaIlZ0rcehRTfo4nLtQERvVQdu1hXlm5DNkAyQRbKto0WDlOZ/r/BwKCdmpsaq+4bUn5LZDLanX2GbOD9cxTnRu7RjT1OYqixLpxO4zrQ9uHQZ7GXFx0yUcdzNKVZpd3jZppfAJpKwtZ/ejHjQYprBSvnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FIDFt7mg; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="A/ygneT+"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b9d8056d2so303855f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:16:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FIDFt7mg"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso46977255e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:16:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790932587; x=1791537387; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790932589; x=1791537389; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5i4f7F+jr4QCAb/6TnLantwlo7EASL44G0akbRfkeFE=;
-        b=A/ygneT+JpGsofJfsb7XViC7gRNTiRrSSQVel0o4H7CN8mgGa19tDDHqRpHGZG2P4F
-         C02RSLIM0n9F60/bFW4eIWSSO0IKALq2qb+yy8CuIZikwZAR7FAvJ5qPO+vGV30ojIeA
-         CJNpzRUneR/0tgT+MvRLmDPmgcdKhCWEXLgKBQ6h280CKd2VH/XMBJIWYg9NOhHJ1ghG
-         00vhVUQ3vhUUkn9LEs7Q4/28ZQqT/YHnqjc6EwzBGok2IfbQDh6ZH/o7M35iVNsdDzmB
-         BkHAlc0RVGCCUi0/Dskah4+DEPhE01lwzSH6YoR6HdPpYVxncSJkB+a/+5x1+UPBWkeV
-         khQg==
+        bh=uyzeELAx9pVH5pCQHDGoYs+swgzoejgakWVx8elkkIY=;
+        b=FIDFt7mgTOeQw+5ogyHWt2BAR5aEkALbz32G3bhkxPYG3IkcTF9Oxs+YN18gL0jDpj
+         Tea+2sCigAwTbF06osKFXbi4chOLtwywH9yyRiw71HdOI6iZRQ5DC414/pUZwhIeHFIe
+         l+B8SFmk3Xv5zpTZ2ZPppURLwu/tGNcU62qJfIhLJ9hIwud73qM44xE+45CsKSbEAAxq
+         +JBVFFbF796t5tS8tH3XLW8a+k2Rfnk7/EmpuMerShtekP5I+wReyLyBgK50KySl5zce
+         tCdifQsXyo97LF0Mq2ffqWkC9txvy0X6J+Cl0pFU7p3UxlJYIf3r0b9Bf0t9gFNpnCD/
+         6wog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932587; x=1791537387;
+        d=1e100.net; s=20260707; t=1790932589; x=1791537389;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5i4f7F+jr4QCAb/6TnLantwlo7EASL44G0akbRfkeFE=;
-        b=UtymKIoWK68b/PnMKGJHgl2g7nM+07RAVZPhIlUUx6Q3QcgzSHL+FvR6qfZnMcLIgj
-         tG99ULU1d9hH/QTASZUbx987kGbC4XX2IVGxZmfpWCMQFKdUYid1xUqEEo0VuqjB3rC9
-         tTv8jBFPALa/mTCWIJ1lGGclE7ak3jquwsvPKiiqmGhoir3n3FNBo5QlpmkISwHOJ+b1
-         /MdTwlH57+L9U+KDrHEHufXxRmtp8isleyVUSK4/EratJGES54QskYvNmOhlLIOSqt2E
-         auuwZPFB3zv7dGg+tFSZKPeYWE1BUKum5ZTWrZDjRPFJ5m1WWnk5kGCHu7312rO/ayf8
-         1tKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxME4C+VdQrdPgF14rxdraH+u1A8+3WuFJGja59dOktmT9NGP8JWu9iMbOdxDFxqqH2pXO6DKRgc3ohVFk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTR1xngNXdN4hwZyuTtPi5hFk4oVKz85QKtK7rmqvDNrtP/wRd
-	bo3NdNSrobinQK0DJWNyHbbeLM9myU9OawIPsCKyB5mBfnET2td3SfAH2BsXDW30VVs=
-X-Gm-Gg: AYBFou3weofaKixpVNG2hZUYJVonRJj+TKJsHZsK3EtkmVBIalLOfftpIgvXk0XOZiS
-	hijgcgNugxNKgr5eWa/Yg8oMXMow0jeWSa71L6nWrtPJcmuFNintvdk9AbzWejz3q9vgdsku9R1
-	LIndjafq/ZR2kNrfApIFFMIpNlzq8VpSOnZDaO2zGG6XUH9W9HS21KfngMo5WjA+kB8WwVo//Ut
-	PamcsSM0/1QVJQ3viliItWItJa3KSaC2/N2zdc9UJRZTAvIaUeztinGUdoDMRnyb4s6Y42DApEu
-	GLgS5jEFiViGiRhpOy2xZf1/JKWqch15vEtitMfwjSmp9at5gsmTaspn6zwqu1oZpi08/+rW5Z2
-	m6NzQkghowCK64zyWKwKmqTEVzwxncdkqMuRqNn/a6pOwHZ+rTjjXFciFQ7xu1oYuHKkIPghE4H
-	gw2osQUrVW/ot4nsIKV8gm0xPGS5J9bNQgGP+nYoVtOW5tnGwu4NQxyg8CxqMXWjUBPyuEr1LXq
-	Sh1pR6Zqdlh0xWMzz8=
-X-Received: by 2002:a5d:64ca:0:b0:488:83f7:6352 with SMTP id ffacd0b85a97d-48b126f542emr3954542f8f.4.1790932587146;
-        Fri, 02 Oct 2026 02:16:27 -0700 (PDT)
+        bh=uyzeELAx9pVH5pCQHDGoYs+swgzoejgakWVx8elkkIY=;
+        b=CVtyopvUzw0cjxeNGEMPTnKRg9bzOY46jf2Wf9b44o/t+ZVYJRx+hqocpZCCf/RMYY
+         7rxdUt/BDqb++inAlkzS9Dx224BRXUB15jJ0wsK4fgjrVUcQOyTQTuQfaepmfZf/Ez9o
+         PsWkanEv1HDNA26NQBczAzlrQfSoOY8bW6m3q+N/77o+xlSaIt1gOcUol8o09RkB68PY
+         5rBQUhnvK5dxApMdXFRIbCXOrJbJjS/PjD+kLaqBzOG93iT5uHpYUb+cIVzLDKyPiJoM
+         trXh11QK2IoCghNv01kjF6dBsAcpNkui65veNM3VYXSHv0uhTDb7O8sKCZ7LqQDRbPl8
+         h3MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMq/g+0S8PdzfqUdoAKyjizQOaXm7LOgItvGtGpq+WXXNaUXeOS5H9wed94JlGcfjzDNXwHcWQf3+5Fwo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHgrfKQaKEyedzxmPc66z85P0kRY1Mzrqi8sh9MYEQGcAOz9S4
+	kTJSP0Gl/b+YZPlk6w3Ehyjhbe5L1YxdxsCAisGO/Wswn1IaQeKM/HFSLGhbHpIMfwc=
+X-Gm-Gg: AYBFou1RnIORgMaaYboJITiPPXHPAlcJl/2qR+9OwHhSuSql2c7S/3s3FXpoTH0xeh8
+	nNVktylbN0bxnVXMlJpyoHRxdCrHWs1goWwaMiI+ngkZMDfzeeV2yYLZsZzt7s4D+LPV19Obuq7
+	prVkYFcKW/jiZsN7WCu8pCRNs8+FgmO6qB94DboGmtW+5NFV/Hn9MQjLyaHVUTiZGd/hzVM9D6h
+	vkwV8omhw12NY93VlH32WSz/ErHRhJuOGmKBmNWM7HLZlUqWpxl9iJ7OgvNHh3/WFFlcs4jViAU
+	7l3vKevv/pKD+CN7+JIO2Vb7lGnK1kDrnoS8qTVLoNX0qpRqq9Qiar8w8sXOpUlsqgGzQ6ab0eP
+	lFo/fjUmHt50CNUf/PgAv61a7hJfeYXq3rWctp5CWgaADkKyzIvTqTKRQsxDfmsndmjsIodO4g5
+	eJe0D2Ztv924NBSWssIe5WFykJ8rCmr8Cpp02k+rw8sJjIk6Ghw1PiCGPaG5uX33xwN9FmJVIXC
+	6kMDaQdMlNvSubsXys=
+X-Received: by 2002:a05:600c:34c2:b0:4a1:6425:be69 with SMTP id 5b1f17b1804b1-4a16425bff3mr5735255e9.17.1790932588885;
+        Fri, 02 Oct 2026 02:16:28 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:16:26 -0700 (PDT)
+        Fri, 02 Oct 2026 02:16:27 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: jesszhan0024@gmail.com, dianders@chromium.org, 
+To: dianders@chromium.org, jesszhan0024@gmail.com, 
  Hsieh Hung-En <hungen3108@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
  airlied@gmail.com, simona@ffwll.ch
-In-Reply-To: <20260929080143.559685-1-hungen3108@gmail.com>
-References: <20260929080143.559685-1-hungen3108@gmail.com>
-Subject: Re: [PATCH] drm/panel: ronbo-rb070d30: Use mipi_dsi_*_multi()
- functions
-Message-Id: <179093258630.2282096.3657268335428090758.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:16:26 +0200
+In-Reply-To: <20261001004940.110776-1-hungen3108@gmail.com>
+References: <20261001004940.110776-1-hungen3108@gmail.com>
+Subject: Re: [PATCH v2] drm/panel: ronbo-rb070d30: Ignore DCS errors in
+ disable()
+Message-Id: <179093258722.2282096.3857794392092899182.b4-ty@b4>
+Date: Fri, 02 Oct 2026 11:16:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,20 +84,21 @@ X-Mailer: b4 0.15.1
 
 Hi,
 
-On Tue, 29 Sep 2026 16:01:43 +0800, Hsieh Hung-En wrote:
-> Replace the deprecated mipi_dsi_dcs_exit_sleep_mode() and
-> mipi_dsi_dcs_enter_sleep_mode() calls in the enable and disable callbacks
-> with their _multi variants, as suggested in Documentation/gpu/todo.rst.
+On Thu, 01 Oct 2026 08:49:40 +0800, Hsieh Hung-En wrote:
+> If rb070d30_panel_disable() returns an error, drm_panel_disable() skips
+> clearing panel->enabled. unprepare() still powers the panel off, but the
+> next drm_panel_enable() sees the panel as already enabled and does
+> nothing, so the panel stays dark.
 > 
-> The callbacks retain the same return values. The new helpers additionally
-> log an error if the command fails.
+> Always return 0 from disable(). A failed ENTER_SLEEP_MODE is still logged
+> by mipi_dsi_dcs_enter_sleep_mode_multi().
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/1] drm/panel: ronbo-rb070d30: Use mipi_dsi_*_multi() functions
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f5c3d702f4ccd1e953436c6a16e542e232a743ea
+[1/1] drm/panel: ronbo-rb070d30: Ignore DCS errors in disable()
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/00efe8a685658deb7033d68fcdbf0a7e6796352e
 
 -- 
 Neil
