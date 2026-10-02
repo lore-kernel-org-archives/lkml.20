@@ -1,121 +1,112 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A51F43E9D2
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF34239DBC5;
+	Fri,  2 Oct 2026 22:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979460; cv=none; b=tp/LmePoaJh/xAUmXgVmD0gUNDcbzN4Mk5LrSvwM6Aq6O0rW95tMtpB2hw7zPu0dVzwo38HchffjJq8Dmg2EntHhArm0o1MusKrqyCqUPL9TpTQbUZFvRQpiR9p/lQK6EDUM3VUo96SfSCbxl9Dhz4gMScPQKx5ziR68ChVfOl0=
+	t=1790979523; cv=none; b=AAHmVVVRDbP8VoBRhljZMrqVazzCZYpxF/Y2lvPC/8l1H15WB3rFvfj2iWRvbjnoErbZR6gB99jjnTZjiU5P0PgTrHbyaBMe81YytohF+lFFyK1Sdb1C9VGMlvGjjdGqpVkl1o8TJq2M0ntooc9GCxCowQ5kfvypRQKebIYHBPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979460; c=relaxed/simple;
-	bh=B/VXtCUQwoXPPKu8lxOmovdpJMQBwKId7zCI8uyGZkc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=CEb5XmKbsYgfCY4XX2/U8Pnhozo6jGAZpWGjIbT9iSNFC4BTiwDdmlhD15cWcAtzlfm4xUtPEpIypFRq48sNClL+QbwfNrui4TDOHCv2mDVXiiN5kRncwJyVksQe2YW/vU22XZCg4qa/GJIkZVD4i1D2aYQq6T+3kureSqyJHwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TR1gTQ0x; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=g2ysucJH; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790979523; c=relaxed/simple;
+	bh=Rwsnfu6SxJy9nM+qcdf+GkHl8h7AZX7YrJ2UU+iHvqY=;
+	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
+	 References:Date:Message-ID; b=Haa0SwBJDaDPHUYok0OLmFd6l3m4j14wshfqb0TEm4ju7ZjQI8GBMmkDQ96nUtb8vgtI3gCmg+j2+Htd9GGQXqyFYAccyBO7l4Iy7cuYeTNoRxEYs+rLcZ3AbsKMd2Wf63k1nthmdQOtnlqg9XGeMhMXmAazZng3+jiiokyOmrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=rPMpDSms; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TR1gTQ0x";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="g2ysucJH"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790979449; bh=Sg4yY5MWZdmrnfGNvY0VeK2
-	tgHJvxSQdovqzRH/Klnk=; b=TR1gTQ0x+17W1eha5sdkl6EsbHgnOn+CLJi//82uISM6rytcR7
-	GZobzx67dxwulAGdRqP35mvM5c8cLaVzY+m94pUQAWObAvO+OLk9ASkklOzdv5Bj865cip/SDwA
-	Qd0FYbTJqMlralKoHqUhubfBUoE8tUM45SLdbmYXvN3/orRzzRvshSDCZLtV3+rVk5myJMdyksf
-	oVK4zIva2N2ph5Ow6lE/fwm9E1MLRX3wqa1kxMYy6lONXHXsGBarq1Euxf7A9pCgMDDEX6/j5e+
-	W4UDiJGgIiXBWrykbA7JJJka8gfTMKWVuDTkCaMEsKK791NnWKUGqusF0TaWqnXA+wA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790979450; bh=Sg4yY5MWZdmrnfGNvY0VeK2
-	tgHJvxSQdovqzRH/Klnk=; b=g2ysucJH7UVPLaJgC1mdBTAmVHz4AeLb6mqCOd/cpm4agbcJ+s
-	edchTR+N2JeLfxBF4gdrPOpsNlFP87r0d+Dw==;
-Date: Fri, 02 Oct 2026 23:17:30 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Doug Anderson <dianders@chromium.org>
-CC: akpm@linux-foundation.org, blum@kernel.org, tglx@linutronix.de,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_watchdog/perf=3A_reject_em?=
- =?US-ASCII?Q?pty_config_before_the_raw_event_parse?=
-In-Reply-To: <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
-References: <20261002175000.1-brads@mainlining.org> <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
-Message-ID: <B6936CB8-9A77-4DE5-BC6F-F924E2FA7EE6@mainlining.org>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="rPMpDSms"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790979522; x=1822515522;
+  h=mime-version:content-transfer-encoding:subject:from:to:
+   cc:in-reply-to:references:date:message-id;
+  bh=QRc2jsoiNRA0qmzpUyGoXZATx6Osp3I40yobfvG2LLs=;
+  b=rPMpDSmsktmtu1VSlmoPPbCjk1CeB0bewyAtidO8ZclSKPezZGEMfuPh
+   FYZ2qP8nwHE9ps6azrn8ON3C5Hg1Ar0Xs2GrVsM2/vUxbY0H5BAqvUvsX
+   giVZPqQVbf2Eh+bhfGggpM/87pzMs03INbpY5FMFlnJcQRF5/k4mL2k/1
+   5LyrqCjj3uk01CTsVk3tszcK0Xwy5UNo+s9Ti+QB0JzEBx3WGqMNVPzJl
+   iNKOO+OEOeslYqNe5iHAHBw6aa8Dpf/uBRy4+oEMJvhx1dT90k7E3r4SN
+   Fquih2tZlNftpMx/zkV21Si8RvljThycSjbpArPLO9UQuJHc5/Mlzw0Zt
+   g==;
+X-CSE-ConnectionGUID: T65rDK6LQqSViilanIomMQ==
+X-CSE-MsgGUID: rSlqISRuTuaoFFJzE8BwLw==
+X-IronPort-AV: E=Sophos;i="6.27,136,1787011200"; 
+   d="scan'208";a="30032284"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 22:18:38 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:17484]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.9.224:2525] with esmtp (Farcaster)
+ id 3a741ae7-f0fc-4e92-9463-49bbefdf02d0; Fri, 2 Oct 2026 22:18:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 3a741ae7-f0fc-4e92-9463-49bbefdf02d0
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 2 Oct 2026 22:18:38 +0000
+Received: from dev-dsk-akiyano-1c-2138b29d.eu-west-1.amazon.com (172.19.83.6)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 2 Oct 2026 22:18:35 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 6.1.y] net: ena: Add validation for completion
+ descriptors consistency
+From: Arthur Kiyanovski <akiyano@amazon.com>
+To: <netdev-bot+sinfo@kernel.org>
+CC: Artem Dinaburg <artem@trailofbits.com>, <stable@vger.kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>,
+	David Arinzon <darinzon@amazon.com>, Shahar Itzko <itzko@amazon.com>, "Simon
+ Horman" <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Shay Agroskin
+	<shayagr@amazon.com>, Arthur Kiyanovski <akiyano@amazon.com>, Noam Dagan
+	<ndagan@amazon.com>, Saeed Bishara <saeedb@amazon.com>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>
+In-Reply-To: <179097411333.1402591.9823193935815787447@kernel.org>
+References: <20261002204534.26297-1-artem@trailofbits.com>
+ <179097411333.1402591.9823193935815787447@kernel.org>
+Date: Fri, 2 Oct 2026 22:18:21 +0000
+Message-ID: <179097950193.1335.4142870959256103753.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: EX19D033UWC001.ant.amazon.com (10.13.139.218) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 2 October 2026 23:12:33 BST, Doug Anderson <dianders@chromium.org>
-wrote:
->Hi,
->
->On Fri, Oct 2, 2026 at 10:46 AM Bradley Morgan <brads@mainlining.org>
->wrote:
->>
->> Date: Fri, 2 Oct 2026 17:39:13 +0000
->> Subject: [PATCH] watchdog/perf: reject empty config before the raw event
->parse
->>
->> Commit 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
->> manual NUL-termination") replaced strscpy(buf, str, sizeof(buf)) plus a
->> manual buf[len] = 0 with strscpy(buf, str, len). strscpy() writes
->> nothing at all when the count is zero, so on a comma directly after
->> the "r" prefix, nmi_watchdog=r,1 for example, len is 0, buf stays
->> uninitialized, and kstrtoull() parses whatever stack garbage is there.
->>
->> The old code was safe here by accident, strscpy() filled the whole
->> buffer before buf[len] = 0 overwrote the comma position, so a zero
->> length just produced an empty string and a clean parse failure.
->>
->> Treat an empty config the same as an overlong one and return early.
->>
->> Fixes: 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
->manual NUL-termination")
->> Signed-off-by: Bradley Morgan <brads@mainlining.org>
->> ---
->>  kernel/watchdog_perf.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/kernel/watchdog_perf.c b/kernel/watchdog_perf.c
->> index cf05775a96d3..cca0485ba28c 100644
->> --- a/kernel/watchdog_perf.c
->> +++ b/kernel/watchdog_perf.c
->> @@ -301,7 +301,7 @@ void __init hardlockup_config_perf_event(const char
->*str)
->>         } else {
->>                 unsigned int len = comma - str;
->>
->> -               if (len > sizeof(buf))
->> +               if (!len || len > sizeof(buf))
->>                         return;
->>
->>                 strscpy(buf, str, len);
->
->I fed your patch to my AI, and it wasn't happy with it. While you fix
->one corner case, the larger problem is still there.
->
->Image if `str` is "300,panic". Then `comma - str` will be 3. Passing 3
->to `strscpy` will copy at most 2 characters so it has room to use the
->3rd character as termination. That means `buf` will have "30", not
->"300". Oops.
->
->My AI suggests the correct fix is to change the "len >" to "len >="
->and then pass "len + 1" to strscpy().
->
->if (len >= sizeof(buf))
->  return;
->
->strscpy(buf, str, len + 1);
+On 2026-10-02 20:48:33+00:00, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+> 
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+> 
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-Makes sense. Do you think you could put this into a separate patch, or
-would you like me to respin? :)
 
->
->-Doug
->
+Issue was real, and was hit in production. When a faulty device creates
+corrupted descriptors this commit stops the corruption from propagating
+further, and reset to driver either fixes the issue, or if it continues,
+helps AWS detect it and replace faulty devices.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
