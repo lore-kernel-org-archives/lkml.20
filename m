@@ -1,33 +1,36 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63FA14AA3FE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165DD4BB278
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949534; cv=none; b=gxsR0kvDSphV51gkon1KEALQ40G12M2gXwNYHzmuDcp8B7wzeZuItrWEH1PVF5xzFIEusKRRolKT91ZWjyiWEscx2xvrbs7aKff5XhmJGqYOyRUBrBw5B6CqZZWu9xrmUCtPulScXRYHZMaP+UFPdrxTOgFnytO5+VZ89mCXmg8=
+	t=1790949592; cv=none; b=nCVPZc7ggYODP2OF0LkMVca9hmGjPRpJUjVosOjAEa3jLI3UbgxXdxJDBgl7VGkSFS1LKic9/ygPOvgYUnXHPs/RIXWFK7aeoJHr/1CvruBgs3tICzFjH6USmHHbL2fkNLQUwAIzv6HqGIkAtIZGtz+dpjKRdFDzGrI1mYCBG/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949534; c=relaxed/simple;
-	bh=mqt8t+ec1Xk7/9q96O+Wx3CGmiUS78Zd8OqN57CIcVY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hchQKdH2L1vN+EFpRZDS6BPu3/kBJevP3KYpc+JubrRHWmQeDT9gb1djzIE/DsFImsDdOCydBWyr8P14fjvy2rG92RmQYnxHXlBocdAqmA/g7Ji5hPeoOE0IN2FKejdfjq0fiQhKTi4xtU1FrOHF4IzUcR28dzCSMoi6j39WCx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qmqyd6fu; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790949592; c=relaxed/simple;
+	bh=OVRHodOou3p5ApMLB0Mqi/H+Mqtef861PTeuOygMVtA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=skCJPBOO6XyidkjvF+n66i2PhFwQWk8CzbZtG5p5dv26XZk5EqzluI8hR7xcaQJsAQRuw999shbCamAill3aqd5ibJ2VGeR1KRbmOw3hnCxWzNIIMzD2igv+Sq2qtwFCj2ZjmSSw7ElTCotjTlDuuvHJuo828YWbacIvDilzj9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MJvJPh+a; arc=none smtp.client-ip=95.215.58.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qmqyd6fu"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 650E5497;
-	Fri,  2 Oct 2026 06:58:48 -0700 (PDT)
-Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A8663F85F;
-	Fri,  2 Oct 2026 06:58:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790949531; bh=mqt8t+ec1Xk7/9q96O+Wx3CGmiUS78Zd8OqN57CIcVY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qmqyd6fu4tpbhG6x0IvOzlm5dpV6EJMsEr/qtxPtfXBYXvSHsJ+z0c6exjgfLwv/Y
-	 CH6zTu8rkQe1wv7pT35mQvK3yQafqL4DZflZw3We9szl5JTHTEO5QXABFcobtNave7
-	 aL9ZBN41fZKusu29peXQPcs10W+jLJFjj9izgQHU=
-Message-ID: <95d3da59-4f44-4d4e-a8b7-9a9a9f88d046@arm.com>
-Date: Fri, 2 Oct 2026 14:58:45 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MJvJPh+a"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OVRHodOou3p5ApMLB0Mqi/H+Mqtef861PTeuOygMVtA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790949588; v=1; x=1791554388;
+ b=MJvJPh+aMJWC8Ck0g8P4reAMGqnG9Gfr7JXX4vgwgHe69tVNC4hB59sC99L2Nxvorly/Zjwf
+ p5aw4yJbvE+pSHYmckKbR73x66ZN8nD2bTc2UiHkP++BBeWAgS2UQelezIm1sRevTg/usInatQd
+ 3hPyP137MLUGzDF9KYtCnSa8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 67bf14ff651fffc5;
+	Fri, 02 Oct 2026 13:59:48 +0000
+X-Mizu-Trace-ID: 67bf14ff651fffc5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <81cf1bec-0e88-468b-b7b1-992aa92cff80@linux.dev>
+Date: Fri, 2 Oct 2026 14:59:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,199 +38,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 01/15] drm/panfrost: Move shrinker initialization and
- unplug one level down
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-1-62beb08de207@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929-claude-fixes-v12-1-62beb08de207@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
+ across zero-extending movs
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Eduard Zingerman <eddyz87@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>,
+ John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ bpf <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-4-vineet.gupta@linux.dev>
+ <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
+ <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
+ <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
+ <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
+ <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
+ <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
+ <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
+ <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
+ <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
+ <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
+ <DLLBVIU33MLC.ITFPYGMFKWUT@gmail.com>
+ <f4a616cf9241589fd093bbd0b34e8c8a162d579a.camel@gmail.com>
+ <DLLCIL3RGVY1.H5A4OEASW5OF@gmail.com>
+Content-Language: en-US
+In-Reply-To: <DLLCIL3RGVY1.H5A4OEASW5OF@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 29/09/2026 04:44, Adrián Larumbe wrote:
-> Since the moment we call drm_dev_register() the device should be in a
-> position to accept jobs, so it's best if the shrinker is already
-> initialized by then.
-> 
-> On top of that, make shrinker functions take an panfrost_device pointer
-> like other functions in the same sequence and rename them accordingly.
-> 
-> Essentially mimic the init/fini behaviour in Panthor.
-> 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+On 9/21/26 11:25 PM, Alexei Starovoitov wrote:
+> On Mon Sep 21, 2026 at 10:17 PM UTC, Eduard Zingerman wrote:
+>> On Mon, 2026-09-21 at 21:55 +0000, Alexei Starovoitov wrote:
+>>> On Mon Sep 21, 2026 at 7:44 PM UTC, Eduard Zingerman wrote:
+>>>>>>>> Where:
+>>>>>>>> - id == 0 => no id link
+>>>>>>>> - full => all 64-bits of the register are identical to
+>>>>>>>>            all 64-bits of a scalar value `id' (let's call it X).
+>>>>>>>>            ∀ rA{.id == X, .link == full}, rB{X,full} => rA == rB
+>>>>>>>> - zext => lower 32-bits of the register are identical to
+>>>>>>>>            lower 32-bits of a scalar value X,
+>>>>>>>>            upper 32-bits of the register are null.
+>>>>>>>>            ∀ rA{.id == X, .link == ?}, rB{X,zext} => rA % 32 == rB % 32
+>>>>>>>> - sext => lower 32-bits of the register are identical to
+>>>>>>>>            lower 32-bits of a scalar value X,
+>>>>>>>>            upper 32-bits of the register are either 0 or 1,
+>>>>>>>>            depending on the bit 31 value.
+>>>>>>>>            ∀ rA{.id == X, .link == ?}, rB{X,sext} => sext(rA % 32) == sext(rB % 32)
+>>>>>>> hmm.
+>>>>>>> there is also 32-bit link with delta, right?
+>>>>>> My point is that delta is independent of 32-bit/64-bit property.
+>>>>>> `delta' can be used to propagate in both directions:
+>>>>>> - full 64 bit -> 32 bit sign/zero-extened
+>>>>>> - 32 bit sign/zero-extened -> full 64-bit
+>>>>> both? how ?
+>>>>> I was under impression that in 32-bit domain delta is one way.
+>>>>> rX = ...
+>>>>> wY = wX
+>>>>> wY += 5
+>>>>>
+>>>>> if wY == 10
+>>>>> We cannot do -5 to rX
+>>>> Why?
+>>>> It is still valid to transfer r32 and tnum_subreg knowledge from wY to rX.
+>>>>
+>>>>    wY + 5 == rX % 32 + 5 => hence rX % 32 knowledge can be recovered.
+>>>>
+>>>> If rX itself had some delta, e.g.:
+>>>>
+>>>>    rX = ...
+>>>>    rX += 7
+>>>>    wY = wX
+>>>>    wY += 5
+>>>>
+>>>> Then it would still be possible:
+>>>>
+>>>>    wY + 5 == (rX - 7) % 32 + 5 = rX % 32 - 2.
+>>>>
+>>>> Again, in case of this direction, only lower 32-bits of the 'full'
+>>>> register can be inferred.
+>>> Ok, so we're argeeing that it's not 'full' in your above definition.
+>>> Your enum id_link_kind needs a 4th category : apply-delta-to-lower-32bit-...
+>>> and it's not bi-directional.
+>> It's not really a category, it's just a direction in a sync function:
+>> - if known_reg is 'full' -> sync to sext/zext register recovers lower
+>>    32-bits and infers upper
+>> - if known_reg is sext/zext -> sync to 'full' register recovers only
+>>    lower 32-bits and keeps upper untouched (counting on cross-domain
+>>    bounds sync logic).
+>> - 'full' -> 'full' and 'sext/zext' -> 'sext/zext' syncs are trivial.
+>>
+>>> rX = ...
+>>> wY = wX
+>>> wY += 5
+>>> if wY == 10
+>>> here can apply -5 to lower 32-bit of rX only.
+>>>
+>>> rX = ...
+>>> wY = wX
+>>> wY += 5
+>>> if rX == 10
+>>> here can apply +5 to lower 32-bit of wY _and_ do zero extend into full rY.
+>>>
+>>> I don't see a value of 'zext' kind alone that doesn't do 'add delta'.
+>> Exactly, that's why I suggest this as a completely orthogonal encoding.
+>> Effectively for an abstract scalar value X it would encode whether
+>> the particular register is:
+>> - X + delta
+>> - zext(X + delta)
+>> - sext(X + delta)
+> ahh. it wasn't clear to me that 'zext' you're proposing does '+ delta'.
+> Now I see that your zext is the same as apply-delta-to-lower-32bit-and-zext
+> as I was talking about all along.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+So to close the loop on this v3 will support the above three forms: 
+add_const:2 and subreg_ext:1merge into one {none,
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
->  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
->  drivers/gpu/drm/panfrost/panfrost_gem.c          | 26 ++++++++++++++----------
->  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
->  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
->  5 files changed, 28 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 485349faf251..05c40d5a20b5 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  	if (err)
->  		goto out_job;
->  
-> -	panfrost_gem_init(pfdev);
-> +	err = panfrost_gem_init(pfdev);
-> +	if (err)
-> +		goto out_perfcnt;
->  
->  	return 0;
-> +
-> +out_perfcnt:
-> +	panfrost_perfcnt_fini(pfdev);
->  out_job:
->  	panfrost_jm_fini(pfdev);
->  out_mmu:
-> @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> +	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
->  	panfrost_mmu_fini(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 96a66d673ba6..9882a3ede75f 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
->  	if (err < 0)
->  		goto err_out1;
->  
-> -	err = panfrost_gem_shrinker_init(&pfdev->base);
-> -	if (err)
-> -		goto err_out2;
->  
->  	return 0;
->  
-> -err_out2:
-> -	drm_dev_unregister(&pfdev->base);
->  err_out1:
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
->  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
->  
->  	drm_dev_unregister(&pfdev->base);
-> -	panfrost_gem_shrinker_cleanup(&pfdev->base);
->  
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> index 3a7fce428898..f39c0f50ed4f 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> @@ -15,20 +15,24 @@
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
->  
-> -void panfrost_gem_init(struct panfrost_device *pfdev)
-> +int panfrost_gem_init(struct panfrost_device *pfdev)
->  {
-> -	int err;
-> +	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
-> +		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> +
-> +		if (drm_gem_get_huge_mnt(&pfdev->base))
-> +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> +		else if (err)
-> +			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> +				 err);
-> +	}
->  
-> -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-> -	    !panfrost_transparent_hugepage)
-> -		return;
-> +	return panfrost_gem_shrinker_init(pfdev);
-> +}
->  
-> -	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> -	if (drm_gem_get_huge_mnt(&pfdev->base))
-> -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> -	else if (err)
-> -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> -			 err);
-> +void panfrost_gem_fini(struct panfrost_device *pfdev)
-> +{
-> +	panfrost_gem_shrinker_fini(pfdev);
->  }
->  
->  #ifdef CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> index 79d4377019e9..5c823cdbd980 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
->  	return container_of(node, struct panfrost_gem_mapping, mmnode);
->  }
->  
-> -void panfrost_gem_init(struct panfrost_device *pfdev);
-> +int panfrost_gem_init(struct panfrost_device *pfdev);
-> +void panfrost_gem_fini(struct panfrost_device *pfdev);
->  
->  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
->  
-> @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
->  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
->  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
->  
-> -int panfrost_gem_shrinker_init(struct drm_device *dev);
-> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
-> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
-> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
->  
->  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
->  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> index 2fe967a90bcb..fefae87535d6 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->   *
->   * This function registers and sets up the panfrost shrinker.
->   */
-> -int panfrost_gem_shrinker_init(struct drm_device *dev)
-> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
->  {
-> -	struct panfrost_device *pfdev = to_panfrost_device(dev);
-> -
->  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
->  	if (!pfdev->shrinker)
->  		return -ENOMEM;
-> @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
->   *
->   * This function unregisters the panfrost shrinker.
->   */
-> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
-> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
->  {
-> -	struct panfrost_device *pfdev = to_panfrost_device(dev);
-> -
->  	if (pfdev->shrinker)
->  		shrinker_free(pfdev->shrinker);
->  }
-> 
+And just to recap, we will be adding two features:
+  - adding the sext with delta
+  - reverse syncing of low 32 bits
+
+Thx,
+-Vineet
+
 
