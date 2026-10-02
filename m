@@ -1,203 +1,122 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AC9474262;
-	Fri,  2 Oct 2026 09:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932614; cv=none; b=BSSh1DIpKJrkYCr4Ya/GNps9P2U3SH8WV5b/5kM1AVyJrX3Z+qeAjaxuz3wuQ2d4MQwF7WrTf0R5miqQOEr904qBWe17sqDVxN6L7WcjaHZub9odZmY5v3/AyWlpZBD4QK+ISUGkPFOoprSek1IIriRPa3dBNi7F0hIr2QbyBf0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932614; c=relaxed/simple;
-	bh=GfB4AangzbGer9ZinOHaC9/Iw6vF2BIgUKhcXiugwjs=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qdw1pqRSHK8sA5sPP+ZaHVgHL4HBu3DjZgIB/jZ2iHWX++L7IwqqnJ7GRC8ejzU8Hv4cRDLJzCE9sD8ErtQ9vp9dYtUYjURFIP/gcKmZ69Nl/hCD5W9xqjyLyBesMBPYH8V3u1kSCOubCfwPOGuw5/dJYF1okmjxS7v8/FDOUXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=gLkgmP8q; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878B8478E5B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790932621; cv=pass; b=ZWBpGaqwVeqm41F0PwrRh/2EEK7iSQHmQs76hGAufkcDd6oDHX6IUW9Dw/HzU7N3dDL77xbMvfmHrSSWM8dYZ8MpmD3un2T0lCgjkl18xBh+ev+sVCjFVgEMWX/qF8XGUDx54PqosdN/nGAM7jS/nD+Ca2ombpevOaSXdqqrm3g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790932621; c=relaxed/simple;
+	bh=YiCPzni2Wl6GvelfU9cy/yhPEZ/U3/3S99KBiab8N+Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YzEjNIqiEJJlYc3eBbLUJyvrgylUpyFBEp4l++JEC/ABs3V0z7zgtb4IskK0YEWOUpqXcwcuGF0kt1YrNWLJc4ar9trkRxCqAz3GfnQ1Irx8vBQv0jtrTZBHld6ssYjcK+9WhRngrvTgUW/hUDLPUPmLcptxfv8N6u5jlPjk/6g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eH9bqL9e; arc=pass smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="gLkgmP8q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790932612; x=1822468612;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=GfB4AangzbGer9ZinOHaC9/Iw6vF2BIgUKhcXiugwjs=;
-  b=gLkgmP8qYKsFBrB8tz1TcFbpWIVoPt6zUKqM37SYlZ4x2OtNVptdcQ+F
-   MkxkotswdlBDkH08VwGO115nN5FjEKHja9Msw+1TsPzXqhD53VRtwBGDg
-   Y/YOg/QKA0VJaUGF+3u9cRIPR14CrKzYftCLNlIlBQ1oxMvW/+ew8EzB4
-   +R/7b3Nvu2zTNWig7UwBOCc489HE9RbF6cAQiEHbHzIjAfqQpnRcIDyY9
-   HcDj4lczp2u81/dvFSmY1duTwVfaQItD2Y9oUkyXZufcaLezn6owk4VrS
-   rlc1dVY6yGl5LdA8MLRVtoMcILbaJ5QS2QApooi+56It5VQrE5cRxt+1F
-   A==;
-X-CSE-ConnectionGUID: 1B6BoPspRIaa6wrCNHZR3Q==
-X-CSE-MsgGUID: ZvhM4zZUR1OcZNmWWtJ1aA==
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="63547603"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:16:50 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Fri, 2 Oct 2026 02:16:50 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Fri, 2 Oct 2026 02:16:46 -0700
-Date: Fri, 2 Oct 2026 11:16:45 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
-	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
-	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
-	<horms@kernel.org>, <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH net-next v9 15/15] misc: lan966x-pci: dts: add fdma
- interrupt to overlay
-Message-ID: <20261002091645.tbhmk64qsf5wllni@DEN-DL-M70577>
-References: <20260928-lan966x-pci-fdma-v9-15-a17caf60f89a@microchip.com>
- <179092642540.434549.1993526526960644611@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eH9bqL9e"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bc6ff6cadso1100235eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:17:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790932619; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NUouwn+byfZEVimt68Nwsz1y5M+VLBVasvVjPMW3fhfqTV0ojC+6ktfNOHjQps4B1+
+         sLN6v4xkMMue/wSMFDZeQgef1vjNbFc/OzO6Ohsn3yQ2ahEFQo4xsTwvD+UNthfYEsjM
+         t9myoGwi5VwP8zXq7aGVXCtryDJCEzCDMOL1ZQeolXpLYI21NafNnISlK/9IPCbrmk5j
+         vrWlGtpw38QvQbI7EkW9O1/ypr6H++vb67Oq5E4ohp6jEr1F+2WJjQpH7lsWHYinrrCR
+         sxTiXkuXw76GLc8AV2HtcGrG2TdKYUwIAPGuD4nQUX7AEL0s13/m8t20J3QLtdzoHiYK
+         CZCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YiCPzni2Wl6GvelfU9cy/yhPEZ/U3/3S99KBiab8N+Y=;
+        fh=JuY++koK6/61A1hwNRuAUVVIY6yCi+JdOGp8kz0wGUw=;
+        b=eKX/kdOlzsTrFBsLMQCxsdj8b619A7wS73J9/Akt4bsuvKc+61g85Gz4H/OoyqlDAa
+         nnM+gmeYXHqzPYsG1tU1/rdvncVWpjP6eNBI2fEreMXkvpiDArY+u0yNbQnm5WG+K/BU
+         mj96qSFdlzexBgyagFtUqe0IMVQA2CRgX9LS2QE6EoIj1TJIJKJHgU93bop0nCnSCsAG
+         g4YtYFYHMz94S54mE1xBvZvMkCGwD+aL3eASaFiSHuyvOxpEm8JtvD5OO0NxaGq3OElZ
+         RDSYVWOPnTdj2D14OjVDEO5nNTpKixQE5Hrii/5PMNa5u54FgkfSuXuUcdyY5gmd5HE8
+         iSIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790932619; x=1791537419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YiCPzni2Wl6GvelfU9cy/yhPEZ/U3/3S99KBiab8N+Y=;
+        b=eH9bqL9e4sxWU66/AM8dyybpUwX7jkVs6hwrT5nNxc56+DqMJEhHRz/0G9NdVCKDT5
+         OyRcPKB3Gkpr72QuRJSvJN0v56v3AHT2aB+eu2GMRo1H9wJVrMgo62V5+x/H1xnoY5N0
+         oQr5srVSgbcNiBZ9maIubuzRb5peEy7VMVqdqeitHU5egwpR3FBjlXjDsd+AXWdWtOgr
+         K6AJIHWqgDSkPVdu5RgS6hMVi3D8QnKF26PMQT9fT/a4aRlO13fOps/92B00oD4NOJf4
+         Pah/UuflxyuUwHLibTIPx/JwLbcBrM+GWPibM6vt+YvEmXdLBuBGqoZXFE5FJu7RIrIL
+         3agg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790932619; x=1791537419;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YiCPzni2Wl6GvelfU9cy/yhPEZ/U3/3S99KBiab8N+Y=;
+        b=Wc6cCfgxg+UdKPopM5CEHeJO3K2pGB0WFQhJEzaiGMIQ1ttehRIHBaQYPGENtzxdq6
+         P+McwxQ22DitEsYX7DKRA266JZE/v+tykKaRJdctruZaiiLfXZXH5CUePxPwoREpsNUa
+         puANXJ6nt3Nf0+moIMUCbrXniFwTY64EsKTHTVE7SAnv4mn+kPv5IU9Xrhhuip0Kr+1a
+         bvAuBjj8cY1dyZM6ZN7ac87TBysgn1HqIfUvLLL/ZvzWxm5HnuqU0grvfdeSA9VIWdJc
+         spFAixjCmYQHI+lZq1tMR6xe0S7MN70TbhHLZlOezh2zpwwY/b3CmZt8I5GsdGvFHBoh
+         e9jw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTZQjJQTc64x4MCqcTLm6AN+dESVihr+TMlf6qq++FeDoY0eNKWvP53dJ6vQGkoJQyN/PRpl2qiGHjLiM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kP5gax39MLMbS+A7JbW+NWd8wHxVrytZNX6VVvqEtL/FGJxLpe
+	61C62wCyIV4U2pjm79bxU2UzidlFLZE6Lxn3DiH6KYksK9OTH0k0YPiLLAIHuzwEQcTiKC21ls9
+	pNB58CUPbkpzeEeHezq34D5e9qkqIiSI=
+X-Gm-Gg: AYBFou160iHVEwcxc+fj47+2f0T8VvWNQv+Dep+DsU0MH91NdFX5LM68nfI4pRXsY7w
+	5/SAPGJ1u3aDdeaT9DQuTFVtftiWYT+4VKhA+MFgwwsbqudhaPjpoXiJomm9i7BIy8rkqJD9hE6
+	+xoa+FBeyeJC52CD3JoVCEoHFJXujECPKqpYLL7G4dLlaAttwfkvR+IdVwnnAYcmsqf/Z3/nhOa
+	j9M5rwC0z+cu01sGPFZLXg4DVZtkk4ujadvv0l1sWijsWYAlJ+WQRtKGX8NoCewxIx5ZR8Mwvzs
+	lHhwoJF6ol9RP3+uNn39RmwJrRCjyqM+YPoBfE6CjdLFPitjLz/jx7y7QpcYa8E13waDfqi8mhW
+	3FhCE/LcKDYyEvHk46vvnAnQsuBJjHxnd85MOWjYKK6I6kY/jOM8mPVPk6GKGyRlGJdDZB9/4m+
+	zoI6Si/ZqDBfacPQWSYXq4QPfnjK8iGRRK2LPoQvDKqy8KGGqInTg=
+X-Received: by 2002:a05:693c:8858:b0:33e:8552:6e06 with SMTP id
+ 5a478bee46e88-34f06674f4fmr3627740eec.0.1790932619419; Fri, 02 Oct 2026
+ 02:16:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179092642540.434549.1993526526960644611@kernel.org>
+References: <20260928183925.1315274-1-chenhan0017.work@gmail.com> <20261001042951.109054-1-chenhan0017.work@gmail.com>
+In-Reply-To: <20261001042951.109054-1-chenhan0017.work@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 11:16:46 +0200
+X-Gm-Features: AclHuK_Fpx0TmHbKgavcm9KQTeXzFEOzyVj7LRGa0JaxyZMXfVABnmWgeFa1L5s
+Message-ID: <CANiq72mjLh2PgCy6m_gvuU8_na2jfVQ5QLFK8u0-B5sEPxu5cg@mail.gmail.com>
+Subject: Re: [PATCH] rust: time: make Delta division and remainder fail consistently
+To: chenhan <chenhan0017.work@gmail.com>
+Cc: a.hindborg@kernel.org, tomo@flapping.org, georgeandrout13@gmail.com, 
+	rust-for-linux@vger.kernel.org, boqun@kernel.org, fujita.tomonori@gmail.com, 
+	frederic@kernel.org, lyude@redhat.com, tglx@kernel.org, 
+	anna-maria@linutronix.de, jstultz@google.com, sboyd@kernel.org, 
+	ojeda@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org, 
+	daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com, 
+	work@onurozkan.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] Once this overlay adds the "fdma" interrupt, PCIe instances
->   use lan966x_fdma_pci_ops, and a teardown ordering bug in that backend…
-> 
-> --
-> 
-> misc: lan966x-pci: dts: add fdma interrupt to overlay
-> 
-> This commit adds the fdma interrupt (OIC interrupt 14) to the lan966x PCI
-> device tree overlay. This turns on FDMA-based frame injection and extraction
-> when the switch is connected over PCIe.
-> 
-> > diff --git a/drivers/misc/lan966x_pci.dtso b/drivers/misc/lan966x_pci.dtso
-> > index 7bb726550cafd..5bb12dbc08431 100644
-> > --- a/drivers/misc/lan966x_pci.dtso
-> > +++ b/drivers/misc/lan966x_pci.dtso
-> > @@ -141,8 +141,9 @@ switch: switch@e0000000 {
-> >  
-> >  					interrupt-parent = <&oic>;
-> >  					interrupts = <12 IRQ_TYPE_LEVEL_HIGH>,
-> > +						     <14 IRQ_TYPE_LEVEL_HIGH>,
-> >  						     <9 IRQ_TYPE_LEVEL_HIGH>;
-> > -					interrupt-names = "xtr", "fdma", "ana";
-> > +					interrupt-names = "xtr", "fdma", "ana";
-> 
-> [Severity: Medium]
-> Once the "fdma" interrupt is present, PCIe instances use
-> lan966x_fdma_pci_ops. Does that make a teardown ordering problem in the PCIe
-> FDMA backend reachable?
-> 
-> lan966x_remove() tears down the FDMA before it unregisters the netdevs:
-> 
-> lan966x_main.c:lan966x_remove() {
->     ...
-> 	lan966x->ops->fdma_deinit(lan966x);
-> 	lan966x_cleanup_ports(lan966x);
->     ...
-> }
-> 
-> lan966x_fdma_pci_deinit() disables NAPI and frees both rings. It does not
-> clear lan966x->rx.lan966x, it does not detach the netdevs, and rtnl is not
-> held at this point:
-> 
-> lan966x_fdma_pci.c:lan966x_fdma_pci_deinit() {
-> 	if (lan966x->fdma_ndev)
-> 		napi_disable(&lan966x->napi);
->     ...
-> 	fdma_free_coherent_and_unmap(lan966x->dma_dev, &lan966x->rx.fdma);
-> 	fdma_free_coherent_and_unmap(lan966x->dma_dev, &lan966x->tx.fdma);
-> }
-> 
-> fdma_free_coherent_and_unmap() only clears atu_region, so dcbs and dma
-> still hold their old values.
-> 
-> netif_set_mtu_ext() only checks netif_device_present(). That means an MTU
-> change that alters the max frame size can still run during this window:
-> 
-> lan966x_port_change_mtu()
->   lan966x_fdma_pci_resize()
->     __lan966x_fdma_pci_reload()
->       lan966x_fdma_pci_reload()
->         napi_disable(&lan966x->napi)
-> 
-> The resize guard is only this check:
-> 
-> 	if (!lan966x->rx.lan966x)
-> 		return 0;
-> 
-> rx.lan966x is still non-NULL after deinit. Would the second napi_disable()
-> on an already disabled NAPI spin forever while holding rtnl? That would also
-> block the unregister_netdev() that lan966x_remove() calls next.
-> 
-> The probe error path in lan966x_fdma_pci_init() looks like it has a similar
-> gap:
-> 
-> 	err = lan966x_fdma_pci_tx_alloc(&lan966x->tx);
-> 	if (err) {
-> 		fdma_free_coherent_and_unmap(lan966x->dma_dev, rx_fdma);
-> 		return err;
-> 	}
-> 
-> rx.lan966x has already been set earlier in lan966x_fdma_pci_init(). The
-> netdevs registered by lan966x_probe_port() stay live until the cleanup_ports
-> label.
-> 
-> If an MTU change arrives in that window, NAPI is still enabled from
-> lan966x_port_init(). lan966x_fdma_pci_reload() then allocates new rings and
-> does:
-> 
-> 	fdma_free_coherent_and_unmap(lan966x->dma_dev, &rx_fdma_old);
-> 
-> Is this a second dma_free_coherent() of the RX ring that the error path
-> already freed?
-> 
-> After that, reload re-arms the FDMA on the new rings. The probe error path
-> never calls fdma_deinit for them. Would the coherent memory for the new rings
-> leak, with the outbound ATU windows still mapped and DMA active after probe
-> fails?
-> 
-> The resize guard added in "net: lan966x: add PCIe FDMA MTU change support"
-> is meant to skip the resize until lan966x_fdma_pci_init() has built the
-> rings. It doesn't seem to cover rings that were torn down or only partly
-> built.
-> 
-> The shutdown callback from "net: lan966x: add shutdown callback to stop the
-> FDMA on reboot" avoids this by taking rtnl and calling netif_device_detach()
-> so that ndo_open and ndo_change_mtu can't re-enter the FDMA. Should the
-> remove and probe error paths get the same protection?
-> 
-> The platform backend already has the same remove ordering. The PCIe deinit,
-> resize and reload code is new in this series, though, and this overlay change
-> is what first makes it reachable.
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-lan966x-pci-fdma-v9-0-a17caf60f89a%40microchip.com
+On Thu, Oct 1, 2026 at 6:29=E2=80=AFAM chenhan <chenhan0017.work@gmail.com>=
+ wrote:
+>
+> Yes. chenhan is the identity I consistently use, and
+> chenhan0017.work@gmail.com is my email address.
 
-Pre-existing. Lan966x_remove() is a platform function. It's a re-raise of v7
-11/14 / v8 15/15, the probe/remove ordering. The issue is real, but out-of-scope
-for this series.
+I asked because I didn't see it in the kernel log, i.e. it seems to be
+the first commit with it.
 
+In other words, at least in my case I don't know that identity.
+Maintainers picking the patch usually need to know (in this case, the
+timekeeping ones -- it is up to them).
+
+I hope that clarifies!
+
+Cheers,
+Miguel
