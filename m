@@ -1,184 +1,145 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC19C3E0094
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C173945D939
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976845; cv=none; b=OJES7uY+/8C9+te75vHx5UU/alDE1hhN4CCLXm6ZdKWdL8DPPhNef3BA4Z5ml9Yg2Hxnqeb0qhIQTiJs919jFTjBeHBOf/bTxFd+fQcyKzxOdIBVXKTjE6o2lZ1judjQCU722MgBnJUwAkrz0St1xVn7993VokmrEcXHHSqSSdk=
+	t=1790976996; cv=none; b=ITetfwVpZ+Aq0Z4NMhub0Us8m6C7gN3JHikv8we3zeIdhUzsDjyw01K/m5gfGxMN4AssuSQRrkYPtXw0kLOhBMDTtX/mpJLjyHIQNLOm0hJPZjy/q0wzdeCJTwlnD0ae8bP/lQUOgobQfSenYCFr0ItKHyKp6ZbKv4eY8/idxrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976845; c=relaxed/simple;
-	bh=KtGosJfddYAwoSjt+t/v6Wmy77qByIHLXhEvvJSbxZU=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=JBdtftK3go2bt0iKyu0TrfVwLa4qvPaqrQuvvULMn8mcfoiDP22j9nujFgGtr1XH3+rzvXWsow1R7FvRbe37PKUsRQBSb05TD+tlHrbtRd3qIDXehVUTT0j7aW94lyjn29K3y/JNPWN0rvUT0zLFtFXroVS80nSli52pllmGuXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qTu3ZsPX; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790976996; c=relaxed/simple;
+	bh=0SkmrcqK3/V5SNi0TtrnPL4ttC+EtvZ3quhkJzheAq4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gD+WPIwuvLQimza2dLAjnlIpYjuCMa6qXI/7fomOz4faGRJRcHaCVTiujW4XM4fpPc4N3t/H0N92GJf2aLBa3oJ8pggJACO/0N+ZS1uLbxSRxmi8Eh85O4XACIUHvx/AyVZp0oz0UwStR8WM+abDkDnHIqYn2xyymmR4jHASy10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DKgDdwW4; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qTu3ZsPX"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc51591102fso25064a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:34:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790976843; x=1791581643; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rj4Ox5w5JNhyqVG7cubcpAmNAm1wO8qUFvi1UJFFaF0=;
-        b=qTu3ZsPXDJZgjbKV0hiGLj6xkujLmeOjteXHpZISXHcAdu6Nvyi2wZFO2vCBK2IRAz
-         PkivsW5CKdwp2px5qOe9jRo47hDfRz41atl4luSa1y2jdQcA+r9FWOEWr5agpIo+wUsx
-         OmPjLMYepepzNhojSTa5Y0S6Vu08ndSnzmsog6OPJW4U9YBkaQQxMcmObR7IjL5jl2KP
-         owXjdVmBIHiAwiFaHnby8z6YPweJuxWBWSrq0zrjuiBCL1CPxsnDNRns3hvpzCqCKR8U
-         jnN4as0SFRIgzs8JkoLHUcFm+0NTdrvREjmyBvVXeetizbaQTysZPfFYvHkS1tSVehsg
-         bvpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790976843; x=1791581643;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Rj4Ox5w5JNhyqVG7cubcpAmNAm1wO8qUFvi1UJFFaF0=;
-        b=VxFvsO0XQIQ/YlMTykuFrDoQasAEWBjC1VHafVq/IYSdkZw6sWdBxLi+7kFobLdO6m
-         bXnPp3V4xz8eO/0LdOOYHE/3x/aIhRxoU6pGO070elhRC5GURn88Se1szvyuONAWQG19
-         Lf9eBFgBSKLVwdMtnvCCLeu/iF1pOKy0LJTJyAsassPo9jB85vgV1BIUGKrRTLuCOSNP
-         oh8m9Th2jOuA6GRCniZJYTfdyUJTDWIE/4CjtHwy8oH00ZwtWsCqUWptuz7Yo43WBj6i
-         tJznjsCev4ak183T1I/4cf0vyTXvRuFG/Q9RXbJoqEvjSlIwt1JoHAWEj2g00DgQSnhp
-         83Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9L7exaAi8hsTP6jxW1NE/knyAx2z5/3Y4t4FbOYiexubP8t/9LB+Ffs1uP+7Mu8/nLixizpZAClqb4bA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPuvUpQHsnOoxcYUWHfZ4UZ07vcoVjsqksEGdr7ZOEhR604Vup
-	llJCSxN1AjKf84bVZFKPxwpMMOoz+wtGnbgFQ9uhupAzEOssudhgEs6H57Y0u71RbvB/Pu47Tub
-	pSMpx2g==
-X-Received: from pgho5.prod.google.com ([2002:a63:fb05:0:b0:cc7:aab6:f8a6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:39ac:b0:3a4:a7eb:1da7
- with SMTP id 98e67ed59e1d1-3a6ce7f8bcbmr3309606a91.42.1790976842739; Fri, 02
- Oct 2026 14:34:02 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri,  2 Oct 2026 14:34:01 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DKgDdwW4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790976991; x=1822512991;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=0SkmrcqK3/V5SNi0TtrnPL4ttC+EtvZ3quhkJzheAq4=;
+  b=DKgDdwW4RJ5uMzNuWGDqWZHdvZQB/xs2189AnqumEc/2vqu5Mv4b549g
+   6E81yeQoZ2cDJRMZAnwvJRRWlxJ4T6Yp4h94TVnIZ9irUduKOzscPUP47
+   9ubIWCA3AeorItV22BebIWPfA/ZR0+mnLk71bHHuKZRl76HmP9uEd8aNy
+   MhE34vl7qyCDWa3zpO8XqfaNSY5jeCw4X/bOaP1rTcameMRzEl5LHAURM
+   b1NK7CW9XTxIorRO3YbeakQMIthVlfvfllwuYH3uoo0eMYRJ5fel5D+Gj
+   hvnuyhMI3iXTW/3amyfVLbAVtnINm3Uq1DnD/4gTTzy4LS1lk3WGoYrU8
+   w==;
+X-CSE-ConnectionGUID: QCmkuAUCQgiF5s1VucWrmw==
+X-CSE-MsgGUID: kfNRANOgSGGHDqWYVliQaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="101078599"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="101078599"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 14:36:26 -0700
+X-CSE-ConnectionGUID: mtjbZGTAQmW9D0HeVJAV7g==
+X-CSE-MsgGUID: DBwWWoHBS3yaOPZA3I/8GQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="274150050"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.68]) ([10.125.108.68])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 14:36:25 -0700
+Message-ID: <b71a4c1c1ea96f786672f1c18f39a85252f4baa3.camel@linux.intel.com>
+Subject: Re: [PATCH v2 1/3] sched/fair: Add smt_balance and llc_balance to
+ the decision matrix
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Jemmy Wong <jemmywong512@gmail.com>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot	 <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt	
+ <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman	
+ <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
+ Nayak	 <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
+Date: Fri, 02 Oct 2026 14:36:24 -0700
+In-Reply-To: <20261002154634.71878-2-jemmywong512@gmail.com>
+References: <20261002154634.71878-1-jemmywong512@gmail.com>
+	 <20261002154634.71878-2-jemmywong512@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261002213401.4109199-1-seanjc@google.com>
-Subject: [kvm-unit-tests GIT PULL] x86: Misc changes
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sean Christopherson <seanjc@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-Please pull a random set of x86 changes.  This is basically the set of things
-that I could quickly/easily review, and/or were causing problems in my test
-setup.
+On Fri, 2026-10-02 at 23:46 +0800, Jemmy Wong wrote:
+> The group-type matrix was introduced in commit 0b0695f2b34a
+> ("sched/fair: Rework load_balance()"). When commit fee1759e4f04
+> ("sched/fair: Determine active load balance for SMT sched groups")
+> added group_smt_balance and commit f38cc2f0d8a3 ("sched/cache:
+> Prioritize tasks preferring destination LLC during balancing")
+> added group_llc_balance, neither commit updated the matrix table.
+>=20
+> Both types are only tagged on non-local groups in update_sg_lb_stats(),
+> so their local columns are N/A.
+>=20
+> As busiest, group_smt_balance is only set when dst_cpu is idle and the
+> SMT group runs more than one task. Against a local has_spare or
+> fully_busy group it goes through the nr_idle checks, where a non-SMT
+> dst group may also force the pull via smt_vs_nonsmt_groups(). Against a
+> local imbalanced or overloaded group the local group is busier and the
+> pair is balanced.
+>=20
+> As busiest, group_llc_balance is not an unconditional force. Against a
+> local has_spare group it forces the pull when prefer_sibling is set,
+> because the group_llc_balance test comes before sibling_imbalance() in
+> sched_balance_find_src_group(). SD_PREFER_SIBLING is only cleared for
+> NUMA domains. Against a local fully_busy or imbalanced group the nr_idle
+> checks apply, and against a local overloaded group the local group is
+> busier and the pair is balanced.
+>=20
+> No functional change.
+>=20
+> Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
 
-Note, "x86/run: Use separate "-accel" option to configure the accelerator"
-breaks the intel_iommu test if KUT is run with ACCEL="kvm,kernel-irqchip=on"
-due to the test requiring a split-IRQCHIP via "-M q35,kernel-irqchip=split".
-I'm pretty sure I'm the only person that does ACCEL="kvm,kernel-irqchip=on",
-and I want to unblock running KUT with notify-vmexit enabled.
 
-Thanks!
+Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
 
-The following changes since commit 5a221342a025948fa7d84f0c404748f6ba57f3ad:
-
-  svm: Add SMI handler for svm_intr_intercept_mix_smi test (2026-09-08 15:33:43 +0200)
-
-are available in the Git repository at:
-
-  https://github.com/kvm-x86/kvm-unit-tests.git tags/kvm-x86-2026.10.02
-
-for you to fetch changes up to 1aaec1f90618ef3cb7a4661bbec2228456050f7f:
-
-  x86/pmu: Relax overcounting checks to allow for 1 VM-Exit per 5000 nops (2026-10-02 09:22:08 -0700)
-
-----------------------------------------------------------------
-KVM-Unit-Tests x86 changes:
-
- - Disable virtual PMU support when running the MSR tests as newer versions of
-   QEMU will log an error when trying to create a vPMU across vendors (the test
-   runs with vendor=GenuineIntel to validate SYSENTER MSRs "fun").
-
- - Play nice with VMMs (or hardware) that strictly adhere to the PCI spec when
-   handling 0xCF8/0xCFC accesses.
-
- - Add a PV IPI testcase to verify KVM can deliver PV IPIs to vCPUs with APIC
-   ID 255.
-
- - Finally add better backtraces for leaf functions on x86.
-
- - Add a test to verify KVM correctly handles ICEBP+TASK_SWITCH.
-
- - Add a testcase to validate KVM's handling of DEBUGCTL on nVMX transitions.
-
- - Use "-accel" instead of "-machine" to set the accelerator.
-
- - Add test coverage for active-low DR6 bits, and for Bus Lock Detect #DBs.
-
- - Apply the "PMU instructions/branches overcount" errata to all AMD CPUs and
-   massage the guardrails to get the tests passing on modern CPUs without
-   completely sacrificing test coverage.
-
- - Misc cleanups and fixes.
-
-----------------------------------------------------------------
-Chenyi Qiang (2):
-      nVMX: Remove the IA32_DEBUGCTLMSR access in debugctls test
-      x86/vmx: (Re)Add a nVMX test to validate load/save of DEBUGCTL
-
-Igor Mammedov (1):
-      x86/svm: work around Virtual VMLOAD/VMSAVE bug on Naples and Rome
-
-Irene Wang (1):
-      x86: pci: Support unaligned register access in PCI config read/write
-
-Jeremiah McReynolds (1):
-      x86/msr: Disable PMU for MSR tests
-
-Jim Mattson (5):
-      x86/apic: Skip PV IPI test if feature is not supported
-      lib: Hoist test selection logic to library for code reuse
-      x86/apic: Support subtest selection via command line
-      x86/apic: Introduce send_pv_ipi()
-      x86/apic: Add a test for a PV IPI boundary condition
-
-Mathias Krause (1):
-      x86: Better backtraces for leaf functions
-
-Paolo Bonzini (1):
-      taskswitch: add test for ICEBP delivery via taskgate
-
-Sandipan Das (1):
-      x86/pmu: Check for PMIs irrespective of PMU version
-
-Sean Christopherson (6):
-      x86/debug: Set all active-low DR6 bits when resetting DR6
-      x86/debug: Run the "debug" test with the host CPU model
-      x86/debug: Verify that KVM correctly emulates DR6 active-low and fixed-1 semantics
-      x86/debug: Add actual test coverage for Bus Lock Detect #DBs
-      x86/pmu: Treat all AMD CPUs as having instruction/branch overcount errata
-      x86/pmu: Relax overcounting checks to allow for 1 VM-Exit per 5000 nops
-
-Xiaoyao Li (2):
-      x86: Use "accel" to require KVM for "cet" and "lam" testcases
-      x86/run: Use separate "-accel" option to configure the accelerator
-
-Yexuan Yang (1):
-      x86/lam: Allocate test page from AREA_LOW instead of AREA_NORMAL
-
- lib/argv.c          |  14 ++++
- lib/argv.h          |   3 +
- lib/x86/asm/pci.h   |  23 ++++--
- lib/x86/msr.h       |   1 +
- lib/x86/pmu.c       |   7 ++
- lib/x86/processor.h |   1 +
- x86/Makefile.common |  22 ++++++
- x86/apic.c          | 144 +++++++++++++++++++++++++++++--------
- x86/debug.c         | 162 ++++++++++++++++++++++++++++++++----------
- x86/lam.c           |   6 +-
- x86/pmu.c           |  26 ++++---
- x86/realmode.c      |   4 ++
- x86/run             |   2 +-
- x86/svm.c           |  26 +++++++
- x86/taskswitch.c    |  46 +++++++++++-
- x86/unittests.cfg   |  24 +++++--
- x86/vmexit.c        |  15 +---
- x86/vmx_tests.c     | 199 +++++++++++++++++++++++++++++++++++++++++++---------
- 18 files changed, 580 insertions(+), 145 deletions(-)
+> ---
+>  kernel/sched/fair.c | 16 +++++++++-------
+>  1 file changed, 9 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 57360f5cdde4..bcb9987952b9 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -13184,13 +13184,15 @@ static inline void calculate_imbalance(struct l=
+b_env *env, struct sd_lb_stats *s
+>  /*
+>   * Decision matrix according to the local and busiest group type:
+>   *
+> - * busiest \ local has_spare fully_busy misfit asym imbalanced overloade=
+d
+> - * has_spare        nr_idle   balanced   N/A    N/A  balanced   balanced
+> - * fully_busy       nr_idle   nr_idle    N/A    N/A  balanced   balanced
+> - * misfit_task      force     N/A        N/A    N/A  N/A        N/A
+> - * asym_packing     force     force      N/A    N/A  force      force
+> - * imbalanced       force     force      N/A    N/A  force      force
+> - * overloaded       force     force      N/A    N/A  force      avg_load
+> + * busiest \ local has_spare fully_busy misfit smt asym imbalanced llc o=
+verloaded
+> + * has_spare        nr_idle   balanced   N/A   N/A  N/A  balanced  N/A  =
+balanced
+> + * fully_busy       nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  =
+balanced
+> + * misfit_task      force     N/A        N/A   N/A  N/A  N/A       N/A  =
+N/A
+> + * smt_balance      nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  =
+balanced
+> + * asym_packing     force     force      N/A   N/A  N/A  force     N/A  =
+force
+> + * imbalanced       force     force      N/A   N/A  N/A  force     N/A  =
+force
+> + * llc_balance      force     nr_idle    N/A   N/A  N/A  nr_idle   N/A  =
+balanced
+> + * overloaded       force     force      N/A   N/A  N/A  force     N/A  =
+avg_load
+>   *
+>   * N/A :      Not Applicable because already filtered while updating
+>   *            statistics.
