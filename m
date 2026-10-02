@@ -1,160 +1,250 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1F235C6B9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCCC29BD91;
+	Fri,  2 Oct 2026 04:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790914135; cv=none; b=Ndk7/Q0+fYhxNX7rIby22ImNG94m9QyIzzJkmVtLgirHL3A54HRj4dKQNdHvS2Lk6S0S8UxVoDCQycc1rF15pEvTN7sQSDf+CRvaSm2hq8XqOdZWfzW6BE5cS7FPJQnlBisjg+n2ArM8AD78FOqbor0lKvIkf9SDQdHrCsBDfjw=
+	t=1790914247; cv=none; b=K4/uo8NvM7nyhxe+NRcTm7GV07RH55HETLHZ68+gFJz42MjYGwnbbcdFngxNRxycM2sZ3ZenhX1gWKijN3vLn8P7axf8633c1GfrFda3cyiFP+4tWwJk93GagOOYgTJzw1fS3UiHDIhKHhLrD7C/KnYV5FYlbtaGpkMCoutWzb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790914135; c=relaxed/simple;
-	bh=exTaw7F3OobWYcwyFrrXr9e3wYrNqRET2QMDSQUyVW8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ktlMTg5AKntMzMjSGoEyxoKSF1p8hQC0xAui3WBMBAmwlR0p+JD0v3e9Mi1G12MjWp0ETYsuOQySxLTyeA5ymu4boIvXjptEWlnqiGxys+T5z8TE5FLgk1/QPSTuEBuKUZ/mZPAVSTx7bYJbZcNZy6NItEltYxu/8mp4s0nQfQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mLaj9a6f; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790914247; c=relaxed/simple;
+	bh=EIJOChoEaEBYESXE80s9ndb/MUmkNCdLxI8pLXZEk0Y=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=taKhVnwXYXu+jdbM3uhpUTOMOXf1l6sr5rD7Z1IKdZXxVCHWCHR/h5q+nqR6s0/FhezeN8dQ1R/j3P2GR3lPWMKoNHs2eDpTtlbbLkB1yj7wIDIItYzHkcfnsmGgjpBY7rwrw0W9bDKckxfgvl7YL2VHx5dUuIC0r8xdlTEU3K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQ1mi4za; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mLaj9a6f"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso4604010a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:08:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790914133; x=1791518933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=708/R6aTK88LREMdk5KzZq8mEqWh1gKpczYWgyOqNNg=;
-        b=mLaj9a6ffVazLplNaUUH+YEM8JRxIDoZxYi5pmEV05u/LBYIYYmsTraZ2H+1NSzne/
-         MkzoDdB/3B+6EiDnQUVDDF7RTYRt0RGgx+BcWQ4wbIFNl6us2Zh2JJHSp6chMWm0DdqK
-         xLDxDVIMKrGL7oCiEQ4wHGzWkpjPwrMsMMxW9WzhLTRmOh6sl94P5N4w7LiKGjKAGvQb
-         0om5a7i+SJk3mX8CXdGnsNmfAROOKpfhT/SMlvv7Pm89ZmWLynrUjq8oMOJQAMuVsa50
-         Iez+On4karyy1lMgXaJgqnAGLAZCf1Oe0R60s5elyR8xTOAtfjVLFWqbLIq3EvF0jdf4
-         g68Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790914133; x=1791518933;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=708/R6aTK88LREMdk5KzZq8mEqWh1gKpczYWgyOqNNg=;
-        b=gTXmUuPpp8R2v7Bbvotvi4oACbCwDZHiAQqgpnJl5R7LU/UkUU4Vdu6WR5J9JmgBOB
-         RBnrdyDsJewRSJj9kX1f/NK/H6XuSMWvl4Q2WfIkJt7TzjPe/CcqfftLLPow9w5cA3tz
-         yGrSrtGvew/P3cZr/C0lJnWt4HGRx4NAO73lkCR24thpvqS4q+fSnDQX+MNwcA0uVkMQ
-         wGyXJ9nZXFXKpFD4QSL0dj7yGkcAdaNORIZGsjGvJnIrI/Hje79MVIImfl5lrYxL4BuL
-         Uc1DGyT+CKvk4v4vkCxJ6yOdfUDOF8Xm2vrpUjEqMaMGlfyK4ey9tQoabwbBSY15KUTY
-         d0AA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+xq6zLd9ibJCb/hUAQ/Afu4cawC+5iwIP5dfP8yVUpd9Mc658ZMTJU8S2GIF9sPztL7C0xndxESqlivA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKueDouGeqEK4UDtpLUnEtsRjzcvQVVEIo2AMGyimriCJ+4xzpm
-	ryJETEkVBTr11MLNOxUfNw65BSlKXpgNFEgWZKC/X4ymoTLE9tvlo24i
-X-Gm-Gg: AYBFou0s5V9eORQhlbsrZfYmX0En7K7zO6Kp4iQ4yrYE5h0OLdNE3gzjbmWRU27YVQF
-	eok/xfXVSnfUTXZ8QpguGY0uORjsUed5G+mxzzxo2L5GPxDeLnqaFV00Yjo62Dny+ZrEoKt/GMr
-	1sbW3xbKtvip1UoYXzSGlFF0EJyzVyYKO1LXUHR8bJ7MPLEdyycUn4uyxreRa6PjU1tC0e0ch7e
-	w6BINFYq0slwpUlwsTIBwtYyzInMBbXWLSgA6jrAY+iLi5UCwyblaPsjO5/ARV4sQa+8H2jj3Pk
-	bcPrM6xS49w1dVTdOclwlr8InDfSI/WdQUFJjHde+mavUYn/4+97Gn4/fsPivWdhEwtnjGhus9q
-	ewjlCnPE0pKl8BfMxQa+2p2In0kWbqcA+2mr7gK4F6cpd81ImgaVLIIQ6GiYQO3KCsOMlMo4Ym5
-	AH8Ut+Kf/at9TnUbSY66sBEK26nAMKo8sew/pdUmvR+gC5aKNIDEXP+9kqjTx2viXOGa1dmneOT
-	BRUYUzIlR7yLraYjX29nizl59jq6XPsHZd4NTsrsh6nbufL
-X-Received: by 2002:a17:90b:2787:b0:3a4:f4e8:e09c with SMTP id 98e67ed59e1d1-3a6ceb0557fmr1361660a91.33.1790914132164;
-        Thu, 01 Oct 2026 21:08:52 -0700 (PDT)
-Received: from localhost.localdomain (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ccc92646sm2119079a91.1.2026.10.01.21.08.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 21:08:51 -0700 (PDT)
-From: Artem Novak <artem122novak@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cacioandpepe <artem122novak@gmail.com>
-Subject: [PATCH RESEND 2/2] sh: add SH7305 CPU subtype support
-Date: Thu,  1 Oct 2026 22:08:00 -0600
-Message-ID: <20261002040800.131862-3-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002040800.131862-1-artem122novak@gmail.com>
-References: <20261002040800.131862-1-artem122novak@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQ1mi4za"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1204F1F000FF;
+	Fri,  2 Oct 2026 04:10:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790914245;
+	bh=7EiCnC+fxZoU5zU0lqX0ZAzpiXyCq5Hiv/8TdrXYdFg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UQ1mi4zaJBmJbf4oVKRHX52ReKdm2jPrqU44Zls9vs1lPUFR4wBVyOjJZcZMEvIRL
+	 85DhJV66p279niy7hV3uNFAMoe/i79/9IjSXzkG1zbalJVucMtpBbrr2xFmvg9BpAg
+	 i32O28p6CMEbD+PV40xKufOBe9/ocI/HdwwuIcDSiM15D9M/N8S3VkVP4rsJM4/kQt
+	 ppqv9uRffeDpklY3j7/hWP5eE/e2Km4XSvQGtoD8Oq21hi+ddtfNB6zuzvgZQ4O+6W
+	 OU1bGDzJUpEY5guhbMo4RWomYJrXNA9um8eCR9IVR3UcApfHIS4WKki710KPoXby4x
+	 UzIIWdzfnP1xA==
+Subject: Re: [PATCH net-next v4 2/3] net: dsa: qca8k: serialize CPU MAC pause
+ during MTU changes
+From: netdev-bot+sashiko@kernel.org
+To: yongzhao.derek@gmail.com
+Cc: netdev@vger.kernel.org, hzyitc@outlook.com, ansuelsmth@gmail.com,
+ andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, florian.fainelli@broadcom.com,
+ linux-kernel@vger.kernel.org
+Date: Fri, 02 Oct 2026 04:10:44 +0000
+Message-ID: <179091424456.434549.5853243408552872110@kernel.org>
+In-Reply-To: <20260928220811.1880-3-yongzhao.derek@gmail.com>
+References: <20260928220811.1880-3-yongzhao.derek@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: cacioandpepe <artem122novak@gmail.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Add the SH7305 as an SH4AL-DSP CPU subtype.
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-Recognize the SH7305 in the SH-4 CPU probe using the existing
-0x300b PVR family with PRR value 0xc0, and expose the processor
-name through the SH CPU information interface.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: cacioandpepe <artem122novak@gmail.com>
----
- arch/sh/Kconfig                 | 9 +++++++++
- arch/sh/include/asm/processor.h | 2 +-
- arch/sh/kernel/cpu/proc.c       | 3 ++-
- arch/sh/kernel/cpu/sh4/probe.c  | 3 +++
- 4 files changed, 15 insertions(+), 2 deletions(-)
+- [Medium] The commit message says the new error handling works: it will
+  "abort before updating the frame size if ... pausing the MAC fails"…
+- [Medium] For internal-PHY CPU ports (1-5), which this patch adds to the
+  pause set, qca8k_port_change_mtu() clears only TXMAC|RXMAC (`mask`,…
+- [Low] The concern: the commit message treats a CPU port on internal-PHY
+  ports 1-5 as a live configuration, though the driver in this tree only…
 
-diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
-index d60f1d5a94c0..e71b5476769e 100644
---- a/arch/sh/Kconfig
-+++ b/arch/sh/Kconfig
-@@ -467,6 +467,15 @@ config CPU_SUBTYPE_SHX3
- 
- # SH4AL-DSP Processor Support
- 
-+config CPU_SUBTYPE_SH7305
-+	bool "Support SH7305 processor"
-+	select CPU_SH4AL_DSP
-+	help
-+	  Select this option to build the kernel for systems based on the
-+	  Renesas SH7305 processor. The SH7305 belongs to the SH4AL-DSP
-+	  processor family and is used in embedded systems such as Casio
-+	  graphing calculators.
-+
- config CPU_SUBTYPE_SH7343
- 	bool "Support SH7343 processor"
- 	select CPU_SH4AL_DSP
-diff --git a/arch/sh/include/asm/processor.h b/arch/sh/include/asm/processor.h
-index 2a0b5713ab80..96321c46ce85 100644
---- a/arch/sh/include/asm/processor.h
-+++ b/arch/sh/include/asm/processor.h
-@@ -36,7 +36,7 @@ enum cpu_type {
- 	CPU_SH7723, CPU_SH7724, CPU_SH7757, CPU_SH7734, CPU_SHX3,
- 
- 	/* SH4AL-DSP types */
--	CPU_SH7343, CPU_SH7722, CPU_SH7366, CPU_SH7372,
-+	CPU_SH7343, CPU_SH7305, CPU_SH7722, CPU_SH7366, CPU_SH7372,
- 
- 	/* Unknown subtype */
- 	CPU_SH_NONE
-diff --git a/arch/sh/kernel/cpu/proc.c b/arch/sh/kernel/cpu/proc.c
-index 5f6d0e827bae..b6fbe27742e0 100644
---- a/arch/sh/kernel/cpu/proc.c
-+++ b/arch/sh/kernel/cpu/proc.c
-@@ -25,7 +25,8 @@ static const char *cpu_name[] = {
- 	[CPU_SH7786]	= "SH7786",	[CPU_SH7757]	= "SH7757",
- 	[CPU_SH7722]	= "SH7722",	[CPU_SHX3]	= "SH-X3",
- 	[CPU_MXG]	= "MX-G",	[CPU_SH7723]	= "SH7723",
--	[CPU_SH7366]	= "SH7366",	[CPU_SH7724]	= "SH7724",
-+	[CPU_SH7305]	= "SH7305",	[CPU_SH7366]	= "SH7366",
-+	[CPU_SH7724]	= "SH7724",
- 	[CPU_SH7372]	= "SH7372",	[CPU_SH7734]	= "SH7734",
- 	[CPU_J2]	= "J2",
- 	[CPU_SH_NONE]	= "Unknown"
-diff --git a/arch/sh/kernel/cpu/sh4/probe.c b/arch/sh/kernel/cpu/sh4/probe.c
-index ef4dd6295263..7f77fc64258c 100644
---- a/arch/sh/kernel/cpu/sh4/probe.c
-+++ b/arch/sh/kernel/cpu/sh4/probe.c
-@@ -143,6 +143,9 @@ void cpu_probe(void)
- 		break;
- 	case 0x300b:
- 		switch (prr) {
-+		case 0xc0:
-+			boot_cpu_data.type = CPU_SH7305;
-+			break;
- 		case 0x20:
- 			boot_cpu_data.type = CPU_SH7724;
- 			boot_cpu_data.flags |= CPU_HAS_L2_CACHE;
+--
+
+net: dsa: qca8k: serialize CPU MAC pause during MTU changes
+
+This commit adds internal PHY CPU ports 1-5 to the pause sequence that
+runs in qca8k_port_change_mtu() before QCA8K_MAX_FRAME_SIZE is written.
+It takes reg_mutex to serialize that sequence against port enable, port
+disable and phylink link transitions. It also saves each port's
+TXMAC/RXMAC bits and restores them afterwards, with new error handling
+that aborts and restores on failure.
+
+> diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+> index 60f2a615a5cc2..dfe18b6e936bf 100644
+> --- a/drivers/net/dsa/qca/qca8k-8xxx.c
+> +++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+> @@ -1483,7 +1483,9 @@ qca8k_phylink_mac_link_up(struct phylink_config *config,
+>  
+>  	reg |= QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
+>  
+> +	mutex_lock(&priv->reg_mutex);
+>  	qca8k_write(priv, QCA8K_REG_PORT_STATUS(port), reg);
+> +	mutex_unlock(&priv->reg_mutex);
+>  }
+
+[Severity: Low]
+This isn't a bug, but should part of this change carry a Fixes: tag?
+
+qca8k_phylink_mac_link_up() and the link-down callback run from the
+phylink resolve work without rtnl. qca8k_port_change_mtu() runs under
+rtnl.
+
+Before this patch, a concurrent link-up could set TXMAC/RXMAC on port 0
+or 6 after the pause but before the QCA8K_MAX_FRAME_SIZE write. The same
+goes for restoring ports 0 and 6 to their previous state instead of
+always turning them back on. Both look like fixes for existing behavior.
+
+The commit message also treats a CPU port on internal PHY ports 1-5 as a
+configuration that exists today. In this tree, qca8k_find_cpu_port()
+only accepts ports 0 or 6. That support arrives later in the series in
+"net: dsa: qca8k: support QCA8337 internal PHY CPU links". Could the
+message say this part is preparation for that commit?
+
+> diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
+> index 13005f10edb7d..6b32bdd75eabe 100644
+> --- a/drivers/net/dsa/qca/qca8k-common.c
+> +++ b/drivers/net/dsa/qca/qca8k-common.c
+
+[ ... ]
+
+> @@ -764,14 +774,20 @@ void qca8k_port_disable(struct dsa_switch *ds, int port)
+
+[ ... ]
+
+>  int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+>  {
+> +	u32 mask = QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
+>  	struct qca8k_priv *priv = ds->priv;
+
+[ ... ]
+
+> @@ -784,25 +800,58 @@ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+>  
+>  	/* To change the MAX_FRAME_SIZE the cpu ports must be off or
+>  	 * the switch panics.
+> -	 * Turn off both cpu ports before applying the new value to prevent
+> -	 * this.
+> +	 * Include internal PHY CPU ports as well as the two MAC-only ports.
+> +	 * Toggle only MAC enables, preserving the phylink link-control mode.
+>  	 */
+> -	if (priv->port_enabled_map & BIT(0))
+> -		qca8k_port_set_status(priv, 0, 0);
+> +	ports = BIT(0) | BIT(6);
+> +	for (i = 1; i < 6; i++)
+> +		if (dsa_is_cpu_port(ds, i))
+> +			ports |= BIT(i);
+
+[Severity: Medium]
+For internal PHY CPU ports 1-5, which are now in the pause set, does
+clearing only TXMAC and RXMAC actually stop the MAC?
+
+The driver's existing disable path also clears LINK_AUTO for those
+ports:
+
+qca8k_port_set_status_locked() {
+	...
+	/* Port 0 and 6 have no internal PHY */
+	if (port > 0 && port < 6)
+		mask |= QCA8K_PORT_STATUS_LINK_AUTO;
+	...
+}
+
+If LINK_AUTO (LINK_EN) stays set, the MAC may keep following the
+internal PHY's link state. It could then keep passing traffic while
+QCA8K_MAX_FRAME_SIZE is rewritten.
+
+One case: qca8k_port_enable() sets TXMAC|RXMAC|LINK_AUTO on the CPU port
+during setup. Then the MTU is changed while the user port is created,
+possibly before phylink's mac_link_up has rewritten the register:
+
+dsa_user_create()
+  dsa_user_change_mtu(user_dev, ETH_DATA_LEN)
+    dsa_port_mtu_change(cpu_dp)
+      qca8k_port_change_mtu()
+
+qca8k_phylink_mac_link_up() also writes LINK_AUTO in in-band mode and in
+the default branch for unknown speeds.
+
+Whether LINK_EN overrides cleared TXMAC/RXMAC is hardware behavior that
+can't be confirmed from the code. Since status[] already saves the
+original bits, could LINK_AUTO be added to the pause mask for ports 1-5
+and restored afterwards?
+
+[ ... ]
+
+> +	for (i = 0; i < QCA8K_NUM_PORTS; i++) {
+> +		if (!(ports & BIT(i)) || !(status[i] & mask))
+> +			continue;
+> +
+> +		stopped |= BIT(i);
+> +		ret = regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(i),
+> +					mask);
+> +		if (ret)
+> +			goto restore;
+> +	}
+
+[Severity: Medium]
+The commit message says:
+
+  Abort before updating the frame size if reading port status or pausing
+  the MAC fails. Attempt to restore all ports already modified, and report
+  any restoration failures even if an earlier error occurred.
+
+Can this goto restore fire on the MDIO register path?
+qca8k_mii_write32() in qca8k-8xxx.c returns void:
+
+static void
+qca8k_mii_write32(struct mii_bus *bus, int phy_id, u32 regnum, u32 val)
+{
+	if (qca8k_mii_write_lo(bus, phy_id, regnum, val) < 0)
+		return;
+
+	qca8k_mii_write_hi(bus, phy_id, regnum + 1, val);
+}
+
+qca8k_regmap_update_bits_mii() returns the read result and ignores the
+write:
+
+	val &= ~mask;
+	val |= write_val;
+	qca8k_mii_write32(bus, 0x10 | r2, r1, val);
+
+exit:
+	mutex_unlock(&bus->mdio_lock);
+
+	return ret;
+
+qca8k_write_mii() only returns the qca8k_set_page() result.
+
+Without mgmt_conduit, or when the Ethernet management path falls back to
+MDIO, three calls report success even if the bus write fails:
+regmap_clear_bits() here, qca8k_write() of QCA8K_MAX_FRAME_SIZE, and
+regmap_update_bits() in the restore loop.
+
+Wouldn't that let MAX_FRAME_SIZE be written while a CPU MAC is still
+enabled? It would also mean the "failed to restore MAC state" message
+never prints for a failed MDIO write.
+
+The commit message also says:
+
+  The standalone qca8k MDIO error-propagation fix is a prerequisite for
+  this series; that error-handling bug predates this locking change.
+
+That fix is not in the tree or in this series. The MDIO write helpers
+are still unchanged at the end of the series.
+
+Could the message name the prerequisite commit or link to it, so
+maintainers and stable backporters know what must be applied first?
+
+[ ... ]
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928220811.1880-1-yongzhao.derek%40gmail.com
