@@ -1,221 +1,296 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A7E1F938
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:53:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790985188; cv=pass; b=GqNKT8Mo1BzZ8W7oB4pVY0tRIO3kymJO4Sq7v5lhn4RAMQHD7S87TwZVyo+00qDKmzphY+me6zN0ZdszOuACwejYKLT9UCnIzUsvqrfgoJ7jcb9aNRFpsTTlJhzzlbKmr2QGi2bem38RYzYqiTatNiKVFmUKBUCIVWkcHnp/1TE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790985188; c=relaxed/simple;
-	bh=TSRxsIng2LPiyM2hNH2bG7x0/DCnogvfIBYewgQ58xU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P6Ws93fq6bvlvGVFsuKGZXWQ4/FHHIUvwb0Y8u/U/Sqol2F5PKgVLZu1+cAb3q2QFeY+7p+3/CWtgJePVXXzHTKjtWtu7HhJCkSGWZOfqspJfdXrYMRNJZ/O3yAplW8eVePA+USHG997VQcFIDo+L3yX8i9AFa4QkV5BZ6Vx+6Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=q8SF/OHS; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBFA30569F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790985309; cv=none; b=UvXwvWaoXZOHe5M3Swt6GiegNhm6xb15kB5ZKBZBqzkd+XrIDt0dScdlneKBlc42x61mL+LPJMuShE4Orbmf8AmDz90o0FqqZalYQtWRo2py2ZKl5r7Ai2q0/7pYOPbcI15M/OsExPfMz33v6z76lW17TKlHTGQ8KjS1q+JC7vg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790985309; c=relaxed/simple;
+	bh=d1yL2ASqz1i37LWySYu0XkDqjLn0Fw9ZcE6OeAYmhy4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eC4vjLVv5i1XHyc1zquy81JyKEO7Y3Ln8hVWRtSHBVCkqJCvw7XOEtgyDFX29dL/DjU7YWmQcPsf1K03nAeBXU4VmBBLNizCeNRshzavmLvJfWxM8jztLNccgIcaeKdqqBPlTNBRfUMDplW2MUUMfz+oNYlAXAEtKHXEsdXaoM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QsD7ZOa0; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="q8SF/OHS"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8d881so45810d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:53:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790985186; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OeixCT2nlhun1c6U3pCrRO23y2t3mOKATpEhC4e3Nuz5a4V1YA3JcpU0xq/4DoSy8I
-         vubqYrhGh1doB7lbGheeMbs6/NZ4gYNJJNN+EuAPi1jMRZqKG3k3pnfX90tS3Im5DXrQ
-         0EhtKE3fGOT+s4OoOOn5hktaaGtFEuIbjYt6MVNjeFr2ZDzLGep7FcfdJXsEMz+ECxOM
-         Fsp9SEOP2E32Zlph6LWOU7G4VacWEmvE2qCtCUksvYf3BL5bgX5CodJfoPN1CQP/E4ty
-         10qr/0WJ29VTN+KxTTv3xJNQTwBZoqgbKEtnaek5fT5XT8LnT8okx4jK10NkisKVWHaS
-         KEcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=snMBNVyodSm2QRZvcyx88wssCDSjiEt9T08zFclT1E0=;
-        fh=hmzUzF+4l+FVvrQZKhXhdBF86pitGqGAlS9TXsHjEp4=;
-        b=XmLFNL2/yuoZsnbavArrRzgYRfCMB2r42x7c5c4KJPbHWUdJO2oCo1Kr38d9Ne837z
-         OsoJ/LMnMcj5pBAGEKRJAieZ5DQEBVS/FBgnnw2ebT2yM5F/VCg27xd4y/xvyFUqGHdd
-         XxQPibFJfF0PVjbO5lB0uUvIpoGKB5jeQ9MhHWFG8Xu7Yn4B8U2xwpzacZ3r3CFnX8o1
-         ACSVSl+NTN4vHLDhE1/f4QmuimxuT+p6VBK3+leGGp9KboggKRqdeNCXjLBp5DTMPTYv
-         LGOpCbyYgZev4Z30PJOFEVbkuzu14wDSd92XTrqb1bvTjPrdShN+VdKbfzIIJbkGuoST
-         exEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QsD7ZOa0"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccc02279so38128a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:55:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1790985186; x=1791589986; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=snMBNVyodSm2QRZvcyx88wssCDSjiEt9T08zFclT1E0=;
-        b=q8SF/OHSdg7NbMsCsGRcn5xGocA4nDcbGLUPZoU4g/U+zDXtA6GYX2IAcp9qX/+isX
-         BXDRu7OlEKrfOJnEvO+lHUAD4PBDlvxJLT5dFTYaqY25zOeHoByi3RMGDsZtZI394Yzr
-         Bo/7OPSOh4ROJjEpzViryUlmyBSnwkhfX2Ql0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790985186; x=1791589986;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790985307; x=1791590107; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=snMBNVyodSm2QRZvcyx88wssCDSjiEt9T08zFclT1E0=;
-        b=IrxcrhieP8wbkRJiGABn6nsRnUrFotDWsVQpMWw3wMmxZcnFoogOM8f8NZdO0h+b0A
-         +p9e2NMPMUuYYIsUFW5+5VtUANmecq7GL6+jNaEz6gm6NqUFvR9IyC9OJjbQXR+vXvh0
-         scin2iYcwbFO1nia0PMPUvVpxzfu+4vpJebH5DUzRFfSf/yGVRLLPPr3xEIakle2K8N+
-         h1xddfzCJbrWBcuNskSCmmh+k40iF0BNGm30NxY6mSRtnPs2XzJIflPRFHJKwrVqCrJt
-         8ht9wSbjzbpjiQ2q0J9/dhbbjueL3tgOD+Re7s1/cYmPyBeDHkjzC2gjee11UFa95RfR
-         j9Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6l8MzLlNmjAo2xpA44t1adPoPwY/JPgjqm6CSbOOFVc7OoBbOEnsPVu+AgIcmhPwrsezUBykCPHrMc4I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2lIJYY0xPBXhA53+wWkZuWSq0oVcUBnEtBgHSEiu78zuwc9DQ
-	HQ0W0C1sEyIESJnJ93znqrTuiTNpdr4KX9Yqr5nWDIc/LtmxS/ZBNOd74W2mazhdfK35yJjRxS1
-	E5iOb9nL7NxYc+pKjzra/8e53W5ENhkBizCxoh/Mz5Q==
-X-Gm-Gg: AYBFou2M2bogfkS5LyKqnu2Jr4x4fMWHIiKz7YZomszqZ6dkhbOtIiE7qs/trjzI83f
-	AFmJ701pdNPSJn/wAMTL3qF++34wt0cnwZLulq11Fr6gcV8F0/xP4jFOqEABUfZBu4XMP77zXI8
-	i+TI2Yxbx4b67wb+1UwGPPsF+BkFQYW4edMW4Pk9+S8ixFWOEOPE/DrJkA0ZnVBefJFx4N9lO1U
-	W9pzZf3PAkWad2f8uSbJC0jx8CQ+ptLH7XWGwECr+X7z9M6BWb13WjfAAittOYOHy/WVx6hg6oy
-	Hvh2tmwhmboktWg8QAa+bzx8wBWBRYen2d7t3byrYtvtYrn0BsQ/FyMIVinGaK2NPSv5VKvAT7a
-	ZFA15xc6KMl4=
-X-Received: by 2002:a53:c407:0:b0:671:3843:62fa with SMTP id
- 956f58d0204a3-677ac0ca3a9mr1478803d50.84.1790985185963; Fri, 02 Oct 2026
- 16:53:05 -0700 (PDT)
+        bh=hoBO2WK85oCmZccbEsmXMTSLw+8SanEvgGm4FSV7LA8=;
+        b=QsD7ZOa0s2c0w58gA3aP4cnraJM3S4GppAlKrLTwixR56TpyKIri0B62GLqVsSuI15
+         jxm9XCShc635Hn4CU1/vYCYJojECS/pu0HjuAWCXLQxsklIqcX+fOoyRV63ceVOhFGRw
+         rRwpgRe0ucDMmeL38kfaDrMJRU8QLm69DU6KET3TIq7ovX510dX07SuyxEtIVJyFa1nT
+         Xw2dsUnS+LAOuEoqLwpXC9daFU8IIxnfxV5C7QWqpccnM87xWrsdy1bQaAAcBqLUUxVD
+         U2aRMc9w3l2hIs7CP9VVYgFT1q8Cf6aYHPczDcKBuLDltNDfrwDmGQXiNvFqvnIEJebP
+         mNLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790985307; x=1791590107;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hoBO2WK85oCmZccbEsmXMTSLw+8SanEvgGm4FSV7LA8=;
+        b=m9Vmx+iXXt6EtMS896al41lYBGDbW8UpoOTrXHULaiYInQxktFaXuYM3AE8ZEQybrj
+         evjeQ9Ca5D8MWyC0/tByPxF5sWeuYhvaOOMtI8bFNhkkDjVLTxnTIfV5Evm2c13NvmBd
+         5St7Xzoz9GUGo5G/YXaJ9xl5Gx2FCPCzcr3nttkeTbn5qqam/o/CZE/fezMt+l2J9Hlj
+         Orvo3Iar64Hdm06ubZOoYZSDXXW2tdx+8jcQvTcZvgLz7yOX6ATKdPH9f3NiFuf2Q3C5
+         kjgtqoQU7bFa4LxJ4LgQtj153+QxiRMInSy4Tcd5yq5wzZ19VFH3TA7JqYffEkp76Ha4
+         A7vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZsA5LJHowIUpDTMLNVSfyyNkqw1IXCT8VtAOce1c+fgr1DXquRdkjNMvQsqiCpLuFf53SJZgsYLEQ/g0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7BkKfSkzEFQkdUHEjpz/kj5H5LUcl8WqaVhWuQVJPG04V8/mL
+	iWUXiAS0G5SL9+T2tno23UqubCgc2wEha6p2cy6+4GYgT/p7DZ0jl5Xy
+X-Gm-Gg: AYBFou09VeZW0Yz15iR3bnJ0TDc+gEhuI7hyh4H0nI31rzNXyLk/+EbAwNXu3NauQrL
+	itqAP4Qm2ObglLhVm0gzPW7ru0kDqt1ivBRadryDWobZ6SS77jmUBIITHa9Mnim/hXeZ5IMCY2I
+	tP0kXT3KpuGhHhImYr8i9AHsoLt6dQcqPLeQGWIJjJ0k9r0yIljCNc0J8svMRmG71JfzEM1n2F1
+	A9wr3dIt8KqCbwdri78u6BqRj6lKYhgHiqJMx+1x5LeIfj9AIHCsEB9nOvZ0n1bF5WisH9HCSE8
+	UKoJF4wEyq14pAtb5BKaQwzEFyHlwRpnOQmFyxA5GvZQ7QhE89z0x+3HWcWVPgG/bRt1j1MniAj
+	9Udb+W+He1fW+bZ/WyCmFrBqN+t4WIcU3Vw7D/i4O56czymNMs6VqvIGFyO2gkot+kTbnAUTgSs
+	cK3YfQzlRYh+zfS9t8XXSIRo6LvXUjnCqZwohgncE9zIFzpNlyIjlqVqgH6xU9Ae6yX9g7TOhj6
+	ARqvgnLJtrRxXPNbwOnMaKtT0YIYbnugmC/WZZu6RhZUkXTHcoz
+X-Received: by 2002:a17:90b:1c86:b0:3a4:d5c0:f826 with SMTP id 98e67ed59e1d1-3a6ce9b0fe4mr3982968a91.65.1790985306510;
+        Fri, 02 Oct 2026 16:55:06 -0700 (PDT)
+Received: from [10.1.1.100] (122-59-250-182-adsl.sparkbb.co.nz. [122.59.250.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7cd47csm567741a91.17.2026.10.02.16.55.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 16:55:05 -0700 (PDT)
+Message-ID: <dfcbbc59-4204-478b-b8da-867621056c62@gmail.com>
+Date: Sat, 3 Oct 2026 12:55:02 +1300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002-perf-symbol-memory-send-v4-0-0a592bb2539e@uber.com>
- <20261002-perf-symbol-memory-send-v4-4-0a592bb2539e@uber.com> <CAP-5=fUMvUU=kGkGej4FSTYAMjO_ygZ5uQ4pdb+5NwivdjMwkA@mail.gmail.com>
-In-Reply-To: <CAP-5=fUMvUU=kGkGej4FSTYAMjO_ygZ5uQ4pdb+5NwivdjMwkA@mail.gmail.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 2 Oct 2026 16:52:50 -0700
-X-Gm-Features: AclHuK827T4jon6f_COBhtcH9C1xH434yiGa8Buid9-rGjvKkgkVXDkkQWBvBzE
-Message-ID: <CA+w=M=QL7TrqAhd1urQg2BEj2jTxLGU4aDWku8OuF=c1Tbxeyw@mail.gmail.com>
-Subject: Re: [PATCH v4 4/5] perf script: Add --lazy-load-symbols for lazy
- symbol loading
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] m68k: Handle put_user faults more carefully
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Finn Thain <fthain@linux-m68k.org>
+Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
+References: <88e752e0bca92c7b65533cc1b334052dd272f8ef.1790842086.git.fthain@linux-m68k.org>
+ <02c53c37-d2ee-4c03-a8f9-0a757c3af59e@gmail.com>
+ <CAMuHMdVbfUH1ZoFcS64t=gyE_cskMWv6gGvL8pjGirSGvAKu2w@mail.gmail.com>
+Content-Language: en-US
+From: Michael Schmitz <schmitzmic@gmail.com>
+In-Reply-To: <CAMuHMdVbfUH1ZoFcS64t=gyE_cskMWv6gGvL8pjGirSGvAKu2w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 2, 2026 at 3:39=E2=80=AFPM Ian Rogers <irogers@google.com> wrot=
-e:
+Hi Geert,
+
+On 03/10/2026 5:28 AM, Geert Uytterhoeven wrote:
+
+> Hi Michael, Finn,
 >
-> > +
-> > +struct dso_ondemand {
-> > +       struct dso              *data_dso;
+> On Thu, 1 Oct 2026 at 20:57, Michael Schmitz <schmitzmic@gmail.com> wrote:
+>> On 1/10/26 22:08, Finn Thain wrote:
+>>> Running 'stress-ng --sysbadaddr -1' on my MC68040 system immediately
+>>> produces an oops:
+>>>
+>>>       Unable to handle kernel access at virtual address f1c422fb
+>>>       Oops: 00000000
+>>>       Modules linked in:
+>>>       PC: [<00005a1a>] do_040writeback1+0xae/0x160
+>>>       SR: 2010  SP: 96087dc2  a2: 01500000
+>>>       d0: 00000000    d1: 014e8000    d2: 00000081    d3: 00000000
+>>>       d4: 00000481    d5: c043dfff    a0: 014e8000    a1: 00632fd5
+>>>       Process stress-ng (pid: 221, task=1b729d30)
+>>>       Frame format=7 eff addr=014e9eb8 ssw=0c81 faddr=c043dfff
+>>>       wb 1 stat/addr/data: 0001 00000481 c043dfff
+>>>       wb 2 stat/addr/data: 0081 c043dfff 2f746d70
+>>>       wb 3 stat/addr/data: 0005 014e9ed4 2f746d70
+>>>       push data: c043dfff 800daa70 00000000 014e9f1c
+>>>       Stack from 014e9ed4:
+>>>         2f740000 8017c000 014e9f10 00006830 00000081 c043dfff 2f746d70 2f746d70
+>>>         0081a000 00000400 c043dfff 800daa70 c043dfff 80016a20 00000003 014e9f88
+>>>         000026c8 014e9f1c 00000001 2f746d70 0081a000 00000400 c043dfff 0081afff
+>>>         c043dfff 01500000 00000001 ffffffff 00000000 20000046 41d67008 014e9f58
+>>>         04810005 00810045 c043dfff 014e9f84 2f746d70 c043dfff 2f746d70 c043dfff
+>>>         80016a20 8017c000 00000000 0081affb 00000005 014e9fc4 00128bc6 c043dfff
+>>>       Call Trace: [<00006830>] buserr_c+0x510/0x698
+>>>         [<000026c8>] buserr+0x20/0x28
+>>>         [<00128bc6>] sys_getcwd+0xc8/0x15a
+>>>         [<000027a2>] syscall+0x8/0xc
+>>>         [<0008800d>] sanity_check_segment_list+0x17/0x11e
+>>>
+>>>       Code: 000c 0e90 1800 220f 0281 ffff e000 2041 <2228> 0008 0281 00ff
+>>>             ff00 67a4 6026 4280 122e 0013 206e 000c 0e10 1800 220f 0281
+>>>
+>>> 0000596c <do_040writeback1>:
+>>>       596c:       4e56 fffc       linkw %fp,#-4
+>>>       5970:       2f02            movel %d2,%sp@-
+>>>       5972:       202e 0008       movel %fp@(8),%d0
+>>>       5976:       4282            clrl %d2
+>>>       5978:       3400            movew %d0,%d2
+>>>       597a:       220f            movel %sp,%d1
+>>>       597c:       0281 ffff e000  andil #-8192,%d1
+>>>       5982:       2041            moveal %d1,%a0
+>>>       5984:       2228 0008       movel %a0@(8),%d1
+>>>       5988:       0281 00ff ff00  andil #16776960,%d1
+>>>       598e:       6600 0104       bnew 5a94 <do_040writeback1+0x128>
+>>>       5992:       4e7b 2000       movec %d2,%sfc
+>>>       5996:       4e7b 2001       movec %d2,%dfc
+>>>       599a:       0240 0060       andiw #96,%d0
+>>>       599e:       0c40 0020       cmpiw #32,%d0
+>>>       59a2:       6700 0084       beqw 5a28 <do_040writeback1+0xbc>
+>>>       59a6:       0c40 0040       cmpiw #64,%d0
+>>>       59aa:       6730            beqs 59dc <do_040writeback1+0x70>
+>>>       59ac:       4a40            tstw %d0
+>>>       59ae:       6752            beqs 5a02 <do_040writeback1+0x96>
+>>>       59b0:       4280            clrl %d0
+>>>       59b2:       220f            movel %sp,%d1
+>>>       59b4:       0281 ffff e000  andil #-8192,%d1
+>>>       59ba:       2041            moveal %d1,%a0
+>>>       59bc:       2228 0008       movel %a0@(8),%d1
+>>>       59c0:       0281 00ff ff00  andil #16776960,%d1
+>>>       59c6:       6600 0086       bnew 5a4e <do_040writeback1+0xe2>
+>>>       59ca:       7201            moveq #1,%d1
+>>>       59cc:       4e7b 1000       movec %d1,%sfc
+>>>       59d0:       4e7b 1001       movec %d1,%dfc
+>>>       59d4:       242e fff8       movel %fp@(-8),%d2
+>>>       59d8:       4e5e            unlk %fp
+>>>       59da:       4e75            rts
+>>>       59dc:       4280            clrl %d0
+>>>       59de:       322e 0012       movew %fp@(18),%d1
+>>>       59e2:       206e 000c       moveal %fp@(12),%a0
+>>>       59e6:       0e50 1800       movesw %d1,%a0@
+>>>       59ea:       220f            movel %sp,%d1
+>>>       59ec:       0281 ffff e000  andil #-8192,%d1
+>>>       59f2:       2041            moveal %d1,%a0
+>>>       59f4:       2228 0008       movel %a0@(8),%d1
+>>>       59f8:       0281 00ff ff00  andil #16776960,%d1
+>>>       59fe:       67ca            beqs 59ca <do_040writeback1+0x5e>
+>>>       5a00:       604c            bras 5a4e <do_040writeback1+0xe2>
+>>>       5a02:       4280            clrl %d0
+>>>       5a04:       222e 0010       movel %fp@(16),%d1
+>>>       5a08:       206e 000c       moveal %fp@(12),%a0
+>>>       5a0c:       0e90 1800       movesl %d1,%a0@
+>>>       5a10:       220f            movel %sp,%d1
+>>>       5a12:       0281 ffff e000  andil #-8192,%d1
+>>>       5a18:       2041            moveal %d1,%a0
+>>>       5a1a:       2228 0008       movel %a0@(8),%d1
+>>>       5a1e:       0281 00ff ff00  andil #16776960,%d1
+>>>       5a24:       67a4            beqs 59ca <do_040writeback1+0x5e>
+>>>       5a26:       6026            bras 5a4e <do_040writeback1+0xe2>
+>>>       ...
+>>>
+>>> The cause is a deliberately misaligned access in the 'bad_end_addr' test
+>>> case in the 'sysbadaddr' stressor. The location being accessed here,
+>>> 0xc043dfff, was contrived to span the boundary between a r/w anonymous page
+>>> and an unmapped page. The address was then passed to the getcwd syscall
+>>> which faulted in copy_to_user().
+>>>
+>>> The fault for the mapped page appears to be handled okay -- up until
+>>> do_040writeback1() called put_user() which produced a second fault due to
+>>> the unmapped page.
+>>>
+>>> Michael Schmitz helpfully deciphered the oops and explained the exception
+>>> processing leading up to it.
+>>>
+>>>       "regs->pc does point to the PC in the format 7 frame which is the PC
+>>>       the fault was detected at, but not (in case of a writeback fault)
+>>>       the PC of the faulting instruction [that is, MOVES.L].
+>>>
+>>>       "The writeback would still cross the page boundary, and fault if the
+>>>       unmapped page still isn't present. We would not see the PC of the
+>>>       movesl in that case, and fail to find the PC in the exception
+>>>       table."
+>>>
+>>> One solution is to add a NOP instruction after the MOVES.L to flush the
+>>> pipeline and take the fault. That way, the PC value in the exception frame
+>>> becomes dependable so the exception table works.
+>>>
+>>> Theoretically, there seems to be another bug in the existing code. If
+>>> the instruction following the MOVES faulted, then after the fixup,
+>>> execution would resume at the instruction which caused the fault. This
+>>> appears to be a loop. After this patch, that cannot happen.
+>>>
+>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>>> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
+>>> ---
+>>>    arch/m68k/include/asm/uaccess.h | 10 ++++++----
+>>>    1 file changed, 6 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/m68k/include/asm/uaccess.h b/arch/m68k/include/asm/uaccess.h
+>>> index 31d133faa45e..728a6dfb7414 100644
+>>> --- a/arch/m68k/include/asm/uaccess.h
+>>> +++ b/arch/m68k/include/asm/uaccess.h
+>>> @@ -31,11 +31,12 @@
+>>>    #define __put_user_asm(inst, res, x, ptr, bwl, reg, err) \
+>>>    asm volatile ("\n"                                  \
+>>>        "1:     "inst"."#bwl"   %2,%1\n"                \
+>>> -     "2:\n"                                          \
+>>> +     "2:     nop\n"                                  \
+>>> +     "3:\n"                                          \
+>>>        "       .section .fixup,\"ax\"\n"               \
+>>>        "       .even\n"                                \
+>>>        "10:    moveq.l %3,%0\n"                        \
+>>> -     "       jra 2b\n"                               \
+>>> +     "       jra 3b\n"                               \
+>>>        "       .previous\n"                            \
+>>>        "\n"                                            \
+>>>        "       .section __ex_table,\"a\"\n"            \
+>>> @@ -53,11 +54,12 @@ do {                                                              \
+>>>        asm volatile ("\n"                                      \
+>>>                "1:     "inst".l %2,(%1)+\n"                    \
+>>>                "2:     "inst".l %R2,(%1)\n"                    \
+>>> -             "3:\n"                                          \
+>>> +             "3:     nop\n"                                  \
+>>> +             "4:\n"                                          \
+>>>                "       .section .fixup,\"ax\"\n"               \
+>>>                "       .even\n"                                \
+>>>                "10:    movel %3,%0\n"                          \
+>>> -             "       jra 3b\n"                               \
+>>> +             "       jra 4b\n"                               \
+>>>                "       .previous\n"                            \
+>>>                "\n"                                            \
+>>>                "       .section __ex_table,\"a\"\n"            \
+>>> Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
+>>>
+>>> in case it helps.
+>>>
+>>> Anecdotally, I've seen similar uaccess faults causing kernel oops on 030
+>>> as well, so this may not merely be an artificial unaligned access issue.
+> Shouldn't this include
+> https://lore.kernel.org/20240429030945.22451-3-schmitzmic@gmail.com
+> ?
+
+Along with 
+https://lore.kernel.org/20240429030945.22451-2-schmitzmic@gmail.com, 
+perhaps.
+
+Can't recall the details, but Finn's solution was to add a nop in order 
+to make the fault PC reliable. That's not a great deal of overhead in 
+the case of put_user(). My changes to copy_to_user try to avoid flushing 
+the pipeline inside of a loop, and only use the nop after exiting the 
+loop. The cost of that is larger exception tables. Not sure which is worse.
+
+What's more, I can't be certain that my 'fault is taken two instructions 
+past faulting instruction' observation is 100% reliable. AFAIK this has 
+only been tested on 030 and 040. Coldfire(MMU) and 060 tests are still 
+missing.
+
+Adding nop's after each of the MOVES in these macros might be the only 
+deterministic way to always detect uaccess faults, no matter the 
+performance impact.
+
+I think the copy_to_user() and clear_user() cases need more testing and 
+discussion.
+
+Cheers,
+
+     Michael
+
+
 >
-> Could you add kernel doc for dso_ondemand? I believe it is keeping
-> state while resolving symbols, but the name makes it sound more
-> persistent.
+> Gr{oetje,eeting}s,
 >
-
-Yes, will do. It is persistent per-DSO state that holds the compact index
-and symbol source used for lazy address resolution. It remains attached
-until name sorting materializes all symbols, or until the DSO is destroyed
-during teardown.
-
-I'll add kernel-doc documenting its purpose, lifetime and locking. I can al=
-so
-rename it to dso_lazy_symbols if that makes the lifetime clearer.
-
-
-> >  struct symbol *map__find_symbol(struct map *map, u64 addr)
-> >  {
-> > +       struct dso *dso;
-> > +
-> >         if (map__load(map) < 0)
-> >                 return NULL;
-> >
-> > -       return dso__find_symbol(map__dso(map), addr);
-> > +       dso =3D map__dso(map);
-> > +       if (symbol_conf.lazy_load_symbols)
-> > +               return dso__find_symbol_ondemand(dso, addr);
-> > +       return dso__find_symbol(dso, addr);
+>                          Geert
 >
-> Why not do this logic in dso__find_symbol?
->
-
-Good point. Will do.
-
-> > +/* Return the number of entries starting at or before @addr. */
-> > +static u32 sym_idx__upper_bound(const struct dso_ondemand *od, u64 add=
-r)
-> > +{
-> > +       u32 lo =3D 0, hi =3D od->nr_sorted;
-> > +
-> > +       while (lo < hi) {
-> > +               u32 mid =3D lo + (hi - lo) / 2;
-> > +
-> > +               if (od->sorted[mid].start <=3D addr)
-> > +                       lo =3D mid + 1;
-> > +               else
-> > +                       hi =3D mid;
-> > +       }
-> > +       return lo;
-> > +}
->
-> Would the upper and lower bound only matter if symbols were
-> duplicated? I'm wondering if we can use bsearch?
->
-
-Not only for duplicates. Lower bound finds the first start >=3D addr, while
-upper bound finds the first start > addr.
-
-For example:
-
-  outer: [100, 200)
-  inner: [120, 150)
-
-At address 130, a range-based bsearch() may return either symbol because bo=
-th
-contain it. Upper bound selects inner, and at address 160 its outer link le=
-ads
-back to outer. At the exact start 120, upper bound is also needed so that
-decrementing the result selects inner rather than outer.
-
-Duplicate-start aliases are normally collapsed by sym_idx__dedup_aliases();
-they remain only with allow_aliases. The lower-bound callers also need an
-insertion point, which bsearch() cannot provide.
-
-I can combine the two loops into one helper parameterized by lower versus
-upper bound and document this behavior.
-
-
-> > +static bool sym_idx__from_sym(struct symsrc *syms_ss,
-> > +                             struct symsrc *runtime_ss, Elf_Data *secs=
-trs,
-> > +                             bool dynsym, const struct sym_idx *symtab=
-,
-> > +                             u32 nr, const size_t *strndx,
-> > +                             const GElf_Sym *sym, struct sym_idx *idx)
-> > +{
-> > +       Elf *elf =3D syms_ss->elf;
-> > +       GElf_Shdr shdr =3D dynsym ? syms_ss->dynshdr : syms_ss->symshdr=
-;
-> > +       u16 e_machine =3D syms_ss->ehdr.e_machine;
-> > +       u64 adjusted =3D sym->st_value;
-> > +       GElf_Phdr phdr;
-> > +
-> > +       if (!ondemand_sym_ok(elf, secstrs, sym, shdr.sh_link, e_machine=
-))
-> > +               return false;
-> > +
-> > +       if (e_machine =3D=3D EM_ARM && GELF_ST_TYPE(sym->st_info) =3D=
-=3D STT_FUNC &&
-> > +           (adjusted & 1))
-> > +               --adjusted;
->
-> Worth a comment that this is stripping of the thumb/not-thumb indicator b=
-it.
->
-
-Ack. I'll add the same explanation used by the eager loader: ARM Thumb
-function symbols have bit 0 set as an indicator, so the index strips that b=
-it
-from the address.
-
-Thanks,
-Alireza
