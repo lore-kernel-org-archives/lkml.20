@@ -1,33 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpcmd01-sp1.aruba.it (smtpcmd01-sp1.aruba.it [62.149.158.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B089D181334;
-	Fri,  2 Oct 2026 07:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC5933A9E9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790924826; cv=none; b=VHCYvs3w0BzFMJBjUWuYkfGTUnaLuUdVjr5rFMJfKhuMd0Srm8i8zuI+pav3Opk3vo9ydoulPMVIUSjh+erTPfMwl3XugpyyatvDryh3uVD2CylNW842YpPbO625lVTXPxMCQqh/2jMAsJ3AJ38sf11XBe+mswkueGnVhH+cLEs=
+	t=1790924836; cv=none; b=LxUk9kGi5hPbcS9eySEs6Ip0XdAxdDTaCRD1sbide2i96sIWYVvBHKnpc83Rw5vVZtJ1XFYmPopl6m3D7EI4iFK8P57rB7QHotkfWQROxipSneOqOyD6pzcGAbearrVYeXkYFXRa3ZJJjwDfH829QLe+lBkPEQx4suplu/CXgkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790924826; c=relaxed/simple;
-	bh=CbNIWfwNrr5r64TP4bbtir4KpMfuf66zENudqWXyGaY=;
+	s=arc-20240116; t=1790924836; c=relaxed/simple;
+	bh=8Kq1JLz5JD+AYs8jTUJp1zVK8kB22uq7gMAKi38hWdg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S2Lltt0ZiR7e+HMmc0xDXXweuIHuWQkFZ/HJZip0nXKZo93UFX9WmLrCIEf/icoHjYWOZG9t2T2VNVbGObpNaRDNOQ5Jt6rG2pgGFLP6LYX8MzP+CA7BPb2OL1H5W8g+WDaV/ShWpKkUaJvcFkKvDPJ8Ro/fXC0JkFQEdDTWDLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCp+2fkS; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=PqM/ZhZyL17APiP9gJ+xUSm35EGcnhT4pKyIzgjn34ehEWMQZrWUY5K5TV2Cu0Ji7V/6bAAgtZe/WD+qLU3RUd4sjXa9MS/x0n8ijjfEpmcxFIaIdSRH7YLcirZQYSCos2nYZX0uHUTH6sa+YScf7lhZ/coHEEVNSdZGJKTzOBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=V5dV7XCD; arc=none smtp.client-ip=62.149.158.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCp+2fkS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6261F000FF;
-	Fri,  2 Oct 2026 07:06:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790924825;
-	bh=w0hWcnJnpydfH/GKmmOH7T4iJhQmbefzXV8L2WDslX0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hCp+2fkS7OxRcZij2y6mBt2E3fDjEzOc8eHQJhsPx6m3He/HdHGtPW8k/6BALSnES
-	 it9LIVVbOqRgF48rSD4m4wkZr4hRQPc326H3ja1QY80lqE6iDoDqoZY08TD6Vm4Yes
-	 4JPqjTXiinMSYZN9WiIVnXy9fwCU+AhW+ZvjF+G+XIeE3rg8a8zPNSdbxV/F/NnBVe
-	 yHFUXl/91pMJM4tYtl2NVWacIZgiVwfPtWjYJeDkPfVagJjZ/YB8wc2ATnaZvC5PST
-	 VLDbqudcowc61gUKiq9yWqil67iFcoNVjQuPuSzPeWpzp8TUN4jjZAsuXZKXY9oCTW
-	 54TzUxJRCkj8A==
-Message-ID: <f4b5f7ee-4324-4340-a938-752815d9924f@kernel.org>
-Date: Fri, 2 Oct 2026 09:06:22 +0200
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="V5dV7XCD"
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id CXJLxfVaxXmotCXJMx3D2Z; Fri, 02 Oct 2026 09:04:05 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790924645; bh=8Kq1JLz5JD+AYs8jTUJp1zVK8kB22uq7gMAKi38hWdg=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=V5dV7XCDlkFhDc6EhQHPfuVyMH/Jtda4rLCustGjSPtW/O/jTrpav1Hj9t6AHU/5p
+	 YxVeHkZOrh72hei1m2ZDayMOjZhCtwwmQ4crjCA0Zd9wj+GOx7YVuCp5mTXukU/Ikb
+	 T89iBjQMpxO1F6gckuME/qbBGFt+pcdzsXiTYRNDI+jwMbrAcH9gApxU7DezA77J9E
+	 AmhwjnR1W2IxNctTxZjiXaSxVdc/v19jiFUqGATsouduNCxvvVNeJGgi5HyKYCvXzg
+	 dOSVpKuy9QWcyLzOLOkZs8nlH/G33Pnr/EwmcFyn1syvAqayCxGwECMwU17SYWosMu
+	 BzY4rxLIQ9qMA==
+Message-ID: <b567acf8-c3e3-4b51-99a8-058ab42f3026@enneenne.com>
+Date: Fri, 2 Oct 2026 09:04:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,173 +37,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 35/40] mm: eliminate VMA_SPECIAL_FLAGS check in
- lru_gen_look_around()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-35-4583d8a23bca@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v4 3/4] pps: Always use ktime_get_snapshot_id() for
+ pps_get_ts()
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-35-4583d8a23bca@kernel.org>
+To: Miroslav Lichvar <mlichvar@redhat.com>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>
+References: <20260829210041.40649-1-dwmw2@infradead.org>
+ <20260829210041.40649-4-dwmw2@infradead.org>
+ <920a2d70-c1ec-452b-8fc4-aebf1f6af412@enneenne.com>
+ <d1af17dff1d6f181d74edd3b6358398469d61917.camel@infradead.org>
+ <4afec82e-9e3d-4615-9657-7d467d8dc3e7@enneenne.com>
+ <ar5cq0vslvQ00Pek@localhost>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <ar5cq0vslvQ00Pek@localhost>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfLVksAyqsJ4qsACPeEYUOoad1jqeDXmmCGhR1HeGvNfx1iqpK02OcibkwQHzfCBiX4QCOVUiKf7OAv9OHCBxU9zLOEOqAB0ALM+4zLJ6cqgMQDC11Z9J
+ 7sw8tLQ/Yt+F2w8CsZZqVrxIFW+N4X0bfuqPzF7iHRHlaJKGsEdG83hmqw/P+8PAa6onzIWHvaVIaZ+HHN4e08SgN5aNIS6HdQnAZE3jarAb4JcKJYblt9e6
+ XgoB2bTkxu0389WWxo+zYojBXAWmp+hLYUZinba9OZ5XqJS5G0ciaixwJlSCiPqkTH89xqjGdP1sClP+ke7mNCFyRKYQz0d4WxXyuFLdF8WJg80YfxfgJlzJ
+ w2knqCeHPqIPZ+mnlAnmk2H6UmH+DtBICEAFvEHDHheBFFBz1i+rWjtCVtWG9Lje1zS2xre+CoiG9TL8Ec/jw1JlW7Xg4G/q6fgAfbSN0P2SeYT4R/hHmVWb
+ tJwoPkPdMGj/odu2lGJjrjI1m1KAzWq4NIUNzaHtgw5Q8iZX8Wscn58dG0Af5jlcC9FXpixJXcY3vd6Vc6Ar5ekI5r9zIOPFrodBIfP4QJ0Iv9h539RWwdNt
+ 6C2Qrvuom0I8WJFG3sybSLFp
 
-On 9/17/26 18:22, Lorenzo Stoakes (ARM) wrote:
-> A kernel-owned or fixed mapping is one which sets VMA_PFNMAP_BIT,
-> VMA_MIXEDMAP_BIT or VMA_DONTEXPAND_BIT, which is precisely what
-> VMA_SPECIAL_FLAGS tests for other than VMA_IO_BIT, which is safe to drop as
-> only kernel-owned mappings may set it.
+On 01/10/2026 15:14, Miroslav Lichvar wrote:
+> On Mon, Sep 28, 2026 at 09:58:02AM +0200, Rodolfo Giometti wrote:
+>> On Sat, 2026-09-26 at 21:38 +0100, David Woodhouse wrote:
+>>> So yes, the specific code path you're looking at *does* get slightly
+>>> longer (50ns to the counter read instead of 30ns).
+>> [...]
+>>> However, they are *entirely* in the noise, as there's about 600 ns of
+>>> hardware and 2-4 *microseconds* of software latency before we even get
+>>> there.
+>>
+>> Thanks for measuring it, and on real hardware with a real edge. That
+>> answers my concern: ~20 ns of constant cost against microseconds of
+>> latency upstream of the handler is not something PPS can see, and
+>> trading it for the removal of a non-constant error is the right
+>> trade.
 > 
-> Using these predicates rather than VMA_SPECIAL_FLAGS makes the check
-> self-documenting and helps eliminate the confusion around 'special' flags.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/vmscan.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 09ff20c3df5b..001f8b760266 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4418,8 +4418,8 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
->  	if (spin_is_contended(pvmw->ptl))
->  		return true;
->  
-> -	/* exclude special VMAs containing anon pages from COW */
-> -	if (vma->vm_flags & VM_SPECIAL)
-> +	/* exclude kernel-owned and fixed VMAs containing anon pages from COW */
-> +	if (vma_is_kernel_owned(vma) || vma_is_fixed_mapping(vma))
->  		return true;
+> FWIW, there are some polling versions of the pps-gpio driver (out of
+> tree), which provide much more stable measurements by trading
+> interrupts for higher CPU use and where this additional delay might be
+> visible.
+>
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+If polling gives that much better stability, I'd be glad to have it in
+drivers/pps/clients, as a mode of pps-gpio or as a client of its own.
+Its timestamping needs would then be part of the discussion about the
+timestamping interface started in the 2/4 thread.
+
+Do you see the extra delay there as a shift of the offset or as more
+jitter?
+
+Ciao,
+
+Rodolfo
 
 -- 
-Cheers,
-
-David
+GNU/Linux Solutions                  e-mail: giometti@enneenne.com
+Linux Device Driver                          giometti@linux.it
+Embedded Systems                     phone:  +39 349 2432127
+UNIX programming
