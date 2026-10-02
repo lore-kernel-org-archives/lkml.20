@@ -1,162 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F2638DC5A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058EE4ABBD6;
+	Fri,  2 Oct 2026 14:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949949; cv=none; b=aQ+9bZDdbO1P4AmITyHEenE9g3m4ngXnxyshi49TBzZdi+pjYPun19AMEG2mqBG4kgFcAHxsexaoKaLgRInu7ijfx606QylHkIeg/OC6j8uWtp38vQ+fDTAi4qStBKgCBzHWBj94jggjIhBhnL9aT7gpY/7Flo5NKKmKMhWdeUM=
+	t=1790949952; cv=none; b=oaoYtz1jxC8T/kClOu+/5lgwK/hYAQJDOPq1DoXrvQchDYftNEYXRGPtjdhAczGYeBL9zb+eMxgFyyrvFRZDjf5ulawewfNjYvhf/wTHbtyjmJArsjKTZuCVgYVp2WTvrljobS3mEQ2R22u0HLnebckIAOhe8DG8PdRsOYBmSrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949949; c=relaxed/simple;
-	bh=fI7UH0cRznYrCEXOidY+YiApbhPtznwcxrH++8CY+Z0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gXOpPlGB5J35/3gBlDLposkWY+SXgeGqs45Ru2zedN1pXTeQ5//iA3RMQs/JuNhY7lgKJk54ylnC6zbgYrxthNAgBDavGT6wKQalqj1n4lLqLqh/CskwSPR9IyAe6HY6X8bTx8jkASksExUMP454HLaHxmrKoejbDksJHQ46T8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzL9+gmd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949952; c=relaxed/simple;
+	bh=q5klAE9DD3thUimA5dIwx5LE5MqDhMhQpxeIz9mICH4=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=hK84xF/UK+M0FYzraBzdVICejyr//C1b2LDSdavjRKxQNBKZctz/eKM6tVqWGRlDAzQNHJ4AXji2cbh67CbglFjGh2l1BavRjEPfc+TymbLDEKTQtUPed7iNOzvyIbfZ2/epbjzCCgVPqAmiBdKV28CqfZhNw/oh6GVptx+Oq+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YQTPpsbV; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzL9+gmd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9821F000FF;
-	Fri,  2 Oct 2026 14:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949947;
-	bh=+FshdbFcRS26J+ImTe89KXGx/RtDW93OyZ3S0WO3Vcc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BzL9+gmd9N6h8eSey50fAPxWVLPFEb/13hKgPmyMG2b2iMYVub1rGNlA8/cePHWyN
-	 oVL5TuXPNTZVMBgtPqejcdFfVtJWAg3LZGUxu9Y/VNwzFFy/Tmk4szJNhz2dUFCQci
-	 wYzuF3dOSVwmj83cuo3WaC/+hGVbOAY0qeeTw4jyXUiAw0eqYcZ9rGNPCOCKa15l57
-	 ikKCQJu5TBOoArLuRT55AtzXqSgf/JWB6BScEEVMgvpoPU0eHWPl60Jh56gKngGlWI
-	 hRx6x/swcOXYDU93xGjyOZ0N6922EFp+jQ+hQvQAvXRCdxH2jWv4glrrFwbHhGa2iS
-	 Lx4jJtPz48rcw==
-Date: Fri, 2 Oct 2026 15:05:41 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	riel@surriel.com, harry@kernel.org, jannh@google.com, pfalcato@suse.de, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, pan.deng@intel.com
-Subject: Re: [PATCH v2] mm/vma: don't remove VMA from rmap if pgoff unchanged
-Message-ID: <ar-53boTrPQijDUt@gremlin>
-References: <20260930-speed-up-inplace-rmap-v2-1-ac1aa19708aa@kernel.org>
- <20261001154511.23931-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YQTPpsbV"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692DZZFp468482;
+	Fri, 2 Oct 2026 14:05:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=J2/g6z
+	qQl0Tf53uBlO/lG2BQxo7zc2ZVFcAISvvP6EY=; b=YQTPpsbVc89JGs/+R+xzj1
+	8fzWHraqX4ZiWGgDcBGpMOEACw9RFxcdYVYh5eApGlk3CtqfGbrcw9hqcr+47bgZ
+	XEjeJB/0JSbuXKxAo7DCXryMGDxzG4IEphOCl15hT8hzRbHA/mzBqWm/dyjGyVI1
+	yGiTkxfraTEP5Huao8CkxmTqiQsB3jY6y9Q2Vb3da6RY8aGxG3mvrBUJgIIYyKjk
+	1xmSta2G9QdOfkuM2ptiG7J4xI/iICzysPm24koqEVeQCfgwxc6mVBuxnJXV0ikC
+	xJo7tJgnBKrTvd4uxD1ISW6G5YQgUwDWnc8DXnrcxCzVFTPZp1rOc/bCOBmrpsWQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fkrk76-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 14:05:38 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 692DHUZE2575928;
+	Fri, 2 Oct 2026 14:05:37 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h21nu2cm8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 14:05:37 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 692E5bu730147162
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 2 Oct 2026 14:05:37 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1AE2858056;
+	Fri,  2 Oct 2026 14:05:37 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 82A3E58052;
+	Fri,  2 Oct 2026 14:05:36 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  2 Oct 2026 14:05:36 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001154511.23931-1-lance.yang@linux.dev>
+Date: Fri, 02 Oct 2026 09:05:36 -0500
+From: Wen Xiong <wenxiong@linux.ibm.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, wenxiong@us.ibm.com,
+        Brian King
+ <brking@linux.vnet.ibm.com>,
+        Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+        Joel Stanley <joel@jms.id.au>
+Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
+In-Reply-To: <20261002102931.3cb06009.michal.pecio@gmail.com>
+References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+ <20261002102931.3cb06009.michal.pecio@gmail.com>
+Message-ID: <561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
+X-Sender: wenxiong@linux.ibm.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: AjWKzsGLmIFYd485-Tz7BYwfpeoHqIu0
+X-Proofpoint-GUID: EDpPcOpQdaBFLAdOJSob6hL50V7VPBJ-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA1NiBTYWx0ZWRfX/CsA1AJUlCoR
+ TmKDiOArPdmnYlckMWE4GUvbrIB4Du1UvX6CzqyJFFGKTs3bFZewjeTT/xH93OcWvA6dxkNWjnp
+ IgChjjLjrKkM1LFDxBAelgRFXuImde4=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abfba32 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=Qr99yXs4eVAMDqtuwm8A:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA1NiBTYWx0ZWRfX/nIQur9SkSdB
+ oaygbQi8gDXhiSmKV1z+U3P5aNZUi5A7ofKmS9ryH0mmRuaD4g9fnzwNNThC2wD5exbhPkw0qBA
+ uoWp7tqB12GbfqBm0FB57kIzPOxazSUghRgfzHH/HXXA8Ea04bsWmk9+sXFeZCBMgP6sXbMnLKQ
+ TtX9/lflgFNIJdksHNTy9Mjjg5g+DLStkxk8egLE2YpwPa6ymiBR6rrmg7agbalDdC4+L81LNX4
+ LdSlwqzaVT42i64RouA/jdZKmAAI0KDI1o+NcxE5MFKhmldDgscR6cCnjsbzVjuT/IkzlDdwDKA
+ b80x67r2yqN6XJrZyr39MloT8yuuTj147CSRAORcBNFeVI3tfzFg/SDmPkdT0By1hxKET/tzYvO
+ tJePze6C8EsVm69B2//28VvOFiX5IVuZzOzmcwBCy5LCCaExXCXKgIA3r038qZCNrrLtU0w0F0y
+ 8WepLjnC944PWfZjPtQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_04,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610020056
 
-On Thu, Oct 01, 2026 at 11:45:11PM +0800, Lance Yang wrote:
->
-> On Wed, Sep 30, 2026 at 06:53:36PM +0100, Lorenzo Stoakes (ARM) wrote:
-> >When updating a VMA, vma_prepare() unconditionally removes it from its rmap
-> >interval trees under the rmap lock, and vma_complete() reinserts it before
-> >releasing the lock.
-> >
-> >This is wholly unnecessary if its page offset (file rmap) or anonymous page
-> >offset (anon rmap) is unchanged.
-> >
-> >So, track whether they will change in the newly introduced
-> >vp->file_pgoff_unchanged and vp->anon_pgoff_unchanged fields, and use them
-> >to determine whether to remove the VMA or not.
-> >
-> >The rmap lock keeps things safe as no rmap walks can concurrently occur
-> >during the operation.
-> >
-> >Additionally, some architectures (arm, parisc, nios2, csky) have dcache
-> >flush rmap walkers which take only flush_dcache_mmap_lock(), which is
-> >likewise held across the operation.
-> >
-> >If the VMA remains in the tree, it's necessary to keep the augmented
-> >rb_subtree_last field updated to reflect its changed range.
-> >
-> >Provide mapping_rmap_tree_[pre, post]_update() and
-> >anon_rmap_tree_[pre, post]_update_vma() (replacing the existing logic in
-> >the anonymous case) to handle both the changed and unchanged cases.
-> >
-> >For the anon rmap case, with CONFIG_DEBUG_VM_RB set, avc->cached_vma_last
-> >is also updated when propagating in place.
-> >
-> >When performing a VMA shrink or a split where the VMA is the lower one, the
-> >page offset cannot change, so set the flags unconditionally in these cases.
-> >
-> >When merging VMAs the page offset is unchanged only in some cases, so
-> >update init_multi_vma_prep() to set the flags only if the page offsets
-> >remain the same.
-> >
-> >Finally, while we're here, also update expand_upwards() similarly.
-> >
-> >These changes ultimately result in less rmap lock contention.
-> >
-> >Pan Deng reported results using the UnixBench/excel benchmark on a 2-socket
-> >192 core, 384 thread x86-64 system for v7.3-rc4 with/without the patch
-> >applied:
-> >
-> >Execl Throughput, index score:
-> >
-> >                    avg    %stdev      min        max
-> >  v7.3-rc4        3511.5     0.44%    3494.5    3543.4
-> >  + patch         4069.0     0.48%    4047.4    4109.5 (+15.9%)
-> >
-> >Average wait on file rmap lock in ms, 5 runs per kernel:
-> >
-> >               avg      %stdev     min       max
-> >  v7.3-rc4    9.470     2.91%     9.070     9.820
-> >  + patch     8.420     3.34%     8.100     8.770 (-11.1%)
-> >
-> >Profiling data obtained during the operation highlighted the file rmap lock
-> >as the primary source of contention.
-> >
-> >Suggested-by: Pan Deng <pan.deng@intel.com>
-> >Reviewed-by: Rik van Riel <riel@surriel.com>
-> >Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >---
->
-> Wow, pretty cool stuff. That's a nice speedup!
->
-> [...]
-> >+static void anon_rmap_tree_update_inplace(struct anon_vma_chain *avc)
-> >+{
-> >+#ifdef CONFIG_DEBUG_VM_RB
-> >+	avc->cached_vma_last = avc_last_pgoff(avc);
-> >+#endif
-> >+	/* Propagate all the way up the tree. */
->
-> Nit: propagate() can stop early when rb_subtree_last is unchanged ...
->
-> Maybe:
->
-> /* Update the subtree maximum and propagate any changes up the tree. */
+On 2026-10-02 03:29, Michal Pecio wrote:
+> What exactly happens after kexec?
+> Why a PCI reset in particular?
+> Are we sure it's not a bug elsewhere?
+> 
+After executing a kexec boots on a bare metal machine, the USB 
+controller disappeared.
+With a PCI reset, the USB controller is showed up after a kexec kernel.
 
-I think in this case it's ok to be a bit blurry about it :P it deciding not to
-unnecessary work is fine but I don't want to put too much in there.
-
-The point is as a simple sign or pointer to help somebody wondering wtf that's
-for even if it's not quite the full story!
-
-Hopefully that's ok? :)
-
->
-> >+	__anon_rmap_tree_augment.propagate(&avc->rb, NULL);
-> >+}
-> >+
-> [...]
->
-> Acked-by: Lance Yang <lance.yang@linux.dev>
-
-Thanks :)
-
->
-> Hammered it with VMA churn (split/merge/mremap/madvise/fork) + concurrent
-> rmap walks + hwpoison injection. Nothing complained :D
->
-> Tested-by: Lance Yang <lance.yang@linux.dev>
-
-Thanks, very much appreciated! :)
-
->
-> Cheers, Lance
-
---
-Cheers, Lorenzo
+Thanks,
+Wendy
