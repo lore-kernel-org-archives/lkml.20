@@ -1,167 +1,120 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011003.outbound.protection.outlook.com [40.107.130.3])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201AA46AA6F
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937420; cv=fail; b=OscJpeU+kQNAxtez/88LTdVxYfOKUHsEGoqOy+97/uSREeATmoWNvShzxxcj1i/eE3mTsWeGauxvWLPDIwxDrWx++VmdkAnNZLvrmlK//BDS9RJ4tDBey6cAmYmAfdyPY87u2/bUE1Gg4vRaTqmZVD8orFYVURb05vfJTKzwPuM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937420; c=relaxed/simple;
-	bh=KNQJ1mK35SSlRrZqSmlCQ6X2D57tNYKZguUE90xGXdc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=i+4/F1jvYDgOVnDbNngXk9S0xtacpE+VjGWH1Ip8BF9h1Ac7GF6HQlKRmxwZE84/aF4bmSg58Q20GQy+gEHGpErgMM/3m451RLXA1c/gMyshuQLxmPipkdUSd/Llt3atppDciwy2ihwsdh0AQfv9I3+OBhYaTpIjGP90VBuzykg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=eTJi0z/3; arc=fail smtp.client-ip=40.107.130.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8BC443C03;
+	Fri,  2 Oct 2026 10:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790937440; cv=none; b=INWmYr8SKV+Ym+ELNu0+Fj705a7npqhYmx00JrjvIC5R91BDlCEGMjw3jhrQkdKfDTa/WHD0X9TjPrzZi+EKozmwmqOvskJ6Vcw24if7GOqyQwKwTEfbUYJxmoqVhcTHO6w2iu+yDfuHlzVvpYARepTrtGXJzX8nKJJLq3G9Z6Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790937440; c=relaxed/simple;
+	bh=jH0zJKhJDpGeUx0aj/4GWlL2wulR23VoVr1DzwHc7JM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cIF3YLq9ioa1fqdQyQ84BjO/PjLfEKWXpqHqcmzQTFn7rhny6hRbJQUa1VFBSkivht15AJy3ZKJXBDjBfw7+9SN7On485gX/dJHeF/7iiRU3Ql/7MDgw4DAhFdmxYXOj3OlXjpkavbp4Qs7ThrluoUuH1fhUvjJOuyXwoA9uCCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=etbYxNpd; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="eTJi0z/3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AfSOpTf6ZDmBX7dmqqFzDaH992l14Wi5UrQgiBgIPmh0EgYwsXSofdYa0WZXp1188HHHDhXDXGcLwPTUGexDL84DunUsPfq+f+3qjX4ZYKpQMZWizERF8Lw9+vGEDX7ppL6t/1ZzJEP0yIVE2yPh/8cxtQUiTd7V5Mw5RxLFA2dTcrI2Hl6PxqZT2IgrWEOiTTg1QMVOl06tZgPSpZa20bC2uOQG6OsKBsCU/796kPqezvbxzZFYfc9zPpG98vvzhK2N/3HDaWHlOC1I1VsNGrjBLrjFIRGgyJbYMcMGwtLlXzTj9CWkdNcKpzkc1JGPeTPhAdRH0rDkvMCL1pl+1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hiQyeJsKEuxDWQN+Q8Iqxepfw7Kni0K8bLfTsyDB5I4=;
- b=o4GxLl89yEUfD4Pn+3wxaK7oesCGv+scjlywfAYaqzMS2KsqqdkR8kLqEYndv34EgSMMpQ0xYFyakS15OyQ0Qlxb4xc/5OIn+LOTEfp2zpFGRvIUkEXbYsxSaXGH1KNrfNUsX5w/pEB1isKgSbANd7urFqWFjrfmA2S1tcQ+XhZ8irkHYMd6QI7FlgaCG8uCc4cdcYY7n63qvAMQ8YbI95iaOVCM9iiXp7DU3xlAFy7ck5mFOZMDoTOrVRBDKNYwcc4uz5SyxnvltUiNlUe3cJ/OfPfx4TIj+7gSWjVv2qB+EtSPdvIygW8wPIsJkt7GkoNDTjJ9Ea65vOKF/iD60w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hiQyeJsKEuxDWQN+Q8Iqxepfw7Kni0K8bLfTsyDB5I4=;
- b=eTJi0z/3OEDYuTHKUrYvCdhF2UJmd5/RI83yKWxK6cTfJkjUIHcuaNSUVrm6bMOuq5RBZOlUxbzbXGvFct213Aj6BP88opuYcY7FS5suPtcqW6MQ9McTlLUWAWm+nOwLnhNzP9KpQWPu5SNGEWehbfQtX2+YLn68Os9hbo/0f4TAVT3Bpiz8e9U1LcOdMpfjeBylszlpej1DKPpbkgmY8p+rivGjuHTDToy5n7/m53MJdYc4aGHBSzlOtvJW3A8Hbmut7+a6tP5O26VXFqeGlNBkO5i4XHO4HIKnhnCvHPd+spoyhh+Kv8k1k9y5YALCrZ+bEaWAhbKZySi4/zi88g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
- (2603:10a6:290:d3::17) by PA1PR04MB10769.eurprd04.prod.outlook.com
- (2603:10a6:102:488::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 10:36:53 +0000
-Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
- ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
- ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 10:36:53 +0000
-Date: Fri, 2 Oct 2026 13:36:50 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Christophe Leroy <chleroy@kernel.org>, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] soc: fsl: dpio: Release the I/O object on IRQ
- registration failure
-Message-ID: <b6hispezu6tbs4jcejf43svafckftcnyis2f4elnr37nf7dmvy@pk5us5x2wqzt>
-References: <20260917200138.75755-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917200138.75755-1-mhun512@gmail.com>
-X-ClientProxiedBy: AM8P251CA0024.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:21b::29) To MI9PR04MB019273.eurprd04.prod.outlook.com
- (2603:10a6:290:d3::17)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="etbYxNpd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790937439; x=1822473439;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=jH0zJKhJDpGeUx0aj/4GWlL2wulR23VoVr1DzwHc7JM=;
+  b=etbYxNpd9gAlfMAa3fZKDkkW5Cf6lFNy3iMIeqyR/g93x/9HhIfgubuQ
+   9UwxtV4jkfb/93KJ+boswdwZWBFPoB6jS2bRlFoTIaRmutYsQStc0ovh9
+   HN2piWljFOoKsH2Ev1gEpKh2YLPleYR7qW2U4VuT7pS6NjNiWeoosXZ3z
+   vXH5kmG4q3B76MjMwsz/Elw8nptXKU0HPO+VQFTKbVm2Hm5lRF8SIlJsl
+   tFjRtoZgBWzb+EoKqrjIL+BPeg+csmfQRATBhiND1YEQRoAbOZg9xUP8r
+   tznsV0wDPP0VvAx/0b7bUwqCRLm+fDoNQqcrMWn3LGZLpyC/Yl4t2N55w
+   Q==;
+X-CSE-ConnectionGUID: RaQPauXVTiuJ17DHS2KW6Q==
+X-CSE-MsgGUID: tt2zw4uQRCeM3oisuurbxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90603503"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="90603503"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:18 -0700
+X-CSE-ConnectionGUID: 7YpK8SfsQG2N7oeJE1U7vQ==
+X-CSE-MsgGUID: bHgGHFg4S1eZMgZU164BVQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="284286585"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.244.235]) ([10.245.244.235])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:15 -0700
+Message-ID: <8707533e-8cbc-4046-92af-90b55031383d@linux.intel.com>
+Date: Fri, 2 Oct 2026 13:37:13 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|PA1PR04MB10769:EE_
-X-MS-Office365-Filtering-Correlation-Id: 899c67e7-7885-492d-0518-08df2071135a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|19092799006|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	IgCQ58so8EblsjKt6RN/4u5GyoWKo17kqN4UMZEyaOhVrQDbbqJ/tlIkWFaWbdVMxU4+uRjRZkjmN17mAb+wuixF4513ZlR1awHqaKxNqIIb2NqjB6XiaDxDZU2Y3xpR4J/jdsPN9S1zNu11bYgBZbjO9c2ayYSyicUpaiKXP5UhHtx/oe4Qriu3CYSHcAEuaYtH2SOR6xHPrk7nuSDN2s3Do0gOAGO6rZ401/XPlo+wkRTP7bA1Uv37zbuvveQWFzGLRMz/0iI2eWvbI5CETvW5Evdv4WwMlz/eKaeygbMuzxSRo9LY50Ffexwf39lzs/NtLIapUvs98gt/pltWVEKVEUSW2MrBkogxu+gLH7J1nOWDgADGDOoZbmT2cQh4NYAEzWQob5z9m7wO+4hLmPwCvhIiXUB2d9cEyeAdp1gR+g4avO0tWJtsjKOwiWYwQBPrR/327tGMaSnYEYunp72YMWfqE1ngrYQWG7pU8BNuPrc0tfr8E5NzndS+2AuchqAwfzLf6FWVuwwsXrR/zNkTnYfxapz2wCEab2LxxVXwfpSKRT5iqEa7hnizPzNf5M0ly/pUucITQny+da2JzF8LsbjeRCx21aTNZdhvHX84XADvSPHkJtIMNvnYdOfiw5Xd6zsASwwtB89YJAYsu/b2IYimVLRDnEuxnIRnuMM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(19092799006)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zkH8e3myjTkKlJvX0HSPgM9P5Z5F9c2SW1IJAxwLjdeb7xwM7BfXObzq61F8?=
- =?us-ascii?Q?Ty16BFMsqmtbH91eRFpIz2DpANcayXV6EeT6kAMb762eXpXFqWS8NqR8JsZj?=
- =?us-ascii?Q?z9uIBu4KWVk50uUEQEy89hm8TtmSXgAjXsP/sORctsZROSvULEbiWqYle9Np?=
- =?us-ascii?Q?yGEsiAwRx3g7+tuoVWcKIUsIFoCMk6RXv06UC5nvv7Mqx2N13th707AEt9A8?=
- =?us-ascii?Q?v8JcM2d3SNwR4l/cC0GQnqDgmQ841GhCrKmO5uNgf6hkmZ+rnXDYbhL3o8r7?=
- =?us-ascii?Q?RKtFQJTVkblpuo5jp3i1AUMfPZwW2MnfnYitju4nQEIS4wA1PxCReyAM936n?=
- =?us-ascii?Q?+u/8vG0x/MUVJWLXN1CT+3MnHHplAPH/0poE/2tgo/7ELgzYE8wfVDY//Dbl?=
- =?us-ascii?Q?pL4MoJjtAN01XiKV4oOA7yRlZG/s2ZGoXSlEzHsde+JIE5Hcf5idGgQKSJFV?=
- =?us-ascii?Q?Mocnf+ADPqJG6+/ImFcyTq8BrsNiebstuic4yEgzXxFB/Um9ix/9NcWfht8+?=
- =?us-ascii?Q?fYvgQg/KXL/I6oSQnPkUkbZKt+/dhSBm1OqiCKHpECrFIm7AJEz1vVtH7CWE?=
- =?us-ascii?Q?V6vZyfndRl07ZjOQ2ScXm3GxKVWbM76xS6+5EKuPzr0Gnwf1LUxa0Q5sJT3G?=
- =?us-ascii?Q?8Q1Obqb3kJiVUdlukSUTxoENP8m2u5WuI6R/Hw9jwqTfdACrRWji/DzW4Ylf?=
- =?us-ascii?Q?JFTY9fjXH8oKuhQE8RSrAF3p3l2WU1egTI445R54PqN9Tk68jPiY26bjnUyO?=
- =?us-ascii?Q?pdksskFB5IbVpOS9f9jCwbLwlYedGXUqLWDdkl/wvEhFSoxZLADrftP3WY9G?=
- =?us-ascii?Q?1nf4P9IyWd2e3oKOH+7e4+ZOYWqeM/kSRMG4VCfws4geh4TgzUb2jftSfLA6?=
- =?us-ascii?Q?u2nmEu43zwi4xKxh84i3AAX+ULn+uvaxrkUndBmMOB2QJWGCbKznAcQK2gjR?=
- =?us-ascii?Q?grdrSGC0aWXcqFfNsdEv9KuaLs/1UfF9tA3jJYfYhkNXt48BABM+0aUW3ROJ?=
- =?us-ascii?Q?Xfwd6ItjR0k+ZzBqeZmz8M8iNQgUSWQIOBigNRnsaFKaPBFgH2kxjiz89JnQ?=
- =?us-ascii?Q?rXqjCpldAoAyHNbAyv9GSabn+ywThBAeLbNg77xh9wyxeNoRDGnM8F2uRVri?=
- =?us-ascii?Q?IMg4qG0tp3j0GYZ6Lber23uzTx8C+ZrepOVT9PJzeewABYL3JuANMnDNGoRt?=
- =?us-ascii?Q?AE9vrXbyHAi0Y3EyHmTUKW/3YAYMo1+S743QnltCLxa4xYqeLDCdqm6ARJkZ?=
- =?us-ascii?Q?KzQQd4EqEbP7CcOKFuKgVWyJ8rGu3vlqLMBRyKUj2goRFLtME6F+RavfAjIL?=
- =?us-ascii?Q?oTg67e6RZ1JYzrZyv1vaY4tstX4SXtUvN0lDaygzzg3fuItm71PaL1V7MktS?=
- =?us-ascii?Q?ekeai2SfWfpAFoQYA/RsyzEavfla5O9rTM0FKx6VjorxjAyvUpBuK0qoUFfq?=
- =?us-ascii?Q?zgtks1c97W54hzYr0YwLX7Z3Qn5ZEXBi7CR8KjCOOy7fKGGCIrL8QeteogjH?=
- =?us-ascii?Q?L3hxbJfBnC9fmBqR4xKeBIGZl6c4e3h5KrZkpcs4FJorMkm1bz1Y6J1dN/BY?=
- =?us-ascii?Q?uIxDOgXqKAao0o1MSXspcP+F4rKcQG3hgbkcElMIkN7Ywc4ZftmbiHh+Ab46?=
- =?us-ascii?Q?z8yv3HW3xIJjjUgpZknn2tuQ2oApUrEOmkS1HPYx1CLIzaYAtE0fVDe4U2mh?=
- =?us-ascii?Q?3sJ67JB31XSrefRl+K/v2JGySdSd9GzbvtcV/i96moT2TdV5VmgczRpFTuUq?=
- =?us-ascii?Q?zCkw0iFaMA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 899c67e7-7885-492d-0518-08df2071135a
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 10:36:53.8463
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dqb7VHDwpoVlJJBtP0fJkF8BcZxZFn9e2/NqVckRdc2njS3K9dmMsuATyWjSQTxMhGMFRuAKKitzzg2JrYgSqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10769
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: xhci: Unlock for command abort polling
+To: Michal Pecio <michal.pecio@gmail.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Pedro Fonseca <pedro@fonseca.com.pt>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260824095944.1c8335fa.michal.pecio@gmail.com>
+ <20261002113302.3fe23d24.michal.pecio@gmail.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <20261002113302.3fe23d24.michal.pecio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 04:01:38PM -0400, Myeonghun Pak wrote:
-> IRQ registration happens after dpaa2_io_create(), but its failure path
-> only releases the IRQ resources and the MC portal. The I/O object stays
-> allocated and published in the service list and per-CPU lookup table,
-> while devres unmaps its portal registers after probe fails.
+On 10/2/26 12:33, Michal Pecio wrote:
+> On Mon, 24 Aug 2026 09:59:44 +0200, Michal Pecio wrote:
+>> xhci_abort_cmd_ring() requests abort, waits for the CRR bit to clear,
+>> drops xhci->lock and waits for the Command Ring Stopped event.
+>>
+>> The CRR wait timeout is 5 seconds as suggested by xHCI 4.6.1.2, which
+>> means that if the xHC fails to complete the operation at all, we poll
+>> with the lock held and IRQs disabled for several seconds. If any other
+>> CPU tries to acquire the lock, it will spin likewise. IRQs get delays,
+>> drivers log errors, tasks freeze, it's a mess.
+>>
+>> So drop the lock earlier, before waiting for the CRR bit. It should be
+>> safe - the sole caller sets cmd_ring_state to CMD_RING_STATE_ABORTED
+>> before calling us, which will prevent others from ringing the command
+>> doorbell and interfering with the abort. Queuing new commands during
+>> this time poses no danger, and if the command we try to abort actually
+>> completes concurrently, existing code already needs to deal with this.
+>> And in my testing it does - it's trivial to trigger this on ASM1042,
+>> where Address Device can't be aborted, but it completes as soon as the
+>> offending device is unplugged, including during abort attempt.
+>>
+>> Note that the lock still covers reinit_completion(), so it won't race
+>> with complete() being called by the event handler. And works are not
+>> reentrant, so another timeout can't expire while the lock is dropped.
+>> We will configure timeout anew when restarting the ring.
+>>
+>> One other difference is that now we also drop the lock if abort fails.
+>> This too should be harmless. Commands queued during this time will be
+>> released like any other pending commands. If the aborted command does
+>> complete before we regain the lock, it's a waste, but not regression.
+>>
+>> Reported-by: Pedro Fonseca <pedro@fonseca.com.pt>
+>> Link: https://lore.kernel.org/linux-usb/16f65081-5a3c-4c30-9811-9017796a3373@fonseca.com.pt/
+>> Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+>> ---
+>>
+>> This has been annoying me and various others for years, only the latest
+>> incident is listed above.
+>>
+>> I expected a nightmare of race conditions, but after finally taking a
+>> serious look I think it really is quite simple. It helps that the lock
+>> was already being dropped and existing code seems to handle it fine.
 > 
-> Call dpaa2_io_down() on IRQ registration failure to remove the object
-> from those lookup structures and free it. Reorder the error labels so
-> that a failed dpaa2_io_create() still skips this cleanup.
+> Hi Mathias,
 > 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
-> 
-> Fixes: fe8fe7723a3a ("soc: fsl: dpio: register dpio irq handlers after dpio create")
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/soc/fsl/dpio/dpio-driver.c |    3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> --- a/drivers/soc/fsl/dpio/dpio-driver.c
-> +++ b/drivers/soc/fsl/dpio/dpio-driver.c
-> @@ -244,9 +244,10 @@
->  
->  	return 0;
->  
-> +err_register_dpio_irq:
-> +	dpaa2_io_down(priv->io);
+> Any thoughts about this one? Seems we haven't got any response from
+> Pedro, but the patch worked for me (and it solves an annoying bug).
 
-Agreed, if register_dpio_irq_handlers() fails then the dpaa2_io_down()
-should be called.
+Just added this and a couple of others of your patches for my for-usb-next branch
 
->  err_dpaa2_io_create:
->  	unregister_dpio_irq_handlers(dpio_dev);
-> -err_register_dpio_irq:
->  	fsl_mc_free_irqs(dpio_dev);
-
-But if dpaa2_io_create() fails should we still call
-unregister_dpio_irq_handlers() considering that the probe path didn't
-even reach register_dpio_irq_handlers()?
-
-Please also fix that in a v2.
-
-Thanks,
-Ioana
+Thanks
+Mathias
