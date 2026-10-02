@@ -1,125 +1,112 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1D17DA66
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790920895; cv=none; b=SX6sum89HLnYZQV8g2WjgQhOSXylz/h7fJ0zjNzVNZPjfojsY1cx30LlDtIN7rz0AXaNT/AdtfkFxclNZf+1iQd3nO8Q5yJ5iHVsEaqMrFKW4mhXbBAEsBrOtiDdGF8QcgXrEUWSzh7PGpcTSFdyfRvqE0YfAZU5pRUiAP3FYnc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790920895; c=relaxed/simple;
-	bh=Zzl8GQMYT4ovWCoYqlximp5PJDij3vOuu7nwytPtyeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QHcCamHt3dToEVVG7XMWMEA+7PwRVvJ68VBO/BE10Y0/iCx7XiYtsiB7fOudue2eGsnawargMMT7enTuzBzad+AT3vXOT1LQDGz7hvhaJeBfTqLyxK0G5jhb6LUJbNukwuXdr0MARvS01SMvsc9sHops01dEiyFOnBQPVtaLebw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m0gEpkWA; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DCE330328
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790921017; cv=pass; b=qLI12D2cS9sABGWqPdiJcLMy5pNL0gTNFjcXAzkAOa1zCOSq8NEC8kOTqXCFyyHRUba9NOnREg/Rkg6fkRNGftnCRQAykdlcA2eWkUjmO2K/UkHspPSWswD8XFZTy7oZ+W8Gdps7unXyI8crK3LG4oDwQA6GJZ0F/PwB8M8lK5Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790921017; c=relaxed/simple;
+	bh=c53hbdMVU2M7nFkWFf/TeQnEo56FeWIc3BaXR7jGvUo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Punpeydg13odhVFdovn0bZvAThhGnnzcNXT7BOAp2cg5XiczR4ftj5PjeHHLJkzFMAT1nv6XtDGlGfqKKQSx0gFu4AYR3jSNLgoNhzhG4r0Vf7yIXi6gPSypd+KxIMcrA3rpNwFlzqXiv3OPiLRg1nW4oGi3zEzEOepiLXnp//g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=JV4yeg8N; arc=pass smtp.client-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m0gEpkWA"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2dfa54c8ccfso5684845ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:01:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790920893; x=1791525693; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bvzqwuTjdPy91zWm37KIYjrvoEq9pY5JTP911vnp5Bg=;
-        b=m0gEpkWAEcEMiKCKafImmMAllmDHp7tF1YDuCG9bClKS817yH6g98rM+ifBUMFhco9
-         XU+LXB4EZxHBk/OxGklmcd/mPfq8lqNu43EHcKShAPE+YQ5wLAMAMfCzU6HCaBMNy5C1
-         hK8QUh3KmcUNgqOdjJDmllVDIhv8XnBxx0lf1oNSE2xPvjowHGs3CCctLMfRIe31sy7X
-         TnY7mU91UYauds2srysRM8X8F/UMCYhKVafRSDxTVDksMdo1YCu+nrcMDh4sVuPvBfjC
-         +Z03FQeEgmIyuonYAAueWYBUhHmnwO5+Z2U2QB/SvVTK6V0iaKUguHGe01zFHxllooyT
-         ks/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790920893; x=1791525693;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bvzqwuTjdPy91zWm37KIYjrvoEq9pY5JTP911vnp5Bg=;
-        b=tEzUtpZ8ouHsrtxhOTK5JDVcUVFOW9L7RgenZO8qN/wugsWezMCNIuII1KY32ednb1
-         cC4QROA1cBpvLVS4xrktOpDvtM82GxzKnc5lu8aZ4+EjiqdB58j+OQQfNRYqlJO1M/E+
-         Mf7ji5Du04TJYF84gxT8N8vKKqjvrtIEMjoff1nmoBZiageZV3ctfzT4tlTVJ8Ty3xGJ
-         ZpZRJee+BF8TEFKTZHJMPP6Tu1TcbeCYmaMS10uc4z95bnwbs/o0E8lcwNTJMwnN1Uzi
-         SNro+xXIMIWgGdwC2R4OQRCFwAtRpZEDZwoTpPn5w5JExG8UI4kCPsDGgReheROYqcEr
-         RTwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByoSzuPAKkNl2jKiNsCna/XC4t9/fWjesGfIobXrttlwjbY8+dVAL0mvTyiZ/QqfK6AKq+vH9cNmxCcorw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWzqUINUDbuVtEoupM088UUGiXFx7t5K6tf+4M15cw9bRfzcYF
-	VGjrnd8W9QA2tbrB1tC/5O6w1CVHrGzkOZA07sFmokI3WVgebDLT5ujE
-X-Gm-Gg: AYBFou3V0lZRRR8whwFb9ckqrrt/nIf4fwhVwbyRF9zkkFZFTlEAg2D6R5Fa6Fkly2F
-	rrLIO+8lqLqabfgYXUjoKOmy0UPx0CC8jxyEB51HKD45UIhC8Mej0rUE/NytA4MImywKUHAPQZF
-	mJJy94hCVbYm5byVF5AeWwe/L8A84/rzHch8PFLQfSXs+Bpi8wUOxsAo2wR2OUHMKN24+bMg6m/
-	tpAQAK5723VO6griUBTBZ6AIKTag7rjyRw5luwUbSt1+1XzmJuGzR2Ua8KgI+bMYaemnGqa1hlN
-	DR5wzCNKOVnwgsuIKXzXuXJ6QlACJX6Xy7Svx7+OKBwgu3kS+qQ4PGZ7YoJ8bxMqkxfkhgXoXcG
-	WEFouPpXR+LF0jSZt6qz/2gsIbSAtbL16/n+tU45EQaNjLN6dY/kVd6iqNyajS/omKI4McWdVCh
-	dt+FDKwiK4q2lNtAB8SHydnfWZs3cFbzM7+3x/LugvZ1X79gilaxeDivLvNKF1
-X-Received: by 2002:a17:90b:2644:b0:3a0:f2e1:8af9 with SMTP id 98e67ed59e1d1-3a4f3d124f2mr3588321a91.52.1790920893294;
-        Thu, 01 Oct 2026 23:01:33 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f721a6afsm519169a12.0.2026.10.01.23.01.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 23:01:32 -0700 (PDT)
-Date: Fri, 2 Oct 2026 15:01:30 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: NeilBrown <neil@brown.name>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Joel Granados <joel.granados@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Breno Leitao <leitao@debian.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Jan Harkes <jaharkes@cs.cmu.edu>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-unionfs@vger.kernel.org,
-	linux-um@lists.infradead.org, codalist@coda.cs.cmu.edu,
-	coda@cs.cmu.edu, linux-mm@kvack.org, ntfs@lists.linux.dev,
-	linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 1/7] VFS/xfs/ntfs: drop parent lock across
- d_alloc_parallel() in d_add_ci()
-Message-ID: <ar9IuknaJqrGoF-j@hyunchul-PC02>
-References: <20260929034158.1455429-1-neilb@ownmail.net>
- <20260929034158.1455429-2-neilb@ownmail.net>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="JV4yeg8N"
+ARC-Seal: i=1; a=rsa-sha256; t=1790921001; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JkVhuMjCm65znCST4pEBBkey1WFOrGgWzgN44F+zsaKOpiL5CFPOsMBvugoG5Ew/Fx8yNDbyUd10ISYnUJm3KHFgGNqemA5izEyAFnmr7xu5IYbpTBetuGCacF6RWyoLgxPGA1BFHfUMMywo6PMP/JhhzvviPgAwNWTsxpL0jVs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790921001; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=H/b3ZecCY5G/AllBicLLSsJld6QmAdfE8Z3S96RwbBU=; 
+	b=jVPg89pjGMR3FvK2hSGSJ6LYbU6gBGAjyEKxjgHcNKV+o4ko9nPuJwttwC1rcSNq1X+0FcfxY2f/vfkK3AhE2pDOTnrMrSAXceSrNGETAZJC46srwKwBnY3bjCFdaUx8g4QmY93Dacxhky30+2QdXHKFxy4f08+F/LyL6sgr+q4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790921001;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+	bh=H/b3ZecCY5G/AllBicLLSsJld6QmAdfE8Z3S96RwbBU=;
+	b=JV4yeg8NWBUjdslJo73npaXXZia/d4yjS7rlR3qEuf+pMiJvuXEfXMouyVIIkf2E
+	sKkOFe85RnWmfCMOh2A4YqmuBwO3BEVpuMIinV1zLnSoEuywH78YrhmEpxthtzRm9au
+	u4O6FzPGNe8MUE8qPofzqmLHKF8i1pY3gOZobJBU=
+Received: by smtp.zohomail.com with SMTPS id 1790920999443943.8416525323604;
+	Thu, 1 Oct 2026 23:03:19 -0700 (PDT)
+From: Junhui Liu <junhui.liu@pigmoral.tech>
+Date: Fri, 02 Oct 2026 14:02:57 +0800
+Subject: [PATCH] reset: anlogic: dr1v90: add __iomem cast for base from
+ platform_data
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929034158.1455429-2-neilb@ownmail.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-dr1v90-cru-sparse-fix-v1-1-9cb87d3bdfb4@pigmoral.tech>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw6DMAxF0a0gj7Hk0A8tW0EMkuAUd0CRDagSY
+ u8NdHie9O4Gxips0BQbKK9i8hkzXFlAHPz4YpQ+Gyqq7o7IYa9ufRJGXdAmr8aY5IvpUodreNx
+ S8gT5Oynn+ey23d+2hDfH+YjBvv8AjwqUBXkAAAA=
+X-Change-ID: 20261001-dr1v90-cru-sparse-fix-f37b4b85ffa0
+To: Junhui Liu <junhui.liu@pigmoral.tech>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1638;
+ i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
+ bh=c53hbdMVU2M7nFkWFf/TeQnEo56FeWIc3BaXR7jGvUo=;
+ b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLL2e8rxr3o88+t2PZ0ef58byun3zgTYSGXkGTxynrDii
+ O/fZonKjlIWBjEuBlkxRRYuf/F/1jo8344ItN6HmcPKBDKEgYtTACZyYhMjw+2wyFny8TO3XeKI
+ CTK6FXzly99O3pcLM/zXBbo8sW6JsGD4p7n4R8RD9fDrD/IF7rUcVduiEWGSpJj0fBJrWkCeP5s
+ wLwA=
+X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
+ fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
+X-ZohoMailClient: External
 
-On Tue, Sep 29, 2026 at 01:36:01PM +1000, NeilBrown wrote:
-> From: NeilBrown <neil@brown.name>
-> 
-> A proposed change will invert the lock ordering between
-> d_alloc_parallel() and inode_lock() on the parent.
-> When that happens it will not be safe to call d_alloc_parallel() while
-> holding the parent lock - even shared.
-> 
-> We don't need to keep the parent lock held when d_add_ci() is run - the
-> VFS doesn't need it as dentry is exclusively held due to
-> DCACHE_PAR_LOOKUP and the filesystem has finished its work.
-> 
-> So drop and reclaim the lock (shared or exclusive as determined by
-> LOOKUP_SHARED) to avoid future deadlock.
-> 
-> Signed-off-by: NeilBrown <neil@brown.name>
+Kernel test robot reports:
 
-For the NTFS part,
+drivers/reset/reset-dr1v90.c:114:20: sparse: sparse: incorrect type in assignment (different address spaces)
+drivers/reset/reset-dr1v90.c:114:20: sparse:     expected void [noderef] __iomem *base
+drivers/reset/reset-dr1v90.c:114:20: sparse:     got void *platform_data
 
-Looks good to me.
+The register base is passed from the CRU driver to the reset auxiliary
+device via platform_data, which is a plain void *, while rstc->base is
+void __iomem *. Add an explicit cast to restore the address space
+annotation.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609302313.Ux3U0CdC-lkp@intel.com/
+Fixes: 9fd565971072 ("reset: anlogic: add support for Anlogic DR1V90 resets")
+Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+---
+This based on linux-next (next-20261001).
+---
+ drivers/reset/reset-dr1v90.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--- 
-Thanks,
-Hyunchul
+diff --git a/drivers/reset/reset-dr1v90.c b/drivers/reset/reset-dr1v90.c
+index daa99c797b1a..317aa4ebe3d8 100644
+--- a/drivers/reset/reset-dr1v90.c
++++ b/drivers/reset/reset-dr1v90.c
+@@ -111,7 +111,7 @@ static int dr1v90_reset_probe(struct auxiliary_device *adev,
+ 
+ 	spin_lock_init(&rstc->lock);
+ 
+-	rstc->base = dev->platform_data;
++	rstc->base = (void __iomem *)dev->platform_data;
+ 	rstc->rcdev.dev = dev;
+ 	rstc->rcdev.nr_resets = ARRAY_SIZE(dr1v90_resets);
+ 	rstc->rcdev.of_node = dev->parent->of_node;
+
+---
+base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+change-id: 20261001-dr1v90-cru-sparse-fix-f37b4b85ffa0
+
+Best regards,
+--  
+Junhui Liu <junhui.liu@pigmoral.tech>
+
