@@ -1,24 +1,24 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63508495ADA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DD7493D58;
 	Fri,  2 Oct 2026 11:58:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942344; cv=pass; b=iQoO041JKB3MJc3nTvdoonp2SkYHUa1YGBVBeN4RMDtWdyT9ejJ73/eYZDWY5jrQmiK/5HSmPLrLRQWAPk7dLxL2rrlXoODdhI0nVNhGrh8rHVF7gRmtZIvw6N1+/nuD8CpPSnv6HXpBmtzSNkjpq6QTiNvY/SocL+rB/13F9+c=
+	t=1790942346; cv=pass; b=cnaHPOIXgoxYoGBi/okKMnhoPHXrlWMsEysuib69yEYhEmjaR8PfZ/W/L/6ZJ74KoQIM3fQIJlDyCqAVitaJ2M+XyApTcYYoN681mC0u6lxZ+5SNu2vDRkOAwUC8VJQgU1dXxlb28Mr2z2TmhJsgWopXFbdXE3p/DHF9rgBQgW0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942344; c=relaxed/simple;
-	bh=g4bkliQzlUEDPLBcGS/0QBVY8NRhAVVUcK+ZgfSf130=;
+	s=arc-20240116; t=1790942346; c=relaxed/simple;
+	bh=bbhljfAlmdpfiIzjaczkcl0K1WcvfqkPE6JqIHjuiw4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XISaZ1R97iNqarnWAMuEEGDHs0Pudtuz4UZWsl9ose8EQWgdkwE6MK5KZOnT5lIjbINi33p7ZIo3FxsCeLgw6XfH0roIO7wEcInUwKP5qWwyBIvfjoO2hlO8P/lspgK/krvLtNFok6U1Kai1GPd3MkUOvsA7q1ii1bQSLJ6Kgbg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=DYGUub1J; arc=pass smtp.client-ip=185.203.200.13
+	 MIME-Version; b=dwzRnG9l6zMc34gZ+7/H/lsneQ2TkUZg7SwZ/5VAEUcXwHeRz54VbJfJycmF6tS0M6uUCGXFR5zi10oCT9SyrLGKTMORMU1Yd1vcOC5NlH2RY+A8KjuP8QuwjlM0D2FTc2keyWPLafGxUWU/GBPoX8Gd3o76fZ5rZYfAiN0IyPc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Mqsk9CV2; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="DYGUub1J"
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Mqsk9CV2"
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
 	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 436C420233C;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4EF8E20233F;
 	Fri, 02 Oct 2026 13:58:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790942332;
@@ -26,19 +26,19 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EOJSGTTBHjY1JsEFpZjDfD7JOIGBIaKOZxBzKKynSno=;
-	b=DYGUub1JVKbYZ0CE5QvclxdwOI4mqYvzSGjHIYM/kq3tBPnvQAucXs9t66d3pIuVqoMqIe
-	zTU1lXHIdBdM+wk411/oX9be+7Z7aT4u7m8HwYppVTYM7gXmjAXykmI61pVybZNyTxGW8R
-	BnFXoaaHtatZUSe/k+4b/OWgUurD/msgYqs2x8geNQmSjMeNIBq7BRhYKGotKcgqqBHFBo
-	vF1Z9nQbR/28pDuz8CDEGKNi7RbsGNP4rLMfRXJmPBV/SiAwjWJVUirU72zwtydXD+/gba
-	CjJ4H56P5l2J3Yo6PxvZklmdf0xO6BXsyickOQsQdCXt8VvUjqQ6c0i8m9p0RA==
+	bh=/2tl+gat2DSIchu9hVfVngcOgbwOJalxG/YtHQpRSjY=;
+	b=Mqsk9CV26nzr51IBEPCa+GCBsKTYArOorPdOF0eKk+W5A8O/S4Xrtu1xlVOZzX9VBFbbci
+	++hNkid34Z2wDkX7nKNLbEdPY/WAL19KrJHhKrXdyVPBiACUZQVEMOYyIYTBDj4aU6X8lO
+	47gKBEknWYXekNZV4jeaeBzaQz/wxRm6++fQhkKKYPGl6XAIWVq+v8rg1FHmmVw2HOTmgc
+	aX7dtIoH2cv7gPN6badJvx0h8jpRkQHvyLIFrUoy34jqIZSQxZrCOtmZDtWvUxcodD8eW/
+	gHrXd7MViJI1mEbOe7KdiUwmKvy+XCznwR/Y8yTNip/APGXhngy/J0nRMTRcIQ==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790942332; a=rsa-sha256;
 	cv=none;
-	b=ZE2HUEW1vduE+nwYxJZcpioUtu4BlkVt96STEtpw2eQch13KMx7xSoNFoWkYRx0DySvC7X
-	qedWpkAyFFcuIdnKdLtoykaO4uE4OVZM8xa6yJv1F9NTHOSPQdrpKAaDghkV2dAV46OyOs
-	EXzg948XfS7l2nZWihyufuE2+qF8pOYFygri+UdFMDTTlntyxEw2o7BNBjhJAR9o+l2GsJ
-	AK5zJD7/Xi1X1bX2qNsOQ96dTCzJEqnPmux4zY3vZPuL7x2EJ5K746nNek/pYrvz5kQ0UP
-	ybPzjsAo8bU5jzVRhzkDGSHXlcYwyVBljXYyLnpllGKaxxeiXtUgu8HaeLp2/w==
+	b=VqKftqSueBzYrd2QW30u3iY73oy/7RiMgx8CMgArQq+fD8GKcZ1e6YEcF7Nv2g1+rOfcSg
+	OvNGIejezCCpQ4Bq9rSkTDuDX/f/q6BEDGkSX99oJqYCJUFBdVS40t9ZiLFC2UlfuNpv5Z
+	GMMER9nUse9J5aPEqXg5XidV/1Sf1sWhYTBt/0TBM2svGJk4vQQ07z4UCyO1XNh4QolQk0
+	zpJHClawVK+uNoV9/JNItT+CiOdoxkJtX0k6fVgr4cqQ7qYx0MRPwL0jkKBhy0GwsVTHEB
+	1hFvoZ4Ye7IW215u7bIdavamdCXqstlbyUpqWIemtUVIxPa8/cPN0Zb5oSgccw==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
@@ -48,14 +48,14 @@ ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EOJSGTTBHjY1JsEFpZjDfD7JOIGBIaKOZxBzKKynSno=;
-	b=c4KJF92TCIkP2oWBXhbi/vIV5S3rIji6ikEwhfIQzjq0Zs2JcPGM+utT6doJc5KeB635lt
-	e4HwnTaQLRmqY+PNy1mxJxIDpOQx0GXX331D2/PNi4+dKvn/jkDq75nDTPjH/loY4+39ZD
-	Zns5gQ4uQUDVb4DNb1/PBiRlJSXn/oF6qfXQQ+XJO2NfjHI1LjZcKHDbpPbvIQjxLlz6g3
-	Z8OVlWNafcbfr/tHJhCSMPfau0yuroabYbFo8A6w5maAFyw7FaEiQTG2V9rciD2Qhy04wi
-	wirblxtRuAKHkeT/MXWYsvvLz5Kw74i+AyFWQLN1rOuQx3YE3a1F0sMPg3t/8g==
+	bh=/2tl+gat2DSIchu9hVfVngcOgbwOJalxG/YtHQpRSjY=;
+	b=U4/uEGJ0jhnj6mkfjOstYeioFPLTnsmPHyHNtzIrZl9F+jQjV1G1s9v7DBVcZmgLabtS9s
+	moZODLTsDhQPTBRRAwbDoNScv6bfPR8vfEUDYvAzkrGou8ZCjoMVIIwGiu+2pRdO06M1cy
+	IBR2aWOl8FpNPq4qWUwkI3JvhWiQYNVH8t7MHDGtc7HZaTYAFu/zyA06A9ZoU6mW4OAZ+q
+	n6bFnhqqm68YEUiPMjFmqM8n9/1fC6L9McYCy+Cliz6rAnxQeEJ3fp4STEIiRmcWU1tTWI
+	ieaSYGOpCAF70/y78R8tVLgw/TqFHrL9IZMdRLRYMP8O15AsAT4L+myu5xbd7Q==
 Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 31BA1380DD7; Fri, 02 Oct 2026 13:58:52 +0200 (CEST)
+	id 3E8EF380FA9; Fri, 02 Oct 2026 13:58:52 +0200 (CEST)
 From: Oleksij Rempel <o.rempel@pengutronix.de>
 To: Linus Walleij <linusw@kernel.org>,
 	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
@@ -71,9 +71,9 @@ Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
 	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
 	netdev@vger.kernel.org,
 	Simon Horman <horms@kernel.org>
-Subject: [PATCH net-next v1 6/8] net: dsa: realtek: rtl8365mb: add QoS baseline and DCB default priority
-Date: Fri,  2 Oct 2026 13:58:48 +0200
-Message-ID: <20261002115850.962676-7-o.rempel@pengutronix.de>
+Subject: [PATCH net-next v1 7/8] net: dsa: realtek: rtl8365mb: offload DCB apptrust
+Date: Fri,  2 Oct 2026 13:58:49 +0200
+Message-ID: <20261002115850.962676-8-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261002115850.962676-1-o.rempel@pengutronix.de>
 References: <20261002115850.962676-1-o.rempel@pengutronix.de>
@@ -85,425 +85,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add rtl8365mb_dcb.c to establish a defined QoS baseline and offload the
-DCB default priority.
+Wire up port_get_apptrust/port_set_apptrust so the admin can choose,
+through dcbnl, which ingress classification sources a port trusts for
+its priority: 802.1p (PCP) and/or DSCP. Nothing but the port default is
+trusted until this opts in.
 
-The switch's internal priority is an opaque 3-bit value; give it the
-meaning of an IEEE 802.1Q traffic type. The switch classifies from
-several domains, each numbered on its own scale: the port default, PCP
-and DSCP. A single traffic-type meaning lets each domain map onto the
-internal priority with consistent ordering, so Best Effort outranks
-Background rather than following the raw PCP number.
+The hardware exposes two priority-decision weight tables and a per-port
+bit selecting between them. rtl8365mb_dcb_init() leaves both tables
+trusting only the port priority; apptrust programs the second
+("trusted") table with the requested PCP/DSCP weights and steers the
+port to it, or back to the untrusted table when the selector list is
+empty. This driver fixes the precedence to PCP > DSCP via the decision
+weights, so the selector list is validated to be in that order.
 
-Program the baseline explicitly rather than trusting the chip reset
-state: set the priority-to-queue map for the chip's queue count, remap
-PCP to the internal priority, and give every one of the eight
-priority-decision sources a defined weight. Only the port default is
-trusted; PCP and DSCP stay untrusted until the admin opts in (apptrust,
-added later), and every port defaults to Best Effort, so all traffic
-lands on a single egress queue and the baseline has no user-visible
-effect on its own.
-
-Select DCB and the 802.1Q helpers following the microchip ksz driver, so
-the DCB code needs no CONFIG_DCB guards.
+Unlike switches with independent per-port trust bits, the trusted table
+is a single switch-wide resource: all ports that trust something must
+trust the same selectors. A request that conflicts with the selectors
+another port is already using is refused with -EBUSY.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 ---
- drivers/net/dsa/realtek/Kconfig          |   2 +
- drivers/net/dsa/realtek/Makefile         |   1 +
- drivers/net/dsa/realtek/rtl8365mb_dcb.c  | 287 +++++++++++++++++++++++
- drivers/net/dsa/realtek/rtl8365mb_dcb.h  |  20 ++
- drivers/net/dsa/realtek/rtl8365mb_main.c |  15 ++
- 5 files changed, 325 insertions(+)
- create mode 100644 drivers/net/dsa/realtek/rtl8365mb_dcb.c
- create mode 100644 drivers/net/dsa/realtek/rtl8365mb_dcb.h
+ drivers/net/dsa/realtek/rtl8365mb_dcb.c  | 193 +++++++++++++++++++++++
+ drivers/net/dsa/realtek/rtl8365mb_dcb.h  |   4 +
+ drivers/net/dsa/realtek/rtl8365mb_main.c |   2 +
+ 3 files changed, 199 insertions(+)
 
-diff --git a/drivers/net/dsa/realtek/Kconfig b/drivers/net/dsa/realtek/Kconfig
-index d6eb6713e5f6..934833adde58 100644
---- a/drivers/net/dsa/realtek/Kconfig
-+++ b/drivers/net/dsa/realtek/Kconfig
-@@ -33,6 +33,8 @@ config NET_DSA_REALTEK_RTL8365MB
- 	tristate "Realtek RTL8365MB switch driver"
- 	depends on NET_DSA_REALTEK_SMI || NET_DSA_REALTEK_MDIO
- 	select NET_DSA_TAG_RTL8_4
-+	select NET_IEEE8021Q_HELPERS
-+	select DCB
- 	help
- 	  Select to enable support for Realtek RTL8365MB-VC and RTL8367S.
- 
-diff --git a/drivers/net/dsa/realtek/Makefile b/drivers/net/dsa/realtek/Makefile
-index 72bb42e80c95..052a924519e8 100644
---- a/drivers/net/dsa/realtek/Makefile
-+++ b/drivers/net/dsa/realtek/Makefile
-@@ -20,4 +20,5 @@ rtl8365mb-objs := rtl8365mb_main.o \
- 		  rtl8365mb_table.o \
- 		  rtl8365mb_vlan.o \
- 		  rtl8365mb_l2.o \
-+		  rtl8365mb_dcb.o \
- # end of rtl8365mb-objs
 diff --git a/drivers/net/dsa/realtek/rtl8365mb_dcb.c b/drivers/net/dsa/realtek/rtl8365mb_dcb.c
-new file mode 100644
-index 000000000000..f48e95ef3947
---- /dev/null
+index f48e95ef3947..4afcae6e85a1 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_dcb.c
 +++ b/drivers/net/dsa/realtek/rtl8365mb_dcb.c
-@@ -0,0 +1,287 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* QoS and DCB configuration for the rtl8365mb switch family
-+ *
-+ * The internal priority is the common rail: every classifier writes onto it,
-+ * and it is the 802.1Q traffic type.
-+ *
-+ * A queue is a traffic class. Priority is not the same as traffic class: the
-+ * mapping is policy (Table 8-5 for non-CBS) and collapses 8 priorities onto nq
-+ * queues when nq < 8; they only line up here because this is a non-CBS switch
-+ * at 8 queues. The code therefore always maps through ieee8021q_tt_to_tc(), never
-+ * assuming priority == queue.
+@@ -13,7 +13,9 @@
+ 
+ #include <linux/bitops.h>
+ #include <linux/build_bug.h>
++#include <linux/dcbnl.h>
+ #include <linux/regmap.h>
++#include <linux/string.h>
+ #include <net/dsa.h>
+ #include <net/ieee8021q.h>
+ 
+@@ -66,6 +68,8 @@ static_assert(RTL8365MB_NUM_IPMS == IEEE8021Q_TT_MAX);
+ 
+ /* Each port selects one of the two decision tables; one bit per port. */
+ #define RTL8365MB_QOS_PRIDEC_IDX_REG			0x0889
++#define RTL8365MB_QOS_PRIDEC_TABLE_UNTRUSTED		0
++#define RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED		1
+ 
+ /* Priority-decision sources. The hardware numbers eight sources; this driver
+  * programs the three it uses by name and explicitly disables the rest. The
+@@ -84,6 +88,24 @@ static_assert(RTL8365MB_NUM_IPMS == IEEE8021Q_TT_MAX);
+ #define RTL8365MB_QOS_WEIGHT_UNTRUSTED			0
+ #define RTL8365MB_QOS_WEIGHT_PORT			1
+ 
++/* apptrust selectors this driver supports, in descending precedence. Each
++ * entry binds a dcbnl selector to the priority-decision source it enables, so
++ * this ordered table is the one place the fixed precedence lives.
 + */
++static const struct rtl8365mb_apptrust_map {
++	u8 sel;		/* dcbnl apptrust selector */
++	u8 src;		/* priority-decision source it enables */
++} rtl8365mb_apptrust_map[] = {
++	{ DCB_APP_SEL_PCP,	     RTL8365MB_QOS_PRIDEC_1Q },
++	{ IEEE_8021QAZ_APP_SEL_DSCP, RTL8365MB_QOS_PRIDEC_DSCP },
++};
 +
-+#include <linux/bitops.h>
-+#include <linux/build_bug.h>
-+#include <linux/regmap.h>
-+#include <net/dsa.h>
-+#include <net/ieee8021q.h>
-+
-+#include "realtek.h"
-+#include "rtl8365mb_dcb.h"
-+
-+/* The chip's eight internal priorities carry 802.1Q traffic types, so the
-+ * two axes must have the same cardinality.
++/* rtl8365mb_apptrust_weight() gives the first entry the top weight,
++ * RTL8365MB_QOS_WEIGHT_PORT + ARRAY_SIZE(rtl8365mb_apptrust_map); fail the
++ * build if adding a selector would raise it past the decision weight range.
 + */
-+static_assert(RTL8365MB_NUM_IPMS == IEEE8021Q_TT_MAX);
++static_assert(RTL8365MB_QOS_WEIGHT_PORT + ARRAY_SIZE(rtl8365mb_apptrust_map) <= 7);
 +
-+/* Per-port output-queue mapping index (selects the queue count). Four ports
-+ * per register, 3-bit field. An N-queue configuration selects index N, except
-+ * the full eight-queue configuration, which is encoded as index 0 (the field
-+ * wraps modulo eight).
-+ */
-+#define RTL8365MB_QOS_PORT_QUEUE_NUMBER_REG(_p)		(0x0900 + ((_p) >> 2))
-+#define RTL8365MB_QOS_PORT_QUEUE_NUMBER_OFFSET(_p)	(((_p) & 0x3) << 2)
-+#define RTL8365MB_QOS_QMAP_IDX(_nq)			((_nq) & 0x7)
-+
-+/* Internal priority -> queue-id map. Eight tables (one per queue count),
-+ * indexed [table][prio]; four priorities per register, 3-bit qid. An N-queue
-+ * configuration uses table N-1 (1Q is table 0 at 0x0904, 8Q is table 7).
-+ */
-+#define RTL8365MB_QOS_PRI_TO_QID_TABLE(_nq)		((_nq) - 1)
-+#define RTL8365MB_QOS_PRI_TO_QID_REG(_t, _pri) \
-+	(0x0904 + ((_t) << 1) + ((_pri) >> 2))
-+#define RTL8365MB_QOS_PRI_TO_QID_OFFSET(_pri)		(((_pri) & 0x3) << 2)
-+
-+/* 802.1p (PCP) -> internal priority remap. Four priorities per register. */
-+#define RTL8365MB_QOS_1Q_REMAP_REG(_pri)		(0x0865 + ((_pri) >> 2))
-+#define RTL8365MB_QOS_1Q_REMAP_OFFSET(_pri)		(((_pri) & 0x3) << 2)
-+
-+/* Port-based (default) priority. Four ports per register, 3-bit. */
-+#define RTL8365MB_QOS_PORT_PRI_REG(_p)			(0x0877 + ((_p) >> 2))
-+#define RTL8365MB_QOS_PORT_PRI_OFFSET(_p)		(((_p) & 0x3) << 2)
-+
-+/* Default internal priority for unmarked traffic. Best Effort, to match what
-+ * an untagged (PCP 0) frame resolves to via ieee8021q_pcp_to_tt().
-+ */
-+#define RTL8365MB_QOS_DEFAULT_PRIO			IEEE8021Q_TT_BE
-+
-+/* Priority-decision weight tables. Two tables (each port selects one), eight
-+ * sources, one 8-bit weight each, two sources per register. Higher weight
-+ * wins; a weight of zero disables the source.
-+ */
-+#define RTL8365MB_QOS_PRIDEC_TBL0_REG(_s)		(0x087B + ((_s) >> 1))
-+#define RTL8365MB_QOS_PRIDEC_TBL1_REG(_s)		(0x0885 + ((_s) >> 1))
-+#define RTL8365MB_QOS_PRIDEC_OFFSET(_s)			(((_s) & 0x1) << 3)
-+
-+/* Each port selects one of the two decision tables; one bit per port. */
-+#define RTL8365MB_QOS_PRIDEC_IDX_REG			0x0889
-+
-+/* Priority-decision sources. The hardware numbers eight sources; this driver
-+ * programs the three it uses by name and explicitly disables the rest. The
-+ * hardware assigns these source ordinals: PORT=0, ACL=1 (unused), DSCP=2,
-+ * 1Q=3, SVLAN=4 (unused), CVLAN=5 (unused), DA=6 (unused), SA=7 (unused).
-+ */
-+#define RTL8365MB_QOS_PRIDEC_PORT			0
-+#define RTL8365MB_QOS_PRIDEC_DSCP			2
-+#define RTL8365MB_QOS_PRIDEC_1Q				3
-+#define RTL8365MB_QOS_PRIDEC_NUM_SRC			8
-+
-+/* Priority-decision weights. The baseline trusts only the port-based
-+ * priority; every other source is disabled (weight 0). apptrust raises a
-+ * trusted source's weight above the port default so that it wins.
-+ */
-+#define RTL8365MB_QOS_WEIGHT_UNTRUSTED			0
-+#define RTL8365MB_QOS_WEIGHT_PORT			1
-+
-+/* The QoS priority and queue selectors are 3-bit register fields; derive a
-+ * field's mask from its bit offset.
-+ */
-+static inline u32 rtl8365mb_qos_sel_field_mask(unsigned int off)
-+{
-+	return GENMASK(off + 2, off);
-+}
-+
-+/* The priority-decision weight is an 8-bit register field; derive its mask
-+ * from the field's bit offset, mirroring rtl8365mb_qos_sel_field_mask().
-+ */
-+static inline u32 rtl8365mb_qos_weight_field_mask(unsigned int off)
-+{
-+	return GENMASK(off + 7, off);
-+}
-+
-+static int rtl8365mb_set_field(struct realtek_priv *priv, u32 reg, u32 mask,
-+			       u32 val)
-+{
-+	return regmap_update_bits(priv->map, reg, mask,
-+				  (val << __ffs(mask)) & mask);
-+}
-+
-+static int rtl8365mb_get_field(struct realtek_priv *priv, u32 reg, u32 mask,
-+			       u32 *val)
-+{
-+	int ret;
-+
-+	ret = regmap_read(priv->map, reg, val);
-+	if (ret)
-+		return ret;
-+
-+	*val = (*val & mask) >> __ffs(mask);
-+	return 0;
-+}
-+
-+static u32 rtl8365mb_qos_pridec_reg(int table, int src)
-+{
-+	return table ? RTL8365MB_QOS_PRIDEC_TBL1_REG(src) :
-+		       RTL8365MB_QOS_PRIDEC_TBL0_REG(src);
-+}
-+
-+static int rtl8365mb_qos_set_pridec(struct realtek_priv *priv, int table,
-+				    int src, u8 weight)
+ /* The QoS priority and queue selectors are 3-bit register fields; derive a
+  * field's mask from its bit offset.
+  */
+@@ -135,6 +157,22 @@ static int rtl8365mb_qos_set_pridec(struct realtek_priv *priv, int table,
+ 				   rtl8365mb_qos_weight_field_mask(off), weight);
+ }
+ 
++static int rtl8365mb_qos_get_pridec(struct realtek_priv *priv, int table,
++				    int src, u8 *weight)
 +{
 +	int off = RTL8365MB_QOS_PRIDEC_OFFSET(src);
-+
-+	return rtl8365mb_set_field(priv, rtl8365mb_qos_pridec_reg(table, src),
-+				   rtl8365mb_qos_weight_field_mask(off), weight);
-+}
-+
-+static int rtl8365mb_qos_setup_queues(struct realtek_priv *priv,
-+				      unsigned int nq)
-+{
-+	int table = RTL8365MB_QOS_PRI_TO_QID_TABLE(nq);
-+	struct dsa_switch *ds = &priv->ds;
-+	struct dsa_port *dp;
-+	int tt, ret;
-+
-+	dsa_switch_for_each_port(dp, ds) {
-+		u32 reg = RTL8365MB_QOS_PORT_QUEUE_NUMBER_REG(dp->index);
-+		int off = RTL8365MB_QOS_PORT_QUEUE_NUMBER_OFFSET(dp->index);
-+
-+		ret = rtl8365mb_set_field(priv, reg,
-+					  rtl8365mb_qos_sel_field_mask(off),
-+					  RTL8365MB_QOS_QMAP_IDX(nq));
-+		if (ret)
-+			return ret;
-+	}
-+
-+	for (tt = 0; tt < IEEE8021Q_TT_MAX; tt++) {
-+		u32 reg = RTL8365MB_QOS_PRI_TO_QID_REG(table, tt);
-+		int off = RTL8365MB_QOS_PRI_TO_QID_OFFSET(tt);
-+		int tc = ieee8021q_tt_to_tc(tt, nq);
-+
-+		if (tc < 0)
-+			return tc;
-+
-+		/* QID field holds the traffic class */
-+		ret = rtl8365mb_set_field(priv, reg,
-+					  rtl8365mb_qos_sel_field_mask(off), tc);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Map ingress PCP to the internal priority via its 802.1Q traffic type, so
-+ * Best Effort (PCP 0) correctly outranks Background (PCP 1).
-+ */
-+static int rtl8365mb_qos_setup_pcp(struct realtek_priv *priv)
-+{
-+	int pcp, ret;
-+
-+	for (pcp = 0; pcp < IEEE_8021Q_MAX_PRIORITIES; pcp++) {
-+		u32 reg = RTL8365MB_QOS_1Q_REMAP_REG(pcp);
-+		int off = RTL8365MB_QOS_1Q_REMAP_OFFSET(pcp);
-+		int tt = ieee8021q_pcp_to_tt(pcp);
-+
-+		if (tt < 0)
-+			return tt;
-+
-+		ret = rtl8365mb_set_field(priv, reg,
-+					  rtl8365mb_qos_sel_field_mask(off), tt);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int rtl8365mb_dcb_init(struct dsa_switch *ds)
-+{
-+	struct realtek_priv *priv = ds->priv;
-+	int table, ret;
-+
-+	/* The priority->queue table is a single switch-wide resource, shared by
-+	 * all ports (not per-port).
-+	 */
-+	ret = rtl8365mb_qos_setup_queues(priv, ds->num_tx_queues);
-+	if (ret)
-+		return ret;
-+
-+	ret = rtl8365mb_qos_setup_pcp(priv);
-+	if (ret)
-+		return ret;
-+
-+	/* Program every decision source in both tables rather than relying on
-+	 * the reset state: only the port default carries weight, the other
-+	 * seven sources are disabled. apptrust later raises the weights in the
-+	 * trusted table and steers ports to it on demand.
-+	 */
-+	for (table = 0; table <= 1; table++) {
-+		int src;
-+
-+		for (src = 0; src < RTL8365MB_QOS_PRIDEC_NUM_SRC; src++) {
-+			u8 weight = src == RTL8365MB_QOS_PRIDEC_PORT ?
-+				    RTL8365MB_QOS_WEIGHT_PORT :
-+				    RTL8365MB_QOS_WEIGHT_UNTRUSTED;
-+
-+			ret = rtl8365mb_qos_set_pridec(priv, table, src, weight);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
-+	return regmap_write(priv->map, RTL8365MB_QOS_PRIDEC_IDX_REG, 0);
-+}
-+
-+int rtl8365mb_dcb_init_port(struct dsa_switch *ds, int port)
-+{
-+	int off = RTL8365MB_QOS_PORT_PRI_OFFSET(port);
-+	struct realtek_priv *priv = ds->priv;
-+
-+	/* All ports default to Best Effort: with no source trusted, every port
-+	 * treats its traffic as unmarked, matching the default PCP result
-+	 * so classification stays consistent once the admin opts a source in.
-+	 */
-+	return rtl8365mb_set_field(priv, RTL8365MB_QOS_PORT_PRI_REG(port),
-+				   rtl8365mb_qos_sel_field_mask(off),
-+				   RTL8365MB_QOS_DEFAULT_PRIO);
-+}
-+
-+int rtl8365mb_port_get_default_prio(struct dsa_switch *ds, int port)
-+{
-+	int off = RTL8365MB_QOS_PORT_PRI_OFFSET(port);
-+	struct realtek_priv *priv = ds->priv;
 +	u32 val;
 +	int ret;
 +
-+	ret = rtl8365mb_get_field(priv, RTL8365MB_QOS_PORT_PRI_REG(port),
-+				  rtl8365mb_qos_sel_field_mask(off), &val);
++	ret = rtl8365mb_get_field(priv, rtl8365mb_qos_pridec_reg(table, src),
++				  rtl8365mb_qos_weight_field_mask(off), &val);
 +	if (ret)
 +		return ret;
 +
-+	/* The register holds the internal priority (an 802.1Q traffic type);
-+	 * dcbnl expects an 802.1p priority.
-+	 */
-+	return ieee8021q_tt_to_pcp(val);
++	*weight = val;
++	return 0;
 +}
 +
-+int rtl8365mb_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio)
+ static int rtl8365mb_qos_setup_queues(struct realtek_priv *priv,
+ 				      unsigned int nq)
+ {
+@@ -285,3 +323,158 @@ int rtl8365mb_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio)
+ 	return rtl8365mb_set_field(priv, RTL8365MB_QOS_PORT_PRI_REG(port),
+ 				   rtl8365mb_qos_sel_field_mask(off), tt);
+ }
++
++/* Read which sources a decision table trusts (weight != 0), indexed like
++ * rtl8365mb_apptrust_map[].
++ */
++static int rtl8365mb_apptrust_read(struct realtek_priv *priv, int table,
++				   bool *trust)
 +{
-+	int off = RTL8365MB_QOS_PORT_PRI_OFFSET(port);
++	int i, ret;
++
++	for (i = 0; i < ARRAY_SIZE(rtl8365mb_apptrust_map); i++) {
++		u8 weight;
++
++		ret = rtl8365mb_qos_get_pridec(priv, table,
++					       rtl8365mb_apptrust_map[i].src,
++					       &weight);
++		if (ret)
++			return ret;
++
++		trust[i] = weight != RTL8365MB_QOS_WEIGHT_UNTRUSTED;
++	}
++
++	return 0;
++}
++
++/* Validate the selector list and mark which table entries it trusts. This
++ * driver fixes the precedence via the decision weights, so the list must be in
++ * rtl8365mb_apptrust_map[] order.
++ */
++static int rtl8365mb_apptrust_parse(struct realtek_priv *priv, const u8 *sel,
++				    int nsel, bool *trust)
++{
++	int i, prev = -1;
++
++	for (i = 0; i < ARRAY_SIZE(rtl8365mb_apptrust_map); i++)
++		trust[i] = false;
++
++	for (i = 0; i < nsel; i++) {
++		int idx;
++
++		for (idx = 0; idx < ARRAY_SIZE(rtl8365mb_apptrust_map); idx++)
++			if (sel[i] == rtl8365mb_apptrust_map[idx].sel)
++				break;
++
++		if (idx == ARRAY_SIZE(rtl8365mb_apptrust_map) || idx <= prev) {
++			dev_err(priv->dev,
++				"unsupported apptrust selector, or not in the driver's fixed precedence order\n");
++			return -EINVAL;
++		}
++		prev = idx;
++		trust[idx] = true;
++	}
++
++	return 0;
++}
++
++/* Trusted sources outrank the port default, and earlier entries in
++ * rtl8365mb_apptrust_map[] outrank later ones. Deriving the weight from the
++ * entry's position makes the table order the sole expression of precedence,
++ * so the order and the hardware weights cannot drift apart.
++ */
++static u8 rtl8365mb_apptrust_weight(unsigned int entry)
++{
++	return RTL8365MB_QOS_WEIGHT_PORT +
++	       ARRAY_SIZE(rtl8365mb_apptrust_map) - entry;
++}
++
++int rtl8365mb_port_get_apptrust(struct dsa_switch *ds, int port, u8 *sel,
++				int *nsel)
++{
++	bool trust[ARRAY_SIZE(rtl8365mb_apptrust_map)];
 +	struct realtek_priv *priv = ds->priv;
-+	int tt;
++	int ret, i;
++	u32 idx;
 +
-+	if (prio >= IEEE_8021Q_MAX_PRIORITIES)
-+		return -ERANGE;
++	*nsel = 0;
 +
-+	/* dcbnl passes an 802.1p priority; the register holds the internal
-+	 * priority (an 802.1Q traffic type).
++	ret = regmap_read(priv->map, RTL8365MB_QOS_PRIDEC_IDX_REG, &idx);
++	if (ret)
++		return ret;
++
++	/* On the untrusted table nothing but the port default is trusted. */
++	if (!(idx & BIT(port)))
++		return 0;
++
++	ret = rtl8365mb_apptrust_read(priv, RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED,
++				      trust);
++	if (ret)
++		return ret;
++
++	for (i = 0; i < ARRAY_SIZE(rtl8365mb_apptrust_map); i++)
++		if (trust[i])
++			sel[(*nsel)++] = rtl8365mb_apptrust_map[i].sel;
++
++	return 0;
++}
++
++int rtl8365mb_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
++				int nsel)
++{
++	bool trust[ARRAY_SIZE(rtl8365mb_apptrust_map)];
++	struct realtek_priv *priv = ds->priv;
++	bool any = false;
++	int ret, i;
++	u32 idx;
++
++	ret = rtl8365mb_apptrust_parse(priv, sel, nsel, trust);
++	if (ret)
++		return ret;
++
++	for (i = 0; i < ARRAY_SIZE(rtl8365mb_apptrust_map); i++)
++		any |= trust[i];
++
++	ret = regmap_read(priv->map, RTL8365MB_QOS_PRIDEC_IDX_REG, &idx);
++	if (ret)
++		return ret;
++
++	/* Nothing trusted: point the port at the untrusted table. */
++	if (!any)
++		return rtl8365mb_set_field(priv, RTL8365MB_QOS_PRIDEC_IDX_REG,
++					   BIT(port), 0);
++
++	/* The trusted table is a single switch-wide resource. If another port
++	 * already uses it, this request must trust the same selectors.
 +	 */
-+	tt = ieee8021q_pcp_to_tt(prio);
-+	if (tt < 0)
-+		return tt;
++	if (idx & ~BIT(port)) {
++		bool other[ARRAY_SIZE(rtl8365mb_apptrust_map)];
 +
-+	return rtl8365mb_set_field(priv, RTL8365MB_QOS_PORT_PRI_REG(port),
-+				   rtl8365mb_qos_sel_field_mask(off), tt);
++		ret = rtl8365mb_apptrust_read(priv,
++					      RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED,
++					      other);
++		if (ret)
++			return ret;
++
++		if (memcmp(trust, other, sizeof(trust))) {
++			dev_err(priv->dev,
++				"trust profile is switch-wide; another port already trusts different sources\n");
++			return -EBUSY;
++		}
++	}
++
++	for (i = 0; i < ARRAY_SIZE(rtl8365mb_apptrust_map); i++) {
++		u8 weight = trust[i] ? rtl8365mb_apptrust_weight(i) :
++				       RTL8365MB_QOS_WEIGHT_UNTRUSTED;
++
++		ret = rtl8365mb_qos_set_pridec(priv,
++					       RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED,
++					       rtl8365mb_apptrust_map[i].src,
++					       weight);
++		if (ret)
++			return ret;
++	}
++
++	return rtl8365mb_set_field(priv, RTL8365MB_QOS_PRIDEC_IDX_REG,
++				   BIT(port), 1);
 +}
 diff --git a/drivers/net/dsa/realtek/rtl8365mb_dcb.h b/drivers/net/dsa/realtek/rtl8365mb_dcb.h
-new file mode 100644
-index 000000000000..4f8068dd3522
---- /dev/null
+index 4f8068dd3522..156fa6e1c4fd 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_dcb.h
 +++ b/drivers/net/dsa/realtek/rtl8365mb_dcb.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* QoS and DCB configuration for the rtl8365mb switch family */
-+
-+#ifndef _REALTEK_RTL8365MB_DCB_H
-+#define _REALTEK_RTL8365MB_DCB_H
-+
-+#include <linux/types.h>
-+#include <net/dsa.h>
-+
-+/* The switch has eight internal priorities (0..7). The egress queue count is
-+ * a per-chip property; see struct rtl8365mb_chip_info::num_tx_queues.
-+ */
-+#define RTL8365MB_NUM_IPMS		8
-+
-+int rtl8365mb_dcb_init(struct dsa_switch *ds);
-+int rtl8365mb_dcb_init_port(struct dsa_switch *ds, int port);
-+int rtl8365mb_port_get_default_prio(struct dsa_switch *ds, int port);
-+int rtl8365mb_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio);
-+
-+#endif /* _REALTEK_RTL8365MB_DCB_H */
+@@ -16,5 +16,9 @@ int rtl8365mb_dcb_init(struct dsa_switch *ds);
+ int rtl8365mb_dcb_init_port(struct dsa_switch *ds, int port);
+ int rtl8365mb_port_get_default_prio(struct dsa_switch *ds, int port);
+ int rtl8365mb_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio);
++int rtl8365mb_port_get_apptrust(struct dsa_switch *ds, int port, u8 *sel,
++				int *nsel);
++int rtl8365mb_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
++				int nsel);
+ 
+ #endif /* _REALTEK_RTL8365MB_DCB_H */
 diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 0924d31790e0..5a3f4328354e 100644
+index 5a3f4328354e..77f971abf783 100644
 --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
 +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -108,6 +108,7 @@
- #include "realtek-smi.h"
- #include "realtek-mdio.h"
- #include "rtl83xx.h"
-+#include "rtl8365mb_dcb.h"
- #include "rtl8365mb_l2.h"
- #include "rtl8365mb_vlan.h"
- 
-@@ -3187,6 +3188,11 @@ static int rtl8365mb_setup(struct dsa_switch *ds)
- 		if (ret)
- 			goto out_teardown_irq;
- 
-+		/* Default the port QoS (default priority = Best Effort) */
-+		ret = rtl8365mb_dcb_init_port(ds, dp->index);
-+		if (ret)
-+			goto out_teardown_irq;
-+
- 		/* Set up per-port private data */
- 		p->priv = priv;
- 		p->index = dp->index;
-@@ -3274,6 +3280,13 @@ static int rtl8365mb_setup(struct dsa_switch *ds)
- 	 */
- 	ds->num_tx_queues = mb->chip_info->num_tx_queues;
- 
-+	/* Establish a defined QoS baseline: program the priority-to-queue map
-+	 * for the chip's queue count and trust only the port default priority.
-+	 */
-+	ret = rtl8365mb_dcb_init(ds);
-+	if (ret)
-+		goto out_teardown_irq;
-+
- 	/* Start statistics counter polling */
- 	ret = rtl8365mb_stats_setup(priv);
- 	if (ret) {
-@@ -3435,6 +3448,8 @@ static const struct dsa_switch_ops rtl8365mb_switch_ops = {
- 	.port_bridge_leave = rtl83xx_port_bridge_leave,
- 	.port_pre_bridge_flags = rtl8365mb_port_pre_bridge_flags,
+@@ -3450,6 +3450,8 @@ static const struct dsa_switch_ops rtl8365mb_switch_ops = {
  	.port_bridge_flags = rtl83xx_port_bridge_flags,
-+	.port_get_default_prio = rtl8365mb_port_get_default_prio,
-+	.port_set_default_prio = rtl8365mb_port_set_default_prio,
+ 	.port_get_default_prio = rtl8365mb_port_get_default_prio,
+ 	.port_set_default_prio = rtl8365mb_port_set_default_prio,
++	.port_get_apptrust = rtl8365mb_port_get_apptrust,
++	.port_set_apptrust = rtl8365mb_port_set_apptrust,
  	.port_stp_state_set = rtl8365mb_port_stp_state_set,
  	.port_fast_age = rtl83xx_port_fast_age,
  	.port_fdb_add = rtl83xx_port_fdb_add,
