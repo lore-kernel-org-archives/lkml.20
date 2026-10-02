@@ -1,64 +1,64 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3329E4E433F
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A594EDCA2
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955930; cv=none; b=esEMvR17aNOtq7aZ1NY5cKs8VE9FcfPWx2BuxJ1zN4mZHfCC/vIGAHG7FRhx1p9EHo/i0ib340CfMRwXB+2JUafxXpM8iYEmXlZv73CvuU5efa2NZLFlgLEWumkpDPmaOX5cPuz6O24goddbAvnmetOgfQ3218dZO8lYMjpNlJw=
+	t=1790955931; cv=none; b=lsj9h76DfVAUoAdq/e0S3s6FrKnzMNq8gGyKOUt1jC4SnXajnbVvxxHdb1wnni6fa+3adsi6eedunwr/hYLgPpEUowLttQVHeq848CBZHggOZOHB+oVjUWNrh5IlUkapQY4WOhzjhUn6/dJHRD2bDmsadXmLUvAfmqqEDSNUcws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955930; c=relaxed/simple;
-	bh=7hap95mxpTk9UW2dteAHIfeOd/zesefXqWk9LTMKroo=;
+	s=arc-20240116; t=1790955931; c=relaxed/simple;
+	bh=CeTHB4ypLnb5H3d23FrgyQcrpY2y8roNeeEMV+cxjyU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dGSGTkliG8fbl6/0cTR+42+W0KdFFoSpOxgEV6N65XQd3MGN/cI4UjlvBvYvK6qmS4Xuj4OjWrN0SEIrr8pm7o9K4h2TxhoqvOe4romWQv6n8Qpp4wx3/wfBFQ9phUHsdSIRT44h3OWx0OMkcqvZQFF0nnwQAUU1sZjOMEs+eQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=URjfrTFZ; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=hb33yWFqc/b5ypU+1q7+OvbVngPDoLnppxoBdn76r9pSFkSR9+2wTgOYFcAEwQ+ETVbW2JfQ0isk/q79P+jAk+rmnQ37kaxF616J++RcTxht3hhaPpsNuNK30OtzmUcOchbk6NZBsStDABYNiNPAEGb45iGLWc0qk650Zx5aZnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HB446zzV; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="URjfrTFZ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so397565e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HB446zzV"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso189945e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790955918; x=1791560718; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790955922; x=1791560722; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=twXh4IEgj3c3B1TaynWUaOppTXyXcqyaqn780+9h4uM=;
-        b=URjfrTFZ6whKeYOtnT6bgy/phAiKcEU8+0ayAowX5eEOCCPIGiHWql8sKIgXngMD7i
-         ufOthwVxd+AFRBM7mjZxdpW/kylWZGbpXj9OLJ+8Cewx4V7yHaNTF/z6qsu5U1EHmTEO
-         heVzGF9ch3FTUhDnBFdLARcW2E1Iehg7Q/GAdjbV7kDAkKhP27UetrMclj2GoKzSQ27O
-         Cc/UjrIRhlWeDvF3a+vZUHsxHIf14eA+SaiXqxA/0avHW76Fg+HY2YbvcQ6uikl8c/Xa
-         v6WU124ZDeY+feYX0qB3hlfLw9iGVOar9CEhCiciKO1bUKbDKJ0DMGnJn08tdldVTb60
-         qy4Q==
+        bh=EZjs7e//iaMUq0DbBBAkyBGkWfGjYDHq+81y/lPHXV0=;
+        b=HB446zzVAK31YlA23DKZGSW+unxN2agRncqN8pZ8aqyMcPLjQLhwDr4uxuEKyUh2V/
+         vLK8Sma5TkDvAd3JQfWR2dm5QYpfL9hUOwJa+QGEf9UmF5AMFWli87nljpDrlSIgCb0O
+         2ZZv6jpz21wxBPPgIgSjHkxlHkwEq6VkfB5rheVbz8/8tJHVfjg2WTxZlSopesI0DBhG
+         T0e2rMipBeyXcjplUKxlDGsmLqBM96Ds07z8TIqDDUhOe3YcFg0FRppYcMAYUStTSbPO
+         QaX0npVGIdf/Vtt3GPh5V5lTkjo5QR4qmV08V3v98UzZ8vD/hi6HPja1W5Rgwi+NEtaS
+         uoQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955918; x=1791560718;
+        d=1e100.net; s=20260707; t=1790955922; x=1791560722;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=twXh4IEgj3c3B1TaynWUaOppTXyXcqyaqn780+9h4uM=;
-        b=xHLUO/zIhTvxKqDFRzHEhggcHbYqcAWiwE7RIfFfzPiGe7qnlbaqTl3jb6ROJxFdUI
-         4zJ7Vu4i4fl3T8eyWeKFcGx32ZUgs0aFKvHp4+gGqAo0ECjkeOU/pt83uJ750oFVZM9v
-         hEqn9K9bJV6hA5o8LG3EtB+n1jIx/M1ohNvKOYJ+sQkk3Q6XZFccTqSuWUL7Iy8O+5Jd
-         6uRLxRZuBqTdwQB8cliA09hszIV+4mb/86cLm13fQUU6k4X5PhdCemeYM4Ou2RaNS5P0
-         twWH6rVLuvzoMmf/xyfWS8HRF8NsggbAGtvKUKaFhpPnG55B8r7BKncbWo4OD6XvOMMO
-         2OOw==
-X-Forwarded-Encrypted: i=1; AKwUvBzv7Hh7GtQvOIsJ98HntRI2UTlmPpzZCZzQgnTAKcibGGeBxAMjbJUm9HhIzjrlnH2mhKjrPD2LaEtNFgo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlQxArYBKUZiXGablXPOJfXNprYE5EFuZMvQQjUe775UCidJ9p
-	6MgrPlwbZnd652Dow5EUMNa5IDbsLxgwtAM6Uh3Bl1HGaSMazXfEDPS9gsM7/++vhfk=
-X-Gm-Gg: AYBFou2OxsQ7ZFJZ34MZ/PSC+8S/KPSN/W+AqQ6SlR0/Cw+GOIEn4HCm1VgkyOEZ/vk
-	KWQwK9hX7dm9LywV7PsD+5JnKpgpF6/jCobRorANtRJ2CgoP4xoFnEz66qAbzppr7wd/PL1v3gG
-	98GTd92ayJ3rIAhD4RqyrgqYZsdHjsDKhluJxAcSlz5zdZxcsSnA/cHLXE/imqwpUYu/NrbeFpo
-	ps6HT+/WGdCJ60yOE0y5QsRhw/kr1lD/4gWOTzm/cGA0PE+AFH+9EmZ3dHL2pfpQoEZH18Cdcq5
-	5FYNRlj4y703UidP/MIz/SKbWXtMqjtFVG5PuXWyWUv8pheSdLe55CW+a4kKJSU+VAcNHm78qzZ
-	OEwO/el6jX6ezXACsxAMpfxeksBVlwc2A5xYLKDFmBRi2calFFlflNi7KQ4cC/WLrA9gEAPxlhL
-	jdzV9GYlIbrZEAdtZE88BnNphzbdLdc3OoukwRqxYpBYEuEsmDIaAZTul9JZrwbkTDljZGPENd/
-	G1jnMneBDFUgmen
-X-Received: by 2002:a05:600c:34d1:b0:4a0:1cfd:321 with SMTP id 5b1f17b1804b1-4a027579e86mr63230245e9.12.1790955918295;
-        Fri, 02 Oct 2026 08:45:18 -0700 (PDT)
+        bh=EZjs7e//iaMUq0DbBBAkyBGkWfGjYDHq+81y/lPHXV0=;
+        b=TWjcx0SIs7W5QKQb+o3eRhAeSzIV2EDwvsZk3+/YBUGG4z8t8UTLCt5dHW7kXbgGs3
+         lCHB16r4mw/C3lIF3KFBt2uhGVs3DyjMd0kOMzSS5gfZrR0z4Hko6c7LdrTLMZ/kCcih
+         tFBEEEtoZdPeLLU12MdNiTmdfZNhxbDGfCCBxAaMYf8iM6zYfIAY/oead4yWeiAlph86
+         3DJzphMO20KwroCCf16A9df1qoSzYWasVvLlEPaElUk63UTP8SnCHCc3dkvLfI4t47s6
+         l8QwBOmqvjNXJh1bqmUEIDfUpCF+gkrOXyCWSEp2CzY7JP8OrudaA1pEZYNtG0yW9BO+
+         x0xA==
+X-Forwarded-Encrypted: i=1; AKwUvBzGm5+3z6r6+x9JMRfI/7cJGjw7DpnIKBILBFSFsPU7o84UlcTouv5tQw6xDfjRVBR0i78k6rlp/RbcI3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDfSkUd9fB5Oj27kLIfdNKKw8362vT4phESsms8Me03B4U6KGe
+	06zzj6FRDr48vidaJfW8mm2gna47ZY5H+bcohOnnY0mYjyqRj0F0+1vh4I0q/IxZfh0=
+X-Gm-Gg: AYBFou1+4lBvCmbnBjkNnj286M6/PKDKdYHheOtokdtK0XCPAxt7Yhai4LPAoTxIvOc
+	xlf6b0SeWGjfTJB26Nj3+tFR5cYsmej3wf+UGH9bYZtP6t/SKOLviQAwlCdK9/tiHuUPU2puGLk
+	Ry/uu+Slavfq3cAI+NNcsp6ff2pxKHwdzLQMyA5WzF2pkY0r/qAuwYg0upcqRGQphKPy1KeFKpm
+	3bPvFWmQziAOD1/PFH9u6lk5DDa/F/1cwNU/ldd36HWoLJzSRmu8ETe9i08SAzcHieRPfWfivgv
+	Rkz4JRBNXl0Mdz23oigfCSnIwmTO51dIGra8+YCMi+l9qmK27d+SnJS9wNtIvuJPC+ztwa5Kuc/
+	bL33YCJr4KOdgJkqHbQviHM7qINDHtHKNVSFWHmAmKFHzKWi8IT1sy9+WEs38DHiS1r4Y5QtHHI
+	004LKxNqnYuBaFucJBmQ9BLHKR/+quqNQcDyrdaLPeXzNHktNNnvoCx32XijGooztYixJ8RVRL+
+	Yo3fOGzMIexAES9
+X-Received: by 2002:a05:600c:230b:b0:4a0:2533:c8b7 with SMTP id 5b1f17b1804b1-4a0276c6176mr42183355e9.35.1790955921951;
+        Fri, 02 Oct 2026 08:45:21 -0700 (PDT)
 Received: from vingu-cube.home ([2a01:e0a:11f4:3020:718b:4747:291c:e5d8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:45:17 -0700 (PDT)
+        Fri, 02 Oct 2026 08:45:20 -0700 (PDT)
 From: Vincent Guittot <vincent.guittot@linaro.org>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -83,9 +83,9 @@ Cc: qyousef@layalina.io,
 	pierre.gondois@arm.com,
 	sshegde@linux.ibm.com,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 10/18 v2] sched/fair: Add force push task mechanism for fair
-Date: Fri,  2 Oct 2026 17:44:07 +0200
-Message-ID: <20261002154415.2270586-11-vincent.guittot@linaro.org>
+Subject: [PATCH 13/18 v2] sched/eevdf: Push short slice task that are not picked
+Date: Fri,  2 Oct 2026 17:44:10 +0200
+Message-ID: <20261002154415.2270586-14-vincent.guittot@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002154415.2270586-1-vincent.guittot@linaro.org>
 References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
@@ -97,103 +97,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the task is alone on the CPU, it's never put back in the enqueued
-list; In this special case, we use the tick to run the check used to push
-runnable task on a btter CPU.
+Even when set as next buddy, a number of event can prevent short slice
+task to not be picked. Add the task in the pushable list in case it is not
+picked so it get a chance to be pushed on a better CPU.
+
+This can typically happen when several short slice tasks are pushed on the
+same CPU at wake up.
+
+If the task is picked, it will be removed from the pushable list before we
+queue the callback.
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- kernel/sched/fair.c | 71 +++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 69 insertions(+), 2 deletions(-)
+ kernel/sched/fair.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 483ed5807dfc..6ed3e5bb7fd6 100644
+index 186f10173eed..cccdc40b8a24 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -9955,6 +9955,71 @@ static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev, stru
+@@ -9981,6 +9981,12 @@ static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev, stru
  		__fair_add_pushable_task(rq, prev);
  }
  
-+static int active_load_balance_cpu_stop(void *data);
-+
-+/*
-+ * See if the alone task running on the CPU should migrate on a better than
-+ * the local one.
-+ */
-+static inline bool tick_pushable_task(struct task_struct *p, struct rq *rq, struct rq_flags *rf)
++static void fair_add_pushable_short(struct rq *rq, struct task_struct *p)
 +{
-+	int new_cpu, cpu = cpu_of(rq);
-+
-+	if (!sched_push_task_enabled())
-+		return false;
-+
-+	if (!rf)
-+		return false;
-+
-+	if (WARN_ON(!p))
-+		return false;
-+
-+	if (WARN_ON(!task_current(rq, p)))
-+		return false;
-+
-+	if (is_migration_disabled(p))
-+		return false;
-+
-+	/* If there are several task, wait for being put back */
-+	if (rq->nr_running > 1)
-+		return false;
-+
-+	if (!fair_check_pushable_task(rq, p, NULL))
-+		return false;
-+
-+	if (!raw_spin_trylock(&p->pi_lock))
-+		return false;
-+
-+	new_cpu = select_task_rq_fair(p, cpu, 0);
-+
-+	raw_spin_unlock(&p->pi_lock);
-+
-+	if (new_cpu == cpu)
-+		return false;
-+
-+	/*
-+	 * ->active_balance synchronizes accesses to
-+	 * ->active_balance_work.  Once set, it's cleared
-+	 * only after active load balance is finished.
-+	 */
-+	if (!rq->active_balance) {
-+		rq->active_balance = 1;
-+		rq->push_cpu = new_cpu;
-+	} else {
-+		return false;
-+	}
-+
-+	preempt_disable();
-+	rq_unlock(rq, rf);
-+	stop_one_cpu_nowait(cpu,
-+			    active_load_balance_cpu_stop, rq,
-+			    &rq->active_balance_work);
-+	preempt_enable();
-+	rq_lock(rq, rf);
-+
-+	return true;
++	if (sched_push_task_enabled() && __check_pushable_fair_task(rq, p))
++		__fair_add_pushable_task(rq, p);
 +}
 +
+ static int active_load_balance_cpu_stop(void *data);
+ 
  /*
-  * select_task_rq_fair: Select a target runqueue for the task.
-  * There are 2 ways to select the target runqueue:
-@@ -15373,8 +15438,10 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, struct rq_fl
+@@ -10419,8 +10425,10 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
+ preempt:
+ 	cancel_protect_slice(se);
  
- 	task_tick_cache(rq, curr);
- 
--	update_misfit_status(curr, rq);
--	check_update_overutilized_status(task_rq(curr));
-+	if (!tick_pushable_task(curr, rq, rf)) {
-+		update_misfit_status(curr, rq);
-+		check_update_overutilized_status(task_rq(curr));
+-	if (preempt_action == PREEMPT_WAKEUP_SHORT)
++	if (preempt_action == PREEMPT_WAKEUP_SHORT) {
+ 		set_short_buddy(cfs_rq, pse);
++		fair_add_pushable_short(rq, p);
 +	}
  
- 	task_tick_core(rq, curr);
+ 	resched_curr_lazy(rq);
  }
 -- 
 2.53.0
