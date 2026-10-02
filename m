@@ -1,157 +1,147 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D573D954F
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931297; cv=pass; b=cGQeRoPMls7/EjyZSKSeB+yQdrtiEu28MXYomGwp5pjJE+xlWEx+6xSXcdPOhtnToBSfJ9v8u2XALMeVpt27+KvaPyobm7PZh2eqnFBypiPR94dhROcnA+k0aTj/vxr6bhvuj5bWb6heZ3hTE14hKNzWwTcgzzQEAedkYWlJlcc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931297; c=relaxed/simple;
-	bh=P/U1cMPJqY9dNXetriJYw/wupYm/9XxB79CYTh+hdu0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Az9PYk4dVKTdxK728hugMBCC3Mw09DThGWWQIsqubPQUHVG0vVxRYOoG22w0S7+TDN96PL5IQMRUCzSOnfzenaskLm+XYB6VG/knYY/At8aKGE3u/E3dv4e86LyH5xNai5D1yiIOFPA6D4v+w+CEdPw0IYsBewXRYuDNKcgME6o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Qhg9EPk6; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBE3418A2D;
+	Fri,  2 Oct 2026 08:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790931380; cv=none; b=nCXqztj5XSOgE5UDGDfBWqA5rsdP9aLSnW53HiIn7lSEQpNGipJmX9KA0d4Z1XKw0nS6r2vsLllw9+OLjN7n6zj6G9NJ5MzwGQRSysq881can67iozRgL9OIGD89sNHDKX8lr5G1t8CQYRtQyruJ6Dpds2tSu+rlzEMIdiVJvRY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790931380; c=relaxed/simple;
+	bh=5fH3iwFmjKTR4dD+k5aX/cl1wka55yWtQa+NwctyYkU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=as6it+ZfGcv5nzL1C1LekQIEinYAQIOpWnYjbTP1AWx9CN41clAJG23pJ9+0V4kEKKE77wW4rPm3jJQF2hHABrGG3kF9Wld0zNjLc4Ex2RCYm6pX0RC5iHx5wTXfMpi9J2xGuxYf02pIPYrKQ8l4UULZW4g/4bY3NkQzEZGB5ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Fdog09s/; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Qhg9EPk6"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-3396cec93b6so8403578eec.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:54:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790931295; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pyoqCu4FelAp45aQrCcrZ5bq9iDUkT3kYds/u95QZY5PtSItkHncs0scXELkhaODee
-         7dt4rz+rp2ycucFq3/ouxPM4FYMYRe2RFjouyYvrUC8rrLpjn8pRh/ERv3gepvXNvuW7
-         dwUiQ0kPt6AP6q8cScRauXT9CQXKyI6L+rGnk9LMdhm+zjPXRumRKdxpdb7AoufC0AWP
-         b8U4pIqU1PXDOp4MciQcfIoY8kZrNqaXnAw2AFRpEQF3C3QBZuuFDCFsG9UunT2pnIeA
-         WE7qQr3ReM6rHtZZO3wU8miEqSXtRoYI0k4vmHF9TrDJESNhdwoYGM4WIqZJFTTsO7wh
-         6RyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ctDKAuUVYhXtpOzra8v5dPrewawKkNNZxcBIEtkkjAk=;
-        fh=Yy8/EBdumvbmEJNDALB7MnIOGvqtG0fVlzoqANC6LZ8=;
-        b=X0upZXMeyX6ZWLJGGwdT8v4b/Nyfwmis/P7/GIjyNc1Z95pFNUMEGSRLSrKNZKsFfg
-         Lp4xK5YTiAXVG0QMLcliX0QGQN0UqWozIe+9sFGYe44M0ykPx6zV5cvD6EJTOUlvIzbf
-         rEhIUA0MuCMl8juh0lj+QaTs9R3xtaCTFv7hq5D6szTYGB3CgTozXwzf/rmWAPRHkkYw
-         mM4bW2aYxwQekIOTlBnsP/fAUfrogt+K6nZlQ4tljxCYM6yQLZtYWAPreJf7+hsDjzoY
-         1b5POW42DR3x4Sg/5kHMW2Mc69muf42/AZvyr+aK09lA9GwBFdwK0XeEaT1e54OiSVwf
-         MRew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790931295; x=1791536095; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ctDKAuUVYhXtpOzra8v5dPrewawKkNNZxcBIEtkkjAk=;
-        b=Qhg9EPk6SirAiuew0f+EbJbEataGCy5cxmE79DiWs+oceGDykWfCWVXc2AcSarkZaB
-         +Fm8Y1fSG0mEdP/YGO7UT7dBXkqjAKmMqJOb0iuQHX4h4et1LjUkfn5DFyt/FKWj1yXL
-         U5B28A3QRGN7PwkblqtZU2EzzHtTXcrJr2vmjFgE/Td+ww7hixtbIFxj6jLdqV8nYQ+x
-         e/1/ClpOA1agbsjnSrWKN+qkIxgNNa0bSHf9MMPWYqA/YhhfHn+WVsPdPRLz3L8/RoHn
-         fLszjcaEpFaaHaIVRYkI54VFu67jWJtYwAo6c9Su1lvck478F2Eyokc30Q0CCSxAdD07
-         jJWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790931295; x=1791536095;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ctDKAuUVYhXtpOzra8v5dPrewawKkNNZxcBIEtkkjAk=;
-        b=s3HeN1wvYV19wLtMDmjfkge8T2gDBnRUdnJmJ3DswvVGeVpacmUJmD0G46FAZpBGu/
-         2AvLgQp0CCVQxw25hnvYSWE3ZmVgkrkQPTNUq0HwibBoE73g3qqcDH2289k2cGl2RXce
-         +f5tgTgsY9mdJ55nsPiSr+fm6sZJCxrSwLsROz3UrALifO4f/SJeK0S8+AHp4EuwHzXw
-         6NUX57LB0AOySKsD7VaC+69h6O1R9bR7GKp+i3i/7uBX72fXrDdWHbrt33kzerzUFLoW
-         veg41O3u9UQUKhqI9QzZehsDvs9d3Vo7NaX7QAcoVUUlalJnpSHym0bq630/OU0c0GUa
-         7y6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBydVm2f4OVuNUHKvoXUOWSfmPHW1/7VMhiUBLuB2RPkkFdGrzTtFcv+bwPM1GFouInRHye0QSU/K/Aw6xc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRsW9I91Z8uoKT/vhJ/LKlS2XSPSvomskyk6ccaMPJadvcaTX1
-	4m1UGrYcl6NyY3hOWnIjYq9P0xP79UslwuCTIf9qpaE/HUZOOAVl9zsFQK4YrogAREN8/fikP3t
-	rJoxraWbqUYjRY8NyY4lMWqTr39WdHnbchjfLgNer
-X-Gm-Gg: AYBFou1n5ac7rNDtKQVXNIwbCNN78hcyXpbvf2HWc1oDBlYdBiMqmiIjFZ4e/3PB4pI
-	SelBPm8iEnW1vkhJQLZS39PY/GBKYnzXCqVEQu/qM2UEf8zq2G3rzT0nU6maGO0nrrSMszYpbLo
-	2WUR3XlNa/R+qeLTKfSOhtrZ9tneiYqivSjjsLe0NgKK7Y+Biowsxja7OUOvSxQkfg0+goPpjn/
-	AcxB3KmChgGNcBEY8Hi3LwgPOwXaoVh1Z78pEhnd37/MFpwuSjjwtZm47TcS2hCgVLVr0aWD2ba
-	LZMZ1yP/78rEbxobqHEzd9kZcbJ9qJ+0bT9PsImz3UJVPBPou9196I0KJWOAIcRisXipUq8KvwQ
-	2XZ2mHQ/7RPRfTURmm+I=
-X-Received: by 2002:a05:701b:454b:10b0:13f:b41f:bda with SMTP id
- a92af1059eb24-14f5bbfad15mr1971743c88.16.1790931294099; Fri, 02 Oct 2026
- 01:54:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Fdog09s/"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925m4B91818453;
+	Fri, 2 Oct 2026 04:56:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=vGEAg+FMsTMOiHSqsHGFpGXF1Fy
+	W801R5QJ876ogRPc=; b=Fdog09s/Zb7iwrdw2QXM6p2YsScR8paUpvmA55Ztx0B
+	ObuKsfTeWvfCNYhhKu1SsTZYFbYHqs8Ltwhj9smAPmyfcbIU16NmMydGVePcofcX
+	zCnb4qdsm1b+BoPu0u4aQ4t7CPTXWNka8QTA0a2e91qyLMQLJv7ySOAck8/TonVr
+	SkUwoqhMD2omxYv9Z48wurNYzP4dudHAh1TbCyLwOjNHVoZZmIR69M2g+WgP5RUl
+	xBtfzOdA2efas3UxWkEgLunk8u8p6WAr2ER1gljUx1nLF00CVcXQeC1y3tBhwama
+	17uzh76R4BUFN99G6EVSW41PT/MqXfOOe+EiT85K9gg==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4h1hy989xv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 04:56:02 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6928u1S9033085
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 2 Oct 2026 04:56:01 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 2 Oct
+ 2026 04:56:01 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 2 Oct 2026 04:56:00 -0400
+Received: from CJONES7-T01.ad.analog.com ([10.66.6.191])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6928tmvN002158;
+	Fri, 2 Oct 2026 04:55:51 -0400
+From: Carlos Jones <carlosjr.jones@analog.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Laxman Dewangan <ldewangan@nvidia.com>,
+        Thierry Reding
+	<thierry.reding@kernel.org>,
+        Jonathan Hunter <jonathanh@nvidia.com>,
+        Sowjanya
+ Komatineni <skomatineni@nvidia.com>,
+        <linux-spi@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        Carlos Jones
+ Jr <carlosjr.jones@analog.com>
+Subject: [PATCH] spi: tegra114: assert CS GPIO for every transfer in a message
+Date: Fri, 2 Oct 2026 16:55:40 +0800
+Message-ID: <20261002085540.1625-1-carlosjr.jones@analog.com>
+X-Mailer: git-send-email 2.51.0.windows.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919080220.37633-1-kmehltretter@gmail.com>
-In-Reply-To: <20260919080220.37633-1-kmehltretter@gmail.com>
-From: Alexander Potapenko <glider@google.com>
-Date: Fri, 2 Oct 2026 10:54:17 +0200
-X-Gm-Features: AclHuK_xPy7pmlelPsg2VXs0Vq_-NGFA_31GHsaXMwm0TDPjp6488qpSYf0caU4
-Message-ID: <CAG_fn=UsWR5eMLRv5L9SD7+7nWoyTADV2LjsO_aik_J0yHFYEA@mail.gmail.com>
-Subject: Re: [PATCH v3] kcov: report spurious PCs in the interrupt selftest
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	Dmitry Vyukov <dvyukov@google.com>, Marco Elver <elver@google.com>, 
-	Bradley Morgan <include@grrlz.net>, Thomas Gleixner <tglx@kernel.org>, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNSBTYWx0ZWRfX5JmZ2O4dRVHA
+ cgaJYrJOqb3ciJRDhauD0onbyh2jHGT8HIuJwcN0J8lVbasevvzeMwZyDFBoIv8nuZQEjvFFWz+
+ 0P62jjmjMMxFey2RtM3hIcweKopq81/4Cx5cJmxaIrLrM/mnYz6O
+X-Proofpoint-GUID: JWO_s6sWlJz9TgsYBvaJYOgiZAilNxZ2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNSBTYWx0ZWRfX3yUhWxAVe1fP
+ prihB7rQ94r4EdUsLXh7o5RPZ8j4lZ0uAcrkzawWPVBs5pb2e5yhrhhwoSPSRBYuJufwFnl0JRI
+ ZSyzMuTGaNZdD3/fU/WbW8SQg5wg9iQgG9rgwDDi8lC+51jbs82bXLmgglgetfzYsYMFhn+eKmc
+ 4IDc4bDCwV4dGIAV94ZZcD6iJ2/Hie4WIVqqHZlGkGi2KOA1Gz+ME4Vz8nW3Z0QBWX4jTy6IiP/
+ w5DdsVBN6B+tmE++Jkza2Jp0AG1fC7JeotvZbTH0jjvMJnZTaMLFSF/y0vbiUkrP2+fdZ7wjRve
+ PEXeNZ/45XzfZFKU6yqccWwFtoL2qLLqWQtVSgR3k/wUbeLF/DD0L/Y70ZzroZFB4/Zc/MtaFug
+ gvdYBOqPmspRzzTtC/WrP3p9V3D63I5ns3Ni7qj7z/uAySU2cu3ilFOm7jwMUje0UJVH4DE//3x
+ bjuuW1YKZfBXVhxvMyQ==
+X-Proofpoint-ORIG-GUID: JWO_s6sWlJz9TgsYBvaJYOgiZAilNxZ2
+X-Authority-Analysis: v=2.4 cv=Vftir1p9 c=1 sm=1 tr=0 ts=6abf71a2 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=H6mhVM5xjDqGWgEDBD4A:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0
+ priorityscore=1501 clxscore=1011 bulkscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020035
 
-On Sat, Sep 19, 2026 at 10:02=E2=80=AFAM Karl Mehltretter
-<kmehltretter@gmail.com> wrote:
+From: Carlos Jones Jr <carlosjr.jones@analog.com>
 
-> Add decanonicalize_ip() as the inverse of canonicalize_ip(), which
-> subtracts kaslr_offset() from recorded PCs. Restore that offset before
-> printing the PCs with %pB, since KCOV records return addresses.
+The driver provides its own transfer_one_message() and therefore drives
+the chip-select GPIO itself rather than through the SPI core. The GPIO is
+asserted only in the is_first_of_msg path of
+tegra_spi_setup_transfer_one(), but tegra_spi_transfer_end() deasserts it
+whenever a transfer has cs_change set. For a multi-transfer message whose
+earlier transfers request cs_change -- for example a register read that
+sends the address in one transfer and clocks the data back in the next --
+the CS GPIO is released after the first transfer and never re-asserted,
+so the remaining transfers are clocked with chip-select inactive and the
+peripheral never drives the bus.
 
-Can you also briefly mention the switch to kcov_start()/kcov_stop()?
+This was observed with an ADIS16470 IMU (adis16475 driver), whose
+register read is a two-transfer, cs_change-framed exchange: a logic
+analyzer showed the data frame clocked with CS high, and the driver read
+0 while the device drove 0x4056 on the wire.
 
->
-> Fixes: 6cd0dd934b03 ("kcov: Add interrupt handling self test")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Tested-by: Alexander Potapenko <glider@google.com>
-Reviewed-by: Alexander Potapenko <glider@google.com>
+Re-assert the CS GPIO for every transfer so that multi-transfer messages
+keep chip-select active across the whole message. gpiod_set_value() is
+idempotent and polarity-aware, so this is a no-op for the first transfer
+and for messages that keep CS asserted throughout.
 
-We're almost there, see some nits below.
+Fixes: 63c1440596ff ("spi: tegra114: add support for gpio based CS")
+Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
+---
+ drivers/spi/spi-tegra114.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
->
-> +#ifdef CONFIG_KCOV_SELFTEST
-> +static unsigned long decanonicalize_ip(unsigned long ip)
+diff --git a/drivers/spi/spi-tegra114.c b/drivers/spi/spi-tegra114.c
+index 1234567..89abcde 100644
+--- a/drivers/spi/spi-tegra114.c
++++ b/drivers/spi/spi-tegra114.c
+@@ -859,6 +859,13 @@ static u32 tegra_spi_setup_transfer_one(struct spi_device *spi,
+ 		command1 |= SPI_BIT_LENGTH(bits_per_word - 1);
+ 	}
 
-Please mark as __init, this function is only called by selftest().
++	/*
++	 * Re-assert the CS GPIO for every transfer: transfer_end() drops it
++	 * on cs_change, and the assert above only covers is_first_of_msg.
++	 */
++	if (spi_get_csgpiod(spi, 0))
++		gpiod_set_value(spi_get_csgpiod(spi, 0), 1);
++
+ 	return command1;
+ }
 
-
-> @@ -1111,15 +1123,26 @@ static void __init selftest(void)
->          * leaks out of that section and leads to spurious coverage.
->          * It's hard to call the actual interrupt handler directly,
->          * so we just loop here for a bit waiting for a timer interrupt.
-> -        * We set kcov_mode to enable tracing, but don't setup the area,
-> -        * so any attempt to trace will crash. Note: we must not call any
-> +        * Set up a small coverage area so that leaks record their PCs
-> +        * instead of crashing on a NULL dereference. The first word hold=
-s
-
-Please focus on the current behavior rather than patch history. We
-don't need to mention NULL dereference here.
-
-> +        * the count, leaving room for 15 PCs. Note: we must not call any
->          * potentially traced functions in this region.
->          */
-> +       kcov_start(current, NULL, ARRAY_SIZE(selftest_area),
-> +                  selftest_area, KCOV_MODE_TRACE_PC, 0);
->         start =3D jiffies;
-> -       WRITE_ONCE(current->kcov_mode, KCOV_MODE_TRACE_PC);
->         while ((jiffies - start) * MSEC_PER_SEC / HZ < 300)
-> -               ;
-> -       WRITE_ONCE(current->kcov_mode, 0);
-> +               cpu_relax();
-> +       kcov_stop(current);
-> +
-> +       if (selftest_area[0]) {
-> +               pr_err("spurious coverage detected during interrupt selft=
-est:\n");
-> +               for (i =3D 1; i <=3D selftest_area[0]; i++) {
-
-Let's `READ_ONCE(selftest_area[0])` above instead.
+--
+2.43.0
