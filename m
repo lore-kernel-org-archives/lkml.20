@@ -1,215 +1,212 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B0F46D097
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D02446AA95
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931876; cv=none; b=MubWReVyQRYt6t3c+Lp6Dbz/QYGt5H5nBkDxmHaFL05f6JuUqk2wCThg8KjmwI3KAkMTsAkQEITbVnXnxrR5V+wkFA4L9hp+cMvRLPOypPjUM9P9VMaNJDdiAdCZIjC9uZo17lewCdUrJdhfcNLSTglcRGgCTsH625FMMmiWkvU=
+	t=1790932006; cv=none; b=jIskadBC8isuB804jKPE4A1GznYBazwYjje3LtEBN/f6Qs6BmFa8zV2qlVItbvZhINPAfCSdtDL4n0tzmgHdgpY5IerKEwBeSAp0Pmf+OAwWSkUK5LTmnPjT4cGV/ltF7kaW6eAW2TlUGxAFEEgOQU8qmp4atTskgK7jgWspoq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931876; c=relaxed/simple;
-	bh=tY9Wy2XAqCoXDTllUI2mZDj2RZgUx8/BhiDsHcHrl5o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=oTfzbxGJDSlMD9nsfqhKlhyyons9L/zdNE0aMC+mKVVg9c1HuyqNGNbu+eoSq9CSqZFZkh8KCECVpn2dEGMTklXqEb1hpshKzBSxE3pijDjm8otiHA+YlITjNELXw1fneGGBDdb+t1EdHGjLy0r+YURfI88cScIJABT3LHFDdLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KAnj1HCx; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OzPagW21; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790932006; c=relaxed/simple;
+	bh=kDMZJFIYNLpENyTsWhs6Qg3bWlNKfFJpixhYOyF9GVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ee5YLiQqcNXix0SK24SO7e6o+uQaFrPA8JJ0yFwNZRkKpI2fdWgmYZjKESarEsXDDQGUaVyJ1g7+ouIIfV14f+gy0DSao17oXslSlbm7M23NwLUT+odPkWgRp4VJCvRzCcnp+uyOdNNlFAOp9RAViPpOBPU1LaOfA68zPwi9Rw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rn+ZlQ8Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X18a3gem; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KAnj1HCx";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OzPagW21"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790931873;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OAmOlflbJV02//t0PYsWYtP2AS3mBRNwN6t9PgpiJVo=;
-	b=KAnj1HCxnkEkRYdl0O4l+7z31/Bm+Z+yt5BZxSBFKB73Ho8ykSUG8cGn4lu/MUvuLNpnKb
-	SMTtatkfcE3w8qpwyh9fr/3Ad3VMkwP9Xjlk1f7HG+qnhIhiN3HpUVfaxGKaE8mBkZ2zhO
-	UWs4fxvAWzAnsvhRVWDDtBbUDDHHZCY=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-14-epG8ttlzPDSZ19ncdKty5A-1; Fri, 02 Oct 2026 05:04:32 -0400
-X-MC-Unique: epG8ttlzPDSZ19ncdKty5A-1
-X-Mimecast-MFC-AGG-ID: epG8ttlzPDSZ19ncdKty5A_1790931871
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a022fee32fso11944735e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:04:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rn+ZlQ8Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X18a3gem"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925jsQs036969
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 09:06:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=m3e22T5Ei+HeBmJThbj0uNqY
+	cEf7ihFqents8vMEUus=; b=Rn+ZlQ8QldP1jrxGM5PRYz24yepuy89350RsrrWc
+	Q+aRe0f+9wBE9wOepUkA/3d5FOWJpLF7XFVuRlh5bv3ob2BtYM0DjaqNjRYH3lVt
+	puvCftbFgiokSzf8xvTx+7nCsxR2VpnwE8d7NAbCyrLRlAAITRBtSIe2EVEaJFuD
+	c95xQ38c+5Hpnt2a0koWxSUeJLPd/ipguvFm+7i7KswIQD9q6AC9gOsQbPyrnf6Z
+	zZJzgMDC6H3siJKLnHh+keIliYFyhGUsIEI+DZ1ofEAceIxtPfeWztOrI6xECqNM
+	JKkhdsbnxx6ZFN05jkR3zw5uuSCdxVMmN0bypEw+aeOurw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1tbgbbb4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:06:43 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ce7a85f04so109641085a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:06:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790931871; x=1791536671; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OAmOlflbJV02//t0PYsWYtP2AS3mBRNwN6t9PgpiJVo=;
-        b=OzPagW21QK8pYljyy6Nt6rAsVvP9mzEJ5rdAvFpiwwC8UpltOn5VktdD9LwwyUhqwf
-         xofgqeV0/7Fj7LT1096MQyWsUGvpmmXvdXwVAsau/0MnzHnjfmgBwOD+bXb9Cudbh/TO
-         do5vwNm5HGST8Qg8aVxUjWbMPLTCQ4qO6d5NoL/+ioMDWW2gKotpGLHMvuT5egmEWDPH
-         nl6zitsO+VgwvJya330BmxXMWrImq9VxZ7NMUhGoAyhs3V2Cqu7UBk7NIfEmlDBjZiK5
-         PjDUyDyrI5onHnh/tHLR/2sV6ZVXdi5Z4oyC3f8+s5Vg3VKCMYxLl/4clOX+45/t9EPm
-         +O0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790931871; x=1791536671;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1790932003; x=1791536803; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OAmOlflbJV02//t0PYsWYtP2AS3mBRNwN6t9PgpiJVo=;
-        b=0b1lpwp1vcfgrK7yaTiJvwcRB+WQx80Nu6+XK/AU8k/pXpCJd8glpj/INL+8nblgeY
-         vWZkkVb3aH8AWM1O1ie5uPcMC/erybl+sh/vsqd4XetGuoc+uS9j4ee0QaOT4A46a02c
-         FqraBtV0GyzgokPQXN9JKB2dTp4HrRg44D/Gl2DWrdbDEDmyWns5GXkw6GOavqHq0OQr
-         fc76PtqZ9Gb6MByxDQpivol0zEa8dRd/qZsa6M2OlYpBpF4ZNThkGriq+fUxbULZg2/v
-         cubj8SCTBlqHalAcGYpp9DCXiboAwy5wqrAPKhihWuA0oQmH6f2rapmL0jOZiQbqXABT
-         PEKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQcCo/LQkc81YgWyv0zpTvtpy6oyaay3Ih0uJLeFNJmx7vIAokmlMNjzGA0K6woUXEWUiGwgfMW6ybDUg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnMmth4E88nZIRIvHpLLfX141DrrdoX0qoTBH2g6OUnNE/OY9f
-	M+0dJ3uAqSHuHP1vyKxI3WQQi/FIjtSI4C4PVP4Ojj7yGab7lBDIHDFJ7SwVY8Dg8uClkf2EOxd
-	JKjkVIcCgwJAMtmhyz0XV20xR1Vn3eWvU4nWknrWLy3R9ke/AcWcFnWDIqnHSert+4A==
-X-Gm-Gg: AYBFou0ReRxuQWSC0frNklpOMFRgGsiUP7o7nOyb/6gQat85afuoTENHYQHdqDjKcDv
-	RQg5S3d2dLxcNxO8DhZWZPJsin2/g5zNZ7A2k/5/UjK3WadmZ3kY8ISI7X2jhO3aWmtrKdfJNG6
-	yzb7iYRBUEAAenwcqNuIyE2WdhgSEhczYIounPnUuZXWto2ZlilNdvY3uEeGlFw79GkMBYGHuZW
-	AuF05Y2kB2eRZvdebj0l+9zxr5ZxE26uESpSHlalAoQEAgWpR4vBT1XLPqIN30L6VHzTUp6qGYv
-	rMVNj2ozvx0f/b4up9iFenDxj+fv1eSPvYm0yUcjcDsGA6RhvJ1++mOkBRnGLHOv11MNr/xb+AN
-	OV7s1dmpzPF5wFx7WlV7LmGcgciYRCL7B+RKJjFAjZtiE9a3kDbKP9Zek1b64iHYGMA==
-X-Received: by 2002:a05:600c:4e42:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-4a027586525mr39355375e9.15.1790931871188;
-        Fri, 02 Oct 2026 02:04:31 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e42:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-4a027586525mr39354405e9.15.1790931870651;
-        Fri, 02 Oct 2026 02:04:30 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4c4sm67197175e9.2.2026.10.02.02.04.28
+        bh=m3e22T5Ei+HeBmJThbj0uNqYcEf7ihFqents8vMEUus=;
+        b=X18a3gemGfmDU3M9j+Icv/ggKoQ5ynMXw1a4PYZtMvwwmUYFow5n56unXbUdk2wg+f
+         WzTYI7GK9w5Eihn3owFPgipa8Y+B2OzIpcrjNdn6uoKmLNwLBWhA2vqRYMPa7rsF1Lfj
+         ph79E6KxjA6ku6+3/WueplmSi+QavuGuf3xwWQjtklq0ke7kPvJnKsl/42BB2ukArOrh
+         pIhXSanI89Fb2vZkgnMwguWJTc1nsiF11VzAoj+e7qppEN0t/sK5iiA5AT4Zsiy9mIBS
+         l6v6R7rQRu+Wse3GSOOKPMPfYHxgqdwxv3OmiknFA0DtC8DaGoHWK11OeMnMnEAMg2dp
+         RUZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790932003; x=1791536803;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m3e22T5Ei+HeBmJThbj0uNqYcEf7ihFqents8vMEUus=;
+        b=uXYzHdGdjICxDymm6SasyH3Y10GWRu64TAIGYo7+jm0ChHFoZdtd17f9Yh3VSMbMvx
+         cONYADcwb48FdxisNT7YtH0SXGm51APQKeMJL4Ey9zukyDmjYbLGB0jk6VDGmO9sPtmB
+         Jm5EZ/etU7U7xp4pjp2eWeEWxQU38qiJSoc44EIEuBckAcFONrLVC5uzEhchTyEuqPHX
+         PTjWUdZx4kSY87GH+8VmOT9MY+m+tWw1JVwwXeUaiPwS3ps5WzSHxZzhisd2EaFvsWoz
+         oCT4DdwtkW0bTlUI2fESNtRkqWj6hCWjJUyUtaYz7CFtGx+0Nc822ps3FK7gp7S+VPx6
+         q2og==
+X-Forwarded-Encrypted: i=1; AKwUvBwrgTlUgGYwbAqtx64YcFFzrFPfwNXWjdmCHKRdp6LwrBJUjR4CuuerJ2l8NCr0h6t+zRIbD7MJQVoC/GI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5QDkUVJhiBXOWF1UVanvN5n5wDS/7RSpT2sWMvRRpvmlNhkka
+	ZPRLvj9BLennjyH3sq+/CqK0s+Ih3Y+pTS044/Hw6qU7wZi2BLfa0gM2lYqLHPT6HgNsAZC8Kqv
+	YksrfCESMSdGqHEcVrcQyp9sHh4sUIeW/lkjkcB/c1MbeuYg6uPI2pTdABRL6yEJRTpU=
+X-Gm-Gg: AYBFou2eoDbp8xq4G9Vxbi7U8WczDMpho2glkyDM27/PZbi61tl2ft6fqAEjFiGF4qM
+	iTBadIlkzPjO2sWF33lLjv64iXMIze1SeFIZEo+1Ba5M8qHgyb/rkaBm45yFgsRQCNNhkkjkSib
+	FbDyTqHxGwt83XSSoqpTZpxUy1Z1tCPFV0PCAuPisAxYPxAKhiJM82512waG7C78b1iojYWmOYl
+	xgsLY6fHERRIr3GJwhLGiuq9W2sbliZ2JCl1C43im2g6LrjOXHDYCEzXQsoKkrkmXhl9LC1FVX0
+	XTcUmWdcTsAhKqBwgRFnAkAYsCgNL5M+LFI0yhs5xG5Ez6tbBQg6QY6xVxbWSt3mF6T0snDUf7s
+	ZbhY35+bQMtmTG4UXVCjW
+X-Received: by 2002:a05:620a:8804:b0:93c:612e:9b51 with SMTP id af79cd13be357-93cf18a7807mr337159485a.55.1790932002675;
+        Fri, 02 Oct 2026 02:06:42 -0700 (PDT)
+X-Received: by 2002:a05:620a:8804:b0:93c:612e:9b51 with SMTP id af79cd13be357-93cf18a7807mr337153385a.55.1790932002076;
+        Fri, 02 Oct 2026 02:06:42 -0700 (PDT)
+Received: from mai.linaro.org ([2a05:6e02:1041:c10:f14c:b716:c104:4712])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03950375dsm22387125e9.1.2026.10.02.02.06.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:04:29 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Maxime Ripard
- <mripard@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
- Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-In-Reply-To: <a92aa0bb-d50f-4b67-a645-942090d4fe79@linaro.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
- <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <828c9108-2db1-45a6-9301-19159a094301@linaro.org> <ar4CRTMQGs5_nGKY@houat>
- <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
- <xlv1cxtsft8e.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <a92aa0bb-d50f-4b67-a645-942090d4fe79@linaro.org>
-Date: Fri, 02 Oct 2026 11:04:28 +0200
-Message-ID: <xlv1a4owfp7n.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+        Fri, 02 Oct 2026 02:06:41 -0700 (PDT)
+Date: Fri, 2 Oct 2026 11:06:34 +0200
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Guenter Roeck <groeck@chromium.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>,
+        Francesco Valla <francesco@valla.it>
+Subject: Re: [PATCH v15 5/6] power: reset: Introduce PSCR Recording Framework
+ for Non-Volatile Storage
+Message-ID: <ar90GoaxTV8pjonY@mai.linaro.org>
+References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
+ <20260924-pscrr-framework-v15-5-7af87107e0d3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-pscrr-framework-v15-5-7af87107e0d3@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfX144m3yy0dqTA
+ VcXn3tv+3iF3Cq5EWFLJ3LYyGPzxf3A837gj9aPYe22oyS6DqKuKdQoSrrZmK9ybAA8jgnA3zA7
+ cZF2zCkmyDNHm1DDoSp2/dKZ5Iz7zZs=
+X-Authority-Analysis: v=2.4 cv=QY7zLcbv c=1 sm=1 tr=0 ts=6abf7423 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=wJk3McD_gWb6CrzzaM8A:9
+ a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfX0OR4ThZicgdE
+ yZcIsOMnUGfsd83/oCJmKXmUINp9e55W6FJLQ3WlwfbAEvH9/ReOEtRtPrqsReerPd0Fga74sbX
+ UP33U52rlZIyeAn1WWbyMEl2kFGWwuyJezcxdv/a5ncjPPPj5FWsXICQy7w48ZRBeP9Mn14CPI1
+ pAXh5EV2b8tTVKjxWKngN76wUrr08V5PRQluGlKwuejX8MVyA9yq0x5JnQrS44nDrRMOc7bgLHX
+ xyaqU1klK6UfBEN2sabY4yBRaJLEx1BdMy3skRa5o6CdshL9IFj47S0VrkB1i/h2FGIlj6qVoqo
+ 3argrGvGaxmG+lXZntiiexhtzOoKvnKbSvD5F35Xc60B8CztaprPMOYEliF4w+3Oik8MU9zmBWe
+ 1QFXRiqWVTEYXgPYG1mvbv5qL+Huf+lWDq9RlITZGDzKG8ZdQ97dOBswLqrVA20UZtdvMyPtc36
+ yXEQ7vlanzkYVPYq2yg==
+X-Proofpoint-ORIG-GUID: v9S9x8pEqCFJKzW-OpnGIQCFGDyAwknW
+X-Proofpoint-GUID: v9S9x8pEqCFJKzW-OpnGIQCFGDyAwknW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020036
 
+On Thu, Sep 24, 2026 at 12:38:46PM +0530, Faruque Ansari wrote:
+> Introduce the Power State Change Reasons Recording (PSCRR) framework: a
+> generic mechanism to record why the last power state change (shutdown or
+> reboot) happened - under-voltage, thermal, watchdog, software-triggered,
+> etc. - so a postmortem reason survives a reboot or an abrupt power loss.
+> 
+> PSCRR is built around providers. A provider is either a hardware reason
+> source (a PMIC, SoC reset controller or watchdog exposing a reset cause)
+> or a recorder that persists the reason across a power cycle (an NVMEM or
+> RTC scratch cell). Each provider gets a directory under
+> /sys/kernel/pscrr/providerN/ exposing its name, backing device, the set
+> of observed reasons (as tokens), its capabilities, the reasons it
+> supports and - for recorders - a record policy. The reason set is
+> deliberately not collapsed to a single winning cause, since resets are
+> often multi-causal.
+> 
+> Reasons are the numeric enum psc_reason values from reboot.h, shared with
+> the POWER_ON_REASON_* vocabulary, so they store compactly in small
+> battery-backed cells. The current reason (get/set_psc_reason(), set by
+> the thermal/regulator/hw_protection paths) is written to every recorder
+> from the reboot notifier.
 
-Hello Neil,
+[ ... ]
 
-Neil Armstrong <neil.armstrong@linaro.org> writes:
+> +menuconfig PSCRR
+> +	bool "Power State Change Reasons Recording (PSCRR) Framework"
+> +	depends on POWER_RESET
+> +	help
+> +	  Enables the Power State Change Reasons Recording (PSCRR) framework.
+> +
+> +	  PSCRR records why the system last shut down or rebooted into
+> +	  non-volatile storage, so the reason survives the reset and can be
+> +	  read by the bootloader or early user space on the next boot. Reasons
+> +	  come from software (thermal or regulator hardware-protection events,
+> +	  a watchdog pretimeout, a kernel panic, a controlled reboot) or from
+> +	  hardware reset-cause registers (PMIC, SoC reset controller, watchdog).
 
-> On 10/2/26 09:37, Javier Martinez Canillas wrote:
->> Neil Armstrong <neil.armstrong@linaro.org> writes:
->> 
->> Hello Neil,
->> 
->>> On 10/1/26 08:50, Maxime Ripard wrote:
->> 
->> [...]
->> 
->>>>>
->>>>> I don't want to add a supplementary maintenance burden for the sake of using a cool
->>>>> technology which has serious drawbacks and dependencies on user-space even if looks
->>>>> really cool.
->>>>
->>>> Spoiler alert: v2 won't. I've got the in-kernel loader to work and thus
->>>> you can have a built-in panel driver that works without user-space
->>>> intervention. So this is not a topic of discussion anymore.
->>>
->>> It will still have users-space dependency, meaning the BPF files will need to
->>> exist in the fs when drivers probes.
->>>
->> 
->> It doesn't have to AFAIU. The BPF programs could be built into the kernel
->> image, just like firmware binaries could be built-in as well.
->
-> Right so my main question still is: what does it solve exactly ?
->
-> All the descriptions I saw so far is that it simply moves
-> the panel C code to a BPF code with no other additions.
->
-> I still don't have a clear view of what is precisely solves.
->
-> It adds some complexity to load those BPF driver, adds some
-> maintenance complexities since with every API change we will
-> need validate BPF still works in addition to C (and maybe one day Rust).
->
+[ ... ]
 
-https://www.kernel.org/doc/Documentation/bpf/bpf_design_QA.rst doc makes
-it clear that BPF programs can't expect the in-kernel API to be stable,
-so you as mantainer don't have constraints due the panel API being used
-by BPF programs.
+> +static int pscrr_reboot_notifier(struct notifier_block *nb,
+> +				 unsigned long action, void *unused)
+> +{
+> +	guard(mutex)(&pscrr_lock);
+> +
+> +	/*
+> +	 * A reboot, halt or power-off that reaches here with no more specific
+> +	 * reason is software-initiated by definition. Record it as such rather
+> +	 * than leaving it unattributed; a real cause set earlier (thermal,
+> +	 * under-voltage, ...) is already latched and left untouched.
+> +	 */
+> +	if (get_psc_reason() == PSCR_UNKNOWN)
+> +		set_psc_reason(PSCR_SOFTWARE);
+> +
+> +	pscrr_record_current();
+> +
+> +	return NOTIFY_DONE;
+> +}
+> +
+> +static struct notifier_block pscrr_reboot_nb = {
+> +	.notifier_call = pscrr_reboot_notifier,
+> +};
 
-In other words, this shouldn't cause additional burden to you (other than
-the code in drm/panel/bpf/, but that is also true for any panel driver).
+I'm worried about the mechanism. The call to set_psc_reason() sets a
+global variable and pscrr_record_current() write its value to the
+NVMEM backend.
 
-> As the maintainer of the panels, merging a bunch of new panels at each
-> releases and helping migrating to newer and modern way to interact
-> with panels, I think I have the right to express my interrogations.
->
+That is done from the reboot notifier.
 
-Absolutely.
+Is this notifier called in all cases, eg. watchdog reset or emergency
+reboot ? It sounds possible the reason is set but then the notifier is
+not called thus not written in the non-volatile medium, no ?
 
-> I'm clearly not the oldest kernel contributor & maintainer around here,
-> but the main interrogation I have when submitting, reviewing and
-> merging is : does it really solve something efficiently.
->
-
-It does. As mentioned, this could make it easier to have some panels
-working with an existing kernel without any modifications (or out-of-tree
-modules). I wouldn't say to prototype it, because as Maxime said, it could
-even be a proper support. But you get the idea.
-
-So just like sched_ext can be used to extend the scheduler (and some of
-those extensions might even end in some of the scheduling classes once
-are found to be generally useful), this driver could be used to quickly
-add support for new panels.
-
-> I don't want people to be frustrated by my review and question,
-> but I feel I'm allowed to say I'm not convinced about this solution.
->
-
-Yes, of course. From a bystander, I think making assumptions or taking
-a decision prior to understanding the use case is what might had caused
-frustration. But as Maxime said, it would be helpful to have these
-discussions in person next week at LPC.
-
-I'll also be there, I'm looking forward to meet you in person.
-
-> Neil
->
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+[ ... ]
