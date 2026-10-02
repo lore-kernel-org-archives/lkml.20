@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A9E374A12
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:14:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F0147F2EA
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:14:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936053; cv=none; b=p7HVp8b0eJgAKECIGeq0fkDPqVzLzqAaik94AruCkYD34ygt6WGRuZTM9IjA9F9Y8RM4c8KoDbcIHEiOYkmUNIaLGdywXv2WARJm/fSYZYgprCeHFTkY1nt4nHAXcHizjKKvLEySAum630T0Sz5RvMvki2RbLFqbC673nKueawM=
+	t=1790936055; cv=none; b=JyKT2Y5AeDy+kYJh1D4qqivyYt8k2YbDTQhYWI1xvETFC9IOlIt5l8PP/ptEhvlXcyRP6UF6NRXkCrUEXFdrUAw5feE9ONsFGRNKfb1ETJnPuWFGk+OBIxL49gDoRuDMVs6oEK8PvnfYI28QFxn67zcAbYoRnp03iM1e+Ycirt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936053; c=relaxed/simple;
-	bh=5AV82EAeB81/NSqsNAVUI5kr8/JBFVBDtzJgQOvlmg0=;
+	s=arc-20240116; t=1790936055; c=relaxed/simple;
+	bh=rQqysgQUa94z06q8n+8z2d8GjipPWKuwxBorVa89r6w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n0qszdEpBbFmeifChelrbHldA5ZIL8By6LhssPTEcbzpH56c6kjsUa+jCcqhG19J+7JPrCy4R1CBtTQ/p1QMNrvnZB/iM9QnVZgrU0mRF7rl5xRIIQplVXLXYs4etRf8TQDLnPD4i3cxM81NtXFBiuyuDAgNNTFBVY1zsyBVnlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/vXmp4p; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GgrPboE/2ryq8HfDghzMITMBS1qKpg91qx/qk+jf4dkdlpW0hzzxPnGwV+jxcOF1eJJ79oKJSgPrpheN6uXExHMlAZL/BRxp+p2wivEF9K3MV2P/Q2WKb96IjdNb6C0Rwq6y+65BYNWMf2FxBGUJSPEteVYXkZD2++Q1FtLz4EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyOH/Xhn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/vXmp4p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437E21F00893;
-	Fri,  2 Oct 2026 10:14:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyOH/Xhn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C134F1F000FF;
+	Fri,  2 Oct 2026 10:14:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790936052;
-	bh=riwJQIgtiqEVdRW9lruwv31moH/z4M/4niUBOgc7nUI=;
+	s=k20260515; t=1790936054;
+	bh=lhjdl37GDUBMRb47JZV9OhuPI3ojzCjErOq/RuEXr6A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d/vXmp4pblqQ8FfEohz2SUkYxYTtCjf6sKSbmyOz4+LkFa6H5V1Nn13HjxFQPcyNb
-	 OE3R8VlKcRQKcXNe8mfNm8t1QPTWUxagHtVxDLsrULBmmXOqLHmUtOl6iT9xkon0BU
-	 UKRm7rTlYaTL2MTxJmztZBjoQ/Co9412VY3QGLYoFvnqCq/udjYtO2phR6JBgZC7FL
-	 Q3hkRSrT1KU+flsDPBnQnQWyAoq990vSmHCCK0Devvc33HImPBUbODQCueJvMFSoeX
-	 2c9eOEFs6P/QEoAS5AfymU8QvsreNw9H38xKN7FH6W8YHIPVmxwcbpsjWwn9EGituT
-	 DSUfBt6fSLljw==
+	b=lyOH/XhnQ74bbRDWFIwtXdAj5WyhZ1LLDRUegzUypRDe2f5VbLZLDL3HWqfDbsKC1
+	 XOEVaSI+LrXYLUCk7dDVKC3cC6K7y0SQwyaIkwc+b/T8b5i6Vk/8XLephVLzMbWACc
+	 ++8mL5tPtH7Jpny+w21kDO6BVpXeZmEPhyt7ztYLGolZKUJmh6KbwZflQB7WynDLWg
+	 Q9ivmD+tVOGqmNgx471iUv20MWoRxciGDpv+x5RI7AR4X3Yu6bY5MeG3+g+/jIBOfw
+	 I+D288HWymRsC0e1vex1H/gS85F+9aaHPj0Jjq9g9jxDTTaa7+ZzK7389NcuZkc/bj
+	 Q042ZtAjPeH/w==
 From: srini@kernel.org
 To: gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
+	Judith Mendez <jm@ti.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 1/9] dt-bindings: nvmem: qfprom: Add compatible for Qualcomm Maili
-Date: Fri,  2 Oct 2026 11:13:44 +0100
-Message-ID: <20261002101352.1084447-2-srini@kernel.org>
+Subject: [PATCH 2/9] dt-bindings: nvmem: uniphier-efuse: Add ti,am62p-efuse compatible
+Date: Fri,  2 Oct 2026 11:13:45 +0100
+Message-ID: <20261002101352.1084447-3-srini@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002101352.1084447-1-srini@kernel.org>
 References: <20261002101352.1084447-1-srini@kernel.org>
@@ -46,29 +47,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+From: Judith Mendez <jm@ti.com>
 
-Document compatible string for the QFPROM on Qualcomm Maili platform.
+Add ti,am62p-efuse as a compatible string to the uniphier-efuse binding.
+The uniphier-efuse driver can be used to read AM62P efuse registers as
+well for GP_SW silicon revision detection.
 
-Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Judith Mendez <jm@ti.com>
+Reviewed-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
 ---
- Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../devicetree/bindings/nvmem/socionext,uniphier-efuse.yaml | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-index bc0a0898b9e4..566304ed4c78 100644
---- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-@@ -31,6 +31,7 @@ properties:
-           - qcom,ipq9574-qfprom
-           - qcom,ipq9650-qfprom
-           - qcom,kaanapali-qfprom
-+          - qcom,maili-qfprom
-           - qcom,milos-qfprom
-           - qcom,msm8226-qfprom
-           - qcom,msm8916-qfprom
+diff --git a/Documentation/devicetree/bindings/nvmem/socionext,uniphier-efuse.yaml b/Documentation/devicetree/bindings/nvmem/socionext,uniphier-efuse.yaml
+index e27cbae2d63a..d26b3d2a3eba 100644
+--- a/Documentation/devicetree/bindings/nvmem/socionext,uniphier-efuse.yaml
++++ b/Documentation/devicetree/bindings/nvmem/socionext,uniphier-efuse.yaml
+@@ -16,7 +16,11 @@ allOf:
+ 
+ properties:
+   compatible:
+-    const: socionext,uniphier-efuse
++    oneOf:
++      - const: socionext,uniphier-efuse
++      - items:
++          - const: ti,am62p-efuse
++          - const: socionext,uniphier-efuse
+ 
+   reg:
+     maxItems: 1
 -- 
 2.53.0
 
