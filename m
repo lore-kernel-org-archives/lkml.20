@@ -1,165 +1,97 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FDE3612E7;
-	Fri,  2 Oct 2026 08:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603ED245020;
+	Fri,  2 Oct 2026 08:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929500; cv=none; b=giSL1PhquU5vCLHGifppjWAfJHnBYTyLgoTKHZK8sWZowzonxIaRgOQz8NTYNgZtSrlr+Cf9341gtnOoRwgHDTPL4lXKqveRGnZDPspV0V81Wax5gezuYkG+BUB3hB+W9E/lbJZhT+yCRDl+ilYecUcSZQI2q/+iVuhBRZuwzi8=
+	t=1790929522; cv=none; b=WIcZEo7ZXoF8rEXWKBfaxSLIJRWIAxVl2RLYvvmtQQOPpw/pWs+LH74yEn5ti+4AeJEMYxTJuRamGRVUgn6hne0eulS176dACEc1LZgnmBq21UKEnREk4/GPRFfC3Y6Lqe/VoHDzabDbrqnZ3eOKkBtJwKhc/ebeK1TZr/Pu7Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929500; c=relaxed/simple;
-	bh=cSlJKgcVaYkUD/98/epE3mTHPAuTim6rqpsE+ti61p4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CQIjpqmTKrfBNWJ7+O43R2h87nYz0EEOYMq4WMFZZ5jZ1KVY+K/X5mSJG1Dnvga+L//loqoY3cXMWF99t+R39tt+9ALT4eyN1ot2pPqcx9zuR7vEDAhCZnRN5n6Xk343vtTh9Xjlku/KIgs8tViBMJH/iVLdBlRBP/Ge5Y1KA10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kHysi55D; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790929522; c=relaxed/simple;
+	bh=Qrov18ygbN4DzouH7nd5661p4G8g6lTax+t9ft6hDcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Por211knbbnhHWcnoMlQULSEi7N3g9+kljvCr+BPgyywophZo0mKMQ/0wYZ1S697bNYCxLKQBZHCa6v/b3Lz/wpxC50Y11AETdgETbg2/0ES47kG5EabjoZOoGkHruLFaJWd59Y4OrS8Dsvc1/dzm1DRJi4waiP92ATfZ3f6q1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=UvgzNE3K; arc=none smtp.client-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kHysi55D"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69265bSQ2089098;
-	Fri, 2 Oct 2026 08:24:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=hOkCoT
-	SkqWke1EdZ7ohZzgALhoa8gYK8zrdaGahCFB8=; b=kHysi55D4YaeHGblwE9LQA
-	fWgS+IwYWg7WSUOsKWOWY5BPKLOuPxfHcTrBjX2lwRE0FeiWhh4vkopMzVkDLeg7
-	WMWCHaQWMiG+ZGsHmPDgIPreH/U882ExjgCl/URXfZ72lm3UeLF8+0pWDG7Ej/eV
-	w8mFY38UScL8mCp813Yoi/BuV28Q2ggJUTeMH6NzHD8Kd2048qHVMXp1R0UecENC
-	37bPbbF68YNra8vgxVd+ikaPx8doARe3Lhh4QSxVCTseD6UGLL+vjxACrDURhHzz
-	ZPqbkWFsFtiB0KrdG0Y4yUXf4oXJeMCUV0TzJ+sT5WUfr0MaWMdJIUuY1xjG0F4A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qrr74y-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 08:24:58 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6925lpIT2090660;
-	Fri, 2 Oct 2026 08:24:57 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h1xk123g3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 08:24:57 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6928OrkG41222584
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 2 Oct 2026 08:24:53 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C86F42004B;
-	Fri,  2 Oct 2026 08:24:53 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F0A6720040;
-	Fri,  2 Oct 2026 08:24:52 +0000 (GMT)
-Received: from p-imbrenda (unknown [9.87.132.161])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Fri,  2 Oct 2026 08:24:52 +0000 (GMT)
-Date: Fri, 2 Oct 2026 10:24:51 +0200
-From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle
- <svens@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Christian
- Borntraeger <borntraeger@linux.ibm.com>,
-        Niklas Schnelle
- <schnelle@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Gerald
- Schaefer <gerald.schaefer@linux.ibm.com>,
-        Vineeth Vijayan
- <vneethv@linux.ibm.com>,
-        Peter Oberparleiter <oberpar@linux.ibm.com>,
-        Harald Freudenberger <freude@linux.ibm.com>,
-        Holger Dengler
- <dengler@linux.ibm.com>,
-        Stefan Haberland <sth@linux.ibm.com>,
-        Jan Hoeppner
- <hoeppner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch
- Frank <frankja@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-Subject: Re: [PATCH 24/32] s390/kvm: Convert inline assembly to
- EX_TABLE_INSN
-Message-ID: <20261002102451.7e21e99a@p-imbrenda>
-In-Reply-To: <20261001103247.1989111-25-hca@linux.ibm.com>
-References: <20261001103247.1989111-1-hca@linux.ibm.com>
-	<20261001103247.1989111-25-hca@linux.ibm.com>
-Organization: IBM
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="UvgzNE3K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=F57QhPvlDhlmPS06WMg0e3CP4MNfwy7uaHW1VCudM3A=;
+  b=UvgzNE3KKXp0XUBw/CVhsUdHLamRGJ3P6Qwmu5mveFIPQeo13kdHWF+K
+   YMlCxMTQME7B/sJSc5NseysB07G4gwK3u7/BqY85kS1qLxAMGoSyDO1xV
+   vAO/9Q7UjS2iC/Vb0s8uakZ25fcRVGzil/5RbaiWs97a+JTbyGqInjrEC
+   UUm5mIUnMXv+pUxZF7JWNuA4W+lc8tEQkOLBHw+T08rCKkvdDAUH9A4k1
+   egXUdxFMdmoYIHC8zUXCgftLYNKgc0Fcleb16YXijpUqDaAiZaqb9UJ5q
+   tqNGq7jJ7rslS0WJKhMXQISRTzIVqwkljRR4feq0aj8uV2AQLIlhhgsw/
+   Q==;
+X-CSE-ConnectionGUID: C17vLvoIT5OBrt9xA/jY5A==
+X-CSE-MsgGUID: mq3OAHFPR1yMG8qJA5SNuQ==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 02 Oct 2026 16:25:15 +0800
+Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
+	by mse.ite.com.tw with ESMTP id 6928PBXC078014;
+	Fri, 2 Oct 2026 16:25:11 +0800 (+08)
+	(envelope-from ite_pd@ite.com.tw)
+Received: from amber-VMware-Virtual-Platform (ITE01791W10.internal.ite.com.tw [192.168.37.107])
+	by jiraproxy.ite.com.tw (Postfix) with ESMTP id 067A72F04;
+	Fri,  2 Oct 2026 16:25:11 +0800 (CST)
+From: Amber Kao <ite_pd@ite.com.tw>
+To: edward.blair@gmail.com
+Cc: W_Armin@gmx.de, gregkh@linuxfoundation.org,
+        heikki.krogerus@linux.intel.com, lenb@kernel.org,
+        linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-usb@vger.kernel.org, mika.westerberg@linux.intel.com,
+        rafael@kernel.org
+Subject: Re: [PATCH v3 2/2] usb: typec: ucsi: add ITE885x I2C transport driver
+Date: Fri,  2 Oct 2026 16:25:52 +0800
+Message-ID: <20261002082552.7084-1-ite_pd@ite.com.tw>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260829145516.13500-3-edward.blair@gmail.com>
+References: <20260829145516.13500-3-edward.blair@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzMiBTYWx0ZWRfX5fDOR2mVYqld
- KS4CSrVJH7FgR2rYqRWW5hW3cUkXlq+uB/N1XFIGNmc3eKtRxapvEyYmxb+Dxiov55Bqr70iXZa
- akUwcEJYJwyJeqpbDPoWsdPbK2ugqQfkaJFhvp3AOrgs2NzfLbAi2plholCVezwuUoWQrsJVtyO
- MRzNKtUyvVTR9yTKu8X7OS2R5LRUeQpvOXdc8bDJBcii34KfOVfr23xxyN8bm+A9LiKMPCwxHN6
- chuVS8SIznQENzvlE2og8kUYlUY5ql6neg876GLQ24jMrd1R7V+0C8CyZZlUZXMHohwz34PZe0w
- aiE1/1Nmv7bG9xazUK/vS7TSbLIjxTjLM3xdj4RTfp8+RSDSe0xC89MwdPSSOkIHGyBItFvwu6U
- ei4ftPitHa/ZyWYBnYlVwzXd/uZd1aH4OHToCEKDmkw0xwbBeBkR7cI2qWhPA3Rw2F77WL6tqDF
- //pt6UOHde8OF8ukdkg==
-X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6abf6a5a cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=J19Xoqk6y7OjH45k9WEA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: 1lj7fbOvbEvDEJbQziOD3c63kY59twUk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzMiBTYWx0ZWRfX3OX4aLH6SxQE
- iOvmM4giOPqC10PmhRmZiNqj+pqC/XAdGwbFGaD3UHUtNe3UNC1d7TUIzcnFYhZGn9PElT4L71y
- bxRVXm40b+QmNCo6OFz/P3DBOOBlH+I=
-X-Proofpoint-GUID: 1lj7fbOvbEvDEJbQziOD3c63kY59twUk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610020032
+Content-Transfer-Encoding: 8bit
+X-MAIL:mse.ite.com.tw 6928PBXC078014
 
-On Thu,  1 Oct 2026 12:32:39 +0200
-Heiko Carstens <hca@linux.ibm.com> wrote:
+Hi Edward,
 
-> Convert the gaccess mvcos exception table entries to use EX_TABLE_INSN.
-> With EX_TABLE_INSN entries always point to the faulting instruction,
-> so duplicate entries are removed.
-> 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+On Sat, Aug 29, 2026 at 03:55:16PM +0100, Edward Blair wrote:
+> Add a UCSI transport driver for ITE8853 and ITE8800 through ITE8805
+> USB Type-C controllers found on desktop motherboards.
 
-Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Thanks for working on this. I'm from ITE, and I wanted to let you know
+that we have been upstreaming a UCSI driver for the same controller
+family. The driver was posted on 7 Aug 2026 and has Heikki's
+Reviewed-by:
 
-> ---
->  arch/s390/kvm/s390/gaccess.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/s390/kvm/s390/gaccess.c b/arch/s390/kvm/s390/gaccess.c
-> index 405345ccc4f1..2d27dcb68002 100644
-> --- a/arch/s390/kvm/s390/gaccess.c
-> +++ b/arch/s390/kvm/s390/gaccess.c
-> @@ -838,12 +838,11 @@ static int mvcos_key(void *to, const void *from, unsigned long size, u8 dst_key,
->  	int exception = PGM_PROTECTION;
->  
->  	asm_inline volatile(
-> -		"       lr      %%r0,%[spec]\n"
-> -		"0:     mvcos   %[to],%[from],%[size]\n"
-> -		"1:     lhi     %[exc],0\n"
-> -		"2:\n"
-> -		EX_TABLE(0b, 2b)
-> -		EX_TABLE(1b, 2b)
-> +		"	lr	%%r0,%[spec]\n"
-> +		"0:	mvcos	%[to],%[from],%[size]\n"
-> +		"	lhi	%[exc],0\n"
-> +		"1:\n"
-> +		EX_TABLE_INSN(0b, 1b)
->  		: [size] "+d" (size), [to] "=Q" (*(char *)to), [exc] "+d" (exception)
->  		: [spec] "d" (spec.val), [from] "Q" (*(const char *)from)
->  		: "memory", "cc", "0");
+  https://lore.kernel.org/linux-usb/20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw/
 
+A follow-up series extending it to the IT885x and IT527x series has
+also been acked:
+
+  https://lore.kernel.org/r/20260924-ucsi-itepd-it527x-v3-0-a7392aa087f5@ite.com.tw
+
+Both drivers target the same register interface (CCI at 0x84,
+MESSAGE_IN at 0x88, CONTROL at 0x98 and the vendor interrupt registers
+at 0xbc/0xbd), so it would be better not to have two drivers for the
+same hardware in drivers/usb/typec/ucsi.
+
+Our driver currently only matches through OF and I2C IDs, so it does
+not yet cover the ACPI-enumerated ITE8853/ITE8800-ITE8805 devices on
+the ASUS boards you are targeting. Would you be open to adding ACPI
+support, and any platform-specific handling those boards need, on top
+of ucsi_itepd instead of as a separate driver? We would be happy to
+help with review.
+
+Heikki, Greg, please let us know how you would prefer to proceed.
+
+Thanks,
+Amber Kao <ite_pd@ite.com.tw>
