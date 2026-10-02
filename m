@@ -1,99 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4162A4EF14B;
-	Fri,  2 Oct 2026 16:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1BC4EF14B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957862; cv=none; b=nFGyr9Zj5RzI28hy5NorsC7nV8+5fyRl7jDx18ZlpZvw2JF/ej+lU4a1j6LijMhLFkv4DuGEo4AlOSZnRyFe7GIHLyp/ICngvU0dV05NHQNzbY0kaIBtXL0vBELjDKVwgpoPqeXiWGiivjAl6LljPP7ss6AsatByAuqzqHpb2Aw=
+	t=1790957874; cv=none; b=jXac60pf0i56C7XoU9loZ3VLs/8OQEEGAI6twTSvd3YabViT2DCJ6RpRn7YVzmxpztdcR53SuwfgFfEgwX0Hy1IIzaUaap8DPsrK7BlIBDYPIO23C6mnhKnPZtSaVNHH7Wmr0q8fgPQ1lBu2O4CVVyKopnPMiZ42EQdwmzEHCgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957862; c=relaxed/simple;
-	bh=2UTKHksEaCXV1vC+/5CjGX3Vmty1Raa+dblfQ/QZPEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bFnfzk/if2ZBpIr6VQE/xw3KZVs2jLMdJykHKj4RrTdkJQwU7B8/LLDi4CxcMnHjqHPqW/JEi0DSS+7Z10wjDRCTyojsQbad9rcMXKgBnuFOTZyJbUx5Q7CSyMxYlv2/ntB/Hj0Mz3qUM22WNEEHg4r8mDvROrMYx6wN1MnkKsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vg3zhq1g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790957874; c=relaxed/simple;
+	bh=tRBt0mtovo3pO08mgZMoD6QVvkZ5wMLxMsep83IjQCw=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=MvCYeoAbugsuCadh3L+tLnCQcX9+bvUiIdLeElJI9/Ch7RUOy+tT28+RUw9CxSy6f2SnGztPO9zBYReDOmOLXoLAYmHRVKwDo6GwS2Pt7kXdWNvIuENI0prMgNvkJtIo3uOTfWs9zPa2ucX3bLfAH+VFlf8GfNyFVpJDpQGDjCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vovUbmif; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vg3zhq1g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240981F000FF;
-	Fri,  2 Oct 2026 16:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790957860;
-	bh=rZN4P466B9E/iFmEdFu0SQsxiQmkN3TRjtaOfbQc9KM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vg3zhq1gBz5u99dsJXJl9vvVsPfDihUcZa4m+QevYhmFHndST6FU/uwl3yhBnnhsM
-	 awo/E9AwPDw9YgXxzJvWJymQDAPyWpemmSyy5LH6Tbpmq3HvlSKEr4XcUUillMUTYN
-	 Ri+wfwqE9j3yl/KsQ8los+YzyOFsJHx8cwB4tflzq4gqJ5d+h3JPiSqsv/5BsmMTxf
-	 e4ksjYQEjm2qfPBzu1dU+KufgJQuaBHj8Wv+SQeF9K5xps0PtlzfAqDDgsWyeORaMG
-	 u6nV/fQCwEPRKdH+QuAwj+QMXEDOmJT4N8Au/N7yPYsfg0oSogecb/wnL5T22toSSb
-	 l6Oz3qjEL8ETA==
-Date: Fri, 2 Oct 2026 18:17:37 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: adrian.hunter@intel.com, atomlin@atomlin.com, howardchu95@gmail.com,
-	james.clark@linaro.org, jbrnak@redhat.com, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, namhyung@kernel.org, peterz@infradead.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH 1/2] perf trace: Only call bpf_get_current_pid_tgid()
- when filtering tasks
-Message-ID: <ar_ZIdRIoo1p_RXH@x2>
-References: <ar6nzTSj17IxCy0j@x2>
- <20261002065440.2781176-1-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vovUbmif"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a70af6c365so203015a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:17:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790957872; x=1791562672; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aL8AHrs8WD9iA6YXUKLcpjBNMTQv0moe1DEYqLjJwE8=;
+        b=vovUbmif6eZUiX99awt52/Sc2mnwDibV+YiiRYrIqJ9SXwLDtQlxlyM6E91yQiqaAp
+         l+Fu0sh6dArLCmk6RBN3u7XdsSRp3SxUe48WLQysATDTUssGuVvtGX6L6C7aXCYoY6Ma
+         9yPr/mO+xnnMiJ8TBjs3goRcS9QQOcOnBlnD3d3BPDiAHD0LpexCC0eJagIJsgqPH6Wm
+         Bo3IA0OBRs+b14hhGSwg8h42o13N/B+r0FjGIwtIJZ0gO9mJYdiER4inxDPIr0BoQviG
+         F4j6YzACWAg6vJZmX+xhGi0do/tgLS0boxZdWv3N9K7xTK1qrB+HdIzVJUA/YiZNL7XC
+         IHCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790957872; x=1791562672;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aL8AHrs8WD9iA6YXUKLcpjBNMTQv0moe1DEYqLjJwE8=;
+        b=pdOnLH62HEi2Wx0Tj8IxPCy4ZuKq2bV/8I1W5b4FaRhrdjzWotaBE0kFOWbRf5YKB3
+         8Rj1LX5IE4U9PVtcmZrNYb3XgpJA6A0/uQqIE5EYp1SqFliE2dAdzcjyK7sMK/jDWC9W
+         IwEzVBYiE3Yk8uS8en8OSoVQrnLoTvq8kqevjM9IvBoB+RUcY1F7URkCGFKuP6toxW6t
+         xZtzpPaFW043prOzuH410bvIOWwn1BxkO/7huzhCv0DJjVwztBS6H4NG1TmhRyMk6EKM
+         /7MgjDHWqbsMtLv0Crs5OciWfryH3dPh25vmsNv2WMds3kfORjtCd0ocFBZHs1NHHNqg
+         4R/g==
+X-Forwarded-Encrypted: i=1; AKwUvByMzXawJHpSqWdvaKJAhXD3R7GczV86xShoiU+jCoZRjIuPyuG8kXcq3GU7Lbb4SiqYGTxrPZbfBqLKWbc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyXA1UDSQpcxmwGHSlsYELzx1/613FOgTQjM7Bsv4/aAsDPb1E
+	Z63yKU9ZYxqGNW0yDYlrSETMsWRNQU5dcgB/D4X1HrIkHmDQbc9+vl7Tt/NxCA/ACngadqwgX7r
+	3N+7Vrk/0c6fm3rgbCQ==
+X-Received: from pjj12.prod.google.com ([2002:a17:90b:554c:b0:3a6:f9be:dc6])
+ (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4b81:b0:3a5:25e:85fc with SMTP id 98e67ed59e1d1-3a6cec215c0mr3166900a91.63.1790957871715;
+ Fri, 02 Oct 2026 09:17:51 -0700 (PDT)
+Date: Fri,  2 Oct 2026 09:17:33 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002065440.2781176-1-irogers@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261002161738.621133-1-tjmercier@google.com>
+Subject: [PATCH bpf-next v8 0/2] bpf: htab: Reduce memory use of hash maps
+From: "T.J. Mercier" <tjmercier@google.com>
+To: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, mykyta.yatsenko5@gmail.com
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"T.J. Mercier" <tjmercier@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 11:54:39PM -0700, Ian Rogers wrote:
-> In task_traced(), bpf_get_current_pid_tgid() was called before checking
-> has_pids_to_trace. Because BPF helper calls are not marked pure, the
-> compiler cannot sink the call past the has_pids_to_trace check, so the
-> helper was called on every syscall enter and exit even when tracing
-> system-wide.
-> 
-> Check has_pids_to_trace before calling bpf_get_current_pid_tgid().
-> 
-> Suggested-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Memory is expensive and scarce these days. This series reduces the
+memory use of BPF hash maps by eliminating the per-element overheads
+below. This saves up to 50% of per-element memory use for standard and
+PCPU hash maps. The memory use of LRU hash maps is unaffected.
 
-Thanks, appreciated, applied,
+Map Type & Configuration           | Old size | New size | Savings
+-----------------------------------|----------|----------|--------
+Standard (key =E2=89=A4 8 B, val =E2=89=A4 8 B)    |   64 B   |   32 B   | =
+50.0%
+Per-CPU (prealloc) (key =E2=89=A4 8 B)     |   64 B   |   32 B   | 50.0%
+Per-CPU (non-prealloc) (key =E2=89=A4 8 B) |   64 B   |   40 B   | 37.5%
+LRU (Any key/value size)           |    -     |    -     | 00.0%
 
-- Arnaldo
+1) Unused LRU / PCPU fields in standard and PCPU hash maps (patch 1)
+struct htab_elem is used for all hash map types, and includes fields
+that are not always used (bpf_lru_node, ptr_to_pptr). For standard
+(non-LRU, non-PCPU) hash maps the 24 bytes for the bpf_lru_node (union)
+are entirely overhead and can be eliminated. Non-preallocated PCPU maps
+only need the 8 byte ptr_to_pptr which is currently unioned with the
+unneeded 24 byte bpf_lru_node, so 16 bytes of overhead can be
+eliminated. Preallocated PCPU maps don't need ptr_to_pptr, so 24 bytes
+of overhead can be saved.
 
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> index d16e55706335..0b2ef9541f84 100644
-> --- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> +++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
-> @@ -494,13 +494,15 @@ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
->  
->  static bool task_traced(void)
->  {
-> -	u64 pid_tgid = bpf_get_current_pid_tgid();
-> -	pid_t pid = uses_tgid ? pid_tgid >> 32 : (pid_t)pid_tgid;
-> +	u64 pid_tgid;
-> +	pid_t pid;
->  	bool *traced;
->  
->  	if (!has_pids_to_trace)
->  		return true;
->  
-> +	pid_tgid = bpf_get_current_pid_tgid();
-> +	pid = uses_tgid ? pid_tgid >> 32 : (pid_t)pid_tgid;
->  	traced = bpf_map_lookup_elem(&pids_to_trace, &pid);
->  	return traced && *traced;
->  }
-> 
-> base-commit: 148cd3adf2df9e53fd9b3070ae1178d4876f8c67
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
-> 
+2) Hash caching for small keys (patch 2)
+For hash maps with small key sizes (=E2=89=A4 word size), comparing keys on=
+ly
+requires a single instruction. Currently the 4 byte hash value (8 byte
+aligned and padded) is used for this, but offers no performance
+advantage in this case and can be eliminated.
+
+The implementation splits htab_elem into dedicated structures for the
+different map types (htab_elem, htab_elem_pcpu, htab_elem_lru with
+hashed and unhashed variants) so that the map-type specific fields
+exist only in structures where they are necessary. In all hashed
+variants, the hash is always at a -8 byte offset from the start of
+htab_elem. The elem_offset map field supports the different sized
+element headers, and allows dynamic offsets to be kept out of the hot
+lookup path. It is used primarliy for allocation / free, and indexing
+preallocated elements.
+
+run_bench_htab_mem.sh shows the following changes across 10 runs on my
+3995WX.
+
+Benchmark (all in kops/sec)  |  Avg. Before  |  Avg. After  | Delta
+-----------------------------|---------------|--------------|--------
+prealloc overwrite           | 116.26 =C2=B1 4.3  | 118.81 =C2=B1 4.2 | +2.=
+19%
+prealloc batch_add_batch_del | 128.43 =C2=B1 3.6  | 128.89 =C2=B1 2.9 | +0.=
+35%
+prealloc add_del_on_diff_cpu | 22.91 =C2=B1 0.69  | 22.44 =C2=B1 0.62 | -2.=
+07%
+normal overwrite             | 72.43 =C2=B1 3.13  | 81.06 =C2=B1 1.49 | +11=
+.9%
+normal batch_add_batch_del   | 45.20 =C2=B1 0.78  | 50.09 =C2=B1 0.56 | +10=
+.8%
+normal add_del_on_diff_cpu   | 12.02 =C2=B1 0.24  | 12.80 =C2=B1 0.18 | +6.=
+49%
+
+---
+Changes in v8:
+Add htab_elem_lru_node (Sashiko)
+
+Add Mykyta's Ack
+
+Changes in v7:
+Rebase on bpf-next/for-next. Resolve conflicts with 63b13537e6b2 ("bpf:
+Speed up htab lookups for u32/u64 keys")
+
+Changes in v6:
+Make htab_elem_set_hash branchless like htab_elem_hash
+
+From Alexei Starovoitov:
+Drop smp_wmb/smp_rmb and WRITE_ONCE/READ_ONCE on hash
+Drop map size check changes (just use sizeof(struct htab_elem_lru))
+Drop BUILD_BUG_ON on elem_offset
+
+Changes in v5:
+Rebase on top of bpf-next/for-next
+
+Update elem_size check in map_ptr_kern selftest to 40 in first patch
+(Sashiko)
+
+Place hash at constant compile-time offset before htab_elem, to allow
+removal of key_offset. (Andrii Nakryiko)
+This avoids dynamic htab->key_offset load and pointer arithmetic. The
+struct declarations got reworked to implement this, and htab_node was
+dropped. All map_in_map changes became unnecessary and were dropped.
+
+Fix key update before pptr, value initialization for recycled elements
+and lockless readers. (Sashiko finding on internal run)
+Read / write memory barriers and READ_ONCE() / WRITE_ONCE() were added
+for this.
+
+Combine rhtab_mem_dtor() and htab_mem_dtor() implementations.
+
+Fixed the KMALLOC_MAX_SIZE overflow check since sizeof(struct htab_elem)
+shrinks in both patches.
+
+Changes in v4:
+Removed inline from new functions per BPF CI (netdev/source_inline).
+
+From Mykyta Yatsenko:
+Factor out duplicate lookup_elem code into __lookup_elem_raw.
+Use offsetof instead of sizeof for key_offset assignments in
+htab_map_alloc (patch 1).
+Eliminate branching and htab_elem casting in htab_elem_hash /
+htab_elem_set_hash.
+
+Changes in v3:
+From Sashiko on torn reads/writes:
+Use a local unsigned long and READ_ONCE / WRITE_ONCE instead of memcmp /
+memcpy for atomic key comparisons for hashless elements.
+
+Changes in v2:
+Make maximum key_size for !has_hash depend on word size for atomicity
+on 32-bit.
+
+From Mykyta Yatsenko:
+Put the htab_elem* common initial sequence in its own struct (htab_node)
+and reuse it across all element types that share it. Eliminate
+associated BUILD_BUG_ON additions.
+Replace both the hash and key fields with data[].
+Store has_hash in struct bpf_htab, and avoid per-element reads of it.
+
+T.J. Mercier (2):
+  bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_elem
+  bpf: htab: Reduce elem_size by 8 bytes for small key sizes
+
+ kernel/bpf/hashtab.c                          | 308 ++++++++++++------
+ .../selftests/bpf/progs/map_ptr_kern.c        |   2 +-
+ 2 files changed, 215 insertions(+), 95 deletions(-)
+
+
+base-commit: ea9358e1270ab2c3ba6f36bd9bdda68617665516
+--=20
+2.56.0.rc1.315.gc6ed9934b7-goog
+
