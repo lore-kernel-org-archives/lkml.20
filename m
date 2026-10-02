@@ -1,121 +1,202 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF3240F731
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF21A3AEF24
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790966611; cv=pass; b=CQhge4k6aqB63bEpGqr+Db/Z5straY5GDajw8SltyFi3lulpAfhVqvhL/0a3NFXg9zVNrOsSwbtKjCi2ytc+90TZfKm52Bg7McJYxgKrXqsR9J7ddgGIMVHQWQvH4c35l1JjqDdRxN2Xa0V1ipPlzDONUIYcFFRJYPmYH1vDNqs=
+	t=1790966651; cv=pass; b=shpDouTLYp1tEZTKJ4HbBtb2GUGSp0qmdd6JPZsYvgN69gdXwZpOVat97W9GklqlK5rP6UOK65NG+KnU5zR5PSaubJvmYCWGtMoYRBYbwCvJ/IKMZISUxhfXpSOD+jT7coS/AXGatRu8ijKamc98c2OOoLZynpaDo5Xw04Yd4us=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790966611; c=relaxed/simple;
-	bh=+8giRIva8Xtt/QGhLW8m0S2kVNxw8aKS2XZv/pRromw=;
+	s=arc-20240116; t=1790966651; c=relaxed/simple;
+	bh=uZkHDYTWWzJ9X5F+4Um7wb6CzaA/5jQIh7w7jPBSWI0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H70gppVUMhY/UprkmjGr9mwyPRVROFjbeEZjSc70Nencsmg9aYTS1Kv2a6I9lfuQdaz8NfdO186jJ2Fnrh+ghFR79hHtjMJFlCx2Hz4UUvdJmf1jTfwWn20/iSHKRPWDrKwNYahka4uiBl5RikdzpMYZbSnq7777+xKKxa1qE8U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lf5Ggxx8; arc=pass smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=ZZEAhRiE5xMFf55KuRWh700ApDyxSqHiL4N/30aVcE0XW0GggljQvb2vt+J7aCgs8Bw68uv0JeAAx4j9gCcomZej8fzfEv2NhjXbWf4wNFcW+W53rPB4gYpvn+AI+uHWjEnWO1ydy8pa29nW8/iAoBery916YwVtVwLOVOe6DqA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LtSL754p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L6sIfZv3; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lf5Ggxx8"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-350e6de7dfeso97957eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:43:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790966609; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LtSL754p";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L6sIfZv3"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692H5v1V3057676
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 18:44:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=FQ08Xw8wztndrxT1uOejbuk9Ev7qAfsJYKeKbB6oswc=; b=Lt
+	SL754pESNV29m2MosTwDEM4lQEE7sfWr0ssqW+SEAz3hgIRe9p1nG88sPKmvXw2K
+	SQkyWumfGRpafbwwxqCDMst3fSlZG1kpHelJujTJIidpHpOt5149w12mUYO9hRz/
+	FWJzrxsPSqyJQg+dvzhCI4IY3tz6nd0YmOYNUsEb1fP2Si80692TsxBREVPIznH7
+	lWTyV+Kyc7q0kcV6wztMhspOFwEJsIG64asbozq+Wb5ye0+s+4d9lwTpqBbUt4oX
+	wBjc77tIsTvMp5ny49II/EZwUKh6NH6xVc7j8Ot/1RGmNaivNrhossfeHGHaLCQw
+	1RT6ynU7DMGBhgZSRTXA==
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h26bp2w62-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 18:44:08 +0000 (GMT)
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-806004ec379so381614a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:44:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790966648; cv=none;
         d=google.com; s=arc-20260327;
-        b=SikGPUac6k82a4uVpA93WEKczZ4PzDPSYlAsvQFmXD32HkDw0yzl9fIiElKlPBWIEM
-         ipmZjTPtSacek8Y7cZtBja8ZMiPxAKJF54q0610hytDoEkb4UliElDiTLixgyLqjt51c
-         nd4xsOEZQ+ZCUrhdaBQqW20e6Rni/ujbcN6ZhYZ4DwK0GZl8SEAaY+M72cusUss9Xtkg
-         UEisKYWIqBEX8pOishnJs/XRDjQfzUDbxAXqWfXAVPyY9lO13biPnPwypvWlqASiWQJU
-         XYO5XdIxqWX3OrVh40q8kcRRe5qsqW/QD3VLAC8CaFds8eDGaMw2P/0N+FFp0xay42Mn
-         wxcw==
+        b=kbpTP+n/ayC+8EqN3cF87ogdrg4e5nncHKcxlxZcs9BwmnZmA3t7gH5HP3KljRzuUI
+         0hm9vsFt48dunsXIKDyxLg9DeXcBr5t/56JRy8P8tV+NW9bzVr+WKW78YUqlpdNWf42y
+         lO6W21NPcnU9QnR/F8SfB0ZTV3D8OApjoUye2DUVuTajr0vOPvns4Mq7G2r7BzVblI0K
+         /xPeis9RGpnTtnNxBjfYYuWbexDG5RZ5lW0GABigWMBK3K9xjAgF1163JsXAd/RC6Keh
+         iI8hGQ+ANKCltui6a1cqGIMHuou+CpEb546KSrMP8Fe+HcbLiawx/D6BUaSKeI1iMePd
+         gBaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FAlTpdA3JGK4S+vpVZN9wxh+KybxUcOpKKtqidXNLgA=;
-        fh=r3Do8R9yWjB2eVJrDia1Kxp0xvsLnUMjunSgHsMmpyY=;
-        b=OepngQIw/uPMW+b1KKhtp5kF7LZuQ71M67NTO15z7UtC/VK9K1zejefaHK+Ue3t+ek
-         0Zsn0FbBrWQ4J/khMMxDrImHPiljp1++tnQqCJL/4pleQ7HQpJtPPTa28iJMSMAic9+s
-         SFMIWERSPuCieKwDFg132NW5SM66l9iPjlKdZeA0kDik1yJ5rqwvmMSw+h9xsuSZHRsg
-         z4iTrV/WLA7LKdE7IseS0Yp1x6msoJDiimqHl+aSWHScaeV72ls0lbuVR4ACrtzjmiQe
-         DfoZ4lItnCP/Bs7UWvR8MbnhuxySoNx+6bqtO3GVglgmQRMFYVolCTBcO80LwJu5hTCQ
-         i72w==;
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=FQ08Xw8wztndrxT1uOejbuk9Ev7qAfsJYKeKbB6oswc=;
+        fh=QyxGlvh2pjo3S1KQOUBKsIcRp2USvqQVrCIr1TqZFCc=;
+        b=qKAF/TmoBl4dsTA9kno6W/GB2cUFg47xVcrqjd2u64Ydy8oPnOuCEaFZjKMUZR1UjY
+         xTAPIXABDjEZDHOaRZwpwXdTCryRUy86iFyy/HMVdWnPcHYH8RNsVuYvSxx3Y9EQmr0I
+         x3Z4o3q8WSjtCqkzGQoakrAgUlnAria86ywRVwx+2bgr9I+Ga8bmTBBZxQkRnujdlJPk
+         sAMrfCnGOppI18FV04zMyT6HLzv7puIx1rxZxDFtwlbjsqWVsfgQLaFxpSKz3wPyIxgR
+         KFkUS8qFSl+WhI6AFpHdFfAvxlbTEUQPVJL23CMaKY08dfkASXtSywpcaFOioAc5fjcg
+         x/Pw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790966609; x=1791571409; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790966648; x=1791571448; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FAlTpdA3JGK4S+vpVZN9wxh+KybxUcOpKKtqidXNLgA=;
-        b=Lf5Ggxx8GWy4aPvdZa66ytK8Ld409DCpR7scK1g9D+QFLkWC126tIaiIPiBt+3KToH
-         CImLw6/J/UE0L1+zr/iIfArlBpMw/WSgL72fW9Md77f92Q2FVqWDZvYfFOiXHrEqMZds
-         6BrBn4fe2pNWjIie5l06ix6r9pn7Al4q0yxHkjBTJ8dor2wQwmH1u0qcjwfuOrp/va1Y
-         NFoFq6Kbz5xJwIoclwlxaTCqWGJwam74Q+jxjn4HLdkU/PXJbz0WNNebjvilvS0WX3Lp
-         d5XTzCdmu7nfQZi6/+6sp1cLVa02KC63d5vEVAwbU8jhePyAHIX76y+uTNCHqnRWJfe8
-         mObw==
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FQ08Xw8wztndrxT1uOejbuk9Ev7qAfsJYKeKbB6oswc=;
+        b=L6sIfZv3LUqqgBfd0ywiSmGJp1S8fmCyocp14Q4rKxKTcfxP/I+QiYTyHrGTsznhgr
+         djiqgvzXPDzdWCTts6gHExZ/2Q4OzN+3eYtSDMRDsZI0od0e8M8GDFmgyamlYA5L24AL
+         CVakFnlNSqAYPA8tZr/Fz+nQk3qCUaBw1Z7NsUR2IQ4F6JBfOGkP1ycBvuj0/kqKteuX
+         k7jUsRAnQGYmE+eKCT9KeWtV9dsUBVeXICp0Cj7NpcmNFRo9X8LpYGBzoB+ISTzKXGnw
+         HWMt0bY2VLX9SxY85K7ufds6urNUzoJeozswZ5UDpQj3G2JtAk5MrnEZJ82oab8195bc
+         RvrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790966609; x=1791571409;
+        d=1e100.net; s=20260707; t=1790966648; x=1791571448;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FAlTpdA3JGK4S+vpVZN9wxh+KybxUcOpKKtqidXNLgA=;
-        b=j8URNDXKwTNHa7aaqZ4rarlLWhfQt1yqeTv9NZKq+p0yoVsqsRKT6/Zyltay8KGkiu
-         k2tkNOcx7TV/AVJ0YIBnlb928XEgTKC7KYpIxa5ZPaK3CL6YyvmqAU6c/FgrXvOCS1dS
-         RQ/3OtOdhgqdY9eW+E++dzYkecP8cZpQ+recN8fvO8JVa14sLPaRieAnCXeFKULbYFpc
-         We1lUaQWJFnWcQGBQLk0HOcF7UQv28nw8ZAsWL2bfQla58ywUTHze7rmQKeVNQHehc3s
-         DoTQ24AkK/zj07TTGy2EZkXDGuHzgkXihkGWSQyhVkItmg2uUzv52hzWm/K5WHqMWhPb
-         sPqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjEAVcZlNLb8z8CDU46txBJo0oCtpQElQK/G6vYDefD0n9F4+ZjhCAHOHjnU2OOiGmO+454jQo9RxcOdM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nseVL6bRIgf9yaxd+CYLIJ0DLoDqJfoG83S8tFTH7cgv7W1MWy
-	f6eoi8GeQW3xC8TDGXWV3Vg/zk7T9FIG6fegC7nf01UNSx7eZjULlmr6cQRj66Bgjwnf5FYi/BP
-	y9/aR0oUgoUbJHUfQe/9F2Me4kjhlGyyrbTvQAAI=
-X-Gm-Gg: AYBFou2Sr09gRwQkGSxVaE99/O0+ad2ZbJgL+EFV1ssWw6oPsjWPMucWnsPVhawKFHT
-	4XyQHuA4z9q346QhEQLS5mGHwIRRmgf1OQgW8epdVPEoedZjMEABrh/oK8WAP+E/IL84TEP4hEi
-	rMHLg2GQ3zIsMM0QcmO1p10h0EL14CCRbDOphuq3ZOSM98KKeK/MaGhhmipXAMgh18LXy+U/ZUa
-	kZpGgDoJn7mnqTRWCaTY3wlsPlCSFAwGOKbBIVpDZdORs5TgKyOz82pL2XW+q4f95cTwpl354iZ
-	dMDuizw82KGf7DDV/S41/z0fq4+AIwwWqfyadq+cX458DiNmNWneuOG2aLCiIAHnump09odt9DK
-	zLp2Ahr+Ti8VB2kYLusjeMh4iJ6fZybKiB/mrVV9OBRwnMpKyhs5ItSICQYTVcYJ5WF+XFxN7cZ
-	gSWR4McLX8P4Gf+Tu3XNkTDoRkM0s5GoA5BfYA2VtJU9xilkq/in0=
-X-Received: by 2002:a05:701b:424d:20b0:146:ffa9:2117 with SMTP id
- a92af1059eb24-14f5aa4188fmr6124238c88.1.1790966609380; Fri, 02 Oct 2026
- 11:43:29 -0700 (PDT)
+        bh=FQ08Xw8wztndrxT1uOejbuk9Ev7qAfsJYKeKbB6oswc=;
+        b=S+jbC0aUdPzVBzh+0ut3ux5PMSEYAiRVgXVkHSUxGSUJIRsE8/PJXtxV8S0rxPbNjb
+         1uh99nxPZJ2UJ0F6LPcbO2fRivNs2l6G6stwd1leu32RBd6o8MvdNTyZa26hhFuxa0Hv
+         pkie22W+actne5rLVUK2KenGq1sl+mF9OPG/LRP7gv3jVlTDNCE/jbYaL3NFpr+ExtC+
+         BS2C4f6vIm6ZJP1qWoZ5IzQARbQxvOabQBAkqpj+hbZqXyPIQuTl+sE7lt8IXmB2WQ8p
+         Y8B0r13iD02XDu5Dhlb3u8IU2aIv+foiG/ngVZUeNiZRZN897+bpQfvfzhga2tiR+krq
+         6hjg==
+X-Forwarded-Encrypted: i=1; AKwUvByy8XQQ+d0JkR4D/bxgMtmjsrsTX5/GPAjDlqBPDrg8f3oaDTBPAgiLd5SPjOQJtT35Q4mySO51dvbIE4g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwTWOSioLPGxHZuvcHcFlIMvHs3G6qGp8VnbpPAEb8IzZyPEe+
+	QhKUCobryrWPcP/7xmgcKP1nO9193wWWTG3mR5HJOvFPgOLEazOhF1JwtV+nnR9kdU/aIq96GDE
+	LzPEXxC0ldhE1YVkq/VOWxM6MCw9S5u5cBITnwAzdAiqlg2TBCHMNRa4sUkCj9jcSLX7YjD1WGZ
+	dVHsZKdkJ48iVc9T2nYlm9etStvaJLKiWCKuKte+sWMQ==
+X-Gm-Gg: AYBFou2xg+vyCOWj/S6kO9FcmYLreRyiqZewQ87IoQ9NB9npYWMqCIOw6jcv7S5JrqU
+	15Htgpuzqpoh9Whs89+1VE8PSBz5xuHLQJaOSw3umoDGVtq1opxcKUPFMaGU8dTnj8Jj5+stAle
+	h4ccKImOYCxzma95Qy+TI38nAEkoGl6/gufZItPCF3neMi/3ON3vPLOHtF
+X-Received: by 2002:a05:6820:207:b0:6d8:d3d:de6a with SMTP id 006d021491bc7-6df35c3999dmr2503457eaf.73.1790966647882;
+        Fri, 02 Oct 2026 11:44:07 -0700 (PDT)
+X-Received: by 2002:a05:6820:207:b0:6d8:d3d:de6a with SMTP id
+ 006d021491bc7-6df35c3999dmr2503443eaf.73.1790966647508; Fri, 02 Oct 2026
+ 11:44:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <ar_0MTEPHARiUqc0@sirena.co.uk>
-In-Reply-To: <ar_0MTEPHARiUqc0@sirena.co.uk>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 2 Oct 2026 20:43:14 +0200
-X-Gm-Features: AclHuK_alLvtcNxx6cLAevu_sz8QC9V6lp9CNOOyfxNDgqInLbQjnJK23t8fUyc
-Message-ID: <CANiq72nR4sz5xvTVqqnwvoVJ0s-sDETQyPc9MUKo2698Ocp-Kg@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the drm-rust tree with the rust tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>
+References: <CACSVV00GwWvMFDR5QC7h8gonC-9qYbaG958nZHSxtUdWXGG_sg@mail.gmail.com>
+ <179096555582.4050.16689195326008531646@gmail.com>
+In-Reply-To: <179096555582.4050.16689195326008531646@gmail.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Fri, 2 Oct 2026 11:43:56 -0700
+X-Gm-Features: AclHuK_1A84ea1UaaxIckCd9ugOaiHEjc7V1vuwTcIvjWzRFw0FRu-Vm12FS3cA
+Message-ID: <CACSVV01iV3g4uZ9WnVFuOMEiqdQcOudXXr39+5m8yE0XqC7X1A@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
+To: Oleg Keri <okerixx@gmail.com>, Bjorn Andersson <andersson@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        regressions@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=OMqyTiaB c=1 sm=1 tr=0 ts=6abffb78 cx=c_pps
+ a=OI0sxtj7PyCX9F1bxD/puw==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8 a=j9aERBNnXM6nCbgg6pwA:9
+ a=QEXdDO2ut3YA:10 a=Z1Yy7GAxqfX1iEi80vsk:22
+X-Proofpoint-GUID: TiEsofDDFCBobSG0qIOPTehZCO-iyNoI
+X-Proofpoint-ORIG-GUID: TiEsofDDFCBobSG0qIOPTehZCO-iyNoI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA3NCBTYWx0ZWRfX8g25iD1INYGB
+ VtH9hZjmfSai3yGdvkGNcPxK6IF/jxqQOzk/rUW4KX6jzQkCol+qva2oMRvFonEvPEbWApS/rUs
+ gxhgjkudeJ12/oDxywU/qZGc06BlcME=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA3NCBTYWx0ZWRfX60SBdgEPoW+U
+ h2ZgjdgTa+QHEAz4V5wsM6Nf8+De26Zow3cZCmQt5NwCgTffBZU1y2ohgPk9S3y45tiAf+MAtt/
+ QAcbTYQZJwP/NrgU9ZERCxHb2EVYQJYGlLd3VS5P8TQPX+g4lEQVVg4jCsWjO0RfIl1g/lWzfm2
+ m3yWRbaBwxCgeYR/5VsC+teBFqLgSeAuGG0gV2AJbjxmu6Zc2QTx51KxXoWRbp6SYFMsCF9g2nb
+ uml4pDR6BucOmmw4geQm+KF4ssjFZu6jfNBy8WzNd0yWLpDWGR67i3HXI+Qm6hW345NDslJG8Mj
+ NBjNA/n7t7VbO3rCXc1eWkJdNqdjZ7Jx1KVPnILFPDjoJDndC4+ht+OaqMC6BHWWsqddD6BFZNb
+ fwgQ0JSz99S637K+CHcEQMq5rMiIWxrkdUzrh83KeQCmd6cgGgGhSQainfLPyH80kawEx9PJ05M
+ f5XgNZBgM3us64vKNbw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_05,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020074
 
-On Fri, Oct 2, 2026 at 8:13=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
-e:
+On Fri, Oct 2, 2026 at 11:29=E2=80=AFAM Oleg Keri <okerixx@gmail.com> wrote=
+:
 >
->  +// TODO: `Alignment` should be moved here as well, Rust moved it upstre=
-am in 1.96.
->  +pub use crate::ptr::Alignment;
-> + use crate::prelude::*;
+> On Fri, Oct 02, 2026, Rob Clark wrote:
+> > Can you share `dmesg | grep drm`?  In my case the initrd is missing fw
+> > so gpu is initialized later, I guess when the compositor starts.
+>
+> Here it is. The kernel is built without modules and with the firmware
+> built in, so the GPU is brought up right at boot. The GMU firmware is
+> gen80100_gmu.bin from linux-firmware (v5.2.38).
+>
+> [    0.620358] msm_dpu ae01000.display-controller: [drm] Using Transparen=
+t Hugepage
+> [    0.621120] [drm:dpu_kms_hw_init:1168] dpu hardware revision:0xc002000=
+0
+> [    0.625910] [drm] Initialized msm 1.13.0 for ae01000.display-controlle=
+r on minor 0
+> [    0.626015] msm_dpu ae01000.display-controller: [drm:adreno_request_fw=
+] loaded qcom/gen80100_sqe.fw from new location
+> [    0.626115] msm_dpu ae01000.display-controller: [drm:adreno_request_fw=
+] loaded qcom/gen80100_gmu.bin from new location
+> [    0.626994] [drm] Loaded GMU firmware v5.2.38
+> [    1.632277] platform 3d6c000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt=
+] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 11 timed out waiting for r=
+esponse
+> [    1.642345] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeo=
+ut waiting for GMU OOB set GPU_SET: 0x4
+> [    1.642360] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] =
+*ERROR* gpu hw init failed: -110
+> [    1.652389] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeo=
+ut waiting for GMU OOB set GPU_SET: 0x4
+> [    1.652401] platform 3d6c000.gmu: [drm:a6xx_hfi_stop] *ERROR* HFI queu=
+e 2 is not empty
+> [    1.858322] msm_dpu ae01000.display-controller: [drm] fb0: msmdrmfb fr=
+ame buffer device
+> [    8.053367] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU fi=
+rmware initialization timed out
+> [    8.053584] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] =
+*ERROR* Couldn't power up the GPU: -110
+> [    8.187443] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU fi=
+rmware initialization timed out
+> [    8.187650] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] =
+*ERROR* Couldn't power up the GPU: -110
+>
 
-Ideally we would do:
+Ok, now it would be interesting to compare the same from Bjorn's CRD
+vs zenbook..
 
-    use crate::prelude::*;
-
-    // TODO: `Alignment` should be moved here as well, Rust moved it
-upstream in 1.96.
-    pub use crate::ptr::Alignment;
-
-since one is a re-export and has the `TODO` message, but apart from
-that, it looks good, thanks!
-
-Cheers,
-Miguel
+BR,
+-R
