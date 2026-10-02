@@ -1,644 +1,293 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538513AE1A0;
-	Fri,  2 Oct 2026 09:31:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933500; cv=none; b=aK+yjz8SgbKmLKaKCmIvDoOpWzxlBx5QyZDBjxDyE8CD10qfv2LawjvCYpiK2MUbbe3Lr6vrH85E0pcrGRdHPyrhEJmTxjBDnLQW7nKFWuAAg2g8JnfUlff7DMoJthYV7gU/SCdFu0WOXucuMw6PUXZaQzYc75GGGPfUhmV56n8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933500; c=relaxed/simple;
-	bh=xxOmyjuNcm7xgU6w20HAlqte0/FiHC47VMiFfggs+Xw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JwmHZt7qosJE3wpuu3Q0YDBScAlAykY8Il+ryf1phhCMX8bB6l5vhmHGvh6HmvNnHrHHu82Tafw2WfBw6PRAsdEttQ8YLKsDmyFXmmVZTV+3itiRYkQ5/5GNR4S6zq4lp9xVWdR736o4De5iAfbcu0HAO/6sLtIHkEc+4DeTT+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIvLm+cX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E330B3E5A17;
+	Fri,  2 Oct 2026 09:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790933512; cv=fail; b=X6GOGKqULTVl9U0QLyD7N6AxJpZfhkIuISQELquY2eOAlLXbgkRd67INUVRbMpx6spULgy0v+fYq4kYxPp0wfBrgfm7IbEPTNEd3RrHXFpwjoiwP+flRIzoQu9ADZo0Qq2z16r0bERwG7x5MBOBIFfhn/Xraq1mOCb5wtXZGo/g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790933512; c=relaxed/simple;
+	bh=oh7/zfpex7NhLzv1LALwcbucTU/lvxIu2H8WYnaMYGY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=s0f0yNMeh+Gm2TEliinOoxQfCtI3YtDBviothDrW/pErUJzfH9Xlhi9kocyu87+aiegL2Hn/WYPoQriQWgYEyv2JH4a54qEejgCeVEbKW4c6W8h1SdO5I3/zws+hDAzurYJ0TwGUO/P479JSMPRBl5TSDprWhhXpCzSah2zqRvQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=grOPhL4n; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=jqdXdHsk; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIvLm+cX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A501F000FF;
-	Fri,  2 Oct 2026 09:31:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790933495;
-	bh=jf6FbG1+8KuIJRm4kC+gTyizLWnbqehLcfbKm2+sZCk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aIvLm+cXMNfj4nhdTeFFWv/QRCOkkc22D/ogvv5gF9WRdK9aAq+oaTk0CSEGyeEy8
-	 g3cUjY3xvUP2Gs/E2x7z0uSZH0mVre7dhxlIsKH6bhN9qbsKGo1ieYpPXJgKS3WTME
-	 VYiHuW3Rpg6EYEQFheqDaA6W583y2ebLs2RN3gUIYJtPYui+zeZKBwQ7dYgOr+4mQU
-	 YD9JqgO0faLob7ozRhBqJW8U5ALCF9ESSjrUxWX/TvJx2L4JSIlcNIi15c64i2/2/g
-	 gsUvtg471SZUmBG0q4oMsQH+EcbpKMTmaQwtD/QShB4ndqDuRZ5F0DKbJKvUf+zSa2
-	 2cD4RAqNKXmaQ==
-Date: Fri, 2 Oct 2026 11:31:31 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH 2/3] iio: adc: add stm32 mdf support
-Message-ID: <20261002-rigorous-eggplant-octopus-ebf89e@quoll>
-References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
- <20261001145702.2628429-3-olivier.moysan@foss.st.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="grOPhL4n";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="jqdXdHsk"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6926mYug3829574;
+	Fri, 2 Oct 2026 04:31:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=EiNpO3bvsSatruaceP+1He90MukfPaPFInzJlkDxN
+	bM=; b=grOPhL4nqNZ+AWFF5MQyWY4zqhEfDvsRYUl5s/ZqbwDHfwulryXY+Fdnk
+	A0yzt/Snu8ZjaeoUpuyD7+XKj/f5L8uhc4MBaCj0yaMIn7ZsfKYgHxE4emFlAL89
+	N7xZZ9LZ3J2EB1t8xB/Sd/1F2QJMuB1gTpm/Mp5sOLY98MNCaVevwI4sTpG3+VbZ
+	gjy3T7we0jlMJ63BwpHMGFChSs6XXf4usQbqg2E42b0dM2Ob0gd2nkp4gO1jZSiT
+	YeTeIkTQBAX6bB1QWqmoyb07B+5TGKZcffHbLFZIKWCLBlUBXOcMTxO9nkFRcyDV
+	ZhCtPusA3N8C01pMeXd5Ec1OXyFLQ==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011059.outbound.protection.outlook.com [40.93.194.59])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4h27nxrqp9-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 04:31:42 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dqresviloQ2gBHRtEBAWeu29DkXJPLltQDEJ59ztIpUlTecKuW5/9Ny3PyGn0csS3GDqu7VCWrPsh69HwFL6UcgTgeEQhQdRslea28x2f7zp90NbTsz8MQxynk0Bt8sG1BOWCJPlfpxrWfyJaLpdZ3Kx1jCkc6C3S8woupXXr1AErYikjAWfkWiKN7neZ97ugqFUt4mpzpW49reQGqMrBS4at/NAKVRbA/UKCgynAXsw/nl8JLJNDVWIPMyPJyrf3ylEPaQBUIjoZdr8noMyrhHV6UlAQmbqpKABNfMWJoqT8Dye04lLJzycWyo3Yr4PgV5tiUzkGkOCTNEp8B60Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EiNpO3bvsSatruaceP+1He90MukfPaPFInzJlkDxNbM=;
+ b=b7OEF3QZ5BxoKlOVVI0JC0SP6NSXP6bc93cynrnLw1wEw0UZzq3CD89qtUVweiNsOjH7+0Xm/Mhgb3+gju04b9lBLoB3z8ThUOYDkKFQJdB7Oy/Aba9bB6CWxNCZhn7yE5rjhCN1uy5mOY5cphp7IL+WZNZFxTmnRsHcbwbSXefS4lfmj7s5GjdwoUSHwHL5rthrOiIjzFMm0JwJ8kw3FEf18lV9OyMCEFNtQBPeJoT22e/Q6WvbKTs2HCjvxbykwnvpwF/tF26OafW7QYT1rDaAyPzydKQ/vtp/0x7XiY07ljAy1rzfuZgZfr9u0xqMEHb8vJQc0RtEzKg2+c8z1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EiNpO3bvsSatruaceP+1He90MukfPaPFInzJlkDxNbM=;
+ b=jqdXdHsk1i9LYOMoXhjofNrLZe6Cz9mwgEExAt9F+7nlzy5Vt9cqN1Z7LjJ8gM3edrAE7P7KfHxtAE5uzsYSXW1/3kY5NE+ceEd859i2KIKrMJvYIWFHoxYeg6Ty7nYy+2ZpN3fMDGrl/Zy/kmCF8Ie7YOjFIK2Raf2Ck3d++Nw=
+Received: from CH2PR12CA0015.namprd12.prod.outlook.com (2603:10b6:610:57::25)
+ by IA3PR10MB8417.namprd10.prod.outlook.com (2603:10b6:208:573::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.12; Fri, 2 Oct
+ 2026 09:31:39 +0000
+Received: from DS3PEPF0000C37D.namprd04.prod.outlook.com
+ (2603:10b6:610:57:cafe::14) by CH2PR12CA0015.outlook.office365.com
+ (2603:10b6:610:57::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
+ Oct 2026 09:31:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ DS3PEPF0000C37D.mail.protection.outlook.com (10.167.23.7) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 09:31:37 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 2 Oct
+ 2026 04:30:59 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 2 Oct
+ 2026 04:30:59 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 2 Oct 2026 04:30:59 -0500
+Received: from [10.249.144.74] ([10.249.144.74])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6929UrAx2800342;
+	Fri, 2 Oct 2026 04:30:54 -0500
+Message-ID: <ac1d3bae-81c5-47b6-99f1-50e5b06c1a86@ti.com>
+Date: Fri, 2 Oct 2026 15:00:52 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001145702.2628429-3-olivier.moysan@foss.st.com>
-
-On Thu, Oct 01, 2026 at 04:56:46PM +0200, Olivier Moysan wrote:
-> +static int stm32_mdf_core_of_cck_get(struct platform_device *pdev, struct stm32_mdf_priv *priv)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	u32 freq;
-> +	int ret;
-> +
-> +	ret = device_property_read_u32(dev, "clock-frequency", &freq);
-
-How? Your driver depends on OF and there is no such property in OF, so
-why can you read it?
-
-Otherwise what is this:
-
-"depends on (ARCH_STM32 && OF)"
-
-> +	if (ret < 0) {
-> +		/* If property does not exist return immediately */
-> +		if (ret == -EINVAL)
-> +			return 0;
-> +
-> +		dev_err(dev, "Failed to read clock-frequency property: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (!freq) {
-> +		dev_err(dev, "Null frequency not allowed for cck output frequency\n");
-> +		return -EINVAL;
-> +	}
-> +	priv->cck_freq = freq;
-> +
-> +	return 0;
-> +}
-> +
-> +static int stm32_mdf_core_parse_clocks(struct platform_device *pdev, struct stm32_mdf_priv *priv)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct clk *kclk;
-> +	int ret;
-> +
-> +	kclk = devm_clk_get(dev, "ker_ck");
-> +	if (IS_ERR(kclk))
-> +		return dev_err_probe(dev, PTR_ERR(kclk), "Failed to get kernel clock\n");
-> +
-> +	priv->kclk = kclk;
-> +	priv->kclk_rate = clk_get_rate(kclk);
-> +
-> +	/* CCK0 and CCK1 clocks are optional. Used only in SPI master modes. */
-> +	ret = stm32_mdf_core_of_cck_get(pdev, priv);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (priv->cck_freq) {
-> +		ret = stm32_mdf_core_cck_divider_set_rate(pdev, priv, priv->kclk_rate);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to set cck rate: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	ret = stm32_mdf_core_register_clock_provider(pdev, priv);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static int stm32_mdf_core_parse_of(struct platform_device *pdev, struct stm32_mdf_priv *priv)
-> +{
-> +	struct device_node *node = pdev->dev.of_node;
-> +	struct reset_control *rst;
-> +	struct device *dev = &pdev->dev;
-> +	struct fwnode_handle *fwnode = dev_fwnode(dev);
-> +	struct fwnode_handle *handle;
-> +	struct fwnode_handle **fh;
-> +	int count, ret, i;
-> +
-> +	if (!node)
-> +		return -EINVAL;
-> +
-> +	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, "mdf");
-> +	if (IS_ERR(rst))
-> +		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset controller\n");
-> +
-> +	ret = reset_control_reset(rst);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "reset_control_reset failed %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = stm32_mdf_core_parse_clocks(pdev, priv);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (device_property_present(&pdev->dev, "st,interleave")) {
-> +		count = fwnode_property_count_u32(fwnode, "st,interleave");
-> +		if (count < 2 || count > priv->mdf.nbf) {
-> +			dev_err(dev, "Wrong interleave filters number [%d]\n", count);
-> +			return -EINVAL;
-> +		}
-> +
-> +		fh = devm_kzalloc(dev, count * sizeof(*fh), GFP_KERNEL);
-> +		if (!fh)
-> +			return -ENOMEM;
-> +		priv->mdf.fh_interleave = fh;
-> +
-> +		for (i = 0; i < count; i++) {
-> +			handle = fwnode_find_reference(fwnode, "st,interleave", i);
-> +			if (IS_ERR(handle)) {
-> +				dev_err(dev, "Failed to read filter handle: %ld\n",
-> +					PTR_ERR(handle));
-> +				return PTR_ERR(handle);
-> +			}
-> +			priv->mdf.fh_interleave[i] = handle;
-> +		}
-> +
-> +		priv->mdf.nb_interleave = count;
-> +
-> +		/* Configure GCR */
-> +		ret = regmap_update_bits(priv->regmap, MDF_GCR_REG,
-> +					 MDF_GCR_ILVNB_MASK, MDF_GCR_ILVNB(count - 1));
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct of_device_id stm32_mdf_of_match[] = {
-> +	{ .compatible = "st,stm32mp25-mdf" },
-> +	{ .compatible = "st,stm32mp23-mdf", .data = (void *)STM32_MDF_MP23_FILTER_NB },
-
-Again odd order of entries. Why doing things reverse from natural sort order?
-
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, stm32_mdf_of_match);
-> +
-> +static int stm32_mdf_core_identification(struct platform_device *pdev, struct stm32_mdf_priv *priv)
-> +{
-> +	struct stm32_mdf *mdf = &priv->mdf;
-> +	u32 val;
-> +	int ret;
-> +
-> +	/* If filter number is explicitly defined, don't check identification registers */
-> +	mdf->nbf = (uintptr_t)device_get_match_data(&pdev->dev);
-
-Don't use uintptr_t, but unsigned long.
-
-> +	if (mdf->nbf)
-> +		return 0;
-> +
-> +	ret = regmap_read(priv->regmap, MDF_IPIDR_REG, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val == STM32MP25_MDF_IPIDR_NUMBER) {
-> +		ret = regmap_read(priv->regmap, MDF_HWCFGR_REG, &val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		mdf->nbf = FIELD_GET(MDF_HWCFGR_NBF_MASK, val);
-> +
-> +		ret = regmap_read(priv->regmap, MDF_VERR_REG, &val);
-> +
-> +		dev_dbg(&pdev->dev, "MDF version: %lu.%lu\n", FIELD_GET(MDF_VERR_MAJREV_MASK, val),
-> +			FIELD_GET(MDF_VERR_MINREV_MASK, val));
-> +	} else {
-> +		dev_err(&pdev->dev, "Unexpected ID number: 0x%x\n", val);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int stm32_mdf_core_probe(struct platform_device *pdev)
-> +{
-> +	struct stm32_mdf_priv *priv;
-> +	struct resource *res;
-> +	int ret;
-> +
-> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +	priv->pdev = pdev;
-> +	spin_lock_init(&priv->lock);
-> +
-> +	priv->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> +	if (IS_ERR(priv->base))
-> +		return PTR_ERR(priv->base);
-> +	priv->phys_base = res->start;
-> +
-> +	priv->regmap =
-> +		devm_regmap_init_mmio_clk(&pdev->dev, "ker_ck", priv->base, &stm32_mdf_regmap_cfg);
-
-Odd wrappung.
-
-> +	if (IS_ERR(priv->regmap)) {
-> +		ret = PTR_ERR(priv->regmap);
-> +		dev_err(&pdev->dev, "Failed to allocate regmap: %d\n", ret);
-
-We do not print allocation errors.
-
-OTOH, every other probe failure should use return dev_err_probe syntax.
-Again, same with bindings, please take existing recent code as starting
-point, not upstream your old vendor code.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] dt-bindings: arm: keystone: ti,sci: Add
+ ti,tda54-sci-pdm compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: <nm@ti.com>, <kristo@kernel.org>, <ssantosh@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <afd@ti.com>, <u-kumar1@ti.com>, <vigneshr@ti.com>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+References: <20260930194131.117129-1-b-padhi@ti.com>
+ <20260930194131.117129-3-b-padhi@ti.com>
+ <20261002-observant-prudent-booby-eac28e@quoll>
+Content-Language: en-US
+From: "Padhi, Beleswar" <b-padhi@ti.com>
+In-Reply-To: <20261002-observant-prudent-booby-eac28e@quoll>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37D:EE_|IA3PR10MB8417:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2926a0b6-cf85-4607-7955-08df2067f509
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|56012099006|4143699003|10067099003|3023799007|6133799003|13003099007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	38av0SqZRKCAHeVxANJEVLjH1niEXxO3wdfI+z1qfRBAgDlfHyTFKdVZNTOcy6RMnxnRjwuD1ZhmX5zhXiCTzochx0+Hw2di5vzbPiLu0LbD3cbo95gdeNypTngqUj4CTf19FfomPMjyKsoLEeOltKJXvY9ZaZ7pImHAeZWWfHxoixZI/Q8lhbHLKJAp+tkk8CfUjdqfPaHTiySj8kumOBGAUQc/jZQieIgk0P0zbdMtIqLK/I5NTllRxbPuSAoCS+d44ffhkDLsFnDEIT5V8OBvS/wwTJqeUBFCNQqa3kUk+EPJROUp+xhOvJk4JiRWq99RUwerxyU/6RCzWOTofitUR8pH73z0nRqHhB/++kMj0IAbuvWXJrUaeWyNNoW5LCx7UMbsYnQVOcb5r8NOER/JIiRsjTTYntKnqhLnzBTQRexCTbWvA4vxJ4BKHFQPfnTqK8kLfH6zpPg/8axB4OIt9NAgB8GpdtXBEZEndlOX+VQqJ97wjH8k8dmTsaIfkboJhViBW4OS33v6ZLQQ/AA2HUiUiVSHEsTVvXB8B8aVlL8YxzYecSj+8Vr6ZlSrJOnStujJ6fnXaKZXuTuKms/5kM/66D7LaoSRpzgVbChKsD63IMzsEaZm6Ov7hxsbvPvPSMtjuCdxSUYXiiqNvKILEyKE/rMO7UHU3rgVucs=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(56012099006)(4143699003)(10067099003)(3023799007)(6133799003)(13003099007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	AbfqdxKEkN+U1/GKHKpQq11aIrEsj/+t0B+k5vCL7AbkwlIRWA4ofLmUahYxeE3WoK8rJ+wVR3GzRsRb/Qol2PFM6UczYX/mBpXb1qOZ/IcAPZnAg2t8C84aU+VDFn3u4qbotX83pNSNDn47wwrwz+DMoKo9DKhXH98em8PoKJJ2gcHz/hwmjIuC0L614Jhw3CqfEQDL6PmtgMUY57PAli3qoV+4uJg6veR97kXFVsh7GuCptyZbARCIUXJwzrUPJYXPCKUn4TWRWA5cpvHp1IxcNj/6HSOvK6P7Xt5ARn73/KFCWZAAThisW3w1xArCTJoqdLGwlCbfBg4SctCpN9D4D43u2L9696a8B7nRHA64gc2U99N4VrojoWQy+LzvfOrw/VGLTWv+/k1n6tknXnaw3I5JOLqKwA/rhgM9ebmt4gbLtnzZQMgwA/5SoAVE
+X-Exchange-RoutingPolicyChecked:
+	lj0qBQhsHxjQSJWEgf3abvNdm6/MzXILjo45tjhFdjdWfAHtsPaDVMVnIkNw03gKFqFvK/CsEaL0wWODffuS2zQUxiOS3C22H5UVMqvYoLAyAWRR76TmC+i9YRXcCoosMjFWUtDWg2Ntu0Qln7gUXEpdc3YBPm9MRdAkyXhuJbkArACg1QxOcbfe6eLrBo1uc2y+Pvrm+dMNb7Q/ZWozUtYf5I2l/dElMKF3gqiPK52S3i4erjtU5zpwopWPyj+gmSAjdF1N7J9ZZr5GsNsTe3qnB02WDJy7zew+mMIdEdkVoZaCM1Iq3Sr8IKfK8/gfjO+s8/2lmkUpBHTBsfLERA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 09:31:37.3720
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2926a0b6-cf85-4607-7955-08df2067f509
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C37D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR10MB8417
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNyBTYWx0ZWRfX2s2pJoZ+d5CJ
+ gI//vrfAOtR2410fLJD2hMMzecS37IZHAS1Yv5cbPog2/thRt31A6nQD9F5zHP2GvQJBm/a2ozN
+ 2kdoI1UbY23gHU5kvZURGsi3pvULATc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNyBTYWx0ZWRfX8yaZKtOg0dy9
+ ONhx0xOJPOmsbBvEGBHFIQJIKLMduwNBHC7FMzn56oVk1OJR/mmLqv+BoD9wi+vuq64+KLdzfwC
+ rEPv8X9HddSZH4zBTWZVIN7G+PzSwvuneYuL25RdDugEX+UQ71uzGOJKfFZR4FS8FS0Nl4zQDlr
+ HY3ygu2SN776WugWpXCSLRKRXyTYEu1qE/76j26u87VKV12gNsWtOhbPYc64gim9Rof+PzbaoEP
+ crgde36WhJ3EMddRFbjcZx1icbfQCyJJuSgmh6ABWPDVU7dksBIxc0oIiAQ/IKIKxJY3DkEY3KC
+ poorSnCGJn0Q5mJ3V1OcC1dyW6860zl8/UiqJrWOJuuz9kyH7anGoanLE23Qqjc0m8hXCELW4TH
+ tssm10c0Mg4WdLPmn45zEjbEErmdmVib3V+RJQLwJLVxLUuWzrFJxyplr1uBBBkrSPG8Pf5r4Dc
+ 5spEHnFYnQLL2dZeAzQ==
+X-Proofpoint-GUID: TLIbDM4T6QFrWC1ExbgnuucKY06IS1eM
+X-Proofpoint-ORIG-GUID: TLIbDM4T6QFrWC1ExbgnuucKY06IS1eM
+X-Authority-Analysis: v=2.4 cv=Ps0G/AM3 c=1 sm=1 tr=0 ts=6abf79fe cx=c_pps
+ a=jMLRuqkCa9WS4sFRI2wrKA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8
+ a=rFO7FCmIUIVRndp9zxwA:9 a=QEXdDO2ut3YA:10 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ clxscore=1011 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020037
 
 
-> +		return ret;
-> +	}
-> +
-> +	ret = stm32_mdf_core_identification(pdev, priv);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = stm32_mdf_core_parse_of(pdev, priv);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	INIT_LIST_HEAD(&priv->mdf.sitf_list);
-> +	INIT_LIST_HEAD(&priv->mdf.filter_list);
-> +
-> +	platform_set_drvdata(pdev, priv);
-> +
-> +	pm_runtime_get_noresume(&pdev->dev);
-> +	pm_runtime_set_active(&pdev->dev);
-> +	pm_runtime_enable(&pdev->dev);
-> +
-> +	ret = of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
-> +	if (ret)
-> +		goto pm_put;
-> +
-> +	pm_runtime_put(&pdev->dev);
-> +
-> +	return 0;
-> +
-> +pm_put:
-> +	pm_runtime_disable(&pdev->dev);
-> +	pm_runtime_set_suspended(&pdev->dev);
-> +	pm_runtime_put_noidle(&pdev->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static void stm32_mdf_core_remove(struct platform_device *pdev)
-> +{
-> +	pm_runtime_get_sync(&pdev->dev);
-> +	of_platform_depopulate(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-> +	pm_runtime_set_suspended(&pdev->dev);
-> +	pm_runtime_put_noidle(&pdev->dev);
-> +}
-> +
-> +static int stm32_mdf_core_suspend(struct device *dev)
-> +{
-> +	struct stm32_mdf *mdf = dev_get_drvdata(dev);
-> +	struct stm32_mdf_priv *priv = to_stm32_mdf_priv(mdf);
-> +	int ret;
-> +
-> +	ret = pm_runtime_force_suspend(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	regcache_cache_only(priv->regmap, true);
-> +	regcache_mark_dirty(priv->regmap);
-> +
-> +	/* Balance devm_regmap_init_mmio_clk() clk_prepare() */
-> +	clk_unprepare(priv->kclk);
-> +
-> +	return pinctrl_pm_select_sleep_state(dev);
-> +}
-> +
-> +static int stm32_mdf_core_resume(struct device *dev)
-> +{
-> +	struct stm32_mdf *mdf = dev_get_drvdata(dev);
-> +	struct stm32_mdf_priv *priv = to_stm32_mdf_priv(mdf);
-> +	int ret;
-> +
-> +	ret = pinctrl_pm_select_default_state(dev);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to set pins default state: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_prepare(priv->kclk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to prepare kernel clock: %d\n", ret);
-> +		goto err_clk;
-> +	}
-> +
-> +	regcache_cache_only(priv->regmap, false);
-> +	ret = regcache_sync(priv->regmap);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to sync cache: %d\n", ret);
-> +		goto err_cache;
-> +	}
-> +
-> +	return pm_runtime_force_resume(dev);
-> +
-> +err_cache:
-> +	clk_unprepare(priv->kclk);
-> +err_clk:
-> +	pinctrl_pm_select_sleep_state(dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int stm32_mdf_core_runtime_suspend(struct device *dev)
-> +{
-> +	return 0;
-> +}
-> +
-> +static int stm32_mdf_core_runtime_resume(struct device *dev)
-> +{
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops stm32_mdf_core_pm_ops = {
-> +	SET_SYSTEM_SLEEP_PM_OPS(stm32_mdf_core_suspend, stm32_mdf_core_resume)
-> +	SET_RUNTIME_PM_OPS(stm32_mdf_core_runtime_suspend, stm32_mdf_core_runtime_resume, NULL)
-> +};
-> +
-> +static struct platform_driver stm32_mdf_driver = {
-> +	.probe = stm32_mdf_core_probe,
-> +	.remove = stm32_mdf_core_remove,
-> +	.driver = {
-> +		.name = "stm32-mdf",
-> +		.of_match_table = stm32_mdf_of_match,
-> +		.pm = &stm32_mdf_core_pm_ops,
-> +	},
-> +};
-> +
-> +module_platform_driver(stm32_mdf_driver);
-> +
-> +MODULE_AUTHOR("Olivier Moysan <olivier.moysan@foss.st.com>");
-> +MODULE_DESCRIPTION("STMicroelectronics STM32 MDF driver");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/iio/adc/stm32-mdf-serial.c b/drivers/iio/adc/stm32-mdf-serial.c
-> new file mode 100644
-> index 000000000000..15a58cf833be
-> --- /dev/null
-> +++ b/drivers/iio/adc/stm32-mdf-serial.c
-> @@ -0,0 +1,309 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * This file is part of STM32 MDF driver
-> + *
-> + * Copyright (C) 2023, STMicroelectronics - All Rights Reserved
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/device.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/pinctrl/consumer.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "stm32-mdf.h"
-> +
-> +#define STM32_MDF_MODE_SZ 12
-> +
-> +enum {
-> +	STM32_MDF_SCKSRC_CCK0,
-> +	STM32_MDF_SCKSRC_CCK1,
-> +	STM32_MDF_SCKSRC_CLK,
-> +	STM32_MDF_SCKSRC_NONE,
-> +};
-> +
-> +struct stm32_mdf_sf_mode {
-> +	const char *name;
-> +	u32 mode;
-> +};
-> +
-> +static const struct stm32_mdf_sf_mode stm32_mdf_mode[STM32_MDF_MODE_NB] = {
-> +	{ "spi", STM32_MDF_MODE_SPI },
-> +	{ "lf_spi", STM32_MDF_MODE_LF_SPI },
-> +	{ "manchester_r", STM32_MDF_MODE_MANCHESTER_R },
-> +	{ "manchester_f", STM32_MDF_MODE_MANCHESTER_F },
-> +};
-> +
-> +static bool stm32_mdf_sitf_readable_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case MDF_SITFCR_REG:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +static bool stm32_mdf_sitf_writeable_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case MDF_SITFCR_REG:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +static const struct regmap_config stm32_sitf_regmap_cfg = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = sizeof(u32),
-> +	.max_register = MDF_SITFCR_REG,
-> +	.readable_reg = stm32_mdf_sitf_readable_reg,
-> +	.writeable_reg = stm32_mdf_sitf_writeable_reg,
-> +	.fast_io = true,
-> +	/* Do not use regcache as it does not support single register map */
-> +};
-> +
-> +int stm32_mdf_sitf_start(struct stm32_mdf_sitf *sitf)
-> +{
-> +	int ret;
-> +
-> +	spin_lock(&sitf->lock);
-> +
-> +	ret = regmap_set_bits(sitf->regmap, MDF_SITFCR_REG, MDF_SITFCR_SITFEN);
-> +	if (!ret)
-> +		sitf->refcnt++;
-> +
-> +	spin_unlock(&sitf->lock);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_sitf_start);
-
-You need kerneldoc for all of exports.
+On 10/2/2026 12:01 PM, Krzysztof Kozlowski wrote:
+> On Thu, Oct 01, 2026 at 01:11:27AM +0530, Beleswar Padhi wrote:
+>> The previous TI K2G and K3 architectures were tightly coupled systems in
+>> terms of Safety and Security. All the TI-SCI messages from HLOS (Linux)
+>> were sent to a single sec proxy thread terminating at the core running
+>> Safety service (DM). In K2G systems, DM handled both Safety & Security
+>> requests by itself. Whereas in K3 systems, DM serviced the Safety
+>> requests itself, and forwarded the Security requests to core running
+>> Security service (TIFS) on the HLOS's behalf. This posed various
+>> limitations:
+>>     a. Increased latency: An extra forwarding hop through DM adds latency
+>>        in requests and responses.
+>>     b. Freedom From Interference (FFI) concerns: Having Safety service
+>>        proxy Security's requests (& vice versa) undermines the isolation
+>>        and FFI of the system.
+>>     c. Potential Deadlock Scenario: Forwarding messages between Safety
+>>        and Security cores can result in a deadlock if there are circular
+>>        dependencies.
+>>
+>> To eliminate all the above limitations, the TI TDA54 class of SoCs
+>> introduce an architectural change: Isolation of Security and Safety
+>> services. To realize this enhanced isolation in hardware, two
+>> independent sec proxy threads are now provided for HLOS to communicate
+>> separately with the Security and Safety cores respectively. And the
+>> TI-SCI message forwarding has been eliminated in Software. The System
+>> Firmware ABI5.0 version necessitates this improved isolation and FFI
+>> change.
+> I don't get at all how above description helps to understand this patch
+> and this new compatible, except that this is not compatible with old
+> variants.
 
 
-> +
-> +int stm32_mdf_sitf_stop(struct stm32_mdf_sitf *sitf)
-> +{
-> +	int ret = 0;
-> +
-> +	spin_lock(&sitf->lock);
-> +
-> +	if (!sitf->refcnt) {
-> +		dev_err(sitf->dev, "Unbalanced serial interface stop ?\n");
-> +		ret = -EPERM;
-> +		goto out;
-> +	} else {
-> +		sitf->refcnt--;
-> +	}
-> +
-> +	if (!sitf->refcnt)
-> +		ret = regmap_clear_bits(sitf->regmap, MDF_SITFCR_REG, MDF_SITFCR_SITFEN);
-> +
-> +out:
-> +	spin_unlock(&sitf->lock);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_sitf_stop);
-> +
-> +static int stm32_mdf_sitf_get_clk(struct device *dev, struct stm32_mdf_sitf *sitf)
-> +{
-> +	struct clk *sck;
-> +
-> +	/* Optional clock. Clock not needed in Manchester mode */
-> +	sck = clk_get_optional(sitf->dev, 0);
-> +	if (IS_ERR(sck))
-> +		return dev_err_probe(sitf->dev, PTR_ERR(sck), "Can't get serial clock\n");
-> +
-> +	sitf->sck = sck;
-> +
-> +	if (sitf->sck) {
-> +		if (!strncmp(__clk_get_name(sck), STM32_MDF_CCK0, sizeof(STM32_MDF_CCK0)))
-> +			sitf->scksrc = STM32_MDF_SCKSRC_CCK0;
-> +		else if (!strncmp(__clk_get_name(sck), STM32_MDF_CCK1, sizeof(STM32_MDF_CCK1)))
-> +			sitf->scksrc = STM32_MDF_SCKSRC_CCK1;
-> +		else
-> +			sitf->scksrc = STM32_MDF_SCKSRC_CLK;
-> +	}
-> +
-> +	return 0;
-> +};
-> +
-> +static int stm32_mdf_sitf_parse(struct platform_device *pdev, struct stm32_mdf_sitf *sitf)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	const char *str;
-> +	int ret, i = 0;
-> +	u32 idx, mode, sitfcr;
-> +
-> +	ret = device_property_read_u32(dev, "reg", &idx);
-> +	if (ret) {
-> +		dev_err(dev, "Could not get interface index: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (idx % 0x80) {
-> +		dev_err(dev, "Unexpected reg property value [%x]\n", idx);
-> +		return -EINVAL;
-> +	}
-> +
-> +	idx = (idx >> 7) - 1;
-> +	if (idx > sitf->mdf->nbf) {
-> +		dev_err(dev, "Interface index [%d] exceeds maximum [%d]\n", idx, sitf->mdf->nbf);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Get SITF mode */
-> +	ret = device_property_read_string(dev, "st,sitf-mode", &str);
-> +	if (ret) {
-> +		dev_err(dev, "Could not get interface mode: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	while (i < STM32_MDF_MODE_NB) {
-> +		if (!strncmp(stm32_mdf_mode[i].name, str, STM32_MDF_MODE_SZ)) {
-> +			mode = stm32_mdf_mode[i].mode;
-> +			break;
-> +		}
-> +		i++;
-> +	}
-> +
-> +	if (i >= STM32_MDF_MODE_NB) {
-> +		dev_err(dev, "Unknown serial interface mode [%s]\n", str);
-> +		return -EINVAL;
-> +	}
-> +
-> +	sitf->mode = mode;
-> +	sitfcr = MDF_SITFCR_SITFMOD(mode);
-> +
-> +	ret = stm32_mdf_sitf_get_clk(dev, sitf);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (mode == STM32_MDF_MODE_SPI && sitf->scksrc == STM32_MDF_SCKSRC_NONE) {
-> +		dev_err(dev, "Missing clock for serial interface [%d] in SPI mode\n", idx);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (mode == STM32_MDF_MODE_LF_SPI && (sitf->scksrc != STM32_MDF_SCKSRC_CCK0 &&
-> +					      sitf->scksrc != STM32_MDF_SCKSRC_CCK1)) {
-> +		dev_err(dev, "Missing CCKx clock for serial interface [%d] in LF_SPI mode\n", idx);
-> +		return -EINVAL;
-> +	}
-> +
-> +	sitf->id = idx;
-> +	sitf->node = dev_fwnode(dev);
-> +	spin_lock_init(&sitf->lock);
-> +
-> +	sitfcr |= MDF_SITFCR_SCKSRC(sitf->scksrc);
-> +
-> +	/* Configure SITF register */
-> +	regmap_set_bits(sitf->regmap, MDF_SITFCR_REG, sitfcr);
-> +
-> +	dev_dbg(dev, "Serial interface [%d] registered\n", idx);
+You just answered your own question.
 
-Drop, that's just probe success.
+>   So 30 lines of text instead of 3?
 
-> +
-> +	return 0;
-> +}
-> +
-> +static int stm32_mdf_sitf_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct stm32_mdf_sitf *sitf;
-> +	struct regmap *regmap;
-> +	struct resource *res;
-> +	void __iomem *base;
-> +	int ret;
-> +
-> +	sitf = devm_kzalloc(&pdev->dev, sizeof(*sitf), GFP_KERNEL);
-> +	if (!sitf)
-> +		return -ENOMEM;
-> +	sitf->dev = dev;
-> +	sitf->mdf = dev_get_drvdata(dev->parent);
-> +
-> +	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	regmap = devm_regmap_init_mmio_clk(dev, "ker_ck", base, &stm32_sitf_regmap_cfg);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "Failed to init regmap\n");
 
-And here quite different choice. Your code is just inconsistent.
+The existing system controllers have been compatible in all TI SoCs
+for over 10+ years since Keystone generations. Using 30 lines of
+text to explain "why" the new system controller is not compatible
+with old variants is worth it.
 
-> +	sitf->regmap = regmap;
-> +
-> +	ret = stm32_mdf_sitf_parse(pdev, sitf);
-> +	if (ret < 0)
-> +		return ret;
+>
+>> Add the compatible string for TI TDA54 SoC PDM system controller to
+>> support ABI5.0 communication protocol.
+>>
+>> Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+>> ---
+>> Note: This patch is independent and can be applied directly.
+>>
+>> Cc: Nishanth Menon <nm@ti.com>
+>> Cc: Tero Kristo <kristo@kernel.org>
+>> Cc: Santosh Shilimkar <ssantosh@kernel.org>
+>> Cc: Rob Herring <robh@kernel.org>
+>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+>> Cc: Conor Dooley <conor+dt@kernel.org>
+>> Cc: linux-arm-kernel@lists.infradead.org
+>> Cc: devicetree@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org
+>>
+>>   .../bindings/arm/keystone/ti,sci.yaml         | 33 +++++++++++++++++++
+>>   1 file changed, 33 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml b/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
+>> index 67acce8a559a1..f0548382f7d52 100644
+>> --- a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
+>> +++ b/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
+>> @@ -20,6 +20,11 @@ description: |
+>>     initialized early into boot process and provides services to Operating Systems
+>>     on multiple processors including ones running Linux.
+>>   
+>> +  The TI TDA54 SoC, however, has two independent system controller instances - a
+>> +  PDM (Power and Device Management) system controller, which handles Power,
+>> +  Device, Clock, and Reset Management, and a separate SMS (Security Management
+>> +  Subsystem) system controller, which handles security services.
+>> +
+>>     See https://software-dl.ti.com/tisci/esd/latest/index.html for protocol definition.
+>>   
+>>     The TI-SCI node describes the Texas Instrument's System Controller entity node.
+>> @@ -40,6 +45,10 @@ properties:
+>>         - description: System controller on TI AM654 SoC
+>>           items:
+>>             - const: ti,am654-sci
+>> +      - description: |
+>> +          System controller for Power and Device Management on TI TDA54 SoC
+> That's redundant, you just repeated the compatible.
 
-Best regards,
-Krzysztof
 
+I did not. The compatible says "pdm". Not everyone understands the
+acronym.
+
+>
+>> +        items:
+>> +          - const: ti,tda54-sci-pdm
+> Why it cannot be enum with existing entry(ies)?
+
+
+It should be. Will address this in revision.
+
+>
+>>   
+>>     reg-names:
+>>       description: |
+>> @@ -135,3 +144,27 @@ examples:
+>>           #reset-cells = <2>;
+>>         };
+>>       };
+>> +
+>> +  - |
+>> +    pdm: system-controller {
+> No need for new example which is the same.
+
+
+Okay, will drop in revision.
+
+Thanks,
+Beleswar
+
+>
+> Best regards,
+> Krzysztof
