@@ -1,83 +1,66 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7ABCA360EF4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF56E4DAF85;
+	Fri,  2 Oct 2026 15:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955591; cv=none; b=U0Xs5QXX1w/lxTal/0CL58NQ2MK3agNinZlKnc5GcaiggHMgYhLXg7si8q3I9sQQsWfs1WnUz/BV6IspprO1t0TO0soZnrSE0Ssm/JzPjgDms9bRwTLxoWu4XE1E80FwWhm32b0MEtVmndTt24SbCByKe5gv0fqrsUB3JZ+sSUc=
+	t=1790955597; cv=none; b=mchv/vH0F4kS5vGhy7+H/l6BPBpN1w24OPEIrzHjl2tGRIHn+5rBViYxfbs07YO9dRHykG9nXINfih0k2go+vZXqBvOcXd3MEBUSshXxMj5PawKModbFaToh9sKAZ1jvi+BIzWmH6tHS0bra9z7TCz16rHLGrLIFAkEpEUh9HrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955591; c=relaxed/simple;
-	bh=bCHHV+bKapdhem/5Gw07QRVQmx273u4r4ya6MRuIaLY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aW104XcBf4u9zKPJNnNi+cx3/FFxSa7aFZcUGk5s0ujwicl3rXkfQwUZLCCXqdxqi2ngeAAiTvccTzWulk5m94I8fcZ1+wUd+mIxv07DpAEHDDn+0KtmbGd42OwG0p6Yt4bCql0Bg+kI6UuINycT4zAUx2GhrLv0bLhZ7ulSm6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eQlucJF3; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790955597; c=relaxed/simple;
+	bh=HNpc0I6euq0rv1q+gLOiV8btlXybsvf2RjUOEnsIgp8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BiARm/x3lQ8iMOOW3WI4Gu8UixkGDUEHHh8YQd5ClZWaUBoq4JkRoUu+IQ5tzfKXbBgp4wFlqc25oBeF81A1iE7fNscp/9tw/G2GMKIPAlvd8xRoVsVXhcpr9XDwXr0C2U9yhmiNCveJ3Wlj6e6fe3pjU84c2v7sJTewNOo+oM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=kKXLefl8; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eQlucJF3"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3FD68143D;
-	Fri,  2 Oct 2026 08:39:38 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 778773F85F;
-	Fri,  2 Oct 2026 08:39:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790955581; bh=bCHHV+bKapdhem/5Gw07QRVQmx273u4r4ya6MRuIaLY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eQlucJF3nCd3Q+W9IKGllP6HZAeJS5hlx2iPXCTShV428J1pInz1TXhm/pJoTDqi0
-	 yBqYvk2QgrNN8eLXJiWtS9pz/SpG69nGwUlsEwE6e84+WyUEviA7S6xj7CW6FlMGgO
-	 n94Erbaa8gMK8hyWkFn5am6J4ee8Et+NtIir9IVQ=
-Date: Fri, 2 Oct 2026 16:39:37 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64/boot: Don't set PMUv3p9 FGT2 bits without PMUv3
-Message-ID: <ar_QOXqCYTGargBe@arm.com>
-References: <20260930121212.3101361-1-fuad.tabba@linux.dev>
- <ar-xtsSOqwWK9jWQ@willie-the-truck>
- <CA+EHjTzT+2M40GfyxHp6p6OugjoA2BRSkbFK-PMeLGz+qCUM9w@mail.gmail.com>
- <ar-5CnttybD-1ojM@willie-the-truck>
- <ar_E5HUSTxMSRZhL@arm.com>
- <CA+EHjTzemfoX9e8Ppw+AcuUpNND_CipLCUM9xgid1eYXmV=jzg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="kKXLefl8"
+Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.corp.microsoft.com (unknown [52.167.115.14])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 2FBE920B7166;
+	Fri,  2 Oct 2026 08:38:50 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2FBE920B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790955532;
+	bh=VCiGsdCCjx/n7No25E0tyjU84+JUkR28ts3SmgGX6cg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=kKXLefl80t6Sn0yUpp4EE1+m9cbtMp4HA1XzZFUoMC8qVL3irdp3x3BqO/1CZZ74h
+	 fxcX+9W3e53MA11n0SNzQ5ClnvG6l1piVIglhvN0rmDs70DYlxCxCTGD4aPx4eqwxq
+	 8h4eWT/ZSmnM2GaND3+7EqsZY7oTyV06FD3Z1piQ=
+From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] tracing/user_events: Share state between existing threads
+Date: Fri,  2 Oct 2026 11:39:32 -0400
+Message-ID: <20261002153934.798176-1-jeffbarnes@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTzemfoX9e8Ppw+AcuUpNND_CipLCUM9xgid1eYXmV=jzg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 04:24:06PM +0100, Fuad Tabba wrote:
-> On Fri, Oct 02, 2026 at 03:51:16PM +0100, Catalin Marinas wrote:
-> > I couldn't figure out the #8 either. I wonder whether it's more readable
-> > as (untested):
-> >
-> >     sub    x1, x1, #ID_AA64DFR0_EL1_PMUVer_V3P9
-> >     cmp    x1, #(ID_AA64DFR0_EL1_PMUVer_IMP_DEF - ID_AA64DFR0_EL1_PMUVer_V3P9)
-> >     b.hs    .Lskip_pmuv3p9_\@    // Skip unless V3P9 <= PMUVer < IMP_DEF
-> 
-> This looks correct to me.
-> 
-> That said, if readability is the goal, I think the plainest is two
-> compares and two branches. It's one more instruction, but this runs
-> once at boot:
-> 
->       cmp     x1, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF
->       b.eq    .Lskip_pmuv3p9_\@
->       cmp     x1, #ID_AA64DFR0_EL1_PMUVer_V3P9
->       b.lt    .Lskip_pmuv3p9_\@
-> 
-> I used ccmp to match __init_el2_debug in the same file, which does the
-> same NI/IMP_DEF check with a raw #4, as does reset_pmuserenr_el0 in
-> assembler.h (and hyp-entry.S uses the same pattern for HVC64/HVC32).
+Threads sharing an mm_struct can create separate user_event_mm instances
+when they were created before either thread first uses user_events.  Each
+instance then has its own enabler list, allowing two threads in the same
+address space to register different events using the same enable address
+and bit.
 
-I'll leave it to Will. My preference is whatever is more readable, no
-need to optimise another cycle or two here.
+The first patch adds a deterministic regression test that creates both
+threads before registration and verifies that the second registration is
+rejected with EADDRINUSE.
 
--- 
-Catalin
+The second patch makes current_user_event_mm() find and attach to an
+existing user_event_mm for the current mm_struct, and synchronizes
+attachment with removal of the last task.
+
+Without the fix, the new selftest fails because the duplicate registration
+succeeds.  With the fix, the registration is rejected with EADDRINUSE and
+all seven user_events ABI tests pass.
+
+---
+2.43.0
