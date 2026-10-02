@@ -1,142 +1,144 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B6242E40C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790983565; cv=pass; b=cEwk8R7cnw4lZgr3lkUqNVInzbsazE4iOY3r5AEwy8iHPixrTX/7ZoEffY+erAJJhh/3eaq64A62zHDrIui4gZs3f2SNFuuxIB4LSNhJ3bP7hKPCusRBXEAHy08aL35oPv+qFM23DYUtHG1IJtrrXC/OJTOvmKSxnxEHlFXpPCQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790983565; c=relaxed/simple;
-	bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UMDxVzFeRWkNz7ABdMzITBYeUzkV1pnNyJCdbhzyQ+Fx/MNZMbAwzMDCGk1f8btpUSdU4DhOQHqKg8C76NCzueKgMzBsbjK4S6YN+IKr9Ai4a32/odgV48fhIO4qma6E/bKJ/Y7vnW/OT7qZ/oCW2BUThXXln5BfbrnzkuyDWKE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=poPoUCJa; arc=pass smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB50A47141E;
+	Fri,  2 Oct 2026 23:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790983567; cv=none; b=YJcxHrjPx5PYGUGZ0dxH8rkA83oyvPMTrI9g+mQVaaPmgrQxckY5WC2IRtLYiR4ZfJDjyhLIq7rqD23RcJkR2GDf6r31OFDMbn6C9HwJPVvsDDMM1fctAhH7GP4d/KEFyAKKUgebgrr3ISaP7lS2HwDGJ+2SXDTDS8VIjOXuGrU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790983567; c=relaxed/simple;
+	bh=pBcY2R+oI4tstgT/fIyDCw4Zl2VJIZsK3vlJwnGD03Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=mHJU6qztpWoqv16jbSwuPoUkQNToiuirFaxc17ttdv5xojAfo0aR0yn855WqriXVGGcY+t1WnmI64+ubVX6YGtXQxVwXdTnu0O27wzrsfzu6r+mx2BscKLLTgiZcpBl4U3NjwSnzk+yr+RjVk8td7cU1LWdtBR/LUoXcJzkWu5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jv2UEINN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="poPoUCJa"
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-6729ca45e37so37860d50.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:26:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790983562; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pws9CQJNF4+pGh0qVeezcrWWouwHxHgFazIIAjZ5bQU2xwXh2J3SqYpbTUQBMVXxK0
-         Ai7P5l1bMYjxNNemwCvCimJVRnmINfdkPIp92V5Bf0zMoWm/345hIFnMMSbOn9tTGS57
-         MIVH2hAiuhvL6h25EMB/4ef9wCmfPeJYddFIOjOPrajf12Xiu6zKvQ+dk+PK9W90Fg4g
-         NwFk2Cl0uHGm3AULO3MhqBXF/pD4X/WXO4jQH3KPb3dcOT22dOFRVgzNB37SldVOOuGE
-         9JQB1WmeNm/b6DOHBUBU5tbWlmtFrKoXYEmyg01Wq2A1C8czAJeVj8Jbz0s0mbFIhE0C
-         Oveg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
-        fh=2xPPQPy2f9NxaZQoRhtyVurYlqVs935m051DQp2h5Lk=;
-        b=boivQwAXvLxLgKrRMolKFiHVtck7BKm3sCtmkE2u/pmrP3udXN0yHHVznGeo0uGFIn
-         UNYxMY+B5dW04jkEOwZfOkpcBMiJkUNEIy3WR91lV1mIdJ9r6eO4OgbNk6P4TpH7sC+/
-         mQ0gb0TwVuDL9penxOR3BZffdSi8kd0HoFTbtMSu+XsTS5ptbvpyN51xJT6NvL1J/54R
-         I2BfuZs+m7A2XSCbhiFnyOavrcYPUItD9bhdRTLISQ1PvUwNGSgAfcDcUBdslLsj9Se8
-         rTCRDDwwQyT8Gd8b9FB7aBMCLiH4prGXEnOZz9hANXR3Y6+l5w2EhUd/1cewLhn+yk/Z
-         pHXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1790983562; x=1791588362; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
-        b=poPoUCJaJTVARtJ9jLfbIFI6Oo+P1THbdWPGmccfi+WPK2khdYHENXGWmyMO2PSsMg
-         ogMWPoE8fqSGxU94KhWPDFXbMP2Ae9duaCM6oAhoMrlRMODEECvMKXf6epxhkR59sddT
-         sslVGO7JiQSTmRhjbsvsNE1/+G+4+r7xgGzF4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790983562; x=1791588362;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
-        b=Jfnd1wUwhcG74dZZWEntro9ZuoGImaoBUfYEx/wmxyL2RKWuE/9rNIIemzQg0NFCuu
-         xYUh2kFtD9RCzDxDCBtPl6smAPoPoTZdmDLl/C1OCZiV5StKExLy7sHwI/0qihuH9bXm
-         lAzqSQwZWc6nBuvo4jj+lV10pgV1UZvmm0Px923LFpT0WeQeYeZBRMWWMU26ZP8ITVNf
-         xhCnl+ogxNNC4npgy6JTaeUrC2zu3Yd5cJbx6qLBA9IapP74NsafJWeg/So0cczTlrNy
-         zpFWvebsd/9ATKYUnoUlI23IASdBO9MEteOzMuXb4HP7/xeBx0/VDxEVPfCEbyahXjyH
-         tjZw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVnro26f+8o2xq45dNGwjIiKAOxA1p+cv/tILw7SB+T2E2V0oP4zFKZrFFaMZkMCUP/xoSPj/vq55wYDc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITAr0002mNV+e24wQf22uO9BqdfhR2eopUcjnA2WNQWprZKF/f
-	ui+ZZ78bQkc7AoPKga1dAK5lc1lPVNHhJ3gmnu3c4LEtovkSrp0M1AbXu+p/f8AKb4ewh/IMrVz
-	zuOHy3wNTNlH/F9C5p0QF1vjM6+frYFoqgy45BYUC5A==
-X-Gm-Gg: AYBFou0Rx4RByr3W7nGY0pRUB40nD1Yt4bK+6w0tMi6/aN52AV8G4gVDi0YSJnx+H+F
-	owO6soqBvQszoKkrYY8xuU8bpe7ieSDSPB5bso1jbN0LvA/jFIY7VIEvIOtCXIBzztYPG0BBtrJ
-	uw6znNO2PwW1s/TTXkFL38SQ4xe0j6dBlDbQDFgilK5YI9DuPy5Z1LgWr50NQ539trKoc3nHjmK
-	m9UsiQslkt86b3Lu4VO3PFACBwsIjgDd9ahvtSZLOEUa4OElhS8t7nakQQCKUgmE1ZN3U7hn45I
-	VCc9gIhG6NI2TMm8aY8Ls8S1E75X4NQdUm4cF7bQXf+3TyVkeoqMlPp9NEa7j1C9Wp3LYYWssCl
-	oqZJJ6RE1M5otjXrgTSnhNw==
-X-Received: by 2002:a05:690e:804:20b0:672:99e0:ebf6 with SMTP id
- 956f58d0204a3-677ac1af0femr1170670d50.142.1790983561984; Fri, 02 Oct 2026
- 16:26:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jv2UEINN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFA21F00893;
+	Fri,  2 Oct 2026 23:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790983565;
+	bh=qu9dEtP9YAh4yNiAM94k1GvC1NXBsCRK7l37Wy+2FEU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Jv2UEINNPTvxl6/MPEAJB5TLj2CtWVtUaWt1PnB2eSs3XfpFRY4Cy+Vne+ttmP/H6
+	 Q32lJBAGdwM+eOBEvMbJtdGp8UcrqoQ+5yYTGTvOUqotijZ8xB6/JjbMoD2Nyor79L
+	 3B/O0w29eVwrMC0fZFqD16EuRbN7DWW+pxmivi0L5vZ7H7qWIXkaKSOXhPnXX0pLoc
+	 TGOHMazC+qltWb0nL1TC+OM3xfxQ26gQlWl1b6VV4mE9jGTte8E7DXxqk5QPF8rfeE
+	 ctgWXgYJCN+534DL1CWDqSitYUxiliZdgxGc344IGBH4yX8u1WoDsR6x+o+RkzLXwj
+	 d7qPkvu1XC18Q==
+Date: Fri, 2 Oct 2026 18:26:03 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Shuvam Pandey <shuvampandey1@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Yue Wang <yue.wang@amlogic.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Fan Ni <fan.ni@samsung.com>, Shradha Todi <shradha.t@samsung.com>,
+	Hanjie Lin <hanjie.lin@amlogic.com>, linux-pci@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] PCI: meson: Add missing remove callback
+Message-ID: <20261002232603.GA397281@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002-perf-symbol-memory-send-v4-0-0a592bb2539e@uber.com>
- <20261002-perf-symbol-memory-send-v4-2-0a592bb2539e@uber.com> <CAP-5=fX=BvLMm-JHLqaR6ACmP0buF9TSvRLf_Cs1us-o6aMGRQ@mail.gmail.com>
-In-Reply-To: <CAP-5=fX=BvLMm-JHLqaR6ACmP0buF9TSvRLf_Cs1us-o6aMGRQ@mail.gmail.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 2 Oct 2026 16:25:45 -0700
-X-Gm-Features: AclHuK-ph-iyfrQ2eVW2jG3FptK-AGuI-o72WhxQK4yu3pLAKj6OtRrC1G1nndg
-Message-ID: <CA+w=M=REOd1gvi+c6vkd0Ue=q2d_gfC2xeJ_KSVg0H0AaOA+pw@mail.gmail.com>
-Subject: Re: [PATCH v4 2/5] perf dso: Allow reading DSO data from an explicit file
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1a0c86ab264cdc1c79c917e984b90991af51d827.1779123847.git.shuvampandey1@gmail.com>
 
-On Fri, Oct 2, 2026 at 3:13=E2=80=AFPM Ian Rogers <irogers@google.com> wrot=
-e:
->
-> On Fri, Oct 2, 2026 at 11:46=E2=80=AFAM Alireza Haghdoost via B4 Relay
-> <devnull+haghdoost.uber.com@kernel.org> wrote:
-> >
-> > From: Alireza Haghdoost <haghdoost@uber.com>
-> >
-> > The DSO data cache derives the file to open from the DSO's binary type,
-> > which can resolve to the runtime image rather than the file a symbol
-> > table was read from. The lazy symbol loader added later in this series
-> > reads symbol names at string-table offsets in the file the symbol table
-> > came from. With split debuginfo, the data cache would apply those
-> > debuginfo offsets to the runtime image.
-> >
-> > This patch adds dso__data_set_path() so a DSO can be configured to read
-> > from one exact file while keeping the data cache's descriptor eviction
-> > and reopening. The path is used only when the data cache opens the file=
-;
-> > dso__get_filename() and its debuginfo callers are unchanged. Such DSOs
-> > may be owned privately rather than being part of a dsos collection, so
-> > the patch also drops the assertion that every opened data DSO is in one=
-.
->
-> I think some context is missing here. Why do I want a DSO that isn't
-> part of a machine's DSOs? I can see a use for testing, do you want
-> this feature for more than testing?
->
+On Mon, May 18, 2026 at 10:44:18PM +0545, Shuvam Pandey wrote:
+> meson_pcie_probe() powers on the PHY and registers the DesignWare host
+> bridge with dw_pcie_host_init(), but the driver has no remove callback.
+> On driver unbind or module unload, the driver core therefore proceeds to
+> devres cleanup without first unregistering the host bridge or powering off
+> the PHY.
+> 
+> Add a remove callback that deinitializes the DesignWare host bridge and
+> powers off the PHY while device-managed resources are still valid.
+> 
+> Fixes: 9c0ef6d34fdb ("PCI: amlogic: Add the Amlogic Meson PCIe controller driver")
+> Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+> ---
+>  drivers/pci/controller/dwc/pci-meson.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/dwc/pci-meson.c b/drivers/pci/controller/dwc/pci-meson.c
+> index 0694084f6..c96e2244a 100644
+> --- a/drivers/pci/controller/dwc/pci-meson.c
+> +++ b/drivers/pci/controller/dwc/pci-meson.c
+> @@ -451,6 +451,14 @@ static int meson_pcie_probe(struct platform_device *pdev)
+>  	return ret;
+>  }
+>  
+> +static void meson_pcie_remove(struct platform_device *pdev)
+> +{
+> +	struct meson_pcie *mp = platform_get_drvdata(pdev);
+> +
+> +	dw_pcie_host_deinit(&mp->pci.pp);
+> +	meson_pcie_power_off(mp);
 
-Yes, the production consumer is 4/5 in
-tools/perf/util/symbol-elf.c:2143-2146, where
-dso__build_ondemand_index() creates the private data DSO and sets the exact
-symbol-source path.
+FYI, from internal Sashiko review while backporting this commit
+(4b0dc84b2939 ("PCI: meson: Add missing remove callback")):
 
-The lazy loader needs this data-cache handle because the symbol table may
-come from separate debuginfo rather than the runtime image. Namhyung asked
-during the v2 review that this known split-debuginfo problem be separated
-from the lazy loader as an independent fix.
+[Severity: Medium]
+Will this manual call to meson_pcie_power_off() execute too early,
+before devres tears down the clocks?
 
-Thanks,
-Alireza
+During probe, the initialization order powers on the PHY before
+enabling theclocks. LIFO order requires disabling the clocks before
+powering off the PHY.Because meson_pcie_probe_clocks() uses
+devm_add_action_or_reset() to manage the clocks, they will be disabled
+after meson_pcie_remove() returns.
+
+Could this cause a hardware hang or undefined behavior during driver
+unbind due to the clock and power sequencing violation?
+
+[Severity: High]
+This is a pre-existing issue, but does this remove function also need
+to call reset_control_assert() to avoid leaking the shared reset
+deassert count?
+
+During probe, meson_pcie_get_resets() obtains a shared reset and
+manually increments its deassert count:
+
+  mrst->apb = meson_pcie_get_reset(mp, "apb", PCIE_SHARED_RESET);
+  if (IS_ERR(mrst->apb))
+    return PTR_ERR(mrst->apb);
+  reset_control_deassert(mrst->apb);
+
+Because the devm reset getters used here do not automatically assert
+on cleanup, omitting reset_control_assert() in meson_pcie_remove()
+means the apb shared reset will permanently have a non-zero
+deassert_count. This prevents it from ever being asserted again, even
+if all consumers unbind.
+
+> +}
+> +
+>  static const struct of_device_id meson_pcie_of_match[] = {
+>  	{
+>  		.compatible = "amlogic,axg-pcie",
+> @@ -464,6 +472,7 @@ MODULE_DEVICE_TABLE(of, meson_pcie_of_match);
+>  
+>  static struct platform_driver meson_pcie_driver = {
+>  	.probe = meson_pcie_probe,
+> +	.remove = meson_pcie_remove,
+>  	.driver = {
+>  		.name = "meson-pcie",
+>  		.of_match_table = meson_pcie_of_match,
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
+> 
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
