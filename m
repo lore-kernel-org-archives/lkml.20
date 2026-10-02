@@ -1,131 +1,95 @@
-Received: from esa5.hc1455-7.c3s2.iphmx.com (esa5.hc1455-7.c3s2.iphmx.com [68.232.139.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E5D33B6F4;
-	Fri,  2 Oct 2026 10:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.139.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D27E247F764;
+	Fri,  2 Oct 2026 10:29:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936951; cv=none; b=IONTXM0BCQHG19tMSlq2v3wxfNQME3ed2Imh6L32AS3ssI8cvdFYeMS5FtRDl5Ic2SlTfAJmFYYdKImgTTy7JwWyJfgRTkOag1lUTibm6AOorsuGzxkvQWLJtYt4isxp5op5yS5DYxGsql+5GYHcM72u1ko3eCQ/iNbqPpudiJk=
+	t=1790936957; cv=none; b=eKc5ygmQH9lhcLiYQSojscQWk0Fa0jhh6gaXe8G0EErlMrATxRlYklNk9Qt6SWqTaBr6ixrxUvXYiVudL0WfaIlHhArQTJbHm+Tzowy6IbU4EZYLhIRne0KxapYBDglyQ93Bs11Axv8qxPng2sT+ZWBGURFpz0T/cjkgkIHiMUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936951; c=relaxed/simple;
-	bh=kdP8Y85+YAlHHNn6trn0SUbhnmJE4tAcNHP5fu0/54w=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SxlmWrsYprBphUzu98zXcD7C2cngQLxRLwg96XRESw3GRaEI2h8cNg/4XkFNQWD03X/VvNOvK0W5FZvCSYkmwhXApkqbbnXPuinyyTmKWDF3baVHkkfPMB0n3o+3QVmj7MsJqvkb/drYlybNgE0mIsEM2z/n0dCyGvX7neghvuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=o0lZjKGq; arc=none smtp.client-ip=68.232.139.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1790936957; c=relaxed/simple;
+	bh=8zdG4+TMm/xDMmpwn/2kI2vIq6OxntZw4PKsvfXk3l0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EV0WEJNw0RUu0MEVv7B6A8nEv3MvfAdEApscrPAUPUDRLYddJuhQWZzQMDOjTr6TmwTDP5uKpvYCCLayNwNx8KXs2wjkp+36AKuUmPkXxprq+ArrIBn4P61Pu6Ko1ozBKylqMZ7qzlNlPHbyZTwhMpkYZz0Dlrp5xTEt7SGDdNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=A0jDrAq+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="o0lZjKGq"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1790936950; x=1822472950;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=kdP8Y85+YAlHHNn6trn0SUbhnmJE4tAcNHP5fu0/54w=;
-  b=o0lZjKGqzZTqmvhEa5Cty7OnjiTyjryZnbUuni55csbJNYp8wd/cdMG5
-   6y5KPNDH3QSek0AhxaHKPHOeygEI2t3JkD8e2MrMRAi4TEbw4uDZXwQjU
-   hDXgX5KSJEmq2oxrz2k70PtFyQx9CiwUfd7s+tR6l4m4rHRIKPe4nKUGv
-   GE8TSTMxmdjbdlGayEJkISDoWL59K6LJQ0ou6+2brvDqEMg1bvVHTSbIj
-   lYOmh2rJ2iX6SY955BAuUC0ohO8Ql9gRjfSTbrePKc3NDsKtl43OHgw3f
-   xZH2WZDtjwTLjvoo0ioq/aC0PTGg3wL0spjrUHolqeJrZc0iJ+7w1sJx0
-   g==;
-X-CSE-ConnectionGUID: FFQTJ/7UTQCK9Q3fhJjG+w==
-X-CSE-MsgGUID: WUOEgRicQ2ySwV+HWqD9SQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="255159819"
-X-IronPort-AV: E=Sophos;i="6.27,136,1786978800"; 
-   d="scan'208";a="255159819"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa5.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 19:27:59 +0900
-Received: from az2nlsmgm2.o.css.fujitsu.com (unknown [10.150.26.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 0D5FF404C1A;
-	Fri,  2 Oct 2026 10:27:59 +0000 (UTC)
-Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id AEDF51C00CFA;
-	Fri,  2 Oct 2026 10:27:58 +0000 (UTC)
-Received: from [127.0.1.1] (unknown [10.124.178.20])
-	by az2nlsmom4.fujitsu.com (Postfix) with ESMTP id 8EC86201F381;
-	Fri,  2 Oct 2026 10:27:53 +0000 (UTC)
-From: Tomohiro Misono <misono.tomohiro@fujitsu.com>
-Subject: [PATCH 0/4] arm64: Add workarounds for FUJITSU-MONAKA CPU
-Date: Fri, 02 Oct 2026 19:26:48 +0900
-Message-Id: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="A0jDrAq+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 724932F;
+	Fri,  2 Oct 2026 03:29:10 -0700 (PDT)
+Received: from [10.57.8.170] (unknown [10.57.8.170])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52A453F86F;
+	Fri,  2 Oct 2026 03:29:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790936953; bh=8zdG4+TMm/xDMmpwn/2kI2vIq6OxntZw4PKsvfXk3l0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=A0jDrAq+Uipp3H5I0BVYbZMwW+Mm5UzB/Yew7n6iialYSBFkrm6pTg1i9sUSM2t2r
+	 EUc9FcHr/MSwRtmo2+Q2hQC9Q0F9e5Bzi3IodbUU7xML5zPPD+nFXgky/TyzXW1rnz
+	 i9x9fQNFEdLdKuRV/KUDWU1nXuFrGwN6RaaM916M=
+Message-ID: <a8dcdcfb-3c4c-4e39-b206-004f60c128b6@arm.com>
+Date: Fri, 2 Oct 2026 11:29:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 10/23] KVM: arm64: Add VM specific callback for S2 MMU
+ operations
+Content-Language: en-GB
+To: Fuad Tabba <tabba@google.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
+ jonathan.cameron@oss.qualcomm.com
+References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
+ <20261001210703.1597150-11-suzuki.poulose@arm.com>
+ <CA+EHjTxCfmOqiJzYDZHunSuEyoZCbgHuzeSYC8y71Re+9PA6Kw@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTxCfmOqiJzYDZHunSuEyoZCbgHuzeSYC8y71Re+9PA6Kw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOiGv2oC/x2MQQqEMAwAvyI5G0h7EPUrsoegqQaxlXQVQfy7x
- ePAzNyQxVQy9NUNJqdmTbGAqysYF46zoE6FwZNvHJHHLUVeGYNeGJLhsee/CW/YtNSSm4Q7H6D
- Uu0lxvvPwe54XQNQKVmkAAAA=
-To: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: Kohei Enju <enju.kohei@fujitsu.com>, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790936872; l=1846;
- i=misono.tomohiro@fujitsu.com; s=20261002; h=from:subject:message-id;
- bh=kdP8Y85+YAlHHNn6trn0SUbhnmJE4tAcNHP5fu0/54w=;
- b=sMutH7OhtOq9k8VTtMz1y5NNO9KUJbCPf4Nd0TQrXpxEWC6mWnCE+o/3Ek4YSISS8eN23cuDP
- 2UTe6+Jim/LBwZPXzq96h44pnE+cODni8I5OEpQSzWxKYPPMkAV+7Ui
-X-Developer-Key: i=misono.tomohiro@fujitsu.com; a=ed25519;
- pk=VLRxj5y4GJrHLmj3e2NBg30fX2U//ydi7c2G2qiNo10=
 
-This series adds three workarounds for the FUJITSU-MONAKA CPU.
- - Patch 1 ... Add the FUJITSU-MONAKA CPU type definition
- - Patch 2 ... Add a workaround for TLBI operation on 64k page size
- - Patch 3 ... Add a workaround for perf operation
- - Patch 4 ... Add a workaround for GIC operation
+Hi Fuad
 
-Although the three workarounds do not depend on each other functionally,
-I have combined them into one series because patch 2 and 3
-use the CPU type definition added by the first patch, and
-all the workarounds update silicon-errata.rst.
+On 02/10/2026 11:19, Fuad Tabba wrote:
+> Hi Suzuki,
+> 
+> On Thu, 01 Oct 2026 22:06:50 +0100, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+>> Add VM type specific S2 MMU operation backends which can be initialized per
+>> VM flavor, to keep the handling cleaner.
+> 
+> The rows only differ where the base already branches (the pKVM TLB
+> flushes, the protected VM age and unmap, and from patch 12 its abort),
+> so the case for the table rests on the Realm row, which isn't
+> functional until the RMI backend lands. Beyond the flushes in patch
+> 16, which operations do you expect it to override?
 
-If preferred, I will resend them as separate patches.
+Thats it for now. But I also want to explore the flush_memslots() case,
+where Realm doesn't need to do anything. May be it is easier to stub
+that case out early.
 
-This series is based on v7.3-rc5.
+> 
+> [...]
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> [...]
+>>   int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
+> [...]
+>> +       if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
+>> +               return 1;
+> 
+> Every row sets it today, but returning 1 falls back to
+> KVM_REQ_TLB_FLUSH, which arm64 doesn't handle, so nothing would be
+> flushed. Could vm_flush_remote_tlbs be mandatory, checked in
+> kvm_vm_init_vm_s2_ops()?
 
-Best Regards,
-Tomohiro Misono
+Agree, we could make that mandatory.
 
-Signed-off-by: Tomohiro Misono <misono.tomohiro@fujitsu.com>
----
-Kohei Enju (1):
-      irqchip/gicv3: Add workaround for FUJITSU-MONAKA erratum E#030003
-
-Tomohiro Misono (3):
-      arm64: cputype: Add FUJITSU MONAKA definition
-      arm64: tlb: Add tlbi workaround for FUJITSU-MONAKA Erratum E#030001
-      perf: arm_pmu: Add workaround for FUJITSU-MONAKA Erratum E#030002
-
- Documentation/arch/arm64/silicon-errata.rst |  6 ++++
- arch/arm64/Kconfig                          | 36 ++++++++++++++++++++++
- arch/arm64/include/asm/cpucaps.h            |  4 +++
- arch/arm64/include/asm/cputype.h            |  2 ++
- arch/arm64/include/asm/tlbflush.h           | 33 ++++++++++++++++++++
- arch/arm64/kernel/cpu_errata.c              | 20 ++++++++++++
- arch/arm64/tools/cpucaps                    |  2 ++
- drivers/irqchip/irq-gic-v3.c                | 48 +++++++++++++++++++++++++++++
- drivers/perf/arm_pmu.c                      | 13 ++++++++
- 9 files changed, 164 insertions(+)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20261002-monaka-fix-for-upstream-680801dea92f
-
-Best regards,
--- 
-Tomohiro Misono <misono.tomohiro@fujitsu.com>
-
+Suzuki
