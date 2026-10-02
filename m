@@ -1,118 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643C8233944;
-	Fri,  2 Oct 2026 17:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DF21BC2A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961442; cv=none; b=shfmtpVrUF/LQEfamisVevHf28Si4sIdnp1FHBmqcR3bnCvbV4yjk+p7iY8QxgPtaX3DSQbnMxrmDzqha3UFG+1CIaSL2J5luGqaL31NTiZjgjCUZKj4KCJ1+GUxB9UFfPhi8VnqMINFTl15fLxFUgfy3nAFeDFKH4qcsC9OY/k=
+	t=1790961461; cv=none; b=uIws3JKYQU2XREZWuHNRBUPsxhh8ObA8i/MyRSyHT53+QzUT8NpzbMYij8//yovJwkiV2sny2DTbOYfU355PlwDV6LzlME2uuSDswwGNDDW2kjr39X3cC0o8gKu6LilYkd/qfI6gcDy7unANJ2L7wrVGBP4JSNltT5HSuytuvk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961442; c=relaxed/simple;
-	bh=0BQrA6cGRVgn5Q0h1ymYVtH9JB80FTDxnzz0Tt4mKBE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yy/aWcuXrN2evYlD1kOJH0VcKoIdSp4J3nUFBWsvV8/o+S4irKupaM/H2bApRCyWwJ6fJPoyJNqtKlp3BP8NXQXYvme+PQCgQ52CCc3SFFnCcj1SHJYgHbC5Xc52xTXbasCQ+K6atlY3VJPMG1HNDAw2sTCUe1gbrKVDCEwH+7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TaMVPMRj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790961461; c=relaxed/simple;
+	bh=cOSITwGmcb3cfSGmr/b7iRLqk+4E6R+342jJ/eURH24=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PzAlUne6UTNquu7JjL+zAih0ydPYSctuekzdkv1m9Qlycj7vKfCqDRVc0EeaNe9EvWTTqA7eDZlxnnYZv2F7UCecdiLf5RxaRy9PPuNtNl53WiRzDt9j66VQhVmwpRn4rBnaxEjNzGNOqmqqcKAy2+HnPnVPLjT5aPk4AN5kt7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LeyvJ7f7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LV8lZjPD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TaMVPMRj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FA61F000FF;
-	Fri,  2 Oct 2026 17:17:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790961437;
-	bh=Yzk55Y+Q7QB7A9bgtfVqi/SIgCigyGqIZC+IFnFhhTE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TaMVPMRjtDthJjauw1G04/SU3fDEjFyXRe7wsTxeQWfhs8CuDjoybovXM7RrKDZUl
-	 FbszEqF56f9y+87FOl6W1Noaylboj0l5VhLMlvzqicg1CcVJm4QUzpylh9uvotG7y8
-	 yWs1/Yb/+oLboHLveYYr1GNJUyHiPoHLVotryWmiM6q+Z1QOu36aZ9yAZ4weWTCcS9
-	 IEyECUzef6/N0AKcjbc1hT56jfs1HKHCukJnhlRcV0tqONnVpuWzdDaVPDvWWg4oS+
-	 2CH/u8k60jGvuXYU4RNe4/VL4k81I0senT27z3rFYmAakorV6B3Oryd1rV2hzOtaEf
-	 0i6PWsc7vR43Q==
-Date: Fri, 2 Oct 2026 18:17:12 +0100
-From: Simon Horman <horms@kernel.org>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
-	Paolo Abeni <pabeni@redhat.com>,
-	Carolina Jubran <cjubran@nvidia.com>, Gal Pressman <gal@nvidia.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	Shahar Shitrit <shshitrit@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>
-Subject: Re: [PATCH net-next 0/5] net/mlx5: Introduce mlx5_nodnic, a driver
- for DRAM-less NVIDIA Mellanox NIC functions
-Message-ID: <20261002171712.GN13925@horms.kernel.org>
-References: <20260930125708.144767-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LeyvJ7f7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LV8lZjPD"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692H65pF2115262
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 17:17:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NRmhMk1rJiR28ILluI4xyd5yZQyPwKu1cAuARHSO7IA=; b=LeyvJ7f7HWN0nxoi
+	VfuPp1B5rlbqdq0LoaDpuDaHbvUmBwfq89IPBS2DFQcDK+/C9PtFDDVmmac/Duri
+	0wa5FzkmB6Hn0nBNXJn4LG8NSalOejtpKKEGrT0Rd/tSMSzNBRbjug/DwoO3dPcW
+	wscWeTJoKLsXpsxn+hG/79IfDoE5jIm+kk6dQ3dTTxIZq0UHQ3NTSAVaoHQKKp5K
+	eVw5OGOqHIKB4b8kZ+wz1koDndZIMKVLGgO2IKLhxO7z0kJ0uFJ5oQJdommxer8h
+	BUYdX3Zggpq7d6+GeMLDejLZ+D5H66nCqbP7TYNRSVkOyVGpNJk87kEnW3LDmLDZ
+	EUcFug==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1w8tm9ub-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:17:32 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a4aa263a4aso4093288a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:17:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790961451; x=1791566251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NRmhMk1rJiR28ILluI4xyd5yZQyPwKu1cAuARHSO7IA=;
+        b=LV8lZjPDUH4R9zCngxT4HGLA4h/IKEWaViP0atC5rsrLAILyddGjiPPvCjcTsQ7YHM
+         RUAT3y+WJIHe5lZlCOhbQnApQYd23ztqM0ms4ePZSlqnaAz1WatbCJgz6apSjVrxmU/b
+         9jTJt0lFl8xawzzUumFEjwQqo5iJKhcQkPILWMZhH2ltFS2/bFFbFfhM1lOfMtteEc6S
+         2wywYIVgkksKbgnWU8lGw6OLwLPeSKg4IuDceYuVUsYVQRnTfso+dEPhQkOenD7Uv4p7
+         v+MLlzuKBTXJRrEGNvs/DMbP6DGhA3N+KolgVA9FIwF10o3S3QtcnU2tFq4V+NFFvkFr
+         xoRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790961451; x=1791566251;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NRmhMk1rJiR28ILluI4xyd5yZQyPwKu1cAuARHSO7IA=;
+        b=BTVAnTqZXfvSuc3cVlQNakxZUQ1pTANviWKs85xpV4+Qfw5ye7or94hECGdWZRM/QP
+         BBNRnE1XNrlc/w0BXw70Nl6U8EDv+RYnaiaL3drWmc6EAVyRZRTlOaQt+7ydYLA4J1xE
+         QwRU3adSmrlRbhDvBsSrI1GtHNLUE+xSn2G8ohElp+ZcVz2hr7C+iQnhlNl+hBEx3vcO
+         QB9vW2j4niSI3s5ztMbonGdL6XzzuqqDM/vt6hDHkxMuXrqDZbEgEvRjsxVzK3a6+W+n
+         cTAao57AO58ix7HN9sQhMU0bYRNJhm/VBlQ4lOtgvGJ8g2pFbvgwJQGpIIk8JCzqkQjS
+         MTlg==
+X-Forwarded-Encrypted: i=1; AKwUvBzyU1qPTlK9XmQpXRmnRH8zjCvXRmSzOcUnXX0r/BVa2YksYZlfVA1aOqyDL99bKRFubS3Zkxqj05P7uAM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6avHXW9hi94KWwArC+y9hzuitnkhRn9opcY5dySZfEOPY7vJf
+	oGJ5WVh05E0HQKgka+D7zwljo1uXRXbB1D2rtnc46VlnLbTr7dIzCcEW8XlLlp1OOV+rd3UbkOq
+	aY2qMGsPav1Jd5dlKc7NasGW97p2i3X36/L5eDnSeS3K0zimjRImEE2fmxVGjaMWCzkM=
+X-Gm-Gg: AYBFou18snc+JFaaKdN5o5YFbXmQZubaimWKFmCljTJpqyDsJg7svchCyeQsA+l4X3/
+	9qqnm/y1lGL9QwKwa56kRnIDKFiSgkJr/Vz1tS/rmsN8T6zVxdSsVu/k9XAcFjYtK5t+/WZdiQ/
+	3P1Gwq3veCyfGXnK7cNFhxbKIe+07aqrHIir6DDiDLska7W+yjh87xZBlShXYTBNVZm87YJoex1
+	bVt5JpCaRxiEEs2SmIqzGp9XPditnYxTAF4DDMzG+iJc+Y9Bqk9wlS6pigxO/kXkN7VuXuE7ZP6
+	oWss48NwhZyXuHn3TdTNZhcskXb/2OMmUM0+nYdLgWS1jTfLfZUl9WWZumGhfhhorNHNOfLWOPs
+	d8+U5naSr1aQQiEu/MfUXec+Ja8Bp
+X-Received: by 2002:a17:90b:48cf:b0:3a4:ee2b:31ae with SMTP id 98e67ed59e1d1-3a6ceadba84mr3133195a91.49.1790961451438;
+        Fri, 02 Oct 2026 10:17:31 -0700 (PDT)
+X-Received: by 2002:a17:90b:48cf:b0:3a4:ee2b:31ae with SMTP id 98e67ed59e1d1-3a6ceadba84mr3133178a91.49.1790961451018;
+        Fri, 02 Oct 2026 10:17:31 -0700 (PDT)
+Received: from [192.168.0.195] ([124.123.196.90])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6cd59187csm5295357a91.10.2026.10.02.10.17.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 10:17:30 -0700 (PDT)
+Message-ID: <c5af97b8-a595-4531-aa68-6c5e6187b3ed@oss.qualcomm.com>
+Date: Fri, 2 Oct 2026 22:47:20 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930125708.144767-1-tariqt@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] clk: qcom: Add lpass clock controller driver for
+ Glymur
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260925084635.112399-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260925084635.112399-5-srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20260925084635.112399-5-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: TbYtdAAseB7nNLYrSIzMjoZJvSo8DOjD
+X-Authority-Analysis: v=2.4 cv=ML/1C8Zl c=1 sm=1 tr=0 ts=6abfe72c cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=3s5aCXBOHJDmPDD1+4kJVA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=gMLPUS0fGnAuojaj054A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2OCBTYWx0ZWRfX/oS+6Fpbn9jD
+ iEVweUsXIRYxam8t88/NtIrvYwZPQAlJOqSzoq55QSYYFRzfAdJXMnL/zG5Ei+FfqJY2/nWpwsy
+ TkLOf3yscq5gnqfSKVTLHvkhoTqDtxapfTROH/Fy2Jeq+iVtQAUcQSyti1iM1MKESqBLqHVTiYX
+ KuJAugoXfQ3HATmE5JrdlfkV26axkDgkUR/SdX80n/ab/joupJTcOVUuILqnsAp4p5H83/asNPR
+ gWqH+ujn5XkQqAOKWQwa7nsvT16OHJGU0Qj+C6cAYyCHDN3wIv4GoGIfp8myrPHzWJOlW6FFOZC
+ c61Eg1pvDTRhAieKDXIALlZQiXvZG/JFo75OB5VwvsxaKAQF8m5Al4SxJFEJPQ49wvxV+CnM/Pp
+ 6hRfhJHps2qFJlRNHU4I4UrymZ9hF5qT1ckBzFzyZ5bIMKABl0tlR3A0IYJc3KtdRFn60Hxx/Wr
+ y+5OYNvVQTXJMvHUzYg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2OCBTYWx0ZWRfX5PiBh0+DswkD
+ MITJSZSUSr6t0ZWp2w2pFZs3MbGCm08mxtgXbsU/ppzGj8gTyy16bFy40FwLB6Eiri6BH3Km3l6
+ TVun5u4EPzdnWhaDEimDlmp6v0BE0p8=
+X-Proofpoint-ORIG-GUID: TbYtdAAseB7nNLYrSIzMjoZJvSo8DOjD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_05,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020068
 
-On Wed, Sep 30, 2026 at 03:57:03PM +0300, Tariq Toukan wrote:
-> Hi,
+
+
+On 9/25/2026 2:16 PM, Srinivas Kandagatla wrote:
+> Add support for the lpass clock controller found on Glymur based devices.
+> This would allow lpass peripheral loader drivers to control the clocks and
+> bring the subsystems out of reset.
 > 
-> This series by Shahar introduces mlx5_nodnic, a Linux driver for the
-> NODNIC (No-DRAM NIC) hardware interface present in Mellanox/NVIDIA
-> ConnectX-family ASICs since 2015.
+> Currently this patch only supports resets as the Q6DSP is in control of
+> LPASS IP which manages most of the clocks via Q6PRM service on GPR rpmsg
+> channel.
 > 
-> NODNIC is a first-class hardware capability.
-> It defines a lightweight NIC function intended for contexts where local
-> DRAM is unavailable or too costly: embedded controllers, management
-> planes, pre-boot environments, or any resource-constrained instantiation
-> of a ConnectX NIC. The hardware sends and receives ordinary Ethernet
-> frames via SQs, RQs and CQs. There is no encapsulation, no private
-> protocol, and no FW interposition: packets are forwarded as standard
-> Ethernet between whatever peers are connected to the function. The
-> interface is documented in the HW spec and has been in production in
-> non-Linux OS drivers for over a decade.
-> 
-> Where it is used today:
-> - Embedded management controllers on ConnectX-class ASICs that need a
->   network path to the host without consuming a data-path PF.
-> - Resource-constrained SoC integrations (no local DRAM) where a
->   minimal-footprint driver is required.
-> - Pre-boot / early-OS environments (PXE, iSCSI boot) that need a NIC
->   without a full mlx5e stack.
-> - BF4 management PFs (one concrete deployment): on BlueField-4 the
->   firmware exposes a NODNIC PF on the host side and a peer PF on the ARM
->   side, using standard vport forwarding to connect them. This provides
->   in-band Ethernet connectivity between the host and the DPU OS - SSH,
->   PXE, and any standard networking application work over it without any
->   special handling.
-> 
-> Design notes:
-> - The driver is separate from mlx5e rather than a mode within it.
->   NODNIC uses PCI Vendor Specific Capability (VSC) for command
->   operations - reads and writes over PCI config space - instead of the
->   DMA-based command interface used by mlx5_core. This is what makes
->   NODNIC usable in environments without reliable DMA access, and it
->   makes the two command paths fundamentally incompatible. Folding this
->   into mlx5e would mean carrying a second command transport and a second
->   resource model through code that is already dense.
-> - A single SQ, RQ and shared CQ are exposed per function, with two MSI-X
->   vectors: the data vector fires on CQEs and drives both TX and RX
->   completions, and the event vector notifies on port state changes.
->   This is the hardware's model, not a driver simplification.
-> - The driver exposes a plain netdev with no private uAPI, no ioctls and
->   no vendor-specific configuration surface. Everything is driven through
->   standard netdev, ethtool and devlink interfaces.
-> - The code lives under drivers/net/ethernet/mellanox/mlx5/nodnic/ and
->   shares no paths with mlx5e, keeping the footprint small and the blast
->   radius of changes contained.
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/lpasscc-glymur.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
 
-Thanks for the above. I agree that this is a valid use-case.
-And that the design approach taken is appropriate.
+Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
-One minor nit: the above mentions devlink, but that doesn't seem to
-appear in the driver. Not a big deal. But something I noticed.
+-- 
+Thanks,
+Taniya Das
 
-Also, I do note that the first two patches are rather large.
-But it's a new driver, and that is hard to avoid.
-
-...
