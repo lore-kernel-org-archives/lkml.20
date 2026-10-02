@@ -1,220 +1,248 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD83741E6A9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4620043CE4C
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970637; cv=none; b=AOQfB3hTwTTc66i3L93tIskTiPfqMKmTQ7Vkv3eRrf+0RVFbxp/U/SWsiatnpZmzIHz5VgdFBbmZu4mpl8Lgy2f7zYZ2pBGyuTmuz4jYRgyVSGwu5WpyIvhptM9qxyuKQ3dDBIp8r/cxOwHYLXfgQxY7g5JGDdP5/vey6jmeL74=
+	t=1790970656; cv=none; b=T+u8VQ5Pw+HjHgwQK4c4DrwWGMpQzAexQowWrT64XYj+EoDR3ZEL1zasXnHfPa5NBL5OU0tVyUguDFUJlP55+bLR5pga1N76LtkO9NtKU9ho5XYIfGYo59kJU1mqFa3QOSiVmS5b8bO82TPgVUzcBU8KHM0sALo2UAjDcKcidkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790970637; c=relaxed/simple;
-	bh=jPry0ZxZWH2qI0ULrUX+JCx/FGm9iZZhCbMohyCfLZI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=foWEg0WI2H77pwO8niFKS8cC8KubKtmo9p+8d6hezKeUFB3n6P8gN2yL1BfeBQHl91++uM+Z+R7hWOvu6dY70MX/XFbOqdxrnUrObaQ5HWvnFHnOP3Cil46kFvYHjIHYKlZpgQL5fh49I0DquivCy/TfIAwtG29R25Bru/+cgj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=iPKS0/3n; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790970656; c=relaxed/simple;
+	bh=Nq7Fx9cW/yMMojiMbMsDPveLjNjnf6n6z2l3LEZbbFs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VxnrPtm86/GdW4bh90NldfNgQ9CSDOU1zOeC+urri8i+EcLkZ/ssCZoqK1KNvLinyaJtlCCHR0AT2o6Sgr6sNFusrneWAmVuMpEn0/R3vmOwIBUWCwqoq0n6Bdns+EruMQJbqXjyysoRLNSwwSxb0AklmX2Ag8Hme/JMlWzbPRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PIkb22I2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NawNL/0R; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="iPKS0/3n"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-14c81805d9dso45602c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:50:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PIkb22I2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NawNL/0R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790970641;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=F25QBZ61ZmBrTf7fU7xFNKMRCKDf4lsr8/BxhtCtQxg=;
+	b=PIkb22I25sUt3cZTuk+tza4DdoZW+L9/tJXy4QQompVPd9lX5+7nD7hvOeQadZ0HXc0pFJ
+	En/wq7yH6Bl7VtGrl1IyARcADo0zLRGuhv8gfFcq+wBaXiLTft1hJzz0aRXR0INf18qtkF
+	STG9T6Qjtzv0bMLrQ1Ftu3zRWFqKZoQ=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-251-DaZ_7cIPNjS7jDUQZ80xbQ-1; Fri, 02 Oct 2026 15:50:40 -0400
+X-MC-Unique: DaZ_7cIPNjS7jDUQZ80xbQ-1
+X-Mimecast-MFC-AGG-ID: DaZ_7cIPNjS7jDUQZ80xbQ_1790970640
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8acb6172b5fso55767697b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:50:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790970621; x=1791575421; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
-        b=iPKS0/3nt/yps11kzkBCV1f6JgZy+m9nq1oaXe/hF3tlSfPFM5dO+uLlr672/tPl91
-         m9ScaGSftrqg4nbbGN1R6CwSxYW/9uqbTwVzBIebRSuHRb3uzuiBWFiNLgshSye7VMM1
-         p7sNOnQkyr3gmXnPxJYvA5CZQ2GdZ6juSUqdXrPqxxhwQnT3vhX/l+lC4AmwcRrgIyuD
-         p/s9Rzf6BbtVe/mcrZLVa/Wp+wyjaczK0QndkgwvoxTcCf8NqcvVFsK2GLI1oQBCAOP9
-         wzEAY851Ypjv6I4EXUGWwkdFQNFIehnSOClh5y72uqmDFaN+F9+cHRh6wsPWaLVYLgyI
-         Mchw==
+        d=redhat.com; s=google; t=1790970640; x=1791575440; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=F25QBZ61ZmBrTf7fU7xFNKMRCKDf4lsr8/BxhtCtQxg=;
+        b=NawNL/0RtDRb6R02vo9so4pmLT1u7I4tX9TCa5R8B66YZ4lA9X9OVBBcU6fzqS0dmq
+         An1b6UWwRXVCO0N4n1kfySq3sb5rEbLKpSIAL/tPRrB4LSmmsvdrm+W3IWb9ekFyUVQY
+         vMSRa3vs9yr2XB6zs4T6PDAQ0JIgpED0xAQ9IhBl74e9DTrOjnsvIVnlxysYLS2U9mA0
+         OuwHIL4NepaCmDjC7jpIy/1PyV+RL2aO4GhIJysrjEGr9OVyqQpaaAq8wi6ESs+VB71h
+         xeUV7GiolbSGAhnJjFCIFRP4L4xms/V1rS+3X4iy+WCaiYEbXr9Fwg1dlKNNUFdzdjQ+
+         kgQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970621; x=1791575421;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c+Pr+0S1JlOBX/miOeDu7Q4SuyRTaEP5yuhanTP5lUc=;
-        b=cxzePg46lnlnJ9b6XxKv2fBhUMoR6UQZBJpyqtuzVywhS12Pem8gbGMeFjNvNN7pZh
-         CFA7KgOtgfduRJ1RDvvpQpak6ZwL7kqQK3JwK7L8Zhzc1JVavUz6jHbbTk6xVRwr7qUY
-         TUVTgmLYddziEMZk+xeA3Q+xfroVNY9KPUjC7b7z2t6H4Zq0BG8GLqdGYQXeXT++LyIC
-         N6/TBbdvLspWGQE0THSPjC12lKzXUXWLNgM8Ob/+/fO95BBYM8hzRMQu3UVhdBY5i2Gg
-         IntfO8kbtHxGXrQ/bZjKhofewMpDsvwo5axP9yF7B5Nuso5uuF09wIvz2DNth6++ekqr
-         f5FA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYT3ULMhq1cm0rheoD3ZCsHM7CCPgrF3aYtJRR4uls5oUOjPfdNV0SXTWWWX+ei0eTMstMjiIPHB8T4FQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5+Fz3M/lS18pVNOOweRuGx8oPZsskwT0qye5d5v8plHK3FcXQ
-	r76QuWRm0WTou69nOJbWBk5uRAYVrf819HKRUzblnnixTOZYvbZFUU+gls8haJt67tw=
-X-Gm-Gg: AYBFou2o74v8nwqV0PFY01pDSAvj8VFkwORexuPdb0BilyxrocumVYFndf3TSwU5zxG
-	ujMpVDXqeoqjC95zrW7ALSAPnb9Woec8+PO/MJhSOKJfnAsCIcCCh9lzcoNt+EAmLgpAJJ8QBYb
-	MHMoeFuf2JfSF5tUskEZLp3hGLsp9mN8VWFl59/nGO2jGnCoyqSDtCAPAwHhCpx6yeSnswBxWce
-	CqsTGfmHOjrJ31BcVlt65fpIL2RF2lEe/IxYpb1bGgarxW6Hl9ZS1LkRfv3zYUeSqY22L65uIz0
-	agN6vYRQwHW191ukP3wwN348296HbFdgOeyJpZN89Kb+TZEYVo/7FcJiCkR8DPBD7lXq1nleEMX
-	rer+nUpZb+tGUeTsJRFhx6XAd+X79JagnE2r8snZEFJieJycdeId4Sjc/wENl/UhA6h2YDnPMNa
-	r/QdIVFLFvd4mDsepGFWh+l9ZMZOaVTPOsPUYr4mO7zYxm4b4ucPN2GKVREyMkBuh54oi2LvZR5
-	09gY1tiHwy6Qtjw9QdMDLk9ea9tCbQz8KFNWIZruHy1hPyxDNH8PsI8NTe8/F+D4Y1H6Eg=
-X-Received: by 2002:a05:7022:1587:b0:148:516e:53e with SMTP id a92af1059eb24-14dd07fbc16mr9332303c88.6.1790970620487;
-        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f410725e2sm7157041c88.0.2026.10.02.12.50.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 12:50:20 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1.y] media: av7110: fix a spectre vulnerability
-Date: Fri,  2 Oct 2026 15:50:15 -0400
-Message-ID: <20261002195016.21386-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790970640; x=1791575440;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F25QBZ61ZmBrTf7fU7xFNKMRCKDf4lsr8/BxhtCtQxg=;
+        b=N/KBFaBhvNnhG1TvyyhXhfI0jIojKxfFe2I0zrEUBAiQTTAzJmzRvf7JwcgL5ZKwxu
+         OlKSAtyarHU5YROuW9sId9z1QrToInBu2D3WMO7aDl1qKNZIDxzhxoco30ysenYNIhgC
+         Hugd4YAiC8FFfPuYmEqXwYwN7ioCGogqGsWadCbRn7mdmmhcNOrS6cSsRaGok8JUu7rW
+         cZGJL6gdWBISPvCtmgVXBPOzG8XAlHMPEK6IyhTkH97/qjg18bwemzkr6WaDcM6zKUtu
+         dYd0WgCVrkxomMPOHcmZ4FTEIm4CH4FwzS1qbFExUaU44Ilng0jiD8bv8RPMg44TwfB5
+         AaCA==
+X-Forwarded-Encrypted: i=1; AKwUvBxdGWM8duuu+PPlo54StMUf1px7Fa+wqSw9TXKr9SDr/OjPGZCPf2idISF6FmJaqtRfdMlyNSVDW6y0x5Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJS8H/CD64C/toyhSwUD7XASsJPlq7OyWqoraPPG7d3A/CVQhjO
+	Naz4BNgJVmyCaGZ1+2klzVsM2v52ICNpOzbginLH6Li0IaTrHlxoL8J6Y1wACiomRWMDgfSnGC0
+	IpNoswqEMVtk37S7s3kCwZBt7xKBa4B8qZ5BdoDmILOd+OpHQ28rdlNAs+4p1Ttgkjg==
+X-Gm-Gg: AYBFou2hSbz1KdpqmNzBWCTHv8wCfuOCJ6USuPVRYlyHhzu8srgXR0FHdhUZD39GWyG
+	k/P6Z0y9kEM5XjoWiCQlBNr9sM87yb8Ik6kAXpn37OVsw0Sf9hAhjsM3UrPLgDwzteeuVATMcf2
+	SKEi5MtL/oGpUNgGrsH+DGkS6dhhFXUQDcDm5jUZj9Pwxpic3wCE2666i+sxkSz2REq61JQ/ktK
+	RpARntnKywqMzvwQUGvVncsrvMb3gfZdlJ3dQqlMCGT0ZQq/v2NDGe/hbeTjR5SQuiKbj+uBY4I
+	8rVMnI0pw1/ltie+NctbBWk0LmdPec2fmrPgN7yA72q5U9aduCjJVaGxY7GPM6hEocmM3/tRDQ=
+	=
+X-Received: by 2002:a05:690c:808:b0:894:4ded:2746 with SMTP id 00721157ae682-8ae39bc3a5emr15283717b3.36.1790970639959;
+        Fri, 02 Oct 2026 12:50:39 -0700 (PDT)
+X-Received: by 2002:a05:690c:808:b0:894:4ded:2746 with SMTP id 00721157ae682-8ae39bc3a5emr15283607b3.36.1790970639475;
+        Fri, 02 Oct 2026 12:50:39 -0700 (PDT)
+Received: from redhat.com ([2600:382:850b:d4de:3546:fbce:3693:8762])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae32cf2f27sm13728657b3.26.2026.10.02.12.50.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 12:50:38 -0700 (PDT)
+Date: Fri, 2 Oct 2026 15:50:34 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Emil Renner Berthing <kernel@esmil.dk>, Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-hardening@vger.kernel.org, netdev@vger.kernel.org,
+	Hal Feng <hal.feng@starfivetech.com>
+Subject: Re: [PATCH v5 10/23] clk: starfive: Add JHB100 System-2 clock
+ generator driver
+Message-ID: <asALCsosWkutrwUK@redhat.com>
+References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
+ <20260930124317.5648-11-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930124317.5648-11-changhuang.liang@starfivetech.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Hi Changhuang,
 
-[ Upstream commit 458ea1c0be991573ec436aa0afa23baacfae101a ]
+On Wed, Sep 30, 2026 at 05:43:04AM -0700, Changhuang Liang wrote:
+> Add support for JHB100 System-2 clock generator (SYS2CRG).
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  drivers/clk/starfive/Kconfig                  |  10 ++
+>  drivers/clk/starfive/Makefile                 |   1 +
+>  .../clk/starfive/clk-starfive-jhb100-sys2.c   | 129 ++++++++++++++++++
+>  3 files changed, 140 insertions(+)
+>  create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-sys2.c
+> 
+> diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig
+> index 11da8bcc4046..cfaac934a8e0 100644
+> --- a/drivers/clk/starfive/Kconfig
+> +++ b/drivers/clk/starfive/Kconfig
+> @@ -92,3 +92,13 @@ config CLK_STARFIVE_JHB100_SYS1
+>  	help
+>  	  Say yes here to support the system-1 clock controller on the
+>  	  StarFive JHB100 SoC.
+> +
+> +config CLK_STARFIVE_JHB100_SYS2
+> +	bool "StarFive JHB100 system-2 clock support"
+> +	depends on ARCH_STARFIVE || COMPILE_TEST
+> +	select CLK_STARFIVE_JH71X0
+> +	select RESET_STARFIVE_JHB100 if RESET_CONTROLLER
+> +	default ARCH_STARFIVE
+> +	help
+> +	  Say yes here to support the system-2 clock controller on the
+> +	  StarFive JHB100 SoC.
+> diff --git a/drivers/clk/starfive/Makefile b/drivers/clk/starfive/Makefile
+> index 0061550e0f7e..29cdef20575e 100644
+> --- a/drivers/clk/starfive/Makefile
+> +++ b/drivers/clk/starfive/Makefile
+> @@ -13,3 +13,4 @@ obj-$(CONFIG_CLK_STARFIVE_JH7110_VOUT)	+= clk-starfive-jh7110-vout.o
+>  
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS0)		+= clk-starfive-jhb100-sys0.o
+>  obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS1)		+= clk-starfive-jhb100-sys1.o
+> +obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS2)		+= clk-starfive-jhb100-sys2.o
+> diff --git a/drivers/clk/starfive/clk-starfive-jhb100-sys2.c b/drivers/clk/starfive/clk-starfive-jhb100-sys2.c
+> new file mode 100644
+> index 000000000000..a2c7e8eba9b6
+> --- /dev/null
+> +++ b/drivers/clk/starfive/clk-starfive-jhb100-sys2.c
+> @@ -0,0 +1,129 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * StarFive JHB100 System-2 Clock Driver
+> + *
+> + * Copyright (C) 2024 StarFive Technology Co., Ltd.
+> + *
+> + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> + *
+> + */
+> +
+> +#include <dt-bindings/clock/starfive,jhb100-crg.h>
+> +#include <linux/init.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include "clk-starfive-jh71x0.h"
+> +
+> +#define JHB100_SYS2CLK_NUM_CLKS			(JHB100_SYS2CLK_MAIN_ICG_EN_JTAG1 + 1)
+> +
+> +/* external clocks */
+> +#define JHB100_SYS2CLK_OSC			(JHB100_SYS2CLK_NUM_CLKS + 0)
+> +#define JHB100_SYS2CLK_PLL1			(JHB100_SYS2CLK_NUM_CLKS + 1)
+> +#define JHB100_SYS2CLK_GPU0_NCNOC_INIT		(JHB100_SYS2CLK_NUM_CLKS + 2)
+> +#define JHB100_SYS2CLK_GPU1_NCNOC_INIT		(JHB100_SYS2CLK_NUM_CLKS + 3)
+> +
+> +static const char * const jhb100_sys2_ext_clk[] = {
+> +	"osc",
+> +	"pll1",
+> +	"gpu0_ncnoc_init",
+> +	"gpu1_ncnoc_init",
+> +};
+> +
+> +static const struct jh71x0_clk_data jhb100_sys2crg_clk_data[] = {
+> +	/* jtag mst*/
+> +	JH71X0__DIV(JHB100_SYS2CLK_JTAGM0_HCLK, "jtagm0_hclk", 6,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0__DIV(JHB100_SYS2CLK_JTAGM1_HCLK, "jtagm1_hclk", 6,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0__DIV(JHB100_SYS2CLK_JTAGM0_ATPG, "jtagm0_ATPG", 12,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0__DIV(JHB100_SYS2CLK_JTAGM1_ATPG, "jtagm1_ATPG", 12,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0__DIV(JHB100_SYS2CLK_JTAGM0_ATPG_TCLOCK, "jtagm0_atpg_tclock", 2,
+> +		    JHB100_SYS2CLK_JTAGM0_ATPG),
+> +	JH71X0__DIV(JHB100_SYS2CLK_JTAGM1_ATPG_TCLOCK, "jtagm1_atpg_tclock", 2,
+> +		    JHB100_SYS2CLK_JTAGM1_ATPG),
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG0_MST_WRAP_HCLK, "jtag0_mst_wrap_hclk",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM0_HCLK),
 
-As warned by smatch:
-	drivers/staging/media/av7110/av7110_ca.c:270 dvb_ca_ioctl() warn: potential spectre issue 'av7110->ci_slot' [w] (local cap)
+Can you leave a comment somewhere about why CLK_IGNORE_UNUSED is on some
+of these clocks? We may be able to deprecate this flag once some
+variation of the clk sync_state support lands:
 
-There is a spectre-related vulnerability at the code. Fix it.
+https://lore.kernel.org/linux-clk/20260626-clk-sync-state-v1-0-4156d8196dc8@redhat.com/
 
-[ Backport to 6.1.y: added the explicit linux/nospec.h include required
-  by the older source. ]
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and media av7110 maintainers,
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG0_MST_WRAP_CLK_JTAG, "jtag0_mst_wrap_clk_jtag",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM0_HCLK),
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG0_MST_WRAP_APB_PCLK, "jtag0_mst_wrap_apb_pclk",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM0_ATPG),
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG0_MST_WRAP_ATPG_TCLOCK, "jtag0_mst_wrap_atpg_tclock",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM0_ATPG),
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG1_MST_WRAP_HCLK, "jtag1_mst_wrap_hclk",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM1_HCLK),
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG1_MST_WRAP_CLK_JTAG, "jtag1_mst_wrap_clk_jtag",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM1_HCLK),
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG1_MST_WRAP_APB_PCLK, "jtag1_mst_wrap_apb_pclk",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM1_ATPG),
+> +	JH71X0_GATE(JHB100_SYS2CLK_JTAG1_MST_WRAP_ATPG_TCLOCK, "jtag1_mst_wrap_atpg_tclock",
+> +		    CLK_IGNORE_UNUSED, JHB100_SYS2CLK_JTAGM1_ATPG),
+> +	/* hostusbcmn */
+> +	JH71X0__DIV(JHB100_SYS2CLK_HOSTUSB_NCNOC_TARG, "hostusb_ncnoc_targ", 12,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0__DIV(JHB100_SYS2CLK_HOSTUSBCMN_CFG_500, "hostusbcmn_cfg_500", 4,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	/* bmcperiph1 */
+> +	JH71X0__DIV(JHB100_SYS2CLK_BMCPER1_NCNOC_TARG, "bmcper1_ncnoc_targ", 6,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0__DIV(JHB100_SYS2CLK_BMCPER1_CFG_250, "bmcper1_cfg_250", 5,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0__DIV(JHB100_SYS2CLK_BMCPER1_CFG_143_DFT, "bmcper1_cfg_143_dft", 8,
+> +		    JHB100_SYS2CLK_PLL1),
+> +	JH71X0_GATE(JHB100_SYS2CLK_BMCPER1_CFG_143, "bmcper1_cfg_143", CLK_IS_CRITICAL,
 
-I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-50289. It masks the validated CI-slot index
-before using it in the av7110 array lookup.
+Also please leave a comment why CLK_IS_CRITICAL is needed as well for
+these particular clocks.
 
-The corresponding 6.6.y backport is already in the 6.6.y stable queue.
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
-in 6.1.y.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-CVE: CVE-2024-50289
-Upstream: 458ea1c0be991573ec436aa0afa23baacfae101a
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- .../media/deprecated/saa7146/av7110/av7110.h  |  4 ++-
- .../deprecated/saa7146/av7110/av7110_ca.c     | 26 +++++++++++++------
- 2 files changed, 21 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-index 9fde69b38f1ce3..c2956c23d9c1e4 100644
---- a/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-+++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110.h
-@@ -86,6 +86,8 @@ struct infrared {
- 	u32			ir_config;
- };
- 
-+#define MAX_CI_SLOTS	2
-+
- /* place to store all the necessary device information */
- struct av7110 {
- 
-@@ -166,7 +168,7 @@ struct av7110 {
- 
- 	/* CA */
- 
--	struct ca_slot_info	ci_slot[2];
-+	struct ca_slot_info	ci_slot[MAX_CI_SLOTS];
- 
- 	enum av7110_video_mode	vidmode;
- 	struct dmxdev		dmxdev;
-diff --git a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-index c1338e074a3dc1..642af03fbac810 100644
---- a/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-+++ b/drivers/staging/media/deprecated/saa7146/av7110/av7110_ca.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/kernel.h>
-+#include <linux/nospec.h>
- #include <linux/types.h>
- #include <linux/delay.h>
- #include <linux/fs.h>
-@@ -26,23 +27,28 @@
- 
- void CI_handle(struct av7110 *av7110, u8 *data, u16 len)
- {
-+	unsigned slot_num;
-+
- 	dprintk(8, "av7110:%p\n",av7110);
- 
- 	if (len < 3)
- 		return;
- 	switch (data[0]) {
- 	case CI_MSG_CI_INFO:
--		if (data[2] != 1 && data[2] != 2)
-+		if (data[2] != 1 && data[2] != MAX_CI_SLOTS)
- 			break;
-+
-+		slot_num = array_index_nospec(data[2] - 1, MAX_CI_SLOTS);
-+
- 		switch (data[1]) {
- 		case 0:
--			av7110->ci_slot[data[2] - 1].flags = 0;
-+			av7110->ci_slot[slot_num].flags = 0;
- 			break;
- 		case 1:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_PRESENT;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_PRESENT;
- 			break;
- 		case 2:
--			av7110->ci_slot[data[2] - 1].flags |= CA_CI_MODULE_READY;
-+			av7110->ci_slot[slot_num].flags |= CA_CI_MODULE_READY;
- 			break;
- 		}
- 		break;
-@@ -264,15 +270,19 @@ static int dvb_ca_ioctl(struct file *file, unsigned int cmd, void *parg)
- 	case CA_GET_SLOT_INFO:
- 	{
- 		struct ca_slot_info *info=(struct ca_slot_info *)parg;
-+		unsigned int slot_num;
- 
- 		if (info->num < 0 || info->num > 1) {
- 			mutex_unlock(&av7110->ioctl_mutex);
- 			return -EINVAL;
- 		}
--		av7110->ci_slot[info->num].num = info->num;
--		av7110->ci_slot[info->num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
--							CA_CI_LINK : CA_CI;
--		memcpy(info, &av7110->ci_slot[info->num], sizeof(struct ca_slot_info));
-+		slot_num = array_index_nospec(info->num, MAX_CI_SLOTS);
-+
-+		av7110->ci_slot[slot_num].num = info->num;
-+		av7110->ci_slot[slot_num].type = FW_CI_LL_SUPPORT(av7110->arm_app) ?
-+						 CA_CI_LINK : CA_CI;
-+		memcpy(info, &av7110->ci_slot[slot_num],
-+		       sizeof(struct ca_slot_info));
- 		break;
- 	}
- 
--- 
-2.39.5
+Brian
 
