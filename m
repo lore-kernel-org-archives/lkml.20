@@ -1,208 +1,269 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1024EDCB0;
-	Fri,  2 Oct 2026 17:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960740; cv=none; b=ccXGw0iDcclnOoW6QadVgPq7S8Of4ldEPMtgCy3l+zP2uqxavyzgN7vkGj2oGRZ/jD8UJBWl8jR2Qtb3x9LhUnA2vljgMs1RZyYJHKM9chHIXxqFFGpyPQaZBY9VAMNoL8u8lSWfp3HKDnGNRu+4zInD4uhY6HbPIhTGVAEck7g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960740; c=relaxed/simple;
-	bh=w0mEjVzi5B9BYqkzmCZTWh8Mx1UMW66ngfYwJzSrxRE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XHKbXAzupmOpAr2o3OvLeB3IbExrbqnSl56AOQQpYYO7GBuC0lJaWLjpBLAvITj5rUbllwF8gFKZj9W115JxUeo9Jyoqdi/7ahqH4BYAhNTIynAy3frFkTHQIuE0CsZ7zXPqc/UejMoMPv/TqmGPzaixZFUV3DLs+fdWSuMfvJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i8lkBLFn; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721BB2DB794
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790960833; cv=pass; b=Bi9y1sWXWxsFvD7Fwhewt1WR4NpKbgXfRjmDAbZZ/Rw82wQR4kV9DJuMG3VRVz7crIv0Ad5IZkewUfY4vC4sEWkkGhnEythr8dNa5uIqrauk7RHAd8eznnwtaWmQaeW+4Z4ZMCMpRV58/hfP8Gzsw80wPkQahc63287uCVJzpcQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790960833; c=relaxed/simple;
+	bh=/JVc5nbfPS8ws+PmjIyM03dVbbujFBnhP4v7uCrn63Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ORnQhJdDg8/ZKqKXk4EQxTwiwB+1xcpPkYQoo9zG+rWmv7k/nlz5JK8I9ItTKhQLGQKnN0Kharoe4GqfRKFibw1tDf+tdZEHRpKA8ldwFhz9EiM6tNJgXjRUtmzvuIEHJ21bMv8qQYAeKmer7DpJsEUT9ugKYcAN42Fwq8cVtwk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=Vkfx+E37; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i8lkBLFn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6690C1F00898;
-	Fri,  2 Oct 2026 17:05:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790960729;
-	bh=2lcJF+guX3/RRpcKc4nkeyl1bIluwD5F4G3TuMV8WB8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i8lkBLFn4jyIAaFjUD6e4CZbXMjQyE5mqT4sarCGlWYfDIosI49AjV0Y4eCc/CQWp
-	 +0ws1Bb7lHvK/ldo+Eee9mRIAxVkhyNVfRUjbg8eJoqieHsmVDsKRZ5s7WWu28/GDe
-	 468jpA4Ng8+LCp4dFZUQP4Xy73IQEQzLxk3W8tN2fMOPDCO8/F8QiQeg+uI4j/8WDS
-	 mCQDApIAvZu5EIEX8/LFHom+9IX+3vjwk4y7qwbzs+s6M3rT6WfhqKFCk2N23ahWla
-	 DKvuviPKYG2tR6qLmN1G7wMTG2JXE5y2t/F5y0OWzfQvrCeG7Pmk9ft9tfBFBkepD/
-	 TbMDoatxNWq0Q==
-Date: Fri, 2 Oct 2026 18:05:24 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH v2 3/6] dt-bindings: connector: Add Toradex camera
- connector
-Message-ID: <20261002-prepaid-retired-3d2c9cbc035e@spud>
-References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
- <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="Vkfx+E37"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48bbb06e746so23087f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:07:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790960829; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ecgh0o7qLoAHmlsutXVEi1vVwkyFA1GPwKTgaUfZtjaHsVmH6fmwPiFg41kDV348Qh
+         OSw5sdNRlH4PC98wK5rZ8UL8LWTaRhOVg4oZXdYkerAsfswDntCAmNZpPQQecETay5wt
+         0BgbVHIWIcD17doLZwiN1tRimYxZuNCe9TREcPhNPa5hBZ+4iT/BSw33ar/cAMIGeJv8
+         oZaYsC5XnCgQjv/NGHylf2njYKaDyhAoFm7hiNMQoxqtj1wKJwzyHl1ePjKpv3u50XcL
+         mwNf4YNjPNKdSM3pcKJUep4r+eayAFg/iJuMgA0SNLeQbnEKj7FUf+SVu3QP4C8DYB4M
+         aawQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YRAF9fjGwIYHesPfozv5hf5MECp6k/GYZrrLDm0L2Tg=;
+        fh=ULVeLBiBmbtoakaOXAR37cJ1NGIiO3nqdDjO/KKoTFc=;
+        b=LPjItj60YGWnCz9EJkSgZmNLVdjopJ/MuZDycavsMTOQwpIdkPLyfSCw44W/4s/ybK
+         qs3S11n9FjrjQRdVuaNgJFtNQDfV0TqasrAkdbxZrtR7lzIZAlzDjxBhshyBExRbCvlC
+         0komBwtseuy0cvNbkryHsNhmbPY7riZ2DuFNQRMkvVYvRh2JQaoQ5llOwNgkVVtOcA8T
+         be+NzeQdqfGO/0C9Mwdbpnny4SWN6OwDYHuwSoMDVhAnE0EslIOx26qUQMSoMd6957O1
+         /Ih4l8OaIS+8U//Ivzg4uOuEqcRGaKjU9SlJWX1Y51YwktkQkCUXcll2DyjvDAA62snb
+         uwVw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault.org; s=google; t=1790960829; x=1791565629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YRAF9fjGwIYHesPfozv5hf5MECp6k/GYZrrLDm0L2Tg=;
+        b=Vkfx+E37PBmR9eJdXtE52qzoqZkcdNykpfvf5YWkr4lgs8zZapOo/rC/uopAoefhki
+         9RGwXXf8hb59SeXijETiWnwaPRqqpbBk2zVBd5F/Co5YP6mJP9yfq3U88JzulUrQ49Zh
+         WVA922YqGHy7s5jmh5x0lPdJBjzfHK+yp7r2RrPmzRq4x/iSnuETZTweHFyx/qt4aMN/
+         k1QabZsdzBN4iEMxYR9XAk0P3kEpo68Otv2Gt35IHrTlwlbck8xHkSTDguqVae1SHSEi
+         SJf4XMkPpYU5rZA+U1HwJajgLE1ji0+ZwHPn0KGCUFEllFAGpaqRU5hrMmEhusSl1poE
+         LAKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790960829; x=1791565629;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YRAF9fjGwIYHesPfozv5hf5MECp6k/GYZrrLDm0L2Tg=;
+        b=fAhZELLQXgkPwovEPBL6asb712UUKidfukEaF2W9+thQ+vd4vd9SCAfuhxvNWh3swt
+         vYEr4PjfEaCN0NyfeWg4+3PieXkWz2ZRPNG6glhg+6yf7AIV1pt2kY444BfIFeDdyCLA
+         876wGHKYl4RVq1BPACs5pkcrNAX4/Gri8pYSbmrWtynP31ide6BTrKf697l0jGlOEmR1
+         I3kzHSURr47CZDAy97eGLWVys+zKaLBUKQekx5kpFabUDjsLYmaQWuKYh+qPnTEhSwWr
+         wF7+9+DYzF/6frIpmZ+DALBDpE0KiOAHIf6XAExQcgjAG6wzmZHcUT7AAh2nokRPO6Pg
+         6J6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxe5/yxCfj6Q79VZ8B+eXryqYbWEEK/bqI96Bat5tygdEfr52x8dQ5N9gJFMPVQc0d0PSPFjhf76txrRok=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsYYT73viVWrIBTI+0HEyV7yNim0kOgrCLRyQiksaVSqLMPDct
+	goIYtcOnSh4otNXnlXoWqW30JfV8vaFTyrotLP5zk3BCDyzweklSuTH0QqxIXnHP0bF1LrOGs+M
+	9YomXEYSkoNrOhpFG6D1xY7carZOiSnxTWKjsUsZPXg==
+X-Gm-Gg: AYBFou3HydFCYy/UlAx0MaCVk45QuHhIUJCwoAPOHjgMo7OJDEh4STtkAJ40UAXlGqb
+	ULRIi1SQ7pgUa/FWauzyF2f/hMbFYDyQEyghq0G8EHAM9v3wHfP8vjuHd6n33iTbhr99VXk534t
+	phaf2zmXoiaUsh9amPM3ooixfPvHN+77dIYkYyg7bER4y8eiSEVuQpHrBPTjx2QdplBu9yvtGUm
+	7Pymd1qv9h1kQ8qokYpOYdbZMsS2UzQMFXEOeZKt5bExD4s7xNorGB47pJ6I3nu6JbMYyii5KWr
+	xHkWg4c4ly5rLq2x5Q6yaVm7Tlwo0zbFRJrs7wmk7gXnaRG8/9fgIbLC/FLwWPasYGH/+rYKHob
+	lJfYsJta2w0B83Pt3Jcf/ehmT30NWJnwXIN5cz4jo0/l17GeFmyGKFrTpCGWqNw/iCYM8RNLnJt
+	k=
+X-Received: by 2002:a05:6000:98f:b0:48b:116d:56fb with SMTP id
+ ffacd0b85a97d-48c47c66e18mr153844f8f.1.1790960829073; Fri, 02 Oct 2026
+ 10:07:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cciuDq3elMOy+sRp"
-Content-Disposition: inline
-In-Reply-To: <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
-
---cciuDq3elMOy+sRp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261002120417.2708979-1-prajwal.n@oss.qualcomm.com>
+In-Reply-To: <20261002120417.2708979-1-prajwal.n@oss.qualcomm.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Fri, 2 Oct 2026 22:36:57 +0530
+X-Gm-Features: AclHuK-ubBdUYjWUG1h1QKLotxslbT8a1w5X5HriAuAQT2PubWA5bXeuAQfD03U
+Message-ID: <CAAhSdy2prY0pkfpMxXqyJWKXmy4B49MpmvaaV+U97BxL9ie92g@mail.gmail.com>
+Subject: Re: [PATCH] irqchip: riscv-imsic: Expose the fwnode via the global config
+To: Prajwal N <prajwal.n@oss.qualcomm.com>
+Cc: tglx@kernel.org, radu@rendec.net, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, prajwal.n.oss@gmail.com, 
+	Sunil V L <sunilvl@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 01:44:11PM +0200, Ernest Van Hoecke wrote:
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->=20
-> Toradex boards route the sideband signals of their 24-pin camera
-> connectors to different GPIO controllers. Camera overlays which name
-> those controllers directly must therefore be duplicated for each host
-> board.
->=20
-> Describe reset, power-down, detection and power-control as
-> connector-local GPIO functions. This lets an accessory overlay remain
-> independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
-> remain described separately because the GPIO nexus does not abstract
-> them.
->=20
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
++Sunil
+
+On Fri, Oct 2, 2026 at 5:34=E2=80=AFPM Prajwal N <prajwal.n@oss.qualcomm.co=
+m> wrote:
+>
+> The fwnode describes a global property of the IMSIC interrupt
+> controller that is equally relevant to external consumers of
+> imsic_global_config as it is to the imsic_priv itself.
+>
+> Keeping it in imsic_priv forces the external drivers to access
+> the private structure rather than using the already exported
+> imsic_get_global_config() interface.
+>
+> Moving the fwnode into imsic_global_config makes the public
+> API self-contained and eliminates the need for callers to
+> access imsic_priv internals directly.
+>
+> Signed-off-by: Prajwal N <prajwal.n@oss.qualcomm.com>
 > ---
->  .../connector/toradex,camera-connector.yaml        | 81 ++++++++++++++++=
-++++++
->  1 file changed, 81 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-c=
-onnector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-=
-connector.yaml
-> new file mode 100644
-> index 000000000000..27fee3defde7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connecto=
-r.yaml
-> @@ -0,0 +1,81 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.ya=
-ml#
-> +$schema: http://devicetree.org/meta-schemas/base.yaml#
+>  drivers/irqchip/irq-riscv-imsic-early.c    |  2 +-
+>  drivers/irqchip/irq-riscv-imsic-platform.c | 18 +++++++++---------
+>  drivers/irqchip/irq-riscv-imsic-state.c    |  2 +-
+>  drivers/irqchip/irq-riscv-imsic-state.h    |  3 ---
+>  include/linux/irqchip/riscv-imsic.h        |  3 +++
+>  5 files changed, 14 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/irqchip/irq-riscv-imsic-early.c b/drivers/irqchip/ir=
+q-riscv-imsic-early.c
+> index 12efd241ce88..769849147148 100644
+> --- a/drivers/irqchip/irq-riscv-imsic-early.c
+> +++ b/drivers/irqchip/irq-riscv-imsic-early.c
+> @@ -75,7 +75,7 @@ static int __init imsic_ipi_domain_init(void)
+>         riscv_ipi_set_virq_range(virq, IMSIC_NR_IPI);
+>
+>         /* Announce that IMSIC is providing IPIs */
+> -       pr_info("%pfwP: providing IPIs using interrupt %d\n", imsic->fwno=
+de, IMSIC_IPI_ID);
+> +       pr_info("%pfwP: providing IPIs using interrupt %d\n", imsic->glob=
+al.fwnode, IMSIC_IPI_ID);
+>
+>         return 0;
+>  }
+> diff --git a/drivers/irqchip/irq-riscv-imsic-platform.c b/drivers/irqchip=
+/irq-riscv-imsic-platform.c
+> index 643c8e459611..95ff76e63a69 100644
+> --- a/drivers/irqchip/irq-riscv-imsic-platform.c
+> +++ b/drivers/irqchip/irq-riscv-imsic-platform.c
+> @@ -313,40 +313,40 @@ int imsic_irqdomain_init(void)
+>         };
+>         struct imsic_global_config *global;
+>
+> -       if (!imsic || !imsic->fwnode) {
+> +       if (!imsic || !imsic->global.fwnode) {
+>                 pr_err("early driver not probed\n");
+>                 return -ENODEV;
+>         }
+>
+>         if (imsic->base_domain) {
+> -               pr_err("%pfwP: irq domain already created\n", imsic->fwno=
+de);
+> +               pr_err("%pfwP: irq domain already created\n", imsic->glob=
+al.fwnode);
+>                 return -ENODEV;
+>         }
+>
+>         /* Create Base IRQ domain */
+> -       info.fwnode =3D imsic->fwnode,
+> +       info.fwnode =3D imsic->global.fwnode,
+>         imsic->base_domain =3D msi_create_parent_irq_domain(&info, &imsic=
+_msi_parent_ops);
+>         if (!imsic->base_domain) {
+> -               pr_err("%pfwP: failed to create IMSIC base domain\n", ims=
+ic->fwnode);
+> +               pr_err("%pfwP: failed to create IMSIC base domain\n", ims=
+ic->global.fwnode);
+>                 return -ENOMEM;
+>         }
+>
+>         global =3D &imsic->global;
+>         pr_info("%pfwP:  hart-index-bits: %d,  guest-index-bits: %d\n",
+> -               imsic->fwnode, global->hart_index_bits, global->guest_ind=
+ex_bits);
+> +               imsic->global.fwnode, global->hart_index_bits, global->gu=
+est_index_bits);
+>         pr_info("%pfwP: group-index-bits: %d, group-index-shift: %d\n",
+> -               imsic->fwnode, global->group_index_bits, global->group_in=
+dex_shift);
+> +               imsic->global.fwnode, global->group_index_bits, global->g=
+roup_index_shift);
+>         pr_info("%pfwP: per-CPU IDs %d at base address %pa\n",
+> -               imsic->fwnode, global->nr_ids, &global->base_addr);
+> +               imsic->global.fwnode, global->nr_ids, &global->base_addr)=
+;
+>         pr_info("%pfwP: total %d interrupts available\n",
+> -               imsic->fwnode, num_possible_cpus() * (global->nr_ids - 1)=
+);
+> +               imsic->global.fwnode, num_possible_cpus() * (global->nr_i=
+ds - 1));
+>
+>         return 0;
+>  }
+>
+>  static int imsic_platform_probe_common(struct fwnode_handle *fwnode)
+>  {
+> -       if (imsic && imsic->fwnode !=3D fwnode) {
+> +       if (imsic && imsic->global.fwnode !=3D fwnode) {
+>                 pr_err("%pfwP: fwnode mismatch\n", fwnode);
+>                 return -ENODEV;
+>         }
+> diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/ir=
+q-riscv-imsic-state.c
+> index b8d1bbbf42f7..ae982f89318b 100644
+> --- a/drivers/irqchip/irq-riscv-imsic-state.c
+> +++ b/drivers/irqchip/irq-riscv-imsic-state.c
+> @@ -813,9 +813,9 @@ int __init imsic_setup_state(struct fwnode_handle *fw=
+node, void *opaque)
+>         imsic =3D kzalloc_obj(*imsic);
+>         if (!imsic)
+>                 return -ENOMEM;
+> -       imsic->fwnode =3D fwnode;
+>         global =3D &imsic->global;
+>
+> +       global->fwnode =3D fwnode;
+>         global->local =3D alloc_percpu(typeof(*global->local));
+>         if (!global->local) {
+>                 rc =3D -ENOMEM;
+> diff --git a/drivers/irqchip/irq-riscv-imsic-state.h b/drivers/irqchip/ir=
+q-riscv-imsic-state.h
+> index c42ee180b305..178b678f5c0f 100644
+> --- a/drivers/irqchip/irq-riscv-imsic-state.h
+> +++ b/drivers/irqchip/irq-riscv-imsic-state.h
+> @@ -44,9 +44,6 @@ struct imsic_local_priv {
+>  };
+>
+>  struct imsic_priv {
+> -       /* Device details */
+> -       struct fwnode_handle                    *fwnode;
+> -
+>         /* Global configuration common for all HARTs */
+>         struct imsic_global_config              global;
+>
+> diff --git a/include/linux/irqchip/riscv-imsic.h b/include/linux/irqchip/=
+riscv-imsic.h
+> index 61af3a5bea09..b7be1aad7774 100644
+> --- a/include/linux/irqchip/riscv-imsic.h
+> +++ b/include/linux/irqchip/riscv-imsic.h
+> @@ -46,6 +46,9 @@ struct imsic_local_config {
+>  };
+>
+>  struct imsic_global_config {
+> +       /* Device details */
+> +       struct fwnode_handle                    *fwnode;
 > +
-> +title: Toradex camera connector GPIO nexus
-> +
-> +maintainers:
-> +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
-> +
-> +description: |
-> +  Toradex carrier boards share a common 24-pin, 0.5 mm pitch FFC/FPC cam=
-era
-> +  connector carrying MIPI CSI-2, I2C, clock, power, and sideband GPIO si=
-gnals.
-> +  This binding describes the sideband signals as a GPIO nexus. The other
-> +  connector resources remain described by the surrounding board device t=
-ree.
-> +
-> +  The nexus exposes connector-local GPIO function numbers to camera over=
-lays
-> +  and maps the functions wired by a carrier board to their GPIO controll=
-ers.
-> +  GPIO specifiers contain a function number followed by standard GPIO fl=
-ags.
-> +  A board may omit functions which it does not wire.
-> +
-> +  The function numbers are:
-> +    - 0: Camera reset, connector pin 11
-> +    - 1: Camera power-down, connector pin 22
-> +    - 2: Camera identification, connector pin 23
-> +    - 3: Camera power control, connector pin 24
-> +
-> +properties:
-> +  compatible:
-> +    const: toradex,camera-connector
 
-This seems overly generic, but I assume that's what it's actually called
-and if you make a new camera connector the name will be
-"camera connector 2" or something.
+Now that fwnode is part of struct imsic_global_config, I suggest
+having another patch (on-top-of this patch) which replace the
+imsic_acpi_get_fwnode() function with code sequence accessing
+fwnode from struct imsic_global_config.
 
-> +
-> +  "#gpio-cells":
-> +    const: 2
-> +
-> +  gpio-map:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  gpio-map-mask:
-> +    items:
-> +      - const: 0xffffffff
-> +      - const: 0
-> +
-> +  gpio-map-pass-thru:
-> +    items:
-> +      - const: 0
-> +      - const: 0xffffffff
-
-These seem incredibly wide for something with only 4 gpios?
-
-Thanks,
-Conor.
-
-> +
-> +required:
-> +  - compatible
-> +  - "#gpio-cells"
-> +  - gpio-map
-> +  - gpio-map-mask
-> +  - gpio-map-pass-thru
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    camera-connector {
-> +        compatible =3D "toradex,camera-connector";
-> +        #gpio-cells =3D <2>;
-> +        /*
-> +         * 0: Camera reset, connector pin 11
-> +         * 1: Camera power-down, connector pin 22
-> +         * 2: Camera identification, connector pin 23
-> +         * 3: Camera power control, connector pin 24
-> +         */
-> +        gpio-map =3D <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
-> +                   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
-> +                   <2 0 &gpio1 2 GPIO_ACTIVE_HIGH>,
-> +                   <3 0 &gpio1 3 GPIO_ACTIVE_HIGH>;
-> +        gpio-map-mask =3D <0xffffffff 0x0>;
-> +        gpio-map-pass-thru =3D <0x0 0xffffffff>;
-> +    };
-> +
-> +...
->=20
-> --=20
+>         /*
+>          * MSI Target Address Scheme
+>          *
+> --
 > 2.43.0
->=20
+>
 
---cciuDq3elMOy+sRp
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar/kVAAKCRB4tDGHoIJi
-0l1DAP9bDUA3Nv7it5RkeD4+LYzY1vUJBthcKaf0+Er4zJ5sTwD/aDRO34o3W2Wc
-18ldXYC69SYV2KiUW0VdsZwoaVQIAQw=
-=tx7U
------END PGP SIGNATURE-----
-
---cciuDq3elMOy+sRp--
+Regards,
+Anup
