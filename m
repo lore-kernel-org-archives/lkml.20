@@ -1,36 +1,33 @@
-Received: from mta1.migadu.com (out-87.mta1.migadu.com [95.215.58.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D688C4AD4CB
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.87
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 06DEC4BA1F0
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950848; cv=none; b=kpQJxaASyUrPuN/XXqT/vSMfTKXNbFA4JPcR4TmEyVc1l2t8sx6zcTJVRjPNK7+LSmJWgCb0dpmLabk6qI7Ep8gG+ew7sDGL1eG3W42O8moBMWQJYO27BV6brWu59zaxSpPdsP8/IC+8Sc62P8OM7Chu73dtsbDueftRd0Swv1I=
+	t=1790950856; cv=none; b=N2kEuolNZ/wHKEkcpuP5yHRo/pKoMFKK7ix+YHYLqe9OQKP7CBvEQsQJK3YyBe7wDrkD5faDFRIldB4WvDDIec10RA3F5FfdFgrhhv9wi0T3tDV6Br6iBJ6SxiwYxUGs5N8goXtHhO9L+8zEcMEpJAVIXLv0g/pmXFCFyyijbOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950848; c=relaxed/simple;
-	bh=sSuRpJtw6wT3cSv2S7x2+3y7hyVUzo2hMGuMjfIVABw=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Nq7Exynwr1rpbhQe5Su4YnoLwp2z8Fl/F9l19JwL1iT62ucydSCH+3Khv1IhPxlQgLAuc9o3wkEXnOVX00sfYo8Hqbc1G5yvNQqm9IHcdWzAs9ne/mYCv2A9DaifS/hb7rC8w/w9Lp9M22LxI4hr2HlDxyyaOlA47FrvmWH9rag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CaUg9wzx; arc=none smtp.client-ip=95.215.58.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790950856; c=relaxed/simple;
+	bh=a911ETWir/XtqF1LPazIH4XtUFulvCkCjSpVEYEZ/BQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OEJwOpPLno3hxQGjZVhVbXuiJhbQ15CbZ92RkqP0pQjBtM+8oulKEWPBSNjtZPxEuQKVGXuacTyhYGfKOkl19CcLxfISni9GhhgSgHgxbuvqmvK/Eyd1kbWSQGbRmNiYKVJfzrgH/j3v5jGYilJJ4RQSG0CZdFd1MFrXCCo2mbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=L9YtsQt1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CaUg9wzx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sSuRpJtw6wT3cSv2S7x2+3y7hyVUzo2hMGuMjfIVABw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790950844; v=1; x=1791555644;
- b=CaUg9wzxfWXIKjeO5MfRJI3X/T0mTfYemO4g5QbmXUSazZ78sNpTnm3w13WB/3Hd+OXzilFD
- h6cAFRunp2TsCH+YS6Kf/Y0XDFHfpJuXztx23M/3MX5sJO/Z/Gkp6UJoBJ5NJsj9O5zUXGKbDrx
- raEBqcDPe6KwJUR9D0W/UoV8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f5d7a9aa3c29816f;
-	Fri, 02 Oct 2026 14:20:34 +0000
-X-Mizu-Trace-ID: f5d7a9aa3c29816f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <206443c4-6a1a-4a7b-9e4e-032ff40fc6e4@linux.dev>
-Date: Fri, 2 Oct 2026 22:20:28 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="L9YtsQt1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87E061476;
+	Fri,  2 Oct 2026 07:20:49 -0700 (PDT)
+Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5DEC73F86F;
+	Fri,  2 Oct 2026 07:20:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790950852; bh=a911ETWir/XtqF1LPazIH4XtUFulvCkCjSpVEYEZ/BQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=L9YtsQt1IujRdTHTjxeVLGwh5BHgRVWn//i3RBwseGiAyLyAGnIpa+9cnEueosAab
+	 n36kBKjl2OyGPAQef8JyfC/Ug37GQm9o7l38AyKCLbv9FMakuAjihyK9Nd0ZB9vzha
+	 ZVS2OSx7Ofz2Lo25PVJVfV/FwcDhA7iL5Jo/MRjQ=
+Message-ID: <b533d7d1-fb81-4eff-bcdd-a2bfe9bd2180@arm.com>
+Date: Fri, 2 Oct 2026 15:20:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,113 +35,248 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
- cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
- eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
- linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
- ameryhung@gmail.com, alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v8 2/4] selftests/bpf: add iocost cost model test
-To: Tejun Heo <tj@kernel.org>
-References: <20260930075154.189958-1-cui.tao@linux.dev>
- <20260930075154.189958-3-cui.tao@linux.dev>
- <50cb57cb36c935f24e3a5ec2d301c148@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <50cb57cb36c935f24e3a5ec2d301c148@kernel.org>
+Subject: Re: [PATCH v12 05/15] drm/panfrost: Consolidate device clock
+ management and reset
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-5-62beb08de207@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260929-claude-fixes-v12-5-62beb08de207@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello, Tejun.
+On 29/09/2026 04:44, Adrián Larumbe wrote:
+> Gather all clock enables and disables into a single function to avoid
+> repetitions between driver init/fini and device resume/suspend, since
+> these clocks are always handled in bulk.
+> 
+> Also do clk (un)prepares and dis/enables at the same time, since the
+> clk_prepare_* family of functions can simply increase the refcnt of
+> an already prepared clock.
+> 
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-在 2026/10/1 08:20, Tejun Heo 写道:
-> Hello, Tao.
-> 
-> The following is a Claude-generated review.
-> 
-> On Wed, 30 Sep 2026 15:51:52 +0800, Tao Cui wrote:
->> Add an example cost model implementing the full builtin linear HDD
->> formula at double cost, and a test which attaches it to one device:
->> the dev member of the struct_ops is written through the map's
->> initial value before load, as hid_bpf tests do with hid_id, and
->> loading the struct_ops attaches the model to the device.  The test
->> verifies the ctrl=bpf readback while attached, that a second model
->> on the same device fails with -EBUSY, and that detaching restores
->> the builtin model.
-> ...
->> cgroup that comes back starts fresh.  opf carries the full bio->bi_opf
->> including REQ_* flag bits, so the operation must be extracted with a
->> mask, not compared for equality.
-> 
-> The description is out of date. The test reads back model=bpf and checks
-> that ctrl=bpf is rejected, calc_cost() takes the bio so there is no opf
-> argument, attaching rather than loading binds the model, and the
-> multi-stream model and its test aren't mentioned at all.
-> 
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-The commit message is rewritten to describe the current test,
-including the multi-stream model.
-
->> +	if (fwrite(buf, 1, strlen(buf), fp) != strlen(buf))
->> +		err = ferror(fp) ? errno : EIO;
->> +	if (fclose(fp) && !err)
->> +		err = errno;
->> +	return err;
-> ...
->> +		err = write_cost_model(dev, "ctrl=bpf");
->> +		ASSERT_ERR(err, "ctrl_bpf_rejected");
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 118 +++++++++++++----------------
+>  1 file changed, 52 insertions(+), 66 deletions(-)
 > 
-> write_cost_model() returns a positive errno while ASSERT_ERR() wants a
-> negative value, so this and model_bpf_after_detach fail with "unexpected
-> success: 22" on a correct kernel. Return -errno. Can you double check
-> that the posted runner passes against the posted kernel?
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> index b3a53504bd01..9f2b1967a398 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -34,10 +34,46 @@ static void panfrost_reset_fini(struct panfrost_device *pfdev)
+>  	reset_control_assert(pfdev->rstc);
+>  }
+>  
+> -static int panfrost_clk_init(struct panfrost_device *pfdev)
+> +static int panfrost_clks_enable(struct panfrost_device *pfdev, bool on_resume)
+>  {
+>  	int err;
+> +
+> +	err = clk_prepare_enable(pfdev->clock);
+> +	if (err)
+> +		return err;
+> +
+> +	err = clk_prepare_enable(pfdev->bus_clock);
+> +	if (err)
+> +		goto disable_clock;
+> +
+> +	if (on_resume) {
+> +		err = clk_prepare_enable(pfdev->bus_ace_clock);
+> +		if (err)
+> +			goto disable_bus_clock;
+> +	}
+> +
+> +	return 0;
+> +
+> +disable_bus_clock:
+> +	clk_disable_unprepare(pfdev->bus_clock);
+> +disable_clock:
+> +	clk_disable_unprepare(pfdev->clock);
+> +
+> +	return err;
+> +}
+> +
+> +static void panfrost_clks_disable(struct panfrost_device *pfdev, bool on_suspend)
+> +{
+> +	if (on_suspend)
+> +		clk_disable_unprepare(pfdev->bus_ace_clock);
+> +	clk_disable_unprepare(pfdev->bus_clock);
+> +	clk_disable_unprepare(pfdev->clock);
+> +}
+> +
+> +static int panfrost_clk_init(struct panfrost_device *pfdev)
+> +{
+>  	unsigned long rate;
+> +	int err;
+>  
+>  	pfdev->clock = devm_clk_get(pfdev->base.dev, NULL);
+>  	if (IS_ERR(pfdev->clock)) {
+> @@ -48,53 +84,31 @@ static int panfrost_clk_init(struct panfrost_device *pfdev)
+>  	rate = clk_get_rate(pfdev->clock);
+>  	dev_info(pfdev->base.dev, "clock rate = %lu\n", rate);
+>  
+> -	err = clk_prepare_enable(pfdev->clock);
+> -	if (err)
+> -		return err;
+> -
+>  	pfdev->bus_clock = devm_clk_get_optional(pfdev->base.dev, "bus");
+>  	if (IS_ERR(pfdev->bus_clock)) {
+> -		dev_err(pfdev->base.dev, "get bus_clock failed %ld\n",
+> -			PTR_ERR(pfdev->bus_clock));
+>  		err = PTR_ERR(pfdev->bus_clock);
+> -		goto disable_clock;
+> +		dev_err(pfdev->base.dev, "get bus_clock failed %d\n", err);
+> +		return err;
+>  	}
+>  
+>  	if (pfdev->bus_clock) {
+>  		rate = clk_get_rate(pfdev->bus_clock);
+>  		dev_info(pfdev->base.dev, "bus_clock rate = %lu\n", rate);
+> -
+> -		err = clk_prepare_enable(pfdev->bus_clock);
+> -		if (err)
+> -			goto disable_clock;
+>  	}
+>  
+>  	pfdev->bus_ace_clock = devm_clk_get_optional(pfdev->base.dev, "bus_ace");
+>  	if (IS_ERR(pfdev->bus_ace_clock)) {
+>  		err = PTR_ERR(pfdev->bus_ace_clock);
+>  		dev_err(pfdev->base.dev, "get bus_ace_clock failed %d\n", err);
+> -		goto disable_bus_clock;
+> +		return err;
+>  	}
+>  
+> -	err = clk_prepare_enable(pfdev->bus_ace_clock);
+> -	if (err)
+> -		goto disable_bus_clock;
+> -
+> -	return 0;
+> -
+> -disable_bus_clock:
+> -	clk_disable_unprepare(pfdev->bus_clock);
+> -disable_clock:
+> -	clk_disable_unprepare(pfdev->clock);
+> -
+> -	return err;
+> +	return panfrost_clks_enable(pfdev, true);
+>  }
+>  
+>  static void panfrost_clk_fini(struct panfrost_device *pfdev)
+>  {
+> -	clk_disable_unprepare(pfdev->bus_ace_clock);
+> -	clk_disable_unprepare(pfdev->bus_clock);
+> -	clk_disable_unprepare(pfdev->clock);
+> +	panfrost_clks_disable(pfdev, true);
+>  }
+>  
+>  static int panfrost_regulator_init(struct panfrost_device *pfdev)
+> @@ -436,34 +450,17 @@ static int panfrost_device_runtime_resume(struct device *dev)
+>  		if (ret)
+>  			return ret;
+>  
+> -		ret = clk_enable(pfdev->clock);
+> -		if (ret)
+> -			goto err_clk;
+> -
+> -		ret = clk_enable(pfdev->bus_clock);
+> -		if (ret)
+> -			goto err_bus_clk;
+> -
+> -		ret = clk_enable(pfdev->bus_ace_clock);
+> -		if (ret)
+> -			goto err_bus_ace_clk;
+> +		ret = panfrost_clks_enable(pfdev, true);
+> +		if (ret) {
+> +			reset_control_assert(pfdev->rstc);
+> +			return ret;
+> +		}
+>  	}
+>  
+>  	panfrost_device_reset(pfdev, true);
+>  	panfrost_devfreq_resume(pfdev);
+>  
+>  	return 0;
+> -
+> -err_bus_ace_clk:
+> -	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
+> -		clk_disable(pfdev->bus_clock);
+> -err_bus_clk:
+> -	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
+> -		clk_disable(pfdev->clock);
+> -err_clk:
+> -	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
+> -		reset_control_assert(pfdev->rstc);
+> -	return ret;
+>  }
+>  
+>  static int panfrost_device_runtime_suspend(struct device *dev)
+> @@ -480,9 +477,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
+>  	panfrost_gpu_power_off(pfdev);
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
+> -		clk_disable(pfdev->bus_ace_clock);
+> -		clk_disable(pfdev->bus_clock);
+> -		clk_disable(pfdev->clock);
+> +		panfrost_clks_disable(pfdev, true);
+>  		reset_control_assert(pfdev->rstc);
+>  	}
+>  
+> @@ -506,13 +501,9 @@ static int panfrost_device_resume(struct device *dev)
+>  	}
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+> -		ret = clk_enable(pfdev->clock);
+> +		ret = panfrost_clks_enable(pfdev, false);
+>  		if (ret)
+>  			goto err_clk;
+> -
+> -		ret = clk_enable(pfdev->bus_clock);
+> -		if (ret)
+> -			goto err_bus_clk;
+>  	}
+>  
+>  	ret = pm_runtime_force_resume(dev);
+> @@ -523,10 +514,7 @@ static int panfrost_device_resume(struct device *dev)
+>  
+>  err_resume:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+> -		clk_disable(pfdev->bus_clock);
+> -err_bus_clk:
+> -	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+> -		clk_disable(pfdev->clock);
+> +		panfrost_clks_disable(pfdev, false);
+>  err_clk:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
+>  		dev_pm_opp_set_opp(dev, NULL);
+> @@ -542,10 +530,8 @@ static int panfrost_device_suspend(struct device *dev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+> -		clk_disable(pfdev->bus_clock);
+> -		clk_disable(pfdev->clock);
+> -	}
+> +	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+> +		panfrost_clks_disable(pfdev, false);
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
+>  		dev_pm_opp_set_opp(dev, NULL);
 > 
-
-Fixed, it returns -errno. The posted runner had not been run against
-the posted kernel; it now passes against the v9 kernel.
-
->> +	/* dev is the first member of struct iocost_model_ops */
->> +	ops_dev = bpf_map__initial_value(skel->maps.iocost_2x, NULL);
-> 
-> The skeleton exposes the struct_ops shadow type, so
-> skel->struct_ops.iocost_2x->dev = ... is type checked and drops the
-> layout assumption. Same for iocost_ms.
-> 
-
-Done for both models.
-
->> +SEC(".struct_ops")
->> +struct iocost_model_ops iocost_2x = {
-> 
-> With a plain struct_ops map, a test that dies between attach and detach
-> leaves the model attached until something deletes the map element. The
-> hid and sched_ext selftests use ".struct_ops.link" so that closing the fd
-> detaches. Can you use that here too?
-> 
-
-Done, both maps are ".struct_ops.link".
-
->> +	cur = *cursor;
->> +	if (cur && priced) {
->> +		seek_pages = sector > cur ? sector - cur
->> +					   : cur - sector;
-> 
-> A dataless flush is REQ_OP_WRITE|REQ_PREFLUSH at sector 0 with bi_size 0,
-> so priced is set here. Once a cgroup's cursor is past 16MB, every fsync
-> is judged a random write and charged 2 * (WRANDIO + WPAGE), about 5ms,
-> not the one-page write the header comment describes, and iocost_ms.c
-> prices the same bio with the sequential base. Can you gate the seek
-> judgement on a non-zero size?
-> 
-
-Done: the seek judgement is now gated on a non-zero IO size, so a
-dataless flush is priced as a size-zero sequential write, matching the
-builtin model.
-
-Thanks.
-Tao
-
-> Thanks.
-> 
-> --
-> tejun
 
