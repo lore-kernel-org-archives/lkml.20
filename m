@@ -1,75 +1,119 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58653876B3;
-	Fri,  2 Oct 2026 13:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7020C547071
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790947934; cv=none; b=M6yAwfFkXoCohtB2NXOztO9dPIWja7H7TJGBiCAHhyDZKReeU2G2hRgutXoejVrC1XIMGgVOdvK5+etyZdYulwOPFg+U5SLtDvvOu6X7AUPznEVSZhMkFr/eUSRt+ZXk68mQuMExt1Ty5EMAjNsRxa7hAc5Wy0LMjcUziW6DRa4=
+	t=1790947940; cv=none; b=W6x5vs2/4gXSlni0l2rZzrokgjZap2/+G9U2TxofJ4l0AlsEr45665uvXIKFydNGAN++KbmgA2AT84pjU4MeRmKnceXpd0iEAs7rM0G/IFSMph4l9RJE/6QVK+rz+uhHdEqEJU0D7akXDwBMgT7FFC2czk0zvO+txMF+j46p7No=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790947934; c=relaxed/simple;
-	bh=Sfgq4J4qmWTTb9yeLxUfDNuD9UH88svUye3bqI21IR0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=epY8U0q8zTU+NBn5NL03tn5ln1x7eaFG95fAnez8lz5OGqyXlrGCaPF+ZSF/DOGcoW29Ghw6nPianRlzCGKTnGPbBCtLog2Z+PpDnqA2OsIyiEFDC6ewxtE0k3GUm/FchAVbj2nqfcYgzV2BgeBhRNGWZcUfS2u0zBG+uuaiZj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=jPE8nfjX; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1790947940; c=relaxed/simple;
+	bh=yI1sJ8u7HcWbY3EwhSNFIbq0rewYn6Kj2tCz78IACdw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mP0V1ugoot5gUO/ZoIXj+Xl74JtaHXUKaqr+f08SsHr5jvICe77aFtU/qXI+G3x/IiRo5/84MCdm8Zg27GcougozuUDJuWVKZsTE8QeboUdPb2hnfouIA0Devgg/vIIx05SIbaPeiqV7tS4zYS2exNDZts+79Ipp9mPwsFwpsqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P3ef5zNc; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="jPE8nfjX"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hx8pG0SL7z1XM6Jf;
-	Fri,  2 Oct 2026 13:32:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1790947922; x=1793539923; bh=Sfgq4J4qmWTTb9yeLxUfDNuD
-	9UH88svUye3bqI21IR0=; b=jPE8nfjXLtMbvt8PnSV8T2T8Dghv+6SMuWovNnwu
-	I9im8qn6TUQKGoJWFUQQbC1DR+US2zeNdd5fEpQ0zIsM04JpG9+w7s/7Bf8R7/0s
-	pWRMdH2QV01n5/JK6nj5fO+dTff9Pq2scaeBle5jlsTlLwHMVueahi9kA8oXUoVq
-	uHeUP6M2N4BYphN0fvsJ93gY8etTEBrIVr124H7K33NwUzPSdCP2Lt1xn9Dyz2IC
-	dzSYHjcjjGmlqMFxVevnbJrNtHWKDeyd/n0612OsiWrehG0vBD2BRR/xbOrwnhU5
-	lLXlRinMAjuEWUE4dcgYezxBK+pHv+iS37kANf/PG+yQHg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id qXHkVSQjcEHf; Fri,  2 Oct 2026 13:32:02 +0000 (UTC)
-Received: from [192.168.0.215] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hx8p83vcpz1XM6Hv;
-	Fri,  2 Oct 2026 13:31:59 +0000 (UTC)
-Message-ID: <2fbff86c-f276-4e46-b7d3-549461706d37@acm.org>
-Date: Fri, 2 Oct 2026 06:31:58 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P3ef5zNc"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so2529309f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790947937; x=1791552737; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hiRYKmHSzO5SlWk5Pf1admdJHvzaYFkX+u45NJi6WK0=;
+        b=P3ef5zNcyI2VaRuZOFC1B+8ABT+u9XeIwtZlqHV+MpBdiBSo5mwKdIR4lm5FqFOj3T
+         oPTTf4+BLl5xi3DC9ctP1mxDTqTMz81evjwiorF4kbphyhIOTLBOKERqob3j7+iWHQZg
+         cxOJFmc7epzU5yQxCc+I69otPMotJGebxGKyp12t5au9rQETojQoeLAZg47FcbPWJ++y
+         X1CmQO/5mAU+DewZcTaUkSuQX6nEn2NZEMrSOy5PFkDCE4AD1Wo+ezqvRTYQMYVfTAg5
+         cmdTuoSTbZqiuYyVzUGCiGRjuFwkykj4J/WVIPSSqu4kERvQ63jf4E8m3vtUE+ySyKcv
+         0Mrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790947937; x=1791552737;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hiRYKmHSzO5SlWk5Pf1admdJHvzaYFkX+u45NJi6WK0=;
+        b=i553DhezvhSyAiTOcrBq8aIvPOcH/6HgRResqmwOTFZ+X9Fg3MLiXYmvZJaWY0IiN7
+         mSDoOFx7t9V2NfPVMVsVmn+xR8CkhA90smtT1HhdeMHOjBUFOeGBeyj1UNQBJl3+TaWf
+         3rdvXBZyt5KTLbEvWCrqAN8zwHl+PK7WDq49ZN7+NDTmeiHy2LwYuCRHuwfYjtkz41mJ
+         M0anPhORoiH82N/ek9ylonUZP31yzs70xYI1gutAa3sWWui3E4/VB//4nTFOhcoIvZXj
+         RU3t0CSolQIfRxHc9LyLi3G0dAnsUWeSd9qff9i5Cu2B7FyyuoVxxMavV3yfz0/mY6p6
+         OsJw==
+X-Forwarded-Encrypted: i=1; AKwUvByGPdPiPlWsl7YoByTeKm4OI5v6zMCj6IBDkuEJr887hzwSq6tmLYnD6/iAohUFp3VHNC/QhcYpEasBc0E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5Vf6d2HddJmDYKa92x3r/ojfz/sR9pc8mfw0XfnGO9uVT4YGi
+	KNbCUufyP3d6Ho/jwxnLtcHT/MNrUI0A/RXz5Eb++gr48LCUfLa2q/8C2lRtLzWfASg=
+X-Gm-Gg: AYBFou2kTFDmbNXraR53ms+kPJjAJu94Ry69ueY6AUF8hkxRHFjse0Ik4WgQpEjnnoq
+	UpNBhHpr4srni4/kEA3dEUKAexCkh2uy1m3lFV6QOAPXM5hqNl5cYzr02A5vJT+qN236Ryvjqt6
+	c3JALFeSY0a12YCwquiXKzpYx8rJRRrZWfpNnkJUNx59UZWZs0zoDrAJ1m6aszAY2eOgtbs3AXY
+	TOAzjjqs24j9TTu6NDvzLcwJ5tHX5G3xw0T5UOCMuqnHDLSWhgXRurDQGFR6HTe93v46B8s6Tag
+	epAJ9K1n+Om2rqaQWJ3z4SwhwCgMzP1WlPC7SOpm+Ad41U591qskjJlDFZuGkEFzEntLZNC/nz/
+	xNb2ZJK1Mc9gxPJtnsNx3SYHj1uPSh6eOn48n1y1daMKG/xWbUp7RgAaa2ZyBzvCJNqtztHwzaI
+	es+eN15ciycdRpCtOoBr63M1Y55pMGyD5A6S5PCr6e8iZeVuZPoaBF/BFNJJ0Bj2zzZSspWrDcK
+	8PyGBwU2VGF8yfbdFJGxAEgrirtHY7QgM+uxBIZe8yKZFG4W2cadZOvc8txZggfIwO4hiVel7Yc
+	4pJb/0dh
+X-Received: by 2002:a05:6000:4308:b0:48a:fdde:5241 with SMTP id ffacd0b85a97d-48b12749eaamr5834965f8f.31.1790947936568;
+        Fri, 02 Oct 2026 06:32:16 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9bc0sm5809855f8f.41.2026.10.02.06.32.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:32:16 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: freescale: imx8mp-toradex-smarc: Add
+ OV5640 overlays
+Date: Fri, 02 Oct 2026 15:31:29 +0200
+Message-Id: <20261002-v1-smarc-imx8mp-cameras-v1-0-a0e89182c625@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Remove Avri Altman as UFS reviewer
-To: Stanley Jhu <stanleyjhu@google.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: Avri Altman <avri.altman@sandisk.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260930135947.2339918-1-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260930135947.2339918-1-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADGyv2oC/x3MMQqAMAxA0atIZgNtkSJeRRxiGzVDVRIQQby7x
+ fEN/z9grMIGQ/OA8iUmx17h2wbSRvvKKLkaggvROxfw8miFNKGUuy8nJiqsZNjPMXaZgsvUQa1
+ P5UXu/zxO7/sBEtjHR2kAAAA=
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+X-Mailer: b4 0.13.0
 
-On 9/30/26 6:59 AM, Stanley Jhu wrote:
-> At Avri's request, remove him as a reviewer of the UFS host
-> controller driver. The listed wdc.com address also bounces.
-Did Avri request this? I haven't seen his request. Did I perhaps
-miss something?
+Add OV5640 camera overlays for the Toradex SMARC iMX8MP SoM and its
+development carrier board.
 
-Thanks,
+This series requires support for the toradex,camera-connector binding:
+https://lore.kernel.org/imx/20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com/#t
 
-Bart.
+It also requires the following patch because it relies on the on-carrier
+3v3 regulator:
+https://lore.kernel.org/all/20261002-smarc-imx8mp-display-submit-v1-3-f578c63fb676@toradex.com/
+
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+---
+Ernest Van Hoecke (2):
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add camera connector nexus
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add OV5640 overlays
+
+ arch/arm64/boot/dts/freescale/Makefile             | 16 +++++
+ .../imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtso    | 15 +++++
+ .../imx8mp-toradex-smarc-csi0-ov5640.dtso          | 75 ++++++++++++++++++++++
+ .../imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtso    | 15 +++++
+ .../imx8mp-toradex-smarc-csi1-ov5640.dtso          | 75 ++++++++++++++++++++++
+ .../dts/freescale/imx8mp-toradex-smarc-dev.dts     | 26 ++++++++
+ .../boot/dts/freescale/imx8mp-toradex-smarc.dtsi   | 10 ++-
+ 7 files changed, 230 insertions(+), 2 deletions(-)
+---
+base-commit: a1f0ec0d615b3287faa88cf9b8b8a125e2b6e470
+change-id: 20261002-v1-smarc-imx8mp-cameras-8b664da20da4
+
+Best regards,
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
