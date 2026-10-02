@@ -1,209 +1,92 @@
-Received: from mta1.migadu.com (out-219.mta1.migadu.com [95.215.58.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DCB361974
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.219
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790915802; cv=none; b=Ze211FcKsaMSXjDMyoMGEtq9bkT5MUittiL+q577U3R1f0VTdcFfD0cVcfFPbzboHPJTNnGgK2V46rfFPoM00TjksoneG92+xi8wC6yVborOn9Nrrm/QbBEcgFd/g2tAVnbmLzzvGlFs+rKVKUwghbgDs6y+A9EwX7i54BEW3iw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790915802; c=relaxed/simple;
-	bh=y/0CXx9eIXXSUi0htzgjyz98uoanzac/KLtq3JYsrjo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BQfCJZVDl8WSDsOr5vNF/s1ija+8soAVsCdyfh0LaPFyLEUCLmN5cQljihAT+0szetoGJqS92lizFCcbMVN//U4IFpQ2DgqcQD/9p/jmQKryZQpknBkx/lEYCx7JUqprwcuG8saw+hFIbYPBL8+5Z6UnUsL7g20K3jJOiydd5k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xP7aSUJC; arc=none smtp.client-ip=95.215.58.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4244335CBD7;
+	Fri,  2 Oct 2026 04:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790915821; cv=pass; b=YaaKK/lRz/Zqfe4OVDXYoTRQ5FokZVrICYN/rDUUEucWHO36/AXzA/Q96UUxB7tgVs16fyWwqcijd7aEikFLPzht0AwzRmQORlp62yzTsMAtW2mYCpFCB/ZXCrslXsPLV2zZMgiX4dYGi+bqirpe/gVzZotygpItnUbOs9UEVs4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790915821; c=relaxed/simple;
+	bh=aWT8IJMJs0ddLNcKHq0aOPNMWYxpA29aEZfuqulkpuY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A6IycL6uo38GBknCtZ8godJ7qxDsfkiylu+B6iJU18/MpeVRz1A9xqcPWth7jyGPpg68G7luCOAxIxWzzsaIthZzv9luZYpWWrFBR4IsU64ivsPyVsLTTzmhjiWqCr4POLJC2GfE+MWZQuGB4WdDef26l0q07bG2Bxk/5ydw/NY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=EWDEobE8; arc=pass smtp.client-ip=136.143.169.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xP7aSUJC"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=y/0CXx9eIXXSUi0htzgjyz98uoanzac/KLtq3JYsrjo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790915796; v=1; x=1791520596;
- b=xP7aSUJCP1VTTt6HWpzfU6gfjbJUEIPtiK8ipSLspAPJnzEqFk/WM+JNBurF6U2QCmVsxMvG
- 3PR1iwIg3AKQMVR7+YU7efgObTMGdGBxsTGYBdZZ+wpGtupWp9dgG2wr3Cg9QLQOQHoKY73d1nf
- KBHl4A10s6law16XIbcTgVec=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d68e9918b237ea7b;
-	Fri, 02 Oct 2026 04:36:36 +0000
-X-Mizu-Trace-ID: d68e9918b237ea7b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <596bfb65-db2d-413b-8039-c921031b50fd@linux.dev>
-Date: Thu, 1 Oct 2026 21:36:24 -0700
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="EWDEobE8"
+ARC-Seal: i=1; a=rsa-sha256; t=1790915784; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=BAmM4T8o/G+2/ZAM6FBd5VuaDuH38HqYI8M0IsPiZDm1DWWdoywuxVS5DqSzoW/99bx3wqBmJfd70XshxicNSbkEctrqavJF0H0a1O0qW6HujTarPRZgxcpXWD6is91MCm8lWxbA+cIq2zxUSqzufBCtpQ+I3cCHKSseYKobDJY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1790915784; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=aWT8IJMJs0ddLNcKHq0aOPNMWYxpA29aEZfuqulkpuY=; 
+	b=IYi0scl2PQxwLD2khWVjKstG7nPn5EpfzgJHeKgNuZ+7K3unRlZtCE6Ut2fVVAyK5NcgxPzJjaUOy7oFaRTSKw+1Ep7we80r6pUbqHRSmVra7OJ3CZNjOeLjSgxMi+fgUqahoP1VwZRjTLr2379ZOdvGRWGGymKGnm60e53pkxY=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790915784;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=aWT8IJMJs0ddLNcKHq0aOPNMWYxpA29aEZfuqulkpuY=;
+	b=EWDEobE84Je8hVOmuqvabN3tIeaKK29SUxl6obb2+443Ze9MhTRXLM/VaW6gfa87
+	MdmEtHyipLgcWaidFj/fdCWqGtL5ud3ugWX6EzOr3BZ0Zv/omIaDEF2cKdrD5rzEDWE
+	nQqd68vaBrdKN/u/fsU6CVpg4EYWkaFriOE5nLRs=
+Received: by smtp.zoho.eu with SMTPS id 17909157823821010.4367848092561;
+	Fri, 2 Oct 2026 06:36:22 +0200 (CEST)
+From: Igor Velkov <iav@iav.lv>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Eric Dumazet <edumazet@kernel.org>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: dwmac-rk: keep the GMAC powered when the PHY wakes the system
+Date: Fri,  2 Oct 2026 07:36:20 +0300
+Message-ID: <20261002043620.1303136-1-iav@iav.lv>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <1795d1c1-7103-4dcb-856f-8881521417e0@lunn.ch>
+References: <20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4@iav.lv> <1799630a-945e-49ca-b9d5-9e068c482cea@lunn.ch> <ab67bccd76b55d7252c5380a37809656.iav@iav.lv> <1795d1c1-7103-4dcb-856f-8881521417e0@lunn.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v4 00/12] bpf: make the vmlinux BTF an on-demand
- loadable module (CONFIG_DEBUG_INFO_BTF=m) to save ~5.4 MB memory
-To: Jay Wang <wanjay@amazon.com>, bpf@vger.kernel.org,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Alan Maguire <alan.maguire@oracle.com>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Quentin Monnet <qmo@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- Christian Heusel <christian@heusel.eu>, Luis Chamberlain
- <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Sami Tolvanen <samitolvanen@google.com>, linux-modules@vger.kernel.org,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-trace-kernel@vger.kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- linux-perf-users@vger.kernel.org, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
- Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
- Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
- sched-ext@lists.linux.dev, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- rust-for-linux@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hazem Mohamed Abuelfotoh <abuehaze@amazon.com>,
- Bjoern Doebel <doebel@amazon.de>, Martin Pohlack <mpohlack@amazon.de>,
- jay.wang.upstream@gmail.com
-References: <20261001225214.12351-1-wanjay@amazon.com>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20261001225214.12351-1-wanjay@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-01 3:52 p.m., Jay Wang wrote:
-> Based on and tested against bpf-next commit b5a4aa31abd6 ("bpf, cgroup:
-> Fix cgroup struct_ops query for a second attach type").
-> 
-> This series makes CONFIG_DEBUG_INFO_BTF a tristate, so that it can be
-> set to =m.  With =m the vmlinux BTF is carried by a module, btf_vmlinux,
-> that the kernel loads the first time user space asks for something that
-> needs the BTF.  On a system where nothing does, that saves ~5.4 MB of
-> RAM with a distribution config; on a system that uses BTF, it behaves as
-> with =y.  =y itself is untouched.
-> 
-> Problem
-> -------
-> 
-> The vmlinux BTF that CONFIG_DEBUG_INFO_BTF=y builds into the kernel
-> image takes ~5.4 MB of memory, resident from boot whether anything uses
-> it or not.  On small instances that is not negligible.
-> 
-> A distribution cannot simply turn it off for the users who do not need
-> it: it ships one kernel build for all its users, and BTF is not debug
-> info anymore.  CO-RE, fentry/fexit, kfuncs, struct_ops, sched_ext and
-> bpf-lsm all depend on it, so =n takes those away from everyone who does
-> use them.
-> 
-> Hence this series adds CONFIG_DEBUG_INFO_BTF=m: the BTF becomes an
-> on-demand module.  Users who never use BTF get the memory back; for
-> users who do, the first request that needs it loads it, and everything
-> works as with =y.
-> 
-> [...]
-> 
->   Documentation/bpf/btf.rst                  |   68 ++
->   Makefile                                   |    8 +-
->   include/asm-generic/vmlinux.lds.h          |   32 +-
->   include/linux/bpf.h                        |   15 +
->   include/linux/btf.h                        |   11 +
->   include/linux/btf_ids.h                    |    2 +-
->   include/linux/compiler_types.h             |    2 +-
->   include/linux/module.h                     |    2 +-
->   include/trace/trace_events.h               |    2 +-
->   init/Kconfig                               |    2 +-
->   kernel/bpf/Makefile                        |    6 +-
->   kernel/bpf/bpf_struct_ops.c                |    3 +-
->   kernel/bpf/btf.c                           | 1085 ++++++++++++++++++--
->   kernel/bpf/btf_vmlinux.c                   |   23 +
->   kernel/bpf/inode.c                         |   44 +-
->   kernel/bpf/preload/Kconfig                 |    4 +
->   kernel/bpf/syscall.c                       |   51 +-
->   kernel/bpf/sysfs_btf.c                     |   97 +-
->   kernel/bpf/verifier.c                      |  172 +++-
->   kernel/module/Kconfig                      |    2 +-
->   kernel/module/main.c                       |    4 +-
->   kernel/trace/bpf_trace.c                   |    3 +-
->   kernel/trace/trace_events.c                |   10 +
->   kernel/trace/trace_output.c                |    7 +
->   kernel/trace/trace_probe.c                 |   16 +
->   kernel/trace/trace_syscalls.c              |    6 +-
->   lib/Kconfig.debug                          |   30 +-
->   net/netfilter/Makefile                     |    6 +-
->   net/xfrm/Makefile                          |    4 +-
->   samples/bpf/Makefile                       |    6 +-
->   samples/hid/Makefile                       |    6 +-
->   scripts/Makefile.modfinal                  |   28 +-
->   scripts/Makefile.vmlinux                   |    5 +
->   scripts/gen-btf.sh                         |   53 +-
->   scripts/link-vmlinux.sh                    |   25 +-
->   scripts/package/PKGBUILD                   |    7 +
->   scripts/package/kernel.spec                |    4 +
->   scripts/package/mkspec                     |    7 +
->   tools/bpf/bpftool/Makefile                 |    6 +-
->   tools/bpf/resolve_btfids/main.c            |  217 +++-
->   tools/perf/bpf_skel.mak                    |    8 +-
->   tools/sched_ext/Makefile                   |    6 +-
->   tools/testing/selftests/bpf/Makefile       |    6 +-
->   tools/testing/selftests/hid/Makefile       |    6 +-
->   tools/testing/selftests/sched_ext/Makefile |    6 +-
->   45 files changed, 1936 insertions(+), 177 deletions(-)
+On Thu, Oct 01, 2026 at 02:07:41PM +0200, Andrew Lunn wrote:
+> Why is the PHY interrupting? What interrupts are left enabled? Should
+> the mask be changed to disable everything except wol?
 
-This series caught my attention because of the sheer amount of the code
-and the iteration speed. I've tried to read the cover (it was
-tiresome, please ask your "agent" to be concise), and fed the series
-to my bot.
+Only the WoL interrupt is left: rtl8211f_suspend() sets INER to PME
+alone. The interrupt is the magic-packet wake itself.
+resume_device_irqs() re-enables the line and it fires before the MAC
+resumes; the handler reads INSR (0x80, PME) over MDIO with the GMAC
+clocks off.
 
-A question I had: is it really worth 2k of complicated kernel code to
-*maybe sometimes* save <10Mb of memory?
+So the mask is fine; the problem is that with mac_managed_pm phylib
+does not postpone the interrupt until the PHY resumes. Patch: [1].
 
-And then the bot found this:
+No new version of this patch: the hang is a phylib issue, fixed by
+[1]. With [1] and the GMAC powered down as today: 20/20 suspends (an
+instrumented build logged no MDIO access to the powered-down GMAC).
+Without it the same setup hung within 1 to 7 cycles in 14 of 16 runs,
+some on instrumented builds; one run passed 25 cycles. What remains is that
+rk_gmac_powerdown() disables phy-supply while the PHY is the wakeup
+source; on Helios64 that regulator is always-on, so I cannot test a
+fix for it.
 
-     What systemd does at every boot
+[1] https://lore.kernel.org/r/20261002043548.1302145-1-iav@iav.lv
 
-     PID1 loads and attaches a BTF-dependent LSM program at every boot
-
-       src/core/manager.c:1026-1059, in manager_new():
-
-       if (FLAGS_SET(test_run_flags, MANAGER_TEST_RUN_MINIMAL)) {
-               ...
-       } else {
-               ...
-               (void) bpf_restrict_fs_setup(m);
-       }
-
-https://github.com/systemd/systemd/blob/main/src/core/manager.c#L1026-L1059
-https://github.com/systemd/systemd/blob/main/src/core/bpf-restrict-fs.c#L27-L85
-
-Do those tiny VMs that you target run systemd with BPF LSM?
-I assume you target concrete VMs, not "small instances" in a vacuum.
-
-You can check this by booting them with =m and then:
-   $ lsmod | grep btf_vmlinux
-   $ systemctl --version  # look for +BPF_FRAMEWORK
-   $ cat /sys/kernel/security/lsm
-
-If the answer is "yes" for the majority of them, the whole project is
-moot, because the module will be loaded immediately on boot.
-
-My bot found more stuff implementation-wise...
-
-I suggest to slow down, stop burning tokens for a bit, and first try
-to figure out the important details:
-   - who will actually benefit from these memory savings and do they care?
-   - is it worth it in terms of implementation complexity?
-
-Even for LLM it's easier to deal with a 100 lines of code than with 2k.
-
-pw-bot: cr
-
->   create mode 100644 kernel/bpf/btf_vmlinux.c
-> 
-> 
-> base-commit: b5a4aa31abd6fe90009b63e35dc18c67d041ec0c
-
+--
+Igor Velkov
