@@ -1,116 +1,123 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971BF414411
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C307D485937
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790941325; cv=none; b=EwpYzyZfadqlv0o+Tz4SdxM8VC1/BpQ7wEsfWLgXiV983t4oUbcqmRfnemO8h9e3K+M+UrKUfbKeOSwFHO0RrpW0W508RoJDt79FfsdChe9ZmA2AXkvIG0XKj7cDoFr6pRqg8d7MrsuYneIE5MXjVNqZ2taT84fLPoNJUdoZnIk=
+	t=1790941445; cv=none; b=Zw1mvC3JCd+HAIXp7EEXi5ktC5NtupkxlaT7lo/waaevoZZ4llsNTlAPHow9xccfKCSniz0mgou7BtjyOezx1gqlLH6aWgdJHT8GnBzolYDanZSviJ5KgS0+Mmdky05n7kF+7jR0grdUt33+IbgV56P3XJWiGeiF959aKyIPOIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790941325; c=relaxed/simple;
-	bh=0HME7YAue9Ez3zFgKD4fOkc86Gr+NWrz+gcBY5iv6ZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=czUnrBCuOvPnrGQAeLyVK+oEvX4GobaTR1TjBSMHeDTG4GKkXCJ0m9iMTcTOp3xlkrv7LJbPraQ7B9uRiiuNYeoYBohiSOKpt6dh5drmy2aHWCivRsej/ypzgceuduQ+wsT58qggvH9viU077buSI4VxAyFh+uHM//bOIYzq/fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vkyv5zxx; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790941445; c=relaxed/simple;
+	bh=O7AKYJdEkq6EJ6Qizz0HSSL1GwIbZKTMq8b7RJ/aaGw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=exrgs/CU2K0gsfZYWA/YzB3aAoR4HPcU5HhZvhLF+X3XY8EcKp0NYdYH9yaAdWvjCJPLA3tsFtONYJ8bJ6z2db2/9xYqB+2RoIQRspUbpQb2KBd3Nhdo6pxzOYBiDgAwK/8OTVv8w+z0zDtPqi9wgTqY8Yfd6Zyu+HiRNGrOGNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=geImeSNl; arc=none smtp.client-ip=74.125.228.95
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vkyv5zxx"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so57185195e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:42:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="geImeSNl"
+Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae42b3e901so1446969a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:44:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790941322; x=1791546122; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+lGLqvieqnE02h9EB6P28IAqIwdIX6XiTDkEFIeR6SM=;
-        b=Vkyv5zxxtl1e+p+bVQm4a1MSs2YSdRLFeXQysore54jq9070l9bR2RawjAbs3XB7VL
-         ppYl63+SoSif37WmOI6fHB+i1WsJylTXUKh8JQFKaTigVSFg/NYHKGvmlLkLL/+toswr
-         jLhs3i2yCnSbNDN6pH8WzIzkLj3mqFResgxebzrlWvNvCv8dBQVrggSo8oWxchdvJ/7j
-         BtinvUTOLj09p3BiCxHrlRpbFuFjtMyPiJUUE4K/y91nhZsYxrkb7WWSKGo6nItDXMOS
-         JT6jUvIqK6/fvxZkoRJhLCtLXqU8bWYMzDLwPyKmxyg9FEdlGLPYox6/qUfnk1sxqtcz
-         iLrg==
+        d=gmail.com; s=20251104; t=1790941442; x=1791546242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3LqV8SJyA3fVrxqK5qwu4RqfJsKEdIb5icKMnaFaY1s=;
+        b=geImeSNl2Tagmw+kW/U7LJi+DVALM+mbPvXa6oAF8ODPIdSY865NKIlcoGdKtTmD2T
+         xe7ENhsrKA7wBft/2e/0OiK0ubadCrkY/J+udF8C0fdwDdho2Hndw+3nMN4IS5SAFyMq
+         gIjDwhQfpfM0MOXywlZfohDUBKMU1TXPYFJ8WzPaMJfUhHCw9kUgCS+mX5mcpSH7O+fN
+         UDfXBGnn1K4n/QFcgjLjMqp1fl3kzqvmnVivz6ygcS0IEmq85ebI/14WfUJtMLYWuRqL
+         e/kuocI5SoYOjIIntkJVKZ6AZHsNKMrT9VMSc8GRYTIdjphkpZTklUzkoSeuDVqhGSVP
+         utow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790941322; x=1791546122;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+lGLqvieqnE02h9EB6P28IAqIwdIX6XiTDkEFIeR6SM=;
-        b=FAlqEDNcIXda5LZqxI04Vb3EjorD5QOG/0N9AIEWkgLtJ0FR+O7Es8b6ipQCf1snlP
-         6EHoHf/bFzWZoMy0SIkAvEagOLFjfMN1X9d1gQYFqfEXVrJoX/mo/I3+4jMSeHOl6U6+
-         KBuwkjdjHsSQkdlqR6pFTU6KUuYPf4fRPkAu5AXoS947GXa4MJfuQHSVIOdGhObb0eHE
-         aWxsUgtnI2vqLlDKeeHedtzsniMwF422+eTk657Wtc1oIneizVcNFSSSUXNlzXqYikmQ
-         0GjEVQ2rMV3UgID6XGEvVl87GzoywgoED9cV3v/R385KFt8u6zKqRWx9CVbmX+PDlGUn
-         gNuA==
-X-Forwarded-Encrypted: i=1; AKwUvByHdg2GyX5XCYTbJiqnlnQ45IsMMpd6n66JeNmm7GHfgJg062PsdkvbsyAkFsHuQZbpnsT8e0GesSOpBHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nktaLaBv8q6zBwfuobFgT1obKjrOGRktvYBZ8ylYOtH/Xn5kDq
-	4Bhk8apKBPn+nJRXGsvsQQwcABhDz8JYVTPNOTHm1LgJxGHLAS9CMHf7
-X-Gm-Gg: AYBFou1SoOyuk31KiA6bgLSKJtx7VBK2VVIum12hO1MyQyny9/Ea+HCcjEQ67udbiK7
-	twMuKtChe/Mek/gk9afw2fLzVZWAD+qGQ9rSbTxM1cgafwxI2QthJ9+t9MN6YhjK2X0QKi6opkx
-	MKiLCzMDnKDOKeUSId77NGBot1kT531afq850g3o6HQzgPpVljgRoa1bntEjXB8iZmcLt0d1I/u
-	zvkFJYMrK4VXKsUtsmvam7RqCq7OsH5K2NJ/bDcbVEau+FIuOQ02M9XOz1ahYoW1ElO4TdZGN/t
-	1FqgnpQxjCfnPdVMWt3xTpxQierCqR4c1TCxO14/dlX9FRvYi5PovTgZRmuLbNerzlPhDZxZ2EP
-	tpcRcSy1e9LHMrtzcuHgu5Qu9ut30pQpaVPb8uaAvzucCoGr5tkXPc75MRxI/sYZQnkczlbKO+l
-	YAj9KBS+NJj1UozH1cWbGyu/KZeJ2nMKj0D+8NisVlW4ltbWqvN00l4bonZM2CaOUWXiAy
-X-Received: by 2002:a05:600c:154c:b0:49f:fe88:e7d1 with SMTP id 5b1f17b1804b1-4a02769c438mr50006385e9.15.1790941321624;
-        Fri, 02 Oct 2026 04:42:01 -0700 (PDT)
-Received: from localhost ([5.83.201.219])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027727cecsm77397725e9.9.2026.10.02.04.42.01
+        d=1e100.net; s=20260707; t=1790941442; x=1791546242;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3LqV8SJyA3fVrxqK5qwu4RqfJsKEdIb5icKMnaFaY1s=;
+        b=aKHaIqGFIubz2dGXos/K2xh76Bynfqw/a29wowbEteK8s6dWYNdXXoiNKBKmo5KR83
+         VYav5GrGAGNj05DLYbbobYxbYjfLU92WrtCBNzIl2X0C/vtRwdqJyK91aM5QhCThcKE6
+         ngtDIA6DIlvYRbnipkrWM7yNAqLgYhWqqgpSMUKFbXZ4DKMtNKmf34ApfGP0/UpJIvzw
+         0DF7V7hP5qIZcVVKI8uYKcDGAileWNJGkQHKjIKWn0twK+eVdYaxesenJToyPiF/ufNZ
+         J2GvZAVlYgufliU3LM+HuB67GrHstl4unJVOIVSgtP3n/ZWnRz94VVK1/3gc6+y/yvND
+         tf5g==
+X-Forwarded-Encrypted: i=1; AKwUvBybHbIMrGoswL+NAgnEgBkHzNmhfXJnUtcyz8/kdV/s+EwAupLZ5TDf3nhCJUVreXJlx9hBFmpAAcAUAqg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMtiZF+uIPibk+mjWt51M3M8D8N2zCpRNQLB8Jyjmjd0nem/5W
+	T+uTIreJBpcHQoSoe9zpjs2BytWFu1usPAUBPPPyKNO6XBIwuGPKp6aFVb3n3Q0O
+X-Gm-Gg: AYBFou3GdahylihZLQI2//P8TcAAA7i2ndd3d7iXnawkbRrD/Ew2tnj324oIEJXI/N+
+	Cme3d53hgDXUCi5NNVnf5V5hHggr/jzb2F+PqGvsbJk36Mb7Sey3hKsHshqV/YSYoHiE/r+pwyd
+	TAlqvHsz+RrI4RffeyzWMHK4apVmwscJpE1dlpGhGYl+ExQxeo7xQI9v1nbdWDWyDd+Cm33SzFL
+	mPsz9beW4ULtjWahocJ515nN2tn26JWOyGwoWKWWjfDr+dCkQiGAkodA9hdhH7Vp+V28qoxPW1u
+	pVF5uqyT23nBdFr2G2XtrF7NZV1SGPUK00ALim+LVFtmKn859Gfl8g+i+bOsvPMz19OwhxqGYCY
+	KkISV7wRnMSpA7yUxF1b4GoQ5WYlgZA2mLCA2LhNeoXeoxscOurXTFPMWPHGG7cTmML/m6FQRF2
+	yMxy1mlgm7rzIgVlm7tIbSFyrtMjifG07Vmm1uZ7qxUFe0zCmkyl3nnGp8qXHdN+nNqxvW8zNus
+	xxVU3NGG8Nwgh5Ls9fnkL6aI2E=
+X-Received: by 2002:a05:6402:24cb:b0:6ac:62aa:e3bc with SMTP id 4fb4d7f45d1cf-6af9e2d7d26mr1281088a12.9.1790941441665;
+        Fri, 02 Oct 2026 04:44:01 -0700 (PDT)
+Received: from localhost.localdomain ([94.240.182.136])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d8b1ec6sm810886a12.27.2026.10.02.04.43.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 04:42:01 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] ASoC: tas2781: Fix spelling mistake "config" -> "config"
-Date: Fri,  2 Oct 2026 12:39:52 +0100
-Message-ID: <20261002113953.1782731-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 02 Oct 2026 04:44:00 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Subject: [PATCH v1] f2fs: convert pagecache_read() to use folios
+Date: Fri,  2 Oct 2026 14:43:37 +0300
+Message-ID: <20261002114338.12073-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-There are spelling mistakes in deb_dbg messages. Fix them.
+Replace page-based APIs with folio equivalents in pagecache_read()
+to migrate fs/f2fs/verity.c away from struct page.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
 ---
- sound/soc/codecs/tas2781-fmwlib.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/f2fs/verity.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index e8ceeb027e1b..182aa98e29c3 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -648,7 +648,7 @@ static int fw_parse_configuration_data_kernel(
- 		 */
- 		if (strnstr(config->name, "calib", 64)) {
- 			tas_fmw->calibration_config_id = i;
--			dev_dbg(tas_priv->dev, "%s: calib cofig = %d\n",
-+			dev_dbg(tas_priv->dev, "%s: calib config = %d\n",
- 				__func__, tas_fmw->calibration_config_id);
- 		}
- 		/*skip extra 16 bytes*/
-@@ -1438,7 +1438,7 @@ static int fw_parse_configuration_data(
- 		 */
- 		if (strnstr(config->name, "calib", 64)) {
- 			tas_fmw->calibration_config_id = i;
--			dev_dbg(tas_priv->dev, "%s: calib cofig id = %d\n",
-+			dev_dbg(tas_priv->dev, "%s: calib config id = %d\n",
- 				__func__, tas_fmw->calibration_config_id);
- 		}
+diff --git a/fs/f2fs/verity.c b/fs/f2fs/verity.c
+index ee838f880c4a..69bdd22ba96e 100644
+--- a/fs/f2fs/verity.c
++++ b/fs/f2fs/verity.c
+@@ -45,18 +45,21 @@ static int pagecache_read(struct inode *inode, void *buf, size_t count,
+ 			  loff_t pos)
+ {
+ 	while (count) {
+-		size_t n = min_t(size_t, count,
+-				 PAGE_SIZE - offset_in_page(pos));
+-		struct page *page;
++		struct folio *folio;
++		size_t n;
++
++		folio = read_mapping_folio(inode->i_mapping, pos >> PAGE_SHIFT,
++					NULL);
++
++		if (IS_ERR(folio))
++			return PTR_ERR(folio);
  
+-		page = read_mapping_page(inode->i_mapping, pos >> PAGE_SHIFT,
+-					 NULL);
+-		if (IS_ERR(page))
+-			return PTR_ERR(page);
++		n = min_t(size_t, count,
++				 folio_size(folio) - offset_in_folio(folio, pos));
+ 
+-		memcpy_from_page(buf, page, offset_in_page(pos), n);
++		memcpy_from_folio(buf, folio, offset_in_folio(folio, pos), n);
+ 
+-		put_page(page);
++		folio_put(folio);
+ 
+ 		buf += n;
+ 		pos += n;
 -- 
-2.55.0
+2.47.3
 
