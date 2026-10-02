@@ -1,152 +1,168 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD20515989
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B9B5172D5;
+	Fri,  2 Oct 2026 20:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790972070; cv=none; b=hj4xJjckaZxr/MCJfX4avDu0VqRcGvKuwVKQ1NAhRBeoIYKP+EP48wd3hfXgnQeLtW+VbhmpmrMTkkYBpVzQbLMP7NBUnNoTA3kRKZSy0zUn9oRO8VxBSomYvxBegJujak8HwzKDs+gsk5i8wBDnuv2txxbXHxN0zu3oraVjyZE=
+	t=1790972116; cv=none; b=akbk/V4LrxLoSg1pJHvgJC1Ied+XVyPM6fVzVWe2K2Szuh3Lfe/xevKTpaMq7DW8xJn8xqxVZ2Y7Q08hVwYWHVTe/fLlvRrF2ZjR3X9cM4OzMcYDdYvFAV1UbEESWFLJZtAIDm0Mw4a5jdYjbFF51kIbUa+tcccj6LULD5wikW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790972070; c=relaxed/simple;
-	bh=CN5nGBmrsvbOonrtdw1ScMbVb9sP4MzWc/1Z2ye22lk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fJjaQgDCFZ1V6gMmExuECoIwHWw6Abkm0KQft/giiwUMiRWPunppfuOx2BdKD+5UTfyn3ChIJNxzhTlzzY/8/T+VcjkO2xZf3IDZULc26S3ouuz4ZCrH4XcfZZrMA3vETFGli0dZJLffS7oYo5a/kZtFCsMcO4vyWX4h2H7KTLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3fwHGq7; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790972116; c=relaxed/simple;
+	bh=Ue4xjfWPlwQ6fQWJe2kgGFfvSix+i4cTBvU6YyC7v0g=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=bQaolnRmDKdLkJl2lL139Brh2hbHQDIJ/NtTf1zFwTOuTX9oOlBxEpERRc+AI6XRNJqXbLyNmWZ0yO4w7KV3QzHXNOB8VOLrITg+JWCySLSc0lcCX3lOybC5bEFwzUIeaAszrZWCELVBf8bTVW59dvC8ugpiZuZvpU59cYSX8Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWLapAOy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3fwHGq7"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-469fdb78b1cso193189fac.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790972065; x=1791576865; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2aR2xZgN+s8FYRaQnu77ab8mjfDTzj3thxudFsAn2s=;
-        b=M3fwHGq72Wd7rBc+kSr5aBZvpeUTPAwPyiO/+xGWAHGiQ5Sfbj6sOMJV7xvGk4pYsH
-         vXUAtgNgnK+0clVTP4mshF2LkH1nEX8mjk1gvf3VxyUaSZOy5r0KGISLJbWcQFhsqrhC
-         3936rGBkLalZj1VbmeYo5/1kdHX9keDUmHKmXxTa/+yl9Y81RDoEf+UaXoGoAWxGZdi+
-         Re3eAxaJ/eycT0tMEbPMtwN6UQF/jq5Bg+XrI1YAXb9ib/5IfumexbAj2kvzrmWpf9Q0
-         E43pNvPDg4DefSWnmD6Y+FDQJ33ejotg009qrf781P8twYK1020y9s/OZ29Fx8ZQXRr7
-         IfdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790972065; x=1791576865;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+2aR2xZgN+s8FYRaQnu77ab8mjfDTzj3thxudFsAn2s=;
-        b=pWQVAsVtWxSQ1fLkgx8SASGiGKZQ/2PgD3JXD5pbc7qgeO4UDRTgt1+DoTjveHm3gO
-         JGyhKzlxEnbVvrp+raNrCgVa9bHRsZHzn7dxFK2iNuG9P2JC8I2O9Z5um0VOhZxQkUR3
-         VheqNEFmjWTa076mpKMPTRdzEQUvVyvgUQr4M7c8qp7fA/MfUrUFhSqEGWmvfR1JZYkr
-         9khWToIIQZyi0DwkZ5P7gZn24MXOKu9+9uB8UMF6Ni13bYSDJLVcWRgsJ0qyiCdbOls0
-         ddLSrh+buXLn6UPRGw5DEEZyCXipVlYtfoTBTPxt7B03CIm//akpNk1kQGUAgxvhj1uV
-         A9FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxH37wk2P+owy88xL0E26R4qveJ4iWNSLHA8QgqMGUy98gxw+3Uy5CM7/SYWTU9rolXs+c+nGrdjA4KWlU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFbnf99ogV5ZuIAITADbVK+RXEB1H/A8IjGZaz6YZBcIrR2naK
-	QZUcEECHHadHN1W91K8g1DL3jM2D+0hM7Pb6mIHA59dgXdTYx1udtcQC
-X-Gm-Gg: AYBFou2gZa5odC/XQiv/zSN3N1Be15G/Ss/X8tq1tt1qYYbsgGGH9UiQ7cjtJ2Iz7an
-	XPeephKeP1upL2B8/Y+yUO5qcVpyqP5hb2gOPoSfye8ugAocT67CE+L+BMNeyXBAbMrSTWC0pze
-	jk+GaNzI+mhsRiz4IOvilD4GD3U9RifphJbEsrlNMVfW1soFk+a8R4dlWz34QD/VmcYxXZTXChE
-	/QE5OW/sfId5EcxiYuYyQWRjQfIJe7qoPfkSdhnkYwX+KfdFH4gEJacMSBgnlbeBiYv1hgoKBIA
-	dJodqx5SJId2H+9wAPjyxBGOircG0GExrHj1k8G+bS5YgtITt2b/lOB/7AD3S2WT1rO6e5nmBpr
-	fQeOhWp+ihKxTszi3kZ1ZxS8Q7Ag6o7z4/p+vJft6IVx/V5jAAP6Tknbqr7mIUeJbQ6qTc1ph5u
-	dB0Y+nSSr9n5SBcj3wHWDMrBZozlFkltauxIH/zL1mKtzRAgC2VEdVT6ptPa5f48/irWbkQMkuC
-	D8=
-X-Received: by 2002:a05:6870:41c2:b0:48f:e25e:e204 with SMTP id 586e51a60fabf-49e15fbcf0emr3300276fac.61.1790972065491;
-        Fri, 02 Oct 2026 13:14:25 -0700 (PDT)
-Received: from pop-os.. ([24.32.17.59])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e16f00b5asm3117969fac.14.2026.10.02.13.14.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 13:14:24 -0700 (PDT)
-From: Rishik Yechuri <epicrishik@gmail.com>
-X-Google-Original-From: Rishik Yechuri <rishik.yechuri.code@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Rishik Yechuri <rishik.yechuri.code@gmail.com>,
-	Jennifer Guo <guojy.bj@gmail.com>,
-	Gabriel Windlin <gawindlin@gmail.com>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: rtl8723bs: remove unused BoardType field and its parser
-Date: Fri,  2 Oct 2026 15:13:53 -0500
-Message-ID: <20261002201354.156065-1-rishik.yechuri.code@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWLapAOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1881F000FF;
+	Fri,  2 Oct 2026 20:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790972115;
+	bh=BSgXFsOyzdqxoC0iBHweIF6GPmDqgY9jRrynJS6jg2s=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=NWLapAOyMuPHEiJoplwA9fSWyO5PULkmXkOaDiIR9nI2YSoMUW/NFCWvf80MV3MJ1
+	 HNxgCEDp+1j0sqnB8dgK+H//94agbKpMqbgp9t/a0vl/K1isJRlC4bo/qRlJoTssYS
+	 8ZmdyHFTQOA+P4XHs8P4ekH12Jn+gwclnehQqafMM719OD6VR1NIXmB/CH6eSSRtkc
+	 lCMUFdZIjejqkpWDZbvf2vmYk4WoPEZ/p0lle9I4FjObxwlurQfQf2wVN2uphrhGsV
+	 ERogMynRZguUMY9bIR6dOzOR+PY8dHCnIfWXhHOAh5ZSSzcxE6WQW/FSOd0jVD2FHh
+	 3gOioyJMe9kBA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4] scripts/config: honor $KBUILD_OUTPUT by default
+From: Nathan Chancellor <nathan@kernel.org>
+To: Dmitry Voytik <voytikd@gmail.com>
+Cc: Nicolas Schier <nsc@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nicolas Schier <n.schier@fritz.com>, Rong Zhang <i@rong.moe>, 
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
+In-Reply-To: <20261001214618.283635-1-voytikd@gmail.com>
+References: <20261001214618.283635-1-voytikd@gmail.com>
+Date: Fri, 02 Oct 2026 22:15:08 +0200
+Message-Id: <179097210878.309835.10523307262544578337.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3651; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=Ue4xjfWPlwQ6fQWJe2kgGFfvSix+i4cTBvU6YyC7v0g=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkHBM7d08hjO/aobOP+4M+uuvWnrbwjLHSqLilf/CRq/
+ ntDXHlwRykLgxgXg6yYIkv1Y9XjhoZzzjLeODUJZg4rE8gQBi5OAZjITX1Ghplxgv4C5nl2jb1a
+ G19/CW4LPdP99GkW2xrz+ZOinG+KNzMyzPrHvFI52I9Ppus356Fd77pjmh7v++Kbxx5qcHTFnl1
+ tfAA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-Hal_EfuseParseBoardType_8723BS() reads the board option byte from the
-efuse and stores bits 5 through 7 in pHalData->BoardType. Nothing in
-the driver ever reads pHalData->BoardType, so the value isn't used.
+Hi Dmitry,
 
-The function also tries to fall back to a default when the efuse byte
-is unprogrammed, but the check can never be true:
+> If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
+> 
+> Fix the issue when the script silently updates a stale .config in
+> the root directory, while the user expects ${KBUILD_OUTPUT}/.config
+> to be updated.
+> Handle properly if the config file is a relative path.
+> 
+> The problem can be worked around with --file, but this is easy to miss,
+> and is inconsistent with how the Makefile and other tools work
+> (e.g., scripts/diffconfig).
+> 
+> How to reproduce the issue:
+> 	rm .config
+> 	export KBUILD_OUTPUT=.out
+> 	make defconfig
+> 	./scripts/config \
+> 	       -e CONFIG_UBSAN
+> 	grep: .config: No such file or directory
+> 
+> How the patch was tested:
+> 	make mrproper
+> 	export KBUILD_OUTPUT=.out
+> 	make defconfig
+> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config || echo "OK"
+> 
+> Test the basic usage:
+> 	./scripts/config -e CONFIG_UBSAN
+> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+> 
+> Test --refresh picks up correct config file by using $KBUILD_OUTPUT
+> 	./scripts/config -d CONFIG_UBSAN
+> 	./scripts/config --refresh -e CONFIG_UBSAN
+> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+> 
+> Test --file takes precedence over $KBUILD_OUTPUT and
+> a relative path is handled properly
+> 	./scripts/config -d CONFIG_UBSAN
+> 	mkdir .out2
+> 	cp .out/.config .out2/.my_config
+> 	grep "CONFIG_UBSAN=y" .out2/.my_config
+> 	./scripts/config --file .out2/.my_config --refresh \
+> 	       -e CONFIG_UBSAN
+> 	grep "CONFIG_UBSAN=y" .out2/.my_config && echo "OK"
+> 	ls .out/.out2 || echo "OK"
+> 	ls .out/.out || echo "OK"
+> 
+> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+> ---
+> v4:
+>  - Addressed Nicolas Schier's comments - dropped the change how '--refresh'
+>    is handled
+>  - Implemented conversion of $FN to the absolute path which helps with
+>    '--refresh' and relative paths
+>  - Documented testing steps in the commit message
+> v3:
+>  - Added an example in the commit message how to reproduce the issue
+> v2:
+>  - Addressed comments by sashiko:
+>    - https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
+>    - use basename when --refresh is used
+>    - remove echo which can be misleading when --file is passed
+> v1:
+>  - https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
+> ---
+>  scripts/config | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/scripts/config b/scripts/config
+> index 32428ea909c2..0b28fc498195 100755
+> --- a/scripts/config
+> +++ b/scripts/config
+> @@ -130,6 +130,10 @@ on_exit() {
+>  trap on_exit EXIT
+>  
+>  FN=.config
+> +if [ -n "${KBUILD_OUTPUT}" ]; then
+> +	FN=${KBUILD_OUTPUT}/${FN}
+> +fi
+> +
+>  CMDS=()
+>  while [[ $# -gt 0 ]]; do
+>  	if [ "$1" = "--file" ]; then
+> @@ -143,6 +147,7 @@ while [[ $# -gt 0 ]]; do
+>  		shift
+>  	fi
+>  done
+> +FN=$(realpath "$FN")
 
-      BoardType = (hwinfo[...] & 0xE0) >> 5;  /* at most 7 */
-      if (BoardType == 0xFF)                  /* never true */
+Sashiko has a couple of comments here:
 
-Remove the function, the one place it's called, and the unused
-BoardType member of struct hal_com_data. This doesn't change how the
-driver behaves.
+  https://sashiko.dev/#/patchset/20261001214618.283635-1-voytikd%40gmail.com
 
-Signed-off-by: Rishik Yechuri <rishik.yechuri.code@gmail.com>
----
+The second comment around KBUILD_OUTPUT / '--file' beginning with '-' is
+a fairly contrived example but sticking '--' in there does not seem like
+an unreasonable hardening move.
 
-Notes:
-    Compile-tested only. I don't have the rtl8723bs hardware.
+As for the first comment, I am not sure I want to rely on 'realpath -m'
+since that is a coreutils-ism and up until now, this could work on any
+operating system (as least as far as I can tell). Maybe we could do
+something like
 
- drivers/staging/rtl8723bs/hal/sdio_halinit.c | 16 ----------------
- drivers/staging/rtl8723bs/include/hal_data.h |  1 -
- 2 files changed, 17 deletions(-)
+  FN=$(realpath -q -- "$FN" || echo "$FN")
 
-diff --git a/drivers/staging/rtl8723bs/hal/sdio_halinit.c b/drivers/staging/rtl8723bs/hal/sdio_halinit.c
-index 4a2f5c3bb..26e0ea465 100644
---- a/drivers/staging/rtl8723bs/hal/sdio_halinit.c
-+++ b/drivers/staging/rtl8723bs/hal/sdio_halinit.c
-@@ -933,21 +933,6 @@ static void Hal_EfuseParseMACAddr_8723BS(
- 	}
- }
- 
--static void Hal_EfuseParseBoardType_8723BS(
--	struct adapter *padapter, u8 *hwinfo, bool AutoLoadFail
--)
--{
--	struct hal_com_data *pHalData = GET_HAL_DATA(padapter);
--
--	if (!AutoLoadFail) {
--		pHalData->BoardType = (hwinfo[EEPROM_RF_BOARD_OPTION_8723B] & 0xE0) >> 5;
--		if (pHalData->BoardType == 0xFF)
--			pHalData->BoardType = (EEPROM_DEFAULT_BOARD_OPTION & 0xE0) >> 5;
--	} else {
--		pHalData->BoardType = 0;
--	}
--}
--
- static void _ReadEfuseInfo8723BS(struct adapter *padapter)
- {
- 	struct eeprom_priv *pEEPROM = GET_EEPROM_EFUSE_PRIV(padapter);
-@@ -963,7 +948,6 @@ static void _ReadEfuseInfo8723BS(struct adapter *padapter)
- 	Hal_EfuseParseMACAddr_8723BS(padapter, hwinfo, pEEPROM->bautoload_fail_flag);
- 
- 	Hal_EfuseParseTxPowerInfo_8723B(padapter, hwinfo, pEEPROM->bautoload_fail_flag);
--	Hal_EfuseParseBoardType_8723BS(padapter, hwinfo, pEEPROM->bautoload_fail_flag);
- 
- 	/*  Read Bluetooth co-exist and initialize */
- 	Hal_EfuseParsePackageType_8723B(padapter, hwinfo, pEEPROM->bautoload_fail_flag);
-diff --git a/drivers/staging/rtl8723bs/include/hal_data.h b/drivers/staging/rtl8723bs/include/hal_data.h
-index c345b632b..588dada52 100644
---- a/drivers/staging/rtl8723bs/include/hal_data.h
-+++ b/drivers/staging/rtl8723bs/include/hal_data.h
-@@ -186,7 +186,6 @@ struct hal_com_data {
- 	u8 TypeALNA;
- 	u8 TypeAPA;
- 	u8 RFEType;
--	u8 BoardType;
- 	bool		bLCKInProgress;
- 
- 	bool		bSwChnl;
+to just try and hobble along if we cannot resolve $FN properly but maybe
+there is a better solution that I am just not seeing at the moment.
+
 -- 
-2.43.0
+Cheers,
+Nathan
 
