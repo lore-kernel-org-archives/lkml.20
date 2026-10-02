@@ -1,200 +1,224 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376BC2D73B8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:07:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957226; cv=none; b=qgCCbMSDkE5BioMXnlIbNdzAPVGXCk9suthPsCSF/ZY+ExMkyzhiD7L4ozoIcB5kiyVxUqWSkJVZWct24A443igKdzOnxw+SGW5Tovp0+wWlMhVZ04naB/c/ZINHBSRMG/1gjnVOc2ds/OOMVGU7jw8VVhymYQRKO+b5FSE1wcw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957226; c=relaxed/simple;
-	bh=meqc0dOGYKrukNFPGjKjWqm+txv9FoUAa7lhQu1j19c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gdvCBRPc4bzj/zDxDQWsk2ahgVdcSsNZKS1ocxufHc8A0NrkcsUx1DtvA2bO+S4/mvMprODyEWsH//qrgseYyKEL6NHdaW3eDjUioWZlmcN09iVro2aB7Hen1Fs1bYqEHPIX5UErYvW8/vA77NWE7kFLRlZ/jRjfzfjICrTSMd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LV4STyyO; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0c7CtnPm; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1F04AEBD4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790957277; cv=pass; b=OcZTTYf4/tJ9Z+JMtf8NzPs7QwP9mNcXZmbEFnJEZ/hFNhA5gog/NH3yXP7edgYmXhe93Xb3SamP4lb4lvaPxy2tBCCdJAR71ri7qV25Ym+c4/yfV76TzItsrg0iHxjwGK43h10liJsniM6lvEBavlfohz2ZOHFWLdQwyxVQfdE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790957277; c=relaxed/simple;
+	bh=nEN1DIepvzc1Fgr9k7isyGujerQNKYhNcd2jD7tCdaA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E8t4bFP3f5TJAYQFLeUm0xVkHOiJlGwBjZbSccyQ5Vt33lgEHZyRTwxQ8XBeh1lLjwfNRC6tUvOILK6T7jCrhghTi0+wpSLMTJbUf/mUhltfTrLJb5YKUcpTV4TB3d4jiSY3Do0cEIjuhxSkdyUqrqOA2GhCWa7vWQBytWCRRKA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PExdJj7H; arc=pass smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LV4STyyO";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0c7CtnPm"
-Date: Fri, 2 Oct 2026 18:07:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790957222;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KJTEyTe7qH2FQWucTsB+fiyvqCJ18mfNW95IuTL9s7U=;
-	b=LV4STyyOt1frGtbd+yLYcoOOQKIMNfDUoPcN32d/g/6bXtXERUIp7Qau56bXwnnJBGvAQO
-	F4kfLSAfqrEYZTcX2s8gn997YZknnQ7rgoeLBf/rxjj9sBfVTZYutD54yV8jNlJ8OHDSrE
-	egeZiMkE9F8dYUorid9hKfB1XLhSQFSGbTnchnaOyQl4j7kokL/HMt+5Z992fMwzqnTPz8
-	J2xbyrdUaU8yDBZONe+m64r4fJicXYMz9vTyXo2/2yC20X7yTspboJXf94VvIlThcqjrhX
-	W/Md5CqqE4hdnHbi/dh9+756cnH6TiWg0wleMW0b9Od2WgWJIFECUjIHMi/dEQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790957222;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KJTEyTe7qH2FQWucTsB+fiyvqCJ18mfNW95IuTL9s7U=;
-	b=0c7CtnPm1li8iDTSo/vk0WfZEYmlh6N3dO2qLeGaEOLzqLyLH7KiORmH01+v/nNGlkzecK
-	YFIT8XfmK5xtiOAw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: syzbot <syzbot+6835d5c11145e4f77057@syzkaller.appspotmail.com>,
-	linux-kernel@vger.kernel.org
-Cc: syzkaller-bugs@googlegroups.com, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: Re: [RFC PATCH] sched: irq: cpu-hotplug race vs
- set_cpus_allowed_ptr()
-Message-ID: <20261002160701.7Pqp05o3@linutronix.de>
-References: <6a9919ac.94649fcc.25487e.0005.GAE@google.com>
- <20260907085825.f-CZ1Q5y@linutronix.de>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PExdJj7H"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a026611b2cso4485e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:07:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790957273; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ac3JzRgzat/IdoIOIF9O2u2NxxMqdfjSWJuIwkrIMI/8e7eASfMOtmD35gsIviCGm0
+         XS3S4vnfuCHvRf5rKK8V9U8cm/2t/X0OrelH7+BxHDRDz+MmG5Vx4rCc33fZYEybJBT8
+         FopqwYOiMoG4eYykynEMoipSPxa016Cs5x08xFGhMeg0N1ZfiMvNIoXeJ5ZmlhPMa/QQ
+         iUWzPLPmCjiXy0OWv1TJLYvg2zgRA3+iE76pYASpO7dsfBVi9BzrYa+29PDZvbgY++8u
+         zLT5xuOHpvxehJbUlFAZv18L+J4kLGcINjSPgVT/mz42zz+7BFBQXQnMv2J3DzLcXI+k
+         zbkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oBStq7HJ1HhU8r8netCSqoFuNNT8K/NJyM0kHcdEpJ8=;
+        fh=ZS62bmHqtt9O7WfFJxeb6wmgLDq4sMHa4MIt0qAFnXM=;
+        b=MDHlR7tbFH1AKOr41H45ykbOMZsD5Tqy/v/bzATHLazzn6vdQinOXBqZFIniaxa1hz
+         r/TlRUalXw5B0Z+ko52GtQAR7YRoS50qV4d8U/zALiP3scz1sH3nggi4hgECG0d7Ugj3
+         iHIztpGpI3da6yPybcXFNu48yok7t3HUrMqu9i9W/AZ5A4MlxPwBCBv8euJcJ8ZQxqs1
+         kTp/rQ2XFhfqFFQt2CgCT5yt5HHzZbcpxmNxvyt0tKx8TuoAQCcs9FjmPXbGAw1WV5qL
+         q8zUz8pXANdqe35IVg3pf+ZgBVAMZH8WMsloHkkcUZ54vxUmNCaRu4AsiUvcdOQD1tMn
+         bWcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790957273; x=1791562073; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oBStq7HJ1HhU8r8netCSqoFuNNT8K/NJyM0kHcdEpJ8=;
+        b=PExdJj7HUajqC/dePW08rpkWReBzXIiM5EWatRkCE/Ftaoe9f9w85cLKfgo4rIMr7h
+         UIzqF8l16tc3zy8RTpNwluEwtIpQFRIviCSWoMKeDQ1v5Xo0fksE/tYGRB+DUqpUx5dJ
+         CB4XGmnBDk2Hi41htsE6t7fRaEzEs1FD34G7P9/lQjFJrr6NdnRnSKK9Hkh+CPeKsQUU
+         gOHCAnNruoj135QMOKlxSTkec1HEnSoqRI56r6D1SB2ItiR5d8Sh/MOHXo8gYiyQWv9L
+         M5Zjd2+u4BTqc5uU8qNGalKn/tyD/MFkogT+VTl+gPVriBnLpkD9ZcrfVxtUbsuuxQR2
+         yoAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790957273; x=1791562073;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oBStq7HJ1HhU8r8netCSqoFuNNT8K/NJyM0kHcdEpJ8=;
+        b=0N0jjMIOzl3lfR/tP24Dzyav/64kDDs2fagpt0eE9ukXftuGZW4nn9tsBNR/qnytRo
+         V54NU1E2/w0+ML2hbwxTQO94qz4uTs4cvfhBjTyMibU3S84RO0yx3RTx1+o8ja0Bq9yb
+         2X05z9FKx6jBpMBevCpnHifAy+RvFCmoGOYiSuKoygss/huPIv+kS1iTnPANmEhazDwd
+         4GdeCUW+jxiC+4RfRlVsR3mf9SrLWyF23PRAgIa2bFFcfq5H5R7EMIXbBY2ixPfuePB3
+         2RiLo1fAF5p5tOc3RIFkCL4D5Z0hDkF7STgosSyWFmuXzuk4QqHCCGSi+wIp4PxAUpkM
+         KSzA==
+X-Forwarded-Encrypted: i=1; AKwUvBwnd3kdkkfUTQR2JokdEkmRycVLXjE4AJUMd3O6oF9cq3cC/q+OP5+dGmY2PiMvn2rAzDk1WUWprMOIV4s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nULepnvvhwtJP6OV6YoJPAO2i+zGkurWCSzC26d5PCwMO8Lcah
+	m/h1BuFlcxcGPSh8GZei6yFNNzsiqXWHFOQwcDjfQj+K4sxhhvs3QBnoaig7M96wrIkZVEsCEWA
+	qFtfwCQvm5BKmJzQVyW30H6QqWnpmTTU4DY0t3ycbftHiHvMO978gpkUcNu4=
+X-Gm-Gg: AYBFou0O97cqP4T+5sblAbHw9sUb3iwxxGiTnG1uRqlabNp+e2i04eVA+VPaCNI/dua
+	uCzONOqGyM5bSlng8jM0ulp8UJCZUDxzNAMC9Fgu753DhPyGgyU8zR9qtQdcHkfyQE9vhNltM9H
+	VfI3JtIF0HvlgwWZu8b7UJ960kYggWanQJ5qUEkMaAQK5yS9oisd5BEcIFFF1FpMB1G02tUV2kX
+	uZAf9MK5h62/qQUZcXJpJ+9Pcstxmn+wkJgwd8NFfO/os53rDaNuynO2Tq8y6PFzAQ3tw2W3r24
+	rvvCyq/WURYKRjXT+ld1fgAdpikLjn3GzZq5/hYFF9vAvEsIbBKJEWctPWGcjNSfsJNOsonedrY
+	Rb/915ChP92w1anahJR8jpcZ0FvGnIQbLm9VaLxXehhBRhQ==
+X-Received: by 2002:a05:600c:3042:b0:4a0:1c0e:b0ce with SMTP id
+ 5b1f17b1804b1-4a03046231fmr638255e9.14.1790957272991; Fri, 02 Oct 2026
+ 09:07:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20260928150121.1712559-2-tjmercier@google.com>
+ <714f119d120fb9ba4aa7e82af621edb7bc97813a760c9dd2cb5363c55b7365a9@mail.kernel.org>
+ <1b41e278-f00a-4e25-a319-ba69186d92c9@gmail.com>
+In-Reply-To: <1b41e278-f00a-4e25-a319-ba69186d92c9@gmail.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Fri, 2 Oct 2026 18:07:39 +0200
+X-Gm-Features: AclHuK-StPJkxPtpdx6pksmBPmFtHcY7P6COXSJ7pVVXPbMDG4w62HB5ZrLWtWQ
+Message-ID: <CABdmKX37kKrOApa+cwNrfQ6YU8fn3pkFp2TjCjagFGhXPQQszw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v7 1/2] bpf: htab: Split htab_elem_lru and
+ htab_elem_pcpu off of htab_elem
+To: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
+Cc: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net, 
+	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, 
+	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
+	emil@etsalapatis.com, ihor.solodrai@linux.dev, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, martin.lau@kernel.org, mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260907085825.f-CZ1Q5y@linutronix.de>
 
-Hello :)
+On Mon, Sep 28, 2026 at 8:31=E2=80=AFPM Mykyta Yatsenko
+<mykyta.yatsenko5@gmail.com> wrote:
+>
+>
+>
+> On 9/28/26 4:46 PM, bot+bpf-ci@kernel.org wrote:
+> >> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> >> index 53c99fe4f176..5db11a21ce98 100644
+> >> --- a/kernel/bpf/hashtab.c
+> >> +++ b/kernel/bpf/hashtab.c
+> >
+> > [ ... ]
+> >
+> >> @@ -828,8 +861,12 @@ static __always_inline void *__htab_lru_map_looku=
+p_elem(struct bpf_map *map,
+> >>      struct htab_elem *l =3D __htab_map_lookup_elem(map, key);
+> >>
+> >>      if (l) {
+> >> -            if (mark)
+> >> -                    bpf_lru_node_set_ref(&l->lru_node);
+> >> +            if (mark) {
+> >> +                    struct htab_elem_lru *l_lru =3D
+> >> +                            container_of(l, struct htab_elem_lru, ele=
+m);
+> >> +
+> >> +                    bpf_lru_node_set_ref(&l_lru->lru_node);
+> >> +            }
+> >>              return htab_elem_value(l, map->key_size);
+> >>      }
+> >>
+> >
+> > [ ... ]
+> >
+> >> @@ -1310,16 +1349,19 @@ static long htab_map_update_elem(struct bpf_ma=
+p *map, void *key, void *value,
+> >>
+> >>  static void htab_lru_push_free(struct bpf_htab *htab, struct htab_ele=
+m *elem)
+> >>  {
+> >> +    struct htab_elem_lru *l =3D container_of(elem, struct htab_elem_l=
+ru, elem);
+> >> +
+> >>      check_and_cancel_fields(htab, elem);
+> >>      bpf_map_dec_elem_count(&htab->map);
+> >> -    bpf_lru_push_free(&htab->lru, &elem->lru_node);
+> >> +    bpf_lru_push_free(&htab->lru, &l->lru_node);
+> >>  }
+> >>
+> >
+> > [ ... ]
+> >
+> >> @@ -1500,15 +1543,18 @@ static long __htab_lru_percpu_map_update_elem(=
+struct bpf_map *map, void *key,
+> >>              goto err;
+> >>
+> >>      if (l_old) {
+> >> -            bpf_lru_node_set_ref(&l_old->lru_node);
+> >> +            struct htab_elem_lru *l_old_lru =3D
+> >> +                    container_of(l_old, struct htab_elem_lru, elem);
+> >> +
+> >> +            bpf_lru_node_set_ref(&l_old_lru->lru_node);
+> >>
+> >>              /* per-cpu hash map can update value in-place */
+> >>              pcpu_copy_value(htab, htab_elem_get_ptr(l_old, key_size),
+> >
+> > [ ... ]
+> >
+> >> @@ -2505,7 +2551,10 @@ static void *htab_lru_percpu_map_lookup_elem(st=
+ruct bpf_map *map, void *key)
+> >>      struct htab_elem *l =3D __htab_map_lookup_elem(map, key);
+> >>
+> >>      if (l) {
+> >> -            bpf_lru_node_set_ref(&l->lru_node);
+> >> +            struct htab_elem_lru *l_lru =3D
+> >> +                    container_of(l, struct htab_elem_lru, elem);
+> >> +
+> >> +            bpf_lru_node_set_ref(&l_lru->lru_node);
+> >>              return this_cpu_ptr(htab_elem_get_ptr(l, map->key_size));
+> >>      }
+> >>
+> >> @@ -2521,7 +2570,10 @@ static void *htab_lru_percpu_map_lookup_percpu_=
+elem(struct bpf_map *map, void *k
+> >>
+> >>      l =3D __htab_map_lookup_elem(map, key);
+> >>      if (l) {
+> >> -            bpf_lru_node_set_ref(&l->lru_node);
+> >> +            struct htab_elem_lru *l_lru =3D
+> >> +                    container_of(l, struct htab_elem_lru, elem);
+> >> +
+> >> +            bpf_lru_node_set_ref(&l_lru->lru_node);
+> >>              return per_cpu_ptr(htab_elem_get_ptr(l, map->key_size), c=
+pu);
+> >>      }
+> >>
+> >
+> > This isn't a bug, but would a small helper keep these call sites to one
+> > line, matching the pcpu accessors this patch adds? Each site now repeat=
+s
+> > the same container_of(l, struct htab_elem_lru, elem) boilerplate follow=
+ed
+> > by bpf_lru_node_set_ref(). The patch adds htab_elem_get_ptr_to_pptr() a=
+nd
+> > htab_elem_set_ptr_to_pptr() for the pcpu variant, but open-codes the
+> > container_of for the LRU variant at every site.
+> >
+>
+> this sounds like a good refactoring:
+>
+> static inline void bpf_lru_node_set_ref(struct htab_elem *l)
+> {
+>         struct htab_elem_lru *l_lru =3D
+>                 container_of(l, struct htab_elem_lru, elem);
+>
+>         if (!READ_ONCE(l_lru.lru_node->ref))
+>                 WRITE_ONCE(l_lru.lru_node, 1);
+> }
 
-On 2026-09-07 10:58:25 [+0200], To syzbot wrote:
-> syzbot reported a race of assigning a CPU affinity during CPU hotplug
-> operation.
-> After the affinity of an IRQ has been changed, the IRQ-core sets
-> IRQTF_AFFINITY and wakes the relevant interrupt threads which need to
-> adjust their affinity mask. The thread will then invoke
-> set_cpus_allowed_ptr() to update the mask. Based on the new mask a CPU
-> is chosen on which the thread should run.
->=20
-> It is verified that this CPU is online however there is no guarantee
-> that this CPU remains online while affine_move_task() is moving _this_
-> task. Since the current task requests the migration the stopper/
-> migration_cpu_stop() is involved at which point the task pauses for a
-> while. If the CPU goes offline (or is no longer cpu_online_mask) then
-> __migrate_task() (due to is_cpu_allowed() reject) will return the rq of
-> the CPU on which the task is currently running (which does not match
-> it's task_struct::cpus_mask).
->=20
-> The aftermath:
-> The IRQ-thread's CPU and task's cpus_mask do not match. A
-> migrate_disable()-> schedule() will change task_struct::cpus_ptr
-> ensuring that the following migrate_enable() will update the task to the
-> requested affinity mask. At this point, affine_move_task() expects
-> task_struct::migration_pending set but it is NULL because noone
-> requested an affinity change while the task was in migrate-disable
-> section.
->=20
-> I see two ways of fixing this:
-> - Holding the cpus_read_lock while set_cpus_allowed_ptr() is invoked.
->   This ensure that the CPU remains in the cpu_online_mask while the
->   migration task moving the task over. Should the mask be already
->   invalid, then it is rejected otherwise the operaton completes.
->   Maybe we should also check if cpus_read_lock is held during the
->   invocation of set_cpus_allowed_ptr() so we don't get this problem from
->   other callers.
-
-So sashiko complains about deadlock of cpus_write_lock() in the CPU down
-path and calling irq_migrate_all_off_this_cpu() vs and
-irq_thread_check_affinity() doing cpus_read_lock().
-As far as I see, there is no deadlock because the mask is updated, the
-tread is woken, the tread blocks with cpus_read_lock() until the CPU is
-down.
-But there is nothing that waits for the interrupt thread to complete,
-there is no synchronize_irq() invocation which would be required for the
-deadlock.
-
-> - Should __migrate_task() fail to return the requested rq make sure its
->   CPU is part task_struct::cpus_mask. This ensures that the current CPU
->   is still part of mask avoiding a possible push by migrate_enable().
->   sched_class::set_cpus_allowed did not see this mask. It might be a bit
->   inconsistent and feels a bit like select_fallback_rq() without the
->   printk.
-
-Here sashiko complains:
-| If __migrate_task() fails (e.g., due to a concurrent CPU offline event), =
-this
-| fallback code forcibly modifies p->cpus_mask with cpumask_set_cpu(). This
-| skips the required p->sched_class->set_cpus_allowed() callback and fails =
-to
-| update p->nr_cpus_allowed.
-| Can this bypass global EDF real-time invariants for SCHED_DEADLINE (as
-| set_cpus_allowed_dl() is skipped), and allow unprivileged tasks to escape
-| affinity boundaries, giving them access to CPUs outside their cpusets?
-
-We did do_set_cpus_allowed() for CPU X and can't migrate there now. We
-also don't know if the invocation was successful.
-
-Looking at this, it is not possible hold the CPU-hotplug lock and not
-every caller holds it. This seems to be limited to migrate-disable.
-Should this happen without it, then the during wake-up the scheduler
-will just print "process =E2=80=A6 no longer affine to cpu" pick a CPU and =
-be
-done with it.
-Maybe set the bit followed by do_set_cpus_allowed()?
-
-> Both changes are implemented to illustrate, one is enough.
-> I can reproduce this back on v6.8, therefore I assume we have this since
-> day #1 of migrate-disable.
->=20
-> Reported-by: syzbot+6835d5c11145e4f77057@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6a9919ac.94649fcc.25487e.0005.GAE@goo=
-gle.com/
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> ---
->  kernel/irq/manage.c | 6 ++++--
->  kernel/sched/core.c | 2 ++
->  2 files changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-> index 57eff26fa646a..75b6798c1d97c 100644
-> --- a/kernel/irq/manage.c
-> +++ b/kernel/irq/manage.c
-> @@ -8,6 +8,7 @@
-> =20
->  #define pr_fmt(fmt) "genirq: " fmt
-> =20
-> +#include <linux/cpuhplock.h>
->  #include <linux/irq.h>
->  #include <linux/kthread.h>
->  #include <linux/module.h>
-> @@ -1044,8 +1045,9 @@ static void irq_thread_check_affinity(struct irq_de=
-sc *desc, struct irqaction *a
->  		m =3D irq_data_get_effective_affinity_mask(&desc->irq_data);
->  		cpumask_copy(mask, m);
->  	}
-> -
-> -	set_cpus_allowed_ptr(current, mask);
-> +	scoped_guard(cpus_read_lock) {
-> +		set_cpus_allowed_ptr(current, mask);
-> +	}
->  	free_cpumask_var(mask);
->  }
->  #else
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index b998ef6b87af4..b090a374fa728 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -2674,6 +2674,8 @@ static int migration_cpu_stop(void *data)
->  		if (task_on_rq_queued(p)) {
->  			update_rq_clock(rq);
->  			rq =3D __migrate_task(rq, &rf, p, arg->dest_cpu);
-> +			if (rq !=3D cpu_rq(arg->dest_cpu))
-> +				cpumask_set_cpu(rq->cpu, &p->cpus_mask);
->  		} else {
->  			p->wake_cpu =3D arg->dest_cpu;
->  		}
-
-Sebastian
+The htab_elem type is internal to hashtab.c, so I've added a helper
+htab_elem_lru_node() which makes all the callsites Sashiko mentioned
+one liners.
