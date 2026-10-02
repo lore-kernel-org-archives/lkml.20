@@ -1,69 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FA54570F2;
-	Fri,  2 Oct 2026 09:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7217347254D;
+	Fri,  2 Oct 2026 09:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934140; cv=none; b=gq3WFtw3eylpOKmCMD76MzAKWYs+qWjzp/iADr5MzlEOt628lkOjBLTOxnoghy+SDzxyLcX2zk9mjBQ/d9S6hnobf5JeI9o+Vsg74z/xKLTrvw63Q/GspnGh3ESQpB58y238PCS/dbGxCdIMKPUlmjgvQHqnSB+ew5dQ7GgI+7E=
+	t=1790934156; cv=none; b=PDfMgm+o2Ofj+FrWVzqhmXGsSGt0cnjmPKCF42dHcoGz8b6BOcycagPQBt4uQ7mcA9tfAxO0fA+0vzNiqa8b0W7qeKm8kZad+fQVpj2vGw4f1yJoTwMwPz9EErMGLYwDBpik6NJ8gQQKU8DDgSg/nh8PL5KQih8n0zJLQcjfwA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934140; c=relaxed/simple;
-	bh=IDV1284Y8jRNw3qmwplFh09UtKb9DD8AZgh4/3H9cXY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HfE3OStGcAHkdSpIRakyzs7aADlf3rNisaoVGL0zm4Tn0oE0ZGEARl2UG+zQRq/2FOXHp53pTZi7HguLg4r3h0MkyafBedig+H4Rp08M2WCPtHT4GhqaaEE98X08u+03LWFSN2+hkiBJiaz4+j20lFYayEM2BgJlslTg1onFYCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hplXPbVj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790934156; c=relaxed/simple;
+	bh=D4n/jC9B4OsZIowMwYOinvRQqK6TBicIReKZ6v0d2dI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a7rcSXTq9SQZs2unG6vn4Ev8wFvYxQKWBZQTucvjZ6hOoZDX7OQFwvgx5sOrQksJ9uT7gZZjE9uVFYzYf4fG9jDTMQzchU19X287HaVzi5RsQVpHpEJ815R0ALT/V6XgBc2CpnAZ+6dVVnBwYosoItM7C1FMr29O/NCixqs93NY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Ygrsbo+z; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hplXPbVj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CFF31F000FF;
-	Fri,  2 Oct 2026 09:42:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790934139;
-	bh=efL1+n1dK7AWhH37EQ0nV3a1HbjScxl8OApVSmAnV5Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hplXPbVjlKdXr+GoZfnOiYnK7paer287vF1PjzJuXNqGHk2hI3obnO02CDrcdGcOC
-	 HK0+DIDKOLVNjLw2DN1zOqahPNYa8UOA6GgCTLyHb1TMm4eWTLxK3l+IwiCCj0WcdG
-	 K/KF7BRyR/753FfsARs8g+QsOR8V/w9pJM+XPkoAfPzroz/IbU9AXeCSuFvR4jx2JN
-	 UFRk1Rg2GVY3Io83a7GKi6X9FcMh84ihpZ+p4SY2dyttmgeyTrweuukhb1VGbP8XJo
-	 mfHL3EKRiVulKZNm4OrmxazNailvb1lPBZNNxFkgkHa0sA4jHlU7hZX9bquzVULvbp
-	 C+rW/hCzUPCrQ==
-Date: Fri, 2 Oct 2026 11:42:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/7] ASoC: dt-bindings: add amlogic,gxbb-audin
-Message-ID: <20261002-curly-bold-octopus-ade53b@quoll>
-References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
- <20261001-audin-v4-1-2476646118b5@baylibre.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Ygrsbo+z"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A47D1A4AA7;
+	Fri,  2 Oct 2026 11:42:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790934145; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mKPcFRIiin34kpiS50/ng8xqh2E/9ekM3WAmWy3OGwA=;
+	b=Ygrsbo+zZExjC1bnbnYzn1zg3SEWIIfYiW4nfNo16vUrrRDeiGtVUJbAZjKZiUsrjW8zbL
+	V+f3+7LZAkUpKYap51Oisnf8pKBXG1b2VcvX0XgMvYVGQApCq3IXqZ8AjDNDkISuM1VXfj
+	Kh6OLfATkd5q0LWWm8+tdtvKvIPq2D0+MENBNpQFi3/Yz/NFUg2javyWA2yI0GN1Os3x38
+	cxpduNLAX+VbsGM3tpnTigvZHVHYRXSvJE/fA9oQ6KfmwFKbcRspZm8/v6qsGucvfV/rHh
+	TGY2akVcPUntsT8+3iz5INQ5/V+0gus3e+Cx2p50QN8Plq+ZgLriMI9hbs9m5A==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 2/3] net: reject ops-locked drivers without ndo_set_rx_mode_async
+Date: Fri,  2 Oct 2026 11:42:08 +0200
+Message-ID: <20261002094211.2350702-3-nb@tipi-net.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002094211.2350702-1-nb@tipi-net.de>
+References: <20261002094211.2350702-1-nb@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001-audin-v4-1-2476646118b5@baylibre.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 01, 2026 at 06:06:26PM +0200, Valerio Setti wrote:
-> AUDIN provides I2S audio input support to the Meson GXBB and GXL SoCs.
-> 
-> The AUDIN block on GXL is identical to the GXBB one, so "amlogic,gxl-audin"
-> uses "amlogic,gxbb-audin" as fallback; the SoC-specific compatible is
-> added so that differences can be handled later if any are found.
-> 
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
-> ---
->  .../bindings/sound/amlogic,gxbb-audin.yaml         | 69 ++++++++++++++++++++++
->  1 file changed, 69 insertions(+)
+ndo_set_rx_mode cannot sleep and runs with netif_addr_lock_bh held, so an
+ops-locked driver cannot take the instance lock from it.
+ndo_set_rx_mode_async is the replacement and runs in process context.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Registration has only warned about this since v7.1, long enough to find
+the offenders. Make it an error.
 
-Best regards,
-Krzysztof
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+I grepped for potential offenders in the tree using
+
+  for f in $(git grep -lE 'request_ops_lock|queue_mgmt_ops|net_shaper_ops' \
+                          -- drivers/net); do
+          d=$(dirname $f)
+          git grep -q '\.ndo_set_rx_mode\s*=' -- $d &&
+          ! git grep -q 'ndo_set_rx_mode_async' -- $d && echo "$d"
+  done
+
+but haven't found any. net-next testing will show if I missed something.
+
+ net/core/dev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index a44bcfc29d54..ca7f4844cc40 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -11463,8 +11463,10 @@ static int netdev_check_ops(struct net_device *dev)
+ 	}
+ 
+ 	if (netdev_need_ops_lock(dev) && ops->ndo_set_rx_mode &&
+-	    !ops->ndo_set_rx_mode_async)
++	    !ops->ndo_set_rx_mode_async) {
+ 		netdev_WARN(dev, "ops-locked drivers should use ndo_set_rx_mode_async\n");
++		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.53.0
 
