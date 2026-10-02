@@ -1,110 +1,154 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562A44B8271
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:55:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956536; cv=none; b=UGoRRTz2SU/RweMY5ehLsszF+Z3rye1C1GsdbUdVoJqp0k1BWdLSqlvU2ZCFajMARHVZlsjyoEyFqupx3s91Ed/tW9YvP40rBfeufupmiZ7lwPfxAW1vqxNxGLex+GH8dMB9fR4fGI8QR22PdA8dn6NsM14XXhUMlFNYdQZ0R4A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956536; c=relaxed/simple;
-	bh=niryGSxJX4gME/6a0U2DNx8L2QBjbTB9EOlGt9+7IDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A0BLv8N2ZmiJvCjsezB9jJE6gav01s5BS4Fg+iea07wqCd7GfpMAOkioR/Lb1MiZH3BCloWTHDRm/KIJx3RPv4dOOljUa86CXNPX1Xu2Rtq7t4O4XRlXrwNZ1P/jzfvmARe+lWf9mcawrAoKrEfXnrY64Sp4ZXlXaOv4J+WBYW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VR0+ORMW; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66223290AA;
+	Fri,  2 Oct 2026 15:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790956573; cv=pass; b=rXSWegXTTCNqolUxerjVyGaGOnep9RrGYns7DE+k0BIIfK/TDyEEqWL7/WfFm4Lvbk4T7LV3pcIHf64RP2CFe+US4zTKHWi/xffoPTVUBHcM9UD67arJ6Lsv/tnX+89XRZK6vWdJxsCFQLWo6DS4tJUxtCje1MQHlrv4+VAbO1Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790956573; c=relaxed/simple;
+	bh=3o+/m0Ja7klmizY0LXoCfc4gbqT5/fuW5sYGKawV7YA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=cQJii617oPwPRqAMGByCxGPLJb4q6eByr8sNFnjnUfLVOTEJMfujnVMnRbUOmowQL/91nmrYhNpuhESh9cK8cStfz3dHqqCftbIrwGZB2yDrvAP1eCxQe0RHlP73MbVA0v2AJlCAt70Br4ApbaEBirAqbkT8xMWBWa0RAgYZ9CM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=eIXcs4O9; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VR0+ORMW"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so204415e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:55:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790956532; x=1791561332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6ctxUkXm5BOo7/5u4JOJklLBmiQwzEkLfsaEZ1PEQrs=;
-        b=VR0+ORMWoI+Momzj9k23qVVJV4/eZqQ7rgkncf0RoOAr81IXaVNQxV3tDDejRMbkYE
-         0XBf1FtNObzyfDNTTqx67snPaTVnsi7UxeIF7HV0yx93Moy/zlIzcjFtzgsizqxkKMhI
-         ZPij4iwyLmsPYkhVNJtSChODRnOSPNUnSQHyWkA6nSWfuDSoCpgqcN2c5epul9KbD4Px
-         MdG36ern7TXCamP0G3GUBIvvVDl4YS9k+/o+odg/SNbkeeKc7SAF+80+WBGaCGMCyBog
-         VECqa9t+srLF3CqXzyRJzWwf+Xsx39wqgJpQrBrC+AawizLNVbYfecIc3CfPAKVRVqXh
-         287g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790956532; x=1791561332;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6ctxUkXm5BOo7/5u4JOJklLBmiQwzEkLfsaEZ1PEQrs=;
-        b=x8CrIo54ocrNkbTTlSuvf1Go/EmFiOaaSnA7FTd36mmTEgR7Kx25RkjZIlsUxN2qat
-         ebuWg+8YKzBmY14EZwxl3G3SRg2QC8xr1GDD2lzpyskvL6O2XwgRZZpV0WevyjyU3bAc
-         TWrVAIOwzd57okXXUWD8+ehXjjyf3+jd7xSDxL+b5DHanxT8/4zQrwKyWe3xZAloCrUK
-         LPHq2KIl4kNiOyP1q83n/s3tzST+zmVUt0FEbzD5xymguVIANU5/qXb5p4/1TB15K+E+
-         Pz7rzcCFXEKu0Hscvd6O5uFcqI0a2TAR/a9lDcB2w7tq2Ox6jPEJDtiKjc8/GAUND0/F
-         pu1w==
-X-Gm-Message-State: AFuF++mfDPnS+RHgtXNyD4d91olv96pN6kYq+h2cHxN6EbK34/D5gBso
-	azkx4TYgElHdmUoc/9jDaen88NHyZz8pBGCtFdfOO1NNqYm5jHr2z31F
-X-Gm-Gg: AYBFou1UTdJAcNe4v09NeRA6F2tunVi1/CNiBSd6BsjeovMSCTuds1IUSd9GPxSqfE0
-	UMtcX9phvYKe/Z/eUV7wbkFmMOHM7J1rh8sYX7bCn95984vXywtXVT5rgv8/9q29/atVYMnAkfM
-	l8OJBGeoKLqbOrASKvy1X7LxPK7Oj88fPsBJrqMCfI+iGW97T4cI3fXhCItPjCdaSMFaMyr4pD+
-	O02b1ueaqHjZKTAzUoWqTSWyFyzexPElF9ZHOi/GoN1XgI2qUvFMQ0629PAO0QWn58+W1yZHez4
-	gk9AkdBnv/UTO3hynxZkt/ep6KrhqRbBDXGOqMM56HJqkTjZDb4+bU0WJDL1GU7hCVMQ8HQLtsH
-	moBP38UeOirQLw/Nuq1H+h4PeDg5ZPRSlIJl7cn+2gnXh6wlY9tvHRrse3K8wu9IZUZiM+zaOE0
-	1Ap0lkhyvlqxOgwDuXjM3UOogdFVM1O5gcl9ix6Xda9J3vr/aW1BOMfIE1HdW9VVzHYDNLhcL80
-	pBWTBn5GH+pZf8kaRU1QiZ14gSZMWdqF1EwU7jyAg==
-X-Received: by 2002:a05:600c:1907:b0:4a0:3b9:f16b with SMTP id 5b1f17b1804b1-4a027459456mr60034955e9.0.1790956532121;
-        Fri, 02 Oct 2026 08:55:32 -0700 (PDT)
-Received: from localhost.localdomain ([182.189.185.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02854073csm81515965e9.3.2026.10.02.08.55.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:55:31 -0700 (PDT)
-From: Saad Anjum <saadanjum239@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Saad Anjum <saadanjum239@gmail.com>
-Subject: [PATCH v2] spi: bitbang: Drop duplicated word in file header comment
-Date: Fri,  2 Oct 2026 20:55:27 +0500
-Message-ID: <20261002155527.24845-1-saadanjum239@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="eIXcs4O9"
+ARC-Seal: i=1; a=rsa-sha256; t=1790956548; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mKtMMk5AjJR7g3kCzeJHSQp3Xuaf4BC9Txxg7bumRH/cO2iqz3DWC+tesvsX1Vz1cgofK5kCx3luiKYLjKT8jBZt9ZJBEfs1x9Yn8YqKROjA6KTmgd1/J1+tRO0hDX7ouUGLGk5LViV/QosCzilkyS4t8RWKztrPoP0wTfMLxEc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790956548; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nGdebKi33JOCANGOuNqNBIPtdhflulaW1yf0wVEOqV4=; 
+	b=Z5HLRglxLHn2BnfSbM7xrP2rTwaaV2Q8pl2JpHBevh3Qh9WBfNbHK3p8WvH9cR9No1u8gG2vu3lHI7B/4fKFaVtPhEwne78eXDAhItJFq3oQRwygnvdpWkg3iWT/GLYl9XIJHF+Io2w/LJuDYif6uSrH6/WujGfG4XZqRnZOksY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790956548;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:In-Reply-To:Reply-To;
+	bh=nGdebKi33JOCANGOuNqNBIPtdhflulaW1yf0wVEOqV4=;
+	b=eIXcs4O9jOeiEoATsNM81XHbAzZvN6nqpdRrZCE+hmPYpenOgNeBKcYiHAIoN+xE
+	diaqzg5vByF2VOVvxWvVqbi1FwuxutD9Cx6dL5P5pBCGacu3+Z4y4QCLYGAXTLNNO9s
+	V8+kHiuQ9nbC59l4NLOVeJU5vFVrI+3VcenyqZqM=
+Received: by smtp.zohomail.com with SMTPS id 1790956546300716.3663133196663;
+	Fri, 2 Oct 2026 08:55:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 02 Oct 2026 23:55:38 +0800
+Message-Id: <DLUH3VOWTYNR.9OI9L5Q3K5OX@pigmoral.tech>
+To: "Conor Dooley" <conor.dooley@microchip.com>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>
+Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
+ <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Conor Dooley" <conor@kernel.org>,
+ "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Brian Masney" <bmasney@redhat.com>, "Yixun Lan" <dlan@kernel.org>,
+ <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ "linux-riscv" <linux-riscv-bounces@lists.infradead.org>
+Subject: Re: [PATCH 1/2] dt-bindings: clock: anlogic,dr1v90-cru: make
+ external clocks optional
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.22.0
+References: <20261002-dr1v90-cru-dt-fix-v1-0-c3e0b5d4c30d@pigmoral.tech>
+ <20261002-dr1v90-cru-dt-fix-v1-1-c3e0b5d4c30d@pigmoral.tech>
+ <20261002-oozy-reversal-e65157724bc3@wendy>
+In-Reply-To: <20261002-oozy-reversal-e65157724bc3@wendy>
+X-ZohoMailClient: External
 
-Commit 8ee46db14169 ("spi: bitbang: Add missing MODULE_DESCRIPTION()")
-updated the terminology in the file header from "SPI master controller"
-to "SPI host controller", but only the word "master" was replaced, so the
-header now says "controller" twice in a row.
+Hi Conor,
 
-Drop the duplicated "controller" so that the comment matches the wording
-used by the Kconfig entry and the MODULE_DESCRIPTION() string.
+On Fri Oct 2, 2026 at 3:17 PM CST, Conor Dooley wrote:
+> On Fri, Oct 02, 2026 at 02:07:00PM +0800, Junhui Liu wrote:
+>> The external CAN and WDT clocks are optional inputs routed from the
+>> board; the main oscillator is the only required clock. The binding
+>> currently requires all three clocks, which forces device trees to add
+>> stub fixed-clock nodes without a clock-frequency to satisfy it.
+>>=20
+>> Allow the clocks and clock-names properties to contain just "osc",
+>> optionally followed by either or both of "can_ext" and "wdt_ext".
+>>=20
+>> Fixes: 155d900e4c7d ("dt-bindings: clock: add Anlogic DR1V90 CRU")
+>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>> ---
+>>  .../bindings/clock/anlogic,dr1v90-cru.yaml         | 24 +++++++++++++++=
+-------
+>>  1 file changed, 17 insertions(+), 7 deletions(-)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.=
+yaml b/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.yaml
+>> index 11a92588e494..8bd7b78a58d8 100644
+>> --- a/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.yaml
+>> +++ b/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.yaml
+>> @@ -17,16 +17,26 @@ properties:
+>>      maxItems: 1
+>> =20
+>>    clocks:
+>> -    items:
+>> -      - description: Main oscillator
+>> -      - description: External CAN clock
+>> -      - description: External WDT clock
+>> +    minItems: 1
+>> +    maxItems: 3
+>> +    description:
+>> +      The main oscillator is always required. An external CAN clock and=
+ an
+>> +      external WDT clock may additionally be provided if the board rout=
+es these
+>> +      clocks to the SoC.
+>> =20
+>>    clock-names:
+>> -    items:
+>> +    oneOf:
+>>        - const: osc
+>> -      - const: can_ext
+>> -      - const: wdt_ext
+>> +      - items:
+>> +          - const: osc
+>> +          - const: can_ext
+>> +      - items:
+>> +          - const: osc
+>> +          - const: wdt_ext
+>> +      - items:
+>> +          - const: osc
+>> +          - const: can_ext
+>> +          - const: wdt_ext
+>
+> This need not be so complicated. The following should do the trick:
+>
+> clock-names:
+>   minItems: 1
+>   items:
+>     - const: osc
+>     - enum: [can_ext, wdt_ext]
+>     - const: wdt_ext
 
-No functional change.
+Thanks for showing me the simpler way to express this. I will update it
+in v2.
 
-Signed-off-by: Saad Anjum <saadanjum239@gmail.com>
----
-v2: Resending with the correct From/Signed-off-by - v1 went out under the
-wrong identity by mistake, sorry for the noise.
+>
+> pwbot: changes-requested
+>
+>> =20
+>>    "#clock-cells":
+>>      const: 1
+>>=20
+>> --=20
+>> 2.55.0
+>>=20
 
- drivers/spi/spi-bitbang.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-bitbang.c b/drivers/spi/spi-bitbang.c
-index fb288ed56..347265e80 100644
---- a/drivers/spi/spi-bitbang.c
-+++ b/drivers/spi/spi-bitbang.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * Polling/bitbanging SPI host controller controller driver utilities
-+ * Polling/bitbanging SPI host controller driver utilities
-  */
- 
- #include <linux/spinlock.h>
-
-base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
--- 
-2.50.1 (Apple Git-155)
-
+--=20
+Best regards,
+Junhui Liu
