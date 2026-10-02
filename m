@@ -1,43 +1,44 @@
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778713E1D05;
-	Fri,  2 Oct 2026 08:14:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2181FDF59;
+	Fri,  2 Oct 2026 08:14:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928873; cv=none; b=L6NoJ9koKiMpzAmaVCpK9jtXLJ5KrzcFrcaRzJ0+xfwCY52d4eTxDNgpmohc7+uA3+sBIwfowU9BJoYmWrXdGkm2Q7p8dBK4PRwmv04h3lnyHi0Wz7+kaf2/4E8To5Elkhb8sNdkjN5PhmAkdTV4j0EeekIhZ5m4l8I4+gS45Ak=
+	t=1790928873; cv=none; b=Ch/shdR70s8pyKLcVXYkvY4sgpV7INsvq9iGyd6f3LriG8TEXs0qcqEya7EcHh2E1jzVzGzExKaBUuwBj6w4491nB5B7v1a0ZOhpRJE6yboMkkvN2xY/H7lrbTNtQzPwiqDqwKkUO/Qlc0BmvZzAy0cy3rZ5eUvUijMifXfQxe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790928873; c=relaxed/simple;
-	bh=IQ6JUk1LZYIOlimVDjbDZoE/6ipxmaztgVh0QLrrNsw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E4vkgAD8o8HZIUZc5FleRh6SjxtInEjjuwNkGFOWrSnKCjnBurh7ccyCZ8DndBKiQXJDxFQpbpEObzf2j8L7ve/z02bclv9egpOWoYUT0MVu7dfQZU0Q6EuqJ00Vv7uxJeW7UupUJxmfUDuP/6qGHlxI3yMOs9d1n2vcuOUSDYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=KZ+0VgjI; arc=none smtp.client-ip=188.40.3.216
+	bh=JEyVgfCDTLKokr2ysYcGaVXbW3W0ZDrkrl1I9QS6Oto=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p8eCKrn4+ET6mfYayCi812vsP7LiEcfLueh4gUUevg2kOICHzQGGwew2C7k25Pc4A7mnsUeZIpCvmNvTVlXRI0m+rF4Fx+C3BHg7gqi+BlVOz8q074spBKnvzV6MDCeAWwdXrNERmkvG1tlPNyitIAzXMik1Sp59+hmYchFFHok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=gdJMjugm; arc=none smtp.client-ip=188.40.3.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="KZ+0VgjI"
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="gdJMjugm"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=TilJGsSaVbNKEutDOXvAU0tIsDvjIQ7ttnA5DEprCHc=; b=KZ+0VgjIfZaEr6UBx+lRQq4NxR
-	drdZf9OQ5sHAR95pzm7kwxXYsLDBmN2e5lLKgE/wBACx4i5LOVRU8zagJAYg2T7J6INuZ0dtILNvW
-	wbwBIFvXmEDLmeXx2mQph85jPLcGby4BMDR1C595oeP038JZeGjFlXMb96YkFGW5sjfsD0Ry75vHd
-	00iRNZs3APIg7D7HiOcMWOliMNOEM46UZcv8EFYM7o/s1dqzPc4RNRzoRa/hXu/nf4Drq1tuSC8uh
-	IX5qXdtZ3XJn3J4pY92eVGKldykUJgiv7weuL7NK6eAyXljqbaZPeZyzNSyo2Rl8esSdMLAslbC2P
-	XRj9jvrQ==;
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=15C1/PrEf7ZjkNNplh2i9I6O4gZf0CPqQkVg1ifly/4=; b=gdJMjugmgDTA+n8/TrvZ7YEp5f
+	IMKFCkh5qODnCNDVQADyUcPvXW5b09QId9WHoyNFQ4MBA3eMilx2MRNoOPqjYw2r1Xu9izSkfHpo0
+	9IvtnIOrzUHPa4u+LIsxOm9OGnBpfVNErL0OHGkfimDpsv+QunLmx8eDq9jJDiaQ6tk/r8zyqz4AO
+	hYnPI58pSgKcPfg+gHijOtssLvfJumUtYSt/nyof0fURKL7fMkoJa3Ym3R9p8SS7fD0luixWhArlL
+	MKwSBgM96ZIfdQlFTaW+JleWdMNFmDy1rgm9KdCoORdVrLxWw5xEbhcnzBE2abVGL6skUcvyewkZQ
+	KQPrZF+A==;
 Received: from sslproxy01.your-server.de ([78.46.139.224])
 	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96.2)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xCYPO-0003Ms-0e;
-	Fri, 02 Oct 2026 10:14:22 +0200
+	id 1xCYPQ-0003OH-21;
+	Fri, 02 Oct 2026 10:14:24 +0200
 Received: from localhost ([127.0.0.1])
 	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xCYPN-000FgI-2i;
-	Fri, 02 Oct 2026 10:14:21 +0200
+	id 1xCYPQ-000FgI-1U;
+	Fri, 02 Oct 2026 10:14:24 +0200
 From: Alexander Stein <alexander.stein@ew.tq-group.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -52,10 +53,12 @@ Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux@ew.tq-group.com
-Subject: [PATCH 0/8] Display support for TQMa6UL[L]x
-Date: Fri,  2 Oct 2026 10:14:01 +0200
-Message-ID: <20261002081417.2092471-1-alexander.stein@ew.tq-group.com>
+Subject: [PATCH 6/8] ARM: dts: imx6ul: Add parallel display DT overlay for TQMa6ULxL
+Date: Fri,  2 Oct 2026 10:14:07 +0200
+Message-ID: <20261002081417.2092471-7-alexander.stein@ew.tq-group.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002081417.2092471-1-alexander.stein@ew.tq-group.com>
+References: <20261002081417.2092471-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,39 +68,35 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: Clear (ClamAV 1.4.3/28141/Fri Oct  2 08:26:12 2026)
 
-Hello everyone,
+This simply reuses the .dtso files from TQMa6ULx.
 
-with the integration of custom bitwidth on DPI output in commit aafd4205a75de
-("drm: mxsfb: Add optional DPI output bus-width configuration") the display
-support for TQMa6UL[L]x on MBa6ULx can be added.
-The mainboard uses a slightly different hardware connection which needs
-customization.
-Both LVDS and parallel display support is added resuing the DT overlays
-for all the variants.
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+ arch/arm/boot/dts/nxp/imx/Makefile | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks and best regards
-Alexander
-
-Alexander Stein (8):
-  ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULx
-  ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULxL
-  ARM: dts: imx6ull: Add LVDS DT overlay for TQMa6ULLx
-  ARM: dts: imx6ull: Add LVDS DT overlay for TQMa6ULLxL
-  ARM: dts: imx6ul: Add parallel display DT overlay for TQMa6ULx
-  ARM: dts: imx6ul: Add parallel display DT overlay for TQMa6ULxL
-  ARM: dts: imx6ull: Add parallel display DT overlay for TQMa6ULLx
-  ARM: dts: imx6ull: Add parallel display DT overlay for TQMa6ULLxL
-
- arch/arm/boot/dts/nxp/imx/Makefile            | 26 +++++++
- .../imx6ul-tqma6ul2-mba6ulx-cdtech-dc44.dtso  | 53 ++++++++++++++
- .../imx6ul-tqma6ul2-mba6ulx-cdtech-fc21.dtso  | 53 ++++++++++++++
- ...6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso | 69 +++++++++++++++++++
- arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi        | 64 +++++++++++++++++
- 5 files changed, 265 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-cdtech-dc44.dtso
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-cdtech-fc21.dtso
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso
-
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index 3d34af776a5bb..e86b9c1a63005 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -424,6 +424,8 @@ imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33-dtbs += imx6ul-tqma6ul2-mba6ulx.dtb imx
+ imx6ul-tqma6ul2-mba6ulx-cdtech-dc44-dtbs += imx6ul-tqma6ul2-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-cdtech-dc44.dtbo
+ imx6ul-tqma6ul2-mba6ulx-cdtech-fc21-dtbs += imx6ul-tqma6ul2-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-cdtech-fc21.dtbo
+ imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jvhg33-dtbs += imx6ul-tqma6ul2-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
++imx6ul-tqma6ul2l-mba6ulx-cdtech-dc44-dtbs += imx6ul-tqma6ul2l-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-cdtech-dc44.dtbo
++imx6ul-tqma6ul2l-mba6ulx-cdtech-fc21-dtbs += imx6ul-tqma6ul2l-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-cdtech-fc21.dtbo
+ imx6ull-tqma6ull2-mba6ulx-lvds-tm070jvhg33-dtbs += imx6ull-tqma6ull2-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
+ imx6ull-tqma6ull2l-mba6ulx-lvds-tm070jvhg33-dtbs += imx6ull-tqma6ull2l-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
+ 
+@@ -431,6 +433,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtb
+ dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2-mba6ulx-cdtech-dc44.dtb
+ dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2-mba6ulx-cdtech-fc21.dtb
+ dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jvhg33.dtb
++dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2l-mba6ulx-cdtech-dc44.dtb
++dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2l-mba6ulx-cdtech-fc21.dtb
+ dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ull-tqma6ull2-mba6ulx-lvds-tm070jvhg33.dtb
+ dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ull-tqma6ull2l-mba6ulx-lvds-tm070jvhg33.dtb
+ 
 -- 
 2.55.0
 
