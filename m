@@ -1,144 +1,149 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E472868B5;
-	Fri,  2 Oct 2026 09:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099ED474245;
+	Fri,  2 Oct 2026 09:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933925; cv=none; b=n05y1+jDGPODs9r1l1qUk6IoD3AdgCqaJiQ0KyyA2DXNEhL727BFTX1OLbDDTx64+P/4F/UE1t9vLziPHAczfVQ8Uv9eOJ3LEXTTroOGgR6VYmbK1WH3J43OYig9JkN21JmmoE08LEF8VrGduYOvq/1wSdXlq4mt+LQL7ceiwII=
+	t=1790933961; cv=none; b=hKRieSfbFG9EvOp310pBCWXmP4yuittOnsk3kzW0tDuYXdatxvJnRginJuHtcAZNLvq8d86MOfbLqIwn1FgsONzc8mM/2npPELutxP2jBHrbV+SmOVy6V1sym0Zf7UmjK5emxZhsr861tucJnNt8aVNG3n3SllkAC4t2j6kSZ2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933925; c=relaxed/simple;
-	bh=T5Kz6yh6I3Q8JCOVJ5fxxWE+p0PYaTjtBBr8LFkNUlk=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=nqxCmC1G375fvNaINNZv7I72vHPMcE8KlGf0Ic9r6n9oWE5vEF3n87+5Ms2zeJ0LoAX1rkMvSAiTccN0+QLjoBflHfzrjYaFFSp9b2KcIhX8mj7mNm1mjb+1NYsYjITRa4p/oKa4IcOH6jKBz8zMpvIdppABDYGaQONyyuHsK5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uFA6cC9o; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=f25mIvib; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790933961; c=relaxed/simple;
+	bh=hA1zeAk4wxpxXGX4kPhV20Ts9tikCfkkYTnQNM8EwqM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ozgvn3OL9UYL6orJPnPqpvVqT6rP32kEiP4Dppmb9U1B3gb1uI4bqA7R7KudO1PnNdtEIySkRYPMW48MiwfFzLVRP8rV6Nru9oupTLGWd2agGiPN0FJSQbuNK0eDLTz0KFn1DT8GVTw+p87XoxVVlue5OQYxy6EX2lDMghHse6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Trs8e8WE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uFA6cC9o";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="f25mIvib"
-Date: Fri, 02 Oct 2026 09:38:40 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790933922;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SJqSqHYuYGsYWink4osa6Z6mFuwxRF4iTtN8UIowmT0=;
-	b=uFA6cC9o+zS/rkuKizSWgjmg73jhixdJY3LdD44uVkgUG+Szlodwh5DY1BpyKhpRkGGEDQ
-	byVY2rtSJpFBAjLWK16w15dZILHaW4nsYLHzj9RFgT9t3TrB5q5dQamTNts+BFVpUnb+X3
-	H2+6tX54x5xKFJFfTpRZ49Pxt5z6HDLBoWquxiK86S5BX6yneY2wXk32hnWjB9+f1Pa1Ra
-	aVo3JftOdZfWPjIW2yDfnAllZJkYW/6TZkcVwREY7HPKvUh6inTb/B2PH0FcGwLd0W5YTi
-	r4oTKGwS5PXkvxRM2s0ZeyCqYKMxY3lejuZ+S/sPOKmMTlpExC137MIBaAWbNA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790933922;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SJqSqHYuYGsYWink4osa6Z6mFuwxRF4iTtN8UIowmT0=;
-	b=f25mIvib780eXMK6ej0dLdkPDsW+QojdDvogo3qmLdhBm6zpTpD/SEJcfuYx7ZVhluDkzC
-	t1eqK9jBXydAOGCQ==
-From: "tip-bot2 for Jann Horn" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: locking/core] refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for
- UAF-related errors
-Cc: Jann Horn <jannh@google.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Will Deacon <will@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To:
- <20260812-refcount-bug-on-data-corruption-v1-1-c6da63566101@google.com>
-References:
- <20260812-refcount-bug-on-data-corruption-v1-1-c6da63566101@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Trs8e8WE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06C91F000FF;
+	Fri,  2 Oct 2026 09:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790933959;
+	bh=fjj+f5ijhUmhJthBkgxDWQqiZjrQVyrTMW5I1jLfkXY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Trs8e8WE4T7ghZ6J2kcvRzDd0DVCDTPX6L68v8d5dXlAwzAWeMXWbzzq8jBLz0R0u
+	 vw9YwyWOV1syIYezd4ixmTAeQQcPPj3Ub6H1lE0BT5jL/aktfvL9Jm0G3fol5pZa7R
+	 tONxMxHzUdbCoUGXmYvCZgD9IY6hQA07u3wk6+Qoq34z2Xl5jcGinVkblKveXL96BZ
+	 YdqZooGF1WY+jhnpfQehYlyhMxfZBydrAJv1a8FBkdtfIHiZu2g++MRKnWLqCYJcIg
+	 Ujtya90RKbBwlZmO8VXKhBAYvjbduRxIkFQRlVNOXXpYEkF+Evv8yb2+TPa7NOu+XV
+	 wFxHrH1SO5bPg==
+Message-ID: <7a66abc8-3b9a-4a9d-a094-e47e3588091a@kernel.org>
+Date: Fri, 2 Oct 2026 11:39:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179093392037.3910103.15878606329217264167.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] dt-bindings: arm: keystone: ti,sci: Add
+ ti,tda54-sci-pdm compatible
+To: "Padhi, Beleswar" <b-padhi@ti.com>
+Cc: nm@ti.com, kristo@kernel.org, ssantosh@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ afd@ti.com, u-kumar1@ti.com, vigneshr@ti.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20260930194131.117129-1-b-padhi@ti.com>
+ <20260930194131.117129-3-b-padhi@ti.com>
+ <20261002-observant-prudent-booby-eac28e@quoll>
+ <ac1d3bae-81c5-47b6-99f1-50e5b06c1a86@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <ac1d3bae-81c5-47b6-99f1-50e5b06c1a86@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the locking/core branch of tip:
+On 02/10/2026 11:30, Padhi, Beleswar wrote:
+> 
+> On 10/2/2026 12:01 PM, Krzysztof Kozlowski wrote:
+>> On Thu, Oct 01, 2026 at 01:11:27AM +0530, Beleswar Padhi wrote:
+>>> The previous TI K2G and K3 architectures were tightly coupled systems in
+>>> terms of Safety and Security. All the TI-SCI messages from HLOS (Linux)
+>>> were sent to a single sec proxy thread terminating at the core running
+>>> Safety service (DM). In K2G systems, DM handled both Safety & Security
+>>> requests by itself. Whereas in K3 systems, DM serviced the Safety
+>>> requests itself, and forwarded the Security requests to core running
+>>> Security service (TIFS) on the HLOS's behalf. This posed various
+>>> limitations:
+>>>     a. Increased latency: An extra forwarding hop through DM adds latency
+>>>        in requests and responses.
+>>>     b. Freedom From Interference (FFI) concerns: Having Safety service
+>>>        proxy Security's requests (& vice versa) undermines the isolation
+>>>        and FFI of the system.
+>>>     c. Potential Deadlock Scenario: Forwarding messages between Safety
+>>>        and Security cores can result in a deadlock if there are circular
+>>>        dependencies.
+>>>
+>>> To eliminate all the above limitations, the TI TDA54 class of SoCs
+>>> introduce an architectural change: Isolation of Security and Safety
+>>> services. To realize this enhanced isolation in hardware, two
+>>> independent sec proxy threads are now provided for HLOS to communicate
+>>> separately with the Security and Safety cores respectively. And the
+>>> TI-SCI message forwarding has been eliminated in Software. The System
+>>> Firmware ABI5.0 version necessitates this improved isolation and FFI
+>>> change.
+>> I don't get at all how above description helps to understand this patch
+>> and this new compatible, except that this is not compatible with old
+>> variants.
+> 
+> 
+> You just answered your own question.
+> 
+>>   So 30 lines of text instead of 3?
+> 
+> 
+> The existing system controllers have been compatible in all TI SoCs
+> for over 10+ years since Keystone generations. Using 30 lines of
+> text to explain "why" the new system controller is not compatible
+> with old variants is worth it.
 
-Commit-ID:     5b5224220747029bbaee8ab851cc6c599c48eded
-Gitweb:        https://git.kernel.org/tip/5b5224220747029bbaee8ab851cc6c599c4=
-8eded
-Author:        Jann Horn <jannh@google.com>
-AuthorDate:    Wed, 12 Aug 2026 20:56:38 +02:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Thu, 01 Oct 2026 14:00:40 +02:00
+If you decide to spam us with a lot of description, including marketing
+crap ("To realize this enhanced isolation in hardware", "this improved
+isolation") instead of writing concise and precise messages, accept the
+outcome of maintainers choosing to allocate their time in "improved way".
 
-refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors
-
-Some refcount issues are not necessarily associated with memory corruption,
-but REFCOUNT_ADD_UAF suggests that a UAF either just happened or is about
-to happen.
-
-REFCOUNT_SUB_UAF is also an indicator that reference counting is wrong, and
-suggests (less strongly) that a UAF access might have happened recently.
-
-In these cases, BUG() is appropriate if CONFIG_BUG_ON_DATA_CORRUPTION is
-set.
-
-Signed-off-by: Jann Horn <jannh@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Acked-by: Will Deacon <will@kernel.org>
-Link: https://patch.msgid.link/20260812-refcount-bug-on-data-corruption-v1-1-=
-c6da63566101@google.com
----
- lib/refcount.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/lib/refcount.c b/lib/refcount.c
-index a207a8f..c0f0dc5 100644
---- a/lib/refcount.c
-+++ b/lib/refcount.c
-@@ -10,6 +10,15 @@
-=20
- #define REFCOUNT_WARN(str)	WARN_ONCE(1, "refcount_t: " str ".\n")
-=20
-+#ifdef CONFIG_BUG_ON_DATA_CORRUPTION
-+#define REFCOUNT_CORRUPTION(str) ({		\
-+	pr_err("refcount_t: " str ".\n");	\
-+	BUG();					\
-+})
-+#else
-+#define REFCOUNT_CORRUPTION(str) REFCOUNT_WARN(str)
-+#endif
-+
- void refcount_warn_saturate(refcount_t *r, enum refcount_saturation_type t)
- {
- 	refcount_set(r, REFCOUNT_SATURATED);
-@@ -22,10 +31,10 @@ void refcount_warn_saturate(refcount_t *r, enum refcount_=
-saturation_type t)
- 		REFCOUNT_WARN("saturated; leaking memory");
- 		break;
- 	case REFCOUNT_ADD_UAF:
--		REFCOUNT_WARN("addition on 0; use-after-free");
-+		REFCOUNT_CORRUPTION("addition on 0; use-after-free");
- 		break;
- 	case REFCOUNT_SUB_UAF:
--		REFCOUNT_WARN("underflow; use-after-free");
-+		REFCOUNT_CORRUPTION("underflow; use-after-free");
- 		break;
- 	case REFCOUNT_DEC_LEAK:
- 		REFCOUNT_WARN("decrement hit 0; leaking memory");
-@@ -84,7 +93,7 @@ bool refcount_dec_not_one(refcount_t *r)
-=20
- 		new =3D val - 1;
- 		if (new > val) {
--			WARN_ONCE(new > val, "refcount_t: underflow; use-after-free.\n");
-+			REFCOUNT_CORRUPTION("underflow; use-after-free");
- 			return true;
- 		}
-=20
+Best regards,
+Krzysztof
