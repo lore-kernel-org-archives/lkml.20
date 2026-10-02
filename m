@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D183B3C01;
-	Fri,  2 Oct 2026 19:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480313E8C56;
+	Fri,  2 Oct 2026 19:00:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790967642; cv=none; b=LCl2ictEQEuBeRNlhp13h9LtqOlVDvsWtLo1LvFLOQpPeD7Zlcd7PjfGF+nvzb9vz0kjeJX7+qXOUVz7tYNBgwGg4VBYYQGrHxKX7ZnaPpfWd2IZuaA+FNIGxy+UHtsTydtVUedNFTQpA59v4Tz7Ozf7vEJmNisALszHo725HmE=
+	t=1790967673; cv=none; b=YI/OtO1IPYfr2iEgeDYRcTYXF9A4bplFBvDHJG0njmMVwLEq58qatXDPcw1YZZYeHCVARnXYMv+991ty4NzL1iUOcLHebLwlRvBF/D7TCo/D1FBmxWSSoxnvd7ygr0q/yFihBSY4L6dxXR3y7kx1A+dk7vfFGZ1dQL67SyJMZmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790967642; c=relaxed/simple;
-	bh=OeYP/uD/Iq/PzT3ztRoXD6qyP1Trr1CrLpnfJEb/Dzw=;
+	s=arc-20240116; t=1790967673; c=relaxed/simple;
+	bh=kwK8mZxlSaV9ixe2+KKgpc9XBaZkpxLuhKmu0aArgEs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OA1z98UJCVQ6c2/abTP6wAZCoTgZVNrcDJVHDXH1aF6pX2JrbYxNsnQ9JfRAUyWSzVZBv/MmfHTP2VBxNm4PO/q5MTjPx0z4lDHFZX3CxPch9eJymRt7kYjoH5AkcPAkRZEACz6Y46U665qOsIJLzjeOwGxS8buUlNk4d03xrqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdRZeh0y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=E4n1UIVH4FZdCV6hu4EnvscE5swoEMPZIjqmmSPHXuuJnYUPgX3HcKumGQ04/XnbHr3X+Hsg8H2qDGetG1lwjwsCQG1gI1dBu3p6Lb10ZJgaWGMMxWpCPTtA6wh1AicUw/KYkxXsVtWfB652nhIPOy4BsjOZoIi0lurY7/EL20A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNyFw68C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdRZeh0y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861DA1F00893;
-	Fri,  2 Oct 2026 19:00:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNyFw68C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AF651F000FF;
+	Fri,  2 Oct 2026 19:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790967641;
-	bh=vM8m9eHKdpCNE8+XE3FrhRD+fibfwpH+NukLDNp0ydQ=;
+	s=k20260515; t=1790967648;
+	bh=rF//GN0WCNpAcEQ2Tg52h9xgf0Rsx1ipPoTJAH+Exjo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PdRZeh0y16PSDWZ6frirxvX7he1dE+oGFgOrlmmQRdeFZdYMe4e3yES9otn4M8N0Z
-	 kci6A9H6J+O5n5uMrha6t+60cMCSCLv39HgYvhJHuh2bZgIC7bv+YkYe24uhsyqSdz
-	 sSQQeGPMUNzQVF5TbynLmNk6f0cDuGZFyRHvPFqUJcRX2T/kH+RHy2/BfsMOZagjWq
-	 tqEmLEBRafTDYHcqNpj5jgjboVQ1vwmCX35GEvo25ooYidZdwUAOTSBWj2xyLMdpBi
-	 5qeAgzK4GklJGfSFMScFwhqaPkXB09BE2ikzgs0+f9xH6VtFK2z51eW8v2ZFSVdyyI
-	 CFu0AYOXXqAaQ==
+	b=bNyFw68CbrZbpHe4o0Up/4JZlFnhi8rmAt8KGulsjIZthe76td4digBEkd0PzgGJL
+	 Zppm+5LjAgIECCQ22Od0vE29pRZYa8eG/A6Y/HgKzsVqGbTF5FvhjBBEDd9FLzQ5Rm
+	 +XV4D6oSGywW85tIHsMfdeme5KCyEm2PXrmXfUb9ecre1QsGwjiM1zyu9MU6tRFe6y
+	 7f5x+sZt152scZqUvOcIrnzvyxXPFUHA+GR/v5dyRUOtzoRDZIrgcGj+P9iPYJvmzH
+	 6tLBbgAa046V91mOaOsFuXZAkbV6kDgvpMZqZwHKjWUzf4+DHZckaDK6sdtWrlEj2B
+	 ix+F7QiBunQ7g==
 From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
 To: Magnus Karlsson <magnus.karlsson@intel.com>,
 	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
@@ -69,9 +69,9 @@ Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mina Almasry <almasrymina@google.com>
-Subject: [RFC net-next 01/15] xdp: Size zero-copy skb heads by their contents
-Date: Fri,  2 Oct 2026 21:00:02 +0200
-Message-ID: <20261002190018.696925-2-bjorn@kernel.org>
+Subject: [RFC net-next 02/15] eth: fbnic: Report the logical XDP RX queue
+Date: Fri,  2 Oct 2026 21:00:03 +0200
+Message-ID: <20261002190018.696925-3-bjorn@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261002190018.696925-1-bjorn@kernel.org>
 References: <20261002190018.696925-1-bjorn@kernel.org>
@@ -84,77 +84,42 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-xdp_build_skb_from_zc() sizes the skb head by the XSK frame size,
-which leaves no room for skb_shared_info. With 2 KiB chunks, a
-1514 byte frame overwrites 48 bytes of it. Both copies also round
-the length up to LARGEST_ALIGN, past the end of the new buffers.
+XDP gives the RX queue to programs in ctx->rx_queue_index. fbnic
+fills it from the header buffer queue index. The header and payload
+buffer queues do not carry the netdev queue id, and the header queue
+index is zero. So XDP programs see queue 0 for packets on every
+queue.
 
-Size the head from headroom plus data, copy exactly the data, and
-drop frames whose head does not fit in a page.
+Programs that act on the RX queue get the wrong value. For example,
+the default AF_XDP program looks up its socket with
+ctx->rx_queue_index, so it cannot find sockets on other queues.
 
-Discovered by an AI code review agent. Reproduced on fbnic in QEMU
-with AF_XDP zero-copy from the page-pool series: an XDP program that
-adds metadata, grows the frame to its end and passes it gets UMEM
-bytes in the skb's shared info. A new xskxceiver test,
-XDP_PASS_FULL_FRAME, checks this and passes with the fix. The test
-will be posted separately.
+Use the completion queue index. It is the netdev RX queue id, which
+queue steering and AF_XDP socket binding use.
 
-Fixes: 560d958c6c68 ("xsk: add generic XSk &xdp_buff -> skb conversion")
+Tested on fbnic hardware (50G, firmware 25.08.05-004) with AF_XDP
+zero-copy from the page-pool series: sockets on queue 43, and on four
+queues at once, receive their packets.
+
+Fixes: 894d4a4ea6cb ("eth: fbnic: move xdp_rxq_info_reg() to resource alloc")
 Signed-off-by: Björn Töpel <bjorn@kernel.org>
 ---
- net/core/xdp.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/core/xdp.c b/net/core/xdp.c
-index 1d679e8fd649..386240bd24c9 100644
---- a/net/core/xdp.c
-+++ b/net/core/xdp.c
-@@ -709,7 +709,7 @@ static noinline bool xdp_copy_frags_from_zc(struct sk_buff *skb,
- 		}
+diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+index c62d885a678a..0c7b1ea002d8 100644
+--- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
++++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+@@ -2072,7 +2072,7 @@ static int fbnic_alloc_rx_qt_resources(struct fbnic_net *fbn,
  
- 		memcpy(page_address(page) + offset, skb_frag_address(frag),
--		       LARGEST_ALIGN(len));
-+		       len);
- 		__skb_fill_page_desc_noacc(sinfo, i, page, offset, len);
+ 	fbnic_bdq_set_page_size(&qt->sub1, rx_page_size);
  
- 		tsize += truesize;
-@@ -738,17 +738,23 @@ static noinline bool xdp_copy_frags_from_zc(struct sk_buff *skb,
-  */
- struct sk_buff *xdp_build_skb_from_zc(struct xdp_buff *xdp)
- {
-+	u32 headroom = xdp->data_meta - xdp->data_hard_start;
- 	const struct xdp_rxq_info *rxq = xdp->rxq;
- 	u32 len = xdp->data_end - xdp->data_meta;
--	u32 truesize = xdp->frame_sz;
- 	struct sk_buff *skb = NULL;
- 	struct page_pool *pp;
-+	u32 truesize;
- 	int metalen;
- 	void *data;
- 
- 	if (!IS_ENABLED(CONFIG_PAGE_POOL))
- 		return NULL;
- 
-+	/* The XSK frame size leaves no room for skb_shared_info. */
-+	truesize = SKB_HEAD_ALIGN(headroom + len);
-+	if (unlikely(truesize > PAGE_SIZE))
-+		return NULL;
-+
- 	local_lock_nested_bh(&system_page_pool.bh_lock);
- 	pp = this_cpu_read(system_page_pool.pool);
- 	data = page_pool_dev_alloc_va(pp, &truesize);
-@@ -762,9 +768,9 @@ struct sk_buff *xdp_build_skb_from_zc(struct xdp_buff *xdp)
- 	}
- 
- 	skb_mark_for_recycle(skb);
--	skb_reserve(skb, xdp->data_meta - xdp->data_hard_start);
-+	skb_reserve(skb, headroom);
- 
--	memcpy(__skb_put(skb, len), xdp->data_meta, LARGEST_ALIGN(len));
-+	memcpy(__skb_put(skb, len), xdp->data_meta, len);
- 
- 	metalen = xdp->data - xdp->data_meta;
- 	if (metalen > 0) {
+-	err = xdp_rxq_info_reg(&qt->xdp_rxq, fbn->netdev, qt->sub0.q_idx,
++	err = xdp_rxq_info_reg(&qt->xdp_rxq, fbn->netdev, qt->cmpl.q_idx,
+ 			       nv->napi.napi_id);
+ 	if (err)
+ 		goto free_page_pools;
 -- 
 2.55.0
 
