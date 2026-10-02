@@ -1,78 +1,136 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2340036EA88;
-	Fri,  2 Oct 2026 10:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B341B87C0;
+	Fri,  2 Oct 2026 10:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935799; cv=none; b=DdxCCcbJZxLkwkCXdP7HC6pT0tJe9bLroPWwzKSz7t6OQZSvKF/9m3nM1Jzh/Hh9LiKPG1NM81dEc0av/jPf2mG7R5xinZjwmV5JrrRwhyGVwEKbboOPhTcpMB6HFz8WOQMKfEd0bzvJmTA6fVALXadOj8NxD2jlIkoaxwNFa/o=
+	t=1790935820; cv=none; b=P+Qqg8o2ASY4l8Pp87WcufThvGSe1CQ8uWs5IX8copA58022outzo9B9dBApeEKyQ5JeyZvel3+/6Bvrb02K/UpBe1SkdFljDQdGORKgP+DVF6ER7zjb8uoXbmi0BeHN/a4uhx8RzhlgwSYpFiTUsq3c1sh9396yUut6IpmPpWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935799; c=relaxed/simple;
-	bh=YSXF9AuZY+RC8HOcvfiMdURm1IGVH5EQGINdSsEEg5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=oG18XXtvKkk6Mj0/nu2MSteaafl1D1gsl++oyAH5Hp4rCOO5hqonVkDbhqzHJ98N/IUpRXeDoF3uFdUY2c9emex94f1bpuytBMKwQCpTwT0l2LnnJWGH12OEb2bkfnPTEn/iEIdQRAuorOnqfkOfRgdv+ySD21i3Qui0/GwyH+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cLFKLf7z; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1790935820; c=relaxed/simple;
+	bh=ZXTEuJkN+jyGhP+NASBflSms8faUWwcyD/4mTMboVj4=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Hx8LZUJ9ZDXM/uSPdZpHe709LX5N0CR23BxBNRWSAwDWx9Aqx1j1/Ny0hrDgGhgDNJJs0sMwsArVR2sk00ecmybxUXOqlBamLX7nHIUAgl8TsIkGXTejCea+fMZRzMRGUU1z0A3qkqEiSHnvlxea5T/rhUqjSFgdxPYJqu1BEgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=I1SHgeMI; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cLFKLf7z"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
-	content-type:references:reply-to;
-	bh=edSjetkKC0ODMKuUiIyEO84jYuqLvA3RUyniVREtQMc=; b=cLFKLf7zr/l6CeIGYK91L5k/mB
-	LJj/kYLNgMJieESS3eSxisdEEKNRpEikyl9waF1TqHndqbUoa2/SBTq6zXjkukTQC965GF1sDIfNI
-	ny6auS7N1yD/ZUEodclJ7CWEswsyzAgmE05h3NeOpXu5N8kUPKlVmhWatRMGESykF5yajTjGjkxWa
-	tDQGkMago1BO/61uuLg5c3za8NlqrWQ92i0Ls81yuOc/J1qMxCNqfBKDYJX0aEboEdi9nPkLSZrgq
-	CXubAnVyp57lsnMp/GW7al8DbAF9yF63FtRWzvQbWYObSSzCG8jxoVSKYmYijVgygeqXHaYM0vdOi
-	EbUg1W8w==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xCaD7-000000001ga-2r4H;
-	Fri, 02 Oct 2026 18:09:50 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 20:09:49 +1000
-Date: Fri, 2 Oct 2026 20:09:49 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Bill Wendling <morbo@google.com>
-Cc: qianweili@huawei.com, wangzhou1@hisilicon.com, kees@kernel.org,
-	gustavoars@kernel.org, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	morbo@google.com, codemender-patching+linux@google.com
-Subject: Re: [PATCH] crypto: hisilicon/qm - add __counted_by_ptr to
- dfx_diff_registers
-Message-ID: <ar-C7Z3Q0wRKTrLq@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="I1SHgeMI"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D02EA02DB;
+	Fri,  2 Oct 2026 12:10:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790935814; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BfL6SKTLkWrhN/wsJ7rNqoRO9lvotlnH5Ssl/GHYpKE=;
+	b=I1SHgeMI2oUSvOtZ8BoNQV1vxsvRVddvcmtNwTeKiaFtt/w+CBgmp8Tdefs2bs38sXLrwK
+	pYmCENY6TbiXBfFqRZKYmUzso1autjg+eUkr1STTsj5UmFyh1uPPPUjKoHjzMVFgSxCRWV
+	qegcshsOAgi4tC5eZWHLq2JZdp6OcdZXURvwB3pQqfvdeT7IAXy79S1gc9xOazAWRrtdC5
+	D5HPuGMSQNQcAseZ0NWZJyt+9vrNUQkq2ZO05DCEoOtKhfLwf4I11Ml/2tcdEqE70j3B41
+	r6J9tysrfF4YKFD/7aFA//TuET79LynJH3wllc/QQmQFEvEgld0+FScBfGLjvw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923061027.2650324-1-morbo@google.com>
-X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
+Date: Fri, 02 Oct 2026 12:10:03 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: taozj888@163.com
+Cc: theo.lebrun@bootlin.com, stable@vger.kernel.org, Conor Dooley
+ <conor.dooley@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Haavard
+ Skinnemoen <hskinnemoen@atmel.com>, Jeff Garzik <jeff@garzik.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: macb: rate limit netdev error info print in
+ the data path
+In-Reply-To: <20260930113520.392025-1-taozj888@163.com>
+References: <20260930113520.392025-1-taozj888@163.com>
+Message-ID: <b06cb02d9b26ceff272d7e34927a7eac@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Bill Wendling <morbo@google.com> wrote:
-> Annotate the pointer field 'regs' in 'struct dfx_diff_registers' with
-> the '__counted_by_ptr' attribute, referencing the 'reg_len' member
-> which holds the element count of the allocated memory.
+Hi Zijin
+
+On 30.9.2026 13:35, taozj888@163.com wrote:
+> From: taozijin <taozj888@163.com>
 > 
-> In 'drivers/crypto/hisilicon/debugfs.c', the 'dfx_regs_init' function
-> allocates the 'diff_regs' array and initializes each element's 'regs'
-> pointer after setting its 'reg_len'.
+> Now the MACB ethernet driver print the netdev error information
+> directly by netdev_err(), which would lead to a large number of
+> error information print if there was a significant number of
+> error or just jumbo packets exceeding the MTU received when booting.
+> For example, it would print a large number of:
 > 
-> Since 'reg_len' is set before 'regs' is assigned, the compiler's bounds
-> sanitizer can correctly associate the pointer with its allocated size.
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+> ...
+
+Out of interest: Is this a Phytium vendor kernel?
+
 > 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
+> in gem_rx() by received a large number of packets without
+> RX_EOF flag set, especially with unknown packet
+> type that would penetrate the hardware offload for the IP packets.
+> 
+> The unlimited prints here would greatly bother and delay
+> the system booting process unless the source stop sending
+> packets since they occupy the console output bandwidth and
+> other processes have to wait for the completion of printing those
+> messages.
+> 
+> So rate limit the netdev error information print in the receive
+> and transmit data path.
+> 
+> Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
+
+IMHO the correct tag is 4df95131ea80 ("net/macb: change RX path for 
+GEM")?
+At least the gem_rx() messages were introduced here.
+
+> Cc: stable@vger.kernel.org
+> 
+
+Drop the blank line as otherwise tooling might get confused and doesn't
+get all tags correctly.
+
+> Signed-off-by: Zijin Tao <taozj888@163.com>
 > ---
-> include/linux/hisi_acc_qm.h | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c 
+> b/drivers/net/ethernet/cadence/macb_main.c
+> index 8e5c034dc3a4..ca60960bec36 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, 
+> struct napi_struct *napi,
+>  		count++;
+> 
+>  		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+> -			netdev_err(bp->netdev,
+> -				   "not whole frame pointed by descriptor\n");
+> +			if (net_ratelimit())
+> +				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+This will just hide the error message, but the split/drop is still 
+present.
+How about limiting JML in macb_init_hw() properly?
+
+         if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len) {
+                 u32 jml = bp->rx_buffer_size - NET_IP_ALIGN + 
+ETH_FCS_LEN;
+                 gem_writel(bp, JML, min(jml, bp->jumbo_max_len));
+         }
+
+The code above is untested, so probably needs further tweaking. An 
+alternative could
+be to handle the split frames in gem_rx() correctly.
+
+> [...]
+
+Thanks,
+Nicolai
