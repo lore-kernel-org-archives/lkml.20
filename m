@@ -1,79 +1,78 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7643346FB3;
-	Fri,  2 Oct 2026 11:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984B940A945;
+	Fri,  2 Oct 2026 11:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939156; cv=none; b=q+FSTd2GsE1kfm8oZ2SlVQ+paInfgLx0FF0+xfarXslsV6GbcOjUfpj9ZfXzRTmfIphNCBGRSYDyO5s8q7YaW3Tkvmo3e9Pl7YSiufTu+1WkUSMU9Jq5vR1gY8+qaU2/XEG1UzC0loJ6HeNqsSxL/9+gJ6CR/mWv9HK8xPCjeOc=
+	t=1790939197; cv=none; b=p/es0+Jn2SLRMoibe2PHmpKagUyCbVH0nqJLE3rtczc/SPEySCh7gMwaQ4zifQhp7dTRgI/MXMuUpUiwB0TfTI89DwqLcjgVLmpSI4Aydvrj9198aXl6zyNUtEB0zvqogVSbV++gcVSnLb8B1HINgvQfP7EPxzH8IKiQ+J16eYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939156; c=relaxed/simple;
-	bh=mGxeAZM+Ponxf7bCZvYiqPovJdLJZY0Gu2OJSveg5yA=;
+	s=arc-20240116; t=1790939197; c=relaxed/simple;
+	bh=L6j2O31H9syuWtOYNd5qQMUEObSOi+tTZGC5Jny5IF8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S00D9tc8rxg5v5HIc9toZLPL1pZ/RXc+WtKvxqusIQdyOBbyNpfaXiNjugP+0HY1vIui6DxGihZaJJTwjr0m3OKRTm8ol9SFkLiJ52z76PcYre/l17XcAJUa4du6+5sCd8Vodz3q5hu3FZSulWe3xdXCIyTt9CC8r7seN/5bmCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sjtm30iC; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aRzbGQxoYvTIuT8hIcCEYdAoxJULevPzxmj2g9ApBvGndcLLM4hmaE7XuQ+PFmtANDYwmSgPIl2HPWSDBlJnG6zjYrlkBjJXrgE5BCBhwDukT/SvDRO+RaJL7Ym3nJdUgvx51Z2TFbk91MaDVUHyx6JMzXxzl/4EeKzT/HcykFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UovqIE6w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sjtm30iC"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C33882F;
-	Fri,  2 Oct 2026 04:05:50 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CDD4B3F85F;
-	Fri,  2 Oct 2026 04:05:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790939154; bh=mGxeAZM+Ponxf7bCZvYiqPovJdLJZY0Gu2OJSveg5yA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sjtm30iC6/CPpL985bC1ofmm5brYJLUn0kVQO18G8RhH2Yh5XOrHs3SsdZSxVnIBr
-	 Z/ZDfixwIcvnwqCiOApssi0HAtdlApZuOjb8i+fYedE9DrYrKTnkCguT5SitK9lTqa
-	 twTPa+U5uMzBfeke9T34bxpoggTWrkDluMgnbhWw=
-Date: Fri, 2 Oct 2026 12:05:47 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v22 09/10] firmware: arm_rmm: Add wrappers for Realm
- related RMI commands
-Message-ID: <ar-QC4vtcULyJ5dW@arm.com>
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
- <20261002061507.1600269-10-suzuki.poulose@arm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UovqIE6w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA25C1F000FF;
+	Fri,  2 Oct 2026 11:06:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790939196;
+	bh=sZcJfC4lSYb9jhPBdrXhStUCbvDBMMhqCyvkDXHCnf0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UovqIE6w080MweC07o54v6HAQKrDgjwqu5T1vAdVfkZ35u4WUWDJoSJxhP2XMFINM
+	 V6u471/iWqTrcCa+2bjU+uXTHLCdLD7VXTErEapy3IqZmbajitnhEv2gbvYyuJc3E6
+	 4a9zcbSoHzLPY2ZI0Ryy8UxC0QoQSwAFjobREewo=
+Date: Fri, 2 Oct 2026 13:06:29 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: tjdqudcks0424@naver.com
+Cc: bsingharora@gmail.com, akpm@linux-foundation.org, xu.xin@linux.dev,
+	shuah@kernel.org, cyyzero16@gmail.com, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] taskstats: fix cross-netns exit listener delivery
+Message-ID: <2026100208-gray-yiddish-d249@gregkh>
+References: <20261002105614.195370-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261002061507.1600269-10-suzuki.poulose@arm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002105614.195370-1-tjdqudcks0424@naver.com>
 
-On Fri, Oct 02, 2026 at 07:15:05AM +0100, Suzuki K Poulose wrote:
-> +/*
-> + * rmi_smccc_invoke_once: Invoke the RMI call and return the results. Do not
-> + * retry the command. Let the caller deal with RMI_BUSY or RMI_BLOCKED.
-> + *
-> + * @regs: Input parameters filled in. Updated with the ouptput results
-> + * after the call.
-> + */
-> +static __always_inline void rmi_smccc_invoke_once(struct arm_smccc_1_2_regs *regs)
-> +{
-> +	struct arm_smccc_1_2_regs args = *regs;
-> +
-> +	arm_smccc_1_2_smc(&args, regs);
-> +}
+On Fri, Oct 02, 2026 at 07:56:12PM +0900, tjdqudcks0424@naver.com wrote:
+> From: 성병찬 <tjdqudcks0424@naver.com>
+> 
+> CPU-mask taskstats listeners are currently identified only by a numeric
+> Generic Netlink port ID and exit records are sent through init_net. Since
+> port IDs are namespace-local, an unprivileged init_net socket can bind the
+> same number as a listener in another network namespace and receive that
+> listener's cross-UID exit record.
+> 
+> Patch 1 associates listener entries with the registering Generic Netlink
+> socket's namespace and port ID and cleans them up when that socket closes.
+> Patch 2 adds an acct kselftest which constructs the collision and checks the
+> normal listener, explicit deregistration, and unrelated-port controls.
+> 
+> The test was built with GCC using -Wall -Wextra and run in disposable QEMU
+> guests with the same userspace binary. On the unmodified baseline it reports
+> 3 passes and 1 failure: the child-netns listener misses the victim record and
+> the colliding unprivileged init_net socket receives it. On the fixed kernel,
+> three independent clean boots each report 4 passes and no failures. No
+> KASAN, UBSAN, BUG, WARNING, Oops, panic, lockdep, refcount, use-after-free,
+> out-of-bounds, or kmemleak diagnostic was emitted during the final runs.
+> 
+> The exact Message-ID and lore URL of the previous public posting were not
+> present in the available local sent-mail or raw-mail artifacts:
+> 
+> Link: https://lore.kernel.org/r/20261002075842.146026-1-tjdqudcks0424@naver.com/
 
-Nit: I mentioned on v21 - is the copy to args still needed? Can we not
-do just:
+Please slow down, there's no rush here and you aren't giving people a
+chance to test or review any of this.
 
-	arm_smccc_1_2_smc(regs, regs);
+thanks,
 
-(no need to respin, I can fix it locally)
-
--- 
-Catalin
+greg k-h
