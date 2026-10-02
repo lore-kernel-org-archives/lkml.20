@@ -1,133 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96393442399;
-	Fri,  2 Oct 2026 07:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0468443C0D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926750; cv=none; b=ucpUj8keEKWYNJYq3f1AQ3i4u76MOUIkGG7DxzBa46sVUaW4qjOocs1i6fxpTqGwFlsVZLFusyHBUZwmdHe2kxei4/22++CYK/6VBnWgQ+QFYrL2Zohn8JMrqL2KSsMjwcBJXCQr2zdsu6x0BDfjx5hN3itcJVdL4n6sls4jFII=
+	t=1790926752; cv=none; b=oeL1FYpaDcs4+CjRij0f+ibv6t5PbFh4t5YK9q26twaVdQkGnqJga7xZ4WmNuH6WyLaP3iAAxSymiG2XFO7chg6SQ6Mj7OHrU1rrgmn4XOJpANd4KZ0kfcD0vT5R/y3tAbl8fJQnHPGWyPJgj7M8xKvGl/piAsneBjK2bRmzvow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926750; c=relaxed/simple;
-	bh=5BFVq8ffo1QqLdJRbTDlVy7wmmmk7uEFZ9KPNIl4w4o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nX0PbZOs3a+llxcsnjQgP+K5PO9VBHQ76bG/sbMuYkPBKBdTK8nkAm2GMa9vSrh4PQEdH3VxuCEC1VF0+OThophetT2ZTqmPOO7phynGkufx2DSktQwVGIJsE4UxkpcLOwDR3RUd1dKaYej/msvS1TXJIP/nFeIF1bTEgKB0IGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l68mmSFa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790926752; c=relaxed/simple;
+	bh=GF+U/hw7WcPHBVh+HSbJ3knj3l/vkqtYcF1qErvdvEI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GkLejc6GxRvJxyqoOGd3jqFI63IrbKb6P7ocbfyHAexT20kNaTtGqriPnydo04ob6NJMZyj06j8NvmP/vRlWwf0FGVlgF0uuZGWCbmzYRBpk4iCQNUXW3OAC4mS2mb8AsqfV8ZFsO7HqCmtBuvY6WMrkzOvh7eAsFdEITI5xb4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ja+Zq61G; arc=none smtp.client-ip=91.218.175.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l68mmSFa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48D21F000FF;
-	Fri,  2 Oct 2026 07:39:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790926748;
-	bh=/ykEFIXNpa+hm5Pcanjx941BUKY55WL5z7zwr6WIafY=;
-	h=From:Subject:Date:To:Cc;
-	b=l68mmSFa39sIm3KCj2Zl/tbzFLnjFrSDQD77VNcHsl6aABH21roQxPReE8Nec4/bR
-	 pbaoE5DZ4aOyE9Qz2f3zgbEQ9H0QEqViJAt0hbRR0hN6BPHrOYr8k2qxjPmWEOus5g
-	 yNSrntaJspdEBJbSdi6NabL1fz+gc+Fk9zT9Pn/GHcLJtBpYRH+vWR//U1l6XU462L
-	 RMYUPJOLHD6il+UCfD0yKo0Rle4LoftSKHKZtcMA2Tbt6xNx8vKcyjjxU3c6mgyQtW
-	 GddLrbvQunDySxPEbBKZTxABcyzFJl7U9jdmwe2JEUwZ+rWQxREn/Xv0aH9iMex16q
-	 F8tr239zd2bTA==
-From: Thierry Reding <thierry.reding@kernel.org>
-Subject: [PATCH v3 0/3] arm64: tegra: Fix DT validation issues for Tegra132
-Date: Fri, 02 Oct 2026 09:38:57 +0200
-Message-Id: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ja+Zq61G"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GF+U/hw7WcPHBVh+HSbJ3knj3l/vkqtYcF1qErvdvEI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790926748; v=1; x=1791531548;
+ b=Ja+Zq61GcC+QTpsyXKWqEWAv4cX5VQNJ1mPEH0Oi+oYFh5PtA1gNBfLxo8PdjYRgNeTx+GXM
+ k5hrYdmpbKRZPW6LOMQAfSjg89GXakundM2WXKpyidu6HZRbd+Y2LXmdtZMw1ETcjiyrvI5rYP2
+ Psdi8BR/n71djWvCikw+1DYY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f376e38fe06fdc94;
+	Fri, 02 Oct 2026 07:39:08 +0000
+X-Mizu-Trace-ID: f376e38fe06fdc94
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Straube <straube.linux@gmail.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: [PATCH rtw-next v7 5/6] wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
+Date: Fri,  2 Oct 2026 09:38:44 +0200
+Message-ID: <20261002073845.31486-6-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002073845.31486-1-luka.gejak@linux.dev>
+References: <20261002073845.31486-1-luka.gejak@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ7CIBCG4asY1mLaoT/iynsYF0CHdkykBirRN
- L27UDca4/JNvnlmZgE9YWCHzcw8Rgo0uhRiu2FmUK5HTl1qBgU0hYQ9V0G0AFyT68j1gSMY05a
- 1ltLWLF3dPFp6rOLp/O5w1xc0U2byYqAwjf65voxl3v3XY8kLLmpbgVDSgoaji9SR2pnxyjIf4
- QMQxS8ACVBCa9VUErWVX8CyLC/2ymRPAgEAAA==
-X-Change-ID: 20260928-as3722-bindings-e2cc715b99f5
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, 
- linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2410; i=treding@nvidia.com;
- h=from:subject:message-id; bh=5BFVq8ffo1QqLdJRbTDlVy7wmmmk7uEFZ9KPNIl4w4o=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqv1+VO6vHLKS/n2JS6eugYe3dV9NJDK/DseskQ
- O2G3XDiZM6JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCar9flQAKCRDdI6zXfz6z
- obtqD/99remcsjQ8FJ7rVRfbIDA9FCpNcuSMLbDe6svLg72rC8dLBR30WybrFM+/Fl5/Xs84n5C
- MiR0sK3zZvm5Dc5RV3Ix+7kkPyQyIpm48TOhVixpWXLqEAFFhYUdaN/Ieq4ubF5IcYwygmz01lx
- aiVq4yBVy1Wk+FQsnD8IZns6TNBkGyNZ8NG42+jy9oXZEPmpUrgxmCMdXv2wFjuZGAZ8thiLoJK
- 1ePzBqcTceTVhcQ2kcL9GsefdcfmeHYYiDbdePvaXVRyl7jPjl7yvQ0krK92q5F3hgVK1gdwp33
- Vgm5j8sTwNlib+RWP5RJBzEHfr3I60azbTOHF/KAWR9HGOwWe+gx7K+8t3ErJhb2zeWE2CdIPhJ
- 0d5ffroG39jKDi9W4n2fHaNfGX++fRDddyP7/zfjWwx4PkxyBl5qntYRjMfmZp5qBeWEZ1BUyRb
- cpqencQyb3DYSUJEYZD+pmBgF1bf0xiU7vF0LyaIRo8zF6XqmNZHruwV9VVQ24xS9WmtkcMA5m0
- XYnvagONwmFWoDkFGvbdRpRvQpu+4+wvJ9/64oBX0anu9hHPeNReFE2o9UYo9iVK4SOwX41UiAi
- fmFheE7Q5UqHPSO2qgeM1MiWdU6gCm1d4LYuVz0QQeTq3jGPQ0V+XaYk4OUYoo3D6HjbEoPWsJL
- HcxT8HQ7t4OYrRw==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
+Content-Transfer-Encoding: 8bit
 
-The following set of changes fix all remaining issues on Tegra132 Norrin
-as well as some collaterals. The two json-schema conversions in this
-series are shared with some 32-bit ARM platforms and they fix similar
-issues there, too, and I've verified that no new issues are introduced.
+Add the SDIO module for the RTL8723BS, the SDIO variant of the
+RTL8723B. It binds the Realtek SDIO device ids to the shared rtw88 SDIO
+probe and points it at the RTL8723B chip information.
 
-This brings down the total number of DT validation issues for Tegra to
-44 and 16 of them unique.
+The device id table carries the same six ids the staging rtl8723bs
+driver binds to this chip, so the staging driver can be dropped without
+losing hardware support. I only have the 0xb723 variant to test with.
+The other five are included for parity with staging, which has carried
+them for years, rather than being left behind.
 
-Lee, Mark, do you want to pick up the device tree bindings conversion
-patches, or should I take them through the Tegra tree?
+The RTL8723B chip support is based on the initial work by
+Michael Straube <straube.linux@gmail.com>.
+Link: https://github.com/mistraube/rtw88/tree/rtl8723bs
 
-Thierry
-
-Signed-off-by: Thierry Reding <treding@nvidia.com>
+Co-developed-by: Michael Straube <straube.linux@gmail.com>
+Signed-off-by: Michael Straube <straube.linux@gmail.com>
+Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
 ---
-Changes in v3:
-- fix compatible string matching for per-SoC constraints
-- fix subject prefix for ASoC binding
-- Link to v2: https://patch.msgid.link/20260930-as3722-bindings-v2-0-a3bba649ebf9@nvidia.com
+ .../net/wireless/realtek/rtw88/rtw8723bs.c    | 59 +++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723bs.c
 
-Changes in v2:
-- address review comments from Rob, Mark and Sashiko
-- Link to v1: https://patch.msgid.link/20260928-as3722-bindings-v1-0-35f423a9f2b2@nvidia.com
-
-To: Lee Jones <lee@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Laxman Dewangan <ldewangan@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-To: Jonathan Hunter <jonathanh@nvidia.com>
-Cc: mfd@lists.linux.dev
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: linux-sound@vger.kernel.org
-Cc: linux-tegra@vger.kernel.org
-
----
-Thierry Reding (3):
-      dt-bindings: mfd: as3722: Convert to json-schema
-      dt-bindings: ASoC: nvidia,tegra30-ahub: Convert to json-schema
-      arm64: tegra: Add Tegra132 specific compatible for AHUB
-
- .../devicetree/bindings/mfd/ams,as3722.yaml        | 293 +++++++++++++++++++++
- Documentation/devicetree/bindings/mfd/as3722.txt   | 214 ---------------
- .../bindings/regulator/as3722-regulator.txt        |  91 -------
- .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
- .../bindings/sound/nvidia,tegra30-ahub.yaml        | 289 ++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra132.dtsi           |   2 +-
- 6 files changed, 583 insertions(+), 394 deletions(-)
----
-base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-change-id: 20260928-as3722-bindings-e2cc715b99f5
-
-Best regards,
---  
-Thierry Reding <treding@nvidia.com>
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723bs.c b/drivers/net/wireless/realtek/rtw88/rtw8723bs.c
+new file mode 100644
+index 000000000000..62ad44db20de
+--- /dev/null
++++ b/drivers/net/wireless/realtek/rtw88/rtw8723bs.c
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
++/* Copyright(c) 2026  Realtek Corporation
++ * Copyright(c) Michael Straube <straube.linux@gmail.com>
++ * Copyright(c) 2024-2026 Luka Gejak <luka.gejak@linux.dev>
++ */
++
++#include <linux/mmc/sdio_func.h>
++#include <linux/mmc/sdio_ids.h>
++#include <linux/module.h>
++#include "main.h"
++#include "rtw8723b.h"
++#include "sdio.h"
++
++static const struct sdio_device_id rtw_8723bs_id_table[] = {
++	{
++		SDIO_DEVICE(SDIO_VENDOR_ID_REALTEK,
++			    SDIO_DEVICE_ID_REALTEK_RTW8723BS),
++		.driver_data = (kernel_ulong_t)&rtw8723b_hw_spec,
++	},
++	{
++		SDIO_DEVICE(SDIO_VENDOR_ID_REALTEK, 0x0523),
++		.driver_data = (kernel_ulong_t)&rtw8723b_hw_spec,
++	},
++	{
++		SDIO_DEVICE(SDIO_VENDOR_ID_REALTEK, 0x0525),
++		.driver_data = (kernel_ulong_t)&rtw8723b_hw_spec,
++	},
++	{
++		SDIO_DEVICE(SDIO_VENDOR_ID_REALTEK, 0x0623),
++		.driver_data = (kernel_ulong_t)&rtw8723b_hw_spec,
++	},
++	{
++		SDIO_DEVICE(SDIO_VENDOR_ID_REALTEK, 0x0626),
++		.driver_data = (kernel_ulong_t)&rtw8723b_hw_spec,
++	},
++	{
++		SDIO_DEVICE(SDIO_VENDOR_ID_REALTEK, 0x0627),
++		.driver_data = (kernel_ulong_t)&rtw8723b_hw_spec,
++	},
++	{}
++};
++MODULE_DEVICE_TABLE(sdio, rtw_8723bs_id_table);
++
++static struct sdio_driver rtw_8723bs_driver = {
++	.name = KBUILD_MODNAME,
++	.id_table = rtw_8723bs_id_table,
++	.probe = rtw_sdio_probe,
++	.remove = rtw_sdio_remove,
++	.shutdown = rtw_sdio_shutdown,
++	.drv = {
++		.pm = &rtw_sdio_pm_ops,
++	}
++};
++module_sdio_driver(rtw_8723bs_driver);
++
++MODULE_AUTHOR("Luka Gejak <luka.gejak@linux.dev>");
++MODULE_AUTHOR("Michael Straube <straube.linux@gmail.com>");
++MODULE_DESCRIPTION("Realtek 802.11n wireless 8723bs driver");
++MODULE_LICENSE("Dual BSD/GPL");
+-- 
+2.55.0
 
