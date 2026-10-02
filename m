@@ -1,57 +1,76 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D6C4F96A7
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857E94F5E00
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960095; cv=none; b=gwKQJSytxq9/c/lFUG5pTsHxkAN4oksiO4WfJdjWdPr1vpnpgOVJQ7Qe1gniHK/icKUvvTsO3z7F/26w2TpsaQy6sVShHxBBAcQomLLy4dLkPW/kWnpxdGxWeWANbqA5Tew7UKa7p826eiscXuqiR3hqGvoRR7WInw+oZQxPZr0=
+	t=1790960232; cv=none; b=m4Z0KemaQz37MQzPa5yBA/k5WdZ9kG8HinccujYwrpU1kw0qUO3+08GHuofdWXh4LH4RlUzeszKUnnjknvbkEeznRqqSLXIYeW/NSRe6/eoZ8b82M5V36g/3ebr9gQW0xASIYqLXMaxGdQiJQjz9YlepVeiQls/ey0+CwnOf0SA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960095; c=relaxed/simple;
-	bh=F3lX++ECEDnCerWaE/Qm2cVLVgUL0h3RSsZEjxjpA7g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XYbFKr6UKI6dkaTJN+bDC3HGOXB/kANdlmz/fpsHeW+2jNaUytX+qwzmp5/lPYXvH+V8g8dfVKEiVQMWQ7H8ioshnJALZpOmbt/NI1IGp7TA59gWFZxKXuw1ddLHw4tOfzgZpx3iWGiRAgrK32l+1mu7hMAcxeCH2/lvaUTKDJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=chg5KHqb; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790960232; c=relaxed/simple;
+	bh=DxeMUT4oVuqn3Slh/vUwWCSTkV3fjRC+t9YaTQ801b8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GczYwPxaC6iJ2XhqM37sLXBbN/8taFJ0TfsrEqRW6M3l1WhArpIbpW7iABrjwn1UZdlBpmRP4Sv2aOMsBrjLzwjGLjIPRVV6fGC9CYiYctSa3DTuUkX7odQmyhgZ+F09kIj3TflJv0n7/KJhdqIh6jMknO/tb20M7lktyXxoQy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dVpmtU/G; arc=none smtp.client-ip=74.125.225.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="chg5KHqb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790960092;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=3venwHttFa+LgHQOSujImduuESDWjIxfZmH5qy3F8h4=;
-	b=chg5KHqbm1NJMFEa3fgCWOgCLuIr8I/j9RbpLdS9w9qCsCW3Z17MSs478RU6IdfIP+4zxJ
-	NcWKkqAorL84YWBY+Hr7lVesD73a63dRnNuCuhr9IJvZJ+/pB46mhylNc9bgy2u8u7Hs0U
-	ybjM9PvghKqehJR2py9qjhK4iXIT9s4=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-669-0DeL34JjN4OoD5f_MtJ0XA-1; Fri,
- 02 Oct 2026 12:54:49 -0400
-X-MC-Unique: 0DeL34JjN4OoD5f_MtJ0XA-1
-X-Mimecast-MFC-AGG-ID: 0DeL34JjN4OoD5f_MtJ0XA_1790960088
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A26681954121;
-	Fri,  2 Oct 2026 16:54:47 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CA8CA1956042;
-	Fri,  2 Oct 2026 16:54:45 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dVpmtU/G"
+Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48b0a57daf6so10638f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:57:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790960226; x=1791565026; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CSATVIW2jC1GbKLcdornHIOpKYy46zxyEdHFo2jVEFQ=;
+        b=dVpmtU/G599dk+AMgvpLHCqwfYHRMinSLBLknGBIMH7CR6wOafA4ybquLowfYxblx8
+         AxQLraKIn1EKQSo6iZOUyNWsZFuHE2iacotelZZ/+scltCotjW28E/UgRNRHApFfxIF7
+         OL8dP0kXGzYMjydU2hFL+KLuKS8L3uDi96/jeeE8ub0AzK+PIMLaGmliad+lEiK6tipC
+         bgKyUn2+YKfFfbufjrciPZxxEPcqT0AURpQU1Rn+3JvKZXfVgFNlc036/BWG+pKNP/q0
+         QlVuHM/pX0+YNwazodLg244nifjb62JXlerrbIhqPQ4wH2YbJ8YVy2giu84yIEiJRisE
+         Ym/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790960226; x=1791565026;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CSATVIW2jC1GbKLcdornHIOpKYy46zxyEdHFo2jVEFQ=;
+        b=E2iKZ7j+MZZMZ+t9nKI56azaDdxMussrhyu1eZpNH6/vRgrAxlgVEBvJY9j0AKoH63
+         VSAiX3cwmWI2/A2jKo4lVFI1IHQt7qZ+KZFJVKakrhxHxRPFIscGWYz9C4aSVlvNhe9t
+         ONjxd11At5dI+S4RTbFU49bIouYHn3MI29uAAG1BhWrkDcq0kHgU5dV5yUu2QBzXAonS
+         2+ZiaFpNef4F8fII1yT8qO8sYfA1TmJJ3q6pSrb4NIxVm67+dEaCHexyTUgiG3KCYmwZ
+         0YfEw/MSuR0fwsF2lVVSNXTQikm+TOeGsGn3S2iaoIAHYNFKYBKueX52GiFhi4X39wMO
+         afkg==
+X-Forwarded-Encrypted: i=1; AKwUvByaW9WQ/1CXdtaem++EdPKdTOHdzzmSIOLIcok9qsj1A9YxyZuLZNvqFuEaQ41DlHtQv9WG0Zpb46LgR08=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfxfaVO65ZZjWq9PfSdMDKOGoeS6BhqQYx87xMdEBPhAvLhktt
+	nIYEMpABcTzI3TuKtRTLrNMzUj+AB71DyFvxVvb6TgalUv3nquJxIdHW
+X-Gm-Gg: AYBFou06tsWqMcX2oE5rkakT4uFuJAl3zYxjWTf5AQ+zrT0fnpqLsWGeQMd3CE7Joab
+	XGVBWbVL7Eg/WTILwF+XpkeR8Bw4HsZPvvUe+Q5InWU3f0pXdG9DngLTjRlKioNWU4Q5VIdIn1b
+	NOo02QEXrs4vJwIPcGO+Ak8dAXIManTeBktYHQ0MD970Za7YWeEGC+c34vj7liVwtqb1GjpFXjj
+	+vHEPMpPKnAYnbptFs5si2DiNLPHAnDGWDWqvnpDS4J1U9DZF5dnBp2CLnAH7Wt0N5vuK+5dq02
+	I3tG8n3/YxYkNlQ+1s0KOFF1tJC1MRNxP6V9J+RDBG/KO94Ufu8G4WZt0NhpLvCBbtAfX8ENp4E
+	pgoDQl6x31b/ba2OGf6eBQRMcyaJr8sdNNsoW95Tj/HQFH1PbA9grqgI1cz2NSlxO8EcCU/UQFd
+	hn+BlnkIklp4ZUIVImsuOSAySOcpFZA/Bt4Sh4IMsh7lGCUo9xNk498sAaDBH8aV2PtxiRhS0sE
+	XVU0Pwko+u0Aow=
+X-Received: by 2002:a5d:5e0f:0:b0:488:8347:a110 with SMTP id ffacd0b85a97d-48b1272892cmr4421980f8f.7.1790960225928;
+        Fri, 02 Oct 2026 09:57:05 -0700 (PDT)
+Received: from serhat-ubuntu.home ([212.253.192.148])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253e5bsm6404644f8f.1.2026.10.02.09.57.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 09:57:05 -0700 (PDT)
+From: Serhat Kumral <serhatkumral1@gmail.com>
+To: djbw@kernel.org
+Cc: vishal.l.verma@intel.com,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	iweiny@kernel.org,
+	nvdimm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Farhad Alemi <farhad.alemi@berkeley.edu>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH v2] cgroup/cpuset: Handle cpu hotplug race in guarantee_active_cpus()
-Date: Fri,  2 Oct 2026 12:54:38 -0400
-Message-ID: <20261002165438.951550-1-longman@redhat.com>
+	error27@gmail.com,
+	Serhat Kumral <serhatkumral1@gmail.com>
+Subject: [PATCH] libnvdimm: Handle negative return from nvdimm_clear_poison() in nsio_rw_bytes()
+Date: Fri,  2 Oct 2026 19:56:41 +0300
+Message-ID: <20261002165641.14479-1-serhatkumral1@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,72 +78,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug processing
-synchronous"), the cpuset hotplug operation becomes synchronous. That
-commit also removes the code that handles race between cpuset_hotplug_work
-and cpu hotplug notifier with the assumption that race is now gone.
-Later commit 7a0aabd9ce69 ("cgroup/cpuset: Always use cpu_active_mask")
-updates the cpuset code to always use cpu_active_mask instead of
-cpu_ohline_mask in some places including guarantee_online_cpus() which
-is renamed to guarantee_active_cpus() in that commit.
+When nvdimm_clear_poison() fails, it returns a negative error code.
+However, 'cleared' is a signed long while 'size' is size_t.
+The comparison 'cleared < size' promotes 'cleared' to an unsigned long.
+So the error condition can be bypassed and the function can
+incorrectly return success if the subsequent flush succeeds.
 
-In the case of CPU offline operation, cpuset_active_mask is updated
-first in sched_cpu_deactivate() to remove the offline CPU before
-cpuset_handle_hotplug() is called to update the effective_cpus of the
-affected cpusets. The cpu_online_mask is updated after that near the end
-of the offline operation to remove the offline CPU. As a result, the race
-comes back and the top cpuset may not have any active CPU leading to NULL
-pointer dereference during the race window when guarantee_active_cpus()
-is called after cpu_active_mask is updated to remove the CPU to be torn
-down but before cpuset_handle_hotplug() is able to properly update the
-effective_cpus of the top cpuset.
+Explicitly check for negative error codes before comparing with 'size'.
 
-Fix this by adding back the NULL cs check to avoid this problem.
-
-Fixes: 7a0aabd9ce69 ("cgroup/cpuset: Always use cpu_active_mask")
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Link: https://lore.kernel.org/lkml/CA+0ovChh3VjsKN1g+ZGjwwY2fGTpP7uD+aCCByLj5Qbymw=bfQ@mail.gmail.com
-Tested-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Signed-off-by: Waiman Long <longman@redhat.com>
+Fixes: 868f036fee4b ("libnvdimm: fix mishandled nvdimm_clear_poison() return value")
+Assisted-by: LLM
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/all/90d3d353-28e9-4f6d-b141-a9b7157d5514@moroto.mountain/
+Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
 ---
- kernel/cgroup/cpuset.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/nvdimm/claim.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index ddc4c9c9b4fb..92559fc4c444 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -517,10 +517,26 @@ static void guarantee_active_cpus(struct task_struct *tsk,
- 	rcu_read_lock();
- 	cs = task_cs(tsk);
- 
--	while (!cpumask_intersects(cs->effective_cpus, pmask))
-+	while (!cpumask_intersects(cs->effective_cpus, pmask)) {
- 		cs = parent_cs(cs);
--
-+		if (unlikely(!cs)) {
-+			/*
-+			 * The top cpuset doesn't have any active cpu as a
-+			 * consequence of a race between its caller and the cpu
-+			 * hotplug operation where cpu_active_mask is updated
-+			 * asynchronously before cpuset_handle_hotplug() is
-+			 * being called to adjust the effective_cpus of the
-+			 * affected cpusets. But we know the top cpuset's
-+			 * effective_cpus is on its way to be identical to
-+			 * cpu_active_mask minus the exclusive CPUs dedicated
-+			 * to other valid cpuset partitions. Just pass back
-+			 * the filtered cpu_active_mask in this case.
-+			 */
-+			goto out_unlock;
-+		}
-+	}
- 	cpumask_and(pmask, pmask, cs->effective_cpus);
-+out_unlock:
- 	rcu_read_unlock();
- }
- 
+diff --git a/drivers/nvdimm/claim.c b/drivers/nvdimm/claim.c
+index 309cd2cddb0e..2725dceaf938 100644
+--- a/drivers/nvdimm/claim.c
++++ b/drivers/nvdimm/claim.c
+@@ -263,7 +263,7 @@ static int nsio_rw_bytes(struct nd_namespace_common *ndns,
+ 			might_sleep();
+ 			cleared = nvdimm_clear_poison(&ndns->dev,
+ 					nsio->res.start + offset, size);
+-			if (cleared < size)
++			if (cleared < 0 || cleared < size)
+ 				rc = -EIO;
+ 			if (cleared > 0 && cleared / 512) {
+ 				cleared /= 512;
 -- 
-2.55.0
+2.53.0
 
