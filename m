@@ -1,390 +1,255 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B8C3E9C05
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944952; cv=none; b=gGtCYpGxh7v56aSy1WKcYurATzt6ho0gpo/YilAOCc9QrdcZHnIoFF0Nd9yU/2c5alBXkNFE8VaFiahQC0eLpxqjZekGcV8sBgWzAzLr2H/tc/DNcPKPH2IuAhH/4hWEqh1HrR0kGEeOCxHF4XX5cC0J9XRyd2FWmRFdJLwXYL8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944952; c=relaxed/simple;
-	bh=XSRr2dcamW9s+xK37mZQf/IP9nzTt+hMu0KI7ww4FIE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=n0GNkl1AkE2y2wNG/AjBADZG/p/oO9jBYpP8w+Ht2l3HVNRBKfwTSTKjzJ5g0YZnUXeljqY9OzFLjxFz6akemJwxEK/sWifjTr5yh3cafko/a3DcDt9kP6JBz3evS7QPHRe0dkC6OSwfyDN/LaTxdVqKMSRYBUV2Vg68hvHp+6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IiN0rBjn; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB324379C4A;
+	Fri,  2 Oct 2026 12:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790945001; cv=fail; b=qd88L8DtewKNbp5bLUfBCFIFcImWvR9730MzsLM+WVD2s8HhdCxBAf3P7yLIeUxDG3rYBZSwDihEC58JL7pMlVu/kVqqB7beKWMLk3HbCNafche2WzQ4N/EEg0/fYPT7r2x5wJGyzA32V1i2hbbwW+Jqf0bHNydoL8yYtg/FFTQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790945001; c=relaxed/simple;
+	bh=lCWdmIYmJvgNBYZqTnUIXbUzBl9C0MXTdV+jCHK8lGU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PoGVhion2DPwEyBun45ObF8RHQZA9ES7EBtWps+D2aEZO1jsClIe+guCvN3iC2UVtQov1QwMSCfEYLNmBAFLjlYAVYoVrpQ0C2bzLrz9KMOOE3HHg2ppbZopDKlpCs1vHOWY4J4z+sCqfctYVNXaG7kLe3Q/rbyrDFlohbXrmY4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JgJmqYox; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IiN0rBjn"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d9057fab9eso82146815ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:42:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790944950; x=1791549750; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bqiEufa+6Y7AKpg1CmFTqo5DDymUPYRzxbg/Z7GvGSg=;
-        b=IiN0rBjn9n9NfYnYHd/bY0vueyAQWm2I1KrzKgjwaRfL+Ad2ElQt+d9eG+Xgs5NaQY
-         S3kTwAODlyHmZu7TKsq9EHjXuO2ZocuX+UPxBNCgtsLH2peyfSEcujkXW9EF1vu80bUn
-         DgCxvtTEfhe9Vfbr0knSmOAA/3NEM5zBy+HO6Ib7F/tI8Kkyl/ybywYaRRSVjssUtYMq
-         EKTeAau4Cw27Yrmuh2B/Fx/Fjj6sq+jl8vPsRbNkXSAIvXh6vMOVeWVvQAHP00MsM4Zn
-         eyAgrhpXUeUtStf2mEcgogJYpH5m74saKiQj/8caE6I+tc0Q0zMCAHWxFXSg/loxtWpG
-         au6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790944950; x=1791549750;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bqiEufa+6Y7AKpg1CmFTqo5DDymUPYRzxbg/Z7GvGSg=;
-        b=PnCJcj1n7X7ShJRyQXdoDzgaO5wThrWnCwY2f5i4wsFgo3rDCWHbqjNLbZ0zZnIlgG
-         hR8f7thUFgffDHpBMWVI1uAcKePA3LJYrfvmiiqqbJp3xMtbgGDS/r8b1Mi2vS8xBJ/C
-         K101dJxpN9eb6+nyRjgjyHbZedxz2Hh5ujQCZqpJg+W68meq1TGpVYjbRhDO8M3Lv13+
-         aRZD/aZv3j0UuI53rf9FTNMCqN5vrsTDmjRkw31Q+quk2MCNM1WCdBHwuoQyV49Pxkgt
-         FdKiE8eIchLFlfuPf1l0Qj4Ez/O6FDa0aMm9o9d8UhNJV/AuftilPQ9YG4VB1zSFqlfe
-         7O1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxWrhWzEIMz0CjQ7BqNeOtjt/Au3TJQJbJ3y3KtNEdzvZAmrk/awn5pZwvRFuPSJisqZgEHbBHAAWXfzJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILOsy1TgtMyE/Oz0aew37lMAxsSyO4XSXenXlkhZdrB6oW+gjA
-	Xln079aaRUy5AR29f8lse36jWkpkPH3/u+d/kXHRWKeBNtUzFKzL2HjwdWZl89T2CbxLyZoQwn6
-	t
-X-Received: from plbko11.prod.google.com ([2002:a17:903:7cb:b0:2e3:180e:ba6e])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e892:b0:2e2:d77b:e586
- with SMTP id d9443c01a7336-2e49b6cee8cmr25721005ad.60.1790944949342; Fri, 02
- Oct 2026 05:42:29 -0700 (PDT)
-Date: Fri,  2 Oct 2026 12:42:25 +0000
-In-Reply-To: <20260928063824.1386524-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JgJmqYox"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790945000; x=1822481000;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=lCWdmIYmJvgNBYZqTnUIXbUzBl9C0MXTdV+jCHK8lGU=;
+  b=JgJmqYoxLeOB4Fj3zJ4BL6hRatbpkB01Hvrr5T5LeofDcFIopFwL4+wp
+   l7hVqWH46RFUgWbF7G/tWXfyXP1yma+2lXAp5t8sMLgcQnZV6rmJhU0hM
+   AatAFWCYAmqXDh+jkBLEYguaj31NP05CsYVPp8JPpKvOTA+j7ZANhbmJ5
+   7Y+86KxtTugZTPB1Tq0rODGQiil6ze4BBeLFXzy0cnhaOBppHH45BsiqK
+   EKNCL9uTn2SzxxOgQNwsAAuu7dROTl+TpSBcHbwfljXP50K6aO0BctPRp
+   zRXTSd6O9JFMTjuC+m8nS8UCXJh2RQ534TAqJEoi0MMFmQWTov2OBzkip
+   w==;
+X-CSE-ConnectionGUID: 8C8vhmxWTUqtw+oX1DjEuQ==
+X-CSE-MsgGUID: l9p0fZHIR8yuhbLjriF6hg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="95523342"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="95523342"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:43:19 -0700
+X-CSE-ConnectionGUID: YTZAOi6+SR2QEwflnkj4Kw==
+X-CSE-MsgGUID: +5QTbHcWTyyRjaN+JibLAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="304203425"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:43:19 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 05:43:18 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 2 Oct 2026 05:43:18 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.52) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 05:43:18 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bdDWqkvDR7C9hrWsbeYmMX4c+SDE+j/2hXnkR7FDeb9PtAz+ycG1NfcrNJ/9OuT7PPgvMJfAy/O9TeAGSz/n2jxxoL1GHDNmzmOMR+B15vwcOV3Gv3UIaskqRbspAwilAZj9IyPee2HeHuEoLs0gaVUuptgr6rQeVTNJ3Qe5E8efMC9veaF/4C6/GSui0vYkzZo6C0HuGThWDP+yjV+R5vmR8Y/78SfAFd1gYmV4dQcmzuNb8h4Gk0kWZweqaFoIXCPZF9i3+u/4P3qXKo+8I5kDiQOVLq2WbQiY8AoM+RHC0pKnvJcPFb7TDegpdeBhKvuhB5Mrh6O3j8KWTBnd8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M6U4fBkGRHm5iXIYHmZPlYvq7vOUab9qlHXrIU9KF6Y=;
+ b=Q/glVl+GEFSZLe8ZKU9130Ve5TY3/V6v/aikmndii6pDMNYBDBYnsTMYGbZVTluBLQtv4WP2M6+sOQ45OPKr030Xvpt9T+EkTXPS29EG6asa19UaWCAefkHRVFTfW4k++MY9a/A26u/7SaWFIrviEPKcin+a8dW5YVrcDOZ7mtpT5SQ6sppIKH4omkcQnjPmBbwlx8wDZFEVjciY0Mkgc191BgIws77h9uDkyrbOzOaIWFmzTu1PGt1jP0Djzf9gEpmtUvrZwRG94zTjozL8gCrOJiLAHORzd6mVVLNMsmw2JuS2jBYTQ2nJBJMogs87IMsVH7r727IpincRbrOUaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH3PR11MB046149.namprd11.prod.outlook.com
+ (2603:10b6:610:367::19) by LV8PR11MB8534.namprd11.prod.outlook.com
+ (2603:10b6:408:1f7::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
+ 2026 12:43:16 +0000
+Received: from CH3PR11MB046149.namprd11.prod.outlook.com
+ ([fe80::7c3f:5300:19c4:b823]) by CH3PR11MB046149.namprd11.prod.outlook.com
+ ([fe80::7c3f:5300:19c4:b823%6]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 12:43:16 +0000
+From: "Ruhl, Michael J" <michael.j.ruhl@intel.com>
+To: "David E. Box" <david.e.box@linux.intel.com>,
+	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+	"Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "Siddiqui, Ayaz A"
+	<ayaz.siddiqui@intel.com>, "Muqthyar Ahmed, Syed Abdul"
+	<syed.abdul.muqthyar.ahmed@intel.com>, "intel-xe@lists.freedesktop.org"
+	<intel-xe@lists.freedesktop.org>, "hansg@kernel.org" <hansg@kernel.org>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH 1/3] platform/x86/intel/pmt: Fix NULL dereference when
+ reading crashlog data
+Thread-Topic: [PATCH 1/3] platform/x86/intel/pmt: Fix NULL dereference when
+ reading crashlog data
+Thread-Index: AQHdUfDK3gfLc439Pk2pzeQ3Z8J+mLbqMFiQ
+Date: Fri, 2 Oct 2026 12:43:16 +0000
+Message-ID: <CH3PR11MB04614953E9398FF44E0BABE0F3C1892@CH3PR11MB046149.namprd11.prod.outlook.com>
+References: <20261001220351.1592138-1-david.e.box@linux.intel.com>
+ <20261001220351.1592138-2-david.e.box@linux.intel.com>
+In-Reply-To: <20261001220351.1592138-2-david.e.box@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR11MB046149:EE_|LV8PR11MB8534:EE_
+x-ms-office365-filtering-correlation-id: b3c39b87-ab02-4e06-2915-08df2082baf9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|11063799006|4143699003|10067099003|56012099006|38070700021|18002099003|22082099003|921020;
+x-microsoft-antispam-message-info: 6eHKlnscRPV+vwMdta38L9m2axbNsKJabGyfFHMG2MA6vv+1BfskJxhg1D4CNOZB8lFREdDuIgIXL2rPuD3EKuXfAYrxyQcJwC6rx2VdOPv75BUskVOk0HaPk017x8X1hE3JEOBjhFsZmH++VoW1mw1TWDzLVaVW8zYLw0ETEr9+f/llfNHLpsKtskhUo5451AeLiOCVIhdUAti89W5l9fH1VI4sN8KCSJ4fys6BeATnhd3RcaUz0gAQof6Sd0qd0sAFVYn5mlErFqrl58kkUmZki31K9Mv2vtB5YMo9dk1sNxgJffK5qUImxJ7HL9kB6lai4pHkEO2KrKzEbaX/yp+i08cer7VCG1lLDmI/br0wx+70Z8eNuKZPi4XwP/EhB8WKOUGIV9T/xJYQyZxio9ZnxwIpYfq6UqMFgKvUioY3xILGTG2genfB2Y7fcAhodwhpoMLj+ACImKxay88trtPoaZuW8h1j1F9nH436oS0CEhos6LIOig7lJSyD30uiPOg2tqjpft2iskuae7g+v/y4XF20w3EzGjVvUtB97EuE9FVV8LxVriShr3PPjOQ2my3mliIXaGVWZ6lDQpW8jDJAwAv1Iq/l7ixXs9BxChPnlABxYzfyAFqck3/xvNoY2I+h5TI/13gK+rBG+5opdjzDOBuFYvxFc201IaLijLZ7BVt+vx4Sr0dPnUzzjZOKmerKQzh0AaU8rXqkdcl6v4KLto5UkvrL4oyQi8taxkBQzvb7/HWtZBPC9T6K6eiS
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB046149.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(11063799006)(4143699003)(10067099003)(56012099006)(38070700021)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fOgoftBLuATyol+cNJYqfMKJ2CFzRE4NkQ0v62mEziK7IeLyCHPJNLcqRlR7?=
+ =?us-ascii?Q?+73LoPOuc/t0RdooSQ6Dw6Zbwi3pYasR5PJ4xiJ6XufVmNMmn5ZMl203I15a?=
+ =?us-ascii?Q?iQjJo3M2u3S7EZw8XILsIUNCTAyAXegsGC5yeWgTCWMWWsoloFEPIxKc22vt?=
+ =?us-ascii?Q?3qrR6VKon9oek8wiTEwSRlNl5u422biRAuseQ0k2J/trKm6TZ59PwskVn2sj?=
+ =?us-ascii?Q?W499wRkYqcC4HS3ioVuTm7eHEeT5Z90NbdwOGQ/2sl2AUOnTM/ihimZWtXz1?=
+ =?us-ascii?Q?5op66Q1wCyoJ/LueL15V8SIsYOYb/OaHOQYGAgS51lppH/a0k0eSSXapMsn1?=
+ =?us-ascii?Q?4YVcOtfFUFON/nIVY3Y9jxoSpbayy1146xr4EGUgk66zixs7vjkXL4ZhFzhk?=
+ =?us-ascii?Q?GwgV0hJ+Md+tQFqhQFNxmG7iIZNxWbjRNCbSnI7CC+ghnfJ6eL+KyXP6yyxx?=
+ =?us-ascii?Q?yRXXpCSQoyiDFnrEyQJzL4FG4HnU+HMDDOal3pMhiBgP+dtLOaZEZo6AyWbH?=
+ =?us-ascii?Q?2kpSidghw9q9EUPi+bPE0qI8ODKhDx41QrRpDAw4afdJ4hXWkzW0ybOW/ACl?=
+ =?us-ascii?Q?4VNb37nEi8FcUs7tZqhwWVPx2WjTBXDENa4ufpTYdm3VpK2Q4oXmq0j/JsMc?=
+ =?us-ascii?Q?7BI4vdRrlv9An4RChWNSveThuPJKMz4MCFmoGMd06Lk7vyaAzP415e945mZD?=
+ =?us-ascii?Q?NuxUArOwvvJy6Od5uOFAP0lSSDvku1ajt71Y/xpNQg8gRsaHv3JgH/PeFxBs?=
+ =?us-ascii?Q?EGUBBDeIdWr3M1pA6suLfYVcVAslTPCkN4xesXtWRuy5FxYcDR7D4ZVxLfkF?=
+ =?us-ascii?Q?r3eXyukkMZPD2EtkL+8hAZV9z8enx8fxXO6VZ0VIelfvjE1DOW26vKzUd+p+?=
+ =?us-ascii?Q?L/sL4RUFLAMePenZd1RFtPn6O8b+wQk/z9UMXTvCvUhgsO7MdfUtQNAxH2Ai?=
+ =?us-ascii?Q?UcDA25Xdybhr3BUFQuEE32Na+sVB5AxtPWdwe221vCqm+DVCl32Jnq7A+Bup?=
+ =?us-ascii?Q?1hkDmj2TctNtDe2bBGUNxRM5o/TYA8ZjMyxvEpxca93wdFpLnKGO9WpooiMQ?=
+ =?us-ascii?Q?YBhERp9uiyeWWYehmSo0VZmqQptVCCN6Wi/mah+KyTxEJ/19/cLQOqCOCiar?=
+ =?us-ascii?Q?F/2hgo1jID952QJxYVHYRVLMNyVZDDkch84t8L/kQSut0p9Fjfhj/uOtiFx0?=
+ =?us-ascii?Q?gdzhCWlP685KaHf9yj72GOpfA1WhNqdS+mYD3aQ3exJCmCjcBGMRHvUj+b02?=
+ =?us-ascii?Q?9HYp8y6bVLq6cmc+22QlQ0yTgzki74Kjk8+NcmnjK36QHMrakj8zR362ITqu?=
+ =?us-ascii?Q?IEvF2ys+/tJXeBQixn9f8LEvIQT9UzxbNffs6WucGozs9wuHWhnHEsuwwfXb?=
+ =?us-ascii?Q?5BSnu4NvPkQkWtyQkvS4N6CY8bjMn4FpzXEjknIji3uMKdvsTJFQip/F9ZdJ?=
+ =?us-ascii?Q?0ETYo1yu/ATbNRHNQL6Gc+zUWmuwuoXjuMfR8dwg4QbYPJTf9NnYdxTH3BlM?=
+ =?us-ascii?Q?G9jjOR6iQWgPR2s0NCJI2eZiQ5oURlYJjPGMDkAeRtW5dTjfF0AFXoWFpmWb?=
+ =?us-ascii?Q?DvcV/oOPZhQjIkVwpRZZnj4CN0i5cbg4spQOwUMInRRx3jtL5svg+E8E8Udm?=
+ =?us-ascii?Q?17Pc8oDORuy4Bl7JH8iIAi3WpqQxHLFgfzEarei8nbZgG5g64nUIrP1fiJXk?=
+ =?us-ascii?Q?nCcSnRo2FSwgDdEpJE//awi/Yospu+X31qJjMQ+tFt/DzDuXTL9i+zX4gHOv?=
+ =?us-ascii?Q?GVoWPbFvkw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260928063824.1386524-1-morbo@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261002124226.435265-1-morbo@google.com>
-Subject: [PATCH v2] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-From: Bill Wendling <morbo@google.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
-	Jeremy Kerr <jk@ozlabs.org>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: y0UJtoBzxciZojLW9WswgZHCXVypqImb6/0w4yBmwSrMAE2emaHhld/IIe8BKb5Crgtb2aSaDjJPDbePEA7BOuVyFv26j26fDIZLypziIhNf66Rk11H1IHHYX0HqNmDCnk5tQ1/AkoDCxQ8pOzdkJztdYxR8WgsqKF2CHImMAnxG/S+zM5CqhvgHltHaWpJar2rDLbuKKqQHsadBRAIqbTVONhR/UDbVSyjBrRnxQy5RHwzUtVFPfK4Xl54+w5l6QvODIYBj61zm4+g0NXxT5SOp3iOXIOjmAZQCXzUTukJ1mzB0ab+3wWZNW7VwHXGwni6GeeiYK6sl5PKju7WEOA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB046149.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3c39b87-ab02-4e06-2915-08df2082baf9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 12:43:16.4594
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uAULExFO5O4wi1vmnPYlyrWM+tvygsk5RsDkoCDXlRJYppcPtgEJx/812PLX5OdVU86bKypkf2Ryi+hGEUepdMA2w4wsyired4nW+9zdxzw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8534
+X-OriginatorOrg: intel.com
 
-The 'data' pointer field in 'struct acpi_gpio_mapping' is associated
-with the 'size' field, which represents the number of elements of
-type 'struct acpi_gpio_params' allocated for 'data'.
+>-----Original Message-----
+>From: David E. Box <david.e.box@linux.intel.com>
+>Sent: Thursday, October 1, 2026 6:04 PM
+>To: ilpo.jarvinen@linux.intel.com; david.e.box@linux.intel.com; linux-
+>kernel@vger.kernel.org; platform-driver-x86@vger.kernel.org; Vivi, Rodrigo
+><rodrigo.vivi@intel.com>; Ruhl, Michael J <michael.j.ruhl@intel.com>; Sidd=
+iqui,
+>Ayaz A <ayaz.siddiqui@intel.com>; Muqthyar Ahmed, Syed Abdul
+><syed.abdul.muqthyar.ahmed@intel.com>; intel-xe@lists.freedesktop.org;
+>hansg@kernel.org
+>Cc: stable@vger.kernel.org
+>Subject: [PATCH 1/3] platform/x86/intel/pmt: Fix NULL dereference when
+>reading crashlog data
+>
+>Commit 353042d54d82 ("platform/x86/intel/vsec: Switch exported helpers
+>from
+>pci_dev to device") changed intel_pmt_read() to pass entry->ep->dev to
+>pmt_telem_read_mmio() in place of entry->pcidev. entry->ep is only
+>allocated by the telemetry namespace's pmt_add_endpoint() hook. Crashlog
+>entries never get one, so any read() of a crashlog sysfs data file
+>dereferences a NULL pointer.
+>
+>Use the intel_vsec_device parent device instead. The PMT class device is a
+>child of the auxiliary device, so derive it the same way
+>intel_pmt_attr_visible() does. This is the same device telemetry stored in
+>ep->dev, so behavior for telemetry and any read_telem() callback is
+>unchanged.
+>
+>Fixes: 353042d54d82 ("platform/x86/intel/vsec: Switch exported helpers fro=
+m
+>pci_dev to device")
+>Cc: stable@vger.kernel.org
+>Assisted-by: LLM
+>Signed-off-by: David E. Box <david.e.box@linux.intel.com>
+>---
+> drivers/platform/x86/intel/pmt/class.c | 4 +++-
+> 1 file changed, 3 insertions(+), 1 deletion(-)
+>
+>diff --git a/drivers/platform/x86/intel/pmt/class.c
+>b/drivers/platform/x86/intel/pmt/class.c
+>index d0ab8e33c62a..b69c79785d9c 100644
+>--- a/drivers/platform/x86/intel/pmt/class.c
+>+++ b/drivers/platform/x86/intel/pmt/class.c
+>@@ -90,6 +90,8 @@ intel_pmt_read(struct file *filp, struct kobject *kobj,
+> 	struct intel_pmt_entry *entry =3D container_of(attr,
+> 						     struct intel_pmt_entry,
+> 						     pmt_bin_attr);
+>+	struct device *dev =3D kobj_to_dev(kobj);
+>+	struct intel_vsec_device *ivdev =3D
+>auxdev_to_ivdev(to_auxiliary_dev(dev->parent));
+>
+> 	if (off < 0)
+> 		return -EINVAL;
+>@@ -100,7 +102,7 @@ intel_pmt_read(struct file *filp, struct kobject *kobj=
+,
+> 	if (count > entry->size - off)
+> 		count =3D entry->size - off;
+>
+>-	count =3D pmt_telem_read_mmio(entry->ep->dev, entry->cb, entry-
+>>header.guid, buf,
+>+	count =3D pmt_telem_read_mmio(ivdev->dev, entry->cb, entry-
+>>header.guid, buf,
+> 				    entry->base, off, count);
 
-To improve bounds checking via CONFIG_UBSAN_BOUNDS and
-CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
-attribute.
+Hi Ilpo, David,
 
-Analysis of allocation, assignment, and access points shows that the
-pointer is never accessed before the count is set, which guarantees that
-this annotation is safe and will not cause runtime panics or
-false-positive bounds checks.
+My patch:
 
-Cc: codemender-patching+linux@google.com
-Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
----
-v2: Undefine "__counted_by" and "__counted_by_ptr" in the EFI stub
-    library as it doesn't need it and Clang is missing a flag to
-    enable them.
----
- drivers/firmware/efi/libstub/alignedmem.c      | 8 ++++++++
- drivers/firmware/efi/libstub/efi-stub-helper.c | 8 ++++++++
- drivers/firmware/efi/libstub/file.c            | 8 ++++++++
- drivers/firmware/efi/libstub/gop.c             | 8 ++++++++
- drivers/firmware/efi/libstub/mem.c             | 8 ++++++++
- drivers/firmware/efi/libstub/pci.c             | 8 ++++++++
- drivers/firmware/efi/libstub/printk.c          | 8 ++++++++
- drivers/firmware/efi/libstub/random.c          | 8 ++++++++
- drivers/firmware/efi/libstub/randomalloc.c     | 8 ++++++++
- drivers/firmware/efi/libstub/secureboot.c      | 9 +++++++++
- drivers/firmware/efi/libstub/smbios.c          | 8 ++++++++
- drivers/firmware/efi/libstub/tpm.c             | 9 +++++++++
- drivers/firmware/efi/libstub/x86-5lvl.c        | 9 +++++++++
- drivers/firmware/efi/libstub/x86-stub.c        | 8 ++++++++
- include/linux/gpio/consumer.h                  | 2 +-
- 15 files changed, 116 insertions(+), 1 deletion(-)
+[PATCH v11 01/20] platform/x86/intel/pmt: complete pcidev to device update
 
-diff --git a/drivers/firmware/efi/libstub/alignedmem.c b/drivers/firmware/efi/libstub/alignedmem.c
-index 31928bd87e0f..36248a13f15b 100644
---- a/drivers/firmware/efi/libstub/alignedmem.c
-+++ b/drivers/firmware/efi/libstub/alignedmem.c
-@@ -1,5 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <asm/efi.h>
- 
-diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
-index 8e43eb3f418b..a97d086a76a1 100644
---- a/drivers/firmware/efi/libstub/efi-stub-helper.c
-+++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
-@@ -7,6 +7,14 @@
-  * Copyright 2011 Intel Corporation; author Matt Fleming
-  */
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/stdarg.h>
- 
- #include <linux/efi.h>
-diff --git a/drivers/firmware/efi/libstub/file.c b/drivers/firmware/efi/libstub/file.c
-index b2601e284695..e845dc2e7aa0 100644
---- a/drivers/firmware/efi/libstub/file.c
-+++ b/drivers/firmware/efi/libstub/file.c
-@@ -7,6 +7,14 @@
-  * Copyright 2011 Intel Corporation; author Matt Fleming
-  */
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <asm/efi.h>
- 
-diff --git a/drivers/firmware/efi/libstub/gop.c b/drivers/firmware/efi/libstub/gop.c
-index b800a6c2290c..f9736d2eff22 100644
---- a/drivers/firmware/efi/libstub/gop.c
-+++ b/drivers/firmware/efi/libstub/gop.c
-@@ -5,6 +5,14 @@
-  *
-  * ----------------------------------------------------------------------- */
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/bitops.h>
- #include <linux/ctype.h>
- #include <linux/efi.h>
-diff --git a/drivers/firmware/efi/libstub/mem.c b/drivers/firmware/efi/libstub/mem.c
-index fec561e3a792..65bea615420c 100644
---- a/drivers/firmware/efi/libstub/mem.c
-+++ b/drivers/firmware/efi/libstub/mem.c
-@@ -1,5 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <asm/efi.h>
- 
-diff --git a/drivers/firmware/efi/libstub/pci.c b/drivers/firmware/efi/libstub/pci.c
-index 5daa7a0a0e87..a4c9bf67d5e0 100644
---- a/drivers/firmware/efi/libstub/pci.c
-+++ b/drivers/firmware/efi/libstub/pci.c
-@@ -6,6 +6,14 @@
-  * Copyright 2019 Google, LLC
-  */
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <linux/pci.h>
- 
-diff --git a/drivers/firmware/efi/libstub/printk.c b/drivers/firmware/efi/libstub/printk.c
-index 0a18cfe32528..e2ae89a27b78 100644
---- a/drivers/firmware/efi/libstub/printk.c
-+++ b/drivers/firmware/efi/libstub/printk.c
-@@ -1,5 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/stdarg.h>
- 
- #include <linux/ctype.h>
-diff --git a/drivers/firmware/efi/libstub/random.c b/drivers/firmware/efi/libstub/random.c
-index d63262d36e47..d370f0d79c07 100644
---- a/drivers/firmware/efi/libstub/random.c
-+++ b/drivers/firmware/efi/libstub/random.c
-@@ -3,6 +3,14 @@
-  * Copyright (C) 2016 Linaro Ltd;  <ard.biesheuvel@linaro.org>
-  */
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <asm/efi.h>
- 
-diff --git a/drivers/firmware/efi/libstub/randomalloc.c b/drivers/firmware/efi/libstub/randomalloc.c
-index fd80b2f3233a..b09a26aa51e9 100644
---- a/drivers/firmware/efi/libstub/randomalloc.c
-+++ b/drivers/firmware/efi/libstub/randomalloc.c
-@@ -3,6 +3,14 @@
-  * Copyright (C) 2016 Linaro Ltd;  <ard.biesheuvel@linaro.org>
-  */
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <linux/log2.h>
- #include <asm/efi.h>
-diff --git a/drivers/firmware/efi/libstub/secureboot.c b/drivers/firmware/efi/libstub/secureboot.c
-index 516f4f0069bd..07c9782e0c44 100644
---- a/drivers/firmware/efi/libstub/secureboot.c
-+++ b/drivers/firmware/efi/libstub/secureboot.c
-@@ -7,6 +7,15 @@
-  * Copyright (C) 2013 Red Hat, Inc.
-  *     Mark Salter <msalter@redhat.com>
-  */
-+
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <asm/efi.h>
- 
-diff --git a/drivers/firmware/efi/libstub/smbios.c b/drivers/firmware/efi/libstub/smbios.c
-index efbbfc3c2c0d..98dc3ee40958 100644
---- a/drivers/firmware/efi/libstub/smbios.c
-+++ b/drivers/firmware/efi/libstub/smbios.c
-@@ -2,6 +2,14 @@
- // Copyright 2022 Google LLC
- // Author: Ard Biesheuvel <ardb@google.com>
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- 
- #include "efistub.h"
-diff --git a/drivers/firmware/efi/libstub/tpm.c b/drivers/firmware/efi/libstub/tpm.c
-index 73f001114732..27bc0ccc2a2b 100644
---- a/drivers/firmware/efi/libstub/tpm.c
-+++ b/drivers/firmware/efi/libstub/tpm.c
-@@ -7,6 +7,15 @@
-  *     Matthew Garrett <mjg59@google.com>
-  *     Thiebaud Weksteen <tweek@google.com>
-  */
-+
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <linux/tpm_eventlog.h>
- #include <asm/efi.h>
-diff --git a/drivers/firmware/efi/libstub/x86-5lvl.c b/drivers/firmware/efi/libstub/x86-5lvl.c
-index c3da05c0df8b..3112ab4b2623 100644
---- a/drivers/firmware/efi/libstub/x86-5lvl.c
-+++ b/drivers/firmware/efi/libstub/x86-5lvl.c
-@@ -1,4 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- 
- #include <asm/boot.h>
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
-index f4799e29f4cf..77e806c2b016 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -6,6 +6,14 @@
-  *
-  * ----------------------------------------------------------------------- */
- 
-+/*
-+ * The EFI stub doesn't execute in the context of the kernel, only in the
-+ * context of boot firmware, which isn't the time or place to crash the kernel.
-+ * Therefore, disable the __counted_by__ attribute.
-+ */
-+#undef __counted_by
-+#undef __counted_by_ptr
-+
- #include <linux/efi.h>
- #include <linux/pci.h>
- #include <linux/stddef.h>
-diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio/consumer.h
-index fceeefd5f893..2b80cf7aa7e7 100644
---- a/include/linux/gpio/consumer.h
-+++ b/include/linux/gpio/consumer.h
-@@ -667,7 +667,7 @@ struct acpi_gpio_params {
- 
- struct acpi_gpio_mapping {
- 	const char *name;
--	const struct acpi_gpio_params *data;
-+	const struct acpi_gpio_params *data __counted_by_ptr(size);
- 	unsigned int size;
- 
- /* Ignore IoRestriction field */
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Fixes this issue in a slightly different way... (uses entry->dev rather tha=
+n entry->pcidev).
+
+David,
+
+In my patch I have also updated the intel_pmt_get_features() function to us=
+e the
+entry->dev value (rather than entry->ep->dev).
+
+I think the ep->dev is for Telemetry access, and "features" is a general us=
+age?
+
+Should the _get_features stay entry->ep->dev?  or is entry->dev "more corre=
+ct"?
+
+Thanks
+
+Mike
+
+> 	return count;
+>--
+>2.43.0
 
