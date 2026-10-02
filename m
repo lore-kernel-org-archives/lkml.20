@@ -1,56 +1,56 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39473374A0E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864C951121D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:26:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790965625; cv=none; b=XL2Ah+5XckjB0ZoGGrMmJ0uW8CLlKJ6xgg5iGWvCvxK0o0iRiejsKgKq/YkCPO/3KVOPgBwHGBeAFxIsn6CzBw183A35oBPY0uXkdbUfnmavpEzan4o6fiB9WPJKYa+pfi67Y1EIzmjiwNqgVx7WVuZC2/SGqWHBo3jeDExuq4s=
+	t=1790965626; cv=none; b=pJxsra4vfMWHad99EMvgvDRJbca0aH4j9cpQkntv98tFehj2822ywJoKZRIu2taCP0xkdggYRUkr8U6n5LSBeFu+9Du1N1NWSb5LO+q64BsQ1QUKg194Od2Kq+SS0rOKwkDyoLVNah0MAztIacF0PA66NjKjaeLzyx6kqdRHvO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790965625; c=relaxed/simple;
-	bh=O+793EYzWG7A1sVMPetiitPJYOso2r5fE8XdxoCpWgs=;
+	s=arc-20240116; t=1790965626; c=relaxed/simple;
+	bh=Ppsm2iwCwEiXBncYOr0kj+K4ygWswKzoOM3THLkaBOc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=ePOhU+U1dxncOqIVXt5+/ThQH3cSjMPUUrWleW0L7bXwkKedOv66FXglJmjM0CnMpDP0u5X7kNyX+EN28A7yGlYxwakeNDPjG5atSHaZjfaCRFOElc9Vq7j+tJUhniye/K15B/5YRxT9ziMYFBab9Ux6MY8pbFeH6n6QguciShg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZFlRGcVM; arc=none smtp.client-ip=74.125.82.198
+	 To:Content-Type; b=gBI7SZUaktPqj+XNNfag4fOwVejUJD56MNQ4n1QJq7yiEaLhJuLdwKqbreohSuGjOrzV0Kyu4wX9ysRL9Nf8gHhM5Ba50vt3vO5D+j6fcWCcNSREOdXz/3w4X1oVLQE0H8/2DoF47GWYu+QWh7z1DMdsoQvymtB5OPlSsqKa6rQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L8L9GbeW; arc=none smtp.client-ip=74.125.82.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZFlRGcVM"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3282d5302ffso2939677eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:27:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L8L9GbeW"
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1416f32fe11so9386078c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:26:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790965622; x=1791570422; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790965616; x=1791570416; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vhsP25SZqvK9XFkqYvF32ff+yaKbJyS/GLSj/MRONbU=;
-        b=ZFlRGcVMlJ7deej+ZrMGm53H+QfrBQr/3gTxOvoboi3FPvPMPl6K+Ai84RiUGNjxk1
-         u3/UNlJ8JF8irvzXy+n2kq5m2oQLHe9BejkL7aEXRCGvgRemHNF0pywe0/gdhQSYEmFE
-         q7KJo6gwGpKWJuLKemdysh4C8A4oQvEgMdq8v9J8jGf68cUQfKeUCBjzrbShNZVIY8nV
-         fGOeUv+Ndy+AaWGV5D0RMSh4qiyvtsnIf9mUcrLfAyHzBtc2e8Pdnjx6LhKd0m9SEWuY
-         /OjMcZ2oF8AVKK1Oxh7F+MkoAKn+XmaIioO+p05FZvOBCUDqa1Cvk7w80aNx+1MPxta0
-         ehRA==
+        bh=xJeoSrG1sFQbzoddGzDwymqwtwNEzCJZbEVP4wJuqFQ=;
+        b=L8L9GbeWlcXjK1Ej1RGFPbkdzL2XG9M3H9JHuXrHEuWg28tXQQXRpfxx5Lfz4sIPzv
+         Zhwe9td/2sAF3BqRk9H/XeRtnUheEjaiBZuj9kMbSxY2g3DaM/g2ZSRPmXFrPmB2vh+G
+         caZGY0z5h12+wT2Chd3SB1K7eTZFGzuQ8IBJXzoxA0wQBs9RFI18Wlqha7SWYy7yc5Es
+         JMjW1oz9kwhSsac0OZEh8bm5n5Vg8JImmCnnDZltpbD4bmzJRMEdw06prlcTH0cbXtjf
+         pWwMIid1P+XigqtUBOQW5ZmiRVlEcYp82tjaQBwTYsIhcDzEh2W9E78Vpf7biIBHBDxc
+         EOLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790965622; x=1791570422;
+        d=1e100.net; s=20260707; t=1790965616; x=1791570416;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vhsP25SZqvK9XFkqYvF32ff+yaKbJyS/GLSj/MRONbU=;
-        b=PTnxcKmvrMHJGT6Bf5Ql4JC7fKEcZQoVo14v7prQmovNtoRVzsyGWzlFmZebsQFn07
-         8Tl96iJ2lMYEDOQGjDpZm5tINXnaEeGDcBcJ+3NjI5eHKBIKSZCO7Sg1C3pjiH8WWrm8
-         J4Ac7n8aCnenwO6JuO/8SmcSvKk6BGBSUfJdh0kh4fykafdBUIDoGfbfRnV6CWY8ckFz
-         LPLM8AooyLuyydY2M2IF23zb7myS+ZAM8oYm7qVnthtAeXWcwe25Qp0/J/sSy4CJWh5s
-         VXvCdJmVsajsGW41EytkdNVNTwE/Kzd+MZhMou0feIMKJkKyXDGpPcQJ9DPjzGWrsPhT
-         7LGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBvZUWAUuC9OPTUZvAUuRmUerl1bGRANBHVsQyA9xNDBAAjd+15mrKE0EDvCtiUozXKFIQ9TJwLzVdodw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJE479m/DVVQX/ElM1MgVURsMAqiW2VEJE9CVjWGKECxmMiwR8
-	l0j9BGAnIajdCD7JlkfGyYdK8N05QasZFUcgDrTq5veybfsX6S5yyPrA+I9G6TT57PeNjFaY22i
-	SKYKtDA25Bg==
-X-Received: from dlbrj21.prod.google.com ([2002:a05:7022:f415:b0:146:40d5:dd5c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:465c:b0:14e:61bb:ec3d
- with SMTP id a92af1059eb24-14f5bef522cmr3565144c88.16.1790965621526; Fri, 02
- Oct 2026 11:27:01 -0700 (PDT)
-Date: Fri,  2 Oct 2026 11:26:18 -0700
+        bh=xJeoSrG1sFQbzoddGzDwymqwtwNEzCJZbEVP4wJuqFQ=;
+        b=uxOw532o0vCfS8Biequ6a1D3uqMmGFSpYFZ9RZSmgM4HDoyxLJhphlm+dfMuEmiF2v
+         2Owpn3vGIYgDw1TGTWbyDgxaTQttU0xGr/7MnyKE1SBMxhHZPnYAGBWvaP48oCc7vCkj
+         8BLHTYupzsiYIDivnQpv7NzJsuU2GLJp3rRZv1NljakaDhLjt9Mjr3wO9DAk7cfmbuOR
+         J5oES1pFiobwDgAke+fccNMu7i7TcPBJA5BRkbx0E9uVQA0CqCaOSXSvm9Ws/zVjVcxc
+         P2NXxxhWADd4Tu86ofbrwD9CG28ALBVlVLpqFSYUynBscJWXG2U2KE7ehNrQOJ9gmf++
+         ylcA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHuxrWDkpDLMq0rOBZ9qUKjV4AweYnorUlAJyryUyHCULORHAZnaiRLN5sopjkJqyJpVT9iXhElIn5bdM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXWcMEZLjf9xUjXZSuz2qhvcpxrWmEEohZOA8MissZY2sAAO/Y
+	pDLXIwGA6wH8oODEB16zMfazvmLcTNFO37QXt9akj4dZhOW3EG/eYW0WYanIBgrrtU/k2f61IWy
+	amLik63I8Wg==
+X-Received: from dlnn16.prod.google.com ([2002:a05:7022:6190:b0:151:c50e:fd9d])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:7e0c:b0:150:3c69:2adb
+ with SMTP id a92af1059eb24-1503c692d2bmr2320768c88.2.1790965615875; Fri, 02
+ Oct 2026 11:26:55 -0700 (PDT)
+Date: Fri,  2 Oct 2026 11:26:16 -0700
 In-Reply-To: <20261002182624.3259797-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261002182624.3259797-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261002182624.3259797-10-irogers@google.com>
-Subject: [PATCH v1 09/13] perf test: Add a test for the treport script
+Message-ID: <20261002182624.3259797-8-irogers@google.com>
+Subject: [PATCH v1 07/13] perf test: Add a test for the ilist script
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -73,30 +73,28 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-From: Alice Rogers <alice.mei.rogers@gmail.com>
-
-Test launching treport through perf script, the error for a file that
-isn't a perf.data file, drive the textual app headless checking the
-profile matches one built without the UI and exercising the key
-bindings, and that quitting while loading stops the background load.
+Test launching ilist through perf script and perf list --tui, and drive
+the textual app headless: check the tree of PMUs and metrics, search for
+and select the software task-clock event checking its counters are
+shown, check a failed search shows an error and select a metric. Failing
+to open counters, for example for want of permissions, is tolerated as
+an error dialog is shown.
 
 Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Alice Rogers <alice.mei.rogers@gmail.com>
-Co-developed-by: Ian Rogers <irogers@google.com>
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/shell/test_treport_python.sh | 247 ++++++++++++++++++
- 1 file changed, 247 insertions(+)
- create mode 100755 tools/perf/tests/shell/test_treport_python.sh
+ tools/perf/tests/shell/test_ilist_python.sh | 181 ++++++++++++++++++++
+ 1 file changed, 181 insertions(+)
+ create mode 100755 tools/perf/tests/shell/test_ilist_python.sh
 
-diff --git a/tools/perf/tests/shell/test_treport_python.sh b/tools/perf/tests/shell/test_treport_python.sh
+diff --git a/tools/perf/tests/shell/test_ilist_python.sh b/tools/perf/tests/shell/test_ilist_python.sh
 new file mode 100755
-index 000000000000..155993b8be79
+index 000000000000..83048474710d
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_treport_python.sh
-@@ -0,0 +1,247 @@
++++ b/tools/perf/tests/shell/test_ilist_python.sh
+@@ -0,0 +1,181 @@
 +#!/bin/bash
-+# perf script treport test
++# perf script ilist and perf list --tui test
 +# SPDX-License-Identifier: GPL-2.0
 +
 +set -e
@@ -116,13 +114,10 @@ index 000000000000..155993b8be79
 +fi
 +
 +err=0
-+perfdata=
-+output=
-+badfile=
++output=$(mktemp /tmp/__perf_ilist_test.output.XXXXX)
 +
 +cleanup() {
-+	[ -n "${perfdata}" ] && rm -f "${perfdata}"*
-+	rm -f "${output}" "${badfile}"
++	rm -f "${output}"
 +	trap - EXIT TERM INT
 +}
 +
@@ -133,212 +128,149 @@ index 000000000000..155993b8be79
 +}
 +trap trap_cleanup EXIT TERM INT
 +
-+perfdata=$(mktemp /tmp/__perf_treport_test.perf.data.XXXXX)
-+output=$(mktemp /tmp/__perf_treport_test.output.XXXXX)
-+badfile=$(mktemp /tmp/__perf_treport_test.bad.XXXXX)
-+
 +test_plumbing() {
-+	echo "treport plumbing test"
-+	# A missing input file should be reported by the script launched
-+	# through perf script, this doesn't need a terminal.
-+	if perf script treport -i "${perfdata}.missing" > "${output}" 2>&1; then
-+		echo "treport plumbing test [Failed: missing file not an error]"
-+		err=1
-+		return
-+	fi
-+	if ! grep -q "not found" "${output}"; then
-+		echo "treport plumbing test [Failed: script not launched]"
++	echo "ilist plumbing test"
++	# The script should be found and run by perf script, --help doesn't
++	# need a terminal.
++	if ! perf script ilist --help > "${output}" 2>&1; then
++		echo "ilist plumbing test [Failed: script failed]"
 +		cat "${output}"
 +		err=1
 +		return
 +	fi
-+	echo "treport plumbing test [Success]"
++	if ! grep -q -- "--interval" "${output}"; then
++		echo "ilist plumbing test [Failed: script not launched]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	echo "ilist plumbing test [Success]"
 +}
 +
-+test_bad_file() {
-+	echo "treport bad file test"
-+	echo "not a perf.data file" > "${badfile}"
-+	# The app starts before the file is read, so the error is reported by
-+	# the app exiting with a failure.
-+	if ! "$PYTHON" - "${badfile}" > "${output}" 2>&1 <<'EOF'
-+import asyncio
-+import sys
-+import treport
-+
-+async def run() -> None:
-+    app = treport.ReportApp(sys.argv[1])
-+    async with app.run_test(size=(120, 40)) as pilot:
-+        for _ in range(100):
-+            if app.return_code is not None:
-+                break
-+            await pilot.pause(0.1)
-+    if app.return_code != 1:
-+        raise RuntimeError(f"Unexpected return code {app.return_code}")
-+    print("bad file ok")
-+
-+asyncio.run(run())
-+EOF
-+	then
-+		echo "treport bad file test [Failed: exception]"
++test_list_tui() {
++	echo "perf list --tui plumbing test"
++	# Arguments after -- are passed to the script launched by perf list.
++	if ! perf list --tui -- --help > "${output}" 2>&1; then
++		echo "perf list --tui plumbing test [Failed: script failed]"
 +		cat "${output}"
 +		err=1
 +		return
 +	fi
-+	if ! grep -q "bad file ok" "${output}"; then
-+		echo "treport bad file test [Failed: unexpected output]"
++	if ! grep -q -- "--interval" "${output}"; then
++		echo "perf list --tui plumbing test [Failed: script not launched]"
 +		cat "${output}"
 +		err=1
 +		return
 +	fi
-+	echo "treport bad file test [Success]"
-+}
-+
-+record() {
-+	# A software event with callchains that doesn't need privileges.
-+	perf record -e task-clock -g -o "${perfdata}" -- perf test -w noploop \
-+		> /dev/null 2>&1
++	echo "perf list --tui plumbing test [Success]"
 +}
 +
 +test_headless_ui() {
-+	echo "treport headless UI test"
-+	# Drive the textual app without a terminal, check the profile shown
-+	# matches one built without the UI and exercise the key bindings.
-+	if ! "$PYTHON" - "${perfdata}" > "${output}" 2>&1 <<'EOF'
++	echo "ilist headless UI test"
++	# Drive the textual app without a terminal. Opening counters may fail
++	# for want of permissions, in which case an error dialog is shown.
++	if ! "$PYTHON" > "${output}" 2>&1 <<'EOF'
 +import asyncio
-+import sys
-+import treport
++import ilist
++from textual.widgets import Label, Tree
 +
-+def labels(tree, tnode, out):
-+    for child in tnode.children:
-+        out.append(str(child.label))
-+        if child.is_expanded:
-+            labels(tree, child, out)
-+    return out
++async def dismiss_error(app, pilot) -> bool:
++    """Close the error dialog if shown, returning whether it was."""
++    if not isinstance(app.screen, ilist.ErrorScreen):
++        return False
++    await pilot.click("#error")
++    await pilot.pause()
++    if isinstance(app.screen, ilist.ErrorScreen):
++        raise RuntimeError("Error dialog not dismissed")
++    return True
++
++async def search(pilot, text: str) -> None:
++    await pilot.press("s")
++    await pilot.pause()
++    await pilot.press(*text, "enter")
++    await pilot.pause()
++
++def find_leaf(node, cls):
++    """Find the first node whose data is of type cls."""
++    if isinstance(node.data, cls):
++        return node
++    for child in node.children:
++        found = find_leaf(child, cls)
++        if found:
++            return found
++    return None
++
++async def check_counting(app, pilot, name: str) -> None:
++    """Check the selected event is shown and counting, or that it failed to open."""
++    await pilot.pause(0.5)
++    if await dismiss_error(app, pilot):
++        print(f"{name}: failed to open")
++        return
++    shown = str(app.query_one("#event_name", Label).render())
++    if shown != name:
++        raise RuntimeError(f"Selected {shown} rather than {name}")
++    if not app.query(ilist.CounterSparkline) or not app.query("#counter_total"):
++        raise RuntimeError(f"No counters shown for {name}")
++    print(f"{name}: total {app.query_one('#counter_total', Label).render()}")
 +
 +async def run() -> None:
-+    expected = treport.ProfileBuilder()
-+    expected.read(sys.argv[1])
-+    if not expected.root.children:
-+        raise RuntimeError("No samples in the profile")
-+
-+    # The app starts before the profile is built in a background thread.
-+    app = treport.ReportApp(sys.argv[1])
++    app = ilist.IListApp(0.1)
 +    async with app.run_test(size=(120, 40)) as pilot:
-+        for _ in range(600):
-+            if app.loaded:
-+                break
-+            await pilot.pause(0.1)
-+        if not app.loaded:
-+            raise RuntimeError("Timed out loading data")
 +        await pilot.pause()
-+        if app.sub_title.startswith("Loading") or "samples" not in app.sub_title:
-+            raise RuntimeError(f"Unexpected sub-title: {app.sub_title}")
-+        totals = {name: node.value for name, node in app.root.children.items()}
-+        want = {name: node.value for name, node in expected.root.children.items()}
-+        if totals != want:
-+            raise RuntimeError(f"Profile {totals} differs from {want}")
-+        tree = app.query_one(treport.ProfileTree)
-+        shown = labels(tree, tree.root, [])
-+        if not any("noploop" in label for label in shown):
-+            raise RuntimeError(f"noploop not shown in: {shown}")
-+        await pilot.press("down", "down", "enter", "up", "enter")
-+        tabs = app.query_one(treport.TabbedContent)
-+        tabs.active = "flame"
-+        await pilot.pause()
-+        await pilot.press("down", "down", "right", "enter", "escape", "up", "left")
-+        await pilot.pause()
++        tree = app.query_one("#root", Tree)
++        top = [str(node.label) for node in tree.root.children]
++        if top != ["PMUs", "Metrics"]:
++            raise RuntimeError(f"Unexpected tree: {top}")
++        pmus = [str(node.label) for node in tree.root.children[0].children]
++        if "software" not in pmus:
++            raise RuntimeError(f"No software PMU in: {pmus}")
++
++        # Search for a software event, which exists everywhere. The search
++        # result is selected which opens the event.
++        await search(pilot, "task-clock")
++        found = app.cur_search_result
++        if not found or not isinstance(found.data, ilist.PmuEvent) or \
++           "task-clock" not in str(found.label):
++            raise RuntimeError(f"Search didn't find task-clock: {found}")
++        await check_counting(app, pilot, found.data.name())
++        if not app.query_one("#active_search", Label).display:
++            raise RuntimeError("Active search not shown")
++        await pilot.press("n", "p", "down", "up", "c")
++        await pilot.pause(0.2)
++        await dismiss_error(app, pilot)
++
++        # Searching for something that doesn't exist shows an error.
++        await search(pilot, "no-such-event-xyzzy")
++        if not await dismiss_error(app, pilot):
++            raise RuntimeError("No error for a failed search")
++
++        # Select a metric, if there are any.
++        metric = find_leaf(tree.root, ilist.Metric)
++        if metric:
++            app.expand_and_select(metric)
++            await check_counting(app, pilot, metric.data.name())
 +        print("headless UI ok")
 +
 +asyncio.run(run())
 +EOF
 +	then
-+		echo "treport headless UI test [Failed: exception]"
++		echo "ilist headless UI test [Failed: exception]"
 +		cat "${output}"
 +		err=1
 +		return
 +	fi
 +	if ! grep -q "headless UI ok" "${output}"; then
-+		echo "treport headless UI test [Failed: unexpected output]"
++		echo "ilist headless UI test [Failed: unexpected output]"
 +		cat "${output}"
 +		err=1
 +		return
 +	fi
-+	echo "treport headless UI test [Success]"
-+}
-+
-+test_cancel() {
-+	echo "treport cancel test"
-+	# Quitting while loading should stop the background thread without a
-+	# "processing failed" error from the session.
-+	if ! "$PYTHON" - "${perfdata}" > "${output}" 2>&1 <<'EOF'
-+import asyncio
-+import sys
-+import time
-+import treport
-+
-+# Check for cancellation often and slow processing each sample so that the
-+# load can't finish before it is cancelled.
-+treport.ProfileBuilder.PROGRESS_INTERVAL = 1
-+process_event = treport.ProfileBuilder.process_event
-+
-+def slow_process_event(self, sample) -> None:
-+    time.sleep(0.001)
-+    process_event(self, sample)
-+
-+treport.ProfileBuilder.process_event = slow_process_event
-+
-+async def run() -> None:
-+    app = treport.ReportApp(sys.argv[1])
-+    async with app.run_test(size=(120, 40)) as pilot:
-+        for _ in range(100):
-+            loading = app.loading
-+            if loading is not None and loading.nr_samples > 0:
-+                break
-+            await pilot.pause(0.1)
-+        if loading is None or app.loaded:
-+            raise RuntimeError("Background load not in progress")
-+        await pilot.press("ctrl+q")
-+    for _ in range(100):
-+        if app.loading is None:
-+            break
-+        time.sleep(0.1)
-+    if app.loading is not None:
-+        raise RuntimeError("Background load didn't stop")
-+    if not loading.cancelled or app.loaded:
-+        raise RuntimeError("Background load wasn't cancelled")
-+    print("cancel ok")
-+
-+asyncio.run(run())
-+EOF
-+	then
-+		echo "treport cancel test [Failed: exception]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	if ! grep -q "cancel ok" "${output}" || grep -q "processing failed" "${output}"; then
-+		echo "treport cancel test [Failed: unexpected output]"
-+		cat "${output}"
-+		err=1
-+		return
-+	fi
-+	echo "treport cancel test [Success]"
++	echo "ilist headless UI test [Success]"
 +}
 +
 +test_plumbing
-+test_bad_file
-+
-+if ! record; then
-+	echo "Skipping remaining tests, failed to record samples"
-+	if [ $err -eq 0 ]; then
-+		err=2
-+	fi
-+	cleanup
-+	exit $err
-+fi
-+
++test_list_tui
 +test_headless_ui
-+test_cancel
 +
 +cleanup
 +exit $err
