@@ -1,154 +1,267 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4971C414403
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973781; cv=pass; b=LpLEe+mSzjIuK42gK/ckV2G7tQdqWFVDy4KMFi/erYXm6GI/e0ZjT0qbXzebJkjNvTC70n8yACt8f7VqixXN3y1Lg/Qz2BmFWYbFNwKg4O56Q+UluAY0+sbhKngWZJmH6PTMa1xWRuF+fRip63Br9A3BifK53awNbXKL5/26Gv8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973781; c=relaxed/simple;
-	bh=O0oErUdvCGd0lNeKXzKbX7E7eK5xVZTCX98mTa3dJ6g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HyKUnpuPXLNE80+/OFRtcRpYuhwylYuo16bonQgHJQdhOWork6vQ+5iFEBNZk1OuXREOVFMu27LG8TfvnzTaQNLjtIlQ94RG7GpO1e3x8NIr6dyaSK3qtc6TqtXluWYIzd+BKssfma5jsiRxUGfdjQ1GZKN+GOetF1cEeXxxkKk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=d2FArZdd; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13F236197E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790973886; cv=none; b=O3+BkO+HC05cDeowF+VeB0Y3fVE/d/JYjRQeHRPPdI67P83ZkeqwjFG2uqcImfHnIkhDvB86nkQmU24grOPyw08A70fp7VMUBPJBOvzzpBA1Ng+8tz5W0I94ncxCGU26HiR82X3rQ+6wjIdEGgq4tIBlUFioLPYnPVZtGsJZ5ys=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790973886; c=relaxed/simple;
+	bh=hSIz4fihW3br2vB9KwOROSdJNfpPnljc28909L6iTQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q8CJShNcb8NzvISJrlmxMRhAR67gX6Sz7FnCe5Z7O/NRFmtVEaz7wSXWT/31zoBfg15YLMhKQ66iPGRnbmyik6aZ4eHRQrvz4YQKbHm7VP3L85sU3bc9KqCqM1gIsJg/RwVCKTlF3Wwj1XnPA8lfQyX6+YTe1cLTXd5WBwzMD5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=jQsVdQsV; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="d2FArZdd"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so1746015e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:42:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790973777; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NihyioAM+DQK2Gf8X7ITGxksrA2hCIX+r0eRLUMlMTL8UmZXj5bEa0bwHXgqcnXJAJ
-         DY8NgP9hMkpu3EigTFiAlqT1pX/jc/kpe3m1M8VU3PBm0EiLajIOdkruymWCNfEPiSwU
-         XAVRfx6rT56EFp6Ov/Lrd6vnkF5+jSTpfSIU4CmkV5Il9CIwUIXwlAZ/ePnsi3WJ2oh+
-         EZl0QmDdsVTpghBkwOTb9QQAGv1RrI5162JiNg03p0yVpHR+t4DZRdHTsuxvRDlf5svO
-         SV4E+aBU+Rh76gUpzqbR2ULiLdDyFhRaRjRTFPY0dHucsZWbpL8rw/3z3zIhUR2s+KJf
-         V7LQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2B52yACNSq43ABlpVzKEc+uObRnusBAROE8TzluhGEQ=;
-        fh=OtFCTpKvFbRs+D0kotSrXWq8oguF0DboV7QJmZ3nO0w=;
-        b=Xh5Ru6S/I3twuCnkfFQq/cNeRM25YWmu1GFfNGvUoMDuflnGHwBgYXmvoBc4tIdA7H
-         vZwBYvo3sb/nzyEoPOw2Zy6JDweYAd6mm7DVMSNwopos74oHyzyZnsV42HRizXay/rgM
-         lP8C2wx1SGQuJ9iGEp7WeTkuTD7ypHahN/gaZSRkbAY6ot98zWY6C+hEnjpqOC4d4asq
-         3oinc3HtRBG1qCJRC2XgGzOuhmJmPHbSJlg2p7dU3Ri8rZYeBRvE6Dxie1KxOjMp6hdL
-         NFwJM0iLtOOHgfjJTEDPPgaN6u6kLvQacZu8stDbEQ+15kHSkpjfBdUgrqGR+AtjcRSU
-         k5Jg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="jQsVdQsV"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so19445c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790973777; x=1791578577; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2B52yACNSq43ABlpVzKEc+uObRnusBAROE8TzluhGEQ=;
-        b=d2FArZddCvzzX4kGFZD/GcsWkEm07K7qUaqAHzs+JQ10c03/DY8JrDKmqEl2fDAm80
-         z4oetGdhgfPtqX2Stf6uHwFmPns7GrbyueX6EsLB776UJA8Qe5yuzuD1tNqXjzvbN078
-         QrTH0k6apZxgd7FYmnS9sZiF1Z7MN9Hfkn2KdewBCUv6VSn/8Ci4Wadvd2nhSRlGQdK3
-         zuQmg8BYUdnNkeD82XjrE7tGoQqVBrted1FgefCdh+9kdZTfu3be2bWn1ajYFznwtEjy
-         40teb/pvgeLJn9lxQ+wr8qKnEEX0xZeIT0oWmWUOo8oXCPPrzoD7jB1AxJt2ZSi7Zz58
-         a1MQ==
+        d=trailofbits.com; s=google; t=1790973884; x=1791578684; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OEUMUqkSZXNw7bjqr2r2LczcRXo92A7RQr8KDcVvERk=;
+        b=jQsVdQsVWc3c8yE2thqgmluoZvBX2TrWNc3UO05+/MpwQXaOvTRttMWO8ZMPg974qM
+         9rOnxQDlZvHaGyO55KM60gMyQdBe8zEoQ3H1Qd0iEnK//WFts6Jd1AIqpcL0hy/QP0ol
+         2TSuJBbivop5R90MX5n09dsmqjC4t+OhdjN3U6P6jTyCnSQdUJZDU4WdEejFLLJsbZpE
+         ArxDrkgAgjVVfvc2ZTsUsObJNfgV5Bba90gcm4/JpTI0GrGc9G12QxyM4u80CpcrxJ6W
+         nIBp/OAb3M9hU9+SEuGmcY+O/wO6QJwoTkRKXX/HbarQ77WaiyzBGt/GXK2bE4UCaD8E
+         LpIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790973777; x=1791578577;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2B52yACNSq43ABlpVzKEc+uObRnusBAROE8TzluhGEQ=;
-        b=Akl4HT+2FmRZ0Nia1+TXpAfHQOFFoz0HeP5+WhhrcXtIkpL0UJYxUtyN3VQULTcg53
-         Ud4wZf2E8McJJT1FPPXHYnHbzusd/JddzC5w9DBWgsPQMpV6+hL1K6BMWVUllTgRZ9jJ
-         lS8pu+Qu3QrHaY1xEzNRB8MpEdU7NTA7RsKD2JTAWS+j63f4al/sLcoIcMXli9YZA5QQ
-         +YAHYlHNJSYio2JDShnUAeO3fD1HpiRzGdqfhK8rEnt68jTcKlDQSXtzALeznW3+w0uB
-         NVc+LaZXkH9LCDnTLrwOaLAwjM8kZOLvFH9G05CSFOHje0mAYkJ2SSEx2VfAgXw6vDlN
-         U1eg==
-X-Forwarded-Encrypted: i=1; AKwUvBw4u+T0IPZzCTUpfNyu9hyc8kS3x7Bje/Yt3ZarYG94ec2MoDsg06irK2T7vC3gWaBl3jOaf1uWxgPs2jA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kV64bs55gResL2FGnR+Th7aCoaOVCVF9qgMGqYS/SNbzCx4VT3
-	j9IUq0Et8P3gZkmJuQZGaGQy/4KvZ96yuohvNGVlft1g03QBhdiRBfX+R8b2xzQffItQZBHX9kX
-	yewzPnzhejFZiV7gbQKB8aqQ9fd6ANrg0FlnVs6Yc
-X-Gm-Gg: AYBFou0P8+oM5FPm3XPrUF4x8+A3dvg07mRNM0FLybH72vD1Viq40TSGPO7mMtwxU3x
-	4qm6AKwY/1f39ADSyTcMfw2g3yRXxkeUcbNH+wOco32vzSgGiZj7z4L02Wcnp3Hn6UbMVICjxxw
-	QRhcFrZFJmWEtdCalxpKT4nl6UpIHFS7OtqK+fVtLfEMAs64BwqOirzf0bbeLp0uls9Rr6VAaX4
-	SGKgdr2Of0gSWshfNUwOix4uCh5Z6NpYPv6SPaOemKAdDf00M0Pi3mxqAvz1ivA+bQpWMuG0vwy
-	CMg5m2rZn7tYqc6E0N6xfoDVv4B61JU/h9R2D+V9nE3AFZedCuXCdZV5vxj8XiF/JVAvZvbbGgy
-	oJGCnvFudJX1e6S9T5bDJ31VG2nAvoCTg6z3rRCmyXjANJGklBKK5rAkMWIPIEENNsxfx9Q==
-X-Received: by 2002:a05:600c:a011:b0:49f:ce78:356f with SMTP id
- 5b1f17b1804b1-4a0276b869fmr57980835e9.32.1790973776781; Fri, 02 Oct 2026
- 13:42:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790973884; x=1791578684;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OEUMUqkSZXNw7bjqr2r2LczcRXo92A7RQr8KDcVvERk=;
+        b=mXoYhv1HdrPJNytXc+RcHZJHTj6bb2eOXgGGCYo8khGvCURYqHECrUqIWZMm1PSuyr
+         QgNKjQGi2CoDu0rljazkuQQa/Eq/14RR+lc0DGlx9rPb3wpn0zask4YOLQt5iCQF/9v5
+         C5VirQGAuAhA/wyFo93JiunxFN+VPQ6VROTY312d+0DqVqA16+sopikyWzi7Hpz7HmgP
+         feREWiNmVDKNrOp3ncjBsuTO1PEGU6e9iFgytz4lcTJA0L0OpG3GUKmf5aDxPWowpE7p
+         GpEHuCJo7uoP8LOMoZ9CN4/0p4XD10ulIVgCB3V52zjq0ly7JpfS/R30qkmZIERrfmlj
+         KWZQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBn3Ft60im74quBR2iPsl4FD4gusAAD+JJM9G2T+zvxLwcEpSPyE/j5cuKStdd+ItfgeWvDmCUMInOTlU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJP5ZvNndq9X+edmeANnHLZSV+KUnU8t2tD3PaQBj83OB8xXkG/
+	tUThivpgoLkX8L4U9LLJOC16CsXrGiGVKA+q0lnwDB5+IrpD9kQn98PohXCO/gB+q20=
+X-Gm-Gg: AYBFou35DN5X0kmuvEu8bAkQ6KPOqzJFVsguq7I9CrO+mgAOqUwoM2xgWVKsCS6rIIf
+	1gJBOJj4KQDzTGNwAuKBrvJmvUcJw4f4GeTgyqAlm8v7Rq09/tvp2GNC2xbzilwiH0Xo2zjZfuO
+	L7lBQDnp82S2+YBdxkHQ4GLqumLOpyhzrU4IRi7SbOkvS5bOV8Y4ykq4dSUr/jSoClHidiMcl0L
+	Lh+mOgVTCfL+5jY4lkbFJ96pbjE0z1dr0bGwv35zG8sM4IVAovxATJ8NJ0+VgkNV1QntCtDdtRN
+	+q+rMYcJfdiVFCRJDQwMQe0Cbo1zRRyuKkdSMGHbUDgrdIALIbyQRPkF3ZsLPsHHoW1eUNXgPfP
+	HaqkX7c31A2hZ0anp+1kGxg5ry+/pBOQIAGOkxqUmjGhoutENInk1H/XCvFXteBDlMAWHWgbj1g
+	kADXFXYzB77YAcQ4NVbTQj57A/vniHYNf6z41sGD/VvM9An0YI98IFfMVfng6J/xZh6qdQMyzY1
+	MrprnX8Wf3gTCh8vtEAge++hFOoRYvSW/VZVxTQgSkvJVIdagT6l35q3Pocq5muTVivAWc=
+X-Received: by 2002:a05:701b:4190:10b0:148:dfc9:425d with SMTP id a92af1059eb24-14f5d1b9c76mr4478202c88.46.1790973883634;
+        Fri, 02 Oct 2026 13:44:43 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:a1e3:ffe2:b35a:69a4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fa74fa1csm23201c88.1.2026.10.02.13.44.42
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 13:44:43 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Shay Drory <shayd@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mark Bloch <mbloch@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: [PATCH 6.1.y] net/mlx5e: Fix netif state handling
+Date: Fri,  2 Oct 2026 16:44:37 -0400
+Message-ID: <20261002204438.26168-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002-maintainers-stackinit-v1-1-27112a221527@google.com>
-In-Reply-To: <20261002-maintainers-stackinit-v1-1-27112a221527@google.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Fri, 2 Oct 2026 13:42:45 -0700
-X-Gm-Features: AclHuK9GtaEMxub0C4cC2iFOReeGZtM2r5F_DDQMeKZ3U6WaUokmOoRrco02awg
-Message-ID: <CAKwvOdkjLkKb1503q6HOnJG5ps3iZ3GdTxP5B6rOSPEfkJ-PBg@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: Add stackinit KUnit test to HARDENING
-To: Justin Stitt <justinstitt@google.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 2, 2026 at 12:27=E2=80=AFPM Justin Stitt <justinstitt@google.co=
-m> wrote:
->
-> From: Justin Stitt <justinstitt@google.com>
->
-> Noticed while preparing a patch to lib/tests/stackinit_kunit.c: the file
-> is not listed in MAINTAINERS, so get_maintainer.pl does not suggest Kees
-> or linux-hardening for changes to it, only the catch-all list.
->
-> before:
->   $ ./scripts/get_maintainer.pl -f lib/tests/stackinit_kunit.c
->   linux-kernel@vger.kernel.org (open list)
->
-> after:
->   $ ./scripts/get_maintainer.pl -f lib/tests/stackinit_kunit.c
->   Kees Cook <kees@kernel.org> (maintainer:KERNEL HARDENING
->   "Gustavo A. R. Silva" <gustavoars@kernel.org> (reviewer:KERNEL HARDENIN=
-G
->   linux-hardening@vger.kernel.org (open list:KERNEL HARDENING
->   linux-kernel@vger.kernel.org (open list)
->
-> Signed-off-by: Justin Stitt <justinstitt@google.com>
+From: Shay Drory <shayd@nvidia.com>
 
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+[ Upstream commit 3d5918477f94e4c2f064567875c475468e264644 ]
 
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 4f72b4ac27ee..019f443af051 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -14164,6 +14164,7 @@ F:      include/linux/ucopysize.h
->  F:     kernel/configs/hardening.config
->  F:     kernel/kstack_erase.c
->  F:     lib/tests/randstruct_kunit.c
-> +F:     lib/tests/stackinit_kunit.c
->  F:     lib/tests/usercopy_kunit.c
->  F:     mm/usercopy.c
->  F:     scripts/Makefile.kstack_erase
->
-> ---
-> base-commit: 5e0f8396d4805a3e7f753fa58c8c55f1f3cc2160
-> change-id: 20261002-maintainers-stackinit-230afe234e5a
->
-> Best regards,
-> --
-> Justin Stitt <justinstitt@google.com>
->
+mlx5e_suspend cleans resources only if netif_device_present() returns
+true. However, mlx5e_resume changes the state of netif, via
+mlx5e_nic_enable, only if reg_state == NETREG_REGISTERED.
+In the below case, the above leads to NULL-ptr Oops[1] and memory
+leaks:
 
+mlx5e_probe
+ _mlx5e_resume
+  mlx5e_attach_netdev
+   mlx5e_nic_enable  <-- netdev not reg, not calling netif_device_attach()
+  register_netdev <-- failed for some reason.
+ERROR_FLOW:
+ _mlx5e_suspend <-- netif_device_present return false, resources aren't freed :(
 
---=20
+Hence, clean resources in this case as well.
+
+[1]
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+PGD 0 P4D 0
+Oops: 0010 [#1] SMP
+CPU: 2 PID: 9345 Comm: test-ovs-ct-gen Not tainted 6.5.0_for_upstream_min_debug_2023_09_05_16_01 #1
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.13.0-0-gf21b5a4aeb02-prebuilt.qemu.org 04/01/2014
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at0xffffffffffffffd6.
+RSP: 0018:ffff888178aaf758 EFLAGS: 00010246
+Call Trace:
+ <TASK>
+ ? __die+0x20/0x60
+ ? page_fault_oops+0x14c/0x3c0
+ ? exc_page_fault+0x75/0x140
+ ? asm_exc_page_fault+0x22/0x30
+ notifier_call_chain+0x35/0xb0
+ blocking_notifier_call_chain+0x3d/0x60
+ mlx5_blocking_notifier_call_chain+0x22/0x30 [mlx5_core]
+ mlx5_core_uplink_netdev_event_replay+0x3e/0x60 [mlx5_core]
+ mlx5_mdev_netdev_track+0x53/0x60 [mlx5_ib]
+ mlx5_ib_roce_init+0xc3/0x340 [mlx5_ib]
+ __mlx5_ib_add+0x34/0xd0 [mlx5_ib]
+ mlx5r_probe+0xe1/0x210 [mlx5_ib]
+ ? auxiliary_match_id+0x6a/0x90
+ auxiliary_bus_probe+0x38/0x80
+ ? driver_sysfs_add+0x51/0x80
+ really_probe+0xc9/0x3e0
+ ? driver_probe_device+0x90/0x90
+ __driver_probe_device+0x80/0x160
+ driver_probe_device+0x1e/0x90
+ __device_attach_driver+0x7d/0x100
+ bus_for_each_drv+0x80/0xd0
+ __device_attach+0xbc/0x1f0
+ bus_probe_device+0x86/0xa0
+ device_add+0x637/0x840
+ __auxiliary_device_add+0x3b/0xa0
+ add_adev+0xc9/0x140 [mlx5_core]
+ mlx5_rescan_drivers_locked+0x22a/0x310 [mlx5_core]
+ mlx5_register_device+0x53/0xa0 [mlx5_core]
+ mlx5_init_one_devl_locked+0x5c4/0x9c0 [mlx5_core]
+ mlx5_init_one+0x3b/0x60 [mlx5_core]
+ probe_one+0x44c/0x730 [mlx5_core]
+ local_pci_probe+0x3e/0x90
+ pci_device_probe+0xbf/0x210
+ ? kernfs_create_link+0x5d/0xa0
+ ? sysfs_do_create_link_sd+0x60/0xc0
+ really_probe+0xc9/0x3e0
+ ? driver_probe_device+0x90/0x90
+ __driver_probe_device+0x80/0x160
+ driver_probe_device+0x1e/0x90
+ __device_attach_driver+0x7d/0x100
+ bus_for_each_drv+0x80/0xd0
+ __device_attach+0xbc/0x1f0
+ pci_bus_add_device+0x54/0x80
+ pci_iov_add_virtfn+0x2e6/0x320
+ sriov_enable+0x208/0x420
+ mlx5_core_sriov_configure+0x9e/0x200 [mlx5_core]
+ sriov_numvfs_store+0xae/0x1a0
+ kernfs_fop_write_iter+0x10c/0x1a0
+ vfs_write+0x291/0x3c0
+ ksys_write+0x5f/0xe0
+ do_syscall_64+0x3d/0x90
+ entry_SYSCALL_64_after_hwframe+0x46/0xb0
+ CR2: 0000000000000000
+ ---[ end trace 0000000000000000  ]---
+
+[ Backport to 6.1.y: added an internal suspend helper so probe unwind
+  cleans resources without changing the registered-device suspend path. ]
+
+Fixes: 2c3b5beec46a ("net/mlx5e: More generic netdev management API")
+Signed-off-by: Shay Drory <shayd@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://lore.kernel.org/r/20240509112951.590184-2-tariqt@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and net maintainers,
+
+I am working through the small CVE backports still missing from 6.1.y.
+This one addresses CVE-2024-38608. It releases probe resources even when
+register_netdev() failed before device-present state.
+
+The corresponding 6.6.y backport is already in the 6.6.y stable queue.
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not
+in 6.1.y.
+The target-specific adjustment is recorded in the bracketed note above.
+
+Could you please queue it for 6.1.y?
+
+CVE: CVE-2024-38608
+Upstream: 3d5918477f94e4c2f064567875c475468e264644
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
 Thanks,
-~Nick Desaulniers
+Artem Dinaburg
+
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index 2d0b57583ea35c..d26c36479ee915 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -5896,13 +5896,14 @@ static int mlx5e_resume(struct auxiliary_device *adev)
+ 	return 0;
+ }
+ 
+-static int mlx5e_suspend(struct auxiliary_device *adev, pm_message_t state)
++static int mlx5e_suspend_common(struct auxiliary_device *adev,
++				bool pre_netdev_reg)
+ {
+ 	struct mlx5e_priv *priv = auxiliary_get_drvdata(adev);
+ 	struct net_device *netdev = priv->netdev;
+ 	struct mlx5_core_dev *mdev = priv->mdev;
+ 
+-	if (!netif_device_present(netdev)) {
++	if (!pre_netdev_reg && !netif_device_present(netdev)) {
+ 		if (test_bit(MLX5E_STATE_DESTROYING, &priv->state))
+ 			mlx5e_destroy_mdev_resources(mdev);
+ 		return -ENODEV;
+@@ -5913,6 +5914,11 @@ static int mlx5e_suspend(struct auxiliary_device *adev, pm_message_t state)
+ 	return 0;
+ }
+ 
++static int mlx5e_suspend(struct auxiliary_device *adev, pm_message_t state)
++{
++	return mlx5e_suspend_common(adev, false);
++}
++
+ static int mlx5e_probe(struct auxiliary_device *adev,
+ 		       const struct auxiliary_device_id *id)
+ {
+@@ -5920,7 +5926,6 @@ static int mlx5e_probe(struct auxiliary_device *adev,
+ 	const struct mlx5e_profile *profile = &mlx5e_nic_profile;
+ 	struct mlx5_core_dev *mdev = edev->mdev;
+ 	struct net_device *netdev;
+-	pm_message_t state = {};
+ 	struct mlx5e_priv *priv;
+ 	int err;
+ 
+@@ -5969,7 +5974,7 @@ static int mlx5e_probe(struct auxiliary_device *adev,
+ 	return 0;
+ 
+ err_resume:
+-	mlx5e_suspend(adev, state);
++	mlx5e_suspend_common(adev, true);
+ err_profile_cleanup:
+ 	profile->cleanup(priv);
+ err_devlink_cleanup:
+-- 
+2.39.5
+
