@@ -1,104 +1,144 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E03C2D9797
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 686234D4898
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953957; cv=none; b=r+AtnZcfdQ7yjDMqlmCEB9kBNrQjlHtpsTM+dTT6nrE6dRl5fionc8LU1ECnOwf4VToGcNm3B6Tqq7+D/rtYkNrgefhFttk3HXAAc4eF0Id1bUGCJrFoUf/Qq3++3aVjQ74TNrcftQ9bW1EpJiO7D/BwP9XsMBoADeMB7Bt7B+Y=
+	t=1790953995; cv=none; b=bVSNjb5gjjA7vQfToxGYx3jU81b9pBK4EsKGNoTgVobbSgFyFOOSe4coD0VtFTU8s906stU+9kvy6szxNHEgJeyuOSGhZl/3f1X92kWUf4DyE8lgsf62FHKtpe01Hk/u6aRy2AlMfViaCU+7SrYAf35WqoASXbI3Szt7uOACWks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953957; c=relaxed/simple;
-	bh=hC4EPjlPEt5WBToViIKxZXMD/KGTWdax5mCVx81HDwI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UOcG1/VReUq2UoVIMBpvsm3xN0ERqz0ooWuVa0abDCJf+LwKQ46NAEZtiBa5NQ244BKbyGxU7ajIvwPQPn6vYtHJ+E8+qPswMew0GsuMN18ZexND5CT7LWPQtJe0d7rNVUoJ0tXAJYWLig0EOn2h0+pcnHSkH93YFD3wrrPvgac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Y8DsSSGi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790953995; c=relaxed/simple;
+	bh=jUwYm8A449oFyERTeHMiXV6Q+jSW+utHZmHcbtHiDIc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DeJyr+K44NZrJQR/0uQen9k3ZTgk+E+GswayE54BUWN2xKTV/Gu57zieNpIYBq8SUYNfEEw7MYsmZbk46iOfv+o1Ycrr6dNhl5Kk8B0oUaJ87fRt/yAtCNFJu2MsxU8bYBEOV2UipHR04U7W0GiJ5gralI0yzvHpdhb75Pptdo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PyVT89QG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Y8DsSSGi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so121385e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:12:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790953953; x=1791558753; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GsOiqt9hI/nJ2zMyQzojs0Dnm1buX745VQ0o5+VWwvA=;
-        b=Y8DsSSGiKfyk7k53iRKiwoxuh4Xh+2BMdttyoi6Yzk8IqHHFDiFccHIr3ZAwW7Fc3a
-         sCtZxra7Ei2oRO23WD8d3rMebUrw16d5oZdF3nx5T5youhxfwQr11hD3I0ZmnTRHw/z0
-         yHfLvrnPKNX5+uh1Nv08ATohfSGkNhkUhfxtp3tBWM2Z3VwO6C3eWyUkU3Bfb5dZ8D66
-         G7So7SaoKRx3j1VT1YvnHrGrEUOZwzT6mvnJ+LUIGHXs83Pi8cwLuPTti4nLBEECuDOJ
-         kRhmA3Mu6D7+0FHpYtV034B9p+Btl3aoKR6u9kE+p99YaJu9JJRkUEaCf4KhyGO2TH02
-         C/Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790953953; x=1791558753;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GsOiqt9hI/nJ2zMyQzojs0Dnm1buX745VQ0o5+VWwvA=;
-        b=wHxwAsYRhX223m8N2Gsj8WRzboB62NiNUJzx9T92crWYMVD29I0qiQhQ25Ar+/6I3x
-         3DDr+DxN6Wcyl9PDnmAM9KBLtVTegLQCdBj7djYrpDBzPZcj45+vp+Ma+pckU4NO8W3C
-         WXeLIjvqJ9iOF5zZF5x5803e05svreWYmB8YaZby0+CTnIW/XUAMNLkDuRscs0HMJU+q
-         Riy7iqkotd8gJnvI07NnRBEeoMbgIbVCVsmeudF/LRG5zjs3QfxeqrZcSzJYXif5JWIB
-         1lnjply1IVmKPZglkEB9M3MUNFWT4kW7vm9AHBVBT1yMHuVSrL9iJ6KYFUeU14ZSwMM9
-         QXxw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoTlOGWiSgUPnUegb5nMPr7QgZvnKAkrgiuXI0b0OJLXQ66dZr7TQUi3LevezuR7bMV/tgZ1FjgleBGcU=@vger.kernel.org
-X-Gm-Message-State: AFuF++muy19oFBB5lWraRhfbv83Az38VSI0EU5rJcKeT+T3yi7wgW+va
-	emixUdBq7lvMX6h6MAsX75QnDdocxfD0Zo5n4Cr52dvvIp/AmFZYQdsys+Iv4nAJpen9oHVFq7b
-	qWUfeUeA=
-X-Gm-Gg: AYBFou1UFxv/fBlyj3Gor0TfEQTTLLrBhVPSXFcSUKdZgY6NYrBIsVo3p8UibQs7b/o
-	jwGBlWr7JHs1o7U/yhkZo6f+uFWulo6tpDG+MZ9g2Mi/S2xkdgP/8iGotLX6yPBifOY9a9n/zhw
-	yi6Bv/yfQ6S4JKQuaCIZq6WbloVD9LxOzbX5yN83Ik2ZMsCt5rfF+wV8MRpkXwz0yiUuTe0tKzc
-	BGBbeymAJ6Pq3eu8i7OE93BRD7WW/2ML/eg4JZhoCkIOs1LB2cTIVv/dNIY9egTFH96xZvhPcQd
-	Fm5QPqTZbqWJpcs45GWdY5JhTm0t1zJsXT1nyzUuneZ1fHxmugJpTMPZNIWL+0EUEa/qiQHb4/O
-	rXgmmnhkmm0Xer3Ekw2ElFjbIvAGSfE7QbFGr7yGfk+gHCDOsAY5h22Eg3kvXXwOR/GgnajLOz1
-	W187yWt+6aBeohOkg5LaNVaef8XijWRb5OWImdkZ+nGdI3Gd24lGlvxh5Ve+1UQavQlH7y8Rkk
-X-Received: by 2002:a05:600c:474e:b0:49f:bd3c:bc1b with SMTP id 5b1f17b1804b1-4a02759b67emr59520025e9.22.1790953953569;
-        Fri, 02 Oct 2026 08:12:33 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03feed16bsm70162575e9.4.2026.10.02.08.12.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:12:33 -0700 (PDT)
-Date: Fri, 2 Oct 2026 17:12:31 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: David Engraf <david.engraf@sysgo.com>
-Cc: tony.lindgren@linux.intel.com, rostedt@goodmis.org,
-	john.ogness@linutronix.de, senozhatsky@chromium.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] printk: Remove console options before decoding the
- name
-Message-ID: <ar_J31pBw8NlIClw@pathway.suse.cz>
-References: <582e545e-52b3-4adf-9c93-446ad0fecc93@sysgo.com>
- <20260924070153.250783-2-david.engraf@sysgo.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PyVT89QG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE7A3143D;
+	Fri,  2 Oct 2026 08:13:08 -0700 (PDT)
+Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 253603F85F;
+	Fri,  2 Oct 2026 08:13:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790953992; bh=jUwYm8A449oFyERTeHMiXV6Q+jSW+utHZmHcbtHiDIc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=PyVT89QGatZIIud1XV+UTsOLiIwaLnnaGqTJevACKxSvJns+jdMbQSS0lulFkChIZ
+	 WoZDkvYmg5SbAOznG34b7NpQDPc5r/hHWaQ5o38Vtwzdud/hh4BWRGGxfko9WWzduA
+	 427KgUdySdoM2Whfrg02/+iyT4QBIPvMCNVaToCQ=
+Message-ID: <b61f8b82-a872-4d50-88fc-845287305011@arm.com>
+Date: Fri, 2 Oct 2026 16:13:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924070153.250783-2-david.engraf@sysgo.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/12] arm_mpam: Ensure MBWU counters are reset on
+ restore
+To: Ben Horgan <ben.horgan@arm.com>
+Cc: reinette.chatre@intel.com, fenghuay@nvidia.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dave.martin@arm.com, andre.przywara@arm.com, Gavin Shan <gshan@redhat.com>
+References: <20260917145617.2202986-1-ben.horgan@arm.com>
+ <20260917145617.2202986-6-ben.horgan@arm.com>
+Content-Language: en-GB
+From: James Morse <james.morse@arm.com>
+In-Reply-To: <20260917145617.2202986-6-ben.horgan@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu 2026-09-24 10:00:57, David Engraf wrote:
-> This fixes a regression when a console option includes ':'. Commit
-> 7640f1a44eba ("printk: Add match_devname_and_update_preferred_console()")
-> introduced console=DEVNAME:0.0 hardware style addressing by looking for a
-> colon. If the colon is part of an option the name is handled as devname
-> instead of ttyname.
-> 
-> Fix by handling the options first which will add a NULL terminator to the
-> string and refactor idx handling to clean up the code (thanks to Petr
-> Mladek).
-> 
-> Signed-off-by: David Engraf <david.engraf@sysgo.com>
+Hi Ben,
 
-JFYI, the patch has been comitted into printk/linux.git,
-branch for-7.4.
+On 17/09/2026 15:56, Ben Horgan wrote:
+> When an MSC becomes inaccessible due to cpu offline CFG_MBWU_CTL is set to
+> zero in mpam_save_mbwu_state(). This is very likely to mean that the config
+> will mismatch when restoring and so the monitor will be reset. However, the
+> state may have been lost and so there are no guarantees.
 
-Note that I have updated the commit message as suggested by Tony, see
-https://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git/commit/?id=b80fc54890d44cd35360ca122b72224fe78061bf
+Power management and kexec are the reason this is done.
 
-Best Regards,
-Petr
+I have a niggling suspicion that some hardware engineer may allow 'running counters'
+to inhibit power-down - which means the cache could stay on when all its CPUs are off.
+
+We may kexec while these CPUs are off. Leaving the hardware in its reset state is
+the least surprising thing to do, and also means we don't get bitten by the above
+(theoretical) power management thing if the next kernel doesn't know about MPAM.
+
+
+> Ensure the reset happens by setting the reset_on_next_read
+
+Doing this makes it more robust,
+
+
+> and remove the unnecessary writes from mpam_save_mbwu_state().
+
+I think this is still a good thing to do.
+
+
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index d39d210574a6..6cba3ef21cc8 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -1652,6 +1652,7 @@ static int mpam_restore_mbwu_state(void *_ris)
+>  	u64 val;
+>  	struct mon_read mwbu_arg;
+>  	struct mpam_msc_ris *ris = _ris;
+> +	struct msmon_mbwu_state *mbwu_state;
+>  	struct mpam_msc *msc = ris->vmsc->msc;
+>  	struct mpam_class *class = ris->vmsc->comp->class;
+>  
+> @@ -1659,16 +1660,20 @@ static int mpam_restore_mbwu_state(void *_ris)
+>  		if (WARN_ON_ONCE(!mpam_mon_sel_lock(msc)))
+>  			return -EIO;
+>  
+> -		if (!ris->mbwu_state[i].enabled) {
+> +		mbwu_state = &ris->mbwu_state[i];
+> +
+> +		if (!mbwu_state->enabled) {
+>  			mpam_mon_sel_unlock(msc);
+>  			continue;
+>  		}
+>  
+>  		mwbu_arg.ris = ris;
+> -		mwbu_arg.ctx = &ris->mbwu_state[i].cfg;
+> +		mwbu_arg.ctx = &mbwu_state->cfg;
+>  		mwbu_arg.type = mpam_msmon_choose_counter(class);
+>  		mwbu_arg.val = &val;
+>  
+> +		mbwu_state->reset_on_next_read = true;
+> +
+>  		mpam_mon_sel_unlock(msc);
+>  
+>  		__ris_msmon_read(&mwbu_arg);
+> @@ -1701,15 +1706,11 @@ static int mpam_save_mbwu_state(void *arg)
+>  
+>  		cur_flt = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
+>  		cur_ctl = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
+
+> -		mpam_write_monsel_reg(msc, CFG_MBWU_CTL, 0);
+
+I plan to drop this line,
+
+
+> -		if (mpam_ris_has_mbwu_long_counter(ris)) {
+> +		if (mpam_ris_has_mbwu_long_counter(ris))
+>  			val = mpam_msc_read_mbwu_l(msc);
+> -			mpam_msc_zero_mbwu_l(msc);
+> -		} else {
+> +		else
+>  			val = mpam_read_monsel_reg(msc, MBWU);
+> -			mpam_write_monsel_reg(msc, MBWU, 0);
+> -		}
+
+But keep this. With reset_on_next_read the driver won't consume the stale value, and
+that approach also covers the hardware resetting into unusual states.
+
+
+Reviewed-by: James Morse <james.morse@arm.com>
+
+
+Thanks,
+
+James
