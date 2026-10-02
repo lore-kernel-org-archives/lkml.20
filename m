@@ -1,53 +1,101 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41E4496D2E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEED84718CD;
+	Fri,  2 Oct 2026 12:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945154; cv=none; b=VKBpu0tHJ3tT2vTnh0QJ0YFGEd3W7vEXkM8ge3RP3+y+1HatuZVT9pVQPcomnhqZ8VwAAC368A32dxoj9Pnb/sn+EnxEPdQt6LJ34P1W+eKIfypVSQEUaW03gSYizx/3AHp6P4QrTVdQEF2acaIS1HkfBgoyxUHBA3Y70bFm+jM=
+	t=1790945156; cv=none; b=Lvhy5kgSpNiaLv/QZEIIWjXI9FpUYyICB5cp7coRDGj3G0uma60EVn7cNw37ZNGw10g2oPpQQmFyTfwWkbEmMczC6V5ZmPpmftrP42+Z8mzg0Slw/23jktgIN9QFX+2XnIAA5sE+W0uyfuDrNwOycXZ5PczFgPQZ+cgOzY1OlZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945154; c=relaxed/simple;
-	bh=hxUO5Igy0W7EyFlDN5fY4TXl+gk8bGci7Vn3ccTQG4g=;
+	s=arc-20240116; t=1790945156; c=relaxed/simple;
+	bh=W4iDPF51RZuJs0cvKIUS4CFIUtJ7Lg6KkJj527u7mJI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OynbqDNa+7f3F5kV7mAXA1QOplczcXxFX4KAO2TWxAvjtQneW4VI25lV3nyY3L6nTb64rrSL1Op54ZN50hLnvFkK63LD1Ko8Ht9f+a9MxsXQxeUynhtfqNK06xzUd3t0PctsAxXGDY6mdy4/FpVGO6m3Hb1E0KwVHJzstNc/HmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sfRqnRTq; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 MIME-Version; b=Kyr6O0x1286NKMhWntBg+5LWAgebcj6xMB0tlG77IdDgXlhLpb9g0aB9ZCP5fzFJX91yPXwXrzR+1eWA40JLzUwahM8FM7+fu2sdG7fHdCuxBcvUzvL9AhDJxgZxmU6FfnGr6EY8LGgaFTp7wjP0SbBcqgKXqcR8i7qDZOmF6FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1tIypbe8; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=oiTWPMn6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0nRaH746; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=s6FDUjMj; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sfRqnRTq"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1tIypbe8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oiTWPMn6";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0nRaH746";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s6FDUjMj"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hx7mr3VmVzKp6P;
-	Fri, 02 Oct 2026 14:45:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790945148;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5439B21E58;
+	Fri,  2 Oct 2026 12:45:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790945114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=j/26+k03Ys7YtKOFZGg1RR9UPUx8C444z1ZD3oGXPhw=;
-	b=sfRqnRTqpaBoOeG60UXIBtcTBl+m3PDE66kHBa+PAI5GHZm9FyuwzRE6Kd6IpJ6mMeWA96
-	NKgHH7JMD0mjpPgI4xtkfcX8XMv0ZMZ8O2AZlQ5vndW5GvFho3S5BJoDYxkwdGrLydvxai
-	iVYXXfkIzVQhdG4laiqgfVM8q5QgrbkeIBhHOnG466455tzwvzlii7W6WkCIs1ZkBbOpCJ
-	aGzJkzQjn95S/1n2ILoaP212N01L1ChERAjbtLUyBR830+RNJBUEnpKgIFpWD0X8odvYY0
-	vbhjrv1bCPEH4Kix+0irTY7C8qsHXoYQqRhbDBLmCp4LAJg8MIn+GQZhAxXFCA==
-From: Tor Vic <torvic9@mailbox.org>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	kprateek.nayak@amd.com
-Cc: linux-kernel@vger.kernel.org,
-	Tor Vic <torvic9@mailbox.org>
-Subject: [RFC PATCH 2/2] sched/fair: Remove sched_base_slice scaling altogether
-Date: Fri,  2 Oct 2026 14:45:38 +0200
-Message-ID: <20261002124538.79658-3-torvic9@mailbox.org>
-In-Reply-To: <20261002124538.79658-1-torvic9@mailbox.org>
-References: <20261002124538.79658-1-torvic9@mailbox.org>
+	bh=le20LK0izKJvpzcJsn/wk9Ur8I1yBsaG8v0UNbq6iZw=;
+	b=1tIypbe82+mG/ODX5eDIMAdErwIgCGn3jIxD4MKhHhvAjxLVmoGCVN4fhY7p5sIxL+23yX
+	d6iKq4VjX3aTAiPWmQjTngvYeOl5tMyxKV3/pRY5jjT2eIJ+an55HZHyW1PVv5SysRs+J8
+	SD8J4VViiA9oI6Ruqmc3uuqHU+I436Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790945114;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=le20LK0izKJvpzcJsn/wk9Ur8I1yBsaG8v0UNbq6iZw=;
+	b=oiTWPMn6Lqgdj4HLFzHXhZdxrCSmLo7LAGsOmvHWnAPpGna3NLjEr4pH1YXCMjGeWj3eR2
+	FesZbbTfmK2JmNAg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0nRaH746;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=s6FDUjMj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790945110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=le20LK0izKJvpzcJsn/wk9Ur8I1yBsaG8v0UNbq6iZw=;
+	b=0nRaH746fHYZi5EPa6vJDMBEThb8sy3slM716DX2ZnoIseUyIRnC5Y+LTv0uobyUCTN4X8
+	34hFkDccBT//m9IsaLGRolqubXqjzxZzGHKY7TJkzhq91v7/lcoz3ifd95aeWvek7XubXA
+	ggItxDvXiS8PgwqaG7IEcQJpKAj0x3g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790945110;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=le20LK0izKJvpzcJsn/wk9Ur8I1yBsaG8v0UNbq6iZw=;
+	b=s6FDUjMjiSjnXBM3UfciYAHUwFO8A3WhQQZn1FefKXiPNSRgZitualkAaTodW/saCFK0C2
+	dHYsg0ii4hSfdvCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D4B7713C99;
+	Fri,  2 Oct 2026 12:45:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id V/hJI0ynv2rNTwAAD6G6ig:T8
+	(envelope-from <tzimmermann@suse.de>); Fri, 02 Oct 2026 12:45:03 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	decui@microsoft.com,
+	ssengar@linux.microsoft.com,
+	andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	sashiko-reviews@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Javier Martinez Canillas <javierm@redhat.com>
+Subject: [PATCH v2 7/7] drm/vc4: Do not include <drm/drm_simple_kms_helper.h>
+Date: Fri,  2 Oct 2026 14:41:57 +0200
+Message-ID: <20261002124456.741011-8-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002124456.741011-1-tzimmermann@suse.de>
+References: <20261002124456.741011-1-tzimmermann@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,146 +103,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: tdqrattbsuigh8xym8putxgc661o5eu6
-X-MBO-RS-ID: b37ec2e3a226b9b9a1d
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,microsoft.com,linux.microsoft.com,linuxfoundation.org];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 5439B21E58
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-After having removed the 'none' and 'linear' scalings, remove the
-entire tunable scaling mechanism altogether, and just set a fixed
-default sched_base_slice of 2 msec.
+The vc4 driver does not require anything from the simple-kms
+header. Do not include it.
 
-This can still be changed through debugfs.
+Suggested-by: Javier Martinez Canillas <javierm@redhat.com>
 
-Signed-off-by: Tor Vic <torvic9@mailbox.org>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- kernel/sched/core.c  |  1 -
- kernel/sched/fair.c  | 53 +++-----------------------------------------
- kernel/sched/sched.h |  3 ---
- 3 files changed, 3 insertions(+), 54 deletions(-)
+ drivers/gpu/drm/vc4/vc4_dpi.c  | 1 -
+ drivers/gpu/drm/vc4/vc4_dsi.c  | 1 -
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 1 -
+ drivers/gpu/drm/vc4/vc4_vec.c  | 1 -
+ 4 files changed, 4 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1fe40de6ebe3..2a8a242e20e5 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -8942,7 +8942,6 @@ void __init sched_init_smp(void)
- 	if (set_cpus_allowed_ptr(current, housekeeping_cpumask(HK_TYPE_DOMAIN)) < 0)
- 		BUG();
- 	current->flags &= ~PF_NO_SETAFFINITY;
--	sched_init_granularity();
+diff --git a/drivers/gpu/drm/vc4/vc4_dpi.c b/drivers/gpu/drm/vc4/vc4_dpi.c
+index 53f36626a50d..686903b8864b 100644
+--- a/drivers/gpu/drm/vc4/vc4_dpi.c
++++ b/drivers/gpu/drm/vc4/vc4_dpi.c
+@@ -19,7 +19,6 @@
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/media-bus-format.h>
+diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+index 0148f2befed1..5ed3c35ee9c7 100644
+--- a/drivers/gpu/drm/vc4/vc4_dsi.c
++++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+@@ -38,7 +38,6 @@
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
  
- 	init_sched_rt_class();
- 	init_sched_dl_class();
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 2f9b7d2fe813..3d59af44abdf 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -67,10 +67,10 @@
-  * Under EEVDF this is the request size used to compute the virtual
-  * deadline; see update_deadline().
-  *
-- * (default: 0.70 msec * (1 + ilog(ncpus)), units: nanoseconds)
-+ * (default: 2 msec)
-  */
--unsigned int sysctl_sched_base_slice			= 700000ULL;
--static unsigned int normalized_sysctl_sched_base_slice	= 700000ULL;
-+unsigned int sysctl_sched_base_slice			= 2000000ULL;
-+static unsigned int normalized_sysctl_sched_base_slice	= 2000000ULL;
- 
- __read_mostly unsigned int sysctl_sched_migration_cost	= 500000UL;
- 
-@@ -173,38 +173,6 @@ static inline void update_load_set(struct load_weight *lw, unsigned long w)
- 	lw->inv_weight = 0;
- }
- 
--/*
-- * Increase the granularity value when there are more CPUs,
-- * because with more CPUs the 'effective latency' as visible
-- * to users decreases. But the relationship is not linear,
-- * so pick a second-best guess by going with the log2 of the
-- * number of CPUs.
-- *
-- * This idea comes from the SD scheduler of Con Kolivas:
-- */
--static unsigned int get_update_sysctl_factor(void)
--{
--	unsigned int cpus = min_t(unsigned int, num_online_cpus(), 8);
--	unsigned int factor = 1 + ilog2(cpus);
--
--	return factor;
--}
--
--static void update_sysctl(void)
--{
--	unsigned int factor = get_update_sysctl_factor();
--
--#define SET_SYSCTL(name) \
--	(sysctl_##name = (factor) * normalized_sysctl_##name)
--	SET_SYSCTL(sched_base_slice);
--#undef SET_SYSCTL
--}
--
--void __init sched_init_granularity(void)
--{
--	update_sysctl();
--}
--
- #ifndef CONFIG_64BIT
- #define WMULT_CONST	(~0U)
- #define WMULT_SHIFT	32
-@@ -1242,17 +1210,6 @@ struct sched_entity *__pick_last_entity(struct cfs_rq *cfs_rq)
- /**************************************************************
-  * Scheduling class statistics methods:
-  */
--int sched_update_scaling(void)
--{
--	unsigned int factor = get_update_sysctl_factor();
--
--#define WRT_SYSCTL(name) \
--	(normalized_sysctl_##name = sysctl_##name / (factor))
--	WRT_SYSCTL(sched_base_slice);
--#undef WRT_SYSCTL
--
--	return 0;
--}
- 
- static void clear_buddies(struct cfs_rq *cfs_rq, struct sched_entity *se);
- 
-@@ -15011,15 +14968,11 @@ void sched_balance_trigger(struct rq *rq)
- 
- static void rq_online_fair(struct rq *rq)
- {
--	update_sysctl();
--
- 	update_runtime_enabled(rq);
- }
- 
- static void rq_offline_fair(struct rq *rq)
- {
--	update_sysctl();
--
- 	/* Ensure any throttled groups are reachable by pick_next_task */
- 	unthrottle_offline_cfs_rqs(rq);
- 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 7a36b3210757..a323fdeb7125 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2302,8 +2302,6 @@ extern int group_balance_cpu(struct sched_group *sg);
- extern void update_sched_domain_debugfs(void);
- extern void dirty_sched_domain_sysctl(int cpu);
- 
--extern int sched_update_scaling(void);
--
- static inline const struct cpumask *task_user_cpus(struct task_struct *p)
- {
- 	if (!p->user_cpus_ptr)
-@@ -2987,7 +2985,6 @@ extern void schedule_idle(void);
- asmlinkage void schedule_user(void);
- 
- extern void sysrq_sched_debug_show(void);
--extern void sched_init_granularity(void);
- extern void update_max_interval(void);
- 
- extern void init_sched_dl_class(void);
+ #include "vc4_drv.h"
+ #include "vc4_regs.h"
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 3a90dbb61f4e..6b00581f304f 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -41,7 +41,6 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/gpio/consumer.h>
+diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
+index 792b7b39be59..215b5d3dc5c5 100644
+--- a/drivers/gpu/drm/vc4/vc4_vec.c
++++ b/drivers/gpu/drm/vc4/vc4_vec.c
+@@ -19,7 +19,6 @@
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/of.h>
 -- 
 2.55.0
 
