@@ -1,69 +1,68 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A5548AE36
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6993548BD20
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939731; cv=none; b=oXQ0+145xh8vzbO66Xt+/BuvAE8IlU4yP2FPA129I8HB/UJMiMb2nPep3elvJ95JYIcKze081fPLTar4OqZ9csUHegePb2JR6Vm4/mHyU1pA2nCLHPAA1Z/E+AAOiY0wCmvSkcuwys5jCL/RDo1C8aBbTcX4ppEfenBosa47FQ8=
+	t=1790939733; cv=none; b=eiQYhVvLAePz7trHjfqH6okDs82gra2dT9cawm66USK28elE3AAqsVH44IZ5UguOjqb9YPXDPW9Kun0ImrOKG6zNy4JEBX2g0JE3iv4yzQUwWBsZ/NORDRCpS3Xiq5nnVJAjHvLxj7o2i2mm0R1HKh2dVjTqic1SKSV2LS5Wh3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939731; c=relaxed/simple;
-	bh=xka5UItDIrEJnIvKmqLwmmfEobjfMvpvaTiygYgaFd0=;
+	s=arc-20240116; t=1790939733; c=relaxed/simple;
+	bh=Mt5RUIIqhNU/l5hHtkeYWBdiR+GT7HiHLBustqGOlCY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nlpv5mbHCrzRgQCdVLDPauhaGDQsh/8IP6PpHEP3W9nFFYcdhF2R2VJol16b1C7wgxo7V41B2T2J9MucweWfBDFrkQ5qhmjisfKThEe7BqsdTytJ1zbH18chmCuiXSO29JezcvrV+fGKXl+hgl/V+KpSBefMn67ibasY+5l6SVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=G7BX39kP; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=YoTiyTa26g/Fxu34G0H7GXYQA/PJr3CR1pMACQ9eHpyW+IYv0/X+cWTIOwyqIjOtZysfccG3erK5wcBNTjLB2KH0KeDO7GqvsRA7ycAG0RL6yKm/9/oXCSsJA7lnel7vNT1OSBkx7noIHZyZdhUWawPZaLuvoS4NiLTn0Hm1OTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Y34t74Pg; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="G7BX39kP"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso42415315e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:15:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Y34t74Pg"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b0591cf85so1292224f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:15:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790939728; x=1791544528; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790939729; x=1791544529; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GEiJjq6Jc7fnijCf7RLJfnGkUIPBSRhorQ+d3FhIqF8=;
-        b=G7BX39kPw1LMFjxkbIJlHkHTbNW/HGPZN27qRa+vOdIvaYNqwukwOZCaAAsUm+tEcx
-         oLVw+kzodjCnPWgb80San7BCf4YbNZR+6qAEeAseRr7fQ+aGPZF1S1BqzZKX39INM/1r
-         z+2FRwhNKscZ9Rcyc1SmlZq5BGrbnfC1Ak84Mb87kYKBcYwo9vaHpi0MBPHkzp0oPSOo
-         cKkL/lCClAkMtD9xPVv4G8Hlot2JQgsF+Sm1x7rjlFRWh43b9/MIFJRPZL4bQxUa8Yhd
-         sPTAZBGrfxECegoTiqia7m7s5qKCJxAPXIJHzrnCv9MCd578xnmHHW79PHN8swRk8vLw
-         qH8Q==
+        bh=AgLP/cRXSHew82DCMceg3gOpR06huHwNT68VSs/pBPY=;
+        b=Y34t74PgxyYPyZSSxlX9dxfbyEf2KAsaUXdm41XUVMMiDUZKZHL23gkynFIrUyFI56
+         +65AwhL+qKeCsNXxFj2fmTlK0baYaPifQNQZiOW+t7kltK7tirpZ7grnnwBs5fyNtRIi
+         7cc0wmG8jSL5o5lQahUCf2PoOip0gZpYWQccZcPQMpGIzw+F84MUrF0buG+VhQI39sZ+
+         LpczTBzE4LapsaKnzgbq99si5lTCdD6T+n9HErCXH5hLOhpBCmPHrWoIPv7pvnxMDtN9
+         mCvpqJ6QFVd1c0rSDbTyNOz1RX1pcenLJ3k/6q5VuyWIcfyP+B64n85Xkn88mXFWoujU
+         k6eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790939728; x=1791544528;
+        d=1e100.net; s=20260707; t=1790939729; x=1791544529;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GEiJjq6Jc7fnijCf7RLJfnGkUIPBSRhorQ+d3FhIqF8=;
-        b=fuCq+ZEyigqYz5ry0kDDCeSKtJbHiVptwJ5AyBt+4kwKQ1y7O7HXZ5QlFPAFeygu9f
-         npZwD6Y5FFOO1uTWZmegFkgJ0UlX7ogLEyXoLiGSs7ziCl3ESyizvpzflLkLESgMvGkj
-         xqxO1Uk4U709rJvcgHGZU0V845kHhhTB2tXoqKAxYsC5S5Mk/tnlzI2Qhvg6V/k2g4TY
-         orVAXm7NBQaelKfZDXdiL03QAIEZ6b2XlLw/KwytIelAYhPx8+oGtJmFlWGun2xUzVnf
-         iUemcykV4Lr2ZJ49G0dsKjK+TX+7AnEIaNOwPWFRw7fi5huN256BTA2cWSKjCYWQ8woG
-         /ptA==
-X-Forwarded-Encrypted: i=1; AKwUvBxY5C7Hxyw1IKLSag2u7UvSrpdbBGEBM9zhb2/qwJG/NGAk84ec215ThGQ/nQIo7FPfAi7GNz7Rw8GIYuA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqy7IXfyFm5km+J1uYw5DyAZ7iwv48QGR8fxg8o46REMz7vrmY
-	Nk1QKxjWaIz4dcTAI355MU8b0YCCQ2ptJZ61lVDot5OT+AFIWErahXK+mQWPRN9lmmM=
-X-Gm-Gg: AYBFou3kLXgmlNy+NlCV2yv7vDD4c1Al/7mWo2GM6qcZX8w6MUpVUOqTd1me6frFTbm
-	XAeHIZc1MRaHZggsxW3Pvo6OXKH5ndGN5b0xXNZ4Q9V6PdpleVNln7ueHwg6x93lmAXH+ecsakZ
-	6Lo9LTik2pof/+VgpKhqOuWdxmS9G+J+8VWwEqBSnDc+lRZ8QZEhbbIphwt2LJW5lfSl3zEjppi
-	Fc4vuXtuS0K/6ebNwR0ZfCRUy5SaMdv/PQPdXuZ7WlJkqaHwzSYRgUiL0vUTgCv2F5ez6WOYfmt
-	gfjbUV9sio+W6YFaow2DEsTvBkK80KP8OMwXbA91NYHbBelQY6DCD4n2t0UJg7NwhJ4dRQjPOa1
-	XpB4Mt9Y0qGQJRA+qWZWf8zPv7rE1DOQSbKWCKCFeS8JJ9Y6+5jqxjLkObB0ycTfTjd6o4d4KHk
-	OSqQ9wGSTrCeYYkBpNxisr02ByIzNMk0eARm3IdNlsxNrxCfH1FfVJTWyUwnwxWW0YdtLeA2sJt
-	JsxrFUaUhjV
-X-Received: by 2002:a05:600c:4f04:b0:4a0:a34:6e7d with SMTP id 5b1f17b1804b1-4a027564c91mr48663925e9.18.1790939727443;
-        Fri, 02 Oct 2026 04:15:27 -0700 (PDT)
+        bh=AgLP/cRXSHew82DCMceg3gOpR06huHwNT68VSs/pBPY=;
+        b=P5pt12GS3BWz5BsD3XEx5l81HaFg9fupVhg6HnCOEuejQEHQ4/cXCVk6rKSPYgAiUJ
+         xZG66MeSAZ//mF9en7v0fX4PNRfZBmuMiSlY9xTekpIq7dTLuRk+euDoOrNiPB+64mfi
+         llvQNxjPDx5QD54lnwWMe/wg/A3gDNXxLjWlbbalpCRHA7QLEhyu4XHCRxOPzTRrmtsD
+         eoZ/cyPWv+Wi9bsQJV9c8QixfcFePXB7SUpUFcXcNZ8HXEjfYXaaoLdNI7IVo0PeB1sw
+         c94ESen+Id22AlCgsOcUKRavbFqggzUklN0cpxYcWYGHM+o+cWbDsKN183Wzkx9Pwl9x
+         NtyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRZjAXIpN83v4CQ9GJEPspftmQjv+x+6FtACGP2xjmTPhB9nM2UNENLfh+cGl7n1GkoDCmvbwqjJgbqxg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKngk6URN31blI6PemILDCUMcta+wWJLfaWM0+E2t8MoCmntagb
+	llC2RTi/OfA7A/Ge+gvHXotAnkYdYgQRV4tLvmmfauuDD0t13RDno8iHuejBfSVlaes=
+X-Gm-Gg: AYBFou26hVyDhcVHuI0V0YvpbtFNlCAfd0G03BueCAfHkDUXd2clvpEadAo7XwnbhkO
+	Xdy8tjZuhbmaEu5efji71Y8yRyK0LaHqYwIJ5Rzv7sKbVPXP2ufxwGNhJFGek7uH3T5pbCf0YLP
+	VDWVwqR91x1DL+GMxZsLIbh5EJStdnZX77oH3hjm0HTO0N0jSJOdWat4fo7D9Mu+7/MPyvWVM7K
+	s/Pl6E/0Uukf7G6mn6ybzj8zH7tYcoxDpTKHz6hd486mpntkHXlZtTxVanoMIhJ8d/PWOimXduh
+	nUdeM8IQ1GQnSUgZ4mij4QzTQepjb6F8dSjCOB+u1pd/kWtiOy9NNbhfcd0yKZuYecQvquY4XuU
+	yhwV1CFuyxKHNx1ACcHFmRD0BUbkR9BtTFB3T0zTh5aTcv1v69PteZokBzOd+xmCdF4LbvK0XLU
+	jhqH8pbypJgnNXCGFFBa2TvvFUgydap/ahHvVREeBy9lv4TWUwqcKfsby6feZGnU55ftcc84cWA
+	2mY7NmwqcQ6
+X-Received: by 2002:a05:6000:2887:b0:48a:f59f:8b70 with SMTP id ffacd0b85a97d-48b1272b4d3mr4696930f8f.46.1790939729422;
+        Fri, 02 Oct 2026 04:15:29 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38306dd4sm4752986f8f.43.2026.10.02.04.15.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38306dd4sm4752986f8f.43.2026.10.02.04.15.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 04:15:26 -0700 (PDT)
+        Fri, 02 Oct 2026 04:15:28 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Date: Fri, 02 Oct 2026 12:15:11 +0100
-Subject: [PATCH v3 1/4] perf: cs-etm: Don't add global v0 HW_IDs to
- unformatted queues
+Date: Fri, 02 Oct 2026 12:15:12 +0100
+Subject: [PATCH v3 2/4] perf cs-etm: Free partially created queues
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-james-cs-hw_id-output-failure-v3-1-1d8b6ef339c8@linaro.org>
+Message-Id: <20261002-james-cs-hw_id-output-failure-v3-2-1d8b6ef339c8@linaro.org>
 References: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
 In-Reply-To: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
 To: John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>, 
@@ -91,60 +90,136 @@ Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
  James Clark <james.clark@linaro.org>
 X-Mailer: b4 0.15.2
 
-In the case of mixed formatted and unformatted trace with v0 HW_IDs, or
-no HW_IDs at all resulting in the cs_etm__map_trace_ids_metadata()
-fallback, formatted queues will write their HW_IDs to unformatted
-queues. This will result in an assert because of multiple decoders on an
-unformatted queue.
+cs_etm__create_decoders() can fail half way through and the
+err_free_queues label won't free them. Call the full queue free function
+here instead. If no decoders were created it's a nop.
 
-Fix it by not inserting trace ID nodes on other unformatted queues. This
-isn't an issue for v0.1 HW_IDs because they aren't global so will only
-add to their own queue.
-
-Fixes: 19c3e4db38c5 ("perf: cs-etm: Create decoders based on the trace ID mappings")
+Reviewed-by: Leo Yan <leo.yan@arm.com>
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/util/cs-etm.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ tools/perf/util/cs-etm-decoder/cs-etm-decoder.c | 12 ++++++------
+ tools/perf/util/cs-etm-decoder/cs-etm-decoder.h |  2 +-
+ tools/perf/util/cs-etm.c                        | 25 ++++++++++++++++---------
+ 3 files changed, 23 insertions(+), 16 deletions(-)
 
+diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
+index 26940f1f1b0b..b56cf57a68c8 100644
+--- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
++++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
+@@ -741,7 +741,7 @@ cs_etm_decoder__new(int decoders, struct cs_etm_decoder_params *d_params,
+ 	return decoder;
+ 
+ err_free_decoder:
+-	cs_etm_decoder__free(decoder);
++	cs_etm_decoder__zfree(&decoder);
+ 	return NULL;
+ }
+ 
+@@ -793,14 +793,14 @@ int cs_etm_decoder__process_data_block(struct cs_etm_decoder *decoder,
+ 	return ret;
+ }
+ 
+-void cs_etm_decoder__free(struct cs_etm_decoder *decoder)
++void cs_etm_decoder__zfree(struct cs_etm_decoder **decoder)
+ {
+-	if (!decoder)
++	if (!(*decoder))
+ 		return;
+ 
+-	ocsd_destroy_dcd_tree(decoder->dcd_tree);
+-	decoder->dcd_tree = NULL;
+-	free(decoder);
++	ocsd_destroy_dcd_tree((*decoder)->dcd_tree);
++	(*decoder)->dcd_tree = NULL;
++	zfree(decoder);
+ }
+ 
+ const char *cs_etm_decoder__get_name(struct cs_etm_decoder *decoder)
+diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
+index 12c782fa6db2..2a8214f17958 100644
+--- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
++++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
+@@ -96,7 +96,7 @@ cs_etm_decoder__new(int num_cpu,
+ 		    struct cs_etm_decoder_params *d_params,
+ 		    struct cs_etm_trace_params t_params[]);
+ 
+-void cs_etm_decoder__free(struct cs_etm_decoder *decoder);
++void cs_etm_decoder__zfree(struct cs_etm_decoder **decoder);
+ 
+ int cs_etm_decoder__add_mem_access_cb(struct cs_etm_decoder *decoder,
+ 				      u64 start, u64 end,
 diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index 2d1ab34f7b6b..fda6b6c02e26 100644
+index fda6b6c02e26..78ae8443ac96 100644
 --- a/tools/perf/util/cs-etm.c
 +++ b/tools/perf/util/cs-etm.c
-@@ -309,27 +309,27 @@ static int cs_etm__map_trace_id_v0(struct cs_etm_auxtrace *etm, u8 trace_chan_id
- {
- 	struct cs_etm_queue *etmq;
- 
--	/*
--	 * If the queue is unformatted then only save one mapping in the
--	 * queue associated with that CPU so only one decoder is made.
--	 */
- 	etmq = cs_etm__get_queue(etm, cpu_metadata[CS_ETM_CPU]);
+@@ -1002,7 +1002,7 @@ static void cs_etm__free_queue(void *priv)
  	if (!etmq)
- 		return -EINVAL;
+ 		return;
  
-+	/*
-+	 * If the queue is unformatted then only save one mapping in the
-+	 * queue associated with that CPU so only one decoder is made.
-+	 */
- 	if (etmq->format == UNFORMATTED)
- 		return cs_etm__insert_trace_id_node(etmq, trace_chan_id,
- 						    cpu_metadata);
+-	cs_etm_decoder__free(etmq->decoder);
++	cs_etm_decoder__zfree(&etmq->decoder);
+ 	cs_etm__free_traceid_queues(etmq);
  
- 	/*
- 	 * Otherwise, version 0 trace IDs are global so save them into every
--	 * queue.
-+	 * formatted queue.
- 	 */
- 	for (unsigned int i = 0; i < etm->queues.nr_queues; ++i) {
- 		int ret;
+ 	if (etmq->own_traceid_list) {
+@@ -1017,13 +1017,10 @@ static void cs_etm__free_queue(void *priv)
+ 	free(etmq);
+ }
  
- 		etmq = etm->queues.queue_array[i].priv;
--		if (!etmq)
-+		if (!etmq || etmq->format == UNFORMATTED)
- 			continue;
+-static void cs_etm__free_events(struct perf_session *session)
++static void cs_etm__free_queues(struct cs_etm_auxtrace *etm)
+ {
+ 	unsigned int i;
+-	struct cs_etm_auxtrace *aux = container_of(session->auxtrace,
+-						   struct cs_etm_auxtrace,
+-						   auxtrace);
+-	struct auxtrace_queues *queues = &aux->queues;
++	struct auxtrace_queues *queues = &etm->queues;
  
- 		ret = cs_etm__insert_trace_id_node(etmq, trace_chan_id,
+ 	for (i = 0; i < queues->nr_queues; i++) {
+ 		cs_etm__free_queue(queues->queue_array[i].priv);
+@@ -1033,13 +1030,23 @@ static void cs_etm__free_events(struct perf_session *session)
+ 	auxtrace_queues__free(queues);
+ }
+ 
++static void cs_etm__free_events(struct perf_session *session)
++{
++	struct cs_etm_auxtrace *aux = container_of(session->auxtrace,
++						   struct cs_etm_auxtrace,
++						   auxtrace);
++
++	cs_etm__free_queues(aux);
++}
++
+ static void cs_etm__free(struct perf_session *session)
+ {
+ 	int i;
+ 	struct cs_etm_auxtrace *aux = container_of(session->auxtrace,
+ 						   struct cs_etm_auxtrace,
+ 						   auxtrace);
+-	cs_etm__free_events(session);
++
++	cs_etm__free_queues(aux);
+ 	session->auxtrace = NULL;
+ 
+ 	for (i = 0; i < aux->num_cpu; i++)
+@@ -3476,7 +3483,7 @@ static int cs_etm__create_queue_decoders(struct cs_etm_queue *etmq)
+ 	return 0;
+ 
+ out_free_decoder:
+-	cs_etm_decoder__free(etmq->decoder);
++	cs_etm_decoder__zfree(&etmq->decoder);
+ out_free:
+ 	zfree(&t_params);
+ 	return -EINVAL;
+@@ -3758,7 +3765,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
+ 	return 0;
+ 
+ err_free_queues:
+-	auxtrace_queues__free(&etm->queues);
++	cs_etm__free_queues(etm);
+ 	session->auxtrace = NULL;
+ err_free_etm:
+ 	zfree(&etm);
 
 -- 
 2.43.0
