@@ -1,73 +1,197 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B8D2EEE75
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 00:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3952D46CE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 00:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790902265; cv=none; b=gJsrF5G/LCIjXOVeYlaZhu9ipGl/WC4bKrQlTgKo6tH2IfZyCd3fZ0xYFVdzgqv76fGjyxhmIYkpfDF6UKoz0MwFPLI+ljuCklbuMHPjLBm/T+uqVCtZ+F+4/CFxdQvknsUdh/D2DQkNAEPh9UGX/D4yvavLucufcIs0YiBdefE=
+	t=1790902276; cv=none; b=eqtenMtIwAoCZkAdc4ZOsbryoB1zTdEMRzp23VOjjs5DQmBrqPrjSJpPl5QfbT+JttykfADJ3ctDE5bB61tEuouHOmDoi8osGysfzDA0QdVFAi3YH6Lx72MNpZrcXFSp8L6xQ6QhPcioeWblFn0UlSttLskrQzX39kAxrX6nhEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790902265; c=relaxed/simple;
-	bh=4uxUaSB4kMiGE3cCX/ipv1W6+xKt/cRs99UJngj16Uo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KlDmy8IBEVLQhsSolQGzxob5qOwHyKEW/zClcOXrERA2AqvCg/FM4jLL1pfskO3Ra4qRAMrqNjvqFcQgw1eVX6x6xrsMUxwQ9cmWT4JCLhKCK1CYxzL+zMEuBlfpZfgd2uJwtE8mNxjiyTPaBpZWa40r3NMeoC3vv32YRTxalAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cb254da90eso11173631b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 17:51:03 -0700 (PDT)
+	s=arc-20240116; t=1790902276; c=relaxed/simple;
+	bh=8Dmb/mLuWXLyyFW0llcc/hS/zATbTYC9yx7tgMnoKB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ghWx4VJQZnXGI06U/X8dG3kRXsdRCafhimdUBidVu4Eofk8AVl58YyHE4+cPQT7AzJmUBVFvB/JirdiNkdU07QC8kQbvoSflC2tB5wU4k4269bevsty+tvuwsz2yBgHWSeYGCtpNfdH3rPXbvK+sma1TLuh1PlG2XqUwAbMJZLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NbP5GCru; arc=none smtp.client-ip=74.125.227.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NbP5GCru"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a4805e15cfso2703813a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 17:51:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790902274; x=1791507074; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oX/x1rko7bkYDh6myuQsKqrjTrNd8ZRwr/c3ViywoeE=;
+        b=NbP5GCru04jOZ17vVfF09BaLOp1q1KQRfvLj40gNVAinBu3qHTW1mFJEtwvGg5R1TF
+         3vk/nT55Z23+yCB+tWUC3YeRLvRGHIIwJrGb6l/6CEqEehWCbPAf+ZCNKs8cozMcHf3D
+         o//PP8U6Hm7EJJEHxsudhccEPCTyDdHX+r/BRXUM/04s6aItVQ9TpJtE0VZMclCCfZ/s
+         QRWsrD1gbkpMGjeuRGiqQVHMTbGTD6cXJOFVZt3zLbSRWVX3VI+u+fEZFVAUCxfjDDOW
+         BD8W3D9et3UU0BSGxx32nOvKZJgEoKc1CTlnmAZD8klliUAXIpTqhVwz0X8dir2VoN3R
+         KSvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790902262; x=1791507062;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TOOCfEFXaRbIb075v0FK+nrZYZSf/KiSCsCz8ZMWwpE=;
-        b=X7tU600LrTO17YzRV0dzspv5aT3fkG3uv6V27p9ttwA0ppBiTERq27DOCwxC//7cgw
-         FSyh95iuZJ1eiFdwIEa+TYotwQ17IJKdEH1vK6iEkeRsBEPcW+6DqwkjfVQxmBSEchmj
-         Ksp1OW3go4gDzyUlEnQCib2mr/4AwsY8aAvPYsZ+Gl+zYDboqhNF8WfvwbErFvRWarEj
-         DFM8OQjvEd6OmGWW1Zu7AM+X4hDGp6BLPndvw5ITkzel4oawZVLDGjefLnCSYUFkfVxN
-         uBXNtoL3qetE3LcXrqCwh4xxJxK+B5c8Xj7VHfxxDtg/1hy2q3l6u9JINKHitqEfFpDs
-         1zRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxlQ6S6lpzp/XMkyXpvWiqAIKiawvZBfhvaHRaR8e3ow7br147deh1bEQM/FmbICMCViUWyALTT9+MSPY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQb4udmTTk1xoxoK17VtHT1uNsmCenLzZZDkVrEQawixVpRCwr
-	6rNTwgEuKQKc9jSSERj/2LgMLsEDIIa8vgTcd9NIaZ6yOEL2DrTCOyWUqCWLLK88lS7Ln2qnIAa
-	4G43HpjOWgBHhVBrJrutTWk/N4PH7MYtoqApXGS8nGaBFZnzqF3bHKAoQSkA=
+        d=1e100.net; s=20260707; t=1790902274; x=1791507074;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oX/x1rko7bkYDh6myuQsKqrjTrNd8ZRwr/c3ViywoeE=;
+        b=CWSZWZdU+I8/KQ7nT9lUWK4KgasaZX1GJsB+JZgzEimICPzcmv43ImJ5xtBcF+j5zv
+         sALySuZgEVWfXrrsbfYKM11b3L2gqknHsDMJOurhHIajs+eUPZ4jqgrOm4keAMa7xQM4
+         2V/KyS7kBKlCdUySHUSIKRPMBwFCi1YxH4njtx4Ria2jKvLDDk9PXZN1Zz7htZcvoB/l
+         bd5Pp++15243EKPw4/GkBSAy6T2lx/uKBUYju0AXHAOHXp5SYwDsVvhhf3K2Np9zT+2p
+         jQxCgwass4v53wDojF+rPMrwBhyCUO4oMJLi446UsS7acjFAxegzxEmJ0tqNN5ODMVqj
+         oTng==
+X-Forwarded-Encrypted: i=1; AKwUvBx0ebYx8ItNXPClqymzuA4j491Rx821xnvNXRbvICqJon4G6zUfsIa1ko/siyFgnO79MQI1KBeQt/5HEPE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFafHspJeAh4gqJxKSAk0E5X56iuR+kOeqyUv9A26NFc2Khr6w
+	DASY8etmwr7VgJ1GQnPY+NVf0rH2xVrIOLhMRexmtOXxjWChlHiLMsH1
+X-Gm-Gg: AYBFou0ot1Ni5zyo8FpCASIk16HRZLRmW6ncdtV7Gf7toUvF8jtqOOqsDYuci0eC6na
+	feM2PS5gVzVVA9kotypN+PZSBIJX7wAM4W572LfwN0TwV6u+G8Uzhyg4lpYPoLzqm5KmSZQxdQ3
+	DGUBnlHXthntKO83zMkQDBKSvt2SdDVY5hHZ1MecvO5jm8Q9GAMvQUrxzDGAPvdVn5QGfk+AU+t
+	Wk2f7m/KoajhAO12/GKO8tkn3aitpd5Mt1X6YYQGy0C8tThDWKlmPtnSTkpOSzqlfUWO7T7Tthu
+	Hv+zPVjftJfxyAvevgj1odBK99w0BIBcdoaEqEqSVozgJ8mEgsebmkIj4BaiYX8E8p/faYg8K6M
+	N+sWvM1cKn3TxMeWNTSyVO9HHlPlYLDmGkpT1BS+FKa+erpd9vsm4jX1vBBXo15GDoIUw7UdpvT
+	xjGuhLVN5JRcyFaOxs3oP3x9hQschYyw1+nLIpoTlji/pvWaHjP7bgD12e9E16EKBn/PR/ktYVq
+	bkiuSSY7TyKd4WuuAT5ZfQ3jGIUcExYqBYK4KXdbNcqVAeY
+X-Received: by 2002:a17:90b:2e4b:b0:3a4:b076:f0e7 with SMTP id 98e67ed59e1d1-3a6ce59f8eemr1022412a91.6.1790902273529;
+        Thu, 01 Oct 2026 17:51:13 -0700 (PDT)
+Received: from localhost.localdomain (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dd4bd483sm361966a91.4.2026.10.01.17.51.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 17:51:12 -0700 (PDT)
+From: Artem Novak <artem122novak@gmail.com>
+To: ysato@users.sourceforge.jp,
+	dalias@libc.org,
+	glaubitz@physik.fu-berlin.de
+Cc: linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Artem Novak <artem122novak@gmail.com>
+Subject: [PATCH] sh: add SH7305 interrupt controller support
+Date: Thu,  1 Oct 2026 18:50:38 -0600
+Message-ID: <20261002005038.32239-1-artem122novak@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f4f:b0:4c4:8ace:cce8 with SMTP id
- 5614622812f47-4f52654daa0mr1092312b6e.8.1790902262585; Thu, 01 Oct 2026
- 17:51:02 -0700 (PDT)
-Date: Thu, 01 Oct 2026 17:51:02 -0700
-In-Reply-To: <20261001225008.1470-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abefff6.7503fbd6.2d3f6.0012.GAE@google.com>
-Subject: Re: [syzbot] [kernel?] KASAN: slab-use-after-free Read in
- raw_process_ep_io (2)
-From: syzbot <syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Add interrupt controller support for the Renesas SH7305.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Describe the TMU interrupt vectors, interrupt mask registers and
+interrupt register used by the SH7305, and register the controller
+through the existing SuperH INTC framework.
 
-Reported-by: syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com
-Tested-by: syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com
+Signed-off-by: Artem Novak <artem122novak@gmail.com>
+---
+ arch/sh/kernel/cpu/sh4a/Makefile      |  1 +
+ arch/sh/kernel/cpu/sh4a/intc-sh7305.c | 85 +++++++++++++++++++++++++++
+ 2 files changed, 86 insertions(+)
+ create mode 100644 arch/sh/kernel/cpu/sh4a/intc-sh7305.c
 
-Tested on:
+diff --git a/arch/sh/kernel/cpu/sh4a/Makefile b/arch/sh/kernel/cpu/sh4a/Makefile
+index baf73a8fc2a0..1e6cc301056a 100644
+--- a/arch/sh/kernel/cpu/sh4a/Makefile
++++ b/arch/sh/kernel/cpu/sh4a/Makefile
+@@ -10,6 +10,7 @@ obj-$(CONFIG_CPU_SUBTYPE_SH7770)	+= setup-sh7770.o
+ obj-$(CONFIG_CPU_SUBTYPE_SH7780)	+= setup-sh7780.o
+ obj-$(CONFIG_CPU_SUBTYPE_SH7785)	+= setup-sh7785.o
+ obj-$(CONFIG_CPU_SUBTYPE_SH7786)	+= setup-sh7786.o intc-shx3.o
++obj-$(CONFIG_CPU_SUBTYPE_SH7305)	+= intc-sh7305.o
+ obj-$(CONFIG_CPU_SUBTYPE_SH7343)	+= setup-sh7343.o
+ obj-$(CONFIG_CPU_SUBTYPE_SH7722)	+= setup-sh7722.o serial-sh7722.o
+ obj-$(CONFIG_CPU_SUBTYPE_SH7723)	+= setup-sh7723.o
+diff --git a/arch/sh/kernel/cpu/sh4a/intc-sh7305.c b/arch/sh/kernel/cpu/sh4a/intc-sh7305.c
+new file mode 100644
+index 000000000000..3b26d7ef0577
+--- /dev/null
++++ b/arch/sh/kernel/cpu/sh4a/intc-sh7305.c
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Renesas SH7305 interrupt controller support
++ *
++ * Copyright (C) 2026 Artem Novak
++ */
++
++#include <linux/init.h>
++#include <linux/sh_intc.h>
++
++enum {
++	UNUSED = 0,
++	ENABLED,
++	DISABLED,
++
++	TMU0_TUNI0,
++	TMU0_TUNI1,
++	TMU0_TUNI2,
++};
++
++/*
++ * SH7305 TMU interrupt event codes.
++ */
++static struct intc_vect vectors[] __initdata = {
++	INTC_VECT(TMU0_TUNI0, 0x400),
++	INTC_VECT(TMU0_TUNI1, 0x420),
++	INTC_VECT(TMU0_TUNI2, 0x440),
++};
++
++/*
++ * SH7305 IMR4 / IMCR4
++ *
++ * TMU0 channels occupy bits corresponding to TUNI0..2.
++ */
++static struct intc_mask_reg mask_registers[] __initdata = {
++	{
++		0xa4080090, 0xa40800d0, 8,
++		{
++			0,
++			TMU0_TUNI2,
++			TMU0_TUNI1,
++			TMU0_TUNI0,
++			0,
++			0,
++			0,
++			0,
++		}
++	},
++};
++
++/*
++ * SH7305 IPRA
++ *
++ * Four 4-bit interrupt priority fields:
++ *
++ *   bits 15..12  TMU0 channel 0
++ *   bits 11..8   TMU0 channel 1
++ *   bits  7..4   TMU0 channel 2
++ *   bits  3..0   unused here
++ */
++static struct intc_prio_reg prio_registers[] __initdata = {
++	{
++		0xa4080000, 0, 16, 4,
++		{
++			TMU0_TUNI0,
++			TMU0_TUNI1,
++			TMU0_TUNI2,
++			0,
++		}
++	},
++};
++
++static struct intc_desc intc_desc __initdata = {
++	.name		= "sh7305",
++	.force_enable	= ENABLED,
++	.force_disable	= DISABLED,
++
++	.hw = INTC_HW_DESC(vectors, NULL, mask_registers,
++			     prio_registers, NULL, NULL),
++};
++
++void __init plat_irq_setup(void)
++{
++	register_intc_controller(&intc_desc);
++}
+-- 
+2.55.0
 
-commit:         ce1e0223 Merge tag 'devicetree-fixes-for-7.3-2' of git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12fad6c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=fac807e4ec1c33e1
-dashboard link: https://syzkaller.appspot.com/bug?extid=596b59aea1a9deaaab67
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=16a02725580000
-
-Note: testing is done by a robot and is best-effort only.
