@@ -1,73 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2054B477291;
-	Fri,  2 Oct 2026 10:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001BC374A12
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 10:09:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935748; cv=none; b=AGxOmTtuBSV4RleuxAhkeD25SYt0ZlZrXtyqiANfyTGdJzdONCDicgOPczTBWn41vTcbnqWmxqPC1jYYjEuccZtgz7CWrE3yiiERpwVDPqxr4NC+YEYK9ihkZLI9lBceHpA0tVstwmnd+eglQbjzH4TcLaDPNRkIVKrdZ6+skdY=
+	t=1790935776; cv=none; b=GOXEPSNDkCvrOwm3zmsVaRK5U9iwBglbCQpYMgEuvZKvDnZdAy8Iq5COAS09vgnaa5Aa1UagYXcND4g+U9R/u4Zf7YQY+68jsj3ZQr5U+C8Qdk778h6+peTs8IQwJFmMshuX9X02eXPL7hjPhgEyctJ75mTn3mRhjrIm7pkoLEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935748; c=relaxed/simple;
-	bh=nOXcDrUoaq7D3/iW07c5+YzJfmnlVVdbiOfZn8zRDFg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=YZp36PJ/mIbk0NKtCynCTBLtsrceGKlsP9I2aFODz8foCp4LeNmO+qco3O+6f3GPsWSJqNJUHd5zPPkAEOwkeBQjHA0swn4NEWV05ioz3xdRai88N9Wvvdx0+5Ti9liiSXYgANyQl1fryoxJr1n0Kzh9ZUyO7A9sO4c4dIJWpsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtJhHLb8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790935776; c=relaxed/simple;
+	bh=Rpcyir0pucMYwxwpWT3J9PaLulRi5dtQNJE0Rr4sZxM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=STIu7WHwqcbPGv9y2IxksZWL5Z746NoY/XUtYoSUl48oJ45MJ4oR5gTrdPzshFFow6tXvea+2ce/jafP2QilV2bFw2A/35a8hv3T+jefZHMuVjmrRegpfDOLe0ls/KQJuJ8YSrtEBTeHN/uYS63iNcdFsMgpeKOW8aO4sMRDkng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EBKryzqF; arc=none smtp.client-ip=74.125.228.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtJhHLb8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05DE21F000FF;
-	Fri,  2 Oct 2026 10:09:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790935747;
-	bh=42gWHDf6qE5t6dpfm57PHhsfmnmVxaBF+alyU8miG1c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gtJhHLb86ean7gBFJFYA9TuiGzTM4C3FG+cKNU0ehBeWyMY9mQj7qECiCPDTH/9Jf
-	 Q5RdWgCoS0CXh1zl/9lkqSU/xsKooc11ZNO4PTMJp9C3KqbQdmaURA+kRlLaOMiREL
-	 2ZPDtk9cH86EAo81E6SWf1khi+SUhkQ6xbouCSAV7C2fq53O7hoYZcqhIWZHfQod1i
-	 07dWxCmaiTEiOwtLqv1Z4kblKmG0BcKxM0kGHIyLYmQ8+1MeXie58cYW4zTOkedJC/
-	 8f9rvsspwVQwfZYXZeke+lOxqSoDV/bSb4M0aeO25hR69BjrmuM18C694NZhEmBcGU
-	 PkwzBzJog49xw==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Chaosheng Qu <quchaosheng000406@163.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- mfd@lists.linux.dev, linux-pwm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260930023923.49917-1-quchaosheng000406@163.com>
-References: <20260930023923.49917-1-quchaosheng000406@163.com>
-Subject: Re: (subset) [PATCH v3] dt-bindings: mfd: convert lp3943 to DT
- schema
-Message-Id: <179093574476.188646.6343142834887336950.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:09:04 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EBKryzqF"
+Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae19319854so4177748a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 03:09:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790935773; x=1791540573; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
+        b=EBKryzqFqcfR5/P4sFDZ2d4sqtg89IR9iUAd+eCHQc+GQdaRaLm0h3CvomdR8Ui+KK
+         qtdwnOhp9vgaspoisjuY4rJr4wSyMgDX6TjC8kLz7XAsUPWXAI4B7sXsajJR1x9ayU0b
+         TwvBGyZfTSrXPWO9X6yLctO1yWBhY7yHhWd6JHdmIFxdzA4qW8WImgLfqLCS7YKinL/i
+         bZSu/rHGLRJxx+/UN9rNWflb6D0w1JfpYekadgoz20WChKzmpsk5+u2O06CDMwIpX8UK
+         AM0iFXg53SeI2tdHxJc6ta0F5+YnitnNzUYsL6QXcCBnefRpRqI1v+DfmHWNk/dWeZFI
+         zJow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790935773; x=1791540573;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OaHZhhfoGTOQXtD+qa+qVp4d/gsPVtdPnGCiXPLugxM=;
+        b=KGK5htMisZe9sbBqyNvkEoYUodRR97l+Kf+iCDfh0B9eTOPWa8Ox6F35zbcFwoHP+D
+         v5j+8RfAohQf79n3yp23CRbmPzSUPSX9yxxDvJ4TYfLC9tKnoNjk0TXLtUbeOL51TWGw
+         KEziKbwEMmyrtGVcKFJi0P743ZZDc9UvDYLkYHtVlgGooceNDdR6aw5n99Ss+U478nOp
+         hHxT3TYq0rJSW04N+wciq+FO0OVK9hZnLzDusHZxqh6xBqHu9VVnST2thU+erWVMcE2p
+         lsWj5YMyUSrzmf+/zyjb2thqXm1ojUHSZtpzclhpCan930jf8Mn2dA8FABl7FJ9w4DEi
+         2XiA==
+X-Gm-Message-State: AFq9FYLJirNIAvbS5wSxwSWvRLdFNhVNVmLV2/dXntSfKe3uYP9AAKV2
+	3qzWDvTvUYU0F8Vg6+eDLc9ujxurEvdb5rj6Jg3/1vn5IRMvv8U6fZHv
+X-Gm-Gg: AYBFou0l31CHHZDD5Nu+DJn6xgJsr8UPx9i4UCOGukpg3JIiEOrhgyc3PIPkSFhCWdO
+	o2CTeUYwoSaj50Ud0rsZX7PuxEMKf0+vpau472pYBtt929N2xeY8qUrYScDH6dStvCV5k9MV3fQ
+	2Ti0FYXIMh5/bSuugYjdjzMzqThvuOj3iPqwchNGOlGNuoVvwRsZ+TKwOXG1d5fmOjudQ0V92pY
+	i2TuGNSRcYETXq3Ndjka3TGUYb3jIceTyi9qWSY2D1kIbuQskXyJRXnzYp76gcjMUW5d9yaYT26
+	J0/+Uz5PUVD9bQjaCgx69nry/aM7oOCcKab1WY+TCFbzP0Qsx9XPL8vBwEW581YvPDjYkFDbkwZ
+	3e52EDHl4JJ4Irq27EDoJcd8M9X7EkMiJzImkrWzTLadhuXcQn0hxDPa4h9R9Rdd+whTL9VIQu5
+	uXt6QHgJWZazWC2fLeAfW/b1MZLHR0cqWarwUWyBLgo1pFXJ31zKWIOCyk3aJ5I23MXo88pg==
+X-Received: by 2002:a05:6402:5113:b0:6aa:985c:7bae with SMTP id 4fb4d7f45d1cf-6af9e2e13d3mr1400063a12.20.1790935772569;
+        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
+Received: from Ubuntu-24.04 ([62.171.228.246])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6af9d889452sm753687a12.14.2026.10.02.03.09.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 03:09:32 -0700 (PDT)
+From: Alexander Kochetkov <al.kochet@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Siarhei Volkau <lis8215@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Alexander Kochetkov <al.kochet@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Revert "Input: matrix_keypad - force switch rows to input mode"
+Date: Fri,  2 Oct 2026 13:09:35 +0300
+Message-ID: <20261002100935.449473-1-al.kochet@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 
-On Wed, 30 Sep 2026 10:39:23 +0800, Chaosheng Qu wrote:
-> Convert the LP3943 MFD binding from free-form text to DT schema.
-> 
-> The LP3943 is an I2C LED driver with two sub-devices, lp3943-gpio and
-> lp3943-pwm. The GPIO sub-device is covered by trivial-gpio.yaml, so only
-> the PWM sub-device gets a schema of its own.
-> 
-> The PWM schema documents ti,pwm0 and ti,pwm1, which select the output pins
-> of the two internal PWM channels and are read by pwm-lp3943.c with
-> of_property_read_u32_array().
-> 
-> [...]
+This reverts commit 01c84b03d80aab9f04c4e3e1f9085f4202ff7c29.
 
-Applied, thanks!
+The commit makes every scan call gpiod_direction_input() on the row
+GPIOs. On pin controllers where GPIO input and interrupt are separate
+pinmux functions this switches the row pins out of interrupt mode, and
+enable_row_irqs() does not switch them back: it only unmasks the
+interrupts. Row interrupts then never arrive and the keypad stops
+working. Seen with a matrix keypad on an Allwinner A64 board (PINE
+A64-LTS); it works again with the commit reverted.
 
-[1/1] dt-bindings: mfd: convert lp3943 to DT schema
-      commit: 88e0bfab55e131fb2179dc3eee5893e9f638926b
+The workaround is not needed on Ingenic either: the author of the
+reverted commit re-tested all available JZ47xx SoCs and they all report
+the live pin state in interrupt mode, see the thread in Link.
 
---
-Lee Jones [李琼斯]
+Fixes: 01c84b03d80a ("Input: matrix_keypad - force switch rows to input mode")
+Link: https://lore.kernel.org/all/4130C026-2A83-408B-836A-ECA044491C47@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexander Kochetkov <al.kochet@gmail.com>
+---
+The same three-line removal has been in use on Allwinner A64 hardware on
+top of v6.12.33; this version is rebased onto v7.3-rc5 and build-tested
+(arm64, CONFIG_KEYBOARD_MATRIX=m).
+
+Siarhei, Paul: you both agreed to the revert in the thread above, please
+reply with your Acked-by/Tested-by if you would like it recorded.
+
+ drivers/input/keyboard/matrix_keypad.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
+index 8863b741d1a3..cda2888b2e56 100644
+--- a/drivers/input/keyboard/matrix_keypad.c
++++ b/drivers/input/keyboard/matrix_keypad.c
+@@ -134,9 +134,6 @@ static void matrix_keypad_scan(struct work_struct *work)
+ 
+ 	memset(new_state, 0, sizeof(new_state));
+ 
+-	for (row = 0; row < keypad->num_row_gpios; row++)
+-		gpiod_direction_input(keypad->row_gpios[row]);
+-
+ 	/* assert each column and read the row status out */
+ 	for (col = 0; col < keypad->num_col_gpios; col++) {
+ 
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.43.0
 
