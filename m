@@ -1,236 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f227.google.com (mail-qt1-f227.google.com [209.85.160.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B7A29346F;
-	Fri,  2 Oct 2026 02:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2315829346F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 02:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790909843; cv=none; b=sapKY0qf/Pa3P8+CLz1rLwLeHBn6RyHFjD0/TrYRpcJEpH+OTUq9GaUIP+Gy3UydpEsyhRVAQh2H0Gfx8xOQL5Ul1EP2j0OTOlUjJmmPlcBLxUwqo+lD4qrL2xKQfPOVPOrLWFEEhJVPYp3G7mrs3tBgWagKmYNuVKr4IrosR6s=
+	t=1790909874; cv=none; b=Q9tLJwcAHSZOhGRFEiJWs6X0TAV7+Nutlsdt0ru6QBZ78XeOqxUM+/VLICNrrDkRYtoLCipD/ipwYEnRGZaMjbKevwoMFSHiI6ChrhR4g57A8kBGh4zTGSGAEsT0g+peVpzGqVIzRU3ITGRsgTgNy6sBhpC3xbYgliy7LIO5nbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790909843; c=relaxed/simple;
-	bh=OVO4czZn0m3ji8Pr0MNvmKCDP2HovUJgnLurH241Hzw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SNqDT+jItdIEcAGYmuKOyuSRMi1pO9AbvauqTlyld4+td2s5UYXEPpTd++rIdRficDk5jFhgEdKuXkRBdiRoedRv2uJ2+sP7URUL3WZtQolv2qiXVOA3Y0svIX3pgtaP09iFbrJcQiXyPKJTH8m8EJPN/ygSEza6Ftybbq6zMzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mtCXfKD6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790909874; c=relaxed/simple;
+	bh=+rOznpuunXemMw6GDovaDiUAZaCGae3OqVN9WboilTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kWx21aZU0nThxYrLqUUI0k2t3/QKLqp+9GT1w3qgkllBZ1W0LtiYp1u3HHXPgJ8f3imEjqDJLvSvt6n04aVTfykuxvSOwmkskmCE2Ey91m6Ut/5qXJPdbJbzD7bB/WQBT7s+UNX2FyWyuUh2ug1+E8UgwG6XktyDc9gDkMldTp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=Tq5yNamq; arc=none smtp.client-ip=209.85.160.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mtCXfKD6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6021F000FF;
-	Fri,  2 Oct 2026 02:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790909842;
-	bh=7OnHaYO4YfHoZJtlJrBk6mUFl4QSkni2NDxgVKqLcX0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mtCXfKD6CdiKUHpPKXcNqZpD3qMbnN58/QdsQ33Im3gCnysW/LwUj3HaX5vEO8Kdg
-	 GNEEo1UysfksxEh+wkmUyqv/LbkDGt5Rl5FoTUIIkfGVXMy4eDa9xdOO/Y2xBhKUKz
-	 /eIFM4MPwAPoAT+yF7bQfBKWPL3u2HiyxoHLVimPBVUvtWbnmIlxca+vEToCc7S470
-	 Sz1at6cadqsnUrIEGyt5U9wfUajwAut7/zgTUCTdHbhG/czL5EUE0eRp9O6gCwQl6F
-	 gxMl00P2549rCKjtTJEk04wPb51KcJpAQCuZtSLOW+saBpcK4lxdujPe1bfEiH2QiM
-	 SAnK5SNegR6Ow==
-Subject: Re: [PATCH net] tipc: protect received keys from concurrent flush
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Fri, 02 Oct 2026 02:57:21 +0000
-Message-ID: <179090984112.434549.12939052372850275600@kernel.org>
-In-Reply-To: <20260930115708.349540-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260930115708.349540-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="Tq5yNamq"
+Received: by mail-qt1-f227.google.com with SMTP id d75a77b69052e-5332bc442ebso1285081cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 19:57:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ausil.us; s=google; t=1790909872; x=1791514672; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/8JFUeE5MEiIb7ITcrTZk76VTtK8zyPJORxw7JyUGnA=;
+        b=Tq5yNamqAcDJgcsgn1p+AbUwZBolXqKBQFBmvw7EBr4YVjfxtl2F92xwj1Ml7pgLwh
+         j7A5iZthbWJ1gdvDIWhmAwDRp2nT8Na89h46yhT9ZcssMcZ2Epg18MOskVWBWe8lzSGC
+         W7OBW8Je9aIYd3uoOPOrvxfvx6uUrYRoVRle/alttHmm4GQ2YJMHhbLiU/thQSKvqV9c
+         l9RtvnBKusu15m/QLebl4j/CM3mzGvhuI+jhpehwNJAa3WW1xWbjMsjLEOBZgC4AfuqS
+         vS2PpObGOqkUt3A5Y3uT1fN2rNOUoJLL7JpuL5TVIDa+NRhIE45tfSeJEy753mB0Pwj7
+         O5/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790909872; x=1791514672;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/8JFUeE5MEiIb7ITcrTZk76VTtK8zyPJORxw7JyUGnA=;
+        b=EVyw0RGEvhv468N/fxmVNYhWuWAOOrrVV8/o4k4p3fMfHCQ9s6lS85aCQWI8cjtHKd
+         4RwaYkCN8zJ+V+RQ+ZB0ED0Dfe8m/x8hX522rdyFtpackd4PzEQuLNlpdRqfJrF0k4rC
+         KPbe/I0hqi2ulvFpnYi6LXaO3xI6nTXPwI+0xRu9r93+19paQwg6qaQhKcTCJJ1xZaqW
+         VViQYF+MZwI5bJtopCKQkPotlG4v5kvURsrzj/HBq6gFF40bwNBhp9IJIH6ocH5vEvAl
+         p+2a7XuzNaom2Ahlsa53nhF6s2XcHHJMsGAOahfmlqeKERHCFMA8qg0ziX4A+9u1XzfQ
+         zP9A==
+X-Gm-Message-State: AFuF++li73N9kLfgrdGZNr7oXnfL1Hfqbn+HNagJoLEiMHjU/JxxxXPR
+	018IH2ilzLFz/a3u1TeRKecGLveuLyN3PTECu1/l2BC14f1Ym45V4RAqCD2CTkzwTGQ6YawEIJS
+	YoXGq9EvQX5b6q8AQvbJ4JwrXubx0ly9Ke1wooRCSZ1BD
+X-Gm-Gg: AYBFou2a44wlmfJkwpIAF2dzmmhtx4tFnQGGA6xTglWDrA2lDiwHqNHssdVe2n65OFv
+	dHm45tuAtKvBUNLyrlnF+lXNnoRExj+bsdOGbVGpSIWofcuqoQF4Xp/4ab3LQg3v6eDlGYsgdbl
+	E7GRz9c+/9Vp+aXzwsnaPY05lRIpudcR3Lbi7sbyxrCjYtBexs27cTnMZDUhwykQARhHKGEBt3A
+	zdcDBChZd5rQeOocDFetsnshueNcdBIXdP9JYYI8Z+WzFdCZZDThwlfiya793c6oMKYeip4MGba
+	j++/edRJulpMzqNpk2NrnHzg0wvvZ9arUDlhsjHf9W5b9iiU7GF3UXs5u5JYxUnDyFafxjUAerE
+	ZwmeyLC5bYFBl7ptKUfDpkq0=
+X-Received: by 2002:a05:620a:d8b:b0:93c:c987:7f70 with SMTP id af79cd13be357-93ce7c0dd2emr226556685a.21.1790909871950;
+        Thu, 01 Oct 2026 19:57:51 -0700 (PDT)
+Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93cca1ea26fsm54885385a.3.2026.10.01.19.57.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 19:57:51 -0700 (PDT)
+X-Relaying-Domain: ausil.us
+From: Dennis Gilmore <dennis@ausil.us>
+To: linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Cc: Alexey Charkov <alchark@gmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Dennis Gilmore <dennis@ausil.us>
+Subject: [PATCH] arm64: dts: rockchip: Use GPIO function for PCIe reset on Orange Pi 5 Pro
+Date: Thu,  1 Oct 2026 21:57:46 -0500
+Message-ID: <20261002025746.3284691-1-dennis@ausil.us>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The PERST# pins of pcie2x1l1 and pcie2x1l2 are used as reset-gpios,
+but the default pinctrl state muxes them to the controllers' dedicated
+PERST# function instead of GPIO.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+Linux happens to work because the pin is switched to GPIO function
+when it is requested as a GPIO, but the devicetree should describe the
+pin function the board actually uses. Bootloaders such as U-Boot apply
+the pinctrl state as described and do not change the function when the
+GPIO is requested, and probing pcie2x1l2 then hangs.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Add GPIO pinctrl nodes for both reset pins and use them in place of
+the PERST# function, like other RK3588 boards do.
 
-- [Medium] The patch fixes the rx->skey UAF/double-free, but the flush it
-  protects can now be silently undone.
+Fixes: f47af8ebbe53 ("arm64: dts: rockchip: Add Orange Pi 5 Pro board support")
+Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+---
+ .../boot/dts/rockchip/rk3588s-orangepi-5-pro.dts   | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but an RX delayed
-  work can re-arm after netns teardown has flushed it and then fire on a…
-
---
-
-tipc: protect received keys from concurrent flush
-
-This patch adds an skey_in_use flag to struct tipc_crypto. The RX worker
-sets it under rx->lock while it attaches rx->skey, and
-tipc_crypto_key_flush() skips freeing the key while the flag is set. The
-goal is to close a KASAN-reported use-after-free and double-free that
-happens when key exchange races with key flush.
-
-> diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c
-> index 4409bdb70fe98..eab2a66e22333 100644
-> --- a/net/tipc/crypto.c
-> +++ b/net/tipc/crypto.c
-
-[ ... ]
-
-> @@ -1214,8 +1216,11 @@ void tipc_crypto_key_flush(struct tipc_crypto *c)
->  		rx = c;
->  		tx = tipc_net(rx->net)->crypto_tx;
->  		if (cancel_delayed_work(&rx->work)) {
-> -			kfree_sensitive(rx->skey);
-> -			rx->skey = NULL;
-> +			/* A previous invocation may still be using the key. */
-> +			if (!rx->skey_in_use) {
-> +				kfree_sensitive(rx->skey);
-> +				rx->skey = NULL;
-> +			}
->  			atomic_xchg(&rx->key_distr, 0);
->  			tipc_node_put(rx->node);
->  		}
-
-[Severity: Medium]
-With this skip, can the still-running worker undo the flush after it
-returns?
-
-Nothing tells the in-flight tipc_crypto_work_rx() that a flush happened,
-so this sequence looks possible:
-
-CPU1 (tipc_crypto_work_rx)            CPU2
-spin_lock_bh(&rx->lock);
-rx->skey_in_use = true;
-spin_unlock_bh(&rx->lock);
-                                      tipc_crypto_key_synch()
-                                        re-queues rx->work
-                                      tipc_crypto_key_flush()
-                                        cancel_delayed_work() == true
-                                        skips kfree, rx->skey stays set
-                                        c->flags = 0;
-                                        tipc_crypto_key_set_state(c, 0, 0, 0);
-                                        tipc_crypto_key_detach() on all keys
-                                        spin_unlock_bh(&c->lock);
-tipc_crypto_key_init(rx, rx->skey, ...)
-  tipc_crypto_key_attach()
-    tipc_aead_rcu_replace(c->aead[new_key], aead, &c->lock);
-    c->working = 1;
-    c->nokey = 0;
-
-In this case the TIPC_NL_KEY_FLUSH handler (__tipc_nl_node_flush_key())
-returns 0. The peer's AEAD is still installed at key_next(0) and the RX
-crypto is re-enabled.
-
-There is also the retry path. Suppose tipc_crypto_key_attach() had already
-returned -EBUSY, or tipc_aead_init() had returned -ENOMEM, before the
-flush. The worker then keeps rx->skey, clears skey_in_use and re-queues
-itself. queue_delayed_work() succeeds because the flush cancelled the
-pending instance, so the pre-flush key gets attached about 5 seconds
-later.
-
-Until that happens, tipc_crypto_key_rcv() rejects new keys from the peer
-because the stale rx->skey is still non-NULL:
-
-	if (unlikely(rx->skey || (key_gen == rx->key_gen && rx->key.keys))) {
-		pr_err("%s: key existed <%p>, gen %d vs %d\n", rx->name,
-
-tipc_crypto_rcv() also counts the stale rx->skey when it computes
-rx->nokey:
-
-	rx->nokey = !(rx->skey ||
-
-Before this patch, the cancel_delayed_work() == true case freed and
-cleared rx->skey (with the use-after-free), so the retry had nothing to
-attach. With this patch, that case behaves like the existing
-cancel_delayed_work() == false case: the flush does not revoke the key
-that is in flight. The commit message doesn't mention this.
-
-Would a flushed or generation marker help? The worker would re-check it
-under rx->lock before attaching or re-queueing, and free the key if a
-flush had happened. That keeps the use-after-free fix and still honours
-the flush.
-
-> @@ -2371,7 +2376,10 @@ static void tipc_crypto_work_rx(struct work_struct *work)
->  	}
->  
->  	/* Case 2: Attach a pending received session key from peer if any */
-> +	spin_lock_bh(&rx->lock);
->  	if (rx->skey) {
-> +		rx->skey_in_use = true;
-> +		spin_unlock_bh(&rx->lock);
->  		rc = tipc_crypto_key_init(rx, rx->skey, rx->skey_mode, false);
->  		if (unlikely(rc < 0))
->  			pr_warn("%s: unable to attach received skey, err %d\n",
-> @@ -2381,14 +2389,18 @@ static void tipc_crypto_work_rx(struct work_struct *work)
->  		case -ENOMEM:
->  			/* Resched the key attaching */
->  			resched = true;
-> +			spin_lock_bh(&rx->lock);
->  			break;
->  		default:
->  			synchronize_rcu();
-> +			spin_lock_bh(&rx->lock);
->  			kfree_sensitive(rx->skey);
->  			rx->skey = NULL;
->  			break;
->  		}
-> +		rx->skey_in_use = false;
->  	}
-> +	spin_unlock_bh(&rx->lock);
->  
->  	if (resched && queue_delayed_work(tx->wq, &rx->work, delay))
->  		return;
-
-[Severity: High]
-This is a pre-existing issue and wasn't introduced by this patch. Since
-the new skey_in_use skip hands the key to this running worker, can this
-re-queue happen after netns teardown and then fire on a destroyed
-workqueue?
-
-The netns exit path flushes the RX crypto like this:
-
-tipc_exit_net()
-  tipc_net_stop()
-    tipc_node_stop()
-      tipc_node_delete()
-        tipc_node_delete_from_list()
-          tipc_crypto_key_flush(node->crypto_rx)
-
-tipc_crypto_key_flush() holds c->lock, so it can only use the non-sync
-cancel_delayed_work(). That does nothing to a tipc_crypto_work_rx() that
-is already running.
-
-That worker always sets resched = true after Case 1 key distribution. It
-also sets it on the Case 2 -EBUSY/-ENOMEM path. Because the work is not
-pending, queue_delayed_work(tx->wq, &rx->work, delay) then succeeds, and
-the worker returns still holding its tipc_node reference.
-
-After that, tipc_exit_net() calls tipc_crypto_stop() on the TX crypto,
-which only sync-cancels the TX work:
-
-	if (is_tx(c)) {
-		c->rekeying_intv = 0;
-		cancel_delayed_work_sync(&c->work);
-		destroy_workqueue(c->wq);
-	}
-
-The destroy_workqueue() documentation says delayed work must be cancelled
-before calling it. When the re-armed RX timer fires,
-delayed_work_timer_fn()->__queue_work() would use the freed tx->wq. Then
-tipc_crypto_work_rx() would dereference tipc_net(rx->net)->crypto_tx of
-the torn-down netns.
-
-The node reference held by the re-armed work is also never dropped. Would
-that leak the tipc_node, its crypto_rx, and any rx->skey that the
-skey_in_use skip left for the worker?
-
-A remote peer can drive Case 1 by sending rx_nokey, which reaches
-tipc_crypto_key_synch().
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
+index c9679bac1db7..783675337ab9 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
+@@ -188,7 +188,7 @@ package_fan1: package-fan1 {
+ /* NVMe */
+ &pcie2x1l1 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie30x1m1_1_perstn>, <&pcie30x1m1_1_clkreqn>,
++	pinctrl-0 = <&pcie2_1_rst>, <&pcie30x1m1_1_clkreqn>,
+ 		    <&pcie30x1m1_1_waken>;
+ 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+ 	supports-clkreq;
+@@ -199,7 +199,7 @@ &pcie2x1l1 {
+ /* NIC */
+ &pcie2x1l2 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie20x1m0_perstn>, <&pcie20x1m0_clkreqn>,
++	pinctrl-0 = <&pcie2_2_rst>, <&pcie20x1m0_clkreqn>,
+ 		    <&pcie20x1m0_waken>;
+ 	reset-gpios = <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc3v3_eth>;
+@@ -223,6 +223,16 @@ ethernet_en: ethernet-en {
+ 		};
+ 	};
+ 
++	pcie {
++		pcie2_1_rst: pcie2-1-rst {
++			rockchip,pins = <4 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		pcie2_2_rst: pcie2-2-rst {
++			rockchip,pins = <3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	usb {
+ 		vcc5v0_otg_en: vcc5v0-otg-en {
+ 			rockchip,pins = <0 RK_PC4 RK_FUNC_GPIO &pcfg_pull_down>;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930115708.349540-2-Jeremy.Jean%40oss.cyber.gouv.fr
+2.55.0
+
