@@ -1,91 +1,95 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC67D31E106
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7193D76
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:38:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790959093; cv=none; b=PglFH9J82h15zKt+NHIow4RS1ux8dqWZ0EJmJ6ePzTdAGY/2Jwb+NvsbL18V6NB8VONLJos6/geeerOJskN9MmNS6TeockzaMj/XMgkk1iScfFq4txrR/BUt8fchT9wJUj7TMsm6nYHtRsSQKSjVz1wQcuXQBzvNHi5Rxh464Nc=
+	t=1790959097; cv=none; b=S7zE/4FOH0fuvC0WpzrXYg8NbwCBWxZhLtlEVojqfKSfRRazOQDeRoMAITw11Np7nvSzcCHqO5Zn+/+5iXSec4jVahulMXadA31n+Ei/q5Hk0PP5qlywc+ZFYArwOPyQHhw/UiNVj8gkqWeKXNUtWoDIUNRVYlDJc/tBEwJnfYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790959093; c=relaxed/simple;
-	bh=MlAsrFDxIio94Vdqusa9O1JK3xxR9DUssXgflYDQyYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IJAHrLhzvTijHSmnlY8MtAex5NU53QGWzckDqm3vjuIE7Ae6PsoZyvePXsPIVQZbnKrHeClD8w3kNfnNX0ScN9VqPNK0PLg0Jrhd47Z+wPRyvqWAyxMLbpwcVjZg44SLjvHayOa5nrQ9w6RiSIw3FI1VUitq0DjGYgK/3I9tiac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TXs7Llvg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G4wOEMZ4; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1790959097; c=relaxed/simple;
+	bh=+zmHpDxGzsgXIbjLeO+2/jn14t5d6rmiuLroQYwwOUw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RktoClyHyyw3hOkVe/XgeHsc69SwWoa/JB0j00wlZhgkvN2cAsfoHBRloHcmte0PtucaHLzL8bXkK23YjhShS2SFU50GOFMqLpMEfUdSMufT2VJGcoHj1rGKuT2okDoeDOAmqRNrn3BZ4ucEFdNoagkrY4OnFyxEAh+Gcsjg4x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=p2MstG8C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VtxT9Nu6; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TXs7Llvg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G4wOEMZ4"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="p2MstG8C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VtxT9Nu6"
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692FH6pR2121180
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 16:38:10 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692FH2xD2121143
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 16:38:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=HsZcy7a9Otoosd4ozeXc9gj+pTu1VbaEtDu
-	qjGWoYGo=; b=TXs7LlvgmvzWhXVx4prUXYbLtMmu6SEFeo8H8Lo48xzmMSs5kMg
-	4DJN0uFP6x39mZ9lNDbjJ+kFiqyYfHi5w7risJ8Zc9u3/Wd9zX9MfyCLuUYUgq3J
-	VnCdU3uD2051mQWn/30vesW0o29cBMwWR8MuvScWc3eYIr2w5bFBEeahYSMUaYJ3
-	9PO2YvkVXORmATNro0Ia6tygRHhn+IwkqcFjz5IYOiKKOjlka8mRH2iwWn82s1fl
-	6ywEJCybXF7OUiFrcPv585CLOfEJr7SU8GYA6G/Luipz/Hb6fHRKQ0ve2IpJ2V6F
-	ZLdUW7GuFB+rN92ACTtlQq4VyLflqU4/OZA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h20sh36fg-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=e6P8A409W54
+	xuekpmuoPC4b08ic6FRICkqYkILbMjjo=; b=p2MstG8CMvZ02YFurKyDitqM9nf
+	U2vCwtuCzEBykfyi19gxp+QnUJlA+lzWLq5yzznJaj5foXNCKsPKoVJwA5Whai+P
+	EPIxLvhm34VMeQ+jzIU2KLkyeX6kCLwJz0cQWMwfMRoqgykMznozDbdRKXgjYD8A
+	FOVDQAxgxe8CjYkvDhH5iqdxKGWp0LCehxtjqUzL95CdjOpx9zRCJ2n3kAMFEWdT
+	ft379YP35M76qZPsyT3lSOvIIphQrx7n0E+x53IMG1StnFSIdGSaIDNfILZsvtAu
+	MLJlBRCNMLz5jwE2cy2FknluH1BtpHRPxHmb2b6wQPMHp6XdQXi5u2+tX5g==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h20sh36fx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:38:10 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34e676375d9so1596357eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:38:10 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:38:15 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so15075082eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:38:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790959089; x=1791563889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HsZcy7a9Otoosd4ozeXc9gj+pTu1VbaEtDuqjGWoYGo=;
-        b=G4wOEMZ4l9vyBUEk8XeoHSs1i2AeUZhUmfNQiJs815ZEOvxGQh5J5gbSqyGD/bgyqI
-         AxO9KjiYgcqFCX/4kQHFXh1ucmU2xXARRqfOgFhv9TiVGLlEaIP2sFL72dtXkLBIYEQF
-         M3fqZbADMXMWqfumUd44gWeZShzl3TkuxsW2vmFH7xlL1848VzrFV/F75YNrXm40cq2/
-         EDu0FcbWrSn6UGpO7Njgz8qxpJRshWFm/P+sOFK7Z6ROiVdMffcSUD6h7vgJl/L3yZzT
-         UCZh+i5o5IMX0iuuBXjK1MpgGJEtLYOgON3A5FHSN7f7kVr6f4Ayzo4YRA5CHJ58USKW
-         DlBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790959089; x=1791563889;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1790959095; x=1791563895; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HsZcy7a9Otoosd4ozeXc9gj+pTu1VbaEtDuqjGWoYGo=;
-        b=IUovOX5K0ZV8E8irky0Q2atkaom+OlRBbVi95B5ELQLj62hlbIs/Q1QBY7Wc3fP9ab
-         d8r3DOumd9j2bcL6iQTHkCAR3TcIOCW2Ti+5zbViipcuwJHXzebXZTJExu+EKgkL/SzO
-         PX5Jv7vRIP6hQ2RjIff5XDgx9OiIWYxKp5jnXkDTMSwZTLeGxAsWonBh0r68Tz5SDenG
-         JasebtmATegoyGJxaY3Xq1J0MA/VLlnM7pifPju8srGxg2enzrd7rx9ZVyui9dUcdk2w
-         bMl5XDxKcl4yZUsScpdLGIg7l3RJDAbPAVl+mJEtMWUQFqXeS2Ih41ab5kjqoPMnC0YB
-         mdBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUme1iELVRBwWwNQ/b6IQp05FyCfQCPhrF5E8DjuqeXG2KL8/0Zt54MiuKgqFGVJX6bmHcPwQd5OjXXU4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+5iT7gB3xnGJuuJdnixUSvF/qTcsb7w+wMTjHqT5Fp8JYYMz+
-	s14OcL4cdqgTIz+D305MhOuZEhpymcS84tOka7TyjuyzH968qmoIR7c/Ln/IeATlDpymp5/XvAO
-	2aDWTjgeBPZFpq2WBxo7Wg5kFyxDHt/46Z3mnoEuwcmDkwm2yF8BNylFWX/0SKGF2EC8=
-X-Gm-Gg: AYBFou30CCchJiyzpgOdd7PbPDwWiZob/bzW98NATPu7g6FO/epo+WqY4kUQM68gt2I
-	YQtLEWpB3IJkHfjQecMYVoyY9GZcOz4mU/DI9R0nmSQ2R/hxUHIO5heneXqMGNKQQ49Pn4O0nDh
-	pNeKEsTmADnw1p1MUju71Os6Pxs5gUJOpp5lmkDVBk0i30UNKkfkhQbJwaWftZIeHw317ADXlOj
-	/EY/hzbD5vWqInV5Eemu+zE4lvDya9Enn6v0rj8l3F7gtl/67Nek0XH9bK8kY1f9hgkc6jIjBG1
-	AMGuJ4Qh7nbMiLGWf/GYCTvNIUDlnwNihiqG9m4mE19W3vcnQZsoF4fK55h4GemsfP44EpzPCLd
-	KUDIvT5+uLzUGT/afa0IW/3uvQpcU1AnOfpKhSjR4h19m/EnvDOvI6mAT13RFkfYQEkR6wguoAu
-	5ID0SdHI8rGaL6
-X-Received: by 2002:a05:7301:23af:b0:348:201a:6c88 with SMTP id 5a478bee46e88-34db6605d44mr6538955eec.13.1790959089090;
-        Fri, 02 Oct 2026 09:38:09 -0700 (PDT)
-X-Received: by 2002:a05:7301:23af:b0:348:201a:6c88 with SMTP id 5a478bee46e88-34db6605d44mr6538916eec.13.1790959088429;
-        Fri, 02 Oct 2026 09:38:08 -0700 (PDT)
+        bh=e6P8A409W54xuekpmuoPC4b08ic6FRICkqYkILbMjjo=;
+        b=VtxT9Nu6JQjU5VPDb27HL45tSsz2Cos5H7SjC0viOb7xPSZECuQJKzdQMzxu/0MLLo
+         nJ+lGlV2+V8sR1Ca8IQdGTYJX/ixTWAX6mEirnIarERukHB1jBk0Fez0Jb4jGsksSD62
+         1rXRlLdhK3+thwvHKk14nJCNYd+KjDpxbbtaiZwbHyhbohxjnXWq8aaOwFi2XuGAYzjA
+         UrP50aKFZcCRAObrpKa09fx7vfwy4TaRs5Bv9pySmjtkbterMRpu7glKEyjJvMcKyGxR
+         72V8ycfHZvyxGXBnRN4EAqV9tONehQVzPyGqDwLK6cz6BxR7KiEy57gMSDMd6LxjcjPn
+         qaNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790959095; x=1791563895;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e6P8A409W54xuekpmuoPC4b08ic6FRICkqYkILbMjjo=;
+        b=nvibwyLoum7ybstvGPBhiJAgPAKvp7XgdAXq3pKpGy52vWdZkFScwmGw7v8MUiFza3
+         mQbVGkPB9k6U4Wz/ETSCvmJVMLcThNVikVipobyoneN+cH723kdGfnPRXeZNZroSEvqu
+         os+biLhCpUiiItEqPdfTa7iX+fqUsi4sWG+6k5Nd7AZccC8t0exOPw2RsaNRMB6LPyEc
+         gdEFsDiMweKMC1AHTCsVbxlHR52pQgaK5KukSYKar2nUxUHFao/p+EtTr1EE9DsJX+tk
+         kCWSgu5XWQSTstAeBKF/acqq4QEH91IoIXlDGOxPycUmJb4uQK3Mm2nd97odxXYHCIyF
+         Kk2w==
+X-Forwarded-Encrypted: i=1; AKwUvByPLdssAB+D0OW3nlyGeDyRRb/AB/7kMX8t1rZyB/QxpDm6b/bZDgl1/HKgbv4ObWbtxp4Zq9I+ygTsi5g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiLccUua2whN7oZLfY5Thszw7QiTncFon3QWaqfqYh7Tez5G7V
+	L3keAtWJrmsl45AFdHdF/6jhCq9SXr543b0onxS67notPpkmIXEk73LEGJhWxoRkKbvC2A5cNZ+
+	tkfBSdMDTx6Vx2yb1P5/DBbKgub0puKK29Jb55hHjTN34QV+T3mbzMTf3nl+oYlXDOfY=
+X-Gm-Gg: AYBFou2Dth5r/ANz13NQf6087pOSwrRARmsuO454RztDhuUcioY0Yw1Tm+EOr2VNhj6
+	7AgrixJRJk0iWZIzJkmtuv89f0cvC8V37zWOwQG+r4SQTyG9ti3p08jhso8xH5sMY6Nm205BlP0
+	gfM0biYiCwtKw3iaKel06sF1Z5UMmVGLCW8/6Oxgy0SqH5M5avAcL9CuG76jV3HA54U4ZHfnU/a
+	0koLA8k/kDxvfgR0l+BSAaICdSNjOBPlxXNxYHYZtK9y5WaKXq4hiKKXNTd75bxbiRqnOZmcoHM
+	jIZnhp2ErkNolRc6i4p4WkUjbF6mPksl5F0LjcJu1qqjO3J0kZbm77ECsUudpiw+fBcAiKRdgd6
+	1pNVas4OGB3l89WXf+R6JBceWYME0RkUSdYsNjg9g3fgD5FlAb5I1PZkpp/+w/7kOVwWJFSCMx4
+	2g98UTowk1JdDK
+X-Received: by 2002:a05:693c:20c1:10b0:351:595:750b with SMTP id 5a478bee46e88-35105957899mr2170003eec.36.1790959094490;
+        Fri, 02 Oct 2026 09:38:14 -0700 (PDT)
+X-Received: by 2002:a05:693c:20c1:10b0:351:595:750b with SMTP id 5a478bee46e88-35105957899mr2169976eec.36.1790959093938;
+        Fri, 02 Oct 2026 09:38:13 -0700 (PDT)
 Received: from hu-prajn-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fd5620sm7756398eec.21.2026.10.02.09.38.04
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fd5620sm7756398eec.21.2026.10.02.09.38.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:38:08 -0700 (PDT)
+        Fri, 02 Oct 2026 09:38:13 -0700 (PDT)
 From: Prajwal N <prajwal.n@oss.qualcomm.com>
 To: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
         wim@linux-watchdog.org, linux@roeck-us.net, anup@brainfault.org
 Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
         linux-watchdog@vger.kernel.org, prajwal.n.oss@gmail.com,
         Prajwal N <prajwal.n@oss.qualcomm.com>
-Subject: [RFC PATCH 0/2] Add RISC-V SBI watchdog driver
-Date: Fri,  2 Oct 2026 22:07:56 +0530
-Message-ID: <20261002163758.2919372-1-prajwal.n@oss.qualcomm.com>
+Subject: [RFC PATCH 1/2] include: sbi_ecall_interface: Add defines for the RISC-V SBI watchdog extension
+Date: Fri,  2 Oct 2026 22:07:57 +0530
+Message-ID: <20261002163758.2919372-2-prajwal.n@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261002163758.2919372-1-prajwal.n@oss.qualcomm.com>
+References: <20261002163758.2919372-1-prajwal.n@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,24 +97,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2NiBTYWx0ZWRfX38i2/Z5gRGh8
- x58TsqCx72VTpNO06G5aCrBlIDywwlpYcT0e/aab89jY7DJXwexWxjw6QzZHETQ54Le3UspGHUg
- OzerkHJFFf3AX9roWZkFQ46ZXR6IaPY=
-X-Authority-Analysis: v=2.4 cv=IpmL47/g c=1 sm=1 tr=0 ts=6abfddf2 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2NiBTYWx0ZWRfXwv2auIv+0592
+ on39pyAa+xKuv2U7e+GTgkSgWy+6+o6Ncn+rmijD3M+2hI49MIJ1NG1dml8nZQQshax0B7cvTij
+ EbHjSzHmg+dW09VeR35cu0FNVHJMZ4E=
+X-Authority-Analysis: v=2.4 cv=IpmL47/g c=1 sm=1 tr=0 ts=6abfddf7 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=ZbvlEdOQB2PwL-2qBAUA:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2NiBTYWx0ZWRfX7c9m9yKcoJqr
- HUsmu2W2WAz18deFznXeXZLTHCZvXgqnQ0j7PupxquFNhs4PvcoHGYciguuH3qUIM7byRwjn1Rp
- bHT/ZHX5LXLXILottt+g+J/1aWumSXSe9Lz3g3FryUg6l596fmY0i1uom1SYrdo90689BdrTF3T
- 13BS8O6dRyF+LDKxsArxks4EmMmYf6bwSmBYT9qsPm9uMd5CorJBDlkFX+ka0sA14nQjwX2uvx2
- z33rM/u0LYQlFjeCpAkEUQfRqoV8Vr2PdFFPwt1V7yyRY2K78Q2aVGQ2nwkyflv9ZUbLylhI1RY
- 09ZcGtwh6bA/yl4g32LPwXQIS4r35nkLtzCrFfdZkb55vaPsBKHYTVfRZD0QQSmpKy0Gv69E2Ie
- 4EZ5ROtpi33M4J7G5InGOGvq4D0530L4TaLfzoYZ6aq44nGSvTMsoYUqC9zIl79uysTRqj/sDe/
- y7ab3zo+W0VbrEuPNqw==
-X-Proofpoint-GUID: 8oaW0-qB3km5nSbOXQ3ALc6t5nIlvT99
-X-Proofpoint-ORIG-GUID: 8oaW0-qB3km5nSbOXQ3ALc6t5nIlvT99
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=JCsno87Pq3fPI6XBcfAA:9 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2NiBTYWx0ZWRfX2fEtA7N/QZPW
+ UqijkqrPo1ajX1ResBkF58TB0y6qVsyZ4xwBpKIjycE+TdCFV6RQ7gf63LyojzyAAYQgz7u8i5B
+ z+wCQcqc3oehJu5T651zlm5vmg7jgOo1qceo24XNGpNBubAzjb6EZsaV/il6wL6/2LtcAIliwRr
+ BwOWU0ASJk4XuR1wujx363OxshDnvH2cOoxhUeOL50unoVb0VNjtA2ddu/5HNMU59PrwLWUSR6p
+ titFvErKR/FLlxpBPocMY9Y38oAm//oyDEN8r9K/5d8dCAMhwNGeUnZ6FwoSeiD+sC7P7QR2oez
+ hWZLYePYx0xWGFO5/gsgV3A+kdZSvamEjzOYmoOzaX26jwh6kyZ0vf7AQZSBFQ45ehVHkZyYl1m
+ DaorRnG+HbsJo/K8G7j5QcIHyh93vGGITqTITE5V/7CkSaLwxdciSIQ1wpOALlDqrrmAQpcZHbU
+ AiAEglQ5Tj4InsbKj7A==
+X-Proofpoint-GUID: vdlh8uXpXbWX83V5M1UePGPiPU5zua2a
+X-Proofpoint-ORIG-GUID: vdlh8uXpXbWX83V5M1UePGPiPU5zua2a
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-02_04,2026-10-02_01,2025-10-01_01
@@ -120,73 +124,62 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020066
 
-This series adds a driver for RISC-V SBI watchdog extension.
+Add the SBI watchdog extension ID and function IDs for supported
+operations, including start, stop, pat, and attribute read and write.
 
-The SBI watchdog extension exposes watchdog including start,
-stop, pat, read and write attributes to the S-mode software.
-The kernel driver uses the standard SBI calls to interact and
-configure the attributes. The driver integrates with the
-kernel watchdog framework (/dev/watchdog) to ease user-space
-implementations.
+Define the attribute IDs exposed by the SBI watchdog extension, including
+watchdog capabilities such as MSI support and configurable watchdog
+parameters.
 
-The driver currently subscribes to the Message Signaled
-Interrupts (MSI) for watchdog pretimeout events.
+Signed-off-by: Prajwal N <prajwal.n@oss.qualcomm.com>
+---
+ arch/riscv/include/asm/sbi.h | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-The series consists of following changes:
-
-- Patch 1 adds the definition for SBI watchdog extension ID,
-  function IDs, and various attributes that are supported by
-  the extension
-
-- Patch 2 implements the kernel driver that utilizes standard
-  SBI calls to interact and configure the attributes.
-
-This is based on the OpenSBI watchdog extension implementation
-patch series available at:
-Link: https://lore.kernel.org/opensbi/20261002083040.2533097-1-prajwal.n@oss.qualcomm.com
-
-Steps to test the SBI watchdog extension
-1) Compile the kernel along with watchdog kselftest for RISC-V.
-2) Compile OpenSBI patch series mentioned earlier to generate fw_dynamic.bin
-3) Launch QEMU virt machine with IMSIC support enabled.
-   Note: The following command requires a rootfs.cpio packed in Image. It can
-   be modified to use rootfs.ext2
-   $ qemu-system-riscv64 -M virt,aia=aplic-imsic -m 2G -smp 4 -nographic \
-     -bios fw_dynamic.bin -kernel Image -append "root=/dev/vda rw console=ttyS0"
-4) On kernel boot-up, the /dev/watchdog entry should be available and the
-   kselftest binary (watchdog-test) can be used to test the functionality.
-   Following are some sample test cases,
-   
-   - Dumps all the supported options.
-     ./watchdog-test -h
-
-   - Starts the watchdog, configures the timeout to 8s, ping interval to 2s,
-     and disables the pretimeout.
-     ./watchdog-test -t 8 -p 2 -n 0
-     
-   - Starts the watchdog, configures the timeout to 8s, ping interval to 9s,
-     and disables the pretimeout.
-     ./watchdog-test -t 8 -p 9 -n 0
-
-   - Starts the watchdog, configures the timeout to 8s, ping interval to 2s,
-     and configures the pretimeout to 6s before the timeout.
-     ./watchdog-test -t 8 -p 3 -n 6
-
-Changes in v1:
-- Initial RFC submission
-
-Prajwal N (2):
-  include: sbi_ecall_interface: Add defines for the RISC-V SBI watchdog
-    extension
-  drivers/watchdog: Add RISC-V SBI watchdog driver
-
- arch/riscv/include/asm/sbi.h     |  26 ++
- drivers/watchdog/Kconfig         |   9 +
- drivers/watchdog/Makefile        |   1 +
- drivers/watchdog/riscv_sbi_wdt.c | 406 +++++++++++++++++++++++++++++++
- 4 files changed, 442 insertions(+)
- create mode 100644 drivers/watchdog/riscv_sbi_wdt.c
-
+diff --git a/arch/riscv/include/asm/sbi.h b/arch/riscv/include/asm/sbi.h
+index 5725e0ca4dda..b67ee507c517 100644
+--- a/arch/riscv/include/asm/sbi.h
++++ b/arch/riscv/include/asm/sbi.h
+@@ -38,6 +38,7 @@ enum sbi_ext_id {
+ 	SBI_EXT_FWFT = 0x46574654,
+ 	SBI_EXT_MPXY = 0x4D505859,
+ 	SBI_EXT_DBTR = 0x44425452,
++	SBI_EXT_WDT = 0x574454,
+ 
+ 	/* Experimentals extensions must lie within this range */
+ 	SBI_EXT_EXPERIMENTAL_START = 0x08000000,
+@@ -534,6 +535,31 @@ union sbi_dbtr_shmem_entry {
+ 	struct sbi_dbtr_id_msg id;
+ };
+ 
++/* SBI watchdog function IDs */
++enum sbi_ext_wdt_fid {
++	SBI_EXT_WATCHDOG_READ_ATTRIBUTE = 0,
++	SBI_EXT_WATCHDOG_WRITE_ATTRIBUTE,
++	SBI_EXT_WATCHDOG_WRITE_NOTIF_MSI_MESSAGE,
++	SBI_EXT_WATCHDOG_START,
++	SBI_EXT_WATCHDOG_STOP,
++	SBI_EXT_WATCHDOG_PAT,
++};
++
++/* SBI watchdog attributes */
++enum sbi_ext_attribute_id {
++	SBI_WDT_CAPABILITY		= 0x00000000,
++	SBI_WDT_STATE			= 0x00000001,
++	SBI_WDT_MIN_PERIOD		= 0x00000002,
++	SBI_WDT_PERIOD			= 0x00000003,
++	SBI_WDT_TIME_LEFT		= 0x00000004,
++	SBI_WDT_NOTIF_TIME		= 0x00000005,
++	SBI_WDT_NOTIF_MSI_ADDR_LOW	= 0x00000006,
++	SBI_WDT_NOTIF_MSI_ADDR_HIGH	= 0x00000007,
++	SBI_WDT_NOTIF_MSI_DATA		= 0x00000008,
++	SBI_WDT_ATTR_MAX		= 0x00000009,
++	SBI_WDT_ATTR_RESERVED_MAX	= 0xFFFFFFFF
++};
++
+ /* SBI spec version fields */
+ #define SBI_SPEC_VERSION_DEFAULT	0x1
+ #define SBI_SPEC_VERSION_MAJOR_SHIFT	24
 -- 
 2.43.0
 
