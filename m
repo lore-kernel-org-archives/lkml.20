@@ -1,574 +1,430 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A23B5172DB
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8937517BD8
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:24:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790972642; cv=none; b=Zxpg7qa8KXzg69iNZX1M72dlAiO8agjhnK+yTuf7/PZQ9qTJuoIyKU8jGe8ZQtFXIpjQSUeT64VVfiyNStOS8nMw1OHfrU+4ONCVuy2A2E4YmPXeZgz2612Lsyaf6JryPxtKWRc1T5k2EtHK0UOsJ07S9KaiYNMUPmOQ2XBL3m0=
+	t=1790972701; cv=none; b=leSdttVDD1haNiuLDl9sdvleTD+iwqaH8fOmCNIJZd3ndr4YnE4awxHx+MnDB8Zxbsq6WUpq/HVXQokAUsE53RZ+KyXpwZEQ9lcxUrHoZ4sKsPOofS8ATJNTgm17cg9jcZaIn670uIWrcp+4GthSLbq7AOHQ60Y4r/OtSv8sS6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790972642; c=relaxed/simple;
-	bh=371BCgGAkVSPTReK+JcJA5nNBj+JkqaqBFimdRSGDd8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o+7j59+YT4Tz3QMCAn/qh6+dhEMJ0juV70Fa4FR0EGsglseCpy2rXDnX8NZeMRfvqXgf6tGKM7Gl39rxuIODHOSs3MwVPFt8pI4vdMBH1/Cnpy69HtIbuxr284qJEeNO/C/AE4d0mzB9sWZcsCYIBTYrJeL5fzgWb2yq4WWXcW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NobJkXZb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FW+NWkTc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790972701; c=relaxed/simple;
+	bh=gOIDQvoTPC54kqM693/RjiH3DniyfGvoRnPoN723y18=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AXXt6hAvqfzodV8nDVrCO+hGqP2EN+YIqfc2ulQ404DqMhLTFjG/wcDNaJZyu15+kU5F6fAZlsAprMTZWDmqRhZU0Pti21Z21oW4OfFHrydkxKwkSbK70aMq57Z+ibmQ+brljcXjNcP2Gib4wkt8ccYlX8O+XZmVQCObW1lGlt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oYGfOsnH; arc=none smtp.client-ip=74.125.230.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NobJkXZb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FW+NWkTc"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692K9WCg2272945
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 20:23:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Sm7PSIXxWP70Y3Fubw9NhYaR
-	bZ+kjeuTwYGtZMCtngw=; b=NobJkXZbmh4q8GtQLRTh3Ob5w/0ZVHYbVHCOUuo+
-	IxgiFNc2Zn14imaLap/T/Kfr3aHPV4URxrwTr36aW6ZHTFi7qrQQL9IhC74glB2y
-	Yrr7Xh7xgDPvvwPuo8sXN//YaEYC+CdR7oCbZRVbK5sp+9OsTk4mogc3nG4UoiuU
-	tQ7iibJUtFiFHtxweOgA/CHnrjtaA52hwGSfqxne5aCeHQFI4t9xRMJ5MECIdE8y
-	GbXuGde9le59IkH5C4swkXTrnvnKZMM6mVyF7AyW8GWrR4TAX+N3UhhRz+GD2HZj
-	aeIEtUsO3PhDi35gZXCf7adaKVvH/BtdDSe1tR5pKj2CMQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2ec99e78-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 20:23:58 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc359d9easo256478085a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:23:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oYGfOsnH"
+Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-9178b9ca7e8so2914786d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:24:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790972638; x=1791577438; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Sm7PSIXxWP70Y3Fubw9NhYaRbZ+kjeuTwYGtZMCtngw=;
-        b=FW+NWkTcxKPR4roXb7RLopJIUaQWjnw2waNLAFAtEVC25R3eMMY3i2MfLbwZ6dhzRg
-         xHVOxeRoQq8wrZfv2nqFu3tTxl7LIPQorPyNL3sOIC7Yd4s1MQNGLPM9JG2vq1Q/lSm7
-         jIszXUqkZQxBR9lzSD2JfnKlghi1MmNEPDc41DaK1ff52Jbqa0NMGjkUFJQFGB88BB9l
-         FefN2mb5f6HNVpSjTmMG8vSs9k9fbEFJebH9siPGyh0QROvuVpbyihz03zwB1fBB4cXA
-         v8UcFScHt5NR753y//gTGxMJLk+WN5V5UrFTWkaZKwl2kYLEz/vMkZwfuhW0EhsYa0Ms
-         wv6g==
+        d=gmail.com; s=20251104; t=1790972697; x=1791577497; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S35goerxP799yBtkbGvn8cEv+WRt3OcPuehglbCBDPM=;
+        b=oYGfOsnHfMqF/z0u7x40j9iM9H9rkjtlCIWTe98cWdFMZ3azizldJBS2MmUneIw/Md
+         8KjrNHhkfCVpFaFnPG1cb5+GnwcrCzKLb4XE6R55a+cWuUDTay1KyhHHpaEppMLH2GEY
+         7WR28EHswmkIgaHWNl7oyBRhIzi7Yh+OfywVpcx9eJcB21d7OZ2Yy/+9vxEV+W5y5a6P
+         6TfHqjTuVIE7G+tiacZFg9FXN3KjSmYm0GrmZozKzsadBpzhZNIDZBIuRisorTJs2kf+
+         FF2V9k8GTmOoi8S3LcXhbc5eU2UusZ08fku5poy4OAE8m7oGFKKuOUTZgEi+PNW8Z8Rv
+         GCaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790972638; x=1791577438;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sm7PSIXxWP70Y3Fubw9NhYaRbZ+kjeuTwYGtZMCtngw=;
-        b=Yju/4o+EBRnljha6tlAhW76vQ8zdFwgpfmdcy2Dc372St7PT7lP+j4aYis6yEk3zZ9
-         tWbu49glSX9BJwwIMMKuEzZT6kHXa+syuZe27eKAxl1lOxwVvwBJOc5IX8F0eBMhtqJ4
-         9OhZoYNxuWpjDHhky88GzCFWOgY/zuAOs7LoHUrHTiPAG8Zm+tM4H8F3uNIbKXptZTJL
-         MP/SZnnqliiRRzpUTqs631Q1O8j58hxGLgeLUU2hcxkTzzryDmNbW76dyyy9hIA48lCM
-         iMSKt+QKXDt5B4NFeFDcvbQyn44MFF5gewV0vzPh48kEmkh8JqGkf4FyinLRm6scPKUc
-         Ovug==
-X-Forwarded-Encrypted: i=1; AKwUvBzcj+vTizPpc1C4oxZlPHx8y8XB++CnFQ/t/cfGDF0U+jIdtJfzBN1FXofFvO7s4cBpiuvjWQecl4JhTvE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mk/RlDdj3Rf9DYhKkqVxBKgv69PHRP7XkPCwWoD83gSbsy9Hgq
-	4++NZuFNoT+/9RA+kiyY+z6OUzYBtEyMFnbbTT53/knT+SMc3bHsWEcJzSXFKer9Wat1w+qyp+w
-	vIxC3Pwp33PVHrLzmlYSNh4gKCsWt5bgyLnoT0qHAt9/C15d1g0MUGgiXqcjyD0DikOQ=
-X-Gm-Gg: AYBFou3CFSaoD/+RTKPfy8VWjPK2oKtDHJKaMO88vAe7TpXQQlmFNU/s8gzEjsp0LgM
-	gXxx8AZANZlI/2iN8wyRELA5hSwgR7oyuYqWgLYYUJv/DgP3HjaMtMc9NYNTiKa0KYc1DH+9HVH
-	zGH5oqc5KJa7dZ9b5QYE9T4s5EJnLlqmJua+zaAlNjWf+JKl9noW8XTZehlOzhUwQAex6yEPs47
-	EwD8TE5/fHGDqF/z5VK4/Osz+Ou2AOSpDx4q04bPIkR5KmKQzibePoHy3Sw+hZhqwOIkRc56QxV
-	r5NsxV0RrltJnrYV4Ok5okV4+MSiw40K7dcUZARyXjnpsEk/WNnq4q0APDf4UrsFQA07iKrA4h3
-	06Wk18pVKs1qGwO/mHOicnabC6Rv1cNrzhl+a6W59nRxlowih5LD6ieYID2sJ2EYJEZM+DdXXg3
-	PmBspK05N892IR
-X-Received: by 2002:a05:620a:17ab:b0:93c:c73c:91f9 with SMTP id af79cd13be357-93cf1700af7mr654366885a.31.1790972637300;
-        Fri, 02 Oct 2026 13:23:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:17ab:b0:93c:c73c:91f9 with SMTP id af79cd13be357-93cf1700af7mr654361885a.31.1790972636696;
-        Fri, 02 Oct 2026 13:23:56 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9636c571bsm8836931fa.0.2026.10.02.13.23.54
+        d=1e100.net; s=20260707; t=1790972697; x=1791577497;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S35goerxP799yBtkbGvn8cEv+WRt3OcPuehglbCBDPM=;
+        b=pEejlxch51RYI6nx4aRd8sRHvBRCPgiVRdoGUXuykphnFgzIEcdcxyhJDtqedMFhXd
+         xf4UoqOUN534jyRbuRKrDIHyks0FEb3oFmXIIkD/kEB6+M1PGGf7XCjX0sr+DFmZM930
+         m3gGP2kehU7nGqJo/ZfPyHK8rBJfrz2aO8JtQF48Pt5qGMV+e0oNKOe5Bb7LrODRq0ne
+         mRh7WLvpUuBGPZf9wSYRQbxO5PfzMxu2Y0rXKu77swN4M0/LT9hHZU3LD+j5i9xHwjkM
+         XvLB3HF116ZH2KU8N7gcgFE2U/7kh91OGQfzFACt7H9FYhMt2V8IPBuPpKfI9FeYzDNf
+         3lww==
+X-Forwarded-Encrypted: i=1; AKwUvByWWkhhspJQdzXMYFV0Q2SucvMvVguAZbnTi8iZf0YuEYEjrGL8+507yA0qPrT2YU9pT5+XvS+BqXe2WOk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lImruFAcPl6uFCzAq8/F88y1M6QGLgODtjI3jaQN7cmhEdxmvb
+	BDmMd6u0wcdjGLLGawy/etmTdFlPVf9sCj5EqYATQVd0jokORk+NcGv6
+X-Gm-Gg: AYBFou1bejK0+E006AfCTXo34bJmcLZk9SGsiVWVI+v9QkRU9HoDsj7sv+5l7b4VyQY
+	yYU5F/gbWwnd9vcWYfWckhLK3An7PkPV4wtHf6UflAilxVmJvyO+QoX70BmVk6nLD6JdHBjrMUt
+	cQKT16i5mLXh8PYuAXwIEmNgGRQAsKPSAlmJrhZhqS/k81DC5HIMomA23S4lOAbEy2aEjV6IwFH
+	zVHbH5NTCgmj0EIihgPL2sAdVyLSFZ+ATS3wZXOtRGAdC2MXUdsXcEXNjg38ofjxk4thNf3P0Bk
+	juW1L7DHuhbHKGLELoPBZ/D4zAaAZaBZ7mCa4mjqg6X487jOPy2j5U17ZLfx/msMLx4SaeoxEu4
+	ZXvZkJWXEqkBvr96Kr8ASZJs2n1YIj+yZ2D9Sbch8INZ5ynkeZvf1TfnD69+N4Mys7o+VNrnQbH
+	szjWY8HxskNGAeu3vFhXgeEBP465jZJA6+nF+sqww/DpZEKDzYA1Pd7LmTERr3QvgmeMrVrX3E3
+	qd59IY3lDcbbGQqD9dpYVotafOwRY99oFdsI/YcGu5IKdvH0NfmRE+C42pQPHJgAgWdmGEAsTvE
+	5dddnGs=
+X-Received: by 2002:a05:6214:598b:b0:917:bfaa:3c4f with SMTP id 6a1803df08f44-917c01f8e7fmr74650926d6.41.1790972697062;
+        Fri, 02 Oct 2026 13:24:57 -0700 (PDT)
+Received: from localhost.localdomain (pool-173-71-97-169.cmdnnj.fios.verizon.net. [173.71.97.169])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0bc98fbsm28215126d6.29.2026.10.02.13.24.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 13:23:55 -0700 (PDT)
-Date: Fri, 2 Oct 2026 23:23:53 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21] drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI
- case
-Message-ID: <65hkupywjw2czck22qod5egpssbymvgy7wf6i6c2oyelexek53@fs36x66abtn5>
-References: <20260727-msm-next-quad-pipe-split-v21-1-965dfa5b669e@linaro.org>
+        Fri, 02 Oct 2026 13:24:56 -0700 (PDT)
+From: Akira Patafio <kokokoala4211@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Akira Patafio <kokokoala4211@gmail.com>
+Subject: [PATCH v2] tty: pty: preserve open slaves after rejected locked open
+Date: Fri,  2 Oct 2026 16:24:55 -0400
+Message-ID: <20261002202455.25324-1-kokokoala4211@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261001165552.2439-1-kokokoala4211@gmail.com>
+References: <20261001165552.2439-1-kokokoala4211@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727-msm-next-quad-pipe-split-v21-1-965dfa5b669e@linaro.org>
-X-Proofpoint-GUID: wOpZyTRSi5Y_owxHxwFIQELKNVkWsps5
-X-Authority-Analysis: v=2.4 cv=Ie8Symqa c=1 sm=1 tr=0 ts=6ac012de cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=e5mUnYsNAAAA:8
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8
- a=COk6AnOGAAAA:8 a=cxr7Rb4uYlb9bN0-pOsA:9 a=aow2KpemsbaojCVP:21
- a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=cvBusfyB2V15izCimMoJ:22 a=FO4_E8m0qiDe52t0p3_H:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA4MSBTYWx0ZWRfX292Laxv6rH6r
- 5UsaVYVSDJpFR+qS0IAzyFwfFUDygRY0FuV9EysZmOt3v0X4RAzrTlhaSHgpTOmEVKMXqxD5esi
- +iZG7odjJ4gm+29CXAj66HRIv163mN8=
-X-Proofpoint-ORIG-GUID: wOpZyTRSi5Y_owxHxwFIQELKNVkWsps5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4MSBTYWx0ZWRfX0cP2LReqz6zI
- GnyEeQSf20sGiiSh/N4vacVRgUYh1gAPChFFaujIt8qej2k+jpd/IsIjHaqyxZlMqBBybTo6Vqr
- 8frAjp1nVxlge2JACZlPuV2DpXU4DV2JyBiiounDT2IfAUz/oThnmYe5iYCZQ8zQq4TgkJ4pQfq
- sQ54/agzTjAVW6WYegNMp4dUrsJZWwMy+djljQb2KKshih/3yGbCbNQ8YZ/h4FFFw796eQMObyu
- PwSr3/M03DYiGYGTvLSLn7kwx+SFb0CESwEl6/ZqXNG1kU3IrvFEksZaM/F42h0u/xKl4VDtSOr
- GzQy0EvlP+Hobl0EKW2Yf1c94RIiVG+ZyXW+zcAFJR5AZjzz5ebj39ema8bLGiugtHkiPTala53
- haLIyPguwlsNc95mc5IFV7UK5KXlPHRvKAMgciw8xW1VXl8tFrASZPtElHKH82pM49ogsscrWut
- jdCh0PCSzlH3U7nhlHg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_06,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 phishscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020081
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 27, 2026 at 05:33:26PM +0800, Jun Nie wrote:
-> To support high-resolution cases that exceed the width constrain
-> or scenarios that surpass the maximum MDP clock rate, additional
-> pipes are necessary to enable parallel data processing within
-> the width constraints and MDP clock rate.
-> 
-> Expand pipe array size to 4. Request 4 mixers and 4 DSCs for
-> high-resolution cases where dual interfaces are enabled for virtual
-> plane case. More use cases can be incorporated later if quad-pipe
-> capabilities are required.
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Patchwork: https://patchwork.freedesktop.org/patch/675418/
-> Link: https://lore.kernel.org/r/20250918-v6-16-rc2-quad-pipe-upstream-4-v16-10-ff6232e3472f@linaro.org
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Opening a locked PTY slave fails with EIO, but the failure path sets
+TTY_IO_ERROR on the shared slave tty. Previously opened slave files then
+fail I/O even though their master is still open.
 
-FWIW the following patch seems to be required to make it work on DPU
-4.0.
+tty_open() releases a file after the slave open callback fails. Merely
+skipping TTY_IO_ERROR on the rejected open is insufficient: pty_close()
+can mistake the failed file for the last slave and close the master.
+Counting tty references is also insufficient because a real last close
+can race the failed open and its release.
 
-https://patch.msgid.link/20261002-encoder-flush-old-ctl-v1-1-2a2f29e9b930@oss.qualcomm.com
+Track which slave files opened successfully. Ignore failed files during
+close, and mark the master peer closed only when the last successful
+slave file closes. In-kernel callers may pass NULL instead of a file;
+retain the count-based close behavior for those callers. A selftest
+checks locked opens with zero, one, and two existing slave files, plus
+ordinary last-slave close behavior.
 
-I'm not 100% happy about this patch, I can foresee having issues with
-the different DSC topologies, but I guess it might be easier to try
-figuring them out (maybe together with rewiring / rewriting the resource
-allocator). We need to find a way to try different combinations and roll
-back to the smaller configuration if the other output needs more
-resources.
+Fixes: 699390354da6 ("pty: Ignore slave pty close() if never successfully opened")
+Assisted-by: LLM
+Signed-off-by: Akira Patafio <kokokoala4211@gmail.com>
+---
+Changes in v2:
+- Preserve the existing NULL-file callback behavior for in-kernel TTY users.
+- Add the Assisted-by tag requested in review.
 
-I'll test this version, and if it passes, I will maybe try landing it...
+Tests:
+- The selftest failed on an unpatched Linux 6.12.69 kernel at the
+  pre-existing slave write with errno EIO (TAP fail:1).
+- Built the patched 7.3.0-rc5 x86_64 kernel with legacy PTYs and Speakup
+  enabled, without compiler warnings. Booted it in QEMU/HVF and ran the
+  selftest in the guest: TAP pass:1 fail:0, exit status 0.
 
-> 2 or more SSPPs and dual-DSI interface are need for super wide panel.
-> And 4 DSC are preferred for power optimal in this case due to width
-> limitation of SSPP and MDP clock rate constrain. This patch set
-> extends number of pipes to 4 and revise related mixer blending logic
-> to support quad pipe. All these changes depends on the virtual plane
-> feature to split a super wide drm plane horizontally into 2 or more sub
-> clip. Thus DMA of multiple SSPPs can share the effort of fetching the
-> whole drm plane.
-> 
-> The first pipe pair co-work with the first mixer pair to cover the left
-> half of screen and 2nd pair of pipes and mixers are for the right half
-> of screen. If a plane is only for the right half of screen, only one
-> or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
-> assinged for invalid pipe.
-> 
-> For those panel that does not require quad-pipe, only 1 or 2 pipes in
-> the 1st pipe pair will be used. There is no concept of right half of
-> screen.
-> 
-> For legacy non virtual plane mode, the first 1 or 2 pipes are used for
-> the single SSPP and its multi-rect mode.
-> 
-> This patch set drop the merged heading 8 patches of v16, only the last
-> 2 are revised and split into 4 patches here.
-> 
->     Changes in v21:
->     - Add active-CTL constrain to quad-pipe case.
->     - adjust high clock rate constrain to quad-pipe case so that 4K@30Hz
->       still use 2 LMs.
->     - Link to v20: https://lore.kernel.org/all/20260415-msm-next-quad-pipe-split-v20-1-bc1fdf140b81@linaro.org/
-> 
->     Changes in v20:
->     - Rebase to latest msm-next to add single DSC case into topology revison.
->     - Link to v19: https://lore.kernel.org/r/20260312-msm-next-quad-pipe-split-v19-0-4ffa2b06c996@linaro.org
-> 
->     Changes in v19:
->     - Refine the plane resource assignment to avoid unnecessary argument
->       and operation for non-virtual plane case.
->     - Fix wording in comments.
->     - Link to v18: https://lore.kernel.org/r/20260213-msm-next-quad-pipe-split-v18-0-5815158d3635@linaro.org
-> 
->     Changes in v18:
->     - Revise the deferring of SSPP handling and comments to distinguish
->       assignment of non-virtual plane case and allocation of virtual plane case.
->     - Always assume 1 stage in non-virtual plane case when splitting and
->       mapping plane to pipes.
->     - Revise topology decision making and comments to fix possible
->       regression.
->     - Link to v17: https://lore.kernel.org/r/20260121-msm-next-quad-pipe-split-v17-0-6eb6d8675ca2@linaro.org
->     
->     Changes in v17:
->     - Fix iommu warning on Hamoa.
->     - Extract plane splitting into a dedicated function.
->     - Defer plan splitting and SSPP allocation until CRTC check
->       so that topology information is available.
->     - Add virtual plane condition to quad-pipe topology so that
->       legacy devices are not impacted.
->     - Drop the merged 8 patches of v16, only the last 2 is revised
->       and sent here.
->     - Link to v16: https://lore.kernel.org/linux-arm-msm/20250918-v6-16-rc2-quad-pipe-upstream-4-v16-0-ff6232e3472f@linaro.org
-> 
->     Changes in v16:
->     - Rebase to latest branch msm-next-lumag.
->     - Fix IGT test failures.
->     - Drop patches that have been merged.
->     - Link to v15: https://lore.kernel.org/r/20250819-v6-16-rc2-quad-pipe-upstream-v15-0-2c7a85089db8@linaro.org
-> 
->     Changes in v15:
->     - Polish logic in sspp check and assignment.
->     - Link to v14: https://lore.kernel.org/r/20250801-v6-16-rc2-quad-pipe-upstream-v14-0-b626236f4c31@linaro.org
-> 
->     Changes in v14:
->     - Add patch to fix null pointer bug SSPP sharing, which is missed in
->       the last version.
->     - Polish single pipe check with removing loop.
->     - Polish logic of SSPP sharing test in dpu_plane_virtual_assign_resources()
->     - Polish argument of dpu_plane_virtual_assign_resources().
->     - Link to v13: https://lore.kernel.org/r/20250728-v6-16-rc2-quad-pipe-upstream-v13-0-954e4917fe4f@linaro.org
-> 
->     Changes in v13:
->     - Modify the SSPP assignment patch for sharing SSPP among planes in
->       quad-pipe case.
->     - Link to v12: https://lore.kernel.org/r/20250707-v6-16-rc2-quad-pipe-upstream-v12-0-67e3721e7d83@linaro.org
-> 
->     Changes in v12:
->     - Polish single pipe case detection in a plane. Add stage index check when
->       sharing SSPP with multi-rect mode in 2 planes.
->     - Abstract SSPP assignment in a stage into a function.
->     - Rebase to latest msm/msm-next.
->     - Link to v11: https://lore.kernel.org/r/20250603-v6-15-quad-pipe-upstream-v11-0-c3af7190613d@linaro.org
-> 
->     Changes in v11:
->     - Change function name from dpu_plane_check_single_pipe to
->       dpu_plane_get_single_pipe.
->     - Abstract SSPP assignment in stage into a function.
->     - Link to v10: https://lore.kernel.org/r/20250526-v6-15-quad-pipe-upstream-v10-0-5fed4f8897c4@linaro.org
-> 
->     Changes in v10:
->     - Drop changes in drm helper side, because num_lm == 0 does not lead to
->       any issue in the first call to dpu_plane_atomic_check_nosspp() with
->       latest repo. It is initialized properly right after the call in
->       drm_atomic_helper_check_planes(), thus the later plane splitting works
->       as expected.
->     - Rebase to latest msm-next branch.
->     - Fix PIPES_PER_STAGE to PIPES_PER_PLANE where handling all pipes, instead
->       of stages.
->     - Link to v9: https://lore.kernel.org/r/20250506-quad-pipe-upstream-v9-0-f7b273a8cc80@linaro.org
-> 
->     Changes in v9:
->     - Rebase to latest mainline and drop 3 patches as mainline already cover
->       the logic.
->       "Do not fix number of DSC"
->       "configure DSC per number in use"
->       "switch RM to use crtc_id rather than enc_id for allocation"
->     - Add a patch to check crtc before checking plane in drm framework.
->     - Add a patch to use dedicated WB number in an encoder to avoid regression.
->     - Revise the condition to decide quad-pipe topology.
->     - Link to v8: https://lore.kernel.org/r/20250303-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v8-0-eb5df105c807@linaro.org
-> 
->     Changes in v8:
->     - Fix looping pipes of a plane in _dpu_plane_color_fill()
->     - Improve pipe assignment with deleting pipes loop in stage.
->     - Define PIPES_PER_PLANE properly when it appears fisrt.
->     - rename lms_in_pair to lms_in_stage to avoid confusion.
->     - Add review tags.
->     - Link to v7: https://lore.kernel.org/r/20250226-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v7-0-8d5f5f426eb2@linaro.org
-> 
->     Changes in v7:
->     - Improve pipe assignment to avoid point to invalid memory.
->     - Define STAGES_PER_PLANE as 2 only when quad-pipe is introduced.
->     - Polish LM number when blending pipes with min() and pull up to caller func.
->     - Add review tags.
->     - Link to v6: https://lore.kernel.org/r/20250217-sm8650-v6-14-hmd-deckard-mdss-quad-upstream-oldbootwrapper-36-prep-v6-0-c11402574367@linaro.org
-> 
->     Changes in v6:
->     - Replace LM number with PP number to calculate PP number per encoder.
->     - Rebase to Linux v6.14-rc2.
->     - Add review tags.
->     - Link to v5: https://lore.kernel.org/r/20250118-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v5-0-9701a16340da@linaro.org
-> 
->     Changes in v5:
->     - Iterate SSPP flushing within the required mixer pair, instead of all
->       active mixers or specific mixer.
->     - Limit qaud-pipe usage case to SoC with 4 or more DSC engines and 2
->       interfaces case.
->     - Remove valid flag and use width for pipe validation.
->     - Polish commit messages and code comments.
->     - Link to v4: https://lore.kernel.org/r/20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org
-> 
->     Changes in v4:
->     - Restrict SSPP flushing to the required mixer, instead of all active mixers.
->     - Polish commit messages and code comments.
->     - Rebase to latest msm/drm-next branch.
->     - Move pipe checking patch to the top of patch set.
->     - Link to v3: https://lore.kernel.org/dri-devel/20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org
-> 
->     Changes in v3:
->     - Split change in trace into a separate patch.
->     - Rebase to latest msm-next branch.
->     - Reorder patch sequence to make sure valid flag is set in earlier patch
->     - Rectify rewrite patch to move logic change into other patch
->     - Polish commit messages and code comments.
->     - Link to v2: https://lore.kernel.org/dri-devel/20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org
-> 
-> Changes in v2:
->     - Revise the patch sequence with changing to 2 pipes topology first. Then
->       prepare for quad-pipe setup, then enable quad-pipe at last.
->     - Split DSI patches into other patch set.
->     - Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 55 ++++++++++++++++--------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 +--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 29 ++++---------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
->  6 files changed, 52 insertions(+), 44 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index bd0e720b484fd..d586825015906 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
->  		struct dpu_crtc_state *crtc_state)
->  {
->  	struct dpu_crtc_mixer *m;
-> -	u32 crcs[CRTC_DUAL_MIXERS];
-> +	u32 crcs[CRTC_QUAD_MIXERS];
->  
->  	int rc = 0;
->  	int i;
-> @@ -1384,6 +1384,9 @@ static struct msm_display_topology dpu_crtc_get_topology(
->  	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
->  	struct msm_display_topology topology = {0};
->  	struct drm_encoder *drm_enc;
-> +	struct msm_drm_private *priv = crtc->dev->dev_private;
-> +	struct dpu_kms *kms = to_dpu_kms(priv->kms);
-> +	u32 num_rt_intf;
->  
->  	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)
->  		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
-> @@ -1396,32 +1399,48 @@ static struct msm_display_topology dpu_crtc_get_topology(
->  	 *
->  	 * Dual display
->  	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
-> +	 * 4 LM, 2 INTF ( Split display using 2 interfaces and stream merge
-> +			  to support high resolution interfaces if virtual
-> +			  plane is enabled)
-> +	 * If DSC is enabled, use 2:2:2 for 2 LMs case, and 4:4:2 for 4 LMs
-> +	 * case.
->  	 *
->  	 * Single display
->  	 * 1 LM, 1 INTF
->  	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
->  	 *
-> -	 * If DSC is enabled, use 2 LMs for 2:2:1 topology
-> +	 * If DSC is enabled, use 2 LMs for 2:2:1 topology for single display
-> +	 * to support legacy devices that use this topology. Use 1:1:1 topology
-> +	 * if there is only one DSC engine in SoC.
->  	 *
->  	 * Add dspps to the reservation requirements if ctm or gamma_lut are requested
-> -	 *
-> -	 * Only hardcode num_lm to 2 for cases where num_intf == 2 and CWB is not
-> -	 * enabled. This is because in cases where CWB is enabled, num_intf will
-> -	 * count both the WB and real-time phys encoders.
-> -	 *
-> -	 * For non-DSC CWB usecases, have the num_lm be decided by the
-> -	 * (mode->hdisplay > MAX_HDISPLAY_SPLIT) check.
->  	 */
->  
-> -	if (topology.num_intf == 2 && !topology.cwb_enabled)
-> -		topology.num_lm = 2;
-> -	else if (topology.num_dsc == 2)
-> -		topology.num_lm = 2;
-> -	else if (dpu_kms->catalog->caps->has_3d_merge &&
-> -		 topology.num_dsc == 0)
-> -		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
-> -	else
-> -		topology.num_lm = 1;
-> +	num_rt_intf = topology.num_intf;
-> +	if (topology.cwb_enabled)
-> +		num_rt_intf--;
-> +
-> +	if ((mode->hdisplay > (dpu_kms->catalog->caps->max_mixer_width * num_rt_intf)) ||
-> +	    ((u64)mode->hdisplay * mode->vtotal * drm_mode_vrefresh(mode) >
-> +	     kms->perf.max_core_clk_rate))
-> +		topology.num_lm = num_rt_intf * 2;
-> +	else {
-> +		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ?
-> +				  2 : num_rt_intf;
-> +	}
-> +
-> +	if (!dpu_use_virtual_planes ||
-> +	    dpu_kms->catalog->mdss_ver->core_major_ver < 5)
-> +		topology.num_lm = min(2, topology.num_lm);
-> +
-> +	if (!dpu_kms->catalog->caps->has_3d_merge)
-> +		topology.num_lm = min(num_rt_intf, topology.num_lm);
-> +
-> +	if (topology.num_dsc) {
-> +		if (num_rt_intf == 1)
-> +			topology.num_lm = min(2, dpu_kms->catalog->dsc_count);
-> +		topology.num_dsc = topology.num_lm;
-> +	}
->  
->  	if (crtc_state->ctm || crtc_state->gamma_lut)
->  		topology.num_dspp = topology.num_lm;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> index 6eaba5696e8e6..455073c7025b0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> @@ -210,7 +210,7 @@ struct dpu_crtc_state {
->  
->  	bool bw_control;
->  	bool bw_split_vote;
-> -	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-> +	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
->  
->  	uint64_t input_fence_timeout_ns;
->  
-> @@ -218,10 +218,10 @@ struct dpu_crtc_state {
->  
->  	/* HW Resources reserved for the crtc */
->  	u32 num_mixers;
-> -	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-> +	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
->  
->  	u32 num_ctls;
-> -	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-> +	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
->  
->  	enum dpu_crtc_crc_source crc_source;
->  	int crc_frame_skip_count;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index eba1d52211f68..058a7c8727f7c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -55,7 +55,7 @@
->  #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
->  	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
->  
-> -#define MAX_CHANNELS_PER_ENC 2
-> +#define MAX_CHANNELS_PER_ENC 4
->  #define MAX_CWB_PER_ENC 2
->  
->  #define IDLE_SHORT_TIMEOUT	1
-> @@ -661,7 +661,6 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
->  	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->  	struct msm_drm_private *priv = dpu_enc->base.dev->dev_private;
->  	struct msm_display_info *disp_info = &dpu_enc->disp_info;
-> -	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
->  	struct drm_connector *connector;
->  	struct drm_connector_state *conn_state;
->  	struct drm_framebuffer *fb;
-> @@ -675,22 +674,12 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
->  
->  	dsc = dpu_encoder_get_dsc_config(drm_enc);
->  
-> -	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
-> -	if (dsc) {
-> -		/*
-> -		 * Use 2 DSC encoders, 2 layer mixers and 1 or 2 interfaces
-> -		 * when Display Stream Compression (DSC) is enabled,
-> -		 * and when enough DSC blocks are available.
-> -		 * This is power-optimal and can drive up to (including) 4k
-> -		 * screens.
-> -		 */
-> -		WARN(topology->num_intf > 2,
-> -		     "DSC topology cannot support more than 2 interfaces\n");
-> -		if (topology->num_intf >= 2 || dpu_kms->catalog->dsc_count >= 2)
-> -			topology->num_dsc = 2;
-> -		else
-> -			topology->num_dsc = 1;
-> -	}
-> +	/*
-> +	 * Set DSC number as 1 to mark the enabled status, will be adjusted
-> +	 * in dpu_crtc_get_topology()
-> +	 */
-> +	if (dsc)
-> +		topology->num_dsc = 1;
->  
->  	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
->  	if (!connector)
-> @@ -2180,8 +2169,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
->  {
->  	int i, num_lm;
->  	struct dpu_global_state *global_state;
-> -	struct dpu_hw_blk *hw_lm[2];
-> -	struct dpu_hw_mixer *hw_mixer[2];
-> +	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-> +	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
->  	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
->  
->  	/* reset all mixers for this encoder */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> index 61b22d9494546..09395d7910ac8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> @@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
->  
->  	/* Use merge_3d unless DSC MERGE topology is used */
->  	if (phys_enc->split_role == ENC_ROLE_SOLO &&
-> -	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-> +	    (dpu_cstate->num_mixers != 1) &&
->  	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
->  		return BLEND_3D_H_ROW_INT;
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index ba04ac24d5a9e..b1ac84c0b52db 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -24,7 +24,7 @@
->  #define DPU_MAX_IMG_WIDTH 0x3fff
->  #define DPU_MAX_IMG_HEIGHT 0x3fff
->  
-> -#define CRTC_DUAL_MIXERS	2
-> +#define CRTC_QUAD_MIXERS	4
->  
->  #define MAX_XIN_COUNT 16
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index 0e65bf5ddc4a6..fd1f3e7982062 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -34,7 +34,7 @@
->  #define DPU_MAX_PLANES			4
->  #endif
->  
-> -#define STAGES_PER_PLANE		1
-> +#define STAGES_PER_PLANE		2
->  #define PIPES_PER_STAGE			2
->  #define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
->  #ifndef DPU_MAX_DE_CURVES
-> 
-> ---
-> base-commit: a913d08e5ea9a491b806e64a24410f6722ddc9b3
-> change-id: 20260121-msm-next-quad-pipe-split-ab95b6e3ffd3
-> 
-> Best regards,
-> -- 
-> Jun Nie <jun.nie@linaro.org>
-> 
+ drivers/tty/pty.c                             |  34 +++-
+ drivers/tty/tty_io.c                          |   1 +
+ include/linux/tty.h                           |   1 +
+ .../testing/selftests/filesystems/.gitignore  |   1 +
+ tools/testing/selftests/filesystems/Makefile  |   2 +-
+ .../selftests/filesystems/pty_locked_open.c   | 187 ++++++++++++++++++
+ 6 files changed, 222 insertions(+), 4 deletions(-)
+ create mode 100644 tools/testing/selftests/filesystems/pty_locked_open.c
 
+diff --git a/drivers/tty/pty.c b/drivers/tty/pty.c
+index cc7f709..4024c5d 100644
+--- a/drivers/tty/pty.c
++++ b/drivers/tty/pty.c
+@@ -46,12 +46,31 @@ static DEFINE_MUTEX(devpts_mutex);
+ 
+ static void pty_close(struct tty_struct *tty, struct file *filp)
+ {
++	struct tty_file_private *priv = filp ? filp->private_data : NULL;
++	struct tty_file_private *other;
++	bool another_open = false;
++
+ 	if (tty->driver->subtype == PTY_TYPE_MASTER)
+ 		WARN_ON(tty->count > 1);
+ 	else {
+-		if (tty_io_error(tty))
++		/* tty_release() also calls close after an unsuccessful open. */
++		if (priv && !priv->pty_opened)
++			return;
++		/* In-kernel users have no per-file open state. */
++		if (!priv && tty->count > 2)
+ 			return;
+-		if (tty->count > 2)
++		/* tty->count includes opens that have not succeeded yet. */
++		spin_lock(&tty->files_lock);
++		if (priv)
++			priv->pty_opened = false;
++		list_for_each_entry(other, &tty->tty_files, list) {
++			if (other->pty_opened) {
++				another_open = true;
++				break;
++			}
++		}
++		spin_unlock(&tty->files_lock);
++		if (another_open || tty_io_error(tty))
+ 			return;
+ 	}
+ 	set_bit(TTY_IO_ERROR, &tty->flags);
+@@ -223,14 +242,23 @@ static int pty_open(struct tty_struct *tty, struct file *filp)
+ 
+ 	if (test_bit(TTY_OTHER_CLOSED, &tty->flags))
+ 		goto out;
++	/* A rejected open must not disrupt already-open slave descriptors. */
+ 	if (test_bit(TTY_PTY_LOCK, &tty->link->flags))
+-		goto out;
++		return -EIO;
+ 	if (tty->driver->subtype == PTY_TYPE_SLAVE && tty->link->count != 1)
+ 		goto out;
+ 
+ 	clear_bit(TTY_IO_ERROR, &tty->flags);
+ 	clear_bit(TTY_OTHER_CLOSED, &tty->link->flags);
+ 	set_bit(TTY_THROTTLED, &tty->flags);
++	/* Record a successful open before another slave can close. */
++	if (filp && tty->driver->subtype == PTY_TYPE_SLAVE) {
++		struct tty_file_private *priv = filp->private_data;
++
++		spin_lock(&tty->files_lock);
++		priv->pty_opened = true;
++		spin_unlock(&tty->files_lock);
++	}
+ 	return 0;
+ 
+ out:
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 4856903..e0b5f97 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -186,6 +186,7 @@ int tty_alloc_file(struct file *file)
+ 	priv = kmalloc_obj(*priv);
+ 	if (!priv)
+ 		return -ENOMEM;
++	priv->pty_opened = false;
+ 
+ 	file->private_data = priv;
+ 
+diff --git a/include/linux/tty.h b/include/linux/tty.h
+index 0a46e40..c44d11f 100644
+--- a/include/linux/tty.h
++++ b/include/linux/tty.h
+@@ -247,6 +247,7 @@ struct tty_file_private {
+ 	struct tty_struct *tty;
+ 	struct file *file;
+ 	struct list_head list;
++	bool pty_opened;
+ };
+ 
+ /**
+diff --git a/tools/testing/selftests/filesystems/.gitignore b/tools/testing/selftests/filesystems/.gitignore
+index 9eb185f..5cbbfca 100644
+--- a/tools/testing/selftests/filesystems/.gitignore
++++ b/tools/testing/selftests/filesystems/.gitignore
+@@ -6,4 +6,5 @@ file_stressor
+ anon_inode_test
+ kernfs_test
+ idmapped_tmpfile
++pty_locked_open
+ ustat_test
+diff --git a/tools/testing/selftests/filesystems/Makefile b/tools/testing/selftests/filesystems/Makefile
+index 03be337..b92a4f1 100644
+--- a/tools/testing/selftests/filesystems/Makefile
++++ b/tools/testing/selftests/filesystems/Makefile
+@@ -2,7 +2,7 @@
+ 
+ CFLAGS += $(KHDR_INCLUDES)
+ TEST_GEN_PROGS := devpts_pts file_stressor anon_inode_test kernfs_test fclog ustat_test
+-TEST_GEN_PROGS += idmapped_tmpfile
++TEST_GEN_PROGS += idmapped_tmpfile pty_locked_open
+ TEST_GEN_PROGS_EXTENDED := dnotify_test
+ 
+ include ../lib.mk
+diff --git a/tools/testing/selftests/filesystems/pty_locked_open.c b/tools/testing/selftests/filesystems/pty_locked_open.c
+new file mode 100644
+index 0000000..eba661c
+--- /dev/null
++++ b/tools/testing/selftests/filesystems/pty_locked_open.c
+@@ -0,0 +1,187 @@
++// SPDX-License-Identifier: GPL-2.0
++#define _GNU_SOURCE
++#include <errno.h>
++#include <fcntl.h>
++#include <poll.h>
++#include <stdio.h>
++#include <sys/ioctl.h>
++#include <unistd.h>
++#include <asm/ioctls.h>
++
++#include "kselftest.h"
++
++#ifndef TIOCGPTPEER
++int main(void)
++{
++	ksft_exit_skip("TIOCGPTPEER is unavailable\n");
++}
++#else
++static int expect_no_master_hup(int master)
++{
++	struct pollfd pfd = { .fd = master, .events = POLLIN | POLLOUT };
++	int ret;
++
++	ret = poll(&pfd, 1, 0);
++	if (ret < 0 || (pfd.revents & POLLHUP)) {
++		ksft_print_msg("master poll returned %d (revents %#x)\n",
++			       ret, pfd.revents);
++		return -1;
++	}
++	return 0;
++}
++
++static int expect_master_hup(int master)
++{
++	struct pollfd pfd = { .fd = master, .events = POLLIN | POLLOUT };
++	int ret;
++
++	ret = poll(&pfd, 1, 0);
++	if (ret != 1 || !(pfd.revents & POLLHUP)) {
++		ksft_print_msg("master poll returned %d (revents %#x), expected HUP\n",
++			       ret, pfd.revents);
++		return -1;
++	}
++	return 0;
++}
++
++static int expect_locked_peer_rejected(int master)
++{
++	int fd;
++
++	errno = 0;
++	fd = ioctl(master, TIOCGPTPEER, O_RDWR | O_NOCTTY | O_CLOEXEC);
++	if (fd >= 0) {
++		ksft_print_msg("locked slave unexpectedly opened\n");
++		close(fd);
++		return -1;
++	}
++	if (errno != EIO) {
++		ksft_print_msg("locked slave open returned errno %d, expected EIO\n",
++			       errno);
++		return -1;
++	}
++	return 0;
++}
++
++static int transfer_byte(int master, int slave, char value)
++{
++	struct pollfd pfd = { .fd = master, .events = POLLIN };
++	char received;
++	ssize_t ret;
++
++	ret = write(slave, &value, 1);
++	if (ret != 1) {
++		ksft_print_msg("slave write returned %zd (errno %d)\n", ret, errno);
++		return -1;
++	}
++
++	ret = poll(&pfd, 1, 1000);
++	if (ret != 1 || !(pfd.revents & POLLIN)) {
++		ksft_print_msg("master poll returned %zd (revents %#x)\n",
++			       ret, pfd.revents);
++		return -1;
++	}
++
++	ret = read(master, &received, 1);
++	if (ret != 1 || received != value) {
++		ksft_print_msg("master read returned %zd (value %#x)\n",
++			       ret, ret == 1 ? (unsigned char)received : 0);
++		return -1;
++	}
++
++	return 0;
++}
++
++int main(void)
++{
++	int master = -1, slave_a = -1, slave_b = -1;
++	int locked = 1, unlocked = 0;
++	int ret = KSFT_FAIL;
++
++	ksft_print_header();
++	ksft_set_plan(1);
++
++	master = open("/dev/ptmx", O_RDWR | O_NOCTTY | O_CLOEXEC);
++	if (master < 0) {
++		ksft_print_msg("cannot open /dev/ptmx: %d\n", errno);
++		goto out;
++	}
++	if (expect_no_master_hup(master) ||
++	    expect_locked_peer_rejected(master) ||
++	    expect_no_master_hup(master))
++		goto out;
++
++	if (ioctl(master, TIOCSPTLCK, &unlocked) < 0) {
++		ksft_print_msg("cannot unlock slave: %d\n", errno);
++		goto out;
++	}
++	slave_a = ioctl(master, TIOCGPTPEER, O_RDWR | O_NOCTTY | O_CLOEXEC);
++	if (slave_a < 0) {
++		ksft_print_msg("cannot open slave A: %d\n", errno);
++		goto out;
++	}
++	if (transfer_byte(master, slave_a, 'A'))
++		goto out;
++	if (ioctl(master, TIOCSPTLCK, &locked) < 0) {
++		ksft_print_msg("cannot relock slave: %d\n", errno);
++		goto out;
++	}
++	if (expect_locked_peer_rejected(master) ||
++	    transfer_byte(master, slave_a, 'B'))
++		goto out;
++	if (ioctl(master, TIOCSPTLCK, &unlocked) < 0) {
++		ksft_print_msg("cannot unlock slave: %d\n", errno);
++		goto out;
++	}
++	slave_b = ioctl(master, TIOCGPTPEER, O_RDWR | O_NOCTTY | O_CLOEXEC);
++	if (slave_b < 0) {
++		ksft_print_msg("cannot open slave B: %d\n", errno);
++		goto out;
++	}
++	if (transfer_byte(master, slave_a, 'C') ||
++	    transfer_byte(master, slave_b, 'D'))
++		goto out;
++
++	if (ioctl(master, TIOCSPTLCK, &locked) < 0) {
++		ksft_print_msg("cannot relock slave: %d\n", errno);
++		goto out;
++	}
++	if (transfer_byte(master, slave_a, 'E') ||
++	    transfer_byte(master, slave_b, 'F'))
++		goto out;
++
++	if (expect_locked_peer_rejected(master) ||
++	    transfer_byte(master, slave_a, 'G') ||
++	    transfer_byte(master, slave_b, 'H'))
++		goto out;
++	if (close(slave_b)) {
++		ksft_print_msg("cannot close slave B: %d\n", errno);
++		slave_b = -1;
++		goto out;
++	}
++	slave_b = -1;
++	if (expect_no_master_hup(master) ||
++	    transfer_byte(master, slave_a, 'I'))
++		goto out;
++	if (close(slave_a)) {
++		ksft_print_msg("cannot close slave A: %d\n", errno);
++		slave_a = -1;
++		goto out;
++	}
++	slave_a = -1;
++	if (expect_master_hup(master))
++		goto out;
++	ret = KSFT_PASS;
++
++out:
++	if (slave_b >= 0)
++		close(slave_b);
++	if (slave_a >= 0)
++		close(slave_a);
++	if (master >= 0)
++		close(master);
++	ksft_test_result(ret == KSFT_PASS,
++			 "locked slave open preserves master and existing slave I/O\n");
++	ksft_exit(ret == KSFT_PASS);
++}
++#endif
 -- 
-With best wishes
-Dmitry
+2.50.1
