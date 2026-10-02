@@ -1,64 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0764E06EA
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574334D6C4A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957158; cv=none; b=DcXvcm4e38R8ppDcUXSyqA5O37EPCuGdwpw736y48pwZB5CaZUJZN0rCnJKVxqBD6043EioaIfqFgnMp0LGuZv7YyZFuKlvSeBFFpF86OMhtRsMKmFz53kENLuxZwggjD0UOgfH62eg+eVTuDE9ywYTUZ0SWznnqU79Iq6quy/E=
+	t=1790957159; cv=none; b=AIr/O6ZzHCgUdPbVCrmkzVDgb2e0nQcVVRbeLI09OZuBqzdawl3vMGFSA0bX3M0Z4JvAHV1NRjgK3pSGyt1ML7F1Imhd2z9CAhGG6sz4YQLIUL9HoiHzsGOOkYO0V51dwTG9OEur+51p6/6a3pIssUce0kiC2SUSvgqEv/Ju+Eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957158; c=relaxed/simple;
-	bh=xRy4QMdKcaUkwgi10KXVGxpJeJ04QF9L+vemT6Tk320=;
+	s=arc-20240116; t=1790957159; c=relaxed/simple;
+	bh=I1y1TYBrGFAZkPhkH3xdRNzsXp/B6zAtvFN/DO/6NW4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PpnaDUyYcKbtR785keeWLjlY1xMO3kvdB6/IcbacYJk//fSaFfXa1cocyPaJdItq1C9GCVEH0milI4hfzXbIs6uD1oTLoLfkpYX83zrpZRAfQAn69PjfgMmyA1iPu/U46lZU2u2+o5WDFU2uwQ/PMe+JT1G1mJ28nKJF3D7tgqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MvfcQLk2; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=fknYvZxZVzXobh6ACCiXN4xhrJN2u4Wvsb6N5qsJHDoT2YjyrB4vz221ElJ4/K9y24H/TQOszTwlu6Z2p5Hzjm4CuMafEWB9e/WIyAQc5lxXEk+0hGwBUr0EhKcN5sNDc3MeYS5u5AcB1JyZhuPWoRVvYU/CquCgXifOPfJNWT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GfV7FTyK; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MvfcQLk2"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so1949667a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:05:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GfV7FTyK"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso56854a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:05:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790957156; x=1791561956; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790957157; x=1791561957; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZjygjUBz0XR9SPSaKsPy+thYHjK1vehyXXIXm5XjrW0=;
-        b=MvfcQLk2CVrSDqXye6dyiKBOx+p1iFOP1iv1uekFhjaZ6qiswKzJLbnoiwBDBj7vd8
-         ga3BTdnaRqVp5pSQ55eh4Ns06KzK5ZsW32xxlMm9EuAaGHf/MQ3MJdxG8QpDoDmHTwVX
-         3gnLTv3M5/C5zjT64wdbT3P8euY20KRbs/D/3Wqp2ge2zMxVxM8CgTS4aT4bDBUBojmX
-         kOarJKIar9KWq4GnOlJ/Xzv2TW14JdfflyPYf4Z5jiVytfJUvmN69lhb0wbBhSsgltm9
-         us39AK2uDp/LZ/HD5bFIa3m0SG6ElvJnkDtd7hYfzUaikBkrda3qAsiMHazV+y/NcVuE
-         Myaw==
+        bh=+lG3PpTqvVPLXojPqrH3nBXhf48twgkVhGAKUdsEB68=;
+        b=GfV7FTyKCjfP/OP8hhZtI/c1E5IQA+U/mXUBOSY3T2uIaZM2MFylln4H+U+uMzIZLO
+         3PkriiXVTwuexHfx6MjyUhXAKJyLnSV8E+FdkWrNMnWvAp8Z/QdfJTzTxhCRNiM/hinC
+         NR3V18anUESf0dHT6rv+MZyKMDRPqSGHunU1lc+zK9CUIZgOUNsAL+yi07ogdXJmNL74
+         fhZZSOxsKSOm8ByrxFaqn/3viRg6gHmwcQ0HPFqVgHlZ3PH+0vfiH2We37oUfhTfeRQq
+         xLxv6XlqAXOtSKJ17gZRmJ5SSKIV7Q3Z6P6B/mg3f2FqQo5kpA4Cn5eCiY69hnWHIjTG
+         J0Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790957156; x=1791561956;
+        d=1e100.net; s=20260707; t=1790957157; x=1791561957;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZjygjUBz0XR9SPSaKsPy+thYHjK1vehyXXIXm5XjrW0=;
-        b=TQiZNRTxYwZlVnVpIcyAeGdX1QBNdBE3qOOCz+74ySNeQWvS61yT5Qt5PJnZfZOWq8
-         xJBsAa9Foh4y+oB5ZcPnOzJG9xMGfLVO4Sofq/9/fJUib80HJopFi8lyPkIzO4vOdvtK
-         0P+z3+1itkBJopWATmXFCztJNR7x5SNBclqtJiA1tfml3WEqS+3coIycgDOZmh9Yl/1t
-         7MT6YlC+GQQZonClPMc/jqGdJhjUIUr7MMv6nC9TyF/ALLci0AY6vY0mM4eyN6Umn+lZ
-         yDfwgCDXaG5fx4kajh58zXYet9oE7pBQPZrxytJ/sDYFpahtqT6uYoj3FqEfxpenT8uy
-         fqnA==
-X-Forwarded-Encrypted: i=1; AKwUvByXIObWGF1KgVcvdJ122PLEow8WXoTJRS0m6WjLOOFV9iWJ1XcGKVhtHXs+v4eapBEmsaMmLRGRNYJW0fs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoGslLwD1Ni2qG3BjonnfVCRlUikfcsL5Mzu9zwoQL05xGTZqP
-	shcibs3q9rMB3ZZ82LH//a929wypOd545Lsk2ACpMqZYr6dv3EAdhn6Y6MXG1g==
-X-Gm-Gg: AYBFou3fFhQSCp5yR5N1jg7tz9kNNCxpS4sg9OsmBVTgxJstQlHbADz9jafTxrBDeMh
-	+T482e45rxUiLETlu8Dymszf7WQwO+XdQBUf1UYoSI1ww7GJBW9CuiEXcEwBQuZYAjWrCMNxM0H
-	qnmOpn3Pw+O2oWsAtyn1mt0EPMB3upAQdnbJQKgMak5hrlGsPg/7OgYJoAIHE6Xd5H4Ei1GLGZh
-	Xs6R7kbmCWl2aMhnNq1U6Adq/q8mLpJyApICjTxJ08BanG3WnaGAJppl1pRj06yKsmtnTI8EXbb
-	/K0uNRwzqOp8qD4+AwizD4Z0VLF1NR+G+DD5WYJXvV9MY4vVcPaJVgGm7mvY+9634GdJ3iQnrLC
-	fmfo2mfHXk5tMEsgEVYBX23uD5Ul4sQqgBDp09/G+SUaD46UL5YoM9Z0k2yIFy6CtGmvGzn6pNI
-	gWdel3lTkX+EizfX6cG0WWWoqK9C3pNi4fs/VmFmcZ99SQHkVt3BhoyY+m4pNiaF6JWxPqvTqq0
-	cHRU2zd6pAgsBD19IlY3hCF
-X-Received: by 2002:a17:90a:c2d0:b0:3a4:7195:ecba with SMTP id 98e67ed59e1d1-3a6ceae19b7mr1744874a91.20.1790957154464;
-        Fri, 02 Oct 2026 09:05:54 -0700 (PDT)
+        bh=+lG3PpTqvVPLXojPqrH3nBXhf48twgkVhGAKUdsEB68=;
+        b=w0XCcvSymGVUDXN/s5rDLEHnT8qdyR5cA2QPt2sxFlBYXxcSGouhMCJ/tOYLygw1bn
+         auFKA9iv5rSYGN3qLMLcpQKpIOZmiLmnewRBr41TZyhyqvlZNuLquIADjzKk6V00M7yY
+         tkWrpBJikeV1qrXIGCXfZKC+b/p1PGNyktPAYG4v3HYR7d8HXHsPZWE8Io/rokQPJXVd
+         1dytDoSOHAHOBM3E9XI1cvDVNQuqImdgiX88q2mz/+h6LtmAN0jKuWU5ksUyZ0sTEFzb
+         X0KG/esJl4ZznQKAJN0qehgi6Xt2hWHAYiVi+l0X67yqxbz3fR/LXlf17McmpvoZogQ2
+         RVVg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2rov/tM1fvkzalhiZEh8cHxwMtVko399frZnQ6JWz19Vz8FmqY9vt103ann7I44dTKmt4fznJ7IVtvd8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwosfVLFoy1eQRukiR5H1K5xEifLjIZ+/Wi8tPBrFVHY7fAp13
+	sPEVDR3qhuU/WH8ODGcArblUlnHLqkH38U5ggkOYDFrdbv3TyUJJaHSd
+X-Gm-Gg: AYBFou0F7u0yUkyauTm14xing/S6GBxjFsS39LoCr+hk+FfCjNTSZXyAC4PYN6s3JHk
+	yVxp7BuxUb+CROTF8JGXGZ5IiyVM3KWeJhctipCc0HA0hsECi0rWX8Jm5ZMx4zNap8GPHFc5drB
+	gtFJm9JGHywSuoUkmmZiOluep5Gl/jENAcXIhQg9DszyHQn+mmhkKZBa5LxmuL1eFwuhsCNoeaF
+	uRt+Ree2d4B0A8k8gELcY91BXXDEhy9kiYLO/X/P2xnl9z5TI7hz7UIWSONaOxFdppofcXwkQqe
+	AC72ILvGKBQIzK/OrAxCFqcqFIIlQO6Ve2xk0BxLuYZ1EAcQnZ1pQKyeilb51d/79jPGy40WZwG
+	IIlFhp5NU8Y7e7SUHzsxMOnhrDfZZpPeILXu1Y4hn/Hlt/osYvaztcYWR+wevxjPS33ppsYVi3p
+	V3zYxtJEdHfvB4Yn+SAGWKT1fFMDns+sjZcUyfMMqGw/YbLKeS9yDrB28pOLYZszsH+fXuwqmTr
+	Ptm8nIy02rhoEm2JnRbvwM7
+X-Received: by 2002:a17:90b:3e86:b0:3a1:66fd:94af with SMTP id 98e67ed59e1d1-3a6ce7f67b5mr1330919a91.37.1790957157521;
+        Fri, 02 Oct 2026 09:05:57 -0700 (PDT)
 Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f47cb357sm9375672a91.17.2026.10.02.09.05.51
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f47cb357sm9375672a91.17.2026.10.02.09.05.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:05:54 -0700 (PDT)
+        Fri, 02 Oct 2026 09:05:57 -0700 (PDT)
 From: Sang-Heon Jeon <ekffu200098@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>
@@ -72,9 +72,9 @@ Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
 	Mike Rapoport <rppt@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Vlastimil Babka <vbabka@kernel.org>
-Subject: [PATCH v2 1/3] mm/memory: remove unused vmf_insert_mixed_mkwrite()
-Date: Sat,  3 Oct 2026 01:05:32 +0900
-Message-ID: <20261002160535.661399-2-ekffu200098@gmail.com>
+Subject: [PATCH v2 2/3] mm/memory: remove the mkwrite argument from __vm_insert_mixed()
+Date: Sat,  3 Oct 2026 01:05:33 +0900
+Message-ID: <20261002160535.661399-3-ekffu200098@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261002160535.661399-1-ekffu200098@gmail.com>
 References: <20261002160535.661399-1-ekffu200098@gmail.com>
@@ -86,69 +86,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 38607c62b34b ("fs/dax: properly refcount fs dax pages"),
-vmf_insert_mixed_mkwrite() has no callers.
+__vm_insert_mixed() is only called from vmf_insert_mixed() with
+mkwrite == false, so mkwrite is also always false in vm_mixed_ok()
+and insert_pfn().
 
-So remove the function and its declaration.
-
-The comment above the function describes the -EBUSY handling in
-__vm_insert_mixed(). Move it above that check.
+So remove the argument and the unreachable code in insert_pfn().
 
 No functional change.
 
 Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 ---
- include/linux/mm.h |  2 --
- mm/memory.c        | 16 +++++-----------
- 2 files changed, 5 insertions(+), 13 deletions(-)
+ mm/memory.c | 57 +++++++++++++++++------------------------------------
+ 1 file changed, 18 insertions(+), 39 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index c038d06825c3..2ac734efd4ec 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -5008,8 +5008,6 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
- 			unsigned long pfn, pgprot_t pgprot);
- vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
- 			unsigned long pfn);
--vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
--		unsigned long addr, unsigned long pfn);
- int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long len);
- 
- static inline vm_fault_t vmf_insert_page(struct vm_area_struct *vma,
 diff --git a/mm/memory.c b/mm/memory.c
-index 330cde31bf8b..4b2e4be28031 100644
+index 4b2e4be28031..6c1d38eba7b2 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -3052,6 +3052,11 @@ static vm_fault_t __vm_insert_mixed(struct vm_area_struct *vma,
+@@ -2453,7 +2453,14 @@ static int insert_page_into_pte_locked(struct vm_area_struct *vma, pte_t *pte,
+ 		if (!mkwrite)
+ 			return -EBUSY;
  
- 	if (err == -ENOMEM)
+-		/* see insert_pfn(). */
++		/*
++		 * For read faults on private mappings the PFN passed in may
++		 * not match the PFN we have mapped if the mapped PFN is a
++		 * writeable COW page.  In the mkwrite case we are creating a
++		 * writable PTE for a shared mapping and we expect the PFNs to
++		 * match. If they don't match, we are likely racing with block
++		 * allocation and mapping invalidation.
++		 */
+ 		if (pte_pfn(pteval) != page_to_pfn(page)) {
+ 			WARN_ON_ONCE(!is_zero_pfn(pte_pfn(pteval)));
+ 			return -EFAULT;
+@@ -2858,7 +2865,7 @@ int vm_map_pages_zero(struct vm_area_struct *vma, struct page **pages,
+ EXPORT_SYMBOL(vm_map_pages_zero);
+ 
+ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+-			unsigned long pfn, pgprot_t prot, bool mkwrite)
++			unsigned long pfn, pgprot_t prot)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	pte_t *pte, entry;
+@@ -2868,38 +2875,12 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+ 	if (!pte)
  		return VM_FAULT_OOM;
-+	/*
-+	 *  If the insertion of PTE failed because someone else already added a
-+	 *  different entry in the mean time, we treat that as success as we assume
-+	 *  the same entry was actually inserted.
-+	 */
- 	if (err < 0 && err != -EBUSY)
+ 	entry = ptep_get(pte);
+-	if (!pte_none(entry)) {
+-		if (mkwrite) {
+-			/*
+-			 * For read faults on private mappings the PFN passed
+-			 * in may not match the PFN we have mapped if the
+-			 * mapped PFN is a writeable COW page.  In the mkwrite
+-			 * case we are creating a writable PTE for a shared
+-			 * mapping and we expect the PFNs to match. If they
+-			 * don't match, we are likely racing with block
+-			 * allocation and mapping invalidation so just skip the
+-			 * update.
+-			 */
+-			if (pte_pfn(entry) != pfn) {
+-				WARN_ON_ONCE(!is_zero_pfn(pte_pfn(entry)));
+-				goto out_unlock;
+-			}
+-			entry = pte_mkyoung(entry);
+-			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+-			if (ptep_set_access_flags(vma, addr, pte, entry, 1))
+-				update_mmu_cache(vma, addr, pte);
+-		}
++	if (!pte_none(entry))
+ 		goto out_unlock;
+-	}
+ 
+ 	/* Ok, finally just insert the thing.. */
+ 	entry = pte_mkspecial(pfn_pte(pfn, prot));
+ 
+-	if (mkwrite) {
+-		entry = pte_mkyoung(entry);
+-		entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+-	}
+-
+ 	set_pte_at(mm, addr, pte, entry);
+ 	update_mmu_cache(vma, addr, pte); /* XXX: why not for insert_page? */
+ 
+@@ -2967,7 +2948,7 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+ 
+ 	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
+ 
+-	return insert_pfn(vma, addr, pfn, pgprot, false);
++	return insert_pfn(vma, addr, pfn, pgprot);
+ }
+ EXPORT_SYMBOL(vmf_insert_pfn_prot);
+ 
+@@ -2998,11 +2979,9 @@ vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+ }
+ EXPORT_SYMBOL(vmf_insert_pfn);
+ 
+-static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn,
+-			bool mkwrite)
++static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn)
+ {
+-	if (unlikely(is_zero_pfn(pfn)) &&
+-	    (mkwrite || !vm_mixed_zeropage_allowed(vma)))
++	if (unlikely(is_zero_pfn(pfn)) && !vm_mixed_zeropage_allowed(vma))
+ 		return false;
+ 	/* these checks mirror the abort conditions in vm_normal_page */
+ 	if (vma->vm_flags & VM_MIXEDMAP)
+@@ -3013,12 +2992,12 @@ static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn,
+ }
+ 
+ static vm_fault_t __vm_insert_mixed(struct vm_area_struct *vma,
+-		unsigned long addr, unsigned long pfn, bool mkwrite)
++		unsigned long addr, unsigned long pfn)
+ {
+ 	pgprot_t pgprot = vma->vm_page_prot;
+ 	int err;
+ 
+-	if (!vm_mixed_ok(vma, pfn, mkwrite))
++	if (!vm_mixed_ok(vma, pfn))
  		return VM_FAULT_SIGBUS;
  
-@@ -3085,17 +3090,6 @@ vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+ 	if (addr < vma->vm_start || addr >= vma->vm_end)
+@@ -3045,9 +3024,9 @@ static vm_fault_t __vm_insert_mixed(struct vm_area_struct *vma,
+ 		 * result in pfn_t_has_page() == false.
+ 		 */
+ 		page = pfn_to_page(pfn);
+-		err = insert_page(vma, addr, page, pgprot, mkwrite);
++		err = insert_page(vma, addr, page, pgprot, false);
+ 	} else {
+-		return insert_pfn(vma, addr, pfn, pgprot, mkwrite);
++		return insert_pfn(vma, addr, pfn, pgprot);
+ 	}
+ 
+ 	if (err == -ENOMEM)
+@@ -3086,7 +3065,7 @@ EXPORT_SYMBOL_GPL(vmf_insert_page_mkwrite);
+ vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+ 		unsigned long pfn)
+ {
+-	return __vm_insert_mixed(vma, addr, pfn, false);
++	return __vm_insert_mixed(vma, addr, pfn);
  }
  EXPORT_SYMBOL(vmf_insert_mixed);
  
--/*
-- *  If the insertion of PTE failed because someone else already added a
-- *  different entry in the mean time, we treat that as success as we assume
-- *  the same entry was actually inserted.
-- */
--vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
--		unsigned long addr, unsigned long pfn)
--{
--	return __vm_insert_mixed(vma, addr, pfn, true);
--}
--
- /*
-  * maps a range of physical memory into the requested pages. the old
-  * mappings are removed. any references to nonexistent pages results
 -- 
 2.43.0
 
