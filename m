@@ -1,129 +1,206 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4799830DEBA;
-	Fri,  2 Oct 2026 12:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F8A30DEBA
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944220; cv=none; b=g+fcVCZiwbtM1uqXON9iXNF29u6sbgQ6S+aVuC1IzOeR7JFWDvdPPz9ekg0Dtt9vKQpw0ZDLLhulhzYwoEj8+dTK1k8M8qPcg/vRrJI20d2iVOtS8UfCxyAc4soeCt8qFBlRzErq8mM1ytrCq8s3F86ZUse7svNUxVoiAxml264=
+	t=1790944284; cv=none; b=ixX5m7EvkMJbMeE1j1+Tg4nHMrYJMSr3V3StISZMex4esyujKD41iDoa8z3IPjaGa5OVyXJ3ZT/4U1xf/iz73MTDCF6Hpi0uAcBA8wNF2y195/0Q5RElVYWcKo/iNw5gsdi4TVhSTB+ek3z7gaPycS2np5REON0nDUiF5kty86Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944220; c=relaxed/simple;
-	bh=qUoN7ELQKTOTirKRrn0e5k2TjJD4b+HQRqgkUF+c1fw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PThgTXLq7G4DyVqCwpwSRH5WQy4lPRKddgIxOgtdcvd/1ADX3W/WmmOMkU8Pun8SKCjLr4uRQw0MGsDQsuSZu8rrIy6nThM2tmvD1sqvbhr34Q9heo4MDgo/+jxh5+iLktnD6BeRlGTHydHo7v+3yE+STpmr34RGAXT1BtbCCwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LQ5CCHzE; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790944284; c=relaxed/simple;
+	bh=2dHcyxAQOJ9xO6CygIkhkHbB1BX2WgWjQjaeYsODbgk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ozS0j31lk87rirwY6GTlFFMkmbAfZ6Y6wd+RlWuWbhzcYXZRWz/M961DBR9rTPyJE3MnB9aXVIo1ddTMXd5exMjttadmfDn2iyBdv3T1P7H9l8SKzxNVf4JAffFlNK54qocwcR4wZmFh9s6/Ewn+u0xsc6CIFBUBRrt4mGiMhGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WG0lciQq; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LQ5CCHzE"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692A5qvH3160566;
-	Fri, 2 Oct 2026 12:30:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=IP27naQafRFCKtnaqP+3h06dyv/hh8
-	blkMGpcdoNUOU=; b=LQ5CCHzEh+C9pXlrzsU91wxcGH+5ulrz+T3oBgGeINR2v5
-	PYOeg1RjGaf5tauFUaKf7k0lf+anKpKvW3S4r8PtjtCmXxwKgL4525X+j8n36LRk
-	aEe1rGCfr6ugq+ta8QYc87pog0VCOzP/vRP6QGVwpWq8BvEC2NAuxPxdmCRHJgq7
-	nrE4SxzXcWBPvVBdiJX7CUpresCdvvwxvX6htv3AvejyPwyvXu9CELLpJ0aF5ZIt
-	K1kQP3FQ8g1xfH8ecFibkwKDFoBZmxUUuvU0xxaiIrjOEoyIy6Cw2BBFWD5iAsjs
-	oCR+ITwQYhTZAiW1/lNss3OeGH9cHmH89BkOLOHg==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4feqtkd-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 12:30:14 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 692A2Tcl2335439;
-	Fri, 2 Oct 2026 12:30:13 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h0xcsjreg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 12:30:13 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 692CU9Wf28508718
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 2 Oct 2026 12:30:09 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AF20D20043;
-	Fri,  2 Oct 2026 12:30:09 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 895CE20040;
-	Fri,  2 Oct 2026 12:30:09 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.224.92.206])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  2 Oct 2026 12:30:09 +0000 (GMT)
-Date: Fri, 2 Oct 2026 14:30:08 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>, linux-s390@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        kasan-dev@googlegroups.com
-Subject: Re: [PATCH v7 2/4] s390/mm: Batch PTE updates in lazy MMU mode
-Message-ID: <4ee1e4e6-4ecb-4fec-a481-c4f2236eb514-agordeev@linux.ibm.com>
-References: <cover.1786956464.git.agordeev@linux.ibm.com>
- <d7fd78377a7278108ef501cf76571e80caef5968.1786956464.git.agordeev@linux.ibm.com>
- <20260824104048.11040Cdc-hca@linux.ibm.com>
- <b66a61a4-a532-44ba-a1c6-26f02193fb05-agordeev@linux.ibm.com>
- <20261001082143.23106A21-hca@linux.ibm.com>
- <15c64970-d54e-4b8f-96f6-50c021079a94-agordeev@linux.ibm.com>
- <20261001154117.23106Da3-hca@linux.ibm.com>
- <20261002084315.21787Ba6-hca@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WG0lciQq"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4aa80a73so49995445ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:31:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790944282; x=1791549082; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o3SQNHG3a3lV1GLPGV/qZLqYmXawUuJRncUi3dhyVQk=;
+        b=WG0lciQqsCcyR8+d+lpXrWZO/F0bMVHthXG427JxMGvkMMA1jyDTUhY2WxBkXkJ/qz
+         fBAQqQj2OTOMkNX6zFwbXhhfQ7gE3Cb0CmLacUh3+eqdRQabsojSWSeLKaMRldFka0Eg
+         szlCuCBdfb3ChYGpVHy9h65ncQqJpZk6yP3Zk83EWL6t5j66+OsxP1TwgubFjFd2I6JM
+         67pzcJg5NQPmxH9pMcYd1pt5ByzxF4eIGqBbROebQ8PGE+kCI/OuwSEpSqrTsWtzEfX2
+         d5tsnlYw2xdbwzPnNGVAesnJB6t32v/S1bgSsxNjy8WXUhUkU61f0rOt28sxVTbK8JJk
+         LKdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790944282; x=1791549082;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=o3SQNHG3a3lV1GLPGV/qZLqYmXawUuJRncUi3dhyVQk=;
+        b=OlajhZ6LplCaUcViw7zBzeePv1X394EvZtE7NbyUg+11j5oN2+UD0fHZbsTr47X86Y
+         KonZ5wNNW3Nac/lVtFCz3g0TGdguntwDiIyEZa/FvpVFOMBsBcWOrCZD2tA5RxSHGp0j
+         LMcLDsPSn26evn/dwcr70gvNFv4pjE9Pg2Fxydho62h/XJSJ0FENsgXiNpwj1g1Fe+/W
+         l+gsfB/6Sp2s8kHb3rMbiY7AO9qfm+jsDglpVyH7fYilt0EQSf1krRgExLoPiO8JHnQT
+         Aw5ev3XD9KfigGY3jFfhwSRlEOCXmmOSIQQOHa/tpylSnuMjn94tdrO98izVbukSaWTh
+         ItbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwXb0P521qdRCoWUZMft7a3r7AWdPNW2eW74x43C49d+beXyIWJsL5r8Zuw+iUvf4/KvsoZf8exZjJacqE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIYo0MhQlTllzkVLVbTb7/A0eOyDz8fBXRs9AgHdQ0z1F51Gnc
+	jLTwtPJuFOFer0Qs8Hn170bjXpvIxlJtYtbB92CeXkR3PkTYKWe9czXW
+X-Gm-Gg: AYBFou0itfNv60Wz79QPGYunLnRbLfVNwyASx6WMgP/mwm4Bg59U5wbeQefC5vyHMjM
+	NoTUf959Dcgv2VQZdglAJlkBy6Zjh9XZ6DAMsLMSg2yHcgQqIFZhlzG+/sNtByz7yIMntmLE31O
+	GKU50B2blOT+Xk1fLOUvbwbLm2kdk4MOXcLWIRnX/VMKWEjG4UZWRsEE5pIlBCVaB54QzNXjfff
+	+Cq4st8tsbnPJ76z/gN//GzUyZRDHpnH0hv/gEf6smYDv2TDrccGxBJz8PicUqXhlSKlw71Ir5g
+	jNVzLKwens68MQI2AuFS53wbIu34iyoIrIMMF3GgyaJeRiFlGRC7K1SUEMilm+9RDGQXEQL6OJS
+	3zt4BMX8wfCuuIZwZXLpPiFsDZUzL9LgiuxZi85jyCWTKiyh0Btz1bH9sfdeckkw/aDelpbGWcy
+	UXujKRWz33Sl5lBljPz3lo+yVoqCRNhnCtQPQurmXPEqASxnTPoC+INm3u2FJvDOhcxzIqq2+qZ
+	NQAqouCdh2D3rTaCJE=
+X-Received: by 2002:a17:903:2450:b0:2e2:e0f8:e57c with SMTP id d9443c01a7336-2e49b694c1amr23574395ad.70.1790944281882;
+        Fri, 02 Oct 2026 05:31:21 -0700 (PDT)
+Received: from [163.43.103.131] ([163.43.103.131])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f705f37sm6938125ad.64.2026.10.02.05.31.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 05:31:21 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Subject: [PATCH RFC net-next v5 0/2] seg6: add support for the SRv6 End.MAP
+ behavior
+Date: Fri, 02 Oct 2026 21:31:16 +0900
+Message-Id: <20261002-seg6-mobile-end-map-v5-0-30eec37563a8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002084315.21787Ba6-hca@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abfa3d6 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=bLWW0i0dwBbJnIBF-2cA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA0OCBTYWx0ZWRfX7RnYetFSSEIx
- wpqVm/IrnUEY5C2fgABcIk9Te7ob3SotikBDvg1coinJOCfv9Qfvpd8lURzGrP8WrGcYNa+j7qf
- FVGPvEwbxl2r/Q9iA6mmrjzoIhmRKmk=
-X-Proofpoint-ORIG-GUID: xHiclTGYKBP7O7nDjmVOh4hlN__ELI1l
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA0OCBTYWx0ZWRfXwytMGQg8vIEM
- 4yip4Bs04yYfo9INyCYwKPcTh3piGH9HIpegL9lSdM4BaKOb62tPPWSh+vdNbHdB7AL+JeQXOTL
- ZNd+XAeW7L0zc0c5EnwMYwv9OA/SOEteRm0QXv+GxoeaN8RQ5XqOD9C0NxP4iRS7BJvFQ1fiqhq
- 6/+aguB8WZHSp+gsUDn3nRFhYmb1uGWA/RTxiR1oyDs1T8J7MuUI8DzF+9paUEovig7Q69KELEQ
- bzAKzyPk9IVX0+c7Kcl6QapmwqP0tcOwLHepzmsN7gWk3kSRN3WMc9iAwFyTLiFdwHa/V7yemOU
- 7K/bLhEdqtuAgdJ8nHaFp3+85DI3zT0spApuzkFLqBB1knFeYOzjGSMTbxjGteFk4O2Ff8nMFc4
- VQ+AxVIKac+GwJvOOeeiaxIGCDO6RN/O9N3xi0y+MvHFP2jWIoghOj0fIyoV3QgH/8Ftmvpq8Jo
- 0OcIqn6F8xa9NiDobBA==
-X-Proofpoint-GUID: pWRTe5PpEKDMeNbbBBdXZ2uzDWYlbNeM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_03,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610020048
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABWkv2oC/23OS07DMBAG4KtUXmPk8duskJA4AFvEwnamqavGq
+ eIQFVW5O4lZEFVZzuv7504KDgkLeTncyYBTKqnPS6GeDiSefG6RpmapCWdcM8UFLdhq2vUhXZB
+ ibmjnr9RFjFyCAwuGLJfXAY/pVtVP8vH+tvYyjjTjbSRffwvlO5wxjqu9jk+pjP3wU/+YoB7WS
+ ANsN3ICyqhzARlvtAUpXtvOp8tz7LuaMPF/wzHYN/higOYuHCNojeHREBsDzL4h1j+sY14zH7U
+ 3j4bcGFztG3IxpDJGiMissnprzPP8C+RxdZ+lAQAA
+X-Change-ID: 20260523-seg6-mobile-end-map-9cec24191817
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ Andrea Mayer <andrea@common-net.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
+ Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>
+Cc: Justin Iurman <justin.iurman@gmail.com>, 
+ Florian Westphal <fw@strlen.de>, 
+ Fernando Fernandez Mancera <fmancera@suse.de>, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Yuya Kusakabe <yuya.kusakabe@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4558;
+ i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
+ bh=2dHcyxAQOJ9xO6CygIkhkHbB1BX2WgWjQjaeYsODbgk=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqv6QWLLbYZrlA0WI8oybkkcyt0SE5tYFxupbom
+ uL3rdxXtN2JAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCar+kFgAKCRAq19F1Kl0b
+ TWMtEADUChN0GjwEu/DH6mdCv32bNkhIKNCtmJX81cqlzRsIwuplv3GX+UE4TH/c+JF/LDA9GyB
+ PCOJXZsrkUoI8dtzUaQUIBdzIbU227RWIw58g+0HCsrNJ9RUbfGK5nK91azGa2nRGS9bzYeJmKS
+ mz/YHxZ7iONRQtivf0xsFnZ/o5qc1mqLw9GBOyiDdBU5snc12dHzIJF4bZSof0WzhgKzZb/aG85
+ 3Xxs8V2EcZq7lamz8q+ppAfrJFDnjjHbiZJHx2cEOqK+bRM4rmbHFSFLaxYS1qZUBZx3OxMjMVA
+ +9NeaEXMVIbZotqTM8wln8/eZy7xtimKfw5zjH3sXr3BM8B9E4w6a1NCg6bDkIuqFwpjkBAYbdw
+ iUsEAOqqciCqCzQOwl81DTdrAWxGeqEf1qrfJRk9Xpt5Up5w41Ltkbf7MBofdDWWQcv2GtJOO+M
+ 20Pj3WuNJjXWJGn7u6sZA18WvfGyh7/nQjvVshFf+ExWtcScYtzLzdRQJ9zSWJ13B36to7Z2UMZ
+ 7JEXLKNQt/4u99Lta57bRdoSy5Y68dwsA+XjwUdOlPsdSVf5JzAmwi78BjNuyfPNNtPksXWiefZ
+ mGOJCSWX1S3OHNcIR/BfEHnFl3MUzh8pK2GYBKn56lHWaRG8zenYTOqrWZ2X8yWfOqcXNYu9yQ9
+ hIN3YeprHm3tPIA==
+X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
+ fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
-On Fri, Oct 02, 2026 at 10:43:15AM +0200, Heiko Carstens wrote:
-> > > Good point. But still, do you think it worth dropping the KASAN check?
-> > 
-> > KASAN check for lowcore? I don't think we care - this is initialized to zero
-> > anyway, so what could go wrong? Also given how frequently these operations are
-> > used, yes, please drop KASAN checks.
-> 
-> Of course you could still add an explicit KASAN/KCSAN check by adding an
-> instrument_read() call (see e.g. s390's fpu-insn.h, which has plenty of them).
-> 
-> But why do you think that would be helpful for a lowcore field, where it is
-> known that is initialized to zero? What am I missing?
+End.MAP is the simplest of the SRv6 Mobile User Plane (RFC 9433)
+behaviors: it replaces the IPv6 destination address with the
+configured mapped SID and forwards via the IPv6 FIB without consuming
+the SRH.  This series is the first per-behavior rebuild of the SRv6
+Mobile User Plane v2 submission [1], split one series per behavior
+following upstream review.
 
-Nothing. I am going to adopt all your suggestions into the new version.
+Because End.MAP is the first behavior to land, this series also
+introduces the SRv6 Mobile User Plane lwtunnel framework that the
+subsequent per-behavior series plug into:
 
-Thanks!
+  * a new LWTUNNEL_ENCAP_SEG6_MOBILE encap type with a
+    CONFIG_IPV6_SEG6_MOBILE build option,
+  * net/ipv6/seg6_mobile.c, which hosts the action dispatch table,
+  * include/uapi/linux/seg6_mobile.h, a dedicated SEG6_MOBILE_*
+    attribute namespace, so that attributes whose semantics differ
+    between the mobility behaviors and the RFC 8986 behaviors do
+    not overload the SEG6_LOCAL_* table.
+
+This is an RFC because one open question remains: whether End.MAP
+should live under the new encap type, as here, or as a seg6local
+action.  I picked the former for the separate attribute namespace
+described above.  Following the v2 discussion, netfilter hook
+integration, VRF support and SRv6-specific drop reasons are left out
+of this initial series and will be revisited separately.
+
+A matching iproute2 series adding the "seg6mobile" encap keyword
+follows shortly after this posting, since the selftest needs it to
+run.
+
+[1] https://lore.kernel.org/netdev/20260505-seg6-mobile-v2-0-9e8022bdfdb6@gmail.com/
+
+Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+---
+Changes in v5:
+- Rebase on net-next and pass the SRH to seg6_hmac_validate_skb(),
+  following commit f9cb4d296d81 ("seg6: fix HMAC validation when an
+  extension header precedes the SRH")
+- Drop with kfree_skb_reason(), reporting SKB_DROP_REASON_NOMEM when
+  the skb cannot be made writable
+- Forward packets whose Routing Header is not an SRH and has Segments
+  Left 0 (RFC 8200), and packets whose header chain ends
+  in No Next Header, instead of dropping them; extend the selftest
+  to cover both
+- Link to v4: https://lore.kernel.org/r/20260925-seg6-mobile-end-map-v4-0-457733c08586@gmail.com
+
+Changes in v4:
+- Fix the checkpatch line-length reports
+- Link to v3: https://lore.kernel.org/r/20260917-seg6-mobile-end-map-v3-0-9890a60ac6a7@gmail.com
+
+Changes in v3:
+- Silence the shellcheck SC2154 reports for the namespace variables
+  setup_ns assigns
+- Fix the checkpatch alignment and __func__ reports in the selftest
+  helper
+- Link to v2: https://lore.kernel.org/r/20260901-seg6-mobile-end-map-v2-0-1629bfc166eb@gmail.com
+
+Changes in v2:
+- End.MAP: patch the L4 checksum also for an SRH with no segments
+  left and for first fragments; selftest cases added for both.
+- Use nla_parse_nested() for the nested attributes.
+- Rework the selftest helper and cases; wait for counters instead of
+  sampling them; add CONFIG_IPV6_SEG6_MOBILE to the selftests config.
+- Rename the SEG6_MOBILE_NH6 attribute and the nh6 keyword to
+  SEG6_MOBILE_MAPPED_SID/mapped_sid to match the RFC 9433 "mapped
+  SID" wording and avoid clashing with the SEG6_LOCAL_NH6 nexthop
+  semantics.
+- Trim the Kconfig help; add Assisted-by tags.
+- Link to v1: https://lore.kernel.org/r/20260710-seg6-mobile-end-map-v1-0-99be02d68143@gmail.com
+
+---
+Yuya Kusakabe (2):
+      seg6: add support for the SRv6 End.MAP behavior
+      selftests: seg6: add selftest for End.MAP behavior
+
+ include/net/seg6.h                               |   8 +
+ include/uapi/linux/lwtunnel.h                    |   1 +
+ include/uapi/linux/seg6_mobile.h                 |  61 ++
+ net/core/lwtunnel.c                              |   2 +
+ net/ipv6/Kconfig                                 |  10 +
+ net/ipv6/Makefile                                |   1 +
+ net/ipv6/seg6.c                                  |   7 +
+ net/ipv6/seg6_mobile.c                           | 723 +++++++++++++++++++++++
+ tools/testing/selftests/net/.gitignore           |   1 +
+ tools/testing/selftests/net/Makefile             |   2 +
+ tools/testing/selftests/net/config               |   1 +
+ tools/testing/selftests/net/srv6_end_map_test.sh | 456 ++++++++++++++
+ tools/testing/selftests/net/srv6_mobile_send.c   | 283 +++++++++
+ 13 files changed, 1556 insertions(+)
+---
+base-commit: eb0c18404c8943356f4aa164e5db9067b79ea93c
+change-id: 20260523-seg6-mobile-end-map-9cec24191817
+
+Best regards,
+--  
+Yuya Kusakabe <yuya.kusakabe@gmail.com>
+
