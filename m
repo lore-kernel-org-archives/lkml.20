@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E825E46D579;
-	Fri,  2 Oct 2026 08:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1165546E01F;
+	Fri,  2 Oct 2026 08:57:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931473; cv=none; b=dcyW+h/qYAD0DmjKqqAgtbJTVBLBNOscDZ9+QJw26ZFiGh58RodPdDx7PEtTS3aBLkWd3GVlYTytuFZxbgT9p3rWQjTP01IY5Lzzz4ZqRt1fCZxLRo/4/W5b+ETA5AIHPk+JGSOILOpdZ5tRdpHcPtAEWjGdUM9wHFtyZrL0whY=
+	t=1790931473; cv=none; b=bydRk5XDMAe9yGUREtVzeitEEAYqb7qbQ1txfr5IrwZVjAgsihJlzzBYh4ykAQo5HG8RKG8WJ0/eYLApUVrki/scQOPsVv6NHzVOEyb1lTjLFko7RwUtXeCtfrysIR8YzLaqPdo+pH+RQm1nfBxzwoVKRNCZz3hPnq3ulSGWmA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790931473; c=relaxed/simple;
-	bh=bEfCYrTX/DVFUDK3Lz0RVwjQU4yQEwIERu8MZwjJ0WQ=;
+	bh=Yj1yY7hf7A5vLrib/Oh/OYU9GgHjT8PWU7PPJMg2XLg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GvoNenhlXowi4DjYpcptWkT+LrOViVlir6+8JbmpwUSRgH3u+X8dHDcYb2HBcrI3cE379zsFptYrwOryjAjI4Q4s1G4nGfpdaTYxj+gC3+ny84XpLr43UdPmiSbvVEBH/NZLObMuSZl8reid6OV0hHYUCeQ/DethN7OXykuZGvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u2pZESxk; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=LHibVOyz9CJNvk9yCLCLJMFrBoNB9sUKKNbrcNT7++FXtkTRUiccXuMpzFhg0apdU17OGdGIyKSmqz3PZYyd2xbyCHror3PxiNXQ81nRuy0hrA5XFD2RF9/3UI58If5YQKiqFYMxIvdZOHvUEGfX+ysleMwfHy7351S8EJd0ioE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JoNKijhs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u2pZESxk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BDF90C4AF15;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JoNKijhs"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DC35DC4AF17;
 	Fri,  2 Oct 2026 08:57:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790931472;
-	bh=bEfCYrTX/DVFUDK3Lz0RVwjQU4yQEwIERu8MZwjJ0WQ=;
+	bh=Yj1yY7hf7A5vLrib/Oh/OYU9GgHjT8PWU7PPJMg2XLg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=u2pZESxk/nz9aQyRq2JEEQ0lmCZhHuo1kZxhYDE+ZqS/mHGhuMhurpN7vIkHy7DuA
-	 nDMak0SzJ5iAH2qFtP/VVdnQifNtvrlX4cFMhC8RifIh0geLL/xlQYp7nxpxVFLRim
-	 18ciqDsJYJWmv4vnj2dBsY6bN0GoxEYWrj8gfrOMGvuQQklapLH3+PYDsTxjhs8okp
-	 BiVQH4GdC42TWSWIh1mODAZ/8vW7He6Oi8FhgkLOpRb5XcqZWaPadJCLoyQco6wzij
-	 FAQ91ZBub6PtaAr/3X419lk07nCTPPRBI/P54R5BdyJEz+PLhvPlVzkzNwLkKpdbmZ
-	 Q+00dIu8yWBhA==
+	b=JoNKijhs/woIQuDJ/a0yoj6tLzzBKkHwlP+wIFzCkVf1ic7qgbUDbLAhRGpH2gzp4
+	 6kMjMjEt84C8w/utkfwujzatsdnKNkj+5lSL6FlptgfCTRjrnHarfBtnN7VGMxCyHV
+	 aTuEBvIgWWcqlzpkR6vBaD8KwrqrZTH+kOW+4R5REfQD5xJ9BnacletdbeyS9TPJdR
+	 uuaujyKTLWRnefShZ2tguxVDr1K5f2Nqkvkd72bYqqGvg3pO8Tj5iM37IYZZ9ln7qx
+	 XujnDTg32XlX7OWmoiiijCuYvJ7HxcL9MKN4HfaikobT+1nqEyEDl/z9ZVaBc8V4pA
+	 9bW7on27Ih5mw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ADA8DCA5FE2;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB625CA5FC4;
 	Fri,  2 Oct 2026 08:57:52 +0000 (UTC)
 From: Maurizio Casciano via B4 Relay <devnull+mauriziocasciano7.gmail.com@kernel.org>
-Date: Fri, 02 Oct 2026 10:57:46 +0200
-Subject: [PATCH v10 08/15] media: ov2740: support 288 MHz link frequency
+Date: Fri, 02 Oct 2026 10:57:48 +0200
+Subject: [PATCH v10 10/15] media: atomisp: derive CSI-2 timing from sensor
+ link frequency
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-8-817ec765b257@gmail.com>
+Message-Id: <20261002-submission-media-yogabook-v10-b4-final-v10-10-817ec765b257@gmail.com>
 References: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
 In-Reply-To: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -54,12 +55,12 @@ Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-staging@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=3610;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790931470; l=2918;
  i=mauriziocasciano7@gmail.com; s=yogabook-kernel-20261002;
  h=from:subject:message-id;
- bh=affEzCaYZ5tjoVQ6IHKYfRnJHEy3zOIEmoBfpH3RYiE=;
- b=199RqxB0J/RoCqPnmgfpLE7z9Xo0eEwh83OSgWEy56XDSRt9CZ8Dx7WVCH4DkNo3HTeFnJLDa
- 30k4fpBjxFvBhG4upiPBbXRP8QbCXjqcJJtNQv0G76eCpt5u44YNfU2
+ bh=cBvzGnpb1R/GrB51aSVmRmya/MKjYDDZIxRjbiTyn7Q=;
+ b=db5hV4iBqfHiklq9vn84oxcWJB8RAthkyTIddcp2H03Ur4vlhdEI4NV0sCqlky/Cw7zRHotK1
+ YkpUEKL6gkoB0fBlgJTjVzEJAYl93hgr3K2RH0FrSOBUa0NKn207shl
 X-Developer-Key: i=mauriziocasciano7@gmail.com; a=ed25519;
  pk=ODC2oSPBqt7ukC3AEDZNS7LIE21D8ke8TEHoNlxniNM=
 X-Endpoint-Received: by B4 Relay for
@@ -69,121 +70,79 @@ Reply-To: mauriziocasciano7@gmail.com
 
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 
-The Lenovo Yoga Book YB1-X91 front camera uses two CSI-2 lanes at a
-288 MHz link frequency. Add the matching PLL configuration and mode
-timing.
+The ISP2401 CSI-2 receiver timing depends on the sensor link frequency.
+Query it through v4l2_get_link_freq() instead of reading a 32-bit
+control value directly.
 
-Reuse the existing 1932x1092 crop and mode register list so the Bayer
-order remains SGRBG across link frequencies. Cropping the CSI-2
-receiver output to a smaller processed frame is a userspace pipeline
-decision.
+Keep the frequency as s64 throughout the calculation so valid link
+frequencies do not require an arbitrary S32_MAX limit. Fall back to the
+existing default timings when the frequency query fails.
 
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 Assisted-by: LLM sparse
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- drivers/media/i2c/ov2740.c | 43 +++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 41 insertions(+), 2 deletions(-)
+ drivers/staging/media/atomisp/pci/atomisp_csi2.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index 830f5857d73f..ca33ef30267d 100644
---- a/drivers/media/i2c/ov2740.c
-+++ b/drivers/media/i2c/ov2740.c
-@@ -12,12 +12,14 @@
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/unaligned.h>
-+#include <linux/units.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2.c b/drivers/staging/media/atomisp/pci/atomisp_csi2.c
+index 71df4ef629c2..cbdeac32f6f3 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_csi2.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_csi2.c
+@@ -5,6 +5,7 @@
+  * Copyright (c) 2010 Intel Corporation. All Rights Reserved.
+  */
  
--#define OV2740_LINK_FREQ_360MHZ		360000000ULL
--#define OV2740_LINK_FREQ_180MHZ		180000000ULL
-+#define OV2740_LINK_FREQ_360MHZ		(360 * HZ_PER_MHZ)
-+#define OV2740_LINK_FREQ_288MHZ		(288 * HZ_PER_MHZ)
-+#define OV2740_LINK_FREQ_180MHZ		(180 * HZ_PER_MHZ)
- #define OV2740_SCLK			72000000LL
- #define OV2740_MCLK			19200000
- #define OV2740_DATA_LANES		2
-@@ -91,6 +93,7 @@ struct nvm_data {
++#include <media/v4l2-common.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-mediabus.h>
+ #include "atomisp_cmd.h"
+@@ -210,7 +211,7 @@ int atomisp_mipi_csi2_register_entities(struct atomisp_mipi_csi2_device *csi2,
+ static const int LIMIT_SHIFT = 6;	/* Limit numeric range into 31 bits */
  
- enum {
- 	OV2740_LINK_FREQ_360MHZ_INDEX,
-+	OV2740_LINK_FREQ_288MHZ_INDEX,
- 	OV2740_LINK_FREQ_180MHZ_INDEX,
- };
+ static int
+-atomisp_csi2_configure_calc(const short int coeffs[2], int mipi_freq, int def)
++atomisp_csi2_configure_calc(const short int coeffs[2], s64 mipi_freq, int def)
+ {
+ 	/* Delay counter accuracy, 1/0.0625 for ANN/CHT, 1/0.125 for BXT */
+ 	static const int accinv = 16;		/* 1 / COUNT_ACC */
+@@ -289,18 +290,18 @@ static void atomisp_csi2_configure_isp2401(struct atomisp_sub_device *asd)
+ 	int dat_termen;
+ 	int dat_settle;
  
-@@ -142,6 +145,14 @@ static const struct ov2740_reg mipi_data_rate_720mbps[] = {
- 	{0x0312, 0x11},
- };
+-	struct v4l2_control ctrl;
+ 	struct atomisp_device *isp = asd->isp;
+-	int mipi_freq = 0;
+ 	enum atomisp_camera_port port;
++	struct v4l2_subdev *sensor;
++	s64 mipi_freq;
+ 	int n;
  
-+static const struct ov2740_reg mipi_data_rate_576mbps[] = {
-+	{0x0302, 0x1e},
-+	{0x0303, 0x00},
-+	{0x030d, 0x1e},
-+	{0x030e, 0x02},
-+	{0x0312, 0x01},
-+};
+ 	port = isp->inputs[asd->input_curr].port;
+ 
+-	ctrl.id = V4L2_CID_LINK_FREQ;
+-	if (v4l2_g_ctrl
+-	    (isp->inputs[asd->input_curr].sensor->ctrl_handler, &ctrl) == 0)
+-		mipi_freq = ctrl.value;
++	sensor = isp->inputs[asd->input_curr].sensor;
++	mipi_freq = v4l2_get_link_freq(&sensor->entity.pads[0], 0, 0);
++	if (mipi_freq < 0)
++		mipi_freq = 0;
+ 
+ 	clk_termen = atomisp_csi2_configure_calc(coeff_clk_termen, mipi_freq,
+ 						 TERMEN_DEFAULT);
+@@ -311,6 +312,11 @@ static void atomisp_csi2_configure_isp2401(struct atomisp_sub_device *asd)
+ 	dat_settle = atomisp_csi2_configure_calc(coeff_dat_settle, mipi_freq,
+ 						 SETTLE_DEFAULT);
+ 
++	dev_dbg(isp->dev,
++		"CSI port %u link frequency %lld Hz, clk timing %d/%d, data timing %d/%d\n",
++		port, mipi_freq, clk_termen, clk_settle,
++		dat_termen, dat_settle);
 +
- static const struct ov2740_reg mipi_data_rate_360mbps[] = {
- 	{0x0302, 0x4b},
- 	{0x0303, 0x01},
-@@ -468,6 +479,7 @@ static const char * const ov2740_test_pattern_menu[] = {
+ 	for (n = 0; n < csi2_port_lanes[port] + 1; n++) {
+ 		hrt_address base = csi2_port_base[port] + csi2_lane_base[n];
  
- static const s64 link_freq_menu_items[] = {
- 	OV2740_LINK_FREQ_360MHZ,
-+	OV2740_LINK_FREQ_288MHZ,
- 	OV2740_LINK_FREQ_180MHZ,
- };
- 
-@@ -478,6 +490,12 @@ static const struct ov2740_link_freq_config link_freq_configs[] = {
- 			.regs = mipi_data_rate_720mbps,
- 		}
- 	},
-+	[OV2740_LINK_FREQ_288MHZ_INDEX] = {
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mipi_data_rate_576mbps),
-+			.regs = mipi_data_rate_576mbps,
-+		}
-+	},
- 	[OV2740_LINK_FREQ_180MHZ_INDEX] = {
- 		.reg_list = {
- 			.num_of_regs = ARRAY_SIZE(mipi_data_rate_360mbps),
-@@ -502,6 +520,22 @@ static const struct ov2740_mode supported_modes_360mhz[] = {
- 	},
- };
- 
-+static const struct ov2740_mode supported_modes_288mhz[] = {
-+	{
-+		.width = 1932,
-+		.height = 1092,
-+		.hts = 2160,
-+		.vts_min = 1776,
-+		.vts_def = 1776,
-+		.vts_max = 32767,
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mode_1932x1092_regs_360mhz),
-+			.regs = mode_1932x1092_regs_360mhz,
-+		},
-+		.link_freq_index = OV2740_LINK_FREQ_288MHZ_INDEX,
-+	},
-+};
-+
- static const struct ov2740_mode supported_modes_180mhz[] = {
- 	{
- 		.width = 1932,
-@@ -1179,6 +1213,11 @@ static int ov2740_check_hwcfg(struct ov2740 *ov2740)
- 			ov2740->supported_modes_count =
- 				ARRAY_SIZE(supported_modes_360mhz);
- 			break;
-+		case OV2740_LINK_FREQ_288MHZ_INDEX:
-+			ov2740->supported_modes = supported_modes_288mhz;
-+			ov2740->supported_modes_count =
-+				ARRAY_SIZE(supported_modes_288mhz);
-+			break;
- 		case OV2740_LINK_FREQ_180MHZ_INDEX:
- 			ov2740->supported_modes = supported_modes_180mhz;
- 			ov2740->supported_modes_count =
 
 -- 
 2.53.0
