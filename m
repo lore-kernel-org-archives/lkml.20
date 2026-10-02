@@ -1,92 +1,124 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f9.google.com (mail-wr2-f9.google.com [74.125.225.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9818D433E81
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3656370D79
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976310; cv=none; b=ejuOCnFmDhze+AylV1BmnUOn7bhTw180S2CdtxYe8ieOsPaa5mYZmjT7MfnmmGZvXiNda8RTUvob3NAlZCms4uUMX++zAVjorsJGGFdxxTf8Ut637Sh1rE7vgKADpJrZda1p+ShhfMiQqHNnd1bkKZmlhk3jJjIXQ3uMxd77ikw=
+	t=1790976329; cv=none; b=Z0ygH5KAMGMMrlLyVV3f0r9Yoryg7gvoVO7uA1BMOWMze/SiYt1ZgrHeFi2Iz/8H8UK8ZoTcKr2n1mjOSTcDXI4lELLtoqUGgkB4i6cHEqF7ctggEpR3P/LkR6utnJv6lb1l91s6u8aEO2SnJCdOohUOPIlsAEG3w1giQIYKgw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976310; c=relaxed/simple;
-	bh=9+mvf/BWm90yipWt5dIUPxr3YbINlQZvOpnAaYPRjko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZS1PxyTpnULZWOZe6jlhs970Ae5ss4Af+BU7hXDOwRJDKUSTPgrU1iVedlmhTpLYKBxZYOkR3qIALlBhPTESTbr7cU9XfiR0M8yXoZz0BBC7feGCk5bax9gR/ZSyn0DUfY9Ak6vzC/vUrcN0BOWRmozzvBceyo6a0KAavX357M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Xh4EAdwx; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790976329; c=relaxed/simple;
+	bh=9aWfK60Ckds4L/biCInfmc5Y+mPQ3yBYOZ7PLGxJJso=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n3u6eFoA7OmxQs9JZmJRiXFruGRyClkJXV3G7rD11Ev79iliUoubE1FL9CKiXUUR9z7DS7d0a6IId7BU4pp8Vk800JNRiViYZOau8Ru6TYG0w7ne8Px3cVpTmti4JgwH+ZzPj7IPnQkgkqiz1oWCSnaxBf1uGbfslIf5CM5lvVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=Isa/r3hK; arc=none smtp.client-ip=74.125.225.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Xh4EAdwx"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4887B40E01CD;
-	Fri,  2 Oct 2026 21:25:03 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id OMwCzNjKw14B; Fri,  2 Oct 2026 21:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790976293; bh=nmByeWFgL6Yg9UKggs2HkpeCwJgYb6rHX9cJmpgn/lY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xh4EAdwx9Mrkp1tNGYF4iPqsscxanXnPS9tJMys2OBPmuLyjF3QjK0PZqgVrWmzHl
-	 1uE/RliDUR63kyiSxSFWQWLf3lh1zV9RK4q2um5NmcBi54SZ791lDvDuns71d38YW4
-	 NKKrMBHAvz3vLxYexqslJgdjglYrTYaatQME6nFOsKw+zFx0Rek7d64Fsz8994uAOt
-	 t4c0KZAknnKpkwRogGRvrsf9hxHjqbXxUjddD9D7Auf6uD1YEy7F+kXtvpzR4shRFB
-	 UylYy+DbEBhUedbLDJ9H6HTdXHu0fN/q5606EPypR1XnIARNCXvtsavJxNRKO8dA2u
-	 j2kcnE/dRRAEOT05wuCYv7mmf1bPeReu9zm7fAiWRbyPq5CE8KNjvHkViKzPjOerf2
-	 zN5hh7Y9tFJok/vwyI8Wy+0ksu8ZmrejCKm0h/TqG7FkuDVQWWi+T99bxwbTSNGnrr
-	 YvmFpduMDOTxpHqp59IOL201MOVWhYGTj21FFSbsXtkqzTm2mqYosgY4XWIOs4vt90
-	 AKKaSpMvdDil0VnQAhREBJEzmQV1iRISSfHxqi9ssmz9A/7fOF6EaCbUDrysBjhZst
-	 PR3R1y0z4Xmt2ntqHQ3m6x9tV9rOJje2iwX94Ic+cFdl2y04jHkAfz9VEPzN0I97fa
-	 wmWDnhFOfB2XgpeokpAgce6o=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9653340E02A8;
-	Fri,  2 Oct 2026 21:24:35 +0000 (UTC)
-Date: Fri, 2 Oct 2026 14:24:32 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Rik van Riel <riel@surriel.com>, Matt Fleming <matt@readmodwrite.com>,
-	Henrik =?utf-8?Q?B=C3=B6ving?= <henrik@lean-fro.org>,
-	Dave Hansen <dave.hansen@intel.com>, dave.hansen@linux.intel.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>, david.kaplan@amd.com,
-	Ingo Molnar <mingo@redhat.com>, luto@kernel.org,
-	peterz@infradead.org, Sebastian Ullrich <sebastian@lean-fro.org>,
-	Joscha Mennicken <joscha@lean-fro.org>, kernel-team@cloudflare.com,
-	kernel-team@meta.com, linux-kernel@vger.kernel.org
-Subject: Re: PROBLEM: Probabilistic segfault on AMD hardware with INVLPGB
-Message-ID: <20261002212432.GAasAhEHNr2o8sp6Xh@fat_crate.local>
-References: <CAAuFnRTyva1_3tsF3vrMBL+TLS1YL4EgUPT2c3O9k7A9hWUMnA@mail.gmail.com>
- <20260708112718.13323f59@fangorn>
- <20260708155146.GAak5yEiHU-YM1Wid9@fat_crate.local>
- <20260914022055.1639690-1-tz2294@columbia.edu>
- <20260914045823.GFaqd-7yDf6aK4JUQr@fat_crate.local>
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="Isa/r3hK"
+Received: by mail-wr2-f9.google.com with SMTP id ffacd0b85a97d-48afbc2b18bso125236f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:25:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blockcast.net; s=google; t=1790976326; x=1791581126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wwz5V5DznazyEKiv4IPRIgKMZcVLA06YApkEuH5pcPQ=;
+        b=Isa/r3hKxdf+jbnew8xlY8wzTq4bpyJoy0lAGFL2byOsYtHoFVznWAbfpmfweCTD9O
+         +MGjMpzvFevkmghNTD8mlea4Bf69No7s/HOpwpQcTkcWXQlS7EJJhhAxpPwDppsk9tHF
+         gYW0jWwCZRr9BM6zcUY677hcLoDd5ytoK07SBpb/0MskHEkr8n+WB/91paiFf8hffFaW
+         Wid6tofro2snMaBm1Er09oaPji/lMgDRtQNaxgDlshVee3520wwFp260qAiSvbOdqqSf
+         RiFE4GxQKf0CYNLK37lXDfItF9wZQVPA0TvpVOGcE41lkg/VQK7aF5nDnHbOe6G4eYbV
+         XN7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790976326; x=1791581126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wwz5V5DznazyEKiv4IPRIgKMZcVLA06YApkEuH5pcPQ=;
+        b=ymjpRPb2tGBzcRg/BI9z1GM42dCQ2ZkMdNdtsJW+aHmuE5FtFUjwcKOGWFuXChBkQ8
+         1lVQ+j2/JaqMAfi6L7iGLcxoLa1rXaH7XlYh+MObmqYDDCJRtwGiy51D8c8pAPV6omGp
+         /Rc6Rgk8HXQZSFKuDBPnVDPwyW6CXxLEPXA3h2uUw8BQY7XhJjI7tAaK5Wh34MAL7Akr
+         enu2w5/HJozvcK0yo74Va+BOUplIdZe3G1ACsmxV3IztJInX8OpCHIBz+eF7X7KWyKPo
+         mnRwvJLFS+Ul2Iy5rTmQ4H5t5tJQqSV9vW0nsRE3zJfwzLms1nEUIKUs7j5O3GOUmpzJ
+         M31w==
+X-Forwarded-Encrypted: i=1; AKwUvBz2V/BafCsu4RsRTZc5rKQOrDQDPaTHI/xIqLJ9Lu4NjsgWq9InqKB4dU+MuEnE+s8EhrM5B0Uk0OgkV1A=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0lvQZ38V4LVWFidIwGvJLzK++zaGTK5dkoIrY6mAz/8WfJHQd
+	S6AfEj6U7JGTVQvDr+1G+eBP9hCUrdGkIPyvDLK1dolrFCRn2ypmUskVrDyC4r4wGQc=
+X-Gm-Gg: AYBFou0wGzsXEUw7EP3npKPweyrUgKxjPCTgTdbK7zHfdfZfbPUxwoJfh1zqw/yDPne
+	zemyp908V88UN95tHK01/Ady6uEHtosvTLMcTzxXNn1KCARw3NG7+rPVkTRgB1s7oVIs28fsgJC
+	FFebxRtsAqhkZepKaqVTDKwZKDzgsqBZR3sKuo1f2uGM6PEYlz4eevj5CMrzF6gaOOrjfeBJkcq
+	7hX9gvAKlno/PR8WMJmRA76iyfbAnkMELw2M7PfgjOOw/ZTGK1PrNV0UuSZ0a4WGkYSg9spJKuZ
+	dTN5XX7sv6m5hI4qUJtXu8tNW2bTQq0c/bieiFr6sIlRjGt0cmbQ+K2U24iNYbDDqgmyMBN2tSZ
+	bWf6eergEw1iVy+VckzjLSynqr81A/NI6igGZtJ0FbJVVaJsuvpZjZ1111ElowF44vZu7eCRhYy
+	JK74LehmpphqmHTFf45MoXeO2UAcnS1uF4b3Tfw2kixOmrwsALJ5bJTtqs45SEo9wslS9vhtNju
+	n88J4XPECaAuVarskmzE5pQPt4uJY2HqzYgNIUaqYUvD+2OArQcbFt4PRF0YLuWgKEvh6GBF5Pb
+	Cg==
+X-Received: by 2002:a05:600c:4f93:b0:4a0:27eb:49b with SMTP id 5b1f17b1804b1-4a027eb058cmr61869705e9.30.1790976326117;
+        Fri, 02 Oct 2026 14:25:26 -0700 (PDT)
+Received: from localhost.localdomain ([197.51.72.2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253ae9sm7183149f8f.2.2026.10.02.14.25.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 14:25:25 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/2] amt: mark relay data as a UDP tunnel packet, with a selftest
+Date: Sat,  3 Oct 2026 00:24:56 +0300
+Message-ID: <20261002212458.34247-1-omar@blockcast.net>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914045823.GFaqd-7yDf6aK4JUQr@fat_crate.local>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 13, 2026 at 09:58:23PM -0700, Borislav Petkov wrote:
-> On Sun, Sep 13, 2026 at 10:20:55PM -0400, Tal Zussman wrote:
-> > Is there any update on either a fix from AMD or merging Rik's double TLBSYNC
-> > workaround?
-> 
-> There will be an official thing Soon(tm).
+amt_send_multicast_data() never calls udp_tunnel_handle_offloads(),
+unlike other UDP tunnels. With tx checksum offload on the amt device (off
+by default), a UDP_SEGMENT burst through the relay is dropped before
+patch 1 and delivered after it. Patch 2 adds the selftest.
 
-Soon is today:
+This follows Eric Dumazet's suggestion on my withdrawn [PATCH net] "amt:
+do not offer software GSO on the amt device":
+https://lore.kernel.org/all/20260928181554.85766-1-omar@blockcast.net/
 
-https://lore.kernel.org/r/20261002211617.1001617-1-bp@kernel.org
+Not touched: amt advertises NETIF_F_GSO_FRAGLIST and skb_copy_expand()
+refuses such skbs with a WARN_ON_ONCE(). I have not reproduced it, and
+it would be a separate fix.
+
+v2:
+ - shorten the changelogs, add Suggested-by, and move the testing notes
+   below the "---" (Eric); patch 1's code is unchanged, one comment is
+   corrected
+ - patch 2: fix the shellcheck and 80-column checkpatch findings reported
+   by the netdev CI, skip when AF_PACKET is not available (v1 reported no
+   result and exit 0), add CONFIG_PACKET to the config, drop dead options
+   and code
+v1: https://lore.kernel.org/all/20261001171016.88208-1-omar@blockcast.net/
+
+Omar Ramadan (2):
+  amt: mark relay data as a UDP tunnel packet before sending it
+  selftests: net: add an amt test for UDP_SEGMENT through the relay
+
+ drivers/net/amt.c                      |  10 +
+ tools/testing/selftests/net/.gitignore |   1 +
+ tools/testing/selftests/net/Makefile   |   2 +
+ tools/testing/selftests/net/amt_gso.c  | 457 +++++++++++++++++++++++++
+ tools/testing/selftests/net/amt_gso.sh | 269 +++++++++++++++
+ tools/testing/selftests/net/config     |   1 +
+ 6 files changed, 740 insertions(+)
+ create mode 100644 tools/testing/selftests/net/amt_gso.c
+ create mode 100755 tools/testing/selftests/net/amt_gso.sh
 
 -- 
-Regards/Gruss,
-    Boris.
+2.50.1 (Apple Git-155)
 
-https://people.kernel.org/tglx/notes-about-netiquette
