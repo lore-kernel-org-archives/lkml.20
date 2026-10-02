@@ -1,304 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4017330C637;
-	Fri,  2 Oct 2026 00:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790901791; cv=none; b=ifihutMouF/q6WUpoaZ54ng/rT9FSDHHzBOFG8+X8SEiKzbnR9I1/0vFSOD2w9aBX4EyY+9v3qG3CAKk72punXwRCQ33Vw0SvYMqSDqUmfnTBsQ9zu+WeE713RhtjIf01lMzdLjwZQi+0/Y5Sw40Os/GMLrOzYqkKwbRoaCbXhA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790901791; c=relaxed/simple;
-	bh=56ct3Q7eKLjRYBn/VFcDzzJdQBfaNzG4aoQ7ut7W8hk=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=URq53Y/mdhWTtJMPSa0L+i9DDqbvlHyf96EPJwXtFB2wxXrCVHzCNOw/NriWuol1X4hC1qfxZeihx/dlDvlysN2GQ6qvtOrxhv6QuwbflgZ+1rmyV3E60tOYeI34Ngqj16hbTZp6CxQXvGD0jO5AcsC9rrrAH2PaWGvGEjP5nlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lKUITmYE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72DE23D7F4;
+	Fri,  2 Oct 2026 00:43:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790901833; cv=fail; b=NSjGshLYW6ZSFPchZtLD9r613djHcNSLxLPOyGpCDYzoQp5u2FNKpULqZAWE16/fWHd53Lho2FaGITqhYuqcIyp7fVYRgxKROZZP1g8nD48n4JlNcWhz+ZDnwcs2LkcSu/BUaXfg79q1qRuGJG1me/lMqKeqpaOyxefyXtRDRts=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790901833; c=relaxed/simple;
+	bh=WcU06/0YHHu6vSaEWhgAz8ZPLFGNpGK8cHZshxs7V3U=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=bJ/6pIr94CgzUT+fSZAUYV5pRCsTDeQiGlaBmYHXykUiIWJQwESVuG5G8//Wf9KefJTQs5P0sITGShCMIm8FyjLjxxycsmxre00EUxnBFCUgaZfbwrEXMPX0F5XOcdfMJKkPc75vWHv+6T1wxE4yQFQ6dWav8WdHTn/6GgiD3MY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=VHSIYRKG; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=kXFPB+yN; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=SsEg6HLN reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lKUITmYE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BDB1F000FF;
-	Fri,  2 Oct 2026 00:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790901786;
-	bh=N8i6gFdY9s2QER20rUU/289DDlfiICXitfqZc9Vxt3E=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=lKUITmYEb/hyga5arqGCq931G/TV2nkyEJ0fU8OE/wckYarW1+XOHBMDXn92TU6BL
-	 +13ai54zmJiOjaG9P/FnXd0bizYsMNNU20Pa8Y/pKyxLdiso8/PyQTmpKDayDI2F1/
-	 IQSCVj+KPcNuAU7ujFUn5yZIM/mslI0B2hM6NqeHiLU3f2KYYBc+1vO23t9BKisN6v
-	 NS/ulEKkLkZgZ67EmFjEXL4DyZ1hnoTWPTsyyW9MfJ6FM8a4/Am2NBiEHuXG61D1rc
-	 9rZCLoI3GDAhNLq2sMQ08jAkoJRVaagvBHR27cVIhhiS/amNGZ0+4cr09aT9GVeTso
-	 xWVNizXrDaRvg==
-Content-Type: multipart/mixed; boundary="===============2199014445031950111=="
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="VHSIYRKG";
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="kXFPB+yN";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="SsEg6HLN"
+Received: from pps.filterd (m0297265.ppops.net [127.0.0.1])
+	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691NGOmb351830;
+	Thu, 1 Oct 2026 17:43:39 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	pfptdkimsnps; bh=WcU06/0YHHu6vSaEWhgAz8ZPLFGNpGK8cHZshxs7V3U=; b=
+	VHSIYRKGk9Dm40q5A8EHExBV2miMDgm/AAaul1zidgOD8pYwQdVKa6UbsO04/3k/
+	dcizqdhi8i01wuP4rvzIrFCZ9/4VfMWfQMySUg6mHcrAn+vsAcFNCPICWtVpESpl
+	yQfjjeoWZUtY6VKy53sCX/XTnDwPO6Vkx9elxkfi//3nK6+s92zEGyP6udXh2BRi
+	597GAvYkbGR1yUckaaVgvsTaqv735fnbk8YnkfDx363ttvlf8EZKDdEedutOcOpH
+	4pzffsSAczDlSn0vKbWSgmTV+kmO1OJ8xM0REG/vZtUjejDAbI3+YGrkJL9RHJfE
+	wkqOju5kAgo5wKZ+joG4sA==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.87.133])
+	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4h1dfy0ps0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 17:43:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1790901818; bh=WcU06/0YHHu6vSaEWhgAz8ZPLFGNpGK8cHZshxs7V3U=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=kXFPB+yN/58a/WMK3YoMNY/Kjop6amavXW34ntM98Tk8w+QFNHBh6+MhdDFLCY8g8
+	 09KkHWkkdTzYboqvfI8qANXnBNXQXqB9Fj6Sk2+3SSyiv61TO7BJVNIMZ0/wn7dKeI
+	 YFrttykjHlwP+GVKTsW3fKFt9s3ueF0bgNJg1fF3JMsZYK2poLUN1HBABeQTq6CNCv
+	 YbX2k6HS4NRDipKpydNEGJZMDVscxEBV+TZzREVH/FydOVfmvNu15TjH9a6oeybKe8
+	 2oSpYRYqBBPUGwDOxQABFfvEqRaIRWzg1JE/3Y4JbIAhPm9+B+ozo4wAkR7gkJDXrp
+	 DOqo//I5lF3bA==
+Received: from mailhost.synopsys.com (badc-mailhost1.synopsys.com [10.192.0.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A5AA7401E4;
+	Fri,  2 Oct 2026 00:43:37 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (sv2-o365relay5.synopsys.com [10.202.1.141])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
+	by mailhost.synopsys.com (Postfix) with ESMTPS id 4B4BEA00B0;
+	Fri,  2 Oct 2026 00:43:37 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=SsEg6HLN;
+	dkim-atps=neutral
+Received: from BL2PR08CU001.outbound.protection.outlook.com (mail-bl2pr08cu00105.outbound.protection.outlook.com [40.93.4.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
+	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
+	by o365relay-in.synopsys.com (Postfix) with ESMTPS id 8BA15220139;
+	Fri,  2 Oct 2026 00:43:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bZpNdmMWS6fhkkWnAIgw+Yc2E2pOfYYNsxMURA+X3U2eG4JVlAp3TI6WC0amakx2kkSBH8gDwxEP3DCymUgRq1jZhqAjEflum9ZKzpm1bOWMOp3Nj07AQuvOaZ3fNB20R6qZznlfpVWsKxdQN03cRTS+yxEJxu2MDObSX3z05EPft2ricyvzV+B0mwf+bhbNm6BUwJ6oywboqhbWRuHh4wNpcVMfi0iObMmtnGQf4ck75Dp7zszPKsc3vwWoRcrJZQEmk2LYKszwwTTOEDvM5oDGc4qPc/wXjTLZ6Li0isYpuAP4rsu3o8V2mOSy/FiYGak6ZkzLjw7ZjxC0nIvYdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WcU06/0YHHu6vSaEWhgAz8ZPLFGNpGK8cHZshxs7V3U=;
+ b=mTodWCfk1Nm2+4vQosfII1Smf3rxoscWS80Xo2eoDG56Zpu/Vu0KoqoXaDEytBSS/pKdYrPMb6F1A7cg8w5YA227pW95eZo3W+dVs2yL5upyk3sOJxtxELkW+aOZh58f1HOYgR8hg82SBjy/14fenRI5Jht1jAHBGaX311PtdE7v1AMfssfpPtHa3Na60fK8kKfIrPzUAz/iftt3zg4Ohdw95euAi4r9cxmgVJUrlA2fr1oRUXTZKxDfV6LXWOrl5xhgW3SvjTFcpoYlTb+dCYpidLg0YHtDPUBkzyoheLvIoHGdg4vyfTji+Uc3r2GHRRx13UvRyyhRzTu2ujMrhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WcU06/0YHHu6vSaEWhgAz8ZPLFGNpGK8cHZshxs7V3U=;
+ b=SsEg6HLNzWyYwxBMb4iTR6OBxP+HBAQLJzQ6grGkCKje/SICMSSMXEXHdC+3hIaLIDcZOHWenc+jAlTIsLbGguPQOAIwqqzfUl12Ky4Lf68NLCqWycH60+yKyzZSDzqs8+Wy7zUjQqtyCZ/MzPjXT55qWDCxbBBovt586i0+oqo=
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
+ by MW6PR12MB8708.namprd12.prod.outlook.com (2603:10b6:303:242::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
+ 2026 00:43:30 +0000
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0451.026; Fri, 2 Oct 2026
+ 00:43:30 +0000
+X-SNPS-Relay: synopsys.com
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+CC: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiazi Liu <jiazi.liu1984@gmail.com>
+Subject: Re: [PATCH] usb: dwc3: fix use of destroyed dwc->connect_mutex on
+ gadget exit
+Thread-Topic: [PATCH] usb: dwc3: fix use of destroyed dwc->connect_mutex on
+ gadget exit
+Thread-Index: AQHdUe1dMD8Y+VMfSUeywo+J5FwUmrbpahKA
+Date: Fri, 2 Oct 2026 00:43:30 +0000
+Message-ID: <ar79_M-IMnz2fUQK@vbox>
+References:
+ <CGME20261001213926eucas1p18003977c0313cf3395a7413d22043df6@eucas1p1.samsung.com>
+ <20261001213905.3290308-1-m.szyprowski@samsung.com>
+In-Reply-To: <20261001213905.3290308-1-m.szyprowski@samsung.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=synopsys.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|MW6PR12MB8708:EE_
+x-ms-office365-filtering-correlation-id: 4a035a85-c5bb-4dc6-11e2-08df201e2e34
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10067099003|11063799006|56012099006|4143699003|6133799003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ 4JkMxuxuwIdSr0g0Xt622jQmE+3BBlvBn2PzzfHGHghhtuxtx/2LiMrha4DGi4M+oz82D/HPWMtRlYe98NgLwrMzqyWvmmBdxPM6trtDJ4PEIdRMfGLhv7SUHJFhqNLyxNLlLDNunfEQWLgGsNrO5MmpMQIA8Fe2K3wUKcFXyGGEf2fr11RLITXAVnYVhuwosU1Xh5F818A+hqlU+VJ5YCPK9ouwpcj6Me8cLzc48uSQGLnA3jfVN9SIfnlw3UMmHUlCsn0osPobsCU6/v8FuJzX4ZKQCXaZtkcf6mbpJ/P0ZQjLglIlFYOWzoGjmqR915/QX9DhBSnY25pvQQDQoDQjZnCt0RnsAi4ysCd5mjOdLO38DHn1/Yx1jnKzkm1UBJow6F//iIsQgk1DfjPimSe18wf2aC0t1s/4inVLBwUIzuHEa+RbqOTJKd/eVsqe47YUDuGILr8LhDqsVTat01bqhLk4pilTXB67CX6nNgQts1IQUcEGe8LGah/+GisvUhEkDxaGpHXrTkZxzg8KAExTag7vcR0QfOzsZYmM+wA70CiBXSJf18v1Ofk82EEvyvkJMHxgELCTVurKEZhjBhXIHYZ5KiCXFGoidvYMGKyg9pkG57MPk9DR4eqFMc0nneB6HhWQ1kAb/TL42WYshn+FUjNokuhKwgahf42oV/1I9AFn83WNELBRPd7WZgyQpts6mQ5FLbNnfoZK+RKJVbcRoktaICUglHgN2tJblpI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(6133799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?a2ZxbHZUWkZZd09ZUGszblo1WVlwZE9rem94QTU4VW9CTTNWc3ZBSHZyYlBk?=
+ =?utf-8?B?a3MrTytITUNXUlgyekVocUY2THlUUCs3czk3ekVQWVVrd1dybS9zdm14TW85?=
+ =?utf-8?B?Njh4Wlo4MlQrVEVzY1ZuOFY4Wk15M1Q3TDdyOHlqVEN6WCtIN09mZWZZcjlo?=
+ =?utf-8?B?RDVreW1FZ1ZMSndGWjBHNkVkczJ4NkdXelJYNXFBdWNLa2xQTytkUURHNlB4?=
+ =?utf-8?B?Ti9NdUxmbXlpMWk3bHRZeDFCczM2bkk5WUtSdklHREtUMTRGQlZMZTdYeUVh?=
+ =?utf-8?B?c1VIOFh1NDdMQkxDNnp1QWwwWCtzRWhqdWgxRVpWM21KTDlYRFltMnlyQldI?=
+ =?utf-8?B?SWNuM1dVbTJqNzVISWZYUXVMZlhuZTBBWDRxQlYxeDJQVWNocGNRYWJlSzg4?=
+ =?utf-8?B?ZjdyMTdSV3pVS2xhdTZnZStUOHpXa2NxNXhSM0E0dCsvV05seCtXZlg1MTkz?=
+ =?utf-8?B?R3hwWjBRZkxZeWtNOWtVekt3TXBQdlBIdldCUG9wNXFSYURqZ3YrK3JFU0Iy?=
+ =?utf-8?B?dGVOcnB5R3Zjb09PTWRnSEtwZ2JaM29EdzhlUXAxOHo0MDN2UThPbWtndkNY?=
+ =?utf-8?B?MkQ2YTcxeXlleW5NNU5CMjVEQ2RsRnJRTXhiampMSkN0bXBBRXpxanFOcnVq?=
+ =?utf-8?B?dzZpK0JuVEU1Y05STnE0QU1PZzY3d3VrWk00MWZHcFJHSWFyRTl4MDl0SG5H?=
+ =?utf-8?B?U1lPSDNLUHFqL3dadGc3d2xIVXY2VDlQYVIxb0k0eEJNN2N1b3pqQUhlMEdD?=
+ =?utf-8?B?YktQdmpJRUJmRDIrQnRzZDdlNkdKcThlZ3VxTThhYWgyaFd4YWZ0QUZVK0U2?=
+ =?utf-8?B?b3g4NzJSN2F1Q2Q4Z1BJVDFaeWFHbTFSOGc4WnRyeXRkUkZ1SXhINkNnbmJT?=
+ =?utf-8?B?ZzJwVDJOUXU3RVp3aFdXUDN0c3krRmR4dnc5bXp3ZC9pQ09xZTRxazl5RkVL?=
+ =?utf-8?B?dC82NjRPcmdUcS9tdmR5ZHhHSDRqMWRwTC93RCt6RTN0d0tPVjViVE5Yb0Nw?=
+ =?utf-8?B?aWpiRFhFQzllRllOR0lPVjAyRi9uS0xSWHM1aHJtenF4Wmp3azZzZlA4SzVL?=
+ =?utf-8?B?OXB0aFlOUWpDeE1mSS9lNzRGdC8zZjhETXdlUGJmc05KdVBVaEVxbU16NjIx?=
+ =?utf-8?B?eDh0aitwTXdYVFo2N2RseTZ4ODNkU1hTMDdRRmhGLzFCSlYveldhMzRQcGhL?=
+ =?utf-8?B?dVdlYmMvSGRxSFVUdFFYY3F6ajJLNHp1TXU5VHdlNjNIcHI1UEMwSWpXV0U3?=
+ =?utf-8?B?RHBRdTZYd1hpNHAvVExReEZYcUg4cDZGZkowcWJmY0kySFNCTFVRTVFpaW9W?=
+ =?utf-8?B?dmNQTFpDMFA0dU9MdlkrODdtYi9YdzJzcWdHMlBGNkkwSC85bDZZZVR6ZzJm?=
+ =?utf-8?B?Y2hOb0FXVk9UNjJhVjBib3dIWVNrbW1LeVBuQ1htZHBiZ29ITVJ3SmVMZ0p4?=
+ =?utf-8?B?b2Z0VnBWdUc0aDhpdElXZnRBZnpHSHVaUE90VitLemJpdTdvditTUnMvcEFV?=
+ =?utf-8?B?cGplQW1uWFNZdGIzYnp1U3ZqazVnV0l2RitENVhqMHhrNWpaOURkazlYQnA2?=
+ =?utf-8?B?WFhLQnc2WDdUSTRkbTIxcGRIQmxaTEVLQi93anRISktvVUlRWEEyWWNjeDhK?=
+ =?utf-8?B?aEE3cjFpQmJmTEdodVMrU1B5YldrUXl6OVIrQ2MyUVFDMk9aeS84YWs0WmYr?=
+ =?utf-8?B?VU9hc2VYbGpVYnlSQTJjMHU0NGViNXBMcHNFSWg0dXlNUXl4SFBKbG92bjRN?=
+ =?utf-8?B?c25IWUtKcURTS3RGcmpPTWdJbTFoK0hOS3JNYzN4U3JjNlBadE5RSTk1SVgv?=
+ =?utf-8?B?QUliZDlPR3M0R20wamNqVFlIaHdpUENDcXZCOGFRNUtGenNqRUl1aGdwaTM0?=
+ =?utf-8?B?TnNGM1ZBTnlkaHhyNURCRkdZUXVnMmIzc09TekFtSHZwSEVjZzZUVXFVZ1Q4?=
+ =?utf-8?B?QW1RMzh3RXNPUGFTZldJTGs5SDRYOFcxRmtxQ29URjFveHpTN3ZLR2hsUE9H?=
+ =?utf-8?B?M3QwRUhkK2VacnRRbk9xTU5Sd0FLR3hwYWphV3FCejBjTTR3Y2hFTHNtWlRq?=
+ =?utf-8?B?T2NqenhsVkRFODBOaTFDeGFzSUVXelNxejVINHpyQXMyUjBPV0Vra0toWkF4?=
+ =?utf-8?B?dFY0Z3hBZlpuUEV2WlB6ZlVGVmZvZlh1TUM0ekVqWHFHeFpObmRlQWw3aTI1?=
+ =?utf-8?B?UFlNbWl5VFpGK0tVZEJQTzFweHZ2Ry9nQk5iYWY2ZHRtdU94NGxBNjc2TWVU?=
+ =?utf-8?B?a2xVdmVVcytac01JU2hPcEgyd0VuTEdXVlVSVElTMFZsWi8yWGl1ZE9CdkNG?=
+ =?utf-8?B?TGhyOWZ3bEszaWF1MCtuemhwT1ZkZUVXMEV0NkgwM3FUUWlHZTdvQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3591E2A9117DCB45B7FEC4032BACB961@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <1081b7a0f143f29745409a1356f223fd8b196c827e18d46cde7f41716def72c0@mail.kernel.org>
-In-Reply-To: <20261001152042.124445-11-gmonaco@redhat.com>
-References: <20261001152042.124445-11-gmonaco@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-From: bot+bpf-ci@kernel.org
-To: gmonaco@redhat.com,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,rostedt@goodmis.org,gmonaco@redhat.com
-Cc: alexei.starovoitov@gmail.com,namcao@linutronix.de,wen.yang@linux.dev,tobias.schaffner@siemens.com,vmalik@redhat.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  2 Oct 2026 00:43:06 +0000 (UTC)
+X-Exchange-RoutingPolicyChecked:
+	YAPbpaU92hO+XVk8smSPpGnJH6fn9Q8CrGEahCVH9Or45Ta3XeOU/fEIyahof/DqOxJHsvPi04nY5uxQDWOu9fyvBPF/b45nGnMDPhRnBvsOFjaeooGJo3ZQ6cryJ6iKmoQFA4KzIDwvbxtMuMRDZUpIqVtD3VxVNoEgVRFnbhkxjpZO06I5GjM0+kMFUEPOVLEAc6I+9Fopt97AC5lpquWMJrYeNh9akTNBXIk7jjK6YpGZMa0++aB84zG7/8C7uCPAqXfXV16NPH9A2DWZdaNA5OxCGb5KY7gQOyeue7Q850B4gpCfKOL2fmGlUymAczihNiwWkAEXaebiNRUSqg==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	cEk4ShX+IViW0TtlWzGi8IggAcaond5sQM45CR9ZTIRjseqtimAtzFWAzj+nh36vKnx66pwn+gQZUAPzoDMbcZosboHs6pAcfDFSxABHook1oohc7rcjhUW56hLU3YBDh1anT8IV323oTP2eGJRcYlZHr8iJq+2hZOkwztFiTgnrsvobm5xiS32jZramsLdhPQzExgM2teFU/XviKL8aIbQH+O5WojhYNpNhm3kv8rORigLQ50O9vdCLieNSfJG75kGrBrcicflpCUO39zRWph73q0eLmnHLqnvHP6z9pQFKQCwReRmDdfRCRDV0NCpPt2wppCp5XIpF3rKjvFIokP8mxgZrN/0jKWZgVXK51chxmDA5vitts3Gm8nMugCCuxo0Q0g/5DBzeCpZYa89fs8zKxOYO6JIvc8Sbk1sCuYhCnbsrrRH/qaWpSQEu1Yfaw6URa7XY3QuW3b34tFCUSyhfQYYhRDMHEgAhP5swWvuO1c/2/2ItkIjmxJDtCfMhgVq77JT5mM1zdpoJv0burmUG+IvUEew6pPGYuTGImx9lh7H/ocsLjpwNtvoAKhy42lz4PU3fzJFy52CrpMEMOlLwKQQRei2phtYrutZzs5pam3/UoYDl65S97kPS1dPDvtbLoGHWAUcOQpXAjbUEyQ==
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a035a85-c5bb-4dc6-11e2-08df201e2e34
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 00:43:30.5580
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9ICpl6afZUn0ZsLIHCFSQzZmZoFOoGyDnfAazcswcHX8k6+3vD7KgQLoB7qBWrifoC5dR10mibGy/oH/egKlYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8708
+X-Authority-Analysis: v=2.4 cv=T5oZ3PKQ c=1 sm=1 tr=0 ts=6abefe3a cx=c_pps
+ a=t4gDRyhI9k+KZ5gXRQysFQ==:117 a=t4gDRyhI9k+KZ5gXRQysFQ==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=qPHU084jO2kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=-4-sGo8i1FcW4KD7_GeR:22
+ a=6gl_cCoBAAAA:8 a=hD80L64hAAAA:8 a=jIQo8A4GAAAA:8 a=f34TCsnM3CMlkqItwuYA:9
+ a=QEXdDO2ut3YA:10 a=Bor9z-CvbNo2M6AZn8_k:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAwMSBTYWx0ZWRfX5tvk9oOXLMn0
+ dWMhnIcotkWshyRK7W1pp2phCEBsi7Y52DJpcSn11ckgemArU8NepUzvUZfvHoeLjdGvSvWGtiy
+ sqSyw8F9dVyTYrLwxVSUUHbt5AYD8Ug=
+X-Proofpoint-GUID: aKtBNArtNU5CCNeng5lkXm62_up2V911
+X-Proofpoint-ORIG-GUID: aKtBNArtNU5CCNeng5lkXm62_up2V911
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAwMSBTYWx0ZWRfX7BxipEY3uJHF
+ h/Kg2hbFdo0YZBhHCwlY4+9IyWZxkQsNMDuyZNwfyDdPM8rswoR5huc7NJ8mX5Rd49UAuyyEfll
+ x1G1tOTjkOusQBGf+df0t0o2CgPepvnnZWlEpaAyA6dFg2B7D5PesNTKSsOXaclIeO4g2l1HA4y
+ 5c0m+8mYQVzfHckMpkm/XVLMRkdZzplooi5RPqlT7c30IwRYOcjDvyy3aHuRODTwDrrN2KHY6MJ
+ h2rHS1wEBbl9bvBsEupxmMAiTamFbYW+4qJohohcYd9K5ruqZxOW2JXqlACMwEkVYT5vUSebHf3
+ YOICmXPa4/pYfAFtYtuQjSmhVTTBch5Ld8d+dwXL5sKtnSTl28mH8IVQfhusM1EQ4dd8hXGM2VF
+ 9QxC0QyPIguOFJPZzSiDF2AxOIVG5k57SKUbbuPBHzkNQ6qby/P3hENMADyFwNePj0TgHQyBZji
+ ptu482xB8ah7OVjjmFw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_05,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 lowpriorityscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501 clxscore=1011
+ spamscore=0 malwarescore=0 adultscore=0 classifier=typeunknown authscore=0
+ authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2609040000 definitions=main-2610020001
 
---===============2199014445031950111==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-> tools/rv: Add BPF monitors
-
-TL;DR:
-- Possible rv build breakage: requires host kernel BTF, old libbpf/clang may
-  lack likely() or -mcpu=v3
-- Intentionally broken nohz monitor gets installed, changelog omits this
-- O= builds write into source tree; install wildcard evaluated too early
-
-> tools/rv: Add BPF monitors
->
-> Add the code for 2 initial BPF monitors, both DA (the only currently
-> supported type):
->
-> * queue: per-task monitor stating tasks alternate enqueue and dequeue.
-> * nohz: per-cpu monitor stating the scheduler tick don't run when
->   stopped and can run only after being resumed.
->
-> BPF monitors can include the in-kernel da_monitor.h, which is now
-> adapted to share as much common code and conditionally compile what
-> needs to be BPF or kernel specific.
->
-> Integrate BPF monitor building into main rv Makefile, if all tools are
-> available on the system.
->
-> Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
-
-The changelog describes nohz as a monitor for a valid property, but nohz.c
-says the opposite:
-
-tools/verification/rv/bpf_monitors/nohz.c:
-  /*
-   * This monitor is broken on purpose to test errors, sched_tick can run with
-   * stopped ticks for one last time (deferred tick reprogram).
-   ...
-   */
-
-Should the changelog say that nohz is an intentionally broken test monitor?
-
-The new install rule in Makefile.rv copies every bpf_monitors/*.o, so 'rv
-list' would show nohz to users as a normal monitor that is known to report
-false violations.  A later patch in this series (f5a3c821fa88 "tools/rv: Add
-reactors support to BPF monitors") adds a panic reactor, so 'rv mon nohz -r
-panic' would panic on a known false positive.
-
-Should nohz be kept out of the installed set or clearly marked as a test
-monitor?
-
-Also, the first monitor is called 'queue' in the message but 'tqueue' in the
-code (MONITOR_NAME tqueue, tqueue.dot, tqueue.c).
-
-> diff --git a/include/rv/da_monitor.h b/include/rv/da_monitor.h
-> index 7f0bdfd7cce3..ee1cec73ec85 100644
-> --- a/include/rv/da_monitor.h
-> +++ b/include/rv/da_monitor.h
-
-[ ... ]
-
-> @@ -77,6 +82,9 @@ static struct rv_monitor rv_this;
->  #define da_id_type int
->  #endif
->  
-> +#ifdef __BPF__
-> +#include "da_monitor_bpf.h"
-> +#else
->  static void react(enum states curr_state, enum events event)
-
-Can the BPF build find likely() and unlikely()?
-
-The helpers in da_monitor.h that are now shared with BPF use them, for
-example in da_monitor_enabled():
-
-    if (unlikely(!rv_monitoring_on()))
-        return 0;
-
-The same applies to da_monitor_handling_event(), da_event() and the
-__da_handle_start*_event() helpers, plus the per-task and per-obj helpers in
-da_monitor_bpf.h.
-
-Nothing in the BPF include path defines these macros.  They are not in
-da_monitor_bpf.h or bpf_atomic.h, and vmlinux.h only has types.
-BPF_INCLUDES doesn't point at tools/lib, so <bpf/bpf_helpers.h> comes from
-the system libbpf, and libbpf only gained likely()/unlikely() in commit
-dafae1ae2ad3 ("libbpf: Add likely/unlikely macros and use them in
-selftests").
-
-With libbpf 1.5 or older headers, compiling bpf_monitors/*.c fails with
-'call to undeclared function unlikely'.  The libbpf feature test only checks
-that libbpf links (bpf_prog_load), so BUILD_BPF_OBJS stays 1 and a plain
-'make' of rv breaks.
-
-Could da_monitor_bpf.h provide '#ifndef likely' fallbacks, or could
-Makefile.config check the libbpf version before enabling BUILD_BPF_OBJS?
-
-No later patch in the series addresses this.
-
-[ ... ]
-
-> diff --git a/tools/verification/rv/Makefile b/tools/verification/rv/Makefile
-> index 0a8c7a656f7f..bb81593acd71 100644
-> --- a/tools/verification/rv/Makefile
-> +++ b/tools/verification/rv/Makefile
-
-[ ... ]
-
-> @@ -68,19 +72,51 @@ static: $(RV_IN)
->  	$(eval LDFLAGS += -static)
->  	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $(RV)-static $(RV_IN) $(EXTLIBS)
->  
-> +BPF_DIR		:= bpf_monitors
-> +BPF_SOURCES	:= $(wildcard $(BPF_DIR)/*.c)
-> +BPF_OBJECTS	:= $(BPF_SOURCES:.c=.o)
-> +VMLINUX_H	:= $(BPF_DIR)/vmlinux.h
-> +
-> +BPF_INCLUDES	:= -I$(srctree)/include/uapi
-> +BPF_INCLUDES	+= -I$(srctree)/include
-> +BPF_INCLUDES	+= -I$(BPF_DIR)
-> +
-> +BPF_CFLAGS	:= -g -O2 -target bpf -MMD -MP $(BPF_INCLUDES)
-> +BPF_CFLAGS	+= -Wall -Wno-unused-function -Wno-missing-declarations
-
-Do the BPF monitors need -mcpu=v3 here?
-
-The shared da_monitor.h code that is now built for BPF calls try_cmpxchg()
-from da_event():
-
-    if (likely(try_cmpxchg(&da_mon->curr_state, &curr_state, next_state))) {
-
-bpf_atomic.h implements try_cmpxchg() with __sync_val_compare_and_swap() on
-the 32-bit 'unsigned int curr_state' of struct da_monitor.
-Documentation/bpf/clang-notes.rst says:
-
-  Clang can generate atomic instructions by default when -mcpu=v3 is
-  enabled.  If a lower version for -mcpu is set, the only atomic
-  instruction Clang can generate is BPF_ADD *without* BPF_FETCH.
-
-A clang whose default BPF CPU is older than v3 (LLVM before 20 defaulted to
-the v1 'generic' CPU) therefore cannot compile nohz.c or tqueue.c.  Both
-reach da_event() through da_handle_start_event()/da_handle_event() ->
-__da_handle_event_common().
-
-Those clang versions still pass the clang-bpf-co-re feature test, so
-BUILD_BPF_OBJS stays 1, 'all: bpf' is added, and a plain 'make' of
-tools/verification/rv fails where it succeeded before this patch.
-
-Other in-tree BPF tools pass the flag explicitly, for example
-tools/sched_ext/Makefile uses '-O2 -mcpu=v3'.  Could -mcpu=v3 be added to
-BPF_CFLAGS?
-
-No later patch in the series changes this.
-
-> +
-> +VMLINUX		:= ../../../vmlinux
-> +VMLINUX_BTF	?= $(if $(wildcard $(VMLINUX)) , $(VMLINUX), /sys/kernel/btf/vmlinux)
-> +
-> +$(VMLINUX_H): $(VMLINUX_BTF)
-> +	$(QUIET_GEN)$(SYSTEM_BPFTOOL) btf dump file $< format c > $@
-
-Does the default rv build now depend on BTF from either the in-tree vmlinux
-or the build host's running kernel, with that BTF also needing to contain
-the RV types?
-
-Makefile.config doesn't check either.  The bpftool-btf feature test only
-runs 'bpftool btf help' and clang-bpf-co-re only checks the compiler, so
-BUILD_BPF_OBJS stays 1 and 'all: bpf' is added whenever the tools are
-installed.
-
-Failure cases for 'make -C tools/verification/rv':
-
-- No ../../../vmlinux and no /sys/kernel/btf/vmlinux (for example a chroot
-  or container build, or a host kernel without CONFIG_DEBUG_INFO_BTF): make
-  stops with "No rule to make target '/sys/kernel/btf/vmlinux', needed by
-  'bpf_monitors/vmlinux.h'".
-
-- The BTF source is a kernel without CONFIG_RV: struct rv_monitor, struct
-  da_monitor and union rv_task_monitor are missing from vmlinux.h, so
-  'static struct rv_monitor rv_this;' in da_monitor.h and the map value
-  types in da_monitor_bpf.h fail to compile.
-
-- The in-tree vmlinux was built without BTF: bpftool fails, but '> $@' has
-  already created bpf_monitors/vmlinux.h.  There is no .DELETE_ON_ERROR, so
-  the empty header stays newer than vmlinux and later make runs keep failing
-  until 'make clean'.
-
-Before this patch, building rv did not depend on the build host's kernel at
-all.  This also seems to contradict the commit message ("if all tools are
-available on the system") and the Makefile.config comment that RV can run
-without the monitors.
-
-Should the BTF input (and possibly the RV types in it) be checked, falling
-back to BUILD_BPF_OBJS=0 the way the missing clang/bpftool cases already
-are?
-
-No later patch in the series addresses this.
-
-> +
-> +$(BPF_DIR)/%.o: $(BPF_DIR)/%.c $(VMLINUX_H)
-> +	$(QUIET_CLANG)$(CLANG) $(BPF_CFLAGS) -c $< -o $@
-> +	$(Q)$(LLVM_STRIP) -g $@
-> +	$(Q)$(LLVM_OBJCOPY) --remove-section=.rel.rodata $@
-
-Should these rules honour OUTPUT like the rest of this Makefile does (RV :=
-$(OUTPUT)rv)?
-
-With 'make O=/some/dir' or 'make -C tools O=... rv', the rv binary and its
-objects go to $(OUTPUT), but bpf_monitors/vmlinux.h, *.o and *.d are still
-written into the source tree.  The build now writes into srctree and fails
-on a read-only source tree.
-
-The objects also end up where rv cannot find them.  bpf_fill_base_paths() in
-src/bpf_monitor.c overwrites the "." search entry with
-dirname(/proc/self/exe), i.e. $(OUTPUT), so rv looks for
-$(OUTPUT)/bpf_monitors, which doesn't exist.  Freshly built monitors are not
-found in an O= build until they are installed.
-
-Could the BPF objects and vmlinux.h be placed under $(OUTPUT)bpf_monitors/,
-with the install rule updated to match?
-
-[ ... ]
-
-> diff --git a/tools/verification/rv/Makefile.rv b/tools/verification/rv/Makefile.rv
-> index 2497fb96c83d..418748bc3aa1 100644
-> --- a/tools/verification/rv/Makefile.rv
-> +++ b/tools/verification/rv/Makefile.rv
-
-[ ... ]
-
-> @@ -33,12 +33,17 @@ INSTALL		:= install
-[ ... ]
->  install: doc_install
->  	$(Q)$(MKDIR) -p $(DESTDIR)$(BINDIR)
->  	$(call QUIET_INSTALL,rv)$(INSTALL) $(OUTPUT)rv -m 755 $(DESTDIR)$(BINDIR)
->  	$(Q)@$(STRIP) $(DESTDIR)$(BINDIR)/rv
-> +ifneq ($(wildcard bpf_monitors/*.o),)
-> +	$(Q)$(MKDIR) -p $(DESTDIR)$(BPF_MON_DIR)
-> +	$(call QUIET_INSTALL,bpf_monitors)$(INSTALL) bpf_monitors/*.o -m 644 $(DESTDIR)$(BPF_MON_DIR)
-> +endif
-
-Is this ifneq/$(wildcard) check evaluated too early?
-
-It runs when Makefile.rv is parsed (it is included from Makefile), not when
-the install recipe runs.  In a single invocation such as 'make all install'
-(or 'make bpf install') on a clean tree, the wildcard is empty at parse
-time, so the BPF install lines are dropped from the recipe.  The rv binary
-is installed but the monitors that were just built are silently skipped.
-
-Would a shell-level test inside the recipe, for example 'if ls
-bpf_monitors/*.o >/dev/null 2>&1; then ...', be more robust?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36944413541
---===============2199014445031950111==--
+T24gVGh1LCBPY3QgMDEsIDIwMjYsIE1hcmVrIFN6eXByb3dza2kgd3JvdGU6DQo+IGR3YzNfZ2Fk
+Z2V0X2V4aXQoKSBkZXN0cm95cyBkd2MtPmNvbm5lY3RfbXV0ZXggYmVmb3JlIGNhbGxpbmcNCj4g
+dXNiX2RlbF9nYWRnZXQoKSwgd2hpY2ggdW5iaW5kcyB0aGUgZ2FkZ2V0IGRyaXZlciBhbmQgZW5k
+cyB1cCBpbg0KPiBkd2MzX2dhZGdldF9wdWxsdXAoKSB0YWtpbmcgdGhhdCBhbHJlYWR5IGRlc3Ry
+b3llZCBtdXRleC4gV2l0aA0KPiBDT05GSUdfREVCVUdfTVVURVhFUyB0aGlzIHRyaWdnZXJzIHRo
+ZSBmb2xsb3dpbmcgd2FybmluZyBvbiByZWJvb3Q6DQo+IA0KPiAgREVCVUdfTE9DS1NfV0FSTl9P
+Tihsb2NrLT5tYWdpYyAhPSBsb2NrKQ0KPiAgV0FSTklORzoga2VybmVsL2xvY2tpbmcvbXV0ZXgu
+Yzo2MjUgYXQgX19tdXRleF9sb2NrKzB4NGJjLzB4Yjg4LCBDUFUjMTogc3lzdGVtZC1zaHV0ZG93
+LzENCj4gIC4uLg0KPiAgQ2FsbCB0cmFjZToNCj4gICBfX211dGV4X2xvY2srMHg0YmMvMHhiODgg
+KFApDQo+ICAgbXV0ZXhfbG9ja19uZXN0ZWQrMHgyNC8weDMwDQo+ICAgZHdjM19nYWRnZXRfcHVs
+bHVwKzB4ODgvMHgxNTANCj4gICB1c2JfZ2FkZ2V0X2Rpc2Nvbm5lY3RfbG9ja2VkKzB4NDQvMHgx
+ZjANCj4gICBnYWRnZXRfdW5iaW5kX2RyaXZlcisweDQ4LzB4MTI0DQo+ICAgZGV2aWNlX3JlbW92
+ZSsweDRjLzB4ODANCj4gICBkZXZpY2VfcmVsZWFzZV9kcml2ZXJfaW50ZXJuYWwrMHgxZTAvMHgy
+M2MNCj4gICBkZXZpY2VfcmVsZWFzZV9kcml2ZXIrMHgxOC8weDI0DQo+ICAgYnVzX3JlbW92ZV9k
+ZXZpY2UrMHhlOC8weDFhMA0KPiAgIGRldmljZV9kZWwrMHgxNGMvMHg0MTQNCj4gICB1c2JfZGVs
+X2dhZGdldCsweDkwLzB4ZTgNCj4gICBkd2MzX2dhZGdldF9leGl0KzB4NDAvMHg5Yw0KPiAgIGR3
+YzNfZHJkX2V4aXQrMHhlNC8weDE0Yw0KPiAgIGR3YzNfY29yZV9yZW1vdmUrMHgxNDAvMHgxN2MN
+Cj4gICBkd2MzX3Fjb21fcmVtb3ZlKzB4MzgvMHgxMjANCj4gICBwbGF0Zm9ybV9zaHV0ZG93bisw
+eDI0LzB4MzQNCj4gICBkZXZpY2Vfc2h1dGRvd24rMHgxNTgvMHgyNjANCj4gICBrZXJuZWxfcmVz
+dGFydCsweDQ0LzB4YTQNCj4gICBfX2RvX3N5c19yZWJvb3QrMHgxMTgvMHgyNGMNCj4gICAuLi4N
+Cj4gDQo+IEZpeCB0aGlzIGJ5IGluaXRpYWxpemluZyBkd2MtPmNvbm5lY3RfbXV0ZXggdG9nZXRo
+ZXIgd2l0aCBkd2MtPm11dGV4IGluDQo+IGR3YzNfY29yZV9wcm9iZSgpLg0KPiANCj4gRml4ZXM6
+IDFmZjc3Y2JlZmU1YSAoInVzYjogZHdjMzogZ2FkZ2V0OiBmaXggSVJRIHN0b3JtIG9uIGludmFs
+aWQgZXZlbnQgYnVmZmVyIGNvdW50IikNCj4gQXNzaXN0ZWQtYnk6IENsYXVkZSBPcHVzIDUuNSA8
+bm9yZXBseUBhbnRocm9waWMuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBNYXJlayBTenlwcm93c2tp
+IDxtLnN6eXByb3dza2lAc2Ftc3VuZy5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy91c2IvZHdjMy9j
+b3JlLmMgICB8IDEgKw0KPiAgZHJpdmVycy91c2IvZHdjMy9nYWRnZXQuYyB8IDIgLS0NCj4gIDIg
+ZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy91c2IvZHdjMy9jb3JlLmMgYi9kcml2ZXJzL3VzYi9kd2MzL2NvcmUu
+Yw0KPiBpbmRleCBmZDVjMmNkMzZjNTkuLmY5NzdiYzNlZWI3OSAxMDA2NDQNCj4gLS0tIGEvZHJp
+dmVycy91c2IvZHdjMy9jb3JlLmMNCj4gKysrIGIvZHJpdmVycy91c2IvZHdjMy9jb3JlLmMNCj4g
+QEAgLTIzNzMsNiArMjM3Myw3IEBAIGludCBkd2MzX2NvcmVfcHJvYmUoY29uc3Qgc3RydWN0IGR3
+YzNfcHJvYmVfZGF0YSAqZGF0YSkNCj4gIAl9DQo+ICANCj4gIAltdXRleF9pbml0KCZkd2MtPm11
+dGV4KTsNCj4gKwltdXRleF9pbml0KCZkd2MtPmNvbm5lY3RfbXV0ZXgpOw0KPiAgDQo+ICAJcG1f
+cnVudGltZV9nZXRfbm9yZXN1bWUoZGV2KTsNCj4gIAlwbV9ydW50aW1lX3NldF9hY3RpdmUoZGV2
+KTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdXNiL2R3YzMvZ2FkZ2V0LmMgYi9kcml2ZXJzL3Vz
+Yi9kd2MzL2dhZGdldC5jDQo+IGluZGV4IGVlODM3MjM1NjMwYS4uOGZkMWZkOWIwZGIzIDEwMDY0
+NA0KPiAtLS0gYS9kcml2ZXJzL3VzYi9kd2MzL2dhZGdldC5jDQo+ICsrKyBiL2RyaXZlcnMvdXNi
+L2R3YzMvZ2FkZ2V0LmMNCj4gQEAgLTQ4NzksNyArNDg3OSw2IEBAIGludCBkd2MzX2dhZGdldF9p
+bml0KHN0cnVjdCBkd2MzICpkd2MpDQo+ICANCj4gIAlpbml0X2NvbXBsZXRpb24oJmR3Yy0+ZXAw
+X2luX3NldHVwKTsNCj4gIAlJTklUX1dPUksoJmR3Yy0+ZXJyX3JlY292ZXJ5X3dvcmssIGR3YzNf
+ZXJyX3JlY292ZXJ5X3dvcmspOw0KPiAtCW11dGV4X2luaXQoJmR3Yy0+Y29ubmVjdF9tdXRleCk7
+DQo+ICAJZHdjLT5nYWRnZXQgPSBremFsbG9jX29iaihzdHJ1Y3QgdXNiX2dhZGdldCk7DQo+ICAJ
+aWYgKCFkd2MtPmdhZGdldCkgew0KPiAgCQlyZXQgPSAtRU5PTUVNOw0KPiBAQCAtNDk3Nyw3ICs0
+OTc2LDYgQEAgdm9pZCBkd2MzX2dhZGdldF9leGl0KHN0cnVjdCBkd2MzICpkd2MpDQo+ICAJCXJl
+dHVybjsNCj4gIA0KPiAgCWNhbmNlbF93b3JrX3N5bmMoJmR3Yy0+ZXJyX3JlY292ZXJ5X3dvcmsp
+Ow0KPiAtCW11dGV4X2Rlc3Ryb3koJmR3Yy0+Y29ubmVjdF9tdXRleCk7DQo+ICAJZHdjM19lbmFi
+bGVfc3VzcGh5KGR3YywgdHJ1ZSk7DQo+ICAJdXNiX2RlbF9nYWRnZXQoZHdjLT5nYWRnZXQpOw0K
+PiAgCWR3YzNfZ2FkZ2V0X2ZyZWVfZW5kcG9pbnRzKGR3Yyk7DQo+IC0tIA0KPiAyLjQzLjANCj4g
+DQoNCkFja2VkLWJ5OiBUaGluaCBOZ3V5ZW4gPFRoaW5oLk5ndXllbkBzeW5vcHN5cy5jb20+DQoN
+ClRoYW5rcyBmb3IgdGhlIGNhdGNoLg0KDQpCUiwNClRoaW5o
