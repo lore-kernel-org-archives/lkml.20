@@ -1,194 +1,198 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C79B3EC69D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8FF32ED24
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968280; cv=none; b=YwKEOHQo9b0WBRT6qjT4SU2+K0mn+1WNbFmhLGu7ezH11CDy9MaHwmeyVPszT/I0LyyAAHwxc+eHvwGQzRyAtPi/zHB+Y1GUiKqDWb1EybK3YDQi2uPZ/sTCpoUhrSZmqI817OXJMHH8iWJG1+/elN5CFwlmjEjyo4HjVsXeNTc=
+	t=1790968295; cv=none; b=S+8qsPQMotz5jFVH83/+sS7oqilIcqmluMknWCCQl5dP3Xj8Mj2WxU5qqlZmfbWX7mmhEZ/TF/9V5mrlE04sqWb+BcWKaFLRK59oJR4VUpPyIPnuXIr58jUxNFvam/+FSZElwOhkv4hT6ALQoWzEoNhZ608eGgTnQTU2SFzx2hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968280; c=relaxed/simple;
-	bh=WF6+y8M1H87RN89tbxSCX46b7bs0+K3hXAxym6HzJ4o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JofZgMSh1zKQxZf/qFV2e6mnO+0vqAekphqJDcJmlOg765sYR75/VQ1g2sT5ZDlzjVszRLf9kTYWKpT8CQL7cr0PTCY1At0N/U+zIxk0+t1jilpOchIQMUPsov09XCGCcdS+9n1a6RUZGOKO74TIXj54EZElxuFkLWFg0E47VgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=brqvbZWX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FUZMgQTg; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790968295; c=relaxed/simple;
+	bh=ucAm/2QLfZNdrttee+pgFwfEQOBs8O/voze0AdcSsbo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jBbtFm9+JjjkMKKIBzWPZFdAwncUVpbddysrKvjME8AycbJDidHbOzdPG2DWtPRQKjTsrdxQCa4Ur2O5ITl4ScoMnYLRV4zXoE9f3td4rO7ijeoHmsw1xBObDVrV5PEnJIZHuZxI5Tn3VPE0omc2sF6VAYrTi0jVOkog+OEhYtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2uZjQ51; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="brqvbZWX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FUZMgQTg"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692HYIwA2174814
-	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 19:11:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ucaMuJoTpFK+IiMHoGwV2a/H7vZce9en2rw5/IvbLME=; b=brqvbZWXTDC4JTZy
-	gMAkvqMCcyxckvBTqGVWw8NXMzKjQwc4PI3UjA+S3n5zzJH82j2P5mKt6Z2LpWRx
-	o/vG0+zFECT5W+Z6J04+4xJctOws+bd/n8dXI/OCk6pcf+eVTnXab8Yka0gYKTmV
-	P0HD2s9LsiJln5sz6iKIO1Lzvsb+oUGUKKizM4pvGhWMLkFW5ocsfrASLOGRsfm9
-	3JEP2uoFIyxV2XvDrOZ0dE/dueWJlzt9S43u8diMytGruh0kz03NT9x0bLLxvRgh
-	yKRAddF2t8/xA/jKopJmWgzSKAyukbePdV2cRcbNe+4f4kx5e2Kl8+yJg/9m3GEq
-	uUu2Nw==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2h4krctm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 19:11:11 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33baaba6371so11046617eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:11:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790968271; x=1791573071; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ucaMuJoTpFK+IiMHoGwV2a/H7vZce9en2rw5/IvbLME=;
-        b=FUZMgQTglL+ny9+t3Z5i3wywn/7VOizY1OE3BF6wPu0IKYIya2kX8u6j5tjAoVm+gM
-         bV5ByauoH4DmtEoGXADgdoMNY7mYk7M9SBrvEHJwizHkVvAinaZh3bVR4GOsxjHILWx5
-         lgwhyBsUpSZ0xW7cgblj60ZJM9rRuPGMKXHQ+JlIozw/kidng7VzoIg7+JM9g9ZB/QIY
-         kyw/W47S2nNfK9vdWmvdgmv44zWc+rvfqSrzSPjixFX/s0cH7QjKTOG14B2bty0rgeW4
-         qLT3GZNUZrXsgvka3NT7sGeraLdShTwgZJBghumDFjlzkmMMSbopNdSvAaVygwHkhzG5
-         p/tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790968271; x=1791573071;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ucaMuJoTpFK+IiMHoGwV2a/H7vZce9en2rw5/IvbLME=;
-        b=vtGktFi3Hue8TXy2v25b5oIlg0uv3C13ZFrRfnhMTErI5znn9qbKQCbJ7WlY2rNyeK
-         RIbTQzkBPgNtTkaWSpF28E6bSnLZbOErxQ0VGrZvUiIuQZSVudG1mURztseatgUzLIm+
-         XsGidgLYMIKbLJr5beGSm//6yLA6C1KJNt6P3VjBBZQDEhMazBgy2ImmljiupkuVoUDt
-         Q4s8cNwWC6D5P5gvBc0qO6dFeZ7ycUb3x2K+hQryuA6fqizQ270im6VUzF2TkU2B2t/F
-         DviXasVceFJT06UpGZd52a0G2x4qJ2iiE7iI1vrc5lae/pRaXIjxQs2eHbmRJS9BO1HI
-         HVeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybrohdSWVYvhbIg9zulsgJRk029vQtpRZw/XWDHbmWjgCPAJR1pR8myRapssORO66lhD9uYetR9ncfX3g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhZ1xGQZKKs/EkjrHAd7h12FXNZmU60vROFAjvfiD/DNDvJRKp
-	iPKqZ+QyxmDEGScHDyYeNqRT9/7OXoGF+q6gsOucKEQZNUtSaDxdHT9K09d/jvdibvAGJLQdW6z
-	14t+ld684Bvn35pi4ycxFpuVkb3hWfobF6fBtLrYlJ0pcR2Yq3ehATO/6h6Y1A0vkub8=
-X-Gm-Gg: AYBFou3PDTpsNTyqqkgE4sr6QMEwq2DgFTfnk94Nvi8LFA6cdHriFqU7YWnZwj0fmF9
-	moJ8jhJk7LOuKpTi7K7TXEOumscW8OVbOP2f8Ju3hAc60is3lAZsug8a7n3Al/8bNvqKraEsvcc
-	/vqJXjkg/tgQBWXR92rARbcR8s2aq39oKbGgzjJQ1twG5jEn7uqbyk4WXqJRHcjEBPOJdpbbKjO
-	M6lLasYpvaa4wuAPDjQvDIaCH0pDKborY/1FKKr2p3/sM0sQILfxP2YU8aZWvvyNefwPZEa0gRg
-	1Fb6eoSmdd8xPeAK67SOgz8ymhR7VL88H4+SdBzxxjbMt8eYvL+ztVXfzcX6wSSZOGrs+AYjbCa
-	GhEfAOkgS8v5gZP/cBhseeqnxokHCBe6oH0MriAq0EhiiD7Jr8Bz9LlQ=
-X-Received: by 2002:a05:693c:83c3:20b0:33b:f5b7:f494 with SMTP id 5a478bee46e88-34f1509e567mr4432620eec.13.1790968270830;
-        Fri, 02 Oct 2026 12:11:10 -0700 (PDT)
-X-Received: by 2002:a05:693c:83c3:20b0:33b:f5b7:f494 with SMTP id 5a478bee46e88-34f1509e567mr4432590eec.13.1790968270237;
-        Fri, 02 Oct 2026 12:11:10 -0700 (PDT)
-Received: from alokad-linux.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35105dd1dfasm5263296eec.8.2026.10.02.12.11.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:11:09 -0700 (PDT)
-From: Aloka Dixit <aloka.dixit@oss.qualcomm.com>
-Date: Fri, 02 Oct 2026 12:10:56 -0700
-Subject: [PATCH wireless-next 1/2] Revert "wifi: mac80211: do not use old
- MBSSID elements"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2uZjQ51"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A3C1F000FF;
+	Fri,  2 Oct 2026 19:11:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790968293;
+	bh=xepjiv98niKg0eR0g6TZAWyusgKSgcyQj0ds3O6lxl8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=C2uZjQ51Jdphz8xDCTe/fSF/32tpFJFx0vjUDSdoaiHb0qAbb0G2b1bfsryrQ/Pn/
+	 5jXtmI4fD6jGmsStgw/UIWAxCkX52RITB/QLhfy7swkp5kOgud/qG8Ve5IWaxAud8Q
+	 Ed81tCq6BrT4/7U/DbRBZ/3EWbhPvYs3jMI6wbCepIJwkDeV3y0IaYk79XGWKkLrS0
+	 e4uniPe5HIIEGt3kotlBlzO5mPWV5uc8ESf0vnV2hUAEXLPNKLD15BfpaMF+kYajC4
+	 fRVCHrxl3aQ7OW6OYUrdu11E1tdhOjhedYdvqHYS+OlV32z6DRR54aOGqKzljjItpt
+	 cby3qki4jXyiA==
+Message-ID: <7bd00f36-3f48-490e-ab4c-7ed15be931d2@kernel.org>
+Date: Fri, 2 Oct 2026 21:11:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 02/14] mm: shmem: shmem_getattr(): set blksize to
+ highest supported THP order
+To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
+ lance.yang@linux.dev
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com, usama.arif@linux.dev
+References: <cover.1789695931.git.luizcap@redhat.com>
+ <0f18a45baec44d193f8dbc760ef57c0430e04bdb.1789695931.git.luizcap@redhat.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <0f18a45baec44d193f8dbc760ef57c0430e04bdb.1789695931.git.luizcap@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-csa_cca_fix-v1-1-b83a998aeb44@oss.qualcomm.com>
-References: <20261002-csa_cca_fix-v1-0-b83a998aeb44@oss.qualcomm.com>
-In-Reply-To: <20261002-csa_cca_fix-v1-0-b83a998aeb44@oss.qualcomm.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Aloka Dixit <aloka.dixit@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=G46JgNk5 c=1 sm=1 tr=0 ts=6ac001cf cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=N6xB3pvji6ksF1bIA8MA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: UqXajeTe7AR1AR481WA9j4fzG0fRFf5a
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA3NiBTYWx0ZWRfX9IxB/lPtwUjV
- XSYo230ZUVnjmXkQaaV3hMfF0ZBdqXFhA6JsgSl0yFhS1z3KhuOZuuWA6S99Nk+qmZMdO2cfzNV
- aYQjp45L1sXwFUgo9wj4l6XxbRlixTI6LRFwud5P/o50bgQKmaVu+6Q/Y/5OAhv19Rp8+MJHamm
- RhJAxOa1QkRb7lykhbxoCMNCM/FG+waxYS8IU217qvTD+AkL5AoO/W5hK2SWXb73vw1pQjWdgPF
- +sTwZztmOLHCRjM3qgfrjqunm0/XmmoQX8NiKca2+TErPJt4v4puX2qnhnb+TKLZlPL3KKhVUer
- otVaIHOs5quf6K9XvNP5ppmNu4G8GHUs+2JwxD5uhyGwuE2GMh1hZRPzmEO3ETZ0GmZvV4HBrff
- d+5ZkSX1a+HMdW8uJSpF+U4FZuCnzMJNuKjOwaaPbOuhCMurePiI2qb0TbvjFyPtXQUhK5n5esv
- qRT0Mgf7Dr9A+srHqlw==
-X-Proofpoint-GUID: UqXajeTe7AR1AR481WA9j4fzG0fRFf5a
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA3NiBTYWx0ZWRfX9mjf7mrBRPFv
- kz4TybyyppnvFJLUbfC96kHCKH9vEY5WHn6VH/Axw/7UJM57WMi6B9QQjRHLgmBC56JKTTS45qi
- pSG87kNb7j7fB8KRbDCgZgJkRLO5WgM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_05,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- impostorscore=0 adultscore=0 malwarescore=0 clxscore=1011 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020076
 
-Commit a519be2f5d95 ("wifi: mac80211: do not use old MBSSID
-elements") fixed the incorrect inclusion of stopped/removed
-non-transmitted profiles from the Beacon frames, but it caused
-a regression for channel switch (CSA) and BSS color change (CCA)
-operations initiated from hostapd.
+On 9/18/26 03:45, Luiz Capitulino wrote:
+> Today, shmem_getattr() sets stat->blksize to PMD size whenever
+> shmem_huge_global_enabled() returns non-zero. While this works fine
+> for the normal THP-enabled case as explained by Baolin in [1], this
+> has two problems:
+> 
+>  1. Theoretically, when shmem is configured for within_size, this
+>     could set blksize to PMD size even though the allocation may
+>     be a smaller mTHP order
+> 
+>  2. A future commit will allow shmem THP support to be enabled
+>     even when the CPU doesn't support PMD-sized pages. We should
+>     not allow blksize to be set to PMD size in this case
+> 
+> In order to fix #1 and prepare for #2, this commit sets blksize
+> to the size of the highest supported order returned by
+> shmem_huge_global_enabled().
+> 
+>   [1] https://lore.kernel.org/linux-mm/6591a74c-7ef9-4614-9ae9-cb2fbed86ebf@linux.alibaba.com/
+> 
+> Suggested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+> ---
+>  mm/shmem.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index b572c60f2af8..776dff8a848e 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1506,6 +1506,7 @@ static int shmem_getattr(struct mnt_idmap *idmap,
+>  {
+>  	struct inode *inode = path->dentry->d_inode;
+>  	struct shmem_inode_info *info = SHMEM_I(inode);
+> +	unsigned int orders;
+>  
+>  	/* Fast-path hint; recalc under info->lock corrects any stale read. */
+>  	if (data_race(info->alloced - info->swapped != inode->i_mapping->nrpages))
+> @@ -1522,8 +1523,9 @@ static int shmem_getattr(struct mnt_idmap *idmap,
+>  			STATX_ATTR_NODUMP);
+>  	generic_fillattr(idmap, request_mask, inode, stat);
+>  
+> -	if (shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0))
+> -		stat->blksize = HPAGE_PMD_SIZE;
+> +	orders = shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0);
+> +	if (orders)
+> +		stat->blksize = PAGE_SIZE << highest_order(orders);
+>  
+>  	if (request_mask & STATX_BTIME) {
+>  		stat->result_mask |= STATX_BTIME;
 
-Hostapd passes two Beacon templates to kernel for CSA and CCA -
-(1) beacon_csa/beacon_color_change used during the countdown.
-(2) beacon_after/beacon_next used after the countdown completes.
-Hostapd relies on the kernel to include the old MBSSID elements
-while sending beacon_csa/beacon_color_change templates to the
-driver.
+Heh, looking into the history of this I stumble over
 
-This path is now broken and results in CSA/CCA failure.
+commit 89fdcd262fd40712da65e922558872a12b203332
+Author: Yang Shi <yang.shi@linux.alibaba.com>
+Date:   Thu Jun 7 17:06:59 2018 -0700
 
-Including existing MBSSID elements explicitly makes the netlink
-buffer larger than default 4 KB depending on the number of APs
-which would need unnecessary complication to pre-calculate the
-buffer length.
+    mm: shmem: make stat.st_blksize return huge page size if THP is on
 
-Revert the commit to fix the regression.
+    Since tmpfs THP was supported in 4.8, hugetlbfs is not the only
+    filesystem with huge page support anymore.  tmpfs can use huge page via
+    THP when mounting by "huge=" mount option.
 
-Regarding the original issue fixed by the reverted commit -
-Hostapd now has a new commit which always includes at least one
-MBSSID element when the feature is enabled, hence when all
-non-transmitted profiles are removed, this empty element ensures
-that stopped profiles are not advertised.
+Which is a good read, especially regarding Hugh's comments:
 
-Fixes: a519be2f5d95 ("wifi: mac80211: do not use old MBSSID elements")
-Signed-off-by: Aloka Dixit <aloka.dixit@oss.qualcomm.com>
----
- net/mac80211/cfg.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+"
+    : Sorry, I have no enthusiasm for this patch; but do I feel strongly
+    : enough to override you and everyone else to NAK it?  No, I don't feel
+    : that strongly, maybe st_blksize isn't worth arguing over.
+    :
+    : We did look at struct stat when designing huge tmpfs, to see if there
+    : were any fields that should be adjusted for it; but concluded none.
+    : Yes, it would sometimes be nice to have a quickly accessible indicator
+    : for when tmpfs has been mounted huge (scanning /proc/mounts for options
+    : can be tiresome, agreed); but since tmpfs tries to supply huge (or not)
+    : pages transparently, no difference seemed right.
+"
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index bd1a857c812d..b38941e6784f 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -1518,6 +1518,7 @@ ieee80211_assign_beacon(struct ieee80211_sub_if_data *sdata,
- 
- 	size = sizeof(*new) + new_head_len + new_tail_len;
- 
-+	/* new or old multiple BSSID elements? */
- 	if (params->mbssid_ies) {
- 		mbssid = params->mbssid_ies;
- 		size += struct_size(new->mbssid_ies, elem, mbssid->cnt);
-@@ -1527,6 +1528,15 @@ ieee80211_assign_beacon(struct ieee80211_sub_if_data *sdata,
- 		}
- 		size += ieee80211_get_mbssid_beacon_len(mbssid, rnr,
- 							mbssid->cnt);
-+	} else if (old && old->mbssid_ies) {
-+		mbssid = old->mbssid_ies;
-+		size += struct_size(new->mbssid_ies, elem, mbssid->cnt);
-+		if (old && old->rnr_ies) {
-+			rnr = old->rnr_ies;
-+			size += struct_size(new->rnr_ies, elem, rnr->cnt);
-+		}
-+		size += ieee80211_get_mbssid_beacon_len(mbssid, rnr,
-+							mbssid->cnt);
- 	}
- 
- 	new = kzalloc(size, GFP_KERNEL);
+(I agree with Hugh, also I find it odd to indicate for THP something > PAGE_SIZE)
+
+Anyhow, that ship has sailed.
+
+Effectively, I think "stat->blksize" is not that relevant. But indeed, today it
+gives us the highest *possible* size we could see on that system.
+
+shmem_huge_global_enabled() does not seem to depend on any runtime toggles that
+could change, only on inode properties.
+
+So your change looks good to me.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-2.34.1
+Cheers,
 
+David
