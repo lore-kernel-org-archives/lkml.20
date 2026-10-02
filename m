@@ -1,389 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E168331EBD;
-	Fri,  2 Oct 2026 14:02:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2561B652E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949748; cv=none; b=OD8o/Edwo0TiMpfcql1sUn62uV90GpRynKfpyvE6ylxEjiynVTUTOL3AvVs+V+Fakrr0PySFEn/0lFMB0e3X16jJEBqMgIMLRTjHbzoyh2nuP1JPX57LHXjJeoMUyOO7F2jD+T1HieVjm0SAMjEQPg/DUSLtOsGxiATtUTV0peg=
+	t=1790949755; cv=none; b=cn3XSWsmTV1qq+fSgGgj/3YWoJLTWdWgoLcbcxPRx0EMms2+swsv8MFmEpv+Px5CDuCrPzJ5fGhpe7/RCvyTlb+TejsdjgkabLE939kMrYwsHdoXj+mpParz1xtzSlRzACJXowxgP4cd5zkYvQZotu/BHmUBuDUTUOnKKdxg4dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949748; c=relaxed/simple;
-	bh=2MCwPlJFfQJd2tkp7S2m5NtuoNVmxstsicfvV70Q3JY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CWPmMaKRYfdeAlaKRtphLgHmt/DLYc0cC9PgzXbBpa+gXZSleCjysOzgsFY/Q7T/Yetq80FBcj89gJxjBXnFLDb71rnrMtU5WoefUsDmhd/qLGDraBitwQrgKV1iXfrI7/4Bd+jQgcvC8a2HedwfktEoPjxbxh8MujXu5iT2lLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YW8clJ+z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790949755; c=relaxed/simple;
+	bh=ya/7HZIUS2P76+MVLBOL/856vdgFTqKa0oQKpvBI7M0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=iZyGHIjRaht8wYYFI71EJaBXe1GafSiRDE8+aauALGf7rDRlpSoN72xCyzefztr4K6XHrBqNIv0K9JoaZhnxJ7UuhOCWnbzSlnGGwmzb9B1ZuLsAGFRDQjif7cDGLn1rUAibS1MKHjc49JCm+V4xabLx+vTgjQDwohINjoF5Oak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ArL0vRDi; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YW8clJ+z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E7A1F000FF;
-	Fri,  2 Oct 2026 14:02:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790949746;
-	bh=qMvrzwIAiSmYGjSfoW+y+Z1PW3tJz8IMPyFAFy3y9/0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YW8clJ+zzBGaV7ioAWWNIl0GBeCALvL/zECHZ7h56xhhLRaN/ybvLmDRj0pWSdxci
-	 eyuSqeUhVmSXPM+QnojqpG3ahStbBuXi6QZIoTWY8FBSxOTUI9aRguRWMWmJ0vq4Cm
-	 i3YdTPfrQESor+rFXEZNMSa+t72YnO8LcwYR1Hl0iQG1w/e057Kf5l52HQRc80V5OV
-	 jQsHTVkXrH3+g0rLclmcoztM3W2F/V6YGaMc4Gi1JhFX0UzeQtjVTmOnq4Z2nQYbE+
-	 OfkaHRuQKCc8vj3yFWOEp64OmQ4szc+V62e3n5iN42ETYqf/t9wtl11He1ecwuYCx4
-	 l3LXa2/dSh/xg==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v3 1/2] tracing: Override the same name trace_instance= by latter one
-Date: Fri,  2 Oct 2026 23:02:22 +0900
-Message-ID: <179094974235.609715.7085605075646393261.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179094973121.609715.2103310055830923648.stgit@devnote2>
-References: <179094973121.609715.2103310055830923648.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ArL0vRDi"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afe3b2383so2459891f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:02:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790949752; x=1791554552; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qb3iCujopSE8wIGt0Gx78GxDd4scP1isaUjBiUrVvNQ=;
+        b=ArL0vRDifEYvGtSbv/7ZYJ8+BDeBgbdxr2lqu0V3EfkWh+6W6PyaAChDbJrmd62+gO
+         zJPVhOQ+6UZPU8QhWv1pyaBurbePqwT365/DtpLv37l55NSe7NDuLY4P03N39hv/kFKM
+         ZpoLB17UgEdJPOankomixVTbnyEfKHbFZom8MRZJfcZnBymzcs45VOZ7Jlr1C7UVUZ+G
+         wbcluy4Zti1QBhqlxSFmwjLTyCDcn/QUYyaiGbcm8SjjPW2SuuHFnG2b/rlSwHBACzrf
+         DQKBNSX85YX3qwwOn2kJ5v745W3AA6cy3qmWnqjQTphZ9r8S1KKLdR7FEmDyF8KabWfh
+         BJvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790949752; x=1791554552;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qb3iCujopSE8wIGt0Gx78GxDd4scP1isaUjBiUrVvNQ=;
+        b=pta+MkIFs12bKiPLZpM9bNDL7vuGpK2x3p3Pp+ZIm4IbEfwufrLk4GPBnz5yaWFESu
+         3qwlgn2zaR5oxdBuvRvZ2DJ3UoGPBaqDbyro0KojwTeIhf+77ePyxi+XNyzskWdlLXuE
+         W5GA92D75iJuwETt51Rst8bCn6rSf7pVEKgoanahPx2qvabTf0NUJN1C7gaaNwyzxd8N
+         lLZXBUak/TS6We63zvmbQRmbgt5dRe7MGQfTYkeZhFNad1ofGs6SwhfMZA5Cpc36PYMY
+         Yr0XTbW6bvCHgyNzDXRaEPP2wPHMgU63B7Ho79pDK36A5zBLF4EYdnzk4AAqAdlN+Jk4
+         mmVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwXA+9fwCljx8S1qeWG2hMi5D1+gjEdAgvfWg7p0TTlZgl6dOj1QYtpcufV8NRaOxAgUJOqcdGShbJpmu4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGiBHYXr/xa383a399i0vyEweQQu4u42YTfpJb+X3BpV+juBlT
+	ZoFRHfKBHXkSKIJh46jFdJJAQxCsa90+pPENOl7RGYL7XDW+ZihzcksPuzfhvqFJH98=
+X-Gm-Gg: AYBFou08kly/XdfCz2icOHR2a0eSsgzVIiQD8RO+SyWLK03x1V5uC4ia9S3EDqAMqye
+	AWj3A/CUj8klItTtl7KaJ42cIXfo7BGo7GJjOkDrSS197BUZ0PLNMf256lwaiPqE+A+z30nz14P
+	jE6YUCy9ZyZ2rMztD1He3H0+/rRUq1wRGWPw1J8R3MUJbSb/ryDfMe9+/ORdydLhI+TBRQKPDip
+	QxEq0sGNwGJ/IH8ZovWa8tzOawmkdnlKjkzqob+dvC+sGXPm2gjP5Se4/UeXux4aNKzRYm1O3gf
+	fR7X5XdGn8p3ZAr4aEjhKq9Acipw/gyBmMaQLvlo2ih+lTewmoqhUq5X+T670XTX7RCay2O9n6d
+	Q1rpb5EglJwTj4hI435irdZC4mW4okjgUqakN1zPLzjmQl7+FrrXXY8OG/8Ki5aRkPSkjq/W02m
+	5NNvM3crEUi4X33MO2WRg0mN8PgbwjedsHRxg3hyPuWaKNsKxqrVmjCPFKl0LOcO7IrmwAIivsB
+	ezhSOhNNCZti9gRT4E5sEkNzGFzB42jWRSQK2s231hLg6QcMrM=
+X-Received: by 2002:a05:6000:2287:b0:48a:f354:aefe with SMTP id ffacd0b85a97d-48b1274facdmr5552169f8f.39.1790949751982;
+        Fri, 02 Oct 2026 07:02:31 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38105239sm8006009f8f.33.2026.10.02.07.02.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 07:02:31 -0700 (PDT)
+Message-ID: <e37d41db-5218-494e-96fe-bbf4e028763e@linaro.org>
+Date: Fri, 2 Oct 2026 16:02:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/panel-simple: take i2c adapter module reference
+To: Johan Hovold <johan@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260716132334.1565183-1-johan@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260716132334.1565183-1-johan@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On 7/16/26 15:23, Johan Hovold wrote:
+> The i2c subsystem currently blocks during adapter deregistration
+> whenever there are consumers holding a reference.
+> 
+> Switch to using of_get_i2c_adapter_by_node() which also takes a
+> reference to the adapter module so that an attempt to unload the module
+> while in use fails gracefully instead of blocking uninterruptibly.
+> 
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>   drivers/gpu/drm/panel/panel-simple.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index c09bf3db5e78..f58e83aa4ebe 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -701,7 +701,7 @@ static struct panel_simple *panel_simple_probe(struct device *dev)
+>   
+>   	ddc = of_parse_phandle(dev->of_node, "ddc-i2c-bus", 0);
+>   	if (ddc) {
+> -		panel->ddc = of_find_i2c_adapter_by_node(ddc);
+> +		panel->ddc = of_get_i2c_adapter_by_node(ddc);
+>   		of_node_put(ddc);
+>   
+>   		if (!panel->ddc)
+> @@ -746,7 +746,7 @@ static struct panel_simple *panel_simple_probe(struct device *dev)
+>   	pm_runtime_disable(dev);
+>   free_ddc:
+>   	if (panel->ddc)
+> -		put_device(&panel->ddc->dev);
+> +		i2c_put_adapter(panel->ddc);
+>   
+>   	return ERR_PTR(err);
+>   }
+> @@ -791,7 +791,7 @@ static void panel_simple_remove(struct device *dev)
+>   	pm_runtime_dont_use_autosuspend(dev);
+>   	pm_runtime_disable(dev);
+>   	if (panel->ddc)
+> -		put_device(&panel->ddc->dev);
+> +		i2c_put_adapter(panel->ddc);
+>   }
+>   
+>   static const struct drm_display_mode ampire_am_1280800n3tzqw_t00h_mode = {
 
-Override the same name boot instance by the latter parameter.
-This allows user to override the trace instance in bootconfig by the
-cmdline from bootloader.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-For example, set default trace_instance parameter in bootconfig
-e.g.:
-
-  kernel {
-     reserve_mem=12M:32M:trace
-     trace_instance=boot_map@trace
-  }
-
-This just adds a persistent trace instance.
-
-And when you need to record events, you can override the boot_map
-trace instance from bootloader:
-
-  trace_instance=boot_map@trace,sched:*
-
-Then the boot_map instance starts tracing sched:* events.
-
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- Changes in v3:
-  - Count the number of tabs in trace_instance= option as the number
-    of trace instance.
-  - Check whether source instance exists before the backup instance.
-  - Fix memmap_area leaking in the next loop.
-  - Count nr_instances in enable_instances().
-  - Add index range check for boot_instances array.
----
- Documentation/admin-guide/kernel-parameters.txt |    7 +
- Documentation/trace/debugging.rst               |   15 ++
- kernel/trace/trace.c                            |  150 +++++++++++++++++------
- 3 files changed, 135 insertions(+), 37 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index e75344f4e0cd..0695ba0234c9 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -7806,6 +7806,13 @@ Kernel parameters
- 
- 			NB: Both the mapped address and size must be page aligned for the architecture.
- 
-+			Multiple trace_instance= options can be specified to
-+			create multiple instances. If the same instance name is
-+			specified more than once, the latter one will override
-+			any earlier definitions for that instance. This allows
-+			overriding an instance configuration that was defined
-+			earlier on the command line or via bootconfig.
-+
- 			See also Documentation/trace/debugging.rst
- 
- 
-diff --git a/Documentation/trace/debugging.rst b/Documentation/trace/debugging.rst
-index bca1710d92bf..b66cc070ae79 100644
---- a/Documentation/trace/debugging.rst
-+++ b/Documentation/trace/debugging.rst
-@@ -178,3 +178,18 @@ instance without stopping the trace.
- Note that this "backup" instance is readonly, and will be removed automatically
- if you clear the trace data or read out all trace data from the "trace_pipe"
- or the "trace_pipe_raw" files.
-+
-+Overriding trace instances
-+--------------------------
-+
-+Multiple ``trace_instance=`` options can be specified on the kernel command
-+line to create multiple instances. If the same instance name is specified
-+more than once, the latter definition will override any previous definitions
-+for that instance.
-+
-+This is useful when an instance configuration is defined in bootconfig, but
-+needs to be overridden or modified from the bootloader command line (for
-+example, to change the enabled events or add flags like ``traceoff``)::
-+
-+  trace_instance=boot_map^traceoff@trace
-+
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index e4a490d3d08c..8cd8b8b045fe 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -9705,33 +9705,44 @@ __init static int backup_instance_area(const char *backup,
- 	return 0;
- }
- 
--__init static void enable_instances(void)
-+struct boot_instance {
-+	char *name;
-+	char *flag_delim;
-+	char *addr_delim;
-+	char *backup;
-+	char *events;
-+};
-+
-+__init static int parse_boot_instance_info(struct boot_instance *boot_instances,
-+					   int nr_instances)
- {
--	struct trace_array *tr;
--	bool memmap_area = false;
--	char *curr_str;
-+	char *flag_delim;
-+	char *addr_delim;
-+	char *backup;
-+	char *events;
- 	char *name;
--	char *str;
- 	char *tok;
-+	char *str;
-+	int idx;
-+	int nr = 0;
-+	int i;
- 
- 	/* A tab is always appended */
- 	boot_instance_info[boot_instance_index - 1] = '\0';
- 	str = boot_instance_info;
- 
--	while ((curr_str = strsep(&str, "\t"))) {
--		phys_addr_t start = 0;
--		phys_addr_t size = 0;
--		unsigned long addr = 0;
--		bool traceprintk = false;
--		bool traceoff = false;
--		char *flag_delim;
--		char *addr_delim;
--		char *rname __free(kfree) = NULL;
--		char *backup;
-+	while ((events = strsep(&str, "\t"))) {
-+		if (!*events)
-+			continue;
- 
--		tok = strsep(&curr_str, ",");
-+		tok = strsep(&events, ",");
- 
- 		name = strsep(&tok, "=");
-+		if (!*name) {
-+			pr_warn("Tracing: Empty boot instance name\n");
-+			continue;
-+		}
-+
- 		backup = tok;
- 
- 		flag_delim = strchr(name, '^');
-@@ -9743,20 +9754,84 @@ __init static void enable_instances(void)
- 		if (flag_delim)
- 			*flag_delim++ = '\0';
- 
--		if (trace_array_find(name)) {
--			pr_warn("Tracing: Instance %s already exists\n", name);
--			continue;
-+		for (idx = 0; idx < nr; idx++) {
-+			/* Override by the last defined instance */
-+			if (!strcmp(name, boot_instances[idx].name))
-+				break;
- 		}
- 
- 		if (backup) {
--			if (backup_instance_area(backup, &addr, &size) < 0)
-+			/* Check if the backup source instance exists */
-+			for (i = 0; i < idx; i++) {
-+				if (!strcmp(backup, boot_instances[i].name))
-+					break;
-+			}
-+			if (i == idx) {
-+				pr_warn("Tracing: Backup source instance %s is not found for %s\n",
-+					backup, name);
- 				continue;
-+			}
- 		}
- 
--		if (flag_delim) {
-+		if (WARN_ON(idx >= nr_instances))
-+			break;
-+
-+		boot_instances[idx].name = name;
-+		boot_instances[idx].flag_delim = flag_delim;
-+		boot_instances[idx].addr_delim = addr_delim;
-+		boot_instances[idx].backup = backup;
-+		boot_instances[idx].events = events;
-+		if (idx == nr)
-+			nr++;
-+	}
-+
-+	return nr;
-+}
-+
-+__init static void enable_instances(void)
-+{
-+	struct boot_instance *boot_instances __free(kfree) = NULL;
-+	struct boot_instance *bi;
-+	struct trace_array *tr;
-+	int nr_instances = 1;
-+	char *tok;
-+
-+	if (!boot_instance_index)
-+		return;
-+
-+	for (char *p = boot_instance_info; *p; p++) {
-+		if (*p == '\t')
-+			nr_instances++;
-+	}
-+
-+	/* Parse the instance name to check the overlap */
-+	boot_instances = kmalloc_array(nr_instances,
-+				       sizeof(*boot_instances), GFP_KERNEL);
-+	if (!boot_instances)
-+		return;
-+
-+	nr_instances = parse_boot_instance_info(boot_instances, nr_instances);
-+
-+	for (int i = 0; i < nr_instances; i++) {
-+		char *rname __free(kfree) = NULL;
-+		phys_addr_t start = 0;
-+		phys_addr_t size = 0;
-+		unsigned long addr = 0;
-+		bool traceprintk = false;
-+		bool traceoff = false;
-+		bool memmap_area = false;
-+
-+		bi = &boot_instances[i];
-+
-+		if (bi->backup) {
-+			if (backup_instance_area(bi->backup, &addr, &size) < 0)
-+				continue;
-+		}
-+
-+		if (bi->flag_delim) {
- 			char *flag;
- 
--			while ((flag = strsep(&flag_delim, "^"))) {
-+			while ((flag = strsep(&bi->flag_delim, "^"))) {
- 				if (strcmp(flag, "traceoff") == 0) {
- 					traceoff = true;
- 				} else if ((strcmp(flag, "printk") == 0) ||
-@@ -9765,35 +9840,35 @@ __init static void enable_instances(void)
- 					traceprintk = true;
- 				} else {
- 					pr_info("Tracing: Invalid instance flag '%s' for %s\n",
--						flag, name);
-+						flag, bi->name);
- 				}
- 			}
- 		}
- 
--		tok = addr_delim;
-+		tok = bi->addr_delim;
- 		if (tok && isdigit(*tok)) {
- 			start = memparse(tok, &tok);
- 			if (!start) {
- 				pr_warn("Tracing: Invalid boot instance address for %s\n",
--					name);
-+					bi->name);
- 				continue;
- 			}
- 			if (*tok != ':') {
--				pr_warn("Tracing: No size specified for instance %s\n", name);
-+				pr_warn("Tracing: No size specified for instance %s\n", bi->name);
- 				continue;
- 			}
- 			tok++;
- 			size = memparse(tok, &tok);
- 			if (!size) {
- 				pr_warn("Tracing: Invalid boot instance size for %s\n",
--					name);
-+					bi->name);
- 				continue;
- 			}
- 			memmap_area = true;
- 		} else if (tok) {
- 			if (!reserve_mem_find_by_name(tok, &start, &size)) {
- 				start = 0;
--				pr_warn("Failed to map boot instance %s to %s\n", name, tok);
-+				pr_warn("Failed to map boot instance %s to %s\n", bi->name, tok);
- 				continue;
- 			}
- 			rname = kstrdup(tok, GFP_KERNEL);
-@@ -9816,20 +9891,20 @@ __init static void enable_instances(void)
- 				addr = (unsigned long)phys_to_virt(start);
- 			if (addr) {
- 				pr_info("Tracing: mapped boot instance %s at physical memory %pa of size 0x%lx\n",
--					name, &start, (unsigned long)size);
-+					bi->name, &start, (unsigned long)size);
- 			} else {
--				pr_warn("Tracing: Failed to map boot instance %s\n", name);
-+				pr_warn("Tracing: Failed to map boot instance %s\n", bi->name);
- 				continue;
- 			}
- 		} else {
- 			/* Only non mapped buffers have snapshot buffers */
--			do_allocate_snapshot(name);
-+			do_allocate_snapshot(bi->name);
- 		}
- 
--		tr = trace_array_create_systems(name, NULL, addr, size);
-+		tr = trace_array_create_systems(bi->name, NULL, addr, size);
- 		if (IS_ERR(tr)) {
--			pr_warn("Tracing: Failed to create instance buffer '%s' (%ld)\n", name,
--				PTR_ERR(tr));
-+			pr_warn("Tracing: Failed to create instance buffer '%s' (%ld)\n",
-+				bi->name, PTR_ERR(tr));
- 			continue;
- 		}
- 
-@@ -9850,12 +9925,12 @@ __init static void enable_instances(void)
- 		/*
- 		 * Backup buffers can be freed but need vfree().
- 		 */
--		if (backup) {
-+		if (bi->backup) {
- 			tr->flags |= TRACE_ARRAY_FL_VMALLOC | TRACE_ARRAY_FL_RDONLY;
- 			trace_array_start_autoremove();
- 		}
- 
--		if (start || backup) {
-+		if (start || bi->backup) {
- 			tr->flags |= TRACE_ARRAY_FL_BOOT | TRACE_ARRAY_FL_LAST_BOOT;
- 			tr->range_name = no_free_ptr(rname);
- 		}
-@@ -9864,11 +9939,12 @@ __init static void enable_instances(void)
- 		 * Save the events to start and enabled them after all boot instances
- 		 * have been created.
- 		 */
--		tr->boot_events = curr_str;
-+		tr->boot_events = bi->events;
- 	}
- 
- 	/* Enable the events after all boot instances have been created */
- 	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		char *curr_str;
- 
- 		if (!tr->boot_events || !(*tr->boot_events)) {
- 			tr->boot_events = NULL;
-
+Thanks,
+Neil
