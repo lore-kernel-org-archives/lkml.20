@@ -1,189 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1688636606B;
-	Fri,  2 Oct 2026 13:34:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2328497B97;
+	Fri,  2 Oct 2026 13:36:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790948101; cv=none; b=ckX0JPu/Rd1uTERFotDNuMKmcjOX/uQVhCzLv7rpRDUjcEo8ocr6m/ypY8xSA4K4aTu1C3U660k0T73Aas/dNrqyIVoLzAO26wcs4WNsZ6/rV0+IijOsj7QV4LVFwglLvf1HS/zVjAjNOBNaRdMwwGJ+y+73xUkgYkVCYqBFWZA=
+	t=1790948163; cv=none; b=mJqxFmiQiB59sK6dBVFlR76PVjwEywLGW7x4hdI6mP8W2nCgN1P25utmpgQbubqg0QiOwdMGx2Ayw8YZRGX7beNdgyhW691nU+nImaR+l3jWNMq6AoFkqtvxgo3ozBPprprR4+LjC4KIwOyOJSV8IIehfoU2Z4J4V+k5GE9IZ2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790948101; c=relaxed/simple;
-	bh=Tq2eYUKlpdqNpWpmepiwOCFbsrTtrEZz8tntmWE++rc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jYDevxpBRRiRpin4b1hbLTceU0D/8KvauHYlPnEH60/Bbwt1KVtLGdlmKvnb7A+ZyOQCVICNAjHjoonUw/sYKeDcaQjyKCsjPSQ14xl56LU/RUUH/QBdm2Rr9uN7UXAW1L+Jc0Dar99428oVTgko5IAQEjtQwDu4mfmbOrYQxbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKANQyE9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790948163; c=relaxed/simple;
+	bh=5bULqvI0XbbfXWCWHEn/inHGt2Q7HhkEwuvDJJMqTFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qL6WedtDlLX+IJvtiw1dfETvuy6IRExd9kMEKcBBfHJ63gE0do4GJw+SwcX1M0IhByaBhwHXsNyjr1Px45WsEunNEzECl6nTWBicyO0LJlEQFIUO3ts4kOUL87EPPXxc+2MUgAETD1taYJTpIUk0beks97zSR8uCIeKvQlcnzKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBJpr6EE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKANQyE9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF5C1F000FF;
-	Fri,  2 Oct 2026 13:34:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBJpr6EE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0AB41F000FF;
+	Fri,  2 Oct 2026 13:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790948099;
-	bh=9KryQpw5PkHuyc0/0g5D/mcNk3FqEeMgZBWUSBcaq/k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IKANQyE9ilWDHNOAl0JIUDDOhhzvcgZTvPAxDlfVacEYAIqsSpwQ0Jq3BkLL5G6/r
-	 llXTF4+sZugQSavVZe6GpaDIdC/0HtLsiOKbxBFT/jEfyld9zddxanwgUsrw4twTm8
-	 /MQ670sIJumFUC+Pf6rB/LFalRxsdCF8q9YROMDKsN9lz92y8gCtbZ1gzFRwstKnHt
-	 eaSwAxPiwMInk/y0pzxMKbxnTIWXVTRixyDyLmE48KyjTIIG7+2zOuy55tdiiwsRwZ
-	 iCnBcV08HczuOzpxXkWwjbSkftPQGxqTUjXvLICj9AEVqSbnVJZN9js9XTYXTY/FQu
-	 1cqPm3d8CibBg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xCdPd-0000000GFBp-26G6;
-	Fri, 02 Oct 2026 13:34:57 +0000
-Date: Fri, 02 Oct 2026 14:34:57 +0100
-Message-ID: <86qzi82pku.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <tabba@google.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
+	s=k20260515; t=1790948161;
+	bh=yjbi9/c1VrImWNtJEnP+BlHeSMxTK9lWfNpXD7dyXn4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DBJpr6EEspHlhw3V+cgQv5AtHdoUAjDZ+NvGoFmXvakvXHMf/y8FQaUlrebt+chyu
+	 qOlXWV2L/di5rTJ+TGwrrwrmdPkWECJ+/oiAuRTSH8DmKVZtEWv/TwUpYOdTuVLBkt
+	 jxk7RrvHHtfcHMjymiP+flXfKrFqsu8qLCBulLgxQ8TD/97axXTX/yUJvsEhw1AoCd
+	 l0L9/TkJCVSSZnCKxHFmoOltPP9y/UuwAC6egNNM0A99rTaPppXLIkyRqevCf/7SCV
+	 C3orf732YFpueQK+jI5XFvyst54YP82P1vmUWbaruSCvAhynt5o8zykhiRSWMelPkw
+	 7Jzsw6iW4HAgw==
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Christophe Leroy <chleroy@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v21 05/23] KVM: arm64: Track the type of VM in kvm_arch
-In-Reply-To: <CA+EHjTwHuJ0u_TTP46zNFKFmBP124XHHLUVhkAUSyfhe92=41w@mail.gmail.com>
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
-	<20261001210703.1597150-6-suzuki.poulose@arm.com>
-	<CA+EHjTxtatPyGcyvEyR129cqUiAYcO_cxRVtwZO0ckZsOnD7TA@mail.gmail.com>
-	<86se2o2rbs.wl-maz@kernel.org>
-	<CA+EHjTwHuJ0u_TTP46zNFKFmBP124XHHLUVhkAUSyfhe92=41w@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	llvm@lists.linux.dev,
+	codemender-patching+linux@google.com
+Subject: Re: [PATCH] bus: fsl-mc: Annotate fsl_mc_io.portal_virt_addr with __counted_by_ptr
+Date: Fri,  2 Oct 2026 15:35:47 +0200
+Message-ID: <179094814058.161441.1021426703218235186.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260922223538.2287676-1-morbo@google.com>
+References: <20260922223538.2287676-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: tabba@google.com, suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=704; i=chleroy@kernel.org; h=from:subject:message-id; bh=FzGXoQmG9DwM4d/cV6mXr3MHN7XZR/N+SpZKV92FTfw=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWTt32zsfK8k2dpj28ZjnnFLohdU2pRd+5TqcqyrJDI3b vUXpe8cHaUsDGJcDLJiiizH/3PvmtH1JTV/6i59mDmsTCBDGLg4BWAiHxUZGfa+/OR2M5D9n7zJ p/JtUo8OHXt4eN6Wb6kzV156+Uc+jPU9I8PMHUsEJ+pZJjO883r71Cvuqn7FVFXjJ9Of2C1ZUBB /JZIPAA==
+X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
+Content-Transfer-Encoding: 8bit
 
-On Fri, 02 Oct 2026 14:05:17 +0100,
-Fuad Tabba <tabba@google.com> wrote:
+
+On Tue, 22 Sep 2026 22:35:38 +0000, Bill Wendling wrote:
+> The GCC and Clang compilers provide the __counted_by_ptr attribute,
+> which is used by KASAN and compiler bounds-checking to detect
+> out-of-bounds accesses to pointer fields.
 > 
-> Hi Marc,
+> In "struct fsl_mc_io", the "portal_virt_addr" pointer points to the MC
+> command portal virtual address. The size of this allocated portal in
+> bytes is tracked by the "portal_size" field within the same structure.
 > 
-> On Fri, 02 Oct 2026 13:57:11 +0100, Marc Zyngier <maz@kernel.org> wrote:
 > [...]
-> > Just to make sure. Is that what you had in mind?
-> 
-> A diff is worth a thousand words :) Yes, that's it. With that, every
-> remaining hyp user of vcpu_is_protected() only runs with pKVM, so the
-> kern_hyp_va() case in the macro can go too.
 
-Not just that. The whole macro can go, see below (only tested a with
-non-protected guest).
+Applied, thanks!
 
-	M.
+[1/1] bus: fsl-mc: Annotate fsl_mc_io.portal_virt_addr with __counted_by_ptr
+      commit: df0fd0f5af4ddd84a76e21da8e6b489928c5e300
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 9e1fa00d96f7c..84703a65bfdd4 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1520,25 +1520,12 @@ struct kvm *kvm_arch_alloc_vm(void);
- #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
- 
- #define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor >= __VM_PROTECTED)
--/*
-- * Accessing vcpu->kvm from nVHE hyp stub is tricky, as we need to convert the
-- * pointer to the hyp VA. With pKVM, the nVHE code runs with the hyp_vcpu,
-- * which is populated correctly.
-- */
--#define vcpu_is_protected(vcpu)						\
--	({								\
--		struct kvm *__kvm = READ_ONCE((vcpu)->kvm);		\
--		bool __protected = false;				\
--									\
--		if (__kvm) {						\
--			if (is_nvhe_hyp_code() &&			\
--			    !is_protected_kvm_enabled()) 		\
--				__kvm = kern_hyp_va(__kvm); 		\
--									\
--			__protected = kvm_vm_is_protected(__kvm);	\
--		}							\
--		__protected;						\
--	})
-+
-+#ifdef __KVM_NVHE_HYPERVISOR__
-+#define vcpu_is_protected(vcpu)		BUILD_BUG_ON(1)
-+#else
-+#define vcpu_is_protected(vcpu)		kvm_vm_is_protected(vcpu->kvm)
-+#endif
- 
- #define kvm_vm_is_protected_pkvm(kvm)					\
- 	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-index c904647d2f760..ffc99d25955a1 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-@@ -57,7 +57,7 @@ pkvm_hyp_vcpu_to_hyp_vm(struct pkvm_hyp_vcpu *hyp_vcpu)
- 
- static inline bool pkvm_hyp_vcpu_is_protected(struct pkvm_hyp_vcpu *hyp_vcpu)
- {
--	return vcpu_is_protected(&hyp_vcpu->vcpu);
-+	return kvm_vm_is_protected(hyp_vcpu->vcpu.kvm);
- }
- 
- static inline bool pkvm_hyp_vm_is_protected(struct pkvm_hyp_vm *hyp_vm)
-diff --git a/arch/arm64/kvm/hyp/nvhe/switch.c b/arch/arm64/kvm/hyp/nvhe/switch.c
-index 7318e3e6a5f36..2a3e6d83682d5 100644
---- a/arch/arm64/kvm/hyp/nvhe/switch.c
-+++ b/arch/arm64/kvm/hyp/nvhe/switch.c
-@@ -217,7 +217,7 @@ static const exit_handler_fn pvm_exit_handlers[] = {
- 
- static const exit_handler_fn *kvm_get_exit_handler_array(struct kvm_vcpu *vcpu)
- {
--	if (unlikely(vcpu_is_protected(vcpu)))
-+	if (unlikely(vcpu_is_protected_pkvm(vcpu)))
- 		return pvm_exit_handlers;
- 
- 	return hyp_exit_handlers;
-@@ -238,7 +238,7 @@ static inline bool fixup_guest_exit(struct kvm_vcpu *vcpu, u64 *exit_code)
- 	 * it.  The check below is based on the one in
- 	 * kvm_arch_vcpu_ioctl_run().
- 	 */
--	if (unlikely(vcpu_is_protected(vcpu) && vcpu_mode_is_32bit(vcpu))) {
-+	if (unlikely(vcpu_is_protected_pkvm(vcpu) && vcpu_mode_is_32bit(vcpu))) {
- 		/*
- 		 * As we have caught the guest red-handed, decide that it isn't
- 		 * fit for purpose anymore by making the vcpu invalid. The VMM
-diff --git a/arch/arm64/kvm/hyp/nvhe/timer-sr.c b/arch/arm64/kvm/hyp/nvhe/timer-sr.c
-index 9930657169133..17bd1ff621ab6 100644
---- a/arch/arm64/kvm/hyp/nvhe/timer-sr.c
-+++ b/arch/arm64/kvm/hyp/nvhe/timer-sr.c
-@@ -48,7 +48,7 @@ void __timer_enable_traps(struct kvm_vcpu *vcpu)
- 	 * or running a protected VM (we don't offset anything in this case).
- 	 */
- 	clr = CNTHCTL_EL1PCEN;
--	if (vcpu_is_protected(vcpu) ||
-+	if (vcpu_is_protected_pkvm(vcpu) ||
- 	    !timer_get_offset(vcpu_ptimer(vcpu)))
- 		set |= CNTHCTL_EL1PCTEN;
- 	else
-
-
+Best regards,
 -- 
-Without deviation from the norm, progress is not possible.
+Christophe Leroy (CS GROUP) <chleroy@kernel.org>
