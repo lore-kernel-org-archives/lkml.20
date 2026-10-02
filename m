@@ -1,243 +1,219 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010018.outbound.protection.outlook.com [52.101.84.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80283492199;
-	Fri,  2 Oct 2026 11:54:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942055; cv=none; b=Au8KrLDtdVbx64iAUTTVPO9ZY+DpYr6q05xtc+G9OoUl/P+27KhZMVnTmG5MM/MoGLLZ2aFWG7DrxNipn7+/muYspWP1OBIlfO3G0mPYXh1qGsM9hZi3PwsuJ9x22a83zJpIy/vmom5TinhSQIinr1BEp557OcH0CQQ3uZEc3EU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942055; c=relaxed/simple;
-	bh=TWnJXoJE51aODNPg7P9U4BiYxM/4l9a8WI3w714Ps5Q=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=iYjI8x8ZajVNAg+GpNu9Ju26LnySBlU7Iky4ZxI8YN6RrZTuEw1XVFCFdKl9jx18WTSSDN6jmn4WNYbwitx4zXTGdIjWaOp7v+KdDV394JUNE9EOTMOIxS40eF5R6J7xwL6YAtKKv2FgX96IHyG8BileMIZ5rIBrRVhQa1QAtUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0kKvWnpQ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zq3eZQuk; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C39B367B97;
+	Fri,  2 Oct 2026 11:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790942089; cv=fail; b=ujLH55ntvkgY3vgVDZUVooOdnyAWQ2A7CzlH6RjYkz6/O4bNH+vSRKY5m9PvJpN9cDsiwjffffAYJPJY7U8EiMu/ozVkRJElrVO15nGPNv/bNXpq9WBZGbOA5eZIhpOm3kNfy+Fs+sdgQhNl1B9ySqN6Tgzgs+Tgej4nRnWIQHM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790942089; c=relaxed/simple;
+	bh=LIXzc2Rc3LUeBTVm7TQuk+ziLhtrnSjX+oQ9pXgOHVM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=ROaX+Et9xnCnt+OZ83ujtvYZwcH5m8BK8H0/8ebO854vJCBfAx7wWEDFzviuKwg2LJK48SUwAQYBkAQFsywZG7p3hKJzjutT0VfXLiZVUVXMtnzr47COvkRAGTWPQacwWkr86yBvoHCt50HXWAe78Ioma/TSGJD7EEsm93qKXIM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=OaZBsSKo; arc=fail smtp.client-ip=52.101.84.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0kKvWnpQ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zq3eZQuk"
-Date: Fri, 02 Oct 2026 11:54:04 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790942045;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R89hsoVkQdEDKgVgLXbmNo0ADfmIJ0o+UzMPOsGVmZM=;
-	b=0kKvWnpQ+oAgZEsPl8thabRvVvj0MnJ5Zq4aKJmOqbd6XUQAMzbibT7zBTRSHE9hXN8jGz
-	D2Zm346ei+T6/wZu38HT9Stx6k730+aWj0A7WvzfGcu9XeRA2DbIIx7pbLGkVeYXrSZGOK
-	qnLy2MHv2c1xpCVS1ivgkFIvZqp0YG5mM1YUUP0cgNZYfGDyzHcS4gXXhSim9gSzjYTwx/
-	P7MwMq19qG0h0reVfFKhd3BTwUoNQLM5WcMdENXs1UkSMdYZvZUR9H8m7561vYXAI9GNHt
-	zslSyi4jBNxvDGOdMA7Yn1pGqsyzHDhOk5ZNsl0iH8hXSibLrKdXw5+1HgWacQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790942045;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R89hsoVkQdEDKgVgLXbmNo0ADfmIJ0o+UzMPOsGVmZM=;
-	b=zq3eZQukqUQ7fmUUfP5ICdi05SZqRgy/5r/0xu9uCL5sUr2z0ioUVxPRQq+41AqfeELTUL
-	IlAo4p0p/L/h/sAg==
-From: "tip-bot2 for Peter Fang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/tdx] virt: tdx-guest: Give the Quote buffer an explicit type
-Cc: Peter Fang <peter.fang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Binbin Wu <binbin.wu@linux.intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260930103739.2851980-3-peter.fang@intel.com>
-References: <20260930103739.2851980-3-peter.fang@intel.com>
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="OaZBsSKo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m0qCoRhXC8RKKp80KBCkG0IgpvjlHj7drkczOMj9tm9P0QqL+TL8gr7KW7KoPjg+ULj2zFBn7VZaMpAOSQzslLnIbNdnuimpJJDPq3NpRGcYOzESGkLyEKYy10o5jzCzcPvGGi8i47bHLya2MvZJAitT8rzWzxLl12SPbDpFjGZSA4hNJye9ud0oNU0sKVtFizkVQ0GK5u2DJAiBR08N5zAdtD19dCoHa2VS6KIv56MwByVrPWZrN8PRcrMFSwGSKYLWugjGTWgfc4/VYuGyp3gZspfi/5atwl35cY63aZkTENYJNCzltuZdcx3/nGyXEZM5i/+e1gDeLL6ZYY9GkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9TF8tOLU3RocDefiGYZuWbKX3/9IPjEZ84jThQ2TcV0=;
+ b=UeTiYTbU17QF1Tc6VSc4G2ykXJ+ir9c8zSZ/0MgWnq3Dp2DmmI7WlYYHREI8KLGw+LwOie+WwYb8gpki73rq0foYKaTFSXW5JOduEkXFgSzd8+73/YJa9e88A2CJjzr2Z8eZ9F8xQdXygiVjFJ1nBZd3LMd72aW4cdvQOfXRrdrPLTWoS1bOhzxb9fVErrqabc5vp9DQf6LETj93hyXvECxZt6Rk1hwu4vgmzB1YlCU9Pexj6R8KLxe+sifC6bGEetwX3AH6EkxlXv4789Vp5XFi+C9bLXDvOqabNWRTMtpwKp9NI5U8/Vla8Tw17hO0jcBBUsrf/e+4yKf3hRtxTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=analog.com smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9TF8tOLU3RocDefiGYZuWbKX3/9IPjEZ84jThQ2TcV0=;
+ b=OaZBsSKoCkbvfPYXzQt6XLTeV6a7oJMcoSRsqXTla49aFGMU/5s1gjGQCXytwfx+kevnwBY+n1zPew6yMoa9rIcIHjtKxlBTVFdDgDqWvTVGcpWRucK1GebU2buq5e+q7QUtA2rlawC2p5dp+//tHA0ZQ6wOXCiXc9+ONtjar7o=
+Received: from PAZP264CA0101.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fb::12)
+ by AS4PR02MB8083.eurprd02.prod.outlook.com (2603:10a6:20b:4fa::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Fri, 2 Oct
+ 2026 11:54:43 +0000
+Received: from AM7PEPF00000056.EURPRD83.prod.outlook.com
+ (2603:10a6:102:1fb:cafe::60) by PAZP264CA0101.outlook.office365.com
+ (2603:10a6:102:1fb::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
+ Oct 2026 11:54:42 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ AM7PEPF00000056.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.3 via Frontend Transport; Fri, 2 Oct 2026 11:54:41 +0000
+Received: from se-mail11w.axis.com (10.20.40.11) by se-mail11w.axis.com
+ (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 2 Oct
+ 2026 13:54:40 +0200
+Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail11w.axis.com
+ (10.20.40.11) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Fri, 2 Oct 2026 13:54:40 +0200
+Received: from pc66231-2602.sto.se.axis.com (pc66231-2602.sto.se.axis.com [10.133.4.42])
+	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 5EF5319E7;
+	Fri,  2 Oct 2026 13:54:40 +0200 (CEST)
+Received: by pc66231-2602.sto.se.axis.com (Postfix, from userid 21940)
+	id 537F3305CE80; Fri,  2 Oct 2026 13:54:40 +0200 (CEST)
+From: Kanak Shilledar <kanak.shilledar@axis.com>
+Date: Fri, 2 Oct 2026 13:54:26 +0200
+Subject: [PATCH v5 2/6] iio: imu: inv_icm42607: Simplify IIO channel macros
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179094204406.3910103.820878334160865632.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261002-b4-inv_icm42370p-v5-2-c65281b745c9@axis.com>
+References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
+In-Reply-To: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
+To: Henrik Grimler <henrik.grimler@axis.com>, Jonathan Cameron
+	<jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko
+	<andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Jean-Baptiste
+ Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
+	<joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>
+CC: Kanak Shilledar <kanak.shilledar@axis.com>, <kernel@axis.com>,
+	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3646;
+ i=kanak.shilledar@axis.com; h=from:subject:message-id;
+ bh=LIXzc2Rc3LUeBTVm7TQuk+ziLhtrnSjX+oQ9pXgOHVM=;
+ b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsjaP7t+T8BHq68yVQFLz/B3dl9e6qmjdqE9Laz0+rNkW
+ WG3VP32jlIWBjEuBlkxRZZzRtuj9yf/050j7XQJZg4rE8gQBi5OAZgI3zmG/9Uz+34u59vSa7Rj
+ uiRnpZfylz3XpaecC51oNllmu4+P4jFGhp27P33R/K726fAEA4Vnpz4WGBfmrlPJv/Xe8veV44E
+ 5k9gA
+X-Developer-Key: i=kanak.shilledar@axis.com; a=openpgp;
+ fpr=CDB0F1C8EAD5B522C7B3A77928221FF065DB55F9
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PEPF00000056:EE_|AS4PR02MB8083:EE_
+X-MS-Office365-Filtering-Correlation-Id: b968e789-82e0-4449-58c2-08df207bf1d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|7416014|32650700020|921020|3613699012|11063799006|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	AYTbLAWLKJjNz6b5GSVqknIonmKsTiFuoE06mzMbScYEfEjNIGp8IZAnE7DainjjKPf103fM8mtYsfa1psLVDMOFUeAJRkXNG9x+Qd5uWMXMQhrRurB5nEpveYrXfkHDmNHbtwbFULOtI/pqukt9lxLjI7qbPcXKR9XcRKaNz3ACmPfso6IqfppTDnQNgWeyMdajfLW41JLikaRquDYKUyeVHBt9+mIcBuYqyBxLs7z7v29lwj2YLvSbKW/vjlaSap7g/7xaEPoZrjLOUzPq1+w8BkS/6d1V22WHbaqeyEJZ6PVcleYNhqC3z78Zd6tWI1J5sEwMYA0C1C3UK0el5jbrsNhl/g0AhC3fdaY6ISbiN8g8HxHBpT9ATGJ0fZIHPnD0hLTFlXXa7EhYuPl+DqXazntbYZpok0PmHE+HV/u1kBrFmV8gWARjjyjCs8EGk+sHq89Wq/iV6pIu1n4fSwBJ9P1witePQnngIAqkKCOxYmf/jKxxRzOeCsqk5jL5QytaH7jbSKaWnWY/XIsqWfz/j4yrEhjCdkd5pLTG9Bxv+BbGUr195mXwo72abIqCNWHqkVV1j4uYtTQpoq8Fnq86KcJgmwKncvun+p0uOKmZJbpFWGjhUEUrJHKZqMkSMDMya8QvOh9WREM5e5Na73XoQn9ayYVH94pGQ3SGJm3prBmt+Ku8cyagAdV+oNHGXzlnFd2/OqfkxVMyDiFnyE4jPKyF3Ecid0LGFVDuDHFHaGJNNyfVy8tDtyarfDEPZ8TpMVGyXgINaxk2HJ4ofg==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(32650700020)(921020)(3613699012)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Cyz9zCJLMSfBAsZ7c5OAI3YH2OTsz4w2WHoxuJ21UnkMzQkPCktc0tA70mtKE3Ny7u7vRVXFbRXYLloKtFcest8ZA+jZWi6gRIwlD10IVbt6Z03ymMYAmoIUSnFx3bgV40KBmvRxVQ41m1JvwugezlyVQyOr7fOHiO896ZETDGhj7OOCs4D3vYT/YrBiH1w0OXIQRKbsCyGvUU/VpDnGKXIxE2GgrC4GoPlArUnZEXtKuK9yuRgnn+HxEhjqxgnlpDvi2bfTvp8AtiT3kwRQYGL2T1DFYvpYn2BF9xQk986xfAKjmcT21RalyR4HkKKCEFt7WCFWGr+bd2grGvF7a3kE6pa8pyWOLZrtwFq43wi+kWrBq94yjIWu0MaN1qJ47wihvTxtIqi376MX/gpJZMkzvmc2Td6lcaa6DDUkQUgUL3QLDhi4f5PlJNMfvdme
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 11:54:41.9923
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b968e789-82e0-4449-58c2-08df207bf1d6
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7PEPF00000056.EURPRD83.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR02MB8083
 
-The following commit has been merged into the x86/tdx branch of tip:
+The INV_ICM42607_ACCEL_CHAN and INV_ICM42607_GYRO_CHAN macro had a third
+parameter of _ext_info, drop it and just point the .ext_info field to
+the respective inv_icm42607_*_ext_infos. This reduces the repetitive
+calling of inv_icm42607_*_ext_infos struct in the IIO channel spec
+struct and makes the code more easy to follow.
 
-Commit-ID:     d0690b7700b4c18ce81d48d1889bf7c577ee251f
-Gitweb:        https://git.kernel.org/tip/d0690b7700b4c18ce81d48d1889bf7c577e=
-e251f
-Author:        Peter Fang <peter.fang@intel.com>
-AuthorDate:    Wed, 30 Sep 2026 03:30:51 -07:00
-Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-CommitterDate: Fri, 02 Oct 2026 04:38:52 -07:00
-
-virt: tdx-guest: Give the Quote buffer an explicit type
-
-The Quote buffer is always a "struct tdx_quote_buf", but its global
-pointer is a "void *". A function would have to convert it back to make
-sense of it.
-
-Declare the global with its actual type, and give it a better name.
-
-This creates variable shadowing in wait_for_quote_completion(), so
-rename its parameter for clarity.
-
-AI was used under supervision to collect/apply feedback, review code and
-workshop logs.
-
-Signed-off-by: Peter Fang <peter.fang@intel.com>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.int=
-el.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Reviewed-by:
-Link: https://patch.msgid.link/20260930103739.2851980-3-peter.fang@intel.com
+Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 ---
- drivers/virt/coco/tdx-guest/tdx-guest.c | 36 +++++++++++-------------
- 1 file changed, 17 insertions(+), 19 deletions(-)
+ drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c | 13 +++++--------
+ drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 13 +++++--------
+ 2 files changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-=
-guest/tdx-guest.c
-index a21bd03..83322cd 100644
---- a/drivers/virt/coco/tdx-guest/tdx-guest.c
-+++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
-@@ -191,8 +191,7 @@ struct tdx_quote_buf {
- 	u8 data[];
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+index 0b3f035c2da0c..9a3ace3e7fcf9 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+@@ -17,7 +17,7 @@
+ #include "inv_icm42607.h"
+ #include "inv_icm42607_temp.h"
+ 
+-#define INV_ICM42607_ACCEL_CHAN(_modifier, _index, _ext_info)			\
++#define INV_ICM42607_ACCEL_CHAN(_modifier, _index)				\
+ {										\
+ 	.type = IIO_ACCEL,							\
+ 	.modified = 1,								\
+@@ -34,7 +34,7 @@
+ 		.storagebits = 16,						\
+ 		.endianness = IIO_BE,						\
+ 	},									\
+-	.ext_info = _ext_info,							\
++	.ext_info = inv_icm42607_accel_ext_infos,				\
+ }
+ 
+ enum inv_icm42607_accel_scan {
+@@ -50,12 +50,9 @@ static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
  };
-=20
--/* Quote data buffer */
--static void *quote_data;
-+static struct tdx_quote_buf *quote_buf;
-=20
- /* Lock to streamline quote requests */
- static DEFINE_MUTEX(quote_lock);
-@@ -209,7 +208,7 @@ static long tdx_get_report0(struct tdx_report_req __user =
-*req)
- 			     USER_SOCKPTR(req->tdreport));
+ 
+ static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X,
+-				inv_icm42607_accel_ext_infos),
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y,
+-				inv_icm42607_accel_ext_infos),
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z,
+-				inv_icm42607_accel_ext_infos),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z),
+ 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
+ };
+ 
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+index 5b4683c2dd1e4..a3bad6fbc1981 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+@@ -17,7 +17,7 @@
+ #include "inv_icm42607.h"
+ #include "inv_icm42607_temp.h"
+ 
+-#define INV_ICM42607_GYRO_CHAN(_modifier, _index, _ext_info)			\
++#define INV_ICM42607_GYRO_CHAN(_modifier, _index)				\
+ {										\
+ 	.type = IIO_ANGL_VEL,							\
+ 	.modified = 1,								\
+@@ -34,7 +34,7 @@
+ 		.storagebits = 16,						\
+ 		.endianness = IIO_BE,						\
+ 	},									\
+-	.ext_info = _ext_info,							\
++	.ext_info = inv_icm42607_gyro_ext_infos,				\
  }
-=20
--static void free_quote_buf(void *buf)
-+static void free_quote_buf(struct tdx_quote_buf *buf)
- {
- 	size_t len =3D PAGE_ALIGN(GET_QUOTE_BUF_SIZE);
- 	unsigned int count =3D len >> PAGE_SHIFT;
-@@ -222,25 +221,25 @@ static void free_quote_buf(void *buf)
- 	free_pages_exact(buf, len);
- }
-=20
--static void *alloc_quote_buf(void)
-+static struct tdx_quote_buf *alloc_quote_buf(void)
- {
- 	size_t len =3D PAGE_ALIGN(GET_QUOTE_BUF_SIZE);
- 	unsigned int count =3D len >> PAGE_SHIFT;
--	void *addr;
-+	struct tdx_quote_buf *buf;
-=20
--	addr =3D alloc_pages_exact(len, GFP_KERNEL | __GFP_ZERO);
--	if (!addr)
-+	buf =3D alloc_pages_exact(len, GFP_KERNEL | __GFP_ZERO);
-+	if (!buf)
- 		return NULL;
-=20
--	if (set_memory_decrypted((unsigned long)addr, count))
-+	if (set_memory_decrypted((unsigned long)buf, count))
- 		return NULL;
-=20
--	return addr;
-+	return buf;
- }
-=20
- /*
-  * wait_for_quote_completion() - Wait for Quote request completion
-- * @quote_buf: Address of Quote buffer.
-+ * @buf: Address of Quote buffer.
-  * @timeout: Timeout in seconds to wait for the Quote generation.
-  *
-  * As per TDX GHCI v1.0 specification, sec titled "TDG.VP.VMCALL<GetQuote>",
-@@ -249,7 +248,7 @@ static void *alloc_quote_buf(void)
-  * or error code after processing is complete. So wait till the status
-  * changes from GET_QUOTE_IN_FLIGHT or the request being timed out.
-  */
--static int wait_for_quote_completion(struct tdx_quote_buf *quote_buf, u32 ti=
-meout)
-+static int wait_for_quote_completion(struct tdx_quote_buf *buf, u32 timeout)
- {
- 	int i =3D 0;
-=20
-@@ -257,7 +256,7 @@ static int wait_for_quote_completion(struct tdx_quote_buf=
- *quote_buf, u32 timeou
- 	 * Quote requests usually take a few seconds to complete, so waking up
- 	 * once per second to recheck the status is fine for this use case.
- 	 */
--	while (quote_buf->status =3D=3D GET_QUOTE_IN_FLIGHT && i++ < timeout) {
-+	while (buf->status =3D=3D GET_QUOTE_IN_FLIGHT && i++ < timeout) {
- 		if (msleep_interruptible(MSEC_PER_SEC))
- 			return -EINTR;
- 	}
-@@ -268,7 +267,6 @@ static int wait_for_quote_completion(struct tdx_quote_buf=
- *quote_buf, u32 timeou
- static int tdx_report_new_locked(struct tsm_report *report)
- {
- 	u8 *buf;
--	struct tdx_quote_buf *quote_buf =3D quote_data;
- 	struct tsm_report_desc *desc =3D &report->desc;
- 	u32 out_len;
- 	int ret;
-@@ -285,7 +283,7 @@ static int tdx_report_new_locked(struct tsm_report *repor=
-t)
- 	if (desc->inblob_len !=3D TDX_REPORTDATA_LEN)
- 		return -EINVAL;
-=20
--	memset(quote_data, 0, GET_QUOTE_BUF_SIZE);
-+	memset(quote_buf, 0, GET_QUOTE_BUF_SIZE);
-=20
- 	/* Update Quote buffer header */
- 	quote_buf->version =3D GET_QUOTE_CMD_VER;
-@@ -296,7 +294,7 @@ static int tdx_report_new_locked(struct tsm_report *repor=
-t)
- 	if (ret)
- 		return ret;
-=20
--	err =3D tdx_hcall_get_quote(quote_data, GET_QUOTE_BUF_SIZE);
-+	err =3D tdx_hcall_get_quote(quote_buf, GET_QUOTE_BUF_SIZE);
- 	if (err) {
- 		pr_err("GetQuote hypercall failed, status:%llx\n", err);
- 		return -EIO;
-@@ -417,8 +415,8 @@ static int __init tdx_guest_init(void)
- 	if (ret)
- 		goto deinit_mr;
-=20
--	quote_data =3D alloc_quote_buf();
--	if (!quote_data) {
-+	quote_buf =3D alloc_quote_buf();
-+	if (!quote_buf) {
- 		pr_err("Failed to allocate Quote buffer\n");
- 		ret =3D -ENOMEM;
- 		goto free_misc;
-@@ -431,7 +429,7 @@ static int __init tdx_guest_init(void)
- 	return 0;
-=20
- free_quote:
--	free_quote_buf(quote_data);
-+	free_quote_buf(quote_buf);
- free_misc:
- 	misc_deregister(&tdx_misc_dev);
- deinit_mr:
-@@ -444,7 +442,7 @@ module_init(tdx_guest_init);
- static void __exit tdx_guest_exit(void)
- {
- 	tsm_report_unregister(&tdx_tsm_ops);
--	free_quote_buf(quote_data);
-+	free_quote_buf(quote_buf);
- 	misc_deregister(&tdx_misc_dev);
- 	tdx_mr_deinit(tdx_attr_groups[0]);
- }
+ 
+ enum inv_icm42607_gyro_scan {
+@@ -50,12 +50,9 @@ static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
+ };
+ 
+ static const struct iio_chan_spec inv_icm42607_gyro_channels[] = {
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X,
+-			       inv_icm42607_gyro_ext_infos),
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y,
+-			       inv_icm42607_gyro_ext_infos),
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z,
+-			       inv_icm42607_gyro_ext_infos),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z),
+ 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_GYRO_SCAN_TEMP),
+ };
+ 
+
+-- 
+2.43.0
+
