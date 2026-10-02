@@ -1,95 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D27E247F764;
-	Fri,  2 Oct 2026 10:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A757F47CC6B;
+	Fri,  2 Oct 2026 10:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936957; cv=none; b=eKc5ygmQH9lhcLiYQSojscQWk0Fa0jhh6gaXe8G0EErlMrATxRlYklNk9Qt6SWqTaBr6ixrxUvXYiVudL0WfaIlHhArQTJbHm+Tzowy6IbU4EZYLhIRne0KxapYBDglyQ93Bs11Axv8qxPng2sT+ZWBGURFpz0T/cjkgkIHiMUQ=
+	t=1790936971; cv=none; b=rzc42k3LD/8aV4wGtL2xQs8nwHqcoVOKOOkLvXqnQEbIH4ThNq/2iVa87vABo2aiSNh1ACrC8y7SbM89OTC2AMN+KN3nQN6g8WHiBaN8bCuwiWOYTHrQhDGX09H/1kUt54LnJHm8g09PMbfA5oLUCuZtRXxEP0OFjdgwJvdIcqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936957; c=relaxed/simple;
-	bh=8zdG4+TMm/xDMmpwn/2kI2vIq6OxntZw4PKsvfXk3l0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EV0WEJNw0RUu0MEVv7B6A8nEv3MvfAdEApscrPAUPUDRLYddJuhQWZzQMDOjTr6TmwTDP5uKpvYCCLayNwNx8KXs2wjkp+36AKuUmPkXxprq+ArrIBn4P61Pu6Ko1ozBKylqMZ7qzlNlPHbyZTwhMpkYZz0Dlrp5xTEt7SGDdNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=A0jDrAq+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790936971; c=relaxed/simple;
+	bh=V9pV3ZkkcUvIvt6I4RvKsPeQD9GdKmYVzQtSvVBbOEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NANID+CJR7Xm3OG8ChIyckLOB7VsXY2Qw4STkJ1+MBhh5frRqcpUVWb2kLWRvaKIgS2Ntbkk/YAvHKS49WAqiTq7boBsWVnskPMflJk0kT0A2O6WIdN/qLtpbrlX4Cbr0NdSqOsQT9c6TkOgGDrzlGPV7+wINkTmTBuf2Vhg4lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdQd6SpP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="A0jDrAq+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 724932F;
-	Fri,  2 Oct 2026 03:29:10 -0700 (PDT)
-Received: from [10.57.8.170] (unknown [10.57.8.170])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52A453F86F;
-	Fri,  2 Oct 2026 03:29:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790936953; bh=8zdG4+TMm/xDMmpwn/2kI2vIq6OxntZw4PKsvfXk3l0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=A0jDrAq+Uipp3H5I0BVYbZMwW+Mm5UzB/Yew7n6iialYSBFkrm6pTg1i9sUSM2t2r
-	 EUc9FcHr/MSwRtmo2+Q2hQC9Q0F9e5Bzi3IodbUU7xML5zPPD+nFXgky/TyzXW1rnz
-	 i9x9fQNFEdLdKuRV/KUDWU1nXuFrGwN6RaaM916M=
-Message-ID: <a8dcdcfb-3c4c-4e39-b206-004f60c128b6@arm.com>
-Date: Fri, 2 Oct 2026 11:29:07 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdQd6SpP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D781F00893;
+	Fri,  2 Oct 2026 10:29:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790936969;
+	bh=3hd7QozUAtCgPHqY9/nDgR3yxkuQqIYoWENVU+JEeAo=;
+	h=From:To:Cc:Subject:Date;
+	b=GdQd6SpPFdBtbjy04L7nq/Ny+g0lLZBlDtqsRicYVU2KgU2Amfr8Os26H+CDRc8x/
+	 8PZRZXNnr2FYu/Cjd1gGqS0Xc9Pt7dBWdeXi5zmwmDXPLEQY33vZIUWEcCgpzIqjJo
+	 9GXj+34WNptzYXbFZHKIGte+9sWk+hoQrHB/E6sU5Y5I6lrd5ECMOph37QlEzSiqAZ
+	 nMWBWge3RWohOctGFpVooO20iwO4t6rxLxwu0ct2KfyOUe7aqOu/b+xzEFc+oKCv3F
+	 uwyPuFdXpCARvA2E45xaSNsWVRbXKnFtDYoSTxA9iTSZDJLaG03TkuVqrPthR4YnFi
+	 JFuixzqEL5VkQ==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 5C9E9F40066;
+	Fri,  2 Oct 2026 06:29:27 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Fri, 02 Oct 2026 06:29:27 -0400
+X-ME-Sender: <xms:h4e_ar7xU2ShAmF5oNXetXdM5WALbIYV6jCa2jq8K3R2LwVHJA3S9Q>
+    <xme:h4e_apsRKhlJsZcx_r9LzBzLh6jtKZxWQ_AwzHf0UxNxLSOZ5t0BUWAPZJNLaix7h
+    68FWAlfgwisrtwmgRC2WOoomJuyE7hNB1Hj_X-iAmktxebsYXd2PRY_>
+X-ME-Received: <xmr:h4e_apZ7cymsfuucgfwLHSTqqffA-pVMBg2vVQYRkiTFnE5a3o46GoiugqCj>
+X-ME-Proxy-Cause: dmFkZTF6ejqiiIIIVBwko2bAePHhMhz1ubb8sHy1I7wDnl97sVe6F6iOH3k2VCcq7bJm/b
+    rMgTnQurjYvhCWSK/AfAtC7e+ZILRvjXsFJ/7Fc3WUpSBIUe7Eki5i7Hc2y6sl9LOfzrTl
+    YKkL84eHzeS8OBDkblQUiMHhPGEMLPDZZSUK1S7C555OdZYs71SGT1/PCq684Y4FaZL4SR
+    WzQ3iqFyTURlTqms7UHgwhgYUJEaao/OwHlAu2ZXamYUJc7YgC59ilDqHCc+5Pln7LJJq5
+    Ba+nm2qzU3WqoyzZH7M3OY5gnE9/wCk5VIGcfYTPyDJPtYenTPrTW8PxTq5jZC2JbNh4Tu
+    0MyZusGxFLy32BQhC8smcy/Pbmk2DA0+b5p6HUrz3UCYbLOXdROFxxgksCjCt5+VfR8Qyi
+    SPC4vdifNZOL3Rh4c4U1unzzvmafTRLa9N+Mf1+CnrUk9G8bFOI6JWF3v0UHaun98hjCrH
+    6bFxpXegDItEIGPbOp78/8aOLJnCW0y+HQr6RoKlI9mBmlemwyLotD3MQhSMYSK3+pzp0H
+    rvtMiSE79G1s10SJqEgwmSK1rFyK4OWCl+YBfwhE3lhNxbBzHLWjfCaAxMxJxnrLUOmBsI
+    LUX7SwkZFTLIuTBFkoi1C2m7QfUxhQ5jMI/dwjfVdB4ms9kZlkLNcDaFtnvw
+X-ME-Proxy: <xmx:h4e_aluY7zPRxTnMg-F8AJ6K2crKRbUrECrHPRmTbvKvrwoP2QaCMQ>
+    <xmx:h4e_aoCYlxqtG26oZbwf8Jup3DSmwPQeSUO3E-d1lD0zsK1kpQLPWw>
+    <xmx:h4e_akPRG_n-rnSS3xuVkIKhrTN6FijyoiEG_msb5oKPiOma2-8I9g>
+    <xmx:h4e_aq6M_xF5_i2dlxKt8s5HgsAZ-BAiooeKuC_67roGyJdOvxw91w>
+    <xmx:h4e_am1YnOadiB1ZtifsIphdJXYlTNbRL905JGazwCFvnYaQ3nkTfLk->
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 06:29:26 -0400 (EDT)
+From: Boqun Feng <boqun@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: "Ingo Molnar" <mingo@kernel.org>,	"Will Deacon" <will@kernel.org>,
+	"Boqun Feng" <boqun@kernel.org>,	"Waiman Long" <longman@redhat.com>,
+	"Gary Guo" <gary@garyguo.net>,	"Alice Ryhl" <aliceryhl@google.com>,
+	"Lyude Paul" <lyude@redhat.com>,
+	"Daniel Almeida" <daniel.almeida@collabora.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	"Miguel Ojeda" <ojeda@kernel.org>,	"Danilo Krummrich" <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,	Shuah Khan <shuah@kernel.org>,
+	bpf@vger.kernel.org,	linux-kselftest@vger.kernel.org,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Leon Hwang <leon.hwang@linux.dev>,	Alexei Starovoitov <ast@kernel.org>
+Subject: [PATCH v3] selftests/bpf: Use the new NMI_BITS definition
+Date: Fri,  2 Oct 2026 12:29:23 +0200
+Message-ID: <20261002102923.45846-1-boqun@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 10/23] KVM: arm64: Add VM specific callback for S2 MMU
- operations
-Content-Language: en-GB
-To: Fuad Tabba <tabba@google.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
- jonathan.cameron@oss.qualcomm.com
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
- <20261001210703.1597150-11-suzuki.poulose@arm.com>
- <CA+EHjTxCfmOqiJzYDZHunSuEyoZCbgHuzeSYC8y71Re+9PA6Kw@mail.gmail.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <CA+EHjTxCfmOqiJzYDZHunSuEyoZCbgHuzeSYC8y71Re+9PA6Kw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Fuad
+The definition of NMI_BITS was out of sync after the introduction of
+HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
 
-On 02/10/2026 11:19, Fuad Tabba wrote:
-> Hi Suzuki,
-> 
-> On Thu, 01 Oct 2026 22:06:50 +0100, Suzuki K Poulose
-> <suzuki.poulose@arm.com> wrote:
->> Add VM type specific S2 MMU operation backends which can be initialized per
->> VM flavor, to keep the handling cleaner.
-> 
-> The rows only differ where the base already branches (the pKVM TLB
-> flushes, the protected VM age and unmap, and from patch 12 its abort),
-> so the case for the table rests on the Realm row, which isn't
-> functional until the RMI backend lands. Beyond the flushes in patch
-> 16, which operations do you expect it to override?
+Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Fixes: 3b0e2a22d408 ("preempt: Introduce HAS_SEPARATE_PREEMPT_RESCHED_BITS")
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Leon Hwang <leon.hwang@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Boqun Feng <boqun@kernel.org>
+---
+v2: https://lore.kernel.org/lkml/20261001082519.16195-4-boqun@kernel.org/
+v2 -> v3:
 
-Thats it for now. But I also want to explore the flush_memslots() case,
-where Realm doesn't need to do anything. May be it is easier to stub
-that case out early.
+* Add Fixes tag.
+* Add CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS weak symbol because
+  CONFIG_* is not available in bpf programs.
 
-> 
-> [...]
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> [...]
->>   int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
-> [...]
->> +       if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
->> +               return 1;
-> 
-> Every row sets it today, but returning 1 falls back to
-> KVM_REQ_TLB_FLUSH, which arm64 doesn't handle, so nothing would be
-> flushed. Could vm_flush_remote_tlbs be mandatory, checked in
-> kvm_vm_init_vm_s2_ops()?
 
-Agree, we could make that mandatory.
+ tools/testing/selftests/bpf/bpf_experimental.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Suzuki
+diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
+index 2893bf06ff25..a09448347966 100644
+--- a/tools/testing/selftests/bpf/bpf_experimental.h
++++ b/tools/testing/selftests/bpf/bpf_experimental.h
+@@ -367,11 +367,16 @@ extern int bpf_cgroup_read_xattr(struct cgroup *cgroup, const char *name__str,
+ extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
+ 			       struct bpf_dynptr *value_p) __weak __ksym;
+ 
++extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __kconfig __weak;
++
++/* A trivial macro to make NMI_BITS exactly the same as in <linux/preempt.h> */
++#define IS_ENABLED(cfg)	(cfg)
++
+ #define PREEMPT_BITS	8
+ #define SOFTIRQ_BITS	8
+ #define HARDIRQ_DISABLE_BITS	8
+ #define HARDIRQ_BITS	4
+-#define NMI_BITS	1
++#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
+ 
+ #define PREEMPT_SHIFT	0
+ #define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
+-- 
+2.51.0
+
