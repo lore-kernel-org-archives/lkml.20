@@ -1,118 +1,317 @@
-Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2815523B634
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D92C23B634;
+	Fri,  2 Oct 2026 01:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790904791; cv=none; b=ZGyYJzQBNsC5e6fxrGuqwrzUIfyWcWgVrVjGwjYCPwq/S/ayVZUUGfDv89Z0uNoZZ/j4iCJ7MWpMscDaVdhax0Kx7fkHUO+RM9FdbPAV7TrU4/P8eZAKKSE1BDD31Mp0p/H/uIhycI9pLVzJ30d22o1ii+ywiR9Kk41ijJsOxAI=
+	t=1790904829; cv=none; b=piSJQEngpGKNw/DkFUNaBhezRsjBC3RVAqL6h0FF5rHJQRkBebHaxHabehDDwJTD/HtsAtw1KQDBfzPrK5rTRhYlrd+USMIbahw0RDnJmuvwqiNJjnuCBR3NGBPheTeLeFjRDXV7XGVOEQYE5S/jbYs3wUGFe12d3H88cGfqQzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790904791; c=relaxed/simple;
-	bh=Q+j3UDObBBZKxzNODrS4nsARgFKDJeYd7KzHKQzHANg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rf0mnR4v8R6wSLoV+aPq3O/YG5L3qZjgi7BakTTZrHojb+4htK4Rfwt9+P72LxACYe/FpYiABxJ1c83YusGPOEDXYyiSod6n+yAdpTAaOfHT5HmI2huI6xdlI+hlbE/3ufnA1DdlsdzW6efIxtfxGDTgRsjvnJZmbJnuiEyOC2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=JRkjL+Sx; arc=none smtp.client-ip=74.125.230.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790904829; c=relaxed/simple;
+	bh=4sDWAtJ/L/pjnkSRoFWyDQbVhQFjhk/mY25VGJ7UyJE=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jCCFAfn9YP5ziEfm6l0yrpLzbJQQNDSvMK5tdrsOnGm5cPJGpK4DSNWHSSmSNwBAJwGD+10TYKSXX+j5zkMlFEswsA8LUN9sDcAeLR9yX6MybhFiNSchi8Vl/zJUPQt6qrRMORCCbeE73Zvqcn37QIWS3Oemx3a4xQ8BXrhWcxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Nx7e/tt8; arc=none smtp.client-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="JRkjL+Sx"
-Received: by mail-qk2-f38.google.com with SMTP id af79cd13be357-93cc8a412b4so34821785a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 18:33:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790904789; x=1791509589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2AA8nsK6yGVbieGzGP1acY9x5Sm2bnl7C5LuPliR9U=;
-        b=JRkjL+SxCsa51Bbn72sVix3OaP0NTjULWz1BqJyW0T+Sb7r5VhnAZo7mb9HpYk+lmY
-         c/jsTTu21JONrnB42N5dfXBC6ypi0L1sZ30JpeEXLUXoAQLMdXoU9knqlW59e4TytljK
-         6mcrx3M0eiw0hRnSuoP/5Lc7z6556XsKFIeCGtNj6nB2knJtOCSUft8vhBNjcfjVOd7x
-         7viBpc6aTHP4DA/wyx6qpyNiwePJo7eTZYPnhae7g66J0jSJKxIrCdpYkVoBHTOWPEq3
-         POMLP7mf3u6DUMAVGqZb9AfBcEuT+Y3sw26GRAgcrbZCWZ5ksh0SeVpk/XbmKNSxaQNZ
-         a3wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790904789; x=1791509589;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+2AA8nsK6yGVbieGzGP1acY9x5Sm2bnl7C5LuPliR9U=;
-        b=SM50VRvzjbqzNkpbnb89riu+bcKGxnnzv0ncIMtpfa3LjIdjjWxBpfo/olUr654z4T
-         z/B5Gq5BryHweCUFtlbfPY+7HLfqUbbotFhC7oftuW6QObc+slpUmfRVz1/T3HJRpi5u
-         cYhZ2qFvhPTrzs04+80Etsk1eAosHe+6cUDgBLogxTJQVHLJR9QcqjNXx17fRkQ5Js6j
-         FCFkZQcCeL0NdZqeFpfWwJXI/VDX6Wdex8sAcS4EwP1bqIs7PAMyYJf1Pc0cJ90PMaBP
-         h4ASht/ZiCNI8amtgfXAW4pq3wbnL3mCDe5rY0LOJatMO9IgsAUNGPSRY3ji3F86/aZE
-         NhLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzrRxYqiOfx7yCIIMoV2lnlpYWcgOerMwVGTM8y8uLKpB52TBaFa+I+k02wWcAn42JsjK88OfkIgAXNfg8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQb1sFq+x+RkNfgSQ74GF6tfkyKwFvOexkTbIpO4Cgh46up4kr
-	PIG87KEE7xHW/ERnDTGUiDgkETQKgtStKLSXcLEj9QiFV3aamL2sW5sPs3pAq1N4E+924FFtkdy
-	onRcENwY=
-X-Gm-Gg: AYBFou2JOzGIxi++x3YAhP4syEq/PrYUs/tC6N6Hj7+2EE4O+gkkoiWInYXL0nGzKbW
-	YdwV8XsIOS1Ck0URJnIp8EAug0p/JUDGv2ODeZAj/lbpMyhXzqxwBRUpGwr93inIiPp78GcBSIp
-	KLHGis8/dm4BFB1FWZy3aKw/0WZ/emRJTnnWA547Ukgg3AC7T6iHpBxjbJGHECyyZ9Xj5y8Man0
-	kmjRWnf+hUYfroxnRo1D4xEzJJcimsR7QZem5g2YRZlD2sed77K8YR3NvOeBPi1jAE+iFMz0BLl
-	Q76xuUam8ghV0Ncrk/d4qNlgeda2T/4EY5nmd5GlfTCZ2NGk4pDe9yMKNRwShOGXHJ9ox3z7AiX
-	eaihhwnw3wtWPuNKGUAWEd0McM4utfwBxc4eKLZhbBP9g7LYt2lRtIHN9upCYVkzzNfePv6XlYF
-	DAeBWIbFigOCgfFkzyiTJsOJ9ZFIlyRt0kFkTwYOh7Xvvb6Ga1UtFb8bFsAd1OXRemrgFCaxwVp
-	Ec=
-X-Received: by 2002:a05:620a:370e:b0:93c:68f0:f09b with SMTP id af79cd13be357-93ce7a85658mr210184785a.5.1790904788851;
-        Thu, 01 Oct 2026 18:33:08 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca29e5e0sm95498185a.39.2026.10.01.18.33.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 18:33:08 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: arnd@arndb.de,
-	gregkh@linuxfoundation.org
-Cc: daniel@riscstar.com,
-	bhelgaas@google.com,
-	linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH] misc: Kconfig: tc9564: fix a circular dependency
-Date: Thu,  1 Oct 2026 20:33:05 -0500
-Message-ID: <20261002013306.373689-1-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Nx7e/tt8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790904824; x=1791164024;
+	bh=bwdVoO/JaZaKb2gaBUMBal3GCHRytO4hTX9JqR1OPg8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Nx7e/tt8xl+Ddl+z5G5uvFt0xEI8PcFtLg8jyzVOVyYXh5z+ecJdys0R88CkfmH0O
+	 u1RQ0p7EItVYfvTEm22NDaNHEcLJM2gpCTAN/Asq1npTND/Ue/p7Jkba4i5Gfidlz9
+	 PVjznWoNsI/08eGF41o1DJqEXw3ruR8FGFR4EGhUlYv3rF6Gr5/yhOQDTYwrd1K9kQ
+	 Jt+sGAn18Cx/0eIZIhN4M5Nb6BQ6/8GwldGND9Y3nrsQNNTHAzeSgb3StovbvyPOQt
+	 sPtvOTx+4ky9m5KA2FQXIBXQTiqQ+txc8q39v99L4n5G9EG09vzdG3YjBfk+W7avPS
+	 0forwlxX7cb9g==
+Date: Fri, 02 Oct 2026 01:33:39 +0000
+To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH v8] arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
+Message-ID: <20261001-milos-gpu-dts-v8-1-98b14721b7e4@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 23906068809144bad6617780e907df8be1132271
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The TC9564_PCI config option selects PCI_DYNAMIC_OF_NODES.  But that
-depends on OF_IRQ, and TC9564_PCI does not satisfy that dependency.
+Add GPU and GMU devicetree nodes for the Adreno 810 GPU found on
+Qualcomm SM7635 (Milos) based devices.
 
-Simply adding "depends on OF_IRQ" results in a recursive Kconfig
-dependency.
+The qcom,kaanapali-gxclkctl.h header can be reused here because
+Milos uses the same driver and the GX_CLKCTL_GX_GDSC definition
+is identical.
 
-A little experimentation shows that the recursion can be avoided
-when "depends on OF_IRQ" is added by *depending on* rather than
-*selecting* PCI_QUIRKS.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610020124.ieOiopjQ-lkp@intel.com/
-Fixes: 1304b0c47ef81 ("misc: tc9564: introduce base PCI driver")
-Signed-off-by: Alex Elder <elder@riscstar.com>
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- drivers/misc/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v8:
+- Rebased on next-20261001
+- Split out DTS patch, now that deps are merged
+- Link to v7: https://lore.kernel.org/r/20260528-adreno-810-v7-0-7fe7fdd97f=
+c2@pm.me
 
-diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 9c5b1e9d672e8..87ea92af81dca 100644
---- a/drivers/misc/Kconfig
-+++ b/drivers/misc/Kconfig
-@@ -571,9 +571,10 @@ config MCHP_LAN966X_PCI
- config TC9564_PCI
- 	tristate "Toshiba TC9564 PCI function support"
- 	depends on OF
-+	depends on OF_IRQ
- 	depends on PCI
-+	depends on PCI_QUIRKS
- 	select PCI_DYNAMIC_OF_NODES
--	select PCI_QUIRKS
- 	default m
- 	help
- 	  This enables support for two PCI functions implemented by the
+Changes in v7:
+- Rebased on msm-next-robclark@d0f39fc
+- Drop dependency on GPU GX GDSC refactor
+- Drop DTS nodes (will submit in a seperate change later)
+- Drop RFC prefix
+- Add reviews
+- Link to v6: https://lore.kernel.org/r/20260515-adreno-810-v6-0-fbe04c7203=
+e1@pm.me
 
-base-commit: 04434a1d0f311d76b1f15fa987918b471a0b8c6a
--- 
-2.53.0
+Changes in v6:
+- Re-jigged the register ranges for GPU/GMU to match Glymur
+- Depend on RSCC offset fix
+- Fix bindings to add constraints for reg list
+- Link to v5: https://lore.kernel.org/r/20260502-adreno-810-v5-0-bc9fd2bb78=
+8d@pm.me
+
+Changes in v5:
+- Sync with latest kgsl
+- Link to v4: https://lore.kernel.org/r/20260416-adreno-810-v4-0-61676e073f=
+8a@pm.me
+
+Changes in v4:
+- Add 1150MHz speedbin
+- Rebase on next-20260415
+- Add dep on efuse patchset
+- Link to v3: https://lore.kernel.org/r/20260407-adreno-810-v3-0-30cb7f196e=
+d4@pm.me
+
+Changes in v3:
+- Drop DEMET from GMU clocks (not required on A810)
+- Document qcom,adreno-44010000 compatible (regex is gone in 7.0+)
+- Drop zeroed out CP_PROTECT_REG[46, 62] range, not required
+- Add a810_protect to __build_asserts
+- Add UCHE_CCHE_TRAP_BASE_[LO|HI] and UCHE_CCHE_WRITE_THRU_BASE_[LO|HI] to =
+a810_pwrup_reglist_regs
+- Move TPL1 registers to a810_pwrup_reglist_regs
+- Include all protect registers in a810_ifpc_reglist_regs
+- Revert pipe reg comment, just copied it from downstream but original also=
+ works
+- Link to v2: https://lore.kernel.org/r/20260402-adreno-810-v2-0-ce337ca87a=
+9e@pm.me
+
+Changes in v2:
+- Mark as RFC due to dependency on in-review changes
+- Explain in DTS commit why qcom,kaanapali-gxclkctl.h and not qcom,milos-gx=
+clkctl.h
+- cx_mmio -> cx_misc_mmio
+- Sync a810_nonctxt_regs with GRAPHICS.LA.14.0.r5-03100-lanai.0
+- Link to v1: https://lore.kernel.org/r/20260331-adreno-810-v1-0-725801dbb1=
+2b@pm.me
+---
+ arch/arm64/boot/dts/qcom/milos.dtsi | 165 ++++++++++++++++++++++++++++++++=
+++++
+ 1 file changed, 165 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom=
+/milos.dtsi
+index ed994c2170af..13167d1f226e 100644
+--- a/arch/arm64/boot/dts/qcom/milos.dtsi
++++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+@@ -4,6 +4,7 @@
+  */
+=20
+ #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
++#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
+ #include <dt-bindings/clock/qcom,milos-camcc.h>
+ #include <dt-bindings/clock/qcom,milos-dispcc.h>
+ #include <dt-bindings/clock/qcom,milos-gcc.h>
+@@ -1922,6 +1923,121 @@ lpass_ag_noc: interconnect@3c40000 {
+ =09=09=09qcom,bcm-voters =3D <&apps_bcm_voter>;
+ =09=09};
+=20
++=09=09gpu: gpu@3d00000 {
++=09=09=09compatible =3D "qcom,adreno-44010000", "qcom,adreno";
++=09=09=09reg =3D <0x0 0x03d00000 0x0 0x6c000>,
++=09=09=09      <0x0 0x03d9e000 0x0 0x2000>;
++=09=09=09reg-names =3D "kgsl_3d0_reg_memory",
++=09=09=09=09    "cx_mem";
++
++=09=09=09interrupts =3D <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH 0>;
++
++=09=09=09iommus =3D <&adreno_smmu 0 0x0>;
++
++=09=09=09operating-points-v2 =3D <&gpu_opp_table>;
++
++=09=09=09nvmem-cells =3D <&gpu_speed_bin>;
++=09=09=09nvmem-cell-names =3D "speed_bin";
++
++=09=09=09qcom,gmu =3D <&gmu>;
++=09=09=09#cooling-cells =3D <2>;
++
++=09=09=09interconnects =3D <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
++=09=09=09=09=09 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++=09=09=09interconnect-names =3D "gfx-mem";
++
++=09=09=09status =3D "disabled";
++
++=09=09=09gpu_zap_shader: zap-shader {
++=09=09=09=09memory-region =3D <&gpu_microcode_mem>;
++=09=09=09};
++
++=09=09=09gpu_opp_table: opp-table {
++=09=09=09=09compatible =3D "operating-points-v2-adreno",
++=09=09=09=09=09     "operating-points-v2";
++
++=09=09=09=09opp-264000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <264000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
++=09=09=09=09=09opp-peak-kBps =3D <2136718>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0xc8295ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-362000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <362000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++=09=09=09=09=09opp-peak-kBps =3D <2136718>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0xc02c5ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-510000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <510000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
++=09=09=09=09=09opp-peak-kBps =3D <3972656>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0x882b5ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-644000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <644000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L1>;
++=09=09=09=09=09opp-peak-kBps =3D <5285156>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-688000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <688000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L2>;
++=09=09=09=09=09opp-peak-kBps =3D <6074218>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-763000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <763000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM>;
++=09=09=09=09=09opp-peak-kBps =3D <6671875>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0xa8295ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-895000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <895000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM_L1>;
++=09=09=09=09=09opp-peak-kBps =3D <8171875>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0x88295ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-960000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <960000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO>;
++=09=09=09=09=09opp-peak-kBps =3D <8171875>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0xa8285ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-1050000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <1050000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO_L1>;
++=09=09=09=09=09opp-peak-kBps =3D <18597656>;
++=09=09=09=09=09opp-supported-hw =3D <0x7>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0x88285ffd>;
++=09=09=09=09};
++
++=09=09=09=09opp-1150000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <1150000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO_L2>;
++=09=09=09=09=09opp-peak-kBps =3D <18597656>;
++=09=09=09=09=09opp-supported-hw =3D <0x3>;
++=09=09=09=09=09qcom,opp-acd-level =3D <0xa02f5ffd>;
++=09=09=09=09};
++=09=09=09};
++=09=09};
++
+ =09=09gxclkctl: clock-controller@3d64000 {
+ =09=09=09compatible =3D "qcom,milos-gxclkctl";
+ =09=09=09reg =3D <0x0 0x03d64000 0x0 0x6000>;
+@@ -1932,6 +2048,55 @@ gxclkctl: clock-controller@3d64000 {
+ =09=09=09#power-domain-cells =3D <1>;
+ =09=09};
+=20
++=09=09gmu: gmu@3d6c000 {
++=09=09=09compatible =3D "qcom,adreno-gmu-810.0", "qcom,adreno-gmu";
++=09=09=09reg =3D <0x0 0x03d6c000 0x0 0x32000>;
++=09=09=09reg-names =3D "gmu";
++
++=09=09=09interrupts =3D <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH 0>,
++=09=09=09=09     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH 0>;
++=09=09=09interrupt-names =3D "hfi",
++=09=09=09=09=09  "gmu";
++
++=09=09=09clocks =3D <&gpucc GPU_CC_AHB_CLK>,
++=09=09=09=09 <&gpucc GPU_CC_CX_GMU_CLK>,
++=09=09=09=09 <&gpucc GPU_CC_CXO_CLK>,
++=09=09=09=09 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
++=09=09=09=09 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
++=09=09=09=09 <&gpucc GPU_CC_HUB_CX_INT_CLK>;
++=09=09=09clock-names =3D "ahb",
++=09=09=09=09      "gmu",
++=09=09=09=09      "cxo",
++=09=09=09=09      "axi",
++=09=09=09=09      "memnoc",
++=09=09=09=09      "hub";
++
++=09=09=09power-domains =3D <&gpucc GPU_CC_CX_GDSC>,
++=09=09=09=09=09<&gxclkctl GX_CLKCTL_GX_GDSC>;
++=09=09=09power-domain-names =3D "cx",
++=09=09=09=09=09     "gx";
++
++=09=09=09iommus =3D <&adreno_smmu 5 0x0>;
++
++=09=09=09qcom,qmp =3D <&aoss_qmp>;
++
++=09=09=09operating-points-v2 =3D <&gmu_opp_table>;
++
++=09=09=09gmu_opp_table: opp-table {
++=09=09=09=09compatible =3D "operating-points-v2";
++
++=09=09=09=09opp-350000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <350000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++=09=09=09=09};
++
++=09=09=09=09opp-650000000 {
++=09=09=09=09=09opp-hz =3D /bits/ 64 <650000000>;
++=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
++=09=09=09=09};
++=09=09=09};
++=09=09};
++
+ =09=09gpucc: clock-controller@3d90000 {
+ =09=09=09compatible =3D "qcom,milos-gpucc";
+ =09=09=09reg =3D <0x0 0x03d90000 0x0 0x9800>;
+
+---
+base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+change-id: 20261001-milos-gpu-dts-944a21ea94cf
+
+Best regards,
+--=20
+Alexander Koskovich <akoskovich@pm.me>
+
 
