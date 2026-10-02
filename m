@@ -1,105 +1,107 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095133CAE8D
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095E9415F32
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 20:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790973570; cv=none; b=omJH8d0zLJJq9mX6DSDet+rj0e4vBi1c40yNj2LlvdD1St7sbU1+mkiwT3v5DxLI5TFGg49arMja22WXUCxDsjzSzYCpilNrarn6ErPa7gdMTh+4N4ds4frlkkvF4toDwN7X/f0WMZXLEn22WjW8WbJlGVzhgOpZ37UdzGjJO/I=
+	t=1790973612; cv=none; b=Esu+vzJxgD0UMu1Lvulx1bbOTmzHFAaG6zFD+3R0r0pjewMNyrORmVaUFzkClKQH7faztiPrigmu26sYnFVP3OxhJA4o6p11UbhO7Ouc6S50DWU+D2EgHdM1p07iWOXcvx7Z58idjLz510aS8Ad91Tu+jSrtjgb5swQ+lhaK4Is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790973570; c=relaxed/simple;
-	bh=S0ge2C9Y15thBhCiKs8x41HME8Zo3cnqn4nPcWu4Sog=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=CKwGA+HHYQyKW2pCF6rJGqjOPFD7EDYpzGb1tfm5Ef07UcQdGz1cu1zJoiFqQDJ5qgYmvyiNw+okJGUsqCRjV8lc2YnwEtLiUCyGLkCDIP4DMkRhaNhOjPbasPSylzjFaQD5zP1z7U8Ozjq/KaWFe5xbT+KNj/UcdGuAd4WuV0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SBJvUis5; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790973612; c=relaxed/simple;
+	bh=NavU9oD7boZye7A4i5QSk8+AfXIDy/22rXB6+09Jnyg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=onBW8RghJKQg4LDoschg5qe9J7KXAAurMrNyv9u5k8irwK/IeKDLmubJpvtava3E9WKz49agitQuZsW5yGpJwGQU9E/6Om1cd64v8YsDnF43oX/E5cbOROJK59YYXoRWX2tWO6TiXY8ciRrYkFQ7ezIbzkffrhC0iGZhjAIwV8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=rRyFqmQh; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SBJvUis5"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d7443e0f0bso101595ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:39:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="rRyFqmQh"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so261667a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 13:40:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790973566; x=1791578366; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J0j9tHQdvgPyeE7kOurEk+4M8mVRW7MJtC+t0YWufic=;
-        b=SBJvUis5KY8wXHSaIN/u2BXJhx9DSZbbjTIt2n4EFKuapooE1lve5HESVD+Ib9GUmW
-         GEwA2Ci68XirUnpDcjOxW/wMBE8SYcHmI9fIAc7mTom25WJFkWU+tYht7/HlUXg5XvNL
-         RTyEQhaSb8AbJYL0qNfCzHfJx5KMcQ3cTpI7FhkIZBPo6BSNtxTri/9Z/KLbYzS+0oyN
-         oWOLaiXk5gIEX7rpdjaTxYLa2lfqQWx0Weu+8GSLvNodFw0NEI5m3QJZQ5OJH/1+ehN+
-         Js4aJCXdkVpvXmXz6qJDIN/0uXJ5U48pRSZnkjXTrLVPopyKa6wb5Etlk34WGrI5qhaD
-         Kr6w==
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790973604; x=1791578404; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GBk5NF+csDO854jJyGJ+AcXtXH9ziwL4Hlvi0Ps7aIY=;
+        b=rRyFqmQhlt+bfWV9H75Tc2409iwlcAaJ6OSqzrChT59BS+iUl0zlanQ6S/A6Wc9FJ0
+         1XAdalZEY5tAtdkzoU3ZkcPiqmswNhInbgNGpK445GX9Ipf9L0clH1j0xq4tMzVdhmfm
+         XuReTN264z5U/bkXHDc0+oprioB/X69gI2HiOX8exNAndWXaiH5201ycwjw5fRBp0ndq
+         QL0jRUGMuxSSc5oWiEsBYcsaCLAYafp/VowTDw4L4P+Fz4UjnoIJCDiYZV1FixjbUVYn
+         C9gqzo03rXPfYJFC5o1cDSv7HNnZQ6Pxclu7MiapaYWWzNq0aDG4+DMpx+RT3VDXsaWb
+         5k6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790973566; x=1791578366;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J0j9tHQdvgPyeE7kOurEk+4M8mVRW7MJtC+t0YWufic=;
-        b=V4rYVOKLg4O6g791djDez8ynKwLjeJC0rvHCKd5KM4L/OS+B1yq4Q6C81aTZCTSZm/
-         ffJyQUrQ9xa9WITkUs8fKv9sWybJOaHaRoZ0Qp7Vn6MRQd9J6TBgVz70r6O6NOPtklWY
-         sG0rw1U1edzXqYV4tth3MX+yf1iUrU35TjjScicM8HqvD1N033+50+naOyRLRFXOzUKw
-         XMfzuFwPNXaeDQS0LER47RhG8kfJpk9pEasH1wwWx14YHkf7ibv34akFMiVvoeXgHs0s
-         2jajxqwDrjqPwVBk7lgHPsGcHtBKZEObbdB+P1tdB2gPRaA5VCpJ8MRtgq7eRJiW4Syw
-         0YdQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFG8AH9Vx1GQUM9nkweD2XvOcqVonKG6lZ7E5bQ46pEL1J0TDyN6w5dhmz5QErMzgbn1fY+KWlDDaaGUo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzGe6S8qXbqIs1kms7IO36/AwFuAZLrtChAA7kvZuiPpesy/ey
-	e2I+o+E78eIE9u3WUa0Rv4BHQcAeBSu+KZEEL7rJ1q+Lxoc8HymLaJdxGYG2H4YSnvD/NEa1qtZ
-	QnBsSNg==
-X-Received: from plhd13.prod.google.com ([2002:a17:903:230d:b0:2df:8053:e258])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:18b:b0:2e3:1bb4:611d
- with SMTP id d9443c01a7336-2e49b6771e7mr42633885ad.49.1790973566345; Fri, 02
- Oct 2026 13:39:26 -0700 (PDT)
-Date: Fri, 2 Oct 2026 13:39:25 -0700
-In-Reply-To: <6ac0145f.34119e79.2f92f3.0003.GAE@google.com>
+        d=1e100.net; s=20260707; t=1790973604; x=1791578404;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GBk5NF+csDO854jJyGJ+AcXtXH9ziwL4Hlvi0Ps7aIY=;
+        b=jg46SzGobe1nKb+2aBwRVbt2odrqATW4IHsUF89urVRCEtscGRnQAj3ZII95LLXPyv
+         CVeCmYI0RDpsZXI7KosBu9jlt0i3QUYD85wITQKRy9/cEePj30o3SjJb3zuG5c26XO3M
+         rVfxuijY7WqRmOfyV2jYOuROA+xyLBJSMuS4wfFpxW+u866eb7TuphJKPIehzN/fObGW
+         X1iVjxFm+t8cfPLRk8AIcilu0aM0VrMAa9FtaqQHlJpHvG4yzbDMrHFF3CJVSc4L4uQH
+         nszhcC3ZgHRY/RGRk4WGHEy3k00vn/AxnO3B6W9VzQGQ/f1R10UkPMfQ9dijmg5YiyUU
+         jMlw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7G925cCQkpHIvhMv8Z/V9UvwYT2cC8e1rDPzeWypd6dBwUN0gq8Xkz7zlcnr0MfTniClDIl4eSvIAWas=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgvEJ2JnVNdzgUUzhUzf8LQBvwRRdwbAsdeQBXRKrIFacpc/la
+	/dutA7jsPryGtDEq2g98Q3zlxxQ3K2r5fGzLEZdqJ5giz+saFg8T+7WVyf5+VhITL8M=
+X-Gm-Gg: AYBFou0AcCZGprsIblCEZ6jo3cRc7vDEEJyZnfgxxwUKOFxTU8TonIqjsEvEYHghfMH
+	X5QaYzefLj9WgpTnC6ldrUAm5v0SKoB8hJnbdisQVjQEr1Eyi8XuXeq2vSJumLXu2P9JeCZVzWy
+	76/dYcaANsS3TVm3Vggjj414aiWJfpBp5dWpJmNFCVqfe5gIlmDgBMMgXny1aBKuuejcQN15TVA
+	ksoeyk9nulRmHhEJRlXOcIIZonG12wSwKwAM4nCXdT2ZA/bWCQiML46Mj9r47//VjFYxPh8ZgdF
+	eYk3AjDDZ7TzX4dlBG5SOLnZpXcwuxJ/uDVqxbfQ6WtVSqdjTg0TYEfEmFKPbFpLcRPUcCXwowI
+	AvCywhtL0UCop/nzUO7Vj1YVBJi5t9z1DjA0f13+z40HvteGsW6DDz+T5LY4utFmxLsQM+wJOXJ
+	0ODWWH4o1EZrITFvP1LmgXCyWP1/ehChBO51sSjMl5HVOGi+lWz8bXCN1hY+xtGc7UeSWWHh4AW
+	Tx7O3sGhofqWg==
+X-Received: by 2002:a17:90b:2f45:b0:3a4:f146:5440 with SMTP id 98e67ed59e1d1-3a6ce98e12emr4072581a91.60.1790973604642;
+        Fri, 02 Oct 2026 13:40:04 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:57::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dd135d8asm2467823a91.3.2026.10.02.13.40.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 13:40:04 -0700 (PDT)
+Date: Fri, 2 Oct 2026 13:40:03 -0700
+From: Joe Damato <joe@dama.to>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [PATCH net-next v2 4/5] eea: unify return code variable name
+Message-ID: <asAWox4qWre236ie@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+References: <20261002100035.863275-1-andriy.shevchenko@linux.intel.com>
+ <20261002100035.863275-5-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261001202234.3794060-1-seanjc@google.com> <6ac0145f.34119e79.2f92f3.0003.GAE@google.com>
-Message-ID: <asAWfZ0N1MXgwQtn@google.com>
-Subject: Re: [syzbot ci] Re: KVM: Fix+harden against bad uaccess using dying VM
-From: Sean Christopherson <seanjc@google.com>
-To: syzbot ci <syzbot+ci69d67bf25886d3bd@syzkaller.appspotmail.com>
-Cc: jmattson@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, npiggin@gmail.com, 
-	pbonzini@redhat.com, syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002100035.863275-5-andriy.shevchenko@linux.intel.com>
 
-On Fri, Oct 02, 2026, syzbot ci wrote:
-> ------------[ cut here ]------------
-> !__kvm_can_do_uaccess(kvm)
-> WARNING: ./include/linux/kvm_host.h:1360 at kvm_can_do_uaccess include/linux/kvm_host.h:1360 [inline], CPU#1: syz.1.18/5858
-> WARNING: ./include/linux/kvm_host.h:1360 at kvm_is_guest_access_ok virt/kvm/kvm_main.c:3216 [inline], CPU#1: syz.1.18/5858
-> WARNING: ./include/linux/kvm_host.h:1360 at __kvm_read_guest_page+0x38e/0x440 virt/kvm/kvm_main.c:3226, CPU#1: syz.1.18/5858
-> Modules linked in:
-> CPU: 1 UID: 0 PID: 5858 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-> RIP: 0010:kvm_can_do_uaccess include/linux/kvm_host.h:1360 [inline]
-> RIP: 0010:kvm_is_guest_access_ok virt/kvm/kvm_main.c:3216 [inline]
-> RIP: 0010:__kvm_read_guest_page+0x38e/0x440 virt/kvm/kvm_main.c:3226
-> Code: f2 ff ff ff 0f 44 d8 31 ff e8 5e a4 89 00 89 d8 48 83 c4 30 5b 41 5c 41 5d 41 5e 41 5f 5d e9 09 ac a8 0a cc e8 83 9e 89 00 90 <0f> 0b 90 bb f2 ff ff ff eb da e8 73 9e 89 00 90 0f 0b 90 bb f2 ff
-> RSP: 0018:ffffc90003157778 EFLAGS: 00010293
-> RAX: ffffffff813e2d22 RBX: 0000000000000000 RCX: ffff888174382580
-> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-> RBP: 1ffff1102217d82a R08: ffff888110bee183 R09: 1ffff1102217dc30
-> R10: dffffc0000000000 R11: ffffed102217dc31 R12: ffff888110bee180
-> R13: ffff888174382b40 R14: 1ffff1102217dc30 R15: 0000000000000000
-> FS:  000055557c0db500(0000) GS:ffff8882a8cda000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f458dfeb840 CR3: 000000016c9d0000 CR4: 0000000000352ef0
-> Call Trace:
->  <TASK>
->  kvm_vcpu_read_guest+0x64/0x140 virt/kvm/kvm_main.c:3284
->  nested_vmx_load_msr+0x133/0x4d0 arch/x86/kvm/vmx/nested.c:1107
+On Fri, Oct 02, 2026 at 11:59:22AM +0200, Andy Shevchenko wrote:
+> In one case 'rc' is used in the other 'ret', the most use 'err'.
+> Make the latter use the former, id est 'err'.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/net/ethernet/alibaba/eea/eea_adminq.c | 34 +++++++++----------
+>  1 file changed, 17 insertions(+), 17 deletions(-)
 
-Oh man.  vmx_leave_nested() is so broken.  If loading MSRs on nested VM-Exit is
-broken (and it obviously is), then storing MSRs on nested VM-Exit is also broken,
-i.e. there's at least a second case where nVMX can write to random process memory
-on vCPU teardown (shadow vmcs12 being the other one).
-
-It probably makes sense to go straight to open coding punting the vCPU out of L2
-in vmx_leave_nested() instead of hack-a-fixing a bunch of flows.  I.e. replace
-patch 8 and 9 with a proper fix.
+Reviewed-by: Joe Damato <joe@dama.to>
