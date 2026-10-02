@@ -1,131 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DED947A87E;
-	Fri,  2 Oct 2026 12:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94EB266581;
+	Fri,  2 Oct 2026 12:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790943164; cv=none; b=kzBadtFVTU6mO58DnBYSuQCPvhX7kr2gYJl1Jlji3q0/rMj+0CHm2hznCtUXgBo0Nb7rrVuLReOkfLF+RU+RqzWMR3i9BhI+ijULje3GLyyyuNTWnMdrQslM79OruX9qRl1UMC+LmTmYLKW7rN/DglyiY0ejJ/8zCKYaiPBlFUs=
+	t=1790943412; cv=none; b=dDQG6T2NlvxN760mde2pmviJL6jNYPCUf761hzOw3hUwI6xEhyJQaamg/rtORB0APEH+1asY9dvKWQ9hI77HcWi/8mePTa6uPJM6yT/ChL1FuKthP4clUKS0PXFA75vmRGVoB8D16/XyLiB20OchUm0vh7e+TA954RoOYhT4k1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790943164; c=relaxed/simple;
-	bh=ZJ0Z/r4AiXTZAF8k8QwJ7RvpIWIKMzp9yZ5KsTu0k1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nOeQQAfo1YyH7hFaDJJ8pUQXdVynPHoc8tLxW9kq3ePMtfBKZK/rDD7Xo3w3sZmOp34S8X8QbKtRPV+9IsYz4w9tLdNl/Up70FryHz3SJsorSkeHKbyvrzcfxiNxq6q371iQyNZjc6+Hgixb+kOfHbsbELyhgHQL217XOpvro+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4yl8biB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790943412; c=relaxed/simple;
+	bh=hWvROiBQkqgwYapnAaGEgy91XM4lZH3rX2b5rdYyUEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aGYd9jlRQYSSjQXAncKOTUhLoCHlzq1Zm9TSl70xI7dzZZHPq4YzxSJoGrgBzQQ56jOoQQVsnjkipBQaOjbmzUCG7DabPdP85rPkPRkJsMV6Yq5pS61KURy4rDABZnQ0499KFzyvSIcAGZatOkDwydG0aS+gMKvTkXODBqOPac0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vZaNG2pj; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4yl8biB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7891F000FF;
-	Fri,  2 Oct 2026 12:12:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790943162;
-	bh=nX94dzJL8Kj3ESX88e5wjImNlNtcKNqoM+7SGcE8uW0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c4yl8biBSZCOSz8O02PAfeH7eOGxEphl+j5zx68yHK0rGgywavDJhETeCqFXtb525
-	 drYTuH322sqP8NPQ5ZewzHTnVOIMhBthJu+BRfYK/9P82Fewt1qESLmLaBje/QXlbU
-	 DwFWnhrzPDhC7iHk2BYxuuux04WkpQ1QaA4z1giCRe1/CYf+j/udPDx9BpMRBgE+zE
-	 0Pp4Nr8nepmdcGz6T4V/ZJP/q0Yksmr01oznoU9EHFYDe+Pybk4DVG6cBSpehyP9Up
-	 XaZfWzb0H55uTLR1CMcTUrzHQC2okp7EhDFf3/godjZFN6JSYYuusCC9eACzBjmltf
-	 QSU/lT7DTm+dw==
-Date: Fri, 2 Oct 2026 13:12:20 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Paul Moore <paul@paul-moore.com>, Leon Romanovsky <leon@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Thomas Gleixner <tglx@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Zi Yan <ziy@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Namhyung Kim <namhyung@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, x86@kernel.org, 
-	Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Simona Vetter <simona@ffwll.ch>, Peter Xu <peterx@redhat.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
-	Borislav Petkov <bp@alien8.de>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, Rik van Riel <riel@surriel.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Helge Deller <deller@gmx.de>, 
-	Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Maxime Ripard <mripard@kernel.org>, 
-	Nick Piggin <npiggin@gmail.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
-	Paul Walmsley <pjw@kernel.org>, Anup Patel <anup@brainfault.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Andreas Larsson <andreas@gaisler.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Gregory Price <gourry@gourry.net>, Rakie Kim <rakie.kim@sk.com>, 
-	Christian Brauner <brauner@kernel.org>, Alistair Popple <apopple@nvidia.com>, 
-	Axel Rasmussen <axelrasmussen@google.com>, linux-doc@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Matthew Brost <matthew.brost@intel.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Byungchul Park <byungchul@sk.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Xu Xin <xu.xin@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	linux-usb@vger.kernel.org, Qi Zheng <qi.zheng@linux.dev>, Yuanchu Xie <yuanchu@google.com>, 
-	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, Youngjun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Wei Xu <weixugc@google.com>, Miklos Szeredi <miklos@szeredi.hu>, 
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH v3 10/40] drivers/usb/mon: update to use mmap_prepare +
- map kernel pages
-Message-ID: <ar-e6Njx2MHiGs7G@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-10-4583d8a23bca@kernel.org>
- <90811f7b-1751-49cb-bf0b-3d5ee7f10e45@linux.dev>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vZaNG2pj"
+Received: from pb-laptop.local (185.182.214.55.nat.pool.zt.hu [185.182.214.55])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 191DB5E;
+	Fri,  2 Oct 2026 14:14:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790943294;
+	bh=hWvROiBQkqgwYapnAaGEgy91XM4lZH3rX2b5rdYyUEM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=vZaNG2pjGZf5q/7aenUNXYfzavHTPGhlNCg+RFNYInDWfBCHZqIpTfby14tMTG8b0
+	 rnTu7RvwnTp229SHWYoHInz17exaQl/qZTUZN9/K9J49gogSLg8pkcuzBw9AeHDLPs
+	 dCw8oGQ/nDwS6U7EXhRloxN48C8KSzdLkAexRJoc=
+From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Subject: [PATCH v1] media: rppx1: lsc: Fix and use LSC_SIZE_VALUE()
+Date: Fri,  2 Oct 2026 14:16:43 +0200
+Message-ID: <20261002121643.418200-1-barnabas.pocze+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <90811f7b-1751-49cb-bf0b-3d5ee7f10e45@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 05:55:56PM +0800, Lance Yang wrote:
->
->
-> On 2026/9/18 00:22, Lorenzo Stoakes (ARM) wrote:
-> [...]
-> > +static int mon_bin_discontig_init(void *vm_private_data, void **private)
-> > +{
-> > +	struct mon_reader_bin *rp = vm_private_data;
-> > +
-> > +	/* Dropped by mon_bin_vma_close() on unmap, including on error. */
-> > +	__mon_bin_vma_open(rp);
->
-> Em ... If Coda uses a usbmon container and the first page insertion fails
-> (e.g. -ENOMEM when allocating a page table) after mon_bin_discontig_init(),
-> where is mmap_active decremented?
->
-> mmap_action_finish() returns the error when is_compat is true, and
-> mmap_file() then replaces vm_ops with dummy ops.
->
-> Am i missing something?
+Firstly, the size values are 10-bit unsigned integers, and there doesn't
+appear to be an upper limit in the hardware documentation, and testing also
+seems to confirm that 1023 works as expected, so the correct mask to use is
+0x3ff (1023), not 0x1ff (511).
 
-No, indeed, the contract isn't honoured in the compat path.
+Secondly, actually use `LSC_SIZE_VALUE()` when populating the size registers
+instead of using the `LSC_GRAD_VALUE()` macro.
 
-It can't actually happen in practice - the compat layer is only ever
-accessed from a stacked filesystem and those only stack on regular files.
+Fixes: b39656efb71a ("media: rppx1: lsc: Add support for lens shade correction")
+Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+---
+ .../platform/dreamchip/rppx1/rppx1_lsc.c      | 34 +++++++++----------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
-But I should probably update this to be strictly correct regardless to be
-consistent with the non-compat path.
+diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
+index 8badeca23e249..ffc52ca23dd99 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
++++ b/drivers/media/platform/dreamchip/rppx1/rppx1_lsc.c
+@@ -57,7 +57,7 @@
+ 
+ #define LSC_R_TABLE_DATA_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 12))
+ #define LSC_GRAD_VALUE(v1, v2) (((v1) & 0xfff) | (((v2) & 0xfff) << 16))
+-#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x1ff) | (((v2) & 0x1ff) << 16))
++#define LSC_SIZE_VALUE(v1, v2) (((v1) & 0x3ff) | (((v2) & 0x3ff) << 16))
+ 
+ static int rppx1_lsc_probe(struct rpp_module *mod)
+ {
+@@ -157,24 +157,24 @@ rppx1_lsc_fill_params(struct rpp_module *mod,
+ 	write(priv, mod->base + LSC_YGRAD_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
+ 
+ 	v = cfg->x_sect_size;
+-	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
+-	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
+-	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
+-	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
+-	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
+-	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
+-	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
+-	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
++	write(priv, mod->base + LSC_XSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
++	write(priv, mod->base + LSC_XSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
++	write(priv, mod->base + LSC_XSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
++	write(priv, mod->base + LSC_XSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
++	write(priv, mod->base + LSC_XSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
++	write(priv, mod->base + LSC_XSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
++	write(priv, mod->base + LSC_XSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
++	write(priv, mod->base + LSC_XSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
+ 
+ 	v = cfg->y_sect_size;
+-	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_GRAD_VALUE(v[0], v[1]));
+-	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_GRAD_VALUE(v[2], v[3]));
+-	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_GRAD_VALUE(v[4], v[5]));
+-	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_GRAD_VALUE(v[6], v[7]));
+-	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_GRAD_VALUE(v[8], v[9]));
+-	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_GRAD_VALUE(v[10], v[11]));
+-	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_GRAD_VALUE(v[12], v[13]));
+-	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_GRAD_VALUE(v[14], v[15]));
++	write(priv, mod->base + LSC_YSIZE_01_REG, LSC_SIZE_VALUE(v[0], v[1]));
++	write(priv, mod->base + LSC_YSIZE_23_REG, LSC_SIZE_VALUE(v[2], v[3]));
++	write(priv, mod->base + LSC_YSIZE_45_REG, LSC_SIZE_VALUE(v[4], v[5]));
++	write(priv, mod->base + LSC_YSIZE_67_REG, LSC_SIZE_VALUE(v[6], v[7]));
++	write(priv, mod->base + LSC_YSIZE_89_REG, LSC_SIZE_VALUE(v[8], v[9]));
++	write(priv, mod->base + LSC_YSIZE_1011_REG, LSC_SIZE_VALUE(v[10], v[11]));
++	write(priv, mod->base + LSC_YSIZE_1213_REG, LSC_SIZE_VALUE(v[12], v[13]));
++	write(priv, mod->base + LSC_YSIZE_1415_REG, LSC_SIZE_VALUE(v[14], v[15]));
+ 
+ 	/* Enable module. */
+ 	write(priv, mod->base + LSC_CTRL_REG, LSC_CTRL_LSC_EN);
+-- 
+2.56.0
 
-Let me see if that looks sensible and rejig for v4, thanks! :)
-
->
-> > +	return 0;
-> > +}
->
-> Cheers, Lance
->
-> [...]
-
---
-Cheers, Lorenzo
