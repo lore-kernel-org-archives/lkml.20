@@ -1,249 +1,88 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6519D331EBD
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95E337FF5D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950002; cv=none; b=g3ZC2TSotDwgU4Au2eVB6/bs2029VKfm6GzkBlKkBRjQcnH4729UULb2EwSE21el+LjRCNCxfMjK0YCRO9IWNCtTWS2J6nD+oobacLa5qLhzyQiq+yJaX80UgSwnNMSv1tuH4ZcYx17MF/E7sy4Oy9pYV/UNIDEQnUDuC7VNNZM=
+	t=1790950019; cv=none; b=gYsgGrmPoOoghQYlDvoL/i1lYR9w8oFq4Zbq8xRcXLFgKA9xJUP+sblWU2OjBafMli+pjR2uHB1j457CHyrobPzN4ngHATdNwWSoxWbvDgCHLfQnhx3j0ili1zF9lLKsOn8VXGgYYBTy9ZSz6EjpDtBrO1uq2kvTw1IY1GMhgsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950002; c=relaxed/simple;
-	bh=LXcBf5DqUjfpozfw5KUQg7cr3ol8Ac44JaBwa3ukRWc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JMdkz0kixUxSzHfDUV0MDrue9CGrYybMl4RY5mzj5hft8dqNhO6jmAoLTQwTYpq6rtTY1iqhytfwCd5ibB6qr1jZIn/GkElRBsA9kyHgVRFjMVenbsmTXTWvr0c/4xN0N+3Ixcsf9LZbG8pswT/WL7KUzYgfhk6feOPDSIhu970=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=B/9V81lN; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790950019; c=relaxed/simple;
+	bh=VGQSpi5t+n8Mt4QhsO/UraLILbcQvvyxj8bAoHzLclA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PfGWIUveCp4adhUV9YEzDASSIaY2XQtis9enbeXjUBqrZ8pClglb/Z6EhIslyIWO7fuJYerN1/2VGxZibskBDdq6k5yHWAKCz/9BDMCyQQ60rGiANFz0eDAh0aEDbc5Io9XNY7vFshTJVYF+03jp9X4RN0XZbHL8DDCIlk/DG90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=em27FVIi; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="B/9V81lN"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3946C497;
-	Fri,  2 Oct 2026 07:06:36 -0700 (PDT)
-Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 12D123F86F;
-	Fri,  2 Oct 2026 07:06:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790949999; bh=LXcBf5DqUjfpozfw5KUQg7cr3ol8Ac44JaBwa3ukRWc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=B/9V81lN3FHKo2ZO2YbSD2+LNlPmrdC5Ri9HLYfzg1m9O9B7TCBy9G2saK+FFE8zQ
-	 iz1Gy0HhbM79a4fiaeB/ujUOGd/WIucdr1YbqdVCjKLofI5kdV31YioegGC2ySfVT6
-	 JhNbtCigB4Jw0YPKttaBx0dOYnD1pTAJchW3YG4A=
-Message-ID: <be07db72-8cba-4d37-baf4-13ea2d94dd35@arm.com>
-Date: Fri, 2 Oct 2026 15:06:33 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="em27FVIi"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33bfb26865fso7523870eec.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:06:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790950018; x=1791554818; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VGQSpi5t+n8Mt4QhsO/UraLILbcQvvyxj8bAoHzLclA=;
+        b=em27FVIih8cU5FrIuiW8NY/dBRQLG1PRNxZWyxTmaR6k+LhF6lOGMJem67eGGiM1/Z
+         /T+/k/ns7CTjBQROdB/4jFLNWFKo2Hm4VkJN+pfbXdlRmuOYgqlBQ5TBHppgketSun7p
+         Optdj9m9zoD0yXE872Lgb48lpt2wT+xBIWdfDMmdADtgYbrMvLwkgqOvpQ46o6v7MbN3
+         q4V0bO/Oldy+0my4WnOXkzTv+cZuy7V5onin1DexPnsbwCS2qGpy6l7MYr9Uama2HfS8
+         GmNj08TfLrxq1/tSWITOyVul09axEaWsI0HLHP28CjT+YJAccluyM2PBFjgSHkSa8Pna
+         trEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790950018; x=1791554818;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VGQSpi5t+n8Mt4QhsO/UraLILbcQvvyxj8bAoHzLclA=;
+        b=Rh6467kjBRZnBDKzoMWOmExP79JYocz/pCVJ2lLKyNssam+0LIbXemRBeEfRSwCmbw
+         /3d7hqka+fp2t85PShlHI4G66+noZteB/kOJRDnkMdG3zirf1nJF5r5FRrV7aWIkEQeR
+         WZn3ZSAUTHHw5Vls+pihtoPAfSgk+Ier756o/WNWdOkfOPuGCMxWIuaxJI3YhLXfo+tm
+         SJ4X1cz+9prQ3gZ27TLztjE9JQN85moOPK3IjFo3wnb8vqqyqKKJmrLLzXF/OzCLQF7X
+         ifc4WOpqa9AogaQuHvq+V/fhekIXYVTHK3uVut53ObbQkcGPpnUzg9N6lhdKOX4nJESR
+         lSNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxx4wlKi7ue6+SQMDmfD26GGcnfeNhe/VOVsyIrvG3/nTGTaybLh6GE/2k2hOA7WVNFzvHaGu3g/Pz/HHA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kILCw4uHrz/KSaq9IhJfdulwvNsMd6EHyI2RTcBkqzIeMdwWJs
+	TEiP9AmEjysqvaZHodYxh/aGeM6wx1fupF2rN1qyVhfWb22kC21mxYId
+X-Gm-Gg: AYBFou2V/hXHc6zVpZz0TZGds24wcnujBmLLnGb0FL12gnpMdtOO/qrFzmRbLEF3Z4D
+	LUpdrpxS+DMXdjK4XIRX/UV9eAbXjK5ImNZU2zBxQC5qBXzXpD1cTq+viOsysd1reYJ+U1nnesr
+	wpgINTFRTcuapz+Qd0w8Vz+Q0sWxuuy24OlRl3Juc//GcWayLOfIj+HxCu810ugVlPpcENrElW1
+	Ap2sWfhX2CivVKHLymx0/3mJK/IruqrYlQrOSMSGXhz2iKOzahIXRgXvMLv4W0t6u4LEiwrAwl1
+	5ODCKYsMjKUWCp1a6Q6/jbFuAyB9EDQLcHFfJGtXroy5g4AhVot9rLN1c1moENVhBSZXKKFRL5s
+	paZJVsk/A5Z0AEdaMd4qJv/i0u+IDZK/d3WiL1VJCxFYYnVxum0/Ccg+M+VSQNBRy9Ch+o3ccY9
+	H0StDsZSnHM258z8EyO31F/MTJRHh2kJHpfKltPdTlVZrbUlVoX8AAY5gp+bwKcWwnwnNtXhE=
+X-Received: by 2002:a05:701b:465f:20b0:14f:505d:804 with SMTP id a92af1059eb24-14f58fd349dmr2820198c88.2.1790950017614;
+        Fri, 02 Oct 2026 07:06:57 -0700 (PDT)
+Received: from adi.. ([122.171.22.57])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f410725e2sm5951901c88.0.2026.10.02.07.06.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 07:06:57 -0700 (PDT)
+From: Adi Prasan <itsadi2409@gmail.com>
+To: error27@gmail.com
+Cc: gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: fix ie_length bound check in rtw_cfg80211_inform_bss
+Date: Fri,  2 Oct 2026 14:06:52 +0000
+Message-ID: <20261002140652.3229-1-itsadi2409@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ar9cUQd-NEJozKxg@stanley.mountain>
+References: <ar9cUQd-NEJozKxg@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 02/15] drm/panfrost: Move lock and modparam
- initialisations into their subsystems
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-2-62beb08de207@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929-claude-fixes-v12-2-62beb08de207@collabora.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/09/2026 04:44, Adrián Larumbe wrote:
-> The device init function feels a bit cluttered with things that should be
-> done in the specific subsystems where those locks and lists are being
-> used. Same goes for module parameters, it's best to limit them to the
-> subsystems where they're relevant.
-> 
-> Then we can also discard panfrost_drv.h since the transparent_huge_page
-> doesn't need to be accessed elsewhere. We can also simplify the
-> creation of a mount point, because drm_gem_get_huge_mnt() would never
-> return NULL if drm_gem_huge_mnt_create() returns 0 when kernel is built
-> with support for transparent huge pages.
-> 
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+On Fri, Oct 02, 2026, Dan Carpenter wrote:
+> Why not use MAX_IE_SZ as the limit?
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+Makes sense, done in v3 - dropped the bssinf_len/MAX_BSSINFO_LEN
+check entirely and check ie_length against MAX_IE_SZ directly, which
+is the actual size of network.ies. Removed bssinf_len too since
+nothing else used it.
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c       |  7 -------
->  drivers/gpu/drm/panfrost/panfrost_drv.c          | 10 ----------
->  drivers/gpu/drm/panfrost/panfrost_drv.h          |  9 ---------
->  drivers/gpu/drm/panfrost/panfrost_gem.c          | 19 +++++++++++++------
->  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  3 +++
->  drivers/gpu/drm/panfrost/panfrost_gpu.c          |  2 ++
->  drivers/gpu/drm/panfrost/panfrost_job.c          |  1 +
->  drivers/gpu/drm/panfrost/panfrost_mmu.c          |  3 +++
->  8 files changed, 22 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 05c40d5a20b5..c1a2e93a2b9b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -216,13 +216,6 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  {
->  	int err;
->  
-> -	mutex_init(&pfdev->sched_lock);
-> -	INIT_LIST_HEAD(&pfdev->as_lru_list);
-> -
-> -	spin_lock_init(&pfdev->as_lock);
-> -
-> -	spin_lock_init(&pfdev->cycle_counter.lock);
-> -
->  #ifdef CONFIG_DEBUG_FS
->  	mutex_init(&pfdev->debugfs.gems_lock);
->  	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 9882a3ede75f..59af79a534fa 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -21,7 +21,6 @@
->  #include <drm/drm_utils.h>
->  
->  #include "panfrost_device.h"
-> -#include "panfrost_drv.h"
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
->  #include "panfrost_job.h"
-> @@ -955,12 +954,6 @@ static const struct drm_driver panfrost_drm_driver = {
->  #endif
->  };
->  
-> -#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> -bool panfrost_transparent_hugepage = true;
-> -module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
-> -MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
-> -#endif
-> -
->  static int panfrost_probe(struct platform_device *pdev)
->  {
->  	struct panfrost_device *pfdev;
-> @@ -979,9 +972,6 @@ static int panfrost_probe(struct platform_device *pdev)
->  
->  	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
->  
-> -	mutex_init(&pfdev->shrinker_lock);
-> -	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> -
->  	err = panfrost_device_init(pfdev);
->  	if (err) {
->  		if (err != -EPROBE_DEFER)
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
-> deleted file mode 100644
-> index a2277ec61aab..000000000000
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
-> +++ /dev/null
-> @@ -1,9 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> -/* Copyright 2025 Amazon.com, Inc. or its affiliates */
-> -
-> -#ifndef __PANFROST_DRV_H__
-> -#define __PANFROST_DRV_H__
-> -
-> -extern bool panfrost_transparent_hugepage;
-> -
-> -#endif
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> index f39c0f50ed4f..383ac8cd5645 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> @@ -11,20 +11,27 @@
->  #include <drm/panfrost_drm.h>
->  #include <drm/drm_print.h>
->  #include "panfrost_device.h"
-> -#include "panfrost_drv.h"
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
->  
-> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> +static bool panfrost_transparent_hugepage = true;
-> +module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
-> +MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
-> +#else
-> +#define panfrost_transparent_hugepage false
-> +#endif
-> +
->  int panfrost_gem_init(struct panfrost_device *pfdev)
->  {
-> -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
-> +	if (panfrost_transparent_hugepage) {
->  		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
->  
-> -		if (drm_gem_get_huge_mnt(&pfdev->base))
-> +		if (err)
-> +			drm_warn(&pfdev->base,
-> +				 "Can't use Transparent Hugepage (%d)\n", err);
-> +		else
->  			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> -		else if (err)
-> -			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> -				 err);
->  	}
->  
->  	return panfrost_gem_shrinker_init(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> index fefae87535d6..72cd7a165e6d 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> @@ -97,6 +97,9 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->   */
->  int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
->  {
-> +	mutex_init(&pfdev->shrinker_lock);
-> +	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> +
->  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
->  	if (!pfdev->shrinker)
->  		return -ENOMEM;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> index 7d555e63e21a..8a15ccce08e9 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> @@ -516,6 +516,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
->  {
->  	int err;
->  
-> +	spin_lock_init(&pfdev->cycle_counter.lock);
-> +
->  	err = panfrost_gpu_soft_reset(pfdev);
->  	if (err)
->  		return err;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-> index d59b4863b8ad..476c936b54e6 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -874,6 +874,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
->  
->  	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
->  	spin_lock_init(&js->job_lock);
-> +	mutex_init(&pfdev->sched_lock);
->  
->  	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
->  	if (js->irq < 0)
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> index 4a3162c3b659..5c393ed6e310 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> @@ -955,6 +955,9 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
->  {
->  	int err;
->  
-> +	INIT_LIST_HEAD(&pfdev->as_lru_list);
-> +	spin_lock_init(&pfdev->as_lock);
-> +
->  	pfdev->mmu_irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "mmu");
->  	if (pfdev->mmu_irq < 0)
->  		return pfdev->mmu_irq;
-> 
-
+Adi
