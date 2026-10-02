@@ -1,296 +1,166 @@
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 659FC1F938
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 00:06:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790899610; cv=pass; b=pAueHCq3RVfeUoUkxiQ/jxIG4YJDIfcClhmnnyHHe220wcBqGUCok1yEHQ21+eqVfk1dBeLtvEH+yNL5ea/Z9W4MaHo+JJS90xeGzwnKrR4rSHVg2B0oW0AXhEGVg6bh2BSDvZ9YDhjSc4dFUnWll334+4zzlEli5U4ngFiImUo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790899610; c=relaxed/simple;
-	bh=BqtUlk8J1kz4Zk63VvtHnggJTSj80SlcKH/tkA5RpSc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Sb2fXkWiTj/KlObDRtze2VB3aAEZRiLVhq/ZxsiyyfUx0Cn31j/KLrs0KPU8B9SAoInR+HPNEoUpo7n7mQJqsqTdl9Vv9ydSHHml61dQgXv40fIiFziMDiKDsWzCbvK/ILXj+38JmgeLh/T9rD8KKt4wYfrtazslbbSCwjn8JNc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BSh18eHt; arc=pass smtp.client-ip=74.125.229.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15FE2110E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 00:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790899667; cv=none; b=fUf37ejdWhXH8eRgGmuych3jhhfvpdSOkzYp1kQyw9fat0kaGvJ2dvpwAufWeYzWg/u9k90kTQNV/D5dPeV6CNEX0g+cMIDDe+l9sY9JgiAfVuikpFqqo9XZwxej/YZ6GS4JtRxMR5+Qat0vNKt7T7MDJ/kK+XvKVNlXYPlfh0w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790899667; c=relaxed/simple;
+	bh=6rmt054WcgR/sUykGVDW9KdieYf0NX8FnzjOGrZpeiA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=d/Wiqf/amIISBXucYFDbww7/w3Dvqj9uzP+iQgJr1KCCrk3GyaEKNDV1dU8e/tZowyqQU+tS7QIGkuqkM9q7ll42b3s8k6Wko0n3g5sWfd49v8CvfP3o1OJlm3h0K9aUJvngLL0FmISGyIJA3+kh4OUYnrSSplp5Gq5hyzvAAgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UoK+LnhZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Aivm4wKv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BSh18eHt"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144df39b6cfso5562789c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 17:06:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790899608; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IX8QoamIM4gkDguhvVIxOBc/iGxhd2ihyEGxG3AGQBpa5tODPeHrsm0G4RLreXEkOK
-         4s92ZWrJaC6Hx5///TNY7Mv/D89m+6j8nrlEOmIaHL/0ZwHtXd5+jYSzWQOWqpcRDn9O
-         UZCt2+2d0luj6rttFlvJiJDfcwxgJRiIy0DRAai3BKzHKwSWE8oF9+z72IVR0F7UNcw4
-         +LGSR2oRhEPzRPXQG5jwkGUHbFXNIjz0bGnX9Ep649a4A+V0WmCP11J3aD3CAKez7QKO
-         yhRYPsLywbSzBSPihf9pg+poa8SekQGYPXTpxW6ZFTQxehGOUcmHYICRIExBYQ2tUhP5
-         WNrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zGCTIMLzR0g5rrSlyGyDUUCtcO6sG738acE2Sfbugu4=;
-        fh=KVUEUsd5JxrD2sVQ3j1SJM2wkvjrJ01c/eji1+li960=;
-        b=agfJcy8GJPyG/TPIzgS5LRxLvnPcRUgbODLrKbWlJzCOTg9zrZVSyX8H/18ebFd9DT
-         8Mwe/EXNrjLGmxL4PK766ohk5IhpQcD/XONcix5q0n736SuIMm1jD8w07gb8XC/bVpiB
-         jq24KGqUp2qPE5JLpsiKpYdBBLGm2iztzR23ea2cUPFXaDbvlrVAzxqKc/qAsIafdnGw
-         MvipGYzG6I7Vqu90y4XOjRIt1/BbD9SyAxFtdG1shca4F0CER5RcEyl6PkHutSRgdvbR
-         inZQy07Zw6826l/xjLHEy83bL/qg35b7IbgvaDcuBINCWgEMCHttjDqadTZUiIcCbLm0
-         ch/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UoK+LnhZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Aivm4wKv"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 691NESQ5099904
+	for <linux-kernel@vger.kernel.org>; Fri, 2 Oct 2026 00:07:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=QsPd4SyGa+WJ71aCuvBXvF
+	F5fEVwvkPkzB2deVo6AQ4=; b=UoK+LnhZaJfHoRD62G/eucYr2PdeCG+5eN5DoY
+	0WuiMxIAGs+3fp6CvfRXxOYGuk19+WV7K0lvu+/c9jaO6rpn7cfupHb91uIJXtWe
+	kRMIJ/4mdLi5jOG3RdRbx24WhEm29jp63Em0jR62r0p3mbeBppYaILQn3z8x/TA9
+	LkvFj68T4xnYH0WBtYMILe8EfJF/whyU2EaWpoIoI7GO8PrT0P5RMrzPVC5cfvxp
+	0cbdP+uvV4GGOWul87OdtAucBFneSwy7M/NrDkLmK6UhN8xZ1JyAbIgVy+f/fExd
+	QgoWijROy+L8yp/ZTWWgbpTFFjyEIa3FDLt9AvKAR707/2vw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h20sh06c9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:07:44 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so13741911eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 17:07:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790899608; x=1791504408; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zGCTIMLzR0g5rrSlyGyDUUCtcO6sG738acE2Sfbugu4=;
-        b=BSh18eHthaNFNrSytQcwTv5hoLiV/T5j3IShzXdp5ojtCXdgqP/usdQ7tKZxzoEZHy
-         pLQixhj6JfYpjy+FAkrqSsxWgxPXxtE0i9yRrREvfoIAKIwc3odJUWzfLPzrwnvPGdKK
-         33MJ7QRN4biq4T1DtFmgpNTfGM275/WffQUG/G9/c0XDhGY3eKp5s2mI7ZZrKRo0zjyp
-         z42vDlQpeUoWV8FvtapgcRApSs4ThjKbjcqLcEr1zO/uDsywZ8QO9UG6XVb1coRFBMnN
-         l+Ii1zEDXqmn27sjaLHpFPUhqFrrWIij2DmP5z8oNZTTbyXCmJbMOr4UmnVpkhEhi3V+
-         Ba5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790899608; x=1791504408;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790899664; x=1791504464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zGCTIMLzR0g5rrSlyGyDUUCtcO6sG738acE2Sfbugu4=;
-        b=dICfmJmH0kRm6dCXJDarbrqQa4GdJAnpfuXagC8Lsyet4qQb91VPQc/Q1zW8K9scXb
-         6vdOYIx6Z+AFuUjsvKrSngtsl9SpwUoKk8t6WTSXmyjVLbV9ssCI26f2q7gD0uyoT41T
-         J4Izs0b4ZdwoyxbiExxuBYCxn8iGJPQZuCihEpu4t0drCUStyTebMYEzHQMmtHC1vIGP
-         G+GxZlW+txTf0Aw5Q+IdF1Z9bENnU0hUv3/JLV+CjFEHBuKnhGfI65qcQ6mK89Osxe1u
-         hVAVT3nO84zt4Jdf7AunO7vdlBYK4LJ9atl19uZs3GSk8KB5+aiDFkcz8NLLaKWM9+nL
-         bFCw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDGZuFg1bDZPqnGb630Tyf1IftgEA90yJKF3zn986TbKph61eB0os1HNFz8H9dvdo/wTaT3xLot7VCtpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPQW3jNNTGb5EXhTKc31neqHucKt3XJC/GJJCzD0Vwxm7uROAn
-	zOsa8K/boIY3Eb/XSaHN3xUSbBxS09Ej/bVq2SG9Fx0u3gM9oCKzicw5BorKO73FOqarCHSXMn7
-	dogzUv0gx3S4DuOcHmk8KFLM0pZlSD/UQxnTm6xM=
-X-Gm-Gg: AYBFou2vw9Lpa3Pdu6g3NvtHMCddCXN+vNB0yV6SACw74a+//8+obzz6YWafS1Sxwrj
-	V1vp1o9As7qlXEENFVWY8ttX5IoJ/eetdEKc3bOosGSp1Ymm7icx0GM1TWLx+CbXCtzAZQLeWwN
-	qBS8j670mWdkp9a2ht9TWLHdvoN/+WYPRzeEGyx1BuTvXE5xEgl+89oEB0tJhfrf39i0h+Jj8B+
-	z//Q3XX/jHv9pVmPQEyoenmR+qcLXalUKaSo5qXKYxj58OIDeZaREslk5kMvUKplIcxbMyZ3JR3
-	U/StOqllYlmOyw2RJP1zfuUUEHdw0TLIGVUa59yB8iPtu9WCEoKPiEjoZIKOn1OUF4PhhYhxmY4
-	haZJebk62agQPZK7zSeeff8XKaw==
-X-Received: by 2002:a05:701b:4306:10b0:147:cd15:3eb with SMTP id
- a92af1059eb24-14f58de57admr838109c88.6.1790899608169; Thu, 01 Oct 2026
- 17:06:48 -0700 (PDT)
+        bh=QsPd4SyGa+WJ71aCuvBXvFF5fEVwvkPkzB2deVo6AQ4=;
+        b=Aivm4wKvSIwZSNflkn+Q/lzq1/REx9FhOAR9LZ6qV/SWr1Elg6wQSPDnaBi39ciIUI
+         e2apfc9chiUtClOv07k8oL7Vqua125uXWpNIAYt2WsxeA/8B91J+ao0d6lZ2aNNLVReR
+         GQzoqj4TaobG6ihYjpCtrv4EKTZ7J8gst4DVHPc27Kbd5dHEWCVGpl0sqFwCvfnY2YW/
+         YF5EpnxFwWjUaI5CKpnfnCUDzYdL7foAaC08Qzg3kEJjPoDLUmqa4QI1dlr1kPu/ITSs
+         rjy54slqPuDxV03QvdbbhqFri5HktswL+tMh6q4uFmioAEXL+B1+RmdKgl70DtbjTvZz
+         8Jkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790899664; x=1791504464;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QsPd4SyGa+WJ71aCuvBXvFF5fEVwvkPkzB2deVo6AQ4=;
+        b=pAcEipI6r/EA4uxSmyHREs6BZFsxTP6d7V0E2wymin3S6q6peS+n6pwxpdfaZ6lrn7
+         I4xH3X6DniMWXX4kxhy5rY7j7xz0sB5Vt0pH3YojcvyxyE1SISY8ZVBf4K+2IebXFwVm
+         IFAmwevSB7Oms94/fOLVQUYMV1W7KlP8+zoBoOXKLez/7S3Cgf60qMWmi+SInEezLZDB
+         Jp9ASipAvZSclB1ty/551hM2t4xHVgXL2awxM/QE9B03LwqW8xONQN6cBUt2CXI+UM7F
+         kPg+MJa7budvoKsOwVDSgV/YU6sYxAnOVQRwVjXqoUpInRMOGvcfV8+3XoH1OTeg+WyH
+         sOug==
+X-Forwarded-Encrypted: i=1; AKwUvBwFnTBwq+toc3tGKY0R5Nq1VYJOJ6ZoWS7EsDIKyLu4K6y4pQMuEv/lgfmPVv4+md+WDfyyRA0HqH6znNY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq/z9v3o9XFGe5Lpn96gxGkMrmJBpMyN4Ct828DbtaLIrk6bva
+	wwNv+ulCtOS6ul3t8pvUveT5zjxm8Hvb5JRqPodSzypvku0LhEP01kq2HhLW7b7Vl6LEqW+pgj3
+	hhuekmXix1ukrCuN9NApQcvBacdH1axc5g/6cLQRcuGBSCoC/INgvS87Ss28N/f5TdGc=
+X-Gm-Gg: AYBFou3QPj4z+VoSSS+Qhx5k+S8z+E/SOqU28TXNVu7QdE0j38NCtkmw04KCSHxJKN+
+	ENLpJgfxaOvkC04pvelsQGWGSw83ewMkgovwsmJ2ke3MKTGYRp/1oS61qsGjujWYtmwJqvywmJr
+	CPl6X5BKzIz981HmNcBziq+8PpisMpIp9XSFaRa3KaaCihqsgxU8TJtRuZREW6umYqxbCkxeM47
+	H1qicDMomR0lNQ0D8WOlf84+8p1wq5KXEXRgttc/FVIQETM1xzWWnjr/3U+xHg/PU0UdxjE9kRN
+	o9zvoebendVsPf0i1Ls4eOmsmK8ZTzmUzJpeeorMtkEd9RbRYyg18wx7knoxxj9rzF3BkvqUWDE
+	+FQjb2vDlGpA7BtpVi6ybEWS+bzBxax0EX05TDav54/+XKPj1J4m8uw==
+X-Received: by 2002:a05:693c:638b:20b0:34d:60c3:3957 with SMTP id 5a478bee46e88-34f21859681mr963617eec.24.1790899663530;
+        Thu, 01 Oct 2026 17:07:43 -0700 (PDT)
+X-Received: by 2002:a05:693c:638b:20b0:34d:60c3:3957 with SMTP id 5a478bee46e88-34f21859681mr963590eec.24.1790899662923;
+        Thu, 01 Oct 2026 17:07:42 -0700 (PDT)
+Received: from hu-eserrao-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f660f1sm1561300eec.13.2026.10.01.17.07.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 17:07:42 -0700 (PDT)
+From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+To: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/1] usb: dwc3: Clear SUSPHY before issuing core soft reset
+Date: Thu,  1 Oct 2026 17:07:40 -0700
+Message-Id: <20261002000741.450793-1-elson.serrao@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-amd-mst-teardown-v1-1-16a39ebdd4de@gmail.com> <96bababa-cf6d-472b-85a1-bafeef5fc474@amd.com>
-In-Reply-To: <96bababa-cf6d-472b-85a1-bafeef5fc474@amd.com>
-From: David Medina <b2amedina@gmail.com>
-Date: Thu, 1 Oct 2026 20:06:21 -0400
-X-Gm-Features: AclHuK-IQKG-NwL8I-2Z8nKQLu2bpmDAnbsNCVPk6aX1ly4aCkJjWaj0KijyvMc
-Message-ID: <CAGTy6n_XJ=-MucZko7JrEUCg9oQZBVKVvtPunb4i6RFKV4QhnA@mail.gmail.com>
-Subject: Re: [PATCH RFC] drm/amd/display: Disable CRTC on MST connector unregister
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAwMCBTYWx0ZWRfX+cOHTyEZEMEG
+ xnuOkVZKKDlw23qRIg8xbuL4P52yjntsITQXLca11B3lx6HgDjpMH/lSUmdUqTQjFYAw2RhRYh5
+ UthghDKvakYd9RjpR9++GqItw+fPMkI=
+X-Authority-Analysis: v=2.4 cv=IpmL47/g c=1 sm=1 tr=0 ts=6abef5d0 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=pF2x2taR6QuopRQjwAkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAwMCBTYWx0ZWRfX8Sy21Al0+dO0
+ qGeBgUdKoA2Yz1+lfRR6IgTE1slKjy0hrATAG8EgCe3EkRf7iy6s6oQJ+VDDnHr5WVGbesEd26s
+ ssH/5XN6PpjnHJT88yfq1JEiVeLoWR5gZbYdtl6lL3oQnG0fnlJ6pipQjQM8+7Tv6+/Ql6ZbiIL
+ D26exZbmdfj3Lw+/4TMwCikd03ELPosRvrrzdWXfFO39gvvZuMFTuvADazVD3pppYWNdswdR1dm
+ OKPNVRsgAljCvYnI7AOm46ZPHshkuilcfU8VAIkKo20yGVb6jY1opLI3wVBORuu8uNzf+HGP/BA
+ N1qdSV6m259LkY/CVUbYkD4GphCfHkwArKpJKGSS7cdR3JxhpLXaoXBUeEnrlHAh8q+ZJhy8Vq8
+ K3Qc1MiPE2m5wffwF9+pdY4HUMuYCYv2/cF+CNOX/wRD8ocR337RMpZ9FMGhTOqYL58jbxE4U7B
+ 18NGKoZwrvC/+OnPBkg==
+X-Proofpoint-GUID: -fqnpyL_XC01E-cd4wlvbcx87NBM0Ju2
+X-Proofpoint-ORIG-GUID: -fqnpyL_XC01E-cd4wlvbcx87NBM0Ju2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_05,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 spamscore=0
+ phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020000
 
-Hi Harry,
-
-Thanks for the feedback =E2=80=94 that's a fair point. Userspace does contr=
-ol
-enablement, and the driver force-disabling a CRTC from
-early_unregister() is the wrong layer.
-
-The symptom I'm chasing: with a Thunderbolt 3 dock driving an LG
-Ultrawide, unplugging the dock unregisters the MST connector, but the
-CRTC that was driving it keeps its MST encoder assignment. On re-plug a
-new connector is created and the re-commit fails in
-drm_atomic_helper_check_modeset() with an encoder conflict
-(handle_conflicting_encoders), so the display stays dark until a full
-modeset (e.g. a session restart) tears everything down.
-
-So my real question is where this is supposed to be handled: is there
-something the driver should do during connector unregister to release
-the stale CRTC/encoder assignment, or is this expected to be resolved
-by userspace on the hotplug uevent? If the latter, is the compositor at
-fault for leaving the CRTC active?
-
-I only proposed the early_unregister() approach because it was the
-minimal thing that fixed the failure in testing =E2=80=94 not because I'm
-confident it's correct. Happy to dig in whichever direction you point
-me.
-
+We are running into an issue where the DWC3 core soft reset consistently
+times out when snps,dis_u2_susphy_quirk is not present.
+ 
+We recently dropped this quirk on our targets to allow SUSPHY to remain
+enabled during host/gadget exit paths and avoid controller faults, as
+part of the changes introduced in [1]. However, this exposed another
+issue where dwc3_core_soft_reset() fails when SUSPHY remains enabled.
+ 
+The failure is seen during the following sequence:
+ 
+[  126.110298] [0:    kworker/0:3:  671] dwc3 a600000.dwc3: DWC3 controller soft reset failed.
+[  126.110347] [0:    kworker/0:3:  671]  dwc3_core_soft_reset+0x3b8/0x568
+[  126.110352] [0:    kworker/0:3:  671]  dwc3_core_init+0x900/0x17d4
+[  126.110356] [0:    kworker/0:3:  671]  dwc3_resume_common+0x5c/0x394
+[  126.110360] [0:    kworker/0:3:  671]  dwc3_plat_runtime_resume+0x28/0x88
+[  126.110365] [0:    kworker/0:3:  671]  pm_generic_runtime_resume+0x44/0x5c
+[  126.110369] [0:    kworker/0:3:  671]  __rpm_callback+0x94/0x3b0
+[  126.110373] [0:    kworker/0:3:  671]  rpm_resume+0x43c/0x64c
+[  126.110377] [0:    kworker/0:3:  671]  __pm_runtime_resume+0x6c/0xb0
+[  126.110380] [0:    kworker/0:3:  671]  __dwc3_set_mode+0x48/0x580
+ 
+This occurs before PRTCAP is programmed, where mode-switching
+code already explicitly disables SUSPHY as needed.
+ 
+The attached patch clears SUSPHY at the beginning of
+dwc3_core_soft_reset() so that the PHY remains active while the reset
+is pending.
+ 
+I would appreciate feedback on whether this approach is reasonable and if
+there is a preferred way to handle this.
+ 
 Thanks,
-David
+Elson
+ 
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e1003aa7ec9eccdde4c926bd64ef42816ad55f25
 
-On Thu, Oct 1, 2026 at 9:54=E2=80=AFAM Harry Wentland <harry.wentland@amd.c=
-om> wrote:
->
->
->
-> On 2026-09-30 22:13, David Medina via B4 Relay wrote:
-> > From: David Medina <b2amedina@gmail.com>
-> >
-> > amdgpu_dm_mst_connector_early_unregister() releases the connector's
-> > sink but leaves the CRTC it was driving active and its MST encoder
-> > assigned. Because the connector is unregistered in the same step,
-> > userspace has no chance to disable the CRTC before it is gone. When the
->
-> Why does userspace have no chance to disable the CRTC? It's the connector
-> that goes away, not the CRTC.
->
-> Userspace controls enablement. The kernel driver shouldn't disable someth=
-ing
-> proactively based on a hotplug.
->
-> Harry
->
-> > same display is re-plugged a new MST connector is created, and the
-> > re-commit fails in drm_atomic_helper_check_modeset() because the stale
-> > connector still owns the encoder (handle_conflicting_encoders), leaving
-> > the display dark until a full modeset (e.g. a session restart) tears
-> > everything down.
-> >
-> > Disable the CRTC from the driver when the connector is torn down, so th=
-e
-> > MST encoder is released and the DC stream dropped. Reuse the
-> > drm_atomic_helper_disable_all() pattern: deactivate the CRTC, clear the
-> > mode, and disconnect the connector.
-> >
-> > Reproduced 100% of the time by unplugging and re-plugging the Thunderbo=
-lt
-> > dock driving the LG ULTRAWIDE: on re-plug the display stays dark and
-> > dmesg shows drm_atomic_helper_check_modeset() failing with an encoder
-> > conflict (handle_conflicting_encoders). Verified over four unplug/replu=
-g
-> > cycles with this patch applied.
-> >
-> > I am not certain that forcing a modeset from early_unregister() is the
-> > right approach, and the disable here is intentionally minimal: it
-> > deactivates the CRTC and disconnects the connector but does not
-> > add/detach the CRTC's affected planes the way
-> > drm_atomic_helper_disable_all() does. The minimal version resolves the
-> > failure in testing; I would welcome guidance on whether the full
-> > affected-planes teardown (or a different location) is required.
-> >
-> > Fixes: a1b27e99229a ("drm/amd/display: Implement MST Aux device registr=
-ation")
-> > Signed-off-by: David Medina <b2amedina@gmail.com>
-> > ---
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 53 ++++++++++++++=
-++++++++
-> >  1 file changed, 53 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.=
-c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > index 045a7f88b754..24b146068739 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > @@ -29,6 +29,7 @@
-> >  #include <drm/display/drm_dp_mst_helper.h>
-> >  #include <drm/drm_atomic.h>
-> >  #include <drm/drm_atomic_helper.h>
-> > +#include <drm/drm_atomic_uapi.h>
-> >  #include <drm/drm_fixed.h>
-> >  #include <drm/drm_edid.h>
-> >  #include "dm_services.h"
-> > @@ -227,6 +228,7 @@ amdgpu_dm_mst_connector_early_unregister(struct drm=
-_connector *connector)
-> >       struct amdgpu_dm_connector *root =3D aconnector->mst_root;
-> >       struct dc_link *dc_link =3D aconnector->dc_link;
-> >       struct dc_sink *dc_sink =3D aconnector->dc_sink;
-> > +     struct drm_crtc *crtc =3D connector->state ? connector->state->cr=
-tc : NULL;
-> >
-> >       drm_dp_mst_connector_early_unregister(connector, port);
-> >
-> > @@ -250,6 +252,57 @@ amdgpu_dm_mst_connector_early_unregister(struct dr=
-m_connector *connector)
-> >
-> >       aconnector->mst_status =3D MST_STATUS_DEFAULT;
-> >       drm_modeset_unlock(&root->mst_mgr.base.lock);
-> > +
-> > +     /*
-> > +      * The connector is being removed from the MST topology. If a CRT=
-C is
-> > +      * still driving it, force a modeset that disables the CRTC so th=
-at the
-> > +      * MST encoder is released and the DC stream dropped. Otherwise, =
-on a
-> > +      * subsequent re-plug the stale CRTC/encoder assignment triggers =
-an
-> > +      * encoder conflict in drm_atomic_helper_check_modeset() and the =
-display
-> > +      * stays dark.
-> > +      */
-> > +     if (crtc) {
-> > +             struct drm_atomic_commit *state;
-> > +             struct drm_connector_state *conn_state;
-> > +             struct drm_crtc_state *crtc_state;
-> > +             struct drm_modeset_acquire_ctx ctx;
-> > +             int ret;
-> > +
-> > +             drm_modeset_acquire_init(&ctx, 0);
-> > +retry:
-> > +             state =3D drm_atomic_commit_alloc(connector->dev);
-> > +             if (!state)
-> > +                     goto out;
-> > +             state->acquire_ctx =3D &ctx;
-> > +
-> > +             crtc_state =3D drm_atomic_get_crtc_state(state, crtc);
-> > +             ret =3D PTR_ERR_OR_ZERO(crtc_state);
-> > +             if (!ret)
-> > +                     crtc_state->active =3D false;
-> > +             if (!ret)
-> > +                     ret =3D drm_atomic_set_mode_prop_for_crtc(crtc_st=
-ate, NULL);
-> > +             if (!ret) {
-> > +                     conn_state =3D drm_atomic_get_connector_state(sta=
-te, connector);
-> > +                     ret =3D PTR_ERR_OR_ZERO(conn_state);
-> > +             }
-> > +             if (!ret)
-> > +                     ret =3D drm_atomic_set_crtc_for_connector(conn_st=
-ate, NULL);
-> > +             if (!ret)
-> > +                     ret =3D drm_atomic_commit(state);
-> > +
-> > +             drm_atomic_commit_put(state);
-> > +             if (ret =3D=3D -EDEADLK) {
-> > +                     drm_modeset_backoff(&ctx);
-> > +                     goto retry;
-> > +             }
-> > +             if (ret)
-> > +                     drm_err(connector->dev,
-> > +                             "DM_MST: failed to disable CRTC for remov=
-ed connector %s (%d)\n",
-> > +                             connector->name, ret);
-> > +out:
-> > +             drm_modeset_drop_locks(&ctx);
-> > +             drm_modeset_acquire_fini(&ctx);
-> > +     }
-> >  }
-> >
-> >  static const struct drm_connector_funcs dm_dp_mst_connector_funcs =3D =
-{
-> >
-> > ---
-> > base-commit: 551c722f40809618230001baccf219193e22fc5a
-> > change-id: 20260930-amd-mst-teardown-cab8a3731596
-> >
-> > Best regards,
-> > --
-> > David Medina <b2amedina@gmail.com>
->
+Elson Serrao (1):
+  usb: dwc3: Clear SUSPHY before issuing core soft reset
 
+ drivers/usb/dwc3/core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
---=20
-David Medina
-14901 SW 87th Ave
-Palmetto Bay, FL 33176
-786-280-0880
+-- 
+2.34.1
+
