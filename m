@@ -1,204 +1,239 @@
-Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D6F42464B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.233
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928963; cv=pass; b=DCq4Xyphyc5qgEsDXiBQ4rhsiWPgTe5TiMee3s3CcwXYWzM6cu19FLSh42czP6IJZq0x6ZTzF18lkvrRyD5TZNwimsx1OBdfiXTFTDvE+D7Rm8C7K+SfMsCpfKtkfNcQvQTk+QmWdwmBeKIaX31WON6eHTKdqegjtjkYWepzbYE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928963; c=relaxed/simple;
-	bh=LVNDiT1X/QOzPtcr4Q/aCqhJ5KW4LJEAvqGBa3y400o=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=P1gYfHtlpcb2wZd7N1+6TPJR+mXAyZVcnk7PNiuYi5Ji5v0oAL8hjTBB5lWpmyBTYTlTw91KvYnqjDTE3BrT2Za1NpouBZoPQJMtnAU9AbN20G8K6Xdvm1KzxrRfYuSIkncrmZNWVsI21PmCXw8S2vddAbv9fwa3fMQ6ShBNZxk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ojVygEpE; arc=pass smtp.client-ip=74.125.231.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A357F443C22
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790928971; cv=none; b=F8C122hs6v3Dluzk8V7Fen9yeS+ygAttfKAXEStV+r6le4rsCy1Ebl3iXCSH/0E+HsBqLiMZpsv3/aEYfLJXJ954J7nWh+/b6TsJmXRBf6OS9s3K7LZhSUqEajIOS6PejlpXYlbwy8h3OHdgOekhcMQ65EKeDmuNomyk8zeONZ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790928971; c=relaxed/simple;
+	bh=SrkCUBs7QxzRS2ct6PfMjjH+MllOa63+vm3xFxenUMY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BvO2EsPS0dgLQQTZvc+dxaVwywm6aN/iYnsk7PnedHllscIDNZGxOLgfhc7taOJh2Xi64QGjNGhIuOcTZKva2oCoD2CfOQfAkTCKTqYG2M8bkqbtzlcLS+kvkFJ1yu2rSltkEoxi4LeIUDshMuPCTTOyqqaFhlaZ6BA7NZz8jks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QiQNvjst; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ojVygEpE"
-Received: by mail-oi2-f41.google.com with SMTP id 5614622812f47-4f3eae7ed7cso830576b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:15:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790928957; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pn08xf6XGfN0ddPHs0tAp5POJzjKK2oRRdUzwoagaipg2XemeBihEWrVxePln5FHWY
-         M9eH/F0y6wSR2wBsYajXnNUzCCJUov0/a4PTXfc2xkzPuXu8/YUQzLww5/To4ZiRVIhV
-         RM8rmwy/RCX3UXMjgDpshBCA2noL35jR31QR18sQYnvQAE05qa7m+pIPfl+5fniG4Ouo
-         6DVEyhqYX7vf8fnGGG6WoF7ycdckfpFNng4HikdEXqd6I/3qmJGZP9fh4y3h/bfhVmNN
-         AR9Dqo1L8WzxnWAOojelrLEuUvIIDgG9nvhR4+Lrmv0WNUiycRyq+hCWJZAGx8tE5mV5
-         zetA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=vNMZyVK6pFlVTsgLLDPqKMJcnVZLWeRSVSS4Za1mR0k=;
-        fh=xofRY62cLLnF8wit4xR4/2ENtoPTCnFhNQDVCY5Xy94=;
-        b=qQ7NBCTKcbuGxQx1QU7kEbJpXhAOY/VLXTuB/ghq5L8Vv00Bq+dQHPbgBGMOqCXMQy
-         FhlIGSBliaBZdv1tH3EWoVZ1TpZFvl//zqJJDppgs5vCexSfjUVBJrha8IJSMZz8IE3w
-         Iho0feRYHpEu8/t9+xVNCBAeuWAzjoZSB5kIGEoq2LLIANpxuyfQcAsfyHFjSGSwJmS8
-         sYfhRGI5xRCnwY561xm8jWw+0C6EEn5Q214+qCl8jZDzqPQIwxDe+jn/L79ppLmFuto2
-         iajP1H29jz717MjuKpI5BXN7yO4vKXSGP4OVOz08eICgbRYUNjxPAjUhn7Rultj9rfYY
-         8+Ww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QiQNvjst"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so4282567f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:16:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790928957; x=1791533757; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vNMZyVK6pFlVTsgLLDPqKMJcnVZLWeRSVSS4Za1mR0k=;
-        b=ojVygEpEWGpvRANpS5TELKdCGiJ+7rOW6hrkr024KqaLYPk7uif5xBAFVZC6UYyyeb
-         S9UT+2gSLbe3fr0bUcSeGP4gckQbspUhNQm0HOlT8vzs1tDxarlKPMNLk09+kSSEF0cU
-         vn4QF1teV8zDDyupT7q+jB3EBpDqMeE7Tt+KZGLQK260BxU3bJEYxoCr0T2GRLI4r2U8
-         w7sKShDY3QzgZDefKEv8R3N2l2bCpy6Lus38ZIcuvOT4SlEDY3wXegT7zqkYLYURARCY
-         J0TDLIwdES+fViQyNVqM+fHGTA0p/X3Nh1JCMcS7uUydv5Fub6idnYBaiAm7nh5qi5Ue
-         xRQQ==
+        d=baylibre.com; s=google; t=1790928966; x=1791533766; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=guSS/KYjl8+8j30rtfwxuibMm84o1LTrBp5a4oJHKrY=;
+        b=QiQNvjstwbOumYLNiQN5WT7Y9iSHTzmkOl0eaL4otxyZEejYtFBdOyB3rJVYKG1Wvm
+         UcKSIMb/SFW4gW83nqiKWTopeKMadBT029V+1f3PvpmbNRPlaiTMMhFEzPLzfQ2rNoKn
+         5/hk3knivyzSIfT4BNvlNE75qXLCD4B87I2RITcuNAMhkKqIhAjcaXCbveS42kW45lnY
+         xEmdKDax8Sn9OjAB5XEs0HxcUFuw4MzKfakjIocVrr8pnCYsZV69GXOZVdWsrgeSMrw2
+         15D2PvHGGDq4vOSvN9V3Gx9u5j7rfQ5v7/DBs213GTvzG0wTS0j6loytWZPBTGw4T7sa
+         aM7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790928957; x=1791533757;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vNMZyVK6pFlVTsgLLDPqKMJcnVZLWeRSVSS4Za1mR0k=;
-        b=1bmD2idRdcDUtJ0PMs7FEFSf6xkpTh0802+KEidvaYB1JDrDgdd3X26CMh6W+r1MN0
-         l14TpIQce83SqjqubAv70FHVYlolxHW79HGhc7yw2E+bHGdEGLuRvHSJanZHMB0EY2+Y
-         dU5RoF9lPaKh9iaKVvRTu3SigNIYS41gFTJOjCwtx0F1ASxNw4+7tRdDSj2hFbDzrHOq
-         0bDLWXDTB6DFGZnIo6oeR6aM5jYR+mTqxnJcOUOAcPcVoQQuEw4LH4VvCj9k6bgGAZTW
-         zVARhH24VXrvCq4efNFNlOdtnH/QMaxqxoUB5m4SjLvXtXAhpgEmgl2Kl/gmlzdE4x29
-         6H7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxWcbPd9DJXTX5X3WTN5oq8tJ+Yvm4dQWuNkRE7/2niPwGlH+2bh4eLtk06jormyhTlRF+S5ggRM/LFuh8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lK/jzda+KMaRpSVMOfQVo/Kpn3EGdJVW+OoZ6PFh0LQeq5iwnD
-	gQ2YlX/LlUsLRJEcUJEtnIPffa3p/8sdux1//O0GuroHunPXXksVdGDeTlgSTXo9+iRb3NkEnFt
-	OKfJBdmxh3exErdh3ub3/Rk6tpjELbNU=
-X-Gm-Gg: AYBFou0aUz86fyB44xXj1DQ3n/nkOQrUp+20oKkz0Hdnat+OLhpc78l/TBG2yvSaRHt
-	CrreFLrgPZW/uwL8NNQWrqj2dh5/rU9o629pX5i0AdHv3eYh9USBuKZGhvqC+3IHJtfPESHfJnA
-	6ZHH3zetOg0SVXbBvjOxbzTcqtqBKI7y9m3mr1DuACqKK+HWIvK00VQQeXfjep2pZk8RqG4cnry
-	7Q1V+YgBbVbFA17e95CVuOhw5bECUoLO55HO0UuQCr7TIOaYp11GfTm7GtvOES45IQiu1OfF+e7
-	wYujLDIL/MzZiw3hoKq5g2h5SjRT+skOkZGpxzxL4APuKpNsMzGPGLb6wi34I01L+6Elqos+Gqx
-	jmB3n4rOwHfpR1C9vnJUVoW0379LBaIty
-X-Received: by 2002:a05:6808:11c9:b0:4f4:3f10:830d with SMTP id
- 5614622812f47-4f52ad8ab17mr1336623b6e.53.1790928957337; Fri, 02 Oct 2026
- 01:15:57 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:15:55 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 2 Oct 2026 01:15:55 -0700
+        d=1e100.net; s=20260707; t=1790928966; x=1791533766;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=guSS/KYjl8+8j30rtfwxuibMm84o1LTrBp5a4oJHKrY=;
+        b=vVn2MCF3PyBQD4+BE0G8h7YxZp+996KP4WU+MDJi7GT9QG4NJfSiyPN9KdbpZkDJKP
+         OLKNyW1sqEuvuUGMlInAdumstEWRZERKQR6RxK4mWO/U0a0WXR4AqFUFUm+gSBNCORN6
+         5jKhPKCER9hzkHKkbcvhR7zkgZALUdMF2Q7Rc1eENRtZSmUXTqN0jBcRvXNc1UvXed1l
+         cTSflnbGwcI9JjL5pK8i+5U2TcDoeEIRK/PfF/eMrMzCP33FdBGi2rIGso9t3FMe4ujD
+         w+8aUS+CjZtHCqGw7FfDFU/E3OGlS0ubUnUcpxDDuPvPY1VEkmAwA2226HQmP/mR6c9/
+         6Lcw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjTbBdBAywJgR4hHZbkB+akgoX+VHAJOtuXa0/THB3NBCcfTOgejS27izDPTZzOFH+gcElg2jXX0bXvPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0UKJJp0o5EGNnlTMgZbrhaGuubeE+1y2c+O77je5WXAPog8tr
+	b6Bx5Rl3afifEgJqWJ7geQWG6Dlrh27+PqM4DKVYT9YkXSO6ytD4zwDvfoNy901PvsY=
+X-Gm-Gg: AYBFou1XoMgRMNeWRp2oXvi8/kWPP5MrBMYZO9I8gXvzHHJ98NRA62zEDk00h2/qGyw
+	biqsc7NDINRDcHXjP6/9+2VGDysw6dt7ja63oO/Ls700hSMsS8CBMUopfWItteBi3vb1EZMKIVa
+	slZSlek1/SGvd9VKmtB73epeyGA+wR3QQL/2a0vF50F8s/iCxQU8KjtYrj1yZuKHNkdJhYYxaaX
+	QAn9sdfytsPH3vck1bZAMGFqURVli+FnzrM8KHp4Q+AUVTbKGVqz3QokGV762lv2GW+DUsQr/ya
+	f4AF9djUqZ6xuGhuhFICZBjmtxayoof0jDPzQyLVR0PKztpFEUaMZ/rpRPziT/u1lxe6jmQHaag
+	v9fscr4LUiGbTBfLI2OF4JKLxjkG4YS+5PaiplYxHS7bmvVfAni7A9wj9RXY5Be4hB8sWMB+gSV
+	IYiEdW4u+Lp2WtITmqZYfevUlhnV9cAh3p5nc5rz82nZzUSxETsefz+SiUjwzwj3UA/TNUiNuIK
+	j0VtPVOn259+xMkbg==
+X-Received: by 2002:a05:600c:1d15:b0:49f:e427:e88f with SMTP id 5b1f17b1804b1-4a027564ddemr35404475e9.21.1790928965827;
+        Fri, 02 Oct 2026 01:16:05 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fada5sm3689482f8f.24.2026.10.02.01.16.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 01:16:05 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Arnd
+ Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet <jbrunet+clk@baylibre.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Steam Lin <STLin2@winbond.com>,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+In-Reply-To: <87o6ddmmc2.fsf@bootlin.com>
+References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
+ <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+ <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
+ <87o6ddmmc2.fsf@bootlin.com>
+Date: Fri, 02 Oct 2026 10:16:04 +0200
+Message-ID: <1jy0cg1prv.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: mauriziocasciano7@gmail.com
-Date: Fri, 2 Oct 2026 01:15:55 -0700
-X-Gm-Features: AclHuK-4GMY47nLXhhsFI0FSEv_G5-9PcUD0mQlubpPu7nDgw-26z3cL3X-Fd6Q
-Message-ID: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com>
-Subject: [PATCH v8 00/15] media: Add Lenovo Yoga Book camera support
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Nicholas Roth <nicholas@rothemail.net>, 
-	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Add camera support for the Lenovo Yoga Book YB1-X91L. The tablet uses
-an AtomISP ISP2401 with an OV2740 front sensor, an OV8858 rear sensor
-and a WV517S rear-camera lens actuator.
+On jeu. 01 oct. 2026 at 18:12, Miquel Raynal <miquel.raynal@bootlin.com> wr=
+ote:
 
-The series adds the missing ACPI and bridge configuration, selects the
-OV2740 link frequency through the existing IPU PCI-ID mechanism, derives
-AtomISP CSI-2 timing from the sensor link frequency, enables raw Bayer
-capture and adds the sensor controls and actuator driver needed by the
-hardware.
+> On 01/10/2026 at 11:36:33 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
+>
+>> On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com=
+> wrote:
+>>
+>>> HXT and LXT are crystal oscillator inputs of the clock controller, they
+>>> are described in the DT, so retrieve them, in order, and store them in
+>>> their respective HXT/LXT hw table entries.
+>>>
+>>> Since old DTs reference the HXT fixed-clock without naming it and do not
+>>> describe LXT at all, we assume that HXT must be present, and fallback to
+>>> creating a fixed clock for LXT if it is not described (for backward
+>>> compatibility purposes).
+>>>
+>>> The downstream gate clocks can directly use the hw clocks as parents,
+>>> instead of relying on string matching.
+>>>
+>>> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock c=
+ontroller")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>>> ---
+>>>  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++=
+--------
+>>>  1 file changed, 35 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk=
+-ma35d1.c
+>>> index ceebcbd8c18b..d955d79abdd2 100644
+>>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+>>> @@ -4,6 +4,7 @@
+>>>   * Author: Chi-Fang Li <cfli0@nuvoton.com>
+>>>   */
+>>>=20=20
+>>> +#include <linux/clk.h>
+>>>  #include <linux/clk-provider.h>
+>>>  #include <linux/mfd/syscon.h>
+>>>  #include <linux/module.h>
+>>> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct devic=
+e *dev, const char *name, cons
+>>>  				    reg, shift, 0, &ma35d1_lock);
+>>>  }
+>>>=20=20
+>>> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const=
+ char *name,
+>>> +					     struct clk_hw *parent,
+>>> +					     void __iomem *reg, u8 shift)
+>>> +{
+>>> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
+>>> +						   CLK_SET_RATE_PARENT,
+>>> +						   reg, shift, 0, &ma35d1_lock);
+>>> +}
+>>> +
+>>>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *p=
+llmode)
+>>>  {
+>>>  	const char *of_str;
+>>> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_de=
+vice *pdev)
+>>>  {
+>>>  	struct device *dev =3D &pdev->dev;
+>>>  	struct device_node *clk_node =3D pdev->dev.of_node;
+>>> +	struct clk_bulk_data *clks;
+>>>  	void __iomem *clk_base;
+>>>  	static struct clk_hw **hws;
+>>>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
+>>>  	u32 pllmode[PLL_MAX_NUM];
+>>> +	int num_clks;
+>>>  	int ret;
+>>>=20=20
+>>>  	ma35d1_hw_data =3D devm_kzalloc(dev,
+>>> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_de=
+vice *pdev)
+>>>  		return -EINVAL;
+>>>  	}
+>>>=20=20
+>>> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>>> -	hws[HXT_GATE] =3D ma35d1_clk_gate(dev, "hxt_gate", "hxt",
+>>> -					clk_base + REG_CLK_PWRCTL, 0);
+>>> -	hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>>> -	hws[LXT_GATE] =3D ma35d1_clk_gate(dev, "lxt_gate", "lxt",
+>>> -					clk_base + REG_CLK_PWRCTL, 1);
+>>> +	num_clks =3D devm_clk_bulk_get_all(dev, &clks);
+>>> +	if (num_clks < 0)
+>>> +		return num_clks;
+>>> +
+>>> +	if (!num_clks) {
+>>> +		dev_err(dev, "missing crystal input clocks\n");
+>>> +		return -ENODEV;
+>>> +	}
+>>> +
+>>> +	hws[HXT] =3D __clk_get_hw(clks[0].clk);
+>>
+>> Don't open code it. use .fw_name
+>
+> Ok, if I understand your suggestion, I will go for the use of
+>
+>     devm_clk_hw_register_fixed_rate_parent_data()
+>
+> for these fixed clocks.
+>
+>>
+>>> +
+>>> +	if (num_clks > 1)
+>>> +		hws[LXT] =3D __clk_get_hw(clks[1].clk);
+>>> +	else
+>>> +		/* Old DTs do not describe the low-speed crystal */
+>>> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>>
+>> I'd give it another name so you can clearly see the difference between t=
+he
+>> DT one and the manually registered one.
+>>
+>>> +
+>>
+>> Don't need to open code this either.
+>> provide both .fw_name and .name - CCF will fallback to the name.
+>>
+>> When you want to conditionally register the fixed is up to you.
+>
+> Ok, so if my understanding is correct, I should use parent data with:
+> * .fw_name being the clock-names entry
+> * .name being the name of the clock that will be created ex-nihilo
+> Am I correct? And clock-output-names in that case has no importance at
+> all (hence this strengthen my wish to get rid of it)?
 
-Runtime validation used the same 15-patch content on the current
-media_stage.git master. The final media-committers.git next rebase changes
-only three source line wraps needed by the media 80-column check:
+Yes
 
-- W=1 builds and sparse builds of all eight affected objects passed both
-  before and after the rebase.
-- A full x86_64 Debian binary package build passed and produced kernel
-  7.3.0-rc1-yogabook-media-v8-20261002-001605.
-- The kernel booted on a Lenovo Yoga Book YB1-X91L with AtomISP PCI ID
-  8086:22b8. OV2740 negotiated 288 MHz and OV8858 negotiated 360 MHz;
-  both sensors bound and AtomISP registered two cameras.
-- OV8858 digital, red and blue gains were changed during streaming and
-  read back correctly. Continuous raw capture produced changing frames
-  from both sensors (6/8 unique rear samples and 8/8 unique front
-  samples), including front-to-rear-to-front switching without OV8858,
-  I2C or CSI errors.
-- Both front and rear cameras were also exercised successfully with
-  Cheese.
-- v4l2-compliance 1.32.0 completed 47 tests on the AtomISP capture node:
-  40 succeeded and 7 failed in invalid-ioctl, multiple-open, input,
-  control enumeration, stream-parameter and buffer tests. These failures
-  remain a validation limitation; this series does not claim to make the
-  staging AtomISP driver fully compliant.
+>
+> In the fallback case, what naming makes sense? I don't know. I would
+> have preferred to just name it "hxt" (respectively "lxt") in both cases
+> because we truly don't care about the name, except it would be nicer for
+> the reader of clk_summary. Do you mind if I keep "hxt"/"lxt" for both?
 
-Only the Yoga Book 19.2 MHz OV8858 path was hardware-tested; the existing
-24 MHz paths received build and static-analysis coverage but were not
-tested on separate hardware.
+Picking another name is merely a suggestion. I don't have a strong opinion
+over this.
 
----
-Changes in v8:
+>
+> Thanks a lot for the hints!
+> Miqu=C3=A8l
 
-- Keep patch 2's commit message focused on the implementation, remove the
-  invalid review Link and move runtime results to this cover letter.
-- Express OV8858 frequencies with HZ_PER_MHZ/HZ_PER_KHZ, name clock
-  tables by their input and link frequencies, and remove platform names
-  from the sensor driver.
-- Explain that V4L2 exposes standard red and blue balance controls but no
-  standard green-balance control, so green remains the unity reference.
-- Replace the per-sensor link-frequency override with the IPU bridge's
-  existing PCI-ID matching mechanism. Add an 8086:22b8-specific OV2740
-  288 MHz entry before the generic 360 MHz fallback. This removes the
-  associated AtomISP hand-off patch and reduces the series to 15 patches.
-- Add the introducing commit to the OV2740 group-hold fix and mark it for
-  stable backporting.
-- Use the documented Assisted-by tag syntax.
-- Keep the padding helper as a normal static function and avoid a
-  single-use raw-format descriptor structure.
-- Retain Andy's Reviewed-by tags only where the corresponding patches did
-  not change materially. In particular, drop the tag from the redesigned
-  IPU bridge frequency patch.
-
-v7: https://lore.kernel.org/linux-media/cover.1788360629.git.mauriziocasciano7@gmail.com/
-
-Maurizio Casciano (15):
-  media: ov8858: Extract digital gain programming
-  media: ov8858: support 19.2 MHz clock and manual white balance
-  media: ov2740: Use C99 initializers for ACPI IDs
-  media: ov2740: Add OVTI2740 ACPI ID
-  media: ov8858: Add INT3477 ACPI ID
-  media: intel: ipu-bridge: Add Yoga Book camera sensors
-  media: atomisp: Add Yoga Book camera configuration
-  media: ov2740: support 288 MHz link frequency
-  media: intel: ipu-bridge: select OV2740 frequency by IPU ID
-  media: atomisp: derive CSI-2 timing from sensor link frequency
-  media: ov2740: release group hold after gain write errors
-  media: ov2740: add manual white balance controls
-  media: atomisp: Use struct v4l2_area for padding
-  media: atomisp: allow raw Bayer capture
-  media: i2c: Add WV517S lens actuator driver
-
- MAINTAINERS                                   |   1 +
- drivers/media/i2c/Kconfig                     |  11 +
- drivers/media/i2c/Makefile                    |   1 +
- drivers/media/i2c/ov2740.c                    | 114 +++++++--
- drivers/media/i2c/ov8858.c                    | 221 ++++++++++++++----
- drivers/media/i2c/wv517s.c                    | 208 +++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c          |  13 ++
- .../staging/media/atomisp/pci/atomisp_cmd.c   |  81 ++++---
- .../staging/media/atomisp/pci/atomisp_cmd.h   |   6 +-
- .../staging/media/atomisp/pci/atomisp_csi2.c  |  20 +-
- .../media/atomisp/pci/atomisp_csi2_bridge.c   |  19 +-
- .../staging/media/atomisp/pci/atomisp_ioctl.c |  32 ++-
- .../media/atomisp/pci/atomisp_subdev.c        |   4 +-
- .../media/atomisp/pci/atomisp_subdev.h        |   3 +-
- 14 files changed, 605 insertions(+), 129 deletions(-)
- create mode 100644 drivers/media/i2c/wv517s.c
-
-
-base-commit: 4a069a763e8a86821edac4159f7c59a20015631b
-
-With Best Regards,
-Maurizio Casciano
--- 
-2.53.0
+--=20
+Jerome
