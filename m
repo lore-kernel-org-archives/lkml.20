@@ -1,263 +1,207 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0038b101.pphosted.com (mx0b-0038b101.pphosted.com [148.163.137.90])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE6A35C193
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 04:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790915714; cv=none; b=XYlVcneqB8waqHg2NG+MPyRSHRqE18GZYeQKAQtQ62+hOU02vCqMwFNl6YewS3JB2oo+u2BVDMCJ9s4CdW77Mp5dzD7F5kdbaQ6lmtJrz2mmjBe/60s1UYECVdHszo+VPHVkK4zFVnPzlJxpT9TW4ywB4mP/X7OM4PnvHjBjfF0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790915714; c=relaxed/simple;
-	bh=HVRHOXuO/9++v5H8Rg9v6xTeqCjVL63Ax292SNlO308=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PrFYNnM9N7i0w8td4gJLcW1oubKbNd5N0s+mCgzOAWOfL5JZxZ41vpSnolup4ggg1fHtujWFgkTfRpTB97v6thFXfyExYyk1wMUaEXKmhgjnz+PGhWcz/T7AWCNH15pBUmfNZLILolX35ED43gdX1qd5So+cuYkUW+x5z2smxm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l1RZ2WEz; arc=none smtp.client-ip=74.125.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B5231E848;
+	Fri,  2 Oct 2026 04:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.137.90
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790915742; cv=fail; b=jGKYaMJ5pYtl8X8vOTVe8vET/eBJ1VHSmVqAYQrtSCX1avOQtLuwNuKXew0yHYrzHj0XZ3f+AmZ76CBMs713scHcEmtUBBucctAzhF+ZLObS8FLbk2XrvbLXA6OO26/AQvB+uwK/xFCSc+KS2UlPW8L0EX89npF5OPSle09pHN8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790915742; c=relaxed/simple;
+	bh=CCjbNrks13Ss1x9Crf9QLhaEQoY7QStVzOM2q8RiHJE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=l6VnTti2EuP+gcy0wnPKNoveQTm8+ckCQgqHSgq3I+qyvsmzirplIv6/CJUM6tmMzpqhrYw4vbG6H/PgMq2XYGGEi9gHOAsuuV+EMfkJ72wb0i2coMOJT9sUxXVk++Fw0kaDmvjLUE+9IDqjnb4GG+lgnJVICXKoYvxoIxNI0Z8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arthrex.com; spf=pass smtp.mailfrom=arthrex.com; dkim=pass (2048-bit key) header.d=arthrex.com header.i=@arthrex.com header.b=XHgfn/64; dkim=pass (1024-bit key) header.d=arthrex.com header.i=@arthrex.com header.b=dPR8GmJW; arc=fail smtp.client-ip=148.163.137.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arthrex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arthrex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l1RZ2WEz"
-Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-888148d08d3so1161983b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 21:35:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790915712; x=1791520512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F1/BmCVKCCC5KU+7BUHsA6XB9ZAPAKahVbUM7pjQU84=;
-        b=l1RZ2WEzyJPrh+KRewf5O6vmiC1jpsEm+U+q6WnIs2iKZvvGg04IJBrxxok0+shIs0
-         JyRFdHGWxHEVz29nlYfuZZsjkYqsGI+qwngE08HQGBatBJUwRKxo3nqlEY4E02RbV43q
-         Nopn5jYAg61fHCYH5hhlxb9CW5WDsBBs/k0NhxYE8Xf4NV+mIcMoYlKIn3crhzgmh11x
-         jTAqdUF6B4VEbN3UaB4s7eA1LNVZ2JyestmJ1leEqx2wi4T532xvcuM7obQhIAQ2bAqW
-         rzWAd0wN/aBj92PLoqACijHoEEOULSG4ul5+lVHDGaj3oO+o2N2WRwtb7UHqTttVNroR
-         X8Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790915712; x=1791520512;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F1/BmCVKCCC5KU+7BUHsA6XB9ZAPAKahVbUM7pjQU84=;
-        b=SZuvvaq+V5yiLutQaNNSM2n1L6s3hN58FApU8bOnkJQePmj3v6x59sGWL0rsGIEB2e
-         zCOILN6ey1kVVcGn0ar34yAzbsxw+A2nEQ30Utxx0FM/9GkT1BTAmi0gnznyKMa8KbJe
-         6TSo8agSfuWJnSIHh2tC7LsQ/qGtYJ7kARyTeBmzv2dqhgfB94a1mYhoo9q5CZ2JjmtU
-         98gzpX014jIba4FD2esz3YfA73QPo7iX6LFZ6CkO1O4M9/9vmigIo5BFhxYEgNnB5VVb
-         rOM1dC1WwCsGfs14PZfeR/RViNtIHTd+XCZHDMYMB/x5yXzOp4c9uicLmgkcW8lCyyMA
-         o4YA==
-X-Forwarded-Encrypted: i=1; AKwUvBxGUL+17QtIrC8OU66DBUjUDWHOHpC+yhJvgUJx0x6ktKYeY5mD3ZM6br8U6QIrA+LPuWVFzmegvZnX6y8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNXFkNUTW+HlCNzsAP0f8ykJBxXQ4VTUq5nfaj0gKJVq7RaBR2
-	d90BcnNIb1bijbRF9zp3cmBwRws4pcYZtMH/HelJqL4qeJdeSlevHk0e
-X-Gm-Gg: AYBFou2VX2Bf++wyDo2q4nGj75GyfceLSkZlipz3p27M05Q9LyIVTnK4GXOoPbMVUBL
-	0sW6U/OmKxe3TMHEKNmB2ezsxTu/Y88Wfh6y60U9bgW58gmKPsTGBqbEkgsigwKu4OGfrFnVbE1
-	Of17jbexpCDU1yzrb9WScz8yQLmpFN1c7mUmD98yMRY487H3hhdNvS7LcX6vncew25NhsbEbJZL
-	/kEcX+1rIaiMEo5eA3Rm/scAvpcXJfUoPI+6Zc1SMiQXIT5C5a1/6UY7VS1yZnm8JQfX2J5zTbh
-	NHt1hzI3Ob0TuJw0EqK6a8IPfZfQbC5Fqzd8ULeKrYici7b3vjNT+VMzkM2bVO0688Xc7CB6lop
-	LTgltk6+exwyG2NNTEPjCimuK0PBif58ib9rojCOVQqlLfetZ2tW3ZLP+7CZXHJdfM/NX99CeyZ
-	wkpJe+aIu+Y/t7bhsq9x00QOxagJYqhrcx/vr14oA2Kv9ZvOtf2AqoHQXTA/01UH5MBxlt1h/kh
-	w0oabdWHy/36mBsh0T8t1rG5btXRrFIEwQHPPaxSG41lpBwhVHZtsFFJr6SNSACDGk5sQBnYGZB
-	uORybCkHSp93sBr0dZYAzvjxUlCadorGZxtEU4LVL8rbql1eDOgkZnNBdZE=
-X-Received: by 2002:a05:6a20:7d8b:b0:3de:b04b:55a2 with SMTP id adf61e73a8af0-3e0bcfbd56bmr1732809637.22.1790915712245;
-        Thu, 01 Oct 2026 21:35:12 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f7370db1sm436432a12.17.2026.10.01.21.35.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 21:35:11 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: Baolin Liu <liubaolin@kylinos.cn>,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] ntfs: balance the $MFT runlist lock in data extension error paths
-Date: Fri,  2 Oct 2026 12:34:59 +0800
-Message-ID: <20261002043459.1695429-4-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261002043459.1695429-1-matthias.goergens@gmail.com>
-References: <20261002043459.1695429-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=arthrex.com header.i=@arthrex.com header.b="XHgfn/64";
+	dkim=pass (1024-bit key) header.d=arthrex.com header.i=@arthrex.com header.b="dPR8GmJW"
+Received: from pps.filterd (m0171577.ppops.net [127.0.0.1])
+	by mx0b-0038b101.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6922McXT2105135;
+	Fri, 2 Oct 2026 00:06:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arthrex.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	Proofpoint090926; bh=CCjbNrks13Ss1x9Crf9QLhaEQoY7QStVzOM2q8RiHJE
+	=; b=XHgfn/64sQGLovoxcou5WExG4O2LgLVXAxB1zeCunkv9mdZrE8gxOoqJnPj
+	PfKLJCoojS0/+ax48If4U8ZXXGkbgPF95dITfyFBheLKNK2E4qWRnF7Y8bzaRuCY
+	5R2ggzFYGE79PwJuXibrR6MjBxBFUOtO62PPgOL6XTydv93P2mAg9Q6JQ8jCFaOD
+	etkf0izQdy5zVXvOlArclH/iIrF9KKhquMTVA08anEiTcsQg8utxpHVsBw5kusVa
+	JsPldMzydLCjgOgCcmdCKrK9W641PV8Lj4J5G0jPpWhzQUa+xS76kCU9BWv8bC+E
+	q/6S01WUrdU9AuFTOtGlcROHRRQ==
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
+	by mx0b-0038b101.pphosted.com (PPS) with ESMTPS id 4h1993w57h-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 00:06:19 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pHbkPuyWA0O2mcWOkiZ8FDDbzAelsJZsvbYorSN7VdM+KKUOF2Ke9UEBMomfQ8OjW0hi4PC5jfHCj5xrk1sd52SITjHlb7rP+7v9Cx03aI9kJgbuH+5SdPABlf6AjR0ESLI7TjTmSQO8OOypWz6IY69zhkWESkmUd5eRW2WFgebaqI9rhLeG1oLP7ihi7ubDUOWtJVbbEBJEsYhFuO39anBTi/UXCDKZ2SxPM0bmTFEFUjnAKlBmIt37tmE9tJz2fzDCzAmCic6XVwfVrbAfe8za5M0izxXxh4syjbem4Ngdrf/9eCuCbG5YvEbe0NmyrWZUXS65GfllGcvyFX0aVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CCjbNrks13Ss1x9Crf9QLhaEQoY7QStVzOM2q8RiHJE=;
+ b=yiAL2F0Zp7kN/ILl1QRCJiCSZKKgjiKg4lY+BPIO6cib45iW79pZOUujRCmatnSoTc1H9Mtc5zLoBWdYrbjAz/wo79L4X58s7A6Y4VTVhzhKoATm4aRtUfRdNLTNj9NlpIdD0ngFHxRqyupdJIK+GllSif2fq4evTTt2yyGFxiNMXMO4jHAHW2LBQ62xRaMCuOWWmSnXTvgRjat/gNj5WBbeg0RBJ9UtapaaApIJUxC+5CX9Xi0tAi1ROntp3A4oQm5JeBGscLI8CM2EttDo2N/254pVaftmSM3U544Lrs6HnlrLAg9qkSF6VSBc/Rv5YSsKYbEnibHBYLbr5t/mmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arthrex.com; dmarc=pass action=none header.from=arthrex.com;
+ dkim=pass header.d=arthrex.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arthrex.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CCjbNrks13Ss1x9Crf9QLhaEQoY7QStVzOM2q8RiHJE=;
+ b=dPR8GmJWiusQH8dp9JOTNMAwvQVTzf7HB34/UKiuFjiyjCDviXkR7m9qmo9KowrPTATNQlMpFj3jefDETt/m2/z2w0RcHERWxeBVDwkTybn1c4rXJq6ve+kf2ySu4/hEycXKhhCvufBz/3lHIsIXjj5O/2LMV9rpRFmkyQuvPYI=
+Received: from LV8PR11MB8557.namprd11.prod.outlook.com (2603:10b6:408:1e8::15)
+ by PH8PR11MB6878.namprd11.prod.outlook.com (2603:10b6:510:22a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 04:06:14 +0000
+Received: from LV8PR11MB8557.namprd11.prod.outlook.com
+ ([fe80::ff75:7102:4056:b2d5]) by LV8PR11MB8557.namprd11.prod.outlook.com
+ ([fe80::ff75:7102:4056:b2d5%7]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 04:06:14 +0000
+From: Austin Schlegel <Austin.Schlegel@arthrex.com>
+To: Laxman Dewangan <ldewangan@nvidia.com>,
+        Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>,
+        Thierry
+ Reding <thierry.reding@kernel.org>,
+        Jonathan Hunter <jonathanh@nvidia.com>,
+        Austin Schlegel <austin.schlegel@arthrex.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+        "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+Subject: Re: [PATCH 1/2] serial: tegra: fix RX DMA descriptor use-after-free
+Thread-Topic: [PATCH 1/2] serial: tegra: fix RX DMA descriptor use-after-free
+Thread-Index: AQHdUdemMXVHX6icXkaYfGG5yl3f1rbpnahK
+Date: Fri, 2 Oct 2026 04:06:14 +0000
+Message-ID:
+ <LV8PR11MB8557D32C0AC2AB0271FC1D9FF0892@LV8PR11MB8557.namprd11.prod.outlook.com>
+References: <20261001-tty-linus-v1-0-ecb8576c802d@arthrex.com>
+ <20261001-tty-linus-v1-1-ecb8576c802d@arthrex.com>
+In-Reply-To: <20261001-tty-linus-v1-1-ecb8576c802d@arthrex.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arthrex.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV8PR11MB8557:EE_|PH8PR11MB6878:EE_
+x-ms-office365-filtering-correlation-id: c2fd23f3-6207-4161-30c0-08df203a808c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|10070799003|23010399003|1800799024|22082099003|18002099003|38070700021|4143699003|260925021911599003|10067099003|260925022911599003|260925021311599003|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ hX3eGb3vRTTuroZAm66D42LlMm4KQ6KjZ0pZ7+USqupgPk6S3KJ7Kkiaad1FQqtYRAiNFESWH9GSbfaCbGOYS+vvI874+7sRO4SlV1G5WBIixvaAOcVasPEPdEF6azQxjMRpeiuXQbX2g2wBvCAJr1AGN6iZOqq34cRYnwz68cTa5h5Cey8Pz1vaPa7o5oyJhnixj1O+J2kmwCy+a3vHFHbpFLTkpe3yIXK/76P2Y0PibF4oFR54L6aX24n4kpZT4Iu6CmPJ82YGzFplbL4f5AaoFcoG3RBjLqSrUtudt7EX3j5si8xyPG2y5KW5SddI+Qa1e45FaCMU09cADAzztBOynUUWBcaULMF7VIwUMcxkuHQQH1ZgLrN6afhzE2naiaCOfw5fn6yADtmHSSGVBKrKMBw/W8rL+2D4hP6J8KRYvHqLkxLyDFcknJS6D+jGtkXMx61x2WqPU8dwCWo3zAHWF+IGGS5v5Res+Raj6yyyeJcKzUvi2DfHhQ9TP7emqqMJOkqNyytU35PkCnwQ7lWkR/zadtngN2n9KHh+ej8ptzOgE9ZXs0nAlKHJUKqAgxFF6kMZkmB8MV6+qX5ejvzS9QPpkK4rQd9Ipi/0Fkbz04iKUMGtyCt4xYLYD7SItlucvCAqzPVVGIVuWWYTDymZ/yDzVk8z6PQhuIiw6j4ceXrawgEeoJWP5HIwTgkttex5Zdfqsr1s7B+XxsCbKFHb+2nHL7X3f9w80k6gkgA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR11MB8557.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(23010399003)(1800799024)(22082099003)(18002099003)(38070700021)(4143699003)(260925021911599003)(10067099003)(260925022911599003)(260925021311599003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?uuVua2NiwBq024OxbPjgPsEarqkmm3e8kG2kwlv93SMtaofsRZBRCrOzmF?=
+ =?iso-8859-1?Q?2r5aOA7kzb56UZYwTnf0WvpCjqBhjxccsjoHFr7H16t3eafxJdI93d9fGo?=
+ =?iso-8859-1?Q?R31dKSJ5GVtPCpgUdvJzhVaSHl+IFUPLLEQ9Gjw/lDTtAvdZQm84X9xBuM?=
+ =?iso-8859-1?Q?oUvqIWOTOTHw9Qx0lcJDZkD/ZxBv0bfd7yt1OJ5q9nuZfX8bozZ8hChQzJ?=
+ =?iso-8859-1?Q?3PAOOyCP8zXk3jHtN8/a8IuExnbL1rV9Uyak5itf0/M/IQrh5pHHgxualO?=
+ =?iso-8859-1?Q?Wowmw8nfnLx0TeeqFMYM8JxYbyBndV4JfgE2pkub8L5bQqpZKGVW/8iI4v?=
+ =?iso-8859-1?Q?mz230bx8ohZSbjWEkrxrVT9pdA63fAndT7TlIh2gZqoC4g6d45bxvAjj6u?=
+ =?iso-8859-1?Q?HSeRrqiEsDaBjwn2FAVROPSBIrm8zuWioFs2T5zXWhbHuuBNtQWTmOxlXi?=
+ =?iso-8859-1?Q?0tEt5ztWgEvM/3IdSKQI0eTTd6RkN+pv3PE5MhBygrROVtKusDIY16eY6y?=
+ =?iso-8859-1?Q?mZkHADXKEifjHRPRYpzTpZ83IzNqh++GDHOqfcw7AwXujLvHaghweS5/zJ?=
+ =?iso-8859-1?Q?aPBU6WMTzepNZT32O/rugDzz8Ord/B/lTczCzKuyub1kdpOfVJuyXK5BcO?=
+ =?iso-8859-1?Q?bObTB5DmP6kF3BHeibLh+SKsEARIIUCOuhG/UmlMAbGt8EcCg+HV3dAC4K?=
+ =?iso-8859-1?Q?G4BLhgN2VlqH/Ax5oO3fEv3yH3QSYRexn/4aSiu5KnS7LSTxkxpqXbt1D9?=
+ =?iso-8859-1?Q?/rPDUVFviydIVCwMzHWapU2P/mfUAV4oDhYduqU0Buy/8CO7QEB40bmfvz?=
+ =?iso-8859-1?Q?p57HXzaJRIv91QCC6lVjfyMUxpZcaYF0Mmff5d3GcY5CeQc76h7LkweT08?=
+ =?iso-8859-1?Q?Ckc8mogmSsyfLvDKsn9wDyh9IIeregYUFyxWlE10LOInQZHzwXSvH3KAoK?=
+ =?iso-8859-1?Q?/gUknvq3ZbUUHjny+r2xMaERne+5FSEJL3dQBdL+OH0RrENEaK9z2dAv40?=
+ =?iso-8859-1?Q?YXMmPH0PpB0BTd0oNa/CnoaicpZIVCAwuUMzL5GxWmJB+eCdoAz51zrxC9?=
+ =?iso-8859-1?Q?1CJr5GmGfsCiVBQthuZx0joJzQkqhs2nEYl1zTsfyiln/mUVDwX4tcoxeX?=
+ =?iso-8859-1?Q?0hxHMxDvV3q3rh0+Rkgjn8gxqC0LH3ztZU0FWc5LMxrMNnkFxdCr08MhmW?=
+ =?iso-8859-1?Q?mmqkUxpXCHMvLNSrfjFkr3shPzhp97P+tC9g3t8Xh3mkSXGIp6ClPNXwch?=
+ =?iso-8859-1?Q?tBWuzz8uEs9Sk344vPP65rBri0wRcuE5h+posllWpHGlvH9VMiP+PCZwtZ?=
+ =?iso-8859-1?Q?G3wQjLiF/lFthEw8OGIo41coG8gCMxQq6V8/9r3rCKCBWI4RCcsdRYeSTl?=
+ =?iso-8859-1?Q?1jPaYB0hGIVY/HVq5z2NoYPmW0EqFPNqNU1Te1woLI+sIm4daOoxOD+LDr?=
+ =?iso-8859-1?Q?NS14/CrsQcZ4pumhW4lIe4K1X1UuT39gOokTBywuhx7JTAR3wXgKTAFwKh?=
+ =?iso-8859-1?Q?GjH0hIinLg2s6aOgjFYodax0wXJZWuan5bFyjKMUROFEuylDzmr+Vvd/oC?=
+ =?iso-8859-1?Q?y/DPu1zRkxFz6bwZ/3FQNWwysXUy8rBqvwxgVOYp8miG/K7mTU75YEv0S3?=
+ =?iso-8859-1?Q?eWXTheaFofyQg6sKg8UR1iGPOA4hJP0dPiiPxtVmzn8sK3XT+3mOlVQ+Vy?=
+ =?iso-8859-1?Q?Fgd9qy/+9T9oYAfcQzMyEZQUwnrrqgirCARP1CLU/8eQmIISjYTpFJtn7X?=
+ =?iso-8859-1?Q?/gySWV1naM+HQ05Cr8XGcBNIfuivrrU7tzsNpdkvR9mWmOs3q1Kkb2AyBK?=
+ =?iso-8859-1?Q?5vOhNR+B39etXN5OZz58DMUKalRDT7cbZoo7oTEJxgbQYhcHTIon?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+	Xc3gtiIqrB9hqAEGZy/5KToSp9ZqjGojPB3/1+R8/lRd23FBXSfR8ly8+WxhBeDF0vD1qwMp+mDcktWN4AyC4IT5JXbIqj6zjxsjCjCG2Qu+rdXYgGhqA2m491rDd6yisup76p5dvXfTa7IPG0+e55Gj/kNjf2HutGh/bCpFzRCCQkyxPTTApYtn9LuEGd7PiT7KaZWylMHQdXhAjkWsq1TUtpGcwdtAB4V13WeeOaD/PZeSq2ewvbLftxBtvprdfaAvVM96XiwiXC7CKlZ5vsdYxqPwcqCiqSwfSRVs1gLHiSd/Jeo7JcVdzJOz1L8fS91169q9aVhKvTGdsxMLcA==
+X-OriginatorOrg: arthrex.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR11MB8557.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2fd23f3-6207-4161-30c0-08df203a808c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 04:06:14.6477
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c970182f-4161-459c-8a07-2b00ed24c146
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JljXEIPz4l9PjOdDSHxDJ30diNSFvGmHT2JR/itonw3P4325RCa/++Hk4tLbbYA+vRloQ/OpAQ0or3FI3lPvrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6878
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAxNSBTYWx0ZWRfX87a3KMRWFByu
+ wlW/K0eaGay3e+LNwdG3A26abW/+IFLRT3wdltc3raSv8BjTSYztiWKSEEFTnAfhARjR0zfkmPm
+ JSJ2yc/v7MeQJNTvPMUjYZlgAwYVmnbjYYmlwrcFqlp9sFfDSK/rE5AcULSchxl87CiPGUC+pDZ
+ OeXiPDA5LLx7PqOnh2ytwVGLZ7DljTtcU1A8dBvDe+MxhVWYatzUuVqX5OqZdSNPATiwYjC7r8e
+ iYcCkdVOl399L2OEhmNP/pcTZLuf5CoqhUIKQDtf9bAUYDoWjHmmYK1oX/bifPxRtmzAjno5gkA
+ PvJgL16C4DrSVAXXNmqY/phRckhqyX0RdTtHst601Da9aaDrdXWoM3h8SvX9bKRAWJ0JgD58ihu
+ zCykSEPlzT5r/axebse1pB5TLKG+OfvU5j8lanm30G9Rz3k0YIuPtliaqLiCEVYeZ0aC4O/bRpP
+ vN+CsnB5m7GPcjAW4jg==
+X-Proofpoint-GUID: Sq_FqcmuBLOvA6dn_eGfE1pZP6o59j7S
+X-Proofpoint-ORIG-GUID: Sq_FqcmuBLOvA6dn_eGfE1pZP6o59j7S
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAxNSBTYWx0ZWRfX+K+7VgQ2RChv
+ vUwJXBQ75816VeW8xCo+OK5lSKOE0F1ioHqGcJZm/+RmlYnT9E1yPrE9ft4qzGFlwVfDQGSgqE6
+ fj1n+Y/IpiCDLqQ6K4iertMVO0nb4FU=
+X-Authority-Analysis: v=2.4 cv=LeupeTfi c=1 sm=1 tr=0 ts=6abf2dbb cx=c_pps
+ a=Rzgcbe2yxP2fEJMfMKkCcw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=660iZSQnnn4A:10 a=gbA01DrXz1UA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=70HZLsTLPGYbawPVQYjx:22 a=3TjR_UqBzVsPO2iw8btq:22 a=yW9ijH_GQebpuA_1f9kA:9
+ a=wPNLvfGTeEIA:10 a=qak9Fwl7LPiBl4gFUzZR:22
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 spamscore=0 clxscore=1011 malwarescore=0
+ impostorscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610020015
 
-ntfs_mft_data_extend_allocation_nolock() drops the $MFT runlist lock
-before allocating clusters, and every path into undo_alloc arrives
-without it, except a map_mft_record() failure, which takes it first.
-undo_alloc never releases it, so the lock leaks and the next $MFT
-extension and $MFT writeback hang.  The restore_undo_alloc failure
-path, on the other hand, releases the lock without holding it.  And
-undo_alloc frees the clusters with ntfs_cluster_free() and truncates
-the runlist without the lock, although both require it.
+> tegra_uart_terminate_rx_dma() calls dmaengine_terminate_all() and then
+> tegra_uart_rx_buffer_push(), which calls async_tx_ack(tup->rx_dma_desc)
+> ...
+> The same freed-descriptor access happens via tegra_uart_rx_dma_complete()=
+,
+> which also reaches tegra_uart_rx_buffer_push() after RX has stopped.
 
-Enter undo_alloc without the lock on every path.  Merge the new clusters
-with ntfs_runlists_merge_keep_src() and keep the runlist that
-ntfs_cluster_alloc() returned until the extension is complete.  On
-failure, undo_alloc truncates $MFT's runlist under the lock and, after
-dropping it, frees the clusters from the kept runlist with
-ntfs_cluster_free_from_rl().  That keeps lcnbmp_lock outside the runlist
-lock, the order given by the comment before the cluster allocation.
-Unlike ntfs_cluster_free() on a volume mounted with -o discard, this
-does not issue discards for the clusters, which were never written; the
-runlist merge failure path already frees them the same way.  If the
-truncation fails, the runlist may still reference the clusters, so they
-stay allocated and the volume is marked for chkdsk; at this call site
-the truncation only shrinks the runlist and cannot fail today.
+This second paragraph is wrong - the descriptor is still valid inside
+tegra_uart_rx_dma_complete(); the ack only moves there because it's
+removed from tegra_uart_rx_buffer_push(). I'll fix this in v2.
 
-A shorter fix would keep calling ntfs_cluster_free() on the live
-runlist without the lock, relying on $MFT's runlist being fully mapped
-and changed only by this function under mrec_lock.  That breaks
-ntfs_cluster_free()'s documented locking rule on an argument about the
-rest of the driver, so this patch does not do that.
+> Soak tested on Tegra234 (Jetson AGX Orin) for 13+ hours with
+> kfence.sample_interval=3D1 and continuous UART loopback traffic...
 
-Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
-v3: free the clusters from the runlist that ntfs_cluster_alloc()
-returned, kept intact by the merge from patch 2, instead of from a copy
-of the new runs made with ntfs_mft_copy_tail() in undo_alloc (Hyunchul
-Lee).  The undo path no longer allocates, so the case where the copy
-failed and the clusters stayed allocated is gone.  A copy made before
-the merge would also have worked, but would add an allocation to every
-$MFT extension.
-
-v2: do not free the clusters if ntfs_rl_truncate_nolock() fails
-(Hyunchul Lee).
-
-Without this patch, a forced map_mft_record() failure gives "WARNING:
-lock held when returning to user space" for the $MFT runlist lock, and
-the next file create and $MFT writeback block on it.  A forced lookup
-failure in restore_undo_alloc gives "bad unlock balance".  With it, the
-create fails with the injected error, lockdep stays quiet and the
-volume keeps working, also when the merge is forced to fail.  With the
-truncation forced to fail, nothing is freed that $MFT's runlist still
-maps.  A debug check in undo_alloc found, in every undo of these runs,
-that the kept runlist describes exactly the runs taken off $MFT's
-runlist.  $MFT growth on a nearly full, fragmented volume behaves as
-before.
-
- fs/ntfs/mft.c | 50 ++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 34 insertions(+), 16 deletions(-)
-
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index c2339acc6319..89288b794348 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -1791,7 +1791,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 	s64 min_nr, nr, ll;
- 	unsigned long flags;
- 	struct ntfs_inode *mft_ni;
--	struct runlist_element *rl, *rl2;
-+	struct runlist_element *rl, *rl2, *alloc_rl;
- 	struct ntfs_attr_search_ctx *ctx = NULL;
- 	struct mft_record *mrec;
- 	struct attr_record *a = NULL;
-@@ -1859,15 +1859,15 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 	up_write(&mft_ni->runlist.lock);
- 
- 	do {
--		rl2 = ntfs_cluster_alloc(vol, old_last_vcn, nr, lcn, MFT_ZONE,
--				true, false, false);
--		if (!IS_ERR(rl2))
-+		alloc_rl = ntfs_cluster_alloc(vol, old_last_vcn, nr, lcn,
-+				MFT_ZONE, true, false, false);
-+		if (!IS_ERR(alloc_rl))
- 			break;
--		if (PTR_ERR(rl2) != -ENOSPC || nr == min_nr) {
-+		if (PTR_ERR(alloc_rl) != -ENOSPC || nr == min_nr) {
- 			ntfs_error(vol->sb,
- 				"Failed to allocate the minimal number of clusters (%lli) for the mft data attribute.",
- 				nr);
--			return PTR_ERR(rl2);
-+			return PTR_ERR(alloc_rl);
- 		}
- 		/*
- 		 * There is not enough space to do the allocation, but there
-@@ -1878,17 +1878,22 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 		ntfs_debug("Retrying mft data allocation with minimal cluster count %lli.", nr);
- 	} while (1);
- 
-+	/*
-+	 * Keep @alloc_rl until the extension is complete: it describes exactly
-+	 * the new clusters, which undo_alloc frees if a later step fails.
-+	 */
- 	down_write(&mft_ni->runlist.lock);
--	rl = ntfs_runlists_merge(&mft_ni->runlist, rl2, 0, &new_rl_count);
-+	rl = ntfs_runlists_merge_keep_src(&mft_ni->runlist, alloc_rl, 0,
-+			&new_rl_count);
- 	if (IS_ERR(rl)) {
- 		up_write(&mft_ni->runlist.lock);
- 		ntfs_error(vol->sb, "Failed to merge runlists for mft data attribute.");
--		if (ntfs_cluster_free_from_rl(vol, rl2)) {
-+		if (ntfs_cluster_free_from_rl(vol, alloc_rl)) {
- 			ntfs_error(vol->sb,
- 				"Failed to deallocate clusters from the mft data attribute.%s", es);
- 			NVolSetErrors(vol);
- 		}
--		kvfree(rl2);
-+		kvfree(alloc_rl);
- 		return PTR_ERR(rl);
- 	}
- 	mft_ni->runlist.rl = rl;
-@@ -1904,7 +1909,6 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 	if (IS_ERR(mrec)) {
- 		ntfs_error(vol->sb, "Failed to map mft record.");
- 		ret = PTR_ERR(mrec);
--		down_write(&mft_ni->runlist.lock);
- 		goto undo_alloc;
- 	}
- 	ctx = ntfs_attr_get_search_ctx(mft_ni, mrec);
-@@ -2002,6 +2006,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 	mark_mft_record_dirty(ctx->ntfs_ino);
- 	ntfs_attr_put_search_ctx(ctx);
- 	unmap_mft_record(mft_ni);
-+	kvfree(alloc_rl);
- 	ntfs_debug("Done.");
- 	return 0;
- restore_undo_alloc:
-@@ -2015,7 +2020,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 		write_unlock_irqrestore(&mft_ni->size_lock, flags);
- 		ntfs_attr_put_search_ctx(ctx);
- 		unmap_mft_record(mft_ni);
--		up_write(&mft_ni->runlist.lock);
-+		kvfree(alloc_rl);
- 		/*
- 		 * The only thing that is now wrong is ->allocated_size of the
- 		 * base attribute extent which chkdsk should be able to fix.
-@@ -2026,15 +2031,28 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 	ctx->attr->data.non_resident.highest_vcn =
- 			cpu_to_le64(old_last_vcn - 1);
- undo_alloc:
--	if (ntfs_cluster_free(mft_ni, old_last_vcn, -1, ctx) < 0) {
--		ntfs_error(vol->sb, "Failed to free clusters from mft data attribute.%s", es);
--		NVolSetErrors(vol);
--	}
--
-+	/*
-+	 * Entered without the runlist lock.  Take the new runs off the
-+	 * runlist under it, and free their clusters from @alloc_rl once it
-+	 * is dropped, as lcnbmp_lock nests outside it (see above).
-+	 */
-+	down_write(&mft_ni->runlist.lock);
- 	if (ntfs_rl_truncate_nolock(vol, &mft_ni->runlist, old_last_vcn)) {
- 		ntfs_error(vol->sb, "Failed to truncate mft data attribute runlist.%s", es);
- 		NVolSetErrors(vol);
-+		/*
-+		 * The runlist may still reference the clusters, so leave them
-+		 * allocated until chkdsk.
-+		 */
-+		kvfree(alloc_rl);
-+		alloc_rl = NULL;
-+	}
-+	up_write(&mft_ni->runlist.lock);
-+	if (ntfs_cluster_free_from_rl(vol, alloc_rl)) {
-+		ntfs_error(vol->sb, "Failed to free clusters from mft data attribute.%s", es);
-+		NVolSetErrors(vol);
- 	}
-+	kvfree(alloc_rl);
- 	if (mp_extended && ntfs_attr_update_mapping_pairs(mft_ni, 0)) {
- 		ntfs_error(vol->sb, "Failed to restore mapping pairs.%s",
- 			   es);
--- 
-2.56.0
-
+This should state 24+ hours, I'll update the number in v2.
+This e-mail and any files transmitted with it are the property of Arthrex, =
+Inc. and/or its affiliates, are confidential, and are intended solely for t=
+he use of the individual or entity to whom this e-mail is addressed. If you=
+ are not one of the named recipient(s) or otherwise have reason to believe =
+that you have received this message in error, please notify the sender at 2=
+39-598-4302 and delete this message immediately from your computer. Any oth=
+er use, retention, dissemination forwarding, printing or copying of this e-=
+mail is strictly prohibited. Please note that any views or opinions present=
+ed in this email are solely those of the author and do not necessarily repr=
+esent those of the company. Finally, while Arthrex uses virus protection, t=
+he recipient should check this email and any attachments for the presence o=
+f viruses. The company accepts no liability for any damage caused by any vi=
+rus transmitted by this email.
