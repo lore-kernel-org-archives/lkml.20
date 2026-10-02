@@ -1,161 +1,96 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A913E2746
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41365209F43;
+	Fri,  2 Oct 2026 06:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921547; cv=none; b=AMIVKSowDJv7nb0IUnU9MTAW2LAJb25rfRn7u9oTlAv0B54VyctiLoWPRgaYpzRc3Rpja1nb66QbLnnbqe3R+a7VD2jYzEroGgjwLtHoTAmMq5wUF0xAB1dn5d4VdNaxMKLhPlljaY0KZUbhsETPzx32oV9AOPMaofNG6a3DqEQ=
+	t=1790921635; cv=none; b=iDAF/8EkhmSP54mqjYAbCJTQGalCGntG7ND0WcMjjalSuaQbrV8yOYEmttJfxuYAexH7sZ3ITUYaSDuQvXbJUVDnYq+m8rZhkE4ZzPZt7K+mgo0+xhdCJIRX+bb696X0E30TtAY0YPuURHoq2ne1SsmE8aYxFIh3++KwemFC/jI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790921547; c=relaxed/simple;
-	bh=ZJhiHHieDWa/62asdMDop3cTpqq1JaHuH6QMHtyZ0u8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=KEukeFvoiW2XmsW4uTeDFwdJ7sx7x1R/FqTmw7NnAJUrE+CSnInPKPY6atndGgEFmmHlA+nG0o7C6ZbbBuIKqvkBTbnepPHJ7peebBfiLmjJ0j0G+DYs3xqfBS5X/R/pJ6qPXOVEIPaCqClchNCEUKOOzMqgq2OxmKJT2/ChssY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=WJhTWp1e; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jCp8uG3q; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1790921635; c=relaxed/simple;
+	bh=toIV5pikIjy/aeaBVCIwei1YNS9X/1Zuz4slJobj66s=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=cmQwsg3etPJPHJRz5CJ1Y0fRemIpjZpIDEWn/QmQx1Q/ymOEo37HDmDJtu+Kio6CBeC8pFbkCtI5Yu57hv3lT+hesX24W5l/ghzFZyTLm3Xca5B6GqFTr/860qhXU6nzpU48yiM3KL4+7AsBD7vNN5D4Y8ejNlhQGSb88TbrboU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrSSVKNP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="WJhTWp1e";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jCp8uG3q"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 95AD51D0006F
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 02:12:23 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 02:12:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790921540;
-	 x=1791007940; bh=NeBUYbgCO/IE36aDtEKxMWQQk1AwYdLSXOayI0OIQ6w=; b=
-	WJhTWp1eh+JmixtFrFZBM8VTzzZFhpDkO4DYJowg1QUz3E7tA3qm/c7y+AMaTt/I
-	yuXYZxBbsoJNm2zLEw1Pd8m9gGC19gUCPzkyn1w/Lg/Wq+rNnwcxSSn20XZCFAN5
-	zB70zVCS06mzExT8/XylWCkSLtkBA3F+H8lCqlI+aSizm2cPA+blYZWD2oPKc1r2
-	7MtyH+Y3XM2FdQumIRkQYWFolSPK3GLtC/gAyYtZ4dRK0hAWcsZUCMHqx2/Jaggz
-	JAXadB9jP9R6ke2//azHDF5RMCamE1JKuHGeFBS4TPXIR4ZGsuiDP84v41o0K5gX
-	q9aZVo+309zO7tlTCDVzAg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790921540; x=
-	1791007940; bh=NeBUYbgCO/IE36aDtEKxMWQQk1AwYdLSXOayI0OIQ6w=; b=j
-	Cp8uG3qHwcM7476pqa+iLQBYsGmVLHg5zlwwoaktscpZ3i5Sk78Yc8kqH1/I4W+Y
-	GhSzdbxJYYBBlbH70+xr1Mwh/fWYd8a7fMGoijNmtKJGsuub1+UUqVMgrt7sODvS
-	cYWMhiK2rzc85ZsQ9DlEIkcUxhOOIikrZGbcmVx5uSvE6g0xtvJxWcArkdmWJZ5n
-	WxO9QJpuTf0bXyyX3P0UefeYFGPjRPUi1NjhDDuyWdrSU+CqWOwvvKDnAlHwZnhV
-	dJs7jOIMOFbCCl9o7S0eBGb0P6I3i3YX8w3kmBebXRUnnR+GIWhJC27jEFfeYS6Q
-	ccnHCiumFm+k9wxy2MIGA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790921540; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:H55vG0OXN4XPry+jYkedAtwcIJCQVZlg1ZnQsXy8onTarr9
-	t6t+waGC+5PZR2CVEWnF4ULygYSN95vBi/zwrZxyhyHtGVFg/tjzizUWcfQ3DS4s
-	BcOJKZgZtMXXmFKrMdSRfnUM4cMcRoMbe/1SKiWfVZJkIrY/LHB/ndTO3qa2fLVl
-	VSKbQ+9CafgmDTeqfn5U10xRIcddukPe0GWWsai2TL+p/ZHS4ZJ7MW2TfEBitK5H
-	U7TUV0aepBDC57Dypr92936UimmUKLZlURKeIZso1Ax792GJRCkGM5c57LoeDNdD
-	uKniLzV47UuiYVl3QXbyZZCqCzEewNyZ0eeMZsg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Ey9Ympoyxvs5hQgFtBNJdjCUG/CpYcZBTbkdtGAD6H8=:ZJhiHHieDWa/62asdMDop3cTpqq1JaHuH6QMHtyZ0u8=;
-X-ME-Sender: <xms:Qku_avHAfX99dSUZBoJvD3nP8ymXTtnsID0ocSLbQ5n0E6lvJ8Lz_w>
-    <xme:Qku_anKAnvvuax6VF4HnoyR-z1PzHCfUPuo_oNjvOhe8TUZyBjVinWErFVNLoFl6P
-    lF1v9dYeUrM0T6RYlypLGy0EEPKTxv8GQywCAqzkijkpKTQjbVXjEKV>
-X-ME-Proxy-Cause: dmFkZTEJ0cgKY5xWsCsHXL6spKR81ICBzKWlkmPZLF+WzyPnGSPKlNV9zXcJGFbRtcReVo
-    F/zec6VYkQSfgRjJzVUBTwtQUM+Gp32Tsn4nEXHrVyEq04PMNhEg7q47r5/ahbv5xVVkxK
-    7t92Rubl7vSuZpxLUUGGMzz4CKMHcAJZKbzg6rho3d3eHaF2H6TR8WDzXs1qdTj6K/8DwG
-    LYcDyay8eJkN7sNFlsU3eGwmkwwLWSmuRmn5VLE1oxEW89VpBCGOGSbyGeAd1wpI4O+upU
-    5hGqx1tRuYope+Mc10TeKNfw1jBoKRS+c3uUOoWlTNJmJGi3ZkcwCaiCFEF/lC+izaamkM
-    UkWgHAt6w/u/xrp9N+q50DWjeZs10LpkYb/P/wqx4z14ShWDw1x/HEsEyLPB7I37zR2Adf
-    u+4Y5m9MEnsJ+Oio5jVT3uig/EqmF96+K0UEt0mhFx0+StnRHVgebMSI14PgelgwHMOXFg
-    Yedl3kvWUin/OTs/oYp2S+eJ3EsnX+FVRshp8YO3YNtz9c4s+w8FXYkNgQ/nnpmxfW5LXx
-    LSFWP1BsgMcC9M3oPEpseTzqimOmx9Kb12gEMD2uz3ZN3VfY/miCDpK95+jAP6JIp2JsHz
-    AcsfhOyLATgr6lsJxoa1jYQJPj+0Nhhc8axl0tHJavwTkPzDHu+SvMTuekcA
-X-ME-Proxy: <xmx:Q0u_ajzH0mzXszrMFH6qbGQzv1aTiTjtlXz3v613MVy2D3zJZJJG1w>
-    <xmx:Q0u_aiozF3Z3KBHpY0t_V5AxBhx3PtcE9DaE-YNsS5Wilcrd7VMlTw>
-    <xmx:Q0u_ai6JXrWknpgM7EE0NzYtD_mz1lGRq-osu1f0duz-CZAnDlVq5g>
-    <xmx:Q0u_apeYK24JcrezlCvIVqNPrW6wyGDpbqKSKMGWPqyWtNEx2RUrtg>
-    <xmx:REu_ajqOBHO8RKItUfY5p-DvRGKk32Iou39iAz_9cKZVvrlnoTuVpRX7>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 6517832A008A; Fri,  2 Oct 2026 02:12:18 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrSSVKNP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978B71F000FF;
+	Fri,  2 Oct 2026 06:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790921633;
+	bh=mdrSFZDaDDzyO0ZK19f3S/LIaZl1zCC9/6iWft1/JVY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=nrSSVKNP/6SA228jiPe979ixC2f4fi0n5XZZJn+pqEaMvKXywK9sFZTecVyLGxUnt
+	 OTyR16FV+O6qzXdNXFeDfTPb/T4/IXlsAnIgXW3HpquWbHe/N6ju2ih27pJWhk5qCF
+	 ypv2mqSW2urD4mI2ly1YiucV3DJnzSHzZJBudWbAoiKq8nO/wP4lSZs28dgXwFqgHV
+	 ycY3pZnXz4hsq/lxteyjj2ENit9szkX7bNtbmxaqNzP3JkctXgzOzjkh3VVqu4zifu
+	 lW3vX+QOc2ZgMJyfL3nodyPYP5SbJX8rr3cpOkbSA7zQ5XWZVVq9ZHFMS5UIaOEUFY
+	 gVXqR/qs8Jkjw==
+Content-Type: multipart/mixed; boundary="===============6114460815882526170=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AeRYNq7l0AL7
-Date: Fri, 02 Oct 2026 08:11:58 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Arnd Bergmann" <arnd@kernel.org>,
- "Johnson Tsai" <wenjie.tsai@realtek.com>
-Cc: "rtl8821cerfe2@gmail.com" <rtl8821cerfe2@gmail.com>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Message-Id: <7cdc36a9-aadd-4636-8a29-847d89638c8d@app.fastmail.com>
-In-Reply-To: <bdb19ff5e0bc456cb035a1aa0124612f@realtek.com>
-References: <20260929104159.3236854-1-arnd@kernel.org>
- <1bde7ea5999c4915b184bf2fcb904901@realtek.com>
- <0162247f-ca33-4152-bd32-255343c7216b@app.fastmail.com>
- <bdb19ff5e0bc456cb035a1aa0124612f@realtek.com>
-Subject: Re: [PATCH] wifi: rtw89: fix LED dependencies
-Content-Type: text/plain
+Message-Id: <37328eed3277cd2e4ce990db3029d5e626f896011ee344943011726d70b1bcd8@mail.kernel.org>
+In-Reply-To: <20261002053837.3494918-1-anilkaushikwireless@gmail.com>
+References: <20261002053837.3494918-1-anilkaushikwireless@gmail.com>
+Subject: Re: [PATCH bpf-next v3] selftests/bpf: add XDP test for per-flow LRU_HASH window updates
+From: bot+bpf-ci@kernel.org
+To: anilkaushikwireless@gmail.com,ast@kernel.org,daniel@iogearbox.net,davem@davemloft.net,kuba@kernel.org,hawk@kernel.org,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,shuah@kernel.org
+Cc: sdf@fomichev.me,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,netdev@vger.kernel.org,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,anilkaushikwireless@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  2 Oct 2026 06:13:52 +0000 (UTC)
+
+--===============6114460815882526170==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 2, 2026, at 02:22, Ping-Ke Shih wrote:
-> Arnd Bergmann <arnd@arndb.de> wrote:
->> On Wed, Sep 30, 2026, at 02:28, Ping-Ke Shih wrote:
->> - we already have a mix of 'depends on' and 'select'
->>   for the LED support, which can lead to circular dependencies
->>   and other problems. Adding a third way can only make it
->>   worse.
->> 
->
-> Agree. I'll remove these two discouraged 'imply'. 
+> selftests/bpf: add XDP test for per-flow LRU_HASH window updates
 
-Ok, thanks!
+TL;DR: Nit only: the comment in the new xdp_lru_window.h is overlong, repeats
+the commit message, and calls the shared header an "ABI"; suggests trimming it
+to one line.
 
->> The way this was meant to be used is to have
->> 
->> config RTW89_LEDS
->>       def_bool RTW89_CORE && MAC80211_LEDS
->> 
->
-> I'd keep first block as
->
->         depends on LEDS_CLASS=y || LEDS_CLASS=MAC80211
->
-> mac80211 implements ieee80211_get_assoc_led_name() used by this driver as
->
->   static inline const char *ieee80211_get_assoc_led_name(struct 
-> ieee80211_hw *hw)
->   {
->   #ifdef CONFIG_MAC80211_LEDS
-> 	  return __ieee80211_get_assoc_led_name(hw);
->   #else
-> 	  return NULL;
->   #endif
->   }
->
-> That means if CONFIG_MAC80211_LEDS wasn't defined, driver can still use
-> ieee80211_get_assoc_led_name() as default trigger, but just NULL.
-> More, use space can adjust LED trigger via sysfs, so having LED support
-> is still usable if LEDS_CLASS exists.
+> diff --git a/tools/testing/selftests/bpf/xdp_lru_window.h b/tools/testing/selftests/bpf/xdp_lru_window.h
+> new file mode 100644
+> index 000000000000..78434045cf11
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/xdp_lru_window.h
+> @@ -0,0 +1,28 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef __XDP_LRU_WINDOW_H
+> +#define __XDP_LRU_WINDOW_H
+> +
+> +/*
+> + * ABI for the XDP LRU rolling-window selftest. Existing test_lru_map
+> + * coverage never enters XDP; XDP parse tests do not store a modulo
+> + * index into an LRU map value.
+> + */
+> +
+> +#define AGGREGATION_WINDOW	50
+> +#define XDP_LRU_WINDOW_FLOWS	64
 
-Right, this should work and is consistent with how other wireless
-drivers do this.
+This isn't a bug, but could this header comment be trimmed down?
 
-I think it would be nicer to just use MAC80211_LEDS as a simple
-dependency as I suggested above. If we do that, it should
-be done the same way for all the wireless drivers, but that
-is a probably something for another day.
+Most of it restates the first paragraph of the commit message and describes
+what other selftests do and do not cover, rather than what this header
+defines.  A statement like "Existing test_lru_map coverage never enters XDP"
+can go stale when another test adds similar coverage.
 
-       Arnd
+It also calls a struct shared between one BPF object and one test_progs file
+an "ABI".  The neighbouring shared headers (test_tcpbpf.h, test_tcpnotify.h,
+xdp_metadata.h) do not carry a comment like this.
+
+Could the coverage reasoning stay in the commit message only, leaving at most
+a one-line note about what is shared between the BPF program and the test
+runner?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36971050072
+--===============6114460815882526170==--
