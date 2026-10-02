@@ -1,249 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445FD451996;
-	Fri,  2 Oct 2026 09:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADEC472543;
+	Fri,  2 Oct 2026 09:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932388; cv=none; b=SroEFmaKnxkEpX+atwnSoc96+52KO75x62MR2kFIbUJjmEilf7zl6YUXm0XS+UWfV7bg2yDAJPXWzsRZGge19PG3PjvuY8cHnoQR3gOo5g8h5AhhGh2n5LRWoW6r4R/Ae/xfwC/pQz32yuLRWj0aLBBpUq2vInNBy+dPsKCw/vE=
+	t=1790932432; cv=none; b=Qidj5eaib/xRVerFSSXbiAjt+BWIJYZC2xMMd1YOszVPxrNIdMe9okFZz4uVLS1dlxxnLK4wvJ3SAUOYG5C0GlF5UexNJNG/Nl/Z6OwK+dtiDao1zaXBlpwu2lVdiYSz0ZYQiMrXGzfIN4BybUFnLF55MA6Hp/HUoWrP3aky+Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932388; c=relaxed/simple;
-	bh=SeFt5drKUcJigJe6/ihmwW8xAhGCYcKroJcLMDkEUZc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xdktv8Udf1ntjFt2kmWD0C4jwb+DPg+U2ise+R0kjoP14KKwWY3PrzVPnqDDiNIML2xJ6XLhfBsutswuhceSl4/UO+OHRnfuGMQJ1iKaLyKig535QAmOOtV39bZezpMRpq4HRDh1PcAC78DAIIidu2nd+B48xshihDeWvINCmfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7cQ3wxP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790932432; c=relaxed/simple;
+	bh=MGk6FtfzjmFuuLRve8K+9rY1OcDSiDo6JA2VJMjw4Dw=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=dvsvAAksv3ZwQcLf+HHiqF8Pm/JoC3Eek9ysjenDN/WB/KcWz/zQxhk2MWVhlXvP7xDK9l537nleHg/lgG7V+UvmGZsRPfbq/4DMeDaRCqZzujE5OhplD5gmyeoo8WATUUYlLO5eNxbjMi0q/wpgDEsD1pxp1YmJ4Ej89hS299E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gZeiaCCb; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7cQ3wxP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25D1F1F000FF;
-	Fri,  2 Oct 2026 09:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790932386;
-	bh=E2MH5ucIaIApIUxucO1uUSHtEgWcgu2UJ4m0lbYAPS4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h7cQ3wxP/WXnnUgi737EQnvb8mHwlBjSrqGRC25rUT2U+o2GapAWWMwQmfebd2ero
-	 75Rgg8Ka0aM9PZ3M4NoRhFEjTooSgRi5XecELvHhbcNfK1e6dYhgbgrhp8jFiZ2M6v
-	 bTCqnmPZn3dIZos81AX3ELuHFswxGZ+zwD1ixny8EFf/qLGnvQMrpw5klmEYkKO8gc
-	 BtwAq8A/FC6vFNLJnN7cyidMBcz51jc+fkq7nJFX5+lTqqZgfwvZzAmHpBPxkpv6Ch
-	 x19LJ1KsMd1ecksWtSLyfRcYhGpFbf5P9rFswBWW3uMN09znpCcWbguZ1bdTV8Rw6O
-	 tyMEUmJcTrPew==
-Message-ID: <f41a6261-ae04-44cb-b01f-b1da02d9cb80@kernel.org>
-Date: Fri, 2 Oct 2026 11:13:00 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gZeiaCCb"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69265Uap2682369;
+	Fri, 2 Oct 2026 09:13:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=0JbsvB
+	Pi9kRKdXeDSaZfk/gefteQfVQjDHPBbH0otDQ=; b=gZeiaCCbdV2KofjoAjNiRt
+	S2HrMIaPNlv1apWOC76+eGHuhQ62HIxiKFgksMdauOCTax8bk1WquI/AhIpBsYFU
+	RjayysVmoYGuO77d4BZ8Yus+LBD+jyZaXrLJzXbfF+jVWcEHJFqmAgb6/Mu7kvaf
+	be7pS+MqAV9wpjULA+N8Q2XSgfOGpHh7yZNAdBLDkcrcJY6XNjYDjdchoxHvNfYP
+	1iqNnsaK0NQ5/0Gou2s1wkHRRSRxrZZaPTlt+QfunbGISYs8LGUB/MbRTfTtc+iq
+	imb5Te2//1dY3q++T0icvqpXV7FWKK3nM48cPf1Z2DJCoqgtcs7kPhrOM529EbHA
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4feq21h-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 09:13:49 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6925lVW32118894;
+	Fri, 2 Oct 2026 09:13:48 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h1aa7y618-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 09:13:48 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6929DlLT61014344
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 2 Oct 2026 09:13:47 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 326445805A;
+	Fri,  2 Oct 2026 09:13:47 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 32B5858051;
+	Fri,  2 Oct 2026 09:13:44 +0000 (GMT)
+Received: from [9.87.132.132] (unknown [9.87.132.132])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  2 Oct 2026 09:13:44 +0000 (GMT)
+Message-ID: <db924180c5ebe6d7237cb2cb9caf0dc0b6b8c74d.camel@linux.ibm.com>
+Subject: Re: [PATCH 25/32] s390/pci: Convert inline assembly to
+ EX_TABLE_INSN
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev	
+ <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Vasily
+ Gorbik	 <gor@linux.ibm.com>,
+        Christian Borntraeger
+ <borntraeger@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Vineeth Vijayan	
+ <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Harald Freudenberger <freude@linux.ibm.com>,
+        Holger Dengler
+ <dengler@linux.ibm.com>,
+        Stefan Haberland	 <sth@linux.ibm.com>,
+        Jan
+ Hoeppner <hoeppner@linux.ibm.com>,
+        Ilya Leoshkevich	 <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda	
+ <imbrenda@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+In-Reply-To: <20261001103247.1989111-26-hca@linux.ibm.com>
+References: <20261001103247.1989111-1-hca@linux.ibm.com>
+	 <20261001103247.1989111-26-hca@linux.ibm.com>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 02 Oct 2026 11:12:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
-To: BG9OXA <bg9oxa@163.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew@lunn.ch>
-References: <20261002-b4-quarkpi-ca2-v6-0-9fc33f27ebb9@163.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261002-b4-quarkpi-ca2-v6-0-9fc33f27ebb9@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6abf75cd cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=R3rtcIPnULuaThjcOJAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfX3XYRqozJjStZ
+ SMFKk9vpYI9W3CoEQmT0rrhWigqnRHROiYlSdnN0qAlWs5jdQIwZau/pC0p+nQJyY/+kWiOP5vc
+ lKeBmSTlaP84HGWt+7T8jcZogS5uLCA=
+X-Proofpoint-ORIG-GUID: 9hg8TqHTrZRlnAr6mKK0Acb3u7dVvXDC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNiBTYWx0ZWRfX2tx77CmmMAA7
+ 2ZCm7PSvwdizqL5TKVIzrUx2ICCBqNxs9no8qkU2yuKTH6S+QTzt+qyMVs3xvU+5Or+mn6SefFF
+ i64NhwS7FDKDO8VgiSIAA9Bv/cPVQSFyziQrJS15uxyS3bdvvps2aSKB8CdoqMig/2Df0vN/PRC
+ uzHAiMpdNZdJTWJ1btslQ3PT01Ee2moBUd7WNPOauQlgq4Z5G6Y6M4kTX9SE7JusRU/IunGvMh4
+ 0cROFKjXXC9UwPU/qONlB4grXq/Ga/8UqeAN+N7Ff4uVShT0XRPx9QV03C7cGBLiRteAHDOzFDt
+ TErJZ2kdz5fjTM5OzE2htpMjE26JcPH62T3hWronr156J70gGxbr5JXPzN5VHAaR84rSOs9mdc7
+ n5joPR9iY/hvgHzKPs9BASevz7x8bIxt3VkaizQ62qIMk7dXOyaM7N13Mg7Vm/4ykdaSEvN4xXR
+ 0wQUPZq48sGEBnLFNMA==
+X-Proofpoint-GUID: 9hg8TqHTrZRlnAr6mKK0Acb3u7dVvXDC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610020036
 
-On 02/10/2026 05:52, BG9OXA wrote:
-> Hi all,
-> 
-> This short series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S
-> based single board computer.
-> 
-> Board summary:
->  - Rockchip RK3588S (4x Cortex-A76 + 4x Cortex-A55), LPDDR4x
->  - eMMC, microSD slot, M.2 socket (PCIe 2.0 x1)
->  - Gigabit Ethernet, USB 3.0 Type-A, USB 2.0 Type-A ports and a USB-C
->    port (USB 2.0/3.0 plus DisplayPort altmode, two DP lanes)
->  - HDMI output, three MIPI CSI and two MIPI DSI connectors
->  - ES8388 analog codec with 3.5 mm jack, HUSB311 USB-C PD controller
->  - 40-pin header, RK806 PMIC, IR receiver
->  - No SPI-NOR; the vendor bootloader reads extlinux.conf from the SD/eMMC
->    boot partition
-> 
-> Patch 1 documents the board in the Rockchip platform bindings, patch 2
-> adds the device tree itself (plus its Makefile entry).  The "alientek"
-> vendor prefix is already present in vendor-prefixes.yaml, so no vendor
-> prefix change is needed.
-> 
-> Tested on hardware: boot from SD and eMMC, gigabit Ethernet, the USB 2.0
-> ports, the USB 3.0 Type-A port (UAS storage device, 5000 Mbps link,
-> 309 MB/s), USB-C DisplayPort altmode, HDMI video and audio, ES8388 analog
-> playback over the 3.5 mm jack (checked with music), the ADC keys, the IR
-> receiver, the PWM fan and ramoops.  The M.2 socket is described following
-> the vendor design; no suitable device was available here to exercise that
-> link.  dtbs_check is clean for both patches.
-> 
-> Notes worth the reviewer's attention:
-> 
->  * The codec is clocked through I2S0_8CH_MCLKOUT_TO_IO rather than the
->    internal I2S0_8CH_MCLKOUT mux that the other boards reference.  On
->    RK3588 the MCLK-to-IO routing is a gate in SYS_GRF SOC_CON6 which the
->    bootloader leaves closed, so nothing drives MCLK out to the codec;
->    pointing "clocks" at the _TO_IO clock makes the codec driver open that
->    gate at probe, while "assigned-clocks" stays on the internal mux to
->    keep the 12.288 MHz rate.  Verified on hardware: i2s0_8ch_mclkout_to_io
->    is enabled with the codec (1-0011) as its consumer, and playback works.
-> 
->  * The codec compatible list is "everest,es8388", "everest,es8328", as
->    documented in everest,es8328.yaml and as used by the other boards with
->    this part.  The standalone ES8323 driver cannot instantiate a card on
->    this board at all, which is how the fitted part was confirmed.
-> 
->  * Analog capture from the 3.5 mm TRRS jack (headset microphone) does not
->    work yet: the capture stream returns a constant idle pattern (0xFFFF)
->    although the analog bypass path works, and the DAPM routes and the ALSA
->    controls look correct.  This looks like the same ES8328 capture problem
->    that has been reported for other boards, so I kept it out of this
->    series.
-> 
->  * The USB 3.0 Type-A port is wired to usb_host2_xhci through combphy2_psu;
->    both are enabled here, as in the vendor BSP.  combphy2_psu is free on
->    this board because the M.2 socket uses pcie2x1l2 (combphy0_ps).
-> 
->  * The 3.5 mm jack is fed from the codec outputs (LOUT1/ROUT1) and from the
->    headphone amplifier outputs, as in the vendor tree.  Describing only the
->    amplifier path was tried as well, and on this board that gives no output
->    at the jack at all (verified on hardware with a test tone and with music
->    playback), so both routes are kept.
-> 
->  * The board has three MIPI CSI and two MIPI DSI connectors, but no camera
->    or panel is described here: those are plug-in modules.  Enabling the
->    CSI-2 receiver without a sensor attached makes the driver fail to find
->    its endpoint at probe (verified on hardware), so, as in the vendor
->    tree, camera and panel descriptions belong in overlays.
-> 
->  * GbE: phy-mode is "rgmii-id".  As you explained, phy-mode describes the
->    PCB, and this PCB does not add RX/TX delays, so the delays have to come
->    from the PHY.  I went through where each delay is actually applied:
-> 
->      - MAC side: none.  dwmac-rk takes the delay values from the DT only
->        for the plain "rgmii", "rgmii-rxid" and "rgmii-txid" modes; for
->        PHY_INTERFACE_MODE_RGMII_ID it calls set_to_rgmii(priv, 0, 0), so
->        the RGMII delay registers are written with zero.  (The driver still
->        logs "set tx_delay to 0x30"/"set rx_delay to 0x10" when the
->        properties are absent, but those values are only the parse-time
->        defaults and do not reach the GRF in this mode.)
-> 
->      - PHY side: the delays.  The Motorcomm driver programs its internal
->        RGMII delay for RGMII_ID, using 1950 ps for both directions when
->        rx-internal-delay-ps / tx-internal-delay-ps are not specified,
->        which is its documented default for both directions.
-> 
->     So with "rgmii-id" nothing is added twice.  Measured on hardware with
->     iperf3 at gigabit line rate: in one 900 second run, 96.8 GB transferred
->     at 924 Mbit/s with zero retransmissions; in a second run on the final
->     revision of the series, 300 seconds in each direction, 925 Mbit/s
->     transmit and 937 Mbit/s receive, with 114 and 23 retransmits out of
->     roughly 24 million segments each way (a few ppm).  rx_crc_errors and
->     the other error counters stay at zero in both runs.
-> 
-> This is my first patch to the Rockchip platform.  I am a Chinese amateur
-> electronics hobbyist (amateur radio callsign BG9OXA) working on this board
-> in my spare time, so please point out anything that does not follow the
-> expected style.
-> 
-> Changes in v6:
-> - My oversight, sorry for the noise: when I switched phy-mode to "rgmii-id"
->   in v5 I forgot to update the commit message of patch 2/2 at the same time,
->   so the message still described the v3/v4 approach (delays applied on the
->   MAC side) while the code had moved to the PHY-side delays.  The message now
->   describes what the code does: the PHY adds the delays internally and the
->   MAC adds none, so nothing is applied twice.  The device tree is not touched
->   by this change; the compiled .dtb is byte-for-byte identical to the one in
->   v5 (verified).
-> - Keep the headphone routing as in v5.  On this board the 3.5 mm jack needs
->   the direct codec output routes: describing only the amplifier path gives
->   no output at the jack, which I verified on hardware with a test tone and
->   with music playback.  So the parallel routes are intentional here and
->   were not changed.
-> - Link to v5: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077620.html
-> 
-> Changes in v5:
-> - Use phy-mode = "rgmii-id" and let the PHY add the RGMII delays, instead of
->   "rgmii" with the delay applied on the MAC side, as pointed out by Andrew
->   Lunn.  The MAC adds no delay in this mode, so nothing is applied twice;
->   see the GbE note above for the details and the measurements.
-> - Move the Makefile entry so that the list stays in alphabetical order.
-> - Rename the headphone amplifier node to the generic name "audio-amplifier";
->   the labels are unchanged, so no reference is affected.  The audio routing
->   itself is unchanged, see the note above.
-> - Set the Type-C connector data-role to "host".  The XHCI controller is
->   host-only on this board (dr_mode = "host" and no usb-role-switch), and
->   the vendor DT lists "dual" only because the vendor configures that
->   controller as OTG.  The power role stays "dual", as the board can be
->   powered over Type-C.
-> - Link to v4: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077616.html
-> 
-> Changes in v4:
-> - Add the missing blank line between the include block and the root node.
-> - Fix the node indentation in a few places.  That cleanup is whitespace only;
->   the compiled .dtb is unchanged by it (verified byte-for-byte).
-> - Rename the Type-C controller node to the generic name "typec-port", as the
->   other boards using this part do, and drop its redundant status property.
-> - Give the fixed regulator nodes the "regulator-" name prefix, as the other
->   boards do; the labels are unchanged, so no reference is affected.
-> - Route the Type-C SuperSpeed lanes through the USBDP PHY, as the other
->   RK3588 boards do, so that the PHY does the orientation muxing.
-> - Feed the headphone amplifier from one codec output pair only; that is what
->   the other ES8388 boards do.
-> - Cc the people and lists reported by scripts/get_maintainer.pl.
-> - Link to v3: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077611.html
-> 
+On Thu, 2026-10-01 at 12:32 +0200, Heiko Carstens wrote:
+> Convert all pci exception table entries to use EX_TABLE_INSN.
+> With EX_TABLE_INSN entries always point to the faulting instruction,
+> so duplicate entries are removed.
+>=20
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>  arch/s390/pci/pci_clp.c  | 12 ++++++------
+>  arch/s390/pci/pci_insn.c | 36 ++++++++++++++++++------------------
+>  arch/s390/pci/pci_mmio.c | 28 +++++++++++++++-------------
+>  3 files changed, 39 insertions(+), 37 deletions(-)
+--- snip ---
+> diff --git a/arch/s390/pci/pci_mmio.c b/arch/s390/pci/pci_mmio.c
+> index f3f79ba78410..8b49175b0031 100644
+> --- a/arch/s390/pci/pci_mmio.c
+> +++ b/arch/s390/pci/pci_mmio.c
+> @@ -39,10 +39,10 @@ static inline int __pcistb_mio_inuser(
+>  	asm_inline volatile (
+>  		"	sacf	256\n"
+>  		"0:	.insn	rsy,0xeb00000000d4,%[len],%[ioaddr],%[src]\n"
+> -		"1:	lhi	%[exc],0\n"
+> -		"2:	sacf	768\n"
+> +		"	lhi	%[exc],0\n"
+> +		"1:	sacf	768\n"
+>  		CC_IPM(cc)
+> -		EX_TABLE(0b, 2b) EX_TABLE(1b, 2b)
+> +		EX_TABLE_INSN(0b, 1b)
+>  		: CC_OUT(cc, cc), [len] "+d" (len), [exc] "+d" (exception)
+>  		: [ioaddr] "a" (ioaddr), [src] "Q" (*((u8 __force *)src))
+>  		: CC_CLOBBER_LIST("memory"));
+> @@ -72,15 +72,16 @@ static inline int __pcistg_mio_inuser(
+>  	asm_inline volatile (
+>  		"	sacf	256\n"
+>  		"0:	llgc	%[tmp],0(%[src])\n"
+> -		"4:	sllg	%[val],%[val],8\n"
+> +		"	sllg	%[val],%[val],8\n"
+>  		"	aghi	%[src],1\n"
+>  		"	ogr	%[val],%[tmp]\n"
+>  		"	brctg	%[cnt],0b\n"
+>  		"1:	.insn	rre,0xb9d40000,%[val],%[ioaddr_len]\n"
+> -		"2:	lhi	%[exc],0\n"
+> -		"3:	sacf	768\n"
+> +		"	lhi	%[exc],0\n"
+> +		"2:	sacf	768\n"
+>  		CC_IPM(cc)
+> -		EX_TABLE(0b, 3b) EX_TABLE(4b, 3b) EX_TABLE(1b, 3b) EX_TABLE(2b, 3b)
+> +		EX_TABLE_INSN(0b, 2b)
+> +		EX_TABLE_INSN(1b, 2b)
 
+:) this and the one in __pcilg_mio_inuser() must be one of the best
+examples why the new approach is cleaner and easier to read. Well done!
 
-This looks a lot like LLM generated stuff. Don't. The easiest way to
-annoy maintainers. We are not going to read long LLM-generated
-paragraphs for trivial stuff, because trivial stuff should be explained
-with one sentence.
+>  		: [src] "+a" (src), [cnt] "+d" (cnt),
+>  		  [val] "+d" (val), [tmp] "=3Dd" (tmp), [exc] "+d" (exception),
+>  		  CC_OUT(cc, cc), [ioaddr_len] "+&d" (ioaddr_len.pair)
+> @@ -227,13 +228,13 @@ static inline int __pcilg_mio_inuser(
+>  	asm_inline volatile (
+>  		"	sacf	256\n"
+>  		"0:	.insn	rre,0xb9d60000,%[val],%[ioaddr_len]\n"
+> -		"1:	lhi	%[exc],0\n"
+> +		"	lhi	%[exc],0\n"
+>  		"	jne	4f\n"
+> -		"2:	ahi	%[shift],-8\n"
+> +		"1:	ahi	%[shift],-8\n"
+>  		"	srlg	%[tmp],%[val],0(%[shift])\n"
+> -		"3:	stc	%[tmp],0(%[dst])\n"
+> -		"5:	aghi	%[dst],1\n"
+> -		"	brctg	%[cnt],2b\n"
+> +		"2:	stc	%[tmp],0(%[dst])\n"
+> +		"	aghi	%[dst],1\n"
+> +		"	brctg	%[cnt],1b\n"
+>  		/*
+>  		 * Use xr to clear exc and set condition code to zero
+>  		 * to ensure flag output is correct for this branch.
+> @@ -241,7 +242,8 @@ static inline int __pcilg_mio_inuser(
+>  		"	xr	%[exc],%[exc]\n"
+>  		"4:	sacf	768\n"
+>  		CC_IPM(cc)
+> -		EX_TABLE(0b, 4b) EX_TABLE(1b, 4b) EX_TABLE(3b, 4b) EX_TABLE(5b, 4b)
+> +		EX_TABLE_INSN(0b, 4b)
+> +		EX_TABLE_INSN(2b, 4b)
+>  		: [ioaddr_len] "+&d" (ioaddr_len.pair), [exc] "+d" (exception),
+>  		  CC_OUT(cc, cc), [val] "=3Dd" (val),
+>  		  [dst] "+a" (dst), [cnt] "+d" (cnt), [tmp] "=3Dd" (tmp),
 
-Best regards,
-Krzysztof
+I went through the adjustments and they all look correct under the
+explanations you gave in the cover letter and prerequisite patches.
+
+So feel free to add my:
+
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+
+Thanks,
+Niklas
