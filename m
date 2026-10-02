@@ -1,159 +1,175 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45AE7317164
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE624AF66B
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:11:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790953852; cv=none; b=USvfouj+8JBIKtJh7FIaTqJ53rMo01pI+bsDBqK2fjBhgTd3SbSMvqasvcnJ/9qOK60A8ebaJYD6w3K7ZaBQoNMpdGdaPz/aRB90uuWSNWYXEtK+IksMBf08XMYK5eac6uxdeGfNNbkyx/DlepR1Fh9ThEBiWonuvEJuVDou9NY=
+	t=1790953920; cv=none; b=sUgKCF6SVbo5NE6y9HSvIDdcjoFWCviKYmF4NPJTZ2Lf86F18CYRd9as/otVJ5ex807H4KpvMsF2g4ZTTJ8VVexUGbdzC+pq7D24dlQkO5UaWdq2JDe3b4E0r7va5nyjHpIJeR0hkj3U9Bp0aETGic8LJ2Wpb4ka16W4fyzMpbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790953852; c=relaxed/simple;
-	bh=1TOs3zrdvcZvl9aOJu5iWNnu5dQVQ/Bo9xc1UCJwysY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ALv3v5qeAUaK7NFCiplr3shvvrryV8bFLA3No5xgciFFcKM45V0H0Zo0s7C9qXpJfaEiqo/bjWtyaNHGc0t4yJT+Eogkn634nhInU6kH0fsgqhS8EYkaWAcMKJDLwBD5pcjPecvlcKZXAkWtt/zAwnD+Wc4qS+UHhZWuy6tW/J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qJruf9MI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790953920; c=relaxed/simple;
+	bh=BXSTojC4lp2VomfKySiwbSrWTs82k5is0N7A+po482w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dOsG4bHh2u3g+rFOomE7HHKX5+fXoGXOlR8MN5ulB+KFrqROF9zriq8i4XONS8Yfhtx/sVajbBm5jR/619zK4pBUWvLWWlcZjcS5nHs1XGQc/jK8/JiqmM3L/aOptcUY59+I3HCnuCphk1I5du7UMfx5BCpmAdtZRPgxv6QXmDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GrOBZ3DC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=pN/gn+T8; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qJruf9MI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 18D2C169C;
-	Fri,  2 Oct 2026 08:10:46 -0700 (PDT)
-Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E3BA73F85F;
-	Fri,  2 Oct 2026 08:10:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790953849; bh=1TOs3zrdvcZvl9aOJu5iWNnu5dQVQ/Bo9xc1UCJwysY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qJruf9MIlnQGbwTRokIQRZDe55e+opyfx3rUu9MlrDxEIF1ckVS2m7PG2OSm1qPU+
-	 /YcMyF+Wv1Q8s7LAaE30s7rkpUUziUcF2L0kYE74kukd6cSpwMPUnVDKK7nlwQO1RO
-	 xnfAHmnxhEVI28eO7/48GMPJL7hX3P8rDRI9llXc=
-Message-ID: <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
-Date: Fri, 2 Oct 2026 16:10:43 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GrOBZ3DC";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="pN/gn+T8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790953917;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LWmLd+rLGF8wp2MGoAWUFRqguzK3p2qoTL1+rkmSfkI=;
+	b=GrOBZ3DCcTz+fLX0P6vRG3M6AEd8qeGvuVNAeFxscJZtchngQfND8TIg2N5YtTl9iKpr+G
+	3/OmAnEhl/SxPZeDulKAtN7xTnlrh7SKv76WOhIZ1ImiZ9ZKnPFcvWmWOgdFhhCCHV+qCO
+	vE1QzMrYCpeIBFfUWYroN4wDhLh2avE=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-399-7S3ZmIQ_Mz6EZuzojkFXYw-1; Fri, 02 Oct 2026 11:11:56 -0400
+X-MC-Unique: 7S3ZmIQ_Mz6EZuzojkFXYw-1
+X-Mimecast-MFC-AGG-ID: 7S3ZmIQ_Mz6EZuzojkFXYw_1790953916
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93c58ee2116so1456330985a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:11:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790953916; x=1791558716; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LWmLd+rLGF8wp2MGoAWUFRqguzK3p2qoTL1+rkmSfkI=;
+        b=pN/gn+T8xbN49zVpBn13gV7HsChE0Sk3cphEVrJs6osThGDtD3g6Lgz1C6Cd3QGUgv
+         MUPECoNqBLI01vuAuRIC8n+w0cgGF54xvtuOQnRnjB0CxI1Mvb9B1zdpJXJpqfNFpgW1
+         WHQj4QaDtdebuPXIDE2Cry8FHWzriIquA3mjygGbwbLC1/s/lY+DmmUm/MiK4iAT9LBk
+         D6tjdknJrK1fxy8r3z6KQ4saHba56h9gixc66poY6m6O1bQb9BzWtqO2NVNlwBq31LTj
+         D7dh8u8EpHM1OOwAJIaqafKgC/uqZVd+n1VcOcVl7TuQltSMBnOqzdkryZBnY3DiK112
+         NUlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790953916; x=1791558716;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LWmLd+rLGF8wp2MGoAWUFRqguzK3p2qoTL1+rkmSfkI=;
+        b=z8GBQ+GT3r0R2QZnGMG7350VoUXZkstSR3U8cCyPKKcGYToj5JU4zF4QUwsx4XYeuI
+         nf2wU9YaYBnKBUVoWCc5cLTqQm5JN6DOnN6oSV10Axpiu7bVEYUkwl6Z+wta4KApL0ew
+         1BrdwyeiPy2qqEZ/wnS8SZnv9A/0GOZGKmS52lEXEEwfSGCdwZnxqW3TYshqLE738fZc
+         cw28eSvoSFBWgiIJIN/JcAxzIVuw5H+1tMQGFk8K/HUACK0VIKP/BMiAzPi+vZgHvqnA
+         oFYuE606oNIAoiRI9KrRcLaI7R/BEdlTWVOZcxqvG1VuDAJ+L7BuhzikZJpNGlyfmZ0D
+         /vQg==
+X-Forwarded-Encrypted: i=1; AKwUvByQgfCY3akUr750wveZz1R66t972jknyWoRm7rBNQsJQRuX4FCV9rBTtsgt41I8ER2EdEciQ+W+Xv7XaAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCHgS/Uw3vAvwPcUapHbOraY2nx80rVOnwNiIv2Sm0MPo0kmmv
+	NXQEwt2Bk7WCImJ8yJoavrXP2OE5o/ar1bbcmFq59A4EKbuWuqKg4yuHnohrgIQGjZeQ/ZuUI5H
+	RcI4f3WcZWuKPX43ksGEAOIDJjb4m1Eyq+ztYbQ7TRYnqtrABQmwPJFj9IdjTAZ0q3A==
+X-Gm-Gg: AYBFou0WsACVOayQUDYeVGbeUGynL9g1CDnOg7mGZ0t2AHicMwUV1EIp0Cknoszokri
+	cgT0SHApAHZ1AcFUr14lCWEDrwjgzc1wZNL+57VoQvk/ZqKn2yisjmD4V5kpqCRFeSO4O+JiCka
+	AB1nLDTMK9qqHqNCMK+Lm0fB2ynlZodMNEaq4eJ+zZVppxZd+JBuaeyPK7OwkJ/kglfwFQxoDp1
+	KHnjcO1gaJ9UXG7C3EZcrZJ4sDXBiM+NYjFKh8gZIBqsTdVR15Xzo6ybFdNQxQjHp/qrfYhJoTN
+	XEabBt2/+bqQzjuhzEU1f6Vcvk8m1s49o0Dy69k68GjzWR25omlzww2P50qFStncnHOFDy4uLer
+	TYhjYhIpwNxLO4ujfSHy1
+X-Received: by 2002:a05:620a:26a6:b0:93c:5efa:39ae with SMTP id af79cd13be357-93ce7c1228emr548897985a.12.1790953915759;
+        Fri, 02 Oct 2026 08:11:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:26a6:b0:93c:5efa:39ae with SMTP id af79cd13be357-93ce7c1228emr548889585a.12.1790953914967;
+        Fri, 02 Oct 2026 08:11:54 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a433dsm240505285a.13.2026.10.02.08.11.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 08:11:53 -0700 (PDT)
+Date: Fri, 2 Oct 2026 11:11:51 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: linux-clk@vger.kernel.org, Brian Masney <bmasney+clk@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, mturquette@baylibre.com
+Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver (v2)
+Message-ID: <ar_Jt4eIPy1-uq1-@redhat.com>
+References: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 10/15] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-On 29/09/2026 04:44, Adri√°n Larumbe wrote:
-> This will be of great help when testing potential races between the GPU
-> reset sequence and other parts of the code accessing HW registers.
-> 
-> We must also disable the reset work item rather than simply cancelling
-> it, to prevent the knob from triggering another reset when the device
-> is being removed.
-> 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Adri√°n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 42 ++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
->  2 files changed, 43 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 09a5752a3f40..94d2de341838 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -2,6 +2,7 @@
->  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
->  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
->  
-> +#include <linux/debugfs.h>
->  #include <linux/clk.h>
->  #include <linux/reset.h>
->  #include <linux/platform_device.h>
-> @@ -595,9 +596,50 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
->  };
->  
->  #ifdef CONFIG_DEBUG_FS
-> +static int reset_get(void *data, u64 *val)
-> +{
-> +	struct panfrost_device *pfdev =
-> +		container_of(data, struct panfrost_device, base);
-> +
-> +	*val = atomic_read(&pfdev->reset.pending);
-> +	return 0;
-> +}
-> +
-> +static int reset_set(void *data, u64 val)
-> +{
-> +	struct panfrost_device *pfdev =
-> +		container_of(data, struct panfrost_device, base);
-> +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
-> +
-> +	if (!ret)
-> +		return 0;
-> +
-> +	panfrost_device_schedule_reset(pfdev);
-> +	flush_work(&pfdev->reset.work);
-> +
-> +	/* ret < 0 means runtime PM for the device is disabled, so we
-> +	 * only need to return the PM reference in the opposite case
-> +	 */
-> +	if (ret > 0)
-> +		pm_runtime_put(pfdev->base.dev);
-> +
-> +	return 0;
-> +}
+Hi Stefan,
 
-NIT: If this wasn't debugfs I'd be complaining that you're ignoring
-'val' and so this isn't very extensible. But hey, it's debugfs... so:
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
-> +			 reset_get, reset_set,
-> +			 "0x%08llx\n");
-> +
-> +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
-> +{
-> +	debugfs_create_file("reset", 0600, minor->debugfs_root,
-> +			    minor->dev, &panfrost_reset_debugfs_fops);
-> +}
-> +
->  void panfrost_device_debugfs_init(struct drm_minor *minor)
->  {
->  	panfrost_gem_debugfs_init(minor);
->  	panfrost_sched_debugfs_init(minor);
-> +	panfrost_reset_debugfs_init(minor);
->  }
->  #endif // CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-> index 00fb36c577df..ab65786bf63b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -932,7 +932,7 @@ void panfrost_jm_fini(struct panfrost_device *pfdev)
->  		drm_sched_fini(&js->queue[j].sched);
->  	}
->  
-> -	cancel_work_sync(&pfdev->reset.work);
-> +	disable_work_sync(&pfdev->reset.work);
->  	destroy_workqueue(pfdev->reset.wq);
->  }
->  
+On Thu, Oct 01, 2026 at 08:39:27PM +0300, Stefan Dˆsinger wrote:
+> Hi,
 > 
+> This pull request contains the device tree bindings and clock driver for
+> ZTE zx297520v3 boards. It contains the next step in adding support for
+> zx297520v3 boards: Documenting clock and reset manager hardware and
+> adding drivers for its PLLs and clock tree. This is v2 of the pull
+> request, based on v7.3-rc1 rather than clk-next.
+> 
+> The patches have been reviewed and carry appropriate R-B tags by
+> Krzysztof Kozlowski (bindings) and Brian Masney (clk driver).
+> 
+> The PR does not contain the MFD, reset and device tree patches. They
+> will be submitted to the MFD, reset and soc trees respectively. The
+> clock driver compiles without them, but won't be instantiated without
+> the MFD parent.
+> 
+> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> 
+>   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.com/stefandoesinger/zx297520-kernel.git tags/v2-zx29-clk-for-7.4
+> 
+> for you to fetch changes up to 75e4151c9e157d84c8c6c365893ecf33d221bca5:
+> 
+>   clk: zte: Introduce a driver for zx297520v3 LSP clocks (2026-10-01 20:20:43 +0300)
+> 
+> ----------------------------------------------------------------
+> clk: zte: Add clock drivers for zx297520v3 SoC
+> 
+> This tag contains the device tree bindings and clock driver for ZTE
+> zx297520v3 boards. It contains the next step in adding support for
+> zx297520v3 boards: Documenting clock and reset manager hardware and
+> adding drivers for its PLLs and clock tree.
+> 
+> The PR does not contain the MFD, reset and device tree patches. They
+> will be submitted to the MFD, reset and soc trees respectively. The
+> clock driver compiles without them, but won't be instantiated without
+> the MFD parent.
+> 
+> ----------------------------------------------------------------
+> Stefan Dˆsinger (9):
+>       dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
+>       dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
+>       dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
+>       clk: zte: Add Clock registration infrastructure
+>       clk: zte: Add regmap-based clocks
+>       clk: zte: Add zx PLL support infrastructure
+>       clk: zte: Introduce a driver for zx297520v3 top clocks
+>       clk: zte: Introduce a driver for zx297520v3 matrix clocks
+>       clk: zte: Introduce a driver for zx297520v3 LSP clocks
+
+The commits in the pull have the changelog in the commit message. For
+example:
+
+https://gitlab.com/stefandoesinger/zx297520-kernel/-/commit/75e4151c9e157d84c8c6c365893ecf33d221bca5
+
+I went to the last series and cherry picked the relevant commits.
+
+Brian
 
