@@ -1,99 +1,163 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cvsmtppost18.nm.naver.com (cvsmtppost18.nm.naver.com [114.111.35.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FCC36F8E1
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D189713CF82
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790984137; cv=none; b=pIzVDKQR4bG1ILerh0H3ZydbqqmjXi9zMg8w3tWIjDVRduAnL1PRvUKwLsETBn2C7/9cOn904ptoWVEw21id4OpM3JG8WQ5lIQHFk7WrKPdjACUgKYmfmgJM7CQ0l2RYHjOsAkB2wz+xA/el1jC94CtkA+/POWnnkNdL42jTwFU=
+	t=1790984327; cv=none; b=WJn3H3449YY+sfZJVpzsXSLVcND4u5sZ1fTQTLlRYgMvfzFDPrlL0oKyk1eSVWCwEZEqd3qb1cfM8QrhPby4E11OFPGNUTyahvR/RNQJpExBDv9ncYxUTH8a1cr33XwAX7K6M+fyjEqkFFvDQsqX3ed2tBr2Kk4Khl9i++CY2t0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790984137; c=relaxed/simple;
-	bh=GACqV+M76Xn2K5NhU/bA7epRCVhGxn/7QlVPpgPFAAc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UA4SnMFev+7cmHQdvvOaSVxrhWGipMYgz2QF4AmphlO1b7iZikcnFmr2YYLhr5LNgMa0PFf3bqg5JIOs5BE+CPMANQTTeRbjLJhAlnthmF1+BWah2EQ+n0MUCz6QoABEA4Xeiu+KUYKQUDUyTxdoj4zOrEp0M9CKIvPKkvUljjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3SSvXLY; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790984327; c=relaxed/simple;
+	bh=fs6Rey1mr61NKsSGBX20gWRaQ8r4f575y8hpKKsd5Wg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=C4JaK4znlQkuJhuFDOIuGTv4IB5NTu1UF+5SNauoF+y8s+gClMrc9n0/h7QGaz+HbfSGLYXh+uU/tGbWIShsf5tsuSM9Mj61PTPgNQtj68/t/uZ1u8scVl6uwp2334bzzH9LOB9abST6AJpO0GEMvj1ckJ3+gpMev6tlGjLjNG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=fAC1xnvh; arc=none smtp.client-ip=114.111.35.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3SSvXLY"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so2668425e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:35:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790984135; x=1791588935; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cKOGocBTPT6zEDfsTu3TByHMk46p15imK8zAdyqUzUs=;
-        b=m3SSvXLYOsn3T0RKtsEw4Jwm1aH6BGzWMcVLj3Z2L2WUgN8nCEE21UeadCqeByFa6T
-         eaV2kZF5oAykz4JOYltxGw3jDo39IlUD4Hin0Z4GxaZKoR8yo+w6R+nVNDxEPtDHVZEQ
-         LQYgLARXBLL7v5wgbHShV2vtHvYVu5LxJJRAb/Z/KXuLXLoFLswPa9P3q+JNhsm0uQ/S
-         UN6cqNxPAJoeTj5pEkemJOWcjGomdX2rt2Gc1+BZ5qSNhr78bOb3pluGQrNJO6kOjceq
-         /fjXVrALhbdP5WeOJVBAmPJLcUZto20DqWNLXTiFu0ZEM9dW7qz062AjJnR9GA2aF8Ek
-         Hq+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790984135; x=1791588935;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cKOGocBTPT6zEDfsTu3TByHMk46p15imK8zAdyqUzUs=;
-        b=ysU1EG6Dbwu++QvO5DryzqYUh6GY8vJZLJD8RZ0JiECAFiGl/xT0SaNJ5DPpMci+7x
-         vaPp9uwn/I37JYALPI3b8Gtvth1SbL75fTMmzmGyU6Xu6DVnLNNA66xx9dFZ0e1A5euV
-         J81yjijGtK9B+p+ECrwpZF28vBI+xrRsWfCNbuXOxrMNfGtw6XOaLeMt6ASuGMo/5GS7
-         70SEfH1iGPeGDCoiuAcUrlZ1w1l7StE7bqfuTsaG/czqB1so21DFZTegYPK5p+8yMrhw
-         foCeeEf2qwXMmZ6cGCqOQCZfN+sAfzV+/WFeMz2GdYUFRMFceCIDHX8kE5NX2mUfQyhY
-         UGVg==
-X-Forwarded-Encrypted: i=1; AKwUvByDmVU/+APXcl4Rm2GTfGiu4ekWn2Q15VAWzefCW8fkpVUidScCu/WNQ4XjP//fuO26dSFftrbMGRF1tjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzt8CTknDyG+lxXR9KQ16SV0BbP5gO2Nb/49zmjxufGTdYb/po
-	u/EG2Io3Y3OEZnY9OrpP0oc7WKMSM04M+eW+n6vT5npKgNdSwZaGc3mf
-X-Gm-Gg: AYBFou2lMIAdpcHuZS2BctFVmxqjxOW16hWeeVPoAGvSmOTEWPRxRDxLTo3JhM/fl1w
-	y+p89NqE3nbSCwaOkidrJk5DS4TT12Pvfv/h/owtWR2Bo3QS8by346Wa/znXlubX+ei/Vb/Hgvw
-	tji02jWOAadzkcUki0oK3NUwEeRcwEqWM/GaIUjPPH9qhl2Not10Lyb5zljNkMdFLijoDm/hkDK
-	pzFMKhdR6vXPpyL8gx62cLAaaUpcTp6cGCKCqTXSbje8RbLBIO7fBGK0CohTQ4LpdGr5BUFJRqi
-	i61kDXy7dzMW0U56xFvW4oTvvAhq/dMNDFJ3icsL2FTe8SQhwbG7KbdAvbUxJalIgYn2auHAxjD
-	AF4OPQgqeMyanWp0qY4MVQwIlTwlzy/BFa1MrDwKVG1ZAGIqBWq+5rpLM5l6f5k4gEatYdJyYhh
-	uHqc7iAgk5fzZtPua0hisM35QuBlERGgTvYNw9PPbsYXxgeSVjRDj8jfWeaGZnsemKV9mnkQ==
-X-Received: by 2002:a05:600c:8b2f:b0:4a0:f0a:976a with SMTP id 5b1f17b1804b1-4a027579f41mr70898005e9.13.1790984134620;
-        Fri, 02 Oct 2026 16:35:34 -0700 (PDT)
-Received: from gmail.com ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280be5dfsm130059635e9.7.2026.10.02.16.35.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 16:35:34 -0700 (PDT)
-Date: Sat, 3 Oct 2026 01:35:31 +0200
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Anshuman Khandual <anshuman.khandual@arm.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v2 3/3] mm/memory: merge __vm_insert_mixed() into
- vmf_insert_mixed()
-Message-ID: <asA_sDgh676AzQkS@gmail.com>
-References: <20261002160535.661399-1-ekffu200098@gmail.com>
- <20261002160535.661399-4-ekffu200098@gmail.com>
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="fAC1xnvh"
+Received: from cvsendbo026.nm ([10.112.20.48])
+  by cvsmtppost18.nm.naver.com with ESMTP id lAx5o84MSw6Gw+f4U3jqjw
+  for <linux-kernel@vger.kernel.org>;
+  Fri, 02 Oct 2026 23:28:36 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1790983716; bh=fs6Rey1mr61NKsSGBX20gWRaQ8r4f575y8hpKKsd5Wg=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=fAC1xnvhCIidTX5LJiumTqaCE2w+fgaIRLNQGdwTY1VFJHBXaq4htGUSzNODW8XJb
+	 N5g3dceZOPHnK10zTm03Qxl+QLu3w9MDcJdPBdPXLmGIqTvPC35N5B4kP/NfI/YcVT
+	 o7C8MBc8n9GSbPeIRtFCHB/MYk/wy0giCBq298f9cuwRqIaKn9c+4yShDEAyt7hSCI
+	 1KrgcrT3jvqFS8REj1zzm7s+rq8o77ZWfdCrxmnm3HRYduntLw9Ct2jzEJCt3TkZGO
+	 6YP87XnxHyDpWlT+muWHWFdslEEj70anlQVAenNAx2JXLxXg+LcGmcBqIHxW5z/Nm1
+	 fkkCybejwsSGQ==
+X-Session-ID: gezoxgeGSDi9wegH+Qrszg
+X-Works-Send-Opt: OP+wpzGdjHmdKHFOMr39Ko3YKHm9jAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: fwY9axglFqJZ+HmrKxKw+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp006.nm.naver.com with ESMTP id gezoxgeGSDi9wegH+Qrszg
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Fri, 02 Oct 2026 23:28:36 -0000
+From: tjdqudcks0424@naver.com
+To: Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: pcmtest: handle multiple wraps in random capture fill
+Date: Sat,  3 Oct 2026 08:28:24 +0900
+Message-ID: <20261002232824.808952-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002160535.661399-4-ekffu200098@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 01:05:34AM +0900, Sang-Heon Jeon wrote:
-> vmf_insert_mixed() just calls __vm_insert_mixed() with the same
-> arguments.
-> 
-> So merge __vm_insert_mixed() into vmf_insert_mixed().
-> 
-> No functional change.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+From: 성병찬 <tjdqudcks0424@naver.com>
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+The random capture helpers assume that the data generated for one timer
+tick wraps the DMA ring at most once. However, b_rw describes 200 ms of
+audio because the timer runs at 5 Hz, so it can be several times larger
+than a small ring.
 
+For 48 kHz, S16_LE, four-channel capture with a 512-frame buffer, the DMA
+ring is 4096 bytes while one tick generates 76800 bytes. After filling the
+4096-byte tail, the existing code issues a second 72704-byte write from the
+ring base, writing 68608 bytes beyond the ring. Both interleaved and
+non-interleaved capture are affected.
+
+KASAN reports the first write into the adjacent free page as a
+use-after-free in the random-byte generator. The underlying defect is an
+out-of-bounds write from the live DMA ring, not a stale DMA allocation.
+
+Split each random write repeatedly at the interleaved ring or per-channel
+block boundary. Keep the hardware-pointer update exactly once after the
+complete logical write.
+
+The issue reproduced on three of three clean boots. With this change, the
+same vulnerable geometry completed six times without a sanitizer finding.
+Boundary, pattern-fill, no-timer, open/close, and module-reload controls
+also completed normally.
+
+snd-pcmtest is a test driver, and selecting random fill requires an
+administrator-controlled module parameter. The written values come from the
+kernel random generator; no privilege escalation or attacker-controlled
+write primitive was demonstrated.
+
+Fixes: 315a3d57c64c ("ALSA: Implement the new Virtual PCM Test Driver")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI Codex
+Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
+---
+ sound/drivers/pcmtest.c | 42 +++++++++++++++++++----------------------
+ 1 file changed, 19 insertions(+), 23 deletions(-)
+
+diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
+index 5d5281e4deb7c..186e982d42e1a 100644
+--- a/sound/drivers/pcmtest.c
++++ b/sound/drivers/pcmtest.c
+@@ -280,39 +280,35 @@ static void fill_block_pattern(struct pcmtst_buf_iter *v_iter, struct snd_pcm_ru
+ 		fill_block_pattern_n(v_iter, runtime);
+ }
+ 
++static void fill_random_block(char *buf, size_t buf_size, size_t pos,
++			      size_t count)
++{
++	while (count) {
++		size_t chunk = min(count, buf_size - pos);
++
++		get_random_bytes(buf + pos, chunk);
++		count -= chunk;
++		pos = 0;
++	}
++}
++
+ static void fill_block_rand_n(struct pcmtst_buf_iter *v_iter, struct snd_pcm_runtime *runtime)
+ {
+ 	unsigned int channels = runtime->channels;
+-	// Remaining space in all channel buffers
+-	size_t bytes_remain = runtime->dma_bytes - v_iter->buf_pos;
++	size_t pos = v_iter->buf_pos / channels;
+ 	unsigned int i;
+ 
+-	for (i = 0; i < channels; i++) {
+-		if (v_iter->b_rw <= bytes_remain) {
+-			//b_rw - count of bytes must be written for all channels at each timer tick
+-			get_random_bytes(runtime->dma_area + buf_pos_n(v_iter, channels, i),
+-					 v_iter->b_rw / channels);
+-		} else {
+-			// Write to the end of buffer and start from the beginning of it
+-			get_random_bytes(runtime->dma_area + buf_pos_n(v_iter, channels, i),
+-					 bytes_remain / channels);
+-			get_random_bytes(runtime->dma_area + v_iter->chan_block * i,
+-					 (v_iter->b_rw - bytes_remain) / channels);
+-		}
+-	}
++	for (i = 0; i < channels; i++)
++		fill_random_block(runtime->dma_area + v_iter->chan_block * i,
++				  v_iter->chan_block, pos,
++				  v_iter->b_rw / channels);
+ 	inc_buf_pos(v_iter, v_iter->b_rw, runtime->dma_bytes);
+ }
+ 
+ static void fill_block_rand_i(struct pcmtst_buf_iter *v_iter, struct snd_pcm_runtime *runtime)
+ {
+-	size_t in_cur_block = runtime->dma_bytes - v_iter->buf_pos;
+-
+-	if (v_iter->b_rw <= in_cur_block) {
+-		get_random_bytes(&runtime->dma_area[v_iter->buf_pos], v_iter->b_rw);
+-	} else {
+-		get_random_bytes(&runtime->dma_area[v_iter->buf_pos], in_cur_block);
+-		get_random_bytes(runtime->dma_area, v_iter->b_rw - in_cur_block);
+-	}
++	fill_random_block(runtime->dma_area, runtime->dma_bytes,
++			  v_iter->buf_pos, v_iter->b_rw);
+ 	inc_buf_pos(v_iter, v_iter->b_rw, runtime->dma_bytes);
+ }
+ 
 -- 
-cheers,
-jose a. p-a
+2.43.0
+
