@@ -1,106 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA49411A03;
-	Fri,  2 Oct 2026 22:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC21469826
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790980895; cv=none; b=LG6/w3zd5GATn5577pB7t4u9wJQ8gsnnaJxw2GcyldY0VfWvQRa4pZIRRbfD9457Na0thHt2g7qmG2jxRZ98grVkXNw0Yhomh8C9wgiWRBiHOropW+GkDZW2AntAjbnbT6KG9g7LyHXCbPJ/IAT7v8yrC5CvAzXlHvUvo1F1Tjo=
+	t=1790980910; cv=none; b=fPjL3mEAmHtgHhTLBr3UrblmBLp3xeZZcVacY2zVfC4oH5JtcCcUm0Vw4GdLMk/moDhGoKyhe8BwvjwH91gioNa+9eOLg5ngjIvd0tQFK/CfZJ8ftlT7os9d/3P+n0A3CbN1p7LDGoCYSGazCULP/WWkreaFOrL8gaROh71283c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790980895; c=relaxed/simple;
-	bh=AKTrkISx6dxwtExIyuacRZZeFC7jBO87EIhnSA1BhXY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eqdE1S+ZHs3KrKkw/+fdd/ildIgW+yTxLFB6hxjq38nX+IEHmdwgFidAt/tbWdgYtvXEKcDkyquMOfGzBM7PlpwhiLjlwGNrPJWmiAPBBv59FZxv6CiBjPd10UH5oj8nPMMRTeFwfcm/DL9D5FPTBiaIfjOXwAT3Vzx5KiJc5sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HaECnzKV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790980910; c=relaxed/simple;
+	bh=LIjMnQArDasFwAgETuvTs0VfozqwEryyXPgHd0R3c28=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HLe0UatbsAkE8l8nn/lxMUw2NVi7LBXDL4D7dfHTuIS1ElQVPCsIFsc3YFUuNT9MSourTeSomEjuUW+sagVRqNu2C7/6OXGyFmB3rfPr46c1mvv8RYNvHQu2edg2CANt3kFjVKjh3TPqcIy3DEDtO5lw5bBlra8faQh2FNppPJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=CXRRTje/; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AENRBnrF; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HaECnzKV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3441F000FF;
-	Fri,  2 Oct 2026 22:41:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790980894;
-	bh=YMitbVU2U6uwbZkAlGe/6edWpwpUSz5woSH/YcWw1dI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HaECnzKVg2/e5K/Z8YRANYshmS6/40A/zi3jd9K7XhVsdRugFC0fpKmi/SsB4Oiiu
-	 N2FvQLNqBdyIcCrPSeFdUzzR1osZrPeiqdqQjvWsKea6uFdDuJVEC4h7B8+lPhVhQh
-	 LrvtnAVsDUkPW8CengXrOhsdazpm9keQZn1jNbhCvA1aZTzVG76Iw4kgaMJZjA0aJ4
-	 DRNuRKxJDhl0Mmz+B91WKAyGHoXmm0EyanRMGtHTY/0ZkF4v2MKuZYHuGFA5tSrrPx
-	 cTdBSZ2snPTu2tMlvd6KBZdHHloNyMi6MTatq2UmG4OhQ4Esoz76/qehR9sipppgzk
-	 yJL5ToZWH3vdw==
-Date: Sat, 3 Oct 2026 00:41:31 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: webgeek1234@gmail.com
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Alex Frid <afrid@nvidia.com>
-Subject: Re: [PATCH v2 0/2] soc/tegra: fuse: Support Tegra210B01 Speedos
-Message-ID: <asAzDl93ckhMCRii@orome>
-References: <20260727-t210b01-speedo-v2-0-4f287a3dab72@gmail.com>
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="CXRRTje/";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AENRBnrF"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.stl.internal (Postfix) with ESMTP id 803EB1D00127
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:41:48 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Fri, 02 Oct 2026 18:41:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to; s=fm1; t=1790980908; x=1791067308; bh=dVQET2Hbi6
+	rYCysi/1kiAIxyb7/moKG9ZFJ6M+MK9yU=; b=CXRRTje/30Tth0FTMVqS0PGLf/
+	ckHqrcSaQZt0j//oYYEuwV8IN7Ff0xf1/UFQRrrUt4yFCbRkueZZld7SZVlNHARj
+	KoBL9Zmp+GR8JPwWg7Kv9j8+ZWPPO4EdKnVB5Jzxd6sNczYBBwouhso//YdrxVwc
+	sshz03gTthUVdjqpxgoibe492oGkk2/j7W+7YvAGmrlS3asxdYQSkq66bTCjs3KO
+	gcABQBJjh/DHKQpMpfG++I6TxZiScwU/BmHdLsE/NhN17/KGM97yrPXQVLmFtjyw
+	DhdQGfJ6bESzfJot5fMNLwIAh5SAI3L+pYwK8c7dVTVeT3uzinIE2rHR8ULQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790980908; x=1791067308; bh=dVQET2Hbi6rYCysi/1kiAIxyb7/m
+	oKG9ZFJ6M+MK9yU=; b=AENRBnrFa+/hEeAyUnzWskTQuAwm5bWZy+VMGNNmzYju
+	yisKwr0ovcf3NXjKy3tOAJZkkAf1DPE6NEGmnoA+Pi0vrvAZdk+mhGh2I3BCBh6S
+	xw/537FfvO4aQf5Z+rVfhHLfBSs2kGUhJO3hP4iOMZuksOZ2Zel5/1WcFgUtPAiD
+	ZIDrfFmitSsjOBFqHCBkN1yldCqQcnIAt7ltxMVe3K7KSXgA6dLt1zdvo6shqMKj
+	ss0Ah0vkfe9LhBP0sJLnOIdZc3wEp0QCfSJdW5/SGyLWR+NXGz5fvytnqvNHSDXi
+	qOhH29027pJzdtzGSQIvLIxaICjKn4QbV3EThuEBdw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790980908; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:GcMBNSWyvTJPB4ghjWkS3HVVL65Pfq6tJj2e/o2BY5dN5hQ
+	KUP6R6x4tg5YJwsDdOFNJoxm4VyF9Wrrw36uwgwrWpCHVrJ/TbF+l4peGX3d78s+
+	Ro333kzqcNyN65HGkBYLGjKWTDYxjqwSbimQmssrHxbibKqkSC7WrO/9AZY2qPMT
+	PZIGbjKv0bfYJspbljYAH6+EYb3pYUmtOKLR8ndZr1UdwF7x6AtgjHnNHF7nat82
+	Bzqfl88AcWTvAhyBpj4KTUlebL9Qx03Xx3fq+mro4QGQL5NNrdN9SOPlr7hxXL70
+	FhHdnKNqYWC1B2SQuFVaQYFx9T3XK3JjRKPSRsA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,reply-to,subject,to;
+Message-Instance: m=1; h=sha256:E72m+zzisHPU95TshQAMpfOoUGSV3IQQrFwL7mTXt+4=:LIjMnQArDasFwAgETuvTs0VfozqwEryyXPgHd0R3c28=;
+X-ME-Sender: <xms:KzPAamjfUuxNzUOybbiwjdUzI5azMKcRryCfwq9hd4w_KUJ2VyXd6A>
+    <xme:KzPAalQVWZp3_5nf_5SJM2HoNLUyz2lbGnnBSov04qCTs0bjrp3FtoFzAhP9K8KQk
+    R7MUmy7rzCeRUXrw9a84FMwhiw78MEZAmSRCuT_df9Brv19VA>
+X-ME-Received: <xmr:KzPAanbQ1TkgcIk9-36as3dlkyK4DvivkcipQUUZlc2K41VqVPU1p-zk6i-lHcjR3EiQaTI8JEIdLkrjReO7Skh_alhkgew>
+X-ME-Proxy-Cause: dmFkZTGIHtzcRY7wMs5YzxNCV6Wi7NMBLgeJlrNKJCRpRSucCQqCP6VScWZJVGAvtv0lMQ
+    OrK49bdRXqWeJVl37OtZ0+lw4ApIDz371I/ZcXmnsvkk93reSbp3DnzDIzvQn/hr9+FMln
+    wRe+qmEyJuEKnHXlc8QOAFkYVsC6VxecGCbGV2o1FHh/pbvjhOMk6Yn+S56MCOQ8wEkArF
+    4WBHz2rYYGdrDcjN5ORAX3TUvtof1Cgmd7X9d/0ouQyQxNCjTaiq5tiyacFCt8TGB7UiKB
+    sO5FvN2S3FLIKyzRTorQj9vv/tx7fXuwVNmgdu7gM3mb+PHpV+6+FnxBMx4XCf6lj0ATXM
+    HbZhX+DcNzhDMzRURJLX7+fz+ZjPNCsNHgbV+k0NKbDLNfU0pWSgoQH5g1LMXU6M/yaft6
+    l6ZYcsONHgLVSJR8TcMKo55mErW/yzk7zSBLxxH15CYeNJ5KNtKDBylVEmNuhWpeGLjfH2
+    z63Qf8NisI4RTr3tv4T9BawXlvkgK+b9+J/RVBoiuMIEOfwypS3ZotJW55Sr5pBczWIp2d
+    FKonprlIqH02luVVZc9R7IQP+k81cycvbZvN2ZCY0QsN6xf4xSOHZmtUQsozSrC9FiK0y4
+    4YAnEfrDFjkdIgQZ8xgb/UA8c5litK7iNg8ZkxqwAOQ0udxinFNpHNNWIlew
+X-ME-Proxy: <xmx:KzPAaiSZADFYyJXfACVG7naG_F_pPraxPb499IPGnGF-xEeFR1ugpQ>
+    <xmx:KzPAam-n0pukDAbXaGrr_9IpcQnaWAwOgoyRLJxGfEEzBVYWT1hLDw>
+    <xmx:KzPAaihvpPR4_1Ku0U-9FytxJ1hgSHdf1RRCyuEUq8ebdv7B2639dw>
+    <xmx:KzPAanZ9EtcAZqkcIvwXejRXl9JIR3GghaVQOSiZ0tFuugA48VOQyA>
+    <xmx:LDPAasVdsiiOJbyf8I3SsHiWe-kK7x1W-6AxTA78d_WskNBoPUnVWi0q>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 18:41:44 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org
+Subject: [PATCH 0/3] Fixes for dentry lockdep tracking on stacking filesystems
+Date: Sat,  3 Oct 2026 08:35:41 +1000
+Message-ID: <20261002223746.3248726-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+Reply-To: NeilBrown <neil@brown.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ipdchu2655m3bjay"
-Content-Disposition: inline
-In-Reply-To: <20260727-t210b01-speedo-v2-0-4f287a3dab72@gmail.com>
+Content-Transfer-Encoding: 8bit
+
+The recent addition of lockdep tracking for in-lookup dentries didn't
+take into account the needs of stacking filesystems.  For this we need
+different lock keys for different filesystems in the stack.
+
+Thanks,
+NeilBrown
 
 
---ipdchu2655m3bjay
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 0/2] soc/tegra: fuse: Support Tegra210B01 Speedos
-MIME-Version: 1.0
-
-On Mon, Jul 27, 2026 at 08:57:34PM -0500, Aaron Kling via B4 Relay wrote:
-> This series adds support for the b01 fuse revision, then adds speedo
-> support for known Tegra210B01 sku's.
->=20
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
-> Changes in v2:
-> - Update patch 1 commit messag to be more descriptive
-> - Update patch 1 to set unknown revision in the major revision B code
->   path if minor revision is not 1.
-> - Add based-on tags to patch 2
-> - Link to v1: https://lore.kernel.org/r/20260717-t210b01-speedo-v1-0-f04a=
-8bd4d997@gmail.com
->=20
-> ---
-> Aaron Kling (2):
->       soc/tegra: fuse: Support revision B01
->       soc/tegra: fuse: speedo-tegra210: Support revision B01
->=20
->  drivers/soc/tegra/fuse/fuse-tegra.c      |  1 +
->  drivers/soc/tegra/fuse/speedo-tegra210.c | 22 ++++++++++++--
->  drivers/soc/tegra/fuse/tegra-apbmisc.c   | 51 +++++++++++++++++++-------=
-------
->  include/soc/tegra/fuse.h                 |  1 +
->  4 files changed, 53 insertions(+), 22 deletions(-)
-
-Applied, thanks.
-
-Thierry
-
---ipdchu2655m3bjay
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrAMxsACgkQ3SOs138+
-s6EJdxAAkJ30yG9EfrDzTXVWw+6RuBU4QCOPZJpC4PB0jJGPEQXOpDHorUbbUv1F
-wrn00UIEcur7kcBQo9hrXtDdFgE4r6exsGYOtuzZOe14eY1WjShYGyR40k0hydeH
-STQZdADXbNOSsGN7424rQrqMp5mhNA3ByvLEFZD8KC7z6tc10FhbqQNjBH9IfVDl
-tL/+5U9GDMswBlSeNd5xYfSsLvgoB/WLAtIbd3kumSL6yfPP3kSiQjuSBTO28A8D
-KyGEsbOKe6UyP/I0oIFai5m+GgEwnLg4qtXsk5wUpzR1AbisiZXU6l2+961bBkZ4
-4qRwmLfHCstS8J3/nLt+qoGJOIUjM37lxYG5bp+P3zQigOT6yiZGbRdwTZBMJ0wD
-mka1zJAJPJNoMlgPCOtAUEn4esun5dk8oarGOHk2qww2PL/503isZ8uBe3G5Yp9g
-kx/NIDoyLpOL2lC/XSwi9NZgsF/bB2jrHuH7V2qIMdau5Q8/5JxkMJIyP65kaM43
-50eoD4Gk2zKCGVaX8WGJRGs7hslCu8WRrSkn3rXWSkeBfZCHnJs+b1sOIkMqDamf
-9dde48SIhKYGn88PidKqDly6LO9jkcyuQgJ+PoFx4b69ZRsdJHQUaEFzREAEysb/
-6i65g7PBmtzu/nFlxu5HqtHoiUXxhZBcoesoyvFF3GNjvMT+MCE=
-=fbMo
------END PGP SIGNATURE-----
-
---ipdchu2655m3bjay--
+ [PATCH 1/3] VFS: per-fs-type lockdep key for dentry in-lookup locking
+ [PATCH 2/3] VFS: rename lookup_map to dep_map
+ [PATCH 3/3] ovl: provide private lockdep class for dentry->dep_map
