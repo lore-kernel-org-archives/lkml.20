@@ -1,189 +1,93 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2DB495AE5
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C16494820
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942347; cv=none; b=sYyn9SzPekxYVKhDOqptvhIISh5bMu+hxrmzU51vXbpAk517UuFwpK/vw3ygHczJJ+0gdcQjgRrXip9O9bUjdMYMbBzh/id6vcQJtbhfoE5VQwXuAhObjKQ8tqgli+tny80MAjxeJrhFAacW6mxaL5UrgIWiAKPzps8DtrlK+EE=
+	t=1790942357; cv=none; b=i1e9m/EgvMgJfVqHD38JxJFPgiqavjxhczRD4ZDjZkGz/VUFAFQtEa3/dOqkuEePyLEwyG4N90LvIugzkZ9XMIM31KiAnUtyIlgHNIBHUIqBZ+HDfIBdtRlnguSVvwi6/Q1CLJkmqsnBAvGhmETTF7hAFxoz8nUW96URYfBQErQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942347; c=relaxed/simple;
-	bh=hqsUH0xvoOGFRDB3jEl7eLagso4wlU0QytZYQJqM8hE=;
+	s=arc-20240116; t=1790942357; c=relaxed/simple;
+	bh=h6MgIV5uFF71vfuEX15zHF5eUzWPt5ZV0RfVUrka374=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e8HjcB4ld7rs+l0QDxFtF/fd9kXztdNMVvHmWEA220aPxrbw4INyEaMva+aPJM++mOlIwY2qLilbc+57prsG5HnXXsLjD4yQ2PhR8fG8aYHNc+7dr4GgRe08jAxQfEOCMt9YGcKKJu1QJ154hwI55KvVZjOPR7vylb4riZCrcYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1VBAPmc; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=HVmLsAaVqKTy3ZIMg4Jwa8BLuYK9QIsdG09d6grOOJhSTMw78vAp5CtTTWsRh/IiVOcVx5y9aWOF/Nyt3UaDZyyWXSfQb4SvDqje2T9hAPaDfrusJU8JydYegSTDlD8stInvwcZ2or4wqS3OlQ5krdl/5MuwiRaSCIAMYrJJqBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gC1arjmH; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1VBAPmc"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c5so6657352f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:59:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790942341; x=1791547141; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A2Jhfl4IsYX/26MbYUd05Eygx5yXfRkgTahQeUMWqDQ=;
-        b=q1VBAPmc8BjDsgUnhJ1wPYNExgqlQxY8GlGnksgzXscW759U8QQZ/TVVI3pOGvvQbO
-         hUCbj7AKp7znbgq3JS6Fe2Za+DS/Z6A8Fq5rXsoTYUyWo189Lvp8MhssYXknRhZlVb8c
-         1LM6dTNdZ32SULhHr3BjC6ytzMOxfdDY3BUxBaIAW74Olsvh/rfqoQbUWdyaAjTs3tro
-         X90xSS0JEtQVrF7vpEw97q5Z2JB6xbqNxuB30fYEd5KdobJgg17yORMZK8/rCKp1kHRc
-         87+VtgRHA+lfI1I4NSbCDYF4y3X58X7bonO81jMKFXZ+Qqr9wwIafxhPxFCkaSrg+6GQ
-         HY2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790942341; x=1791547141;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=A2Jhfl4IsYX/26MbYUd05Eygx5yXfRkgTahQeUMWqDQ=;
-        b=ZnfgPb4tzWa4kbccewZFyUcSGWqrKia2uUA83cnORx0QYQq4f0rE1BKLoQatOv0lNq
-         FUxA3Eikk8ONSjZD0puou69jDi/Cb/1kSh5BFN2hoW3p9raNKa2ndpyosXNiPhgr+fZy
-         Dby9hRuvE0MmHdYSTUVNdDJUS/QHvmbpmSzRKoOwOJfshDCMX+y6tnS54UJMIyFYwDgB
-         12aZuuKhT3+O5fBdQVinWzOWSjJ4OXMMg9SCjRaDZvZhB6lSB26r/j4X9qd4uzS0NxA9
-         tpzebAu/XMFtyFd+dMWRTBWymqaeJ8IP3SttcXha8AJupercc5HGdC1dIG34cWJ//71Y
-         tWtg==
-X-Forwarded-Encrypted: i=1; AKwUvByb+6n2XfXjcATrwdUJtJI8AzEpQdVUE8WZ4ZAH5JFFst0tA9S1e4feslX8HVt6I23QaUQ5l0v7PqEyOqg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2MVEbJNX+Kn4W3iLLXSfaM/s6BBgvAj3L8jlhoE3Exm4bg1C/
-	Rs+Usd2R9ErBZEnscvIN6a5qj7dDh2lb3rVygkXjzjUuHCAgCLq+7Q0P
-X-Gm-Gg: AYBFou1iLg0M7GQbuMaSx0cAaESNjlN1Jd8A8EgoFSL1fzXvk/HqUJ/VWVDTOTorAlt
-	BEpk4pdD5Ow4wyBBXbtKQNrRrXXHOAuoYsllTvq+J5iqaR1TjPUFuys3nAHlfnwx9Ftaejc+ZRM
-	ygJ7ch83ldqv+upbEIQrtmFCwam/U26sRK2NGV3wy6Q4dejeQnSdCvBak9KQXwjmzsSan8kOqYJ
-	zjuP+A6xanPsOw9FNBM7Zczr5QWzH2dKB1TJ+6LgtId/wMNphFnXQjZ8JM0MCNABD6K8B9WwdlY
-	Zw0qdQw1kMAmLgdiGMfzISDvbnq2TAXs4+6BtMF/n89aYo4qajLKk2kuOt9/+IOKQKYtWJEpMIs
-	qzJhyJa8BJAZXAGjLkZeHWsGiBq35aH20YcBtR4uH+dSUNFF/D6mbYxNJB7Q/cYAD5ptFBwjiOr
-	GqzfjXCfPxqqy7tgjI/bdxe5CGzdDuMRI/xSZKVcJtNMCdoeADbTTlYWzv+uO/IWQzQRwbukBYj
-	GI9wyOzuCFaEAfgZojxRt8/h/tBSVM69Ei5AiFqW8UMwR0EjwE0oQw4qvKqTAv09x9zkdygBNjC
-	iPm5y1n8Xn1qM1ulwO4Qjed8ED8c
-X-Received: by 2002:a05:600c:4307:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a0274569f9mr32626085e9.0.1790942341160;
-        Fri, 02 Oct 2026 04:59:01 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff2280csm44613255e9.4.2026.10.02.04.58.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 04:59:00 -0700 (PDT)
-Date: Fri, 2 Oct 2026 13:58:57 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Hugo Villeneuve <hugo@hugovil.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Guo <shawnguo@kernel.org>, Joseph Guo <qijian.guo@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 00/13] ARM: dts: imx6ul: Add Variscite VAR-SOM-6UL and
- DART-6UL
-Message-ID: <ar-cgeR8U0dmOTvI@Lord-Beerus.station>
-References: <cover.1790693249.git.stefano.r@variscite.com>
- <20260929121455.437291ea4b53130e3e19778c@hugovil.com>
- <arv4MwHV4LntROkN@Lord-Beerus.station>
- <20261001144344.2100854b8f5e2d81cf87b424@hugovil.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gC1arjmH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790942354;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1pDAAGucGbD7dq9uU5/BnPZ475OniWWegBsCwJxkyqo=;
+	b=gC1arjmH5WpDe+uvCom4DLKfRB3CDe/lNBfwZ/hS4YQstewknKY9FpV2Z0tFT6YIFLftuN
+	xEhcBxtxs+XLUosrz0ioWGLeLi09bHOGz4nUWvZb6L901mPwrPtz6eSUA+2U191GhgHcq4
+	1wYWDoGOJv5qPLzro3EIi64QFEGueek=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-668-tRpH1CW2M-mxDRa8HS7v6w-1; Fri,
+ 02 Oct 2026 07:59:11 -0400
+X-MC-Unique: tRpH1CW2M-mxDRa8HS7v6w-1
+X-Mimecast-MFC-AGG-ID: tRpH1CW2M-mxDRa8HS7v6w_1790942350
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BE2931800366;
+	Fri,  2 Oct 2026 11:59:09 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 96534214;
+	Fri,  2 Oct 2026 11:59:07 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Fri,  2 Oct 2026 13:59:09 +0200 (CEST)
+Date: Fri, 2 Oct 2026 13:59:06 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Babanpreet Singh <bbnpreetsingh@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org,
+	syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
+Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
+Message-ID: <ar-cijUnCr1L8urs@redhat.com>
+References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001144344.2100854b8f5e2d81cf87b424@hugovil.com>
+In-Reply-To: <20261002012141.7-1-bbnpreetsingh@gmail.com>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Thu, Oct 01, 2026 at 02:43:44PM -0400, Hugo Villeneuve wrote:
+On 10/02, Babanpreet Singh wrote:
+>
+> --- a/include/linux/pid.h
+> +++ b/include/linux/pid.h
+> @@ -264,7 +264,7 @@ static inline pid_t task_tgid_nr(struct task_struct *tsk)
+>   */
+>  static inline int pid_alive(const struct task_struct *p)
+>  {
+> -	return p->thread_pid != NULL;
+> +	return READ_ONCE(p->thread_pid) != NULL;
+>  }
+>
+>  static inline pid_t task_pgrp_nr_ns(struct task_struct *tsk, struct pid_namespace *ns)
+> diff --git a/kernel/pid.c b/kernel/pid.c
+> index 95b8ccfa82690..adf7216067684 100644
+> --- a/kernel/pid.c
+> +++ b/kernel/pid.c
+> @@ -411,7 +411,7 @@ static void __change_pid(struct pid **pids, struct task_struct *task,
+>  	pid = *pid_ptr;
+>
+>  	hlist_del_rcu(&task->pid_links[type]);
+> -	*pid_ptr = new;
+> +	WRITE_ONCE(*pid_ptr, new);
 
-Hi Hugo,
-
-> 
-> Great to know Variscite is adding support for the DART-6UL.
-> 
-
-Thank you Hugo :)
-Over the past year, we have been prioritizing security and consistency
-by adopting a mainline-first approach.
-We have added support for almost all of our SOMs and configurations,
-as well as several driver changes and additions:
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?h=master&qt=author&q=Stefano+Radaelli
-And now it's time for the immortal i.MX6UL!
-
-> 
-> Please work with the existing modular DTSI files, do not simply remove
-> them and reimplement them into your own files.
-> 
-
-Agreed. Where possible, I’ll reuse the modular files you added and
-propose fix commits wherever changes are needed.
-
-> 
-> I tested it and it works. But like I said, if adjustments need to be
-> made, they are welcome and can be done in a separate patch to fix it.
-> This sequencing is something not very well documented in Variscite
-> datasheets. I asked Variscite support to improve the documentation for
-> that aspect but it was not accepted.
-> 
-> 
-> > For the LWB5 option, the procedure enables WIFI_PWR, waits 10 ms,
-> > enables WLAN_EN and BT_EN, waits 200 ms, then lowers BT_EN before
-> > re-enumerating the SDIO device.
-> > The other Broadcom option does not use the separate WIFI_PWR step.
-> > The existing regulator and MMC power-sequence nodes do not express that
-> > complete, module-dependent procedure, particularly the BT_EN step during
-> > Wi-Fi initialization.
-> > The scripts also select the Bluetooth firmware according to the detected
-> > SDIO device.
-> 
-> Firmware loading is handled properly by the kernel without external
-> scripts (tested with Concerto EVK).
-> 
-> 
-> > We use that procedure to avoid sequencing-related failures for our
-> > customers.
-> > This approach is not new to Variscite’s mainline DTS files.
-> 
-> Yes, this is an old way of doing things, which may have been
-> appropriate in the past when proper support in the kernel was missing
-> to achieve the proper sequencing, but no longer true these days, unless
-> I am mistaken.
-> 
-
-We are glad the kernel-managed sequence works on your Concerto EVK.
-However, it is wrong for the LWB5 module configuration we support:
-it does not follow the required power-up order and timing validated
-by Variscite.
-The sequence is based on the module requirements and has been tested
-in our labs and across customer configurations over many years.
-A successful test on your EVK does not show that it is correct for all
-the modules and configurations we ship.
-
-The GPL-2.0-only userspace scripts implement this required sequence.
-This is not a matter of preference or an old approach we kept by habit;
-replacing it with the sequence in the current DTS would risk breaking
-supported Variscite configurations.
-If a future kernel implementation can reproduce the complete,
-module-specific sequence, Variscite will be happy to update all affected
-DTS files to use it, after completing the necessary lab testing across
-the supported module variants and configurations.
-
-If you need any additional material, datasheets, or other information
-from Variscite, please let me know at stefano.r@variscite.com.
-I’ll be happy to provide whatever is needed!
-
-Best Regards,
-Stefano
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 
