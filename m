@@ -1,382 +1,414 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012053.outbound.protection.outlook.com [40.93.195.53])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7313264C8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790940945; cv=fail; b=h9S0U/smQL23jHrJ24xzhXFPeOliRV6X4ZlcBPrOSCLA9842YPZxifCbC93dMbYHLdrImX0pN8HU3AMgxzogXhXDt07SEo2owl3c4JBgz7YMaAknYF37Ncr1wqyMtvKPPAebtxREhdnwnEi/ToVYq+d+uhqqmv4NBIP1Yd5Nbxw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790940945; c=relaxed/simple;
-	bh=zxu6uCtdcbua8HBb7zMRYDDLWg4JU2vqKVZwRuysdsk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=EL+RPl0K9wGIGjgmbAhgb4mFA6K2sLcyFYb0CFJ+JxJUFK/3FnlKkt0ur3PNrIx+rpF+0t3OXlLw+7SClTTDzcJURLyOEnI8TZIiqqrMAjMru4ry5lKLob39ec1v88oWZ4gucd/A1KjoOocQ5aoueqwruwBDUe/Ja/y7rQPeb9w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=nrQ9YVpv; arc=fail smtp.client-ip=40.93.195.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFB5481A89;
+	Fri,  2 Oct 2026 11:36:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790941018; cv=none; b=NijJypxRP2oCRwT7vOYXmp6Xiqkl8+3bhjDr1dtKKOZI8MdzwbBCwK0YcUmdP/e68hYF9E7hJvYzxYjT/Pe+XSYNa/fZwVHDJh/3F4bUvMtQzVVpzxK0U5/cgUNNHJ7Wx+MPI4HHK4Ufei+8lxFI2hC8hFS0BEEuY+Pch9h9QFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790941018; c=relaxed/simple;
+	bh=rclxUr20u4UjzU/1Q5SclhPbV1tbb1CU6dLFgnY3N7o=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=n/LEZQw5kpQTe5ra07tZ3/1CQTadBAVaEGBn/5I4J+qmjsv979YwtpFgRQ5C7//HJG/pR0XwNdaMG2GvM3NsiduoSIoIh5B61yZMv9M8tlkUGb4SF7gVulSAfYmxO1I8hYav/4iZN7ciSNTyi3wFkxENnpe4iy/nO3kEfUUNXAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WzJJnFec; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="nrQ9YVpv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fM8jVP6+ggq4/MRduzlTalNXADtx6prqOwdH2eb7hCSm7dU1uIMggkKmgRw6AFyoB22e6hmUPj8Kf/jbrzC49xpjF9GKGaGzfHbY256wdm6sKNBiL5/4WvXmOXr1N3Idkj5MwgjmQbW3KsCr58LMjZrXZdHRsH0FFiXdkb8U309C60XR1daln1qmx9JxgIvW4wQ/m37tncjqcRftaIz5bSaNjjRGT7mIVRZV+m9m0l56K1OAPqqUBZPes+uW32CQmzNPkccftTPfvfAI18NGEf4U1FAyInQIp/tblUiBm3zPQsie8y7uttr7+LDuK4WfBZhZtrnTAYU1Bhs6WFLnUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d+8XcIFpfpFrdJlo6MVKvZW9tgq3EkUyF9na3lZs8Kk=;
- b=ulc3FLVYCVWAAqjnMLK+XND0wulKqrSjrc9UKXhU2vnVQzd1pMontJsi2mbLhETcLXgNOu8SF50KcUNMrd2VsEjsaWzQjJXLrMTbROMh9P6JyU+jLOv2Pzq+xhg39s4FAzcK/NBrpbCorcSjSo4/p2EAs3OVkPm+06vs65WQmdihcuVt3aXE9lTwJFkKrlemQ5Blk6pE9ZayDHh6zNZe6mvh+7OR+C2EU5+WRXWQhpyldf9r4hxeWC6tWtGX3YbU0DvNDYUYRHa9jl4WeHjRVylfxr2YWJwJFw5JFO3kiCv2abpcaK+nVzb/hFLVAZtc8BhljuLQ2QPUPOQLZbhx/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d+8XcIFpfpFrdJlo6MVKvZW9tgq3EkUyF9na3lZs8Kk=;
- b=nrQ9YVpvYxlDva1u1oWsgSHqOvDx12ryXGc9Np2JCkymEFymttEcg4tbZIs208TCMkA0vUdfApwyfYfPUKCO7CwLE558zLEq8fEDIMNKheNujffZkZVh+flFYZ7AGhYuL8kb+iU5hEfTFXzqhLu3DfycLhJPxF8e4HLRlwxYqX0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV1PR12MB999306.namprd12.prod.outlook.com (2603:10b6:408:3f8::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 11:35:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 11:35:41 +0000
-Message-ID: <9b363165-9e1e-43be-bd54-b1c420e047ca@amd.com>
-Date: Fri, 2 Oct 2026 13:35:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/exec: track the first few locked objects inline
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-References: <20261002003816.3233277-1-matthew.brost@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261002003816.3233277-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0441.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WzJJnFec"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790941016; x=1822477016;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=rclxUr20u4UjzU/1Q5SclhPbV1tbb1CU6dLFgnY3N7o=;
+  b=WzJJnFecHjLg/eLP7bLTjMcFHTEiqlY0Cv0T9Z4s6a+JKf5I3fKxy/1f
+   8JZ/rTv2uKZt6rqY5y1FIaukDBhEZHwwV5KBNAe8TahX/wFRxepLc490q
+   +LKh4xtmT6/hFAbcFrViYk9qPlHfQbcWW6dA0dGUuXl8APh2/8OLXOON2
+   mWjdYEvwaLin+yzZLBt5pPCInUacL4TvSF+vpou+yYwlL4/Lhnw9pu5pv
+   dqqA2DCh/2aMrRsroW37TjDgq4eMuCtu3yVQ9Cwn5wlQuiwHyoGHBoUvi
+   rk18j6RAgH4+cSumwUvzU9HtzHtTeR4frACC/nFXsFvmzqBWhKH+Vl2iH
+   g==;
+X-CSE-ConnectionGUID: Ol2HD+hDR9ysvIbby+ugog==
+X-CSE-MsgGUID: rSdFwcURTEmM+06Gx/XlcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="113489184"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="113489184"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 04:36:56 -0700
+X-CSE-ConnectionGUID: 9zYddKwYSEikgFIAuALU2A==
+X-CSE-MsgGUID: OHAwyREwQNazd7I318Lkug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="275767617"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.243])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 04:36:54 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 2 Oct 2026 14:36:50 +0300 (EEST)
+To: Ard Biesheuvel <ardb@kernel.org>
+cc: Ard Biesheuvel <ardb+git@google.com>, linux-pci@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+    Lorenzo Pieralisi <lpieralisi@kernel.org>
+Subject: Re: [PATCH v3 2/2] PCI: Allow 64-bit non-prefetchable BARs in
+ prefetchable windows
+In-Reply-To: <734dafa4-e65a-4db5-88a8-9169453a2f5c@app.fastmail.com>
+Message-ID: <a7a847db-b9e2-a94b-540a-5cdd829dec18@linux.intel.com>
+References: <20260930103036.248989-4-ardb+git@google.com> <20260930103036.248989-6-ardb+git@google.com> <245de2a8-4172-b886-75d6-4d017c30672e@linux.intel.com> <734dafa4-e65a-4db5-88a8-9169453a2f5c@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV1PR12MB999306:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48e17298-0cc6-49ee-69fb-08df207949d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|23010399003|1800799024|376014|22082099003|18002099003|3023799007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	I5pQlgrD/fj/lRdAO4W5EugrV/oslbMUdZm4XGNYIqNAfaGBgXPJLKdlTVMKLcnoxKr06CDdlt3lbsae9vsdjEg/telJoZttph+szgFQ4lOBvY7YUQxKJXO2s15cJlToKJbGJUmLxFRhlhk3PTsfIa9K4zO+iFEMKqOuzfHIkQGg/LOji+RpIRB5WDvyzyXK6XJ/HX7jTIV/NKtF2s+Q5Y+p6h3FvTwubAONVhI+CYMBdJqcPV27DtXm58+AkOQhlcoab3tDhXWfGQS4+HEWkn8NL00MEMKqthvO+cbDOIIalxAw+vhZd4+rH3JR/owKOO1JHQTZwCZtLaPWewgd+wG4y0VUgZSyS8aD85rNRNGW9Ub96Sgw/kGSgdOHa1atKyBN+oTErKCiy6RECXK8sEQxFuIW97FZpvsPO5mzHz1EZnQKyjr/18dbl9uyVCF3+C/AEzgzG+Hgpsfkfe+GNC4i1CjL3A9Wb5l7fely3TpKCOINq3tUvaQMY0jpXNa3+4wPRVkrj9ZE79L+N6a8JTFQ9RmR7o/UJ/Q96imZMi6xXEuvOSnLJvbfCHP2hb/UWiCi4+e2XiwLgI0tnxC+9gKroCYIC6zYFRAcIATYEa0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(23010399003)(1800799024)(376014)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OC9rQ2trdTV2MWZvWlZDVVRaR1U5MWQ0TU9IZ2s4Ym1nVHd6cjlqTkw2WjBm?=
- =?utf-8?B?eThHOERPVStYUmNHd09pSjEyM0FpNzRQY1N1cjZ6TlpINzdDdkJqa01vdGVL?=
- =?utf-8?B?R05NSk53Q1lJdXlNbE50a0xBWUg1bTE0cGpVVzRwTEp3UHVNZnFOcXRJNTU2?=
- =?utf-8?B?N3ZITEhlQXVUaWN3Z3ZxRStHNGF0RlQ3QkFFY2IrSTNya1F3ZjU0TUFOelpw?=
- =?utf-8?B?bXNRN1lFODJDR0NvOUJhaHgzOElneGtaY3JmOVVTbEhoQ3Uwc0ZYRFc3alFN?=
- =?utf-8?B?eE9wVFZqS1lTK25xaTRJZzBWOU0way8vT0Z1Qjg5SEhjYWNaTGdBVUsrSHIw?=
- =?utf-8?B?dHczcTZEbXJadEhPblcwKzJJRG9iTjRQNXd4UVB1TmlINGw4SXVReHA2MC92?=
- =?utf-8?B?L3pMVGlKVVRVOUUyMTJKNWtHdVlEVTlra01ncFpTZDVWeXJXN1VLb1VDSWh2?=
- =?utf-8?B?SGxhNHQxbzlNUTdRd1RvT1lRUHdWNUlHTFMxOVJyWmE2K2hKN3ZiS3NTdmRI?=
- =?utf-8?B?aGE0NnY3YXlKMjRHYS96ZVN4UytRZXltT0JyOGRJdmlPcFR1WUliaEZCQWx0?=
- =?utf-8?B?VWN4Q245QmhXYXZRL3M3M1N1OHh2LzZYYUtHdmEwcENrVUo0RGxZV0xrS21o?=
- =?utf-8?B?VWRhUkJhYVVNVjNVSUtiT3ZjVURDNEtPU1RKUitjY0ltUmlLbGR6WmpqOFdx?=
- =?utf-8?B?WDE0QzBXR0NFQm1yU2dTOEJsSU0xQzJ1SzhDMkg2RXpJUllhYVRPR0tyNjVk?=
- =?utf-8?B?eGtqWXFBbTBib0RTQ2RsM0hDYi9KVmR1MnV6WWlGU0NWRHY4L3B0NTE5YXcz?=
- =?utf-8?B?cXdZYUZidXRsUTJoUzJTcUltU2VoRms2dnBXQlZtL2tVYVpVMDZQZ2lHL3Er?=
- =?utf-8?B?R09CM1NDNUNyYng5bC8vRnRHdW9xcm5XZWkrUDMyRnh3YTZJQkFDRUFQRm93?=
- =?utf-8?B?Y1J5bGRhUG1ldHdPYndrdlYwSUQ0b05pZ1Y3RkFTZzNMbHplSG5zQzd1OTdo?=
- =?utf-8?B?cEVyazVUT1JyZmI4RFgydHhCQ2RKZzhMdHMySFEvQ1drUzVLRDExdjNSMVBM?=
- =?utf-8?B?U2dZeVh6VjJnQWhyTjBhWFZ0UmFmUlFib3hRMWE5V1RwQzFMOUIyRkRxWE9K?=
- =?utf-8?B?YklzcWhVeTFnKzlRS0p2MjBRK2FwYkYwZmVyRU9aWUhJS0dsdkRWQTI1emZW?=
- =?utf-8?B?aC9weTViN0dXMTlQL0MycERYTEhHdFlheDZESDVPbkZJNDNpSFduamlGbDdQ?=
- =?utf-8?B?Ulc1V1ZseDRHeXNmT1l1dmlzNGtDdk90K0tLUWlRUVFZNkNuSFIrVERsb3Mv?=
- =?utf-8?B?NUs5QTNTNVhOL1hVZ3JVckwyL0V0UG9nM2xtVkhPNk16cnZpUlY5Ulo0eTA3?=
- =?utf-8?B?MUtSODdKR00xZVhtMEMvckVIUTBJTlcvS2RUaWRpWTZOSlFNbUd2SFNnbjls?=
- =?utf-8?B?L0J5aTE2UW5MQVJDZWQ5ZTIxVnVrMS9BYUZBVDF1TitORnU1Sm5jeXdaajZL?=
- =?utf-8?B?NUFhT2hJMHdGQ2ExcVI5M2g3K011cDRueExvNHhCYVM3RDg0ZW5NdjMyUkJ2?=
- =?utf-8?B?NjhJU0hRSnZVdVhWeXhyRWJyYkU5RTlqLzYxTWJHZVlrUGQ2T3FxWlY0REww?=
- =?utf-8?B?bXU0aHhrU2NZaVpTWFE0RUNoc09IaEd2RFJvTFdVOXA5aEszdkZ4KzFqOTZ5?=
- =?utf-8?B?RHR1YnZQTFZmejVaalQxbGJGNXYwbTFYcFRURzBLNU5yRER5Vk9XeVR6RHRB?=
- =?utf-8?B?UHNaYmpJWVh5ME1WOGR6Zk9UM0RrOGVKWUlEYlhzSkY3SGt4VWdPZFBwdkVV?=
- =?utf-8?B?cS9hUGRROHY2Qzh6eEJDY2w2cVc3amxyQnZrRm9CQUtxRkt0Y0xvVmIxeGxu?=
- =?utf-8?B?UHZUeFpvOThzM3NMWG1PMjk5ZTBLT2FEd09nZWs3SkUyelpLVHJpRUpwMmlN?=
- =?utf-8?B?MUZJYS93ZUxxZ0FEMDJsQUVmd0NNR2drSkJKQVVsZXdPV0hjbGZnVytoU3VO?=
- =?utf-8?B?RjJmdFNCakU0ZGV1TTF0TFR1UVlkM3VBeFhKMUE3THZaSm95WTc1bm8wV212?=
- =?utf-8?B?WGZ1UHBFOFVBdnpNekV0aXY2U3ZqaWJYUDRRbk5qUDBRdDdRT0xOWnZyUHh5?=
- =?utf-8?B?dFRUSE5IYXJnU1hwZFRQRkx5bFVMUGlpNHY0SERCeTR2aCtzYktVSkNuV3BI?=
- =?utf-8?B?KzZWLzFUaHdjeDFDTFlobVB6ZThuTGdUZXl5aGRpNDQzRXlZb2lSRGlZNkM3?=
- =?utf-8?B?UUF6elM0OUxLbVdWQ2c2UU13SUZJZ3k4UUVHN25obWpOQWkvWGpsZnkzbGVo?=
- =?utf-8?Q?9DZ/zWovCWBahPNMJC?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48e17298-0cc6-49ee-69fb-08df207949d3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 11:35:41.3705
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Aj+l9ZSJa1NVJBkEUHRCSUHw6RFsEw17AZ7/pbPwdDTVE6BbnkYXFk3nsQM/Lifq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999306
+Content-Type: multipart/mixed; BOUNDARY="8323328-2028918354-1790937343=:1156"
+Content-ID: <7a74a883-48ee-3f26-873a-085020ddcdc5@linux.intel.com>
 
-On 10/2/26 02:38, Matthew Brost wrote:
-> drm_exec_init() always allocates the table of locked objects, a whole
-> page of it unless the caller asks for a specific size. Many users only
-> ever lock a handful of objects, often just a VM's common dma-resv and
-> one BO, yet still pay for an allocation, and any of them can fail with
-> -ENOMEM. That is awkward on paths which can't fail, such as dropping
-> what may be the last reference of a drm_gpuvm_bo, which needs both the
-> VM's and the BO's dma-resv held; drivers end up open coding the ww_mutex
-> dance instead.
-> 
-> Keep room for DRM_EXEC_INLINE_OBJECTS (8) objects within struct drm_exec
-> itself and track the first locked objects there. Only once more are
-> locked does the table move to an allocation, which then grows as before.
-> A caller passing nr larger than that still gets an allocated table of
-> that size up front, falling back to the inline one should that fail.
-> 
-> As a result, locking up to DRM_EXEC_INLINE_OBJECTS objects never
-> allocates memory and cannot fail with -ENOMEM, and callers passing
-> nr == 0 no longer allocate a page they mostly don't need. The cost is
-> 64 bytes more of struct drm_exec, which typically lives on the stack.
-> 
-> Since objects may now point into the struct itself, a struct drm_exec
-> must not be moved or copied after drm_exec_init(); no user does so.
-> 
-> Add a KUnit test which locks one object more than fits inline, checking
-> that the table moves out of the struct only then, that every object is
-> tracked across the move, and that a large nr skips the inline table.
-> 
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> Assisted-by: LLM
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-I Was considering that as well at some point when I found that using an xarray is actually quite a bit slower than just pre-allocating using kmalloc.
+--8323328-2028918354-1790937343=:1156
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <aa3cdfd9-3816-1306-4511-8a151f189099@linux.intel.com>
 
-No time to review that in deep, but feel free to add Acked-by: Christian König <christian.koenig@amd.com>.
+On Fri, 2 Oct 2026, Ard Biesheuvel wrote:
 
-Regards,
-Christian.
+>=20
+> On Wed, 30 Sep 2026, at 20:50, Ilpo J=E4rvinen wrote:
+> > On Wed, 30 Sep 2026, Ard Biesheuvel wrote:
+> >
+> >> From: Ard Biesheuvel <ardb@kernel.org>
+> >>=20
+> >> The non-prefetchable memory window of a PCI-to-PCI bridge can only
+> >> decode 32-bit addresses, and so non-prefetchable BARs of devices below=
+ a
+> >> bridge can only be allocated from the part of the host bridge memory
+> >> space below 4 GB. This is the case even for 64-bit BARs, which could
+> >> easily be placed above 4 GB if there was a bridge window to put them i=
+n,
+> >> and on many platforms, 32-bit addressable MMIO space is scarce.
+> >>=20
+> >> The PCIe spec addresses this in the implementation note "Additional
+> >> Guidance on the Prefetchable Bit in Memory Space BARs" (PCIe r7.0, sec
+> >> 7.5.1.2.1): on PCIe, setting the Prefetchable bit of a BAR still permi=
+ts
+> >> correct operation even if the range has read side effects or cannot
+> >> tolerate write merging, as long as the entire path from the host to th=
+e
+> >> device is PCIe, given that PCIe Memory Reads always carry an explicit
+> >> length, and PCIe Switches never prefetch or merge writes. The same
+> >> reasoning applies when it is the OS that places a non-prefetchable BAR
+> >> in a prefetchable bridge window: PCIe Root Ports and Switch Ports
+> >> forward requests that hit either window in exactly the same way. Hence=
+,
+> >> the prefetchable window of a PCIe Root Port or Switch Port, which may =
+be
+> >> 64-bit, can serve as a 64-bit window for non-prefetchable BARs too. [0=
+]
+> >>=20
+> >> So add pci_bus_placement_flags(), which returns the flags of a resourc=
+e
+> >> on a given bus with IORESOURCE_PREFETCH set if it is a 64-bit
+> >> non-prefetchable memory resource, the bus is not a root bus, all bridg=
+es
+> >> between the bus and the root bus are PCIe Root Ports or PCIe Switch
+> >> Ports, and the host bridge has no prefetchable memory window, but does
+> >> have one that extends above 4 GB in PCI bus address space. [1]
+> >>=20
+> >> Evaluate the conditions on the bridges and the host bridge only once
+> >> per bus, when it is added, and record the result in a new bus flag,
+> >> PCI_BUS_FLAGS_NO_NP_BARS_IN_P_WINDOWS: pci_register_host_bridge() sets
+> >> it on the root bus if the host bridge does not qualify, child buses
+> >> inherit it, and pci_alloc_child_bus() sets it on the secondary bus of
+> >> any bridge that is not a PCIe Root Port or Switch Port.
+> >>=20
+> >> Use pci_bus_placement_flags() wherever the resource allocator decides
+> >> which bridge window a device resource (including an SR-IOV VF BAR)
+> >> belongs in:
+> >>=20
+> >> - in pbus_select_window_for_type(), which is used when sizing bridge
+> >>   windows, and when releasing them to retry failed assignments or to
+> >>   resize a BAR;
+> >> - when allocating the resource in __pci_assign_resource(), by passing
+> >>   its result to __pci_bus_alloc_resource();
+> >> - when claiming a resource assigned by firmware, in
+> >>   pci_find_parent_resource();
+> >> - when deciding which assigned resources to release after a failed
+> >>   assignment, and which failures are relevant to a resized BAR.
+> >>=20
+> >> As a result, an eligible 64-bit non-prefetchable BAR is handled exactl=
+y
+> >> like a 64-bit prefetchable BAR: it is placed in the prefetchable windo=
+w
+> >> of the upstream bridge, which may be above 4 GB, and allocation falls
+> >> back to the non-prefetchable window if the prefetchable one has no
+> >> space. [2]
+> >>=20
+> >> 32-bit BARs are not affected, and neither are bridge windows, as only
+> >> prefetchable bridge windows can be 64-bit. Devices below conventional
+> >> PCI or CardBus bridges, below PCIe to PCI/PCI-X bridges (in either
+> >> direction), or below host bridges that have a prefetchable window or n=
+o
+> >> window above 4 GB are not affected either, and neither are devices on =
+a
+> >> root bus, as there is no prefetchable window for their BARs to go to.
+> >>=20
+> >> [0] This reasoning does not extend to the host bridge, though: how it
+> >>     treats the windows that firmware describes as prefetchable is
+> >>     platform specific. For instance, the V3 Semiconductor V360EPC
+> >>     (pci-v3-semi) enables prefetching for its prefetchable window, the
+> >>     MPC52xx uses Memory Read Multiple for it, and Freescale PCI/PCIe
+> >>     host bridges (fsl_pci) enable relaxed ordering for it. However, if
+> >>     the host bridge has no prefetchable windows at all (as appears to =
+be
+> >>     the case on many x86 PCs), all prefetchable bridge windows are
+> >>     carved out of its non-prefetchable windows, and so the host bridge
+> >>     does not treat them any differently.
+> >>=20
+> >> [1] Placing non-prefetchable BARs in prefetchable bridge windows only
+> >>     helps if one of those non-prefetchable host bridge windows extends
+> >>     above 4 GB. Otherwise, the prefetchable bridge windows end up belo=
+w
+> >>     4 GB as well, and BARs would merely move between two bridge window=
+s
+> >>     that are carved out of the same 32-bit space.
+> >>=20
+> >> [2] Note that this only concerns where a BAR is placed. How it is mapp=
+ed
+> >>     is decided by the driver and by the attributes of the BAR itself
+> >>     (e.g., pci_iomap_wc() and the sysfs resource<N>_wc files only hono=
+ur
+> >>     IORESOURCE_PREFETCH on the BAR), and this change does not modify t=
+he
+> >>     flags of any BAR.)
+> >>=20
+> >> Assisted-by: LLM
+> >> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> >> ---
+> >> Tested on QEMU arm64 'virt' (DT, all resources assigned by Linux) with
+> >> a qemu-xhci below a Root Port, an NVMe below a Switch, a qemu-xhci
+> >> below a PCIe-to-PCI bridge and another qemu-xhci on the root bus: the
+> >> 64-bit non-prefetchable BARs of the first two (and of the PCIe-to-PCI
+> >> bridge itself) move from the 32-bit non-prefetchable windows into the
+> >> 64-bit prefetchable windows above 4 GB, while the others stay where
+> >> they were. When the 64-bit host bridge window is marked prefetchable
+> >> in the DT, or removed from it, all resources are assigned exactly as
+> >> without this patch. Both drivers work, also after hot removal and
+> >> rescan of the endpoints and of the Switch. Also tested on QEMU x86_64
+> >> q35 with SeaBIOS, which assigns all resources itself: the firmware
+> >> assignment is claimed as before, and after hot removal and rescan, the
+> >> eligible BARs are placed in the prefetchable windows.
+> >> ---
+> >>  drivers/pci/pci.c       | 43 +++++++++++++++++++-
+> >>  drivers/pci/pci.h       |  1 +
+> >>  drivers/pci/probe.c     | 35 ++++++++++++++++
+> >>  drivers/pci/setup-bus.c | 23 ++++++++---
+> >>  drivers/pci/setup-res.c | 30 +++++++++-----
+> >>  include/linux/pci.h     |  1 +
+> >>  6 files changed, 115 insertions(+), 18 deletions(-)
+> >>=20
+> >> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> >> index b2879a6be5f8..51e96611d734 100644
+> >> --- a/drivers/pci/pci.c
+> >> +++ b/drivers/pci/pci.c
+> >> @@ -736,6 +736,43 @@ static bool pci_dev_config_accessible(struct pci_=
+dev *dev, char *msg)
+> >>  =09return true;
+> >>  }
+> >> =20
+> >> +/**
+> >> + * pci_bus_placement_flags - Get the flags to use for placing a resou=
+rce
+> >> + * @bus: PCI bus of the device that owns the resource
+> >> + * @flags: Resource flags
+> >> + *
+> >> + * The non-prefetchable window of a PCI-to-PCI bridge can only decode=
+ 32-bit
+> >> + * addresses, so 64-bit non-prefetchable BARs of devices below a brid=
+ge have to
+> >> + * compete for space below 4GB. However, the PCIe spec notes that set=
+ting the
+> >> + * Prefetchable bit of a BAR permits correct operation even if the ra=
+nge has
+> >> + * read side effects or cannot tolerate write merging, as long as the=
+ entire
+> >> + * path from the host to the device is PCIe: PCIe Memory Reads always=
+ carry an
+> >> + * explicit length, and PCIe Switches never prefetch or merge writes =
+(PCIe
+> >> + * r7.0, sec 7.5.1.2.1, Implementation Note "Additional Guidance on t=
+he
+> >> + * Prefetchable Bit in Memory Space BARs").
+> >> + *
+> >> + * So if all bridges between @bus and the root bus are PCIe Root Port=
+s or PCIe
+> >> + * Switch Ports, handle 64-bit non-prefetchable resources on @bus lik=
+e 64-bit
+> >> + * prefetchable ones, so that they can be placed in the prefetchable =
+window of
+> >> + * the bridge above @bus, which may be above 4GB. Other bridges, such=
+ as
+> >> + * conventional PCI bridges, may prefetch from their prefetchable win=
+dow.
+> >> + *
+> >> + * Return: @flags, with IORESOURCE_PREFETCH set if a resource with @f=
+lags on
+> >> + * @bus may be placed in a prefetchable bridge window.
+> >> + */
+> >> +unsigned long pci_bus_placement_flags(struct pci_bus *bus, unsigned l=
+ong flags)
+> >> +{
+> >> +=09if ((flags & (IORESOURCE_TYPE_BITS | IORESOURCE_PREFETCH |
+> >> +=09=09      IORESOURCE_MEM_64)) !=3D (IORESOURCE_MEM | IORESOURCE_MEM=
+_64))
+> >
+> > PCI_RES_TYPE_MASK
+> >
+>=20
+> OK. Its definition will need to move, though, but I guess that's fine.
 
-> 
-> ---
-> This came out of a Sashiko review of the two-pass GPUVM series [1],
-> which flagged a nouveau cleanup path dropping a drm_gpuvm_bo with
-> drm_exec and silently carrying on if locking failed with -ENOMEM.
-> Grabbing a small number of locks on paths which cannot fail is quite
-> common, and drm_exec should provide a ww transaction wrapper for that
-> which can't fail, rather than drivers open coding the ww_mutex dance.
-> 
-> [1] https://sashiko.dev/#/patchset/20261001220632.3190896-1-matthew.brost%40intel.com
-> ---
->  drivers/gpu/drm/drm_exec.c            | 39 +++++++++++++------
->  drivers/gpu/drm/tests/drm_exec_test.c | 55 +++++++++++++++++++++++++++
->  include/drm/drm_exec.h                | 18 ++++++++-
->  3 files changed, 99 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-> index 2453ec41360f..bdc9c79359b3 100644
-> --- a/drivers/gpu/drm/drm_exec.c
-> +++ b/drivers/gpu/drm/drm_exec.c
-> @@ -70,19 +70,26 @@ static void drm_exec_unlock_all(struct drm_exec *exec)
->   *
->   * Initialize the object and make sure that we can track locked objects.
->   *
-> - * If nr is non-zero then it is used as the initial objects table size.
-> - * In either case, the table will grow (be re-allocated) on demand.
-> + * The first %DRM_EXEC_INLINE_OBJECTS locked objects are tracked within @exec
-> + * itself, so locking no more than that never allocates memory. If nr is larger
-> + * than that, it is used as the initial size of an allocated objects table
-> + * instead. In either case, the table will grow (be re-allocated) on demand.
->   */
->  void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr)
->  {
-> -	if (!nr)
-> -		nr = PAGE_SIZE / sizeof(void *);
-> +	exec->objects = NULL;
-> +	if (nr > DRM_EXEC_INLINE_OBJECTS)
-> +		exec->objects = kvmalloc_objs(*exec->objects, nr);
->  
-> -	exec->flags = flags;
-> -	exec->objects = kvmalloc_objs(*exec->objects, nr);
-> +	/* If allocation here fails, just delay that till it is needed */
-> +	if (exec->objects) {
-> +		exec->max_objects = nr;
-> +	} else {
-> +		exec->objects = exec->inline_objects;
-> +		exec->max_objects = DRM_EXEC_INLINE_OBJECTS;
-> +	}
->  
-> -	/* If allocation here fails, just delay that till the first use */
-> -	exec->max_objects = exec->objects ? nr : 0;
-> +	exec->flags = flags;
->  	exec->num_objects = 0;
->  	exec->contended = DRM_EXEC_DUMMY;
->  	exec->prelocked = NULL;
-> @@ -99,7 +106,8 @@ EXPORT_SYMBOL(drm_exec_init);
->  void drm_exec_fini(struct drm_exec *exec)
->  {
->  	drm_exec_unlock_all(exec);
-> -	kvfree(exec->objects);
-> +	if (exec->objects != exec->inline_objects)
-> +		kvfree(exec->objects);
->  	if (exec->contended != DRM_EXEC_DUMMY) {
->  		drm_gem_object_put(exec->contended);
->  		ww_acquire_fini(&exec->ticket);
-> @@ -140,9 +148,16 @@ static int drm_exec_obj_locked(struct drm_exec *exec,
->  {
->  	if (unlikely(exec->num_objects == exec->max_objects)) {
->  		size_t size = exec->max_objects * sizeof(void *);
-> -		void *tmp;
-> -
-> -		tmp = kvrealloc(exec->objects, size + PAGE_SIZE, GFP_KERNEL);
-> +		struct drm_gem_object **tmp;
-> +
-> +		if (exec->objects == exec->inline_objects) {
-> +			tmp = kvmalloc(size + PAGE_SIZE, GFP_KERNEL);
-> +			if (tmp)
-> +				memcpy(tmp, exec->objects, size);
-> +		} else {
-> +			tmp = kvrealloc(exec->objects, size + PAGE_SIZE,
-> +					GFP_KERNEL);
-> +		}
->  		if (!tmp)
->  			return -ENOMEM;
->  
-> diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
-> index 7a374e462348..434ab9c59878 100644
-> --- a/drivers/gpu/drm/tests/drm_exec_test.c
-> +++ b/drivers/gpu/drm/tests/drm_exec_test.c
-> @@ -204,6 +204,60 @@ static void test_multiple_loops(struct kunit *test)
->  	KUNIT_SUCCEED(test);
->  }
->  
-> +static void test_inline_objects(struct kunit *test)
-> +{
-> +	struct drm_exec_priv *priv = test->priv;
-> +	const unsigned int count = DRM_EXEC_INLINE_OBJECTS + 1;
-> +	DECLARE_BITMAP(seen, DRM_EXEC_INLINE_OBJECTS + 1) = {};
-> +	struct drm_gem_object *gobj, *obj;
-> +	struct drm_exec exec;
-> +	unsigned int i;
-> +	int ret = 0;
-> +
-> +	gobj = kunit_kcalloc(test, count, sizeof(*gobj), GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, gobj);
-> +
-> +	for (i = 0; i < count; i++)
-> +		drm_gem_private_object_init(priv->drm, &gobj[i], PAGE_SIZE);
-> +
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> +	KUNIT_EXPECT_PTR_EQ(test, exec.objects, &exec.inline_objects[0]);
-> +	drm_exec_until_all_locked(&exec) {
-> +		for (i = 0; i < count; i++) {
-> +			ret = drm_exec_lock_obj(&exec, &gobj[i]);
-> +			drm_exec_retry_on_contention(&exec);
-> +			if (ret)
-> +				break;
-> +
-> +			/* Only spills out of the struct past the inline ones */
-> +			if (exec.num_objects <= DRM_EXEC_INLINE_OBJECTS)
-> +				KUNIT_EXPECT_PTR_EQ(test, exec.objects,
-> +						    &exec.inline_objects[0]);
-> +			else
-> +				KUNIT_EXPECT_PTR_NE(test, exec.objects,
-> +						    &exec.inline_objects[0]);
-> +		}
-> +	}
-> +	KUNIT_EXPECT_EQ(test, ret, 0);
-> +	KUNIT_EXPECT_EQ(test, exec.num_objects, count);
-> +	/* Contention may reorder them, but each must be tracked once */
-> +	drm_exec_for_each_locked_object(&exec, obj) {
-> +		KUNIT_ASSERT_TRUE(test, obj >= gobj && obj < gobj + count);
-> +		KUNIT_EXPECT_FALSE(test, test_and_set_bit(obj - gobj, seen));
-> +	}
-> +	KUNIT_EXPECT_TRUE(test, bitmap_full(seen, count));
-> +	drm_exec_fini(&exec);
-> +
-> +	/* A larger initial size skips the inline objects altogether */
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, count);
-> +	KUNIT_EXPECT_PTR_NE(test, exec.objects, &exec.inline_objects[0]);
-> +	KUNIT_EXPECT_EQ(test, exec.max_objects, count);
-> +	drm_exec_fini(&exec);
-> +
-> +	for (i = 0; i < count; i++)
-> +		drm_gem_private_object_fini(&gobj[i]);
-> +}
-> +
->  static struct kunit_case drm_exec_tests[] = {
->  	KUNIT_CASE(sanitycheck),
->  	KUNIT_CASE(test_lock),
-> @@ -212,6 +266,7 @@ static struct kunit_case drm_exec_tests[] = {
->  	KUNIT_CASE(test_prepare),
->  	KUNIT_CASE(test_prepare_array),
->  	KUNIT_CASE(test_multiple_loops),
-> +	KUNIT_CASE(test_inline_objects),
->  	{}
->  };
->  
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index cc2937185a9f..ddbdd745efd9 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -15,6 +15,12 @@
->   */
->  #define DRM_EXEC_DUMMY ((void *)~0)
->  
-> +/*
-> + * Number of locked objects tracked inside &struct drm_exec itself. Locking at
-> + * most this many objects never allocates memory for tracking them.
-> + */
-> +#define DRM_EXEC_INLINE_OBJECTS	8
-> +
->  struct drm_gem_object;
->  
->  /**
-> @@ -42,7 +48,8 @@ struct drm_exec {
->  	unsigned int		max_objects;
->  
->  	/**
-> -	 * @objects: array of the locked objects
-> +	 * @objects: array of the locked objects, either @inline_objects or
-> +	 * allocated once more objects need tracking than it can hold
->  	 */
->  	struct drm_gem_object	**objects;
->  
-> @@ -55,6 +62,15 @@ struct drm_exec {
->  	 * @prelocked: already locked GEM object due to contention
->  	 */
->  	struct drm_gem_object *prelocked;
-> +
-> +	/**
-> +	 * @inline_objects: storage for the first %DRM_EXEC_INLINE_OBJECTS
-> +	 * locked objects, so that locking only a few objects does not need to
-> +	 * allocate memory, and therefore cannot fail with -ENOMEM. As @objects
-> +	 * may point here, a &struct drm_exec must not be moved or copied after
-> +	 * drm_exec_init().
-> +	 */
-> +	struct drm_gem_object	*inline_objects[DRM_EXEC_INLINE_OBJECTS];
->  };
->  
->  /**
+Yes. If you want to have it in a consistent place with my work, here's=20
+where I put it:
 
+https://lore.kernel.org/linux-pci/20261002113319.6652-6-ilpo.jarvinen@linux=
+=2Eintel.com/
+
+> >> +=09=09return flags;
+> >> +
+> >> +=09if (pci_is_root_bus(bus) ||
+> >> +=09    (bus->bus_flags & PCI_BUS_FLAGS_NO_NP_BARS_IN_P_WINDOWS))
+> >> +=09=09return flags;
+> >> +
+> >> +=09return flags | IORESOURCE_PREFETCH;
+> >> +}
+> >> +
+> >>  /**
+> >>   * pci_find_parent_resource - return resource region of parent bus of=
+ given
+> >>   *=09=09=09      region
+> >> @@ -749,6 +786,7 @@ struct resource *pci_find_parent_resource(const st=
+ruct pci_dev *dev,
+> >>  =09=09=09=09=09  struct resource *res)
+> >>  {
+> >>  =09const struct pci_bus *bus =3D dev->bus;
+> >> +=09unsigned long flags =3D pci_bus_placement_flags(dev->bus, res->fla=
+gs);
+> >>  =09struct resource *r;
+> >> =20
+> >>  =09pci_bus_for_each_resource(bus, r) {
+> >> @@ -758,10 +796,11 @@ struct resource *pci_find_parent_resource(const =
+struct pci_dev *dev,
+> >> =20
+> >>  =09=09=09/*
+> >>  =09=09=09 * If the window is prefetchable but the BAR is
+> >> -=09=09=09 * not, the allocator made a mistake.
+> >> +=09=09=09 * not (and may not be treated as such), the
+> >> +=09=09=09 * allocator made a mistake.
+> >>  =09=09=09 */
+> >>  =09=09=09if (r->flags & IORESOURCE_PREFETCH &&
+> >> -=09=09=09    !(res->flags & IORESOURCE_PREFETCH))
+> >> +=09=09=09    !(flags & IORESOURCE_PREFETCH))
+> >>  =09=09=09=09return NULL;
+> >> =20
+> >>  =09=09=09/*
+> >> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+> >> index 8297cfb5dcd5..989b9c1f1580 100644
+> >> --- a/drivers/pci/pci.h
+> >> +++ b/drivers/pci/pci.h
+> >> @@ -567,6 +567,7 @@ static inline int pci_resource_num(const struct pc=
+i_dev *dev,
+> >>  =09return resno;
+> >>  }
+> >> =20
+> >> +unsigned long pci_bus_placement_flags(struct pci_bus *bus, unsigned l=
+ong flags);
+> >>  int __pci_bus_alloc_resource(struct pci_bus *bus, struct resource *re=
+s,
+> >>  =09=09=09     unsigned long flags, resource_size_t size,
+> >>  =09=09=09     resource_size_t align, resource_size_t min,
+> >> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> >> index 27008e2ea5af..8f00ea3321c0 100644
+> >> --- a/drivers/pci/probe.c
+> >> +++ b/drivers/pci/probe.c
+> >> @@ -990,6 +990,32 @@ static bool pci_preserve_config(struct pci_host_b=
+ridge *host_bridge)
+> >>  =09return false;
+> >>  }
+> >> =20
+> >> +/*
+> >> + * Return true if all memory windows of @bridge are non-prefetchable,=
+ and at
+> >> + * least one of them extends above 4GB in PCI bus address space (see
+> >> + * pci_bus_placement_flags()).
+> >> + */
+> >> +static bool pci_host_np_only_with_high_window(struct pci_host_bridge =
+*bridge)
+> >> +{
+> >> +=09struct resource_entry *window;
+> >> +=09bool high =3D false;
+> >> +
+> >> +=09resource_list_for_each_entry(window, &bridge->windows) {
+> >> +=09=09struct resource *res =3D window->res;
+> >> +
+> >> +=09=09if (resource_type(res) !=3D IORESOURCE_MEM)
+> >> +=09=09=09continue;
+> >> +
+> >> +=09=09if (res->flags & IORESOURCE_PREFETCH)
+> >> +=09=09=09return false;
+> >> +
+> >> +=09=09if (upper_32_bits(res->end - window->offset))
+> >
+> > Should this use pcibios_resource_to_bus() for consistency with the rest=
+ of=20
+> > the code?
+> >
+>=20
+> We are walking the window resources of an apriori known root bus here,
+> and pcibios_resource_to_bus() takes a bus, walks up to the root, iterates
+> over all window resources again to find the given resource, and then
+> applies the offset.
+>=20
+> I agree it would be better to respect the layering here, but using
+> pcibios_resource_to_bus() is a bit of a kludge. Could we split it up
+> perhaps?
+
+I guess that possible but TBH, it would probably be best to just ignore=20
+my comment instead as I failed to take account the complications you came=
+=20
+across.
+
+
+FYI, I'm planning on trying this series with my pci=3Drealloc recalc=20
+changes to see if they together resolve the 64-bit VF BARs not appearing=20
+on 64-bit side, hopefully I get that done today.
+
+--=20
+ i.
+
+> >> +=09=09=09high =3D true;
+> >> +=09}
+> >> +
+> >> +=09return high;
+> >> +}
+> >> +
+> >>  static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+> >>  {
+> >>  =09struct device *parent =3D bridge->dev.parent;
+> >> @@ -1137,6 +1163,9 @@ static int pci_register_host_bridge(struct pci_h=
+ost_bridge *bridge)
+> >>  =09=09dev_info(&bus->dev, "root bus resource %pR%s\n", res, addr);
+> >>  =09}
+> >> =20
+> >> +=09if (!pci_host_np_only_with_high_window(bridge))
+> >> +=09=09bus->bus_flags |=3D PCI_BUS_FLAGS_NO_NP_BARS_IN_P_WINDOWS;
+> >
+> > Could this be simplified, e.g. to PCI_BUS_FLAGS_PREF_WIN_ANY_BAR.
+> >
+>=20
+> Sure. That would also change the polarity, but I think that's an
+> improvement actually.
+
+
+
+
+--8323328-2028918354-1790937343=:1156--
