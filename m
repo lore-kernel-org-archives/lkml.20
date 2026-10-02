@@ -1,233 +1,78 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0084F4CF8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4562D305680;
+	Fri,  2 Oct 2026 16:32:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790958665; cv=none; b=QkxZiJosAnVAyVrIq/k8SEibZvxs4yDmbY8nucwP83fYUXKSGDkRY8UA+dmrla8P65EvkWEqFuWrOtGavhX/5a2miAXOTLNt4zxmpZf4DRU7PLn3mw3Um6w2YXg09Gnr0OsV5V5ZWrv1H8GfDbPlCVvc5B1qMzxWUjGhB1S03IQ=
+	t=1790958742; cv=none; b=iCcDqJCikJTxSU4k0L3cJTmcixpEGyVEMdxYoTOa/pZI19jKovaN/S8LPYwBzG+1pvXfvuVlhE9fJyP3js26Joxlin6QFV6nV/MHt2mJxFPXsQxTB3bz4NUTBYwQkd75/PV3m1A/s/jEOZq4G0vmuduKSPMnT1NlYGGZNlmt0ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790958665; c=relaxed/simple;
-	bh=jAVyoPFOGoJNDUPNicqFhPI6X+mwoNpniDinA5jjIKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s3hhYswbHsczc4Rs7Ai8HHOjdbZM9VM5KAiv9C4MMVyl4LjNiy39Eu4fo8uFwXcAu+pkmqG3Lod6KKnVAuO7503qMorxSzdchTzwhYCbSYP7ngWfveSJc3BVMl38mh4tm8SWTj+6HPK5Y9GgKHgHxk38Voih+ydtDOIgRC2PKSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=psr15Rg7; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790958742; c=relaxed/simple;
+	bh=uxfVBfwSOuB75D2e85exi7+uFfYhlsrQty+NcIv6boQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IIh7DlBpKzE/ef7vxMAaV/+yxz1VdFblp2PQNEir3jXLYmWjQZKTvY6ayJyiTlxJ2trQ1ZWE+Z3GAZfwF7WTGNjf/N02hOa6ddKKNO92bJWh/H6hI+NVdmxwdbift5tkBZazkY1FhASgAV/mVtbwOsl8rciLDXxwlu4PuU5iEkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aTyp1hXZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="psr15Rg7"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso3061880a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 09:31:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790958663; x=1791563463; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IaFagpghjtV9+3wZXz2ZSUNu1qs1ItHjvm01FGweyZ4=;
-        b=psr15Rg7NIOOlcvMgxTi1QlrabGw0v1c/4cOPBt4PVzieNG25MzmgzeESZMaSDCe1y
-         wde13bCosSOfxp0ZBX9WuyFaG5WZwwsD2wDeXa1jDc49tejfUjM3LFos8qXGNhagbZE9
-         aBT0ES2GdbWsPKf4YY9Tef8/Obg/urNO71cmyv6MfJSvaHplazpv3aTLDhGTE455Nghg
-         Y2+gjkd9rJahRnMmaCSZ54toOhd6tlir5OdK1pRaLiZbKwt0j3y138vR3SEyjGj/mUxr
-         u0pxekJpThZP7p93NnNeDiaLf4ys5vaIfo00IchWG+HUgHnEl4g2tPgdZRhXMkLq1UoQ
-         Hbqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790958663; x=1791563463;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IaFagpghjtV9+3wZXz2ZSUNu1qs1ItHjvm01FGweyZ4=;
-        b=PtKW7HuKQvwUAeSRaEg6iPMstsvosK1g1HoQ4Z3Ha/l4MlMtctM3Fm/cLmME+nzcR2
-         CpEfkm2oUPGvEX5sJrg3L1ud8pSLY4Bd46KP4TwGwi/sdPEbw8fnZCYUj5tVeDtaFFVI
-         icKZ3njc3TaxSfjzhWLiqeQ2VMy04pWhN0iLKVVXRhDRP2EhQI3/iV2DpW4qg6ekQmhw
-         V1sopuCkb+59IUxVB/fgt67hRkWlyXusTf31zG7Ahj5rzc4xOvCvaIjc7NuekkzIXtJr
-         budIDyKXTU3TF0ohnIvfQg4giuYOW72NmeUaoJ9yy4fgBJGdafSWajyeIvxRCm8FilnN
-         k+9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwndUG0oFOYqbcUOTv5uDw65LmgYGLZJCOQIwEIwK50XYWWejzficWHe6k9ivaUV1RwCkbUr1rygDmKZaY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsO4+k7TWiTCINN5Li0RMa+GNIjqkZ9/wQv6bfFYwMOyeQu0Vy
-	K0K8BdyoGMvlFK1KD8JzjeI0p1/83BVv8/dcGujLx9P/5+6HdxCvqyBt
-X-Gm-Gg: AYBFou2YDK5hIc5araAMW93XoZpTI4+8KKf9w95bHOpx0Wi7/ib2CVJaTavsbEoFnVF
-	wp8pWY+E83s2pBeS38Ncp4EQIkV6ZPlSynzu92oUItx2JD2f82BpS7R4BmK8VWVtlp98nJuT9VI
-	69EsTU9zlSmAQXmyp63P5SK6viHd5/+6zpyAL6pvxANY1odDgGmWlwEAuoP5DfQgm5iKlxUhA2g
-	o+yPMcIhLoiLInnUxXaOU/+83RlAVW30l0u26e92Q6PrN/NQVr4HU9l1J+7mQ2/a3V/NcFk1iSS
-	3a7X0oRbx0XqscdX4ZLzPbr3Y9Dj1K3EyCP+fQkYbBavtgaJyrWoJpdS85HI7QPVRcLnI8+/asx
-	s2GqN/kBPpRjkk5kxeU1AXfdin8wbmKrh06M96fPNuPk/gIPrDaRmY4ETwNKs2/7BTC7nuvFVsr
-	HsjYXl8zymk0rBdeSPr4dmyqhyzpZlGW8lB3uFYX5TUQQfsJ/0xg4rGGCsg9HX7Y1HytVNmQ==
-X-Received: by 2002:a17:90b:5687:b0:3a4:cbc4:4a98 with SMTP id 98e67ed59e1d1-3a6cec878e2mr3192049a91.64.1790958662555;
-        Fri, 02 Oct 2026 09:31:02 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7aa0:50::3cf:1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f4747100sm9483860a91.11.2026.10.02.09.30.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 09:31:01 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+76c0f0ce8f1e846b4f84@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme: keep the effects log per namespace path, not in the shared head
-Date: Fri,  2 Oct 2026 23:30:56 +0700
-Message-ID: <20261002163056.48708-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6abf0753.eb639fcc.2b981.0008.GAE@google.com>
-References: <6abf0753.eb639fcc.2b981.0008.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aTyp1hXZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 918281F000FF;
+	Fri,  2 Oct 2026 16:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790958740;
+	bh=uxfVBfwSOuB75D2e85exi7+uFfYhlsrQty+NcIv6boQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aTyp1hXZirIF8DPS3ieHatIXXXqhaXTWz+btP36Tt5fv80utdU7+b5/yPsjX+ESvp
+	 XJHYdYEGH6AJL9sOw1AxcJF4cd3zfgOOmStVrxRxmqN397I5zGyjeh3utvOg+7fh8H
+	 FeKb8PEgR0BKxZN5oKZcTVRTnbvko7eOgSBStanRz+AZd/d+Zp/nJAnEmlNTmyYEjY
+	 I6xuLRGtNDeGL3++2P30Dtk3Gim0ilbDsXEpw2V5EQumGqWETyY0Rk9+Mn/Q2QFWya
+	 CG1FzcINM8wu4r/ndtNUdPI9t7D8bQsO73FwdkicgVcr+ocG1NRnb2pXCxbJ6LehMe
+	 dxj+59/R+4ZLA==
+Date: Fri, 2 Oct 2026 17:32:15 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Brian Masney <bmasney@redhat.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Yixun Lan <dlan@kernel.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: clock: anlogic,dr1v90-cru: make
+ external clocks optional
+Message-ID: <20261002-diminish-hemlock-53c312598e59@spud>
+References: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
+ <20261003-dr1v90-cru-dt-fix-v2-1-6e7d96612ac0@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WhWOesNcYkUJujB7"
+Content-Disposition: inline
+In-Reply-To: <20261003-dr1v90-cru-dt-fix-v2-1-6e7d96612ac0@pigmoral.tech>
 
-nvme_alloc_ns_head() points head->effects at an effects log owned by the
-controller that created the head: an entry in that controller's ctrl->cels
-xarray, or ctrl->effects for the NVM command set, which also lives there.
-The head is shared by all controllers attached to the same namespace and
-can outlive its creator. Once that controller is deleted, nvme_free_cels()
-frees the log while the head still points at it.
+--WhWOesNcYkUJujB7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Any later user then reads freed memory: nvme_query_zone_info() when another
-controller scans or rescans a zoned namespace, as reported by syzbot, and
-nvme_command_effects() for I/O passthrough on a surviving path.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-  BUG: KASAN: slab-use-after-free in nvme_query_zone_info+0x4fd/0x6f0
-  Read of size 4 at addr ffff88803745a5f4 by task kworker/u8:13/5985
-   nvme_query_zone_info+0x4fd/0x6f0 drivers/nvme/host/zns.c:47
-   nvme_update_ns_info_block+0x1b2e/0x2af0 drivers/nvme/host/core.c:2430
-   nvme_update_ns_info+0xc6/0xd90 drivers/nvme/host/core.c:2553
-   nvme_alloc_ns+0x1a9f/0x3e50 drivers/nvme/host/core.c:4293
-   nvme_scan_ns+0x79d/0x910 drivers/nvme/host/core.c:4483
-  Freed by task 5948:
-   kfree+0x22b/0x6d0 mm/slub.c:6801
-   nvme_free_cels drivers/nvme/host/core.c:5165 [inline]
-   nvme_free_ctrl+0x1e4/0x6b0 drivers/nvme/host/core.c:5183
-   device_release+0xd2/0x270 drivers/base/core.c:2640
-   put_device+0x1f/0x30 drivers/base/core.c:3884
-   nvme_sysfs_delete+0xc9/0xf0 drivers/nvme/host/sysfs.c:500
+--WhWOesNcYkUJujB7
+Content-Type: application/pgp-signature; name=signature.asc
 
-The Commands Supported and Effects log is a per-controller property, so
-store the pointer in struct nvme_ns instead and look it up for every
-namespace path in nvme_init_ns_head(). Each nvme_ns holds a reference on
-its controller, so the log stays valid for as long as the path exists,
-and commands are checked against the log of the controller that actually
-executes them. The lookup stays under subsys->lock, which already
-serialized nvme_get_effects_log() for head creation.
+-----BEGIN PGP SIGNATURE-----
 
-Reproduced with two nvme-loop controllers connected to one subsystem
-backed by a zoned null_blk device: delete the first controller, then
-rescan the second or connect a third.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar/cjAAKCRB4tDGHoIJi
+0jK+AQCyOByJ7hzNNmJWJcqHDvrRKrtzDP9vD9HLVd4wkDyZwgEAozMYNFcYlsV/
+w3pfnIkuUnenISTZtRovKm2GxW1kiQA=
+=700p
+-----END PGP SIGNATURE-----
 
-Fixes: be93e87e7802 ("nvme: support for multiple Command Sets Supported and Effects log pages")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+76c0f0ce8f1e846b4f84@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=76c0f0ce8f1e846b4f84
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Tested in QEMU (x86_64, KASAN) on v7.3-rc5:
-
- - Deterministic: two nvme-loop controllers on one subsystem backed by a
-   zoned null_blk, delete nvme0, rescan nvme1, connect a third. Before:
-   KASAN slab-use-after-free in nvme_query_zone_info() on both the rescan
-   and the new-controller path. After: clean.
- - syzbot C reproducer, kasan_multi_shot: 175 reports before; 0 reports
-   in two runs after (~900 controllers created/deleted per run).
- - Zone Append is still detected on every path (no "Forcing to
-   read-only mode"), and direct I/O to the zoned namespace works.
-
-Deepanshu, Cc'ing you since you posted a test patch on this report.
-Pinning the scanning controller in scan_work doesn't cover this case:
-the freed log belongs to a different controller, the one that created
-the shared head.
-
- drivers/nvme/host/core.c | 21 +++++++++++++--------
- drivers/nvme/host/nvme.h |  2 +-
- drivers/nvme/host/zns.c  |  2 +-
- 3 files changed, 15 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index beea23d04a70..e0fea859dfaa 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -1234,7 +1234,7 @@ u32 nvme_command_effects(struct nvme_ctrl *ctrl, struct nvme_ns *ns, u8 opcode)
- 	u32 effects = 0;
- 
- 	if (ns) {
--		effects = le32_to_cpu(ns->head->effects->iocs[opcode]);
-+		effects = le32_to_cpu(ns->effects->iocs[opcode]);
- 		if (effects & ~(NVME_CMD_EFFECTS_CSUPP | NVME_CMD_EFFECTS_LBCC))
- 			dev_warn_once(ctrl->device,
- 				"IO command:%02x has unusual effects:%08x\n",
-@@ -4033,13 +4033,6 @@ static struct nvme_ns_head *nvme_alloc_ns_head(struct nvme_ns *ns,
- 	kref_init(&head->ref);
- 	ns->head = head;
- 
--	if (head->ids.csi) {
--		ret = nvme_get_effects_log(ctrl, head->ids.csi, &head->effects);
--		if (ret)
--			goto out_cleanup_srcu;
--	} else
--		head->effects = ctrl->effects;
--
- 	if (ctrl->ctratt & NVME_CTRL_ATTR_FDPS) {
- 		ret = nvme_query_fdp_info(ns, info);
- 		if (ret < 0)
-@@ -4141,6 +4134,18 @@ static int nvme_init_ns_head(struct nvme_ns *ns, struct nvme_ns_info *info)
- 	}
- 
- 	mutex_lock(&ctrl->subsys->lock);
-+	/*
-+	 * The effects log belongs to this controller, not to the shared head,
-+	 * which may outlive the controller that created it.
-+	 */
-+	if (info->ids.csi) {
-+		ret = nvme_get_effects_log(ctrl, info->ids.csi, &ns->effects);
-+		if (ret)
-+			goto out_unlock;
-+	} else {
-+		ns->effects = ctrl->effects;
-+	}
-+
- 	head = nvme_find_ns_head(ctrl, info->nsid);
- 	if (!head) {
- 		ret = nvme_subsys_check_duplicate_ids(ctrl->subsys, &info->ids);
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index 2cff9fcbf740..7d6ced8ed78b 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -554,7 +554,6 @@ struct nvme_ns_head {
- 	bool			shared;
- 	bool			rotational;
- 	bool			passthru_err_log_enabled;
--	struct nvme_effects_log *effects;
- 	u64			nuse;
- 	unsigned		ns_id;
- 	int			instance;
-@@ -620,6 +619,7 @@ struct nvme_ns {
- 	struct list_head siblings;
- 	struct kref kref;
- 	struct nvme_ns_head *head;
-+	struct nvme_effects_log *effects;
- 
- 	unsigned long flags;
- #define NVME_NS_REMOVING		0
-diff --git a/drivers/nvme/host/zns.c b/drivers/nvme/host/zns.c
-index e31ec6f4f94f..ef75448036f7 100644
---- a/drivers/nvme/host/zns.c
-+++ b/drivers/nvme/host/zns.c
-@@ -38,7 +38,7 @@ static int nvme_set_max_append(struct nvme_ctrl *ctrl)
- int nvme_query_zone_info(struct nvme_ns *ns, unsigned lbaf,
- 		struct nvme_zone_info *zi)
- {
--	struct nvme_effects_log *log = ns->head->effects;
-+	struct nvme_effects_log *log = ns->effects;
- 	struct nvme_command c = { };
- 	struct nvme_id_ns_zns *id;
- 	int status;
--- 
-2.43.0
-
+--WhWOesNcYkUJujB7--
