@@ -1,242 +1,119 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8498480DC7
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3071424679
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942801; cv=none; b=fxnH7oiOUYQISP65yLkTSgUMn+ghd+hVv995aVZMkPNTs5fFWO3tvr4nzzq2+Y8tph4AkU1wZRH+S5SwD+XFjwE03Da5DW3u31aQ257tK84Dql1AmWcF8j+SHJX9F6xgiAQ1bcNeol9RV3J4OaNk6zs/WwU2iftRrTbY0vW4uik=
+	t=1790942806; cv=none; b=AVqJGOvJ3lb7z9c0qurmobOwVpjUHN5ljb36u/bTvsusf3tZgqIK6FkqvdRO0/ataJEBJpagF0WevXGFGAq1rcPbTYD3Kb6aqd/2bEfL67QVbLjzqk775ZwcIEVYAh0wbClaFwE4NhChJyZy7c4X5C7kaq45pNRZ3MyqAB1NcUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942801; c=relaxed/simple;
-	bh=hwhN7ylH0IzICDJthPY0R5DKp5YVqDcYo+79FZEuHsU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aT9tteXNiKhmeZUI0HUuT9gHRQpmh1RU4xcnxkMv2GKzxMYkGUfQIqAnsWkW3B4lS3fGYKes5mPDWPXy3O1OKWl1xNfqkRZzHDBVvE2z26/PrUGwAVb8OTjQbmIRhuEV9pYe1qceUXiTswnQu+XvytnkXHMbMUc/4I6A3aYBG4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=a7bm9Zut; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790942806; c=relaxed/simple;
+	bh=aKYMYC5Y6AKBePjC1K5kqQ5WX6AyctYZvcNDmdzeM88=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ofVZUcznGt14ZpMJQgZaSoBnd7kXR6RhbvU7EezmRA3EdM6h47amPXty0iNeOMXpuNdtsFv2M309R5BpVys1mEuEDqs7RHuOCxIxAdH2O0c1z2g121i43+hTMSe/dQSPoLTt/QYA49IDAdTrSjC7Qt1lPa08xtlMFSlBHMriaDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SNP3Asfr; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="a7bm9Zut"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=5R72zJezzcO4+Kz+L42SpTWw5vtZsB6tAUvnYi0Cegg=; b=a7bm9ZutbGbQ46yvCLz5Gj3wYC
-	dQHAqBA9vc1GbHKJz8s9pXrQ1DXH7n9tK7GSwrWcde7Gr+8NCaz+CSq+wTJLCqFQexuTuWv1inCUL
-	4aRk6IKJ3kEprEi2zNG2j8za3ULyRAI+6DpOFxz99PoS6tYiT7gBCFDqKqP8Rt8przs+DbHQzOoYy
-	M9HP8reuxLUBZJVwSSXodJJffQwNbKqIX8pG6DHnJSrxw5tXDYD0RLAQ77UYfQ55kdviBzfN255TU
-	Q756nT5C7s6rDWsmiSyLJMD2luGx9lMBWcW867So69twFtJGIXguYKmTWGctOC2l7m3dp1rLSrFyO
-	8URIWVSw==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xCc1m-00AabO-83; Fri, 02 Oct 2026 14:06:14 +0200
-Message-ID: <61833dde-ad6a-4b1a-8540-6cc0db80bb3d@igalia.com>
-Date: Fri, 2 Oct 2026 09:06:09 -0300
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SNP3Asfr"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a026611b2cso41835e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790942803; x=1791547603; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dFS/llWUsV6IPWSL6GqmzpUSlcy95iXkpLVDJshManU=;
+        b=SNP3Asfrf6gGhvpOUkb/qLt/aScvePXcbaDCt0pSENrD2YCgYUbtdp1DErYvjEyx1b
+         fblyLJjvsf6rfY2AnK/FoozGGyJriJh2Eos460kwoutN0JG0TzOkLPXyGL4UjrXo4jCQ
+         4TjHOmnVJrl8h8Wdr06aozOKcSuESyiJ447bEpmuAUJEFBtX0A7bW17Wai3SeBXmsgT9
+         /NXHI0JCsC27okzYi0pcMoWDX1DgudvSPiJUWSczBJw1bPfeO8xnH3RNuxeEuMOUgCvi
+         HIN/I2Y/PS/rgOimVSPsKZb8w8p7XClQQJTVclV4CuIuO5Z+8Apf6on3kVR/WukXR8a3
+         xVmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790942803; x=1791547603;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dFS/llWUsV6IPWSL6GqmzpUSlcy95iXkpLVDJshManU=;
+        b=okAqhmqYZeW1ZYLDqszd+qCBO9Vp96verJRVYVXgo8x1/gvo+CNUoqMrNkY6M4jxev
+         ZuksgSO8ZOIhlpYGYdM6UK/zqkqaWg4Q8cvGRPAsirrT9beYWKyQaHzPVp2wYsZk87ll
+         ZIZgtPSl8gyVHBn9k2GmQZrJILpPjvMMllsCxKNlqCByqAzpwf33UiXDPecD0ArD21Ot
+         GuflwWhBQIo7HGvjcb6hs4/zXDapMQSdP2CrX0X7G2pLn+IA+2QoKUhTCN2SxF84jJfE
+         QNwYzaPjLMedkbSEKqOufYPYSj2hfDLhV1PYjoASU2gPXuFjj5PM2Su4wlJuxzA5XWM1
+         SgXA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMnom5JdVWx7OUlyfZLuaXQJ1X4Sqz2dRhaul1I6RFrFHHFUsZDbBDzvOtTEap2M9+bbFrv29yj45gy0A=@vger.kernel.org
+X-Gm-Message-State: AFuF++mg/H17mQrFq8j/zeUwsUb/A237h0UOWU6QfjjZYFfO4PVa6iHw
+	PEOPr7opqVI+G6CMttGQFwONgl574ard/+RVPZQt8GqkRPmhHt86bCuccMYngXLs4w==
+X-Gm-Gg: AYBFou3660x9qZRB8HxBK0DZYQSGfQAw83/7JuGMI8sP0uRridKXLKskX3ZueoeA/a8
+	s9duX4aY9MGRmxV7HiWJiL35+Wk9sZ2buIXF7gvkTHKw9kxPrPLf+htz4t++Jair+IiB7DxvZTt
+	jEkGMVMPA1F3yTuO3w0ouurbj9dG17TEfziLQ9tdeI0akS6C66MoIA3J2h/zk1XYurb84zQUEOO
+	2n8+7D3jIKRbTVA+WzTwhmMl1SGPvOYJXtyOOno7xd3yHQkmL/oLo3v/cLrpl3k1Q/ZJ3PbocME
+	P+N4lVt3k5VdH5zUGblLBi5ANJsyxuLbUcS9vw0iommiBA5u2fdq0nXlAIxGHEkUckRVZVHr2dl
+	5qbf8CoquK/7nHr8nFOJBIu/Q/9vVN9vIwvg+gsb9xazOI4HsXxeC9XJrUCkdd0VdjVwqU3cR40
+	8duaCnb2/WVW9u3LpDRDwpfXHj5OWcgQCBTcsOqHZWZhVIbEQMgnhohqbC/b8KWG4gZA5cQbfSs
+	sdFZMSAo6p809ilPA7fGZcjgeIVDkNZjggEXXS7iCTfK1BlY7vdoDNW0Os=
+X-Received: by 2002:a05:600c:3103:b0:49e:65b0:7b7c with SMTP id 5b1f17b1804b1-4a03043ceefmr722325e9.7.1790942802364;
+        Fri, 02 Oct 2026 05:06:42 -0700 (PDT)
+Received: from localhost ([2a00:79e0:288a:8:3df4:daeb:1782:2337])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027727cecsm79239085e9.9.2026.10.02.05.06.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 05:06:40 -0700 (PDT)
+From: Jann Horn <jannh@google.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] futex: Fix !CONFIG_FUTEX build
+Date: Fri,  2 Oct 2026 14:04:47 +0200
+Message-ID: <20261002120446.2313940-2-jannh@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/vc4: Set DRM DMA device directly from HVS and V3D
-To: Daniel Drake <dan@reactivated.net>, Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260928-drm-dma-device-2-v2-1-8e8b6288cd31@reactivated.net>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260928-drm-dma-device-2-v2-1-8e8b6288cd31@reactivated.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Daniel,
+futex_mm_init() is unconditionally referenced by mm_init(), so
+!CONFIG_FUTEX builds require an empty inline version.
 
-LGTM, just some nits below:
+Fixes: fcbe4307bda0 ("futex: Fix mm reuse handling for FUT_OFF_MMSHARED")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610020501.bKHR1IPb-lkp@intel.com/
+Signed-off-by: Jann Horn <jannh@google.com>
+---
+@peterz I'm not sure about the right process here...
+I'm guessing that peterz/queue.git is a branch on which you can
+still squash this into my other change?
+Or should I fix this up locally and send a v2 of the original patch?
 
-On 28/09/26 17:16, Daniel Drake wrote:
-> vc4 uses of_dma_configure() during bind to set the DMA configuration of
-> the drm device by borrowing the configuration of one of its component
-> devices.
-> 
-> This violates driver model expectations that IOMMU probing and domain
-> attachment occur before driver binding - see commit bcb81ac6ae3c ("iommu:
-> Get DT/ACPI parsing into the proper probe path").
-> 
-> With the introduction of the bcm2712-iommu driver behind the vc4 hvs
-> device, a warning is triggered:
-> 
->      vc4-drm gpu: late IOMMU probe at driver bind, something fishy here!
-> 
-> Instead of configuring the virtual aggregate device, adopt the pattern
-> used by sun4i/sun8i/exynos where candidate DMA-capable hardware components
-> register themselves as the device to use for DRM allocations via
-> drm_dev_set_dma_dev(), provided a DMA device has not already been
-> assigned.
-> 
-> HVS will typically bind first and claim the DMA device. The gen6 36-bit
-> DMA mask configuration was moved into vc4_hvs_bind() accordingly. For
-> older generations, vc4's v3d component continues to be available as a
-> fallback, and the default platform bus 32-bit DMA mask is retained.
-> 
-> Fixes: da8e393e23ef ("drm/vc4: drv: Adopt the dma configuration from the HVS or V3D component")
-> Signed-off-by: Daniel Drake <dan@reactivated.net>
-> ---
-> Changes in v2:
-> - Fix vc4_bo_purge() to also use the selected DMA device for freeing
->    allocations
-> - Link to v1: https://lore.kernel.org/r/20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net
-> ---
->   drivers/gpu/drm/vc4/vc4_bo.c  |  3 ++-
->   drivers/gpu/drm/vc4/vc4_drv.c | 27 ---------------------------
->   drivers/gpu/drm/vc4/vc4_hvs.c | 14 ++++++++++++++
->   drivers/gpu/drm/vc4/vc4_v3d.c |  8 ++++++++
->   4 files changed, 24 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-> index 49ea2ed0996b..320c5a0c71ed 100644
-> --- a/drivers/gpu/drm/vc4/vc4_bo.c
-> +++ b/drivers/gpu/drm/vc4/vc4_bo.c
-> @@ -303,7 +303,8 @@ static void vc4_bo_purge(struct drm_gem_object *obj)
->   
->   	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
->   
-> -	dma_free_wc(dev->dev, obj->size, bo->base.vaddr, bo->base.dma_addr);
-> +	dma_free_wc(drm_dev_dma_dev(dev), obj->size, bo->base.vaddr,
-> +		    bo->base.dma_addr);
->   	bo->base.vaddr = NULL;
->   	bo->madv = __VC4_MADV_PURGED;
->   }
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-> index 616caf9d9915..62f1a5731e33 100644
-> --- a/drivers/gpu/drm/vc4/vc4_drv.c
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
+I'll make a note to myself to think more about weird kernel configs when
+writing patches...
 
-Could you clean up the headers of vc4_drv.c? I believe of_device.h and
-dma-mapping.h might not be needed anymore.
+ include/linux/futex.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> @@ -273,16 +273,6 @@ static void vc4_component_unbind_all(void *ptr)
->   	component_unbind_all(vc4->dev, &vc4->base);
->   }
->   
-> -static const struct of_device_id vc4_dma_range_matches[] = {
-> -	{ .compatible = "brcm,bcm2711-hvs" },
-> -	{ .compatible = "brcm,bcm2712-hvs" },
-> -	{ .compatible = "brcm,bcm2835-hvs" },
-> -	{ .compatible = "brcm,bcm2835-v3d" },
-> -	{ .compatible = "brcm,cygnus-v3d" },
-> -	{ .compatible = "brcm,vc4-v3d" },
-> -	{}
-> -};
-> -
->   static int vc4_drm_bind(struct device *dev)
->   {
->   	struct platform_device *pdev = to_platform_device(dev);
-> @@ -295,8 +285,6 @@ static int vc4_drm_bind(struct device *dev)
->   	enum vc4_gen gen;
->   	int ret = 0;
->   
-> -	dev->coherent_dma_mask = DMA_BIT_MASK(32);
-> -
->   	gen = (enum vc4_gen)of_device_get_match_data(dev);
->   
->   	if (gen > VC4_GEN_4)
-> @@ -304,21 +292,6 @@ static int vc4_drm_bind(struct device *dev)
->   	else
->   		driver = &vc4_drm_driver;
->   
-> -	if (gen >= VC4_GEN_6_C)
-> -		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
-> -	else
-> -		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-> -
-> -	node = of_find_matching_node_and_match(NULL, vc4_dma_range_matches,
-> -					       NULL);
-> -	if (node) {
-> -		ret = of_dma_configure(dev, node, true);
-> -		of_node_put(node);
-> -
-> -		if (ret)
-> -			return ret;
-> -	}
-> -
->   	vc4 = devm_drm_dev_alloc(dev, driver, struct vc4_dev, base);
->   	if (IS_ERR(vc4))
->   		return PTR_ERR(vc4);
-> diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-> index e715147d091c..305770c87dcf 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hvs.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-> @@ -22,6 +22,7 @@
->   #include <linux/bitfield.h>
->   #include <linux/clk.h>
->   #include <linux/component.h>
-> +#include <linux/dma-mapping.h>
->   #include <linux/platform_device.h>
->   
->   #include <drm/drm_atomic_helper.h>
-> @@ -1662,6 +1663,19 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
->   		hvs->regset.nregs = ARRAY_SIZE(vc4_hvs_regs);
->   	}
->   
-> +	if (vc4->gen >= VC4_GEN_6_C) {
-> +		ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	/*
-> +	 * Use the HVS as the DRM device's DMA controller for buffer
-> +	 * allocations if one has not already been configured.
-> +	 */
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index 7eb645e49dd4..a895d8c69d66 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -156,6 +156,10 @@ static inline void futex_set_vdso_cs_range(struct futex_mm_data *fd, unsigned in
+ static inline void futex_fixup_robust_unlock(struct pt_regs *regs) { }
+ #endif /* !CONFIG_FUTEX_ROBUST_UNLOCK */
+ 
++#ifdef CONFIG_FUTEX
+ void futex_mm_init(struct mm_struct *mm);
++#else
++static inline void futex_mm_init(struct mm_struct *mm) { }
++#endif /* !CONFIG_FUTEX */
+ 
+ #endif /* _LINUX_FUTEX_H */
 
-I have the impression that this comment is not needed. v3d's comment
-adds an interesting information, but this one seems redudant.
+base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
+prerequisite-patch-id: f52fa75faf6a5569e9c607696533ec5ea842ab35
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-> +	if (drm_dev_dma_dev(drm) == drm->dev)
-> +		drm_dev_set_dma_dev(drm, dev);
-> +
->   	if (vc4->gen >= VC4_GEN_5) {
->   		struct rpi_firmware *firmware;
->   		struct device_node *node;
-> diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-> index f32410420d3e..1f76d4850122 100644
-> --- a/drivers/gpu/drm/vc4/vc4_v3d.c
-> +++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-> @@ -10,6 +10,7 @@
->   #include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
->   
-> +#include <drm/drm_drv.h>
-
-I believe this include is not needed.
-
-Best regards,
-- Maíra
