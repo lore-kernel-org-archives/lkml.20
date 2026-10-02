@@ -1,172 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A7E2BE035;
-	Fri,  2 Oct 2026 05:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0957263F5D;
+	Fri,  2 Oct 2026 05:48:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790920017; cv=none; b=LMuOyXvEXyp5sXrrrB8XIMt4boU4asgwBpbSXP3GH9GBZFT4OyCLajAps2Kgi4rf9BIgSK33VxFrVGo/knb2ErkqE+mMH6eKKJUBmO79xdywVMfet1ljkI1bQyiNSJXduJh1mn0CJwFVCncXparwvtbDgD8SOZYZR+085Til3Rc=
+	t=1790920121; cv=none; b=S4hg/FosQ6wl/soOClsn0FYYoUfkAZQW8oUZLKsXFzn3XKAr6D3q5ZgyHpNwBVeWSC2lfsQN6/L8aDrmO1Cj1XNsU5ca+pb38gA828Llmt1GAV8r7OfGG6N4WMEjm3doOsMu9X3JCCALuq2d2K+/r0TSI2YNeKHOjE5TLmQyJDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790920017; c=relaxed/simple;
-	bh=vDVWd7bUUp0fp3rbv49nOQMjeep8XZe6WI6j3JYM4xA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cw3OTx/cnqI7/YxgZnOYxlrRyMClTKpnIPMqsPsOtAIIArkPh935CfAd3KsWOsiIFfA7Ze9VpQa6nq7tVIZUWkRalytKuiA8pcJ0AK2Gm8dw5aYF6vVgg3Eb5YbyTpltdY230fANHQG45Be+QTIVumwHRJK0UwaHERMdzuRXWO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cc6PWe0G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790920121; c=relaxed/simple;
+	bh=AcSQTHExjj/ck0XyV2GJ09CJ95tny3ob1Gwszsi46R4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FGyVEkaI3XboSNLNoqJswBUDdzSiZm/Bl0yDIA85GUC+NbAfh7lA5mx/me0qrniAk6VpFSrFz/aLLZDufmUYsF4nlLVgjcUdHShuWffshXJ57hsF/tKol19uBtZHGhXTbGw/OKoqriS4CHT5GzPkWfWu6b82u6ypo72zvOXrpDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+Zw5cI/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cc6PWe0G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D921F000FF;
-	Fri,  2 Oct 2026 05:46:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+Zw5cI/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170A21F00893;
+	Fri,  2 Oct 2026 05:48:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790920015;
-	bh=BUM0jmk5ROcF9aF+uPw3K8HUOCn6qfcZXTKXnwJVx+c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cc6PWe0GsMhqxXDv03deTBfCGuixJ7J08WmAuz7zhgNEmtZHErGN3y93JgkQqe8X7
-	 FH/vUin/L/di1XjDhpjjLwuyLxIftyENGuBFymWwzXhYV+Bt8U5Tk1crqWT7fpEIkA
-	 1Mbm1YXeRf2ubC+XVB1OqjwQCtmrVqkN1i0ydcMGVRYjbHWxa1woKJXiw7SL9ZKkBI
-	 lpAbTnNyjnoyUHCxPY0RBeRXaVeGwTD35EYU0ie7ZUtRV15acqGWo3fkBIhtSXQ/qE
-	 e7F4oS6bac6EWCUzPhnUjw8GobNNKMzsI3lH89U6qFsktUZm5WwohQ56vbqFjCuEmW
-	 6kyRhTSEa2qDw==
-Message-ID: <6aa0c698-509e-49d5-a229-7f756355b748@kernel.org>
-Date: Fri, 2 Oct 2026 07:46:47 +0200
+	s=k20260515; t=1790920119;
+	bh=++dgApjfRA1Tl0LzMZhhtP9eZSf7IsbCx9oAKsJeAN8=;
+	h=From:To:Cc:Subject:Date;
+	b=F+Zw5cI/5rc32I4adx3T0I/q7yj+eAFqNTo8nTo9DlSI3iuamKup8JnSb2IXsex40
+	 dg3JrOfLdUQTCpnm72AsWvRjeuC73WsiYoqeixbKbhV9YDysoHKm2fGaZN0Hct8fgg
+	 IPqwYPVl4rzakh9HRRE6bf2WoHM035Yowlf8c+KKbg/ijMs7ydJQeH3ae2Iz1QECmj
+	 sc5rxjZonvI5Pu3rpGoD4oqeezspwYCK9fUeszRihvRFy6nqpg/imifJdwjqTXFHpA
+	 puzZ3ehjX29x1F3CZjQeknZp/qjTE4kgZV1xxTzcDqMq917AZKMihP76Xa51bunm24
+	 Xxv4QL7vlb6yg==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>
+Cc: Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org,
+	Chun-Tse Shao <ctshao@google.com>
+Subject: [PATCH] perf stat: Fix aggregation of cgroup events
+Date: Thu,  1 Oct 2026 22:48:32 -0700
+Message-ID: <20261002054832.64980-1-namhyung@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/6] firmware: qcom: Add support for TEE based EFI-var
- client driver
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>,
- Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@kernel.org>,
- Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
- Basant Kumar <basantk@qti.qualcomm.com>,
- Apurupa Pattapu <apurupa@qti.qualcomm.com>,
- Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
- op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20261001-qcom_uefisecapp_migrate_qcomtee-v3-0-13df5c20c2e3@oss.qualcomm.com>
- <20261001-qcom_uefisecapp_migrate_qcomtee-v3-6-13df5c20c2e3@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261001-qcom_uefisecapp_migrate_qcomtee-v3-6-13df5c20c2e3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/10/2026 13:02, Harshal Dev wrote:
-> On Qualcomm SoC based platforms, UEFI stores EFI variables within the
-> Replay Protected Memory Block (RPMB) located within either the UFS,
-> eMMC or SPI-NOR storage. The RPMB key which is one-time programmed into
-> the storage controller to allow authentication of the RPMB frames is
-> generated by and only available to the Qualcomm Trusted Execution
-> Environment (QTEE).
-> 
-> The legacy QSEECOM protocol used for communicating with the QTEE is
-> deprecated and replaced with the use-case agnostic SMCInvoke protocol
-> starting with the Qualcomm SM8x50 series. On platforms where the QSEECOM
-> still driver probes, it does not support a listener interface with QTEE
-> to enable writing of non-volatile EFI variables to the RPMB for UFS and
-> eMMC storage.
-> Therefore on such platforms, a TEE client driver which communicates with
-> QTEE via the SMCInvoke protocol implemented by the QCOMTEE driver (and
-> registered with the TEE subsystem) must be used to update such EFI
-> variables.
-> 
-> Add support for a TEE based uefisecapp client driver which installs efivar
-> operations after obtaining an object reference to the uefisecapp service.
-> This enables the kernel/user-space to access or modify both volatile EFI
-> variables stored by the Secure Application (in-memory) and non-volatile
-> ones stored within RPMB.
-> 
-> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> ---
->  MAINTAINERS                                 |   6 +
->  arch/arm64/configs/defconfig                |   1 +
->  drivers/firmware/qcom/Kconfig               |  31 ++
->  drivers/firmware/qcom/Makefile              |   1 +
->  drivers/firmware/qcom/qcom_tee_uefisecapp.c | 636 ++++++++++++++++++++++++++++
->  5 files changed, 675 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 30c1cdd0fb38..7ccedad8d388 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22981,6 +22981,12 @@ L:	linux-arm-msm@vger.kernel.org
->  S:	Maintained
->  F:	drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
->  
-> +QUALCOMM TEE UEFISECAPP DRIVER
-> +M:	Harshal Dev <harshal.dev@oss.qualcomm.com>
-> +L:	linux-arm-msm@vger.kernel.org
-> +S:	Maintained
-> +F:	drivers/firmware/qcom/qcom_tee_uefisecapp.c
-> +
->  QUALCOMM PINCTRL DRIVERS
->  M:	Bartosz Golaszewski <brgl@kernel.org>
->  L:	linux-arm-msm@vger.kernel.org
-> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-> index fce418fe6ff6..a8525878c679 100644
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
-> @@ -277,6 +277,7 @@ CONFIG_IMX_SCU=y
->  CONFIG_QCOM_TZMEM_MODE_SHMBRIDGE=y
->  CONFIG_QCOM_QSEECOM=y
->  CONFIG_QCOM_QSEECOM_UEFISECAPP=y
-> +CONFIG_QCOM_TEE_UEFISECAPP=m
+I got a report that perf stat with BPF and cgroup is broken with
+aggregation like per-socket or node.  On my machine, running the
+following command shows the problem.
 
-I do not see how this change is relevant here. Adding a driver has
-nothing to do with defconfig. Drop or split.
+  $ sudo perf stat -a --bpf-counters --per-socket -e cycles \
+    --for-each-cgroup /user.slice,/system.slice  sleep 1
 
-Not mentioning that nowhere is explained why you actually need it.
+   Performance counter stats for 'system wide':
 
+  S0       12      <not counted>      cpu_atom/cycles/                 user.slice
+  S0       16      <not counted>      cpu_core/cycles/                 user.slice
+  S0       12      <not counted>      cpu_atom/cycles/                 system.slice
+  S0       16      <not counted>      cpu_core/cycles/                 system.slice
 
-Best regards,
-Krzysztof
+         1.002798147 seconds time elapsed
+
+That's because there's a logic to make the whole event failed if result
+from any CPU looks bad when aggregation is enabled.  Normally it
+considers bad when an event has no enabled and running time.  But it's
+possible for a cgroup event to have no chance to run on some CPU during
+the window and then it will have 0 enabled and running time.  Let's not
+treat them as errors.
+
+After the fix, the same command produces:
+
+   Performance counter stats for 'system wide':
+
+  S0       12          5,094,112      cpu_atom/cycles/                 user.slice
+  S0       16         28,075,944      cpu_core/cycles/                 user.slice
+  S0       12          1,516,568      cpu_atom/cycles/                 system.slice
+  S0       16          5,569,575      cpu_core/cycles/                 system.slice
+
+         1.003231856 seconds time elapsed
+
+Reported-by: Chun-Tse Shao <ctshao@google.com>
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+---
+ tools/perf/util/stat.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/tools/perf/util/stat.c b/tools/perf/util/stat.c
+index 25f31a17436828aa..6da3dbbde0e2ad8d 100644
+--- a/tools/perf/util/stat.c
++++ b/tools/perf/util/stat.c
+@@ -381,6 +381,10 @@ static bool evsel__count_has_error(struct evsel *evsel,
+ 	if (config->aggr_mode == AGGR_GLOBAL)
+ 		return false;
+ 
++	/* cgroup events may not be scheduled on some CPUs */
++	if (evsel->cgrp)
++		return false;
++
+ 	/* it's considered ok when it actually ran */
+ 	if (count->ena != 0 && count->run != 0)
+ 		return false;
+-- 
+2.55.0
+
