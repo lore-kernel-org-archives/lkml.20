@@ -1,88 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E85D3B7B71;
-	Fri,  2 Oct 2026 12:40:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937F03CE0A4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790944841; cv=none; b=nLglGcYgEKJOqYPtMDrG3IqeOxGAm46UPxGGTaYemKao4CRr7anof+lw7O+scuBltCpfIPkwqFFN7q9itniZZf5ARrSniAKF1S4ueER6KOB2fpyciTFCc14oPRPVnwavv17u6zfp9acUcQse67jCiCdRO3zj+Tts821v8ms6AVc=
+	t=1790944847; cv=none; b=VJO8H40gtXuxgDcX/wylay5RVNPWVYwA/2jgtlSJwpt7iCH6EcvCHo6tc2FkCdqHpxss13+ryXnSufsx59qYx9GMb1DpCnZ+muQif2QT0H3cgI1NeNgKtlPfPjyPX92NF0izIBleiRJYRXCFj3CO324m9yiaBCBQQA1ZjLpht+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790944841; c=relaxed/simple;
-	bh=s1gulnzluPiok9Rawn8mnR7pCPg2h0p8JL5VA+zMQMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IWDUe+DlypJkg5udqrqf0rTpYR3omPjF7Ge87YVjqtNvmNSBHj7ErO0J2hSX5/AdxcmtxDJyepvYPK4LVgH7S8fW5JgwsPrg/bIn6NVI3P1ZeJxXh2/gWutmI2bRi1wCanEvp14yUM6kL+Yt8EKwq5a99tA50obPJFt8uHBIrgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=if6BYcUj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790944847; c=relaxed/simple;
+	bh=vqjK4slV1N7ra8wRUcxL1SZujEvmpdhLFb5qwVelDzw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qPftYuvQnTx/PJvSWQgbUV3w3KBtHwebO8vkbjjS+0xvv2Y+uvuyIegxuCR0LJdtnfAv9daGyZPZszEMJ19Wct0RPisM1BR7CipnE1Ln/Xnz78lGQ3xsyIcfmDA8y6rnr0p0V+n5fjGhbzow9lpliOHbySocqG8DAKtpEt3aHiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=e0sySH1o; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WhADyh/s; arc=none smtp.client-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="if6BYcUj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58D31F000FF;
-	Fri,  2 Oct 2026 12:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790944839;
-	bh=9rC2i01GD4+v7xYqc2tk0jeF96d5ZYoQKrqPBrcuOoE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=if6BYcUjbp4bCzDvjDUhkfwZCQsOcG3/wP7QqCviiLLGsNhL4D3g9aRAbPJlpDeP+
-	 oeDX4w9lpw+noPrPH05jvoTLBr3eCUk3pCnb62V9zbg9P8EHQ398FibotQnSpQUwsf
-	 S9qf1O2B2dZcB58va3bZLd1Qaf5hNyexpP7/7mF/7eguyhsK6sW0FwTb6OunyfMkeX
-	 PPDlOTXGuVkDzawsSiJIYxSEOjGIUyXOeS4ggowMcGa8MCrY57WijlzN0UJ2EQjH8+
-	 E5uVrvl6Fp75W1/27Fg4+XpAOPyfe4ZhwYFFX70ry7iXt162N8W5VRfyXpFggVn0uy
-	 O93RSNjp/BgAA==
-Date: Fri, 2 Oct 2026 13:40:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dan Carpenter <error27@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	p.zabel@pengutronix.de, james.tai@realtek.com, cy.huang@realtek.com,
-	stanley_chang@realtek.com, eleanor.lin@realtek.com,
-	jyanchou@realtek.com, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] spi: spi-mem: Add Realtek SPI NOR flash
- controller driver
-Message-ID: <70788248-798e-4c10-8f92-cb3670df4c9d@sirena.org.uk>
-References: <20260930065945.88008-1-eleanor.lin@realtek.com>
- <20260930065945.88008-3-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="e0sySH1o";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WhADyh/s"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id B094DEC0300
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:40:44 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Fri, 02 Oct 2026 08:40:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790944844;
+	 x=1791031244; bh=X1fUnTyojVOzVIiPWbG7G4BS8AHa4mHFcS9JswnI+J0=; b=
+	e0sySH1oT2BRYNbVN6l0FN9qjwRmHfZ5SkSqY7EbDKQBF3fMSzfhETdVNQHusOWo
+	m9C+eCtjmsLFlr8t3qOuG2yyUCj2p+37oOMn9nSXK9iqG5JwWsjUfc5QCldpNpn0
+	iACmDB4wD1KDcmv70dk4kPgxRxRAvC8pVjr39JAfX7Pf8cIu03ebQ+7/qTKIViDL
+	T2m3yA9+eYl05QEM5AFbBpHgYheNHT/9zWV5pKs1PmWPMvNRI8OahudyLXfZGW8z
+	xj9hTnTHJfSo1rboqmXL+oad69V1/i6OuT3kFhM0VhJS9vaHQIY4pkFu2i/3H+uX
+	UvRUjzCrMmVc2F7APJqmww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790944844; x=
+	1791031244; bh=X1fUnTyojVOzVIiPWbG7G4BS8AHa4mHFcS9JswnI+J0=; b=W
+	hADyh/sO/CeHS4B+fbhrg8b/UbslNiRnCBkWup+rcu2wesf2XH0LDWPkHbtZOysW
+	Bvn5E9OuZZnHCbLcGQshtKUkEfrmMYE1SSI20XtYvsSLvcYucaHaEY3IPxLe7y50
+	riUGQQZFptqZla6xqECC8O0UddQHzJ+FRRflwugVeT+auJp9VtzOJ21UbCas9fjT
+	dxScSSKr+9a+rYt4H50BiHXX3zyE8ZDuKFTkLQDOYpcMDIEN99oeahofPuwaUZW7
+	v0jkp1oBNU+HNyA5TncfMsBtbPRCSMNQiFX+l4qoGApLn1h37ZEUW7ChLuMZxlIB
+	msb7PAKheOC1uovFWYFXw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790944844; d=kroah.com;
+	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:QkmPPMz7l8r10TmZWm3r7OvWOn5vWLJ8b+Y0qZeXmWm2axg
+	d83AkbXPbNX2P6HJjpIeKm2eMiUbvxwPTIqZvkU5r092TjXEaAvEP70wMFlFsaq+
+	yAP0GBjrLZcaf7P4XVjLYvoTXixQrcL7+Xt5AYsqP+fbao7o2JTvIMgF/YU3ZkXR
+	MvEhVUBrnrSX9TCITP/b9iqdmcN8EGRjRVBlN1/plUP/k2bI/Xpw8cBgKyrB5e1C
+	A0rqqjZG/o06GTr3DEsWB1XM9J8+PExMpHnI+WSc1viU7hz3890RV/O+k/Aw5kl8
+	pMy4jAyYQLOhrYiWewgrqi6TDXy8t1aJVazk+OQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:hDqUd+Z+Ldk0J5ss6uXfxd+uCSED8Z8itM8peJLNXxU=:vqjK4slV1N7ra8wRUcxL1SZujEvmpdhLFb5qwVelDzw=;
+X-ME-Sender: <xms:TKa_anJmtaBZPyGNDSYPz0WVHmXiWPL7CuceObgZxiHgRGDKHZlB1A>
+    <xme:TKa_ar7Z1BoyJwCCGDZN2QMZ76emT8FgDKXMDuwIN6BXfobja6oQTRYJSZahXBbsR
+    6UbledvniKMBJt37_xF2QEEAJeSLiQsZdsupCwsxopripji2oSpnw>
+X-ME-Received: <xmr:TKa_ar2ImbbcOkFQmR-4JltLXwOHd8w9YHZ_PSMVcPlo2GCkqdlmBmPraNNSGBHNckPDvNqQz1iU3cpdh0LG24Xv8DXPdD7bBxtn>
+X-ME-Proxy-Cause: dmFkZTEkT0xFaS48rHxJ4MGW/YcpmIEsfMb9aj10DLH2763n3AEUz0QFSPruhCqFZgC83X
+    oawLTHM18kNrqMuwtJWjHaHZZ5ZJoow0pckvNDPVKSeBlXf+MqF3rAsFwVCTjrkuQqAEXZ
+    o4yOHp7+Ql0SBJpwzqD6o2D/+sY/hGOTArU7jRz6ij+kts8oUZvVgQ8yR4EYTB1PtHTvH2
+    NnpWbKG0/+HPULKl1JY0YFNWsIU44HKtods/ZSiSAJlQxzIX31sBYm4W5haqz7JJvS6HUi
+    frbekWbJoD0mahd4KTsAbDq/wVkdUQOARnu11uYmbhFn6xeoqVggNyFwumyUtTGb9N3uEE
+    up65UEVKr8izlIAj7BwJjtDHmu8j4/8YUwZIFi2pY1MwpmIghI/UPSATwNzfqTzNVRjJSr
+    AjeGqDKokLGU8humd33joONC9l/vMPCWomHbgen1SvRHgMKitzb1lRQGchZMa9rCdq6So5
+    dm3zQNF5kT9oo7vf0MW+zQKcp5x8WpBOqABSXYTt+TYGygTBW/3dpwWjvp8pgN7EPa+qYJ
+    ZALzoLjtfyav2bqTE0p0oMweXNzL3pPk7tK6UvibwLjLaIgu6S5N3RWPSywheKqqzUiwhM
+    UqCpqcWdxSPfDJLMTgaYolgqYaBoUy87wR+9jKFP4zpYmjWY5Eq3wQzM1PRw
+X-ME-Proxy: <xmx:TKa_ahd9fbJY94wA_jPdExiDPNVykZ7S4mQysB-yiiCpHYdgtNx81g>
+    <xmx:TKa_ahfx0v9E8-eaUeydjvFgTGGGs3k1-r4Xnix6W1UBMZbnRMuhTQ>
+    <xmx:TKa_asws44_ZOhZ_c5YRF1g9VO8JBYosrlN_D6Ew3AKY7Jumnb4cgQ>
+    <xmx:TKa_ag_JuCA03uoshXhGzX_ZQ5x5FID40VNWT5pIWGDM0ERy9AgFhg>
+    <xmx:TKa_aooszoGoYVT5C61LEgix_zINcRXWtVnK1srFk3edqcVFlT_HaVR->
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 08:40:43 -0400 (EDT)
+Message-ID: <90eac3b0-cc01-4616-8007-2f7750398dd4@kroah.com>
+Date: Fri, 2 Oct 2026 14:40:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="V28eu2viibiXNGua"
-Content-Disposition: inline
-In-Reply-To: <20260930065945.88008-3-eleanor.lin@realtek.com>
-X-Cookie: Expedience is the best teacher.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] leds: lp50xx: use scoped loop to fix fwnode reference
+ leak in lp50xx_probe_dt()
+To: Manush Prajwal <manushprajwal555@gmail.com>, lee@kernel.org,
+ pavel@kernel.org
+Cc: dmurphy@ti.com, linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <6abde533.1f5d5c08.1fd03.f4e7@mx.google.com>
+Content-Language: en-US
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+In-Reply-To: <6abde533.1f5d5c08.1fd03.f4e7@mx.google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 10/1/26 6:44 AM, Manush Prajwal wrote:
+
+> In lp50xx_probe_dt(), fwnode_for_each_child_node(child, led_node) iterates
+> over each sub-LED child node. If fwnode_property_read_u32() for "reg" fails
+> or if multi_index >= LP50XX_LEDS_PER_MODULE, the function returns -EINVAL
+> without dropping the reference count of led_node, leaking the fwnode.
+>
+> Use fwnode_for_each_child_node_scoped() to automatically release led_node
+> on all exit paths, eliminating the refcount leak as well as the manual
+> fwnode_handle_put(led_node) on the "color" property failure path, and
+> remove the now unnecessary function-scope led_node variable declaration.
+>
+> Fixes: 193910c2c54e ("leds: lp50xx: Add the LP50XX family of the RGB LED driver")
+> Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
+> ---
+>   drivers/leds/leds-lp50xx.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/leds/leds-lp50xx.c b/drivers/leds/leds-lp50xx.c
+> index 20bfb315b..d542eedd4 100644
+> --- a/drivers/leds/leds-lp50xx.c
+> +++ b/drivers/leds/leds-lp50xx.c
+> @@ -458,7 +458,6 @@ static int lp50xx_probe_leds(struct fwnode_handle *child, struct lp50xx *priv,
+>   
+>   static int lp50xx_probe_dt(struct lp50xx *priv)
+>   {
+> -	struct fwnode_handle *led_node = NULL;
+>   	struct led_init_data init_data = {};
+>   	struct led_classdev *led_cdev;
+>   	struct mc_subled *mc_led_info;
+> @@ -505,12 +504,11 @@ static int lp50xx_probe_dt(struct lp50xx *priv)
+>   		if (!mc_led_info)
+>   			return -ENOMEM;
+>   
+> -		fwnode_for_each_child_node(child, led_node) {
+> +		fwnode_for_each_child_node_scoped(child, led_node) {
+>   			int multi_index;
+>   			ret = fwnode_property_read_u32(led_node, "color",
+>   						       &color_id);
+>   			if (ret) {
+> -				fwnode_handle_put(led_node);
+>   				dev_err(priv->dev, "Cannot read color\n");
+>   				return ret;
+>   			}
 
 
---V28eu2viibiXNGua
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 
-On Fri, Oct 02, 2026 at 02:12:38PM +0300, Dan Carpenter wrote:
-> Commit aca8cbecdd2e ("spi: spi-mem: Add Realtek SPI NOR flash
-> controller driver") from Sep 30, 2026 (linux-next), leads to the
-> following Smatch static checker warning:
-
-You've not copied me on the rest of the series so I don't know what's
-going on with dependencies.  When sending a patch series it is important
-to ensure that all the various maintainers understand what the
-relationship between the patches as the expecation is that there will be
-interdependencies.  Either copy everyone on the whole series or at least
-copy them on the cover letter and explain what's going on.  If there are
-no strong interdependencies then it's generally simplest to just send
-the patches separately to avoid any possible confusion.
-
---V28eu2viibiXNGua
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq/pkEACgkQJNaLcl1U
-h9C2jwf+P6Mh/524SZqXhl8JoVycpw7UOrJrmDiUrmgoJNvZWEXwvIWgaE/QfSKK
-B227Z7sOnrRoaoa3dg8kWP2Qj6oDdHnnEYINy4H16yA1tnl+dmR/+yfEC6vwKFbm
-pCJOJDl7CZIfC5kGWG0TZ2uUYlWc0UqmcDFSLcixg+OqYcH/XaJfA77OWPTxlcRm
-JyiF/p8L9uthiHridOuS463RGPvPktmNcPbAWXO3Zq55g7LCJ54hc7WBSwtg13Xm
-S/SnYNRtULrvyiRf+lizBE4SAwkCZqnMZcV8p0w9yvAQ0tmqtQY3UPrCHyZZFrbk
-4Ja/JfAnnLpPRSmpxXZythZo65okAQ==
-=Ml52
------END PGP SIGNATURE-----
-
---V28eu2viibiXNGua--
