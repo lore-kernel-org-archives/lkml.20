@@ -1,98 +1,461 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38827446821
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:12:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39334463B7A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932348; cv=none; b=NkA84/PIBZvWecyV+ekjOXOvQTILCHB7+luiKGNCtFY+1nRipqo4vCLJgVA1mG7IKLPTLZKo7HRInSXzYN9wQsnv+tTfbdBa4W+bZkKMcofvRemQrYiVBWagS/dSrlkI94v0V/Z2hKQXDmENfBKiSDnhy4M9dSQ6eiFuiNCfS8I=
+	t=1790932355; cv=none; b=O0V5gZu40g7MRPrXwwawgdtyzAF2P1LZKW+sydTCExr3DnD/PnSO4AFPsZT9uLNxB6zocr7XRoMGeVO4UpQTrmyIpf9JwYh/BwPKB8uN4dDXxc4eplkI+iyEWGQttIHMXKtg9AcpHK7A3JtxJSaFR9sITORmeqBL5a+J1Aqy8Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932348; c=relaxed/simple;
-	bh=SE7O4E988zSh9vSP67BegOg04lMQBsr5loyDqg4tI1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AY2JqJvVIzoXUmUYckTIZj55+lrQcllgf42VIqFhxCETNxpUeeMaquZ+2Uei3Gw1PS5pc6C69QNVYZ5UUXvAWmKXUpBCR6mNE7CweRpoqsCTKnm5nm0qOVY1+mg1VIU+X5LzfViQEwcfXgKlUY0HrJUt60O6iVUONDPL1YMlbM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UUlOulem; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790932355; c=relaxed/simple;
+	bh=NAOboTaYrcSwirCjL0XCo5Ao701k/7Iehb6qsDJ4QuY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g5NF44+hUot+ZbMPM3HuAd+TG3mBWjLvcW9xZBmOt6O0UXuH6w6+R1IUPHgFdayyzCqlSXwJ2U42q1K9+9paqMY2hA20deEFl6FbyFuxjuoAg6UZCfHvCTc09c++pEE3F0m7NRFnk1mNZNRLzxxskoRMrpCtb6uF30kNBL8pZ7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at; spf=pass smtp.mailfrom=sigma-star.at; dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b=P1G2cqXx; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigma-star.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UUlOulem"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso35290645e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:12:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b="P1G2cqXx"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885a1480a2so4414449f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790932344; x=1791537144; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SE7O4E988zSh9vSP67BegOg04lMQBsr5loyDqg4tI1c=;
-        b=UUlOulemOCwBjHF57moMGSfeGIyvCpB9muYs3CRfcO9zkKbV3np+EIF9OgJLX/xTFe
-         iR6veeyd/YpAqFBCkNa0nv7VPkl8xYgmPAZTYfWcE1UGws2U2a5+pwiaCl4stJQHeuei
-         l8wN+krXoXY0ThC9stAutIDpTbZjJxf593SRw/6lBpnhZUd9cQkwqjuG0wFYvO86tA/+
-         aHuEpBtQKhdJBzmjUvCQ+C4suL2KhxYs/R1QnSJkOwMz1q3+pWwxEH5Onp9ULpPyIeeS
-         rZCSBpL+RNS9TXP4tUeF177ziA/8aNGcyfa5hYHhMLfU5MSdpwtSct+tX5eig5Kb2Bnq
-         y3EQ==
+        d=sigma-star.at; s=google; t=1790932350; x=1791537150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8QwkJ0mCOjc23gtVTVhvkKJTWEHzHSZ3y0YNs5ztVZE=;
+        b=P1G2cqXxnWmfrytIOYd/UIRlLpMM9aXCPIsW2fJWYafBn6JCjVNhUyuRHIO5aMTlqE
+         U3IwruE6l0UohAhKsnmcZScbaDYiIm+910IOjGCUxs3DUPJe/ZoW+qbMCmCiwHu9oaFk
+         vsaVQ/3ig8LAaYR2GyNBFrj0mQq4iAKDtQRRLT7EX/peoHOrTag6CkaO7wxVoTzJ6NU6
+         ubCdbVUeL+lSPM04Cr3HKXoNz+V0Ef9cFRgeI5OayWHCTG1K8zskQoS3vaeLpZxWKhfa
+         gf4fu7PKWRRn0JMDxrtphAQgw9DeBfaIswQgZQzaZ5COozW8inf8dWHrvNSmP6iQrjvo
+         YnUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932344; x=1791537144;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SE7O4E988zSh9vSP67BegOg04lMQBsr5loyDqg4tI1c=;
-        b=TYej6d8bk6jgUwUuMnPzb3Y9W2vqPz195CA6rxBcJl57AmcZ1u6q/YMwfJuxAn97C2
-         CvXx5uaI/mJCVY2NUqBTVZqQVVy22377RJUiNb47hZcVIbNiC/wSjgWiKWPJc7BUkItv
-         F2SxRWEbiQKijQXOqtJz7NylLtVDHotWgINRe12X5yOc8nSjHKU2wcpfFatahyRpHWHd
-         14dtp6rPhApcqxGM8r9LFtZm7D6yJY9F0GnbhWdibErFGEWMjnaaH2eu85U+l403g9yH
-         WR8KA6GMh318IopAJubfrz3oOyZXFU66P0lJ1y0EoVAaunknapwOiaavT3bMLRXxS69e
-         N3sA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5xMTtvuqo0xUVF7bFWboMlFRzeeFmNN/L15qHOlGawCkQOgQYWbnNzQrxXKoyFkGwh68nZXTC0mG3tgk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lp9OYAztHyaDqYnpEvdaJ1Wwm6fftwVsv/cAYNaCscoisVf1wZ
-	pMDsXWxbAeZpJIu8bTnCldP2aSV3/kUJzH2AwjDMhmIod2u5zMtjSLdm
-X-Gm-Gg: AYBFou2eb1FrCvUny7kOu23AtSSPdJOQqMiADaDY8mYsQ9R1rwlpwpowLwy1wuoy2qn
-	G02dqqVTXFfhVKq5jezp7u7K8tzp73ynbRAkgiJ7vC0n8CzHPPVGL8vcRu6VSiZu6OoXTbSfUkM
-	LNf33XwTb0B+wTnIpT4Oo+ED9vSmxEC2sWVMDNELojVcKQL0xP67KYrXtkCsBcrQP504AFQKEIY
-	a5Tz87CrFeJwXoynoIaniuHPnnaZsmlaBsIKijkv4l1Y2H4Hv1CEw/hSkiC9wGPlY4pWlbawTxz
-	1pNornWvenxLCqGKiB6wYP6q8LyS3fY9OZ1kGWKJMlnIO2tfggQvcKcUy892kQYW0mrSg+/Tm8+
-	Z9qjpT90oHds2MxnRX8ueMm3CYiAidw9vC/KoBdYiRNxOH0NrobTxPTvVI/TBXo2f5wL0jwP7v6
-	TGXHhdcaSIIFPcIXOFFZ+le+ofaRC+clRTzC15vKSM6V6jv3ZRotDH914EMox2AkLzdsazAQF3r
-	P94oMMtzi2V3xqJ1uhrZGoeM+wDBhhTGu3p5n50nV4pEN+4AMGv0H+CUdc=
-X-Received: by 2002:a05:600c:8b2a:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4a0276ad704mr41194525e9.27.1790932344110;
-        Fri, 02 Oct 2026 02:12:24 -0700 (PDT)
-Received: from 1Z10 ([2a02:b123:8010:a99a:44ac:6cdb:a419:601e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38307190sm4006072f8f.45.2026.10.02.02.12.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:12:23 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Dan Carpenter <error27@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 00/15] media: Add Lenovo Yoga Book camera support
-Date: Fri,  2 Oct 2026 11:12:20 +0200
-Message-ID: <20261002091220.534813-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ar9wlk34f_aNlIyz@stanley.mountain>
-References: <CAO7O_xjhrLNFu6sKEFWp8z+UCkcHu9kr9KfxtEQ=T9yKHCQT-w@mail.gmail.com> <ar9wlk34f_aNlIyz@stanley.mountain>
+        d=1e100.net; s=20260707; t=1790932350; x=1791537150;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8QwkJ0mCOjc23gtVTVhvkKJTWEHzHSZ3y0YNs5ztVZE=;
+        b=o8kYzrvucsJD2hiwyxSFnj5iuRhD5+/eqdg2W7aDXMhvS/GOXWlsLHmDVyyP8kDqvo
+         1JNm4RGwv9/nLAhNl08+M9nQkJZygauZZDb0zXNwj8F5mrt9VJtWr4V/B/eV/QwToP1/
+         z2BqofuRYnBvbpRHHa12ZDfPjoBb0neLyBz8Qa4TJEylJBiUVxbUtHjO1HTFK9gdkPXP
+         4GPoYiMtZ48YWQnPt5bl6ShrIYZttb8qMqpzSbUf6q94Qi14kiUd0omvgM5k1ObjqqSD
+         j7fi5yotgTuFIH4zOdmnaw4M9lwo/9qa2V4TUC1UAxL+ZjXLD2/yTV5hTCnFQnOKXsWh
+         r8YA==
+X-Forwarded-Encrypted: i=1; AKwUvBwDb8d3r+YOp0kX7q7gGx8wroWtz5jDyrhTH8uhzoFv0KvGz1jbfhieBULmstknMHtIoEG1NuwDHloYfmY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZxmI1aTy6Ngat3CwkUaq3a8Z7ipivca7iYt7fyIfvaFtOQYRM
+	qvyc7Mj19SaE6cwXko6TXd+RYN/89GiAMXm7Dq/WLFoOsfO2IbFfgNoHE8AQpwumbvc=
+X-Gm-Gg: AYBFou0e5NBXDNA4S4Dc218OzLipvzNlOtpLPJKl2bG1PnOx2FHSo9c9VJm29mdwt8x
+	+EvawPny/w7QMRZmJmm9M4yYWUgAELMSIRGa1DsahXoYsvNVbFvGZXTmL9wcOGKaLr7jUrEDzW7
+	fRwD/4SiMvl5DCObZaeDTr41oPmoc387IkK1K/GELtTZWVkt8ZNgfJlOajGW5mzobJInIF0HZMH
+	dnoDQm/OkOBp2CeDNQlhEPqlefPIhKisBI/jQWJ+ZhaOX6RxCH19I2IDIr2AgDaJZwcMTLA+wkV
+	5cCmEodmDSlHnhbRe0Bvxt6FFCn98dhn82w8IwmLR8O5olwLFr8EfTH283/gM+BfLiUFqJumdR8
+	F0k0aLHBFYpt9auMVPXX6KE30Fjo5vOdgMNVDop3E5C/sm7RTaWbP3F8eBfkc4212GuCtX2z17j
+	Gvm4mSvax5RzzzB2cfqDSor6dHZd00fcl0sM5wI0hBAEQ5DIklHbFqW1Z+n2640+gLtTza4A/8G
+	Me/Ew+2ykLkbu0gxmufuKGop7uZDMeJHAotZvd3wzBVJ+2kf6g=
+X-Received: by 2002:a05:600c:468b:b0:49d:1df8:156d with SMTP id 5b1f17b1804b1-4a0276bfcc8mr37457875e9.18.1790932349959;
+        Fri, 02 Oct 2026 02:12:29 -0700 (PDT)
+Received: from ?IPV6:2a04:9546:1c54:8601:c375:8df8:9c4c:d013? ([2a04:9546:1c54:8601:c375:8df8:9c4c:d013])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027698f13sm65230985e9.1.2026.10.02.02.12.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 02:12:28 -0700 (PDT)
+Message-ID: <b0f8f47a-beb0-426e-bdee-5d0d80ade8ad@sigma-star.at>
+Date: Fri, 2 Oct 2026 11:12:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/1] dm-integrity: support keys in the kernel keyring
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: Mike Snitzer <snitzer@kernel.org>,
+ Benjamin Marzinski <bmarzins@redhat.com>, Alasdair Kergon <agk@redhat.com>,
+ dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ upstream+dm@sigma-star.at
+References: <20260928062734.3805458-1-lorenz@sigma-star.at>
+ <20260928062734.3805458-2-lorenz@sigma-star.at>
+ <6e7bd72b-6f1a-211d-16a8-a35a530af408@redhat.com>
+Content-Language: en-US
+From: Lorenz Kofler <lorenz@sigma-star.at>
+Autocrypt: addr=lorenz@sigma-star.at; keydata=
+ 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
+ 5OAWJ7yLRAI7WigUCHhbizN5NSso5ztVJWx89g==
+In-Reply-To: <6e7bd72b-6f1a-211d-16a8-a35a530af408@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-You're right. I missed your reply before sending v10. That was too soon,
-and I should have waited.
+Hi Mikulas,
 
-I will not send another revision for at least a day. Any further revision
-will also wait for the v10 review and CI results.
+thank you for the review!
 
-With Best Regards,
-Maurizio Casciano
+Some notes below.
+
+On 9/30/26 5:00 PM, Mikulas Patocka wrote:
+> Hi
+> 
+> Generally, the approach in this patch is OK.
+> 
+> Here I have some comments for the patch:
+> 
+> Mikulas
+> 
+> 
+> 
+> The patch should increase target version - from "{1, 15, 0}" to "{1, 16,
+> 0}".
+> 
+> 
+> On Mon, 28 Sep 2026, Lorenz Kofler wrote:
+> 
+>> The keys of internal_hash, journal_crypt and journal_mac can only be
+>> given as hex strings in the table. Keys that never leave the kernel,
+>> such as trusted keys, cannot be used.
+>>
+>> In addition to hex strings, accept keys from the kernel keyring in the
+>> same format as dm-crypt: ":<key_size>:<key_type>:<key_description>".
+>> The lookup is the same as in dm-crypt.
+>>
+>> Like DM_CRYPT, DM_INTEGRITY must not be built in when the encrypted or
+>> trusted key types are modules.
+>>
+>> Signed-off-by: Lorenz Kofler <lorenz@sigma-star.at>
+>> ---
+>>   .../device-mapper/dm-integrity.rst            |  25 +++
+>>   drivers/md/Kconfig                            |   2 +
+>>   drivers/md/dm-integrity.c                     | 164 ++++++++++++++++++
+>>   3 files changed, 191 insertions(+)
+>>
+>> diff --git a/Documentation/admin-guide/device-mapper/dm-integrity.rst b/Documentation/admin-guide/device-mapper/dm-integrity.rst
+>> index 9c21301423c9..2b7f82912962 100644
+>> --- a/Documentation/admin-guide/device-mapper/dm-integrity.rst
+>> +++ b/Documentation/admin-guide/device-mapper/dm-integrity.rst
+>> @@ -146,6 +146,8 @@ internal_hash:algorithm(:key)	(the key is optional)
+>>   	from an upper layer target, such as dm-crypt. The upper layer
+>>   	target should check the validity of the integrity tags.
+>>   
+>> +	The format of the key is described below the list of arguments.
+>> +
+>>   recalculate
+>>   	Recalculate the integrity tags automatically. It is only valid
+>>   	when using internal hash.
+>> @@ -162,6 +164,8 @@ journal_crypt:algorithm(:key)	(the key is optional)
+>>   	the size of files that were written. To protect against this
+>>   	situation, you can encrypt the journal.
+>>   
+>> +	The format of the key is described below the list of arguments.
+>> +
+>>   journal_mac:algorithm(:key)	(the key is optional)
+>>   	Protect sector numbers in the journal from accidental or malicious
+>>   	modification. To protect against accidental modification, use a
+>> @@ -173,6 +177,8 @@ journal_mac:algorithm(:key)	(the key is optional)
+>>   	the journal. Thus, modified sector number would be detected at
+>>   	this stage.
+>>   
+>> +	The format of the key is described below the list of arguments.
+>> +
+>>   block_size:number (default 512)
+>>   	The size of a data block in bytes. The larger the block size the
+>>   	less overhead there is for per-block integrity metadata.
+>> @@ -225,6 +231,25 @@ legacy_recalculate
+>>   	set recalc_sector to zero, and the kernel would not detect the
+>>   	modification.
+>>   
+>> +The key of internal_hash, journal_crypt and journal_mac is encoded either as
+>> +a hexadecimal number or it can be passed as <key_string> prefixed with single
+>> +colon character (':') for keys residing in kernel keyring service.
+> 
+> The documentation omits the fact that you need double colon "::" - one
+> colon to end the argument name and one colon as the key prefix.
+> 
+>> +
+>> +<key_string>
+>> +	The kernel keyring key is identified by string in following format:
+>> +	<key_size>:<key_type>:<key_description>.
+>> +
+>> +<key_size>
+>> +	The key size in bytes. The kernel key payload size must match
+>> +	the value passed in <key_size>.
+>> +
+>> +<key_type>
+>> +	Either 'logon', 'user', 'encrypted' or 'trusted' kernel key type.
+>> +
+>> +<key_description>
+>> +	The kernel keyring key description integrity target should look for
+>> +	when loading key of <key_type>.
+>> +
+>>   The journal mode (D/J), buffer_sectors, journal_watermark, commit_time and
+>>   allow_discards can be changed when reloading the target (load an inactive
+>>   table and swap the tables with suspend and resume). The other arguments
+>> diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
+>> index df27c7d066d2..e93bf0c3119d 100644
+>> --- a/drivers/md/Kconfig
+>> +++ b/drivers/md/Kconfig
+>> @@ -653,6 +653,8 @@ config DM_LOG_WRITES
+>>   config DM_INTEGRITY
+>>   	tristate "Integrity target support"
+>>   	depends on BLK_DEV_DM
+>> +	depends on (ENCRYPTED_KEYS || ENCRYPTED_KEYS=n)
+>> +	depends on (TRUSTED_KEYS || TRUSTED_KEYS=n)
+>>   	select BLK_DEV_INTEGRITY
+>>   	select DM_BUFIO
+>>   	select CRYPTO
+>> diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+>> index 92970e12267a..6995c870cbf5 100644
+>> --- a/drivers/md/dm-integrity.c
+>> +++ b/drivers/md/dm-integrity.c
+>> @@ -25,6 +25,11 @@
+>>   #include <crypto/utils.h>
+>>   #include <linux/async_tx.h>
+>>   #include <linux/dm-bufio.h>
+>> +#include <linux/ctype.h>
+>> +#include <linux/key.h>
+>> +#include <keys/user-type.h>
+>> +#include <keys/encrypted-type.h>
+>> +#include <keys/trusted-type.h>
+>>   
+>>   #include "dm-audit.h"
+>>   
+>> @@ -4415,6 +4420,152 @@ static void free_alg(struct alg_spec *a)
+>>   	memset(a, 0, sizeof(*a));
+>>   }
+>>   
+>> +#ifdef CONFIG_KEYS
+>> +
+>> +static bool contains_whitespace(const char *str)
+>> +{
+>> +	while (*str)
+>> +		if (isspace(*str++))
+>> +			return true;
+>> +	return false;
+>> +}
+>> +
+>> +static int set_key_user(struct alg_spec *a, struct key *key)
+>> +{
+>> +	const struct user_key_payload *ukp;
+>> +
+>> +	ukp = user_key_payload_locked(key);
+>> +	if (!ukp)
+>> +		return -EKEYREVOKED;
+>> +
+>> +	if (a->key_size != ukp->datalen)
+>> +		return -EINVAL;
+>> +
+>> +	memcpy(a->key, ukp->data, a->key_size);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int set_key_encrypted(struct alg_spec *a, struct key *key)
+>> +{
+>> +	const struct encrypted_key_payload *ekp;
+>> +
+>> +	ekp = key->payload.data[0];
+>> +	if (!ekp)
+>> +		return -EKEYREVOKED;
+>> +
+>> +	if (a->key_size != ekp->decrypted_datalen)
+>> +		return -EINVAL;
+>> +
+>> +	memcpy(a->key, ekp->decrypted_data, a->key_size);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int set_key_trusted(struct alg_spec *a, struct key *key)
+>> +{
+>> +	const struct trusted_key_payload *tkp;
+>> +
+>> +	tkp = key->payload.data[0];
+>> +	if (!tkp)
+>> +		return -EKEYREVOKED;
+>> +
+>> +	if (a->key_size != tkp->key_len)
+>> +		return -EINVAL;
+>> +
+>> +	memcpy(a->key, tkp->key, a->key_size);
+>> +
+>> +	return 0;
+>> +}
+> 
+> These four functions are copied from dm-crypt.c and dm-inlinecrypt.c.
+> Copying code is generally malpattern, they should be unified and moved to
+> an include file (that would be included in all three targets) or to the
+> key management code (that would be called from all three targets).
+> 
+
+Yes that is the issue I described in the cover letters. But I don't
+actually know which way is the preferred one. Afaik there are now
+three options:
+
+1. static inline helpers in a drivers/md header, so dm-crypt and
+    dm-integrity each compile their own copy
+2. a small library module, similar to dm-bufio, so there is one copy
+    that follows the value (y/m) of dm-crypt and dm-integrity
+3. integration into key management code
+
+Please tell me which option you prefer.
+
+>> +/*
+>> + * Load the key from the kernel keyring. a->key_string has the format
+>> + * ":<key_size>:<key_type>:<key_description>".
+>> + */
+>> +static int get_alg_key_from_keyring(struct alg_spec *a)
+>> +{
+>> +	int (*set_key)(struct alg_spec *a, struct key *key);
+>> +	const char *key_type_desc, *key_desc;
+>> +	struct key_type *type;
+>> +	unsigned int key_size;
+>> +	struct key *key;
+>> +	char dummy;
+>> +	int r;
+>> +
+>> +	/*
+>> +	 * Reject key_string with whitespace. dm core currently lacks code for
+>> +	 * proper whitespace escaping in arguments on DM_TABLE_STATUS path.
+>> +	 */
+>> +	if (contains_whitespace(a->key_string))
+>> +		return -EINVAL;
+>> +
+>> +	if (sscanf(a->key_string, ":%u%c", &key_size, &dummy) != 2 || dummy != ':')
+>> +		return -EINVAL;
+>> +	if (!key_size || key_size > KMALLOC_MAX_SIZE)
+>> +		return -EINVAL;
+> 
+> KMALLOC_MAX_SIZE allocations are unreliable, they may fail randomly
+> anytime.
+> 
+> You should use "PAGE_SIZE << PAGE_ALLOC_COSTLY_ORDER" as the limit (I
+> assume that this is enough for the key) - this is the reliability
+> threshold for kmalloc.
+> 
+> If you really need larger allocation, you should use vmalloc or kvmalloc.
+> 
+>> +	/* skip ":<key_size>:", the sscanf() above guarantees the second ':' */
+>> +	key_type_desc = strchr(a->key_string + 1, ':') + 1;
+>> +
+>> +	/* look for next ':' separating key_type from key_description */
+>> +	key_desc = strchr(key_type_desc, ':');
+>> +	if (!key_desc || key_desc == key_type_desc || !strlen(key_desc + 1))
+>> +		return -EINVAL;
+>> +
+>> +	if (!strncmp(key_type_desc, "logon:", key_desc - key_type_desc + 1)) {
+>> +		type = &key_type_logon;
+>> +		set_key = set_key_user;
+>> +	} else if (!strncmp(key_type_desc, "user:", key_desc - key_type_desc + 1)) {
+>> +		type = &key_type_user;
+>> +		set_key = set_key_user;
+>> +	} else if (IS_ENABLED(CONFIG_ENCRYPTED_KEYS) &&
+>> +		   !strncmp(key_type_desc, "encrypted:", key_desc - key_type_desc + 1)) {
+>> +		type = &key_type_encrypted;
+>> +		set_key = set_key_encrypted;
+>> +	} else if (IS_ENABLED(CONFIG_TRUSTED_KEYS) &&
+>> +		   !strncmp(key_type_desc, "trusted:", key_desc - key_type_desc + 1)) {
+>> +		type = &key_type_trusted;
+>> +		set_key = set_key_trusted;
+>> +	} else {
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	a->key = kmalloc(key_size, GFP_KERNEL);
+>> +	if (!a->key)
+>> +		return -ENOMEM;
+>> +	a->key_size = key_size;
+>> +
+>> +	key = request_key(type, key_desc + 1, NULL);
+>> +	if (IS_ERR(key)) {
+>> +		r = PTR_ERR(key);
+>> +		goto free_key;
+>> +	}
+>> +
+>> +	down_read(&key->sem);
+>> +	r = set_key(a, key);
+>> +	up_read(&key->sem);
+>> +	key_put(key);
+>> +	if (r < 0)
+>> +		goto free_key;
+>> +
+>> +	return 0;
+>> +
+>> +free_key:
+>> +	kfree_sensitive(a->key);
+>> +	a->key = NULL;
+>> +	a->key_size = 0;
+>> +	return r;
+>> +}
+>> +
+>> +#else
+>> +
+>> +static int get_alg_key_from_keyring(struct alg_spec *a)
+>> +{
+>> +	return -EINVAL;
+>> +}
+>> +
+>> +#endif /* CONFIG_KEYS */
+>> +
+>>   static int get_alg_and_key(const char *arg, struct alg_spec *a, char **error, char *error_inval)
+>>   {
+>>   	char *k;
+>> @@ -4429,6 +4580,19 @@ static int get_alg_and_key(const char *arg, struct alg_spec *a, char **error, ch
+>>   	if (k) {
+>>   		*k = 0;
+>>   		a->key_string = k + 1;
+>> +
+>> +		if (a->key_string[0] == ':') {
+>> +			int r = get_alg_key_from_keyring(a);
+>> +
+>> +			if (r == -ENOMEM)
+>> +				goto nomem;
+>> +			if (r == -EINVAL)
+>> +				goto inval;
+>> +			if (r)
+>> +				*error = "Cannot get key from the kernel keyring";
+>> +			return r;
+>> +		}
+>> +
+>>   		if (strlen(a->key_string) & 1)
+>>   			goto inval;
+>>   
+>> -- 
+>> 2.55.0
+>>
+> 
+
+-- 
+sigma star gmbh | Eduard-Bodem-Gasse 6, 6020 Innsbruck, Austria
+UID/VAT Nr: ATU 66964118 | FN: 374287y
+
