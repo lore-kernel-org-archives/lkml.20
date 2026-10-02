@@ -1,74 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AF24BD7A8;
-	Fri,  2 Oct 2026 14:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D7E149AA34
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790950444; cv=none; b=JP1AgGA8bvftJst5jHqMnK8FNf1Y4p16Lpn9Cr8HdIrT51SaWFRnRpMXga8OKBZL+CllJ/pRbmOPGK79v0ZzwMExFP4Q9Gbud/EgyDtiwd8w4wivmkV5w9Us2/yH9HhMwIuSKzIMOBShB5BO98BowPmBXWSdF2zv902KgBEUtw8=
+	t=1790950481; cv=none; b=o441muxK1OFE6VW8iXofG8O7WqN+NQnPjGP6FZMfWGxY5w+MLNHUc3XkpxfmZic5GNndwbNwb6LmAnJbv3sW5KKnVC/PZLZUjFR2hb15qKZ1U9RO5IiKPATeGQR2XChsL8Wz/Mvs4OFakK+Hv6DFLV2UJkpGF23T4lVK8ohAEKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790950444; c=relaxed/simple;
-	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fRui5kaF9lRPjpIeeVZJNxivKcdqm6QN0vTLlH2A/LIkpj6M/bQay9t8hFMEhYQO+FW0YlhJ5+szVNow9dx/gTKas0pfwKFsX6woQ1FKUSl5mHTF1dYMhz+7yuezomSO+Ai6jnhKkZ13o5XaCxruTLF4FPToUK6gLE72NeWhNaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jp1EUAsd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790950481; c=relaxed/simple;
+	bh=j52YBQvyhm0qnm4xjwmBVEnjBVrMPDC8lohQo+T5vLg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=un+fGBruqCdbAw2+g+mhPT+kDV5iPl7ALseI9Eb9HcUT3ajFiXDcfCx56bCtBfml/CSeOds+aNN/vls156H3ppzWym2dko7JTQOYQN0lBVEuQB8B+YhAYVCssZQCOQohnk1V6224LLDw0yJpPOktnZIoTnZ56tCi4+72fV/3ix4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SSv/2CMn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jp1EUAsd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B161F000FF;
-	Fri,  2 Oct 2026 14:14:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790950441;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jp1EUAsdO8biJ4YG7pYZFD/zXbBzbw/wLRVr4papPGmFtoIxi/pnTXLA+Mqj5uafF
-	 1V3TaCr9NWCgeb39eUWgNrhsjKG+5y/FAOXwyu4tTeZQ8I4M1jwzKEvv0UfZKzvCHf
-	 FD2NV7xQPvhBkoOKCFvRfUSacuVlacjdvqF3VoZgEp1g4h9jRS8F45TYt0wzd2mCZG
-	 ApnUE8iJvyHrNdw1uh6sNIwkivZJI0fEhg91z6t3GZ3zFPfnObxg/fhgCGa0L7gIg3
-	 fKjkbhSmMMchwqQ2ObfJDxVnnX6Y4OZ9W2iaZQ+rUxQQl9XMx+sEr+fPA72/VE7Lwg
-	 1sle8FV+qvmQQ==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?b?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lgg?=
- =?utf-8?b?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Michael Grzeschik <mgr@kernel.org>, Jijie Shao <shaojijie@huawei.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Denis Benato <benato.denis96@gmail.com>, Uwe =?utf-8?q?Kleine-K=C3=B6nig_?=
- =?utf-8?q?=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
-Subject: Re: [PATCH net v2 0/3] net: fealnx: fix card-index overflow and PCI
- device teardown
-Date: Fri, 02 Oct 2026 14:13:59 +0000
-Message-ID: <179095043961.1402591.2720135629640976917@kernel.org>
-In-Reply-To: <20261002140954.261779-1-r.zhambakiev@prosoftsystems.ru>
-References: <20261002140954.261779-1-r.zhambakiev@prosoftsystems.ru>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SSv/2CMn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EFCC497;
+	Fri,  2 Oct 2026 07:14:35 -0700 (PDT)
+Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D9C353F86F;
+	Fri,  2 Oct 2026 07:14:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790950478; bh=j52YBQvyhm0qnm4xjwmBVEnjBVrMPDC8lohQo+T5vLg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SSv/2CMn9K++VWgh78IGljwuILd5KO4eYt8+l6kpBl/pQuGDMTq6cwTkFXdVP9X6z
+	 7wMcsqH2Vcn8AQsT8y1xvZJZ0QojYnmN0NMZUkr56tAZqLAim37u9OTjMusaz7sKSl
+	 IxlG4GOiJCY9JEeFu+9zL/pQIqDtzxI/GnSKhUeQ=
+Message-ID: <73c68c98-5ef3-44e1-81b8-16de37cf10ee@arm.com>
+Date: Fri, 2 Oct 2026 15:14:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 04/15] drm/panfrost: Skip NULL checks for clock
+ enable/disabling
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-4-62beb08de207@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260929-claude-fixes-v12-4-62beb08de207@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi!
+On 29/09/2026 04:44, Adrián Larumbe wrote:
+> The clk_* API can deal with NULL clock objects, so we can do away with NULL
+> checks in client code.
+> 
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Reviewed-by: Steven Price <steven.price@arm.com>
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 14 +++++---------
+>  1 file changed, 5 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> index 5bf528f41278..b3a53504bd01 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -510,11 +510,9 @@ static int panfrost_device_resume(struct device *dev)
+>  		if (ret)
+>  			goto err_clk;
+>  
+> -		if (pfdev->bus_clock) {
+> -			ret = clk_enable(pfdev->bus_clock);
+> -			if (ret)
+> -				goto err_bus_clk;
+> -		}
+> +		ret = clk_enable(pfdev->bus_clock);
+> +		if (ret)
+> +			goto err_bus_clk;
+>  	}
+>  
+>  	ret = pm_runtime_force_resume(dev);
+> @@ -524,7 +522,7 @@ static int panfrost_device_resume(struct device *dev)
+>  	return 0;
+>  
+>  err_resume:
+> -	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
+> +	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+>  		clk_disable(pfdev->bus_clock);
+>  err_bus_clk:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+> @@ -545,9 +543,7 @@ static int panfrost_device_suspend(struct device *dev)
+>  		return ret;
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+> -		if (pfdev->bus_clock)
+> -			clk_disable(pfdev->bus_clock);
+> -
+> +		clk_disable(pfdev->bus_clock);
+>  		clk_disable(pfdev->clock);
+>  	}
+>  
+> 
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
