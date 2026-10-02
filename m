@@ -1,78 +1,53 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cvsmtppost09.nm.naver.com (cvsmtppost09.nm.naver.com [114.111.35.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49C938837C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEBD3EC82A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:08:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928462; cv=none; b=JzkcHk14LefM0M6wjHoLfwf09I62nJdAN8cIbqqYQVYFHAJzRpaV6FBJZHSFvYgP3uslzOeyAbFOI2K9tpRn7rCVcmtmq+phaLjZU/Qo523ak9NvSKtlOl5a/D8LwzqpyTCwOothXhtVtL04Vw9gNRyf1fCw6wN1/lCEr15sfRI=
+	t=1790928542; cv=none; b=GxrPuiLd+cfE7BmH7hu9H2elsDsfUBeT6cxLNpsT5gxuGhpAinOU9SMrBM5WRd8pKe0OYeyL7TFdpBWGWTLOgDcQOSOgiV4iMtXuFA8JuGoJXxFZqi1TyAODi4U4iO5peS5ZEG8aKfq2BRc19tcN57iV7I9qPznKCcNTotrQF1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928462; c=relaxed/simple;
-	bh=JrlGh43GDVTsnhG0JpjaYOMTUpg6rx6jLqB13gLHhbM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BQxM5MqkGqlbolviF4B612zBq5x43eu+cjyATnCybxWA2tJVlfEMt+YA44oPh3+cZkx2h0MXZyF0njnVjIRzFI5zfnK0S27ZCFy+pFSrLQU0uvOZa9LW0iTwCucRcBwv+00DCp5JvHv7X4VIeMlv0ZhFfwb/VV7u2ZM+W4ygalE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A3kRIctH; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790928542; c=relaxed/simple;
+	bh=YqMsuAuNQMUvD/G7+h5MJaJPBXpm/TGX27t5odLG4ao=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=C86VImKiU3x6m8vT9pV85zOgX+wYkrpEnGaRueCwE9U6EXCKiiReulnUd5V4TST+aTBfvsa3+AZKmaQp6cvrzX+EB3J/foacNb/uMDKQzNh66HHIMpIm2d8Hr7628McubSmwmwh/yDQMhd6BnH6lAonlMP8U9WBM8HuNCHNbOHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=c03O9IHl; arc=none smtp.client-ip=114.111.35.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A3kRIctH"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-341d0522b4dso11825349eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:07:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790928460; x=1791533260; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z54n6VzC+kkkl/3Ijn5IvZJnQmri9nkKbsWlxFk/GYk=;
-        b=A3kRIctHQVWWtB8CuaYGY6qu9doP5kzmcLGdbjALlPlJ+PxOUsP0cbUsgVnq5eOu8k
-         Ri0tCvWkB8Fs9eU22+AL09d5SRP85ajoMNDCJJqJsolKKQTejVrkw+mYBYEtTLGzeuFJ
-         L4/mkO9wFEGRujkjXQ/Frp/k7lBTxJzDit1ZaTOpq0MWyweNQYlgDXu8RwCx4+3s4P+B
-         5pBFmO8CGsahwHwQVgYJbKE9EHCexBDoo4kDL5ip72lgaO1JAFwGQ9HlTVAmM1pmD19c
-         +Kpp6+QamFmRNLGJczr59Bfa1pbGsUFvCpb+VdErf1arJnSKInii5KkOYhKTtTrVvxd1
-         n2Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790928460; x=1791533260;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z54n6VzC+kkkl/3Ijn5IvZJnQmri9nkKbsWlxFk/GYk=;
-        b=AF3Rgu2oHre1m5Vl8gTmD353zS5ryRwGnOaUf4OukaNcbIzCICtH8QcaoubFdEaz2M
-         R41dE3eW6DRYi09M2ATS26KZOtDeQeudE6ibjrg6qTXqPJ9FYPSae4OKgGRm3V4qnbd2
-         snccSRGKdMn1JVoYZTajJo92ULWlujD6exBUqW89WWpNfsEl9YrosT7DdVQdKOj+bsl+
-         fkSuxbps1v8QcVSqN1qt9FctK96uKo9y7oZV3JLZoBzahvBYSULLfWuHZXqxpLf9RD7o
-         ka7kpusu+yQG5a8JgscQ9V4c2Z2tQU53GdnegH7atOpPHD/zQWCGaz8rvuvsKqclmLOu
-         B3Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBx2bBL6sPAFYaTRKv/4wks+6Q/SeHLQrdizHhVF2cY/zaYGF7OZS41SbraUWVq5D/+lX6AToJtyc8hzycw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDTUYQ3O46ROpU0k4yw3K26cFtlOGWZ8Z7RkcH0ShqQJxiKNIj
-	p2dpHSqFoW0/qdFkufS5VDABHV6mihq9wgD4YsA/Ig8txP/IqpuzSlI0
-X-Gm-Gg: AYBFou0dUBtmiPmChz6d96zmzYhKy7vXkCFz/SmtEKnE8JrKVa4v6ecLpd8maXSaM51
-	BM+ERzADG4hMBuKTKLetkbl6BSez3EkKv1tG3xPL/zjWODH6zdEmrPXhaVVi58JWO8h7TDXu3oa
-	5YEMTbWvzzldRnis0791Y2+pZplVb+QBvb2Ua4iZzLaEjCiGoJBFl8yYauuT8pGDEsoRAVT49RW
-	nPay2sJb3MGNRWzj08/cbHE5ohte9LIywtDQyd573p6T+FE1vZc2kR/YppkaRD4LnM4TJpJkfY2
-	cYNEJHF6BtxyGqXxlLl2wEX4iEHAM8TAgb0PSZuJvT38F7bXy1hxaGa8OGGsCGyFWpx6Xu61u+j
-	yG8FAiTuY7voDwuWc409jNN3IFV70IzDPXIXubnaOsDtp1w/CWaU5awLMdlxWRds0re9gjk8LsA
-	FtOxS20TAVKlbzymCVfF52E0Z60JGLAiISCC6bHwJz+v/YHpOgxtXtlp0wia955mdNv/Uz34nSw
-	spXjUl7wXFO9szaqBNXKqFGf6B1QEWLGoNq6SD69zEZ/CcP1F3Lxl/SJ2fwMtYkhcLYwBhGUEGj
-	D4I1oEQ=
-X-Received: by 2002:a05:7300:e9d7:20b0:350:7852:f7df with SMTP id 5a478bee46e88-3507852fc50mr1336424eec.0.1790928459675;
-        Fri, 02 Oct 2026 01:07:39 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1c0e:3312:2cff:28c9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f303e3sm5492739eec.5.2026.10.02.01.07.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 01:07:39 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="c03O9IHl"
+Received: from mvsendbo14.nm ([10.179.40.207])
+  by cvsmtppost09.nm.naver.com with ESMTP id FU7CxW8TRXanWFNXL5mxYQ
+  for <linux-kernel@vger.kernel.org>;
+  Fri, 02 Oct 2026 07:58:50 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1790927930; bh=YqMsuAuNQMUvD/G7+h5MJaJPBXpm/TGX27t5odLG4ao=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=c03O9IHlpszlU2F9VLSp+G/lV1JS0hykYhIlU8JReUTgT6yGSxdnAn0tq5llLzcEk
+	 NzU8pGlKPHJkoYEUwEjo2vXOY0QrOCx5uw9XQQWPX3I1aaoscSp2dY043yDh63E0LH
+	 rt4ED/sQFEFDLZuB3b1geAUZPbZ7zooZ/TUHbyxbGF2FBgNf3X9gVxoicqZDKRDtWt
+	 ivTCI+hpQBBSEn876YJu4xn3n6QXohwOpujDHlEIabWVmp8UF2ygtZFjtI4QcYW4mI
+	 iVdfQ7j+lqibgadJ061ojUotzyrlmfl9r75CLh2t47YE3w9SxOcV9YOJsKYTJw3SF5
+	 z/GAVfdrSqCsw==
+X-Session-ID: bM-Aug-9Tya4a4jbmwmhFg
+X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKHmrjAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: VZblaAglFqJZ+HmmKqE9+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp001.nm.naver.com with ESMTP id bM-Aug-9Tya4a4jbmwmhFg
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Fri, 02 Oct 2026 07:58:50 -0000
+From: tjdqudcks0424@naver.com
+To: bsingharora@gmail.com
+Cc: xu.xin@linux.dev,
+	akpm@linux-foundation.org,
+	gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH v2] drm/xe: use resource_size() in xe_pagemap_create()
-Date: Fri,  2 Oct 2026 13:36:59 +0530
-Message-ID: <20261002080731.13992-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	stable@vger.kernel.org
+Subject: [PATCH v2] taskstats: route exit listener records through their netns
+Date: Fri,  2 Oct 2026 16:58:42 +0900
+Message-ID: <20261002075842.146026-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,41 +57,298 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Use resource_size() instead of open coding res->end - res->start + 1.
+From: 성병찬 <tjdqudcks0424@naver.com>
 
-Include linux/ioport.h explicitly, since the file relies on struct
-resource and now on the helper as well.
+Commit edc73c7261ca ("kernel: make taskstats available from all net
+namespaces") made the taskstats Generic Netlink family available from all
+network namespaces.  CPU-mask listener registrations, however,
+still store only a bare netlink port ID in a global per-CPU list and send
+exit records through init_net.
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+Netlink port IDs are namespace-local.  An administrator can register an
+exit listener after unsharing only the network namespace, while an
+unprivileged init_net socket binds the same numeric port ID.  The latter
+then receives taskstats for exiting tasks of other UIDs despite being
+unable to register a listener or issue a direct taskstats query.
+
+Do not address this by rejecting listeners outside init_net.  That was
+the v1 approach.  No confirmed deployment relying on this combination
+was found, but taskstats has accepted the documented CPU-mask listener
+command there since v5.19 and in-tree tools use this interface.  Preserve
+that behavior to avoid an unnecessary compatibility risk.
+
+Associate each listener with taskstats family-private storage for the
+exact Generic Netlink socket.  Record that socket's network namespace and
+port ID and use both for unicast.  On socket release, the family-private
+destructor removes every listener owned by that socket.  The socket pins
+its namespace until the destructor returns, so no additional net
+reference is needed.
+
+The per-CPU rwsem protects the listener-to-owner pointer from registration
+through unicast and removal.  It also makes explicit deregistration,
+failed-send cleanup, and socket destruction mutually safe.  Allocate a
+complete multi-CPU registration batch before publishing it so an
+allocation failure neither leaves a partial registration nor removes an
+older one.
+
+A purpose-built reproducer found and validated the issue in disposable
+QEMU guests.  On the unmodified kernel, the child listener missed the
+record and the colliding init_net socket received it.  In three fixed
+runs, the child listener received the record, the colliding socket timed
+out, and its direct query and registration returned EPERM.  Init-net and
+child-net listeners, PID/TGID queries, deregistration, same-port listeners
+in two child netns, close and netns teardown races, KASAN, UBSAN, lockdep,
+listener counts, and kmemleak also passed.
+
+The per-socket Generic Netlink API exists in v6.8 and later.  Older stable
+trees affected by the Fixes commit need a tailored backport.
+
+Fixes: edc73c7261ca ("kernel: make taskstats available from all net namespaces")
+Cc: stable@vger.kernel.org # 6.8+
+Link: https://lore.kernel.org/all/20110630120831.GB7707@albatros/
+Link: https://lore.kernel.org/all/87v8x678ph.fsf@email.froward.int.ebiederm.org/
+Assisted-by: OpenAI Codex
+Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
 ---
-v2: elaborate more in the commit message, and include
-    linux/ioport.h. Both as per Rodrigo suggestions.
+Changes in v2:
+- Preserve CPU-mask listener registration in non-initial network
+  namespaces.
+- Associate listeners with their registration network namespace.
+- Deliver exit records through the listener's namespace.
+- Handle listener cleanup across deregistration, socket close, and
+  network namespace teardown.
+- Add the requested Assisted-by trailer.
+- Add cross-netns collision and teardown A/B test results.
 
-Link to v1: https://lore.kernel.org/all/20261001163328.51556-1-sinha.aryan03@gmail.com/
- drivers/gpu/drm/xe/xe_svm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+v1: https://lore.kernel.org/r/20261001223721.458667-2-tjdqudcks0424@naver.com
 
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index b228a737c..a9b087c43 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2024 Intel Corporation
-  */
+kernel/taskstats.c | 135 ++++++++++++++++++++++++++++++---------------
+ 1 file changed, 91 insertions(+), 44 deletions(-)
+
+diff --git a/kernel/taskstats.c b/kernel/taskstats.c
+index f31df72f0e9df..fb8cbbdd1c345 100644
+--- a/kernel/taskstats.c
++++ b/kernel/taskstats.c
+@@ -45,9 +45,15 @@ static const struct nla_policy cgroupstats_cmd_get_policy[] = {
+ 	[CGROUPSTATS_CMD_ATTR_FD] = { .type = NLA_U32 },
+ };
  
-+#include <linux/ioport.h>
- #include <linux/pci-p2pdma.h>
++struct taskstats_sock_priv {
++	struct net *net;
++	u32 portid;
++};
++
+ struct listener {
+ 	struct list_head list;
+-	pid_t pid;
++	struct taskstats_sock_priv *owner;
++	unsigned int cpu;
+ 	char valid;
+ };
  
- #include <drm/drm_drv.h>
-@@ -1848,7 +1849,7 @@ static struct xe_pagemap *xe_pagemap_create(struct xe_device *xe, struct xe_vram
- out_no_pages:
- 	drm_pagemap_release_owner(&xpagemap->peer);
- out_no_owner:
--	devm_release_mem_region(dev, res->start, res->end - res->start + 1);
-+	devm_release_mem_region(dev, res->start, resource_size(res));
- out_err:
- 	drm_pagemap_put(dpagemap);
- 	return ERR_PTR(err);
+@@ -128,9 +134,10 @@ static void send_cpu_listeners(struct sk_buff *skb,
+ 			if (!skb_next)
+ 				break;
+ 		}
+-		rc = genlmsg_unicast(&init_net, skb_cur, s->pid);
++		rc = genlmsg_unicast(s->owner->net, skb_cur,
++				     s->owner->portid);
+ 		if (rc == -ECONNREFUSED) {
+-			s->valid = 0;
++			WRITE_ONCE(s->valid, 0);
+ 			delcount++;
+ 		}
+ 		skb_cur = skb_next;
+@@ -146,7 +153,7 @@ static void send_cpu_listeners(struct sk_buff *skb,
+ 	/* Delete invalidated entries */
+ 	down_write(&listeners->sem);
+ 	list_for_each_entry_safe(s, tmp, &listeners->list, list) {
+-		if (!s->valid) {
++		if (!READ_ONCE(s->valid)) {
+ 			list_del(&s->list);
+ 			kfree(s);
+ 		}
+@@ -296,63 +303,77 @@ static void fill_tgid_exit(struct task_struct *tsk)
+ 	return;
+ }
+ 
+-static int add_del_listener(pid_t pid, const struct cpumask *mask, int isadd)
++static int add_listener(struct taskstats_sock_priv *owner,
++			const struct cpumask *mask)
+ {
++	LIST_HEAD(new_listeners);
+ 	struct listener_list *listeners;
+ 	struct listener *s, *tmp, *s2;
+ 	unsigned int cpu;
+-	int ret = 0;
+-
+-	if (!cpumask_subset(mask, cpu_possible_mask))
+-		return -EINVAL;
+ 
+-	if (current_user_ns() != &init_user_ns)
+-		return -EINVAL;
++	for_each_cpu(cpu, mask) {
++		s = kmalloc_node(sizeof(*s), GFP_KERNEL, cpu_to_node(cpu));
++		if (!s)
++			goto free_new;
++		s->owner = owner;
++		s->cpu = cpu;
++		s->valid = 1;
++		list_add_tail(&s->list, &new_listeners);
++	}
+ 
+-	if (task_active_pid_ns(current) != &init_pid_ns)
+-		return -EINVAL;
++	list_for_each_entry_safe(s, tmp, &new_listeners, list) {
++		bool exists = false;
+ 
+-	if (isadd == REGISTER) {
+-		for_each_cpu(cpu, mask) {
+-			s = kmalloc_node(sizeof(struct listener),
+-					GFP_KERNEL, cpu_to_node(cpu));
+-			if (!s) {
+-				ret = -ENOMEM;
+-				goto cleanup;
+-			}
+-			s->pid = pid;
+-			s->valid = 1;
+-
+-			listeners = &per_cpu(listener_array, cpu);
+-			down_write(&listeners->sem);
+-			list_for_each_entry(s2, &listeners->list, list) {
+-				if (s2->pid == pid && s2->valid)
+-					goto exists;
++		list_del(&s->list);
++		listeners = &per_cpu(listener_array, s->cpu);
++		down_write(&listeners->sem);
++		list_for_each_entry(s2, &listeners->list, list) {
++			if (s2->owner == owner && READ_ONCE(s2->valid)) {
++				exists = true;
++				break;
+ 			}
+-			list_add(&s->list, &listeners->list);
+-			s = NULL;
+-exists:
+-			up_write(&listeners->sem);
+-			kfree(s); /* nop if NULL */
+ 		}
+-		return 0;
++		if (!exists)
++			list_add(&s->list, &listeners->list);
++		up_write(&listeners->sem);
++		if (exists)
++			kfree(s);
+ 	}
++	return 0;
++
++free_new:
++	list_for_each_entry_safe(s, tmp, &new_listeners, list) {
++		list_del(&s->list);
++		kfree(s);
++	}
++	return -ENOMEM;
++}
++
++static void remove_listener(struct taskstats_sock_priv *owner,
++			    const struct cpumask *mask)
++{
++	struct listener_list *listeners;
++	struct listener *s, *tmp;
++	unsigned int cpu;
+ 
+-	/* Deregister or cleanup */
+-cleanup:
+ 	for_each_cpu(cpu, mask) {
+ 		listeners = &per_cpu(listener_array, cpu);
+ 		down_write(&listeners->sem);
+ 		list_for_each_entry_safe(s, tmp, &listeners->list, list) {
+-			if (s->pid == pid) {
++			if (s->owner == owner) {
+ 				list_del(&s->list);
+ 				kfree(s);
+-				break;
+ 			}
+ 		}
+ 		up_write(&listeners->sem);
+ 	}
+-	return ret;
++}
++
++static void taskstats_sock_priv_destroy(void *data)
++{
++	struct taskstats_sock_priv *owner = data;
++
++	remove_listener(owner, cpu_possible_mask);
+ }
+ 
+ static int parse(struct nlattr *na, struct cpumask *mask)
+@@ -448,10 +469,12 @@ static int cgroupstats_user_cmd(struct sk_buff *skb, struct genl_info *info)
+ 	return send_reply(rep_skb, info);
+ }
+ 
+-static int cmd_attr_cpumask(struct genl_info *info, int attr,
++static int cmd_attr_cpumask(struct sk_buff *skb, struct genl_info *info,
++			    int attr,
+ 			    enum actions action)
+ {
+ 	cpumask_var_t mask __free(free_cpumask_var) = CPUMASK_VAR_NULL;
++	struct taskstats_sock_priv *owner;
+ 	int rc;
+ 
+ 	if (!alloc_cpumask_var(&mask, GFP_KERNEL))
+@@ -459,7 +482,29 @@ static int cmd_attr_cpumask(struct genl_info *info, int attr,
+ 	rc = parse(info->attrs[attr], mask);
+ 	if (rc < 0)
+ 		return rc;
+-	return add_del_listener(info->snd_portid, mask, action);
++	if (!cpumask_subset(mask, cpu_possible_mask))
++		return -EINVAL;
++	if (current_user_ns() != &init_user_ns)
++		return -EINVAL;
++	if (task_active_pid_ns(current) != &init_pid_ns)
++		return -EINVAL;
++
++	owner = genl_sk_priv_get(&family, NETLINK_CB(skb).sk);
++	if (IS_ERR(owner))
++		return PTR_ERR(owner);
++	if (!owner->net) {
++		owner->net = genl_info_net(info);
++		owner->portid = info->snd_portid;
++	} else if (WARN_ON_ONCE(!net_eq(owner->net, genl_info_net(info)) ||
++				owner->portid != info->snd_portid)) {
++		return -EINVAL;
++	}
++
++	if (action == REGISTER)
++		return add_listener(owner, mask);
++
++	remove_listener(owner, mask);
++	return 0;
+ }
+ 
+ static size_t taskstats_packet_size(void)
+@@ -534,11 +579,11 @@ static int cmd_attr_tgid(struct genl_info *info)
+ static int taskstats_user_cmd(struct sk_buff *skb, struct genl_info *info)
+ {
+ 	if (info->attrs[TASKSTATS_CMD_ATTR_REGISTER_CPUMASK])
+-		return cmd_attr_cpumask(info,
++		return cmd_attr_cpumask(skb, info,
+ 					TASKSTATS_CMD_ATTR_REGISTER_CPUMASK,
+ 					REGISTER);
+ 	else if (info->attrs[TASKSTATS_CMD_ATTR_DEREGISTER_CPUMASK])
+-		return cmd_attr_cpumask(info,
++		return cmd_attr_cpumask(skb, info,
+ 					TASKSTATS_CMD_ATTR_DEREGISTER_CPUMASK,
+ 					DEREGISTER);
+ 	else if (info->attrs[TASKSTATS_CMD_ATTR_PID])
+@@ -671,6 +716,8 @@ static struct genl_family family __ro_after_init = {
+ 	.n_ops		= ARRAY_SIZE(taskstats_ops),
+ 	.resv_start_op	= CGROUPSTATS_CMD_GET + 1,
+ 	.netnsok	= true,
++	.sock_priv_size	= sizeof(struct taskstats_sock_priv),
++	.sock_priv_destroy = taskstats_sock_priv_destroy,
+ };
+ 
+ /* Needed early in initialization */
 -- 
-2.46.0
-
+2.43.0
