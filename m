@@ -1,164 +1,114 @@
-Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0D24DA9C9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952232; cv=pass; b=RIJP2pmoG9AkmLmgoXdBkqGNK0G2N8Q/yuQK2QSUXYEmhXXhe4XbWLR7er7V+YTWL1Yarl8bk5HzEvVN6MnbqHsuVULwokpoSXKBq080n3t6RuophQGDJavfcT0YrPHIWyj5VIv98XJlSYdzaOZ0L7RsHpny/K8hvzVUTZoGR1E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952232; c=relaxed/simple;
-	bh=ciy5AYs5s8nztyVhIOwmEsvrjTLJIlrAEhcvpdlNER8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y+N5H3mwl/z06SeHnXkpefS0aISczQMuzToyh93bqdCvYX5utk8vENhwjXIdt9qXoYLRYhTQ6BfxwSfNcRMAoALfMJDxvwF3im4aZHIy475hYcEcTDU7wfjkg0/2Tq1Tn7es2Kgp7todv8nc7xK0QccTEXgk6EwQ3coYB7zNmXU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uCF3L400; arc=pass smtp.client-ip=74.125.227.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F26C4CDDE8
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790952294; cv=none; b=rNIhLPj+GUN9FieZsdXenHGrVgjO85IkV6O+n768jZlGhAoKZ8JJX932KmxtEYzKAxuuBrcf5abb4jg+zuWAEv9K9VY5dxxY71zFnZdSaaS3OdlG3uADZTgZRMXnvph+kBA5ir/QGkSC9W+gQ4Pm9AG+0VpLUU3RKpZ8QYfXpqs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790952294; c=relaxed/simple;
+	bh=GWsyH6hBcwla1pNANi7ebFerp2rnqJQcWaAcfk29BGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=NtiQ+UHd2hvj0+9nzsBG2hGT+uxotoaIsxoAhL4nDrYoieHxm9JBMsh2rh3NoKXfwpsQq8LXt3xg9k8yH1j4TYfdLHSjdyfQw1gt0b1XbRMd6OzHtZLmqj0FYL4CEJp62oz4YNwryEtWCZfZjLxHqEfA/j2HjMUyw8X1UqBt0P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=slKklJhJ; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uCF3L400"
-Received: by mail-vs2-f38.google.com with SMTP id ada2fe7eead31-7c0632898c9so570079137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:43:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790952222; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VXF1IQ8zgloFljLQCFgcw2VAqR6RsyJ5b0utzZtCEhJs9E+PI5+pZnOfkedjN+U8sv
-         MT+7rVKi7kC1RMhGqneaU7aZhcNRn756BbjYhSyNlQC97ZuWMMo6SyVx+c3pTM3EmV0T
-         N/9hAQFlh+IL33F5pWYVkvBsaPM2anIj5c1cT8uU4WTAMCTy9+U+gNLKr/tnPvcpF2oo
-         O1UssaxMh+lneCjEePLpbFeaP2VBWnpPCZmm/23/GgdTVZl0HdIIXqPlTMYeTU8aJ8bx
-         qsKdWty72Aif9kPwDJYEAx1qXi/VQatUDnZfRQmdG4ONwNcaMRpdjdaiLOKQCacVVKeg
-         ZyuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Abb/w7OCqOgoDbYsM1LhnQzjs8VHQVCJFeoLP4m09ag=;
-        fh=3WeDuLxNBdNPEl9RyvjXhtEAKT/u1UTbT/xLspLoRCw=;
-        b=oShfCQsv8R8SDM9mS300miksKTmfB7aBNUtSBOz84Hmc1sUIkaxlsA7L76AnWSndcB
-         2/bFTJ/amiz3t0tyaYxU36XJwCTLbOYjUeS4ulY8D9if2tzGIW6ejR2gXk67cAKdtiZy
-         u3Fw0tcB8sKzJy4aXyPEuloCsv+DmSSmQyV43GpDdA/sXENyGPrLo1mJ+cr4IWbfA4EN
-         bzebDW6SOzzO8xfjb+qEq5I+5W/9viagF/q/PSJkkmKOokEbRVOpmfNTjnnmCupxllmr
-         rmEpHA6EXxyXt37NpBNUprZ0fJ8LDH6gJMeDnnXIKyONM5i6FCgZS46ebEHfKT/rbKPZ
-         3rZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="slKklJhJ"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e23be09baso392772866b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:44:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790952222; x=1791557022; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790952280; x=1791557080; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Abb/w7OCqOgoDbYsM1LhnQzjs8VHQVCJFeoLP4m09ag=;
-        b=uCF3L400Mw41pP+ID6dTCrQn/Ou4FPEJbBHdeII18Hoz2k1k4rre1rJFIAO6bUlwre
-         z6gRPhTpXcPlz3nq0557AFvFh64IkDhE8gu0hkTjEtYc2AALo8ve7aHeBWZgT9kS+qGm
-         Aahd4jObOdGpUC05G+dt5DQuF+dhHOuKKmZ6W24WpocQRINW+cTk76pKa47/8kSJj8hq
-         vlvzoyk+5wxSfN4jV0Sl34fdQ36egSdDouJplkpNq5THjyyVeVWZqvL8by+BiUPNF7Xw
-         3PiJS7vaaBE6zz6Q9K+202iOt1HVPlA/GK7GXLGJs75ihgepxby2XEeWJJsV23G3G3Nd
-         ThfQ==
+        bh=+uhe1kjp0ioHVkkyq0x9skUJJmlCnM0ROQqvDHAfjDU=;
+        b=slKklJhJ5Mz6JlUDJdZ5fjGNKZmbLzqI74q/KJYfQOjhfdNuN/HwC9mIMI5iDGEmhK
+         O4QG+kNT4EsbKM7LxMbDmhQzoATYtWNxiHOY61sou6d8YfJjX/K9JsfQntKThWp4OpJh
+         4CtbnKNprEHRhDGhquanFs1fb+Ir5CiQEI9Z8cci2oTpX8M/LmucUv6ySnNPzoyW7Tjw
+         aqVi/QktktXF5lgLaZko5Ly/06ucSOvx1TuZ/Ik3u3T1eBj/sx9TLe7RiNTW8p9fJyvB
+         Rv1ZLfXJ1YaZd4eWr3uWGCvaSMK3x9OwLoKs1oLw3S5boEGHTxE0yF2ypl/od8MduYIl
+         wZlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790952222; x=1791557022;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Abb/w7OCqOgoDbYsM1LhnQzjs8VHQVCJFeoLP4m09ag=;
-        b=o0BN1TL4KY+63G2/jigNItodIMOh4yWYH2SMnxzOqPN561ZB3WyMSAQr9reQB9AHkB
-         USMqJ6W7eJcpJ8cuqxZnLxscgkC9V9ktPcwz0GZZCYwmHcu5cf+4gdKzRHXaCbZdWzk7
-         +t8VnaKyB/vczyygotJSI9XcqieQqhiYwiMtcUzfjy2UhGDRJJsAbArMW6GSKk4fJbKo
-         rcRCtj4dI5fCMNM1pwdqlZLabGxcOjyRhTddlxKZU+yORaXldHFDw8PK6fCncQ0i4JhD
-         QsrDH0AztnRFhbtoHbhOcV3u3FrzPRhZ/vqRnfwyuObM8SVi1U8MVFgjn7vTpkoekymf
-         ckpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZfN52oHbby/uiCShpLpwfClMWllQg8YN/SjaMBPADU9lTQsR/WBymR2Rw3VqtbJC7f1is9D1ZOp5pRtk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNyIml9ch8M3SfO42bcoTvkgINFxXL8clCjslNWteBHxJcOhQy
-	k6VsRHk0wMIStD6gbLiroqgBArOsbIhwDt5YxAXP1Q6Npl8SfiwBfIbinJuJ663KUiwj2wsBmGe
-	vaOKMUKDb7ZDsbyNvmhTPwr//l3XFcbQZehd49Cl3bg==
-X-Gm-Gg: AYBFou2g7M+BdHXzwDuQdePZB7W+sUYfOxHnadoDDZB9oc0n7VmDVYgK/fTFmvUJ/1O
-	WD1ncrJ8Jfwy1QUsMCSc+84biQ5Gp/SwTiiMQDZnRcyFWaIaCMuYP2Gww1cTqLPE4b9rDSVuOO7
-	lyGVcdC5H6HYF4JYtlWDTe8+iAm9aqbbwZ/09BexLzd9kCfaoSwrMRgU4ngu8gSTl6tQ/N0MGzD
-	VPWSjJsf82Rw8wlz+cE2z5Ys6MS6AInnmRN5KDVZIGefWB7fAlsAwjwW8dySc1hBms1+k1/EDwu
-	Jf+W55nXWWKh1qcKkUJJ/Vb3b9DfQZZOUNhHKoWZ56F2nOxDZh6esISBTO93ikBC0mJcFI2Revl
-	HLW7pLVWOCXAMHv2Fl4CzJ/Vd
-X-Received: by 2002:a05:6102:f9b:b0:7a1:f980:e936 with SMTP id
- ada2fe7eead31-7c0f51a9b92mr610476137.18.1790952222091; Fri, 02 Oct 2026
- 07:43:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790952280; x=1791557080;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+uhe1kjp0ioHVkkyq0x9skUJJmlCnM0ROQqvDHAfjDU=;
+        b=IA6KwUxnzz/cYgqc9dEo1RjiHL+idCfSZbs7oyOoiEiBh2iTaI09zaimdZHoOrMMVf
+         xogzSBJYNS0iMU7OePkeXT+YwZUtryUHX9bbjgmTd+6vOMWm8hcB3s9DabpbqLigzJRG
+         AFm3M6w8wk06yDrcRzLIl/OMAx862r0pG38g4ojMFKWGPObZ5sQp1ubvuH2AdIxVrq+d
+         +1yohZ46g71rBmHJkOcvp7FEmMYWkvEnIy4j1bKs6sOU0A5R4de4yVHneRgwmOgH5EKZ
+         LlUo4t/k3NSug1YVeo2r2l98SFGz3SzVjwaCYNgkpg8ublkAdv5xClIcUbITJ47ViZ/Q
+         Ngvg==
+X-Forwarded-Encrypted: i=1; AKwUvBygffoD31kHpH3ElpC3/Vuu/KvNdhohqz4txGoZxZYeIVV13C6sgjpKHQpsg7pmX8UE02MedygWSVcD89k=@vger.kernel.org
+X-Gm-Message-State: AFuF++l25FfakarFT77TCVcY4TElh1FQfaeE7W5S8C2GYI+OZlctm1oi
+	5Cr3o2iE7wmL5ikL0YCgez4BsRf+ZkuMkGeA8bCUN5rpWL/QN2ubP1Aq
+X-Gm-Gg: AYBFou1O2bAv2QCPqG4kzZM/I98ZBSMDH4PcUs8XHq8ZH4EtcB8m7mmlamFCc6rowKi
+	QUPdMR5HnhG84qGJbSqp8EeV/yTeis5BmMHuLMnEXJ/MZJImUf97QiVxmC57BP6LFXlsK4ORM38
+	+ZSFtJTGyVtrz3upMkxHXpszilpXmiYticNmFUeb2MQbJintRuR8SPdB5dNBxEsHHXqZm1S2ZrF
+	4O+VoPjN2qDIZFLczoB0ztJtBncl64Oi1C9eXGyXXGpObZ4pBQU9EDZBJXhdIXBdgu+YqUk1dpo
+	Vj0ikqJSydH5ud8w0aXzTHA+OjK6yAijhlXE/SSEOJylnSmMnIdjmupwOZYYAa9n9CikyeMuLjt
+	rzuUrm6AgcaflUKidZdD99s31KSmAxaRC1p6/cril5K+9PW/Oy1SU/Nxr6BY7VYYZE/GVTOszr4
+	ppqCZoDo6rQejPHetpRcbYc6DChdMzIrFuF1qMcZiqyOEOfm75vIyv1Qhxy76Cl5l2Cms=
+X-Received: by 2002:a17:907:9346:b0:c2e:4627:285c with SMTP id a640c23a62f3a-c2e4ad2cf15mr246398466b.21.1790952280011;
+        Fri, 02 Oct 2026 07:44:40 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cfa6dfcsm92846166b.72.2026.10.02.07.44.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 07:44:39 -0700 (PDT)
+Date: Fri, 2 Oct 2026 17:44:34 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Peter Huewe <peterhuewe@gmx.de>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: [PATCH] tpm: clean up error checking in setup_ring()
+Message-ID: <ar_DUjuGv-9vPzga@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-exynos850-acpm-firmware-support-v3-0-473a69fc8a3d@linaro.org>
- <20260929-exynos850-acpm-firmware-support-v3-2-473a69fc8a3d@linaro.org>
-In-Reply-To: <20260929-exynos850-acpm-firmware-support-v3-2-473a69fc8a3d@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 2 Oct 2026 15:43:29 +0100
-X-Gm-Features: AclHuK-HUUsrOdFljkk42xven02N-tiuZrJ__yBG6xUzcagLPJ7c3UWcflomjnQ
-Message-ID: <CADrjBPqi3RWdUy-S2Vn2-E6h0OGhrFPWEcKcarswivOdPzFTKQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] firmware: samsung: acpm: add Exynos850 support
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Sam Protsenko <semen.protsenko@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-samsung-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 
-On Tue, 29 Sept 2026 at 03:11, Alexey Klimov <alexey.klimov@linaro.org> wrote:
->
-> The Exynos850 SoC contains an APM co-processor. Communication
-> with this hardware block is established using the ACPM protocol,
-> which handles IPC messages for clocks, power, thermal management,
-> and PMIC control.
->
-> Add the "samsung,exynos850-acpm-ipc" compatible string along with
-> its associated match data. This includes the specific initialisation
-> data base offset (which differs from the GS101 offset) and the
-> "exynos850-acpm-clk" device name required to properly instantiate
-> the clock provider.
->
-> Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> ---
+The bind_evtchn_to_irqhandler() function can never return 0.
+Historically, IRQ functions used to return zero on error, but then we
+added an architecture where that was a valid IRQ so it went from being
+an error to being success (but in a limitted way, just enough for that
+arch to boot, I guess).  Eventually we removed it and we will never
+allow zero to be a valid IRQ again.
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+The problem here is that if zero were an invalid IRQ then we should
+return a negative error code but the code returns zero/success.
 
->  drivers/firmware/samsung/exynos-acpm.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-> index 942a2e9f02f5..5a16665e941b 100644
-> --- a/drivers/firmware/samsung/exynos-acpm.c
-> +++ b/drivers/firmware/samsung/exynos-acpm.c
-> @@ -39,6 +39,7 @@
->  #define ACPM_POLL_TIMEOUT_US           (100 * USEC_PER_MSEC)
->  #define ACPM_TX_TIMEOUT_US             500000
->
-> +#define ACPM_EXYNOS850_INITDATA_BASE   0x7000
->  #define ACPM_GS101_INITDATA_BASE       0xa000
->
->  /**
-> @@ -876,6 +877,11 @@ struct acpm_handle *devm_acpm_get_by_phandle(struct device *dev)
->  }
->  EXPORT_SYMBOL_GPL(devm_acpm_get_by_phandle);
->
-> +static const struct acpm_match_data acpm_exynos850 = {
-> +       .initdata_base = ACPM_EXYNOS850_INITDATA_BASE,
-> +       .acpm_clk_dev_name = "exynos850-acpm-clk",
-> +};
-> +
->  static const struct acpm_match_data acpm_gs101 = {
->         .initdata_base = ACPM_GS101_INITDATA_BASE,
->         .acpm_clk_dev_name = "gs101-acpm-clk",
-> @@ -886,6 +892,10 @@ static const struct of_device_id acpm_match[] = {
->                 .compatible = "google,gs101-acpm-ipc",
->                 .data = &acpm_gs101,
->         },
-> +       {
-> +               .compatible = "samsung,exynos850-acpm-ipc",
-> +               .data = &acpm_exynos850,
-> +       },
->         {},
->  };
->  MODULE_DEVICE_TABLE(of, acpm_match);
->
-> --
-> 2.51.0
->
+Change the code to check for negative error codes so it's not question
+of how the zero should be handled.
+
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+From static analysis.  Untested.
+
+ drivers/char/tpm/xen-tpmfront.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/char/tpm/xen-tpmfront.c b/drivers/char/tpm/xen-tpmfront.c
+index 3c0cce57c4ae..731444eac5f2 100644
+--- a/drivers/char/tpm/xen-tpmfront.c
++++ b/drivers/char/tpm/xen-tpmfront.c
+@@ -266,7 +266,7 @@ static int setup_ring(struct xenbus_device *dev, struct tpm_private *priv)
+ 
+ 	rv = bind_evtchn_to_irqhandler(priv->evtchn, tpmif_interrupt, 0,
+ 				       "tpmif", priv);
+-	if (rv <= 0) {
++	if (rv < 0) {
+ 		xenbus_dev_fatal(dev, rv, "allocating TPM irq");
+ 		return rv;
+ 	}
+-- 
+2.53.0
+
