@@ -1,56 +1,56 @@
 Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE96374A0E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:26:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD67C3AF656
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:26:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790965617; cv=none; b=GUmn2qfXtAn0udkQ7cP7zzDN7JAIsy84JYabOz9iKRFgTE98DWTN88jGVYT3yanG7NY5BEUWS1OibezLE7qojZ6Q831dr5kNMs0eJ7qgwOTVVbikMgV/xHpjH8Mg8HKOysrnq23//T/RqthX79+Q0xn4UowZikD2ooUmCACRRqU=
+	t=1790965614; cv=none; b=i1sfWCb8EtznUTPqfLqbngM1QMw8/fJycggaR+uc9VN3O+RnjkL2C2c0MJLvrrf2CCfA6pThtureYGJo1NSxuATl6x9FZOck4oRlVw8aelm2VVJzR4ZgPFN6mSN3+5mooJM2YI4/GWUQGK+pDxIMyo6Ii+gGG3+9/HsO71iqnW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790965617; c=relaxed/simple;
-	bh=g0GyOwewiKm4KFOlzqRQCAtrtf8EN3ovGx6G7yO1wy8=;
+	s=arc-20240116; t=1790965614; c=relaxed/simple;
+	bh=kHlekYeOhVVzfUZY+53a/Yrg3B/ku2pzzEUdMTLQyrc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=HNm1dRBMH1+TmDLVqEZ5jtp55JQK//bN5Ewk/tB7o241kHcn6lDP34K78LXM8B5kCG02NGf7o0gx6Yi7YREuF1gjOQEYhJuFLuyNiZT67Mh1qPSDlz1DIUKzQxqSJ6Hriakmm6OlSxNPIAwW/ECMAHDKUz8TOXKWCJpkxp3NB30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jsiuOcpT; arc=none smtp.client-ip=74.125.82.197
+	 To:Content-Type; b=YT3o184Xgn2h3S0BcWozRSu92dbcj2pp6J/bU2DePJbVcD7trf+jP8GUgS3MH/px/Sdlzkl80FmDcLPh6XQb1Xk53YoL6NVeIFEtFYCiagsBpYP0dSsRC9h7tVYexMFcogfI+jpi66uNNNxP/6YUtJDsnNI+mWY7H8Z4pB3ikRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dwO7M/mE; arc=none smtp.client-ip=74.125.82.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jsiuOcpT"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34e676375d9so1678673eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:26:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dwO7M/mE"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34ef0362d95so2048815eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:26:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790965614; x=1791570414; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790965612; x=1791570412; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g91waQbjvf78Q7TEpkLcmdZM/4XvXhkFKly0O9VpCVo=;
-        b=jsiuOcpTmRGTrmNeh0vSibGPktk4Q+icB5/LWaZJPWreeiziKWd7cjTvY8t/W+wpKd
-         F1THbjLwJ6NwCWV1JQnLE4DQzIM0TgI30Ih9h7D8FG3+3mqcPAg+L8Bfv/QvREgYUiuC
-         +fBUaHDb0PS/Quoy9Alhn5tBUM8ztyxsuZp+rofuiv6ObhXSwtp3xle6teOmRCDMjSE3
-         KWm2YAGeK6W2ARf3NmI0TgJ1wR0BcLDTYtS5uXpsXsF30Y93bcTS+a8IkiQ1uSrZ5qLu
-         Gs5iIObwP/SMGePYokgtPeI9m9czEeRGekDQt0mVWwhempnO8HgNanDbwO7qOd1XINIT
-         3hrg==
+        bh=SoUVWKLvyKwZ/WoEswPXuvtdtAxHklaKFQftAKlcNvk=;
+        b=dwO7M/mEbzKyRm1Rn23ACEPe2B+2S2/9m+Faf0iofNAq0yOzpdOELto9n2fyTTHNOJ
+         U2lKS/6kAgohQcWYAjETXiy59Fgki00f4f2/tgqsx3U5ifUAUi019yXJ5MogL8UATCRN
+         rvEuK4gdxWLJhqeoGhbOn4VsdXofaZG9+O62kNU1dBQ2DcFI04zGqRiBWEUU2JPkTviZ
+         CUyN1APo1l/HaCWlklwyI14Xmv9KAB5u1/7ECnFf/B/zBV/g+v2Wb9Q6DcGiemS8JCki
+         D6T2qKo+rTGmwiW4sraoG34ZjKKhUqgMt+6xKs8c/qQWudernjozZN9bbEr/pWIDvwWQ
+         k7iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790965614; x=1791570414;
+        d=1e100.net; s=20260707; t=1790965612; x=1791570412;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g91waQbjvf78Q7TEpkLcmdZM/4XvXhkFKly0O9VpCVo=;
-        b=APrCKdueGFM091DxfZ/y4NgMwway7l2uz7J4tp472N1PVRlp1unQ8PgtS7C2e8lxiD
-         prWXMX/cb6Lq2OtT/R4RoesiakYWbab7QHh4gyJ0OKr/yjL3MBjqfR+1tVAAYT+UsmPk
-         hahck8nHeXfTFZBpqzznGwzzzhnv3l47oOzeq0bUCVAFzqjYvoHqA7mbLnYbE4cEr0h0
-         U/1BHAIQXySBCckPagO8vyIyd6H1tmdpWOUqCDnfLSUNKZi187MLyXbSzFVzzQjdMy6j
-         lS+aRf/fPD+zHITS7Nm8ODWzZxxu5vbhUKJ5M94+lean8A9NM0+KOjWTVOUNpnYihfJN
-         TXtg==
-X-Forwarded-Encrypted: i=1; AKwUvBxxc8bRWXkdX58P6u4vXXtoBkRvPgvNISdBnwpHKyiyC4PbHUsLsD6uLYpMgP9Iqa6mFn5BiEPV8BPQ1IU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQ1m24jZsLvQB0Qu1FOJdo8/Vmyg3CoCDbM/3zYtG84N56bUNj
-	ZnYJnuRgcSDFhbQ0PUPP/j6zrGzUvLWntownIlUJZQzssCQTdVXAGziD6kyOXZqBAakq7Z1GgZN
-	n2OcLxojl3w==
-X-Received: from dyblf46.prod.google.com ([2002:a05:7301:a2e:b0:33c:28de:54ad])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:428a:10b0:143:f79:f662
- with SMTP id a92af1059eb24-14dce22d73emr7298591c88.1.1790965613495; Fri, 02
- Oct 2026 11:26:53 -0700 (PDT)
-Date: Fri,  2 Oct 2026 11:26:15 -0700
+        bh=SoUVWKLvyKwZ/WoEswPXuvtdtAxHklaKFQftAKlcNvk=;
+        b=aBLYznRizndbQ06hXkEEccOGGIwud/kchLpe1PM/1PijrSBdNIdiySQhAxYpu3lg7N
+         NJkbSOIpX7cW1ixHEEBWb3S1X6F8O7mRC20maPeI/KBXVFBhJWjhFLZVRlYFe+J3eXjN
+         VZXJ/3/OJ2M8G8Eu8ryDc3M7bBN580CjwUwGL2M+PVZot9cjFBFNBYjQWv5NX3GI1/af
+         CZDlFOVS0ycsTxRgpJKD+pExdI0xL8OXRCbgTHh3OH61jflkWn2znKdSbNrXhB9bOOPx
+         l16t5YTT0odXhx6W3MLQqvpwkxkUUtQicBTU5U+0TXaeaVv/8rwCcdlm0loB3cq2TOVw
+         sB1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzv7PS1kJ0QVSGoi+DxU6hb0YVrFtzqDJR5wjLC0BpCZHrCf5s3gwJrkT7wMoZ9ru4F+lWabMm6PoRL/nQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHpmzxIMJI9Iqc4LRTzWpjBW80nCudJQqAUQEP+d7K8A5IYQXe
+	/50TbTkLF0vwAI+aX38/3wjHqAgAyyCMGBBkBW9VJW3ie+UFAUVDiuZ/252owP+SEt4irlqSF4O
+	R2HGC4GrK+Q==
+X-Received: from dybb17.prod.google.com ([2002:a05:693c:6091:b0:33e:ce80:c3e7])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:8801:20b0:34b:6d45:de57
+ with SMTP id 5a478bee46e88-351113b59d8mr417086eec.9.1790965610857; Fri, 02
+ Oct 2026 11:26:50 -0700 (PDT)
+Date: Fri,  2 Oct 2026 11:26:14 -0700
 In-Reply-To: <20261002182624.3259797-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261002182624.3259797-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261002182624.3259797-7-irogers@google.com>
-Subject: [PATCH v1 06/13] perf list: Add a --tui option to launch ilist
+Message-ID: <20261002182624.3259797-6-irogers@google.com>
+Subject: [PATCH v1 05/13] perf python: Release the GIL while processing
+ session events
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -73,128 +74,440 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add a --tui option to perf list that launches the textual based ilist
-script through perf script, similar to perf timechart --tui. Rather
-than printing the events, the PMUs, events and metrics can be browsed
-interactively and the selected event or metric is counted on each CPU.
-Arguments after '--' are passed to the script.
+When a python session reads from a pipe, perf_session__new() and
+perf_session__process_events() block waiting for data with the GIL held,
+freezing any other python threads such as a TUI thread. Release the GIL
+around both calls and acquire it with PyGILState_Ensure() in the tool and
+call-return callbacks that invoke python.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/Documentation/perf-list.txt | 10 ++++++++
- tools/perf/builtin-list.c              | 34 ++++++++++++++++++++++++++
- 2 files changed, 44 insertions(+)
+ tools/perf/util/python.c | 258 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 215 insertions(+), 43 deletions(-)
 
-diff --git a/tools/perf/Documentation/perf-list.txt b/tools/perf/Documentation/perf-list.txt
-index a4378a0cd914..17e582998474 100644
---- a/tools/perf/Documentation/perf-list.txt
-+++ b/tools/perf/Documentation/perf-list.txt
-@@ -10,6 +10,7 @@ SYNOPSIS
- [verse]
- 'perf list' [<options>]
-             [hw|sw|cache|tracepoint|pmu|sdt|metric|metricgroup|event_glob]
-+'perf list' --tui [-- <ilist options>]
+diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
+index 251b7d517ad5..4eb17bdc5fd1 100644
+--- a/tools/perf/util/python.c
++++ b/tools/perf/util/python.c
+@@ -52,6 +52,7 @@
+ #include "srccode.h"
+ #include "srcline.h"
+ #include "strbuf.h"
++#include "strlist.h"
+ #include "symbol.h"
+ #include "stat.h"
+ #include "header.h"
+@@ -4104,16 +4105,38 @@ static void pyrf_thread__delete(struct pyrf_thread *pthread)
+ static PyObject *pyrf_thread__comm(PyObject *obj)
+ {
+ 	struct pyrf_thread *pthread = (void *)obj;
+-	const char *str;
++	struct thread *thread = pthread->thread;
++	bool has_comm = false;
++	char *str = NULL;
++	PyObject *ret;
  
- DESCRIPTION
- -----------
-@@ -51,6 +52,15 @@ Output in JSON format.
- --output=::
- 	Output file name. By default output is written to stdout.
+-	CHECK_INITIALIZED(pthread->thread, "perf.thread");
++	CHECK_INITIALIZED(thread, "perf.thread");
  
-+--tui::
-+Rather than printing the events, interactively browse the PMUs, events and
-+metrics in the terminal using the 'ilist' python script (see
-+linkperf:perf-script[1]). Selecting an event or metric shows its description
-+and counts it on each CPU. The script requires the perf python module and the
-+python 'textual' library. Other options are ignored, arguments after '--' are
-+passed to the script, for example 'perf list --tui -- -I 0.5' to update the
-+counts every 0.5 seconds.
+-	str = thread__comm_str(pthread->thread);
++	/*
++	 * Copy the comm string under comm_lock so a concurrent PERF_RECORD_COMM
++	 * in perf_session__process_events() (which runs with the GIL released)
++	 * cannot free the old comm_str via comm__override() while it is being
++	 * read, and drop comm_lock before calling into the Python allocator.
++	 */
++	down_read(thread__comm_lock(thread));
++	if (!list_empty(thread__comm_list(thread))) {
++		const struct comm *comm;
 +
- [[EVENT_MODIFIERS]]
- EVENT MODIFIERS
- ---------------
-diff --git a/tools/perf/builtin-list.c b/tools/perf/builtin-list.c
-index 4118424cb364..47668d66c395 100644
---- a/tools/perf/builtin-list.c
-+++ b/tools/perf/builtin-list.c
-@@ -24,8 +24,10 @@
- #include <subcmd/parse-options.h>
- #include <linux/zalloc.h>
- #include <ctype.h>
-+#include <errno.h>
- #include <stdarg.h>
- #include <stdio.h>
-+#include <stdlib.h>
++		comm = list_first_entry(thread__comm_list(thread), struct comm, list);
++		if (comm && comm__str(comm)) {
++			has_comm = true;
++			str = strdup(comm__str(comm));
++		}
++	}
++	up_read(thread__comm_lock(thread));
  
- /**
-  * struct print_state - State and configuration passed to the default_print
-@@ -538,6 +540,31 @@ static bool default_skip_duplicate_pmus(void *ps)
- 	return !print_state->long_desc;
+-	if (!str)
++	if (!has_comm)
+ 		Py_RETURN_NONE;
+-
+-	return PyUnicode_FromString(str);
++	if (!str)
++		return PyErr_NoMemory();
++	ret = PyUnicode_FromString(str);
++	free(str);
++	return ret;
  }
  
-+/*
-+ * Launch the interactive textual based ilist python script via 'perf script'
-+ * that finds the script and sets up the python environment. Arguments are
-+ * passed to the script.
-+ */
-+static int list__tui(int argc, const char **argv)
+ static PyMethodDef pyrf_thread__methods[] = {
+@@ -4211,6 +4234,8 @@ struct pyrf_session {
+ 	 * that event processing stops, see pyrf_session__callback_raised().
+ 	 */
+ 	bool callback_raised;
++	unsigned int callback_depth;
++	unsigned long callback_thread;
+ 	char *vmlinux_name;
+ 	char *kallsyms_name;
+ 	char *symfs;
+@@ -4579,11 +4604,10 @@ static bool pyrf_session__exception_pending(void)
+ 	return PyErr_Occurred() != NULL;
+ }
+ 
+-static int pyrf_session__call_return_process(struct call_return *cr,
+-					     u64 *parent_db_id,
+-					     void *data)
++static int __pyrf_session__call_return_process(struct call_return *cr,
++					       u64 *parent_db_id,
++					       struct pyrf_session *psession)
+ {
+-	struct pyrf_session *psession = data;
+ 	PyObject *pyevent, *ret;
+ 
+ 	if (!psession->call_return || pyrf_session__exception_pending())
+@@ -4610,6 +4634,38 @@ static int pyrf_session__call_return_process(struct call_return *cr,
+ 	return 0;
+ }
+ 
++static PyGILState_STATE pyrf_session__callback_enter(struct pyrf_session *psession)
 +{
-+	const char **script_argv;
-+	int script_argc = 0, ret;
++	PyGILState_STATE gstate = PyGILState_Ensure();
 +
-+	script_argv = calloc(argc + 4, sizeof(*script_argv));
-+	if (!script_argv)
-+		return -ENOMEM;
++	psession->callback_thread = PyThread_get_thread_ident();
++	psession->callback_depth++;
++	return gstate;
++}
 +
-+	script_argv[script_argc++] = "script";
-+	script_argv[script_argc++] = "ilist";
-+	script_argv[script_argc++] = "--";
-+	for (int i = 0; i < argc; i++)
-+		script_argv[script_argc++] = argv[i];
++static void pyrf_session__callback_leave(struct pyrf_session *psession,
++					 PyGILState_STATE gstate)
++{
++	psession->callback_depth--;
++	PyGILState_Release(gstate);
++}
 +
-+	ret = cmd_script(script_argc, script_argv);
-+	free(script_argv);
++/*
++ * Call returns may be processed during a sample callback, or when thread
++ * stacks are flushed, so acquire the GIL, see pyrf_session_tool__sample().
++ */
++static int pyrf_session__call_return_process(struct call_return *cr,
++					     u64 *parent_db_id,
++					     void *data)
++{
++	struct pyrf_session *psession = data;
++	PyGILState_STATE gstate = pyrf_session__callback_enter(psession);
++	int ret = __pyrf_session__call_return_process(cr, parent_db_id, psession);
++
++	pyrf_session__callback_leave(psession, gstate);
 +	return ret;
 +}
 +
- int cmd_list(int argc, const char **argv)
+ static int pyrf_session__call_event(struct pyrf_session *psession, PyObject *callback,
+ 				    PyObject *pyevent, const char *extra_arg, bool has_extra_arg)
  {
- 	int i, ret = 0;
-@@ -562,6 +589,7 @@ int cmd_list(int argc, const char **argv)
- 	const char *unit_name = NULL;
- 	const char *output_path = NULL;
- 	bool json = false;
-+	bool use_tui = false;
- 	struct option list_options[] = {
- 		OPT_BOOLEAN(0, "raw-dump", &default_ps.name_only, "Dump raw events"),
- 		OPT_BOOLEAN('j', "json", &json, "JSON encode events and metrics"),
-@@ -578,6 +606,8 @@ int cmd_list(int argc, const char **argv)
- 			   "Limit PMU or metric printing to the given PMU (e.g. cpu, core or atom)."),
- 		OPT_STRING(0, "unit", &unit_name, "PMU name",
- 			   "Limit PMU or metric printing to the specified PMU."),
-+		OPT_BOOLEAN(0, "tui", &use_tui,
-+			    "Interactively browse and count events and metrics with ilist"),
- 		OPT_INCR(0, "debug", &verbose,
- 			     "Enable debugging output"),
- 		OPT_END()
-@@ -588,6 +618,7 @@ int cmd_list(int argc, const char **argv)
- #else
- 		"perf list [<options>] [hw|sw|cache|tracepoint|pmu|sdt|metric|metricgroup|event_glob]",
- #endif
-+		"perf list --tui [-- <ilist options>]",
- 		NULL
- 	};
+@@ -4645,10 +4701,10 @@ static int pyrf_session__call_event(struct pyrf_session *psession, PyObject *cal
+ 	return 0;
+ }
  
-@@ -598,6 +629,9 @@ int cmd_list(int argc, const char **argv)
- 	argc = parse_options(argc, argv, list_options, list_usage,
- 			     PARSE_OPT_STOP_AT_NON_OPTION);
+-static int pyrf_session_tool__sample(const struct perf_tool *tool,
+-				     union perf_event *event,
+-				     struct perf_sample *sample,
+-				     struct machine *machine)
++static int __pyrf_session_tool__sample(const struct perf_tool *tool,
++				       union perf_event *event,
++				       struct perf_sample *sample,
++				       struct machine *machine)
+ {
+ 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
+ 	u64 sample_db_id = ++psession->sample_last_db_id;
+@@ -4706,10 +4762,10 @@ static int pyrf_session_tool__sample(const struct perf_tool *tool,
+ 	return 0;
+ }
  
-+	if (use_tui)
-+		return list__tui(argc, argv);
+-static int pyrf_session_tool__context_switch(const struct perf_tool *tool,
+-					     union perf_event *event,
+-					     struct perf_sample *sample,
+-					     struct machine *machine)
++static int __pyrf_session_tool__context_switch(const struct perf_tool *tool,
++					       union perf_event *event,
++					       struct perf_sample *sample,
++					       struct machine *machine)
+ {
+ 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
+ 	PyObject *pyevent;
+@@ -4736,9 +4792,9 @@ static int pyrf_session_tool__context_switch(const struct perf_tool *tool,
+ 					/*extra_arg=*/NULL, /*has_extra_arg=*/false);
+ }
+ 
+-static int pyrf_session_tool__stat(const struct perf_tool *tool,
+-				   struct perf_session *session,
+-				   union perf_event *event)
++static int __pyrf_session_tool__stat(const struct perf_tool *tool,
++				     struct perf_session *session,
++				     union perf_event *event)
+ {
+ 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
+ 	struct evsel *evsel = evlist__id2evsel(session->evlist, event->stat.id);
+@@ -4757,9 +4813,9 @@ static int pyrf_session_tool__stat(const struct perf_tool *tool,
+ 					name, /*has_extra_arg=*/true);
+ }
+ 
+-static int pyrf_session_tool__stat_round(const struct perf_tool *tool,
+-					 struct perf_session *session __maybe_unused,
+-					 union perf_event *event)
++static int __pyrf_session_tool__stat_round(const struct perf_tool *tool,
++					   struct perf_session *session __maybe_unused,
++					   union perf_event *event)
+ {
+ 	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
+ 	PyObject *pyevent;
+@@ -4776,6 +4832,84 @@ static int pyrf_session_tool__stat_round(const struct perf_tool *tool,
+ 					/*extra_arg=*/NULL, /*has_extra_arg=*/true);
+ }
+ 
++/*
++ * The session currently inside perf_session__new() or
++ * perf_session__process_events() with the GIL released. Because symbol_conf
++ * and session_done are process-globals and perf_session is not thread-safe,
++ * only one session may be active at a time. Modified with the GIL held.
++ */
++static struct pyrf_session *pyrf_session__active;
 +
- 	if (json)
- 		ps = &json_ps.common;
++static bool pyrf_session__check_not_busy(struct pyrf_session *psession)
++{
++	if (pyrf_session__active == psession &&
++	    (!psession->callback_depth ||
++	     psession->callback_thread != PyThread_get_thread_ident())) {
++		PyErr_SetString(PyExc_RuntimeError,
++				"perf.session is busy processing events in another thread");
++		return false;
++	}
++	return true;
++}
++
++/*
++ * The GIL is released while events are processed, see
++ * pyrf_session__find_thread_events(), so that other python threads can run,
++ * such as a UI thread while a session reads from a pipe that may block. The
++ * tool callbacks that use python acquire the GIL, PyGILState_Ensure() is
++ * reentrant so nested callbacks, like call returns during a sample, work.
++ */
++
++static int pyrf_session_tool__sample(const struct perf_tool *tool,
++				     union perf_event *event,
++				     struct perf_sample *sample,
++				     struct machine *machine)
++{
++	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
++	PyGILState_STATE gstate = pyrf_session__callback_enter(psession);
++	int ret = __pyrf_session_tool__sample(tool, event, sample, machine);
++
++	pyrf_session__callback_leave(psession, gstate);
++	return ret;
++}
++
++static int pyrf_session_tool__context_switch(const struct perf_tool *tool,
++					     union perf_event *event,
++					     struct perf_sample *sample,
++					     struct machine *machine)
++{
++	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
++	PyGILState_STATE gstate = pyrf_session__callback_enter(psession);
++	int ret = __pyrf_session_tool__context_switch(tool, event, sample, machine);
++
++	pyrf_session__callback_leave(psession, gstate);
++	return ret;
++}
++
++static int pyrf_session_tool__stat(const struct perf_tool *tool,
++				   struct perf_session *session,
++				   union perf_event *event)
++{
++	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
++	PyGILState_STATE gstate = pyrf_session__callback_enter(psession);
++	int ret = __pyrf_session_tool__stat(tool, session, event);
++
++	pyrf_session__callback_leave(psession, gstate);
++	return ret;
++}
++
++static int pyrf_session_tool__stat_round(const struct perf_tool *tool,
++					 struct perf_session *session,
++					 union perf_event *event)
++{
++	struct pyrf_session *psession = container_of(tool, struct pyrf_session, tool);
++	PyGILState_STATE gstate = pyrf_session__callback_enter(psession);
++	int ret = __pyrf_session_tool__stat_round(tool, session, event);
++
++	pyrf_session__callback_leave(psession, gstate);
++	return ret;
++}
++
+ static PyObject *pyrf_session__find_thread(struct pyrf_session *psession, PyObject *args)
+ {
+ 	struct machine *machine;
+@@ -4784,6 +4918,8 @@ static PyObject *pyrf_session__find_thread(struct pyrf_session *psession, PyObje
+ 	int pid, tid = -1;
+ 
+ 	CHECK_INITIALIZED(psession->session, "session");
++	if (!pyrf_session__check_not_busy(psession))
++		return NULL;
+ 
+ 	if (!PyArg_ParseTuple(args, "i|i", &pid, &tid))
+ 		return NULL;
+@@ -4854,6 +4990,8 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
+ 	psession->call_return_last_db_id = 0;
+ 	psession->sample_last_db_id = 0;
+ 	psession->callback_raised = false;
++	psession->callback_depth = 0;
++	psession->callback_thread = 0;
+ 	psession->vmlinux_name = NULL;
+ 	psession->kallsyms_name = NULL;
+ 	psession->symfs = NULL;
+@@ -4936,7 +5074,6 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
+ 			PyErr_NoMemory();
+ 			goto err_out;
+ 		}
+-		symbol_conf.vmlinux_name = psession->vmlinux_name;
+ 	}
+ 
+ 	if (!kallsyms_str)
+@@ -4947,7 +5084,6 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
+ 			PyErr_NoMemory();
+ 			goto err_out;
+ 		}
+-		symbol_conf.kallsyms_name = psession->kallsyms_name;
+ 	}
+ 
+ 	if (!symfs_str)
+@@ -4958,16 +5094,7 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
+ 			PyErr_NoMemory();
+ 			goto err_out;
+ 		}
+-		symbol_conf.symfs = psession->symfs;
+-	}
+-
+-	session = perf_session__new(&pdata->data, &psession->tool);
+-	if (IS_ERR(session)) {
+-		PyErr_Format(PyExc_IOError, "failed to create session: %ld", PTR_ERR(session));
+-		goto err_out;
+ 	}
+-	psession->session = session;
+-	psession->session->itrace_synth_opts = &psession->itrace_opts;
+ 
+ 	if (!itrace_str)
+ 		itrace_str = getenv("PERF_ITRACE");
+@@ -4975,18 +5102,43 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
+ 		memset(&psession->itrace_opts, 0, sizeof(psession->itrace_opts));
+ 		if (itrace_do_parse_synth_opts(&psession->itrace_opts, itrace_str, 0) < 0) {
+ 			PyErr_SetString(PyExc_ValueError, "Failed to parse itrace options");
+-			Py_DECREF(psession);
+-			return NULL;
++			goto err_out;
+ 		}
+ 	}
+ 
++	if (pyrf_session__active) {
++		PyErr_SetString(PyExc_RuntimeError,
++				"Another perf.session is currently active");
++		goto err_out;
++	}
++
++	symbol_conf.vmlinux_name = psession->vmlinux_name;
++	symbol_conf.kallsyms_name = psession->kallsyms_name;
++	symbol_conf.symfs = psession->symfs ?: "";
+ 	symbol_conf.use_callchain = true;
+ 	symbol_conf.show_kernel_path = true;
+ 	symbol_conf.inline_name = false;
++
++	/* Reading the header of a pipe may block, let other python threads run. */
++	pyrf_session__active = psession;
++	Py_BEGIN_ALLOW_THREADS
++	session = perf_session__new(&pdata->data, &psession->tool);
++	Py_END_ALLOW_THREADS
++	pyrf_session__active = NULL;
++	if (!psession->kallsyms_name && symbol_conf.kallsyms_name)
++		psession->kallsyms_name = (char *)symbol_conf.kallsyms_name;
++	if (IS_ERR(session)) {
++		PyErr_Format(PyExc_IOError, "failed to create session: %ld", PTR_ERR(session));
++		goto err_out;
++	}
++	psession->session = session;
++	psession->session->itrace_synth_opts = &psession->itrace_opts;
+ 	if (symbol__init(perf_session__env(session)) < 0) {
+ 		PyErr_SetString(PyExc_OSError, "perf: symbol__init failed");
+ 		goto err_out;
+ 	}
++	if (psession->symfs && !symbol_conf.symfs[0])
++		zfree(&psession->symfs);
+ 
+ 	return (PyObject *)psession;
+ err_out:
+@@ -4997,14 +5149,16 @@ static PyObject *pyrf_session__new(PyTypeObject *type, PyObject *args, PyObject
+ static void pyrf_session__delete(struct pyrf_session *psession)
+ {
+ 	perf_session__delete(psession->session);
+-	if (symbol_conf.vmlinux_name == psession->vmlinux_name)
+-		symbol_conf.vmlinux_name = NULL;
++	if (!pyrf_session__active) {
++		if (symbol_conf.vmlinux_name == psession->vmlinux_name)
++			symbol_conf.vmlinux_name = NULL;
++		if (symbol_conf.kallsyms_name == psession->kallsyms_name)
++			symbol_conf.kallsyms_name = NULL;
++		if (symbol_conf.symfs == psession->symfs)
++			symbol_conf.symfs = "";
++	}
+ 	free(psession->vmlinux_name);
+-	if (symbol_conf.kallsyms_name == psession->kallsyms_name)
+-		symbol_conf.kallsyms_name = NULL;
+ 	free(psession->kallsyms_name);
+-	if (symbol_conf.symfs == psession->symfs)
+-		symbol_conf.symfs = "";
+ 	free(psession->symfs);
+ 	free(psession->itrace_opts.vm_tm_corr_args);
+ 	free(psession->itrace_opts.cpu_bitmap);
+@@ -5025,9 +5179,23 @@ static PyObject *pyrf_session__find_thread_events(struct pyrf_session *psession)
+ 	int err;
+ 
+ 	CHECK_INITIALIZED(psession->session, "session");
++	if (pyrf_session__active) {
++		PyErr_SetString(PyExc_RuntimeError,
++				"Another perf.session is currently active");
++		return NULL;
++	}
++
++	symbol_conf.vmlinux_name = psession->vmlinux_name;
++	symbol_conf.kallsyms_name = psession->kallsyms_name;
++	symbol_conf.symfs = psession->symfs ?: "";
+ 
+ 	psession->callback_raised = false;
++	/* Callbacks that use python acquire the GIL, see pyrf_session_tool__sample(). */
++	pyrf_session__active = psession;
++	Py_BEGIN_ALLOW_THREADS
+ 	err = perf_session__process_events(psession->session);
++	Py_END_ALLOW_THREADS
++	pyrf_session__active = NULL;
+ 	if (psession->callback_raised) {
+ 		/*
+ 		 * Clear the early stop requested by this session's callback, in
+@@ -5089,6 +5257,8 @@ static PyObject *pyrf_session__getattro(struct pyrf_session *psession, PyObject
+ 		PyErr_SetString(PyExc_ValueError, "session not initialized");
+ 		return NULL;
+ 	}
++	if (!pyrf_session__check_not_busy(psession))
++		return NULL;
+ 	if (!strcmp(name_str, "e_machine"))
+ 		return PyLong_FromLong(perf_session__e_machine(psession->session,
+ 							       /*e_flags=*/NULL));
+@@ -5139,6 +5309,8 @@ static int pyrf_session__setattro(struct pyrf_session *psession, PyObject *attr_
+ 		PyErr_SetString(PyExc_ValueError, "session not initialized");
+ 		return -1;
+ 	}
++	if (!pyrf_session__check_not_busy(psession))
++		return -1;
+ 	return PyObject_GenericSetAttr((PyObject *) psession, attr_name, value);
+ }
  
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
