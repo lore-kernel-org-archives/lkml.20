@@ -1,196 +1,200 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013031.outbound.protection.outlook.com [40.107.162.31])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD234EE87C;
-	Fri,  2 Oct 2026 16:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790957196; cv=fail; b=AeMqKUacxMrGLP+75tpEri6fTUD4Lxbn7mmWFFPYTXwTYjpdZZbI3S9IK1JYivZ8ieDIz+D5sSVx+Yt/MLDqEtG6ohSVvFjQ473kPyLVGfzOgAsCs9UJ+usbiFZZE8f8S5xjUBz5lUvjGFoDGl/t28NnPssCa5uo9GB1j1kH5/g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790957196; c=relaxed/simple;
-	bh=rxcwbJMZeN/G81MvCglZEfuO2hWibRsiO4fTbfOAC8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=cg4JV/R2Lxow/C+QZi8m0494ugLLBI7iaywEnOVMUj6bYQrzFvbWhMa/8J7pCE2/nweWCLchCaRHYHe5m9DYVPXjEsGSCGIz3OLtHioLiw5894bIa3OMvtzLuTPacqeFnCMtaNmLrGT4S70EVyx1c7NTPNi8oWdq5xzyztaFodo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gUtaMbVr; arc=fail smtp.client-ip=40.107.162.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376BC2D73B8
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790957226; cv=none; b=qgCCbMSDkE5BioMXnlIbNdzAPVGXCk9suthPsCSF/ZY+ExMkyzhiD7L4ozoIcB5kiyVxUqWSkJVZWct24A443igKdzOnxw+SGW5Tovp0+wWlMhVZ04naB/c/ZINHBSRMG/1gjnVOc2ds/OOMVGU7jw8VVhymYQRKO+b5FSE1wcw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790957226; c=relaxed/simple;
+	bh=meqc0dOGYKrukNFPGjKjWqm+txv9FoUAa7lhQu1j19c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gdvCBRPc4bzj/zDxDQWsk2ahgVdcSsNZKS1ocxufHc8A0NrkcsUx1DtvA2bO+S4/mvMprODyEWsH//qrgseYyKEL6NHdaW3eDjUioWZlmcN09iVro2aB7Hen1Fs1bYqEHPIX5UErYvW8/vA77NWE7kFLRlZ/jRjfzfjICrTSMd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LV4STyyO; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0c7CtnPm; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gUtaMbVr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hutCvIWohu38umclWXBU60mYIoLYZtdfKMqlAB379yq7S/Lrwg89JpcLHkoeRIPPQlCbZd6ISqRkDXkEEyBe0JMn+yZEcZVGxhyRYaTvDtCjC8vLDuMhMrUfWYI8RXfeZP5U69PB8udNhZwQwu5NJR1MzXgv1zZPEeHZo2LvWi0KDg/NaJ+m+0HSjW3+O3uAgFwwsq1SNV49F6mYEg818VFBRbCXVvlg7JnXUdwsZHdL+9RkM0l21F204JYqkYoOOABZD8Jg8CX2ksEUNBmAOqKa32F3OX2hwInuTcEUOQtBFy0y0xxyb4hVfI7FCzpSTV8LQsQMxbK8yE4NqCddfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rxcwbJMZeN/G81MvCglZEfuO2hWibRsiO4fTbfOAC8k=;
- b=Hd+YOc+9SyljVCWZL0jwU50v7QO0wzsAbjBwNH6bRAHzU0+c4SMBqxtn6xpdT/jC3bzR3fgDlntbVHJxn0/5dvuvbH+Wfk6HlrBIvp1gkvVjrFX9L2enBPPvAkRBMlnHVIeknWspHB/jXFXB9Gz5kXX9kVNIk+gheYmAUPAGsKVuIcTl/VNIgtA8x1Pyht3AIvYqOw+bIqg6AN5PSmbV5fzqoslFNjqGuoVVzMy9fOACqqv4mJiSbwcy9NSsBn6nYwBqkhAcodAfJtu7Rn7Cqq1ePJiOTTOsNu29f1GycYrIekxNYafHnKDmXdB5+B9VVk0NVhh6Qkj9K2QDtTbKhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rxcwbJMZeN/G81MvCglZEfuO2hWibRsiO4fTbfOAC8k=;
- b=gUtaMbVrPuTRxidEcWkIygIeBaM+rEvDVr6QoRZxMqg9OUs2o3cHuqCBWmerZUxXCWUaNQRKbO6fV05ik8PKvvc69XpDoOXUhmtAnzwx0ekmwovwct9PGy+Yf4aBcgjMloOu+TKXvH3D2tVknbHhBqqp26pYJUC062gRq0zB016pbbjVgEkbMg6uS2xYubRKhNfmF0aH0QBIqoy4Hqk03VMtLp9BQMLim4Pu/sWz9b0Y8eaUpYLtvHxhSooGhQzS/vtFzgUCGOcAUFIrhRJcf4bUzKfm9YlTnbACWe5zEN0CKfNu/gL4yd8V2TvUBijjDvr37KG/djgDaZBtskjOgQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU4PR04MB10792.eurprd04.prod.outlook.com (2603:10a6:10:58e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 16:06:29 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 16:06:27 +0000
-Date: Fri, 2 Oct 2026 11:06:15 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Christoph Stoidner <c.stoidner@phytec.de>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>, devicetree@vger.kernel.org,
-	linux-can@vger.kernel.org, linux-phy@lists.infradead.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>, Vincent Mailhol <mailhol@kernel.org>,
-	Aswath Govindraju <a-govindraju@ti.com>
-Subject: Re: [PATCH V5 0/4] arm64: dts: freescale: Add chargebyte Charge
- Control Y
-Message-ID: <ar_Wd3fF94XSj4mh@SMW015318>
-References: <20260907150420.18787-1-wahrenst@gmx.net>
- <9cb548d3-f3cf-4757-a9ff-5f878479c7d7@gmx.net>
- <arFDUby0v52HSNnU@SMW015318>
- <1a7c722b-a4ff-45d5-a590-0910ac47b541@gmx.net>
- <7cc6e394-9895-4f42-a0c1-f1fbd7eafbfa@gmx.net>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7cc6e394-9895-4f42-a0c1-f1fbd7eafbfa@gmx.net>
-X-ClientProxiedBy: PH5P222CA0009.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:34b::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LV4STyyO";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0c7CtnPm"
+Date: Fri, 2 Oct 2026 18:07:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790957222;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KJTEyTe7qH2FQWucTsB+fiyvqCJ18mfNW95IuTL9s7U=;
+	b=LV4STyyOt1frGtbd+yLYcoOOQKIMNfDUoPcN32d/g/6bXtXERUIp7Qau56bXwnnJBGvAQO
+	F4kfLSAfqrEYZTcX2s8gn997YZknnQ7rgoeLBf/rxjj9sBfVTZYutD54yV8jNlJ8OHDSrE
+	egeZiMkE9F8dYUorid9hKfB1XLhSQFSGbTnchnaOyQl4j7kokL/HMt+5Z992fMwzqnTPz8
+	J2xbyrdUaU8yDBZONe+m64r4fJicXYMz9vTyXo2/2yC20X7yTspboJXf94VvIlThcqjrhX
+	W/Md5CqqE4hdnHbi/dh9+756cnH6TiWg0wleMW0b9Od2WgWJIFECUjIHMi/dEQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790957222;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KJTEyTe7qH2FQWucTsB+fiyvqCJ18mfNW95IuTL9s7U=;
+	b=0c7CtnPm1li8iDTSo/vk0WfZEYmlh6N3dO2qLeGaEOLzqLyLH7KiORmH01+v/nNGlkzecK
+	YFIT8XfmK5xtiOAw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: syzbot <syzbot+6835d5c11145e4f77057@syzkaller.appspotmail.com>,
+	linux-kernel@vger.kernel.org
+Cc: syzkaller-bugs@googlegroups.com, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Subject: Re: [RFC PATCH] sched: irq: cpu-hotplug race vs
+ set_cpus_allowed_ptr()
+Message-ID: <20261002160701.7Pqp05o3@linutronix.de>
+References: <6a9919ac.94649fcc.25487e.0005.GAE@google.com>
+ <20260907085825.f-CZ1Q5y@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB10792:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea85c338-944e-4f34-16d3-08df209f1cec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|19092799006|1800799024|22082099003|18002099003|4143699003|3023799007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	A5ZPpM2UNBLI8GWdni1ybxULqUtvLZamVwvgqd4NCtEjtzPE1CeSV/fJoZ/QrdGr/XW+L/gkbMbZM+/e7FHo0+g7ATen1MECwLZl7+mNb4XsxTU0F/zhaQbppeh8Qs01WiGOpWY2bW+3z9IYxtnxaJtvGI33Nms0nhcyXm6EEJhOz/hsLx/ADqtqHODCIyBhjNP/5/ubOz2WlaPHmd4c81tLRB2EWHUd2q4UvloHFCi63IPf6rmlNX0WF9kZcM6vIWxjtOFXvA4imtJ/osvXlvqfozDZuva5lUK+Po6d7jSYwmm4cUYISjO9EnOlRFHU0BzCU2tX6nfnEWRdzT75ZKxEE211YvYBMaWv7rMm2z21OXAORIP5XZxagna5mw1DNZ0gWoFlXSFABZlZ8LhscOIfmb/DjSWO8wWQoHPXh0eJ5XpXw+TTotIcLdQ6K71hR4HOdrBXllcnJb8vFhXTxEY5OVnQ0+A+HHX4Ywl5k5Z9l4SUh4mvQAty7Gdnlp6+9y1xNEK9xnjsPnFmRrpHY9gYT0zAe6kw1ffidbQk/Ui1OlNbJN/D8ulJjfsDu/m1TDkknZICwAD2/I0BCij5tfMK8z1czU3MfvYMkCB+UPrcgC1tVXsEtMTpOX3t8KxZz/lOV54UwQTuY5xyax3VrR4d1ZGQOVtWN+WvdOCvkq8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(19092799006)(1800799024)(22082099003)(18002099003)(4143699003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vNdEIGhVTULaMiq30UZV8hhVZUtyDn6ymmRDuqevK9UeNRa0DrmcTiwwiuP1?=
- =?us-ascii?Q?YYxNqZh3tCTv92UWlKajYWPrSj8WX9leQ1i+XcaleGMIAogbpMKR1Wrhcly8?=
- =?us-ascii?Q?4kFUzULxueIgysPO8z8ClSath+M975rVEqxaFq5lqzZooKqw9eqmU+IXr42a?=
- =?us-ascii?Q?AttuXAjV5bQ2gtEEHob5oZA3IOGvPzYSdOUM/Jx4XtIq0dXKyYjbXH1ixnqH?=
- =?us-ascii?Q?IFQDirdTLhdqSpzMlMofp8OBvUWzPX4aCqSS6uAt2C4IiqzHZ8iyJf8Np8ck?=
- =?us-ascii?Q?BklO2lq2Wl3TvD18fsXfFLdmMNrDT4gUuHcZnBS3Ab69cCZFsHjP+rR8xf82?=
- =?us-ascii?Q?Mf7RKAxXrQNljo6KdpYArQw2XFimMwCMPdLMQfatfH2nZRnaZwa3QS+EfwTo?=
- =?us-ascii?Q?N1sjkCu6q1G62wifrpFuSb3Bsp6dznmM369QBIjA7PfZriKcB7I6nvQ/DtRt?=
- =?us-ascii?Q?JpKZediZgj3tBOd/VeHOhmQBMwYQcRKY4ozptBQyMqs4NFz5HjD3m06YJdvR?=
- =?us-ascii?Q?QnKvgJ2dUT/WH8UVZwUttoNDhjEIAvrSAFUPIE4u7DIhurw1FP/zLYTFkDpZ?=
- =?us-ascii?Q?fmv66QFLs5XPQUTiDnKAOOXuq1mbIPLWZcEKBHtXiaUwYGZQZPkmdSTlF73C?=
- =?us-ascii?Q?k9wmsv2CTot1bwC08vzN72AtLqVOor/i63W6oj0NKWdS1OvXlXlu+GC8vI9V?=
- =?us-ascii?Q?wj2nS/b6G3YTb35wHejWG3xP8XBmtdTJgntfLIXPxlfvdpXElbaTPoY9DNR5?=
- =?us-ascii?Q?u2aJtzjb8AItQxKBFkNMdTxYjaC5hmxQbcOqSl9qHr8S26GJbGw7NkJ50jAP?=
- =?us-ascii?Q?CskEtQf1148SjqHMQ895/48DkkKzyFfORIp3cvnMxlNmu5Z4UPiXilPtprB9?=
- =?us-ascii?Q?P9ofuzdHpagkNA1foPjfhf1Q2JinpCZNu5dq8CayuE95jjyJVZRrNwtGbqXd?=
- =?us-ascii?Q?Y0GEoHjSfg+qgCZ2hZ8TOF7hqJxWpXaGLByCWdV0oSyFA07jsjmFhTux3vdB?=
- =?us-ascii?Q?r+E3UbZQ4n3smD4UBOofxoRR5pgtMFbLf7yC3A0dnuOGGJmu6M5+7jcdYqNn?=
- =?us-ascii?Q?X/hn11LCgePBEpTO8T6tz5MJ5/bx1ZZa/7Sy6B9+ZGuLqgAeJeiFS+8EpEX8?=
- =?us-ascii?Q?aLGcIEb9V3bNzkYoLo08+U7LpG47nN2pVHXohD2B6kz7hMg19lKMMUTXZTov?=
- =?us-ascii?Q?ocbFyPmSTT4LtMxfjHo3deXMC+uNVi8vg8ze/Lg2ATRzzs+4eHBSSJ9ZgbNO?=
- =?us-ascii?Q?30POVzNPROJVRl7zzG2g/C5h07PVhmxq+TW+ypDqq/Stc5A88k+Kj+qNdt2B?=
- =?us-ascii?Q?a+2mnxYos3gX1agxY2UeFH6CU9CqG59pDV+iEfHJ56sjDw5KPyk6wfuYQCiO?=
- =?us-ascii?Q?htAEhUKV2cv0ux+r6DcUbakOGubfIhICd71bAjDSj0y5CQOZLTLGgKrDw5jW?=
- =?us-ascii?Q?9Wn94z7hvzbWOOyjNAM6AJNhvWRC7T+zVooHp/A8KZdXNTMRzceNz2q0A89M?=
- =?us-ascii?Q?u9z9VkDxtdiGR9nT0xeTVZdAhzib5XSJeiZKdHdU8riWs3Lxy97Hd2d3QHeE?=
- =?us-ascii?Q?NW8OzSw8a4h3lVIkUsZEyAKQ99HRH5o8ZSfLyF2aktQbYdwQzRnyCS6adGvu?=
- =?us-ascii?Q?ceMGBsySsv/4cdv8JoBCMXyQOua4h6tGIVRcTFTdScQiotQFyi/nhc8dDwmR?=
- =?us-ascii?Q?uVv2mNqgZYTulP6B9sah2TICPZsOUGROZqR1plIGCQGRIfv647C8pkGMQlOc?=
- =?us-ascii?Q?Qnxxi1wHAw22b/orwZbKHRQ1N/kTZwI5nhEu853+QsxSgcqMVRXf?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea85c338-944e-4f34-16d3-08df209f1cec
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 16:06:27.0111
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2m8z7r8/k3PrQMEG38Njyr5Aq3l4Ewo9jQCl3BnkQ6VZzE1Xnnz67hVO5BAQk2keVcHUXzYsAJpngEjwfKIcgjsGNmCzN2UKrDLR04BxDlS2bm154YwFRIxWPwNSHXUn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10792
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260907085825.f-CZ1Q5y@linutronix.de>
 
-On Fri, Oct 02, 2026 at 05:31:23PM +0200, Stefan Wahren wrote:
-> Hi Frank,
->
-> Am 23.09.26 um 11:19 schrieb Stefan Wahren:
-> > Hi Frank,
-> > hi Vinod,
-> >
-> > Am 21.09.26 um 16:46 schrieb Frank Li:
-> > > On Mon, Sep 21, 2026 at 03:09:23PM +0200, Stefan Wahren wrote:
-> > > > Hi Frank,
-> > > >
-> > > > Am 07.09.26 um 17:04 schrieb Stefan Wahren:
-> > > > > This series adds support for the chargebyte Charge Control Y, which is
-> > > > > an Electrical Vehicle Supply Equipment (EVSE) for MCS (Megawatt
-> > > > > Charging System) charging stations.
-> > > > >
-> > > > > sashiko reported in the first version of the series [1] that
-> > > > > X_nRST_LAN
-> > > > > is available via GPIO line names, but there is no reset
-> > > > > mechanismn in the
-> > > > > device tree. This finding is valid. Since the reset line feature isn't
-> > > > > implemented for LAN8651 driver yet, I like to proceed with the current
-> > > > > version. The LAN8651 handles reset via SPI commands and in rare cases
-> > > > > we still have the possibility to control the reset from userspace.
-> > > > > Btw the pin has a pull resistor in hardware, so it's not floating.
-> > > > >
-> > > > > sashiko complained in the fourth version of the series [2] about the
-> > > > > reset polarity of ethphy2 and the different drive strength across the
-> > > > > data lines. Both is intended.
-> > > > >
-> > > > > [1] - https://lore.kernel.org/linux-devicetree/20260818093147.E556C1F000E9@smtp.kernel.org/
-> > > > > [2] - https://lore.kernel.org/linux-devicetree/20260903082122.A777C1F000E9@smtp.kernel.org/
-> > > > >
-> > > > > Changes in V5:
-> > > > > - fix delete-node for pinctrl_leds (reported by sashiko)
-> > > > > - add Krzysztof's Reviewed-by
-> > > > I didn't received any feedback for V5 yet. Do you have any
-> > > > comments or could
-> > > > it be merged?
-> > > Wait for vinod pick phy binding part.
-> > @Vinod are you fine with both PHY bindings?
-> >
-> > @Frank I noticed that this patch has a conflict with the Makefile in
-> > linux-next. Should I rebase or do you resolve the conflict?
-> would it be better if I rebase now and send a V6, I concerned that this
-> misses the cycle.
+Hello :)
 
-Vinod missed pickup one of binding patch.
+On 2026-09-07 10:58:25 [+0200], To syzbot wrote:
+> syzbot reported a race of assigning a CPU affinity during CPU hotplug
+> operation.
+> After the affinity of an IRQ has been changed, the IRQ-core sets
+> IRQTF_AFFINITY and wakes the relevant interrupt threads which need to
+> adjust their affinity mask. The thread will then invoke
+> set_cpus_allowed_ptr() to update the mask. Based on the new mask a CPU
+> is chosen on which the thread should run.
+>=20
+> It is verified that this CPU is online however there is no guarantee
+> that this CPU remains online while affine_move_task() is moving _this_
+> task. Since the current task requests the migration the stopper/
+> migration_cpu_stop() is involved at which point the task pauses for a
+> while. If the CPU goes offline (or is no longer cpu_online_mask) then
+> __migrate_task() (due to is_cpu_allowed() reject) will return the rq of
+> the CPU on which the task is currently running (which does not match
+> it's task_struct::cpus_mask).
+>=20
+> The aftermath:
+> The IRQ-thread's CPU and task's cpus_mask do not match. A
+> migrate_disable()-> schedule() will change task_struct::cpus_ptr
+> ensuring that the following migrate_enable() will update the task to the
+> requested affinity mask. At this point, affine_move_task() expects
+> task_struct::migration_pending set but it is NULL because noone
+> requested an affinity change while the task was in migrate-disable
+> section.
+>=20
+> I see two ways of fixing this:
+> - Holding the cpus_read_lock while set_cpus_allowed_ptr() is invoked.
+>   This ensure that the CPU remains in the cpu_online_mask while the
+>   migration task moving the task over. Should the mask be already
+>   invalid, then it is rejected otherwise the operaton completes.
+>   Maybe we should also check if cpus_read_lock is held during the
+>   invocation of set_cpus_allowed_ptr() so we don't get this problem from
+>   other callers.
 
-Frank
+So sashiko complains about deadlock of cpus_write_lock() in the CPU down
+path and calling irq_migrate_all_off_this_cpu() vs and
+irq_thread_check_affinity() doing cpus_read_lock().
+As far as I see, there is no deadlock because the mask is updated, the
+tread is woken, the tread blocks with cpus_read_lock() until the CPU is
+down.
+But there is nothing that waits for the interrupt thread to complete,
+there is no synchronize_irq() invocation which would be required for the
+deadlock.
 
->
-> Best regards
-> >
-> > Best regards
-> > >
-> > > Frank
-> > >
-> > > > Best regards
-> > > >
-> >
->
+> - Should __migrate_task() fail to return the requested rq make sure its
+>   CPU is part task_struct::cpus_mask. This ensures that the current CPU
+>   is still part of mask avoiding a possible push by migrate_enable().
+>   sched_class::set_cpus_allowed did not see this mask. It might be a bit
+>   inconsistent and feels a bit like select_fallback_rq() without the
+>   printk.
+
+Here sashiko complains:
+| If __migrate_task() fails (e.g., due to a concurrent CPU offline event), =
+this
+| fallback code forcibly modifies p->cpus_mask with cpumask_set_cpu(). This
+| skips the required p->sched_class->set_cpus_allowed() callback and fails =
+to
+| update p->nr_cpus_allowed.
+| Can this bypass global EDF real-time invariants for SCHED_DEADLINE (as
+| set_cpus_allowed_dl() is skipped), and allow unprivileged tasks to escape
+| affinity boundaries, giving them access to CPUs outside their cpusets?
+
+We did do_set_cpus_allowed() for CPU X and can't migrate there now. We
+also don't know if the invocation was successful.
+
+Looking at this, it is not possible hold the CPU-hotplug lock and not
+every caller holds it. This seems to be limited to migrate-disable.
+Should this happen without it, then the during wake-up the scheduler
+will just print "process =E2=80=A6 no longer affine to cpu" pick a CPU and =
+be
+done with it.
+Maybe set the bit followed by do_set_cpus_allowed()?
+
+> Both changes are implemented to illustrate, one is enough.
+> I can reproduce this back on v6.8, therefore I assume we have this since
+> day #1 of migrate-disable.
+>=20
+> Reported-by: syzbot+6835d5c11145e4f77057@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6a9919ac.94649fcc.25487e.0005.GAE@goo=
+gle.com/
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> ---
+>  kernel/irq/manage.c | 6 ++++--
+>  kernel/sched/core.c | 2 ++
+>  2 files changed, 6 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+> index 57eff26fa646a..75b6798c1d97c 100644
+> --- a/kernel/irq/manage.c
+> +++ b/kernel/irq/manage.c
+> @@ -8,6 +8,7 @@
+> =20
+>  #define pr_fmt(fmt) "genirq: " fmt
+> =20
+> +#include <linux/cpuhplock.h>
+>  #include <linux/irq.h>
+>  #include <linux/kthread.h>
+>  #include <linux/module.h>
+> @@ -1044,8 +1045,9 @@ static void irq_thread_check_affinity(struct irq_de=
+sc *desc, struct irqaction *a
+>  		m =3D irq_data_get_effective_affinity_mask(&desc->irq_data);
+>  		cpumask_copy(mask, m);
+>  	}
+> -
+> -	set_cpus_allowed_ptr(current, mask);
+> +	scoped_guard(cpus_read_lock) {
+> +		set_cpus_allowed_ptr(current, mask);
+> +	}
+>  	free_cpumask_var(mask);
+>  }
+>  #else
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index b998ef6b87af4..b090a374fa728 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -2674,6 +2674,8 @@ static int migration_cpu_stop(void *data)
+>  		if (task_on_rq_queued(p)) {
+>  			update_rq_clock(rq);
+>  			rq =3D __migrate_task(rq, &rf, p, arg->dest_cpu);
+> +			if (rq !=3D cpu_rq(arg->dest_cpu))
+> +				cpumask_set_cpu(rq->cpu, &p->cpus_mask);
+>  		} else {
+>  			p->wake_cpu =3D arg->dest_cpu;
+>  		}
+
+Sebastian
