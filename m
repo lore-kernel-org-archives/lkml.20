@@ -1,239 +1,102 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A357F443C22
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855512FFDEA
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928971; cv=none; b=F8C122hs6v3Dluzk8V7Fen9yeS+ygAttfKAXEStV+r6le4rsCy1Ebl3iXCSH/0E+HsBqLiMZpsv3/aEYfLJXJ954J7nWh+/b6TsJmXRBf6OS9s3K7LZhSUqEajIOS6PejlpXYlbwy8h3OHdgOekhcMQ65EKeDmuNomyk8zeONZ8=
+	t=1790928985; cv=none; b=nA/inGT0qY4PZ9HAWkZHciyDVzqB+w2zc6PjehII2QgvKOP6I0gYzNemUYNaPiaqN81aMz6EKxpzYufSRg6nqfajIztd9dbriUgWjo+P2pFl4H7zjpGglDS5ji8bTB6GTVwToALea1GNBy7xmTYOjlTsEZVMCZK1y+/3u9cTM4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928971; c=relaxed/simple;
-	bh=SrkCUBs7QxzRS2ct6PfMjjH+MllOa63+vm3xFxenUMY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=BvO2EsPS0dgLQQTZvc+dxaVwywm6aN/iYnsk7PnedHllscIDNZGxOLgfhc7taOJh2Xi64QGjNGhIuOcTZKva2oCoD2CfOQfAkTCKTqYG2M8bkqbtzlcLS+kvkFJ1yu2rSltkEoxi4LeIUDshMuPCTTOyqqaFhlaZ6BA7NZz8jks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QiQNvjst; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790928985; c=relaxed/simple;
+	bh=Uap9mjpiN11wxRfxEzbIWrRb3EGL8MmrFbOcb9PkmWI=;
+	h=Content-Type:References:Cc:Subject:Mime-Version:In-Reply-To:To:
+	 Message-Id:Date:From; b=kVWBwf/s7i/sGgKE4jtRDKhfhN9eHv18A9NQbT4Bpm79R6UtaonfwUW/WKH6WS8G/D8/xRK63r7rSeZBdnY0twpcyoHiSg/aELpMQ89rZWOvsOWzF5eGy04jJwoNBtVBBarVx3RJD+dfFFVfLavGORICgPrMYZ4sbchMUUFMZG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Gnkv5q6o; arc=none smtp.client-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QiQNvjst"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so4282567f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:16:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790928966; x=1791533766; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=guSS/KYjl8+8j30rtfwxuibMm84o1LTrBp5a4oJHKrY=;
-        b=QiQNvjstwbOumYLNiQN5WT7Y9iSHTzmkOl0eaL4otxyZEejYtFBdOyB3rJVYKG1Wvm
-         UcKSIMb/SFW4gW83nqiKWTopeKMadBT029V+1f3PvpmbNRPlaiTMMhFEzPLzfQ2rNoKn
-         5/hk3knivyzSIfT4BNvlNE75qXLCD4B87I2RITcuNAMhkKqIhAjcaXCbveS42kW45lnY
-         xEmdKDax8Sn9OjAB5XEs0HxcUFuw4MzKfakjIocVrr8pnCYsZV69GXOZVdWsrgeSMrw2
-         15D2PvHGGDq4vOSvN9V3Gx9u5j7rfQ5v7/DBs213GTvzG0wTS0j6loytWZPBTGw4T7sa
-         aM7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790928966; x=1791533766;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=guSS/KYjl8+8j30rtfwxuibMm84o1LTrBp5a4oJHKrY=;
-        b=vVn2MCF3PyBQD4+BE0G8h7YxZp+996KP4WU+MDJi7GT9QG4NJfSiyPN9KdbpZkDJKP
-         OLKNyW1sqEuvuUGMlInAdumstEWRZERKQR6RxK4mWO/U0a0WXR4AqFUFUm+gSBNCORN6
-         5jKhPKCER9hzkHKkbcvhR7zkgZALUdMF2Q7Rc1eENRtZSmUXTqN0jBcRvXNc1UvXed1l
-         cTSflnbGwcI9JjL5pK8i+5U2TcDoeEIRK/PfF/eMrMzCP33FdBGi2rIGso9t3FMe4ujD
-         w+8aUS+CjZtHCqGw7FfDFU/E3OGlS0ubUnUcpxDDuPvPY1VEkmAwA2226HQmP/mR6c9/
-         6Lcw==
-X-Forwarded-Encrypted: i=1; AKwUvBxjTbBdBAywJgR4hHZbkB+akgoX+VHAJOtuXa0/THB3NBCcfTOgejS27izDPTZzOFH+gcElg2jXX0bXvPo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0UKJJp0o5EGNnlTMgZbrhaGuubeE+1y2c+O77je5WXAPog8tr
-	b6Bx5Rl3afifEgJqWJ7geQWG6Dlrh27+PqM4DKVYT9YkXSO6ytD4zwDvfoNy901PvsY=
-X-Gm-Gg: AYBFou1XoMgRMNeWRp2oXvi8/kWPP5MrBMYZO9I8gXvzHHJ98NRA62zEDk00h2/qGyw
-	biqsc7NDINRDcHXjP6/9+2VGDysw6dt7ja63oO/Ls700hSMsS8CBMUopfWItteBi3vb1EZMKIVa
-	slZSlek1/SGvd9VKmtB73epeyGA+wR3QQL/2a0vF50F8s/iCxQU8KjtYrj1yZuKHNkdJhYYxaaX
-	QAn9sdfytsPH3vck1bZAMGFqURVli+FnzrM8KHp4Q+AUVTbKGVqz3QokGV762lv2GW+DUsQr/ya
-	f4AF9djUqZ6xuGhuhFICZBjmtxayoof0jDPzQyLVR0PKztpFEUaMZ/rpRPziT/u1lxe6jmQHaag
-	v9fscr4LUiGbTBfLI2OF4JKLxjkG4YS+5PaiplYxHS7bmvVfAni7A9wj9RXY5Be4hB8sWMB+gSV
-	IYiEdW4u+Lp2WtITmqZYfevUlhnV9cAh3p5nc5rz82nZzUSxETsefz+SiUjwzwj3UA/TNUiNuIK
-	j0VtPVOn259+xMkbg==
-X-Received: by 2002:a05:600c:1d15:b0:49f:e427:e88f with SMTP id 5b1f17b1804b1-4a027564ddemr35404475e9.21.1790928965827;
-        Fri, 02 Oct 2026 01:16:05 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fada5sm3689482f8f.24.2026.10.02.01.16.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 01:16:05 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Arnd
- Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet <jbrunet+clk@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, Steam Lin <STLin2@winbond.com>,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- devicetree@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
-In-Reply-To: <87o6ddmmc2.fsf@bootlin.com>
-References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
- <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
- <1j7bk13gpq.fsf@starbuckisacylon.baylibre.com>
- <87o6ddmmc2.fsf@bootlin.com>
-Date: Fri, 02 Oct 2026 10:16:04 +0200
-Message-ID: <1jy0cg1prv.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Gnkv5q6o"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1790928972; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=erijjSKK0F16UjGTpa1TwWvZ6Kt00yN1jhH4DWA5qn8=;
+ b=Gnkv5q6oaIA7vzSUYJ/bCO3LDfFmUZrZ5DI3Yg+LJSThnLIP2A69xJkstQfmc5ucpmuFac
+ S5CSD+6enTLkEyPtyWswxmklEeEvLYIT2Vw537SYcCKZursDeBVqsaas9ZavFCao7x/XsB
+ DB6dj6u+8gOferZJ2HvTGgMgLRQ6FkJ+dFFLjY7k1qGxsEFw3zSc4KS3ilIRqYyXZ0CAvc
+ lgJm/7nyKuVHshm/L/oUaqxo+J0ttmVGp/CrJzR7hQEUqVTtqetVCniSH1IbB0MWKbMykQ
+ FkYuXpEhCXl2VHrfImAGr/zOa+9oXQMMzHaj4zUaGGk5fo2qwqcia0ZyvuwgFQ==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+References: <20260930121154.687586-1-joshua.hahnjy@gmail.com> <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com> <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F> <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com> <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org> <ar5eC22VfSFlMw3W@gourry-fedora-PF4VCD3F> <44d15437-6aae-4d7c-bfd4-296276583826@kernel.org>
+Cc: "Zi Yan" <ziy@nvidia.com>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, 
+	<akpm@linux-foundation.org>, <ljs@kernel.org>, <liam@infradead.org>, 
+	<rppt@kernel.org>, <mhocko@suse.com>, <corbet@lwn.net>, 
+	<skhan@linuxfoundation.org>, <ying.huang@linux.alibaba.com>, 
+	<apopple@nvidia.com>, <linux-mm@kvack.org>, <linux-doc@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference with MPOL_WEIGHTED_INTERLEAVE policy
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <44d15437-6aae-4d7c-bfd4-296276583826@kernel.org>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	"Gregory Price" <gourry@gourry.net>
+X-Lms-Return-Path: <lba+26abf684a+8e553f+vger.kernel.org+lizhe.67@bytedance.com>
+Message-Id: <cac17315-7157-4f97-8ad4-98ef268f1b8a@bytedance.com>
+Date: Fri, 2 Oct 2026 16:15:45 +0800
+From: "Li Zhe" <lizhe.67@bytedance.com>
 
-On jeu. 01 oct. 2026 at 18:12, Miquel Raynal <miquel.raynal@bootlin.com> wr=
-ote:
-
-> On 01/10/2026 at 11:36:33 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
->
->> On mer. 30 sept. 2026 at 19:24, Miquel Raynal <miquel.raynal@bootlin.com=
-> wrote:
->>
->>> HXT and LXT are crystal oscillator inputs of the clock controller, they
->>> are described in the DT, so retrieve them, in order, and store them in
->>> their respective HXT/LXT hw table entries.
+On 10/2/26 3:56 PM, David Hildenbrand (Arm) wrote:
+> On 10/1/26 15:26, Gregory Price wrote:
+>> On Thu, Oct 01, 2026 at 12:54:22PM +0200, David Hildenbrand (Arm) wrote:
+>>>> If this is a initial-fill problem, can userspace set weighted interleave
+>>>> initially? The program or harness can observe memory usage of the program
+>>>> or related NUMA nodes and switch the policy to numa balancing via
+>>>> set_mempolicy() or mbind() without MPOL_MF_MOVE after certain threshold
+>>>> is met?
+>>> You mean: use the weighted policy initially and then switch to a NUMA-balancing
+>>> one which doesn't involve the weights anymore?
 >>>
->>> Since old DTs reference the HXT fixed-clock without naming it and do not
->>> describe LXT at all, we assume that HXT must be present, and fallback to
->>> creating a fixed clock for LXT if it is not described (for backward
->>> compatibility purposes).
+>>> That makes more sense to me. Although I struggle to see why an effectively
+>>> "let's put random memory on slow and others at hot" is a good starting point to
+>>> later let if be fixed up by actual balancing/tiering.
 >>>
->>> The downstream gate clocks can directly use the hw clocks as parents,
->>> instead of relying on string matching.
+>>> It all sounds a bit hackish. :)
 >>>
->>> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock c=
-ontroller")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
->>> ---
->>>  drivers/clk/nuvoton/clk-ma35d1.c | 43 ++++++++++++++++++++++++++++++++=
---------
->>>  1 file changed, 35 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk=
--ma35d1.c
->>> index ceebcbd8c18b..d955d79abdd2 100644
->>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
->>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
->>> @@ -4,6 +4,7 @@
->>>   * Author: Chi-Fang Li <cfli0@nuvoton.com>
->>>   */
->>>=20=20
->>> +#include <linux/clk.h>
->>>  #include <linux/clk-provider.h>
->>>  #include <linux/mfd/syscon.h>
->>>  #include <linux/module.h>
->>> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct devic=
-e *dev, const char *name, cons
->>>  				    reg, shift, 0, &ma35d1_lock);
->>>  }
->>>=20=20
->>> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const=
- char *name,
->>> +					     struct clk_hw *parent,
->>> +					     void __iomem *reg, u8 shift)
->>> +{
->>> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
->>> +						   CLK_SET_RATE_PARENT,
->>> +						   reg, shift, 0, &ma35d1_lock);
->>> +}
->>> +
->>>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *p=
-llmode)
->>>  {
->>>  	const char *of_str;
->>> @@ -215,10 +225,12 @@ static int ma35d1_clocks_probe(struct platform_de=
-vice *pdev)
->>>  {
->>>  	struct device *dev =3D &pdev->dev;
->>>  	struct device_node *clk_node =3D pdev->dev.of_node;
->>> +	struct clk_bulk_data *clks;
->>>  	void __iomem *clk_base;
->>>  	static struct clk_hw **hws;
->>>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
->>>  	u32 pllmode[PLL_MAX_NUM];
->>> +	int num_clks;
->>>  	int ret;
->>>=20=20
->>>  	ma35d1_hw_data =3D devm_kzalloc(dev,
->>> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_de=
-vice *pdev)
->>>  		return -EINVAL;
->>>  	}
->>>=20=20
->>> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
->>> -	hws[HXT_GATE] =3D ma35d1_clk_gate(dev, "hxt_gate", "hxt",
->>> -					clk_base + REG_CLK_PWRCTL, 0);
->>> -	hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
->>> -	hws[LXT_GATE] =3D ma35d1_clk_gate(dev, "lxt_gate", "lxt",
->>> -					clk_base + REG_CLK_PWRCTL, 1);
->>> +	num_clks =3D devm_clk_bulk_get_all(dev, &clks);
->>> +	if (num_clks < 0)
->>> +		return num_clks;
->>> +
->>> +	if (!num_clks) {
->>> +		dev_err(dev, "missing crystal input clocks\n");
->>> +		return -ENODEV;
->>> +	}
->>> +
->>> +	hws[HXT] =3D __clk_get_hw(clks[0].clk);
->>
->> Don't open code it. use .fw_name
+>> It is a bit of a non-combo (Nonbo).  You're using weighted interleave
+>> with the intent of spreading out the bandwidth utilization (and maybe to
+>> offset some reclaim behavior? *shrug*) but then undo all the placement
+>> with tiering.
+> I can understand the "random initial placement will help if you cross your
+> fingers" argument from Zi.
 >
-> Ok, if I understand your suggestion, I will go for the use of
->
->     devm_clk_hw_register_fixed_rate_parent_data()
->
-> for these fixed clocks.
->
->>
->>> +
->>> +	if (num_clks > 1)
->>> +		hws[LXT] =3D __clk_get_hw(clks[1].clk);
->>> +	else
->>> +		/* Old DTs do not describe the low-speed crystal */
->>> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
->>
->> I'd give it another name so you can clearly see the difference between t=
-he
->> DT one and the manually registered one.
->>
->>> +
->>
->> Don't need to open code this either.
->> provide both .fw_name and .name - CCF will fallback to the name.
->>
->> When you want to conditionally register the fixed is up to you.
->
-> Ok, so if my understanding is correct, I should use parent data with:
-> * .fw_name being the clock-names entry
-> * .name being the name of the clock that will be created ex-nihilo
-> Am I correct? And clock-output-names in that case has no importance at
-> all (hence this strengthen my wish to get rid of it)?
+> But then the question really is whether the app should then change the policy
+> after the initial placement was done and the weighted stuff no longer makes a
+> lot of sense.
+Yes, that model makes sense if the application or runtime can
+cooperate with the policy switch.
 
-Yes
+One limitation is that this is not fully transparent for existing
+workloads. set_mempolicy() updates the calling task's policy, and
+mbind() updates VMAs in the calling mm. move_pages() and
+migrate_pages() can move pages of another process, but they do not
+change that process's future allocation policy.
+
+So I agree this staged approach is worth considering, but it also has
+some deployment cost for workloads that cannot participate in the
+policy switch.
+
+Thanks,
+Zhe
 
 >
-> In the fallback case, what naming makes sense? I don't know. I would
-> have preferred to just name it "hxt" (respectively "lxt") in both cases
-> because we truly don't care about the name, except it would be nicer for
-> the reader of clk_summary. Do you mind if I keep "hxt"/"lxt" for both?
-
-Picking another name is merely a suggestion. I don't have a strong opinion
-over this.
-
->
-> Thanks a lot for the hints!
-> Miqu=C3=A8l
-
---=20
-Jerome
+>> But, in defense of the hackery - I have seen strategies like this work
+>> to optimize startup times and then let tiering optimize runtime.  Phased
+>> execution gets funky like that.
+> No doubt about that.
