@@ -1,204 +1,98 @@
-Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D5130D406;
-	Fri,  2 Oct 2026 15:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1CF4BF94A;
+	Fri,  2 Oct 2026 15:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955372; cv=none; b=rYaeFpQgsfR1J2sVXckRZsNeiBD0Lsh5MUXfVZmGPFa4d02d+exWghnA6wWC2+rJDFGdbIM+ggbEBfGRb+a7qxKjPxdJ0OvaRAPLeqY5Jz0V7CIi3X3wwvRQSkMa/ZrQR5Fze3OR9CM1df0H95lbthc6FUUCj3EVwcJH0zavcjI=
+	t=1790955386; cv=none; b=bA8sTu1HXvFTHUQyO2VKTNc5dVNrC+zN9wcFUjhwEvAHYR0+AxFGiiJTUKIT4c5B04X9zVLHZVgyWlGdfiebyiFIO3ijuJJcsWJykdJIz16EqC0yla2aKSm6/EiPsVQ8TjhZElErwK/EP/WTawNiSnCtXPbfP4MdTwj57nZSiEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955372; c=relaxed/simple;
-	bh=iMsPJk4DUMkPq2TRuY+sGfv1QCWE56zGUzD9qzF3LNs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dKX5E77pqfFX2n5lgvQzBQ0Wfjdt+BiO3CQHop+ZmcXyA9iQMBAdRo6uNIrDuDbsj5BTfDbHOyMN29dpiaQIazBKWkBrXRHsiAETPsjC9HKWcYb5yxoWUDKkEkAlk74h4iuibWosGyfSywSpxDAtFwtt2N7pEEJ9Kpp0oI4OK7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06714133|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0162146-0.000265364-0.98352;FP=16929337455097240818|13|2|16|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jTkAIV-_1790955034;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jTkAIV-_1790955034 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 02 Oct 2026 23:30:38 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com
-Subject: [PATCH net-next v24 0/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-Date: Fri,  2 Oct 2026 23:30:31 +0800
-Message-Id: <20261002153034.934814-1-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790955386; c=relaxed/simple;
+	bh=ID/HkmFMTgXfBvEK9zp6+sIFgeqPAHbQ5YXi9GUqiE0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PdhgcA577+G6VEfFoJw1OAb5OZoltYDE/puB5H8Ron9jLwjHKUrRzjftxq7z7TdHZEHgZ20FXjFJtRQcOpdeO8k597IsZeaicbzC8Z4AP5EYNp+2DzKU2MzBkBa4GtTfnSRWJBv2oRZNbKX1gUaWAB2GoVM3TEKRlU56700yLKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PfI1CieC; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PfI1CieC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790955385; x=1822491385;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ID/HkmFMTgXfBvEK9zp6+sIFgeqPAHbQ5YXi9GUqiE0=;
+  b=PfI1CieCY4KYHBzSisdAV7S2tpEaC33RO7S61gx0QpNKuf+nT4+V+gJ2
+   +mSbsfVci+fZw4apDm7Vx3X6Ip/ju49caM+aWFrTzPfCGYPL06kXcfAK6
+   fJgvYwc/osgiM/pGXaOzaVjGvhT+Il6gf66PKke6yIwoA0eyUlEt8OQrX
+   Im1evSTqGtXbXFC2UaWzaNI7+F/SBasnO4OJah5YKDm+JLtCXI/9IJ9Zm
+   +ugAIrkZHoEBv31MZdKsT2sfzu8TNQQlxfJbMM/eljbFFHcTHAMxn1K6j
+   KkXDivXVRswPzA/JloZiygD4sQqZFbomwUTWbjdFy47tw2zR2JPPsFtrV
+   A==;
+X-CSE-ConnectionGUID: 0HvSwHuISkaIw/WYEmq3Xw==
+X-CSE-MsgGUID: F3l6931pRAy7KWh0f66vdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="117247681"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="117247681"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 08:36:25 -0700
+X-CSE-ConnectionGUID: /exO7IEOQoiF36dXfvuycQ==
+X-CSE-MsgGUID: Btu7op7IREy2zYlUhnhmAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="279522351"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 08:36:22 -0700
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com
+Subject: [PATCH 0/4] arm: dts: aspeed: add Intel AVCRP and JNCRP BMC platforms
+Date: Fri,  2 Oct 2026 18:32:41 +0200
+Message-ID: <cover.1790344811.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 
-This patchset mainly implements the phy8824 driver. The phy8824 is
-an Ethernet PHY that provides one 10G SerDes output to four 2.5G ports.
-The driver mainly covers two application scenarios:
- 1. external PHY8824
- 2. PHY8824 embedded in a switch.
-The patchset mainly consists of three parts:
- 1. the DTS for the phy8824
- 2. a generic template testmode configuration api.
- 3. the phy8824 functional functions.
+This series adds initial upstream support for the Intel AVCRP and JNCRP
+BMC platforms based on the ASPEED AST2600.
 
-changes in v24:
-1) Fix the typo during sds init.
-2) Add priv->sds_initialized to indicate whether the SDS extended
-registers shared by the four channels have been initialized.
+The first two patches extend the ASPEED board binding to describe the new
+Intel platform compatibles. The remaining patches add the corresponding
+board DTS files and register them in the ASPEED DTB build list.
 
-changes in v23:
-1) Remove meaningless comments in driver.
-2) Using #define to replace magic numbers during PHY8824 init.
+Dawid Glazik (4):
+  dt-bindings: arm: aspeed: Add Intel AVCRP board
+  dt-bindings: arm: aspeed: Add Intel JNCRP board
+  ARM: dts: aspeed: add Intel AVCRP BMC
+  ARM: dts: aspeed: add Intel JNCRP BMC
 
-changes in v22:
-1) Using motorcomm,package-mode to replace phy-mode in DTS.
-2) The corresponding parsing has also been updated, using
-   "motorcomm,package-mode".
-
-changes in v21:
-patch 1: 1) Add maintainer for motorcomm,yt8824.yaml.
-    2) Using 10g-qxgmii instead of usxgmii.
-patch 3: 1) Change the usxgmii space to serdes space.
-         2) Add lock operation during phy-package init in probe()
-         3) Add check for whether auto-negotiation is enabled
-         when updating the link status in read_status().
-
-changes in v20:
-patch 1: Add phy-mode description in properties in motorcomm,yt8824.yaml
-
-changes in v19:
-patch 2: Replace the int type with the u16 type for test_mode.
-patch 3: 1) Merge yt8824_utp_normal_test_mode_paged() and
-         yt8824_utp_invalid_test_mode_paged() into 
-         yt8824_utp_set_template_test_mode().
-  2) Add a fatal error return when phy-mode is missing in
-         the DTS.
-
-changes in v18:
-1. Split the template_testmode() into a small patch 
-   and optimize the implementation.
-2. Optimize the definition and initialization of 
-   interface_mode by adopting the existing approach.
-
-changes in v17:
-patch 1: Remove redundant description.
-         Use phy-mode instead of motorcomm,interface to describe the
-         interface.
-         Add the required checks.
-patch 2: Use phy-mode to get interface mode.
-         Need return after init configuration is done to avoid falling
-         into the error path.
-
-changes in v16:
-1. Add DTS documentation.
-2. Fix redundant initialization.
-
-changes in v14:
-1. Refactor the error return path to preserve and return the initial error,
-   rather than letting later errors mask it.
-
-changes in v13:
-1. Fix the lock release issue on the error path to prevent potential
-   deadlock or resource leak.
-2. Add a func yt8824_restore_defaults() to restore configuration on
-   the error path,ensuring the hardware/device is left in a known
-   good state upon failure.
-
-changes in v12:
-1. Refactor the yt8824_read_status() function to ensure proper state
-   synchronization between hardware registers and the phy_device structure.
-
-changes in v11:
-1. Clean build_clang warning.
-
-changes in v10:
-1. Within the interface that swaps to the USXGMII reg space,the lock
-   include shared_lock and mdio mutex must remain held throughout 
-   the entire operation and should only be released after all steps
-   have completed.
-2. Improve the template interface in phy-c45.c
-3. Fix the handling of some failure paths.
-
-changes in v9:
-1. Add shared_lock mutex prevents UTPs from interfering with each other 
-   due to swapping reg space.
-
-change in v8:
-1. Clean up format warning.
-2. Fix exception handling code logic based on Sashiko/Gemini.
-3. Remove interrupt/handle function
-
-changes in v7:
-1. Refactor the using of mdio lock
-  In all cases of swapping to the USXGMII side interface, lock the MDIO bus
-  at the beginning, switch to the UTP address space after the operation is
-  completed, and then release the lock.The purpose of doing this is to
-  ensure that it will not affect other UTPs operating in the UTP address
-  space.
-2. Rename YT8824_RSSR_FIBER_SPACE to YT8824_RSSR_USXGMII_SPACE.
-
-changes in v6:
-1. Add  test mode helper in phy-c45.c
-2. Refactor the using of swapping paged for utp and fiber
-
-changes in v5:
-1. Fix diffs issue which caused by unexpected whitespace.
-2. Fix "exceeding 80 columns" warning.
-
-changes in v4:
-1. Remove motorcomm,yt8xxx.yaml, will update in other patch thread
-2. Fix locking issue. Since every interface requires switching of space, 
-   the bus is already locked during the space switching process in
-   phy_select_page(), other operations within the interface cannot 
-   be locked again before unlock in phy_restore_page().
-3. Fix warning log identified during the inspection process using
-   checkpatch.pl.
-4. Fix the way of using common api in phy_package.c
+ .../bindings/arm/aspeed/aspeed.yaml           |   2 +
+ arch/arm/boot/dts/aspeed/Makefile             |   2 +
+ .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 321 ++++++++++++++++++
+ .../dts/aspeed/aspeed-bmc-intel-jncrp.dts     | 257 ++++++++++++++
+ 4 files changed, 582 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
 
 
-changes in v3:
-1. Using common apis defined in phy_package.c to handle shared top
-extend register space.
-2. Add dts demo in motorcomm,yt8xxx.yaml.
-3. Fix unnecessary redundant judgments.
-4. Fix BMCR registers operation using magic number.
-5. Rename function based on its approximate functionality.
-
-changes in v2:
-1. Remove duplicate code and replace it with existing api.
-
-Kyle Switch (3):
-  dt-bindings: net: Document Motorcomm YT8824 PHY package
-  net: phy: Add support for Template Control register for PMA
-  net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-
- .../bindings/net/motorcomm,yt8824.yaml        |   78 +
- MAINTAINERS                                   |    2 +
- drivers/net/phy/Kconfig                       |    3 +-
- drivers/net/phy/motorcomm.c                   | 1926 ++++++++++++++++-
- drivers/net/phy/phy-c45.c                     |   23 +
- include/linux/phy.h                           |    1 +
- include/uapi/linux/mdio.h                     |   12 +
- 7 files changed, 2042 insertions(+), 3 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-
+base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+prerequisite-patch-id: 3af4bd880f896c97741b54ee18845b305a4bd061
+prerequisite-patch-id: 23091b539ec7723a865d82da7703bf70c6ed0222
+prerequisite-patch-id: ac42a7a373fdc407f6377d0b1c74d728af50ba42
 -- 
-2.25.1
+2.43.0
 
