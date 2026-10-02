@@ -1,173 +1,142 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E409547071
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790983527; cv=none; b=XzQqCtau4x0T2K5fu70BKsDx+OO8IGHFhB1JfdlpC+pzKbvmvXErRai0WRBbf7YKo5PDUwknYZ7cZYzLrctSYg/vlbbQpbvXH4Gk/BAiKOI7k1mlS6UbBB4nXG+8LhwDEmCMumN/NlXUEzwbOQocDzEriQeEbJDyPOuermElRQM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790983527; c=relaxed/simple;
-	bh=u2KMLv+tlXITwimzd/Ty9/jX3M9EHu28LToNoV9H398=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=WVewBqoEiZDDXp1XuJ6Rl3ouVR5L52wdxzhHN8+Rg38+/oLr1ST9E/PioAr0NL+C/b9TFJzDI8IcWLpmMHRLLyvLmE63gObd04WJL7Nh/G7k5cv7DwYRNpCykz/R3junIJ3MzLdsRCYRlE3vof3S8VWQ/rMN8wCFsKaiw5zWjEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e4dso645423b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:25:25 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B6242E40C
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790983565; cv=pass; b=cEwk8R7cnw4lZgr3lkUqNVInzbsazE4iOY3r5AEwy8iHPixrTX/7ZoEffY+erAJJhh/3eaq64A62zHDrIui4gZs3f2SNFuuxIB4LSNhJ3bP7hKPCusRBXEAHy08aL35oPv+qFM23DYUtHG1IJtrrXC/OJTOvmKSxnxEHlFXpPCQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790983565; c=relaxed/simple;
+	bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UMDxVzFeRWkNz7ABdMzITBYeUzkV1pnNyJCdbhzyQ+Fx/MNZMbAwzMDCGk1f8btpUSdU4DhOQHqKg8C76NCzueKgMzBsbjK4S6YN+IKr9Ai4a32/odgV48fhIO4qma6E/bKJ/Y7vnW/OT7qZ/oCW2BUThXXln5BfbrnzkuyDWKE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=poPoUCJa; arc=pass smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="poPoUCJa"
+Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-6729ca45e37so37860d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:26:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790983562; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pws9CQJNF4+pGh0qVeezcrWWouwHxHgFazIIAjZ5bQU2xwXh2J3SqYpbTUQBMVXxK0
+         Ai7P5l1bMYjxNNemwCvCimJVRnmINfdkPIp92V5Bf0zMoWm/345hIFnMMSbOn9tTGS57
+         MIVH2hAiuhvL6h25EMB/4ef9wCmfPeJYddFIOjOPrajf12Xiu6zKvQ+dk+PK9W90Fg4g
+         NwFk2Cl0uHGm3AULO3MhqBXF/pD4X/WXO4jQH3KPb3dcOT22dOFRVgzNB37SldVOOuGE
+         9JQB1WmeNm/b6DOHBUBU5tbWlmtFrKoXYEmyg01Wq2A1C8czAJeVj8Jbz0s0mbFIhE0C
+         Oveg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
+        fh=2xPPQPy2f9NxaZQoRhtyVurYlqVs935m051DQp2h5Lk=;
+        b=boivQwAXvLxLgKrRMolKFiHVtck7BKm3sCtmkE2u/pmrP3udXN0yHHVznGeo0uGFIn
+         UNYxMY+B5dW04jkEOwZfOkpcBMiJkUNEIy3WR91lV1mIdJ9r6eO4OgbNk6P4TpH7sC+/
+         mQ0gb0TwVuDL9penxOR3BZffdSi8kd0HoFTbtMSu+XsTS5ptbvpyN51xJT6NvL1J/54R
+         I2BfuZs+m7A2XSCbhiFnyOavrcYPUItD9bhdRTLISQ1PvUwNGSgAfcDcUBdslLsj9Se8
+         rTCRDDwwQyT8Gd8b9FB7aBMCLiH4prGXEnOZz9hANXR3Y6+l5w2EhUd/1cewLhn+yk/Z
+         pHXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=uber.com; s=google; t=1790983562; x=1791588362; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
+        b=poPoUCJaJTVARtJ9jLfbIFI6Oo+P1THbdWPGmccfi+WPK2khdYHENXGWmyMO2PSsMg
+         ogMWPoE8fqSGxU94KhWPDFXbMP2Ae9duaCM6oAhoMrlRMODEECvMKXf6epxhkR59sddT
+         sslVGO7JiQSTmRhjbsvsNE1/+G+4+r7xgGzF4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790983525; x=1791588325;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1790983562; x=1791588362;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dIjf4HqhU53sGKU8lTmxHgeawGfnk4d9WAw94g/v+Sw=;
-        b=MqoVfFA/p7917yIuyspv6GegFNHNbFxm5PzxPfbD1v7M2Cq2xVGjhz9+YS/hKEYMoF
-         h5gpLgUMnCdcef6YF01Zi6PC+H2JArQ6dtZgjB2J+ZaxZARELCf10XNhMVkCwC3CFfiS
-         u6eJXhYHoBSjpxsG0LvMqj6vnsjAs3KOEl8HHg4saAbP/BqOXOEJMnN2FPstButn8Mdw
-         Fwo0qG3p/kQlwUnPxyIgQGKjGNsRP8hHOgXTv4QU/JNB6uLI4Eki/iUcK+FY4r5mOrsh
-         0dpAoUiOQRGPLctdf7TYkx7Xa4pCnLF19Hhvor0S6DY+U06IfYNbb/Lp0IR1u7ODhl2F
-         dAfg==
-X-Gm-Message-State: AFuF++n7GWb1ucok/z8lXqaPF2G9nL1oDnc6OGHVgoF1Gp16kyyjinMa
-	/ni4vvGX3pB8t1BQLSmwcCrPPvzujnNsL6bS56OZ6c0GKFd7cwQNbzTHX9XBDU1/zIxXokYm2G2
-	XMPDP2xHwB1AH31XfmHvXM9/anykBCNR0J4pyn6hXbh8p/PScbmMT1GAYenc=
+        bh=u8gVVSgBrEyEZ0ngpczrNEJeXuDf1kkf1UVuVDZXvhY=;
+        b=Jfnd1wUwhcG74dZZWEntro9ZuoGImaoBUfYEx/wmxyL2RKWuE/9rNIIemzQg0NFCuu
+         xYUh2kFtD9RCzDxDCBtPl6smAPoPoTZdmDLl/C1OCZiV5StKExLy7sHwI/0qihuH9bXm
+         lAzqSQwZWc6nBuvo4jj+lV10pgV1UZvmm0Px923LFpT0WeQeYeZBRMWWMU26ZP8ITVNf
+         xhCnl+ogxNNC4npgy6JTaeUrC2zu3Yd5cJbx6qLBA9IapP74NsafJWeg/So0cczTlrNy
+         zpFWvebsd/9ATKYUnoUlI23IASdBO9MEteOzMuXb4HP7/xeBx0/VDxEVPfCEbyahXjyH
+         tjZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVnro26f+8o2xq45dNGwjIiKAOxA1p+cv/tILw7SB+T2E2V0oP4zFKZrFFaMZkMCUP/xoSPj/vq55wYDc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITAr0002mNV+e24wQf22uO9BqdfhR2eopUcjnA2WNQWprZKF/f
+	ui+ZZ78bQkc7AoPKga1dAK5lc1lPVNHhJ3gmnu3c4LEtovkSrp0M1AbXu+p/f8AKb4ewh/IMrVz
+	zuOHy3wNTNlH/F9C5p0QF1vjM6+frYFoqgy45BYUC5A==
+X-Gm-Gg: AYBFou0Rx4RByr3W7nGY0pRUB40nD1Yt4bK+6w0tMi6/aN52AV8G4gVDi0YSJnx+H+F
+	owO6soqBvQszoKkrYY8xuU8bpe7ieSDSPB5bso1jbN0LvA/jFIY7VIEvIOtCXIBzztYPG0BBtrJ
+	uw6znNO2PwW1s/TTXkFL38SQ4xe0j6dBlDbQDFgilK5YI9DuPy5Z1LgWr50NQ539trKoc3nHjmK
+	m9UsiQslkt86b3Lu4VO3PFACBwsIjgDd9ahvtSZLOEUa4OElhS8t7nakQQCKUgmE1ZN3U7hn45I
+	VCc9gIhG6NI2TMm8aY8Ls8S1E75X4NQdUm4cF7bQXf+3TyVkeoqMlPp9NEa7j1C9Wp3LYYWssCl
+	oqZJJ6RE1M5otjXrgTSnhNw==
+X-Received: by 2002:a05:690e:804:20b0:672:99e0:ebf6 with SMTP id
+ 956f58d0204a3-677ac1af0femr1170670d50.142.1790983561984; Fri, 02 Oct 2026
+ 16:26:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6d91:b0:4cb:f21b:6f90 with SMTP id
- 5614622812f47-4f529d37106mr3399532b6e.35.1790983525067; Fri, 02 Oct 2026
- 16:25:25 -0700 (PDT)
-Date: Fri, 02 Oct 2026 16:25:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac03d65.81dddff3.363068.0002.GAE@google.com>
-Subject: [syzbot] [raid?] general protection fault in md_handle_request
-From: syzbot <syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
-	syzkaller-bugs@googlegroups.com, yukuai@fnnas.com
+References: <20261002-perf-symbol-memory-send-v4-0-0a592bb2539e@uber.com>
+ <20261002-perf-symbol-memory-send-v4-2-0a592bb2539e@uber.com> <CAP-5=fX=BvLMm-JHLqaR6ACmP0buF9TSvRLf_Cs1us-o6aMGRQ@mail.gmail.com>
+In-Reply-To: <CAP-5=fX=BvLMm-JHLqaR6ACmP0buF9TSvRLf_Cs1us-o6aMGRQ@mail.gmail.com>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Fri, 2 Oct 2026 16:25:45 -0700
+X-Gm-Features: AclHuK-ph-iyfrQ2eVW2jG3FptK-AGuI-o72WhxQK4yu3pLAKj6OtRrC1G1nndg
+Message-ID: <CA+w=M=REOd1gvi+c6vkd0Ue=q2d_gfC2xeJ_KSVg0H0AaOA+pw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/5] perf dso: Allow reading DSO data from an explicit file
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Oct 2, 2026 at 3:13=E2=80=AFPM Ian Rogers <irogers@google.com> wrot=
+e:
+>
+> On Fri, Oct 2, 2026 at 11:46=E2=80=AFAM Alireza Haghdoost via B4 Relay
+> <devnull+haghdoost.uber.com@kernel.org> wrote:
+> >
+> > From: Alireza Haghdoost <haghdoost@uber.com>
+> >
+> > The DSO data cache derives the file to open from the DSO's binary type,
+> > which can resolve to the runtime image rather than the file a symbol
+> > table was read from. The lazy symbol loader added later in this series
+> > reads symbol names at string-table offsets in the file the symbol table
+> > came from. With split debuginfo, the data cache would apply those
+> > debuginfo offsets to the runtime image.
+> >
+> > This patch adds dso__data_set_path() so a DSO can be configured to read
+> > from one exact file while keeping the data cache's descriptor eviction
+> > and reopening. The path is used only when the data cache opens the file=
+;
+> > dso__get_filename() and its debuginfo callers are unchanged. Such DSOs
+> > may be owned privately rather than being part of a dsos collection, so
+> > the patch also drops the assertion that every opened data DSO is in one=
+.
+>
+> I think some context is missing here. Why do I want a DSO that isn't
+> part of a machine's DSOs? I can see a use for testing, do you want
+> this feature for more than testing?
+>
 
-syzbot found the following issue on:
+Yes, the production consumer is 4/5 in
+tools/perf/util/symbol-elf.c:2143-2146, where
+dso__build_ondemand_index() creates the private data DSO and sets the exact
+symbol-source path.
 
-HEAD commit:    6474fa070f2b Add linux-next specific files for 20260929
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=14dfe035580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3477d5a04d788556
-dashboard link: https://syzkaller.appspot.com/bug?extid=89a9ab2a134d092fffae
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10d876c9580000
+The lazy loader needs this data-cache handle because the symbol table may
+come from separate debuginfo rather than the runtime image. Namhyung asked
+during the v2 review that this known split-debuginfo problem be separated
+from the lazy loader as an independent fix.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000003: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
-CPU: 1 UID: 0 PID: 6372 Comm: syz-executor143 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:md_handle_request+0xadd/0xe60 drivers/md/md.c:417
-Code: 24 90 00 00 00 48 8b 84 24 a8 00 00 00 42 80 3c 20 00 74 08 48 89 df e8 f1 b2 93 f9 48 8b 1b 48 83 c3 18 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 d4 b2 93 f9 4c 8b 1b 48 8b bc 24
-RSP: 0018:ffffc9000415f5c0 EFLAGS: 00010206
-RAX: 0000000000000003 RBX: 0000000000000018 RCX: ffff88802b29ddc0
-RDX: 0000000000000000 RSI: ffffffff8e9dafe5 RDI: ffff88802b29ddc0
-RBP: ffffc9000415f778 R08: ffffffff88a749bc R09: 0000000000000000
-R10: 0000000000000009 R11: 0000000000000000 R12: dffffc0000000000
-R13: 1ffff9200082bf70 R14: ffff88807e3680c8 R15: ffff88807e368238
-FS:  000055556ca3c400(0000) GS:ffff888124723000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f8a7dc59000 CR3: 000000007831e000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __submit_bio+0x27f/0x340 block/blk-core.c:681
- __submit_bio_noacct block/blk-core.c:724 [inline]
- submit_bio_noacct_nocheck+0x4e8/0xa40 block/blk-core.c:792
- bio_await block/bio.c:1506 [inline]
- submit_bio_wait+0x12a/0x250 block/bio.c:1524
- __blkdev_direct_IO_simple block/fops.c:115 [inline]
- blkdev_direct_IO+0x1167/0x18e0 block/fops.c:451
- blkdev_read_iter+0x223/0x420 block/fops.c:849
- new_sync_read fs/read_write.c:493 [inline]
- vfs_read+0x595/0xa80 fs/read_write.c:574
- ksys_pread64 fs/read_write.c:764 [inline]
- __do_sys_pread64 fs/read_write.c:772 [inline]
- __se_sys_pread64 fs/read_write.c:769 [inline]
- __x64_sys_pread64+0x196/0x220 fs/read_write.c:769
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f8a7dca9077
-Code: 48 89 fa 4c 89 df e8 98 1e 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffc5a7b78d0 EFLAGS: 00000202 ORIG_RAX: 0000000000000011
-RAX: ffffffffffffffda RBX: 000055556ca3c400 RCX: 00007f8a7dca9077
-RDX: 0000000000001000 RSI: 000055556ca3e000 RDI: 0000000000000009
-RBP: 0000000000000096 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffc5a7b79e0
-R13: 00007ffc5a7b79d4 R14: 00007ffc5a7b7954 R15: 00007f8a7dc59000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:md_handle_request+0xadd/0xe60 drivers/md/md.c:417
-Code: 24 90 00 00 00 48 8b 84 24 a8 00 00 00 42 80 3c 20 00 74 08 48 89 df e8 f1 b2 93 f9 48 8b 1b 48 83 c3 18 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 d4 b2 93 f9 4c 8b 1b 48 8b bc 24
-RSP: 0018:ffffc9000415f5c0 EFLAGS: 00010206
-RAX: 0000000000000003 RBX: 0000000000000018 RCX: ffff88802b29ddc0
-RDX: 0000000000000000 RSI: ffffffff8e9dafe5 RDI: ffff88802b29ddc0
-RBP: ffffc9000415f778 R08: ffffffff88a749bc R09: 0000000000000000
-R10: 0000000000000009 R11: 0000000000000000 R12: dffffc0000000000
-R13: 1ffff9200082bf70 R14: ffff88807e3680c8 R15: ffff88807e368238
-FS:  000055556ca3c400(0000) GS:ffff888124623000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f8a7dd14100 CR3: 000000007831e000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	24 90                	and    $0x90,%al
-   2:	00 00                	add    %al,(%rax)
-   4:	00 48 8b             	add    %cl,-0x75(%rax)
-   7:	84 24 a8             	test   %ah,(%rax,%rbp,4)
-   a:	00 00                	add    %al,(%rax)
-   c:	00 42 80             	add    %al,-0x80(%rdx)
-   f:	3c 20                	cmp    $0x20,%al
-  11:	00 74 08 48          	add    %dh,0x48(%rax,%rcx,1)
-  15:	89 df                	mov    %ebx,%edi
-  17:	e8 f1 b2 93 f9       	call   0xf993b30d
-  1c:	48 8b 1b             	mov    (%rbx),%rbx
-  1f:	48 83 c3 18          	add    $0x18,%rbx
-  23:	48 89 d8             	mov    %rbx,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	48 89 df             	mov    %rbx,%rdi
-  34:	e8 d4 b2 93 f9       	call   0xf993b30d
-  39:	4c 8b 1b             	mov    (%rbx),%r11
-  3c:	48                   	rex.W
-  3d:	8b                   	.byte 0x8b
-  3e:	bc                   	.byte 0xbc
-  3f:	24                   	.byte 0x24
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks,
+Alireza
