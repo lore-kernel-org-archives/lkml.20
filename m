@@ -1,64 +1,64 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5C94EFFAC
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A3E4F4CFC
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:45:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955932; cv=none; b=fS5cNHZ1kWmywViKMtZVjmCa03ETzz+NZJs5dYyeonMvrnbPF0u/ULx5L8/NWPzbX6QLkGYcE0x+pcOdCg7f13rYfNNoanErYZBRfPbcBS8pwlcjDv8LV+1LHw6DTjPFn1S8bIIjUeIiIfQisKN1zMBQ+d91AoniJweLuVbWXKA=
+	t=1790955936; cv=none; b=unDIs5qCubkUiOga3lhrZg83vsRkP1Piz+sAA/Z2hihHQrLw6Jo4TKaoDM1sjyTxcnKAjkUVFayVnXC7L3Hi8mKkT8+YTVdW39reOLT7OfhWJr6EA5AsAlCu3vrWb67xV6epNnRu/9hvWNyT78yfHbaNNitp7zEcnC30YM7TqsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955932; c=relaxed/simple;
-	bh=XJBmbAQssDpv3cWBcThWNbjc6nl3j+gt9Ko4eNiaO98=;
+	s=arc-20240116; t=1790955936; c=relaxed/simple;
+	bh=ggoTRpIipo8tqYS4OC5rdC9P6GonVqjlFQkkxo9kZmI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lg9cL4gySxM9dXnp1L7vPR4h6zA4pusCmRfEQjOsFVTgvP/sZDzETMGnqs78X7KbezWbDyrooDi094jEG5maYdjg4Yd81HTSXCtVIBhw6+8BLO6ijDa0Ot/6iB8TYEgWGWm4h6v0kmDsl4lU01YtmXz8QNtl4tdwRXVnFFsH7lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nhzdFhK4; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=NmPin6hkDs3btXWi1HiB+I8AoQMyIznS0tPwE2Zm1YmEo2rSZXt7d4kAdhTHWGR/GgImWhsZdrk6mbyLvWG9bsDWfT4TEv7doiluoJwrDN5ikJzn8rabsicIXTLbHWm8b2QKTMyptKNPDvU5NuClQA7Mhuu23vbRksCh0bpxHg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zhHLfqS6; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nhzdFhK4"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso190575e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zhHLfqS6"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso340575e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:45:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790955925; x=1791560725; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790955930; x=1791560730; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WkE6gJnDRs+XLmAou5XPy/YO7fax7WUEGWY0OkDdt7Y=;
-        b=nhzdFhK4XJm4ywkcMx2iZMlbdA0TopX3qmiFqXqJugOxcLyeKb3VMWUs0kTjTnGuM8
-         2mNAe8T2O4hzGJQSPLdDh82R7EJs0X889b+En2tC6hrk17UoJZG1IZ8bXRoK56uxa2zx
-         AO+vWqV8B/fAAV8FQKM+MAHDUiEWDtazoFIeizUtFrCdVkjLsW0+qfVNTkOTlQBCuqSE
-         Vvd6wedQWqZPk6RJgoTNBb/SUo8uK55/IJa/tKgPE+Agf7NmfSihpJxqjgkTl/P5giYl
-         SQV52N9l+O719/iKvYM5j3/pDDgcnqX5MVQdEzeQrUKfYqm8CTc6LH8x3h35/b5MEyqu
-         egAA==
+        bh=2+9o8MqrHYpJJITgMWl7mhC4JEDEuTdaJ3vXHPZaTZo=;
+        b=zhHLfqS65QYZtpgjTDwgvC5wEtkTS5jmuA6hyQs44qa5zPlp4nfvbjgthN5TbUKxTk
+         jDCzokOIoX9H5q7sy8BxS2mD35SOmMySWlFdMcUpjAVjISL65jjb17VO7A5KfE6b1+DL
+         EIec452lQGpiltfIPVTg2pe8j6p1L2mngJKoTsGejueE9jXSLILHbuiBa2QYhr2bzdON
+         wiwoLqdH4vk75SOISmD/rkX9RWuzuFR9TAfdZg5xXdf8SkVKcBcRUGaF4vxjbzHyJ3zn
+         WajYkJy9SfB9FH/Z9rYs1+SarC+BjHiP3S/lm7p88uH4qoSGYWHdC/bwTY+EAbsMfOgg
+         A1Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790955925; x=1791560725;
+        d=1e100.net; s=20260707; t=1790955930; x=1791560730;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WkE6gJnDRs+XLmAou5XPy/YO7fax7WUEGWY0OkDdt7Y=;
-        b=0OF3FwwyAHUInEIx3BD6ZGO0a9VN88HE2yw9AkJs8MgCJFuecGdAhe1hbHrCl5tyBy
-         g4/PSyjUIdqiLF/4dDFSNrTpUBePQ3Ai+l0RXWdW00uQGLcqQx9QlSu2323roeBERWRe
-         BeN6EJAKJscSPQxvu+uYQTL9Ca+WXHIcwVrUrMBaRf/5fasZEtAr23+64JM/mvYQyoMF
-         Cj++bmwBkwnHQgPt1o2n1fJmTf68nMnZaRyP2qw/lVCSBMCuy/iss5DUpRUIsY2Hww9Y
-         vRqdsO4R6Fg6hrUEg4vA/2vDiFNvT1sQ4xJ994FSpbD2/QrIGEyb5OIS+Odo4BiYR6im
-         BSRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxYCF0Nv+Y9dSZlWdzgGdbqymAynh/vScgx18aAP5f8ngFx3FVQ9XC3aEHGctsleBZxTBbkblAVsyJS5z8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKr2pPWEUu1g9PpermXcjeqtDQc1S8kTyNY4oh2TxI4pffZrBQ
-	pnyShzfjw3Mj2jNJfiKVgbabEfSpe0m0bIAti6wW05FLPRf86s+cbotLKG6J9gx0Gxs=
-X-Gm-Gg: AYBFou3ywp3u9arfumAs0kHIMky1aUYhjWBz3AxvEY9E75of+6dgHzScP620OBmf0lX
-	9wjioHfZA6tHiuWCFPfLkxaGe1jYjv0tX3Ilf8jCNflTuN81InAUYWbT1mN1JAtF2sYrcoqtKsQ
-	4744FosML+6f5hWgHE9WOov9DPcmkzO61NZot7SdMy5yJjcTM2jv4bmK7Mric4dBLXKRzWUxnEx
-	hdHfaEFYeZbIrIWjIggG7BIHTBuZW8fvaVV0zMxRYj3zGS/o+f/OIKDjBluScEER8teUuh/z6cF
-	TwD1Fa65zaes7kO3NEl0mABU7EAXj6ZQIttcSEO4KQ+XuNhvGL4MzBih7/CahUF8ZPCx9ybn4sK
-	mVze2i5BtMhBsfOTtq+lhxnqFwYJDtNbhgZgbcJ0KWJFRFgArPPxHC8oj3EmpoJQGi6M9Lzwn8U
-	4kzVm62+3Gi1EmimN6fJpxvHR6vT5OsxsbZBtWfMy3ul0iIxpIsIxcjeA+y5shet+8373yI92m4
-	QG5K1Lq8UfUFomb
-X-Received: by 2002:a05:600c:310b:b0:49f:bd3c:bc25 with SMTP id 5b1f17b1804b1-4a0276a224amr56824375e9.32.1790955924579;
-        Fri, 02 Oct 2026 08:45:24 -0700 (PDT)
+        bh=2+9o8MqrHYpJJITgMWl7mhC4JEDEuTdaJ3vXHPZaTZo=;
+        b=FhStnombmObQB8NQhzBdXfLNcbvSJV2nchu3hyMNnNeXq1rPHrRYQ7fGl23Fexbkto
+         prRmwcozvP5rOBF1a0NKBGd9J76oHJOoFFPAkQy65VfpPtFkPVwrqW+rxQ4BX6Eh8S44
+         ID+6aogwecWtP7je8HpC1tFslVoDm99HSUW4+Sr23HhIsWefbaXimwEpPUBiKrOYS431
+         yQgv9Stmpck19+MqV2D9SNbcSIbd0gSa475ywBoy+QXbkwm/KoY6rOh1tAzLNo2JXpEl
+         Tnqjv2+cwoAnmM/k12hYyVQXgvZrA2Sb5w9XOYJnGOmu0MqEqMQhxuG0OkVfHwATrKNv
+         dcmw==
+X-Forwarded-Encrypted: i=1; AKwUvBw2L5TC6mck7cvGODk6GGtAXGQgWtz+MlIw8wz+sBbXbkUx31N9CwFNS7FK69AjStrThuNTHzljYKpmuLY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLjtIlHMTgcyQZhYzcYkK370gxtK8CiYtqSsla8vdWJAthXEGM
+	TrPlw0zAArbN0rjJyBYlQL2Kf1Mr/uqHPsOUpaLHh2Q4JZrZBBxrawP847lxH/cvC/o=
+X-Gm-Gg: AYBFou3uxBKnoh56X3POyThiMi8r4//4lWbEkj6RqO7Ax+prEvO2AVVHfwSxydfwQOE
+	eKcSGMqfD7S3E4l3Z4ZnbXhkjNG4Df5uxL1W1AmtlDTbVdUoBWff3BpACcGfW1mgXAhIIedn016
+	euQtHZoCM0cgYdRRnU1lJ3xVHSlBzGY+lIOPiQgCn2owT2x9vX3EQ69NR7hELqsxHqprD9r2RBw
+	6JhpRf/EHHjSIgnEXkZ2wS00Jtg11418Rp8IehC08RcIH54muijfst/0FbxBcDs8zWWcXVwxPZw
+	GGp3eq2sYYRE7NRRdRjRZzgYCV9IvsCpOPsd+dgKbi7EA2K+FnW4yfBotfI9cwEQNrpeHviCWnj
+	NabWYBiGTUi18DCxeaSMiiJ23c7UbvBr4p+OL7gTh2j/zfco59PhRp9Bju4+Q8bY5FJZnE8iw/k
+	ugTL/75I7cpTjgrmqm3f6bUzeNY7ocSvX+Q5a6tJJgOqMKN+/kXdThj09cDT2IB1LhxpYucgxyE
+	VMPKHMX0+8oDtu6
+X-Received: by 2002:a05:600c:46ca:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-4a0274f96a8mr58318145e9.1.1790955930554;
+        Fri, 02 Oct 2026 08:45:30 -0700 (PDT)
 Received: from vingu-cube.home ([2a01:e0a:11f4:3020:718b:4747:291c:e5d8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bcf0fsm101958045e9.6.2026.10.02.08.45.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 08:45:23 -0700 (PDT)
+        Fri, 02 Oct 2026 08:45:29 -0700 (PDT)
 From: Vincent Guittot <vincent.guittot@linaro.org>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -83,9 +83,9 @@ Cc: qyousef@layalina.io,
 	pierre.gondois@arm.com,
 	sshegde@linux.ibm.com,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 15/18 v2] energy model: Add a get previous state function
-Date: Fri,  2 Oct 2026 17:44:12 +0200
-Message-ID: <20261002154415.2270586-16-vincent.guittot@linaro.org>
+Subject: [PATCH 18/18 v2] sched/fair: Take into account slice in EAS
+Date: Fri,  2 Oct 2026 17:44:15 +0200
+Message-ID: <20261002154415.2270586-19-vincent.guittot@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261002154415.2270586-1-vincent.guittot@linaro.org>
 References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
@@ -97,66 +97,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of parsing the entire EM table everytime, add a function to get the
-previous state.
-
-Will be used in the scheduler feec() function.
+When the cost is the same, take into account the slice of a task to try to
+select a CPU where is will run first.
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- include/linux/energy_model.h | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ kernel/sched/fair.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/energy_model.h b/include/linux/energy_model.h
-index c909a8ba22e8..89cf109cbca6 100644
---- a/include/linux/energy_model.h
-+++ b/include/linux/energy_model.h
-@@ -224,6 +224,26 @@ em_pd_get_efficient_state(struct em_perf_state *table,
- 	return max_ps;
- }
- 
-+static inline int
-+em_pd_get_previous_state(struct em_perf_state *table,
-+			 struct em_perf_domain *pd, int idx)
-+{
-+	unsigned long pd_flags = pd->flags;
-+	int min_ps = pd->min_perf_state;
-+	struct em_perf_state *ps;
-+	int i;
-+
-+	for (i = idx - 1; i >= min_ps; i--) {
-+		ps = &table[i];
-+		if (pd_flags & EM_PERF_DOMAIN_SKIP_INEFFICIENCIES &&
-+		    ps->flags & EM_PERF_STATE_INEFFICIENT)
-+			continue;
-+		return i;
-+	}
-+
-+	return -1;
-+}
-+
- /**
-  * em_cpu_energy() - Estimates the energy consumed by the CPUs of a
-  *		performance domain
-@@ -375,6 +395,18 @@ static inline struct em_perf_domain *em_pd_get(struct device *dev)
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 94554f165f42..d60bb6db4ce9 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -9598,8 +9598,17 @@ static int check_cpu_with_task(struct task_struct *p, int cpu)
+  */
+ static bool update_best_cpu(struct energy_cpu_stat *target,
+ 			    struct energy_cpu_stat *min,
+-			    int prev, struct sched_domain *sd)
++			    int prev, struct sched_domain *sd,
++			    struct task_struct *p)
  {
- 	return NULL;
- }
-+static inline int
-+em_pd_get_efficient_state(struct em_perf_state *table,
-+			  struct em_perf_domain *pd, unsigned long max_util)
-+{
-+	return 0;
-+}
-+static inline int
-+em_pd_get_previous_state(struct em_perf_state *table,
-+			 struct em_perf_domain *pd, int idx)
-+{
-+	return -1;
-+}
- static inline unsigned long em_cpu_energy(struct em_perf_domain *pd,
- 			unsigned long max_util, unsigned long sum_util,
- 			unsigned long allowed_cpu_cap)
++	unsigned long task_slice = p->se.slice;
++
++	/*  Select the one where you can run first */
++	if (task_slice < get_rq_min_slice(cpu_rq(target->cpu)) &&
++	    task_slice >= get_rq_min_slice(cpu_rq(min->cpu)))
++		return true;
++
++	/* Favor previous CPU */
+ 	if (target->cpu == prev)
+ 		return true;
+ 	if (min->cpu == prev)
+@@ -9762,7 +9771,7 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+ 			 */
+ 			if (target_perf < min_stat.min_perf)
+ 				find_pd_cost(pd->em_pd, target_perf, &target_stat);
+-			else if (!update_best_cpu(&target_stat, &min_stat, prev_cpu, sd))
++			else if (!update_best_cpu(&target_stat, &min_stat, prev_cpu, sd, p))
+ 				continue;
+ 
+ 			/* Save the new most efficient CPU of the PD */
 -- 
 2.53.0
 
