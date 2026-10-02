@@ -1,93 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD62D36606A;
-	Fri,  2 Oct 2026 12:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BDA49159D;
+	Fri,  2 Oct 2026 12:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945249; cv=none; b=BEAARrnkZjQIKj2hoTKVUFtskRz/r2J8qWrvuEE0q9JRhTCqNRK//2s/hJT94EF3uKUboLkgTwKR1jfchd8mOzMt0ZhjT+fg5Pd1Ms5LWq3pWvZJEFPfeyTNrJ+qbE4B/L+LN2C/1OYbGCnU+HbWPQPj5kWhYZqzwGe8cOKPDLY=
+	t=1790945250; cv=none; b=euRqwxaDowWBdqEW8qK4h+1xQvnis8yKYYG8pZ0WM1ZPg2lFos1a+IzT4yUiFc1Z93+GQcGBbjS/9xyTPjZFEPCfYsKJ5t6mgqZTW8M6CcHoKjmBrLmi4NFkMIBzdADo6rL+/GUKNT/G5q16cf9wn77aR82z1v7SylSnXxXuwJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945249; c=relaxed/simple;
-	bh=DFJixfsIIsAGQ1MSX9PuJBKchNKJqzGO0iLvyteoq8M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tLevi8iSUUz8l85IM46liKSFY9TRyPtu9YiN65csdwaAQTClQQfP/ENlqfZ2Kh2rHGQxxeLM4OWy3zcdiVcBy/8JwulzKquG6xxNimOeRp6JjCnZ2oH0Xd0TxQUbKZY3C4X+2eZ/vVmTTzJn56yI930Y057YfSBna1brNahfpL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GA7YOjRb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GA7YOjRb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D03A1F000FF;
-	Fri,  2 Oct 2026 12:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945247;
-	bh=R2xU9ceQc0e8UmIXLVO9+Apn4tm7FqEhaNqlTP4GigE=;
-	h=From:To:Cc:Subject:Date;
-	b=GA7YOjRbHeW6/SiKhyawvhfHXc3OlriUbi7gLKA4gyOzSPw90yY03h4O8y1oIHmtB
-	 qFH2R5FNHcDJAtdvTMMmR8fBDom7YXQjdTb9HZtxTVGAyEXPrh5fs6sN7HNQa33sQF
-	 EABr/gsESBU7J2qNRYJ8zjiK3yPCvk7rmsOl1/XB+HsHalQm5Ni2ilbYV3pIhVDR6J
-	 aS/cyGvsMuukoLRSfqvEhSyVrOAIU0wj5tY/0jGEFKmPC+cqnmRLbQ3YvjCgsbHb7k
-	 frnlSQKwHP2BwbH5kxdVrdlwskA6VVjKY2Jzw9fHg4iy0k75s4F4kXprXaCgHxPv1b
-	 VBzX93wWD1fWQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Linus Walleij <linusw@kernel.org>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Alex Soo <yuklin.soo@starfivetech.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: starfive: fix missing CONFIG_OF dependencies
-Date: Fri,  2 Oct 2026 14:47:15 +0200
-Message-ID: <20261002124722.3545736-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1790945250; c=relaxed/simple;
+	bh=1kBkac6LNnm0H0y/GognaOLkx+algFyVH6DXASx8gWo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FHyRzLfCj+3uH6UA2vqby/SboOcF0Nvp1Vr+QUK31mp3I1iVCMYrVXhNrNKRXDbTVt6mNyoahwgjOSu5EFg10EqFplAwhIKvWxko/wkTtE7R0fJnbmpB/rHDG45pbf5rkRo6GvjJjCkTWbwUB+6fBmMDvCWdNzVbg9urBtrzAls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xCcfc-0000000039z-3INZ;
+	Fri, 02 Oct 2026 12:47:24 +0000
+Date: Fri, 2 Oct 2026 13:47:21 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Hendrik Noack <hendrik-noack@gmx.de>, Arnd Bergmann <arnd@arndb.de>,
+	Ferass El Hafidi <funderscore@postmarketos.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Oleh Kuzhylnyi <kuzhylol@gmail.com>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Chad Monroe <chad@monroe.io>, John Crispin <john@phrozen.org>
+Subject: [PATCH v2 1/5] dt-bindings: input: touchscreen: hynitron,cst816x:
+ axes and panel
+Message-ID: <04a70b1cb0969ec4e4b38f7945e0b22a977b038b.1790944534.git.daniel@makrotopia.org>
+References: <cover.1790944534.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1790944534.git.daniel@makrotopia.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+The chip hands out coordinates in its own frame and knows nothing of
+the panel it is glued to, so how it is oriented against that panel,
+which coordinate range the assembly reports and how noisy it is are
+properties of the board. Reference touchscreen.yaml so that a board
+can state them with the common axis properties. Allow the 'panel'
+phandle as well, since these controllers are mounted on the panel and
+fed from its rail, which asks for the two to be power sequenced
+together.
 
-The common driver portion requires CONFIG_OF, but the drivers
-selecting it do not, so we get random warnings:
-
-WARNING: unmet direct dependencies detected for PINCTRL_STARFIVE_JHB100
-  Depends on [n]: PINCTRL [=y] && OF [=n]
-  Selected by [y]:
-  - PINCTRL_STARFIVE_JHB100_PER1 [=y] && PINCTRL [=y] && (ARCH_STARFIVE || COMPILE_TEST [=y])
-  - PINCTRL_STARFIVE_JHB100_PER2POK [=y] && PINCTRL [=y] && (ARCH_STARFIVE || COMPILE_TEST [=y])
-  - PINCTRL_STARFIVE_JHB100_SYS1 [=y] && PINCTRL [=y] && (ARCH_STARFIVE || COMPILE_TEST [=y])
-  Selected by [m]:
-  - PINCTRL_STARFIVE_JHB100_PER0 [=m] && PINCTRL [=y] && (ARCH_STARFIVE || COMPILE_TEST [=y])
-  - PINCTRL_STARFIVE_JHB100_SYS0 [=m] && PINCTRL [=y] && (ARCH_STARFIVE || COMPILE_TEST [=y])
-
-Apparently the problem is selecting CONFIG_OF_GPIO, which is a mistake
-the newly added driver copied from others. This was recently cleaned up
-with commit e785c990adcc ("pinctrl: Kconfig: drop unneeded dependencies
-on OF_GPIO"). Do the same here for consistency and to avoid the warning.
-
-Fixes: 9c4d0c8fc4c1 ("pinctrl: starfive: Add StarFive JHB100 sys0 controller driver")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
- drivers/pinctrl/starfive/Kconfig | 2 --
- 1 file changed, 2 deletions(-)
+v2:
+- allow touchscreen-min-x/y, touchscreen-size-x/y and
+  touchscreen-fuzz-x/y as well (Sashiko AI review)
+- allow the 'panel' phandle
+- justify the change in the commit message (Conor Dooley)
 
-diff --git a/drivers/pinctrl/starfive/Kconfig b/drivers/pinctrl/starfive/Kconfig
-index 11bd429b45b7..7ff506a15dd8 100644
---- a/drivers/pinctrl/starfive/Kconfig
-+++ b/drivers/pinctrl/starfive/Kconfig
-@@ -50,11 +50,9 @@ config PINCTRL_STARFIVE_JH7110_AON
+ .../input/touchscreen/hynitron,cst816x.yaml      | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml b/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml
+index 72d4da636881e..027a2b3dcf2e8 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml
+@@ -36,6 +36,18 @@ properties:
+       - description: Slide right gesture
+       - description: Long press gesture
  
- config PINCTRL_STARFIVE_JHB100
- 	bool
--	depends on OF
- 	select GENERIC_PINCTRL
- 	select GPIOLIB
- 	select GPIOLIB_IRQCHIP
--	select OF_GPIO
++  panel: true
++
++  touchscreen-min-x: true
++  touchscreen-min-y: true
++  touchscreen-size-x: true
++  touchscreen-size-y: true
++  touchscreen-fuzz-x: true
++  touchscreen-fuzz-y: true
++  touchscreen-inverted-x: true
++  touchscreen-inverted-y: true
++  touchscreen-swapped-x-y: true
++
+ required:
+   - compatible
+   - reg
+@@ -43,6 +55,9 @@ required:
  
- config PINCTRL_STARFIVE_JHB100_PER0
- 	tristate "StarFive JHB100 SoC Peripheral-0 pinctrl and GPIO driver"
+ additionalProperties: false
+ 
++allOf:
++  - $ref: touchscreen.yaml#
++
+ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+@@ -59,6 +74,7 @@ examples:
+             reset-gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
+             linux,keycodes = <KEY_UP>, <KEY_DOWN>, <KEY_LEFT>, <KEY_RIGHT>,
+                              <BTN_TOOL_TRIPLETAP>;
++            touchscreen-swapped-x-y;
+         };
+     };
+ 
 -- 
-2.53.0
-
+2.55.0
