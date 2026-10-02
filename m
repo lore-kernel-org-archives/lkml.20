@@ -1,33 +1,33 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9FC7357CF4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49CCD4DA9C9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790954894; cv=none; b=MO/9pcGz6y26ly/l4uIfV4i+l3n1OO/65QI/KAVBNc7vKHAHr0zqcO67Z9zXatsthmTXZ6CNik02g+oAk6rUVxVwBm20VO4eeGoVSUHnG7F4meSOSrtL835707TQlHI00CA3sZEyY9ZdqBNySqaiUSgED9JFt0iaazsYHN5h7nU=
+	t=1790954906; cv=none; b=XYqmQneJF4M0ckRdrMcbo6TetRHBF5qlfMNNWftRJFBN0Xp9WulZN+516sVjchAJWirRt0impQO59iuNNeWLP3F5+T4ZXH2iTaUbAi4NFl+WPoRvEg/XoPMWqSGrv/Ldsz9uvwaKqEVmW4640xL7rP3ObovJ0yARL6vgW/utIf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790954894; c=relaxed/simple;
-	bh=SBJel+ooDz1gRUkPel1Y7M40DlcCPPj25e5QajwwZXc=;
+	s=arc-20240116; t=1790954906; c=relaxed/simple;
+	bh=+c2XfBklE+xxM00L91xC98BmEy1tRYcDNN94L00w0FI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CQtqO72i1wwfYHLbJQk/7uDy/PR/th+6J02rZAS3/e7FgH/rExTRUSNd/8fv52L+li2sd6kGi5O5Jdtoaew5ccP/aET/S2/OIHuET4nNXXbx6aQOjTPcgXoQJlRcqAkIql+7PNo/jEDDoCpCCkxf4JUkwd17Ulh1/KZn4XlFzSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CK99x9/u; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:Content-Type; b=HLrhcpAQtOrrAKRpOSL025xLTTSe4b7TI9QiwLYVrZTcVuslQ4srXbcw0/+jsxzuzbGP5romZ3QW3KBLIpd0lbHLMEQgBX+fIsUVrNauwVw0H+X86is1CeOjqmppGoGlJWPv58PFj5RQRsft1x25y21EkFZ341vQu33MGmx/3MM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SF03anza; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CK99x9/u"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SF03anza"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2DF0143D;
-	Fri,  2 Oct 2026 08:28:08 -0700 (PDT)
-Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F39E63F882;
-	Fri,  2 Oct 2026 08:28:10 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B673143D;
+	Fri,  2 Oct 2026 08:28:20 -0700 (PDT)
+Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 413F33F85F;
+	Fri,  2 Oct 2026 08:28:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790954892; bh=SBJel+ooDz1gRUkPel1Y7M40DlcCPPj25e5QajwwZXc=;
+	t=1790954903; bh=+c2XfBklE+xxM00L91xC98BmEy1tRYcDNN94L00w0FI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CK99x9/uXkjfykjfyQ0CVPfBcqtZ9StLdvj7pbREw+MQSQflkVc7QJKS4Dh7BvWQr
-	 uexp/V0BBMrbfEBoW6njlQxh2GKs1wEm/xZjgjUpl27IJ5A2hGS04KXfUSOKvkB0hB
-	 eWv/KHlw/1b1QwPre4m2xaV6lqUFBQMyn5tMdsZg=
-Message-ID: <0e78cff6-edd1-4db8-bdb0-7ee6123b146f@arm.com>
-Date: Fri, 2 Oct 2026 16:28:08 +0100
+	b=SF03anza6RwRPD8/TqflSqJSUNpMzGBQmJ4mxIT1x+WHcGQflCOE7659vrNAfZwN1
+	 WlLbYN00xi3Wm9p4x2w4WnKYay3BDSm11GxmvSdNEVZMNRku/8mD0Gl+j8ptVPa5iI
+	 mYQldc5QeZH0BtK9i1BgjKDfNTrVfWecGO3NWP0k=
+Message-ID: <ff25c611-abe3-4ba1-85db-9e3f6372fcec@arm.com>
+Date: Fri, 2 Oct 2026 16:28:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,63 +35,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add mpam.rst to the MPAM DRIVER entry
-To: Fuad Tabba <fuad.tabba@linux.dev>, Ben Horgan <ben.horgan@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
- Fenghua Yu <fenghuay@nvidia.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Fuad Tabba <tabba@google.com>
-References: <20260903182300.2706684-1-fuad.tabba@linux.dev>
+Subject: Re: [PATCH v12 13/15] drm/panfrost: Avoid cache flush after perfcnt
+ sample in fully coherent systems
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-13-62beb08de207@collabora.com>
+From: Steven Price <steven.price@arm.com>
 Content-Language: en-GB
-From: James Morse <james.morse@arm.com>
-In-Reply-To: <20260903182300.2706684-1-fuad.tabba@linux.dev>
+In-Reply-To: <20260929-claude-fixes-v12-13-62beb08de207@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Fuad,
-
-On 03/09/2026 19:23, Fuad Tabba wrote:
-> Documentation/arch/arm64/mpam.rst is not listed under MPAM DRIVER, so
-> get_maintainer.pl names neither MPAM maintainer on a patch to it.
-
-Fair enough ...
-
-I've picked this up to send on to Catalin...
-
-
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
+On 29/09/2026 04:44, Adrián Larumbe wrote:
+> If the GPU and CPU are fully coherent, then there's no need to flush the
+> GPU caches after a perfcnt sample is made available.
 > 
-> Notes:
->     Found this while putting together the recipient list for [1]:
->     get_maintainer.pl names neither MPAM maintainer on a patch to mpam.rst.
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
->     arch/arm64/kernel/mpam.c, arch/arm64/include/asm/mpam.h and
->     drivers/acpi/arm64/mpam.c aren't in this entry either, but that
->     didn't look as clear cut, so I've left them out. Happy to respin
->     with them added.
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-I'd leave that - the split is so that stuff in the arm-arm is part of the arch
-code, and things that aren't a buried out in drivers.
-
-
-Thanks,
-
-James
-
-
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fc320b373656f..20a6e70df83c8 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -18438,6 +18438,7 @@ M:	Ben Horgan <ben.horgan@arm.com>
->  R:	Reinette Chatre <reinette.chatre@intel.com>
->  R:	Fenghua Yu <fenghuay@nvidia.com>
->  S:	Maintained
-> +F:	Documentation/arch/arm64/mpam.rst
->  F:	drivers/resctrl/mpam_*
->  F:	drivers/resctrl/test_mpam_*
->  F:	include/linux/arm_mpam.h
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> index ffc77121070e..b3f71d7fd82a 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+>  
+>  void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+>  {
+> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
+> +	if (pfdev->features.selected_coherency != COHERENCY_ACE)
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
+> +	else
+> +		complete(&pfdev->perfcnt->dump_comp);
+>  }
+>  
+>  static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+> 
 
