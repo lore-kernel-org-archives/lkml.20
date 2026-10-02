@@ -1,103 +1,137 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A7547F3A3
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725DF470456;
+	Fri,  2 Oct 2026 09:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932718; cv=none; b=YY9c9R1wb63jFWUwQg05D4Yx4PkwTf/i6+FbSGyPw6pfJRkkOlDIH9SBNHB37UUS3xUjk/zpzMdiRsf2ITrU3xlKzGQkaiIgjaNKxUq+pJR4Xsf50Ydhj/XxT1ewwDdZxMWKPYjA0CxylBD3m+gDBaNKFjCq1e4Bed7ue60KLOc=
+	t=1790932739; cv=none; b=XyeOzRTZSe2inKlrdAJF1DdsjW6RDfIOsBbnWaSb4rZYhovW/akuXwa6Ll5I6ZQtHBQQm0oW5kIiPbMPqP9jt6GcN82yNFQtl+Rj53U4zxRNAIr3grvcOJZUBp2JNlRUjvCBhPls+D6Rmj7FPei57GH/nXq4XTmwTw1A8Tov65A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932718; c=relaxed/simple;
-	bh=CNsKoYuKrrSYLzKvtVyS7tgc5mI2xbQRWIdL6BhWXcs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P43LIYhdbbEkDA0V+cUh/YR9sjwlBhmJzushehVYj6X2AmgLdzeSH60WB+zhlVnBfOAOwb/knnbI9Sy53xGCM9uHIZ6N8zzBgh3ChSIgWWE3lIsdQ3REei7uipJNdU++5Yh7EyiLX/QgcrBHUqBDe/QyMpOpecwJ8HKA7VP7MDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dJgT/b+X; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790932739; c=relaxed/simple;
+	bh=suekEUMK13TAHHU4Cf2etsAqCGbQmsK5+r24aKbCtI4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gyByd98LZHdwDb6yM2MrFJwcm9PJUiDVZsrU908X7ViUQWMyxZfdRr5PIEjjk7rMgJerBhNFbKJc5wIeqjHMlCE3OSaiuMgXSvQXk1KgjfDXNJCF76xSPbVMHYYE6CtO/dcD6sgK+ZCiQtRRsk/K8RkjfpFWvfNGI8agl+ESMxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bib7a0PM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJgT/b+X"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so50065285e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:18:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790932715; x=1791537515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FOOIVnS9Id+XkrrN4+pJgTtAUkmfSHTNwg21WiGg0zc=;
-        b=dJgT/b+XRwldmwKIgKJlHrFm3IEXO65PuisYc7QxCIZitz4O+MIk/XnpWN+qK5PbI4
-         eX+DvL83M12RwNxGqqOjF3NUJ7PVhPa2wacI7T6qfwlWUfc9tMyZdZhHDLpGCfrOxZpy
-         I+X8umH3sEkxLJ8AaBRDRSjWg0/XBtZJtCJiTrrK1YGL2xLCtg0LKxQqSPgEEi78KeDY
-         0DAjyeUin8fQnVJtfLa8iHBZzSsDqVYykiv/I8VPT5Qr0Z8jOvQgJsEy2WcGfumOGvON
-         0+Vs+1mJ5K+9oOuXOpGIuIkvBuXs3rbfYlfJwN1XrB+a+OVTqLEWcJRXgTdi8OCpu9+h
-         321g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932715; x=1791537515;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FOOIVnS9Id+XkrrN4+pJgTtAUkmfSHTNwg21WiGg0zc=;
-        b=BBzEqdVIrhvJ1q4ePTcVTyDf3AOOa43ZpYu4mQzkgFtt8RzerUQMyYYGGRFaO6YaxO
-         njLBJLOus44/K96MW4/enXlYQl+mZCYS0ZG0KVXeb35KhliLr9VurXvUjmW/EzN3EpB7
-         iPs/CA09u7DGfL21f/j4nrI/0hnwWCd8pjAqJuHB1SqN9t5Nn0mKlJQX4na/Jebs2WD2
-         9xjD0DoPItOIcvWZZBfHHJvxix8fTMhthiFxJ8WaS4S6spdYa3K71XYsCV+CTNbA07N8
-         E2j7jGGQItPcHq/YmtElHt5YsqGFyz053bThVN/DtO9sttRuD952B8CN8YXdvB0UHPZV
-         7XQg==
-X-Forwarded-Encrypted: i=1; AKwUvByKWQA/xDqPWwHM5uTADSEoQUBlaR+gpLLnB7LeU84AH/RoUZWvV2kQJAcCU5xOBHfwIVmCDvKTQ87sVyk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3w1nl55l0pooB3UtW+Gi7gcpQKzKKsp+bAgzOj85fozxKAi+I
-	8rGBfc2S+I98w1MrRxbcrnpcwyond2k67VOGeR1CFhuFYVBEgtuXoe7i
-X-Gm-Gg: AYBFou1NUhcTu/LbPEZztdEla1UWFKvEik2IQeL5OabbHrRYgI6XtuSgdGalPRRvndz
-	ANTHRiLWoA+rXm/EKwQ9UHh1ttM+9rdi3te8xlM5mYaSvsPeZKFan1XE2K+lalqdImRIbKuq72g
-	/Vht/nNHqgnpTQhzy/LoYMdNvBbKdGLW2SjkSvWQWEbD4bNHlpkzGvI/z9hdaJxxttVdKpTS1lP
-	vs7G0EBom1Hains4M0OUamD4KVhk0PQDjMmX6ceaXQ7KwAEH46YnCd1HSHKEMJu3J/oeadtu9Kr
-	fgJtL0Kyu+kNSw/lkXPI0fTJeAyGA255tE10kWgd0me0T0weS6ZT/30dMZs7ntPr01n+UetpIBp
-	7KZybxl1vE7h5YxX3kMzeJ2LNvCtXL1rK3gfyv2g+/gBrQRHA0KtdL+glLuv6gvPwtAe6mb2Rza
-	xEIHp1r8hjgrfr/GbfLBStYZD9EQVy96JL9RnHIE/eo56B62rboRxglQ4YALEyNHIXE4mRXxHLP
-	woptiYDD9uDPEp2keRQAy5sS8C2CBMW6nVajLKD/XxzZ072nuhyKVO9SYY=
-X-Received: by 2002:a05:6000:29c3:b0:48a:f486:2f4b with SMTP id ffacd0b85a97d-48b1270b14cmr2501451f8f.19.1790932715363;
-        Fri, 02 Oct 2026 02:18:35 -0700 (PDT)
-Received: from 1Z10 ([2a02:b123:8010:a99a:44ac:6cdb:a419:601e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f07a9sm4984917f8f.12.2026.10.02.02.18.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:18:34 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 02/15] media: ov8858: support 19.2 MHz clock and manual white balance
-Date: Fri,  2 Oct 2026 11:18:32 +0200
-Message-ID: <20261002-media-v8-p02-andy-reply-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAHp75VdeXCDBpvsom2YokbS2QbbCzrGGf_NXYdLFTq3cLeam_g@mail.gmail.com>
-References: <CAO7O_xi61=0kUtYkYFKonaSEJRC_KiXKvgMLSwRbnDTVfmQsPg@mail.gmail.com> <CAO7O_xjcw60io6maT2J_dPOxMcAe5k_=u6UCuo59nsd_0W+4xw@mail.gmail.com> <CAHp75VdeXCDBpvsom2YokbS2QbbCzrGGf_NXYdLFTq3cLeam_g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bib7a0PM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854CD1F000FF;
+	Fri,  2 Oct 2026 09:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790932738;
+	bh=kUPal21B/mSeq/i2I0fVbafYDiAiPgFaWqso5GBNYgw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Bib7a0PM9uB/Juf5Fvu+oSR5+RsFmNc22FbQ3W8GIqtnemb+ACt71CTBw2sib4s92
+	 fFnF4433pDjiEGcg7x5zAEvURZ47Q+qrMo2IYrA95mk7vxbQjDv/9+rywF+rGaZ2P7
+	 MWKHtnnqTQ8pjgpyCRbNP4t/CulAsggec5uV/Q4dsuX2d3LyZTJU72PUMvHEvpTwms
+	 bQHF6mNjpQkROI+pb8cwG0OWRm4RbVW2IZfgTwGPNyr7ZCIRlyeoMH50oI1zzLRcfH
+	 fUDv5QFMQ3ZAiDD1vUKWIdfRDKrY3rzo4o2Sj1ojPFTeN/KT1OBRSYQl++2ya2NmOw
+	 blTAYWLPs3B3Q==
+Message-ID: <83a874fb-db66-4dc2-8e14-68c7e28ae27c@kernel.org>
+Date: Fri, 2 Oct 2026 11:18:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+ Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Theodore Ts'o <tytso@mit.edu>, Vincenzo Frascino
+ <vincenzo.frascino@arm.com>, Bill Wendling <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>,
+ WANG Xuerui <kernel@xen0n.name>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ llvm@lists.linux.dev
+References: <are6s5e6On3hpD3M@zx2c4.com>
+ <CAKwvOd=BrMfFT88jsvBPhh383qqk5G+J07CsofNu0MVkziyhCg@mail.gmail.com>
+ <20260930133813.GA3142230@ax162> <ar0a4b9CjL2YHCkY@zx2c4.com>
+ <ar0gTS71qxnx9AkW@zx2c4.com> <20260930151337.GD3142230@ax162>
+ <CAHmME9pA+AntJ6hWoFYpTVjh-NUSd0ZGXp5XiUuhQcq3HjQT3g@mail.gmail.com>
+ <ede392d7-3104-4a0f-9fa1-99b22552dcd6@kernel.org>
+ <ar4nD8aRH7wEvTMt@zx2c4.com> <20261001102059.GA4176271@ax162>
+ <ar46ap4jzLWyP92C@zx2c4.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <ar46ap4jzLWyP92C@zx2c4.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Fixed in v10 patch 2.
 
-The 24 MHz constant is now:
 
-  #define OV8858_XVCLK_FREQ_24MHZ (24000 * HZ_PER_KHZ)
+Le 01/10/2026 à 12:48, Jason A. Donenfeld a écrit :
+> On Thu, Oct 01, 2026 at 12:20:59PM +0200, Nathan Chancellor wrote:
+>> control. The change that introduced -max-store-memset only did it to
+>> "allow fine-tuning of the inlining threshold for performance analysis
+>> and optimization". If they decide to remove it for whatever reason,
+>> we're back to square one.
+> 
+> I suppose all the more reason to get -finline-stringops=memset added to
+> clang. Then the dual-default thing you came up with below will naturally
+> start choosing the first option when it becomes available.
+> 
+>> I know something like below would be uglier due to the ifdef but it
+>> would avoid changing anything for GCC while clearing up the issue at
+>> hand for clang in a guaranteed stable and succinct manner.
+> 
+> But then we're back to the byte-by-byte codegen that Christophe pointed
+> out.
+>   
+>> If that is not acceptable, something like the following does appear to
+>> work for me.
+> 
+> Okay, great, let's do that.
+> 
+> Does this commit seem okay with you? I used the diff you sent below and
+> adjusted the commit message: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.zx2c4.com%2Flinux-rng%2Fcommit%2F%3Fid%3D56ff95ee85715047eb5b5220243778af657778c8&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cd89b4de22ff94b6be71208df1fa9839a%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639264485055490029%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Vxf8xRCdLavtw4Dmi%2B49FY1lJDWtm%2BjKv7f8BxKTGq4%3D&reserved=0
+> 
 
-I also removed the trailing comma from all four newly added register-table
-terminator entries. The final patch passed the focused W=1 and sparse builds,
-and its reflected B4 message has the same stable Git patch ID as the prepared
-message.
+The commit message says: Similarly, GCC has -finline-stringops=memset to 
+do the same [4], should this issue ever hit future version of GCC.
 
-With Best Regards,
-Maurizio Casciano
+Why default "-finline-stringops=memset" if 
+$(cc-option,-finline-stringops=memset), have we identified cases where 
+build fail without that or is it just for future provision ?
+
+As shown in my previous email, with GCC 16 on powerpc32 we get a 
+slightly better code without this option.
+
+---
+diff --git a/init/Kconfig b/init/Kconfig
+index 8583d9f06c52..98d8d7fa64c5 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -173,6 +173,11 @@ config CC_HAS_ALLOC_TOKEN
+  config CC_HAS_MULTIDIMENSIONAL_NONSTRING
+  	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) 
+= { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
+
++config CC_OPT_INLINE_MEMSET
++	string
++	default "-finline-stringops=memset" if 
+$(cc-option,-finline-stringops=memset)
++	default "-mllvm -max-store-memset=4294967295" if $(cc-option,-mllvm 
+-max-store-memset=4294967295)
++
+  config LD_CAN_USE_KEEP_IN_OVERLAY
+  	# ld.lld prior to 21.0.0 did not support KEEP within an overlay 
+description
+  	# https://github.com/llvm/llvm-project/pull/130661
+
