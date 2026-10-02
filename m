@@ -1,89 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B7A322A2E;
-	Fri,  2 Oct 2026 03:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0CF326939
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790913441; cv=none; b=DVuFMUGOqkCR+RLks64mmTvtJLqIF5p3/p8gx5h0whJ1rF+7jHc/ejFSY7JSyrBcOTYLsX8nauMujRp0NKO9vs23D2LtzmpYrecSgpCp9JWbYyyVT7hWm1eU8zQDwHdh+wkS3dS2PlBFXlzyERhkTetp7gF+UfbdSf5k6yiZu34=
+	t=1790913529; cv=none; b=otK2vCIar7KhyLYu3LJ33g6NC+yyI3B6u8tvxnAWlPqS8Fl+PSlLDoZ9zaWkv+lVeiYIfY8a7AbusrcrwLo/3zO5S+Z1Uo7u8p96ZXmkRaZN5QfH2NngDW5hfms8JtwQWw7yTzS5dMkLsgJxLjB2TqKTuIF7+tAC82In+L/HZ4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790913441; c=relaxed/simple;
-	bh=ud0njTb+UTcmC7RfcGMaJx5fA1+AoT2gA/SldV45wKc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hSJC6dE2Nha+9GbX4P0lO5z7mLB5E4HxDcSAQoJ7osNkFu+m/Geg3dtwU6F62rB/Uh5kBigyWhxNPx3fkbUdb689d3bbGMrpq5OtTVUO0GhXHfUJqmADRGC2LGEmPOXW3a53ETpC7p6hrWEBIf18a4atylBbpN0wkdBp1qEgX/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiJkGWu5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790913529; c=relaxed/simple;
+	bh=wMnyD5HW/0+oeOMABNSibQxEPNUGvv38NIwnLfvPREU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N/AvR1yN8OgT6fIeSQKNqz/BkaopYY0fN6l2OMvpv5f9hF8VRuhCiWEYafK9g80on6sNbHyHsJA2/pT4SCv+HjqVpFcYzRXUh32FpaH+/QuDPVIIXTPV7VwMVpTDXzTv/qHuw/w6Y7lZWgOWESViAyft7DqDejMCMXmxCmCctb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LSn2eib0; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiJkGWu5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DED1F000FF;
-	Fri,  2 Oct 2026 03:57:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790913439;
-	bh=JGbxfjALTUQwxq1qJv01o3GgQpTAqeK9iKQm41v7RH0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fiJkGWu5LJxFkR3v6K0UnkZ3TKNnXEv4qWypJMDSvW9pkeN4RItLn2SBF7Ubej4VB
-	 xmU0yzbWQ12Xf4YDF4O15g4sX6iZyJFRFLedUWJREiGGU+Wj1V3Mz8n2f01OLYhyzf
-	 /KjbfSVPIWDd2SgNG2VrgelKFaIK+EPZ/hYD1HsKE1/iWsb4qj3bMQpZ/PepUuDqPC
-	 WmjdW0Dh2jfdQ2uCNRgr8cMfYE/5yyMqNYGPE4XiDZmI6Xm4UOlSA8xazXs8nvRQ7N
-	 eP4Tr3nd6sSTPpNViD1JuXoey7tLZx7cQj561YBho3gXAPvNle2TU5o0RMf7zuPGzJ
-	 ISREDXIhmnXwQ==
-Message-ID: <f790bd53-8610-4e8a-aa4c-1f346c0cbbe6@kernel.org>
-Date: Thu, 1 Oct 2026 22:57:17 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LSn2eib0"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afe625404so382774f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 20:58:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790913526; x=1791518326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vpDDKCvPSY4yYLTf3+YiBg6CMQROJc3t3myCmtwmjZQ=;
+        b=LSn2eib0qtGgmZpJ4KdgS7VpfG/VVGNPNgx0Gf0x8QmjZUtN6vxfIsk863yLKXk8eF
+         0N9tKcSQmzNLrMI7aTd2lTovYh9I//SHZ3+OpVpBk1QAiHkfB3IMKh2uPLO+2U50nFkf
+         9Gr0UprDcWmrNADkolokmv5D727pZmTxciXnMUJpDt6EPKVbvrCBbKkedwJphK+/Gmle
+         A9ybFe2AcMexdtvbUzlMtbhZqPjfJFI4t42FKIDzBDA/xxzCztLqDFe/IRVYuG1gBHYM
+         QB2aR65qqBOCLiCN0dkBRZjIDt1AbShnXf/ewPQMKHCfgIG/1lZj0H9b4dNjKlKD5EL7
+         yPmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790913526; x=1791518326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vpDDKCvPSY4yYLTf3+YiBg6CMQROJc3t3myCmtwmjZQ=;
+        b=otFu9vez+eLJUjqXahiqYzJOhQHCLRj8DtZxhBacIkHOyHxuGcJvUVh7q7wPr0Tjgv
+         xRKHWfy6ODg7uvCFgtRYYVt7IoXwhkqXH1cfpK2VSSC2HBvAliTV0ngdkz6pKOesLidI
+         sbxn5dod8bBiGu10Lc1gO9D1heCk6rQPYrMoXL7HI9W6g9Jv5tTkxy1jSTp1NVfmHD4m
+         Ix+tBxxjW8AgEji2ayfws9YKNx/NckuRUoUDzirHE46nH4Ft/tfLAKd3RkWGBk6/KVkF
+         fcYLIfEBRLbcSatJcCvWZk1xpYypaqxVT8sZ1uAiPR3uw2gBoMOCb32rcdNAOaz/MBPn
+         FdPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz8ZmZXlyWQx6We1v5iGKZcZu2jtVwjsUaB2/K4IiokL6uio4t8pcQaDbnPKJWv37RfLOtpuaLdRO572KM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+5LnFLHJ2KHpiTf7kTdE1u6BEt0SNn2Qcsqoj7J+faws1TPx0
+	FGSan+mEPlugjw/sceBdFj/0+jxeCO1UPLmxRuh3IIt86Yztfsivc5gb19OIaA3/gnzDpzqT
+X-Gm-Gg: AYBFou2PT8nJ+r3R6xQAeULno1NypNaNU7idiRceFp0/KxHIrQBv1PzG44gvXgIm7wF
+	uCRbnMxMmanmFBK9kQnhEzx0ZKeMfAKvN9b81MvI3CVJQQMCSkz7gtViy5+iXNWEYCn8E4W347m
+	O0ttnpAHVHzaKJGNo3F8mv76ZCmpYt4rDHuwnlyi70uPoKEdqcAXrVP0SVAM2IE83Yk80JJhL6v
+	5ROGQXQW154HIPamsDwgA8h6L9peta4IS5CkRZw9SJ8sZaSepug00jvSH+v74bRwk1ihxC2AaNz
+	NcIr2zqMRF3QsQh/li47+1ikCcVNysrQUBnFhaoxrR/6oPJPjQ+oDZ8QOvQLygPIyqqt1OwDn3W
+	q0oerRJ3Fda4T7dEIGgOnHTeq0QrxtJQMGIf5U6UH3ZtH5gYqd/5nbmtD64e0xitlx40JH6bSI1
+	pNI0iJoQbFPQ/FxHrWK0yqRvSWjTNX7s1RLgoKplWdxI2g0KZiZT/QKVLZoKYLFuVC1Ipn9ROpd
+	JI29ndZAFgZwO/rAFijCg==
+X-Received: by 2002:a05:6000:618:b0:48a:f41d:846 with SMTP id ffacd0b85a97d-48b12719b80mr2478947f8f.3.1790913525869;
+        Thu, 01 Oct 2026 20:58:45 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.118.71.106])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253e5bsm1998601f8f.1.2026.10.01.20.58.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 20:58:45 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: ericvh@gmail.com,
+	aneesh.kumar@linux.vnet.ibm.com,
+	jvrao@linux.vnet.ibm.com,
+	v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: ericvh@kernel.org,
+	lucho@ionkov.net,
+	asmadeus@codewreck.org,
+	linux_oss@crudebyte.com,
+	skhan@linuxfoundation.org,
+	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Subject: [PATCH] 9p: fix kernel-doc warning for enum p9_session_flags
+Date: Fri,  2 Oct 2026 04:58:37 +0100
+Message-ID: <20261002035837.39703-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] iommu/amd: Make PerfOpt compulsory
-To: Vasant Hegde <vasant.hegde@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>
-References: <20261001182410.1525285-1-superm1@kernel.org>
- <d4634df4-ab32-46df-8b05-665998959e43@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <d4634df4-ab32-46df-8b05-665998959e43@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+kernel-doc cannot parse enum p9_session_flags, since its documentation
+comment is followed by #define lines instead of the enum declaration:
 
+  fs/9p/v9fs.h:31 : error: Cannot parse enum!
 
-On 10/1/26 10:44 PM, Vasant Hegde wrote:
-> 
-> 
-> On 10/1/2026 11:54 PM, Mario Limonciello (AMD) wrote:
->> PerfOpt is only a feature usable by integrated GPUs and only in identity
->> mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
->> an integrated GPU is in identity.
->>
->> PerfOpt locks the GPU into identity mode where the DTE is ignored, so mark
->> it require_direct (blocks VFIO/iommufd claims) and disable PASID (no GCR3
->> table in the fast path).
->>
->> This drops quite a bit of compatibility glue.  There was a refcounting
->> system, exported symbols, and device attach/detach logic.  By just setting
->> it immediately it's a lot more straightforward.
->>
->> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
->> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> ---
->> v4:
->>   * Disable PASID for PerfOpt devices
->>   * Don't allow attaching a blocked domain
-> 
-> This will block attaching device to guest via vfio-pci. Is that fine?
-> 
-> -Vasant
-> 
+Move the three #define lines below the enum whose values they are
+derived from, and give V9FS_ACCESS_ANY and V9FS_ACCESS_MASK their own
+kernel-doc comments with the descriptions they had in the enum comment.
 
-Right - The thing is from that experiment on v3, putting it in blocked 
-domain does nothing while PerfOpt is enabled.
+Also document the four enum members that had no description, using the
+corresponding mount option wording from
+Documentation/filesystems/9p.rst.
 
-I figured the user should be aware; so I was between blocking attaching 
-a blocked domain or showing a warning.
+Fixes: 76381a42e4a5 ("fs/9p: Add access = client option to opt in acl evaluation.")
+Assisted-by: LLM
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+---
+ fs/9p/v9fs.h | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
+diff --git a/fs/9p/v9fs.h b/fs/9p/v9fs.h
+index a462bcbfc7da..2f18e75f0ed0 100644
+--- a/fs/9p/v9fs.h
++++ b/fs/9p/v9fs.h
+@@ -21,20 +21,16 @@
+  * @V9FS_ACCESS_SINGLE: only the mounting user can access the hierarchy
+  * @V9FS_ACCESS_USER: a new attach will be issued for every user (default)
+  * @V9FS_ACCESS_CLIENT: Just like user, but access check is performed on client.
+- * @V9FS_ACCESS_ANY: use a single attach for all users
+- * @V9FS_ACCESS_MASK: bit mask of different ACCESS options
+  * @V9FS_POSIX_ACL: POSIX ACLs are enforced
++ * @V9FS_NO_XATTR: do not offer xattr functions on this mount
++ * @V9FS_IGNORE_QV: ignore qid.version==0 as a marker to ignore cache
++ * @V9FS_DIRECT_IO: bypass page cache on all read/write operations
++ * @V9FS_SYNC: flush writes synchronously to the server
+  * @V9FS_NDENTRY_TIMEOUT_SET: Has negative dentry timeout retention time been
+  *                            overridden by negtimeout mount option
+  *
+  * Session flags reflect options selected by users at mount time
+  */
+-#define	V9FS_ACCESS_ANY (V9FS_ACCESS_SINGLE | \
+-			 V9FS_ACCESS_USER |   \
+-			 V9FS_ACCESS_CLIENT)
+-#define V9FS_ACCESS_MASK V9FS_ACCESS_ANY
+-#define V9FS_ACL_MASK V9FS_POSIX_ACL
+-
+ enum p9_session_flags {
+ 	V9FS_PROTO_2000U         = 0x01,
+ 	V9FS_PROTO_2000L         = 0x02,
+@@ -49,6 +45,20 @@ enum p9_session_flags {
+ 	V9FS_NDENTRY_TIMEOUT_SET = 0x400,
+ };
+ 
++/**
++ * V9FS_ACCESS_ANY - use a single attach for all users
++ */
++#define	V9FS_ACCESS_ANY (V9FS_ACCESS_SINGLE | \
++			 V9FS_ACCESS_USER |   \
++			 V9FS_ACCESS_CLIENT)
++
++/**
++ * V9FS_ACCESS_MASK - bit mask of different ACCESS options
++ */
++#define V9FS_ACCESS_MASK V9FS_ACCESS_ANY
++
++#define V9FS_ACL_MASK V9FS_POSIX_ACL
++
+ /**
+  * enum p9_cache_shortcuts - human readable cache preferences
+  * @CACHE_SC_NONE: disable all caches
+-- 
+2.43.0
 
