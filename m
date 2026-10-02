@@ -1,72 +1,111 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5685C4D0CD4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47EC3F327C
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:49:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956149; cv=none; b=py8Vc2LTCiuFbvqkv1Dvx5HRVCJsGx6NPrp/Txe++PGABmLisLOF2LrjMt5cDMtu4ZvmFxfQsoeJHSF7xfiZJUG3vvMvpPpY2wVoS13Ms4Ej/Yx/le/HMnkTssZ5AGjUD0gY2p4SEJTtyPee49rcb2r4SgzgGA6hU6lSg8RKfWc=
+	t=1790956179; cv=none; b=pZOFxxK3aQOoX5H1+dJbMX23UGL9sEWVfGraVR+fHK0snbp5RVB8PqXKsZDfSukuYHCG64FMZCxdxl7AOzLU7LlBf+vS+iOSqDaV1WwD3fi1XHH9vi/nARkUHs7FIfjuonSRu9Ja/X2eU+hKPowEEeDbZQDrqu7XJKlQdvC13Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956149; c=relaxed/simple;
-	bh=VRQw48igQle4oLzfV6Xg3alQ604/xdpB1mxuoODHPYg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=OaEXeDc6/1Qb+luqJQD9GW6gCkY/NuQANL5gZkZqYtuG8KxtbL7E39FVG+JdHCX0++ftc78UM7pJodD+GUPX44EJfgCrIL7+/hmvypDmwNaeC4dzU5gvtsQrSENioED5PVjxhRBBqnyeF60ezutXP0pYLdBPIWgjgwbJQKz3JqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a7de733fa9so31935b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:49:05 -0700 (PDT)
+	s=arc-20240116; t=1790956179; c=relaxed/simple;
+	bh=c3qAoLCDM/k5+TOJO+TjT2BWcWeWqZHWdxB3z2xzy4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r3dyIIIZ/fYnTXRQ7XzIKyW6bFrPBysqdQ7SSumY26L4ltqbV3ssW0ydOtwu7Rr5U4OjIqyOyKyLEvIsIFqsX33BixZEo5+wtSoKgqcYqc5iI9KTqR80DLIoj3Qb71z5sT8vOFujFxEacg2k6IuOCz8K/ov+I4RmJCQl861nd4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CohWvxbb; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CohWvxbb"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a09e2d0f7dso291145e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:49:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790956169; x=1791560969; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FYHcsVKthAuktHy8Ms39HRVTDQV0P7YdD/+UrF62aBY=;
+        b=CohWvxbb3bTx2ybUQSULV5De8EZo+PapagOEhVKXc+4ntH/itLNv+n12bi3GpIqWf2
+         +cm5iRchS7+e24gQmdZ/FaRerfmUWzAsccfD1wtLOImooVyschKKYnpa8ulVyi4GWoVe
+         vI0Myo0e9UsALMWw1XiR66HkX9E6B/TwlfRrBqUTm2JX4JJ8a7qHWT2bRLhXRI45zlzP
+         AdSGL8vTCGR4bA6V7ZjEdsAFY73acWeRmBsQhgxw8G1J2a4l4Y+r8roFUa7nrxelHUSG
+         4zzfVuJXMRrK3mFKjwRqqerZUDAytmKZdsuFq3xVgtH9R1CQw9CJEw5oVShcDl38VUPE
+         OKSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790956142; x=1791560942;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uhw897TPPtm1bbcaYJ7kO0kX6D8xGhpsPvrBMKfAbUA=;
-        b=cDjYX2aD0aBmjYHSMzYYo3iRyak23tNfo286MUSnH89G6DK2LvE7LIap9bRwZAr0LR
-         uimP6/NTezboAWyZ229xjG8byEwup4CypEYPprl45i2guY6IIUI+8bW/vpdpiyVTD4Ao
-         mrnnx4y5xsz2A6FQvXd++lTUjnfODAOkPPKmO6Vdqy4fUbd8FnFkaz8+CzQI8vDgC3FP
-         vX/ezCDZiQsjTAZ4kz9LXg9LOjqw8NamSQC/6m9p1svZ5ThUVi5nvq1v+YNB0CAV1pG9
-         Vlh27sUzNr6QRYcrPqBBdmcrdnp8AoIEmMYe/DbG7WQLZ3J+JvKdekI1p+yBXi42sd2y
-         /B8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzgfPDchnm3rJC1j0X8L6e+7Kk8U5PDKIubav6jHh0EJ0hJ0TSvTqgt9wiyASRJURQewCKwVp7LZ5Fg/RQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRtHRi2fXgHsBes7zPcwVSDKFlfQJGmMNzvk6kAEechFZpV4Za
-	e7hMMUlxuhZ4kkZGpF6SI5mKX6J9b0/jiBXBrzdWTtA3H6BCR+zcn1ipjK7IqeI7QJJHpwfXcws
-	JPtYfP9pDM7e3lKQox455R43F0rgazQC3XQVyGTfD76+670O3ytHVDv9zebQ=
+        d=1e100.net; s=20260707; t=1790956169; x=1791560969;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FYHcsVKthAuktHy8Ms39HRVTDQV0P7YdD/+UrF62aBY=;
+        b=UdxecBnBO7M0bJm/yavztD0NMg4N7/8hqVqX7h2mZJjFYlx+qHPDo5+IqjF/vL1yms
+         fVUEYxgc0Yv27C5R23xiQ5HqOLey/5yq8GefKJ4ORlknysmFvwJ9Tk7GbBR472b0DeHM
+         UfGaJ+uklTufenV19Z8M7rMgKg8X3GjdwzmHROlgKK8LO3/2luncx4AEzsko8tEs6z2G
+         Ld5C2RL9kSSdjqVXwmGF8wmXv6vPW8Qp7YE77Qs4CNJwORHBwjSaUscJWwy/YVnWbjaH
+         TxPhPbhbReZjgkvvk1VUrE3uvuxuxDaxec+WK2L3TTgxGefUhLc0+lluN58HYNMXXpjd
+         MDeQ==
+X-Gm-Message-State: AFuF++mifXhJ9H9SPImIxNTo8lIscTMCQ+CqZq19BCE3VPihyQPhgr8U
+	ABIAjp5s8J/MtnLqhIGCMuCas6ut6kqbV9B9IXcGk/nJj+tcJcioAgCP
+X-Gm-Gg: AYBFou13uW8QILmWNquLBJJ+TaMzIKSAjq/WRtUpMPcYa6RXS0XkfSf3Y+M3Iona1Bv
+	7cgVzlgSATsWa3RbZfPTL+aFI9PkZEXyETBC4RFfEUI+8leEaWS3X0O97amvZqvcAuK3Fj1MTN5
+	VNNOgKann6ziQcOjTT5gyDyHhleDWo3rzXfySp3fSGCRyKxoZm9WKPeeRZGn6zJnLWbONXG9x7c
+	poN/yCo0v/++xGsRAqY2twa+v24RZYNI1A6EdYj9yi05l6Fsp/RqNnnJoWomBt+HRXOLXVuA5iY
+	sw7hRW6GVW9b5MWjBWIBSHRmpnHQbxcly20Td1EW6Oq9Avs1Kfky6Ci9y/bn7SUxhjKI5G7Adzt
+	GHPrP7W0i2c0FtkBjZaXzkqvx58FscvnCjFbiIHJXZ3cyFH44oh++f3IYzgaYkQWtsJiJOwvIO7
+	KHqXs9C32bIuCR5TrSDZLyEMnmQaf6HxGYL8PnYqkLOC7aTAbriS6NzLc5Qu1oyLQiEAVEmrchx
+	thUwtQKrhSFnyk3uRvrHOWQHn8ITWNiU5BYOkNy9S1+DQENnw==
+X-Received: by 2002:a05:600c:6995:b0:4a0:159b:d283 with SMTP id 5b1f17b1804b1-4a0275857a7mr54816795e9.30.1790956168547;
+        Fri, 02 Oct 2026 08:49:28 -0700 (PDT)
+Received: from localhost.localdomain ([182.189.185.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027740a2fsm108345025e9.13.2026.10.02.08.49.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 08:49:28 -0700 (PDT)
+From: Saadanjum01 <saadanjum239@gmail.com>
+X-Google-Original-From: Saadanjum01 <271059546@formanite.fccollege.edu.pk>
+To: Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Saad Anjum <saadanjum239@gmail.com>,
+	Saadanjum01 <271059546@formanite.fccollege.edu.pk>
+Subject: [PATCH] spi: bitbang: Drop duplicated word in file header comment
+Date: Fri,  2 Oct 2026 20:49:19 +0500
+Message-ID: <20261002154919.13919-1-271059546@formanite.fccollege.edu.pk>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1314:b0:4f6:6041:f0a2 with SMTP id
- 5614622812f47-4f66041f3b6mr153207b6e.27.1790956142132; Fri, 02 Oct 2026
- 08:49:02 -0700 (PDT)
-Date: Fri, 02 Oct 2026 08:49:02 -0700
-In-Reply-To: <20261002152415.27339-1-adarshdas950@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abfd26e.7503fbd6.2d3f6.0021.GAE@google.com>
-Subject: Re: [syzbot] [btrfs?] WARNING in can_finish_ordered_extent
-From: syzbot <syzbot+085adc3f91549d11066a@syzkaller.appspotmail.com>
-To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Saad Anjum <saadanjum239@gmail.com>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Commit 8ee46db14169 ("spi: bitbang: Add missing MODULE_DESCRIPTION()")
+updated the terminology in the file header from "SPI master controller"
+to "SPI host controller", but only the word "master" was replaced, so the
+header now says "controller" twice in a row.
 
-Reported-by: syzbot+085adc3f91549d11066a@syzkaller.appspotmail.com
-Tested-by: syzbot+085adc3f91549d11066a@syzkaller.appspotmail.com
+Drop the duplicated "controller" so that the comment matches the wording
+used by the Kconfig entry and the MODULE_DESCRIPTION() string.
 
-Tested on:
+No functional change.
 
-commit:         ce1e0223 Merge tag 'devicetree-fixes-for-7.3-2' of git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=179b6bf5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=24503f5016ed9122
-dashboard link: https://syzkaller.appspot.com/bug?extid=085adc3f91549d11066a
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Signed-off-by: Saadanjum01 <271059546@formanite.fccollege.edu.pk>
+---
+ drivers/spi/spi-bitbang.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Note: no patches were applied.
-Note: testing is done by a robot and is best-effort only.
+diff --git a/drivers/spi/spi-bitbang.c b/drivers/spi/spi-bitbang.c
+index fb288ed56..347265e80 100644
+--- a/drivers/spi/spi-bitbang.c
++++ b/drivers/spi/spi-bitbang.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * Polling/bitbanging SPI host controller controller driver utilities
++ * Polling/bitbanging SPI host controller driver utilities
+  */
+ 
+ #include <linux/spinlock.h>
+
+base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+-- 
+2.50.1 (Apple Git-155)
+
