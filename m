@@ -1,143 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBED9443312;
-	Fri,  2 Oct 2026 07:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6C0367B86
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927807; cv=none; b=KSCdN8ONXjsGQ5KVRO3Gy7gLNvuqDBlGen1zHpCqdcC7YbLNO/nzqZ+ButJAno2tOwJkhdrHQxzBkjYhk5FvIuVYNDzaR3GZRfqvRXGKzo5Uy+GmfxaN64qPXzGJGQZUv2GBbOnDkkmyKrxsOF0UP6lZIa5PDn71YjUVIM7DVfE=
+	t=1790927807; cv=none; b=TOKrLdqOpY2QTdM/QY1sCg07GzuIVxGZdmW+iWpiB58J3KQP/6SIpcw3Kckq/TqEBnmb3edU40Py/kxkhNad3mPtY2TnHL0o9PmevStzmsGx5Lb/cM7zu7GL6m/xemKCgmUYCAceoNql/ZvlSEtOB1NgHKpefz6Gi2Plw2c9sHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790927807; c=relaxed/simple;
-	bh=6JChq8W0DHpZXMJrJ0FL635durNAwbGay8TZ4eHl8mU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PqFYE7M0AFABjru3kg2EDDNqYxFrhT/qE985BkPve/VKRJFOTSNcif3BoVAItzDKifLW8D751dO51HOTI8Up04hQLCulUEcqykA/75yqX3kms8go7/I8BYWoyePjz5OoDS9l/iPNSePwi+VszSOlfQ9BnIZBAtZbCrP2VfAXMuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQ91VK2+; arc=none smtp.client-ip=100.103.45.18
+	bh=JeNxMWZO1rRtu4rbEuExcXII9g7Ou5O4PhCtCbJm5wE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fOzkqN5Smq1W/DVgJBkihUKlbnfLmZmKkmbNn5hHZHKXfieFLW5Zk1DGZqpvrYbSgEmR8JRzoWLY2U+tgv0CZ3TRCkkcEXKFeG3thABrbRq9znBzJyBb+DccHvnN/UD6WzkivouRvHsjfh02NIcIwO0Cm1zc3Na9FbZfIdpoOn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nVCGDKH+; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQ91VK2+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FD91F000FF;
-	Fri,  2 Oct 2026 07:56:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790927804;
-	bh=CEkWEbF0eWef2VJO7bWrlTNl1U8dJ/sz3+7inKUMUkw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EQ91VK2+BapVfmlNmGOB3cBrGS0uYiybL6rZ+zR2N7XSMIyvRWsYaK1X6j1d0ksJJ
-	 WzFtg42cKFOm6Iz0X5D44fWVtsaCvVaBxDfnKwKRcNHhx9mhcA6UWOsEsQOeKqUpOp
-	 xiQm/EshPiBxqnjjYipQ31j+o0YJjTdAoJAc0ic+SsTk5LRCBmrqsLgJ+TM2bMgixC
-	 37Wx9BliiaJhDNUYuLoAStPxjVINOzmLHXTi0vNoPpZEC7J8Ch6W5Yf5oNaVXeWXQm
-	 aryC884o39Ko8E6iAhQBiKJZKgvPaqvf5uDewF0RqF4lA1LLcE5VMaXZlv+rI1cEeG
-	 smlxu332w9sMA==
-Message-ID: <44d15437-6aae-4d7c-bfd4-296276583826@kernel.org>
-Date: Fri, 2 Oct 2026 09:56:36 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nVCGDKH+"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso46022125e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 00:56:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790927803; x=1791532603; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DK6t/sZOXlOI0flttlBEPNoSoc64x5EacC7Gj68MXFk=;
+        b=nVCGDKH++4zynt+jwFogLJZ9FM08uXsVC5pCcnKS58yDho/EI4cuvwMcLUUnBGj+y9
+         R/T8uH9W/QE0zUh2fuMVqx+YmG/6glnHt6+JMqzo5ENntZ/Hlht5TroxWtmSZX9c8wkG
+         PcEDwuRqCmprVjAjL4V0KMNAGdie55StqOI5sBIldYcwOCczMuS97pRNsL22FU5mgK4q
+         FMz2l/YVhOGYscbRJ7UJ30EmFzhlBd9AL7uTWxrQ8tudJpb62mxSv3r4KPRpW4sVmj9U
+         r+kpjLv/rGl+elLECkP6df+UC2wrKVnzIBzGObtQmoDH88FDpsqExIvsXTQkUULXYcDV
+         FgPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790927803; x=1791532603;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DK6t/sZOXlOI0flttlBEPNoSoc64x5EacC7Gj68MXFk=;
+        b=t3n9sbst3D8ZefWqBXCIC68x16NvtfJceQXqBIAk2ldEB7kEt2IKt/LDhkbXPILfFy
+         bAGGgHRSWJuDOioRzqcjA2UaDI598w0LjRVva1HWClU1jpxW7erkM+4ENkSl75NB6qh/
+         dFdqzg413KOzykt28kI3j+Hc4Sqje0g4EADCx/2GpSQuhCu8IHmbmnSMXFrnX/9sqaCs
+         JMIrMc2sv8ZzxeYvf4lUzzBDv/jDFuVCgdzWcOx0lVwXxxVsHB8So39ohFfnHzmatlIH
+         hr4jfyz9ZR7Fd3hkRjqfMBULUvKcUo3kItFYDeKkYtd9yp3j11MshoBsiUi5kUp3FIcr
+         dCug==
+X-Forwarded-Encrypted: i=1; AKwUvBwOi6//BzVYYpMZeO5bXaLznhmXRSU8Ey81Xq6rTsoVGXw9QbKtB2/yEMXNGhbRsyt6bln1lsC9QBo8x4g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTB93tEJHmR150JYe7fexL1yghCk6/jIMCV3lgehntUUwoaS3Y
+	IqOjkmCgxXp7YIZGt+l+uVGXjGdQSaKB7HxuRAlexPJTXjOHHqDDYi+6
+X-Gm-Gg: AYBFou13J9NcnLCx/ZGRz6PGeMIltQaDa80zvb71hWh9F5vN3W/GMhDBT9Bw/bIcqO2
+	rPV2lPdWHXzCpommM9/0hy5maocOsUm0RODwHrpS4uLYY3wgB17WG2CzxK0O1GfotljxHaG84ni
+	Ttj3dG/NWfrMfRITZCP4PPo8K2lGIdBPQtACpddNQrCwlSSy1HrQ/b47GNPvXoeww2ANXLLS7Vs
+	a8nfsoOcgyZBQfP2yim3Fe2OjAL0ZXK7kum68IpW7MJNEhzzSo9njt5+1h7SP1QunpEhcnoTVXQ
+	JWJeTzZRAUqTKBDLP4gC5/m7+9QsAI+1ACNpzkr2XMQrG3Z3xlbvevspAHjuYTMmh2HqvIhTGhC
+	vLeq2oegCdLG6euNDUTjr+WNxDK/iYdZ/KpRgP6vFHb8sstbV9uWJsnWTZ5sHAgIsISALrKFY0x
+	QLbiXPeX0NVZnd8Oc7IuaOtyj94ycKazQUd0dN+6jZ20vjaG1KzeAVUVKumFll8qKsGAJxYRKAq
+	JVc/vZJ1bjra3cY5/O+kSamzuuFEUbG4KytV4VRwlPtCSKFAU9Tp7C3/MHxstaHd7QSW75Vwg==
+X-Received: by 2002:a05:600c:8b2f:b0:4a0:e45:e8d6 with SMTP id 5b1f17b1804b1-4a027559b0emr30989015e9.13.1790927802784;
+        Fri, 02 Oct 2026 00:56:42 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280be5dfsm63635305e9.7.2026.10.02.00.56.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 00:56:42 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Subject: [PATCH 0/5] arm64: dts: freescale: Add SMARC iMX8MP display
+ overlays
+Date: Fri, 02 Oct 2026 09:56:36 +0200
+Message-Id: <20261002-smarc-imx8mp-display-submit-v1-0-f578c63fb676@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/numa_balancing: allow migrate on protnone reference
- with MPOL_WEIGHTED_INTERLEAVE policy
-To: Gregory Price <gourry@gourry.net>
-Cc: Zi Yan <ziy@nvidia.com>, Li Zhe <lizhe.67@bytedance.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, akpm@linux-foundation.org,
- ljs@kernel.org, liam@infradead.org, rppt@kernel.org, mhocko@suse.com,
- corbet@lwn.net, skhan@linuxfoundation.org, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, linux-mm@kvack.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260930121154.687586-1-joshua.hahnjy@gmail.com>
- <2e3f12b7-0dac-428c-b70b-07e1f63de028@bytedance.com>
- <ar0fURbLDPrphYMY@gourry-fedora-PF4VCD3F>
- <A005B05D-A85C-4153-A65D-0BDF9D8500DF@nvidia.com>
- <280965b2-c6eb-4f01-a0ac-c4fb7e518f97@kernel.org>
- <ar5eC22VfSFlMw3W@gourry-fedora-PF4VCD3F>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <ar5eC22VfSFlMw3W@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALRjv2oC/x3MwQqEIBAA0F+JOe+AKYTtr0QH07EGshVndymif
+ 086vss7QagwCbybEwr9WfizVbSvBvzitpmQQzVopTvVG4WSXPHIabcpY2DJqztQflPiLxrXaqt
+ 7EyJ5qEMuFHl/9mG8rhtBB9uObQAAAA==
+To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+X-Mailer: b4 0.13.0
 
-On 10/1/26 15:26, Gregory Price wrote:
-> On Thu, Oct 01, 2026 at 12:54:22PM +0200, David Hildenbrand (Arm) wrote:
->>> If this is a initial-fill problem, can userspace set weighted interleave
->>> initially? The program or harness can observe memory usage of the program
->>> or related NUMA nodes and switch the policy to numa balancing via
->>> set_mempolicy() or mbind() without MPOL_MF_MOVE after certain threshold
->>> is met?
->>
->> You mean: use the weighted policy initially and then switch to a NUMA-balancing
->> one which doesn't involve the weights anymore?
->>
->> That makes more sense to me. Although I struggle to see why an effectively
->> "let's put random memory on slow and others at hot" is a good starting point to
->> later let if be fixed up by actual balancing/tiering.
->>
->> It all sounds a bit hackish. :)
->>
-> 
-> It is a bit of a non-combo (Nonbo).  You're using weighted interleave
-> with the intent of spreading out the bandwidth utilization (and maybe to
-> offset some reclaim behavior? *shrug*) but then undo all the placement
-> with tiering.
+This series adds device tree overlays for display accessories on the
+Toradex SMARC iMX8MP with the Toradex SMARC Development Board.
 
-I can understand the "random initial placement will help if you cross your
-fingers" argument from Zi.
+This brings SMARC iMX8MP display support in line with the corresponding
+Verdin overlays and makes the same Toradex accessories available with
+the mainline kernel.
 
-But then the question really is whether the app should then change the policy
-after the initial placement was done and the weighted stuff no longer makes a
-lot of sense.
+The series adds support for:
+- DSI-to-HDMI adapter based on the Lontium LT8912B bridge
+- Toradex Capacitive Touch Display 7" and 10.1" DSI variants
+- Toradex Capacitive Touch Display 10.1" LVDS
 
-> 
-> But, in defense of the hackery - I have seen strategies like this work
-> to optimize startup times and then let tiering optimize runtime.  Phased
-> execution gets funky like that.
+The Makefile entries build the standalone overlays as DTBOs and add
+ready-to-use composed DTBs for the SMARC Development Board.
 
-No doubt about that.
+The DSI-to-HDMI adapter, 10.1" DSI and 10.1" LVDS overlays were
+run-tested on SMARC iMX8MP with the SMARC Development Board.
 
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+---
+Ernest Van Hoecke (5):
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add DSI to HDMI adapter overlay
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add Toradex Capacitive Touch Display 10.1" DSI
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add on-carrier 3.3V regulator
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add Toradex Capacitive Touch Display 10.1" LVDS
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add Toradex Capacitive Touch Display 7" DSI
+
+ arch/arm64/boot/dts/freescale/Makefile             |  16 +++
+ ...x-smarc-adapter-panel-cap-touch-10inch-dsi.dtso | 123 ++++++++++++++++++++
+ ...ex-smarc-adapter-panel-cap-touch-7inch-dsi.dtso | 124 +++++++++++++++++++++
+ .../dts/freescale/imx8mp-toradex-smarc-dev.dts     |   7 ++
+ .../imx8mp-toradex-smarc-dsi-to-hdmi.dtso          | 103 +++++++++++++++++
+ ...-toradex-smarc-panel-cap-touch-10inch-lvds.dtso |  80 +++++++++++++
+ 6 files changed, 453 insertions(+)
+---
+base-commit: e7a7fb1dc235053369094c3f8afdf67fefd67983
+change-id: 20260930-smarc-imx8mp-display-submit-3a128293dfec
+
+Best regards,
 -- 
-Cheers,
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-David
