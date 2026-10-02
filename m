@@ -1,203 +1,152 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9EB4F646E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF2131E84B;
+	Fri,  2 Oct 2026 15:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790956020; cv=none; b=pm8pe6bZoqbsyT6J06lRGlZgyFMUyEfgQeB3eH7kzwOQPe1ZN9V+a1+9hLI3uakbe6HMPtfV7E0X9HkALp5lT/wo6eB/JTFo6FLcKubCU/svhmSDmrd7l583q2kdbKWC2q8FXvZecoBYSW4p+TrJ6xVQPsklssWT4Juh9yPzTIo=
+	t=1790956090; cv=none; b=TyQz3/X+oohhrnVXPkQkTVcf/Iw1BpaKeoR4QGOdM2RTHN/DY0l5mWH/s1xUxYB1QOI380KLPTpztuSBFDXhcDKW0K28qEuJuUCP47DEBHKPQa3WN6bfsA2DL7YnAlpRThBlkD4YxZqFVk3J6CMMWjPewXx2Epx+aFMeEqLs9TM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790956020; c=relaxed/simple;
-	bh=n8KoiOBH8fykndO08qZrOhzcBdxH4PnCFyAy1h8McjE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V1I2xBi6CfmDddUhqdJBzW+WOfUpltRhVlhGvUmDARQB+Gr+tVtyrF0Ln/LUzGcnUIsPX9T4PJGz8J+0wuTuEOAwSGLZESf9fbRjnNSPji6BFobqoW+BeWEkvSs0ar+rv4Muv1/yX7ePt+AEF0p8HQlGJzUCvCVQCEQMmLB5dRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fa3JsTzk; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790956090; c=relaxed/simple;
+	bh=dwjHhdEKctdoDHuGMx5cnYjVxfRNxVKO6+JjXJcp1c8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C4zl/e+CZdpLHGV/KL5uclgBEQU37KKvyOi0Khsb7YUo9/mc/0oPirSijvnhu1WdLt1Xu3LmrzSL5z+4pD/QeBAQBIGHuAJwiLqePAON6Rm7e+8KoL/+Ge6awLor9o7eQZuEmZPLS83f+LaUU/QxQuHrYgkwL/wZ9a2KVYn8QU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcTyAC0z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fa3JsTzk"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so37844405ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790956018; x=1791560818; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xjw6qoPxLNaGbusPK32A1qkrQ15mneg4DB9BIdUbtrI=;
-        b=fa3JsTzkHNbbKgEw1EInUqRmk75vx9YW+7SYNwkeufAmCQgpcMNpInni1N2IfZvsRJ
-         B4psqEKQtjAvefJy5ZxTPikXCJYmvcZ8RWSlYVXzCV4+QEqnS9+lZcPym3Kkf1JcO7Se
-         Ya2njAmyu3TG3yOpXewNI0fv7lQx1Nst2a8N+9yvaQqO+hZHiMnEMQZoticDmQINnrNc
-         hsSyIe4jAmhWuMmvX1rdY94N9AfcdNqGQHSxwQjw2hR5UGYNYIxBx2b8lVeHP1MbC6Do
-         9AtKhCw2+sd+cxeVhFtbgYlintihqbCITNP8YwMNwOs7oolO6cJ+BcsHz3tAVNI4BGy0
-         x6Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790956018; x=1791560818;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xjw6qoPxLNaGbusPK32A1qkrQ15mneg4DB9BIdUbtrI=;
-        b=wUVVLjUVx/GNsJLAieeFIiVmBC9OSmohPV4unWZvX0F7r7s/TdSV5h64OxkWFXwQCr
-         Y5eggbyv8EkRp006iCI9C4AgoHTOC4gud0ZbBMNl3Xy1cKh88yR6I8s8UuI+c6bL2n8P
-         Vgoz5h17ctgNQq9FMbcIEWaCcCK2M8YLH5SeqS2dwFWFrz6qtROOd/PvVp+m9f43+d8a
-         jABbQ4tu6v440yPRnHAph2nDdpV7mcC4pdxZq6pILKm9IT4vnYdY8wj7coh8oDKnjGKK
-         2TuFfh4xCJaEAaZLKrZnQYBEY3slhoD9nDN90UwKgGeYKP4tCImWXkwyT+dxg+UbBvYJ
-         0OMw==
-X-Forwarded-Encrypted: i=1; AKwUvBxIvAAPzKHYj1IIZslNFrsAIOLRtX0lOn98vo8mnk79HouoyNhHSLIvseKP/HImk7TG4pBNIAh8jf3VR/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5rQBI+bvN1CMUlDjLFKbOnaj7uTTJO9XWrcfdgczoXs7hNHAo
-	O6vjevDZBADW2WlbqD9WP9DDTsysdxoLN5E7qPvlTVdr+vvyeB+O/e6t
-X-Gm-Gg: AYBFou0cMbnfy+TOZH4+O2S3NmIQ5/72OyNjuQiikVsuqx6Deoa0cRV4wCucsmjwcQJ
-	DgnCvUzT4XVy6+VxyqY8jMSzHevUAAYEYY4EwU0IGrBi9gy7uSU03S7P4NCJ6JrvxN/mN5DZSmn
-	KACGRJS4lcZXfjOy2LRtBK96GuK5WIKefl3AV+5bzBvJ3F+3XWJZuo5uBVn9Q1zeBkYKNiSHmGW
-	tl4oQBzzlRwJoIoixalZcfUnNL6gIjO+OPeSVrqQBu3ZECog/gNh9UfiXjxL+cSFoje+RtiHVlB
-	cI67MDEoOpkgBkF/iYxXV9PxHa/mGZWkhOvrRfRhlxkTNtEHcR/oEFFqw4DLfR5Hv6t2Z99IuJm
-	yNtSk3HG2eoc+M25ogApaluWSpCP7fd5sRqlLY/GthprrQApf+2aUlg83+ttEwitZoCEHdnvusD
-	3dFEDs8zAFzWABr7Ewtfr51bl2ejK+5CvLM5guVxsYgfq1MTpO0e+ZfftIx6il/Z4hw8/E0bcLf
-	5vftbwDqMdd
-X-Received: by 2002:a17:902:e752:b0:2e2:ca82:6262 with SMTP id d9443c01a7336-2e49b6d120dmr29672815ad.33.1790956018470;
-        Fri, 02 Oct 2026 08:46:58 -0700 (PDT)
-Received: from localhost.localdomain ([202.8.105.115])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6d9a88sm9785075ad.53.2026.10.02.08.46.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 02 Oct 2026 08:46:58 -0700 (PDT)
-From: Jemmy Wong <jemmywong512@gmail.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcTyAC0z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C607A1F000FF;
+	Fri,  2 Oct 2026 15:48:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790956088;
+	bh=jAmZLxuL9ir3PEtj3rA1r4owUMOfT1l0y0uNhmkuhl8=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=gcTyAC0zm7Nk9fjh4H0sR70amlpKYko/ntM0BGwcFp5wNEmRnA6WDu2U0cb7ttyzD
+	 UjuGN5tGCC3Q1uFYBKT+FVVU3oOYzXf1qsKhbdx7MnL/5l6OPct9mZ5Kd+PnsA/M9G
+	 a7tfAnx8YV6sBf0YXA+mD9H9OI4MoorQoMQQn9v91HXjydU00zZflw5JHhFtVZ2wun
+	 6QwucuCAQjkp8Z2aPMmLkobi78rON68sv9Zh9L2SWZJLN3N1UddwXmp/XUxWBSLsE6
+	 OI8LGARAw6wvbBH3VIb8r1q06EF9UloxrwpMvyeIPK0sMuasMAgcoODagohL74gR7n
+	 MhjkTmV05EYOg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 8AC91CE09FC; Fri,  2 Oct 2026 08:48:08 -0700 (PDT)
+Date: Fri, 2 Oct 2026 08:48:08 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: Arnd Bergmann <arnd@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
+	Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>,
+	Cheng-Yang Chou <yphbchou0911@gmail.com>,
+	Gustavo Luiz Duarte <gustavold@gmail.com>, rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] sched/fair: Rename sgc->imbalance to sgc->pinned_imb
-Date: Fri,  2 Oct 2026 23:46:34 +0800
-Message-ID: <20261002154634.71878-4-jemmywong512@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261002154634.71878-1-jemmywong512@gmail.com>
-References: <20261002154634.71878-1-jemmywong512@gmail.com>
+Subject: Re: [PATCH] rcu: include rtmutex_common.h in tree_stall.h
+Message-ID: <3cd5f02f-e799-4681-8d2c-1f4f12d9740a@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260925133922.1356404-1-arnd@kernel.org>
+ <CAN_Opa8F+vKAAckVi0+qi_yXrav7Dop5brpS=zr7Hw-XaAUL2w@mail.gmail.com>
+ <0fbaa5c5-3f75-4fd2-8537-0576eb11abbe@paulmck-laptop>
+ <CAN_Opa9XhfVcvjCOa_Ay+zw+HpQMKEqsnBcTpNS6p5MVa5u5Jw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAN_Opa9XhfVcvjCOa_Ay+zw+HpQMKEqsnBcTpNS6p5MVa5u5Jw@mail.gmail.com>
 
-sgc->imbalance does not describe a load skew either. It is set only
-when a child domain failed to balance because some tasks were pinned by
-cpus_ptr, and the parent then classifies the group as group_pinned_imb
-so that it can force a migration.
+On Fri, Oct 02, 2026 at 02:36:18PM +0800, KunWu Chan wrote:
+> On Wed, Sep 30, 2026 at 5:08 AM Paul E. McKenney <paulmck@kernel.org> wrote:
+> >
+> > On Mon, Sep 28, 2026 at 10:54:13AM +0800, KunWu Chan wrote:
+> > > Thanks, Arnd.
+> > >
+> > > Tested on top of 1eccf02fb8d5 with CONFIG_PREEMPT_RCU=y:
+> > >
+> > > CONFIG_RT_MUTEXES=y: build passes
+> > > CONFIG_RT_MUTEXES=n: fails without this patch, passes with it
+> > >
+> > > The failure is in tree_stall.h, where rt_mutex_owner() is used
+> > > before tree_plugin.h includes rtmutex_common.h. This matches the
+> > > reported failure, and the added include fixes it.
+> > >
+> > > Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > > Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
+> >
+> > Bradley and Kunwu, are you OK with my applying your tags to the commit
+> > that I am merging this into?
+> >
+> > 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall dump")
+> 
+> Sure. Thanks, Paul.
 
-The unqualified name is easily confused with env->imbalance, the amount
-of load still to move, and with imbalance_pct. And after the previous
-rename, sg_imbalanced() returns group_pinned_imb, so the helper and the
-group type no longer agree.
+Thank you, and I will apply them on my next rebase.
 
-Rename the field to pinned_imb and its reader to sg_pinned_imb().
+							Thanx, Paul
 
-No functional change.
-
-Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
----
- kernel/sched/fair.c  | 24 ++++++++++++------------
- kernel/sched/sched.h |  6 +++++-
- 2 files changed, 17 insertions(+), 13 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 49de871ee7ab..0f773e1af9f5 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -11832,7 +11832,7 @@ static inline bool check_misfit_status(struct rq *rq)
- }
- 
- /*
-- * Group imbalance indicates (and tries to solve) the problem where balancing
-+ * sgc->pinned_imb indicates (and tries to solve) the problem where balancing
-  * groups is inadequate due to ->cpus_ptr constraints.
-  *
-  * Imagine a situation of two groups of 4 CPUs each and 4 tasks each with a
-@@ -11860,9 +11860,9 @@ static inline bool check_misfit_status(struct rq *rq)
-  * subtle and fragile situation.
-  */
- 
--static inline int sg_imbalanced(struct sched_group *group)
-+static inline int sg_pinned_imb(struct sched_group *group)
- {
--	return group->sgc->imbalance;
-+	return group->sgc->pinned_imb;
- }
- 
- /*
-@@ -11937,7 +11937,7 @@ group_type group_classify(unsigned int imbalance_pct,
- 	if (sgs->group_llc_balance)
- 		return group_llc_balance;
- 
--	if (sg_imbalanced(group))
-+	if (sg_pinned_imb(group))
- 		return group_pinned_imb;
- 
- 	if (sgs->group_asym_packing)
-@@ -13870,10 +13870,10 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
- 		 * We failed to reach balance because of affinity.
- 		 */
- 		if (sd_parent) {
--			int *group_imbalance = &sd_parent->groups->sgc->imbalance;
-+			int *pinned_imb = &sd_parent->groups->sgc->pinned_imb;
- 
- 			if ((env.flags & LBF_SOME_PINNED) && env.imbalance > 0)
--				*group_imbalance = 1;
-+				*pinned_imb = 1;
- 		}
- 
- 		/* All tasks on this runqueue were pinned by CPU affinity */
-@@ -13973,21 +13973,21 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
- out_balanced:
- 	/*
- 	 * We reach balance although we may have faced some affinity
--	 * constraints. Clear the imbalance flag only if other tasks got
-+	 * constraints. Clear the pinned flag only if other tasks got
- 	 * a chance to move and fix the imbalance.
- 	 */
- 	if (sd_parent && !(env.flags & LBF_ALL_PINNED)) {
--		int *group_imbalance = &sd_parent->groups->sgc->imbalance;
-+		int *pinned_imb = &sd_parent->groups->sgc->pinned_imb;
- 
--		if (*group_imbalance)
--			*group_imbalance = 0;
-+		if (*pinned_imb)
-+			*pinned_imb = 0;
- 	}
- 
- out_all_pinned:
- 	/*
- 	 * We reach balance because all tasks are pinned at this level so
--	 * we can't migrate them. Let the imbalance flag set so parent level
--	 * can try to migrate them.
-+	 * we can't migrate them. Let the pinned flag stay set so the parent
-+	 * level can try to migrate them.
- 	 */
- 	schedstat_inc(sd->lb_balanced[idle]);
- 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..14ce0f6e6027 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2257,7 +2257,11 @@ struct sched_group_capacity {
- 	unsigned long		min_capacity;		/* Min per-CPU capacity in group */
- 	unsigned long		max_capacity;		/* Max per-CPU capacity in group */
- 	unsigned long		next_update;
--	int			imbalance;		/* XXX unrelated to capacity but shared group state */
-+	/*
-+	 * Set when a child domain cannot balance pinned tasks.
-+	 * XXX unrelated to capacity, but it is shared group state.
-+	 */
-+	int			pinned_imb;
- 
- 	int			id;
- 
--- 
-2.54.0 (Apple Git-157)
-
+> Kunwu
+> 
+> > > Thanks,
+> > > Kunwu
+> > >
+> > > On Fri, Sep 25, 2026 at 9:39 PM Arnd Bergmann <arnd@kernel.org> wrote:
+> > > >
+> > > > From: Arnd Bergmann <arnd@arndb.de>
+> > > >
+> > > > The added call to rt_mutex_owner() makes this fail to build in
+> > > > some configurations:
+> > > >
+> > > > In file included from kernel/rcu/tree.c:5121:
+> > > > kernel/rcu/tree_stall.h:333:8: error: call to undeclared function 'rt_mutex_owner'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+> > > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
+> > > >       |                             ^
+> > > > kernel/rcu/tree_stall.h:333:48: error: comparison between pointer and integer ('int' and 'struct task_struct *') [-Werror,-Wpointer-integer-compare]
+> > > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
+> > > >       |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~
+> > > > In file included from kernel/rcu/tree.c:5124:
+> > > > In file included from kernel/rcu/tree_plugin.h:14:
+> > > > kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting types for 'rt_mutex_owner'
+> > > >   231 | static inline struct task_struct *rt_mutex_owner(struct rt_mutex_base *lock)
+> > > >       |                                   ^
+> > > > kernel/rcu/tree_stall.h:333:8: note: previous implicit declaration is here
+> > > >   333 |                         if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
+> > > >       |                             ^
+> > > >
+> > > > There are already a couple of inclusions of "../locking/rtmutex_common.h",
+> > > > so assume this is safe to do here.
+> > > >
+> > > > Fixes: 1eccf02fb8d5 ("rcu: Add running and boosted indications to RCU task stall dump")
+> > > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > > > ---
+> > > > I wonder if it would be better to either move the rt_mutex_owner()
+> > > > definition into a global header like include/linux/rtmutex.h, or to
+> > > > move the code out of tree_stall.h into a .c file, as this feels like a
+> > > > layering violation.
+> > > > ---
+> > > >  kernel/rcu/tree_stall.h | 1 +
+> > > >  1 file changed, 1 insertion(+)
+> > > >
+> > > > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+> > > > index 5dded1e89197..803a56af3259 100644
+> > > > --- a/kernel/rcu/tree_stall.h
+> > > > +++ b/kernel/rcu/tree_stall.h
+> > > > @@ -12,6 +12,7 @@
+> > > >  #include <linux/rcu_notifier.h>
+> > > >  #include <linux/smp.h>
+> > > >  #include <linux/rtmutex.h>
+> > > > +#include "../locking/rtmutex_common.h"
+> > > >
+> > > >  //////////////////////////////////////////////////////////////////////////////
+> > > >  //
+> > > > --
+> > > > 2.53.0
+> > > >
+> > >
