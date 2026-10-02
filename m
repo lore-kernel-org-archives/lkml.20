@@ -1,160 +1,278 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2561B652E
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A9646E007;
+	Fri,  2 Oct 2026 14:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949755; cv=none; b=cn3XSWsmTV1qq+fSgGgj/3YWoJLTWdWgoLcbcxPRx0EMms2+swsv8MFmEpv+Px5CDuCrPzJ5fGhpe7/RCvyTlb+TejsdjgkabLE939kMrYwsHdoXj+mpParz1xtzSlRzACJXowxgP4cd5zkYvQZotu/BHmUBuDUTUOnKKdxg4dg=
+	t=1790949758; cv=none; b=f58brOT4gG6xl/hq1dcePVJQwJNaiKhNy0Ree9rGSx1OM/6xLjrJqCBzv3MCFKbJGzkERJgh4LoDFJpzUjXxppS8cMgpbGm5q2TMGS+LasA0iGzCx8gtHsfgWDmuavXMErXU5iyzie9ZYw8+IK8YoKXtyE9lJfO38/VlXr0ALzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949755; c=relaxed/simple;
-	bh=ya/7HZIUS2P76+MVLBOL/856vdgFTqKa0oQKpvBI7M0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=iZyGHIjRaht8wYYFI71EJaBXe1GafSiRDE8+aauALGf7rDRlpSoN72xCyzefztr4K6XHrBqNIv0K9JoaZhnxJ7UuhOCWnbzSlnGGwmzb9B1ZuLsAGFRDQjif7cDGLn1rUAibS1MKHjc49JCm+V4xabLx+vTgjQDwohINjoF5Oak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ArL0vRDi; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790949758; c=relaxed/simple;
+	bh=W5dAhDEtmMtVVSaIvKnT2LgLJqc/CcbUxG6q+WTHIQ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KUoWn8rdFMnOHIBpyYo0rBLz9+bIZLwM6w5XwhVwDiivKU+QKNVzo7Ho2jndPP3egSwSTep/8lg4IbxkdqyazGlDaiK6PajAa31P30FYNb7vGMon3p5WkCNSvgQdp9HoD1oSuOl8OCmQOahJQX4SUdcSIWZUE1uT5qQdRwCTnNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKKizei0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ArL0vRDi"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afe3b2383so2459891f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:02:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790949752; x=1791554552; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qb3iCujopSE8wIGt0Gx78GxDd4scP1isaUjBiUrVvNQ=;
-        b=ArL0vRDifEYvGtSbv/7ZYJ8+BDeBgbdxr2lqu0V3EfkWh+6W6PyaAChDbJrmd62+gO
-         zJPVhOQ+6UZPU8QhWv1pyaBurbePqwT365/DtpLv37l55NSe7NDuLY4P03N39hv/kFKM
-         ZpoLB17UgEdJPOankomixVTbnyEfKHbFZom8MRZJfcZnBymzcs45VOZ7Jlr1C7UVUZ+G
-         wbcluy4Zti1QBhqlxSFmwjLTyCDcn/QUYyaiGbcm8SjjPW2SuuHFnG2b/rlSwHBACzrf
-         DQKBNSX85YX3qwwOn2kJ5v745W3AA6cy3qmWnqjQTphZ9r8S1KKLdR7FEmDyF8KabWfh
-         BJvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790949752; x=1791554552;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qb3iCujopSE8wIGt0Gx78GxDd4scP1isaUjBiUrVvNQ=;
-        b=pta+MkIFs12bKiPLZpM9bNDL7vuGpK2x3p3Pp+ZIm4IbEfwufrLk4GPBnz5yaWFESu
-         3qwlgn2zaR5oxdBuvRvZ2DJ3UoGPBaqDbyro0KojwTeIhf+77ePyxi+XNyzskWdlLXuE
-         W5GA92D75iJuwETt51Rst8bCn6rSf7pVEKgoanahPx2qvabTf0NUJN1C7gaaNwyzxd8N
-         lLZXBUak/TS6We63zvmbQRmbgt5dRe7MGQfTYkeZhFNad1ofGs6SwhfMZA5Cpc36PYMY
-         Yr0XTbW6bvCHgyNzDXRaEPP2wPHMgU63B7Ho79pDK36A5zBLF4EYdnzk4AAqAdlN+Jk4
-         mmVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXA+9fwCljx8S1qeWG2hMi5D1+gjEdAgvfWg7p0TTlZgl6dOj1QYtpcufV8NRaOxAgUJOqcdGShbJpmu4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGiBHYXr/xa383a399i0vyEweQQu4u42YTfpJb+X3BpV+juBlT
-	ZoFRHfKBHXkSKIJh46jFdJJAQxCsa90+pPENOl7RGYL7XDW+ZihzcksPuzfhvqFJH98=
-X-Gm-Gg: AYBFou08kly/XdfCz2icOHR2a0eSsgzVIiQD8RO+SyWLK03x1V5uC4ia9S3EDqAMqye
-	AWj3A/CUj8klItTtl7KaJ42cIXfo7BGo7GJjOkDrSS197BUZ0PLNMf256lwaiPqE+A+z30nz14P
-	jE6YUCy9ZyZ2rMztD1He3H0+/rRUq1wRGWPw1J8R3MUJbSb/ryDfMe9+/ORdydLhI+TBRQKPDip
-	QxEq0sGNwGJ/IH8ZovWa8tzOawmkdnlKjkzqob+dvC+sGXPm2gjP5Se4/UeXux4aNKzRYm1O3gf
-	fR7X5XdGn8p3ZAr4aEjhKq9Acipw/gyBmMaQLvlo2ih+lTewmoqhUq5X+T670XTX7RCay2O9n6d
-	Q1rpb5EglJwTj4hI435irdZC4mW4okjgUqakN1zPLzjmQl7+FrrXXY8OG/8Ki5aRkPSkjq/W02m
-	5NNvM3crEUi4X33MO2WRg0mN8PgbwjedsHRxg3hyPuWaKNsKxqrVmjCPFKl0LOcO7IrmwAIivsB
-	ezhSOhNNCZti9gRT4E5sEkNzGFzB42jWRSQK2s231hLg6QcMrM=
-X-Received: by 2002:a05:6000:2287:b0:48a:f354:aefe with SMTP id ffacd0b85a97d-48b1274facdmr5552169f8f.39.1790949751982;
-        Fri, 02 Oct 2026 07:02:31 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38105239sm8006009f8f.33.2026.10.02.07.02.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 07:02:31 -0700 (PDT)
-Message-ID: <e37d41db-5218-494e-96fe-bbf4e028763e@linaro.org>
-Date: Fri, 2 Oct 2026 16:02:30 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKKizei0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892231F00898;
+	Fri,  2 Oct 2026 14:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790949756;
+	bh=XKEFP5bYfn1KrlzLnxZ61iwyI5TCKxS6l5WDp28/Hc4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FKKizei09Jx778cqzBwSFbjojNNHOyUG4BkVjsElmVNuRJ0jlzrnV4tTk2sMpC695
+	 /SydW4Wzbgo30Nr0kmFNGxJ6gY/7+/XT2KgsGpc8AGvtKA9N6zNDHpadqjeFbWzBRw
+	 V2iRMrLIGmlRsG6ji11287N5cgLi9ZNCcEDivWHZnGSkGNyYgneG8+hwznsVD7k1iF
+	 iLSqeDHN6C+ROeg+B0gb+coleP2VleR+YBI0edySdiS6H89SAjyRoMUna6LGNRZtxI
+	 Sw/g5BErMmB4rPWNWFzlfA4/54jcXeJZbame3dAL23sCWq9df3tRgGSAWz3dA+bLIn
+	 UZ6VZy0E5IDaQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v3 2/2] selftests/ftrace: Add test case for overriding trace_instance parameter
+Date: Fri,  2 Oct 2026 23:02:32 +0900
+Message-ID: <179094975229.609715.3664484413379599809.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179094973121.609715.2103310055830923648.stgit@devnote2>
+References: <179094973121.609715.2103310055830923648.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] drm/panel-simple: take i2c adapter module reference
-To: Johan Hovold <johan@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260716132334.1565183-1-johan@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260716132334.1565183-1-johan@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 7/16/26 15:23, Johan Hovold wrote:
-> The i2c subsystem currently blocks during adapter deregistration
-> whenever there are consumers holding a reference.
-> 
-> Switch to using of_get_i2c_adapter_by_node() which also takes a
-> reference to the adapter module so that an attempt to unload the module
-> while in use fails gracefully instead of blocking uninterruptibly.
-> 
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->   drivers/gpu/drm/panel/panel-simple.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index c09bf3db5e78..f58e83aa4ebe 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -701,7 +701,7 @@ static struct panel_simple *panel_simple_probe(struct device *dev)
->   
->   	ddc = of_parse_phandle(dev->of_node, "ddc-i2c-bus", 0);
->   	if (ddc) {
-> -		panel->ddc = of_find_i2c_adapter_by_node(ddc);
-> +		panel->ddc = of_get_i2c_adapter_by_node(ddc);
->   		of_node_put(ddc);
->   
->   		if (!panel->ddc)
-> @@ -746,7 +746,7 @@ static struct panel_simple *panel_simple_probe(struct device *dev)
->   	pm_runtime_disable(dev);
->   free_ddc:
->   	if (panel->ddc)
-> -		put_device(&panel->ddc->dev);
-> +		i2c_put_adapter(panel->ddc);
->   
->   	return ERR_PTR(err);
->   }
-> @@ -791,7 +791,7 @@ static void panel_simple_remove(struct device *dev)
->   	pm_runtime_dont_use_autosuspend(dev);
->   	pm_runtime_disable(dev);
->   	if (panel->ddc)
-> -		put_device(&panel->ddc->dev);
-> +		i2c_put_adapter(panel->ddc);
->   }
->   
->   static const struct drm_display_mode ampire_am_1280800n3tzqw_t00h_mode = {
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Add a boot-time tracing test case to verify that specifying multiple
+trace_instance= parameters with the same instance name overrides earlier
+definitions:
 
-Thanks,
-Neil
+   - Verifies that a kernel command-line trace_instance= parameter
+     overrides an earlier trace instance defined via bootconfig
+     (kernel.trace_instance).
+   - Verifies that a later kernel command-line trace_instance=
+     parameter overrides an earlier trace_instance= on the same
+     command line.
+   - Verifies overriding a memory-mapped trace instance (@trace).
+   - Verifies overriding a backup trace instance (=source).
+   - Verifies parsing parameters containing multiple tabs and
+     gracefully handling empty strings.
+   - Confirms that the overridden instance has its previous events
+     disabled, new events enabled, and flags (such as traceoff)
+     properly applied.
+
+Assisted-by: LLM
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+Changes in v3:
+ - Add test cases for overriding memory-mapped instances (@trace).
+ - Add test cases for overriding backup instances.
+ - Add test cases for multiple tabs and empty strings.
+ - Add dmesg and basename to required busybox applets.
+---
+ .../cmdline-07-trace-instance-override.bconf       |    4 +
+ .../cmdline-07-trace-instance-override.cmdline     |    1 
+ .../selftests/ftrace/boottime/run_boottime_test.sh |    2 
+ .../tests/cmdline-07-trace-instance-override.sh    |  148 ++++++++++++++++++++
+ 4 files changed, 155 insertions(+)
+ create mode 100644 tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
+ create mode 100644 tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
+ create mode 100755 tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
+
+diff --git a/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf b/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
+new file mode 100644
+index 000000000000..74d8be54a798
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
+@@ -0,0 +1,4 @@
++kernel.trace_instance = "boot_map@trace,sched:sched_switch",
++			"bak_to_norm=boot_map",
++			"bak_from_norm,sched:sched_switch",
++			"foo,sched:sched_switch"
+diff --git a/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline b/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
+new file mode 100644
+index 000000000000..3c16bb0f3545
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
+@@ -0,0 +1 @@
++reserve_mem=12M:32M:trace trace_instance=foo^traceoff,sched:sched_waking trace_instance=bar,sched:sched_switch trace_instance=bar^traceoff,irq:irq_handler_entry trace_instance=boot_map^traceoff@trace,sched:sched_waking trace_instance=bak_to_norm^traceoff,irq:irq_handler_entry trace_instance=bak_from_norm=boot_map trace_instance="tab1,sched:sched_switch		tab2,sched:sched_switch" trace_instance=tab1^traceoff,sched:sched_waking trace_instance= trace_instance="" trace_instance=,
+diff --git a/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh b/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh
+index 6e8593d5a2c5..1d30adc388a6 100755
+--- a/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh
++++ b/tools/testing/selftests/ftrace/boottime/run_boottime_test.sh
+@@ -46,6 +46,8 @@ BUSYBOX_APPLETS=(
+ 	grep
+ 	sleep
+ 	sed
++	dmesg
++	basename
+ )
+ 
+ usage() {
+diff --git a/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh b/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
+new file mode 100755
+index 000000000000..960a3cf54d97
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
+@@ -0,0 +1,148 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (C) 2026, Google LLC.
++# Check trace_instance= override with bootconfig and kernel command-line
++TRACEDIR="/sys/kernel/tracing"
++
++if [ -f /proc/bootconfig ] && \
++   grep -q "dump_bconf" /proc/cmdline 2>/dev/null; then
++	echo "=== /proc/bootconfig ==="
++	cat /proc/bootconfig
++	echo "========================"
++fi
++
++check_instance() {
++	instance="$1"
++	old_event="$2"
++	new_event="$3"
++
++	if [ ! -d "$TRACEDIR/instances/$instance" ]; then
++		echo "FAIL: trace instance $instance does not exist"
++		exit 1
++	fi
++
++	if [ -n "$old_event" ] && \
++	   [ -f "$TRACEDIR/instances/$instance/events/$old_event/enable" ]; then
++		ENABLE=$(cat "$TRACEDIR/instances/$instance/events/$old_event/enable")
++		if [ "$ENABLE" = "1" ]; then
++			echo "FAIL: overridden event $old_event" \
++				"is still enabled in instance $instance"
++			exit 1
++		fi
++	fi
++
++	if [ -n "$new_event" ]; then
++		if [ ! -d "$TRACEDIR/instances/$instance/events/$new_event" ]; then
++			echo "FAIL: event $new_event does not exist in instance $instance"
++			exit 1
++		fi
++
++		ENABLE=$(cat "$TRACEDIR/instances/$instance/events/$new_event/enable")
++		if [ "$ENABLE" != "1" ]; then
++			echo "FAIL: event $new_event is not enabled in instance $instance ($ENABLE)"
++			exit 1
++		fi
++	fi
++
++	TRACING_ON=$(cat "$TRACEDIR/instances/$instance/tracing_on")
++	if [ "$TRACING_ON" != "0" ]; then
++		echo "FAIL: tracing_on is not 0 in instance $instance ($TRACING_ON)"
++		exit 1
++	fi
++}
++
++check_backup_instance() {
++	instance="$1"
++
++	if [ ! -d "$TRACEDIR/instances/$instance" ]; then
++		echo "FAIL: trace instance $instance does not exist"
++		exit 1
++	fi
++
++	# Backup instances have a trace buffer file
++	if [ ! -f "$TRACEDIR/instances/$instance/trace" ]; then
++		echo "FAIL: backup instance $instance has no trace file"
++		exit 1
++	fi
++
++	# Backup instances are read-only and do not have tracing_on
++	if [ -f "$TRACEDIR/instances/$instance/tracing_on" ]; then
++		echo "FAIL: backup instance $instance unexpectedly has tracing_on"
++		exit 1
++	fi
++
++	# Backup instances do not support enabling events
++	if [ -f \
++	   "$TRACEDIR/instances/$instance/events/sched/sched_switch/enable" ]; then
++		echo "FAIL: backup instance $instance unexpectedly has enabled events"
++		exit 1
++	fi
++}
++
++check_mapped_instance() {
++	instance="$1"
++	old_event="$2"
++	new_event="$3"
++
++	check_instance "$instance" "$old_event" "$new_event"
++
++	# Check dmesg to confirm physical mapping occurred
++	if ! dmesg | grep -q "mapped boot instance $instance"; then
++		echo "FAIL: memory-mapped instance $instance was not mapped at boot"
++		exit 1
++	fi
++}
++
++# Test 1: bootconfig trace_instance overridden by cmdline parameter
++check_instance "foo" "sched/sched_switch" "sched/sched_waking"
++
++# Test 2: cmdline trace_instance overridden by subsequent cmdline parameter
++check_instance "bar" "sched/sched_switch" "irq/irq_handler_entry"
++
++# Test 3: memory-mapped (@trace) instance in bootconfig overridden by cmdline
++check_mapped_instance "boot_map" "sched/sched_switch" "sched/sched_waking"
++
++# Test 4a: backup instance in bootconfig overridden by normal
++# instance in cmdline
++check_instance "bak_to_norm" "" "irq/irq_handler_entry"
++
++# Test 4b: normal instance in bootconfig overridden by backup
++# instance in cmdline
++check_backup_instance "bak_from_norm"
++
++# Test 5: instances separated by multiple tabs, where first is overridden
++check_instance "tab1" "sched/sched_switch" "sched/sched_waking"
++# tab2 was not overridden, so its original event should remain enabled
++if [ ! -d "$TRACEDIR/instances/tab2/events/sched/sched_switch" ]; then
++	echo "FAIL: instance tab2 event sched/sched_switch does not exist"
++	exit 1
++fi
++ENABLE=$(cat "$TRACEDIR/instances/tab2/events/sched/sched_switch/enable")
++if [ "$ENABLE" != "1" ]; then
++	echo "FAIL: instance tab2 event sched/sched_switch is not enabled ($ENABLE)"
++	exit 1
++fi
++
++# Test 6: Verify empty strings and malformed entries did not create
++# bogus directories
++for dir in "$TRACEDIR/instances"/*; do
++	[ -d "$dir" ] || continue
++	bname=$(basename "$dir")
++	case "$bname" in
++		foo|bar|boot_map|bak_to_norm|bak_from_norm|tab1|tab2)
++			;;
++		*)
++			echo "FAIL: unexpected trace instance directory found: $bname"
++			exit 1
++			;;
++	esac
++done
++
++# Test 7: Verify no kernel warnings or assertion failures were triggered
++if dmesg | grep -q "WARNING: CPU:"; then
++	echo "FAIL: kernel warning triggered during boot"
++	exit 1
++fi
++
++echo "PASS: cmdline-07-trace-instance-override"
++exit 0
+
