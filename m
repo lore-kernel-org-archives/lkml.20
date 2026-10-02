@@ -1,94 +1,49 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E097144C670
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:10:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A5F4756CC;
+	Fri,  2 Oct 2026 09:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932234; cv=none; b=LhzSqqNO0qUwDTIULPA42N8RR/XOE9G7pzsiQkPoLQlpKfVOF9WhSYrmKWUyQbdnWLRYiFoXQ9sXmXU9evtKgalgX5OtIEZBpFxXvdJyMn2VDeQw9CicCjhADny/rhFwqGC8iB0nPEM2d+g3/tiucZWzJHvgWWYnmiYCPC1MfsA=
+	t=1790932238; cv=none; b=IChrWzN5VDi11u7wubzlEH/s73xxCQ0PcZPU0/mxTMhLEGUa2rHLIe47hBVJKEB98KmaHbYJuA+890CJW4uln7gGBIhCQBmbXYFhUaxiJNcmfNNjxNMdgu+MhWSO94SH38Ai3/7QUwjafIgAR5gmlA33q7VO2A7OyhgYSn7cwao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932234; c=relaxed/simple;
-	bh=3kwwI3InAXTE2gZIfmO01n48Por+gfdwJPqdjBKbDzg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NxyocY2Dqk/bINu58yJKXX9ADgojzQPMtOicwFG8kXlwhiWCwpecW57PCR6jKFtRLPl97NcEzs14aV/tUTyorSdwRTdBJjTaQ0hI1N9p60vhEnII7Ga3Rg5Hny4cZHp1dM6myC7eMBHuockEuJ+tlGOFSnlT7ehH0gjVriP8Lic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AuTmowJI; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790932238; c=relaxed/simple;
+	bh=Ss3OtJ41YuV/fYlt6QMIuYu586Z4Y6pfdw3bFXKekak=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TqyCyVxSvOdg1oh/mOMDbNcX66lWxlC3SHTlmvotI3A4srNsQSWTbRGRy5eDmnUYxJshDFSmqGJUao1HxcNIuQGiVXOIVEVdVsX2o86jyS0RLsy08R8bdL6EQfjInwji8I0+piN89SKkPTeuU/iKrQqpJxvy3pj0KRi9FGHdiZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vpB+KSm+; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AuTmowJI"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2e4ba830297so213165ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:10:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790932231; x=1791537031; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ChtYARSDq8iagNWO9IImP3K9FjWMJua7ZspoYb+TKU4=;
-        b=AuTmowJIirqO+DmCyZVLUzAEe6usT/Lj9ukMG3IYK0k9rCY7BKCDw4eDbzOk4GKBwu
-         E6BFeQCbCcpCOGNvJBSEbznCJfTg3LbJFU9Dhp0wI26cWzep5yfwjyTM8IjC0BO0kk8c
-         n3iTR4VCrfhoNiH1J4nIuxWilxFgDT1KcjEHPP9eQtqJSQ7TzNnJTIhAMLrd75i3x3qX
-         x7WlBqbtRE/wWwlTBMmOijC6sjU8yFSr9gC1DyETkBtPWsqPDwXic8ba++EvlEVySSRg
-         faoJPP2Rx/yfKKuoRM3VeL842WHx/KVIdpsuZaRiErE+gRtV60Rl3f5Pux9168nvT8pJ
-         SpKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932231; x=1791537031;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ChtYARSDq8iagNWO9IImP3K9FjWMJua7ZspoYb+TKU4=;
-        b=RZcRBq03Z4A7KqwE+ANZ/BlpG4Korj2ihHYaJLN4irLJ7dj3R4vYLvl4uDx4blAE6U
-         rpyyX8e/EsjtYxPy+i5vnEA8arVWPng5WOyz5k26Rk2DmkcVytRZyouG0VooszUXKmNJ
-         gNOfGxpmKtCHYet4cZYII+1od6AJ6+miNNPKPmOo7antjCTirRlAic+fj3TV85LrHpVR
-         yWt//+wI8LkMVyVe0TFc06nqOQgxSJTsMg6gImhmVPwVTZIbDzdQmJpGqUlH8xk8mt+Y
-         Ct44Z8kB2sasz0wvXx8Ajm7bzFi6v3CNOReO5HBAJNJnps5NNggSSynECsC1FGPnJ8pw
-         +2Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBwEPGfZPbp0kl6MGWM1bffj0Fcn5gX2icWIQEdPUFyt8aqUwnGTQzZiQdXtUs4fx/LuWVpgfBXkwevLG20=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBFi2+/YkbxPQsJqXRXpURgWe3QVvFf12FK4MMIiY0uIQuTXCl
-	dRk9NxynN4Fm1weZO2rec2F6FPdxOqbEHtc/aqf9/u3K+KJVErfXMgDH1Y/4LUPu
-X-Gm-Gg: AYBFou1hGMx58TNHaZ8dA3u/NvZFKMNYmXRebC86PRDhcphi1sONIoR/BGj0ZHpj+VF
-	gv79AR6fP3s7RIUSDSzwPGcCoWSvq+XgNhnK/x6llWrZEi5OAga+Y+TfZm/qHho+rpqFZaY7DDM
-	XBNMPVSjbomXegA+Xdhc1Nz0SQojfYaZAR2g45ph1S+qrZ13UfoUDgQKNf1V45EIXEhXjIW4MAR
-	vP1DrLM0/WtfrtENwmUbFFs9ccPzcaCsY/Whj65/g8gpeP7yk6Uo+IXSfcm6clK7y67JbXpQuqZ
-	HGmTrXgzjdXtALdXPuZDdUDFagOsOjn9f8ar2YhXXTqKUD4MuIl84dA5GOYf21ROkhJfN45JfCE
-	ny71HmvCDQ8wOy3hMRxBrkR+9TjLiWEF+BTeAondvXYpsNtVvYirodXWCNmzw1S9AnZYsMgxSS7
-	v1UHNDzSLLXvenWbt/72jEk33hC0X9jBDULOEpIInN+sFY0iOIugusVg1l5zN668CFjYeidZiHh
-	cWUar3opWeP1HvSsukPhw==
-X-Received: by 2002:a17:903:1cd:b0:2e2:e6f1:5e10 with SMTP id d9443c01a7336-2e49a10450emr17761045ad.4.1790932231246;
-        Fri, 02 Oct 2026 02:10:31 -0700 (PDT)
-Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6ab2b9sm5480555ad.36.2026.10.02.02.10.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:10:30 -0700 (PDT)
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-X-Google-Original-From: Wen Jiang <jiangwen6@xiaomi.com>
-To: akpm@linux-foundation.org,
-	catalin.marinas@arm.com,
-	linux-mm@kvack.org,
-	urezki@gmail.com,
-	will@kernel.org
-Cc: Xueyuan.chen21@gmail.com,
-	ajd@linux.ibm.com,
-	anshuman.khandual@arm.com,
-	baohua@kernel.org,
-	chleroy@kernel.org,
-	david@kernel.org,
-	dev.jain@arm.com,
-	jiangwen6@xiaomi.com,
-	leo.yan@arm.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vpB+KSm+"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hx30S3dbhzKpB7;
+	Fri, 02 Oct 2026 11:10:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790932232;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ofDPnmsXpg1HZKhM/NUNmS6XkfUYzjXA+lGoPUNRgjc=;
+	b=vpB+KSm+Wt9VtVb0rKWerbrnFiUpTwlEkJtCGZNWXiUIwYWmOb6bpNdDirCz/nph1fX7NL
+	yM6sODf44yP5austJIv4FWhcBkEXnbbAjiV22yEoHay84kiSC3PqqAa4D9QVSXBLm7Ik46
+	2WFOOG+95qdgkruouZi8zoPl3bEQQvxDRycH9xOC2y8SKg+RVmV5Yw8qGqC/b3vI76Zt2b
+	OZIgJyAy1NTdf+qxfjSXvay+pyY7wJsya5tMwHZpcxv8VRgu7dAUJf0Hsht7jJAMb5I12v
+	2zgMDV9NPLGGDk66eFx7VSfeuq+cnkqDDOeOVWqfMuMd6TQyECyi44IK+h24hA==
+From: Stefan Roese <stefan.roese@mailbox.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	rppt@kernel.org,
-	ryan.roberts@arm.com
-Subject: [PATCH v10 06/10] mm/vmalloc: extract vmap_set_ptes() to consolidate PTE mapping logic
-Date: Fri,  2 Oct 2026 17:09:43 +0800
-Message-Id: <20261002090947.869220-7-jiangwen6@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261002090947.869220-1-jiangwen6@xiaomi.com>
-References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
+	=?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] PCI: Fix Renesas uPD720201 hang after the RCB Link Control write
+Date: Fri,  2 Oct 2026 11:10:27 +0200
+Message-ID: <20261002091029.2225203-1-stefan.roese@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,83 +51,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 8cqn6kf6rkeb81t13syory5nqcpissys
+X-MBO-RS-ID: 7465dbc95e46725be9e
 
-Extract the common PTE mapping logic from vmap_pte_range() into a
-shared helper vmap_set_ptes(). This handles both CONT_PTE and regular
-PTE mappings in a single function, preparing for the next patch which
-will extend vmap_pages_pte_range() to also use this helper.
+Since commit 1a6845aaa6de ("PCI: Initialize RCB from
+pci_configure_device()"), which went into v6.18.14 as dbe723b480e4, a
+Renesas uPD720201 xHCI (1912:0014) behind the CPM Root Port of an AMD
+Versal SoC hangs the system on every boot. The first access to the xHCI
+BAR after the firmware download runs into PCIe completion timeouts.
 
-No functional change.
+The chip comes out of reset with LnkCtl 0x0003 (ASPM L0s and L1
+enabled), although the Root Port supports no ASPM. pcie_aspm_cap_init()
+returns early for such a link and never clears these bits, which leaves
+the link in a state that PCIe r7.0, sec 5.4.1.4, calls undefined. This
+went unnoticed so far because the chip clears ASPM Control itself during
+the firmware download by xhci-pci-renesas. Once the host has written
+Link Control, even with the unchanged value, the chip no longer does
+so. pci_configure_rcb() does exactly such a write for every endpoint.
 
-Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Tested-by: Leo Yan <leo.yan@arm.com>
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
----
- mm/vmalloc.c | 36 +++++++++++++++++++++++++++---------
- 1 file changed, 27 insertions(+), 9 deletions(-)
+Patch 1 fixes the ASPM state: on a link without common ASPM support,
+clear ASPM Control where a device has it set, and update the saved
+state.
 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index fb757d95bde25..72ec1b48a76de 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -92,6 +92,29 @@ struct vfree_deferred {
- static DEFINE_PER_CPU(struct vfree_deferred, vfree_deferred);
- 
- /*** Page table manipulation functions ***/
-+
-+/*
-+ * Try contiguous mappings at the PTE level for arches which support them, and if
-+ * requested by the caller. Fall back to PAGE_SIZE mappings otherwise.
-+ *
-+ * Return: mapping size.
-+ */
-+static __always_inline unsigned long vmap_set_ptes(pte_t *ptep,
-+		unsigned long addr, unsigned long end, u64 pfn,
-+		pgprot_t prot, unsigned int max_page_shift)
-+{
-+	unsigned long size;
-+
-+	size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
-+	if (size != PAGE_SIZE) {
-+		pte_set_huge(ptep, addr, PFN_PHYS(pfn), prot, size);
-+		return size;
-+	}
-+
-+	set_pte_at(&init_mm, addr, ptep, pfn_pte(pfn, prot));
-+	return PAGE_SIZE;
-+}
-+
- static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
- 			phys_addr_t phys_addr, pgprot_t prot,
- 			unsigned int max_page_shift, pgtbl_mod_mask *mask)
-@@ -100,6 +123,7 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
- 	u64 pfn;
- 	struct page *page;
- 	unsigned long size;
-+	unsigned int nr_pages;
- 
- 	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
- 		return -EINVAL;
-@@ -120,15 +144,9 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
- 			BUG();
- 		}
- 
--		size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
--		if (size != PAGE_SIZE) {
--			pte_set_huge(pte, addr, PFN_PHYS(pfn), prot, size);
--			pfn += PFN_DOWN(size);
--			continue;
--		}
--		set_pte_at(&init_mm, addr, pte, pfn_pte(pfn, prot));
--		pfn++;
--	} while (pte += PFN_DOWN(size), addr += size, addr != end);
-+		size = vmap_set_ptes(pte, addr, end, pfn, prot, max_page_shift);
-+		nr_pages = PFN_DOWN(size);
-+	} while (pte += nr_pages, pfn += nr_pages, addr += size, addr != end);
- 
- 	lazy_mmu_mode_disable();
- 	*mask |= PGTBL_PTE_MODIFIED;
+Patch 2 is Bjorn's set-only RCB change. It also avoids the Link Control
+write on this board, which matters with pcie_aspm=off or
+CONFIG_PCIEASPM=n, where patch 1 never runs.
+
+Testing on the Versal board, v6.18.40 (AMD linux-xlnx) with the patches
+backported, 3 cold boots each:
+
+- patch 1 alone: good, "clearing ASPM Control" for the xHCI
+- patches 1 and 2: good
+- patch 2 alone, pcie_aspm=off: good, the chip clears ASPM Control
+  itself again
+- patch 1 alone, pcie_aspm=off: bad, completion timeouts
+
+On pci/next the series builds without warnings (W=1, arm64 and x86_64
+defconfig). I could not boot test it on pci/next, as this board does
+not run a mainline kernel.
+
+Changes in v2:
+- Make the aspm.c change patch 1 and the actual fix (Bjorn)
+- Update the saved state after clearing ASPM Control (sashiko)
+- Reword the clearing message to "link has no common ASPM support"
+- Cite PCIe r7.0, sec 5.4.1.4, in patch 1 (Bjorn)
+- Replace "write RCB only when it changes" with set-only RCB, now
+  with Fixes: and stable because of the pcie_aspm=off and
+  CONFIG_PCIEASPM=n cases (Bjorn)
+
+Similar reports with this chip and ASPM, possibly related:
+- Qualcomm RB3Gen2 needs pcie_aspm=off: https://lkml.iu.edu/2603.3/02364.html
+- RPi CM5 "HC died": https://github.com/raspberrypi/linux/issues/6849
+
+v1: https://lore.kernel.org/r/20260930144650.3701516-1-stefan.roese@mailbox.org
+
+#regzbot introduced: 1a6845aaa6de
+
+Stefan Roese (2):
+  PCI/ASPM: Clear ASPM Control on links without common ASPM support
+  PCI: Set RCB only when the Root Port has it set
+
+ drivers/pci/pcie/aspm.c | 23 +++++++++++++++++++++--
+ drivers/pci/probe.c     |  7 +++----
+ 2 files changed, 24 insertions(+), 6 deletions(-)
+
 -- 
-2.34.1
+2.56.0
 
