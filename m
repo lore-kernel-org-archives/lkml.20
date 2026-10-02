@@ -1,136 +1,258 @@
-Received: from outbound.st.icloud.com (st-2004f-snip4-11.eps.apple.com [57.103.78.211])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021136.outbound.protection.outlook.com [52.101.95.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB282361DD0
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.78.211
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976524; cv=none; b=m9JfmsZBNIJyeXp6UKTEIwH7fVfb5KH6CSYvk8k4kbnp8pk0pjuy7NUICKnzmgKZL1zbyc/DO9fJcfiaFV8auaanvSqxLp7tazxd4/c7+iuSwk7/+9vUMkS/mF+nMQaIX0YwifT7kLFSSFzAHSQEETeCNw38Z/jL7vNsGfjSi5M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976524; c=relaxed/simple;
-	bh=Oo8lIQfisTIBzfqkI5g3UMnfDWuX0NA/q0z0wGzPjk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KjLf2VSbTRa939bHh9a4WGEIf/HYRl/wjO2dmMNMvfJQAeNOlphu5qOUYUgIbjtfI3labuqHRu5fVekITJ5cFr/F80nL8musbiypOk1Srxy6H2dveN5H67Wh+waDz0g6C9+g04VeL9FSYDWcC2rOeJLz/jef5ULPUaL9aEdG/oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=VzjL+WHW; arc=none smtp.client-ip=57.103.78.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="VzjL+WHW"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-9 (Postfix) with ESMTPS id 61D1D180070A;
-	Fri, 02 Oct 2026 21:28:38 +0000 (UTC)
-X-ICL-RepId: 01a0fe84-e89c-78f2-85a0-2a3521161b67
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKCkMFWhxBDUkdXA5bEhVdRVUXUhlHGFc4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgNCGRBWAVhWXQVNGlwYWQ8cA01WWg5bBEcUFxtcABcbRgIEIwJfAEUCXglWATAXD1ZNUBtfAkIPHBNWFRMAXg8PTAtIAVsGWwJCC0kBVQRYHEkPTwdABkZUClwKRgVZK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1790976522; x=1793568522; bh=aJsmC1mviHb37getbq+iRvVXVUnaonvh2KuAc9UpK0Q=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=VzjL+WHWzkmGeRW/57/513c8MRKJqjVXa0MvzylFzyk/YQm5Latbd7tRiSdvDCdN835RL1K7ad8hzTxtXuPJy7JvN1LONuoImOq9htmyJxML/9FKeeTmkK9IqbvyIPUlBISF8p3oCkSmo6Wrbc3O4Eja68GewsJ06c9Ls7uSiNzSr67mY96aBi4w7ezr/4M8vFqIKuqU9KjSWWz7J5G3COaeTQFWLtcql/HGbiMIhsCA2plKFoZERnq10e9h/lL/ZgFzezQs/fRUWQ/92UK/nLLA5mmwNXcRfR1nLvOIjRXXwZJGVJF3OxmyzCdkqlnvu9Vc/Idw0Pc8oagSKkddBw==
-Received: from 252-PC-L.device.rit.edu (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-9 (Postfix) with ESMTPSA id 3F1AE18007D1;
-	Fri, 02 Oct 2026 21:28:37 +0000 (UTC)
-From: Finn Zeruhn <fzeruhn@icloud.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Finn Zeruhn <fzeruhn@icloud.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/dp: keep MOT set between messages when no_zero_sized is set
-Date: Fri,  2 Oct 2026 17:28:33 -0400
-Message-ID: <20261002212833.9674-1-fzeruhn@icloud.com>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC483E316B;
+	Fri,  2 Oct 2026 21:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790976714; cv=fail; b=VHaRAIqZRMnp4oWkfjvPa1/y6HdO1b7IOfUqv9ihjf7mkPCfU48X75qYQnNnFult9+r+RPJLTh5ljWmFdViose/AfgdiLe/L/bP6YqPfq8xotKs7u5SOtGIBsIMCp2QgfibjDeuPUK91y6OXMuOhj9nbVICLnTk8cSrtRKGi9jA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790976714; c=relaxed/simple;
+	bh=Q9+ph5kGSQRbYvw8rq8nkycPe0eSh7I01fpVHKxaujI=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=AK9N6FNR/igtB9ldeZdgAR5W5LBFXU/yAP5Sbx17X8ttV3T8eM2lW393KyZNEUfgMAR79ASgN85EItHfsplvneRA7weVryBbNvxGDzdQ7oZm9+j/iXgG2SAWLd/HHeTHgw9Ke8hnK4gZqLwgYCamnFGdmPFTxGw3eXhAkeQ3neE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PkgsYBUEiTdimLYre2sNesvmIUmdTfXX2XJcECxLGw2hRBeAUZQYmfv10FtqUJSdej/0bXYS+Y18Sbnt00pP6EDtSKmt3x1SwH/qFh8E68xTQa5W7YL3177XQmEpxaynB6dFqpojZRUm5dajvTxKwYQUIpe/jX08h5O90uqkFULM//woyUvPAk+SpOpUMiFY2ms1imar0iu1YgvIxy/rD7NRGaQvv6eVDHquY/wiurYR5UNYacNGtvQRA8TJGCaZZ8ribhiDNaIFP6WSLCHRT84u+NdcpI6JCEkamQuklealPJNR3AShKI0q0ox+2+LfgHeSI9ppDmPUKlglJNjJ2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=AEY9HUsxJ+b4G7usFFn6f1hdprCWJSIMXifOADMEcgk=;
+ b=sbC5xONavaJVx/agDwYXUsbO/woz00pF69T2O8v8RYNg45bKWgDl8E9+Zpt/zYoqx/OldtbnT5uOUySfzzHO1m+NeA9ip4DxKsk3Oc0HV03AVsn23oQUQM4bjev4+kwyRk3cdkkahpHLxou1hL3nHGnwhE9zdHUr6ck1yQa8s4yPPPqGR8SQBumhUX4cim5Om3r53iSeEkG6B4JbyM+KEKomJRXG+Y9J3jfFTxOg9g4MNNwu5NhD47tpELlLEMBl/EfYRq4l3dAPI8XHT/gKhNbysVQTzN2bO5Yq6RayDQYzp27LWxKXOhL4LVVtjde9M3u5iT7TALspOtsqzcaS3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CW1P123MB7791.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:248::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Fri, 2 Oct
+ 2026 21:31:49 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 21:31:48 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	atomlin@atomlin.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] perf trace: Support --bitmask-list with --libtraceevent
+Date: Fri,  2 Oct 2026 17:31:45 -0400
+Message-ID: <20261002213145.333100-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN0PR05CA0023.namprd05.prod.outlook.com
+ (2603:10b6:208:52c::14) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=U4KfzOru c=1 sm=1 tr=0 ts=6ac02207
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10
- a=UWokjQvqbcQA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8
- a=tmjPn7o2apbUsHgEkIAA:9
-X-Proofpoint-ORIG-GUID: Rk3qkKmZ0gbJTD9A2W_CcYbjnSmjo3j-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4NSBTYWx0ZWRfXzbmsrKE2psOA
- xup8hGPRrsgRj1iK+FU3T80jsfjf9FBXxBBclepIYFoQc91yW+eqhhaSUuJPhv66pSf9vx6GtLW
- q/BwF9ZShwI7GDLS9lOiZi8Ym+Zg55M5j3cyuNkhvrtmAq3OtVqBTvWldh5DhZImm+eL73Gpanf
- LQGix2chVlCqeS+TEPVORuPxATWeoqwRqPwhhK5/R+hPhEN8skDmw9ThWmng1cxwpM/VhHiCFD/
- J7hSfW8VS5EqHpakkRIQnBE5ZNfgGVknGZVrvERvzGPbSvom1dx7pNVHjNCtDqIeqBdWN2VZ/cf
- iP3hgeS4xu6FW+a9caqtXoybpZickU+ZP3csWhFwsLUSqHLc++JRL69Of2DVi4=
-X-Proofpoint-GUID: Rk3qkKmZ0gbJTD9A2W_CcYbjnSmjo3j-
-X-JNJ: AAAAAAABIX1DDu2r6CLCwNqrpo53j7UPSFCGV0xf2o7uDj4nKm+2DT0na4iiQnAkqlSq9p
- fd1oND7MDu/jefloDBNTXfT46NbSI3BbdjxIijySz6tblQaNxpAXjXbOdUd67NBHUSORx5
- caRIevSIRVV7Br585QQajTetwXgtPJokMMXGImmrG69Vi4aNgy7Bm9T4KDSK9T0EICj+EF
- 4ocLEm979UtKHMyOg8xK25zYurszrfAcRhUiRwvaKz1ZuuBcvK8btWeYAu2+T5Hw3eh134
- oCToOZZc/bQIjSu0s9jfnZR4cpaj4FQYtTKNn4slL5s/TCGhokxJzD504m3n6GjW+rG3c+
- 0reoln2gpes93hnLJAx++evdvYTJLx2p9TA/Kxo49zr8O5IzBUU/vLGImyk0XvXTD0TvVH
- 29eM9iOh8CbYUc7m/VwSXduISjcUMlB3vprql7RpBZzjKvvAc5rQZRDgqrzwjmLzTt47pE
- 4tjlryrUS9D7gYmLAFI2G+dYOxX8yMPLYxSQ3Y8nZ3bo2M66yVpQGqbpmHVBMUjae8eEMB
- 1Y9JFbZcxVWLaw3eaKFEQ8JKbomHsHh6NQEqSiRKPq5Oxw19BfZJZ0eBsL2oRkN2k9HSpL
- JXBP7Xwyl2xha2o3UCdNqurTSWkoJfJkU8W9HviC2d5jdVNBb1kZxNzm3d+9ZKCskTFLRI
- KYQ8o5zJPwIXNzo8TL7AccuCkqvwH8QDkQTD+ClhsQVigP/zb5ezCj+S2hwonLxlwu1fHs
- 9c0wf/xm1QaqkkJePWdA6aOXInwiBwfDjqESPWT6cX4xXLSxalrqI7isoQDKh5XyWYaRE8
- J1rWD9eb7LOxyaXgSeJFIuCn8JXtAOTg5rXHuIUVEAU5MtpqB07gqFQSuqKb9ymOEp5uj/
- 6ivTBKncKIimPx8fR0a0zGyiqntvDDHjH+yNiO6AN8D9rBYdUT+2V0Eu+30UApjHrtslU5
- pTGyVzEe1vDSTbiwHzJgnq+W2AleEtdJBNaykqHcUnHjpS4uXH0BgNOuyRijRiNZSUOgqo
- mQL5FIpiiIXDDfCUaQiHeSJV4UsTBTGiV4ut8ZeN8vQ26zfJjEuK+ojJOI8pO38SK/g3Wg
- gzmHIZujVYhY5P4kVWtcKENCyJingqGkDrw6YkdT/76qWhPtroukH3cu8TvhL55R6aFD+w
- Pa2/YFeAfqU/vMdvhrIvOdaq2fleuQbAXaUVGbAB2l/PTNoBJir2kAskNruk816za6oLC9
- zZVoGcCrCrkElepvrHG7g+WuSlkSm3eCqJt1UWCg3Ay+fnHf7HvP/0rRYAgGuBuJj2JdXv
- 9dGZQZyO9d4mlEHspPhwPd4OIm3tRH2H0dPhDFkCncndDhcU21thWu/3WAWZtjjPJ16g==
-X-Apple-Category-Label: MTE1NzgzMjUxMzU6JGNhdGVnb3J5JF9QZXJzb25hbCw=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB7791:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ef0e1a2-c7fc-4634-1e62-08df20cc90c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|18002099003|10067099003|3023799007|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	UPPLv4KwL9mRGi3GuKEPJ8BzzLdgv8sFSgcLWs9D+sWIRGR8NufQ7U9Blwq7weJ9/k/l5gvAX4/nzBhpMQoJDwmyUAPSYjJEg+SlXmzfi+LID61oz7sLMjC+4+6k7d0BsTJfHhS2JYyCgPyGGWsgZ0tGHzd+wRQEMpQLkhk1LpvcoZVvCSTZncZ2fKFww2n7hXEs9/lwTwoG19IETd/maFN13XV6BfyWpP+uxkt2az5Gog6m0ZQPQ3MPJxWmHjdBQbbjp58GuI3l2uNgzUvkKM2LpNqTl4kGqb7nDHE0xmJxgXgHoOK0h1YrwTjxTOOsia+0VGxSV9n97DBecW9uao+0qfpIapAuxYy/hu0TrNhCb5XzE50RSkwhyMzhUOxAFOlHPR1eA8op5SuNpoMJeDaIs6rPj31jwKBBPYhNoTA28pArxLgqCEKIqgu58G1nLqrZUANl78u74EJhrgab3/4jAxSpTlQ/oJ5+GMs4+FlViB2nBzhymOXRspxqCUzk3upa7MkJAwEiyld3hsirG43cxIa6CTqdSNE/aLExM62insBLefm3EsMNR3Dd9KOcm2/4dNMSysvpxPBm50tmdBS2BcCViz6SMomiVo6koVkXLAJr4VRXCjEHgo6foBXDVVmu19+PC4j0BrZxo/vFUyf4+hItvIc6JANbT4wIJUE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(18002099003)(10067099003)(3023799007)(56012099006)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?g+r/wr1n2spx/EI25bYGmPaj1tu3i5znTl5j4lT/7JtUZHMbvxXcRorCpnot?=
+ =?us-ascii?Q?NOD6VlTaUinPdTHipsZfME5MASo9ieS0qOWlJiX47u1lH51RRPTXCJbjCyX+?=
+ =?us-ascii?Q?v/Mcv1DwepaNVOZpiZUCQGPhvCXO8w22l1QI80g/RHUEUX4kbMtq2gvp8Msu?=
+ =?us-ascii?Q?O3l8BzCUzrM9veCIx99ufp2WD3H7XY166I7g18uWfX5aCjB09BvwkNKM+xbS?=
+ =?us-ascii?Q?o1L8eNWn8LRW36ghW12waQA77WGBC0hUd61TC/LqfaVcEB905c5vf+7jyiRq?=
+ =?us-ascii?Q?NLAeAxIrczMZxjHixIBMgDVPeVtsx0d+tqszQ7HY9Igiomc8coVVtdIw32Cn?=
+ =?us-ascii?Q?LeD5xpmr3I39FyrLLcx9DR6PC3Qm874IXTCdxi45qBbVU6Bv+hRONb8YeVPr?=
+ =?us-ascii?Q?+Ne79W/J3ZaKd7t0UNXQd2OSP09LhrvJBuPgA+04zbo9eZmjY4CwQ/dapR4T?=
+ =?us-ascii?Q?ui+euHWQ6tt3D/fxo9PEetn7t/J/XFqxNDpYNkR/G1AgPBKq6atj8EqeJ9vt?=
+ =?us-ascii?Q?AoP4I59X0hwgT8jENZpxdDsR9VO4djtr787JiKi0rOAbySto2HfLb+qI3jar?=
+ =?us-ascii?Q?PNyU/t1fvuYhWVmLXL3FOO5V8i+P1jMonIDYxzwSrXSO8FmgUKDGTOCISWjW?=
+ =?us-ascii?Q?vhbpAGlyxeosZrJMor1fBLkHnq1B2WvmM1nCKsql+9iuaRNxXAOSUBh9w9Go?=
+ =?us-ascii?Q?3/UN0a6uxlVtOaAgYQFSaxAdibSiTEs/FLP0WVq7mnD/WRNeS0ROn2AUrfbb?=
+ =?us-ascii?Q?C4clIIx0LLMztJblneHxPsDufSfo5okRgtaE9yRscDU6waiEyzCX7AhOj8ik?=
+ =?us-ascii?Q?ov9YRSiHCBaXAhmVfFyN934wCCtg6h4mfuD78TWWJdNWCt69PuQiPqSaU+lg?=
+ =?us-ascii?Q?6dKdBZgPbFCCqC6VzqO0n7TQVZRoynn8IeRpveVWsh1t+YPoc1uNcDCPc+Mu?=
+ =?us-ascii?Q?rbwiah/5ZTJO+l0LzK4IhxHDJ/Cr8iTfwlq8OG2wG10a4dlcnHAwJ87Gsx+N?=
+ =?us-ascii?Q?GzIRkNHpm8yVuFEBalDyvA1IoGpqFFBF8gUP9AJgeJx0HQibXbmWMy1/xCml?=
+ =?us-ascii?Q?b7hurO84gUfSF9zisOPVyUTe5Zv5pMcgfTexDGQhPy9C7bMKQx2GBv9czYAf?=
+ =?us-ascii?Q?uedOVMbOYDqCMH8hbycwfSPhuqIJvkwgcGgJiReJhgZbMyBW2A8ISGQXL6+3?=
+ =?us-ascii?Q?W3eq8bRG8/KjcPXUbCK1Pb1WWNUiD1sKXK+RaqLnc+3xuwtzgflxA+6o46Na?=
+ =?us-ascii?Q?PYNypheL7Pid+saJtVy1qoL8KYlBaC/s+FCLkzU4852Yq+wd0Mx+Axd1RDOo?=
+ =?us-ascii?Q?piAoGAUCmNKZVg6rbjcvxkAltPrelTUiZ/Y2W3o8ZunyoVZYQUJXyKk9kmaR?=
+ =?us-ascii?Q?DiHJOIILWTsjsq8esjRJYOYabxsP87AOp4V4i0phK3uTKsJbYUYX9LQwYF3N?=
+ =?us-ascii?Q?qjWvuEL120G2jFEPfMVNOl8FXAfWJai8wu861SM+F4GzNH0RLDE1nygt01PJ?=
+ =?us-ascii?Q?9ndZ2mRBEuYFusxJWZyFH0Y//DHjVuo5N/V9h6SH3fitsYaLwI8kyTdXyL/z?=
+ =?us-ascii?Q?ZC8od4NCpmzqnhpSal3jc4tFzr2MowRufO1zhHGFLp38D5e3rc45ZVJ5KWHI?=
+ =?us-ascii?Q?m1VsP4/ROziawHRAnVasIMbeZN++OsiddKJhYGyXxc36WIPanZ+1zigHb/XW?=
+ =?us-ascii?Q?D5UYdDX4LBZrgRcykdQyf54QxVuiG43dLLIQtfK5g5L0PxH1yOvCg1pBQNTN?=
+ =?us-ascii?Q?ufj/6YKW3g=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ef0e1a2-c7fc-4634-1e62-08df20cc90c3
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 21:31:48.6468
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hqPbp+0cOeLV77LyGivVNu4ONg57CF+8wDvs87PgSvNWFhvy/lryfROgPm1pjShnDolYExJi0egH47hrBrqN0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB7791
 
-When aux->no_zero_sized is set, drm_dp_i2c_xfer() cannot use a bare
-address packet to close the transaction, so it clears MOT on the last
-data packet instead. The check only looks at the position within the
-current i2c_msg, so MOT is cleared at the end of every message and each
-one is terminated by an I2C stop.
+Commit ab74d1fbe061 ("perf trace: Add --bitmask-list command-line option")
+introduced the --bitmask-list option to display cpumasks and bitmasks as
+condensed, human-readable range lists (e.g. "0,2-5,7") instead of the
+default hexadecimal format.
 
-This breaks E-DDC reads of EDID blocks 2 and up. Those are read as three
-messages: a write of the segment pointer to 0x30, a write of the offset
-to 0x50, and the read. The stop after the first message resets the
-segment pointer, so the read returns segment 0 again.
+However, that implementation only augmented trace__fprintf_tp_fields().
+When --libtraceevent is specified, event formatting is delegated to
+event_format__fprintf(), which bypasses trace__fprintf_tp_fields() and
+relies directly on libtraceevent.
 
-On a Pimax Dream Air (three EDID blocks, native timings in a DisplayID
-extension in block 2) connected to an RTX 5070 Ti with nouveau, block 2
-reads back as a copy of block 0. The checksum is valid, so nothing is
-reported, and the connector only offers fallback modes.
+In libtraceevent, tracepoint bitmask fields defined using __get_bitmask()
+are parsed into TEP_PRINT_BITMASK AST nodes and unconditionally formatted
+as raw 32-bit hex chunks (e.g. "00000000,00000005"), ignoring the
+--bitmask-list command-line option.
 
-Clear MOT only on the last packet of the last message, as the commit
-that added the option describes. With this, block 2 reads correctly and
-the native 7104x3840 modes are listed for the Dream Air.
+While a dedicated configuration API in libtraceevent would be the ideal
+long-term solution, that requires a new upstream libtraceevent release
+and conditional version checks in perf. To provide immediate support for
+existing installations, traverse the event format's print argument AST
+in perf trace and rewrite any TEP_PRINT_BITMASK nodes to TEP_PRINT_CPUMASK
+when --bitmask-list is enabled. Both types share the identical union
+payload (arg->bitmask.field), but TEP_PRINT_CPUMASK instructs
+libtraceevent's print engine (print_cpumask_to_seq()) to render the mask
+as a condensed range list.
 
-The same problem was pointed out by the Sashiko review of the patch that
-sets no_zero_sized for all DisplayPort connectors in nouveau.
+To avoid any per-sample overhead in the event handling fast path, perform
+this transformation once during tracepoint setup via
+trace__init_tp_bitmask_list() for both live tracing (cmd_trace()) and
+recording replay (trace__replay()), leaving trace__event_handler()
+untouched. All enum values of enum tep_print_arg_type are explicitly
+covered in the switch statement to satisfy -Wswitch-enum under -Werror.
 
-Fixes: f0ddbb1eed18 ("drm/dp: add option to disable zero sized address only transactions.")
-Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tools/perf/builtin-trace.c | 75 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 488fd123a01a..7676285c19f8 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2192,7 +2192,8 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
- 			msg.buffer = msgs[i].buf + j;
- 			msg.size = min(transfer_size, msgs[i].len - j);
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index c3c7f1f85c53..57249df65fe3 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -4857,6 +4857,77 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
+ 	goto out_put_evlist;
+ }
  
--			if (j + msg.size == msgs[i].len && aux->no_zero_sized)
-+			if (aux->no_zero_sized && i == num - 1 &&
-+			    j + msg.size == msgs[i].len)
- 				msg.request &= ~DP_AUX_I2C_MOT;
- 			err = drm_dp_i2c_drain_msg(aux, &msg);
++#ifdef HAVE_LIBTRACEEVENT
++static void tep_print_arg__set_bitmask_list(struct tep_print_arg *arg)
++{
++	for (; arg; arg = arg->next) {
++		switch (arg->type) {
++		case TEP_PRINT_BITMASK:
++			arg->type = TEP_PRINT_CPUMASK;
++			break;
++		case TEP_PRINT_OP:
++			tep_print_arg__set_bitmask_list(arg->op.left);
++			tep_print_arg__set_bitmask_list(arg->op.right);
++			break;
++		case TEP_PRINT_FUNC:
++			tep_print_arg__set_bitmask_list(arg->func.args);
++			break;
++		case TEP_PRINT_FLAGS:
++			tep_print_arg__set_bitmask_list(arg->flags.field);
++			break;
++		case TEP_PRINT_SYMBOL:
++			tep_print_arg__set_bitmask_list(arg->symbol.field);
++			break;
++		case TEP_PRINT_HEX:
++			tep_print_arg__set_bitmask_list(arg->hex.field);
++			tep_print_arg__set_bitmask_list(arg->hex.size);
++			break;
++		case TEP_PRINT_INT_ARRAY:
++			tep_print_arg__set_bitmask_list(arg->int_array.field);
++			tep_print_arg__set_bitmask_list(arg->int_array.count);
++			tep_print_arg__set_bitmask_list(arg->int_array.el_size);
++			break;
++		case TEP_PRINT_TYPE:
++			tep_print_arg__set_bitmask_list(arg->typecast.item);
++			break;
++		case TEP_PRINT_DYNAMIC_ARRAY:
++			tep_print_arg__set_bitmask_list(arg->dynarray.index);
++			break;
++		case TEP_PRINT_NULL:
++		case TEP_PRINT_ATOM:
++		case TEP_PRINT_FIELD:
++		case TEP_PRINT_STRING:
++		case TEP_PRINT_BSTRING:
++		case TEP_PRINT_DYNAMIC_ARRAY_LEN:
++		case TEP_PRINT_HEX_STR:
++		case TEP_PRINT_CPUMASK:
++		default:
++			break;
++		}
++	}
++}
++
++static void trace__init_tp_bitmask_list(struct trace *trace, struct evlist *evlist)
++{
++	struct evsel *evsel;
++
++	if (!trace->libtraceevent_print || !trace->bitmask_list)
++		return;
++
++	evlist__for_each_entry(evlist, evsel) {
++		struct tep_event *tp_format = evsel__tp_format(evsel);
++
++		if (tp_format)
++			tep_print_arg__set_bitmask_list(tp_format->print_fmt.args);
++	}
++}
++#else
++static void trace__init_tp_bitmask_list(struct trace *trace __maybe_unused,
++					struct evlist *evlist __maybe_unused)
++{
++}
++#endif
++
+ static int trace__replay(struct trace *trace)
+ {
+ 	const struct evsel_str_handler handlers[] = {
+@@ -4908,6 +4979,8 @@ static int trace__replay(struct trace *trace)
+ 	if (err)
+ 		goto out;
  
-
-base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
++	trace__init_tp_bitmask_list(trace, session->evlist);
++
+ 	evsel = evlist__find_tracepoint_by_name(session->evlist, "raw_syscalls:sys_enter");
+ 	trace->syscalls.events.sys_enter = evsel;
+ 	/* older kernels have syscalls tp versus raw_syscalls */
+@@ -5814,6 +5887,8 @@ int cmd_trace(int argc, const char **argv)
+ 
+ 		if (use_btf)
+ 			trace__load_vmlinux_btf(&trace);
++
++		trace__init_tp_bitmask_list(&trace, trace.evlist);
+ 	}
+ 
+ 	/*
 -- 
-2.56.0
+2.55.0
 
