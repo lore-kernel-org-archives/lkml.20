@@ -1,99 +1,130 @@
-Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E100F486621
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D6C4F96A7
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790959874; cv=none; b=SbhAUhT2eZVSaooy/8QHc/U1FvgNhjXqItiMyGqkknuuxPtLRJV53AOPRtIqZMkCR1V288PahcdikiR7ozhb/nx86eKUcqNGJDPbUO7SObMjHG090YO6IhboDkiMWtsIrel33jB/SvusKi3xTmgXWHvruV7NpEenU8VzHAUrMx4=
+	t=1790960095; cv=none; b=gwKQJSytxq9/c/lFUG5pTsHxkAN4oksiO4WfJdjWdPr1vpnpgOVJQ7Qe1gniHK/icKUvvTsO3z7F/26w2TpsaQy6sVShHxBBAcQomLLy4dLkPW/kWnpxdGxWeWANbqA5Tew7UKa7p826eiscXuqiR3hqGvoRR7WInw+oZQxPZr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790959874; c=relaxed/simple;
-	bh=/I3TgWx8/U/mtgoPen/cIWwNHyR0DG/ZCxNDvpcPV6s=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=S08mLVFfLgxNInfoIxJjuHTn3kqYnYWZY+5pNxlJgqDrQ1pX+0oS/9h+zprvxEhsUXY87HREZcohcHq8IVJF6c5raB5G1iC7gTuVWhM/uwZG6xjR6Wy8/zmSwVfz+0Fp7ZB0aMKuGpUmyyzjn1aukaNxRAQpME8/r9KQDpIPnl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=D/XP62Ya; arc=none smtp.client-ip=91.218.175.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	s=arc-20240116; t=1790960095; c=relaxed/simple;
+	bh=F3lX++ECEDnCerWaE/Qm2cVLVgUL0h3RSsZEjxjpA7g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XYbFKr6UKI6dkaTJN+bDC3HGOXB/kANdlmz/fpsHeW+2jNaUytX+qwzmp5/lPYXvH+V8g8dfVKEiVQMWQ7H8ioshnJALZpOmbt/NI1IGp7TA59gWFZxKXuw1ddLHw4tOfzgZpx3iWGiRAgrK32l+1mu7hMAcxeCH2/lvaUTKDJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=chg5KHqb; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="D/XP62Ya"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/I3TgWx8/U/mtgoPen/cIWwNHyR0DG/ZCxNDvpcPV6s=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790959869; v=1; x=1791564669;
- b=D/XP62YaJxq+hgGbQEMqDPTI4cn24vWnoXQVdKUOJwwxR7seimVbdu+bq4Kjx3HUq0Q80OrP
- wGQxoV5ug1pk+LKrgJaAE5bXQvioIVGodD52fhPZlGvXmMJIhr1C4anjBKIL5aBg0wXR+BQRGIg
- ijUjy8az603mjKFHa8k9MrVNn6WU+LSiztYthDLih2laHSdnAvnZDRoh4ySI3M2zTw4o35bQmGP
- 9p8Ov6sA3nCgdDbRxrgx2h9gVOddIxbi36JryP+6F6ZYd2F57nA01/klh0Zk5wozmoDTqj7Da9/
- gNNLFeM8+zxGX1Oh8WK0NetzyUKWCMPyCORDAccqU/I4A==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3e530eae1dfef6a4;
-	Fri, 02 Oct 2026 16:51:09 +0000
-X-Mizu-Trace-ID: 3e530eae1dfef6a4
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 3 Oct 2026 00:51:01 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Chen-Yu Yeh <chenyou910331@gmail.com>, corbet@lwn.net, alexs@kernel.org,
-	dzm91@hust.edu.cn, si.yanteng@linux.dev, srcres258@furdevs.cn,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Vegard Nossum <vegard.nossum@oracle.com>
-Subject: Re: [PATCH 4/4] docs/zh_TW: add missing :Original: fields
-Message-ID: <ar_g9Z14OhcrSvOI@wyuan.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="chg5KHqb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790960092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3venwHttFa+LgHQOSujImduuESDWjIxfZmH5qy3F8h4=;
+	b=chg5KHqbm1NJMFEa3fgCWOgCLuIr8I/j9RbpLdS9w9qCsCW3Z17MSs478RU6IdfIP+4zxJ
+	NcWKkqAorL84YWBY+Hr7lVesD73a63dRnNuCuhr9IJvZJ+/pB46mhylNc9bgy2u8u7Hs0U
+	ybjM9PvghKqehJR2py9qjhK4iXIT9s4=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-669-0DeL34JjN4OoD5f_MtJ0XA-1; Fri,
+ 02 Oct 2026 12:54:49 -0400
+X-MC-Unique: 0DeL34JjN4OoD5f_MtJ0XA-1
+X-Mimecast-MFC-AGG-ID: 0DeL34JjN4OoD5f_MtJ0XA_1790960088
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A26681954121;
+	Fri,  2 Oct 2026 16:54:47 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CA8CA1956042;
+	Fri,  2 Oct 2026 16:54:45 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Farhad Alemi <farhad.alemi@berkeley.edu>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH v2] cgroup/cpuset: Handle cpu hotplug race in guarantee_active_cpus()
+Date: Fri,  2 Oct 2026 12:54:38 -0400
+Message-ID: <20261002165438.951550-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <22fdd310dfb0946bbe58ed71308e58d936cbed53@intel.com>
- <c719c6756f345c6c39db483654578ef09de1948f@intel.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi,
+With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug processing
+synchronous"), the cpuset hotplug operation becomes synchronous. That
+commit also removes the code that handles race between cpuset_hotplug_work
+and cpu hotplug notifier with the assumption that race is now gone.
+Later commit 7a0aabd9ce69 ("cgroup/cpuset: Always use cpu_active_mask")
+updates the cpuset code to always use cpu_active_mask instead of
+cpu_ohline_mask in some places including guarantee_online_cpus() which
+is renamed to guarantee_active_cpus() in that commit.
 
-On 2026-09-29 17:40:18 +0300, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+In the case of CPU offline operation, cpuset_active_mask is updated
+first in sched_cpu_deactivate() to remove the offline CPU before
+cpuset_handle_hotplug() is called to update the effective_cpus of the
+affected cpusets. The cpu_online_mask is updated after that near the end
+of the offline operation to remove the offline CPU. As a result, the race
+comes back and the top cpuset may not have any active CPU leading to NULL
+pointer dereference during the race window when guarantee_active_cpus()
+is called after cpu_active_mask is updated to remove the CPU to be torn
+down but before cpuset_handle_hotplug() is able to properly update the
+effective_cpus of the top cpuset.
 
-> On Tue, 29 Sep 2026, Chen-Yu Yeh <chenyou910331@gmail.com> wrote:
-> > Every zh_TW translation names the English document it mirrors in an
-> > :Original: field, except these four.  Add one to each, in the plain path
-> > form that automarkup turns into a link.
-> 
-> I'm wondering, are these :Original: fields useful anymore since the
-> translations extension adds the button to switch between languages?
-> 
-> The pretty much hard-coded expectation is that the English version at
-> path/to/foo.rst is the original, and its translations are at
-> translations/xx_YY/path/to/foo.rst.
-> 
-> I.e. neither the HTML nor the RST benefit from it, and it's just
-> repetition.
+Fix this by adding back the NULL cs check to avoid this problem.
 
-On 2026-10-01 17:00:23 +0300, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+Fixes: 7a0aabd9ce69 ("cgroup/cpuset: Always use cpu_active_mask")
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Link: https://lore.kernel.org/lkml/CA+0ovChh3VjsKN1g+ZGjwwY2fGTpP7uD+aCCByLj5Qbymw=bfQ@mail.gmail.com
+Tested-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/cgroup/cpuset.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-> On Wed, 30 Sep 2026, 葉宸佑 <chenyou910331@gmail.com> wrote:
-> > You are right, and I should have seen it -- the rest of this series is
-> > built on that same expectation. checktransupdate.py also finds the
-> > original purely from the path, which is why 1/4-3/4 move the files
-> > rather than fix their :Original: fields. By the same token, at their old
-> > paths the language switcher cannot pair them with their originals
-> > either, which is a better argument for the moves than the one I gave.
-> 
-> Oh, by the way, I do think the series as a whole is worthwhile cleanup,
-> and having the :Original: fields is the current practice. Removing them
-> should be a separate change.
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index ddc4c9c9b4fb..92559fc4c444 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -517,10 +517,26 @@ static void guarantee_active_cpus(struct task_struct *tsk,
+ 	rcu_read_lock();
+ 	cs = task_cs(tsk);
+ 
+-	while (!cpumask_intersects(cs->effective_cpus, pmask))
++	while (!cpumask_intersects(cs->effective_cpus, pmask)) {
+ 		cs = parent_cs(cs);
+-
++		if (unlikely(!cs)) {
++			/*
++			 * The top cpuset doesn't have any active cpu as a
++			 * consequence of a race between its caller and the cpu
++			 * hotplug operation where cpu_active_mask is updated
++			 * asynchronously before cpuset_handle_hotplug() is
++			 * being called to adjust the effective_cpus of the
++			 * affected cpusets. But we know the top cpuset's
++			 * effective_cpus is on its way to be identical to
++			 * cpu_active_mask minus the exclusive CPUs dedicated
++			 * to other valid cpuset partitions. Just pass back
++			 * the filtered cpu_active_mask in this case.
++			 */
++			goto out_unlock;
++		}
++	}
+ 	cpumask_and(pmask, pmask, cs->effective_cpus);
++out_unlock:
+ 	rcu_read_unlock();
+ }
+ 
+-- 
+2.55.0
 
-I am a newcomer and might lack contextual information, but I don't see
-anything rely heavily on this field either? I only find that on March
-this year, Jon did not expect that the script checktransupdate.py uses
-this field to get the original file of each translation.
-
-So is this a convention or is there some additional circumstance that
-forces us to keep this field?
-
-Hmm, btw, I noticed that the Japanese translations do not have this
-field.
-
-Thanks.
