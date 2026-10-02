@@ -1,74 +1,74 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f18.google.com (mail-wr2-f18.google.com [74.125.225.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7F238D3EE
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AFB3EFD07
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 23:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790982649; cv=none; b=s2NSCi5RP1NknM7WOVIGtRYXFBJfX2IDKjnLrk8Bjzd1hHihQzXQ6NqPiy3OQynm7S67iwhoqYG0GOh82hzqlRZnmv4skLURp5MIYkoWGy0uIz4yNBe5uxslLfU4d8lL2Wp5833LjwTUIp4E00Wf0shNhjCYnutG5f0jG9m4cHY=
+	t=1790982652; cv=none; b=MHEbxTg1A3wYZLYGmFi+BC1+1TGtruulrgdCvoGxnVRNBTnFNBh8mIOKUTGkZX0UGdIO09hfNHzxpwOwAT9RZLe2w4143pfJsUBeZmjwydqeNkO66gnDV106B/9bazZcrabsUcIDJTDlWRIEXS/wjNl9mde7335Y7u6daNAwnPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790982649; c=relaxed/simple;
-	bh=hPnGfVE/ERhFq2pn4wQsxIv0Cq0Ccgf6d+h71VG44k0=;
+	s=arc-20240116; t=1790982652; c=relaxed/simple;
+	bh=NpmzQmIY13xWYtyfBz/1J0Ez76d7G6HcJmDQiz1+ri4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MLoEfvR5+QSxUKRXVlvVb4hV/98krxJQC5eNOLTXjUXvnxQMTARDMXdR8xgmJuJb55P6UsLWYuv0gyVPiSZp5Y1JTqzCa7GwV6HYpMmBIzK80/JQ0KQt/bxqXL6eaQgVWbhJnaiqGyG+BxV8zR5ffZLBQ2fmDP4fm4dnrMfeCUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MfgPwjHH; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=UXqpry+aBb4J3omT5bwYwMcC2sqpKhk5MgjD+nGN1TFXiFN4cd0SMY2wsdJKq6Ui+WcG4afK12iFf9n/aCLfPRStiRlEPJf8SbgZ0WSu3X3Rzvx1YttezwL537SwZ+QRk5Q7UL0zH5uqtkj5BpAtnE6Bfn4zAzFaSRXLKGWcu/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QNuDzr4A; arc=none smtp.client-ip=74.125.225.82
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MfgPwjHH"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b059eae96so326981f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:10:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNuDzr4A"
+Received: by mail-wr2-f18.google.com with SMTP id ffacd0b85a97d-48b0fc598f8so208540f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 16:10:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790982645; x=1791587445; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790982649; x=1791587449; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lioJcKUCBYULewz3rYkxIVZrrHZaGImjRN4lkx+YRX0=;
-        b=MfgPwjHHF2B7ArXvMea39d1iDFosj4mu5c3wZJXAtaAIKmjQqXIBfqNoOhNlboVawZ
-         AUTUPTygcnbal9Myo2f3tAeORtTDsmCyiCskk62O8NrB+7lM5k4WOCvOFb0dpORUowyq
-         ytdcuoDML9TykaB24q1dGjaZwNtJlE63+yFi7Na/LU125vxalHzeWSEGIft520pf5pvU
-         cOw2sL9R5ydArloHuV1ii2qRQzQoJiAAxboPePHRtLJ0abtu4yOF2WRLIUr5rWbJfPEv
-         TWFbXdT9hgHL+Wv7sOIz3FIjaFJmFvA6XOjdYTIsHV4U/NCInDeo/5g+Lry/TLP3Y6dA
-         Noiw==
+        bh=Ws6bJPQmVcNrG3rQzGbCXRbhstrZhw8G1K1q80pps2I=;
+        b=QNuDzr4AkHE50nYWW7Y+NGbFVAx4L8LspGP8w1XI976bPm0vt92r1ZG3Ne+DLa18ul
+         KdCAKEUjV8eOy3DPHZjxCnfHO9JoIhTCrs+Xa0wbWB5O4sifAQ+BstZnNVBG5vZn7eTU
+         6+f/mK99lCpN9d/Jj7BP3PqWu5ZeXZxQB61qQZzmQTBByhm2VTKQh2IJc01M8zeH3mG+
+         hdSk/lqqcaORxwky3F7sk3m5AP0Su5+ZSiNfnaJ6cd9QpdTVXn+q7S0XyQQNgoKnwbIu
+         KeDAwf6T1/eiDYjNV7dQrXvHe4oyS/nzGlcplP3i+9ds8GVpDSTgUl87HrxNdTGZQZxc
+         lqBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790982645; x=1791587445;
+        d=1e100.net; s=20260707; t=1790982649; x=1791587449;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lioJcKUCBYULewz3rYkxIVZrrHZaGImjRN4lkx+YRX0=;
-        b=YHiJKwazER4aSJIPF8t6JT7qaKLk2Gv3pSy4Kb/E1D4ym75PMMakzysr6FRCc+5bvX
-         UXqiiCmFhPb+i6qAVXmNJMckW/JV41syLzBS9M3KfBfRyTO+X7cFqic4gTl0nuVIrJ4/
-         WHuTneCEIelE26Ff3liVwxPD2Pj/+Oh3NcVQxmvd+4E12J1N6qxnhOqd5EA5wZCTy071
-         duUUF+ImJwDOqsE3C8rap8Lmh9aP9sbpNSuSi8GC+dvIKVIRT1jhGlV1hZBw5HOcW4Dw
-         XqofkwKWLRZWpBt4FblBx529Lzt9obpSZPQ20cxtUavaEV/0Vmn+96ma4LGHb5Fg5chi
-         xhJg==
-X-Forwarded-Encrypted: i=1; AKwUvBzXpoxIYiWknSn0Hc+2Mzjb3R81XdZI5Vi5G2P/+7poDuffeu7J3jXltEndAQDdwzq8NCWxBMU3pLUPYtA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8755cMPwmgclGYTGV6AO5jBhwoVbsEWnNIYlwxRdwd6nlQ9JL
-	M9ML/BqN9rKfS5QlZRBkznICGbLenTJ7Cnnr0VmQxE+cKkLuRP7ifP84Uo9RLAr4
-X-Gm-Gg: AYBFou14YDyH1dF0OugAmqsRZERGPMa/EKZaNzpiZIKgRvFHpC+BIguw5hpthUyWSZn
-	rGXDmFwdc9uyEUkfiMa0wW4hUwIOZCjR5VjdELEslpO4+rqrvr34BqCFHtITj3Z2q6+ySR1URWf
-	ViHHxO8kfUWLjiYKXc8woVMjH43uKEdiXLge8SeWHUdndWYFTGdQMM0+SLDfW05/h6+vNYzdAv4
-	0jKhEMsqklDJVGtoIPvhCdB7tIh5x0mKXmyNPacL4VOnIr3irJL4h6ZDUmt7dbFYoF42P2JDC23
-	qQLCR0na6evHrLRnTtcl4g4nKSAHrez9fwxGkc20HVa/Yk/cIYEa05Q9FRsVi0s8QDdecjeY6bv
-	JzLrpJPs7ALLv8UjtJ5gxUmGi2j2Mv2TGO57BRvP43aHvSgfsJ6pBMFQ8vPla4Ez9jz/IWQBQQD
-	dpkMAKx87iDSnz8czpasghDysmfM7CFLsw3h/tAvl/PfwLfn47dC7rLOxLwwbX8a3zQowLbc7d2
-	B0TT6CykLM/zxB8/ZC2W20cMD4tKAEiWf8sRliCSavlg43KSpylLdk5m0NlEnzHVb2VCEcFftOT
-	P5EgX6QLM4GINaPhrdFTKuljBm+6nN8W
-X-Received: by 2002:a5d:5f8e:0:b0:487:bcc:2c08 with SMTP id ffacd0b85a97d-48b1271cd1dmr7264130f8f.14.1790982644873;
-        Fri, 02 Oct 2026 16:10:44 -0700 (PDT)
+        bh=Ws6bJPQmVcNrG3rQzGbCXRbhstrZhw8G1K1q80pps2I=;
+        b=ImFfN/MR5Qm4vZOCcGasSL5c6ugNP4OG0wiojnW6+GGqqAbQzNFyLqe1mQZw+6Aadj
+         qP68l5TceodhlQvfKDRcGDJZufeTbGfZOCLzR8ePejcLszE++Rk+Promft0aYp7zZ9zY
+         ur9JnXkEtqPhHuVRgMsSQ5rFzGzPKqPFV8+kfifouLybEpugr71E/Y8pxMQLggKicaim
+         U8WL2iCXsdKq0vIV6dUpkDNIsRcUnCZFqjKttJqsFIs2ciBqfMZHZMkZkLIX+gwJpi8e
+         22pcnUIIEmcx/u1XPfczKxjjrxNJDH8aDT8ruIfUX+jnCt66LaLM1kEeNr65pAcqaV81
+         f3mg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdOhpVktV6Ygzw6xsBUbBsMKqNMnv7YKuphlPVKlqXDBO9gC0wmbARpqE8Wd56Yw7zeIRBKACmPRLvGfQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ19ozKb1AHvqjkh9nIUcJjJQtqgSzbc5oM3aT8e2zvoSle58vN
+	AEIvgQv6yByIDGq9qLqMO5cjAF0jZTnTbvLRQDBRtKKBvX6JNx9rzxXd
+X-Gm-Gg: AYBFou0YKhB/gvKXX5TefU+BC72D7DDTmc0E/kbcNKXKBVNfDyeH6uWd4lwDUX9Vco9
+	Q0ZCNdgjxcqc2SCNgsmwBsnQZzn2t+hK2DKkP1+UIHaN0igmN5uwzN3msF2Ays74SkLmSgZ0Gd7
+	5GuaTyzrY8LY4FEGpz9gK/mvkYfR39Bckr9XkRqjrhd74c5yJCQlMxDpyRebWxXevD3quUO3txX
+	shOvz1ATlUw1BNCLfSURouhOp5JuvKchpMHvEnKVqm8TpiNgXvPUOK9ryc41g4kVyb012IbfmVh
+	wSYzagqpWc1QByYEm2hCEhqk/R31XVU5+L0OviCtZjNi1W20aA/9IEHITPxP3hU1Vlc+SGFwj81
+	VXYIhIYswVcI0iO0RPi/Eymvfy6rJKFjVkLrfREKsrMfNgemj05wWez3Xc5e4D6Iw31lgObbs0f
+	po0rRwckKvbDYLC2H1cYRHc+R20jPLaf50ZmQvkl5HUboAsB5o25yeQ901bP6L2xFl9RJm9sGl3
+	nkXyKcIlE9NV11QQMtLXNZvq3Zqkj+MitQFddrAzsfW/QAEroCsFf+izjAQslqQ8Qm9pNc9HJjx
+	m3HD4A6li5syOyI7iG9u3w==
+X-Received: by 2002:a05:6000:2287:b0:48a:f5ab:4ad6 with SMTP id ffacd0b85a97d-48b12754112mr7380951f8f.15.1790982648666;
+        Fri, 02 Oct 2026 16:10:48 -0700 (PDT)
 Received: from omarchy ([2a02:ff0:1e10:93f:ce47:40ff:fef1:ce77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fab11sm8372266f8f.16.2026.10.02.16.10.44
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fab11sm8372266f8f.16.2026.10.02.16.10.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 16:10:44 -0700 (PDT)
+        Fri, 02 Oct 2026 16:10:48 -0700 (PDT)
 From: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
 To: pkshih@realtek.com
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	rtl8821cerfe2@gmail.com,
 	Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
-Subject: [PATCH rtw-next 1/2] wifi: rtw88: pci: wake the TX queues when the rings are reset
-Date: Sat,  3 Oct 2026 02:10:12 +0300
-Message-ID: <20261002231013.11792-2-abdurrahmankaradag19@gmail.com>
+Subject: [PATCH rtw-next 2/2] wifi: rtw88: pci: warn when a TX ring stops advancing
+Date: Sat,  3 Oct 2026 02:10:13 +0300
+Message-ID: <20261002231013.11792-3-abdurrahmankaradag19@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261002231013.11792-1-abdurrahmankaradag19@gmail.com>
 References: <20261002231013.11792-1-abdurrahmankaradag19@gmail.com>
@@ -80,149 +80,225 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For a queue stopped by the PCI TX ring-full path, ring->queue_stopped
-is normally cleared and the stop reason released only from the
-completion loop in rtw_pci_tx_isr(). When the rings are reset the
-pending descriptors are dropped and their skbs are freed directly by
-rtw_pci_free_tx_ring_skbs(), so that loop never runs for them. The flag
-and the stop reason both survive the reset, and because the ring is now
-empty no completion will ever arrive to clear them. Any queue stopped
-that way stays stopped.
+On RTL8821CE the hardware read index of a TX ring can stop moving while
+the driver keeps submitting descriptors. The link stays associated and
+RX keeps working, so from userspace this is a dead network with no
+explanation: ping and curl report 100% loss and nothing appears in the
+log.
 
-This makes ieee80211_restart_hw() unable to recover a device that
-stopped a queue before the restart, which is the opposite of what the
-recovery is for.
+A watchdog dumping the TXBD registers caught five of these across three
+boots, all with station power save off and REG_TXPAUSE at 0x00. Two
+examples:
 
-Reproduced on an RTL8821CE by pausing TX in hardware, which freezes the
-read index while the driver keeps submitting, the same shape the chip
-shows when it wedges on its own:
+    2026-08-28 22:05  BEQ 0x3a8: 0x003c003a, unchanged over four
+                      samples; read index 0x3c, write index 0x3a, one
+                      descriptor free, so avail_desc() < 2 had already
+                      stopped the BE queue
+    2026-09-14 17:48  BEQ 0x3a8: 0x00c9004c -> 0x00c90068; read index
+                      0xc9 frozen while the write index ran from 0x4c
+                      to 0x68, 124 descriptors free falling to 96
 
-    # echo "522 f 1" > /sys/kernel/debug/ieee80211/phy0/rtw88/write_reg
-    # ... push traffic until the ring fills ...
-    BE 0x3a8: 0x0081007f, avail_desc() 1, BE queue stop reason 0x1
+The second is the more common shape: the ring is still mostly empty and
+no limit has been reached, yet traffic is already gone. Rewriting the
+host write index does not restart it, so simply reissuing the doorbell
+is not sufficient to recover the condition.
 
-    # (call rtw_fw_recovery() from a debug build)
-    firmware crash, start reset and recover
-    ieee80211 phy1: Hardware restart was requested
-    wlan0: associated
+This patch does not recover from it either; I do not have data showing
+which recovery works. It only makes the condition visible: once per
+watchdog round, compare each AC ring's hardware read index with the
+driver's write index, and warn if it has not moved for three rounds
+while descriptors are in flight.
 
-    REG_TXPAUSE 0x00, BE 0x3a8: 0x00000000, ring empty
-    BE queue stop reason 0x1, 100% packet loss, no recovery in 90 s
+Only the four AC rings are checked. BCN has no index register, and
+MGMT, HI0 and H2C are drained on events of their own - HI0 in
+particular is the after-DTIM group queue in AP mode and may
+legitimately sit still for a whole DTIM interval. The hardware read
+index and a snapshot of the host write index are taken together under
+irq_lock, so a submission cannot change the write index between the
+two. The check is not run while scanning, because rtw_watch_dog_work()
+returns before reaching it. A ring with nothing in flight has read
+index equal to write index and is skipped, so an idle device is never
+reported. The recorded history is discarded whenever the ring is empty,
+whenever REG_TXPAUSE is set and when the rings are reset, since samples
+from before say nothing about the ones after. The warning is emitted
+once per episode and rearms as soon as the index moves.
 
-The station reassociated twice during those 90 s, so the link was fine;
-only the queue was still stopped. With this patch the same sequence
-clears the stop reason and traffic returns within 2 s.
+This is the detection half of a patch I sent and withdrew in September;
+the doorbell rewrite it used as recovery turned out not to work, and is
+gone.
 
-Record the queue mappings this path stops and release them both from
-the completion loop and when the reset empties the ring. It has to be a
-set rather than one value: the stop runs after every submission that
-leaves fewer than two descriptors, rtw_pci_tx_write_data() still
-accepts a frame while one is left, and rtw_tx_queue_mapping() places
-management frames on the MGMT ring and multicast on HI0 whatever their
-skb queue mapping is, so one ring can stop two different queues before
-it is emptied. Keeping only the last one would leave the other stopped
-for good.
-
-Recording the mappings also limits the wake to the queues this
-ring-full path actually stopped, instead of waking every mac80211
-queue.
-
-Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
 Signed-off-by: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
 ---
- drivers/net/wireless/realtek/rtw88/pci.c | 45 ++++++++++++++++++++----
- drivers/net/wireless/realtek/rtw88/pci.h |  1 +
- 2 files changed, 39 insertions(+), 7 deletions(-)
+ drivers/net/wireless/realtek/rtw88/hci.h  |  7 ++
+ drivers/net/wireless/realtek/rtw88/main.c |  2 +
+ drivers/net/wireless/realtek/rtw88/pci.c  | 83 +++++++++++++++++++++++
+ drivers/net/wireless/realtek/rtw88/pci.h  |  3 +
+ 4 files changed, 95 insertions(+)
 
+diff --git a/drivers/net/wireless/realtek/rtw88/hci.h b/drivers/net/wireless/realtek/rtw88/hci.h
+index d4bee9c..432333e 100644
+--- a/drivers/net/wireless/realtek/rtw88/hci.h
++++ b/drivers/net/wireless/realtek/rtw88/hci.h
+@@ -12,6 +12,7 @@ struct rtw_hci_ops {
+ 			struct sk_buff *skb);
+ 	void (*tx_kick_off)(struct rtw_dev *rtwdev);
+ 	void (*flush_queues)(struct rtw_dev *rtwdev, u32 queues, bool drop);
++	void (*tx_stall_check)(struct rtw_dev *rtwdev);
+ 	int (*setup)(struct rtw_dev *rtwdev);
+ 	int (*start)(struct rtw_dev *rtwdev);
+ 	void (*stop)(struct rtw_dev *rtwdev);
+@@ -271,6 +272,12 @@ static inline enum rtw_hci_type rtw_hci_type(struct rtw_dev *rtwdev)
+ 	return rtwdev->hci.type;
+ }
+ 
++static inline void rtw_hci_tx_stall_check(struct rtw_dev *rtwdev)
++{
++	if (rtwdev->hci.ops->tx_stall_check)
++		rtwdev->hci.ops->tx_stall_check(rtwdev);
++}
++
+ static inline void rtw_hci_flush_queues(struct rtw_dev *rtwdev, u32 queues,
+ 					bool drop)
+ {
+diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+index 0f23498..a6adbda 100644
+--- a/drivers/net/wireless/realtek/rtw88/main.c
++++ b/drivers/net/wireless/realtek/rtw88/main.c
+@@ -273,6 +273,8 @@ static void rtw_watch_dog_work(struct work_struct *work)
+ 
+ 	/* make sure BB/RF is working for dynamic mech */
+ 	rtw_leave_lps(rtwdev);
++
++	rtw_hci_tx_stall_check(rtwdev);
+ 	rtw_coex_wl_status_check(rtwdev);
+ 	rtw_coex_query_bt_hid_list(rtwdev);
+ 	rtw_coex_active_query_bt_info(rtwdev);
 diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wireless/realtek/rtw88/pci.c
-index 66d2e5f..ff751bf 100644
+index ff751bf..50c9fae 100644
 --- a/drivers/net/wireless/realtek/rtw88/pci.c
 +++ b/drivers/net/wireless/realtek/rtw88/pci.c
-@@ -473,9 +473,41 @@ static void rtw_pci_reset_buf_desc(struct rtw_dev *rtwdev)
+@@ -473,6 +473,13 @@ static void rtw_pci_reset_buf_desc(struct rtw_dev *rtwdev)
  				BIT_CLR_H2CQ_HOST_IDX | BIT_CLR_H2CQ_HW_IDX);
  }
  
-+static void rtw_pci_wake_stopped_queues(struct rtw_dev *rtwdev,
-+					struct rtw_pci_tx_ring *ring)
++static void rtw_pci_tx_stall_reset(struct rtw_pci_tx_ring *ring)
 +{
-+	unsigned long q;
-+
-+	for_each_set_bit(q, &ring->stopped_queues, rtwdev->hw->queues)
-+		ieee80211_wake_queue(rtwdev->hw, q);
-+
-+	ring->stopped_queues = 0;
-+	ring->queue_stopped = false;
++	ring->last_rp = U32_MAX;
++	ring->stall_rounds = 0;
++	ring->stall_warned = false;
 +}
 +
- static void rtw_pci_reset_trx_ring(struct rtw_dev *rtwdev)
+ static void rtw_pci_wake_stopped_queues(struct rtw_dev *rtwdev,
+ 					struct rtw_pci_tx_ring *ring)
  {
-+	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
-+	struct rtw_pci_tx_ring *ring;
-+	enum rtw_tx_queue_type queue;
+@@ -503,6 +510,8 @@ static void rtw_pci_reset_trx_ring(struct rtw_dev *rtwdev)
+ 	for (queue = 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
+ 		ring = &rtwpci->tx_rings[queue];
+ 
++		rtw_pci_tx_stall_reset(ring);
 +
- 	rtw_pci_reset_buf_desc(rtwdev);
-+
-+	/*
-+	 * The rings are empty again, so nothing is left whose completion
-+	 * could reach the wake in rtw_pci_tx_isr(). Release the queues this
-+	 * path stopped - the stop reasons it set are cleared nowhere else,
-+	 * and over an empty ring no completion will ever arrive to clear
-+	 * them.
-+	 */
-+	for (queue = 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
-+		ring = &rtwpci->tx_rings[queue];
-+
-+		if (!ring->queue_stopped)
-+			continue;
-+
-+		rtw_pci_wake_stopped_queues(rtwdev, ring);
-+	}
+ 		if (!ring->queue_stopped)
+ 			continue;
+ 
+@@ -819,6 +828,79 @@ static void rtw_pci_tx_kick_off_queue(struct rtw_dev *rtwdev,
+ 	spin_unlock_bh(&rtwpci->irq_lock);
  }
  
- static void rtw_pci_enable_interrupt(struct rtw_dev *rtwdev,
-@@ -930,7 +962,10 @@ static int rtw_pci_tx_write(struct rtw_dev *rtwdev,
- 	ring = &rtwpci->tx_rings[queue];
- 	spin_lock_bh(&rtwpci->irq_lock);
- 	if (avail_desc(ring->r.wp, ring->r.rp, ring->r.len) < 2) {
--		ieee80211_stop_queue(rtwdev->hw, skb_get_queue_mapping(skb));
-+		u16 q_map = skb_get_queue_mapping(skb);
++/*
++ * A TX ring with descriptors in flight advances its read index within
++ * milliseconds. When the hardware stops consuming them the ring just goes
++ * quiet: the link stays associated, RX keeps working, and nothing says that
++ * TX has died until the ring fills and the queue is stopped. Report it once
++ * per episode, where an episode ends as soon as the read index moves again.
++ *
++ * Only the four AC rings are checked. BCN has no index register, and MGMT,
++ * HI0 and H2C are drained on events of their own - HI0 in particular is the
++ * after-DTIM group queue in AP mode and may legitimately sit still for a
++ * whole DTIM interval.
++ */
++#define RTW_PCI_TX_STALL_ROUNDS		3
 +
-+		ieee80211_stop_queue(rtwdev->hw, q_map);
-+		set_bit(q_map, &ring->stopped_queues);
- 		ring->queue_stopped = true;
- 	}
- 	spin_unlock_bh(&rtwpci->irq_lock);
-@@ -949,7 +984,6 @@ static void rtw_pci_tx_isr(struct rtw_dev *rtwdev, struct rtw_pci *rtwpci,
- 	u32 count;
- 	u32 bd_idx_addr;
- 	u32 bd_idx, cur_rp, rp_idx;
--	u16 q_map;
- 
- 	ring = &rtwpci->tx_rings[hw_queue];
- 
-@@ -981,11 +1015,8 @@ static void rtw_pci_tx_isr(struct rtw_dev *rtwdev, struct rtw_pci *rtwpci,
- 		}
- 
- 		if (ring->queue_stopped &&
--		    avail_desc(ring->r.wp, rp_idx, ring->r.len) > 4) {
--			q_map = skb_get_queue_mapping(skb);
--			ieee80211_wake_queue(hw, q_map);
--			ring->queue_stopped = false;
--		}
-+		    avail_desc(ring->r.wp, rp_idx, ring->r.len) > 4)
-+			rtw_pci_wake_stopped_queues(rtwdev, ring);
- 
- 		if (++rp_idx >= ring->r.len)
- 			rp_idx = 0;
++static void rtw_pci_tx_stall_check(struct rtw_dev *rtwdev)
++{
++	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
++	struct rtw_pci_tx_ring *ring;
++	u32 bd_idx, cur_rp, wp;
++	bool paused;
++	u8 queue;
++
++	paused = rtw_read8(rtwdev, REG_TXPAUSE);
++
++	for (queue = RTW_TX_QUEUE_BK; queue <= RTW_TX_QUEUE_VO; queue++) {
++		ring = &rtwpci->tx_rings[queue];
++
++		/* a paused ring is not advancing on purpose, and samples
++		 * taken before the pause say nothing about the ones after
++		 */
++		if (paused) {
++			rtw_pci_tx_stall_reset(ring);
++			continue;
++		}
++
++		spin_lock_bh(&rtwpci->irq_lock);
++		bd_idx = rtw_read32(rtwdev, rtw_pci_tx_queue_idx_addr[queue]);
++		cur_rp = (bd_idx >> 16) & TRX_BD_IDX_MASK;
++		wp = ring->r.wp;
++		spin_unlock_bh(&rtwpci->irq_lock);
++
++		/* nothing in flight, so there is no observation to carry
++		 * into the next round
++		 */
++		if (cur_rp == wp) {
++			rtw_pci_tx_stall_reset(ring);
++			continue;
++		}
++
++		/* the ring is draining. last_rp is U32_MAX until the first
++		 * sample with descriptors in flight, and no index can equal
++		 * that, so that sample lands here and only records.
++		 */
++		if (cur_rp != ring->last_rp) {
++			ring->last_rp = cur_rp;
++			ring->stall_rounds = 0;
++			ring->stall_warned = false;
++			continue;
++		}
++
++		if (ring->stall_warned)
++			continue;
++
++		if (++ring->stall_rounds >= RTW_PCI_TX_STALL_ROUNDS) {
++			ring->stall_warned = true;
++			rtw_warn(rtwdev,
++				 "tx ring %u: read index unchanged at 0x%03x for %u watchdog rounds, write index 0x%03x, %d descriptors free\n",
++				 queue, cur_rp, ring->stall_rounds, wp,
++				 avail_desc(wp, cur_rp, ring->r.len));
++		}
++	}
++}
++
+ static void rtw_pci_tx_kick_off(struct rtw_dev *rtwdev)
+ {
+ 	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
+@@ -1637,6 +1719,7 @@ static const struct rtw_hci_ops rtw_pci_ops = {
+ 	.tx_write = rtw_pci_tx_write,
+ 	.tx_kick_off = rtw_pci_tx_kick_off,
+ 	.flush_queues = rtw_pci_flush_queues,
++	.tx_stall_check = rtw_pci_tx_stall_check,
+ 	.setup = rtw_pci_setup,
+ 	.start = rtw_pci_start,
+ 	.stop = rtw_pci_stop,
 diff --git a/drivers/net/wireless/realtek/rtw88/pci.h b/drivers/net/wireless/realtek/rtw88/pci.h
-index 8ffdea1..04630d1 100644
+index 04630d1..c6c9a63 100644
 --- a/drivers/net/wireless/realtek/rtw88/pci.h
 +++ b/drivers/net/wireless/realtek/rtw88/pci.h
-@@ -188,6 +188,7 @@ struct rtw_pci_tx_ring {
- 	struct rtw_pci_ring r;
+@@ -189,6 +189,9 @@ struct rtw_pci_tx_ring {
  	struct sk_buff_head queue;
  	bool queue_stopped;
-+	unsigned long stopped_queues;
+ 	unsigned long stopped_queues;
++	u32 last_rp;
++	u8 stall_rounds;
++	bool stall_warned;
  };
  
  struct rtw_pci_rx_buffer_desc {
