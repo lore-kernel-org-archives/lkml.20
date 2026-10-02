@@ -1,122 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f36.google.com (mail-pz2-f36.google.com [74.125.228.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7423737FF60;
-	Fri,  2 Oct 2026 05:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C614305687
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 05:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790919194; cv=none; b=ZMSuE0v3O1Vxwv/W3wCyhKcMf5gX1tnEmotKaMSAj7IrsYs/wE9jqE4ka2A4XDtc3Gvyxvf4PmTLp3YSt5S0fXHdT/vIauUYK0c28beXZ5i1m3/Pbh9iIapHFn9ugJJkQspRDN2N3I9xdsOF6jMelx9P9WgK4cSTeiQZDSHfUw8=
+	t=1790919447; cv=none; b=KAamXYDNmjirXiJfiZj0sa7R1bdso35+U0t/Y2y9N4NA4Wtpe0iW5Ge9kJMDF6bnbfQCdmzfXH8nYPNuw1yWdQIZPwxSaVqrTu/MINKNww5OADnDQx+MOh9FQ/9rN2xbHYbK/STMGZ1OH1K5S4THItvG0l5C2RGduwDRb3KTT5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790919194; c=relaxed/simple;
-	bh=sumuXVY4LWT9F/W95QRzrQM23pI/5wrvTxrj0axw0FM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FlQZKn/StVmTapdgdR7eWyMIT4xL3OhbdxPe0l6vyfHD7t57BGPe3FF2U/DFwP9yuiAep1Q7VBjT+wCytAQEj6FpiwS/s3wmouapS0YrLllM8UbX1ZN7eL9+vsrCmXuFGEMZEUwoEgHRIWlv6sgUl/wtVVUigVUDdKBNmHnV8WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVHGc+qt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790919447; c=relaxed/simple;
+	bh=Qu+IT/SfaKywPp0ftNmip2dBTQBBkOkDk7AmvwWlwRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U4fWBN3rSOsnakF0Dq8ThaKKDffVq1Ai+MOZfovODplzAd9yz3R6qx6ArDRjZcnil46Sw7gLKVRYcUhVKNNwHlY/5VU5MRbc1SZxG3QOHTxnNEUH7wFVvS0BbmaNrNdE1ZsfomJWzrAleSaQCaseVlZe0WMDeju+seUM3zRE0iA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RR7IiLJF; arc=none smtp.client-ip=74.125.228.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVHGc+qt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA34A1F000FF;
-	Fri,  2 Oct 2026 05:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790919187;
-	bh=x78CIfcKaYrE4I04TsVFJX7v6SVwOy/xgulHq+kTsZk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VVHGc+qtUcZAtxtg/QPOqy4S4TnBPLeafNRjx3qfYkZI+JP23r4hKMUNDi03sBHRj
-	 /ApD6vrMHca4++7aK0hE9HVXWXoki59/NMAdHTgnFSC9wdsnvVeRiMlHEiiRZC5WzU
-	 jbC41mbDAUr2GzAmRgO9NLl1rS70aP86J7voFkkI1yzM+NhbIrYImsMNuf6QbzJV9g
-	 KUKh266+s8xOxg5DPLQLvFF1oRxrhZMSkJBB+bpy/u9zBpbfzZiHriy8Qu+8VIsF9z
-	 ula1hwgPCeGfAxXZFH2F4D8vTIVoODJlnPp0XEPDGTUikDx6Y/I4xkYa1CAnUG9y8y
-	 07+7Mi7HJTUiw==
-Message-ID: <52ef6837-7183-402d-acc6-8ca15c7e27ca@kernel.org>
-Date: Fri, 2 Oct 2026 07:33:01 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RR7IiLJF"
+Received: by mail-pz2-f36.google.com with SMTP id 41be03b00d2f7-cc7e7717675so1045221a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 22:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790919446; x=1791524246; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vfrkmb0eJpHRNYj/pvBngGN4IjRZKZRH0wkIARGATCw=;
+        b=RR7IiLJFWv2JWADcWNaCKqQACoaaqRnV4/yo9fTm/4RY+YPzDW6OHXLz56HGfh2Egl
+         2u00Yj15zk/y1R7AnwqxA3jAcKthA+hrWK+DaoU/Bv4G/Id77xfocYi014CZTdr9fh98
+         uY+uNWir1uBt5KhIb5YZRBiw+/bMx/zFJhK6YAPnE1BIJS7guOsqTTbY0CF2OGsbzPJb
+         Xi/cAS1hxkf569BxXmeVzaJwUVHYMXMlX5m3zsllUsODwrQXwk5M97HyODF/hOQh82tD
+         w1HJ6d+HIwxpXX+DIEuIh7itFbSt6ZhDVbRs0pfFLj4pKJoCf31kegTQRiEyw5+vQYns
+         F2sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790919446; x=1791524246;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vfrkmb0eJpHRNYj/pvBngGN4IjRZKZRH0wkIARGATCw=;
+        b=GLdL7v2zWtWgeGJ6JVCxu2KHNn+7/cH3hVl62Uq0ceXJ6tCKQ9s8btsFIAAZxsPyet
+         XfWoYFU3iefFIrCP61ccRJOlErqk7l6RQO9X8PN2/6oCvD8QM6UT2BDsSi27+yakyXMz
+         2mwxdKXLnULdWv3J9hBxOpRCuOMt1ozj7ltHk4/R386DCs2iu8fxe5s7VoD3Qu+GBE+z
+         YMThnfISQmo90SgQzjpMjeA/Ns02Luh61w4A0Ly0TKABTLRsCmHjnXe19wc82ZFk5Bhy
+         73OXLfOI4lE2M5sU/fAL97p1qo/FK3dNAJHiAgNUVrjWScv02AouoifHWRQZv/++eobg
+         Nl0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwMabl5bh5f1eJL3WCyyYaegacn46igtE6vA3MQqBfkd0rVOVv1NMZJRdSE65ISiWxHTZuPPmB4kdQ8ltw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUFSc8CzZ+EeJh1eV6SjsVDMa7AXU2fePqXQ191IRr4k3ylXBM
+	3P++oOmkY29t7XNuGYUUF7zDOnDxUD44IsdmfTAEO1xUzbqSasZ3yxjn
+X-Gm-Gg: AYBFou37Km4bjNRF6BBmeYY9SJRLhWyjr9uIDcpCbtF5HRK8usGs7IkKvAJX0YyPhDj
+	+3QGtroCL/La8kmchJ5TGs5xAoV9W+DK2urvMW7RyVn7oHYN91J+uNyA5OWem6o7bGyr7oniDC7
+	n3P+ImKWryvk04Rdb3GJNwHQEdX3TnhYcQ2oFY/EYm2eg1Wc65IgYXQFBG28REfUBGTHfi2s6it
+	UQomYFCZEv9N21SlTJ8MuwnpOBpxGkZ8x3X7QpfIJdRyL/1CSWN/4DaP+kLGOVqQsiA7pBEpXuv
+	0rMphJrDWyVvFsTo7Kf2kfNtU6aKzCLxWWbo4AYxOI2cjPzqE3mcLyLdwJn1KH9/sTuRmVRYIhr
+	ER40Gq579gJZGkpgevWQFzGHCRDn0FZVdAcMH4kYcFcIjdYhsvGpf4FmEMidEhNj1NvE8/Uy1A6
+	b8pbujZtMCn5x7SwaRqduJuY2qhGLm+cSrOW8rQUvBXI82MfFabWJ2udOiJ+QR
+X-Received: by 2002:a05:6a21:2c01:b0:3de:74ee:c05d with SMTP id adf61e73a8af0-3e0bcfba78amr1843334637.23.1790919445425;
+        Thu, 01 Oct 2026 22:37:25 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0cb77df7sm468216b3a.47.2026.10.01.22.37.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 22:37:24 -0700 (PDT)
+Date: Fri, 2 Oct 2026 14:37:22 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, Baolin Liu <liubaolin@kylinos.cn>,
+	liubaolin <liubaolin12138@163.com>, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] ntfs: fix spurious EIO and ENOSPC on nearly full
+ volumes
+Message-ID: <ar9DEnzfkEvi3Oo9@hyunchul-PC02>
+References: <cover.1790853718.git.matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: manual merge of the phy-next tree with the v4l-dvb
- tree
-To: Mark Brown <broonie@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-References: <ar5wFFE64tWhmCKg@sirena.org.uk>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ar5wFFE64tWhmCKg@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1790853718.git.matthias.goergens@gmail.com>
 
-On 01/10/2026 16:37, Mark Brown wrote:
-> Hi all,
-> 
-> Today's linux-next merge of the phy-next tree got a conflict in:
-> 
->   Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> 
-> between commits:
-> 
->   42b96f94929c9 ("dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema")
->   a93b9de71466f ("dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Glymur compatible")
-> 
-> from the v4l-dvb tree and commit:
+The whole series look good to me.
 
-Why were these taken via v4l/media tree?
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-> 
->   3b0140f37d25b ("dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema")
-> 
-> from the phy-next tree.
-> 
-
-
-Best regards,
-Krzysztof
+-- 
+Thanks,
+Hyunchul
