@@ -1,123 +1,148 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-ej2-f40.google.com (mail-ej2-f40.google.com [74.125.228.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751C13E2AD8
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0F53A16AE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979151; cv=none; b=M2aM3qtl3AkcUAAESXJjwvan5ZaHit4qDL7ByJcCI7KAKwxzpnEV0Xf8xWBPaK2JQTNWgLGBiN1fhYXhKVxbKJPY4fpt/DehycdAF5WLDRYrnrxzcJ9YBDRhlObiuuAtzDFv5oPWhpPIJ+eAKbnUscIYjtm2TtAfgj1EHQo/5gg=
+	t=1790979171; cv=none; b=ky3ZbVQ2M7ZqrFLpuHMKoTU1Jh+2sUeDXUSdjdbqOaGlVszEy347p3T0IXkl1zZnj6WLNr3Gmfm9/2fY2rw2D/M46WXzwf1Xu4VCOe9/nvSwQXvC0IuD8Rsh8rXpjqo/N16nY1G5Zf3WPJg9CLzmMos9DdIxoBU9u7kHLOUhbJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979151; c=relaxed/simple;
-	bh=kkiqdAS4BmeIKPvSPLaJlWr8VEOz3hct2LQ4xfgY4+4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TrSXHMS9fyVK0PcgNsCK4obEMfqWmWgUZXvuTaaLDSlFVNLtFvvxHhn83QoRtTPvTzpSjYktwsuPYVLVXFOjo/guslSbMxnOEYKnrcKTSGo/57sFgMvBk0gF0A840w1FWM7BnsJQi09Byvl9eGuWfW1cACxjPNkHw5tktx2SxI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p8ci6vrr; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790979171; c=relaxed/simple;
+	bh=F8qek3Nj+oyj55d7lIpNUFqrXt6O3kJiMCkMio199Qo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uIt2oyd3dMjUDpNxiudisgjAl6hQcRbJbLchDzeOhQwn1RVizS/Tcc4aXE+Invkx6cX9T8beo6uVh9V+nRe2/zdaMB0S1sdeV90F9ZPm43L1BezCXTR550ILSlPMFno7ygOFLZO0gnAG2pm17pB1gZZHxhZ+ZEH/Os8PTvpPjcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=c7jZcyXF; arc=none smtp.client-ip=74.125.228.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p8ci6vrr"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-ccacc75a997so29396a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:12:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="c7jZcyXF"
+Received: by mail-ej2-f40.google.com with SMTP id a640c23a62f3a-c2e417a5a81so60529966b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:12:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790979150; x=1791583950; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m+BE8hAAq8CojA7/qWTm+y4+V1+d1I0cqoqJfhKPjfM=;
-        b=p8ci6vrrR2Wq5Tjb4E4iRa6yZb8P8D0NwUhLezvcLAbUbKCw97wZ0vyoyUXuTNmYIP
-         GyBvAX3p5ooaFjoYb2D88R7jLA2svp2WfrqfxkBl2heIP+Pl9qJKD5De2RlU+iG+CeLR
-         UuMAxU0Fq97Uh7VLmi/s4fuOb3dxFrdL+vY5tZJm7LtxPrbHIpjBoMpJ1OuqQ7VwO/yQ
-         BaYtnf3jfKrqMMy4EOwtuwWih+is1PkiGT1IQ4ohlZaxvIbBiUEyaOBdOb7EX+/9KwoR
-         taRUOdLSLjQAQv3vmdcXhXWrQdvONshhjuMjziEH7A7yhQUxkkX7MA4HspKLx1KXChzh
-         fhzw==
+        d=chromium.org; s=google; t=1790979168; x=1791583968; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DDrcNx+YymWTB3jxR2mrD39Mvw+RjCAmbQr7dMYlGpw=;
+        b=c7jZcyXF7BWCVmvs0y+yv6uaq55Uhwu0ASz8s3zP3GEExadx7mxN782GDvUkGD5Kv+
+         eh/7CxlK2HqYxuFUkpn8UnvB4JNNGg5azc1DIohMvt/hr2IyNYWoNnxs6KgrdCU/NfwD
+         s7qCO0GQQ/byOt56yg/+XCkCracuJMXEDJfQw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790979150; x=1791583950;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m+BE8hAAq8CojA7/qWTm+y4+V1+d1I0cqoqJfhKPjfM=;
-        b=Fg6PP6/mnncF9odwlzNZKatgNAjIpLbl4nI0hcUl5GxDwOo8EGI58n1PxENXPcJ8Tq
-         1tpDNe5XHP/XGfVY96n/RYRmF7JZxJDHTOwHVFd1ozBlZ1MVjcXMz8+/A66kz26guMxt
-         uV5v6SKqXlUkigU3/MhGzOe55ngE2e52FTI/GAUfG1S2nZho+A/4fWN9aQ89pyfjq9dU
-         UTN/PogCvkXcPaOdUsxPXmKjn0ZyGvDPwTrAkuu+ECF1ggWEazptNttqANIHu5mhDXRf
-         ViC9bfRaN+siEKETTWoEZxi8isdZ34Y3o2FwyUeMBtfC7tdu1a3+AkYVa+yxtXBuVhNl
-         Zn+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwhpBr3amXu9SgoMjnFlWS/E0bp1GMWtY0Bpm3WEOlbyKu57LGQ35BaIfSFK1pV54nTqXr9zV9G6QpPv3A=@vger.kernel.org
-X-Gm-Message-State: AFuF++msDJssJDw+A/66b4o9YQX4BcEqjLy8AqhDLsxGADlNeG38dTeF
-	U+3sH+tKOKn0xaCiHThgnbk1ZZrCI+1CZsU3/RcL2jZzjOAOBLRNyGn86rVRRGFR/Ypdh/A2aC4
-	sBII+Sw==
-X-Received: from pgaa6-n2.prod.google.com ([2002:a05:6a02:6486:20b0:cca:bb35:aa9c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:748a:b0:3e0:b937:8829
- with SMTP id adf61e73a8af0-3e0d6ce0ea7mr619313637.51.1790979149504; Fri, 02
- Oct 2026 15:12:29 -0700 (PDT)
-Date: Fri, 2 Oct 2026 15:12:28 -0700
-In-Reply-To: <de328dc973a135a956a148dd83d8353b7157d452.1790101179.git.ritesh.list@gmail.com>
+        d=1e100.net; s=20260707; t=1790979168; x=1791583968;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DDrcNx+YymWTB3jxR2mrD39Mvw+RjCAmbQr7dMYlGpw=;
+        b=0LpFtCJ54XRitQqsB0HS17qlWkhk3q77T0QICXHGJX18M1uP84nrJHQbtAseqhYSLt
+         Rl5hQQycCptEMAMQWGjqRYgGHrUoP/OjLgdT17batAD64SY34k9IDH8Y+drGESlE0es5
+         8Mb7banpPd2sWTIn8hvEOBH3yg/djPyPfn+3nhy9kEiD0wdoOggmbYbL9hpYdo7N/b5m
+         MZLNPNHXUIKQO6G64OYb5wjwimqUPhwGfiQld6WaHQF3AfvN0wy5i4DxZPYFVhuxOrM4
+         JF9d0FiXNjq2QByuNiDGbt+5nI5c/kPt7Cr4Q0v2d0dX1bpNQHnb9ja6X+eVwHRojo40
+         YtYg==
+X-Forwarded-Encrypted: i=1; AKwUvBzVlZJsa8jOXof22Sw37z5Ml8X1HYgO40XeoQUjDR1DazBioNDTDaKILg1heqbr/9BnMj1uL6TG1EYiUWI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLo4wX6tZYRlUFZ8Au7sZ68UlQqQKYKEmDqcVA6HgCp/3hqijYP
+	LhKtr8kfksiaHh+ZHzcBLCQLzxPTGIV8z1lDR3t0FsulCrqD3qXB+Mb92H8Bbgdc5LvdkzNmAbq
+	KDLlBRA==
+X-Gm-Gg: AYBFou1tnrKUPNU49ykKQh90PbSiiYrKcCaUrXPfm1wZ5+P6bg5obBGNDZbYDRc6P/C
+	EW4tinV0HYpLlRflSl53M1kzSeNzSTaOASnuL3gzGKPQloxiepDHqwz35jgx4yCDnp9d6GXvHJ/
+	msanB9kYVNx1eFyN9i9gFsvWr9jvxMmslohE5USy6ItuuVHRG22tKE/gc1sTD8MkCu8DJnFDrOk
+	qxxffnrT6BQsvIjmBnejH23Lo+UdYzYqgr1/O9Igil1uF3w9Gp6u8kRiyx3kKXL6Nt9pHEtzUqi
+	m3F4RlCFKG6R+G3waOTauFLILRpzOJ9cHzFMQwR04bHHcOsk55xv7/EpRCkR0aaSOJ3NOPgl/cF
+	rof0/2/B/Uzs4IeCTbnGTD38DPW4imVbfmN3T0U9DcByFkyEbmqZcvvZxIqwd3oN1GUwWjtX8IC
+	mimhujghonyhkjmDRPvEBZiGW6lyIZv/WlqL0IhpGn2nxthFxGynUVa/A4aWfGyTgGF1GXzY0WJ
+	umb5YsiCg4N5FgiUxhxuEpe2Fc9LW2uJqap7VwAXQ/YJ1Ml
+X-Received: by 2002:a17:907:3e96:b0:c29:f5d8:9c73 with SMTP id a640c23a62f3a-c2e4ae36202mr350761066b.34.1790979167661;
+        Fri, 02 Oct 2026 15:12:47 -0700 (PDT)
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com. [74.125.225.97])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4ce407b0sm135827566b.39.2026.10.02.15.12.46
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 15:12:47 -0700 (PDT)
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b9d8056d2so198101f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:12:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxGMSr7FPKnwPneKfrn3Yjg0g+4Z2rM7FMaP95PZ5HApgtwVNOb9IRJkogXevg7MoSXT2L8rrawIa8F88U=@vger.kernel.org
+X-Received: by 2002:a05:6000:288e:b0:48c:43a3:6a74 with SMTP id
+ ffacd0b85a97d-48c43a36a8cmr4964515f8f.12.1790979165786; Fri, 02 Oct 2026
+ 15:12:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790101179.git.ritesh.list@gmail.com> <de328dc973a135a956a148dd83d8353b7157d452.1790101179.git.ritesh.list@gmail.com>
-Message-ID: <asAsTMn8naXCxhno@google.com>
-Subject: Re: [PATCH v5 1/9] KVM: PPC: selftests: add support for powerpc
-From: Sean Christopherson <seanjc@google.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
-	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
-	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20261002175000.1-brads@mainlining.org>
+In-Reply-To: <20261002175000.1-brads@mainlining.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 2 Oct 2026 15:12:33 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
+X-Gm-Features: AclHuK_ykAqjE6smLyXlXs3fyMcExTjUCch3AoQZne-BAbdaPmKpeUJt9_Yo9vw
+Message-ID: <CAD=FV=XZZpWUBEQzr9HAOCqC+KkF63=wU2rpw1YMcC8JYxnOWQ@mail.gmail.com>
+Subject: Re: [PATCH] watchdog/perf: reject empty config before the raw event parse
+To: Bradley Morgan <brads@mainlining.org>
+Cc: akpm@linux-foundation.org, blum@kernel.org, tglx@linutronix.de, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026, Ritesh Harjani (IBM) wrote:
+Hi,
+
+On Fri, Oct 2, 2026 at 10:46=E2=80=AFAM Bradley Morgan <brads@mainlining.or=
+g> wrote:
+>
+> Date: Fri, 2 Oct 2026 17:39:13 +0000
+> Subject: [PATCH] watchdog/perf: reject empty config before the raw event =
+parse
+>
+> Commit 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+> manual NUL-termination") replaced strscpy(buf, str, sizeof(buf)) plus a
+> manual buf[len] =3D 0 with strscpy(buf, str, len). strscpy() writes
+> nothing at all when the count is zero, so on a comma directly after
+> the "r" prefix, nmi_watchdog=3Dr,1 for example, len is 0, buf stays
+> uninitialized, and kstrtoull() parses whatever stack garbage is there.
+>
+> The old code was safe here by accident, strscpy() filled the whole
+> buffer before buf[len] =3D 0 overwrote the comma position, so a zero
+> length just produced an empty string and a clean parse failure.
+>
+> Treat an empty config the same as an overlong one and return early.
+>
+> Fixes: 6164be01f179 ("watchdog/perf: optimize bytes copied and remove man=
+ual NUL-termination")
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
 > ---
->  MAINTAINERS                                   |   2 +
->  tools/testing/selftests/kvm/Makefile          |   2 +-
->  tools/testing/selftests/kvm/Makefile.kvm      |  10 +
->  .../testing/selftests/kvm/include/kvm_util.h  |   9 +
->  .../selftests/kvm/include/powerpc/hcall.h     |  17 +
->  .../kvm/include/powerpc/kvm_util_arch.h       |  22 +
->  .../selftests/kvm/include/powerpc/ppc_asm.h   |  32 ++
->  .../selftests/kvm/include/powerpc/processor.h |  39 ++
->  .../selftests/kvm/include/powerpc/ucall.h     |  21 +
->  tools/testing/selftests/kvm/lib/guest_modes.c |  20 +-
->  tools/testing/selftests/kvm/lib/kvm_util.c    |   8 +
->  .../selftests/kvm/lib/powerpc/handlers.S      |  93 ++++
->  .../testing/selftests/kvm/lib/powerpc/hcall.c |  45 ++
->  .../selftests/kvm/lib/powerpc/processor.c     | 512 ++++++++++++++++++
->  .../testing/selftests/kvm/lib/powerpc/ucall.c |  22 +
->  15 files changed, 851 insertions(+), 3 deletions(-)
->  create mode 100644 tools/testing/selftests/kvm/include/powerpc/hcall.h
->  create mode 100644 tools/testing/selftests/kvm/include/powerpc/kvm_util_arch.h
->  create mode 100644 tools/testing/selftests/kvm/include/powerpc/ppc_asm.h
->  create mode 100644 tools/testing/selftests/kvm/include/powerpc/processor.h
->  create mode 100644 tools/testing/selftests/kvm/include/powerpc/ucall.h
->  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/handlers.S
->  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/hcall.c
->  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/processor.c
->  create mode 100644 tools/testing/selftests/kvm/lib/powerpc/ucall.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fc320b373656..35df0c39e991 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -14349,6 +14349,8 @@ F:	arch/powerpc/include/asm/kvm*
->  F:	arch/powerpc/include/uapi/asm/kvm*
->  F:	arch/powerpc/kernel/kvm*
->  F:	arch/powerpc/kvm/
-> +F:	tools/testing/selftests/kvm/*/powerpc/
-> +F:	tools/testing/selftests/kvm/powerpc/
+>  kernel/watchdog_perf.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/kernel/watchdog_perf.c b/kernel/watchdog_perf.c
+> index cf05775a96d3..cca0485ba28c 100644
+> --- a/kernel/watchdog_perf.c
+> +++ b/kernel/watchdog_perf.c
+> @@ -301,7 +301,7 @@ void __init hardlockup_config_perf_event(const char *=
+str)
+>         } else {
+>                 unsigned int len =3D comma - str;
+>
+> -               if (len > sizeof(buf))
+> +               if (!len || len > sizeof(buf))
+>                         return;
+>
+>                 strscpy(buf, str, len);
 
-I don't think sending KVM PPC selftests changes through the PPC tree will work.
-It's "fine" for KVM PPC changes because the volume of KVM PPC changes is low and
-rarely modifies anything outside of arch/powerpc.
+I fed your patch to my AI, and it wasn't happy with it. While you fix
+one corner case, the larger problem is still there.
 
-KVM selftests tend to have a lot more cross-arch and/or common code modifications,
-i.e. I think we'll be setting ourselves up for pain if we don't route all KVM
-selftests changes through Paolo's tree.
+Image if `str` is "300,panic". Then `comma - str` will be 3. Passing 3
+to `strscpy` will copy at most 2 characters so it has room to use the
+3rd character as termination. That means `buf` will have "30", not
+"300". Oops.
 
-Does it maybe make sense to have all of KVM PPC route through Paolo?  Punting to
-PPC made sense when KVM PPC was on life support, but it looks like resuscitation
-was successful for at least some flavors of KVM PPC?
+My AI suggests the correct fix is to change the "len >" to "len >=3D"
+and then pass "len + 1" to strscpy().
+
+if (len >=3D sizeof(buf))
+  return;
+
+strscpy(buf, str, len + 1);
+
+-Doug
