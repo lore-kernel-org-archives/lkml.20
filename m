@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4CE30C160;
-	Fri,  2 Oct 2026 03:35:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2839935AC3B;
+	Fri,  2 Oct 2026 03:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790912115; cv=none; b=UDXNYqzLGTq4GgX68PlQdiJJ2xiIuZEWy5ys2YNVCwz7ARoqN4STUeVDmicywnmSzWXqKdSYmZBsSJHvle7/6rfjscZT35hEpQl4O9A5ALvjm5iUpHeRoAqc9DNzGDrelSInZvTADY0XTGv9gYV0kuNc0Yn1YrxDiX0pnS7zJBw=
+	t=1790912119; cv=none; b=PAFOHOgGSdb5YxPrjKktnJn1qjsRJFAkP4Vh3Sd5KlHNzNrudbdw7NlRUQW2RfBOUJiXWbwiS2H3GdfbBxoM+vaNgfE8aheKP5ey0aG4WYyj8rCT0Q/U7+tywYSRsxHi+pDoEYInwBUkElTTa8I2+ObS/UCW3UMEVnoCMkL4aEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790912115; c=relaxed/simple;
-	bh=nbXx9b5B0i2z9NYWBIHZZl6u7UXcSmxPPfB+Kt47x40=;
+	s=arc-20240116; t=1790912119; c=relaxed/simple;
+	bh=SeA0NVKssGs2rbR258GJXcqcgAhc/eBx0hXbnO63Gf4=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JqbcdGQo/nl9o/LXxbT5rXx/negKOav6d7nZNNaJhZ6mADktc9L0HrsWB2ySUy1ETXsFiAt23DpWygFc128ke73T2Ed7R/y5OjO5eD4s/EPSRBgaKrFKzCd+2wU17gecHhBdurOnMuxADSmwoXLPtPefmvcen+PITFvzXU+DZH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BSbdrbGC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=HjdhsARkSmsGaKBrsfE143ynicifL8jp3oeZjBjC76dMHClHZr1purbmlf6kZPNJBvz+1xPAzQJ3T+DC4wbmKvqShsge8+12hCYV2RGqWMQBC2M6fQ/9/R9LVZOmpPKQWkTGHw3AlwqzrdfxP7JENj9ZHXlwcQ32BtJy+wb+lEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FV/Rj6yK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BSbdrbGC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D6561F000FF;
-	Fri,  2 Oct 2026 03:35:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FV/Rj6yK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 983E71F00893;
+	Fri,  2 Oct 2026 03:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790912113;
-	bh=8CJrEWWmuu3mgIibLReSPkdw2Rf8j663qYr8i0zTI18=;
+	s=k20260515; t=1790912118;
+	bh=vtJ/T5+F0nCL38szeXRQlo63YEYDP8cNWqdWnph4ryI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BSbdrbGCXBlfgRbwfNvb0SveKg79Bugs7H+CA3Wpwi3YRRZHCH0r4R+2e9zke0oUh
-	 057TXjCceP1a7HxNB2V5LzV2999dh+naEJ/3o2OoVdAh8bWFb1F2G3yaamcAmhIxFd
-	 EEWtxTZ65n9NDUbATaIFBsRTcgerIA7GcH74hBwWHW505BydDBi7nMzUQC5HWmHvyg
-	 2WbSgr2DQsKPqvUw5gihhurwcUJPZOxFP3RIcuRd+uy2suW/W4J69YRdKXkPlrFfEA
-	 xRds7lYQvALKfcyT/YCOzwAICFu/3cw42co6OrELXdMvYtLNhPvJQD6IBFu8O7UMwE
-	 xIaw7yHdfA1yg==
-Subject: Re: [PATCH v30 net-next 1/8] net/nebula-matrix: add channel layer
+	b=FV/Rj6yKoGJCyHHr1mldSGFx+sba1jnDacXnP5hm/hMoTqh3uqO2I8ZRFZQ913BD4
+	 jsMSDu11lxWDyvzZCo3W7Xucq0at/hHFKotqNF52A6D6T2RfiqWnf1pnT00l+ipKE5
+	 5jEAv/3cL9OxbeY+dehpHqYqYVkM128d+ukitlQFyxN/0yc+UwnkTQ5pkpUPgOAdgl
+	 PfZc3CheFd4MJ0IKF4mZQfoOpPUDckt7BUjgrwHkQe5Dob4rP59nXNrnOFDK3oahs4
+	 jnlpTTYjSkceiMmfDhvH1G6CrdTsyOrPAG3wB5RuaYIfYTs0zinBQmwzyUpQICSvSg
+	 QRD4L6JWWPfqQ==
+Subject: Re: [PATCH v30 net-next 5/8] net/nebula-matrix: dispatch: add
+ control-level routing core infrastructure
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
  edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 02 Oct 2026 03:35:12 +0000
-Message-ID: <179091211293.434549.4895858664996273015@kernel.org>
-In-Reply-To: <20260928123237.88994-2-illusion.wang@nebula-matrix.com>
-References: <20260928123237.88994-2-illusion.wang@nebula-matrix.com>
-X-sashiko-severity: Medium
+Date: Fri, 02 Oct 2026 03:35:17 +0000
+Message-ID: <179091211721.434549.6592428387777339791@kernel.org>
+In-Reply-To: <20260928123237.88994-6-illusion.wang@nebula-matrix.com>
+References: <20260928123237.88994-6-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -46,294 +47,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 6
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] nbl_chan_alloc_all_tx_bufs() and nbl_chan_alloc_all_rx_bufs()
-  make a separate dmam_alloc_coherent(dev, 4096, ...) call for each of…
-- [Low] Most of the channel layer (setup_queue, teardown_queue, send_msg,
-  cfg_chan_qinfo_map_table, clean_queue_subtask, register_chan_task,…
-- [Low] Some specific claims in the commit message don't match the code.
-- [Low] The get_host_pf_mask kernel-doc says unsupported masks are
-  'rejected with -EINVAL', and nbl_chan_cfg_qinfo_map_table() defers…
-- [Low] The lock comments in struct nbl_chan_info are wrong.
-- [Low] send_msg, clean_queue and set_queue_state do not check
-  chan_info->active.
-- [Low] If setup fails partway, its devres/dmam allocations are orphaned
-  when setup is retried.
+- [Low] The commit message of "net/nebula-matrix: dispatch: add control-
+  level routing core infrastructure" says the patch will "Add wire ABI…
+- [Low] At this commit, the kernel-doc Warning paragraph for struct
+  nbl_dispatch_ops (nbl_def_dispatch.h lines 25-31) describes five…
+- [Low] The kernel-doc for struct nbl_dispatch_ops (nbl_def_dispatch.h)
+  calls @init_module "dispatch layer initialization" and @deinit_module…
 
 --
 
-net/nebula-matrix: add channel layer
+net/nebula-matrix: dispatch: add control-level routing core infrastructure
 
-This adds a mailbox-based channel layer to the nbl driver. It carries
-control messages between PF0 and the other PFs. The patch adds the
-channel ops table, TX/RX ring handling with ACK tracking, a workqueue for
-RX cleanup, and the BAR0/BAR2 hw_ops that program the mailbox queues.
+This commit adds the nbl dispatch layer. It allocates a devm-managed
+nbl_dispatch_mgt, an ops table and a ctrl_lvl bitmap. When has_ctrl is
+set, it enables the MGT level and installs init_module/deinit_module
+wrappers that forward to the resource ops.
 
-> - TX slot concurrency control, returning -EAGAIN when slots are full to
->   avoid congestion and resource exhaustion. Supports 16B inline small
->   payload and 4KB max DMA-based large payload transmission.
-
-[ ... ]
-
-> - Isolated hw_ops layer decouples low-level hardware implementation from
->   upper channel logic. Fine-grained register locking optimizes BAR0/BAR2
->   access for stability under high stress.
+> MGT level is only enabled for Control PF. Add kerneldoc for caller
+> permission constraints. Add wire ABI structures with static_assert for
+> upcoming mailbox RPC.
 
 [Severity: Low]
-Do these claims match the code?
+Is the last sentence accurate for this patch? The diff touches the
+Makefile, nbl_core.h, nbl_dispatch.c, nbl_dispatch.h, nbl_def_dispatch.h
+and nbl_main.c. None of these files gets a mailbox wire-format struct or
+a static_assert.
 
-nbl_chan_get_msg_id() returns -EAGAIN when the ACK wait slots run out.
-When the descriptor ring is full, though, nbl_chan_update_txqueue()
-returns -EBUSY:
+At this commit, the driver has one static_assert, for struct
+nbl_board_port_info in nbl_def_channel.h. It was already there, and this
+patch does not change it.
 
-	if (nbl_chan_txq_full(txq, chan_info->num_txq_entries))
-		return -EBUSY;
-	if (param->arg_len > NBL_CHAN_BUF_LEN - sizeof(*tx_desc))
-		return -EINVAL;
+The RPC payload structs and their size checks (nbl_chan_param_cfg_msix_map,
+nbl_chan_param_set_mailbox_irq, nbl_chan_param_get_vsi_id,
+nbl_chan_param_get_eth_id) first appear in the next patch,
+"net/nebula-matrix: dispatch: implement channel RPC framework and
+serialize hardware ops".
 
-That same check caps the payload at 4096 - 64 = 4032 bytes, not 4KB.
-nbl_chan_send_ack() allows 12 bytes less than that.
+Could this sentence be dropped here, or moved to that patch's commit
+message?
 
-On locking, the patch adds only one reg_lock spinlock, and only the BAR0
-helpers take it (nbl_hw_rd_regs_lock() and nbl_hw_cfg_mailbox_qinfo()).
-nbl_hw_read_mbx_regs(), nbl_hw_write_mbx_regs() and the doorbell write in
-nbl_hw_update_mailbox_queue_tail_ptr() go through BAR2 without any
-register lock.
-
-Could the commit message be updated to match?
-
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
 > new file mode 100644
-> index 000000000000..d2c8182c72b6
+> index 000000000000..b3398591035b
 > --- /dev/null
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
-> @@ -0,0 +1,1467 @@
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
+> @@ -0,0 +1,45 @@
 
 [ ... ]
 
-> +static int nbl_chan_alloc_all_tx_bufs(struct nbl_channel_mgt *chan_mgt,
-> +				      struct nbl_chan_info *chan_info)
-> +{
-> +	struct nbl_chan_ring *txq = &chan_info->txq;
-> +	struct device *dev = chan_mgt->common->dev;
-> +	struct nbl_chan_buf *buf;
-> +	u16 i;
-> +
-> +	for (i = 0; i < chan_info->num_txq_entries; i++) {
-> +		buf = &txq->buf[i];
-> +		buf->va = dmam_alloc_coherent(dev, chan_info->txq_buf_size,
-> +					      &buf->pa, GFP_KERNEL);
-
-[Severity: Medium]
-Is one coherent allocation per ring entry intended here?
-nbl_chan_alloc_all_rx_bufs() does the same, so each PF makes 512 separate
-dmam_alloc_coherent(dev, 4096, ...) calls.
-
-Coherent allocations are rounded up to whole pages. On 16K or 64K page
-kernels (arm64, ppc64le), one PF's mailbox uses 8 MiB or 32 MiB of
-coherent memory, not the ~2 MiB the comment in nbl_chan_setup_queue()
-assumes. The driver can build for these, since Kconfig only requires
-64BIT and !CPU_BIG_ENDIAN. A 4-PF card with 64K pages would use 128 MiB.
-Each call also adds its own devres node and IOMMU mapping.
-
-Could this be one contiguous allocation split into 4K slots, or a
-dma_pool?
-
-[ ... ]
-
-> +	/*
-> +	 * DMA resources are allocated once and released only by devres
-> +	 * at device detach.  A teardown does not free them, so a second
-> +	 * setup would orphan ~2 MiB of coherent DMA per channel.
-> +	 */
-> +	if (chan_info->dma_allocated) {
-> +		dev_warn(common->dev,
-> +			 "channel DMA already allocated, re-setup not supported\n");
-> +		return -EBUSY;
-> +	}
-> +	nbl_chan_init_queue_param(chan_info, NBL_CHAN_QUEUE_LEN,
-> +				  NBL_CHAN_QUEUE_LEN, NBL_CHAN_BUF_LEN,
-> +				  NBL_CHAN_BUF_LEN);
-> +	err = nbl_chan_init_queue(common, chan_info);
-> +	if (err)
-> +		return err;
-> +	err = nbl_chan_alloc_all_bufs(chan_mgt, chan_info);
-> +	if (err)
-> +		return err;
-> +	nbl_chan_config_queue(chan_mgt, chan_info, true); /* tx */
-> +	nbl_chan_config_queue(chan_mgt, chan_info, false); /* rx */
-> +	nbl_chan_update_tail_ptr(hw_ops, chan_mgt->hw_ops_tbl->priv,
-> +				 rxq->tail_ptr, NBL_MB_RX_QID);
-> +	WRITE_ONCE(chan_info->active, true);
-> +	chan_info->dma_allocated = true;
-> +	return 0;
-> +}
+> +/**
+> + * struct nbl_dispatch_ops - dispatch control plane operation callbacks
+> + * @init_module: dispatch layer initialization, control-PF exclusive,
+> + *               caller must check has_ctrl guard
+> + * @deinit_module: dispatch layer cleanup, control-PF exclusive,
+> + *                 caller must check has_ctrl guard
 
 [Severity: Low]
-What happens if nbl_chan_setup_queue() fails partway, for example in
-nbl_chan_alloc_all_rx_bufs()? At that point active and dma_allocated are
-both still false. A second call would get past both checks and allocate
-everything again. The first set of dmam buffers would stay allocated
-until detach.
+Do "dispatch layer initialization" and "dispatch layer cleanup" describe
+these callbacks correctly? All dispatch-layer setup happens in
+nbl_disp_init(), and nbl_disp_remove() is empty. The installed callbacks
+only forward to the resource ops:
 
-In the rest of the series, setup_queue runs once per probe from
-nbl_dev_setup_common_dev(), and a failure fails the probe. So no retry
-path exists today.
+nbl_disp_init_module()
+    res_ops->init_module(p)          /* nbl_res_chip_init_module() */
+        hw_ops->init_module(p, eth_speed, eth_num)
 
-Should dma_allocated be set before the first allocation, so the guard
-does what its comment says?
+nbl_disp_deinit_module()
+    res_ops->deinit_module(p)        /* nbl_res_chip_deinit_module() */
+        hw_ops->deinit_module(res_mgt->hw_ops_tbl->priv)
 
-[ ... ]
+On leonis, these calls program the chip-wide datapath and set or clear
+driver_status. Clearing driver_status starts asynchronous firmware
+cleanup. nbl_dev.c notes that mailbox DMA must be drained before
+deinit_module is called.
 
-> +static int nbl_chan_send_msg(struct nbl_channel_mgt *chan_mgt,
-> +			     struct nbl_chan_send_info *chan_send)
-> +{
+Would it be clearer to call these chip/firmware init and deinit, and to
+mention the ordering requirement? That way later callers won't treat
+deinit_module as software-only cleanup. The same wording is still there
+at the end of the series.
 
-[ ... ]
-
-> +	mutex_lock(&chan_info->state_lock);
-> +	if (READ_ONCE(chan_info->shutdn)) {
-> +		mutex_unlock(&chan_info->state_lock);
-> +		return -ESHUTDOWN;
-> +	}
-> +	atomic_inc(&chan_info->inflight_tx_cnt);
-> +	mutex_unlock(&chan_info->state_lock);
-
-[Severity: Low]
-Can nbl_chan_send_msg() be called on a channel that hasn't gone through
-setup_queue? Nothing here checks chan_info->active.
-
-Before setup, num_txq_entries is 0, so this path divides by zero:
-
-nbl_chan_update_txqueue()->nbl_chan_txq_full()
-    NBL_NEXT_ID(next_to_use, num_entries - 1)
-
-nbl_chan_clean_queue() has a similar problem: before setup it reads
-through rxq->desc.rx_desc, which is still NULL. nbl_chan_set_queue_state()
-walks wait[], which can be NULL after a partial setup failure.
-
-In the rest of the series, every caller runs after
-nbl_dev_setup_common_dev(), so this doesn't look reachable today. Would
-it be worth checking active in these entry points anyway?
-
-[ ... ]
-
-> +static struct nbl_channel_ops chan_ops = {
-> +	.send_msg			= nbl_chan_send_msg,
-> +	.send_ack			= nbl_chan_send_ack,
-> +	.register_msg			= nbl_chan_register_msg,
-> +	.cfg_chan_qinfo_map_table	= nbl_chan_cfg_qinfo_map_table,
-> +	.check_queue_exist		= nbl_chan_check_queue_exist,
-> +	.setup_queue			= nbl_chan_setup_queue,
-> +	.teardown_queue			= nbl_chan_teardown_queue,
-> +	.clean_queue_subtask		= nbl_chan_clean_queue_subtask,
-> +	.register_chan_task		= nbl_chan_register_chan_task,
-> +	.set_queue_state		= nbl_chan_set_queue_state,
+> + *
+> + * Warning: init_module/deinit_module are control-PF exclusive. The five
+> + * resource ops (cfg_msix_map, destroy_msix_map, set_mailbox_irq,
+> + * get_vsi_id, get_eth_id) are PF-only and resolve to either a local
+> + * resource call (control PF) or a mailbox RPC (non-control PF with
+> + * has_net). A function with neither has_ctrl nor has_net leaves these
+> + * pointers NULL; callers must not invoke them on such functions. VFs are
+> + * rejected by the responders with -EPERM.
+> + */
+> +struct nbl_dispatch_ops {
+> +	int (*init_module)(struct nbl_dispatch_mgt *disp_mgt);
+> +	void (*deinit_module)(struct nbl_dispatch_mgt *disp_mgt);
 > +};
 
 [Severity: Low]
-This isn't a bug on its own, but most of these ops have no caller in
-this patch: setup_queue, teardown_queue, send_msg,
-cfg_chan_qinfo_map_table, clean_queue_subtask, register_chan_task and
-set_queue_state. nbl_core_init() only calls nbl_chan_init_common().
+Is this paragraph describing code that isn't in this patch yet? Here,
+struct nbl_dispatch_ops has only init_module and deinit_module, and the
+enum has only NBL_DISP_CTRL_LVL_MGT. nbl_disp_init() never checks
+has_net, and nbl_disp_refresh_ctrl_ops() installs only the MGT pointers:
 
-The commit message describes probe-time DMA allocation and IRQ/polling
-RX as if they already work here. Later patches in the series add the
-callers in nbl_dev.c and nbl_dispatch.c.
+	if (test_bit(NBL_DISP_CTRL_LVL_MGT, disp_mgt->ctrl_lvl)) {
+		disp_ops->init_module = nbl_disp_init_module;
+		disp_ops->deinit_module = nbl_disp_deinit_module;
+	}
 
-Could the commit message say that queue setup and the RX paths are
-wired up in later patches?
+The five ops, NBL_DISP_CTRL_LVL_NET, the has_net routing and the -EPERM
+responders all come in the next patch, "net/nebula-matrix: dispatch:
+implement channel RPC framework and serialize hardware ops". By the end
+of the series, the doc matches the code.
 
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h
-> new file mode 100644
-> index 000000000000..21cbb21946cf
-> --- /dev/null
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h
-> @@ -0,0 +1,181 @@
-
-[ ... ]
-
-> +struct nbl_chan_info {
-
-[ ... ]
-
-> +	/* Guards channel state bitmap and shutdn flag */
-> +	struct mutex state_lock;
-> +	/* Guards pending requests and pending work list operations */
-> +	struct mutex pending_lock;
-
-[Severity: Low]
-Are these lock comments accurate? The state bitmap is never accessed
-under state_lock. nbl_chan_set_queue_state() changes it without the lock:
-
-	if (set)
-		set_bit(state, chan_info->state);
-	else
-		clear_bit(state, chan_info->state);
-
-nbl_chan_send_msg() also tests NBL_CHAN_IRQ_RDY without the lock. The
-code relies on atomic bitops instead.
-
-There is also no pending work list. pending_lock seems to guard the
-wait[] slot array.
-
-Could the comments be updated to say what each lock actually protects?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
-> index ecbf440e4366..d87bf9d41a24 100644
-> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
-> @@ -10,6 +10,41 @@
-
-[ ... ]
-
-> +	/**
-> +	 * get_host_pf_mask - Fetch host PF mask from firmware k_pf_mask reg
-> +	 * @hw_mgt: hardware management context
-> +	 * @pf_mask: output pointer for PF mask value
-> +	 *
-> +	 * k_pf_mask register rule:
-> +	 *   bit N == 0 -> PF#N enabled; bit N == 1 -> PF#N masked out.
-> +	 *   bit0 is PF0's mask bit (not reserved); PF0 can be masked but
-> +	 *   the driver requires at least PF0 enabled.
-> +	 *   Only 1/2/4 PFs are supported:
-> +	 *     1 PF  (PF0):     mask = 0xfe
-> +	 *     2 PFs (PF0,PF1): mask = 0xfc
-> +	 *     4 PFs (PF0~PF3): mask = 0xf0
-> +	 *   All-zero mask (0x00) means all 8 PFs enabled, which is
-> +	 *   unsupported by the driver and rejected with -EINVAL.
-> +	 */
-> +	void (*get_host_pf_mask)(struct nbl_hw_mgt *hw_mgt, u32 *pf_mask);
-
-[Severity: Low]
-Where does the -EINVAL rejection described here happen? The comment in
-nbl_chan_cfg_qinfo_map_table() also defers to a check this patch doesn't
-contain:
-
-	 * Non-contiguous or unsupported PF count
-	 * will be rejected in resource initialization logic.
-
-Later in the series, "net/nebula-matrix: add common resource
-implementation" adds nbl_res_init_pf_num(), which does this check. It
-runs before cfg_chan_qinfo_map_table is called, so at the end of the
-series only these comments are affected.
-
-Could the comments point to where the check lives, or be added in the
-same patch as the check?
+Could this paragraph be added in that patch instead, so the documentation
+in each commit matches its code?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928123237.88994-1-illusion.wang%40nebula-matrix.com
