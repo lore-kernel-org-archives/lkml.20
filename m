@@ -1,166 +1,131 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06A846F483;
-	Fri,  2 Oct 2026 12:45:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6FB46F483
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945139; cv=none; b=eCOPY52aqJQZWj1/K3LuhW17RDMOQbLnWAFvtD0bsXCJ0RXLd6tvvJGYomVdhYE81QIWSRtTeV/iRySRz+QNp7kfFxBQ9M9YkHFOtve7j8NQiTCq0HEmYWYAjQRGv43UN5IGdY9tT5CGx+keeE/jEAsPQZse8anX7emC56PIi9I=
+	t=1790945143; cv=none; b=uEn/A4pdjsY86p8e9u2bEhl+Bud8Jmj5eBpZ4ut9ZXJlGHYMNFY6Ox6KQDZbgJoLbC5Iwcc9a9WlPb1L7Csx3mEibgU5Qzi600GmylPDqmAcsgvo5cRYzTQmy+9G6uGWTqHZ6H7CHmqjAcNVoMKMyHrlffqBdl7uz3PnRTEI3C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945139; c=relaxed/simple;
-	bh=aQwnbNNdnA6ESPiwaIskVeJ2HR5tOCJXkI/gvzy5VOc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nuqdR2BUImXlzxPWjX20iGlFJwTft3oCEWuK+ymHgmWieK4MkkW87NHcQJnwGxiqDTKtzCNUZtcMuBtR9brIZEVD7V+i3r9A7RodayIrDankWjS0MrsVB/zJTSv2b0avL5bGGeYpW5w/tjeZsj4vYuNHQ7JSXJE+7VsAmX+1N/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tc+mSZtF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2aIrGMzI; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=IAgq9ScD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ioc/k14u; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790945143; c=relaxed/simple;
+	bh=RE8eRXCcdd6IL89jJFGqZThlhfyeVIPzFWTLDOZGVLI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=crgbFtBLNg7YS96EwRNwc3btxgqWzv/iVvrXc8CgylzuwH37GGv6N7AeM7zDbMJVmE/syRBtH4PCon1477zg6DULhevUNtyKJjj7CKF+f9HAPR/KVrABbULbFOXDkZMACIwzf06H3nPayOsavDiO0JkzGimdKS55uQW7hosY9Xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bLk02lqH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tc+mSZtF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2aIrGMzI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IAgq9ScD";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ioc/k14u"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 30A7A21D63;
-	Fri,  2 Oct 2026 12:45:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790945107; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iV0g1V+SQVwheY8YK5/iGD2kfKY2xrRvXyiVMofniW4=;
-	b=tc+mSZtFWn1sXROKi/w7iQ+ORI2g3GUC4w/UMs5qbCWzMWpQvRjYhcE7CumFz7GTN9kiLZ
-	DV97RFlZ1x6X61dpPhtPK5NyTnZNz03fw18AzBp1quW2dqCML8Fk+i39NrMED/UwYAG7X8
-	S+Fz8VK38EuEdPLYIfDzc4gcXzJisXw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790945107;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iV0g1V+SQVwheY8YK5/iGD2kfKY2xrRvXyiVMofniW4=;
-	b=2aIrGMzIZr8TW5hJjNPj26h99TJTfC0abXV1XPlXbJfYG5yranv7ET0qmie2u9fY16Pb/z
-	1T0nf/eXvjcNLDDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790945103; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iV0g1V+SQVwheY8YK5/iGD2kfKY2xrRvXyiVMofniW4=;
-	b=IAgq9ScDOvIDzLUasDLjmQsTHziMXmhBp8PvbFiMCBr8A9bFbX1Kd1afNSojzJt4nQ02ml
-	hn4VFo68kzgUiBgMdKFFqQy1JhlHmJskDc6sIG/wJ060gYY+Sz8M5ouqnT6XmvLcAQCR0Y
-	gA9/kym5+XYIC78Fk8DyIK2ZnMnRTWg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790945103;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iV0g1V+SQVwheY8YK5/iGD2kfKY2xrRvXyiVMofniW4=;
-	b=Ioc/k14uvfN24WdpaAyS3NTzVe6/bak+Z4+JpA2AEBgc9WLrdQNs+Unxkb34KNYs0EM7eq
-	Aw6NksGPEgsu10CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6F1F513C96;
-	Fri,  2 Oct 2026 12:45:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id V/hJI0ynv2rNTwAAD6G6ig:T5
-	(envelope-from <tzimmermann@suse.de>); Fri, 02 Oct 2026 12:45:02 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	decui@microsoft.com,
-	ssengar@linux.microsoft.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	sashiko-reviews@lists.linux.dev,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH v2 4/7] drm/hisilicon/hibmc: Do not include <drm/drm_simple_kms_helper.h>
-Date: Fri,  2 Oct 2026 14:41:54 +0200
-Message-ID: <20261002124456.741011-5-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002124456.741011-1-tzimmermann@suse.de>
-References: <20261002124456.741011-1-tzimmermann@suse.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bLk02lqH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EFB41F00893;
+	Fri,  2 Oct 2026 12:45:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790945142;
+	bh=xKTWeEYvEnq79Yxip4eR9Mt6akyZMfafUd0tpMec7X0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bLk02lqHk6sLm/Y9/eL3x80KpG1VpyNYAA3SY/0XMGLKrqq/EvbsUSBRqZ71a1gAP
+	 wOAsukhqRyamJGmYiW5kqlum2Awu52uz3BEQG8vc4OIl32A7pHL5IHRNKX5ibqWGCl
+	 Z/vbdDVWzFlcwEvIg9gSejzjgmQk76ggul9PwyJrtg/+DudTaEyuUCJoPDF9JkG7DH
+	 YfMDavAXO50DKNzh6g7xL0kjZHWHHIs9JGOiElFsb4d+S12itXfol4gKXn95udrnBR
+	 uHnQ0slVIHTUiw4EU9Xshm3NKcBF4+JOIRfeNAxeFzu8kuc9rXzHuvBewKJa8s2hF7
+	 T/qlfCpXyK0XQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/15] mtd: spi-nor: winbond: Prepare the introduction
+ of W35TxxNW parts
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Richard
+ Weinberger" <richard@nod.at>, "Pratyush Yadav" <pratyush@kernel.org>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, "Michael Walle" <mwalle@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, "Steam Lin" <STLin2@winbond.com>
+In-Reply-To: <20261002-winbond-master-spi-nor-w35t-v1-9-a22a2f95c26e@bootlin.com>
+References: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
+ <20261002-winbond-master-spi-nor-w35t-v1-9-a22a2f95c26e@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 02 Oct 2026 12:45:41 +0000
+Message-Id: <20261002124541.7EFB41F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.977];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,microsoft.com,linux.microsoft.com,linuxfoundation.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spam-Flag: NO
 
-The hibmc driver does not require anything from the simple-kms
-header. Do not include it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mtd: spi-nor: winbond: volatile dummy cycle config lost on resume
+--
 
-Suggested-by: Javier Martinez Canillas <javierm@redhat.com>
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c   | 1 -
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c | 1 -
- 2 files changed, 2 deletions(-)
+commit 61a4c1418798804759dbb5ceb316bd56196b68ad
+Author: Miquel Raynal <miquel.raynal@bootlin.com>
+mtd: spi-nor: winbond: Prepare the introduction of W35TxxNW parts
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-index 2e9403b8bf3c..7bf6befa0440 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-@@ -4,7 +4,6 @@
- #include <linux/io.h>
- 
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_drv.h>
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-index b9bd6d33fb0f..0b72509f7a69 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-@@ -17,7 +17,6 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_print.h>
--#include <drm/drm_simple_kms_helper.h>
- 
- #include "hibmc_drm_drv.h"
- #include "hibmc_drm_regs.h"
--- 
-2.55.0
+This commit introduces support for the Winbond W35TxxNW octal DTR flash
+family. It implements callbacks for entering octal DTR mode and configuring
+the number of dummy cycles via volatile VCR registers.
 
+> --- a/drivers/mtd/spi-nor/winbond.c
+> +++ b/drivers/mtd/spi-nor/winbond.c
+
+[ ... ]
+
+> +static int winbond_w35txxnw_nor_set_dummy(struct spi_nor *nor, u8 dummy_=
+cycles)
+> +{
+> +	return winbond_w35txxnw_nor_write_vcr(nor, WINBOND_NOR_VCR_DUMMY_CFG_RE=
+G,
+> +					      dummy_cycles);
+> +}
+> +
+> +static int winbond_w35txxnw_nor_set_octal_dtr(struct spi_nor *nor, bool =
+enable)
+> +{
+> +	enum spi_nor_protocol proto_aft;
+> +	u8 *buf =3D nor->bouncebuf;
+> +	u8 rdid_dummy_aft, val;
+> +	int ret;
+> +
+> +	if (enable) {
+> +		val =3D WINBOND_NOR_VCR_IO_MODE_ODDR;
+> +		proto_aft =3D SNOR_PROTO_8_8_8_DTR;
+> +		rdid_dummy_aft =3D 16;
+> +	} else {
+> +		val =3D WINBOND_NOR_VCR_IO_MODE_SSDR;
+> +		proto_aft =3D SNOR_PROTO_1_1_1;
+> +		rdid_dummy_aft =3D 0;
+> +	}
+> +
+> +	ret =3D winbond_w35txxnw_nor_write_vcr(nor, WINBOND_NOR_VCR_IO_MODE_CFG=
+_REG, val);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Will this lose the dummy cycle configuration upon system resume?
+
+When the system resumes, the SPI NOR subsystem invokes spi_nor_resume(),
+which calls spi_nor_init(). The spi_nor_init() function calls
+spi_nor_set_octal_dtr() to re-enable octal DTR mode, which invokes
+winbond_w35txxnw_nor_set_octal_dtr():
+
+spi_nor_resume()
+  spi_nor_init()
+    spi_nor_set_octal_dtr()
+      winbond_w35txxnw_nor_set_octal_dtr()
+
+Since winbond_w35txxnw_nor_set_dummy() writes to a volatile register
+(WINBOND_NOR_VCR_DUMMY_CFG_REG), that configuration is lost during sleep.
+
+Because the core does not call the nor->params->set_dummy() callback on
+resume, and winbond_w35txxnw_nor_set_octal_dtr() does not explicitly
+reconfigure the dummy cycles when Octal DTR is re-enabled, will the SPI
+controller and the flash chip disagree on the number of dummy cycles used
+for read operations?
+
+Can this cause data corruption on read operations after a system
+suspend/resume cycle?
+
+> +
+> +	/* Read flash ID to make sure the switch was successful */
+> +	ret =3D spi_nor_read_id(nor, 0, rdid_dummy_aft, buf, proto_aft);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-winbond-ma=
+ster-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com?part=3D9
