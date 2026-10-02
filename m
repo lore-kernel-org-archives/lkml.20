@@ -1,60 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092ED472072;
-	Fri,  2 Oct 2026 11:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41DF47533D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939969; cv=none; b=JrJdwVqDcSrhKbLunj6rq2PsnihKz683fIhk/0X3ZYa5dc7BHgr14oswHxmv8nl0ws0b6KWuToULBtSybSSQGwxWJW5YY02e0Yvqlyibj7f/E1207J6X1mx4pLjKEIRxbh5rxpcMYRW3PRObbZ2BMMotCflhLZK3sO9dlUiYEv4=
+	t=1790940078; cv=none; b=QGvSdcb4y0mgjFec8RiM9sfUnFOaQA7tc6O4MZhMIQvxq6kzp0itTv9yaDERKL/yDTAljidpxA1EJ2WO9+gypnd4Qf4ynckHAqDq9oh8QA5xqwUzLyPU55qp+bdzGJV21X+p719MyrLODvz55dwu2/AA59LxFxo40PakHP8KsCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939969; c=relaxed/simple;
-	bh=lviCT27rqn9fA11DK5jBpnHz/dnpBP11DxOVf3ldaK8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ie9BT19q6Bk5Dg0ZF3S+uvfrlp/rrh17Nhj/m2CbjARI5EdGvryb8To4xNe5SgIDazpfxjXuKkyW1gBsBwP2a28k4liWZySbt9aojp66z2KzPK8N5t0CRn8jfnKvvVObqwP6HKCOUECtVJPCcIBZhB4MM5As5eAdftC3q0b7QWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5+kComB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790940078; c=relaxed/simple;
+	bh=rkCcOHhvP7Z1T5ywcz6uiBs+Yi1x1yW7MGEBQeGtYM0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RkfxC7+CAcu3y3F+AzmefbKHBQFV7tDqTaFuKI0Jke0ftuW7+qb/8wKkFCL65+CF8lZd+YQ7s41qQ7JimqBpoXHN4GpLLi5YufbwgxD5TE8ObtdeF6uypZl2BUUQEuUnairRxkTOJsTDZTEGcWorZbtkXc8Do/QuM6c04rzMeD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hTY95VGy; arc=none smtp.client-ip=74.125.230.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5+kComB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95A391F000FF;
-	Fri,  2 Oct 2026 11:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790939967;
-	bh=zaPxFWn5phk1poNRE58QojD0V2a1+4RKn/uvTqNxibg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A5+kComBFwibwIBdu4/nl2+6XPwpM13HBqbAX5eu91k/JApiaNiENgKducsCrVGQ/
-	 TqI0pz3lugDEksMOSO6awWNy5cC/BTvrAgMjaXbVYX77f37UxF9nURhIFSjjm52pNs
-	 phPOEse/wMmmtcdiXKTEJeDIJsOVIxdRGw0OmQss4KKU4tgAKxYYvxFfvLErjCAUjF
-	 oroUCb0m3nCdTgDByBbi4OzqYFUA1JlOfoHoK/UFGd8ZPJ8GUouYUtEaq4qPMxweTy
-	 daf8ZbSaZR6kLL4GZptyD5OOPAJ9VBemjQyqCeC5IsYWuEJcXIfP1gIcq1rygfDB6l
-	 8+kKXK8nVjoYQ==
-From: Yixun Lan <dlan@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>,
-	Guodong Xu <docular.xu@gmail.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Yixun Lan <dlan@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Bo Gan <ganboing@gmail.com>
-Subject: Re: [PATCH v3 0/6] spacemit: k3: Replace bad CLINT node with ACLINT nodes
-Date: Fri,  2 Oct 2026 11:19:15 +0000
-Message-ID: <179093990819.1237110.17149048431287759426.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
-References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hTY95VGy"
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a7823deaddso6823311fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 04:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790940075; x=1791544875; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wWsaWvAs491EwexC4j9Mtw9mN2AsoOlrDKvF/57KANQ=;
+        b=hTY95VGy8H146W7rDSVk0OI4SfwsOjhc+KeZjJggd/EJnp3fRMcQAsytrBpO3nRV1+
+         2vkjtTZ6yWh/cWLUXJdKz09oKH6o+5eOGPBLvQFtFKVFKYSB3CigklIjpQK6FGirT+EN
+         ZogfX1F49SO0pN8P8Tix7NlJMgiG4sSHTdd0I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790940075; x=1791544875;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wWsaWvAs491EwexC4j9Mtw9mN2AsoOlrDKvF/57KANQ=;
+        b=XSNdtvZ/xIXKhjj/k4DHgCQOndko2zdxf1IDJxWmOsUIbsfuDBfezQisiMMtiQ2OK5
+         A0phj0+aFOc3TcsR/mhUi/kmbeEmeSp4oN9D0pZbczRjLy+t3+Z3x8LJEug2IW9O5IIB
+         glA+/LvVHRWqT7MRmMDBtbllOGT9/qjUTRIJ1nI0NDG2S2itPcwxyr8r7T/BMr0Vi9Or
+         JXpidhXiFK9f7UEDuj9C1JLfVO4ZPjkg6TmCfOuxB0qvtSm+6swUyQyoaqt5vLIgdaPV
+         I++S+HPeZxZVvBzPcb+LaEn1ifQ7LUq2qiq8BcJTuYkIuTSeLG+yRQ9vhRtxdszRFisK
+         IoNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxMBoww4gyVpm8tS8osF9G0qzQGhNJ9MguCcde/WtNNGo6aPcXrksUARYo/WnjJea4ki4tquXK0QAOO/PQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJigxGD5S4pze9YOPWknQaOZQ57aON0r04bALJAbETn0BNnHYs0
+	Og2HD+zd1MooAhzpP69PwgDA119EKXtRnKym2XAOSnFOD7QUOMEGWlDVHbBlbST6abnD53G/YdH
+	cZg8=
+X-Gm-Gg: AYBFou09NmS8lKyByOYzCy0Pqh07B3lo6Wie9Pc3UaGDIdRJYlIwTdNQF4H1Z4iP4A9
+	aBt7d370/Rt5StbE11IhVJZofx4UMTdBEm4fsohkGcJkXEqY5xkbR9P7ZxEwxowT6P+3NOQMWpF
+	WyoAXpD4vTgOJ2IPYJbs/7cwxst8nJCqwAm6jGBtL6YaQoFE+CpUGEqyPvCzPsbvKnhGmZTl38N
+	lIZKyYvL4BHn782Wj7IjAFrdT7d/TnOuQfaoi++OBV/KK2LgJVAXaQcpcaoXy4IQjqLQe7Qd7dF
+	biyuNURZ3ayXynehwNNwyKztPAsSL5mZZ0AxJYit6Fl1X7mWIDdhNGbXZpZiiRvi+Ir1rOft0C+
+	gUi5N8LdIREqVMaWBz/+NBNOKj5TUgM3lqmF/PXmGFSef9S7ftGFFrXKDfQp4nrDQTCuj1hERgB
+	iTxxiyoZbMHXX5x9vc7tB8nGfCkh1zRrHPpzdV/A9u3WLXlm9nv8nZjruGe3HYRlpmm58TSjPq6
+	5LBE7FvEqMRkQRkb1Qa0j29XxjTz7eTVfsIjPBmdiECVR8SVHfWDcnh
+X-Received: by 2002:a05:651c:b14:b0:3a6:4739:2008 with SMTP id 38308e7fff4ca-3a87ebf5707mr5347261fa.0.1790940074663;
+        Fri, 02 Oct 2026 04:21:14 -0700 (PDT)
+Received: from ribalda.c.googlers.com (166.141.88.34.bc.googleusercontent.com. [34.88.141.166])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e324350sm8562931fa.36.2026.10.02.04.21.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 04:21:14 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v2 0/2] media: uvcvideo: Do not read beyond the uvc_status
+ urb
+Date: Fri, 02 Oct 2026 11:21:09 +0000
+Message-Id: <20261002-uvc-status-11-v2-0-a98a135df0eb@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,34 +68,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKWTv2oC/3XMyw6CMBCF4Vchs3ZMW7xQV76HYVHqALOAmt6iI
+ X13K3uX/0nOt0EgzxTg1mzgKXNgt9ZQhwbsbNaJkJ+1QQl1EZ1sMWWLIZqYAkqJWg+a1NV0ZDT
+ Uz8vTyO/de/S1Zw7R+c/OZ/lb/0lZokRlx1NL+qzFIO529m7htBydn6AvpXwBTTK8760AAAA=
+X-Change-ID: 20260813-uvc-status-11-99b9e27a8ea9
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
+When we receive an interrupt status with a control change, verify that
+the urb has enough data before we read it.
 
-On Fri, 18 Sep 2026 00:29:32 +0800, Junhui Liu wrote:
-> When testing OpenSBI with the upstream Device Tree, the CLINT controller
-> failed to function properly with the irqchip.riscv_imsic_noipi boot
-> parameter:
-> 
->   Platform IPI Device         : aclint-mswi
->   Platform Timer Device       : aclint-mtimer @ 24000000Hz
-> 
-> [...]
+While fixing it we figured out that one of the mappings was using an
+invalid size. It was working fine because it used a custom map function,
+but now we rely on that value.
 
-Applied, thanks!
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v2:
+- Use wMaxPacketSize for the  urb size (Thanks Laurent).
+- New patch to set the proper size of V4L2_CID_ZOOM_CONTINUOUS.
+- Link to v1: https://lore.kernel.org/r/20260813-uvc-status-11-v1-1-2cf43e9590b0@chromium.org
 
-[1/6] dt-bindings: timer: thead,c900-aclint-mtimer: Add SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=73329198cdc273008bd273b0c5ad4c65251cb49e
-[2/6] dt-bindings: interrupt-controller: thead,c900-aclint-mswi: Add SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=c9bae665035f345ca050e98d6f4d6830c3d74f84
-[3/6] dt-bindings: interrupt-controller: thead,c900-aclint-sswi: Add SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=08257b5b3d38b3e19b61b807850f5a637fd1421b
-[4/6] dt-bindings: timer: sifive,clint: Remove spacemit,k3-clint
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=5397ba147c28427d3728812dec999fdab0f53619
-[5/6] irqchip/aclint-sswi: Add support for SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=b424b3b0ab920a25c23fbd7d226a0174b38d0de7
-[6/6] riscv: dts: spacemit: k3: Replace incorrect CLINT node with ACLINT nodes
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=cc6371a7f5195387584e56054f3af671ff7354dc
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Introduce scattered field for uvc_control_mapping
+      media: uvcvideo: Do not read beyond the uvc_status_control memory
+
+ drivers/media/usb/uvc/uvc_ctrl.c   | 18 +++++++++++++-----
+ drivers/media/usb/uvc/uvc_driver.c |  2 +-
+ drivers/media/usb/uvc/uvc_status.c | 18 +++++++++++++-----
+ drivers/media/usb/uvc/uvcvideo.h   | 15 ++++++++++++---
+ 4 files changed, 39 insertions(+), 14 deletions(-)
+---
+base-commit: 7fa44c2c123c17c4a3856ffac5e384409267cced
+change-id: 20260813-uvc-status-11-99b9e27a8ea9
 
 Best regards,
 -- 
-Yixun Lan <dlan@kernel.org>
+Ricardo Ribalda <ribalda@chromium.org>
+
