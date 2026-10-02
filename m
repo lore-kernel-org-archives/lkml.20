@@ -1,273 +1,264 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012036.outbound.protection.outlook.com [52.101.48.36])
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD82A44A400;
-	Fri,  2 Oct 2026 21:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB8B361DD0;
+	Fri,  2 Oct 2026 21:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790976464; cv=fail; b=MmoxfvKVQOVoNdKRXQol2d9Go2IGmz3SoH03kJ7ED5LTR3+I92sCrYXA9XxtZ15E3kAfMgscbJ2IX3K8OqF7Z7SmkHVVIFH6bohb2cB5g8P9qI/MIYFLPqfoSMYkuziA9eanUbzkGVXsCtIjN+uIsDW+gwjkL8Y1mQjfpWEFo7k=
+	t=1790976482; cv=fail; b=ClYnxypa1sJnFIvdXrJvauqXxMChbWalbN1RpbqI52LSXnHFAUBB0yJmYSCy+eXoV/UzkxWxlNL3OR4woqk3223nk5K5mJoO7TzviRTg0C805dCcqUByEBJOv07cSntolk7BBWHXtmjktvmfImTfCido81LV8v1lCiQG/rGp5C4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790976464; c=relaxed/simple;
-	bh=LVTqZvfB65X2jefwFD4RTFAIAKl5U4BWwmcsREKESPE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pR3zE4Rvo8Hi+L7uquNvXZQ2lkTNPsQJqLCL6KHAhBzab3x6qRYZiNeb8l4RGJp2cOjfnMCW3KK0PfuW+0lYnWdk/yb0pv52NVmWjrULdH2tVC1ivE0qcs0+WgjCCJdoPYPpgPgvnBSqBsJJrLATlsX6jlzoaei09XULgAjJYD4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sKXjfcHL; arc=fail smtp.client-ip=52.101.48.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790976482; c=relaxed/simple;
+	bh=j701RY+CvWEKj+Th79nHfwi4EKPNGYRhfGOZPAyS6CI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=QInvhBSO3Oof+StUcp2PVaaKFYlOzWswtr85MEg8C5K8yoiYcT6UBZwYEGE3RtXh7E+NG+nr1WIJujThfJKwW51zpWQEJREhPlXClHRjeBajCowUi7A1SQsZ8X8tWvMuQRU1ILdG2s4D6bXr5QOWBy6SlYkq3MbhfnSgsvGtw4U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=EQMB6QSn; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=Hw6ArkxF; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=TxgV+qka reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sKXjfcHL"
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="EQMB6QSn";
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="Hw6ArkxF";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="TxgV+qka"
+Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
+	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692L8XHs710613;
+	Fri, 2 Oct 2026 14:27:48 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	pfptdkimsnps; bh=j701RY+CvWEKj+Th79nHfwi4EKPNGYRhfGOZPAyS6CI=; b=
+	EQMB6QSnwPiKI2Bl+5CNd3Q7Vf/rde44qfDaLinEZx8DfyHCYOrnllIP6Ia5U983
+	0gZPGEiOrNRMppRx3ZMw6vTH0Ea2UJC1VQRw16Ua4r/2Cg5/vo3n2MlBYtZbfL6Q
+	tMu2qO15tmUUKewP22A4+C/LAjzjG5//DiiFqjPBmGaHBvlJMxtfF/X/pvNmuVz0
+	6ddSnZjmIPN1XAojRyvVSC9+1qBw8TNU8eIpc/3mrHi+XXwp2dW6AGXt0z9dP5Md
+	ivbi8Db7m/Z15xZlymT83jiWPEEa2fjk3D0TWMrr20DKmwR00Vqv0/z0lnFdN6AP
+	xTFHwCb5hXUIhXnbvcMicA==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.87.133])
+	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4h28qymuck-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2026 14:27:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1790976467; bh=j701RY+CvWEKj+Th79nHfwi4EKPNGYRhfGOZPAyS6CI=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=Hw6ArkxFAy7sF+fBDFDyFctnf6zR/FKP22QMxmwjiHfpSLVGE8srNzqLuZFJo1+jg
+	 9EPy2sWhLF+IesIDbyMaSBCN0qdvdBAyMWReSTWyZG0ullSSLRPic/JrzBzVF6TIaW
+	 5lzUrL0ErmqFalqcgmz1oJeg1UoWXMs9ggs6i7NbAjvrvkySbkXOYih2d4r5QV4Pte
+	 gCM39DnfsE5XXVbCR8v0KK9kw1IwdZiUmvEsS97SVN7B7TWjdXbOeMXak/k8N858pS
+	 2Ea/TQtPKV8075t23u6NzGDjpDrcPGjUZnYA7eGmn7w2uhSXkDY7nBuApKWu2EnM7f
+	 emknbMNtbkD+Q==
+Received: from mailhost.synopsys.com (sv2-mailhost2.synopsys.com [10.205.2.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 5D559404F0;
+	Fri,  2 Oct 2026 21:27:45 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (sv2-o365relay1.synopsys.com [10.202.1.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
+	by mailhost.synopsys.com (Postfix) with ESMTPS id DE634A08EC;
+	Fri,  2 Oct 2026 21:27:44 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=TxgV+qka;
+	dkim-atps=neutral
+Received: from SJ0PR08CU001.outbound.protection.outlook.com (mail-sj0pr08cu00103.outbound.protection.outlook.com [40.93.1.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
+	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
+	by o365relay-in.synopsys.com (Postfix) with ESMTPS id 51EF140235;
+	Fri,  2 Oct 2026 21:27:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sLEXrs1uU4bXxxUyoo1ACaoH/r2viGPCiRXOtSkM4zf9K2nyhvyTvvIoJ83zF7jg8EZjY6gIBkVl+68N4oHaG9CMo2K0iQ8/tOLzl2yBGpgzbDkvCKvMZl8hbf9zKtL55vlCOJKsi3luOnwzz4/bwhMFsxF9tTHlB5SE0//ythk/BalKMSHBbEMqSMrNETyO/YnDYrf1poeGMVEo/5NGJndxFTJL6u16jMlsUrvFyLBKNECHMlHlhue8Ek5AUDkPqPVEB9mWpz2EV8E2DtJ/BuFf+8J9fYgWeQlhgfiWk+/YW3ZgIQGZ0IXio8CedypfNNYp7xxcybTOZk4++TA51A==
+ b=k7a48EVVnEhnoDmc9YXX4K3ofU6gzLxOP6ty+mp7o5PDBfX0562SwKd5u5g2k/3CFmCIAMnTxQCrn3wqNE1OLqzqRAUh+MPec4/mCgQRcq0ozIRB8Kl1aFrL1NAevSRgFdyZ1Ae0Mr8nOyANQ2kulzgDjcIJgc4yA3EuARhtXKRc4TvjMRgNm1TPrCVeCSuq0kq+DNpCk1xgLq4vF8yyDubrJ4CWV/17G0MEYCoTl3Mx0TpQfxVdt7PH0SLooqucmSvtYnThXF56yPq9OjZ6BQUpFNSKEEJqdQmylE2prgJBPVUWqkm3x2BGLHp+1tlXNHMXwV/RAEhKza2vFf5O3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f5i5fa+H3enKBdR1IBgj8djgPj021enJRKVNdt0OeiI=;
- b=Zll9O2vhuzs5QkRL3riGUzwwaCtWqa+tx3ccTns8DizgwU0RDoVftIHwVT3sfzSwQDlARNXLBCrfq1hY0VeAcfxBu0BcsA8bVu2oM/j1S+mJKqNY9QHZp93jaaHyU9UbJ2fYVT8+jJSdK7MIZcbPFisvm0hJ/6A7nCXdtm6JJ8OH+/l4lhoFexZQn52BVHzu8fxC/gjsyOyqlXTGr/jogRDV6RFnmDbHvSvHwo2ZKe+/mpjT28jguAgIwHLjNfUO9AgEwL6eP4GsR0nckUh+xqMFr3U/lkNA0GkzJ3td4ekS2QywW6Iak5p5Y9rSn2L0Tz1dRoR0sCvAz0v+wF80Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=j701RY+CvWEKj+Th79nHfwi4EKPNGYRhfGOZPAyS6CI=;
+ b=C7kI9KQONO9ajo7Qdb6GiUbli6g49Wct8QepjtlZCXbLuAY6gzQxYlFgnHIcJnd3IPxLlyBjh/zv6BlX8HHpsMQMGIhaojT3KoItthfxKuEXWe1VubKznOLLPPGU5D0y4JUJ37RUn1lEIWom/ZbgIBnuMcNjgGvaI0Zp7LvSW4Rjwvo6gVbMaVFL1yXP/a2rMq0LZsZs3zcM06oN9puFXguJ3mz/Zi7RpXaG2PrOD/lK2vkrM5VAxmGfYkt85p/PWADw6xoJzIdIqafCIT7S7Rx3LpGQg2JVn7c0/2OrTLBiAufFmCe6HDRPkwvG9UT7AbyUgv8vNohF92xMOnySGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f5i5fa+H3enKBdR1IBgj8djgPj021enJRKVNdt0OeiI=;
- b=sKXjfcHL1I6WdhXGUs/p3etGNtFONq9f0wQBqqKIrHvm7xfrZYk3r2NMn5+t+7ffFKCL5W9jEWZnvXweni8/5hCRmcbOc4ps15lGedBh/lRuqUM176V8cHUy6VhCzSpvQb6A2d4FVDTKkk5z8Hoyu/5hzp1jr5UrWd+dDljfddY=
-Received: from BY1P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::16)
- by MW9PR12MB999209.namprd12.prod.outlook.com (2603:10b6:303:301::20) with
+ bh=j701RY+CvWEKj+Th79nHfwi4EKPNGYRhfGOZPAyS6CI=;
+ b=TxgV+qka3wFbIlLKHdol1euEdI9Rroxj155kRS86SQBR8oiqtj7DO4qfPvYR4HdBgbo8AIgcCHM16OGwroBSqqVdjjU764i0oPD5UwRyKC8qe7OFMgILeavi9wXiw3T7IsFZKnEAxHDZ8XnsWayhXiXzIG/pFWDQGr5D2xuEGHk=
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
+ by DM6PR12MB4482.namprd12.prod.outlook.com (2603:10b6:5:2a8::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Fri, 2 Oct
- 2026 21:27:32 +0000
-Received: from SJ1PEPF00002322.namprd03.prod.outlook.com
- (2603:10b6:a03:59d:cafe::f) by BY1P220CA0008.outlook.office365.com
- (2603:10b6:a03:59d::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 21:27:32 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002322.mail.protection.outlook.com (10.167.242.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 21:27:31 +0000
-Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 16:27:30 -0500
-From: Babu Moger <babu.moger@amd.com>
-To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <bp@alien8.de>
-CC: <x86@kernel.org>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <tglx@kernel.org>, <mingo@redhat.com>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <kas@kernel.org>,
-	<rick.p.edgecombe@intel.com>, <linux-kernel@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-coco@lists.linux.dev>,
-	<kvm@vger.kernel.org>
-Subject: [PATCH v3 3/3] x86,fs/resctrl: Keep mbm_assign_mode in default mode at boot
-Date: Fri, 2 Oct 2026 16:26:41 -0500
-Message-ID: <b969687be3162715e10242424b5a489857d67f2a.1790976400.git.babu.moger@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1790976400.git.babu.moger@amd.com>
-References: <cover.1790976400.git.babu.moger@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 21:27:39 +0000
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 21:27:39 +0000
+X-SNPS-Relay: synopsys.com
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+CC: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+        "michal.simek@amd.com" <michal.simek@amd.com>,
+        "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+        "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 0/3] usb: dwc3: xilinx: error path and teardown fixes
+Thread-Topic: [PATCH v3 0/3] usb: dwc3: xilinx: error path and teardown fixes
+Thread-Index: AQHdT0EPhBhDwEnqjU+ZcFqJhC2z1LbqyvYA
+Date: Fri, 2 Oct 2026 21:27:39 +0000
+Message-ID: <asAhNsmiBunddm-W@vbox>
+References: <20260928120015.3152461-1-radhey.shyam.pandey@amd.com>
+In-Reply-To: <20260928120015.3152461-1-radhey.shyam.pandey@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=synopsys.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|DM6PR12MB4482:EE_
+x-ms-office365-filtering-correlation-id: 02c67e97-3117-495b-49af-08df20cbfc62
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|38070700021|11063799006|5023799004|56012099006|22082099003|18002099003|6133799003|10067099003|4133799003;
+x-microsoft-antispam-message-info:
+ OM7L6vl0YkRb4Q6JJZiIBoMz+6DlR3CKocmmYV4Qj78moQdeqi+H8Qa0QXa8kdWvVn+QQaS9Wk+UMeLtUKrj11QQxaGKQIqhMXvxlp3Cu9y+Lja/AZUqWN4bEtidwhd1DSw4fmPcU1+pwyE0/Sd+E8bUua+8uspSoxvTovFpzxjedrYa7bfKT+RyP/D0NBXoQB4PRJeYz0Z66pc6cUi8ulz/hIpNiiFtaIk7bLDKUA5HypgJfRpga3cB38pCMKeb3p0sgyUScvh3BCZFgKqVnmXRXogWkPpwb3bfFBOIaQfto3nemLwPIrp4Ys00P9xh+P9GAyTBmAZEq+Zjsz6vus59Do3QSxiyQD/E1qqjiZv89Y80YuiZpjJ0ESejEE8gk+CrzC9+EQu+xT4wWXO9kCnRjbVHXUWRKXo8VDGJiEueGgPU8O8hnd7NlTa4ZyIckduqguGrdgdhWMB400YtF9sxKwSaloB4ygwcnd2r7iKY4z7aAi1MrtlJpzogAT4ff5cYo9OiirEVBAIUYia7ubMWktuy2ICcbXrku/gE57vbo+ko3H4uKONz8MXxGBuMc6bs7ArK/Hq869LIxc6WtOjKfT8Tb/TMQRuxHDmrYxd5KxNqU2BjaZbOhRdZMOsEEJy+rclfDsk5+72KiDV/UsGa1g1LbHbdmVlL//N7DilKPUEtb0vBi4E60bxSF9YshBrAvM1Apb+sMoIdLyvXFeyFZLDGcetjbgin+mu/FRM=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(11063799006)(5023799004)(56012099006)(22082099003)(18002099003)(6133799003)(10067099003)(4133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?V1RXVldpZXFWbUMxT2ZLbHc0c3F3VTBnMWJSZmJkNVNWUTg5U1pNSDlNbTFi?=
+ =?utf-8?B?eERSOU5zejVUUklwbDkxTDE4UU1GOEliaGJMRGVUMUM2M2xjTXdqaFoyWGRP?=
+ =?utf-8?B?M1lYUUlnRWZXRnF2SHRGU3FIakQ0amlFaDdublRuYUdtdzluN1FLV2ZnMktl?=
+ =?utf-8?B?ZHh5UldraFMwME51cGl4SCt3UU9TQ3BPZEhPaHpJUytwSWxldTNERFExS1d2?=
+ =?utf-8?B?T2xvZjlTODdpSFBlNnhlWUJESGlDcnR0WmR4ZjRDTU5nZUp0ejR3bnpaaExS?=
+ =?utf-8?B?WERiUDF6bm9wUDlxbTE4Y0x6RXpHUGxXZ3J1LzlOK3NRY0Z2NGp4OERWZHdV?=
+ =?utf-8?B?cDdwM0xGdWxucVZiZGk5UDNJM0ZFc1JrRlYxR2hSVjdha01ZZmZPYm5jYy9P?=
+ =?utf-8?B?QlVCa3VKcEkySkx4V1NuTXlJb1hyVHh2MldMRi9PY0N5YmpHTXUvZHFWSlZ2?=
+ =?utf-8?B?TTV1RGxRRk81RTRYUWd3ZWc0Rkg1eGZ6SVczVjJJMTJZMW8vTmdwdGtBZXJV?=
+ =?utf-8?B?Ri9kMVJmRCtORWsxSEJ5U0pUQjR1MTJjUGxhRzUyRGV3S1ZGY1ppdzFwQWpx?=
+ =?utf-8?B?aGErcDB3ZHBMV1cvQ0VYZnBQUTVtb3ArTHdaejl3T0lJK0VyVzJpRWR2bW5p?=
+ =?utf-8?B?MUljZ3dFbGxGRisxRGhpdldDWnRRUXRyenJ4VmI5eWhEc2RrU0NoSDRlblFl?=
+ =?utf-8?B?WXh6dCtqMU41UlVFN3ZwR0hqUXpNTVZrNjVaZ3dyZGdXcGt3MUI3dlI0NnVq?=
+ =?utf-8?B?dHNVZE1YL3VEWm1aMXIyaWVKL2g5dTlEdWQyMWlSWWk1WVFsZko0bytaQjBU?=
+ =?utf-8?B?S25LT2tlOHc3NUtGZWdDTHZYWTRiWU9HY0oyNERPT2Z1ZHRmOHArUHBFYWlX?=
+ =?utf-8?B?d1hyQS9WS1o4YXNlR3E2azRpVWhTMUk5WWcrM0Mvd2dHeEpsZ3RQNkxyZXFN?=
+ =?utf-8?B?dENiMndBamxON3JMYUFCT3FvK3BFWUdyTkVyR1RENk9lWXFPVlRZZTgyRGFC?=
+ =?utf-8?B?MktRRXBSVnFpL1phTjVRUUJXdW44NlFKODlnUm1yT1RZU3dPNFVXQUkzN2ZQ?=
+ =?utf-8?B?R1BCNEFZblJESENScHFBeWJCcTBOTjN0allTNVR0ZldoSnp0LzJyOFpUeU9Y?=
+ =?utf-8?B?dzZZcExEK3g4bjhHS2w1K1htSjBGcE80U2ZXZ3VWVkdzN0xqd21KRm9RVTRn?=
+ =?utf-8?B?NVhaT2V1T200U3RXR2hRL1VpQ25Idk9yc2tJSkdRS1d2d1JvM29mU1pIVDRL?=
+ =?utf-8?B?TzJhVFNXVkJxbUxlRjFvVzVCZGRnK2dCTG5Fd3YrL1lFMzg0aFpqckJ6RWQ2?=
+ =?utf-8?B?OSs0enZ5UVI2aFBpMTlTZmZwK29rMW5kNFlXZ0tiS3JlZzNvNWd2REdBZ2x0?=
+ =?utf-8?B?TXVYWmo1cU9GODdzNVF1OGd5T05NNEtyR0VGY2ZUZFJuaFlhWEViMHJiQ05U?=
+ =?utf-8?B?TlpuWm5oeDVhT25KNG5tYXlQd2xOUnpOOTFEWXR1Q1k1OS8vWUxBWjdrOW9L?=
+ =?utf-8?B?YVEwOFg3TTl6RkpsWmpGd0gvRGhxaGQrL1FCM3VjT0l6VGNMY1ZSTEgrL2dN?=
+ =?utf-8?B?Z0Vjdkt1YldtWG91dFArODRyMFJKM25wV2FUMXZCaWp1akVHbVlHNzRPWlN5?=
+ =?utf-8?B?SnYzWDMvWDNSc2F3V2dQUEFnZ2RQYldJOENoUXU4ZVIyci9DRjFENVdJNk1S?=
+ =?utf-8?B?eW43a3ExdjhuRXFPM0g2NTl3L3V5U2lJQ1gyaCtuVXlwWUdSYnRlYm5nWnJO?=
+ =?utf-8?B?aC9mNE1oR3g5VGNJbXRHMGJ2eHc4Um9pLzVoTTM2UkVUdVVyL0tGdXdtb1Qr?=
+ =?utf-8?B?MWM0UDBGNjhkMmhZbzBaTzlSVnRlei9wN0RJcnVRT1cvd0o3dHVGNGxob2Zz?=
+ =?utf-8?B?TGpTZ3grb2R1YVB6S3J3aEpjZ2tLNUxZTy9sMkdDMGNROXZEWGNSKzVlMldO?=
+ =?utf-8?B?aG9hRElWYnp5VjBzd3B5RTBJWjR2Y2tmT0UrNjlKdVd4REJvU2dZSkdkWW1Q?=
+ =?utf-8?B?TW4walR3RHo2NXRpZ1VSRDhOOWxTMG1PdVJxSUFvdm5ua2dnUVJDeUFaQWdB?=
+ =?utf-8?B?dWI0Vm1ON1NRUWxjU2l5bUxMUWswUWR1bzBwbG1rRjd0d0NLZUxYZlgwbzVq?=
+ =?utf-8?B?TzJNNlN2c05aaUpvSkx5b1FCYTViTWJ5NEpEa1N1L2RLWjBkK1R4WldUb0pK?=
+ =?utf-8?B?Wmt1M1hrbkEwcWg4dExlTCtUTjc4TWViQStLRzFvR2QwTndQRzQ1d3dsR1A0?=
+ =?utf-8?B?UGt4UjhVVVdpRzNSNnVQK29wZ09FSS93MkVQbG9haWRudUIzaUx3RkxINGh2?=
+ =?utf-8?B?VWovRjVnamZreFgxT2Q0bmlncW44TVFQRVJZRll4RnBjYmpjcWVVUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <4672754C2396C2418851036A02A57F2E@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002322:EE_|MW9PR12MB999209:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93a987e9-3916-41b7-69e6-08df20cbf7dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|7416014|260925022911599003|10067099003|260925021911599003|260925021311599003|11063799006|56012099006|5023799004|22082099003|18002099003|3023799007|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	2J0zb/vZ3lMhKfmPawcjO2ZoDoFjHXOB0csEuYXndDS8x6N9zC3dfp6Qug/its+ZZRjzWTRzWI9JgVTqPfCgRJUtFeDQRPk6Zn3OefAFaqNwAwiJYUbrLqF6QxoPzrTXWJh4gN+7hyGvDg8CAKlFz+H6QEYRQwOUaarg8YviZs/xwAvXyapwXUT8Y413QIzGC0UdLLVH0AqJtpcYHqdcsD3TKqPxpQYK0IO17itffVoFW41LgwQHp2xGgaj+MGNdnau3PoWpUuJCgCqcRcvGKwXpal7zdJfX/U0D4yrt84fXBSY8IvDGVjQQTjbuI55RTdz2z0tnzhi7DN5dR2/zzqN9100upv65Pmloj3FfS5rR+5kMgROHjOr84OxSgzDUqjK3AgwuSw3k3KSBMuMNseP/sNLNY/25ExNKiu2cAIjoUUOSpFwWY6w8ELxKzuw5ywhYCJmznr6Nx/mQ7RxQ9VszgSqj+2qwKtNHGLSl7GnHQGermvBPrcbnH+ghUZ21Lh8dL8o5AAGUOzI4MkE8/LumpyMEtaCkUf8mbC3yYh2fACzn6gKE93U5xByCG/a7MuNAL+vDG/2QgbaRZthOIM0qT12UMo6oZ+IV24nws17AhZeadoWP8c8dJfsBzrc2jHCISuET43oesgVytKS//XCi7sCSYGXR4ktQplh9KHMhVEnjVr9lGXInqKUQ0VmogzHq0F6iRpirmKEjNG3RkA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(7416014)(260925022911599003)(10067099003)(260925021911599003)(260925021311599003)(11063799006)(56012099006)(5023799004)(22082099003)(18002099003)(3023799007)(6133799003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	a8HiI/pBnAL+BgNhPy4UQ2FhE43FBvUJsUJECJlAH+TeSJP6eyuA18mtNm0hF9oMKoiIrmfU18ujApDoMiVK5FCdPqXWEXanF01mtVJyVcelOUyMnQ4eV6tRykl9KuzxeqQmYAbSL/V+H7HgEJeE0uhNvpzoYC0nMgfI6Vhlp7IaXevc7AErD7EVF/Ay8JixNs3P6YfaSMHCsdjg8XJBfzGJa+yj5UJPWIVexWM3TSeoCSiWmR+43L9CG0btgAeBnwOvAr9RRA5E1b7+jfRV04n5AaUSXicIK712f5Zzkl5POqUyIQlR0Po87IMRWKg1ZEZ/OT4SCU10EYSfxCwmRJImP7t+viYxkYK7DUkBObefYXZSQzA9XiCKWGlU8xuWNreSTo8EM/eu/K/SbpLD579chjopNOirV+VYs7TV1/DPYSpA3EwwJfzQw1sxNIzn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 21:27:31.7562
+X-Exchange-RoutingPolicyChecked:
+	O/zy+zVZeG0Ra3c/rEILo9JIxvzd/NWjx+xWoP6hvUzR2dZiB0Yny1+GTn6HgsAdTlYjIwp4kLceUAfrIM1aTo4eb8HBhAfWNSHH+kYTo0+eEXWAydTtJ0gsWu2hMdq+IHDPQ9CiG9Cvv3hbCIUX7kE0OLhDEhODuZWXF/NQbj1dkq8ddg5a7eFZjLVklHOtM3ddShLFJJilSYWeZn/V41ajpDHsnvZkyo1ZGffEoSUjd34pmZdF4nYDt/v2UxOeurAOBLwtC8vvE5uDgMumAC3HH0BmsbAHqeixr2GuEeOYs19zzP9qFOUjGt/jgXye0osvGR5L2PCxP5WrYt9ANg==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	ruCI2kxUKJAfshtlmXOCHjOKNzZQ9ftxkWOzrtLLNTtuZdTMEmk969JsiVOyMDRE9VIQ7rTv+SAyaSPq1HwRIDn/ovFmJAv5BMbXLB0lMNIcRzMKU2WZloq0U4bEAzJX7famIbqkoqQjoGJG4sMb3oTRFawA92qKBl63LXEo0C4nXmpl5olM0OHJs9HabAi5XCl0frY8nRs7ZqlrtBpcapDkmWrck7N3F++pLJg7XN6hSpAnEbGUWrvMOCP14ar0vGo6CR3T5CTIKx2qGLvMiYo+5juX1WXHS5EZKy0iyIXD0xyq1GZeJcYBUXLDARV/+r3yLSiYWGz25CitoNFWfqMICsVG+TKAxyzrdcuuiyKnbB1ulF0eiIJL5A9VjtLJ1JpODTH1g4QGW3cff5AL3rC+KHzAkuPx9+0txavcRS8eSZ/ZJOsLQIVtWfOE0NWRLok6G0BeeeRNh7co/q7ybyZuu8zrGm6fe4PeA1WyZDJG9pnSRh/1e6O5ffSmuPZKSSrnTGjSKVyZ7rzhh/vAaKfpwsqS5dimZPmowuh/wz+b51JdZhfuBZe/ASTnPBFCd8GJhVJXEMMKWsnicht2qga/r9AKBSA7qJ7NJUy3R6HJAzbtS2C6DEgNGz/pguZSutmobbXv2qk1WfBsPZaytQ==
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02c67e97-3117-495b-49af-08df20cbfc62
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 21:27:39.4332
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93a987e9-3916-41b7-69e6-08df20cbf7dd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002322.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW9PR12MB999209
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xtwhCzcXMCb1MSMEGGR4XQL6mh+8uBbwCLD5wxcL99c5JigtNvy5MfNCdh0CgAzlZnyYogrnspSJrsw3Mxnp7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4482
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA4NSBTYWx0ZWRfX3KTFwrOfmjtZ
+ hCwwTId71E/+a4IWVf+nKuJ+UvkEHlcz8T9PuKi4rvW68bCQdshXhPNvYtZh+L1oqUgH9i0zqSu
+ 3dS7LZutnYRwQOUK6ht3DGp6pdLSVsI=
+X-Proofpoint-ORIG-GUID: _UuXiNRVK10ZtBL2oz6mkqAD0IYadVGT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4NSBTYWx0ZWRfXyAwD8Qb0YKfw
+ jKe7d1+xGIU4otYp4bLGQVpVW5x//3LjuGe0YgYXjQIrMzkHBg9uU3uqNBxK/TcJJRYRgZaNv9P
+ SIddTLUdLRVBUJQOtRvVGsoOpNolAIT8CLP0Hm6KaYoJsSPGEV3s+eq/y2MEzK6ZdtRoBkFWn83
+ dghGaXRT5GWQDyaS9ycmXRB0EeUwRnPzszGzOPx158gTkvDT0ZdlknGJRG5RxDt7KjUaVlusU/n
+ HPcC3lmGwAANtghVvsRc8BnSAfVBbn4lFVdPdL6ifKjiwZC8CWJ4xudal0C51eT5sjoTcpc3h+B
+ MgXb9anY+Cam8g7hxI6lJ9z0mc1qgCFTbEepYpku7GE12P1hXo1e1hg5Oby9Uvx74XD5kC6FRMG
+ ZV6tkEtUu+qdL1mvUxOZkXEdPsQ/MQNNDKdYatG59KYmulJTcornsdkE5O2pVylGCiRRFWOoyRn
+ 2PMhMJwkboVhhp8WVWA==
+X-Authority-Analysis: v=2.4 cv=Vrm2kO2n c=1 sm=1 tr=0 ts=6ac021d4 cx=c_pps
+ a=t4gDRyhI9k+KZ5gXRQysFQ==:117 a=t4gDRyhI9k+KZ5gXRQysFQ==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=qPHU084jO2kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22
+ a=VwQbUJbxAAAA:8 a=zd2uoN0lAAAA:8 a=Lc_GExvxsZFfizQ3bgEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: _UuXiNRVK10ZtBL2oz6mkqAD0IYadVGT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_06,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2609040000 definitions=main-2610020085
 
-The "mbm_event" mode assigns hardware MBM counters to RMID/event pairs.
-It is intended for deployments that need to manage counter assignment on
-platforms where the number of monitoring groups exceeds the available
-hardware counters. Hardware counters are scarce, so mbm_event mode suits
-workflows that monitor a subset of groups at a time and rotate
-assignments as needed.
-
-resctrl enables the "mbm_event" mode by default on hardware that
-supports it. That breaks the pqos tool [1], which assumes the historical
-default mode. pqos treats a non-numeric event read as zero bandwidth. It
-creates 16 or more monitoring groups and uses two counters per group.
-On a platform with 32 counters per domain, that consumes the pool, so
-further groups read "Unassigned" and pqos reports 0 MB/s for them:
-
-  $sudo pqos -m all:0-4
-  CORE         IPC      MISSES     LLC[KB]   MBL[MB/s]   MBR[MB/s]
-     0        0.69         16k       192.0         0.0         0.0
-     1        0.40          3k         0.0         0.0         0.0
-     2        0.44          1k        64.0         0.0         0.0
-     3        0.39          1k        64.0         0.0         0.0
-     4        0.43          1k         0.0         0.0         0.0
-
-Leave mbm_assign_mode in "default" mode during initialization. Default
-mode uses one counter per monitoring group. On existing AMD platforms
-that pool is 64 counters and may be larger on newer hardware. The
-"mbm_event" mode uses two counters per group, so 32 counters cover only
-16 groups.
-
-Deployments within that pool receive accurate bandwidth measurements
-with default mode. The hardware supports 4096 monitoring groups. Beyond
-that pool, readings may be misleading or "Unavailable", with no
-user-visible indication.
-
-Default mode is still limited once the number of monitoring groups
-exceeds that counter pool. After hardware re-allocates a counter, a
-read may return "Unavailable". pqos still treats "Unavailable" as zero.
-Successive reads can be a count, "Unavailable", then another count.
-pqos treats those jumps as wraparound and can report an inconsistent
-rate:
-
-  $sudo pqos -m all:0-4
-  CORE     IPC      MISSES     LLC[KB]   MBL[MB/s]   MBR[MB/s]
-  0        0.76         60k        32.0         0.0         0.0
-  1        0.45          1k        32.0         0.0         0.0
-  2        1.57        107k        64.0         0.0 17592186044184.9
-  3        1.62        276k      4928.0         3.2         0.5
-
-Users that need stable measurements beyond that pool should use
-"mbm_event" mode and rotate assignments as needed.
-Enable it with:
-
-  $echo mbm_event > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
-
-Fixes: 0f1576e43adc ("x86/resctrl: Configure mbm_event mode if supported")
-Closes: https://github.com/intel/intel-cmt-cat/issues/311
-Link: https://github.com/intel/intel-cmt-cat # [1]
-Cc: stable@vger.kernel.org
-Signed-off-by: Babu Moger <babu.moger@amd.com>
----
- Documentation/filesystems/resctrl.rst | 48 ++++++++++++++++++---------
- arch/x86/kernel/cpu/resctrl/monitor.c |  1 -
- 2 files changed, 33 insertions(+), 16 deletions(-)
-
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index c8507580474a..2efc99223bdc 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -354,8 +354,8 @@ with the following files:
- 	::
- 
- 	  # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
--	  [mbm_event]
--	  default
-+	  [default]
-+	  mbm_event
- 
- 	"mbm_event":
- 
-@@ -363,6 +363,9 @@ with the following files:
- 	pair and monitor the bandwidth usage as long as it is assigned. The hardware
- 	continues to track the assigned counter until it is explicitly unassigned by
- 	the user. Each event within a resctrl group can be assigned independently.
-+	mbm_event mode uses one counter per event of one RMID. A monitoring group
-+	can use two counters, one for mbm_total_bytes and one for mbm_local_bytes.
-+	For example, 32 counters can monitor 16 groups.
- 
- 	In this mode, a monitoring event can only accumulate data while it is backed
- 	by a hardware counter. Use "mbm_L3_assignments" found in each CTRL_MON and MON
-@@ -376,20 +379,37 @@ with the following files:
- 	"mbm_L3_assignments" after switching to "mbm_event" mode for counter
- 	assignment states of all monitoring groups.
- 
--	The mode is beneficial for AMD platforms that support more CTRL_MON
--	and MON groups than available hardware counters. By default, this
--	feature is enabled on AMD platforms with the ABMC (Assignable Bandwidth
--	Monitoring Counters) capability, ensuring counters remain assigned even
--	when the corresponding RMID is not actively used by any processor.
-+	It is intended for deployments that need to manage counter assignment on
-+	platforms where the number of monitoring groups exceeds the available
-+	hardware counters. Hardware counters are scarce, so mbm_event mode suits
-+	workflows that monitor a subset of groups at a time and rotate assignments
-+	as needed. The mode is beneficial for AMD platforms that support more
-+	CTRL_MON and MON groups than available hardware counters. The mbm_event
-+	mode ensures counters remain assigned even when the corresponding RMID is
-+	not actively monitored.
- 
- 	"default":
- 
- 	In default mode, resctrl assumes there is a hardware counter for each
--	event within every CTRL_MON and MON group. On AMD platforms, it is
--	recommended to use the mbm_event mode, if supported, to prevent reset of MBM
--	events between reads resulting from hardware re-allocating counters. This can
--	result in misleading values or display "Unavailable" if no counter is assigned
--	to the event.
-+	event within every CTRL_MON and MON group. This mode is enabled by default.
-+
-+	On AMD platforms that support more CTRL_MON and MON groups than hardware
-+	counters, hardware dynamically shares a smaller pool of counters among
-+	RMIDs. One counter from this pool is used per monitoring group and counts
-+	every MBM event of that group's RMID. The size of the pool is not
-+	enumerated to software (unlike "num_mbm_cntrs"), and "num_rmids" may be
-+	much larger. For example, 64 counters in this pool monitor 64 groups.
-+	Newer hardware may provide a larger pool.
-+
-+	While the number of monitoring groups does not exceed that pool, a counter
-+	stays attached to each RMID and readings remain accurate. Creating more
-+	groups than the pool can cause hardware to re-allocate those counters
-+	between successive reads of an event. Bandwidth values may then be
-+	misleading, or a read may return "Unavailable" if no counter is allocated
-+	to the RMID. There is no user-visible indication when this begins.
-+	Users who need stable readings beyond that pool should switch to mbm_event
-+	mode, if supported, and assign counters to the groups of interest
-+	(rotating assignments as needed).
- 
- 	* To enable "mbm_event" counter assignment mode:
- 	  ::
-@@ -1787,11 +1807,9 @@ View the llc occupancy snapshot::
- Examples on working with mbm_assign_mode
- ========================================
- 
--a. Check if MBM counter assignment mode is supported.
-+a. Check if MBM counter assignment mode is supported and enabled.
- ::
- 
--  # mount -t resctrl resctrl /sys/fs/resctrl/
--
-   # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
-   [mbm_event]
-   default
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index 5d0d3b18f9b8..a6a9090c4808 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -472,7 +472,6 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
- 		cpuid_count(0x80000020, 5, &eax, &ebx, &ecx, &edx);
- 		/* cntr_id is 12 bits and can only encode 4096 counters. */
- 		r->mon.num_mbm_cntrs = min((ebx & GENMASK(15, 0)) + 1, BIT(12));
--		hw_res->mbm_cntr_assign_enabled = true;
- 	}
- 
- 	r->mon_capable = true;
--- 
-2.43.0
-
+T24gTW9uLCBTZXAgMjgsIDIwMjYsIFJhZGhleSBTaHlhbSBQYW5kZXkgd3JvdGU6DQo+IGR3YzMt
+eGlsaW54IGRvZXMgbm90IHJlbGVhc2Ugd2hhdCBpdCBhY3F1aXJlczogc3lzdGVtIHN1c3BlbmQg
+ZXhpdHMgdGhlDQo+IFVTQjMgUEhZIHdpdGhvdXQgcG93ZXJpbmcgaXQgb2ZmLCB0aGUgWnlucU1Q
+IGluaXQgZXJyb3IgcGF0aHMgbGVhdmUgdGhlDQo+IGNvcmUgcmVzZXRzIGRlYXNzZXJ0ZWQsIGFu
+ZCBuZWl0aGVyIHByb2JlIGZhaWx1cmUgbm9yIHJlbW92ZSB1bmRvZXMgdGhlDQo+IHJlc2V0IGFu
+ZCBQSFkgc3RhdGUgYXQgYWxsLiAgVGhlc2UgdGhyZWUgcGF0Y2hlcyBmaXggZWFjaCBpbiB0dXJu
+Lg0KPiANCj4gQ2hhbmdlcyBpbiB2MzoNCj4gVGhlIHVzYl9yZXNldHNfcmVsZWFzZWQgZmxhZyBh
+bmQgdGhlIHBsdGZtX2V4aXQgcG9pbnRlciBhcmUgZ29uZS4gIFRoZQ0KPiB0ZWFyZG93biBpcyBu
+b3cgYSBkZXZtX2FkZF9hY3Rpb25fb3JfcmVzZXQoKSBhY3Rpb24sIGd1YXJkZWQgb24gdXNiMy1w
+aHkNCj4gc28gaXQgb25seSB1bmRvZXMgdGhlIHJlc2V0IGN5Y2xlIGluaXQgcGVyZm9ybWVkLCBh
+bmQgaW52b2tlZCBleHBsaWNpdGx5DQo+IGJlZm9yZSB0aGUgY2xvY2tzIGFyZSBnYXRlZCBvbiBi
+b3RoIHRoZSBwcm9iZSBlcnJvciBwYXRoIGFuZCByZW1vdmUsIHNvDQo+IC5zaHV0ZG93biBnZXRz
+IGl0IHRvby4NCj4gDQo+IENoYW5nZXMgaW4gdjI6DQo+IFNwbGl0IG91dCBvZiBhIGZpdmUgcGF0
+Y2ggc2VyaWVzIHNvIHRoZSBmaXhlcyBjYW4gYmUgc2VudCBhbmQgYmFja3BvcnRlZA0KPiBvbiB0
+aGVpciBvd24sIGFuZCByZW9yZGVyZWQgYWhlYWQgb2YgdGhlIHBsYXRmb3JtLWRhdGEgY2xlYW51
+cHMuICBQYXRjaA0KPiAzIHdhcyByZXdvcmtlZCBzbyBpdCBubyBsb25nZXIgZGVwZW5kcyBvbiB0
+aGF0IGNsZWFudXAsIGFuZCBhbGwgdGhyZWUNCj4gYXJlIHRhZ2dlZCBmb3Igc3RhYmxlLg0KPiAN
+Cj4gQWxsIHRocmVlIGFyZSB0YWdnZWQgZm9yIHN0YWJsZS4NCj4gVGVzdGVkIG9uIFpDVTEwMjog
+dW5iaW5kIGFuZCByZWJpbmQgY3ljbGUgY2xlYW5seSB3aXRoIHRoZSBkZXZpY2UNCj4gcmUtZW51
+bWVyYXRpbmcgYXQgU3VwZXJTcGVlZCwgYW5kIHJlYm9vdCBpcyBjbGVhbi4NCj4gDQo+IExpbmsg
+dG8gdjE6DQo+IGh0dHBzOi8vdXJsZGVmZW5zZS5jb20vdjMvX19odHRwczovL2xvcmUua2VybmVs
+Lm9yZy9hbGwvMjAyNjA4MTAxNzQ3MTMuMjMyNTI5Mi0xLXJhZGhleS5zaHlhbS5wYW5kZXlAYW1k
+LmNvbS9fXzshIUE0RjJSOUdfcGchZDRkSDRSWUJSS1lZeFJPLTNNR21ISlo4NlVYTjRKWUd1c3ht
+aFg0akRQTFg2SDVXNjJpTEppTGFjcHRuNVJwNHhSRUgtVnoxSks2eXlMWGM2WGZ1b2I0ZGs3Z29y
+dyQgDQo+IExpbmsgdG8gdjI6DQo+IGh0dHBzOi8vdXJsZGVmZW5zZS5jb20vdjMvX19odHRwczov
+L2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA5MjIxODIxMjUuMTEwNjctMS1yYWRoZXkuc2h5YW0u
+cGFuZGV5QGFtZC5jb20vX187ISFBNEYyUjlHX3BnIWQ0ZEg0UllCUktZWXhSTy0zTUdtSEpaODZV
+WE40SllHdXN4bWhYNGpEUExYNkg1VzYyaUxKaUxhY3B0bjVScDR4UkVILVZ6MUpLNnl5TFhjNlhm
+dW9iN29TUHA3S3ckIA0KPiANCj4gUmFkaGV5IFNoeWFtIFBhbmRleSAoMyk6DQo+ICAgdXNiOiBk
+d2MzOiB4aWxpbng6IGZpeCBzeXN0ZW0gc3VzcGVuZCBhbmQgcmVzdW1lIFBIWSBoYW5kbGluZw0K
+PiAgIHVzYjogZHdjMzogeGlsaW54OiByZS1hc3NlcnQgcmVzZXRzIG9uIFp5bnFNUCBpbml0IGVy
+cm9yIHBhdGhzDQo+ICAgdXNiOiBkd2MzOiB4aWxpbng6IHVud2luZCBaeW5xTVAgcGxhdGZvcm0g
+aW5pdCBvbiBwcm9iZSBmYWlsdXJlIGFuZA0KPiAgICAgcmVtb3ZlDQo+IA0KPiAgZHJpdmVycy91
+c2IvZHdjMy9kd2MzLXhpbGlueC5jIHwgMTIzICsrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
+LS0tLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDEwMCBpbnNlcnRpb25zKCspLCAyMyBkZWxldGlvbnMo
+LSkNCj4gDQo+IA0KPiBiYXNlLWNvbW1pdDogYWJjMzZjYmRhMjlkOGYxOWNmM2E1ODBjZDg2Y2E5
+ZTg2NTE4NmE0MQ0KPiAtLSANCj4gMi40NC40DQo+IA0KDQpJIG1pc3NlZCBzZWVpbmcgdGhlIHYz
+IG9mIHRoaXMgc2VyaWVzLiBMb29raW5nIHRocm91Z2ggdGhlIGNoYW5nZXMgbm93Lg0KDQpUaGFu
+a3MsDQpUaGluaA==
