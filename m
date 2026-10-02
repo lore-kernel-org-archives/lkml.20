@@ -1,139 +1,106 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A558F4D4886;
-	Fri,  2 Oct 2026 15:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AA14DE726
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790954954; cv=none; b=GQxYW7uhLKFylPROOgppgGbpepKkHD+eh9q1b9UYOoW8tKQk2b92iJxFCXKqbvjr9GkfNFesoswszBj7ilewO5dazYrzIzWKowKI6QXo6aNWns99N837Z6Q1ik/+olcD5/aid5BxSZbmdUmHy0aaT8DYp6NF4+WZ3ve1Qomg1sU=
+	t=1790954958; cv=none; b=cbilH//XR+6fa3z3rj4HAVSvDkSQ8IwlkYQoC+s0f/Kpa0vk7UKm+rQ08oS9fTazgcXgWQes35B693uG6pJ+GyQW9AoxMqilfJdgaGr4lpQQhyLfBZpseIHbblglhrwpTruTYWBOpBOG45LLHb/wnSkUHqJLyUy6TMjqmzSitwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790954954; c=relaxed/simple;
-	bh=P4f1hv785d621ll4HEeJjnSeVQYSEnQeNsJSJrh9rSw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M4R8Ju2CwPAypE4PMFjFjRE8haeQ6qM8YAAqR93ZhHxNxUq+1fE/SNX8ubHhUEgb3XsQXvxQplshhgTrNMszqna/dyQnu7QU68MMv7/u3bU49PhM+Tc9hU/sc4+OjhkrBrZkthbAyUrDGWh6yFrcHAXoDak+yJPHE8UaqG1+b7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=p8E8vMpM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790954958; c=relaxed/simple;
+	bh=EUw1WzOuX4c74KGVkPvPqLB7KZE53M79YcIkko+a2pY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NuTg0p1JOURYeuN383UQOgiPQRG4MfJ4UfRM9gxQcQSiLsfOPCuTlEpxaaJdqtohh25CfH0/DKKAH39lQD0J+Oil+PPGvxYy5kCAJCMnvOqcykJ6m2qQAYVG+TAgvUz8FmBAZPAjdSEkM16+WSPYdCnIjwoPRWAKv/9qbPLgxhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Km3ono8o; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="p8E8vMpM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A4DF0143D;
-	Fri,  2 Oct 2026 08:29:08 -0700 (PDT)
-Received: from [10.57.8.170] (unknown [10.57.8.170])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 279BE3F85F;
-	Fri,  2 Oct 2026 08:29:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790954952; bh=P4f1hv785d621ll4HEeJjnSeVQYSEnQeNsJSJrh9rSw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=p8E8vMpMtKBWVnygtBY4CCJt+MHMHuQj+M7U9zx+9Pgy3DFcV8HBcxW9kxS/N/00J
-	 XhEBuSPy1e7h4vteMl/XfZe//p0e5hbbJ3qzJoOHabnne1Sh49Qvv+nypCIzoo1Ach
-	 9Du30zeEXLKrw1yW4XTxxKDrFWrNKDsec4rnAzbg=
-Message-ID: <38a5b5d5-d39a-4fa2-8de5-ccc1d92aaff1@arm.com>
-Date: Fri, 2 Oct 2026 16:29:05 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Km3ono8o"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba330dbd67so3613076e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 08:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790954954; x=1791559754; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C3lpUuIJkpMbj+ceGO26hsI5ydaqDv+ysVk3F0/il0Q=;
+        b=Km3ono8o4sPqtPbDnAtHHGi/YouvAPf/jegrKNL0ZFz5ZQqgUXRJSHtlq5HtBr9HTu
+         UpKeMlRxqw0AkXbcJdvkqqXP+CADmvPc9ngvsCfBTLW94O8So6W8BC84eqLeqqNxHWxu
+         8SgSQSDv11QyVpju+zV4Kpcrv0/aYNTlxfqY4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790954954; x=1791559754;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C3lpUuIJkpMbj+ceGO26hsI5ydaqDv+ysVk3F0/il0Q=;
+        b=l5f2DbRMyZaEU+3T/K6hfvpDZdMnegUeJCB1QJhajnfCzX7aLkuy9ySNSVIh+5Cj4R
+         eUf/p/Zr0tj+dOUlv9AVv4YrE5bNnfvF3wcsz67AhbWOcUTlynEziqDjWgxr2/cCCNma
+         TJEws/4WPFrqvsB4ZRtfI8x25l5J6RHh+Rlk1HCYljgLEx/LMdo9X5CQRC74r35AmRhS
+         yCOmS+mA0UilDzSkbnlTW2R+Gv8JxJiS7FKFtmx/OCcYkTh5X3tsKqNwv3eKcRunUEjN
+         1unD3YYNCvYyZACXUn8QFgocZq2JpIZjyj6axYIFjthR8cmhuT8jv+4cVWrasTChdynm
+         lypA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNq35gBmR20dX6ccLqVcaSkBL0dP+pl1XGfItEckLtP9+UhlnxlV5I3TFKmvLOgjpHjUh8Sn+JmCYBa1U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRvvHhsEWaDOcMEPTSkvfoM6f2mSL9MQBY4XeMivjh98wmPaVM
+	8e3umG1Bt/S4a0bcuSy7KpO8y/HD/GLdTXPGW8YEYIEJ+Wn/JMW+Je5b+yQfpyvAnQ==
+X-Gm-Gg: AYBFou0Xb2MTKn8VRdIx/jstY3zswgRQaJPMoCQB1JHfC2N6NpooKPC5jj3bASPnUkx
+	pLirX2DYnkeYZb6viByNJgqikApy3Rk8KI+L+p6lmwBy+bGjES7cFUSfOFmcNxL1t02rsjJRXm1
+	JeN2ESJAjQ7sePfM1KGzNZu9FclzMh5oKKhI9TaY56MKbNpDRUx5KsQLUJ8Yrx+9W+L7S1TZQ23
+	qvpmFKAGdvq04LSTDsmH3WJybttpU57zWZNhiQw+kBf5gqxJ+HTcDK3tOTNoS6oaKcFVFztk91V
+	E1gZTa9XFthtcgt+Nf0f4KMW+7JJseYWLJMCZHYrFns1qSm+ItwRGxVic/JnIZlRn6a/Z16IjIf
+	BJ07kNK94ea7b+V9YOSgMDamamqHaLel9/1acNrdNzUxcuFsncct310xOXAzPbNtQhjx27EERtt
+	PTZGQ4LV37W32rxA/lqXh9fyDqreR2jPwDYiHlf3JDCikJpv17d/9mWcOwo4f+MSaDOteRmjFVU
+	AUoCw79uPTBOPR3Gh0UmnMF/R6A9xjbmC68MNzLOHrBqzuUK4HDBic=
+X-Received: by 2002:a05:6512:3052:b0:5b8:f533:d439 with SMTP id 2adb3069b0e04-5bb9bb1aca7mr941379e87.38.1790954954375;
+        Fri, 02 Oct 2026 08:29:14 -0700 (PDT)
+Received: from ribalda.c.googlers.com (166.141.88.34.bc.googleusercontent.com. [34.88.141.166])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c718f62sm835544e87.12.2026.10.02.08.29.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 08:29:13 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH 0/3] media: uvcvideo: Automate quirk sorting
+Date: Fri, 02 Oct 2026 15:29:04 +0000
+Message-Id: <20261002-uvc-sorted-v1-0-65f52e4d7e16@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 07/10] kernel: hibernate: Add an arch hook for
- preventing hiberation
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
- Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
- linux-pm@vger.kernel.org, Sudeep Holla <sudeep.holla@kernel.org>
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
- <20261002061507.1600269-8-suzuki.poulose@arm.com> <ar-PiBQGye4_hQa6@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <ar-PiBQGye4_hQa6@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMDNv2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAwMj3dKyZN3i/KKS1BRdy6RU01TjVDMD0zQTJaCGgqLUtMwKsGHRsbW
+ 1AIrn/MFcAAAA
+X-Change-ID: 20261002-uvc-sorted-9be5e3e605f4
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-On 02/10/2026 12:03, Catalin Marinas wrote:
-> On Fri, Oct 02, 2026 at 07:15:03AM +0100, Suzuki K Poulose wrote:
->> Add a hook to allow arch code disable hibernation. On arm64, with an RMM active,
->> there could be pages that are delegated to the "Realm" security state. Any
->> access to them are fatal (e.g., hibernate save image or restoring an image to
->> a delegated page). pKVM host also has its restrictions on enabling hibernation.
->>
->> Add a weak arch hook to let the architectures have a say.
->>
->> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
->> Cc: Len Brown <lenb@kernel.org>
->> Cc: Pavel Machek <pavel@kernel.org>
->> Cc: linux-pm@vger.kernel.org
->> Cc: Sudeep Holla <sudeep.holla@kernel.org>
->> Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> Nit: the subject prefix for kernel/power/ usually is
-> 
-> 	PM: hibernate: ....
-> 
-> I can fix it locally, no need to respin (and probably the wrap the long
-> lines in the commit log, we tend to keep them shorter).
-> 
+As the number of quirks grows it becomes more complicated to keep them
+sorted.
 
-Ack, I will take care of that in the future.
+Lets rely on automation to check that all the quirks are where they are
+supposed to be, so we can focus on reviewing the more fun code.
 
+We use this opportunity to modernize a bit the quirks.
 
->> ---
->>   include/linux/suspend.h  | 1 +
->>   kernel/power/hibernate.c | 8 +++++++-
->>   2 files changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/include/linux/suspend.h b/include/linux/suspend.h
->> index b02876f1ae38a..a3815027773c5 100644
->> --- a/include/linux/suspend.h
->> +++ b/include/linux/suspend.h
->> @@ -401,6 +401,7 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data);
->>   int hibernate_resume_nonboot_cpu_disable(void);
->>   int arch_hibernation_header_save(void *addr, unsigned int max_size);
->>   int arch_hibernation_header_restore(void *addr);
->> +bool arch_hibernation_available(void);
->>   
->>   #else /* CONFIG_HIBERNATION */
->>   static inline void register_nosave_region(unsigned long b, unsigned long e) {}
->> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
->> index d2479c69d71a4..9d9d53828542f 100644
->> --- a/kernel/power/hibernate.c
->> +++ b/kernel/power/hibernate.c
->> @@ -106,11 +106,17 @@ bool hibernation_in_progress(void)
->>   	return !atomic_read(&hibernate_atomic);
->>   }
->>   
->> +__weak bool arch_hibernation_available(void)
->> +{
->> +	return true;
->> +}
->> +
->>   bool hibernation_available(void)
->>   {
->>   	return nohibernate == 0 &&
->>   		!security_locked_down(LOCKDOWN_HIBERNATION) &&
->> -		!secretmem_active() && !cxl_mem_active();
->> +		!secretmem_active() && !cxl_mem_active() &&
->> +		arch_hibernation_available();
-> 
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> 
-> Raphael, any objection to this patch going in through the arm64 tree? It
-> matches the style of other __weak functions in this file.
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Ricardo Ribalda (3):
+      media: uvcvideo: Use USB_DEVICE_AND_INTERFACE_INFO macro
+      media: uvcvideo: Convert one quirk to a per_device check
+      media: uvcvideo: Sort all the uvc_ids quirks
 
-Thanks Catalin
+ drivers/media/usb/uvc/uvc_driver.c | 730 ++++++-------------------------------
+ drivers/media/usb/uvc/uvc_status.c |   7 +-
+ 2 files changed, 122 insertions(+), 615 deletions(-)
+---
+base-commit: 79dd149ff9244884f7c62356a9e499a934ed6071
+change-id: 20261002-uvc-sorted-9be5e3e605f4
 
-Suzuki
-
-> 
-> Thanks.
-> 
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
