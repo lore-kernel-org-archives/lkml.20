@@ -1,232 +1,173 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010029.outbound.protection.outlook.com [52.101.201.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6BB470E8C;
-	Fri,  2 Oct 2026 09:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932286; cv=none; b=tTDYUx4PPB3A8CH7DCKeTU9qY4CNmL+imjStVWHDToJrJnglV5t7BcwmYX9ufAl2CXVCCnI2YeOOPqA94DBEE9jkqARcXJos0NdWxMmYtDpJGgOGDrZqpSCQ/FARvGHkUqosrKucwrAvnLMOM6XKAonuptfavLas4n7/RG0U7ns=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932286; c=relaxed/simple;
-	bh=QyiqJbVNVVWpOjOeWDvCPx4TpBrd1c2J6poMC4kMREk=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o4j4OVdyN4lXnGni9Pc8vQYBsSFfMDAJBo8HjXXUxBwHS3Z5VhrXDqqLObZLzZuuAFHm5b31qm65ACOeky4cbHkuKljqamoM1c9jzUB95GeYp3FZ0ErgmuCczOHQgMFpS862CR/1zq7qAb92+14suLRvL7IDw3IBlt39pFJOrH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=wM3uMVOw; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A77418A2D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790932302; cv=fail; b=tLCaM13b52wYfMCf4NfSXSqUrtaZqRNQvgxji5q68W1NSv7ni4WYwI2yI4MaesP3EwotGhC6I0GJxA8ohLrnSFp5nfha1OFjhUMp+u/P5rL2SxtHUu8djWYC6n8LoEw1MHWRVFyTnRmmOARPDEzJcR8pLoPz5s/kPO/4dBo4O6g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790932302; c=relaxed/simple;
+	bh=+zzePsyL0mXPJpwnVdbpgS0VibPGG/+17Cq5M0KbgaI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=boQMhjlaBMSIBffWrnvkPoEdyTmLbdwdPJUGCXartBPFBIcwpdviw20x2HE2M4Zl3uiZM9qKdVrASMY5tLRU/FXgbfDceQcRZkuzfOisMfR2x04fheB4two79V+GsbLFgbGw0NMm0wytdmHTgMi1oVYxiZ/VhOnF2Qz57m2UjZM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=S8WUuQlj; arc=fail smtp.client-ip=52.101.201.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="wM3uMVOw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790932284; x=1822468284;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=QyiqJbVNVVWpOjOeWDvCPx4TpBrd1c2J6poMC4kMREk=;
-  b=wM3uMVOwtjXsxw3/gr8jcpB1KsSx3heks6O3PpJmnybtD9Cg4IchOVcu
-   4T20z7+tH24+8Nuh47qvttaSzhrwjg4d7k91f6AM32CV77ifzrD3dbLTE
-   6PIhZ50a4Fgu8I6oXhsB7pRwB3X8jWoD+wyNM8dyTIacVy+p3NbF3QQ3N
-   a49WkMKABoGwykRhIniPmOf8tMky8MQrsFfGcUf9kAgvEXD8hhqKm2saf
-   ndQ+hHdkNJzF8NLA1WiYLU7HAnWIMx6r07VKJV8sUQ1GvB1VmTERNdgf4
-   0xtD+yoACF6CLpykkY4f+3NVzPrpmgo3W86ivwYuwpy+K2M/Gtq2W3aRP
-   g==;
-X-CSE-ConnectionGUID: K6kcmqTgQBOroRaveL+Z0A==
-X-CSE-MsgGUID: DyHNEIi1RiWBs0+eM9r5zA==
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="63547435"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 02 Oct 2026 02:11:23 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 2 Oct 2026 02:11:23 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Fri, 2 Oct 2026 02:11:19 -0700
-Date: Fri, 2 Oct 2026 11:11:18 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
-	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
-	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
-	<horms@kernel.org>, <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH net-next v9 13/15] net: lan966x: add PCIe FDMA XDP support
-Message-ID: <20261002091118.dnavfb3whz5enjcd@DEN-DL-M70577>
-References: <20260928-lan966x-pci-fdma-v9-13-a17caf60f89a@microchip.com>
- <179092642155.434549.4173203120024624969@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="S8WUuQlj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gF66wGxjy9g6VGyWZY+NOs7QF1s1VRrmjUVxT4wryTPYRNwinff/xOI/BbczAmEkbrZXU26H4y6+I3ha6rbq324WhKbhcmhJ24hZMf8RrOk2VCxIuWLlJkXA52Z08TtpZkYje/JDxBjVHRHll48pVFjAEjfBybHS7KInbkVFmhU+nJDCqkQvfKTKErY2EMuDMXMtSSIG7fNY0j6zKOZeaf9x+ShQOt2NSXH0z3+KoYDs6H8DBh60R8allmAa19cvG+vA9bYJXPQ/XwivuCP39Kic6otWZ5cpqJUh1zcYrANrCqmaD4HA6jiUA6923sGcR6T47aLVQ5NZ8QuDtztxMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lCKPkFlOeH04ry6hbwrDvVjjTHkDUKzq3asNRdjBPyI=;
+ b=fYgehKcjfJtxsssZGs6B5FSzz8K1fz5636vvQO/2TBO7Cog2gGn34wsZXpJtiTZVBUyTka96ONDECybGf6rmC82rtOHJFW3jhhCyJD19iv7ElJSQwKV86uSpHcxiDZmuhJTQbCE7+10BZtftQ4U5AI43qe3zmTapgPlDtGXRlz+h3mdwWATzKDwxPqSK3OGwJl9NJlCAuRbz8Yo1CNMI/k7axXFzivTzdvBpqJFtoJfdf9vNp2Y1wi+4nI+GtlJTNWbzcJCwg6Cy+rpOjE8sbaKFk4LgIhjEspbVZfTtx//RV38rgIfAHCgrST+Ap6DhgZuQk4OFTYlqQx8jNL80jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lCKPkFlOeH04ry6hbwrDvVjjTHkDUKzq3asNRdjBPyI=;
+ b=S8WUuQljZP+13xoaqTXacIKnbqXfV23T2LgI++wXmcSmgIirRVS14PZXQdumsuJpjLqSVTIStJWHHtpzFSfoCYBQX2rh0t0vIIKXZqWZOyjiyyR2WXMyRkZOsZFTowFsu4loGxon6pB3IEtmAXRzTEkz4soxqSmH8OLAlWGT1hrWMixS5t7eMHKOByo7eehtTveaefizXw9ayuN7fgC5MUOaB0p1JFnWFnwb5cIesZXCXH/OIThXaUS0yfw8nOk81trg+3tKukUGubMXlpyRS76CFcNzY5tsUptWeb4OyXu5GheIzeKGu8y1F5xnuadnPTnfjPgfVtSfyURSSlr96A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ MW4PR12MB6731.namprd12.prod.outlook.com (2603:10b6:303:1eb::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
+ 2026 09:11:36 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
+ 09:11:36 +0000
+Message-ID: <588ad884-6a81-49a2-b628-1542c3dd78ec@nvidia.com>
+Date: Fri, 2 Oct 2026 11:11:30 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/15] rust: sync: completion: add
+ wait_for_completion_timeout()
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, nova-gpu@lists.linux.dev,
+ LKML <linux-kernel@vger.kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>
+References: <20260930034148.590687-1-jhubbard@nvidia.com>
+ <20260930034148.590687-3-jhubbard@nvidia.com>
+ <CAH5fLgiQ=aiF-WWvpPZkB-LcXxfeXAD1Q8zOF3cLQkU072XDKQ@mail.gmail.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <CAH5fLgiQ=aiF-WWvpPZkB-LcXxfeXAD1Q8zOF3cLQkU072XDKQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0148.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::13) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179092642155.434549.4173203120024624969@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MW4PR12MB6731:EE_
+X-MS-Office365-Filtering-Correlation-Id: 12d6743e-6cb8-4ae5-51b8-08df206528c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|18002099003|22082099003|6133799003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	QBXxMUBrpXuO3iQcQO7xA6BlXuUjBfyisM3yO7rUOA5OFr70DKRGQxgW5OYlD7GlB6aICOBGX5LQOE6nlwkRy4gJdOuxn6AodZnfLMcaYjEOQksP+kwhCBmSwrUkGx1l14kFRVD06VUYHdRIHy8GYRtd5aW29GPpJeds8qZpqLNmJa7T8dj90mOhNrR+RmoSaJCyYr3toGz10WEErUVozk7UTDc5vXXQem0FLYPbMzcSQKMBYE85ELkWXAiRR8J4E5hukXCViK9dYO9voPGZgLBZS790/5P3XCSQTkDRiVhA3Ql2VVsY6BovQoe02BhBfWJgQ0SQyiifyUrIgWPP4mz/AtXWKm4g5f6w/ERS+RjXFaMs/q+tsFtvq/gQI7w4L77vUdp55jD0r2eE48/AQsXsi/xGeGnzfZXJjMI6sUUGsRFeI+OYQKrRhUkTzpfugF0UcQHGcpmo5dTWxTUoh8kANcUZLhldqhYFIjTPaLAtQe9lEdOiEWw7GtShtC1eEn0RwnsCdViyiTt7uLSB8Smy1X8LIUt3H4VOTzEQfEflXwmGi+wMYOHrivUw+f6VYFjULQoDEmvK5Bf/JDSEwUJm7Y7zY/qbKLFq9hfE41jBmllfWNnYFauxYVdRBSp3t+S60mAHQiOWoKzx5OBGvvAfb3+LZWeA0axAH8tr1SY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(18002099003)(22082099003)(6133799003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UlpBZkU2V2ZZRmxMRE5RcVVwb0NEUzBnSW1CZ2lLdStvVi9yblVmWGQvSWw5?=
+ =?utf-8?B?V0w2NEZHVi94U0VhVTNZQWFNalRDWkNoS3VoaC9ucHlqOWF3ZlBKa0cyWlBZ?=
+ =?utf-8?B?QTkrVVdWODFsa09peGJpZmZzQUkwdUdSSFVoTk5XZXg5MUNiWUl0M1J1NWtu?=
+ =?utf-8?B?cGw5RExobjkreGpyT0pibldESEozbVowVHBQRk9JNjJ6UGdaWG92QWpKUGFF?=
+ =?utf-8?B?Y2dma2J5dUN4YXNwdmxQNzllc3FlNDlxM3BWZnFsc3pXY1BQL2lHeHpOTkhE?=
+ =?utf-8?B?T2g5R2orS3RBM1hZMVNLeTNla1d6VEVaM1NoR0xOTXZaaGwyRnRtMzJuY3M1?=
+ =?utf-8?B?Y2Q3cWw5UjFSNHZrdVVjRzBxWVlud25NWjBOQ2dDUjZSYUMzSmduM3FNdHo3?=
+ =?utf-8?B?d051N1owNjdXWHpKc3AyRU5XMWZmUUxqYUc3VXpaSVFsZGRRL0pyTW1yMkxL?=
+ =?utf-8?B?TjB1S1pSQmdWaERvQXpZeXowbSszUXlFV0pnSThZeG9ERllNWkNXTGw5Zndp?=
+ =?utf-8?B?Tkc2K25yRjZtT2ZzL1hWRWZBZ0Q5NjgrQllkYzVtd2tkSFYwWXZwUFdHZkc1?=
+ =?utf-8?B?NlNyZGtRaEozaFRLWDFUUkxtbHdUSGJweXQvV1dFRnAzNC9RVDJDWHR6RWJD?=
+ =?utf-8?B?RkZFQ3gyR1BSWWZHUDZUZHovQnRMRTNwcmNDZlNnUGptT3hGZmZYMmFSVEhB?=
+ =?utf-8?B?SWZKYWVqT29oS09pQkcvdEJ3MXZNako1MFBoWWhZbXk3VVBPVW5ydGRiWEZo?=
+ =?utf-8?B?N3dVZ1NjRUNkUEg4L2VSakE3RGZqdTBsWWJseXlTY2ZMSlV5Q3RocXBzTEJ0?=
+ =?utf-8?B?SXFaTjRJWUpoa0pSTFduTXlWa1NFc1dDdVB6SzlERzcySWpXV0dXeGJJUUFP?=
+ =?utf-8?B?ZUFiN3lWakUwOEFuUm9WSVNWQ3hUQm5MWk42eStMRSs4ODZ4NnpnM1hOTUpO?=
+ =?utf-8?B?RlFUUmFGeWpueE16OE1HL0tWY2xvZG1xNnl4WjZvZUxQNkdUUk5adWR4bUVp?=
+ =?utf-8?B?YzgwMW5INEFYWllIQkZnZ1BRdTloZEFScjdJSDdhemJZSnlVZEp5SE9xRm9K?=
+ =?utf-8?B?dlAwQzFYV3dtaFVxSlZKemQ2by8vazdYZzlKMmdDY0t6MFNBbSs3eisvV2Yx?=
+ =?utf-8?B?dUdPaC9KWTE4U295ODBGRjYyeThsbVkyMHp1d25iTU9RcCtEOVNoNTJZY2Ir?=
+ =?utf-8?B?TE9PQmtJQkFjZk9vZUl5UkRCWVU0Sm5jR0NIQXNJZHI0aUd3OUs3VTZmM2h2?=
+ =?utf-8?B?amwyT2VQZW9rVWlHcEdsZldpb1NscFBXdjg4L1UrSW1zU2ZzMEdtZXBlc0R1?=
+ =?utf-8?B?ZkIvY0V2dmNZT0ZpUmVxb2tzaTBFSkU4eElZdjJra3dSQXhpSjdWdnc5N1I0?=
+ =?utf-8?B?NXFNQmhoZWh3TlpaN05aeEV6TVlsSjdyWm1YVXAyamsraTFzSDNvbjFId3Fq?=
+ =?utf-8?B?ZDJOTFZzVTVsVWF0Ull5d1ZmY0x2WWlSbEFEeEp0SVNaSVozcVdYQVBGbXpy?=
+ =?utf-8?B?TFByZEEyd3pQQkp0L0hlOFZwZmxxVGtOUVU2SWlmQ0JSaDRTbklncmJoNWtm?=
+ =?utf-8?B?OFExSExhOGdpaXdZYU9iTnNrWmNYdDNuZWliTmhsWFlqSHRpQkNvdXVnbTEz?=
+ =?utf-8?B?QTZZRUZXSER3U1dUSDM1WjZQMmYxSGlYTkxRWi9Pek1VLzNvZExxWXF2cVpt?=
+ =?utf-8?B?WGpma3RuU0ZyOXhETldIRUorL2JhWDBrQUFMTnhiWlVtZFpQNEhaL3V4SVF5?=
+ =?utf-8?B?L2hNdGVkNmZwUSt3cjc3QlU3U2RLamNIRFNka0tFOEVvdE9iQUprUzJKRlpt?=
+ =?utf-8?B?NGVCSUNXVGdZaVBTaEY2dTkyOENXVnBQQzBjOG1hRStLeVBWY01hbk10M2Yw?=
+ =?utf-8?B?UklHRk10OEhzajZTMEZnUVIrNzExbmU3eVJ2STBINzBaalN5TUt0VEw1MDRJ?=
+ =?utf-8?B?T3VlelBkeVVkMWNjMnJKTkhXNklSRzdEdmduQkM1QVg1UkRvVThJWHVBaGZr?=
+ =?utf-8?B?MVBtNDduWHJXaGRlSDNIaEI2dDQ0RzRqUmI2aW9kaGhwL0o2WVd0cmtQcG5j?=
+ =?utf-8?B?MENCekxScis0Skp0bDFJNHAwaS8vdGVMNkh2MHFPZXJVTHk4S3ZxUjM3VkFF?=
+ =?utf-8?B?blRwUGlHSitDVHp3elhiQVlFYW9YSER4QTlKeUd5Mnc0Zzc3YjA1R01qaG5m?=
+ =?utf-8?B?ZjNFVnk0NDRENlk2N3BuN1Q2OGRLSkFlaDE5b2VuMEdKRnpHSzZBcFZ3T1JJ?=
+ =?utf-8?B?cWJqclVBejFSRGdFdGJrTnB0TEM5NVhYRGR1UXhIVGF6R3hFZWcyZWVvRkNB?=
+ =?utf-8?B?QkluVm11Ym1BNThUOUw1ejRzaS9td3diUWRiNVgydi80TnpTRXpMUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12d6743e-6cb8-4ae5-51b8-08df206528c0
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 09:11:35.9878
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VITi2nyANHueyQjY/IPNi2IDs8m8Y0PDqHFn2HRvogeI4xPIKrc8zPIP9SSyoXFFi7Bq7H1jVn+QuxMuoIm9tA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6731
 
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
+On 10/2/26 10:21 AM, Alice Ryhl wrote:
+> On Wed, Sep 30, 2026 at 5:43 AM John Hubbard <jhubbard@nvidia.com> wrote:
+>>
+>> From: Joel Fernandes <joelagnelf@nvidia.com>
+>>
+>> A driver that runs an interrupt self-test during probe waits for the
+>> handler to fire. wait_for_completion() has no timeout, so a broken
+>> interrupt path stalls probe indefinitely. Add a timeout variant of
+>> wait_for_completion().
+>>
+>> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>> [jhubbard: return the remaining jiffies]
+>> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 > 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] This patch removes the PCIe rejection from lan966x_xdp_setup()
->   (drivers/net/ethernet/microchip/lan966x/lan966x_xdp.c), so a bond can…
-> - [Low] In lan966x_xdp_pci_run(), xdp_init_buff() is called with frame_sz
->   = fdma->db_size, and hard_start is the slot start (virt_addr -…
-> 
-> --
-> 
-> net: lan966x: add PCIe FDMA XDP support
-> 
-> This commit adds XDP support to the lan966x PCIe FDMA path. The IFH and
-> FCS are stripped before the program runs, and XDP_TX is done by copying
-> the frame into a TX slot behind a newly built IFH. lan966x_xdp_setup()
-> no longer rejects PCIe and skips the page_pool reload on that path.
-> 
-> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> > index 758554c951c52..949994874ed96 100644
-> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma_pci.c
-> 
-> [ ... ]
-> 
-> > @@ -139,7 +140,123 @@ static bool lan966x_fdma_pci_rx_size_fits(struct fdma *fdma, u32 blockl)
-> >  	       blockl <= fdma->db_size - XDP_PACKET_HEADROOM;
-> >  }
-> >  
-> 
-> [ ... ]
-> 
-> > +static int lan966x_xdp_pci_run(struct lan966x_port *port, void *data,
-> > +			       u32 data_len, void **xdp_data, u32 *xdp_len)
-> > +{
-> 
-> [ ... ]
-> 
-> > +	xdp_init_buff(&xdp, fdma->db_size, &port->xdp_rxq);
-> > +
-> > +	/* hard_start is set to slot start (virt_addr is XDP_PACKET_HEADROOM
-> > +	 * into the slot). Headroom includes the IFH; BPF may grow into it
-> > +	 * via adjust_head. IFH is rebuilt on XDP_TX and unread on XDP_PASS.
-> > +	 */
-> > +	xdp_prepare_buff(&xdp,
-> > +			 data - XDP_PACKET_HEADROOM,
-> > +			 XDP_PACKET_HEADROOM + IFH_LEN_BYTES,
-> > +			 data_len,
-> > +			 false);
-> 
-> [Severity: Low]
-> Can data_end end up past xdp_data_hard_end() here?
-> 
-> frame_sz is the full db_size and hard_start is the start of the slot, so
-> the XDP core computes the data limit as:
-> 
-> include/net/xdp.h:xdp_data_hard_end()
->     ((xdp)->data_hard_start + (xdp)->frame_sz -
->      SKB_DATA_ALIGN(sizeof(struct skb_shared_info)))
-> 
-> The upper bound in lan966x_fdma_pci_rx_size_fits(), shown in the context
-> above, only reserves the headroom:
-> 
->     blockl <= fdma->db_size - XDP_PACKET_HEADROOM;
-> 
-> lan966x_fdma_pci_rx_check_frame() sets data to slot + XDP_PACKET_HEADROOM
-> + IFH_LEN_BYTES and data_len to blockl - IFH_LEN_BYTES - ETH_FCS_LEN. At
-> the largest accepted blockl, data_end is then slot + db_size -
-> ETH_FCS_LEN, roughly 316 bytes past xdp_data_hard_end().
-> 
-> For such a buffer, bpf_xdp_adjust_tail() returns -EINVAL for any offset,
-> shrinks included, because it checks this first:
-> 
->     if (unlikely(data_end > data_hard_end))
->         return -EINVAL;
-> 
-> Reaching this needs a blockl that eats into the shinfo reserve, for
-> example a malformed BLOCKL. It could also be an oversized frame truncated
-> to DATAL while lan966x_port_change_mtu() has raised MAXLEN but
-> fdma_resize() has not yet reallocated the rings.
-> 
-> Memory safety is not affected, since data_end stays inside the slot the
-> driver owns.
-> 
-> Should lan966x_fdma_pci_rx_size_fits() also reserve
-> SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) so it matches the frame_sz
-> given to xdp_init_buff()?
-> 
-> > +
-> > +	act = bpf_prog_run_xdp(xdp_prog, &xdp);
-> > +
-> > +	*xdp_data = xdp.data;
-> > +	*xdp_len = xdp.data_end - xdp.data;
-> > +
-> > +	switch (act) {
-> > +	case XDP_PASS:
-> > +		return FDMA_PASS;
-> > +	case XDP_TX:
-> > +		return lan966x_fdma_pci_xmit_xdpf(port, *xdp_data, *xdp_len) ?
-> > +		       FDMA_DROP : FDMA_TX;
-> > +	default:
-> > +		bpf_warn_invalid_xdp_action(port->dev, xdp_prog, act);
-> > +		fallthrough;
-> > +	case XDP_ABORTED:
-> > +		trace_xdp_exception(port->dev, xdp_prog, act);
-> > +		fallthrough;
-> > +	case XDP_DROP:
-> > +		return FDMA_DROP;
-> > +	}
-> > +}
-> 
-> [Severity: Medium]
-> Now that lan966x_xdp_setup() no longer rejects PCIe, can a bond attach a
-> program to lan966x PCIe ports and then have its XDP_TX frames silently
-> dropped here?
-> 
-> The ports share lan966x_port_netdev_ops, which provides both .ndo_bpf and
-> .ndo_xdp_xmit. That is all bond_xdp_set() checks, so it accepts these
-> ports. It then pushes the program down:
-> 
-> bond_xdp_set()
->     dev_xdp_propagate()
->         lan966x_xdp_setup()    <- now succeeds on PCIe
-> 
-> bond_xdp_set() also calls
-> static_branch_inc(&bpf_master_redirect_enabled_key). After that,
-> bpf_prog_run_xdp() rewrites XDP_TX on a bond slave:
-> 
->     if (act == XDP_TX && netif_is_bond_slave(xdp->rxq->dev))
->         act = xdp_master_redirect(xdp);
-> 
-> In round-robin, XOR and 802.3ad modes, xdp_master_redirect() returns
-> XDP_REDIRECT whenever the bond picks a transmit slave other than the
-> receiving port. That action falls into the default case above:
-> 
-> bpf_warn_invalid_xdp_action() -> trace_xdp_exception() -> FDMA_DROP
-> 
-> A bond program that only returns XDP_TX attaches without error, but a
-> hash- or round-robin-dependent share of its packets is dropped. With two
-> slaves in round-robin, that is about half. Before this patch the attach
-> failed with -EOPNOTSUPP.
-> 
-> Should the PCIe path handle XDP_REDIRECT, or keep refusing the attach
-> when the port is a bond slave?
+> With the timeout clamped to LONG_MAX as sashiko says:
 
-Re-raise of issue dismissed in v7. xdp_features doesn't advertise REDIRECT on
-PCIe, and the warning path is the intended fallback
+Clearly Sashiko is improving its Rust-for-Linux review capabilities.
+It missed this on the first four revisions of the series, but now
+it spotted it. Progress!>
+> Acked-by: Alice Ryhl <aliceryhl@google.com>
+> 
+> Feel free to take through drm-rust-next.
 
-> 
-> [ ... ]
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-lan966x-pci-fdma-v9-0-a17caf60f89a%40microchip.com
+Thanks for the review, Alice!
+
+
+thanks,
+-- 
+John Hubbard
+
