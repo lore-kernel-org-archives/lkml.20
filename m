@@ -1,112 +1,81 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF34239DBC5;
-	Fri,  2 Oct 2026 22:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B303C9EE6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 22:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790979523; cv=none; b=AAHmVVVRDbP8VoBRhljZMrqVazzCZYpxF/Y2lvPC/8l1H15WB3rFvfj2iWRvbjnoErbZR6gB99jjnTZjiU5P0PgTrHbyaBMe81YytohF+lFFyK1Sdb1C9VGMlvGjjdGqpVkl1o8TJq2M0ntooc9GCxCowQ5kfvypRQKebIYHBPU=
+	t=1790979543; cv=none; b=tl7OoG0FRBWvyxVsr7xkLbnAQRM7TluTgHY/Y86aOOug4afgG7qFUx1d3/ZX6CzuVS476/SwffL+PSwrMnwhdiqfHk67zvW0JrZL4LlJhfmkEhNSzXBvpekH2i4kN+Xpm78VO2oqsYIdQDFoU0a1spej4hirWs3UkDv5JpF+ZnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790979523; c=relaxed/simple;
-	bh=Rwsnfu6SxJy9nM+qcdf+GkHl8h7AZX7YrJ2UU+iHvqY=;
-	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
-	 References:Date:Message-ID; b=Haa0SwBJDaDPHUYok0OLmFd6l3m4j14wshfqb0TEm4ju7ZjQI8GBMmkDQ96nUtb8vgtI3gCmg+j2+Htd9GGQXqyFYAccyBO7l4Iy7cuYeTNoRxEYs+rLcZ3AbsKMd2Wf63k1nthmdQOtnlqg9XGeMhMXmAazZng3+jiiokyOmrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=rPMpDSms; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790979543; c=relaxed/simple;
+	bh=40qd9siKCBRYB3f3NGKHhJbH3BpIYlDe6X8yX7Hpuwo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZDI6nfCGFjUG+8i72TIiP1EUeQjsD5N+IeAXLJvDZI8bOcC9CzYp71s6KZruxun4LG0AJ+U4IX1VAIvlYzWaW/wk5CXE2IryP2XcKGcB15oirWdkzTA3X04qsWMlgelXW2FuRO9zbkfZSIiQN+gR5LQ8auB4AotKuXJhVTIiuis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SMLZH8s+; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="rPMpDSms"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SMLZH8s+"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so34830a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 15:19:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790979522; x=1822515522;
-  h=mime-version:content-transfer-encoding:subject:from:to:
-   cc:in-reply-to:references:date:message-id;
-  bh=QRc2jsoiNRA0qmzpUyGoXZATx6Osp3I40yobfvG2LLs=;
-  b=rPMpDSmsktmtu1VSlmoPPbCjk1CeB0bewyAtidO8ZclSKPezZGEMfuPh
-   FYZ2qP8nwHE9ps6azrn8ON3C5Hg1Ar0Xs2GrVsM2/vUxbY0H5BAqvUvsX
-   giVZPqQVbf2Eh+bhfGggpM/87pzMs03INbpY5FMFlnJcQRF5/k4mL2k/1
-   5LyrqCjj3uk01CTsVk3tszcK0Xwy5UNo+s9Ti+QB0JzEBx3WGqMNVPzJl
-   iNKOO+OEOeslYqNe5iHAHBw6aa8Dpf/uBRy4+oEMJvhx1dT90k7E3r4SN
-   Fquih2tZlNftpMx/zkV21Si8RvljThycSjbpArPLO9UQuJHc5/Mlzw0Zt
-   g==;
-X-CSE-ConnectionGUID: T65rDK6LQqSViilanIomMQ==
-X-CSE-MsgGUID: rSlqISRuTuaoFFJzE8BwLw==
-X-IronPort-AV: E=Sophos;i="6.27,136,1787011200"; 
-   d="scan'208";a="30032284"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 22:18:38 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:17484]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.9.224:2525] with esmtp (Farcaster)
- id 3a741ae7-f0fc-4e92-9463-49bbefdf02d0; Fri, 2 Oct 2026 22:18:38 +0000 (UTC)
-X-Farcaster-Flow-ID: 3a741ae7-f0fc-4e92-9463-49bbefdf02d0
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 2 Oct 2026 22:18:38 +0000
-Received: from dev-dsk-akiyano-1c-2138b29d.eu-west-1.amazon.com (172.19.83.6)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 2 Oct 2026 22:18:35 +0000
+        d=google.com; s=20251104; t=1790979542; x=1791584342; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=40qd9siKCBRYB3f3NGKHhJbH3BpIYlDe6X8yX7Hpuwo=;
+        b=SMLZH8s+LCQgFO7oNe4vcV8iJuWUxaQfX4dgY3ghhp+dTzLGGmVw5v/eeIs85vHGip
+         Sa15lgiibSVx5HU/lqpieb+98WbsTIpWBlJC2PyKWxPuN9TJ3mqqdizSuARl1ZwY6Lo3
+         AF0gZcVT9kkBPpvh7N3F7+YJrgrQMp6ClYQaQ6A6GBmTsNxUWD+vr8NpQR47XPLe7/gz
+         P0CwwqXnBzgFni0Zc9dbZ0x4Jt/xviv4JkAe+s4smszurz4casTwUCHFziMd3dpsyFJU
+         uV1gGOL+ob+D4KQXRhnJsyvxrkMbvX2qrFB2WLcjqNOiaw5i9daf6f8Sd9DZ552QG3ba
+         sLLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790979542; x=1791584342;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=40qd9siKCBRYB3f3NGKHhJbH3BpIYlDe6X8yX7Hpuwo=;
+        b=K3HisyDl0Qi9VaJwPr4aqkG+gdt3b5h7wRsTGi6OedlO78TG5X/8lhIPUyWPIUEHG5
+         13pnWGyoWLF//wR/ilGNm2+egeAh0rFvYHc0sNDOEHohNrPN9n0S8hELsBUoEbMn4rd8
+         snAMgbK8noBnWnmvMVHOpB1Wy5OUVUeKtgsaRuPbkcl/Cxbsfsv6vITA6buQfXOIP9JA
+         MZOhU9+1btDupz0J8djhaJ6a/xUsx2Vf/ChLXIridFeuuob//jMG4lBD1eB4kya3/GJe
+         cS3barsW8Bh3F9/6vrkM0m8nzGsHsnUHZRmmnutvkDvNyzLHysk0PtpKKhR9foYo6ct4
+         h6gA==
+X-Forwarded-Encrypted: i=1; AKwUvByAtsm5dXfkSvbg0TbPbLV0ip6kL1rBqv+c91X1TpgYyvwShko1EuERKEXOL1CMvHQOYDTVFhHzj30cq30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMUBFt2qiX925dVMyUHl3ScI+fKSOL6eM37FRD9h5vr25Xpe8T
+	hLISA9QahVwVDB5TLG03tHCy1aFD7DUFparVXAKb2v9166duyXvYc/aK9S/pR2q8Aekiwsx/6xZ
+	lOdPrug==
+X-Received: from pjtn8.prod.google.com ([2002:a17:90a:c688:b0:3a0:dee2:7813])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2b48:b0:3a4:71b7:eb63
+ with SMTP id 98e67ed59e1d1-3a6ceab25dbmr1825054a91.10.1790979541549; Fri, 02
+ Oct 2026 15:19:01 -0700 (PDT)
+Date: Fri, 2 Oct 2026 15:19:00 -0700
+In-Reply-To: <db32438dee67a69609e75d8c43cb070f021137b1.1790101179.git.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 6.1.y] net: ena: Add validation for completion
- descriptors consistency
-From: Arthur Kiyanovski <akiyano@amazon.com>
-To: <netdev-bot+sinfo@kernel.org>
-CC: Artem Dinaburg <artem@trailofbits.com>, <stable@vger.kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>,
-	David Arinzon <darinzon@amazon.com>, Shahar Itzko <itzko@amazon.com>, "Simon
- Horman" <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Shay Agroskin
-	<shayagr@amazon.com>, Arthur Kiyanovski <akiyano@amazon.com>, Noam Dagan
-	<ndagan@amazon.com>, Saeed Bishara <saeedb@amazon.com>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>
-In-Reply-To: <179097411333.1402591.9823193935815787447@kernel.org>
-References: <20261002204534.26297-1-artem@trailofbits.com>
- <179097411333.1402591.9823193935815787447@kernel.org>
-Date: Fri, 2 Oct 2026 22:18:21 +0000
-Message-ID: <179097950193.1335.4142870959256103753.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: EX19D033UWC001.ant.amazon.com (10.13.139.218) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Mime-Version: 1.0
+References: <cover.1790101179.git.ritesh.list@gmail.com> <db32438dee67a69609e75d8c43cb070f021137b1.1790101179.git.ritesh.list@gmail.com>
+Message-ID: <asAt1NhGFs5HNbvl@google.com>
+Subject: Re: [PATCH v5 6/9] KVM: selftests: Limit the number of VM creates in hardware_disable_test
+From: Sean Christopherson <seanjc@google.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On 2026-10-02 20:48:33+00:00, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+On Tue, Sep 22, 2026, Ritesh Harjani (IBM) wrote:
+> hardware_disable_test forks several VMs (NR_IERATIONS=512). This patch
+> limits that number to 4 when we know that we are running in constraint
+> host environment. The number 4 is just a safe minimum when
+> kvm_arch_vm_create_may_enomem() can be true.
 
-
-Issue was real, and was hit in production. When a faulty device creates
-corrupted descriptors this commit stops the corruption from propagating
-further, and reset to driver either fixes the issue, or if it continues,
-helps AWS detect it and replace faulty devices.
-
+Please actually explain *why* this is necessary, and where the magic '4' comes.
+I assume there's some system-wide resource at play?
