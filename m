@@ -1,71 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24929498904
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4212D3BADA3
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946469; cv=none; b=Hx7Xv2vHwboS/GPFAC8r1GPMaIo22it7tSt1HgXKjopN9pb9b4TnGpfueTqgokJ0VvH6PHLJhnDhM65KhqtvkjE8jnjY1CbFX4ldJPirIuHQku1bzZ9ZvDXqCw9xMp4fnZsfNec3lT3dfvUSYrX6/KxpPVYpJ3/x1Dg554KzqP0=
+	t=1790946511; cv=none; b=EOYUbMyO8rZrLaTpO2nLFn/eRilD0xdV3GwvIXztWWXTWV3dJ9JyZy9jXmu2KuaupX9LHUyqi8CSfO6fM2mkHk91Yl92jQ1hPvhnGZx5Fh0/uQ8mtcfRhMXZ1LaZbM2IB42KBSc4ANxeKVeUHxLXqAev0J0O/1ama7YcmXBtqms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946469; c=relaxed/simple;
-	bh=rRqSxYBVDs5G95Y3/oR5AALYIw2h3V5XgBraBQoZiHs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UGvVA+jvy3BaLZ/Lq1YxedRTRvPceEqap9NcIkTT8ISQrmUmBdTwYWKG5ttlLRs0u2J2jAy/RI9x71NxabR2VJ2sy6V4DCmc9sflW39KiiV3AdGu4X5CcV0WlfAdwZit49n7dKZuEXlZ9+GLjAwjn2/95l6VNArR1pA/uFxFjDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+1gVFjP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790946511; c=relaxed/simple;
+	bh=5wSAEahH9cAQEKwatoSdFKO0aE9BxweuQlJhzvnO/Ps=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GIFu7hr7DpEWIjymrGVcEEvV5qXppHd2BnF1UJB4QZ/4Ii/3B/V07dO40mX5pLyutWhNJ4Sr+78iXJsxuBZ+zCjVzqrQUFmjwnBNhFE2w5lPZ1Dv2unkjiGaW3hWC7c7D/JAsnWkFZcm68AwhW5RgSEhajmR2WLQ/6bGL90laTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Vmpe9hWR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+1gVFjP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69341F00893
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:07:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790946456;
-	bh=rRqSxYBVDs5G95Y3/oR5AALYIw2h3V5XgBraBQoZiHs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=M+1gVFjPcuXIRHNDlo0YDSbLrzSXziQmIRNUXvdsDPMu/NxlLC/fOQytAhp2xg9ci
-	 /bs2XIDtm5Vxoi0Q8zN3VRPXadymgOdojBdXLV5Aoqk1H8ohjtmxJfiSK9hTUXwQC2
-	 IsI9sQKTMtniC/1kla8fbPfqqM9CIwaWpf8a9vy2LHMzKDyuq2VQe6R2GPvC971j4T
-	 Q7TughDWAUNnhZFiWBunli38z+LaIQ0e4gAKLPmRzyy/MtkmKV3IFOJo2tqhtxIvRB
-	 M2ozR3qHRZAnpCB1THUdM923rwyhw0PjLovg3HK9H6W8/+brRsYJ7BU+mSzGuaqKrY
-	 EtOKScSak87cQ==
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3453dd0dso3044766b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:07:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxvVIevmC1McMm1IpjWLSj9VVss6htrHIZmHCjkTAI5EYk0H9TXs8jd14jC/g12/xc9CGHeYmCcsRowgNY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYGg8fKSnaCWeRd40JlvipZq+hnpgoB1IZQ7RIgbYRma0NMwd+
-	eTHYxKcVzVene6+mTv3WOQIh311RSoaw8l6a6LTtAnDRojLEmiRUeeAVCeqrb0CPi6P4WIefFsb
-	KGnM2mZUEZy+ztOA3f/72C3Ne9vVYJ3s=
-X-Received: by 2002:a17:907:6eac:b0:c2d:f050:ad4a with SMTP id
- a640c23a62f3a-c2e4a8ba934mr222524866b.5.1790946451229; Fri, 02 Oct 2026
- 06:07:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Vmpe9hWR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790946494;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=lUHnkDSrrfCXFMH8IJydTfHAXtd3mYVbUu8G9r9OmXs=;
+	b=Vmpe9hWRx73GmDQlvFZrniapy1j8egX8ThZG0SCrzxgZLPCWkJq4bZn+PpsEXjMsfx8KhT
+	Z03wFlfoYDbITI6cjumNkZA65gWEYTC8/WV27EmBsrg+TanqXf9kdifSMGJzICbpnyR/bP
+	NKl1eMGvrG73Qvw4CXkm3rVFH011pr8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-48-VTi12gDzPNeEvE01KJKvzg-1; Fri,
+ 02 Oct 2026 09:08:08 -0400
+X-MC-Unique: VTi12gDzPNeEvE01KJKvzg-1
+X-Mimecast-MFC-AGG-ID: VTi12gDzPNeEvE01KJKvzg_1790946484
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E20A118F4BE8;
+	Fri,  2 Oct 2026 13:08:03 +0000 (UTC)
+Received: from ShadowPeak.redhat.com (unknown [10.44.32.39])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CA859433;
+	Fri,  2 Oct 2026 13:07:55 +0000 (UTC)
+From: Petr Oros <poros@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Henry Tieman <henry.w.tieman@intel.com>,
+	Anirudh Venkataramanan <anirudh.venkataramanan@intel.com>,
+	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+	Jesse Brandeburg <jbrandeb@kernel.org>,
+	Preethi Banala <preethi.banala@intel.com>,
+	Kiran Patil <kiran.patil@intel.com>,
+	Dan Nowlin <dan.nowlin@intel.com>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: [PATCH iwl-net 00/10] ice: port missing i40e fixes
+Date: Fri,  2 Oct 2026 15:07:42 +0200
+Message-ID: <20261002130752.2597259-1-poros@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930183758.32342-1-3058704216@qq.com> <tencent_464A86FF7A38FD3620EBF1C6062745316307@qq.com>
-In-Reply-To: <tencent_464A86FF7A38FD3620EBF1C6062745316307@qq.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 2 Oct 2026 22:07:18 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-fV0zP0wM+zcKtMcQv6DtMuZ9rwDC+zr0Q3KiktycXSg@mail.gmail.com>
-X-Gm-Features: AclHuK987g3Vt_LWQapWiNtYD7Ot6aXK1r7jw7bgFxA4oWETAGLY1lxDqDJS46I
-Message-ID: <CAKYAXd-fV0zP0wM+zcKtMcQv6DtMuZ9rwDC+zr0Q3KiktycXSg@mail.gmail.com>
-Subject: Re: [PATCH v2] ksmbd: use clear_and_wake_up_bit() directly
-To: Daijiamu <3058704216@qq.com>
-Cc: sergey.senozhatsky@gmail.com, tom@talpey.com, 
-	chenxiaosong@chenxiaosong.com, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Fri, Oct 2, 2026 at 12:06=E2=80=AFAM Daijiamu <3058704216@qq.com> wrote:
->
-> clear_and_wake_up_bit() was introduced by commit 8236b0ae31c8 ("bdi:
-> wake up concurrent wb_shutdown() callers.") to replace the open-coded
-> clear_bit_unlock() + smp_mb__after_atomic() + wake_up_bit() sequence.
->
-> Replace the sequence and drop the now-trivial wake_up_oplock_break()
-> wrapper, calling the helper directly at each call site.
->
-> Suggested-by: ChenXiaoSong <chenxiaosong@chenxiaosong.com>
-> Signed-off-by: Daijiamu <3058704216@qq.com>
-Applied it to #ksmbd-for-next.
-Thanks!
+This series fixes bugs in ice that have been fixed in i40e, some of them
+years ago, but are still present in ice. They were found by going
+through the i40e history and checking each fix against the current ice
+code.
+
+Patches 3, 6 and 8 have no i40e counterpart. They showed up while
+verifying the ports and are kept in the series. Patch 3 was found while
+testing patch 2. With the IRQ unwind fixed the netdev still could not be
+opened again after the failed ndo_open, so patch 2 alone does not make
+that error path recoverable. Patch 6 was found while building a
+reproducer for the i40e MAC filter overflow fixes. Those are not part of
+this series, because a full switch table on E810 leaves no room for the
+promiscuous rule either. Patch 8 was found while checking the i40e PF
+reset fixes. It is an ice regression of the poll loop timeout check,
+which i40e does correctly.
+
+Every patch was checked on E810 before and after the change. Patches 1,
+4, 5 and 6 have plain reproducers, which show UDP tunnel offload lost
+after CORER, an always empty default XPS map, VF tx_dropped stuck at
+zero and multicast filters silently not programmed. Patches 2, 3, 8, 9
+and 10 need conditions the test box does not hit on its own (a failing
+request_irq, a hung PFR, a WoL capable port, counters past 2^32) and
+were verified with fault injection. Patch 7 was verified by filling the
+switch table, with debug prints for the failure analysis.
+
+An LLM was used to go through the i40e history, to write the
+reproducers and fault injection hooks and to draft the patches and
+changelogs. All of it was reviewed, and every fix was tested on E810 as
+described above.
+
+Petr Oros (10):
+  ice: replay UDP tunnel ports after a core or global reset
+  ice: fix IRQ freeing in ice_vsi_req_irq_msix() error path
+  ice: stop the LAN Tx queues when ice_vsi_open() fails
+  ice: restore the default XPS map after a netdev TC change
+  ice: report VF tx_dropped with tx_errors instead of tx_discards
+  ice: keep adding MAC filters after one that already exists
+  ice: take the switch rule AQ error from the response descriptor
+  ice: detect a PF reset that does not complete
+  ice: program multicast magic wake before tearing down the main VSI
+  ice: fix unsigned stat widths
+
+ drivers/net/ethernet/intel/ice/ice.h        |  8 ++---
+ drivers/net/ethernet/intel/ice/ice_common.c |  2 +-
+ drivers/net/ethernet/intel/ice/ice_lib.c    |  6 ++++
+ drivers/net/ethernet/intel/ice/ice_main.c   | 36 ++++++++++++++-------
+ drivers/net/ethernet/intel/ice/ice_sriov.c  |  2 +-
+ drivers/net/ethernet/intel/ice/ice_switch.c | 17 +++++++---
+ 6 files changed, 49 insertions(+), 22 deletions(-)
+
+-- 
+2.55.0
+
