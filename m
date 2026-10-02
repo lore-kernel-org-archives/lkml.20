@@ -1,93 +1,88 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C16494820
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 11:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF332486BB4;
+	Fri,  2 Oct 2026 12:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942357; cv=none; b=i1e9m/EgvMgJfVqHD38JxJFPgiqavjxhczRD4ZDjZkGz/VUFAFQtEa3/dOqkuEePyLEwyG4N90LvIugzkZ9XMIM31KiAnUtyIlgHNIBHUIqBZ+HDfIBdtRlnguSVvwi6/Q1CLJkmqsnBAvGhmETTF7hAFxoz8nUW96URYfBQErQ=
+	t=1790942463; cv=none; b=oTYUJe9uxwjeh68WXtHEq05q6cS3a+totxLjtGG9igPNNCzqHEZs0hstFnTwwiygx/TBKT/8GtBHv0GfemmDp6z4kYwBbzCSQ4aQAo+hco0vBkN9kXm2uOVq4u2UQKZeAnNAWy5pnJvU1AiaYFgh7nR6LV0fBSF56D2JHQQwPrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942357; c=relaxed/simple;
-	bh=h6MgIV5uFF71vfuEX15zHF5eUzWPt5ZV0RfVUrka374=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HVmLsAaVqKTy3ZIMg4Jwa8BLuYK9QIsdG09d6grOOJhSTMw78vAp5CtTTWsRh/IiVOcVx5y9aWOF/Nyt3UaDZyyWXSfQb4SvDqje2T9hAPaDfrusJU8JydYegSTDlD8stInvwcZ2or4wqS3OlQ5krdl/5MuwiRaSCIAMYrJJqBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gC1arjmH; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790942463; c=relaxed/simple;
+	bh=wjGPhqLdUPxxQ8hIdNzWUdbwHRjhhPUYdhvazM+TiDo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=a9DT3XvkNqyRO1dnRM6saPfTli0yi5mtMRTwKk1K4pldL+oGG+4T6rqeeSeLfNryaeLNwSKY1Oip+CKJD6+WPDnACco2+92PKDzg1Fksc524Ylziq7Hwa3dICfu6vz3+8R2nwRwHgOx+k79Oi48lKX2rs9dqgO9mOclSbGT4Lp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BLIZfEcu; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gC1arjmH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790942354;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1pDAAGucGbD7dq9uU5/BnPZ475OniWWegBsCwJxkyqo=;
-	b=gC1arjmH5WpDe+uvCom4DLKfRB3CDe/lNBfwZ/hS4YQstewknKY9FpV2Z0tFT6YIFLftuN
-	xEhcBxtxs+XLUosrz0ioWGLeLi09bHOGz4nUWvZb6L901mPwrPtz6eSUA+2U191GhgHcq4
-	1wYWDoGOJv5qPLzro3EIi64QFEGueek=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-668-tRpH1CW2M-mxDRa8HS7v6w-1; Fri,
- 02 Oct 2026 07:59:11 -0400
-X-MC-Unique: tRpH1CW2M-mxDRa8HS7v6w-1
-X-Mimecast-MFC-AGG-ID: tRpH1CW2M-mxDRa8HS7v6w_1790942350
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BE2931800366;
-	Fri,  2 Oct 2026 11:59:09 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 96534214;
-	Fri,  2 Oct 2026 11:59:07 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Fri,  2 Oct 2026 13:59:09 +0200 (CEST)
-Date: Fri, 2 Oct 2026 13:59:06 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Babanpreet Singh <bbnpreetsingh@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org,
-	syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
-Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
-Message-ID: <ar-cijUnCr1L8urs@redhat.com>
-References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BLIZfEcu"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 455CE4E41103;
+	Fri,  2 Oct 2026 12:00:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0B0B7603DC;
+	Fri,  2 Oct 2026 12:00:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D33A103281A3;
+	Fri,  2 Oct 2026 14:00:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790942458; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=wjGPhqLdUPxxQ8hIdNzWUdbwHRjhhPUYdhvazM+TiDo=;
+	b=BLIZfEcutQU/GVJn9Dtb03DTsEgXgs2oB0BKbhdk326jknpP0um6jVD996YrNgILNReWsP
+	PjEVC7wW1bJpUvy1AsZ7a2pNkexynJuzHv9wSk5XDbVOuDhn/vaf56VPFAhNtMfTjSqoqE
+	QWPKm3332KzK24j4g5V3RdOFl2ps3qYLfli8k4OkjiRGFtSyCv+BSsWoyLOjNBMQ0QdVOT
+	+Z8cU88cHPdFczaSsZjPou63XXcVr41wtJZqiRqbNhCEkVaQ74yl8sJTDPZPBa/8oZCXbN
+	RQuyKBzK7gyinIh1jPjEgr24WZrazlL4at5t3Pg8/tZVLIGNiMoxo6maxNrQlA==
+From: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
+To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev,
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 0/2] dmaengine: fsl-edma: Scatter/gather improvements
+Date: Fri, 02 Oct 2026 14:00:56 +0200
+Message-ID: <bsv-R2foRp-2e8IxUjsoMQ@bootlin.com>
+In-Reply-To: <20260916-fsl-edma-dyn-sg-v11-0-02792de71b92@bootlin.com>
+References: <20260916-fsl-edma-dyn-sg-v11-0-02792de71b92@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002012141.7-1-bbnpreetsingh@gmail.com>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/02, Babanpreet Singh wrote:
->
-> --- a/include/linux/pid.h
-> +++ b/include/linux/pid.h
-> @@ -264,7 +264,7 @@ static inline pid_t task_tgid_nr(struct task_struct *tsk)
->   */
->  static inline int pid_alive(const struct task_struct *p)
->  {
-> -	return p->thread_pid != NULL;
-> +	return READ_ONCE(p->thread_pid) != NULL;
->  }
->
->  static inline pid_t task_pgrp_nr_ns(struct task_struct *tsk, struct pid_namespace *ns)
-> diff --git a/kernel/pid.c b/kernel/pid.c
-> index 95b8ccfa82690..adf7216067684 100644
-> --- a/kernel/pid.c
-> +++ b/kernel/pid.c
-> @@ -411,7 +411,7 @@ static void __change_pid(struct pid **pids, struct task_struct *task,
->  	pid = *pid_ptr;
->
->  	hlist_del_rcu(&task->pid_links[type]);
-> -	*pid_ptr = new;
-> +	WRITE_ONCE(*pid_ptr, new);
+Hi Frank, Vinod,
 
-Acked-by: Oleg Nesterov <oleg@redhat.com>
+> This series adds support for scatter/gather DMA transfers via dma_vec
+> and dynamic descriptor chaining to the Freescale eDMA controller driver.
+>=20
+> The first patch implements the .device_prep_peripheral_dma_vec() callback,
+> enabling the DMA engine to accept an array of dma_vec structures. This
+> callback supports both regular and cyclic transfer modes.
+>=20
+> The second patch introduces dynamic scatter/gather chaining, which allows
+> multiple DMA descriptors to be linked together without stopping the chann=
+el.
+> This optimization eliminates idle periods when back-to-back transfers are
+> submitted, improving throughput and reducing latency. The implementation
+> carefully preserves cyclic transfer semantics and respects hardware
+> constraints on platforms with split register layouts.
+>=20
+> I tested it on the i.MX93. The dynamic scatter/gather chaining should
+> work with other eDMA controller with split register layout.
+>=20
+> Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+
+Gentle ping on this series. Is there anything else you would like me to
+address?
+
+Best regards,
+=2D-=20
+Beno=C3=AEt Monin, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
 
