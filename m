@@ -1,101 +1,48 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BEE495ADA;
-	Fri,  2 Oct 2026 12:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347EB387346
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945147; cv=none; b=EHD14D0D5DgFqTbZw2Z5Ov7N/Lqwp/6/UGO8twMLmtDpwZEDKM3mo4fEVatzRcBnZvqLgQV7F4jR3LtDOaQTGH0ZnJi5zycH158VtgtjJmTnwUvwxLVdN7Nv8pgccU4ktJmjMxdSrsW2oRyjrQevg5wo4pFTQyxGrIBT0dPGlvE=
+	t=1790945149; cv=none; b=rPvQzHgdwhF9sfFaU5C+H5SWgUzVi9n1kZr5cBGE6T1E5qEV0rL8Bq8BEg/SplJETinL+MceUjfahCFB4zQT+727tlYljvPzSwmQWhsCpzP7NKvkZ7RVVuRs7dj9lYMlSnSl2ioOtNP8WJy+xNCZZ+a2GmB+dX54NWrCASACMEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945147; c=relaxed/simple;
-	bh=xVL8H0n+Nr692E9tB1LnNW30KjtCfZjmAfsT6VWXD3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o89JBJ/IJyhxOHe8WUb+bLnYijSC5BZ9Ly6x5OE2pBDBV0LuKnMsPj+LE5KvAllNOPkvFcaJQ2T4xFrdlYILleFVXdllfD0kL52A2kAJEziVeWGPI/gveB3Qm4LuF6OrgAIGoARF757KnnpZKP03OyZv/Mf0jj8BV6nrYPQ6UMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0VAtm1ok; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=/0WdpOGW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YWadqPbf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=K+VJeQ8q; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790945149; c=relaxed/simple;
+	bh=6o9z390FSaXvtvYhDMYQXh3e4g3IXqp/50zPZ8SIe88=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hp2/AkxX9GFwaVndqHg92dhdQ82/s6zFcAyIPRpQjdjRr9mQrJCzVIimhOAGQ2x2tUGqzqKWCKxte169EiF9LnPSSXKg/5QLGvvuWJmcou04cwWqlCvZkgXXxDFlGZ0yZaJt2672iF8UR/O0cVACYI7yaWL2BO7jV1Dsh+SNlaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Kvf4PQ/2; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0VAtm1ok";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/0WdpOGW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YWadqPbf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K+VJeQ8q"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Kvf4PQ/2"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BE03421A11;
-	Fri,  2 Oct 2026 12:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790945113; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
-	b=0VAtm1okbgz5jzuoRsfzT69Y/XKSc0LTX25eYbBpId8RovP8Ez2W4HNc45fyVaEJzGCM1r
-	jGtAcCx4BoCEPmlKZjr+nlWxTndk75sS7zO+Edks2cr/7PvfXFB8lI+cBEgl7seD6LXtYd
-	+IVn3Lt2MJy7oeEgTJ7BmmuocoyGBhc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790945113;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
-	b=/0WdpOGWUmQcKyNVEEcrhE9hGTxG/ri/IIKdSwT/lCXNhxxV7eRYuWfBysIeZkrbl8BTN4
-	AphoHx4bJsqASOCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YWadqPbf;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=K+VJeQ8q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790945109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
-	b=YWadqPbfZH0ePDQ8JYeoE1P8LiT3LS8oZ+P+rnw2AHGoeTeiJgk6ggUGP64urgCMWkpmUt
-	YDslIkSXYcr+zh7kHnXwvgWyD55ebOeAQtxVy8LC4lQ1mIPenCxkr0gWfZohIJ7FCEYMr3
-	W8pk2/bz9ODbadcO2xiV2fsv6Mq2C38=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790945109;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7EoNoc7tWsUIHwVx/TH3XPuU6rWbn3QtJ79wsmjhriU=;
-	b=K+VJeQ8qvl9p71DUEThv2kY1N27YQYsYhVDGv7g2ZLRH1x3Y4CkA4hT5f0Y01sMJifkx/O
-	+8KvOv8CtwID0iAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E939A13C98;
-	Fri,  2 Oct 2026 12:45:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id V/hJI0ynv2rNTwAAD6G6ig:T6
-	(envelope-from <tzimmermann@suse.de>); Fri, 02 Oct 2026 12:45:02 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	decui@microsoft.com,
-	ssengar@linux.microsoft.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	sashiko-reviews@lists.linux.dev,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH v2 5/7] drm/tegra: Do not include <drm/drm_simple_kms_helper.h>
-Date: Fri,  2 Oct 2026 14:41:55 +0200
-Message-ID: <20261002124456.741011-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002124456.741011-1-tzimmermann@suse.de>
-References: <20261002124456.741011-1-tzimmermann@suse.de>
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hx7ml42xBzMl31;
+	Fri, 02 Oct 2026 14:45:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790945143;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=st2DE0l2eDcABWROMrXPJiQnFfgtYr1s5dyIvrcpjGg=;
+	b=Kvf4PQ/28f8mxMjw2r6fLebF5wlWIqxvdefcUAhMZu8SlT94ra2cxxWNDjbnfP12bk+Tr2
+	5MarOrhydAtqi9b/axVM7GrupGrROrADPXRJ/3A0JVQ6DgJaYjDAG1ujALXztCTf42xwHk
+	T0yLZ6jbh6ZEbk1CTMQf6SsWTuZuJT/QA2tjN+xJRvvYbIsfQSvUAE6TvtcdIOnegRF5ht
+	mzQoU6rL3qoadxqRJQZtlrBZRQhI4C3zJpseUHn8pqG9zZSzwYJUbxTTZHGC3id7tBLRLu
+	7BNVXePV48MlA5BI7qXld4lN7DjR8XNBs8k5v3Qb1klvM+3uhwd60AmFFWlwQw==
+From: Tor Vic <torvic9@mailbox.org>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	kprateek.nayak@amd.com
+Cc: linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/2] sched/fair: Remove tunable scaling
+Date: Fri,  2 Oct 2026 14:45:36 +0200
+Message-ID: <20261002124538.79658-1-torvic9@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,63 +50,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: BE03421A11
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,microsoft.com,linux.microsoft.com,linuxfoundation.org];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:email,suse.de:dkim];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
-X-Spam-Level: 
+X-MBO-RS-ID: 634eb3598d433251138
+X-MBO-RS-META: zoscx7q6dbzrtbqgsn84w8c4duznsozb
 
-The tegra driver does not require anything from the simple-kms
-header. Do not include it.
+This series removes the scaling of tunables, which was introduced around
+Linux 2.6.33.
 
-Suggested-by: Javier Martinez Canillas <javierm@redhat.com>
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/tegra/output.c | 1 -
- 1 file changed, 1 deletion(-)
+I split this into two separate patches:
 
-diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/output.c
-index d0ba3bd0aab8..eebf0ec0eea0 100644
---- a/drivers/gpu/drm/tegra/output.c
-+++ b/drivers/gpu/drm/tegra/output.c
-@@ -11,7 +11,6 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
--#include <drm/drm_simple_kms_helper.h>
- 
- #include "drm.h"
- #include "dc.h"
+The first removes the "none" and "linear" scaling which are likely not used much
+and have limited usefulness, as one can always set sched_base_slice through
+debugfs.
+It keeps the logarithmic scaling which is already the default.
+
+The second removes the entire scaling mecanism and sets a fixed sched_base_slice
+of 2 milliseconds, a value which has been chosen somewhat arbitrarily.
+
+Currently, the base_slice multiplied by the log2 factor can take the values of
+0.7 (1 CPU), 1.4 (2-3 CPUs), 2.1 (4-7 CPUs) and 2.8 msecs (8+ CPUs), so it seems
+that the new value of 2 msecs is a sane default, which I also use on my consumer
+x86_64 machines.
+However I'll leave that open for discussion. Note that the base_slice value has
+changed quite often over the years, lastly in 2025 [1].
+
+The series applies to 7.3-rc5, and is build- and boot tested on a measly 2C/4T
+Skylake machine. I marked it as RFC because I don't know whether these changes
+are actually wanted by the sched people - and because I'm not a developer.
+It does however remove quite a lot of code.
+
+[1] commit 2ae891b826958b60919ea21c727f77bcd6ffcc2c
+
+Tor Vic (2):
+  sched/fair: Remove the 'none' and 'linear' scaling of tunables
+  sched/fair: Remove sched_base_slice scaling altogether
+
+ include/linux/sched/sysctl.h |  7 ----
+ kernel/sched/core.c          |  1 -
+ kernel/sched/debug.c         | 52 ------------------------
+ kernel/sched/fair.c          | 79 ++----------------------------------
+ kernel/sched/sched.h         |  5 ---
+ 5 files changed, 3 insertions(+), 141 deletions(-)
+
 -- 
 2.55.0
 
