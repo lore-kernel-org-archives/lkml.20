@@ -1,97 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08EE044470A;
-	Fri,  2 Oct 2026 10:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2D6475357;
+	Fri,  2 Oct 2026 10:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937458; cv=none; b=IqhMzZt07m2HgGCUxjZrq8nggk59IELQs/Tkzh5q2NMp07bmT6dhbFy6f81wwp44AlKXUOU3lKjKWxQvoyZTmAttS0pJAhoWy7Y675osBcqHmiCt02Jzk1WyzAAGDnEsQCc6Z3FI9kS95wHA21fdiJIeAIib60QPm0Ouo93lmmo=
+	t=1790937490; cv=none; b=OIDN5xXTZYK785ROkfLDVyQC4/6DBfhipF2BeDwY6E2V/Omp+YaO6tz5B4TJKAIAcoctK3Ht9rK61zk04YGOBy4QW2IckScnzOQNMEDWVhdAEiN84PBpLMbePGqTj4JtN4xLBBgoOn2Hqt55DeKxNonwBsNWeIPP/36OlXRVMfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937458; c=relaxed/simple;
-	bh=MpQ8nLdNnR81vCVjCCsNhls8ahzgzhGE4VA7PIrgLQA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YutonODdxGHYpJT6/sU1TGaZNea8MlrgZ5L4SB6kEKSBm2YbV9xPuMzIbO/XRDWKFbJuN0UXfs5JGf8MsGwMuAId+iLLPGc9DAbXFkUE6NAxW0m5/0xlaXdDONLUjmeiQZNPLHf5qLpi5qNXS80IQAfgeX4YyXQfo5zpc5nXK+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TLQ/bvNe; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790937490; c=relaxed/simple;
+	bh=a9KqHjlXIi87l3g4eMps3Q4mZeuFVvhrhNz2fQWUFXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AQcexwwN2NImK9TWqWEbGa2RgvSDYPWgpk9pP7ohip6EsGdo/DKyQF/vUrdUApXfSQDrYL6M0koQzz93W5ve6f4I2EURz6/djsFNZtyLimmFowMoPROBVi2ohy+Q1m4pVrjOiQASpYkDFFLyAc+wD8eJSfmoeInxp32+IcQyix8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=i+6jxtT4; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TLQ/bvNe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790937457; x=1822473457;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MpQ8nLdNnR81vCVjCCsNhls8ahzgzhGE4VA7PIrgLQA=;
-  b=TLQ/bvNeilVj/aZjed4hVISyu4T+zyYrM0Czgxq+Fp6AnK7mOkygxiyg
-   XQHNy2Xy89sMhm6djYJP9BNXzyUyEgK+Pj65RXfqctnuQtgYi1vGb6Ox5
-   2Rq/a9djjcIvwF7oqAWSdvtLG8k0gsNoN1ZrhLDT8bprNdLna0LOkbpem
-   fUz4d7rAQdyhLIVYg1hUEwehiBCy5dig1kxFdxhNP9kRZYdUbUow9AGvJ
-   Y+G742gNE8m7YFcGp+VSH9lhOMmtHSio2wrJ48qp7PjnYgXw+Cf6ZTp7W
-   Pw6pWSrrAV4wScj741GboMcLqLf4Xla9tnkiqGzyD9N48szZXzCKS0UeF
-   A==;
-X-CSE-ConnectionGUID: b3WynWKfT/ixjz072AXe0Q==
-X-CSE-MsgGUID: 7Gbp9299QxqsKcDSmfLlSg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94414526"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="94414526"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:36 -0700
-X-CSE-ConnectionGUID: WoWMfcBxTRWhFgAfLso6+A==
-X-CSE-MsgGUID: S2m75JnTTWaYzJjpdnoIqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="314213711"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:37:34 -0700
-Date: Fri, 2 Oct 2026 13:37:31 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
-Cc: Mika Westerberg <westeri@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro V
- 16S AI
-Message-ID: <ar-Ja2AVJs1TzMpg@ashevche-desk.local>
-References: <20261002101800.51506-1-abduvaliy.hbai@gmail.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="i+6jxtT4"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0C14D20476;
+	Fri,  2 Oct 2026 12:38:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790937484;
+	bh=L6WKkXHoPT8Ngp0RSnEnTRpILsIWU0p7WgHa7MALkFk=; h=From:To:Subject;
+	b=i+6jxtT4udfRa2RQQYwk5xppBrpPF3Ih8iAcTEqDcES4A31i0leM1CKx5avodBXOA
+	 5YhkbMsisuMAkZPCJAA0IKXD5dttRhYM3jUzRj1cGXVVMjcVFQWDNl9dc3rgXGHAJL
+	 r9kVX9tAkykFaOmWo8GyuGHBKcgFJStOD+s4p4EKVrcLzFhjklz1rb3dw/HfJEtkIw
+	 k6rs9toZm7jTWAt4WZeCCtebnDA4n6v4pGkE67NQOGg+DGiC/aMvylEz6DT0hT1Fnq
+	 fvvTRf0P3mf5VV7a9UceI2cYQf6iqKhyVLC9OqZ9nh+lWUnSCbd61PXphFQTvrpNo+
+	 AXV4I41rA0W1A==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/3] arm64: dts: freescale: imx95-toradex: fix vdev buffer reserved memory node name
+Date: Fri,  2 Oct 2026 12:37:53 +0200
+Message-ID: <20261002103757.70065-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002101800.51506-1-abduvaliy.hbai@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 03:18:00PM +0500, Abduvaliy Abdulazizov wrote:
-> On the Acer Nitro V 16S AI (ANV16S-41) the internal USB camera
-> (0408:4035) works on Windows but never shows up on Linux.
-> 
-> The firmware drives GPIO 11 of AMDI0030 high to power the camera. The
-> same pin is listed in \_SB.GPIO._AEI as an edge-triggered, active-low
-> wake interrupt whose _EVT case only writes a debug code. gpiolib-acpi
-> requests _AEI pins as inputs, which clears the output enable bit, so
-> the camera loses power during boot.
-> 
-> After boot the pin register reads 0x00447a00 (output value 1, output
-> enable 0, line low). With the xHCI controller kept away from Linux
-> (pci-stub), the camera port shows CSC=1, CCS=0: the camera was
-> connected during boot and then dropped off.
-> 
-> Booting with gpiolib_acpi.ignore_interrupt=AMDI0030:00@11 keeps the
-> camera powered; it enumerates and works with uvcvideo. Add a DMI quirk
-> so this works out of the box, like the existing one for the Acer
-> Nitro V 14 on the same pin.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-While this all sounds legit, I'm worrying that the pin can be used for
-something more. For the record, can you share the DSDT table (or entire
-`acpidump -o NitroV16S.dat` file) via some file exchanger so we may see
-that?
+The imx_rproc driver uses node names to identify reserved memory regions.
+It checks for "vdev0buffer" to skip mapping and "vdev" prefix to filter
+vdev regions.
+
+Rename the reserved memory nodes to use the expected names so the driver
+can correctly identify and handle each region.
+
+Same as commit 5cae743b988d ("arm64: dts: imx95-15x15-frdm: fix reserved
+memory node names for remoteproc").
+
+Francesco Dolcini (3):
+  arm64: dts: freescale: imx95-verdin: fix vdev buffer reserved memory
+    node name
+  arm64: dts: freescale: imx95-toradex-smarc: fix vdev buffer reserved
+    memory node name
+  arm64: dts: freescale: imx95-aquila: fix vdev buffer reserved memory
+    node name
+
+ arch/arm64/boot/dts/freescale/imx95-aquila.dtsi        | 4 ++--
+ arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi | 4 ++--
+ arch/arm64/boot/dts/freescale/imx95-verdin.dtsi        | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
