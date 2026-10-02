@@ -1,143 +1,92 @@
-Received: from mta0.migadu.com (out-233.mta0.migadu.com [91.218.175.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AED23D28C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF9D3081A2
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 01:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790905800; cv=none; b=LOingIhhe3e3C+FxKBOC0ZFORIVabGg6Bi82bGLvbIBlXkL7Vh7jsDMITGNxjKjT0wQEUKUyiydlCu5226EyOrHjj0ZLEi4icJB3CJ8UxiZ7+L32y3Jd4Vfp+B0citrOQjlOEv8kaejxzEu8Au45BNbU3yGY+a9SVKNBSX1qCpA=
+	t=1790905885; cv=none; b=NQUH6qTOHsRryEVp0ew0R3k1oLxIUx1zmsGcsDfB9+/BqgRKTTjeOqY1aUovCxOmAOhkEov5w15hqiWXVuHPNFYuzPfuVNz/s5cnq6Bh+I4+9L6yDKnVFELVL1bBSEtCKQsIPgNkdq8L0174MGid/hVYVYKyimY7aAagBFhWsh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790905800; c=relaxed/simple;
-	bh=O/F6AKy+1TPXxN7FZeSSixd6YDpdthmqRGsFYibhu3U=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=XSOYqgGLMB28IL4iiCMMrARrchuIoUQ8Qe+XGPzod/TQZxXOpkiTFPtr4evs+ekJDQ5teuN2tPJqHhZLS633ORfqzKg5pLO2rUSk6wkrQDUi1v4rrrlIQEccrkyrbXaqIWwGHx37igF2wTB+08TfAI7NxLeehfZ6xQMCDLLytAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ohcTV+WL; arc=none smtp.client-ip=91.218.175.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790905885; c=relaxed/simple;
+	bh=sh6ksLIuszaBIIvF3SvAwH1jUnCcPbxdHIxjtWmLwww=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=AdLqS7ByKh//FtFOfNodqn3DP7kvr/Zsvy4UH8vC3LsZMLgLCYOcq0yJIVPHo5S+8SaM6fqYwloFj7tztWwvDmkIePIc9vvCfg+BFOG90eAVdr5vzqDtkUe6ALYCIw20aaBkP0rjgQ+9yWpHrLmFm7r481+ksxFmQ/RuMYruTrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=cYUvOeF4; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ohcTV+WL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=O/F6AKy+1TPXxN7FZeSSixd6YDpdthmqRGsFYibhu3U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790905794; v=1; x=1791510594;
- b=ohcTV+WLBQIjClcA1S1hNHO1DQXU8X2joFAGsI1ThoyMAN+PVq5OqpomUoURl0QZZTMDOsg8
- rUTsUjr8j6+/QF/c69xneTs28BVt9aj99XKSrbX2cQn4X8gxKFZI157OdULq5kABQEEY5+ijQ1g
- unZwtNPkMlkqFp8pYbm9JY2o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 7473f29920ffea9f;
-	Fri, 02 Oct 2026 01:49:54 +0000
-X-Mizu-Trace-ID: 7473f29920ffea9f
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="cYUvOeF4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790905876; x=1791165076;
+	bh=Nrqllks35NsDc9tpEslCuU6ilJ7UtIxYT4bEMyjISKE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=cYUvOeF43g5K6MGy1MrJXnp1ypvw/J+tewRYijqaX+PBf6SE/RLomNaZuJmr6wBrp
+	 jezQyH1GTnXhBhpjH+8OJgOHNt5vvd8kTIquM+W11kt/+8SGXaWRLtHQjwoEwCmZ2g
+	 04I1DLyCX4EqMjXDnV+3sbXNGrMmdvYTObZFMohmmwqSqg3izK2sLcPZPwm25DVOBJ
+	 aq0s7NfHfXv0Gnojde5B3KndMaQkz1sSay2HuoV3QkGe9bgqqRSFKDAnVljN3+fcF8
+	 leJHoRtEwysJByGedvyhmKmlyiC+7Wio4uGgyZkA8HJrBR2CkYEe42r/HFvEZaX50h
+	 zB3Utu3AJ08tQ==
+Date: Fri, 02 Oct 2026 01:51:11 +0000
+To: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] Add support for the BOE BF068MWM-TD0
+Message-ID: <20261001-asteroids-panel-support-v4-0-635ba9e82618@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 1f2be8aefb59dc8e3301ddecfda57f25a992a302
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v3 6/6] mm/mm_init: add zone mismatch warning during page
- init
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <ar5xbQsUpSQZg0wO@kernel.org>
-Date: Fri, 2 Oct 2026 09:48:42 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <78D5D6AA-BE36-432C-B0F7-453F93DF18C0@linux.dev>
-References: <20260929053231.66085-1-songmuchun@bytedance.com>
- <20260929053231.66085-7-songmuchun@bytedance.com>
- <ar5xbQsUpSQZg0wO@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
+Add the bindings and driver for the BOE BF068MWM-TD0 panel used in the Noth=
+ing
+Phone (3a).
 
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+Changes in v4:
+- Rebase onto next-20261001
+- Drop mod_devicetable.h, switch to device-id/of.h
+- Link to v3: https://lore.kernel.org/r/20260704-asteroids-panel-support-v3=
+-0-38dc92570579@pm.me
 
-> On Oct 1, 2026, at 22:42, Mike Rapoport <rppt@kernel.org> wrote:
->=20
-> Hi Muchun,
+Changes in v3:
+- Rebase onto next-20260701
+- Keep 'required:' list in same order as properties (Krzysztof)
+- Switch to devm_drm_panel_add, devm_mipi_dsi_attach and drop remove callba=
+ck (Neil)
+- Link to v2: https://lore.kernel.org/r/20260605-asteroids-panel-support-v2=
+-0-44b96c6eca91@pm.me
 
-Hi,
+Changes in v2:
+- Rename binding & driver to DDIC instead of panel assembly (Neil)
+- Clean up hardware resources in prepare() on errors (Sashiko AI review)
+- Link to v1: https://lore.kernel.org/r/20260603-asteroids-panel-support-v1=
+-0-109c6ac81c8f@pm.me
 
->=20
-> On Tue, Sep 29, 2026 at 01:32:31PM +0800, Muchun Song wrote:
->> For vmemmap-optimized sections, tail struct pages may be backed by
->> shared vmemmap pages. Those shared pages must carry the same page =
-zone
->> ID as the struct pages initialized for the section.
->>=20
->> Warn in __init_single_page() if the shared tail page has a different
->> page_zone_id(), which would indicate inconsistent initialization.
->>=20
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Acked-by: Qi Zheng <qi.zheng@linux.dev>
->> ---
->> v3:
->> - Collect Acked-by from Qi Zheng
->>=20
->> v2:
->> - New patch.
->> ---
->> mm/mm_init.c | 3 +++
->> 1 file changed, 3 insertions(+)
->>=20
->> diff --git a/mm/mm_init.c b/mm/mm_init.c
->> index 1650d6bc1211..bd02e8d06965 100644
->> --- a/mm/mm_init.c
->> +++ b/mm/mm_init.c
->> @@ -609,6 +609,9 @@ void __meminit __init_single_page(struct page =
-*page, unsigned long pfn,
->> if (!is_highmem_idx(zone))
->> 	set_page_address(page, __va(pfn << PAGE_SHIFT));
->> #endif
->> + 	=
-VM_WARN_ON_ONCE(vmemmap_optimizable_order(pfn_to_section_compound_order(pf=
-n)) &&
->> + 			page_zone_id(page + =
-VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) !=3D
->> + 			page_zone_id(page));
->=20
-> Hmm, page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES is initialized a tad =
-later
-> than page so it'll have stale data in the page->flags, won't it?
+---
+Alexander Koskovich (2):
+      dt-bindings: display: panel: Document Raydium RM69220 DDIC
+      drm/panel: Add driver for Raydium RM69220 DDIC
 
-Lance is right. The shared tail struct pages are already initialized by
-vmemmap_shared_tail_page() during vmemmap population, so they're not =
-stale.
-The head 64 struct pages are initialized later =E2=80=94 right here, =
-after vmemmap
-population.
+ .../bindings/display/panel/raydium,rm69220.yaml    |  74 ++++
+ MAINTAINERS                                        |   6 +
+ drivers/gpu/drm/panel/Kconfig                      |  15 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-raydium-rm69220.c      | 417 +++++++++++++++++=
+++++
+ 5 files changed, 513 insertions(+)
+---
+base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+change-id: 20260603-asteroids-panel-support-d55c929a89a8
 
-Thanks,
-Muchun
-
->=20
->> }
->>=20
->> #ifdef CONFIG_NUMA
->> --=20
->> 2.54.0
->>=20
->=20
-> --=20
-> Sincerely yours,
-> Mike.
+Best regards,
+--=20
+Alexander Koskovich <akoskovich@pm.me>
 
 
