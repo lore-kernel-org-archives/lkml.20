@@ -1,309 +1,144 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C5641168B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D780625F7B9
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975798; cv=none; b=hTzjaoSaw9bT3gw6Qn5EuTdcrZ70FePjMlsavIktEOIQ4oqzbzidB9wpibOHbXc2e7wh9g4IfMJXpDzj0nEoR44+bWIclQzzU8YbmIiv89EkXfWk4LoFUdb6V06ChUgfVlfc6jRj66Bo0MR/RlPEAyqvky41/7HKLJwuLpc3LHM=
+	t=1790975870; cv=none; b=AwxxOn3SnF7Q5VQ5L2ufM4E80BNPgtC3HIaiivdW8oWdP8w8jkHr4HgEhGR0PGipx1DZlsOTk2tPk49GwPPz6ns8H5Xa/K4aSZUhfUD6xMOyRLgGWhb7tziHixbQgJyE9dUu6xVzz/GQjE3XWpuLWm64JhwO5zqDd5ZFSSSTkco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975798; c=relaxed/simple;
-	bh=4D4aVPOSEl2A+owPYn+PFyy4iq7bP4clkJ3jbHNggNg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lUK5cxYMghUw0w4znHC3d85THS48dclEM2LglDRsmCxn/RBf9W+EAdy3XTdqrk6oPoKlLLkuuG1Bz3ZxZkDjrJzhjd02BM+k/Y+0NshUrSYHT/DMbV7Qe4lk8O+E1y8piIAjJ2lk05Y1hPpRoS6iRU9KaKxxItAGZasZj90l8VE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=noroxi.com; spf=pass smtp.mailfrom=noroxi.com; dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b=R1gbvmoh; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=noroxi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noroxi.com
+	s=arc-20240116; t=1790975870; c=relaxed/simple;
+	bh=SwVzjzCEvI9xgzYskQdRtxzYscx6RxP9paKnYNf4bDY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=W0geIncLJ8hGhwgdwgOiel3WtzhuMEPq40ss9Gt8OQjwroFr9xnxmrbZsFd/LXscyDMgDlmX1QESG4/nWoWn9iT+XFnWBhcnAqSEvp0D9qYtBBlJLBBXwRveZ8tF5IcvJ8PzCA5lXxQE0Ko4VtEakrYl4CyhjkI4NuEakcaUm3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=XDFwohhb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CjNitlPj; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=noroxi.com header.i=@noroxi.com header.b="R1gbvmoh"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5bb5d3229d1so1158754e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:16:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=noroxi.com; s=google; t=1790975794; x=1791580594; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VZJBRY4CFdwM/oZuJvFUBIMnKMIGNgLTvno3oAn5Pmk=;
-        b=R1gbvmoh3QCIpGDFBx6Xn8S+nCZEqmpPUDmBTcQKKlyTj/+KSm7ryGZ7EbtNxqh+wg
-         ry/R+2gVZzSXlAsxghI9TPcEWT7OGgPk//ifuMztNJshC3g0FzaeD25Axs3TcMpiMqV+
-         LTieJA07sGOV4ov4qn2VF6ZD1WjfxmyCXoKkeaoauIgSAY1ldVMOGb2AKnyDE6fJ3+AM
-         BMy36HrYf+A+O9vO6LqmW+qRwbF4TU+XafWY/Ly/U8VTLVCLtlIoBguLKsO7TIWJ06J2
-         RHcf1QhY4W1j7Zg9yV+fiSR1FLWMwNAkU9rmfbwGTiYg15vP7dgV3haIsQU8vOwWKNIa
-         vGSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790975794; x=1791580594;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VZJBRY4CFdwM/oZuJvFUBIMnKMIGNgLTvno3oAn5Pmk=;
-        b=SpHhXJa/ctDJXL5XCRjPCucwXUr7jKfQHrRUGBKGY0iS5U0bE1m83cv8rAsLUtDYrl
-         zKzwDFQ/x/ItYC7sX0Ke0ZuoDKLDIzquSL4YJKJL+GRXwm41xJKWuf6GNf9ewOOAqOAM
-         7ZTw5Vhn+0G84BBPLQQGsS3kHTRmLxl7kmq22dATZBBLQrHmvGqcisNJCrSQujb3jHcp
-         niA2tvWuIL5045aAVSM+M8Pq/+dR9H6qrmOm/D3HdT221juQRpUteE+uBDZxxiOMzZ1c
-         5c0ovvGyy0Ea1w/+TMQFBuE8+zfWVtrvdWb0FxME+wPsUgNGrxgpsGEZXRoEEyswiH7A
-         21kA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7JasDmiuws+gxMya/YSYh3FdUm+VhkSOd9B8X56O0wj/zSK7y4oAxLO59phHZeWNFBtpXNmpZ+IaA8L0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9sQPnnOBpFVGqZu4022jH3H6YjyDscwFo3WjDV3mHErZvm4Yu
-	jaEvWdugM4Ywn6cAAwMQEDPKAE9xtU3V6Q/hXkQEatLndszJdCAxdGcAV0VpIRPd7q0l
-X-Gm-Gg: AYBFou0ixONIIoNV9u6iuR1BDKNxKQjn/rvlD2SxCYMYhOslwPt9hNWmDwRLn0q7UX/
-	ozCmsJGGH7LquwfaJus6JneMAB5f1bxcnv6QVfYrSkxp3MHRc87qZTHuUAVwKPPa7CuL4YXaaE5
-	PpP8+MYNlvQXo7BfQ5U0u2j/GTNW9qsdyfixpzSHOdok9eX/lmSkmvHTu2rQHmrURn9AfNCyL82
-	TKDwB8r67nmkfktAekb9dCHfaLdycPQJISyFZFH7sN10yJ5nA6Zn8hOor2eWCAGdpDo7o2T1ZhU
-	g80eSuxZvS+8ui0mMRViGkD6ILmAG4LFf0qgKLD/3d12qYT+ro7jHbQcDKflfuq3odqLfydJg9t
-	Iw6I4cZ1S3+Pb8KeyQjYNhpYnIqFLJ6BAH8J3CV3oFtZ99SqQ6h2ka80SGKLB7or4pk7wTWsxSo
-	pz8t8am0ps6P2ciOM2Zr+FGJxHkcpEcaKjqNHooqBt4M9SecvwkqaW8PhR5MQfhuXtZsaQw1Ig
-X-Received: by 2002:a05:6512:3d21:b0:5ba:4287:9372 with SMTP id 2adb3069b0e04-5bb9bc61684mr1343221e87.61.1790975794231;
-        Fri, 02 Oct 2026 14:16:34 -0700 (PDT)
-Received: from lab01.. ([2a01:4f9:1a:a462::2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c79f7easm1015600e87.57.2026.10.02.14.16.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 14:16:33 -0700 (PDT)
-From: Mahmut Emin Kurhan <guvenlik@noroxi.com>
-To: Slava Dubeyko <slava@dubeyko.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Frank Li <frank.li@vivo.com>,
-	linux-kernel@vger.kernel.org,
-	Mahmut Emin Kurhan <guvenlik@noroxi.com>
-Subject: [PATCH v3] hfsplus: annotate extents_lock nesting to silence lockdep false positive
-Date: Fri,  2 Oct 2026 23:16:26 +0200
-Message-ID: <20261002211626.1576625-1-guvenlik@noroxi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8078649d8c1405e0a207d06efe4ec0189d3eef76.camel@dubeyko.com>
-References: <8078649d8c1405e0a207d06efe4ec0189d3eef76.camel@dubeyko.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="XDFwohhb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CjNitlPj"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id A94FAEC01A7
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:17:47 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 17:17:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790975865;
+	 x=1791062265; bh=YX7f5u1JAxSjRaaI8LoRy7woQY9evgYyUE4A3mVXrJo=; b=
+	XDFwohhbdyvMVgoVNzE34ILFZPZsBzNkZtOVPLOdg2DoLWLMqVn/ZjghTdLoKs6H
+	hAixXvzH7jBemHZwf8HA91H16m7D7mmLRx6Iuv96QE6O3ExeXP8CXucJ3iUUP0t8
+	Tbb44YKKjoe2t20483jXnOOy5Glaks4SAbKteRAulIwU2m4q7MCy5qVTCOQiGg30
+	cQpRbU5Zb+2dOb/nNcses34tdv+xWTO0BUjQaeTA5OLUdP7cbxWyFC2sa6HuB+Fb
+	POpHN6nAWhIFHnaINIvcDXxOgYBeSY4qIbWtE0KLSj1l156mXHf6Uzs0/zpFCh7k
+	qP3LOYC6g5EK1a00ZpQGaw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790975865; x=
+	1791062265; bh=YX7f5u1JAxSjRaaI8LoRy7woQY9evgYyUE4A3mVXrJo=; b=C
+	jNitlPjJ3/T9rV+YlZjIUQLTMAHuKNNZpI4JdoTwJZLjr7MFnDrAR0XYXi0CwQAB
+	cM5nKYx9Iee5QPh1/jdGe2WhH8dwgTJ39RGvwY7pVWfZz0wn+UQuEwJLHVxPy9Bu
+	JQOUaBxvDqtr65r9wdjWg86J/jB2pHhp7xm7hR3sGaVEqdaYCw3Rpk9SpM8yTKxG
+	EDMzEFwh4BnSDseIib0C1J4e3oNkGMVk8SBt4/oL4iHxDfoKAhnpjL71BhcdlQNL
+	Cxk41q4jcwm+y/huAFwnDj7dqOmUAIGGiV3zv/lQruFL11Eq8mJUU9/gWBBah2I6
+	cdc/ITP6GgMmG7Tzut4Ug==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790975865; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:FpLr+4w9iDDtoWyj67UzaFoKrK/nde7aA6rfAXPtfeP5lh1
+	EoelnfGMWCV5fJjCXe+pP+xeaJqZmV0M3tK3DSJ+npVlU9MeruEVQJ2R7PHR8GTO
+	vzxL8tee2iTZLnqEx8h6ccaYnEV1YH700L48q7JlxWWFDvY8QHVTBGF4lFLz5dk0
+	DWupZNLjWU3BdztAh+OJwu7NdTePM4fNyaDtaAHKJRIcEcuIkcBwvXJKfBEdto4H
+	v8eruDoh/uY2XcX2wTV8Fv6cIssYNOmBdUvOLxmycK/uucnrlrr3hi+FNqmhdCAA
+	g4/cfHDIhuNg0nIT1bVMd6Zsn0xsF7qm0mi1GNw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:OgrhGqbnQeK3nZJVUWQxI+pE8gcw3piOULHYYH0INTM=:SwVzjzCEvI9xgzYskQdRtxzYscx6RxP9paKnYNf4bDY=;
+X-ME-Sender: <xms:dR_AaupNS1Ce6Kdq4kz4Wym18PH2nIG-kkw5a9u4q0KvX0m_CDpDFw>
+    <xme:dR_Aanc8V3Na32mXaSmdoL1eTJkTM7Zuv8dIo96caY8M1Aa9r6XfhgC5UAo0cy7J0
+    Wla46N5w48zuyav1bvHLkM7eAB0R04rC3cMqD3kwSgt0hbx_NMg20oe>
+X-ME-Proxy-Cause: dmFkZTFk6SJTZ93NKA+M5MmtoYXlTCu0kvb9TOLJqOnPE7J0SxG8MNqPZR74cfLdrecoi7
+    nAI3UWr4DeXETGdfJFiAmiWLs9jlAkS8prf/7AupP/qsmbMaNlAJv+i/yStg0CSwIrbrI0
+    mW0kj/Yt92wMoCxwno7re/0y0kf/hv7E6/ixPkVHZq1d68Eah5PCBXKG+I8MZ2h6R0iIIn
+    3FyBCYfX+zEN4sUB9qqjss6eO8CZyewbVBkEtmzISTAEKudyq1asy4AF8FyKeAkZOCRXe+
+    XCi7xBT/hYmV1v9QbscGDx/L8y6F25zKYR4zla0S2anieUYhtCjDRKPXYM3sBkNdQ8EXMj
+    eCHe7uJjoDUWSx5Gr93PEc44jkOUFPUeMVKFutR0SU8pbPDQ1t7HT3YtAv1lyWv3hiNIPZ
+    YslURpa4JTQMlzJuoDtgU3vRw+EfLSdVj6Qb570RqBEazrDeWPzJtfgWUm3XM1UBJRUOeM
+    BIMrU7gs4wTfXKnjx3X+/w5zY5Pt2Fb0yh44DjMjwmB200xMnAAjbA61ww7ukxrh4tEakn
+    59MVrTv3kUdIyHvzL71gC7DQnBt0H7X2ovZj9izhY4WA9DTGqZTUnJ4yXd8w3+EPViAU0T
+    73bxaWgY+RrJAXijWwfJJaztiTaJOnTyNUEAPQYf87MgjJWz2d21SQDUGgrA
+X-ME-Proxy: <xmx:dh_Aarcegph4Yfs-VXEY-JkimoL4oqDeyGxQPKjPxf0jf5QhRV614Q>
+    <xmx:dh_Aak6_JNH1OwlQS20eNjz0XAnYsvhyxvxb5oPwhlxwAzZ3noJ2rA>
+    <xmx:dh_AauXiMFmN19nwQBNGljdKhyLgDh_9M_BEFdx1d6XN1jbPIKMB1w>
+    <xmx:dh_Aaj7Js4qyXLKKhU_qUz7i2ry88WjBcZd9-o_x8fiuz-hlbqoivg>
+    <xmx:eR_AapvWjpnnrQ8gq0auOo438PvFBpSK8wXqV5xa6CF9VIFi6dUx3eWK>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 979CD32A008E; Fri,  2 Oct 2026 17:17:41 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: Aw6mAajFSntB
+Date: Fri, 02 Oct 2026 23:17:11 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Jens Wiklander" <jens.wiklander@oss.qualcomm.com>
+Cc: arm <arm@kernel.org>, soc@kernel.org, linux-kernel@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org
+Message-Id: <67bbda51-d1b6-45ad-b798-d8c0e53bd23b@app.fastmail.com>
+In-Reply-To: 
+ <CAGgiveXqFFi+nq0834+hwBBnwJssh16aayZBgh0toYCVN+OMmA@mail.gmail.com>
+References: <20261002142443.GA778834@rayden>
+ <84c1dc64-6380-42e6-a501-9be86666e5e7@app.fastmail.com>
+ <CAGgiveXqFFi+nq0834+hwBBnwJssh16aayZBgh0toYCVN+OMmA@mail.gmail.com>
+Subject: Re: [GIT PULL] OP-TEE fixes for v7.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-lockdep reports a possible recursive locking on
-HFSPLUS_I(inode)->extents_lock when truncating or extending a file on a
-crafted image: the regular file holds its own extents_lock and, while
-freeing or allocating blocks, reads the allocation file, whose
-->get_block() takes the allocation file's extents_lock.  These are two
-different inodes locked in a fixed order, so it is not a real deadlock,
-only a missing nesting annotation.
+On Fri, Oct 2, 2026, at 21:04, Jens Wiklander wrote:
+> On Fri, Oct 2, 2026 at 4:59=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> w=
+rote:
+>>
+>> On Fri, Oct 2, 2026, at 16:24, Jens Wiklander wrote:
+>> > Hello soc maintainers,
+>> >
+>> > Please pull these fixes for the OP-TEE driver in the TEE subsystem.
+>>
+>> I noticed that the contents of this branch are not in Linux-next.
+>> Is this intentional?
+>
+> I made a small last-minute change in the commit message for "optee:
+> register TEE devices only once fully initialized". That's why it may
+> seem new.
+>
+> "tee: optee: ffa: support shared memory offsets on large-page kernels"
+> is brand new.
+>
+> I thought it was better to send them sooner than to sit on them. Both
+> are added to my next branch, so I assume they will show on the next
+> update.
+>
+> Please let me know if you want me to keep them on linux-next for a
+> minimum number of days before sending the pull request.
 
-tree->cnid and inode->i_ino share the CNID namespace, so fold the
-B-tree tree_lock subclass helper and the extents_lock classification
-into a single hfsplus_lock_class(cnid): the allocation file gets its own
-subclass and every other inode uses the default, while the catalog,
-extents and attributes B-trees keep the subclasses they had.  Take
-extents_lock with mutex_lock_nested() at the sites that nest.  A genuine
-recursion on one inode's extents_lock -- including the allocation
-file on itself -- is still reported.
+Thanks for the explanation, that makes sense. You need to decide how
+confident you are in the contents before you send them, I was just
+worried that this had not seen any testing at all because it was
+inadvertently left out of linux-next.
 
-Found via coverage-guided fuzzing (syzkaller + lockdep) by Noroxi.
+If you are ever not sure, just mention that in the pull request message.
 
-Signed-off-by: Mahmut Emin Kurhan <guvenlik@noroxi.com>
----
-Slava, this is the reworked version you suggested: one CNID-keyed
-hfsplus_lock_class() serving both the B-tree tree_lock and the inode
-extents_lock, instead of a second enum/function.
-
-The B-tree tree_lock keeps CATALOG/EXTENTS/ATTR (same values as before).
-For extents_lock the only real nesting is a regular file's extents_lock
-(held in truncate/extend) over the allocation file's extents_lock (taken
-from its ->get_block() during block alloc/free), so the allocation file
-gets its own subclass and everything else uses the default.  That also
-drops the FIRSTUSER file/folder ambiguity from v2.
-
-One behaviour change worth flagging: hfsplus_lock_class() returns
-HFSPLUS_DEFAULT_MUTEX for an unexpected CNID where the old
-hfsplus_btree_lock_class() called BUG().  The B-tree callers still only
-pass CAT/EXT/ATTR, so this affects only the now-shared default path.
-Happy to keep a WARN there if you prefer.
-
-v3:
- - rework hfsplus_btree_lock_class() into a single CNID-keyed
-   hfsplus_lock_class() shared by tree_lock and extents_lock (Slava
-   Dubeyko); drop the separate enum/function and the FIRSTUSER check
-v2:
- - shorten the comment, rename the subclass, use FIRSTUSER (superseded)
- fs/hfsplus/bfind.c      |  2 +-
- fs/hfsplus/extents.c    | 18 +++++++++++-------
- fs/hfsplus/hfsplus_fs.h | 39 +++++++++++++++++++++------------------
- fs/hfsplus/super.c      |  2 +-
- fs/hfsplus/xattr.c      |  3 ++-
- 5 files changed, 36 insertions(+), 28 deletions(-)
-
-diff --git a/fs/hfsplus/bfind.c b/fs/hfsplus/bfind.c
-index ca9813f58a..ed72d61f64 100644
---- a/fs/hfsplus/bfind.c
-+++ b/fs/hfsplus/bfind.c
-@@ -27,7 +27,7 @@ int hfs_find_init(struct hfs_btree *tree, struct hfs_find_data *fd)
- 	hfs_dbg("cnid %d, caller %ps\n",
- 		tree->cnid, __builtin_return_address(0));
- 	mutex_lock_nested(&tree->tree_lock,
--			hfsplus_btree_lock_class(tree));
-+			hfsplus_lock_class(tree->cnid));
- 	return 0;
- }
- 
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index eb7c11524d..ae1369a4cb 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -150,7 +150,8 @@ int hfsplus_ext_write_extent(struct inode *inode)
- {
- 	int res;
- 
--	mutex_lock(&HFSPLUS_I(inode)->extents_lock);
-+	mutex_lock_nested(&HFSPLUS_I(inode)->extents_lock,
-+			  hfsplus_lock_class(inode->i_ino));
- 	res = hfsplus_ext_write_extent_locked(inode);
- 	mutex_unlock(&HFSPLUS_I(inode)->extents_lock);
- 
-@@ -261,7 +262,8 @@ int hfsplus_get_block(struct inode *inode, sector_t iblock,
- 	if (inode->i_ino == HFSPLUS_EXT_CNID)
- 		return -EIO;
- 
--	mutex_lock(&hip->extents_lock);
-+	mutex_lock_nested(&hip->extents_lock,
-+			  hfsplus_lock_class(inode->i_ino));
- 
- 	/*
- 	 * hfsplus_ext_read_extent will write out a cached extent into
-@@ -430,7 +432,7 @@ int hfsplus_free_fork(struct super_block *sb, u32 cnid,
- 				     total_blocks);
- 		total_blocks = start;
- 		mutex_lock_nested(&fd.tree->tree_lock,
--			hfsplus_btree_lock_class(fd.tree));
-+			hfsplus_lock_class(fd.tree->cnid));
- 	} while (total_blocks > blocks);
- 	hfs_find_exit(&fd);
- 
-@@ -454,7 +456,8 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
- 		return -ENOSPC;
- 	}
- 
--	mutex_lock(&hip->extents_lock);
-+	mutex_lock_nested(&hip->extents_lock,
-+			  hfsplus_lock_class(inode->i_ino));
- 	if (hip->alloc_blocks == hip->first_blocks)
- 		goal = hfsplus_ext_lastblock(hip->first_extents);
- 	else {
-@@ -576,7 +579,8 @@ void hfsplus_file_truncate(struct inode *inode)
- 	blk_cnt = (inode->i_size + HFSPLUS_SB(sb)->alloc_blksz - 1) >>
- 			HFSPLUS_SB(sb)->alloc_blksz_shift;
- 
--	mutex_lock(&hip->extents_lock);
-+	mutex_lock_nested(&hip->extents_lock,
-+			  hfsplus_lock_class(inode->i_ino));
- 
- 	alloc_cnt = hip->alloc_blocks;
- 	if (blk_cnt == alloc_cnt)
-@@ -597,7 +601,7 @@ void hfsplus_file_truncate(struct inode *inode)
- 			hfsplus_dump_extent(hip->first_extents);
- 			hip->first_blocks = blk_cnt;
- 			mutex_lock_nested(&fd.tree->tree_lock,
--				hfsplus_btree_lock_class(fd.tree));
-+				hfsplus_lock_class(fd.tree->cnid));
- 			break;
- 		}
- 		res = __hfsplus_ext_cache_extent(&fd, inode, alloc_cnt);
-@@ -612,7 +616,7 @@ void hfsplus_file_truncate(struct inode *inode)
- 				     alloc_cnt - start, alloc_cnt - blk_cnt);
- 		hfsplus_dump_extent(hip->cached_extents);
- 		mutex_lock_nested(&fd.tree->tree_lock,
--				hfsplus_btree_lock_class(fd.tree));
-+				hfsplus_lock_class(fd.tree->cnid));
- 		if (blk_cnt > start) {
- 			hip->extent_state |= HFSPLUS_EXT_DIRTY;
- 			break;
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index 916e6552e3..22b961b454 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -30,11 +30,19 @@ typedef int (*btree_keycmp)(const hfsplus_btree_key *,
- 
- #define NODE_HASH_SIZE	256
- 
--/* B-tree mutex nested subclasses */
--enum hfsplus_btree_mutex_classes {
--	CATALOG_BTREE_MUTEX,
--	EXTENTS_BTREE_MUTEX,
--	ATTR_BTREE_MUTEX,
-+/*
-+ * Nested-locking subclasses shared by the B-tree tree_lock and the inode
-+ * extents_lock.  Both are keyed by CNID (tree->cnid or inode->i_ino), so one
-+ * mapping serves both.  The allocation file gets its own subclass because a
-+ * regular file's extents_lock is held across block alloc/free, which takes the
-+ * allocation file's extents_lock in turn; every other inode uses the default.
-+ */
-+enum hfsplus_mutex_classes {
-+	HFSPLUS_CATALOG_MUTEX,
-+	HFSPLUS_EXTENTS_MUTEX,
-+	HFSPLUS_ATTR_MUTEX,
-+	HFSPLUS_ALLOC_MUTEX,
-+	HFSPLUS_DEFAULT_MUTEX,
- };
- 
- /* An HFS+ BTree held in memory */
-@@ -547,25 +555,20 @@ static inline __be32 __hfsp_ut2mt(time64_t ut)
- 	return cpu_to_be32(lower_32_bits(ut) + HFSPLUS_UTC_OFFSET);
- }
- 
--static inline enum hfsplus_btree_mutex_classes
--hfsplus_btree_lock_class(struct hfs_btree *tree)
-+static inline unsigned int hfsplus_lock_class(u32 cnid)
- {
--	enum hfsplus_btree_mutex_classes class;
--
--	switch (tree->cnid) {
-+	switch (cnid) {
- 	case HFSPLUS_CAT_CNID:
--		class = CATALOG_BTREE_MUTEX;
--		break;
-+		return HFSPLUS_CATALOG_MUTEX;
- 	case HFSPLUS_EXT_CNID:
--		class = EXTENTS_BTREE_MUTEX;
--		break;
-+		return HFSPLUS_EXTENTS_MUTEX;
- 	case HFSPLUS_ATTR_CNID:
--		class = ATTR_BTREE_MUTEX;
--		break;
-+		return HFSPLUS_ATTR_MUTEX;
-+	case HFSPLUS_ALLOC_CNID:
-+		return HFSPLUS_ALLOC_MUTEX;
- 	default:
--		BUG();
-+		return HFSPLUS_DEFAULT_MUTEX;
- 	}
--	return class;
- }
- 
- static inline
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index ff7d6b3336..49059bf3e7 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -152,7 +152,7 @@ static int hfsplus_system_write_inode(struct inode *inode)
- 	hfsplus_inode_write_fork(inode, fork);
- 	if (tree) {
- 		mutex_lock_nested(&tree->tree_lock,
--				  hfsplus_btree_lock_class(tree));
-+				  hfsplus_lock_class(tree->cnid));
- 		int err = hfs_btree_write(tree);
- 		mutex_unlock(&tree->tree_lock);
- 
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index 21a1c196c7..f540d4c382 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -264,7 +264,8 @@ static int hfsplus_create_attributes_file(struct super_block *sb)
- 						    sbi->sect_count,
- 						    HFSPLUS_ATTR_CNID);
- 
--	mutex_lock(&hip->extents_lock);
-+	mutex_lock_nested(&hip->extents_lock,
-+			  hfsplus_lock_class(attr_file->i_ino));
- 	hip->clump_blocks = clump_size >> sbi->alloc_blksz_shift;
- 	mutex_unlock(&hip->extents_lock);
- 
--- 
-2.43.0
-
+      Arnd
