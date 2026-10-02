@@ -1,206 +1,258 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010013.outbound.protection.outlook.com [52.101.84.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EDC2EEE96;
-	Fri,  2 Oct 2026 07:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925150; cv=fail; b=D4i2739b16A0Rc2AfVLFsOejBhDPlfZ8eRybbrUqpbl2CFEiBzGcgAm4ZccqAas570oJ8R6bSLuLzInhmb1HUrw2umoFb7mF+t33havrLCn8tqMwUFlLBlkOXfrsGMq5rNWDiLz6f+tHBlbf2VNf/g/UJQXX8k43YUPQXb725gg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925150; c=relaxed/simple;
-	bh=5DFElU9TBnufE9jWBCNJK1Zz1sHUBB+6niHFJaWucoI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ulUztI2CRUujUzMN6EupMyI4w2Yp2mqaDVZOklqVhhKiyn6na/zWz3Jkby9uRxeD6LE50nBzVyBnru0Ycdmq4qS1tjuWEn70i3umPkW0FPQVMMiu1gPa5NW7mdcMx4CMD3TcqBQeHjTry0hbOkI2XnylTdWc3cNAHZ6RaILh5Ek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=DwM7rwY0; arc=fail smtp.client-ip=52.101.84.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B06E41D4EF;
+	Fri,  2 Oct 2026 07:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790925144; cv=none; b=sEhMLcfZOLkeO7epfLpmAY+j5YsnweBLl02D0Y0hiIO/v6J298X3uIMJS0kZc84t+PBJhnEFdmeCNbOvYk+An6jZMNt/hQAi0zGq6yP/k6cqyryFpQ3BGxHHj4fw+az+ylnh/B/KvQTwlakPDowTgBaKUmP+ksPVSY1bGa0Yln8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790925144; c=relaxed/simple;
+	bh=lHKnIa/uqu7D2oX8iahIEkdXqedpZ5drewtIQX97hXs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MMvD4FN0W3c9IbeTgQt0Ln/695cjTMDP2e16xlrAQhSZOdRD9S63dNBKl/LTyHYSS3bTaIRC19T5mEbpmmhA0m1T7qLVqheStdaN5c2G34iMuXui4bcdZWEuHkMbyRNOxWwDE1+wf2mhLEyf9+gXXDsjbgSEOkGdZ8OzH0And9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8MEP/YK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="DwM7rwY0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XuAGFihsvHlK2ym+2ZwMQ0Sec4zjx/JutUeCGCGfiuT2mB1kSxJvO3/6OQGIYjtZzHFvZQltOn6GIyE8+NmsilP34ZV3AFOoJMb1OwrL8uAR0E2cq+iw82Sw6zmpmYubMJjJOS5n4WU6Aw/cJLt+9qwAZjZ2OrtMdiXyrqLWcHkZJs7KzPb9Yr68EnWNS8IiA7IC9zghy5c3o39C07c56Ly0owbYxjjDFnxO3oY0fb0Pf2gEKwez4V6rcLLGovGsQ4oUrM+NwL7X+qKv/aZfIp+5P0Cfjn/k7fPbBC/H7UZP7b7MC0qqY+NLSz8THUDBb+fhf/9H0CudHvPIFbsqbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cs8nrV4vRdode5GpeLB8E81DF3Y4q+cBrSakT4Kknqk=;
- b=QhhUfIg37BsCJa0BmTnjNNZv4jx+7cOAz7BQ4957cA1AKyESow6QSJJ9Fu3fU1Qv7dYBkAzxE383QWCcdXT5F91NzMEAPFyM0AMTfJnti1y3vXvkIhnt5ErQ+w9Pf2RPG3SDs8YGuVCfsrfdqH/EnpLygoh3zyp+xLQt9fwK+xpmY7jNT6WyXudIjjeOE+wToD8Q27CfDRzJcM3wvmmEdnbXCg6kLfxT1ppstSl12wTSqbqd9UU1vv5lnreJgYNoKMtYmHZY9vzvfqU9RkTgpy4zyI4/fTTG9vRacWwkkYUWBgsdTab5XQoedEJyuxxwikKu7mtdvh7oAZs9jW8D/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cs8nrV4vRdode5GpeLB8E81DF3Y4q+cBrSakT4Kknqk=;
- b=DwM7rwY0Af7w65SiTyJ9YQDGKo6/H5wutZDlmi64FaRpb7Nuzu3ASjfF5inkEHlXu7fXIWa23LFXewIQAAfKy5RsXu/wdtvuhnQwORXvu1MYuGDUrSVLXG0qbgy/WFamGdXczec+fOCpAwEKMaBP6bxZnBiO+ycZP+bA02QyA5HX+MwnhSqnYIbXYw/oBT29T1OPgn59favY7/T+cWar8VXo7IYoIuRv7HceGt+WtyFQs2BCPZT6TQxtQwNWGhMi6/1ce7YTRmLFzLtN7t2RdnaQKdbb+t/lFR9MF2j2XJnMCiMWLkjglHogFfMuJ5UMmBCnAousY57IwpQWVzCcqw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by AS5PR04MB9825.eurprd04.prod.outlook.com (2603:10a6:20b:672::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 07:12:07 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0451.022; Fri, 2 Oct 2026
- 07:12:07 +0000
-From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Haibo Chen <haibo.chen@nxp.com>
-Cc: linux-can@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	NXP S32 Linux Team <s32@nxp.com>,
-	imx@lists.linux.dev,
-	Enric Balletbo <eballetb@redhat.com>,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	Max Staudt <max@enpas.org>
-Subject: [PATCH v7 1/4] can: at91_can: release the rx-offload on teardown
-Date: Fri,  2 Oct 2026 09:12:00 +0200
-Message-ID: <20261002071203.1287650-2-ciprianmarian.costea@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002071203.1287650-1-ciprianmarian.costea@oss.nxp.com>
-References: <20261002071203.1287650-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM9P250CA0024.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:21c::29) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8MEP/YK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 950E91F000FF;
+	Fri,  2 Oct 2026 07:11:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790925124;
+	bh=cedB2m3RAchjlfQYkaoIE7J7vyn1KCp2q8/Q5Rls3zo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=L8MEP/YKI8YHXtEpt1bt3ZVJY+fYQqqHYKcsB+22zDD7/Lcwip51/6ddFK4DhwYbK
+	 lvEFm9zfBhouolD0zO+zdPPcTbK/08BQl+89us0SMmB91+bFfvUlccZ+9aa/m1Pwk6
+	 Xy9LVd72bQIhr4LEKfimoj1LvYPuWsqMtZGARImX5TI0Hdzl6B7soQhEdXvUmtVBJ+
+	 tfI3G5IjeM4zQ8ogf1+2dF1+ALtEBoYAaeu1p6kG08GOAuAtJKCY0LIqVcWZKxmVvc
+	 SOZ3zOet+EA+8fNEyHAZ/v1BIRxjrQU3ip4sRMQ/abdOUJmDWOexjMq7gKGLm19G61
+	 VzRRqqC5DEtkQ==
+Message-ID: <fda08732-f500-4bbd-bb1a-af096e33002f@kernel.org>
+Date: Fri, 2 Oct 2026 09:11:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|AS5PR04MB9825:EE_
-X-MS-Office365-Filtering-Correlation-Id: 344ba89c-733e-4900-9f0b-08df205477e8
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Pniot0LnD0AbqGIyMIxA28hsXVKUF1OcJHAZLdbjea2k3/639MA7PHSKBqZc/a6sjPtFQP2Bp6LTohQfLF/4novL2oKNudBA7biXNSMH1b/h4FFV9uLY2jurksKRv+GqjckS+BC1eLmDrXUOzFCBdtbm6l2xMD/16VPqqTDdJL/kH27uAQ0s55LlBd4F/5y5RrmtpsPQE5Hmr2XjB+/j+SVwpbEYBteyesPdSyud9Ly7X8GQ9e5ZxkwaONskN8R54/9qs6Rrkm2wKUj6geyn4VAjpQzyRMkd+FrSyv3EabWd5Tm8kj6d1aYyBG6Mi9CPBRH17inmGsfhg1gESy7pRO5t+2qpcIixpsVPgu1/xHs0hS7GaZHMKPXTaOeN2IWG5JWnWt3X+2iyv1MnuJFiNreQIhjaJZoar3KxwVXp8dig4EWy0QELUZgp49Vj7jRhyb71yuxpgAe3CVfbkRdvNDGcv3hhCNJcBhfUaIwGlgEWxjU5F+Mz7AgwI9NPZOGSS9CUtDT/giguQ4ttjk9fSh0P0+jgwfzAjeXebxUNCaSdRnftivNE3Cy3BBpP6wcXtb/nw7MMcMxByzIqm9alWrIowzgrp/u/X+4yF4kWjXhWF3Mh/X0UiJGc+HbYJFXbhaAEtNik+mDkGXq3o48QsvnSdRZ/1Y+03fmsv4UKoNQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aUhya244U1Z5alo2dmRFUkVwcmM1bWxyU3JHQWkzZjArbEhHVWxTVitNR3N0?=
- =?utf-8?B?aGxISXYxZGR0NVZFaXJMQjVmdUpxc2l3dzdCd2FHTHBmS1I5akFsNVRkTXdt?=
- =?utf-8?B?VGczcXlLN05GbHZicmlTZDNwVEE3Z0dPR1ZLaFNLaWdJaG1OekhKcjFoaFFY?=
- =?utf-8?B?NUtXZVB4R0UyUXlyTGFOdXFLd0VqcThBaC9TVWtINzRzdzVCTDdBNEVZWWJn?=
- =?utf-8?B?ZTRmd01HWVB2QUQ0d1lLUDl0TWtIMjVuTUtiempTeEtnZEYyS3dNb3RiRGIv?=
- =?utf-8?B?aGNvZ09Zb3k0NmNiL1JFRVNRZVA5Y1k2Y2tnUWpoWmxRd2hOM2ZyU2RNU1hK?=
- =?utf-8?B?ZkY2OE1RVDB1UmQyR3dvczlrZDNIaE94OUFhdlRwUXVSLy9XSUlTSmwxdi9a?=
- =?utf-8?B?all1eVZlSlYrakkyU2Y0SWJFRTUwVXpFQVZwbTJVT01tM1RpTmFSZUtTcXZI?=
- =?utf-8?B?ZzJUUXFYRGpCWGs0WkUrRDdIRDNtNGRxM0JIYXFCM2toOWU1bUpVNHZFckp1?=
- =?utf-8?B?SDMvWjhYS3JQTm1IZUNGM3FzQlNzY05QVWsreHBoYmZCeGJZUmZ2T3l6Tkx6?=
- =?utf-8?B?YzVtSG9JUG96TXdKR2R0a0VTWkxZU0JFaFpiWTV6UnRBNWhlZGRvZzJXdzBw?=
- =?utf-8?B?RDgrV01Ib2E4ZSsxREE5ME9Mc3UzWE1wODJveVVoV0s4T1BwdFBlNVoya3g3?=
- =?utf-8?B?TG9EWk5ueHdPZlp2YjRES0JEWTRlTVBtTkl1dGdCTXpKcHAxQTFkdlB6aC9P?=
- =?utf-8?B?UlNQYXNTUjd0Yi9XSGpXWFBSOGptRXhKVkNCUHQ3cHlrTmFUQ2ZtZllFTWkv?=
- =?utf-8?B?aEpIeG5sWTVzcS9LNUdtSzJ6RFY0eFBEdUdSMWVxeTl0c0V0ZSt6MTlpMVVs?=
- =?utf-8?B?c0YySDR1S3hRbzlsME93N0RQOTFqOUhHQ2FHVHFqMVBua1BrLzRwRTU0QXQ0?=
- =?utf-8?B?bUJldG9vbTRDL294dTlhQ1h5dGl5N3pHK09KUG9wVmJvUms1S0VLWTlnWVlW?=
- =?utf-8?B?V1l2bXhmRnhlaEFpM0VET0RWNTNYUjRwdkZZSXQvZ2JUYk1CTUdDQnpZTDR4?=
- =?utf-8?B?ZFZSZVZWay8ySHNhYllkME1xb3I3Vk5TYWpVMVBOeWRPQWNaU1B0ZCt2b0xS?=
- =?utf-8?B?WGRSK0owUEZTMFVhMjVwOEF5U2JwKzhJR0F1WlRjcVZ5WWFRb3kvNWVkamha?=
- =?utf-8?B?RHg4WElBbkVvR0kzdFdSSm9hQUVGZ0QvNGMyY0pOclBTTUY5ZldadDBEUTJE?=
- =?utf-8?B?WnZJU1hoaG85cTB6RXFvUjlOVFVRenlHRzhqZTNUaDE3VHUwKzRxdHl2dHhH?=
- =?utf-8?B?a2lwR01GWFYybm04WDRTckZwSXd4RnJONWNXL29IK085RVB4S2sxcmE4R3Bi?=
- =?utf-8?B?UjBSVWFUbHBObDNDWCtDS1YwYW93Nmd0ek5McXVZL3BmdUZBNzVldkpNSGMr?=
- =?utf-8?B?NkhmdGhuV21tbXFaQlFFWXJVWU5XSXdDWTdOelJzYUpLenJqNXBjNTFzTm5D?=
- =?utf-8?B?b3hjWjlueFZNa3R5RnRYV2VmeW5vRm5Ta3NMa1FzU3JDN0NncDNlSUduNHBo?=
- =?utf-8?B?TWRnVXdNV2pRbm4zVUZOT1NOVWE1SDdLNXZYZTlKT2d5T01odis1aDdSL3ZK?=
- =?utf-8?B?bWl4ejVxc3doeEdhVjdxaU1tK0c4WldyZWlVRWZHN0hWdmo3TWZBUHJmQllt?=
- =?utf-8?B?RVgwT0paVEtxSHFpblN2ZklQWUVlYXVhYS9FY3N5eURKN0gzRVArUysxNE4z?=
- =?utf-8?B?RU5OaTJJVlA4RmpUUEEvanRpMEo3Wlh6V2JRSVB5MC83M3NMemVsLzN6dmpn?=
- =?utf-8?B?NGxPZkErbjdOOTZHeWVlZ1h4TkV6RytCZ0RoaXluNXUwS1NqMHlseHUzUUdD?=
- =?utf-8?B?bnlDbDhRcXY2ZXUxNm5jcEluUHJhQUc5eDhwN1ppcGtRUTc1SC8rTjZ1WkFm?=
- =?utf-8?B?bDhCRXI4bzNMQ25Od3drVzJISU1reFpOeXZQR1dlaVlxWlZzWG0yUkZWZ1hh?=
- =?utf-8?B?cCs0M3pvbHE2R20zdkVHY1RzYVNkMlBGMHUyUnR4MzBwTjhBblovcTRwZFUw?=
- =?utf-8?B?aThZTDMzVlBwN1ZpOHArT2RVdS9kU2JhZFU1RWptaitodXRqZFlNazJrVm8w?=
- =?utf-8?B?dmViVXJWZmhhbW9Jd1Y5N0VwbGdVUXI0L0o0SWk0V3JubTZvUkRWMFZRTER3?=
- =?utf-8?B?SFAxNnA1K1pqWTZZOWJITFV6YWlhYUpySEQycGFBK1dyTXBVQ2MvZ2ltZHJJ?=
- =?utf-8?B?ZFg3NzcxdDNjdFRXUjFUNXdBd1kwM3RIVTNieTM5ZlBKTUVTSnhZcDBBbEMw?=
- =?utf-8?B?Y0JZWnM0Vld2d2V6QnpFUExnTjQ1bTJUZG12R2VXOFBueFovS2RTZ3hyL2lP?=
- =?utf-8?Q?6m+Y4XTDiHU0Xwcg=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 344ba89c-733e-4900-9f0b-08df205477e8
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 07:12:07.2535
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L43osdv3FMHvO+jcpxSubh6CIoUafaIEmr1xCCrCVVMxrf7owMwavcjyT1XmiVN+HzIWBlqw4WGEDEbOaP40a4jGRBW8Sf9bCC3EougLocU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9825
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 39/40] mm/huge_memory: remove vma_is_special_huge()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-39-4583d8a23bca@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-39-4583d8a23bca@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+On 9/17/26 18:22, Lorenzo Stoakes (ARM) wrote:
+> vma_is_special_huge() tests whether either the VMA_PFNMAP_BIT or
+> VMA_MIXEDMAP_BIT is set (i.e. whether the VMA is a kernel-owned mapping),
+> but with a DAX carve-out.
+> 
+> DAX however no longer sets VMA_MIXEDMAP_BIT, so this carve-out is no longer
+> required.
+> 
+> Therefore test for vma_is_kernel_owned() instead and also drop the
+> VMA_IO_BIT check, as it is now redundant since it is enforced that only
+> kernel-owned mappings can set this flag.
+> 
+> This also eliminates another overloaded use of 'special' within mm.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/huge_memory.c | 18 ++++--------------
+>  1 file changed, 4 insertions(+), 14 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index c3c98ea672c3..3cb8e2d4d65c 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -110,14 +110,6 @@ static inline bool file_thp_enabled(const struct vm_area_struct *vma)
+>  	return S_ISREG(inode->i_mode);
+>  }
+>  
+> -/* If returns true, we are unable to access the VMA's folios. */
+> -static bool vma_is_special_huge(const struct vm_area_struct *vma)
+> -{
+> -	if (vma_is_dax(vma))
+> -		return false;
+> -	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+> -}
+> -
+>  static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
+>  		enum tva_type type)
+>  {
+> @@ -192,7 +184,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>  	/* Check the intersection of requested and supported orders. */
+>  	if (vma_is_anonymous(vma))
+>  		supported_orders = THP_ORDERS_ALL_ANON;
+> -	else if (vma_is_dax(vma) || vma_is_special_huge(vma))
+> +	else if (vma_is_dax(vma) || vma_is_kernel_owned(vma))
+>  		supported_orders = THP_ORDERS_ALL_SPECIAL_DAX;
+>  	else
+>  		supported_orders = THP_ORDERS_ALL_FILE_DEFAULT;
+> @@ -3066,7 +3058,7 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  	orig_pud = pudp_huge_get_and_clear_full(vma, addr, pud, tlb->fullmm);
+>  	arch_check_zapped_pud(vma, orig_pud);
+>  	tlb_remove_pud_tlb_entry(tlb, pud, addr);
+> -	if (vma_is_special_huge(vma)) {
+> +	if (vma_is_kernel_owned(vma)) {
+>  		spin_unlock(ptl);
+>  		/* No zero page support yet */
+>  	} else {
+> @@ -3222,7 +3214,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>  		 */
+>  		if (arch_needs_pgtable_deposit())
+>  			zap_deposited_table(mm, pmd);
+> -		if (vma_is_special_huge(vma))
+> +		if (vma_is_kernel_owned(vma))
+>  			return;
+>  		if (unlikely(pmd_is_migration_entry(old_pmd))) {
+>  			const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
+> @@ -4765,9 +4757,7 @@ static inline bool vma_not_suitable_for_thp_split(struct vm_area_struct *vma)
+>  {
+>  	if (vma_is_dax(vma))
+>  		return true;
+> -	if (vma_is_special_huge(vma))
+> -		return true;
+> -	if (vma_test(vma, VMA_IO_BIT))
+> +	if (vma_is_kernel_owned(vma))
+>  		return true;
+>  	if (vma_is_hugetlb(vma))
+>  		return true;
+> 
 
-at91_can_probe() ignores the return value of can_rx_offload_add_timestamp()
-and can_rx_offload_del() is never called, neither on the register_candev()
-error path nor in at91_can_remove(). Any skbs left in the offload queues
-are leaked.
+So good to see that horrible shit (sorry :) ) go away.
 
-Check the return value and call can_rx_offload_del() on both paths.
+It was too hugely special.
 
-Fixes: 137f59d5dab4 ("can: at91_can: switch to rx-offload implementation")
-Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Acked-by: Max Staudt <max@enpas.org>
----
- drivers/net/can/at91_can.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/can/at91_can.c b/drivers/net/can/at91_can.c
-index 58da323f14d7..09aa676a03fb 100644
---- a/drivers/net/can/at91_can.c
-+++ b/drivers/net/can/at91_can.c
-@@ -1123,7 +1123,11 @@ static int at91_can_probe(struct platform_device *pdev)
- 	priv->offload.mb_first = devtype_data->rx_first;
- 	priv->offload.mb_last = devtype_data->rx_last;
- 
--	can_rx_offload_add_timestamp(dev, &priv->offload);
-+	err = can_rx_offload_add_timestamp(dev, &priv->offload);
-+	if (err) {
-+		dev_err(&pdev->dev, "can_rx_offload_add_timestamp() failed\n");
-+		goto exit_free;
-+	}
- 
- 	if (transceiver)
- 		priv->can.bitrate_max = transceiver->attrs.max_link_rate;
-@@ -1137,7 +1141,7 @@ static int at91_can_probe(struct platform_device *pdev)
- 	err = register_candev(dev);
- 	if (err) {
- 		dev_err(&pdev->dev, "registering netdev failed\n");
--		goto exit_free;
-+		goto exit_offload;
- 	}
- 
- 	dev_info(&pdev->dev, "device registered (reg_base=%p, irq=%d)\n",
-@@ -1145,6 +1149,8 @@ static int at91_can_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+ exit_offload:
-+	can_rx_offload_del(&priv->offload);
-  exit_free:
- 	free_candev(dev);
-  exit_iounmap:
-@@ -1165,6 +1171,8 @@ static void at91_can_remove(struct platform_device *pdev)
- 
- 	unregister_netdev(dev);
- 
-+	can_rx_offload_del(&priv->offload);
-+
- 	iounmap(priv->reg_base);
- 
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 -- 
-2.43.0
+Cheers,
 
+David
