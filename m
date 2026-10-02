@@ -1,74 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF2F45563A;
-	Fri,  2 Oct 2026 09:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EB83B47D0;
+	Fri,  2 Oct 2026 09:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933091; cv=none; b=dT2FQulyubuTJoNKptXBeilA9OwjNXD+PN2x5aL/qXk/u+1kvuvbJd/yyIJYQBxt5nkCl548yeMIx8K3ls+ZlfdFceLuN63EVuptRDpoZCUfNJPa3r5AI5Yea9SIThY+T2zVlCQHQN9kzVOQEh0Yg0b3F+mT5PSDx4soiPM8erY=
+	t=1790933092; cv=none; b=u6X625d8JNNH0lMAYpbPSFNfilcXxBCBjZHjbezCNNdGNxqI//SnAY+X1ti1zjbevAtnJ2RbR6IaU/Vlmrqz0UblDoLpp/uUadbipMeK5MS/eKg9NxU8T+vSKzB9kr/ktX5KAg1XDqSeeFUGWqRoxuwve1GiohugZglizrNmRaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933091; c=relaxed/simple;
-	bh=O3nRINVLkWHQ4r9IIjnIZQOSmvquBks245oSmvR4gKg=;
+	s=arc-20240116; t=1790933092; c=relaxed/simple;
+	bh=w3Bjz9dcD6RI5n9PbwOBCd5YdLRwlzPVm58BVXg/OwM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lcaEeUBcQP3SIj2zlFZNw0PnOl6fNRDXovLRwEObVIWmhkUSBqX773K0VHDh0dRsuIpD826/YaDlqpgicAmeOEXxYC54HTbK5HzW620SxVgtChaAxczFA7EDgIPyWX/9nfZIdn6y4ep7MlOUnvH7A7GM62SdYO5MddW8hpEmdug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aNfhITaA; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rOQ52WRBV4odyvRZwZIjhcR9iqlBY5GkhcSMVONfHzTmHvsRAfOJURXiX4XZluTv26/DsyN/3MM6ko9P9WMiAkaYxWwvRXkrBcApmPN85nzRF3TMHM4+vAM+EmfMojqANpq0Dx1KDhW1Lml1mZ1nLoBSzxEH7gQqynEw6+0P+G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cCcm1OD3; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aNfhITaA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8031F000FF;
-	Fri,  2 Oct 2026 09:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790933089;
-	bh=sspt/fP36As20fuJhsLuvVeSjvOsGDiZOOk9QMjN5X0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aNfhITaAIwoEb/OvK7YZRvIkH9xuAFFJIclIEqqhZFSV2hbE1zgQwLKtipq7wMsxk
-	 /CkMlNQnjRQABpWC0V7KfNQhr5YF0VoCdJwOu2LGB4Rci3FPIguQmK8nTh4iHjRYH/
-	 26XF9zeL6lnSHCMrWrXPRCDBRMncOlSsvks2tJsvgZh4yzY13lW1xNDBiHXRi41Yn/
-	 QzhiDbAVSe9PIA6W2vMCE0HofiLT/BcSyz1BR07YTehZHUClGcdZIvBUnRe15QgiP4
-	 MXHdSyUH2skZek5PbAU3D8eYOqbS/b/bhai5LJxc4Py60KdaAzhsg0O7+1dNXAlVr5
-	 LQp9o4YXPtAyQ==
-Date: Fri, 2 Oct 2026 11:24:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 3/3] ASoC: stm32: add mdf dai support
-Message-ID: <20261002-gleeful-lurking-swift-5926ab@quoll>
-References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
- <20261001145702.2628429-4-olivier.moysan@foss.st.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cCcm1OD3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=UlTUJH7rhWUzuOb9A3DL5nJMQg8wjWfvtyqsGIW4Y9s=; b=cCcm1OD3i+DfaqBxAYj5dLOD8J
+	qDRGmLWUr6GHe0Nq9US7IpbNd2wHbnTDMMJhX5h3woU1nXgs4XDKAU96GVvrkoooVjiaNdH60M0Lx
+	A1gKe+u0c6NfVPyJmXXBBvyshsU2dx7XVDyhQ0FQSWssAbjj9T7mFl2Y56pGl1BVQjNjRDgiLSpQd
+	yeF4X2h9hHeDbKPUyaCt+a33V47AGt/0eubgyaJjFC06JfUfJx5D5juJgDA3tpuAym2o/WSf57JDq
+	ZkSzVwZQbRVmcolTG2E4K76brOy7/osc80jCJa1yqsHzl3EeO7pyWOYuXwgmudxGYstntCmTrkDhb
+	J9uUEoZQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xCZVP-00000005mok-34qb;
+	Fri, 02 Oct 2026 09:24:41 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id A72C6300390; Fri, 02 Oct 2026 11:24:38 +0200 (CEST)
+Date: Fri, 2 Oct 2026 11:24:38 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus` C
+ function
+Message-ID: <20261002092438.GA2823843@noisy.programming.kicks-ass.net>
+References: <20260929-cpu-helpers-v3-0-e968ce5ee613@kernel.org>
+ <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261001145702.2628429-4-olivier.moysan@foss.st.com>
+In-Reply-To: <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
 
-On Thu, Oct 01, 2026 at 04:56:47PM +0200, Olivier Moysan wrote:
-> +static struct platform_driver stm32_amdf_driver = {
-> +	.driver = {
-> +		   .name = STM32_AMDF_DRV_NAME,
-> +		   .of_match_table = stm32_amdf_of_match,
-> +		   },
-> +	.probe = stm32_amdf_probe,
-> +	.remove = stm32_amdf_remove,
-> +};
-> +
-> +module_platform_driver(stm32_amdf_driver);
-> +
-> +MODULE_DESCRIPTION("stm32 MDF DAI driver");
-> +MODULE_AUTHOR("Olivier Moysan <olivier.moysan@foss.st.com>");
-> +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("platform:" STM32_AMDF_DRV_NAME);
+On Tue, Sep 29, 2026 at 07:56:48PM +0200, Andreas Hindborg wrote:
+> This function returns the maximum number of CPUs that can be online.
+> 
+> The wrapper is needed by the Rust null block driver.
 
-Why do you need this? You have OF table, no? Does it mean that OF table
-is redundant and should be dropped?
-
-Best regards,
-Krzysztof
-
+What does it need it for?
