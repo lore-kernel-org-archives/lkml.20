@@ -1,134 +1,107 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 783EC4E323C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:22:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790961776; cv=none; b=XVGYdq4ZOBUEEeTmHBAokVPiRCSip4J5O2wPNCv8Zf6n5uTyIP1dHN6EZzKb0MeYhjnCb7aDV/1QvsbrCXS7Qezgcsmtwv+bWwby5tyC1QXIbv5aqWcN7jZZLEel7lhey2JmxTIupNdnQwXVamJKSgX4l71YcehtANl5N2sUBLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790961776; c=relaxed/simple;
-	bh=YV1fKXXlbrVEfg5rJqDQn8ml/2AWIsJ5rBnjXuO+yQk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=so/VwXC7l4Z0lXo6iwHORv/WrLg3PRDLvLsj3STnAALHkgv/N7/8f5z/W9ORcGbaGPYygEPCrkN3cZDEby+Y7k/SzDrJmIBD0i/efClNFNbOYYnfivupiw0u0o1KsoroBe0pyJuf4uUtzee/MObP2NrpzHhPl08GZROgKFirx+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=anuOlyj4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4C32DEA74
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:23:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790961823; cv=pass; b=V7CuxfTIMuBfkZw75JKDs0k/Q38guJGNAM9LmGAb8yQfFnarieavQBo2Yao1fzvQl14GxAzbeZInAifGNXVNKRGG9xvAMFW4c/peWBcYht/IientQ12neYbS1v2yyZOxNwqCSZT0/Zxy035i49pRh+7AXqLWFniSjAgtzc+E5Fc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790961823; c=relaxed/simple;
+	bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZqFR43X6fZN1lu+9ZzmK74KfCtaMSCbNXTbN2c+sYOydSKd+FhkT3KSwRj/ojy3+2nnNYsEnIakSxqnpmPeacI6QZ7bh9a1dlsBf5z9W44mUHgXy4pCwwP5ZND3njAar6OHewrTo4eB/3GJ+H3IZ1BDBAZD3xe63qMJ03epf128=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E8gLYag4; arc=pass smtp.client-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="anuOlyj4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8F8E11476;
-	Fri,  2 Oct 2026 10:22:47 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 412C43F85F;
-	Fri,  2 Oct 2026 10:22:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790961771; bh=YV1fKXXlbrVEfg5rJqDQn8ml/2AWIsJ5rBnjXuO+yQk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=anuOlyj4w7vvlNbQeAHudLgHTr+uuwN88+w9QXN87X6poDNv5/zb8dnNKju7JT/pc
-	 hVr/b6srJCTTiRfidK+3uz/EOFXIdmGWMc7TWAYaBr1/+HHxJZrg+AAOGz8X80Yo9+
-	 wh3gT7I54GCLgYcoAA1H0gBVoZu65kPZh+h+JOCk=
-Date: Fri, 2 Oct 2026 18:22:48 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v12 03/14] coresight: etm3x: prohibit modifying cntr_val
- and reset while session is enabled
-Message-ID: <ar_oaMevzmxSxNwN@e129823.arm.com>
-References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
- <20260924-separate_etm_cfg_v2-v12-3-a2b41d2f7c2b@arm.com>
- <20260924175814.9AFC01F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E8gLYag4"
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-48e2d5a69c4so794695fac.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:23:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790961815; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b6z9noFWLZ2Gy3ux7DjSnUAo1iMIc7u1JIhOLTmBH98rktmR77OYNENKlsXtcmVTnD
+         3WPYFEHrbAuUBRA+YaVnacRH7auWXKgppeON9rK/Dx45KxmTxZ6CaNXt+GZYiqIi6bf4
+         D4exOo/kSW4pJ/SBR+JKL44dgriIaZtoV82VqkDpHm8PymJJgfC/HFBpvj26PEoQTzDF
+         9k7/vrzyaMwXbjRIpQCXSOeklO3heeoK8Xmp/aZSKBV5dZlaRw4DuAU/9gU2Ky6LHEPC
+         VlDYOz4OvlSHzwXfC8LOxlhtpIaVL77ENlG/SBYrGRFuv1QJpvzYmDfSs+bdiiveOB07
+         umCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
+        fh=cN396lpvliGnqEzym2YTIOgVbQ13TXOQ93BfP35lH6s=;
+        b=aAIIxzaDQcQRiPj+qJbbuK/87+RX7MRY4SRAoUJNK/crWAxEv2Qu/iuXfvKqsFVLZq
+         ecxnG3ScFcIcM63k/EZ5YY7NLRUjczef4fkxY756ujxXZ1hkI00IjshsqLtqbfqN/dSa
+         tbAyAXH6HeaKWCbEFXYwanCgetWkodrXznqgGimv0ipn1WyXXuLHdwzcN0H8ucBqBOqt
+         bt+WUOpIa2cwppC4SuU/qghA5r33yE7tohSmfmYLSBuGkYLn0F5Fr6fkxf7zeBxI6k0+
+         SjkOaXjrO/Vxqe2FNxiq6/FC2AS4RbkwWdA347SX09avbAQxne154X/KfHRK1+OOXHOd
+         PV9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790961815; x=1791566615; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
+        b=E8gLYag4dZCzvI+Uf/NbVF420DDHqjbqefxKp25f/qJg4wb1IlO8RD8F7e8R5kQUVC
+         0jHKcdbW26iDzh0Nd9XwQiO1zpb2fo1m0qokrf1V1JyVyUMfxNkPVZIHWm1034qXvQO8
+         Br565nvphwmOuhmEFPE1+MFVnk0xSa2Z/8/hXDN77QYReAziyLq75Zdgz9l1K9TIFlnf
+         tHaUa0EHgKKPRNDYQKiS9k8c80JTZp/XaRFbPtNMiqngXs6iuS9bNEbV1CmLJ4RbUGfC
+         BXQoV44bfZdt5QJFCM3uo+EWuJ0Uz3RLhza9MXfvvLhw8F109iQiisjcjGGX2SbNESR6
+         SeIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790961815; x=1791566615;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VqsakkF+fiyAxZb4saBmZgbMsuByqSA1isMXBNXFd3A=;
+        b=iJVGOZTXXC9SeBGXzMx/GR0EP5LfhjPAEwanTXfutbN/yaCk1dznYOTnRKmdTtlhTO
+         MaPAVQ/m2F/ynQhd3zkqlJPYbc6TOxobLnP3Bp4+9/1UaAXoiGP4R7/1rac4fZd9wVv2
+         OksTJD90qneG5t1OylK8rH7LNUorVEyjQkx6c2HgXshobTrTSUV5BQ090uv944ljquyC
+         hkDgMWMuqrq0ZupPBVTUItK80u11tdV7Jj7M83YSsIp0L+rG0HNb5y1G6uJHjLe4oTuI
+         Dkh/19nnUL0Y3JU39EPdLBQJMXjyT2tdnukohBNwBaTEy8jZDNSgMcFfq3k9rMDaEnBi
+         R7aQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzCcpMWOyRRwv8+vPKd8BryQucqFD3wWC/AhAp8dtqQcVnCFWKKnTiTL0klkMfpclUo/pBiPVdr3dsVfNw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhOGkNEBNno355/0I5EqLbI0S4oZ2vQ7llae+NPwBLD0quiSfA
+	jYTe1vwr5BUVs5BFi0ZSmfhyvslllr9Xa3AJ1nEwIYmIzRglSJ20XcjT92p3I84P06BSp2ZiidH
+	goxoggSKR3u0T59shp3jL6piEsbjErWg=
+X-Gm-Gg: AYBFou3R1wCxa5tg5sAtHHDXtb1eYazfuT9JSqCLWtUCiPdqiDjVmebpdX+wbmUC9qZ
+	1Bp5Pk4GnNAP65DnwROV5wxRVK/YrvjKUCrKtL5qAUokLvmNXwm0QpuTS1k0Yt+rbKpkSlPnkCl
+	xneFiAQb4+SWSD1/Oc7Ajma72C029Q/ltQjubLNid32U9RlX413EaK7XWmH1OboleGMMPgDxVN/
+	REfRWFllCpN+G+WvpvGOFYOpBWUmuWm4qwedpEzYy99mvp3wfMOKrtmPo6INn46cMU32pybTFNy
+	mZ+RKcFo5T7DBcLyQ8FtIwCLhg5ulg/C4W8hcP+jMPS03RRQ1ijl4KeCIk9+BAjPXnk=
+X-Received: by 2002:a05:6870:e18e:b0:49d:d850:8170 with SMTP id
+ 586e51a60fabf-49e3a8c248cmr24800fac.23.1790961815496; Fri, 02 Oct 2026
+ 10:23:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924175814.9AFC01F000FF@smtp.kernel.org>
+References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com> <20261002153302.5c64819d@jic23-hlaptop>
+In-Reply-To: <20261002153302.5c64819d@jic23-hlaptop>
+From: nasser <abdelnasserhussein11@gmail.com>
+Date: Fri, 2 Oct 2026 20:23:23 +0300
+X-Gm-Features: AclHuK-al5mseWXmh0Z-6X6KwSRpq7Wu9lvhjorTUxxTKLXGZtC6BdvJZuUovys
+Message-ID: <CANpqX3YLq5ckiwjaS19YCVknmz7pRsZXw_f1hht0eWwxn-3s-w@mail.gmail.com>
+Subject: Re: [PATCH 0/3] staging: iio: accel: adis16203: fix axis mapping and cleanups
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: gregkh@linuxfoundation.org, nuno.sa@analog.com, 
+	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
+	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com, error27@gmail.com, 
+	narcisaanamaria12@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 24, 2026 at 05:58:14PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] coresight: TOCTOU race bypasses session-enabled check in sysfs stores
-> --
-> 
-> commit 0c7e96565d9330c7133fb31d646be9050f666c48
-> Author: Yeoreum Yun <yeoreum.yun@arm.com>
-> 
-> coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
-> 
-> This commit prevents cntr_val and reset from being modified while a
-> Coresight ETM session is enabled. Changes to cntr_val would be lost when
-> the session is disabled, and reset should not be invoked during an active
-> session.
-> 
-> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > index b3c67e96a82a4..cdb70a4382eb8 100644
-> > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > @@ -75,6 +75,10 @@ static ssize_t reset_store(struct device *dev,
-> >  	if (ret)
-> >  		return ret;
-> >  
-> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
-> > +	    coresight_get_mode(drvdata->csdev))
-> > +		return -EBUSY;
-> > +
-> 
-> [Severity: Medium]
-> Is there a race condition here since the mode check happens outside the
-> spinlock?
-> 
-> If thread A executes this check and sees the mode is disabled, thread B
-> could then enable tracing (acquiring drvdata->spinlock, applying config to
-> hardware, and updating the mode). 
-> 
-> When thread A proceeds, it will acquire the spinlock and zero the
-> configuration while the hardware is actively using it. When thread B later
-> disables tracing, it would partially overwrite the zeroed configuration with
-> hardware register values.
-> 
-> Should the coresight_get_mode() check be moved inside the spinlock to
-> prevent this time-of-check to time-of-use race?
+Hi Jonathan,
 
-TBH, reset interface seems awful and the same problem already pre-exists.
-But this kinda was relief we don't think user wouldn't try to enable
-before finishing the reset and return its result.
+My apologies for the noise.
 
-So this is ignorable.
+Thank you for pointing this out. I will drop these patches and ensure
+I base all my work on linux-next.
 
-> 
-> >  	if (val) {
-> >  		spin_lock(&drvdata->spinlock);
-> >  		memset(config, 0, sizeof(struct etm_config));
-> 
-> [ ... ]
-> 
-> > @@ -744,6 +748,9 @@ static ssize_t cntr_val_store(struct device *dev,
-> >  	ret = kstrtoul(buf, 16, &val);
-> >  	if (ret)
-> >  		return ret;
-> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
-> > +	    coresight_get_mode(drvdata->csdev))
-> > +		return -EBUSY;
-> 
-> [Severity: Medium]
-> Does this have the same vulnerability as reset_store()?
-> 
-> The configuration could be corrupted if tracing is enabled by another thread
-> immediately after coresight_get_mode() returns but before the spinlock is
-> acquired.
-> 
-> >  
-> >  	spin_lock(&drvdata->spinlock);
-> >  	config->cntr_val[config->cntr_idx] = val;
-
-Same above and others
-
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com?part=3
-
--- 
-Sincerely,
-Yeoreum Yun
+Best regards,
+Abdelnasser
