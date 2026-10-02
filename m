@@ -1,41 +1,41 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C166C25F981
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:21:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D813033E6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:21:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790943693; cv=none; b=fRQMQCfBffQndnquNqH7efr3CKH5IvYmKtk3C3JotMGUxxGjIs0Na/QI4CjPDIwYpQBMSGTyvVgY0UYe42ONn5ben70Vd2ICA1pq+exX2RED2B6TBLCzytz7Y2926LUIqQ7Zy00/0tSKDs3v1lJf72bP5Pb8w7Il+56u6ZLhgoI=
+	t=1790943699; cv=none; b=ABRvs3x6vcGkYh4kfonXV0iXriKk2n65Zd8J1IwK75RJBnUoemvtDY4BnoZvt5ujb6UkRagW3WcSXQK2hZppRcCF4q6A8ovUKP2AXz2vnsN5cwVH8g5lN3UNMmeKB2Z0UKXK23+KdUEDxp7U24ppdMQy+t3WzSWGPB5SGu+lK1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790943693; c=relaxed/simple;
-	bh=4vKYtsfmcbZylc2kSDjU7NrwUDTfd80+dVweQknK3gM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gElof0Dvy67L0jtqNuSJ5wztZQiazycjYeVDb+Dvh+Mzz0e9/9dFo20iQnoo9WgdkkbnqwmneOcISQZur6/Zb+Un5Mg6Kayqyye9JKurkpkJ+ryJ1xOY7T63Hph76ALBzIK00RSRBLiUvFRgSxpujLETLd9+zGn1/X/gYW44OJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=w4q/oLe6; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1790943699; c=relaxed/simple;
+	bh=fztX0WZeE8mFS148QRpdBMYp/aS421RjFwxd2+o+52M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fCZLq4urPLKeeaYB2ATIZ9YMyCo8OdXJ6bEisgxGIkibuSqAd3TTvxKGGZHPI3KcfuwsV3cAlZDtvOgSI8NsgqNkn4nQLFsATK1qDNDFvqRQd/qUxS2h+QGC1E6wOyC2N7O+Dod4tRDSwdmFsXwy0StFJOJoio+wdYv4ttTcM6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xeyxf4iX; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="w4q/oLe6"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xeyxf4iX"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 040F91A10DF;
-	Fri,  2 Oct 2026 12:21:29 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 17F1A1A10DF;
+	Fri,  2 Oct 2026 12:21:36 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C9BE6603DC;
-	Fri,  2 Oct 2026 12:21:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 054B1103281D0;
-	Fri,  2 Oct 2026 14:21:17 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E1E6C603DC;
+	Fri,  2 Oct 2026 12:21:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0F70B103281D0;
+	Fri,  2 Oct 2026 14:21:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790943683; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=oqAlVFXfMAcdUZksGidzaO1rRwjv8lqW4cFPdVMa7m0=;
-	b=w4q/oLe6rszrm1kh2kX4hGyJSmDE5ZeAjIWURuCgBg1Jmwu06LlcINHFxb7CbG6FyQHINo
-	YO79Fx0AE2UnhRFYED/ttghwJzURTFfIBSKRJQt8kTrxo6iHGrnCMgabPI2jWdmwo4JGaC
-	+hPUXAy9Igz+T9H/26UT5dg6t9/TcIGq5X2c3vBvxfYv4LTdv4WTi+K9ZcSVz5qpjcb5pV
-	ewOyMZAEUrpjPv8Ds97wro6NiVPGbEkgEof2X+THOTbVJBp8yyMIStlzb188z6owi1KYAB
-	LOad+PSLKfaw8lhUQZVjyaJtbFLWCt/maTL1I0nGDojWeCFvslWjWuYLdbHgZA==
+	t=1790943695; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3rH+xtaEE72c/dMWl13TrWCqgtJCjAS6ZGNblkbLQAU=;
+	b=xeyxf4iXt3nbfBRYOCbX/iRVRaF/v7G6Bxr2i5BWBr3kzeJ5/Ung5uhGWmtg8PWpKr8DHF
+	T6t146fG/nQJTpQrzNJ4BdNhf0UGZNSFhxsA90ipGhzewvBBGk5FbGhoW9nKDaP6vc71W6
+	8M0FECULZp+y7+eTYeORGeZXFId/U6d987BHFIY7d6OjnJitcBz/9ZydkA4b1uy/wnAx97
+	3CzIog4kf5JYQ+LU4bUEVspjPoobIXie2g4EmaAJ7DBBRjQGIHbmFs9qRWuMKLlntLhJmb
+	UJVFX4pWgOY+sJDEsVc3qHYug4iFR8SvK55dZ4sm7BP3pH8t4cMSJIR5LZHwYQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: [PATCH 00/15] mtd: spi-nor: winbond: Add support for the W35TxxNW
- family
-Date: Fri, 02 Oct 2026 14:21:13 +0200
-Message-Id: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
+Date: Fri, 02 Oct 2026 14:21:15 +0200
+Subject: [PATCH 02/15] mtd: spi-nor: Fix spacing between arguments
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,10 +44,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAwA0F+RnBdoKk66Xxk76BpnDkslERXEf
- 1/Z8V3eCc4m7PBoTjDexKVoBd0aeM+DfhglV0MM8U4hEO6iY9GM38FXNvRFUIvh3nYrRupTakO
- KnAnqsBhPcvz35+u6fjRwfP5tAAAA
-X-Change-ID: 20261001-winbond-master-spi-nor-w35t-217993092ed1
+Message-Id: <20261002-winbond-master-spi-nor-w35t-v1-2-a22a2f95c26e@bootlin.com>
+References: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
+In-Reply-To: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
 To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
  Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
@@ -57,46 +56,27 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-First patches are misc fixes.
-
-Then there are core enhancements to support ODTR chips.
-
-Last set of patches is Winbond specific, where I add the bulk of the
-changes for supporting the new Winbond Octal-DTR SPI NOR chips in the
-winbond manufacturer driver, and then sparkle the ID table with the new
-IDs and their respective testing logs.
+A spurious tab got inserted there.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
-Miquel Raynal (15):
-      mtd: spi-nor: Only switch to ODTR if the chip has a callback for it
-      mtd: spi-nor: Fix spacing between arguments
-      mtd: spi-nor: Fix comment indentation to clarify the intent
-      mtd: spi-nor: sfdp: Enhance a comment
-      mtd: spi-nor: Drop stale values
-      mtd: spi-nor: Fix WRSR with ODTR chips
-      mtd: spi-nor: Allow configuring the actual number of dummy cycles
-      mtd: spi-nor: Fix SWP for octal DTR chips
-      mtd: spi-nor: winbond: Prepare the introduction of W35TxxNW parts
-      mtd: spi-nor: winbond: Add support for W35T64NW-C
-      mtd: spi-nor: winbond: Add support for W35T12NW-C
-      mtd: spi-nor: winbond: Add support for W35T25NW-C/E
-      mtd: spi-nor: winbond: Add support for W35T51NW-C/E
-      mtd: spi-nor: winbond: Add support for W35T01NW-C/E
-      mtd: spi-nor: winbond: Add support for W35T02NW-C/E
+ drivers/mtd/spi-nor/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/mtd/spi-nor/core.c    |  46 +++++++++++++---
- drivers/mtd/spi-nor/core.h    |   3 +
- drivers/mtd/spi-nor/sfdp.c    |   4 +-
- drivers/mtd/spi-nor/swp.c     |  23 +++++++-
- drivers/mtd/spi-nor/winbond.c | 124 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/mtd/spi-nor.h   |   4 --
- 6 files changed, 187 insertions(+), 17 deletions(-)
----
-base-commit: c1775ba88cd08853e3f401d725b2ad94e783c5ec
-change-id: 20261001-winbond-master-spi-nor-w35t-217993092ed1
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index 9c61ff4b93c3..4b9e0410f2f5 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -773,7 +773,7 @@ int spi_nor_read_sr_ll(struct spi_nor *nor, u8 opcode, u8 *sr,
+  *
+  * Return: 0 on success, -errno otherwise.
+  */
+-static int spi_nor_write_sr_ll(struct spi_nor *nor, u8 opcode,	const u8 *sr,
++static int spi_nor_write_sr_ll(struct spi_nor *nor, u8 opcode, const u8 *sr,
+ 			       unsigned int len)
+ {
+ 	int ret, i;
 
-Best regards,
 -- 
-Miquel Raynal <miquel.raynal@bootlin.com>
+2.55.0
 
