@@ -1,142 +1,98 @@
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4182547D455
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBCC47F2FE
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:18:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932698; cv=none; b=XHgwBixKj8PcGnTHssEQg+PfN0l2OpEjg/TgKJlSBTzOGuqKOK9krcOEJ5+5HFyobqjYG2dKcrLHMHt84lUJXP+fxn9CVeqteVJunEiL+FyeQB/UsDC8RPBHmAB44Riii0X/S5O1MizdTaIEmOEWtKMnQpJDOw0orw92RPMRJoo=
+	t=1790932707; cv=none; b=FmVYUH7EgPFu7TKYEqVco+m8D6gS+zaOwp3YQh0zVAYW8/+5dRWdLCCsx29yiTTMy7R589XmsMbB57nnS84uP/ekc1Y8Qjwp60fRbSP3BsPttK8gO9RO2wzI2zCN8ztbllzv8vTs4f7lTvvTk23tlVu2Mr7ul9TRVfPTPCtaFL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932698; c=relaxed/simple;
-	bh=Qfsjd4gOBk2R1cAVmxNn9b1xSjQOZ/MyAh0pURKAmQo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=rvgN9UzKrpSSL/bkLMp7aat3RIfnjj3Txw0YPsIi+m3WgxNkSczethDLr/jlza6H4mx4M+i3QSysVk4yHqVUMilDwm+93q1RNArLvUxAXDiVh8GaJO6m+kWarO7WGHSniv7ww+avfF4C9ZVBH1cmpCxemgjCDrV7CpxFEoQu4Gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C2HSWPlO; arc=none smtp.client-ip=74.125.230.169
+	s=arc-20240116; t=1790932707; c=relaxed/simple;
+	bh=puMJQvXevs3HfhMHL2nYeCos2nWEYd1yPhYmpj4JZHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S1ahhVgH7a/R3lYbvD62MZ9zcxNokGGokowBym0HN7kMwrRu8VwX8agXRbzcRvBRMFrBNAn0niHEyISgMzXeQyq5mNxCDUn1zEkFBiVvz25hB6B534qTy+WlTrPv7i03proe5Php1OHpPpFTHUWmmmpAoePfs4Z+a5gQV2jirzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GrXBTwPH; arc=none smtp.client-ip=74.125.225.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C2HSWPlO"
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-9178b9b7ecfso40719316d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:18:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GrXBTwPH"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b024549a2so2160523f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:18:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790932695; x=1791537495; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Qi9AutxC+YxaVYc+sgXQhd2bNMCFaltRc/nQQBHbNXo=;
-        b=C2HSWPlOBODAEnXbDpuwl56cL4P+YrbZGRADpH5kpPpdv41r96qFVxMojhe+alWWwz
-         0h2yB1VQvIK2defDyTkcbtFsX57pasAF21csbbMSgK7CKg5JTSGjOahXBMwudFw4Tj0Q
-         k9vLHNkpW8dxJHs9fQL/iYpRAZ281pepRmfGLWRGHB9iXlcHVWunhSa94RgxXGa9AhE+
-         yxDewJGzhEzrOtBDcOBeIwNnLft0/Cg6SERXowQ9Wt7+UYeFys9URt0oRonjWthWeOKw
-         5Gf92ZM+V/SpiOVUzTRd33dmOu4H36gtz1mhxFG4M4iueKfx4v/4wpG894/NW6xnDGHA
-         Sslw==
+        d=gmail.com; s=20251104; t=1790932704; x=1791537504; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iRXlY/+4LCQNl/VbKdPpV5Ly6hs12yT1nCaZQ3FsDE8=;
+        b=GrXBTwPHLCMR7QVj3hxHMlechmLfcD3JABh1CpXMfV4rvSMMAUfXVxpI5e0k3T/p7Y
+         R1Idb3y66wK9RGMztSekgsobz2mO3UFlyIiwOUPwGHxB9VTQxVPJ/NMRJO6JFjCo2AHb
+         O9qwdaU5JrTXZ3imo9S+D1bi9WNOZilWJn8PXmQWuV8CJPCrx+/jxqtDMgIp1KoCjs80
+         uImPabqQewK9SsHC1iqdsnK6KuiC8qo816AF08oNJY/D/SN+nfY8jLViRpu11CjQdV5A
+         A9KowZMEunvf+hPyan7qkmC+IPFVoBpXqIq91M1kVEEfD0grdZjpAhV/EDQjlX+DIRJe
+         qDxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932695; x=1791537495;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qi9AutxC+YxaVYc+sgXQhd2bNMCFaltRc/nQQBHbNXo=;
-        b=ozwA0CYIWZHNIgdHDmHfbrb2LblFdMFEen33XVfvMvTayETsJWu0zYheplt8DimUJv
-         X3Su+g676YqOW08t1C/xr0U1+l3NAdZLIKBf2ikr9rKGdlNU++fpGE74T3wpepOe8FK/
-         Zd1w16k+XXsed/ynQLIlkdXbjEd3FnjcIsxDnT7j8q2pw07llpLr3fEyXuWXRNsZPWFL
-         Q+IwVBZepg8H5SgU5HdPatt1odrTu+RgacadpmEJFGUVo8OeF80NU8sQn/hITPxTSXdx
-         KXFdjgYIj6YlMoBastpLrOh2fKutgZjbJERAJOQ3yYtxLBSossTifep2enGk3DvPYAcy
-         UVjA==
-X-Forwarded-Encrypted: i=1; AKwUvBzttSjqu9hQLCssEGzskhxVYXYey39cJVKAzZE8GL6lxjuRzLwSdkfWsF+fNGPhRF1JQHscUok0tFlr5iE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpZ+p70XstB6zzfUDIGO3HNcCYslOsxj+WQvxjKVEfblmXX2LS
-	w6brNP79uwL9ik3IspPCupemwgWiUjiZdBorwigmel7i9cQk6z8USiyF
-X-Gm-Gg: AYBFou1iYKE9EMxuGVOAdZazxsg3nsyAUp44R0n0gsEju7zfdtKpW6ksh00bFB6bqal
-	iXrRrC2mOR9+EjNRclRS34oJ8TmWOq2GQBHqFWAAWeZA42aI27gJgKtiWXFOLYJw2ysJjzgKkOF
-	qMfmVpR/yaiN18agSyY8/wwmLU1FfYJZo/Ieq37ENUBYIW1ZrvX9HotDSSRGD5xDv4VQg8pWnf9
-	+b9J8dK8TFMpxb7xBiatGZMrxf+1QyrLeqi/hi8lN6PFH0pDYmsbwTs8oMQEROsfToqfXQtrvUr
-	PP93Zb9+LLwvp9Rp1RCyJa9mFFKponwXxPWOXs9sS9fVouPE8D913C5V2seSIaLzBw4DuMwLahd
-	Nv0p6SoyRaBkxurbslimwKLO4Mr9fyXiHbkNdJd+r0IoTVwJwh5bnmeFXBzYeQr5KxeSlemh0Pm
-	/psYinEOdVR4zW87CShrTsVEYyRl9NZuDF41PcO6ufvchFWFENF4AMoDbDrT6y+nv/rW2OBQERY
-	aU=
-X-Received: by 2002:a05:620a:1b9a:b0:93c:b47b:26f with SMTP id af79cd13be357-93cf178a668mr324269985a.49.1790932694960;
-        Fri, 02 Oct 2026 02:18:14 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca26dae0sm170607785a.33.2026.10.02.02.18.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 02:18:14 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790932704; x=1791537504;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iRXlY/+4LCQNl/VbKdPpV5Ly6hs12yT1nCaZQ3FsDE8=;
+        b=O8o2s1vztp8Sgg0jEgGoRk6ZrAjCVIyBFFtyJG+taHuk8kT9pP1IO4s16bI1TOL/Q8
+         ZJ+6cluyj7gNAAlxkFbAXISJA9k5lKZWWuxfTPzapgyzqGLDejzGDZweKPhaERFyVOE/
+         I8koPnUXnB363MZKOO3+DfUh5f4uvXNsxmJamLGyCJkvjzjzdIRtOna7f0JDIrQx9Llv
+         JnlWIYBmcCbXyOD0DqHdBNK1p/RdWCtwm79UmA2tVtkyImvKaQzlM7vKY0YIcDihpzDz
+         YG3YtOPVAd8zhzSqS+Z6I5fynydtTZGi41jVveXX7XNmnPyYK8JXnHW8Xo6XxGNPlqRJ
+         xerg==
+X-Forwarded-Encrypted: i=1; AKwUvBwM595Y+NIYc+YfhiK5rJ9hNkJZVLEbOHgAxbyr+/XtsrKV6tzt/Wx/05mat15CwPDLSYKzQvp2YGj24fg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3Nqho07O+9aCSf7GELTIUfHAKP7avLCd8k9ymh+uAXsdcLdmU
+	U3D0U/1enyxQjHFoPEhEdZYhdGfZzjz3EoU8YFR16Op7IyxAhYs465Il
+X-Gm-Gg: AYBFou1yx5mFXVHSiT8VV98mfdNfVGRchq83k7I1kxskhGbB0aQEhixFmYkXQwDdrLr
+	EU0Q8YMVoy6VpOe+ZpEkwJKyq6/n8RK264r8EziKLqCHnECrC5rOBlNjKNv0anHW+wQIDFveQF1
+	32dFODVVI29a0xiQgIIcLpWnDApKwm49/+K0gkAdjj3kwXJ+IRmHv3rz9a43xGMcYKowWvVq/en
+	t2z0YEG6sX3DaCyZG7c/Ozur9cHcdXANzFL0b/poMu64hmmDOxoWbOQL+gNtxwDxZpDe3E1p1D9
+	QpfLbM8yz6A0BHYp9cByt0zv0gPSlCIh4U7QBTUUb/tS6jeYqolEnCj7ytrbAIIxJsHcl/ASHE2
+	ISvipUtgVFpu99v8fDcesn2V8o3yaU53VdjVrr4TAvVO6kER3W2quLaTB1UydqEeLICkyMzGAUS
+	ApF/Z1qWucmEd0312jUzy/K0cHZRKyVvYWcTE11jSGib5+Zi1xuEVI42eUs1eLteGHjuIbsXnlT
+	t9mpLcDe9s5KYfyyrqnPwqZMLOc9Yjg/LUGi64DGnq3P9QGhMxTJHf1TLI=
+X-Received: by 2002:a05:600c:6a04:b0:4a0:4f6:3dc5 with SMTP id 5b1f17b1804b1-4a027542255mr25781515e9.7.1790932703704;
+        Fri, 02 Oct 2026 02:18:23 -0700 (PDT)
+Received: from 1Z10 ([2a02:b123:8010:a99a:44ac:6cdb:a419:601e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280ceaf0sm69201745e9.12.2026.10.02.02.18.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 02:18:23 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andy@kernel.org,
+	andriy.shevchenko@intel.com,
+	hansg@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 12/16] media: ov2740: release group hold after gain write errors
+Date: Fri,  2 Oct 2026 11:18:20 +0200
+Message-ID: <20261002-media-v7-p12-sakari-reply-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ar69K8mZVNmDqINI@kekkonen.localdomain>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com> <34f5f77ec2ddc7ff7a000603b120380c80bb73d4.1788360629.git.mauriziocasciano7@gmail.com> <ar69K8mZVNmDqINI@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 02 Oct 2026 05:18:13 -0400
-Message-Id: <DLU8NL6QVE5F.3Q1Y7MLJVGCXE@gmail.com>
-Cc: <netdev@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 2/4] net: psp: require an established
- connection for association setup
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>, "Daniel Zahka"
- <daniel.zahka@gmail.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Shuah
- Khan" <shuah@kernel.org>, "Simon Horman" <horms@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Kuniyuki Iwashima" <kuniyu@google.com>,
- "Willem de Bruijn" <willemb@google.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260930-psp-defeat-v2-0-f266e7447129@gmail.com>
- <20260930-psp-defeat-v2-2-f266e7447129@gmail.com>
- <willemdebruijn.kernel.7eaf3a38aa5c@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.7eaf3a38aa5c@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 1, 2026 at 8:19 PM EDT, Willem de Bruijn wrote:
-> Daniel Zahka wrote:
->> Check sk_state under the socket lock in both the rx-assoc and tx-assoc
->> handlers, and only allow association setup on sockets in
->> TCP_ESTABLISHED. Also, fail connect() when PSP assoc state is already
->> present, and remove the dead PSP MSS adjustment from
->> tcp_v[46]_connect().
->>=20
->> The net effect of this commit is:
->> 1. PSP assoc state can never exist on a listen socket.
->> 2. The upgrade to PSP must be done while the socket is in
->>    TCP_ESTABLISHED.
->>=20
->> This change defeatures behavior that was previously allowed under the
->> PSP uapi. My justification is:
->>=20
->> Nothing useful can be done after association setup on closed or listen
->> sockets today. Listen sockets could accept a PSP-encrypted TCP SYN, but
->> the child socket will not inherit any PSP state. On the other side,
->> establishing PSP state prior to connect() will result in a PSP-encrypted
->> TCP SYN sent to a listening peer, which in turn has the aforementioned
->> limitations. That implies that there cannot be any users of this
->> feature, so it should be safe to remove it from the PSP uapi.
->>=20
->> In theory, the check in the tx-assoc path is more restrictive than
->> necessary. FIN_WAIT1/2, CLOSING, LAST_ACK and CLOSE_WAIT could be
->> allowed, and the peer would accept PSP-encrypted ACKs in the
->> post-FIN-sent states, or data in the half-close case, but it is simpler
->> to disallow those states because they don't fit the upgrade model.
->
-> And preferable to do so. While it could be allowed, there is no real
-> use case for it. Simpler state model allows simpler code.
->
->> The check in the tx-assoc path fixes a bug in commit 6b46ca260e22 ("net:
->> psp: add socket security association code") where an unsynchronized
->> write can be performed on an assoc shared with a timewait socket when
->> the socket is in TCP_CLOSE after shutdown. This commit is not targeted
->> at net because its premise of preventing listen sockets from holding
->> assoc state depends on net-next commit 8cc3aef0cb19 ("tcp: Do not allow
->> buggy transitions between ehash and lhash2.")
->>=20
->> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
->
-> Reviewed-by: Willem de Bruijn <willemb@google.com>
->
-> Even if targeting to net-next, you could consider keeping the Fixes tag.
-> Importantly the prerequisite patch is mentioned. But is only one of two
-> mentioned here?
+Added in v10 patch 11 after verifying the introducing commit:
 
-Yes, sorry. I replied with the full Fixes info to the bot here:
-https://lore.kernel.org/netdev/DLTLF0VWT5UY.2WUPQRDZJQO3W@gmail.com/
+  Fixes: 84363509c725 ("media: ov2740: use group write for digital gain")
+  Cc: stable@vger.kernel.org
+
+The stable address is a commit trailer; it was not added as a direct SMTP
+recipient for the feature series.
+
+With Best Regards,
+Maurizio Casciano
