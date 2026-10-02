@@ -1,115 +1,212 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F6CA357CF4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D20D282F2A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 17:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960579; cv=none; b=UEcjeD8W3UqL9JrHFBhXvS24GIzMZlmrVS9BK6qSQ0BlZ00sXd095eonqYCwzlK2hd6XvqIMCWjFdclQ6pzWr1TP4LpRIPoofnmXB0WdoDX2i/K/vhlIZfxO10j5gGe4AgvgtaW9qCxBiIA4W8cofNLTaPV58BPDThCpB2Bcud0=
+	t=1790960677; cv=none; b=sTjqEVXydNnJ165vNJbUZD78/N/NW5DLHo8BU+9cp547cR+Wtuy9SKW7d0kcfiSd70vHO8Y4mnkk3pcttXESvnYzLFaT3M8reF6Z364cAqs8lBvg35I97ES7UoWNZmHd10O0mf5PZMs2uYldoPSLS0f31V2nfB9ouJr7BqUgtsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960579; c=relaxed/simple;
-	bh=AujEG1ysY5IJFtWwYdnh06UeIW4r3DOKSApXusGeGxM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KdNdFfoaBLlFRC6Bux3lf1u2tsrBGsaMc2E61UHg+f6wBUtFeVDt1aKKbJ1f8CTV3pC54kp4AFHRt+QlrAjfQTMLBofpVBf6vIFNJBD1bbPT+AvfcZB/h/87PlbjLEauMF+qE8HNaw2LjM3UHLj/DWxR7x+wzsTODNzff3qmvP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Htjy25Ij; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Htjy25Ij"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3CE602F;
-	Fri,  2 Oct 2026 10:02:53 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E085A3F86F;
-	Fri,  2 Oct 2026 10:02:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790960576; bh=AujEG1ysY5IJFtWwYdnh06UeIW4r3DOKSApXusGeGxM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Htjy25IjFnqUGOnh4KBghZ8ryIF0YjUJg8NYh2au01V2VpYWUdp4QJ1JmaqcxfnJc
-	 dgBkdgtnJVzGBtFQ0zi6K+yhL7TltxajxflAMNlUHxD7Ng7dr3U3QbdrmsHeJaZgV5
-	 vVl7jIvT3o7KVpjvkg0iP/tLiXO9q/aJ+c1JCATM=
-Date: Fri, 2 Oct 2026 18:02:53 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 01/14] coresight: etm4x: read-back TRCSEQSTR at
- disabling and prohibit modifying seq_state while enabling.
-Message-ID: <ar_jvRE0C0Jb8WDE@e129823.arm.com>
-References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
- <20260924-separate_etm_cfg_v2-v12-1-a2b41d2f7c2b@arm.com>
- <20260924174611.917571F00893@smtp.kernel.org>
+	s=arc-20240116; t=1790960677; c=relaxed/simple;
+	bh=GpP5XgwYyQJUWQYpJ7j/DbLvKgzskfuJg6aRikW+1yQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=BbobtHVIq6O7wzdwaiwmikFACRoNSe/isPPZ3dOtyUIp9C73HU5udaP4/S2OfuGccViT6U3XK98xTSU7SCCTUWBoZbPlFqYp42BCdMp7/9aNXfZEMkXd01YcpA33pm8/zaMjHz0qIuRKP+0fYbXRR6CnEGnl8OgkFieW/Amas4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c734afb8deso12519248b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 10:04:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790960675; x=1791565475;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SzNUvwDq9v9Cm/x2IZGNhM6swbAMlfGpw3MhkiY8pXc=;
+        b=jVE3GKWFJP7JeQIEEp33OsLxif+T8aq61l9zg1AZP2W6GpV0ARHGOSrpSscjg0OOaQ
+         t9KjJJkAz5eyKnsa/fOn7XFqqoJxszRhiXmInESz5GW/ntRLFRoFp8NK3cZfxnDaQbhM
+         nQTPVSxxYfSwzQsgL2LbSCi/l+PYo7L8SWYVirHQBY8CZBXQGUK7uRQZR2/5C7IrODyK
+         yM4RkmK84UGb9mLEEIZnmyJOU+Q1xHqG62m42Zh6LKiU8qAvQxt7GBKMgy3k9MQTl9VQ
+         +UScUgWsPQiHwVoECaxMbPReLcoOa8WRhyG2Nd2klqpnhdsXF/gEiK2obA1QkrlfYh5l
+         /X8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy28YIrhQBFMPYWp5EAmk06/Mw/dRlgECVC9PEIU5Cvz/8sr9wEvOow7muTrm4LD4IucEXT1Jb69eLOQns=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFvwMRVv1O/bLlgRAa/SBKJiGVRWc2A6Gy0MJgc6AD2E+OrPXA
+	3F0+4Ir2L247kRwFRj4DTXIJ3mVp7+UFLqhvbMAFFSyHMERWKNpLSJPHS2Gqk3YKe50K9zNEHPy
+	AdgqbZdw+mbsCZyzJC6SXBjfq+s9Cf00I4mpgRCX32gVvFDeN+99v3LSlX6s=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924174611.917571F00893@smtp.kernel.org>
+X-Received: by 2002:a05:6808:17a8:b0:4f4:73a9:f853 with SMTP id
+ 5614622812f47-4f677447435mr94188b6e.1.1790960674967; Fri, 02 Oct 2026
+ 10:04:34 -0700 (PDT)
+Date: Fri, 02 Oct 2026 10:04:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abfe422.7503fbd6.2d3f6.0023.GAE@google.com>
+Subject: [syzbot] [overlayfs?] possible deadlock in __d_alloc_parallel
+From: syzbot <syzbot+52aa59fd5e3cd8a19dd7@syzkaller.appspotmail.com>
+To: amir73il@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, miklos@szeredi.hu, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] coresight: TOCTOU race in seq_state_store lockless mode check
-> - [Low] coresight: misplaced IS_ERR_OR_NULL(drvdata) after dereference
-> --
-> 
-> commit fb240199cfa6db080873efbe2c007beb70c01070
-> Author: Yeoreum Yun <yeoreum.yun@arm.com>
-> 
-> coresight: etm4x: read-back TRCSEQSTR at disabling and prohibit modifying seq_state while enabling.
-> 
-> TRCSEQSTR can be changed by the ETM while a session is active. Its value
-> therefore needs to be preserved when a sysfs session is disabled so that
-> users can read the current sequence state after the session ends.
-> 
-> > diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> > index cc6cdd3ae29d5..db3cf4ad6806c 100644
-> > --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> > +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> > @@ -1437,6 +1437,8 @@ static ssize_t seq_state_store(struct device *dev,
-> >  		return -EINVAL;
-> >  	if (val >= drvdata->nrseqstate)
-> >  		return -EINVAL;
-> > +	if (IS_ERR_OR_NULL(drvdata) || coresight_get_mode(drvdata->csdev))
-> > +		return -EBUSY;
-> 
-> [Severity: Low]
-> Does this code introduce a regression by checking drvdata for NULL after it
-> has already been dereferenced?
-> 
-> Looking at seq_state_store(), drvdata is dereferenced during the check for
-> val >= drvdata->nrseqstate before IS_ERR_OR_NULL(drvdata) is called.
+Hello,
 
-Yes. I'll fix it.
+syzbot found the following issue on:
 
-> 
-> While drvdata is fundamentally guaranteed to be valid in this sysfs context,
-> making the check technically dead code rather than a reachable crash, should
-> the validation be moved before the dereference if it is kept?
-> 
-> >  
-> >  	config->seq_state = val;
-> 
-> [Severity: Medium]
-> Could this lockless mode check cause a regression?
-> 
-> A concurrent thread could enable the trace session immediately after the
-> lockless coresight_get_mode() check evaluates to disabled. This would allow
-> config->seq_state to be modified while the session is actively starting or
-> already active, completely defeating the patch's stated goal of prohibiting
-> state modification during an active session.
-> 
-> Should raw_spin_lock(&drvdata->spinlock) be held across both the mode check
-> and the subsequent state update to prevent this regression?
-> 
-> >  	return size;
-> >  }
+HEAD commit:    9f24d789f03b Add linux-next specific files for 20261001
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=17d76bf5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c999b3b0b3b9da44
+dashboard link: https://syzkaller.appspot.com/bug?extid=52aa59fd5e3cd8a19dd7
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-This doesn't matter, TBH I don't expect user concurrently setup the
-configuration while session is not ended yet and similar problem
-is already exist before separation of this patch too.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-So, this is ignorable.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/dd8482e32335/disk-9f24d789.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c0d5a36cf052/vmlinux-9f24d789.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e5992c4e2fd4/bzImage-9f24d789.xz
 
--- 
-Sincerely,
-Yeoreum Yun
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+52aa59fd5e3cd8a19dd7@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     Y
+------------------------------------------------------
+syz.4.3863/19816 is trying to acquire lock:
+ffff88805896ae00 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ffff88805896ae00 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ffff88805896ae00 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: __d_alloc_parallel+0x39e/0x1700 fs/dcache.c:2881
+
+but task is already holding lock:
+ffff888058a4f950 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
+ffff888058a4f950 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_open+0x221/0x1970 fs/namei.c:4460
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (&type->i_mutex_dir_key#3){++++}-{4:4}:
+       down_read+0x45/0x320 kernel/locking/rwsem.c:1574
+       inode_lock_shared include/linux/fs.h:1039 [inline]
+       lookup_slow+0x46/0x80 fs/namei.c:1935
+       ovl_lookup_positive_unlocked fs/overlayfs/namei.c:216 [inline]
+       ovl_lookup_single+0x323/0xe90 fs/overlayfs/namei.c:260
+       ovl_lookup_layer+0x377/0x440 fs/overlayfs/namei.c:365
+       ovl_lookup_layers fs/overlayfs/namei.c:1168 [inline]
+       ovl_lookup+0x9ae/0x1c80 fs/overlayfs/namei.c:1403
+       __lookup_slow+0x1fb/0x2f0 fs/namei.c:1919
+       lookup_slow+0x59/0x80 fs/namei.c:1936
+       walk_component fs/namei.c:2282 [inline]
+       lookup_last fs/namei.c:2789 [inline]
+       path_lookupat+0x3f5/0x8c0 fs/namei.c:2813
+       filename_lookup+0x265/0x5d0 fs/namei.c:2842
+       user_path_at+0x40/0x160 fs/namei.c:3641
+       do_mount fs/namespace.c:4191 [inline]
+       __do_sys_mount fs/namespace.c:4407 [inline]
+       __se_sys_mount+0x2dc/0x420 fs/namespace.c:4384
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       d_wait_lookup fs/dcache.c:2838 [inline]
+       __d_alloc_parallel+0xc32/0x1700 fs/dcache.c:2942
+       lookup_open+0x2c2/0x1970 fs/namei.c:4473
+       open_last_lookups fs/namei.c:4769 [inline]
+       path_openat+0x673/0x1da0 fs/namei.c:5008
+       do_file_open+0x23e/0x4a0 fs/namei.c:5040
+       do_sys_openat2+0x115/0x200 fs/open.c:1442
+       do_sys_open fs/open.c:1448 [inline]
+       __do_sys_openat fs/open.c:1464 [inline]
+       __se_sys_openat fs/open.c:1459 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1459
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  rlock(&type->i_mutex_dir_key#3);
+                               lock(DCACHE_PAR_LOOKUP);
+                               lock(&type->i_mutex_dir_key#3);
+  lock(DCACHE_PAR_LOOKUP);
+
+ *** DEADLOCK ***
+
+locks held by syz.4.3863/19816: 1, last CPU#1:
+ #0: ffff888058a4f950 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
+ #0: ffff888058a4f950 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_open+0x221/0x1970 fs/namei.c:4460
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 19816 Comm: syz.4.3863 Tainted: G             L     Y syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP, [Y]=FORCED_BIND
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ d_wait_lookup fs/dcache.c:2838 [inline]
+ __d_alloc_parallel+0xc32/0x1700 fs/dcache.c:2942
+ lookup_open+0x2c2/0x1970 fs/namei.c:4473
+ open_last_lookups fs/namei.c:4769 [inline]
+ path_openat+0x673/0x1da0 fs/namei.c:5008
+ do_file_open+0x23e/0x4a0 fs/namei.c:5040
+ do_sys_openat2+0x115/0x200 fs/open.c:1442
+ do_sys_open fs/open.c:1448 [inline]
+ __do_sys_openat fs/open.c:1464 [inline]
+ __se_sys_openat fs/open.c:1459 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1459
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2a81f9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2a82ed0028 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007f2a82226090 RCX: 00007f2a81f9e159
+RDX: 0000000000000000 RSI: 00002000000000c0 RDI: ffffffffffffff9c
+RBP: 00007f2a8203506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2a82226128 R14: 00007f2a82226090 R15: 00007ffdafde6058
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
