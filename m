@@ -1,135 +1,116 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com [207.54.90.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEFF322B8F;
-	Fri,  2 Oct 2026 10:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F4A2AEEB;
+	Fri,  2 Oct 2026 10:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936878; cv=none; b=XinR99GMx7hKYpytTp/99YSl8S/MSrKmBMSduB3wyCRyeL/uOBEoXImbqRgVaUfXWfckTfOVYKp7A9+sLRn+uaFkvR09UhhTvXT8uX1DCOk+qXYfyAzH0Sfx7Tisp7r/C+hHtd7Utge542A/r9nUfMFHNFKT30NtudwM1A1TEPA=
+	t=1790936894; cv=none; b=umv7tpwi+w3zCc7fLDqf/uH7OvqU7xicRj46+1BeudHgmznxXAQDSvTideG542h/IcxQeovByktkeQ7c4kCpF82OnYNmPJrezFLQa+zBtHI8+G4FHPqM/u1hhBS7c3ZMQmy69EKUG62YtRe/f5Qo1QPylwNdXk3Nma1vfr6S+F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936878; c=relaxed/simple;
-	bh=8wGqaC+jBBfUfJLAaHTguktlt0Aln9XSrj5KqsldJIM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JqrpPmDT8l4RoXSsV6m5N2l8VQsvqgFym/YGVE/pvE9X0kd+F0m1KRuCiWa+GA/AD/6Zkuqt31oHOj8cgUSSb8h9INSD7r/1v+fh2tcHsj2rA7V8d/tuYOQFuud1hKHFl85MvHswlMoviH2joaFNQSLII3Mz+WmB+PrZTray9Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NBFINY6/; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790936894; c=relaxed/simple;
+	bh=HvjQ+Rk40qOIm9mo8ia6lTFXzNLel1Ows72ZgD35JU0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OEf3E4YpZbYW7b3N8wCWPo7MqW5RCZ8nLBYuuMcCX4tUEWNt/iAZJkuyuEG5WmSpVwFVt4b8AEYcMpFFuR4UMt3D4x8HWww5UUlFA0PwOBx03nBVE86MtXFpehWhUDyUIzzkjAoOIPuffXr4PQMdXJ503O0RjDB5g8T/wxtwP3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=GLEdxB+i; arc=none smtp.client-ip=207.54.90.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NBFINY6/"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692A65TQ2567063;
-	Fri, 2 Oct 2026 10:27:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=ZtCo0FdyDhkMCPz0Iuo3/oQ2+zcrRZbh3i5TUrD5d
-	dk=; b=NBFINY6/QxohH9hyErIAgj6BDCxXKjs0te9ZgTwcvNeeJooOFr7Mz5X0N
-	bHLJp0qdDrPnCmDSBAGV3Xmt+ttUWJv0RcuZniHKtL4bHseTAHxZmmsYpAm+QmcY
-	4riSGgVLmtvV3PJysahYxfi8IGY3sX6y552Lk4HPocQlIbFsebdYO36tlo+xq2ZE
-	oVaBL8dX/4RyjJm2qOU/dPHboi8RtLOXR5umZNXuZeC9ZXbTmtvii6RKu5t4507J
-	pyiQ+AaYsHmsL1/GK7zFj7aaIONKn67wZdrOO4lP5WW7xmqBBLyTFZOFKVthhVOA
-	cLyAmTGwFx4UUnNMdxWM8ISqx1ixA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5qrrnsq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 10:27:55 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6929lbNo2347875;
-	Fri, 2 Oct 2026 10:27:55 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h21nu1qqc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2026 10:27:54 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 692ARppa51708246
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 2 Oct 2026 10:27:51 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 36EEB20049;
-	Fri,  2 Oct 2026 10:27:51 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1A40020040;
-	Fri,  2 Oct 2026 10:27:51 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  2 Oct 2026 10:27:51 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH] s390/extable: Fix mvcos instruction decoding
-Date: Fri,  2 Oct 2026 12:27:50 +0200
-Message-ID: <20261002102750.1994830-1-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="GLEdxB+i"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1790936892; x=1822472892;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=HvjQ+Rk40qOIm9mo8ia6lTFXzNLel1Ows72ZgD35JU0=;
+  b=GLEdxB+iTAppnbv0KXV+QXOZ3J8lUozRycQMQpyxZEfrB+GX5XDoEcn6
+   +BAwsMlyKgNLOOi8liQY0KI1uQLGqRWBvUvLcRvxjHRmNrg/uL5+uUfZ8
+   rFK1n2A/E4xqdCtbr/+JuobvEP8PoaIVb9qBiTwoeaS6rTFLCoH21+J8J
+   QMxAGmgVT7DJNonpl6rHYMR3uFu1/g9gVjCDE+MxfX/DlGeMGoEL1XDFS
+   /7ZIJod6JnhuKrxkFPoStrY0dhU6Anpuq8fNFozXcl3Bey2MRvgp7adpv
+   +jinjjlOrQOFogC6t0f/ie04K/Kt4U0pH5EFq9w2/JS5Y7L4lKpnHNBMd
+   g==;
+X-CSE-ConnectionGUID: lgiGaAHxT5eN4yKqQ1H8rg==
+X-CSE-MsgGUID: m92ZEdr9TwOx9Fkdzs1q/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="256956430"
+X-IronPort-AV: E=Sophos;i="6.27,136,1786978800"; 
+   d="scan'208";a="256956430"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 19:28:03 +0900
+Received: from az2nlsmgm4.fujitsu.com (unknown [10.150.26.204])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id B08391000347;
+	Fri,  2 Oct 2026 10:28:03 +0000 (UTC)
+Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm4.fujitsu.com (Postfix) with ESMTPS id 64E671004163;
+	Fri,  2 Oct 2026 10:28:03 +0000 (UTC)
+Received: from [127.0.1.1] (unknown [10.124.178.20])
+	by az2nlsmom4.fujitsu.com (Postfix) with ESMTP id 540942018B2A;
+	Fri,  2 Oct 2026 10:27:58 +0000 (UTC)
+From: Tomohiro Misono <misono.tomohiro@fujitsu.com>
+Date: Fri, 02 Oct 2026 19:26:49 +0900
+Subject: [PATCH 1/4] arm64: cputype: Add FUJITSU MONAKA definition
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA0MCBTYWx0ZWRfX6a6FQ4E1W6+3
- SNmpWXyZRm3S0EcsIazF1l8mwGP2YBrhEnJGvQw0cfsbq6rQdOjvA4BM2vtIRek/lnAD0f0H3fR
- sN9ut3lyLHq1g6/t2NYfa/ylYrs7GgImNWgyd29pfT0S6yu/S28CMCa2RFVOARJJox2nrxd0FA7
- IyxDitu7IerOHJwd1Fp4zteUU2vLGR1bBKu0v1zWyrg0lZ1zXDEe2n/wmw6bi2KlNvi+pYkDn5I
- UlkkST8HiiV/mPkDqr8Pww97dgCwNHSLuzLSfrQiTbfhok97V6vQEvB3swQWNn8csCQpCsZQwhm
- XkD33TyvCbIUqxguDHh/xo9TyilN7AlKVsYIDL8G/c+gsJUNNUKIVGU+e6d22oulaVe5H7uQMHb
- rNBYiDLgOEcw1PWVHD8Wfj0OxlNzkyBrL1mSSJU8fIUjX7JKSHWtwW/rCTNU+48gPf9HA0EajRY
- FASfha/vRZLVhKsOsYA==
-X-Authority-Analysis: v=2.4 cv=SPbXx+vH c=1 sm=1 tr=0 ts=6abf872b cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=ffBm7Ohb_I3oncLQO4gA:9
-X-Proofpoint-ORIG-GUID: sXOvcy6QtcE3EhG9Kkw8xZPlKqBOdxuX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA0MCBTYWx0ZWRfX3Q+fE4ZIWuzK
- AmoADb8Ogytto3stwMakmIP5PNoG/8NLsdpcjqHjh4SxnaASYymVPJkj9p1Rr1+rRh97Bi4guSB
- J6agaY3mPHGFIaygJ8oFfIv2OEbpu/A=
-X-Proofpoint-GUID: sXOvcy6QtcE3EhG9Kkw8xZPlKqBOdxuX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_03,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610020040
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-monaka-fix-for-upstream-v1-1-4aec0b0cbe34@fujitsu.com>
+References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
+In-Reply-To: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
+To: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
+Cc: Kohei Enju <enju.kohei@fujitsu.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790936872; l=1256;
+ i=misono.tomohiro@fujitsu.com; s=20261002; h=from:subject:message-id;
+ bh=HvjQ+Rk40qOIm9mo8ia6lTFXzNLel1Ows72ZgD35JU0=;
+ b=PT/2bczWTHPh+YbXoztDgvLhcaFSSU3/j9P+tSfd1xJariCWXTyjJxPMEI7KFfecJjOT4VorY
+ wM4k8oN9UWSCD2z/KXUzlE1TAEFJXeuiK3IiNjg6dhZZYuLdzCZPZpH
+X-Developer-Key: i=misono.tomohiro@fujitsu.com; a=ed25519;
+ pk=VLRxj5y4GJrHLmj3e2NBg30fX2U//ydi7c2G2qiNo10=
 
-If either the b1 or b2 field of the mvcos instruction is zero, register
-zero is not used for address computation; zero is used instead, according
-to the architecture. ex_handler_ua_mvcos() incorrectly uses the real
-contents of register zero. Fix this.
+Add cpu part definition for FUJITSU-MONAKA.
 
-This shouldn't be a problem for any generated code, since the compiler
-would only generate such code if it is possible to prove at compile time
-that either the source or destination address is within the first 4kb of
-the designated address space. Such code should not exist (also confirmed
-by an allyesconfig build and decoding all ~7000 mvcos instructions).
-
-Fixes: c488f5187a24 ("s390/uaccess: Shorten raw_copy_from_user() / raw_copy_to_user() inline assemblies")
-Cc: stable@vger.kernel.org
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Tomohiro Misono <misono.tomohiro@fujitsu.com>
 ---
- arch/s390/mm/extable.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm64/include/asm/cputype.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/s390/mm/extable.c b/arch/s390/mm/extable.c
-index 7498e858c401..848855da9a70 100644
---- a/arch/s390/mm/extable.c
-+++ b/arch/s390/mm/extable.c
-@@ -106,9 +106,9 @@ static bool ex_handler_ua_mvcos(const struct exception_table_entry *ex,
- 	regs->psw.addr = extable_fixup(ex);
- 	insn = (struct insn_ssf *)regs->psw.addr;
- 	if (from)
--		uaddr = regs->gprs[insn->b2] + insn->d2;
-+		uaddr = (insn->b2 ? regs->gprs[insn->b2] : 0) + insn->d2;
- 	else
--		uaddr = regs->gprs[insn->b1] + insn->d1;
-+		uaddr = (insn->b1 ? regs->gprs[insn->b1] : 0) + insn->d1;
- 	remainder = PAGE_SIZE - (uaddr & (PAGE_SIZE - 1));
- 	if (regs->gprs[insn->r3] <= remainder)
- 		remainder = 0;
+diff --git a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
+index 1fa29616e586..3f648cb10e61 100644
+--- a/arch/arm64/include/asm/cputype.h
++++ b/arch/arm64/include/asm/cputype.h
+@@ -138,6 +138,7 @@
+ #define NVIDIA_CPU_PART_OLYMPUS		0x010
+ 
+ #define FUJITSU_CPU_PART_A64FX		0x001
++#define FUJITSU_CPU_PART_MONAKA		0x003
+ 
+ #define HISI_CPU_PART_TSV110		0xD01
+ #define HISI_CPU_PART_HIP09			0xD02
+@@ -235,6 +236,7 @@
+ #define MIDR_NVIDIA_CARMEL MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_CARMEL)
+ #define MIDR_NVIDIA_OLYMPUS MIDR_CPU_MODEL(ARM_CPU_IMP_NVIDIA, NVIDIA_CPU_PART_OLYMPUS)
+ #define MIDR_FUJITSU_A64FX MIDR_CPU_MODEL(ARM_CPU_IMP_FUJITSU, FUJITSU_CPU_PART_A64FX)
++#define MIDR_FUJITSU_MONAKA MIDR_CPU_MODEL(ARM_CPU_IMP_FUJITSU, FUJITSU_CPU_PART_MONAKA)
+ #define MIDR_HISI_TSV110 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_TSV110)
+ #define MIDR_HISI_HIP09 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_HIP09)
+ #define MIDR_HISI_HIP12 MIDR_CPU_MODEL(ARM_CPU_IMP_HISI, HISI_CPU_PART_HIP12)
+
 -- 
-2.53.0
+2.43.0
 
