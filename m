@@ -1,105 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5BA35C6B9;
-	Fri,  2 Oct 2026 06:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8F0335066;
+	Fri,  2 Oct 2026 06:15:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921667; cv=none; b=or7wjLRyHOLcTGZugm6u4QqZc8ZD1rzv0Z76Q2Abby5mNB+0wUM4GZyW4PMaMOp9bt8lkJVHGne+EcfXU1pLJdcdEew13WNsWQbnD4nuaq2jTJQlnu60jlydsLi7frrs5kUZT7oBcnuOwLWWr+g/zgZxKdCafl9w8ZbNjj3sGSM=
+	t=1790921703; cv=none; b=LR/PLOOEXdvls7YE5F9UCRkBb5atSGb5W108j5JScGD0hKh6yndyNA42I7m5Xzvi64ShzhRRjMpjnPo1YmYymTz6D1pMZNf1TnYlgX7PudpI5ID+lfhhO84kmMgo6dZIdglEGw8V7Q9qUzTOX2wThfTp+rWsDnBsgClbIaP2FFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790921667; c=relaxed/simple;
-	bh=QtN08qlYa49HWuHjUTay01+VAY+sfXTWjLheWdF6L/M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=eZXbF1JL5K9yjHvYTs22EHalLhQR4aejfQAcCPg5iOnkUU9iqgq1HcRymf3pZESM1qb6CmrQzrjtib7b4r4g1AhkjVeC4jTEo67RedkkwQjMYlrKRN7ycgbeYQF5D0jL7un0qUlThAIwyHnC4WN9s1zBzeYVm3jtTGhSW+QtL2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e84Fpx2K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790921703; c=relaxed/simple;
+	bh=jedHPmEYEI+tjy8Wuul556rnB6qzV4B52PGH4/ifBKA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PyWLViBZB4vou+h4GkT9UIFSdqsN6HtJu2deazJsrew4C1IC4KO+mnyYWqGOA4tFSTWFshkai/aXgqkirOrlr8rLz1OxPgYM8OS8s6nawWAS3WWKW/1Q/Vbb8FlOHHcmFWivrjMV95A1OZ8qirDibMAuIq7ood0xVGPZWxwLXow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4oFs6Bg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e84Fpx2K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CD31F00898;
-	Fri,  2 Oct 2026 06:14:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4oFs6Bg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385C71F000FF;
+	Fri,  2 Oct 2026 06:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790921665;
-	bh=bc/twVVXjEu8LvGY2cDqMCBOR2omKMTiiungucTb/r4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=e84Fpx2K7LDcWwK09R8hq/rEbdyXYgQVMY5e9qzplkIMYlzy/sa5mAR5PwNMvcNc8
-	 yygJN47QDo27ci7Bjhnv0MZtCaAg1EswLprrAIUSztZCGIxw1XuZtecZ8VlqMvE9Un
-	 21vPVreXOhzdKu1Wo65iRU5u9e2AVx2iozRG1udbNqZ/bzl5BGjqAIImLMnodVCjSh
-	 mxcK8NCyqBMXYS4YO3mRf3heEhQRRrbJuh/fxcIAy+dF29T+7zFOq7g3iIYQ6DiBHj
-	 cSZKd4/TOFl6lY1qyrsgVowg8P2L2Bv8UfFF4bCBnRu7b5eWQMjIgYkk3US45dZAeH
-	 yTe5WrNtyrR2A==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Sonang Patel <sonangp@nvidia.com>
-Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 11/11] PCI/TSM: Add reference-counted contexts
- for vdevice providers
-In-Reply-To: <20260928230834.GL163130@ziepe.ca>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-12-aneesh.kumar@kernel.org>
- <arq2Ql3-q9EApe3X@sonangrm.nvidia.com> <20260928230834.GL163130@ziepe.ca>
-Date: Fri, 02 Oct 2026 11:44:15 +0530
-Message-ID: <yq5av77ktyrs.fsf@kernel.org>
+	s=k20260515; t=1790921702;
+	bh=hi6XHWyTJQffUT25/ok7QOTOJdQy8n9yJbOZN0HylOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H4oFs6BgKw8tvxO1GYbihnYs4/9F4OH5ILJdfr3VNvjsFdkZWK5JRdhL4JjB6ObhF
+	 aOaW7HbN0UCoAaXcRcD4iuP0nmEUknpo0VO2/y6HWqwUZhjwmZ9m3O98IDY+8lydFi
+	 qYAhraNCh6MDCRjI6MX/T1+oqwId7bt2Pof8WGcpbGHwQ2eBVMr9OBofQkZUSbo5Ji
+	 YClSMU6jsgAi8eMknjotu1pF+6PKcXtmkQYEO9w43B16nm3/TiIch0zJAl2anpf1Eo
+	 QWRDHlqFlkgYCruv7er+RhkC2xVje4lydbYvBkc7ZvFfyCk4DJhyfQSiqvRYikkEim
+	 rTkR3JUpThikA==
+Date: Fri, 2 Oct 2026 08:14:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Armandas Kvietkus <armandas.kvietkus@proton.me>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: input: awinic,aw86927: Add Awinic
+ AW8697
+Message-ID: <20261002-glaring-raccoon-of-bliss-ba5e3f@quoll>
+References: <20260930-mainlining-v2-0-40bb1b3943db@proton.me>
+ <20260930-mainlining-v2-1-40bb1b3943db@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930-mainlining-v2-1-40bb1b3943db@proton.me>
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+On Wed, Sep 30, 2026 at 07:18:50PM +0200, Armandas Kvietkus wrote:
+> The AW8697 uses the same bus, interrupt and reset lines as the AW86927.
+> The register map is different, so there is no fallback compatible.
+> 
+> Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
+> ---
+>  Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 
-> On Tue, Sep 29, 2026 at 12:17:30AM +0530, Sonang Patel wrote:
->> On Thu, 17 Sep 2026 19:31:59 +0530, Aneesh Kumar K.V (Arm) wrote:
->> > +		if (is_pci_tsm_pf0(pdev)) {
->> > +			if (pci_tsm_disconnect(pdev))
->> > +				pci_warn(pdev, "TSM connection is still in use\n");
->> > +		} else {
->> > +			tsm_remove(pdev->tsm);
->> > +		}
->> 
->> What happens if the PCI device is removed (e.g. sysfs remove, surprise
->> hot-unplug) while the vDEVICE/TDI still exists?
->> Since removal cannot be refused, should the remove path still force
->> the unbind/unlock?
->
-> vfio prevents that. It currently will block the sysfs remove until
-> vfio is closed.
->
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
 
-This came up during a Codex review of my patch set. The question is what
-happens if function 1 is assigned to the guest and function 0 is then
-removed through sysfs. Is that allowed? If so, it could be a problem
-because function 1 is not unbound and can continue to be used, while
-removing function 0 tears down DOE and IDE via:
-
-	pci_doe_destroy(dev);
-	pci_ide_destroy(dev);
-
-
->
-> If we ever decide to fix that then vfio would have to tear down the
-> iommufd vdevice before allowing itself to be destroyed.
->
-> We don't need any lifetime nonsense once we are inside an iommufd
-> context, its existing locking scheme is very strong already. tsm
-> should not be allowed to change while a driver is bound, and basically
-> I shouldn't see any refcounting or locking in any of these paths
-> stemming from a bound driver context in iommufd.
->
-
--aneesh
