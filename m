@@ -1,191 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6049443DA3A
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C524189C2
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926712; cv=none; b=j2JLS9cE2u4zdP3txtubBRsYxmaGCM1AW5JjyaPqswTayqCIJDr8ol3eDinzSPzANB4+GY8mk+UH1fevJ9Ppe5Tyg8QtyEL++WY5z5M/0/tqsDmp15UuYywn8vRZq4D9LtcIJQ5CFfK7/kdcBslu8UA6JRPBVIUd931/r2ZcRpw=
+	t=1790926744; cv=none; b=J8X1wHcMZfygCG/jkNuCV0MtM892HXzoEq/6My0pQWNoWjVASh3FTWcUefgbqQ3zYEsUnaI6DASG6u4LhOV2fPDHDa3n4u7TK+OZEApUk545LEB0jzrExEQ5VbupsW1MpHfaE2EkJsVBH+KKLtpjrs3LaS/hqu8EkuNW5w5WRjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926712; c=relaxed/simple;
-	bh=uxpK6vzv53tP4a7NeeHGhYR+8OkiQgrSzeHoa5Cljy4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=O0ZQaOZviJux4nokxy/pPmvAs370lVHA20D2xd9NV94f8HbusHQBywR8qJHhHHEqqKAgrcq+t8HREAtJAKw096zH+H3boQ2PsDRdT8i1sqSSsOhlSvbc2lqm6e5N0sqGiRIn23S43liloy2UFJLKz+9lsVJEev31MPo99c2KrAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K92ZDcGX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790926744; c=relaxed/simple;
+	bh=pgvj98cf+Q4WAH7wg/ZJM2HiaSMOXqdz9TBq7+3m0vw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ptTCmEpMRkkdyAVteE+C+W7FoldZo83NAiEb3Mr7Q8cLOpPm5bf3/iAr/ZuQb1BhJ5DebDpyZqn3paftpzED9zzE/xtINUhezypBIsmTALK9tjV7x028/7K3Ldo5IImxuWd2Cca31ulVwelVl2FwfZaPjkWSlUUTArwLTIy0ToI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gc6GGaL1; arc=none smtp.client-ip=95.215.58.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K92ZDcGX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F9A1F00898;
-	Fri,  2 Oct 2026 07:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790926711;
-	bh=XtSWMODzZRMemFY6O5+w7nKBIt1ojmfxNPujwIIo1pM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=K92ZDcGXpNj2kZ7B7rF76L6o74uWMwVDHLV7RHruKiu5sPyzSaww5VbOy5uQQOSTD
-	 EsduIzswJnKxxlAdP3JDCELv9cEf20A1IdGwStTBJYFWfNAjyoURDto43inFoGSzGn
-	 jx91um3s8BySk4y6tdNDDn50IYXSVlQnknAseEu+QIy3Dk2DEEJPuWAGQ450zGJBj5
-	 uZOEzwYYLV4tvrfYkgxwiFhZ9RfVSDgSe2f0l75647aeAoH6AFRzlntrF9fpC9N8EZ
-	 gaoKqwL3AjPWOXHFq8XVPWbeEWAgneTwtix7yB8UHkKkdIf00ML6hukTf06zXFRISS
-	 h1D3udUEBJAkQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id C080D198003A;
-	Fri,  2 Oct 2026 03:38:28 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 03:38:28 -0400
-X-ME-Sender: <xms:c1-_aoMxJIXM9u8qgLYFXh1jD3wmlA1Sp70YqaVBLFjeH0WXCH1U2A>
-    <xme:c1-_apyaN0-TmpoZAuWIxhRfTU_PoSLvMmkwDWQ8xfnFBq3Z4lu0h4nyQ5y34ImFk
-    A2kPbR5DtCk_l4uH3WHfsnGYyBuAZ2_ObHRtRhZzujPZ3IVGJsmQxVg>
-X-ME-Proxy-Cause: dmFkZTFj5SHra/C1CsSY6JjKDNLgrncTSuKCsVZg37Q6vWpK6cQ0urV5rL0EOpMpw74RH0
-    v6mXpnl1+qfRY2aOEZ5gc08XjonARkwl3nYAm00P+hNLt6QoQOmYyss2I5et+iz+6GsY4x
-    MYJIHbE36C+uLmzYlsDoXyRulQRWj4IsCnwbIGJsA3aX3tzZOR01oRm0QzIMdxf8vIW7kl
-    I8qNm6BEyxt/q76vUVI9/St5IIBKXv4F31DoVCsSeCF0q5EEeKU40Y8AeJ56E4oGhqi9tz
-    NJBwnnq7DD/nzgeemIai7mErXg1/rt52kINa6mp2Smb3YlgXDP6Jtu8YNhFyhSQ8EaSioa
-    O6vR2LZ5WeNxms2YL+D2KtEwAO0u2N1yXjp9JfdalfkDgwSe5AA9EkV9n2cQKoYxruc2MD
-    hOIoQKgsZwoMdQa3kOGv2/6i9zBKgIvUlvcBu8CgIL0kMu0M1fSfPP3/bZcXmJ7RiLtiQy
-    72VRIFV5T3sAe4X646InkTuYBJPqIlELJR3NMdCvMxPvxYpH51LqCWWOnPNjipF2YH4caz
-    VuVjNgKj3mA8EUzR49+IWjXrT4WnKFZXF8Tomns8NYsHSy/2fcK/Z93uHCwJkHbl/toJe0
-    zrmNp19pEe8FUJAPDr3+pW/Tp2GNcL1C+dhLx0SG1nPHQx2cqIVtYtfUwvlw
-X-ME-Proxy: <xmx:dF-_auwRaVuocg_eq8roLK1nmoQMTq0XZbJZgLsD8Vr7qCMtAJNQKw>
-    <xmx:dF-_aie62EG-HBNmU39K6joMXustf7BxZvNZXO-O9e8jaZTptoZVeA>
-    <xmx:dF-_ar4O9bcO-pnCqLopyJHtkA6_hh-E9dBvj-D-KMp3jlcG2DnfIw>
-    <xmx:dF-_avKANjwW3ItwfDM7kWOwzDN1vaUjpKufblGRReVc5Bi0FJpnJA>
-    <xmx:dF-_aryWdE2Z6djpuv_k0hHdhpuW9ab9YEn3Bgl4TeKlzz3ysBxj-qXJ>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id E7824F80084; Fri,  2 Oct 2026 03:38:26 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gc6GGaL1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pgvj98cf+Q4WAH7wg/ZJM2HiaSMOXqdz9TBq7+3m0vw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790926740; v=1; x=1791531540;
+ b=gc6GGaL1WiOlXj1zoqtVCZcR/DdpPaqurHxZ+4edixcY2oLP84bLPCnR2H9Om1YhLTPdy+7I
+ aA/2/K3nK8clxV9jBUPkQ8QwMXwVnZeo28uViSOI/LYCXTbBPJcILqJZ6Xg8fzgf3VWeVFR5MUt
+ 8cLEQLUulnY4iXb6moUhto3Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 315de3adac3917a5;
+	Fri, 02 Oct 2026 07:39:00 +0000
+X-Mizu-Trace-ID: 315de3adac3917a5
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Straube <straube.linux@gmail.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: [PATCH rtw-next v7 0/6] wifi: rtw88: add RTL8723B/RTL8723BS support
+Date: Fri,  2 Oct 2026 09:38:39 +0200
+Message-ID: <20261002073845.31486-1-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 09:38:05 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Linus Walleij" <linusw@kernel.org>, "Bill Wendling" <morbo@google.com>,
- "Jeremy Kerr" <jk@ozlabs.org>
-Cc: "Bartosz Golaszewski" <brgl@kernel.org>, "Kees Cook" <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- codemender-patching+linux@google.com
-Message-Id: <7e847715-6bd5-4f69-a9a6-339788810fec@app.fastmail.com>
-In-Reply-To: 
- <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
-References: <20260928063824.1386524-1-morbo@google.com>
- <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
- <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
- <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
- <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+This is the second of two series adding support for the Realtek RTL8723B
+802.11n chipset and its RTL8723BS SDIO variant to rtw88. The preparation
+series has landed in rtw-next, so this series carries the chip register
+definitions, the BB/RF/AGC tables, the chip driver, the SDIO bind and the
+build glue.
 
-On Thu, 1 Oct 2026, at 23:24, Linus Walleij wrote:
-> On Thu, Oct 1, 2026 at 10:05=E2=80=AFPM Bill Wendling <morbo@google.co=
-m> wrote:
->> On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@kernel.=
-org> wrote:
->> > On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@google=
-.com> wrote:
->> > > On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <morbo@goo=
-gle.com> wrote:
->> > > >
->> > > > The 'data' pointer field in 'struct acpi_gpio_mapping' is assoc=
-iated
->> > > > with the 'size' field, which represents the number of elements =
-of
->> > > > type 'struct acpi_gpio_params' allocated for 'data'.
->> > > >
->> > > > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
->> > > > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
->> > > > attribute.
->> > > >
->> > > > Analysis of allocation, assignment, and access points shows tha=
-t the
->> > > > pointer is never accessed before the count is set, which guaran=
-tees that
->> > > > this annotation is safe and will not cause runtime panics or
->> > > > false-positive bounds checks.
->> > > >
->> > > > Cc: codemender-patching+linux@google.com
->> > > > Assisted-by: LLM
->> > > > Signed-off-by: Bill Wendling <morbo@google.com>
->> > > > ---
->> > > >  include/linux/gpio/consumer.h | 2 +-
->> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
->> > > >
->> > > > diff --git a/include/linux/gpio/consumer.h b/include/linux/gpio=
-/consumer.h
->> > > > index fceeefd5f893..2b80cf7aa7e7 100644
->> > > > --- a/include/linux/gpio/consumer.h
->> > > > +++ b/include/linux/gpio/consumer.h
->> > > > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
->> > > >
->> > > >  struct acpi_gpio_mapping {
->> > > >         const char *name;
->> > > > -       const struct acpi_gpio_params *data;
->> > > > +       const struct acpi_gpio_params *data __counted_by_ptr(si=
-ze);
->> > > >         unsigned int size;
->> > > >
->> > > >  /* Ignore IoRestriction field */
->> > >
->> > > There's a problem with 'drivers/firmware/efi/libstub/Makefile'. C=
-lang
->> > > needs a compiler flag to support the "__counted_by_ptr" attribute
->> > > referencing a field *after* the pointer, like in this patch. Howe=
-ver,
->> > > the Makefile blasts the flag away for x86 platforms. Below is a h=
-ack
->> > > that copies the part of the top-level Makefile that adds the flag=
-. I
->> > > don't think that's a good solution. The comment in the driver's
->> > > Makefile says that the stub code executes before the kernel does,
->> > > which I assume is why a lot of the flags are blown away... In any
->> > > event, I'm not sure how best to address this.
->> >
->> > But is this a problem with the current patch?
->> >
->> > Does libefistub use <linux/gpio/consumer.h> in any way, shape
->> > or form?
->> >
->> It's being #included transitively:
->>
->> In file included from drivers/firmware/efi/libstub/efi-stub-helper.c:=
-12:
->> In file included from ./include/linux/efi.h:20:
->> In file included from ./include/linux/rtc.h:18:
->> In file included from ./include/linux/nvmem-provider.h:16:
->> ./include/linux/gpio/consumer.h:670:55: error: use of undeclared
->> identifier 'size'; did you
->>       mean 'ksize'?
->>   670 |         const struct acpi_gpio_params *data __counted_by_ptr(=
-size);
->>       |                                                              =
-^~~~
->>       |                                                              =
-ksize
->> ././include/linux/compiler_types.h:392:64: note: expanded from macro
->> '__counted_by_ptr'
->>   392 | #define __counted_by_ptr(member)
->> __attribute__((__counted_by__(member)))
->>       |
->>        ^~~~~~
->> ./include/linux/slab.h:602:8: note: 'ksize' declared here
->>   602 | size_t ksize(const void *objp);
->>       |        ^
->
-> Hm I see.
->
-> Certainly Jeremy or Ard will have an idea about how to solve this,
-> so paging them in.
->
+The first patch is the only shared-core change. It moves the CCK power
+detect setter out of rtw88xxa.c into phy.c as rtw_phy_cck_pd_set(), so this
+chip can use it without pulling in rtw88_88xxa. The six chip patches apply
+on top of it and can be read on their own.
 
-libstub code never executes in the context of the kernel, but only in
-the context of the boot firmware. Generally, we disable instrumentation
-there that has a significant runtime component, basically because we
-cannot crash or panic the kernel before we have even booted it.
+The driver supports:
 
-Can we just #define __counted_by_ptr(...) to nothing when building
-from that Makefile?
+  - RTL8723B / RTL8723BS, SDIO only
+  - 2.4 GHz 802.11n, HT20 and HT40
+  - one spatial stream
+  - station mode
+
+Only station mode has been validated. The common rtw88 core advertises AP
+and IBSS for all chips, so those modes are advertised for RTL8723BS as
+well, but neither has been tested. An out-of-tree tester has reported AP
+mode associating without DHCP completing. The five additional SDIO IDs are
+included for parity with the existing staging driver, and only the 0xb723
+device has been exercised.
+
+The chip driver requests:
+
+  rtw88/rtw8723b_fw.bin
+
+This is the version 41 firmware extracted from the Realtek rtl8723bs
+vendor driver. It was submitted separately to linux-firmware with its
+extraction provenance and carries Ping-Ke Shih's Reviewed-by. There is no
+known native rtw88 RTL8723B firmware.
+
+The implementation is based on the initial RTL8723B work by Michael
+Straube:
+
+  https://github.com/mistraube/rtw88/tree/rtl8723bs
+
+Michael's Co-developed-by and Signed-off-by tags are present on the three
+chip-code patches containing code derived from that work.
+
+The known limitations are unchanged. Bluetooth coexistence depends on the
+BT firmware's status reports. During A2DP streaming those reports identify
+a connected link but do not expose the active profile, so the WiFi
+coexistence logic cannot make a correct traffic-aware decision. WiFi
+throughput can fall sharply while audio remains smooth. This is documented
+rather than guessed around in the WiFi driver. The intermittent RTL8723BS
+firmware failure to leave LPS also remains, and instrumentation shows a
+firmware stall rather than a polling timeout that a longer budget would
+fix.
+
+Testing
+=======
+
+The exact six-commit branch builds with W=1, with no new warnings, and
+links all rtw88 modules with real modpost. Sparse and smatch were run over
+the rtw88 directory. Sparse is clean. Smatch reports nothing in the 8723B
+files, and its only output is an existing container_of static assertion
+from include/net/neighbour.h while checking usb.c. checkpatch --strict is
+clean apart from the complex-macro report on TRANS_SEQ_END, which is an
+initializer macro that rtw8703b.c already defines in the same way, and the
+"does MAINTAINERS need updating" reminder on the file-adding patches, which
+the existing REALTEK WIRELESS DRIVER (rtw88) entry already answers with its
+F: line. git diff --check is clean and all six commits are GPG-signed.
+
+Hardware validation covered module identity, boot, scan,
+authentication, association, WPA2 key negotiation and DHCP, TCP and UDP
+traffic in both directions, ten scans while connected, and twenty module
+reload and reassociate cycles. dmesg is clean, with no warnings, no errors
+and no TX-report, H2C or leave-LPS messages. The extended soak added six 30
+second TCP runs, UDP saturation in both access categories with no loss, a
+2000 packet ping run with no loss, and three idle power save periods with a
+clean wake. The test machine provides only s2idle, so suspend and resume
+are not covered.
+
+Changes in v7:
+  - dropped rtw8723b_sdio_restore_pad_ctrl() and its two remaining call
+    sites. The register it adjusted is only written by
+    rtw_mac_pre_system_cfg(), which returns before that write for 8051
+    chips, so nothing in the driver sets the bits the function cleared and
+    the hardware default already has them clear.
+  - rtw8723b_fill_txdesc_checksum() now uses fill_txdesc_checksum_common()
+    from tx.h. The now unused linux/unaligned.h include is dropped.
+
+Luka Gejak (6):
+  wifi: rtw88: move the 88xxa CCK power detect setter to phy.c
+  wifi: rtw88: 8723b: add the RTL8723B register definitions
+  wifi: rtw88: 8723b: add the RTL8723B BB, RF and AGC tables
+  wifi: rtw88: 8723b: add the RTL8723B chip driver
+  wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
+  wifi: rtw88: 8723bs: enable building the RTL8723BS driver
+
+ drivers/net/wireless/realtek/rtw88/Kconfig    |   18 +
+ drivers/net/wireless/realtek/rtw88/Makefile   |    6 +
+ drivers/net/wireless/realtek/rtw88/phy.c      |   39 +
+ drivers/net/wireless/realtek/rtw88/phy.h      |    1 +
+ drivers/net/wireless/realtek/rtw88/reg.h      |   34 +
+ drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2550 +++++++++++++++++
+ drivers/net/wireless/realtek/rtw88/rtw8723b.h |   14 +
+ .../wireless/realtek/rtw88/rtw8723b_table.c   |  861 ++++++
+ .../wireless/realtek/rtw88/rtw8723b_table.h   |   17 +
+ .../net/wireless/realtek/rtw88/rtw8723bs.c    |   59 +
+ drivers/net/wireless/realtek/rtw88/rtw8812a.c |    2 +-
+ drivers/net/wireless/realtek/rtw88/rtw8821a.c |    2 +-
+ drivers/net/wireless/realtek/rtw88/rtw88xxa.c |   38 -
+ drivers/net/wireless/realtek/rtw88/rtw88xxa.h |    1 -
+ 14 files changed, 3601 insertions(+), 41 deletions(-)
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
+ create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723bs.c
+
+-- 
+2.55.0
 
