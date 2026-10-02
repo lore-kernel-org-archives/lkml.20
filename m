@@ -1,83 +1,81 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB692F9D82
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 14:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF00340417;
+	Fri,  2 Oct 2026 14:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952553; cv=none; b=Ko0/rtfh9FmP1463cMpaX/vwF4KMHsWm4Hs557Pd/sBub9se6V/+jdRHH8vJnjBOWpvt5XExO/sY4ANSbM7V+1S7el5th5Y1E8MW8aMRhnd1P/0bUAQVVf5XfNoDNRMu4VnAcVwP9tPG3ErgqnKrlJ50vFIkEQDVhn5TQZFNWfw=
+	t=1790952571; cv=none; b=XeS4ld9HBwQsoH9JaCs7p2aeTkUEaCS6KFo+GGadZEVk2KrEV8efNHI1m2t+SXLn3L8vYDSDfeGJ1UWLCKI2jeMQMZ5OU6btEm3nooP2smnJkVuCaJtxNoJ2HHccMu+dsWo9WxQQ9MXAgPlAtoidl5D7vO3lb1WH1IitqeitwQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952553; c=relaxed/simple;
-	bh=uGU/UNB+Gdnv5PgxdsRAO6uFb5Ob7DSUR19aYS79m/c=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=JL7Ep3c3CmpndYhPHIx3oU858lrsYLTvSX29ZQTk6FgO8cG8iaYXEKOEXO2K8M8dISIEwiuTZYZoxou5zSFvTk+sGFN8/fKF00Pz4M3wEdFNDy7C81y8SYqQOIboaYoljBdO4m4bLonPmnoV3YCyTUIJ3+PVckB/yEQBQVlDX8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so3164872fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 07:49:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790952550; x=1791557350;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XyIrMZJ4sElWfT20xT9SrUZKpfu5sxniOe3iW1yLA4M=;
-        b=SJOl78bQe0YraZO4Mr3+oSgynAO8Q1MZfXRPzb4VraS375DI4N1rbKumQk4u4i4YlN
-         VOuRhUPK9OLansnwivD9CxAyafmi2UnI2q+ma7qfFRfilfkUBE9332Qo6heujo1aOZAO
-         te0x+M+L5Mq2Mt6C6QrTinrwVQWNuAvaW8aNYwf2t4SGcOOQQbXT6ziAq1t68zY6ndlF
-         orG+VPRC3N+uJ3Zewl2aP8uHk2odTjbQ3CMFdLWgyBUwn65EgIXO9K/JiQ+BNezMBA69
-         ZOn9CtQzX7mvsAnPtTZ4sgXJ+UlO7WBQFovUZRGPKnE0J1Gg1gnf1Tv6OZoBXRiN08OK
-         dXhw==
-X-Gm-Message-State: AFuF++mrKfHqpCUCQVHWcB9pLeMBKLtNC1L40WDRq15KsB3W8omiOEP9
-	2LvVq7LsDZFbjnJWESqPYBLZAB6rEX+lmjtKz5mQjYSJQy9vghMKgId+tLM7WPepyXeonFnoIOy
-	c9XiMIRg3+q6dWYCwb2tNdf+KKKYLA2lLi574fng/d+GcZURIsZhF6oW05ao2RA==
+	s=arc-20240116; t=1790952571; c=relaxed/simple;
+	bh=2Iwh1YBp293wVOzp50snGvj+P98VSbsE/9m4UEmQTXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LwUTLg+8cxwJckN9RHnG0C41KYr4EDbNLBMSipywALrQ1cIie4naX9RBN3D1TheRLGIdcOI2Nk4pqwzd6C0pEIpBF76b2UhVK1x7hhcbArePuEJFe3vRZIevTufq8uLFFREDf0fGUgm7ZX8TARHO0IOVkwhHFLEP83MjXSme0dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xto4jLfJ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xto4jLfJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7331F000FF;
+	Fri,  2 Oct 2026 14:49:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790952569;
+	bh=5kIp6AK84MEo9GlzF/Be95zArasU2AChgod6QlX+xlg=;
+	h=From:To:Cc:Subject:Date;
+	b=Xto4jLfJvUFRd1Cfb57Dyt861cC2741yPwg1ytnac1QHmnW8OXzRVdAD6pishXAaf
+	 xfbQFtDw7fLA+G87oLwR9cHo1jjKo0iAyh75iQcFTKuclouv3DUcDEtkIkGHhgh5W6
+	 cNlvGBlOYPQCcQBhY+npkTJMYusA5Nwe+MxKxJYjdb0U2IM/y46wGHcFkV8SIEwEgT
+	 MqO6IsfyPiCcxNeRcLkNRCGunBnE6UehwY/5lD1t3X1xR2pSvXWXa8tovf58BLMtmU
+	 eGsl6+3ygGN2hr0DTs+rWWdE34sKc5dC2ZNIVtKpW9KTK6JoYZsc1MXSbnaTE/Q28n
+	 h+avyIg2yvPDA==
+From: Thorsten Blum <blum@kernel.org>
+To: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Can Peng <pengcan@kylinos.cn>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwrng: stm32 - use devm_platform_ioremap_resource() in stm32_rng_probe()
+Date: Fri,  2 Oct 2026 16:48:38 +0200
+Message-ID: <20261002144839.51627-3-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3442:b0:4f3:f7da:3e55 with SMTP id
- 5614622812f47-4f52b4b7ebamr2212068b6e.62.1790952550270; Fri, 02 Oct 2026
- 07:49:10 -0700 (PDT)
-Date: Fri, 02 Oct 2026 07:49:10 -0700
-In-Reply-To: <6a396a65.52ae72c2.136ac7.0001.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6abfc466.7503fbd6.2d3f6.001e.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] WARNING in can_finish_ordered_extent
-From: syzbot <syzbot+085adc3f91549d11066a@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1003; i=blum@kernel.org; h=from:subject; bh=2Iwh1YBp293wVOzp50snGvj+P98VSbsE/9m4UEmQTXI=; b=kA0DAAoWXqtxINjMdS4ByyZiAGq/xEejLZNBJ+SYr8+Ib0WyLcbJIkc4wUBkp/z3YfDJ30Ckt 4h1BAAWCgAdFiEE4Jr4mE11fHmyNFi5XqtxINjMdS4FAmq/xEcACgkQXqtxINjMdS4NCQD/bqnL tAU6U/IwSMVUcOr1/pua2Tlaa6fBpL+OPSm505YA/jiPDnXJcEll3KolODLI3efPvXG7ALDcIcy Fb3EPxYII
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+The resource pointer is unused - use devm_platform_ioremap_resource()
+and remove the unnecessary local variable.
 
-***
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/char/hw_random/stm32-rng.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Subject: Re: [syzbot] WARNING in can_finish_ordered_extent
-Author: adarshdas950@gmail.com
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-index d7600e5fa3d9..2117b2a80edd 100644
---- a/fs/btrfs/extent_io.c
-+++ b/fs/btrfs/extent_io.c
-@@ -1895,9 +1895,14 @@ static int submit_one_sector(struct btrfs_inode *inode,
- 	queued = submit_extent_folio(bio_ctrl, disk_bytenr, folio,
- 				     sectorsize, filepos - folio_pos(folio), 0);
- 	if (unlikely(queued < sectorsize)) {
-+		u32 unqueued = sectorsize - queued;
-+
- 		btrfs_folio_clear_writeback(fs_info, folio, filepos, sectorsize);
--		btrfs_mark_ordered_io_finished(inode, filepos, fs_info->sectorsize,
--					       false);
-+		if (unqueued)
-+			btrfs_mark_ordered_io_finished(inode, filepos + queued,
-+						       unqueued, false);
-+		if (bio_ctrl->bbio && bio_ctrl->bbio->bio.bi_iter.bi_size)
-+			submit_one_bio(bio_ctrl);
- 		return -EUCLEAN;
- 	}
- 	return 0;
+diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
+index f5bfe54c01dc..8468a4a24d48 100644
+--- a/drivers/char/hw_random/stm32-rng.c
++++ b/drivers/char/hw_random/stm32-rng.c
+@@ -528,14 +528,13 @@ static int stm32_rng_probe(struct platform_device *ofdev)
+ 	struct device *dev = &ofdev->dev;
+ 	struct device_node *np = ofdev->dev.of_node;
+ 	struct stm32_rng_private *priv;
+-	struct resource *res;
+ 	int ret;
+ 
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	priv->base = devm_platform_get_and_ioremap_resource(ofdev, 0, &res);
++	priv->base = devm_platform_ioremap_resource(ofdev, 0);
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
+ 
