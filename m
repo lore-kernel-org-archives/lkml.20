@@ -1,116 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171144F5E0E;
-	Fri,  2 Oct 2026 16:50:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E100F486621
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 16:51:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790959829; cv=none; b=UkDpZ+ii2Ax6jcGQW0mkwnsbCFW/z725cI6DWWcf1Y2raUuBLCAwwsa5wxLCifLZd0UWpe5d41R7RP/UrQ35Ge2P/mERpu5hd7NUwEbGrmcvUxSfjhxzYScGqEPfswPX4KP3luzyyxar8erR0A+6AtFTdd8z55QrbYgTeghgas0=
+	t=1790959874; cv=none; b=SbhAUhT2eZVSaooy/8QHc/U1FvgNhjXqItiMyGqkknuuxPtLRJV53AOPRtIqZMkCR1V288PahcdikiR7ozhb/nx86eKUcqNGJDPbUO7SObMjHG090YO6IhboDkiMWtsIrel33jB/SvusKi3xTmgXWHvruV7NpEenU8VzHAUrMx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790959829; c=relaxed/simple;
-	bh=Z9zcJfhMa0RGK4NVc8xt2yN0MtPkIGJizqi2W5GkIak=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jYiq4OBGo2ImbtLLHX2N2GMBC/cLXtNM57ICxJDhKoe5krCogQq1b4sBTOCvMJvaT/fxNqlv88tSOXIHDs40m3BReUnza5DZioXELxrrJkumqanXt8NFNAcgCzWwytAA7VwPoNvp1Xl2Gnjp0Fe+t2eDiTNL2OrspHYBnULrr7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a8gEhDem; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790959874; c=relaxed/simple;
+	bh=/I3TgWx8/U/mtgoPen/cIWwNHyR0DG/ZCxNDvpcPV6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=S08mLVFfLgxNInfoIxJjuHTn3kqYnYWZY+5pNxlJgqDrQ1pX+0oS/9h+zprvxEhsUXY87HREZcohcHq8IVJF6c5raB5G1iC7gTuVWhM/uwZG6xjR6Wy8/zmSwVfz+0Fp7ZB0aMKuGpUmyyzjn1aukaNxRAQpME8/r9KQDpIPnl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=D/XP62Ya; arc=none smtp.client-ip=91.218.175.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a8gEhDem"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967931F000FF;
-	Fri,  2 Oct 2026 16:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790959827;
-	bh=WOrVLyJVbzL68G3iEiuiCyrTSIScmG6y9DIzNL2ARrg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a8gEhDemAniylm3Wlqkfr37ZO8r6r+3vl+qEeXXaagXxiVeBmu5yCJGmL3SljCjKM
-	 jd3clJugde7tmaOb1matnS6KgAaDbURAxcMhae19jVJTr4Ygb3KurMo6RBfXxyyeo+
-	 U+SD6AJMBbd+m6xaTHII9eYaQC4pGa+XlMfU+zJgsPK8K65q1rP2B3gbYgD4bUlewu
-	 V4DGzVDQDlidrTSwfFKpUJwNPkYexVUf/97KIP7+LWW9M41AaiIhPlTcGXfQzJArGP
-	 W26QO0P0iw8CBAfmi8BLqLrIXYVraO8Zkre3G8RIDY9V1hFvsFnt3YaZxQXWpyzXyZ
-	 d6IuXsO78/UJw==
-Date: Fri, 2 Oct 2026 17:50:23 +0100
-From: Conor Dooley <conor@kernel.org>
-To: vjardin@free.fr
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Charles Hsu <ythsu0511@gmail.com>,
-	Eduardo Valentin <eduval@amazon.com>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] dt-bindings: hwmon: pmbus: mps,mpq8785: add
- #thermal-sensor-cells
-Message-ID: <20261002-granny-rule-95201e8e36f3@spud>
-References: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v3-0-bfafba9fcc95@free.fr>
- <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v3-2-bfafba9fcc95@free.fr>
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="D/XP62Ya"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/I3TgWx8/U/mtgoPen/cIWwNHyR0DG/ZCxNDvpcPV6s=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790959869; v=1; x=1791564669;
+ b=D/XP62YaJxq+hgGbQEMqDPTI4cn24vWnoXQVdKUOJwwxR7seimVbdu+bq4Kjx3HUq0Q80OrP
+ wGQxoV5ug1pk+LKrgJaAE5bXQvioIVGodD52fhPZlGvXmMJIhr1C4anjBKIL5aBg0wXR+BQRGIg
+ ijUjy8az603mjKFHa8k9MrVNn6WU+LSiztYthDLih2laHSdnAvnZDRoh4ySI3M2zTw4o35bQmGP
+ 9p8Ov6sA3nCgdDbRxrgx2h9gVOddIxbi36JryP+6F6ZYd2F57nA01/klh0Zk5wozmoDTqj7Da9/
+ gNNLFeM8+zxGX1Oh8WK0NetzyUKWCMPyCORDAccqU/I4A==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3e530eae1dfef6a4;
+	Fri, 02 Oct 2026 16:51:09 +0000
+X-Mizu-Trace-ID: 3e530eae1dfef6a4
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 3 Oct 2026 00:51:01 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Chen-Yu Yeh <chenyou910331@gmail.com>, corbet@lwn.net, alexs@kernel.org,
+	dzm91@hust.edu.cn, si.yanteng@linux.dev, srcres258@furdevs.cn,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Vegard Nossum <vegard.nossum@oracle.com>
+Subject: Re: [PATCH 4/4] docs/zh_TW: add missing :Original: fields
+Message-ID: <ar_g9Z14OhcrSvOI@wyuan.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IZZiyIQL10OCGfhS"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v3-2-bfafba9fcc95@free.fr>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <22fdd310dfb0946bbe58ed71308e58d936cbed53@intel.com>
+ <c719c6756f345c6c39db483654578ef09de1948f@intel.com>
 
---IZZiyIQL10OCGfhS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Thu, Oct 01, 2026 at 11:47:40PM +0200, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
->=20
-> Each device of this binding has a single temperature sensor: the
-> internal sensor of its die, which the device also uses for its
-> over-temperature protection. It is read over PMBus with
-> READ_TEMPERATURE_1 (8Dh). The sensor is internal, not an input:
-> none of these devices has a pin for an external temperature sensor.
->=20
-> Allow a thermal zone to use the device as its sensor, to monitor the
-> regulator's temperature. With a single sensor per device, no cell is
-> needed.
->=20
-> The MPM82504 has four channels, each with its own PMBus address set by
-> its own ADDR pin, so each channel is described by its own node.
->=20
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+On 2026-09-29 17:40:18 +0300, Jani Nikula <jani.nikula@linux.intel.com> wrote:
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+> On Tue, 29 Sep 2026, Chen-Yu Yeh <chenyou910331@gmail.com> wrote:
+> > Every zh_TW translation names the English document it mirrors in an
+> > :Original: field, except these four.  Add one to each, in the plain path
+> > form that automarkup turns into a link.
+> 
+> I'm wondering, are these :Original: fields useful anymore since the
+> translations extension adds the button to switch between languages?
+> 
+> The pretty much hard-coded expectation is that the English version at
+> path/to/foo.rst is the original, and its translations are at
+> translations/xx_YY/path/to/foo.rst.
+> 
+> I.e. neither the HTML nor the RST benefit from it, and it's just
+> repetition.
 
-> ---
->  Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.ya=
-ml b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-> index d7a32fb3b7af..6257a8030e53 100644
-> --- a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-> @@ -34,6 +34,9 @@ properties:
->      maximum: 4095
->      default: 706
-> =20
-> +  "#thermal-sensor-cells":
-> +    const: 0
-> +
->  required:
->    - compatible
->    - reg
->=20
-> --=20
-> 2.43.0
->=20
->=20
+On 2026-10-01 17:00:23 +0300, Jani Nikula <jani.nikula@linux.intel.com> wrote:
 
---IZZiyIQL10OCGfhS
-Content-Type: application/pgp-signature; name=signature.asc
+> On Wed, 30 Sep 2026, 葉宸佑 <chenyou910331@gmail.com> wrote:
+> > You are right, and I should have seen it -- the rest of this series is
+> > built on that same expectation. checktransupdate.py also finds the
+> > original purely from the path, which is why 1/4-3/4 move the files
+> > rather than fix their :Original: fields. By the same token, at their old
+> > paths the language switcher cannot pair them with their originals
+> > either, which is a better argument for the moves than the one I gave.
+> 
+> Oh, by the way, I do think the series as a whole is worthwhile cleanup,
+> and having the :Original: fields is the current practice. Removing them
+> should be a separate change.
 
------BEGIN PGP SIGNATURE-----
+I am a newcomer and might lack contextual information, but I don't see
+anything rely heavily on this field either? I only find that on March
+this year, Jon did not expect that the script checktransupdate.py uses
+this field to get the original file of each translation.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar/gzwAKCRB4tDGHoIJi
-0mzTAPkBN9E0oiqpmBGWuuhoi0lSSF2am+ddBOBwpTndKZz8twD+Mk6Sat7T0mDu
-wC5A0wfAjAcmXWUOF43ZYER3fNfbUwE=
-=ixlA
------END PGP SIGNATURE-----
+So is this a convention or is there some additional circumstance that
+forces us to keep this field?
 
---IZZiyIQL10OCGfhS--
+Hmm, btw, I noticed that the Japanese translations do not have this
+field.
+
+Thanks.
