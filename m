@@ -1,116 +1,124 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A138D347532
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 21:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E30B131D366;
+	Fri,  2 Oct 2026 21:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790978299; cv=none; b=ehaWIwWLvrRkYiezsugXJmj4Z6bnGXxFsEncmu0i7hqE3fBIr1VfJOP0Qd8gcEJc6DX+RJXFzRc4Gl7YaoPe+6lvpiwe3Cy3wDT3hJ1h+yvr50mX5AHuSB7UFiTILbLO7vMhVNaZBbXo0DSr2PWiu9ODba40i+YzpEkUmol9Ng8=
+	t=1790978334; cv=none; b=NOzTU599FD87OBa6aktenuYYRulIp7MUGeVfqSwJQsi/GuURAmo7lhm4rvM6dzyMgB8SK81alJlMZkj4P6QjuK5uYz6irim8SAC71gWB0ob5mOVCp7iQaOxwGF+eMNccD30RG4oJ/Ny5uecLw2YFWSvLQ4B7qu8gmMM0vBTYotM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790978299; c=relaxed/simple;
-	bh=IrlpGamxvY47LrJzjSi4FPT/Dc5GHOnfyc0578uNYcg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BLcrOhfbnFph5RwxA761FE8cWiLv0xMrqeSz7bzWGNv6WeqFL2r2mXpcUNUBDbZVu8jJlthyZCxLctXlVN74L6NvfMqTvpSl7xmzCi6Gzdt0E9peFbog8bHiCUpE5UieuKWUFmupU4I4BT4AfWlW26U2T8UnBtaXuzB7/RUrMBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PtZHYnmM; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790978334; c=relaxed/simple;
+	bh=kb4nGcWIQYMIF/mSDF1BRQw9Lc65Mcc1UdLHBvxGxMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OdRBRB9PtBsnURrBEp/mGq1StmSg14M93vrFMLTadN/JKIPIZWYtKWEZTTItG/vqRAi/AEZsA7hMeQXD83+6TTq0tzGHVzl5O4fFJeOj602F50ITcsSJlD1mLW6NlsZH75AOeQXrEFbONJbOv+N+POPTwEUc3qrPhvrQM9Fhtjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=R1PdC9D/; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PtZHYnmM"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so1838465e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 14:58:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790978297; x=1791583097; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GMnh9nYpaVJY0QctaXPIQ7WvaFNDN6p1P1QAh2BjACU=;
-        b=PtZHYnmM6WZ1pQLz2rUO1gjTGyCycjkk84vv6MQozPEAIzVDfdWJEm/4WcRtPox9xi
-         iTay/Bt59jI4qCTpqomgOYxphZACOdyDr8Igj/2W4iYQuixoT5HAX9uxJOaBiuYzwRkO
-         clkKdMKRwyAiPo9RZ15w6FMo5QSOn04SdcicF/RpIwNUOQ4iDOPRBAZyKWKZtfMyylHD
-         3NqcPLaGn0bvBuLiJJ6Tea9dWoD4QsgPrj1stl3QDv195oeNDjowjWEgoCg+EDlOCLur
-         1nwfAH/Gzv2u9pO27K4D/yr1qT80UsaPuN3A5tTNFzEx8yYwT5AnH7bRXJkvDy+oNhoo
-         QAYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790978297; x=1791583097;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GMnh9nYpaVJY0QctaXPIQ7WvaFNDN6p1P1QAh2BjACU=;
-        b=2DnObCvqMPI/IiCDcTEBOCi1W+NwOQ1CUGAFzN1TWaKqywDXmZ+6n4U43zWBSA1WKq
-         6T22/Gs9JNU7HAez8t6BIAkrJlHZKN/Lr7iE5zaX8Kk1N1vDUWO0zWWCD/iZ/GzPyYKr
-         UJLWd2zJghhPnh6CoG2OaEV8VofZZy3l+Jano8V1BJDRylFGKv+mRUwGLWTw4z5Anmoo
-         Lf6LtbotGJcRN4LAk2ZU0qoY83yQ1gy/6bxX4giYdriNwY6HFgH3L8plFB/nBBSGYRbl
-         +vmCPQz2r/A01lx9TXLtc7FErIv5zJ2cLHyAAO6FN7bbkokkEE/2HGgGo/v+7XMJV/39
-         jycw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFY5sLHY64sGGPhwT8hASWSeMRbyFhPPxcWkmt/1kcmUsdgYrIYU3BGx2XWKrG45W33HUKS83M1jf4M8Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLeVNq/mDVssug0QY8MUmrofYnmyFSaTnAYLaLqCSQSbT+PQgN
-	PJ28y5h/xtQREa6QvlA/RymwbJdvlcbMMgIHKWE3B1ziLBoIWZG+3vSN
-X-Gm-Gg: AYBFou2O42vF+yoJDUPEIqe0sZb0EUt5Ft1u5YK/ftLHWdWFxSThoI0VUJUydNKy496
-	j7NoNMtZJcD8stN7ZM4Kb4H1IOwFjgsTgcjIXgj7JN6lYvAjH0ZKSrxgh/l1CkizVPe9tPDYpre
-	EP7qDtKzSidLgpqsdF1NDzh8PG88zh9Qb7hv2LpQclEvyLpLeDqpQGrlqFlWY983xb8MMsCDudR
-	VHOHIrCl+o8ZnaeMsXEWnOP1PcurDspJkmx0nSpLZNOcdEmY3/ixJ+qkW9NcgWEAcF8BNpkyvoP
-	sGlQiRTWHMMf3O8E9V3IE3zjbPtJDnbmhOAplS0J3GYDT09PBTs0VdOxdHr9P0lHq9fPiBY8hjr
-	352GlHV/BGEQ8/SoluL09t6VewQYqAVIybBUqHxcfIRk5btpdU5cCHy77bZzGDihKOeXZjVWZh3
-	yo4NtNnnRViMyGeusQrlUy6NtdzTqX0H/cCrjx2f1NeIh5htZgsg3Ayo/hi+nIRGLKoXjUSn9pv
-	4x1+i7Ri25ihew8ZNSOjhJnbJkj1sXxmlSZSvgk60l3d0K2QdF7kYRS/S4M9HFOGs5DkarioiCO
-	vlEYj0bIkQWp4AHJPGt0azIgTXxaZ44bssPQ/XSAUo9Yua0KvwOVvGlvwCnCDDDuQzG8j6HK7iD
-	05lDajHpXUoQ=
-X-Received: by 2002:a05:600c:138b:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4a02759b46fmr71998765e9.19.1790978296761;
-        Fri, 02 Oct 2026 14:58:16 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl (dynamic-2a02-3100-af35-1901-81da-eee8-c2d0-ee3b.310.pool.telefonica.de. [2a02:3100:af35:1901:81da:eee8:c2d0:ee3b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280c6597sm120987985e9.9.2026.10.02.14.58.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 14:58:15 -0700 (PDT)
-Date: Fri, 2 Oct 2026 23:58:14 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
- them
-Message-ID: <asAk-lpM0rBnQTT3@gmail.com>
-References: <20260927191359.6144-1-kmehltretter@gmail.com>
- <3bd32eaf159db61ed1d423e1d52a869b3689c682.camel@physik.fu-berlin.de>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="R1PdC9D/"
+Received: from linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net (linux.microsoft.com [13.77.154.182])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 3A1A120B7166;
+	Fri,  2 Oct 2026 14:57:58 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3A1A120B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790978278;
+	bh=fB8AWI5fN2ddbjjum5NsS8hnJ5Z4HHJhTGA5ByCK5bc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=R1PdC9D/o8T6DS0YoXLIkaCdWW1Sx0fM8Uzz0vRdaAdi45/xlRo0UOGnzwjb7n6mb
+	 ooK3ZYqUVnEHou65FCHOufxw1bUIPGBAJHPO49hEYa37mCAxwR/TXlzw0EQiSTskxq
+	 4Cy+P35X6WwrXvXuV1+fOcs1N4KOfRyFGbYP0/Pc=
+From: Kameron Carr <kameroncarr@linux.microsoft.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	mhklinux@outlook.com
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	mark.rutland@arm.com,
+	lpieralisi@kernel.org,
+	sudeep.holla@kernel.org,
+	arnd@arndb.de,
+	thuth@redhat.com,
+	linux-hyperv@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org
+Subject: [PATCH v5 0/6] arm64: hyperv: Add Realm support for Hyper-V
+Date: Fri,  2 Oct 2026 14:57:19 -0700
+Message-ID: <20261002215725.2015959-1-kameroncarr@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3bd32eaf159db61ed1d423e1d52a869b3689c682.camel@physik.fu-berlin.de>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 06:57:19AM +0100, John Paul Adrian Glaubitz wrote:
-> I just booted the kernel with slub_debug=FZPU on my SH-7785LCR EVB and
-> I'm getting the following "kmalloc Redzone overwritten" warning in both
-> cases.
-> 
+Realms (CoCo VMs on ARM) require host calls to be routed through the RMM
+(Realm Management Monitor) via the RSI (Realm Service Interface). This
+series implements most of the necessary changes to support Realms on
+Hyper-V.
 
-Hi Adrian,
+One required change is not included in this series. The two buffers
+allocated via vzalloc() in netvsc_init_buf() cannot be decrypted in
+vmbus_establish_gpadl(). Currently only linearly mapped memory can be
+decrypted.
 
-thanks for testing. A cold reboot is not needed. The reported object was
-allocated by usb_get_configuration(), so this warning is unrelated to the
-INTC patch.
+This patch series was tested by booting a Realm on Cobalt 200 running
+Windows. I tested 4KB and 64KB page size. I replaced vzalloc() in
+netvsc_init_buf() with alloc_pages_node() -> set_memory_decrypted() ->
+vmap() in my testing as a workaround for the issue mentioned above [1].
 
-I sent a fix for the USB R8A66597 bug and copied you:
+Changes since v1 [2]:
+  Patch 1: Add explicit padding to the RSI host call structure
+  Patch 3: Change from a per-cpu pointer lazily allocated to an array
+             of host call structs indexed by cpu id
+  Patch 4: Align input_page + output_page allocation to PAGE_SIZE since
+             that is the smallest unit of memory that can be decrypted
+           ~Remove KASAN tags before passing address to
+             set_memory_decrypted() since __is_lm_address() does pointer
+             arithmetic.~ (reverted in v3)
+  Patch 5: Add a helper function to reduce repetition
+           Check for NULL before indexing into host call array
 
-https://lore.kernel.org/r/20261002213225.27834-1-kmehltretter@gmail.com/
+Changes since v2 [3]:
+  Patch 3: Remove hv_hostcall_free() and inline the logic for simplicity
+           Reorder edits to keep #include line at the end of the file
+  Patch 4: Remove kasan_reset_tag()
 
-> Are you sure your patch actually fixes this problem?
-> 
-> Or do I maybe need a cold reboot?
+Changes since v3 [4]:
+  Rebased onto arm64 for-next/smccc-bus which includes moving RSI header
+  files out of arch/arm64 [5]
 
-A cold reboot is not needed.
+Changes since v4 [6]:
+  Patch 1, 2, 4: Fix commit message to reflect the new header file names
+  Patch 5: Remove extra blank line
 
-The INTC allocation remains live after boot, so SLUB does not necessarily
-check its redzone automatically. To check it explicitly after boot, run:
+[1] https://lore.kernel.org/all/20260721195633.1438361-1-kameroncarr@linux.microsoft.com/
+[2] https://lore.kernel.org/all/20260609181030.2378391-1-kameroncarr@linux.microsoft.com/
+[3] https://lore.kernel.org/all/20260625173500.1995481-1-kameroncarr@linux.microsoft.com/
+[4] https://lore.kernel.org/all/20260721201148.1441143-1-kameroncarr@linux.microsoft.com/
+[5] https://lore.kernel.org/all/20260923140405.1111554-4-aneesh.kumar@kernel.org/
+[6] https://lore.kernel.org/all/20261001220552.1793471-1-kameroncarr@linux.microsoft.com/
 
-  echo 1 > /sys/kernel/slab/kmalloc-32/validate
+Kameron Carr (6):
+  arm64: rsi: Add RSI host call structure and helper function
+  firmware: smccc: Detect hypervisor via RSI host call in CCA Realms
+  arm64: hyperv: Add per-CPU RSI host call infrastructure for CCA Realms
+  Drivers: hv: Mark shared memory as decrypted for CCA Realms
+  arm64: hyperv: Route hypercalls through RSI host call in CCA Realms
+  arm64: hyperv: Implement hv_is_isolation_supported() for CCA Realms
 
-Could you please test once with only the USB patch and once with both
-patches, using slub_debug=FZPU and running that command after each boot?
+ arch/arm64/hyperv/hv_core.c       | 155 +++++++++++++++++++++++-------
+ arch/arm64/hyperv/mshyperv.c      |  38 +++++++-
+ arch/arm64/include/asm/mshyperv.h |   4 +
+ drivers/firmware/smccc/smccc.c    |  41 +++++++-
+ drivers/hv/hv_common.c            |  17 +++-
+ include/asm-generic/mshyperv.h    |   1 +
+ include/linux/arm-rsi-cmds.h      |  22 +++++
+ include/linux/arm-smccc-rsi.h     |   7 ++
+ 8 files changed, 244 insertions(+), 41 deletions(-)
 
-Thanks,
-Karl
+
+base-commit: bce57945f5e7207960b2bd567a6e880f90258ffb
+-- 
+2.45.4
+
