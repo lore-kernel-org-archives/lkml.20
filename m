@@ -1,100 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E87642E8F4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:47:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91C634D93B;
+	Fri,  2 Oct 2026 08:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790930828; cv=none; b=QyF4Owp5JwS9wFLKSL0pW+iXRPt/Lm9XyRTiBhBRIAaWLSXvJbFTwP8CrL1j6ainVVJ4v4yA0gBrWSzyk3lUf7ciPMJU77q3GcVdi7ITyBTux/OfcJjzg1lTlhSuhS8XFppjKnSC8B7+OnkY3U9mTnXqv6FmA56ogKtzob9/Z+Y=
+	t=1790930837; cv=none; b=hHoYih6D8TsMEnXrmDooHnFOfQaWfDTcEdZzXwb0FiZpI7SyarWh5ANyj57pEet22LQOOdB8MtSegGfxHdOYfr/zZ5jXK4rF305sgF0YDe5QFcfb/6Qmyz1az+iw7f4axJjzjKOdRv4VUO7TwJ1IwEl+Tt8tCG602gQtToXtIB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790930828; c=relaxed/simple;
-	bh=52GfUpvw9geyTFomKSZOrfOFdkx/TMpIeaEl96ywf3E=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J/x9Nqhj7zz27Di7xMZKzt7vsBr3sB8yyX1Kz9bT4u1uXRnNigYEtwHe3drPAp6LfgoN517/DvAy02WHc1EwkpQqLTKQxyvfqOzL4cl782f55irSt/aubOJYfske37r/DGDvBGL20ZdyuOkcoH2KkFk2Xs40jnqgYbaf8vdUvn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBqS/x5I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790930837; c=relaxed/simple;
+	bh=hVOz908t2cZmy6VXUZQImpY0IKZJsG7Xkb3godpcYcs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=btisw+jdT8gEIWTjvA0bAEilar+BT6xLWMiq3xPOd4eM4RJ036qG9YUSMD02UWELH4fHBOxH4jKiwIqM5hdHVTkJHnuM5GMdFvd79RwrDuPw/dSPCAJoVVjbRg307CXu/PpjibXq2f8XzueGaNA6IdXv7LM1ZQ/E9KghwVIh0lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMhtfK1E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBqS/x5I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF201F0089B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:47:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMhtfK1E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C68C1F000FF;
+	Fri,  2 Oct 2026 08:47:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790930821;
-	bh=xN1LMsVBme82xNY8iTaBouPAjacIAn8MmiSFm7uDo7k=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=oBqS/x5I2Z5zDO8N/s/vma4IEcYHMQbf55Zt+/w3klPbdCm+68a7g6/Ti56f++u4J
-	 H+VmgWLf8U4ikeHcfKPxMxoa/d9235sTHDmix4i4rbBCeISHpE6KpBfekY6+UwSDMx
-	 mKJyxWQ/J3HPKQ2xb5xCFCu3MWxAoutAaHVUby5sz0Wk8DVzb6sRCz5lH4o1+YOvXG
-	 OcdlYpXBvLixnGJe+fE94q1SZCJv5L89aob5rNzDwbMm9XZglZzUdAKvV2FvOugKSB
-	 mXKJF46q6azaRqYe40evPXRJgvP4WAzXFw/G5L9vPgbuj9px8VHkPdsI93K/JkaPnT
-	 v7IFDNwYgesHA==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a6124046f0so62535581fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:47:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxo7GQwcgaA5QO2fXt5ZKfExtK6qloz4pgikMQGJMGNwOGmNjStSq2D9YYK2qn0ggrp095r0rwoSlvtDtA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0YyPUSZ8y4Pdow9fGWbcX1+4BFmCdwspg4ILti2T1mMuvttzV
-	6lKNlm21f15GKQg2+HzP9SRM1+v44tqwIwbSekL5TMklVaaO/3jSc+H5kOYusxOemGEVJhaIsHj
-	RgMiB5kta/x/EaFbeUQxqoOFqe6UdBz1yPGhfRQ0wew==
-X-Received: by 2002:a2e:be9d:0:b0:3a6:6bef:943f with SMTP id
- 38308e7fff4ca-3a887800e68mr4674821fa.18.1790930820042; Fri, 02 Oct 2026
- 01:47:00 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 11:46:57 +0300
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 11:46:57 +0300
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
+	s=k20260515; t=1790930829;
+	bh=Wc5kj5a4BpJ0OUjNppS6cd6+ts5TUkYQzcs344JsTqE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lMhtfK1ED4A4i355voFk8eOvtLT3sE5nZaPhTYZ1+1VeqtKW9pwjFNn34QjGkHY+I
+	 SwV8A0CYITISTzI1rmXrXYqcW/MsCUXrVi2VJKV3xV8qwbN54knexwFut04tG06CQy
+	 Tew8GUcxBywV04lQ2V5OVnpk9hyujljNm+TGJhM+iDT15Ot89xjcBY8JGA/1outZgR
+	 X4c/z4y4igSCBJn6YZBzeBD/R8A9DxmJuRknbFbhZriAEdqX9S9jxaJ81o3RmfK1rO
+	 CbQQ+bcmUaehpFykSMdRv4qTsitcE+6PdelzDD40iAWbLmFBEQNmospVWIqDC1OKX/
+	 XTYxVqH7crF6A==
+Message-ID: <09730dfc-b748-45f7-b740-33c95a102dc1@kernel.org>
+Date: Fri, 2 Oct 2026 11:47:04 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 11:46:57 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MdVQ4xUFPtcytXt5Tqor5-fUjHiRvnpmxBsJpJbd1rHLw@mail.gmail.com>
-X-Gm-Features: AclHuK9m0Na3k7ACxnGI4xSNeT3xuFUjWyBVgSYP6SCQBDAg7rQT8-H09G1SvQI
-Message-ID: <CAMRc=MdVQ4xUFPtcytXt5Tqor5-fUjHiRvnpmxBsJpJbd1rHLw@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: dma: qcom,gpi: Document the Nord GPI DMA engine
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Shawn Guo <shawnguo@kernel.org>, Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	brgl@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i3c: renesas: Fix MDYAD(x) field length
+To: Diogo Ivo <diogo.ivo.sx@renesas.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>
+Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 17:21:29 +0200, Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> said:
-> Add the compatible string for the GPI DMA engine found on the Nord
-> family of SoCs.
->
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-> index 54dca623223d51373a4d54591f3ebbf5e31fca17..ad70717b5b86e600e74d6cfe42015dc03db25ba9 100644
-> --- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-> +++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-> @@ -29,6 +29,7 @@ properties:
->                - qcom,hawi-gpi-dma
->                - qcom,kaanapali-gpi-dma
->                - qcom,milos-gpi-dma
-> +              - qcom,nord-gpi-dma
->                - qcom,qcm2290-gpi-dma
->                - qcom,qcs8300-gpi-dma
->                - qcom,qdu1000-gpi-dma
->
-> ---
-> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-> change-id: 20260916-nord-gpi-dt-bindings-f4b10102d22b
->
-> Best regards,
-> --
-> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->
->
 
-Vinod: gentle ping, can this make v7.4, please? Otherwise, can you Ack it
-and let Bjorn pick it up?
 
-Bart
+On 10/1/26 18:10, Diogo Ivo wrote:
+> Fix the length of the MDYAD(x) macro to be 7 bits as it represents an
+> I3C address, which is 7 bits. The length of this field was confirmed on
+> the documentation of the RZ/G3{E,L,S} SoCs.
+> 
+> Fixes: d028219a9f148 ("i3c: master: Add basic driver for the Renesas I3C controller")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Diogo Ivo<diogo.ivo.sx@renesas.com>
+
+Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
