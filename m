@@ -1,360 +1,519 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
+Received: from mta1.migadu.com (out-8.mta1.migadu.com [95.215.58.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED82442B3B
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934884; cv=pass; b=NulPXCyVcU+rFYV7tClOQPT8i78STrc1MLJXYrtzx3+q9nOJoQFttEo33AOPWgQlOLBLPkLzKZlsGP+oDOtNK+gmiMyVHijxkIhz/vnzjyukTGQ3ivX+m+7UjSKa6cIW7ypoctu+XHyrg2HP/ucdM/bTiOCxaWk9qOjOcjIsQeM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934884; c=relaxed/simple;
-	bh=f2OtcMkSG121r+xWzxSEOyNf/eu2v+bbmnKUkrvQFaQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Kk4n0aWNNalTQYBvJs6EbXP5aJMuh8lB0cBE/0RIpOTP1umFE5glrhYHmtW51aqwWZTc+JSbnVpiXiHZj1vz4o2uitp80XkgstwS6IAea3BaKPQ+h2/hLrY006imbleYuIQv+H2yGyRi37WgNS/Prfge8V3u4nvKS+KMc0bsDpg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EQ6qVbpV; arc=pass smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8752AEEB
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.8
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790934917; cv=none; b=dcyFtqbBd7ESQ5hl6YGsmkFaJHZFWPVlE9t3xjUv87fB3HKt/DcIbnxQUywHRvHfe1C6ETJE/h9FePG8I5co7cisohkXhqk9RMcv+hnv0WlJLe8q77kFCb5TzoTiVRi1ylPjxEnFE4CFY47j5a/wP5PDJ/uSBfTfPtN35y80T7s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790934917; c=relaxed/simple;
+	bh=3F1sOo9KkxJ68D+1qDXZn0hUSGgYQsR7bdQx/ggrAXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=trj7T7t5PJ56J35lAiK+I6ej+tljoJsp4gOFZbhuWTwpbndkQINdInbohHRLUyuJrX8VvCmVL41hrCkpqSSkXlkcAnAAiW7R/QJvQ9LgO7dKBGVF7jKBa3WyBnpZnvfFwZ9jxqnxBc3z2TDws7EIGuf5nEK7VpqYJ1rvclLkp6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nIXuJAHk; arc=none smtp.client-ip=95.215.58.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EQ6qVbpV"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae1f2cedfso9977129a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:54:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790934881; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T391pkBH2U8nEARDT1ukJi2hLdspGFXG+THpErHI476CYQztw91eiOKnwWJFl+PzU1
-         nzsCdmP3EO56z9rPuhGIj0HHpdirkVLCoxQNuMI2SosoKajfCMtFSsj06i8Xmwsykto2
-         J+0crOA1y07VqrJFPkB+/qNQcsmxt+LiXPCc1ksjWFeazxoKCqpu5hIMLXd7r2lHKWFD
-         ovwvfUTOeAOZbAj1xX8YaqUvjLqlGe+qkXv5AtI0ZGDRYtkK6W2pkFSqtF+qBCl71FdG
-         gpVw/XR5on/mTPml/Z3+vEwYDiXAoMftEdAgb5bEZD6hJ2mG09olCeDqZlM4ZNgnqxUY
-         oM3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KlsrSFTDBDk2MoE4YBBuKFoUAHufH4n4L1Gcx9G5Xbk=;
-        fh=Jo3nCzSY1h2tPTEQ+z9/YjqIp65eu4BpRB5WDbYsBdc=;
-        b=p1H+V+zlIbp6MD6tEQQ4TKSSYJdT2xMcnc/NQns+fJSJGis3gHREgLm5gJSGXT0gvp
-         xvlmX6o6nyUT81tyOShlcUQWfNRi6AOUpvcngYpYL2LAxSU0G7V8+wj5HunAjYOb4nLj
-         Q+8mX9mPVzOzTgrsbN/fPYV2k5/CWOR5f14fEtJ3qKOAmqKislRYehnSlR/mo/lHP3tl
-         kJh8bAdLJwDerKSpu0zRXebeT+G9ibZ5jMCKqqTixUyxjT8xlBUFubezZgmoEfg+AuFE
-         ZdJWAkJUpocM1vLSoRCeO99q+32OgLAhXKsaZwrvt9BmiMtYAVbeQ6SPqK7+8EzgFB9T
-         Rxag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790934881; x=1791539681; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KlsrSFTDBDk2MoE4YBBuKFoUAHufH4n4L1Gcx9G5Xbk=;
-        b=EQ6qVbpV4iA7+ijviCsN9P3C5YV9aFy4mhvocCXweVzeyM6NrxF4dMu1tKg/Ev/TIL
-         tuDlHGacqfUmkhDawZwhKAC/x/fg0RBNRt1V1ewo65KJ8eAAAVS7tlpTRsi/dMK98AjJ
-         eKNCZxEZr0uRo37xxzuzVXRUnmmrZU2r7K6RtHZOzOU9dDjIKqC7EEtXBUqQGY/Au4J8
-         Gc2vEbTq0BAbL5vUzr1KbuvWMpyZUWvctTcxb4C/LILBim4lC+JpFUJ4xWTEUhRTKLSE
-         Mo5ORBfIEfm/VoKG8C9BUHZ+VZyjqsOYemctonM58fAo62iW6s6pGsrHl8JuFGnmh2+j
-         lnrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790934881; x=1791539681;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KlsrSFTDBDk2MoE4YBBuKFoUAHufH4n4L1Gcx9G5Xbk=;
-        b=0azjmiY+Tvy4ge0qpyWajvNEAUqtgllAkjSze55XUrkhQhQTGqGszkkqTLV8HRPCU6
-         AQve+MvqU4UwpW6mER1NuGMdzIEkXiXSugk1vXzXKxQavTfeoEOXZZR8b0wAD8NedK/+
-         lecqJrj8socN6D/VCaF6KAEKY2UZiW+YC3Jtt3Y4iljh2/jwuxlK/Itgwa0DLU36gwFH
-         0oCFBDhBNfGn5qRD82HLkiCPWZPErTDjqP2W9i+ZhmzXhlycH2HX8kcjcnkVhTbqtN1p
-         hA9jUGfkVTyAwFrBa9csUaJiqwp848lYosnquBNkGCuhQ6JkXCswHlWlQhjDhUdNWlkO
-         f0xw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCfbCjua7cfKJ8JBmXNc1iLBqDetBSF8BWuupJe5+NO3e2YJIL3lM4p/S7ecUY/j8uDSPVuDqTF/3MFso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdTpJ1bXhYZkjnBEO25xoxiUkdpO5TJQU0lY83r3jGyfWtJSPw
-	P6HyVIcksvkCgBiogRUu8Myudqx7wdMB/flRK3TaYrLtfqZzMkKCVBGPo/I2jJMztKboU0rav2Q
-	5fYdO75UfxJwKpV+hrl3Ha990a/3H3Mg9cs2P
-X-Gm-Gg: AYBFou0tronN9qoThtOZKxk3qYyG2+xSPK5LFB/ESejPPXRd0LClvHQuViV9+fMDKD2
-	4ii7QIhpLKIHuuoNmLkET1lz79TRXV/IYPm62HvvncVN3sZ5uk6dXijmpt8jRgSpsrycm9rk95o
-	IyJDD5g58fHK96PXHPxzy163IqmnzLNnDj8NiAMKFzZHkzjDyddahttBcRXrd2g5mjim7rmks8B
-	/C8VN/ZTIPp0DUqGRwnVOGfh+ZXXym2aMPg5f5T5H1fin38XQFTflyzANgUReR1aJTXxxyumkHr
-	y6SKQChmW4pIOcrfCKefePJDjaIgHkhVPQEOTdpZYjMgFAjuxjrvyFr4STFWw6cSyLasZvbwF5/
-	ovMa1yiHD5Et/zbECV/DruPzE1WpZYs5kaFDgD+stVPK/qXNSpivG
-X-Received: by 2002:a05:6402:324d:b0:6ab:8067:6a8a with SMTP id
- 4fb4d7f45d1cf-6af9e301810mr1123130a12.32.1790934880885; Fri, 02 Oct 2026
- 02:54:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nIXuJAHk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3F1sOo9KkxJ68D+1qDXZn0hUSGgYQsR7bdQx/ggrAXU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790934910; v=1; x=1791539710;
+ b=nIXuJAHka7jf0Xpei+Uj/QarFRf19NNdF/ShqzRrf5OVRnKwklEktyZ166U53rtOs4g6fIpy
+ LYYTdA4FjjNIeloCAdgB/U/IOa52ZugX6T3em41+5WmldaChs6oHodUbEHWbycIL60Cwcioygai
+ IgJPPRx++iKU1zZhLER+BgcU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 97c9f2c69c8de0b6;
+	Fri, 02 Oct 2026 09:55:07 +0000
+X-Mizu-Trace-ID: 97c9f2c69c8de0b6
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	david@kernel.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com,
+	Baoquan He <baoquan.he@linux.dev>,
+	willy@infradead.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	kas@kernel.org,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,
+	Nico Pache <nico.pache@linux.dev>,
+	Liam R. Howlett <liam@infradead.org>,
+	ryan.roberts@arm.com,
+	Vlastimil Babka <vbabka@kernel.org>,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	nphamcs@gmail.com,
+	shikemeng@huaweicloud.com,
+	yosry@kernel.org,
+	qi.zheng@linux.dev,
+	luizcap@redhat.com,
+	kernel-team@meta.com,
+	Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH v8 00/30] mm: PMD-level swap entries for anonymous THPs
+Date: Fri,  2 Oct 2026 02:52:14 -0700
+Message-ID: <20261002095503.3585565-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001165018.415526-1-mattst88@gmail.com> <20261001165018.415526-2-mattst88@gmail.com>
-In-Reply-To: <20261001165018.415526-2-mattst88@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Fri, 2 Oct 2026 11:54:28 +0200
-X-Gm-Features: AclHuK-SmcDYWAEKEZpItI5qI7L_AuxI8bjB266pfVqIFnQ45vW-kHJtBgwsU-0
-Message-ID: <CA+=Fv5Q=wzp5e3FxTBdVshfsVD+7hpeBSYk=bFH0Dt5wDhL7GQ@mail.gmail.com>
-Subject: Re: [PATCH 2/4] alpha: correct system descriptions in Kconfig help text
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Matt,
+When reclaim swaps out a PMD-mapped anonymous THP today, the PMD is
+split into HPAGE_PMD_NR PTE-level swap entries via TTU_SPLIT_HUGE_PMD
+before unmap.  This series introduces a PMD-level swap entry so the
+huge mapping can survive the swap round-trip and do_huge_pmd_swap_page()
+can restore the PMD mapping directly on swap-in, without waiting for
+khugepaged to collapse the range later.
 
-On Thu, Oct 1, 2026 at 6:50=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> Fix the system lists in the "Alpha system type" choice and the platform
-> help texts, cross-checked against the alphalinux.org wiki and the
-> kernel sources:
->
->  - There is no AlphaServer GS40 or DS10E. Wildfire also shipped with
->    EV68 (21264C) CPUs.
->  - "AS" means AlphaServer elsewhere in the list, but the Alcor "AS 600,
->    AS 500" are AlphaStations, as is the Noritake "AlphaServer 600A".
->  - Takara is 21164-based, not "11164".
->  - Linux 6.10 dropped support for CPUs before EV56, which took the
->    AlphaStation 600 and Alpha XL 300 with it. Say once that EV56 or
->    later is required rather than qualifying every entry.
->  - Add systems missing from their entries: the UP1500 (Nautilus), DS15
->    and TS202c (Titan), Digital Server 3300 (Noritake), Digital Server
->    5300 and 7300 (Rawhide), and the Ruffian boards in place of
->    "Samsung APC164UX".
->  - Add Eiger, Nautilus and RX164 to the summary list and help text to
->    PC164, RX164, SX164 and Shark, which had none. Note that the Ruffian
->    and RX164 boards have no SRM console.
->
-> Also drop the Jensen and EV4/EV5 references removed in 6.10, and the
-> claim that SRM cannot boot from IDE, which is not true of SRM in
-> general. NR_CPUS can be set to 32 on any platform, so say what the
-> hardware supports instead of implying a per-platform kernel limit.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/Kconfig | 85 ++++++++++++++++++++++++++++++----------------
->  1 file changed, 55 insertions(+), 30 deletions(-)
->
-> diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-> index 7c1cc676ddfe..920dd10e7df0 100644
-> --- ./arch/alpha/Kconfig
-> +++ ./arch/alpha/Kconfig
-> @@ -126,28 +126,35 @@ choice
->           This is the system type of your hardware.  A "generic" kernel w=
-ill
->           run on any supported Alpha system. However, if you configure a
->           kernel for your specific system, it will be faster and smaller.
-> +         Only EV56 (21164A) and later CPUs are supported.
->
->           To find out what type of Alpha system you have, see the system =
-and
->           motherboard lists at
->           <https://alphalinux.org/wiki/hardware:systems> and
->           <https://alphalinux.org/wiki/hardware:motherboards>. In summary=
-:
->
-> -         Alcor/Alpha-XLT     AS 600, AS 500, XL-300, XL-366
-> -         DP264               DP264 / DS20 / ES40 / DS10 / DS10L
-> +         Alcor/Alpha-XLT     AlphaStation 500, Alpha XL 366, 433
-> +         DP264               DP264, UP2000(+), DS10, DS10L, DS20, DS20E,
-> +                             ES40, XP900, XP1000
-> +         Eiger               Eiger (OEM)
->           LX164               AlphaPC164-LX
-> +         Marvel              AlphaServer ES47, ES80, GS1280
->           Miata               Personal Workstation 433/500/600 a/au
-> -         Marvel              AlphaServer ES47 / ES80 / GS1280
-> -         Mikasa              AS 1000
-> -         Noritake            AS 1000A, AS 600A, AS 800
-> +         Mikasa              AlphaServer 1000
-> +         Nautilus            UP1000, UP1100, UP1500
-> +         Noritake            AlphaServer 1000A, 800, AlphaStation 600A,
-> +                             Digital Server 3300
->           PC164               AlphaPC164
-> -         Rawhide             AS 1200, AS 4000, AS 4100
-> +         Rawhide             AlphaServer 1200, 4000, 4100,
-> +                             Digital Server 5300, 7300
->           Ruffian             RPX164-2, AlphaPC164-UX, AlphaPC164-BX
-> +         RX164               AlphaPC164-RX
->           SX164               AlphaPC164-SX
-> -         Sable               AS 2000, AS 2100
-> -         Shark               DS 20L
-> +         Sable               AlphaServer 2000, 2100
-> +         Shark               AlphaServer DS20L, API NetWorks CS20
->           Takara              Takara (OEM)
-> -         Titan               AlphaServer ES45 / DS25 / DS15
-> -         Wildfire            AlphaServer GS 40/80/160/320
-> +         Titan               AlphaServer DS15, DS25, ES45, TS202c
-> +         Wildfire            AlphaServer GS80, GS160, GS320
->
->           If you don't know what to do, choose "generic".
->
-> @@ -168,13 +175,14 @@ config ALPHA_ALCOR
->           controller (256-bit memory bus) and a PCI interface.  It also d=
-oes
->           all the work required to support an external Bcache and to main=
-tain
->           memory coherence when a PCI device DMAs into (or out of) memory=
-.
-> +         It is used by the AlphaStation 500 and the Alpha XL 366 and 433=
-.
->
->  config ALPHA_DP264
->         bool "DP264"
->         help
->           Various 21264 systems with the tsunami core logic chipset.
-> -         API Networks: 264DP, UP2000(+), CS20;
-> -         Compaq: DS10(E,L), XP900, XP1000, DS20(E), ES40.
-> +         API NetWorks: 264DP, UP2000(+);
-> +         Compaq: DS10, DS10L, XP900, XP1000, DS20, DS20E, ES40.
->
->  config ALPHA_EIGER
->         bool "Eiger"
-> @@ -197,8 +205,8 @@ config ALPHA_MIATA
->         bool "Miata"
->         select HAVE_EISA
->         help
-> -         The Digital PersonalWorkStation (PWS 433a, 433au, 500a, 500au, =
-600a,
-> -         or 600au).
-> +         The Digital Personal Workstation (PWS 433a, 433au, 500a, 500au,
-> +         600a, or 600au).
->
->  config ALPHA_MIKASA
->         bool "Mikasa"
-> @@ -208,34 +216,47 @@ config ALPHA_MIKASA
->  config ALPHA_NAUTILUS
->         bool "Nautilus"
->         help
-> -         Alpha systems based on the AMD 751 & ALI 1543C chipsets.
-> +         UP1000, UP1100 and UP1500 systems based on the AMD 751 or 761
-> +         chipset.
->
->  config ALPHA_NORITAKE
->         bool "Noritake"
->         select HAVE_EISA
->         help
-> -         AlphaServer 1000A, AlphaServer 600A, and AlphaServer 800-based
-> -         systems.
-> +         AlphaServer 1000A, AlphaServer 800, AlphaStation 600A and
-> +         Digital Server 3300 systems.
->
->  config ALPHA_PC164
->         bool "PC164"
-> +       help
-> +         AlphaPC164, a 21164A-based single-board computer using the CIA
-> +         chipset.
->
->  config ALPHA_RAWHIDE
->         bool "Rawhide"
->         select HAVE_EISA
->         help
-> -         AlphaServer 1200, AlphaServer 4000 and AlphaServer 4100 machine=
-s.
-> +         AlphaServer 1200, 4000 and 4100 and Digital Server 5300 and 730=
-0
-> +         machines.
->
->  config ALPHA_RUFFIAN
->         bool "Ruffian"
->         help
-> -         Samsung APC164UX.
-> +         DeskStation RPX164-2, AlphaPC164-UX and AlphaPC164-BX boards.
-> +         They have no SRM console and can only boot Linux through MILO.
->
->  config ALPHA_RX164
->         bool "RX164"
-> +       help
-> +         AlphaPC164-RX, a 21164PC-based single-board computer using the
-> +         Polaris chipset. It has no SRM console and can only boot Linux
-> +         through MILO.
->
->  config ALPHA_SX164
->         bool "SX164"
-> +       help
-> +         AlphaPC164-SX, a 21164PC-based single-board computer using the
-> +         Pyxis chipset.
->
->  config ALPHA_SABLE
->         bool "Sable"
-> @@ -245,21 +266,26 @@ config ALPHA_SABLE
->
->  config ALPHA_SHARK
->         bool "Shark"
-> +       help
-> +         AlphaServer DS20L and API NetWorks CS20 systems based on the
-> +         Tsunami chipset.
->
->  config ALPHA_TAKARA
->         bool "Takara"
->         help
-> -         Alpha 11164-based OEM single-board computer.
-> +         Alpha 21164-based OEM single-board computer.
->
->  config ALPHA_TITAN
->         bool "Titan"
->         help
-> -         AlphaServer ES45/DS25 SMP based on EV68 and Titan chipset.
-> +         AlphaServer DS15, DS25, ES45 and TS202c based on EV68 and the
-> +         Titan chipset.
->
->  config ALPHA_WILDFIRE
->         bool "Wildfire"
->         help
-> -         AlphaServer GS 40/80/160/320 SMP based on the EV67 core.
-> +         AlphaServer GS80, GS160 and GS320 SMP based on the EV67 or EV68
-> +         core.
->
->  endchoice
->
-> @@ -378,10 +404,9 @@ config ALPHA_SRM
->           loaded either from ARC or can be installed directly as a perman=
-ent
->           firmware replacement from floppy (which requires changing a cer=
-tain
->           jumper on the motherboard). If you want to do either of these, =
-say N
-> -         here. If MILO doesn't work on your system (true for Jensen
-> -         motherboards), you can bypass it altogether and boot Linux dire=
-ctly
-> -         from an SRM console; say Y here in order to do that. Note that =
-you
-> -         won't be able to boot from an IDE disk using SRM.
-> +         here. If MILO doesn't work on your system, you can bypass it
-> +         altogether and boot Linux directly from an SRM console; say Y h=
-ere
-> +         in order to do that.
->
->           If unsure, say N.
->
-> @@ -414,8 +439,8 @@ config NR_CPUS
->         default "32" if ALPHA_GENERIC || ALPHA_MARVEL
->         default "4" if !ALPHA_GENERIC && !ALPHA_MARVEL
->         help
-> -         MARVEL support can handle a maximum of 32 CPUs, all the others
-> -         with working support have a maximum of 4 CPUs.
-> +         The kernel supports at most 32 CPUs. Only Marvel and Wildfire
-> +         systems have more than 4.
->
->  config ARCH_SPARSEMEM_ENABLE
->         bool "Sparse Memory Support"
-> @@ -439,8 +464,8 @@ config ALPHA_WTINT
->           For emulation under QEMU, definitely say Y here, as we have oth=
-er
->           mechanisms for measuring time than the cycle counter.
->
-> -         For EV4 (but not LCA), EV5 and EV56 systems, or for systems run=
-ning
-> -         MILO, sleep mode is not supported so you might as well say N he=
-re.
-> +         For EV56 systems, or for systems running MILO, sleep mode is no=
-t
-> +         supported so you might as well say N here.
->
->           For SMP systems we cannot use the cycle counter for timing anyw=
-ay,
->           so you might as well say Y here.
-> --
-> 2.54.0
->
+The PMD swap entry is a compact page-table encoding for HPAGE_PMD_NR
+consecutive swap slots.  swap_map accounting remains per-slot and is
+unchanged.  Importantly, a PMD swap entry does not promise that the swap
+cache always contains one PMD-sized folio.  While the cache is empty or
+contains one PMD-sized folio, PMD-level handling can proceed.  Once the
+cache has split/per-slot state, users either inspect the individual
+slots directly (mincore) or split the PMD swap entry and retry through
+the PTE path (fault, swapoff, MADV_WILLNEED, UFFDIO_MOVE).  MADV_FREE
+does not consult the cache at all: it frees a whole PMD swap entry in
+place and only splits when the advised range covers part of the PMD.
+Likewise, if any slot is still backed by zswap's per-page
+store, PMD-order swap-in consumers split and let the PTE path load the
+range page by page; an all-on-disk range can still be read back as one
+PMD-sized folio.
 
-Thanks,
+The series is ordered so every consumer can handle PMD swap entries
+before the swap-out producer starts installing them.  The swap-out patch
+is the last functional change.
 
-See reply to patch 1/4 for details.
+Performance:
 
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+  Measured with vm-scalability's case-swap-w-seq benchmark [1].  Four
+  pinned workers repeatedly write a 6 GiB anonymous working set on a
+  4 vCPU / 4 GiB guest, forcing the set out to swap and back in.  Swap
+  is an 8 GiB NOCOW raw virtio device (cache=none, aio=native), zswap is
+  disabled, and THP enabled/defrag are both "always".  The numbers below
+  are medians of five interleaved runs per kernel after one warm-up run:
+
+  Metric                          Baseline     Patched      Change
+  Aggregate throughput            584.3 MiB/s  2408.9 MiB/s +312.2% (4.12x)
+  Elapsed time                    85.43 s      20.72 s      -75.7%
+  Major faults                    1,814,699    228,466      -87.4%
+  Swap I/O rate                   1.02 GiB/s   4.10 GiB/s   +303.9%
+
+  This is a swap-intensive synthetic workload, so it mostly demonstrates
+  the reduction in swap-fault and page-table overhead from preserving
+  PMD mappings.  I don't want to use sythetic workloads to show benefits
+  of the series. IMHO, the main advantage comes from long-running
+  workloads I expect the bigger win to come from fewer TLB misses,
+  less khugepaged work, and less kernel churn from larger folios, although
+  I have not found a benchmark that captures that well.  PMD swap entries
+  also move us closer to eliminating page-table deposits for anonymous THPs,
+  which would provide memory savings.
+
+Sashiko reviews on intermediate patches:
+
+  Because the swap-out producer is the last functional patch, the
+  consumer code added by the patches before it is unreachable at the
+  point it is introduced.  Every previous sashiko review has reported
+  that code as broken on the basis of a state it cannot yet be in; the
+  series is ordered this way deliberately.  See [2].
+
+Notes on zswap:
+
+  Native PMD-order zswap load/store is intentionally left for a follow-up.
+  Alexandre Ghiti is currently working on this.
+  This series can still preserve PMD swap entries while zswap is enabled:
+  zswap stores the THP as order-0 entries, and PMD-order swap-in
+  consumers split any range that has zswap entries before reading it.  If
+  zswap has written the whole range back to disk, or the swap cache still
+  contains one PMD-sized folio, PMD-level handling can proceed.
+
+Testing:
+
+  The 17 pmd_swap selftests pass on x86_64 with zswap both disabled and
+  enabled.  PMD_SWAP_DEVICE was the sole active swap device, so the
+  swapoff test ran in both configurations.  Note that with zswap enabled
+  the range may legitimately come back through the PTE fallback, so those
+  runs skip the PMD-restoration assertions and say so in the log; the
+  zswap-disabled run is the one that proves PMD restoration.
+
+  hmm-tests was run with CONFIG_DEBUG_VM=y and panic_on_warn=1, both on
+  this series and on the base commit: identical results either way
+  (pass:35 fail:3 skip:40).  The three failures are O_TMPFILE on the
+  test VM's 9p /tmp, not kernel behaviour, and the THP paths
+  (migrate_anon_huge_*, migrate_partial_unmap_fault,
+  benchmark_thp_migration) pass.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/wfg/vm-scalability.git/tree/case-swap-w-seq
+[2] https://lore.kernel.org/all/282ef982-3e48-4283-9155-73a33fc1c4e8@linux.dev/
+
+v7 -> v8: https://lore.kernel.org/all/20260914122950.3283997-1-usama.arif@linux.dev/
+- Cover letter: add the case-swap-w-seq performance results. (Andrew Morton)
+- Patches 2-8: reword the opening paragraph as "Prepare for ..." instead of
+  referring to a later patch. (David Hildenbrand)
+- Patch 4 (powerpc): move the PMD exclusive helpers next to the soft-dirty
+  PMD helpers and express them the same way, as pte_pmd()/pmd_pte()
+  wrappers over the PTE helpers. (David Hildenbrand)
+- Patch 6 (s390): drop the comment above the helpers, keep the explanation
+  in the RSTE swap layout above __SWP_OFFSET_MASK_RSTE, and move the
+  helpers into the existing CONFIG_ARCH_HAS_PMD_SOFTLEAVES block above
+  pmd_swp_soft_dirty(). (David Hildenbrand)
+- Patch 7 (x86): add static_assert(_PAGE_SWP_EXCLUSIVE != _PAGE_PSE) so a
+  32-bit build that ever selects ARCH_HAS_PMD_SOFTLEAVES fails to compile
+  rather than producing pmd_present() swap entries. (Kiryl Shutsemau)
+- Patch 10: rename the flag to to_migration_entries, use two-tab
+  continuation indentation, reword the split comment, turn the comment on
+  split_pmd_to_migration_entries() into kerneldoc, and fold the
+  try_to_migrate_one() call onto one line.  Also drop that helper's
+  pmd_trans_huge() || pmd_is_valid_softleaf() test, which was both too loose
+  and silently skipped the split, in favour of a VM_WARN_ON_ONCE() at the top
+  of __split_huge_pmd_locked() asserting that to_migration_entries implies a
+  present or device-private PMD. (David Hildenbrand)
+- Patch 11: drop the VM_WARN_ON_ONCE()/force and its comment from the swap
+  decode arm - 10/29 now asserts the to_migration_entries contract at the top
+  of __split_huge_pmd_locked() instead - and build the replacement PTEs by
+  advancing pte_next_swp_offset() rather than rebuilding each entry, which
+  hoists the soft-dirty/uffd/exclusive tests out of the loop. (David
+  Hildenbrand).
+- Patch 12 (new): split the swap-side changes out of the fork patch, so the
+  swap-entry range duplication gets its own patch for the swap maintainers.
+  Keeps the single-slot names as inline wrappers so existing callers are
+  untouched. (David Hildenbrand)
+- Patch 13 (fork): report a failed swap dup as -EIO and let copy_pmd_range()
+  own the GFP_KERNEL retry, as the PTE path does, dropping the open-coded
+  retry loop; move the mm counter update into each entry-type arm. (David
+  Hildenbrand)
+- Patch 16 (smaps): smaps_account_swap() takes nr_pages rather than a byte
+  size, and the local is called swapcount. (David Hildenbrand)
+- No other functional change.  All twelve sashiko findings on v7 were
+  analysed and none are defects of this series.
+
+v6 -> v7: https://lore.kernel.org/all/20260818131202.494754-1-usama.arif@linux.dev/
+- Rebase onto akpm/mm-new at baa8de2f3448 and adapt to the new
+  get_swap_device() contract and linear_anon_page_index().  The series grows
+  from 12 to 29 patches.
+- Patch 1: code unchanged; reword the commit message and collect review tags.
+- Patches 2-9: split the six architecture helpers from generic detection and
+  add debug_vm_pgtable coverage.  Use the s390 RSTE exclusive bit, make the
+  x86 helper return bool, clear all PMD swap overlay bits before softleaf
+  decoding, and add the architecture maintainers to Cc.
+- Patches 10-11: add a preparatory no-functional-change cleanup of the
+  migration-splitting API and keep the PMD swap split separate.
+- Patch 12: reject a multi-slot duplication range that crosses a swap-cluster
+  boundary.
+- Patch 13: drop the zswap_load() change, now upstream as 1a904e0d3c43, and
+  check for zswap after swap-cache insertion while all slots are pinned.
+- Patch 14: scan every subpage for hardware poison, discard a failed or newly
+  allocated unmapped PMD-sized folio before PTE fallback, and recheck the PMD
+  before splitting it.
+- Patches 15-23: split the non-present PMD walkers by subsystem.  Add the
+  guard-advice patch so MADV_GUARD_INSTALL/REMOVE leaves PMD swap entries
+  whole; the other split patches preserve v6 behaviour.
+- Patch 24: honour the current THP policy, discard a failed PMD-sized folio,
+  and recheck the PMD before PTE fallback.
+- Patch 25: do not split after cached-folio revalidation loses a race; retry
+  so a restored present THP remains whole.
+- Patches 26-27: separate the independent PTE-batching hardware-poison fix,
+  scan subpages directly, and discard failed or never-mapped PMD-sized folios
+  before PTE retry instead of making the whole range fail with SIGBUS.
+- Patch 28: keep the normal swap-out path unchanged, but make failed producer
+  preconditions warn and return -EBUSY rather than BUG or return -EINVAL.
+- Patch 29: grow the selftests from 16 to 17, adding
+  swapin_sync/cache-residency coverage and more robust feature, fallback,
+  privilege, data-integrity, and swap-device-priority handling.
+
+v5 -> v6: https://lore.kernel.org/all/20260722152043.2273289-1-usama.arif@linux.dev/
+- Add patch 1 to rename pmd_to_softleaf_folio() to
+  pmd_softleaf_to_folio().  No functional change. (Dev Jain)
+- Patch 2: warn when pmd_softleaf_to_folio() is given a non-PFN
+  softleaf rather than silently returning NULL. (Dev Jain)
+- Patch 4: bound the fork extend-table fallback to one retry, re-read
+  the PMD under its lock, normalize unrecoverable copy_huge_pmd() errors
+  to -ENOMEM so copy_pmd_range() cannot clear and leak the source swap
+  PMD, and drop a redundant thp_migration_supported() gate.
+- Patch 5: check multi-page swap-cache insertions for zswap-backed slots
+  in __swap_cache_add_check() under the cluster lock, both before
+  allocation and before insertion, and reject mixed zswap/disk state
+  with -EBUSY. (Yosry Ahmed, Nhat Pham)
+- Patch 6: on a failed non-uptodate PMD-order read, remove the large
+  folio from swap cache before splitting so order-0
+  fallback retries individual slots rather than poisoning the whole
+  2 MiB range; retain hardware-poisoned folios for per-subpage handling.
+- Patch 7: make HMM snapshot mode report a PMD swap entry as non-resident,
+  matching PTE swap entries, rather than HMM_PFN_ERROR.  Drop redundant
+  thp_migration_supported() gates and simplify non-present PMD handling.
+- Patch 8: factor PMD MADV_WILLNEED prefetch into
+  swapin_pmd_swap_entry(), split and retry through PTEs after any
+  PMD-order swapin failure, and replace the racy folio_test_locked()
+  plus folio_lock() sequence with folio_trylock().
+- Patch 9: guard PMD-swap UFFDIO_MOVE code with CONFIG_THP_SWAP, clarify
+  RWP marker propagation, and reject a PMD swap entry at the destination
+  with -EEXIST so UFFDIO_MOVE cannot loop forever on -EAGAIN.
+- Patch 10: honor current THP/VMA policy before PMD-order swap-in, recheck
+  that the PMD is still the original swap entry before splitting for PTE
+  fallback, and provide the CONFIG_TRANSPARENT_HUGEPAGE wp_huge_pmd()
+  declaration/stub needed by THP=n builds.
+- Patch 11: make an invalid set_pmd_swap_entry() walk context warn and
+  return -EINVAL instead of falsely reporting success and corrupting the
+  MM_ANONPAGES/MM_SWAPENTS accounting, and add an exact PMD-size folio
+  precondition check. (Luiz Capitulino)
+- Patch 12: use /proc/swaps for prerequisite detection, check
+  MADV_HUGEPAGE, and distinguish an environment that cannot allocate a
+  PMD THP (SKIP) from a swap-out validation failure (FAIL).  Add
+  partial-mprotect and partial-munmap split coverage.  Strengthen
+  munmap/MADV_FREE VmSwap accounting, pagemap slot-offset checks, and
+  mprotect/mremap swapped-state checks; force mremap to move, check
+  munmap()'s return, and mark the UFFDIO_MOVE destination MADV_HUGEPAGE
+  before asserting PMD restoration.  Move common setup and cleanup into
+  one fixture, merge the swapoff fixture, remove the redundant cycles
+  test, and make the data pattern differ between base pages so the split
+  tests can detect incorrect slot ordering.  Order fork-COW so the parent
+  writes while the child still holds the untouched shared swap entry.
+  (Luiz Capitulino)
+- Clarify commit messages throughout.  Retain TTU_SPLIT_HUGE_PMD after
+  prototyping its removal: removing it here requires an extra rmap walk
+  and broadens the series beyond PMD swap entries. (Matthew Wilcox)
+- Rebase onto akpm/mm-new from 15 August (4b65683fd25f).
+
+v4 -> v5: https://lore.kernel.org/all/20260713133613.2707815-1-usama.arif@linux.dev/
+- Commit message improvements for almost all patches (Yosry for zswap patch)
+- Patch 1: make pmd_to_softleaf_folio() reject softleaf entries that do
+  not encode a PFN, so a PMD swap offset is never interpreted as one.
+  PMD swap entries remain valid softleaf entries for classification.
+  (sashiko)
+- Patch 2: use the existing pmd_swp_uffd() helper and force freeze=false
+  for PMD swap entries, which have no struct page for the migration-entry
+  freeze path. (sashiko)
+- Patch 3: document that the caller's page-table or swap-cache reference
+  pins every source slot while a partial PMD-sized duplication is rolled
+  back.  Keep the pre-existing PTE fork retry behavior outside this
+  series. (sashiko)
+- Patch 5: split to the PTE path rather than mapping a PMD-sized folio
+  containing a hardware-poisoned subpage, and restore PAGE_NONE when
+  swapoff restores a UFFD marker in an RWP VMA. (sashiko)
+- Patch 6: account SwapPss for a PMD swap entry one slot at a time because
+  the slots can have different swap reference counts.
+- Patch 7: if PMD-order MADV_WILLNEED encounters newly populated per-page
+  zswap state, revalidate and remove the failed clean PMD-sized cache
+  folio before retrying through PTEs.
+- Patch 8: mark a moved PMD swap entry for UFFD when the UFFDIO_MOVE
+  destination VMA is RWP-registered. (sashiko)
+- Patch 9: restore PAGE_NONE for UFFD RWP swap-in, preserve the original
+  write-fault state through swap-slot release and COW handling, remove
+  the unnecessary LRU drain, and prevent PTE batching from mapping a
+  poisoned subpage. (sashiko)
+- Patch 10: add and document thp_swpout_pmd, which counts PMD mappings
+  replaced by PMD-level swap entries rather than swapped folios.
+- Patch 11: register pmd_swap with the default mm selftest runner, preserve
+  errno across UFFDIO_MOVE cleanup, check swapoff residency before the
+  first memory access, add a parent-side write and verification to the
+  fork+COW test, and add RWP regression coverage for swap-in, UFFDIO_MOVE,
+  and swapoff. (sashiko)
+- Keep do_huge_pmd_swap_page() in patch 9.  Patches 6 and 7 only add
+  consumers; patch 10 remains the first producer, so no PMD swap entry
+  can reach those paths before the fault handler is present. (sashiko)
+- Rebase onto latest akpm/mm-new from 22 July (5e0603ba185a)
+
+v3 -> v4: https://lore.kernel.org/all/20260703173903.3789516-1-usama.arif@linux.dev/
+- Patch 1: guard the new arch-specific pmd_swp_mkexclusive /
+  pmd_swp_exclusive / pmd_swp_clear_exclusive helpers on arm64,
+  loongarch, powerpc, riscv, s390, and x86 with
+  CONFIG_ARCH_HAS_PMD_SOFTLEAVES, matching the pattern already
+  used for pmd_swp_soft_dirty.  Also fixes the redefinition-vs-
+  generic-fallback build errors kernel test robot reported on
+  i386-allnoconfig-bpf and riscv-allnoconfig-bpf, and rewraps
+  the patch 1 commit message paragraphs to ~75 columns.
+  (sashiko, kernel test robot, Usama Arif)
+- Patch 2: switch the trailing folio_remove_rmap_pmd() gate in
+  __split_huge_pmd_locked() from *pmd to old_pmd, old_pmd retains
+  the original present-or-non-present classification for every
+  branch above. (sashiko)
+- Patch 3: teach swap_retry_table_alloc() (and the underlying
+  swap_extend_table_alloc()) to accept an nr parameter and scan
+  every slot in [ci_off, ci_off + nr) before committing an
+  extend-table allocation.  (sashiko)
+- Patch 4: rename zswap_range_has_entry() to zswap_is_present() so
+  the same helper serves both single-slot (nr=1) and range queries,
+  and switch the implementation from XA_STATE + xas_find() to
+  xa_find(), which handles RCU locking and internal-retry markers
+  itself.  Rename the callers in patches 5, 7, 9. (Yosry)
+- Patch 9: refuse to map a swap-cache folio in do_huge_pmd_swap_page()
+  when folio_contain_hwpoisoned_page() reports a poisoned subpage;
+  split the PMD swap entry so do_swap_page() can return
+  VM_FAULT_HWPOISON per subpage instead of the PMD handler mapping
+  the corrupted memory as one THP.  Mirrors the PageHWPoison check
+  the PTE swap-in path already performs. (sashiko)
+- Patch 9: note explicitly in the commit message that PMD-order
+  swap-in deliberately skips the order-0 readahead paths, order-0
+  readahead would populate per-page swap-cache state and force the
+  PMD swap entry to split before the fault could finish. (Kairui)
+- Patch 10: move mm_prepare_for_swap_entries() into
+  set_pmd_swap_entry() between folio_dup_swap() and set_pmd_at()
+  so this mm is on init_mm.mmlist before any swap PMD referencing
+  slots with a non-zero swap_map becomes visible.  Matches the PTE
+  swap-out ordering. (sashiko)
+- rebase onto latest akpm/mm-new (61cccb8363fcc282d4ae0555b8739dd227f5ad0b)
+
+
+v2 -> v3: https://lore.kernel.org/all/20260602142537.198755-1-usama.arif@linux.dev/
+- Clarified the PMD swap entry rule: it is a compact encoding for
+  HPAGE_PMD_NR swap slots, not a guarantee that swap cache always has
+  one PMD-sized folio. (Lance Yang)
+- Swapoff, fault, MADV_WILLNEED, and UFFDIO_MOVE now classify the
+  whole PMD swap-cache range and split/retry through the PTE path for
+  split/per-slot cache state. (Lance Yang)
+- mincore handles PMD swap entries without assuming one lookup covers
+  a split swap-cache range. (Lance Yang)
+- UFFDIO_MOVE rechecks all HPAGE_PMD_NR slots before moving an empty
+  PMD swap-cache range, avoiding stale rmap metadata for per-slot
+  cached folios.
+- Added a standalone zswap prerequisite patch from Alexandre that
+  distinguishes all-on-disk large-folio ranges from ranges with
+  per-page zswap entries.
+- Replaced the global zswap-ever-enabled policy with per-range zswap
+  checks: PMD swap entries can still be installed while zswap is
+  enabled, and PMD-order swap-in consumers split when the range has
+  per-page zswap state.
+- Added a mincore selftest and updated MADV_WILLNEED coverage so the
+  test checks that the PMD swap entry remains in place until first
+  touch.  Total pmd_swap coverage is now 14 tests.
+
+
+v1 -> v2: https://lore.kernel.org/all/20260427100553.2754667-1-usama.arif@linux.dev/
+- Patch 1: convert two additional softleaf_to_pmd() callers that
+  landed in mm-unstable since v1 (mm/debug_vm_pgtable.c,
+  mm/migrate_device.c) (Dev)
+- Patch 2: rename helper ensure_on_mmlist() to
+  mm_prepare_for_swap_entries() to better describe its purpose
+  (David)
+- Patch 3: drop VM_WARN_ON_ONCE(!pmd_is_migration_entry) as
+  Dev posted it as a separate patch.
+- Patch 5 (new): move softleaf_to_folio() inside the device-private
+  branch in migrate_vma_collect_pmd(); same class of fix as patch 4
+  but for the migrate-device PMD walker.
+- Patch 6 (new): rename CONFIG_ARCH_ENABLE_THP_MIGRATION to
+  CONFIG_ARCH_HAS_PMD_SOFTLEAVES so the gate that now drives
+  swap-entry support too is named for what it actually controls
+  (PMD softleaf entries), not just migration. (Dev)
+- Patch 7: add the missing pmd_swp_exclusive / mkexclusive /
+  clear_exclusive helpers for powerpc.
+- Patches 10 and 14: use upstream swapin_sync() (bundles
+  swap_cache_alloc_folio + swap_read_folio + the -EEXIST race
+  retry) instead of the bespoke swapin_alloc_pmd_folio() helper
+  from v1; do_swap_page and shmem_swapin_folio use the same
+  helper (Kairui)
+- Patch 10: construct a stack vm_fault for the swapoff swap-in so
+  the allocator can resolve a mempolicy, mirroring how the PTE
+  swapoff path (unuse_pte_range) already does it.
+- Patch 11: extend coverage to check_pmd_state() in khugepaged so a
+  swapped-out PMD-mapped THP is treated as SCAN_PMD_MAPPED (matches
+  the existing migration-entry handling). Route PMD swap entries in the
+  pmd_trans_huge_lock() branch of mincore_pte_range() through
+  mincore_pmd_swap() so a swapped-out PMD-mapped THP isn't reported as
+  resident.
+- Patch 12 (new): handle PMD swap entries in MADV_WILLNEED via
+  swapin_sync(BIT(HPAGE_PMD_ORDER)); a naive order-0 read-ahead
+  would force the subsequent fault to split.
+- Patch 13: refuse UFFDIO_MOVE with -EBUSY if the swap-cache folio
+  was split between swap-out and the move, matching
+  move_pages_pte()'s rejection of large folios; otherwise only one
+  of the 512 anon-rmaps would be re-anchored to dst_vma.
+- Patch 16: alloc_fill_swap_thp() now uses the existing
+  mmap_pmd_aligned() helper so tests don't flake/skip based on VA
+  placement; new MADV_WILLNEED test that watches the PMD-order
+  mTHP swpin counter; swapoff test restructured to use the
+  kselftest_harness ASSERT cleanup blocks (no double swapoff, no
+  verify-after-munmap).
+- Collected Acks and Reviews
+
+Usama Arif (30):
+  mm: rename pmd_to_softleaf_folio() to pmd_softleaf_to_folio()
+  arm64: mm: add PMD swap-exclusive helpers
+  loongarch: mm: add PMD swap-exclusive helpers
+  powerpc: mm: add PMD swap-exclusive helpers
+  riscv: mm: add PMD swap-exclusive helpers
+  s390: mm: add PMD swap-exclusive helpers
+  x86: mm: add PMD swap-exclusive helpers
+  mm: recognize PMD swap entries in the softleaf layer
+  mm/debug_vm_pgtable: test PMD swap-exclusive helpers
+  mm: make PMD migration-entry splitting explicit
+  mm: split PMD swap entries into PTE swap entries
+  mm/swap: allow duplicating a range of swap entries
+  mm: handle PMD swap entries in fork path
+  mm: zswap: reject high-order swap cache allocations backed by zswap
+  mm: swap in PMD swap entries as whole THPs during swapoff
+  fs/proc: account PMD swap entries in smaps
+  mm: handle soft-dirty and uffd-wp on PMD swap entries
+  mm/hmm: fault PMD swap entries on demand
+  mm: free PMD swap entries in zap_huge_pmd()
+  mm/madvise: free PMD swap entries with MADV_FREE
+  mm/madvise: skip PMD swap entries for MADV_COLD and MADV_PAGEOUT
+  mm/madvise: keep PMD swap entries whole for MADV_GUARD_INSTALL/REMOVE
+  mm/mincore: report PMD swap-cache residency
+  mm/khugepaged: treat PMD swap entries as mapped THPs
+  mm: handle PMD swap entries in MADV_WILLNEED
+  mm: handle PMD swap entries in UFFDIO_MOVE
+  mm: don't PTE-batch a swap-in over a hardware-poisoned subpage
+  mm: handle PMD swap entry faults on swap-in
+  mm: install PMD swap entries on swap-out
+  selftests/mm: add PMD swap entry tests
+
+ Documentation/admin-guide/mm/transhuge.rst   |   5 +
+ arch/arm64/include/asm/pgtable.h             |   6 +
+ arch/loongarch/include/asm/pgtable.h         |  19 +
+ arch/powerpc/include/asm/book3s/64/pgtable.h |   6 +
+ arch/riscv/include/asm/pgtable.h             |  15 +
+ arch/s390/include/asm/pgtable.h              |  20 +-
+ arch/x86/include/asm/pgtable.h               |  20 +
+ fs/proc/task_mmu.c                           |  45 +-
+ include/linux/huge_mm.h                      |  40 +-
+ include/linux/leafops.h                      |  44 +-
+ include/linux/pgtable.h                      |  17 +
+ include/linux/swap.h                         |  12 +-
+ include/linux/vm_event_item.h                |   1 +
+ include/linux/zswap.h                        |   6 +
+ mm/debug_vm_pgtable.c                        |  40 +
+ mm/hmm.c                                     |  11 +-
+ mm/huge_memory.c                             | 714 +++++++++++--
+ mm/internal.h                                |  58 ++
+ mm/khugepaged.c                              |   6 +
+ mm/madvise.c                                 | 169 +++-
+ mm/memory.c                                  |  65 +-
+ mm/migrate_device.c                          |   7 +-
+ mm/mincore.c                                 |  47 +-
+ mm/mprotect.c                                |   2 +-
+ mm/rmap.c                                    |  27 +-
+ mm/swap.h                                    |  30 +-
+ mm/swap_state.c                              |  83 +-
+ mm/swapfile.c                                | 245 ++++-
+ mm/userfaultfd.c                             |  14 +
+ mm/vmscan.c                                  |   9 +-
+ mm/vmstat.c                                  |   1 +
+ mm/zswap.c                                   |  12 +-
+ tools/testing/selftests/mm/Makefile          |   2 +
+ tools/testing/selftests/mm/ksft_pmd_swap.sh  |   4 +
+ tools/testing/selftests/mm/pmd_swap.c        | 989 +++++++++++++++++++
+ tools/testing/selftests/mm/run_vmtests.sh    |   4 +
+ tools/testing/selftests/mm/vm_util.c         |  24 +
+ tools/testing/selftests/mm/vm_util.h         |   2 +
+ 38 files changed, 2630 insertions(+), 191 deletions(-)
+ create mode 100755 tools/testing/selftests/mm/ksft_pmd_swap.sh
+ create mode 100644 tools/testing/selftests/mm/pmd_swap.c
+
+-- 
+2.53.0-Meta
+
