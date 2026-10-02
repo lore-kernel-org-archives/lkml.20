@@ -1,195 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553C34A0908
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4727493D42
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790947861; cv=none; b=iwLXJlND+k+01HEY+L0RRilj1yaELc0JzvE+vLasmjiIzb6NAp1HsVuHolZ3YzT7JRWTO0OoOnhRPNms8FXp5x9S1m278P3xPv6GR0M4G88YL0goxZ7o/OpElw9XE40Nl6DWWZF3NrAbnrRyqj39VunTkIzqJvs32w5SRvV+BQU=
+	t=1790947916; cv=none; b=lnNQUkJRSqrU/nSe8WMU3UvfVNmip+39fZOnuc8EsRUZIwVP2l39VyiVCfgY5yUBALmz/CJ9zXOCPuCJcbY4zVlFZ7WLwqIKyC9ywLICWiQnLV7C0DBxOliQRqYvLh3tcQbXVwpc7QYa3mjiEZTd1o7NuVtQxYvIsdqLkBx62mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790947861; c=relaxed/simple;
-	bh=wQZASrm/f1N5BLfOUw2JFHihCFRl7Nbs/i914LiJ3xI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fgvHr9jzKd6eH+y7Po67phDcP1QRf9FH16qKETEAfyQhserqRl94rZe46qk2eqjiTYPsk8d3lSPxnELSbHFM9m+bkH59PJkJ3dQ4Md2g4E3ymunL102LoAqf8CIrQEjeb+qenaRIt/PuSqyIOwbV5Gl7/euqwIwleqGzMGui/Cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c08MIF6T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790947916; c=relaxed/simple;
+	bh=lxd6po6fgSciMb1Ro4LbKXumzbF23PPies3d62RHoUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bt4eDw0t0Eze8l5TJX1rMpQnoyQBdTBTNTKCZlBVqAQcO3nwO8yB/t81EkSF1QN01QnJ81WQMRS6940TrLwW5fFE0+g4JfMRzexBdQiupRtuXDxASfLUQkaPvqzf2T9/bKrUS00OjbTrbF9V4dzU5TPgCFVv7qighFb9+CNrbjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=eaPRLQTH; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c08MIF6T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 054F01F008A0
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 13:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790947860;
-	bh=sE8bXXV2aYl7I0eHUtl6v66dSznCvnKz176VEoS4MxE=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=c08MIF6TFp30XoozLY7hPI62jW6F4+6WRpgGc2EtmTP+G4FwJQVXYA/eGHiXdPDvw
-	 PFdVCsOa/uGQ1MT0aLyDNlZImI/l0vr4SnlEApZXHOvkx2lahiHpGecTGwvILw7Oco
-	 +KB7mdwVnROvDiqP7l+wEFso8/6SJCodlQvs027oUr/pthm9oWwrIK4RscxB77l2Ot
-	 KAiZ1jGEy8NOKqSSZZVLs+ecAO3afa5565KAiyHSGeWOBHseDy8THd0kDgn32c+JTe
-	 iRSXH9OqMboU/QkNoNu1UNRK7aBpkBhGY+UeA/I6UkvWr4Q/EUNL2k+r8pigRgYbV2
-	 kO+du45rxPing==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a782bdc1dbso19188841fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:30:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByh/fz1Z+noAJTgCWmsOhh00nchLOFdXt9olukhUmGUyOH6vld2pPApKyvP+rtqufxhoi3GRA9H9cxm/tw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkOKTvEFpUwZX6g7JBs4wmr7Kjweo2IsqXmdfe/nRT6xIBWAiE
-	jcSv9WOGvQnlcV8FeQOpLqHCH1l0ZCGVKsyCtOQE8roXkWvPeAIqQv+fse1fVlafE9vzwzLhuXm
-	1PWeyLoJSk+RGTgzPK8oDQddFgG6/h9wXZFbiulhpLw==
-X-Received: by 2002:a2e:9fc6:0:b0:3a6:10d4:61c4 with SMTP id
- 38308e7fff4ca-3a887813cd1mr7252281fa.28.1790947858689; Fri, 02 Oct 2026
- 06:30:58 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 16:30:57 +0300
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 16:30:57 +0300
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260928-arm-psci-system_reset2-vendor-reboots-v26-6-b24e2348e8e1@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="eaPRLQTH"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso23265645e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 06:31:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1790947911; x=1791552711; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b5IXHgAtL8/tcae5bQMBJzUP97M7snujo3DcDARBgYc=;
+        b=eaPRLQTHXHdy5be5YH+uQAbyhY/2qEjVz7xp1PK5ynlkGywxtHaxuoCQMNc1h7MjVz
+         CozKzjyJ+vZoZpF8lJyrAJTqhQ5P57fXQLnF6kiSlTWWdnFAsY1s6LO02UqpE62sUoxL
+         8k1RV1FM70T7fIlWUiMpeYcREo5IVH1E2CyYC5ZkFrcYimLzYbH1FHJeEKQlGSFGuys3
+         pxWf3pmDIQEI5Ajzv4LrbYeScjDdpFFefXrAOKfWHVz6LPzdsgNJEuuajogbdrARFEB2
+         8E+rxZCdkB+TetZikEj3TG/NtYsN1Plitdh3Iyn+ZLMkDSuKWXK/nYgtKM3okvBQkZiB
+         XJkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790947911; x=1791552711;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b5IXHgAtL8/tcae5bQMBJzUP97M7snujo3DcDARBgYc=;
+        b=l/ErO6qFFxH4pWymsHR18yj3tCMFUuZBOt7IeFJHVj6sDDG3hfyK3W+aKQpO8KR6m9
+         uB2c83LpEEDg4ma9cGE1dTXVZ6p/GytbCMdflDCwqzd+RKFEkuh44KlfavtP0h2CAEuo
+         Qh/f+bsi7f0BdJ5hIvOCF6l2LRR2+5nuOhkdF+jtPVA8w6c00+CZI2qqAWwqCUtRgYfv
+         FAl0HDnGf1wFW4W1787ToTG/1MccwUL1sfauCmwBwfwnCJjXCcHpIOH3WKoXW4wKX6Av
+         yejkwKKwa3UmnruyA+8oG8z8bW4Fni8oPAVBPRKTjr/Ft88jrpVHL0nLJSoXyoi9La/m
+         54Qg==
+X-Forwarded-Encrypted: i=1; AKwUvByb6snZeY1x8XJgTmmJmOHpXHt1DN3vWp4Sc/4whDmc9ihQZapB9Nz6Yi1wEtUcQAT/AqqihvPJo+EesHs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kb1/vQKlasj964lWrAixDY0axcb6/nrHitqMEyACJ1HaRrWDm0
+	CX/bmixufSdnIjYJe/9B0eCFFlhjqiktupcfAqOlRSGFoRYbYZqbfCmarLHYJ3nDVcM=
+X-Gm-Gg: AYBFou2Z1ssHuc7xYwBCmsl8m77XsmvkshLlwtlzJq0XIo8PyXxPr6WylepHG+N2RB7
+	7H/n3j7ZIPQoMB6/BT3/LSTSLNlGVJeBzOF2BKGSgE8gpDtOA1MzJC4/kVbv54penqURoTtEQB1
+	PHgB8hSHns5ZVkfCpw1Yq/SSeraTRQ7++TS0Frx4BamIx//XiFUEk0g8r13PApov9J6yF3CISsJ
+	H1IVRyBhY7Lzj/DjaUu44O2ljDf+4MlaZCkOvZ0bFcTa1KVONdyaeqAAmmwSOQFVJlrPIx4QfId
+	E/OruPRCE723/JNxfwfAUXgen+fE+ZIXs9Z4VjZcFkNry1RfS5bCtv0+OPuhEMtxrjhkn4JRhtx
+	u/9+UXCh29J4kY3A7mmlT+HsEZxhhdpf1QW0WkFVUWd9DgVALLwQk5m6kVsz5R2yhXpI+prBzm1
+	RciYpRBz1swSCTGmYAA7YaSq7KBQ8R6Bsv3RmgvyX+6Q5WZOK9UVSH0iyqWycKuXKAsq7QgOF2K
+	9qUaq1Yc3M=
+X-Received: by 2002:a05:600c:3b05:b0:49e:715d:95ca with SMTP id 5b1f17b1804b1-4a027561e0fmr48312725e9.13.1790947910026;
+        Fri, 02 Oct 2026 06:31:50 -0700 (PDT)
+Received: from matt-Precision-5490.. ([2a09:bac6:37a8:ebe::178:143])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394e6c5asm60543205e9.2.2026.10.02.06.31.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:31:49 -0700 (PDT)
+From: Matt Fleming <matt@readmodwrite.com>
+To: Joerg Roedel <joro@8bytes.org>
+Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Sairaj Kodilkar <sarunkod@amd.com>,
+	Baoquan He <bhe@redhat.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kernel-team@cloudflare.com,
+	Matt Fleming <mfleming@cloudflare.com>
+Subject: [PATCH 0/2] iommu/amd: Fix device table setup in kdump kernels
+Date: Fri,  2 Oct 2026 14:31:41 +0100
+Message-ID: <20261002133143.3628181-1-matt@readmodwrite.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com>
- <20260928-arm-psci-system_reset2-vendor-reboots-v26-6-b24e2348e8e1@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 16:30:57 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MdSfBvZF4UJm=eBBD-GAJD7oFw3e+6UJeoXgidoPGzm-w@mail.gmail.com>
-X-Gm-Features: AclHuK9NRrBpOxbdKY64qOqdzxHen1rX4zRRIEbqfUSn0FJYeFcgfvAtIpYZWTI
-Message-ID: <CAMRc=MdSfBvZF4UJm=eBBD-GAJD7oFw3e+6UJeoXgidoPGzm-w@mail.gmail.com>
-Subject: Re: [PATCH v26 06/10] power: reset: Add psci-reboot-mode driver
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulf.hansson@oss.qualcomm.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 08:09:18 +0200, Shivendra Pratap
-<shivendra.pratap@oss.qualcomm.com> said:
-> PSCI supports different types of resets like SYSTEM_RESET, SYSTEM_RESET2
-> ARCH WARM reset and SYSTEM_RESET2 vendor-specific resets. Currently
-> there is no common driver that handles all supported psci resets at one
-> place. Additionally, there is no common mechanism to issue the supported
-> psci resets from userspace.
->
-> Add psci-reboot-mode as an auxiliary device created by the psci-devices
-> driver. Define two types of PSCI resets, predefined-resets and
-> vendor-specific resets. Predefined-resets are defined by psci driver
-> and vendor-specific resets are defined by SoC vendors, under the
-> psci:reboot-mode node of SoC device tree.
->
-> Register the driver with the reboot-mode framework to interface these
-> resets to userspace. When userspace initiates a supported command, pass
-> the reset arguments to the PSCI driver to enable command-based reset.
->
-> This change allows userspace to issue supported PSCI reset commands
-> using the standard reboot system calls while enabling SoC vendors to
-> define their specific resets for PSCI.
->
-> Suggested-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> Suggested-by: Lee Jones <lee@kernel.org>
-> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  MAINTAINERS                            |   1 +
->  drivers/firmware/psci/psci-devices.c   |   4 ++
->  drivers/power/reset/Kconfig            |  11 ++++
->  drivers/power/reset/Makefile           |   1 +
->  drivers/power/reset/psci-reboot-mode.c | 104 +++++++++++++++++++++++++++++++++
->  5 files changed, 121 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 70a11f2ff61d..1007d5cd2e13 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22058,6 +22058,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/arm/psci.yaml
->  F:	drivers/firmware/psci/
-> +F:	drivers/power/reset/psci-reboot-mode.c
->  F:	include/linux/psci.h
->  F:	include/uapi/linux/psci.h
->
-> diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci/psci-devices.c
-> index d23befc490ed..04f24b8d9943 100644
-> --- a/drivers/firmware/psci/psci-devices.c
-> +++ b/drivers/firmware/psci/psci-devices.c
-> @@ -20,6 +20,10 @@ static const struct arm_psci_device_info arm_psci_devices[] = {
->  	{
->  		.name = "psci-cpuidle-domain",
->  	},
-> +	{
-> +		.name = "psci-reboot-mode",
-> +		.of_node_name = "reboot-mode",
-> +	},
->  };
->
->  static void arm_psci_auxiliary_device_release(struct device *dev)
-> diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
-> index bce996bbef28..f165a41d40ed 100644
-> --- a/drivers/power/reset/Kconfig
-> +++ b/drivers/power/reset/Kconfig
-> @@ -360,6 +360,17 @@ config NVMEM_REBOOT_MODE
->  	  then the bootloader can read it and take different
->  	  action according to the mode.
->
-> +config PSCI_REBOOT_MODE
-> +	bool "PSCI reboot mode driver"
-> +	depends on ARM_PSCI_DEVICES
-> +	select AUXILIARY_BUS
-> +	select REBOOT_MODE
-> +	help
-> +	  Say y here to enable the PSCI reboot mode driver. The driver
-> +	  registers with the reboot-mode framework to configure PSCI
-> +	  reset commands, which are executed by the PSCI driver during
-> +	  psci_sys_reset().
-> +
->  config POWER_MLXBF
->  	tristate "Mellanox BlueField power handling driver"
->  	depends on (GPIO_MLXBF2 || GPIO_MLXBF3) && ACPI
-> diff --git a/drivers/power/reset/Makefile b/drivers/power/reset/Makefile
-> index e31cab4ba78e..45d8aaaffaa1 100644
-> --- a/drivers/power/reset/Makefile
-> +++ b/drivers/power/reset/Makefile
-> @@ -41,5 +41,6 @@ obj-$(CONFIG_REBOOT_MODE) += reboot-mode.o
->  obj-$(CONFIG_SYSCON_REBOOT_MODE) += syscon-reboot-mode.o
->  obj-$(CONFIG_POWER_RESET_SC27XX) += sc27xx-poweroff.o
->  obj-$(CONFIG_NVMEM_REBOOT_MODE) += nvmem-reboot-mode.o
-> +obj-$(CONFIG_PSCI_REBOOT_MODE) += psci-reboot-mode.o
->  obj-$(CONFIG_POWER_MLXBF) += pwr-mlxbf.o
->  obj-$(CONFIG_POWER_RESET_QEMU_VIRT_CTRL) += qemu-virt-ctrl.o
-> diff --git a/drivers/power/reset/psci-reboot-mode.c b/drivers/power/reset/psci-reboot-mode.c
-> new file mode 100644
-> index 000000000000..bf2dd6626feb
-> --- /dev/null
-> +++ b/drivers/power/reset/psci-reboot-mode.c
-> @@ -0,0 +1,104 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/device.h>
-> +#include <linux/errno.h>
-> +#include <linux/init.h>
-> +#include <linux/kconfig.h>
+From: Matt Fleming <mfleming@cloudflare.com>
 
-Huh?
+An AMD kdump kernel booted with crashkernel=512M,high and
+crashkernel=0,low fails to allocate its device table because there's no
+memory below 4G. IOMMU init fails and, on our systems with an Intel
+E810 NIC, the ice driver's TX queues time out, so the dump never gets
+sent.
 
-With that removed:
+Since commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump"), a
+kdump kernel normally reuses the previous kernel's table. Patch 1
+programs the new table if reuse fails. Patch 2 drops GFP_DMA32 for
+kdump kernels. Normal kernels still allocate below 4G, because that's
+what the kdump kernel checks before reusing the table.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On an AMD EPYC system with an E810 NIC, the kdump kernel without these
+patches failed the order-9 GFP_DMA32 allocation and its TX queues timed
+out. With these patches, the kdump kernel reused the old device table
+and the dump was written over the network.
+
+Matt Fleming (2):
+  iommu/amd: Program device table when kdump reuse fails
+  iommu/amd: Don't allocate kdump device table from DMA32
+
+ drivers/iommu/amd/init.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+-- 
+2.43.0
+
