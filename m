@@ -1,120 +1,116 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA3F459AF9
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B34471D10;
+	Fri,  2 Oct 2026 09:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.165
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933069; cv=pass; b=Yymb3u30xTnve2oMixKNO8exiHDZrfZtGccsHwpuOrJBv2g9uMhKwD+R0Im1hGnntSs2hpiWUlRqqUMHi59H/QBqP4CX5ASfmcGzBSpms/DwenqxkXzyKQwNLquQXkTTueW+7pDsL+X/+3crt8GL0ggwFSzhBR4DjOb5piZSWjs=
+	t=1790933073; cv=pass; b=Wq4iAopfGKVaMo22QFitMiyNU903bc0va5KCxIhpV2t0WzOiUdzxMAKnQnH1Ozmx5k88wzlScQVTZGh+kbcGTicBfXvln0B6P+iRCtFaBdbMl0RRu1vpjIlO3wZd2T2YCC8YuqWD7uKGbBvCCmz0DDPWI9lI9gDcP/vq6L/uPP4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933069; c=relaxed/simple;
-	bh=7PmFoTV1MhIrlyB9q/nIr5bTRr/fQsMqTgmO60KsB8I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lzmqGDH2fBOfZWnrmNlyT0h7f0Kd92e1NG4aIxTHOY1vbRpjTcdqqFRGj0clM1a8gD3Sk2/qE/N1/k1KtDy5QiTF4LU1JM9mEV7/U2YHBMpGXvZ2FB9zBbjGO70eSxyiuY1uZ93XNeZkpddeviGLOaqK0Bappt69i+aWSwWOdoM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ARP0Bu1C; arc=pass smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790933073; c=relaxed/simple;
+	bh=OGsyA19scA0QsAjlL/scH+RGq/86dQMb9SXx//eF9rU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Sjt2D2NDQTCqIk3M6HPL5X6y7NAGZcksDWD5t43b3U4VEiLm6O1cJiUEo10SK/ebQ3JyqY0KUtsFr6xzFaQ0r6/byfXhVOl4Q80hE/JuX65yezUH1GxeD+xtVQSxDbQU94aQacZ0Y48xLTmZw+qo7gupsRKabaq5qiyIHEGbvxo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=fJjCzDYU; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=LxDKS+1V; arc=pass smtp.client-ip=81.169.146.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ARP0Bu1C"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba40832934so4277e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:24:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790933066; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eKFr5/WckFO1LdC3Yk11xu45gC4ixcKft7jFrIXQ2SpxEhPHATDjt/0nYUF8kOB//d
-         KhDovWqh1//KnHigxebGZan0yTSc0W3igwvC28DKfHseoTmaymVNQGz7LHHmS761VoBj
-         OXDolRL6h3JBOZrfdDqcMGjukjaDuE8mdUKi9QyqLFmxohRxMNb4Fvyiiln9OrbcQCgS
-         Tj7/zpri3aJFrWEPq8phucVBoWrtmOy3mdgB1h3/IU3pl8T1al5qowalJ7L3NK2s92XY
-         +AlBhrQBsmZCPrpgOV6qsOauqTjce6ZLsLWDtN3jweo4za/RXu5EtpHsrYNwiisPS0p4
-         zeSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=7PmFoTV1MhIrlyB9q/nIr5bTRr/fQsMqTgmO60KsB8I=;
-        fh=cT/qXRwLMeSr/x7MZ7uvpUFsiIpZ+KY+bZlFiJfEPFo=;
-        b=SpT09dTwjteKhxDZwcXvOFWJIyBbC0YGkJfWwaEUzLn8Rx7h/VjLOuDB9IohM4PG87
-         V8rInKI8EAE43jomxs8FKuqaEBN4HPaHVY/Osg37I1C7kmGbbvlexrU17LbpaCGzx/Qp
-         t/0QbAWgWq3NKMCqVEaZgR2IK5kYktSLJWYSCd5ZvqENiXm6vK6bzrz9oJIqQkVvvs7m
-         UrUrvJlvzCT1hvK4Su6oePwir1xrK9/BgvgElxOXCriS6IxJQlfuF+Y/YLjTXKlpf4Ti
-         95fqbFMUICkQQvuIXcToYlNDcnMaTxO6JaWOyp9tm1xvdNCiBFPBU7MeB7Ogn2rVFiVq
-         NZqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790933066; x=1791537866; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7PmFoTV1MhIrlyB9q/nIr5bTRr/fQsMqTgmO60KsB8I=;
-        b=ARP0Bu1C8XEPPsE6on7b3PkqYH7IR7Y+6Nln/Jmj1l+Xw08FUBTjOFpP+SQKPNkQdw
-         LTIf2ZF1BlysKAROzOShdW1sY6Pddoj+q0ZIkZpq43A58G+dYAA+1PkVDXjw4Ocx9K0l
-         8LhYzSQY7qR4G9sPOqalrMaWJRQc8jsE1g9Vx2BniTInxKTnWFPqXz6GCF9ttnNJZwkv
-         VbkB1xuVczdlz5UXvDn8fNFC/D6RL39iTOYj13OPc/44e23EmrBS8A99zFHlFX5YQwdR
-         +HMLamDY5GZDjvLpGopvrc8LEZwKisFC9mULn9BhZLMGpOqd8TVRGVpaVw6JpBCDs2kc
-         ygYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790933066; x=1791537866;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7PmFoTV1MhIrlyB9q/nIr5bTRr/fQsMqTgmO60KsB8I=;
-        b=hl7N1oRiCg0QLo1pccRYMLc32ZO15t9c7n1kzOq7I+BFk+DeQCbtkeuE/U08tinIjz
-         9qupZ+c3+GMwHw1P6pMHftNi8SQeDPkNviA9mvS6CHkbSqA89rNhcRgTUxcikEjtESRF
-         heM8pH88nnIwrI3H+BHwy4+tzK1fo3TxJIIGvC2JEM5Uc4dEbr5flbQpfIYjIOIG36b8
-         OvIcn88MMclqZChJyOzmcFE3CgwflArdJXB2HvsMwGjKL79wr9xfs5X9pzfHYgSZa82E
-         pye98tcm04Tl+Z9itm3kVNV0ElXBUVBSvRdAyXY5prf89/RkGMYNnPzgX7v4AmtZ3LgA
-         5z1Q==
-X-Forwarded-Encrypted: i=1; AKwUvByqNRozZaUjjcqHVBHFBZKvZq34CEx1CMF++v8Egz0os0WNWpwuFiaSG6exHMFauwrY2J7C3cT2PXKeMUc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXK7WU6ir1B0ZqotbQelhuqcUbFVOijqLfQoV6amV0cUb57ah3
-	uHpSjU2uK5cHZSRYIYaZ+AILlJFvMB91+RD7lbE3LSmGb0jnEDfQgdBqBPkOoz7XcC1vtTh1mhm
-	XgLJvnyVcpsWEvOAc1DW/pJHOlSZhbv2zn7rn7bcV
-X-Gm-Gg: AYBFou3t4jiSKQfbL1xytHFOpTOwUT0Ff75LrMsuXSi56Xiyx7cXWNL7b1DSZFQCnas
-	g616RqrxxgOSNgB4xpxNgYlz+5ZdgWvkDKMyVWVSuyEiMcvYcdiKEKTNIlqJJT6kjIzqaliBgMS
-	FGkiArfQe6uB0y8O9Ugqbc8eQJY0VYVX2XmVKeX5APp3FVkKi6BOTk+VLWavaGGx8V8AGsrL468
-	fyBko6pMYcW8/4c3FYgDIMR3pa2q1VxKCMIVDnLc4rFcA+OGl6MlNIjNyNAagFy6r6dmjncCI0/
-	WyuvVeqSd8NfqQtnSJTiqa7Ovn+tS4hAzb3SJN36zYdV6sPUCO/CQvcAv4Y4W90xdFVLFaSHoT+
-	lfD7+ZUxO//Q+0g==
-X-Received: by 2002:a05:6512:b8e:b0:5bb:ff6f:b4bd with SMTP id
- 2adb3069b0e04-5bbff6fb595mr82503e87.14.1790933065552; Fri, 02 Oct 2026
- 02:24:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="fJjCzDYU";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="LxDKS+1V"
+ARC-Seal: i=1; a=rsa-sha256; t=1790933056; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=qLHMSmKLxT4aE6HxvhLtgrEVHYt2eVj1UN6VDDPBwxZ+gQbKpsFRcQTjlrAii5bUfg
+    SKATAYQ+mSPI284P5T5BEcDhUHxFYW66bobrlBBfLWrz8OITxVpligLEaFm+C6J2Wf1Y
+    ro5CQZvS3FfsTJ7UnoOjkMYolcq5V5NFdAeaDboeqgQmAr9+ysfSKt2RI6oFhAQqQSmp
+    hcIsHicKB/wofEYYJC79avbd5u3Q38C+4sytKcG7/65ZJS3vrJc9GvRNnYCQL5vM3F37
+    nc/gaspbTmplKfwDAgPGA4lzB2P+0VF/lKxek863O4NpLeSvRznbCXw+LUas9hP8m2VO
+    Zp5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1790933056;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=OGsyA19scA0QsAjlL/scH+RGq/86dQMb9SXx//eF9rU=;
+    b=cBEaFTNWBcupFim/yKyj0yDxzEPpBIBWaq38bJvwIPJK2MCv5DHY7cO80cz0q0vwve
+    cBrOX1XhxYndFIdjTQcs2SA6zu5dN5qsFGu8E3JEnHkswpxomlzzPFW27SZktbDWztKD
+    L9fz+zlg0Gp+fGUL1/7/BQ9q2cddP50cZcZ88qdyy3twD/KUzdfDEP03k3Z2q05YHqtL
+    /UL1+KW48mnQkLE45K6S7PY/at10IjxexMTf1Hl1YdWi0W2zsqoMWttbyZ/V9SOp9VVm
+    0eVPc6u2dSoYH556+YedK3dt3inPM7KaCLNopEW5VuRYt27m04PnnSWjRT39fN1/+azl
+    e+wg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1790933056;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=OGsyA19scA0QsAjlL/scH+RGq/86dQMb9SXx//eF9rU=;
+    b=fJjCzDYUSibh1aZsOwu+Qsm9m3rXCUrilzC1TIviamNBSOf/vIju653XUoRGgkzOQP
+    Y1aDvNquNruebi/3g/LNCDs7NLk4R//j/Kv/trfJgGFNWVI7xEAh3qewFsWgFysKMvzQ
+    U/kLdQNH5L67RKft0Se1RHSgacJEI+G9JSWjYDfTb+pFLSLzMHHIoWdJxsU+SzFm8Sc/
+    4TXSbmzmSvFQjy9hwhtOVgRfuHQmVwwnhPfZllktDnX8xSgV6jZy/PdcR090kLb+e/mP
+    2qIbipoSPK02bW4is1hqA1CEhDhZsuH78WSCPKZmMgwc2ZOhoA0tBEmkEYHPKjfA1gH6
+    xA6g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1790933056;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=OGsyA19scA0QsAjlL/scH+RGq/86dQMb9SXx//eF9rU=;
+    b=LxDKS+1VS/8IehST8lNcUPhCRaCvJjqRV86M9Nwjc8kUPxwCdrLG3FpWA+37DSMA7f
+    MWfuCIZlrv/hQnfG82AQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZqk"
+Received: from [10.176.237.249]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id z04e1c2929OGHSX
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 2 Oct 2026 11:24:16 +0200 (CEST)
+Message-ID: <8ab9b08e12bf60e89a60a86137a23e9164e43839.camel@iokpp.de>
+Subject: Re: [PATCH v2 0/2] scsi: ufs: batch device-init reads with UFS 5.0
+ aggregated read
+From: Bean Huo <beanhuo@iokpp.de>
+To: hyenc.jeong@samsung.com, "James.Bottomley@HansenPartnership.com"
+ <James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>,
+  "avri.altman@sandisk.com" <avri.altman@sandisk.com>, "bvanassche@acm.org"
+ <bvanassche@acm.org>,  "peter.wang@mediatek.com" <peter.wang@mediatek.com>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>
+Cc: Jinyoung Choi <j-young.choi@samsung.com>, Alim Akhtar
+	 <alim.akhtar@samsung.com>, "beanhuo@micron.com" <beanhuo@micron.com>, 
+	"can.guo@oss.qualcomm.com"
+	 <can.guo@oss.qualcomm.com>, "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>
+Date: Fri, 02 Oct 2026 11:24:15 +0200
+In-Reply-To: <1860250540.01790747102385.JavaMail.epsvc@epcpadp1new>
+References: 
+	<CGME20260930050201epcms2p13ab67182445b0555acc8d27b927cda86@epcms2p1>
+	 <1860250540.01790747102385.JavaMail.epsvc@epcpadp1new>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com> <20261001210703.1597150-14-suzuki.poulose@arm.com>
-In-Reply-To: <20261001210703.1597150-14-suzuki.poulose@arm.com>
-From: Fuad Tabba <tabba@google.com>
-Date: Fri, 2 Oct 2026 10:23:49 +0100
-X-Gm-Features: AclHuK_iAoRmEqRhd3Pqw1bLNIyTQ_Nu4t-bE7ReQMk3jjFJ4DGtZ7fagNuCSDg
-Message-ID: <CA+EHjTzz+nmaMDQBXt2e4RU8YcsJOJkVevygJHsq_jbon8PsXg@mail.gmail.com>
-Subject: Re: [PATCH v21 13/23] KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
-	jonathan.cameron@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 1 Oct 2026 at 22:08, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
->
-> pKVM does not trust the host. Realm VMs follow a similar trust model, with
-> the Realm Management Monitor owning the protected state instead of the host.
-> Add a helper to identify VMs that run under a host-distrusting hypervisor.
->
-> Use this for blocking ioremap of vgic-v2 into stage2 and prevent creation of
-> VGIC other than v3.
->
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+On Wed, 2026-09-30 at 14:02 +0900, Hyeoncheol Jeong wrote:
+> No functional change for pre-5.0 devices.
+>=20
+> Motivation: on a Qualcomm SM8850 platform with a Samsung UFS 5.0 device,
+> timing raw UPIU queries over BSG (100 iterations) shows that replacing th=
+e
+> device-init read burst with a single aggregated read reduces the query
+> time by 75-78% (min 75.3%, avg 76.4%, max 78.5%).
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Cheers,
-/fuad
+Hi Jeong,
+
+I don't know if you have plan to enable this feature in UEFI or any bootloa=
+ders
+to eliminate the boot overhead becaused of query iterations.
+
+Kind regards,=20
+Bean
+
+
