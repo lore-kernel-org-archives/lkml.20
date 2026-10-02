@@ -1,263 +1,337 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F29EE358389;
-	Fri,  2 Oct 2026 06:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C313624C3
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921737; cv=none; b=tZON3BVctJP/qq4eyjvaTyA2Ra5nHR1qGyWDCM34gPGci3c6Kg3BoIbC/wtVcS21AX33VgclYZv7VlKPG7msr5NWknoV7F9IIF408XNjKN/c2kNMgSt2Jjpz5XZHrV8jMtG1TagIb6Ndq/T10wfXBsnS/QtTRd8+cWB5Er8DLG4=
+	t=1790921737; cv=none; b=rinMdPCv5LR8uWRpzPCePqQje75qSp+mxkciMXbsTF1UuWrIcpv0eWp/xGPNhLWr8eYGlGONiU3GHFCPV4p5rLBu5BnZUsWyD+K9Qo/NiMOutH1vNHoVehoyI+HyPpd7cEVj31tZnkxzYWYx7572F3kkG6hZRof3AMeC+B93wDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790921737; c=relaxed/simple;
-	bh=7zShFGdQDhGY4W8Da+DeQe/CtMsGPlPVSe8aLJgmR/8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RfQhMqF8wRWB6qQzpDALuznJBUxEzqxAtzP2qshxI1fINyk+tXVrOEJjR+hmV4Ab+XBzVzqtiECzlo6bAJGIMsn+tSK6yl5Xm3I8p82un8FuVpoGTMwzR53T+vThHf0F9fr+J5DWLAyGXz7cUPf80bQGmh3YvQNm5Aav6VPAGTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LE/T9XZ0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LE/T9XZ0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D14C5497;
-	Thu,  1 Oct 2026 23:15:30 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C26923F763;
-	Thu,  1 Oct 2026 23:15:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790921734; bh=7zShFGdQDhGY4W8Da+DeQe/CtMsGPlPVSe8aLJgmR/8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=LE/T9XZ02eiu1l8iQDkHTs0vmuQMjDjpLdqi5rVlbVyK3JfvVdxyMA3DgAdoV2pei
-	 QNhJcDtERIwEr3pIYDdlC+qcMDMFEQ+4cc74n/F4ui+fh4R5lLzSi+wiFY9F5/XDHV
-	 zplzs7Gd57g+YaicTQu9hfs7Lv2ImE9Lt/CIghIw=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v22 00/10] firmware: arm_rmm: Add RMM v2.0 base RMI support
-Date: Fri,  2 Oct 2026 07:14:56 +0100
-Message-ID: <20261002061507.1600269-1-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
+	bh=cCWTomR+IxE8n110azN/buoa+QOBIeOrS7DImRQP20I=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Q0Q/mtsFvmGhrRtrw6i+KlyIfE1n5z3s++iUzMe41RgtTEIXaEJUGpYc0XtYOBcFCMf/0ZYVeMFXc/Fk2PndXR63Rhb6IeqKO8XXMl8XbGz0W5jumwz/lA8UtVDrwHxmNwhdGFgp727ElwdNglOMdTmueDckIFCtJqhVjCn9RLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-82315dbce25so134759a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:15:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790921734; x=1791526534;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VHl164KF9QmUiHMYC+0V/c2CfiNGjgIdO8kbSXlbTVs=;
+        b=E0sRu5U7V3Gyr26ISs85+Z4pZKi2com20dcZPzO7gh88QRAZl0mDlEBC8Lrsm5kkrZ
+         Ga4Fd9Q/1tgkixbV14AhMnPNK0jHyPti9csrPmGg6QP1BDGz9zxcDL79qhQaWHysPFM+
+         OtFyXyCdeZ6kYAC+3eGV34KwmpLDN4MhGDhxoctJ7F8wwSiTRml+jUp737XJZBeqg0zU
+         IIDpMCKKX+daFyz6z/xnfRbh9oC48PxfnvOVcwhgIm1jaSAargEIAn8CbVZ0+9qfRRn+
+         ipZ0JHJlmLVmRhcxtuLDjwkznF04iGTNmlz1OJSL7DXeVajGyYF0yPFhI1qlzwx5tyxI
+         FsYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSK4FAltmkNk0UNUxPGgcs7ZLWezzeo0uE2zhGXZh/3ak/mFRIMHNZQucaU55TzHIyt5QGx/EksMGFrgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyEt6mr3f7WjJrt28iQsbOmHwhU3YIus2SaS8aHugQ8kV1CMTg
+	Ytp0JKsZ/BcrjV5JKwAzL8FWhKBRj1ojosfJtbjyysMgbfqU4Hy6AmGsJYMN+LpyFMAHvEK5s2o
+	xTFWzcgLBj8i8jFvNXXdqlVyuNMAnMDZy8VNiZgLUiuSyIXhRDFYdP+l4WF8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1315:b0:4e6:76eb:b997 with SMTP id
+ 5614622812f47-4f52a5776f4mr1201120b6e.62.1790921734140; Thu, 01 Oct 2026
+ 23:15:34 -0700 (PDT)
+Date: Thu, 01 Oct 2026 23:15:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6abf4c06.9b478af7.e8d7a.0007.GAE@google.com>
+Subject: [syzbot] [bluetooth?] possible deadlock in rfcomm_run
+From: syzbot <syzbot+0adf2aef8ca78b84c4df@syzkaller.appspotmail.com>
+To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-This series adds the generic firmware layer for talking to the Realm
-Management Monitor (RMM), as specified by the RMM v2.0-bet3
-specification[1]. It is the first part of the Arm CCA host support that
-was previously posted as part of the larger KVM series.
+Hello,
 
-The split allows this RMM support to be used as a base for other work,
-including Aneesh's PCI IDE support with Arm CCA RMM as the TSM,
- without depending on the KVM Realm support that will follow as separate
- series. (See more on that below)
+syzbot found the following issue on:
 
-The series adds:
+HEAD commit:    d266640c6c76 Merge tag 'driver-core-7.3-rc5' of git://git...
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1586b315580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=0adf2aef8ca78b84c4df
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
- * The RMI SMC definitions and direct-call wrappers.
+Unfortunately, I don't have any reproducer for this issue yet.
 
- * RMM discovery and version checks during firmware init.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-d266640c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/b8d2ccf5a23e/vmlinux-d266640c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/0b1dbd9ea9d5/bzImage-d266640c.xz
 
- * RMM host configuration, including the host page size.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0adf2aef8ca78b84c4df@syzkaller.appspotmail.com
 
- * Stateful RMI Operation (SRO) infrastructure for commands which the RMM
-   can complete across multiple SMC calls while requesting or returning
-   memory to the host.
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     
+------------------------------------------------------
+krfcommd/3367 is trying to acquire lock:
+ffff888062feb940 ((wq_completion)hci3){+.+.}-{0:0}, at: touch_wq_lockdep_map+0x9c/0x1c0 kernel/workqueue.c:4111
 
- * Verification that granule tracking is available at fine granularity.
-   Fine-grained tracking allows each granule in the system to be tracked
-   independently, which is required before individual granules can be
-   delegated. A future series will add support for dynamically supplying
-   memory to the RMM for this tracking.
+but task is already holding lock:
+ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2096 [inline]
+ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_run+0x30b/0x5550 net/bluetooth/rfcomm/core.c:2205
 
- * Support for fully firmware-managed systems, where the Granule Protection
-   Tables for memory regions are allocated and managed by firmware. RMM v2.0
-   also allows dynamic GPT creation on demand; support for that will be added
-   in a later series.
+which lock already depends on the new lock.
 
- * Wrappers for the RMI commands that are used for managing the "Realm VM"
-   lifecycle. This is added in to make it easier for the on-going KVM support
-   to evolve in parallel pieces.
 
-If the platform firmware cannot manage the granule tracking or the GPTs, we
-bail out and deactivate the RMM, reclaiming any memory that we have donated.
+the existing dependency chain (in reverse order) is:
 
-The RMM v2.0 spec introduces Stateful RMI Operations (SROs), which allow
-the RMM to complete an operation over several SMC calls while requesting
-or returning memory to the host. This allows interrupts to be handled in
-the middle of an operation and lets the RMM dynamically allocate memory
-for internal tracking purposes. For example, RMI_REC_CREATE no longer
-needs auxiliary granules to be provided up front, and can instead
-request memory during the operation.
+-> #6 (rfcomm_mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       rfcomm_dlc_open+0x92/0xac0 net/bluetooth/rfcomm/core.c:426
+       rfcomm_dev_activate+0x83/0x110 net/bluetooth/rfcomm/tty.c:112
+       tty_port_open+0x156/0x1f0 drivers/tty/tty_port.c:769
+       rfcomm_tty_open+0xad/0x490 net/bluetooth/rfcomm/tty.c:745
+       tty_open+0x2cc/0xe20 drivers/tty/tty_io.c:2110
+       chrdev_open+0x234/0x6a0 fs/char_dev.c:411
+       do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+       vfs_open+0x82/0x3f0 fs/open.c:1101
+       do_open fs/namei.c:4837 [inline]
+       path_openat+0x19fa/0x2440 fs/namei.c:5000
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_open fs/open.c:1431 [inline]
+       __se_sys_open fs/open.c:1427 [inline]
+       __x64_sys_open+0xfe/0x1d0 fs/open.c:1427
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-This series applies on v7.3-rc2 and a branch is available at [2]. The KVM
-CCA support that builds on this series is available at [3] as an integration
-branch. The KVM support depends on guest-memfd-in-place conversion support v13
-from Ackerley [4], we plan to split that into parts, which apply cleanly on
-v7.3-rcx without any dependency and is in progress. This will be made available
-as soon as it is ready. Until then [3] shows how this base series enables KVM
-CCA support. You may find the tf-RMM [5] and kvmtool support [6] below.
-The kvm integration branch has been tested with kvm-unit-tests [7] and Linux
-kernel booting with PCI device assigned as an untrusted device.
+-> #5 (&port->mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       class_mutex_constructor include/linux/mutex.h:253 [inline]
+       uart_set_termios+0x8e/0x690 drivers/tty/serial/serial_core.c:1646
+       tty_set_termios+0x64d/0x980 drivers/tty/tty_ioctl.c:341
+       set_termios+0x5c8/0x880 drivers/tty/tty_ioctl.c:516
+       tty_mode_ioctl+0x17e/0xd40 drivers/tty/tty_ioctl.c:803
+       n_tty_ioctl_helper+0x47/0x2b0 drivers/tty/tty_ioctl.c:982
+       n_tty_ioctl+0x53/0x340 drivers/tty/n_tty.c:2496
+       tty_ioctl+0x11b4/0x1640 drivers/tty/tty_io.c:2774
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl fs/ioctl.c:583 [inline]
+       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-[1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
-[2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v21
-[3] KVM CCA v21 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca/cca-host/kvm-v21/integration-v3
-[4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v13
-[5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
-[6] kvmtool https://gitlab.arm.com/linux-arm/kvmtool-cca.git tag:cca-kvm-v20 (Also cca/kvm-v18)
-[7] kvm-unit-tests https://gitlab.arm.com/linux-arm/kvm-unit-tests-cca.git tag: cca-rmm-v2.0
+-> #4 (&tty->termios_rwsem){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       class_rwsem_write_constructor include/linux/rwsem.h:270 [inline]
+       n_tty_flush_buffer+0x25/0x1b0 drivers/tty/n_tty.c:349
+       tty_buffer_flush+0x239/0x310 drivers/tty/tty_buffer.c:248
+       tty_ldisc_flush+0x68/0xf0 drivers/tty/tty_ldisc.c:388
+       tty_port_close_start+0x306/0x500 drivers/tty/tty_port.c:648
+       tty_port_close+0x26/0x170 drivers/tty/tty_port.c:703
+       tty_release+0x40e/0x1300 drivers/tty/tty_io.c:1718
+       __fput+0x3ff/0xb50 fs/file_table.c:512
+       task_work_run+0x150/0x240 kernel/task_work.c:233
+       resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+       __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+       exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+       syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+       do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Known issues: RMMv2.0 spec.
-==========================
-Here are some of the known issues affecting the code here. I have included the
-ticket number associated with the issues, which will be available in the RMM
-spec, when a public release is available. (So that it is easier to see if the
-issues has been fixed in the spec and easily spot them)
+-> #3 (&buf->lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       tty_buffer_flush+0x72/0x310 drivers/tty/tty_buffer.c:236
+       tty_ldisc_flush+0xad/0xf0 drivers/tty/tty_ldisc.c:388
+       hci_uart_flush+0xed/0x630 drivers/bluetooth/hci_ldisc.c:255
+       hci_uart_close+0x1d/0x90 drivers/bluetooth/hci_ldisc.c:292
+       hci_dev_open_sync+0x126f/0x25e0 net/bluetooth/hci_sync.c:5480
+       hci_dev_do_open+0x2a/0xb0 net/bluetooth/hci_core.c:431
+       hci_power_on+0x131/0x630 net/bluetooth/hci_core.c:923
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
- * RmiOpMemDonateReq:count (Uint14) is incompatible with RmiAddrRangeDesc4KB
-  (Uint10) and RmiAddrRangeDesc16KB (Uint12). i.e., a larger contiguous request
-  may not be satisfiable by the host. This is resolved in the RMM spec, by clamping
-  the upper limit on the number to match the RmiAddrRangeDesc* and will be published
-  in the next release. (FENIMORE-1744)
- * RMM to clarify the scenarios that triggers the RMI_BLOCKED and the
-   recommendations to limit the cases. (FENIMORE-1783)
- * RMM to clarify the "PE bound" SRO context pool to really mean global pool
-   (FENIMORE-1802)
- * Clarify RMI_RTT_DATA_UNMAP, output_count, output_range are only valid when
-   result is RMI_SUCCESS (FENIMORE-1746)
- * Fix the top_bound condition for RMI_GPT_INFO, (top > pa_sz) (FENIMORE-1807)
+-> #2 (&hdev->req_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       hci_dev_do_open+0x22/0xb0 net/bluetooth/hci_core.c:429
+       hci_power_on+0x131/0x630 net/bluetooth/hci_core.c:923
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-Changes since v21:
-https://lore.kernel.org/all/20261001084555.1456543-1-suzuki.poulose@arm.com
+-> #1 ((work_completion)(&hdev->power_on)){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       process_one_work+0xa32/0x1b10 kernel/workqueue.c:3372
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-  - Always use SMC conduit for RMI calls. Fail rmi init if the conduit is not
-    SMC
-  - rmi_sro_donate_contig: Free up space in sro->address_list if we run out of space
-  - Add a comment to indicate, RMM consuming 0 granules is a valid case, not buggy
-    RMM.
-  - Split introduction of arch_hiberation_available() to a separate patch
-  - Drop cpus_are_stuck_in_kernel() from arch_hibernation_available()
-  - Add a comment to note that out_* are only valid on RMI_SUCCESS for
-    rmi_rtt_*_{unmap,map} - For the LLM reports.
-  - Always inline rmi_rec_enter, rmi_rec_destroy and rmi_smccc_invoke_once()
+-> #0 ((wq_completion)hci3){+.+.}-{0:0}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       touch_wq_lockdep_map+0xad/0x1c0 kernel/workqueue.c:4111
+       __flush_workqueue+0x131/0x1200 kernel/workqueue.c:4153
+       drain_workqueue+0x175/0x3b0 kernel/workqueue.c:4317
+       destroy_workqueue+0xc3/0xa30 kernel/workqueue.c:6155
+       hci_release_dev+0x14d/0x630 net/bluetooth/hci_core.c:2717
+       bt_host_release+0x6b/0xb0 net/bluetooth/hci_sysfs.c:100
+       device_release+0xd2/0x270 drivers/base/core.c:2640
+       kobject_cleanup lib/kobject.c:689 [inline]
+       kobject_release lib/kobject.c:720 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       kobject_put+0x1f7/0x640 lib/kobject.c:737
+       put_device+0x1f/0x30 drivers/base/core.c:3884
+       device_release+0xd2/0x270 drivers/base/core.c:2640
+       kobject_cleanup lib/kobject.c:689 [inline]
+       kobject_release lib/kobject.c:720 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       kobject_put+0x1f7/0x640 lib/kobject.c:737
+       put_device+0x1f/0x30 drivers/base/core.c:3884
+       hci_conn_put include/net/bluetooth/hci_core.h:1689 [inline]
+       l2cap_conn_free net/bluetooth/l2cap_core.c:1856 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       l2cap_conn_put net/bluetooth/l2cap_core.c:1869 [inline]
+       l2cap_chan_destroy net/bluetooth/l2cap_core.c:494 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       l2cap_chan_put+0x352/0x3f0 net/bluetooth/l2cap_core.c:521
+       l2cap_sock_release+0x1db/0x280 net/bluetooth/l2cap_sock.c:1533
+       __sock_release net/socket.c:735 [inline]
+       sock_release+0x91/0x1c0 net/socket.c:763
+       rfcomm_session_del.isra.0+0x16b/0x250 net/bluetooth/rfcomm/core.c:718
+       rfcomm_process_rx net/bluetooth/rfcomm/core.c:2030 [inline]
+       rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2115 [inline]
+       rfcomm_run+0x6f6/0x5550 net/bluetooth/rfcomm/core.c:2205
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-Changes since v20:
-https://lore.kernel.org/all/20260929221623.1342076-1-suzuki.poulose@arm.com
+other info that might help us debug this:
 
- ** Patch: firmware: arm_rmm: Add support for SRO
-  - Fix potential overflow of donated_size from a buggy RMM
-  - Use FIELD_MAX() for the maximum count support for RMI_ADDR_RANGE
- ** Patch: arm64: Block hibernate and kexec while RMM is active
-  - Block hibernate via a new hook "arch_hibernation_available()"
- ** Patch: firmware: arm_rmm: Add wrappers for Realm related RMI commands
-  - Add a non-retrying rmi_smccc_invoke_once, use that for REC_ENTER. Will be
-    useable by other DA related RMI calls. KVM integration branch also handles
-    RMI_BUSY and treats it as ARM_EXCEPTION_IRQ
- ** Patch: firmware: arm_rmm: hotplug: Skip memory added to ZONE_MOVABLE
-  - firmware: arm_rmm: hotplug: Skip memory added to ZONE_MOVABLE
- ** Collected Reviews, Ack with thanks
+Chain exists of:
+  (wq_completion)hci3 --> &port->mutex --> rfcomm_mutex
 
-Changes since v19:
- https://lore.kernel.org/all/0260924135201.850038-1-suzuki.poulose@arm.com
+ Possible unsafe locking scenario:
 
- ** Patch 1 - RMI SMCCC definitions
-  - Fold 'padding' only union in rec_exit to the previous group of fields
-  - Add static_assert to make sure the struct field offsets match the spec
-  - Rename 'padding' fields to 'sizer' which they really are
-  - Add MAINTAINERS entry for the new header file under ARM64
- ** Patch 2 - firmware: arm_rmm: Check for RMI support at init
-  - Fix comment : s/RmiFeatureRegister5/RmiFeatureRegister4/
-  - rmi_feat_reg() s/unsigned long/unsigned int for index
-  - linux/arm-rmi-cmds.h -> Mark the "#endif"
-  - Use += rmi.o in Makefile
-  - Mask the ID_AA64PFR0_EL1_RME field for KVM guests
-  - Add MAINTAINERS entry for header file and arm_rmm directory
- ** Patch 3 - firmware: arm_rmm: Configure the RMM with the host's page size
-  - Don't initialize 'ret' in rmi_configure, add explicit return 0/-EINVAL
- ** Patch 4 - firmware: arm_rmm: Add support for SRO
-  - Fix typos s/-ECANCELLED/ECANCELED/ rmi_sro_execute()
-  - Drop duplicate, incorrect assignment of sro_handle in rmi_sro_execute()
-  - Drop int i, redeclartion in for() for rmi_sro_donate_noncontig()
-  - Drop donated_granules for rmi_sro_donate_contig()
-  - Drop "inline" and be consistent with the rest of the code
-  - Avoid nesting if..else in rmi_*delegate_range by breaking out on error
-  - Consistent styling in comments, wrap to 80space, spelling corrections
-  - s/\*\*/\*/ for comment above functions
-  - Reorder the functions to appear as rmi_*_delegate* followed by rmi_*_undelegate*
-  - WARN_ON if the RMM MemDonateReq:count exceeds the RmiAddrRangeDesc:count
-  - Reject requests larger than MAX_PAGE_ORDER
-  - Reject "donate" requests with states other than DELEGATED or UNDELEGATED
- ** Patch 6 - firmware: arm_rmm: Ensure the RMM has GPT entries for memory
-  - Wrap comments to 80spaces.
-  - Add a comment on ALIGN_DOWN the end of memory range.
-  - Add is_rmm_active() to report if the RMM is in ACTIVE state
-  - Switch errors to -ENODEV from -ENOMEM when RMM doesn't manage the region
-  - Print error messages when RMI_GPT_INFO/RMI_GRANULE_TRACKIN_GET fails
- ** Patch 7 : arm64: Block hibernate and kexec while RMM is active
-  - New patch in v20.
- ** Patch 8 : firmware: arm_rmm: Add wrappers for Realm related RMI commands
-  - Use rmi_sro_memxfr_command() for rec_create - Catalin
- ** Patch 9 : firmware: arm_rmm: hotplug: Skip memory added to ZONE_MOVABLE
-  - New patch in v20, relax the memory hotplug checking
+       CPU0                    CPU1
+       ----                    ----
+  lock(rfcomm_mutex);
+                               lock(&port->mutex);
+                               lock(rfcomm_mutex);
+  lock((wq_completion)hci3);
 
-Steven Price (7):
-  firmware: arm_rmm: Add SMC definitions for calling the RMM
-  firmware: arm_rmm: Check for RMI support at init
-  firmware: arm_rmm: Configure the RMM with the host's page size
-  firmware: arm_rmm: Add support for SRO
-  firmware: arm_rmm: Activate the RMM
-  firmware: arm_rmm: Ensure the RMM has GPT entries for memory
-  firmware: arm_rmm: Add wrappers for Realm related RMI commands
+ *** DEADLOCK ***
 
-Suzuki K Poulose (3):
-  kernel: hibernate: Add an arch hook for preventing hiberation
-  arm64: Block hibernate and kexec while RMM is active
-  firmware: arm_rmm: hotplug: Skip memory added to ZONE_MOVABLE
+locks held by krfcommd/3367: 1, last CPU#1:
+ #0: ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2096 [inline]
+ #0: ffffffff90f83cc0 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_run+0x30b/0x5550 net/bluetooth/rfcomm/core.c:2205
 
- MAINTAINERS                       |    3 +
- arch/arm64/Kconfig                |    1 +
- arch/arm64/kernel/cpufeature.c    |    1 +
- arch/arm64/kernel/hibernate.c     |   14 +
- arch/arm64/kernel/machine_kexec.c |   11 +
- arch/arm64/kvm/sys_regs.c         |    2 +
- drivers/firmware/Kconfig          |    1 +
- drivers/firmware/Makefile         |    1 +
- drivers/firmware/arm_rmm/Kconfig  |   25 +
- drivers/firmware/arm_rmm/Makefile |    1 +
- drivers/firmware/arm_rmm/rmi.c    | 1135 +++++++++++++++++++++++++++++
- include/linux/arm-rmi-cmds.h      |  584 +++++++++++++++
- include/linux/arm-smccc-rmi.h     |  516 +++++++++++++
- include/linux/suspend.h           |    1 +
- kernel/power/hibernate.c          |    8 +-
- 15 files changed, 2303 insertions(+), 1 deletion(-)
- create mode 100644 drivers/firmware/arm_rmm/Kconfig
- create mode 100644 drivers/firmware/arm_rmm/Makefile
- create mode 100644 drivers/firmware/arm_rmm/rmi.c
- create mode 100644 include/linux/arm-rmi-cmds.h
- create mode 100644 include/linux/arm-smccc-rmi.h
+stack backtrace:
+CPU: 1 UID: 0 PID: 3367 Comm: krfcommd Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ touch_wq_lockdep_map+0xad/0x1c0 kernel/workqueue.c:4111
+ __flush_workqueue+0x131/0x1200 kernel/workqueue.c:4153
+ drain_workqueue+0x175/0x3b0 kernel/workqueue.c:4317
+ destroy_workqueue+0xc3/0xa30 kernel/workqueue.c:6155
+ hci_release_dev+0x14d/0x630 net/bluetooth/hci_core.c:2717
+ bt_host_release+0x6b/0xb0 net/bluetooth/hci_sysfs.c:100
+ device_release+0xd2/0x270 drivers/base/core.c:2640
+ kobject_cleanup lib/kobject.c:689 [inline]
+ kobject_release lib/kobject.c:720 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ kobject_put+0x1f7/0x640 lib/kobject.c:737
+ put_device+0x1f/0x30 drivers/base/core.c:3884
+ device_release+0xd2/0x270 drivers/base/core.c:2640
+ kobject_cleanup lib/kobject.c:689 [inline]
+ kobject_release lib/kobject.c:720 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ kobject_put+0x1f7/0x640 lib/kobject.c:737
+ put_device+0x1f/0x30 drivers/base/core.c:3884
+ hci_conn_put include/net/bluetooth/hci_core.h:1689 [inline]
+ l2cap_conn_free net/bluetooth/l2cap_core.c:1856 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ l2cap_conn_put net/bluetooth/l2cap_core.c:1869 [inline]
+ l2cap_chan_destroy net/bluetooth/l2cap_core.c:494 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ l2cap_chan_put+0x352/0x3f0 net/bluetooth/l2cap_core.c:521
+ l2cap_sock_release+0x1db/0x280 net/bluetooth/l2cap_sock.c:1533
+ __sock_release net/socket.c:735 [inline]
+ sock_release+0x91/0x1c0 net/socket.c:763
+ rfcomm_session_del.isra.0+0x16b/0x250 net/bluetooth/rfcomm/core.c:718
+ rfcomm_process_rx net/bluetooth/rfcomm/core.c:2030 [inline]
+ rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2115 [inline]
+ rfcomm_run+0x6f6/0x5550 net/bluetooth/rfcomm/core.c:2205
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
--- 
-2.43.0
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
