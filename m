@@ -1,83 +1,83 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8CC1BD00C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:51:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4482B3E3C4F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 18:51:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790967111; cv=none; b=rNS9QUggFz24o1lwruksylCJTZrZQBvkq7ZBABmRDi5sV096e4BYdlb5z8cePozU8ZIgv7ixcjX7WdfHMjwIStHnqwkTLtpU5ApVTCOKfKn2kvF5aIr87vfxBTLCQeUdJjVoboKuH+xTnN3cFPmJik+/3g0s9Bbu7WdaA07Twbo=
+	t=1790967114; cv=none; b=Qmq5ufgC4+/6ZlAhuZOTTHre9XWIFqYjTZRScswYSr/AmzKXftxq0RPpAAlhI2ql4b3EMfpCWDimxWKgjFKwrUVA9BZFWnJUcCJhb+q/zjWPrNjUlTXKaTtApwfmDCRY0KyQSFXODTSxvtOrJY3IiEbBJHwT5+F7VgfA1+++u5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790967111; c=relaxed/simple;
-	bh=QDX7lQ1hmHgJ9y3o5Z/Hm00xEaK1qYts6FM/BQ1Nm/Q=;
+	s=arc-20240116; t=1790967114; c=relaxed/simple;
+	bh=SvlLnlt6KHX1Jrj2D3pJtCaILFR/9gRc9iadqwmEB5E=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=SJM5CeQvC6iF17HM2s97rvD7qtBMfM4r4Xmi2CjJaGv8VFlOPX9qjx/eO7K9H13pt2kQsIvWXK/v13RvldrOBRqyixHVh6umTFDdzHN5Kyszg8vGKKsfz/4beJGnvO3o5nG2oGhypSSHgNq3ICY9elMMWpW58LlARk4cgJ2cnRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hjcYhHxE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jj7ZH8NY; arc=none smtp.client-ip=170.10.133.124
+	 References:Date:Message-Id; b=Yatn8qybqIglmz6I9BTBQquvc2jmNWXl8BQ5vLv4GIMoSKX6FcHh3ta8QQ57SWuyjkhCDAMxhuFCdYikPUfVSA65+XHzd0tlBMdJ/KVVqx1gjqjnWY6KRfZkrgL+hPqhlQPJXDZaK0+aiAh91UFNrT5PKEL5RegBuEIsUq9VGuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AWpa7z0u; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=p6ftKHjN; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hjcYhHxE";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jj7ZH8NY"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AWpa7z0u";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="p6ftKHjN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790967108;
+	s=mimecast20190719; t=1790967112;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jwzsAXBdR1BkVlkk6NnC6X5ecf++oyv9cFOEdcbokxc=;
-	b=hjcYhHxEH7yf4rXm1ExMf43k8n/1KWwwrSiociz2LZJ6sJNPbac0g+ADahFIGUz+cAT0uk
-	GowAKA7bpUwJSZcXVK9jX2Xyq+xbiPGbkSfJIjAcqH12znIFokLLQTIU5YK36+vMbUeLec
-	WFZiQteoLOou9oPYQZHEPm2v7miAqtY=
+	bh=lViRkD+J4l6mElusP3QWY+NSQ6ORF7js4Y4aeDT+mp0=;
+	b=AWpa7z0ukoQgwGG9HhZrs2nPndVK12Rd5Ui+rTSjt0jyKJH7ley3EWQz2nE44bMfUtGbeH
+	Qa0chSRyMFYh6QSIlCyY4lVMW+Q7sQDcSO4T0nS84t/hK1/ZMbhK9XFy+pKkVL9pG0O3MH
+	j5yhN19XM1qjqyubEgTJbS862jq4Y2k=
 Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
  [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-684-pc0wc13dOc6Nud_YfEy7Bg-1; Fri, 02 Oct 2026 14:51:47 -0400
-X-MC-Unique: pc0wc13dOc6Nud_YfEy7Bg-1
-X-Mimecast-MFC-AGG-ID: pc0wc13dOc6Nud_YfEy7Bg_1790967107
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb93c874bso365717785a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:51:47 -0700 (PDT)
+ us-mta-434-WYZKuxjCMCS3wP-tIOSpEg-1; Fri, 02 Oct 2026 14:51:51 -0400
+X-MC-Unique: WYZKuxjCMCS3wP-tIOSpEg-1
+X-Mimecast-MFC-AGG-ID: WYZKuxjCMCS3wP-tIOSpEg_1790967110
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb6391e89so489073585a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 11:51:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790967107; x=1791571907; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790967110; x=1791571910; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=jwzsAXBdR1BkVlkk6NnC6X5ecf++oyv9cFOEdcbokxc=;
-        b=jj7ZH8NYVEdrxdyXvrrUVICgkUNovrKhQx+jcTeFBx5OkC9wtNxlui6CAFLwIhpTXH
-         Q4WMOn2oN8HgJpJOQ31tQLG+DuZW0PeBib1ixm18GMht/xVFQH4+IFh+ZrmEgFWTqbt9
-         yd0RVLz5XVElEu+zZTC+52DGvV6pHZhGuZazaZ9zyrgMjcYkt/yE6lWJyf8gsiLpfya0
-         J7JBbMOEpCXcweTfK49rA5pMYf/EqecurRHOphKhFxafpGxewjKX2YhTKBOeIAGyGDqy
-         OguFx7j0Fqtjscv1zFRp2HurZb1GLlp3zayaiFVAaRSftMJt/zOY84pIUNKhJGsMwpbB
-         4JJQ==
+        bh=lViRkD+J4l6mElusP3QWY+NSQ6ORF7js4Y4aeDT+mp0=;
+        b=p6ftKHjNYQtBqZI/7NBFPU13edKoK5+rVbCZqPUYL+bnN+zzBb0VYDLjONRe3oH8Yq
+         ZsO5Q1pJwyJGZG+G/oND+B9ey1skQW61vSQ4TdCBkzOsWHmunJsX22DJaOgB2tflQHn6
+         HJa3zqpocSCqFnsooTIhhls4jzwv4sp0+iyZmgt3WFdPGFuylrvB6qPpb6+0fqdrE5ZY
+         oqQU/7o9fYFHjEeptqHx2HHLAgcaDQ+XcCllPzX7xGseIJoMNa4BYtsA9qSmqXSTxAbR
+         GCeXPnDJwPZmN0A+fl87/s6OHcx/DBO6J1tJ5KP8UB1yZdQz/aATPw81DMB6kU8ScYQN
+         9Eew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790967107; x=1791571907;
+        d=1e100.net; s=20260707; t=1790967110; x=1791571910;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jwzsAXBdR1BkVlkk6NnC6X5ecf++oyv9cFOEdcbokxc=;
-        b=ZmqvbNdtMDFUMsCrjTuepac9HkCU6sFXq7JvaUJeK+guxwYe3rD5M0XTQtcN+oLWUO
-         nRNln3lKjsnANVJvVKKoxbgxj35ipiNv29pJQtUFKCJ34ymGV99bluI22YEtirAnhUvi
-         qD5LCI5DfNloh7VRAPyztH8UMEUSzkOkz20xMum1wkfiJYwSWxV+b7qjGyy2aQf+ZPAM
-         WkurQq/eYBMmYJrF2G9I/Z+ruJZ6UlyJcbqDxmNrgmwz5YczkvwXvas3++Fvb0efesLF
-         8HMD0wzo2+XpAaG/+Q/xRMyz/g5cICdD0u0pS8LtRMXf2aJssqW4oC0ojoK/AKrZ+hU7
-         Clew==
-X-Forwarded-Encrypted: i=1; AKwUvByS64QOoys/KNkZg6rmmfW0JAKij3RYscQWpgM643tyzbNcdW1noTuv2v0OrmYRUvWBN/p3/WturASjlG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXTo6F9BQXlg1bkBFNZDvr4dqHKH2GIbdq7U+DNNz6nwcK2FMq
-	m5sRPUkZ7aYKSStSjtVWdtHVNMPBugRUbtNfkxJOYWWEAjgyKrF0TTuevs5bpOY8ruo3DCaLxqr
-	NUg+WqBJIGPqa1aw09Z7o4C5gkfAoh/5va9RikyhRAMGy4We+T43hIHEiL+XGvjQNfw==
-X-Gm-Gg: AYBFou0aulEAZ3dzjBHAYOJL1gW/2Efpdg/li8ylihMtsfROxvI+Z2FatgeWVpkarEq
-	FyB8Lztso+0SlqIqmR01y0AVA4wItbOVA4oA6mDYngiblQB+X2xfTvYmo+2yJP+x1ximQA45Bi4
-	7F1gcAmm6dYfmLbqYSDOUYiCp+YuvZHQZNouURqdRcKmUfEDucnak/bdmog6OTpBn9m3GmE18qq
-	WYV8DNKrYrawQhFvxcA0zKLY6LRrr79ivDtOo7xB6B4nuZqsWF9UMnQJrZKg2yHvu9l6eVX2XEs
-	5P9PDGhPctjydbP9BHHNTt767xYL9sSWgg/O2qGbqJvECZaiel1IR/xDx7HFxv0Ol5TL+QI3I2n
-	wt5J5xbquibQQEA==
-X-Received: by 2002:a05:620a:172b:b0:93a:32e7:bbe with SMTP id af79cd13be357-93cf177ead7mr639036585a.21.1790967106982;
-        Fri, 02 Oct 2026 11:51:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:172b:b0:93a:32e7:bbe with SMTP id af79cd13be357-93cf177ead7mr639030785a.21.1790967106284;
-        Fri, 02 Oct 2026 11:51:46 -0700 (PDT)
+        bh=lViRkD+J4l6mElusP3QWY+NSQ6ORF7js4Y4aeDT+mp0=;
+        b=vc0SVTtRZANDZxGRkOriRPClHN7jxBIPs1B0P3M82E/fQtzJSgkjBF8VV9KKhsjFpJ
+         U52dMmVRfoALj05bW4qascR0OFA5Z4b2Ee4BnehkIzzUz9mZR3/aAgqOpU7triIu3YkL
+         7XkMZFfm9JNRFS1HeZyfV4yzDpwbalzgAhpLrajNrjkFA2zQGy+drqCoOn8qVEZXNiID
+         K5l1cd/bgBPMEdlToTGJA7MSqlekKUV0W6OJMDQhRr8/89qQuWj1wpA5YNbQiPndUssA
+         mad7D8c7952PR3i7ovkwhuNA9UjA0zp82/vWu8RC7fYvL81RHkJRoEqzNoizlyZNqTAn
+         GR1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzM30rLVDrXIU1u/GxA0OkwbBo4TcdbLXCgO/jNLIkUu14p+dzv2P2JhUzkoeVAyhRFa28PnEAQy1GQAaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kE1vTbdQ01Z1pWcNPv+vo7YChpP0isiy614vlMaQ/4GlkvQhog
+	YhSmCYc5ZKbcrRDnPEUFv3pq9EaRsWf2qnosPJ+qaQ2tzcBiUhZUOmXGL/BR8vvreBCux+W/rT7
+	AuTKq6qRrCfM5zBHoaImYsi6JBjQqkTKH5tQA4Kt1eHZQrk+H+UH/OFmREjO28MctQQ==
+X-Gm-Gg: AYBFou3KJkh1TT+Jzlz3rHCh+pUtRg+b7R3UJbEeDO65nc0IfEDGwDcmn5pFITyi5wl
+	eh1E9btARGNEPJ9cNwygF2+yrvwz3WyDOZVRUM2a/397ExuWSwHTq1x94qGI0pgVLyRY15TlJ6J
+	5HMsymXZbS2uR3CSWvUmu+qfnLemcWLz4qPHDZd/+eK8Ul6NL4tVkeGFd5FEPohtFpQVJHa8GkY
+	r8rfGvpW6yWnz8FvJBTGyXIYsdHw5WUOTNYy/Xaw9g9+8LTFYi4Oyjd+BKS7kCDPWsoPQxrZYQw
+	rmYFMwyZDa6sGE7S0awD2xMVcsHMQL0fBhtRxL0sgR9SgrjgKbMtqvAV02FLKPIrhL6Ce4GZDm6
+	sh93aCAwHOr7Cfg==
+X-Received: by 2002:a05:620a:bd4:b0:93b:c58c:d3be with SMTP id af79cd13be357-93cf17664b4mr670122185a.37.1790967110494;
+        Fri, 02 Oct 2026 11:51:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:bd4:b0:93b:c58c:d3be with SMTP id af79cd13be357-93cf17664b4mr670117885a.37.1790967109968;
+        Fri, 02 Oct 2026 11:51:49 -0700 (PDT)
 Received: from bmasney-x1.rmtuswv.csb ([2600:382:7723:4eba:66b1:961f:1a2d:af55])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca03a1bbsm290352485a.1.2026.10.02.11.51.42
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca03a1bbsm290352485a.1.2026.10.02.11.51.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 11:51:45 -0700 (PDT)
+        Fri, 02 Oct 2026 11:51:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,10 +86,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 04/23] clk: starfive: jh71x0: Add generic CRG probe
- helper
+Subject: Re: [PATCH v5 06/23] clk: starfive: Add JHB100 System-0 clock
+ generator driver
 From: Brian Masney <bmasney@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
  Brian Masney <bmasney@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
  Stephen Boyd <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -98,148 +99,49 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Alexandre Ghiti <alex@ghiti.fr>, Emil Renner Berthing <kernel@esmil.dk>, 
  Kees Cook <kees@kernel.org>, 
  "Gustavo A . R . Silva" <gustavoars@kernel.org>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-hardening@vger.kernel.org, netdev@vger.kernel.org, 
- Hal Feng <hal.feng@starfivetech.com>, 
- Changhuang Liang <changhuang.liang@starfivetech.com>
-In-Reply-To: <20260930124317.5648-5-changhuang.liang@starfivetech.com>
+ Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-hardening@vger.kernel.org, 
+ netdev@vger.kernel.org, Hal Feng <hal.feng@starfivetech.com>
+In-Reply-To: <20260930124317.5648-7-changhuang.liang@starfivetech.com>
 References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
- <20260930124317.5648-5-changhuang.liang@starfivetech.com>
+ <20260930124317.5648-7-changhuang.liang@starfivetech.com>
 Date: Fri, 02 Oct 2026 14:51:13 -0400
-Message-Id: <179096707363.821688.2728247121300145722.b4-review@b4>
+Message-Id: <179096707364.821688.18177370718453496156.b4-review@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4235; i=bmasney@redhat.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=922; i=bmasney@redhat.com;
  s=20250903; h=from:subject:message-id;
- bh=QDX7lQ1hmHgJ9y3o5Z/Hm00xEaK1qYts6FM/BQ1Nm/Q=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL2/zV1zvtv7+SlXtHBUHFGbF2avMt2pk/9ujcLTCxi3
- ln8f/y5o5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgIlkT2L477RhtiqP0LV1IWGM
- ZU1dt/UfT9fN8wuQLvAMmf5nqsZPDYb/SZGX7zI8PTwx9kJQFcftAndb56ryh2camk4sv/s3O1S
- VGQA=
+ bh=SvlLnlt6KHX1Jrj2D3pJtCaILFR/9gRc9iadqwmEB5E=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL2/7X6vESXVZZr6Wxj3c4lz4Xy5qcm7nt4+OjFy0fUf
+ A+ZPjGe2lHKwiDGxSArpsiyJNeoICJ1le29O5osMHNYmUCGMHBxCsBEEhsZ/ue2hf3l4ON+PnHv
+ SvOQsrfpJYHf/Bvm7VBe9Kfo56vsPbqMDKs+HVC7yjLx7g35VuZFnkG3JLSO37uqbflrXT1jv6R
+ dLzcA
 X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
  fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
 Hi Changhuang,
 
-> The StarFive JHB100 SoC has several clock and reset generators (CRGs)
-> which share the same probe flow: map the registers, register all the
-> clocks described by a table, add the clock provider and register the
-> auxiliary reset device.
-> 
-> Add jh71x0_crg_probe() together with struct jh71x0_crg_domain_info so
-> that each CRG driver only needs to provide its clock table, external
-> clock names and reset auxiliary device name. The reset auxiliary device
-> is registered with jh71x0_reset_controller_register().
-> 
-> The clock index space of these CRGs is sparse, so also make
-> jh71x0_clk_get() reject indexes that were never registered when the
-> domain info is available.
+> Add support for JHB100 System-0 clock generator (SYS0CRG).
 > 
 > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 >
-> diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.c b/drivers/clk/starfive/clk-starfive-jh71x0.c
-> index 2cc71f49ddee..bb7706ede1a6 100644
-> --- a/drivers/clk/starfive/clk-starfive-jh71x0.c
-> +++ b/drivers/clk/starfive/clk-starfive-jh71x0.c
-> @@ -10,6 +10,7 @@
->  #include <linux/debugfs.h>
->  #include <linux/device.h>
->  #include <linux/io.h>
-> +#include <linux/pm_runtime.h>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 4f72b4ac27ee..a0e5b4df96aa 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26097,6 +26097,13 @@ S:	Supported
+>  F:	Documentation/devicetree/bindings/phy/starfive,jh7110-dphy-rx.yaml
+>  F:	drivers/phy/starfive/phy-jh7110-dphy-rx.c
+>  
+> +STARFIVE JHB100 CLOCK DRIVERS
+> +M:     Changhuang Liang <changhuang.liang@starfivetech.com>
+> +S:     Supported
+> +F:     Documentation/devicetree/bindings/clock/starfive,jhb1*.yaml
+> +F:     drivers/clk/starfive/clk-starfive-jhb1*
+> +F:     include/dt-bindings/clock/starfive,jhb1*.h
 
-Add #include <linux/property.h> for device_get_match_data()
-
->  #include <linux/slab.h>
->  #include <soc/starfive/reset-starfive-jh71x0.h>
->  
-> @@ -334,10 +335,14 @@ struct clk_hw *jh71x0_clk_get(struct of_phandle_args *clkspec, void *data)
->  	struct jh71x0_clk_priv *priv = data;
->  	unsigned int idx = clkspec->args[0];
->  
-> -	if (idx < priv->num_reg)
-> -		return &priv->reg[idx].hw;
-> +	if (idx >= priv->num_reg)
-> +		return ERR_PTR(-EINVAL);
->  
-> -	return ERR_PTR(-EINVAL);
-> +	/* Index space is sparse: reject holes that were never registered. */
-> +	if (priv->info && !priv->info->clk_data[idx].name)
-> +		return ERR_PTR(-ENOENT);
-> +
-> +	return &priv->reg[idx].hw;
->  }
->  EXPORT_SYMBOL_GPL(jh71x0_clk_get);
->  
-> @@ -391,3 +396,87 @@ int jh71x0_reset_controller_register(struct jh71x0_clk_priv *priv,
->  					jh71x0_reset_unregister_adev, adev);
->  }
->  EXPORT_SYMBOL_GPL(jh71x0_reset_controller_register);
-> +
-> +int jh71x0_crg_probe(struct platform_device *pdev)
-> +{
-> +	const struct jh71x0_crg_domain_info *info;
-> +	struct jh71x0_clk_priv *priv;
-> +	unsigned int idx;
-> +	int ret;
-> +
-> +	info = device_get_match_data(&pdev->dev);
-> +	if (!info)
-> +		return -ENODEV;
-> +
-> +	priv = devm_kzalloc(&pdev->dev, struct_size(priv, reg, info->num_clk),
-> +			    GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	spin_lock_init(&priv->rmw_lock);
-> +	priv->info = info;
-> +	priv->num_reg = info->num_clk;
-> +	priv->dev = &pdev->dev;
-> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(priv->base))
-> +		return PTR_ERR(priv->base);
-> +
-> +	if (info->power_domain) {
-> +		ret = devm_pm_runtime_enable(priv->dev);
-> +		if (ret)
-> +			return dev_err_probe(priv->dev, ret,
-> +					     "failed to enable runtime PM\n");
-> +	}
-> +
-> +	for (idx = 0; idx < info->num_clk; idx++) {
-> +		u32 max = info->clk_data[idx].max;
-> +		struct clk_parent_data parents[4] = {};
-> +		struct clk_init_data init = {
-> +			.name = info->clk_data[idx].name,
-> +			.ops = starfive_jh71x0_clk_ops(max),
-> +			.parent_data = parents,
-> +			.num_parents =
-> +				((max & JH71X0_CLK_MUX_MASK) >> JH71X0_CLK_MUX_SHIFT) + 1,
-> +			.flags = info->clk_data[idx].flags,
-> +		};
-> +		struct jh71x0_clk *clk = &priv->reg[idx];
-> +		unsigned int i;
-> +
-> +		if (!init.name)
-> +			continue;
-> +
-> +		if (init.num_parents > ARRAY_SIZE(parents))
-> +			return dev_err_probe(priv->dev, -EINVAL,
-> +					     "clock %s: too many parents (%u > %zu)\n",
-> +					     init.name, init.num_parents, ARRAY_SIZE(parents));
-> +
-> +		for (i = 0; i < init.num_parents; i++) {
-> +			unsigned int pidx = info->clk_data[idx].parents[i];
-> +
-> +			if (pidx < info->num_clk) {
-> +				parents[i].hw = &priv->reg[pidx].hw;
-> +			} else {
-> +				if (pidx - info->num_clk >= info->num_ext_clk)
-> +					return -EINVAL;
-
-What do you think about adding a dev_err_probe() here as well to make it
-easier to troubleshoot any failures here?
+The spacing after the : doesn't line up with the other sections. It
+looks like this is using spaces instead of a tab.
 
 Brian
 
