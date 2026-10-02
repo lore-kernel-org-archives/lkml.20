@@ -1,81 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DEDB4FECC2;
-	Fri,  2 Oct 2026 17:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217B93314C3;
+	Fri,  2 Oct 2026 17:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790962218; cv=none; b=cs/lsUoYYNqbVXI3dIahJbPqP5o4FBg/sUykkGEaY6g5gITrL5ZNzmIqVEigcPmbeP56hplzdV0aX31LcLoHELQp0/PjFSWmfEjZFT54qyR63JiXWOZkKmHC/YBP93fh4cjz3PRMS15p/oTpJySNYUEWv9mY9LstXGqYRq6Ujqo=
+	t=1790962471; cv=none; b=X7w+RGlPNlvnDYK13jlIVptZcG58I0uv7Y0ysIhLUgA5Tbzia1z4Pkx2BqoHRxoM1HoFmTyJ9ytBXc6Af5ds639sdzDAdkLAi3o/jhVOB/RnlEoGJibLK7p2D+3MFCIFHDBdi2GqYEV/DOAaPh4QzHZerfFx5RHmuiLPKh+eU2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790962218; c=relaxed/simple;
-	bh=imy+sXTxS7D7NkNt7hBUQc4iEj8z2NvoUhtPTWtLSCQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lxFP9Nl8q9lhKiWIHvztUcm+EMZWsweKDeAAhQJfOv4yJj3RxuJzUw7cT63wWZ+9nhBIz1WrzNCfy0EFehbRgcJqpd1q9rnj0SnCTyYnEtKBr54fThGbyPlxcTvbhmXwyEQhva0u7UXvOZDxkhTI6pj9YSsZcfXxYi5+pORZHS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErXxwTN6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790962471; c=relaxed/simple;
+	bh=uBKkkvXcqWP1HdrlFH+/Kt+o0tVbOLeIX1KBoTYvCFw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pNVhSGgBMNECZnTMNu+hnVcNXGjcPXXIryVL82KhqtuAKzbAvwYjfZ72k9L0dZfDmmWrdsyyU88a8VRZlVNbPoRi1MRFwiBDnwLzVUTbyStE9MKwBY3wlZURVoyfVJmNEGwZzHdfU9APGsF1hnVBv4UaeLZduTGIj0c2t03CeBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=ndGxOaP+; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErXxwTN6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA421F000FF;
-	Fri,  2 Oct 2026 17:30:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790962217;
-	bh=u5Ewqhn/hcHfdMaQjI+0tet2zxHIY0RX9foKH3LCiAE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ErXxwTN6j+QWkuyH54XGzJrqRvZ9FfQU7BAKYypxx8uqPPR8TINlXY0KgVm5G3VHn
-	 XODPxciHX2I4EaHON7CbnpgaKA4di2uarDbCIA7Byq+kFhCkrcy8FS8Oux/fVTsfer
-	 YzsckeuM1iTi3yrVvLm1xBifaqKDePrkZGDdL3fPRqLRu942MHq5ETZ4N8XxepeSFN
-	 2PCTnHQm424OffRiqnVflb4jN3WTeNrMpzUX8qGMO6cdpNmT02RKsVxhcsx6E+o3Z7
-	 +kDXVp88jj+EQ8QNoHeN4YjR+avY2alwwF5ltQGaFWS8evHDs37KvoDWyS/NBLx6oc
-	 alT0GX5pQqGLQ==
-Date: Fri, 02 Oct 2026 07:30:16 -1000
-Message-ID: <59be0f173a7bc73a5a7eb6927f635605@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
- John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Keep proxy donors with
- slice left on the local DSQ
-In-Reply-To: <20261001191216.2391359-1-arighi@nvidia.com>
-References: <20261001191216.2391359-1-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="ndGxOaP+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=ve2dMC9PSdOrVvkkkeWzs54ySdoNlOjzWjR1ldamK+g=;
+	t=1790962468; x=1792172068; b=ndGxOaP+/xiwWyYtxgmBfxQ3gLZJwqSUb3BLFGn9gsOGFyO
+	09UpjrR044DrwuDqVwGDnbXdxmtn/nho9HoMqgkp9W3ha0auEbGoHsu878ne6HfTGBNB3lxfdjrQD
+	v9jvgOLz0JURqx6DoQ7uwbjSlCdVD0TnmYUyq5cMSVmKSTH+u2KJDw4jwQC5vbMkLJHJ1oopkJMVP
+	WDr5ncJC9PWUrS+yFaagzkyybjpDc+2/Q7X6XFtqCbQ9j+QMC0yVc25COVvbMfKb4chhkTY4xoyek
+	waX4hkcmwoKq3yQ7milbC3M4n+ckPGY3okrJO2o0AhStgGClquPLBt0MGyTR8OsA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xCh9J-00000001gCK-0oB3;
+	Fri, 02 Oct 2026 19:34:21 +0200
+Message-ID: <7fc3e2730ebea674abf750a39c53d6ee307a907e.camel@sipsolutions.net>
+Subject: Re: [PATCH net v3] wifi: nl80211: document sta-info nested attribute
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Hilal Rahmatullah <hilalrahmatullah11@gmail.com>, "David S. Miller"
+	 <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+	 <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Donald Hunter
+	 <donald.hunter@gmail.com>, "open list:NETWORKING [GENERAL]"
+	 <netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Date: Fri, 02 Oct 2026 19:34:19 +0200
+In-Reply-To: <6ae7fd5e4d24bdeb0f0df057f767107e08567640.camel@sipsolutions.net>
+References: <20260816101216.20947-1-hilalrahmatullah11@gmail.com>
+		 <20260817084713.7a7694d6@kernel.org>
+	 <6ae7fd5e4d24bdeb0f0df057f767107e08567640.camel@sipsolutions.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-malware-bazaar: not-scanned
 
-Hello, Andrea.
+On Sat, 2026-09-05 at 09:46 +0200, Johannes Berg wrote:
+> On Mon, 2026-08-17 at 08:47 -0700, Jakub Kicinski wrote:
+> > >=20
+> > > ---
+> > >  Documentation/netlink/specs/nl80211.yaml | 351 +++++++++++++++++++++=
++-
+> >=20
+> > Hi Johannes! Should we add this file to wireless in MAINTAINERS?
+> > Or do you prefer for us to handle the YAML stuff directly?
+>=20
+> Not sure, we don't really seem to be using it for all I know, and so
+> it's just been getting some random updates like this, I guess.
+>=20
+> I think I tend to prefer the status quo, but I guess I could also just
+> apply patches to it if you prefer.
 
-On Thu, Oct 01, 2026 at 09:12:16PM +0200, Andrea Righi wrote:
-> +			if ((p->scx.flags & SCX_TASK_IMMED) && !proxy_put) {
->  				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
->  				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
+So that's what I said a month ago, but because Jouni prodded me about
+our inconsistent documentation today, I actually looked at converting
+*all* of nl80211.h and our hand-rolled policies to be generated.
 
-I wonder whether IMMED should matter for a blocked donor at all. IMMED
-should trigger a reenqueue iff the task is not being serviced by a CPU. A
-donor under proxy execution is being serviced. The CPU is working on its
-behalf and there's nothing the scheduler can do to make it go faster by
-placing it elsewhere. If so, a donor with slice left can stay on the local
-DSQ regardless of IMMED and of which put this is, and
-SCX_RQ_PROXY_PICK_PENDING isn't needed. The deferred local check would need
-the same exemption as the task stays SCX_TASK_IMMED.
+It ... takes some work, and ends up being 12k (!) lines of yaml, vs.
+today's 7.2k of nl80211.h and ~1k policy in nl80211.c.
 
-> +		/* Delegate retained donor admission to its owning BPF scheduler. */
-> +		if (p->is_blocked) {
-> +			if (WARN_ON_ONCE(!sch))
-> +				goto switch_class;
-> +			WARN_ON_ONCE(!(sch->ops.flags & SCX_OPS_ENQ_BLOCKED));
-> +			scx_do_enqueue_task(rq, p, 0, -1);
-> +			goto switch_class;
-> +		}
+It also requires a bunch of changes to the tooling:
 
-Can this be folded into the following block? scx_do_enqueue_task() already
-adds SCX_ENQ_BLOCKED, so a !p->is_blocked test on the ENQ_LAST condition
-would route donors to the plain enqueue.
+ - kdoc comments for attribute-set enums
+ - exact-len-warn check
+ - validate-fn check support and creating their prototypes
+ - combining min-len/max-len for binary attributes
+ - strict-start-type support
+ - flag to generate the whole attrs without linking them from ops
+   (otherwise we get even many many more lines of yaml)
+ - NLA_NESTED/indexed arrays support
+ - allow nesting the global policy into itself (yeah ... I want some of
+   what we were smoking ;-) )
+ - allowing inheriting different members for kernel policy side
+ - drop nesting when subset overrides type ... not even sure how to
+   explain this right now
+ - option to define only policy, not ops
+ - allow taking ops IDs from an enum, because our ops don't match the
+   ynl ops too well
+ - enum-max-name for definitions to adjust naming
 
-Thanks.
+There's a license issue - we have ISC license on nl80211.h now, but
+Donald and Hilal picked GPL/syscall/BSD-3 for the yaml and of course
+that carries over to the generated .h file, not sure if that's an issue
+for downstream projects but might be with advertising clause? Could we
+change it if I'm adding >10k new lines from nl80211.h? :)
 
---
-tejun
+I can post it but ... is it worth it? Not even sure it would
+significantly simplify our lives, although the generated header file
+with documentation is much more regular in that it always has the type,
+etc. (which is what Jouni was asking about)
+
+johannes
