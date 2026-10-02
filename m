@@ -1,162 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F7F4189C2;
-	Fri,  2 Oct 2026 07:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12464439014
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 07:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926896; cv=none; b=rnORQnls+CcDgG1X9Zmqh0ZXMbazsNMt/PXkVU3FMp/4l0jTDc3Xi0cqhNiVwKAjM2b+ON/Wlrtdz9mP2D5TsE4RTs0ljHuwjBwZZHl9vMAzdRegkh05ObHsYF/sEYD5V+ZY4og4L3k/0vYAEC17XihPxrI1RMffkJRDNatKfAM=
+	t=1790926939; cv=none; b=mtnUlps/7o/xgO4ekwwivjPpNrmzxYI/JU/DHpS5IlRIS8aLSB0+v9VBrj3ttnIe8Y2WhHxrE9VYmX1XACuEXcgafQdejlEblRS5EDINahZlsmmNNyiqX7eKb/BOdEoISTsK1+QRLAIWK6VpiFxV3/ggSrqHhtF8dGxJpAwebHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926896; c=relaxed/simple;
-	bh=C/kv6wcM0+ohmmG/4GwabO9Kw2Wi6mMW0E4cJ8FNzUM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F7lISjQBq3T4oOlJx/52TNjs9Oybkr09LT6BzAv3hLarS4ln22WDkCujUVjAPHypG44NrDNVKAb9uhKla9FnoPfJdM/jHNnAPK26xAcnzcm8MI6PmUE4uwX1F6z0FGpbn3X6TnaTX3vOl75YBRFtNUei20PSSYRo0tzB4VeNd7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O0Aijr7T; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790926939; c=relaxed/simple;
+	bh=+r3oF3KJa6nDKG6ojMwf7eYgUcgM/dO8XmdcYWxZgC4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Roj+XRZxBwR39YuouD5Z9ADadwPi+wKql3voBghZxrJ8o8Z8BeBetaAE83os0V6qEBz9NYxxhqbI56YvHwKy9RwbvIP6zlTTo75N178Bk+8AwVF+4BMYNJXeV48JtkEppgGH6c3FHMNo9vNALwzSxAG9jdQjaU0bamVm4ULLP7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=qxiA9lnO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cx4FxcWB; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O0Aijr7T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790926895; x=1822462895;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=C/kv6wcM0+ohmmG/4GwabO9Kw2Wi6mMW0E4cJ8FNzUM=;
-  b=O0Aijr7T6JyIud/Ad9DCQ+/66RwaG1KTHRT4wcJZlQHrBWx3g+D0I4NC
-   UwwGqjxzkWfJVKN3CVbp+MUv+M+GBZE0+dbS907QYoiaF9BuaSJq1yRZV
-   wQpo4zLmlD64Whf6Lz0UH/Jed+bRm5Ymqe1eLyCOEHJJ/iUVjGsbjx51V
-   rdkqvUMcVQIPeqDU3xaRgzKQZ3xLgUvD3pQwgBmh2MrBwSO5awORFKAWH
-   f3F7AKMsD2CU8Oo4YWgLQtpvE3vBtyEUtPa5mKFo/LwAOeq60JRgluCXS
-   smUEKSImKT0UANKH1bLfN/tnHjAZSlBtGqyViW49UxmDhikVRfYggQybn
-   Q==;
-X-CSE-ConnectionGUID: aTXUn50XQ9Gh2An7N7bZxQ==
-X-CSE-MsgGUID: U9ECSFcLRwCalgIgZBP9hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90723487"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90723487"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:41:34 -0700
-X-CSE-ConnectionGUID: Wr8ybAupREydeJzXx1ceWw==
-X-CSE-MsgGUID: VX/xtgwiQPOs9W6Qu5jQYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="280935559"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:41:29 -0700
-Date: Fri, 2 Oct 2026 10:41:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 07/15] gpiolib: regmap: add
- GPIO_REGMAP_QUIRK_SET_AFTER_DIR
-Message-ID: <ar9gJRVZxExBwDyn@ashevche-desk.local>
-References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
- <20261001-cv75-v5-v9-7-486cc289a4b8@ambarella.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="qxiA9lnO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cx4FxcWB"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 4A5BE7A001D
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 03:42:16 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-05.internal (MEProxy); Fri, 02 Oct 2026 03:42:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790926935;
+	 x=1791013335; bh=wKje34qKlqYuWVpjC8LnCp3hkR3I0KohUjlISc6RnSo=; b=
+	qxiA9lnObEJ0vS3vBsbfKYRtDjTflZWxahZ8F9k8ylhZMYqm55wJG3G2kpNqOE3M
+	WF3LgvdbL2bxmA83oU9/XXyCtAildcc2taJ2b0m+3DH/M7jlOjJ/6R/903et3RE2
+	EdrrutAFs3rTmo2tkYLOTY/s4Sd5gqAR/Fbf8pzvlkLgmJkkeLwq05mwEf2ov1Mb
+	HdDrGBVhnNeHx/ma2L5qcWyCO5JRwjXWF3F4pp/Zv6h7sMjBbdZ5HpuxAQerKByn
+	H9GZBqc57p0sEzjqWrTS1aoCr0rq5kUX7zEHrn2eFs7YAdMiyNv3X60QEDNwDfhV
+	/ernWIoTqOg8LrbFX1zDLA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790926935; x=
+	1791013335; bh=wKje34qKlqYuWVpjC8LnCp3hkR3I0KohUjlISc6RnSo=; b=c
+	x4FxcWBivcG3CWlnThM4pYqRTcBn3deQF1IxPUZBQyBm0cxw+D4c7Vd3uZO4kxUX
+	cIA8+Q6V8mOFniI9bXPxNv9T12BpD7YsCI8YfGKfV1sMAcgXfcycDLKtkJEkcDx4
+	ddHDCAPrFAmKZu7YLhgQCTGtUuFuqFFpJdnHlnL0k3bUsixSMFIesz7AfR0TAQHU
+	mKBOdfqp2bXD95GW9SbWPAlKZVn52L7qNLyKsmxCzTI/k+jJMHo30POf1zfrSkjT
+	lWD7swgiI5MDpR2iRoz1hPOH47adu94i1vrCcoU6naevdjhds1e28rcUC3pw7Z5c
+	dg6NmiElVi5phg57aG8ng==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1790926935; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:llTTLwXhy0TUHyc7JUuCFTC/Nb/MXGLipVSYdphHP6+WB0+
+	44wbys1YBgSsvwFBuWejs4NBKxa1G0bJi/lR4IRNWL0IGj2lSrWx1zdYmuR7eDGv
+	qJIpjrKWqMy4jxtHPFPPglJNqe1JkRxkPahogsFfP2NhovFba0frTbD7OLLlbQSx
+	X7x2W66+Se3pxMxFua62mqDLsBeP2VZkohZ5zHHO6QCmIQlbxIfX3qzGMMkzzc6v
+	ODbFWROmKcJHi2yqMN8noN5nOraWYnLvUOu0SzGQuTDU+FmrQjiLG85zsjDEJlR7
+	HANeXWOn1pMNNjRxfCwSyH3FIPy4i+Yug60pHIg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:C+lnE5vg0lxH2++CQgwb2zEwnZ6wpePXoCKkQE8lDOk=:+r3oF3KJa6nDKG6ojMwf7eYgUcgM/dO8XmdcYWxZgC4=;
+X-ME-Sender: <xms:VmC_akbf5-l_09xFrVJWQj690-R7AOaKTHyHtMMKTOHdW6TxLDKe9A>
+    <xme:VmC_arRD3k4K0Vmpvtf_DVE-vLXXJRZkvMYcQWOIqlxLv2lv93o2wJuC-F73OSr9U
+    MJ3FHhYS6wFjpMWwdzsnqMU7FzBkAUwZYDoEqPRUIhtyEJSIl286eI>
+X-ME-Received: <xmr:VmC_aqdyetBDNXs_bdNttcQ2k7NL6qm3cRlVx3py-O6mVDHqNy4LOKH_oqSJlvbYBOqAmIBJ8G2kI7XqVRpFaYhtWti4hgmV>
+X-ME-Proxy-Cause: dmFkZTF/KvG14L6SoNmfOg+TwWUCpD3GD5fO5a5Up/H7w7pZTyfHzcF0fRTQ2O1u6hQ9R4
+    Q7nfL5vkCTEXPmhB2TmivQ3nxJZyYb9oMp6craEuOpvR6x+bBvlp+mjWoef/3nPUR9+sjR
+    KbptPwzO09bXD+oUF7wXwHtN8EvZQDnpeafnMDqZ3QczrPFfbIXz0DEXdMAklvLZ45W1dn
+    pg7KIyMYPOHuK6CRhLjE+D6ag8B3lADj4di6wXE8CSgE101HCWeqPHeeCIB8c44GqZLXSp
+    0/M9Z46IE2FWptS0HefnVORB0TBKGFgVNM7ytAPcjhr9Won4cicrR/JL0TjFkhcmtKPDTj
+    RiD+UNwBHBeq/utCwzdqbqyrJDNWWVwzYukVjszPAlLPmeV1TQLXVkF8uC+JAg5jk1vgK0
+    RhFUTUnqc8+qmfj8I4qC6Urc0R+NDdxqcN4tkO4UxaPbFuIltj7k070Zh+ojlDx3zzb8in
+    mKrt15g56KsRtfq2ST1fqS39zzIJub9Zun5HMj55kOdMNiJ+Dr4kc6rtUrQ3rnWBwNFe4L
+    yMpbWQYGalQovsWWW5X8Heqt8U4zxAobryEnRxjj84yPu4JoTlFkLbQiVpmfecdYTt1t3Y
+    dayXcsFmHsd/NE6+lWkK96g/1gexDqVOuBITOSr21on5cm+/BcwvqVtdlA1Q
+X-ME-Proxy: <xmx:VmC_ainFi54mGhaGvaVpT33B1Y2QwrkpsfuzSXw3-BkQc0yM3KIGxA>
+    <xmx:VmC_aniB3d-Qwe43HFsDK326bdWAlYLMeGiN4clTEaUARh_ofoM1Ow>
+    <xmx:VmC_arGGnX57Nk3oRyu2DGKDeExMVIlQkcnrdbvkGk8A7-H78PhDEQ>
+    <xmx:VmC_auyACyPdywHWb8ZAgJgjEfZu0vt6DtoV81-EB4smre2DMAfnrA>
+    <xmx:V2C_ahsnzylZtSpb0gg-iK7fxYlfdZ-0I1-oceBBStt76wY0I-81Y7D->
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 2 Oct 2026 03:42:12 -0400 (EDT)
+Message-ID: <79fd8985-1c19-46b8-8cc5-ca9c76142cd1@pobox.com>
+Date: Fri, 2 Oct 2026 00:42:11 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-cv75-v5-v9-7-486cc289a4b8@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 000/752] 5.15.222-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260930152358.131179731@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260930152358.131179731@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 08:40:56PM +0800, Long Zhao via B4 Relay wrote:
+On 9/30/26 8:17 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.222 release.
+> There are 752 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 02 Oct 2026 15:23:04 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.222-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-> Some controllers ignore output writes while a line is still an input.
-> Add a behaviour flag so the output value is written after the direction
-> change. This is a legacy quirk. New hardware must not use it.
+Tested on 2 amd64 laptops (a Lenovo ThinkPad T14 Gen 1 and an Apple
+MacBook Air 13" 2017). Working well, no regressions observed.
 
-A nit-pick below.
-In general looks good to me.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+In particular, the MacBook Air that I used for testing has a SATA SSD
+and was affected by the SATA booting regression in 5.15.221, but with
+5.15.222-rc1 it boots again.
 
-...
-
-> struct gpio_regmap {
-
->  	unsigned int reg_clr_base;
->  	unsigned int reg_dir_in_base;
->  	unsigned int reg_dir_out_base;
-> +	unsigned long quirks;
-
-I think I have told at some point that this location is not the best, I woul put it...
-
->  	unsigned long *fixed_direction_mask;
->  	unsigned long *fixed_direction_output;
-
-...here, after the group of the direction related offsets and masks.
-
-> -	gpio_regmap_set(chip, offset, value);
-> +	if (!(gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR))
-> +		gpio_regmap_set(chip, offset, value);
->  
-> -	return gpio_regmap_set_direction(chip, offset, true);
-> +	ret = gpio_regmap_set_direction(chip, offset, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR)
-> +		gpio_regmap_set(chip, offset, value);
-> +
-> +	return 0;
->  }
-
-...
-
->  /**
->   * struct gpio_regmap_config - Description of a generic regmap gpio_chip.
->   * @parent:		The parent device
-
->   * @ngpio:		(Optional) Number of GPIOs
->   * @names:		(Optional) Array of names for gpios
-> + * @quirks:		(Optional) Behaviour flags, OR of GPIO_REGMAP_QUIRK_*.
->   * @reg_dat_base:	(Optional) (in) register base address
->   * @reg_set_base:	(Optional) set register base address
->   * @reg_clr_base:	(Optional) clear register base address
-
->  	int ngpio;
->  	const char *const *names;
->  
-> +	/* Regmap GPIO behaviour flags */
-> +	unsigned long quirks;
-> +
->  	unsigned int reg_dat_base;
->  	unsigned int reg_set_base;
->  	unsigned int reg_clr_base;
-
-I would follow the same location as it's in the above struct, id est after
-
-	unsigned long *fixed_direction_output;
-
-member.
-
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+-Barry K. Nathan  <barryn@pobox.com>
