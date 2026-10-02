@@ -1,136 +1,185 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916BE214813
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:27:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F289D3F54C4
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969250; cv=none; b=Xn2o4KY+PPIX/9aH78oZoW935R+GTXU5aIXIxJBw3WaqWdxJkccjo5xodMPO0SOfmT9ebrvXYZDJnhlvI9X50F7a9oYaQ8LN4O+qaoQwKtenZWS98PiGJ8fye9g/dsoU+tx/nBXQppGi8VnUZ8GDgTlIP9oVetyHTAMfwl+Becs=
+	t=1790969347; cv=none; b=kc6EarMz/3FgILD/1Wb7agpscKOyg7ELAzfWQAIUUsD+3iWHCaVb4SbqgDDTn4FLNbaYstG89/FPEHupaRLkfmuovWeUWY2j9f/Ze57KqYETKXQNnSVlgFoSgWa02GJg6q/wiI1246dNx5zxxomiTL+Ush7qZUlDJVAxFsjaQoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969250; c=relaxed/simple;
-	bh=3SrAKRxVKoiz36qd1iw66PRVuCuWO6FT5+hCHo27x28=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mEgMY5negZQHj+V6IRGYoxVDajBP3P+RvMM3lTakBlVCsHQBK+pA1OU7igCCQb8q9+55bFvbzMUnrIcsCj6HwVTMtH/oZ1D851/zIE67eQW37oK5h2Sc3quI2sQngmSNnOEXJLuuWOvhUm+DpWkp7XPqHhMAJUuF+B3xMa8EvZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YS9o4Pq0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790969347; c=relaxed/simple;
+	bh=QTxcsJdDdi0EVr/cGd9tJhfzHlRVRQX3w8RiQjVNFm4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VOOGuc4Oqf35zK3QpjFdyVQNnP+Z2NRHt6Z3mezfp2Yp7gm5rRja3UfK8bma03vCzLNXc/c8gnqqpQ2Lq9d+1KuKAqXH0VpTaxnSqMkKtk26lxCD0vZg7BN2pSNT1kyE41DkQhW8pMZvtoXiidMGXrXm11fdHk5Pc8YoNdzz+Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJ4LUrq2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YS9o4Pq0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B331F000FF;
-	Fri,  2 Oct 2026 19:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJ4LUrq2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46A2A1F000FF;
+	Fri,  2 Oct 2026 19:28:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790969249;
-	bh=TMLh6+kpgnlTMAS7jCwws3JUzVdAB4NK/Gtu/GGQ6go=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YS9o4Pq0335A+yCQuWG4Lsen37G2h6e9pTCh0mfvusPgL8a7VR36qoCuginbtio3S
-	 HmQ+RNY3qpa/vWmy8XPS9kUoHeiTZk1bdQL7B8dMncshh2Zpl3PnBC3of1w0o94MLj
-	 EMDI7pkpMgD7vUdXf8fJC1wKdXfJQ3XiAG80jFufIig//Nr5T45ZWU7us57UQtrEPu
-	 gN+Z7BdZP7Jw0DQ8B6myqbY4djgb5wOoU6h5Q/Ktl4LnpralyNfQPXdtdHsXBLSR4X
-	 YbomdDFA/lHVPoxqw6zZOBeWE2HGC1lzV1Kld0Dm554XWEl6fw+kmq8Wpx2FgbcUWZ
-	 A80dN6DE1rs7g==
-Date: Fri, 2 Oct 2026 20:27:22 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	akpm@linux-foundation.org, david@kernel.org, Mike Rapoport <rppt@kernel.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com, pbonzini@redhat.com, 
-	Borislav Petkov <bp@alien8.de>, Tal Zussman <tz2294@columbia.edu>, 
-	Rik van Riel <riel@surriel.com>, Matt Fleming <matt@readmodwrite.com>
-Subject: Re: hunting memory corruption bug in 6.18.x
-Message-ID: <asAE3kLFDUx5v0Nw@gremlin>
-References: <arZHp8hjYFXE8Rkt@gremlin>
- <arde/t0zQNEkWqi5@pcnci.linuxbox.cz>
- <areOeRwZOez0eHm7@gremlin>
- <arotyz5g6LozSjb1@pcnci.linuxbox.cz>
- <arwNebjYXyGqrp32@pcnci.linuxbox.cz>
- <arzRBv9ceJsxJppI@gremlin>
- <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
- <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
- <ar9yRqq6cBxHDWKA@gremlin>
- <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
+	s=k20260515; t=1790969342;
+	bh=wKiXHVPNbskbxRmcfJdeYAcs9CbqQ6iFfiXid0l2arE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EJ4LUrq2ySsTcAFWwrouLXGqbGx0gDjPBo1eFRga3iviClLlVxzME6YVWlMjFIPJf
+	 AJO0MtJRNMpMl8g5ZZvH9/J/WQVhJjgyiJgLaSOeM848tS3ga/1aRE8W/HGuWIFGOi
+	 3w8HlOEnnbAP/tgVZOaS1498d2CkaQefzqB0yL4dFNIUIGTaWCmU2Crmmnj7IP170g
+	 N3ZhdXHW7v2IEWsut9D87g+qnfcybe17e4Vqg8V42vemd8hVcHaa66LZD2LNleHRQO
+	 6Z4ub+CVvhbbSGTeeligZmbHknC4rVW1eeAqxDv9wYzmoayZuNtgQNeKqA9kUM50Eu
+	 zOhAHpX8BuI3g==
+Message-ID: <f54d5d75-5cc1-488b-b640-76163419cf4d@kernel.org>
+Date: Fri, 2 Oct 2026 21:28:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 09/14] powerpc: move has_transparent_hugepage() out of
+ THP guard
+To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
+ lance.yang@linux.dev
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com, usama.arif@linux.dev
+References: <cover.1789695931.git.luizcap@redhat.com>
+ <05a71b6011a6eab7b096f262485fcb8b4987976f.1789695931.git.luizcap@redhat.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <05a71b6011a6eab7b096f262485fcb8b4987976f.1789695931.git.luizcap@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 02, 2026 at 04:55:39PM +0200, Nikola Ciprich wrote:
+On 9/18/26 03:45, Luiz Capitulino wrote:
+> A future commit will introduce a kernel API to allow for checking if the
+> CPU supports PMD-sized pages. This API will be based on the
+> has_transparent_hugepage() implementation but will be orthogonal to THP
+> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
+> 
+> Move its definition out of the THP guard.
+> 
+> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+> ---
+>  arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
+>  arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
+>  arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 +++++++++---------
+>  arch/powerpc/include/asm/book3s/64/radix.h    | 14 +++++++-------
+>  arch/powerpc/mm/book3s64/hash_pgtable.c       |  4 ++--
+>  5 files changed, 20 insertions(+), 20 deletions(-)
+> 
+> diff --git a/arch/powerpc/include/asm/book3s/64/hash-4k.h b/arch/powerpc/include/asm/book3s/64/hash-4k.h
+> index 8e5bd9902bed..79511e6abfca 100644
+> --- a/arch/powerpc/include/asm/book3s/64/hash-4k.h
+> +++ b/arch/powerpc/include/asm/book3s/64/hash-4k.h
+> @@ -165,9 +165,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
+>  extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
+>  extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
+>  				       unsigned long addr, pmd_t *pmdp);
+> -extern int hash__has_transparent_hugepage(void);
+>  #endif
+>  
+> +extern int hash__has_transparent_hugepage(void);
+>  #endif /* !__ASSEMBLER__ */
+>  
+>  #endif /* _ASM_POWERPC_BOOK3S_64_HASH_4K_H */
+> diff --git a/arch/powerpc/include/asm/book3s/64/hash-64k.h b/arch/powerpc/include/asm/book3s/64/hash-64k.h
+> index 7deb3a66890b..a4a44a112ff9 100644
+> --- a/arch/powerpc/include/asm/book3s/64/hash-64k.h
+> +++ b/arch/powerpc/include/asm/book3s/64/hash-64k.h
+> @@ -278,9 +278,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
+>  extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
+>  extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
+>  				       unsigned long addr, pmd_t *pmdp);
+> -extern int hash__has_transparent_hugepage(void);
 
-> > The fact you've seen this on a Milan machine (EPYC 7343) is new information
-> > so that could be useful for the report, so if you can reproduce _without
-> > the fix_ first that'd be very useful to know!
->
-> well, not so good news here.. I tried the reproducer on multiple
-> lab machines and also on one drained production box on which we've
-> experienced one crash and wasn't able to get a single hit so far.
-> Here's the list of machines:
->
-> hostname   	 CPU	   	RAM    kernel		microcode
-> pocstdv1b	EPYC 9124	384G	6.18.31lb9.01	0x0a101158
-> labtest		EPYC 9274F	64G	6.18.20lb9.01	0x0a101158
-> lbxovav6d	EPYC 9124	1.5TB	6.18.31lb9.01	0x0a101158
-> prfjazv1g	EPYC 7343	1TB	6.18.53lb9.02	0x0a0011de
-> nrbphav4a	EPYC 7343	1TB	6.18.15lb9.01	0x0a0011de
->
-> I'll leave it running for few hours, and report back. If I'm able to reproduce,
-> I'll try recommended workarounds and report as well.
+Without some of these helpers in place, I assume actually using PMD leafs
+without THP would require some more work. (which is not the goal of this series,
+just asking).
 
-Thanks for trying that!
+I do wonder whether the architecture should instead simply say "not supported"
+if !CONFIG_TRANSPARENT_HUGEPAGE?
 
-Yeah, it might have been tuned to the zen arch rather than milan so that could
-be making it less effective unfortunately.
+That should still enable your series: using mTHP without PMD support.
 
-> (and lots of more addresses, truncated)
->
-> crash> vtop 0xffff986002783a50
-> VIRTUAL           PHYSICAL
-> ffff986002783a50  582783a50
->
-> PGD DIRECTORY: ffffffffa0836000
-> PAGE DIRECTORY: 143a7801067
->    PUD: 143a7801c00 => 80000005800001e3
->   PAGE: 580000000  (1GB)
->
->       PTE         PHYSICAL   FLAGS
-> 80000005800001e3  580000000  (PRESENT|RW|ACCESSED|DIRTY|PSE|GLOBAL|NX)
->
->       PAGE         PHYSICAL      MAPPING       INDEX CNT FLAGS
-> fffff2715609e0c0  582783000 ffff996e5a8932d9 7f6a1589e  1 2ffff800020938 uptodate,dirty,lru,active,owner_2,swapbacked
->
-> crash> search -p -m 0xfff0000000000fff 582783a50
-> 3c600964f0: 8000000582783067
-> 11e238a54f0: 582783e67
->
-> should you need anything else, please let me know
+[...]
 
-Thanks! The LLM has informed me that it got that wrong but it was interesting
-data (...!) which suggests guest memory page tables might have somehow ended up
-there.
+>  
+> -static inline int radix__has_transparent_hugepage(void)
+> +static inline int radix__has_transparent_pud_hugepage(void)
+>  {
+> -	/* For radix 2M at PMD level means thp */
+> -	if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
+> +	/* For radix 1G at PUD level means pud hugepage support */
+> +	if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
+>  		return 1;
+>  	return 0;
+>  }
+> +#endif
+>  
+> -static inline int radix__has_transparent_pud_hugepage(void)
+> +static inline int radix__has_transparent_hugepage(void)
+>  {
+> -	/* For radix 1G at PUD level means pud hugepage support */
+> -	if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
+> +	/* For radix 2M at PMD level means thp */
+> +	if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
+>  		return 1;
+>  	return 0;
+>  }
 
-Could you try:
+You are swapping both implementations, which might create some unnecessary churn
+I think.
 
-    crash> p d_hash_shift
-    crash> eval (0x5560450b >> D) * 8 + 0xffffb18900a00000
-                                          D = the d_hash_shift value
-    crash> eval (B & 0xfffffffffffff000)
-                                          B = the hex result above
-    crash> vtop B
-    crash> rd -64 P 512
-                                          P = the hex result of the second eval
-    crash> search -p -m 0xfff0000000000fff PHYS
-                                          PHYS = the PHYSICAL column from vtop
+-- 
+Cheers,
 
-  And for the pages the physical search found:
-
-    crash> kmem 0x1ae234000
-    crash> kmem 0x24f0e2000
-    crash> kmem 0x103360000
-    crash> rd -p 0x1ae234000 512
-
-Thanks!
-
---
-Cheers, Lorenzo
+David
