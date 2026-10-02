@@ -1,179 +1,92 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C3541A563
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 08:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B388F3EDAA0;
+	Fri,  2 Oct 2026 08:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790928591; cv=none; b=p5wUagCQ70IUSRr6cJRSw7s8vfb0HX1YvVFctcDY3tJu/Jq2rHd35ATMC0cEAQ9+rJlfIaUcCOk48lFUcXx3jCSFHb0cbkqh+ZRu29uqnIt4uXUhjzoVabjOeQ3tLUTU9a4bsAXegkHc4OGUbYzUaM2q/skTCxdJZWb7mf2jKfQ=
+	t=1790928625; cv=none; b=jd42V7XGA4bbd3pW0mCnKLXQ5egHeYsE5HLUsvazGi/Wh+Smj8oJzpeyekw1UKta2iUHYD4L/1sShnjuFg27FAKwshQB95juop72p3K6nOAmDQ3dbKEjYWl0n0Emj/M+FZhcWMzcLOzA7/VjIhSuk9xNLWyjITMPecVSAXY3PFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790928591; c=relaxed/simple;
-	bh=DGpTwbDIeBlS7xGbevsnPXJ7r9V5/qe6fW0JwCkuRoQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HMHTYlfp+g8YA7XkXntfk4cj6WxONNlZlyowPy673S0uzKk2oh3cEy1HUPBuatQ0wwILo2yYG+qp7UmnAmTgrS2ZK3WnBNn/x6tMpN9aYhnqkaS0kV1C5FMKtdJ5I3i8/BCi5zzTMpjpHheYiLKUokEkJhb4GxHcARbGg4rdCRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=nlQrpZci; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790928625; c=relaxed/simple;
+	bh=P5qDOBB+maHprqRSEG339lxLmlV9DddAz8WOH1gvDok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DaPTflFWujPZC1QZS/+SZJ0GL7Vq9GekB1jOncX3QMn27TK+Bo2sim1xiLD95dVcfM5/Gy4ei2WM1jb32T5GcaUk31OWJ9wFILasWWci5rBEW5YtbECu+L2FbkfWhfNQzjzf1msoY3JumR+gjdHB26EfsdUEzdDNgFt86C3hLp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=gO8ybHJ4; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="nlQrpZci"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so17045865e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 01:09:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790928586; x=1791533386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cyfq5Z39i3Aa9ox1entG/vitb9px1bSDrzF3bMpTbqM=;
-        b=nlQrpZciIERMGLnEYKazKcxNj+AfzUsfyuG9eFIsindPMqlnlficfjm5HNNxocxGOY
-         wAGucdObo5WGQCzAlz97WJbAHs2P+OPfYsF4y/aXpkdo9xW/H9fD5dNwC7m9mSMWTkce
-         1B6BIhgCn628FpWP9dQFAlAjLDChlYAy/w6psUFv/DPquDGVbqZcS+4WaxlFIkLjfK03
-         p18rV+K24eteG2OnZvEFFNL0mTGLg2BsffcfcL5HJd0MuD+ySCIRgbJvceZVBpfzW5gQ
-         9xygZb/wmhajCIBDLvOn6JEQBSjgok/dHLWQAX7EAyC8HqXidy4o4FGTiKx6d58CoBZi
-         +ZPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790928586; x=1791533386;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cyfq5Z39i3Aa9ox1entG/vitb9px1bSDrzF3bMpTbqM=;
-        b=UwlLbQwk0ENwfZO9iRylNK6hI0+F0ZgsYAJ9/cs9H6400gOS3eBFhRbNDWHGWvJ2sd
-         2SePw3hWcJF5qr4wOjgibCZtu3erYn+0tp3o6n9UATNS3Mr2Ard/salELGuOLrG/cqH4
-         O9AVjhkmEL3s+R67tMwNPAErvvTyZgAqtvoQeR3Msat1DyPUbZk8cWv3CnBKAnVknDcG
-         ukbb0CQVHNWCsps9cuJlrCsmijZuh3q1jxqSfFbUCvWOCg/zog/y7mla7n19LYpHGPBZ
-         iHaa/g7sXPssDugXj8Ws6JT5/HyijcKo8Qd/MZqUgX/7+uzCONJqGCirECNDAv7cMQQc
-         EgeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzy12LM9ttnSxJ6xZnqVWX4pfPt1qrYOpzAyiLAbvlQXdNgPhoi8+9x8BAQtJBLWoh/k/sP+8cT3E3UY1w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLUdCd5fY7raDWarfdnGk6TCTs54cQQWTpungJZKrkZs9DiYhc
-	d6jRNjlxNMaRXzX1aRgqOyJa0g/SoEAnf0zvZoIvjnEEIcc7BrRmfH0MLwQrZ94Abew=
-X-Gm-Gg: AYBFou12JLlwT246EXzlI5qoDu1pBOA+z3vi4C07KXXkk+9wLTf6XS5iucsa91fK/4c
-	ycawJokXIRTTOzkw2GWdxJf/KkkB9oI4RGVbN5RA7cyzEzOz4n9iflXTlzrDqX7EZa4MUXajT/U
-	sKe2N5o33axFeNtiVtTViF1vrJa0kBwwvm2yYzQSlvSVtnvrSrsZhickiNnld9dl/5tjiWGc50S
-	wNkK6mlLXikaUcG0d4gQqxJUSae5LbJVKgnvthBH1J+odd8XRe+oXhuh45y74N5WdS6j45PLySW
-	88DHpYHV/0qnX6D748q/UrPp9QiaHYQ8yRitRqexuhxNO0gqIs6/2wMM42tfOxHaViF03fH3u9C
-	Kgvc3NnHQwjowJBifP3gmXU91oR3ZJ1GP80imRlt+hOvtWZVa0HLj3TW2YI1vwHctAoSKd8/Vev
-	H4WJuvZXKgTHtvxr4Rn7uXCC82kkEkXEwc4dStPGntVt4GhIO8IgCUFg/QftUReBv5LTS7076+g
-	ggJlXSyxlDBzpemXVs=
-X-Received: by 2002:a05:600c:1e24:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a0275507d7mr31998105e9.11.1790928586168;
-        Fri, 02 Oct 2026 01:09:46 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm38823805e9.4.2026.10.02.01.09.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 01:09:45 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: zl020895 <zl020895@163.com>, Linus Walleij <linusw@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, longzhao@ambarella.com,
- Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Michael Walle <mwalle@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?Q?J=C3=A4rvi?=
- =?utf-8?Q?nen?=
- <ilpo.jarvinen@linux.intel.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones
- <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH v9 13/15] serial: 8250_dw: add Ambarella CV75 quirks
-In-Reply-To: <4405a61f.505.1a0fa675e43.Coremail.zl020895@163.com>
-References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
- <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
- <2026100140-overbite-mundane-fc79@gregkh>
- <CAD++jLnv1Q7ChHuLo=ad9edqhZL8MNaMab8huMAepK_LwqVzGQ@mail.gmail.com>
- <4405a61f.505.1a0fa675e43.Coremail.zl020895@163.com>
-Date: Fri, 02 Oct 2026 10:09:44 +0200
-Message-ID: <1j1pa834mv.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="gO8ybHJ4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=zohR+31d4S/MlhZOaky7vMucJvC+3R4Cb2NEvA3Oaik=; 
+	b=gO8ybHJ4gzoqwES9fnJ4kniFTDWAf8X2+O/MNR41AVVY2eTrr3HOtU7UBUQ3aCV1yv6TfvV0OGL
+	S55B4lPC/gOae5HXw9kXTEpuBwtuUU5GBCxQv4N+Uz9YtRQ/2yUQARPlsbgNR0ERuS+j78hIqi+JO
+	gb/+JFxKahtMDQQ/wtQ4DSBDn0RCMpjrNyhc1NksQBrY3ra3UJoXzidOjQIjN9SGzIQ69cnJTu+Rn
+	LWizFgdg1TxEqqk1/SvQmz1IYCY7VIkL6sAP5jKCAUTYoE6K1nEqrNX3Dj+JlsGr7I6ruiraeh8U0
+	mCmGK0uSWgNP73nK32NW4od6ToaJqJ/xDwjg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xCYLM-00000002mIm-3uZM;
+	Fri, 02 Oct 2026 16:10:14 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 02 Oct 2026 18:10:12 +1000
+Date: Fri, 2 Oct 2026 18:10:12 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, Srujana Challa <schalla@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] crypto: cesa: complete pending requests on device
+ remove
+Message-ID: <ar9m5Bn_QFzjL6MW@gondor.apana.org.au>
+References: <20260927212315.113966-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927212315.113966-1-rosenp@gmail.com>
 
-On ven. 02 oct. 2026 at 10:17, zl020895  <zl020895@163.com> wrote:
+On Sun, Sep 27, 2026 at 02:23:15PM -0700, Rosen Penev wrote:
+> mv_cesa_remove() unregisters the algorithms but never drains the engine
+> queues, so waiters of requests that were in flight, queued or already
+> processed block forever once the device is unbound.
+> 
+> Quiesce the IRQ with disable_irq(), mark the engine aborted so no rearm
+> or new submission can restart it, stop it and wait for it to go idle.
+> Drain engine->req and engine->queue with -ENODEV, the error
+> mv_cesa_queue_req() now returns to new submissions, and report
+> engine->complete_queue as successful because ctx->ops->complete() has
+> already copied their result out. All of them go through
+> mv_cesa_complete_req(), so ctx->ops->cleanup() still releases their DMA
+> mappings and descriptors. cesa_dev is cleared last, as those callbacks
+> unmap through it.
+> 
+> mv_cesa_dma_cleanup() now stops at dreq->chain.last. mv_cesa_tdma_chain()
+> links requests queued back to back and only mv_cesa_tdma_process() severs
+> the link, so a request that never ran still points at its successor and
+> would otherwise free its tdma_desc_pool and op_pool objects twice.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v3: fix more errors
+>  v2: fix a bunch of sashiko errors
+>  drivers/crypto/marvell/cesa/cesa.c | 120 ++++++++++++++++++++++++++++-
+>  drivers/crypto/marvell/cesa/cesa.h |   4 +
+>  drivers/crypto/marvell/cesa/tdma.c |   9 ++-
+>  3 files changed, 131 insertions(+), 2 deletions(-)
 
-> Hi Greg, Linus,
->
-> Thanks.
->
-> This series follows the new-vendor, new-SoC process and is sent
-> as one set, so the new Kconfig symbol and the drivers that use it
-> land together.
+Please review
 
-What Greg and Linus say here is basically what I already suggested on
-v6 [1]
+https://sashiko.dev/#/patchset/20260927212315.113966-1-rosenp%40gmail.com
 
-Giving the whole context of a bring ups, mixing many trees, might be
-nice at the RFC stage but then it makes a lot more difficult.
-
-[1]: https://lore.kernel.org/all/1jld986j7m.fsf@starbuckisacylon.baylibre.c=
-om/
-
->
-> If it has to be split, the GPIO patches and the UART patches can
-> go out as their own series. The SoC patches and the CV75 clock
-> driver should stay in one series: the clock Kconfig depends on
-> ARCH_AMBARELLA, which is added by the arm64 patch.
->
-> Would that split be acceptable for you?
->
-
-I don't get why clock is any different here. Just state your
-dependencies in the cover letter. `b4` can help you there as well.
-
-> Best regards,
-> Long Zhao
->
-> At 2026-10-02 03:20:51, "Linus Walleij" <linusw@kernel.org> wrote:
->>On Thu, Oct 1, 2026 at 2:52=E2=80=AFPM Greg Kroah-Hartman
->><gregkh@linuxfoundation.org> wrote:
->>> On Thu, Oct 01, 2026 at 08:41:02PM +0800, Long Zhao via B4 Relay wrote:
->>
->>> > From: Long Zhao <longzhao@ambarella.com>
->>> >
->>> > The Ambarella CV75 UART is Ambarella IP, not a Synopsys DesignWare
->>> > licensed block. At the register level it is close enough to DW APB UA=
-RT
->>> > that a full custom UART driver is unnecessary: reuse 8250_dw with a
->>> > small platform quirk.
->>> >
->>> > Quirks:
->>> > - keep IER ETOI (bit 5) set for RX timeout behaviour
->>> > - skip set_rate; baud clock is managed outside the UART block
->>> >
->>> > Reviewed-by: Linus Walleij <linusw@kernel.org>
->>> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->>> > Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
->>> > Signed-off-by: Long Zhao <longzhao@ambarella.com>
->>> > ---
->>> >  drivers/tty/serial/8250/8250_dw.c | 32 +++++++++++++++++++++++++++++=
-+++
->>> >  1 file changed, 32 insertions(+)
->>>
->>> When you submit lots of different subsystem patches all in one series,
->>> it's hard, if not impossible, for subsystem maintainers to take them :(
->>
->>In my experience people do this in cases like this it is because they
->>essentially dump out their "bring-up" tree, the thing they have
->>booting on the hardware so they know the pieces work together.
->>
->>Long: can you split it up in topic branches and work on e.g. the
->>serial driver on a separate branch?
->>
->>A better way to test the whole set of patces is to just create a
->>mixdown branch where you merge all the topic branched into
->>one "test" branch, then you boot and test this before sending
->>out each branch separately.
->>
->>Each topic branch can be versioned separately with b4.
->>
->>Yours,
->>Linus Walleij
-
---=20
-Jerome
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
