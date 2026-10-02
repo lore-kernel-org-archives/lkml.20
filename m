@@ -1,137 +1,159 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7772A33D6FA;
-	Fri,  2 Oct 2026 09:22:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FE140F72F
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932925; cv=none; b=l2760fU1FS3D6agZiJtKFmPjM91kjGboDy63+wjG99uOMZMyotvrtSzD7Lo7Udcc7dVK1VAuJ5mxtF0iyWtGa5EBq4aO7D/ecz4R7mJOFWfX59sJHDLqIQ/67Jy7LMc3qKWSNaW0gGN0raYkNJXKzyU8wLexNrvg2AoFp58zhnk=
+	t=1790932943; cv=none; b=RL+6Qn5aFIX+qLl8BjVxWUdBXZ2/3hMhCqLdhn4dg2Sjdz62FiWLz3IHLJpzeqRCcj2Jyql7m5+o5auePaIgTEuPEn6hgDh33DZVVriAShpuwMsaBDTQppO4Ym8+zWTbzK0VSrA3kqnEPTVg8sEs2xZeI7b/qKBVCXiMBanlJPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932925; c=relaxed/simple;
-	bh=Nt5EyLv2fa36Fy83aGx/2D36CTVlUMueBXMpWlZ6ROg=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=kxDPRfcDpRd71g6VrB6LowvT5+zEE3WEto0ln32wHDXp+ubExs+m4oPehuvNsY4hoFwURm5/Zsej2y4jg2komMn7TNfput7PTCpn63xguFh3QNw2IoFKujQvuhxPxhzmfsKNjHge0uanhBLejLX3XrKxoTA69PJavEILd4+pODs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GpTxvhJf; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790932943; c=relaxed/simple;
+	bh=OZS4begbuoh9vpydmIeZJ6GkCEOKWg0yMsnbMG/Tsf0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fo2ELEns+Q+QnHXCTvZ2wHka/NdLSk3aviA8ml5WgnfcDvzKedoLnT/tZIr8sEQVMP4RafIHeSQwaSWFaBlvJ3qQGo3NoIAL4245ctqTGb42vDZSyQ65qtgJ62G9kqbaGscw+j3YLoJH7tkCFqZqbWa6ngFqUrdUHNMkR7o3sEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sOc8hM4k; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GpTxvhJf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790932924; x=1822468924;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version:content-id;
-  bh=Nt5EyLv2fa36Fy83aGx/2D36CTVlUMueBXMpWlZ6ROg=;
-  b=GpTxvhJfgDmdL+WuxYDVS7Dd3sN/992oC1DquKu3Cc66PN4XTRpKveBv
-   u9sHM1JaimcJlXtHFP488sFTblH2WbVRE94fuhEA7hwq0LFXU5Ku2RoTy
-   ayagxPsr5ZR89qTxfao3jA9tWLFhHnpn8gY9f13Ev6EjTGOzMRtc+KxCz
-   VJSXCuDZ8I/FmJLHAvkx35msEql85ODVB82BTYeItvJ/aU483W87fRci2
-   CG5+I+B4qvTR7c2Xg89Ggi7V7solLBKTQrwiAmQtOZvT3hfQ7qCr1dKO/
-   llZu/zxyiCF/IvwvjGV3HGS2jej/hPuZheLbXiFXPO3fqWK/F4bMUNbsV
-   w==;
-X-CSE-ConnectionGUID: WfuPCUicT6iYcI3z+qmamQ==
-X-CSE-MsgGUID: NE7HOWtYS3qkmwVGHgBmNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90557661"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90557661"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:22:03 -0700
-X-CSE-ConnectionGUID: 06h8DB5gRWSN9CV3dAG2Ag==
-X-CSE-MsgGUID: rylX1TlzS/mE7df6bmtAVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="296972"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.243])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 02:21:57 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 2 Oct 2026 12:21:52 +0300 (EEST)
-To: =?ISO-8859-15?Q?Milo=A8_Vlku?= <vlku.milos.fun@gmail.com>, 
-    Chris Taraszka <chris@miget.com>, 
-    TuteMthCD <matias.civadda2342001@gmail.com>
-cc: Anton Karasev <uselessfire@gmail.com>, qby140326@gmail.com, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, W_Armin@gmx.de, 
-    ilya.gladyshev@linux.dev, foxido@foxido.dev, kento@kekto.ru, 
-    ericted8810@gmail.com, chris@miget.com, matias.civadda2342001@gmail.com, 
-    btx342@gmail.com, wleizc7319@gmail.com, wolf109909@outlook.com, 
-    i@rsplwe.com, bozhenpeng93@gmail.com, martiya.ar@gmail.com, 
-    aleksejirlik@"gmail.com."
-Subject: Re: [PATCH v6 5/5] platform/x86: bitland-mifs-wmi: Add per-machine
- ops table
-In-Reply-To: <CAObHBTxHQDfVH8Su1DLABtC5uUsAGBBk=KvcCOvtTs5gMGamnA@mail.gmail.com>
-Message-ID: <094577b3-7b96-72b6-4ef2-a5d1db457401@linux.intel.com>
-References: <20260929134503.17249-1-qby140326@gmail.com> <20260929134503.17249-6-qby140326@gmail.com> <20260930015058.3076905-1-uselessfire@gmail.com> <CAObHBTwnv+kEaFdCp+cr31HtdSo3CaRq84T8vr-Pm75yZMTHqQ@mail.gmail.com>
- <CAObHBTxHQDfVH8Su1DLABtC5uUsAGBBk=KvcCOvtTs5gMGamnA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sOc8hM4k"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so43562765e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 02:22:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790932939; x=1791537739; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sisy7zZIPgc2KpxP76gexIt4R+mmsTYOynHiu3xxYkg=;
+        b=sOc8hM4kt4nLS4o/VQXYbi7ex4MdleJno/3yEi4zHP2Yc9WwpiyroLVpGAVEUYWUkl
+         wIQXNRXlwPqL8fKPO7hQY3IVwfkziU4YqmIaO06sxuyc/AIaei0pQFDE8+y1ERaZ0DJZ
+         1iS54SmtyVy5OUrIrlA+VrwSvusTxTdsQSaAmG7r7zImMjYmxgYvdbPAy46QOHKlltqd
+         0KejyNB7606WhRcQUDVDV0FwvRAXwY53rAUxc8OMn4552sXdzjlvKa2F9fJdixJODDqA
+         sxLg8Ga3b/gBAH0W5CBqPHQ/pGPE5RUQZtfXzL/gXYo61IDGEfgyPXOcuoKpIIXuDnK2
+         mjgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790932939; x=1791537739;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sisy7zZIPgc2KpxP76gexIt4R+mmsTYOynHiu3xxYkg=;
+        b=oU/Q9Qj08RYWw0MoXse8LMoOTiyV66oTcILvcKB+o+Sf9aUj8OK+6YhzZ37PFSNSvC
+         G6Nyw9pg43YDZsxSy3sIOACu3Td+ZBNHtTS8Ilfv4MD+s/Uc2DuQJusdZulnAD8vPU8i
+         vHbPZjfhUxXLJc/5Ipz3s5tjBFyXtqXOUeph83xLSL1MT/HL993+hfHeTUS4X3ova83K
+         vOR2EXKdEMYaBmKR2ujyg3igAZ/RfXivvx0gKkhnavHUUQsLloxn+qb9x0VKxRlxOWME
+         4rFCdjMyw6PA/u1WrdljfrLPWmWnJRL+W47tpF+DwKO0/ntippcVxZR3Qr2wkObTkLBl
+         lHxg==
+X-Forwarded-Encrypted: i=1; AKwUvBx8UykXjSPpe9ConkzjHATvBeYPWLXUBBm/Ml+wLlV9+SXXInbZW28JIlqb51opCFP+vEFoWcc5uqYChgg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVchNJGI4aWhAMQwSElRo6awF1/HJbbufgo85NnSrH5C7GxA7p
+	9EMHUPfYH8BbHHqOxwR2gmzAS0eTZIF5tQmUe+lYr5at5eDOGp6uxb71+Zbre+JUPZo=
+X-Gm-Gg: AYBFou2cCLt97iXyHg/hF5HipEdeM8fW4Qe/8ug4FkT2F1H2neXq0aJCuzHv2DUVtjk
+	P5zxi8dgDTDKoaKgLY7lXURibtlCpaL2bGXsaa+CA6SlAHEL5of2QAH1E5hkxeWEUN2A5HKDc26
+	3IdLcAxQLwAga/4lWuxLmNwFFzx8RLWK3MwMXVmL4sEIIUeuXZTK4tiAUEyYBl9xjh7AVZY9uqW
+	K6RXSXdjoANDVUhQZFGhKEYsEnmi5RzOuIBDHEJPrO5WCaJVOjfMNpMrEwgN9vjw+JQmp7pIuk5
+	h7hFAAOG0XqYGZXJKqX5IiVPpsVNB/VhNPvfFqtqroMbXNvFkI5hP1W89rk/WRKsRaikm2Sz6Bm
+	Escy/HvXVrDUp76FBXj5HNXQ8tnZnRpu2+yeEzwM+l8Re6Qf2eeTIhIvu8W/GsmLJkKEC3wWGRA
+	drJ5dKFnvOEDV2gs4FJ1jnidRXECmq/i8CazJLMrKch9qHXFrt28BH4o0bChlWoHx/YOPY4MBih
+	q5tIVjTWEEwnBxipYaiNNYiebwgC5PmhoYWqn9HZpWAcHXmF3WISMKXnmGaMWo=
+X-Received: by 2002:a05:600c:3152:b0:4a0:2500:2cd0 with SMTP id 5b1f17b1804b1-4a0275977eamr36418335e9.18.1790932939327;
+        Fri, 02 Oct 2026 02:22:19 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280d924asm71505645e9.14.2026.10.02.02.22.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 02:22:18 -0700 (PDT)
+Message-ID: <97e7014e-69a1-4ac8-8278-9e3795b05553@linaro.org>
+Date: Fri, 2 Oct 2026 11:22:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-2103700365-1790932364=:1156"
-Content-ID: <58a7a029-f367-3239-dee5-b474576ac249@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: run the
+ SPI NOR at 40 MHz
+To: iav@iav.lv, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv>
+ <20260930-hc4-spi-nor-v1-2-9a3351e2984e@iav.lv>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260930-hc4-spi-nor-v1-2-9a3351e2984e@iav.lv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On 9/30/26 18:52, Igor Velkov via B4 Relay wrote:
+> From: Igor Velkov <iav@iav.lv>
+> 
+> At 104 MHz, reads return corrupted data: bit 0 of the first byte of a
+> transfer flips from 0 to 1 part of the time. The same byte read as the
+> second byte of a transfer was correct in all 100 reads. One 4 KiB block
+> read 200 times came back wrong 157 times. Writes are unaffected.
+> 
+> flashcp verifies while it writes, so a bootloader update erases blocks
+> it should skip and can abort halfway, with the flash half written.
+> 
+> The Hardkernel vendor device tree for this board uses 40 MHz. At 40 MHz
+> the same tests pass: 200 block reads with no mismatch, and 14 flashcp
+> runs with no block erased.
+> 
+> Tested on ODROID-HC4 with an XT25F128B.
+> 
+> Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+>   arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> index 5ce76a1bfe02..8f09f2b74bdd 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> @@ -144,7 +144,7 @@ flash@0 {
+>   		#size-cells = <1>;
+>   		compatible = "jedec,spi-nor";
+>   		reg = <0>;
+> -		spi-max-frequency = <104000000>;
+> +		spi-max-frequency = <40000000>;
+>   	};
+>   };
+>   
+> 
 
---8323328-2103700365-1790932364=:1156
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <0f932454-0725-531a-b22c-5bf2dd13f436@linux.intel.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-On Fri, 2 Oct 2026, Milo=A8 Vlku wrote:
-
-> Follow-up to my own mail: I have now run those values rather than only
-> reading them out of the tables.
->=20
-> Built current pdx86 for-next with Chris's GET-only function-id change
-> and balanced 1 / quiet 2 / performance 3 / full speed 4 on top. All four
-> profiles apply and read back correctly, checked against the EC register
-> each time:
->=20
->   low-power            -> QFAN 2
->   balanced             -> QFAN 1
->   balanced-performance -> QFAN 3
->   performance          -> QFAN 4
->=20
-> All three power-profiles-daemon profiles work as well, so the desktop
-> slider works end to end on TM2307.
->=20
-> Two things fell out of that:
->=20
-> - Without Chris's change every one of those writes fails with -ENOMSG
->   here, exactly as you described, and with it all of them succeed. So
->   that is a Tested-by from a second board if it is useful.
->=20
-> - No machine-specific capability check is needed on this one.
->   WMI_FN_SYSTEM_AC_TYPE is unimplemented, Armin's work reports that as
->   -EOPNOTSUPP, and bitland_pp_check_capability() already treats that as
->   "skip the check". The stock one is fine as-is.
->=20
-> So the TM2307 entry comes out as just a mode map plus a DMI match.
-> Attached, against the v9 ops table and checkpatch-clean, in case it is
-> useful to have in hand while you write the TM2309 one. I will resend it
-> properly once that series settles -- posting it now mainly so the values
-> sit somewhere concrete, and Mingyou can fold it straight into v10 if
-> that is easier than carrying a separate patch.
-
-Hi Milos,
-
-The profile map approach used by Mingyou's patch 5 is not generic enough=20
-to handle all variation out there so please don't base on top of that.
-
-We're currently trying to build a generalized approach for the known=20
-profile variations:
-
-https://lore.kernel.org/all/20260928153902.139956-1-chris@miget.com/
-https://lore.kernel.org/all/20260928064918.80526-1-matias.civadda2342001@gm=
-ail.com/
-
-AFAIK, Chris has not yet sent the updated series which would have the=20
-latest version of the generalized profile approach. But once that is out,=
-=20
-you should base your model's profiles on top of it.
-
---=20
- i.
---8323328-2103700365-1790932364=:1156--
+Thanks,
+Neil
