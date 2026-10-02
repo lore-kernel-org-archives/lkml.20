@@ -1,150 +1,151 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07FB2773E4;
-	Fri,  2 Oct 2026 02:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F84331ECC;
+	Fri,  2 Oct 2026 02:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790909289; cv=none; b=kGDuFbSw8jb+B15yeGCGdiYhIU+9p+YAiDi0YbOqSY2ixaM3i3x+8Ytj9/CcS18dBTHeSU7uzqxbhdyODVG+OgVdmEh1QvAMH+IrO65q1oJ8WuUH1Kji5qhc1JyOhFdnhLuy/zngPKWy8bW7D5T1xJ3WWXxAWwJ1OYbQU23fR3k=
+	t=1790909458; cv=none; b=MHsy4wlvI2ZQqyYwbRAC+JRU/c3wwZ8HL5o6PIZgr/+2PhnJ6pqxjnsso0LZ7e/kw+PLY84hBjTGBOuj6RDZ+PXuwrYgu2XQK7XevIrhrQExjduj74/+MkYXEK1MPamgZ0p5zr4Smfzkzom+LMWN/7VDoIVfj/xXNMO1z/roHl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790909289; c=relaxed/simple;
-	bh=CUMD//euyUn0AtRSVe0ri0IJIQ+TNNUPlWVQRqcBkmw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fVFJCmAkUo2hRx29Nmyug4GNuC7sRFgufejnNYsEmivQNlUujAa1Nhd/eR0G/Yzs8qB3h4LtCwrgWClBYhzXEhh2CpZyxxZq+sANAfeMpxmS3XeOHSsLuycVNk1Dw3APm3Xy6pyEsWVzNyTb15XkWBJAqxptl74OZ6xpb68D3i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dJE1h+Gf; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790909458; c=relaxed/simple;
+	bh=+Oy69BWUpKGX7orMFMSMq7g+SP+QVGG1HmLTuJZnnF0=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To:Cc:Content-Type; b=ILrWXDW77Klj4whdXVug5Duw02kEEUM4+GaxDNCSuUZb9NhHNdAy910jIRwVmrAOMqb2LMAHVgQYYUxDpaOAxxkHr4odh4F46qsv8PvA93eohyVByQGV8VehmheeTWqJAvqBfKErWEvWka4rB55lvRfoizHVzpUQrGyF7T5r7Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WG6E5Sqh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dJE1h+Gf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ig
-	PosaQZzzRdSuWu6GnBn41EP9uSuMfYZlnF4bOOBxI=; b=dJE1h+GfuqWnZhc/O1
-	HfBJM+SRP2C8JjgjrT42zfgVuXVJ3c2Czdgii845JPoHstG7H8vBs0dK090fjiw6
-	hWcB3YfR7dqzoW7zfbvije+mtLa7sVwIShNpR0hwZgmxU+ukLUHQ/4ZGndFMbp/3
-	qVs67c0TvrhEAeIEycbndWkPo=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3H4YvG79qL5ryBw--.20560S2;
-	Fri, 02 Oct 2026 10:47:12 +0800 (CST)
-From: wang wei <a929244872@163.com>
-To: sashiko-bot@kernel.org,
-	bbrezillon@kernel.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	sashiko-reviews@lists.linux.dev,
-	vigneshr@ti.com,
-	wenyou.yang@microchip.com,
-	yamada.masahiro@socionext.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	wang wei <a929244872@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH V3] drivers/mtd: rawnand: nandsim: Fix stale NAND_ROW_ADDR_3 with overridesize
-Date: Fri,  2 Oct 2026 10:47:09 +0800
-Message-Id: <20261002024709.16510-1-a929244872@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WG6E5Sqh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C9947C2BCC7;
+	Fri,  2 Oct 2026 02:50:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790909457;
+	bh=+Oy69BWUpKGX7orMFMSMq7g+SP+QVGG1HmLTuJZnnF0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=WG6E5Sqh7dkttxONJOmcAzFSPBKnZ5xKNvJ0m8wDzfwcW/o95TKEEESSn/4Lrs4+A
+	 LbRzE0Hng2hIhGqa/hdn3lmVRNJt5a7nxE2FDnOVfapDgj7o/Q8zGq5KMOp3ZwDm5r
+	 pwWsXqcx/dJtaDbxV0PQfCwZrod/nh6b64fzCPQC5/4LI3t6bVSh8SVOSPOb63nogF
+	 GrvhKqWWkc3BMWDcplvF/HunxKT5LMBxLQ9zALirXPKS68RVb5E+HZMdcZrTNRvRIt
+	 VTVazV1bT0l1VwIAwkeeigh6NiYJMX5bUWDeUwsDRwRtqvL3JYghdGAhtT/8d96jzd
+	 zdBczDeADuSEg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3A1ECA5FD6;
+	Fri,  2 Oct 2026 02:50:57 +0000 (UTC)
+From: Haseeb Malik via B4 Relay <devnull+haseebulhaq55.gmail.com@kernel.org>
+Date: Thu, 01 Oct 2026 22:33:57 -0400
+Subject: [PATCH net v3 1/2] macsec: check the resolved SCI for duplicates
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-Id: <20261001-fix-macsec-duplicate-sci-v3-1-0f179fbe1f2d@gmail.com>
+To: Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Shuah Khan <shuah@kernel.org>, 
+ Hannes Frederic Sowa <hannes@stressinduktion.org>, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Haseeb Malik <haseebulhaq55@gmail.com>
+X-B4-Tracking: v=1; b=H4sIABQYv2oC/32OzQ6CMBCEX4X07Gp/BMST72E8lGWFTaSQFomG8
+ O4WYowXPc5k5puZRCDPFMQxmYSnkQN3LgqzSQQ21tUEXEUttNSZLHQGV35AazEQQnXvb4x2IAj
+ IQFWemdSiQpOKWO89xeyKPgtHg7hEs7SBoPTWYbNQo71rLbsl33AYOv9cn4xqbb1H89+jowIF8
+ pCWVb7XeKDiVEfebYtdu+6N+gNSUqo/IB1BxkijlC0pJfwGzfP8AolHw7UpAQAA
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H4YvG79qL5ryBw--.20560S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw13Aw4xuF4kurWfCFy3urg_yoWrWr4fpr
-	WUGayUKw4DGF9rurZrZ3Wru3WrJ3ZYya1j9FyfA34F93W5ury2va45KryYkF1UAF4rX3WY
-	vrs3XryDC3WYv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREoGPUUUUU=
-X-CM-SenderInfo: jdzsmjiuuylji6rwjhhfrp/xtbCwhBdBGq-GzDAJwAA3S
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790909457; l=3065;
+ i=haseebulhaq55@gmail.com; s=default; h=from:subject:message-id;
+ bh=c6QwTcnpUox928USSR3h8dDrqJk1wvgqABJGc0txQwM=;
+ b=grqWsEPnoUJNbfIXd1V8nyHxG30ssY1yiYAabKUoXY4zuUE6biTAGpDDfKn211MJ0qxS2rSL3
+ ie8OgC2a0VCBFn/Zrj1I23MHThAT0nkhLJTfhayseXygpwDqToiofKE
+X-Developer-Key: i=haseebulhaq55@gmail.com; a=ed25519;
+ pk=U/yCVc6cTsqDqxWLzvoONZ7DUA3EfRU+rfO9Xxo4p2w=
+X-Endpoint-Received: by B4 Relay for haseebulhaq55@gmail.com/default with
+ auth_id=1026
+X-Original-From: Haseeb Malik <haseebulhaq55@gmail.com>
+Reply-To: haseebulhaq55@gmail.com
 
-The overridesize module parameter changes the size of the simulated
-device after nand_scan() has completed. It updates nsmtd->size,
-memorg->eraseblocks_per_lun, chip->chip_shift and chip->pagemask to
-match the new geometry, but leaves the NAND_ROW_ADDR_3 option
-untouched, even though nand_scan_ident() set it from the geometry
-decoded out of the ID bytes.
+From: Haseeb Malik <haseebulhaq55@gmail.com>
 
-When the ID bytes describe a device larger than 128 MiB and
-overridesize shrinks the simulation to 128 MiB or less, the stale
-option makes the core emit one extra row address byte (page >> 16,
-always zero given the reduced page count) in every read, program and
-erase operation, while the simulator state machine expects one byte
-less. All accesses then fail with:
+An all-ones IFLA_MACSEC_SCI selects the default SCI derived from the
+MACsec device's MAC address and port 1. macsec_init_secy() resolves this
+value and stores the result in secy.sci, but macsec_newlink() checks for
+duplicates using the unchanged local sci argument.
 
-    nandsim: error: write_byte: address (0x0) isn't expected, expected
-    state is STATE_CMD_READSTART, switch to STATE_READY
+Consequently, an all-ones request can create a second MACsec device with
+the same transmit SCI on the same lower device, while requesting that
+SCI explicitly returns -EBUSY.
 
-The opposite direction is equally broken: growing a small device past
-128 MiB keeps NAND_ROW_ADDR_3 cleared, so the third row address byte
-is dropped and the wrong pages are silently addressed.
+Resolve an undefined SCI in macsec_newlink() before initializing the
+SecY, so initialization and duplicate detection use the same value.
+Preserve the all-ones fallback when the resulting SCI is available.
 
-This used to work before commit 14157f861437 ("mtd: nand: introduce
-NAND_ROW_ADDR_3 flag"). Back then nandsim kept chip->chipsize in sync
-with the override, and nand_command_lp() decided at run time, per
-command, whether the third row address cycle was needed by testing
-chip->chipsize against 128 MiB. This code thus always saw the
-overridden size. The above commit moved the decision to
-nand_scan_ident(), which encodes it once into NAND_ROW_ADDR_3 at
-scan time -- before nandsim applies the override -- and the
-overridesize path was never taught to re-evaluate the flag. 
+The duplicate acceptance was flagged by Sashiko, an LLM review bot,
+during review of an earlier MACsec initialization fix. Source and history
+inspection, followed by raw-netlink checks and selftests on the unfixed
+kernel, confirmed the issue.
 
-Re-evaluate NAND_ROW_ADDR_3 right after overriding chip_shift, using
-the same test as nand_scan_ident().
-
-The core encodes the third row address cycle as "the row address is
-wider than 16 bits", ie. more than 65536 pages, regardless of the
-page size. ns_init() however derives its expectation from the total
-size with a hardcoded 128 MiB threshold, which is only equivalent
-for 2 KiB-page devices. For 4 KiB-page devices between 128 MiB and
-256 MiB (32768 < pgnum <= 65536) the row address still fits in two
-bytes, so the core drops the third byte while ns_init() keeps
-expecting it. Fix ns_init() to derive the row address width from the
-page count as well, which also matches the small-page branch (32 MiB
-of 512-byte pages is exactly 65536 pages).
-
-Fixes: 14157f861437 ("mtd: nand: introduce NAND_ROW_ADDR_3 flag")
-Cc: stable@vger.kernel.org
-Signed-off-by: wang wei <a929244872@163.com>
+Fixes: c09440f7dcb3 ("macsec: introduce IEEE 802.1AE driver")
+Link: https://lists.openwall.net/netdev/2026/09/16/11
+Assisted-by: LLM
+Signed-off-by: Haseeb Malik <haseebulhaq55@gmail.com>
 ---
 Changes in v3:
-- Drop the comment block on the flag re-evaluation.
-- Also derive ns_init()'s pgaddrbytes/secaddrbytes from the page
-  count instead of the hardcoded 128 MiB threshold: re-evaluating
-  the flag alone would regress 4 KiB-page devices overridden into
-  the 128-256 MiB range, where the stale flag used to match
-  ns_init()'s (incorrect) 5-byte expectation serendipitously.
-  Reported by reviewer.
-  
-Changes in v2:
-  Remove unnecessary comments
-  
----
- drivers/mtd/nand/raw/nandsim.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+- Split the driver fix and selftests into separate patches, as Jakub requested.
+- Explain how the issue was discovered, as the submission-info bot requested.
+- No code changes from v2.
 
-diff --git a/drivers/mtd/nand/raw/nandsim.c b/drivers/mtd/nand/raw/nandsim.c
-index fe96803..90dbb93 100644
---- a/drivers/mtd/nand/raw/nandsim.c
-+++ b/drivers/mtd/nand/raw/nandsim.c
-@@ -686,7 +686,7 @@ static int __init ns_init(struct mtd_info *mtd)
- 			ns->geom.secaddrbytes = 3;
- 		}
- 	} else {
--		if (ns->geom.totsz <= (128 << 20)) {
-+		if (ns->geom.pgnum <= (1 << 16)) {
- 			ns->geom.pgaddrbytes  = 4;
- 			ns->geom.secaddrbytes = 2;
- 		} else {
-@@ -2359,6 +2359,11 @@ static int __init ns_init_module(void)
- 		targetsize = nanddev_target_size(&chip->base);
- 		chip->chip_shift = ffs(nsmtd->erasesize) + overridesize - 1;
- 		chip->pagemask = (targetsize >> chip->page_shift) - 1;
-+
-+		if (chip->chip_shift - chip->page_shift > 16)
-+			chip->options |= NAND_ROW_ADDR_3;
-+		else
-+			chip->options &= ~NAND_ROW_ADDR_3;
- 	}
+Changes in v2:
+- Resolve undefined SCI in macsec_newlink(), as suggested by Sabrina.
+
+Link to v2: https://lore.kernel.org/netdev/20261001-fix-macsec-duplicate-sci-v2-1-330311abe5ec@gmail.com/
+
+Tested on arm64/virtme with KASAN and lockdep: the regression tests
+in patch 2 go from 5 pass/2 fail to 7 pass/0 fail. The full MACsec
+selftest passes all 15 cases without skips.
+
+ drivers/net/macsec.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
+index 78a19b134632..69686f22eda8 100644
+--- a/drivers/net/macsec.c
++++ b/drivers/net/macsec.c
+@@ -4143,9 +4143,6 @@ static void macsec_init_secy(struct net_device *dev, sci_t sci, u8 icv_len)
+ 	struct macsec_dev *macsec = macsec_priv(dev);
+ 	struct macsec_secy *secy = &macsec->secy;
  
- 	ret = ns_setup_wear_reporting(nsmtd);
+-	if (sci == MACSEC_UNDEF_SCI)
+-		sci = dev_to_sci(dev, MACSEC_PORT_ES);
+-
+ 	secy->netdev = dev;
+ 	secy->operational = true;
+ 	secy->key_len = DEFAULT_SAK_LEN;
+@@ -4178,7 +4175,7 @@ static int macsec_newlink(struct net_device *dev,
+ 	u8 icv_len = MACSEC_DEFAULT_ICV_LEN;
+ 	struct net_device *real_dev;
+ 	int err, mtu;
+-	sci_t sci;
++	sci_t sci = MACSEC_UNDEF_SCI;
+ 
+ 	if (!tb[IFLA_LINK])
+ 		return -EINVAL;
+@@ -4231,7 +4228,8 @@ static int macsec_newlink(struct net_device *dev,
+ 		sci = nla_get_sci(data[IFLA_MACSEC_SCI]);
+ 	else if (data && data[IFLA_MACSEC_PORT])
+ 		sci = dev_to_sci(dev, nla_get_be16(data[IFLA_MACSEC_PORT]));
+-	else
++
++	if (sci == MACSEC_UNDEF_SCI)
+ 		sci = dev_to_sci(dev, MACSEC_PORT_ES);
+ 
+ 	/* Registration can notify listeners before returning. */
+
+
+base-commit: 11536ee3d3e0b1bd35b6f3f8df55a6053eb0c71d
+change-id: 20260926-fix-macsec-duplicate-sci-ed7635ac1c35
+
 -- 
-2.55.0.windows.3
+2.43.0
+
 
