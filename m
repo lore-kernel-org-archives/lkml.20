@@ -1,98 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f36.google.com (mail-dy2-f36.google.com [74.125.229.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A3A3EFFC5;
-	Fri,  2 Oct 2026 06:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A133C3E95A0
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 06:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790922494; cv=none; b=aYb+ZEs0EoBf3e/KyT4Ie+nals/1sD2W2ChyLnNctmBoECZqzovpPIvfd/6qbCgGfWEg6juff6nlIlPuThxVOFb//c924y4dA2vAul4dx/C6+v87gPZW/wyp0IqILDU2xbb/Z0/lKFPfUUDfzjZtAaY1V/jHNiANOclNZIMTggk=
+	t=1790922583; cv=none; b=NoyaAE+Gx6sdFSasUCf0A/wLsTMUjTTvW57praP7T/z/oGpjxQ79zEKVk2nMz2XHnEXnwF3u3NQlA3hNovgQ/2Trnk1SMxhLqwOYduzFs1JxoQxrekMJ/Uy8PFXsC3j8ytQ5GKY0H5N8guRsxoG0rgE7lINlwm6kbgC1fPeVFTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790922494; c=relaxed/simple;
-	bh=l7DdZcXo2XUDi89hOJZKJP6dbuZN9DT/SwqjspGHQ4w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KXTXn7Xxf4E4jPlzrVCLlUWNiGxvzcFdtqFgSeGvNeXvOMHCpY4KFZqZ/BgVKo7riHGNSST77f7Obg2MKSwN2EYApbnWDLgt9IEtEc6W61KKMy9E85ewjTKKJEF/Vg4dDT1GnCO8AR8zZTuzgN+ObgI/6cODSHKqgNTbeekp/EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alaQi1ol; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790922583; c=relaxed/simple;
+	bh=gyTGqOBUT1byslEbBLowM1lzNtpyhGlub203yUcrUJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=efaW+WS3cQRPxGUSTEGLPLzjoYDUmnkIU8KLv+TKcjBrURyVV74FaVYwW92SDftqB0AjN/k0VJAv0NbOEhcVpmXgKv6u+wc8SXEhNTXHtBuolCzlLu+oRlxNgL0+ykVP1d6JTvM8AVVdi8vvUsqk8bEhUkWj5uy4XKc2RY0aPQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LLvg7ClW; arc=none smtp.client-ip=74.125.229.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alaQi1ol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 205F11F000FF;
-	Fri,  2 Oct 2026 06:28:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790922492;
-	bh=TxG2icuKwMxsSbwMpgzXbk4BcAs2bbEkf8Pjd8/udvU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=alaQi1olmM8ItEJqTPOJP4hVdlElklbwp0eH4r/SlgwrmTlHijVns9vo7lN43VDMe
-	 98rBOc5THvlp+bS9pcW5O2gOqULmlUvGA/6ygPNfRrSQqYGbHQnmXNmP/Y5bb5vVnm
-	 sTSqoC8RRiOU+X+YgElv4hvVBoK3EKnzjzmZZ80bZsyWrYH/bnJiPPapgF7LgKNA+x
-	 FWXBMRe0vV+8B/Alcr3AqAawBszih0TiH+d0Zt5gBAZ8Jxlk0Nd1ExRck9IlPbbyaZ
-	 BGgZNK1//bA8La3UMXTj9xmi7d+f3abq1IYg3wH1dGlOjxDoR3r03TXvbAxT2W3Ein
-	 5uEr3lfZO63Dg==
-Date: Fri, 2 Oct 2026 08:28:03 +0200
-From: Greg Kroah-Hartman <gregkh@kernel.org>
-To: Daniel Vacek <neelx@suse.com>
-Cc: cve@kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	linux-cve-announce@vger.kernel.org
-Subject: Re: CVE-2026-97415: btrfs: tree-checker: validate names in ROOT_REF
- and ROOT_BACKREF
-Message-ID: <2026100249-renewal-chewy-6d09@gregkh>
-References: <CAPjX3FfJCH-JnjYTzSTB+6z3KfW77EExH+nXBT7F7ayZe+Odqg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LLvg7ClW"
+Received: by mail-dy2-f36.google.com with SMTP id 5a478bee46e88-328664c2da6so6207668eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 01 Oct 2026 23:29:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790922582; x=1791527382; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/3uKP316TAfLOs8D6w2CQrvf9oUDjp4A6r7z6eIgLW4=;
+        b=LLvg7ClW6BIIXdIiLvEn8xFMVK3b76fhfefxx6FrnvkvR3uqgGl3QKFgzO9hQbcRyx
+         opTjI5QMg0O595XDydJFEaufUyRMOTqruH+K6TgFZl7VR0CUIXkXTfKO15C6/tJi8yLD
+         724HNmId9BbMUod/9cJC9hTzEpXADHMxFc+wMgSLXXGgF03mS7TRVR2toZ2Yx3617f1E
+         La7Ny9vRcSBnU/w7PpRPiMmOIKEMJbfCQmW8C3lVke90IIvR2CIHaqomthJ/MChkWNBH
+         nxzMvkO7usSiVWP5PAgQHKdOQq4LICtgWJaY9nDYKbd/d7+DmpeE7Cye2FOqDBd8W12D
+         B70g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790922582; x=1791527382;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/3uKP316TAfLOs8D6w2CQrvf9oUDjp4A6r7z6eIgLW4=;
+        b=hLyE592HT1zGLZhRdLFrgC1ngaUWjHcIWLQQpi1ow7PneqvJd70filiHSdIKjiBfZv
+         uYweAiv+up1gXVBkZRIINbA0UZaw/XV2R4VdpUOuNIZKME854vROdKisfRnWzX2f9iZv
+         NJkQTfq0+2VjykEPmJenpmizA68Ot1/X6YZag5BnRwW9t54HpsyC5lTYfuq1QHyIQhRe
+         NF8ES0g0FqR/y16lD+sl4DPbmd3RZkhy4Oa3Bi87Y1jsSMYu0O/XWuBosmkDMkOKLevh
+         eut1mPwmjwL+JyM56SCsXmbCbJzPIq/qk9y7mzZgbRlYQAK8yC7kP1yFrSPMXDWSzSSs
+         Y2FA==
+X-Gm-Message-State: AFuF++nBaK+Ys4T1fTpjkaGlV3OYTEwvPP59Lv7h3OLMMHgVOuKcz+xV
+	wYzwIgNfM4fVYAkLJ+YnmLNBxVUQp3rCuQ2cYC0WV1VlWF68jF91+Xu6
+X-Gm-Gg: AYBFou1954N/nntIANYbB7/P9QYI/Bg7FcbQgNa57BzD+Neik0ASqFDzGDKNuHM+D+k
+	DQvU8dMq/BAQaoelwSZgbID0D/IOcD+qISRZeKqrIgE7/Wukoc9nK6oj7+6BQrjWQGauUF/gkoQ
+	AbfJXF7N9dWu4Skkpm8YXBu9We9gHQPqyIQ1cCrQk7hoeJBe1FZIxKak6xxmEF0VbE2RMXMzKfF
+	utVT/YX1wMqDNMMIPjCqgyLQRVbppOtCFnlvBH+30SD680FHQBF7FSWdeu/Xq/yKLsDphs0UnSf
+	qoOJcdPKrDD7dHMStj5jA66DnwTyy3xs0L4uFHNqrpoWPrH8ZSzPVhgDYnUFx2b8Mp7ZOsQApA9
+	gx4yM7MmNdadwr0RdIQF+N0mHLCxBX+i96YzWyXGmZhtVQxC56FxXbvwzr3T/CK/Pbmk5g2V164
+	6temEra0Ibht+G81KB9guFSkKyhROMPvPZgkf/oqBk1eySRZT4pkDTBQf95N+K+rMCK7n3TLqOw
+	J1Koi7ffMalBKPP
+X-Received: by 2002:a05:7022:f902:20b0:14b:588b:c80f with SMTP id a92af1059eb24-14f5b026980mr1769046c88.10.1790922581583;
+        Thu, 01 Oct 2026 23:29:41 -0700 (PDT)
+Received: from debian.prasanth ([103.183.205.240])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm6236636c88.4.2026.10.01.23.29.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 23:29:41 -0700 (PDT)
+From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+To: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org
+Cc: linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Subject: [PATCH v8 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC support
+Date: Fri,  2 Oct 2026 11:59:31 +0530
+Message-ID: <20261002062933.26497-1-prasanth.padarthi10@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPjX3FfJCH-JnjYTzSTB+6z3KfW77EExH+nXBT7F7ayZe+Odqg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 09:32:00AM +0200, Daniel Vacek wrote:
-> Hi Greg,
-> 
-> > Description
-> > ===========
-> >
-> > In the Linux kernel, the following vulnerability has been resolved:
-> >
-> > btrfs: tree-checker: validate names in ROOT_REF and ROOT_BACKREF
-> >
-> > ROOT_REF and ROOT_BACKREF items contain a struct btrfs_root_ref followed
-> > by the subvolume name. Several readers assume that this layout is already
-> > valid and then use the on-disk name length directly. A corrupted item can
-> > therefore make those readers address bytes outside the item, and
-> > BTRFS_IOC_GET_SUBVOL_INFO can copy too many bytes into its fixed-size UAPI
-> > name buffer.
-> >
-> > Validate ROOT_REF and ROOT_BACKREF items in tree-checker before any reader
-> > uses them. Reject records that do not contain a non-empty name, whose
-> > name_len does not exactly describe the remaining item payload, or whose
-> > name exceeds BTRFS_NAME_LEN.
-> >
-> > For BTRFS_IOC_GET_SUBVOL_INFO, copy only the validated on-disk name_len
-> > instead of deriving the copy length from the item size. The ioctl result is
-> > zeroed when allocated. That leaves the existing trailing zero byte
-> > untouched.
-> >
-> > The Linux kernel CVE team has assigned CVE-2026-97415 to this issue.
-> >
-> >
-> > Severity
-> > ========
-> >
-> >   CVSS v3.1: 7.8 HIGH
-> >   Vector:    CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H
-> >
-> >
-> > Affected and fixed versions
-> > ===========================
-> >
-> >         Issue introduced in 2.6.37 with commit 2ede0daf01549cecf4bb0962c46dc47382047523 and fixed in 6.12.111 with commit 9154542070ca7eadb3c764a882f39a127677854b
-> >         Issue introduced in 2.6.37 with commit 2ede0daf01549cecf4bb0962c46dc47382047523 and fixed in 6.18.53 with commit 74f577c722c99248d804eca18e7de7c5e47549d7
-> >         Issue introduced in 2.6.37 with commit 2ede0daf01549cecf4bb0962c46dc47382047523 and fixed in 7.2 with commit 0af37c217edf15fa21dac1c40822086df356c6bb
-> 
-> I believe this is inaccurate and the issue was in fact introduced in
-> v4.18 with commit b64ec075bded2 ("btrfs: Add unprivileged ioctl which
-> returns subvolume information")
+Changes in v8:
+- Correct the reported validation configuration.
+- Validate the DTB with multi_v7_defconfig,
+  CONFIG_ARCH_ASPEED=y, and CONFIG_MACH_ASPEED_G6=y.
+- Preserve the reviewed DTS content and review trailers.
 
-Thanks for the review, I'll go fix up the record to reflect this.
+Prasanth Kumar Padarthi (2):
+  dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+  ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
 
-greg k-h
+ .../bindings/arm/aspeed/aspeed.yaml           |   1 +
+ arch/arm/boot/dts/aspeed/Makefile             |   1 +
+ .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 135 ++++++++++++++++++
+ 3 files changed, 137 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+
+-- 
+2.47.3
+
