@@ -1,69 +1,73 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010035.outbound.protection.outlook.com [52.101.56.35])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021123.outbound.protection.outlook.com [52.101.95.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCCC47D936;
-	Fri,  2 Oct 2026 09:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6000847F2E6
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 09:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.123
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934616; cv=fail; b=Rvwccqh1WSEeg6V0yRjg4ydkMft4N/TLpeIA6PbKJdk7KtWOoMTL9s4neFRTPZCi5jAZqHMrtPZAcA7ObzlK822+sy4wycnmzeMooMSpgzrWjI+mUsrz8Y0BpwTl+H6AY39nPbv1WzODfo9kqLWinkjk14bDwQumP67iEM5zjXQ=
+	t=1790934623; cv=fail; b=Jpx/Qkgk5am8xkriglOoiYOtaezzr+mS22MVJX3EY4EiZ9BjLMCFmbVyeNWbWcF51x4/Jb0lupNvt1Zj88WtLnchw3apvGrVTEYFDjTfo8BfZ7g84tWNabqm6mlInfyatKK8R43qa4aNEIPtWVXkKmLkWHkI6k8/39jOCjUerec=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934616; c=relaxed/simple;
-	bh=ryfgiM+JuqKamXiKXRp0Lj4P6UJlKbOAUc2WPyFULx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dNVr3hWGaZ7SN+jiopCNpxywmJEmNrMvXQciATMc5njOvnWBH8Ge0dnpd7YW1K1aOAxIK06CSHEjr0gHabHpaLaE+90P1qJj8zOqj1KaL+Q5NiX/++pvm5HJrKOMpaX3RuzZr0n2VrLH38StWKUnuGYCYPhZiO9jzUAKyQOQ6No=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DoSPcGEw; arc=fail smtp.client-ip=52.101.56.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790934623; c=relaxed/simple;
+	bh=FexaYsFlst2E+VvYRyiJwGtbQySjoJyQ5vYRGEPcyCM=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=gtZB0LgwwFSUoqox7PqSNbhyVR59eRyUx8Pj1REgoRGQwkZayH6fJ/1K5Tvkl5sZNvgCcY5cHEB/ARzkUeTCaHAtBjECJxMVve/rOjPiO2jhrmhqCLRM8CBrbQnpSTiMrq6NIMjZbO6srU1anLAPuTwgJ4TAxJ6o7KIlVlnOpHg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=QCx0QJCM; arc=fail smtp.client-ip=52.101.95.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DoSPcGEw"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="QCx0QJCM"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nTL4tqbEN6XqmkRjVgpDNaFfapr7snnF/ybTsbv+SXmlxJ8cVR3UJ4g6nlpiUuISMa3IOMhcOVS5Yz6J1a9LZ6lO1AUOwiwZu5CYu2hJ4ipXXIAXRG3pipx251r71Gb9Gcw4YFh7HZ4L2aM7E8fI1L2I2ycXvypsoD40LX2ZFfFxYiUoK41TCc1LiXrd/mxyvxewXmJNLR01sPjknrs6QTD7NwUoWmhGrc7uq9n+g0h1F1iqYeoiFUvfSc3lvuv5U42x4uf/e5TTqusNVVXjwdIxAISjDc2EQyW3VpEGFJlLUBIcxH0MnQr8gSBpXqysCtLXjXElKyyPzmGhD7czbg==
+ b=Yn9Z0xdlK9wCRUF5jqrBUQla8t7/UTBoCTzKoqGtks7cfWA2tfH1ZaXwrCoE2vqm8U5HwRk1ZS+RxS0CAdJmZxAm70uz4YDa+A41eZy73XzN1ik1Zj2DVu+G7nECQXBwkzjeDty/gFWFy+6JGtPA+zyNjoq/qHjhLYszIqR71uvYLJxuslumO68lyx/Nhm019d+wv/QGKY6QTzg6eVctdkyeoTSsSZGZus3xbOrDuTkmYFHxhtjdgmARah7uOKF9sogwUihXNAXB9HW+azLjzuEL8hxvGKdlofTwsIxK2SbARG9iAmOlOAdKmK7CuXTnd+M0FIPpnYT/dNcDVpD4wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ut+/CPeYFI2lMhcdcnTkeqnTXCKCS72w/BloDYGtQVk=;
- b=B2nW570vD2ZnSIgx/MwSuZh69PRY/m4RjpzELPPfD9PI8tuOUvCTVIbmbDJ6uW0C0Chmg42QzeetjEc/2ibOemUfkaET9CrtBqZj/sfR6FvkgjQcE8Z+k0FmdzSyb2LS5BjaRDGF4xXppf3BOG95nZA7hLlAH0dZUQ13A4u7Lo/88gflNedlz5XfSkw5wnu4HLp1Z/QgKjnFeP1rX8gO5ujTQwiVUmqFgHBVGDYv7cnx+XLRuupdIM843WfijX85OkzJgUn1if3yL0OL9/qj47dPtQ/pgaFu9JkmtFsmAqmhCWrPSMnXBX0kRXYFyc9WVwGeuN1gsXtq1E1K/wkpaw==
+ bh=fxuyrxRK/53xf0VkCCE2D5xzETqqsKfXmoXo3Twna4I=;
+ b=eRew7xA+JDqOtbly4fnpALvaLkJAZW7zG3FiulYngVC+oG4xP81dVOJd9mjC3jfXOkOHutqWSKZPAM69k2JHFkmu7KsJIxvIJAxxhKJDS21zQiXqXcVS/jVJKmWS6mmGUd2SRgf6uh5eeXfrQwzSQEfsrId9QEdYUYpRxyblRJiImqF5gwpbXLutM2Ze4m5dftg2IaXpYjqll0tFiKWU3h+JoXMActtwg0Ei2Co1tiCMtfTL/25LC2tf595MJwQ8OJ3voBL7maHBUuG/avk/TRQZHg265D8AD1ccV+ZgGi6T5xxOm5O+wpVjLYzTgCSJhrdF3nxhzSOviQe+CyW4Dw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ut+/CPeYFI2lMhcdcnTkeqnTXCKCS72w/BloDYGtQVk=;
- b=DoSPcGEwjdu6+wgmeYVamn53OhC6en4goGwk6bqU6l9rSIm9RYMG6LdktxV+J6O8+7qUJkaW0JrY7bDgrXNa22dKrynpFObFXoAgzTpMil8z7y1V0q82htIS4pSuh9tWwFVtnd4k8vAiEuRYmsSlwG5Q++zW7kb5YhdXOlNjU1C33MGTJ/5Fwu1biM6z+ox48NWXpe2egA4svR4doYtgoUFZF/XtD+jnm9xpB83H3sL5PrXiFXikkEik8691K9cRzgZGZagV6UIo1kw0qY0omZ0Iz/YbkQFkle21DKlYfqud+t5ecgiQOp2NEMAqNU739FdvCUKQ4smv7GJhfah14A==
+ bh=fxuyrxRK/53xf0VkCCE2D5xzETqqsKfXmoXo3Twna4I=;
+ b=QCx0QJCMLbw7SlETGB5DPdnxnopeLFbkDM+djpknVsUX0rb6ZJWD0ekL4ZCzatWZUSE5KKJeTtSqERmq68WSfYCGWIpNaaYoODxjcviQnsAwJiDZmkzGrb9WbfobA1TKQXDaRQWvIkMZKUtoNat3t7DnGzVhhptPiOvCYY+Pzog=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by DSVPR12MB999260.namprd12.prod.outlook.com (2603:10b6:8:41d::22) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LOAP265MB8540.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 09:50:05 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 09:50:05 +0000
-Date: Fri, 2 Oct 2026 17:49:58 +0800
-From: Richard Cheng <icheng@nvidia.com>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, 
-	Jonathan Cameron <jic23@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, 
-	linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com, 
-	Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot <vaslot@nvidia.com>, 
-	Manish Honap <mhonap@nvidia.com>, Jiandi An <jan@nvidia.com>, linux-tegra@vger.kernel.org, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v14 03/16] cxl: Move decoder declarations to shared header
-Message-ID: <ar9-M2xyv3Dd_bfG@MWDK4CY14F>
-References: <20261001092227.3004747-1-smadhavan@nvidia.com>
- <20261001092227.3004747-4-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001092227.3004747-4-smadhavan@nvidia.com>
-X-ClientProxiedBy: SI2P153CA0030.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:190::15) To BL0PR12MB2370.namprd12.prod.outlook.com
- (2603:10b6:207:47::27)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Fri, 2 Oct
+ 2026 09:50:15 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 09:50:15 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 02 Oct 2026 10:50:14 +0100
+Message-Id: <DLU9C3WDP0T6.155CTDSBPI93M@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>
+Subject: Re: [PATCH v5 02/15] rust: sync: completion: add
+ wait_for_completion_timeout()
+X-Mailer: aerc 0.22.0
+References: <20260930034148.590687-1-jhubbard@nvidia.com>
+ <20260930034148.590687-3-jhubbard@nvidia.com>
+In-Reply-To: <20260930034148.590687-3-jhubbard@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0285.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:195::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,186 +75,153 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|DSVPR12MB999260:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96b920bf-1259-429e-3d9f-08df206a88f3
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOAP265MB8540:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3056b8b5-f416-482f-8220-08df206a8f46
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|6133799003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10070799003|56012099006|10067099003|4143699003|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	nOM+O3CuU7xIX67tDo09o3JS7Fk+ZQQj+hRSYSvPvKwHTpaNYncGdmmOVQgpBZ0YGtgpyd232fhr+GlmPRQP4FBG2aE7Yrz1q/6D8I86knIz+LizOSWsT8Sg6+vWpaXoj96KPn7OOJy8d2UdPSHyMrtuA4IFwgTg0FRcdReDKWYCCSbH0ybagn3sVz+2Xpt8EIjEb/mM5+g+mJGLwG3JEmeRjI8uWnmOpLmFyKWxHcY92Yu18ugAUoLAgN6p5Ow//vOBMmgrEEStFgJvsUN8DEfW/FVAUXmINy6wke9Phd8aehM0fPGfK63Y2A4OGGcaYUeA5eG/NIZdPX+Yz6UV0HQOvkKOQtKFXBmCyxxxk/3D8TNa3VcwCDaWst7Jt0DB8MbxZQFpRTLVioSzuMIDrkJMIeugaP86XADOW9zicX4KfiZQSVj/CIcYd7lia2HSQ2+CiIxrhfHwsUOJqzgcyEpkT7N4QFRUFkbj2O8gW8E7jfFPMgv5yZJqracUYAS4W0Mt8rT4waX9DyJxFf+EagGSl/b1P2/AvX8VUMyugVi+Qo3ugVRel57gjsht0Xh3d2IPA6KtROqKbsxNC7UNyRSJOMG342gOww4YsJfWK583xUxuBKTwyIDimK28me+CFhhLGml8IQyAwi/ELYQb0ra6+xoUzsTJB/3GebYgRm0=
+	JqpPtwt8hVF9ydMkcwL4tjcnCwSkZ/SQvZdEW1poECApYiKFmIsOA+aZLZg59h+oO9GB+XsxPzw6KCF59JLno8u4UsOBrUUOiFLaV1gq4incmgUVgkKMM0QTZGNlHNocmJYEN5T4pTqvY+iUSQJlQMuFFA1CsyGYcJhUjQenZUbstjAsrsxqZjk2d+5HgYwZFasLWr+pvXKVGZRTUNtibrbtA+sT9QKgjKXPx8xniVhd/xHzjsGzdg7bCUPPIbbvEIMmWNA+ARQi+I8FKfCposEzItiWqPdz4U4XSiqOQbA4zEi1HtwM3Tbd6kmrCUMFuXqf5ugmEr7bnFgQXs95fiRrbz04xaVunXYE3Px2Cv3R1egBKu9CzI8v+t2Uf0Co3jvKkN4+85D/DlxVWH0kdbvclY9qda5iKaMG4hHkcQNr7f8nP68hLzjfWmgsBURZawc4eVd1R6hB8g2OylzTnKbh6EIOlVheXnOPVLQYQ9CsUFscjyp2Yn6w9cdGW8dBhUini/GfftnvyQOzsLmhOxzJhcBOQNtvNGpLgilpgwn5ywfliz2aqvI99gGuqp9P/DWhuzY7bu4uLBdKdjCCikf2aak7vkRuHylKrFi5kBZZ36NhckbSfItLSSnTRa+e5mL6tYZb23I3SCShhL/MWfc9XVzd0rn6aIBLbO2JLK0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10070799003)(56012099006)(10067099003)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?aef58faCdsraaJY0p9U35gNMXjdePwCidaw60FWSxkPWYEsJZbeUP5NIFzig?=
- =?us-ascii?Q?lCugDm6gFDUBuxkKX4qT9L/beQLZ+ylv8AXeYSS7jIzKzygJzJ2Rlfqzy+uh?=
- =?us-ascii?Q?4TM1IaIybp8Q7GvyzFZSnhUp4GhUbNn5uJmepseap6gmHP799IFGNuZNfwbb?=
- =?us-ascii?Q?Z6RFcPphoidzaY7eWhGvZWAW19N76wMPg4yw1zAnRr9W0i0SFkAdk2OH2v62?=
- =?us-ascii?Q?K7noko1hW88DSATuObP8n/xjxtOt4XhYs/L6Y4Q29Q5tTQ01BD8k4gr9kPkm?=
- =?us-ascii?Q?6a/YCkMXdNBMValbd/S6EUIeOLChJOrPSbi5+ZmnePgWTTGqlT9mBfoRWyiO?=
- =?us-ascii?Q?4VhbCQ976jrO23rB0LEY7T937kLWz7Xry/jcWwGvWIMlm2gJTbdd11IBF/06?=
- =?us-ascii?Q?XKGLFjqxn35q7xRMmc0Fahtuc8r3pYR8UVSLS1CNP8fvhjyixlDJAFK0+3GL?=
- =?us-ascii?Q?0/RPmIfZ0iACPoyw3LMj0KpcAazycNz1UzzLtnOGE0Hxl0G30pKCwf7uIzJW?=
- =?us-ascii?Q?M23AHsjvgRBUnBPGGoqJvjj3ODO2inLB51HtGBQulg8Pf7psoMBDdjTWwUSX?=
- =?us-ascii?Q?5u/Nc2dLmGtbDWU3MV3a0wwW4iyeILEtK/Jz/crTwzQ1zapvbw9tcla4+zRL?=
- =?us-ascii?Q?Jm+xVI4wNCGGt/F8GS661lv9H95MUGAFY85b1IHvAapoRp+i7mwiUMW87jOv?=
- =?us-ascii?Q?0b6SNYeAU1yozobB64q/8DkwUtroKZn1ksB3jxxMX75RXOjO/RGAXhpppImb?=
- =?us-ascii?Q?PH+2Q085DTZMpm/DdKekqszXnjnwhP1vTo3zTyxj1pRbL6KSR0vKENpFElqM?=
- =?us-ascii?Q?arhRxffWFLqKjcS95j1KSJF/1mLcwugyWtQh94HefZVASW1Na4ycj9wOqRYd?=
- =?us-ascii?Q?6K2L8RQJqY3uEBqmRNj5Efo1y/Vgxsk5EmNxUK7pi7UR6GuCjhS7RogSBk6V?=
- =?us-ascii?Q?brxp6CmWDAJMRJFRqQOWiloVkntqmucdrDdSd1EUUHfYOCfp0fYQwMM+4dyY?=
- =?us-ascii?Q?KA2UBq0fgKWP4UP9i6RWg4pKXeCXUJ7aeFwD2g4GSL2a6IjubFM1aePTT9fy?=
- =?us-ascii?Q?7IkhVbDiuUQQQNwYzqu91MKA1ooQUXsRsbcFCb6ZnY9ywThwPyTbB4B8xWS8?=
- =?us-ascii?Q?0Mfy6DCbdsjbU7SbuzdIbIv4GjlRk9SUC7AatcZW0XmaQXKKSmLVcCYS0Ki8?=
- =?us-ascii?Q?+2s+tanWRcoLildyfFS+HYyhC70VhSf7hVUmsYYp0ANfR9kwX96/HIWhXp+W?=
- =?us-ascii?Q?XqaQSQ43I5OLUBZCuhoouH7jsLupY4lgkmOeXninPtQvdfzgupfDbAHJCtlw?=
- =?us-ascii?Q?prr3ENgMtDTnzIC3bsOR/XqCPdHmS0MTfY8gtFuEAUlyvYdc3JpWU27br3UJ?=
- =?us-ascii?Q?0sQk4nvIMZTW/m/nPZE20BaHN2GPtNMR8b1pwpVOClaalqLEDrdv6vljpU85?=
- =?us-ascii?Q?IqX1YhWVEgirag+lWErAsxRJ45MTMXfkuvL6UliLFHyOo2dZLm3ZQnnd1ofu?=
- =?us-ascii?Q?tu3cRRSPHmOEeGHxO0b5VubuTYYorpll6VDtsORpYqIE8tugBR8BymxlzSEO?=
- =?us-ascii?Q?zTCQrIxcYRZzIFSnJhkJ7h9fsuG6dR+nlZYe+oAxKgbt1/Lrfv3L7MOE2Cye?=
- =?us-ascii?Q?YC4ue9AcuT8uyKQWGOtecIoxUyaZH89Y6iJgF1lYqdWAwiuRZWUYOzZY6CEy?=
- =?us-ascii?Q?7YlNVw16mY7o5QZx1RsUJDjBud/Vu7DIhyyGrTu4RGHYw/DDkeEMKI+v9l1L?=
- =?us-ascii?Q?arLZxo4vtQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96b920bf-1259-429e-3d9f-08df206a88f3
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+	=?utf-8?B?TFhUQlVhWTFRYzdicy9wSTRaMno0V082cm5Sa2xQeGlTU2tJc0dlSlZBNVpR?=
+ =?utf-8?B?cWxMQUE1TjYxYzNOMW1VbEJpU0cwcURPQ2ZiWU4vZC9xaGd4RjlwelBSMk1l?=
+ =?utf-8?B?VzA3M0VQRG5vckM1MDkwRWlLUHJlR3M4bHZIeklWNExrZW9VVGRWTXdvU1RD?=
+ =?utf-8?B?L1Avd05qbkRuUmIyMGtMNnFHRExIUkF3YWJFM2NxenVtQlV5bE1HMm9NV0xr?=
+ =?utf-8?B?VFJrUitCQVVlOTVXVEFYSEhIdGN3QmM5UTNqTkw3RjRtem85Rk41TzVzVzNP?=
+ =?utf-8?B?NUxtdklWNkR1NlA3K21idzJGbldZeVZmenkrL1pOK1ZBNDljc0dMWjNYcTNw?=
+ =?utf-8?B?TXVkWjNSYVk2RllVK2IzR2lzS2gyL1dZczhOZTRkTEJid0RLL3VWSElTQWRv?=
+ =?utf-8?B?R3lBRFRQZ3JoZ3BNNmcwdzNHcndKR0N4RTkwSm92RjZOcDBaZFVlZEZQVjhW?=
+ =?utf-8?B?b1BnUDh3SUMrZFpjUEtIcytZUHdTWThwU3Z5MVVjRUZXeU9IakJVaTRiYlZm?=
+ =?utf-8?B?cGhYVkZMWDgyVjBKR08zVGlCN2dkYnFEc090eVZsbE1ITWQzaXQ5QkVTN0No?=
+ =?utf-8?B?bTRRelZUWVJ0c1hTMUtvcS9abXVCYWRHS2tIZzJnZm9FYWZUYkcyZEZFYlE3?=
+ =?utf-8?B?ZjBQaFl1VitUa21mUU5XWCs5YmQ2VTF5UWRDeDRsVmxYcDNXTTVUKzI5UWIx?=
+ =?utf-8?B?SENKYTFQdmgyMy9VM3RTbGFXaXRhU2QxaENiWTI0RFpBU2x4dE9WSFNtQVNr?=
+ =?utf-8?B?MU1kZDBERkNQekowODRpTWtldmFNQkp5NW1EOVh5amdvTkdPTzVIeG5aNEpK?=
+ =?utf-8?B?aFFTUk1STVYwM1hlZXlPM1RObVBxL0pWeHVHTzFEcldHVDNGbG9UZklLNGVC?=
+ =?utf-8?B?RFA1Ulg5T2JxU1JiSnR3bjhvdTBNMW14NFUzZy9XRWpST1JVcEtTdmh0SG5z?=
+ =?utf-8?B?d08wd2dOT3BDV1Y0czY2THdIZjRKQWdxZGh5ZUNSdmxuZEtIVjlPZkJ4K0lM?=
+ =?utf-8?B?Yy9ONk8rMEVHVEtyaytkQzJqZWVOdFhBWngzYThyak5Edm1CZjhSa3kzMDlJ?=
+ =?utf-8?B?UDcycng3UDVVdXN4UGE4OEVXWEdxSE1hT2RJbXBjMUFDVDRIQWpEMitqLzkr?=
+ =?utf-8?B?NXp5M3p2Wjl1dXA3WTVycTZnM2FOTW9nTWFrL3BqalQ2V1JCR2R5b28yT1hr?=
+ =?utf-8?B?a1I4RTV5STNVR0ZPNDRpVFdjVllaL1MyS2VSY05uajFXMEVON2t6Ti94Mm4v?=
+ =?utf-8?B?bjR3V2MvNVF6dER2djBOTWtUMHZZRzJuN0x0aHFxYXlyd0Y2bFN4SlNBNzR5?=
+ =?utf-8?B?WjMyZml2ZjNZVFhuNlpCSVZYQms5UWJ1aUJJY1oybExlZXVHUU9icW5Ec0xn?=
+ =?utf-8?B?RStOR0MxNU55STgvanRrZDFtVHBDK3EyRVpEVFdVNTRyREVIa3dXS09ENlpp?=
+ =?utf-8?B?eWsxc1Fmbmk3WnZKNDBoaEt6U0VXTWpjQlk4MlNYY0FDVVU5cTVQTmszemd1?=
+ =?utf-8?B?WGczdE9haHBnSDRyaW1tS0tFVDBhUms2alNRVEVIZ2RwWlFIY010QkF3RHR3?=
+ =?utf-8?B?SDQrTEVCbTdZb3RjcjE3ZmF1S3FuWElZRGNFa0JuUitnclkvN29FV3NkcTNF?=
+ =?utf-8?B?WGh4QTFpYW5UM1BKdWFlUkpIVFg3K0VVaFUzb1kreTQxa1hKanUvZkVCZFhL?=
+ =?utf-8?B?Q2RBWWxpTlVaV2o0aC9vVkYrWWwzSFVxN1J4NFAzYmRzYXdDK0M3TXZsc2hX?=
+ =?utf-8?B?TGgzTlhRaGxQSDhZZklVSkdiNE4zcDFZcllSUXN5Nk53MWhleDNCb0JJdWUw?=
+ =?utf-8?B?SjAvMThCaEpsNVZMbjFGcmlXTjBEbmxEeUxabnQzaWZacnlYMTVvTVRqSlBw?=
+ =?utf-8?B?ajlpRmZKcDEvQkxRQTlLT21hcWUzOHh0enJUYk45cjQ0VW1FeElFWUhaUml1?=
+ =?utf-8?B?RzgvakZjZ2RyRnE2SWdvb1BvY0NJL2Q4YjhkTEhzWFBNWnd0WWRWWDFJZkVG?=
+ =?utf-8?B?c08zbW9TME1zSUNzT25HQjVYRzJwTWh2WmE5cWV2bHJHeVZYQnExanlaM3N1?=
+ =?utf-8?B?ZDM1WFhmTlZwR3J4eXMveFN5a1RsSEx1VldHYTAxYmtyaTMvUGFkbkx4Rnh3?=
+ =?utf-8?B?Mk1QWDBidHJQcXB5cHFnMEpDby9PUkkyRzJBSWYyakVacFBGb2RKUGFyeVVB?=
+ =?utf-8?B?Qm5Ea29pWVhJeEgyT3VSVWtZSldWcDFKeTZ1VW9LM1FieGloc3FaOXlnbkk5?=
+ =?utf-8?B?TkNYd0VUNklrTHc0MmZIKytwS3pvUVlBT1RBUFVaZHRwT1RUWnpaQmVOSGMr?=
+ =?utf-8?B?QnQ5QXQrbGRUM3RaYUVqZmNvU3Z3L0V0ZXhucEJQTDJUNDRxRG5DQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3056b8b5-f416-482f-8220-08df206a8f46
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 09:50:04.9607
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 09:50:15.3632
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kzh107uVWucXzlSz1uTQS8PRPCSgSQwXec3Z7fjMybeWKH8Wi1Ypnkxp/6GhhvPEXXkqyXKTo/zk+dbuxAIwKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999260
+X-MS-Exchange-CrossTenant-UserPrincipalName: j1K161n3Uhl0GT/XIfV3SIEcwZ/v2ajLVQ8mrHlkYyW/2XYm0Ou33gTS6v2WRbZNl10dPIRZFI0VCVs5NcQl3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP265MB8540
 
-On Thu, Oct 01, 2026 at 09:22:14AM +0800, Srirangan Madhavan wrote:
-> Move the common decoder declarations to include/cxl/cxl.h for use by
-> shared decoder settings. Preserve their layout and documentation.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+On Wed Sep 30, 2026 at 4:41 AM BST, John Hubbard wrote:
+> From: Joel Fernandes <joelagnelf@nvidia.com>
+>
+> A driver that runs an interrupt self-test during probe waits for the
+> handler to fire. wait_for_completion() has no timeout, so a broken
+> interrupt path stalls probe indefinitely. Add a timeout variant of
+> wait_for_completion().
+>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> [jhubbard: return the remaining jiffies]
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 
-Reviewed-by: Richard Cheng <icheng@nvidia.com>
+This email should have RfL list CC'ed.
 
 > ---
->  drivers/cxl/cxl.h | 37 -------------------------------------
->  include/cxl/cxl.h | 41 ++++++++++++++++++++++++++++++++++++++++-
->  2 files changed, 40 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
-> index 9e0500d56866..44ff3334648c 100644
-> --- a/drivers/cxl/cxl.h
-> +++ b/drivers/cxl/cxl.h
-> @@ -264,45 +264,8 @@ int cxl_dport_map_rcd_linkcap(struct pci_dev *pdev, struct cxl_dport *dport);
->  #define CXL_DECODER_F_NORMALIZED_ADDRESSING BIT(6)
->  #define CXL_DECODER_F_RESET_MASK (CXL_DECODER_F_ENABLE | CXL_DECODER_F_LOCK)
->  
-> -enum cxl_decoder_type {
-> -	CXL_DECODER_DEVMEM = 2,
-> -	CXL_DECODER_HOSTONLYMEM = 3,
-> -};
-> -
-> -#define CXL_DECODER_MAX_INTERLEAVE 16
-> -
->  #define CXL_QOS_CLASS_INVALID -1
->  
-> -/**
-> - * struct cxl_decoder - Common CXL HDM Decoder Attributes
-> - * @dev: this decoder's device
-> - * @id: kernel device name id
-> - * @hpa_range: Host physical address range mapped by this decoder
-> - * @interleave_ways: number of cxl_dports in this decode
-> - * @interleave_granularity: data stride per dport
-> - * @target_type: accelerator vs expander (type2 vs type3) selector
-> - * @region: currently assigned region for this decoder
-> - * @flags: memory type capabilities and locking
-> - * @target_map: cached copy of hardware port-id list, available at init
-> - *              before all @dport objects have been instantiated. While
-> - *              dport id is 8bit, CFMWS interleave targets are 32bits.
-> - * @commit: device/decoder-type specific callback to commit settings to hw
-> - * @reset: device/decoder-type specific callback to reset hw settings
-> -*/
-> -struct cxl_decoder {
-> -	struct device dev;
-> -	int id;
-> -	struct range hpa_range;
-> -	int interleave_ways;
-> -	int interleave_granularity;
-> -	enum cxl_decoder_type target_type;
-> -	struct cxl_region *region;
-> -	unsigned long flags;
-> -	u32 target_map[CXL_DECODER_MAX_INTERLEAVE];
-> -	int (*commit)(struct cxl_decoder *cxld);
-> -	void (*reset)(struct cxl_decoder *cxld);
-> -};
-> -
->  /*
->   * Track whether this decoder is free for userspace provisioning, reserved for
->   * region autodiscovery, whether it is started connecting (awaiting other
-> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
-> index 802b143de83d..69941f7fdb76 100644
-> --- a/include/cxl/cxl.h
-> +++ b/include/cxl/cxl.h
-> @@ -5,8 +5,10 @@
->  #ifndef __CXL_CXL_H__
->  #define __CXL_CXL_H__
->  
-> +#include <linux/device.h>
->  #include <linux/node.h>
->  #include <linux/ioport.h>
-> +#include <linux/range.h>
->  #include <cxl/mailbox.h>
->  
->  /**
-> @@ -23,7 +25,44 @@ enum cxl_devtype {
->  	CXL_DEVTYPE_CLASSMEM,
->  };
->  
-> -struct device;
-> +struct cxl_region;
-> +
-> +enum cxl_decoder_type {
-> +	CXL_DECODER_DEVMEM = 2,
-> +	CXL_DECODER_HOSTONLYMEM = 3,
+>  rust/kernel/sync/completion.rs | 23 ++++++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+>
+> diff --git a/rust/kernel/sync/completion.rs b/rust/kernel/sync/completion=
+.rs
+> index 35ff049ff078..7e8b3c1c880e 100644
+> --- a/rust/kernel/sync/completion.rs
+> +++ b/rust/kernel/sync/completion.rs
+> @@ -6,7 +6,12 @@
+>  //!
+>  //! C header: [`include/linux/completion.h`](srctree/include/linux/compl=
+etion.h)
+> =20
+> -use crate::{bindings, prelude::*, types::Opaque};
+> +use crate::{
+> +    bindings,
+> +    prelude::*,
+> +    time::Jiffies,
+> +    types::Opaque, //
 > +};
+> =20
+>  /// Synchronization primitive to signal when a certain task has been com=
+pleted.
+>  ///
+> @@ -111,4 +116,20 @@ pub fn wait_for_completion(&self) {
+>          // SAFETY: `self.as_raw()` is a pointer to a valid `struct compl=
+etion`.
+>          unsafe { bindings::wait_for_completion(self.as_raw()) };
+>      }
 > +
-> +#define CXL_DECODER_MAX_INTERLEAVE 16
-> +
-> +/**
-> + * struct cxl_decoder - Common CXL HDM Decoder Attributes
-> + * @dev: this decoder's device
-> + * @id: kernel device name id
-> + * @hpa_range: Host physical address range mapped by this decoder
-> + * @interleave_ways: number of cxl_dports in this decode
-> + * @interleave_granularity: data stride per dport
-> + * @target_type: accelerator vs expander (type2 vs type3) selector
-> + * @region: currently assigned region for this decoder
-> + * @flags: memory type capabilities and locking
-> + * @target_map: cached copy of hardware port-id list, available at init
-> + *              before all @dport objects have been instantiated. While
-> + *              dport id is 8bit, CFMWS interleave targets are 32bits.
-> + * @commit: device/decoder-type specific callback to commit settings to hw
-> + * @reset: device/decoder-type specific callback to reset hw settings
-> +*/
-> +struct cxl_decoder {
-> +	struct device dev;
-> +	int id;
-> +	struct range hpa_range;
-> +	int interleave_ways;
-> +	int interleave_granularity;
-> +	enum cxl_decoder_type target_type;
-> +	struct cxl_region *region;
-> +	unsigned long flags;
-> +	u32 target_map[CXL_DECODER_MAX_INTERLEAVE];
-> +	int (*commit)(struct cxl_decoder *cxld);
-> +	void (*reset)(struct cxl_decoder *cxld);
-> +};
->  
->  /*
->   * Using struct_group() allows for per register-block-type helper routines,
-> -- 
-> 2.43.0
-> 
+> +    /// Wait for completion of a task, with a timeout.
+> +    ///
+> +    /// This method waits for the completion of a task, or until `timeou=
+t` elapses. It is not
+> +    /// interruptible. Returns the number of jiffies left when the task =
+completed, or [`None`] if
+> +    /// `timeout` elapsed first.
+> +    ///
+> +    /// See also [`Completion::complete_all`].
+> +    #[inline]
+> +    pub fn wait_for_completion_timeout(&self, timeout: Jiffies) -> Optio=
+n<Jiffies> {
+
+NACK. Please use the typed `Delta<Jiffy>`, not this old type alias for c_ul=
+ong.
+I asked Miguel to take that late last cycle because I know there'll be new =
+users
+that want to use Jiffies this cycle!
+
+This would avoid you having to do clamping on the max side (but you still n=
+eed
+to clamp the value to be at least 0). There'll be a helper method for this,=
+ but
+it isn't available yet.
+https://lore.kernel.org/rust-for-linux/20261002050428.2746277-3-tomo@flappi=
+ng.org/
+
+Best,
+Gary
+
+> +        // SAFETY: `self.as_raw()` is a pointer to a valid `struct compl=
+etion`.
+> +        match unsafe { bindings::wait_for_completion_timeout(self.as_raw=
+(), timeout) } {
+> +            0 =3D> None,
+> +            remaining =3D> Some(remaining),
+> +        }
+> +    }
+>  }
+
+
