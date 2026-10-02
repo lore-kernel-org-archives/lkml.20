@@ -1,115 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342663F54C4
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F89403B0E
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 19:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790969404; cv=none; b=XqLnuVbWYicqq7Dcv0UJ/16Y2eKjPMBSWAWD3jSDgo0ldQbakcgONWFoFC/DAm4WtAp5Q+yZDSo2wOWlnREZ4fTuihp7BYJdXl9LdxR4DC0wz1vnxj0BjMchVJgyOGBXi5U0AEafksljC6TKETvzJgiVN6bWBC0MueLMJz4MU/M=
+	t=1790969428; cv=none; b=khoxD+MfS3aTBgXG8I7PYdEkIUdqpAX3ICyq1oHsWW1IH+cFtInwf2szHlqOCcQeN2mQOg5OVCheiTGRtBoaYFBv9h68KMpWsKTMyS4DST880DSgrhTsWXwIwcVQF5DdkdmX1usvzKs3AtrT7JQgvtTVMwuT4QFB6+V5hiqGPF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790969404; c=relaxed/simple;
-	bh=KeCHMNAL7ie1YahX0TC0alXyMADKL94hB8PWzyyQXhI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=drCdCPGiItJzzTreH+0wJq/dGbwlul3c4NEJ96xNqzRUxO+a324pI3HJIsnPlro4I804AaQeBF79PVxvtyMOvE5w++dzqZ+ZSsErsSoJnUJpNRzgbiiyp7/AaTRXHerJP4SFl0HJ9juTZ0pp6TnpcTVZmUcdBIMVAVZz1GaZBZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UY1eYCoq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790969428; c=relaxed/simple;
+	bh=pLVNaTP9L662KDxDj0b3v3iNYRp0+xOAOWs+AVXQFYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mfK9iYAh5BMGjZtJf+j5OXQVlC0uOyEsJBNMkirMSuuEONqB4jedU6AUJkfTc7tlOaLQk8VBcdolkRXaFCNipz7WfaYqqsiyfRs/ADAIHN/Fv5WkkJBogNKI4pE2a4m8Gq/olL2Bii9kX9AIJhs5f582JgBXtJM6REnnCbHegs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=AypcrKKS; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UY1eYCoq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951F11F00893;
-	Fri,  2 Oct 2026 19:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790969402;
-	bh=T5Q1vlWTZYu8dcSVsk3FgjnrVw1Vrz/A7ClrLHICgII=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UY1eYCoq9AABTrmQZAVFGqeKp4Nz5nt8y9WFd4bbrO5p6Ohu03Cqb0vbTK5U6LHPa
-	 9Wxw2u4L4+KxiU2R6GrGCq14HFGEce94ZFUweEqJuSZn56X/LyR36uotcLAcmHwEBb
-	 sz78xKwiGgFhoos4IXo78QeLVjhY6Ny+yNLB09ocZQy/KkDGfV3lz98RJ0yWfP4ck3
-	 nDi8XrDub9buBLz1QyFaPOxlrTUSuw1d0+5lftDnlWo7YHILx8q7pKsSex2DuHeqUV
-	 ONEUhdyFeQqVLFyXD0ZJqjFk4ue1hn6SB9x0Ftv3962crofg8/sosyJq/tpZXg31Lj
-	 w07uyg/Xs6aiQ==
-Message-ID: <cfa883b8-3df5-4bb9-990d-cb7e165e37ae@kernel.org>
-Date: Fri, 2 Oct 2026 21:29:53 +0200
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="AypcrKKS"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so6676799eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 12:30:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790969425; x=1791574225; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bp8EWYscaHenCl5GeCUCEIO11ZClZpcPuAQp7e588A4=;
+        b=AypcrKKSdwDrZaMCBdZ5LLLGkCo6T5Q185BHhiy5AA6Xuae4D1ub8dAdecycjD1V4w
+         sdq+HjICmovro/C+KpH/dpmoMwYBVrLqORmzBxQSZvbd7W9FNVzOBWJavnvITPvnkHQd
+         WMxasEL+LUHdgfla3Yjmss656q1yPPFtJW+a4MMHzmSPbI+UHUSvtKWbQdlOsr1OUScl
+         txDBKuQwXqZGbf9iABULBIJniY4Nu/UVtGUw0HnAAFevlA78Q3Q12F2iAJ1BmDX1PCI9
+         46LlmH8RLDMbL5Li4WTG4MLGhlQj4G9yyo19t4SI26RvP49o5DLSt4aCxPM27y7/GVdb
+         5YoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790969425; x=1791574225;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bp8EWYscaHenCl5GeCUCEIO11ZClZpcPuAQp7e588A4=;
+        b=x7ZX2wkGZidA0zJ8++fRr7NALk3welpD7TUCGYtOqFTcsZxZUKYNeVcn3Xk3gHcaJd
+         82pZmqIWxQQddjWbbJUAtlDhaqJWVrffRcjJM2x8HDSy89BsTbzaTFxmSdAMEO5/lfH7
+         obaBCl5oQVV9PEYTU8zCNqw3AMKmVdUBKTa1+g1dM0rO1Qs2ZdZCcjqPuIEK1Lqoef3J
+         Z/h+DeHeqklEvVoJ0GrKZDOXYzWRuUUQFXwsrYJiCNuBq9bRRaLMQyaeCoLwJYTv0kBi
+         5mTWXOffo2XtFusPCYXb7vYfYPNQA/Wtpo43BBGwHx7ih8g6vMvTmmgwUt2KI0QGVRZx
+         jCCA==
+X-Forwarded-Encrypted: i=1; AKwUvBywtQjo0/v4v7eGhM4RNYGU3Vx74R+nq08GQxhhFubNFpBrxg1Y7niR7XSn7TseRP0CPEqmgycxsjmVpH0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK07z8da7bXLKOdg3dWgDRENGQ590YpI7L6Qtr19AaAUy3bZJjw
+	5cJUnqyLoVAW/GzjrU3QGYWeELvRcSjYJzdHruQYWmH62Bg/PwD+jfLnEqgGDYFVny0=
+X-Gm-Gg: AYBFou24zabDk7aq5b99ZGUgu4b33Ufl2NRSr0VSVTvntmIy45wewpLnTNkMRfKijwJ
+	OBkbzaXltRPGham0uTZhA+ezDcojIXcxrIHCE+JZKP1Y/Pa3kY4bL3Y++k5LqfKfL8k8hqO4TdO
+	8ua7z6Yu+7pEQPYILD9p/FX0QpkDOmR3+0zBpnr1ihAxlBQZkO7Hre/FOWID84FIPZNn6nwzrd/
+	P+VFwXVsbbs9ttuyNSK6OaHpvw7dDHTyVCh6OQ2h2RM5pP8Iz7n4KAXn+M2ecRkKegJ+LbYirQg
+	rzRCMFoYntfpejX3XtnWounudQFyMcfYwO9Nl08ODqJ52BmeQjoNLd/LUiS88B4UyZ4WW2cFEx3
+	rOm37wl6E/mvedq5dY9UCIt22il0wNhHDNs7vgr9/KiRPvXHQOsWDq5VDXK2aelyXUxzP2XT651
+	187QlavWGSGrn22UrUzml5Yc68hlDbnCrJtgCyBWXIAau2Ov2fFLRcB6I/lVIIao71cL7JNUf+g
+	Dsg0ha9/h4CHj0XzcKuWf8PvsG7/9rtqUDtvrM8V4JVPsLUxA8x8TwMioIBYF6fezVkHq0v
+X-Received: by 2002:a05:7301:2203:b0:351:1282:3e88 with SMTP id 5a478bee46e88-351128240c1mr293459eec.20.1790969425493;
+        Fri, 02 Oct 2026 12:30:25 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f660f1sm8427448eec.13.2026.10.02.12.30.23
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 02 Oct 2026 12:30:24 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Dohyun Kim <dohyunkim@google.com>,
+	Neel Natu <neelnatu@google.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	KP Singh <kpsingh@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Hao Luo <haoluo@google.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	netdev@vger.kernel.org,
+	toke@redhat.com
+Subject: [PATCH 6.1.y 0/2] bpf: backport CVE-2024-41045 and CVE-2024-42239 fixes
+Date: Fri,  2 Oct 2026 15:30:15 -0400
+Message-ID: <20261002193020.19392-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 10/14] mips: move has_transparent_hugepage() out of THP
- guard
-To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
- lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <13b8b68cde4d6cccd6eb9b73cfe083145bd1f014.1789695931.git.luizcap@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <13b8b68cde4d6cccd6eb9b73cfe083145bd1f014.1789695931.git.luizcap@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 03:45, Luiz Capitulino wrote:
-> A future commit will introduce a kernel API to allow for checking if the
-> CPU supports PMD-sized pages. This API will be based on the
-> has_transparent_hugepage() implementation but will be orthogonal to THP
-> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
+Hi Greg, Sasha, and bpf maintainers,
 
-Same thought as for the previous commit: it would be fine for now for the
-architecture to simply say "not supported" without CONFIG_TRANSPARENT_HUGEPAGE,
-right?
+These patches are the small, ordered backport for CVE-2024-41045 and
+CVE-2024-42239 on 6.1.y. The second patch depends on the first, so I kept
+the upstream ordering instead of folding either change into the other.
 
--- 
-Cheers,
+The first patch is already present in 6.6.y. The 6.6.y backport of the
+second patch is queued (6.6.158-rc1). Both patches are already present in
+6.12.y, 6.18.y, and 7.2.y. Could you please queue this series for 6.1.y?
 
-David
+AI assistance: An LLM helped identify, adapt, and validate these backports;
+I reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+Series:
+  1. bpf: Fail bpf_timer_cancel when callback is being cancelled
+  2. bpf: Defer work in bpf_timer_cancel_and_free
