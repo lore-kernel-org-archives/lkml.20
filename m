@@ -1,146 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7802E7BD6;
-	Fri,  2 Oct 2026 12:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D67C41D63F;
+	Fri,  2 Oct 2026 12:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790945835; cv=none; b=iBo3nyJGKG+Ykp1S1zTfxnlf4UYbXrDXnUEwqIjbLtH75WBwg4nj/VM9opZ0vHcZnc3KzmbEI/8WRLkNK5EMGsnAfzjWmOxnYlH2xnBA0D3BxvQJbstXCWFmLiqU3cbgflrFL/BkD56MOr/xwncsayzsunH5ukMd/qgcptMUHts=
+	t=1790945909; cv=none; b=NzVGJ9vNXY1nuGQONSRPVsLKfWdp5SyRbQCyxvZ7iik4YzFzHdGxED7L8c5f3TBqP/AxY1oa44+C3sZB04YBwi/OL5U73y4IWCMbTTU1j42AEi8UHqViphrT42dauaOxIpw10k6Wfk5IIxTHW31cSStFgALG8/hqB4zZkQUzFeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790945835; c=relaxed/simple;
-	bh=ZXwF5qQJEkDqdDJzkSWaEZAvXI4WTxddA3a3t+t/qmI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MTZvQCSMXFC2jaXfW9bNUlAdYbe9zNoEzwRvezEvbFmuwEBHuv2tOvX4wRCBDYTOmtN6EagSwxLhFAYXqCjw5HR54DUNl5Tv+ZS+hs7yhHmkAnzxfd8uIsaSG15ljerA8SW8mH7JY3YdFrcjo0byeDEt18pPHTM2KWvkryskQsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WF9LZxrc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790945909; c=relaxed/simple;
+	bh=DpUR6uOIndM4PlTAVW6OCY4m4wz4r9tXf0VQ3uJ6zOU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HDL5FIiubaQJMT6y6jQ/ZM9mCoJfXTBNoLEZKzk6pCF5/Zh58Sf0ErZkxH2M87urpVRE2mjnOK7D9gcYW63JZCMs5BQlemGXEQZ0o79fOFSPNKY3QThOKQOyb0MKvSz5KMW4TXMn3EyhOhFWHSBjqsmdPR6U2FcDLPJEhHe4p3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kNI4b4Ky; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WF9LZxrc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 501261F000FF;
-	Fri,  2 Oct 2026 12:57:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790945834;
-	bh=0UtDxCzSxsK2ku+CA7l+bjB6RPxfD160Qjz44ZIDIe0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WF9LZxrcVvHu6PW+XOYclk0VVBOQPLtinnNi/jt6r7uTb/njR6uIWn3UAt0/bYaZ0
-	 Q9NbBQDrNX+jztOzQI/FzXzQ60Y3j0ytpRMGVwX6QHBl2Cfn6lwrrSI9kJPHT+wXfy
-	 FOuHQou7kYr7Ik6dI3pg9Yb3gUEOc5G8JTCe0zYFCF6obms2czMWJdCUDjHFQFs3Sx
-	 mhQNBI1a58YE6LNEHKPfFB3iAsFpD4GshDO648dfYfbM0OVVYsIEExWYMBUUXKsG+b
-	 z44pEb8aEHodxNdBXtPqA4CKips1YXXhtTZKdFFgQiq71qwlKk2BL6mOAL2Lbf7gE4
-	 +Mmvv1dpREhiQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xCcp5-0000000GE4t-48QV;
-	Fri, 02 Oct 2026 12:57:12 +0000
-Date: Fri, 02 Oct 2026 13:57:11 +0100
-Message-ID: <86se2o2rbs.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <tabba@google.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v21 05/23] KVM: arm64: Track the type of VM in kvm_arch
-In-Reply-To: <CA+EHjTxtatPyGcyvEyR129cqUiAYcO_cxRVtwZO0ckZsOnD7TA@mail.gmail.com>
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
-	<20261001210703.1597150-6-suzuki.poulose@arm.com>
-	<CA+EHjTxtatPyGcyvEyR129cqUiAYcO_cxRVtwZO0ckZsOnD7TA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kNI4b4Ky"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790945907; x=1822481907;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DpUR6uOIndM4PlTAVW6OCY4m4wz4r9tXf0VQ3uJ6zOU=;
+  b=kNI4b4KyfeVh6YyigBYl835zhOCZF8mydXBryA0K7M+rOz88NIXJzxR3
+   y8UO6V8iRH9YRLsuWg2wNvi6xwy9nNRsuK3U8TxN7CZslPyLcsqJpLCuW
+   MJ4ZEHbUd0kVLZLG/ztX2Sf31Hbb5N2FuwL6+WTPTpEuqtAwd6V9i8B6d
+   /WrH5ZQ5CW630HcVs0739y4hvSXuQsdUrfWt7YccHKOzFtoe+S+aGo7xh
+   ljw885RXsPDAfsuOHhFWTQiZTI71qWwdntpMnJzJYNKUvR7/goYy35wqR
+   b0l5h4WbgavEJPCuxFY1aBkmVotB+HpC9DIQ4bWaNJyS5j6Xwtg7+gmil
+   g==;
+X-CSE-ConnectionGUID: Hv6izO03R9O4vaKQt7DSxg==
+X-CSE-MsgGUID: tn/5YLYWRT6s+qa/Z2al6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91573052"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="91573052"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:58:26 -0700
+X-CSE-ConnectionGUID: 3hQVQT88Tf6eNujsmXxNHA==
+X-CSE-MsgGUID: phuvjuzzTOqKScn2c1siFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="304205366"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:58:24 -0700
+Date: Fri, 2 Oct 2026 15:58:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>
+Cc: Mika Westerberg <westeri@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro V
+ 16S AI
+Message-ID: <ar-qbsmktRJbFoF-@ashevche-desk.local>
+References: <20261002101800.51506-1-abduvaliy.hbai@gmail.com>
+ <ar-Ja2AVJs1TzMpg@ashevche-desk.local>
+ <CAPGafd=-SfJoVMXtjwpahEkZ8nB9gTjGm+C5WvP+F-AdjsGPjg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: tabba@google.com, suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPGafd=-SfJoVMXtjwpahEkZ8nB9gTjGm+C5WvP+F-AdjsGPjg@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, 02 Oct 2026 11:06:52 +0100,
-Fuad Tabba <tabba@google.com> wrote:
+On Fri, Oct 02, 2026 at 05:17:02PM +0500, Abduvaliy Abdulazizov wrote:
+> On Fri, Oct 02, 2026, Andy Shevchenko wrote:
+> > On Fri, Oct 02, 2026 at 03:18:00PM +0500, Abduvaliy Abdulazizov wrote:
+> > > On the Acer Nitro V 16S AI (ANV16S-41) the internal USB camera
+> > > (0408:4035) works on Windows but never shows up on Linux.
+> >
+> > While this all sounds legit, I'm worrying that the pin can be used for
+> > something more. For the record, can you share the DSDT table (or entire
+> > `acpidump -o NitroV16S.dat` file) via some file exchanger so we may see
+> > that?
 > 
-> Hi Suzuki,
+> Sure, here is the full acpidump (BIOS V1.14):
+> https://github.com/abduvaliy-engineer/acer-nitro-anv16s-camera-fix/releases/download/acpidump-v1.14/NitroV16S.dat
 > 
-> On Thu, 01 Oct 2026 22:06:45 +0100, Suzuki K Poulose
-> <suzuki.poulose@arm.com> wrote:
-> [...]
-> > diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> [...]
-> > +#define vcpu_is_protected(vcpu)                                                \
-> [...]
-> > +                        if (is_nvhe_hyp_code() &&                        \
-> > +                            !is_protected_kvm_enabled())                 \
-> > +                                __kvm = kern_hyp_va(__kvm);                 \
+> What I found when going through it:
 > 
-> On a non-pKVM nVHE host, the hyp callers of this in switch.c and
-> timer-sr.c now translate vcpu->kvm and load vm_flavor on every guest
-> entry and exit, where the is_protected_kvm_enabled() check used to
-> short-circuit. Could they use vcpu_is_protected_pkvm(), and drop the
-> kern_hyp_va() here?
+> - Pin 0x0B shows up only once, in \_SB.GPIO._AEI, as
+>   GpioInt (Edge, ActiveLow, ExclusiveAndWake, PullNone). Its _EVT case
+>   only does M000 (0x390B), with no Notify.
+> 
+> - There is no GpioIo for it, and none of the M009/M010/M011 GPIO helpers
+>   are called with 0x0B. The only static mapping of the GPIO bank in the
+>   DSDT (OperationRegion GSMG at 0xFED81500) has fields for pins 23 and
+>   40 only.
+> 
+> - The PCIe reset pins in the NVMe SSDTs (RSTM) are computed at runtime
+>   from a platform table. Pin 11 is not one of them on this machine: it
+>   reads low after Linux takes it, and both NVMe drives keep working.
+> 
+> So as far as I can see, the firmware drives the pin as an output for the
+> camera and lists it in _AEI without a real handler.
 
-Just to make sure. Is that what you had in mind?
-
-diff --git a/arch/arm64/kvm/hyp/nvhe/switch.c b/arch/arm64/kvm/hyp/nvhe/switch.c
-index 7318e3e6a5f36..2a3e6d83682d5 100644
---- a/arch/arm64/kvm/hyp/nvhe/switch.c
-+++ b/arch/arm64/kvm/hyp/nvhe/switch.c
-@@ -217,7 +217,7 @@ static const exit_handler_fn pvm_exit_handlers[] = {
- 
- static const exit_handler_fn *kvm_get_exit_handler_array(struct kvm_vcpu *vcpu)
- {
--	if (unlikely(vcpu_is_protected(vcpu)))
-+	if (unlikely(vcpu_is_protected_pkvm(vcpu)))
- 		return pvm_exit_handlers;
- 
- 	return hyp_exit_handlers;
-@@ -238,7 +238,7 @@ static inline bool fixup_guest_exit(struct kvm_vcpu *vcpu, u64 *exit_code)
- 	 * it.  The check below is based on the one in
- 	 * kvm_arch_vcpu_ioctl_run().
- 	 */
--	if (unlikely(vcpu_is_protected(vcpu) && vcpu_mode_is_32bit(vcpu))) {
-+	if (unlikely(vcpu_is_protected_pkvm(vcpu) && vcpu_mode_is_32bit(vcpu))) {
- 		/*
- 		 * As we have caught the guest red-handed, decide that it isn't
- 		 * fit for purpose anymore by making the vcpu invalid. The VMM
-diff --git a/arch/arm64/kvm/hyp/nvhe/timer-sr.c b/arch/arm64/kvm/hyp/nvhe/timer-sr.c
-index 9930657169133..17bd1ff621ab6 100644
---- a/arch/arm64/kvm/hyp/nvhe/timer-sr.c
-+++ b/arch/arm64/kvm/hyp/nvhe/timer-sr.c
-@@ -48,7 +48,7 @@ void __timer_enable_traps(struct kvm_vcpu *vcpu)
- 	 * or running a protected VM (we don't offset anything in this case).
- 	 */
- 	clr = CNTHCTL_EL1PCEN;
--	if (vcpu_is_protected(vcpu) ||
-+	if (vcpu_is_protected_pkvm(vcpu) ||
- 	    !timer_get_offset(vcpu_ptimer(vcpu)))
- 		set |= CNTHCTL_EL1PCTEN;
- 	else
-
-
-	M.
+Thanks for sharing. I will wait for Mika's tag and apply if he has no
+objections.
 
 -- 
-Without deviation from the norm, progress is not possible.
+With Best Regards,
+Andy Shevchenko
+
+
