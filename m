@@ -1,189 +1,85 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE32A4949FA
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A53F36606A
+	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 12:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790942590; cv=none; b=gPkHfyBY49so1Or1eYWAAgXhSvfJsNa0bu0g0VdLZd3Y0GUhP35AvlivXKGqWlS/oaMezUqp/rtEPm9vhOT50DV17t6irDT0zDS0meYsluq7cElqOKHOzCpoOElTtM1uCZp9gYoWQX5A+yje9QHzJ3BWcmYzOtdyD4atiOfP2m4=
+	t=1790942639; cv=none; b=q39K60wQY171rr6zvHfHRmTDVAkKejqohaQEcYdro8vQM6JBMOfZSCWUBDK+I4Jj1rGmi0cMB3i0IQjyQb5w1raYHaNmTUgKMj6Un7SSkrlKcx9/pS9UAn0ditx2YysxORkI7zb+i7oSqt5HOllo1LE4RguMZ1qwsCaWBGk95Lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790942590; c=relaxed/simple;
-	bh=kw1FByO7zNHpT1g/1ClYusAxsLdovl7ftj2TJAym60Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gv1bwNcUXRCYUNzf6++iVlnhzg5hW/T5YWsqvKXE/n2vHLwLk3bIv2azsx2P8HNGQ08Qe7BXVN0p9GqU7hJ5EqKqKROdVRcJFl+ZeXjHuBWl31jTmlkJ4n4EAUu5kJ8G8Gqi+VislDS3PCd0zhvQi9LT/Y4qjttpDO1EawySQBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=eOVJqu3Q; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1790942639; c=relaxed/simple;
+	bh=bTKE5kgvK0PQTF/o8cSvd+eLlctQUulc/Evxy7GkhwU=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=iiJLBSVONH9xU2OcLP45YN1Iq73i6t8frhvASqHc9RL11RUj7lg9Ayn6aaRKGPW4cakvZyY81pgp/k5n/eos6D/vppmiWjf6+zdmg0HW9Li82DfVNJz9ICNwmZCzUcRHSxD2dJRt8szybw1Qezk02Y3Q0WH3uFVGHgu55GN+VJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XAmhpEgK; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="eOVJqu3Q"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af929e59dso2872887f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 05:03:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1790942587; x=1791547387; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UzygGSqYHPJCqI1F7PREosdXTbiYorvv88O0U724j+Q=;
-        b=eOVJqu3QLmApQUDMu1EQYt9SFQio8c9suL2mlIdt9/TviOIilW6c69UcaKNFBbjXUR
-         JO4t/vlOMGxRN96BUQzxv2mq0+pXOrkDMevCG8JqdXHHZp1AcJbNMPGtwA6AebVXVV4C
-         SMZwDbijOwTq+TdS5ctT0CY+Y5Y9La10vslgs0JQsuKh99TLQoAxMQeWIImycw17ToqX
-         6eYRU9mLrz7saBzOJOfPMGceHMCAVpZ0/OUAZvmuaDcwRRI0PqGUahGZtqAgT1x/vDVI
-         3bwdGMIM7nHWlVwh8JMSZttZuaGqhAlL5pIuDMsQvlsVOq0JFth/NAY4ylgzbnX0mj4j
-         Fc1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790942587; x=1791547387;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UzygGSqYHPJCqI1F7PREosdXTbiYorvv88O0U724j+Q=;
-        b=G7skm9StnrsW3a3yOMHBGzk+AeS6SnGzgO1RMxU0xxFvWVBvtLPCI9Z+0r0NJuCXkA
-         /xCuYH6wTgoyEuw/CZoyvnnQArnNP3RqF+7jgDUNA3aS1OkGMY0oQZW2Id4UFgQUbsDM
-         IWiW5Bp3a+YgxoLBF8eORlRJsMOxN4/ZqiQQBWESdN6vFrV9Z9c0sRxAW5+4iWqe9XQ7
-         MIh4LCHg5WdfSl9e7Cw4xSCPhEgpHW1YEIham3g0BtuD/hsQ2UBfxO3rQHpOsOv42Tou
-         RCbob9k/TNMV1eSjXgj14deKppGbFZf89EgEAzU7MEQoCTEjxmPOL7P9PlGUWjd7VYtA
-         yJzA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqzg/03qDii4fLVEq9IIwhKexA6oxyVPkwuXrcSykDwjk6WOGkjkj0NJJ1GqAvRbDZGq2H28cHagO+qZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyYYKSURRxrMJpZtAxdAsCjfY6CMNwBxx26ukoTXiBSJTWyPxT
-	VgmExeGFQj24g4/HDew2C7PoVxBOGnOJirVhZHH3Mf1OLOGOHKwsAitAYl5E3GPcLUM=
-X-Gm-Gg: AYBFou22O9jg0Ec7aFh2MhcroEojCWTwn2l9nWC/L0aiEODe4QfyvZrTdnKzvHbSbFU
-	Y8/os8GZBwWdVWd4rSA3CxPogplVqemq6PJz3UjTcqdTMrE6AgdkEK+/AlzPnFs+M1qfovqSlrd
-	uMQjDOBQXjf08v8FhiLRfCl9tWnAAFiDDOA/N8Q3YB5Dio013CZ+D+Hs0h1mQjLjel4K8pAMrfr
-	ZzciRNAqJXPtPC9OUBzvB8jxlBYZDpRdwpM+DwvNMvzKPIftlb5Vjsv6dDFaQB5BCtUklDqmcTI
-	elNvJgDuliRLYDiT/RztXKfVNpnpQ9R99SBi7UndRpPnx5x3Cjvbe/IfRR6YH5hrDlIrTs5Aa9Z
-	IZnKX7O/2FXhtICXv97Jq41/m/agTQ6VU67Xxr4g8GYUh3UAw16HdvtagyUlrMABdqNUJ7AsZX5
-	Fu+LIz91Y3t2HRcdNe0RZM54e4dsZWw31LKgj50bqQhSIdnlXF21XIo9Dq9pyJbHP3fNjmOv9yW
-	dF9AX7dXaBlxQ8d
-X-Received: by 2002:a05:6000:4809:b0:48a:fcec:2a29 with SMTP id ffacd0b85a97d-48b1273b029mr4842104f8f.20.1790942586916;
-        Fri, 02 Oct 2026 05:03:06 -0700 (PDT)
-Received: from alchark-surface.localdomain ([5.194.93.183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f0613sm5845213f8f.13.2026.10.02.05.03.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 05:03:06 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 02 Oct 2026 16:02:55 +0400
-Subject: [PATCH 2/2] power: supply: bq27xxx: add support for BQ28Z620
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XAmhpEgK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790942636; x=1822478636;
+  h=date:from:to:cc:subject:message-id;
+  bh=bTKE5kgvK0PQTF/o8cSvd+eLlctQUulc/Evxy7GkhwU=;
+  b=XAmhpEgKA38wyOXvZNhgE7moa86iFytu+KXp+wa1INp0hBrB3do51bqB
+   DwaN/6PI7XXDLIfnje4df/6N1N94nAhO7Wak9r3C+fg56/6k9CSpG283V
+   G3pA6ciwULlA0SCujzwjMOBRr+d/oeR1vMj5vFnbEKKgS3iLNl3miXlUL
+   /DMibtrtknBsbWKNjZTA11QrT7SSbhR7DhlHZBNLpE7236VBgBWrQheDi
+   Nrm9CHPSxH+qEwoMtcA+kfR0SwwTYjrKyTLp6ijQEwQt9kFpnnQlZSzjX
+   JEEVl3Sd7tuaHSwkCapfuCU+hpFOcb9tAxn+ttAVX9WEQQJmC50rPE+Ej
+   Q==;
+X-CSE-ConnectionGUID: znw2WZrFSf+Wx13CRGw7NQ==
+X-CSE-MsgGUID: /3MfHBPNRxC1/JyRvuLsJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91569717"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="91569717"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 05:03:56 -0700
+X-CSE-ConnectionGUID: Cq9OCGjdQXymgyaw5yuoTg==
+X-CSE-MsgGUID: 2pyqzYzpRKyHWBg7qfUrtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="242656"
+Received: from igk-lkp-server01.igk.intel.com (HELO 3fb566d470b1) ([10.211.93.152])
+  by fmviesa013.fm.intel.com with ESMTP; 02 Oct 2026 05:03:54 -0700
+Received: from kbuild by 3fb566d470b1 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xCbzU-000000000Wd-01t5;
+	Fri, 02 Oct 2026 12:03:52 +0000
+Date: Fri, 02 Oct 2026 14:03:32 +0200
+From: kernel test robot <lkp@intel.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [tip:irq/drivers 3/22] .tmp_gl_qcom-pdc.o:undefined
+ reference to `qcom_scm_is_available'
+Message-ID: <202610021412.sF9k0Grb-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-bq28z620-v1-2-bdcc10d42519@flipper.net>
-References: <20261002-bq28z620-v1-0-bdcc10d42519@flipper.net>
-In-Reply-To: <20261002-bq28z620-v1-0-bdcc10d42519@flipper.net>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
- "Andrew F. Davis" <afd@ti.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3769; i=alchark@flipper.net;
- h=from:subject:message-id; bh=kw1FByO7zNHpT1g/1ClYusAxsLdovl7ftj2TJAym60Y=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtn1ssKZb7r76mgD+kySDhXXXfk7TICLmMDZ2K3Kluk
- 0rm1q7umMjCIMbFYCmmyDL32xLbqUZ8s3Z5eHyFmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
- jXSMdYwYuDgFYKr3nGf4X83xiad64mPx9FUW8y99/Hj1wOKzs4XWnb3heCr75Wofz4UM/0uVH7J
- u9UstF7Cv9bv6YefzdhV/wUf3gqs175XKXe4tYwMA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Match the BQ28Z620 under its own chip ID so that code touching its
-relocated data flash can tell it apart from the BQ28Z610. Reuse the
-BQ28Z610 register map and properties, as the standard commands the
-driver reads are unchanged.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
+head:   0c65a1331928d0207c385f03fb5eba0cfecce0e6
+commit: 1b852de05f74cfc96c58caad9df4cc1fa2dc7689 [3/22] irqchip/qcom: Enable compile testing for QCOM_PDC and QCOM_MPM
+config: microblaze-randconfig-r2300-20261002 (https://download.01.org/0day-ci/archive/20261002/202610021412.sF9k0Grb-lkp@intel.com/config)
+compiler: microblaze-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261002/202610021412.sF9k0Grb-lkp@intel.com/reproduce)
 
-Keep the 10 mW scaling of AveragePower() even though the BQ28Z620 TRM
-lists it in mW: readings on hardware match V * I only in 10 mW units.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610021412.sF9k0Grb-lkp@intel.com/
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/power/supply/bq27xxx_battery.c     | 6 ++++++
- drivers/power/supply/bq27xxx_battery_i2c.c | 2 ++
- include/linux/power/bq27xxx_battery.h      | 1 +
- 3 files changed, 9 insertions(+)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index 17f5b58609be..09272249b4f7 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -39,6 +39,7 @@
-  * https://www.ti.com/product/bq27z561
-  * https://www.ti.com/product/bq27z746
-  * https://www.ti.com/product/bq28z610
-+ * https://www.ti.com/product/bq28z620
-  * https://www.ti.com/product/bq34z100-g1
-  * https://www.ti.com/product/bq78z100
-  */
-@@ -525,6 +526,7 @@ static u8
- 		[BQ27XXX_REG_AP] = 0x22,
- 		BQ27XXX_DM_REG_ROWS,
- 	},
-+#define bq28z620_regs bq28z610_regs
- 	bq34z100_regs[BQ27XXX_REG_MAX] = {
- 		[BQ27XXX_REG_CTRL] = 0x00,
- 		[BQ27XXX_REG_TEMP] = 0x0c,
-@@ -861,6 +863,8 @@ static enum power_supply_property bq28z610_props[] = {
- 	POWER_SUPPLY_PROP_MANUFACTURER,
- };
- 
-+#define bq28z620_props bq28z610_props
-+
- static enum power_supply_property bq34z100_props[] = {
- 	POWER_SUPPLY_PROP_STATUS,
- 	POWER_SUPPLY_PROP_PRESENT,
-@@ -1001,6 +1005,7 @@ static struct bq27xxx_dm_reg bq27621_dm_regs[] = {
- #define bq27z561_dm_regs NULL
- #define bq27z746_dm_regs NULL
- #define bq28z610_dm_regs NULL
-+#define bq28z620_dm_regs NULL
- #define bq34z100_dm_regs NULL
- #define bq78z100_dm_regs NULL
- 
-@@ -1060,6 +1065,7 @@ static struct {
- 	[BQ27Z561]  = BQ27XXX_DATA(bq27z561,  0         , BQ27Z561_O_BITS),
- 	[BQ27Z746]  = BQ27XXX_DATA(bq27z746,  0         , BQ27Z561_O_BITS),
- 	[BQ28Z610]  = BQ27XXX_DATA(bq28z610,  0         , BQ27Z561_O_BITS),
-+	[BQ28Z620]  = BQ27XXX_DATA(bq28z620,  0         , BQ27Z561_O_BITS),
- 	[BQ34Z100]  = BQ27XXX_DATA(bq34z100,  0         , BQ27XXX_O_OTDC | BQ27XXX_O_SOC_SI | \
- 							  BQ27XXX_O_HAS_CI | BQ27XXX_O_MUL_CHEM),
- 	[BQ78Z100]  = BQ27XXX_DATA(bq78z100,  0         , BQ27Z561_O_BITS),
-diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
-index 2a6b4534cb28..715ce8b6e401 100644
---- a/drivers/power/supply/bq27xxx_battery_i2c.c
-+++ b/drivers/power/supply/bq27xxx_battery_i2c.c
-@@ -255,6 +255,7 @@ static const struct i2c_device_id bq27xxx_i2c_id_table[] = {
- 	{ .name = "bq27z561", .driver_data = BQ27Z561 },
- 	{ .name = "bq27z746", .driver_data = BQ27Z746 },
- 	{ .name = "bq28z610", .driver_data = BQ28Z610 },
-+	{ .name = "bq28z620", .driver_data = BQ28Z620 },
- 	{ .name = "bq34z100", .driver_data = BQ34Z100 },
- 	{ .name = "bq78z100", .driver_data = BQ78Z100 },
- 	{ }
-@@ -293,6 +294,7 @@ static const struct of_device_id bq27xxx_battery_i2c_of_match_table[] = {
- 	{ .compatible = "ti,bq27z561" },
- 	{ .compatible = "ti,bq27z746" },
- 	{ .compatible = "ti,bq28z610" },
-+	{ .compatible = "ti,bq28z620" },
- 	{ .compatible = "ti,bq34z100" },
- 	{ .compatible = "ti,bq78z100" },
- 	{},
-diff --git a/include/linux/power/bq27xxx_battery.h b/include/linux/power/bq27xxx_battery.h
-index 0b833c4bb583..731ea837aac3 100644
---- a/include/linux/power/bq27xxx_battery.h
-+++ b/include/linux/power/bq27xxx_battery.h
-@@ -35,6 +35,7 @@ enum bq27xxx_chip {
- 	BQ27Z561,
- 	BQ27Z746,
- 	BQ28Z610,
-+	BQ28Z620,
- 	BQ34Z100,
- 	BQ78Z100,
- };
+   microblaze-linux-ld: drivers/irqchip/qcom-pdc.o: in function `qcom_pdc_probe':
+>> .tmp_gl_qcom-pdc.o:(.text+0x1450): undefined reference to `qcom_scm_is_available'
+>> microblaze-linux-ld: .tmp_gl_qcom-pdc.o:(.text+0x1468): undefined reference to `qcom_scm_io_writel'
 
--- 
-2.55.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
