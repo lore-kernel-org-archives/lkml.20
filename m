@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD443B4E83;
-	Fri,  2 Oct 2026 18:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0AB39D6DD;
+	Fri,  2 Oct 2026 18:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790966209; cv=none; b=Gzwwg72t0uu9K98OQErxM1kiEG1ZdaECJQfkgbDeJysM4j/3h09PJaBWcO5w1bAJKqyCVDCixTWIvIZ9lu/EWj+1D1AzgEqO3tx4ZgNjHsKr32hXnE+ZqByIKaa8nDe9YffcEzwSVCvCrC5D29ziAFyexJPEels64Wbxi3gT7yM=
+	t=1790966274; cv=none; b=U3Y1D32ibWeZ5jCNrThypc2Pk13C6T9sXXVk5Qo4ZHf20+Z7kWSOK7uIsTUdqpUoZVoCPfOEQwvTfrfzUSD/0HDAkYu6r+BtkFz8+yfnjaPA1w1+LxmcsxG9ohnyS/YX+LDjsRufH6vf3K5uygTrbQbcPnPIxF9JJdeoWLDPwIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790966209; c=relaxed/simple;
-	bh=8mabWkB1QZPyJ7jiMjDf5gavLVLq2c6UrjUxdragye4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VuFKu38rLH2/v5lP/awBgX+SNeFqF0XNokhUgeaGqEkkqUXBpNnZGckn5ZIivUar5jgOW72kUT09I+OcGKK7L2H/QhGbctUzcLtYEQFkqt6BhcSQIJFoAuBiQTPSRRj8iiql9wDSZVTEWDdMCX1X76wdK7SCUmuF6zJGv8pi8Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7Awfpu2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790966274; c=relaxed/simple;
+	bh=ldwGc4g4rdpXemZLNZitsJ1Klj/xYUzGc7QiOYMjCXg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K75yshqMO1bW472dio2eSDQ30BH/2o4GdVpPKGO2Urk/JssfPej+0iTev9q7mUJ9qvR5Tv/kxCbAfCtOsFKxqS6yVI+rvz6F/ZOIrJp/oMdz6tHOtpDzbcbpX3a/GaMX/H62WkLVdOW1WRSFiGgMT9Ga23tN7dl5dUk98tz080A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZzfirRRm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7Awfpu2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 613B3C4AF12;
-	Fri,  2 Oct 2026 18:36:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZzfirRRm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 90FABC2BCF4;
+	Fri,  2 Oct 2026 18:37:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790966208;
-	bh=8mabWkB1QZPyJ7jiMjDf5gavLVLq2c6UrjUxdragye4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=n7Awfpu2dmdNiFu6cViMaG21x35x+yr4RpScNuFma48E99V/ZBlIUifzZ/AyLLlDQ
-	 tdnP3kJFjHygH4+/wPcMn1nswygSl9PdngEVE9XhXkIaLJokRRy+h5gyZ8LDGhPdfN
-	 NA1HMSWrqLi76d8UpbLDqW7KROG4p/AhzZ5wTBRNPDMmi9Yk3ZaXcfJtiNVH5jsHr4
-	 GECGA2e01GwyDUPVI5D3KCTfC97UzxI8mN1cznDY9UKAxzC+YlvfxybhmrOTCOBdic
-	 wc1RwY/MtvyggGGjFTTpyCptOX7BJpd5pzxfvUwQ9ZqMwXuPWL4aN/K2uiihtmwXPn
-	 ucXMde+gKokug==
+	s=k20201202; t=1790966274;
+	bh=ldwGc4g4rdpXemZLNZitsJ1Klj/xYUzGc7QiOYMjCXg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ZzfirRRmdGhC4FoSeBuqRevuIJ1tL84QfUHlXX7l8E57VBM2DkMb7OMOS90H7Ydhs
+	 fXxRGVZvNiJTdPA7F2jAnAzFW4Kr8toBsnXan1OXyqH6qr4GMsypl7lBeNSmyQtHTu
+	 SdttNMYpYcnqAuNYrGgW/9/AcKz8lc3xHzpBwSNfKsJSpad1cs0xe1ACQ96geHacE9
+	 nALNVUsjwkxC3q7rSjuzaZ76KWjXGtWei9hF5m+zDvrmK2t/0Fa5f3ECfEF0zW32aX
+	 074CsxvgWBsCutcC1mT7eoQYD43im9/q4Igwh4qKYPbIZWvtP+sqVyljVCgVR34UIy
+	 8Cz9/UWvtqGCA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41D8ECA5FDD;
-	Fri,  2 Oct 2026 18:36:48 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Fri, 02 Oct 2026 21:36:46 +0300
-Subject: [PATCH v2 1/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the
- SPI NOR HOLD# and WP# pins
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D0F4CA5FE0;
+	Fri,  2 Oct 2026 18:37:54 +0000 (UTC)
+From: DMS via B4 Relay <devnull+dms3studio.gmail.com@kernel.org>
+Date: Fri, 02 Oct 2026 11:37:42 -0700
+Subject: [PATCH] HID: i2c-hid: add quirk to send initial output reports for
+ Acer SFA14-I31
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,91 +40,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-hc4-spi-nor-v2-1-8366a4f91049@iav.lv>
-References: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
-In-Reply-To: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2206; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=qv7t3hORjY3jRiTyrWVKO4vO2S8H8j7Lyh7tlemugqg=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFn7f+5ztuZMzuk5vvpavrRqh3LenYmnpr9U+basd5J2r
- uta3ssGHaUsDGJcDLJiiiwTDmncylhy9a+/h/kDmDmsTCBDGLg4BWAiE6cy/BWarM7zMb882Ear
- 6ZTz3J+ZPv4xJbZTunWflPGeclJ8pMfw3z/Ljv8F4+3Mmq9HTQ6tu2v+KYJjxaU395Vtsma+3tJ
- uzw0A
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+Message-Id: <20261002-swift-sfa14-kbd-v1-1-ad312bca1076@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz7WURJChV0EdQmKDqQRVDLQS4
+ u4EOr7h/x2UspDCs9oh0yYq81RgHxXEIUw9oaRicMZ5a4xD/QovqBxsje8uoQ1MyTfEjXdQqk8
+ mlt99bF9/69qNFJdrA8dxApEjuO9zAAAA
+X-Change-ID: 20261002-swift-sfa14-kbd-1afed65ef562
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ DMS <dms3studio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790966274; l=5013;
+ i=dms3studio@gmail.com; s=20261002; h=from:subject:message-id;
+ bh=u1O1iFC2D7Dw2S1dibG8iHZiy30p8p5HSOsHgNyzOWM=;
+ b=aT7+qGPM9y8ZN7KzP5Qqww6C/qUObvRTJ7G6tMmWekK8O8RY4aLdrSpdcvuQI6MV5jRqTCVX3
+ sW2Vnu/nywtDTbk9YUy4FbtpDoAkVy1fabteZQasx0pks91y2/Jk7Ts
+X-Developer-Key: i=dms3studio@gmail.com; a=ed25519;
+ pk=iEKXvjgvX82Pm5Lmco/mZzbmqo1aPwVXtxvX4fpbgNE=
+X-Endpoint-Received: by B4 Relay for dms3studio@gmail.com/20261002 with
+ auth_id=1102
+X-Original-From: DMS <dms3studio@gmail.com>
+Reply-To: dms3studio@gmail.com
 
-From: Igor Velkov <iav@iav.lv>
+From: DMS <dms3studio@gmail.com>
 
-The SPI NOR flash uses six lines, but nor_pins covers only four: data,
-clock and chip select. Nothing claims HOLD# (BOOT_3) and WP# (BOOT_7),
-so they keep the boot ROM setting. After a boot from SPI they are in
-the nor function and the flash works. After a boot from SD with the
-button under the board, they stay eMMC data lines pulled low, and
-spi-nor reports "unrecognized JEDEC id bytes: 00 00 00 00 00 00".
+The internal keyboard of the Acer Swift Air 14 (SFA14-I31, ACPI
+1025174B, HID 049f:5343) does not send any input reports after probe.
+It stays silent, and its GPIO interrupt never fires, until the host has
+written an output report to it at least once.
 
-Add them as a separate group in meson-g12-common.dtsi rather than to
-nor_pins: whether HOLD# and WP# reach the SoC depends on the board. The
-HC4 has eMMC disabled and takes both groups.
+The input core only forwards LED state to the device when it changes.
+All LEDs start off, so no output report is written at boot and the
+keyboard is unusable until the first suspend/resume cycle, where
+input_dev_toggle() re-sends the LED state unconditionally. Closing and
+opening the lid is the only way to get a working keyboard.
 
-Tested on ODROID-HC4: with BOOT_3 and BOOT_7 set back to eMMC with
-pull-down and spifc rebound, the flash fails as above without this
-patch and probes as a 16 MiB mtd0 with it.
+Add I2C_HID_QUIRK_INIT_OUTPUT_REPORTS, which sends every output report
+once with its initial field values right after the HID device has been
+added, and enable it for this keyboard.
 
-Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
+Tested on an SFA14-I31 (BIOS V1.01) with a 7.2.8 kernel and this change
+applied to i2c-hid as a module: the keyboard works from boot without a
+suspend/resume cycle, and suspend/resume keeps working. Without it,
+writing the LED output report by hand (i2ctransfer) or toggling the
+capslock LED through sysfs has the same effect, while resetting or
+re-powering the device does not. This version, rebased on hid.git
+for-next, was build-tested only.
+
 Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
+Signed-off-by: DMS <dms3studio@gmail.com>
 ---
- arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi    | 9 +++++++++
- arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 2 +-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+This was debugged and written with the help of an AI coding assistant
+(Claude), working over SSH on the affected laptop. It counted keyboard
+interrupts, traced i2c-hid with dynamic debug during a pm_test=devices
+cycle, and replayed raw I2C transfers to isolate the LED output report
+as the trigger. Rebinding i2c-hid (which resets the device), rebinding
+the I2C controller and manual SET_POWER commands were ruled out. I
+reviewed the change and tested it on my machine as described in the
+commit message.
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-index 00609d2da674..3135566df880 100644
---- a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-@@ -615,6 +615,15 @@ mux {
- 						};
- 					};
+If you would rather handle this generically, e.g. by syncing LED state
+when hid-input connects, I am happy to test that instead.
+---
+ drivers/hid/hid-ids.h              |  3 +++
+ drivers/hid/i2c-hid/i2c-hid-core.c | 36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
+
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index a9537b7bb..5e6096caf 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -39,6 +39,9 @@
+ #define USB_DEVICE_ID_ACECAD_FLAIR	0x0004
+ #define USB_DEVICE_ID_ACECAD_302	0x0008
  
-+					nor_hold_wp_pins: nor-hold-wp {
-+						mux {
-+							groups = "nor_hold",
-+							       "nor_wp";
-+							function = "nor";
-+							bias-disable;
-+						};
-+					};
++#define I2C_VENDOR_ID_ACER_KBD		0x049f
++#define I2C_PRODUCT_ID_ACER_SFA14_KBD	0x5343
 +
- 					pdm_din0_a_pins: pdm-din0-a {
- 						mux {
- 							groups = "pdm_din0_a";
-diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-index 3ece30a0a1ff..c4b93d6619f2 100644
---- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-+++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-@@ -126,7 +126,7 @@ &sd_emmc_c {
+ #define USB_VENDOR_ID_ACRUX		0x1a34
  
- &spifc {
- 	status = "okay";
--	pinctrl-0 = <&nor_pins>;
-+	pinctrl-0 = <&nor_pins>, <&nor_hold_wp_pins>;
- 	pinctrl-names = "default";
+ #define USB_VENDOR_ID_ACTIONSTAR	0x2101
+diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c-hid-core.c
+index a8a985485..f54671092 100644
+--- a/drivers/hid/i2c-hid/i2c-hid-core.c
++++ b/drivers/hid/i2c-hid/i2c-hid-core.c
+@@ -52,6 +52,7 @@
+ #define I2C_HID_QUIRK_NO_SLEEP_ON_SUSPEND	BIT(5)
+ #define I2C_HID_QUIRK_DELAY_WAKEUP_AFTER_RESUME BIT(6)
+ #define I2C_HID_QUIRK_RE_POWER_ON		BIT(7)
++#define I2C_HID_QUIRK_INIT_OUTPUT_REPORTS	BIT(8)
  
- 	flash@0 {
+ /* Command opcodes */
+ #define I2C_HID_OPCODE_RESET			0x01
+@@ -155,6 +156,12 @@ static const struct i2c_hid_quirks {
+ 		 I2C_HID_QUIRK_DELAY_WAKEUP_AFTER_RESUME },
+ 	{ I2C_VENDOR_ID_BLTP, I2C_PRODUCT_ID_BLTP7853,
+ 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
++	/*
++	 * The Acer Swift SFA14-I31 keyboard sends no input until the host
++	 * has written an output (LED) report at least once
++	 */
++	{ I2C_VENDOR_ID_ACER_KBD, I2C_PRODUCT_ID_ACER_SFA14_KBD,
++		I2C_HID_QUIRK_INIT_OUTPUT_REPORTS },
+ 	{ 0, 0 }
+ };
+ 
+@@ -1079,6 +1086,32 @@ static int __i2c_hid_core_probe(struct i2c_hid *ihid)
+ 	return 0;
+ }
+ 
++/*
++ * The input core only writes LED state when it changes (and on resume), so
++ * a device that waits for an output report never gets one at boot. Send
++ * every output report once with its initial field values.
++ */
++static void i2c_hid_send_initial_output_reports(struct hid_device *hid)
++{
++	struct hid_report_enum *report_enum = &hid->report_enum[HID_OUTPUT_REPORT];
++	struct hid_report *report;
++	u8 *buf;
++	int ret;
++
++	list_for_each_entry(report, &report_enum->report_list, list) {
++		buf = hid_alloc_report_buf(report, GFP_KERNEL);
++		if (!buf)
++			return;
++
++		hid_output_report(report, buf);
++		ret = i2c_hid_output_report(hid, buf, hid_report_len(report));
++		if (ret < 0)
++			hid_warn(hid, "failed to send initial output report %u: %d\n",
++				 report->id, ret);
++		kfree(buf);
++	}
++}
++
+ static int i2c_hid_core_register_hid(struct i2c_hid *ihid)
+ {
+ 	struct i2c_client *client = ihid->client;
+@@ -1099,6 +1132,9 @@ static int i2c_hid_core_register_hid(struct i2c_hid *ihid)
+ 	if (ihid->quirks & I2C_HID_QUIRK_RE_POWER_ON)
+ 		ret = i2c_hid_set_power(ihid, I2C_HID_PWR_ON);
+ 
++	if (ihid->quirks & I2C_HID_QUIRK_INIT_OUTPUT_REPORTS)
++		i2c_hid_send_initial_output_reports(hid);
++
+ 	return ret;
+ }
+ 
 
--- 
-2.43.0
+---
+base-commit: 145c2b2e9a5c0f794fb4009bcb072ab19f8ccfcd
+change-id: 20261002-swift-sfa14-kbd-1afed65ef562
+
+Best regards,
+--  
+DMS <dms3studio@gmail.com>
 
 
