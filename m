@@ -1,80 +1,164 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CF2B4D487C
-	for <linux-kernel@vger.kernel.org>; Fri,  2 Oct 2026 15:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from out28-2.mail.aliyun.com (out28-2.mail.aliyun.com [115.124.28.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29BA338F93B;
+	Fri,  2 Oct 2026 15:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790955027; cv=none; b=WrLTjTP0sl+5OgU2z4RzUN/8wieDhXf37WvXabnsxZQdvAgJVMj/AnRoSQjWQbv7HnyKWQmCSs/TIiMo+/h6q2KmfrVGCQKsSO9L6GqXcx0iYxiwBxTO9BSilXCHkcuzuYUuVPlLfsBGdHHMEbuDI9AfRon4zVKfbDjdLwO0jt4=
+	t=1790955054; cv=none; b=IQekmLAbvIaXUrS2gjvLFUlvGusPLj8MIoErdrvDT7wlMs6NZucPL61vENtbZEWdyr4t6pam57gd0ePf/dHWk47iOrhxnHlVHh6jIO9lSMVTVDwvecK+5HAWaDPyW4/QvpihcAGuXzD5miFC+ycBDNu09OBFSVTdMcMgFTLcI8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790955027; c=relaxed/simple;
-	bh=Z2LspGkQ5z5Seubq49ws0rOaPx79NGD0/r2VYPepM9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QkKnCgbCOfjq6IXUcj3m7ssEYiL/ooIwDJ2/WbMVJRmQr9IZKtfCDwviC1743hKb8xAiI4Aab4geUmylogziFri3HWQzdVuFw3RlpQx44Wl7mywINLdsmkjn+AMcd54OPbPr9xclGNo2FIwoSgIoK0xL/2pW3VCGtbhhQAT0XXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YOBqbhh5; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YOBqbhh5"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1DB41143D;
-	Fri,  2 Oct 2026 08:30:22 -0700 (PDT)
-Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7875D3F85F;
-	Fri,  2 Oct 2026 08:30:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790955025; bh=Z2LspGkQ5z5Seubq49ws0rOaPx79NGD0/r2VYPepM9A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YOBqbhh55rD5PUXRNb3Ao6y0RLQ96QltvKZhxCchZq1Z/lO0gHRPTiAA+LGjUehv7
-	 yC7EzJ9USIf9GqOP62vpmL+ofQ/VqCApwg4D9ueDOgRBSdYv6uM+gHHeVMGDx/tv5r
-	 /n0vLT5V7kayeSsY5Sk8Uhn6wnKbWzRP4+Mtyc8o=
-Message-ID: <7657b40e-ae69-4218-b5fa-dd00417dfc97@arm.com>
-Date: Fri, 2 Oct 2026 16:30:22 +0100
+	s=arc-20240116; t=1790955054; c=relaxed/simple;
+	bh=iFDZbYNwRbaLsSSqKtIpcvoFerU/QQT98MpCBkhGANs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=M66tJyMmCZN1+HYnaQh6MR0HnNOIse3XPwanaA5xe/ZHgPVFTzTPd2LeEyfiN0QUdtm8BT1uma8dK3ZJAyKT49rKJEbKcGAghX5bfvoig2lLm8suVbqW0Ht6Bon1Gm+oUswJuEJIqpNWDMkkW6FdEaedYeRIsVE8xuCvgeFbD94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07441826|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.04611-0.00409288-0.949797;FP=16204400867606070449|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jTkAIZF_1790955038;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jTkAIZF_1790955038 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 02 Oct 2026 23:30:39 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v24 1/3] dt-bindings: net: Document Motorcomm YT8824 PHY package
+Date: Fri,  2 Oct 2026 23:30:32 +0800
+Message-Id: <20261002153034.934814-2-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261002153034.934814-1-kyle.switch@motor-comm.com>
+References: <20261002153034.934814-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Use linux-arm-kernel list for the MPAM
- driver
-To: Ben Horgan <ben.horgan@arm.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Cc: catalin.marinas@arm.com, will@kernel.org, reinette.chatre@intel.com,
- fenghuay@nvidia.com, Gavin Shan <gshan@redhat.com>,
- Yin Li <yin.li@oss.qualcomm.com>
-References: <20260915103101.1659477-1-ben.horgan@arm.com>
-Content-Language: en-GB
-From: James Morse <james.morse@arm.com>
-In-Reply-To: <20260915103101.1659477-1-ben.horgan@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Ben,
+Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
 
-On 15/09/2026 11:31, Ben Horgan wrote:
-> As MPAM is an arm64 feature and patches mostly go via the arm64 maintainers
-> it may be reasonably expected that the MPAM driver uses the list-arm-kernel
-> list.
-> 
-> Make this official by adding the L: in MAINTAINERS.
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ .../bindings/net/motorcomm,yt8824.yaml        | 78 +++++++++++++++++++
+ MAINTAINERS                                   |  2 +
+ 2 files changed, 80 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
 
-Makes sense - I've picked this up to send on to Catalin.
-
-
-Thanks,
-
-James
-
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 6215fcb07770..2113a0051b52 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -18436,6 +18436,7 @@ M:	James Morse <james.morse@arm.com>
->  M:	Ben Horgan <ben.horgan@arm.com>
->  R:	Reinette Chatre <reinette.chatre@intel.com>
->  R:	Fenghua Yu <fenghuay@nvidia.com>
-> +L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
->  S:	Maintained
->  F:	drivers/resctrl/mpam_*
->  F:	drivers/resctrl/test_mpam_*
+diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+new file mode 100644
+index 000000000000..4c67f8afcf27
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MotorComm YT8824 Ethernet PHY
++
++maintainers:
++  - Kyle Switch <kyle.switch@motor-comm.com>
++
++description:
++  Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
++
++$ref: ethernet-phy-package.yaml#
++
++properties:
++  compatible:
++    enum:
++      - motorcomm,yt8824-package
++
++  motorcomm,package-mode:
++    description: |
++      PHY package can be configured in 2 modes:
++      - internal: YT8824 is embedded in the switch, using
++        an internal interface to the MAC.
++      - 10g-qxgmii: YT8824 is a standalone external PHY,
++        connected via 10G QXGMII.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [ internal, 10g-qxgmii ]
++
++  reg:
++    description:
++      The absolute MDIO address of the YT8824 shared top extend
++      register block.
++      For internal mode, this is fixed at 9;
++      For external mode, it is the base MDIO address of the four
++      member PHYs plus 4, where base is typically 0x0.
++      Note that this is NOT the reg of the first member PHY.
++
++required:
++  - compatible
++  - motorcomm,package-mode
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy-package@9 {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            compatible = "motorcomm,yt8824-package";
++            reg = <9>;
++
++            motorcomm,package-mode = "internal";
++
++            ethernet-phy@4 {
++                reg = <4>;
++            };
++
++            ethernet-phy@5 {
++                reg = <5>;
++            };
++
++            ethernet-phy@6 {
++                reg = <6>;
++            };
++
++            ethernet-phy@7 {
++                reg = <7>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3011f995437f..d81560893a56 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18426,8 +18426,10 @@ F:	drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
+ 
+ MOTORCOMM PHY DRIVER
+ M:	Frank <Frank.Sae@motor-comm.com>
++M:	Kyle Switch <kyle.switch@motor-comm.com>
+ L:	netdev@vger.kernel.org
+ S:	Maintained
++F:	Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+ F:	Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
+ F:	drivers/net/phy/motorcomm.c
+ 
+-- 
+2.25.1
 
