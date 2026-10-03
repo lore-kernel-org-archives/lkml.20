@@ -1,105 +1,129 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC7E332EBC
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F003BBFC7
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791019971; cv=none; b=hIBhgB1NHlpTjYMfLtAMg3WJKIBInomQD+BCRIMvSsUxwSlz570tHQZjMD1I9pXHEAmmIpNtFrkP4lgIMI2z5TZx8pKTIu9uX31zBE83B2xXcfxN2949cWbMFE/0+1m7/6wWozl5rNwxLQmDMNfDvxnZekriAx999TtemfYjrNA=
+	t=1791020103; cv=none; b=oaqVoR4bjfQOs5QVllZc0l50k8E8uac48Bfx21EZtZl4KRLSXqPegmlBlXpKrfHQPakKVIozT0GKcCrrQ9PZ4gO7I1S9DFoDJkX9iQmqXcOGJpS1ssTXcmhanefYYP8v7Z39CjRkpSOdQhxDCrkcS0/8VEeDh96YOAENnF33FkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791019971; c=relaxed/simple;
-	bh=gtBDd8eZoep2RhjTavpiS53fkuhzt/9I1S1GhQFjzLM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=s/NVPwkaVo/gpij+dimHHRiIsBsJiARF1h/PNoSCOhAq3mg3vVM4tn2VLuv2lISlibIGCobj5Jxa+z75RctTWk6AwrtiDd3hEFd5tvx4DqNK9TojsAovngqGL8+/6QkEKH4wPRzWGWgNXlQ7123UL3+uDZ0ZUvKcY3+dYJjp3yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=iKwsJXEF; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791020103; c=relaxed/simple;
+	bh=BnGa8NDJZnK2S1ungKI815U/3TD4/ubYnz77jR0hQ8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yg6sgGnRrgE372NL8qLBlZl2FvSZPDp5wyI5QPwnrUGyGeBxTWz0tfGG1pQJ4Z7JAeD2ZkrQmhvxrQPk3z6R9jXGRFexdfBNmLlfTGQDESIG02V9tRvfbqOvDwh6RdzEoD8cLUiAaKX5EbxRJd0G7KgzwrVon3/fGRIcErX0/BA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ecYySlvP; arc=none smtp.client-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="iKwsJXEF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=gtBDd8eZoep2RhjTavpiS53fkuhzt/9I1S1GhQFjzLM=; b=i
-	KwsJXEFPTnkNnkR+8QfIuSzMOLtyRb0NZyzejRKkVJmtXEOELHQBEgLf+asKs6r0
-	npKsoIJTpaNNj42WmBabGgKTGCsOOoA20de0ITcy23rDx7ITZxOi/4gpIBfF/yER
-	+6w5ido1L4OWLo6y1Zm361ec3FsyyOlB6Z9hRyAbi0=
-Date: Sat, 3 Oct 2026 17:32:25 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Chi Zhiling" <chizhiling@163.com>
-Cc: "Namjae Jeon" <linkinjeon@kernel.org>,
-	"Sungjong Seo" <sj1557.seo@samsung.com>,
-	"Yuezhang Mo" <yuezhang.mo@sony.com>,
-	"Darrick J. Wong" <djwong@kernel.org>, exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH v3 3/3] exfat: drain in-flight DIO before buffered
- writes
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <eb7855e6-2972-42a7-ace0-e43dc4096677@163.com>
-References: <20260928085412.2221055-1-yaojiale02@163.com>
- <20260928085412.2221055-4-yaojiale02@163.com>
- <eb7855e6-2972-42a7-ace0-e43dc4096677@163.com>
-X-NTES-SC: AL_Qu2SA/yatkEv4yKfbOkdmE8Uges8WcC0svki1YJUc+4GhzHBwiABbHpeBEnt4NmlFwSNnAm9ShFy8/5qb6BZ+Y5UBaFQ6/NQy1A90wK4aQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ecYySlvP"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cc75f2924abso329640a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:35:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791020102; x=1791624902; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rBI89OF+N0vXnxCESFaz463auJhNn0qQwp4320r4m4Q=;
+        b=ecYySlvPwZbLZ6zSgXq4BwzXgd2VDG0kMBGnyoQ5VnF9e7UtNnnBOqV5jQsFMhBgpv
+         ZMc2JmjeL05jeht+yw8fT4St0PNZYmcxGJ7+1gL1cPlCioBwjVSFClfbHo6/7Zi4dKAd
+         8/n23m3HfCqKrMRO96eOHPWA/YgvRgZ4ZG2Zl4HlwJnHYX4VXuNPFPPDoJF99JTeUb5T
+         kCoGvuC8fssZ8lOx40RoFNNbHBWgjUxXNyQld1dlaOWQ9m/6jYsrZYcime/ZN52BTd43
+         862gkDv5zPtUB2Iia6O4hH7XoLQbHd6LpPp8ksis4UO66wIHRmjsLFSiSmrZRFgkm28g
+         dBmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791020102; x=1791624902;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rBI89OF+N0vXnxCESFaz463auJhNn0qQwp4320r4m4Q=;
+        b=s8ZSkHWk/Ru44CgFIaAGe8LpO9sPIwcmM5SEqb/wVfD1b2JvFq9guFiFsNGghye4Gi
+         3m14MRm87tHnrSBZR9bGJKYjXbMc2xAgVvyOlEdxCaGvQZJliMx9x38kGQMtYe9D7ibh
+         Q9XOJZvYbYRfgvL7qqsC1rYFvgC9rbZ8rhKvbNjosukWJOs9suTADsCgBC92MBKE0+fH
+         pdRAvrsxI9XwoRPIrMJE8mGpreJBBHtHzWf+5OboGt2IHoFUBumSpi0lrjOdB5Ay7VvD
+         CgYxggbxFzd51Yar/RsQH4gjArmqJhOZ6CpVvD7vQwAqj24J9yQ0L2YnhD4hKHMM6Zd/
+         aGhw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxTntU9upSBLRhriV190YjLSqfNpT/24LcZque/oXvJVuOUBQruu4zjB7zmWlnklhxvamGwc9KBKnLdNI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/u0qr9vVaWZutuMfY/8DpIGOhF7srshCcTGy9dAjRtYXfv4kt
+	d8ytwdf+uM6Ci9Nw8y339QwcUJz0szGPEP0kIwhOPfd58aSSURDinWj/
+X-Gm-Gg: AYBFou0KhhPLZr4D6/DLBJjRuKSJrnxJRV6MCfZDjTESpsX75pQ9XgRdMaPs/hzWDmJ
+	a9u9FnseGqekom+KifS40jkq6X+SZZiCs5yc0CcKEmygkLXGlJ3SBb1Hhca7XwDHPTwfIz9C1al
+	qY5Ve0+O/V7B6c0m64mNEBA1H4vFy7U+TQ1SDaJw/uCbbYD/tTiVDaOxAK1vJnDktdVLVlaB2PF
+	0L1sNNKXJeTyqqc7XdEwk7XRq+d8cQBn6T24vVo3aCJX+JlMN4rKBxdnrt8TYmdIK4AjoJJNtxA
+	VualkeRb5Ug6lmVgBLZ9w3A+iIVGNhgKNw2VtNHOtirEWX3gyaLJDFdH8uB/l6vxllb9cjJkyNR
+	jdMHTJF1icalqyId7vjFFYqyRnOMDcFwKG4SPBpZqp9KwinqMq6gx8TQSjirzgHiQAyltZAmPTZ
+	gPrXPIPvd0pb9C/ty6/+Qukh+2l2i5QxYgXAxMOBMzGWvBO0eog4e+a5OzdnHt7ww=
+X-Received: by 2002:a05:6a00:1d92:b0:881:2a66:405f with SMTP id d2e1a72fcca58-88af6657eadmr5005327b3a.39.1791020101535;
+        Sat, 03 Oct 2026 02:35:01 -0700 (PDT)
+Received: from localhost ([129.227.235.110])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88d3b82bafesm46732b3a.13.2026.10.03.02.35.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 02:35:01 -0700 (PDT)
+From: Evanshenf <archwse@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>,
+	Qianhai Wu <wuqianhai@loongson.cn>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Mingcong Bai <jeffbai@aosc.io>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Sui Jingfeng <suijingfeng@loongson.cn>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Evanshenf <archwse@gmail.com>
+Subject: [PATCH 1/2] drm/loongson: Fix double free on BO initialization failure
+Date: Sat,  3 Oct 2026 09:34:58 +0000
+Message-ID: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <2ad58a78.1329.1a1011b8d46.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jygvCgD3vzCpy8Bq8EUHAA--.61681W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgnnImrAy6nBAQAA3K
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-QXQgMjAyNi0xMC0wMyAwOToxNzoxOCwgIkNoaSBaaGlsaW5nIiA8Y2hpemhpbGluZ0AxNjMuY29t
-PiB3cm90ZToKPk9uIDkvMjgvMjYgNDo1NCBQTSwgSmlhbGUgWWFvIHdyb3RlOgo+PiBBbiBhc3lu
-Y2hyb25vdXMgZGlyZWN0IHdyaXRlIGNhbiByZW1haW4gaW4gZmxpZ2h0IGFmdGVyIHRoZSBpbm9k
-ZSBsb2NrIGlzCj4+IHJlbGVhc2VkLiAgSWYgYSBidWZmZXJlZCB3cml0ZSBkaXJ0aWVzIHBhZ2Ug
-Y2FjaGUgd2hpbGUgdGhlIGRpcmVjdCB3cml0ZQo+PiBpcyBzdGlsbCBwZW5kaW5nLCB0aGUgZGly
-ZWN0IHdyaXRlJ3MgcG9zdC1JL08gaW52YWxpZGF0aW9uIGNhbiBmaW5kIHRoZQo+PiBkaXJ0eSBw
-YWdlcywgcmVwb3J0IGEgcGFnZSBjYWNoZSBpbnZhbGlkYXRpb24gZmFpbHVyZSwgYW5kIHJlY29y
-ZCAtRUlPIGluCj4+IHRoZSBtYXBwaW5nIGVycm9yIHNlcXVlbmNlLiAgQSBsYXRlciBmc3luYygp
-IHRoZXJlZm9yZSByZXR1cm5zIC1FSU8uCj4+IAo+PiBDb21taXQgMTVjZGVmZDBjMDUyMmY5ZDVl
-MTJkOTQ3ZmEwNGY0YzExNjQ5YjY5OSAoImV4dDQ6IGRyYWluCj4+IGluLWZsaWdodCBESU8gYmVm
-b3JlIGJ1ZmZlcmVkIHdyaXRlIGZhbGxiYWNrIikgZml4ZWQgdGhlIHNhbWUgcmFjZSBpbgo+PiBl
-eHQ0LiAgRXhGQVQgZG9lcyBub3QgZHJhaW4gaW4tZmxpZ2h0IERJTyBiZWZvcmUgZWl0aGVyIGEg
-cmVndWxhciBidWZmZXJlZAo+PiB3cml0ZSBvciB0aGUgYnVmZmVyZWQgZmFsbGJhY2sgYWZ0ZXIg
-aW9tYXBfZGlvX3J3KCkgcmV0dXJucyAtRU5PVEJMSyBvciBhCj4+IHNob3J0IHdyaXRlLgo+PiAK
-Pj4gV2FpdCBmb3IgaW4tZmxpZ2h0IERJTyBiZWZvcmUgY2FsbGluZyBpb21hcF9maWxlX2J1ZmZl
-cmVkX3dyaXRlKCkgaW4gYm90aAo+PiBwYXRocy4KPj4gCj4+IEEgcmVwcm9kdWNlciB1c2luZyBj
-b25jdXJyZW50IEFJTyBkaXJlY3Qgd3JpdGVzIGFuZCBidWZmZXJlZCBmYWxsYmFjawo+PiB0cmln
-Z2VyZWQgdGhlIGZvbGxvd2luZyB3YXJuaW5nIGFuZCBtYWRlIGEgc3Vic2VxdWVudCBmc3luYygp
-IHJldHVybgo+PiAtRUlPOgo+PiAKPj4gICAgUGFnZSBjYWNoZSBpbnZhbGlkYXRpb24gZmFpbHVy
-ZSBvbiBkaXJlY3QgSS9PLiAgUG9zc2libGUgZGF0YSBjb3JydXB0aW9uCj4+ICAgIGR1ZSB0byBj
-b2xsaXNpb24gd2l0aCBidWZmZXJlZCBJL08hCj4+IAo+PiBGaXhlczogODY3YjljOTZkYzgzICgi
-ZXhmYXQ6IGFkZCBpb21hcCBkaXJlY3QgSS9PIHN1cHBvcnQiKQo+PiBMaW5rOiBodHRwczovL2xv
-cmUua2VybmVsLm9yZy9yLzIwMjYwNjI5MTEzODI3LjQwNzQzMzUtMy1saWJhb2t1bkBsaW51eC5h
-bGliYWJhLmNvbQo+PiBTaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNv
-bT4KPj4gLS0tCj4+ICAgZnMvZXhmYXQvZmlsZS5jIHwgMTIgKysrKysrKysrKy0tCj4+ICAgMSBm
-aWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+IAo+PiBkaWZm
-IC0tZ2l0IGEvZnMvZXhmYXQvZmlsZS5jIGIvZnMvZXhmYXQvZmlsZS5jCj4+IGluZGV4IGEyYTll
-ZTFhMjAwNC4uMjg4MTEyMTA2NjNmIDEwMDY0NAo+PiAtLS0gYS9mcy9leGZhdC9maWxlLmMKPj4g
-KysrIGIvZnMvZXhmYXQvZmlsZS5jCj4+IEBAIC04MDcsNiArODA3LDggQEAgc3RhdGljIHNzaXpl
-X3QgZXhmYXRfZmFsbGJhY2tfYnVmZmVyZWRfd3JpdGUoc3RydWN0IGtpb2NiICppb2NiLAo+PiAg
-IAo+PiAgIAlpb2NiLT5raV9mbGFncyAmPSB+SU9DQl9ESVJFQ1Q7Cj4+ICAgCj4+ICsJaW5vZGVf
-ZGlvX3dhaXQoZmlsZV9pbm9kZShpb2NiLT5raV9maWxwKSk7Cj4+ICsKPj4gICAJd3JpdHRlbiA9
-IGlvbWFwX2ZpbGVfYnVmZmVyZWRfd3JpdGUoaW9jYiwgZnJvbSwgJmV4ZmF0X3dyaXRlX2lvbWFw
-X29wcywKPj4gICAJCQlOVUxMLCBOVUxMKTsKPj4gICAJaWYgKHdyaXR0ZW4gPCAwKQo+PiBAQCAt
-ODg5LDExICs4OTEsMTcgQEAgc3RhdGljIHNzaXplX3QgZXhmYXRfZmlsZV93cml0ZV9pdGVyKHN0
-cnVjdCBraW9jYiAqaW9jYiwgc3RydWN0IGlvdl9pdGVyICppdGVyKQo+PiAgIAkJCWdvdG8gdW5s
-b2NrOwo+PiAgIAl9Cj4+ICAgCj4+IC0JaWYgKGlvY2ItPmtpX2ZsYWdzICYgSU9DQl9ESVJFQ1Qp
-Cj4+ICsJaWYgKGlvY2ItPmtpX2ZsYWdzICYgSU9DQl9ESVJFQ1QpIHsKPj4gICAJCXJldCA9IGV4
-ZmF0X2Rpb193cml0ZV9pdGVyKGlvY2IsIGl0ZXIpOwo+PiAtCWVsc2UKPj4gKwl9IGVsc2Ugewo+
-PiArCQkvKgo+PiArCQkgKiBQcmV2ZW50IGNvbmN1cnJlbnQgZGlyZWN0IEkvTyBhbmQgYnVmZmVy
-ZWQgSS9PIHRvIHRoZSBzYW1lIGZpbGUKPj4gKwkJICogcmFuZ2UuIFdhaXQgZm9yIGluLWZsaWdo
-dCBESU8gdG8gZmluaXNoIGJlZm9yZSBkaXJ0eWluZyBwYWdlcy4KPj4gKwkJICovCj4+ICsJCWlu
-b2RlX2Rpb193YWl0KGlub2RlKTsKPj4gICAJCXJldCA9IGlvbWFwX2ZpbGVfYnVmZmVyZWRfd3Jp
-dGUoaW9jYiwgaXRlciwKPj4gICAJCQkJJmV4ZmF0X3dyaXRlX2lvbWFwX29wcywgTlVMTCwgTlVM
-TCk7Cj4+ICsJfQo+PiAgIAlpZiAocmV0IDwgMCkKPj4gICAJCWdvdG8gdW5sb2NrOwo+PiAgIAo+
-Cj5BbHNvLCBpZiB5b3UgZG9uJ3QgbWluZCwgY291bGQgeW91IGFkZCBpbm9kZV9kaW9fd2FpdCgp
-IHRvIAo+ZXhmYXRfZXh0ZW5kX3ZhbGlkX3NpemUoKSBhcyB3ZWxsPwpTdXJlLCB2NCBpbiBodHRw
-czovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjEwMDMwOTMwMzUuNTMyOTE2LTEteWFvamlhbGUw
-MkAxNjMuY29tLwo+Cj5UaGFua3MuCg==
+If ttm_bo_init_validate() fails, it drops the buffer object's reference
+and cleans it up through the supplied destroy callback. lsdc_bo_destroy()
+releases the GEM object and frees the enclosing lsdc_bo, so freeing it
+again in lsdc_bo_create() causes a double free on a synchronous failure
+path.
+
+Let TTM own the cleanup after initialization has started and return the
+error directly. Keep the explicit free on drm_gem_object_init() failure,
+which occurs before ownership is passed to TTM.
+
+Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for one
+selected dumb-buffer creation. The error reached userspace, the destroy
+callback ran once, and no handle was published or tracked BO retained.
+Normal buffer creation, zeroing, mapping, readback and release passed.
+
+AI assistance was used for the ownership analysis, fix, fault-injection
+tools, build and test execution.
+
+Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Evanshenf <archwse@gmail.com>
+---
+ drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongson/lsdc_ttm.c
+index d7441d9..88536e2 100644
+--- a/drivers/gpu/drm/loongson/lsdc_ttm.c
++++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+@@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device *ddev,
+ 
+ 	ret = ttm_bo_init_validate(bdev, tbo, bo_type, &lbo->placement, 0,
+ 				   false, sg, resv, lsdc_bo_destroy);
+-	if (ret) {
+-		kfree(lbo);
++	if (ret)
+ 		return ERR_PTR(ret);
+-	}
+ 
+ 	return lbo;
+ }
+
+base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+-- 
+2.43.0
+
