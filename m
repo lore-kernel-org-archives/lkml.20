@@ -1,46 +1,42 @@
-Received: from mta0.migadu.com (out-93.mta0.migadu.com [91.218.175.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC4322D4E9
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.93
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52E7736C0C8
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791002295; cv=none; b=PC3cbSHdf/5P2GHRnPwn53eq+vomWcESfDSdAxzEWYhLteMDiKUZc8Mdy7aqKjye5jk/oMDnL/HNVl/geXfdJM/xGm9QlFBqXLfhAeWcff/eHTl01AqygvUv/XGaKsTHpfzTEy0tBVoIjqR9CEupiWZ1Ruowk5AZpSbXCX8ysTo=
+	t=1791002453; cv=none; b=ddZBB3l42gnveUKzNE2iQr8qcMOSdcVM469SxJgrtdMcKXK0GiNIx9LUIExmYzGuf8CPtnRwjEGMu+oAtdh/kRX2dLDIH6eDCYVCsq1HSpPL/yrttaBDmTgTRJS/7bVEtM1BVy8cC/t3/RHvESqDDSB7F20gbNqekpBpVY3BxII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791002295; c=relaxed/simple;
-	bh=OddsCyB1+NlHOb+iAMix+w+nZ2FgLtttMfKfX5HO2bw=;
+	s=arc-20240116; t=1791002453; c=relaxed/simple;
+	bh=rcyhw3eDgk/zGOOJCULt1I8dSAqR1AYAN4zkv3JVIMY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mp8U9fKvI0c9kgBlY+RUbY4G0yQTGEnSN1L3qfVLz2fDF3KlhfP5va+DzPhhbiEUgX8+63J/DYW5xq0zDeFY/QXVDUzJHCOyRX0sv7CCI93JLfGf7T9npDJYX6hpVGotZCEw0ao0YR+lX+PhjdIWK49w1hzsJPCYP67GIL6mm78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=CrOkhJTc; arc=none smtp.client-ip=91.218.175.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZCP31I52PUCIUwEcCgihhD9B0xVeBpX6rjFzqdooi3YE3FDyv51yBLNvTnsqc0AmZ4cUObB2+hrrvSdEG17SvuyTHbhxPHkYokGdtOpnV9Kg3CkpDjMf+l2wD5KXyQsj850vuFwVzNhv8CBnmN8EfdGo5asrXNGcSYKjzkucjew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q2LN6qZS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="CrOkhJTc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OddsCyB1+NlHOb+iAMix+w+nZ2FgLtttMfKfX5HO2bw=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791002290; v=1; x=1791607090;
- b=CrOkhJTcmvb2tBMaykScvBp2lvUiJNrQdDrCkwwARgHox8UNY7mTkIbHp/6tqhJFh2M3Z2iD
- iyHvwW/ZPdHv+KvV/Dc4U84YVplKkIhhCOUiiIQ6jjr1owLb2xiQbCq0doPTzAqh8tpVec6Vq6t
- +cO4HE5x1kcA9SNysvFgoAjMV7c9XILeVjRvOgHRdqIGA/Wv49yNKA5yk5nelsvaOo/pq3aPo2j
- LwUAzxFAaskOzu6F2qR4beSU5GTQjYqN5sANJWIe5CDrnTNV2axS2DuL+UZ0HMPBR+hlv6Sz876
- WqeiYBI/xLXTWX2Xq/442ybvBJseMCqlSXGBV6DCjVP1Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 91a53acc4ac8f721;
-	Sat, 03 Oct 2026 04:37:59 +0000
-X-Mizu-Trace-ID: 91a53acc4ac8f721
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 3 Oct 2026 12:37:49 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Chen-Yu Yeh <chenyou910331@gmail.com>
-Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn,
-	si.yanteng@linux.dev, srcres258@furdevs.cn,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] docs/zh_TW: mark translations that are not kept in
- sync
-Message-ID: <asCGnSMAh_XFnWMD@wyuan.org>
-References: <20260929131142.266819-1-chenyou910331@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q2LN6qZS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3B6702F;
+	Fri,  2 Oct 2026 21:40:47 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 01F2C3F763;
+	Fri,  2 Oct 2026 21:40:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791002450; bh=rcyhw3eDgk/zGOOJCULt1I8dSAqR1AYAN4zkv3JVIMY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Q2LN6qZS58jdwQfXoU0Vg/ADKDkcJyuKKKubDt1D2xaFCGhItjX8jviJW4+aqWo2W
+	 jOuqEJ1HqNlzpIiOG8acAT+o/Ayby3k5Z4RO9DPO0L29wXHsStDEonUPRsgOkkXaT8
+	 gX1S3Aoev/2axLTGjdvZAp1pco2kpAjEpBAh9+V0=
+Date: Sat, 3 Oct 2026 05:40:47 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v13 04/14] coresight: etm4x: fix inconsistencies
+ with sysfs configuration
+Message-ID: <asCHT6F8ZeVIY9XJ@e129823.arm.com>
+References: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
+ <20261003-separate_etm_cfg_v2-v13-4-5d8a29aead95@arm.com>
+ <20261003030633.477A61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,42 +45,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929131142.266819-1-chenyou910331@gmail.com>
+In-Reply-To: <20261003030633.477A61F000FF@smtp.kernel.org>
 
-On 2026-09-29 21:11:37 +0800, Chen-Yu Yeh <chenyou910331@gmail.com> wrote:
-
-> As agreed in the zh_TW scope discussion [1], process/ is the part of
-> zh_TW that is kept current; everything else now says in the file
-> itself that nobody keeps it in sync, and points readers at the English
-> original.  The rule is per file: the two documents that moved into
-> process/ with the relocation series are marked until someone updates
-> them.
+On Sat, Oct 03, 2026 at 03:06:32AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] coresight: data race in etm4_disable_sysfs() due to missing spinlock
+> --
 > 
->   1/3 adds the notice and applies it to those two files
->   2/3 applies it to the other 58 translations (one line each)
->   3/3 links filesystems/ and cpu-freq/, which nothing linked before, via
->       a translated subsystem-apis.rst, as the English tree does
+> commit 047fa1646a004922cd9c2e2d801758f38062c7c6
+> Author: Yeoreum Yun <yeoreum.yun@arm.com>
+> Subject: coresight: etm4x: fix inconsistencies with sysfs configuration
 > 
-> The notice deliberately has no :orphan: marker: included after
-> disclaimer-zh_TW.rst, a second one renders as an empty "orphan" field.
-> (Two existing pages already show that field, because something precedes
-> the disclaimer include: a stray byte-order mark in
-> process/kernel-enforcement-statement.rst and a highlight directive in
-> gdb-kernel-debugging.rst.  Not fixed here.)
+> This commit separates the ETM4x configuration into a session-specific 
+> curr_config and a sysfs-set config to prevent corruption and inconsistency. 
+> It also removes drvdata->spinlock coverage from the enable/disable paths 
+> except when explicitly accessing configuration fields.
 > 
-> One consequence worth knowing: checktransupdate.py reads the "update to
-> commit" line of a translation's latest commit only, so any tree-wide
-> patch like 2/3 makes it report every touched file as current.  The
-> contact-block cleanup already had that effect on most of the tree.
-> Fixing it belongs in the tool, not in the translations.
+> > diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> > --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> > +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> 
+> [ ... ]
+> 
+> > @@ -1134,8 +1142,9 @@ static int etm4_disable_perf(struct coresight_device *csdev,
+> >  static void etm4_disable_sysfs(struct coresight_device *csdev)
+> >  {
+> >  	struct etmv4_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
+> > -
+> > -	raw_spin_lock(&drvdata->spinlock);
+> > +	struct etmv4_config *config = &drvdata->config;
+> > +	const struct etmv4_config *curr_config = &drvdata->curr_config;
+> > +	int i;
+> >  
+> >  	/*
+> >  	 * Executing etm4_disable_hw on the cpu whose ETM is being disabled
+> > @@ -1144,9 +1153,19 @@ static void etm4_disable_sysfs(struct coresight_device *csdev)
+> >  	smp_call_function_single(drvdata->cpu, etm4_disable_sysfs_smp_call,
+> >  				 drvdata, 1);
+> >  
+> > -	raw_spin_unlock(&drvdata->spinlock);
+> > +	/*
+> > +	 * Userspace may read ss_status and cntr_val through sysfs after
+> > +	 * the sysfs-session has been disabled.
+> > +	 */
+> > +	for (i = 0; i < drvdata->nr_ss_cmp; i++)
+> > +		config->ss_status[i] = curr_config->ss_status[i];
+> >  
+> > -	cscfg_csdev_disable_active_config(csdev);
+> > +	for (i = 0; i < drvdata->nr_cntr; i++)
+> > +		config->cntr_val[i] = curr_config->cntr_val[i];
+> > +
+> > +	config->seq_state = curr_config->seq_state;
+> 
+> [Severity: Medium]
+> Does this modification to the config fields require drvdata->spinlock
+> protection?
+> 
+> The commit message notes the intent to remove the lock "except when to
+> access config fields", which is correctly followed during sysfs enable
+> via scoped_guard. However, sysfs readers expect this spinlock to be held
+> when reading these arrays.
 
-Agreed.
+This is not matter. Since cntr_val and seq_sate wouldn't be
+modified before disabled and ss_status' write purpose is clearing
+the PENDING and STATUS bits, lockless read is fine so it's intended.
 
-> This applies on top of the relocation series sent alongside it,
-> "[PATCH 0/4] docs/zh_TW: relocate translations to follow the English
-> layout".
+Therefore, this comment is ignorable.
 
-I figured out the applying sequence by myself and then came across this
-sentence... :-| ;-)
-
-Thanks.
+-- 
+Sincerely,
+Yeoreum Yun
