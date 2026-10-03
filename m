@@ -1,205 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BF747F787;
-	Sat,  3 Oct 2026 16:29:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E1965192;
+	Sat,  3 Oct 2026 16:31:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791044974; cv=none; b=NZDsPNQW/MJJJJW8HPJVkB9gYBvTFDEmNRvFuGqBenGKIfQGXnc+hduyYpu+Y/3bVEddIPHg3bLLD+GcKsOUtLU0Cr5WmexxWjPNczLY3XjJ5qj0xPdTN9FQu+wnOm9Sy7MjheOor95xqu1TEVn2XKAQzDXK0j6RC7zY5XmwCKk=
+	t=1791045063; cv=none; b=jMaOM6sWyqodnh/K6OqkH4VE+8vvKD/kfenktubBPgwOpFuaLLlEbaaK2vVMh8dXam3WNPV2dMZhpPsZnlhwccChHRjeSyc8Z0EBqCFzqsT2a4GXswBF19dXelFJdXcEx1TegpVwPBIUSm40UrLfXoj7L1MsfGd3FWEkYzQe9Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791044974; c=relaxed/simple;
-	bh=FZoeveIxfPmCGR3CWh0q9bKGayisvvWvxTpf7kneCr0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LVWXbsXNooU5q4x4j9qJNnM/D4ENEcMy0PgWIiwK9JZd7GmAG6gr29KmNpFT8pGf1hychCroyBmdl/plCRXM2b3N/yQKyXm91/La38e2kITeCmoidJ+f4TpZbyaFAnfJHcCN0CjNijTQWKRI305W3vpA1t0zqHUZ4wldmX8JmJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IcwMLUVr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791045063; c=relaxed/simple;
+	bh=YPmEGG5Sd41sh89NUd8OuU1stTU5iv9Xe/NShG87Jyw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BRyMKJ94+1RA4SawtLIG3d1XgFBN/MgSJ+59LpKUNNr5cHpfghbaugwX/n1OxjimbPQiW3+P9ZglrasV61NONcOr/CZcnN5+itNwvVRKShubhmwsV2phNy8gQi3o6Qm+Erbk+WUgE5CWyyNphL6OxjsAFYEoDJZHNJLIYkkNeG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWsIA3tn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IcwMLUVr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7AD1F0089B;
-	Sat,  3 Oct 2026 16:29:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWsIA3tn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE701F0089B;
+	Sat,  3 Oct 2026 16:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791044971;
-	bh=70QXKPQZm0PKLtEKZNQ8whITCMvzzbdpub1y+w3DfPM=;
-	h=From:Date:Subject:To:Cc;
-	b=IcwMLUVrubQh06EoRlIn//1YwSFTLlhmOgzkDPVKtf7ZBWj/XnF1iVPU6BmlYC5gD
-	 zKnIIc+3ndGSkJxOrvxC1M0xAx8NhJ4U4TAty8QnFnRA3GqBdL4NfpuQL2UtkggwBk
-	 iB98wKExQ60rZiRBHJqu9lExkdJUK64mKTHXodIIxtUNnoTJQZAknjCLir868nl8RI
-	 WYpVYfq7QVGjq5bnMUH7PH9OBWd+Ctm6wRuHGziHy4MM9tNLvu40MFM5flgjwK5ivR
-	 12Gr+VTrld7qVFqfkiOMwuKnp3m+uEMc/GVqGEnCajmIwCImtXCrj/ac4bg2u8Ql2W
-	 sDYKa479NI4oA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 03 Oct 2026 17:29:07 +0100
-Subject: [PATCH] perf/core: track the perf mlock gift separately
+	s=k20260515; t=1791045062;
+	bh=u83Npcs12V9xe5DFKbQG28qTCorDUyuwsdlQcZhBX4g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aWsIA3tnJ17x2NoLrot1atVKD0A3DktUxR8sptxqFjmK97um2Nor8qfSRkGzTHQHc
+	 m+M3aMqi1jZVUHIeMRCmkLk8LoJUAnH3Lw+JOLPIekoRqQMAiWw12S2bQcmS5cTz3b
+	 TF0W1xcYdsWtyvHPQeXhf73Iogexwv0ZM1eQbuyLz8bidnP9BNspfE0TiliLBWmKjf
+	 5qjsJpd9ZnuhDVYP8QFhYs+OhIaMBDEpjLEG+S+8r2H22S1jr5cKgbDAwE6Y1KoOhP
+	 n7PlL7wQszhxMKjxG+VZUDx3mAY3Oi2b8NcfT+oMz5PFCg7XLGVYk+KV4Ewt/LPzIy
+	 g1YLJtf0Il3NQ==
+Date: Sat, 3 Oct 2026 18:30:56 +0200
+From: Eric Biggers <ebiggers@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH] lib: Move SipHash into lib/crypto/
+Message-ID: <20261003163056.GB152469@quark>
+References: <20261002223708.39183-1-ebiggers@kernel.org>
+ <asB7QVFMlgKgbje2@zx2c4.com>
+ <019c709e-9513-44c1-bbb0-82cb16040709@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bsEsKvpKdEhda6k0FCIQ/550n
- IGZBJECU4SpShDo4cjeFWjqCvS+uo2QTWGQQvaNEC3eFCyeXh9k8LnQ8osjrcPYCamVMlDCO1D
- R/3Recv4A+2VGuWQAAAA=
-X-Change-ID: 20261003-perf-locked-vm-fix-8ea78402cbbd
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- bpf@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, 
- regressions@lists.linux.dev, Sasha Levin <sashal@kernel.org>, 
- Alexander Motin <alexander.motin@truenas.com>, 
- Ameer Hamza <ameer.hamza@truenas.com>, 
- "Caleb St. John" <caleb.stjohn@truenas.com>, ljs@kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5477; i=ljs@kernel.org;
- h=from:subject:message-id; bh=FZoeveIxfPmCGR3CWh0q9bKGayisvvWvxTpf7kneCr0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIO6qZ07uhIXpFy7s9x9uv/LObtfPmSa3/qK9fN1vXfn
- oT8v2twq6OUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATqclg+MMxY/WayPs2IVYJ
- WS0xKzj2FS2Ne6p/sKeJOfBq8r8uPgZGhqvyRptzF3y1rpl4odPLd4WcZYu/1VqzT1Y7HpTUB78
- s5gUA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <019c709e-9513-44c1-bbb0-82cb16040709@app.fastmail.com>
 
-The locked_vm field in struct user_struct was originally introduced by
-commit 789f90fcf6b0 ("perf_counter: per user mlock gift") to provide an
-mlock-like budget for perf measured against mm->pinned_vm (since 2011).
+On Sat, Oct 03, 2026 at 09:31:39AM +0200, Ard Biesheuvel wrote:
+> 
+> On Sat, 3 Oct 2026, at 05:49, Jason A. Donenfeld wrote:
+> > On Fri, Oct 02, 2026 at 03:37:08PM -0700, Eric Biggers wrote:
+> >> The addition of SipHash to lib/ predated the existence of the
+> >> lib/crypto/ directory.  Since it's a cryptographic algorithm, move it
+> >> from the top-level lib/ directory to lib/crypto/.
+> >> 
+> >> Specifically:
+> >> 
+> >> - Move both siphash.c and siphash_kunit.c.  Keep the header
+> >>   <linux/siphash.h> as-is for now.
+> >> 
+> >> - Keep the dedicated MAINTAINERS entry for SipHash.  Just update the
+> >>   file paths it references.
+> >
+> > Given that I'm also listed in the crypto section, I think we may as well
+> > delete the whole separate entry.
+> >
+> > The only downside of this change is that those hsiphash functions are,
+> > erm, a bit less than cryptographic-strength. But maybe such concerns
+> > don't really matter any more at this stage, and we might as well group
+> > it all in lib/crypto/ where it all belonged originally anyway.
+> >
+> > Acked-by: Jason A. Donenfeld <Jason@zx2c4.com>
+> >
+> 
+> Either works for me.
+> 
+> Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-perf grants each user a 'gift' of perf_event_mlock_kb * online CPUs of
-buffer pages which is charged to user->locked_vm without any RLIMIT_MEMLOCK
-check.
+Makes sense.  v2 removes the separate MAINTAINERS entry.
 
-Only pages beyond the gift are checked against RLIMIT_MEMLOCK, per-mm, via
-mm->pinned_vm, which makes it different from the standard mlock() check,
-which is per-mm and made against RLIMIT_MEMLOCK.
-
-However, since this was introduced, a number of other components have
-utilised this field where a shared resource needed to be limited against
-RLIMIT_MEMLOCK.
-
-The other users are currently MSG_ZEROCOPY, io_uring, AF_XDP, iommufd,
-s390 KVM zPCI and most recently, secretmem in commit 97d34aa65c29
-("mm/secretmem: properly account locked pages").
-
-This field is shared between all of these, but because the gift is not
-checked against RLIMIT_MEMLOCK, user->locked_vm alone can exceed it - 16
-CPUs * 516 KiB is already more than the default 8 MiB - after which every
-other user of the field fails unconditionally.
-
-This was reported by a user who saw secretmem failing while running a
-simultaneous perf record.
-
-Resolve the issue by simply giving perf its own field separate from the
-rest.
-
-BPF used user->locked_vm up until commit 80ee81e0403c ("bpf: Eliminate
-rlimit-based memory accounting infra for bpf maps") which landed in 5.11.
-
-Thus also eliminate the now-defunct ifdef for CONFIG_BPF_SYSCALL for
-user->locked_vm.
-
-This issue exists between all of the components which use user->locked_vm
-and perf, however secretmem is the first user who has caused a report over
-many years and has been backported, so target the fix at that.
-
-Fixes: 97d34aa65c29 ("mm/secretmem: properly account locked pages")
-Reported-by: Ameer Hamza <ameer.hamza@truenas.com>
-Closes: https://lore.kernel.org/20261002175651.811343-1-ameer.hamza@truenas.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/linux/sched/user.h |  8 +++++---
- kernel/events/core.c       | 12 ++++++------
- 2 files changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index 8d7e5521f7cd..ec262b605437 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -23,11 +23,13 @@ struct user_struct {
- 	struct hlist_node uidhash_node;
- 	kuid_t uid;
- 
--#if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
--	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
-+#if defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
- 	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
- 	defined(CONFIG_SECRETMEM)
--	atomic_long_t locked_vm;
-+	atomic_long_t locked_vm;	/* pinned pages charged to RLIMIT_MEMLOCK */
-+#endif
-+#ifdef CONFIG_PERF_EVENTS
-+	atomic_long_t perf_mlock;	/* perf buffer pages within perf_event_mlock_kb */
- #endif
- #ifdef CONFIG_WATCH_QUEUE
- 	atomic_t nr_watches;	/* The number of watches this user currently has */
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 634d2ccbab82..a7da42f13d14 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7059,7 +7059,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 		perf_pmu_output_stop(event);
- 
- 		/* now it's safe to free the pages */
--		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->locked_vm);
-+		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->perf_mlock);
- 		atomic64_sub(rb->aux_mmap_locked, &vma->vm_mm->pinned_vm);
- 
- 		/* this has to be the last one */
-@@ -7242,11 +7242,11 @@ static bool perf_mmap_calc_limits(struct vm_area_struct *vma, long *user_extra,
- 	/* Increase the limit linearly with more CPUs */
- 	user_lock_limit *= num_online_cpus();
- 
--	user_locked = atomic_long_read(&user->locked_vm);
-+	user_locked = atomic_long_read(&user->perf_mlock);
- 
- 	/*
- 	 * sysctl_perf_event_mlock may have changed, so that
--	 *     user->locked_vm > user_lock_limit
-+	 *     user->perf_mlock > user_lock_limit
- 	 */
- 	if (user_locked > user_lock_limit)
- 		user_locked = user_lock_limit;
-@@ -7254,7 +7254,7 @@ static bool perf_mmap_calc_limits(struct vm_area_struct *vma, long *user_extra,
- 
- 	if (user_locked > user_lock_limit) {
- 		/*
--		 * charge locked_vm until it hits user_lock_limit;
-+		 * charge perf_mlock until it hits user_lock_limit;
- 		 * charge the rest from pinned_vm
- 		 */
- 		*extra = user_locked - user_lock_limit;
-@@ -7272,7 +7272,7 @@ static void perf_mmap_account(struct vm_area_struct *vma, long user_extra, long
- {
- 	struct user_struct *user = current_user();
- 
--	atomic_long_add(user_extra, &user->locked_vm);
-+	atomic_long_add(user_extra, &user->perf_mlock);
- 	atomic64_add(extra, &vma->vm_mm->pinned_vm);
- }
- 
-@@ -7281,7 +7281,7 @@ static void perf_mmap_unaccount(struct vm_area_struct *vma, struct perf_buffer *
- 	struct user_struct *user = rb->mmap_user;
- 
- 	atomic_long_sub((perf_data_size(rb) >> PAGE_SHIFT) + 1 - rb->mmap_locked,
--			&user->locked_vm);
-+			&user->perf_mlock);
- 	atomic64_sub(rb->mmap_locked, &vma->vm_mm->pinned_vm);
- }
- 
-
----
-base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
-change-id: 20261003-perf-locked-vm-fix-8ea78402cbbd
-
-Cheers,
--- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+- Eric
