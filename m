@@ -1,74 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F89289E13;
-	Sat,  3 Oct 2026 13:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1713282F36
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 13:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791035224; cv=none; b=TjYKn+y/RZGqkkyX2v6SJkzINkjWQvmTF9d0Lgsj4qdMF0a8FNY/KUy6I1AfdJ3x2gQOmKGkESkRf6v7ZIgTgUGpmchTas3F4iZFWe9EXzAGjUO8Y6Za6cBKiZBAHyrLLX8SzzoYtVltu0m39MgI+Z0UncDKeS9+pxCPsJ4/d00=
+	t=1791035495; cv=none; b=geZ8U3/xTPR/HELtHqyqSC+btqjE+QTV8nhw9Yfvv84GcJP5yC0lIoAzbPZIrsmnDYA1AdwIdrW2XxJVwjtMLZjo0xK0Ab27sJ0AbCr9DEOZmoBGBDrmUW881ddhrJpE6bkbLU9P9RJ/CwlHZMWV9OQ2Amn4AK81kFz3YhxPyII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791035224; c=relaxed/simple;
-	bh=Xut+Lntpa/jRVZ1qBtTwTMTo0Ern+uyzdy6oYZB6rqY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Bkbe1p28AlLoC2HAyDe+4gGU4nQpMqB3o4bHMPyXe4+mnqLSh6lLQzK68bwFIk3tVocYHg96K1zheJzh8IJ/WwbwZyMnxsAZjY8A+fRA3UVIpQCgaK6elLFMVUs/eCRiLgeZ2dtd2/taf5lPoqRoSFdr0rj6d2QOinezcfQ+onc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mHYklXRY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791035495; c=relaxed/simple;
+	bh=XwiPxai7lM/tufVNvpz366NCYrjPaQfLc2XkQeIPZ7M=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RpDFjZBh5Lcto3Ds2uvz5U8TLqJ+p/x6882PfOsKSlt88HK5Kip4v35Bf2kIGmKfCzqu2yUTqQWDWeHTmSyfzPvoF3LeS78NMJjVzC/eY/xg7vd0N4IWjYnf4+IgGz4WMY1eIB5brIyj8/D6SdOmUj8f48PGir2lRliXJYryDIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ZjSIQyda; arc=none smtp.client-ip=109.224.244.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mHYklXRY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8254C1F0089C;
-	Sat,  3 Oct 2026 13:47:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791035222;
-	bh=ofZE+kb1r8+hvMIvcuxyOTAGuinMX21M/94Z27ADFBE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mHYklXRYPMv6RxvQhyiuDtRBe46DExSwR9/8GHCdBCQcQ8eNPtg7Wpj4u3rGC97t1
-	 W4AV9lk7Ld3mf8wgDmNthZDkenjgAjFNPGl9Oe4osu+feJ8zj4za+hsot6D1G4TTDW
-	 Q9TJMRKKzFz9BK5UJVBnI0pLMUSOEBlWEFnMr0EROwg/QQV1Ew6hMSZalGlGrZMv+M
-	 w9lCP0HIF7claHjnt4V/DNf3aBlOW/d8bVkrgXt+grSKu+oQWs4LsQTHHNgttxt3Y2
-	 m4XA2MykwUtdHWuNP4h0fLGh4KFuQ7NjgFYWhfLGk7BfgNGAGnPLwkRxhN1KbqDrfT
-	 3Sdl/+BqtrYMw==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Jaidev Shastri <jaidevshastri@vt.edu>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260921-mb-exynos-pmu-v1-1-4babb522ce0d@vt.edu>
-References: <20260921-mb-exynos-pmu-v1-1-4babb522ce0d@vt.edu>
-Subject: Re: [PATCH] soc: samsung: exynos-pmu: order pmu_base_addr before
- the pmu_context gate
-Message-Id: <179103522127.13392.6192386924567242318.b4-ty@b4>
-Date: Sat, 03 Oct 2026 15:47:01 +0200
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ZjSIQyda"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791035486; x=1791294686;
+	bh=5esmclXfINE7e+ODY2UVaCe/K20RlH/jvsbQt/jE3TQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ZjSIQyda8igUn06fxq2rth+XbR79X+ksYhUDXpi6fBKb5icZwaMyzzGDIrl8TKXxm
+	 Q+RUcr0eenHjfr5oFFKyVmC/BIsWHs3PAhskTuZoMNHuPOQ1DTQyIPgNEwBDvPhgTk
+	 Y+GPG6LUn5Qs9x3LZBwwjHAWsaxEBoIYi5mGQ9RXAvmbWQOjy3LWICGCyaxof9N4a1
+	 pIBZSsS1LdDLfa4zymq53v7+L1Jkukjb2Jcr16HCKK5UHOxOzB7Ywj+FR3adAkD6g2
+	 kjTXeQOp2rUAxBPRv+kEqPM81AZVwdiZSf36ZyI5T7nwtO6dQrd7jP7lZHpj70VbH7
+	 yX6zTypjGtSAA==
+Date: Sat, 03 Oct 2026 13:51:18 +0000
+To: wens@kernel.org
+From: Norman Herms <dockseed@proton.me>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Yixun Lan <dlan@gentoo.org>
+Subject: Re: [PATCH v5 0/8] clk: sunxi-ng: Add support for Allwinner A733 CCU and PRCM
+Message-ID: <12tBoL9q9y1pvorTf-okmf5LAEsMvGkkiicbETQ2NIW8_EPVPaWiMsfDxKLjl-_z7QVckUM_HzTS9eMgpTB0EZiSdiyQU6H5EeHT5KrDLr4=@proton.me>
+In-Reply-To: <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com>
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: 113b53f2b023b44b4ff4ec0d170cdfbd43559309
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Hi ChenYu,
 
-On Mon, 21 Sep 2026 21:07:23 -0400, Jaidev Shastri wrote:
-> exynos_sys_powerdown_conf() returns early while pmu_context is NULL and
-> otherwise programs the PMU through pmu_raw_writel(), which uses the
-> separate global pmu_base_addr. exynos_pmu_probe() maps pmu_base_addr and
-> stores pmu_context afterwards, both with plain stores, and the reader
-> loads both plainly.
-> 
-> Neither the two stores nor the two loads are ordered. The callers are
-> the Exynos cpuidle AFTR path and the suspend path on 32-bit Exynos,
-> which run on other CPUs, so a caller that sees pmu_context before
-> pmu_base_addr writes the power-down configuration through a NULL base.
-> 
-> [...]
+> And presumably things work now because the secure/non-secure access bit
+> isn't in effect right now because you aren't using secure boot?
 
-Applied, thanks!
+Yes, on our side. One data point from a single board type, Radxa Cubie
+A7S, two boards. The measurements and this summary were done by AI
+agents (Claude) working on my boards, so please read it as a report,
+not as a Tested-by.
 
-[1/1] soc: samsung: exynos-pmu: order pmu_base_addr before the pmu_context gate
-      https://git.kernel.org/krzk/linux/c/682df6e2330123019fcdb9f6122f34a395082356
+- Secure boot is not enabled on these boards: SID + 0xA0 (0x030060A0,
+  SID_SECURE_MODE in the vendor boot0 sources; the UM does not describe
+  the SID) reads 0 on both. The notes under PRCM_SEC_SWITCH_REG (UM
+  V1.00 4.2.5.26) say these registers are always non-secure when the
+  system is in non-security mode.
 
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+- The vendor BL31 blob in Radxa's u-boot package (v2.5) opens the
+  switches at boot: PRCM_SEC_SWITCH_REG |=3D 0x7, then 0x7 to
+  CCMU_SEC_SWITCH_REG at 0x02003F00. TF-A's sunxi_security_setup()
+  does the same for the H6/H616.
 
+- On the A733, CCMU_SEC_SWITCH_REG is at CCU + 0x1F00 (UM 4.1.6.278),
+  not 0x0F00 as on the H6/H616; here 0x0F00 is SPI0_CLK_REG (UM
+  4.1.6.160). The A733 TF-A port at github.com/dlan17/trusted-firmware-a
+  (branch A733, f4c0b0dba, the commit Radxa's package pins) still uses
+  0x0F00. On one of our boards the 0x7 ended up in SPI0_CLK_REG until
+  we moved it to 0x1F00.
+
+- TWD: UM 4.2.5.9 marks S_TWD_BGR_REG as fixed secure. We have not
+  measured it.
+
+Boot chain on these boards: vendor boot0 (DRAM init), U-Boot SPL and
+U-Boot from Radxa's A733 tree with a few board patches, TF-A
+lts-v2.12.15 with the A733 port above plus our fixes.
+
+Thanks,
+Norman
