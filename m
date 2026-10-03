@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C43430314;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEEA43149D;
 	Sat,  3 Oct 2026 12:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791032118; cv=none; b=nnJbx+LUQm/e/L5qOjCLNpN2colu++z5Jmm/uUOcpufqEQUDzMJEPf70E7bDq6J2KLmiCCE12z2Hw6A+VhM1JzHVWwAXxUzQjnr7WIgZP/hjcjXKbxWs3p4sQq8xYrDf3pM5s7SD/F4m/qogqxyWK6sxb8Jkpt/AhtIV4JotXTE=
+	t=1791032118; cv=none; b=gNbsvuamwZuMnrKgZzRE/KMiPYb7w4DATVyWzHRkjaA82k4TZ94tC54rABq2LB2ON7RizXKcu5lpXZjEJjoX+cHK8LGQt1I6C8uCIuVjmw0x+ZtxNlJTINC1sXZBL3bcCyZdiueoGR3ZdPnbMgbTageZdutL1vj1bcmBnXvfEAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791032118; c=relaxed/simple;
-	bh=ULAGVc+auWKiDaGzZiCWkagwQn4LoNUkChi4b60J8n4=;
+	bh=5IsVFkNq+4qTFpmrmDf0zF42W4H0CCb+aPvxF0RPcO4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q+SGHwN9mB+RihD+FeHrkfmUUkXE40LCTZx96Bweq2/ugQfNa8KxpUJbkLpCzYsyE/S8Ho3r85vAsiMgYQi1DIPzQTmY03gbofNlQ/ApwwzjXFuzA/1HM6dGK1vqr4Htlh3KxYZLyPqFVL5J84htrpp+XLUQ3aNsxtjY+umWRVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c32oFIR9; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=F1laXTQCxaqjUjOKIaGjk57xuEEMK+yufiShSEqNyNQOoDvGh4XRGIEc+AnqJm4lf9TpMi9IGoNRV1VwIJCtSuu8FEM4Fauglkd+684lys+x49itF6Rlev4Or/COgk05MGOSUMWRsJdHTSkDx7NHfkOqe3EA2c57l3f2Gbl46Cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RlVwh9Go; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c32oFIR9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 41D15C4AF17;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RlVwh9Go"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6DAEBC4AF50;
 	Sat,  3 Oct 2026 12:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791032118;
-	bh=ULAGVc+auWKiDaGzZiCWkagwQn4LoNUkChi4b60J8n4=;
+	bh=5IsVFkNq+4qTFpmrmDf0zF42W4H0CCb+aPvxF0RPcO4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=c32oFIR9eoq+I6/t9nbWbGigfva7VrSvkgEgTWSloImx0rxltrwONRWWAZRPGbRY4
-	 I1ford0Oo3SE47Iz71eFp7ZNLcmAGL1CgiC38JcomrhHYUaPW8jbhnPIt9j0KeoDl4
-	 RQ8rf8PFdTztG5PnDpsRIw7BsEzKKD8Bsfc+9db6xYUtnmgJEjXB4f4Uane3Oliv6w
-	 CEblA6UEZ+gCDmTxJLIfEEGK1EUdW2Mv6ZcCqAyRLxbT2NcGmDz+L1SFqBfr8MeBQX
-	 pbq387vz5pZckr3GfLTAhrlcGUuOCZ//Y3X6/kmVm56Q65uKK+hGz2+1fsFNVjG/ri
-	 CitX2oEz8ranQ==
+	b=RlVwh9Gob7bDKg7Ci8JcAI7m5JCv6INC68ybBnW/uagcAerypXOJvHvzFvcWVaTjE
+	 qjt/wz02rjK1+5wKZEh3rpggCChs887r6cjyieXZgFCs4whQZ80mmSpI+p5y8XobDR
+	 wx3Rwq6cc4giu7qO+PWW/e9LwzEpvJ9OplkmxJNk8Q+lMCKQRb10TwihE7tgQGdTQm
+	 j/addYjiZ1VgS0TxO0BLm056MLADlgqcYYpMEmDlLvJzbOiaf/tG9gMIE559yRfkFh
+	 edHcOMEgzlwoU/Mkx4ykc6goQE0hQ71BPKpXyN1y7L0u+Hg2v2vuF6zjOtVdZ+ZgDC
+	 JTzqCPcIGoVsw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F3A7CA5FDD;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57F8FCA5FEE;
 	Sat,  3 Oct 2026 12:55:18 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Sat, 03 Oct 2026 20:55:22 +0800
-Subject: [PATCH RFC v3 11/17] mm/huge_memory: mark file folio as accessed
- more accurately on split
+Date: Sat, 03 Oct 2026 20:55:24 +0800
+Subject: [PATCH RFC v3 13/17] mm/mglru: make folio_inc_lru_refs lruvec
+ lockless
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-mglru-fg-v3-11-cbd4546a5bd9@tencent.com>
+Message-Id: <20261003-mglru-fg-v3-13-cbd4546a5bd9@tencent.com>
 References: <20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com>
 In-Reply-To: <20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com>
 To: linux-mm@kvack.org
@@ -74,11 +74,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
  Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791032114; l=1826;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791032114; l=7761;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=4UXjU6u03Uo1PKWHrPk4USI+uaWZ1R9QRe0SPdxFce8=;
- b=2G/u3ALUDUKgpjR96H+vdJNxsrvkTCXvQ2RR9oysMUnmn6nxIBcZnJpkdpLyCNTTN6njbdfrA
- q5iNPuIPyYwChcHvpnpG5hcy5UXUowBDphcu59/qtzId2WnYvrovn/w
+ bh=lOPNCXuistPvZKvrlG2GxtDhXxq4I5HtD+Ez17oO4AY=;
+ b=GiUPh0NwLsWhbpr2hXSXzEbUghuXijoTS6/s8loEhMaayfcYrXRecZXmoVxV8W2ojKnf/ITkQ
+ 1yHKiVSRi0ICwKZjcj6Gk7ZwRxUv2tbxsDPcGTaRVbwKL3s/mENPJ4P
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -88,48 +88,198 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-The behavior of updating the folio's access info isn't consistent for
-huge mapping splitting or ordinary unmapping. The page table's young
-flag has to be translated into folio's access info.
+The lruvec spinlock in folio_inc_lru_refs was only taken to keep
+concurrent aging from corrupting the size counters.  This is no
+longer needed: the per-generation counters are atomic, and the
+active/inactive ABI counters are updated per folio and linearized by
+the CAS on the folio flags, so concurrent aging can no longer corrupt
+them.  The same argument already allowed folio_reset_lru_refs() to
+drop the lock.
 
-Right now it only check and set folio's referenced flag, which isn't
-enough since folio flags update on access have its rules. Ordinary
-unmapping (zapping) calls folio_mark_accessed(), and it also checks
-if the VMA has recency to avoid false updates.
+Use folio_lruvec_live_get()/folio_lruvec_live_put() to hold the RCU
+read lock around the lruvec lookup, and drop the spinlock entirely.
 
-So first just use the right helper here to be more consistent.
+Without the lock, aging can advance max_seq while a promotion is in
+flight.  Generations are indexed by seq % MAX_NR_GENS, so the folio
+flags can return to the value read earlier and the cmpxchg succeeds
+with a target gen computed from a stale max_seq.  Recheck max_seq after
+a gen-changing cmpxchg: if it moved, account the committed update and
+retry with LRU_REF_FORCE, which promotes the folio to the newest gen.
+The retry may count the access twice, which is acceptable and avoids
+folio_activate(), whose LRU lock causes latency jitter.  smp_rmb()
+orders the flags read, including the one returned by a failed
+cmpxchg(), before the max_seq read.
+
+Also simplify the post-CAS accounting guards: gen is only assigned
+non-negative values after the old_gen < 0 early exit, so gen != old_gen
+implies gen >= 0, and lru_gen_update_size() needs no explicit guard.
+The active/inactive ABI update keeps its gen >= 0 check because an
+off-LRU folio has no lruvec to update.
 
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ include/linux/mm_inline.h | 10 +++++-----
+ include/linux/mmzone.h    |  3 ++-
+ mm/vmscan.c               | 47 ++++++++++++++++++++++++++++-------------------
+ 3 files changed, 35 insertions(+), 25 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index ddc631a388b9..f3fb6b97f3ce 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3094,8 +3094,8 @@ static void __split_huge_pud_locked(struct vm_area_struct *vma, pud_t *pud,
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index ee7fcbe2366b..b68d68101248 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -293,10 +293,9 @@ static inline int folio_lru_gen(const struct folio *folio)
+ 	return lru_get_gen_flags(READ_ONCE(*const_folio_flags(folio, 0)));
+ }
  
- 	if (!folio_test_dirty(folio) && pud_dirty(old_pud))
- 		folio_mark_dirty(folio);
--	if (!folio_test_referenced(folio) && pud_young(old_pud))
--		folio_set_referenced(folio);
-+	if (pud_young(old_pud) && vma_has_recency(vma))
-+		folio_mark_accessed(folio);
- 	folio_remove_rmap_pud(folio, page, vma);
- 	add_mm_counter(vma->vm_mm, mm_counter_file(folio),
- 		-HPAGE_PUD_NR);
-@@ -3217,8 +3217,8 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			folio = page_folio(page);
- 			if (!folio_test_dirty(folio) && pmd_dirty(old_pmd))
- 				folio_mark_dirty(folio);
--			if (!folio_test_referenced(folio) && pmd_young(old_pmd))
--				folio_set_referenced(folio);
-+			if (pmd_young(old_pmd) && vma_has_recency(vma))
-+				folio_mark_accessed(folio);
- 			folio_remove_rmap_pmd(folio, page, vma);
- 			add_mm_counter(mm, mm_counter_file(folio), -HPAGE_PMD_NR);
- 			folio_put(folio);
+-static inline void lru_gen_update_size(struct lruvec *lruvec, struct folio *folio,
+-				       int old_gen, int new_gen)
++static inline void lru_gen_update_size(struct lruvec *lruvec, int type,
++		struct folio *folio, int old_gen, int new_gen)
+ {
+-	int type = folio_is_file_lru(folio);
+ 	int zone = folio_zonenum(folio);
+ 	int delta = folio_nr_pages(folio);
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+@@ -371,7 +370,7 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
+ 	/* use the refs from the atomic snapshot to avoid raced update */
+ 	refs = lru_get_refs_flags(flags);
+ 
+-	lru_gen_update_size(lruvec, folio, -1, gen);
++	lru_gen_update_size(lruvec, type, folio, -1, gen);
+ 	if (lru_refs_is_active(refs))
+ 		lru += LRU_ACTIVE;
+ 	__update_lru_size(lruvec, lru, zone, delta);
+@@ -389,6 +388,7 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
+ {
+ 	unsigned long flags;
+ 	int gen, refs;
++	int type = folio_is_file_lru(folio);
+ 	int zone = folio_zonenum(folio);
+ 	int delta = folio_nr_pages(folio);
+ 	enum lru_list lru = folio_is_file_lru(folio) * LRU_INACTIVE_FILE;
+@@ -411,7 +411,7 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
+ 	if (!reclaiming && ((max_seq - gen) % MAX_NR_GENS) < MIN_NR_GENS)
+ 		folio_set_active(folio);
+ 
+-	lru_gen_update_size(lruvec, folio, gen, -1);
++	lru_gen_update_size(lruvec, type, folio, gen, -1);
+ 	if (lru_refs_is_active(refs))
+ 		lru += LRU_ACTIVE;
+ 	__update_lru_size(lruvec, lru, zone, -delta);
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index e096fd0a5047..d78e3f97423e 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -558,9 +558,10 @@ enum lruvec_flags {
+ #define LRU_TIER_MIN		0U
+ #define LRU_TIER_MAX		(MAX_NR_TIERS - 1)
+ 
+-/* Access source flags for folio_inc_lru_refs() */
++/* Flags for folio_inc_lru_refs() */
+ #define LRU_REF_MAPPED		0x1U
+ #define LRU_REF_EXEC		0x2U
++#define LRU_REF_FORCE		0x4U
+ 
+ #define LRU_REFS_REFERENCED	0x1
+ #define LRU_REFS_WORKINGSET	0x2
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index ae4a0522a8d5..9cc06a95d931 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -982,38 +982,33 @@ void folio_inc_lru_refs(struct folio *folio, unsigned int flags)
+ 	long nr_pages = folio_nr_pages(folio);
+ 	struct lru_gen_folio *lrugen;
+ 	struct lruvec *lruvec = NULL;
++	bool aged = false;
+ 
++retry:
+ 	old_flags = READ_ONCE(*folio_flags(folio, 0));
+ 	do {
+ 		new_flags = old_flags;
+ 		old_gen = lru_get_gen_flags(old_flags);
+ 		old_refs = lru_get_refs_flags(old_flags);
+-		file = folio_flags_is_file_lru(&old_flags);
+ 		refs = old_refs + 1;
+ 		gen = old_gen;
++		file = folio_flags_is_file_lru(&old_flags);
+ 		if (old_gen < 0)
+ 			goto out;
+-		/*
+-		 * Lock the lruvec if the folio is on-list. We are already
+-		 * doing lazy promotion so in theory we don't need this,
+-		 * but for now, concurrent aging would still corrupt the
+-		 * size counters.  This is a temporary limitation and
+-		 * will be lifted very soon, so the lock here is not a
+-		 * performance concern.
+-		 */
+ 		if (!lruvec) {
+-			lruvec = lruvec_live_lock_irq(folio_lruvec(folio));
++			lruvec = folio_lruvec_live_get(folio);
+ 			lrugen = &lruvec->lrugen;
+ 		}
++		/* Failed cmpxchg() does not order old_flags before max_seq. */
++		smp_rmb();
+ 		max_seq = READ_ONCE(lrugen->max_seq);
+ 		max_gen = lru_gen_from_seq(max_seq);
+ 		min_gen = lru_gen_from_seq(READ_ONCE(lrugen->min_seq[file]));
+ 		if (old_gen == max_gen)
+ 			goto out;
+-
+-		if (flags & (LRU_REF_MAPPED | LRU_REF_EXEC)) {
+-			/* Promote second page table access or executable */
+-			if (refs > LRU_REFS_REFERENCED || flags & LRU_REF_EXEC)
++		if (flags & (LRU_REF_MAPPED | LRU_REF_EXEC | LRU_REF_FORCE)) {
++			if (refs > LRU_REFS_REFERENCED ||
++			    flags & (LRU_REF_EXEC | LRU_REF_FORCE))
+ 				gen = max_gen;
+ 			/* First access only defers eviction from the oldest gen */
+ 			else if (old_gen == min_gen)
+@@ -1037,9 +1032,19 @@ void folio_inc_lru_refs(struct folio *folio, unsigned int flags)
+ 			break;
+ 	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
+ 
+-	if (gen != old_gen)
+-		lru_gen_update_size(lruvec, folio, old_gen, gen);
+-	if (lru_refs_is_active(old_refs) != lru_refs_is_active(refs) && old_gen >= 0) {
++	if (gen != old_gen) {
++		/*
++		 * Gen-index reuse can fool cmpxchg(). Retry locklessly, accepting
++		 * an extra reference to avoid folio_activate() latency.
++		 */
++		if (unlikely(READ_ONCE(lrugen->max_seq) != max_seq)) {
++			flags = LRU_REF_FORCE;
++			aged = true;
++		}
++		lru_gen_update_size(lruvec, file, folio, old_gen, gen);
++	}
++
++	if (lru_refs_is_active(old_refs) != lru_refs_is_active(refs) && gen >= 0) {
+ 		enum lru_list lru = file * LRU_INACTIVE_FILE;
+ 
+ 		__update_lru_size(lruvec, lru + lru_refs_is_active(old_refs),
+@@ -1047,8 +1052,12 @@ void folio_inc_lru_refs(struct folio *folio, unsigned int flags)
+ 		__update_lru_size(lruvec, lru + lru_refs_is_active(refs),
+ 				  folio_zonenum(folio), nr_pages);
+ 	}
++	if (aged) {
++		aged = false;
++		goto retry;
++	}
+ 	if (lruvec)
+-		lruvec_unlock_irq(lruvec);
++		folio_lruvec_live_put(lruvec);
+ }
+ 
+ /*
+@@ -3648,7 +3657,7 @@ static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
+ 
+ 	new_gen = __folio_inc_gen(lruvec, folio, old_gen, &gen_increased);
+ 	if (gen_increased)
+-		lru_gen_update_size(lruvec, folio, old_gen, new_gen);
++		lru_gen_update_size(lruvec, type, folio, old_gen, new_gen);
+ 
+ 	return new_gen;
+ }
 
 -- 
 2.55.0
