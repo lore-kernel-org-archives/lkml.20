@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389BC399CFC;
-	Sat,  3 Oct 2026 08:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B23394462;
+	Sat,  3 Oct 2026 08:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791015693; cv=none; b=DHnqwSt1u9wL/YGvwKzMlBcFNYspTUZXuiXx84bbFPqzaXz4AuFgCJ09tSyBIg8MjLlX0LQODJ0BiCPljOfrqus/Ke6NIt6mxWRfz7Cs+lkTI3mEsuF1Xxt28Yp8+qkoOhtjn5VL+UMVMAzkz5lAbKz4Yd0ohX+RQWsMclDJ/3Y=
+	t=1791015696; cv=none; b=K684+QRiaX7DgM7BXlr+11nFd9Og9eI1MnYvPtU9f3eLRhDsVtNR3F8dBTzWyLy1OcLcsGLXk6QZmLfSRIHt8A4FNYEKEL0b/vorD7jju+Avz8n6ScK+uomTKOmkrKJlnboxizAvPqmOp7uz3fJuItX1Ep0hwgh7tgFuxAHceg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791015693; c=relaxed/simple;
-	bh=m8NxaCq7j4wU61MdUNSTYrZ138xoedQP3Q0Xl1dQ8aw=;
+	s=arc-20240116; t=1791015696; c=relaxed/simple;
+	bh=3g9x/4ZOjKXpWiDOmUw/OLXATdZ9vb/cha7MWzla1Co=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=OJ5wSVqfPERejlwJuXqwTQU3pvAqbdtZpIdOiMEj7muvc4t2zPw7QCGV2MPLFje4Ne0dj0Fn70H5R9XB9XgOK0uewuiUDho5I5VrJ/ypbIkVpyygQT429TNz9Y0oVsI0c+zxjsfA+79GqcbW3tFdd5zkDEpKLL3nfb08vGxNerQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WuyiDHuJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ex+E7xZizuwETDvo8v8Fx7B9SlzLorE3f9Lrwl1KSVDjwHwbrnHopEA/G+PZ7xR0I2t+qKczWhPEHIcA4xttUAxOCds/97yehHbAKd2vv8DEKVd/hvrYUiy9y1ViiUBhkomn5sRxC+/KCQ3gcM/MwN0YZXxAQz/7mtIBXxXBocI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3aoBTVm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WuyiDHuJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D8AF1F0089C;
-	Sat,  3 Oct 2026 08:21:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3aoBTVm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CF8A1F0089B;
+	Sat,  3 Oct 2026 08:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791015691;
-	bh=4hH9V5FyJgSxgr9dUkrf5CQjlbOB6/zdBSxCtBSTqFc=;
+	s=k20260515; t=1791015695;
+	bh=t6o5qaRAy9PpZHI+qQsuXLIzbZqv7mAOoUxbb0BMqm4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WuyiDHuJALTZUCxf5mkYPSXw9lfzjT1fGs6402ykysvaFNoLtq2qWdSoJRBr05XCO
-	 66BpzhcoBEgRy9SDPABQ58L5X+U481xfbmlYOKMDFxA5SPgupd0J6tH1T2CKBCkEJy
-	 XeNEorWKl0778afPO5xAOpPelApmI7Oq3/Whe2eWpOxhFsoOyDKoMoaC5jSpWojBHP
-	 hvQlWgtrjH+kELY54WBfbAb8pGZwlc57q7fH9vhtBI+45fafiKCMhYCIGb8cI4N+Ct
-	 0b7ha1FB9KSo2KzSgr9KT7C5zrX+eaFsxB6pUoMezpDW98TalUqIbhH9oZR3/d7BK7
-	 7RYQVUhTfhqaA==
+	b=B3aoBTVmpoq5sLa1hrH7dMTo4Zq/+3e9qjbR0TsHPliFw/nEOje7VCYmLaVjsrNkd
+	 DYVQ+Rsd7HlIy27I07CSp0xB4xwfMpcodi4xwpfXPFtHERewEzWTzw2fMFr7dD1dMW
+	 QAQzfOCbYM7ffmuhJNXX3N/f0KfRgeufcJgd7AKld/BcrjVEyseQkPiICmHoeclWl7
+	 WUzOrKlnGiXTnC5G5ieCnWtiq1xwtsCZvoOsMLx8cx4S1llhB816r7SYVlUjtfWQvZ
+	 JBNk2SIr+EWJs2GoCJbw0YflGW1di5d4GzqpLz2zJKmmEqHLeINmFzYyaiVDNxtsJ7
+	 JW3T3jFNP1pfw==
 From: Vinod Koul <vkoul@kernel.org>
 To: Bard Liao <yung-chuan.liao@linux.intel.com>, 
  Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Sergey Lebedev <lsa.uz@pm.me>
-Cc: Bard Liao <bard.liao@intel.com>, Amaan Lalani <zlzzm2014@outlook.com>, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260913210849.6446-1-lsa.uz@pm.me>
-References: <20260913210849.6446-1-lsa.uz@pm.me>
-Subject: Re: [PATCH v4] soundwire: dmi-quirks: drop the ghost RT1320 on the
- Surface Pro 11 (Intel)
-Message-Id: <179101568918.158974.6265276425987256334.b4-ty@kernel.org>
-Date: Sat, 03 Oct 2026 10:21:29 +0200
+ Oder Chiou <oder_chiou@realtek.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ jack.yu@realtek.com, derek.fang@realtek.com, flove@realtek.com, 
+ shumingf@realtek.com
+In-Reply-To: <20260924-rt718fix-v1-1-d92674696e73@realtek.com>
+References: <20260924-rt718fix-v1-1-d92674696e73@realtek.com>
+Subject: Re: [PATCH] soundwire: intel_auxdevice: add rt718 codec to
+ wake_capable_list
+Message-Id: <179101569209.158974.4445912341303379692.b4-ty@kernel.org>
+Date: Sat, 03 Oct 2026 10:21:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,24 +50,15 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Sun, 13 Sep 2026 21:08:55 +0000, Sergey Lebedev wrote:
-> The Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) carries a
-> single physical RT1320 amplifier on link 0 and describes it twice:
+On Thu, 24 Sep 2026 13:20:27 +0800, Oder Chiou wrote:
+> rt718 has wake capability. Add it to the wake_capable_list.
 > 
->   SWRA  _ADR 0x000030025D132000   SDCA class 0
->   SWRB  _ADR 0x000030025D132001   SDCA class 1
 > 
-> Identical apart from the class id: same link, same manufacturer, part and
-> version, same unique id 0. The part reports class 1, so only SWRB
-> enumerates. SWRA never attaches on any boot or firmware version tested,
-> including the November 2025 bundle.
-> 
-> [...]
 
 Applied, thanks!
 
-[1/1] soundwire: dmi-quirks: drop the ghost RT1320 on the Surface Pro 11 (Intel)
-      commit: d32e04c052342d7d1cc03f6ba4cbd135cd0112bc
+[1/1] soundwire: intel_auxdevice: add rt718 codec to wake_capable_list
+      commit: fbc3ac576a33a6ad430366dea85585780612de79
 
 Best regards,
 -- 
