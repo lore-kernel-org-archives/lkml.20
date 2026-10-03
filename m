@@ -1,362 +1,295 @@
-Received: from out-zbxj-a74.jellyfish.systems (out-zbxj-a74.jellyfish.systems [198.54.127.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACCF22370A
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 07:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4982BEFEE;
+	Sat,  3 Oct 2026 07:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791013808; cv=none; b=bfdHGaDK1QkdwkC5oOfwxpctN5vtfEuEbjvjak5mK9UjptS6Hqq0UWDZfiJjc/bY+zOFgsnG+cpDmWXXSRjsGESBhjsB0x/9acZhuhT3Jc0kBFyPR0bB8ckEpf4gFMPzvPRlb9cpnsMwLAKf1arH8O/6jUSbXsVhBngFzv0BoA8=
+	t=1791013907; cv=none; b=kWW+KU9qZXcGh8Esde+Z1vF8MZfdpoGxmy6h9FW8p+V/Rs8HXECsLPCq5msuOC08ZJ5XDk/ItDoYYkLCZ8IpWNqtRUitkJJwmn/AVHGdrbb6KNs+fgglUySIZ0/TnkdCoX14v3c6Rjp2JkNRSSNvYFqxejd2yQVdz3AhYEjTn54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791013808; c=relaxed/simple;
-	bh=lYSDWGhFCoZk4uOgMOTrw3s4WlZTLL9avEexyepjoR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l2l35x7+jQtmfm/49ic2tCMgaVL8seBx+FrK33QYRwRdPabM8SM1lDP8mFjUsM+R+y/nDQ63hG7snB/Gv66wN0yL9kd6aeYw2yuCmRNroNJm6J0BVPhDoLsha4CpNWwZHcRMYFCWwP67H2NEhOzqpF6PYI7Fse6YkpSNOhf7i1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org; spf=pass smtp.mailfrom=firmwaredesign.org; dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b=Bvng+BQg; arc=none smtp.client-ip=198.54.127.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firmwaredesign.org
+	s=arc-20240116; t=1791013907; c=relaxed/simple;
+	bh=915f/KTB/0IDOtu+i34K6Kv6BCtwZWLhJ4JjXuVfq/g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Z7SQsWVjUSDd0TdKQXCqNlyrJ1ePMnc/mJI4s2Lb+MeUdzD6NX/rSuUu4z0V9PGjqnA/8XywG8Ml6/VuJcYl17IHFQX1j/TM6aE0Z/mi2ENuPxTwPgj1znSN1KtWU3XGQtYZa2Q77DgYMwma/ZWqNJaGb6vI4GJnpVXcJw8cTPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=nlxGkYNW; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b="Bvng+BQg"
-Received: from mail.privateemail.com (unknown [98.240.242.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hxd903mmqz2x9H;
-	Sat, 03 Oct 2026 07:49:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=firmwaredesign.org;
-	s=privateemail; t=1791013797;
-	bh=fAyw+yX7r3G8bWDJpEnTjmPqSPTX8OY/fs2KvfdAHQ0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Bvng+BQghMV0+D8bXp9ETR5o1TBH0jFj2bs47CHTd+d5fBficSth3teLd9EMIwHOM
-	 YCvvEhbKlWh0NJaJTr2moyfTyI6bZXWWL+icH0Jy/hQ2auD5L9LvX8yiUe5GW3wjvY
-	 Yfmt7LNFFetXTVLrQ7shoiAvjntTrIJytajKFvLjySKW5j2to/mBi4ePTKJNWo0Ez/
-	 2pf1jYk1Bs1615kGmgvJngeqDM1JsHwhVx94qJ5VM15sHySmMtXEK8DEcagH3Ss2Dt
-	 c+e/W0rhykeCRMUALmxkcEAgQSZxEs75QnXq23RQ0v/U1BuhzuTHOB7FfXTOW7qRrt
-	 G3d8Thuh/bUgw==
-From: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
-Subject: [PATCH] staging: rtl8723bs: condense NDIS encryption status enum
-Date: Sat,  3 Oct 2026 02:49:43 -0500
-Message-ID: <20261003074943.267819-1-marinela.selseth@firmwaredesign.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="nlxGkYNW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=pkSkd0gz3K0uXbc8+oZdyjkkYDQv0/easJRst8PwuKA=; t=1791013904;
+	x=1791618704; b=nlxGkYNWLdc+YX7gYaEmJBnHjSuR1Dw6wMDgCn3RDmUyMcCZqp6CiJaZq7FVL
+	mXhX9WNETnugZqnWZNycXdx0AiDk13VcxFmDk0KmSlJ8K+0H8i5QJugBDmCHxk4U0TJiICOIHOWZO
+	prcD8651uDHQ6ygowo6kBprNkWAbyb+XuZNzaggZHa9YhZp59LRdpXc+3qz1SNCtNonPM0kE6oceW
+	16tLi4kmaihhz4JOVfBNrcg2YhWMaHl5scv2kf7Oh1kQ6KbcCSnnaGqRWhRzhZCAV9BZpJPwU4KYe
+	f3/fcF0QhhcoE7giX3fPj45mg77wMakwk1w7DCv+6qwo0QbEOw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xCuX0-00000002u1t-0SHF; Sat, 03 Oct 2026 09:51:42 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xCuWz-00000002Hyv-3XoG; Sat, 03 Oct 2026 09:51:42 +0200
+Message-ID: <0e3121169e89eef9c84dfcabaa864a24a44e2760.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
+ them
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
+	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
+Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 03 Oct 2026 09:51:41 +0200
+In-Reply-To: <20260927191359.6144-1-kmehltretter@gmail.com>
+References: <20260927191359.6144-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: marinela.selseth@firmwaredesign.org
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Address maintainer feedback regarding loose anonymous enum constants
-and redundant naming aliases. The legacy driver framework contained
-multiple duplicate definitions (such as mapping both WEPDisabled and
-EncryptionDisabled to identical tracking states) alongside several
-completely unreferenced, dead tracking properties.
+On Sun, 2026-09-27 at 21:13 +0200, Karl Mehltretter wrote:
+> register_intc_controller() sorts d->prio and d->sense right after
+> allocating them, with hw->nr_prio_regs and hw->nr_sense_regs as the
+> element count. The lists hold hw->nr_vectors entries and are only
+> filled later, by intc_register_irq().
+>=20
+> On SH7785, sh7785-irq0123 and sh7785-irq4567 have four vectors but the
+> SoC's eleven priority registers, so sort() swaps 88 bytes in a 32 byte
+> kmalloc object at boot. slub_debug=3DFZPU reports "Right Redzone
+> overwritten" in kmalloc-32, and v6.5 and v6.6 panic in
+> __kmem_cache_alloc_node() while registering sh7785-irq0123.
+>=20
+> Found with a custom QEMU model of the SH7785LCR. On it, v6.4
+> sh7785lcr_defconfig boots with SLAB, the defconfig default before v6.5,
+> and hangs before the console is up when built with SLUB.
+>=20
+> Sort the lists once all vectors are registered, with the number of
+> entries that were added.
+>=20
+> Fixes: b59f9f9775e6 ("sh: intc: optimize intc IRQ lookup")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>=20
+> Notes:
+>     Testing, all in QEMU on a custom SH7785LCR model, not on hardware:
+>     - v6.5 and v6.6 sh7785lcr_defconfig hang before the console is up
+>       (gcc 8 and gcc 14). With slub_debug=3DFZPU they boot and validating
+>       kmalloc-32 reports "Right Redzone overwritten" after the object
+>       holding the entries of sh7785-irq4567. With this patch they boot
+>       and the report is gone.
+>     - v6.4 sh7785lcr_defconfig (SLAB) boots. The same v6.4 built with SLU=
+B
+>       hangs, reports the overflow with slub_debug=3DFZPU, and boots with
+>       this patch.
+>     - Current mainline boots with or without the patch, but reports the
+>       overflow with slub_debug=3DFZPU unless patched.
+>     Testing on real hardware is welcome.
+>=20
+>  drivers/sh/intc/core.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/sh/intc/core.c b/drivers/sh/intc/core.c
+> index aa68fe190865d..ffbe60234eefc 100644
+> --- a/drivers/sh/intc/core.c
+> +++ b/drivers/sh/intc/core.c
+> @@ -275,9 +275,6 @@ int __init register_intc_controller(struct intc_desc =
+*desc)
+>  			k +=3D save_reg(d, k, hw->prio_regs[i].set_reg, smp);
+>  			k +=3D save_reg(d, k, hw->prio_regs[i].clr_reg, smp);
+>  		}
+> -
+> -		sort(d->prio, hw->nr_prio_regs, sizeof(*d->prio),
+> -		     intc_handle_int_cmp, NULL);
+>  	}
+> =20
+>  	if (hw->sense_regs) {
+> @@ -287,9 +284,6 @@ int __init register_intc_controller(struct intc_desc =
+*desc)
+> =20
+>  		for (i =3D 0; i < hw->nr_sense_regs; i++)
+>  			k +=3D save_reg(d, k, hw->sense_regs[i].reg, 0);
+> -
+> -		sort(d->sense, hw->nr_sense_regs, sizeof(*d->sense),
+> -		     intc_handle_int_cmp, NULL);
+>  	}
+> =20
+>  	if (hw->subgroups)
+> @@ -357,6 +351,11 @@ int __init register_intc_controller(struct intc_desc=
+ *desc)
+>  		}
+>  	}
+> =20
+> +	sort(d->prio, d->nr_prio, sizeof(*d->prio),
+> +	     intc_handle_int_cmp, NULL);
+> +	sort(d->sense, d->nr_sense, sizeof(*d->sense),
+> +	     intc_handle_int_cmp, NULL);
+> +
+>  	intc_subgroup_init(desc, d);
+> =20
+>  	/* enable bits matching force_enable after registering irqs */
 
-Clean up this subsystem by defining an explicit, named enumeration
-layout 'enum ndis_802_11_encryption_status' inside wlan_bssdef.h.
-Consolidate redundant aliases down to singular, uniform variables,
-purge all unused legacy elements (KeyAbsent, NotSupported, and
-EncrypteionWAPI blocks), and convert all remaining active states
-over to standard uppercase snake_case conventions.
+Without the patch, a memory leak is reported when booting with slub_debug=
+=3DFZPU
+triggering a validation manually after boot:
 
-Update all internal software state assignments and state evaluation
-loops across the entire driver operational baseline to conform to the
-updated definitions, ensuring code tracking clarity while leaving
-hardware execution behaviors completely unaltered. Fix associated
-line length violations and remove redundant braces for single-statement
-conditions introduced by long macro names.
+root@tirpitz:~> echo 1 > /sys/kernel/slab/kmalloc-32/validate
+[  181.568000] [Right Redzone overwritten] 0x810245c0-0x810245c3 @offset=3D=
+1472. First byte 0x0 instead of 0xcc
+[  181.568000] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+[  181.568000] BUG kmalloc-32 (Not tainted): Object corrupt
+[  181.568000] ------------------------------------------------------------=
+-----------------
+[  181.568000]=20
+[  181.568000] Slab 0x9ff20480 objects=3D32 used=3D32 fp=3D0x00000000 flags=
+=3D0x40000000(section=3D16|zone=3D0)
+[  181.568000] Object 0x810245a0 @offset=3D1440 fp=3D0x00000000
+[  181.568000]=20
+[  181.568000] Redzone  81024580: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
+ cc cc  ................
+[  181.568000] Redzone  81024590: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
+ cc cc  ................
+[  181.568000] Object   810245a0: 1a 00 00 00 8c 78 06 06 1c 00 00 00 88 78=
+ 06 06  .....x.......x..
+[  181.568000] Object   810245b0: 1e 00 00 00 84 78 06 06 10 00 00 00 80 78=
+ 06 06  .....x.......x..
+[  181.568000] Redzone  810245c0: 00 00 00 00                              =
+        ....
+[  181.568000] Padding  810245f4: 00 00 00 00 5a 5a 5a 5a 5a 5a 5a 5a      =
+        ....ZZZZZZZZ
+[  181.568000] Disabling lock debugging due to kernel taint
+[  181.568000] ------------[ cut here ]------------
+[  181.568000] WARNING: mm/slub.c:1257 at object_err+0x46/0x158, CPU#0: bas=
+h/970
+[  181.568000] Modules linked in:
+[  181.568000]=20
+[  181.568000] CPU: 0 UID: 0 PID: 970 Comm: bash Tainted: G    B           =
+    7.3.0-rc5-00341-gf6dfa8891d61 #7 PREEMPT=20
+[  181.568000] Tainted: [B]=3DBAD_PAGE
+[  181.568000] PC is at object_err+0x46/0x158
+[  181.568000] PR is at object_err+0x46/0x158
+[  181.568000] PC  : 80004e3a SP  : 86051dcc SR  : 400081f1 TEA : c0000010
+[  181.568000] R0  : 00000020 R1  : 8074959c R2  : 00000000 R3  : 00000020
+[  181.568000] R4  : 806becb0 R5  : fa69f078 R6  : 00000000 R7  : 00000000
+[  181.568000] R8  : 810023e0 R9  : 810245a0 R10 : 00000054 R11 : 80004d48
+[  181.568000] R12 : 0000808f R13 : 80004bd4 R14 : 86051dcc
+[  181.568000] MACH: 00000038 MACL: 0002bfa8 GBR : 2957b860 PR  : 80004e3a
+[  181.568000]=20
+[  181.568000] Call trace:
+[  181.568000]  [<800ff726>] check_bytes_and_report+0xa2/0xfc
+[  181.568000]  [<800ff7e8>] check_object+0x68/0x204
+[  181.568000]  [<800ff684>] check_bytes_and_report+0x0/0xfc
+[  181.568000]  [<800ffafe>] validate_slab+0xbe/0xf4
+[  181.568000]  [<800ffc12>] validate_slab_cache+0xde/0x114
+[  181.568000]  [<800ffa40>] validate_slab+0x0/0xf4
+[  181.568000]  [<800ffc7e>] validate_store+0x36/0x48
+[  181.568000]  [<800fcd82>] slab_attr_store+0x1a/0x22
+[  181.568000]  [<80185fcc>] sysfs_kf_write+0x3c/0x58
+[  181.568000]  [<80185670>] kernfs_fop_write_iter+0xe6/0x136
+[  181.568000]  [<801188b8>] vfs_write+0xd0/0x138
+[  181.568000]  [<80118a56>] ksys_write+0x62/0xbc
+[  181.568000]  [<80118aba>] sys_write+0xa/0x18
+[  181.568000]  [<80118ab0>] sys_write+0x0/0x18
+[  181.568000]  [<8001025a>] syscall_call+0x18/0x1e
+[  181.568000]=20
+[  181.568000] ---[ end trace 0000000000000000 ]---
+[  181.568000] FIX kmalloc-32: Restoring Right Redzone 0x810245c0-0x810245c=
+3=3D0xcc
+[  181.568000] [Object padding overwritten] 0x810245f4-0x810245f7 @offset=
+=3D1524. First byte 0x0 instead of 0x5a
+[  181.568000] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+[  181.568000] BUG kmalloc-32 (Tainted: G    B   W          ): Object corru=
+pt
+[  181.568000] ------------------------------------------------------------=
+-----------------
+[  181.568000]=20
+[  181.568000] Slab 0x9ff20480 objects=3D32 used=3D32 fp=3D0x00000000 flags=
+=3D0x40000000(section=3D16|zone=3D0)
+[  181.568000] Object 0x810245a0 @offset=3D1440 fp=3D0x00000000
+[  181.568000]=20
+[  181.568000] Redzone  81024580: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
+ cc cc  ................
+[  181.568000] Redzone  81024590: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
+ cc cc  ................
+[  181.568000] Object   810245a0: 1a 00 00 00 8c 78 06 06 1c 00 00 00 88 78=
+ 06 06  .....x.......x..
+[  181.568000] Object   810245b0: 1e 00 00 00 84 78 06 06 10 00 00 00 80 78=
+ 06 06  .....x.......x..
+[  181.568000] Redzone  810245c0: cc cc cc cc                              =
+        ....
+[  181.568000] Padding  810245f4: 00 00 00 00 5a 5a 5a 5a 5a 5a 5a 5a      =
+        ....ZZZZZZZZ
+[  181.568000] ------------[ cut here ]------------
+[  181.568000] WARNING: mm/slub.c:1257 at object_err+0x46/0x158, CPU#0: bas=
+h/970
+[  181.568000] Modules linked in:
+[  181.568000]=20
+[  181.568000] CPU: 0 UID: 0 PID: 970 Comm: bash Tainted: G    B   W       =
+    7.3.0-rc5-00341-gf6dfa8891d61 #7 PREEMPT=20
+[  181.568000] Tainted: [B]=3DBAD_PAGE, [W]=3DWARN
+[  181.568000] PC is at object_err+0x46/0x158
+[  181.568000] PR is at object_err+0x46/0x158
+[  181.568000] PC  : 80004e3a SP  : 86051dcc SR  : 400081f1 TEA : c0000010
+[  181.568000] R0  : 00000220 R1  : 8074959c R2  : 00000000 R3  : 00000220
+[  181.568000] R4  : 00000005 R5  : 00000001 R6  : 00000000 R7  : 00000000
+[  181.568000] R8  : 810023e0 R9  : 810245a0 R10 : 00000054 R11 : 80004d48
+[  181.568000] R12 : 0000808f R13 : 80004bd4 R14 : 86051dcc
+[  181.568000] MACH: 00000038 MACL: 0002bfa8 GBR : 2957b860 PR  : 80004e3a
+[  181.568000]=20
+[  181.568000] Call trace:
+[  181.568000]  [<800ff726>] check_bytes_and_report+0xa2/0xfc
+[  181.568000]  [<800ff8ce>] check_object+0x14e/0x204
+[  181.568000]  [<800ff684>] check_bytes_and_report+0x0/0xfc
+[  181.568000]  [<800ffafe>] validate_slab+0xbe/0xf4
+[  181.568000]  [<800ffc12>] validate_slab_cache+0xde/0x114
+[  181.568000]  [<800ffa40>] validate_slab+0x0/0xf4
+[  181.568000]  [<800ffc7e>] validate_store+0x36/0x48
+[  181.568000]  [<800fcd82>] slab_attr_store+0x1a/0x22
+[  181.568000]  [<80185fcc>] sysfs_kf_write+0x3c/0x58
+[  181.568000]  [<80185670>] kernfs_fop_write_iter+0xe6/0x136
+[  181.568000]  [<801188b8>] vfs_write+0xd0/0x138
+[  181.568000]  [<80118a56>] ksys_write+0x62/0xbc
+[  181.568000]  [<80118aba>] sys_write+0xa/0x18
+[  181.568000]  [<80118ab0>] sys_write+0x0/0x18
+[  181.568000]  [<8001025a>] syscall_call+0x18/0x1e
+[  181.568000]=20
+[  181.568000] ---[ end trace 0000000000000000 ]---
+[  181.568000] FIX kmalloc-32: Restoring Object padding 0x810245f4-0x810245=
+f7=3D0x5a
+root@tirpitz:~>
 
-Signed-off-by: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
----
- drivers/staging/rtl8723bs/core/rtw_ap.c       |  2 +-
- drivers/staging/rtl8723bs/core/rtw_mlme.c     |  8 +--
- .../staging/rtl8723bs/include/wlan_bssdef.h   | 19 ++----
- .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 58 ++++++++++---------
- drivers/staging/rtl8723bs/os_dep/os_intfs.c   |  2 +-
- 5 files changed, 41 insertions(+), 48 deletions(-)
+With the patch applied, no leak is reported after validation:
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_ap.c b/drivers/staging/rtl8723bs/core/rtw_ap.c
-index f98360b59737..00981f1c5870 100644
---- a/drivers/staging/rtl8723bs/core/rtw_ap.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_ap.c
-@@ -1907,7 +1907,7 @@ void stop_ap_mode(struct adapter *padapter)
- 	       0,
- 	       sizeof(struct security_priv));
- 	padapter->securitypriv.ndisauthtype = Ndis802_11AuthModeOpen;
--	padapter->securitypriv.ndisencryptstatus = Ndis802_11WEPDisabled;
-+	padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 
- 	/* for ACL */
- 	spin_lock_bh(&pacl_node_q->lock);
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index 0d0602eb4808..f85ed051b626 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -607,7 +607,7 @@ static bool rtw_is_desired_network(struct adapter *adapter, struct wlan_network
- 		u8 *p = NULL;
- 		uint ie_len = 0;
- 
--		if ((desired_encmode == Ndis802_11EncryptionDisabled) && (privacy != 0))
-+		if ((desired_encmode == NDIS_802_11_ENCRYPTION_DISABLED) && (privacy != 0))
- 			bselected = false;
- 
- 		if (psecuritypriv->ndisauthtype == Ndis802_11AuthModeWPA2PSK) {
-@@ -623,7 +623,7 @@ static bool rtw_is_desired_network(struct adapter *adapter, struct wlan_network
- 		}
- 	}
- 
--	if ((desired_encmode != Ndis802_11EncryptionDisabled) && (privacy == 0))
-+	if ((desired_encmode != NDIS_802_11_ENCRYPTION_DISABLED) && (privacy == 0))
- 		bselected = false;
- 
- 	if (check_fwstate(mlme_priv, WIFI_ADHOC_STATE)) {
-@@ -1115,7 +1115,7 @@ void rtw_reset_securitypriv(struct adapter *adapter)
- 		adapter->securitypriv.btkip_countermeasure_time = backup_tkip_countermeasure_time;
- 
- 		adapter->securitypriv.ndisauthtype = Ndis802_11AuthModeOpen;
--		adapter->securitypriv.ndisencryptstatus = Ndis802_11WEPDisabled;
-+		adapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 
- 	} else {
- 		/* reset values in securitypriv */
-@@ -1130,7 +1130,7 @@ void rtw_reset_securitypriv(struct adapter *adapter)
- 		psec_priv->dot118021XGrpKeyid = 1;
- 
- 		psec_priv->ndisauthtype = Ndis802_11AuthModeOpen;
--		psec_priv->ndisencryptstatus = Ndis802_11WEPDisabled;
-+		psec_priv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 	}
- 	spin_unlock_bh(&adapter->security_key_mutex);
- }
-diff --git a/drivers/staging/rtl8723bs/include/wlan_bssdef.h b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
-index d318c80c3be3..ac8e1f286571 100644
---- a/drivers/staging/rtl8723bs/include/wlan_bssdef.h
-+++ b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
-@@ -62,20 +62,11 @@ enum ndis_802_11_authentication_mode {
- 	Ndis802_11AuthModeMax   /*  Not a real mode, defined as upper bound */
- };
- 
--enum {
--	Ndis802_11WEPEnabled,
--	Ndis802_11Encryption1Enabled = Ndis802_11WEPEnabled,
--	Ndis802_11WEPDisabled,
--	Ndis802_11EncryptionDisabled = Ndis802_11WEPDisabled,
--	Ndis802_11WEPKeyAbsent,
--	Ndis802_11Encryption1KeyAbsent = Ndis802_11WEPKeyAbsent,
--	Ndis802_11WEPNotSupported,
--	Ndis802_11EncryptionNotSupported = Ndis802_11WEPNotSupported,
--	Ndis802_11Encryption2Enabled,
--	Ndis802_11Encryption2KeyAbsent,
--	Ndis802_11Encryption3Enabled,
--	Ndis802_11Encryption3KeyAbsent,
--	Ndis802_11_EncrypteionWAPI
-+enum ndis_802_11_encryption_status {
-+	NDIS_802_11_ENCRYPTION_1_ENABLED,
-+	NDIS_802_11_ENCRYPTION_DISABLED,
-+	NDIS_802_11_ENCRYPTION_2_ENABLED,
-+	NDIS_802_11_ENCRYPTION_3_ENABLED,
- };
- 
- /*  Key mapping keys require a BSSID */
-diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-index a715ac6aa6b9..ae6a0d556166 100644
---- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-+++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-@@ -535,7 +535,7 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
- 			/* wep default key has not been set, so use this key index as default key. */
- 
- 			psecuritypriv->dot11_auth_algrthm = dot11_auth_algrthm_auto;
--			psecuritypriv->ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+			psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 			psecuritypriv->dot11_privacy_algrthm = _WEP40_;
- 			psecuritypriv->dot118021XGrpPrivacy = _WEP40_;
- 
-@@ -731,7 +731,7 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
- 
- 			wep_key_len = wep_key_len <= 5 ? 5 : 13;
- 
--			psecuritypriv->ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+			psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 			psecuritypriv->dot11_privacy_algrthm = _WEP40_;
- 			psecuritypriv->dot118021XGrpPrivacy = _WEP40_;
- 
-@@ -763,10 +763,11 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
- 				if (strcmp(param->u.crypt.alg, "none") != 0)
- 					psta->ieee8021x_blocked = false;
- 
--				if ((padapter->securitypriv.ndisencryptstatus == Ndis802_11Encryption2Enabled) ||
--				    (padapter->securitypriv.ndisencryptstatus ==  Ndis802_11Encryption3Enabled)) {
-+				if (padapter->securitypriv.ndisencryptstatus ==
-+					NDIS_802_11_ENCRYPTION_2_ENABLED ||
-+					padapter->securitypriv.ndisencryptstatus ==
-+					NDIS_802_11_ENCRYPTION_3_ENABLED)
- 					psta->dot118021_x_privacy = padapter->securitypriv.dot11_privacy_algrthm;
--				}
- 
- 				if (param->u.crypt.set_tx == 1) { /* pairwise key */
- 
-@@ -804,10 +805,11 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
- 				if (strcmp(param->u.crypt.alg, "none") != 0)
- 					pbcmc_sta->ieee8021x_blocked = false;
- 
--				if ((padapter->securitypriv.ndisencryptstatus == Ndis802_11Encryption2Enabled) ||
--				    (padapter->securitypriv.ndisencryptstatus ==  Ndis802_11Encryption3Enabled)) {
-+				if (padapter->securitypriv.ndisencryptstatus ==
-+					NDIS_802_11_ENCRYPTION_2_ENABLED ||
-+					padapter->securitypriv.ndisencryptstatus ==
-+					NDIS_802_11_ENCRYPTION_3_ENABLED)
- 					pbcmc_sta->dot118021_x_privacy = padapter->securitypriv.dot11_privacy_algrthm;
--				}
- 			}
- 		} else if (check_fwstate(pmlmepriv, WIFI_ADHOC_STATE)) { /* adhoc mode */
- 		}
-@@ -928,7 +930,7 @@ static int cfg80211_rtw_set_default_key(struct wiphy *wiphy,
- 	struct security_priv *psecuritypriv = &padapter->securitypriv;
- 
- 	if ((key_index < WEP_KEYS) && ((psecuritypriv->dot11_privacy_algrthm == _WEP40_) || (psecuritypriv->dot11_privacy_algrthm == _WEP104_))) { /* set wep default key */
--		psecuritypriv->ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 
- 		psecuritypriv->dot11PrivacyKeyIndex = key_index;
- 
-@@ -1316,7 +1318,7 @@ static int rtw_cfg80211_set_auth_type(struct security_priv *psecuritypriv,
- 
- 		psecuritypriv->dot11_auth_algrthm = dot11_auth_algrthm_shared;
- 
--		psecuritypriv->ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 
- 		break;
- 	default:
-@@ -1328,7 +1330,7 @@ static int rtw_cfg80211_set_auth_type(struct security_priv *psecuritypriv,
- 
- static int rtw_cfg80211_set_cipher(struct security_priv *psecuritypriv, u32 cipher, bool ucast)
- {
--	u32 ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+	u32 ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 
- 	u32 *profile_cipher = ucast ? &psecuritypriv->dot11_privacy_algrthm :
- 		&psecuritypriv->dot118021XGrpPrivacy;
-@@ -1342,23 +1344,23 @@ static int rtw_cfg80211_set_cipher(struct security_priv *psecuritypriv, u32 ciph
- 	switch (cipher) {
- 	case IW_AUTH_CIPHER_NONE:
- 		*profile_cipher = _NO_PRIVACY_;
--		ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+		ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 		break;
- 	case WLAN_CIPHER_SUITE_WEP40:
- 		*profile_cipher = _WEP40_;
--		ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 		break;
- 	case WLAN_CIPHER_SUITE_WEP104:
- 		*profile_cipher = _WEP104_;
--		ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 		break;
- 	case WLAN_CIPHER_SUITE_TKIP:
- 		*profile_cipher = _TKIP_;
--		ndisencryptstatus = Ndis802_11Encryption2Enabled;
-+		ndisencryptstatus = NDIS_802_11_ENCRYPTION_2_ENABLED;
- 		break;
- 	case WLAN_CIPHER_SUITE_CCMP:
- 		*profile_cipher = _AES_;
--		ndisencryptstatus = Ndis802_11Encryption3Enabled;
-+		ndisencryptstatus = NDIS_802_11_ENCRYPTION_3_ENABLED;
- 		break;
- 	default:
- 		return -ENOTSUPP;
-@@ -1449,46 +1451,46 @@ static int rtw_cfg80211_set_wpa_ie(struct adapter *padapter, u8 *pie, size_t iel
- 	switch (group_cipher) {
- 	case WPA_CIPHER_NONE:
- 		padapter->securitypriv.dot118021XGrpPrivacy = _NO_PRIVACY_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 		break;
- 	case WPA_CIPHER_WEP40:
- 		padapter->securitypriv.dot118021XGrpPrivacy = _WEP40_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 		break;
- 	case WPA_CIPHER_TKIP:
- 		padapter->securitypriv.dot118021XGrpPrivacy = _TKIP_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption2Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_2_ENABLED;
- 		break;
- 	case WPA_CIPHER_CCMP:
- 		padapter->securitypriv.dot118021XGrpPrivacy = _AES_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption3Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_3_ENABLED;
- 		break;
- 	case WPA_CIPHER_WEP104:
- 		padapter->securitypriv.dot118021XGrpPrivacy = _WEP104_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 		break;
- 	}
- 
- 	switch (pairwise_cipher) {
- 	case WPA_CIPHER_NONE:
- 		padapter->securitypriv.dot11_privacy_algrthm = _NO_PRIVACY_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 		break;
- 	case WPA_CIPHER_WEP40:
- 		padapter->securitypriv.dot11_privacy_algrthm = _WEP40_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 		break;
- 	case WPA_CIPHER_TKIP:
- 		padapter->securitypriv.dot11_privacy_algrthm = _TKIP_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption2Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_2_ENABLED;
- 		break;
- 	case WPA_CIPHER_CCMP:
- 		padapter->securitypriv.dot11_privacy_algrthm = _AES_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption3Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_3_ENABLED;
- 		break;
- 	case WPA_CIPHER_WEP104:
- 		padapter->securitypriv.dot11_privacy_algrthm = _WEP104_;
--		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption1Enabled;
-+		padapter->securitypriv.ndisencryptstatus = NDIS_802_11_ENCRYPTION_1_ENABLED;
- 		break;
- 	}
- 
-@@ -1554,7 +1556,7 @@ static int cfg80211_rtw_join_ibss(struct wiphy *wiphy, struct net_device *ndev,
- 	ndis_ssid.ssid_length = params->ssid_len;
- 	memcpy(ndis_ssid.ssid, (u8 *)params->ssid, params->ssid_len);
- 
--	psecuritypriv->ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+	psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 	psecuritypriv->dot11_privacy_algrthm = _NO_PRIVACY_;
- 	psecuritypriv->dot118021XGrpPrivacy = _NO_PRIVACY_;
- 	psecuritypriv->dot11_auth_algrthm = dot11_auth_algrthm_open; /* open system */
-@@ -1650,7 +1652,7 @@ static int cfg80211_rtw_connect(struct wiphy *wiphy, struct net_device *ndev,
- 	if (check_fwstate(pmlmepriv, _FW_UNDER_SURVEY))
- 		rtw_scan_abort(padapter);
- 
--	psecuritypriv->ndisencryptstatus = Ndis802_11EncryptionDisabled;
-+	psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 	psecuritypriv->dot11_privacy_algrthm = _NO_PRIVACY_;
- 	psecuritypriv->dot118021XGrpPrivacy = _NO_PRIVACY_;
- 	psecuritypriv->dot11_auth_algrthm = dot11_auth_algrthm_open; /* open system */
-diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-index d220df325fa9..a4bc4ff58c56 100644
---- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-+++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-@@ -507,7 +507,7 @@ static void rtw_init_default_value(struct adapter *padapter)
- 	psecuritypriv->dot118021XGrpKeyid = 1;
- 
- 	psecuritypriv->ndisauthtype = Ndis802_11AuthModeOpen;
--	psecuritypriv->ndisencryptstatus = Ndis802_11WEPDisabled;
-+	psecuritypriv->ndisencryptstatus = NDIS_802_11_ENCRYPTION_DISABLED;
- 
- 	/* registry_priv */
- 	rtw_init_registrypriv_dev_network(padapter);
--- 
-2.43.0
+root@tirpitz:~> echo 1 > /sys/kernel/slab/kmalloc-32/validate
+root@tirpitz:~>=20
 
+Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+
+Adrian
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
