@@ -1,152 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8A32FE07D;
-	Sat,  3 Oct 2026 04:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3B128C5B1
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791000077; cv=none; b=XmcGNdJ3Y2jHCQJnilxROyTpcvxrX491zmyew+TYnHTDIfMeM8jVWIam81zTlKYHuFzelxsjqsSHuMxvjTun2F2d9hSbye8yoqCk7idXEoOfNqahgnZsEBqkP4w0HGg6jo0ZZmeOff847fpt80VxVL67iLWWJjyLnAP0rvIKQKs=
+	t=1791000119; cv=none; b=CbFvhYvMxvDL8KhYRamqlgxeUGapNdFqCwIXbltHFAwuQEIku8LpAuYs1InOkfFbr9LxCeGN3rpEyJrMuYm8I0uejeV3vTTTRwquvO/Oh86jY4ICPQIo0/yn279K8tKyC0EmC/TrOlVFznPm6l1L/hRWiAbACowZG+ZFBwGr3SA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791000077; c=relaxed/simple;
-	bh=f5h6+uE//hPuyiaEYnN+lMXschfoTE+xy8vqFBa4O5g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=i4eh7ewVRq3NfK7SeSDKKDWqNAS0pR5G9Y5cloHQ4X+DbmSVQy7YRkZGrHWitRBvFPHQQU8UTa8upF4h2kT6/PyHbKb4jecZWkaYB/8HmfO1RcEhprJP2erLt0nDQzXfRxsCEP/xHQ+ORXOBr8+2SqrJy4k7IHzHN2PNjQRFm0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUQvAwtp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791000119; c=relaxed/simple;
+	bh=Sb5UNxrfQ9/JoiNjxS03gT9zrF6Z+f52eGGmnS8uyHI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=odWkUgZRpVIKFFAIunW6H0tlhRSm8HSG83KuSYhrItkDC9VS7pbgvvTgM+XF0IDy7f0a+zWoXl3VaBFpzP66Knh+aGRSwU22TXzA54nf87fbTvrSgXl8jBqEv9BClhbSGllzYOmjr+hsCls5uqQHlJ3Jmf6XEgmtdfsGMBANQ/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XI7kWh1G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUQvAwtp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6AE36C2BCB9;
-	Sat,  3 Oct 2026 04:01:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791000077;
-	bh=f5h6+uE//hPuyiaEYnN+lMXschfoTE+xy8vqFBa4O5g=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=UUQvAwtpZ67DrttWtT8aFsfJ3MSvBzkqi/NY8s8ra9IBzztXJeRXqgmANUJGFLqiJ
-	 J1tzPqRtbTkcVSBFTSeSAGeVTE8m16Mk6pmo7YZZvLlYU5+5HOFUWwRsCF1NP6gJgw
-	 6HTKoF3PTG/F4/825sWPA7kyIBlAq0fq4xmhROowSY6lD61C08FjrWFG6DipHTqGLW
-	 aUdl5uhuiG12D9HvHpDpyl/Nm9BBBzZ03qL18iiGWiuChDuiX9sioLB2z88H87UlpR
-	 Zvv/YvN4kmwd8BX+3sW5SfaMGKiuJqsHdZyJOEVFbfug5IudQl1qTn7QhVFxVICN33
-	 ZE1xosRNVH+ZQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 553D8CA5FE3;
-	Sat,  3 Oct 2026 04:01:17 +0000 (UTC)
-From: Ryan Leung via B4 Relay <devnull+untilscour.protonmail.com@kernel.org>
-Date: Sat, 03 Oct 2026 04:01:04 +0000
-Subject: [PATCH mt76 v4] wifi: mt76: mt7915: fix thermal zone
- use-after-free
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XI7kWh1G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350101F00893
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:01:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791000118;
+	bh=Pg6laVdxAB6RQze+P0V8gUYXNdnIX17PKTC+hxCYIIo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XI7kWh1Gwt7gjQ+h6sf/kaKDv0BzkpVrrceAoTEMVto1VBKc+PLm6btzmCDX0Mpfa
+	 E1ISHU4iyKSHvVbCSzIhRGNpON8ev8tH4ZQymcY2jK5hElV5Yjv7J3cdbF65AyRvIk
+	 puEmAq6ydAeRAqlI04DcduiaiVteq2hJUDOwMmkNe+Tr89ZXJzpPd+0jORfTU3/DPV
+	 CqPrVdkdmkz8s+JnIjIlGmjJnNiu+eRQjqFXT3MnWpCkaX3oNvpjfIcjUinWPeMXGe
+	 L+wg+/KBwmhewsT7QSEulF7QiurVzXCKLl9il3sSdL0TvMmEZQDbW4S7DZ9FEiYMKj
+	 4dHCcSoCTUe0Q==
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so155034a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:01:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxU9lID+q3ptJVrdbuqzQm7rgNcgqMM90NftsKfXzJxuj4yOoEh6gLYd9uZoFP2pEQFHyokQWVGvKJWDoE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxfpozBaz8MpLk8fNMg+lHftzp1qS/QAdskqhrnD3+vih1H0sN
+	MJKrdHPCpjOPSlZWWhWaOa8k2K5rXyJaCwt264RmsMr5w9I1kFiEF1tWlwxWzCOUIQaw4VZ4lYs
+	nJzt2CbvMBXu+sjElK7L3RPEwzKLymgg=
+X-Received: by 2002:a05:6402:360a:b0:6a9:d0f0:69a0 with SMTP id
+ 4fb4d7f45d1cf-6af9e2c1a0bmr3332575a12.11.1791000116803; Fri, 02 Oct 2026
+ 21:01:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-mt7915-unregister-thermal-v4-1-8ed55f6f5535@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAP99wGoC/43OQQ7CIBAF0KsY1mKAlpG68h7GBaWDxdhiABtN0
- 7tL68KFxricyfz3ZyQRg8NIdquRBBxcdL7PQ7leEdPq/oTUNXkmgglgilW0S9uKS3rrA55cTBh
- oajF0+kKVQMWkAa40kJy/BrTuvtgHkmNAjq9tvNVnNGlm57s2Mz48lhcGvly/2jj70TZwyqmBR
- m7r0tQFqP01+OT7TrvLxvhuKRvE35zInNDMSq4bK8F+5Yo3VzH4xRWZQ1uLhgECt+UHN03TE9o
- kqjF9AQAA
-X-Change-ID: 20260809-mt7915-unregister-thermal-82e805c618a6
-To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
- Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
- Sean Wang <sean.wang@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ryan Leung <untilscour@protonmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791000078; l=3169;
- i=untilscour@protonmail.com; s=20260906; h=from:subject:message-id;
- bh=GpWxbqGcv8Ae741uGW3yrEwKs0Hqc32weJvR+Cw/Ptw=;
- b=Yz0bH8whhpFsbkVm/I35YXyLgLMvRcSrLMcj2NqZlsRJ2e4NG1sVSXkkZjL5bfU2O/yIjAk8U
- r1jBTk14M7NC5iAySPa195W2H6E2GgIu2Bdmk/qIiMR9j1b2SATFUzd
-X-Developer-Key: i=untilscour@protonmail.com; a=ed25519;
- pk=eCaNcoQNRWYKZ9D7KbOGKvQVK2YFguJXZxglTtAR7Xk=
-X-Endpoint-Received: by B4 Relay for untilscour@protonmail.com/20260906
- with auth_id=1011
-X-Original-From: Ryan Leung <untilscour@protonmail.com>
-Reply-To: untilscour@protonmail.com
+References: <20260924142708.2459-1-yangtiezhu@loongson.cn>
+In-Reply-To: <20260924142708.2459-1-yangtiezhu@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 3 Oct 2026 12:01:44 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4y=q=c-v2W2NewL6pjjU6gMRtDyPZrGjOsBV_QyTNRzg@mail.gmail.com>
+X-Gm-Features: AclHuK_JoOn5evCKxXIh6dDcYyY0tMXBU4gZNlB8m-rEDex9vUj0iKdJDKXo8-w
+Message-ID: <CAAhV-H4y=q=c-v2W2NewL6pjjU6gMRtDyPZrGjOsBV_QyTNRzg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/6] LoongArch: Fix perf hardware breakpoints
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ryan Leung <untilscour@protonmail.com>
-
-The thermal zone registered via devm_thermal_of_zone_register() on the
-parent device is never torn down when the phy is unregistered, so the
-thermal core can still dereference it after the phy is freed.
-
-Unregister the thermal zone alongside the cooling device in
-mt7915_unregister_thermal(). Also clear phy->tzone and phy->cdev after
-unregistering so the function is safe to call when only a subset of
-the objects were registered, e.g. after a partially failed
-mt7915_thermal_init().
-
-While at it, include the band index in the thermal zone registration
-warning to help identify which band failed on multi-band chips.
-
-Fixes: 313f1a27ebcb ("wifi: mt76: mt7915: add thermal zone device registration")
-Signed-off-by: Ryan Leung <untilscour@protonmail.com>
----
-Changes in v4:
-- Drop the mt7915_unregister_thermal() call on the hwmon failure path
-  which was added in commit
-  https://github.com/nbd168/wireless/commit/0438f51a9af4b5138d1d7117fa8343bbe6fa32f0
-  ("wifi: mt76: mt7915: unregister thermal cooling device on hwmon failure")
-- Update commit message: remove the now-fixed hwmon failure leak
-  description and reword accordingly.
-- Link to v3: https://patch.msgid.link/20260906-mt7915-unregister-thermal-v3-1-efb2d06e61f4@protonmail.com
-
-Changes in v3:
-- Clear phy->tzone/phy->cdev in mt7915_unregister_thermal() after
-  unregistering, making it idempotent.
-- Link to v2: https://patch.msgid.link/20260810-mt7915-unregister-thermal-v2-1-2a0f51adf56f@protonmail.com
-
-Changes in v2:
-- Unwind cdev/tzone registration in mt7915_thermal_init() on hwmon registration failure.
-- Link to v1: https://patch.msgid.link/20260810-mt7915-unregister-thermal-v1-1-c6d57b4cb368@protonmail.com
----
- drivers/net/wireless/mediatek/mt76/mt7915/init.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/init.c b/drivers/net/wireless/mediatek/mt76/mt7915/init.c
-index ca46a203aa48..1f1f0c109c83 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7915/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7915/init.c
-@@ -200,11 +200,17 @@ static void mt7915_unregister_thermal(struct mt7915_phy *phy)
- {
- 	struct wiphy *wiphy = phy->mt76->hw->wiphy;
- 
-+	if (phy->tzone) {
-+		devm_thermal_of_zone_unregister(phy->dev->mt76.dev, phy->tzone);
-+		phy->tzone = NULL;
-+	}
-+
- 	if (!phy->cdev)
- 		return;
- 
- 	sysfs_remove_link(&wiphy->dev.kobj, "cooling_device");
- 	thermal_cooling_device_unregister(phy->cdev);
-+	phy->cdev = NULL;
- }
- 
- static int mt7915_thermal_init(struct mt7915_phy *phy)
-@@ -238,8 +244,8 @@ static int mt7915_thermal_init(struct mt7915_phy *phy)
- 	if (IS_ERR(phy->tzone)) {
- 		if (PTR_ERR(phy->tzone) != -ENODEV)
- 			dev_warn(phy->dev->mt76.dev,
--				 "failed to register thermal zone: %ld\n",
--				 PTR_ERR(phy->tzone));
-+				 "failed to register thermal zone %d: %ld\n",
-+				 phy->mt76->band_idx, PTR_ERR(phy->tzone));
- 		phy->tzone = NULL;
- 	}
- 
-
----
-base-commit: f49defea7668d8c68ec19fa085ef3da6075561c7
-change-id: 20260809-mt7915-unregister-thermal-82e805c618a6
-
-Best regards,
---  
-Ryan Leung <untilscour@protonmail.com>
+Applied, thanks.
 
 
+Huacai
+
+On Thu, Sep 24, 2026 at 10:27=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.c=
+n> wrote:
+>
+> v4:
+>   -- Do not modify thread_struct layout for hardware breakpoints
+>
+> This series addresses severe functional degradations in standard
+> perf_event usage, including initialization failures and one-shot
+> triggering limitations.
+>
+> Tiezhu Yang (6):
+>   LoongArch: Fix bitmask corruption in update_bp_registers()
+>   LoongArch: Remove redundant call in update_bp_registers()
+>   LoongArch: Fix architectural naming typo for CSR_FWPS_SKIP
+>   LoongArch: Only send SIGTRAP signal if necessary in do_watch()
+>   LoongArch: Fix perf hardware breakpoint failure via installation
+>   LoongArch: Fix one-shot limitation for perf hardware breakpoints
+>
+>  arch/loongarch/include/asm/hw_breakpoint.h |  8 +--
+>  arch/loongarch/include/asm/loongarch.h     |  7 ++-
+>  arch/loongarch/include/asm/processor.h     |  3 +
+>  arch/loongarch/include/asm/switch_to.h     |  2 +-
+>  arch/loongarch/kernel/hw_breakpoint.c      | 66 ++++++++++++++++++----
+>  arch/loongarch/kernel/traps.c              | 12 ++--
+>  6 files changed, 74 insertions(+), 24 deletions(-)
+>
+> --
+> 2.42.0
+>
+>
