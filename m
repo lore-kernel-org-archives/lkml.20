@@ -1,122 +1,107 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9717E26CE32
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:08:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B7D630C637
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791007717; cv=none; b=PoJWmL3E64XUuBmEWwBfe5cp93JPyEXM0tN7V26tE29Z8bvo6d6Pi2XLMjFfgkw7KHd2cdL27M9srWyt5nQsvNqeJL866N9f7+anJP4M4sKZ70MCgSDXuXo3IgHw+wmr8d65JPGVj83ZiTTQNgIJltjM1IhhcjNZmJexAmKnCLk=
+	t=1791007810; cv=none; b=tO/XBzD3Ua7tmeC+6nGbm9X7GfME4X/w17sT+256JcLroRvIqNNbYdEPvJxM3RgNc1DJ2KPQfPQRtUIDgCieDswbYHu16TnVtA6kD0T1rzBUoSI5YMBOSjfNk8x1dDGiT10N3BAfBs4DFxyGsnnGUpC/qw6EQ8wgifGw2HytF/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791007717; c=relaxed/simple;
-	bh=Bq6MIY7CYCGN5YFO83plBrLT0wDS2LRD2/45NbCikMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wvlpp/aQ0QgBRWTFQP2X6+NM10Mzs2I+NuVPe5fZ+zq90SKyRCWIQtgLJQ4YovCaBNlGw42YxFGgDtp1i8yL01OWhKho9LduVbFRtmn4qcv806hJ1pEq6TCBg9F9+XHAxcgKYmIhJrFdPUa7BfVdCRxTfXOUte0dDpotkhd0X/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ONiK2IVN; arc=none smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791007810; c=relaxed/simple;
+	bh=Q88K6c2p+V4U9XzYzl+P/XsCq4/B0X4qU3qU4p8xVnY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JQtCz7uocrww+UY9HmRcxw5677ATtXxpEcFxDdqcyAj5KI4dUyWt5KuWqsXBVB0uKPjJ6WURh7b/0s4215no1yRM/n5AAV6dKf66++eNa63OqD18fxHWr8ADJs48fpBWjwTnez2uPDb3W37/zPQwg79oWg4kr5xY4e23QrrpvuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tBT5G2DI; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ONiK2IVN"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-32efd24b2aeso379012eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 23:08:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791007716; x=1791612516; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xvPvgzZ7iYnqitO0H1oFllRNtu+MflvF26mLCrcp718=;
-        b=ONiK2IVNxf4hQGT6f3SZK54c9rAUF9yxU5YImJzhjRu0o8L3BR7qKqmSqd9+CrKfaL
-         9JdIS/Dv72cephy8A7J9qD/BibBIvhcV+DqCHJQcVlt7q2Gv9RSO/OLoCBR0nZEsWppl
-         eiifKI0uTUxJO4ypazFqVgwi4fTHRb3721E3uxpzEvLouIE59qRFNBtiQ2iTy7P1FLQm
-         bNSbBLKKRwrH30MzfEqoCBEDTOWXnripJk7mdguTdZIo5XadVo6Gh0KXEVDovmDbJfAH
-         qoi2wBvWlHL8f2kH7scN9diOmrdywlPZOKGB7Wm7l3red86L9OyEwguELm8wV/MzMXkB
-         KtcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791007716; x=1791612516;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xvPvgzZ7iYnqitO0H1oFllRNtu+MflvF26mLCrcp718=;
-        b=HtrO0YExZk6w/t4ijaR/kGMvny9Gu+d88ViIEVKhYSNqs8yYId4kr5aYotm451uDHo
-         WtEJ+pczF2jeu8ZJMmXIrhCWQT0w7jE6680hkDed9kmSArqXM5XRJNOJKA4bF19DoQVK
-         mR3b7EgJQuuv+RZfw66nVFi0WEkuwXzEVbT3tumCbMQu0XsgQwFlwnBOAZhIwkl4SWVe
-         qZcohTS4GV8ct4rY7TLoikzuOIhcyoSm4ZfKdFbHSvqsK3YK7R6DcwYvHTLAhlCyDTOq
-         ybVnd0ApFVSxtzaVn4WTT9rXI/r8j/nkT5Jwp+AbcgRsDMQ4TN1gbQePmTDpo4B7uIqX
-         G3Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEgC/fsa2LVl9F1I+s/x5dXPTby3Isx6wTuV2L+xeb3L+1gHup19pEXIgxC0KPsjhkAeah2WNFGxywig4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0ssPryDG415I60u6J0L6sUQwO8h4vie9DxQ75FhLzTAiswZEv
-	bzai9QbD0SU5UllZ5Z5Wc9fiwV9jOKh6y3NgoKfh5Y0pkFbALNJcjwiC
-X-Gm-Gg: AYBFou2gOkaOOLB1cStYILOzHPIpue1ANitH+mmn1HyXX5qO/R7A1WD1AbCQRtKsTAL
-	FSTe/E/ddvhcc0j45oC9azaQq9IRjdPnOZjnNNUtAdZQZTmBvF+V4ScHYE6MY7frrv9wQp70RXt
-	E495i21sUt/CIBy19rWFX3w1qDVznDPkx4el8QFWHFaO3J+W3+LF+g9YvfohudRZOPt1QvTr4x2
-	RKP6w9PNA4JetrHsVdA4gGlRSWiecX+ca46xDRylyOinNanLlhOPtLcyzxb5Bsxc6B+5i6l4NHZ
-	wLwRmvHewOnfi9qRWZ1nJRl2xKI2z3a4WfewdjKNan65z4TAJXHzXCzHeNHixH0WD90lqI7xoUQ
-	A6l4BCcyGoHioAPpz5aVfdaR/HGnL13/OiIZXBn4v4Wcf1XnxxP5NzyyPfyLyh0lKmcqfbpDqLZ
-	Me+2+GC/g5lM71CYq7cxJrmK3IgmhTIjo7aHknmTmyvEVVubDpEr5bTZkW4+tBCRCk+q3C3wh3b
-	TP2c0LZbmkG1dR+iRk=
-X-Received: by 2002:a05:7300:550a:b0:351:fff:6cc0 with SMTP id 5a478bee46e88-351114114b8mr2562425eec.17.1791007715633;
-        Fri, 02 Oct 2026 23:08:35 -0700 (PDT)
-Received: from kernel ([103.219.206.69])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f067301b5sm12313344eec.1.2026.10.02.23.08.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 23:08:35 -0700 (PDT)
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: ebiggers@kernel.org,
-	ardb@kernel.org
-Cc: Jason@zx2c4.com,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization in xchacha decrypt
-Date: Sat,  3 Oct 2026 11:38:26 +0530
-Message-ID: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tBT5G2DI"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D4B92F;
+	Fri,  2 Oct 2026 23:10:04 -0700 (PDT)
+Received: from [10.57.8.170] (unknown [10.57.8.170])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3AFDB3F763;
+	Fri,  2 Oct 2026 23:10:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791007807; bh=Q88K6c2p+V4U9XzYzl+P/XsCq4/B0X4qU3qU4p8xVnY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tBT5G2DIgzL1ccv4x26BwoZyvujNVbTt5W37TYDCRmwiYao13lwP0PFQjLNauJOR4
+	 vRLUNPJxU7ShBkFlhZNUM7Pdy/uoELx9psdqI+7X7QalRn0tvcrMALxJQ5e+5MPqsQ
+	 0tIRFLNl8T0zEycDv284LDrqDn35ga4XBy9RtcnY=
+Message-ID: <ed658964-bdf2-4258-946e-0fc115d33975@arm.com>
+Date: Sat, 3 Oct 2026 07:10:01 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v13 03/14] coresight: etm3x: prohibit modifying
+ cntr_val and reset while session is enabled
+Content-Language: en-GB
+To: Yeoreum Yun <yeoreum.yun@arm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+References: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
+ <20261003-separate_etm_cfg_v2-v13-3-5d8a29aead95@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261003-separate_etm_cfg_v2-v13-3-5d8a29aead95@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The `__chacha20poly1305_decrypt` function does not zeroize the chacha
-state, unlike its encrypt counterpart. The regular
-`chacha20poly1305_decrypt` function handles this by manually calling
-chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
-the result directly without clearing the state.
+On 03/10/2026 03:52, Yeoreum Yun wrote:
+> cntr_val are overwritten with the values read from the corresponding
+> registers by etm_disable_hw() when the session is disabled.
+> 
+> This means that any changes to this value made while the session is
+> enabled would be lost when the session is disabled.
+> 
+> Also, reset shouldn't be called while session is enabled.
+> 
+> Therefore, prohibit modifying cntr_val and reset while the session is enabled.
+> 
 
-This leaves the derived chacha20 subkey on the stack after the function
-returns. Fix this by storing the return value, calling
-chacha_zeroize_state() and then returning the result, matching the
-logic in `chacha20poly1305_decrypt`.
+Same as the other one, fixed subject and the above line
 
-Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction and selftest from Zinc")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
----
- lib/crypto/chacha20poly1305.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Cheers
+Suzuki
 
-diff --git a/lib/crypto/chacha20poly1305.c b/lib/crypto/chacha20poly1305.c
-index ea42a28f4ff7..03b14d272520 100644
---- a/lib/crypto/chacha20poly1305.c
-+++ b/lib/crypto/chacha20poly1305.c
-@@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 *src, const size_t src_len,
- 			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
- {
- 	struct chacha_state chacha_state;
-+	bool ret;
- 
- 	xchacha_init(&chacha_state, key, nonce);
--	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-+	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
- 					  &chacha_state);
-+	chacha_zeroize_state(&chacha_state);
-+	return ret;
- }
- EXPORT_SYMBOL(xchacha20poly1305_decrypt);
- 
--- 
-2.53.0
+> Reviewed-by: Mike Leach <mike.leach@arm.com>
+> Tested-by: Leo Yan <leo.yan@arm.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-etm3x-sysfs.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> index b3c67e96a82a..cdb70a4382eb 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> @@ -75,6 +75,10 @@ static ssize_t reset_store(struct device *dev,
+>   	if (ret)
+>   		return ret;
+>   
+> +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> +	    coresight_get_mode(drvdata->csdev))
+> +		return -EBUSY;
+> +
+>   	if (val) {
+>   		spin_lock(&drvdata->spinlock);
+>   		memset(config, 0, sizeof(struct etm_config));
+> @@ -744,6 +748,9 @@ static ssize_t cntr_val_store(struct device *dev,
+>   	ret = kstrtoul(buf, 16, &val);
+>   	if (ret)
+>   		return ret;
+> +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> +	    coresight_get_mode(drvdata->csdev))
+> +		return -EBUSY;
+>   
+>   	spin_lock(&drvdata->spinlock);
+>   	config->cntr_val[config->cntr_idx] = val;
+> 
 
