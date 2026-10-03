@@ -1,141 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A700DEEB3;
-	Sat,  3 Oct 2026 08:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BA63921D1
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 08:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791017152; cv=none; b=cWXxv+X1Kt6ls4AaXXedNwTZHlx8bzb9aRxJWhnduLcEuVUzClKX5rDhgEAp24oiFSYHLzxoEt2J3unKq5LUxXUqvAMK3Mt4ZGFxu7dfyeNVnqI303AVEDYb2Sz3/DbE9vItlNnsm1S7OA4LPD1xx8+CDvYObXnKlBaNBmMoY3M=
+	t=1791017203; cv=none; b=QDdtXxZoOjnw9b2AjX7JEfAwsurfkuO3rRXqEOLsZ+r+oy+pqadtUgPPO1XxAhzCiftl+3Q3AWtQJy2baWamAn/q+C1TCZndB3npYaGbeh0ErfQzPzeJNmeO7VKvi1ykBGBHmo2MgtnuZUmcHNgYHBd2rmewbkuQdh6C7JVZ95Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791017152; c=relaxed/simple;
-	bh=a0nX+tv2G5b7HuoiyPpcU5xklgUpccGz4acc0Y+2SaA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F/AI8Endy/D5O3siE6kpeARjyNZD5pgGFQI3IxoSUAZyQV80uRpqt+TWWgbii+mBy3M+5ervYg5IuuSZGTAfh4vb4yxBXS3bOST4JpjGmCHAyQKjRH+2rMV+lhkanmmgfbfFiMx0Vv/TdMd5mIDMWrjhOqrXS1SfFm++ERGrctM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CdvyVKHZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791017203; c=relaxed/simple;
+	bh=JfQBFB8HvJuf4fvwAODgo8KaNTpRE8MxypcQlOdr4a4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B+eNJsAWpoTM9hYrU2XeBFj2M5Xi+1IjCNrv/9vsjappqUJYzk2yIweKzmyxMODvCcPHrPuq1O+IMwDuJUQBBfkuISW1FYxTVEtU3JiXo9tx5ZPD6SW+WqLD04IannsFEoShFT+XhJSHolI6r5OT31U5aWQYoKeyyj3RmDK5hL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZXn5nMU8; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CdvyVKHZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37BA01F0089B;
-	Sat,  3 Oct 2026 08:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791017151;
-	bh=zxZleFQUEISD064kSfjMjMxf0Adv0+eg+SUInoyeOkM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CdvyVKHZynq+wKXiwTb2wUbImBUsPXNZ9b5G58qvJbwUraRUEMQLg1XT9zBpaQtHz
-	 O/sZaA5oyo2yoo8B9GvO+5BtRoTLEMHSJ04cG3FJzBxIui+zMCpHs5wSxYRvUwFBPg
-	 mvJVCepy0Nk8CjWXTZZULFrfKzGqsoAQXWQoYLGx7OgBxI09TfXciGLJabnWopj8Kx
-	 Ir6c7ZIBqhhxqfiASq5aVX/zimjZTCZklH/GhBmcHMq1l088jV2lnTsWgytwLGwJ1r
-	 FRfWOPfhhHOs3Awk9IHTDr6kVRfPhWKAq5xq3PbUbmyg53/ZEKZqNh9cv78oWKlkHo
-	 oaPfn7JY5t+4w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xCvNM-0000000GUTq-3GbA;
-	Sat, 03 Oct 2026 08:45:48 +0000
-Date: Sat, 03 Oct 2026 09:45:48 +0100
-Message-ID: <86jynz2mv7.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Fuad Tabba <tabba@google.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	will@kernel.org,
-	catalin.marinas@arm.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZXn5nMU8"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e48eb8d967so626145ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 01:46:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791017199; x=1791621999; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t/wrLOCtE1sCCWrIKRX05ezT6tc6dZyG9f7Xo2wQXRw=;
+        b=ZXn5nMU8EamCVde3w00PG10bd2fGLZkka6sHhvORJ6Gb/Lo8TX/g6wJRBmZ6Kkgdup
+         wnPMdKJ2m637ZG6DgnDfz5VSf9kb8mGMLEsqnbSTGzrMPoXgcW9ZZsrHbQkDm2Fnh7on
+         JjySkgR712hT/k96x4+D6exNpB9XGrcLnSodDcC/ERxJzvzVbT54oqmEwBw94841bSVR
+         P0HiWJ23CwnapFH2CNRxVAy9Bz8kvSNxze1W7tGHrtnC/0ODIvww7jZbvIVDJycZlWmW
+         2Pxy39MfUH+kiJvArojOVMFk0ybKIIVxmZWTGEaqXR+mWQj0ilp7nk91zgwRGpdfCdtR
+         7uZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791017199; x=1791621999;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t/wrLOCtE1sCCWrIKRX05ezT6tc6dZyG9f7Xo2wQXRw=;
+        b=AofSXrAjdnZr+3f9I2ewQoslxvVGP3HtTDzqjFjWxpV7+auf5LlFMLPh2iWUTjhjNL
+         jUKmei1TbWR3P1QK8o9a9NZrXy2+ZTNbQUcxUsXykwutIge7VGvb/hYvoIq89tDX0CBO
+         3bXvQRbGBkJ90ahJnCe0akT41EwoEnWoa3mE1D9o/ra2BhpD9ZQJx6qRp1OJOJEJYCfg
+         dDTfFXb3WA4hEeU5ni3A4wlweG9u3ZxIPrHBmbNdZgHkvP9sYEluuI2MgC3QAU4/+pmv
+         RxDSlvep07QDxR+51e4LN7VRaZU7Ie6M51YaEluiVmIgrti5HPWbQgN4V91m2ZeTqWJv
+         ozWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxb4WtQAUQcYgQUbyblEt0if7MrgI1ayC/+IFrc+beTRdIstJyHmoxTDyNATgOS9w5qkZfWvxOZ3gMb7MI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOazDAsUJD1Z8LwFoIok9NB2vsGIpBLM0bzfeKUorypgmZgy2C
+	MbeKlctSvS4rkNUglZn4oGwmjl7VLbIWngbO774hI5L9ScQnz1/Ygr3E
+X-Gm-Gg: AYBFou1B/puHnL1h8H/oDl6BLE8TJnG91TWfw1MGbOTa8qCLZ3q5t6/vfM8jZsVsbMz
+	wK54d9nRGny8kffT6+LZtiMvytd+UnqlP+UIGEAlnSGQ3Vx9KcoFe9t69pJ1LRfGoexzo0yde8l
+	Q6q9pvWLAX/b8vCcBoMI/5dACtrbBWGaKxZ3MOiHjxzd28kSfNcHFg+ZjRzcaVlSBDKreQjQj8t
+	Tws8HN8VazJNBxANo7zGtsDkiHIRwESF4EfO4D4z6fb8NpbjgVqeLy0bT7qa2RxHO3OA5/BFgGP
+	mQ038V1ZmqnRbJS8tkp1Qu8yX5qQBhqA6uOCrj9QHBtWnuz1GGPJLiwb7IniQbIWUqBqALrKq3l
+	PIiYXMfsH3F7627YAsMjpOu36gMZPQzxiaHrxK6eq0LHNoTSz8BhUDiFw6wETwCBKwE+CLpozCj
+	9jMjgRHow1WzBJF0ybQh2nLTDPYGCCbsLZ9bHmjtd21fVIw6qm9vjLUccngMZVkAvCaHyd1CTP7
+	NXbARoO/RLv/0HSaZroe7qDcLzd5KvKcpsvrLiXh0sIE8XTgwwBe2XdtI8ifHE7KlhXeqI=
+X-Received: by 2002:a17:90b:4ac3:b0:3a4:9d98:f980 with SMTP id 98e67ed59e1d1-3a6ce5eb2b0mr7077989a91.1.1791017199330;
+        Sat, 03 Oct 2026 01:46:39 -0700 (PDT)
+Received: from chenyou.ncku.edu.tw ([140.116.19.16])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4664ebsm2208033a91.7.2026.10.03.01.46.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 01:46:38 -0700 (PDT)
+From: Chen-Yu Yeh <chenyou910331@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen Wang <chen.wang@linux.dev>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: Hiago De Franco <hfranco@baylibre.com>,
+	Longbin Li <looong.bin@gmail.com>,
+	"Anton D. Stavinskii" <stavinsky@gmail.com>,
+	Joshua Milas <josh.milas@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	sophgo@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v21 05/23] KVM: arm64: Track the type of VM in kvm_arch
-In-Reply-To: <d7a398b3-5cbe-4a1c-bdd3-c1c5925dfc33@arm.com>
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
-	<20261001210703.1597150-6-suzuki.poulose@arm.com>
-	<CA+EHjTxtatPyGcyvEyR129cqUiAYcO_cxRVtwZO0ckZsOnD7TA@mail.gmail.com>
-	<86se2o2rbs.wl-maz@kernel.org>
-	<CA+EHjTwHuJ0u_TTP46zNFKFmBP124XHHLUVhkAUSyfhe92=41w@mail.gmail.com>
-	<86pkxs2npx.wl-maz@kernel.org>
-	<CA+EHjTy4rb+6z0bqh7sPqACES0EDpURdeoyiFGmdw3p0PENcOQ@mail.gmail.com>
-	<86o6dc2ka1.wl-maz@kernel.org>
-	<83e79119-b331-4640-b2c7-cc8135d71c77@arm.com>
-	<d7a398b3-5cbe-4a1c-bdd3-c1c5925dfc33@arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Chen-Yu Yeh <chenyou910331@gmail.com>
+Subject: [PATCH v2 0/2] riscv: dts: sophgo: Milk-V Duo 256M ethernet support
+Date: Sat,  3 Oct 2026 16:46:24 +0800
+Message-ID: <20261003084627.353899-1-chenyou910331@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, tabba@google.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 03 Oct 2026 08:07:39 +0100,
-Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
->=20
-> On 03/10/2026 06:53, Suzuki K Poulose wrote:
-> > On 02/10/2026 16:29, Marc Zyngier wrote:
-> >> On Fri, 02 Oct 2026 15:37:00 +0100,
-> >> Fuad Tabba <tabba@google.com> wrote:
-> >>>=20
-> >>> Hi Marc,
-> >>>=20
-> >>> On Fri, 02 Oct 2026 15:15:06 +0100, Marc Zyngier <maz@kernel.org> wro=
-te:
-> >>> [...]
-> >>>> Honestly, we introduce the flavor stuff to make it easy to match
-> >>>> things on a particular VM type in a readable way. So why isn't this
-> >>>> reading:
-> >>>>=20
-> >>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (vcpu->kvm->arch=
-.vm_flavor !=3D VM_PROTECTED_PKVM)
-> >>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
-> >>>=20
-> >>> I know this is a sketch, but just in case: that's inverted. The sync
-> >>> only applies to non-protected pKVM VMs (EL2 ignores it for protected
-> >>> ones), so it would be !=3D VM_PKVM.
-> >>=20
-> >> See what I meant about this stuff being completely intractable? I
-> >> still have no idea what it means! ;-)
-> >>=20
-> >=20
-> > Just to be clear: unprotected_pkvm() !=3D (vm_flavor !=3D VM_PROTECED_P=
-KVM).
-> > Rather, unprotected_pkvm =3D> (vm_flavor =3D=3D VM_PKVM).
-> >=20
-> > And the code wanted to bail out early for !unprotected_pkvm(). We can
-> > stick in "is_protected_kvm_enabled()" for unprotected_pkvm predicate
-> >=20
-> > But, I can drop the helper and use the vm_flavor check.
->=20
-> FWIW: Here is the diff for the above change. If you are happy
-> with the following, I could fold this in.
+The Milk-V Duo 256M has no Ethernet connector of its own; the SG2002's
+internal PHY is only usable through the optional USB & Ethernet IO
+board. This series adds an overlay for that board and fixes the name of
+the internal PHY node it exposes.
 
-Yes please. This is far more readable. Once we have the full picture,
-we can maybe look at more synthetic helpers, but let's start without
-any premature abstraction.
+Changes in v2:
+ - Enable Ethernet through an overlay instead of in the board
+   devicetree, since without the IO board the pins may be used as GPIO
+   (Inochi)
+ - Send both patches in one thread (Inochi)
+ - Test link-up and traffic on the IO board, which v1 could not
+ - Collect Inochi's Reviewed-by on the PHY node name fix
 
-Thanks,
+The overlay has the same shape as Hiago's for the Milk-V Duo [1], so the
+two boards stay consistent. The PHY node name fix is in cv180x.dtsi and
+so covers that board as well.
 
-	M.
+Testing, with a kernel built from this branch:
 
---=20
-Without deviation from the norm, progress is not possible.
+ - sg2002-milkv-duo256m-eth.dtb: eth0 comes up at 100Mbps/Full, gets an
+   address via DHCP and passes traffic
+ - sg2002-milkv-duo256m.dtb: no eth0 is created, and the gmac node
+   reads back as disabled
+   
+Kernel log with sg2002-milkv-duo256m-eth.dtb:
+
+  [    1.426499] stmmaceth 4070000.ethernet: User ID: 0x10, Synopsys ID: 0x37
+  [    1.426536] stmmaceth 4070000.ethernet: 	DWMAC1000
+  [    6.052829] stmmaceth 4070000.ethernet eth0: PHY [mdio_mux-0.0:01] driver [Generic PHY] (irq=POLL)
+  [    8.138131] stmmaceth 4070000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+
+  # ip addr show eth0
+  2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP qlen 1000
+      inet 192.168.0.47/24 brd 192.168.0.255 scope global dynamic noprefixroute eth0
+
+With the base sg2002-milkv-duo256m.dtb:
+
+  # ip addr show eth0
+  ip: can't find device 'eth0'
+  # cat /proc/device-tree/soc/ethernet@4070000/status
+  disabled
+
+iperf3 against a desktop on the same switch gives 94 Mbit/s with the
+board sending and 70-74 Mbit/s with it receiving, with no
+retransmissions either way. The receive side being slower is not a CPU
+limit on the board; I have not looked into it further yet.
+
+v1: https://lore.kernel.org/sophgo/20260803163323.74414-1-chenyou910331@gmail.com/
+    https://lore.kernel.org/sophgo/20260803163427.74445-1-chenyou910331@gmail.com/
+
+[1] https://lore.kernel.org/sophgo/20261001-milkv-duo-eth-overlay-v1-1-78bc1454f35b@baylibre.com/
+
+Chen-Yu Yeh (2):
+  riscv: dts: sophgo: add Milk-V Duo 256M ethernet support overlay
+  riscv: dts: sophgo: cv180x: Fix internal ephy node name
+
+ arch/riscv/boot/dts/sophgo/Makefile             |  3 +++
+ arch/riscv/boot/dts/sophgo/cv180x.dtsi          |  2 +-
+ .../dts/sophgo/sg2002-milkv-duo256m-eth.dtso    | 17 +++++++++++++++++
+ 3 files changed, 21 insertions(+), 1 deletion(-)
+ create mode 100644 arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso
+
+-- 
+2.43.0
+
