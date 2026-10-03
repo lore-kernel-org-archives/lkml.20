@@ -1,468 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.vivaldi.net (smtp.vivaldi.net [31.209.137.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A677D3AD503;
-	Sat,  3 Oct 2026 13:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C416D7DA66;
+	Sat,  3 Oct 2026 13:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.209.137.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033972; cv=none; b=GDqojPE27KQY01EEVkevJcx2k9xTyODNR9z5K0SLCbwBGchsC7Hf9MnM0/KZLswrMd+l7Y9/JQiTqxeCfoc7JaPuHI0bGOsXQ7H4NoZTVo01ltHJPB5FD1wuisti3XB3iasfbyDA088ImfVHWHdMjNfzU4I58kXWAhj87Du67oc=
+	t=1791034433; cv=none; b=lx5QrLZY4eCU5EDuHbr3xtwDk+uIM6VQct2ZQZUit0kZaXv0HTOP5kFL0CM85hR904TXkpEg/4ZC9q9OxtNijQU5ZEjBU0/+ZZ4vW/FBgUjRT9eM1zrQ9CQHeAeMBnKikTctCP2BMlSXdK+Iuc4zIg2G6/+ZBQ0euO/jdkdzpnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033972; c=relaxed/simple;
-	bh=ZW6Ykd+M7+kcwteoUDWxNHflnTTSnA+SJwdMSHmy4lQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LXcSBpGhWuuv6lNccZOyX3riR2LFUH66iDXuMxXcfzagM+uLeuqWESOX+OhZ+AlkoGeyY+eJUONd6vZfOWTxCtaGzMGqzl0ziLTB5/X32OsN5ivsJ+CQVKiphzERmn9wNZT042GLFKMv23AvzLKY/Dn2BonowenHqt8eV38H/iA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XtZu7DJk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791034433; c=relaxed/simple;
+	bh=gx8YMcW2Yz9Ay6Z+HK0PkeUjb0LnIGc60NLWeM0JJUo=;
+	h=From:To:Cc:Subject:Date:Message-ID; b=RDZ8JB9I+xkHCgfzBinLbQyBk1QxP+ZkpKP0c/E0gaxjFXg6yNl2ojdzHWWc5o425R582r+2qxiLoBTq2p0/1nVwv7Wbd8T4vT1ZMDip+pi3OoI8XGFg9PRdywMpvWcum1lP0BIfsD6d8nBAgF2vOr0ntlKMICIOBtvYpON/F+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vivaldi.net; spf=pass smtp.mailfrom=vivaldi.net; dkim=pass (2048-bit key) header.d=vivaldi.net header.i=@vivaldi.net header.b=bOID0JUL; arc=none smtp.client-ip=31.209.137.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vivaldi.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivaldi.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XtZu7DJk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EFD62C4AF14;
-	Sat,  3 Oct 2026 13:26:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791033972;
-	bh=ZW6Ykd+M7+kcwteoUDWxNHflnTTSnA+SJwdMSHmy4lQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=XtZu7DJk45M0xvyrzaifT3QuHYeWYLCHujnnDcyCOXZ6BAHrE9tXYta3CilxPQuDd
-	 yADW4PZRtjHraBhhJ0ti5mNz4f1lCyq0CZR/uR2SDCdHOQNoru6G0rdmNN+nKC2nL8
-	 XB3++CT9kYszTM2tfCxgomyVR+3YuVsqinRF29RasjUQXKCczuR/a4drG1kQSScmNM
-	 yULXSgeeHZq1/AAeGcP6Xye2Ya5GwudoPEOgJboa/Ev7j/GpJw3MyEFnm6sMl8ocX2
-	 zIYhBk/iwpSBPWrAzyqjYZbKnPutMhqa+K5wfThgnjPAgoMVQYn2QG5mKWWsiR6Jbm
-	 /sFrzETSVCofw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE1ECCA5FDD;
-	Sat,  3 Oct 2026 13:26:11 +0000 (UTC)
-From: Henrik Enquist via B4 Relay <devnull+henrik.enquist.gmail.com@kernel.org>
-Date: Sat, 03 Oct 2026 15:26:12 +0200
-Subject: [PATCH 2/2] selftests/alsa: Add a test for snd-aloop notify mode
+	dkim=pass (2048-bit key) header.d=vivaldi.net header.i=@vivaldi.net header.b="bOID0JUL"
+Received: from localhost (localhost [127.0.0.1])
+	by smtp.vivaldi.net (Postfix) with ESMTP id 0B90EFC395;
+	Sat,  3 Oct 2026 13:33:49 +0000 (UTC)
+X-Virus-Scanned: Debian amavis at smtp.vivaldi.net
+Received: from smtp.vivaldi.net ([127.0.0.1])
+ by localhost (mxo-1.viv.dc01 [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id kO2XitxLY9Cf; Sat,  3 Oct 2026 13:33:43 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.vivaldi.net 22EAAFC2D0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivaldi.net;
+	s=default; t=1791034423;
+	bh=ydX8eYPLNL0xEotu5oKlbslCm99j6FARjCnqLnWWgyg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=bOID0JULbCTNNB/c3FDX1liU5z8cZL6Jx1gs2YsMDVDQJFx5/F240vJ13+zEgWp5V
+	 gd26NDJxPpRQMEREjkMtfbnzY72v4kvQa6iM/Pbee36oGoQj8dnhSEqympOK1DFUJT
+	 zzFyCHsiaStEbaa27A1iM/xjfUPOpJ4yWUVB6rwG/8aOGq7XcdJipYJkNV4QFNKo5k
+	 +7eoSyn5IVvZ/7rsO2snmft4AE6J0e6+8aKAokaPJUDtg3kozbQOJPUoTIZR9UTLE3
+	 OE394jlaI9KjcVnoH4Zvf91F9SqqgWIMvhuCtkZXtoDoC3cSEbXwDWceFjlp4l2twC
+	 k3A3BdE5LWIew==
+From: Denis Yakovlev <mfthesun@vivaldi.net>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Denis Yakovlev <mfthesun@vivaldi.net>
+Subject: [PATCH v2] ALSA: hda/realtek: Enable headset mic on HONOR MagicBook Pro 16 2024
+Date: Sat,  3 Oct 2026 16:33:25 +0300
+Message-ID: <20261003133325.97507-1-mfthesun@vivaldi.net>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-aloop-notify-fix-v1-2-ba5dfb831bf5@gmail.com>
-References: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
-In-Reply-To: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Mark Brown <broonie@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Henrik Enquist <henrik.enquist@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791033970; l=13753;
- i=henrik.enquist@gmail.com; s=20261003; h=from:subject:message-id;
- bh=jZBuh2FRtI+xH74mkukS3m34JH4GQs/m1SB9d0U9RPc=;
- b=Gg7zrphMJkohQa4QfE1CiG2ptXXA4kYT/w8umOf/HnnM0YLLJj6XK+wAk6YI7/EsqOmsuWd8v
- Bv1/cvVirfNBpc4U5IlACwhSKiQN/s4vnIfYOkpNxr5UQ4Rz4ZnX9ii
-X-Developer-Key: i=henrik.enquist@gmail.com; a=ed25519;
- pk=ctrSXwtuuiWIZbc1qNzu+n+1PkhB/a+2nlRyXd5j2pg=
-X-Endpoint-Received: by B4 Relay for henrik.enquist@gmail.com/20261003 with
- auth_id=1105
-X-Original-From: Henrik Enquist <henrik.enquist@gmail.com>
-Reply-To: henrik.enquist@gmail.com
 
-From: Henrik Enquist <henrik.enquist@gmail.com>
+The HONOR MagicBook Pro 16 2024 (DRA-XX, board M1020, ALC256, SSID
+1ee7:204e) has a combined 3.5 mm headphone/microphone jack. The BIOS
+leaves the headset mic pin 0x19 at 0x411111f0, so the codec parser
+builds no capture path for it, and it leaves the jack switch
+(coefficient 0x45) in the TRS state, which cuts the microphone contact
+off from the codec. A wired headset microphone therefore records
+nothing.
 
-Add a test for the hw constraints between the playback and capture
-devices of an snd-aloop cable, and for the "PCM Slave" controls that
-report the playback side's parameters to the capture application.
+Configure 0x19 as a headset microphone (0x03a1113c, "headset mic
+without its own jack detect"), the same value already used for the
+sibling M1020 board (HONOR MRB-XXX) and by the VAIO quirks, and chain
+to the generic headset mode handler, which detects the CTIA/OMTP
+headset type on every jack event and programs the jack switch
+accordingly. Pin 0x1a is left untouched: there is no evidence that it
+is wired on this board.
 
-With notify disabled, a playback opened while a capture is set up must
-be pinned to the capture's parameters. With notify enabled, it may pick
-others. Starting it stops the running capture, and the "PCM Slave
-Format", "Rate", "Channels" and "Access Mode" controls report the new
-parameters, each with a value event. A capture opened second is pinned
-to the playback either way.
-
-The tests only check hw_refine results, stream states and control
-values, so they don't depend on timing. They skip if snd-aloop isn't
-loaded or the devices are in use.
-
-Without "ALSA: aloop: Don't constrain playback params in notify mode",
-the two notify mode tests fail.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
+Fixes: 1e3e378d63be ("ALSA: hda/realtek: Enable bass speakers on HONOR MagicBook Pro 16 2024")
+Assisted-by: LLM
+Signed-off-by: Denis Yakovlev <mfthesun@vivaldi.net>
 ---
- tools/testing/selftests/alsa/.gitignore   |   1 +
- tools/testing/selftests/alsa/Makefile     |   2 +-
- tools/testing/selftests/alsa/aloop-test.c | 345 ++++++++++++++++++++++++++++++
- 3 files changed, 347 insertions(+), 1 deletion(-)
+v2: add Fixes tag, as suggested by Takashi.
+    v1: https://lore.kernel.org/linux-sound/20261002221850.12443-1-mfthesun@vivaldi.net/
 
-diff --git a/tools/testing/selftests/alsa/.gitignore b/tools/testing/selftests/alsa/.gitignore
-index 3dd8e1176b..7b0e1e9ebf 100644
---- a/tools/testing/selftests/alsa/.gitignore
-+++ b/tools/testing/selftests/alsa/.gitignore
-@@ -1,3 +1,4 @@
-+aloop-test
- global-timer
- mixer-test
- pcm-test
-diff --git a/tools/testing/selftests/alsa/Makefile b/tools/testing/selftests/alsa/Makefile
-index 8dab90ad22..afd64a679d 100644
---- a/tools/testing/selftests/alsa/Makefile
-+++ b/tools/testing/selftests/alsa/Makefile
-@@ -16,7 +16,7 @@ LDLIBS+=-lpthread
- 
- OVERRIDE_TARGETS = 1
- 
--TEST_GEN_PROGS := mixer-test pcm-test test-pcmtest-driver utimer-test
-+TEST_GEN_PROGS := aloop-test mixer-test pcm-test test-pcmtest-driver utimer-test
- 
- TEST_GEN_PROGS_EXTENDED := libatest.so global-timer
- 
-diff --git a/tools/testing/selftests/alsa/aloop-test.c b/tools/testing/selftests/alsa/aloop-test.c
-new file mode 100644
-index 0000000000..a58b9fdbdc
---- /dev/null
-+++ b/tools/testing/selftests/alsa/aloop-test.c
-@@ -0,0 +1,345 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Tests for the hw constraints between the two ends of an snd-aloop cable,
-+ * with and without the "PCM Notify" control, and for the "PCM Slave"
-+ * controls that report the playback side's parameters.
-+ *
-+ * Needs snd-aloop loaded with the default card id "Loopback". The tests use
-+ * the cable between hw:Loopback,0,0 (playback) and hw:Loopback,1,0 (capture).
-+ */
-+#include <errno.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <alsa/asoundlib.h>
-+#include "kselftest_harness.h"
-+
-+#define FRAMES		1024
-+#define MAX_CHANNELS	4
-+
-+struct stream_params {
-+	snd_pcm_access_t access;
-+	snd_pcm_format_t format;
-+	unsigned int channels;
-+	unsigned int rate;
-+};
-+
-+/* The playback params differ from the capture params in every field. */
-+static const struct stream_params capture_params = {
-+	SND_PCM_ACCESS_RW_INTERLEAVED, SND_PCM_FORMAT_S16_LE, 2, 44100
-+};
-+
-+static const struct stream_params playback_params = {
-+	SND_PCM_ACCESS_RW_NONINTERLEAVED, SND_PCM_FORMAT_S32_LE, 4, 96000
-+};
-+
-+struct probe_result {
-+	unsigned int rate_min, rate_max;
-+	unsigned int channels_min, channels_max;
-+	bool format_ok;
-+};
-+
-+/* Value events seen on the cable's controls */
-+enum {
-+	EV_ACTIVE	= 1 << 0,
-+	EV_FORMAT	= 1 << 1,
-+	EV_RATE		= 1 << 2,
-+	EV_CHANNELS	= 1 << 3,
-+	EV_ACCESS	= 1 << 4,
-+};
-+
-+FIXTURE(aloop) {
-+	char play_name[32];
-+	char capt_name[32];
-+	snd_ctl_t *ctl;
-+	bool saved_notify;
-+	bool notify_saved;
-+};
-+
-+/* The cable's controls are on the capture side device. */
-+static void cable_ctl_id(snd_ctl_elem_value_t *value, const char *name)
-+{
-+	snd_ctl_elem_value_set_interface(value, SND_CTL_ELEM_IFACE_PCM);
-+	snd_ctl_elem_value_set_name(value, name);
-+	snd_ctl_elem_value_set_device(value, 1);
-+	snd_ctl_elem_value_set_subdevice(value, 0);
-+}
-+
-+static long cable_ctl_get(snd_ctl_t *ctl, const char *name)
-+{
-+	snd_ctl_elem_value_t *value;
-+
-+	snd_ctl_elem_value_alloca(&value);
-+	cable_ctl_id(value, name);
-+	if (snd_ctl_elem_read(ctl, value) < 0)
-+		return -1;
-+	if (!strcmp(name, "PCM Slave Access Mode"))
-+		return snd_ctl_elem_value_get_enumerated(value, 0);
-+	return snd_ctl_elem_value_get_integer(value, 0);
-+}
-+
-+static int set_notify(snd_ctl_t *ctl, bool on)
-+{
-+	snd_ctl_elem_value_t *value;
-+
-+	snd_ctl_elem_value_alloca(&value);
-+	cable_ctl_id(value, "PCM Notify");
-+	snd_ctl_elem_value_set_boolean(value, 0, on);
-+	return snd_ctl_elem_write(ctl, value);
-+}
-+
-+/* Read all pending control events and return the EV_* bits for the cable's controls. */
-+static unsigned int read_events(snd_ctl_t *ctl)
-+{
-+	static const struct {
-+		const char *name;
-+		unsigned int bit;
-+	} names[] = {
-+		{ "PCM Slave Active", EV_ACTIVE },
-+		{ "PCM Slave Format", EV_FORMAT },
-+		{ "PCM Slave Rate", EV_RATE },
-+		{ "PCM Slave Channels", EV_CHANNELS },
-+		{ "PCM Slave Access Mode", EV_ACCESS },
-+	};
-+	snd_ctl_event_t *event;
-+	unsigned int seen = 0;
-+	int i;
-+
-+	snd_ctl_event_alloca(&event);
-+	while (snd_ctl_read(ctl, event) > 0) {
-+		if (snd_ctl_event_get_type(event) != SND_CTL_EVENT_ELEM ||
-+		    !(snd_ctl_event_elem_get_mask(event) & SND_CTL_EVENT_MASK_VALUE) ||
-+		    snd_ctl_event_elem_get_device(event) != 1 ||
-+		    snd_ctl_event_elem_get_subdevice(event) != 0)
-+			continue;
-+		for (i = 0; i < ARRAY_SIZE(names); i++)
-+			if (!strcmp(snd_ctl_event_elem_get_name(event), names[i].name))
-+				seen |= names[i].bit;
-+	}
-+	return seen;
-+}
-+
-+/* Open and configure a stream. snd_pcm_hw_params() also prepares it. */
-+static int open_pcm(snd_pcm_t **pcm, const char *name, snd_pcm_stream_t stream,
-+		    const struct stream_params *p)
-+{
-+	unsigned int buffer_time = 100000;
-+	snd_pcm_hw_params_t *hw;
-+	int err;
-+
-+	snd_pcm_hw_params_alloca(&hw);
-+	err = snd_pcm_open(pcm, name, stream, 0);
-+	if (err < 0)
-+		return err;
-+	err = snd_pcm_hw_params_any(*pcm, hw);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_set_access(*pcm, hw, p->access);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_set_format(*pcm, hw, p->format);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_set_channels(*pcm, hw, p->channels);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_set_rate(*pcm, hw, p->rate, 0);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_set_buffer_time_near(*pcm, hw, &buffer_time, NULL);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params(*pcm, hw);
-+	if (err < 0) {
-+		snd_pcm_close(*pcm);
-+		*pcm = NULL;
-+	}
-+	return err;
-+}
-+
-+/* What a client probing the device sees, and whether it may use the given format */
-+static int probe_pcm(const char *name, snd_pcm_stream_t stream, snd_pcm_format_t format,
-+		     struct probe_result *res)
-+{
-+	snd_pcm_hw_params_t *hw;
-+	snd_pcm_t *pcm;
-+	int err;
-+
-+	snd_pcm_hw_params_alloca(&hw);
-+	err = snd_pcm_open(&pcm, name, stream, 0);
-+	if (err < 0)
-+		return err;
-+	err = snd_pcm_hw_params_any(pcm, hw);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_get_rate_min(hw, &res->rate_min, NULL);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_get_rate_max(hw, &res->rate_max, NULL);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_get_channels_min(hw, &res->channels_min);
-+	if (err >= 0)
-+		err = snd_pcm_hw_params_get_channels_max(hw, &res->channels_max);
-+	if (err >= 0)
-+		res->format_ok = !snd_pcm_hw_params_test_format(pcm, hw, format);
-+	snd_pcm_close(pcm);
-+	return err;
-+}
-+
-+static int start_playback(snd_pcm_t *pcm, const struct stream_params *p)
-+{
-+	static char silence[FRAMES * MAX_CHANNELS * 4];
-+	void *bufs[MAX_CHANNELS];
-+	snd_pcm_sframes_t written;
-+	unsigned int i;
-+
-+	if (p->access == SND_PCM_ACCESS_RW_NONINTERLEAVED) {
-+		for (i = 0; i < p->channels; i++)
-+			bufs[i] = silence + i * FRAMES * 4;
-+		written = snd_pcm_writen(pcm, bufs, FRAMES);
-+	} else {
-+		written = snd_pcm_writei(pcm, silence, FRAMES);
-+	}
-+	if (written < 0)
-+		return written;
-+	if (snd_pcm_state(pcm) == SND_PCM_STATE_PREPARED)
-+		return snd_pcm_start(pcm);
-+	return 0;
-+}
-+
-+FIXTURE_SETUP(aloop) {
-+	char ctl_name[32];
-+	snd_pcm_t *pcm;
-+	int card, err;
-+
-+	card = snd_card_get_index("Loopback");
-+	if (card < 0)
-+		SKIP(return, "No Loopback card, snd-aloop is probably not loaded");
-+
-+	sprintf(ctl_name, "hw:%d", card);
-+	sprintf(self->play_name, "hw:%d,0,0", card);
-+	sprintf(self->capt_name, "hw:%d,1,0", card);
-+
-+	err = snd_pcm_open(&pcm, self->capt_name, SND_PCM_STREAM_CAPTURE, SND_PCM_NONBLOCK);
-+	if (err == -EBUSY)
-+		SKIP(return, "%s is in use", self->capt_name);
-+	ASSERT_EQ(err, 0);
-+	snd_pcm_close(pcm);
-+	err = snd_pcm_open(&pcm, self->play_name, SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK);
-+	if (err == -EBUSY)
-+		SKIP(return, "%s is in use", self->play_name);
-+	ASSERT_EQ(err, 0);
-+	snd_pcm_close(pcm);
-+
-+	ASSERT_EQ(snd_ctl_open(&self->ctl, ctl_name, SND_CTL_NONBLOCK), 0);
-+	ASSERT_EQ(snd_ctl_subscribe_events(self->ctl, 1), 0);
-+	self->saved_notify = cable_ctl_get(self->ctl, "PCM Notify");
-+	self->notify_saved = true;
-+}
-+
-+FIXTURE_TEARDOWN(aloop) {
-+	if (self->notify_saved)
-+		set_notify(self->ctl, self->saved_notify);
-+	if (self->ctl)
-+		snd_ctl_close(self->ctl);
-+}
-+
-+/* Without notify, a playback opened while a capture is set up is pinned to its parameters. */
-+TEST_F(aloop, playback_constrained_without_notify) {
-+	struct probe_result res;
-+	snd_pcm_t *capt;
-+
-+	ASSERT_EQ(set_notify(self->ctl, false), 0);
-+	ASSERT_EQ(open_pcm(&capt, self->capt_name, SND_PCM_STREAM_CAPTURE, &capture_params), 0);
-+
-+	ASSERT_EQ(probe_pcm(self->play_name, SND_PCM_STREAM_PLAYBACK, playback_params.format,
-+			    &res), 0);
-+	EXPECT_EQ(res.rate_min, capture_params.rate);
-+	EXPECT_EQ(res.rate_max, capture_params.rate);
-+	EXPECT_EQ(res.channels_min, capture_params.channels);
-+	EXPECT_EQ(res.channels_max, capture_params.channels);
-+	EXPECT_FALSE(res.format_ok);
-+
-+	snd_pcm_close(capt);
-+}
-+
-+/* With notify, the playback side is free to pick other parameters. */
-+TEST_F(aloop, playback_unconstrained_with_notify) {
-+	struct probe_result res;
-+	snd_pcm_t *capt;
-+
-+	ASSERT_EQ(set_notify(self->ctl, true), 0);
-+	ASSERT_EQ(open_pcm(&capt, self->capt_name, SND_PCM_STREAM_CAPTURE, &capture_params), 0);
-+
-+	ASSERT_EQ(probe_pcm(self->play_name, SND_PCM_STREAM_PLAYBACK, playback_params.format,
-+			    &res), 0);
-+	EXPECT_LE(res.rate_min, capture_params.rate);
-+	EXPECT_GE(res.rate_max, playback_params.rate);
-+	EXPECT_LE(res.channels_min, capture_params.channels);
-+	EXPECT_GE(res.channels_max, playback_params.channels);
-+	EXPECT_TRUE(res.format_ok);
-+
-+	snd_pcm_close(capt);
-+}
-+
-+/*
-+ * With notify, starting a playback with different parameters stops the
-+ * running capture, and the "PCM Slave" controls report the new parameters
-+ * with a value event for each one that changed.
-+ */
-+TEST_F(aloop, params_change_stops_capture_with_notify) {
-+	snd_pcm_t *capt, *play;
-+	unsigned int events;
-+
-+	/*
-+	 * The controls keep the last playback's parameters, and only notify on
-+	 * a change. Start a playback with the capture's parameters while no
-+	 * capture is open, so that every control changes below.
-+	 */
-+	ASSERT_EQ(open_pcm(&play, self->play_name, SND_PCM_STREAM_PLAYBACK, &capture_params), 0);
-+	ASSERT_EQ(start_playback(play, &capture_params), 0);
-+	snd_pcm_close(play);
-+
-+	ASSERT_EQ(set_notify(self->ctl, true), 0);
-+	ASSERT_EQ(open_pcm(&capt, self->capt_name, SND_PCM_STREAM_CAPTURE, &capture_params), 0);
-+	ASSERT_EQ(snd_pcm_start(capt), 0);
-+	ASSERT_EQ(snd_pcm_state(capt), SND_PCM_STATE_RUNNING);
-+	EXPECT_EQ(cable_ctl_get(self->ctl, "PCM Slave Active"), 0);
-+	read_events(self->ctl);
-+
-+	ASSERT_EQ(open_pcm(&play, self->play_name, SND_PCM_STREAM_PLAYBACK, &playback_params), 0)
-+		TH_LOG("Playback refused other parameters while the capture is running");
-+	ASSERT_EQ(start_playback(play, &playback_params), 0);
-+
-+	/* loopback_check_format() stops the capture from the playback's start trigger. */
-+	EXPECT_NE(snd_pcm_state(capt), SND_PCM_STATE_RUNNING);
-+
-+	EXPECT_EQ(cable_ctl_get(self->ctl, "PCM Slave Active"), 1);
-+	EXPECT_EQ(cable_ctl_get(self->ctl, "PCM Slave Format"), playback_params.format);
-+	EXPECT_EQ(cable_ctl_get(self->ctl, "PCM Slave Rate"), playback_params.rate);
-+	EXPECT_EQ(cable_ctl_get(self->ctl, "PCM Slave Channels"), playback_params.channels);
-+	EXPECT_EQ(cable_ctl_get(self->ctl, "PCM Slave Access Mode"), 1);
-+
-+	events = read_events(self->ctl);
-+	EXPECT_TRUE(events & EV_ACTIVE);
-+	EXPECT_TRUE(events & EV_FORMAT);
-+	EXPECT_TRUE(events & EV_RATE);
-+	EXPECT_TRUE(events & EV_CHANNELS);
-+	EXPECT_TRUE(events & EV_ACCESS);
-+
-+	snd_pcm_close(play);
-+	snd_pcm_close(capt);
-+}
-+
-+/* With notify, a capture opened second is still pinned to the playback's parameters. */
-+TEST_F(aloop, capture_constrained_with_notify) {
-+	struct probe_result res;
-+	snd_pcm_t *play;
-+
-+	ASSERT_EQ(set_notify(self->ctl, true), 0);
-+	ASSERT_EQ(open_pcm(&play, self->play_name, SND_PCM_STREAM_PLAYBACK, &playback_params), 0);
-+
-+	ASSERT_EQ(probe_pcm(self->capt_name, SND_PCM_STREAM_CAPTURE, capture_params.format,
-+			    &res), 0);
-+	EXPECT_EQ(res.rate_min, playback_params.rate);
-+	EXPECT_EQ(res.rate_max, playback_params.rate);
-+	EXPECT_EQ(res.channels_min, playback_params.channels);
-+	EXPECT_EQ(res.channels_max, playback_params.channels);
-+	EXPECT_FALSE(res.format_ok);
-+
-+	snd_pcm_close(play);
-+}
-+
-+TEST_HARNESS_MAIN
+Tested on a HONOR MagicBook Pro 16 2024 (DRA-XX), Ubuntu 7.0.0-34, using
+an out-of-tree build of this change, with wired Apple EarPods (CTIA): the
+microphone records after several cold boots with the headset inserted and
+after hot-plugging; without the change the analog capture is digital
+silence. The headset type is detected as CTIA (coef 0x45 ends up at
+0xd489). The speakers (including the "Bass Speaker" control from the
+speaker fix) and wired headphone playback still work. OMTP headsets were
+not tested (no hardware).
 
--- 
-2.53.0
+ sound/hda/codecs/realtek/alc269.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 67b9f41..4e22d63 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4477,6 +4477,7 @@ enum {
+ 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
+ 	ALC256_FIXUP_HONOR_DRA_XX_SPEAKERS,
+ 	ALC256_FIXUP_HONOR_DRA_XX_SHARE_DAC,
++	ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE,
+ 	ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
+ 	ALC287_FIXUP_ACER_MICMUTE_LED,
+ 	ALC236_FIXUP_DELL_HP_POP_NOISE,
+@@ -7215,6 +7216,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+ 			{ 0x14, 0x90170111 }, /* bass speakers */
++			{ 0x19, 0x03a1113c }, /* headset mic, without its own jack detect */
+ 			{ }
+ 		},
+ 		.chained = true,
+@@ -7223,6 +7225,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 	[ALC256_FIXUP_HONOR_DRA_XX_SHARE_DAC] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc256_fixup_honor_dra_xx_share_dac,
++		.chained = true,
++		.chain_id = ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE
++	},
++	[ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc_fixup_headset_mode,
+ 	},
+ 	[ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX] = {
+ 		.type = HDA_FIXUP_FUNC,
