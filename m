@@ -1,127 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF02A3D6688;
-	Sat,  3 Oct 2026 09:29:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82933E1CED;
+	Sat,  3 Oct 2026 09:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791019747; cv=none; b=r+/ei0l7+5aF43hHnLihmIuUv9xrsz0/pWH9ZBO0HH8Sd2KQbVEs0hsh7Z70L4YijrnGKJ9PjMO0/J3+5/nqzzcaBL6du+tO4pccTSHJskaWFFodOXfugN/wM5BVBX0tNqKgnorRMXYVerj6Egb4UzjB+JvGwa3ayx59toIcsng=
+	t=1791019857; cv=none; b=ZiRbazVrtJyLhev9R7yrhaspagIJqfWtcUiX9rRpMkR5CWu9M9QtghFNJbL/8w6HHTX346ObULsDhTi8ydFbxM0qNFSMOdLlCJl2avtexy1IiHsCfDdd2Vk2IxMMJp+kI2fBMxGilPdys2kyvXK6x0mOZ55aZ1mxwF5j+BoUM7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791019747; c=relaxed/simple;
-	bh=iPpFlSvoGoSZedaiM9Xxm/LNDLmWUEjryJqeQqxqT9M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lGJmrVA8yrmBrwxM0bfJ3O14EYKZRZFv5hybp4b/uDtBlUVMZiNE7Sdlv90xHly7ee4K1lmP5IHDkghwexbyHQOfQxWKqJuTI4PVgAgbUi2A3iIAJwIsHMgdtgFrzmPFWXpEsBn4w8UWvJEmkV0ofmznejHbodcH95IU2eB1kXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKlCT8kN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791019857; c=relaxed/simple;
+	bh=5gW3H/1yVOxL00jh4JY44hYMcfiOVXML9SuZIS61MNk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ll9f4jv+Y5yH2qodcVVn5w/yehfswh7gccfoBtwvvKeinzvgsStecn3LJ9JfC7HVEWub6tIX4w7gBRsmGN9zpgKZjznofYN4lvQtUCoVJxFIl5DuKTak63fm2eXRASBVIdihbVBBpeNzAGm7rKOaIeRx3l1+KaCcFQgYo1opaAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aRwBAEi1; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKlCT8kN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C0D1F0089B;
-	Sat,  3 Oct 2026 09:28:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791019743;
-	bh=6NARaYH/kJOu/A5Fms6Mxa9yIa9KJ0pnqXM8PPqhcAs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fKlCT8kNG2pJQhJsj01FnwsRt6fJtcaEzpAxal6pR0NeMsEnnFiNkz8O3QbYgCtKx
-	 bF1NLvwOrtmVm/gWfw2lRP+koa6oIUV6jZijVW5b0xnUc6jntAJ9PgDt865htMKPPh
-	 8A6INJnfLRuZoY3B4hPKhHZ7fxkieJCthxdpyJ00MoOLQJVAKpLd0pWOz8KWmiNP7h
-	 bidnaKnfcqvzxluIXzYdBIN97xx2c1xeN2A58BRosp+WtXiXotK8Tx5NHdHqyFxwLY
-	 VYjlwBLgZrrFheL24UK+koV6lPpih//wjmVhbIExBjt9dduAbcYyjtfNbCHa4OA/xH
-	 +aWaTBOkaGqeQ==
-Message-ID: <01b38753-d66e-48e3-a5b2-1482afd5c0c2@kernel.org>
-Date: Sat, 3 Oct 2026 11:28:56 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aRwBAEi1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2C
+	SflERWiIEUtHIYwYt7AZ8Vjsf1CeCsPdvuomIllHU=; b=aRwBAEi1rnEc+K2Swl
+	U92Jmr/YhX4GzHyauikZLdTrcNAUOLgAFA3OTt6qoHBEtMNC3E29vJb48bbG8TWP
+	BWn4fqKR14wBCFFLnnxyHyrhSRgWOnMlycKVMGDGRVt9KUUQAeNMkgHz9PY/hXKv
+	3xLYI3uxos+zqhUGoizpwDHC4=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgBnTqs9y8BqZLmrCg--.23213S3;
+	Sat, 03 Oct 2026 17:30:40 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jan Kara <jack@suse.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH v4 1/3] ext2: drain in-flight DIO before buffered write fallback
+Date: Sat,  3 Oct 2026 17:30:33 +0800
+Message-Id: <20261003093035.532916-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261003093035.532916-1-yaojiale02@163.com>
+References: <20261003093035.532916-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/3] wifi: ath12k: honour disable-rfkill from the
- device tree
-To: Franz <franzelfranzel@gmail.com>, Jeff Johnson <jjohnson@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Abel Vesa
- <abelvesa@kernel.org>, ath12k@lists.infradead.org,
- linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261003091509.4822-1-franzelfranzel@gmail.com>
- <20261003091509.4822-3-franzelfranzel@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261003091509.4822-3-franzelfranzel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgBnTqs9y8BqZLmrCg--.23213S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tFyUuryxtFyDXr47tF1DJrb_yoW8Zrykpr
+	Z093W5JryqyrZ7Wwn7Wa18ur1fK398ArW3XrWvv3WDCry5Gws0gF4ktr1jvF1fGFsrJw4Y
+	qan29r97u3W0yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zECzuAUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wLNCGrAy0JE6wAA3k
 
-On 03/10/2026 11:15, Franz wrote:
-> ath12k_core_rfkill_config() skips the hardware rfkill setup only when
-> ACPI says so. DT-based boards have no equivalent. On the Microsoft
-> Surface Pro 11 (X1E80100), the WCN7850 rfkill input reads as "radio
-> off", so the interface is hard-blocked:
-> 
->   iwd: Error bringing interface 4 up: Operation not possible due to RF-kill
-> 
-> Also skip the setup when the device's DT node has "disable-rfkill". The
-> PCI core attaches the node to the pci_dev, so ab->dev->of_node sees it.
-> 
-> Tested on a Surface Pro 11 with next-20260929 and the matching DT
-> change: the interface comes up and connects (5 GHz, 160 MHz).
-> 
-> Assisted-by: Claude:claude-opus-5-5
+An asynchronous direct write can remain in flight after the inode lock is
+released.  If another direct write falls back to buffered I/O while the
+first write is still pending, generic_perform_write() can dirty pages
+before the first write completes its post-I/O page cache invalidation.
+The invalidation then finds dirty pages, reports a page cache invalidation
+failure, and records -EIO in the mapping error sequence.  A later fsync()
+therefore returns -EIO.
 
-LLM, see docs.
+Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
+in-flight DIO before buffered write fallback") fixed the same race in
+ext4.  Ext2 has an equivalent fallback after iomap_dio_rw() returns
+-ENOTBLK or a short write, but does not drain other in-flight DIO before
+dirtying the page cache.
 
+Wait for in-flight DIO before calling generic_perform_write() in the
+fallback path.
 
-> Signed-off-by: Franz <franzelfranzel@gmail.com>
+A reproducer using concurrent AIO direct writes and buffered fallback
+triggered the following warning and made a subsequent fsync() return
+-EIO:
 
-Please read submitting patches document carefully to understand what is
-needed when sending patch, e.g. what you need to certify with your full
-name.
+  Page cache invalidation failure on direct I/O.  Possible data corruption
+  due to collision with buffered I/O!
 
-Your LLM cannot certify anything.
+Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ fs/ext2/file.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/fs/ext2/file.c b/fs/ext2/file.c
+index b9020df7d89e..67fe423c3828 100644
+--- a/fs/ext2/file.c
++++ b/fs/ext2/file.c
+@@ -135,6 +135,13 @@ static ssize_t ext2_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		int ret2;
+ 
+ 		iocb->ki_flags &= ~IOCB_DIRECT;
++
++		/*
++		 * Prevent concurrent direct I/O and buffered I/O to the same file
++		 * range. Wait for in-flight DIO to finish before dirtying pages.
++		 */
++		inode_dio_wait(inode);
++
+ 		pos = iocb->ki_pos;
+ 		status = generic_perform_write(iocb, from);
+ 		if (unlikely(status < 0)) {
+-- 
+2.34.1
+
