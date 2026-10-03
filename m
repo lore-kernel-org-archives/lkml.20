@@ -1,139 +1,70 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604BB31A56D;
-	Sat,  3 Oct 2026 14:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791038206; cv=pass; b=h0SCVEIJPOrdfgA5P8ptzzPDjBygi9D+N4XLQ8zq72LRvAQegZq4BPyKMYJNBBlmtOyhWCXjj109MdQ9RbLpkblRIf6RosuDWJrTbZQgD01sH9qNH8BiqWqkndys9s0gfRFUIEdxqzkTZtglh0zQK7RvujPy0S3UPVZ6qXfSpq8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791038206; c=relaxed/simple;
-	bh=9Egv4q97ghG6oqT2h8uxYWEJx97iLxhYm/0+T/pO2i4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=VtIY7M4czw9XDZUHBaYHrIlQ7MpD36ul/klz1uXcALvDDouL+IPBZBM1uyRmRFB68DWhrh6A5XaeTivlpcYNlZ0dPhMD0+NfJy5LToUUXNtO7Zo12/YxAZJiJrphSrJtA0LzRO1tsC0hTM04Uo89Z0FVzuXDgn4eH4fOhmFozvQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=aVP6eu9Q; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A9235C68A;
+	Sat,  3 Oct 2026 14:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791038252; cv=none; b=mqBCMc+oC1eCAH36Tu8xi1aQrGs2HifiIX2BV3CiQQvIQDJhGBcZ5yCFCYYj5F06wOqKw/Yw0yTi1+Vz2jlvpbIQwLVkIGTaHrTPNLHo40SSvfdMgS7Inm47YPqRtmQV4nzdt8r+jbXviwX0NhefYOEBM98jzAhgL4kdE9N2wM8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791038252; c=relaxed/simple;
+	bh=Un8/juDdjwn7G7DjI0deCBAAW0YpUVKLvLlVd7yrup8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NApDtNrAkRPmlN5/jxAdaYAYe4ZUX3KLrCcu07i/AtWHGwCnaheNPX8i3Oz64j5+L1kv2zkDEQ7+ZLMfdj5ncAUYxMBoRYsexX4ea/bbi30u7FMqyTvtvOVy5+5pWQ8EQvWpxmo6fyO7RRbJfebNRigmHneiSQoHOK7cFCFgZDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiyAvf06; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="aVP6eu9Q"
-ARC-Seal: i=1; a=rsa-sha256; t=1791038153; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=kLHYAhye2LfTlMwX0V6q6TTBkux+wUFvoV4mXNTnSVevlJCYF5FyMMRkdeFkH0XszsbgO+qYY2nuDmDtmuWaPe/Qry8FJt2ZBs79Ypjdi3fNNl4hpSYv+BiOAYPvjEGr930y6mI6YFb29oTMGzg8MfOcXrhEuaUKicppeQkNN0A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791038153; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=9Egv4q97ghG6oqT2h8uxYWEJx97iLxhYm/0+T/pO2i4=; 
-	b=kRHyPxPAhgGthdAaCK3cR3qk8LPjw/tJr7goGPLgT4hdbGXJLOiOJ1lqY0IdtuTXa9XDacMAmTO1f4RS03uNFPlHZxXQGT2pAIugaTweekvCg9hn+GKltqoM9snXW4m7nB8EGOvghDWut1qOUqMP68/t2wHIXMBOcPKR2QN3pmM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791038153;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:In-Reply-To:Reply-To;
-	bh=9Egv4q97ghG6oqT2h8uxYWEJx97iLxhYm/0+T/pO2i4=;
-	b=aVP6eu9QquEmV95y1DiK1BJcTJUnvthZ3+boRCVkxLohCUk8OTC/+kQtbqhGdwwC
-	V3gRD61LqmAqz0zOpqvCC3f+OHP72cIIbFN5+2qPbvitDeoBI/XjkIeRaTIsvgm5ev7
-	f6L/Rn7N7zv+L3ETm7cY0TEXFhKrt4FIczIQYM5w=
-Received: by smtp.zohomail.com with SMTPS id 1791038151074231.15688188388413;
-	Sat, 3 Oct 2026 07:35:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiyAvf06"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168C11F0089B;
+	Sat,  3 Oct 2026 14:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791038250;
+	bh=im7RalomTYcHExz9sX/F/AbBvKSoYAIBxb4JScV95Dg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XiyAvf06c1/D8xwfm7Cb5Lvl77GQT3tKwzaW6a+Q7bBhWI8uiFmt6Ww0K9ZB1pTf+
+	 I9cbQMD+3sMQ0KUT0EQEy7/JsgSwxZG//UaPdHc6QufCF6mK8FfXSLuHIoMliclYN6
+	 Xjug9m8yTE3pmFIfILauAj2y+NcOiSlB/RI4amy1QJqwx2z85TsNQ6g88RgVpbM3m4
+	 Q8eNeGx3ZGLckLryOXolXv2Rfi/vy5uI7EE512XuKJRfggTkxNlDHzdwV0cJ0ObGfT
+	 TPDSUc+TYxv1gZNbA90HKEuKIg/4ci9idugNwqibYD5aMNUh8LC6KEHhXGNjW/ZtUh
+	 2fi3uXTQeTXlQ==
+Date: Sat, 3 Oct 2026 16:37:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, "Andrew F. Davis" <afd@ti.com>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: power: supply: bq27xxx: add BQ28Z620
+Message-ID: <20261003-adventurous-attractive-bird-fea9ef@quoll>
+References: <20261002-bq28z620-v1-0-bdcc10d42519@flipper.net>
+ <20261002-bq28z620-v1-1-bdcc10d42519@flipper.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 03 Oct 2026 22:35:41 +0800
-Message-Id: <DLVA17A4RRG7.2ECQKV3SJDAGI@pigmoral.tech>
-To: <wens@kernel.org>, "Junhui Liu" <junhui.liu@pigmoral.tech>
-Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
- <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
- <richardcochran@gmail.com>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <netdev@vger.kernel.org>, "Jerome
- Brunet" <jbrunet@baylibre.com>, "Enzo Adriano"
- <enzo.adriano.code@gmail.com>, "Andre Przywara" <andre.przywara@arm.com>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Yixun Lan"
- <dlan@gentoo.org>
-Subject: Re: [PATCH v5 0/8] clk: sunxi-ng: Add support for Allwinner A733
- CCU and PRCM
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-X-Mailer: aerc 0.22.0
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
- <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com>
-In-Reply-To: <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261002-bq28z620-v1-1-bdcc10d42519@flipper.net>
 
-Hi Chen-Yu,
+On Fri, Oct 02, 2026 at 04:02:54PM +0400, Alexey Charkov wrote:
+> Add a compatible for the TI BQ28Z620, a firmware derivative of the
+> BQ28Z610 that keeps its standard command set but drops the Battery Trip
+> Point feature and relocates much of the data flash as a result.
+> 
+> Keep it standalone rather than falling back to ti,bq28z610, as software
+> programming the BQ28Z610 data flash layout would corrupt the
+> configuration of a BQ28Z620.
+> 
+> Link: https://www.ti.com/product/BQ28Z620
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
+>  Documentation/devicetree/bindings/power/supply/bq27xxx.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-On Sat Oct 3, 2026 at 9:37 PM CST, Chen-Yu Tsai wrote:
-> On Wed, Sep 30, 2026 at 1:27=E2=80=AFAM Junhui Liu <junhui.liu@pigmoral.t=
-ech> wrote:
->>
->> Add support for the main CCU and the PRCM module (R-CCU) found in the
->> Allwinner A733 SoC. The clock architecture is derived from the previous
->> A523 design, with the MCU_CCU removed and the clock tree extended for
->> the additional functional blocks found on the A733.
->>
->> The A733 introduces a "pll-ref" clock that normalizes the physical
->> oscillator frequency, which can be 19.2MHz, 24MHz, or 26MHz, into a
->> consistent 24MHz reference for the PLL clock tree.
->>
->> The peripheral, video, and DE PLLs provide multiple independently gated
->> outputs with programmable dividers. Model these outputs as separate
->> divider-and-gate child clocks. Also follow the documented hierarchy for
->> the derived peripheral PLL outputs. The explicitly named PLL_AUDIO1 /2
->> and /5 outputs are modeled as fixed-factor clocks, with their divider
->> fields initialized accordingly.
->>
->> Also extend the sunxi-ng SDM (Sigma-Delta Modulation) support for the
->> dual-pattern register layout used by the A733 PLLs. PLL_AUDIO0 uses the
->> dual-pattern SDM support to synthesize its fractional output.
->> PLL_AUDIO1 does not expose fractional rates, but its SDM controls are
->> modeled so that stale settings left by firmware can be disabled when an
->> integer rate is programmed.
->
-> Some of the clock controls, like the PLL and AHB/APB bus dividers, are
-> secure by default and need to be set to non-secure for Linux to be able
-> to use them properly. And there is also a TWD clock in the PRCM that the
-> user manual says is secure only.
->
-> Have you given any thought to this? If we end up having to convert to
-> SCMI or something to handle those clocks it's going to be a bit ugly.
->
-> And presumably things work now because the secure/non-secure access bit
-> isn't in effect right now because you aren't using secure boot? At least
-> this was a thing in the past...
->
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks for pointing this out. This is indeed something I had not
-considered before. I will try enabling secure boot on my spare Cubie A7Z
-board and test it on actual hardware.
-
-For the PLL and AHB/APB bus clock controls, the user manual indicates
-that the relevant security bits can be set by TF-A to allow the kernel
-to access these registers. This also appears to be how this has
-traditionally been handled on sunxi platforms. So I think we can do the
-same in TF-A for the A733.
-
-For bus_r_twd_clk, I will test whether the register is indeed always
-secure. If it is, I think the clock can be removed from the kernel and
-left enabled by its hardware reset value or by the boot firmware.
-
->
-> Thanks
-> ChenYu
->
-
---=20
 Best regards,
-Junhui Liu
+Krzysztof
 
