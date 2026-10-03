@@ -1,141 +1,124 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C03345EAD;
-	Sat,  3 Oct 2026 18:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43455363C51
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 18:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791052229; cv=none; b=qblfz+Py3LpJWtx8Kpd7osqSzb4aS5hC7S9gAX1GewEkXtU77AtDaUt9SshzpskbXf0PKqamtAwEVoKWTruA5FOcaCQQg7G4cU0ydpwX5soDyJ5QihWcEFeY14EIWCv3BM5cZwLgiyVi4tqeEbn6laf+EyLQZHRfrrAGh84nJQs=
+	t=1791052372; cv=none; b=E7rYenkfvjuoNE+oUCVzKD0ileXUAnF45qjwwiinyTS/B1RhCzrGZl2YBfb8DziqcAShoTzUpKE4SL6tAhGjkg0APcz8O+tBZjlrkq2y6eCoc485lgb7V76wplkmBBXzYlPgImVLOWrYV9Suv6zdUQs7kK2/Wceliq8vUJdeCAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791052229; c=relaxed/simple;
-	bh=4DDED3zIzc+7RBVcH2Fte2jeu8/DJz/VTtW1wirbE7k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D04zgL5NASRrLITMT+s7lVe2qzoRaeGSuaM/dTF3Yv5isc+VGKzrThEQhRQ6J1G9f4uVIWMLdi1DNXeSUaWON4QRjyDCcqWkYeoOJnbOPspFQbIn4eRJWprG8BB1Cq1swN3U3Z5eLcC9g/q0Br+9ouEay+NuzoV+HSns5p4DfqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=UyTp9Y8+; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=wUADzkjK; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791052372; c=relaxed/simple;
+	bh=4O9b2fhqkP+W3xXPcxSroMY1Stl9Hf0z/8z2N+sFacI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oTNPeHIW2+8kGZei3+7rZwC+X2bl7EyAQ4qAhieep9+kNLqn1IEV2hbW091q52BBqEyvUhreTsX0osuv0Ox3pa+SKK97Z0AHrtBLkVykjeLXmNjOBGz9/nO+ACizIM38IugzXfEv++pKKyeJ9NH16A1qi2ZeSjh7LRHo8L8lmaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JwcM4DdX; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="UyTp9Y8+";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="wUADzkjK"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hxvN21Hgwz8v0B;
-	Sat, 03 Oct 2026 20:30:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791052226;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3XWzyX5wKENt/CbH0T2GGbHbSs43L4PYrG2+4MnK15g=;
-	b=UyTp9Y8+K1jktQEoxF+aaR1XBPl251cZBoX5hex6AdbHBIETz40H/qG2XR7F/n5uHSWWBR
-	z9SNN5EBrCX5D/yt3sBeVsRJqH7QT92rxd8vTSTcq+8S4Eq0ps/TKuxrAdJkUFkI03yz+s
-	XcAagj4ZipZBtB0JVxQdSmq90rTEbeAJI7mpzlQjucD03igXLzrPC3pcaoctc0+AVuYH3Y
-	WUsKZ6+A6YUc9qaCrCswEk0WsBOdO2srqETySjwv3yIwJh3XVe95aGjWcHSnU/cLJ+tIXp
-	WciyScJhFn+ikPsGO8tfy0K/NBmoy78r7BWoqrwtYDuDPDNVO5lhgl/DPk518w==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=wUADzkjK;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <d675e0ba-10f3-4503-bc2e-61977f4a5875@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791052224;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3XWzyX5wKENt/CbH0T2GGbHbSs43L4PYrG2+4MnK15g=;
-	b=wUADzkjKQvNUkIxSloR+zZBkRA/e0KH/N5LBigIHb8+fTeLF5yASDsJ1lrJwFjQfJXvEyH
-	cdeEwc162WID+c/6u5Kmmqx6XfSsEIs7bkJPGjosdIuByZfxyLKJu9/ZRCg8a1QDHkOYhK
-	T8v8XwZUlRGKV9xNtSjrGMp12GHZ8YD5vq7oE+aCOVWcFXUAT4aBqEIMMsxTURbdB0W1f8
-	6YD3lL/qPL+IlXH6IU48J4aotYfmeAY0LPlqvKkrOS6ggNeju/lvonqPFcUMDUnZ5I1nR+
-	wHWl+/Bc/nAdlBNSnuQ/xeh+ysOxULrDbKNPvi2hnudEnx/Mc0ORdLXCTshYbg==
-Date: Sat, 3 Oct 2026 20:29:55 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JwcM4DdX"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3511990f211so27382eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 11:32:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791052369; x=1791657169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NjhFw2Ze94b8Op4Wrc9mSVlEKmb9LEFTwAUiX7feoLw=;
+        b=JwcM4DdX/Lyry8WJG1nMvsKFJZpTghI5xUrcoNF0rp7DfJeHIUl6XRe62jTGwgrTL/
+         FhuvSlPospUK3tGyqISio+7pwGt8K51eiXiwdus5TixWBeZT4oJewImGCw4NXqaTT4s9
+         NiuNKg6wTQ9YOGC6iL4NXIEqbBCxseoHG4DeLTUoUlL7F3D/57iayNFObP9jS3sUuDrO
+         YVOOj12qTRDyutpDhF6w4nyfyA8/GFjGveyDvsYOLOzOGDLp3yiLcnwIHDXF9kKixVvP
+         1V9sltluPd7gN61c0Yln9Ei/+LikpjaG//NUXX6vaUscV2z+WrfA1wKzb/67tFYWkmOx
+         l7pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791052369; x=1791657169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NjhFw2Ze94b8Op4Wrc9mSVlEKmb9LEFTwAUiX7feoLw=;
+        b=S2Tt1a/ZUDEeI08JfTpLqN0HCNk3BJd6JFVL4oXl3LEu0jMwDY7fbuePE1SWK+Cjnb
+         M7vApqQjWRJ3lIZitJEvaBARkA6zAJe7d6ci3cW3K7978fnAEewJGfRH7o41WPixjzt9
+         FABhGBa8sRRf2aKEmOg2snNf/vi6VXqPlvlRXE8yAj1B/JtHLoq8HuQDUSqzhB6y7VeH
+         Mpe7ZYVs0lMUr995np7bDM4UVt6AhJCPyUg7SB2RX4/vlaXwuzDODVrjQXEyolWelglU
+         lxyRVIfCyFOvPUcY/HDlR6phK6SPe99wcds1q1IAzD5gI8WX9q/gETG+oP9KZKB1lK8F
+         TcGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwWAAREFNAsnFTq4/5AHS6cDwKMZDwrL/+rrFh2cuIWWzqPFN+px9kGEo7hROXN3hcwV+QaeEP1kon/g/M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3U48zRx1+bJQtypI1H7/AsO7S+FjHAc2fQqH8MdfogT4+NGRp
+	KtJOX7UqzZ0frO8PXgn4ms8qfA5nwp5t9cAu1WDrW+KspCd/m6zA855x
+X-Gm-Gg: AYBFou35zM5vplUAvtxWVCHjJ8S6VZNbvmdJkh9c80jwm5QlLXOqhPVfn047srb/rRN
+	5YJOHEiLtYmFe05a8n67uoKNymawMNUVvsvlFill0FKs+8Rnfo0HgIoOCP+Z7wqzIDs3dN0c8UM
+	A7BykIDylfGtjiNzK7H+1nE722QAgUDQ3cGTvYV5F7Zb37sWUnd3PUW9UePQyChJG7NwcdnT37F
+	HnVCugDDU2uT9xy4v7OdBovDtZ8kfKiBijfV3gYMYcw6L9Ke+MST9pTyJVKwic3B3rBe0lz1ZNf
+	sstBlwmXtQd2JAhAaoHX6p+kkKGJuRNihYXHwsJ3Ao45g11fYx0ubzgn20FOKVDVQlt+BiiAihF
+	fnXWuLdzdpxvyMqU/SSbHsZRY1tHPafajSWIgeZBtJ0+NhDKS2x58kUiK5SSyvU96QsmjX4mK0j
+	uiFT1Yt9bB8eu4YKdI3t+NFg2pPuBiiMHuEK+vcjISRNAGbOyilyK+/GC1rv8dzRxTbWUstcNwu
+	aj2glL0ZZ0xZSUxbimAwlEIUGokYnVxp3QQPXcS3+3M5cLt5jjxw9ZLqYu90KCXmjyVww==
+X-Received: by 2002:a05:7300:24c9:b0:343:fdea:9a0 with SMTP id 5a478bee46e88-34f15028c8fmr12536988eec.2.1791052369159;
+        Sat, 03 Oct 2026 11:32:49 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14fd9698sm17118191eec.23.2026.10.03.11.32.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 11:32:48 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: alibuda@linux.alibaba.com,
+	dust.li@linux.alibaba.com,
+	sidraya@linux.ibm.com,
+	mjambigi@linux.ibm.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com,
+	horms@kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 0/2] net/smc: fix link group teardown races
+Date: Sun,  4 Oct 2026 02:32:35 +0800
+Message-ID: <20261003183237.2284245-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/15] PCI: rcar-gen4: Check live link status in
- link_up()
-To: Koichiro Den <den@valinux.co.jp>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928165230.3397664-1-den@valinux.co.jp>
- <20260928165230.3397664-3-den@valinux.co.jp>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260928165230.3397664-3-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: 3myrmbc5yt3ys84udweakafq3q1dhd8j
-X-MBO-RS-ID: 502345ab8c6074d3f58
-X-Rspamd-Queue-Id: 4hxvN21Hgwz8v0B
+Content-Transfer-Encoding: 8bit
 
-On 9/28/26 6:52 PM, Koichiro Den wrote:
-> rcar_gen4_pcie_link_up() checks link state using SMLH_LINK_UP and
-> RDLH_LINK_UP in PCIEINTSTS0. However, these bits do not reflect the live
-> link state. On an R-Car S4, after taking down the endpoint, a link-down
-> interrupt saw PCIEINTSTS0 = 0x20a000c5 with both bits still set. Even
-> after resetting the controller with the LTSSM back in Polling, they read
-> 0xa000c5, still set.
-> 
-> As a result, dw_pcie_link_up() keeps reporting the link as up after it
-> has gone down. That defeats the check in dw_pcie_other_conf_map_bus(),
-> which is supposed to stop config accesses to downstream devices while
-> the link is down, so such accesses go out on the dead link and stall the
-> host. It also makes the callback useless for the link-down recovery
-> added later, which has to wait for the link to actually come back after
-> resetting the controller.
-> 
-> Keep the APP link-up event check from Figure 104.5 of the R-Car S4
-> reference manual, but also require PORT_DEBUG1 to report the link up and
-> not in training. The callback then rejects a downed link even if the APP
-> link-up events remain latched.
-> 
-> Clear the APP latches before enabling LTSSM to discard events from a
-> previous start, and only read them in .link_up(). RC startup uses
-> dw_pcie_wait_for_link() to poll the combined condition.
-> 
-> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
-> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+These two fixes were posted separately, but both change the link group's
+freeing protocol. Resend them together so scheduling and early cleanup
+use the same locked teardown transition.
 
-I apologize for the late reply.
+Patch 1 serializes the freeing check and delayed-work rearm with teardown.
+It gives freeing its own storage and sets it under the list lock during
+early cleanup, so another connection cannot rearm after cancellation.
+It also corrects the cancellation comment: cancel_delayed_work() cancels
+pending work but does not synchronize with an already-running callback.
 
-Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Tested-by: Marek Vasut <marek.vasut+renesas@mailbox.org> # R-Car V4H
+Patch 2 excludes competing early teardown and pins both early-cleanup
+callers through their ownership checks, including failed registration of
+a new link group. Each patch retains its original KASAN evidence and
+Fixes tag. The evidence comes from earlier instrumented runs.
 
-Since next 20261002 now contains commit
+The separate pre-existing race in which an already-running free_work
+callback outlives the group is outside this series. The callback reference
+and cancellation mechanisms are unchanged. The socket-lock versus
+abort-work wait cycle also remains separate.
 
-f29719b5064c ("PCI: dwc: Align register macros with Synopsys documentation")
+The series is based on net/main 71a77ab76e74. Local validation results are
+recorded alongside the exported patches; no runtime test is claimed.
 
-This will need the following slight adjustment:
+Chengfeng Ye (2):
+  net/smc: serialize link group free work scheduling
+  net/smc: serialize early link group cleanup with termination
 
-"s@PCIE_PORT_DEBUG@PORT_LINK_DEBUG@g"
+ net/smc/af_smc.c   |  8 ++++++--
+ net/smc/smc_core.c | 16 +++++++++++++++-
+ net/smc/smc_core.h |  2 +-
+ 3 files changed, 22 insertions(+), 4 deletions(-)
 
-"
--       val = dw_pcie_readl_dbi(dw, PCIE_PORT_DEBUG1);
--       return (val & PCIE_PORT_DEBUG1_LINK_UP) &&
--              !(val & PCIE_PORT_DEBUG1_LINK_IN_TRAINING);
-+       val = dw_pcie_readl_dbi(dw, PORT_LINK_DEBUG1);
-+       return (val & PORT_LINK_DEBUG1_LINK_UP) &&
-+              !(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING);
-"
 
-Thank you for your help !
+base-commit: 71a77ab76e74131a101f4d2d2afb0dcbf81b4e3c
+-- 
+2.43.0
