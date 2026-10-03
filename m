@@ -1,116 +1,128 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85F8361656
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F263369D64
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791039352; cv=none; b=nWpJ+QDXzS9KApDBEHVNu9jNSQ6E2VLQK2xelkxaBLNP6uX8Gc5hB/qn/yi34aFfpiZ8XoolV9q/3V2sgaoO7j7tmb05mp1NVgfr8MGZGEBx4DJuUSSU+nL/fbJaistyR7EbPh5X19NsRRdJkRWbYAltFLwm5krV+FVymon5dNA=
+	t=1791039360; cv=none; b=l6uDVFHfk15Vc/zlnYtzJs369RgUnHqIMwfcGutDmqh6wFvHGcXEiLf7WzfP81J5ctnjZHhs6SKfA9ZoPpv/s+czbQ4eBJrRW369TSNVaZ0Kt5UFfSeG/poqN5DfsJP0oE+pLcwk1y1BLEd9INzkG7emrC03b8oHrSpKc96c6PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791039352; c=relaxed/simple;
-	bh=WArJ0ScyxSii9H7PaRiQMtAEomtM/1fqi9qP13gY+Fw=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nXuWJXUTMQp6l0W7zhXch/g4Ob0te+h3XGrKemvTYfZNVB5+V7/mts4RhSCYaklbYp4CH9yfba182Dvdwu3q29XwHUa1aMBcXEL3wK6rHO/Bp+Sz59qQuCbBmzwIrGFulBbXvko8fbCJMJc9zMMhVg2GB1bU/u2EiipYzlzB3lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/q6Aa8z; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791039360; c=relaxed/simple;
+	bh=iiq1yOvEgqw036N7/Kq2tzuG+oUtJ9zHzp3+n8iAJ/Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WxuPOFKvfjPHmDago0xfWQOFh8tTuy5Ex9sbOE4GjfLsyJXvOogQu0SHl4eVR0m/m0Zp6Tros3IRe2UWIn4oVC8KzGPrHsgigfpXMSzUWn0LQ3vUChYPMDBGgQLYmt1Y7WpN3KEKodo3y9rz8P1YHAIfvUGW156PfjVc/pz5IQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c7n5ggVK; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/q6Aa8z"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3453dd0dso125372866b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:55:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791039349; x=1791644149; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o+Aejwp62NAjE670ErqLzn8fectXSGBwtu7EOzdsFnY=;
-        b=h/q6Aa8zL3NcPwkVgFAOFpWWoHQ8DTSnzUcLfq70dZxZnsSeWLoHeZnju9wAXx+O8/
-         ZF8radJ2ZnC8vFOfuVY4dFb0ytlaVYj2/fWaEm1NHJRGAVW7od2sh/Gs8mo9KrAQa1r3
-         HyKjo9ZwiTlvDgKyB0U2UwJuxD7mriOrVB65H7vhphap9PtH4yZwKLGbqdzoQsPv3jhw
-         W8ZMrnRil+NC1rUjWloc05Dnogoi5CDF3ykNUANGSuua84ZmB5NU8qcg9/PaEHFVROsI
-         TRVaHyVyObbodtSXSaZ1OpdjY5bs6OFm5n/Rv2pAy1sS33Xx1hsQzIzZ67BCizdO6el6
-         IPpg==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c7n5ggVK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791039357;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TJ+CZ2ko8FayCrjASuAr19+3e2iBiy5YcdksjdcrxFA=;
+	b=c7n5ggVKYX1YGfCGZSAV7qbX4yULZlju2DHncdqulXCKAI4NxW0JAks8nhLNBC+5JKkskL
+	NLeIDLTQ4nB07VeleLJZ7daNYYKJyHZuGWnvUAoF/NRw3XIdH8iRYjSPkr6D8s0boHZKvT
+	a+0peDj9ofXaBsPOn9OuGssgNz1zcEA=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-215-OEF5G3eRNNaPSU3WLzSqaw-1; Sat, 03 Oct 2026 10:55:56 -0400
+X-MC-Unique: OEF5G3eRNNaPSU3WLzSqaw-1
+X-Mimecast-MFC-AGG-ID: OEF5G3eRNNaPSU3WLzSqaw_1791039356
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-532d420abc1so9972621cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:55:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791039349; x=1791644149;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=o+Aejwp62NAjE670ErqLzn8fectXSGBwtu7EOzdsFnY=;
-        b=Ig2xZE1J4GAREev9O4odSZkwXdqFqaRM6YVSDhzRAk4K1ueCFuoI1zDrk6NUOIiUzv
-         j7mi2evfLF4kBEMiEc16CFwd0sezKFh5BJBKRCvxbwrg+4odvC+/pbo1pw7epFBrxEhs
-         qtpzgsll5RfTIYS7YOe/cBSMa55jzTxgs19zzgmMAAZRmeNes/Xh/fGxEu/Jo17OUtLl
-         tPEOUrVhDdCeGjy4KoGN4bgmwhQGJtBU8vSOwSvHlRsZ4M1hL91lsBbw9EktGNzHi/tv
-         xSpIyXNqvKmPafNHftGMh5XS9NMOE3V6Cvf08xJXkhrx8BbFPwkMB8iOeQaJ+/oXqUcC
-         sA7A==
-X-Forwarded-Encrypted: i=1; AKwUvBz83US16hpqDChIlBRqZ+mAJO3brCoXdGx/w/nhAh4SmsFTNbpuJnpvaOgKbRR7kQfrt0MyKV+qGYmvH+k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIow+qV+4xq/y1ZFXX/N49nxbDzG7UAe3wyO5nHV8mM5NxmgLh
-	KylDU5+ZD3LEvjF5SeZ0esKqS9i7ENJRKCO5OMwO/PmFPeMpo4uRStHx
-X-Gm-Gg: AYBFou1kbsaW8zQDOP99Av/qdNadpTiWCfNcXCjehBWKNkdEuECBhsrCgzD1dq2EJJL
-	LNzk63IL/YIZ3VHLgJUBEIlaJcYRHFys5Cmieu5hU4YQDDxyu43lKNj1QklKuQlZL/TUkoPjCSL
-	1iiKNCblSgA83ZXhyfQuvj2iBj3CuzqWKJWSre8QJz8GdpPbsvD+KLdaaA20y3ACTVCPKE/tNiz
-	KR2fUe+oKsS3APY1/FCCKrr90Fc9S/pE/irHGFW+9G3bNROxii3qmHNZlBVO4iWc+eZthe9WqjK
-	2JCJJZCDiWUprkvTFVhRf2vDP95I8FFCVfpSAnxNRO1xrT6WFAUyKsmLUC4Xj7+0LwRTswexzjE
-	yHa45LeFzhlJ6qt/liSSDh0+yxe3D0MXWzU1+5lNGVJdTi8KnuEnvjYqPSY1qxZWQEbRaWZHZOr
-	9vsu8SPfoW8brKuelFCHakZVu0fKBKSa4MUhIvgNvSNjxAzpg=
-X-Received: by 2002:a17:907:7fa8:b0:c2e:4292:d26b with SMTP id a640c23a62f3a-c2e4aac022dmr509937366b.17.1791039348809;
-        Sat, 03 Oct 2026 07:55:48 -0700 (PDT)
-Received: from pc636 ([2001:9b1:d5a0:a500::800])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd26bf8sm198418566b.35.2026.10.03.07.55.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 07:55:48 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Sat, 3 Oct 2026 16:55:45 +0200
-To: Barry Song <baohua@kernel.org>, Wen Jiang <jiangwenxiaomi@gmail.com>
-Cc: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
-	urezki@gmail.com, dev.jain@arm.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Wen Jiang <jiangwen6@xiaomi.com>
-Subject: Re: [PATCH] mm/vmalloc: bail out early on invalid page_shift in
- __vmap_pages_range_noflush()
-Message-ID: <asEXcVSK1XL-tIa3@pc636>
-References: <20261003090430.91664-1-jiangwenxiaomi@gmail.com>
- <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1791039356; x=1791644156;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TJ+CZ2ko8FayCrjASuAr19+3e2iBiy5YcdksjdcrxFA=;
+        b=VyIL+o1pckhS7dL01o6Gh7TIZodYgOeybIdBcWFs5z6cfuyQMkayJZyb1XMCfB1XTt
+         UgSS9Eh3GbuFTmx3CU5rtf5IxTONg2M79To23VWVLl8/GKWl9Ndj13NReoAuRE2JjgYK
+         pQh9PbCb1B/qxQD75fT4Kpu0hMaLDewmwBKFujfDefz3hhCDvQwPEmDriFwgBxnCo3W2
+         LJNTi1LcYYDCKorr+71WiGBL8x79FqaPEYtR6BQYNwr1Zxpl1TDvSCbK3HK0kYZHH8Rd
+         rZsyZrMdtrOLGn6fA2IjkvDydNKniTS0P8waOHezKlmOlwHcj+u5vhhTycZouiQRlxKF
+         zWcg==
+X-Forwarded-Encrypted: i=1; AKwUvBx8Z4KmqcYDNpH8Z4M4e3WmO+FNDZFe7KTqPzPvrxzQrV+qbhFEoYCH5apC+Nkte1TqL55u2v9kbwMr5Vg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPr17Xer7XU/6Xx6pYP8j+2Wc346WN0osq4lZxhggM5b+ja1lI
+	mioa/n7qXeuwUGVptd4HhUcZmr1vmxHjg0FF4zoa/P/JXYHJSFA4qzsqg7lwd3zEMvAaBDuv2k3
+	Xo89iQAyVAhcHTK2b05KN/9JZszloqFzb/ZrE57/UkNpEKfe7PLG6LXN6nTAl/boYtw==
+X-Gm-Gg: AYBFou2ngZpRbF9B4wFCS9zViElnG/KTBsVGn1fLepIyYG4Nac6U8cOKxPOKhxjsoIj
+	Rj/M4wfWQh2/DitFfWr8i6qzWtp15JL6ntiW8lWE1V65mwyQEPFE7O2utU59E2DsYEIsv1YsO1g
+	ed97/FVZMcm4EBw1/ZnZVWC3zYrkejQFt220RAnxwO8jHbFmmG4FdkHKCNdlRlO7r8LEt3CuVc4
+	V7OiHHucbMbN9L7GUMgjWnNdCuqyBOPrsGEFdzGsnlKDtGEbgZVKMTfzRJ87WYWFD67vz2FULCE
+	xPjbNAwBPS1T8HIN2zYM5J+vMFufQLVuoP6RwDklo9afhqFvcTBicualhozvxcyiFGKdGlHLPOx
+	giYI=
+X-Received: by 2002:a05:622a:1482:b0:533:96b4:8dd1 with SMTP id d75a77b69052e-53511e4e1femr44616701cf.26.1791039355707;
+        Sat, 03 Oct 2026 07:55:55 -0700 (PDT)
+X-Received: by 2002:a05:622a:1482:b0:533:96b4:8dd1 with SMTP id d75a77b69052e-53511e4e1femr44616411cf.26.1791039355289;
+        Sat, 03 Oct 2026 07:55:55 -0700 (PDT)
+Received: from [192.168.2.110] ([142.172.30.162])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5b6d6sm52871341cf.9.2026.10.03.07.55.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 03 Oct 2026 07:55:54 -0700 (PDT)
+Message-ID: <4a52ea71-63f1-4b78-925a-233ccb4edc61@redhat.com>
+Date: Sat, 3 Oct 2026 10:55:53 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 06/14] mm: debug_vm_pgtable: use
+ pgtable_has_pmd_leaves()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ baolin.wang@linux.alibaba.com, ziy@nvidia.com, lance.yang@linux.dev
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com, usama.arif@linux.dev
+References: <cover.1789695931.git.luizcap@redhat.com>
+ <e7edf7e42f88d361c177e1baa7e2138c193f0805.1789695931.git.luizcap@redhat.com>
+ <fd486bd4-c166-4b46-8047-0a777b239d01@kernel.org>
+Content-Language: en-US
+From: Luiz Capitulino <luizcap@redhat.com>
+In-Reply-To: <fd486bd4-c166-4b46-8047-0a777b239d01@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 03, 2026 at 06:02:37PM +0800, Barry Song wrote:
-> On Sat, Oct 3, 2026 at 5:05 PM Wen Jiang <jiangwenxiaomi@gmail.com> wrote:
-> >
-> > __vmap_pages_range_noflush() currently only warns when page_shift is
-> > smaller than PAGE_SHIFT, then continues with the invalid shift. Return
-> > -EINVAL instead so the bogus argument is caught immediately.
-> >
-> > Suggested-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-> > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-> 
-> I have checked this carefully and confirmed that this is a correct cleanup.
-> 
-> However, when I applied your patch, I noticed that the author and
-> Signed-off-by do not match.
-> 
-> Author: Wen Jiang <jiangwenxiaomi@gmail.com>
-> Date:   Sat Oct 3 17:04:30 2026 +0800
-> 
->     mm/vmalloc: bail out early on invalid page_shift in
-> __vmap_pages_range_noflush()
->     ...
->     Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-> 
-> 
-> So please send a v2 to fix this, and feel free to include:
-> 
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 
---
-Uladzislau Rezki
+
+On 10/2/26 3:19 PM, David Hildenbrand (Arm) wrote:
+> On 9/18/26 03:45, Luiz Capitulino wrote:
+>> debug_vm_pgtable calls has_transparent_hugepage() in multiple places to
+>> check if PMD-sized pages are supported, use pgtable_has_pmd_leaves()
+>> instead.
+>>
+>> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+>> Reviewed-by: Zi Yan <ziy@nvidia.com>
+>> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+>> ---
+> 
+> Best to mention in the description that there is no effective change as all
+> calls to has_transparent_hugepage() are predicated by CONFIG_TRANSPARENT_HUGEPAGE.
+
+OK, the new changelog reads:
+
+"""
+debug_vm_pgtable calls has_transparent_hugepage() in multiple places to
+check if PMD-sized pages are supported, use pgtable_has_pmd_leaves()
+instead.
+
+No functional change intended since the call happens under the
+CONFIG_TRANSPARENT_HUGEPAGE guard and when CONFIG_TRANSPARENT_HUGEPAGE=y
+both functions return the same value.
+"""
+
+> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
