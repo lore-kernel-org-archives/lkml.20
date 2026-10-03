@@ -1,63 +1,63 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0998147D464
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACCA47F774
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791044157; cv=none; b=P8ZW14FHmex0KM2TlRmBcGzp99JjTm7aVwnQJO8aHGAEAhgxvmR0SXw3qFaDeT2tQUHcetqnpqLacNKmHUDYNsxFBdJYaCjRhx4VHKXpEwOQhFyBoAWVtUNjQ7jlLdRBUPrylhNAgOCXYDq3+a1UBCqaFgVMGYIj99x3H5TjqNo=
+	t=1791044159; cv=none; b=Z3XtV33OnYvrbD5l/HXdHVozG/VXPkhCKMiGJVpmMy1iBimfIp5zCN3A+fNxHb2NIY6lPpq6bM0kRK34WSFWvmzoni4vTwaJFwN/wuK596PN9aLPcsqnDZ1F6yGz7TmeXADMCogvnDwl7D9gxrr1DX6rH7TLxj5ae4naAhTBJX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791044157; c=relaxed/simple;
-	bh=IqX4cuiZOSTMNkwOUZgJRhPlH5cYBJ7ZGzsXK6vo020=;
+	s=arc-20240116; t=1791044159; c=relaxed/simple;
+	bh=7hVQfSPWmJt+ZjB8lin/xSrAcr+IAyT1V8vPe+DsKbM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VeRSwReFLoHKhCAco86D30feyaWhVE+SXtbM6CbAJbJlZpJXrDXI4ehAim7bwQa1EGKXcUqSpaP7J71L/VobtzuS4TQuZ9druTOOIk0CfR83DZkwrx/167d6KkVsHjHRP1CeQe2L3RPCtCrYYSNBeVgmA7IGgb6v+xKYZFLlnsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mgZY8fwk; arc=none smtp.client-ip=209.85.221.54
+	 MIME-Version:Content-Type; b=T6MQ2fUIgaNnCh8gca1SmTsmOPBA1RlUDvdBMsupm4XAXeBI3YixnMLupViBwvp45fzC8pZEcF/ZZO9CoNDnVVYn41iPcv1aBRzIBT5DHQ5dZ+/XxgrnTIo+BOCO0Y7E8d10+XPAKdI4BRSndunMmhXx0nJx7LJmzZmBRPQqOxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NRicW8/v; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mgZY8fwk"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48afe75f055so422088f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:15:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NRicW8/v"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso6544505e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:15:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791044152; x=1791648952; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791044153; x=1791648953; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=eJALif/NZKKKwgBHANRUIYhyULS4mSKxyPgmAZ59sbU=;
-        b=mgZY8fwkX873W91xTHmVQoFSH6aPKlPNlqOsIsbO7L4hoStgDqQgRjUMrPwxb5IIYR
-         fTpRrqIlZ3H+Mwz/XT3K2F1KWETZuC4IlsSDqtHbgYL7bG052Dn2GoA3266kFCH0Kvnz
-         klDB+l/p6HFQdgPGAucSqWwJS7B/1B44RPEl+iyPEe9sCadT4keif6f6VYJJtPOIR7Ph
-         V+INPEn350V55u6wjescb0yCzWUbEDGDMV8KoYl8SOCp9jMkMJKuDFGZj6S/vhb05KNW
-         UyEOaHiZj+q06VIghDb8N3r0nygmmECVCy80JKAO8aLwGQP+kSoHYz0iV5bs8VSuSoyJ
-         RV/Q==
+        bh=ya85XkpyrpMe6Lfgalo1nGODKz5TM2XHUGeehhaYQEs=;
+        b=NRicW8/vdj1EMMQRoJR0Sw4wZLJqdmpXevPuE2uYcVO8EBziWXWC0u2eA2sIAHBXyL
+         hdPvWTBH5Niw2cka9nFKR3K946tAdfdWb4TDqSjVWGkmfIu+LrvC9e7pPxCDFpfNX/w7
+         KIL9V6oeF7LzVp0Wik/CgCmXlSMJGIU+R8uXB7BHA33ffkoYs8yweExre9dfofxfwwLa
+         0NKExX0GS2moa26thWLizKiIOJm4b3uoizpNQnmkZGXPjKc9kGRgDB1+3WhXaDH0rHko
+         Vl8DFe2bmjl6+IYwUaRKTRK8CCDTTo/EOT2gTVnNF32O92B6vvgzizubv0y+NqnVgRv9
+         iTHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791044152; x=1791648952;
+        d=1e100.net; s=20260707; t=1791044153; x=1791648953;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eJALif/NZKKKwgBHANRUIYhyULS4mSKxyPgmAZ59sbU=;
-        b=aXwDdQQZPL9IYX2QhDIVjoh7NG75og7HyK95WqGHXXjgcBcbkW5B2BOYWnqDl6eRof
-         vOplvohe/hLp/dkudZj6zEynaRGXo/ZDPlG2s57C8YeBoQ/FobfBAYrM2L/AGLf3Vu7N
-         1yHAG3wkXJdnTDVTWDzxQMBnyYtFAmZDUpfSgM99k9Y/ojUgwaFExl0QkrapCCNQ/ZFj
-         rkLSNo4UnTLdpFFPYp3So4QUjdza/FLaWy7aA8RZCVu/0ulQCDSWhafnp5w+R/4E3qlB
-         m+ROSrWfzqlJiKJJTmJJD+h7uTMjtrKOhPtNwn3BMTZww0w4Nw55n7nq4/rgi7A8P7oV
-         2SOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwl8qmHn39g79rJYrBAEOe1M/8Y/j90K7ci7sRKSlKNEuvP4GeUFkRQq0Eh6SKHSAtoirGu/J49cFaTLqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtf6okMxM92JBlVU5TDH8WdLRvjIYhD/HZF9cuS6pTAJNZ8QKU
-	Eg/OAxHZUoX0tK8z76IvMZPivITXYJdGrJUUcG35s26AOV4XktJkGJ5t
-X-Gm-Gg: AYBFou3WII8vgkL3vVLtYOM5NLnbtM91yq4rI2S/NZlA7HkjvIPMWkfEmBzOh5GD3NV
-	ZFPshDqGm05gHbXmshD8WWLmG3nI1C/HQ5+O2tZ4vSNhqj17ULOHnJilT+kbtK0fJJmKFL3Nj1i
-	J4Qusm2tdvD4woVPc4e7X7qJwRzaOnruCKo2KwkmfNPC2ORZVcXOu/HcsYzRBnOgddCQpSB95pO
-	y7RSyTLaQzz1GCpt6IZwil+8nBSwUkJEf448tIt6UAM01Ufc83n/MbXDXT4fVtxWxmrg9/T7MRd
-	8qhOiW2rNnmRYABEBpCtQtiaXylbNRQFYIh42FNzUsXano1qzKvMTvHIGXWzIn7h/XSm2M0yUmo
-	9rYk9hygiRmvEOc64gAy0z5VihHHWwvDsrbHlCp0hmYQcWtJgdVZS3c2+tPs08CJZ95QMfK1OvE
-	tkkZbtsezCaIQkkVLPfhd4upltLWENlZdDRD02ASdfzgQZnNsC8n9wXzSsAZSBnWX+eK3F4YvFy
-	PrdrUDWJ56B5nyg+c3x1SSggnN0/4COKovVmG+BnsTHXXNLSuvjwD2L3UCMnzw7qrxF
-X-Received: by 2002:a05:6000:2382:b0:488:84af:caf8 with SMTP id ffacd0b85a97d-48c48018dddmr3795373f8f.55.1791044152278;
-        Sat, 03 Oct 2026 09:15:52 -0700 (PDT)
+        bh=ya85XkpyrpMe6Lfgalo1nGODKz5TM2XHUGeehhaYQEs=;
+        b=LW+hPDccD/ruV87/5/7c4i3VsA5JPvuogv6LIrsWebW3K9e8ou+XmJH9thpJqX+gRT
+         /hBtSCUJRqgguE9er7JzcpioaJNOkdXSYqRTnxJB247of9pEnGX1pZmQzNqOdIaWbkVM
+         CuR55SWt/0BIQiWv9zHN3z+Hv7/4Eq95OBFBRS/YZkD6x0b4rEFUstt3Eyrxkurx40n6
+         3kTiGG2tIfTIRMBiOoy7OsGLjdEzllhNBTRcd9H3xPH2wwse4DjoClmajJ9fmRLQb9/2
+         mCtaIaYdaVxz1KzDhIP3sKOg7+yEU1QORpZkv6b4Slj0Uncx9rtq7HMVfaJQhwcmxhd8
+         1tWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzSDzJtiZyzjZDDkfkNzJ/3Rhh/2cU2eR/KioCjrId9+5m+zI0qVp7KL0N6LwLG44vympGJkyREQTlx9HY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNEwOknFyM9vCBRTza9nDY6XHnHVB8fOqeJoJt4MJFHeFhbpvV
+	yqN6A7Gc8Epet+deo9LuH0zYdc3qCd7Sddy9WCvYkUapBjOexK0kXK6o
+X-Gm-Gg: AYBFou3XMt1wMYfjkKRNAzJt5LRkDp3awshxt/D0FJtv3sMJVkmTi1Nz419oaiB0sTj
+	rgEZH1vRyZCjdeV0GHwtJN1b8uBRz1VbwV+LLSErgn9obv6eRYf/SKf08sJ2hrv1v5tzB5UToak
+	UBcMUVLUyZP2XPXKetqjPOq2O85TvxnC5vRTguwa27OYGm1uEPYlvOir+QYaHSkJueEQsjoaVY4
+	UTh2MZWzTpjpEhtVqrq3wnJ6tIqz8tsTXdVFulZpz2JvORpPnllD/qpREV1aLcdnmASlN8o3TQc
+	LQsBE+97oO/C6dey+VgEYCKZQSDrxJ5LHL6Rjm7vSomaTBqEE002DRYlU8JJ46UI819vxgorzxg
+	K3bhxSiifZXtdgHAVeI4WEasialEGNwFY+XJSzgAvmdWTP7pcCNYs7tNmo1TeKcBynd1vT75teg
+	epLltd81XHzMY4125l3tIRP5X51HfNu7yX4pkI2/RBtGg1u5RGsI0iS7ZKerwf61+vRDVN/9xED
+	te51IyXTohLeNL7sdnW3zZxbwUk7tAIbylKaR66anjk00rHWxsa/wAg76mvi9zyVf8W
+X-Received: by 2002:a05:600c:4e13:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a02757999cmr98416455e9.16.1791044153155;
+        Sat, 03 Oct 2026 09:15:53 -0700 (PDT)
 Received: from localhost (p200300eba703ae00ca7f54fffe019321.dip0.t-ipconnect.de. [2003:eb:a703:ae00:ca7f:54ff:fe01:9321])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8c4asm14067659f8f.37.2026.10.03.09.15.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02854073csm167309945e9.3.2026.10.03.09.15.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 03 Oct 2026 09:15:52 -0700 (PDT)
 From: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>
@@ -76,9 +76,9 @@ Cc: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>,
 	amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [RESEND PATCH v2 1/2] drm: add edid_overridden flag to drm_connector
-Date: Sat,  3 Oct 2026 18:15:07 +0200
-Message-ID: <20261003161525.23600-2-johanneswueller@gmail.com>
+Subject: [RESEND PATCH v2 2/2] drm/amd: fix HDMI signal type for EDID overrides
+Date: Sat,  3 Oct 2026 18:15:08 +0200
+Message-ID: <20261003161525.23600-3-johanneswueller@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261003161525.23600-1-johanneswueller@gmail.com>
 References: <20261003161525.23600-1-johanneswueller@gmail.com>
@@ -91,57 +91,60 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When an EDID override is in effect, the physical connector may not
-match reported capabilities. Adds a drm_connector flag that allows
-drivers to detect such mismatches.
+If an EDID override is in effect (e.g. via debugfs edid_override or
+drm.edid_firmware kernel parameter), the overriding EDID may not
+advertise capabilities matching the physical connector being used.
+In that case, trust the physical connector type over the EDID in
+create_eml_sink() and dm_helpers_parse_edid_caps().
 
 Signed-off-by: Johannes Wüller <johanneswueller@gmail.com>
 ---
-v2: rebased, no functional change.
+v2: rebased; create_eml_sink() now lives in amdgpu_dm_connector.c.
 
- drivers/gpu/drm/drm_edid.c  | 2 ++
- include/drm/drm_connector.h | 8 ++++++++
- 2 files changed, 10 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 9 ++++++++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c    | 9 ++++++++-
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 42f4e41c459f..9ea6f5f19131 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2424,6 +2424,7 @@ static struct edid *_drm_do_get_edid(struct drm_connector *connector,
- 	struct edid *edid, *new;
- 	size_t alloc_size = EDID_LENGTH;
- 
-+	connector->edid_overridden = false;
- 	override = drm_edid_override_get(connector);
- 	if (override) {
- 		alloc_size = override->size;
-@@ -2431,6 +2432,7 @@ static struct edid *_drm_do_get_edid(struct drm_connector *connector,
- 		drm_edid_free(override);
- 		if (!edid)
- 			return NULL;
-+		connector->edid_overridden = true;
- 		goto ok;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index ad3383169d83..2bce57b06037 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -2134,7 +2134,14 @@ VISIBLE_IF_KUNIT void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+ 		return;
  	}
  
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 899643586bb3..d242fb922741 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2394,6 +2394,14 @@ struct drm_connector {
- 	/** @bad_edid_counter: track sinks that give us an EDID with invalid checksum */
- 	unsigned bad_edid_counter;
- 
-+	/**
-+	 * @edid_overridden: Indicates whether the last read EDID was an
-+	 * override (e.g. via debugfs edid_override or drm.edid_firmware kernel
-+	 * parameter), which can cause the physical connector to differ from
-+	 * the advertised capabilities.
+-	if (connector->display_info.is_hdmi)
++	/*
++	 * If an EDID override is active, it may not advertise HDMI capability
++	 * even though the physical connector is HDMI. Trust the connector type.
 +	 */
-+	bool edid_overridden;
-+
- 	/**
- 	 * @edid_corrupt: Indicates whether the last read EDID was corrupt. Used
- 	 * in Displayport compliance testing - Displayport Link CTS Core 1.2
++	if (connector->display_info.is_hdmi ||
++	    (connector->edid_overridden &&
++	     (connector->connector_type == DRM_MODE_CONNECTOR_HDMIA ||
++	      connector->connector_type == DRM_MODE_CONNECTOR_HDMIB)))
+ 		init_params.sink_signal = SIGNAL_TYPE_HDMI_TYPE_A;
+ 
+ 	aconnector->drm_edid = drm_edid;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 5c74f19fc33a..9f4465682088 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -223,7 +223,14 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 				  edid_caps->display_name,
+ 				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
+ 
+-	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
++	/*
++	 * If an EDID override is active, it may not advertise HDMI capability
++	 * even though the physical connector is HDMI. Trust the connector type.
++	 */
++	edid_caps->edid_hdmi = connector->display_info.is_hdmi ||
++		(connector->edid_overridden &&
++		 (connector->connector_type == DRM_MODE_CONNECTOR_HDMIA ||
++		  connector->connector_type == DRM_MODE_CONNECTOR_HDMIB));
+ 
+ 	if (edid_caps->edid_hdmi) {
+ 		edid_caps->qs_bit = connector->display_info.rgb_quant_range_selectable;
 -- 
 2.56.0
 
