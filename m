@@ -1,54 +1,46 @@
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2D7E392C28;
-	Sat,  3 Oct 2026 08:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.139
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C741D38D40A;
+	Sat,  3 Oct 2026 08:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791014965; cv=none; b=n4713LvUMN3Uoy1xA5l9HIBL3/nDmIcd4wEbVnGaDzmnBowWL+aMwcleCnv6LvQFQ/QIhurUVjSk4KxiRns0/NYtz3vFmrOwrZpHhdi/BimsaHqU0MpLWgZ7U3qOdUM+6kfcvSzOaX9YOko791gMMVztiDpkxphSyVocu5nDQs4=
+	t=1791014959; cv=none; b=u4KJ3Tgfz+Do1qkojIRUWxHimcqvSjJihwymCyW0bLFe048VpFp4QJ3KL9cgDBSMXvLJqVMMZiq9sGtXHogoXhPh/MJO2/WB5yoZz8WvEb8DS33/5GddtrJw2oVDs2i9MuI4FL7pRExOIrMZRGTYW6rzsGNMi6Sn8WSjHBndjfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791014965; c=relaxed/simple;
-	bh=8x++qprszopeRwOaDKMCsHIWAF5BtQ9fEVvgpFM5zJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PVf0yznOxZ/lL74qbxIPAnJ45T5KhQ+2HUqmcEOg2IGgNNlNk9xnr9azhBDmqo/RS9Fyc92urjzRUS/LQKLX8LNd/tX46NRlegjiF8fXnhxEihbH56JJbgm7a/51tXCjVkolpCXZr1Z7lH65klQCqP4GJAz/3POHtnOmpZx82gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=Uj/7FZ7G; arc=none smtp.client-ip=111.22.67.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1791014959; c=relaxed/simple;
+	bh=ih2yRTm+3N+2cQbKXi623MwkWrf3f+0A0iZktWfDYiQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=d00Oi/4ap7Y2lcl17fyalD71SX+jQuywKU2hs8cpHA5QrS+gFhdLSlMXAiuaEU5CdZY6Tn2tk49RDiH0VTnMXCq94Zrz6ldxhcMdujC8rrYBJDxPQmA3B04nf71WTw2w+9u9mk/X1yJvymOXYpqvgWx09uga6w7bBJiQZa33JXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DlA4NQkH; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="Uj/7FZ7G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Uj/7FZ7GrxWECPphpcg+CbgPJmvnYXfrVeN6N33mIK6O0DRPX7hmmxEoYfYueRXO6P7YsIglFjY/1
-	 5FbA/0u6Z93a3++9R6YykUIN211KMAL2J60PauDeyPDPfiqeT7XGeawqMwVL9zqUjCAO7s73wpd91O
-	 AwA0cgPLmodRdGes=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56ac0b8253bf-98d45;
-	Sat, 03 Oct 2026 16:09:13 +0800 (CST)
-X-RM-TRANSID:2ee56ac0b8253bf-98d45
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[112.22.250.209])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ac0b817274-5dc75;
-	Sat, 03 Oct 2026 16:09:13 +0800 (CST)
-X-RM-TRANSID:2ee66ac0b817274-5dc75
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: Alice Mikityanska <alice.kernel@fastmail.im>
-Cc: netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DlA4NQkH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=aV
+	Pj7RFNNRB+UnFlw5vVQUvk6zYjfOsghaVHO5WQKwo=; b=DlA4NQkH+8yGC2BFbc
+	MRRgTbo1M0Qmj0UMfvBVU9WCM/ecELc8MeemUO7KNDs8+hgrPBJ3FykWEnI1iP62
+	fPsxN5NpOv/qE8Y0P05Qbs8a+AFgqLaGyL/0h/vhMJJxP91EZcogkozsdC9k5QwW
+	nkAmYizIyOSsCRsho0etrgXGU=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgAXUUoWuMBqJEyNCg--.37657S4;
+	Sat, 03 Oct 2026 16:08:56 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] bareudp: Enable BIG TCP packets
-Date: Fri,  2 Oct 2026 22:40:26 +0800
-Message-ID: <20261002144026.454301-1-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <12e098d5-18b1-4b01-bd55-ccebf8a78bbc@app.fastmail.com>
-References: <12e098d5-18b1-4b01-bd55-ccebf8a78bbc@app.fastmail.com>
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH 2/4] media: wave5: handle encoder runtime resume failures
+Date: Sat,  3 Oct 2026 16:08:50 +0800
+Message-Id: <20261003080853.430099-3-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261003080853.430099-1-yaojiale02@163.com>
+References: <20261003080853.430099-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,22 +48,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgAXUUoWuMBqJEyNCg--.37657S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF48uw1xuF1xXF43GF1rWFg_yoW5WFWkpr
+	1kX3ZIkrWUGr10qr4xAr42vF90kws3ZrWxuFWfCF97ArWfJr10vr1jyF1UtF1kCrZ5Xa98
+	Cr4UX3y7Cr4aqrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zMNtxUUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xn+OWrAuBlNmgAA3t
 
-On Fri, Oct 02, 2026 at 12:00:45 +0300, Alice Mikityanska wrote:
-> Acked-by: Alice Mikityanska <alice.kernel@fastmail.im>
->
-> Do you mind extending the big_tcp_tunnels.sh selftest to cover bareudp?
+The encoder callbacks ignore failures from pm_runtime_resume_and_get()
+and continue issuing firmware commands. Runtime resume can fail while
+enabling the VPU clocks, leaving the registers inaccessible. The
+callbacks then also drop a runtime PM reference that was not acquired.
 
-Thanks for the review. Sure, I will extend big_tcp_tunnels.sh to cover
-bareudp and send it together with this patch in v2, with your Acked-by.
+Check each resume result. Propagate the error from start_streaming(),
+and return queued buffers or finish the job from void callbacks without
+accessing the hardware or issuing an unmatched put.
 
-> Besides, enabling BIG TCP with fou would also be a one-liner, the
-> basement was added in "udp: Support BIG TCP GSO packets where they
-> can occur"
+Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ .../chips-media/wave5/wave5-vpu-enc.c         | 25 ++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
 
-Thanks for the pointer. I will look into fou separately.
-
-Thanks,
-Haishuang
-
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+index f9fcdf4c224b..5a5ee70cd854 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+@@ -1351,7 +1351,12 @@ static int wave5_vpu_enc_start_streaming(struct vb2_queue *q, unsigned int count
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
+ 	int ret = 0;
+ 
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
++		return ret;
++	}
++
+ 	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
+ 
+ 	if (inst->state == VPU_INST_STATE_NONE && q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
+@@ -1451,6 +1456,7 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
+ {
+ 	struct vpu_instance *inst = vb2_get_drv_priv(q);
+ 	bool check_cmd = true;
++	int ret;
+ 
+ 	/*
+ 	 * Note that we don't need m2m_ctx->next_buf_last for this driver, so we
+@@ -1458,7 +1464,14 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
+ 	 */
+ 
+ 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
++			streamoff_output(inst, q);
++		else
++			streamoff_capture(inst, q);
++		return;
++	}
+ 
+ 	if (wave5_vpu_both_queues_are_streaming(inst))
+ 		switch_state(inst, VPU_INST_STATE_STOP);
+@@ -1526,7 +1539,13 @@ static void wave5_vpu_enc_device_run(void *priv)
+ 	u32 fail_res = 0;
+ 	int ret = 0;
+ 
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		dev_err(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
++		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
++		return;
++	}
++
+ 	switch (inst->state) {
+ 	case VPU_INST_STATE_PIC_RUN:
+ 		ret = start_encode(inst, &fail_res);
+-- 
+2.34.1
 
