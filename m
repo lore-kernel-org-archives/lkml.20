@@ -1,82 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F453537E5;
-	Sat,  3 Oct 2026 15:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D52340286;
+	Sat,  3 Oct 2026 15:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791040434; cv=none; b=bVtvnKpPT24Q7OVfy3a2KQLzvrLs62aN3aGNoBqjSEMhpHlvF3zLMQBHoPzYoeHNaJXfKl3VRDGoMseHqz3vGj4C4gdM5w8UY+57sMqL7L8RewlayKqurkhY5yCr3QXfNR5/zLZVPaSjgcdcrfe5iNf90wJ+YEaDYacBYaW43ys=
+	t=1791040658; cv=none; b=uVQd/fdNMmdv2NXf+4P1dmdL2Ur50j2Di1qfaQfVteLW4cKXTPAPrjwV74eadtzNeou7dBHUMS6l1jPyIxRyNqT/RobU0oVFtDOT1ZDl/MGrb9gVyQzQEovpZpZR8FQelQ6tesuU75UNr5IrctR1nomCExffI/qWecB2iulmK34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791040434; c=relaxed/simple;
-	bh=T4c0f2Aipfl7sX7wzYNclnQN3TPbfQMxswmBwf5ak8Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EXGBOU7Xtk5yC6ZyZ9ge7E4bFYrkr+QVg/3vz6wGgNDX+yDO5XoAUwTYWDQTbHMjSgNJLPK45cnPGNXNvBgl8sLha5sv8lKe+mW6Z08e+ifiw/YeutMHaLk/DW1ga0Fi25f0RGC74kdwgc9uW7jHzRKTbpNB3W0YCE81XPqIHXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=otJ1qha+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791040658; c=relaxed/simple;
+	bh=rgldtZpLkFqEpbVJLYzKfsnWlNWW1DWwOHtsyc7DBS8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hjTFzt1ma43rTYckIysOS/sf61bauG1Wzi9AaNYrl+uExT4AlXhrfUCPxdxE99FJazgc4UU1KFodn7bmBe2TTTUYWKcIeNp1gy0IGCWi1e1VA5LGTK8aPpIUw6JZHbQ96JRLeOM7VzkV6BXMpVcFmHcQjzDlpd4vpTgH7cUCw4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YvZuJbTd; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=exVuABOx; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="otJ1qha+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90C3A1F0089B;
-	Sat,  3 Oct 2026 15:13:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791040433;
-	bh=S3eqM3iYPPLtATK1bqUv+2f1WGtjWo/CKk/4dtlGBnE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=otJ1qha+e/xT6DaP9TdNjO3Omut/RmOylvJ3AdZtqvh81W6u+qcwtDU6ic2ncsHmb
-	 UI8qLMYLYbzIRpBLjqqSITgLSrOPYXGwjCBqdNunlNgmB3uc9peJ5LM0/IiGXd1aiu
-	 wMxnIbTNO0jwuqQvQPdmVvf/gM9iicW7f1f9kf54=
-Date: Sat, 3 Oct 2026 17:13:45 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Serhat Kumral <serhatkumral1@gmail.com>
-Cc: israel.a.cepeda.lopez@intel.com, hansg@kernel.org,
-	sakari.ailus@linux.intel.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: misc: usbio: Handle negative error code from
- usb_control_msg()
-Message-ID: <2026100327-doornail-jaws-c582@gregkh>
-References: <20261003142838.19019-1-serhatkumral1@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YvZuJbTd";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="exVuABOx"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1791040645; bh=LK7rDovFbgbMJXcaZMQcEJY
+	o+GPJqqDJCmRHc5uCgNM=; b=YvZuJbTdBq2t80dEaM4De9J/jB/ocCKSGG6Vgv6Lg2IVlgThd2
+	oDFc6tqJgfQLBZ1SWHbQMkV5POdTODHqGyML5OJ3qHXaHSyKOthQT7xz3uoXRIOlegjQmMMLGdW
+	hU9d6eiEU/Ey3GQD0P2J+Hphfm567M2MM91R6CW9kYvSFavbca63NcShrwDWhNufl5MyvjDqDIv
+	c/EEHUpVl0i/R1e4kWTT7S00pkVkzx/+xcUd4FBRD3dVbAMNLk232NgSd6XAvcYfJGu9KbmwPn3
+	3vPFPzAr+s1hd6r3NqrDCjHIdtNw5Q1C40RvL4dmYIfh2IXihJZMMBzGAm6aXI8XiuA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1791040645; bh=LK7rDovFbgbMJXcaZMQcEJY
+	o+GPJqqDJCmRHc5uCgNM=; b=exVuABOxbGFRcZ2zIobC2lqos+Hprh3xccJ1Zc1Vqe8RQJ5x+3
+	yToMdsW7Ivz4id0iMh6EfEP1CoetIakoMFBA==;
+Message-ID: <756945c1-e46c-42e4-a442-bf8ca5411e66@mainlining.org>
+Date: Sat, 3 Oct 2026 20:47:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003142838.19019-1-serhatkumral1@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] misc: fastrpc: Allocate message buffer from remote heap
+ for sensors PD
+To: robin <robin@snyders.xyz>, Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <4hxf4z2g3kz87m@smtp-3-0000.mail.infomaniak.ch>
+Content-Language: en-US
+From: Piyush Raj Chouhan <pc1598@mainlining.org>
+In-Reply-To: <4hxf4z2g3kz87m@smtp-3-0000.mail.infomaniak.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 05:28:38PM +0300, Serhat Kumral wrote:
-> The sizeof(*cpkt) is unsigned, so comparing "ret < sizeof(*cpkt)" promotes
-> "ret" to unsigned and negative error codes from usb_control_msg() are
-> not caught. Cast the sizeof to int so the error handling works.
-> 
-> Fixes: 121a0f839dbb ("usb: misc: Add Intel USBIO bridge driver")
-> Assisted-by: LLM
-> Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
-> ---
-> found by smatch:
-> - drivers/usb/misc/usbio.c:187 usbio_ctrl_msg() warn: error code type promoted to positive: 'ret'
-> 
->  drivers/usb/misc/usbio.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/misc/usbio.c b/drivers/usb/misc/usbio.c
-> index fe093e7760d5..3f73f7c3d68a 100644
-> --- a/drivers/usb/misc/usbio.c
-> +++ b/drivers/usb/misc/usbio.c
-> @@ -184,7 +184,7 @@ static int usbio_ctrl_msg(struct usbio_device *usbio, u8 type, u8 cmd,
->  	dev_dbg(usbio->dev, "control in %d hdr %*phN data %*phN\n", ret,
->  		(int)sizeof(*cpkt), cpkt, (int)cpkt->len, cpkt->data);
->  
-> -	if (ret < sizeof(*cpkt)) {
-> +	if (ret < (int)sizeof(*cpkt)) {
+Hi Robin,
 
-Ick, really?  There's no compiler check for this type of thing?
+   I am really sorry about the attribution mix-up. Using Suggested-by 
+was an honest mistake on my end while preparing the submission, and I 
+apologize for that.
 
-This whole function needs to be rewritten to use the "modern" control
-message functions.  I gave it a go once, but it quickly got messy as
-this is an abused function and it really should be massivly cleaned up.
+   I've fixed this in v2: you are set as the patch author with your 
+original Signed-off-by retained, followed by my sign-off for testing and 
+submitting. (Because git send-email dispatches through my server, the 
+outer email envelope will show my address, but the mbox body preserves 
+From: Robin Snyders <robin@snyders.xyz> so git am records you as author).
 
-Do you have the hardware for this to test changes?
+   Thanks for pointing this out and for authoring the fix!
 
-thanks,
+   Best regards,
+   Piyush
 
-greg k-h
+On 03/10/26 14:01, robin wrote:
+> Robin Snyders <robin@snyders.xyz>
