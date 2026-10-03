@@ -1,297 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1911830C177;
-	Sat,  3 Oct 2026 19:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5EC392822
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791054224; cv=none; b=cOdx0kGFXbope8dCSOpgushvs07PxIVpJTsUTWdanMxzn6OmcFjBvDgliya3ETDUtvesAUZnTafBt9C92isE4qw2Cvxtfwh9mA24ClKNgFunyXXnc6wbPWQRNSmaJis1w+TBRcf/bu4MXWbmoCjAOU5uNS7zcpeg1P7TuPyZxFY=
+	t=1791054470; cv=none; b=rNVqIuQHMQE6qb8BqiDvzQmwXirmvsF1W9LEZm7Oy+hlY5YFqB5c90614Wy9z75fO8YDDK+T7iv6A9EdQP0RX8pZhvKkmpfZmWlQYHHwYx0dVMQbtzn9ZvA8StTYc5credUkCSK/PMmSIrYZFGr2qGJ4RGWdcpkzWRItS7rWRRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791054224; c=relaxed/simple;
-	bh=ob0yorwkLKz8aKiSlx+uaiCrDE9CiqMaVN5DDAZ6MUo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NllWL0Bmfxtyk8wmQ28jki2UHtJ7ok7y6ivv76Z25/AQeMcEeoSVwKu8TiBMPcej7drtAx6CvVSLLGADYGUsdFP7ehnuowIxqYrws9SzKQdC6wl5xS2CLAerXFCjxAJeNt9CuwkYh7p1YmSfXJKPH5CZegI/UVSjziulH3YcJrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ke3vjD7Q; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791054470; c=relaxed/simple;
+	bh=TKPP0VzgeDagGyLZwK0huHH8JWRvxQanvSViJXLm7is=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hbEVu+el5l6O9HHFpb2K67aIrMErFyg9wv/sxXeLAGCzk4wG5iwaa3jaDmXuS9AwN82vxwRzfwNy90uozLtk2nBBNWXzwe6qOZaczEu//wgxVFATef4QzAb7WOM7aiPertpXNpuSs+TSdr5TKg49+Sh2cak6UrBKfxDQArjUh6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RMI9krby; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ke3vjD7Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791054222; x=1822590222;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ob0yorwkLKz8aKiSlx+uaiCrDE9CiqMaVN5DDAZ6MUo=;
-  b=ke3vjD7Qi6cBuTRafYhNEcpV2AydROknOEnCe34QXfKjqwKljPWR1GLU
-   tcLLSLjUUd/iyaSA38wMSy8dfcu7fv6El4Vq6rdIyN0zmPtuiSqFTbu64
-   2eJgwK+6VY9B9n2gh3tklIumLEDr42sLblKByPYp9WFQ7b2SpD8rWz3gK
-   SFqtJbHBOhCjxyis1WU5Bng2XPbEvD1P4dDWibzqM3oiaeBkKClFTvcor
-   oaHa6o88YSoVo8CDvrm337N1H4TBf2cNvMv3M574mLDwKRy9W0CCezadf
-   omXbbF8mgqEobrgMSlAIJiob3ByVyC6H7xKK+35dPoqfAUG2W17slKD/h
-   w==;
-X-CSE-ConnectionGUID: VWfvSY5KQVKbXLOix2teeA==
-X-CSE-MsgGUID: jZHNir1kQ96L+J38wvZ7aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90917684"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="90917684"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:03:41 -0700
-X-CSE-ConnectionGUID: 9uhu5KoGRguT7ZxPOcfTpA==
-X-CSE-MsgGUID: CkmXiU1iQkCHf3k899Fvhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="279771010"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:03:39 -0700
-Date: Sat, 3 Oct 2026 22:03:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Liu Yufei <lyf98405@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: proximity: Add driver for Vishay VCNL36829
-Message-ID: <asFRiC-RniYbQAKH@ashevche-desk.local>
-References: <20261003050453.413700-1-lyf98405@gmail.com>
- <20261003050453.413700-3-lyf98405@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RMI9krby"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so4510035e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:07:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791054467; x=1791659267; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uKkf2SFy8uqVHKA6kh6K9FK6RoDGCKvfagK/bM4F5lQ=;
+        b=RMI9krbynjF5Q3dtVd2qkDiLfOh7k8604o45OmCoBQsb+y5Y+fEyHmFEuCaOuwKYtu
+         NxUFsHEpiX8yYMLAUSXqh70lzIlpcZRdF2YPdAERtFbYAnf8H8lZTziAo2jkF2soOI9T
+         jTKKT5nhAsb/A6pXSgFpwvYywqMLZ6fmziLouBdcir5Y4DzfQL/5COqSuZ/086rjgU5a
+         +7pHXrj1CLZOmpEbOLxefP1kLwVg9VZ4fjRQMH3gjoqwh7tsjCVzXxl/YcBVF4b3fuLZ
+         yACPZbtGyQJuDPOEIQhvvR8oADyAHEc+k1LT1dPIW+fRs/EIs3QUNr90Tgt5DR8iGtdR
+         nvVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791054467; x=1791659267;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uKkf2SFy8uqVHKA6kh6K9FK6RoDGCKvfagK/bM4F5lQ=;
+        b=DKvg1ljBz6uPkd7RhbRKxYhHc0yTjksptQrCcGiMBsDZfEcQYZgPhYwqL/KiVixKoy
+         HDDr5EX2yjOEm1uIKpsysYtqtrjUC5uQl1CPFem5XP//qSKb0eiWTLVW8RVs+O5lKyI5
+         EDGvHui9U9BEoVqq8tGbNQaYzex6LH0km00Ed2Dv+9RLw97dvCKq4OT0O9TLLoDKQ3+3
+         h2VhlGLQ1IcQj3aA6R57//WACNGAmt5dQ4+8qUyS8NWoy3eOmCqSDd6K6sw0p5ALy7BF
+         wCTAOVzO+rztP8s/FxQmjN/gY0M6V4eG+D/WwoTr4P0pwN5qZif/jQm8R6Kv/hqNaUAh
+         a5dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+/lWm1M3OEpFjFd146ByXmgRZPYt4dgEgLo0wBYTzdTILWNcOA0w6soldZxHG+vU7xBYRndVvtsMmMC8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2aB2bdEJMY+xY1ObQpFR0sdyB1t8hiRyzCqjlVZPq/phRvzDR
+	DKMMolCI9aHW02MmRy9dKN/WjFdlSEq1oh3mwkuICV7tthMEnS9JF4mIOHOiAyyh
+X-Gm-Gg: AYBFou2tfPgvW3OYiQQwSu48DAUKBQNxcDGUjc8IVfyJaZqX+oLFhVcEZ8KDq4rTKWL
+	aKO7aS/tqMabvntjucyr8RsOZKUj7PtmVnClleaYfg9ljICCG7IOo+DPaX4NBiAgmp/vmvCsWdt
+	/SFPe0zx7J4jSynY9KVYWVjYOheJLBt39z6eve18G1/GF3OvCStV5pdro4laTZG2m0YITE9C4AV
+	3mr0O58z1Sfr0VbqDpPj4Udsw5yfWFICpSvsKCbpYACiqfMVbNsGIfTxGFYew58R6Aa5tYHllM+
+	KcGRITQ/9N89RVbWUdMynqhyu5/836G4uRSk5uRWyTi4Qwxbz2bEp1Sw3bISKklaEt+q/QK5H5T
+	5qOIRDQW337ZxPYSzkveKitgg4TaFyfMdVeOHxLsC5KUtanxhmVd96sM4ZzFpxWko+uakQyWiPn
+	7qQbK2vTrnfokM0FW8oj6utcWP8ulxonm4/TBR4XL3pMmD89ptoUCfWD1DTlVaIDW+DoxDrwe1I
+	xQd6DXkr+lcCyHuaVjWiFNLy1peKP/p9E07BufaOEfuUnksLurwsAODDEM733rYiu2V5g3h66JX
+	pPQFg81iwpdw8iSAV+h7p2h6r60OC/JlNiOE3P2MnTreJsaAvhHKNFGZazxQIJjKNEk4hgO9ILm
+	oi+Y=
+X-Received: by 2002:a05:600c:4703:b0:4a0:25fe:a4b with SMTP id 5b1f17b1804b1-4a02759442bmr120884405e9.15.1791054466825;
+        Sat, 03 Oct 2026 12:07:46 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2e2-2001-c47f-5a89-3d9a-cd2d.310.pool.telefonica.de. [2a02:3100:b2e2:2001:c47f:5a89:3d9a:cd2d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02752aeb3sm200984615e9.0.2026.10.03.12.07.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 03 Oct 2026 12:07:45 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Zhang Yi <zhangyi@everest-semi.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: codecs: es8375: use devm_clk_get_optional() for mclk
+Date: Sat,  3 Oct 2026 21:07:38 +0200
+Message-Id: <20261003190738.77564-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003050453.413700-3-lyf98405@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 01:04:53PM +0800, Liu Yufei wrote:
+es8375_read_device_properities() gets "mclk" with devm_clk_get() and
+then tests the result for NULL to print "assuming static mclk". A
+missing clock makes devm_clk_get() return -ENOENT, so the probe fails
+before that test can match.
 
-> Add an IIO driver for the Vishay VCNL36829 proximity sensor with
-> integrated VCSEL, connected over I2C.
-> 
-> At probe the driver enables the vdd and vddio supplies, waits for the
-> sensor to power up, checks the device ID, configures the VCSEL current
-> and photodiodes, and turns the proximity engine on. The sensor is put
-> back into shutdown when the device is removed.
-> 
-> The following attributes are exposed:
->   - in_proximity0_raw
->   - in_proximity_integration_time
->   - in_proximity_integration_time_available
+The binding does not require clocks, its example has none, and
+everest,mclk-src lets the codec run from SCLK instead of MCLK. Use
+devm_clk_get_optional(), as es8311, es8316, es8323, es8326 and es8389
+do for the same clock.
 
-> The datasheet is available at:
-> https://www.vishay.com/docs/80580/vcnl36829um.pdf
+Found with an experimental clang warning about NULL tests on functions
+that return error pointers. Tested only in QEMU with i2c-stub in place
+of the codec, not on real hardware.
 
-Make it a Datasheet: tag.
-
-> Assisted-by: Claude:claude-opus-5-5 checkpatch dtschema
-
+Fixes: de2b3119f9f7 ("ASoC: codecs: add support for ES8375")
 Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ sound/soc/codecs/es8375.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-...
+diff --git a/sound/soc/codecs/es8375.c b/sound/soc/codecs/es8375.c
+index e8747bc24433..67bf73d80fb5 100644
+--- a/sound/soc/codecs/es8375.c
++++ b/sound/soc/codecs/es8375.c
+@@ -661,7 +661,7 @@ static int es8375_read_device_properities(struct device *dev, struct es8375_priv
+ 		return ret;
+ 	}
+ 
+-	es8375->mclk = devm_clk_get(dev, "mclk");
++	es8375->mclk = devm_clk_get_optional(dev, "mclk");
+ 	if (IS_ERR(es8375->mclk))
+ 		return dev_err_probe(dev, PTR_ERR(es8375->mclk), "unable to get mclk\n");
+ 
 
-> +#include <linux/i2c.h>
-
-> +#include <linux/mod_devicetable.h>
-
-In the new code we rely on the bus header to provide the ID definitions.
-
-> +#include <linux/iio/iio.h>
-> +#include <linux/regmap.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/module.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/delay.h>
-
-Keep it sorted, also follow the IWYU principle.
-
-...
-
-> +struct vcnl36829_data {
-> +	struct i2c_client *client;
-> +	struct regmap *regmap;
-
-One can be derived through the other, no need to keep client here.
-
-> +};
-> +
-> +static const struct regmap_config vcnl36829_regmap_config = {
-> +	.name = "vcnl36829_regmap",
-> +	.reg_bits = 8,
-> +	.val_bits = 16,
-> +	.max_register = VCNL36829_DEV_ID,
-> +	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-
-No cache?
-
-> +};
-
-...
-
-> +static int vcnl36829_write_raw(struct iio_dev *indio_dev,
-> +			       struct iio_chan_spec const *chan, int val,
-> +			       int val2, long mask)
-> +{
-> +	struct vcnl36829_data *data = iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_INT_TIME:
-> +		if (val != 0)
-> +			return -EINVAL;
-> +		if (val2 >= 25 && val2 <= 375 && val2 % 25 == 0)
-> +			return regmap_update_bits(data->regmap,
-> +					VCNL36829_PS_CONF2,
-> +					VCNL36829_PS_IT_MSK,
-> +					FIELD_PREP(VCNL36829_PS_IT_MSK, val2 / 25));
-
-Compiler might utilise some specific assembler instructions on some CPUs
-to do % and / at once. To make it happen we can hint compiler with locating
-these two operations next to each other. Also use standard pattern to check
-for an error first and correct indentation.
-
-		int ival = val2 / 25;
-		int fval = val2 % 25;
-		...
-		if (val != 0)
-			return -EINVAL;
-		if (ival < 1 && ival > 15)
-			return -EINVAL;
-		if (fval != 0)
-			return -EINVAL;
-
-		return regmap_update_bits(data->regmap, VCNL36829_PS_CONF2,
-					  VCNL36829_PS_IT_MSK,
-					  FIELD_PREP(VCNL36829_PS_IT_MSK, ival));
-
-> +		return -EINVAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int vcnl36829_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct vcnl36829_data *data;
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-> +
-> +	int ret;
-> +	unsigned int reg;
-
-No blank lines in the definition block, also keep it in reversed xmas tree
-order.
-
-> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-> +		return dev_err_probe(dev, -EOPNOTSUPP,
-> +				     "I2C adapter doesn't support plain I2C\n");
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	regmap = devm_regmap_init_i2c(client, &vcnl36829_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap),
-> +				     "Regmap setup failed\n");
-> +
-> +	data = iio_priv(indio_dev);
-
-> +	i2c_set_clientdata(client, indio_dev);
-
-Is this being used?
-
-> +	data->client = client;
-> +	data->regmap = regmap;
-> +
-> +	indio_dev->name = "vcnl36829";
-> +	indio_dev->info = &vcnl36829_info;
-> +	indio_dev->channels = vcnl36829_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(vcnl36829_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable vdd\n");
-> +
-> +	ret = devm_regulator_get_enable(dev, "vddio");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable vddio\n");
-
-The following sleep needs a comment with a reference to the specific section
-and/or table in the datasheet.
-
-> +	fsleep(3000);
-
-3 * USEC_PER_MSEC
-
-(will require time.h to be included)
-
-
-> +	ret = regmap_read(regmap, VCNL36829_DEV_ID, &reg);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read device ID\n");
-> +	if ((reg & 0xFF) != VCNL36829_DEV_ID_VAL)
-
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "Unknown device ID 0x%x\n", reg);
-
-Don't we simply warn and continue in this case?
-
-> +	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF2,
-> +				 VCNL36829_PS_IT_MSK,
-> +				 FIELD_PREP(VCNL36829_PS_IT_MSK, VCNL36829_PS_INT_TIME_25));
-> +	if (ret)
-
-> +		return dev_err_probe(dev, ret,
-> +				     "Could not configure PS_IT\n");
-
-It's perfectly a single line.
-
-> +
-> +	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF3,
-> +				 VCNL36829_PS_CURRENT_EN_MSK |
-> +				 VCNL36829_PS_CURRENT_MSK |
-> +				 VCNL36829_PD1_EN_MSK |
-> +				 VCNL36829_PD2_EN_MSK |
-> +				 VCNL36829_PD3_EN_MSK,
-> +				 FIELD_PREP(VCNL36829_PS_CURRENT_EN_MSK, 1) |
-> +				 FIELD_PREP(VCNL36829_PS_CURRENT_MSK, VCNL36829_PS_CURRENT_18MA) |
-> +				 FIELD_PREP(VCNL36829_PD1_EN_MSK, 1) |
-> +				 FIELD_PREP(VCNL36829_PD2_EN_MSK, 1) |
-> +				 FIELD_PREP(VCNL36829_PD3_EN_MSK, 1));
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Could not configure VCSEL/PD\n");
-> +
-> +	ret = regmap_write(regmap, VCNL36829_PS_CONF5, VCNL36829_PS_CONF5_INIT);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Could not set PS_CONF5\n");
-> +
-> +	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF1,
-> +				 VCNL36829_PS_ON_MSK | VCNL36829_PS_SD_MSK,
-> +				 FIELD_PREP(VCNL36829_PS_ON_MSK, 1) |
-> +				 FIELD_PREP(VCNL36829_PS_SD_MSK, 0));
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Could not set initial config\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, vcnl36829_shutdown_action, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
+base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
