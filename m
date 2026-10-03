@@ -1,98 +1,103 @@
-Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4F938887E;
-	Sat,  3 Oct 2026 19:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FC32D876F;
+	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791056712; cv=none; b=Esk4pJwt5oMITCL6efmQF3t63RFgdPKXFeUogLz/PzyFUrXX8RCuKQWoJOnKUQsIP+VR1Wu7MEJFpyG3J8jjqUBeAB4WL7pz8xFzwDD8eQmWdgNEZlI9GJyl+uwUDm2NMYmwYU3Ds+KZLOWnWL3SCBfYlMtPXtOZlsypInEY9JU=
+	t=1791056723; cv=none; b=ostw/Erfk+LiVAgeJpn04DaxvEZn3fdx15fwkF4g1d0aiLvoBcMxY8uQOBDqOgRCJCCBTxSHNZ2A8re95KIBDCZxtnyvYrNF+cfzD79tyEThN9SZYfOGgJnbzQ8KO1JTFimo5c1gzw4g/1rgPutu+lBbm1AmE/dyzz5d/EirvV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791056712; c=relaxed/simple;
-	bh=56K/2HF5uAevZ9gtD/5ulhExtKUUJdxeor17apTtZy0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s7ypPZ9coMcDk9fAiVHKeQJmtHaCCNaMJ5ovfrjspJ/RzQJ08uQVCEUiRzW7EqrO/kC+Hn6pfPbBwX83WyMx+fbIE4OUSPMaWTKNp/6dNHPmlkqmqdJkfJdTiYVfJx1ih9griM9vPDhILgb/yEVMqZJBv3toDbWyHtSkoTpTvC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=ahClsdTe; arc=none smtp.client-ip=139.162.184.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
+	s=arc-20240116; t=1791056723; c=relaxed/simple;
+	bh=69Be8OqRG4uKfxINxNYsSa/2mzLTbGi6UrvJIKEBERY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rT5Mb1Azc6vcL/h23eIPZpRnEPtpce5uTINJxV82AshsGdE9FsJEEB1blLqfYDXw70eWq8PBEHcTpLngD46ziITyM2B0mGD8Gbf+fRsWGcc+8ozby6yQXp0OSn9JEswVzyPqeMrIb8ggFXluEZCCJDSIvOpuww+LNlRhaA3fhFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiG2x9T+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="ahClsdTe"
-From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
-	s=mail; t=1791056709;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wgr4pHrZo2qwDF8ZFgFdxiB9TN8wC+wKv8BCpLbDH7E=;
-	b=ahClsdTe7cTeQLSsKzawVavy2VEKP8wACr6NNn/bpmUr22gaHMmD7Ss26vtIV3m3VyVq2E
-	ESrK47hKYUW0hXF+DMn6Ys7G8BrdEQN+YZOM6Tlmu8Jhdqr29W8cUFPQ9AGHybyBg/LcrW
-	Q1CT5EX/iq/DxY9TeHP9QmL77bnd4HDfLiy8QJC1q/xCOjTUlaAEdux/nhv8aZ0jiXLOqu
-	wc+olNPcYIQGy9W0bvH+CqlbF0UgUecIn5BP/Jdvd+64QV1xA9Z87D9Ii4srWVgmJg9kDk
-	hynjeLat4Wh1D3u5yRgVww++j/74rj+9fWPqWX1XjJ6+fDLcTU5B1A0keKHurA==
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Trevor Wu <trevor.wu@mediatek.com>,
-	linux-sound@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-Subject: [PATCH 4/4] ASoC: hdmi-codec: Don't parse an empty ELD on startup
-Date: Sat,  3 Oct 2026 21:45:01 +0200
-Message-ID: <20261003194501.832558-5-michal@nozomi.space>
-In-Reply-To: <20261003194501.832558-1-michal@nozomi.space>
-References: <20261003194501.832558-1-michal@nozomi.space>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiG2x9T+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8F337C2BCB9;
+	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791056722;
+	bh=69Be8OqRG4uKfxINxNYsSa/2mzLTbGi6UrvJIKEBERY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=hiG2x9T+3HTW3UB/7FA2xEh6ZZ56qSwBRVHhqcgUM5VK5X1570ImdGMWQ9gJ7oqKq
+	 5bO5sw7FBWi1SJnvrql3JcG69saT13TYCKW87jC7xUQouC0XmqpthULRXL3AK8894W
+	 S22as6SdZZ948zIXFkXJuXKZMP9auCQHzRsY3JgROs4cF3/sMKospqcMkk7wEitOBU
+	 SSS7vzXkhz8jGY1KSGDHf5qNAlHfCs7f+F4WHCExeUKpHswGiNnS82Cut2PrzLHLyK
+	 NXOxdeoJxWrkzIyiyjE6SMlFsEdmpwxxOcQ0/d3VIumC3yNbyoJQ9HPPCWEaHOp7Fx
+	 1DbnOld6Hhqqw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69C06CA5FDD;
+	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Subject: [PATCH 0/4] power: supply: qcom_smbx: report charger state changes
+Date: Sat, 03 Oct 2026 16:45:20 -0300
+Message-Id: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y3MQQqDMBBA0avIrB2IphX1KtJFMh11CmqbSYsg3
+ t20dfng8zdQDsIKbbZB4I+oLHNCkWdAo5sHRrknQ2nKqjDG4ouWCXXyK9I4oEYXGc/SXiw1vq7
+ JXRnS4Bm4l/U3725/69s/mOL3CPt+AKYQKOZ+AAAA
+X-Change-ID: 20261003-qcom-smbx-chg-state-change-343c9b88ca5e
+To: Casey Connolly <casey.connolly@linaro.org>, 
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Robin Snyders <robin@snyders.xyz>, David Heidelberg <david@ixit.cz>, 
+ phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791056720; l=1384;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=69Be8OqRG4uKfxINxNYsSa/2mzLTbGi6UrvJIKEBERY=;
+ b=j4P4kueOKJEBhvIsJc/2rxdyAGEI7E4Ka7+E9uKMI2OOnzqEgmhPotkz5rVxPbjcB40uVf+b4
+ gxaUleMiQwsBqQTPFn2tRCu9M2WQkCb27yTqsiunx7X4HXDzle85/AD
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-A bridge's get_eld() returns an all-zero ELD when no sink is connected.
-hdmi_codec_startup() parses it unconditionally, so every open of a
-disconnected HDMI/DP PCM logs:
+qcom_smbx does not handle the charger's chg-state-change interrupt, so
+a charge completing is not notified and consumers can keep a stale
+status. Allow the interrupt in the binding, handle it in the driver,
+and describe it for PM660 and PMI8998.
 
-  hdmi-audio-codec: HDMI: Unknown ELD version 0
+Tested on a Motorola Moto X4 (PM660) with the sdm660-mainline 7.2.3
+tree: each charging-state change is notified and the battery status
+follows. The PMI8998 patch is untested on hardware.
 
-Skip parsing when the ELD is empty and clear the previously parsed
-copy instead. The ELD hw constraint already falls back to basic stereo
-rates for an empty ELD, so stream setup is unchanged. plugged_cb()
-likewise treats a parse failure as debug-only.
+Robin Snyders' pending SMB5 series touches the same binding and
+driver; whichever lands second needs a rebase.
 
-Signed-off-by: Michał Kopeć <michal@nozomi.space>
 ---
- sound/soc/codecs/hdmi-codec.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Fabricio Akio (4):
+      dt-bindings: power: supply: qcom,pmi8998-charger: add chg-state-change
+      power: supply: qcom_smbx: report charger state changes
+      arm64: dts: qcom: pm660: Add the charger state change interrupt
+      arm64: dts: qcom: pmi8998: Add the charger state change interrupt
 
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index 7aa50c5bd3df8..0e1e532dfc634 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -475,8 +475,12 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
- 		if (ret)
- 			return ret;
- 
--		snd_parse_eld(dai->dev, &hcp->eld_parsed,
--			      hcp->eld, sizeof(hcp->eld));
-+		/* An empty ELD means no sink is connected; nothing to parse. */
-+		if (hcp->eld[0])
-+			snd_parse_eld(dai->dev, &hcp->eld_parsed,
-+				      hcp->eld, sizeof(hcp->eld));
-+		else
-+			memset(&hcp->eld_parsed, 0, sizeof(hcp->eld_parsed));
- 
- 		ret = snd_pcm_hw_constraint_eld(substream->runtime, hcp->eld);
- 		if (ret)
--- 
-2.55.0
+ .../power/supply/qcom,pmi8998-charger.yaml         |  5 ++++-
+ arch/arm64/boot/dts/qcom/pm660.dtsi                |  9 ++++++--
+ arch/arm64/boot/dts/qcom/pmi8998.dtsi              |  6 ++++--
+ drivers/power/supply/qcom_smbx.c                   | 24 ++++++++++++++++++++++
+ 4 files changed, 39 insertions(+), 5 deletions(-)
+---
+base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+change-id: 20261003-qcom-smbx-chg-state-change-343c9b88ca5e
+
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
+
 
