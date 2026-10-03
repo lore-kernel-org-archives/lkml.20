@@ -1,92 +1,90 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B1B397E86;
-	Sat,  3 Oct 2026 08:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B219381B10;
+	Sat,  3 Oct 2026 08:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791016091; cv=none; b=DL1j5vaRJHwBZA9g3YgWz+lJfbcWoj2/DtSPJegW0qGw9PfRJ1ToC082QEflDhqrvcENjXX2bpSHMNqrvnq8MJuCFlo8GUjetIY6v5YhJYPakKHtTnQol1LsrXjEJsbuv9EEQI6ffI7okmaSH1/JiniJ1vWx/8AFYcOBy9VYvnI=
+	t=1791016083; cv=none; b=pyYKVBaixBli0HRImksP+J/pC91kQdcPsmrYgjvbdXA0W2LDoi458E9JxQB9cFsmDIgaaGG3W67txyTfvcUXqoyFTNBFAtzu0z2uxggsnyS134RT03In4AWbPmxyoVzpJFlOIN83Rrx3sV1hZwEJkwacDeHC5SY5d4ACv3DsdEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791016091; c=relaxed/simple;
-	bh=kHNJ5RQ5rVbmFLNryhA5dGz3UNnRb919lnnvBBCA9F4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RFEbqNz5X0DL2RgVHx4QBNEnB10BzlgXs0b0GW/1FwejAf01L80QgkZ4nabSZhzXzKxc6Xs72hU+OA4DpXrDs349feW21PME3fSeJ2WVmyIg9UM0R4466e+zUH/urDiWaQebKDXlZgMJHUX60R5yPSbszkYj3XArksSXm8Do1kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 57c1f42cbf0411f19a56ed5b684f684d-20261003
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d5ed224a-a995-45ab-b82a-2f36332b2978,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:32ca89e1e21c37a4465a60a9884b6173,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 57c1f42cbf0411f19a56ed5b684f684d-20261003
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1953896941; Sat, 03 Oct 2026 16:27:59 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: jarkko@kernel.org,
-	peterhuewe@gmx.de,
-	jgg@ziepe.ca,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH 3/5] tpm: tpm_nsc: stop using the cleanup callback as dev.release
-Date: Sat,  3 Oct 2026 16:27:53 +0800
-Message-Id: <a6155310e6772f708b47291cc959e02c05b90eb7.1791015549.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1791015549.git.xiaopei01@kylinos.cn>
-References: <cover.1791015549.git.xiaopei01@kylinos.cn>
+	s=arc-20240116; t=1791016083; c=relaxed/simple;
+	bh=V5PpXmIzFly+1SKmGmwopKYT4H0LxbCqGoZMIBOvzAU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fImudXhBRcZr3/IMd0F6Mv9TZWlQnCUIpCKH4mNj04ikCHTfuIlB1cV/yxGVWEquFvKdyy/FNol6XD6rDp+Kq42ijW2M4wFBGL+6X3DcDfIYzGzzvw0VVjsdR1PflrDlYrTQFULiIaPwhMrBtmemjpmgRSnKEjAsSenqgfm6uco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Yz1yExq1; arc=none smtp.client-ip=185.70.43.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Yz1yExq1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791016075; x=1791275275;
+	bh=V5PpXmIzFly+1SKmGmwopKYT4H0LxbCqGoZMIBOvzAU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Yz1yExq1b18nKbwif0DkmqbZuweapUThBEuwv9NKRoePjueGZJP7dAexFb3Q1PMBh
+	 G+DwMhpZP5egQvrD7Vz7y5hDSaUTo8dsdgbzErZWu9HajwWF6VCnBaWVmmpk32yWr2
+	 n5Ts3jj1ADj4k2YT0id6Er4t9d2BN89rIMDBC/ifuWI0fAnf1bRBz/M512mj9e+TxY
+	 oylUd9SGrZA8xzdebO4hkTtwpyvLz/UcTEaQ8YSyi1Qc3Memr5R1DksCSnBKmWB4YA
+	 hactc3jODta1waztIDES4f6RP3cgwuKY//HDyKIkF5nT+dKgVB3a7xMSaCInDd+GxD
+	 69IjbF1rSiTHg==
+Date: Sat, 03 Oct 2026 08:27:50 +0000
+To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+From: "armandas.kvietkus" <armandas.kvietkus@proton.me>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH v3 2/2] media: i2c: Add Samsung S5K3T2 image sensor driver
+Message-ID: <vZJyKnkShwVybbiN3mfym3OcfIkVK6pFbKl2dy8_T73jLlWeuSL7bB1e9sHT1jzWncEidimkH3ywfRsOICjXRIx9Phb2BLELcOoOp0N0YgU=@proton.me>
+In-Reply-To: <MA0P287MB21789760986BD3C1EE2A0486888A2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+References: <20260924-upstream-s5k3t2-v3-0-a5c58dfcec29@proton.me> <20260924-upstream-s5k3t2-v3-2-a5c58dfcec29@proton.me> <MA0P287MB21789760986BD3C1EE2A0486888A2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+Feedback-ID: 164226125:user:proton
+X-Pm-Message-ID: f1d44564f6e2d4598ff9e0c4be9c091fcd216e02
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-tpm_nsc_remove() is called explicitly from cleanup_nsc() and also
-runs as the platform device release callback on the final
-platform_device_put(), so the cleanup executes twice on module
-exit; the second invocation operates on a chip that has already
-been freed by the devm cleanup, and the I/O region is released
-twice.
+Hi Elgin,
 
-Overwriting the release callback installed by
-platform_device_alloc() also keeps platform_device_release() from
-running, leaking the platform object allocation.
+Thanks for the review.
 
-Leave the default release callback in place; the explicit call in
-cleanup_nsc() remains the single cleanup point.
+On Thu, Oct 01, 2026 at 06:41:29PM +0000, Elgin Perumbilly wrote:
+> Remove the unwanted pointers if they are not referenced,
+> as they unnecessarily consume memory.
 
-Fixes: 570302a31149 ("[PATCH] tpm: move nsc driver off pci_dev")
-Assisted-by: GLM-5.3
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
----
- drivers/char/tpm/tpm_nsc.c | 1 -
- 1 file changed, 1 deletion(-)
+pixel_rate is not used after it is created, so I'll drop it. link_freq
+is used in set_fmt, so it stays.
 
-diff --git a/drivers/char/tpm/tpm_nsc.c b/drivers/char/tpm/tpm_nsc.c
-index 46a52dc99b14..bcfa2a1a208a 100644
---- a/drivers/char/tpm/tpm_nsc.c
-+++ b/drivers/char/tpm/tpm_nsc.c
-@@ -327,7 +327,6 @@ static int __init init_nsc(void)
- 
- 	pdev->num_resources = 0;
- 	pdev->dev.driver = &nsc_drv.driver;
--	pdev->dev.release = tpm_nsc_remove;
- 
- 	if ((rc = platform_device_add(pdev)) < 0)
- 		goto err_put_dev;
--- 
-2.25.1
+> Curious why 0x6f12 and 0x602a is used repeatedly in sequence here,
+> unlike in other drivers, Could you explain it.
+
+This is how these Samsung sensors write to their internal memory.
+0x6028 selects the page, 0x602a sets the address, and the words written
+to 0x6f12 go to that address and the ones after it. s5k3m5 and s5kjn1
+do the same.
+
+The first long block writes 210 words to page 0x2000 at 0x3aec. They
+decode as ARM Thumb code, so it looks like code for the sensor's own
+CPU. s5k3m5 starts its burst_array_setting with the same six words.
+
+> Could you explain what this register CCI_REG16(0x6028) actually does?
+
+It is the page pointer for the access above. s5k3m5 and s5kjn1 write
+the same value at the same point before streaming.
+
+> It seems unusual to write the values to S5K3T2_REG_CHIP_ID (0x0000),
+>
+> The chip ID register is generally read-only.
+
+s5k3m5 and s5kjn1 do the same two writes to 0x0000, with a different
+first value, and mark them as setting the version. I don't have
+documentation that says more than that.
+
+I'll fix the rest in v4. It should be ready by Monday, or later if I
+need to wait for Sakari's answer on the link frequency.
+
+Armandas
 
