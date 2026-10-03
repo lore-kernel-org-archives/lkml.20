@@ -1,105 +1,149 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332083290C9
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1364E2E736F;
+	Sat,  3 Oct 2026 01:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=135.181.196.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790989952; cv=none; b=uGUpgz9YbrirY47nwhvRH2IHeQmf49vA6PXTRFQt3qaNyefsO/7Tci+P6z/dmCycPzHcUlJ8ixP3wroMg8ibAP8AnyNELYxdaxYX9sEzKqQtsimWTyhs4YmgFTU+uP85yqULgEGlvg/gN53R9HfJE+KfuIgKWE9K/OlfLnYZAGg=
+	t=1790990299; cv=none; b=JehJLWkhO4/uC2E1E1w3wpdWKxg6qW06DWezWwmQy/xOEv7axxVRTyYsooSik5E3Xr5G+Iz1G5P2HGLfro7d3DTmeqssl/lY+r5YAi4nf1YzUHBM8UCOKhhPKtY45h5yCfGvlUj8n4LKS/v8v4/1M8Q3vUULaQnka3m3NIzreKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790989952; c=relaxed/simple;
-	bh=B4JkUi9my2d9U4NwA9n6bMZyhByBHhozgf11BX091ds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z9fTVliMU8toRP9DGTmzT5SY0YuHm04BpPsG9pz/40RhySfMkD/uut1zfBp62p50RxVD5xEpXyv6zE7M1bF0ECaqXXdCAELqraCEUQYlcnZiG+MzDWnaoV2vzqaPKki71fuTTmHz/derAFLUtkwoOuvYZZouElG8FTF7MHTN8Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ED6lssCM; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790990299; c=relaxed/simple;
+	bh=cCaASWiDqDydkWfC2ZpLgcqJU2sQoDOPhkCTl6TbzHs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WYa5vmDUL+aT6OLy1nMvZMb1pN7IHuRyEOElxRjRiCntIHNFEVUMIaCCOSLAVi5FxI8zYxhJQPiElT0hdA9U8TXbJnWQ2QGt2/WDMyQKOD9/wbUMT5INEmx/k/r645/rZhgMpLfjDFem9idgWUA95AP153TJ6/HNwAwXbqC278s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm; spf=pass smtp.mailfrom=puri.sm; dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b=abgJ7qfs; arc=none smtp.client-ip=135.181.196.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ED6lssCM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=yYGDYGipIPKpCp7ZOn9wro1eUA2lYhqQ2yXsDOAsYaM=;
-	b=ED6lssCM4oK2Tt3de/JOs7BTXyQ+tGpn5Z/DsVeJtVjMunzd4rdpCSb9y3XFMz
-	s1/dFJc66XRoiQFlf1/bKkQy/+rsUY29DRpk4DS50zxMQQIYXBk2sv4Dz7MTiNyI
-	T9u3z+anbQqB7ioiSL4hZ2WUIYKefKwC9X5MtU51h0obI=
-Message-ID: <59056131-e3bd-4003-8c30-0a356cf0bd82@163.com>
-Date: Sat, 3 Oct 2026 09:11:03 +0800
+	dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b="abgJ7qfs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
+	t=1790989738; bh=cCaASWiDqDydkWfC2ZpLgcqJU2sQoDOPhkCTl6TbzHs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=abgJ7qfsIMaf1tzJuhUl5U54FzfopBDpg9Mp/Ky3wj4lHSfbUbKRb62yn/2PFIwAC
+	 klU6gwn9jjoOhHEKTSrluT4vVovt5SygFMl3eHHSWfdDeko/z1l7n7fqmWYB3IYg82
+	 ZtN7YuxaFKDNOx0uAQoVbMKpmI0zCq0fN2OsqriFvybjnZf5X1rBM2+sE58k1YwdGW
+	 IQ4L15TShbSW7r8rjXzqrcraqiXw8Ztxhl+vRaWy5lTHaaWKlz7ASvRK2uU3ZHrBUz
+	 3Vj/EgzrGgVCPQwK4vPAH17IyGYNGrIQYAqOJrR8bpu7u6KNo1x2UppaSm7g5XCQ6p
+	 /F6+h40YL+LCQ==
+Received: from pliszka.localnet (83.24.12.19.ipv4.supernova.orange.pl [83.24.12.19])
+	by ms.puri.sm (Postfix) with ESMTPSA id C8D53217DC;
+	Fri, 02 Oct 2026 18:08:56 -0700 (PDT)
+From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+To: Vincent Cloutier <vincent.cloutier@icloud.com>
+Cc: sre@kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, daniel.baluta@nxp.com,
+ shawnguo@kernel.org, agx@sigxcpu.org, angus@akkea.ca,
+ Vincent Cloutier <vincent@cloutier.co>
+Subject:
+ Re: [PATCH v1 4/4] arm64: dts: imx8mq-librem5: Set BQ25895 input voltage
+ limit
+Date: Sat, 03 Oct 2026 03:08:50 +0200
+Message-ID: <TUmf9Hq_Txaw7MkIttVh3Q@puri.sm>
+In-Reply-To: <20260927145538.233548-5-vincent.cloutier@icloud.com>
+References:
+ <20260927145538.233548-1-vincent.cloutier@icloud.com>
+ <20260927145538.233548-5-vincent.cloutier@icloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/5] exfat: fix valid_size handling and locking
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yuezhang.Mo@sony.com, chenxiaosong@chenxiaosong.com, dxdt@dev.snart.me,
- hyc.lee@gmail.com, liubaolin12138@163.com, sj1557.seo@samsung.com,
- Chi Zhiling <chizhiling@kylinos.cn>
-References: <20260927080305.831641-1-chizhiling@163.com>
- <CAKYAXd8u2iLQ5aO6XR7vFojB3=9Jcmk7nK1mbzAk=Tza_UoYJA@mail.gmail.com>
- <24c5c9ea-1bfe-44a8-81ad-c2b1588e0a63@163.com>
- <CAKYAXd9Z7opATEpHtyTp+cbzsYS_+Ym621fBHHbY1OZw=Hzt2w@mail.gmail.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <CAKYAXd9Z7opATEpHtyTp+cbzsYS_+Ym621fBHHbY1OZw=Hzt2w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXLh0nVsBqWoBUCA--.30796S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7urWkAF4DurykWrWxGw1DAwb_yoW8KFW5pa
-	yFk3W5GFW5J340yrs293W8Xa4Ygwn3Xr17Wr98t3yUArn09F1avry7K3y093y5tws7Kw4j
-	vr4vq397Xw1DJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UeMKtUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9wtqCGrAViu9aQAA3d
+Content-Type: multipart/signed; boundary="nextPart4PRw5kfOQamMwtcngPadMA";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-On 10/3/26 7:42 AM, Namjae Jeon wrote:
-> On Thu, Oct 1, 2026 at 11:53 AM Chi Zhiling <chizhiling@163.com> wrote:
->>
->> On 9/30/26 6:01 PM, Namjae Jeon wrote:
->>> On Sun, Sep 27, 2026 at 5:04 PM Chi Zhiling <chizhiling@163.com> wrote:
->>>>
->>>> From: Chi Zhiling <chizhiling@kylinos.cn>
->>>>
->>>> valid_size marks the on-disk up-to-date region of an exFAT file. It is
->>>> advanced from the write path, from read/zeroing completion, and via
->>>> truncate, while it is read without i_rwsem from ->iomap_begin and from bio
->>>> completion context. This series fixes several races and stale-data windows
->>>> that follow from that split ownership.
->>>>
->>>> Patches 1-2 are self-contained fixes: an append write may be moved to EOF
->>>> by generic_write_checks(), so valid_size must be advanced using the
->>>> recalculated position; and exfat_zero_new_range() must mark non-uptodate
->>>> pages dirty so the whole page is written back.
->>>>
->>>> Patches 3-4 are prerequisites for patch 5: truncate now holds the
->>>> invalidate lock so it is mutually exclusive with mmap writes, and
->>>> valid_size/zeroed_size become atomic so they can be read safely outside
->>>> i_rwsem. Patch 5 then takes exfat_page_mkwrite() out from under i_rwsem,
->>>> since blocking on the inode lock under mmap_lock could deadlock and its
->>>> VM_FAULT_RETRY result is not honored, and advances valid_size under the
->>>> folio lock to keep the page cache and valid_size consistent.
->>>>
->>>> Link: https://lore.kernel.org/exfat/10029d6f-13cc-4d17-a2f9-b093a8339dde@163.com/T/#t
->>>>
->>>> Chi Zhiling (5):
->>>>     exfat: advance valid_size to EOF for append writes
->>>>     exfat: dirty all new pages when extending valid_size
->>>>     exfat: hold the invalidate lock while truncating
->>>>     exfat: make valid_size and zeroed_size atomic
->>>>     exfat: use folio lock to protect valid_size
->>> Could you check the review comments from Sashiko ?
->>>
->>> https://sashiko.dev/#/patchset/20260927080305.831641-1-chizhiling%40163.com
->>
->> Okay, I’ll take a close look at this review comment.
->>
->> I also noticed that the comment mentions that concurrent DIO and page
->> faults may lead to data corruption. I believe this is a long-standing
->> issue, and I don’t currently have a good way to fix it.
-> Okay, I'll take a look at that. Will you send v2 patchset soon?
-> Thanks!
+--nextPart4PRw5kfOQamMwtcngPadMA
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+To: Vincent Cloutier <vincent.cloutier@icloud.com>
+Date: Sat, 03 Oct 2026 03:08:50 +0200
+Message-ID: <TUmf9Hq_Txaw7MkIttVh3Q@puri.sm>
+In-Reply-To: <20260927145538.233548-5-vincent.cloutier@icloud.com>
+MIME-Version: 1.0
 
-Okay
+On niedziela, 27 wrze=C5=9Bnia 2026 16:55:38 czas =C5=9Brodkowoeuropejski l=
+etni Vincent=20
+Cloutier wrote:
+> From: Vincent Cloutier <vincent@cloutier.co>
+>=20
+> Purism's production Librem 5 kernels used a 3.9 V absolute VINDPM
+> threshold for years,
+
+=2E..because it was (likely accidentally) left over from the devkit dts whe=
+re it=20
+was genuinely needed.
+
+> from the 2019 board support through the releases
+> preceding the March 2026 charging update.
+
+=2E..which is when it was changed because it was found to be the cause of i=
+ssues=20
+due to interactions between TPS65982 and BQ25895 cut-off limits observed wh=
+en=20
+used with power sources that struggle to provide the required voltage when=
+=20
+under load.
+
+> Use this established board
+> setting for the BQ25895 input voltage limit.
+
+Why? What makes you want to bring the bad value upstream?
+
+> Set input-voltage-limit-microvolt to 3900000 to select absolute VINDPM
+> and program the 3.9 V threshold through the generic binding.
+>=20
+> Tested on Librem 5r4: REG0D remained 0x8d across an attached boot, unplug,
+> and flipped replug.
+>=20
+> Assisted-by: OpenCode:gpt-5.6-sol
+> Assisted-by: OpenCode:gpt-6-astra
+> Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
+> ---
+>  arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+> b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi index
+> 099195279e84..8badebfcdbb4 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+> @@ -1195,6 +1195,7 @@ bq25895: charger@6a {
+>  		pinctrl-0 =3D <&pinctrl_charger_in>;
+>  		interrupt-parent =3D <&gpio3>;
+>  		interrupts =3D <3 IRQ_TYPE_EDGE_FALLING>;
+> +		input-voltage-limit-microvolt =3D <3900000>;
+>  		ti,battery-regulation-voltage =3D <4208000>; /* uV */
+>  		ti,termination-current =3D <128000>;  /* uA */
+>  		ti,precharge-current =3D <128000>; /* uA */
+
+
+--nextPart4PRw5kfOQamMwtcngPadMA
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEIt2frgBqEUNYNmF86PI1zzvbw/8FAmrAVaIACgkQ6PI1zzvb
+w/9PaRAAyovF677HImIcOzNmNYk8sCgAzYbXHuXezcHn0rEHn3Ok1dsAHHjLuFyq
+5FkBbuTa04vepyenQ2hWXWR/ad7kMnUw5leMg2QXDbwjXadbUlfba2uVUlO3VS59
+k3C8RwJIQuOVxcSG1nvCUjbONw5aDzcyqiDbQe9zewCiSY6Q9MTj/wwAPTRFk1nE
+BZs5akpwi8QwoysnjS76H+I0h5iWdbUX71UG+rYn2WMKMaQ+zyaLGp0NTZ9bbwxF
+cfZQA11W+abBbvF3FKu2zPwYBt1+l1JSn3ZjnQZ/dkyMBZ7pQsID1lSKAwqj+jN7
+cAtgNNHib1ub+gGm6rJkhCckhhlUWMr0uq9xvHwyCAE80lckRoh25qPDo6Yzs1e/
+Wys9tseSOqRVsusVAZjqlmrg2jYfbE9LbdeZl1WWFoV0/yL3KTLIHGu6sSxyj2We
+F8Nyk9oZZETpOR0zNONvD7ItWTO9srw7SrhAorHnSGj3ObyUQuDAX2mld88WAfGk
+ETfMVdfqGgoyi2fhV8M0bnWX4NE2aFuokJRAc7lckf7bCIXCMS3o6FZg3RUUiK4a
+IS6WED8WVEApN6+ry1UZX5t+S1w64JiLyTZcr+hbtEUUIxwuKX5LjI4sClLpa6OR
+D2yd15HdnZvlDY+fxOxdcDxvua6h6Fd+w85n7ja7lC8Bs+miUQk=
+=parr
+-----END PGP SIGNATURE-----
+
+--nextPart4PRw5kfOQamMwtcngPadMA--
 
 
 
