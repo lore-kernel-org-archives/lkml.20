@@ -1,109 +1,78 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F1B2E5B02;
-	Sat,  3 Oct 2026 21:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79B723AE9B;
+	Sat,  3 Oct 2026 21:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063283; cv=none; b=tGZNdSG6kgIBNtoHQnGbb30OT4dzDl05Eht9ldlwaqHMTfM7/puYJkzqgmse/oYS8b/3PdrHaMrHUiBbEVzTkCPD7yRgG7kP7V7BcORytIwLKJX0oEcgE8ug94ybVFh7mf4NyBVz/96PsIxJh5R9VDGfvgDsNLPa23WUIMdBnug=
+	t=1791063312; cv=none; b=hnDZ/onwuczA2LUz+NArTJ1moAgAo2ubUE98rSm/EWhK7yHN5F7DjPH9eppVVlsWG+MxAjFEyAbdXs5puKmaDZ9tDmhZyFT0EIK+P1EfvLLAk9mKfyO3nfeo/WF80Zo77ecnE2Y7G/OL44V6/QDwezxSwLsGaE7yLDvWUZ8tzwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063283; c=relaxed/simple;
-	bh=v2wkpbnJSVfATnhgeONgSDa62a3bELLGSq+xO6aN2OQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TkC8NmdYDRRIZaOkBkKUnwv3X4zeo9tCbbWkT64MQ2X2EWM3lbxUGiuWtPf/F4YJmZx/ol2aqVq8vyzuhq7iK9Ia5PcM6NfxffEy/dCojew5wvbJt2jK+KtL/526fi+u2q6PQjrhFzcXHfRMO06XSOMAPqsJDP0PtSCoW3MJZXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=TZtdaHHT; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=giMdF1OH; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791063312; c=relaxed/simple;
+	bh=NapNk1QZ5fGn4okTgqwbXw6z6tGpWJoBWShrrqaLDR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HII4R+QmFPdh5XIGNSPyLgvxHtBIFHJPNv3o2LWkH7AxBmLr+cffM7SHicJmE47Gp+jlePI+huTHT12f0O7hg9NAm0ZSd50z/LMD0zT0Leiel8V3OebAJtydZkO64rVrMr3Ro1aK2Q23ADKymhToAU+NX5O0KQXlD7iPAxocnXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=bWo5/h2B; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="TZtdaHHT";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="giMdF1OH"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hxzSZ6FrhzMlQg;
-	Sat, 03 Oct 2026 23:34:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791063278;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JsfgHb7ulzk4k9dY5hRDo2OMjswVPbj1J5spakfPYuM=;
-	b=TZtdaHHT5XT1FJRszeKMinIqci9J1NkCeD/N9AsOyRZKUVbCitm79uivkRj7357GE6RP9n
-	DFLuh0+GFamlSRNSx94L/NqSmKuvubukAED+oHxIeBFclW22kENEC15l8Dki2OhXBpv+oD
-	7N5e9BAk2FIGH1WBjyNXFtSZPYjG1HponakHiV06u929T4slabi2VSJkH2YK/mxUsyTwy5
-	YiV1oJYbqDqcyCZvxaoZKmT9Nx3G/vUvvFWBaaX9IAgAKHkp5XuvYkVI/8G90uwVXCSJrD
-	dKkqb4l/80X9iWpc4eC0FNcJZiaanVhgxDZGAVlrEjmdQ+29TlWvZ9FgMiGIKw==
-Message-ID: <5828adca-ccf3-4680-84d6-964321a2e0c7@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791063277;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JsfgHb7ulzk4k9dY5hRDo2OMjswVPbj1J5spakfPYuM=;
-	b=giMdF1OHJeF6yhY4ZirSzVyjAcHKgMx64UGhmvbYkSBfN8Zmqg7OkUk7AAtFN4fDuKXXgc
-	r96b2Z0ZAyJM4NlW33ru3FYuSWGrjQS2R6EyVRgp6gZYRNCB0+BCjCnVCB2Zmq7NFEtqAZ
-	pbffUtb912lBmnThsrE7T8qdQ644pjI5IyNhkOG51i/Ha75DPJZF5GfBEtXMKFYN/+6JsZ
-	vceHIYBi2+a/br1sF3+iXgrUWvEywVhxp89OtxhkUO+jsbeb4rqNQUcZd+xlWsH2D91stR
-	h7yMf4YoFEuKrRsVc5TC7NwmsjrVK8Z0s2IXjCI8i+gfASIy8nnvCxkUBuhXsA==
-Date: Sat, 3 Oct 2026 23:34:31 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="bWo5/h2B"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=Dko3HhaGSU5/rU0ME1b74b5ts31WWOq3griU0bVvQeM=; b=bWo5/h2B/eXlcufjNCfpbltF8+
+	yui55u+/jNqokXHr86VsBe2PBs3P3O0M4WqXt23QfO+xBQSossudxnknRXEbQrqEYooFYFIjUFVht
+	/ZJ6ePPvkx7ydtTgcyMSPtaw0REWYqf6wH+OPMDeOa1t7XfgLMnzPh9BFnfOBwzSevRzk3Emj/umy
+	3Vl8JoxW1TSx4rH7lMKl7oPnDz4wSDVZ7UjaFt9zXp1JYYWEXF13aL94llosp9bq7VzIQTqGnpBD5
+	pCI/Hq5Wgfj5Lz5HVJ3FMWE/4oaWiDMsBoi8F7XTiCuzZ27V/ilqrC37bWaoZ48+7qYC+sJrUs4uC
+	9CiBkUVw==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xD7Nj-0000000E5Dy-0vvS;
+	Sat, 03 Oct 2026 21:35:00 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org,
+	Mike Rapoport <rppt@kernel.org>,
+	linux-mm@kvack.org
+Subject: [PATCH] docs: kernel-parameters: adjust reserve_mem build option
+Date: Sat,  3 Oct 2026 14:34:57 -0700
+Message-ID: <20261003213457.96408-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/15] PCI: rcar-gen4: Assert resets when Gen5 PHY
- initialization fails
-To: Koichiro Den <den@valinux.co.jp>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928165230.3397664-1-den@valinux.co.jp>
- <20260928165230.3397664-7-den@valinux.co.jp>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260928165230.3397664-7-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: 77x8weoxogqgphm6d63qzuuo7ckb3jaz
-X-MBO-RS-ID: 37f80b4baeea21761d0
+Content-Transfer-Encoding: 8bit
 
-On 9/28/26 6:52 PM, Koichiro Den wrote:
-> common_init() enables the clocks and deasserts the power and
-> Application/Local resets before phy_init(). If phy_init() fails, the
-> error path only disables the clocks, leaving those resets deasserted.
-> 
-> Assert both resets before disabling the clocks to unwind the completed
-> common initialization.
-> 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes in v2:
->    - New patch. Place the fix(?) before the initialization refactoring.
-> 
-> Marek, I looked through v1-v5 of your X5H series, but I'm not yet sure,
-> was there a specific reason to leave resets deasserted when phy_init()
-> fails? If not, this fixes the unwind before the restructuring in the
-> following patches.
-I agree, this change is correct, and should have a Fixes: tag .
+"[RAM]" means that the command line option is applicable when
+"RAM disk support is enabled." However, the reserve_mem command line
+option is not related to RAM disk support, so modify its build option
+relevance to "[MM]" instead.
 
-Fixes: 3283c4db6009 ("PCI: rcar-gen4: Add support for R-Car X5H PCIe4")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: linux-mm@kvack.org
 
-Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+ Documentation/admin-guide/kernel-parameters.txt |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thank you for spotting this !
+--- linux-next-20261002.orig/Documentation/admin-guide/kernel-parameters.txt
++++ linux-next-20261002/Documentation/admin-guide/kernel-parameters.txt
+@@ -6693,7 +6693,7 @@ Kernel parameters
+ 			them.  If <base> is less than 0x10000, the region
+ 			is assumed to be I/O ports; otherwise it is memory.
+ 
+-	reserve_mem=	[RAM]
++	reserve_mem=	[MM]
+ 			Format: nn[KMG]:<align>:<label>
+ 			Reserve physical memory and label it with a name that
+ 			other subsystems can use to access it. This is typically
