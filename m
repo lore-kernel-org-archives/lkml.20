@@ -1,116 +1,105 @@
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6658316199
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 07:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC841CAA6D;
+	Sat,  3 Oct 2026 07:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791012620; cv=none; b=RODFlj18gGbkOh/zjumOOpEsrXtkRZf99QpsAOdzfWc8Ig77WPqqRsjWHbNXhOSj6ViYRtPDftoNz+EkUZtG8tvy54sCtzFDSVHwOEmdhU6VMMVCl2i4cZPE7vEBrS3M4ObtNkJM8U8sPOw4pEPG4FEd48zrb/bMIEndl/i5DnA=
+	t=1791012726; cv=none; b=kR2Ceqi/FzYnaPCGhJtdXyQBZaPkt6WmyY9boK5Q0W6M+6i7IZ0JfExb9QQAUac7GMnGdUzvA7Bx3DvJ2cP7I6uqV7Fx83zfqjnzzWaQjClA+bhpPAezHGe11zLalSPhWtX3A26ZZKcuqr4r+8DfaZYvo5JpoOWWYjwReLqVVYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791012620; c=relaxed/simple;
-	bh=LnxEf66efq5ClvHb8mJ8XP6ctEeYvZYYAThQ0YvTz/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hVRdyF+IAA4znJU95NIFxzWTuoc8L2VuIROPzLS5p4JB9yFgJ7ywjvKq2EYybz8Tou1fFN8cDit+k/a0TTUpC/jsJxtLQzI5auyCW0EB0fre4k0WFl6/5cd7ntMwEEkM2cAUQXG37bTLNXyVAQWk1N8ZkOjzuBTTY9Ar8awLeq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YNtkdzJK; arc=none smtp.client-ip=74.125.229.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791012726; c=relaxed/simple;
+	bh=lW4jU0rgUwVCAXMdj5R6M9jkWzHgc21RwLdTYVcBIks=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=RfVopgrNDwZAtOK6YhypsNzsXwzMVCw8XfrOxefBUN0JW3fasbxzgSUSIWPceLS74YwO12KUXbTqmCmJAh5pG4hdvnTpFKmXahjcwrhFeRcWL10baojZRFluFJyVkNz8Sb1NQk9hqsyXZiEn5Pmywppjp057cc7ZDE6Ws8qIZKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P85Brt73; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YNtkdzJK"
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-35104f34166so55941eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 00:30:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791012619; x=1791617419; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qNX8WzPm1xbL15gYTvgsxtiYlRVrGYOY+Ynh0OU8gUA=;
-        b=YNtkdzJKh+CTHdYmHTMSq0tCqHTF47XwBrL+EWaAxEL1WFmgGaJSpRxUlMcRRhiyax
-         N29AY1L7isIVDVqBJaH/HB+MRr+L0mbzc1dd7ZnbSi30eOQWIbldyvt0EE4qkBSt5Xjx
-         E3EaR+efjB01XiaXAoDYuwDL/2RcPZdJNeb6iWxeLGMC9NptpVVrtqtPlVst46oHrFpu
-         JNEA3pwwDJGCtgufBhLoJXGtxJy00zmQqHeHjuVYow+yRplhuDZdIlaKO2/5Sk4RKyiv
-         ailhI2ZzwLo0lVVzT2OLY0J2mFYxT7h3sTi+bzon8ufpc+8d5oYaHyMrt+Fweo7HddaK
-         FVGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791012619; x=1791617419;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qNX8WzPm1xbL15gYTvgsxtiYlRVrGYOY+Ynh0OU8gUA=;
-        b=F0Eh4jsX/cYApOHzHl7XWu9z43G2afDrF9j4IAGoiKGuM/NtCSQUIDU/eaMwo162LP
-         3TboErU4LwjpyHXpbfhdokYQcTGcK+kSdbeD0T57zbqlMJuhFe5lwzlyyYEEoxWeWr6a
-         l54HwWzKxmHmXQGVrEER0WhHCCGbdljZPwKtamh0lkPUr5w+MMmZm/6wMcz7xsSK+o8w
-         QaeiSyZofFhLLj3QQApMs4vQsSzawVuc8+IojVP+S1YN3Uw2MHMTaRgJJznoNJ0CLn+X
-         BkL8l+66Lt0HMlVSAuzhD8OdG02JQ1zrvaiRcFMgXrKcxqZknAhWMed/FijTAAz8VFil
-         DWnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSCiFVsFCdV8yFM6aTP3A5tal8vNhpAflhf4FJkVqyKhfjPO3uHLZk/oXE1xhrqJ6oeb10wgy5Y9LRO8M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdoi1XXnNiFm1A1jjv/JIHs+O9s8VNbDdwNCQTssuBL3AJU3ew
-	uZYrKo1SVQbkTVfttiycdcnGw+lQLV4PRwYpBGy8CDNR/xsU10nShmA1
-X-Gm-Gg: AYBFou1+dVBZ/rgmj2nHVbZLf7jAzrLw3ge1dowJ68gDAOIbBTGDr6hYlKiafugnbID
-	iFfluBaByxr39W6kTwNJ9kP+jSaiccLjw0pXa5nLCpEK2eI3iQ3LRgtl4AeaNx7G28a0IzX8KVe
-	e7dc5lBxcA/9JseUmXAvziIoH0a/ra8HPyAYczYMiMVcQEjk8GcsxZDVo2IQA79WUeHIbDEJAnr
-	qD1Hi4WjzqpZIEFSU/eQjrDNi/bl+DqzLdzoBuFnQAtF9Prh5RxKgaA+uafEd7eGeoHZRr4W/X0
-	P8XeKaACVvZ8nAzK1HgWSiXnD3tX/d9xMasDfKI/EtHWtejH0vzet38kZBIbQxqTojZvTskSzgo
-	+4Dz1QtsxqFJkHzCqVXdQQrb7R6Lz9kutSVj+a3CpyJOxztHw0NSDP0IG0pOfuSC1BZ55yGAdHP
-	TSpO+w8WolRNqe+Fo7W0umYhwiLeOQeW+TgyuckX52+KqrNwtjhbHgnc77AzbmR5sm3IvH61gLB
-	ngGtGp4zw==
-X-Received: by 2002:a05:7301:9e08:b0:34b:401a:4648 with SMTP id 5a478bee46e88-34f150e388cmr5276725eec.20.1791012618690;
-        Sat, 03 Oct 2026 00:30:18 -0700 (PDT)
-Received: from linuxmint.. ([2802:8010:9a2c:8801:3f96:aa95:7a0d:7d89])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f15019999sm10911097eec.29.2026.10.03.00.30.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 00:30:18 -0700 (PDT)
-From: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org
-Cc: Aditya Garg <aditya.garg@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Nehuen Lian Bova <nehuenlian.kernel@gmail.com>,
-	syzbot+5ad4fc9c8360b68e353f@syzkaller.appspotmail.com
-Subject: [PATCH v2] HID: magicmouse: fix null pointer dereference in magicmouse_event()
-Date: Sat,  3 Oct 2026 04:29:59 -0300
-Message-ID: <20261003072959.388811-1-nehuenlian.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261003011820.1295672-1-nehuenlian.kernel@gmail.com>
-References: <20261003011820.1295672-1-nehuenlian.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P85Brt73"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E721F0089B;
+	Sat,  3 Oct 2026 07:32:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791012724;
+	bh=4VEmLjyRjf8Qvg2LMZxEQtyqpIDGiu9mpIfBw4CjgoY=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=P85Brt73KUT6Z1RRpX0AoGGJHOPD566eoEKeCyVK9zR1mDp4xz8Hwk6YSOaKimchK
+	 nNm3gUTekQpJJko+hyxNJfqH7J+1MyDuOipm1KO66NrU/fSrrtSAYwiUQsyyaaxfPE
+	 mlCQrimnq5DqqxLnFk2hijrBgrjd2CZ/sPkhO7Aq0dIBTenc5t+dksLLLlms1UtVle
+	 q0uJg0fD4AGmk/jZt5TEEyrZqVKAK8dJcIo/1dfDirGwIjJ6tkQsrQ6DJCLVZtiLMk
+	 uRcFXAVbgWbPcWKn7Vg9+BmabZ9WtacIKkMsVVyqI5OR/t2pnn7TYs4myZcJSYyrL8
+	 //QNjdv2JY65A==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 6588A198003A;
+	Sat,  3 Oct 2026 03:32:02 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Sat, 03 Oct 2026 03:32:02 -0400
+X-ME-Sender: <xms:cK_Aao66tBT4SWeS5MUZiUkdvCdGYuJZOZ68rD289ueeG1sx6D7TsQ>
+    <xme:cK_AakvWBSt9DS28J2KvwqVin8JYbsNqRMOqwS9vv8qX_U90FtPOzFA4NGgXTlasy
+    Cwh5YTdFGNpNYrubD3xt4n7g_1SxZzlGyzcmCsh8zn88YCjYbPLhjOx>
+X-ME-Proxy-Cause: dmFkZTE0yaIvcJoyKUS2wC2MTUrgiztPATsDZhFTsu6K+1E7h8b9DzPQUZtbLGBdqlwX9B
+    5ihlcyXTnas7GOLEgClLsfpq0hLg7RtuJeG1GG3tOU+fVIwzDso136G/po6TDs9sCm2Hmb
+    VXpAaTA8TWgUdhhNRWcjoeAhpw9NLpL25sQJmmzezLXG6PUJUcVtQ77s4hNu4Yv27S5+bp
+    YzW3RBGYurCHF/RaLTkDpVucpyfQNXeHByTveMZ9mr7sje2Wm93JoB+zFtpWOrd+BXc+Cd
+    n65msms5C5E+05MZQDQTCD+6wccgKwokPvFpyzz/CWzIA7+3yeuWWt3I2PdEWM+NnLvEFH
+    SNR0inOBwrkS89wb0MaNngod8hT1AbqIDZJQaUAXsspitA7J6tsk4GQnTFGGRlWsYZqNon
+    0iKDzcgwzp5Kf51pIJvpPn3cpueMVY4qq/rB3aYKmLFRi/7fYl+/vG4NeXd2UeiP9cOqUP
+    SpfhIe05pT0/qJ7BGUOmhMLsLnJwAttl2j7Y2SdoPSWQnnpOw5jwwFJXtbOYEhQmQyo0dx
+    8bxPAo8VU7Gj5MTMMHOxCjG4JPgAvYuVVtlDlZyLOcf3DvPOHCLvoEBYQp/NkkIEkbH7ls
+    iwv9vArdeLDxeHaDzPrwkf8pIj1DtljEvvAJprnw6Am1cUYaBjJzvSOnl0ow
+X-ME-Proxy: <xmx:cq_AamydFc75JWEBcBEVBrrNnxJzWbrKrhgZZfFiejsaJfapMdI0fQ>
+    <xmx:cq_Aai994oCWoed86LqPTlHeYHIGqrMM-INwVaqa44wmmpG2NEdoXg>
+    <xmx:cq_Aamhb8M3aNswFU-85-lQsFWvyK2ec2fbZHXwEQppDmNvVmYCkdg>
+    <xmx:cq_AahG7o2dzznihXJ0EP8NONnapiSZAidalravU27nO_L3Bm_r8zA>
+    <xmx:cq_Aat9HTuC4zz8Ovq8_bG84cExcCQCziE0KpA7NjmT_V0ujqzIth-n->
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 79940F80096; Sat,  3 Oct 2026 03:32:00 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Sat, 03 Oct 2026 09:31:39 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ "Eric Biggers" <ebiggers@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Herbert Xu" <herbert@gondor.apana.org.au>,
+ "Andrew Morton" <akpm@linux-foundation.org>
+Message-Id: <019c709e-9513-44c1-bbb0-82cb16040709@app.fastmail.com>
+In-Reply-To: <asB7QVFMlgKgbje2@zx2c4.com>
+References: <20261002223708.39183-1-ebiggers@kernel.org>
+ <asB7QVFMlgKgbje2@zx2c4.com>
+Subject: Re: [PATCH] lib: Move SipHash into lib/crypto/
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Add a guard clause to check if 'msc' and 'msc->input' is NULL
-before attempting to access its fields, preventing a general
-protection fault.
 
-Fixes: b8d56ef91cc3 ("HID: magicmouse: Apple Magic Mouse 2 USB-C support")
-Reported-by: syzbot+5ad4fc9c8360b68e353f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5ad4fc9c8360b68e353f
-Signed-off-by: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
----
-Changes in v2:
- - Also check msc->input before dereferencing it, not just msc
+On Sat, 3 Oct 2026, at 05:49, Jason A. Donenfeld wrote:
+> On Fri, Oct 02, 2026 at 03:37:08PM -0700, Eric Biggers wrote:
+>> The addition of SipHash to lib/ predated the existence of the
+>> lib/crypto/ directory.  Since it's a cryptographic algorithm, move it
+>> from the top-level lib/ directory to lib/crypto/.
+>> 
+>> Specifically:
+>> 
+>> - Move both siphash.c and siphash_kunit.c.  Keep the header
+>>   <linux/siphash.h> as-is for now.
+>> 
+>> - Keep the dedicated MAINTAINERS entry for SipHash.  Just update the
+>>   file paths it references.
+>
+> Given that I'm also listed in the crypto section, I think we may as well
+> delete the whole separate entry.
+>
+> The only downside of this change is that those hsiphash functions are,
+> erm, a bit less than cryptographic-strength. But maybe such concerns
+> don't really matter any more at this stage, and we might as well group
+> it all in lib/crypto/ where it all belonged originally anyway.
+>
+> Acked-by: Jason A. Donenfeld <Jason@zx2c4.com>
+>
 
- drivers/hid/hid-magicmouse.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Either works for me.
 
-diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
-index d637c0477379..e6d4d4930526 100644
---- a/drivers/hid/hid-magicmouse.c
-+++ b/drivers/hid/hid-magicmouse.c
-@@ -553,6 +553,10 @@ static int magicmouse_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
- 	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
-+
-+	if (!msc || !msc->input)
-+		return 0;
-+
- 	if ((msc->input->id.product == USB_DEVICE_ID_APPLE_MAGICMOUSE2 ||
- 	     msc->input->id.product == USB_DEVICE_ID_APPLE_MAGICMOUSE2_USBC) &&
- 	    field->report->id == MOUSE2_REPORT_ID) {
--- 
-2.43.0
-
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
