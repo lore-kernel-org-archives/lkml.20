@@ -1,281 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A783264DD;
-	Sat,  3 Oct 2026 14:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC4B3264DD;
+	Sat,  3 Oct 2026 14:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791037509; cv=none; b=cI6jbVChsKYli372vIB+wCczut/ynqnpK64bdQ44hQoxpqY0BpRn9XHO9W0HEjJXuSg+MIW8FFmEw6tdF9K3mDkG32Cxj02NIxeE4aBWQTfV/nbaIECxQ5zXmBQIL5fp1FEJUPFLujKI5l370353ygj48qc9keavBFTGfjZcgcg=
+	t=1791037526; cv=none; b=QL4RyNs+ejMi87iKB1CnxcDfKxCwzUjDacUGMxQAPv7oSNj80HaDN79YhBLy4HcR4XOPy9OO+dcxroCLH25F++eGa/LTfvx1HYvh17xBBBjCwnR8IYmxEFsbUNvIUmY0NuiOSMND0f+BqK4Xca6Swlc610uHdAVsQlUM2zWlDNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791037509; c=relaxed/simple;
-	bh=5p01jTBDDf0OrBUWmbz+2vVbxrtK9ueFIt9fQtbOgCQ=;
+	s=arc-20240116; t=1791037526; c=relaxed/simple;
+	bh=T89/h7SPkioBe2Cwy06aCg2kDoZSQ8S6tLZH1JSWAvA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=frgGrcZDfv2LWpUicF2LbSTSOvnvoln57YIwTfV05jFgsv3YiaNe5rcWQZtcpBffKMVlGyan6fXfcLI3cDIDT4vvkN4w0Uk4udedSOuS21ThOIUF7nnEKsGQtiGxXvRMPDkdu315HRM3HQOPc62pGFMO0Js5zPcm5EmwiIhKv1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U5MZxtj0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=etiZ8aeMyOpoUnNPRMCTjI1Uz6/A5hqr15hw7n66Q/1THj9NrtBU3hEYJ9LD8VA5/ts8SyvZCHggzDcWTTP1CsD5QvU9oeTL45IC4Mks4pVxrJB4wPUTYR3qKyUmlTSMYOh2019TvxAPZFDNDrnbGwzgam6wY/rqtO00H0uvdvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHo6pYql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U5MZxtj0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA811F0089C;
-	Sat,  3 Oct 2026 14:25:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHo6pYql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03CA61F0089B;
+	Sat,  3 Oct 2026 14:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791037504;
-	bh=OStxCh6fDcyrpKUJLDDLqh7HC7mBFGIT1dAR3GKdF4A=;
+	s=k20260515; t=1791037524;
+	bh=oMEyZY83mtOf98Y87sETCEyUJVbj7dvZ+NURWwy5N3Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U5MZxtj01Megkgki9VUtoR3nE6LqkCwnSZP+XxHAZUCJ715Cb+OmpmwLXpOaI/IR3
-	 F5OPyVar54h64ffr+Foyw0eU3K+eMntDcfoQjqNLDIzGvQcn2pahJBEvuOM/kY/yKN
-	 CPTLdcX7FzhFFrIUKcJBOV5EEsBx0lnbM9ouX15RWZOdvYo21sPP9bK5SXMRJGNgZ4
-	 xbr1p9ZLxHcWKICbUAkiUcA0nKsEAwVaP+wyjL/v51g9C+wf+holQn1aEiMRsW3rnl
-	 2/IIklB/6vYAJNs6AtkJi2AvsbBch8+csHi+40coRFeG2uomrGgDPTpw/mvh4SUT5b
-	 jOZGhdzze5clQ==
-Date: Sat, 3 Oct 2026 16:25:01 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Dominique Belhachemi <db@domibel.de>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Maud Spierings <maud_spierings@murena.io>,
-	Graham Markall <hello@big-grey.co.uk>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v5 19/21] phy: starfive: Add jh7110-inno-hdmi-phy driver
-Message-ID: <asEQPf-oKbt_DSp3@parshuram>
-References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
- <CGME20260929103245eucas1p1349d00810646fbf0149f1361534c23ac@eucas1p1.samsung.com>
- <20260929-jh7110-clean-send-v5-19-82b4d8e3c6c7@samsung.com>
+	b=NHo6pYqliX0+vL+QohnXX/giy7sbKAGQFfZ7psJ1t0iNtAJCNHZjWMOx9qFUYy6Eu
+	 lmKTKVwGGe1fznnkHQFp+ITSLz0bdrlPkufCWnFxHxoqhKV6P0TBsYS3wFNk6JR+Dm
+	 5A8OCHv8w+pJVKMDB+L0k0BuKcX77OYJmNU5ByIawM00JvFI7MzbCnCVguc4b1FjSW
+	 dc/RcjuKIvDBJHg+m1EzPVxGXLIo8f6KScvqkl3TROpoiuEy/ZUr0N/m5e/AIhe+vw
+	 oivzL7MmWh4WycM+wtW88TrzYk1yosBV2WZmZHh6Sa3mPoJGGjNrrIFI4654JPzdQm
+	 3kWwhvNfaPljQ==
+Date: Sat, 3 Oct 2026 16:25:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+Subject: Re: [PATCH v2 1/3] spi: dt-bindings: nuvoton,ma35d1-qspi: Add MA35D1
+ SPI controller
+Message-ID: <20261003-innocent-placid-markhor-e7c6ec@quoll>
+References: <20261001131818.110028-1-cwweng.linux@gmail.com>
+ <20261001131818.110028-2-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260929-jh7110-clean-send-v5-19-82b4d8e3c6c7@samsung.com>
+In-Reply-To: <20261001131818.110028-2-cwweng.linux@gmail.com>
 
-On 29-09-26, 12:31, Michal Wilczynski wrote:
-> Add the HDMI PHY driver for the StarFive JH7110.
+On Thu, Oct 01, 2026 at 09:18:16PM +0800, Chi-Wen Weng wrote:
+> From: Chi-Wen Weng <cwweng@nuvoton.com>
 > 
-> This driver binds to the starfive,jh7110-inno-hdmi-phy node and
-> gets its regmap from the parent. It has no dependencies on voutcrg, only
-> on its reference oscillator (xin24m), which breaks the probe-time
-> circular dependency.
+> Extend the existing MA35D1 QSPI binding to also describe the MA35D1 SPI
+> controller.
 > 
-> This driver provides two main functions:
->  - Clock Provider: It registers clk_ops to provide the variable pixel
->    clock. The .set_rate operation configures the Pre-PLL registers
->    (0x1a0+) based on the requested rate.
+> The SPI and QSPI controllers are separate hardware IPs. QSPI additionally
+> supports dual, quad and DTR transfers and a target-mode timeout function,
+> but these differences do not require additional controller-specific
+> Devicetree properties.
 > 
->  - PHY Provider: It registers phy_ops for the controller. The .power_on
->    op configures and enables the Post-PLL and other analog blocks (BIAS,
->    LDO, Serializer, etc.).
+> Both controllers expose the same Devicetree-visible resources and provide
+> up to two native chip-select signals. GPIO chip selects are supported
+> through the generic SPI controller binding. Since the MA35D1 QSPI driver
+> now supports GPIO chip selects, also remove the existing restriction
+> on cs-gpios for the QSPI compatible.
+
+This has to be a separate commit.
+
 > 
-> The clock ops reach registers in the window shared with the HDMI
-> controller, and access to that window is gated by the controller's
-> system clock, which only the sibling controller driver holds. The clock
-> framework walks every registered clock regardless of which drivers have
-> bound, so deliberately do not implement .is_prepared, which lets the
-> framework fall back to the software prepare count, and return the cached
-> rate from .recalc_rate whenever the clock is not prepared. Without this,
-> clk_disable_unused() reads a PHY register with that clock gated and the
-> resulting stalled bus transaction wedges the CPU hard enough that it
-> stops responding to NMIs. It is reproducible by building the bridge
-> driver as a module so that the controller has not bound by then.
+> Add the nuvoton,ma35d1-spi compatible and update the binding description
+> and examples to cover both controllers.
 > 
-> The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
-> with the PHY register block shifted by 0x100 because it sits behind the
-> HDMI controller in the shared register space. The pre-PLL programming
-> therefore comes from the common Innosilicon helpers; this driver adds
-> the JH7110 pixel clock table, the post-PLL and the analog configuration.
-> 
-> Co-developed-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
 > ---
->  drivers/phy/starfive/Kconfig                |  20 +
->  drivers/phy/starfive/Makefile               |   1 +
->  drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 582 ++++++++++++++++++++++++++++
->  3 files changed, 603 insertions(+)
+>  .../bindings/spi/nuvoton,ma35d1-qspi.yaml     | 41 +++++++++++++++++--
+>  1 file changed, 37 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/phy/starfive/Kconfig b/drivers/phy/starfive/Kconfig
-> index d0cdd7cb4a13de22ff643c89a79d99cce57284d7..1da417ffbf224c13224e42a3ce322e3d0c272824 100644
-> --- a/drivers/phy/starfive/Kconfig
-> +++ b/drivers/phy/starfive/Kconfig
-> @@ -25,6 +25,26 @@ config PHY_STARFIVE_JH7110_DPHY_TX
->  	  system. If M is selected, the module will be called
->  	  phy-jh7110-dphy-tx.ko.
+> diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+> index 40965ec5163b..72f2e1e1219a 100644
+> --- a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+> +++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+> @@ -4,7 +4,17 @@
+>  $id: http://devicetree.org/schemas/spi/nuvoton,ma35d1-qspi.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
 >  
-> +config PHY_STARFIVE_JH7110_INNO_HDMI
-> +	tristate "Starfive JH7110 INNO HDMI PHY"
-> +	select PHY_INNO_HDMI
-> +	depends on COMMON_CLK
-> +	select GENERIC_PHY
-> +	help
-> +	  This option enables the driver for the analog HDMI PHY (Physical
-> +	  Layer) on the StarFive JH7110 SoC.
+> -title: Nuvoton MA35D1 Quad SPI Controller
+> +title: Nuvoton MA35D1 SPI and Quad SPI Controllers
 > +
-> +	  This driver binds to a child node of the 'starfive,jh7110-hdmi-subsystem'
-> +	  parent driver and gets its register map from that parent.
+> +description: |
+> +  The Nuvoton MA35D1 SoC contains separate SPI and QSPI controller IPs.
+> +  Both controllers expose the same Devicetree-visible resources and provide
+> +  two native chip-select signals. GPIO chip selects are supported through the
+> +  generic SPI controller binding.
 > +
-> +	  It is responsible for two main functions:
-> +	  1. PHY Provider: It provides standard PHY operations (.power_on,
-> +	     .power_off) for the HDMI controller (bridge) driver. This
-> +	     involves configuring the Post-PLL and analog TMDS blocks.
-> +	  2. Clock Provider: It registers as a clock provider to supply the
-> +	     variable pixel clock (hdmi_pclk) to the HDMI controller and
-> +	     the VOUT subsystem, which it generates using the Pre-PLL.
+> +  The QSPI controller additionally supports dual, quad and DTR transfers and
+> +  a target-mode timeout function. These capability differences do not require
+> +  additional controller properties.
+>  
+>  maintainers:
+>    - Chi-Wen Weng <cwweng@nuvoton.com>
+> @@ -14,7 +24,9 @@ allOf:
+>  
+>  properties:
+>    compatible:
+> -    const: nuvoton,ma35d1-qspi
+> +    enum:
+> +      - nuvoton,ma35d1-spi
+> +      - nuvoton,ma35d1-qspi
+>  
+>    reg:
+>      maxItems: 1
+> @@ -33,8 +45,6 @@ properties:
+>      maximum: 2
+>      default: 2
+>  
+> -  cs-gpios: false
+> -
+>  required:
+>    - compatible
+>    - reg
+> @@ -59,7 +69,30 @@ examples:
+>              interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+>              clocks = <&clk QSPI0_GATE>;
+>              resets = <&sys MA35D1_RESET_QSPI0>;
 > +
->  config PHY_STARFIVE_JH7110_PCIE
->  	tristate "Starfive JH7110 PCIE 2.0/USB 3.0 PHY support"
->  	depends on HAS_IOMEM
-> diff --git a/drivers/phy/starfive/Makefile b/drivers/phy/starfive/Makefile
-> index eedc4a6fec156320c99ac0a0da609083b6a6a695..e7b13f00880b500f933f21b6037384d5c6884e3e 100644
-> --- a/drivers/phy/starfive/Makefile
-> +++ b/drivers/phy/starfive/Makefile
-> @@ -1,5 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0
->  obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_RX)	+= phy-jh7110-dphy-rx.o
->  obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_TX)	+= phy-jh7110-dphy-tx.o
-> +obj-$(CONFIG_PHY_STARFIVE_JH7110_INNO_HDMI)	+= phy-jh7110-inno-hdmi.o
->  obj-$(CONFIG_PHY_STARFIVE_JH7110_PCIE)		+= phy-jh7110-pcie.o
->  obj-$(CONFIG_PHY_STARFIVE_JH7110_USB)		+= phy-jh7110-usb.o
-> diff --git a/drivers/phy/starfive/phy-jh7110-inno-hdmi.c b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..cba6f3c3dae40bd982c062c8504438f51f3b30be
-> --- /dev/null
-> +++ b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-> @@ -0,0 +1,582 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2017 Rockchip Electronics Co. Ltd.
-> + * Copyright (c) 2025 Samsung Electronics Co., Ltd.
-> + *
-> + * Author: Zheng Yang <zhengyang@rock-chips.com>
-> + * Author: Michal Wilczynski <m.wilczynski@samsung.com>
-> + *
-> + * The register layout and programming sequence derive from
-> + * drivers/phy/rockchip/phy-rockchip-inno-hdmi.c; the JH7110 places the
-> + * same Innosilicon PHY block at a 0x100 register offset.
-> + *
-> + * This driver handles the PHY portion of the StarFive Innosilicon HDMI IP,
-> + * which is part of a monolithic HDMI block. It provides the variable pixel
-> + * clock (from the Pre-PLL) and the PHY operations (for the Post-PLL/analog).
-> + */
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +        };
+> +    };
 > +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/delay.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/phy/inno-hdmi-phy.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/slab.h>
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
 > +
-> +/*
-> + * StarFive (JH7110) Innosilicon HDMI PHY Register Definitions
-> + */
-> +
-> +/* REG: 0x1aa */
-> +#define STF_INNO_POST_PLL_DIV_1		0x1aa
-> +#define STF_INNO_POST_PLL_POST_DIV_ENABLE	GENMASK(3, 2)
-> +#define STF_INNO_POST_PLL_REFCLK_SEL_TMDS	BIT(1)
-> +#define STF_INNO_POST_PLL_POWER_DOWN		BIT(0)
-> +
-> +/* REG: 0x1ab */
-> +#define STF_INNO_POST_PLL_DIV_2		0x1ab
-> +#define STF_INNO_POST_PLL_PRE_DIV(x)		FIELD_PREP(GENMASK(5, 0), x)
-> +#define STF_INNO_POST_PLL_FB_DIV_8(x)		FIELD_PREP(BIT(7), (x) >> 8)
-> +
-> +/* REG: 0x1ac */
-> +#define STF_INNO_POST_PLL_DIV_3		0x1ac
-> +#define STF_INNO_POST_PLL_FB_DIV_7_0(x)	FIELD_PREP(GENMASK(7, 0), x)
-> +
-> +/* REG: 0x1ad */
-> +#define STF_INNO_POST_PLL_DIV_4		0x1ad
-> +#define STF_INNO_POST_PLL_POST_DIV_MASK	GENMASK(1, 0)
-> +
-> +/* REG: 0x1af */
-> +#define STF_INNO_POST_PLL_LOCK_STATUS		0x1af
-> +#define STF_INNO_POST_PLL_LOCK		BIT(0)
-> +
-> +/* REG: 0x1b0 */
-> +#define STF_INNO_BIAS_CONTROL			0x1b0
-> +#define STF_INNO_BIAS_ENABLE			BIT(2)
-> +
-> +/* REG: 0x1b2 */
-> +#define STF_INNO_TMDS_CONTROL			0x1b2
-> +#define STF_INNO_TMDS_CLK_DRIVER_EN		BIT(3)
-> +#define STF_INNO_TMDS_D2_DRIVER_EN		BIT(2)
-> +#define STF_INNO_TMDS_D1_DRIVER_EN		BIT(1)
-> +#define STF_INNO_TMDS_D0_DRIVER_EN		BIT(0)
-> +#define STF_INNO_TMDS_DRIVER_ENABLE		(STF_INNO_TMDS_CLK_DRIVER_EN | \
-> +						 STF_INNO_TMDS_D2_DRIVER_EN | \
-> +						 STF_INNO_TMDS_D1_DRIVER_EN | \
-> +						 STF_INNO_TMDS_D0_DRIVER_EN)
-> +
-> +/* REG: 0x1b4 */
-> +#define STF_INNO_LDO_CONTROL			0x1b4
-> +#define STF_INNO_LDO_ENABLE			(BIT(2) | BIT(1) | BIT(0))
-> +
-> +/* REG: 0x1be */
-> +#define STF_INNO_SERIALIER_CONTROL		0x1be
-> +#define STF_INNO_SERIALIER_ENABLE		(BIT(6) | BIT(5) | BIT(4) | BIT(0))
-> +
-> +/* REG: 0x1cc */
-> +#define STF_INNO_RX_CONTROL			0x1cc
-> +#define STF_INNO_RX_ENABLE			(BIT(3) | BIT(2) | BIT(1) | BIT(0))
-> +
-> +/*
-> + * These tables are copied from the monolithic driver.
-> + * They match the Rockchip PHY driver tables.
-> + */
-> +
-> +struct post_pll_config {
-> +	unsigned long tmdsclock;
-> +	u8 prediv;
-> +	u16 fbdiv;
-> +	u8 postdiv;
-> +	u8 post_div_en;
-> +};
-> +
-> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
-> +	{ 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
 
-lower case hex values, here and everywhere else please
+No need for a new example, for exactly the same node. Difference in
+value of a property does not justify it.
 
--- 
-~Vinod
+Best regards,
+Krzysztof
+
