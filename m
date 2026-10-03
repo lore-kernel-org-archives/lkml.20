@@ -1,89 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551703537E8;
-	Sat,  3 Oct 2026 09:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018398; cv=none; b=o9ADtmDg0kszass5yFs4M12sk/UjOl/0HNkdEBgnV0OsO61+nxhZdu7C6d+KyX6+cqT17GXBdxsxzhNZEGyOH5oxLxn7Fr/qVg9uxXx8xxzrVmZBiRRV7wYK9usyerslQLijRtPXML6txSCjTX5NbAFlIwaWnDEhBlDoulwtMRI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018398; c=relaxed/simple;
-	bh=C8hn0OmWEwKv3HFnLyhjwUesJF4WIm0deCXPX3bqI7w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NJUsTWlpIlfrl9QSX6/rEFbFD1i9Cplz0u8puKXB5/wQRRUXle9og30IXDOFy6Hg3gSrY4hSYylNS2/dHg7hkOnDWGbuTJA2D7uuDBWjvjmEDZPA3n6cv0yAGqXcZB5Z+e6mACB+W6zQP5CqieOCaH9noBW/qGUn7jkacfLWGew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZBGCzPG1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF083438B2
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:07:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791018422; cv=pass; b=rSPNXW91wCuUdEIHT0C7E/Ible/iUcTVU0zCLVq3vXLSIP6pHxp2+i+wVENcMw3+dwqX/qRhQZIU8Mtl8jPcsdUKFhvB61vR8pq5Z8RilNYnsOZzKIVD8qOn1L4uiXVXL0t2Ga9cM/ITvhEQ8zxw5U0E8YJV5H6ucTDAaSFoWQA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791018422; c=relaxed/simple;
+	bh=HpqvNikVLDJ70kjb8gJjkVOTZdeTnHoE1zMdMiokrPo=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=f9jUkBzv5A0U6ylupmOJBTNVKGzjU+5ug3NDqXK2uMbArTypKEsyMsDj8v6YFfyF8yDxA1TFZypYUiP735BMrQA/+JBrqj/j12q3aCFl3Vqd6kcmoA6Szfx0F1WoCGHo2HTyaDUdNYmww9vA2wuTNViyIQNxoECExlCsUWW1Hl0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UzIEhAye; arc=pass smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZBGCzPG1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72CA61F008A0;
-	Sat,  3 Oct 2026 09:06:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791018397;
-	bh=Wv72l0hD8jDyK3VWKJExO+bl1rbU9EYOwEy7E6rmeXM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZBGCzPG19VqMPJ/xEM8Kkge9Bg0ygZJ3inmdOrgAgzhyOYWy6+jmxQqIPUE0f5o+I
-	 p8BF3hziXT/Z0Y7NjBWfY6ArV8LakvLRQp9yR1vkbBYn+1XXqIur1qqKL2Ohkr3+u9
-	 7STomURNJ5izwpHrRPZ06G1UCC9UMpsUxY93RArxjW0RY/QpFba+MtYC5n1XQc//rb
-	 bV6dPQAEzoCucmBCNcGAcvjyk/HU+RrU0MkBwALYpwVaaCwZeJvysAA7XuGkwlxds2
-	 tBaQzRuHZPjIXOyOmxj8f6J7D8FFVZmyd+r4QgrdYiPYnjwy+YNnfYbWVbis9Rvx+T
-	 ZcO5L5KR192GQ==
-Date: Sat, 3 Oct 2026 11:06:33 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Frank Li <Frank.Li@nxp.com>, Christoph Stoidner <c.stoidner@phytec.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
-	Aswath Govindraju <a-govindraju@ti.com>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Conor Dooley <conor+dt@kernel.org>, linux-can@vger.kernel.org,
-	linux-phy@lists.infradead.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: (subset) [PATCH V5 0/4] arm64: dts: freescale: Add chargebyte
- Charge Control Y
-Message-ID: <asDFmf_G0v_MWY3k@parshuram>
-References: <20260907150420.18787-1-wahrenst@gmx.net>
- <179016749941.155868.1810345055482953110.b4-ty@kernel.org>
- <72033c48-5219-4ed4-94fd-1b7d8ef8017c@gmx.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UzIEhAye"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04be84so162008c88.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:07:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791018420; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fS2oeWNlEavJEiXN0UUVotFI0CzIKPlwi0JXh7WIreaszjxHVYDyaEVXlL8rKuUBgO
+         q7hVVyPHdqJSkzrm7HwUZUASZbAYZumeTUZVil9YDkODp8O/cymwP95lRzfam6ao30DE
+         NUwAfnct0FJCvchMKQugppj6YzImTYRM77yZH1wg5Pn5zYGWMnX8RMFBac8PPTqo2OYv
+         0K9MW9JNBGOw7+wxWET5vhRFtkAoqQ4BrNZKMAWi68oNlsy9zGbHB4CVlIoAC/vLD5T1
+         M10grM9xb3SmNoqXob6vt4f8RdnYsIajR5C8aKmfldUileEEVe8Ld0diU/ST28xnQPyC
+         2TGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=HpqvNikVLDJ70kjb8gJjkVOTZdeTnHoE1zMdMiokrPo=;
+        fh=cp51R/mOWtvTdfahQO55I4zimKhkwMCBmsHITjRoZAA=;
+        b=MFCfVWnHaQ+M2KWPfh39yr954lF3Mpgr+2/9oSNket7WK4J2oJ1ifcYwkiGLuExQOs
+         cJeKtzPbqnD+WEqRiY34gE/vBCOC/sMFcxRk1B4PG2NDF7xjPKp4i4Y8yvLrVFYt+AUg
+         bhXP0cEGPyqCQhWuZso4afwTORQdLYP6oaGF2dps8NqJqe1Nozvd14/cd0rqvPmH9GYt
+         uSilapjmva2SjLbc9c6+Ki4SU7S9G/cktz0v10l78OLDhvQJhE9S7Dh5b2/3FRyX2SE6
+         0WRM4GIXQyRZorTpwpbiqzDaPB6c9wOhWUWZxOnr8v8VIENW0Ng3c2v/2AwUDNtHSDuk
+         TOBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791018420; x=1791623220; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HpqvNikVLDJ70kjb8gJjkVOTZdeTnHoE1zMdMiokrPo=;
+        b=UzIEhAyeex5HLTc2GwWHYBBB9qpLlD4JaCxQDk9X4y5V25O61x3rTwMMutU1ycdo9g
+         lbwYKWYlM4baJhjtQg5uiQyEVeHnFf+HTMvYbLQ3s9UZ+9lV8JOt744/sC1WxTwjJmwO
+         jmHOJcBPCM4rBLXbun3aU/5yxXZPEWvPY8+/DpIkg6YWW5lyhllH4I6svGnJV8mxrBQ1
+         9y88Cqwp5RttzvEelmFEgE3EoJKLysB9WiYsGOlJQpL4/XWK1VhR3A9jFKIXq+dTV8lW
+         PZGZvEAf+UcGhJVhwrGIn5WnmqCKrpkt5yYcPoM6vftj+AKCWlDDi7vNLFZZesCSJwr4
+         gl9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791018420; x=1791623220;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HpqvNikVLDJ70kjb8gJjkVOTZdeTnHoE1zMdMiokrPo=;
+        b=DIylHnQdBDdeQTrBEqf/vzmMYHzNn2Ef/nOWso+JJeIMEmIcoT8w5kkw1yJ/hAx76B
+         ercltdBTaoCq7rg4D4xrUFL/R5sR03tdM+3yyXB9VSUJFMrSrDymi9d3CvjO9NZf46yH
+         d/g2vJNypfDnnb0PiBlPK1OorRNbnp8jBo3ATc0IbqWgYBCtKTc6yh8xPAgSIgUUnGrc
+         Xoj4NUCLBPnBie8agvTtVe6Ed+nNy6s2QZNNWTiS0k+gdf0fVEucna42j/p5lVcYtwHA
+         K5dXAwpFFTBXb/VzInhfABvnW8iiHc8WkhRbRpYslLVIcSrwXe0SpNx4dEC5ErldpTVo
+         YmVA==
+X-Forwarded-Encrypted: i=1; AKwUvBxd3scu82fWuWZw6UF/kr0A8RZ+9v6FdvZp6Hfus9ABFD8FtS630P+7U+XNzPwOsblccEUPHUBa6DxNZZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJC+rFPAJ5O1/ApfDrLHB88oBK1lger1OgcFn9WiqftqEO1U4/
+	CIr+l85zW5NCBrf9KS/a543pVw4rV09H1izEnpcsA+HXPBUakzAhhDXUncqJs5gQI0BSgWTKNNS
+	bwu3pBODgIlwbfU9H7Z7SUzJVxD3DrJI=
+X-Gm-Gg: AYBFou1a8O/vHGgEV8xnURfqsc9Yqf6HfG/xGibgU/kPMcCjcx7r3RrEYTZgx2j0zyO
+	5m39a0+Zha0CwcEEWnVzPQcHR83g4vgFnLTRY6kpsaA4diTWd+vpBGa/nLjUqtgfS6CtlIyzK+Z
+	tm6OeqgG2jnaNbEA5kryGHKZy7d3QrL+EIUegaaCDJehlxhjJzDmjoSD6IcFXl4VgMuqJaBjVZg
+	0zah9flycGPyoUkk655AGAnU29YkrHVcmljPiVCPaOuFvFYCsDYtR8V2Sl0ftXjiSJKrwFpnT7E
+	8xyeUrt7dbPDX4DplUdRia58+bWEoiWpOtuxYSmp6JixSIQu9uRu
+X-Received: by 2002:a05:7023:889:b0:144:c112:5f24 with SMTP id
+ a92af1059eb24-14f5c6e4b77mr6420591c88.25.1791018420013; Sat, 03 Oct 2026
+ 02:07:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <72033c48-5219-4ed4-94fd-1b7d8ef8017c@gmx.net>
+From: =?UTF-8?Q?Fran=C3=A7ois_Roux?= <franzelfranzel@gmail.com>
+Date: Sat, 3 Oct 2026 11:06:48 +0200
+X-Gm-Features: AclHuK-D1pWutY4-GyV2il5anLEEUn-RjWwNXeCIaa0lBTwPNQQBpHP4LHwav_Q
+Message-ID: <CAPjyS8dY0Q_o3XmFjuKZZsjhzhoSNL+ZGJtw5cQt8HiV3sUtxA@mail.gmail.com>
+Subject: [REGRESSION] PCI/pwrctrl: WCN7850 not enumerated on X1E80100 (Surface
+ Pro 11) since b921aa3f8dec
+To: mani@kernel.org, brgl@kernel.org, bhelgaas@google.com
+Cc: krishna.chundru@oss.qualcomm.com, linux-pci@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 23-09-26, 18:11, Stefan Wahren wrote:
-> Hi Vinod,
-> 
-> Am 23.09.26 um 14:44 schrieb Vinod Koul:
-> > On Mon, 07 Sep 2026 17:04:16 +0200, Stefan Wahren wrote:
-> > > This series adds support for the chargebyte Charge Control Y, which is
-> > > an Electrical Vehicle Supply Equipment (EVSE) for MCS (Megawatt
-> > > Charging System) charging stations.
-> > > 
-> > > sashiko reported in the first version of the series [1] that X_nRST_LAN
-> > > is available via GPIO line names, but there is no reset mechanismn in the
-> > > device tree. This finding is valid. Since the reset line feature isn't
-> > > implemented for LAN8651 driver yet, I like to proceed with the current
-> > > version. The LAN8651 handles reset via SPI commands and in rare cases
-> > > we still have the possibility to control the reset from userspace.
-> > > Btw the pin has a pull resistor in hardware, so it's not floating.
-> > > 
-> > > [...]
-> > Applied, thanks!
-> > 
-> > [1/4] dt-bindings: phy: ti,tcan104x-can: Fix property constrains
-> >        commit: c7f2322431cb6d108b18fb4154606b49e2bc50f7
-> thanks, but what about
-> 
-> [3/4] dt-bindings: phy: ti,tcan104x-can: Document Microchip MCP2542
+Hi,
 
-Not sure why I missed this, I have picked it now
+Since b921aa3f8dec ("PCI/pwrctrl: Switch to pwrctrl create, power
+on/off, destroy APIs") the on-board WCN7850 Wi-Fi of the Microsoft
+Surface Pro 11 (X1E80100, board "denali") is no longer enumerated.
+v6.17 works. v7.0, v7.1 and linux-next up to next-20260929 do not.
 
--- 
-~Vinod
+#regzbot introduced: b921aa3f8dec
+#regzbot title: PCI/pwrctrl: WCN7850 on PERST#-less qcom port not
+enumerated after pwrctrl rework
+
+Hardware
+--------
+The WCN7850 (pci17cb:1107, ath12k) sits behind pcie4 (1c08000,
+qcom,pcie-x1e80100, gen3x2). It is powered through qcom,wcn7850-pmu
+and pci-pwrctrl-pwrseq. This port has no PERST# GPIO, so the only way
+to reset the chip is its wlan-enable line.
+
+Symptom
+-------
+qcom-pcie 1c08000.pcie: Device found, but not active
+
+On some builds there is no message at all. The Root Port 0004:00:00.0
+enumerates, the endpoint 0004:01:00.0 never does, and ath12k never
+probes. Bluetooth on the same chip (UART) fails too:
+
+Bluetooth: hci0: QCA Failed to send TLV segment (-110)
+
+Bisection
+---------
+git bisect start v7.1 v6.17 -- drivers/pci drivers/phy/qualcomm \
+drivers/power/sequencing drivers/clk/qcom drivers/interconnect/qcom \
+drivers/regulator drivers/soc/qcom drivers/pmdomain/qcom drivers/of \
+drivers/base/power drivers/pinctrl/qcom drivers/iommu \
+drivers/irqchip drivers/firmware/qcom
+
+The same .config, the same DTB and the same command line were used at
+every step. Each step was judged by whether 0004:01:00.0 exists after
+boot.
+
+good 4c4132489201 PCI/pwrctrl: Add APIs to create, destroy pwrctrl devices
+good b35cf3b6aa1e PCI/pwrctrl: Add APIs to power on/off pwrctrl devices (*)
+bad b921aa3f8dec PCI/pwrctrl: Switch to pwrctrl create, power on/off,
+destroy APIs
+
+(*) Not booted: it only adds functions that have no caller before
+b921aa3f8dec.
+
+What the boot logs show
+-----------------------
+Before b921aa3f8dec, pcie-qcom (built-in) probes at ~1.8 s, before the
+pci_pwrctrl_pwrseq module is loaded. The WCN7850 is still powered from
+UEFI (wlan-enable high), so the link trains at once and 0004:01:00.0
+appears on the first bus scan.
+
+After b921aa3f8dec, qcom_pcie_host_init() calls
+pci_pwrctrl_power_on_devices(). That returns -EPROBE_DEFER until the
+pwrctrl driver is bound. The host goes through ~11 aborted init
+attempts, each one powering the PHY and controller down again. It then
+succeeds at ~2.3 s, but the link never comes up.
+
+pwrseq-qcom-wcn requests wlan-enable with GPIOD_ASIS (see the FIXME in
+pwrseq_qcom_wcn_probe()). The later "power on" therefore sets a GPIO
+that is already high, and the chip is never actually reset. With no
+PERST# on this port, nothing else resets it either.
+
+Tested fix
+----------
+--- a/drivers/power/sequencing/pwrseq-qcom-wcn.c
++++ b/drivers/power/sequencing/pwrseq-qcom-wcn.c
+@@ static int pwrseq_qcom_wcn_probe(struct platform_device *pdev)
+ctx->wlan_gpio = devm_gpiod_get_optional(dev, "wlan-enable",
+- GPIOD_ASIS);
++ GPIOD_OUT_LOW);
+
+The chip is switched off when the sequencer probes, then switched on by
+pwrctrl in qcom_pcie_host_init() right before LTSSM is enabled.
+
+The FIXME's rationale (toggling wlan-enable would drop a link that the
+controller cannot recover) held while the link was trained before the
+sequencer probed. After b921aa3f8dec, pwrctrl cannot bind before
+pwrseq-qcom-wcn, and the host cannot finish init before pwrctrl is
+bound, so power-on always comes before link training on this path.
+
+Results:
+b921aa3f8dec + fix: 0004:01:00.0 at 2.4 s, ath12k OK, Bluetooth OK
+next-20260929 + fix: "PCIe Gen.3 x2 link up" at 3.4 s, ath12k OK,
+Bluetooth OK
+
+Questions
+---------
+1. Is GPIOD_OUT_LOW (dropping the FIXME) acceptable now? Or does some
+user of this sequencer still train the link before it probes?
+
+2. More generally, should pci_pwrctrl_power_on_devices() power-cycle
+an endpoint that firmware left on? PERST#-less ports have no other
+way to get a clean reset.
+
+A patch implementing this (also dropping the FIXME and the code that
+kept the firmware state) follows as a reply to this report. I am happy
+to test anything on this machine.
+
+Environment: Arch Linux ARM (aarch64). Command line: clk_ignore_unused
+pd_ignore_unused fw_devlink=off pcie_aspm=off. CONFIG_PCIE_QCOM=y,
+CONFIG_PCI_PWRCTRL=y, CONFIG_PCI_PWRCTRL_PWRSEQ=m,
+CONFIG_POWER_SEQUENCING_QCOM_WCN=m. Wi-Fi firmware:
+WLAN.HMT.1.1.c7-00108.
+
+The full report and the bisect log are in the reports/ directory of
+the GitHub repository franzelverbier/surface-pro-11-linux.
+
+Thanks,
+Franz
