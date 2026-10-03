@@ -1,134 +1,104 @@
-Received: from cvsmtppost22.nm.naver.com (cvsmtppost22.nm.naver.com [114.111.35.109])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955AC41BA9B
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8C93EFFCC
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791023681; cv=none; b=dh1Uz4PI+HAENPGPKORm8AHDUGSZ3gNlWNpvKiw0Invgh1hqsp7m2nQFzWwQ6ciMQfOtzdVEV+1dwoZY3vVM8tuziCFq19DsdtzIyx5VdeibA4kb1++GI4YPncM9D813e0o/0tLb4/7cu60+RhWOqnUuU7xfRN70ODpdhwsWEuE=
+	t=1791023832; cv=none; b=XlbQsjDoXjpSmzTkiZxRJxUvhqvuCJZpP7WAwmIaxReKRkV//2jVNSAQXajq4d81B/3zj8SKwaOaqTI+ezDo5gexFL4g5avgOxnFo0idu74FrkpYxyICSs8DHqlpW/z/f/tS6FCIAzLN2pN93BDwA2UygTyNUin87SIy0XZbJrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791023681; c=relaxed/simple;
-	bh=Hjy8ICAJXIAuwiDFKQ8ZUuWhgz5IefLTmTJu2piga5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jzr+JcpRmzQ2RsA3tjDoAPU6Sb4VsfM76EP9OElxTfPkcrIUUl4f1+rr+XyjaPDY44/DysnUFWl3Z1LV/eSwjZhaECnD3Fj6JQnKYQHQA+RwrLUM9lpl20Jujx7Q0OE9OZu15yMy6IpQkK8ZHtLtgnNvXfQ02I/GDvD037QZb+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=X8PHpBT6; arc=none smtp.client-ip=114.111.35.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="X8PHpBT6"
-Received: from cvsendbo026.nm ([10.112.20.48])
-  by cvsmtppost22.nm.naver.com with ESMTP id ylTxczyVQ1WKziM4M4fdCA
-  for <linux-kernel@vger.kernel.org>;
-  Sat, 03 Oct 2026 10:34:31 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791023671; bh=Hjy8ICAJXIAuwiDFKQ8ZUuWhgz5IefLTmTJu2piga5Y=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=X8PHpBT64cKr6jfJhl0SoearvNHJFEgtJUvPB9Y35kUDZpq75YFHWqGQguoAGe8Y3
-	 SlLf5bz3+OH6W6FPQdJT6EXoh5V+EuGE0ii3GaUD5uYNR412JIlmK4Gc/VFNZgOB3x
-	 ed1OqaY7SO/gd4CVFEHZKWQfmp8wYlmnhFlYfwKQcC6gay9nuyH/bnZKIohd2rCopU
-	 u0e0/pzukAF9kj1BteNPF3wAh7FITZhMkfVltJvmPF267qMeBPMqNFPtHQ1oB48YON
-	 V937Q7+sz0vQglZMWMeDsUoxnbt69yu20ySGS54SedX0KiIn++T5egXF9NKk26X+HV
-	 bLRoOFBIiN2Nw==
-X-Session-ID: hxW-p6ZdTie88dg+22MhzQ
-X-Works-Send-Opt: O9RwpzGdjHmdKHFOMr39Ko3YKHmwKBmwFAbrFxKrKqEmjJkaBd9YKBmm
-X-Works-Smtp-Source: AwYlaxglFqJZ+HmwFqUw+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp007.nm.naver.com with ESMTP id hxW-p6ZdTie88dg+22MhzQ
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Sat, 03 Oct 2026 10:34:31 -0000
-From: tjdqudcks0424@naver.com
-To: Micah Morton <mortonm@chromium.org>,
-	Paul Moore <paul@paul-moore.com>,
-	linux-security-module@vger.kernel.org
-Cc: James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	Thomas Cedeno <thomascedeno@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: [PATCH 1/2] security: safesetid: use real GID for GID policy lookup
-Date: Sat,  3 Oct 2026 19:34:15 +0900
-Message-ID: <d7e10b50556ab3b79c7132018249f6f7c608411b.1791023194.git.tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791023194.git.tjdqudcks0424@naver.com>
-References: <cover.1791023194.git.tjdqudcks0424@naver.com>
+	s=arc-20240116; t=1791023832; c=relaxed/simple;
+	bh=DrR8IdHrzyO6e1eneK+NgF4BitGzqFuc4bURmrXBluo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=KoIqAC5Hqb7Cpby/xlExo3nJ+HfSXmyVrWyx7twoNw0bhVzVnyE4MpTCtmIuZhnC0VCijA2iOPMxQmKoPV5lY8nEXCxFfnU1FJugnyKy7A94Wx2QRu8AtBpmyQ/WNHyjxaXoHOwkLuhWth9ZX2C62au2UluU9naCesrmvXyVTv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4eb0b989f0eso546015b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 03:37:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791023828; x=1791628628;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nXiNBxCYyl3AED/Vs2sSXZl+E9Fcz7egSi78disaRcU=;
+        b=wpwvGnCgKgXcOK+AQnVTNx+5tlp9Vm4NHMHXqDNC0UQBe9xb5hGUE7XLiiTbnm3ALe
+         J89P241Bw0xlnfT5WbPrlIDkd0/0DfL5Rq0wf8B2cAKDq9tiFda8iArkaIxv/gqtiT1c
+         I9fMSwd0f8YCgu0s4Uf4g5vxDFQCQnr1K9btPsAGxqBFNu9M7IEBJPqRLKXSDorWXKlc
+         SP4S/0+gmuR5TXbnotcnSIdKl+oUKp6wh5DmYDiv4Q44eeL7HlTrPQe1CG+eNfkudDPv
+         kXs9zIXP1RFqnnfHt3/5ejSUnCarycfxbEIl5wlICJP3iyigcKgyFNyX9IhBOoK5DQnv
+         80CA==
+X-Gm-Message-State: AFuF++m+rfq09BsuRb8coHpKFkzXUsqEX+7UXruyUnH282zIfkGm9jpM
+	9Bqpm+xuvM9fmu8tgEBkCpafpU7UKk1WCdKMzrshOB94xqFgjQX5B4oNpr8rYTT0uxqAdn+HzR+
+	rS4EQFsOjb+1rDMfxhj1bdhPy+/FFFkIQXJ3ImaplYcvJgozotPI0y1unjw4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:f86:b0:4d6:9133:cfed with SMTP id
+ 5614622812f47-4f30c9a91ecmr6435240b6e.50.1791023828720; Sat, 03 Oct 2026
+ 03:37:08 -0700 (PDT)
+Date: Sat, 03 Oct 2026 03:37:08 -0700
+In-Reply-To: <6a940044.1d9ded08.62e62.011a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac0dad4.9ad129c8.3858c0.0012.GAE@google.com>
+Subject: Forwarded: [PATCH test v2] wifi: mac80211: acquire wiphy lock for
+ unlisted sdata teardown
+From: syzbot <syzbot+e9cbd080a7801f06cf08@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Sung Byeongchan <tjdqudcks0424@naver.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-SafeSetID policies constrain the ID transitions available to a task for
-each source ID.  id_permitted_for_cred() always builds that source key
-from the old real UID, even when it is checking a GID transition.  If the
-real UID and real GID differ, the policy attached to the real GID is
-therefore missed and the lookup can return the unconstrained default.
+***
 
-On current mainline, a test task with real UID 1000, real GID 2000 and
-only CAP_SETGID obtained non-allowlisted GID 2002 despite a 2000:2001 GID
-policy.  The bypass reproduced for setgid(), setegid(), setregid(),
-setresgid(), setfsgid() and setgroups() across three clean QEMU boots,
-and enabled access to a synthetic group-protected resource.  This shows
-a SafeSetID GID policy bypass and group privilege expansion; it does not
-show direct UID 0 elevation or a universal local privilege escalation.
+Subject: [PATCH test v2] wifi: mac80211: acquire wiphy lock for unlisted sdata teardown
+Author: rajojha047@gmail.com
 
-Build the source key from the old real UID for UID policy checks and the
-old real GID for GID policy checks.  In three fixed-kernel boots, all
-tested non-allowlisted transitions were blocked while the allowed target,
-existing-ID, no-policy and UID-policy controls, and the existing SafeSetID
-selftest continued to pass.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Fixes: 5294bac97e12 ("LSM: SafeSetID: Add GID security policy handling")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI Codex
-Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
----
- security/safesetid/lsm.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/security/safesetid/lsm.c b/security/safesetid/lsm.c
-index d5fb949050dd8..18124fc499dbc 100644
---- a/security/safesetid/lsm.c
-+++ b/security/safesetid/lsm.c
-@@ -148,13 +148,16 @@ static int safesetid_security_capable(const struct cred *cred,
- static bool id_permitted_for_cred(const struct cred *old, kid_t new_id, enum setid_type new_type)
+diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
+index 5f0c482..175965f 100644
+--- a/net/mac80211/iface.c
++++ b/net/mac80211/iface.c
+@@ -931,7 +931,7 @@ static void ieee80211_teardown_sdata(struct ieee80211_sub_if_data *sdata)
+  * core when cfg80211 couldn't move it out of a network namespace that's being
+  * destroyed. Drop it from the interface list either way.
+  */
+-static void ieee80211_unlist_sdata(struct ieee80211_sub_if_data *sdata)
++static bool ieee80211_unlist_sdata(struct ieee80211_sub_if_data *sdata)
  {
- 	bool permitted;
-+	kid_t source_id;
+ 	struct ieee80211_local *local = sdata->local;
+ 	struct ieee80211_sub_if_data *iter;
+@@ -943,16 +943,25 @@ static void ieee80211_unlist_sdata(struct ieee80211_sub_if_data *sdata)
+ 			continue;
+ 		guard(mutex)(&local->iflist_mtx);
+ 		list_del_rcu(&sdata->list);
+-		return;
++		return true;
+ 	}
++
++	return false;
+ }
  
- 	/* If our old creds already had this ID in it, it's fine. */
- 	if (new_type == UID) {
-+		source_id.uid = old->uid;
- 		if (uid_eq(new_id.uid, old->uid) || uid_eq(new_id.uid, old->euid) ||
- 			uid_eq(new_id.uid, old->suid))
- 			return true;
- 	} else if (new_type == GID){
-+		source_id.gid = old->gid;
- 		if (gid_eq(new_id.gid, old->gid) || gid_eq(new_id.gid, old->egid) ||
- 			gid_eq(new_id.gid, old->sgid))
- 			return true;
-@@ -162,11 +165,10 @@ static bool id_permitted_for_cred(const struct cred *old, kid_t new_id, enum set
- 		return false;
+ static void ieee80211_uninit(struct net_device *dev)
+ {
+ 	struct ieee80211_sub_if_data *sdata = IEEE80211_DEV_TO_SUB_IF(dev);
++	struct wiphy *wiphy = sdata->local->hw.wiphy;
++	bool unlisted = ieee80211_unlist_sdata(sdata);
++
++	if (unlisted)
++		wiphy_lock(wiphy);
  
- 	/*
--	 * Transitions to new UIDs require a check against the policy of the old
--	 * RUID.
-+	 * Transitions require a check against the policy of the old real ID.
- 	 */
- 	permitted =
--	    setid_policy_lookup((kid_t){.uid = old->uid}, new_id, new_type) != SIDPOL_CONSTRAINED;
-+	    setid_policy_lookup(source_id, new_id, new_type) != SIDPOL_CONSTRAINED;
+-	ieee80211_unlist_sdata(sdata);
+ 	ieee80211_teardown_sdata(sdata);
++
++	if (unlisted)
++		wiphy_unlock(wiphy);
+ }
  
- 	if (!permitted) {
- 		if (new_type == UID) {
--- 
-2.43.0
-
+ static int ieee80211_netdev_setup_tc(struct net_device *dev,
