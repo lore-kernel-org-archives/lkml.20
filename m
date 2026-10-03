@@ -1,60 +1,107 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B45C2F87B;
-	Sat,  3 Oct 2026 06:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791008515; cv=pass; b=toemrLfMJEHVI+EbTGbTdpfhRERXQzQSWGS3JXzJVTKHHlr1InZGKxYNsMFi0RN2amiGr4kfXxjtTVh0M67EcV5mt6GpBlz/VxOQssY69SYguZbmmdiJFXtyOJee8eMXqymU1JpbLtPi/fdH4EZ6lH9nUR9VWMtCYuhamJB+jgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791008515; c=relaxed/simple;
-	bh=+JQa/E1lnnOrXkIShXybWfk0cHsmxc1amWRIMUAaLxo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:MIME-Version; b=V51aKqkXMnT1FM8OPbATtbyS9iRoc2IHkyhxAOqiP/z6R8VoE7qxV27W4GHgmUHV/vVwGkbByFsO1ekzk0QcZLSqbLFuvTWR07XKSHFz4kmRgdrFHBVKcrQL8kSgujyOoE2j1vNd4UneeBZsYdBd9s8BKDQ0yMA0xoHAXfnvXZY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=I598eWbh; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B283C35B63C
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791009146; cv=none; b=C6NcXoOtv6DWOX80i7O77nsPx0KUSXY4q7BJQEbxH6hOC/xWm6leG5RqILBJrzdbYxH713K6NbB8TDu2GVZT+18ritoduif9OgubkeduXSYftpT/GCQCdbSKlsUWWEU0mBud0HfVAvUUE/ZRj1oD58fhlZJzyTdlHie+8jJ2yj4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791009146; c=relaxed/simple;
+	bh=VuiMGsvrxoxHYIMjTtEAMKJLNMC58E+oDp1FFjB26XU=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=dyAB5+YPK9KLyhRkb6RY1+RHqA57NSetwksESYDkKQb3An4hlxWwKkG0lCvGJqXXedQyycbWBFCQ9fYpVc7QjQdFjw70uUWDCdVLdarTPHdmrAWRmmCQuowcW6A/bkSnuScafSRYsKO4HdeE6sc5+6JuQpcViBmwdlHtOOe6OO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DL3guCmC; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="I598eWbh"
-ARC-Seal: i=1; a=rsa-sha256; t=1791005524; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=XMD02msfBzu3lk7YxpQ/2gFieTVQMdqjS+jiAhUHtFQWI34FEXMmQeFq4nybWYye07lRHwVwgtnYFclgrHlqwby0iCLU3H0L+jToYeVSUSJMGa6Y1ypBztblunnoZR28Yy/0St9QF4Fw56wDybt61f1S1C8ILIH0C16HVmFapzk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1791005524; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=+JQa/E1lnnOrXkIShXybWfk0cHsmxc1amWRIMUAaLxo=; 
-	b=lR1EHWTzTeV7IU2Z7pz08bIfHhxExhBBlgyyygX7AM1iGTp2fGQ0efMDMDajg6OUJospmG3jU9LhRZ20WgKFoQkrUfHR++7TMCl2XRWleDYH8a5m9nv9UKa7GR7EqMLMfJmmuE9GYu6tfT5ht23043wty+A0HIWMw89VprFCm8k=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791005524;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Date:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=+JQa/E1lnnOrXkIShXybWfk0cHsmxc1amWRIMUAaLxo=;
-	b=I598eWbhyEZ8j+5Ye1iPv+yAC8bH2lRnI5iVytv6b+5x7feSiHoilehd+jYWknwG
-	BcdNgzqBDgYBDtXbdd09yDfky2cZUCxEu7vvnMqWcs1BkPJzU9W44Yhn7YTLfyzgaxh
-	NStvMPLaJCeI8aNv3vHXXMf9uLbAp46kUlMRrVBo=
-Received: by smtp.zoho.eu with SMTPS id 1791005521533518.5421443074531;
-	Sat, 3 Oct 2026 07:32:01 +0200 (CEST)
-From: Igor Velkov <iav@iav.lv>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Hewitt <christianshewitt@gmail.com>,
- Dongjin Kim <tobetter@gmail.com>,
- Eric Neulight <Eric.Neulight@linuxdev.slmail.me>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH] arm64: dts: amlogic: meson-sm1-odroid: let the SD card be
- powered down
-In-Reply-To: <20261003-hc4-sd-power-off-v1-1-f7ffba01b348@iav.lv>
-References: <20261003-hc4-sd-power-off-v1-1-f7ffba01b348@iav.lv>
-Date: Sat, 03 Oct 2026 08:31:21 +0300
-Message-ID: <179100548183.3372253.2014593916926884551@iav.lv>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DL3guCmC"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0d31bda43so77540a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 23:32:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791009144; x=1791613944; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vr5KVZoPR0cul9dM0w9bT4mgxCHNEHDqUMfTuf7KfX8=;
+        b=DL3guCmCAoGGad5fqQhT+5W2N60ezuvD94VtFpob8EDuN/9oZNMQlKHDpKAkIFeIqv
+         cOYuDc2THo5GGGolhJh0u08uEpd/a0aW2pVhSbGM+DGfgBTDKm22DxkQ6LX2FkKiM7yS
+         jJV/jTe/NGZqAqIfD6TfS+NvtBajMlBp4v/HObTFUIzWKLyviiMPwG3ZAouqLj26zAwG
+         ZcJjzfa+1isefTBiR26J43dKgCqETQBDF8CPhVZde99KZyOFaecA23+M4lrbFKXIXN/C
+         dkTOqRKnWejNq/nzi8KHvYZV7R7OXmRw9eMk5898z5VOh6iUMuXoiZABMloEUTphOZXz
+         PHIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791009144; x=1791613944;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vr5KVZoPR0cul9dM0w9bT4mgxCHNEHDqUMfTuf7KfX8=;
+        b=xfDxlwYlRb/cPxOOLCh3IS2U6MtxSduN2m5YNYgfQd1lKZBtw+cCnezsGZFR8JSz8g
+         S6Xh/AKzTUVfg5VUJq0JBc+/J3NKoDfuUbklLq/7h67WsFEjfKLcBEYjJ33amnHfDDy/
+         TEiTqQO5rp3TIHMykj3+N+SwzgRvXsFLxjLBDEcpx5pSNE2zAmaMAUKDtLQqEj1p/HbM
+         xFJgfLh+6ED9ARxxIIl5ZSsX0ItriIGBSws64K6POjKq0r9qFBqFNXUh/ue6Jjvx1CEI
+         77aJSgsepE9f/9ZwPc7AOLvJ8av8POF/V6d+PUiXdp9He1Tab9E64dQfNbWCeAFDZ+Wp
+         3YWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTCegMYw/L0e42hw28v7MgcL/KK6w5a6qFMW0GHf6aavnkyzy3BYWNzODkPeDohVL1LIe6iyFji3qaTh4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjI2MpFDlYsfwoS0neRq4hcFdHJBbRtWZEE2M0qp7whrFL3uiW
+	MvgWfapH9/jpXgt7CRq+TljNwyyGL75S9iUjWqbugIcrEBGDeuTzVtOd
+X-Gm-Gg: AYBFou19Fmj3ki7jRnzZ20ziq3G6WKmbnI4POKtrZHdCBSOv1hNlQgMwFfKuNOLW1dQ
+	D5qKbiSjoEtKuhXSj4gv0jJWVEl0Bh5ob53fPpkiyo5A+JaofQx6jRq5UWjQjuvxjBO7yk3mhNC
+	PvK4YyjMYJBPjahlEP30cr00aF9lsiGiutKZDlnWL2WwbiVwlUqttzw+vRMtlsWGww3Uc2ePXht
+	S6HJLmumcdariYKKmqLatGTmwmqnEnxb6fARA+z1bt6kmnMOsbUQV2ThIO1aPLKY4thulNQb4F3
+	si5XlzIzyoinNhWLgrhwCqvY7Tn2ub9+/kteJHpA/R/xnhLLz8AVXlNOotHMGGK4WBvgF0tn+4S
+	17U2zAh+fqsOVUQLScdzYHtHkUvS5tYvAZbUmdK4mIBPr3KTt1k4KC/lWSRjv6SdcfO5YOQxgs7
+	lKvzJ2abMmeAiW6d5FSEti1nK6ee18pzyOqHrwBDi1gLFVp3SW8muUNQL7ZOPxSf7zjYJvZPgY7
+	GoxxNr3uKWtsVKUZePFXv3wFOyoiqbFlw5s5zXm3aN27aHo8lAprBc98+WqhN9BC21IRanUFsou
+	Cz65NjFZc/ZLkQ==
+X-Received: by 2002:a17:90a:1650:b0:3a0:7261:d58e with SMTP id 98e67ed59e1d1-3a6e622a50cmr2049092a91.22.1791009143685;
+        Fri, 02 Oct 2026 23:32:23 -0700 (PDT)
+Received: from localhost ([153.61.198.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d6b5c3dsm1823004a91.13.2026.10.02.23.32.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 23:32:22 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 03 Oct 2026 06:32:21 +0000
+Message-Id: <DLUZR540Z45R.3RTC4COS2IW2V@gmail.com>
+Cc: "Jonathan Corbet" <corbet@lwn.net>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Gow" <david@davidgow.net>, "Petr
+ Mladek" <pmladek@suse.com>, "Sergey Senozhatsky"
+ <senozhatsky@chromium.org>, "Shuvam Pandey" <shuvampandey1@gmail.com>,
+ "Steven Rostedt" <rostedt@goodmis.org>, =?utf-8?q?G=C3=BCnther_Noack?=
+ <gnoack@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, "Andy Shevchenko"
+ <andriy.shevchenko@linux.intel.com>, "Masami Hiramatsu"
+ <mhiramat@kernel.org>, "Mathieu Desnoyers"
+ <mathieu.desnoyers@efficios.com>, "Jiri Kosina" <jikos@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
+ "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
+ Solodrai" <ihor.solodrai@linux.dev>, "Christophe Leroy (CS GROUP)"
+ <chleroy@kernel.org>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>, "Madhavan Srinivasan"
+ <maddy@linux.ibm.com>, "Michael Ellerman" <mpe@ellerman.id.au>, "Nicholas
+ Piggin" <npiggin@gmail.com>, "Shivaprasad G Bhat" <sbhat@linux.ibm.com>,
+ "Thorsten Blum" <blum@kernel.org>, "Alison Schofield"
+ <alison.schofield@intel.com>, "Dave Jiang" <dave.jiang@intel.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Guangshuo Li"
+ <lgs201920130244@gmail.com>, "Ira Weiny" <iweiny@kernel.org>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, "Vishal
+ Verma" <vishal.l.verma@intel.com>, "Randy Dunlap" <rdunlap@infradead.org>,
+ "Shuah Khan" <skhan@linuxfoundation.org>, <linux-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+ <linux-trace-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
+ <nvdimm@lists.linux.dev>, <linux-doc@vger.kernel.org>,
+ <linux-hardening@vger.kernel.org>
+Subject: Re: [PATCH v4 00/11] seq_buf: Add seq_buf_strlen()
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Kees Cook" <kees@kernel.org>, "Bill Wendling" <morbo@google.com>
+In-Reply-To: <20261003035906.too.263-kees@kernel.org>
+References: <20261003035906.too.263-kees@kernel.org>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,11 +109,9 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Please drop this patch. With the SPI flash erased, so that the boot ROM
-loads U-Boot from the SD card, a warm reboot with this change fails 2/2
-(the ROM loops on SD:800); compare dc7f2cb218b5 for ODROID-N2. The
-4/4 reboots I tested went through U-Boot in SPI flash, which powers the
-card itself.
+On Fri, Oct 02, 2026 at 08:59 PM Kees Cook <kees@kernel.org> wrote:
+>   seq_buf: Add seq_buf_terminate()
+>   bpf: Remove dead newline stripping from format_disasm_line()
 
---
-Igor Velkov
+For bpf bits:
+Acked-by: Alexei Starovoitov <ast@kernel.org>
