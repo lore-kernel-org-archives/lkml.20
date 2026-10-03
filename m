@@ -1,44 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B4139A070;
-	Sat,  3 Oct 2026 08:58:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D4D3438A1;
+	Sat,  3 Oct 2026 08:59:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791017887; cv=none; b=N1YWCb3K7U9CQzTqno21+Zgo+z5JFqVydyGD8yukUDl2QOd2tqvfAF+gCmTEOk0ICKfd9o8wYOWs4FmWSiZmm6YIjhPlgWK4wfLlYQlLeBuCcL39dwZrZsU4YaTMU/coFgGDGxJ40sEiwiGA9zLe3+Sqi4SVgxmykrw2dDuI3c4=
+	t=1791017993; cv=none; b=cSoey1EmZFM4TYWEQtUmm/va6zkvu5f/v3SWgQx+UgyCITSHE2j+VwFrLenePpU8CzxoTd3xMbrTpsq+eIqq+cydPNwvfs6fd7k1GbFgpZc0xGRnx7k2cFWYnD80772IbScEmJKo6pEEzJUvYfJm/S+uHCmGb7d6hezyGAGIy18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791017887; c=relaxed/simple;
-	bh=vWbObrTVDISaqcFkvZOPgRkUAZjL6CUFRGrRvrqiHwY=;
+	s=arc-20240116; t=1791017993; c=relaxed/simple;
+	bh=s8Cu3qre7Neg4ccvJP+sqhesl6Xmni43rPSqqm6CaXQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E2s0wfEAdsK8Qz06EnhaBIva4nHRMHQlYNrij+Krfc/MQDuW1vcAa1ao7zuEcCPGAtoRteviS/q0OOBs4AKysysTuIvuPuiys1N0CbHSQTF+kMQ6427IBKedwqsKifcjrlr6VwkGfqjZ1gT49mvBn5JH4IQtM/EyzHJI0Q83T10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cXIKNr0H; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qNKvZpwopeWGYQ08x7Zv9ohw2FZpstZaJlSsLBvasAyQ962iPqvwwYxEOE5RsRlf0Zki48ASLICTrvzjGXqJaS/bST1goYURunZnU0wi3GpTiwy3zsgIMjW+4ujVQM4f12pPuEkm8fj+qlDTgrGkeE6IYcIFkW9xztkvDnfRcJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=geW2TDtS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cXIKNr0H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 305351F0089B;
-	Sat,  3 Oct 2026 08:58:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791017886;
-	bh=v0JKctx69+xZiW7IO4m163g3d43PNgPfYEAwC2Gh+CQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="geW2TDtS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89A01F0089B;
+	Sat,  3 Oct 2026 08:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791017992;
+	bh=eMzRQ3loCT4X6MsgaYehq758YXz8sTdDO6zQ9/A0wec=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cXIKNr0H+srcG54lMn1htIkavXakVxfj+FyqmxR7lf9lSe3x77JpPfsg4yFmh/6t/
-	 M+LdSswpWpbmLbcewg+axkBMXgSLJdQh9iycpQMLzo1OzctO+dacuZEPAzCpYH096T
-	 dF65b2jrRtSiex7Eim8Mu/kdfyTNFE2dSp8Wz8MLai/GqZBBbHpZV+fct5Mtf+RmIs
-	 s3qMfnakHwKzNSBolgmoJlYohXlUkqzlynsrBVVE3gwv9SS7pbQHsZ7Lf3XmNVe34z
-	 /jdjWFuHNGnnmlo0Syq1YUtulo26oYDl864tqbA1tK0nBgXBd89x3NYDyh6QcF39VH
-	 T7Dp5yW1uLiow==
-Date: Sat, 3 Oct 2026 10:57:57 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Shuah Khan <skhan@linuxfoundation.org>, me@brighamcampbell.com,
-	jkoolstra@xs4all.nl, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization
- in xchacha decrypt
-Message-ID: <20261003085757.GA144870@quark>
-References: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
- <b937fca8-f436-47a5-988c-963fa1af6296@app.fastmail.com>
+	b=geW2TDtSj9738bqRknuucxFq8St6BwFeXXYq3I1a74hMgzugcnj6CyNd/jCuSZS5V
+	 wSUAmvyaCprKHD27hgYAY3p8dkc66BzMN7UPl8+JwQYTv8xcw6u3Jn70MGyYvWItJL
+	 jAKa7o5/FyMp3hsmhXj15QCa+hkReOWXGN6duFuY=
+Date: Sat, 3 Oct 2026 10:59:48 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: condense NDIS encryption status enum
+Message-ID: <2026100334-delegator-status-fa8c@gregkh>
+References: <20261003074943.267819-1-marinela.selseth@firmwaredesign.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,59 +38,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b937fca8-f436-47a5-988c-963fa1af6296@app.fastmail.com>
+In-Reply-To: <20261003074943.267819-1-marinela.selseth@firmwaredesign.org>
 
-On Sat, Oct 03, 2026 at 09:34:21AM +0200, Ard Biesheuvel wrote:
+On Sat, Oct 03, 2026 at 02:49:43AM -0500, Marinela Tatiana Selseth wrote:
+> Address maintainer feedback regarding loose anonymous enum constants
+> and redundant naming aliases. The legacy driver framework contained
+> multiple duplicate definitions (such as mapping both WEPDisabled and
+> EncryptionDisabled to identical tracking states) alongside several
+> completely unreferenced, dead tracking properties.
 > 
+> Clean up this subsystem by defining an explicit, named enumeration
+> layout 'enum ndis_802_11_encryption_status' inside wlan_bssdef.h.
+> Consolidate redundant aliases down to singular, uniform variables,
+> purge all unused legacy elements (KeyAbsent, NotSupported, and
+> EncrypteionWAPI blocks), and convert all remaining active states
+> over to standard uppercase snake_case conventions.
 > 
-> On Sat, 3 Oct 2026, at 08:08, Mohamad Raizudeen wrote:
-> > The `__chacha20poly1305_decrypt` function does not zeroize the chacha
-> > state, unlike its encrypt counterpart. The regular
-> > `chacha20poly1305_decrypt` function handles this by manually calling
-> > chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
-> > the result directly without clearing the state.
-> >
-> > This leaves the derived chacha20 subkey on the stack after the function
-> > returns. Fix this by storing the return value, calling
-> > chacha_zeroize_state() and then returning the result, matching the
-> > logic in `chacha20poly1305_decrypt`.
-> >
-> > Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction 
-> > and selftest from Zinc")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> > ---
-> >  lib/crypto/chacha20poly1305.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/lib/crypto/chacha20poly1305.c 
-> > b/lib/crypto/chacha20poly1305.c
-> > index ea42a28f4ff7..03b14d272520 100644
-> > --- a/lib/crypto/chacha20poly1305.c
-> > +++ b/lib/crypto/chacha20poly1305.c
-> > @@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 
-> > *src, const size_t src_len,
-> >  			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
-> >  {
-> >  	struct chacha_state chacha_state;
-> > +	bool ret;
-> > 
-> >  	xchacha_init(&chacha_state, key, nonce);
-> > -	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-> > +	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-> >  					  &chacha_state);
-> > +	chacha_zeroize_state(&chacha_state);
-> > +	return ret;
-> >  }
-> >  EXPORT_SYMBOL(xchacha20poly1305_decrypt);
-> > 
+> Update all internal software state assignments and state evaluation
+> loops across the entire driver operational baseline to conform to the
+> updated definitions, ensuring code tracking clarity while leaving
+> hardware execution behaviors completely unaltered. Fix associated
+> line length violations and remove redundant braces for single-statement
+> conditions introduced by long macro names.
 > 
-> Wouldn't it be better to move the existing call from chacha20poly1305_decrypt()
-> to __chacha20poly1305_decrypt()?
+> Signed-off-by: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
 
-Since __chacha20poly1305_decrypt() has two return statements that would
-need to be considered, I think this patch (which makes each
-*chacha_init() clearly paired with chacha_zeroize_state()) is slightly
-cleaner.
+Did you forget an Assisted-by: tag?
 
-- Eric
+And isn't this v2?
+
+thanks,
+
+greg k-h
