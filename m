@@ -1,86 +1,124 @@
-Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1713282F36
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 13:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19816CA4E;
+	Sat,  3 Oct 2026 13:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791035495; cv=none; b=geZ8U3/xTPR/HELtHqyqSC+btqjE+QTV8nhw9Yfvv84GcJP5yC0lIoAzbPZIrsmnDYA1AdwIdrW2XxJVwjtMLZjo0xK0Ab27sJ0AbCr9DEOZmoBGBDrmUW881ddhrJpE6bkbLU9P9RJ/CwlHZMWV9OQ2Amn4AK81kFz3YhxPyII=
+	t=1791035653; cv=none; b=h71vPcymnycjHeXNR5pNhmQ8VkYNiS6UsSot2x4yOGB4Idm4y5IkiJPgiTCIhLuZkMFfb+GqD3gObKpYjyl/ZtP2t0qooYHICiK74Zb0jVEOQWV13CDnCJzcbg3mkwVi6q5oMLUG08deD2MbvRrhZvbNfotNElBzeNDAZVXOItY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791035495; c=relaxed/simple;
-	bh=XwiPxai7lM/tufVNvpz366NCYrjPaQfLc2XkQeIPZ7M=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RpDFjZBh5Lcto3Ds2uvz5U8TLqJ+p/x6882PfOsKSlt88HK5Kip4v35Bf2kIGmKfCzqu2yUTqQWDWeHTmSyfzPvoF3LeS78NMJjVzC/eY/xg7vd0N4IWjYnf4+IgGz4WMY1eIB5brIyj8/D6SdOmUj8f48PGir2lRliXJYryDIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ZjSIQyda; arc=none smtp.client-ip=109.224.244.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791035653; c=relaxed/simple;
+	bh=QQbi65ZvEAgd8J3TyncmPYv1v5wqL5UwZyje0Nx3CNs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WUbHSrodSOS4eBoBJZnatVK+rsQpiugVUfAu9+c23rpuH7vha0DfNvkaRCKKEBAj8oBE7QbNKa4fwaeOF8SiftegOnJFBPflBBwXIxIszZL6UGC6IECgSADG5ICBzNhJRQ0bQzDgh9EL1v+O9BcslldKeX+d0o/LFHkihosEito=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCyF5Nig; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ZjSIQyda"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791035486; x=1791294686;
-	bh=5esmclXfINE7e+ODY2UVaCe/K20RlH/jvsbQt/jE3TQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ZjSIQyda8igUn06fxq2rth+XbR79X+ksYhUDXpi6fBKb5icZwaMyzzGDIrl8TKXxm
-	 Q+RUcr0eenHjfr5oFFKyVmC/BIsWHs3PAhskTuZoMNHuPOQ1DTQyIPgNEwBDvPhgTk
-	 Y+GPG6LUn5Qs9x3LZBwwjHAWsaxEBoIYi5mGQ9RXAvmbWQOjy3LWICGCyaxof9N4a1
-	 pIBZSsS1LdDLfa4zymq53v7+L1Jkukjb2Jcr16HCKK5UHOxOzB7Ywj+FR3adAkD6g2
-	 kjTXeQOp2rUAxBPRv+kEqPM81AZVwdiZSf36ZyI5T7nwtO6dQrd7jP7lZHpj70VbH7
-	 yX6zTypjGtSAA==
-Date: Sat, 03 Oct 2026 13:51:18 +0000
-To: wens@kernel.org
-From: Norman Herms <dockseed@proton.me>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Yixun Lan <dlan@gentoo.org>
-Subject: Re: [PATCH v5 0/8] clk: sunxi-ng: Add support for Allwinner A733 CCU and PRCM
-Message-ID: <12tBoL9q9y1pvorTf-okmf5LAEsMvGkkiicbETQ2NIW8_EPVPaWiMsfDxKLjl-_z7QVckUM_HzTS9eMgpTB0EZiSdiyQU6H5EeHT5KrDLr4=@proton.me>
-In-Reply-To: <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com>
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: 113b53f2b023b44b4ff4ec0d170cdfbd43559309
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCyF5Nig"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBEEF1F0089B;
+	Sat,  3 Oct 2026 13:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791035651;
+	bh=jj1DzMgYcrYAkSBjjOjo7gbhpH2K3yZis9aF71qFUq0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YCyF5Nig5AKA+yq1I+v/b4TWpLC5lDM/sN7RYJSeoBYp1FQ6j4XklbchTBYt7KYZ0
+	 wuCX7GidtyosKSAO4faziAQyqz8DdWPHK62zjdADFESL5Scz4G1xIQSJuAXJv1/uvN
+	 UlVTnL+8KSJ/Xf0G16085nZgjgTuf74fgj02sN7unujsFwjRGgGQ7U10SPuyebioOK
+	 M7hn1DvVHv8O6m1jaG/yZCXBEjnaaFLUozRZC3AVsWIJ8KRiyMMheKskRcuyTfEJLM
+	 03rU+u+34iASam1Q2ia2yi92YUMQoiiXS3800BisXDgCwYpnWKrPCb8rXy3oQHlfCQ
+	 dfyK8e4GoNZuA==
+Message-ID: <69da1928-1ebe-44b1-891b-a0dd7d0b21f3@kernel.org>
+Date: Sat, 3 Oct 2026 15:54:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] soc: aspeed: Add B650D4U power passthrough support
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, joel@jms.id.au, ryan_chen@aspeedtech.com,
+ tan.siewert@9elements.com
+References: <20261002131634.113680-1-prasanth.padarthi10@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261002131634.113680-1-prasanth.padarthi10@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi ChenYu,
+On 02/10/2026 15:16, Prasanth Kumar Padarthi wrote:
+> Add the AST2600 SCU passthrough selector support used by the
+> ASRock Rack B650D4U host power-control circuit. This RFC includes
+> the driver, Devicetree binding, and board node to discuss the final
+> kernel-facing interface.
+> 
+> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 
-> And presumably things work now because the secure/non-secure access bit
-> isn't in effect right now because you aren't using secure boot?
 
-Yes, on our side. One data point from a single board type, Radxa Cubie
-A7S, two boards. The measurements and this summary were done by AI
-agents (Claude) working on my boards, so please read it as a report,
-not as a Tested-by.
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-- Secure boot is not enabled on these boards: SID + 0xA0 (0x030060A0,
-  SID_SECURE_MODE in the vendor boot0 sources; the UM does not describe
-  the SID) reads 0 on both. The notes under PRCM_SEC_SWITCH_REG (UM
-  V1.00 4.2.5.26) say these registers are always non-secure when the
-  system is in non-security mode.
+> ---
+>  .../asrock,b650d4u-power-passthrough.yaml     |  23 ++++
 
-- The vendor BL31 blob in Radxa's u-boot package (v2.5) opens the
-  switches at boot: PRCM_SEC_SWITCH_REG |=3D 0x7, then 0x7 to
-  CCMU_SEC_SWITCH_REG at 0x02003F00. TF-A's sunxi_security_setup()
-  does the same for the H6/H616.
+Bindings for a driver is a no-go (for longer explanation see
+writing-bindings, any tutorials or DTS101 slides).
 
-- On the A733, CCMU_SEC_SWITCH_REG is at CCU + 0x1F00 (UM 4.1.6.278),
-  not 0x0F00 as on the H6/H616; here 0x0F00 is SPI0_CLK_REG (UM
-  4.1.6.160). The A733 TF-A port at github.com/dlan17/trusted-firmware-a
-  (branch A733, f4c0b0dba, the commit Radxa's package pins) still uses
-  0x0F00. On one of our boards the 0x7 ended up in SPI0_CLK_REG until
-  we moved it to 0x1F00.
+>  .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  |   5 +
+>  drivers/soc/aspeed/Kconfig                    |   9 ++
+>  drivers/soc/aspeed/Makefile                   |   1 +
+>  drivers/soc/aspeed/aspeed-b650d4u-power.c     | 110 ++++++++++++++++++
 
-- TWD: UM 4.2.5.9 marks S_TWD_BGR_REG as fixed secure. We have not
-  measured it.
+Soc drivers should not expose user-space interfaces. Use existing
+suitable subsystems.
 
-Boot chain on these boards: vendor boot0 (DRAM init), U-Boot SPL and
-U-Boot from Radxa's A733 tree with a few board patches, TF-A
-lts-v2.12.15 with the A733 port above plus our fixes.
-
-Thanks,
-Norman
+Best regards,
+Krzysztof
