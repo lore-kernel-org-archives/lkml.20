@@ -1,231 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE81A38735E
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DDF835E95C;
+	Sat,  3 Oct 2026 09:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018635; cv=none; b=bsRlFpJAgZ6H0zJ4oOtXiQau+sb03PxdpIn6S4ml6ArzBlyeVXckBp6ftMaqSb9fMA+5X1oZQse9KbrnVU/VwZikCy4m+FbGDBCZ1h6eqammYd5mkht+vVQizVfhWmQSwtTKuuWQ1qqQfOS72eRBvgCtEGV5KTubUCwTP1wUhpI=
+	t=1791018696; cv=none; b=gknQrf+kKlW9wQ/GX78S8Bn81faUCi3yT1Xl//I0p7K0OM4LanNXD8bmPvgEWLBfD+fl+C29oe/I0BJK9LRnaj7/r091B5mT6Z86RaGQb3OMJ0RcsdryrwIS0fRjumLxeO3luPdVB+xSA/HwSg0XmM73ysAVXYA4BtIw08QqPR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018635; c=relaxed/simple;
-	bh=NzpDu4oOJoWhbaf0OdWBcbhBcOw46ih41GE+lUZTY64=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oiGit73Wk43d+fVlHocmuacRyAQsKcsUg9PvaGA4Pjvyri3dwZmcv8L6CvVl/AgV65252GlzDFUe6bBi4qEkHs6BD9A3OR/uetFDHGohpOEHL+ZZlHwFJVm2PDwd49bPy3koJ5+OsHZwbd0G7TPBYV79FRc7JtsROuQPRGxbDRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJn7R0YE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791018696; c=relaxed/simple;
+	bh=xh4E+cKzKr0xM/iUH4paJ5O7j/ZSx49tcG5w6MK0Xvg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Tfxw+G0lFHU5aZzYFKB0MqCigizoUn5Vzt6TfFftM8Us+oQWy6SAXR3ThSs1h1tTrWKRDnEY54M8EQ08OjSIW3sclw4Hx4QnxVJrbQHCbPkfoRhPyrGMv1YRfXJXwKNySMxkFswEh/4Gswjmxz7Wjh3AbT3qHdnCZvZEOAv1lAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QuytndAk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XsKx4zBY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FDP5Wdq+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IKrA7lyl; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJn7R0YE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CFAF1F008A1
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791018633;
-	bh=P7rAoJ5/n/5WLlrNeuWTZVKjqQomeDXh9uQGosF+PF8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mJn7R0YE7RRYZ5xM1pWVg2Ww0oaYZqSMVvwhzlNKriySlG+kPUjyAP9lQDosRc+SF
-	 bb73Eew3ySBjCTIWzwVIifDg7ECtpvcsxnSYBt1+joao+6OdJvptjUg1nycT1LV7M8
-	 thj1O6KHkRcvI7w4niiNn0MsTmCdrpAk0YbYnj3G8ZlizK5Rp102sS9Bow2o75jvbF
-	 9/q00GvDkfT0WLvR/tj/55Tn7V+VOYUwceiETdoBENFLvRj+8zIrx2XnZ/popteEHk
-	 +VDD1MVhDWFFURILLE33QqBEy4LFpVPoTZbtoF6oks3+xuA1CAm9rQ9+cJ57aDl1X3
-	 fO6TB+LjtAAiA==
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so368943a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:10:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBywej+JZxpY9blnfgSzXQwbT7ETEmxXkj894QTc8pME1y8f9VJjGNvSWBt8WWQ8SrXbWK9M7nGbZwqb+Sg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeBxGdfunYOI4v991P+cR4JB25kxnfNb76pFZtbRA996UNhOpN
-	r8JwiAWfT5+t5J6O9OkEV8j0xmj88hhvY+ONOvQ8wmReBwdnaGpZlHSp6kucaQtTmD6XXZDnzQY
-	Un8aaGGFzk0Cy6oFstWtzjDcAMJ0aad4=
-X-Received: by 2002:a05:6402:20cf:b0:6ac:8761:17a1 with SMTP id
- 4fb4d7f45d1cf-6afada2737fmr1406190a12.36.1791018632180; Sat, 03 Oct 2026
- 02:10:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QuytndAk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XsKx4zBY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FDP5Wdq+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IKrA7lyl"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C75621D58;
+	Sat,  3 Oct 2026 09:11:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791018689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wsCCG8PCwMR0InBn+s05+wDALh9lm/8DQ83l2hkc4V4=;
+	b=QuytndAk+mbskxqnFj+pTEIR9mFTw5OhKEkCc4LIUZH98bVkuvR1v1ICF1md72AmrYSVxu
+	Od78dwF4rKlB9lAsEZldZkh1ZUUK3iP5b0Yv7xg6JHh5ugxTRehms8LYotvqgvir+YMbQV
+	DSLgVd8jdZoTx4aUZHVy2DGDkxi4/7o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791018689;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wsCCG8PCwMR0InBn+s05+wDALh9lm/8DQ83l2hkc4V4=;
+	b=XsKx4zBYeK+M/OV+3PjFa0BHjD/gPLZtpbaPCCuQtC1Nl744Fddoab4KE3JtGSc7qz0Ko2
+	JbUjlSmTudrkizBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FDP5Wdq+;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IKrA7lyl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791018685; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wsCCG8PCwMR0InBn+s05+wDALh9lm/8DQ83l2hkc4V4=;
+	b=FDP5Wdq++8DFI22IkEDshdhR+2+LnCMCaFN5kmYYJFc6LhXLqjWVNsSa6nsGf9v5mJBncA
+	VQfSa+2XG5LNKrFSe8hAJNLJTdoCkBo3AwAbwGs3Nw2K8dDob1TyCvV8VI+BJasOuz42G6
+	xeLm8oRd8c+iu7B8Ab6PM/ML8LMi5pE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791018685;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wsCCG8PCwMR0InBn+s05+wDALh9lm/8DQ83l2hkc4V4=;
+	b=IKrA7lylzaj+4PBLKNwNh2a3+1frCqm4bPg+s8TNzGevEEJYO0fgPKhbPMhId9N/gG68c7
+	8pXZ8Uo5HQ30Q3DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6AF813712;
+	Sat,  3 Oct 2026 09:11:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id m1xJJ7zGwGonHwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:11:24 +0000
+Date: Sat, 03 Oct 2026 11:11:24 +0200
+Message-ID: <87o6dbxi6b.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Matus Gajdos <matuszpd@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: usb-audio: Add native DSD support for Cambridge Audio streamers
+In-Reply-To: <20261002125237.82188-1-matuszpd@gmail.com>
+References: <20261002125237.82188-1-matuszpd@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260923060349.146780-1-lianyangyang@kylinos.cn>
- <20260924075655.375632-1-lianyangyang@kylinos.cn> <CAAhV-H6C=AyS=1AejxxaG-Zri=2=AfMtPzXFxEvzpFdD1_AaAw@mail.gmail.com>
- <1b9d2426-fe5c-4227-976d-65ceb812c93c@tsinghua.org.cn>
-In-Reply-To: <1b9d2426-fe5c-4227-976d-65ceb812c93c@tsinghua.org.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 3 Oct 2026 17:10:20 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H682iM2DydKK9+o7x93EapKRp=KQXnKQkoAK+yMeup44g@mail.gmail.com>
-X-Gm-Features: AclHuK_L8q7-wOQE3LQDFkCVmAOEnizg-0482hbNFAZFXKix-vkoovdVlxzV_Es
-Message-ID: <CAAhV-H682iM2DydKK9+o7x93EapKRp=KQXnKQkoAK+yMeup44g@mail.gmail.com>
-Subject: Re: [PATCH v2] LoongArch: kdump: add arch_crash_save_vmcoreinfo() support
-To: Dave Young <yangrr.2009@tsinghua.org.cn>
-Cc: Yangyang Lian <lianyangyang@kylinos.cn>, Andrew Morton <akpm@linux-foundation.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	Dave Young <ruirui.yang@linux.dev>, WANG Xuerui <kernel@xen0n.name>, kexec@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Haoran Jiang <jianghaoran@kylinos.cn>, Tao Cui <cuitao@kylinos.cn>, 
-	George Guo <guodongtai@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 1C75621D58
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
+X-Spam-Level: 
 
-On Sat, Oct 3, 2026 at 4:25=E2=80=AFPM Dave Young <yangrr.2009@tsinghua.org=
-.cn> wrote:
->
->
->
-> On 9/28/26 10:28 PM, Huacai Chen wrote:
-> > Hi, Yangyang,
-> >
-> > On Thu, Sep 24, 2026 at 3:58=E2=80=AFPM Yangyang Lian <lianyangyang@kyl=
-inos.cn> wrote:
-> >>
-> >> Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
-> >> /proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
-> >> /proc/kcore as wellas /proc/vmcore.
-> >>
-> >> LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
-> >> arch-specific values are missing from the vmcoreinfo PT_NOTE. The
-> >> generic exporter in kernel/vmcore_info.c already provides
-> >> NUMBER(VMALLOC_START), but tools like crash cannot derive the module
-> >> and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
->
-> current crash can get the kaslr offset from the _stext differ, so it just=
- works, but maybe makedumpfile still need the vmcoreinfo export.
->
-> >>
-> >> Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
-> >> space to 2GB") the vmalloc and module boundaries are no longer stable
-> >> across kernel versions either, so vmcoreinfo is the only reliable
-> >> source for them.
-> >>
-> >> Provide this function in a separate file that is built at the same tim=
-e
-> >> as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section t=
-o
-> >> Documentation/admin-guide/kdump/vmcoreinfo.rst.
-> >>
-> >> Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> >> Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> >> Tested-by: Tao Cui <cuitao@kylinos.cn>
-> >> Co-developed-by: George Guo <guodongtai@kylinos.cn>
-> >> Signed-off-by: George Guo <guodongtai@kylinos.cn>
-> >> Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
-> >> ---
-> >> V2 -> V1: Export VMEMMAP_END + 1 to make it an exclusive bound, matchi=
-ng
-> >>           what tools like makedumpfile expect.
-> >>           Add Tested-by tag from Tao Cui.
-> >>
-> >>  .../admin-guide/kdump/vmcoreinfo.rst          | 29 ++++++++++++++++++=
-+
-> >>  arch/loongarch/kernel/Makefile                |  1 +
-> >>  arch/loongarch/kernel/vmcore_info.c           | 21 ++++++++++++++
-> >>  3 files changed, 51 insertions(+)
-> >>  create mode 100644 arch/loongarch/kernel/vmcore_info.c
-> >>
-> >> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Document=
-ation/admin-guide/kdump/vmcoreinfo.rst
-> >> index 7663c610fe90..2ff921232616 100644
-> >> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> >> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> >> @@ -594,3 +594,32 @@ va_kernel_pa_offset
-> >>
-> >>  Indicates the offset between the kernel virtual and physical mappings=
-.
-> >>  Used to translate virtual to physical addresses.
-> >> +
-> >> +LOONGARCH64
-> >> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >> +
-> >> +VA_BITS
-> >> +-------
-> >> +
-> >> +The maximum number of bits for virtual addresses. Used to compute the
-> >> +virtual memory ranges.
-> >> +
-> >> +PHYS_OFFSET
-> >> +-----------
-> >> +
-> >> +Indicates the physical address of the start of memory. Used to transl=
-ate
-> >> +virtual to physical addresses.
-> >> +
-> >> +KERNELOFFSET
-> >> +------------
-> >> +
-> >> +The kernel randomization offset. Used to locate the kernel text in
-> >> +virtual memory. If KASLR is disabled, this value is zero.
-> >> +
-> >> +MODULES_VADDR|MODULES_END|VMALLOC_START|VMALLOC_END|VMEMMAP_START|VME=
-MMAP_END
-> >> +---------------------------------------------------------------------=
---------
-> >> +
-> >> +Used to get the correct ranges:
-> >> +       MODULES_VADDR ~ MODULES_END-1 : Kernel module space.
-> >> +       VMALLOC_START ~ VMALLOC_END-1 : vmalloc() / ioremap() space.
-> >> +       VMEMMAP_START ~ VMEMMAP_END-1 : vmemmap region, used for struc=
-t page array.
-> >> diff --git a/arch/loongarch/kernel/Makefile b/arch/loongarch/kernel/Ma=
-kefile
-> >> index 001924877772..6260c15adaba 100644
-> >> --- a/arch/loongarch/kernel/Makefile
-> >> +++ b/arch/loongarch/kernel/Makefile
-> >> @@ -64,6 +64,7 @@ obj-$(CONFIG_RELOCATABLE)     +=3D relocate.o
-> >>  obj-$(CONFIG_KEXEC_CORE)       +=3D machine_kexec.o relocate_kernel.o
-> >>  obj-$(CONFIG_KEXEC_FILE)       +=3D machine_kexec_file.o kexec_efi.o =
-kexec_elf.o
-> >>  obj-$(CONFIG_CRASH_DUMP)       +=3D crash_dump.o
-> >> +obj-$(CONFIG_VMCORE_INFO)      +=3D vmcore_info.o
-> >>
-> >>  obj-$(CONFIG_UNWINDER_GUESS)   +=3D unwind_guess.o
-> >>  obj-$(CONFIG_UNWINDER_PROLOGUE) +=3D unwind_prologue.o
-> >> diff --git a/arch/loongarch/kernel/vmcore_info.c b/arch/loongarch/kern=
-el/vmcore_info.c
-> >> new file mode 100644
-> >> index 000000000000..fb703b716253
-> >> --- /dev/null
-> >> +++ b/arch/loongarch/kernel/vmcore_info.c
-> >> @@ -0,0 +1,21 @@
-> >> +// SPDX-License-Identifier: GPL-2.0
-> >> +
-> >> +#include <linux/vmcore_info.h>
-> >> +#include <asm/addrspace.h>
-> >> +#include <asm/pgtable.h>
-> >> +#include <asm/setup.h>
-> >> +
-> >> +void arch_crash_save_vmcoreinfo(void)
-> >> +{
-> >> +       VMCOREINFO_NUMBER(VA_BITS);
-> >> +       /* NUMBER(VMALLOC_START) is exported by the generic code */
-> >> +       vmcoreinfo_append_str("NUMBER(VMALLOC_END)=3D0x%lx\n", VMALLOC=
-_END);
-> >> +#ifdef CONFIG_64BIT
-> >> +       vmcoreinfo_append_str("NUMBER(MODULES_VADDR)=3D0x%lx\n", MODUL=
-ES_VADDR);
-> >> +       vmcoreinfo_append_str("NUMBER(MODULES_END)=3D0x%lx\n", MODULES=
-_END);
-> >> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_START)=3D0x%lx\n", (unsi=
-gned long)vmemmap);
-> >> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_END)=3D0x%lx\n", VMEMMAP=
-_END + 1);
-> >> +#endif
-> >> +       vmcoreinfo_append_str("NUMBER(PHYS_OFFSET)=3D0x%lx\n", PHYS_OF=
-FSET);
-> > I think it is also useful to export PAGE_OFFSET here.
->
-> Hi Huacai,  if it is a fixed value or it can be derived from other known =
-values I'd suggest not to export.
-Hi, Dave. It is not completely a fixed value, and I found that RISC-V
-also exports PAGE_OFFSET.
+On Fri, 02 Oct 2026 14:52:37 +0200,
+Matus Gajdos wrote:
+> 
+> The Cambridge Audio streamer advertises the UAC2 RAW_DATA format on
+> altsetting 2 of its playback interface, but without the DSD_RAW quirk
+> flag the driver exposes it only as a SPECIAL format that cannot be
+> used.
+> 
+> Add QUIRK_FLAG_DSD_RAW for the device (USB ID 22e8:ca10), so the
+> altsetting is exposed as DSD_U32_BE, enabling native DSD64/128/256
+> playback.
+> 
+> Tested with: gst-launch-1.0 filesrc location=file.dsf ! \
+>                             avdemux_dsf ! dsdconvert ! \
+>                             alsasink device=hw:2,0
+> 
+> Signed-off-by: Matus Gajdos <matuszpd@gmail.com>
 
-Huacai
+Applied now.  Thanks.
 
->
-> >
-> > Huacai
-> >> +       vmcoreinfo_append_str("KERNELOFFSET=3D%lx\n", kaslr_offset());
-> >> +}
-> >> --
-> >> 2.25.1
-> >>
-> >>
-> >
-> >
-> >
->
->
+
+Takashi
