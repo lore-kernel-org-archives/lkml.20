@@ -1,54 +1,74 @@
-Received: from smtp-sv1.saltyming.net (smtp-sv1.saltyming.net [152.53.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DAD230BE9
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 22:33:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=152.53.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A275B39D3FC
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 22:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791066807; cv=none; b=ifO3yLLYg7mANaWcFYdlWKI+r2wl+fWoYhc3dwJ/zB1bvrFB8JmGxVxK3y6fUZpHL5JICK4pjKf0NGCqwiuPJeoOfH49dK+V4Bv6V2KIl3cI3e2D0f+kzeHWFyWfy67nAw2d6lgLxIal1MQCANBpWwi5Es6AztBFjAPITjiURx0=
+	t=1791066812; cv=none; b=CNg8qJPDHNXIGZlFjFyK4bvxTnwnZO6x/qBEXZ0r0Tuch8q/Y3zGa+kgrhN0+pPF6s4rX1pvBbG6SVSCxFcy1XS3Uq4N8MGdHrS4x1LNVyTDcg2d3qCzp0bi32qLKWkbqOFX0pBZz0osuAeMxxI42G3o1TA1Fv1Vi1RkWpLngQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791066807; c=relaxed/simple;
-	bh=4j2KxZ9VK/+X1+4N2cKVDN4zS9qwV6jDrfVT/Az9LMg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iMsyZcTUOxl9VpxSo+AT07FIrXuu79hHfoA3/H+6KBljyfFXriHgfELUcJGlUyP1AatDyDUafHU1sEJrt/P5ANuiVzm0k+Hkzl6g1ldiHrjxG07MQpTOFbvAFUT4M0a5G1bLLecb9tWOt4l4yMXvrBvFHmmMFbu/ef+g39b/E1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=saltyming.net; spf=pass smtp.mailfrom=saltyming.net; dkim=pass (2048-bit key) header.d=saltyming.net header.i=@saltyming.net header.b=iJHFnuG7; arc=none smtp.client-ip=152.53.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=saltyming.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=saltyming.net
+	s=arc-20240116; t=1791066812; c=relaxed/simple;
+	bh=B+AzlxaEDOIbUR2XgxY3SS/3ebqvCC16gLh4COnivCk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XffGa2COkYtYM7fzftUr3Tf+8ey6CVtz67eAp6vhTvI6oV02TJwTxdKIwozI9vmWaru0i/cidwjOk8Kg8sOKirR3S2ta8cJMeG2Gd9bF0a3VqjjaSoNn40i350GNgiiFjHK65rqMdGhh4gWpMS4S6/hHuoNvrHwu1/WPD+bLU20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5Tq+hTy; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=saltyming.net header.i=@saltyming.net header.b="iJHFnuG7"
-DKIM-Signature: v=1; a=rsa-sha256; s=saltyming-dkim-202512; d=saltyming.net; c=relaxed/relaxed;
-	h=MIME-Version:Message-ID:Date:Subject:To:From:Content-Type; t=1791066797;
-	x=1791671597; bh=YTIDmR7uDyYS3MzPy8IMzU6ozNqY3r0FgOdpTRPN1+M=; b=iJHFnuG764
-	lm62m5EF7RgsBw/XIJ7cNSbMiEy3StxKQZTrF/Y4ywFKWIWutwWjRM2WrFJQzkqLg5R3jz9/qCI
-	oKx1VwGsoksLnxOaCWF5usaf5suPWmuEHWoeE6ykqnxdpDy2H2kSWQfisTZlS6BFogrKrNWpo0H
-	TXaTTI/qH5KZIb6soK0ardJHylCGV3b3wq6OFwDQ/t4gCLaIOSFRVzYEs+gRNqt/oDTEgk18ze0
-	h6Q4BRAZ7Rf1LdJBxOOQ8Y7TNtOECVhinDgmATBUpPwVPTvhmmx6DPYO1Rf785t5l0lbYJTDApq
-	h+uf2SGaDejaHCe4UtnpvTL7DhOK2ZLQ==;
-Received: by smtp-sv1.saltyming.net (SaltyMail) with ESMTPSA
-	(version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256)
-	(No client certificate requested)
-	id c7eb850f-1533-4754-a80a-99ccbc44ede2
-	for <linux-kernel@vger.kernel.org>; Sat, 3 Oct 2026 22:32:27 +0000
-X-Virus-Status: Clean
-X-Security-Tags: spf_none, dkim_none, dmarc_fail, dmarc_quarantine, arc_none, av_clean, ham
-From: Hamin Sung <hamin@saltyming.net>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: nouveau@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5Tq+hTy"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48bbb06e746so247393f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 15:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791066809; x=1791671609; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KOWsHQRSHb+0OiLgXs2lkzN27RX1yq7wkT9nw+eMr9Q=;
+        b=L5Tq+hTyDUHAbG3iCzWGTJ04AAPYTVT183bVZoJKQwBF0CjwhxFxJF7z1mVOX1+TaH
+         tAh5oZ2xPNzdbvL5AwlCzc1m6vG6p9YDLpzfwROilKB70T0oaNVRqIy8COGOcbbVbayg
+         /S0SKhFLsSL75i3T51/W2yujcifGgFGrPbJighRHpdtxaNBesL/creeOf4tfhHMHQ1h1
+         4yy5Fa2Kb8zOjWxH8ItKtv+m5lQmC65v6f5GUFZk/Mp/0CNbTUv4LWXX5p+k/69pAHIo
+         6bXL10Yr2+wVWs7bvt8+iAPRPWjgRtOKnoG4cOdnBBk7pc4GNtBQxEDA2TZtn9eXgP8b
+         pA8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791066809; x=1791671609;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KOWsHQRSHb+0OiLgXs2lkzN27RX1yq7wkT9nw+eMr9Q=;
+        b=EhWf/Kuc2zjOI9186aO2hhi3rJdSA7GYDpKu50FKwP/gvhEbcnyaabMJTgTi4Cg2CZ
+         TkL9PO/AJLuFEiVsrpH/v4Zixyh49Erl7870PT3WKS15LhjyOBSGhufFhijb2unA+L0P
+         I7BLjTLlOYJ+BzAeomLAVu7Br48pPQcKSW0uIIO5rK2n2CsBx5XUGoj1tqlClXuUTKvo
+         UzGQd6E1cpATqALAUKIElE9B7HvfNjDKOOKpfDfoWusEYvDOMrwwcn4EvTELoCky4bn2
+         ghtywLRp30pxlXvYj7e8Kak1mfMYV88cFS5eIC+8WJg6+LMhYXXWC4XNMwvyMoyn0EY1
+         DfeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQ6cJzWNlR8xztFzU1LuJuM+G++jgr2tZlr/mVRGZTsAV4GyX/X9VycE/Jhzrhtfp8VAy85NvRWs9qAfk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkScACp4JcFfrxiP2lr+/F2cJ0yLNtrb6mBAf7rhU5JtjsqAId
+	wxoLkW9Fp2Ga165e8v0qvIuttcfXtrRd5+hgw/4GXhJOcxz8cogNhaet
+X-Gm-Gg: AYBFou2SyqafNvlcLwZwPXd5JK98HEB/imI5Kwi1bo0fYmYpRKY9FV43pSMqUb1+FiW
+	J4asgRKbDTHwzL2sjYBZvcrRbNpqFo5m4x1ySTZTLcOEd6BNt57Y1QcdGQ/M8sYgRfod77JPSPQ
+	qzbMKaF77ZaAWL1haxHH6s2YUD5oGWPbo+sBWHx6TYd/FSTnbsKVoWQbf0cPxM4Buvdwv0frbKi
+	XwLZ6E0C+YBZ1zRC+7lgsTaCqCpHUHCyT+0bHm+mSVz2HMRb0brU4T81X22s1913r3n7pFwp56S
+	Beb0YWASu64BArCjWmDKbu+W4JSwHJm5I+oU6U28FKbPSinP+xGXBoVujP9VScIVNa57IFBxTy3
+	Asv4jCINwdjowOwTx89wxz5WDwmMSDCP/3J7c5INxB+TBARQLnVdB15ZatzS5iV1NIS31EV418C
+	tNbBl4ONQKcwzco1Sxm+Ly0wU1UYyBjdn6zPXd8cyznX8LS/GmBZnYUyW7nqx8qiih43iTjZp1Z
+	mI9hlRmcgTIfXyQ4sLoyQaZStu9YGDODa1i+phiIRWK/5jKLn0oO4FKhhD4c2v6xWRgYSQWRw==
+X-Received: by 2002:a5d:5f91:0:b0:486:f907:ebec with SMTP id ffacd0b85a97d-48c47fe4ee6mr5052425f8f.31.1791066808651;
+        Sat, 03 Oct 2026 15:33:28 -0700 (PDT)
+Received: from voyt-laptop-dell.fritz.box ([2001:9e8:bd7a:9200:44fb:d9e0:fc9a:51c9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c5270569fsm1886371f8f.5.2026.10.03.15.33.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 15:33:28 -0700 (PDT)
+From: Dmitry Voytik <voytikd@gmail.com>
+To: Kiryl Shutsemau <kas@kernel.org>,
+	Chao Gao <chao.gao@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: linux-coco@lists.linux.dev,
+	x86@kernel.org,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Ben Skeggs <bskeggs@nvidia.com>,
-	Roy Spliet <rspliet@eclipso.eu>,
-	Roy Spliet <nouveau@spliet.org>,
-	Hamin Sung <hamin@saltyming.net>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau/fb/gt215: don't sleep with PFIFO paused during link training
-Date: Sun,  4 Oct 2026 07:32:15 +0900
-Message-ID: <20261003223215.59266-1-hamin@saltyming.net>
+	Dmitry Voytik <voytikd@gmail.com>
+Subject: [PATCH] coco/tdx-host: add Kconfig description
+Date: Sun,  4 Oct 2026 00:32:37 +0200
+Message-ID: <20261003223237.513456-1-voytikd@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -58,159 +78,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gt215_link_train() brackets the training with gt215_clk_pre() and
-gt215_clk_post().  gt215_clk_pre() pauses PFIFO with nvkm_fifo_pause(),
-which takes the FIFO lock with interrupts disabled and holds it until
-gt215_clk_post().  In between, link training builds and runs PMU memx
-scripts: nvkm_memx_init() and ram_exec() send messages to the PMU and
-sleep until it replies.
+Fix the issue when the driver always gets compiled as a module.
+How to reproduce the issue:
+	make mrproper
+	make defconfig
 
-With preemption counting enabled, which PREEMPT_DYNAMIC kernels always
-have, the first memory reclock of a GT21x that needs link training (for
-example after writing a pstate to the debugfs pstate file) logs:
+	./scripts/config \
+	  -e CMA \
+	  -e ALLOC \
+	  -e KVM \
+	  -e KVM_INTEL \
+	  -e KVM_INTEL_TDX \
+	  -e INTEL_TDX_HOST \
+	  -e TDX_HOST_SERVICES \
+	  --refresh
+	make olddefconfig
+	make mod2yesconfig
+	grep '=m$' .config
 
-  BUG: scheduling while atomic: kworker/1:3/256/0x00000002
-  Workqueue: events nvkm_pstate_work [nouveau]
-  Call Trace:
-   gt215_pmu_send
-   nvkm_memx_init
-   gt215_ram_calc
-   gt215_link_train
-   gt215_ram_calc
-   nvkm_pstate_work
+	returns only this driver as module:
+	  CONFIG_TDX_HOST_SERVICES=m
 
-A second report follows from ram_train_result(), which runs after
-gt215_clk_post(), only because the first one reset the preemption count.
-While the PMU runs the scripts, anything else that takes the FIFO lock,
-such as enabling or disabling the non-stall interrupt for fence
-signaling, spins with interrupts disabled on another CPU.  And if sending
-to the PMU fails with -EBUSY inside the bracket, the error path skips
-nvkm_fifo_start() and leaves the lock held.
+"make menuconfig" doesn't let switch from =m to =y either.
 
-Pausing PFIFO under the lock is not what keeps the engines off the
-memory during training.  gt215_clk_pre() also halts PFIFO through
-0x002504 and waits for the engines to go idle, which is all a normal
-memory reclock relies on: the memx script that gt215_ram_calc() builds
-halts PFIFO the same way before it reclocks the memory.  Let
-gt215_clk_pre() skip the pause when it is not given flags, as
-gt215_clk_post() already skips the matching start, and pass none from
-link training.
-
-Fixes: 7f4b961618d0 ("drm/nouveau/fb/ramnva3: Link training for DDR3")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5 sparse # max effort
-Assisted-by: Claude:claude-fable-5-1 # max effort, review
-Signed-off-by: Hamin Sung <hamin@saltyming.net>
+Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
 ---
+ drivers/virt/coco/tdx-host/Kconfig | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Notes:
-    Tested on a GeForce 310M (GT218, 512 MiB DDR3) with 6.18.54
-    (PREEMPT_DYNAMIC, lazy) by writing "0x0f" to the debugfs pstate file after
-    boot, which runs link training once:
-    
-      - without this patch: two "BUG: scheduling while atomic" splats, one
-        from nvkm_memx_init() and one from nvkm_memx_train_result()
-      - with it: none; the reclock still ends at core 625 MHz, shader
-        1530 MHz, memory 789 MHz
-    
-    Booting with nouveau.config=NvClkMode=0x0f also trains and switches
-    cleanly with the patch, and with nouveau.debug=fb=debug the training
-    reports its 64 result words and the computed 0x100720/0x1111e0/0x111400
-    values (30032100 02000404 00000000).
-    
-    When link training runs while the system is up, the interrupt handler on
-    the other CPU can still read 0xffffffff from the GPU (the WARN_ON in
-    nvkm_intr()) and a few dozen "fb: trapped write ... [PFIFO_WRITE]" lines
-    are logged.  Both happen with and without this patch and look like host
-    access while the training script blocks it; this patch does not try to
-    address them.
-    
-    Found while setting up nouveau on that machine with an AI coding
-    assistant, which also wrote the patch and ran the tests above on it;
-    I have reviewed the patch and the test results.
-
- drivers/gpu/drm/nouveau/nvkm/subdev/clk/gt215.c  |  7 ++++++-
- .../gpu/drm/nouveau/nvkm/subdev/fb/ramgt215.c    | 16 ++++++++--------
- 2 files changed, 14 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gt215.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gt215.c
-index 5421200282b9..ad5167d23742 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gt215.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gt215.c
-@@ -303,6 +303,11 @@ calc_host(struct gt215_clk *clk, struct nvkm_cstate *cstate)
- 	return ret;
- }
- 
-+/*
-+ * Halt PFIFO and wait for the execution engines to go idle.  If @flags is
-+ * not NULL, PFIFO is also paused under the FIFO lock with interrupts disabled
-+ * until gt215_clk_post(), so the caller must not sleep in between.
-+ */
- int
- gt215_clk_pre(struct nvkm_clk *clk, unsigned long *flags)
- {
-@@ -319,7 +324,7 @@ gt215_clk_pre(struct nvkm_clk *clk, unsigned long *flags)
- 	) < 0)
- 		return -EBUSY;
- 
--	if (fifo)
-+	if (fifo && flags)
- 		nvkm_fifo_pause(fifo, flags);
- 
- 	if (nvkm_msec(device, 2000,
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramgt215.c b/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramgt215.c
-index 3135b46cbfcd..6a93b2f164de 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramgt215.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramgt215.c
-@@ -164,8 +164,6 @@ gt215_link_train(struct gt215_ram *ram)
- 	struct nvbios_M0205T M0205T = { 0 };
- 	u8 ver, hdr, cnt, len, snr, ssz;
- 	unsigned int clk_current;
--	unsigned long flags;
--	unsigned long *f = &flags;
- 
- 	if (nvkm_boolopt(device->cfgopt, "NvMemExec", true) != true)
- 		return -ENOSYS;
-@@ -186,7 +184,12 @@ gt215_link_train(struct gt215_ram *ram)
- 
- 	clk_current = nvkm_clk_read(clk, nv_clk_src_mem);
- 
--	ret = gt215_clk_pre(clk, f);
-+	/*
-+	 * Talking to the PMU below sleeps, so do not pause PFIFO under its
-+	 * lock.  gt215_clk_pre() still halts it through 0x002504, which is
-+	 * all a normal memory reclock relies on as well.
-+	 */
-+	ret = gt215_clk_pre(clk, NULL);
- 	if (ret)
- 		goto out;
- 
-@@ -241,7 +244,7 @@ gt215_link_train(struct gt215_ram *ram)
- 	nvkm_mask(device, 0x616308, 0x10, 0x10);
- 	nvkm_mask(device, 0x616b08, 0x10, 0x10);
- 
--	gt215_clk_post(clk, f);
-+	gt215_clk_post(clk, NULL);
- 
- 	ram_train_result(ram->base.fb, result, 64);
- 	for (i = 0; i < 64; i++)
-@@ -258,12 +261,9 @@ gt215_link_train(struct gt215_ram *ram)
- 	return ret;
- 
- out:
--	if(ret == -EBUSY)
--		f = NULL;
--
- 	train->state = NVA3_TRAIN_UNSUPPORTED;
- 
--	gt215_clk_post(clk, f);
-+	gt215_clk_post(clk, NULL);
- 	kfree(result);
- 	return ret;
- }
-
-base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+diff --git a/drivers/virt/coco/tdx-host/Kconfig b/drivers/virt/coco/tdx-host/Kconfig
+index 57d0c01a4357..5a13ec6f51e8 100644
+--- a/drivers/virt/coco/tdx-host/Kconfig
++++ b/drivers/virt/coco/tdx-host/Kconfig
+@@ -1,6 +1,10 @@
+ config TDX_HOST_SERVICES
+-	tristate
++	tristate "TDX host user interface driver"
+ 	depends on INTEL_TDX_HOST
+ 	select FW_LOADER
+ 	select FW_UPLOAD
+ 	default m
++	help
++	  See INTEL_TDX_HOST for details.
++
++	  If unsure, say N.
 -- 
 2.55.0
-
 
