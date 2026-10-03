@@ -1,80 +1,109 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D083876BE
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:44:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26D139CCFE;
+	Sat,  3 Oct 2026 21:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063875; cv=none; b=cZ17TSZn6PSkMIyzKD5HggxIX7wlT66L88KizGQshqo2e9AQNg24qa5BPpBlJPYk5/FbrBRwU/8jP03FlffBgoDN07aOmjPcpIAomEyBnM6xqkZDCQ9U36JQRpUDNSswXnnlVG9mZL+Na7+CE8E31x+JUZVLR0dlSqa05bQayjA=
+	t=1791063892; cv=none; b=TuAwXt/oVRrgO/JOFcXjKvn5OeougxAWLxpwFIzqRUNlvx18gHA8IJcvHcvwRcoOBjhd87IMy//bJsEOvY4tb7AZ8WyDnYPTLOULpMUPESaL86koBH9fR6Kyx0Pv9aEvrUokNpnM0iOBY1/Ff8KVIOXI8fXMIx48Wn+AC+ex6Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063875; c=relaxed/simple;
-	bh=XyONMfQ+UxmdbuwzpTC5fPCMO6vTJ5krr7EWqS+Skr8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bWRxxMBebZmQT7Akvg7S0OjcHVQwYF/oVWeFhYOsOY/1eZDtV4nNCG0knIon6yBfYXuPXGqTp64j65gDb2rtyuhMU5EEJe6NzerpaH/e0UOk7spbagW2re64RhX/fa9ebUANcq35zjZcLoXbKiYGugRMHKXBjetn9Bts6ggnqd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=XeYbMlXq; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1791063892; c=relaxed/simple;
+	bh=38Fbg65EGEel43VtgYG/9Qaf+D9pTNsdGxBfPRogdU0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OVRBKMh5NDwIIYS7rK3uvi6EFWFR8cemp+Y1oU67QuOZMVeSBCLTHgapM9s+9SYYQqLppVEOZgJDz5btaBjL3R8Q3Yk7Muh5gwRBHtfD7bTCec45iRv10Nrha+j1jmJtbF7SCIafNZId2q3EQ8tK80PGyPxB6grK3eD94VUTsUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=4Kwn9ykj; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="XeYbMlXq"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4BDB440E021A;
-	Sat,  3 Oct 2026 21:44:29 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Hr7a2RVOpNMZ; Sat,  3 Oct 2026 21:44:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791063859; bh=ZfElEK55180GLmRFxRAvzqsE81O8LoDDsMEOdg39UcY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XeYbMlXqA1O8lFk9cKAfB9A28I3OdQnluBq64EJkHQ/GsDr1sa1EzroTQsnkxxhcE
-	 1dMIscHG4fTQMfQW5otuUz963aD+LO+AfEABXtKgyvdHGvwXGf3YnCHPs4jueucCzl
-	 rrIBwf0iaB0fgXxWMNxn5GcJkyNeoXlkbb3V8Gopnqq8siSD00pu2MskyWMwhyZT35
-	 woMTyKjZeHXZn7bhc7wMWw2Zjck8EVSY+PdFbylCxBgijsT85m6ewjKJqCCQKV4XHN
-	 naqy2L48J8J03btvn+qud/ukYv9pajvuHjsGHtDshAsyVjY3X6DVL0twlW7d5hXLFn
-	 wOuOIwD/v5QHQ95sMeNq98BznoCxD/QdzRp2Yko2Tn/BPyu/pPDRVX6eR33b9Yi6cB
-	 q9YkSoPP3ONwhmdPCK8SPH56iDTGEXyDK0MQ3tpB5/5vRyOEkHRmnxk8KVbb+VMnfW
-	 4qEbnqpMNihRVyW9Qd6rcdloKEdW1aHofpn7ivpWkRWtiF+t9by6Gmq9KFlC/iSVlv
-	 E3RfFFIuaIphAR8bMVNXu1rdxXTf6rwqil6VTuEFF5GTdp5VyeTrFzjbyLTERr63L0
-	 5qFkeSV0mzIl3UYFlxiOJ+E821BWSnVkVKU1wnY7AI3iGd/pSDQvKD7QYyK73Jzo5a
-	 EGLll0oLtkAPnp/kqln4c9Xw=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BCB7F40E00E8;
-	Sat,  3 Oct 2026 21:44:12 +0000 (UTC)
-Date: Sat, 3 Oct 2026 14:44:09 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Borislav Petkov <bp@kernel.org>, X86 <x86@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>, stable@kernel.org,
-	Rik van Riel <riel@surriel.com>
-Subject: Re: [PATCH] x86/CPU/AMD: Fix AMD TLBI Erratum #1718
-Message-ID: <20261003214409.GAasF3KTcTWIQ9t3hY@fat_crate.local>
-References: <20261002211617.1001617-1-bp@kernel.org>
- <asFqr9OEdRqCJKWj@gremlin>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="4Kwn9ykj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=PRCu0Kt8JudtLQU7puVFYQ3X0LQWTWd0xA6QLuOvzi4=; b=4Kwn9ykjncxT4a81L4rkYGMdWy
+	fKJdEWHGSH5Ne5QIzNptseYoYOxSB54H6Zps6+hOKbHhCFJg/yTqIe+LgWucSspZJTaXCfbnhyKYO
+	2eesTTy+4xU73OhrpknCWRKq+lk2D7VTmv2B/8wg0gfLksjaUYED+ogZ2BeLSELv4jPOi62JL97Fz
+	aoTEA9GlrKzjCr7ea8mDQ5L5rc9r1I+j/R49PU7mJko+tsJnLrxvAs94J8zx1iozVfkGGW7SZzHHC
+	SHCTjwI1Dvw4Ue/jCfFoBjXka9KE0ScDoOT4W+omS+YjuGwVryfBW0jFhOWF02oLzS5phgHIBvyvJ
+	Iz6uEVmw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xD7X2-0000000E5oE-0sGB;
+	Sat, 03 Oct 2026 21:44:36 +0000
+Message-ID: <7ce092a4-5c85-4391-809a-3d04b638a722@infradead.org>
+Date: Sat, 3 Oct 2026 14:44:34 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <asFqr9OEdRqCJKWj@gremlin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC: DMA_PMD 01/22] iommu/dma: introduce CONFIG_DMA_PMD and
+ metadata table
+To: Luigi Rizzo <lrizzo@google.com>, Luigi Rizzo <rizzo.unipi@gmail.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima
+ <kuniyu@google.com>, Joshua Washington <joshwash@google.com>,
+ Harshitha Ramamurthy <hramamurthy@google.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev,
+ netdev@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261003212241.3432303-1-lrizzo@google.com>
+ <20261003212241.3432303-2-lrizzo@google.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261003212241.3432303-2-lrizzo@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 03, 2026 at 10:24:40PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Hopefully some useful datapoints also - + I hope there'll be a firmware fix
-> for the threadripper too :)
 
-Yeah, working on it. We'll see.
 
-Thx for the datapoints - very useful.
+On 10/3/26 2:22 PM, Luigi Rizzo wrote:
+> diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
+> index 6e07bd69467a3..1bb347fd9da4a 100644
+> --- a/drivers/iommu/Kconfig
+> +++ b/drivers/iommu/Kconfig
+> @@ -158,6 +158,38 @@ config IOMMU_DMA
+>  	select NEED_SG_DMA_LENGTH
+>  	select NEED_SG_DMA_FLAGS if SWIOTLB
+>  
+> +# PMD_SIZE IOMMU backing for DMA-coherent devices
+> +config DMA_PMD
+> +	bool "PMD_SIZE IOMMU backing for DMA-coherent devices"
+> +	depends on IOMMU_DMA
+> +	depends on X86_64 || (ARM64 && ARM64_4K_PAGES)
+> +	depends on !PREEMPT_RT
+> +	default y
+> +	help
+> +	  Hand out DMA buffers carved out of PMD_SIZE physically contiguous
+> +	  blocks that the IOMMU maps with a single leaf PTE. Mapping,
+> +	  unmapping and IOTLB flushing are done lazily to reduce CPU overhead.
+> +	  The large mappings greatly reduce IOTLB usage. As in strict iommu
+> +	  mode, pages are returned to the buddy allocator only when any existing
+> +	  mappings have been removed and IOTLB flushed.
+> +	  Costs 128KB of metadata per GB of DMA_PMD buffers, allocated on demand.
+
+Paragraph 1 of the patch description says 64KB per 1GB, not 128KB.
+Or am I mixing things up?
 
 -- 
-Regards/Gruss,
-    Boris.
+~Randy
 
-https://people.kernel.org/tglx/notes-about-netiquette
