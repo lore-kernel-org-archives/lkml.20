@@ -1,235 +1,117 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5522882AB;
-	Sat,  3 Oct 2026 21:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC71B424655;
+	Sat,  3 Oct 2026 21:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791061366; cv=none; b=T8PQrUq7m6hwsUgbe4ZlVj8R2y/P/G/s086OrcBGO9NCKTnViPoA439nlhhRi+lq9Yo+nVyql/jYKZUWgXFE8f/Sjt8MxSZ93KifRYtQW+o9lHXDGBJxedL/lXJRET4qcjxbRRsW1IPQ7XDFzkVg7KoSMwjRJKrTbJXzKYI3Dws=
+	t=1791061370; cv=none; b=dX9/wMLsymM4JiEUEeX/kS7xV7u6ID7sL7rXNUj6GlTI2fltxIwfzslF9q9o6xBsWgw5E3lbVRI2MpSz2AO4cEMtBx91sI5qUCxdb9H94QCVGjQ5jGPXDuIjgnXZx68wSje9U7TYo37L9ciDGvRAi5w+rb879+/c0maKmNHnBk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791061366; c=relaxed/simple;
-	bh=MdkNDKFMwo0en7/phjMbXSaPZqxK8TFbLzKbBZzESuY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hkfWC+pQt+mh3vHnlbX23Ot3tQ70WMuVBHyjD+U5HaUmUH+bqpqaZjeGwnaxBwyb06u0hB+8j/3vLYRWqaJkxydqn/Eoo87nwVNIEioQgCmkTNfDu37U4b8YHbRaqH6FxXwumKqZqN27QLJ7L6LC5gN6g7iJEpnbVLsI1Pa2ehI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=RwkyW6Xo; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791061370; c=relaxed/simple;
+	bh=MubDMqpVZVxxHvQC9nFxRXWZ706SfPuCgG/aWwhq64k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YSVPy4bluQ3kb/UeJsB9gbJBUjUUEj5DgMNUBAM0iNp7Y7IrbAwrAg7tPm5iSYkDS2T/LeBmYv3bUByW4LwZbh3o81XSxE0uz/UBuu/8MQ8z+WaAd8xtmRwuLEf9huzNb9YPDZqZXy7Vkc+W2fqfihxFbnuXE18m38kULDwGH/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CguJFy1S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="RwkyW6Xo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=ZvFijynfxs8ibqtQRQGuVugKLLDc2R9fdiy9rm9cFaM=; b=RwkyW6XofBJdVZysxBB+Mym5Hg
-	AkMzsaF2mKZcGF9zo92CRZ7I7WslecfPMQb/4vs/5lqiFUrh0djgMFI+5EcIoMV6hEWNx/pbThxPW
-	qIyLLEBz3uCJykBkIM9yCOaL3595HIipFquPGi3DceGotUqg3ujoqWYCMUHbaa5G//hnYK3m0wmpw
-	cy+9pLbev8zeCcFaPGlfruDrTxVy29XdSI1kVfGytlNNUOIqLERCmfpa2M6WkJYx+/CnVpkclApLo
-	UbpMh9JZF5TCJwVEiTVrqxyPbSsmPbqWZfOME2gJ2UXXC9TZhLSJ+MBvLb2HYG7HVBTryAylb3FnI
-	BAwOTuCg==;
-Received: from [151.115.150.205] (port=53992 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xD6sU-0000000GjZq-2vGZ;
-	Sat, 03 Oct 2026 23:02:38 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Hannes Reinecke <hare@suse.de>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF
-Date: Sat,  3 Oct 2026 21:01:55 +0000
-Message-ID: <20261003210154.2453077-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CguJFy1S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1EB1F0089B;
+	Sat,  3 Oct 2026 21:02:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791061366;
+	bh=8cIdndPyOHMf56UK9tLY6SNuenfeu2ZIWB6f+X1P2ks=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CguJFy1ST3HdW+k9La9ASkiBrEJFGCNeh9+zBskr65UTdcDEXVE4s81iLOtJxVsNF
+	 oUX1UxvMs36qO39J6PfVtZIDJ5I9G/51oUcwa0CmJQHQbJco0ZPe7c7js2ufnl7Nhc
+	 K5aTHV+JWur5iXM8gJeW8uf+b8xLp4W+InPATMtOHL7j9QA/exDIZzLeEhM5y9s06I
+	 WhlrohO0DFxeXWRjL5qh2N3jRkwUaWNKiIVWZcHRGYgkSeZ1ruzbIQtFmLGG1kv+py
+	 el6ymg9lZR3bMUGI6RV0pMyiJDVendAogvKJn9A+fcgD8OxK8C2y5/aUATrHekdz6K
+	 XEUlnLLVLJB9g==
+Message-ID: <70c91780-a18f-487d-8036-92c0e3e68e55@kernel.org>
+Date: Sat, 3 Oct 2026 23:02:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: net: wireless: qcom,ath11k-pci: add
+ QCN9074
+To: Andrei-Alexandru Bleortu <me@andrei-z.com>,
+ Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: ath11k@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-wireless@vger.kernel.org
+References: <20261003083410.3126453-1-me@andrei-z.com>
+ <20261003083410.3126453-2-me@andrei-z.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261003083410.3126453-2-me@andrei-z.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 7bit
 
-A REPLY AUTH_SEND command can derive a dhchap_skey key while a
-concurrent AUTH_RECEIVE command observing this REPLY state executes
-the failure path and frees that key. The REPLY command then continues
-and writes into freed memory, causing a use-after-free. KASAN reports
-it as:
+On 03/10/2026 10:34, Andrei-Alexandru Bleortu wrote:
+> QCN9074 is a PCIe 802.11ax radio that boards such as the IPQ5018-based
+> Ubiquiti UniFi U6 Enterprise solder down, two of them on different
+> bands. Like the other ath11k PCIe devices, each needs
+> qcom,calibration-variant to select its board data. Document its PCI ID.
+> 
+> No supplies are added: on these boards the radio's rails are fixed and
+> not under software control.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
+> ---
 
-  BUG: KASAN: slab-use-after-free in __sha256_final
-  Write of size 4 at addr ffff88800359c540
-  ...
-  nvmet_auth_sq_free (drivers/nvme/target/auth.c:237)
-  nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:621)
 
-Add a mutex to each submission queue to serialize authentication
-commands and timeout handling. Unlock the mutex before completing
-requests and ignore outdated timeout callbacks. Limit timeout delays
-to prevent immediate expiry on 32-bit kernels.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Fixes: 7a277c37d352 ("nvmet-auth: Diffie-Hellman key exchange support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- drivers/nvme/target/auth.c             |  1 +
- drivers/nvme/target/fabrics-cmd-auth.c | 32 ++++++++++++++++++++++----
- drivers/nvme/target/nvmet.h            |  2 ++
- 3 files changed, 31 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
-index a55319b..1680e5e 100644
---- a/drivers/nvme/target/auth.c
-+++ b/drivers/nvme/target/auth.c
-@@ -229,6 +229,7 @@ out_unlock:
- 
- void nvmet_auth_sq_free(struct nvmet_sq *sq)
- {
-+	sq->auth_expiry_active = false;
- 	cancel_delayed_work(&sq->auth_expired_work);
- 	kfree(sq->dhchap_c1);
- 	sq->dhchap_c1 = NULL;
-diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-index dccdb55..f30c253 100644
---- a/drivers/nvme/target/fabrics-cmd-auth.c
-+++ b/drivers/nvme/target/fabrics-cmd-auth.c
-@@ -6,6 +6,7 @@
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- #include <linux/blkdev.h>
-+#include <linux/jiffies.h>
- #include <linux/random.h>
- #include <linux/nvme-auth.h>
- #include <crypto/kpp.h>
-@@ -17,16 +18,27 @@ static void nvmet_auth_expired_work(struct work_struct *work)
- 	struct nvmet_sq *sq = container_of(to_delayed_work(work),
- 			struct nvmet_sq, auth_expired_work);
- 
-+	mutex_lock(&sq->auth_lock);
-+	/* A command may have cancelled or rearmed this timeout. */
-+	if (!sq->auth_expiry_active ||
-+	    delayed_work_pending(&sq->auth_expired_work))
-+		goto out_unlock;
-+	sq->auth_expiry_active = false;
-+
- 	pr_debug("%s: ctrl %d qid %d transaction %u expired, resetting\n",
- 		 __func__, sq->ctrl->cntlid, sq->qid, sq->dhchap_tid);
- 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
- 	sq->dhchap_tid = -1;
-+out_unlock:
-+	mutex_unlock(&sq->auth_lock);
- }
- 
- void nvmet_auth_sq_init(struct nvmet_sq *sq)
- {
- 	/* Initialize in-band authentication */
-+	mutex_init(&sq->auth_lock);
- 	INIT_DELAYED_WORK(&sq->auth_expired_work, nvmet_auth_expired_work);
-+	sq->auth_expiry_active = false;
- 	sq->authenticated = false;
- 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
- }
-@@ -256,6 +268,8 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
- 	u16 status = 0;
- 	u8 dhchap_status;
- 
-+	mutex_lock(&req->sq->auth_lock);
-+
- 	if (req->cmd->auth_send.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
- 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		req->error_loc =
-@@ -281,8 +295,10 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
- 			offsetof(struct nvmf_auth_send_command, tl);
- 		goto done;
- 	}
--	if (!nvmet_check_transfer_len(req, tl)) {
-+	if (unlikely(tl != req->transfer_len)) {
- 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, tl);
-+		mutex_unlock(&req->sq->auth_lock);
-+		nvmet_check_transfer_len(req, tl);
- 		return;
- 	}
- 
-@@ -406,10 +422,12 @@ done:
- 			 status, req->error_loc);
- 	if (req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_SUCCESS2 &&
- 	    req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_FAILURE2) {
--		unsigned long auth_expire_secs = ctrl->kato ? ctrl->kato : 120;
-+		unsigned long auth_expire = min_t(u64, MAX_JIFFY_OFFSET,
-+			(u64)(ctrl->kato ? ctrl->kato : 120) * HZ);
- 
-+		req->sq->auth_expiry_active = true;
- 		mod_delayed_work(system_percpu_wq, &req->sq->auth_expired_work,
--				 auth_expire_secs * HZ);
-+				 auth_expire);
- 		goto complete;
- 	}
- 	/* Final states, clear up variables */
-@@ -418,6 +436,7 @@ done:
- 		nvmet_ctrl_fatal_error(ctrl);
- 
- complete:
-+	mutex_unlock(&req->sq->auth_lock);
- 	nvmet_req_complete(req, status);
- }
- 
-@@ -536,6 +555,8 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
- 	u32 al;
- 	u16 status = 0;
- 
-+	mutex_lock(&req->sq->auth_lock);
-+
- 	if (req->cmd->auth_receive.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
- 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		req->error_loc =
-@@ -561,8 +582,10 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
- 			offsetof(struct nvmf_auth_receive_command, al);
- 		goto done;
- 	}
--	if (!nvmet_check_transfer_len(req, al)) {
-+	if (unlikely(al != req->transfer_len)) {
- 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, al);
-+		mutex_unlock(&req->sq->auth_lock);
-+		nvmet_check_transfer_len(req, al);
- 		return;
- 	}
- 
-@@ -621,5 +644,6 @@ done:
- 		nvmet_auth_sq_free(req->sq);
- 		nvmet_ctrl_fatal_error(ctrl);
- 	}
-+	mutex_unlock(&req->sq->auth_lock);
- 	nvmet_req_complete(req, status);
- }
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index 162e2fd..2032db3 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -161,8 +161,10 @@ struct nvmet_sq {
- 	u32			sqhd;
- 	bool			sqhd_disabled;
- #ifdef CONFIG_NVME_TARGET_AUTH
-+	struct mutex		auth_lock;
- 	bool			authenticated;
- 	struct delayed_work	auth_expired_work;
-+	bool			auth_expiry_active;
- 	u16			dhchap_tid;
- 	u8			sc_c;
- 	u8			dhchap_status;
--- 
-2.47.3
-
+Best regards,
+Krzysztof
