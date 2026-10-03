@@ -1,137 +1,226 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28633B992C;
-	Sat,  3 Oct 2026 09:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D0A3AF667
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018168; cv=none; b=usSwKFAxhXDpVCYZ92/yxyeb0a1hPFYV0iaET8zGhTftX8lAZtICENs8L3J0XZcNwIoxlp1sSJXVW76RLY+atGUXd4sY60CmGk5/JwUVQimRArqnZvbKvROLRwUwBuXzg1jNG0YnNjhb7ME0J7bv862kWmoCIOVLow24xltDxb8=
+	t=1791018165; cv=none; b=p6uWgd28wwZZPE0nVXUCvfHHEvR+TtUMxdX2LaiGo7G1SbiKm70mHQkrlI2cU4u/B4D19AQIwQo40MQ2OxiHAaFZBGckyrg7wzgN29SoJt7yqPZgoCIqC2A87aeTzvQ+Utr+wk3avA7Nl7bHCig14DVs5uC+TAIVY5PE0XONh8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018168; c=relaxed/simple;
-	bh=JHIJZ+Nq4EksoDu7uv14qPjyqd+3ALfF0Tm3yKu2j1M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KoXtB39ax4JqYGE8KnDLOlG3XUbNKgy0IhCX0GayofzgbjWPDCs4t69Q5dnXyOY9cwBvZw1ALaWzYIf93SdybIh2OwoB/LCFPlLxf6Z0DLQNnlagjl8v9tqtOws6oWAvos7rgmScOC9N8571wm+bPpkAPej1vbfJnB+9vG6ZvVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OoRhdd97; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791018165; c=relaxed/simple;
+	bh=JZFxXZsrjM4DbU545aptMj12odYhiTP97780+XFXm5E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HmJk6R0n9OTKV6Cq+RWYOATtlSIgmIKs/rpxSbLrE7gnCTe3RAAhcZVdo+1P+nWjaDzKH0btF38gzrhZQiyMMH1Yqby2tCl+dse7Mmr/EzAqIVlkiGbhM+bVm8mpGU8t2iUDJVi9S3R2PnaAcnvAm4RSwlR15PCvXSYT71uktPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kkIrtsyT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j5eVYk/B; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OoRhdd97"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=UN
-	GuWRPGKIDXpixNtRVeSpH5PE0CmbSCQDhZyyIiwMk=; b=OoRhdd97nAsPM+/cYu
-	30edtOaB7lSvmGlGp8iLk7oXaKrindg6h/uK3o1f7tVnh0bHdOAedWJOLK6TDUDS
-	EDlnpyZbwt0hQDSrPpL42GaW+yGlL3IFBJXxRN9gGQEWIlPLMN+deOUKdOHTeF/y
-	vDd1CziYPsZcZ3GsLkbP8qMhY=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXP4b_w8BqInaGCg--.62290S2;
-	Sat, 03 Oct 2026 16:59:45 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Wei Fang <wei.fang@nxp.com>,
-	Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Paul Barker <paul@pbarker.dev>,
-	Byungho An <bh74.an@samsung.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Soren Brinkmann <soren.brinkmann@xilinx.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Fabio Estevam <fabio.estevam@freescale.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	dingtianhong <dingtianhong@huawei.com>,
-	Zhangfei Gao <zhangfei.gao@linaro.org>,
-	Jiancheng Xue <xuejiancheng@hisilicon.com>,
-	Dongpo Li <lidongpo@hisilicon.com>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Vipul Pandya <vipul.pandya@samsung.com>,
-	Siva Reddy <siva.kallam@samsung.com>,
-	Girish K S <ks.giri@samsung.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-renesas-soc@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH net v3 0/7] net: ethernet: release managed IRQs before freeing netdevs
-Date: Sat,  3 Oct 2026 16:59:31 +0800
-Message-Id: <20261003085940.493951-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kkIrtsyT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j5eVYk/B"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6933IRtY3629066
+	for <linux-kernel@vger.kernel.org>; Sat, 3 Oct 2026 09:02:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xRzWZ+suvLOKoJLeUzsdWe8l/S9zZeiASA+hJsV1sCU=; b=kkIrtsyTy8msgfLn
+	ZfARXnwuTpTvCn1IQ04aN7RgPmWb5N1zwX+R7cWZq7qYLZ+szj2+rqC6oumAdtsM
+	r3EYTL5B7Q5ojKmLrXPo0Hqr+1wEVWjmrkEbfJNt6CtisxeZk7IFOQgdipOEka9W
+	OuxH/oHclj8IlsQt+MloAGmvpe/3nEu8bPZA+iY568+DefU84yjn0CTFTEauvr4b
+	vmcp8hRe1oDP5rKVhQEgzoHHr4OvLM/YPerk3gquFxHmMPGfqgw9Sz9jU5mPG0/D
+	KQjGrXT/EZ4FFv7sdAFedVz2HJtjCXRkvRMWhggE0LoNYP6JgzmuRY1rysrbaEWt
+	uVO1oA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2spa0h7m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:02:40 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso170193eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:02:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791018160; x=1791622960; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xRzWZ+suvLOKoJLeUzsdWe8l/S9zZeiASA+hJsV1sCU=;
+        b=j5eVYk/BE+BAujCxkl8EhTne1Y0QLAEeICFlctYA7IU6CR8R7ZAnQLD0UfgYbvjxaE
+         delEKqyWlF8r2lvqVvsyKc1Bou/XVA5gCxH/JIsLSiE59eG2DVjruV/Nc0FvpHYnBhii
+         +jbTOf9HgCFZ46GUXRkwuUzxQTJ7wzoPfft8hFP0S01hLdyE/WfKpPwfPznPoRwz76Aa
+         z5II+LisU4srRk1uiBGzMMbkDmKiv+k40FClIhloyQ74CVZnKj+J8rYEe3BAlaznyJQd
+         Y6uiWeUYXv4wjUGT8jhta58jsGWhF+9jnwHl2yOaEB6E3qVfZN3XJMpIeKRUZWXhSBmA
+         jk/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791018160; x=1791622960;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xRzWZ+suvLOKoJLeUzsdWe8l/S9zZeiASA+hJsV1sCU=;
+        b=oLtsFwXgvESv/KSIIQ8Y//pwrnHoJU9oqqKs0ODWpYC44rboGfGh86kZE0YCMF1wpi
+         6TDRrHbg0s8kFUcD0SoYgMHC02EdTN5q28Xf327lferxvDDrKQyUumWeb0V/3/1SvXyR
+         c/1zkF8W4/IrPeDSwuTmxNJCyJdr5RDtQ8KSXAMOleJo/0dPYpAmAeaLQqW9YtkV250a
+         E9Dp7BMDkNxVLvZpaLEb+sm0HHCleiazXTjrnMcAbRNJxsKpNrOku8Boe0K4+dGKmYLP
+         CyhlYb0l2T2rHpa5y0YXkdiPLFvnRJ/zjrEuuKIO+7srQqt1pcTuU4yoVjERAr7A3d77
+         O34g==
+X-Forwarded-Encrypted: i=1; AKwUvByQ16HSLa10Z7qqVlmzKC05if0BldyA7wmuVniAgGS9Gv/AMVZrr2c8gmysnEGC3lg1xEKent7mOf+nJbI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyxlGnXgb7TYFBU2R66Y4ff9MqHWrMKH2mrikGZ6vgUmXkg6hn
+	zVHp+nncumlIDUtinoicRx+f7SneipmYw4I9JfvHDIncZ8chcSmxTNBiovLIJkLPQuq+6eHKQ25
+	gKtF9UwfEsDpDFlKDUTQlpWRHZyb9CBgHdR2GOBpSgvM2urHIzAJh7IUz6IP+T4Iab58=
+X-Gm-Gg: AYBFou00DEXnXREZ5zz8xT49Uf2jt2eHHTy8UkkwG/YnkVKRSH3FYlwrWjdg5l1CIBr
+	wdjJn9pIoryM7n44J4QaBYl+NabWm+OlQrKa4E6wB57rrDgsEyJtkC9Sf6EEOT1PaMsOLVk2jqY
+	0olrNeVf96tnX9WxzpuFV21TKP0mBGvBBRpgojSEkTs0IwmbfmY0FZlzoJvgAmTZHs6zJYqV7vm
+	efyZkVBV2FOVhI3d15ly+NDG47Tp3QZgYpANf7cM4v9WD1+9cS5srKHOH9yWue3MxhDh+ayCCVT
+	ylEXRIL8JTYs15SQPonq2LdPQSFKsEZeJ+id1xEcJ8FA2cYzBKYY6XgklfUxZFDPxZmq6w82WLM
+	XkpVI2vg9G49g/Wq9g0RGRDq8vH5rDU/UZJOxsoPgVrqQDxIbwbVt5r+5vCWtZ0aIiExvEmxRjq
+	IH0MWzmEAebg==
+X-Received: by 2002:a05:7301:4390:b0:351:1d87:c714 with SMTP id 5a478bee46e88-3511d87cecemr25808eec.23.1791018159806;
+        Sat, 03 Oct 2026 02:02:39 -0700 (PDT)
+X-Received: by 2002:a05:7301:4390:b0:351:1d87:c714 with SMTP id 5a478bee46e88-3511d87cecemr25772eec.23.1791018159296;
+        Sat, 03 Oct 2026 02:02:39 -0700 (PDT)
+Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f9f2afsm29278695eec.18.2026.10.03.02.02.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 02:02:39 -0700 (PDT)
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Date: Sat, 03 Oct 2026 02:02:22 -0700
+Subject: [PATCH v18 11/11] arm64: dts: qcom: kaanapali: Add camera MCLK
+ pinctrl
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDXP4b_w8BqInaGCg--.62290S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFWrXry3uFyDAF45CFW7urg_yoW5WF15p3
-	y3Ka9xur1kXr4avws3ZF40yF95ZF4fKF4Ykry7tw1rZw15Ary8Ary2gFyFvFWYyrWxA3Wj
-	qr4Yvwn3u3Z8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRaiiDUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQH7NmrAxAFFUgAA35
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-kaanapali-camss-v18-11-87ba4ebe0db1@oss.qualcomm.com>
+References: <20261003-kaanapali-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com>
+In-Reply-To: <20261003-kaanapali-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.1-dev-17221
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAzNSBTYWx0ZWRfX8jOlnO+8v/il
+ uCRGwGKn5TE84fDJwsXIFL7KiMU4KpVp1yV9W0kwsRZpfu2lz4nZJINqrC3UFu7P3VfYkvEWAJi
+ skTiiZn91pCLkgQaVieAxHwwG/DULMD5vARSe22tyw0/ti07uMhZqcKkpaax7bvekTwNWob6vc/
+ Q1UGKTKvJDXysrCXG7Cdh9ABbOXbIX347GjJtoO3pcf4CBYQLThEJ0OZJnFNML5Vfg+m8ni8Z7D
+ 7nEqHiRrCPweM5WzROqKuD1kyoSH0VeUBd5mxoeW9U+fyhHIv1LGe84ja+Wm5S8aLXk7NfgnFtd
+ SzTCM9GdbILRuGVDfO6poCub6Xz7yEZiut+pG0qW/doLA160GsnGiUDJj30EeNf+IypTLMteBED
+ h1ixRc++BH94IPoE0ZdXnh+nRXRLx3opL0SLQqfdi2QZ1R85rLNjAjmDIUyHv5FpaotW68sdXW4
+ vgCq6IhzFymRDZKb70w==
+X-Authority-Analysis: v=2.4 cv=b7MncdGx c=1 sm=1 tr=0 ts=6ac0c4b0 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=4Dwyees-64n8yO_2jeYA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 0SW1RIdGTwvgSCs-nC8AM0RUhvA2LYfz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAzNSBTYWx0ZWRfX/bv/p9Cax9uo
+ uv/RXLYYnO7dBPqffHrRMnZt16JkelnMUfoOAtgdAgD5tLgUw0tbHOImh5nDFygtQElDokPtpSc
+ V7T0ErxcMTK4O46/OSro1SeO0F3q+cg=
+X-Proofpoint-GUID: 0SW1RIdGTwvgSCs-nC8AM0RUhvA2LYfz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610030035
 
-Several Ethernet platform drivers request interrupts with
-devm_request_irq() but allocate and free their netdevs manually.
-Device-managed resources are released only after the driver's remove
-callback returns, so these callbacks can free the IRQ data while the
-interrupt handlers can still be invoked. A late or shared interrupt in
-this window can dereference freed memory.
+Add TLMM pinctrl states for the camera master clock GPIOs on Kaanapali so
+camera sensor nodes can select the proper MCLK pin functions when enabled.
 
-For six drivers, make the netdev allocation device managed. Since each IRQ
-is requested after its netdev is allocated, devres ordering releases the
-IRQ before the netdev. SXGBE also keeps its hardware operations object
-alive through the same ordering because its handlers dereference that
-object directly.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi | 56 +++++++++++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-FEC additionally masks its hardware interrupt sources and disables the
-Linux IRQs before unregistering the netdev, preventing handlers from
-accessing registers after the clocks and other resources are released.
-
-RAVB keeps its netdev manually managed because its remove callback has an
-existing runtime PM error path which can return before unregistering it.
-Instead, place its IRQs in a dedicated devres group and release that group
-after unregistering the netdev and on probe failures. The runtime PM error
-path is intentionally left unchanged and will be addressed separately
-after this series.
-
-These issues were found by a static analysis method used in our research.
-Each patch handles one driver and is independently buildable.
-
-Changes in v3:
-- Target the net tree and document how the issues were found.
-- Mask and disable FEC interrupts before dependent resources are released,
-  and remove the obsolete failed_ioremap label.
-- Limit the RAVB change to IRQ/netdev teardown ordering, correct its Fixes
-  tag, and defer the separate runtime PM error-path change.
-
-Changes in v2:
-- Keep commit message tags together without blank lines between them, as
-  requested by Francesco.
-
-Jiale Yao (7):
-  net: macb: manage the netdev lifetime with devres
-  net: fec: release IRQs before dependent resources
-  net: hip04: manage the netdev lifetime with devres
-  net: hisi_femac: manage the netdev lifetime with devres
-  net: hix5hd2: manage the netdev lifetime with devres
-  net: ravb: release managed IRQs before freeing netdev
-  net: sxgbe: manage IRQ data lifetimes with devres
-
- drivers/net/ethernet/cadence/macb_main.c      | 17 +++++------
- drivers/net/ethernet/freescale/fec_main.c     | 28 +++++++++++--------
- drivers/net/ethernet/hisilicon/hip04_eth.c    |  4 +--
- drivers/net/ethernet/hisilicon/hisi_femac.c   | 15 ++++------
- drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 15 ++++------
- drivers/net/ethernet/renesas/ravb_main.c      | 18 +++++++++---
- .../net/ethernet/samsung/sxgbe/sxgbe_main.c   | 26 ++++++-----------
- 7 files changed, 60 insertions(+), 63 deletions(-)
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index 710af0597aaa..f915a3d1530a 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -4570,6 +4570,62 @@ tlmm: pinctrl@f100000 {
+ 			#interrupt-cells = <2>;
+ 			wakeup-parent = <&pdc>;
+ 
++			cam_mclk0_default: cam-mclk0-default-state {
++				pins = "gpio89";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam_mclk1_default: cam-mclk1-default-state {
++				pins = "gpio90";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam_mclk2_default: cam-mclk2-default-state {
++				pins = "gpio91";
++				function = "cam_asc_mclk2";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam_mclk3_default: cam-mclk3-default-state {
++				pins = "gpio92";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam_mclk4_default: cam-mclk4-default-state {
++				pins = "gpio93";
++				function = "cam_asc_mclk4";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam_mclk5_default: cam-mclk5-default-state {
++				pins = "gpio94";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam_mclk6_default: cam-mclk6-default-state {
++				pins = "gpio95";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam_mclk7_default: cam-mclk7-default-state {
++				pins = "gpio96";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
+ 			cci0_i2c0_default: cci0-i2c0-default-state {
+ 				scl-pins {
+ 					pins = "gpio110";
 
 -- 
 2.34.1
