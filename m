@@ -1,213 +1,103 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012033.outbound.protection.outlook.com [40.107.200.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622952F8EBC;
-	Sat,  3 Oct 2026 03:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790997778; cv=fail; b=F6+t4r4QLsDnyVSExblWjsHFaaNYdGGEONa39euuDRi7MHnGIXU3xWMuw9VohCkPP7SWMRP8tfPoHpqOPEkFE+xcyAuB9Yd5GRV7Rh0UJ9460YDkS0q3tl6V65sZBxcCmDJfAhO7DfOTyFEw43TYUFOxKE78kAkrH1vBOCRhjPY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790997778; c=relaxed/simple;
-	bh=13wMua0CGZsBTtVPL4G4396tSOqD0yxkgDIihpS47SU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F032AD35
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 03:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790998276; cv=none; b=kmQhkBqMHV+cPXL9eY+SswoiGHroHS4CGc3TQMpzcFiOx3yTfix+kEa7SKybRb9+E8FMN98qQZ4dSLg+eDIqT4qfwxqAM4J2OYe5+THoKRhFE9YaKo9e6XoN2pyfhwYEWUiZ6ucdceW7OSROavZTW4Y967FIHi5PIdfz7rl7/jk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790998276; c=relaxed/simple;
+	bh=97uawHidSB1rYodKjDdjsSlDXIsf2v1irs/NqM+eBxk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Y2HFXDup3XSfvwmGBE9kknkbunVkqA6PhDblABxHvaxYVNlMHW+PshurVhvM68WrrQ1wOH95cYXBLsiwiOHJisaY1y4p5UVFhxL4XHujWe0kSZ/9pauUX+3l/zqF7pqH3gJsyAjt+yWZ+oj4LaQ/OlaQWtvzpw8KpW95F7AvUDw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WsCrYNnD; arc=fail smtp.client-ip=40.107.200.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version; b=kvTf31Z6HMXZXG7QvUAk3FazccswFTGRbA03JFDkmZBRr2cLMrPHk73O9qIYoFL82sbUu+1UFQMg1p8Mkhp4A5f1ZxZGAnWXByx3Zwv8qSDcEqBM24HbjDX8zsUn9GAiLPcYjYPnrT+1PWVB03LiT4GLgE2fA2KHxJ84ch+ZaOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com; spf=pass smtp.mailfrom=modal.com; dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b=YEbFykhM; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modal.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WsCrYNnD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SUAsAD6R781ZGO867E4KOjOgs2puHfOZuhIl2uPtwXOmgLk9IBtYNTnyM14E6n6KKQlzDyJ+QWD6YB70TIdKlBQ/SeQDVc7qXsxzMQ2nkkxav0s6LOJ0iDO1LP6rQhSIh9ta8FaiFuQ7C6ED1hZG+FF3Iml8G8mB0mCLlapGHue/7nha5R04JXd7lXe6kTGd83SfIWek5C+XVgY7xlXSX9Etqb2uIVsqIwZpEEA4aC1P5EBmGftxQ1kbnxguw0I3/xea4+KWJaPnKE6YsS2sPayZ4p3SgoPCJmSH4YdNrT0dj3OqOYM0+S8Hxv3dhsEf7NPntZOfQ8IDx7npteqC5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5+viOYnXk0t/bMwL+IZc2i1y/EJIC+8eEbc+TuChK28=;
- b=B2VzIPkXT4hx2jBG5S6su32SqjvUF7yYwMvM6hJUhLlWyf9AdAvSLGIFSMX7gLd9dzDPmBd9HzSHR2MjIUa+QckaqqFW0Bzy4y8Du00CkicmEQ+KPUEuEoJ4FW6iBRFyi5TvSeUV1Qrki54euDcYzpCiWDffMn4A2S7qhqEV0yraY53JbPjMkr1GoTlosMIsumWJbiUw/fU9RpC4+jXtedjZPFLtoFW0crF1RXINu7tSpLUqQ31Dt/1BvOWVmmZAYBO8nM6kQtr4ybugBRK5LwMJ0HI0R0rurTYl0ix0V0ie6UvlO6SWPVkMh2i02wpGE+tBVGNc41N7O8Zo6T7ECw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5+viOYnXk0t/bMwL+IZc2i1y/EJIC+8eEbc+TuChK28=;
- b=WsCrYNnD97ByI4eh79WudktYMdY52r4A54wDvSBqhu07SY8uXUxPKKpNp5B5+tEPKULEBDhZh8A52y1Z7nXeE0mOOK8P7QD+8eLYl2MDs/G1ZKpOTxdLr9702OHTbjBbdzblAP4I2uSOmPuKU8QVAKWWb9ych24N8VCKR0VVZvNFLR9XtC3qEVQcFrOU444yDFnXIS9SxaSEQLZNpShTuZV0wIVEVwsRn7RRGj3bZBPPF/bOAn5Kpst7BpURhoMX9oOGw+xV0s43xy2YCwRVYlKV5ut7NcySfO5NqaO9+Pg78ePRIgyutug0Haomtm/92lm2xoV695Jqa9oW6p8+CA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by SA3PR12MB9159.namprd12.prod.outlook.com (2603:10b6:806:3a0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Sat, 3 Oct
- 2026 03:22:53 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0472.016; Sat, 3 Oct 2026
- 03:22:52 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-clk@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: tegra: Fix Tegra114 MIPI calibration clock parent
-Date: Sat, 03 Oct 2026 12:22:48 +0900
-Message-ID: <encGrolPTXOOvSimmmZLIQ@nvidia.com>
-In-Reply-To: <ar_QXessqHKkVAHi@redhat.com>
-References:
- <20260930-b4-dalmore-fixes-mipical-clk-v1-1-0518be6c7979@nvidia.com>
- <ar_QXessqHKkVAHi@redhat.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCP286CA0372.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:79::20) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b="YEbFykhM"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso16053a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 20:31:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=modal.com; s=google; t=1790998275; x=1791603075; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=97uawHidSB1rYodKjDdjsSlDXIsf2v1irs/NqM+eBxk=;
+        b=YEbFykhM2s7/3XdWKcK0/+SMSoS75B6Nd4hous36njE6rHs/lgYTcUjKbfxS9TubqN
+         M7fBNS570A5dHSmHT7tNQ0a9Wbc7tKuHQ2ONU1fLvcz07X+STgeCRRw6zwdAxtDCptMO
+         gxFubpCxJ0q8bfZg671sUgMGmm1X+//Xw/LNzRxlVBhOr0c8EHWIWnAuQPI/16HkqGXt
+         5pgLf8JjGESOMXI8JxaSWzAc8Ik2kxOLMpTCJts01rwHlUYWdchSLLjnu9tJoKupBJDM
+         rTh8vjnTlOOfmD8pSlFTVsZ/bQiiv2uP86q02HgYHFBwX7RnOP+uxvg+joPDZsulTJGd
+         WRgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790998275; x=1791603075;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=97uawHidSB1rYodKjDdjsSlDXIsf2v1irs/NqM+eBxk=;
+        b=RV2wIV+7srizHM6Mep07ySsRc+vC/1Qy8/mRGqtUj0H/FaXvwc/YhXuEpZKHKcUoQG
+         1uilYQWZ5F4rf96oCLmoaerDxY/6Pbun4GvkBIhZau8ox9V7RPXBpI0gVSqQmD+LYklp
+         IB1yuAda5SS7jBZLgNoJH6pdU3FgVZ7sj7QZh+ozgKeoVqkZjHCp1h2Xjy0SYmcSlN0E
+         oI0eUTthMquw5otLFH1tsLUW2mGbByz9bcsB66cZP+Psa2Jk74a0J0Q1zEhcX7OeviIy
+         6wmL1ME+nRMunoQqRNQx9ZjjpGuHPOIy/md6zU1lIKH/nGGGanjjJhup/h8jPJm2QLky
+         EZqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBydTqS/kxP4dcEsC8P6k7+xOMU47TCFmxvVgYDadcX0U3KavpDIDmBm3WgYtrwR8p/o8C56sjZpkh1BjoQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzmUreew0sigKKwzr9DAZ4w+69mKWq+3aZP7rodQR0JO6fY1Ti
+	W/W8V6PHlPC7ZyVtfNZ55Q2dJFsns6BartSRp3gQiM1xN3Vs4sJfiMfDzZY3qZ+qluE=
+X-Gm-Gg: AYBFou11mdVhqjBO1XjDrwUOJRA3/qu3hFMxsLyd+HgToH0aaWDTJx0qP8Y6d07VXAb
+	AumG6HQsL85tRa680Gi2008DdtmL+A78SZLHkmCO+HJb3iF1fIdwpabKF6hcfOWWCU9fV2fhEe4
+	37Y539t9Dkg05HXsq2ZTYJNmWPVmk/GmigeiKrvJcQx9edqO3IFGUsuXhhOkPfpQ8cXEuQ44jJw
+	8tzj5BkIpgyeKUgd0+6lK3nutUqiKioM4lGGR+Af+CR4g9/yjYI+7RkQiD6I5cqAD/8Ha6LM3vw
+	1p9KCTs2iI2a5MGVH2YLcNE+pP16vJz+yh5rPQ8yhu/lZzb1E8uhdkQwx23EgplVC+TTifXmCjm
+	hKIcamqKcz/IlQOQgAsO4UHK7dy673c/W8OgGG6apEcjphYwWOng6s53C5mRQeBLLJctkPs/dn+
+	m00RN8ENxa4OMYYDYY+C7cNf7VkKW1T+S4jRUJzpcSVqWYNTwmFJRHtuofwdozDyJWU/cKD+n3A
+	9A01CZqTP1JA7BGipyRwq0IHJ5UZyhThkEd69/jGDLT53FzrE10WwF0jnnMBXfONXnc2ZWm24/P
+	6LJW91VYEaMBK8xExn6w6XYkjkGfX40qf0Cjaw==
+X-Received: by 2002:a17:90a:fc47:b0:3a4:a3cb:9c8e with SMTP id 98e67ed59e1d1-3a6ce7f243fmr1649986a91.38.1790998274745;
+        Fri, 02 Oct 2026 20:31:14 -0700 (PDT)
+Received: from devbox-ayushr-01ed.tail5292b.ts.net (ec2-44-242-192-44.us-west-2.compute.amazonaws.com. [44.242.192.44])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4f3911sm1184151a91.15.2026.10.02.20.31.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 20:31:14 -0700 (PDT)
+From: Ayush Ranjan <ayushr@modal.com>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Ayush Ranjan <ayushr@modal.com>,
+	Hugh Dickins <hughd@google.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jan Kara <jack@suse.cz>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Gregory Price <gourry@gourry.net>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts page cache / rss counters
+Date: Sat,  3 Oct 2026 03:31:03 +0000
+Message-ID: <20261003033107.1488699-1-ayushr@modal.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260925065013.3682431-1-ayushr@modal.com>
+References: <20260924061708.1645968-1-ayushr@modal.com> <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net> <20260925053027.1998394-1-ayushr@modal.com> <20260925065013.3682431-1-ayushr@modal.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SA3PR12MB9159:EE_
-X-MS-Office365-Filtering-Correlation-Id: 041ccbbd-4073-4c64-877f-08df20fd9bdc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|10070799003|376014|1800799024|22082099003|18002099003|4143699003|6133799003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	5aVhUnQd+YSgbP9bceF630jzJReXXbS2sODx1rlPjywggAUzjq0q8vrvi0NQ+qV3ybgtQaTgvB9DxE7Q9hwZ2aGvky3ppH61HJB+FwYRQ1x5ZIp+N6CzHkEjnwj7HxFPFJ701sRxDrOKft5ko2+L10gXJL0zK/Fo+IB4KgLGov+rkkgfP/Ujn5gTCuMshUXYx65PNh84wB8aVPXkHuWAAb9XZAjq53vwgXIijIj8R6S9DNnzrrc8wQGSL0f7lDePe2zcQ/XamN8F7MZC5JTDCoYYw/FmphOwKqMxKj8sRYNtK+DXXd2j8OVC/4WFHRD0rQqmgEjR1gJCO88uoRwt1gWCJ6tZG6IRXwpwL/A8oXnQCmWsceiMeedJfvpJSuNR2Oe4RfhilGXXB/brQOQrCSC1oJjl9JiaiB/NbLXCWRvHv9r8yv+AtPXbtQhGz11dUCPhF3MNT+yLUEpSDRX/87CW9m8n8tlvcuAOfVHSaPm/Lfi5gcGTxoSXvv0giH3YOCqRy7Q2apxZkkHf9DXOdiBm3V+HBNV+O/eUBRV66aV0CkZr+87h/WGFmcAXEx8YSUWxEgECIOjH13v4ci5AU5WiR9ldf4bDMhuqTha2E5micDCsN0vKrTp9C73MB9VnaQfTIKiV9MsQTPZn7uKT5SWcIoKbFrwxCxNQTtlCJGM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(376014)(1800799024)(22082099003)(18002099003)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cXhuWmlIcjVSVW9KZGJOci9IWXVEZUFremhtQ0tORWZuVUc2ZWgwanRMYWg1?=
- =?utf-8?B?eU5wWmJtRWYxa1ZHWERhZ3FORFd4VlFZUVNNaENPN1FxVnk1R0N4OG8wcFBl?=
- =?utf-8?B?emN1b0ZqUU9yRlgwY3grSGtVQnBEMHNiRGFQVHVUU1VreDhrMzBBSFBYWEhE?=
- =?utf-8?B?SVdGd0FtM0pWYkhobDYwSWJBb2JvL3Irek50aGQyODVMNFZlQ1BPWVdNd3RF?=
- =?utf-8?B?aXM0SHRvRkZ0OHFiTnJUcmg2ZFJOU1NRL0lFc29FTlE3R042Z1M3SXFjeXNu?=
- =?utf-8?B?UkhDSUhsTXNSSUE1VGVIbmFGeXFOZUwvNEtKQ05NQjl3cm8zMzNEWHdGSXV4?=
- =?utf-8?B?ODNJbUpHaHhDbTdlT3JLS3lMNUJZWHZpdi9tUjhlbzIyM1BmWk11UEtIZzBx?=
- =?utf-8?B?T2JIbTU3Q0FwNmUxRSt4T2R1aVJlcWNtRHl6Ukpnay9qQWk1V0lZUk13cFVR?=
- =?utf-8?B?NU1XQkdzcjNPekc0bDNZN0Jvb1VDb3E2KytrVHdZU045a1Q3T3FYT05zNW5k?=
- =?utf-8?B?V3lZRTZ4LzIzY09FcWllMDJIZ2lXY1RJMUZ6Z0VuWmlXRXpoYXZ3MjlPcnc3?=
- =?utf-8?B?YUtoM1ZoQmk1a1k1SEh3Wlcxdkt2TUZIOGdGUS9FbjFXVTdjVEdOeEd1cGE1?=
- =?utf-8?B?Sjh4M0FLa0Qzd0grNHdZVkljdHV3YWpJMHF0UURWcXJYQWpHUGhGZWpVUEJY?=
- =?utf-8?B?WWdKdEY3Qy9YTk1EaDNqdFVlZXJoL2E1VzdrVnUrT1puLzJwcm9oRHNZNEha?=
- =?utf-8?B?RFIzWlh2N0xabklrbmpqYU8yOXNGQTcrRmJOM2JkSlA3a0w5Tk1rZkxjb1VY?=
- =?utf-8?B?dXVIMUdhMWdKWnMxc3AwVFQvei9IZkFtakYyS05neWIwNXA4ODNleEJBcndh?=
- =?utf-8?B?aUZjUnJJY3ZNcDRUcTdZYUFhM3RlRE5tMm1BZ0lrV1lSMzlZNk5Pak0yblNt?=
- =?utf-8?B?djFvQ0wrbU9YdTl4bUtFUGJFdzArVnE1WGZ6dFc1R1pjT1FvM25DaDR2UGNL?=
- =?utf-8?B?NmFvay9wejRCazIrem91T2dqVmVKRmtHOFZrRmliWlNyRjh1NjFhbFRKakNM?=
- =?utf-8?B?T3c1bjA0R1ZSLytkYW1acDlFUUhhOWlYRkhlWDdHS3J3NzVCNm5CcGFUYWpx?=
- =?utf-8?B?TWp1ZjV3MkJZdHVucjdtSlV5aW10TXVMcTRkRTFIQjNOUnlSR2RHbno2WG15?=
- =?utf-8?B?Nit1SGpva2dGT2NjRUgrZnRHWlN2b1c0OHVZckNBMndRemRsVUNLUU9odEt5?=
- =?utf-8?B?OWgwMFViNk9UUks0eENFMnFUVjc2WHV6eEtwWjFtVk5tdFpIa3MwWk1saU1h?=
- =?utf-8?B?dXk1TWlPVmVBZWs0QnNoTU1NOTZuZVFERGxETGc3b3RxZnN2VmNBY0RLamJG?=
- =?utf-8?B?SGJla3QzZExETDNjWVRXekFPNVlTK3FkSHE3Rnp6TGhNNVJkdnR4NnljSkx2?=
- =?utf-8?B?WlJKK3lYbkxTd1BYSngyL2tJckxDbGNpL0orOFNVQlJxUGUydXJIZHpXbUVT?=
- =?utf-8?B?elJOMzlPeWc5aWYxMTk1WnNkSkxDdDFpT0MwcmZheEhHYnQ4RVB1cWVGSmlo?=
- =?utf-8?B?TUsyZU1VL21WOUxaeUxsUkZZWlU3YlRXdmZNcXJuVWhEQXlYelpxR2tWQXZL?=
- =?utf-8?B?R1habDRlRTliWHBzUkdvRnBoZnBobENuKzVnVHNmMEZxeGxMYmlJcFJKOVBO?=
- =?utf-8?B?RGZaRFBReWNMWGR3WVZaSWdVc3VYYUtLZXpONUhwNzIyZjc4VkRtNnZkVkdS?=
- =?utf-8?B?RHErOVF1NS9pbkRNejRqZHRtUUIrbGlEb2EwYWthYnFIVXR0Q0FxT3pmbkhU?=
- =?utf-8?B?c3VjdFRpb2I5V256c2MreGY1elhvbHNrS1IwZ29ZSUhLSTlnY1dQc1BnUWJE?=
- =?utf-8?B?WTRjY2NDWTZEbG55TDdoamk1SHJqY1NybkZmTXgxeTlTTno1VXc1NUhpWUxz?=
- =?utf-8?B?Z2tYQW43bzBoUjRtNHBjR0tWdVFRNWpZVkorYXMrVWl1cUs3SWkrVmNKQ1BY?=
- =?utf-8?B?SGJxWXU2OVVoUHg2bFF1WHlBYllXUlZmcnlFMTAya0w3MDB1Q1RVT2xqRWY1?=
- =?utf-8?B?am0rRWZreGhYNlNrOXVwTkRsY0ZZLzEyODR6N0NXTlRPR1NNaGxISStUeHEw?=
- =?utf-8?B?cTgweEJCZVRsWDRSeW1jRnZkUEpsZEs1NG02T2JkRkthMjNIV1FTZzJ0RHBy?=
- =?utf-8?B?ZXZRQ0ZLQXdVOVREK2lENGcwNmF2VytGOXdaNmNaRE1vc2k5TmxVekVtanBa?=
- =?utf-8?B?ZkxLUXZPZ2lub3d3WTh1Yzl3eVZCZlZrMmMwUFRJOXdqeWxhQzdVUSsrSk9L?=
- =?utf-8?B?ZmkxLzhjQXlwbkxoMnhwNEtvUUNHVjd0MEsvUmlTQlVma0J5N05TUmZ3RHlS?=
- =?utf-8?Q?Hz/mSMXahm8DIpgFSJ6Gs+pZKVVLoF1k0LzGtF169A/Jd?=
-X-MS-Exchange-AntiSpam-MessageData-1: Eqdi+RJXBXyQyw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 041ccbbd-4073-4c64-877f-08df20fd9bdc
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2026 03:22:52.6001
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p3tX4cNcKOUPNtux4BV2UXHmHw08ayoql/Q7VPpjZvCQu2L0rjKFNIbyHPHyYRbAUfqambvfYsd/WnMKZs7z0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9159
+Content-Transfer-Encoding: 8bit
 
-On Saturday, October 3, 2026 12:40=E2=80=AFAM Brian Masney wrote:
-> Hi Mikko,
->=20
-> On Wed, Sep 30, 2026 at 02:18:34PM +0900, Mikko Perttunen wrote:
-> > CLK_MIPI_CAL on Tegra114 is a plain clock gate with no source mux; the
-> > fixed parent is PLL_P_OUT3, which is specified to run at 72 MHz. The
-> > clock driver currently registers the gate with clk_m as its parent, so
-> > the clock framework never enables PLL_P_OUT3 when MIPI_CAL is enabled,
-> > and reports the wrong rate for it.
-> >=20
-> > Register the gate with pll_p_out3 as its parent. Also drop
-> > CLK_SET_RATE_PARENT at the same time: the parent canonically runs at
-> > 72 MHz so we shouldn't change the rate.
-> >=20
-> > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
->=20
-> Should there be a Fixes tag? I see that Thierry made a change to this
-> same clock 11 years ago:
->=20
-> commit 07314fc108e195044c074f4b443974b5aaa2d5d7
-> Author: Thierry Reding <treding@nvidia.com>
-> Date:   Wed Apr 8 16:48:26 2015 +0200
->=20
->     clk: tegra: Special-case mipi-cal parent on Tegra114
->    =20
->     Starting with Tegra124, the mipi-cal clock uses the 72 MHz clock as i=
-ts
->     source. On Tegra114 this clock's parent was clk_m, so it is the one-o=
-ff
->     chip.
->=20
-> Brian
+Hi all,
 
-True, technically this is a fix for that patch. I don't think this patch=20
-warrants any backporting, though, that the tag may trigger. If you'd=20
-prefer I can add the below (or if easier, you can add when applying):
+Gentle ping on this. The reproducer in my previous mail [1] triggers
+"Bad page cache ... still mapped when deleted" on 6.18.46 within a
+couple of minutes on a 128-CPU bare-metal box, with no fork() and no
+gVisor involved.
 
-Fixes: 07314fc108e1 ("clk: tegra: Special-case mipi-cal parent on Tegra114"=
-)
+We continue to hit this in production at low frequency, so I am happy
+to test patches or collect more data if that would help.
 
-Thanks
-Mikko
+Thanks,
+Ayush
 
->=20
->=20
-> > ---
-> >  drivers/clk/tegra/clk-tegra114.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/clk/tegra/clk-tegra114.c b/drivers/clk/tegra/clk-t=
-egra114.c
-> > index f1bca81b7776..97f5500b13b5 100644
-> > --- a/drivers/clk/tegra/clk-tegra114.c
-> > +++ b/drivers/clk/tegra/clk-tegra114.c
-> > @@ -1050,8 +1050,8 @@ static __init void tegra114_periph_clk_init(void =
-__iomem *clk_base,
-> >  				    &emc_lock);
-> >  	clks[TEGRA114_CLK_MC] =3D clk;
-> > =20
-> > -	clk =3D tegra_clk_register_periph_gate("mipi-cal", "clk_m", 0, clk_ba=
-se,
-> > -					     CLK_SET_RATE_PARENT, 56,
-> > +	clk =3D tegra_clk_register_periph_gate("mipi-cal", "pll_p_out3", 0,
-> > +					     clk_base, 0, 56,
-> >  					     periph_clk_enb_refcnt);
-> >  	clks[TEGRA114_CLK_MIPI_CAL] =3D clk;
-> > =20
-> >=20
-> > ---
-> > base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> > change-id: 20260930-b4-dalmore-fixes-mipical-clk-eb375008dd66
-> >=20
->=20
->=20
-
-
-
-
+[1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
