@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E368B54774
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:36:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913DD3FB07B
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791020185; cv=none; b=iWZpgc4MNlcPaik/2CmakrlPUTxj57buTaG/DKevnMYN1D+BcyBUJvxCdXQKYTUEp7E3UPgwAJUFeAUgIvVYpp9hAFxbVILZkrPOZma6FeWS1YkCh7pHDshQMy++33J1rue1iFQIe//IE3NRm7luQwPab85WaJ/VWVbRiHZo3J8=
+	t=1791020190; cv=none; b=SjX8uzvHC6jf1NCes5og4ZPxEn0N/izLzp68Avguu/p81W9oSrpu/ejnTJiEKsJzcOTkIjYTD/T4vIpY4HuVde4RkHzIUftfDFhpgmv4IG/xOhgF24s9Pi2qcRl65/IM5OwePwq442C1LveeG04L+6VV1eL+ivKYhHlNkucLSus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791020185; c=relaxed/simple;
-	bh=AyCr3feRqErh9LNfQTl3QIWBcUXjJ0kO6uvzCrYtN8s=;
+	s=arc-20240116; t=1791020190; c=relaxed/simple;
+	bh=X8ukNZR9Pi16VxhmglFSrOJScod9VLO1S5+5w7rXLAk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=X7NMWiwxcSmaDPxl/mthFK8MPQkolVizH16CZzzDBvqTq2CKSwEWudSEZO0awNPO0OlPSJNw7HdJUDGXEwr0CBwKnRjDlRkuhdIK9Q535ApHq54WAvKc5EzSAifGJMMX/lnmg76ifae7PJyTlITEy3p+bJJ1i/9nmfXqIwwxAO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENoKWe8y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ndPm1YNXxGLrMWs8LKkpeKssuFdzG62yN2IYFGCBys6+0nCP5PF1smbnAnX7vCI9MIiiqLT9ke6i7B+kBHABlKHQw/lrJNO5agedwugSlncK4/wYAUPnCtxEPZsMzeVC148MNHrF14pJJReUWp2fu5YUTwxwHF76F+G9vWp0bN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kzA2DMIs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENoKWe8y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B001F0089B;
-	Sat,  3 Oct 2026 09:36:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kzA2DMIs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D04801F0089C;
+	Sat,  3 Oct 2026 09:36:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791020182;
-	bh=FWcGi/CHS/a4B/lMqSn+qerEcKaHZX/sUv9NmysE1Hc=;
+	s=k20260515; t=1791020185;
+	bh=MrBYuxJRI8Q0gYPvH2mARUPM0a0QmKyyZXNcWC/6qBU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ENoKWe8yidcvyJffyu1+2Qy3LoB4l28Rb/Llq6oZuvybneqkCSvo+13aX5ryXsdoM
-	 OxFMFXJ2g3fIUnQ2wkQsvWS5qJXzzJF3N4KUEKdZT/xn8oYOKKImIr6MaSrzX7Zd+D
-	 KuT+yzeZU1wpW39GSWveU0zmdSF+pNaAr1TUq4unKmVeqg5/sKQziZks8PPSV7JDZq
-	 BKfpz3Ltewwvn1lE5CnjwzI4V/Y+/pnGp4Tg1HLtKJrj6ouO6HAhOCnWEXLpHjtdYr
-	 BJ57ih1PnBR6URXx8ZaiUS0Kxl+yWCtWGawKBaeEV2aPKOKqJSZUGwdQbvGl6QomUE
-	 5ty+Mc3oX9s6g==
+	b=kzA2DMIs3EUtDVSj0D37/deDvrCJb8OHldkuyNuYtIzVLVnjGVEr6538nJKIb9M0i
+	 XGPf2Uf/IDYVGE5zoBZbX8hbpT4O3+aj6QG/4Hsh/msjtBZ6EvSUIW6L74StrtVTty
+	 wTh+Yz932o20f9ZY2jO4BQS8xXIZHaNC2RHjrEyQ1hJE0P8PbBAmyAxk2TaR5bi+eb
+	 8+VY1kshFzf0cH9hD9OYt5DOhylO5OTtE/AO9zOGTXKFZWffYxAg3mCkBhlWPLP7e7
+	 uerw1wJ868hHFRf1bhxEUUhhtV7W2QC/Ctm6yqKUHBf67HvkQip+HCopBTa8Vlxaoi
+	 gjdBa9B8WGADA==
 From: Vinod Koul <vkoul@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Akash Sukhavasi <akash.sukhavasi@gmail.com>
-Cc: linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260708-b4-hi3670-v1-1-f9236f3e585c@gmail.com>
-References: <20260708-b4-hi3670-v1-1-f9236f3e585c@gmail.com>
-Subject: Re: [PATCH] phy: HiSilicon: Fix error handling in
- hi3670_pcie_allclk_ctrl()
-Message-Id: <179102018033.199361.1412125804515687799.b4-ty@kernel.org>
-Date: Sat, 03 Oct 2026 11:36:20 +0200
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Nikolai Burov <nikolai.burov@jolla.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Nikolai Burov <nikolai.burov+review@abscue.de>
+In-Reply-To: <20260711-mt6858-xsphy-poweron-v1-1-dee2fb71c7d5@jolla.com>
+References: <20260711-mt6858-xsphy-poweron-v1-1-dee2fb71c7d5@jolla.com>
+Subject: Re: [PATCH] phy: mediatek: xsphy: clear U2 DTM0 force bits during
+ init
+Message-Id: <179102018248.199361.12549208373713075681.b4-ty@kernel.org>
+Date: Sat, 03 Oct 2026 11:36:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,20 +53,18 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Wed, 08 Jul 2026 16:31:00 -0500, Akash Sukhavasi wrote:
-> When hi3670_pcie_pll_ctrl() fails, hi3670_pcie_allclk_ctrl() returns
-> -EINVAL directly, skipping the close_clocks cleanup path. This leaves
-> the PLL with its power-down bit cleared.
+On Sat, 11 Jul 2026 13:34:46 +0300, Nikolai Burov wrote:
+> On mobile SoCs, the USB PHY is completely powered off during bootup.
+> As a result, various bits in the DTM0 register are set that prevent
+> the USB 2.0 PHY from functioning. Clear them as part of the
+> initialization sequence.
 > 
-> Use goto close_clocks instead, which disables the PLL and propagates
-> the original error code from hi3670_pcie_pll_ctrl().
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] phy: HiSilicon: Fix error handling in hi3670_pcie_allclk_ctrl()
-      commit: 7540fc0a4f667b6773d10753a602a42a3113087b
+[1/1] phy: mediatek: xsphy: clear U2 DTM0 force bits during init
+      commit: 02df7fe1297d35d33c9841f345f61bf10f969300
 
 Best regards,
 -- 
