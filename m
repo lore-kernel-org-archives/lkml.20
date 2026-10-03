@@ -1,191 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543314078C0;
-	Sat,  3 Oct 2026 10:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F12332EBC
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791023119; cv=none; b=i2zW5k/bO/1E8rWITjo5Bf9FHH8XC+odQwwKoJeVhXh1Dog8RU541fLVnyXWgfKFUV02cjLoy1xIe9+TJg93dqCiIB/Rmy9d/TnV+uJol5sJHOCHj4B6Cc+nv4CGS1y7SrJePXogRxEJZtuMGKhNSfU2qt3vtC45yfCCf6GpvZM=
+	t=1791023339; cv=none; b=VFHwdQebB+dJJRgisTQybC1FSqwZVZF6Rxj2e8kR/PvCAIuzPSXxKD9NB83g3W99ze7ZT/hnm9o1AJLtnjjwR7wqfe4Oe87FsM+CiV1e96GsVIXxvuAaxNFWrUPQzoYxYgFhJkb0eVxDDPL2vknvfgpRxt1rFmKiP5AH575DGkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791023119; c=relaxed/simple;
-	bh=nhCriUvIcO0estdNCYT42amqjl34rBKUTJHwUu3CMM0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lyixaV7jDe1fSQEBvy0e3Y0qH0SZoZaJ3xyitixbMgkwItMWUiC5fzuWoEhMDkF+9GjNLC9zvrQSOHzzAkAW6m/+q/wUVCrtYA8oQbyxGoC0tRBigAYgH1AwftuilqIn7VuHCoqI+BnSjz9QxOCdHB2ci2vlSAQlxHQx+V8qyZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ObKK7SNv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791023339; c=relaxed/simple;
+	bh=9p9gupSsyESF2elQwU2E5+rwrPb6yquTdWE7mE8LScU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=t0NrfhjRCNrMa8Ivbkrj/sbOkZjMm6p+nbcpPTSmo9DAEW3YIfwLnPluJ59eX/wNmFEpCoj0jPtyyX1g1xO+SEJ+wSLpBucGjpzvNC9HxH0dPRYBr6gVscpeG8ikF7FVhM89YkIlbSdEvzvUs/E8/hkHTUdXKVK+BaEbLzjA6eQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=oa1xNwE0; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=T82SRmeD; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ObKK7SNv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F751F0089B;
-	Sat,  3 Oct 2026 10:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791023117;
-	bh=vXMtAL44iVcAA9WhOxwAITTnVgekcVqTaNx1U8S7snU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ObKK7SNvJ4iK/TmrgstzeGLH8c/hvCwqZD1SP+BrFfC/TwLDEx/D3pvSBA2br3NZg
-	 QylWtd/Dml3XK2wrm+x3CG4NsZ388JrygzvySxe1ouHnZA6yBTWMCxyAQ8h3UPPVwU
-	 /X9lkwxNa1hbIxBf00Jmpzf0N7XtF5hag4S0X2WAGC0A61AVKuagROT5uyIldsHofd
-	 NKILFHMZnCaoFnwVgjm3spo7MHjpuDexFsvsXfhonXEebVNtLDZaotfuhBq7sa9Lhg
-	 VUrts4oRZUjdEE3EQwETkySLZP5u1q+HXpK92Spl8tAi97lYFqT3R9t3fK0eEM6Gpt
-	 ZhkeZJUjj8mLA==
-Subject: Re: [PATCH] net: gro: mark frag_list GRO packets as SKB_GSO_DODGY
- when a list element exceeds gso_size
-From: netdev-bot+sashiko@kernel.org
-To: shiming.cheng@mediatek.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, willemb@google.com,
- daniel.zahka@gmail.com, alice@isovalent.com, sd@queasysnail.net,
- eilaimemedsnaimel@gmail.com, imv4bel@gmail.com, nbd@nbd.name,
- dsahern@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- stable@vger.kernel.org, steffen.klassert@secunet.com, lena.wang@mediatek.com
-Date: Sat, 03 Oct 2026 10:25:16 +0000
-Message-ID: <179102311631.434549.14789093097225958254@kernel.org>
-In-Reply-To: <20260929100256.23192-1-shiming.cheng@mediatek.com>
-References: <20260929100256.23192-1-shiming.cheng@mediatek.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="oa1xNwE0";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="T82SRmeD"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791023332; bh=cwGio/iyQ14TPr9MA/jSFit
+	aTYX5VKrwvbpE18wpWzM=; b=oa1xNwE0eCCMHAT87trmUvfAdiWJF9T7eigJj4JNs+8RydT7aU
+	dxIBEBCCENk44t8yHaJn4JAcoAmij07J/2ZhYA1oR0TeScaT5vFdXHS7v8Y664BalYfvMLTlPKu
+	iimh60gcVEXMjBmrdPusCBwtHjppoPInkuEOI3tkAPXhmL1M0vUvfPnFCreBORCuMkFuAPjB0GZ
+	+Ti9gMUAZZ3BXlnkcW3gFmPEQlYvn0by1dwzQdUp+bAmI45v7nRu9QGKa1Rp9Eum/gXde38X+Gj
+	rvvr/FymtOdCyCk4TjLpwMLD4nnWNgP6CbSF15R7qob+LRGzXRXHg6sxrZHLiOoh/WQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791023332; bh=cwGio/iyQ14TPr9MA/jSFit
+	aTYX5VKrwvbpE18wpWzM=; b=T82SRmeDQCZ94XVx6E4EzUawvNHMn7wiPmDeZkNp39C28uzeY3
+	TROXgV/jg3t6acI9iXZbfvvGUOzAv/zTkRCA==;
+Date: Sat, 03 Oct 2026 11:28:53 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Doug Anderson <dianders@chromium.org>
+CC: akpm@linux-foundation.org, blum@kernel.org, tglx@linutronix.de,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_watchdog/perf=3A_fix_of?=
+ =?US-ASCII?Q?f_by_one_in_the_raw_event_config_copy?=
+In-Reply-To: <CAD=FV=XDQyHTT=Mm72am7hCnRYWvZXJFw3TKA3Ty-e1WccY=uQ@mail.gmail.com>
+References: <20261002175000.1-brads@mainlining.org> <CAD=FV=U-uH7iTA8Gs_vTqzbKjpk9uwCiSRGbPchmJc7DAWR43w@mail.gmail.com> <20261003000800.2-brads@mainlining.org> <CAD=FV=XDQyHTT=Mm72am7hCnRYWvZXJFw3TKA3Ty-e1WccY=uQ@mail.gmail.com>
+Message-ID: <281CB59F-AE76-4619-8ACC-26F95558F117@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 3 October 2026 01:30:05 BST, Doug Anderson <dianders@chromium.org>
+wrote:
+>Hi,
+>
+>On Fri, Oct 2, 2026 at 5:06 PM Bradley Morgan <brads@mainlining.org>
+>wrote:
+>>
+>> You were right, the truncation was the bigger half of the bug and my
+>> v1 only closed the corner. Fixed both with your len + 1 shape.
+>
+>The above should have been "after the cut". Where you have it now,
+>it'll end up in the commit message.
+>
+>
+>> Commit 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+>> manual NUL-termination") replaced strscpy(buf, str, sizeof(buf)) plus a
+>> manual buf[len] = 0 with strscpy(buf, str, len). That count is one less
+>> than the code needs, strscpy() always reserves the last byte of the
+>> destination for the NUL, so the config loses its final digit.
+>> nmi_watchdog=r300,panic for example ends up with buf = "30" and arms
+>> the raw event with the wrong config.
+>>
+>> The same count also drops the empty case on the floor, strscpy() with
+>> a zero count writes nothing at all, so nmi_watchdog=r,1 leaves buf
+>> uninitialized and kstrtoull() reads stack garbage.
+>>
+>> The old code was safe on both counts by accident, strscpy() filled the
+>> whole buffer before buf[len] = 0 overwrote the comma position, so the
+>> worst outcome was a truncated parse failure.
+>>
+>> Pass len + 1 so the copy includes the character the NUL replaces, and
+>> reject len >= sizeof(buf) like the code did before the optimization,
+>> which also makes an empty config a clean parse failure again.
+>>
+>> Suggested-by: Doug Anderson <dianders@chromium.org>
+>> Fixes: 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+>manual NUL-termination")
+>> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>> ---
+>>  kernel/watchdog_perf.c | 4 ++--
+>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/kernel/watchdog_perf.c b/kernel/watchdog_perf.c
+>> index cca0485ba28c..a4f677c16b20 100644
+>> --- a/kernel/watchdog_perf.c
+>> +++ b/kernel/watchdog_perf.c
+>> @@ -301,10 +301,10 @@ void __init hardlockup_config_perf_event(const
+>char *str)
+>>         } else {
+>>                 unsigned int len = comma - str;
+>>
+>> -               if (!len || len > sizeof(buf))
+>> +               if (len >= sizeof(buf))
+>
+>It looks like you sent this atop your previous v1 patch. You should
+>send your v2 patch as if your v1 patch wasn't applied.
+>
+>Also, you probably don't need my Suggested-by tag. I just gave review
+>feedback on v1, which usually doesn't warrant a Suggested-by.
+>
+>-Doug
+>
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The patch's premise does not hold on this tree, so the new
-  check in skb_gro_receive_list() (net/core/gro.c:262-264) can never…
-- [Medium] The Fixes: tag points at the wrong commit, and the message
-  leaves out the commit the patch depends on.
-
---
-
-net: gro: mark frag_list GRO packets as SKB_GSO_DODGY when a list element exceeds gso_size
-
-This commit sets SKB_GSO_DODGY on the aggregated skb in
-skb_gro_receive_list() when an appended frag_list element is longer than
-skb_shinfo(p)->gso_size. The goal is to push LRO-produced aggregates
-onto the conservative segmentation path instead of skb_segment_list().
-
-> Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
-> Cc: <stable@vger.kernel.org>
-
-[Severity: Medium]
-Is this the right Fixes: tag?
-
-3a1296a38d0c added the generic fraglist chaining that UDP uses. The
-condition tested here doesn't look reachable through UDP fraglist GRO.
-GSO UDP skbs are flushed in dev_gro_receive():
-
-net/core/gro.c:dev_gro_receive() {
-    ...
-		if (!skb_is_gso_tcp(skb) ||
-		    (skb_shinfo(skb)->gso_type & SKB_GSO_DODGY))
-			NAPI_GRO_CB(skb)->flush = 1;
-    ...
-}
-
-Also, udp_gro_receive_segment() stops merging once an skb's ulen is larger
-than the head's, so no element can be longer than gso_size.
-
-An element longer than gso_size could only come from TCP fraglist GRO.
-That was added by 8d95dc474f85 ("net: add code for TCP fraglist GRO").
-The existing fix for this scenario, 66817a9794263c, also names
-8d95dc474f85.
-
-The DODGY bit set here only has an effect through the checks in
-tcp4_gso_segment() and tcp6_gso_segment():
-
-net/ipv4/tcp_offload.c:tcp4_gso_segment() {
-    ...
-		if ((skb_pagelen(skb) - th->doff * 4 == skb_shinfo(skb)->gso_size) &&
-		    !(skb_shinfo(skb)->gso_type & SKB_GSO_DODGY))
-			return __tcp4_gso_segment_list(skb, features);
-    ...
-}
-
-426ca15c7f6c ("net: fix segmentation of forwarding fraglist GRO") added
-the DODGY test there. 17bd3bd82f9f79 added the skb_pagelen() check next
-to it.
-
-With Cc: stable, the current tag would pull this patch into 5.10, 5.15,
-6.1 and 6.6. Those trees do not have TCP fraglist GRO, so the change
-does nothing there. Trees that have TCP fraglist GRO but not
-426ca15c7f6c never read the new bit either.
-
-Should the tag point at 8d95dc474f85 instead? Should the dependency on
-426ca15c7f6c be mentioned? The commit those stable trees seem to need is
-66817a9794263c.
-
-> diff --git a/net/core/gro.c b/net/core/gro.c
-> index 29b4d02bf5198..6c5b11b63d3b5 100644
-> --- a/net/core/gro.c
-> +++ b/net/core/gro.c
-> @@ -259,6 +259,9 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
->  	skb_shinfo(p)->flags |= skb_shinfo(skb)->flags & SKBFL_SHARED_FRAG;
->  
->  	NAPI_GRO_CB(skb)->same_flow = 1;
-> +	/* frag_list element larger than gso_size (already coalesced before list-append) */
-> +	if (skb_shinfo(p)->gso_size && skb->len > skb_shinfo(p)->gso_size)
-> +		skb_shinfo(p)->gso_type |= SKB_GSO_DODGY;
-
-[Severity: Medium]
-Can this condition ever be true on the current tree?
-
-Commit 66817a9794263c ("net: gro: Fix nesting of TCP GSO SKBs in
-skb_gro_receive_list()") is already an ancestor of this patch. It covers
-the same HW-GRO case by keeping GSO skbs out of fraglist GRO:
-
-net/ipv4/tcp_offload.c:tcp4_check_fraglist_gro() {
-    ...
-		/* flist GRO applies to consecutive non-GSO skbs */
-		if (!skb_is_gso(skb) || !NAPI_GRO_CB(p)->is_flist) {
-    ...
-}
-
-tcp6_check_fraglist_gro() has the same guard. A GSO skb therefore ends
-up with is_flist == 0. tcp_gro_receive() then flushes before it calls
-skb_gro_receive_list():
-
-	flush |= NAPI_GRO_CB(p)->is_flist != NAPI_GRO_CB(skb)->is_flist;
-
-A GSO skb that starts a new flow also gets
-is_flist = !sk && !skb_is_gso(skb), which is 0.
-
-For non-GSO TCP skbs, tcp_gro_receive() also flushes on:
-
-	flush |= (len - 1) >= mss;
-
-Here mss is skb_shinfo(p)->gso_size and len is skb_gro_len(skb). After
-the skb_pull(skb, skb_gro_offset(skb)) in skb_gro_receive_list(), len
-equals skb->len. So skb->len > gso_size can't hold at this point.
-
-For UDP, dev_gro_receive() flushes GSO skbs, as well as skbs that already
-carry a frag_list:
-
-	NAPI_GRO_CB(skb)->flush = skb_has_frag_list(skb);
-
-udp_gro_receive_segment() also stops merging when
-ulen > udp_get_len_short(uh2).
-
-Is there a reproducer that still hits this after 66817a9794263c? If not,
-this looks like dead code, and the stable tag would send it in place of
-66817a9794263c. Should this patch be dropped in favor of the existing
-fix?
-
->  
->  	return 0;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929100256.23192-1-shiming.cheng%40mediatek.com
+Thanks, god sake, I did a fart, I'll resend V2 in a new thread... (Sigh,
+new email tool bugging me)
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
