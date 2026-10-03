@@ -1,95 +1,95 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2962C11E7
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C397227AC45
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790988810; cv=pass; b=HouWRoJtxnNZ3Xa8Lw4WCdJO6nObf+8fLGpfLd21KyfljKCyilbPxQ4W9hCLWy3pCOeg4WAuXiOGFPza+iBRETSKUoMMdXyfMZN+vNmjB4wsmTNfJtnJcUac266bez1HDHfpjTaFGrAdDA8BVCt8e8ezto7ajh1lZW6xvDpLMeI=
+	t=1790988863; cv=pass; b=ukRo2Sxpagcs91giHd3zZhFzJZN7Voz+du/3YMC+JuuAkLnslT6ldK6nk+YhmqUxc4CCOR66spn9+rXT8LC/3Vnl6niKPYpkbvxiJ2cYsR3F5BhZod663NVTFbIhF1M11qcyodCtFPmw2pATpEmfDN6yrDs54uWB5oBsWEFe9tY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790988810; c=relaxed/simple;
-	bh=9671fBcw+fxf0lItIU8zIdDNJxy4W7vfPqUaYuQRpRE=;
+	s=arc-20240116; t=1790988863; c=relaxed/simple;
+	bh=ZVQBnQo/eFh06vorGcqF1KC/7SENgnUf6N9nm8JGWSg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fMK/VmvcNMJ2Y8gQlqDAQ6e+Br7fYwmIpK44+Z6gRJMoYk9U3OIWA0k8zBwIQCO/kff9F4J2M0P8oYxUuAHlLr6jd7/KlDNBi785H9rrdz1byfze8HD8Q5fs8hKs+uGXquEGI2w3MO3xXVdfq6K9paIu7la723k5ImPzGpwIrww=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=utiGgJ4B; arc=pass smtp.client-ip=209.85.214.173
+	 To:Cc:Content-Type; b=BnBJGkbefk6SQEGupx7iLiyj5iJeJICHt2ad2CzsMfxP1wnH8TT81pbHv1h6zHnvs1sD1VhBIh4ZFmukBWiiMwyHwCx5Vub/aiT5UaTtWJY1o1qJDUeEohbNL7ebxOc5pUlYhPiRd+3/v3WvHfqBdzObk70ZD7wZApm9cYuvff4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aconHeI3; arc=pass smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="utiGgJ4B"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so12935ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:53:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790988806; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aconHeI3"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so13015ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:54:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790988859; cv=none;
         d=google.com; s=arc-20260327;
-        b=phL+3xZK1k5zCf+uKe/da6r6Q6gxteVrhroDJIpOxMdpq3EDhNazHe1dxTaB3UPGhO
-         4b0hXysO0+ZWehcknwyTWdTJRRwxW3pGCv03uFzHfhomm0XKi8DDaMotyyPIt6J8H+SO
-         dwREqGbX5slsBtklnN2nyw3l5dTS+eiXLlAcJp59DbUa2o4cged6Oz6BiIY/9T/zo+ag
-         d7kJj8P3bLBWuKj6i/amMJzmSTTT+1NS7GJf+XGo9PFLUFhJAZ529SyPTEfZ8DEdRTF8
-         uGjlX6i+D7FidORgdBwREUWSMmlSoWqTvoVQ2jjEsojTU8RX3yg5dA0Jr1kbDCophnRJ
-         v8oQ==
+        b=RSpFzyCTqm7NW7vVPXfeDALTAUgoNeR/1IqRiN0/gk976s/l0Qc73Pf29donkVvniW
+         KgTQMnhv6fuS93CTk7fhQLyArsal2oplZfLXIKto1lY1MfLuVtT3g4DAEu2sB4/OdkYf
+         3wXrdnz6Tr5TwEJGcW93HPVBX+3IdkdFgRkvOmha9dqcwB9BNJkIyutwzuQYzUYHsigr
+         naboyynRUbxyzc3BOdn1BWYSe6lMlOurJmCFV8BCL/cFxIsRUsYs940wgY8zBYmk8J+E
+         O5PQ0j08829SxCzF7NET/JFTVQzdZAQbNtwgyKD8GQqUaloMMUN6Pbv3nuKB7ildiOWg
+         6RDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Lw/QJIm9h+PtVPJ9rpycUDupDmU7p2Boo9EQVykvxQk=;
-        fh=9+oe2ERIYmoib5Y+2cjhOoe9as3jfJaFAMGthcoeKSs=;
-        b=NmDrOdZY+kywkMRdPvvSB1nxlwbny4lj3M0D5OHyANVIKBQHZoC8n3xlu6iIld7qy2
-         jIff5ZikyNLNAjfcfkrNdoU4GRy50Nn4/PjLuf14GT1Isb4wkI5DUwzsx8d3pTX5Hu9Q
-         7PvhrH+NUbBR7eczBJLN3z/JjuqzFs+gt1mz8u9Di7CSD91VU3mtTUSN8nkcSmgU4m1/
-         X6+Zh36VBApIu+fYjQYMOenfkw7SRnBOIPIevAT00DXfW+awLThM7Z1/wDa3erl5rqFy
-         msYwUXk7S51I6rX4CpvrOaF0p0+gN59G/wjvXFm1uB+CGDLCC7p5xrsjLRHYQtuk3Ldb
-         XV4A==;
+        bh=WEp8X+PRKs7nUSCeaHUChoo386upLZKNHaOGRHgrf60=;
+        fh=/j8eE+tZE0ymj30CRyKkhEcILycQvuMEc9wU3ZlL6bY=;
+        b=czRmLIr7c/QrovolPeI9y61oJuECp3M2xJ+NNzwskeAuvfSKzvYtC60GSMnxiHaJ4c
+         cVcHf19OEUb9jp7FaQNFNim+Pt8HVNhcgshgDtIwma01YQRlIA2g7bdXTSTUD7Q4rtb6
+         kEgJuWekmVg5uR+YQDPc6hu3WvvtVX4rSQngLQU3011bt32rsBKFxWXvw214FIQjDwKW
+         9Vwy+Ap8bZAQEZWGvdG5C3xw+9oFXRpqE+RU0GqIr5YxXgjCoh4yGbSHCNKEwRy+xSVm
+         OlYM840zYqQKebUTVsf+iscSVYOWojkLZTDp+iuZiSqi7MwIDh6MzFuumX8cmSiUUWl/
+         mveA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790988806; x=1791593606; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790988859; x=1791593659; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Lw/QJIm9h+PtVPJ9rpycUDupDmU7p2Boo9EQVykvxQk=;
-        b=utiGgJ4BYJa0YbloKNlm+fJKWs+f8ivcBTpWXyXknKUWNg23IlKJDf5d9cThw5zYb2
-         p9QdhrkhpstBrEZAHUMUyGB3segBViSlHWZ7B75lYbO8wYdSCizXcTHrF3AGPv/nJ9KF
-         fwkkyKs5A6P7Hm9+TkyMWcin6DRFQVc3lOhUj3BweJM76Oe54Gsry3DVlar0GfA7WY0y
-         D1MYiPsDZt1R/XQcBjwrqeShkzRN2RfOhHunnPJmoQowAnY7tBPBMVUadB6C3kF0d+Lw
-         0NgY/Bg/gIQpv/VeBwwVjGiPYmIiABwk9JYqIncKGhFFweda93VJMDhz+rMAUCn3xUek
-         ju4g==
+        bh=WEp8X+PRKs7nUSCeaHUChoo386upLZKNHaOGRHgrf60=;
+        b=aconHeI3/hgLgqEsabadPOGMQikGcMYgxzJo1eATfENUCkwfHRnL5saJJvuJ8Xvq+6
+         GID3ZNFQScvFV0X7+n8DFVt1Gs5KQBN0gUPWVfR45sL3+PFD9Ywmllkxb+zmyewUdFZZ
+         ufR/10yGa6vWq67h+akc5q+Zl5joYXKbzB/Kl2cOCwZDAF1Y2iRGHOg4hfWJPEsL4IAG
+         /Vje/YmSiBrbdnI2T4qyNTFKN5YkUOGLRXFDY5yQnbmc/wr5mnqScgCMjOMWzD8XxZ+f
+         b5drWA1L8SbnUzA2UiYQQZWVUWx8NuYC/qmmbyME+NQMrlMRr362H02TuglD+bHF3ulD
+         jXOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790988806; x=1791593606;
+        d=1e100.net; s=20260707; t=1790988859; x=1791593659;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Lw/QJIm9h+PtVPJ9rpycUDupDmU7p2Boo9EQVykvxQk=;
-        b=PA2fnZnkNoPd26GNh9J7pM3fTN+mhbC0rjeIBpRCD774vaeiWMcdexBVYNatWlszW4
-         ZD6iuDf6Tes6cdEWZK6kiZUqj4AHe1ZOUdxa8dPkFA/CAJZbvPxnTUo1qsOPU0v+X0XS
-         PFAFAbFzCXfuqk7VwGePy00qJoXWhm+RpumU00xgBtibaIP8zcqWdPruHOe6thC62/0j
-         u8wjyydQoV3TwOwQuIhk6LP6wtXF037pBb6mFRYiRZZdYKAV1ODYLC194Jmgi8074PwD
-         Qg8iQ12WIhB0aVnVrpWh3LffxiCRM+jL9NAfKiLalzvNCTCy8UBFwUwLFly5WLWr81+T
-         Wdiw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+WOH1K/V695S3ZY4Rj2VkTH18K84bsYc7iCZTZT0Zl2uLnyHPnFwTnU0S6okHdxp5WFKmlN1OkG9Q1J0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOGWgVcH7ohAYkMtJdmJs5focqqrT2LPHkPpS5mHTcscqdm4Gb
-	tBfiRA92aJwDJBeGTmCH7duPK0IVcWhN5S8NQ4LVWzGHVIfhF83aa1ErOmlx5O4oRhijvohLY4N
-	y7NkeQYggDatgfN0HcAgDYWHkCwEJnwM5xMbD5s1c
-X-Gm-Gg: AYBFou1MtMSm+/+y+Y2ZQjkipjz3tFk08TAySj/Odj8x8VsUCuT94JE8rAhtXz1G4+Y
-	zc5LPY3XP0EfI3oafQbXDlnL93Dd02QKmMlT1W42Vy4vMxkH0kS5CNnvrzm6QmsbznzQDg966zk
-	UKWaSbfDs//DohCSmyrV/KpfwhfeZbij8JT3iWpYqiV+4EJyNrpdMuOu5VlJkL2Bu0tvWKBa4qB
-	30MAkYJwPTizUpMvbFjSLf+Yroy/U1UWMnrWyhIp5B2vgtJHjPDz+zZEgUg1fQ8KYQ9oNkiw08v
-	tChzMSOBpneyxoIFcJPxcLmeTm3gFuBo54xs1Ai7OVe/GguGF/RgIpttugi9E0nd0e5ptv15bDl
-	JvDMYeM06B8A3/KDNf+iyqGZvSzFumlzN8e1F4jHxhpVPKG1DUXt4pA==
-X-Received: by 2002:a17:903:244b:b0:2c7:9e6a:1a8d with SMTP id
- d9443c01a7336-2e5339e22damr1093475ad.12.1790988805184; Fri, 02 Oct 2026
- 17:53:25 -0700 (PDT)
+        bh=WEp8X+PRKs7nUSCeaHUChoo386upLZKNHaOGRHgrf60=;
+        b=hAhb7+tEvGWAbKDi7GPOTFTXD4F7a/rSciN+XzgWcuBA6RrNO1dC+n/5y/AtwuYSMG
+         2e5afDCSXP8g4wFKxq0RAjA6403OJfep4g58XxKG7vL4W7ACB6j3IMz/+/Y1K2uC2IZJ
+         0XBdqjQ2wWJqRtze4KDDtftVb9taPEQl/YATWq/yywDTqS35/6Ia0zwNQUYoMqq626ck
+         oi+ZC0IECJabv7phGyGUSpaHgPjDUQMVGeB1PRPASDWF9Ceg+p+AgaDGcBH/ccYmJjHi
+         xFetJ1U1N4XL3BkO6OviigZNnOg2BWcxiKcm61F34IZmG/a3QRd5ByBuk2NcLTYQoBPM
+         z5Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9qUiFqE2TF6dpXByl0n9JIRibdZInOV5C8wav1wH5pT0TwkzYhgyzHV487hJ13PkJ8ElvjeRYECDim54=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDDAlkfVSa6/YBP7h5KrjEzVBVIGToMEGb0gCIhZsVC5QU/Qg5
+	4BsrzOwcH6W5gp4JgxYqpSTL5/lXB092JYFjEwlYvfiMyzg1q5yYikdEy8vjKxEMCwUUateRjSt
+	0wh694YGYPd5v2871IHhZf9XaKR8CoqcTcY/BSVvY
+X-Gm-Gg: AYBFou1XNwWnpUnKtzunXeUhzLgQMdwOfZ9AxZFBVoXcfW6W0c8QcvniWFF2xiR+WBm
+	/bk+rMrcNDTiI8I/IDULPrPpDRDeNDpRSZeX7K7CYshOj1qX6qW+54xNQKjEsApFK8pdKHVTShI
+	EZyA1hVn3WfbCscHPnmnXvSAvApht7kOPqmpHoMdcBlrY9bDDM3rYNSReyfQDG3mrWCjhMGrQGH
+	L/7vDBYN+aWCrGFztSpF+SeOqg16pJwMQYXN+K3ippxmWtpIaMdGsgW0qs1lg3jw98w5/bkxwUt
+	r4QE0pXYXeRvfbXtWdm9DegfNGALg/HTr2JBJ2t/S0i5cH903tGEWjouuFLiZR+xLND+lAzpqrZ
+	HcZGlt6zt7G7x5dqu7YzG0Gli3B3etOroKchN4XZVMSq2Ncub6UBZQg==
+X-Received: by 2002:a17:902:ce8e:b0:2dd:3a08:d47b with SMTP id
+ d9443c01a7336-2e5339f93a4mr1143425ad.13.1790988858220; Fri, 02 Oct 2026
+ 17:54:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com> <20261001-linux-mpnic-v1-4-6422ee74233a@gmail.com>
-In-Reply-To: <20261001-linux-mpnic-v1-4-6422ee74233a@gmail.com>
+References: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
+In-Reply-To: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
 From: Harshitha Ramamurthy <hramamurthy@google.com>
-Date: Fri, 2 Oct 2026 17:53:14 -0700
-X-Gm-Features: AclHuK_ridEYnSAvuKBNXkw0ZEQCvmwPGRhQzMH7rOZvbpheiH6O_c6u-_ITow8
-Message-ID: <CAEAWyHdJQsKgHmZSAA3M12jpKhgb_pq7QmBRW59CU-Q_JT8cwg@mail.gmail.com>
-Subject: Re: [PATCH net-next 4/4] eth: mpnic: add a NAPI depletion check
+Date: Fri, 2 Oct 2026 17:54:06 -0700
+X-Gm-Features: AclHuK8ouJgcRlucOdN3eH5_YugyE8t5pnHL2laHJr6qeoqr1Ko3b7rLVQ6y5Y4
+Message-ID: <CAEAWyHfyamEKdRa6PAjEfffq2Xw1ByF_g_jpmr=Kup8UJQY7sg@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/4] mpnic: add NAPI buffer depletion check
 To: Daniel Zahka <daniel.zahka@gmail.com>
 Cc: Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
 	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
@@ -98,131 +98,60 @@ Cc: Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>, k
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 9:41=E2=80=AFAM Daniel Zahka <daniel.zahka@gmail.com=
-> wrote:
+On Thu, Oct 1, 2026 at 10:35=E2=80=AFAM Daniel Zahka <daniel.zahka@gmail.co=
+m> wrote:
 >
-> The Rx path can wedge if page pool allocations fail in
-> __mpnic_fill_bdq(). The problematic sequence is: page pool allocations
-> fail, bdq rings are empty, device receives packet from the network, but
-> drops it for lack of buffer space and does not raise interrupt,
-> mpnic_poll() does not run, so page pool allocations are not retried.
+> This series provides a buffer depletion check to unwedge Rx processing
+> when page pool allocations have failed. Patch 4 has a more detailed
+> description of the events that lead to the wedge, but the high level
+> idea is that when page pool allocations fail, the buffer descriptor ring
+> can run low, and when that happens the device will drop Rx packets and
+> not raise interrupts, which causes the NAPI event loop not to be
+> scheduled, so new buffers are not posted.
 >
-> To break out of this cycle, we can add a depletion check to our service
-> task. The depletion check checks if posted buffers are under a low
-> watermark, and raises a completion queue interrupt, so that mpnic_poll
-> will run on the corresponding napi vector.
+> There are three setup patches for the depletion check:
 >
-> A note about the lock free reads: We don't bother synchronizing the ring
-> head and tail reads with mpnic_poll(), because a false positive signal
-> would simply raise a spurious interrupt scheduling mpnic_poll(), and a
-> false negative signal will result in a retry, where if mpnic_poll() has
-> truly not been running, should then report accurately whether or not
-> posted Rx buffers are low.
+> Patch 1: convert writes to BDQ ring head and tail to WRITE_ONCE(), so
+> the depletion check, which is not synchronized with the NAPI event loop,
+> can READ_ONCE() those same fields.
+>
+> Patch 2: introduce the driver level service task that runs once per
+> second while the netif is running.
+>
+> Patch 3: set the minimum Rx buffers needed per packet based on page size
+> and max MTU.
+>
+> With those in place, we have everything we need to watch the buffer ring
+> head and tail positions from the service task, compare posted buffers to
+> programmed Rx drop thresholds, and then force mpnic_poll() to run if
+> needed.
 >
 > Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
 > ---
->  drivers/net/ethernet/meta/mpnic/mpnic_pci.c  |  4 ++++
->  drivers/net/ethernet/meta/mpnic/mpnic_txrx.c | 31 ++++++++++++++++++++++=
-++++++
->  drivers/net/ethernet/meta/mpnic/mpnic_txrx.h |  1 +
->  3 files changed, 36 insertions(+)
->
-> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/et=
-hernet/meta/mpnic/mpnic_pci.c
-> index 17eae5a9ba16..125fb26edf93 100644
-> --- a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-> @@ -11,6 +11,7 @@
->
->  #include "mpnic.h"
->  #include "mpnic_netdev.h"
-> +#include "mpnic_txrx.h"
->
->  #define PCI_DEVICE_ID_META_MPNIC       0x0014
->
-> @@ -61,6 +62,9 @@ static void mpnic_service_task(struct work_struct *work=
-)
->
->         netdev_lock(netdev);
->
-> +       if (netif_carrier_ok(netdev))
-> +               mpnic_napi_depletion_check(netdev_priv(netdev));
-> +
->         if (netif_running(netdev))
->                 schedule_delayed_work(&mpd->service_task, HZ);
->
-> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/e=
-thernet/meta/mpnic/mpnic_txrx.c
-> index 49061c7316d5..5495e9a9aa65 100644
-> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> @@ -55,6 +55,12 @@ static unsigned int mpnic_desc_unused(struct mpnic_rin=
-g *ring)
->         return (ring->head - ring->tail - 1) & ring->size_mask;
->  }
->
-> +static unsigned int mpnic_desc_used(struct mpnic_ring *ring)
-> +{
-> +       return (READ_ONCE(ring->tail) - READ_ONCE(ring->head)) &
-> +              ring->size_mask;
-> +}
-> +
->  static struct netdev_queue *mpnic_txring_txq(const struct net_device *de=
-v,
->                                              const struct mpnic_ring *rin=
-g)
->  {
-> @@ -1393,3 +1399,28 @@ void mpnic_napi_enable(struct mpnic_net *mpn)
->
->         mpnic_wrfl(mpn->mpd);
->  }
-> +
-> +void mpnic_napi_depletion_check(struct mpnic_net *mpn)
-> +{
-> +       int i, j, t;
-> +
-> +       for (i =3D 0; i < mpn->num_napi; i++) {
-> +               struct mpnic_napi_vector *nv =3D mpn->napi[i];
-> +
-> +               for (t =3D nv->txt_count, j =3D 0; j < nv->rxt_count; j++=
-, t++) {
-> +                       /* Check if BDs posted covers a max sized frame
-> +                        *  + 1 BD held by RDE as a spare
-> +                        *  + 1 BD of extra safety margin
-> +                        */
+> Daniel Zahka (4):
+>       eth: mpnic: use WRITE_ONCE() for BDQ head and tail updates
+>       eth: mpnic: add a service task
+>       eth: mpnic: set Rx buffer minimums using page size and mtu
+>       eth: mpnic: add a NAPI depletion check
 
-Curious how the "+ 1 BD of extra safety margin" was decided. I
-understand the "+ 1 BD held by RDE as a spare" is because of HW
-behaviour but wondering about the extra buffer descriptor - if it came
-from testing or guarding against something specific.
+For the series:
+Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
 
-> +                       if (mpnic_desc_used(&nv->qt[t].sub0) <
-> +                           MPNIC_RX_HPQ_DROP_THRS + 2 ||
-> +                           mpnic_desc_used(&nv->qt[t].sub1) <
-> +                           MPNIC_RX_PPQ_DROP_THRS + 2) {
-> +                               mpnic_nv_irq_trigger(nv);
-> +                               break;
-> +                       }
-> +               }
-> +       }
-> +
-> +       mpnic_wrfl(mpn->mpd);
-> +}
-> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h b/drivers/net/e=
-thernet/meta/mpnic/mpnic_txrx.h
-> index 9397010557eb..767d87a36c35 100644
-> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-> @@ -148,6 +148,7 @@ int mpnic_set_netif_queues(struct mpnic_net *mpn);
->  void mpnic_reset_netif_queues(struct mpnic_net *mpn);
->  void mpnic_napi_enable(struct mpnic_net *mpn);
->  void mpnic_napi_disable(struct mpnic_net *mpn);
-> +void mpnic_napi_depletion_check(struct mpnic_net *mpn);
->  void mpnic_enable(struct mpnic_net *mpn);
->  void mpnic_disable(struct mpnic_net *mpn);
->  void mpnic_wait_all_queues_idle(struct mpnic_dev *mpd);
 >
+>  drivers/net/ethernet/meta/mpnic/mpnic.h        |  3 +++
+>  drivers/net/ethernet/meta/mpnic/mpnic_init.c   | 13 ++++++---
+>  drivers/net/ethernet/meta/mpnic/mpnic_netdev.c |  3 +++
+>  drivers/net/ethernet/meta/mpnic/mpnic_pci.c    | 21 +++++++++++++++
+>  drivers/net/ethernet/meta/mpnic/mpnic_txrx.c   | 37 ++++++++++++++++++++=
++++---
+>  drivers/net/ethernet/meta/mpnic/mpnic_txrx.h   |  7 +++++
+>  6 files changed, 77 insertions(+), 7 deletions(-)
+> ---
+> base-commit: eb0c18404c8943356f4aa164e5db9067b79ea93c
+> change-id: 20260929-linux-mpnic-428998421ffc
+>
+> Best regards,
 > --
-> 2.52.0
+> Daniel Zahka <daniel.zahka@gmail.com>
 >
 >
