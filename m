@@ -1,51 +1,51 @@
 Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A6F4508E0;
-	Sat,  3 Oct 2026 15:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5A243DEBC;
+	Sat,  3 Oct 2026 15:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791042966; cv=none; b=t+EQ53kij1zSumhtauJ9fmPZJGUAfu4fZpmVMKs5/1KPQnCSch+Hs6znLmOfR1Q9O92q1GgSwLJDSvWFgtQQO7MTvUUJ2E49S0ccZCiaqrHpC8iG2EmW2Y34g7V7BqXJtuToyYjf5s9IXJ4R9p+khhS+t/ax8yEO0nK9yG8opJ0=
+	t=1791042972; cv=none; b=dxHxHwXnEjT+7tmU2uhCkPLirEY+QjchncwRhxIXIL7oLsNFFcIaUvaKNQk5yWHmgw9RXEcGBxkTXowMLj4QDyCBg2hUnjUW2d6QOu+x9oJDrCaiwP2gMb40DbyxENgCwVI8ajRK6RTWUP8KhyzzuNIPyxUDMKd5avpJC3TAN64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791042966; c=relaxed/simple;
-	bh=6BoyLmKKVUADKlRjY6Qly4+EN3MbRbM1j+xtbOD21WY=;
+	s=arc-20240116; t=1791042972; c=relaxed/simple;
+	bh=S2q74c0q4X9Z5FRid+rd08Z3LyuVw69JtpNCYQ2QmQU=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EbFBI4dz+hW0b8+Lwyu+de3D+O3j8Rq4QwEps3EdwJjfkiLThIhLLLOX2AOb7y0w5o7xzEGSPZieeEATQyBZDJzXIhL6ppz1AV7DeFzyJHSuhqI57MONQC1pVSlPoNTT2FPNDnxZm42hFgH2WU2ZMnliORwRj9ixn1ybE6n9b+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=F9iBCuzy; arc=none smtp.client-ip=82.76.27.144
+	 MIME-Version:Content-Type; b=Wd075TpUFTD+MiJwq10ham79BuVPCg2vE8gwHf7clJoI4fC4F8KvpxOty49sldS7ACPoXtaCdBgbVIZieN/tV1XjhL6PMSC0hJdQ64Mq8nRUZ/XoB+k1YnOXHSycUTYtu1rjDd9qfesWxZJntxDcduTi1zyjVJK2PBFTkGUheIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=fmnXSeWS; arc=none smtp.client-ip=82.76.27.144
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="F9iBCuzy"
-Received: from MAILGW-HP.hp.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id A93A21603C;
-	Sat, 03 Oct 2026 18:55:49 +0300 (EEST)
+	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="fmnXSeWS"
+Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
+	by vtj.irix.systems (Proxmox) with ESMTP id 0F02FE83B;
+	Sat, 03 Oct 2026 18:55:50 +0300 (EEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
 	cc:cc:content-transfer-encoding:content-type:content-type:date
 	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=63yYoZXH046bBLlEvAcf
-	7d3d/BLIj7mrMLlDLX+HIx8=; b=F9iBCuzygfhJAR8j3d9tlLTz/GMsfKBg6h0l
-	NxDUBBDUE0yvPiRQSneiYHnLqMWN4w0RH2mJRrByW59+JVZmUr/DUudKb1KBmfdB
-	xedJgI1ZKCxuO2AyKJlEL5/oSbktsL7WtAXQuYkiHWz9cZrNCUWh3wBBhfM8RzI/
-	cBQCVIiLozbJ9XquUx3r95BbzCe45r+h+MDfjoSmj/lqEfbuRqhRZC1B4LgxBcrt
-	q7NsL+IGFvfoSCpNpfF3jE8/JemVkp9DWlfE+fcnGmtFSUzGb7G77MBEX5zMKIQd
-	YDALeyp74osin9AgyB1YH2x79+fTJrHU5Aj+9zNH3zJ7a+jB1w==
-Received: from VTJ-MX.corp.irix.systems (unknown [10.57.36.6])
+	:reply-to:subject:subject:to:to; s=sig1; bh=wbLJu/N2OQZWzMUCpZsG
+	C2a6p7BIw5fHdNfe+gpkMNM=; b=fmnXSeWS4rXLDSellhYa8Jv00MY+LUshnixU
+	G9LhF2SKKn8TH8pkc1mICQ1DbgMfFqx8V1t1BjoK8DWlZ1jMX7ltpiiiv5aXSxtY
+	ysaBwP3JwPtGYHC47zonFo5gVY5O7fHK3KuKYizSpoNw91ONFSzIfgJ9wvsGFmke
+	7m2mTk7CUjsLDjW8B5xVpId0VQNDZlUgc7HXfIr7UNnw7anjdn5uKxB34Pvw2iJT
+	7fE6ru8zeiEEn2giuPOR88OmEN/4hehqJunM1eNR3cV/sn/jD2S1zts/I0p2Hxd6
+	1iSyADK+sjbr025G9PP9nsqJZTKNmKvkjDazmfZMFYx1oT58Xw==
+Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 772681603A;
+	by vtj.irix.systems (Proxmox) with ESMTPS id 3612CE83A;
 	Sat, 03 Oct 2026 18:55:48 +0300 (EEST)
 Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
  VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 3 Oct 2026 18:55:48 +0300
+ 15.2.2562.49; Sat, 3 Oct 2026 18:55:47 +0300
 From: Andrei-Alexandru Bleortu <me@andrei-z.com>
 To: Jeff Johnson <jjohnson@kernel.org>, Johannes Berg
 	<johannes@sipsolutions.net>
 CC: <ath11k@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<linux-wireless@vger.kernel.org>, Felix Fietkau <nbd@nbd.name>
-Subject: [PATCH 4/4] wifi: ath11k: support firmware airtime fairness
-Date: Sat, 3 Oct 2026 18:55:42 +0300
-Message-ID: <20261003155542.96363-5-me@andrei-z.com>
+Subject: [PATCH 2/4] wifi: ath11k: support beacon protection
+Date: Sat, 3 Oct 2026 18:55:40 +0300
+Message-ID: <20261003155542.96363-3-me@andrei-z.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261003155542.96363-1-me@andrei-z.com>
 References: <20261003155542.96363-1-me@andrei-z.com>
@@ -60,407 +60,190 @@ Content-Type: text/plain
 X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
  VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-Firmware with WMI_TLV_SERVICE_ATF schedules airtime between stations
-itself, in proportion to per-station shares the host gives it in parts
-per thousand. Enable it at init (resource config flag) and on each
-radio, advertise NL80211_EXT_FEATURE_AIRTIME_FAIRNESS, and send the
-shares of all AP stations of the radio, derived from their airtime
-weights (sta_set_airtime_weight), whenever a station associates or
-leaves or user space changes a weight.
+Firmware with WMI_TLV_SERVICE_BEACON_PROTECTION_SUPPORT protects the
+beacons it transmits with the BIGTK. Advertise
+NL80211_EXT_FEATURE_BEACON_PROTECTION when the service is present,
+install the BIGTK (key index 6/7) in hardware with the BIP ciphers, and
+set the beacon protection bit of the beacon template command when the
+beacon's Extended Capabilities, or those of a nontransmitted BSSID
+profile in it, enable it. The IGTK (index 4/5) stays in software, which
+protects the management frames mac80211 sends.
 
-The firmware schedules a station only within the share of its ATF group,
-so group 0, which every station belongs to, first gets the whole radio
-(WMI_ATF_SSID_GROUPING_REQUEST_CMDID, fair policy). Without the group,
-the firmware passes no data at all to a station that has a share.
-
-Both are needed: without the resource config flag the firmware takes the
-shares but does not enforce them. With them, a station capped at 100/1000
-under strict scheduling falls from 885 to 122 Mbit/s downlink and
-recovers once uncapped, and at its full fair share it runs at full rate.
-
-This matters most where the data path does not pass mac80211's queues,
-such as NSS offload, where mac80211's own airtime scheduler never sees
-the frames.
+This follows the ath12k change that added the same support, commit
+"wifi: ath12k: allow beacon protection keys to be installed in hardware".
 
 Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
+Tested-on: IPQ5018 hw1.0 AHB WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
 
 Assisted-by: LLM
 Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
 ---
- drivers/net/wireless/ath/ath11k/core.h |   1 +
- drivers/net/wireless/ath/ath11k/mac.c  | 105 +++++++++++++++++++++++++
- drivers/net/wireless/ath/ath11k/wmi.c  |  97 +++++++++++++++++++++++
- drivers/net/wireless/ath/ath11k/wmi.h  |  53 +++++++++++++
- 4 files changed, 256 insertions(+)
+ drivers/net/wireless/ath/ath11k/core.h |  1 +
+ drivers/net/wireless/ath/ath11k/mac.c  | 61 +++++++++++++++++++++++---
+ drivers/net/wireless/ath/ath11k/wmi.c  |  2 +
+ drivers/net/wireless/ath/ath11k/wmi.h  |  5 ++-
+ 4 files changed, 63 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index 31eee25c0..bb5f730c8 100644
+index a0d725923..31eee25c0 100644
 --- a/drivers/net/wireless/ath/ath11k/core.h
 +++ b/drivers/net/wireless/ath/ath11k/core.h
-@@ -542,6 +542,7 @@ struct ath11k_per_peer_cfr_capture {
- 
- struct ath11k_sta {
- 	struct ath11k_vif *arvif;
-+	u16 airtime_weight;
- 
- 	/* the following are protected by ar->data_lock */
- 	u32 changed; /* IEEE80211_RC_* */
+@@ -408,6 +408,7 @@ struct ath11k_vif {
+ 	int txpower;
+ 	bool rsnie_present;
+ 	bool wpaie_present;
++	bool beacon_prot;
+ 	bool bcca_zero_sent;
+ 	bool do_not_send_tmpl;
+ 	struct ath11k_arp_ns_offload arp_ns_offload;
 diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 57cc6dbdd..7a03c12d2 100644
+index c1fa42edd..57cc6dbdd 100644
 --- a/drivers/net/wireless/ath/ath11k/mac.c
 +++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -6732,6 +6732,16 @@ static int ath11k_mac_op_start(struct ieee80211_hw *hw)
- 		goto err;
- 	}
+@@ -1495,6 +1495,44 @@ static int ath11k_mac_remove_vendor_ie(struct sk_buff *skb, unsigned int oui,
+ 	return 0;
+ }
  
-+	if (test_bit(WMI_TLV_SERVICE_ATF, ab->wmi_ab.svc_map)) {
-+		ret = ath11k_wmi_pdev_set_param(ar, WMI_PDEV_PARAM_ATF_DYNAMIC_ENABLE,
-+						1, pdev->pdev_id);
-+		if (ret) {
-+			ath11k_err(ab, "failed to enable airtime fairness: %d\n",
-+				   ret);
-+			goto err;
++static bool ath11k_mac_ext_capa_bcn_prot(const struct element *ext_capa)
++{
++	return ext_capa && ext_capa->datalen >= 11 &&
++	       (ext_capa->data[10] & WLAN_EXT_CAPA11_BCN_PROTECT);
++}
++
++/* Beacon protection covers the whole beacon, so enable it when the
++ * transmitted BSS or any nontransmitted profile in it advertises it.
++ */
++static bool ath11k_mac_bcn_prot_enabled(struct sk_buff *bcn)
++{
++	struct ieee80211_mgmt *mgmt = (struct ieee80211_mgmt *)bcn->data;
++	const u8 *ies = mgmt->u.beacon.variable;
++	int ies_len = skb_tail_pointer(bcn) - ies;
++	const struct element *elem, *profile;
++
++	if (ath11k_mac_ext_capa_bcn_prot(cfg80211_find_elem(WLAN_EID_EXT_CAPABILITY,
++							    ies, ies_len)))
++		return true;
++
++	for_each_element_id(elem, WLAN_EID_MULTIPLE_BSSID, ies, ies_len) {
++		if (elem->datalen < 1)
++			continue;
++
++		for_each_element(profile, elem->data + 1, elem->datalen - 1) {
++			if (profile->id != 0)
++				continue;
++
++			if (ath11k_mac_ext_capa_bcn_prot(cfg80211_find_elem(WLAN_EID_EXT_CAPABILITY,
++									    profile->data,
++									    profile->datalen)))
++				return true;
 +		}
 +	}
 +
- 	ret = ath11k_wmi_send_dfs_phyerr_offload_enable_cmd(ar, pdev->pdev_id);
- 	if (ret) {
- 		ath11k_err(ab, "failed to offload radar detection: %d\n",
-@@ -9985,6 +9995,90 @@ static int ath11k_mac_station_remove(struct ath11k *ar,
- 	return ret;
- }
- 
-+#define ATH11K_ATF_PEERS_PER_CMD 32
-+
-+struct ath11k_mac_atf_iter {
-+	struct ath11k_wmi_atf_peer_arg *peers;
-+	u16 *weights;
-+	u32 num, max, total;
-+};
-+
-+static void ath11k_mac_atf_iter(void *data, struct ieee80211_sta *sta)
-+{
-+	struct ath11k_mac_atf_iter *it = data;
-+	struct ath11k_sta *arsta = ath11k_sta_to_arsta(sta);
-+
-+	if (it->num == it->max || !arsta->arvif ||
-+	    arsta->arvif->vdev_type != WMI_VDEV_TYPE_AP)
-+		return;
-+
-+	ether_addr_copy(it->peers[it->num].addr, sta->addr);
-+	it->peers[it->num].vdev_id = arsta->arvif->vdev_id;
-+	it->weights[it->num] = arsta->airtime_weight;
-+	it->total += arsta->airtime_weight;
-+	it->num++;
++	return false;
 +}
 +
-+/* Firmware airtime fairness: give every station of the radio its share of
-+ * the airtime, in proportion to its airtime weight. The firmware schedules
-+ * a station only by the share of its group, so group 0 (every station's)
-+ * gets the whole radio first.
-+ */
-+static int ath11k_mac_atf_update(struct ath11k *ar)
-+{
-+	struct ath11k_mac_atf_iter it = { .max = ar->max_num_stations };
-+	u32 i, n;
-+	int ret = 0;
-+
-+	lockdep_assert_held(&ar->conf_mutex);
-+
-+	if (!test_bit(WMI_TLV_SERVICE_ATF, ar->ab->wmi_ab.svc_map))
-+		return 0;
-+
-+	it.peers = kcalloc(it.max, sizeof(*it.peers), GFP_KERNEL);
-+	it.weights = kcalloc(it.max, sizeof(*it.weights), GFP_KERNEL);
-+	if (!it.peers || !it.weights) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
-+
-+	ieee80211_iterate_stations_atomic(ar->hw, ath11k_mac_atf_iter, &it);
-+
-+	for (i = 0; i < it.num; i++)
-+		it.peers[i].units = max_t(u32, 1, div_u64((u64)WMI_ATF_DENOMINATION *
-+							  it.weights[i], it.total));
-+
-+	ret = ath11k_wmi_send_atf_group(ar, 0, WMI_ATF_DENOMINATION);
-+	if (ret)
-+		goto out;
-+
-+	for (i = 0; i < it.num; i += n) {
-+		n = min_t(u32, it.num - i, ATH11K_ATF_PEERS_PER_CMD);
-+		ret = ath11k_wmi_send_peer_atf_request(ar, &it.peers[i], n,
-+						       i + n < it.num);
-+		if (ret)
-+			break;
-+	}
-+
-+out:
-+	kfree(it.weights);
-+	kfree(it.peers);
-+	return ret;
-+}
-+
-+static void ath11k_mac_op_sta_set_airtime_weight(struct ieee80211_hw *hw,
-+						 struct ieee80211_vif *vif,
-+						 struct ieee80211_sta *sta, u16 weight)
-+{
-+	struct ath11k_sta *arsta = ath11k_sta_to_arsta(sta);
-+	struct ath11k *ar = hw->priv;
-+
-+	mutex_lock(&ar->conf_mutex);
-+	arsta->airtime_weight = weight;
-+	ath11k_mac_atf_update(ar);
-+	mutex_unlock(&ar->conf_mutex);
-+}
-+
- static int ath11k_mac_op_sta_state(struct ieee80211_hw *hw,
- 				   struct ieee80211_vif *vif,
- 				   struct ieee80211_sta *sta,
-@@ -10012,6 +10106,7 @@ static int ath11k_mac_op_sta_state(struct ieee80211_hw *hw,
- 	    new_state == IEEE80211_STA_NONE) {
- 		memset(arsta, 0, sizeof(*arsta));
- 		arsta->arvif = arvif;
-+		arsta->airtime_weight = IEEE80211_DEFAULT_AIRTIME_WEIGHT;
- 		arsta->peer_ps_state = WMI_PEER_PS_STATE_DISABLED;
- 		INIT_WORK(&arsta->update_wk, ath11k_sta_rc_update_wk);
- 		INIT_WORK(&arsta->set_4addr_wk, ath11k_sta_set_4addr_wk);
-@@ -10043,6 +10138,9 @@ static int ath11k_mac_op_sta_state(struct ieee80211_hw *hw,
- 		mutex_unlock(&ar->ab->tbl_mtx_lock);
+ static int ath11k_mac_set_vif_params(struct ath11k_vif *arvif,
+ 				     struct sk_buff *bcn)
+ {
+@@ -1598,6 +1636,7 @@ static int ath11k_mac_setup_bcn_tmpl_ema(struct ath11k_vif *arvif,
+ 		params |= ((!i ? 1 : 0) << WMI_EMA_FIRST_TMPL_SHIFT);
+ 		params |= ((i + 1 == beacons->cnt ? 1 : 0) << WMI_EMA_LAST_TMPL_SHIFT);
  
- 		ath11k_cfr_decrement_peer_count(ar, arsta);
-+
-+		if (vif->type == NL80211_IFTYPE_AP)
-+			ath11k_mac_atf_update(ar);
- 	} else if (old_state == IEEE80211_STA_AUTH &&
- 		   new_state == IEEE80211_STA_ASSOC &&
- 		   (vif->type == NL80211_IFTYPE_AP ||
-@@ -10052,6 +10150,8 @@ static int ath11k_mac_op_sta_state(struct ieee80211_hw *hw,
- 		if (ret)
- 			ath11k_warn(ar->ab, "Failed to associate station: %pM\n",
- 				    sta->addr);
-+		else if (vif->type == NL80211_IFTYPE_AP)
-+			ath11k_mac_atf_update(ar);
++		tx_arvif->beacon_prot = ath11k_mac_bcn_prot_enabled(beacons->bcn[i].skb);
+ 		ret = ath11k_wmi_bcn_tmpl(tx_arvif->ar, tx_arvif->vdev_id,
+ 					  &beacons->bcn[i].offs,
+ 					  beacons->bcn[i].skb, params);
+@@ -1651,6 +1690,7 @@ static int ath11k_mac_setup_bcn_tmpl_mbssid(struct ath11k_vif *arvif,
+ 		goto free;
+ 	}
  
- 		spin_lock_bh(&ar->data_lock);
- 		/* Set arsta bw and prev bw */
-@@ -10143,6 +10243,7 @@ static const struct ieee80211_ops ath11k_ops = {
- 	.sta_state                      = ath11k_mac_op_sta_state,
- 	.sta_set_4addr                  = ath11k_mac_op_sta_set_4addr,
- 	.sta_set_txpwr			= ath11k_mac_op_sta_set_txpwr,
-+	.sta_set_airtime_weight		= ath11k_mac_op_sta_set_airtime_weight,
- 	.link_sta_rc_update		= ath11k_mac_op_sta_rc_update,
- 	.conf_tx                        = ath11k_mac_op_conf_tx,
- 	.set_antenna			= ath11k_mac_op_set_antenna,
-@@ -10684,6 +10785,10 @@ static int __ath11k_mac_register(struct ath11k *ar)
++	arvif->beacon_prot = ath11k_mac_bcn_prot_enabled(bcn);
+ 	ret = ath11k_wmi_bcn_tmpl(ar, arvif->vdev_id, &offs, bcn, 0);
+ 	if (ret)
+ 		ath11k_warn(ab, "failed to submit beacon template command: %d\n",
+@@ -4412,6 +4452,14 @@ static int ath11k_install_key(struct ath11k_vif *arvif,
+ 		arg.key_cipher = WMI_CIPHER_AES_GCM;
+ 		key->flags |= IEEE80211_KEY_FLAG_GENERATE_IV_MGMT;
+ 		break;
++	case WLAN_CIPHER_SUITE_AES_CMAC:
++	case WLAN_CIPHER_SUITE_BIP_CMAC_256:
++		arg.key_cipher = WMI_CIPHER_AES_CMAC;
++		break;
++	case WLAN_CIPHER_SUITE_BIP_GMAC_128:
++	case WLAN_CIPHER_SUITE_BIP_GMAC_256:
++		arg.key_cipher = WMI_CIPHER_AES_GMAC;
++		break;
+ 	default:
+ 		ath11k_warn(ar->ab, "cipher %d is not supported\n", key->cipher);
+ 		return -EOPNOTSUPP;
+@@ -4523,11 +4571,10 @@ static int ath11k_mac_op_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
+ 	int ret = 0;
+ 	u32 flags = 0;
+ 
+-	/* BIP needs to be done in software */
+-	if (key->cipher == WLAN_CIPHER_SUITE_AES_CMAC ||
+-	    key->cipher == WLAN_CIPHER_SUITE_BIP_GMAC_128 ||
+-	    key->cipher == WLAN_CIPHER_SUITE_BIP_GMAC_256 ||
+-	    key->cipher == WLAN_CIPHER_SUITE_BIP_CMAC_256)
++	/* The IGTK protects management frames, which are done in software;
++	 * only the BIGTK (index 6/7) goes to the firmware, which signs beacons.
++	 */
++	if (key->keyidx == 4 || key->keyidx == 5)
+ 		return 1;
+ 
+ 	if (test_bit(ATH11K_FLAG_HW_CRYPTO_DISABLED, &ar->ab->dev_flags))
+@@ -10633,6 +10680,10 @@ static int __ath11k_mac_register(struct ath11k *ar)
  		wiphy_ext_feature_set(ar->hw->wiphy,
- 				      NL80211_EXT_FEATURE_BEACON_PROTECTION);
+ 				      NL80211_EXT_FEATURE_ENABLE_FTM_RESPONDER);
  
-+	if (test_bit(WMI_TLV_SERVICE_ATF, ar->ab->wmi_ab.svc_map))
++	if (test_bit(WMI_TLV_SERVICE_BEACON_PROTECTION_SUPPORT, ar->ab->wmi_ab.svc_map))
 +		wiphy_ext_feature_set(ar->hw->wiphy,
-+				      NL80211_EXT_FEATURE_AIRTIME_FAIRNESS);
++				      NL80211_EXT_FEATURE_BEACON_PROTECTION);
 +
  	ar->hw->wiphy->mbssid_max_interfaces = TARGET_NUM_VDEVS(ab);
  	ar->hw->wiphy->ema_max_profile_periodicity = TARGET_EMA_MAX_PROFILE_PERIOD;
  
 diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 2c3e14a65..28f5d606a 100644
+index 08fd6795e..2c3e14a65 100644
 --- a/drivers/net/wireless/ath/ath11k/wmi.c
 +++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -4468,6 +4468,100 @@ int ath11k_wmi_set_hw_mode(struct ath11k_base *ab,
- 	return 0;
- }
+@@ -1811,6 +1811,8 @@ int ath11k_wmi_bcn_tmpl(struct ath11k *ar, u32 vdev_id,
+ 	cmd->buf_len = bcn->len;
+ 	cmd->mbssid_ie_offset = offs->mbssid_off;
+ 	cmd->ema_params = ema_params;
++	if (arvif->beacon_prot)
++		cmd->feature_enable_bitmap |= WMI_BCN_TMPL_BEACON_PROTECTION_EN;
  
-+int ath11k_wmi_send_atf_group(struct ath11k *ar, u32 group_id, u32 units)
-+{
-+	struct ath11k_pdev_wmi *wmi = ar->wmi;
-+	struct wmi_atf_ssid_grp_request_cmd *cmd;
-+	struct wmi_atf_group_info *grp;
-+	struct wmi_tlv *tlv;
-+	struct sk_buff *skb;
-+	int ret;
-+
-+	skb = ath11k_wmi_alloc_skb(wmi->wmi_ab, sizeof(*cmd) + TLV_HDR_SIZE + sizeof(*grp));
-+	if (!skb)
-+		return -ENOMEM;
-+
-+	cmd = (struct wmi_atf_ssid_grp_request_cmd *)skb->data;
-+	cmd->tlv_header = FIELD_PREP(WMI_TLV_TAG, WMI_TAG_ATF_SSID_GRP_REQUEST) |
-+			  FIELD_PREP(WMI_TLV_LEN, sizeof(*cmd) - TLV_HDR_SIZE);
-+	cmd->pdev_id = ar->pdev->pdev_id;
-+
-+	tlv = (struct wmi_tlv *)(skb->data + sizeof(*cmd));
-+	tlv->header = FIELD_PREP(WMI_TLV_TAG, WMI_TAG_ARRAY_STRUCT) |
-+		      FIELD_PREP(WMI_TLV_LEN, sizeof(*grp));
-+	grp = (struct wmi_atf_group_info *)tlv->value;
-+	grp->tlv_header = FIELD_PREP(WMI_TLV_TAG, WMI_TAG_ATF_GROUP_INFO) |
-+			  FIELD_PREP(WMI_TLV_LEN, sizeof(*grp) - TLV_HDR_SIZE);
-+	grp->atf_group_id = group_id;
-+	grp->atf_group_units = units;
-+	grp->atf_group_flags = WMI_ATF_GROUP_POLICY_FAIR;
-+
-+	ret = ath11k_wmi_cmd_send(wmi, skb, WMI_ATF_SSID_GROUPING_REQUEST_CMDID);
-+	if (ret) {
-+		ath11k_warn(ar->ab, "failed to send atf group request: %d\n", ret);
-+		dev_kfree_skb(skb);
-+		return ret;
-+	}
-+
-+	ath11k_dbg(ar->ab, ATH11K_DBG_WMI, "cmd atf group %u units %u\n", group_id, units);
-+
-+	return 0;
-+}
-+
-+int ath11k_wmi_send_peer_atf_request(struct ath11k *ar,
-+				     const struct ath11k_wmi_atf_peer_arg *peers,
-+				     u32 num_peers, bool more)
-+{
-+	struct ath11k_pdev_wmi *wmi = ar->wmi;
-+	struct wmi_peer_atf_request_cmd *cmd;
-+	struct wmi_atf_peer_info *info;
-+	struct wmi_tlv *tlv;
-+	struct sk_buff *skb;
-+	u32 i, pdev_id = ar->pdev->pdev_id;
-+	int ret, len;
-+
-+	len = sizeof(*cmd) + TLV_HDR_SIZE + num_peers * sizeof(*info);
-+	skb = ath11k_wmi_alloc_skb(wmi->wmi_ab, len);
-+	if (!skb)
-+		return -ENOMEM;
-+
-+	cmd = (struct wmi_peer_atf_request_cmd *)skb->data;
-+	cmd->tlv_header = FIELD_PREP(WMI_TLV_TAG, WMI_TAG_PEER_ATF_REQUEST) |
-+			  FIELD_PREP(WMI_TLV_LEN, sizeof(*cmd) - TLV_HDR_SIZE);
-+	cmd->num_peers = num_peers;
-+	cmd->pdev_id = pdev_id;
-+	cmd->atf_flags = WMI_PEER_ATF_REQ_FLAG_FULL_UPDATE |
-+			 WMI_PEER_ATF_REQ_FLAG_PDEV_ID_VALID;
-+	if (more)
-+		cmd->atf_flags |= WMI_PEER_ATF_REQ_FLAG_PENDING_CMDS;
-+
-+	tlv = (struct wmi_tlv *)(skb->data + sizeof(*cmd));
-+	tlv->header = FIELD_PREP(WMI_TLV_TAG, WMI_TAG_ARRAY_STRUCT) |
-+		      FIELD_PREP(WMI_TLV_LEN, num_peers * sizeof(*info));
-+	info = (struct wmi_atf_peer_info *)tlv->value;
-+
-+	for (i = 0; i < num_peers; i++, info++) {
-+		info->tlv_header = FIELD_PREP(WMI_TLV_TAG, WMI_TAG_ATF_PEER_INFO) |
-+				   FIELD_PREP(WMI_TLV_LEN, sizeof(*info) - TLV_HDR_SIZE);
-+		ether_addr_copy(info->peer_macaddr.addr, peers[i].addr);
-+		info->atf_units = peers[i].units;
-+		info->vdev_id = peers[i].vdev_id;
-+		info->pdev_id = pdev_id;
-+	}
-+
-+	ret = ath11k_wmi_cmd_send(wmi, skb, WMI_PEER_ATF_REQUEST_CMDID);
-+	if (ret) {
-+		ath11k_warn(ar->ab, "failed to send peer atf request: %d\n", ret);
-+		dev_kfree_skb(skb);
-+		return ret;
-+	}
-+
-+	ath11k_dbg(ar->ab, ATH11K_DBG_WMI, "cmd peer atf request pdev %u peers %u%s\n",
-+		   pdev_id, num_peers, more ? " (more)" : "");
-+
-+	return 0;
-+}
-+
- int ath11k_wmi_cmd_init(struct ath11k_base *ab)
- {
- 	struct ath11k_wmi_base *wmi_ab = &ab->wmi_ab;
-@@ -4483,6 +4577,9 @@ int ath11k_wmi_cmd_init(struct ath11k_base *ab)
- 		     ab->wmi_ab.svc_map))
- 		config.is_reg_cc_ext_event_supported = 1;
+ 	ptr = skb->data + sizeof(*cmd);
  
-+	if (test_bit(WMI_TLV_SERVICE_ATF, ab->wmi_ab.svc_map))
-+		config.flag1 |= WMI_RSRC_CFG_FLAG1_ATF_CONFIG_ENABLE;
-+
- 	memcpy(&wmi_ab->wlan_resource_config, &config, sizeof(config));
- 
- 	init_param.res_cfg = &wmi_ab->wlan_resource_config;
 diff --git a/drivers/net/wireless/ath/ath11k/wmi.h b/drivers/net/wireless/ath/ath11k/wmi.h
-index ae8b4cc08..53cce7fd7 100644
+index b2dade051..ae8b4cc08 100644
 --- a/drivers/net/wireless/ath/ath11k/wmi.h
 +++ b/drivers/net/wireless/ath/ath11k/wmi.h
-@@ -212,6 +212,7 @@ enum wmi_cmd_group {
- 	WMI_GRP_TWT            = 0x3e,
- 	WMI_GRP_MOTION_DET     = 0x3f,
- 	WMI_GRP_SPATIAL_REUSE  = 0x40,
-+	WMI_GRP_ATM            = 0x45,
- };
+@@ -2128,6 +2128,7 @@ enum wmi_tlv_service {
+ 	WMI_TLV_SERVICE_PER_PEER_HTT_STATS_RESET = 213,
+ 	WMI_TLV_SERVICE_FREQINFO_IN_METADATA = 219,
+ 	WMI_TLV_SERVICE_EXT2_MSG = 220,
++	WMI_TLV_SERVICE_BEACON_PROTECTION_SUPPORT = 244,
+ 	WMI_TLV_SERVICE_PEER_POWER_SAVE_DURATION_SUPPORT = 246,
+ 	WMI_TLV_SERVICE_SRG_SRP_SPATIAL_REUSE_SUPPORT = 249,
+ 	WMI_TLV_SERVICE_MBSS_PARAM_IN_VDEV_START_SUPPORT = 253,
+@@ -3628,6 +3629,8 @@ struct ath11k_wmi_p2p_noa_info {
+ #define WMI_EMA_FIRST_TMPL_SHIFT          16
+ #define WMI_EMA_LAST_TMPL_SHIFT           24
  
- #define WMI_CMD_GRP(grp_id) (((grp_id) << 12) | 0x1)
-@@ -2354,6 +2355,7 @@ struct wmi_init_cmd {
- } __packed;
- 
- #define WMI_RSRC_CFG_FLAG1_BSS_CHANNEL_INFO_64 BIT(5)
-+#define WMI_RSRC_CFG_FLAG1_ATF_CONFIG_ENABLE BIT(6)
- #define WMI_RSRC_CFG_FLAG2_CALC_NEXT_DTIM_COUNT_SET BIT(9)
- #define WMI_RSRC_CFG_FLAG1_ACK_RSSI BIT(18)
- 
-@@ -3631,6 +3633,53 @@ struct ath11k_wmi_p2p_noa_info {
- 
- #define WMI_BCN_TMPL_BEACON_PROTECTION_EN BIT(0)
- 
-+/* Airtime fairness: a share is in parts per thousand of the radio's airtime */
-+#define WMI_ATF_DENOMINATION			1000
-+#define WMI_PEER_ATF_REQ_FLAG_FULL_UPDATE	BIT(0)
-+#define WMI_PEER_ATF_REQ_FLAG_PENDING_CMDS	BIT(1)
-+#define WMI_PEER_ATF_REQ_FLAG_PDEV_ID_VALID	BIT(2)
-+#define WMI_ATF_GROUP_POLICY_FAIR		0
-+
-+#define WMI_ATF_SSID_GROUPING_REQUEST_CMDID	WMI_TLV_CMD(WMI_GRP_ATM)
-+/* Outside enum wmi_tlv_tag: its WMI_TAG_MAX sizes the TLV policy table. */
-+#define WMI_TAG_ATF_SSID_GRP_REQUEST		0x346
-+#define WMI_TAG_ATF_GROUP_INFO			0x347
-+
-+struct wmi_atf_ssid_grp_request_cmd {
-+	u32 tlv_header;
-+	u32 pdev_id;
-+} __packed;
-+
-+struct wmi_atf_group_info {
-+	u32 tlv_header;
-+	u32 atf_group_id;
-+	u32 atf_group_units;
-+	u32 atf_group_flags;
-+} __packed;
-+
-+struct wmi_peer_atf_request_cmd {
-+	u32 tlv_header;
-+	u32 num_peers;
-+	u32 pdev_id;
-+	u32 atf_flags;
-+} __packed;
-+
-+struct wmi_atf_peer_info {
-+	u32 tlv_header;
-+	struct wmi_mac_addr peer_macaddr;
-+	u32 atf_units;
-+	u32 atf_groupid;
-+	u32 atf_units_reserved;
-+	u32 vdev_id;
-+	u32 pdev_id;
-+} __packed;
-+
-+struct ath11k_wmi_atf_peer_arg {
-+	u8 addr[ETH_ALEN];
-+	u32 vdev_id;
-+	u32 units;
-+};
++#define WMI_BCN_TMPL_BEACON_PROTECTION_EN BIT(0)
 +
  struct wmi_bcn_tmpl_cmd {
  	u32 tlv_header;
  	u32 vdev_id;
-@@ -6453,6 +6502,10 @@ int ath11k_wmi_vdev_start(struct ath11k *ar, struct wmi_vdev_start_req_arg *arg,
- 			  bool restart);
- int ath11k_wmi_set_peer_param(struct ath11k *ar, const u8 *peer_addr,
- 			      u32 vdev_id, u32 param_id, u32 param_val);
-+int ath11k_wmi_send_atf_group(struct ath11k *ar, u32 group_id, u32 units);
-+int ath11k_wmi_send_peer_atf_request(struct ath11k *ar,
-+				     const struct ath11k_wmi_atf_peer_arg *peers,
-+				     u32 num_peers, bool more);
- int ath11k_wmi_pdev_set_param(struct ath11k *ar, u32 param_id,
- 			      u32 param_value, u8 pdev_id);
- int ath11k_wmi_pdev_set_ps_mode(struct ath11k *ar, int vdev_id,
+@@ -5237,7 +5240,7 @@ enum wmi_ap_ps_peer_param {
+ 
+ #define DISABLE_SIFS_RESPONSE_TRIGGER 0
+ 
+-#define WMI_MAX_KEY_INDEX   3
++#define WMI_MAX_KEY_INDEX   7
+ #define WMI_MAX_KEY_LEN     32
+ 
+ #define WMI_KEY_PAIRWISE 0x00
 
