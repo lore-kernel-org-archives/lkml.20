@@ -1,72 +1,95 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA7E3A6F06
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:57:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C705B400DE1;
+	Sat,  3 Oct 2026 09:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791021427; cv=none; b=IojQn1AidOqXBzGoptbyXMkjiMVRXqg/HxCWEJpX/XN/aR1Tkv2YeQxHvCGlVRk2WwdQ9ygPbo96sLWg9Xl5gBuYpZcxKlRM5CSJRpo9lSKNj3JcJO6zUGd1O4eueQv1YaQQ/yQXHbw3R/xFvErgzGTTbi9ZM5EKoI4B/UsE4+c=
+	t=1791021464; cv=none; b=QGFxP1LkbSYPkBVBPA7GEhyjp6rsH+FqGf6egl/eS8FzKUZ2ozuCrEPm3ZlJtPhyvoHlEyWO02wXfVJL0HV4N5i5nzpxhqeqLbJFjqLCb+nQf3R4kNnowM6umDL7djpHXJkJlDzwYoMK2TnaspNVBQkTkkuJ16IYVDMIjthWtqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791021427; c=relaxed/simple;
-	bh=EYXOm8OU0nCoDjsHRNDdxa3wCnac4SEMYsa49Yjw2hQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=B8CuqFd5eOzKdpbTwq3dtXganjG1lbXHJbrZAFkuxBlWCivHoUv3tI+U36SQgSoOBh+tqSpus+r4PLtXvxZI9l2LJuyY/FbpF2lSdujlF4IT88FyL7M+U5ljOAIW8oCRYlp5h1HQQPiHB/PFzYf/WDgnHsZAHf2lhvqrEo/qVpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so455548b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:57:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791021424; x=1791626224;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GzofMsg7bVh9IoRlAWNBZQOnn0OSea2oapj9qTB7ckk=;
-        b=JhHcvYMLGZxygot9lOwgytlp6UJ12tlW+SvGA9lKwmehQJTZPqNaaMo68cqA9RKDoD
-         mp5RO1czYXX4iXLi/gTeXatQu01iKVec9MCAAsbf+GqL7W2+0a1TXFHrCzeln4vC443b
-         EZJTPRc9WFp5dKretUoD3cPt1KRNGU96M59yLj2AKvo+d+HIRc9IGRv60wFXg8ipKjjb
-         1B3wYR1wgi4GnAM5SCVmiZsCIjiZplx+YDfeQxFEOMyssIpzFwLfJo0oPtNnZHV+0AAR
-         RmpFuBNLzd1icWX0DAsPbRr4pILqOuGFWFD0Nhd51dRrIzu5FZnLCXrbjEmJgLZfWUvC
-         ecNw==
-X-Forwarded-Encrypted: i=1; AKwUvBx3Bxv61zCbfloEbpX4kZ1TTZpLUoS5JHoSlahagt8/yIcQQXuaNeN9jRv6rgMbZ209i8DI840KfBu/ja4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtJ1CGf54MwPmthwbmrnYBCyKEVGJCfsggK1tYOkqpwUnnoRT1
-	L+3SPTeGZsf+1g3gs9ukq7iMeUOODGCLd70px3ji45ZFOU/QHG1ZAl801iXPM1n4Ub8dulUFuBl
-	A5HEzt/+8evfV79GrByOQrTRWqph3kZmCu/2eGgJcmFRaIIMyxCAWXrR0Vlc=
+	s=arc-20240116; t=1791021464; c=relaxed/simple;
+	bh=6FcXyGndsLsN2Qm3ZMMOOr852wG7L9jBOlncq0DJvPU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=r/X+ZEEPHbhm3VTZoIBblbiTVFeLHtOiV2O3gZ9bUpOepGKMlcEfnUuv4fJwlF1s+bEPnoip2QnqTZVC+rSQzNCgTLPNKYL2RAoLGBuGx0GjULPBz+0MVcDmOJg3KVcvrAbo1Fiv7joyqxPASqt1o6T6cy9zXydybJKMQmVRxgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=fzqBrxY6; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="fzqBrxY6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=lgUk64lzhxOZlU1FcjCchOOx5jvBKithIYkafyrFNRA=; t=1791021460;
+	x=1791626260; b=fzqBrxY6DzdLKTssJNsX7r9cAzhqrNamKNcyOt4nzR/Omt0SE02A1m+4ehQ7q
+	1N2homShmgd0q8jEIui3Nr+DuLEDVCShi1fIDj2KSX3wn+KkxFtZDFou8Ngzph64+gmkFnzevgCjA
+	74tcOnflaUr9m1D1tz+jrDBmOYqXAJ5ndua4l92Cz+nepR6HGrgPC1OQ4+rSAoPo3aP3Ra/SKdMjB
+	Idhkho6//XbnOoURpJcUrs06h3tOfysU2p2QunidpTE6FzZvgo7PZRRT58mM3T0MlSnsNufrXNpGy
+	vFghCnIyqVWFHFmWMgLRg6VNKwJQ6nViQ9tPSuNOC+Kbdfb0zw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xCwUn-00000003Ehv-2vZX; Sat, 03 Oct 2026 11:57:33 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xCwUn-00000002nSI-22oh; Sat, 03 Oct 2026 11:57:33 +0200
+Message-ID: <e3d9387cc5c461f99dd878c37ffe8c6d67128fd1.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sh: sh7785lcr: register the PCA9564 as I2C bus 0
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Yoshinori Sato <yoshinori.sato@nifty.com>, Rich Felker
+ <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 03 Oct 2026 11:57:32 +0200
+In-Reply-To: <asDOl5bvtlbauh9x@gmail.com>
+References: <20261003082833.21511-1-kmehltretter@gmail.com>
+	 <a4dcd9e615dc4e3c98c00e75cdd0c7fdeef02254.camel@physik.fu-berlin.de>
+	 <e3c88969f18c493859f7c382db7ed2afeb15b4fa.camel@physik.fu-berlin.de>
+	 <asDOl5bvtlbauh9x@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:ec7:b0:4d6:92b3:5c8b with SMTP id
- 5614622812f47-4f52bbc2bc3mr3889879b6e.65.1791021424393; Sat, 03 Oct 2026
- 02:57:04 -0700 (PDT)
-Date: Sat, 03 Oct 2026 02:57:04 -0700
-In-Reply-To: <20261003091512.17099-1-adarshdas950@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0d170.81dddff3.363068.0006.GAE@google.com>
-Subject: Re: [syzbot] [btrfs?] WARNING in btrfs_init_new_device
-From: syzbot <syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com>
-To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Hello,
+On Sat, 2026-10-03 at 11:51 +0200, Karl Mehltretter wrote:
+> On Sat, Oct 03, 2026 at 11:38:43AM +0100, John Paul Adrian Glaubitz wrote=
+:
+> > > Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> >=20
+> > I have to admit though I don't fully understand the description of this
+> > patch. Either I don't have enough coffee or it's not precise enough.
+> >=20
+>=20
+> Thanks for testing and reviewing! I agree the changelog doesn't explain
+> why -1 is wrong and 0 is right for this board very clearly. I'll give it
+> a day or so to step back and submit a v2 with your tags and a better
+> changelog.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Thanks a lot! I'm glad it's not just that I had only one coffee today! ;-)
 
-Reported-by: syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com
-Tested-by: syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com
+I will try to start looking at a few other patches this weekend. I'm not
+sure if I will be able to pick up all at once for v7.4, so some of them
+might end up in v7.5.
 
-Tested on:
+Either way, thanks for all these fixes! I didn't even notice that accessing
+the hardware clock didn't work.
 
-commit:         e767a4ea Merge tag 'probes-fixes-v7.3-rc5' of git://gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16925725580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
-dashboard link: https://syzkaller.appspot.com/bug?extid=3bf3e110b2d406b8166c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=10ea3bf5580000
+Adrian
 
-Note: testing is done by a robot and is best-effort only.
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
