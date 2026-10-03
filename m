@@ -1,56 +1,56 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BFC4A385F
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1853C47124E
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062601; cv=none; b=qfcYShz5qirt4bIohCdx4GSCurrZ3qJGnliy3ewMjtlGtBlF8svjYbEYZymSbp3pviLuqyUv77Xat2PmjGN/Z+6O/gW8HQQCYCpYle1QZXlrEiwUep6f+d+TBwo21O8gQLttpZsx2ZTNPaRNhqHYUM8kpRFano0BG0FwZ3SQy98=
+	t=1791062597; cv=none; b=jiMSuVMu+YNnShTWCJneOi/l/cKbNMhupEF2nw2h+1Ihl0zCjuoz9DWrVi1bgmfnwLcOlawS79vIUqyfd8515EjMMOU590CFBb7kLQN2ojwrqln9NOth+red6FEuuk+i1K4kWftQA95ub3MGXsmZCz9zO+q7Ni3+ifYf/ehUgh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062601; c=relaxed/simple;
-	bh=0UEzNPYoMtYU8V6tV9CGaZXf2SYy9Eg3sYnpmfOu5WA=;
+	s=arc-20240116; t=1791062597; c=relaxed/simple;
+	bh=7u9qTwVAWXI5MAFgewGcoaTlYcgOYP37j0/7wZFdjLA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=i2wODw+SDAJvll7ALVq6rdkAtHWiuVZo1qP5S4RfcRb2sN8h+o11e0+JiGruDEd94lqccGlel5lwIk1GEe3+N5iI3FSZodQxuE8rO15IUy+Kj+bbcBLNg4ZLYd6REPUmWnfGIvQKQMQhVUusXFXrP5avDOliDiKHK6vPrRm+H8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=X6+GS01h; arc=none smtp.client-ip=209.85.208.69
+	 To:Cc:Content-Type; b=agFawA2po2G8Re6SniuxO5sAO/D9UQFXN380I2b6PlnHrZ8KydHgWzwcBRnmA4ftmaBHXfqx3BNa2Gk5I9t6w/VPK7fBwO+q5PCBa8MzZ+4EN8sYRFLHh+g7g9bdZ+5htVKtAaDytlao48y0YZ+fADPOtkfcfrrJjS3YORBbxes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p1KJj9Kh; arc=none smtp.client-ip=209.85.218.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="X6+GS01h"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6ae18a3adaeso964812a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:23:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p1KJj9Kh"
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c29bc25836fso82802066b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:23:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791062592; x=1791667392; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791062588; x=1791667388; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3aZwzLkeC5Zd1WFKT0DwnrS8SKkPjkbpjbdTgKohmOY=;
-        b=X6+GS01h6zUqI8yReMwjT+GPSVBZdAtuOWNNuvGt3HZsdH8BxKJLVCq9CNfl6xl405
-         aFEvlpfEiyiYZ0O6qEL5sFmUB4D2kMdeFREM7Xbl2RQfEg6JimL0AJvl7k249+lDzAQN
-         KX9DblBYeP2bUPlEpx8Uk83DmErCRQSZW3tH8Yz3ZXquvy+OOApx08tlcpjUmUMitSMm
-         AuK6DftvKtLZGzewPYJ77sa+vkTReWec0ty9brAgFpDR+ng9KDZqJHwT7L8aT/dx61BS
-         +X94YINQvcho0kNCKSTIjvzzoNm4+64zpVZx0ACWQSN44O12WJQDIFZcOXii1kVvWR29
-         j47A==
+        bh=ruiMF87Q7JhX4xV02dgR8MOgre7MI5p5T6AzJckpwRA=;
+        b=p1KJj9Kh2+a6+s5nc3nAnyB0JTXtN1dJynYwYGePmmb197Evxjt2kieNO/iftNlMnK
+         aeBG1kyECHQCc32iLi/AFpHOf4HOgZCsm56JN3Okb+IQWlflBFLdS+L+HAla2WPK+NLo
+         AmK4I2Sqs6vV2GTgSL8zxtmmP9LbfmZZaq14409bKC8FFjlLEEZ4wJ+OGZIUpN9va6oa
+         t8U/YxZg17j6M2pxhHupBa611RKDRjX886yAqNbx120gMRuX5q0fLTPqglt23QHvuj1l
+         YxbQFM4Im+dNqE3gLBl8HPAnJNs5irKGPjkL2oTwaNXyZ8VP80Ybn3rryKp+5wivaKrk
+         90fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791062592; x=1791667392;
+        d=1e100.net; s=20260707; t=1791062588; x=1791667388;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3aZwzLkeC5Zd1WFKT0DwnrS8SKkPjkbpjbdTgKohmOY=;
-        b=Ad4+sRGNy0yAB6ohO9gfSx/G2fxDhJ4vbF9h9C4n5enhQ6lbv0HsID7WUwpL6F6dvj
-         z6b9zuOHJ0ixtl4qzf+iTGXnZf++FA+9QUINguD4HoScPKF2ppPIGDi6rm+o61ajUyMP
-         qzrxSZTxoHrMRzhUbIoIGW+vBUXj2RQkQQkwabv1HZvVsLn7itIg8k8R+r1tiNtQOvFk
-         +xMVc4CTUlJOEUdJj6VTfms+5W3KFx9nuLT70U+3Gs9/nTbWJD+40lFjSF15TmA8Wug7
-         jdluRjLyhVn/sXaFObXyfjs0IPeODpxWmlUd5c41c0DYtfXBrGowhMUw3v7qO90PJDkl
-         FqvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzY8cG1uGJSFtplgZAeJjsRVEpocoYueUc+FphHeAg28TqE+nDYCyrewtBOqLqMLlWeofiV0TU6EQ+K/D4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mS87ZJuy2P1ejEymt0K3FcSDYLZFIRDQt5XqhM7le23szbLSvJ
-	KOsILgjReRprhnSwV/JY7W2f8fDTw9SE6HOLEqQk3RTt/SG05mhnPyXHZh8M46wgEE2aMWmF8l0
-	wmLgQ+Q==
-X-Received: from ejcfv45.prod.google.com ([2002:a17:907:50ad:b0:c2e:8121:1730])
- (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:9728:b0:c2e:7fe7:2898
- with SMTP id a640c23a62f3a-c2e7fe738bbmr76710966b.12.1791062591766; Sat, 03
- Oct 2026 14:23:11 -0700 (PDT)
-Date: Sat,  3 Oct 2026 21:22:38 +0000
+        bh=ruiMF87Q7JhX4xV02dgR8MOgre7MI5p5T6AzJckpwRA=;
+        b=sGqouc2V3tI1TzJNGwlB8E8I971WOyfspPSYOzkmz4JT3zE/CwC/OooRRIZkig1J+g
+         vFsRtAIJcKD/Ihqp+u2DUhlE/0OGVgpsyhYMGx7EE9UqkJHTjMBl+MKejImVObeEYqhp
+         eKQ+1UdzPvVYKNTOOMxA5OZLzFSGCSwYWD6OHfpyuyBDkS2anyyawfmQ+KR02BpGqQ0x
+         AGFJossfCJrLlSuea+FlCKLX6WQWDrXh8OiiaIOtqNvesqPNNSVCdhhEeowfv2nQuSYC
+         bQZSFyFBPK8bLAyjZSyOm4VD1SbRPiaVJcgOdV5VANK/4wvVlO1oQBOzzvk1i5qbcr4H
+         Jr2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwGsO/91Ye66W+4ekPlzdJnNfYWixpIKH1b3VGEyX6uN0HpUMoCvW7zrIFeGvnSWNTj27rRGzWIFHI+8e0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mka0kT5ZoJ3ur85AfQ35AhCMV7sFxS2Zunt51jpPghQ5cRV8P1
+	E4jNxa90VEzY242KI+hZwAarpFHT6TlgKqtSQBoyh2A3hIj+fF041e6WDUDVcg4tyDb8wuFJ1BS
+	EwdWCJg==
+X-Received: from ejra7.prod.google.com ([2002:a17:906:4687:b0:c2e:7ffa:c615])
+ (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:cf86:b0:c26:19de:9ad3
+ with SMTP id a640c23a62f3a-c2e4af70e4emr531232766b.43.1791062587675; Sat, 03
+ Oct 2026 14:23:07 -0700 (PDT)
+Date: Sat,  3 Oct 2026 21:22:35 +0000
 In-Reply-To: <20261003212241.3432303-1-lrizzo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261003212241.3432303-1-lrizzo@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003212241.3432303-20-lrizzo@google.com>
-Subject: [RFC: DMA_PMD 19/22] net/mlx5e: Use DMA_PMD memory for tx header
- bounce buffers
+Message-ID: <20261003212241.3432303-17-lrizzo@google.com>
+Subject: [RFC: DMA_PMD 16/22] iommu/dma: Add per-NUMA-node PMD page reservoir
 From: Luigi Rizzo <lrizzo@google.com>
 To: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
 	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
@@ -83,147 +82,464 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafae
 	linux-kernel@vger.kernel.org, Luigi Rizzo <lrizzo@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When dev->dma_pmd_tx_hdrs is enabled, allocate a MAX_TCP_HEADER
-bounce buffer per TX DMA FIFO slot out of the DMA_PMD arena. When the
-linear portion of a transmitted packet is at most MAX_TCP_HEADER bytes,
-copy it into the pre-mapped bounce buffer instead of calling
-dma_map_single()/dma_unmap_single() on every packet.
+Add a per-NUMA-node reservoir of pre-allocated, pre-zeroed, and
+pre-prepared 2MB pages (dma_pmd_reservoirs[MAX_NUMNODES]) refilled in
+process context by a background worker (dma_pmd_reservoir_work):
+
+- Controlled by dma_pmd.reservoir_max (default 16 PMD pages = 32 MB per
+  N_MEMORY node, subject to the global dma_pmd_max_pages ceiling).
+- dma_pmd_add_page() first tries dma_pmd_reservoir_get(nid) (preferring
+  the target NUMA node and falling back to other N_MEMORY nodes),
+  avoiding blocking or failing order-9 buddy allocations on pool misses.
+- When a node's reservoir drops to <= reservoir_max / 2 (or on pool
+  creation), dma_pmd_reservoir_work is scheduled to refill in the
+  background.
+- Integrate the reservoir with dma_pmd_shrink_count() and
+  dma_pmd_shrink_scan() so reservoir pages are reclaimed first under
+  memory pressure.
 
 Signed-off-by: Luigi Rizzo <lrizzo@google.com>
 ---
- drivers/net/ethernet/mellanox/mlx5/core/en.h  |  2 ++
- .../net/ethernet/mellanox/mlx5/core/en/txrx.h |  4 ++-
- .../net/ethernet/mellanox/mlx5/core/en_main.c | 14 ++++++++++
- .../net/ethernet/mellanox/mlx5/core/en_tx.c   | 28 +++++++++++++++----
- 4 files changed, 42 insertions(+), 6 deletions(-)
+ drivers/iommu/dma-pmd-pool.c | 307 +++++++++++++++++++++++++++++++----
+ 1 file changed, 277 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en.h b/drivers/net/ethernet/mellanox/mlx5/core/en.h
-index a3945195f454e..d762ad1c1ffaf 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en.h
-@@ -442,6 +442,8 @@ struct mlx5e_txqsq {
- 		struct mlx5e_sq_dma       *dma_fifo;
- 		struct mlx5e_skb_fifo      skb_fifo;
- 		struct mlx5e_tx_wqe_info  *wqe_info;
-+		void                      *tx_hdr_bufs;
-+		dma_addr_t                 tx_hdr_bufs_dma;
- 	} db;
- 	void __iomem              *uar_map;
- 	struct netdev_queue       *txq;
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/txrx.h b/drivers/net/ethernet/mellanox/mlx5/core/en/txrx.h
-index f2a8453d8dce0..6de7a2a430d72 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/txrx.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/txrx.h
-@@ -365,7 +365,9 @@ mlx5e_tx_dma_unmap(struct device *pdev, struct mlx5e_sq_dma *dma)
- {
- 	switch (dma->type) {
- 	case MLX5E_DMA_MAP_SINGLE:
--		dma_unmap_single(pdev, dma->addr, dma->size, DMA_TO_DEVICE);
-+		if (dma->size)
-+			dma_unmap_single(pdev, dma->addr, dma->size,
-+					 DMA_TO_DEVICE);
- 		break;
- 	case MLX5E_DMA_MAP_PAGE:
- 		netmem_dma_unmap_page_attrs(pdev, dma->addr, dma->size,
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index 4c6060d54fbed..efd766aa43a02 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -1666,6 +1666,13 @@ static void mlx5e_free_icosq(struct mlx5e_icosq *sq)
+diff --git a/drivers/iommu/dma-pmd-pool.c b/drivers/iommu/dma-pmd-pool.c
+index d774cd05347b8..d48c8e19741ab 100644
+--- a/drivers/iommu/dma-pmd-pool.c
++++ b/drivers/iommu/dma-pmd-pool.c
+@@ -21,6 +21,7 @@
+ #include <linux/mm.h>
+ #include <linux/moduleparam.h>
+ #include <linux/mutex.h>
++#include <linux/nodemask.h>
+ #include <linux/rcupdate.h>
+ #include <linux/seq_file.h>
+ #include <linux/set_memory.h>
+@@ -62,6 +63,18 @@ static atomic_long_t dma_pmd_nr_pages __cacheline_aligned_in_smp;
+ static unsigned long dma_pmd_max_pages __read_mostly;
+ core_param(dma_pmd_max_pages, dma_pmd_max_pages, ulong, 0644);
  
- void mlx5e_free_txqsq_db(struct mlx5e_txqsq *sq)
- {
-+	if (sq->db.tx_hdr_bufs) {
-+		int wq_sz = mlx5_wq_cyc_get_size(&sq->wq);
-+		int df_sz = wq_sz * MLX5_SEND_WQEBB_NUM_DS;
++/* Target number of pre-allocated PMD pages per NUMA node in reservoir. */
++static unsigned int dma_pmd_reservoir_max __read_mostly = 16;
++module_param_named(reservoir_max, dma_pmd_reservoir_max, uint, 0644);
 +
-+		dma_free_coherent(sq->pdev, df_sz * MAX_TCP_HEADER,
-+				  sq->db.tx_hdr_bufs, sq->db.tx_hdr_bufs_dma);
-+	}
- 	kvfree(sq->db.wqe_info);
- 	kvfree(sq->db.skb_fifo.fifo);
- 	kvfree(sq->db.dma_fifo);
-@@ -1690,6 +1697,13 @@ int mlx5e_alloc_txqsq_db(struct mlx5e_txqsq *sq, int numa)
- 		return -ENOMEM;
- 	}
- 
-+	if (sq->pdev->dma_pmd_tx_hdrs)
-+		sq->db.tx_hdr_bufs =
-+			dma_alloc_coherent(sq->pdev,
-+					   df_sz * MAX_TCP_HEADER,
-+					   &sq->db.tx_hdr_bufs_dma,
-+					   GFP_KERNEL | __GFP_NOWARN);
++struct dma_pmd_reservoir {
++	spinlock_t		lock;	/* protects @pages and @nr_pages */
++	struct list_head	pages;
++	unsigned int		nr_pages;
++};
 +
- 	sq->dma_fifo_mask = df_sz - 1;
++static struct dma_pmd_reservoir dma_pmd_reservoirs[MAX_NUMNODES];
++
+ /* All live pools. */
+ static LIST_HEAD(dma_pmd_pools);
+ static DEFINE_MUTEX(dma_pmd_pools_lock);
+@@ -69,6 +82,7 @@ static LLIST_HEAD(dma_pmd_dead_pools);
  
- 	sq->db.skb_fifo.pc   = &sq->skb_fifo_pc;
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-index 0b5e600e4a6a9..3b6a7a8b0128e 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-@@ -177,6 +177,27 @@ mlx5e_tx_get_gso_ihs(struct mlx5e_txqsq *sq, struct sk_buff *skb)
- 	return ihs;
+ static void dma_pmd_schedule_reclaim(void);
+ static void dma_pmd_schedule_scrub(void);
++static void dma_pmd_schedule_reservoir(void);
+ 
+ static void dma_pmd_pool_free_kref(struct kref *kref)
+ {
+@@ -81,8 +95,10 @@ static void dma_pmd_pool_free_kref(struct kref *kref)
+ static int dma_pmd_page_prepare(struct page *page, struct dma_pmd_meta *meta,
+ 				bool can_block)
+ {
+-	bool want_decrypt = READ_ONCE(dma_pmd_decrypt);
+-	bool want_pin = READ_ONCE(dma_pmd_pin);
++	bool want_decrypt = READ_ONCE(dma_pmd_decrypt) &&
++			    !(meta->flags & DMA_PMD_DECRYPTED);
++	bool want_pin = READ_ONCE(dma_pmd_pin) &&
++			!(meta->flags & DMA_PMD_PINNED);
+ 	void *vaddr = page_address(page);
+ 	int ret;
+ 
+@@ -142,6 +158,16 @@ static int dma_pmd_page_unprepare(struct dma_pmd_meta *meta)
+ 	return 0;
  }
  
-+static inline dma_addr_t
-+mlx5e_tx_map_hdr(struct mlx5e_txqsq *sq, unsigned char *data, u32 len)
++static void dma_pmd_free_reservoir_page(struct dma_pmd_meta *meta)
 +{
-+	dma_addr_t dma_addr;
++	struct page *page = pfn_to_page(dma_pmd_meta_to_pfn(meta));
 +
-+	if (sq->db.tx_hdr_bufs && len <= MAX_TCP_HEADER) {
-+		u32 off = (sq->dma_fifo_pc & sq->dma_fifo_mask) *
-+			  MAX_TCP_HEADER;
-+
-+		memcpy(sq->db.tx_hdr_bufs + off, data, len);
-+		dma_addr = sq->db.tx_hdr_bufs_dma + off;
-+		mlx5e_dma_push_single(sq, dma_addr, 0);
-+		return dma_addr;
++	if (!dma_pmd_page_unprepare(meta)) {
++		__free_pages(page, PMD_ORDER);
++		atomic_long_dec(&dma_pmd_nr_pages);
 +	}
-+
-+	dma_addr = dma_map_single(sq->pdev, data, len, DMA_TO_DEVICE);
-+	if (likely(!dma_mapping_error(sq->pdev, dma_addr)))
-+		mlx5e_dma_push_single(sq, dma_addr, len);
-+	return dma_addr;
 +}
 +
- static inline int
- mlx5e_txwqe_build_dsegs(struct mlx5e_txqsq *sq, struct sk_buff *skb,
- 			unsigned char *skb_data, u16 headlen,
-@@ -187,8 +208,7 @@ mlx5e_txwqe_build_dsegs(struct mlx5e_txqsq *sq, struct sk_buff *skb,
- 	int i;
+ /*
+  * Releasing an idle PMD page proceeds in three stages:
+  *
+@@ -226,8 +252,12 @@ static void dma_pmd_reclaim_work_fn(struct work_struct *work)
+ 	struct dma_pmd_pool *pool, *ptmp;
+ 	struct dma_pmd_meta *meta, *tmp;
  
- 	if (headlen) {
--		dma_addr = dma_map_single(sq->pdev, skb_data, headlen,
--					  DMA_TO_DEVICE);
-+		dma_addr = mlx5e_tx_map_hdr(sq, skb_data, headlen);
- 		if (unlikely(dma_mapping_error(sq->pdev, dma_addr)))
- 			goto dma_unmap_wqe_err;
+-	llist_for_each_entry_safe(meta, tmp, node, llnode)
+-		dma_pmd_release_page(meta);
++	llist_for_each_entry_safe(meta, tmp, node, llnode) {
++		if (meta->pool)
++			dma_pmd_release_page(meta);
++		else
++			dma_pmd_free_reservoir_page(meta);
++	}
  
-@@ -196,7 +216,6 @@ mlx5e_txwqe_build_dsegs(struct mlx5e_txqsq *sq, struct sk_buff *skb,
- 		dseg->lkey       = sq->mkey_be;
- 		dseg->byte_count = cpu_to_be32(headlen);
+ 	node = llist_del_all(&dma_pmd_dead_pools);
+ 	if (node) {
+@@ -463,6 +493,186 @@ static void dma_pmd_schedule_scrub(void)
+ 		schedule_work(&dma_pmd_scrub_work);
+ }
  
--		mlx5e_dma_push_single(sq, dma_addr, headlen);
- 		num_dma++;
- 		dseg++;
++/*
++ * Per-NUMA-node PMD page reservoir
++ * --------------------------------
++ * Order-9 (2MB) buddy allocations can compact/reclaim and fail or stall in
++ * atomic context (such as NAPI RX refill or softirq TX), and CoCo decryption /
++ * hypervisor pinning cannot run in atomic context at all.
++ *
++ * Each NUMA node maintains a small reservoir of up to @dma_pmd_reservoir_max
++ * (default 8 = 16 MB/node) pre-allocated, pre-zeroed, and pre-decrypted/pinned
++ * PMD pages. On a pool miss, dma_pmd_add_page() pops a ready PMD page from the
++ * target node's reservoir in O(1) under a spinlock (falling back to other
++ * nodes before calling alloc_pages_node() directly).
++ *
++ * A background worker on system_wq refills nodes whenever a node's count drops
++ * to or below half of @dma_pmd_reservoir_max, on a reservoir miss, or when a
++ * new pool is created. Pages held in the reservoir count toward the global
++ * @dma_pmd_nr_pages budget and are reclaimable by the shrinker under memory
++ * pressure.
++ */
++
++/**
++ * dma_pmd_reservoir_refill_node - Refill node @nid's reservoir up to @max
++ * @nid: NUMA node ID
++ * @max: Target number of PMD pages to hold in @nid's reservoir
++ *
++ * Cost: Slow path; allocates order-9 pages with GFP_KERNEL | __GFP_RETRY_MAYFAIL,
++ *       populates metadata, decrypts/pins if configured, and zeroes 2MB per page.
++ * Locking: Process context (system_wq); sleeps during buddy allocation, CPA
++ *          decryption, and cond_resched(). Takes @res->lock briefly to enqueue.
++ * Frequency: Rare (when reservoir drops to <= @max / 2 or on pool creation).
++ */
++static void dma_pmd_reservoir_refill_node(int nid, unsigned int max)
++{
++	gfp_t gfp = GFP_KERNEL | __GFP_THISNODE | __GFP_NOWARN | __GFP_RETRY_MAYFAIL;
++	struct dma_pmd_reservoir *res = &dma_pmd_reservoirs[nid];
++
++	while (READ_ONCE(res->nr_pages) < max) {
++		struct dma_pmd_meta *meta;
++		unsigned long flags;
++		struct page *page;
++
++		if (atomic_long_inc_return(&dma_pmd_nr_pages) >
++		    READ_ONCE(dma_pmd_max_pages)) {
++			atomic_long_dec(&dma_pmd_nr_pages);
++			break;
++		}
++
++		page = alloc_pages_node(nid, gfp, PMD_ORDER);
++		if (!page) {
++			atomic_long_dec(&dma_pmd_nr_pages);
++			break;
++		}
++
++		if (unlikely(!dma_pmd_meta_ensure_pfn(page_to_pfn(page), true))) {
++			__free_pages(page, PMD_ORDER);
++			atomic_long_dec(&dma_pmd_nr_pages);
++			break;
++		}
++
++		meta = dma_pmd_meta_of_pfn(page_to_pfn(page));
++		memset(meta, 0, sizeof(*meta));
++		spin_lock_init(&meta->map_lock);
++
++		if (dma_pmd_page_prepare(page, meta, true)) {
++			__free_pages(page, PMD_ORDER);
++			atomic_long_dec(&dma_pmd_nr_pages);
++			break;
++		}
++
++		if (!(meta->flags & DMA_PMD_DECRYPTED))
++			memset(page_address(page), 0, PMD_SIZE);
++
++		spin_lock_irqsave(&res->lock, flags);
++		list_add(&meta->list, &res->pages);
++		res->nr_pages++;
++		spin_unlock_irqrestore(&res->lock, flags);
++
++		cond_resched();
++	}
++}
++
++static void dma_pmd_reservoir_work_fn(struct work_struct *work)
++{
++	unsigned int max = READ_ONCE(dma_pmd_reservoir_max);
++	int nid;
++
++	if (!max || !dma_pmd_meta_base())
++		return;
++
++	for_each_node_state(nid, N_MEMORY)
++		dma_pmd_reservoir_refill_node(nid, max);
++}
++
++static DECLARE_WORK(dma_pmd_reservoir_work, dma_pmd_reservoir_work_fn);
++
++static void dma_pmd_schedule_reservoir(void)
++{
++	if (READ_ONCE(dma_pmd_reservoir_max) &&
++	    !work_pending(&dma_pmd_reservoir_work))
++		schedule_work(&dma_pmd_reservoir_work);
++}
++
++/*
++ * Pop one pre-prepared PMD page from node @nid's reservoir.
++ *
++ * Cost: O(1) list pop under @res->lock.
++ * Locking: Acquires @res->lock (irqsave). Safe from any context (IRQ, softirq,
++ *          process). Never sleeps.
++ * Frequency: Only on pool miss (dma_pmd_add_page()).
++ */
++static struct dma_pmd_meta *dma_pmd_reservoir_pop_node(int nid, unsigned int max)
++{
++	struct dma_pmd_reservoir *res = &dma_pmd_reservoirs[nid];
++	struct dma_pmd_meta *meta;
++	unsigned long flags;
++	bool refill = false;
++
++	if (!READ_ONCE(res->nr_pages))
++		return NULL;
++
++	spin_lock_irqsave(&res->lock, flags);
++	meta = list_first_entry_or_null(&res->pages, struct dma_pmd_meta, list);
++	if (meta) {
++		list_del_init(&meta->list);
++		res->nr_pages--;
++		refill = res->nr_pages <= max / 2;
++	}
++	spin_unlock_irqrestore(&res->lock, flags);
++
++	if (refill)
++		dma_pmd_schedule_reservoir();
++
++	return meta;
++}
++
++/**
++ * dma_pmd_reservoir_get - Obtain a pre-prepared PMD page, preferring @nid
++ * @nid: Preferred NUMA node (or NUMA_NO_NODE for local node)
++ *
++ * Tries @nid's reservoir first, then falls back to other memory nodes and
++ * schedules an async refill if a fallback or empty reservoir is encountered.
++ *
++ * Cost: O(1) on local node hit; O(MAX_NUMNODES) lockless checks on miss.
++ * Locking: Acquires @res->lock (irqsave) on non-empty node. Safe from any
++ *          context. Never sleeps.
++ * Frequency: Only on pool miss (dma_pmd_add_page()).
++ *
++ * Return: Metadata pointer of a ready PMD page (not yet compound-split or
++ *         bound to a pool), or NULL if all reservoirs are empty.
++ */
++static struct dma_pmd_meta *dma_pmd_reservoir_get(int nid)
++{
++	unsigned int max = READ_ONCE(dma_pmd_reservoir_max);
++	struct dma_pmd_meta *meta;
++	int target_nid, n;
++
++	if (!max)
++		return NULL;
++
++	target_nid = (nid == NUMA_NO_NODE) ? numa_mem_id() : nid;
++	if (target_nid >= 0 && target_nid < MAX_NUMNODES) {
++		meta = dma_pmd_reservoir_pop_node(target_nid, max);
++		if (meta)
++			return meta;
++	}
++
++	for_each_node_state(n, N_MEMORY) {
++		if (n == target_nid)
++			continue;
++		meta = dma_pmd_reservoir_pop_node(n, max);
++		if (meta) {
++			dma_pmd_schedule_reservoir();
++			return meta;
++		}
++	}
++
++	dma_pmd_schedule_reservoir();
++	return NULL;
++}
++
+ unsigned int dma_pmd_pools_forget_domain(int idx)
+ {
+ 	struct dma_pmd_pool *pool;
+@@ -538,6 +748,7 @@ struct dma_pmd_pool *dma_pmd_pool_create(unsigned int order, unsigned int max_id
  	}
-@@ -578,7 +597,7 @@ mlx5e_sq_xmit_mpwqe(struct mlx5e_txqsq *sq, struct sk_buff *skb,
- 	txd.data = skb->data;
- 	txd.len = skb->len;
+ 	list_add(&pool->node, &dma_pmd_pools);
+ 	mutex_unlock(&dma_pmd_pools_lock);
++	dma_pmd_schedule_reservoir();
  
--	txd.dma_addr = dma_map_single(sq->pdev, txd.data, txd.len, DMA_TO_DEVICE);
-+	txd.dma_addr = mlx5e_tx_map_hdr(sq, txd.data, txd.len);
- 	if (unlikely(dma_mapping_error(sq->pdev, txd.dma_addr)))
- 		goto err_unmap;
+ 	return pool;
+ }
+@@ -616,10 +827,18 @@ static struct dma_pmd_meta *dma_pmd_add_page(struct dma_pmd_pool *pool,
+ 	 */
+ 	bool can_block = (gfp & GFP_KERNEL) == GFP_KERNEL;
+ 	unsigned int nr = DMA_PMD_BLOCKS(pool->order);
++	bool from_reservoir = false;
+ 	struct dma_pmd_meta *meta;
+ 	gfp_t alloc_gfp, base_gfp;
+ 	struct page *page;
  
-@@ -591,7 +610,6 @@ mlx5e_sq_xmit_mpwqe(struct mlx5e_txqsq *sq, struct sk_buff *skb,
++	meta = dma_pmd_reservoir_get(nid);
++	if (meta) {
++		page = pfn_to_page(dma_pmd_meta_to_pfn(meta));
++		from_reservoir = true;
++		goto prepare;
++	}
++
+ 	/*
+ 	 * A high-order allocation is expensive when it fails, and under fragmentation
+ 	 * it fails on every pool miss. For GFP_ATOMIC, back off briefly.
+@@ -687,9 +906,10 @@ static struct dma_pmd_meta *dma_pmd_add_page(struct dma_pmd_pool *pool,
  
- 	sq->stats->xmit_more += xmit_more;
+ 	meta = dma_pmd_meta_of_pfn(page_to_pfn(page));
+ 	memset(meta, 0, sizeof(*meta));
+-	meta->pool = pool;
+ 	spin_lock_init(&meta->map_lock);
  
--	mlx5e_dma_push_single(sq, txd.dma_addr, txd.len);
- 	mlx5e_skb_fifo_push(&sq->db.skb_fifo, skb);
- 	mlx5e_tx_mpwqe_add_dseg(sq, &txd);
- 	mlx5e_tx_skb_update_ts_flags(skb);
++prepare:
++	meta->pool = pool;
+ 	if (dma_pmd_page_prepare(page, meta, can_block)) {
+ 		__free_pages(page, PMD_ORDER);
+ 		atomic_long_dec(&dma_pmd_nr_pages);
+@@ -705,8 +925,8 @@ static struct dma_pmd_meta *dma_pmd_add_page(struct dma_pmd_pool *pool,
+ 		return NULL;
+ 	}
+ 
+-	if (zero || (meta->flags & DMA_PMD_DECRYPTED)) {
+-		if (!(meta->flags & DMA_PMD_DECRYPTED))
++	if (from_reservoir || zero || (meta->flags & DMA_PMD_DECRYPTED)) {
++		if (!from_reservoir && !(meta->flags & DMA_PMD_DECRYPTED))
+ 			memset(page_address(page), 0, PMD_SIZE);
+ 		bitmap_set(meta->free_bitmap, 0, nr);
+ 		meta->nr_free = nr;
+@@ -1042,14 +1262,17 @@ static unsigned long dma_pmd_shrink_count(struct shrinker *shrink,
+ {
+ 	struct dma_pmd_pool *pool;
+ 	unsigned long nr = 0;
++	int nid;
+ 
+-	if (!mutex_trylock(&dma_pmd_pools_lock))
+-		return 0;
++	for_each_node_state(nid, N_MEMORY)
++		nr += READ_ONCE(dma_pmd_reservoirs[nid].nr_pages);
+ 
+-	list_for_each_entry(pool, &dma_pmd_pools, node)
+-		nr += READ_ONCE(pool->num_idle_pages);
++	if (mutex_trylock(&dma_pmd_pools_lock)) {
++		list_for_each_entry(pool, &dma_pmd_pools, node)
++			nr += READ_ONCE(pool->num_idle_pages);
+ 
+-	mutex_unlock(&dma_pmd_pools_lock);
++		mutex_unlock(&dma_pmd_pools_lock);
++	}
+ 
+ 	return nr << PMD_ORDER;
+ }
+@@ -1062,34 +1285,50 @@ static unsigned long dma_pmd_shrink_scan(struct shrinker *shrink,
+ 	unsigned long freed = 0;
+ 	LIST_HEAD(release_list);
+ 	unsigned long flags;
+-	int srcu_idx;
++	int srcu_idx, nid;
+ 
+-	if (!mutex_trylock(&dma_pmd_pools_lock))
+-		return SHRINK_STOP;
++	for_each_node_state(nid, N_MEMORY) {
++		struct dma_pmd_reservoir *res = &dma_pmd_reservoirs[nid];
+ 
+-	srcu_idx = srcu_read_lock(&dma_pmd_srcu);
+-	list_for_each_entry(pool, &dma_pmd_pools, node) {
+-		/*
+-		 * Every PMD page on @idle is a candidate, so this detaches one
+-		 * per iteration and stops as soon as the reclaim path has
+-		 * what it asked for: the IRQs-off section is bounded by the
+-		 * work done, not by how many PMD pages the pool holds.
+-		 */
+-		spin_lock_irqsave(&pool->lock, flags);
+-		list_for_each_entry_safe(meta, tmp, &pool->idle, list) {
++		if (!READ_ONCE(res->nr_pages))
++			continue;
++		spin_lock_irqsave(&res->lock, flags);
++		list_for_each_entry_safe(meta, tmp, &res->pages, list) {
+ 			if (freed >= sc->nr_to_scan)
+ 				break;
+ 			list_move(&meta->list, &release_list);
+-			pool->num_idle_pages--;
++			res->nr_pages--;
+ 			freed += 1UL << PMD_ORDER;
+ 		}
+-		spin_unlock_irqrestore(&pool->lock, flags);
+-
++		spin_unlock_irqrestore(&res->lock, flags);
+ 		if (freed >= sc->nr_to_scan)
+ 			break;
+ 	}
+ 
+-	mutex_unlock(&dma_pmd_pools_lock);
++	srcu_idx = srcu_read_lock(&dma_pmd_srcu);
++	if (freed < sc->nr_to_scan && mutex_trylock(&dma_pmd_pools_lock)) {
++		list_for_each_entry(pool, &dma_pmd_pools, node) {
++			/*
++			 * Every PMD page on @idle is a candidate, so this detaches one
++			 * per iteration and stops as soon as the reclaim path has
++			 * what it asked for: the IRQs-off section is bounded by the
++			 * work done, not by how many PMD pages the pool holds.
++			 */
++			spin_lock_irqsave(&pool->lock, flags);
++			list_for_each_entry_safe(meta, tmp, &pool->idle, list) {
++				if (freed >= sc->nr_to_scan)
++					break;
++				list_move(&meta->list, &release_list);
++				pool->num_idle_pages--;
++				freed += 1UL << PMD_ORDER;
++			}
++			spin_unlock_irqrestore(&pool->lock, flags);
++
++			if (freed >= sc->nr_to_scan)
++				break;
++		}
++		mutex_unlock(&dma_pmd_pools_lock);
++	}
+ 
+ 	/*
+ 	 * Retiring is done outside both locks: dma_pmd_release_page() unmaps
+@@ -1103,8 +1342,10 @@ static unsigned long dma_pmd_shrink_scan(struct shrinker *shrink,
+ 		if (meta->flags & (DMA_PMD_DECRYPTED | DMA_PMD_PINNED)) {
+ 			llist_add(&meta->llnode, &dma_pmd_free_list);
+ 			dma_pmd_schedule_reclaim();
+-		} else {
++		} else if (meta->pool) {
+ 			dma_pmd_release_page(meta);
++		} else {
++			dma_pmd_free_reservoir_page(meta);
+ 		}
+ 	}
+ 	srcu_read_unlock(&dma_pmd_srcu, srcu_idx);
+@@ -1128,6 +1369,12 @@ static unsigned long dma_pmd_shrink_scan(struct shrinker *shrink,
+ static int __init dma_pmd_init(void)
+ {
+ 	struct shrinker *shrink;
++	int nid;
++
++	for (nid = 0; nid < MAX_NUMNODES; nid++) {
++		spin_lock_init(&dma_pmd_reservoirs[nid].lock);
++		INIT_LIST_HEAD(&dma_pmd_reservoirs[nid].pages);
++	}
+ 
+ 	/*
+ 	 * Hard ceiling on memory diverted from the buddy allocator into 2MB
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
