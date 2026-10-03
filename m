@@ -1,89 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3237535B63C;
-	Sat,  3 Oct 2026 15:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B131442B17;
+	Sat,  3 Oct 2026 15:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791041245; cv=none; b=fwm3I1SNEM+L03KXBCB+b1r2ogk0/3yphxgvXzAfuxod96RprkoV3F3ICFpR1kQONjaKPYQuPxAMXy04kUbwQM0ZdEw0MXxG//4cacQR4MEK0GRwvODNbgyi5p3XjcmrvkOAJYp+5KS8NEKrtPEfB+Kp6Jsw4m2PGWHAkd7F5CI=
+	t=1791041420; cv=none; b=gE71rCgVq9AuPP1p797gC5v5a7GU9sW1nFurvNwHOJtK7TbP1x9ia4sopwPsLZiztARNFt6frEDj62n3t7HrQ2+3ShM4QGHqdvTpPJ/08iyhfoz0/BBYWQSgl3+Ag+azg8HG58lxRo0hUCqOmZMv9YO+xazD9LSXhY59Bl1Nezs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791041245; c=relaxed/simple;
-	bh=uyopUVqZceOyKr4dw61Ai/PDYs0DgDRUXKKW5TsHp+4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mGuPnkwluLD4GOwUt+DGGKqfjwsPtMCuzewzvPZgpaDTLEBOFE8QTliNw9uwNlwge3PAfkSosjTZA5uEZgIA2FUxs62xCDExZbJY6Ai2SOR5QGXQJ+77AT2NhSqsDbyQBp70vaTyaBrg2DzinaUQhEbt74TD5YTQ3r0pM8OW4Yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RzRlYgwr; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791041420; c=relaxed/simple;
+	bh=DqNzmiLqSRpWo/O9PN56Vgk4zOzq2vzIekil+azxtfs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Uy5Yxc/lwZ/pjCmubg+TUsyIp7deFUJgm+mZR8FulutT/3pHN1LLsoQZn3DPWpn4bFOWKbbIeESfMa5bmbgPo6f6+HDzRSW4weuTMbVJEokd64o3XQEWh5eqU6KEfsdF/PAbXZu/CDljophegGn+6HWMg7ozEl1Nhdre1TG2uoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VsluF5b6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RzRlYgwr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791041243; x=1822577243;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uyopUVqZceOyKr4dw61Ai/PDYs0DgDRUXKKW5TsHp+4=;
-  b=RzRlYgwrgHGTCS5hBtpIiPmbIwX22QptaXiZ0rQb8cYkYDsm99jUxbtU
-   Fj/sTbbKe01eTHkRfMtJ9Y90jTiCOUEe7d8RyzokkQL5O3YkagrNuRyQX
-   +YNbs73BHR9Iix07VvEcxNIQKJon75K+QwiqpLDRdLMPmRkWhzLneejQv
-   AUAVRvrIZZiT4Kxi9Jhg8faGxB+973QMw7piBJyq0M7AkNYg70D2Ykarb
-   mITsZzYru8ko02Mh+yL0+8XISNNlocWYnoxlxs+MPrDSYKXRAu9SnoVU1
-   tEuLM/st0+VMNOwf5Y6BOBUpv309VEDYbmOY8MmwYHtlCvEZPCDTsbyCZ
-   Q==;
-X-CSE-ConnectionGUID: K9DJUHYBRq+jmAdIXSbLOw==
-X-CSE-MsgGUID: 2c4+/afqQ62aetj5tsG34A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="79338043"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="79338043"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 08:27:23 -0700
-X-CSE-ConnectionGUID: X0ySsU+zR2mUPm2frMoLVA==
-X-CSE-MsgGUID: BkUa+ODwROejzliVQLambw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="276011389"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 08:27:20 -0700
-Date: Sat, 3 Oct 2026 18:27:17 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>, gregkh@linuxfoundation.org,
-	nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	dlechner@baylibre.com, andy@kernel.org, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, error27@gmail.com,
-	narcisaanamaria12@gmail.com
-Subject: Re: [PATCH 0/3] staging: iio: accel: adis16203: fix axis mapping and
- cleanups
-Message-ID: <asEe1eE5-FQnnQhM@ashevche-desk.local>
-References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
- <20261002153302.5c64819d@jic23-hlaptop>
- <CALoEA-z6Q3YyYZfLyRixk9dPy8mn+mmVJVUrjoCZb6T7FXcDSA@mail.gmail.com>
- <CANpqX3Z5_RHPHFCCovZ1jXiQcYgkB5uJVzAKX02udzt2+KDcyw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VsluF5b6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B511143D;
+	Sat,  3 Oct 2026 08:30:08 -0700 (PDT)
+Received: from [10.57.8.170] (unknown [10.57.8.170])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 78A283F86F;
+	Sat,  3 Oct 2026 08:30:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791041411; bh=DqNzmiLqSRpWo/O9PN56Vgk4zOzq2vzIekil+azxtfs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VsluF5b6kSrZ+AUV4dej8J3hVAA0bso9VTPuE066QFBnPImM3oadyvBD4Og9UtP29
+	 50yVKbbIbWEUm/fpCMSMFhuU/77J7B7JoUuvUqrzDggYJQOP30hz3/M2LO4o+uEVYK
+	 m0MI8bfOukYnTKVm+bkg7o+Z0KqJJtqTlD7KGh4M=
+Message-ID: <9873fb9d-6f32-46f6-bcac-6a52e293d011@arm.com>
+Date: Sat, 3 Oct 2026 16:30:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANpqX3Z5_RHPHFCCovZ1jXiQcYgkB5uJVzAKX02udzt2+KDcyw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 10/23] KVM: arm64: Add VM specific callback for S2 MMU
+ operations
+Content-Language: en-GB
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
+ catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
+ <20261001210703.1597150-11-suzuki.poulose@arm.com>
+ <86ik3j2m5v.wl-maz@kernel.org>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <86ik3j2m5v.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 03, 2026 at 07:58:55AM +0300, Abdelnasser Hussein wrote:
+On 03/10/2026 10:01, Marc Zyngier wrote:
+> On Thu, 01 Oct 2026 22:06:50 +0100,
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>>
+>> Add VM type specific S2 MMU operation backends which can be initialized per
+>> VM flavor, to keep the handling cleaner.
+>>
+>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>> Tested-by: Gavin Shan <gshan@redhat.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>> Changes since v19:
+>>   - Add a blank line in kvm_arch_flush_remote_tlbs()
 
-...
 
-> However, the important thing for me is that I still learned a lot from
-> Joshua's and Andy's reviews on this patch.
+>>   struct kvm_s2_mmu {
+>>   	struct kvm_vmid vmid;
+>>   
+>> @@ -332,6 +345,8 @@ struct kvm_arch {
+>>   	 */
+>>   	u64 fgu[__NR_FGT_GROUP_IDS__];
+>>   
+>> +	const struct kvm_vm_s2_ops *vm_s2_ops;
+>> +
+> 
+> If you're touching this patch, can you please move this pointer next
+> to the vcpu_ops pointer?
 
-Yep, at least I don't consider that was wasted time for me. The learning
-effect, if it's delivered and accepted, has its own value.
+Sure, I will do that.
 
--- 
-With Best Regards,
-Andy Shevchenko
+>> +
+>> +static const struct kvm_vm_s2_ops protected_pkvm_vm_s2_ops = {
+>> +	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
+>> +	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
+>> +	/*
+>> +	 * Not supported for Protected VMs under pKVM
+>> +	 * .vm_age_gfn
+>> +	 * .vm_test_age_gfn
+>> +	 * .vm_stage2_unmap_range
+>> +	 */
+> 
+> I really think we should have *something* here that returns
+> "unsupported", and avoid NULL-checks in the dispatchers.
 
+Ack
+
+> 
+>> +};
+>> +
+>> +static const struct kvm_vm_s2_ops pkvm_vm_s2_ops = {
+>> +	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
+>> +	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
+>> +	.vm_age_gfn			= kvm_vm_age_gfn,
+>> +	.vm_test_age_gfn		= kvm_vm_test_age_gfn,
+>> +	.vm_stage2_unmap_range		= kvm_vm_stage2_unmap_range,
+> 
+> and since we have this: can we get rid of the KVM_PGT_FN() hack?
+
+Ack, I will give it a go.
+
+
+>> +#define KVM_VM_S2_OPS(flavor, ops)		\
+>> +		[flavor] = ops
+>> +static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
+>> +	KVM_VM_S2_OPS(VM_VHE, &kvm_default_vm_s2_ops),
+>> +	KVM_VM_S2_OPS(VM_NVHE, &kvm_default_vm_s2_ops),
+>> +	KVM_VM_S2_OPS(VM_PKVM, &pkvm_vm_s2_ops),
+>> +	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, &protected_pkvm_vm_s2_ops),
+> 
+> nit: move the '&' into the macro.
+
+Ack.
+
+Suzuki
 
