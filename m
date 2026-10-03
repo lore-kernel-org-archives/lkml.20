@@ -1,121 +1,129 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431AE38F92A
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C917733B6C4;
+	Sat,  3 Oct 2026 19:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791055385; cv=none; b=SLxZaXrUog3LoIbzK/4tTIoph6uA+kLXth47JhkcD/3m39ujknGM8UKIilEnWPAid3rhya2It6QESglVrcJK3oz86RuVgDQE72K31bf5xn16RvtaZz+1mXu+AL5nxR2GPzN2mHRGuvsdnkHE9mMfvFFS1SpPNaD+INlTIwhwkxY=
+	t=1791055597; cv=none; b=E/fbhK5boorsggPsgclzQSm6lMx+HaUxTMCk0XCOv/PsS6KVuYnrnRf1iRdE+/QVGKT3i7PWCHulF1dQLwK77kVfoTqXe6G34lMs7hNNzy/rldKA8Xd8K5t/C4DsojgrL67hV9eFTjkdzEIAfjnJH1n1RcKGmfNRxcUW1OvMfYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791055385; c=relaxed/simple;
-	bh=XHE6A5BN8v6Dp+xVYIMHhiMfFNUVP0eMVpusbjehULs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=U2ED4RnMNrik6WLh25tSHiievRUu/csjdY+R7lC+ob1acaibE1a471oS/E0UpIKlx9czldWR8woa0lL0epsQbBEaWxjxuv/nUgQulK8zD8nVOIzR+1Auytd6WVj3y80m7dBp6W8SP4SEz850V/P06Pa7BPjWVEQRUMteUytJ6e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Odq6H+qt; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791055597; c=relaxed/simple;
+	bh=ne4DE2Kbps8U9ue9LceVqg74lnohRogFSoEolKYwoRw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=q6rdu8PHckYjtu+aXOPUW1V/oCgz8ZBPfD42xMKNwxJ1Gc7f2HODYQYW2NuT0VIqLgzB/lwSSRPQ4eWtHnTn1M3WrVvRfDZwuD1Uy6CSbmzY+JE9+xkoYbf3sXxv2wYcCk+NumsZMqFbrCHaI/sfihLmTfCmfBrE+QLyn6N2ng4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=CyscC9hv; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Odq6H+qt"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so6444115e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:23:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791055382; x=1791660182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N87SDrTNrT62RbYNdy57gjkPfRU5M8XA+xJLqbWkO+w=;
-        b=Odq6H+qtr0Ov9UDCNWQA0fHAbNpUBcCpeacWspyyYjR++fp9e2Bn6ql1ivTIvSANTO
-         wkTcM/PrbLTHXKQZY1Kzvx9npoSwaAl81DQhVa+oXyPlRPASrcJ7pVW4NMhDKid9GNoo
-         H9akM3ckJQxVcsqLlWWQIW5vKoLtaS9cmtcffQL/bUwGVTAFb7/0u4e4GyuKYrXjAYVr
-         2DcSLUFqnoVwTzr4qjqt4OWaf1JZvgr2h8QVUK67zN5ZXfv8qwEwt0ctT+UDwrYYA2ad
-         RVqrb2EFkNZZzqptQSqqt1RL+X7/JtasTEqK2NG45FltiTZ2qZvIbee22j9GxVxpbOYG
-         zvSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791055382; x=1791660182;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N87SDrTNrT62RbYNdy57gjkPfRU5M8XA+xJLqbWkO+w=;
-        b=ePecflzD9ezhdYqhbAFYTnnst+uq5YdG509Jy/Muc8FLEIGCcT5Xj6B5NqdTlwbIoB
-         fWB7zVuljKn2SUQFdgIargsclpZq/6ETzyWfVRQtMHFnwteD8XuJESwffNKZGWEzIUKi
-         uJEKyNpy9U74nNM9Kie1OXC6QgRbWkddrTYVqxsSQXWUY8XcIeS8EpS971CKPLHSmjC6
-         WsGYfSmA7iRqLKY0e5QVUI6slQiOP/56ilLo20Z+SoTld9j9bMKYGcUClZJg5aiL1yc+
-         jqT3SMitVbucjPjoRC6TcQIizzefLR7iBPQCZ9123zt2uajW3sYHbVPJxmUJUsNQCivT
-         rJUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzKh247+uP2QCdffPoceg1WflG6ExgDfs6zEC8iIz8tiHb+zgO8ndzrkiB3Ztl7puknaVyZ5XP3CYOPjws=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPfeXAbjghZ53+/0RB/5e3boeiOlMBeVh2kESyncE8+8pTSrWo
-	pS/XHKf0v0HArhopXVR0Yph1W/tZgPL/td9PrHs7o7p76RDNXNQYV3cH
-X-Gm-Gg: AYBFou3dVFWttgPzgqCfy1UX3Wn4tRHziP7Vza0yMeyEcnBCYsfpDEyTN7ufIL3eaDU
-	+VpP6yy//9wCAoPwzm5Nf23AXPB8r3l3rd+Zz+PE0d2bgHCBEHgjnrYvAC1/eKcTKHcHVl/5101
-	AyLakASX2Mc4ejzxKizddQ3vnVK9N2ET+xQHHP10DWAfPN+d7ttrBBViXxhv6tJYRbIvKygplp+
-	N6ARFlATuVGhtz7tK9KELhdIi50IjHbZ6nJ39vBOx1RVOhqWwGtZT/qBBogxVLur0Hl4shpJRPC
-	9gylxmrL6j8EQ5ZxDual67AaARI7Kf8wYAbsddDip97DNaBaRyc8QEw91Yzm6P6kg7fyCrHvhYP
-	8yV81rXT2vRx2HMUK4Cq9njGkaWsCXyyfCXd2XkY3SKdUItVSbl0xq4Jtfu8ekLQ7MPQC/6FURb
-	SkOPZqANhshp+FgDnErvuNKuCODdtCnxu6BfGMbATpW6lWBhTH91bJKE/DBD62XAXzt3cs6JzJv
-	3gW/QZ+UFA2OcdNrBpkVWza86u7whASd1DBeKiTV55FQdSI0/m2QyBPN1TZEJKJmagNyUsV0iwa
-	L80v0r0aqiyIdUK6jLWWnUJUAbOwy/P6fhNyvgtyU6JQ5R3uke3yi0xG1LOBr9dJd9RD1/UDik0
-	zGA==
-X-Received: by 2002:a05:600c:4e87:b0:4a0:3a3:33e2 with SMTP id 5b1f17b1804b1-4a027567702mr115370855e9.5.1791055382292;
-        Sat, 03 Oct 2026 12:23:02 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b2e2-2001-c47f-5a89-3d9a-cd2d.310.pool.telefonica.de. [2a02:3100:b2e2:2001:c47f:5a89:3d9a:cd2d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394e6c5asm150040485e9.2.2026.10.03.12.23.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 03 Oct 2026 12:23:01 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jeff Chen <jeff.chen_1@nxp.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless] wifi: nxpwifi: fail the firmware download on a poll timeout
-Date: Sat,  3 Oct 2026 21:22:56 +0200
-Message-Id: <20261003192256.78255-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="CyscC9hv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=DUnsrRI8Dm7GcYsyfjeM01fsNT7D1vSKGaEorMuk4N8=; b=CyscC9hvPlLWkMjMLoa/3Fqn1F
+	vOS3RTmIhxCKUrz9YFFAf1gCC9ktt3RB57J9UYUq79sis5iDkynwRynPsjutUg+WYi7LruqdAAlDT
+	FszsEriA2qdwm+F0+QCCsszGCJFRfhh/Xf3ECHinHDl0J1+SfrTVWI/elAEuqlSsQFRYTwDO1kCDs
+	0SVosPwbsG+7HijrOAT9wKWL0n5lJqukVORPpyWKTioAMRv8saoRGhNenCdt2RT5ymGU/A0Vm6ltq
+	vooAlq6sPj3O5yvgN8KUgpYtKk1wxK70Ngc5jKTI63WmPXgHXA2aCUy0H4WpEIAnr3Hf2QmFGuCH7
+	chTFSRIQ==;
+Received: from [151.115.150.205] (port=58646 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xD5NQ-0000000FAnS-3ZFO;
+	Sat, 03 Oct 2026 21:26:28 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+	Jon Maloy <jmaloy@redhat.com>
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] tipc: fix use-after-free in netns teardown
+Date: Sat,  3 Oct 2026 19:25:31 +0000
+Message-ID: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-nxpwifi_sdio_poll_card_status() returns the result of the last register
-read when the requested status bits never show up. That read succeeded,
-so a timeout is reported as success.
+conn_put() decreases the reference count of a connection, and when it
+reaches zero, tipc_conn_kref_release() removes the connection from
+conn_idr and frees it. Removing the entry is protected by idr_lock,
+but decreasing the count is not.
 
-nxpwifi_prog_fw_w_helper() therefore skips its "poll status timeout"
-branch on a timeout. With an emulated SDIO card that never gets ready,
-the driver logs "FW download complete (0 bytes)" and gives up 30 seconds
-later with "FW failed to be active in time".
+During netns dismantle, it may happen that a connection gets its count
+dropped to zero by conn_put() while tipc_topsrv_stop() still holds the
+lock idr_lock. tipc_topsrv_stop() calls conn_get() on that connection
+whose count is already zero, and then releases idr_lock.
+tipc_conn_kref_release() can then free the connection before
+tipc_conn_close() uses it. KASAN reports the UAF as:
 
-Return -ETIMEDOUT when the poll runs out of tries. mwifiex, which this
-function was derived from, returns an error in the same place.
+  BUG: KASAN: slab-use-after-free in tipc_conn_close (net/tipc/topsrv.c:158)
+  Read of size 8 at addr ff1100000cf4f408 by task kworker/u16:3/70
 
-Noticed while looking at a clang -Wconditional-uninitialized warning on
-this return statement. Tested only in QEMU with an SDIO card model
-written for this test, not on real hardware.
+Stop accepting connections before walking conn_idr. Use
+kref_get_unless_zero() to avoid taking references when the count is zero.
+Retry from the first entry, releasing idr_lock and calling cond_resched()
+between iterations so pending work can finish.
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Fixes: 667eeab4999e ("tipc: Fix use-after-free in tipc_conn_close().")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- drivers/net/wireless/nxp/nxpwifi/sdio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/tipc/topsrv.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/sdio.c b/drivers/net/wireless/nxp/nxpwifi/sdio.c
-index 8ef0f6eb49e2..a0d7196c13a2 100644
---- a/drivers/net/wireless/nxp/nxpwifi/sdio.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/sdio.c
-@@ -665,7 +665,7 @@ nxpwifi_sdio_poll_card_status(struct nxpwifi_adapter *adapter, u8 bits)
+diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
+index af530c9ed8402..9ab2349f71190 100644
+--- a/net/tipc/topsrv.c
++++ b/net/tipc/topsrv.c
+@@ -700,16 +700,23 @@ static void tipc_topsrv_stop(struct net *net)
+ 	struct tipc_conn *con;
+ 	int id;
  
- 	nxpwifi_dbg(adapter, ERROR, "poll card status failed, tries = %d\n", tries);
- 
--	return ret;
-+	return ret ?: -ETIMEDOUT;
- }
- 
- /* Disable SDIO host interrupt and release IRQ. */
-
-base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
++	write_lock_bh(&lsock->sk->sk_callback_lock);
++	lsock->sk->sk_user_data = NULL;
++	write_unlock_bh(&lsock->sk->sk_callback_lock);
++	cancel_work_sync(&srv->awork);
++
+ 	spin_lock_bh(&srv->idr_lock);
+-	for (id = 0; srv->idr_in_use; id++) {
+-		con = idr_find(&srv->conn_idr, id);
++	for (id = 0; srv->idr_in_use; id = 0) {
++		con = idr_get_next(&srv->conn_idr, &id);
++		if (con && !kref_get_unless_zero(&con->kref))
++			con = NULL;
++		spin_unlock_bh(&srv->idr_lock);
+ 		if (con) {
+-			conn_get(con);
+-			spin_unlock_bh(&srv->idr_lock);
+ 			tipc_conn_close(con);
+ 			conn_put(con);
+-			spin_lock_bh(&srv->idr_lock);
+ 		}
++		cond_resched();
++		spin_lock_bh(&srv->idr_lock);
+ 	}
+ 	__module_get(lsock->ops->owner);
+ 	__module_get(lsock->sk->sk_prot_creator->owner);
 -- 
-2.53.0
+2.47.3
 
