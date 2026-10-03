@@ -1,73 +1,73 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75681AA797
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC116253340
 	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791002012; cv=none; b=jmXxCfW/6tI58b565x7/tEcCPGuMHAc/aILMz+hNMPvKPld6BNUtDlb7wf6wkzzBVI/02870+oUQwmgD8P5/Yd62xVnMkjY8wNe66y4NRAWlRfWHAs68ELQ1hEaz96YeHI5T6jeCZ5kAD+/Lq3I+Sv98/ZO08DpVIySZM+JXHso=
+	t=1791002012; cv=none; b=ZKREvE2ZcOCSCTQfkpwdIPQ5d9L0dQZvl6SDoPH4UXP1srmVdxn2JzANrrZVOYCh1YcmZtFiUDWsJ3jSdChjCXcMPhiM107BybG7X+JkFm+ra7udRvecXYullJDGCXjVVyE8uVPECE+DRqX0tT3Qnhd9m1KIGeYNhHy8+sd5ErM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791002012; c=relaxed/simple;
-	bh=Tip7luQdg8lcMdjVWKlKFSl7kQWY0i1g4tyNrbEzGhg=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=HW8WMMazSKLvN7l3vr8ttrtRBnYvYuNjqxicr6Jh/Cp5ayfSDIq/B63amc8avG0EdDQMc+7CIL0YxauIkYnQgurYmB8XXgoZsP8obYftfOmTfrooDDBrVFsfuZUWVVWOmwmWUZ+VsxYaUClGgzUA4kdmHrbLXILbBpg7s3Z+J8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+	bh=TFk82dDsRPE0YMsK5ycXRbtwoeSRe/qCS8crEXmndkg=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=XYwuw0ngOXfs9sIPgqg440USfyTBs7wdV23q3YqDZILuPN8IPpnm9Zd65z1s8cT21qAeaAVqDBzm6/6smkSHtImOo6i2Ef/4DPE/UEbY17kK7QV24sPKFKvt5vfP1cHVa0BFEFbyd2s6Vp5XtBFP3MR5LqjqHaq1LC02Y65SgCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28dafb8e1so183673b6e.2
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-806004ec379so849920a34.1
         for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:33:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791002009; x=1791606809;
+        d=1e100.net; s=20260707; t=1791002010; x=1791606810;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OULXk60hzpDfovu0nVbj6/L+oh5KXRgHr04gu3IGI9E=;
-        b=1TJ3UpcWwgbu0rDFkwsKaEkH5MbnHYlEfhXMLKSFp3pHOiSBDvCRVraZCKafHVQEp+
-         QAi+XalLOYkbrUGZO3XaAEoGq2IZPzL0aU3K3v9lJ26Wa7/1jhauNlBOqeWm7sPk8rXk
-         DAzXxqv5b5mt4eWTRQaJSJ47WO+f/mjj9YyVqPzcZhfz3wKt71D66BiaS2TAVXui2Q3E
-         +lkGqOLHim03cUhd3fGwLN4luKYrL6WO+z1Tpkcga3qSnr75yda3hUU0q4Y83jGc3+L2
-         rDpVUDky9m7Gqpk0TgGvZ7dApCMlRJxMXph5Cjlq60X6gwKRY/PR9M7EtrTvZU1KYgm0
-         addQ==
-X-Gm-Message-State: AFuF++lTij2nT92TF3cW0KprzDwR4ohL8k1IdtZY86ZHQSUX+5fQI2jV
-	q/5FUy8FiZ236aBNvpWT0Lz/IwP+1oS2ra6SSJpxx6ZIeCXoLkWAvzoebtTtZX5+EOJn0Y7oO7d
-	/EFUVlyns65CWuHOJZcsHnss5bjCBI0XhipxzJh8qqsLmkTYRiDTHT2Q02gU=
+        bh=p7Q8see6vgf5vGWp0PSBSCdRr8quMswQ38MoVdWvauA=;
+        b=PWE5jy+Q4l34nlLndhEckkkpT+87u/4TEsMfa2KU0RDT/wAtd+A1qwJwW5IEYEsVub
+         k4Lpphoy0UiDfwLdSkhXHLvwMCnkWRbo9EgsCYIpLYGjYg6lFxjUEj7DNK0su6eeObJn
+         2TkzhAfDD4f//7AkypMBIYaYLcWlYNg8m5gCnhshOeo4zvRjBjluc2uqaRhTYBi6m7Th
+         wgo1anbvLKSD/7REjZbNbw74jeDKTNNqYTxuy53adWjA0bXOZBcT7AjsvI6qHMGbB/Lz
+         eqPBwf5eS8bjU8+EA45E7/F74SW7hMwP2Frq3eGG8scQSRNVynfHilAnGY2YT0LTqA1C
+         JNlw==
+X-Gm-Message-State: AFuF++m3gCjRjb68XVAzPnhcT6TOHnS/zk4OgQM1KWYytD96ly/NTyyv
+	sT1N0ybdeKIJ30xHnWHWq3oEHrv0SB072GyArFeIH5GxmQk0EfamyPdZ4XRPDni/0ynJaqCFAUY
+	AVG0zI2wxQk/Fy9UOipSzUGXdaxJCMWjjSMwK0+80gB0dnJa8MrADjjGliXQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1828:b0:4c3:b290:cf55 with SMTP id
- 5614622812f47-4f526a4f33emr4183826b6e.7.1791002009647; Fri, 02 Oct 2026
+X-Received: by 2002:a05:6820:4cca:b0:6d9:1ea8:72fc with SMTP id
+ 006d021491bc7-6df33c97c92mr3720394eaf.20.1791002009906; Fri, 02 Oct 2026
  21:33:29 -0700 (PDT)
 Date: Fri, 02 Oct 2026 21:33:29 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac08599.34119e79.2f92f3.000e.GAE@google.com>
-Subject: [syzbot] Monthly lsm report (Oct 2026)
-From: syzbot <syzbot+listc9328a48c11a8947def7@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6ac08599.34119e79.2f92f3.000f.GAE@google.com>
+Subject: [syzbot] Monthly raid report (Oct 2026)
+From: syzbot <syzbot+list59fb9559793e9a43c0ec@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
+	syzkaller-bugs@googlegroups.com, yukuai@fnnas.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello lsm maintainers/developers,
+Hello raid maintainers/developers,
 
-This is a 31-day syzbot report for the lsm subsystem.
+This is a 31-day syzbot report for the raid subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/lsm
+https://syzkaller.appspot.com/upstream/s/raid
 
-During the period, 1 new issues were detected and 0 were fixed.
-In total, 4 issues are still open and 46 have already been fixed.
-There are also 2 low-priority issues.
+During the period, 3 new issues were detected and 0 were fixed.
+In total, 6 issues are still open and 2 have already been fixed.
+There are also 8 low-priority issues.
 
 Some of the still happening issues:
 
 Ref Crashes Repro Title
-<1> 114     Yes   INFO: task hung in process_measurement (3)
-                  https://syzkaller.appspot.com/bug?extid=cb9e66807bcb882cd0c5
-<2> 49      Yes   INFO: task hung in ima_file_free (4)
-                  https://syzkaller.appspot.com/bug?extid=8036326eebe7d0140944
-<3> 6       Yes   kernel BUG in commit_creds (3)
-                  https://syzkaller.appspot.com/bug?extid=fa63184795283ac3f842
+<1> 4       Yes   kernel BUG in raid5_run
+                  https://syzkaller.appspot.com/bug?extid=1f5a7de91d547763f4c8
+<2> 2       Yes   general protection fault in md_handle_request
+                  https://syzkaller.appspot.com/bug?extid=89a9ab2a134d092fffae
+<3> 11      Yes   UBSAN: array-index-out-of-bounds in super_90_sync
+                  https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
 
 ---
 This report is generated by a bot. It may contain errors.
