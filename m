@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2691FC4
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 03:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CBE2F7F12
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 03:31:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790998299; cv=none; b=EMvlBmOJLu6JsZ34WQZZBXoEjEYfyA0DjebJ4/iYv1qxETs5OYkrB+HRYc2ZnJmA/E93Zq7TiG0Wi7wgX7weQokmAq8yPb2xMeDCdmbVa44SgpZsgcnga8dhphiRYKAz1xMiSiUCDyXZHVts0tR+iPg6Cdv4Qk7YcmV6rl2EEZ8=
+	t=1790998303; cv=none; b=iBCZdhAM/MKwTQ7dMrbbMJqkjI4nR3hvSFhOkS21QLwArypGSm24iXwkCROOLfMOaIkKaqsU3Kv97G7HeaHqRavg9BCqIjZmgsliJsrtlsjvFAQaWwIAayB3v8cnqwSw6loWLKY+dDMYssA2aXI9X4nfb2CABxbObKNI24cn9ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790998299; c=relaxed/simple;
-	bh=x+SyX/2UyUp5F/RathMEnkorgJUMPh4nptR11vCtD4Y=;
+	s=arc-20240116; t=1790998303; c=relaxed/simple;
+	bh=qAxUWqTFMtrCIl2wmUEs2HFAgyHUsD11V7wNl+Kespg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jfS/1TY4L8LijU6BxHR72+f1gGDvYRouq3mkY/h5qPMUcRK7wuDOmezgDRodi/xk1jJt7Y7Sc2dvWL4wk1zjHgBn5LX/OcUMi0YI4cc/KhKYHouRjF6kIyeoYqTWJJoLTpcRTxdGPMfoaATWJP10ei84BK2xT39nhANWeiyJ0qM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AQv1f6a/; arc=none smtp.client-ip=117.135.210.5
+	 MIME-Version; b=GuyV+GLqe/g2GPc7sBhRGhGK1mtY4DwFdoalE1xw612VjehVHugCOI9k/XKqvDfHJOl5fhqMGP+udlwfkgWZF2/TkllWSB9CCikaIRa7f2VpHr1kD5mB97jdL+Hjn3BA3zboZhfFXmLmazi2JurydIuvljQxTIRrB0tHDQZvPWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NJd0ES48; arc=none smtp.client-ip=220.197.31.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AQv1f6a/"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NJd0ES48"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=pF
-	RGHzIn+da/mBuHaNgxNy+G5bu/CnYpKU9A6UvT1V0=; b=AQv1f6a/n7FyhB74el
-	1OOX2CUHXhasxbGmDl6EiVnUHsEKvPf3OeGb+sK3y7ze+EXeaEQFrEv/zJkk2iPg
-	sUdU9RCWndaaPpGx/7T+NeOZoa88dIAdqs/Py3iMLzsUK5CgFuVcZSVZBWfbMhNS
-	oZY3P7dz+m40QQRQykhqjr3GY=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/s
+	QvuB5GedPp0o/lrwdd8eb6RY+oS/jH3SFxZRDIBFI=; b=NJd0ES48LRIkkesTW4
+	u58i2+RqqBCYDXJeXo1Q3YKBRdyyy9Ex3s2rQ8zhPbWYHpT/km0aGM/Vlr1nA3na
+	EOcTvbLbb/tJBQgWiwDjXWTzIZYcbFfSOCVOZYWPhQaY7cXvwgytbD4NUKYd1rt8
+	acwDY2uUQ07ySypqojtjE54rk=
 Received: from czl-pc (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wCXTnLfdsBqOdNwCA--.32914S9;
-	Sat, 03 Oct 2026 11:30:45 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wCXTnLfdsBqOdNwCA--.32914S4;
+	Sat, 03 Oct 2026 11:30:43 +0800 (CST)
 From: Chi Zhiling <chizhiling@163.com>
 To: exfat@lists.linux.dev,
 	linux-kernel@vger.kernel.org
@@ -36,9 +36,9 @@ Cc: Yuezhang.Mo@sony.com,
 	liubaolin12138@163.com,
 	sj1557.seo@samsung.com,
 	Chi Zhiling <chizhiling@kylinos.cn>
-Subject: [PATCH v2 7/7] exfat: drop i_rwsem from exfat_page_mkwrite
-Date: Sat,  3 Oct 2026 11:30:32 +0800
-Message-ID: <20261003033032.1775311-8-chizhiling@163.com>
+Subject: [PATCH v2 2/7] exfat: hold the invalidate lock while truncating
+Date: Sat,  3 Oct 2026 11:30:27 +0800
+Message-ID: <20261003033032.1775311-3-chizhiling@163.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261003033032.1775311-1-chizhiling@163.com>
 References: <20261003033032.1775311-1-chizhiling@163.com>
@@ -49,81 +49,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCXTnLfdsBqOdNwCA--.32914S9
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AF15Gw1UCF1UZFWkKrWDCFg_yoW8Kw4rpr
-	y3G3yDGwsrX398Wrn7Grn5Z3WY93WrtrWxury5W3WvvrsrJ34xtFW8KrWkua1Yywn5Xw4j
-	qF4YyrW8ZwnFg3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UHyIUUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9wWhP2rAduVV+QAA35
+X-CM-TRANSID:_____wCXTnLfdsBqOdNwCA--.32914S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WrW5Jr15Zw18WFW3Wr47twb_yoW8WF1rpr
+	W5Ga95Kr48X3yqgr1093W8Za1j93WIgrW7u3sYvasFvr95J347tF15trWxKa13tws5Wr4Y
+	qFs8XFZ7ury7G3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2xRhUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC2wOgPmrAduM2ogAA3t
 
 From: Chi Zhiling <chizhiling@kylinos.cn>
 
-exfat_page_mkwrite() takes i_rwsem with inode_trylock() and returns
-VM_FAULT_RETRY when that fails.  The MM subsystem does not propagate
-VM_FAULT_RETRY from ->page_mkwrite(), so the fault still completes and
-the page becomes writable without exfat_page_mkwrite() ever advancing
-valid_size.
+truncate_setsize() ends in truncate_inode_pages(), which is documented
+as being "Called under (and serialised by) inode->i_rwsem and
+mapping->invalidate_lock".
 
-Blocking on i_rwsem is not an option either: ->page_mkwrite() runs under
-mmap_lock, so waiting for i_rwsem would create an mmap_lock -> i_rwsem
-ordering that can deadlock.
-
-Now that valid_size is advanced under the folio lock, i_rwsem is no
-longer needed here.  Take mapping->invalidate_lock shared, which
-serializes the fault against truncate, and advance valid_size after
-iomap_page_mkwrite() has returned the locked folio.
+Hold invalidate_lock while executing truncate_setsize() to ensure that
+truncate and mmap writes are mutually exclusive. This can simplify the
+handling in exfat_page_mkwrite().
 
 Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
 ---
- fs/exfat/file.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ fs/exfat/file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index d92997dc8eec..8eadaa7b9275 100644
+index b30aec858da6..81eeb76ef94b 100644
 --- a/fs/exfat/file.c
 +++ b/fs/exfat/file.c
-@@ -893,8 +893,9 @@ static vm_fault_t exfat_page_mkwrite(struct vm_fault *vmf)
- 	vm_fault_t ret;
- 	loff_t new_valid_size, mmap_valid_size, fault_page_start;
+@@ -413,6 +413,7 @@ int exfat_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 * about to be freed.
+ 		 */
+ 		inode_dio_wait(inode);
++		filemap_invalidate_lock(inode->i_mapping);
+ 		truncate_setsize(inode, attr->ia_size);
  
--	if (!inode_trylock(inode))
--		return VM_FAULT_RETRY;
-+	sb_start_pagefault(inode->i_sb);
-+	file_update_time(vmf->vma->vm_file);
-+	filemap_invalidate_lock_shared(inode->i_mapping);
+ 		/*
+@@ -420,6 +421,7 @@ int exfat_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 * is already written by it, so mark_inode_dirty() is unneeded.
+ 		 */
+ 		exfat_truncate(inode);
++		filemap_invalidate_unlock(inode->i_mapping);
+ 	} else
+ 		mark_inode_dirty(inode);
  
- 	mmap_valid_size = ((loff_t)vmf->pgoff + 1) << PAGE_SHIFT;
- 	fault_page_start = ((loff_t)vmf->pgoff) << PAGE_SHIFT;
-@@ -914,8 +915,8 @@ static vm_fault_t exfat_page_mkwrite(struct vm_fault *vmf)
- 			err = exfat_zero_new_range(inode, zeroed_size,
- 					fault_page_start);
- 			if (err < 0) {
--				inode_unlock(inode);
--				return vmf_fs_error(err);
-+				ret = vmf_fs_error(err);
-+				goto out;
- 			}
+@@ -784,8 +786,10 @@ static int exfat_extend_valid_size(struct inode *inode, loff_t new_valid_size)
+ 		ret = exfat_zero_new_range(inode, gap_start, new_valid_size);
+ 		filemap_invalidate_unlock(inode->i_mapping);
+ 		if (ret) {
++			filemap_invalidate_lock(inode->i_mapping);
+ 			truncate_setsize(inode, old_valid_size);
+ 			exfat_truncate(inode);
++			filemap_invalidate_unlock(inode->i_mapping);
+ 			return ret;
  		}
  
-@@ -929,17 +930,12 @@ static vm_fault_t exfat_page_mkwrite(struct vm_fault *vmf)
- 		mark_inode_dirty(inode);
- 	}
- 
--	sb_start_pagefault(inode->i_sb);
--	file_update_time(vmf->vma->vm_file);
--
--	filemap_invalidate_lock_shared(inode->i_mapping);
- 	ret = iomap_page_mkwrite(vmf, &exfat_iomap_ops, NULL);
- 	if (ret == VM_FAULT_LOCKED)
- 		exfat_advance_valid_size(ei, new_valid_size);
--
-+out:
- 	filemap_invalidate_unlock_shared(inode->i_mapping);
- 	sb_end_pagefault(inode->i_sb);
--	inode_unlock(inode);
- 
- 	return ret;
- }
 -- 
 2.53.0
 
