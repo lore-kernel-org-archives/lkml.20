@@ -1,149 +1,79 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B0933B6C4;
-	Sat,  3 Oct 2026 19:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29116388869;
+	Sat,  3 Oct 2026 19:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791055618; cv=none; b=NE9WZEDDt//LNKjWXKx9ZOBXL278vN6wiQU2F4YTDp6BMuvYx5gWwnNmBm0wSfTCZ0+4BHXyFUQEedaU/EyIeRfii35wMACjpRyS+klIinemrOJ+z3LP+241bjdPqMHiyFmRet1Cw4ALms8+v0ZrBRuSQcKLbpaANSg37V9iQdI=
+	t=1791055659; cv=none; b=sBlF6bnHcCgOgqxM8z4w3FVWHvZkia8pkb/5KxDYNTOdoMusuX+AsF184Cw8hYKrk8yhgKlcElKEJ5YYidzsKNE4N3Qbw4Wc4N0zeCUclFCRgawysELa+O1IrEoRkF32pW0aSZG2RKTxEKRqq5PnaE83x18QZTLtxATor+T8yv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791055618; c=relaxed/simple;
-	bh=xV6d1koFfM5m9rdRyW20nsERICuE43hApgH+Tu8v7gk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E9v3wDoiZX7H9kAy3CXSgcE1lyiiB7FHWQh+WsGqzi/JmmJnELE2L/aMaeK0htNSYDdxXLxPo7wWoMebnAEEv03FH/4wZrHQY78+FGOAKbIhpHzq0scGveUjAGloXefPBblYg3XJodWIxJS2LA6bLB0B4AuquGu4+steGLQoJ5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lyOvRaeb; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791055659; c=relaxed/simple;
+	bh=/Ge3J85o1/ztGJsGkkYj8SQaqi42y2pRzpCgssFGbUg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PpBfUvgnoNw4eTbfkrJEPAu6z9H2xOzMqtvxLDfVaNUhNe6nvdRh5+liEzyUn0DJsDb5TPi5t85o2+FGxIo/tuT8xWXnlvoJ2ygyC2henFYATHLgNUlH6Gw+hHqwxjFrfW/EpWS3bmmJQmskdIr+SJ9GQ6gI/uRUNampKn3xlqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=qvX5wW48; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lyOvRaeb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791055617; x=1822591617;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xV6d1koFfM5m9rdRyW20nsERICuE43hApgH+Tu8v7gk=;
-  b=lyOvRaeb2dyLUW509d2ppPlsa03GVAHPsklJhvYyUau7YJP6o3KPN5v1
-   ZHia1TbP0WBD0npypvnVJaaFf3DIXOs7wF1xd16eTEuIPcOfE17l34hIy
-   idRk4fpicLN4RlFbAs9OwKyy0aLJzqaBXT6Kzio7mTyi1L3C0mgDBFFzO
-   9LoaxWOex/iB662hUyiD8OpGCGqJu4K9jK5V7hHGV1GRRfcWI8fr+b0Za
-   D2qf5vxYVhKz8hVnNY7hnvx+SBWgJswT9aFfR3VSyY3LK5S+7GPu+fUHa
-   9+eTfMDScFUBXwuT8BdHsBomOGEwttX/mwvtszOvXLU0dKoZoxXEwcZtd
-   A==;
-X-CSE-ConnectionGUID: U/gEmS9dSguctwurId61WQ==
-X-CSE-MsgGUID: 6eTVygivTMKdwfsuYk0mvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90841252"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="90841252"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:26:57 -0700
-X-CSE-ConnectionGUID: KJOYt0q3TcWARKt3cehjoA==
-X-CSE-MsgGUID: 1dVDB0a4Rz65JZJk6zfCkQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="281216667"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:26:53 -0700
-Date: Sat, 3 Oct 2026 22:26:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jyoti Bhayana <jbhayana@google.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] iio: common: scmi_sensors: fix truncating 64-bit
- divisions
-Message-ID: <asFW-3IPAgFIDViV@ashevche-desk.local>
-References: <20261003055602.145118-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="qvX5wW48"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=/Ge3J85o1/ztGJsGkkYj8SQaqi42y2pRzpCgssFGbUg=;
+	t=1791055656; x=1792265256; b=qvX5wW48IdHe8V2xc0iGwHltazskgiwULS3/0myEhIt0a+/
+	k9bEWshXwhIc1KfepIOrp5pZRK4/xzMR4B3SiU+zu3ebqnG05QvehTn23uQEZkve8Mg0px4BTzF7f
+	5JR24PVffvwsDkcvgqGX9+Uwh82ZQEyJ6xMZWQE2SIkDgJVbZLpilLyZd0FbaOFUMPs9OxRPXU0s4
+	1ey4TQ3CMiMMwOHyjQx8HRcu0xVsCR/z1k5g2SzahKmrzsnGL7TaHknNJCsQz1QSVEK9T4YVLuMyM
+	Q/uAhCBoA1CsV6WvZJ8JF7O8MQx9LGel5xgpuXL2XpADGQEpRFfIvzAUb971o8GQ==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xD5OJ-00000002wPU-3lBf;
+	Sat, 03 Oct 2026 21:27:28 +0200
+Message-ID: <fee55129b41fe578c1a58a6181f1e9a775032480.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless] wifi: nxpwifi: fail the firmware download on a
+ poll timeout
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Jeff Chen
+ <jeff.chen_1@nxp.com>,  Francesco Dolcini <francesco@dolcini.it>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 03 Oct 2026 21:27:27 +0200
+In-Reply-To: <20261003192256.78255-1-kmehltretter@gmail.com> (sfid-20261003_212304_062454_B2A5A628)
+References: <20261003192256.78255-1-kmehltretter@gmail.com>
+	 (sfid-20261003_212304_062454_B2A5A628)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003055602.145118-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-malware-bazaar: not-scanned
 
-On Sat, Oct 03, 2026 at 11:25:55AM +0530, Arnav Kapoor wrote:
-> do_div() divides a 64-bit dividend by a 32-bit divisor: the divisor is
-> stored in a uint32_t on all architectures. The driver passes 64-bit
-> divisors to it in several places, so they are silently truncated:
-> 
-> - scmi_iio_set_odr_val() divides by uHz, which exceeds 32 bits for
->   sampling frequencies above ~4294 Hz.
-> - convert_ns_to_freq() divides by interval_ns, which exceeds 32 bits
->   for update intervals of ~4.29 s and above. If its low 32 bits happen
->   to be zero, this is a division by zero.
-> - scmi_iio_get_odr_val(), scmi_iio_convert_interval_to_ns(),
->   scmi_iio_sensor_update_cb() and scmi_iio_get_raw_available() divide
->   by int_pow(10, n), which returns u64 and exceeds 32 bits for n >= 10.
->   The SCMI exponent fields allow values down to -16.
-> 
-> Truncation results in wrong sampling frequency, timestamp and
-> raw_available values being reported to userspace.
-> 
-> Use div64_u64() and div64_u64_rem(), which take a 64-bit divisor.
+On Sat, 2026-10-03 at 21:22 +0200, Karl Mehltretter wrote:
+> nxpwifi_sdio_poll_card_status() returns the result of the last register
+> read when the requested status bits never show up. That read succeeded,
+> so a timeout is reported as success.
+>=20
+> nxpwifi_prog_fw_w_helper() therefore skips its "poll status timeout"
+> branch on a timeout. With an emulated SDIO card that never gets ready,
+> the driver logs "FW download complete (0 bytes)" and gives up 30 seconds
+> later with "FW failed to be active in time".
+>=20
+> Return -ETIMEDOUT when the poll runs out of tries. mwifiex, which this
+> function was derived from, returns an error in the same place.
+>=20
+> Noticed while looking at a clang -Wconditional-uninitialized warning on
+> this return statement. Tested only in QEMU with an SDIO card model
+> written for this test, not on real hardware.
+>=20
+> Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+> Assisted-by: LLM
+>=20
 
-> Fixes: f774117c96f9 ("iio/scmi: Adding support for IIO SCMI Based Sensors")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202606040245.XfmRpBhA-lkp@intel.com/
-> Assisted-by: Claude:claude-opus-5-5 coccinelle
+Don't let LLMs write commit messages, they suck at it.
 
-Assisted-by: LLM coccinelle
-
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-
-...
-
->  		tstamp_scale = sensor->sensor_info->tstamp_scale + 9;
->  		if (tstamp_scale < 0) {
-> -			do_div(time, int_pow(10, abs(tstamp_scale)));
-> -			time_ns = time;
-> +			time_ns = div64_u64(time,
-> +					    int_pow(10, abs(tstamp_scale)));
-
-It's fine to have 82 character single line in this case.
-
->  		} else {
->  			time_ns = time * int_pow(10, tstamp_scale);
->  		}
-
-...
-
->  static void convert_ns_to_freq(u64 interval_ns, u64 *hz, u64 *uhz)
->  {
-> -	u64 rem, freq;
-> +	u64 rem;
->  
-> -	freq = NSEC_PER_SEC;
-
-Yeah... (see below)
-
-> -	rem = do_div(freq, interval_ns);
-> -	*hz = freq;
-> -	*uhz = rem * 1000000UL;
-> -	do_div(*uhz, interval_ns);
-> +	*hz = div64_u64_rem(NSEC_PER_SEC, interval_ns, &rem);
-
-I would expect to see this be a frequency unit to help with left side of the
-equation
-
-	*hz = div64_u64_rem(HZ_PER_GHZ, interval_ns, &rem);
-
-> +	*uhz = div64_u64(rem * 1000000UL, interval_ns);
-
-And MICROHZ_PER_HZ here respectively.
-
->  }
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+johannes
