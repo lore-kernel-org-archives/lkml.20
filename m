@@ -1,88 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAB83B0583;
-	Sat,  3 Oct 2026 09:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12123B059C
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018930; cv=none; b=gJmkCuYFR1LKh2JOTToe7wfTq6QNzHOYUKy/PpuxMruX8iW4SajqpFlmk1w7CuSGvjTV5eWrjWvTo79dVq/bX//6n3/ZjJpAsIhSXLjLlpiEOU6tdrvDWIF9Zuwwyy42/KZ9dfTFkF8NGCfiilFQ/4S1pCsFD/fntHl9EZ7dI14=
+	t=1791018931; cv=none; b=KWtzE4Nm1gRVZnXWub0OVGPk+z3KswQ/kU3/ClexTzNv85QsdNVQ6Yegd1w9dsaaCORsqSEoiJ9x1nKGbBHmTuOP5e+prn9KTdvx/LnXHiZs05htincvpF+yMVEVshpmVjQlMwmuyAtB+V/1SsluZhpTLKVoMsl70zelC/xTrLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018930; c=relaxed/simple;
-	bh=K8GmayE6g10SoT6eoCaqLkqKB1d8JHC79L2j+0+jX+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mupkt0HpruDxmEvErzagA945VS6L4BuE/GLPHIoJQILH4hH+Ks8H+vdPNJ2SW35CJwOmwt8hDMendaShu+uqHU9XW4FsBC8Cz+aKeJHqk3/YompDxfxH+8zMqZ6MNR2ne29KUuPED3IfelEx+av7Pn5ibFN1czV4PHq+Ay6/G4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RkM/AKu6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791018931; c=relaxed/simple;
+	bh=1VdfXtjk1IWiBRIjglsN7Ax9puUJ4ykuJi0WIKUi3zU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lS253bjpXJpYzc/NfCEtCfqHDct2xwbC00AuLvGvRGNdZdUwZLx5ezbMLz9XLdOAOMuX24g9gOkMeeJAQ+8TgVf9WOj7A5zXd0TudrvFIZ+Fibb25GaMkmuDageCxZaxsBbLwgO4wXqZnqu7qP5SgzFgoC0vV6IYzPbkzOAyEFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s6yDFug9; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RkM/AKu6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5416C1F0089B;
-	Sat,  3 Oct 2026 09:15:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791018928;
-	bh=dX+CVOnLfx7LepqKXHzDbspbQiu7gCKbNWR2HCxhkD8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RkM/AKu6iYp+JeJx8TNb/pz+3fi1VdE/nQgI3fpC3rup/2hLvC+ItHsLk1zDgKkgZ
-	 o3rvjjj/6zLYoIjcYL2CPH+nH6F2EMYtKW1pWydnzEl5byUTybai9O8rr6MOzIwPLr
-	 L1VdXhvjbze9dSF3U+TgzwrmlvI+c/14WSFkv2RLpY4ONwoJEQe/1JkIqp4p2RHkyU
-	 zopYL6bxxQ+NCckYmkGMjuf1G90F9x1qjxX4E068SJ9AzKR5mp+HtjAwmM8NiasVO9
-	 RfcqWnlgiWsN2qXrZFfwgTeGu6tPmD2jlgYCBZhY9O9H05s99oKczn4y8vcBx6eQ63
-	 kwDRo2PZbz2pg==
-Date: Sat, 3 Oct 2026 11:15:21 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Falcon <thomas.falcon@intel.com>,
-	Alice Rogers <alice.mei.rogers@gmail.com>,
-	Changbin Du <changbin.du@huawei.com>,
-	Tengda Wu <wutengda@huaweicloud.com>, tanze <tanze@kylinos.cn>,
-	Athira Rajeev <atrajeev@linux.ibm.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v1 00/13] perf timechart/list/treport: Interactive
- Textual TUIs and perf python session improvements
-Message-ID: <asDHqdVt4CKq_EoL@x2>
-References: <20261002182624.3259797-1-irogers@google.com>
- <asDGb6qOgJzXDpNo@x2>
- <asDHBIbfvCUbPT2A@x2>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s6yDFug9"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01d89b23so83154f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:15:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791018928; x=1791623728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KGUcNzjtQXTGJm0X6jZGQPUmM1QBqOgA+Fbqqq48w68=;
+        b=s6yDFug9JfWs/ngyyVwN6Z/ta4WVIvORd04zR8EKAguNpB2LlktDF7ZRPGc81ZbgN8
+         dcJgLXw+mrpET46eFVIAcp2FlazD5ZO5edmub2mwmu5mdjSWYc2Mhe3DoCaOXMLUdH0w
+         eKpXAWk7Tbb3VA92ULOM1ZIPtcTAk5UOWsF98ZUpBT4Nczsubp7QD9uBuKdD1rho5ZdM
+         8+Iz8Ej70md1mqN9vU3Eov3At+JmXssNLBvj2cFZ57GSdJRoP5nLjaTNJgYuL8vP6nvN
+         VInPE56aZLGkensHPWctVEvK0Xbv/rsswQia44risgjAe3YyVCsqX1/u/Vzhckdi5aEd
+         XBPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791018928; x=1791623728;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KGUcNzjtQXTGJm0X6jZGQPUmM1QBqOgA+Fbqqq48w68=;
+        b=iuyH/t74wTz5ynr1CbWI4xA9hYDeBDxah2zn7d9S9S0hpIS0D85uiKBFKE/TMl7hck
+         5NjsKqqDFh2TWf7SWuF0BR86z7u6WASsALahz9EQX/qihw+tF9Qwm3BQmGEwH4sZABW3
+         QCat4VdOBRitc79AHKrTf2z54FXEH41wqLxnCONB/372UwTgcx8CZZ3fdd6OQDqU+FMM
+         dYFFN1wUAP21HymjT8KkFLp6MQFd7HpVih4JTFOzetWV7C9qFl+CXa6Awo9iBGlZkhI/
+         FUtIux0NQZainwt8xF0OtycTx+Dg7lOuCE6SoP4Yn1a3TbzolJfPeQLSA6Embi0CY1NQ
+         ICEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxcZuzl7QZQak6+H35YK95ysUbNKDJseoBBJiPQD0cAkmKxUiTdb3ffSnq+bHMDDegbDfbhq897tJBerR4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJOTbh5UpSBynAOHkVlH3N1tBkRAWGT+GwYkPHSx1WPbZWM8AV
+	MCNcTX9DR6hroRRd8l3E4AsSE+XlG/jdxTqLa+WhxNXrR7LkMX0j8fw7BXCixEgMs3RV7Q==
+X-Gm-Gg: AYBFou0oM7OxckettijGTVkxuuU05RP5kWcoF4xp+My8PU+R+Gg1+g3sUH9C77LJ2zu
+	1lfiX72Yq5skv1610xFoGfj7jIdnk3rBW6nXokkM9BX5BEdamvc/auad55LgQqbHu1SBg9DGCYB
+	Yz7NrG30dN1idefE0TVEG1xJf+jrXVdPY/y+BDYPKOKmRVh06WC1DTxncOd0MbsHVsXyLjFMGe7
+	khP1t8B+r7wSCmfz7UaOeD+MZn3fY/aX+ooI3xg2z59ApA5qZ7TuisRIi2Sd1Y06Tjzr3F3bl4j
+	4om95/ASAdT+LnpG6gPkeUXTFsocP4qa743YPD5hQbV0gHgiXHj9ByH6y/H77vMCawILNTZxLE9
+	b9ic6dXmQkno1IqF/mgPY5O8Lf+UraNzZ1j755+f8TIG+QaXxeuiBY4ap12CDs2m56b4wvuxx3X
+	qZ0erDuc7vEFM+0eBax3iUKB4PFqVBoCSnX48ls7ykLFs5xvlOtPokcgVrIppxtQXzCSlNRNHfb
+	wtX7RgKZSw=
+X-Received: by 2002:a05:6000:26c8:b0:487:35c:6513 with SMTP id ffacd0b85a97d-48b12720148mr9951532f8f.42.1791018928132;
+        Sat, 03 Oct 2026 02:15:28 -0700 (PDT)
+Received: from FranzSP11.fritz.box ([31.31.60.25])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253dc9sm11336161f8f.3.2026.10.03.02.15.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 02:15:27 -0700 (PDT)
+From: Franz <franzelfranzel@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Abel Vesa <abelvesa@kernel.org>,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC 2/3] wifi: ath12k: honour disable-rfkill from the device tree
+Date: Sat,  3 Oct 2026 11:15:08 +0200
+Message-ID: <20261003091509.4822-3-franzelfranzel@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261003091509.4822-1-franzelfranzel@gmail.com>
+References: <20261003091509.4822-1-franzelfranzel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asDHBIbfvCUbPT2A@x2>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 11:12:44AM +0200, Arnaldo Carvalho de Melo wrote:
-> On Sat, Oct 03, 2026 at 11:10:16AM +0200, Arnaldo Carvalho de Melo wrote:
-> > On Fri, Oct 02, 2026 at 11:26:09AM -0700, Ian Rogers wrote:
-> > > 2. 'perf list --tui' and ilist test (patches 6-7):
-> > >    - Add 'perf list --tui' to launch the interactive ilist script via
-> > >      'perf script', and add a shell test driving ilist headlessly.
-> > 
-> > Applied and tested
->  
-> 
->  This one seems to be pre-existent:
-> 
-> root@x2:/home/acme/git/perf-tools-next# tools/perf/python/sctop.py
->  syscall events:
-> 
-> event                                     count
-> ----------------------------------------  ----------
-> Traceback (most recent call last):
->   File "/home/acme/git/perf-tools-next/tools/perf/python/sctop.py", line 253, in <module>
->     main()
->     ~~~~^^
+ath12k_core_rfkill_config() skips the hardware rfkill setup only when
+ACPI says so. DT-based boards have no equivalent. On the Microsoft
+Surface Pro 11 (X1E80100), the WCN7850 rfkill input reads as "radio
+off", so the interface is hard-blocked:
 
-Nevermind, root was finding some old python binding, after:
+  iwd: Error bringing interface 4 up: Operation not possible due to RF-kill
 
-root@x2:/home/acme/git/perf-tools-next# export PYTHONPATH=/tmp/build/perf-tools-next/
+Also skip the setup when the device's DT node has "disable-rfkill". The
+PCI core attaches the node to the pci_dev, so ab->dev->of_node sees it.
 
-it works,
+Tested on a Surface Pro 11 with next-20260929 and the matching DT
+change: the interface comes up and connects (5 GHz, 160 MHz).
 
-- Arnaldo
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Franz <franzelfranzel@gmail.com>
+---
+ drivers/net/wireless/ath/ath12k/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
+index 0c72948f3..8cac84917 100644
+--- a/drivers/net/wireless/ath/ath12k/core.c
++++ b/drivers/net/wireless/ath/ath12k/core.c
+@@ -83,6 +83,9 @@ static int ath12k_core_rfkill_config(struct ath12k_base *ab)
+ 	if (ath12k_acpi_get_disable_rfkill(ab))
+ 		return 0;
+ 
++	if (of_property_read_bool(ab->dev->of_node, "disable-rfkill"))
++		return 0;
++
+ 	for (i = 0; i < ab->num_radios; i++) {
+ 		ar = ab->pdevs[i].ar;
+ 
+-- 
+2.56.0
 
