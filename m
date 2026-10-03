@@ -1,56 +1,56 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00D22882AB
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9DB282F10
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790986918; cv=none; b=HdDncoCPQ2dq6G4yQlHsW2qVVPxmaF6/hiibM93cQ4jMJF39zX9HV1LFic9ZsvX1Lo0Ueh9XNv3B+kY3A0PW1g8ii5kDkIAFRV/W4o/QsBCGDkgUKBzbcBqJiLQlvSKk7d/ZK5++Qj6ykX6qccDme9ldWbGQT9lCLqlCFmCOsu0=
+	t=1790986918; cv=none; b=ddZkD2RKsqd+WxysPYLs95nGCVJxEX/yG0hiahnXTFAM6ZLC5Q1RY5r+DlZh6z6dnxPAXs3LRk0DN7Y2hW4NyGfX62ZKqNnCKGBgRU/qY8p2wwh7hTdFDOCMo/1goQ7rCwMCjQBW7bAtyhL20Z1x6Vqp8iuWsgyQ8Q4Bt1/JmMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790986918; c=relaxed/simple;
-	bh=gmdJhuSDn/5Fcf0Bx6krJHLn0/JjYDjM40D5C7iJeO8=;
+	bh=pafX7MiCbVkdrwDdtH8rw1ni7zmRH1GTgaLe/pWhugg=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=aVdpxTRF/yU2ZNIn1QvI5w0Z/kCuLFjiz44QX6gYJ/Gfa8CToVIWTBZqnytbF84tfMayLg7vBMd+fpHkqAEVPvy6grGzwIP9l+agQHaKzLCrWaoG5df3EzOkm5PIJ84F5PTf6OHlflX/qQcZz7qn9Ej8RLqaNxp81mZJS39tt4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G2/wH60Z; arc=none smtp.client-ip=209.85.215.197
+	 To:Cc:Content-Type; b=F8krHuFqbsJ8Jid7y9fkycZK1uf8HQeFCa8hR1gVCEkecFQdTkEHzhbal568/MCs6HDSBBZqFmj7TN/N+IS6G77nsEw8f/0/J0hTy5RATe7dTFUF9CU/8hvgZdsnB1/vmJJBFvsOeq+/Y/UAOqzwstIY3Iq2szL8lwQyMLc3yek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fsp7/USr; arc=none smtp.client-ip=209.85.216.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G2/wH60Z"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7e6720b31so73405a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fsp7/USr"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so53800a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790986911; x=1791591711; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790986913; x=1791591713; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RoV13e3nXsd3llTg619zxCPg0yBMRrfboFWdssakaXQ=;
-        b=G2/wH60ZY79uFwm30ANWYI5KBfapWeQ5hkGmyk27+QQvsjBnbUPSHAHd+A9lqdKhJC
-         goANF/PRX0QsGPSM/J0BoUHJV8r0s/EvEu9cpJ6kCj4xWIuv9uaG10KpCLjGahYuBSBH
-         ipOR06ku1mGuyVYfXTFxmBtOvMTl2E/AjnI1kZVI8dH/LloKiElIZompJ1/l7itoG64d
-         wsFRck4jpCoycIMGvU9HwwfWoRhCgYGbu8PdLwadYlYGn61yBmV+M9ZAsXfOpHWgG3PX
-         Sp7X0vKdJ3RBb1BnNykcNuWEmIJIsdEFGZ0aA7Gbg+h/y9hxTnGfLpxOX978xKAPlluy
-         HWaQ==
+        bh=k/T777lhuRfNwSeNxFtz2iSXI/VIM8j8xuLCcKpt+bw=;
+        b=Fsp7/USr4j6W6CCh+iSReD9vwJkUhd2pHoFOr/niy32jdt4zD4MAVy2goVmwRNhoEI
+         aTp4Pu5QNLYmWtHA+/gURpdWPsvMq/01z5JAfdei6iSGLiwQuWlCQqoK672tJ/tYePd+
+         n2gmCHidJ+IF3iM0V7Dt7arPoXrgeseqyPOjmGgPbfYU9wUuy0gBA9v8E1S5NRqm73iY
+         wcoJoZnGPzL5ClGLbMx5y+FTgihfngs0HjG4C1RjMqxPxI0cPaKfAp2hKiRoRnuocyVp
+         d9VvaFJ7Pj55oPa37sRXguMWj8LbV6nQeU4/bXFqOonDwq5/zk1/mYkPo2KBmhRZOjQK
+         yUrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790986911; x=1791591711;
+        d=1e100.net; s=20260707; t=1790986913; x=1791591713;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RoV13e3nXsd3llTg619zxCPg0yBMRrfboFWdssakaXQ=;
-        b=XF0ATj0S2oUI48gEbfrMqjVPOjynXoeGhuxXfT7P69ZWpBmJALW+/yIU8B1nvK9Fjl
-         ROvYqt10X13EGwVfM08gFXEUlzRqhke/vuZwL6MhoJ2m6pRKnr/cmr8vzmKu3jck+Doi
-         b/6End8827jkDn6sB707r5QGAAUjKfE8KNALKDz7LJ9IRKLlHWqeEnSUN0Zd2ZVGhrX3
-         +39Q8WmaaqotINVtwsvRgnEHIOAOoiCZw3m5Jsrj3VcFnt7uwoOqd8dkv71Jizu5t3a8
-         MfVREhJrWI/ZZFCIbccSbNn4yCJdH67QiZaJgDBrzDaXDacXyj0UV+Ji1g/vZBXRq+6e
-         fvtg==
-X-Forwarded-Encrypted: i=1; AKwUvBxR2tHxl00AQ+jhWRnksCXSIzdxIMExU0DMbc/npYCm1XxunMxriOUIceItw6NzFmv6uS7+gBqTRk08Vi4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzpDKYaaGxD0AavI5OogUta4FO/zLXv7sfcEUKff1z9aEAjZwe
-	cCMOAUtDDKMM2HyDHGv0RKi+uqiCFRJaSKemJO6TA5yBrg+jW0twrLpfCcHMwEd22JvydRdtFCV
-	pIYLhI3MivjIV5e+i2UtKdA==
-X-Received: from plbmm8.prod.google.com ([2002:a17:903:a08:b0:2e4:a5f7:883d])
+        bh=k/T777lhuRfNwSeNxFtz2iSXI/VIM8j8xuLCcKpt+bw=;
+        b=bXd1uAzjG9m7xIP0fIDXuf06VH1eCTmolom410MWAFOE88h19ACa2hz0wJw1RkEXr1
+         3g9803p2vebi80I9S+v6WX9i+jHPHpwDeJOWzXcYFlgPfMcsXyUQ3MQHKvw8w9AElHD2
+         ElE+dWgm2RDnu55mLeXnUVgAWwQU0Yxn662YbSHx4spKTZsEdZq2q/bD9hTzng89eARz
+         ya3nvS7zBWsobfuQdTK1nKPj3RMdwNuv1tSVIHvUo8erX4Dfjj9w0QUpReFEMB4qKfGy
+         oMUPJ+28gyFKSOEGvw0aJfHMhqXwXrgxu8u3TbB5n+tNSaKnTViLk7qpYnov60raEHEp
+         YMeg==
+X-Forwarded-Encrypted: i=1; AKwUvByC52es9LrqYcBa2VdZwE7qTENOE7WJQYmokM7lssUi6WMenSS9OstIlJm0R1cfF3K7V15JOFFuQO7odRc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfNayOPLTtvP1qjKbxyxZqlszWDYsmrGqp63KFCym2QcQ18kPg
+	mKsc7IMSadu2+xKDflVIxvriqyUCKBWKNsA04UMqttsIGKkMVuYxyRNYl9GK5B+gyp+nYW1OkOD
+	aNpGInEP7cYFNpytltVQkaA==
+X-Received: from pjbdw15.prod.google.com ([2002:a17:90b:94f:b0:3a6:7ee4:e327])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:181:b0:2dd:c053:d73f with SMTP id d9443c01a7336-2e49b681d7dmr43902775ad.38.1790986910713;
- Fri, 02 Oct 2026 17:21:50 -0700 (PDT)
-Date: Sat,  3 Oct 2026 00:21:21 +0000
+ 2002:a17:90a:dfd0:b0:3a4:bc68:310e with SMTP id 98e67ed59e1d1-3a6ce7f684amr3283851a91.39.1790986912580;
+ Fri, 02 Oct 2026 17:21:52 -0700 (PDT)
+Date: Sat,  3 Oct 2026 00:21:23 +0000
 In-Reply-To: <20261003002123.505555-1-jthoughton@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261003002123.505555-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003002123.505555-19-jthoughton@google.com>
-Subject: [PATCH v2 18/20 DO-NOT-MERGE] arm64: Drop BBML3 requirement for HVO
+Message-ID: <20261003002123.505555-21-jthoughton@google.com>
+Subject: [PATCH v2 20/20 DO-NOT-MERGE] selftests/mm: Add HVO pmd-split fault
+ injection tests
 From: James Houghton <jthoughton@google.com>
 To: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
 	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -75,36 +76,58 @@ Cc: Nikos Nikoleris <nikos.nikoleris@arm.com>, Linu Cherian <linu.cherian@arm.co
 	linux-mm@kvack.org
 Content-Type: text/plain; charset="UTF-8"
 
-With PMD updates being done with the Access Flag trick, BBML3 is no
-longer needed.
+Run the stress test with PMD splitting failure injection enabled (if
+supported). Keep in mind that vmemmap PMDs are only ever split, never
+collapsed back to PMDs, so run this step first, before the main stress
+test.
 
-Dropping this requirement vastly widens the pool of systems this
-optimization is valid for.
-
+Assisted-by: LLM
 Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- arch/arm64/kernel/cpufeature.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ tools/testing/selftests/mm/hugetlb_vmemmap_stress.sh | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index 448d4ef085de..f3fd6d0b0e41 100644
---- a/arch/arm64/kernel/cpufeature.c
-+++ b/arch/arm64/kernel/cpufeature.c
-@@ -2206,11 +2206,10 @@ static bool has_bbm_through_af(const struct arm64_cpu_capabilities *caps, int sc
- 	}
+diff --git a/tools/testing/selftests/mm/hugetlb_vmemmap_stress.sh b/tools/testing/selftests/mm/hugetlb_vmemmap_stress.sh
+index 94357a4a45c2..2c874d15399a 100755
+--- a/tools/testing/selftests/mm/hugetlb_vmemmap_stress.sh
++++ b/tools/testing/selftests/mm/hugetlb_vmemmap_stress.sh
+@@ -4,13 +4,16 @@
+ # Stress test for HugeTLB vmemmap optimization (HVO).
+ #
+ # Phases:
+-#   1. accounting: allocate N hugepages, check that nr_memmap_pages +
++#   1. pmd-inject: churn the pool with fail_hugetlb_vmemmap_pmd enabled.
++#      Runs first because vmemmap PMDs are only split once, so later phases
++#      would leave few PMD splits to fail.
++#   2. accounting: allocate N hugepages, check that nr_memmap_pages +
+ #      nr_memmap_boot_pages drops by exactly N * (vmemmap pages per folio - 1),
+ #      then free them and check it returns to the baseline.
+-#   2. stress: churn the pool (optimize/restore) while concurrently reading
++#   3. stress: churn the pool (optimize/restore) while concurrently reading
+ #      struct pages (/proc/kpageflags, /proc/kpagecount), compacting memory,
+ #      and optionally reading page_owner and offlining/onlining memory.
+-#   3. pte-inject: like 2, with fail_hugetlb_vmemmap_pte enabled; this hits
++#   4. pte-inject: like 2, with fail_hugetlb_vmemmap_pte enabled; this hits
+ #      both the optimize rollback and the restore (partial HVO) paths.
+ #
+ # After each phase the pool is drained back to its original size, memmap
+@@ -252,7 +255,7 @@ cleanup() {
+ 	local blk t
  
- 	/*
--	 * We need BBML3 to support Block -> Table transitions without taking
--	 * faults, and we need HW AF support to support changing the OA without
--	 * taking faults.
-+	 * We need HW AF support to support changing the vmemmap mapping level
-+	 * and OA without taking faults.
- 	 */
--	return cpu_supports_bbml3() && cpu_has_hw_af();
-+	return cpu_has_hw_af();
- }
+ 	stop_workers
+-	for t in fail_hugetlb_vmemmap_pte; do
++	for t in fail_hugetlb_vmemmap_pte fail_hugetlb_vmemmap_pmd; do
+ 		[ -d "$(fa_dir $t)" ] && fa_disable $t > /dev/null
+ 	done
+ 	if [ -f "$tmpdir/hotplug" ]; then
+@@ -333,6 +336,7 @@ accounting_phase() {
  
- static void cpu_enable_pan(const struct arm64_cpu_capabilities *__unused)
+ echo "$marker" > /dev/kmsg
+ 
++stress_phase pmd-inject fail_hugetlb_vmemmap_pmd
+ accounting_phase
+ stress_phase stress ""
+ stress_phase pte-inject fail_hugetlb_vmemmap_pte
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
