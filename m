@@ -1,135 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDE32472AF;
-	Sat,  3 Oct 2026 00:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78F127E049
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790987300; cv=none; b=nBs07YYafGbibYYt4LnpXhGcTqXLQUN16ELYSRl+B6TXik5BprncBf5WjLAEo0BS+sqTvrnoDxZoikLl0TpfC5OpAKGThxh9uHLIyfKY6zgJqjO0254odwIAvvlImfGYPucD60eIU9IdzADSoSeWR/FxxBcr9XmVnn+W/J9C90A=
+	t=1790987424; cv=none; b=UfPUJi9PN/d/OhJRiZSQ5b4pyX8Xl/HNiI073gPpL1DkI47mXvVbpmIDBA7cqqB/+mZW5OHsnEbxxJCPr6a0eyUkmyDfeljpa3/7A6Ie/job/jqT8r8mDHCbkAQvtVDO25dGJsIbnbH+c4+EP5nDqbI2A06bRKZjjVkknR1tcrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790987300; c=relaxed/simple;
-	bh=OcfGfSliasbeWdBaKqPQbcsHZyIN1kZ4/ldTFkM+RF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Hx3BMTtAEdCRsvnWUy0CP/JtNzesIqenDCAcSWUxEnoanJjZIxwlWSXsHVxv386mRX5IQJ6mn006oVzwmjmzJ7nBJGgt3WV2Tc/ufj2iMaC5CDncBuYfYusiLCU0MUJ19syoogpePWlYovXSzKkdXqX3C19hRciL2NXURNbFhg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3UIX8iG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790987424; c=relaxed/simple;
+	bh=aoOkQEAwwH5U+jDOGujZ+40gV3lf6MyBTMNAG5e+hl0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ad69JEifHHa8pkxwJn9BQaH3WfP6knJHF/9TOujLxMLNT4AWt/iMvh+pfp3jYuMMa6j56hY/Oh8Epavfew4tbJWmQk2vgzIL5KtvMzOnmWDMTuE8ljn50caLWkuu6fazCX5JVbZADp4x+qHWFpP5U03sSEZt2vm03F74Wg+cPwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZV87i2rw; arc=none smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3UIX8iG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACD21F000FF;
-	Sat,  3 Oct 2026 00:28:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790987298;
-	bh=l+IsL9f8haxtULqd9zYY+CEDTqzojCOVipoPz6PBOBg=;
-	h=Date:From:To:Cc:Subject;
-	b=P3UIX8iGiR3D6GFpsUdwcmdKy41x1QE9YR+uttABzrIBteuAc0Yoe5q+/N1zP2/ei
-	 63GExWNB7ix5yIpFg0Rh5RPP47zXwWSyzGhiKOAfN1JA8xS6HbD4+Kb3aR0xAuqZ4Z
-	 BkcajfcrR4MyTrCla1pwvb9IVUFVBNf8L3J+Kdtxvh284hAPW7l9HZKpMPdeCkLMmZ
-	 KvUpOk/dJYRN8+nJqzEvlAMr7tXO3rIHaOUqsKMnheKykjYdFfTHe0VRwTlWN6Hr9x
-	 yubmDcwOhLfQZp6jH7e1WTWBsaiBIDHfgGDcmgJPSkb381KWAPW9KBF5L/2UNefD5C
-	 dddReOVCpOl0Q==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 7F2C91AC57CE; Sat, 03 Oct 2026 01:28:15 +0100 (BST)
-Date: Sat, 3 Oct 2026 02:28:15 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Oct 2
-Message-ID: <asBMHy9MlhwfexNV@sirena.co.uk>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZV87i2rw"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e320322edso51508666b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:30:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790987419; x=1791592219; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N8Wy+FwTnIXNNxZip+qLn/CBJlGylUrO5j7SNbuEFEs=;
+        b=ZV87i2rwZurTN1gt3HSn6XNHIKHYp0CG6VCD/1QN+I4IyCcaAc/YhPKS295b3Oxcnv
+         uoXEm3qc3RSqNNcXR+FbNzfs8ai16B/2BTDqH00ihpy1PpakG4MnBOrBj7NX8Qrg4hkg
+         g8EVflwhUqzOoDOuIAlPDlyBzf8y04LkPWRHY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790987419; x=1791592219;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N8Wy+FwTnIXNNxZip+qLn/CBJlGylUrO5j7SNbuEFEs=;
+        b=m8x42H+H8A8hHV7bpdr2m5W3obiZAdg+JQT4UF5xbNxUKd1KGDNwi+YpUy6XWCUS8T
+         GOQNoxuMQs1eO8rSN7sucqAPPdh/QGBM+jQ+PpaD9THrbh+1DuQPu2WLgUHY9OzlwVOM
+         /ve8EEjE8SofeIUG7Ty1fI84m9mkubQZIkGEkB/7nM6MC01fJKiK9xde3IiCGbg4EUzg
+         ezWupowaaZrfELMESs3CV/ORJdgvRJOge0QCxIobNSYCl3maV/rh53XsW6nDDccttYmy
+         Mt32cLuBSzLMck6SETEJDgbpgOkPYxg8vuVzWfIjGvL2z/77UyAFRVTWZuaaKp8v0/Bp
+         bSFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwPaZtVCR4HN3XoNAUOWUQzp7DfroFy41VHM3pNZ21ve+RQW+zC7E2w6/kB/V4CroZzsfVpH+BJ+EiPAug=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAYwmiDaZWMDmjEa1Gp/yNmSZiF1obIT0AKd+p+1fnO83eH6Es
+	FELge6Q/s97viHD2iHth1C19Vg2oIMHrWatKLvS+2OiMpmPgOMFah7ACX1LfOP/yqOwiRB1jAp+
+	01i4=
+X-Gm-Gg: AYBFou08ZwmrkMu13mLr2nt35Tvi8JRAi7lCk+AHc85NAEYY5mfwhf+TvD0Rd/xUc4m
+	7blvTaTFQKK36yJQKkJoHhzmkzRxb04++xIVigQtUKZIKFPck+VwtDBqt7hOgrHWq7Gvp7iMHzk
+	zqYZ/6NU/8bA+4BsVnaMmMORzB/c9rx1JKzNe8PpAYcptoC5J07DOq782zo0g4UY3NYgWuiX2jq
+	XnTRdXTlsmLFPCZkGR6ioVtLQetc7A9U8N85k7A7hhJcZJ1zF821WtGVmFd8ROnIrjQxOAJxhPk
+	/MaR/XMSQn5Fr+uyjo6vRaxtDu0aM6up/QFAMiMLOm9hPeYpkE5zF4kjpj9V34g0IANgpfkBdY5
+	svkWhzQSfu38i/G2RqFYY5g4UVeDRK+7+aW5Wf/PdgDwwqHuRVGILmkCN0IE7xAc/gaFPHrWvBr
+	aVeaL3HHlNea9mojIl3dR9PdB/7SaylFZ/JZc48BqeoYmYmzXWumAheSgNmkR5kf5TATQ58ZznP
+	tiE+tx4WuMGL1JvzfgEOqAT4ApxLOCEtzECoKo=
+X-Received: by 2002:a17:907:7208:b0:c29:555e:bf2 with SMTP id a640c23a62f3a-c2e4afe1430mr345603966b.41.1790987419244;
+        Fri, 02 Oct 2026 17:30:19 -0700 (PDT)
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com. [74.125.225.99])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf8f224sm141580766b.65.2026.10.02.17.30.18
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 17:30:18 -0700 (PDT)
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b059eae96so10077f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:30:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy4WiPXtgazlMP3H9jU+RpYP+3Sgc3RlkBAn7xiTsEwelVcDR86My3ZIGTgO77Nxl4OfWwhK+mhEd7+9Hg=@vger.kernel.org
+X-Received: by 2002:a5d:5e84:0:b0:48b:1147:3d75 with SMTP id
+ ffacd0b85a97d-48b1273e48bmr7348711f8f.45.1790987416939; Fri, 02 Oct 2026
+ 17:30:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OZMNTZnKR8I5rk4I"
-Content-Disposition: inline
+References: <20261002175000.1-brads@mainlining.org> <CAD=FV=U-uH7iTA8Gs_vTqzbKjpk9uwCiSRGbPchmJc7DAWR43w@mail.gmail.com>
+ <20261003000800.2-brads@mainlining.org>
+In-Reply-To: <20261003000800.2-brads@mainlining.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 2 Oct 2026 17:30:05 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XDQyHTT=Mm72am7hCnRYWvZXJFw3TKA3Ty-e1WccY=uQ@mail.gmail.com>
+X-Gm-Features: AclHuK-UHSPygbQGQtIEqnmdJ-XKJOmQCKJagnVn54CcIHjh5jg7oi_oRrBSa2Y
+Message-ID: <CAD=FV=XDQyHTT=Mm72am7hCnRYWvZXJFw3TKA3Ty-e1WccY=uQ@mail.gmail.com>
+Subject: Re: [PATCH v2] watchdog/perf: fix off by one in the raw event config copy
+To: Bradley Morgan <brads@mainlining.org>
+Cc: akpm@linux-foundation.org, blum@kernel.org, tglx@linutronix.de, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On Fri, Oct 2, 2026 at 5:06=E2=80=AFPM Bradley Morgan <brads@mainlining.org=
+> wrote:
+>
+> You were right, the truncation was the bigger half of the bug and my
+> v1 only closed the corner. Fixed both with your len + 1 shape.
+
+The above should have been "after the cut". Where you have it now,
+it'll end up in the commit message.
 
 
---OZMNTZnKR8I5rk4I
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> Commit 6164be01f179 ("watchdog/perf: optimize bytes copied and remove
+> manual NUL-termination") replaced strscpy(buf, str, sizeof(buf)) plus a
+> manual buf[len] =3D 0 with strscpy(buf, str, len). That count is one less
+> than the code needs, strscpy() always reserves the last byte of the
+> destination for the NUL, so the config loses its final digit.
+> nmi_watchdog=3Dr300,panic for example ends up with buf =3D "30" and arms
+> the raw event with the wrong config.
+>
+> The same count also drops the empty case on the floor, strscpy() with
+> a zero count writes nothing at all, so nmi_watchdog=3Dr,1 leaves buf
+> uninitialized and kstrtoull() reads stack garbage.
+>
+> The old code was safe on both counts by accident, strscpy() filled the
+> whole buffer before buf[len] =3D 0 overwrote the comma position, so the
+> worst outcome was a truncated parse failure.
+>
+> Pass len + 1 so the copy includes the character the NUL replaces, and
+> reject len >=3D sizeof(buf) like the code did before the optimization,
+> which also makes an empty config a clean parse failure again.
+>
+> Suggested-by: Doug Anderson <dianders@chromium.org>
+> Fixes: 6164be01f179 ("watchdog/perf: optimize bytes copied and remove man=
+ual NUL-termination")
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> ---
+>  kernel/watchdog_perf.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/watchdog_perf.c b/kernel/watchdog_perf.c
+> index cca0485ba28c..a4f677c16b20 100644
+> --- a/kernel/watchdog_perf.c
+> +++ b/kernel/watchdog_perf.c
+> @@ -301,10 +301,10 @@ void __init hardlockup_config_perf_event(const char=
+ *str)
+>         } else {
+>                 unsigned int len =3D comma - str;
+>
+> -               if (!len || len > sizeof(buf))
+> +               if (len >=3D sizeof(buf))
 
-Hi all,
+It looks like you sent this atop your previous v1 patch. You should
+send your v2 patch as if your v1 patch wasn't applied.
 
-Note that I will be travelling to LPC from 2nd-9th October, as a
-result -next releases will be at best spotty during that time.
+Also, you probably don't need my Suggested-by tag. I just gave review
+feedback on v1, which usually doesn't warrant a Suggested-by.
 
-Changes since 20261001:
-
-The rust-timekeeping tree acquired a conflict with the rust tree.
-
-The imx-mxs tree acquired a conflict with the arm-soc tree.
-
-The omap tree acquired a conflict with the arm-soc tree.
-
-The net-next tree acquired a conflict with the net tree.
-
-The mlx5-next tree acquired a conflict with the rdma tree.
-
-The drm-rust tree acquired a conflict with the rust tree.
-
-The kvm-x86 tree acquired a conflict with the kvm-arm tree.
-
-The tty tree acquired a conflict with the tty.current tree.
-
-The starfive tree acquired a conflict with the stm32 tree.
-
-The bpf-next tree acquired a conflict with the pci-current tree.
-
-The bpf-next tree acquired a conflict with the kbuild tree.
-
-The kvm-arm tree acquired a conflict with the origin tree.
-
-The landlock tree acquired a conflict with the jc_docs tree.
-
-The landlock tree acquired a build failure, I used the version from
-next-20261001.
-
-The random tree lost it's build failure
-
-Non-merge commits (relative to Linus' tree): 12636
- 13101 files changed, 836746 insertions(+), 315745 deletions(-)
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 431 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---OZMNTZnKR8I5rk4I
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasBMHAAKCRAv73Ows9A4
-iTFcAQCJ2zZ0zmZIIBoXQhMFkfycvovmrTj3f4lpyAeLXYDPjQD8DO3oLXdJk94w
-Qwi0A/Wklz4FhkVghTkVfJqwFQ1/twg=
-=mlWk
------END PGP SIGNATURE-----
-
---OZMNTZnKR8I5rk4I--
+-Doug
