@@ -1,224 +1,123 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E1C49BD86
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FC837F012
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791057067; cv=none; b=EKxczNCaw79Ef5xRjiJBpZtuaEe3xscjm5zlpY9JO9XThokvfDaT2KfKQ4N5YesXWr/LqcZ8ETbf+5ecQitDizbTzCrLgmuk6qHqyHWlu7Y2kfza7GUb39U2wRk1MltqrNkezLX1v1EGti04nQabGaRvwcAAhBxZOko3hIxdhCE=
+	t=1791057210; cv=none; b=omF10SwfL6TCIRXQ24eU3oSw57LWPo8Qj2czXFzE8WvnXMlV+zSFKITjGk9vEm4YKiqDjD/6b/M81U2TzVktlWkRKS+Mi8D584z1sroBS43grD8iA4BxlbkhSyKDVNfzqRuLzuL0I2W+cs/3tLSUbT7v40pwztKm+WmzPQB/Ah0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791057067; c=relaxed/simple;
-	bh=7pBfjveomDnmzdvLDU2dmhnc89A87sIYXO91YioPoWQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RX/lT+e53dF8O06rIPu4qh8IB7dZRoQ0fkd9Sd6eM4JQGD5W04Nkm6jbF7yeEZZFkXsmd2XA1YqRk36D9bbzYKF0MZ1nxApHAvhTpEEvb0mypb2FTQzQ6hVeoUbl+7P5ENC8AuChtgigOmVMdaHKgYGOyoELrZQ3r7Y+4UXBjK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7TsFJis; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1791057210; c=relaxed/simple;
+	bh=72R64NgGqodNaY2EYRZSoEw8HQDUWOzttNv/6JvLRRc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L7ICS0LAnKpFDbwex1NGLo0Q4NHi0x4f25nzPgaHDOeTKJwj7sRatow0CG2IvMqUS6SyiP53Fp1XLl9s8W8biQXWuAwnc7olyA7uCWcPE2IM4qFPKrmjskwDcNQHcyF1/Y5Vg5fkqtzVMa1In3fpgbWnO4YiC3nof1RtSVi5yBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EMC2O2VH; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7TsFJis"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso6691085e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:51:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EMC2O2VH"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df90e859e8so1684315ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:53:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791057064; x=1791661864; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GthwDRkP6iGq1qpE9Gwptow6c+M7A3HXNDwh7Y2Glb0=;
-        b=r7TsFJisSQnFR036Lx7A3Ji+tzCpGYhe36jSD/1CrNjzKkkUnhOFutTi0oZ8QDVvQA
-         SpENr3VGQuDmepT7B+/+FDgtGuckXgd57laUnrWsHoJKpieDiZwRUj8Ls5fJ4aLEcKGW
-         YzIUHlHQX1wR4R/TXUA1u7UYoK4QqnnJF6p2lKaoCJSr6wXJDL5GB+Dt3LcN6T/ZMYW7
-         s5HCD8nUFNxMb/bWeQsFcuvPLZDIHs0RA1PeeM26EaDI0TRsqaRxZtZoAys9h4AkLfas
-         Xr7fw01ohlN/mlEkPd8dRv47KHJy6ek2PwQCZLBLL775D6mYjpZd2vA9/Qh9QPi7KszP
-         RhCA==
+        d=gmail.com; s=20251104; t=1791057209; x=1791662009; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6ODm/v6+HJBQfxMagJqNA1a/frsMk+53MtU+BX7MWQM=;
+        b=EMC2O2VHI09QJ8Inp7IiTAsRy/1vJHSBiyaKOrdsZqKmhgC3bR5PQzaP4nkmYRw7fm
+         GtV+B9D2x+glrG58vGOpSL2VKPVY9WAGO6b8W+kmXpgKQG29KVTuadRnp4mjpExTVO4k
+         zPPaiKQ9mZjwgkVS5Lq75iO1dPcPVu5iopsIK00xt43Vb9o8bkQr1NxJ9j0H8SDJZifa
+         IYdosnSoLYvU6/Ym6zBq1kI2E1fm1jZlqAOjjoxO3bpitrHy6S56uPQT2SccyRrbHwOL
+         Oc8uRKHwiKXpNa/fnrhecMz2GkgOT1w/BrszsKnDcUM9wCAlpkPOFgXTFOM9vkeDcgBa
+         nSLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791057064; x=1791661864;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791057209; x=1791662009;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GthwDRkP6iGq1qpE9Gwptow6c+M7A3HXNDwh7Y2Glb0=;
-        b=cFa5BGNo6EmRc4Y6/VUiIrr+nybDZaAPsD3GGQsxKjBM/0B7PIvokFPzIXcVy8hJ22
-         WxdSRFDJbZZydp1tIcS5J+EeL7TadCr/8nXd5EwgA/htQY0/6cxl3iEFElNwyKnQBuTs
-         I3jIE5ynJpbTs93sMgfi8oqBK9X9hIDKTPVju6m4a7AFfxYlUJvQqMhLHgJUkHobhmfA
-         xHtU8fHAY0FHZkmB6swtsNa8eWdaOOFYYhZltruut/XiiEDFVV2TMFK7q4WV8r1IbMyS
-         9jpTJsbFlYaDW7yS1FKHFxfxPh58reB+SPy9TP0XWewm4CbYSFdhWjxrwAoCFjm8Inuc
-         w35Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxHdJh3UHdm12TkzZNJYPNdE3iIwXId21tv0I3OKR4HcgRAqCbzPFI4aqNo+n6aMLXK1GKcuJnXS0mUv9Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH15r036MBJneAl1Z6UbWb/QrjS8zdijSukWzZ6fA4SdtZuXx3
-	hHTVmOJfTOt3e+YyaERPC/OhIzQf/kH+64+QszERYs9zkmh57kb/rPRm
-X-Gm-Gg: AYBFou16YItyv1v7PIIPNw1B16fIcq5Dv/qq/E0K++T6e4FCXiHdut12YRi38YAWTEO
-	pCrH74hyMgrY76lyDKxJvfhbEiDTFroD73oJLDPTIxRwdtAumNpZGy9kRFmacSkiQiL/BUmE1Rr
-	Dhjkbzc+eg8jpwBM8pN1zMwvYJ9y7LaUmBsWlaqt+UvXVOPRij4AG1XyiAnzqfMBAHz8dJM0ejp
-	E29qpu8tJTRmkeP2E6SVpAB2Pa21zQYBTisu5by2/qvwoRkhE16/9zeK3EcIzkk2Q96qf8DmMC6
-	J27tNYDoBjaJb+4UjZTKqe2rd5N0KjeVhOGFyCNvvX8Xi8Gdwo9g6xpftuNu272mMgUwZ0kqvLi
-	FlaUY4FTFUvQdGgcUSc45WxFuhlZbwRtNU8LDyHQbeu9wpRoAM2TJDKoZUcHEoh0IQ7iWHzK/I/
-	9rCAyYyv0l1rmf0WfBJng/1i70cYUxCkpp+ZbOD+5FTNdWD9gSOWUMe0nFBKcYXy8wtTO/qG+M1
-	AcJfhwgpw3XQC1a4vbJI++H7jMD7NYW6jNPwA==
-X-Received: by 2002:a7b:cd8e:0:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-4a02758ff89mr75811725e9.19.1791057063698;
-        Sat, 03 Oct 2026 12:51:03 -0700 (PDT)
-Received: from [192.168.20.170] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280b2e3csm233621055e9.5.2026.10.03.12.50.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 12:51:03 -0700 (PDT)
-Message-ID: <4ae83db6-768d-447e-b177-3ef5206267f9@gmail.com>
-Date: Sat, 3 Oct 2026 21:50:57 +0200
+        bh=6ODm/v6+HJBQfxMagJqNA1a/frsMk+53MtU+BX7MWQM=;
+        b=AB0ysvdAGfvdCQrv4U5n8EOOLjYeYohQ9fUWJ/a92QbO06OwVjs19qEKJKgEoSZjM2
+         9F5HQzaq131MgLWf1FPnRzmtf7kvkTx3ksIqPySIA7gHTBvOC1fMxDg0SSE/Wus/NS6/
+         5rSdaaAP7ruZFEaB6M6oN5PHti1A2hcFCnAsXI+pPRSPDLZwiqGv9c48Fk05adUBD0j0
+         sxBK82XCcQi9HH9o4q2U85y2WpK2amvLQ7Wt9cdPIJuVrfzAJYKp2lDMN85Zeprf5Z3W
+         q5U9VV7JO0SeX0yOOc7MF6v2djckKIvXpqZg2jwlo1GkwZ2KgwEuxuOw1ih6tWRj5md+
+         TFkA==
+X-Forwarded-Encrypted: i=1; AKwUvByJ53IC5dFyYrwoSJV6c3Ju2GxikZ9BTV+YmL1ZTSI9nRE8q6jn04KKvGA4UyQg0GcKNtTBKCPV+GOBUUQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ60ZOj2nAgwJrgNYM7PyBF0rTaxQDKe/bLmwvKGoT973kwKC3G
+	E98BHc5unkicap2CYY+Y66tWob+7Jd5lKHr9QfF6mTg18461cCdffS8M
+X-Gm-Gg: AYBFou3dyHbC/9udpsXnq86ryrxEwpOpjORcbjsMtw4p81y0bchF12g6gbYZBkZYxto
+	EQh0+mnQfkG17mk/8Ocd3chXXOMRMd+3WwzN/DaqKZFRxaWtzSncSSZhEyF5h+D5MpO8xgh6Bn5
+	FpRNnkkqnOSWoWNfJDpn+cGa4cTk89h0wQPRHwHKL5OtkKncAZ7EX9o72MytkqpCTIKXw37E1Fv
+	uSVP8zl24gbFNBJ8ftZfAdsTF2iWUaeL68W70ua1L/LCEDje2fjJP0eZn0mnOx1rurfujHt7NLp
+	iQjJM9LLSKdGvq86+CjXjCADlcnGt7sLViHZjobbFXQx+3FYCkQG4lTV5KrYdhSdd8HxfvHhoU1
+	NsMke4ihX7DsHinrAU9auwIQB/ZM9A4yGbPI/y2lbJvt5lpA0zp0Nm3yGQvm1ZGvWymiBoJ6uGO
+	n7ghZwj22G5RiRzPUYyWlJaxq09UCYB+Us0PWDSg01mPRaFyRoIGrWoM06L3rGzjG6oPR8ZdaYP
+	NLnJwRrbboX1HETi0cEd/L3ei0eNTyhqRli1qKkOTaeNoyUbXyj
+X-Received: by 2002:a17:90b:268f:b0:3a4:e735:b3a3 with SMTP id 98e67ed59e1d1-3a6cec8cd26mr3724608a91.40.1791057208655;
+        Sat, 03 Oct 2026 12:53:28 -0700 (PDT)
+Received: from casta ([2401:d800:1f1:cd06:9f1f:eeb6:21ad:cee5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e472b48sm3838211a91.8.2026.10.03.12.53.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 12:53:28 -0700 (PDT)
+From: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	jgg@ziepe.ca,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Duy Nhat Anh <neganhat@gmail.com>
+Subject: [PATCH] mm/gup: fix NULL pointer dereference in fixup_user_fault()
+Date: Sun,  4 Oct 2026 02:48:46 +0700
+Message-ID: <20261003194846.205918-1-neganhat@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as
- critical
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
- Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
- Sricharan Ramabadhran <quic_srichara@quicinc.com>
-Cc: Stanislaw Pal <kuncy7@gmail.com>, Mieczyslaw Nalewaj <namiltd@yahoo.com>,
- Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
- <e16cf23c-82aa-465b-81b2-6240f4a0f4d9@oss.qualcomm.com>
- <f2ccd6b6-e5a2-4d36-a12c-124638c31280@gmail.com>
- <66d48e1f-7bab-42f3-84db-ce794f2a2a89@oss.qualcomm.com>
-Content-Language: hu
-From: Gabor Juhos <j4g8y7@gmail.com>
-In-Reply-To: <66d48e1f-7bab-42f3-84db-ce794f2a2a89@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-2026. 10. 01. 18:15 keltezéssel, Konrad Dybcio írta:
-> On 9/24/26 1:33 PM, Gabor Juhos wrote:
->> Hi Konrad,
->>
->> 2026. 09. 23. 15:32 keltezéssel, Konrad Dybcio írta:
->>> On 9/18/26 11:27 AM, Gabor Juhos wrote:
->>>> On IPQ5018, the APCS core clock feeds the CPUs. It can use
->>>> different clocks as its parent, but during system boot it
->>>> utilizes GPLL0.
-> 
-> [...]
-> 
->>> At a glance, we have the CPUs consuming
->>> &apcs_glb APCS_ALIAS0_CORE_CLK
->>>
->>> which takes XO/GPLL0/A53PLL as parents.
->>>
->>> GPLL0 is a child of GPLL0_MAIN, so this should never be gated in
->>> practice. devlink and probe deferrals should make sure you always
->>> get a valid clock handle for the cpufreq driver..
->>
->> Yes, the cpufreq driver gets a valid clock handle. However the hang happens
->> early, when the 'apcs_alias0_core' clock is not registered yet. So CCF does not
->> know that the clock (hence the CPU) is a consumer of GPLL0.
-> 
-> So is that the late_initcall kicking in early, disabling unused
-> clocks,
+In fixup_user_fault(), the 'unlocked' parameter is checked for NULL
+early on, allowing callers to pass NULL if they do not track whether the
+mmap lock was dropped.
 
-No, disabling unused clocks happens much later.
+However, if handle_mm_fault() returns VM_FAULT_COMPLETED, line 1597
+dereferences 'unlocked' directly (*unlocked = true) without checking
+if it is NULL. Callers like s390's pci_mmio.c pass NULL for 'unlocked',
+leading to a kernel NULL pointer dereference when VM_FAULT_COMPLETED
+occurs.
 
-> or is there some other logic that ends up disabling the
-> GPLL?
+Fix this by checking if 'unlocked' is non-NULL before assigning to it.
+Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+---
+ mm/gup.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-In the actual case, it is being disabled by runtime PM, which happens due to the
-pm_runtime_put() call in the 'ipq_cmn_pll' driver's probe function.
+diff --git a/mm/gup.c b/mm/gup.c
+index eb898ea1ee22..64f709a45adc 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -1594,7 +1594,8 @@ int fixup_user_fault(struct mm_struct *mm,
+ 		 * could tell the callers so they do not need to unlock.
+ 		 */
+ 		mmap_read_lock(mm);
+-		*unlocked = true;
++		if (unlocked)
++			*unlocked = true;
+ 		return 0;
+ 	}
+ 
+@@ -1608,7 +1609,8 @@ int fixup_user_fault(struct mm_struct *mm,
+ 
+ 	if (ret & VM_FAULT_RETRY) {
+ 		mmap_read_lock(mm);
+-		*unlocked = true;
++		if (unlocked)
++			*unlocked = true;
+ 		fault_flags |= FAULT_FLAG_TRIED;
+ 		goto retry;
+ 	}
+-- 
+2.55.0
 
-Adding a WARN() into the clk_alpha_pll_disable() function results in this message:
-
-  WARNING: disabling 'gpll0_main', expect a system hang!!!
-  WARNING: at clk_alpha_pll_disable+0xd8/0x108, CPU#0: kworker/u8:0/11
-  Modules linked in:
-  CPU: 0 UID: 0 PID: 11 Comm: kworker/u8:0 Not tainted 7.3.0-rc1 #0 PREEMPT
-  Hardware name: TP-Link Archer AX55 v1 (DT)
-  Workqueue: pm pm_runtime_work
-  ...
-  Call trace:
-   clk_alpha_pll_disable+0xd8/0x108 (P)
-   clk_core_disable+0xec/0x278                 # gpll0_main
-   clk_core_disable+0x110/0x278                # gpll0
-   clk_core_disable+0x110/0x278                # pcnoc_bfdcd_clk_src
-   clk_core_disable+0x110/0x278                # pcnoc_clk_src
-   clk_core_disable+0x110/0x278                # gcc_cmn_blk_ahb_clk
-   clk_disable+0x38/0x60
-   pm_clk_suspend+0x120/0x170
-   pm_generic_runtime_suspend+0x34/0x58
-   __rpm_callback+0x50/0x200
-   rpm_callback+0x60/0x78
-   rpm_suspend+0xf4/0x5e8
-   pm_runtime_work+0xd4/0xe0
-   process_one_work+0x258/0x860
-   worker_thread+0x1c8/0x378
-   kthread+0x140/0x158
-   ret_from_fork+0x10/0x20
-
-However the problem is not specific to the ipq_cmn_pll driver. It is a race
-between probing different devices.
-
-For example, consider a simplified probe function of a driver:
-
-  static int ipq5018_gpll0_consumer_probe(struct platform_device *pdev)
-  {
-          struct clk *clk;
-
-          clk = devm_clk_get_enabled(&pdev->dev, "foo");
-          if (IS_ERR(clk))
-                  return PTR_ERR(clk);
-
-          return some_function();
-  }
-
-Then assume the followings:
-  - "foo" is a descendant clock of GPLL0
-  - the probe function runs before probing other devices, so the probed device
-    will be the first consumer of GPLL0
-  - some_function() returns with an error code
-
-The result will be the same hang. Due to the probe failure, devres disables the
-clock, but since the the device is the only consumer of GPLL0, it is getting
-disabled as well.
-
-Here is the repective WARN result:
-
-  WARNING: disabling 'gpll0_main', expect a system hang!!!
-  WARNING: at clk_alpha_pll_disable+0xd8/0xf8, CPU#1: swapper/0/1
-  Modules linked in:
-  CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1 #0 PREEMPT
-  Hardware name: TP-Link Archer AX55 v1 (DT)
-  ..
-  Call trace:
-   clk_alpha_pll_disable+0xd8/0xf8 (P)
-   clk_core_disable+0xdc/0x268
-   clk_disable+0x38/0x60
-   clk_disable_unprepare+0x18/0x38
-   devm_clk_release+0x2c/0x50
-   dr_node_release+0x24/0x38
-   release_nodes+0x78/0x118
-   devres_release_all+0x84/0xf0
-   device_unbind_cleanup+0x34/0x98
-   really_probe+0x190/0x3f0
-   __driver_probe_device+0x174/0x1e0
-   driver_probe_device+0xc4/0x130
-   __driver_attach+0x108/0x258
-   bus_for_each_dev+0x6c/0xb8
-   driver_attach+0x2c/0x40
-   bus_add_driver+0x128/0x258
-   driver_register+0x68/0x138
-   __platform_driver_register+0x30/0x48
-   ipq5018_gpll0_consumer_driver_init+0x2c/0x40
-   do_one_initcall+0x6c/0x548
-   kernel_init_freeable+0x264/0x388
-   kernel_init+0x34/0x1f0
-   ret_from_fork+0x10/0x20
-
-Maybe this helps to understand the problem.
-
-Regards,
-Gabor
