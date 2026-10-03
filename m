@@ -1,72 +1,132 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAEA2222A9
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 02:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 892D1331EBC
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 02:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790992926; cv=none; b=aDke8+r4VoJTlE4Wt74Tuy8+uzSfXHvBRefweQaLP//BlZKqaOjf/0L13MQ8rwyBL8WSKL9pNyQ1xCs5iUzmQvUVL961VM4/yLIbOZ37JsWkS9E/yBjYztEyr3VBd2BdU/3utm9X5PWhqCGrejCW+JaIRaxvBmtQoj6m+tg2F44=
+	t=1790992973; cv=none; b=OBrt8A6xSSmlFH/PyZiOqHwqaU/6Lki1sYy+HQ6HzpoX11fGMB2VJuDSfZzcYbHN2MC/DfDGvuxFYOjZuyx/oNvD4C2qvEErbaBvQVqzPH3MLOW9prN+1r3AY1P3WKrjSpGx6GcrGCfYRUAlIvov52EoUiCGoi0JV+h86C76Y+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790992926; c=relaxed/simple;
-	bh=n61lzYpRXgB0mG/gyj704Pvqr6bacjRthTOHdtSM/Pc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=tt1/5Xy2Wt2UV59oPSNnKAVSFcpGJt0d1kIBCNe5ZXvjuCXjOud5z7kFXWPY76Ewb+dM1pQXRawmBA9lESttkqthw7NHSpvlQl4QMqNeAwO2kCsggWzILVk5gZk9x4TO0UmRUc+VZZFuGg+tqsLZQJ4H2ep9Do4t/KYXw0+8l3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cd3e90ff97so24590b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 19:02:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790992924; x=1791597724;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IW757ycUVKIumf+GXOXhQRC7YByi/BrIxe7PfpkHuq4=;
-        b=gukT0saR8DO0+m6dpUXs4M7yRz30jCUXHp5u3EsyRFhYLDRi8XVIToAI7foL/FqIZ1
-         5umEpxRDTbQRPFK3mz/8/IraUFt0kYOTg1q0uExpImcLrwOi4VVJfp0r9KA+XgZ8LFox
-         ag+jacoFAJmzkWYORqt2QJrOm0N2lBCX9bBMrkmvXeqyyvTADOgVDzfPDXqrzmlPASr4
-         qToAnMOoj/PXiyXFZ2Ec5iwVEYkq/FAcDotV3vWnClfdDxRszjFYtx9SsaeALLtvmC/3
-         GUnR+aD31cDNxkOIFu4XFwtc8PeuKGlwqLxuDZvUBgQ05BgZwBKw845qZ0/b2iJTWghF
-         hhzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8urXfDYLfqd/xaJ6pIrLChwP3LdoNmbM2BYDshEPFrKNLvVGsDseh44TLgMQGwJeCZD8McDeOWB8VDbA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lR0MeSBiTOskRWVSzjpxi4TqEK9kBvus+ntkMoQ3aaRDAlokvY
-	JGeo4mNelBXvwV/D2LEW0vKCzcuSrzfuXxiyncbLs3pzIymG/0Fcxk+9n+SsuT48iEhnRsJ5ToL
-	wO2rvAvz1xlwB4PDGaNlJ3rfiOc9UP07wqCbCP3GhMOBp7eWkcYrq1wXymRE=
+	s=arc-20240116; t=1790992973; c=relaxed/simple;
+	bh=v0bCbpETNJ7e5aGDatYBGDhLK4Wf9/XQ9Lj6zd6xRAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qzE/ZKWdFxEDhKk/AMv3aOBjtuxBLDcXU7iqlQFgWs8DOZz0YMv46FI6m/GGKuYN/7TWq89IG/UsaRXmhYaTbup1tmdY1mp0tObTHJDAMwJUQAXtk1xdbGyM4mfiYCnfhern8yiaWWqF9F/blHOiIQPLSgvseUpLg0vAiPyeGqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xcocyq/w; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xcocyq/w"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 118532F;
+	Fri,  2 Oct 2026 19:02:46 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 95CD43F85F;
+	Fri,  2 Oct 2026 19:02:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790992969; bh=v0bCbpETNJ7e5aGDatYBGDhLK4Wf9/XQ9Lj6zd6xRAk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Xcocyq/wYL+AaITh//C+S7x+SgRmYJM/Ng3YBRA3hQ37T59BBQmQpWXwY4C3ab9FJ
+	 /Gng9GWrKXVTSqF8Ovf22HA+J8f1Xhtw/I/i1VryLOIC18DV7taYExJioBZNHkwATV
+	 ie14zJcMHkZsrObg0CpfN/6QSNht3XCa8GPKn+lQ=
+Date: Sat, 3 Oct 2026 03:02:45 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v13 03/14] coresight: etm3x: prohibit modifying cntr_val
+ and reset while session is enabled
+Message-ID: <asBiRRFAxGLEsSGC@e129823.arm.com>
+References: <20261002-separate_etm_cfg_v2-v13-0-fe429d8d96fb@arm.com>
+ <20261002-separate_etm_cfg_v2-v13-3-fe429d8d96fb@arm.com>
+ <20261003013343.64B201F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1585:b0:4f4:3088:e536 with SMTP id
- 5614622812f47-4f5288bdb62mr3469211b6e.16.1790992924121; Fri, 02 Oct 2026
- 19:02:04 -0700 (PDT)
-Date: Fri, 02 Oct 2026 19:02:04 -0700
-In-Reply-To: <20261002230851.103334-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0621c.9ad129c8.3858c0.000b.GAE@google.com>
-Subject: Re: [syzbot] [wireless?] KASAN: slab-use-after-free Read in tasklet_action_common
-From: syzbot <syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003013343.64B201F000FF@smtp.kernel.org>
 
-Hello,
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] coresight: TOCTOU race in sysfs configuration modifications
+> --
+> 
+> commit 58a68349c3bcb900219eaabae6561553d37341df
+> Author: Yeoreum Yun <yeoreum.yun@arm.com>
+> 
+> coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
+> 
+> This commit prevents modifying cntr_val and resetting the state when the
+> trace session is enabled. It does so by checking the coresight mode before
+> proceeding with modifications in sysfs store functions.
+> 
+> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > index b3c67e96a82a4..cdb70a4382eb8 100644
+> > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > @@ -75,6 +75,10 @@ static ssize_t reset_store(struct device *dev,
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> > +	    coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> > +
+> >  	if (val) {
+> >  		spin_lock(&drvdata->spinlock);
+> 
+> [Severity: High]
+> Does this code introduce a TOCTOU race condition?
+> 
+> The coresight_get_mode() check is evaluated outside the drvdata->spinlock
+> that serializes hardware and state changes.
+> 
+> If a concurrent thread writes to the sysfs reset attribute while another
+> thread enables the trace session via enable_source, couldn't the sysfs store
+> function's check pass just before the session enablement code takes the
+> mode (via coresight_take_mode()) without holding the spinlock?
+> 
+> The sysfs store would then acquire the spinlock, clear the config, and
+> release the trace ID while the session is actively building its path and
+> starting up.
+> 
+> This could corrupt the trace configuration, allow a trace session to start
+> with a zeroed-out configuration, and prematurely release the actively
+> assigned trace ID, causing trace ID conflicts.
+> 
+> This issue was verified to remain unfixed in the final state of the patch
+> series (commit 45def19b707827632be083676fa86077f5bc1585).
+> 
+> >  		memset(config, 0, sizeof(struct etm_config));
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+This is known issue and it's pre-exist one. but we don't expect
+user enabling session before *reset* is returned to user.
 
-Reported-by: syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
-Tested-by: syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
+So this is ignorable.
 
-Tested on:
+> 
+> > @@ -744,6 +748,9 @@ static ssize_t cntr_val_store(struct device *dev,
+> >  	ret = kstrtoul(buf, 16, &val);
+> >  	if (ret)
+> >  		return ret;
+> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> > +	    coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> >  
+> >  	spin_lock(&drvdata->spinlock);
+> 
+> [Severity: High]
+> Similarly, does this safety check fail to guard concurrent updates
+> to cntr_val?
+> 
+> The check is performed outside the spinlock, creating the same race window
+> where cntr_val could be updated while the session is being enabled.
+> 
+> >  	config->cntr_val[config->cntr_idx] = val;
 
-commit:         ff47652a Merge tag 'cifs-fixes-7.3-rc6' of https://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11921035580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=23e5acac5c98285f
-dashboard link: https://syzkaller.appspot.com/bug?extid=e91dc13b1b37759b3d9f
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1556db15580000
+As I said another thread and the same above. also the the separation
+of config will relax this problem.
 
-Note: testing is done by a robot and is best-effort only.
+-- 
+Sincerely,
+Yeoreum Yun
