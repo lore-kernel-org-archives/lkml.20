@@ -1,141 +1,108 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CE841D628
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 12:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791030454; cv=pass; b=J1dM92jtYIkPaSzjNBwzDxg69gELIKVVJvupHe1N58q8mqHOpVVY4+P7BfwZ4ESoSEvmMO9OxCUEkdfzrV45Qi4CEBvzlMeZsCbY5f3SmmMcqbkjfznjP8s55R09Msm7jADhAHhn2PJrI/epbSxj4UDgBijwEJ9QlTYgm3qpEzc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791030454; c=relaxed/simple;
-	bh=WRC2ZsAZuRhunv+s3RLF4cY+obMu9wORkIop+4QLO34=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ENA5gHWoqfLLTpqxhs4d44QcgfT8qfCEqBnzBvHb/JeNuZAeQ1qxm+b4cQMr5CpAThYWxyzipWPQRnSh42sxxvVxDHwzrmyf99by+dqHKLi3hwCr8ZRzt/6eDTunBaVW6BUMxdRD3dWM4JO6s6F49jd4TglO4n41I5J0a/TPYYQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kjSNRv0y; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D51142047E;
+	Sat,  3 Oct 2026 12:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791030609; cv=none; b=MqXAoZc3RA2Pipou2jtzA55Ufh2lHnWPVoh1ZULZ8Vrj4hj8mfdlklJSpIMcxhodXo9gfVJbcApDGuJDpXIjO0OcXGqG6cFHZp1gS3jwSpHZRn6uyg85Z8rRlRB3Y8JE8v/omRtQLBN3h6ltXk4VSpLAM3IKDUlyxhCFpORDl9w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791030609; c=relaxed/simple;
+	bh=SAUWf+RZn/Bh6RldaLjMFTISIbtZl3XjUaHvS69IRek=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DbzaSj4Glkwv0o3XFJB17RpNqC02QIJl4U3eu7UAJWS72T+prv2aFYIoecFL8valPdxZliv/ZjjLit0vNhfA8jR5awKKJJHNU0DYrGqYygSrx/hjVl4dkMyLAIH2Q43y4aNVr94BhI87hE3mxKK9yRfpCd0LwcX0Lvo5AsULIQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9P3fNIu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kjSNRv0y"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b010e8c94so34405eec.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 05:27:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791030451; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TIjwX5iZHFGnlvUQenehw+E8zizMG5jz5444Bj2Sk8UBHpIAD1pFT+8sW74+LlERDs
-         PBMy7lBjjLDUxllk2KbOzhq6uFx+rfxaDPawbEjIAXCtY1piC9ETFXJ9r+8FbJ7aqs3X
-         FQEo4QBdL5BctQ2yqJx37t06ct92PS86QfEfZjg7zS7SF4yusMkYzySGduTbdtoeg/6+
-         KSmcPjyZhtIWQX6Z6UL9ycTHP7f/7Twmx2AzIaliuc3qF8hlkCCfOIgowwNdY7uJ852d
-         MaD0AKRhW+8qqQXBV2xsw/rc5hoWrGfpuLTDEV5IgAuNw6/cVEdVoVqMlw1tRu1KbPkz
-         I2sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nciWRX1CeabRFxS/ww+D7OfrWzkB7f8+tgS0WiLuSww=;
-        fh=j+gbe51iuagLX+HMzhl54wA1Ckn9iVC7zp5nijVVOxI=;
-        b=QdKdwYFCnxwcbM4JNkBaD3xSAtc6R6u/UETHjCGwwo7ABZBbELKiXksVRluzobjCvN
-         xK1Hlzps3ReUdtRP2GfUyrLlAjCzUFPJimTioy9v4IoTTQRjtauO33oUsUiXtAONJuRE
-         h6S3GomFfLM6smHgcdQT+IHLPD5wFlEa7gwKU20vACYhEOZRlRn3+MCvkKpQ+b9tfiE+
-         snLMN+jwjK2oHBuHAQ6QSnrqgKsll6RzYnzETC5x4jSHHbHelaijqxAov5fY95siX8Zi
-         5yCq6D+KYvNt8wET+QFMKLJxC20Opw+FaZncE5S6r4XLP5jXEfCQubEOrkodHBfnR/ws
-         g07w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791030451; x=1791635251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nciWRX1CeabRFxS/ww+D7OfrWzkB7f8+tgS0WiLuSww=;
-        b=kjSNRv0ybOUgtC77f6aGwITRN702J3l+Hqyl2QHaEz4kol/+imfE1dT0Yc8jftJV1e
-         RDwJpue6M/tIRgEJR3eu9jW/jHTRlgwnLXbkkGKRbCjXJJJJ81JWp8uhCJdUxYBWvu7a
-         eool3WFVRL8pmu2IbNUS/c2S2PZYyUzx5Z2kfyqr0BAvYN/f/zLhvtbja38+F11Z7mCr
-         9aWVbi9Yq0I3lUqf+qG5gKQDqnfc15VEqmj6vvRh2BwB68hcu5xtCYrTUC/20eOQNAjm
-         +58wN7o3GTdIXAN63+xW/1Xxz8kiNuGExFhPa1+QNyde5HqSHfdNCIsVpCCn8Fwf4hoo
-         p/HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791030451; x=1791635251;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nciWRX1CeabRFxS/ww+D7OfrWzkB7f8+tgS0WiLuSww=;
-        b=NzHsjlaqTFedfh0uzuZVDygWNPv56KfJ/yCxMdsOcEnCye+uWj1Q9aMJQadrLFKVNe
-         RZN8Kv6ARztTFUSegcnM6qcBS7d1zgI6jheLqSmlE9fin2hUKVecInHMBku6bVEdBfpv
-         dr/ZFnC3zsTY9os1TTfs46JnAr2sQQ2zeDRMp/ppji0XGbMRJZQ97jzb6WTGdM7YC3m9
-         M8TFXtOnTniBziXqBR0q+oVm8SnPA1XOm3r61WB0FRiInL0vC90/IDG5tugfsI+J2WEY
-         /yfDbq/BRqLfRc2cmUhCxKtt4m5EVNwV00i5XNZ/Z31MgRyfZbv8QR1v3YCm9ASLUuvv
-         QhMw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2THzSCMVXEfOtRE/CbRH8roAVHvu/U4GQdW2PHrURGRjvZKptXZqpJDCNCKpOVl8YXY53bwQ2ySmgQ30=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUY0OqvdbBjs2GvKfFs8iOkejNucC47jnWcqdVl9+6m1ni2bd5
-	+tpmIKarJCuw+ytf+LpfqQk/8Y/SfV+1EOKIr0oGTO2iyAfMHtYhlWAk4XCPuymcaY7s6KEQ4t0
-	bWf3FYIGuQB/SoaVwXfVJkmpud+6djCI=
-X-Gm-Gg: AYBFou0TG/vSgbtgekj7nEQC9GH/2WM2aNzHYF5ge0vVkubPdxFvb7pQ63vtN0CWyau
-	VLoivyW4kNxkn3aPqujtXp8RZfAlSqN5Z+b+i8MrqzGaeXs0vCo2A6TUgS5pJJt6K0WgCZ9bjIf
-	BG9wL8k41bMT3/fBKpNBdrKq2ZGMxTY69aECyeTC3Ur5kMTsxeW5UYQ5ypEdgFsI0qrskykLtjn
-	UzVJUd/VSzM3OFVIZU/4MrW3LSrxbp+Cl50srfnG7qekLDohBtoblo7PsleDKhDMLnNREcW85Kl
-	DFXjMyb0M42f3yqyQsTGAJaHazkqJ+PMymfbYt6jjCDgeNoWBmk/RKheoSgZl6uN6KFSNuBIRhw
-	t+J7mx2PnzWrlM5aIh1vcR+KnWYfzBhlvbBzFftkubODz5tMuWYDO7+B8xDTxtPxfacUct75+iF
-	0e2drDLymHyB9aGZ/mueyEjhGCAV8IUzq8/G0lFq196x/+Qz0sBOk=
-X-Received: by 2002:a05:693c:8951:20b0:34c:15b5:b4e7 with SMTP id
- 5a478bee46e88-34f1503d60cmr10692389eec.2.1791030451112; Sat, 03 Oct 2026
- 05:27:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9P3fNIu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128AE1F0089B;
+	Sat,  3 Oct 2026 12:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791030608;
+	bh=+JZDKY8Pm+m7xlMt9GpnBgo5K7r0EZ5kqFaq0xkbApQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h9P3fNIuaXDWPgnrzBJXr3TwwCnJIpQSYNxZlXeEHm2JqzisfBbyrtL3CknxAKyGL
+	 pFR27cXnjweG14YpvqvCpRtFBN4DmIFcOnWoqI64jOzE/cWeEHvGmTT8gNsPOjFCNN
+	 /zz6FOMCU0mAoCdVD9zMQWiDme42glgKUbek61IZiAY5Nx8nNvk+lnx6lDiEHqW7Py
+	 OvgFOYIRsaujI9O70Qp4KgCgDHhOLaEHEaifYQC1hCdwnqzHMaRAPgeJnBIDwJ8OKw
+	 sElI/OlfeRFtEa/grB5n792AP6fsopfDlAurP6TrxyrzXHOqufQdZmqfHJjXo4OOtR
+	 s6TngiAD94apA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xCysP-0000000GWsH-3y6y;
+	Sat, 03 Oct 2026 12:30:06 +0000
+Date: Sat, 03 Oct 2026 13:30:05 +0100
+Message-ID: <86fqyn2che.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 02/15] KVM: arm64: Refuse to start a guest with S1PIE or S1POE but not TCR2
+In-Reply-To: <20260930-arm64-gcs-v21-2-3556644cd927@kernel.org>
+References: <20260930-arm64-gcs-v21-0-3556644cd927@kernel.org>
+	<20260930-arm64-gcs-v21-2-3556644cd927@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260902-kunit-v2-0-eda3ed6c00c5@garyguo.net>
-In-Reply-To: <20260902-kunit-v2-0-eda3ed6c00c5@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 3 Oct 2026 14:27:17 +0200
-X-Gm-Features: AclHuK9DwEiR8riAHJ99e7wWWIvXaYD8TEoP937-DUXdEOHBiBspgOjN68JgAw8
-Message-ID: <CANiq72nAhupkFYjRxEvpaDw_CAFZaSSdDCKFjG-3r3PyouEs1Q@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] rust: doctest: unify with other kunit tests
-To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
-	Rae Moar <raemoar63@gmail.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	kunit-dev@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: broonie@kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, suzuki.poulose@arm.com, shuah@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, peter.maydell@linaro.org, leo.bras@arm.com, weilin.chang@arm.com, yaoyuan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Sep 3, 2026 at 12:00=E2=80=AFAM Gary Guo <gary@garyguo.net> wrote:
->
-> Currently in Rust, kunit tests are handled with `kunit_tests`, while the
-> doctests generate a lot `extern "C"` functions and invoke them through a
-> generated C wrapper.
->
-> This is currently needed because of the special treatment of file name an=
-d
-> line numbers from doctests. Convert them to override `file!()` and
-> `line!()` macro instead, and use them inside `kunit_assert!`.
->
-> With this it is possible to just generate `#[kunit_tests]` and `#[test]`
-> for doctests.
->
-> David mentioned in [1] that this should route via the Rust tree.
->
-> Link: https://lore.kernel.org/rust-for-linux/e30d16ec-f5a3-4cd8-9b25-96e0=
-dfa8b9d2@davidgow.net/ [1]
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+On Wed, 30 Sep 2026 22:48:12 +0100,
+Mark Brown <broonie@kernel.org> wrote:
+> 
+> Since there is an architectural dependency between the features as an
+> optimisation we only context switch guest registers for FEAT_S1PIE and
+> FEAT_S1POE if the guest also has FEAT_TCR2. We do not, however, enforce
+> this as a requirement when starting a guest and only configure the traps
+> for accessing the registers based on their individual features. This means
+> that a VMM can configure a guest which can read and write the system
+> registers for FEAT_S1PIE and FEAT_S1POE without the hypervisor updating the
+> values of these registers for the guest.
+> 
+> Avoid this by refusing to create a guest with an affected configuration.
+> 
+> Rather than doing something data driven we open code the checks, I started
+> doing something data driven but it was very clear that such code should be
+> shared with the host kernel cpufeature code. Refactoring for that seemed
+> like disproportionate effort and invasiveness for the context so is
+> deferred for followup work.
 
-Applied to `rust-next` -- thanks everyone!
+This *absolutely* needs to be data driven, and we're not going back to
+over two years ago. We already have most of what is needed in
+config.c, and it is only a matter of making sure that S1PxE is only
+enabled for the guest if TCR2 and ATS1A are also present. If that
+means additional sanitisation of the idregs when finalised, so be it.
 
-    [ Removed spurious `///`-to-`//` change and adjusted `line!` to match.
-      Added a comment to match `file!`'s. Made `NOTE:` more precise. Reword=
-ed
-      to say it is only one doctest being updated. - Miguel ]
+If userspace decides to expose crap in the ID registers, that's its
+own problem, and we're not in the business of enforcing idiotic
+configurations. The only thing that matters is that the state that KVM
+deals with is consistent.
 
-    [ Removed generated file from `rust/.gitignore` and added it to
-      `scripts/remove-stale-files`. - Miguel ]
+	M.
 
-Cheers,
-Miguel
+-- 
+Without deviation from the norm, progress is not possible.
