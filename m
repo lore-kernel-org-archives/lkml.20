@@ -1,182 +1,175 @@
-Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD361343882
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 13:23:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA42395DAA;
+	Sat,  3 Oct 2026 13:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791033833; cv=none; b=Gr5iGZWp9zComcLu1Oi/BBSDw5nQeUl122pkIprRc0OPEd8g5QoJmPMALG15BdArPxWiJm18Hb1a1dlgU0QOf8upN/4BqYpCwOFRg404AwuiJV+f9GkqsQ1WR8INL81X5zwvPkCuYHad6lWlmEvb6qCrPlnK/budcGZpwbRGMnc=
+	t=1791033972; cv=none; b=C18fNN9gQqlCgMS7J7uVyhRbltKGUGfOk6o1G82BTXRneqCL2wF7Z9AWPOB7P/d7hE14tDn6bNlZfoVmWW3e3s7zbPOfI2UmBZRj0c76YKTPiYYsdLFgWwPPSoUVZXSuimdGrIAY/MsFAK3VL4dhPB9m84FqSSsJwPheUmhy5XE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791033833; c=relaxed/simple;
-	bh=QKQRz/UKVlDJD7p+wWZ8GxyH5BRlskE+T+4ZQdTPnmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kn39Ourm+Goo9fH8ppsyQIs3roFF/2X/Pif3rQyLIUuoEeDIMR1G/vM4ii0ErRRhp3xINiBCkXOOiUiywsDfGp4tRW+S/xgYqB2uU7Q/oa2stuC9k1k6fEGZhdLgGWwjMv7pMCu/Qg7x6ZyVdwv1AXIcZqDV87I0P5XB8MIjm0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LHTe/0wl; arc=none smtp.client-ip=74.125.230.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791033972; c=relaxed/simple;
+	bh=QiaWRivoGP/Wplbe4uVdripPFFwjEzIsQT0XwHBlB7A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KiZ/k0Ue87P42ZyeyqJrmof9bd+qFChqcNCRrEUUvvaSBRYua0BiJE1BuArmBChOK75jk5ISkLwHEjzsGGMVI21nh3onhV5PvHjSrRI5sHkz/4beQK3GXFl09tKR4niVIcQoYwi0xESRx8v27CQb/Aegk9A7dUZRs32wcv2wWks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gr9kNhoh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LHTe/0wl"
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e548cd7dso6325881fa.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 06:23:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791033830; x=1791638630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t772w8+UbkoBEiNw/aoRjKIZuva5aJhFhdS9Tdlyi5Y=;
-        b=LHTe/0wlr8+1bjtIGIXAtJG8sksT3lKbdw+bl1JTVBLmjHH2DFT19oxSpZqPWFk2K1
-         CSqMDPLfOxG9T6cpH+jeNXlyDiWx/V+DrrAYzq6p9pfQFWoAnxSZiGx1HSweLPpbD4xS
-         KK39sxSmhKAdWSjXV3ICFTHLLcUKS+p1nFSkk4h8QhXbTb6KRs/Hx9Ik54fvSELOljvW
-         ytAHtqro0vBo94bC9Y6ZNkoxL/FFR1C9gXoCXJ99HtwwY4OehK8VAKpZfSW6xZG1IWwJ
-         I5XG1yBZi0Q3lziyq+lQp37WYjf00tjcEnDUTjfPEUh4gxR/asKxytiWCzRqt0gNvdlJ
-         N2CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791033830; x=1791638630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t772w8+UbkoBEiNw/aoRjKIZuva5aJhFhdS9Tdlyi5Y=;
-        b=aGbprS/fz4t4AbhjFkb41xh1HYjjB55/GRP1J0T9xnIynWJmTNwYr5nCUJSqalCIcL
-         aKGH8scN0LmFbSO1UTXVHJTPAbkJiYS8nOZtskTsfvk9P6ohGWcNgJUEFgJwtDHOBlPt
-         ruSp1hJh48jPso+LuvZNH0kLAUFDIT3skJzpLSn4VvCGc/rfZ5k8qoAb2VNoGz6lxkfG
-         bQui+3m3A0fE1d2EWqdugFS6DjjVUHLNLQzi4iITZTKvcTAmph5p0HSRKSZUjIcYTWP9
-         jj7DudevZY1t3j0P9pBdg52M8xjwuzfthnyM1PGnC9ba+9cXIqzqQWpH0LL10zxWxsyG
-         uclg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+Qm1WcfTf9Shif24am8EvvnKxMrbHENOvIMZWIB1XqSYcMIqPVsDcw4KQBh40umaSwIb6gwvl047F3PY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgjQQ3B88h/xC92qfQKROf8sDuwuIjH6kJqXPl1yWS74sk5UEm
-	6bQrEXE6Hh6RckAZtPZ6BHyS7Oet6tG1ZOyYoOs/wOGzb4KGBqR2JrLK
-X-Gm-Gg: AYBFou22TxnJYTWXCGlLHdFODQ+AKoB4GKy3EwiCcuc4/p40vd3Cx96QHGcVJ+ZYcfm
-	d28F8bMPQLvCWZQ77Qzx0xW5xQJPWeVjQI4h7Wd5LfHCXNU+ph8iC/Md8EJOC9DCmVQFnFnGUhK
-	QWnriL+mZRNEd5i+M1X1OyJ1xm915KsSj8gW5rd6yOLY+ppzmAxbCjksGBW4j3NC0aASDYeMZZn
-	WByv8NYG5SJt06+wZpr69l/1KkUP5vCaTuHeV2oxk/dXorIdNnhQ6wJzpuGx5xjR7uevNtdgM//
-	Hq5GAqasSw93cb6SvV9V0YvZ5fLWvoSmTWAn3r61Z6DzuBq0Zs60yCmzHdaD2IjEWm4Z4Mo9K/N
-	2FyteBnFgLve+muRsazI0u1jyCVLjuOvhRWVfHrDFnx2SxMmef7LKtTelIHwYOv8EIG4Lby+CzS
-	/Bx2yseDVqPDkF25gSm3EfRgjDqglQpYul0NGzyMEY8vpLWWFdgXBj0xaY7YKPShMzdy9MfIqA+
-	cx518FeEDg+Zc3FAllMUTNltceYFE22PTL2XOHgww==
-X-Received: by 2002:a2e:be0a:0:b0:3a9:7d11:a785 with SMTP id 38308e7fff4ca-3a97d11ab62mr429641fa.16.1791033829528;
-        Sat, 03 Oct 2026 06:23:49 -0700 (PDT)
-Received: from dau-home-pc.. ([212.35.161.1])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e304663sm18807311fa.22.2026.10.03.06.23.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 06:23:48 -0700 (PDT)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] tun: use pskb_may_pull_reason() and remove SKB_DROP_REASON_HDR_TRUNC
-Date: Sat,  3 Oct 2026 16:23:39 +0300
-Message-ID: <20261003132340.4175269-1-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gr9kNhoh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DE2D2C2BCF4;
+	Sat,  3 Oct 2026 13:26:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791033972;
+	bh=QiaWRivoGP/Wplbe4uVdripPFFwjEzIsQT0XwHBlB7A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=gr9kNhohnPKn4Kqmk43qPgFG1/oVWSpgoHzPhlOdUT6keof/g/ruBnkKV1ykB7hpF
+	 cKgScXwed915TBMc6frLwbumQ2XR3N9lqkfGy5iALXuhPcxsoGqptSkPpTbo0/rFCt
+	 5v4Xad00CvlvRHfVT6+K58gYg6hddLUV5ArGcBIRsyvNhUr1FIUE8rNbLB7udLHnh8
+	 hl8lFaJ2T3T87IwdawwMGD4yNOWyc0H3aZAB9OlzmF6DfaOvRciQcXt/pFaVVJrCBA
+	 /toK68emAbkGktZnlunas9IqKa/cWZUNCIAv/106giN6NjV/V/NHgUJgPVLgwOXnAd
+	 SKVjGO1p5AcMQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF59ECA5FEC;
+	Sat,  3 Oct 2026 13:26:11 +0000 (UTC)
+From: Henrik Enquist via B4 Relay <devnull+henrik.enquist.gmail.com@kernel.org>
+Date: Sat, 03 Oct 2026 15:26:11 +0200
+Subject: [PATCH 1/2] ALSA: aloop: Don't constrain playback params in notify
+ mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-aloop-notify-fix-v1-1-ba5dfb831bf5@gmail.com>
+References: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
+In-Reply-To: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Mark Brown <broonie@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Pavel Hofman <pavel.hofman@ivitera.com>, 
+ stable@vger.kernel.org, Henrik Enquist <henrik.enquist@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791033970; l=4399;
+ i=henrik.enquist@gmail.com; s=20261003; h=from:subject:message-id;
+ bh=mJsEJIlV/QPq6A80rdiZ6mhKny6SlO7v9jlAYqri6pk=;
+ b=iJJKSuzJgqU5oSM5B24n9BAfa+4jEq6E9cHWU1sWKrWZiMX89fwpCpqcwTHihzsxeOTRpjIH0
+ YBApUUsYpT9DiqJgm1SQRes+FTlNXqZGgbjzTEJz23Iz2u6OKi3pbGf
+X-Developer-Key: i=henrik.enquist@gmail.com; a=ed25519;
+ pk=ctrSXwtuuiWIZbc1qNzu+n+1PkhB/a+2nlRyXd5j2pg=
+X-Endpoint-Received: by B4 Relay for henrik.enquist@gmail.com/20261003 with
+ auth_id=1105
+X-Original-From: Henrik Enquist <henrik.enquist@gmail.com>
+Reply-To: henrik.enquist@gmail.com
 
-tun_get_user() is the only user of SKB_DROP_REASON_HDR_TRUNC. It sets
-it when pskb_may_pull() fails to pull the Ethernet header of a frame
-written to a TAP device.
+From: Henrik Enquist <henrik.enquist@gmail.com>
 
-pskb_may_pull_reason() reports why the pull failed: PKT_TOO_SMALL if
-the packet is shorter than requested, NOMEM if pulling the data into
-the linear area fails. Use it for both header pulls in tun_get_user(),
-on TAP and on TUN devices, and remove the now unused
-SKB_DROP_REASON_HDR_TRUNC. The pull of the IP version byte on a TUN
-device with IFF_NO_PI was reported as NOT_SPECIFIED and now reports
-PKT_TOO_SMALL, for example when only the virtio-net header is written.
+With notify enabled (the pcm_notify module parameter or the "PCM
+Notify" control), the playback side of a cable may change format, rate
+and channels while a capture is running. loopback_check_format() then
+stops the capture and notifies the "PCM Slave" controls, so that the
+capture application can reopen with the new parameters. For this
+reason loopback_open() still gives a notify mode playback the
+unconstrained loopback_pcm_hardware.
 
-After a successful pull drop_reason is SKB_NOT_DROPPED_YET. The later
-error paths without a reason of their own, the unknown IP version on
-TUN and the path that finds the queue detached, relied on the
-SKB_DROP_REASON_NOT_SPECIFIED initializer. Fall back to
-SKB_DROP_REASON_NOT_SPECIFIED at the free_skb label, as vxlan_rcv()
-does, so that these paths, and any later one without a reason of its
-own, keep reporting it.
+Since commit 898dfe4687f4 ("ALSA: aloop: Fix racy hw constraints
+adjustment") the hw rules refine against the shared cable->hw instead
+of the substream's own runtime->hw. This pins the playback side to the
+parameters of an open capture whatever the notify setting is. A player
+probing the device sees only the capture's rate, format and channels,
+and the format change path in loopback_check_format() can't be reached
+by a new playback.
 
-The errors returned to user space do not change.
+Skip the format, rate and channels rules for the playback substream
+when notify is enabled. Skip the period bytes rule as well: with a
+sound timer source, params_change() already takes the period size from
+a notify mode playback, and keeping the old capture's period bytes
+leaves a playback at another rate with a period that doesn't match the
+timer. The capture side stays constrained to the cable parameters.
 
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://lore.kernel.org/netdev/20260923145931.GA2859441@shredder/
-Assisted-by: LLM
-Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
+The capture stop this makes reachable again was hardened by commit
+826af7fa62e3 ("ALSA: aloop: Fix racy access at PCM trigger") and
+commit e5c33cdc6f40 ("ALSA: aloop: Fix peer runtime UAF during
+format-change stop"), which need to be applied first when backporting.
+
+Reproducer, with notify enabled on the cable:
+  arecord -D hw:Loopback,1,0 -r 44100 -f S32_LE -c 2 /dev/null &
+  aplay -D hw:Loopback,0,0 96k.wav
+Before: aplay is forced to 44100 Hz and the capture keeps running.
+After: aplay runs at 96000 Hz, the capture is stopped and "PCM Slave
+Rate" reports 96000.
+
+Fixes: 898dfe4687f4 ("ALSA: aloop: Fix racy hw constraints adjustment")
+Reported-by: Pavel Hofman <pavel.hofman@ivitera.com>
+Closes: https://lore.kernel.org/all/b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
 ---
-v2:
-- Also convert the pull of the IP version byte on TUN devices (Willem).
-- Dropped the Reviewed-by tags, as the IFF_TUN conversion is new.
+ sound/drivers/aloop.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-v1: https://lore.kernel.org/netdev/20261001093925.3529772-1-littlesmilingcloud@gmail.com/
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 81cb1f59f7..5f0e2dc967 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -1073,6 +1073,18 @@ static unsigned int get_cable_index(struct snd_pcm_substream *substream)
+ 		return !substream->stream;
+ }
+ 
++/*
++ * In notify mode the playback side may change format, rate, channels and,
++ * with a sound timer, the period size. A running capture that no longer
++ * matches is stopped by loopback_check_format().
++ * call in loopback->cable_lock
++ */
++static bool loopback_playback_unconstrained(struct loopback_pcm *dpcm)
++{
++	return dpcm->substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	       get_notify(dpcm);
++}
++
+ static int rule_format(struct snd_pcm_hw_params *params,
+ 		       struct snd_pcm_hw_rule *rule)
+ {
+@@ -1082,6 +1094,8 @@ static int rule_format(struct snd_pcm_hw_params *params,
+ 
+ 	snd_mask_none(&m);
+ 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
++		if (loopback_playback_unconstrained(dpcm))
++			return 0;
+ 		m.bits[0] = (u_int32_t)cable->hw.formats;
+ 		m.bits[1] = (u_int32_t)(cable->hw.formats >> 32);
+ 	}
+@@ -1096,6 +1110,8 @@ static int rule_rate(struct snd_pcm_hw_params *params,
+ 	struct snd_interval t;
+ 
+ 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
++		if (loopback_playback_unconstrained(dpcm))
++			return 0;
+ 		t.min = cable->hw.rate_min;
+ 		t.max = cable->hw.rate_max;
+ 	}
+@@ -1112,6 +1128,8 @@ static int rule_channels(struct snd_pcm_hw_params *params,
+ 	struct snd_interval t;
+ 
+ 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
++		if (loopback_playback_unconstrained(dpcm))
++			return 0;
+ 		t.min = cable->hw.channels_min;
+ 		t.max = cable->hw.channels_max;
+ 	}
+@@ -1128,6 +1146,8 @@ static int rule_period_bytes(struct snd_pcm_hw_params *params,
+ 	struct snd_interval t;
+ 
+ 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
++		if (loopback_playback_unconstrained(dpcm))
++			return 0;
+ 		t.min = cable->hw.period_bytes_min;
+ 		t.max = cable->hw.period_bytes_max;
+ 	}
 
- drivers/net/tun.c             | 8 +++++---
- include/net/dropreason-core.h | 7 -------
- 2 files changed, 5 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-index 5a302709a68a..9fe2dfd173ad 100644
---- a/drivers/net/tun.c
-+++ b/drivers/net/tun.c
-@@ -1908,7 +1908,8 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
- 		if (tun->flags & IFF_NO_PI) {
- 			u8 ip_version;
- 
--			if (!pskb_may_pull(skb, 1)) {
-+			drop_reason = pskb_may_pull_reason(skb, 1);
-+			if (drop_reason) {
- 				err = -EINVAL;
- 				goto drop;
- 			}
-@@ -1932,9 +1933,9 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
- 		skb->dev = tun->dev;
- 		break;
- 	case IFF_TAP:
--		if (!pskb_may_pull(skb, ETH_HLEN)) {
-+		drop_reason = pskb_may_pull_reason(skb, ETH_HLEN);
-+		if (drop_reason) {
- 			err = -ENOMEM;
--			drop_reason = SKB_DROP_REASON_HDR_TRUNC;
- 			goto drop;
- 		}
- 		skb->protocol = eth_type_trans(skb, tun->dev);
-@@ -2062,6 +2063,7 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
- 		dev_core_stats_rx_dropped_inc(tun->dev);
- 
- free_skb:
-+	drop_reason = drop_reason ?: SKB_DROP_REASON_NOT_SPECIFIED;
- 	if (!IS_ERR_OR_NULL(skb))
- 		kfree_skb_reason(skb, drop_reason);
- 
-diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
-index 12f909651591..47b44a29daab 100644
---- a/include/net/dropreason-core.h
-+++ b/include/net/dropreason-core.h
-@@ -82,7 +82,6 @@
- 	FN(DEV_READY)			\
- 	FN(FULL_RING)			\
- 	FN(NOMEM)			\
--	FN(HDR_TRUNC)			\
- 	FN(TAP_FILTER)			\
- 	FN(TAP_TXFILTER)		\
- 	FN(ICMP_CSUM)			\
-@@ -427,12 +426,6 @@ enum skb_drop_reason {
- 	SKB_DROP_REASON_FULL_RING,
- 	/** @SKB_DROP_REASON_NOMEM: error due to OOM */
- 	SKB_DROP_REASON_NOMEM,
--	/**
--	 * @SKB_DROP_REASON_HDR_TRUNC: failed to trunc/extract the header from
--	 * networking data, e.g., failed to pull the protocol header from
--	 * frags via pskb_may_pull()
--	 */
--	SKB_DROP_REASON_HDR_TRUNC,
- 	/**
- 	 * @SKB_DROP_REASON_TAP_FILTER: dropped by (ebpf) filter directly attached
- 	 * to tun/tap, e.g., via TUNSETFILTEREBPF
 -- 
-2.47.3
+2.53.0
+
 
