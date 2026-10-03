@@ -1,111 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801FA30C637;
-	Sat,  3 Oct 2026 07:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B43F39061C;
+	Sat,  3 Oct 2026 07:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791014022; cv=none; b=rCn4vStWQyYFdrVvq2ds3aQV6SesELduW4GvR96SNgzqghSRnvjK8j0Olm2HcLrmN8qwpOGXg5DznLl7grhu4qYgKQKLiSKMfsE2S8T4mOedRVT9zmSkFYG6bc994TNY983c0sL0/NfDBFbkEwgFai0kJAcBmd5YsgcLCJj1pNQ=
+	t=1791014036; cv=none; b=iYHqYKessTaNo0srkjq2ehShLkjcVPdN9p38lsDLFoIbDbctxP/rgP/aS+8kGeYiFwawiHj2/4La8Z0cAyez4RH2rp+DJH9FsopB5j2faoGB7Ep1hWuPx0yKTIVUJZjAECkROTdW5P2nGuJ/Wa3gwuPLX5XNoHFnkBvbbdtOdus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791014022; c=relaxed/simple;
-	bh=w/fxHVNtA+8suk/aVIjfFU697JVRJgCgDhdycK2gkzs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N1y/phMzFuoTtcd51g8SZ80JCXYo25c8UlleoVd0ktB7twxGyRh5F2fU6+shCc3Fzu/sBJYYb+Z3fweP6sZMP/kt4IEHtQl5ADYxl2fx7bM53DvjH+6/kzSJ7BA1nOTQn5wqdgMxavb3nDLL3tYAoWqunc2On98JgR9Ha5dTft8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WzJ2eOqz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791014036; c=relaxed/simple;
+	bh=V6/iesYll4WGuGiYWijoaH3N65XNXaEOB+q4etnOqlg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EkbsAqkGAi1fdICjGQuxGiOfoezgKhatJt3mLbSgrWvq3F/a0oJbZ6mwFavBVRiB+4YaLnhSwAeFt5wrNcRpdPd0mTZ8NcUzEowrhngl2KVxIFjTOeSb9IPxd3/dIfiOL/LdsN0cf7iHdx6l6kFAjWLoHNTDqY+QYrHk3LeQXMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPBt+pBM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WzJ2eOqz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5951F0089B;
-	Sat,  3 Oct 2026 07:53:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPBt+pBM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0401F0089B;
+	Sat,  3 Oct 2026 07:53:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791014019;
-	bh=o0qMmOfhKF4hfQTENoYGXCxXEOkOcEeucQ2rUqmquDU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WzJ2eOqzQWMfNqjQ4uMRDf+FCfdYpVSpnDyeIHKeSI0sfj4jfuq5UFXjDol5dQ6yq
-	 Y21+jCvkKiQezkuwVF8DvJsZiFTlxoRQUFiUeMegUCkR5TVYlGew/ahO5bX/c26nb5
-	 OsB0QTsvx4iI221fPQCJ3EQOnCMuOV2zZXfNVFSLkckId2pS/VJXEFJ4FDx9GVlbv1
-	 x+n6YSe06yG6pWnuZnaj9mDXXu1SIlL/EPvhVT0MdAqJbhcaMYjNAv44bKn/501xkH
-	 IkV6Y5WZJsyYrhBXGFhH+GK+TxncBneXZM5ja45fq4AhhImdvbqXboJSoP9NJxqh4Q
-	 oP8BDF3la8eWA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>
-Cc: Jinchao Wang <wangjinchao600@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	x86@kernel.org
-Subject: [PATCH v19 07/11] selftests: tracing: Add syntax testcase for wprobe
-Date: Sat,  3 Oct 2026 16:53:34 +0900
-Message-ID: <179101401403.22872.10717032102618304885.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179101393469.22872.5895666191299551553.stgit@devnote2>
-References: <179101393469.22872.5895666191299551553.stgit@devnote2>
-User-Agent: StGit/0.19
+	s=k20260515; t=1791014035;
+	bh=azoYULOWEmDVVWIav3ExlsZBBsYtE38HW0TqKqZhIc8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fPBt+pBMRhfbxueN47SoIKL+z2lZUy1d6enjkhUycfilzDG3+sJOfH5NebtnfpKhq
+	 CcSDgl4AqOEQGaxDUFLWZBi1B8LdZ9RzeG79RRXQtk/fDyTF9fE+3t+f6EQ7hpIJRP
+	 TrIOViIQ2TTpAELejEM3uUwRTouY+oDtpYEA7uuOClVkPQ3uybKOkkFxjyBJWOFXi3
+	 zRI2kGQGvMjemGSUK0FOLjvLBTU57oOeW6JMYo9FxNMjKMBh2BUXmJy1R07Fkna4ya
+	 SXcqyyobihgrsnVpNcwdfoWmuCGOiIt9GskCVMYOP7mHww0q36f6CzYkXCg6mkMAqW
+	 bDdS3P5KlW5jQ==
+Date: Sat, 3 Oct 2026 00:53:53 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 4/5] dt-bindings: riscv: Add binding for CBQRI
+ controllers
+Message-ID: <asC0kQ3xQYEjOm6c@x1gen8.tail89d63.ts.net>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-4-52fd8be98dcf@kernel.org>
+ <20261003071910.DF22E1F0089C@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003071910.DF22E1F0089C@smtp.kernel.org>
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Sat, Oct 03, 2026 at 07:19:10AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] dt-bindings: riscv: cbqri properties unconditionally required against intent
+> --
+> 
+> commit 5dcd168e7171a1ca9e65e913bdb55cea23dc0357
+> Author: Drew Fustini <fustini@kernel.org>
+> 
+> dt-bindings: riscv: Add binding for CBQRI controllers
+> 
+> This commit introduces the device tree binding for RISC-V Capacity and Bandwidth
+> QoS Register Interface (CBQRI) controllers. The binding covers capacity and
+> bandwidth controllers, including properties for resource-control IDs,
+> monitoring-counter IDs, and cache phandles.
+> 
+> > diff --git a/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+> > new file mode 100644
+> > index 0000000000000..0924758ebdde6
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+> > @@ -0,0 +1,97 @@
+> 
+> [ ... ]
+> 
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: riscv,cbqri-capacity-controller
+> > +    then:
+> > +      required:
+> > +        - riscv,cbqri-rcid
+> > +        - riscv,cbqri-cache
+> 
+> [Severity: Medium]
+> Does this code introduce a regression by unconditionally requiring these
+> properties for all capacity controllers?
+> 
+> The commit message explicitly describes the riscv,cbqri-cache phandle as
+> optional.
+> 
+> Additionally, the binding description notes a controller may implement only
+> monitoring without allocation capabilities, meaning it would lack RCIDs for
+> allocation operations.
+> 
+> Because the allOf block rigidly requires both properties for any
+> riscv,cbqri-capacity-controller, this appears to contradict the hardware
+> flexibility and will cause schema validation to fail for valid device trees
+> describing monitoring-only or non-CPU-cache capacity controllers.
 
-Add "wprobe_syntax_errors.tc" testcase for testing syntax errors
-of the watch probe events.
+This is not an issue.
 
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
-Changes in v14:
- - Update comment for invalid offset syntax check to BAD_PROBE_ADDR.
- - Add testcase for invalid address 0 error check (BAD_ACCESS_ADDR).
-Changes in v12:
- - Add NO_ARG_BODY error case.
-Changes in v11:
- - Add WPROBE_NO_MAXACT syntax error case.
----
- .../test.d/dynevent/wprobes_syntax_errors.tc       |   23 ++++++++++++++++++++
- 1 file changed, 23 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/test.d/dynevent/wprobes_syntax_errors.tc
+riscv,cbqri-cache is optional for the binding as a whole because a
+bandwidth controller has no cache to point at. For a capacity
+controller, it is required because the cache level and the harts sharing
+the cache are taken from that node.
 
-diff --git a/tools/testing/selftests/ftrace/test.d/dynevent/wprobes_syntax_errors.tc b/tools/testing/selftests/ftrace/test.d/dynevent/wprobes_syntax_errors.tc
-new file mode 100644
-index 000000000000..e0df58fe7aa3
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/dynevent/wprobes_syntax_errors.tc
-@@ -0,0 +1,23 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: Watch probe event parser error log check
-+# requires: dynamic_events "w[:[<group>/][<event>]] [r|w|rw]@<addr>[:<len>]":README
-+
-+check_error() { # command-with-error-pos-by-^
-+    ftrace_errlog_check 'wprobe' "$1" 'dynamic_events'
-+}
-+
-+check_error '^w'			# NO_ARG_BODY
-+check_error 'w^10 w@jiffies'		# WPROBE_NO_MAXACT
-+check_error 'w ^symbol'			# BAD_ACCESS_FMT
-+check_error 'w ^a@symbol'		# BAD_ACCESS_TYPE
-+check_error 'w w@^symbol'		# BAD_ACCESS_ADDR
-+check_error 'w w@^0:4'			# BAD_ACCESS_ADDR
-+check_error 'w w@jiffies^+offset'	# BAD_PROBE_ADDR
-+check_error 'w w@jiffies:^100'		# BAD_ACCESS_LEN
-+check_error 'w w@jiffies ^$arg1'	# BAD_VAR
-+check_error 'w w@jiffies ^$retval'	# BAD_VAR
-+check_error 'w w@jiffies ^$stack'	# BAD_VAR
-+check_error 'w w@jiffies ^%ax'		# BAD_VAR
-+
-+exit 0
+The required properties describe the hardware that currently exists. A
+monitoring-only capacity controller would have no RCIDs to describe, and
+the binding can be extended to cover it when such hardware exists.
 
+Drew
