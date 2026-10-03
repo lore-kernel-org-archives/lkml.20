@@ -1,114 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D77C386541;
-	Sat,  3 Oct 2026 08:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8D5282F09;
+	Sat,  3 Oct 2026 08:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791016720; cv=none; b=X+0g2J3RF0SIdVkosYolep7LVnVOSdWj5HMfn2o5jmSr6MLK8xj+Zc+mLLP2VS/KSHVBZhFTFXq0cdnzcSqvjv//Pa+KT7uL4qSKdiVDnFLBvFXosr+oxvss6Y59vDi8LAyo4a64cBJ30ssNwmtxnMe8SO9AZVtscx+u6lOYt84=
+	t=1791016809; cv=none; b=hbDPoLSSc+ct/4EzdGtm0/w79Mr7P/1/7bwwLbLKNLKLZRG2CfL8lSqWuA0i0+mUNrkmSDW2DS0H4ltyWhK0PomiQxw+F7/ZBD8YJVytFc+zLO3s0dLSTFzMdSJnQz5lJpnLQbqKIHiN5q4kQ8e8bWX565BfONSU/9h6s6HSsNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791016720; c=relaxed/simple;
-	bh=62jLo/IJbBFif/mdDraKU9ZKT3lc3S1g4mwDphqDaP8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gllDjZol0inyuIKjzJJLmiIr0EYWDzeAEKRBHO3U/Yj7qWNdvBR7hiHc7D8q0EYnLPvUoph0gNt/qqxv58EE+zRpOHKZNrEdZjFCkToH+Ui5fKmDSILjvyUvN5eBObyqFn93wiOVO+I2VZOYBoNO1ABSiCmAHsB7xqmsfiQCEuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gyxFQhDi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791016809; c=relaxed/simple;
+	bh=KDyBQsWOkXVI8i8zQ1FXAXyYRI9Ss7lqHOVr994hE60=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=YRygJGM4C4ZJsfF6RiZya8Lapg2tZP7Fyqw0REkNOWDIuXwqDrHVAbYTZIUNWOm5QL6GH1jq9AZrq2nVR2SpBw+Fw68p2eao29mCsFn4a1Mku7rYQ5W0vVlhkh+hRB9GWTRAW5UaFjSwPjwlA8ttizf0kov46XRCxvlHjN8EKjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kheDDqeN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gyxFQhDi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E521F0089B;
-	Sat,  3 Oct 2026 08:38:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kheDDqeN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD02F1F0089B;
+	Sat,  3 Oct 2026 08:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791016719;
-	bh=H5rQCXZ1gWzInXM1iaG1BbgIiBJJUiKoxe2QRaI+VTU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gyxFQhDiIye3MnJrmNpZ2DNYijsqPdiuff1+lUxTweMxeKyOIMT4BX/1ZnCHmKUXJ
-	 HY7QZB6EiJ1aJjh0GU16c0uZ/+vdCpmcZ0AI8pki98puQ1v0Gry0DU1VVuOxKb8PPJ
-	 mfst+2NpNxiRiVg3SAHL5eACHlTgw5sWWxq8TejmCrfWeMydIzjOUyUEhtdq6t58ZI
-	 PFEqk/NMd5bDJlbGJW0jBv7TZfsfGelS7kCnaEbWDprAqr1km78jbAadTkB6SQraMs
-	 kqG46lNPijho4EwohJYNa7OB/jnn7+X7vspFFSlK2Jrcme/gmXgt91IhdfQc7gSejG
-	 KHVnpIlw9lHOA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xCvGO-0000000GUPh-2RdD;
-	Sat, 03 Oct 2026 08:38:36 +0000
-Date: Sat, 03 Oct 2026 09:38:36 +0100
-Message-ID: <86ld8f2n77.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v4 00/18] KVM: arm64: Confine protected VM vCPU state to EL2
-In-Reply-To: <20261003065713.3872839-1-fuad.tabba@linux.dev>
-References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
-	<179095643711.351883.2924159912626438826.b4-ty@b4>
-	<20261003065713.3872839-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1791016807;
+	bh=ouJddzKByPrry0D0Upehb6Z/luwfT6C8do1CMv077sM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kheDDqeNhlKbTvCGU90UgIlAWvaZhqO9RlXdMnALYk/L2+PmT5YOe0Vs5c1uudTz0
+	 b9pzRbEaOAo2mZByLlxlMFsgsdamUMaYWgghGTcVl497bxC0fF1rufuXLlQX5/1wIs
+	 XoRzaC7Kej62OAG+zijybqg3TPA/0W/7xoxZcvxc/guhF6hiElermScTS+4A/53s0j
+	 ORmwTqXbWRA/nSIb+FjGhzrigMrQ7gHWn/REUYH8dHr5faESCVMKz533fgQEWqk5Jk
+	 VFze8NyJgdlrjyFbvmoJaGzyoJ7JlfB+wZN8/noar6oIxvjPrgPb+4AZaUevckpyr7
+	 C1jinQV1F2vgQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43EB392445F;
+	Sat,  3 Oct 2026 08:40:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [bpf-next v2] bpf: Roll back freplace link state when
+ bpf_arch_text_poke() fails
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179101680654.10350.15119401687517610714.git-patchwork-notify@kernel.org>
+Date: Sat, 03 Oct 2026 08:40:06 +0000
+References: <20260928091121.219333-1-chenyuan_fl@163.com>
+In-Reply-To: <20260928091121.219333-1-chenyuan_fl@163.com>
+To: chenyuan <chenyuan_fl@163.com>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, jolsa@kernel.org,
+ leon.hwang@linux.dev, linux-kernel@vger.kernel.org, chenyuan@kylinos.cn
 
-On Sat, 03 Oct 2026 07:57:13 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+Hello:
+
+This patch was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
+
+On Mon, 28 Sep 2026 17:11:21 +0800 you wrote:
+> From: Yuan Chen <chenyuan@kylinos.cn>
 > 
-> Hi Marc,
-> 
-> On Fri, 02 Oct 2026 16:55:26 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> A freplace attach claims the target prog by bumping
+> tgt_prog->aux->freplace_link_cnt and setting tr->extension_prog.
+> bpf_arch_text_poke() then makes the extension take effect.  If the
+> poke fails, the claims are never released: the attach unwinds
+> through bpf_link_cleanup(), which clears link->prog, so
+> bpf_trampoline_unlink_prog() never runs.
 > 
 > [...]
-> 
-> > Given how busy this merge window is, there were plenty of conflicts, most
-> > of them with your own patches. Please have a look at the way I resolved
-> > them and let me know if anything is on the bogus side of wrong...
-> 
-> Thanks for taking these, and for sorting out the conflicts. Most of the
-> resolution matches mine, but two things in the pkvm-state merge are off:
-> 
-> - In __kvm_vcpu_run(), the !host_vcpu and SVCR bail-outs still return
->   -EINVAL. Patch 10 changed them to ARM_EXCEPTION_IL, since the host
->   reads bit 31 of -EINVAL as a pending SError.
-> 
-> - In __kvm_adjust_pc(), the pin path uses kern_hyp_va() on the __kern
->   pointer, which sparse flags. It needs kern_hyp_va_host().
-> 
-> The diff below fixes both. It also drops the set_bit()s in
-> pkvm_init_features_from_host() that kvm_pkvm_vcpu_allowed_features()
-> already does, and realigns the esr_dabt_is_cm() line. Could you fold it
-> into the merge resolution?
-> 
-> With it applied on next, I booted protected and non-protected guests,
-> ran CPU hotplug in both, and ran the pKVM selftest (from my tree), all
-> passing.
 
-Thanks for having a look at it. I've now applied the new resolution
-and pushed out the updated branch,
+Here is the summary with links:
+  - [bpf-next,v2] bpf: Roll back freplace link state when bpf_arch_text_poke() fails
+    https://git.kernel.org/bpf/bpf-next/c/5ec398d9ec8f
 
-Cheers,
-
-	M.
-
+You are awesome, thank you!
 -- 
-Without deviation from the norm, progress is not possible.
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
