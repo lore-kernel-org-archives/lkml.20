@@ -1,181 +1,315 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11023126.outbound.protection.outlook.com [40.107.201.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B633955EB;
-	Sat,  3 Oct 2026 19:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2166457E44
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791056132; cv=fail; b=T2AXklBpkXn70RgTu0IjePbmGBwlRRSm8JDWdMkhV5Oa97Bd82dp6vpmavybJ+8UzWQ8HJaN0nzduByqmJrnEBWmSz2UgpLrHeHVheCNYV1fXRjccdaQ9uXabR+kZT9rVEoB3RJNoczSyy2e0zHTxTjpX+L2Hkdb8g09G6nPAHQ=
+	t=1791056256; cv=pass; b=j8s2NSy4mvOjQf+OPzLzbMQsmWr72krM9divPwhY+MGgedABT0gj4NEA8dJPABRMEOviXOfp19wvGNI5bqnH+sVkT2rxLHUOWt1dAiFeEQyW370jY//uSoILf0/zAVlQXmR5ZIUP5KfK22dcnWTphFq3ZMDzInfgvM6kH4Itu8o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791056132; c=relaxed/simple;
-	bh=lkwRIHALe0yu+7U0y/MbxHLRUpx+DF6WhUJ6zDDsapA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=UixjNmJTRqBdnx0a3oiZL21dRWXOgCE76QYU581UyqdtdRdPOW2QPqfUBTz55V7KpwNctTFnJiB9xryf3ml8FC1D5f9qIrMDPiScOjMT3tFEDg/UsSs+6PgUnRZb94Z0vdQL5CNbEQCywgASn5LWEIICaPFGRoQ9sqrYMakXYBc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net; spf=pass smtp.mailfrom=trailworks.io; dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b=NH5sNoQx; arc=fail smtp.client-ip=40.107.201.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailworks.io
+	s=arc-20240116; t=1791056256; c=relaxed/simple;
+	bh=RQdISwCIeTHJRNNRYXKnQccif86ZtXCpqBErB1KRL7U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZHgKy7Bl/4KLbtiKFtw8cEYIT+c46R4SV82En8vgr361LBl2GQvmAG348iZPCucM8fJT8P0Pqo1slifAgI32fAfAtcU5OSJ0UuFFzRCD2r13lz+5YA0l4m9+4RiHVETFqfzciI82kE7MQAoJy9TLt0ZG1eqbcKJY8SiNLC/Y1B8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p2qBkOJb; arc=pass smtp.client-ip=74.125.228.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b="NH5sNoQx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r7SmHwgh2Uo4SwYJ2NVLahsYpj54kR6fwdx/IpakAqzuWKnavBQ0KxsTRXF0OmBJ/sCu3rTURHkpuMztiYoBVjzclynZqfKQ+RVPqt7XTgayhMoAtZanOzHMs0C1ogKYhajLyDJyarK4cq82i1LduWQ/vaZqsx0AtBYAqD5vNrpaa35EsR+d04T6YqFCuJAWLSwgg9xBuj7wxVT15s7p5vbVXasgrJkCxKkME9qtHHqF2Fr8pO33eNfppf+QAtWymtiELGvgchlkEd5QVWwPzi4dmM97S151uhfFPMfSFJ9JxYSc7Ll22g0TPIxEAEHGrYRWPG8c+7+WvlCYLQnvew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=acwdDDgdzlplsPPveHz2f/H3thDUZtn3jfohH1efzK8=;
- b=CwJBGglztssXgfx28Z/wMpx9sMkNMNcsvTwfdUGCNMBWc8Jfhw4ehBxY8gIMvbo5bPem5QUPEiLf+icK55Po57GOC2Dzbr64mO+ooWZZoP1BSvNIwl+hEoNB6tf/M8eXkznhtAhgBHQiQGk8UTxdSw3RaLDSKLaDQ27ZyiQrmziLi7qdsjA6nrRJcs9Tm0KvQx56JBARgyGZmlZPtuz3kse9Cckgg56lW26hQwCCL2acok8g+8S9LKvU3FJRRXjmEt8AkmtoQrK66fDH/aeFgXX8uIOfWPvd+Twq530UrKwl7oZqaCMQjMx3UIA+iB3xOA4oHqKpw88tPXUOTMoS8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=trailworks.io; dmarc=pass action=none
- header.from=michaelburch.net; dkim=pass header.d=michaelburch.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=michaelburch.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=acwdDDgdzlplsPPveHz2f/H3thDUZtn3jfohH1efzK8=;
- b=NH5sNoQxOGBqNE625OmE+WUrvHcmdVYsrt83fGqAIJ+xxvAsfFITMO30CQMhrUtk28p4rmxPOH9X7xke7ZG7srJYKLmKP1PAigqM+2ADbABEAVV6vecIk+7eqk8jYsyqkSM50d2IKoF9P53vlCBG79YwRmQqNQ5b2F66gYW/cJl4JnlERHHav7YJz6IPJzdHrHeM/oHJKKQAixTK+YWkLpbQyBeaVdgpoJSLfIboU6YXMOy08VX+dMotecqyngOiJixduFTRschdAUlwG8b+hcs1tw7+KGHpN01PjMTlxtKhhjDozluQ+wnBVC8hNkHxTXiyKW0KIENRgy5afRf/HQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=michaelburch.net;
-Received: from PH7PR01MB8123.prod.exchangelabs.com (2603:10b6:510:2a4::19) by
- SJ2PR01MB8529.prod.exchangelabs.com (2603:10b6:a03:55b::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.20; Sat, 3 Oct 2026 19:35:27 +0000
-Received: from PH7PR01MB8123.prod.exchangelabs.com
- ([fe80::da98:a31d:73b6:7930]) by PH7PR01MB8123.prod.exchangelabs.com
- ([fe80::da98:a31d:73b6:7930%5]) with mapi id 15.21.0472.016; Sat, 3 Oct 2026
- 19:35:27 +0000
-From: Michael Burch <me@michaelburch.net>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Shivam Rawat <shivrawa@qti.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/adreno: Leave the GPU RSC awake for system poweroff
-Date: Sat,  3 Oct 2026 14:35:17 -0500
-Message-ID: <20261003193518.13811-1-me@michaelburch.net>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SN7P220CA0028.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:806:123::33) To PH7PR01MB8123.prod.exchangelabs.com
- (2603:10b6:510:2a4::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p2qBkOJb"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2e59b029a9so10069166b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:37:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791056252; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OSr4hJtjQQaORf4uuqBMcEh4Uo7IvwOYqI7HaKjGZawLWWp8iE4boP6a9rNxJU93sT
+         2toDilZonZ53yuERao+zHLzJohuOBjN8yuqfYWy+oo/hiM8YXdB4A2zfIWnoe4zUfZoA
+         hH4ZSCpUbnWRKAa025EMxF804ZWSvTDBFwKz9G6UIMm80apzkDln7fZQcbkwiCSAHVpv
+         yYFJz3Tsf9SobUgXypoR0b94Vtiy244m7UbpOy4zaTyAoTCf32JSIvBoYeGz5geUtYhD
+         +k7q7Vyy/tEWyULLuHODmhAmWak2zQjJ8TQEN2/Za+mZaVk3geetpmHk0PSJIXPbMf4S
+         n3Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+1sgNjTuEhjk9Api27Ek7GbjZW7LaWBth9pDAUxc4Wk=;
+        fh=1DYiC6A3GPwI87UZyeC9kVi/i2YAlpUY08sPUgZfxM4=;
+        b=bm62xIKOd+sxSMoY0ZzdFHOugFTWdbmS4K87kkNZubt3RFNdd+qZyfwh947Kbf70OZ
+         JDvDwzBmyf0wreZC0IaymaPFMds9mGa+phleVeJoQ2ADatISlVXE8MJDxyZd9OyKYOSB
+         et0sijh8KimY/3d8L/dHFi1Q1U9IF4wB+qqKWWfAMFk461H9vgg0XeFWbeeHFiA5YGxO
+         tQJjp0wu5BaATAd14B5yKUQdnJWFzDiACd+utsft87JIl2430S89bb8LrtuQcz3fdDQa
+         r/3+I5R9nfxgxvMmWmfCK8sfGdLh9+C1mYdSeIst/qZ2tcCUYc88PDcl07xklc26oMwJ
+         Euag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791056252; x=1791661052; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+1sgNjTuEhjk9Api27Ek7GbjZW7LaWBth9pDAUxc4Wk=;
+        b=p2qBkOJbe0JoIVZCajmcrQTxkDnY+IOH3/Tk7u4MNIVFwtr+MwYQD/b8Wiq+6L1Z5D
+         XH8mXaO7g+fmFom3HdXa+rO/y6TynLCKTZZpNl6SscUG+2P0WMrwx5aRc3kjGm6PfhRd
+         1Rr8zmBaUPRzZe1ZoIUjLsdfPRDUU8P5zuF9k9YDE+0VfkHUzJduxWdNTQ6ThddUKhmO
+         2M7odiGaEisdf693nRTuGLEe1H63qaLVrTKKCXqkbNhho+sqeZzA8Euk8bvc1Bq1rnMp
+         omDjAxvICJx04pmTcLSMIRTpsmpop8GR/dN9vInYBmrSD2ufRbKFagmEqiFPTI5+Rh+f
+         Ylcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791056252; x=1791661052;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+1sgNjTuEhjk9Api27Ek7GbjZW7LaWBth9pDAUxc4Wk=;
+        b=IycA3uKFAsGipcGcFTBh07j272YHYyE2o1gejilRDvkrcvWRwWQBi3MWvW1/qzWhjc
+         wheMbLimk+AgXFmFy8/6XjQdeQZsn2irTWdSNG0UIEASNb0eNYmLaRELZUO/cTGWUBnT
+         xwfZSSZPREEHnA1oqiAWELYSrLQ1Tq+dnKri44Cv/McNbTNGyCRo/8uHGv2VgA4/O7Vp
+         CpAxua89JyZVZX+cUsiKJTtb7RgoBjYHgBDPyf0K3zN3GKdst/0+qG6cdbB/NqL9O0w4
+         Jj1ytyk1suGh15pnRWzq7+92d8Eg5mEQgqiI/b7teJ5v02AnF22mbEkP8rDo7ZbqulkQ
+         hPDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwudB5ejKmJrv4YXYjmZJcZko1JXQDeKxVscxhG/KCHV6kmPzJbTMBZTQclvLqgdyGeWXy8tiyRX1RHQJE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJml9Iw+YCAQZv19EfEDNKnlY5+2tsgVPyFJPXfJdL1TSSKuDSF
+	2t6ERxu0jIR8YdTjthZ9Q+Z9uqWfu7YZ4BxdgXOIsUk2FvAchN2jQxpnxc4nhFeBy4crOcCv3mn
+	fJtjFrbu5VZfg0nONkJRqiAIM+KbGOjw=
+X-Gm-Gg: AYBFou3Tu423p9EZz2NWVfFbLu0JmHrolpua29FJF/Xzr3Sie00yYB5hoZxboQFnVW6
+	Moa5TlC3tj6siYpBO7kIttLA8r3Ve0hX32nXdvPAtjAO40hZf4OEVtTjgJgX5jV7beGcPrqZUoE
+	fbg0RLX4uZQ+HzjhaTPf0MiUMvK3KPQyaHKxQjbdU46e9Ffw0ow8HmWSaAPirU300MrQaTCKb0I
+	taTnvK0lKPpS+7J+4L+hmIzsIxr22+AB0LLMauHZ8RochFt4jUsBZS4kLZvhOaOYtRIPEH+hg9x
+	cNgEe8IIAiZh/yqegEB2aNn48Y4DvOo/l1bejGhjc4KL3djUUC+1KW/9dA7lJi7jgM+2vM/B5AQ
+	wmhkG5pmMe9vFOh1jqtfZNg==
+X-Received: by 2002:a05:6402:1ed0:b0:6aa:a040:cc0b with SMTP id
+ 4fb4d7f45d1cf-6af9e26f8demr6033264a12.1.1791056251842; Sat, 03 Oct 2026
+ 12:37:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR01MB8123:EE_|SJ2PR01MB8529:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37bb6ee5-1738-4a0d-9125-08df218579eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	JsretGg5Ls86qNpMsKDVdv7Wi8nrGTrEIdrprmLe+4pUqUsEjYGI0QLwvuY2C/Uy+0mk+3lnPrCg9gPYMBvWdKSQ0Gu4R6Ortcrz8CPmpUM5hQn2KQb0/lu45NxF4ajdr4KYpZT3uinxz5y302xOr/B9ts86iHbeE/dX3TI3XZHWri7imMhsS8MxaiuHRHH1wIa3AreYt/h0cmVAUhiABWQrAnzjW66jssdRkW9qYdIwm+SPWqDhmAlvoPfQ/ewIOb48zKLSMT562+Mm4aqFPI3YhK9t51nsbMtJWkbXm8TJ0mnnEF54vnjOcLYOZgJU1pB0qqTDqDH5yngnVHCQv/T4XpSWI1WI/QXQAYrl/OrtgqYcV5HOQelpAjqqDfsqbeSk3axyQDLbhDfEHJvHUTxUXDsA4sV7gjOZvyo4uq8kG0hlGF++zDA8s00cbDUC1Gy243YkWu8i2Vognx6eRE5yKAYR4Zd8ZmLwjCwa/7Of2tFjwzJvW2QaeNSDbc1rD2p6hC4dT52vNMYraHnzn0idCR1fQycFrYUPh8xlJMoXBjUTH76gThU9V/c1QycaFDAW2vsWsfwpdfnJtoAU3a+dZQyj/s7MUh3jZHxkcPQJnZOLDtLqvdPsfSP7pz4c814OIGZZL2i4WVwRHk+AFRBubzC1SzUebNGHhh4Sw1Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR01MB8123.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vTAmHG99wv0ugKLI+tdCCY+ueqm2XTmYyxH1iTxdbQ3slBTg257YBhXfg5Qr?=
- =?us-ascii?Q?sl5crTktAZpyL7lSeeRknN0cm2UUdpyvB5vjicsd3AIYOgnOBA9qGoZaEKvx?=
- =?us-ascii?Q?fU2RWkYc9nhYy/7Hrp87SBH0vYe10rH8dZyc6+paf7bGctxUzo+NBeWaArwe?=
- =?us-ascii?Q?h7VNzXByBgOSyO5wQQc6YWDZ8Yw6ziBaDh+n+x3xM8smBFfYy6MR6qzmECqd?=
- =?us-ascii?Q?Wv/ZK1F0pSmldnKS3vJTjwb7eSNFe8VjmrDjE6yJhU/mvUab0sU2nseo/SP5?=
- =?us-ascii?Q?eOFqpQdp7pb8eUjY9dSKRqJbp15RaLd9qblErDRkgsa47+XoG6oNVtGnewDl?=
- =?us-ascii?Q?tpB1zab8VOn/uo6SmKfmJH+RRDn6cx1uJBUHCNLR4qUU4hdS6DQ/Xc3s+ro3?=
- =?us-ascii?Q?JNvW7c9mZYfgXLnegJmtLNGiEHeZv1XXYEc5mlezgprn97Jz75uA/ZvI+A5V?=
- =?us-ascii?Q?V55160qNiaBeb+s601a/VCWacUHlG/1BAMqn+P7IxjXKvgv3ImPCHzvDjIHW?=
- =?us-ascii?Q?MPhy3+Hf+/bFjwcW25dW63PmAIerit0QjJxxaXhRHu/1UbkjL8HE6imNXVas?=
- =?us-ascii?Q?iY+VbR3AzfQypuxm9WVXEGXqvSpyJCXElsLc71MozdVPGmcisGbFKs53/x0O?=
- =?us-ascii?Q?f7ObSG2eOwCP7QNEFQA8oBu1zKONRrvN6593mvsL9PXaMKGsyUQQMq4J3AfH?=
- =?us-ascii?Q?kRy3EGohzeDUii2bApayGhNx5mqkPk3yXQMYLWsMd741DIUYklc8qfZqqVw+?=
- =?us-ascii?Q?1Sn2VavQjP1P8PtwleKmL5mrVjwWu6cyF1/f0GEvv8yznPA2fEI3aRmuWgZ+?=
- =?us-ascii?Q?bC0NWSd4+m+GR8OeT9xPU0ZDF8ZkpmsOG+2oc0zlp9E5fZXywbPLueAkBauO?=
- =?us-ascii?Q?ofHsdYCxwSKboq0UdMnkRvtWICBE5sc9MIwEuo+O4Vq/PelT+VYdEN4Ov3/Z?=
- =?us-ascii?Q?CF/UXKrvGuePsQ7jP3R5F2FEZNychEBunEXXwgGUaxWaxI4lKebyPLoAC4XO?=
- =?us-ascii?Q?QtdFlepxAyFaZhmlRAOL9VTz++LrYbBca1Bp5EFK76vuZ4G7zEyZMzxaChWw?=
- =?us-ascii?Q?Qwp7uWRHwHBee9wII3EytvmeKFwKkZjqlblUpjIZsxHUWJPxmR4PwLOOv/2A?=
- =?us-ascii?Q?Vvm0k06eM3tMrrsGlttbwRwEFpupdyFO3CEdKyR5wPZl4kYqt2M1XgtJabdI?=
- =?us-ascii?Q?ywdmo4lWWpfE1r7V6B5FkrDQE0Y9tfp952NBmFHu0xDqlK5SGHsYIf9pXlLC?=
- =?us-ascii?Q?AVnf7/UH7GYdVKHcNSfxKkNDH4zoKreuwHkp+0mtD95VmjidPM3CYCsaQMcZ?=
- =?us-ascii?Q?e36Zy3iIEZMrDbCfktn0Lp0lwJ5ewtFHUSQYddK4CUBqeaTTryD8NgzV/oxf?=
- =?us-ascii?Q?lIrJGtakzy0LscGEI2D5Gz8e7gEl7xLflBY8HAKxMBkKLmoN47HspUev/+89?=
- =?us-ascii?Q?+rEbjLZ8PNs3j4dasPQTprgPwJgvb9+qck55qyWEEWy8COaEqC/i7RW4lF+Q?=
- =?us-ascii?Q?f2fntIeYsPuxO5wpYrnkfr6uurVdZ734rHn1WHFztDJGN9wMyxlGvScBXXH7?=
- =?us-ascii?Q?Ihrr4iIi+4DNq+MWFuRnrg6Cim+Si0DbiTmNBe8s2Ilb8+BaK3wBN2vfDvlT?=
- =?us-ascii?Q?aJOTSG8TIjgYrY+gmY/YjtblVKGKQDO4NQikXRZRUFD+tKe23h1jmeVk86wr?=
- =?us-ascii?Q?qKH/byHei0hpM3uV4ywDnAw6FS+LZ+RLbPbKXHq7CtZEJvifFKrkPXljQRHe?=
- =?us-ascii?Q?VBu+1Q/bJg=3D=3D?=
-X-OriginatorOrg: michaelburch.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37bb6ee5-1738-4a0d-9125-08df218579eb
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR01MB8123.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2026 19:35:27.4535
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8256b244-08e6-4df2-b146-877069d9ce10
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jujpKFgJwbIQvkwOXe4Aj/Bh67HsJqxCNds+dh/KNov/2Gtuh/3CFp11+rZvuueQAQsC7MrOOF5i8HCBFuEhrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR01MB8529
+References: <20260927063607.3691520-1-nicoyip.dev@gmail.com> <179072873236.434549.5842458403458661428@kernel.org>
+In-Reply-To: <179072873236.434549.5842458403458661428@kernel.org>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Sun, 4 Oct 2026 03:37:18 +0800
+X-Gm-Features: AclHuK9p6aQ_J43EOVKpodci3vxNOzsM7jVie2jHyLl0wZCCleShlxslsIU4Ncg
+Message-ID: <CAAo+4rVATDapayqSFFjRaNxFod=bnUGk66opVVUgdwVBr48FNg@mail.gmail.com>
+Subject: Re: [PATCH net] net/smc: Serialize early link group cleanup with termination
+To: netdev-bot+sashiko@kernel.org
+Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com, 
+	sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com, 
+	guwen@linux.alibaba.com, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ubraun@linux.ibm.com, 
+	kgraul@linux.ibm.com, linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On X1E80100 (Dell XPS 13 9345), commit d9108bfdb746 ("drm/msm/a6xx: Fix
-stale rpmh votes after suspend") appears to turn poweroff into a reboot.
-It seems to happen when the GPU RSC/PDC is asleep at system off, i.e.
-when the GPU was idle before shutdown. Keeping the GPU awake until
-shutdown avoids it.
+On Wed, Sep 30, 2026 at 8:38=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 1 =C2=B7 Low: 0 (1)
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] The patch covers only one of the two callers of
+>   smc_lgr_cleanup_early().
+> - [Medium] Early cleanup can free the link group while a
+>   smc_lgr_free_work() callback that has already started is still using=E2=
+=80=A6
+>
+> Pre-existing issues:
+> - [Low] In __smc_lgr_terminate() (net/smc/smc_core.c:1573-1574), the
+>   comment says "cancel free_work sync, will terminate when lgr->freeing=
+=E2=80=A6
+>
+> --
+>
+> net/smc: Serialize early link group cleanup with termination
+>
+> This commit makes smc_lgr_cleanup_early() check and claim lgr->freeing
+> under lgr_lock before it calls __smc_lgr_terminate(). This stops early
+> cleanup from racing with the other teardown paths. It also makes
+> smc_conn_abort() hold a temporary link group reference across
+> smc_conn_free() and early cleanup.
+>
+> > diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+> > index e9f93b3ab435b..97b0a0b510664 100644
+> > --- a/net/smc/af_smc.c
+> > +++ b/net/smc/af_smc.c
+> > @@ -1011,12 +1011,16 @@ static void smc_conn_abort(struct smc_sock *smc=
+, int local_first)
+> >       struct smc_link_group *lgr =3D conn->lgr;
+> >       bool lgr_valid =3D false;
+> >
+> > -     if (smc_conn_lgr_valid(conn))
+> > +     if (local_first && smc_conn_lgr_valid(conn)) {
+> >               lgr_valid =3D true;
+> > +             smc_lgr_hold(lgr);
+> > +     }
+>
+> [Severity: High]
+> This adds a reference for the smc_conn_abort() caller, because the new
+> lgr->freeing check needs the link group to still be allocated. Does the
+> other caller of smc_lgr_cleanup_early() need the same protection?
+>
+> net/smc/smc_core.c:smc_conn_create() {
+>     ...
+>                 write_lock_bh(&lgr->conns_lock);
+>                 rc =3D smc_lgr_register_conn(conn, true);
+>                 write_unlock_bh(&lgr->conns_lock);
+>                 if (rc) {
+>                         smc_lgr_cleanup_early(lgr);
+>                         goto out;
+>                 }
+>         }
+>         smc_lgr_hold(conn->lgr); /* lgr_put in smc_conn_free() */
+>     ...
+> }
+>
+> The hold is only taken after registration succeeds. On the failure path,
+> smc_lgr_cleanup_early() runs without a reference of its own.
+>
+> For SMC-R first contact, smc_lgr_register_conn() fails through
+> smcr_lgr_conn_assign_link() only when the new link is no longer
+> SMC_LNK_ACTIVATING. As far as I can tell, that happens only when
+> __smcr_link_clear() resets the link inside a teardown's smc_lgr_free(). T=
+hat
+> teardown drops the link's lgr reference and then the initial one. For
+> example:
+>
+> smc_smcr_terminate_all(NULL)   /* reboot notifier via smc_lgrs_shutdown()=
+ */
+>     list_splice_init(&smc_lgr_list.list, &lgr_free_list);
+>     lgr->freeing =3D 1;
+>     __smc_lgr_terminate(lgr, false)
+>         smc_lgr_free()
+>             smcr_link_clear()->__smcr_link_clear()  /* link UNUSED, lgr p=
+ut */
+>             smc_lgr_put(lgr); /* theoretically last lgr_put */
+>                 __smc_lgr_free()->kfree(lgr)
+>
+> The connecting thread (connect() or the smc_hs_wq listen worker) then see=
+s
+> registration fail and calls smc_lgr_cleanup_early() on the freed lgr. The=
+re,
+> smc_lgr_list_head() reads lgr->is_smcd and the new check reads
+> lgr->freeing.
+>
+> The commit message says:
+>
+>     The extra reference keeps the group alive until early cleanup has
+>     checked teardown ownership.
+>
+> The smc_conn_create() caller has the same lifetime requirement. Is a
+> use-after-free from early cleanup racing with termination still reachable
+> through that path? The window is narrow. It looks like it needs a teardow=
+n
+> such as a reboot to run during an SMC-R first-contact handshake.
+>
+> >
+> >       smc_conn_free(conn);
+> > -     if (local_first && lgr_valid)
+> > +     if (lgr_valid) {
+> >               smc_lgr_cleanup_early(lgr);
+> > +             smc_lgr_put(lgr);
+> > +     }
+> >  }
+> >
+> >  /* check if there is a rdma device available for this connection. */
+> > diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> > index 9974149659c2f..b166a379753c7 100644
+> > --- a/net/smc/smc_core.c
+> > +++ b/net/smc/smc_core.c
+> > @@ -688,6 +688,11 @@ void smc_lgr_cleanup_early(struct smc_link_group *=
+lgr)
+> >
+> >       smc_lgr_list_head(lgr, &lgr_lock);
+> >       spin_lock_bh(lgr_lock);
+> > +     if (lgr->freeing) {
+> > +             spin_unlock_bh(lgr_lock);
+> > +             return;
+> > +     }
+> > +     lgr->freeing =3D 1;
+>
+> [Severity: Medium]
+> Can early cleanup free the link group while a smc_lgr_free_work() callbac=
+k
+> that has already started is still using it?
+>
+> After freeing is claimed here, __smc_lgr_terminate() only does a
+> non-synchronous cancel:
+>
+> net/smc/smc_core.c:__smc_lgr_terminate() {
+>     ...
+>         /* cancel free_work sync, will terminate when lgr->freeing is set=
+ */
+>         cancel_delayed_work(&lgr->free_work);
+>         lgr->terminating =3D 1;
+>     ...
+> }
+>
+> free_work is queued on system_percpu_wq, not lgr->tx_wq. So
+> destroy_workqueue(lgr->tx_wq) in smc_lgr_free() does not flush it. The
+> callback also holds no lgr reference.
+>
+> Suppose the callback has started but has not yet reached the freeing chec=
+k:
+>
+> net/smc/smc_core.c:smc_lgr_free_work() {
+>     ...
+>         smc_lgr_list_head(lgr, &lgr_lock);
+>         spin_lock_bh(lgr_lock);
+>         if (lgr->freeing) {
+>     ...
+> }
+>
+> Teardown can then run to completion. smc_lgr_free() drops the initial
+> reference, and the new smc_lgr_put() in smc_conn_abort() drops the last
+> one. __smc_lgr_free() then frees the lgr and its embedded free_work, and
+> the callback goes on to dereference freed memory.
+>
+> The commit message says:
+>
+>     This also prevents early cleanup from racing with the delayed free
+>     worker
+>
+> It looks like the freeing flag only prevents a second teardown while the
+> object is still allocated. It does not keep the lgr alive for a worker th=
+at
+> lost the race. Is the commit message accurate here?
+>
+> To trigger this, the SMC_LGR_FREE_DELAY_* timer has to expire during the
+> creator's abort. That looks like it needs an unusual stall or a jiffies
+> jump.
+>
+> [Severity: Low]
+> This isn't a bug introduced by this patch, but the comment in
+> __smc_lgr_terminate() quoted above says "cancel free_work sync". The code
+> calls cancel_delayed_work(), which does not wait for a callback that is
+> already running.
+>
+> What protects a pending smc_lgr_free_work() is its own re-check of
+> lgr->freeing under lgr_lock, not a synchronous cancel. Early cleanup now
+> reaches this code after claiming freeing. Could the comment be updated to
+> match the code?
+>
+> >       /* do not use this link group for new connections */
+> >       if (!list_empty(&lgr->list))
+> >               list_del_init(&lgr->list);
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20260927063607.3691520-1-nicoyip.dev%40gmail.com
 
-Resume the GPU in adreno_shutdown() and skip the RSC sleep in the final
-stop. Suspend and runtime suspend are unchanged.
+The issues (incomplete fix and comment consistency) identified are
+addressed in v2
+https://lore.kernel.org/netdev/179105277608.1402591.16173087244761956438@ke=
+rnel.org/T/#t
 
-Tested on X1E80100 only: poweroff and reboot on AC and battery, and
-deep suspend still drops the GPU votes.
-
-Fixes: d9108bfdb746 ("drm/msm/a6xx: Fix stale rpmh votes after suspend")
-Signed-off-by: Michael Burch <me@michaelburch.net>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 4 ++++
- drivers/gpu/drm/msm/adreno/adreno_device.c | 5 +++++
- 2 files changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 6d49c51df1a2..42a96ff51e5e 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -645,6 +645,10 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
- 	if (!test_and_clear_bit(GMU_STATUS_FW_START, &gmu->status))
- 		return;
- 
-+	/* Some platforms reboot instead of powering off if the GPU PDC is asleep */
-+	if (system_state == SYSTEM_POWER_OFF || system_state == SYSTEM_HALT)
-+		return;
-+
- 	if (adreno_is_a840(adreno_gpu))
- 		bitmask = BIT(30);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 05c77fe27e62..224ab3fd14bd 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -290,6 +290,11 @@ static void adreno_remove(struct platform_device *pdev)
- 
- static void adreno_shutdown(struct platform_device *pdev)
- {
-+	/* Resuming wakes the GMU RSC/PDC; the final stop then leaves it awake */
-+	if (dev_to_gpu(&pdev->dev) &&
-+	    (system_state == SYSTEM_POWER_OFF || system_state == SYSTEM_HALT))
-+		pm_runtime_get_sync(&pdev->dev);
-+
- 	WARN_ON_ONCE(adreno_system_suspend(&pdev->dev));
- }
- 
-
-base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
--- 
-2.55.0
-
+Best regards,
+Chengfeng
