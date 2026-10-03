@@ -1,66 +1,66 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F21447ACE7
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F3D47AF5D
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791056542; cv=none; b=JunPWRhSzM9hj/MGF3QCi8kEyIQwV1QTQiG5Z3GwHfWKVI/CEDM1IEaE/YzAX2qTH1gL40MIG9QynC5sMr2c4tND4WF9+QB1NohkoWdi4+vUOHq5ysYFYNUM81ohATPLLwKMT+hAmL988E02eSMHCjuDSrSyYGbUlBZ3OuxS3Gg=
+	t=1791056534; cv=none; b=S6d9AQS0R62nXEd8OuUWVvQ/9NCwbUzGYbOTl9bS5gqrm00XBvPM6CG3ae3FUKABH1lBH/MMUP0W00DsBDmguXUCdQiKMuxjtzup7Xy56FULSa1z8bsvdgyRm8Q5u1wuzAo8sWqsDu0Ybc54Z9/ntLokC89cmOXvewrUKl2dOUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791056542; c=relaxed/simple;
-	bh=xXXZ6NWLJJESwv2K8aL+6XMcWN6EQkW3JGTvSg3+MDQ=;
+	s=arc-20240116; t=1791056534; c=relaxed/simple;
+	bh=47zjjG7TKOK+bhxjRPjwgfNYkloG0mT/+JCbSk2vMss=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PjsAAWc2uvSgK7qrN26kUMGJjhbSxeY9WRAsRpLYry5zvceyWbBbpFpwinumoKtD/HbA6FVn1/4MFS0rm6m7r6KxhsXPSogce47Xo6G7/9OFJI3DWyXax8x+k0GX/UeCkC64BrC+Doxrcplg5xUgUx8M2PW0uDbk3L4aSh9DoJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WElnyy2N; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version:Content-Type; b=FGqjrQG0US2/LLFEtt0Xt+1yBf4jkHt4HpQyUY0A83HuiJm5KehP++kRn8eRjYVtpO5VhUjmHYvXjaNkQHPfoPXvsot5zojH2o89VMsfUUOM1xBNmmYFmSMI5exDdl4WqJmQ/hrEBA1UDKu0gwbQryTxjX7NWXMrLN3ayyYLZDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mzddq+fC; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WElnyy2N"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a16629a040so9085955e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:42:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mzddq+fC"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so4388025e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:42:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791056533; x=1791661333; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791056529; x=1791661329; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kB9tQNM9jVA0zwBEF2raZG5TXDEsEQ5Rdtidet5PxWE=;
-        b=WElnyy2NdaBB1E42DIy6HgA1kBwaShpkKsDX+uND/r651e2wm09obD4bzLjIUKRXQV
-         fpbrdjOniSGYxtupY4gHhHxE6YnA004nnmqCjuXsjsxhPt2ZaDxExRK+pBJWNnigObT5
-         tx8vDo4LV0NR9AJBPacetKnnyFG89yjpR7DVnDEcysZjsPe3jJbqqvVpPHgXwADZB8na
-         zZ8GLDBcGutfBYx6E+0vf+cwnFmGgHj93fMshw7HN7g+NG9EHoBXRF0X9JfuqrsKWPmt
-         eQMrkQOKOFBuFC+62peZdLr+xrCN0NLNw00pVAKwmEHBOcElIf0x7w5yCcQnvtjUqQC3
-         cG7Q==
+        bh=XmMO2G0+qJaCvhpxYJ0Dq1gwYWxAlewT/Pow/1rFR3Q=;
+        b=Mzddq+fCpstPjNiwV7JxoFiWzGBgsH7EHryW7nqiq33ZvGTKpGJxkUoL3oAMpE3gM0
+         QgUrlVJJrXBOyBMPtHqZqUBMI0NbawS3JBdp0peW/3lxaHE0AK2XqtDELurvcD9UfmNp
+         BBSV/z1tuo9g24LLj/SjermCKM8lOjKLJ+mq88PVvWvD7mbfal7wgdqf77NtB2/+n/e+
+         x3NzAwLdAsZ5Rz4TC/KdqE9WQJvL7KCA/TFWyyXnVCp3ewx3w361RPzTadMnSWOgSmx/
+         tTFfx/EwnxsTuiWt7x1NUslbRK0brJnVT31bWR3J0ne3+n/AkmUUw60Rr2Cq3rDK6acC
+         B7EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791056533; x=1791661333;
+        d=1e100.net; s=20260707; t=1791056529; x=1791661329;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kB9tQNM9jVA0zwBEF2raZG5TXDEsEQ5Rdtidet5PxWE=;
-        b=G5ePRy+Ivpx8nukvHY1Q9zT33meFI79BK4GGMIjTByEB7E3BWcU0f1aVkFM8ExFtn0
-         8PYQuwaEVIFAUUy6JnHEJZBFHjKpDvwjDfw9gT8WV8cfD3jzgz4H34wEcazVwhyLNALE
-         8M6hOi9goO606uQ25o4UecbTnIBHqmyJIYZ4rAWMfdFXMFDFCA21jva96eI5hKTv8zqr
-         PdJaM5nT36XXJXX2zMyYMRIBMtbL3eih31F7u6utEf9DBoYOUX4nCuhlCqLaWYWuT/6/
-         hUTcGQ0PWcSh9kiC2bHm9axLf6mDhZuvyxwrshtsRJgWyALlEGuYPvA0FiPbkJW/ZN+F
-         d0/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxB891+Ya84pVPr5JQ3JGnYbieX41MhojrKa486a3bMkZwIPBvjy1xzdAeRil3RDigXN8eQdr8e9i+4deY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZM4h7PuS5TU/wSOz+ikvNTVB9i6g5lG/jUcrJvI1JqIOb13/N
-	9JHYGFKSTOxKSuBqbmJY3CLUgX4mIxw7+mHIM2GrbrCz01kcmVeHWIb9
-X-Gm-Gg: AYBFou26SxB7Nfe74CqNGbbk1OsvdbcQMPNRHtSW54fNm1gBrUU3dykwnfVh6d2QtoZ
-	e2g8hrIk4ktQFWCVzL8MxDA61IX5dcwigZV4nb5TPWg8OvidTba472HamLEfWoHybY896ALT4PC
-	HUvutxkibfCrb07dwfS4Z1SK3Ag4s3gdVas8KAS4t7VbayhMNs7eYFBsJuAPAQyz6Iah3KZMzph
-	0S5GEskq4OMGglkuO1ZhEbUHvtNoaDusqmdF3wHP3THeJkC+bU1vfNzE4Nc4qzrMQh0PB0nF825
-	Dcxw6NLgJ+E3usQPRbLYLUk6uUZdB3G23Qkef1uk4m3CyUnwK1Z6Cab1I9rZrHceSxqaeYmG1Df
-	JxyTfWvJ8wfZwdaXrSMF/oA2krkPQ8tskc9ksXMkTXCy0kzifZA4pk5j6lPslUKxNWlZ73PQGXH
-	xrR6iZhlDIJDCGb3sKSXuPKkQIlzCYCdF1AF9OTAFXoknUebwqt25cPVVOL0i4yN6LkDTyG/jAN
-	dTktCv3rD6mx2srzo2ZyElqL17nLzAVD7H/h2NC/gD8rAbdCkhxK+VtEA2TqsEe2Fz9srSn1a1L
-	wywF/dMmeOkj70VSaWzHdzt5
-X-Received: by 2002:a05:600c:3509:b0:4a1:69c0:a1f7 with SMTP id 5b1f17b1804b1-4a169c0a338mr37718025e9.34.1791056533488;
-        Sat, 03 Oct 2026 12:42:13 -0700 (PDT)
+        bh=XmMO2G0+qJaCvhpxYJ0Dq1gwYWxAlewT/Pow/1rFR3Q=;
+        b=cixh4GpWDyOJLVB64c7wO5sm8oUtjvfseKKKid9Umw3CGxHouqDTFZsueIIsLVAWaX
+         /b7M81DJ5x6y/SQe78yJ7OQU0XQmNGhN0gp/oBARl2HDMB+idNzmZmIDeSnzE+9K2Gsk
+         Kx6TXhJc9ix0Z1hEy7yqc9B09HEMHksKE8tvoR1GWzQQ8ZLIcI69s9F/cpbjNyP5pS5B
+         UuIynkcvxzwFZr4PrQCtVlPNZB0y51a4MWCeIbJtiYV9vv2RGDc6qlGsVIZPbrRCOPPW
+         EEzN7hmdby9OYRKikeiGFL+ELtKRZpvq8/Qcnx0IhuH94Tq/dcbcYT6jN+S37W2jKa1w
+         JmpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqhSQChx5Ju91NCqk4hXDGpI6xqtcUnc+9e2h0aSatyXLnlyY/KBGHNDiWb7yKWaThmg+7zMoO4RR9iNg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhKzXLAGoTSk0gs1covJ2Wm8TH6SqQWtCXXoW4/cJVaD+Zjrb9
+	uJzOqbPfe5pkkybYbDG4gPWpv8pXts47nif6F4bi6I85RHV5nfHABngO
+X-Gm-Gg: AYBFou1pMgh+y2qqIfWcbRshMkalOpRKxBmlbHkY/6GTc8FrweBNP/OqRmEf2zKU21s
+	trEqDj8N2NWkldhWvzGh8lZUlCfOmFy/OT2PQ0Ur1yDThdm6E7VNzD6bgIF/Mg14ShBbfqVmU20
+	qkjZ4osqqAzbSBVB+HJ4upL9UVijtrfz7J1xElqxYFeVSpuwtfzriBUNO2wsz7cW5abbUPZRdoz
+	Qs27SCqmCPVU1J7XNqyLLjTa2nlLE5tJRdJOx0uHSJI2LLfrl7C+NUYuZNsFBXbEt4bZad6hMo2
+	kGGADdSa9x3fuAKzzQ5cU6bS61JIVbcqKytkpCqpwZFcfFLfT9pzqRYpwNO329lpepWv16xrWZG
+	hFMN1UVlk5UtaskAmMuNuBx3ALebm9+bmZMfnno1gKGKdOK7IQsTjcuJNPuTdFtHXztEbpkNHvU
+	ZQlqt3z+jTRWyn1vZ7fln7ktH2BBlI6YCSwcj0zjsnePTGZGJk7WNhZqMPPVaAvnAtwnXLe/NPg
+	7Jrug4jBXOgOHRlLPJxKlXrbdyYiw9lGKj70FkzwP8AZ88NgUrZBp4xD21KNC897NnN3LMzA5tN
+	l0sU7GJ9h3wZOCF49RjlgrVx
+X-Received: by 2002:a05:600c:b85:b0:4a0:313:3a12 with SMTP id 5b1f17b1804b1-4a02759b47amr102124795e9.20.1791056528299;
+        Sat, 03 Oct 2026 12:42:08 -0700 (PDT)
 Received: from cachyos.home (2a01cb0c82caf900a186612f304bfea5.ipv6.abo.wanadoo.fr. [2a01:cb0c:82ca:f900:a186:612f:304b:fea5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a162e867e8sm161520495e9.15.2026.10.03.12.42.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a162e867e8sm161520495e9.15.2026.10.03.12.42.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 12:42:13 -0700 (PDT)
+        Sat, 03 Oct 2026 12:42:07 -0700 (PDT)
 From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: tiwai@suse.com,
@@ -72,10 +72,11 @@ Cc: tiwai@suse.com,
 	skhan@linuxfoundation.org,
 	rdunlap@infradead.org,
 	linux-doc@vger.kernel.org,
-	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
-Subject: [RFC PATCH v6 8/8] Documentation: sound: add the Babyface Pro proprietary-mode design doc
-Date: Sat,  3 Oct 2026 21:41:37 +0200
-Message-ID: <20261003194137.86176-9-i.bahloul01@gmail.com>
+	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>,
+	David Fredman <davfre@gmail.com>
+Subject: [RFC PATCH v6 2/8] ALSA: usb: babyfacepro: add output masters and crosspoint routing
+Date: Sat,  3 Oct 2026 21:41:31 +0200
+Message-ID: <20261003194137.86176-3-i.bahloul01@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261003194137.86176-1-i.bahloul01@gmail.com>
 References: <20261003194137.86176-1-i.bahloul01@gmail.com>
@@ -88,234 +89,1147 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A big-picture companion to the patch series, for human reviewers:
-why the proprietary mode needs a standalone driver instead of a
-snd-usb-audio quirk, the vendor protocol's write-only/no-readback
-shape and what that forces onto the driver, the stream session
-model, why the mixer state has to be cached and replayed, and why
-the driver has to emulate TotalMix's own role for the front panel.
+Add the first mixer controls: the six output masters (volume + mute)
+and the 6x14 crosspoint matrix.  The device has no readback for any of
+them, so the driver keeps the state host-side and the controls read
+that cache.
 
-Requested by Takashi Iwai's v4 review: documentation for reviewers,
-not restating what the code comments already say inline.
+The probe's cold init clears the mixer registers, so probe writes a
+power-on default: every playback channel into every output at 0 dB,
+the hardware inputs off until a mixer raises them, and the two analog
+outputs (AN1/2, PH3/4) at -20 dB, the level the hardware DIM button
+uses.  The AN1/2 output sums from its own "low map" registers, so its
+crosspoints are written to both maps.  A volume change leaves a muted
+output muted.
 
+A userspace usbfs claim (PipeWire, a libusb mixer daemon) detaches and
+re-probes the interface, and the cold init of the re-probe would wipe
+the settings, so the mixer state is saved at disconnect and restored
+at the next probe instead of the default.
+
+Co-developed-by: David Fredman <davfre@gmail.com>
+Signed-off-by: David Fredman <davfre@gmail.com>
 Signed-off-by: Ismaïl Bahloul <i.bahloul01@gmail.com>
 ---
- Documentation/sound/cards/babyface-pro.rst | 193 +++++++++++++++++++++
- Documentation/sound/cards/index.rst        |   1 +
- 2 files changed, 194 insertions(+)
- create mode 100644 Documentation/sound/cards/babyface-pro.rst
+ sound/usb/babyfacepro/Makefile          |   2 +-
+ sound/usb/babyfacepro/babyfacepro-ctl.c | 710 ++++++++++++++++++++++++
+ sound/usb/babyfacepro/babyfacepro.c     | 177 +++++-
+ sound/usb/babyfacepro/babyfacepro.h     | 123 +++-
+ 4 files changed, 1008 insertions(+), 4 deletions(-)
+ create mode 100644 sound/usb/babyfacepro/babyfacepro-ctl.c
 
-diff --git a/Documentation/sound/cards/babyface-pro.rst b/Documentation/sound/cards/babyface-pro.rst
+diff --git a/sound/usb/babyfacepro/Makefile b/sound/usb/babyfacepro/Makefile
+index 5adc6d474..a50647a06 100644
+--- a/sound/usb/babyfacepro/Makefile
++++ b/sound/usb/babyfacepro/Makefile
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-snd-usb-babyface-pro-y := babyfacepro.o
++snd-usb-babyface-pro-y := babyfacepro.o babyfacepro-ctl.o
+ 
+ obj-$(CONFIG_SND_USB_BABYFACE_PRO) += snd-usb-babyface-pro.o
+diff --git a/sound/usb/babyfacepro/babyfacepro-ctl.c b/sound/usb/babyfacepro/babyfacepro-ctl.c
 new file mode 100644
-index 000000000..f75b80886
+index 000000000..6ef29aa27
 --- /dev/null
-+++ b/Documentation/sound/cards/babyface-pro.rst
-@@ -0,0 +1,193 @@
-+.. SPDX-License-Identifier: GPL-2.0
++++ b/sound/usb/babyfacepro/babyfacepro-ctl.c
+@@ -0,0 +1,710 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * RME Babyface Pro / Pro FS - proprietary-mode USB audio driver
++ *
++ * ALSA control surface: the hardware mixer (output masters and mutes,
++ * the crosspoint matrix, preamps, routing flags, varispeed pitch).
++ *
++ * See babyfacepro.h for the shared device state and register map,
++ * and babyfacepro.c for the core driver (protocol, PCM streaming,
++ * state persistence, card lifecycle).
++ */
++#include <linux/log2.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/unaligned.h>
++#include <linux/usb.h>
++#include <linux/workqueue.h>
++#include <sound/control.h>
++#include <sound/tlv.h>
++#include <sound/core.h>
++#include <sound/initval.h>
++#include <sound/pcm.h>
 +
-+=================================================
-+RME Babyface Pro / Pro FS (snd-usb-babyface-pro)
-+=================================================
++#include "babyfacepro.h"
 +
-+This document describes the design of the ``snd-usb-babyface-pro``
-+driver - what problem the driver solves, why it is a standalone
-+driver instead of a snd-usb-audio quirk, and the four design
-+decisions (protocol shape, stream model, mixer-state persistence,
-+front-panel emulation) that shape most of the code.
++/* The flag-cycle counter, its writer and the per-block crosspoint
++ * "cross" register clear are crosspoint/mixer-only, so they live here
++ * rather than in the core driver file.
++ */
 +
-+Two USB personalities, one device
-+==================================
++/* The transaction-flag counter cycle on 16-bit writes. */
++const u16 bf_flag_cycle[4] = { 0xc000, 0x4000, 0x8000, 0x0000 };
 +
-+The RME Babyface Pro and Babyface Pro FS present two different USB
-+configurations depending on a physical/firmware switch: a
-+class-compliant one, already handled by ``snd-usb-audio``, and a
-+proprietary one (USB ID ``2a39:3fc0``) that this driver covers.  The
-+two hardware models share the same USB ID, ``bcdDevice`` and
-+``iProduct`` string shape; nothing in the descriptors tells them
-+apart, and the driver runs unmodified on both.
++/* Write with the per-transaction flag-cycle word OR'd into idx.  The
++ * device wants the flag word (0xc000/0x4000/0x8000/0x0000, rotating)
++ * set on every 0x12/0x1a write; this is the hot path for the mixer
++ * puts, so it is factored out.
++ */
++int bf_vendor_write_cycle(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx)
++{
++	u16 flag = bf_flag_cycle[chip->flag_cnt];
 +
-+In proprietary mode, interface 5 carries the PCM stream on two
-+INTERRUPT endpoints (``0x01`` OUT, ``0x82`` IN) instead of the
-+isochronous endpoints the USB Audio Class specifies.  Isochronous
-+transfers are rejected there with ``-EINVAL``.  ``snd-usb-audio`` has
-+no interrupt-PCM transport, so this mode cannot be a quirk on top of
-+it; the driver is standalone, modelled on ``snd-usb-caiaq`` (another
-+interrupt-streaming RME/NI-style device).
++	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++	return bf_vendor_write(chip, req, val, idx | flag);
++}
 +
-+Why interrupt endpoints and not isochronous is a hardware/firmware
-+choice on RME's side, not something this driver can change - the
-+class-compliant mode already exists on the same device for users who
-+want a fully standard, quirk-free path with a subset of the
-+functionality (no mixer, no front panel).  This driver is for users
-+who want the full mixer, routing matrix, and hardware DSP EQ that
-+only the proprietary mode exposes.
++/* The 0x16 cold-init clear covers only 0x00-0x3D - the "cross"
++ * registers of a block (L-reg odd / R-reg even of the stereo
++ * sources) survive from the previous session and would sum L+R into
++ * BOTH channels of the output (mono).  Zero them explicitly: 10 odd
++ * L-registers (5,7,...23) + 10 even R-registers (4,6,...22).
++ */
++int bf_crosspoint_clear_cross(struct snd_usb_babyface *chip,
++			      unsigned int blk)
++{
++	int ret, k;
 +
-+The vendor protocol: writes only, no readback
-+==============================================
++	for (k = BF_CROSS_L_FIRST; k <= BF_CROSS_L_LAST; k += 2) {
++		ret = bf_vendor_write_cycle(chip, BF_REQ_CROSSPOINT, 0x0000,
++					    BF_REG_CROSS_BASE_L +
++					    BF_REG_CROSS_STRIDE * blk + k);
++		if (ret < 0)
++			return ret;
++	}
++	for (k = BF_CROSS_R_FIRST; k <= BF_CROSS_R_LAST; k += 2) {
++		ret = bf_vendor_write_cycle(chip, BF_REQ_CROSSPOINT, 0x0000,
++					    BF_REG_CROSS_BASE_R +
++					    BF_REG_CROSS_STRIDE * blk + k);
++		if (ret < 0)
++			return ret;
++	}
++	return 0;
++}
 +
-+Every mixer and clock function is one of a handful of USB vendor
-+control requests (``bmRequestType 0x40``, i.e. host-to-device,
-+vendor, device-recipient), each identified by its request number and
-+a 16-bit value/index pair - there is no larger command structure.
-+The commonly used ones are:
++const struct bf_source bf_sources[14] = {
++	{ "AN1",     0,  0 },
++	{ "AN2",     1,  1 },
++	{ "AN3",     2,  2 },
++	{ "AN4",     3,  3 },
++	{ "AS1/2",   4,  5 },
++	{ "ADAT3/4", 6,  7 },
++	{ "ADAT5/6", 8,  9 },
++	{ "ADAT7/8", 10, 11 },
++	{ "PB1",    12, 13 },
++	{ "PB2",    14, 15 },
++	{ "PB3",    16, 17 },
++	{ "PB4",    18, 19 },
++	{ "PB5",    20, 21 },
++	{ "PB6",    22, 23 },
++};
 +
-+======  ========================================
-+0x10    settings word, rate family, stream trigger
-+0x12    16-bit crosspoint and output-master writes
-+0x14    stream session arm
-+0x16    cold-init register clear
-+0x17    front-panel + preamp state (read and write)
-+0x1a    8-bit gain / output-master writes
-+0x1b    varispeed (DDS quad)
-+0x1d    stream session start
-+======  ========================================
++/* Crosspoint-map output order vs the master-map order - HARDWARE-
++ * VERIFIED 2026-08-24: the block that feeds the Phones is the FIRST
++ * crosspoint block (0x34), while the Phones master is the SECOND
++ * (0x03E2/0x0006).  The crosspoint map lists the Phones first (the
++ * monitor output); the master map lists AN1/2 first.  Control index =
++ * the canonical order (AN1/2=0, PH3/4=1, ...) so the crosspoint and
++ * master controls line up; this table maps to the register block.
++ */
++const u8 bf_xpoint_block[6] = { 1, 0, 2, 3, 4, 5 };
 +
-+The full register map, decoded from Windows USB captures and
-+cross-checked against hardware, lives in the driver's own development
-+repository (not shipped in-tree) - the constants and the comments
-+next to each vendor write in the source are the authoritative
-+in-tree reference.
++/* Master-register output order - the master map lists AN1/2 first
++ * (0x03E0) and the Phones master SECOND (0x03E2, HARDWARE-VERIFIED
++ * 2026-08-24); the crosspoint blocks are in the opposite order
++ * (Phones = block 0x34 first, hence bf_xpoint_block above).  Control
++ * index -> canonical output (AN1/2=0, PH3/4=1, ...) = the master
++ * register position directly: the names 'AN1/2 Playback Volume' etc.
++ * must match the register they write (corrected 2026-08-26 - the
++ * previous {1,0,...} swap made 'AN1/2' drive the Phones and 'PH3/4'
++ * drive the AN1/2 analog out).
++ */
++static const u8 bf_master_out[6] = { 0, 1, 2, 3, 4, 5 };
 +
-+The one property that shapes the rest of the driver: **almost nothing
-+here can be read back**.  The 0x17 request returns the front-panel
-+and preamp state, but the crosspoint matrix, the output masters, the
-+routing flags and the clock all have to be tracked host-side - the
-+device will accept a write blindly and never confirm what it actually
-+holds.  Two consequences follow directly from this:
++/* The 16-bit master value -> the 8-bit companion code (0.5 dB/step).
++ * Integer-only: half_db = 12*log2(v/0x2000) via ilog2 + an 8-bit
++ * fractional-octave table (12*log2(1 + n/256), ~0.05 dB resolution -
++ * fine enough for the +/-0.5 dB panel wheel to track the round-trip).
++ */
++static const u8 bf_lg2_frac[256] = {
++	0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
++	1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2,
++	2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
++	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4,
++	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,
++	5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
++	6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
++	6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
++	7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8,
++	8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
++	8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
++	9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10,
++	10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
++	10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
++	11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
++	11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
++};
 +
-+* The ``struct snd_usb_babyface`` device state (see
-+  ``babyfacepro.h``) is not a cache in the usual sense of "avoid a
-+  slow read" - it is the *only* record of what the hardware should
-+  currently hold.  Every mixer control's ``.get`` callback reads this
-+  state directly; none of them ever talks to the device.
++/* 16-bit master -> dBx2 (12 half-dB per octave; 0x2000 = 0 dB).
++ * Shared by the 8-bit companion and the front-panel OUT wheel.
++ */
++int bf_master_half_db(u16 vol16)
++{
++	unsigned int k, frac;
 +
-+* A full reset of the device's registers - which the cold init at
-+  probe and at resume does - has to be followed by replaying the
-+  *entire* cached state back, in the right order, or the card comes
-+  back silent or at the wrong levels.  This is what
-+  ``babyface_restore_state()`` and ``bf_state_apply_flags()`` do (see
-+  "Mixer-state persistence" below).
++	vol16 = clamp(vol16, 1, 0x4000);
++	k = ilog2(vol16);
++	frac = ((vol16 - (1u << k)) << 8) >> k;
++	return 12 * (int)k - 156 + bf_lg2_frac[frac];
++}
 +
-+The stream model
-+================
++/* dBx2 -> 16-bit master (0x2000*2^(half_db/12), rounded).  The
++ * inverse of bf_master_half_db - the 12th-root table 2^(n/12).
++ */
++static const u16 bf_twelfth[12] = {
++	0x1000, 0x10f4, 0x11f6, 0x1307, 0x1429, 0x155c,
++	0x16a1, 0x17f9, 0x1966, 0x1ae9, 0x1c82, 0x1e34,
++};
 +
-+Playback and capture share one physical stream: the device only
-+advances it while both interrupt endpoints have a pending URB, so the
-+IN and OUT URBs are always submitted as a pair, and both directions run
-+at one sample rate.  The driver runs one stream *session* for both
-+substreams:
++int bf_master_16bit(int half_db)
++{
++	int k = half_db / 12;
++	int n = half_db % 12;
++	u32 v;
 +
-+* ``hw_params`` counts a substream as a user of the session;
-+* ``prepare`` starts the session if it is not running - the rate write,
-+  the session trigger pair, the IN/OUT URBs, then the arm - which is
-+  what the RME Windows driver sends at a stream start;
-+* trigger START/STOP only decides whether the URB handlers move that
-+  substream's audio.  The URBs keep running either way, carrying
-+  silence while nothing plays, so an xrun restart does not restart the
-+  session;
-+* ``hw_free`` drops the user, and the last one stops the session.
++	if (n < 0) {
++		n += 12;
++		k--;
++	}
++	v = (u32)bf_twelfth[n] << 1;	/* 0x2000*2^(n/12) */
++	if (k >= 0) {
++		v <<= k;
++	} else {
++		v += 1u << (-k - 1);	/* round-half-up */
++		v >>= -k;
++	}
++	return (u16)clamp(v, 1, 0x4000);
++}
 +
-+The device keeps its mixer registers between sessions, so a session
-+start writes no mixer state.  A session triggered within about 15 ms of
-+the previous one stopping comes up with the outputs silent, so a
-+session start waits until 50 ms have passed since the last stop.
++u8 bf_master_8bit(u16 vol16)
++{
++	if (vol16 == 0)
++		return BF_MASTER_MUTE;
++	return (u8)clamp(0xf3 + bf_master_half_db(vol16), BF_MASTER_8_MIN, 0xff);
++}
 +
-+Both directions share one clock, so while another application has the
-+other direction set up, the rate belongs to it: ``open()`` offers that
-+rate alone, and the sound server resamples, rather than the device
-+changing rate under a running stream - as with RME's own drivers, which
-+grey the sample rate out while a stream runs.  The application that
-+holds both directions may change the rate or the buffer size itself, as
-+a DAW does from its settings; the direction it left running then stops
-+with an xrun and is set up again.
++/* The cold-init register clear zeroes the mixer registers TotalMix
++ * re-uploads afterwards.  The kernel driver has no saved scene (no
++ * readback for faders), so on a probe with no saved state it applies a
++ * factory routing so the card makes sound without any user-space mixer:
++ * the six playback channels feed every output at unity, and the
++ * hardware inputs (AN1-4, AS1/2, ADAT) are NOT routed - raising an
++ * input's crosspoint in a mixer is what monitors it.
++ *
++ * The inputs are left out deliberately.  Routing all 14 sources into
++ * every output at unity (the earlier default) summed a live mic or line
++ * input straight into the main out and the headphones the moment the
++ * module loaded, before alsa-restore had a chance to put the user's own
++ * levels back - the feedback/level hazard issue #4 raised, and the "mic
++ * audible in the phones" surprise.  The failure is asymmetric: a
++ * default that is too quiet is turned up in a second, one that is too
++ * loud cannot be taken back.
++ *
++ * The two analog masters (AN1/2, the main out; PH3/4, the headphone
++ * out) come up at -20 dB rather than TotalMix's 0 dB, for the same
++ * reason - the six playback channels into an output at unity sum, and
++ * -20 dB is plainly audible but safe.  It is not an invented number: it
++ * is the exact 8-bit/16-bit pair the hardware's own DIM button writes.
++ *
++ * The other four outputs (AS1/2, ADAT3/4, ADAT5/6, ADAT7/8) are all
++ * digital, carried over the single optical port - nothing downstream
++ * of them can be damaged by a loud signal the way a speaker or a pair
++ * of headphones can, so there is no hazard to mitigate, only a
++ * digital feed that would otherwise arrive 20 dB quiet for no reason
++ * a downstream device could infer.  They keep TotalMix's own 0 dB
++ * default (raised 2026-09-15 after David Fredman pointed out the
++ * blanket -20 dB reached them too, on his report of the AN1/2/PH3/4
++ * default - issue #4).
++ */
++int babyface_write_default_mixer(struct snd_usb_babyface *chip)
++{
++	int out, src, ret;
++	u16 flag;
++	u16 level;
 +
-+The size of the URBs follows the period the application asks for, so
-+the latency follows the application's buffer instead of a fixed queue:
-+``hw_params`` splits the period into the fewest URBs of at most
-+``frames_per_urb`` frames, each a whole number of the device's IN
-+packets, and keeps two periods' worth in flight (at most ``nurbs``).
-+The URB handlers copy to and from the ring the core allocates and take
-+the application's position from the shared control page, so the ring can
-+also be mapped by the application, which JACK requires.
-+``runtime->delay`` reports the audio queued in the URBs plus the fixed
-+delay of the converters and of the device, per speed, so that an
-+application that uses ALSA directly can line up what it records.
++	/* Output masters: the two analog outputs at -20 dB, the four
++	 * digital ones at 0 dB (see the comment above).  Unmuted either
++	 * way.
++	 */
++	for (out = 0; out < 6; out++) {
++		bool analog = out < 2;
++		u8 gain8 = analog ? BF_MASTER_MINUS20_8 : BF_MASTER_UNMUTE;
++		u16 gain16 = analog ? BF_MASTER_MINUS20_16 : BF_MASTER_0DB;
 +
-+URB completions run in interrupt context; the work that needs to sleep
-+(stopping the session after repeated URB errors) runs from
-+``stream_work``.
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, gain8,
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, gain8,
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			return ret;
++		flag = bf_flag_cycle[chip->flag_cnt];
++		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, gain16,
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, gain16,
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			return ret;
++		chip->master[out][0] = gain16;
++		chip->master[out][1] = gain16;
++		chip->muted[out] = false;
++	}
 +
-+Mixer-state persistence across re-probes
-+==========================================
++	/* Every playback source into every output pair, L and R, at 0 dB,
++	 * and the hardware inputs off (the standard map, plus the low map
++	 * on AN1/2 - see bf_xpoint_write's own comment for why AN1/2 needs
++	 * both).  The addresses use the source's idx_l/idx_r on the
++	 * canonical block - writing the raw index on both bases would put
++	 * PB1 R on the L side and PB1 L on the R side (L+R on both = mono).
++	 * The "cross" registers (L-reg idx_r / R-reg idx_l) are cleared.
++	 */
++	for (out = 0; out < 6; out++) {
++		unsigned int blk = bf_xpoint_block[out];
 +
-+A userspace client can claim the proprietary interface directly via
-+``usbfs`` (``USBDEVFS_DISCONNECT_CLAIM``) - both PipeWire grabbing the
-+device for a sink and the project's own TuxMix userspace daemon do
-+this via libusb.  That detaches the kernel driver and the ALSA card
-+disappears for the duration; when the client releases the interface,
-+the driver re-probes.  The device keeps its register contents across
-+this detach, but the cold init the probe runs clears them - so the
-+driver saves the in-memory mixer state at ``disconnect()`` and
-+restores it at the next ``probe()``, keyed by the device's USB serial
-+number (or its sysfs path, if it has no serial) so the same physical
-+unit gets its state back across the cycle.  The same state is also
-+what a system-suspend resume replays, since the device loses its
-+registers across a suspend the same way.
++		for (src = 0; src < 14; src++) {
++			/* Only the playback channels are routed out of the
++			 * box; a hardware input stays out of every output
++			 * until a mixer raises its crosspoint.
++			 */
++			level = src < BF_SRC_PB1 ? 0 : BF_FADER_0DB;
++			ret = bf_xpoint_write(chip, out, src, level, level);
++			if (ret < 0)
++				return ret;
++		}
++		ret = bf_crosspoint_clear_cross(chip, blk);
++		if (ret < 0)
++			return ret;
++	}
 +
-+Front-panel emulation: the driver plays TotalMix's role
-+==========================================================
++	/* Mirror the defaults into the control cache (14 controls/output). */
++	for (out = 0; out < 6; out++)
++		for (src = 0; src < 14; src++) {
++			level = src < BF_SRC_PB1 ? 0 : BF_FADER_0DB;
++			chip->xpoint[out][src][0] = level;
++			chip->xpoint[out][src][1] = level;
++		}
 +
-+The front panel (IN/OUT/SET/MIX/SELECT/DIM buttons, the rotary
-+wheel) has no on-device intelligence of its own for turning a wheel
-+click into a mixer change - on Windows/Mac, RME's TotalMix
-+application polls the same 0x17 status register this driver polls,
-+decodes button/wheel deltas, and performs the resulting mixer writes
-+itself.  Standalone (no host software) mode exists on the hardware,
-+but the proprietary USB mode this driver targets always has a host
-+attached, so this driver has to do what TotalMix does: poll 0x17 on
-+a delayed work item (``panel_poll_ms`` module parameter, default
-+20 ms to match TotalMix's own ~50 Hz), decode the button flash and
-+signed wheel delta, and apply the resulting change (an output level
-+step, a preamp gain step, a monitoring level step, a phantom toggle)
-+exactly like the corresponding ALSA control's ``.put`` would.  A DIM
-+press is only counted, for a mixer application to act on.  The
-+front-panel ALSA
-+controls this driver exposes are the read side of this: a way for
-+userspace (WirePlumber, TuxMix) to observe what the physical panel is
-+doing, not a way to drive the hardware.
++	/* Host settings word (clock source Internal). */
++	return bf_settings_write(chip);
++}
 +
-+Some panel state - which channel SELECT currently has chosen, for
-+instance - is not part of the 0x17 readback at all and exists only on
-+the device's own internal state machine, which the driver cannot
-+read.  The unit keeps one such selection for each IN pair, across IN
-+switches and even across a power cycle; its LEDs stay dark until the
-+next SELECT press, which only shows the selection again, and later
-+presses step it.  The driver follows the presses and exposes the
-+selection of each pair as a "Front Panel Selection" control (index 0
-+is Ch 1/2), so that alsactl keeps it across boots like any other
-+mixer setting.  It cannot know what the unit holds before it has been
-+told once, so a pair starts out unknown, and SET and the wheel then do
-+nothing instead of acting on a channel that may not be the lit one;
-+setting the control to what the LEDs show for the pair tells it.  A
-+re-probe, which does not change the unit, keeps what the driver had,
-+and the older values alsactl restores shortly after probe are ignored
-+for a pair the driver already knows.  The stored values can be wrong
-+only if the selection was changed while the driver was not running
-+(the unit used on its own, or with another host).  The relevant code
-+comments (``babyface_panel_start()``, the ``panel_select_armed``
-+handling in ``bf_panel_tick()``) explain the details.
-diff --git a/Documentation/sound/cards/index.rst b/Documentation/sound/cards/index.rst
-index e68bbb13c..31051b7a4 100644
---- a/Documentation/sound/cards/index.rst
-+++ b/Documentation/sound/cards/index.rst
-@@ -12,6 +12,7 @@ Card-Specific Information
-    emu10k1-jack
-    via82xx-mixer
-    audiophile-usb
-+   babyface-pro
-    mixart
-    bt87x
-    maya44
++/* The cold init's 0x16 clear leaves the 8-bit masters muted: the
++ * output stays silent until a master write lands (hardware-verified
++ * 2026-08-24 - only a write un-mutes the 8-bit register).  Re-apply
++ * the six output masters + mutes from the cache; used by the state
++ * restore that follows the cold init.
++ */
++int bf_apply_masters(struct snd_usb_babyface *chip)
++{
++	int out, ret;
++	u16 flag;
++
++	for (out = 0; out < 6; out++) {
++		u16 l = chip->muted[out] ? 0 : chip->master[out][0];
++		u16 r = chip->muted[out] ? 0 : chip->master[out][1];
++		u8 l8 = chip->muted[out] ? BF_MASTER_MUTE : bf_master_8bit(l);
++		u8 r8 = chip->muted[out] ? BF_MASTER_MUTE : bf_master_8bit(r);
++
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, l8,
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, r8,
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			return ret;
++		flag = bf_flag_cycle[chip->flag_cnt];
++		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, l,
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, r,
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			return ret;
++	}
++	return 0;
++}
++
++/* -- mixer controls ------------------------ */
++
++/* dB TLV for the output masters: 0x2000 = 0 dB, 0x4000 = +6 dB
++ * (CALIBRATION.md) with the hardware 20*log10(v/0x2000) law - the raw
++ * 16-bit value IS the linear amplitude.  WirePlumber needs this to map
++ * the volume 1:1 to the hardware control instead of applying a software
++ * volume on top (which left the output ~30 dB down).
++ */
++static const DECLARE_TLV_DB_RANGE(bf_master_tlv,
++	0, 0x2000, TLV_DB_LINEAR_ITEM(-6500, 0),
++	0x2000, 0x4000, TLV_DB_LINEAR_ITEM(0, 600)
++);
++
++static int bf_master_info(struct snd_kcontrol *kctl,
++			  struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 2;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 0x4000;	/* +6 dB = 2 x 0dB(0x2000) */
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++static int bf_master_get(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++
++	ucontrol->value.integer.value[0] = chip->master[out][0];
++	ucontrol->value.integer.value[1] = chip->master[out][1];
++	return 0;
++}
++
++static int bf_master_put(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++	long nl = ucontrol->value.integer.value[0];
++	long nr = ucontrol->value.integer.value[1];
++	u16 l, r, wire_l, wire_r, flag;
++	int ret = 0;
++
++	/* The control is declared 0..0x4000 (+6 dB); reject anything outside
++	 * so the 16-bit companion register and the cache stay in spec (the
++	 * ALSA core only enforces this with CONFIG_SND_CTL_INPUT_VALIDATION).
++	 * Check before narrowing: .value.integer.value[] is a long, so a
++	 * value of 0x10000 or more would wrap to a passing u16.
++	 */
++	if (nl < 0 || nl > 0x4000 || nr < 0 || nr > 0x4000)
++		return -EINVAL;
++	l = nl;
++	r = nr;
++
++	mutex_lock(&chip->mutex);
++	if (l == chip->master[out][0] && r == chip->master[out][1])
++		goto out;
++
++	wire_l = chip->muted[out] ? 0 : l;
++	wire_r = chip->muted[out] ? 0 : r;
++	flag = bf_flag_cycle[chip->flag_cnt];
++	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++
++	/* The 8-bit register is the real volume; the 16-bit is its
++	 * companion (kept in sync like TotalMix).
++	 */
++	ret = bf_vendor_write(chip, BF_REQ_GAIN, bf_master_8bit(wire_l),
++			      BF_REG_MASTER_8 + 2 * out);
++	if (ret < 0)
++		goto out;
++	ret = bf_vendor_write(chip, BF_REQ_GAIN, bf_master_8bit(wire_r),
++			      BF_REG_MASTER_8 + 2 * out + 1);
++	if (ret < 0)
++		goto out;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, wire_l,
++			      (BF_REG_MASTER_16 + 2 * out) | flag);
++	if (ret < 0)
++		goto out;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, wire_r,
++			      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++	if (ret < 0)
++		goto out;
++
++	chip->master[out][0] = l;
++	chip->master[out][1] = r;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++static int bf_mute_info(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++	uinfo->count = 2;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 1;
++	return 0;
++}
++
++static int bf_mute_get(struct snd_kcontrol *kctl,
++		       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++
++	/* ALSA convention: 1 = enabled (sound on) = not muted. */
++	ucontrol->value.integer.value[0] = !chip->muted[out];
++	ucontrol->value.integer.value[1] = !chip->muted[out];
++	return 0;
++}
++
++static int bf_mute_put(struct snd_kcontrol *kctl,
++		       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++	bool muted = !ucontrol->value.integer.value[0];
++	u16 flag;
++	int ret = 0;
++
++	mutex_lock(&chip->mutex);
++	if (muted == chip->muted[out])
++		goto out;
++
++	flag = bf_flag_cycle[chip->flag_cnt];
++	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++
++	if (muted) {
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, BF_MASTER_MUTE,
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, BF_MASTER_MUTE,
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, 0x0000,
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, 0x0000,
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			goto out;
++	} else {
++		/* Unmute restores the cached volume (TotalMix keeps the
++		 * pre-mute fader value host-side), 8-bit + 16-bit.
++		 */
++		ret = bf_vendor_write(chip, BF_REQ_GAIN,
++				      bf_master_8bit(chip->master[out][0]),
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN,
++				      bf_master_8bit(chip->master[out][1]),
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT,
++				      chip->master[out][0],
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT,
++				      chip->master[out][1],
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			goto out;
++	}
++	chip->muted[out] = muted;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* -- crosspoint matrix (6 outputs x 14 sources) -------------- */
++
++/* The crosspoint fader is linear in amplitude: BF_FADER_0DB (0x16a0) is
++ * unity and BF_FADER_TOP (0x2d41) is exactly twice that, i.e. +6 dB; the
++ * whole fader span follows raw = BF_FADER_0DB * 10^(dB/20).  Raw 0 is
++ * off.
++ */
++static const DECLARE_TLV_DB_LINEAR(bf_xpoint_tlv, TLV_DB_GAIN_MUTE, 600);
++
++/* Write a crosspoint slot on the wire: the standard map always, and -
++ * for the AN1/2 output only - the low map as well.
++ *
++ * HARDWARE-VERIFIED 2026-09-14: AN1/2 is not just another output with
++ * a redundant "shadow" register, despite what this file used to say.
++ * Sweeping only the standard map (BF_REG_CROSS_BASE_*) into AN1/2
++ * produced no audible change at all, off through +6 dB, with two
++ * independent sources (a generated tone via PB1, a live mic via AN2);
++ * the exact same code path targeting any other output (verified on
++ * PH3/4) tracked the fader correctly, off to +6 dB within 0.6 dB.
++ * PROTOCOL.md's "Scene load" capture explains why: the vendor software
++ * always writes BOTH the standard map and the low map
++ * (BF_REG_LOWMAP_BASE_*) together for AN1/2's own crosspoints, at the
++ * same value - the low map is what actually feeds that output's sum;
++ * the standard map alone is not enough. Every other output only has a
++ * standard map.
++ */
++int bf_xpoint_write(struct snd_usb_babyface *chip, int out, int src,
++		    u16 l, u16 r)
++{
++	unsigned int blk = bf_xpoint_block[out];
++	const struct bf_source *s = &bf_sources[src];
++	u16 flag;
++	int ret;
++
++	if (out == 0) {
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, l,
++				      BF_REG_LOWMAP_BASE_L + s->idx_l);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, r,
++				      BF_REG_LOWMAP_BASE_R + s->idx_r);
++		if (ret < 0)
++			return ret;
++	}
++
++	flag = bf_flag_cycle[chip->flag_cnt];
++	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, l,
++			      (BF_REG_CROSS_BASE_L + BF_REG_CROSS_STRIDE * blk +
++			       s->idx_l) | flag);
++	if (ret < 0)
++		return ret;
++	return bf_vendor_write(chip, BF_REQ_CROSSPOINT, r,
++			       (BF_REG_CROSS_BASE_R + BF_REG_CROSS_STRIDE * blk +
++				s->idx_r) | flag);
++}
++
++static int bf_xpoint_info(struct snd_kcontrol *kctl,
++			  struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 2;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = BF_FADER_TOP;	/* +6 dB fader top */
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++static int bf_xpoint_get(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = kctl->private_value >> 8;
++	int src = kctl->private_value & 0xff;
++
++	ucontrol->value.integer.value[0] = chip->xpoint[out][src][0];
++	ucontrol->value.integer.value[1] = chip->xpoint[out][src][1];
++	return 0;
++}
++
++static int bf_xpoint_put(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = kctl->private_value >> 8;
++	int src = kctl->private_value & 0xff;
++	long nl = ucontrol->value.integer.value[0];
++	long nr = ucontrol->value.integer.value[1];
++	u16 l, r;
++	int ret = 0;
++
++	/* Check before narrowing: a value of 0x10000 or more would wrap to a
++	 * passing u16 (see the note in bf_master_put()).
++	 */
++	if (nl < 0 || nl > BF_FADER_TOP || nr < 0 || nr > BF_FADER_TOP)
++		return -EINVAL;
++	l = nl;
++	r = nr;
++
++	mutex_lock(&chip->mutex);
++	if (l == chip->xpoint[out][src][0] && r == chip->xpoint[out][src][1])
++		goto out;
++
++	ret = bf_xpoint_write(chip, out, src, l, r);
++	if (ret < 0)
++		goto out;
++
++	chip->xpoint[out][src][0] = l;
++	chip->xpoint[out][src][1] = r;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++int babyface_create_xpoints(struct snd_usb_babyface *chip)
++{
++	struct snd_kcontrol *kctl;
++	int out, src, err;
++
++	for (out = 0; out < 6; out++) {
++		for (src = 0; src < 14; src++) {
++			kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++				.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++				.name = "Playback Volume",
++				.index = out * 14 + src,
++				.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
++					  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
++				.info = bf_xpoint_info,
++				.get = bf_xpoint_get,
++				.put = bf_xpoint_put,
++				.tlv.p = bf_xpoint_tlv,
++				.private_value = (out << 8) | src,
++			}, chip);
++			/* Name the control by its source: "AN1 Playback Volume",
++			 * "PB1 Playback Volume"... with a unique index.
++			 */
++			strscpy(kctl->id.name, bf_sources[src].name,
++				sizeof(kctl->id.name));
++			strlcat(kctl->id.name, " Playback Volume",
++				sizeof(kctl->id.name));
++			err = snd_ctl_add(chip->card, kctl);
++			if (err < 0)
++				return err;
++		}
++	}
++
++	return 0;
++}
++
++int babyface_create_masters(struct snd_usb_babyface *chip)
++{
++	static const char * const out_names[6] = {
++		"AN1/2", "PH3/4", "AS1/2", "ADAT3/4", "ADAT5/6", "ADAT7/8"
++	};
++	struct snd_kcontrol *kctl;
++	int i, err;
++
++	for (i = 0; i < 6; i++) {
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = out_names[i],
++			.index = i,
++			.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
++				  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
++			.info = bf_master_info,
++			.get = bf_master_get,
++			.put = bf_master_put,
++			.tlv.p = bf_master_tlv,
++			.private_value = i,
++		}, chip);
++		strlcat(kctl->id.name, " Playback Volume", sizeof(kctl->id.name));
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++		chip->master_kctl[i] = kctl;
++
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = out_names[i],
++			.index = i,
++			.info = bf_mute_info,
++			.get = bf_mute_get,
++			.put = bf_mute_put,
++			.private_value = i,
++		}, chip);
++		strlcat(kctl->id.name, " Playback Switch", sizeof(kctl->id.name));
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++
++		dev_dbg(&chip->dev->dev, "output %d = %s\n", i, out_names[i]);
++	}
++
++	return 0;
++}
++
+diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
+index 8f8667083..82ec98346 100644
+--- a/sound/usb/babyfacepro/babyfacepro.c
++++ b/sound/usb/babyfacepro/babyfacepro.c
+@@ -3,9 +3,11 @@
+  * RME Babyface Pro / Pro FS - proprietary-mode USB audio driver
+  *
+  * Core driver: USB vendor requests + cold init, interrupt-URB PCM
+- * streaming, and the card lifecycle (probe/disconnect/module entry).
++ * streaming, mixer-state persistence across re-probes, and the card
++ * lifecycle (probe/disconnect/module entry).
+  *
+- * See babyfacepro.h for the shared device state and register map.
++ * See babyfacepro.h for the shared device state and register map,
++ * and babyfacepro-ctl.c for the ALSA control surface.
+  */
+ #include <linux/delay.h>
+ #include <linux/math64.h>
+@@ -253,6 +255,135 @@ int bf_cold_init(struct snd_usb_babyface *chip)
+ 	return 0;
+ }
+ 
++/* -- mixer-state persistence across interface re-probes --------
++ * A userspace client can claim the proprietary interface via usbfs
++ * (USBDEVFS_DISCONNECT_CLAIM - seen with PipeWire grabbing the
++ * device when a stream targets the sink, and with the TuxMix
++ * user-space daemon's libusb).  That detaches us and the card
++ * disappears for the duration; on release the interface re-probes.
++ * The device keeps its registers across the detach, but our cold
++ * init clears them - so save the mixer state at disconnect and
++ * restore it at the next probe.
++ */
++
++static LIST_HEAD(bf_saved_list);
++static DEFINE_MUTEX(bf_saved_mutex);
++
++/* Re-apply the whole cached mixer state to the device, whose registers
++ * the cold init cleared.  Caller holds chip->mutex.
++ */
++int babyface_restore_state(struct snd_usb_babyface *chip)
++{
++	int out, src, ret;
++
++	/* Masters (8-bit = the real volume) + mutes. */
++	ret = bf_apply_masters(chip);
++	if (ret < 0)
++		return ret;
++
++	/* Crosspoints (canonical out -> register block; AN1/2 also needs
++	 * the low map, see bf_xpoint_write's own comment).
++	 */
++	for (out = 0; out < 6; out++) {
++		unsigned int blk = bf_xpoint_block[out];
++
++		for (src = 0; src < 14; src++) {
++			ret = bf_xpoint_write(chip, out, src,
++					      chip->xpoint[out][src][0],
++					      chip->xpoint[out][src][1]);
++			if (ret < 0)
++				return ret;
++		}
++		ret = bf_crosspoint_clear_cross(chip, blk);
++		if (ret < 0)
++			return ret;
++	}
++
++	/* The rate (family register), then the varispeed ratio, which is
++	 * sticky in the device and so must be re-sent even at pitch 0 in
++	 * case something else wrote it while we were detached.
++	 */
++	ret = bf_clock_write(chip);
++	if (ret < 0)
++		return ret;
++	return bf_pitch_write(chip, chip->pitch);
++}
++
++void bf_state_save(struct snd_usb_babyface *chip)
++{
++	struct bf_saved *s;
++	const char *key = chip->dev->serial ? chip->dev->serial :
++			  dev_name(&chip->dev->dev);
++	bool found = false;
++
++	mutex_lock(&bf_saved_mutex);
++	list_for_each_entry(s, &bf_saved_list, list) {
++		if (strcmp(s->key, key))
++			continue;
++		found = true;
++		break;
++	}
++	if (!found) {
++		s = kzalloc_obj(*s, GFP_KERNEL);
++		if (!s) {
++			mutex_unlock(&bf_saved_mutex);
++			return;
++		}
++		strscpy(s->key, key, sizeof(s->key));
++		list_add_tail(&s->list, &bf_saved_list);
++	}
++
++	s->flag_cnt = chip->flag_cnt;
++	memcpy(s->master, chip->master, sizeof(s->master));
++	memcpy(s->muted, chip->muted, sizeof(s->muted));
++	memcpy(s->xpoint, chip->xpoint, sizeof(s->xpoint));
++	mutex_unlock(&bf_saved_mutex);
++}
++
++/* Copy a saved state (if any) into a freshly probed chip and push it
++ * to the device.  Returns 1 when restored, -ENOENT when there is none,
++ * or a negative error from the vendor writes.
++ */
++int bf_state_restore(struct snd_usb_babyface *chip)
++{
++	struct bf_saved *s;
++	const char *key = chip->dev->serial ? chip->dev->serial :
++			  dev_name(&chip->dev->dev);
++	int ret = -ENOENT;
++
++	mutex_lock(&bf_saved_mutex);
++	list_for_each_entry(s, &bf_saved_list, list) {
++		if (strcmp(s->key, key))
++			continue;
++		chip->flag_cnt = s->flag_cnt;
++		memcpy(chip->master, s->master, sizeof(chip->master));
++		memcpy(chip->muted, s->muted, sizeof(chip->muted));
++		memcpy(chip->xpoint, s->xpoint, sizeof(chip->xpoint));
++		ret = 1;
++		break;
++	}
++	mutex_unlock(&bf_saved_mutex);
++	if (ret != 1)
++		return ret;
++
++	mutex_lock(&chip->mutex);
++	ret = babyface_restore_state(chip);
++	mutex_unlock(&chip->mutex);
++	return ret ? ret : 1;
++}
++
++void bf_state_purge(void)
++{
++	struct bf_saved *s, *tmp;
++
++	mutex_lock(&bf_saved_mutex);
++	list_for_each_entry_safe(s, tmp, &bf_saved_list, list) {
++		list_del(&s->list);
++		kfree(s);
++	}
++	mutex_unlock(&bf_saved_mutex);
++}
++
+ /* -- PCM data path ------------------------- */
+ 
+ static bool babyface_capture_copy(struct snd_usb_babyface *chip,
+@@ -1393,6 +1524,26 @@ static int babyface_probe(struct usb_interface *intf,
+ 		goto error;
+ 	}
+ 
++	/* Restore the mixer state saved at the last disconnect (if any);
++	 * the device keeps its registers across a usbfs detach, but the
++	 * cold init above cleared them, so push the user's settings back.
++	 */
++	err = bf_state_restore(chip);
++	if (err == -ENOENT) {
++		/* No saved state: the 0x16 clear zeroed the mixer registers,
++		 * so restore the factory default routing to keep the outputs
++		 * live out of the box.
++		 */
++		err = babyface_write_default_mixer(chip);
++		if (err < 0) {
++			dev_err(&intf->dev, "default mixer restore failed: %d\n", err);
++			goto error;
++		}
++	} else if (err < 0) {
++		dev_err(&intf->dev, "mixer state restore failed: %d\n", err);
++		goto error;
++	}
++
+ 	/* Keep the allocation size independent of the active USB mode. */
+ 	urbsize = BF_WORDS_PER_FRAME * sizeof(u32) * chip->frames_per_urb;
+ 	chip->urbs_in = kcalloc(chip->nurbs, sizeof(*chip->urbs_in), GFP_KERNEL);
+@@ -1437,6 +1588,18 @@ static int babyface_probe(struct usb_interface *intf,
+ 		goto error;
+ 	}
+ 
++	err = babyface_create_masters(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "master control creation failed: %d\n", err);
++		goto error;
++	}
++
++	err = babyface_create_xpoints(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "crosspoint creation failed: %d\n", err);
++		goto error;
++	}
++
+ 	err = snd_card_register(chip->card);
+ 	if (err < 0) {
+ 		dev_err(&intf->dev, "snd_card_register failed: %d\n", err);
+@@ -1485,6 +1648,11 @@ static void babyface_disconnect(struct usb_interface *intf)
+ 		babyface_stream_kill(chip);
+ 	mutex_unlock(&chip->mutex);
+ 	cancel_work_sync(&chip->stream_work);
++	/* Keep the mixer state for the next probe: a userspace usbfs claim
++	 * (PipeWire sink grab, TuxMix daemon) detaches us and the cold init
++	 * of the re-probe would otherwise wipe the settings.
++	 */
++	bf_state_save(chip);
+ 	/* Balance the probe()-time usb_disable_autosuspend(): the usb_device
+ 	 * outlives this interface claim (a usbfs detach re-probes without
+ 	 * the physical device ever disconnecting), so leaving autosuspend
+@@ -1524,7 +1692,12 @@ static int __init babyface_init(void)
+ 
+ static void __exit babyface_exit(void)
+ {
++	/* Deregister first: each disconnect() calls bf_state_save(), which
++	 * allocates a node for a device it has not seen before.  Purging
++	 * before that frees the list and then leaks those fresh nodes.
++	 */
+ 	usb_deregister(&babyface_driver);
++	bf_state_purge();
+ }
+ 
+ module_init(babyface_init);
+diff --git a/sound/usb/babyfacepro/babyfacepro.h b/sound/usb/babyfacepro/babyfacepro.h
+index 60ab0c387..9694cb9a7 100644
+--- a/sound/usb/babyfacepro/babyfacepro.h
++++ b/sound/usb/babyfacepro/babyfacepro.h
+@@ -11,7 +11,10 @@
+  * standalone (snd-usb-caiaq-style interrupt streaming) instead of an
+  * snd-usb-audio quirk.
+  *
+- * babyfacepro.c holds the card lifecycle and the PCM stream.
++ * babyfacepro.c holds the card lifecycle, the PCM stream and the
++ * mixer-state persistence across re-probes;
++ * babyfacepro-ctl.c holds the ALSA control surface - the hardware
++ * mixer.
+  *
+  * The protocol (vendor requests + 14x32-bit frame layout) was
+  * reverse-engineered from Windows captures and validated on hardware -
+@@ -90,8 +93,10 @@
+ 
+ /* Vendor requests (bmRequestType 0x40, value in wValue, no data phase). */
+ #define BF_REQ_KEEPALIVE		0x10	/* settings word / stream trigger */
++#define BF_REQ_CROSSPOINT		0x12	/* 16-bit crosspoint / master */
+ #define BF_REQ_REG_CLEAR		0x16	/* cold-init register clear */
+ #define BF_REQ_PREAMP			0x17	/* 48V/PAD state + readback */
++#define BF_REQ_GAIN			0x1a	/* 8-bit gain / master companion */
+ #define BF_REQ_DDS			0x1b	/* clock quads */
+ #define BF_REQ_STATUS_2			0x1c	/* read 4 B */
+ #define BF_REQ_SESSION_START		0x1d
+@@ -114,6 +119,80 @@
+  */
+ #define BF_SETTINGS_CLOCK_INTERNAL	0x0001
+ 
++/* Register addresses (masters + crosspoint matrix). */
++#define BF_REG_MASTER_16		0x03e0	/* + 2*out (bReq 0x12) */
++#define BF_REG_MASTER_8			0x0004	/* + 2*out (bReq 0x1a) */
++#define BF_REG_CROSS_BASE_L		0x0034	/* + 0x34*out + src (bReq 0x12) */
++#define BF_REG_CROSS_BASE_R		0x004e	/* + 0x34*out + src */
++#define BF_REG_CROSS_STRIDE		0x0034
++/* Low map (the AN1/2 monitor bus's own per-source registers, one set
++ * shared across every output - not one per output block like the
++ * standard crosspoint map above). NOT a shadow/mirror of the standard
++ * map for AN1/2: it is what that output actually sums from, and the
++ * standard map alone has no audible effect on it (hardware-verified
++ * 2026-09-14, see bf_xpoint_write's own comment and KERNEL-DRIVER.md).
++ */
++#define BF_REG_LOWMAP_BASE_L		0x0000	/* + idx_l */
++#define BF_REG_LOWMAP_BASE_R		0x001a	/* + idx_r */
++
++/* The "cross" register block within each output: the L-registers sit at
++ * odd offsets 5..23 and the R-registers at even offsets 4..22 (the stereo
++ * source pairs that can be cross-linked).  bf_crosspoint_clear_cross()
++ * zeroes them because the cold-init clear does not cover them.
++ */
++#define BF_CROSS_L_FIRST		5
++#define BF_CROSS_L_LAST			23
++#define BF_CROSS_R_FIRST		4
++#define BF_CROSS_R_LAST			22
++
++/* Calibrated master value: 0 dB = 0x2000 (+6 dB = 0x4000).  See
++ * CALIBRATION.md.  The crosspoint fader curve is DIFFERENT (0 dB =
++ * 0x16a0, top 0x2d41 - see below).
++ */
++#define BF_MASTER_0DB			0x2000
++
++/* The 8-bit master is the REAL output volume (hardware-verified
++ * 2026-08-24: writing it changes the level, the 16-bit does not).
++ * Scale: 0.5 dB per step, 0xf3 = 0 dB (the scene-load default),
++ * bottom 0x73 = -64 dB (silence), top 0xff = +6 dB.  The 16-bit
++ * register is a companion kept in sync (TotalMix writes both).
++ * The mute value is 0x3B.
++ */
++#define BF_MASTER_8_0DB			0xf3
++#define BF_MASTER_8_MIN			0x73
++#define BF_MASTER_MUTE			0x3b
++#define BF_MASTER_UNMUTE		0xf3
++/* -20 dB master, 8-bit and 16-bit: the exact pair the hardware DIM
++ * button writes (cap_dim2.pcap), reused as the power-on default.
++ */
++#define BF_MASTER_MINUS20_8		0xcb
++#define BF_MASTER_MINUS20_16		0x0333
++
++/* Crosspoint fader curve: 0 dB = 0x16a0, +6 dB = 0x2d41 (fader curve,
++ * DIFFERENT from the master 0x4000 top - see CALIBRATION.md).
++ */
++#define BF_FADER_0DB			0x16a0
++#define BF_FADER_TOP			0x2d41
++
++/* The crosspoint matrix sources (14 controls per output). */
++struct bf_source {
++	const char *name;
++	u8 idx_l;
++	u8 idx_r;
++};
++
++/* Crosspoint-source order + register block maps (babyfacepro-ctl.c). */
++extern const struct bf_source bf_sources[14];
++extern const u8 bf_xpoint_block[6];
++
++/* The first playback source in bf_sources[]: the four analog inputs, the
++ * optical input and the three ADAT pairs come first, the six playback
++ * channels last.  babyface_write_default_mixer() routes only the
++ * playback out of the box; a hardware input is not monitored into any
++ * output until a mixer raises its crosspoint.
++ */
++#define BF_SRC_PB1			8
++
+ struct snd_usb_babyface {
+ 	struct snd_card *card;
+ 	struct usb_device *dev;
+@@ -160,6 +239,25 @@ struct snd_usb_babyface {
+ 	 */
+ 	ktime_t in_done;
+ 	unsigned int out_inflight;
++
++	/* mixer state (no gain readback exists - host-side mirror) */
++	u8 flag_cnt;			/* 0xc000/0x4000/0x8000/0x0000 */
++	struct snd_kcontrol *master_kctl[6];
++	u16 master[6][2];		/* cached 16-bit masters */
++	bool muted[6];
++	u16 xpoint[6][14][2];		/* cached crosspoints (out, src, L/R) */
++};
++
++/* The mixer state cached across interface re-probes (see
++ * babyfacepro.c's own comment on bf_state_save/bf_state_restore).
++ */
++struct bf_saved {
++	struct list_head list;
++	char key[32];
++	u8 flag_cnt;
++	u16 master[6][2];
++	bool muted[6];
++	u16 xpoint[6][14][2];
+ };
+ 
+ struct bf_rate {
+@@ -185,3 +283,26 @@ void babyface_stream_kill(struct snd_usb_babyface *chip);
+ void babyface_pcm_stop_both(struct snd_usb_babyface *chip, snd_pcm_state_t state);
+ void babyface_stream_work(struct work_struct *work);
+ extern const struct snd_pcm_hw_constraint_list bf_rates_constraint;
++
++/* Mixer-state persistence across interface re-probes. */
++void bf_state_save(struct snd_usb_babyface *chip);
++int bf_state_restore(struct snd_usb_babyface *chip);
++void bf_state_purge(void);
++int babyface_restore_state(struct snd_usb_babyface *chip);
++
++/* -- babyfacepro-ctl.c ----------------------- */
++extern const u16 bf_flag_cycle[4];
++int bf_vendor_write_cycle(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx);
++int bf_crosspoint_clear_cross(struct snd_usb_babyface *chip,
++			      unsigned int blk);
++int babyface_write_default_mixer(struct snd_usb_babyface *chip);
++int bf_apply_masters(struct snd_usb_babyface *chip);
++int bf_xpoint_write(struct snd_usb_babyface *chip, int out, int src,
++		    u16 l, u16 r);
++int babyface_create_masters(struct snd_usb_babyface *chip);
++int babyface_create_xpoints(struct snd_usb_babyface *chip);
++
++/* Master gain-law helpers (babyfacepro-ctl.c). */
++int bf_master_half_db(u16 vol16);	/* 16-bit master -> dBx2 */
++int bf_master_16bit(int half_db);	/* dBx2 -> 16-bit master */
++u8 bf_master_8bit(u16 vol16);		/* 16-bit master -> 8-bit companion */
 -- 
 2.56.0
 
