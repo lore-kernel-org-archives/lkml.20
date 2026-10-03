@@ -1,134 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27EF39023A;
-	Sat,  3 Oct 2026 17:29:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46FB39CD00;
+	Sat,  3 Oct 2026 17:32:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791048560; cv=none; b=GSMha9ZXQCXaIAX4k1nbm8K8D9UPGpbZb7/LBK4yUsrr46IzYuFWbY4b8GGPGHToTIE0svvGJZBUSsLMCpHENMhgdC3IpnV42w+VFlKXFt89Fk6VzD+DxRGAYh5OoBq9QzbSuYaEZLLPD9Vxy3H8jJFr2+YQyQB1WmbQ7YMGsz0=
+	t=1791048738; cv=none; b=VGbIxUI5LF5duSZCoY/JXbDY5wJnDgkEIV5mXTSpVCLGcVsarefBs+epaGYmuIDwSGFFiJCXv9bpmgCkrdDgZlmA67idrZLPRphSqfKZ3OjdH8PzfB5IEKA6ip1P+KxFVPhZScB7w0OxMbd2leN7Dpg6iRLgHK2IwUXpm1Zt2SA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791048560; c=relaxed/simple;
-	bh=CqnWtRM63vGOFDy8hHfwMapffw7itr4fH4oD25dDnNI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BUK78teXvVRAA4QDp7IhABtuTOaAbcrnElPK6JlqdvM8SivG5OaGihyqOSh+RcZJgc2JCE/3KKhsvBYMPmGemqwgCOv/HVZr4nxc2OgDternotDEElMej4q6a406Jlw2KB10nAzditXcEA8M4Bx5mxpnFTZc+TiqGRLQfP5xE/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0KeWhWQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791048738; c=relaxed/simple;
+	bh=cYpBwFzOTgR7FK3DD7waDjHJZXMz6B6h6aPVOCIbxBs=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=ktxreyOWJYSYJrzD73EiOotkvxArL0j9ccudMFqI1H50bcvNJ/RD0LRWH+w5hpj0vYqiZbg85Eed4yAB/YQad2liadzr7OHvuED0ieynOh7mgVn/jHj0gCQtMGGzeaTAir0Vx6IKgZ/eMbNGQtVkDJKikkIqt+aALVhvmL69E6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gCSXwFUl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0KeWhWQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC821F0089B;
-	Sat,  3 Oct 2026 17:29:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gCSXwFUl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 694B81F0089B;
+	Sat,  3 Oct 2026 17:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791048558;
-	bh=/By2OE0+/5lBAO79HI0ShVxfSlShXYgYRuhLK9eN7no=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=c0KeWhWQDKHWS7d50/NydMyub1tr1wvxe5M1WAakXEmbrIAlZmehc+TqbIVgm8yEf
-	 Pd10HJC1byIsdZ33IVR2Nn+XeC+XUc9buAf7GZCkyig+/wC04+rf/4607jd8PVvsqb
-	 Ncos1ve2x3vaA6VGCaa9lnlpXbiZMZu5sVMER6EjT9VEMjlSsiwxo6zibnbmHf017B
-	 BAX+fr2PeaBbdwDuLTNqfAUQYGskWTpkohYpUdIE0Yv8dkBGhAmnwU0/lmoEFoE1ha
-	 VyCxfljyoUxqI0iGqUIFCNJVE/I1+DojNkomIYHCfpjaKU920gPdlJD/UpGMpabq2M
-	 oRkJpadK6g/Sg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xD3Xv-0000000GbIs-3dJ5;
-	Sat, 03 Oct 2026 17:29:16 +0000
-Date: Sat, 03 Oct 2026 18:32:23 +0100
-Message-ID: <87ld8e3d20.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v21 10/23] KVM: arm64: Add VM specific callback for S2 MMU operations
-In-Reply-To: <ce2e8885-d848-48d3-b82e-49fcd9a6cfcc@arm.com>
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
-	<20261001210703.1597150-11-suzuki.poulose@arm.com>
-	<86ik3j2m5v.wl-maz@kernel.org>
-	<9873fb9d-6f32-46f6-bcac-6a52e293d011@arm.com>
-	<ce2e8885-d848-48d3-b82e-49fcd9a6cfcc@arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1791048729;
+	bh=96Xlt30MyTAmiQCYGy3OoSsuK8PB2w+LEoX+nji351E=;
+	h=Date:From:To:Cc:Subject;
+	b=gCSXwFUlyz78f6WTHTEKnn3toM+8ey0lGzQgvK90k1jCxp8DPbbs+KSwyMP8PUwYX
+	 ZpWA0UlTd2sh3zLqQYUlsHOpbLnyZZlnbPiKPzUWn1/rkXIdtowABAMogMX29roj2M
+	 ucACEewJJUXx/rPrAKQRjsic36sOh4cNjJKTvADhtv0ijWnxeHsb47ffwYYdwMaGFH
+	 byjv3ZIsXbgzsfBH7budCqfiNg7u1hgSpTjfal4csPO+5aVhY6XYoG2yAzSk1Y7Ri1
+	 Hj9kEFYCSVv6sZ96qv39MQ+0A7AxIg2RCcQ7RTcWQ7PiB6+0izGByYnHm7w/hdNG9D
+	 eOhnv+INLZEhA==
+Date: Sat, 3 Oct 2026 13:32:03 -0400
+From: Brian Masney <masneyb@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] clk fixes for v7.3-rc6
+Message-ID: <asE8E2kpcUoysqyJ@x1g10>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-On Sat, 03 Oct 2026 17:12:28 +0100,
-Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
->=20
-> On 03/10/2026 16:30, Suzuki K Poulose wrote:
-> > On 03/10/2026 10:01, Marc Zyngier wrote:
-> >> On Thu, 01 Oct 2026 22:06:50 +0100,
-> >> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> >>>=20
-> >>> Add VM type specific S2 MMU operation backends which can be
-> >>> initialized per
-> >>> VM flavor, to keep the handling cleaner.
-> >>>=20
-> >>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> >>> Tested-by: Gavin Shan <gshan@redhat.com>
-> >>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> >>> ---
-> >>> Changes since v19:
-> >>> =C2=A0 - Add a blank line in kvm_arch_flush_remote_tlbs()
-> >=20
-> >=20
-> >>> =C2=A0 struct kvm_s2_mmu {
-> >>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct kvm_vmid vmid;
-> >>> @@ -332,6 +345,8 @@ struct kvm_arch {
-> >>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> >>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64 fgu[__NR_FGT_GROUP_IDS__];
-> >>> +=C2=A0=C2=A0=C2=A0 const struct kvm_vm_s2_ops *vm_s2_ops;
-> >>> +
-> >>=20
-> >> If you're touching this patch, can you please move this pointer next
-> >> to the vcpu_ops pointer?
-> >=20
-> > Sure, I will do that.
->=20
-> Sorry, this is only stored in kvm_arch, while the vcpu_ops are stored
-> in the vcpu_arch, to avoid pointer chasing vcpu->kvm->arch->.
+Hi Linus,
 
-Ah, my bad,
-
-> I could move it closer to the vm_flavor ?
-
-Maybe. Check whether that introduces a hole or not (I'm trying to keep
-this structure as packed as possible). But we can always change this
-later on.
+Here's two small fixes for v7.3 that have been in linux-next for a few
+weeks with no reported issues. Details are in the signed tag. Please
+pull.
 
 Thanks,
+Brian
 
-	M.
 
---=20
-Jazz isn't dead. It just smells funny.
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git tags/clk-fixes-for-linus-v7.3
+
+for you to fetch changes up to 81493c1dd1b1ebecb2843a7815973a5bd9a37e5a:
+
+  Merge tag 'tags/spacemit-clk-fixes-for-7.3-1' into clk-fixes (2026-09-18 13:38:11 -0400)
+
+----------------------------------------------------------------
+Two small clk driver fixes:
+
+- spacemit: k3: Fix an issue that will trigger a system hang due to
+  unavailable frequency.
+- ti: composite: Reverts a commit that breaks OMAP3.
+
+----------------------------------------------------------------
+Andreas Kemnade (1):
+      clk: ti: composite: resolve parent clocks by name again
+
+Brian Masney (1):
+      Merge tag 'tags/spacemit-clk-fixes-for-7.3-1' into clk-fixes
+
+Troy Mitchell (1):
+      clk: spacemit: k3: add CPU PLL rate tables
+
+ drivers/clk/spacemit/ccu-k3.c | 92 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/clk/ti/composite.c    | 26 ++++++------
+ 2 files changed, 104 insertions(+), 14 deletions(-)
