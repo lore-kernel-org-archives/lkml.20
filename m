@@ -1,292 +1,194 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305C74A9D5B
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2189948EC72;
+	Sat,  3 Oct 2026 16:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791045936; cv=none; b=azqHIFv2/R4oPa3jDZNvzF2vGqt8QfUfYAjpXlPp+sKYNMcCaRQD4c5GdTOvVtRJiArGslLv1/t4FHYrAnSbThmm5PNzB3+UXWCuSOwEvP3Wy/oJNSSSYu0/gbwTuPzOSXYgZF36VDTO6i0vr2UorpaXs+orImuxNUPg6UWVI9w=
+	t=1791045953; cv=none; b=OoA/QiIus0IzhuFGkonfgAj13RSwJh1HUDMBXrdeb7iJcIVPqTWHflBzZM+2igQiwjtEbb4d3oBkg4VrslgYvIysFmyzYE8zR8HS04/AbHEy6/SmzCHI8CSj1LDbp/wfeiEh3XOUBvSki+MEZ/0vjY4+LOqrEerqlJw9XzTChnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791045936; c=relaxed/simple;
-	bh=Z5+z7hNiBBNdVlbXFF76RV5SnZkdJjiqvRRCBvSiz5M=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZL+RygwADHd5S5F1xxtI+oFxZoYG8MheV7JyC7pjXBOl4eVhyUpTmMHMaDWE6n/+V2HxGGLaoyKGF1JNpPz4cEX4gPFUJv970m+bcI9yH1gSnL0eaduPWit8Pz4tlavQyC97CgXcFFG4x+ttHJDdX0Ofhm9hH9U+Qs2WeHeowpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fFphFe5S; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791045953; c=relaxed/simple;
+	bh=D4Bktmj1CFdgrn8TjfxCWBpiKXIl0qBVGlP1ttOp62E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=B7c1gKh7V2htzZlaO+fjUZQ4p/FXIVZejTBR89LE/zPQZX976O0I0jxgZUm+4zuwhNnAWx+pfNMDfsN4iKlhe1piCJisZK8SQdUGSCHb3eOoW342ZoGuOEulyfAtna9AvnipbeMDTL2lUNjtTsIWLBfdv3/BdejOvr8xtiyj3YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2Dsfg1X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fFphFe5S"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a49573b8bdso302004a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:45:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791045933; x=1791650733; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XwUxbbpJnDbzL/dxfGXuu2rEGUNZ/u1k+T1w6QXAexY=;
-        b=fFphFe5SokgvKiDThGaJO86hQ7NU1zNQpWyo7Viy3haREWJ9yV9Xnx55mBbQXgksuw
-         fnYpKGgGOoNpudSycsm5bwI+seS6ZwGvuUCJPWx3GxlQWvt47eK8PSFg++Dm1+ue6UTV
-         z88C0e3wXq+OtIHy8NBCVriVTJ/L/j4QPpXQEIW3Uh4j8Fmb+Pz6/Ds5eKenhO7RCVcH
-         SwlGAcvVjxmh8veyzgVMQSpzuAM6aVkRlwUE1JjT+mVrnztHCuBQq/0WNQZizZcGzt+6
-         wcf4g4vLqyOw/1/anbiNzRJCPc8dRHxs2MHIpxAYwVSiEXwqa84mLzUEjPD/vuRJhMpi
-         mYww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791045933; x=1791650733;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XwUxbbpJnDbzL/dxfGXuu2rEGUNZ/u1k+T1w6QXAexY=;
-        b=nLfFbZN8jqHo5F9faVUSPZYS3Kz+u7ThkZG8W0L977WhR1C1ZsWZt5CHQCH52Ekv3q
-         OpG6L3Q7D8fb/D0tB0PRc9O16iURK4ZmjbzlepAnUb/hTca8XpDwRcwV1E4mCFXyX0+U
-         esC7d4s+r0oKTDMRDZ/0Fts0d8Jg+Uk70rHaQ/AEzF5U19415qSOP6b8/2sLXuGKk98d
-         3FCKhUuxIkI4LDqst9bPyyXSIukpXpIKGMp4eugJfzYVtDIO7PQfRJ297OCdZh5YAO7V
-         1ick5jU9fKyGDnbGfpKPbd60+Pp47t50qn80fEsFsrabUbdOLJmLJW9OGQ7SW9x2ymPb
-         ltjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+dBgEv19QA0NPNDrjeHoEdyGSVjNO2sqd0GLS8i9W1goNDvklsCRNH6reV5hteAPcAIth1ik2bzTeX9E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHKcOFh8M2bKNNqxVK6JX8gkPasr3Vy4KdtMrdk0RAwxNKy46N
-	ZpCcLxPf9V61SN0hTxmZRCan0MK6B+26Pobu8e+F/V/CTjlzcAfZnkFg
-X-Gm-Gg: AYBFou0OxBVL69xNUq/fCKOHBQAVrJb7Z5oPu16ovtOZeH6EmMWWRmskRFgpEIbAM08
-	iXiyTO1O+Kh1KiWbUH0r32J0RU5aM+urpv30ykYQfMbdubDQ+UhsJXfGy3AYk2GGm527+zyTkq0
-	Rq+k86NGH4jRGyyARBnNsPQhoKHRk+dHUVXT7TpczGd5sAf5YgHccpLv0L/RTZUS5LMFOeA4oO9
-	v/X6HsVGAuwnnOOKbwSW1NANoHBgoOUFgZiwpHmdDDtgqDpZK/42Gnk0kxiT+tadQ94oWgzBkzU
-	qSZpADtZxxPZy84U29OWKgyBG6CoHIzaiSHSx4uo1LkFVHzNf4qBuBw8kSX6xrHEwPgQHmiPq4r
-	j64P9OU2ecAhX6MGmnZTLZxHqgWLrU6hj+OV2u0hlH1L5zvwGzXgMtidG7MCqkHrCSNntZlfV2s
-	yMihnjGbvmonFCPR0nzoZvkcVfpkhYmHqAFafOtY8ZGEE2kkKcCRLNH2j5laUTNR20GSokDWDqv
-	jbLkmwmHUf6u68Kmw==
-X-Received: by 2002:a17:90a:a82:b0:3a6:e159:a233 with SMTP id 98e67ed59e1d1-3a6e159b3e8mr3430086a91.43.1791045933065;
-        Sat, 03 Oct 2026 09:45:33 -0700 (PDT)
-Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d6878d2sm3528085a91.8.2026.10.03.09.45.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 09:45:32 -0700 (PDT)
-Message-ID: <6ac1312c.ee551989.ce4ed.e56f@mx.google.com>
-X-Google-Original-Message-ID: <20261003164530.ay47jwe3xjuyfmsn@DESKTOP-1P5QNTF.>
-Date: Sun, 4 Oct 2026 01:45:30 +0900
-From: Kohei Ito <koheiito.dev@gmail.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 2/3] rust: gpio: Add basic consumer abstractions
-References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
- <20260906-add-rust-gpio-consumer-v1-2-24d192f93760@gmail.com>
- <DLE2CBE8FJ9B.23HDU37C95ROK@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2Dsfg1X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0211F0089B;
+	Sat,  3 Oct 2026 16:45:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791045951;
+	bh=36Kk9cCfrs+K/ZkPenTGstnZo1LIkvSMm4GHKa8AJS8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=h2Dsfg1Xql747wZrXI3+/fz+4Y+deOBQpJgW4qxqntXMyJIAE2gecb3qiFuHuXvd+
+	 voif1GZgA7UUtM0vblPSsNPjNQDh007WtJxzNKXuJJmlWKpUzw2tnVJ9qgiQPBmEV8
+	 /KVzqVkx+NRAzVGPz7fMFbNn8ZnZgIP0r0ErqwsLluheJjglZbyJsVBdmasrHRGE4P
+	 6Pq1MEmJdPiKAYiq6X7WUP7FQrKS1ygoauY3kSAe+KyFRs+sH7NmCBzkGjvS5CwQJA
+	 a/SBJmbkZ0EKfc4synBXhjltgsKTDX7nydodQN9HWpicB+1/PaZ7llQz1G7dJeMRog
+	 umWRkuiKGNkLw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Sat, 03 Oct 2026 17:33:07 +0100
+Subject: [PATCH v4 36/38] mm: eliminate VM_SPECIAL, VMA_SPECIAL_FLAGS
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DLE2CBE8FJ9B.23HDU37C95ROK@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-36-a1f052500fd7@kernel.org>
+References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2224; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=D4Bktmj1CFdgrn8TjfxCWBpiKXIl0qBVGlP1ttOp62E=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIO6unornY/vrR45rV+j2uBywp8dvvNmSxU7+n9/NWs3
+ aJ+svP+d5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiYh8YGebu/HL6nv7eWw39
+ GyuW/VrPzaW79K14dimT2lbWJtGUiukMv5i8wo8cZas3Zl5++fGUqQvXCFf+/z1F/2tr5tngzWr
+ 7U3kB
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi Alexandre,
+Every user of the VM_SPECIAL or VMA_SPECIAL_FLAGS has now been converted to
+predicates which explicitly express what is actually being checked for
+rather than the nebulous concept of possessing 'special' VMA flags.
 
-thank you for your review.
+In any case 'special' is not so special a term of art in mm - it includes
+VDSO/VVAR mappings, special in the sense of vm_normal_folio() and probably
+other cases too.
 
-> > Due to a bindgen issue that may generate the wrong type for enum types,
-> > `gpio/consumer.h` is included at the top of `bindings_helper.h` as a
-> > temporary workaround. Once the issue is resolved, it can be moved back
-> > to its proper alphabetical position.
-> 
-> Can you describe what the issue is, and share any relevant link?
+Therefore make things less special by eliminating these now unused flags.
 
-`bindgen` can generate the wrong type for the `enum`s when their
-forward declarations appear before the actual definitions. The details
-are described in [1].
+No functional change intended.
 
-I haven't confirmed that `gpiod_flags` is actually affected. I placed
-the include at the top as a precaution, but if it isn't needed I'll drop
-the workaround.
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/mm.h              | 8 --------
+ tools/testing/vma/include/dup.h | 8 --------
+ 2 files changed, 16 deletions(-)
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=8cbc95f983bcec7e042266766ffe0d68980e4290
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 55320cf2c525..7ada0da24d0c 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -576,14 +576,6 @@ enum {
+ #define VM_ACCESS_FLAGS (VM_READ | VM_WRITE | VM_EXEC)
+ #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
+ 
+-/*
+- * Special vmas that are non-mergable, non-mlock()able.
+- */
+-
+-#define VMA_SPECIAL_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_DONTEXPAND_BIT, \
+-				       VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)
+-#define VM_SPECIAL vma_flags_to_legacy(VMA_SPECIAL_FLAGS)
+-
+ /*
+  * Physically remapped pages are special. Tell the
+  * rest of the world about it:
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 94bf818ad0e1..7a6d99ad5303 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -352,14 +352,6 @@ enum {
+ #define VM_ACCESS_FLAGS (VM_READ | VM_WRITE | VM_EXEC)
+ #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
+ 
+-/*
+- * Special vmas that are non-mergable, non-mlock()able.
+- */
+-#define VM_SPECIAL (VM_IO | VM_DONTEXPAND | VM_PFNMAP | VM_MIXEDMAP)
+-
+-#define VMA_SPECIAL_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_DONTEXPAND_BIT, \
+-				       VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)
+-
+ #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
+ 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
+ 
 
-> > +/// The GPIO descriptor flags to configure its direction and output value.
-> > +///
-> > +/// Rust abstraction for the C [`enum gpiod_flags`].
-> > +///
-> > +/// They can be combined with the operators `|`, and `&`.
-> 
-> The C comment for `gpiod_flags` says "these values cannot be OR'd" so I
-> guess this comment isn't true. Besides, there is no `BitOr` impl for
-> `GpiodFlags` in the patch so it actually cannot be done.
+-- 
+2.55.0
 
-Good catch! I'll correct it.
-
-> > +    // Always inline to optimize out error path of `build_assert`.
-> > +    #[inline(always)]
-> > +    const fn new(value: bindings::gpiod_flags) -> Self {
-> > +        build_assert!(value as u64 <= bindings::gpiod_flags::MAX as u64);
-> 
-> Better to not use `build_assert` here as it inserts build-time
-> landmines.
-> 
-> Since you are only using this to build the constants above, you can just
-> do `Self(bindings::gpiod_flags_*)` on them. Adding an extra assert for
-> an bounded enum type doesn't add any extra protection.
-
-Sure. I'll remove it.
-
-
-> > +/// A reference-counted gpio descriptor.
-> 
-> Not really - the GPIO device is reference-counted, but descriptors are
-> not. Calling `gpiod_get` a second time returns `EBUSY`.
-
-Sure. I'll correct it.
-
-> > +/// ```
-> > +/// use crate::{
-> 
-> These doctests won't compile as they are supposed to use `kernel::`, not
-> `crate::`.
-> 
-> Please make sure to include the doctests when building
-> (`CONFIG_RUST_KERNEL_DOCTESTS` build option), and to also build the
-> `rustdoc` target as per the checklist [1].
-> 
-> [1] https://rust-for-linux.com/contributing#submit-checklist-addendum
-
-Sure. I'll fix it and make sure to run the doctests and build rustdoc.
-
-> > +// SAFETY: It is safe to call `gpiod_put` on another thread than where `gpiod_get` was called.
-> > +unsafe impl Send for GpioDesc {}
-> 
-> We should probably also implement `Sync` so GPIOs can be used in
-> interrupt context.
-
-I agree we want `Sync` so that GPIOs can be used from interrupt context.
-However, the direction setters are not safe to call concurrently on the
-same descriptor: gpiolib changes the hardware direction and then updates
-`GPIOD_FLAG_IS_OUT`, so the two can become inconsistent.
-
-I think we can add `Sync` if the direction setters take `&mut self` (or
-use the typestate approach). I'll look into this together with the
-typestate design.
-
-> > +
-> > +impl GpioDesc {
-> > +    /// Gets [`GpioDesc`] corresponding to a [`Device`] and a connection id.
-> > +    ///
-> > +    /// Equivalent to the kernel's [`gpiod_get`] API.
-> > +    ///
-> > +    /// [`gpiod_get`]: https://docs.kernel.org/driver-api/gpio/index.html#c.gpiod_get
-> > +    pub fn get(dev: &Device, name: Option<&CStr>, flags: GpiodFlags) -> Result<Self> {
-> 
-> `dev` here is only used as a lookup key, and the GPIO descriptor can
-> outlive the device being unbound (the GPIO can actually even be obtained
-> while the device is unbound!). This is because `dev` is not the provider
-> of the GPIO, but as the API name implies its consumer - i.e. the device
-> on which the GPIO is expected to have an effect.
-> 
-> This is what the GPIO API expects, but it looks a bit counterintuitive
-> when compared to most other Rust subsystems, where an obtained resource
-> is typically tied to the device given as parameter being bound. I think
-> it's worth mentioning in the comment.
-
-Sure. I'll add a note explaining how `dev` is used.
-
-> > +    /// Get the direction.
-> > +    ///
-> > +    /// Equivalent to the kernel's [`gpiod_get_direction`] API.
-> > +    ///
-> > +    /// [`gpiod_get_direction`]:
-> > +    /// https://docs.kernel.org/driver-api/gpio/index.html#c.gpiod_get_direction
-> > +    #[inline]
-> > +    pub fn get_direction(&self) -> Result<LineDirection> {
-> > +        // SAFETY: By the type invariants, self.as_raw() is a valid argument for
-> > +        // [`gpiod_get_direction`].
-> > +        let ret = unsafe { bindings::gpiod_get_direction(self.as_raw()) };
-> > +        if ret < 0 {
-> > +            Err(Error::from_errno(ret))
-> > +        } else {
-> > +            LineDirection::try_from(ret)
-> > +        }
-> > +    }
-> 
-> IIUC the direction of a GPIO at a given point in the code is always
-> statically known, and only a subset of the API really make sense for a
-> given direction (e.g. `gpiod_set_raw_value_commit` returns `EPERM` if
-> the direction is not output). So this is a prime candidate for using the
-> typestate pattern to store the direction in the type.
-> 
-> I.e. you would have `GpioDesc<Input>`, `GpioDesc<Output>`, and changing
-> the direction would consume the descriptor and return the new one with
-> the requested direction.
-> 
-> The regulator Rust API makes use of this pattern, you can check it out
-> for an example if needed.
-
-I haven't fully grasped the idea yet. I'll check the regulator Rust API
-implementation and explore a typestate implementation for GPIO consumer
-APIs.
-
-> > +    /// Test whether the GPIO is active-low or not.
-> > +    ///
-> > +    /// Equivalent to the kernel's [`gpiod_is_active_low`] API.
-> > +    ///
-> > +    /// [`gpiod_is_active_low`]:
-> > +    /// https://docs.kernel.org/driver-api/gpio/index.html#c.gpiod_is_active_low
-> > +    #[inline]
-> > +    pub fn is_active_low(&self) -> Result<bool> {
-> > +        // SAFETY: By the type invariants, self.as_raw() is a valid argument for
-> > +        // [`gpiod_is_active_low`].
-> > +        match unsafe { bindings::gpiod_is_active_low(self.as_raw()) } {
-> > +            0 => Ok(false),
-> > +            1 => Ok(true),
-> > +            err => Err(Error::from_errno(err)),
-> > +        }
-> 
-> In C this function cannot fail for a valid descriptor, so the Rust one
-> shouldn't either. Anything != 0 can be considered `true`.
-
-Sure. I'll correct it for `GpioDesc`. Should we return Result<bool> for
-OptionalGpioDesc? As I understand, NULL GPIO descriptors can't return
-the right state.
-
-> > +    /// Report whether gpio value access may sleep or not.
-> > +    ///
-> > +    /// Equivalent to the kernel's [`gpiod_cansleep`] API.
-> > +    ///
-> > +    /// [`gpiod_cansleep`]:
-> > +    /// https://docs.kernel.org/driver-api/gpio/index.html#c.gpiod_cansleep
-> > +    #[inline]
-> > +    pub fn cansleep(&self) -> Result<bool> {
-> > +        // SAFETY: By the type invariants, self.as_raw() is a valid argument for
-> > +        // [`gpiod_cansleep`].
-> > +        match unsafe { bindings::gpiod_cansleep(self.as_raw()) } {
-> > +            0 => Ok(false),
-> > +            1 => Ok(true),
-> > +            err => Err(Error::from_errno(err)),
-> > +        }
-> > +    }
-> 
-> Same here.
-
-Sure. I'll fix it in the same way.
-
-> Also, as a general guideline, it is good to have a concrete user for new
-> Rust abstractions. Do you have a project that will make use of this?
-
-No, I don't have a specific project that will use this. My motivation
-is that Rust drivers currently have no way to use GPIO lines, so I
-expect that providing a basic set of consumer APIs would make it easier
-for such drivers to appear.
-
-That said, I understand the concern about adding APIs without actual
-users. If you think it should wait until there is a concrete user,
-please let me know.
-
-Best regards,
-Kohei Ito
