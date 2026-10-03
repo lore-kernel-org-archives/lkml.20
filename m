@@ -1,51 +1,75 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1430B399356;
-	Sat,  3 Oct 2026 08:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC97F395D99
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 08:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791016102; cv=none; b=K3iRVSXiZT3F/lE/m8qlUS7FGiIGMry+/xgX7lfzOSUD6O2+r/7x/XFXJTaVwpHuS2tVsM+YZJchWlnHYerMUI2A0Id7FQO1p8v0U20A7kIQC1eLyid51ob86t4JvAb2P3aYoKVVRJfwLLbTWogYGkgIBbVs5lC3sLDg/vEnido=
+	t=1791016131; cv=none; b=DVkAsV5PUktrlx7IkNLdYgja0tnUg1VIE8dIG0qnFJgtzLgabFYpfTZqqyg9RLNxYfm0ln8g0KSlHqkpFxOLyiW5AlZ+ld+J9QI7M+fuANac8WXkhxMglCjW5YjO8VGw20gMrh6+R7C2dJ2KuASR459FG+CvpEsaNycF+nHc6tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791016102; c=relaxed/simple;
-	bh=UsZynSl01Pdh+6VtbZlOZ7nvRsrVNR0uP5Dvge7Fqp4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=R/rxlG1bvBMUZZqBaDITsus6FhRamYKwHbF0HRSx9Oh0yUTE9yMA5I70Vdz0shn/K95qxtPfMdTJm3PwfV34pnKNDn+RhCUX7dLpCYBqWzj1yBTafQgsU7fZxtL59XZTwJ6PiC8S46/AxNGHg8YgFnE4RC3oNT+OKhdRbhbU4Mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 57709dd4bf0411f19a56ed5b684f684d-20261003
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:7a2a5323-55ff-48cf-95d3-3ae0c935c996,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:1c11c83c06909e4bfda4cec3a386f4ce,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
-	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 57709dd4bf0411f19a56ed5b684f684d-20261003
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1946296680; Sat, 03 Oct 2026 16:27:59 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: jarkko@kernel.org,
-	peterhuewe@gmx.de,
-	jgg@ziepe.ca,
-	linux-integrity@vger.kernel.org,
+	s=arc-20240116; t=1791016131; c=relaxed/simple;
+	bh=HTPEmPCGYmkqZSgwlod58JbSJWkfi4nkOEYwzAfzU/M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n323JTSWSkF9tN/xs8huRS1a8CS9OC643tApNfY/7WZc6bqadt7AZvA488dfsg6u09dLOAcVw7Anrgh8Z/HLNkC3Ol0QMFBl419j5CzzRFlWB1XL4QXHoO1LOZ3kOnREJH7/BuVuzQjbDQyZm9MZxl2sx4KpydIUT9p6u0xPavg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2s2AwrX; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2s2AwrX"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a16629a040so5673375e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 01:28:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791016128; x=1791620928; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CgkLt2eJLsFwOY1HeC2FpkdUeH6OhVDWA9sxCZx56OU=;
+        b=V2s2AwrXE3qChXALPLP6LdN5Lkd7jnNw0Y1pchRFvuRGcgPAoiaqyI9uEIkjdqyc8k
+         uyqKlWyo4kC7KloA7YuMs2vw541JmRdC9K3w3rfCcg+L30ZrnzKgri8I98yjirZutCWY
+         TIVEsHPn4XFTi7C2ZEQA0Ud2pWNx2UJdVhERcTo3s3vY14DZFzEqfbH0ky34gw5rQYG4
+         leIfoQ3yIvS6d0DQN62dmAzypbnpsnQAWsedhuNvh8W+/YaT+cI66PXuOJGf/rC/byDP
+         UbwEQE+l9YE4i4yuMifS/ydDpnilP3Ubd2EoNnqweHij3xsUO+IE7XsGoQmmXoIG2w7m
+         KGTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791016128; x=1791620928;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CgkLt2eJLsFwOY1HeC2FpkdUeH6OhVDWA9sxCZx56OU=;
+        b=x2zhw3GbLNJhkCw2qTQk/enWPasVduVMu59j7nkyKItjlKfnxQ+qUnArXhT/uRQjmY
+         2ITIOctKwYaKO2dArUOWY1goRUpK2FqG8igPqPHiR4wFsE9rwXKVAxG3KmDZOqkQa/6f
+         q6w91wOFPjPe67feirjHc7wBqpKbPPjNnoPpZQpEjI7F+VkOM2DSOKQ9PaxnhbuVjoxV
+         PYgSuImjhq+c9oJacc9MNN3aviclyHCvkMrwV52w9oU4C7o/qvysKAjd6+2i0pGCWcrj
+         wXDBPIgVSL9e5zAjFmvb5TllRV9v72GjwNYqsArpgZnHOQYbImhZDf845u3Sxyj/Z4Qy
+         HURQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaVBPV3zcnRoJhLPl31bi4hSCveIDgtfmUtZayo8RqhnpGlLmuc0orcZ6fa0bBhPLBRamzWx2dTm69GUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mChzaGPV7k9TsZ6r0uhvUkg7QY0QtbhCyYVviopyWBQbI4PyO1
+	Nd+KSbaP4+ZO9IJMtQxlkYrDqA2+TmyL5aeKBSrkVqXW+Pb8Chh2RTGe
+X-Gm-Gg: AYBFou17wLDt8sO8tYX/F6SEjb5fud845qkIuRavgEMueZNWLtFxV4HwUJVQ2+MnP5N
+	pcIs0E8D5YVNwmEJZSQlFuJo/vH+PY65tz5DyEub/tTLULsvWE9dH99UQuVCxgWx1jcpRshuWXq
+	wiGZ4Hd5X3qvyKilrziBO3sOiE4/vFL9YRSG9gfGd2vvqH3/7adCMroArIwJmJykB/RaTDVeuPl
+	dbL3U5mbBYNrGKdTIEemhLIz8niT/JTVYykrKSwnYX2NSmRn15gxk+JKxKH8+pvTVrvpBxRZQyR
+	668yBgYgJt97mAI8r4+NzuGYNNiXfGFkW6sYP66q7cpizbM7ZExmjBe5W7FlQ2JxXUe61AHmct1
+	DOvMZGDcLO9ByHXckFElaWvQuVOQ9zGXSjw05u2COoKTW5vnP7sfoQgnIyTFFV3GmZV735YX53n
+	wPhKia/Y0uk7zAr2cCxLbW/BsFuE5jizsx18HNKhZqtqWXarX71C6oTZKd7T7vRI13m4OZ8UOhd
+	xhAcCUE/MDwj9eQMRN/+f8Aln2DxCrXYiQemD28WYB1ZLQ8/6rF31oYZ6Ry4Kz0Hawbd3gq2qPH
+	GTSXWcsdQU4SI1F3n+RqN6hm2CnxlHJY4aadeoxiVI1yC6X4tlxwwqYB1yfruY/5OFn0eYNOZyP
+	nv6Q=
+X-Received: by 2002:a05:600c:c091:b0:49f:cbf1:e77b with SMTP id 5b1f17b1804b1-4a1680dd2c0mr16619435e9.10.1791016127684;
+        Sat, 03 Oct 2026 01:28:47 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2e2-2001-c47f-5a89-3d9a-cd2d.310.pool.telefonica.de. [2a02:3100:b2e2:2001:c47f:5a89:3d9a:cd2d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fab11sm10937712f8f.16.2026.10.03.01.28.46
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 03 Oct 2026 01:28:46 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Yoshinori Sato <yoshinori.sato@nifty.com>,
+	Rich Felker <dalias@libc.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-sh@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH 1/5] tpm: tpm_ppi: fix wrong error code returned to user space
-Date: Sat,  3 Oct 2026 16:27:51 +0800
-Message-Id: <16ff8f5a35246d5932068ce1b01438bc2895a46a.1791015549.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1791015549.git.xiaopei01@kylinos.cn>
-References: <cover.1791015549.git.xiaopei01@kylinos.cn>
+Subject: [PATCH] sh: sh7785lcr: register the PCA9564 as I2C bus 0
+Date: Sat,  3 Oct 2026 10:28:33 +0200
+Message-Id: <20261003082833.21511-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,36 +78,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tpm_show_ppi_response() stores its return value in an acpi_status,
-a typedef of u32.  Both error paths of the function (-EINVAL on a
-malformed _DSM package, -EFAULT on a non-zero operation return
-code) end up as huge positive values when returned as ssize_t, so
-user space cannot detect the failure with the usual "ret < 0"
-check.
+The R2025S/D board information is registered on I2C bus 0. Commit
+44454baa7ca7 ("i2c: Dynamically assign adapter id if it wasn't explictly
+specified") changed the PCA9564 platform driver to pass negative platform
+device IDs to the I2C core. The SH7785LCR device uses ID -1, so the core
+assigns it a dynamic bus number. Reserving bus 0 for the board information
+makes i2c-1 the first dynamic bus, and the RTC is never instantiated.
 
-Declare the variable as ssize_t to match the show callback's
-return type.
+Set the platform device ID to 0 so the adapter is registered as i2c-0 and
+the RTC board information matches it.
 
-Fixes: 84b1667dea23 ("ACPI / TPM: replace open-coded _DSM code with helper functions")
-Assisted-by: GLM-5.3
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Fixes: 44454baa7ca7 ("i2c: Dynamically assign adapter id if it wasn't explictly specified")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/char/tpm/tpm_ppi.c | 2 +-
+
+Tested with 29-bit and 32-bit kernels on a custom QEMU model of the
+SH7785LCR. Both registered the controller as i2c-0 and the R2025S/D as
+rtc0.
+Testing on real hardware is welcome.
+
+ arch/sh/boards/board-sh7785lcr.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/char/tpm/tpm_ppi.c b/drivers/char/tpm/tpm_ppi.c
-index c9793a3d986d..949fb7055bea 100644
---- a/drivers/char/tpm/tpm_ppi.c
-+++ b/drivers/char/tpm/tpm_ppi.c
-@@ -234,7 +234,7 @@ static ssize_t tpm_show_ppi_response(struct device *dev,
- 				     struct device_attribute *attr,
- 				     char *buf)
- {
--	acpi_status status = -EINVAL;
-+	ssize_t status = -EINVAL;
- 	union acpi_object *obj, *ret_obj;
- 	u64 req, res;
- 	struct tpm_chip *chip = to_tpm_chip(dev);
+diff --git a/arch/sh/boards/board-sh7785lcr.c b/arch/sh/boards/board-sh7785lcr.c
+index 25c4968f0d8b..b93423df582f 100644
+--- a/arch/sh/boards/board-sh7785lcr.c
++++ b/arch/sh/boards/board-sh7785lcr.c
+@@ -256,7 +256,7 @@ static struct i2c_pca9564_pf_platform_data i2c_platform_data = {
+ 
+ static struct platform_device i2c_device = {
+ 	.name		= "i2c-pca-platform",
+-	.id		= -1,
++	.id		= 0,
+ 	.dev		= {
+ 		.platform_data	= &i2c_platform_data,
+ 	},
 -- 
-2.25.1
-
+2.53.0
