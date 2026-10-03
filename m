@@ -1,70 +1,70 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E68330FC26
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:23:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBFF8472
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791001413; cv=none; b=miNGI0yKyIgpnP0xJSBtOJ7CJWaz5l8tmyv9TnmjpVCuEmffnSmXEs2sIqdPZveg75Vszmcja8WcALg/r3aaxwYFCXNpqxUDB252s0zpaGcRI0NAmrQOa312WkRunqQDwX6v/l8Jyo6kVaP8NhYJuewQPWvrNYe575qrrTjQdcY=
+	t=1791001572; cv=none; b=Fk2dlx7M24U4kBbzXHBJjubrVKq8HHBi7RtnHn4mTGvfLzMa9vSVz9DWlRzRX2FjJUj0pmCwlPlhonjhYEfDng5Pa/x+3o2aElOx9UFgZxQMoPdl+uqGZawFm372plb6HyjCQVmoqHXAxIxna9eC3VrMMRqooGd12BKWyWEQOWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791001413; c=relaxed/simple;
-	bh=3+Kg1V0kj613TsEBc4TB23pXJMX7fcyj2k5xKdQo3zI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hx72miYLvxJm+OBA75KQ2PQoigXIXbwhwE5xmZtAnnr/bcpg5S28RMZ386GhKdauHv463im2TxOEjiVTI2Nkge8YIqM0/kJxPPbi02bJEW/8tLwmDDqg94NXv6Lc+gsuY2BxBoY5lkP74Zb9TM8QknVwtJFA0WMmtBQQMdM3sNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LWnPBhoJ; arc=none smtp.client-ip=74.125.230.235
+	s=arc-20240116; t=1791001572; c=relaxed/simple;
+	bh=h+2Ow1i15F7KPiVReMD9PgSJEKbSC2YIEWEYBSnlbHE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fQY7W7DcWzeOtvcdtx5OIPHZdXvAEnjpQQYCwfyJcRaNpGY8YPxX+N/9PBjSXu+ZucLFqqD9LihogvZ89JIayVGNWw+P6VfpE7Gb6jqx/onT/zSK6blJQEsft3bkM7Iqk+AnQ4XOH/NxzejKj3uBwHN8Eq6OPAjCCdsAItOmQKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TUTXSm5m; arc=none smtp.client-ip=74.125.229.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LWnPBhoJ"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-5337ac9e465so54101cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:23:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TUTXSm5m"
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e59607d38so115822eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:26:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791001411; x=1791606211; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791001570; x=1791606370; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+74pISs7YohlWcbEiaQCNxOuQFMKqMT5VFcFBzXMKws=;
-        b=LWnPBhoJD9IBKysXnCC339Lm/cQc6sS7GYv/7MnzsUfGdJRKSNNKtADgqq8tEEbD4U
-         g/iXauQt/ja2wHweennjhewMnRWu23CH/PbMmllcTQML/+8s9oep8m55SLev2VBS5+1c
-         tjaRlkSH4r6LOaf1zUHtgb3Tx9dnjcWTnBEeelXb1g2T8+gzCS5Dc6aPYk7HF+K/myId
-         ba3IE+xDgyOdMdvfsNgSKoDBQk1sI3gsiGFt8id7Dz8+lReIeZT6+uwr85TRcm+c1Mym
-         qSTnsm9Av5QBFApJB+FVhexT2fQEP2bur6GkHZEPTp6SyfQo34KSpOm+iivkPbDPMI13
-         aJSw==
+        bh=xSeOczIjPFbvATXEGGxg3VzbD+inmrgXoMUFqn7Y1/w=;
+        b=TUTXSm5mNRwzQYQnfl4u3eRTNM2vGeA0Xeu2QCb95hmPhsgVX7HfkUOpNmUTbk+xrI
+         EezuativnfoMPVP+wmi/9f3SpZa3+nkBhy/PR9FRS9IUiXnjyD14xKUaLUzAGHpMsP93
+         BYrghhmg6ZXwFZtJIP1AZAOrIO1WjOU9MpUK7PqRepBwNhXj3aAI+n2YW4M/OgnOsYDc
+         nDwZp1nBfBMGneT9zx2bRHy/BzeO/04g2nhHJWXZNVCjUoqDWMA1IPlS2MZ9WPjefm7/
+         F8IWObKGKmW0M//JppTSQOPLKMna6yeWbtRYc6ECDO8U9mYZMOQDncizODNyF6aBlhqI
+         Vojg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791001411; x=1791606211;
+        d=1e100.net; s=20260707; t=1791001570; x=1791606370;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+74pISs7YohlWcbEiaQCNxOuQFMKqMT5VFcFBzXMKws=;
-        b=2TcuT90najGG8gQpu+AasATXFcgSu2aA3vJh7nwkpkH5xE2bu9jGfK7fwgjsNgmD0t
-         L5ZcEancVSK4HXsu/wgojrcuGchtxuUs2K5C9lHqLebRmov99ZXKIXjvaKWIE3Z3IE5W
-         ZKMKqMjxFWyd7KZR/+pPJBFZetTFf2vKSQQ2oqtVSr6UYZSEeIk/SKaFU5ksw8uxVPsw
-         GPZ5EWslr8RzqDCQhcSakYpxG4Vep+XTk6sUyRr41xTscqdYk0kcVD8RbEj/etCPo1Nq
-         uZj2x0QIJepONDEIk6h7GCQE5XrlnkH1JvWI0cTfrMq+RPwIz6LOQd68TLpsGgPhkSAp
-         u+8A==
-X-Gm-Message-State: AFuF++lwAD7A+A/sIzL7LvP7TD9hiLQrqUzQcR35xOmK5MmG0l6oBi9X
-	4EJ7WIim8GMO0BcsrKnd4+6/s3E7WjZS5ntS+WRYFF2EoX5fWxedCt8=
-X-Gm-Gg: AYBFou2/1JniNa/uZCnWAlxIrPMtcn8Or6FjB4LE9Eh5NUxgDg+qqfkf8dUVdAeBwZd
-	pu3WhYnqmJ6COkPc9Zfg/zGeF8BeKh+6XYfONum1A6wWjLcIkAXpdC0mHjNtCXluC1z2ZNqcHf9
-	3zJdaWR+1ujI1zpK7rYcV6gJ2aawJ1hMnIOd0eY5QgyzABlOjZ8Lc9yKd5FMRMc/fkN+36tvVWP
-	0xogZQPqaaJfirtOUMAk/SKQICpb97sz1RBZx2GeeptWE80xa2Asz4ieEVFm1yL6y8cUpdYiEd0
-	U+CkwLuOenFtslCYt7M7J1OJbkqBxa1BZ2SeQ0512R05InmxHrgPue4Pp7qt9RP9OqzG/TAoRYs
-	LrTebTebgGv6391pCdDaL4i+XivWw5iP8qjkM/pTKOWsvOkNFOziQpbH1cWQ/OwxL6jBStN9855
-	wPCCoYIpJ+NuHOFkU7yN2/w2JbaAl98NhXHeTkV66oJilDXkn7hIqWld65uFuvh0/Sff+hsT0oD
-	4FRhJ3Q2M8QpqjjA716khrbzLA1eHTFKdpejPeOPmLRvkaeR5d/bnlCj0YKdNDpWBv0poORpDSl
-	lR22vg==
-X-Received: by 2002:ac8:5d4c:0:b0:535:e41:533 with SMTP id d75a77b69052e-5350e410892mr44212181cf.24.1791001411180;
-        Fri, 02 Oct 2026 21:23:31 -0700 (PDT)
-Received: from gmail.com ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b1aee5sm36666866d6.10.2026.10.02.21.23.28
+        bh=xSeOczIjPFbvATXEGGxg3VzbD+inmrgXoMUFqn7Y1/w=;
+        b=J3Yrz8sh1KJ/ss4nij5mlvZmXKdjopJK0eWKeLB7qReBgDFBK0Y8TKyhO77mOwtgAh
+         00+BkjmitORdRgu97V0BGNJqUOPzpmKy1ukGV91/1hXvGHMPhJEdsmG2lOempEjwMgNU
+         UMyangJp+Oys272C5cR6N2SUr/pIX21QRXjuINuwMSsu9dcxR1PDWnUjS1NxGNYdFGff
+         58HQ/bRc/x39CK2wJclyVXILZ16VIOXKUffQ/fYHRHFK8ByOqVzpAVSE4VwRYkSBu4t5
+         6FNOUHVxCsrbltFbahHvm2Ya8A+Ygo+7v7+38igovp+Vbref4ewnN7ac20mq7FxFgciJ
+         PPDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwCmP38dI81IKderbzqxliU7w3/+6yxli5JKiG6porJ9zNHtzunrXavQdSwvPyaNtpNACaYzpP/t1gkOQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHjyfR1bS51d24SrThvAJQqbgERcaYFPQIoVXF9ayTDGvX+MTU
+	BH8wM4HrKzbfMigA3RA8KA3A1ExY/8MRpmpznLVmidgqCvIyMHerfbGJ
+X-Gm-Gg: AYBFou2wFaQEiT9ZWc97EMJCTjPVvSUaweS1+KxC2zX7ov5OzRbAskgIzbJ6dTKMQu+
+	D6S51oio9xhtUInxj3Zn8qMP8Y0hlG+lT8TB14tAmyAwf2yWa2wKv4Y0NA5hYfgklwMfouIXO3B
+	QDqXvuslklJEeBbNbqeiGC/v4gLZrO0rxol5YJQQ+86P5gzo36SBW3/OuhN7jTsvNIaHVwhiXWf
+	4bU1Omnksai2WImxW4XuhxTZBbfb9jgxEAGknuzYLiZyLva1ockai6JRI+x7OE93K3xrwzW3Gkc
+	ryCva6F7f1lV7XwEemsoampLQinQrIXzUCEdCwnGhWWlw0+Gjlx9eW9zne3fNJWAKDPiNv6Oywr
+	BmZ4vZPm6CdmnkreqK/aZ/hHpulKbnRJxxS20cRoHKQJ+KIo7T7+d+L1WFTJn949NAUmW+5pbog
+	By6iBQYXTR3FrC9cTj1FmbRTdyvT8ro2wKSkQME8LGCTTIDt9//o1PyD//SpBM153z0YTzrROrB
+	WOhPPr3VrvlJnlZ/KqszoAPziQ3f+98X2GJO3fpQaiE9uuxY7d4F6SB
+X-Received: by 2002:a05:7022:150c:b0:147:8a40:cdf3 with SMTP id a92af1059eb24-151c30ed221mr1886309c88.24.1791001569922;
+        Fri, 02 Oct 2026 21:26:09 -0700 (PDT)
+Received: from Raccoon ([2409:408d:681:993f:98e4:2186:6da9:ff5e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fc39948bsm2034446c88.4.2026.10.02.21.26.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 21:23:29 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] HSI: nokia-modem: stop reset IRQ before killing tasklet
-Date: Sat,  3 Oct 2026 00:23:27 -0400
-Message-ID: <20261003042327.655834-1-mhun512@gmail.com>
+        Fri, 02 Oct 2026 21:26:09 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	syzbot+0266f74df36ca702aedf@syzkaller.appspotmail.com
+Subject: [PATCH] jfs: fix general protection fault in dbDiscardAG
+Date: Sat,  3 Oct 2026 09:56:02 +0530
+Message-ID: <20261003042602.22602-1-rokinthanp03@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,143 +74,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The reset IRQ schedules a tasklet which accesses both the modem and its
-SSI protocol client. Disabling IRQ wake does not disable the IRQ, and the
-managed IRQ remains registered until after the remove callback or probe
-failure cleanup has returned. It can therefore schedule the tasklet again
-after tasklet_kill(), leaving it pending when the modem is freed. The
-existing cleanup also unregisters the SSI client before draining the
-tasklet that uses it.
+syzbot reported a general protection fault in dbDiscardAG():
 
-Explicitly release the managed IRQ before killing the tasklet, and do both
-before unregistering the child clients. Use a common post-IRQ probe error
-path so every failure drains the tasklet before releasing its dependencies.
-Track successful GPIO exports to retain the existing partial-probe cleanup
-behavior.
+    Oops: general protection fault, probably for non-canonical
+    address 0xdffffc0000000003: 0000 [#1] SMP KASAN PTI
+    KASAN: null-ptr-deref in range
+    [0x0000000000000018-0x000000000000001f]
+    RIP: 0010:dbDiscardAG+0x648/0x8f0 fs/jfs/jfs_dmap.c:1726
+    ...
+    Call Trace:
+     <TASK>
+     jfs_ioc_trim+0x436/0x680 fs/jfs/jfs_discard.c:106
+     jfs_ioctl+0x291/0x3b0 fs/jfs/ioctl.c:131
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+In dbDiscardAG(), nblocks is initialized from bmp->db_agfree[agno].
+On a corrupted filesystem or when free block accounting underflows,
+nblocks can be negative (e.g. -1LL / 0xffffffffffffffff).
+When max_ranges is assigned from nblocks (as u64) and divided by minlen,
+max_ranges retains 0xffffffffffffffff. Then max_ranges + 1 overflows to 0,
+causing min_t(u64, max_ranges + 1, 32 * 1024) to evaluate to 0.
 
-Fixes: eafaebd987fc ("HSI: Introduce Nokia N900 modem driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+As a result, kmalloc_objs(struct range2trim, 0, GFP_NOFS) returns
+ZERO_SIZE_PTR (0x10). The check (totrim == NULL) does not catch this,
+the loop while (nblocks >= minlen) is skipped because nblocks is negative,
+and tt->nblocks = 0 dereferences offset 8 of ZERO_SIZE_PTR (0x18),
+triggering a KASAN null-ptr-deref / general protection fault.
+
+Fix this by:
+1. Validating agno against bmp->db_numag and minlen > 0.
+2. Checking if nblocks < minlen before allocation; if an AG does not have
+   enough free blocks to satisfy minlen, there are no extents to discard,
+   so return 0 immediately.
+3. Clamping nblocks to bmp->db_agsize.
+4. Checking ZERO_OR_NULL_PTR(totrim) instead of just NULL.
+5. In jfs_ioc_trim(), clamping agno and agno_end to db_numag - 1 and
+   handling potential integer overflow in the range calculation.
+
+Fixes: b40c2e665cd5 ("fs/jfs: TRIM support for JFS Filesystem")
+Reported-by: syzbot+0266f74df36ca702aedf@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0266f74df36ca702aedf
+Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
 ---
- drivers/hsi/clients/nokia-modem.c | 38 ++++++++++++++++++-------------
- 1 file changed, 22 insertions(+), 16 deletions(-)
+ fs/jfs/jfs_discard.c |  9 ++++++++-
+ fs/jfs/jfs_dmap.c    | 15 ++++++++++++++-
+ 2 files changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hsi/clients/nokia-modem.c b/drivers/hsi/clients/nokia-modem.c
-index 88924d757616..688ce742d358 100644
---- a/drivers/hsi/clients/nokia-modem.c
-+++ b/drivers/hsi/clients/nokia-modem.c
-@@ -131,6 +131,7 @@ static int nokia_modem_probe(struct device *dev)
- 	int irq, pflags, err;
- 	struct hsi_board_info ssip;
- 	struct hsi_board_info cmtspeech;
-+	bool gpios_exported = false;
- 
- 	np = dev->of_node;
- 	if (!np) {
-@@ -165,8 +166,9 @@ static int nokia_modem_probe(struct device *dev)
- 		err = nokia_modem_gpio_probe(dev);
- 		if (err < 0) {
- 			dev_err(dev, "Could not probe GPIOs\n");
--			goto error1;
-+			goto error;
- 		}
-+		gpios_exported = true;
+diff --git a/fs/jfs/jfs_discard.c b/fs/jfs/jfs_discard.c
+index 4b66029..3cf8d84 100644
+--- a/fs/jfs/jfs_discard.c
++++ b/fs/jfs/jfs_discard.c
+@@ -94,7 +94,7 @@ int jfs_ioc_trim(struct inode *ip, struct fstrim_range *range)
+ 		return -EINVAL;
  	}
  
- 	ssip.name = "ssi-protocol";
-@@ -179,17 +181,17 @@ static int nokia_modem_probe(struct device *dev)
- 	if (!modem->ssi_protocol) {
- 		dev_err(dev, "Could not register ssi-protocol device\n");
- 		err = -ENOMEM;
--		goto error2;
-+		goto error;
- 	}
+-	if (end >= bmp->db_mapsize)
++	if (end >= bmp->db_mapsize || end < start)
+ 		end = bmp->db_mapsize - 1;
  
- 	err = device_attach(&modem->ssi_protocol->device);
- 	if (err == 0) {
- 		dev_dbg(dev, "Missing ssi-protocol driver\n");
- 		err = -EPROBE_DEFER;
--		goto error3;
-+		goto error;
- 	} else if (err < 0) {
- 		dev_err(dev, "Could not load ssi-protocol driver (%d)\n", err);
--		goto error3;
-+		goto error;
- 	}
- 
- 	cmtspeech.name = "cmt-speech";
-@@ -202,33 +204,35 @@ static int nokia_modem_probe(struct device *dev)
- 	if (!modem->cmt_speech) {
- 		dev_err(dev, "Could not register cmt-speech device\n");
- 		err = -ENOMEM;
--		goto error3;
-+		goto error;
- 	}
- 
- 	err = device_attach(&modem->cmt_speech->device);
- 	if (err == 0) {
- 		dev_dbg(dev, "Missing cmt-speech driver\n");
- 		err = -EPROBE_DEFER;
--		goto error4;
-+		goto error;
- 	} else if (err < 0) {
- 		dev_err(dev, "Could not load cmt-speech driver (%d)\n", err);
--		goto error4;
-+		goto error;
- 	}
- 
- 	dev_info(dev, "Registered Nokia HSI modem\n");
- 
- 	return 0;
- 
--error4:
--	hsi_remove_client(&modem->cmt_speech->device, NULL);
--error3:
--	hsi_remove_client(&modem->ssi_protocol->device, NULL);
--error2:
--	nokia_modem_gpio_unexport(dev);
--error1:
-+error:
- 	disable_irq_wake(modem->nokia_modem_rst_ind_irq);
-+	devm_free_irq(dev, modem->nokia_modem_rst_ind_irq, modem);
- 	tasklet_kill(&modem->nokia_modem_rst_ind_tasklet);
- 
-+	if (modem->cmt_speech)
-+		hsi_remove_client(&modem->cmt_speech->device, NULL);
-+	if (modem->ssi_protocol)
-+		hsi_remove_client(&modem->ssi_protocol->device, NULL);
-+	if (gpios_exported)
-+		nokia_modem_gpio_unexport(dev);
+ 	/**
+@@ -102,6 +102,13 @@ int jfs_ioc_trim(struct inode *ip, struct fstrim_range *range)
+ 	 */
+ 	agno = BLKTOAG(start, JFS_SBI(ip->i_sb));
+ 	agno_end = BLKTOAG(end, JFS_SBI(ip->i_sb));
++	if (agno >= bmp->db_numag) {
++		up_read(&sb->s_umount);
++		return 0;
++	}
++	if (agno_end >= bmp->db_numag)
++		agno_end = bmp->db_numag - 1;
 +
- 	return err;
- }
+ 	while (agno <= agno_end) {
+ 		trimmed += dbDiscardAG(ip, agno, minlen);
+ 		agno++;
+diff --git a/fs/jfs/jfs_dmap.c b/fs/jfs/jfs_dmap.c
+index a841cf2..cee0b8e 100644
+--- a/fs/jfs/jfs_dmap.c
++++ b/fs/jfs/jfs_dmap.c
+@@ -1673,15 +1673,26 @@ s64 dbDiscardAG(struct inode *ip, int agno, s64 minlen)
+ 	int count = 0, range_cnt;
+ 	u64 max_ranges;
  
-@@ -239,6 +243,10 @@ static int nokia_modem_remove(struct device *dev)
- 	if (!modem)
++	if (agno < 0 || agno >= bmp->db_numag || minlen <= 0)
++		return 0;
++
+ 	/* prevent others from writing new stuff here, while trimming */
+ 	IWRITE_LOCK(ipbmap, RDWRLOCK_DMAP);
+ 
+ 	nblocks = bmp->db_agfree[agno];
++	if (nblocks < minlen) {
++		IWRITE_UNLOCK(ipbmap);
++		return 0;
++	}
++
++	if (nblocks > bmp->db_agsize)
++		nblocks = bmp->db_agsize;
++
+ 	max_ranges = nblocks;
+ 	do_div(max_ranges, minlen);
+ 	range_cnt = min_t(u64, max_ranges + 1, 32 * 1024);
+ 	totrim = kmalloc_objs(struct range2trim, range_cnt, GFP_NOFS);
+-	if (totrim == NULL) {
++	if (ZERO_OR_NULL_PTR(totrim)) {
+ 		jfs_error(bmp->db_ipbmap->i_sb, "no memory for trim array\n");
+ 		IWRITE_UNLOCK(ipbmap);
  		return 0;
+@@ -1704,6 +1715,8 @@ s64 dbDiscardAG(struct inode *ip, int agno, s64 minlen)
  
-+	disable_irq_wake(modem->nokia_modem_rst_ind_irq);
-+	devm_free_irq(dev, modem->nokia_modem_rst_ind_irq, modem);
-+	tasklet_kill(&modem->nokia_modem_rst_ind_tasklet);
-+
- 	if (modem->cmt_speech) {
- 		hsi_remove_client(&modem->cmt_speech->device, NULL);
- 		modem->cmt_speech = NULL;
-@@ -251,8 +259,6 @@ static int nokia_modem_remove(struct device *dev)
- 
- 	nokia_modem_gpio_unexport(dev);
- 	dev_set_drvdata(dev, NULL);
--	disable_irq_wake(modem->nokia_modem_rst_ind_irq);
--	tasklet_kill(&modem->nokia_modem_rst_ind_tasklet);
- 
- 	return 0;
- }
+ 			/* give a hint for the next while */
+ 			nblocks = bmp->db_agfree[agno];
++			if (nblocks > bmp->db_agsize)
++				nblocks = bmp->db_agsize;
+ 			continue;
+ 		} else if (rc == -ENOSPC) {
+ 			/* search for next smaller log2 block */
 -- 
 2.53.0
 
