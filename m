@@ -1,175 +1,131 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f33.google.com (mail-lr2-f33.google.com [74.125.230.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77E339CD0A
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791021245; cv=none; b=TZdK2rK7t3a9/woCNDrhcqxi5sNUH4jAxNj1bLIHDCcMj9UgYxSNnGQ68E1yRHvShK+STg3bImLUCSkGkBaKJFmQRZDWQSdguzXddqbJpByJVSKpZ3ix8Do0UkHR52rxDx3OBQFgnQIxtJhBINOOaZMagiEDbkDtni9QbJGXTyk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791021245; c=relaxed/simple;
-	bh=PuFx0zWXcplwcO/kwwbec+csZfwCfv3PjuRMiBzgrK4=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=etmWYJRcKFhroYZgIOsPhZcMKiS5PtdTxas4u80NjCCftZpH3sKJWPtWhlAYStVprPlqk2Z2jTFhBcWxjlvVmng1oJotmVMkEype7RB1dEEkheBtYk2MjelS6b/H40bCcVbhzXU4a689HQg/0ehKWPuE1y5dseWeaBTomrgy+7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aywX4vr+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HtdP3DZb; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B3F352020
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.97
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791021251; cv=pass; b=n1LOvEDyAMmwxOdTF+5p7N06jAmM0xQNyrnf3h7KOGcAOLltVYB7QXAp18Sgq6Z+kFJDm8sKTdqrlugvqs2nQKFaReE4jLAhDyS3ZwxcHnjH376PYawqh7TIqg4AcVz3eheeBK2yYktJBzLPS7cX6AIkxwlfPVuChuBrxmzpaX4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791021251; c=relaxed/simple;
+	bh=CnE0JZcmqvEBiAZ90fg4GY2g6dG+y5C9xZqui1pBuJE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=axvFJjuGvyAjJKJTujhKHXK20zLEzTy5g9xHUeIVWsc2y7z9vGnaf3eYp0WyKXE8hMov5GnwCOZSdMNfQvR73IrczIRgDdh3UKyzpAXoP+LxbwRDyzJtC7SueKAd2XnqKkB+opge9Y7kGLHAv/E/5uofIn9PBHzmZm+5o35tBGk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S9RiiPhk; arc=pass smtp.client-ip=74.125.230.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aywX4vr+";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HtdP3DZb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791021241;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pj3fnkRnguG1XzZ2CAsEmH/UIzLjDfjSPrnu5Kpy4iA=;
-	b=aywX4vr+jaPHR9wHwKFtCLHdgwxLpsZrxWyQxnbQRHpkoiFnVLBMmNWMxLmPezj7Q4CH7Z
-	OvNBHUpaaAKmhjP2iV9PYgEoWK9KtpxsnAHpT7sSKof4aP2Q9G0bbp9SMO/puxbzOEhjBO
-	Fo8YP+Pa0zF/4Y4o2cn/Y92OJeM2GH0=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-59-1zNTjjnUNdSUa0dDTGU2bw-1; Sat, 03 Oct 2026 05:54:00 -0400
-X-MC-Unique: 1zNTjjnUNdSUa0dDTGU2bw-1
-X-Mimecast-MFC-AGG-ID: 1zNTjjnUNdSUa0dDTGU2bw_1791021239
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e6862e924so4689985e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:54:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S9RiiPhk"
+Received: by mail-lr2-f33.google.com with SMTP id 38308e7fff4ca-3a82b649db8so998601fa.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:54:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791021248; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eIk7lUJt6YUenUz7VE+zRd8M47LRrXIBO83vAE1jakZoI9gWHJVlo5KJLmIihfyIRK
+         X0iLRfHYLLD32R975B9aqa5DrtjOnXCB4DRc025eh9/AOd/MsIdbboZ0lBGqVbcz9vGE
+         /7xEW7dHSsy6RmxF2DoIHn72hQheZFyxPU1z/e5YaYut0IRlLVEEd+bCokfdK6jAP5vw
+         fsy1B5+SpU8l5ZvA4VqPwUqzFngqSBLcJGZCzBL3e5c4GY5eV5a7voSa23+9wXca1O5d
+         huntYcw3rvNlxWDh4YhLJDk/oiBuA+50yfEf9TJekzkwxkxP1SfquxqQZs+c688rBmA/
+         3ZzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=59m585tSdpKgbYDacI2/yAe8XjAbCmVed3datZmQvfs=;
+        fh=peZI+1r7gZ0C65mreRGNOL96mpaT80f5GzgcSDLlNB8=;
+        b=miQ560hvO35JQtDoSAK89EzlODCqd15xZgoLN9BYYIywyFxKFJgTalXb4H3ghgcw7N
+         KQn+yrdhZGQ4gBfQ46kMsYyQWF0fXhc36YHyNcaEBBqluGG9KPhgqby22AjEJYUCaCgp
+         93ZEdHxP4P1xDfEeCCk4vqQxHOIu23ChV/OsrmSbVt7Ca5A1Nu0XkuSbshs92cvBz8Xm
+         ZGr4vAf0cGdfe0x7sbgom839e1Guw75cILk0EXw8cPS3cTgM/WfoImm2fku9uy2m4UT0
+         OnwOp56wIKJ2JdmTGM+XoPz0vlOExCJJGHts87upGeZi5NVVbCx1E3VvmkrOpsljH3ZZ
+         NZBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791021239; x=1791626039; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=pj3fnkRnguG1XzZ2CAsEmH/UIzLjDfjSPrnu5Kpy4iA=;
-        b=HtdP3DZbWeCreZmZN7fUAmzif1TTLCD2K0/R7NvgKggJcSCHrJjMylmT6ue7xwE40s
-         TbnGviD9DHMNXAibM8qXYdnQxdrAY8uOBon9OCwrwCaspyiWmjFZGfIvLMV5LXk24/TD
-         LlnnAz69e1QxX9IbrWZQmVsS6glGm5tJT2gEzXo+e/LwjCmgyWMniTkEkfY3VAioqeei
-         8DAcnArkz9HlxbOqOrgNGpI1FDkIe66wHiOgrvU4mrqrRlMKiKrjaLH4UGcJ7lnVGQo5
-         YIlqEh0LL/gIzFcuCxeVU9o3KC5Sdr296uouQEm3Y6GdOKNBELMfqTm+XHGskK9Eo6A4
-         hBoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791021239; x=1791626039;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791021248; x=1791626048; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pj3fnkRnguG1XzZ2CAsEmH/UIzLjDfjSPrnu5Kpy4iA=;
-        b=bfOrmA9F6r+plwI0lDuNgQr3aXSkCsu03gxqM5ZUgfIVtCXraQmh0x+vqx0cgu0YKD
-         equBZI06ChJvB497t1CGM5wXW32989qcikGRNgjA7iS/vtTpoRHJsJ2/ujce2OV/S9CQ
-         O1txoMUMsnWmoqdsnan7J+mQmljXk+6oVVt8P3dMMGUMrj93chrG7VAQfbeHXjyOSKGj
-         4SgHwpvdIAhDUFJS28sK/2YYRifP4+dirZliV2EOv5D5Y9pIfk5k10ejpVM65nOzAd8A
-         4KPPWX1h9Dk3ym7WO/ywmmI5XEsReSShclOcsMXzu44OCSs79onTJzWOQQRTJQ5IuIUo
-         hvAw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3G/nMX4233njhZwjjMbPxYrtYjCoMQNIFVWBkqk0ltcH/TEYbNKvDsxyvpfFiTXOK7UtniVVz43kY+Sk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNdGjFxsTjBf/XlR2XELx/qeP847KnBGz5nhZtq5qSccppThwK
-	zYPAyb8K81jzOPyQAJL6mTgatuu4rwP/UzZEhYVE5AfB9zchBwKJYgssdUj+bGbF5Yptuelr9V3
-	5qdvjfsB35Ts4fUnExxjPFZGPiKIq6AaATK8Fi+dbNPULgvHDT9M2m/NpsHE+s2N8MQ==
-X-Gm-Gg: AYBFou1Jm49btGFssNlPfVkXmM6IZ7qoZ+ULcDofOQLrr1y2+CcOF45domK1n1SzwN3
-	14/fKUvxOgTqWE9xzVWF++S/A/Zg+q2+M7zZdAH4FA+qUR92pT7yfIwws7FiY1WRCEtM8439DmA
-	mcD13IOU2I+mCl4qbXy29uv+XXjhu4HCv5R++IttyjCmHoJhs+Lxn+aWIogAG089ZpL54uEFLbE
-	7r/mgXyKJarT6qldn3+lH4OuG6VONPptkAaMVo7kLHiLCcf4dnSXXpgrBugiU8GerSHpqdzG68K
-	0S13YI0ynUq/GddERwQ2+yZnx8rGakJ9hcuHf8PXQDATFtvttjBHdRL6CONbhdgkBmiuwcgH967
-	jv5QExLfBU9V2nff7WUcqur6OUSF21Kbfd8PNjcE=
-X-Received: by 2002:a05:600c:3c98:b0:4a0:37d:9e21 with SMTP id 5b1f17b1804b1-4a168101d2dmr29368985e9.29.1791021239057;
-        Sat, 03 Oct 2026 02:53:59 -0700 (PDT)
-X-Received: by 2002:a05:600c:3c98:b0:4a0:37d:9e21 with SMTP id 5b1f17b1804b1-4a168101d2dmr29368635e9.29.1791021238635;
-        Sat, 03 Oct 2026 02:53:58 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2a00:e580:bf11:1:2666:d874:79e6:3214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104d64sm10844602f8f.29.2026.10.03.02.53.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 02:53:57 -0700 (PDT)
-Date: Sat, 03 Oct 2026 11:53:56 +0200
-From: Ivan Vecera <ivecera@redhat.com>
-To: intel-wired-lan@osuosl.org, Petr Oros <poros@redhat.com>,
- netdev@vger.kernel.org
-CC: Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Henry Tieman <henry.w.tieman@intel.com>,
- Anirudh Venkataramanan <anirudh.venkataramanan@intel.com>,
- Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
- Jesse Brandeburg <jbrandeb@kernel.org>,
- Preethi Banala <preethi.banala@intel.com>,
- Kiran Patil <kiran.patil@intel.com>, Dan Nowlin <dan.nowlin@intel.com>,
- Stephen Hemminger <stephen@networkplumber.org>,
- intel-wired-lan@lists.osuosl.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_iwl-net_02/10=5D_ice=3A_fix_IRQ_fr?=
- =?US-ASCII?Q?eeing_in_ice=5Fvsi=5Freq=5Firq=5Fmsix=28=29_error_path?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <20261002130752.2597259-3-poros@redhat.com>
-References: <20261002130752.2597259-1-poros@redhat.com> <20261002130752.2597259-3-poros@redhat.com>
-Message-ID: <5E5BE0F3-4AB6-4DCB-A730-511D626B9189@redhat.com>
+        bh=59m585tSdpKgbYDacI2/yAe8XjAbCmVed3datZmQvfs=;
+        b=S9RiiPhkA740TXlPgWhCO4ABWKPhDE5S3YYLbXzb6c3MK+CYUPGcyszhEG/Y+xKerW
+         WbIjdODwAzRVikfkSnslRFySZ0XMm41XDxg4z8skVc9xD4GDmS/3AOzgnqZZ/NA370As
+         9Z3JU+sV4jbXSPphUTZw4Dq+YDMbnzOdksYFlKXVRarLDi+NJ1+xCUpNHrZBj5W0Q+H7
+         o3H3Wn8g9Jx6gwfxRlZlUi6/oZ5V0RNqc3F8+fNhz0DR+wbiniwX6p2hWtZNuvCPzp+g
+         PSUaeBI8SbQbNAuan00BTF7GsnRnGPAlCUj1p5TjsSvRQaqlGZC6PDMbo535ydxHdv2N
+         2U8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791021248; x=1791626048;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=59m585tSdpKgbYDacI2/yAe8XjAbCmVed3datZmQvfs=;
+        b=b2nmPgjrsxRsmBWTnqttPl0uxVOs/3oQrxeHNDEOqBp8bG/5dxy1JIwfCsFxIvOSOu
+         A/pyoAuxLLnSvSD+v8b45OLOQ/2FFKLVgfjINq8u2w1APb8JPR6YlvOv8Au6Gd0/7M4I
+         Wr7q7o7B5w++pnbJjT/Ryxbf72l8+e0tJATn5nVS40QAiZ2g1gFfR9py7GyTqE683ixm
+         Mo44MnSWGDL1TZO5Nb109mnYoCuM4WEHhsCKqBS+OAwfjMIsYFCAMqBBJ4bms7XVLKWY
+         QgBzwz7OiLLVsBk+OAGyo/oEdkLs3nnmcji1tgGIFL/waM3omL6OlsqK+41AUEMmJ3A2
+         G5nw==
+X-Forwarded-Encrypted: i=1; AKwUvBy4GYlNTeLum3P+fDDZbAjbiMsXmYGGYmW8pUZ9pl5gKVLCSk0zq0idSBFkwp4ieEwqizbd50C958nHA3s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmOkw4Q/lioumnRTdwJzYrGCZPDIoevMuZJqZYcYoB6LcZGmYk
+	XJcv5QSHmqN/i9z2ynwY6NOFPWAyXmNyCr5kyCovBe4Ctl2dws7ktaDp9pLLb3qMeyz2whMNvll
+	VxGdQqK5mXYZMPl2dEZFsi/sXoKinLB0=
+X-Gm-Gg: AYBFou1wtNdh7gyogmHD8mGf4qpswtqj4RDZMwzBGffKCY2VdH/tkS8iUFhF19iwG77
+	DBiUMTjOnai27Ib/yFW/9+NnIXqKshiWvPgPPtMw5IZZFRnDZcnvxqak+PvMduCP+ePA/TLjMmk
+	vi2c2vsXVHtUwgwajCvw6tvn8czQQzrWo8r2JAOw5yW92fXapm/a9XzTIrSqFPrMyeh0QzZDLWE
+	3sI/MC3dsgn6eYZ9LBGIEGA3yrFm+gSfwDgGr+bVPDQi4AmycuIzIrDfEXw8cyTYdqbBJiSdVfi
+	RezCDYUoKYzTheAWOw2/ura0kjMr0cmFyN3rx6felfBqji5vXBGRAUpm0ivS3Ih+WWWtzqAxmqv
+	Ai+m7/wCTZGlgoO+GRq3Eae/Y60xtuddwKmpaMA==
+X-Received: by 2002:a05:6512:a356:b0:5b8:ea1f:1225 with SMTP id
+ 2adb3069b0e04-5bb9380e793mr1239589e87.1.1791021247487; Sat, 03 Oct 2026
+ 02:54:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20260929131020.266120-1-chenyou910331@gmail.com>
+ <20260929131020.266120-2-chenyou910331@gmail.com> <ar_APS7UG25kXXYH@wyuan.org>
+In-Reply-To: <ar_APS7UG25kXXYH@wyuan.org>
+From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
+Date: Sat, 3 Oct 2026 17:53:55 +0800
+X-Gm-Features: AclHuK8TZRE0VVG543rmFerG4IkGYKm6eK50YeyZ_bRq_POnKgAP3J-x2u8ADoI
+Message-ID: <CAKspUhKypHhegcJJ1DokVhUqLCBE+VaQkX4cMw+tt2L2p1FgYw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] docs/zh_TW: move security-bugs to process/
+To: Weijie Yuan <wy@wyuan.org>
+Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, si.yanteng@linux.dev, 
+	srcres258@furdevs.cn, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On October 2, 2026 3:07:44 PM GMT+02:00, Petr Oros <poros@redhat=2Ecom> wro=
-te:
->The vectors are requested with the q_vector as dev_id, but the error
->path frees them with &vsi->q_vectors[vector], which is the address of
->the array slot=2E devm_free_irq() finds no matching devres entry, warns
->and leaves the IRQ requested=2E The unwind also tries to free vectors tha=
-t
->the request loop skipped because they have no rings=2E
+On Fri, Oct 02, 2026 at 10:31:25PM +0800, Weijie Yuan wrote:
+> > The translation has only had mechanical changes since it was imported in
+> > 2021, and the English document did not change between that import and
+> > its move,
 >
->Forcing request_irq to fail on the fourth vector during ndo_open gives:
->
->  ice 0000:04:00=2E2 enp4s0f2np2: MSIX request_irq failed, error: -16
->  WARNING: kernel/irq/devres=2Ec:191 at devm_free_irq+0x30/0x40
->  WARNING: kernel/irq/devres=2Ec:191 at devm_free_irq+0x30/0x40
->  WARNING: kernel/irq/devres=2Ec:191 at devm_free_irq+0x30/0x40
->
->and the three IRQs stay registered in /proc/interrupts while the
->interface is down=2E
->
->Pass the q_vector as dev_id and skip the vectors without rings, which
->the request loop never requested=2E
->
->i40e fixed the same mistake in commit 915470e1b44e ("i40e: fix IRQ
->freeing in i40e_vsi_request_irq_msix error path")=2E
->
->Fixes: cdedef59deb0 ("ice: Configure VSIs for Tx/Rx")
->Assisted-by: LLM
->Signed-off-by: Petr Oros <poros@redhat=2Ecom>
->---
-> drivers/net/ethernet/intel/ice/ice_main=2Ec | 8 ++++++--
-> 1 file changed, 6 insertions(+), 2 deletions(-)
->
->diff --git a/drivers/net/ethernet/intel/ice/ice_main=2Ec b/drivers/net/et=
-hernet/intel/ice/ice_main=2Ec
->index f2121e79fca993=2E=2Ed246cde36ae726 100644
->--- a/drivers/net/ethernet/intel/ice/ice_main=2Ec
->+++ b/drivers/net/ethernet/intel/ice/ice_main=2Ec
->@@ -2582,8 +2582,12 @@ static int ice_vsi_req_irq_msix(struct ice_vsi *vs=
-i, char *basename)
->=20
-> free_q_irqs:
-> 	while (vector--) {
->-		irq_num =3D vsi->q_vectors[vector]->irq=2Evirq;
->-		devm_free_irq(dev, irq_num, &vsi->q_vectors[vector]);
->+		struct ice_q_vector *q_vector =3D vsi->q_vectors[vector];
->+
->+		if (!q_vector->tx=2Etx_ring && !q_vector->rx=2Erx_ring)
->+			continue;
->+
->+		devm_free_irq(dev, q_vector->irq=2Evirq, q_vector);
-> 	}
-> 	return err;
-> }
+> Hmm, is it? What does "mechanical changes" means? Does it mean small
+> changes like typos, format, and etc.?
 
-Reviewed-by: Ivan Vecera <ivecera@redhat=2Ecom>
+Yes -- changes that did not touch the translated text itself: the
+address updates in 2023, the tree-wide character conversion, and the
+path updates that came with the English move.
 
+> Maybe I got it wrong, but I noticed that the current version has quite a
+> few new sections and additional content, though. Am I misunderstanding
+> something?
+
+Those all went in after the move. The window I meant is from the import
+(July 2021) to the move (March 2023), and the English file has no
+commits in it:
+
+  $ git log --oneline --since=2021-07-29 --until=2023-03-05 -- \
+        Documentation/admin-guide/security-bugs.rst
+  $
+
+The <N> commits since the move, including the new sections you noticed,
+are exactly what checktransupdate.py reports against the 44ac5abac86b
+baseline once this is applied. That is the point of the move: the
+backlog becomes visible instead of "Cannot find the origin path".
+
+I should have written "between the import and the move" more plainly;
+as it stands it is easy to read as "since the import".
+
+Thanks,
+Chen-Yu
