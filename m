@@ -1,320 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48E154785;
-	Sat,  3 Oct 2026 21:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FD033AD88
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063390; cv=none; b=UvOhbOtIAuUuBGe7hkrb/ULIzGyhLeWU3HKLY41w3cx8exIAdrNCUz8uSn1nD2acmuJ1AzfZIp+0ySuoobgDGrIVgMkD3NLW2yD5ATiP1Zs1nmEl+7SG6N/UDUE8M1UX8A2W8UFpVFaAvOV8NXTj6sf8bSGQ94o7yhBF3ONcsW8=
+	t=1791063568; cv=none; b=YCdJJaBnna1nhcAUFoRps9TUjHhSLc51P2xntthqa+WHvme3/AKSF+HrOqADXFAC8kjCVH3YFbvu1612gMVAoz3kZ8OakO2ZoFKoEZCzr57zmH+6lqP/Hsd2GYmzw9MW+FxbwziCGCSaZ8MGZAuyiatjI0lKWQjNw1dU0dzMCcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063390; c=relaxed/simple;
-	bh=oeADwhY+ha3t1xIOj5Oi2fdV6c1SmsdT3fXI1k6tsx0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nbXzkeUScV78pt9VWPI3BlnlhjfL8mOr2ULLQYdjmxm3OH2a5CsV2rh293ERBrs10cd/CIGomdTHQS8tK+Bhqmqg/Vc53ORbaFkiPXSek9Oc9Ak0+JJNSQ/USdEaWDeWPK9AWvAWB7T8nb2U+lgK9jZ/kVLgMwigmKrkwkPi+m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=baP4vsup; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791063568; c=relaxed/simple;
+	bh=rrdShUp79rxvWzIFVrFNBGJifqRB7StxCZ8XxmDN3bs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Sm4ZoAqNxh3ebeOaffhTL/vO39JHTEkLXre+NRNbux6oaaYfsmnWR2TdbdBwo2bZlCmtfBWTuwLtwcmkD6DJyKb+oHJ0hxu6Oyg5T7WZHdB7pKG1EGplYJwldbp1kSQ40dvnXgosawSTuDChKUY1bj2WkMz0bFkD7uhwcuxXqM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=itS99qB9; arc=none smtp.client-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="baP4vsup"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB071F0089C;
-	Sat,  3 Oct 2026 21:36:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791063388;
-	bh=VPw9IUST4MTI4NDpxhmLwBIOZI2fEhJtaK02pXVE9+c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=baP4vsupBvKIxNxg0+cnwTt45K/cw8YIYShfomiDt5Q6hJeDI9W24iNBd2sgZhYqc
-	 wHZ/tl9h8AL8PtIGs2naElgaAKFKZWM8iRmPN6Q/rt4nTA87NmfbzviTrdFGxIXRHI
-	 +JdAHGZJ0FCObNIJIfhdxKruscmwGjOkZw3j+GXhk9/rzmPTrj5/5wUOKaKXHruLXW
-	 +nguRx+Ze2Kpp6TMv9x6pdIfW7/n/syvnDdbyvRO4A4FTVYckFMUUQx9/jRfbNyNL8
-	 eGfxsl4sSNYyXJzYA9RyA0FU/3Y2zYKxnqBa8fg3IHU5CXaYQiovmDQNRnmJN1KeP7
-	 2bODg3M90dE1A==
-Subject:
- Re: [PATCH v7 4/4] can: flexcan: use one rx-offload source per IRQ line
-From: netdev-bot+sashiko@kernel.org
-To: ciprianmarian.costea@oss.nxp.com
-Cc: mkl@pengutronix.de, mailhol@kernel.org, nicolas.ferre@microchip.com,
- alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, haibo.chen@nxp.com,
- linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, s32@nxp.com, imx@lists.linux.dev,
- eballetb@redhat.com, kuba@kernel.org
-Date: Sat, 03 Oct 2026 21:36:27 +0000
-Message-ID: <179106338718.1406898.9181099617806406362@kernel.org>
-In-Reply-To: <20261002071203.1287650-5-ciprianmarian.costea@oss.nxp.com>
-References: <20261002071203.1287650-5-ciprianmarian.costea@oss.nxp.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="itS99qB9"
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5d42a0e3b81so217779e0c.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791063566; x=1791668366; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2PlYfS4hBMhyBFUeqYNN4qHPtrfiKeb7ZEk4GUiuPII=;
+        b=itS99qB9zsLmOm6fpLinzUfGcUzhfqJ8/RaOPUsKfh97FUOwPNBxLyj1CNiQauqbgu
+         Dsvmt68WrO+5jtlkk7sGV7+h1ysmKDN58TDjRFnpoyE76x+tuDd+G1nCvKuHZ06LKPK2
+         Y+JYUp65KOPJxJGwdHjqbk4+48RK/z78himKjQk0IEFaw6b9sOQl/yDs/nLeUiSHE1UA
+         6ld2yCobVS0CNiDYV2weeQWhXm78CTsin42DgV8TWqxlBthW5fQ7k34D0SIw+0sXxID1
+         bF40n+RJGs5G5MUkS8gOEuWAekrmwX0zvIUDVQUq2CD3ZAJNCBqRdxPhrjwPhMiWKhJh
+         5avw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791063566; x=1791668366;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2PlYfS4hBMhyBFUeqYNN4qHPtrfiKeb7ZEk4GUiuPII=;
+        b=tTKHFTijgLD+P48O8YGxA4n6NW+FQ4raEsrmeTBgDQ0mW2zjHYKRa5PPvU1RV+X5fv
+         og063nqA8+V09oUzN8xgalZpNuRM146zFTBr02WuQtPuxpO+W9ffUvKDcg6RFuTvh64f
+         s/vbcFnIJKQO4yn2++3TAZAdES5fplDU7B7rAuwvovZHK6KvDPzquZp3q+Rri+p5chal
+         t3OwAgpSC7oaQnb2gnajyCGnWbZIZWVkm+l9zzcQgfM0/RKA6oOB4NHTJs8bdm2espCI
+         M3l48pBW5dn5RkRZ7UM7AMGz/aSatU2QK+Q4po8ZPmY7c0vLW9StgMlib8YUPV6f4qWx
+         zLGg==
+X-Forwarded-Encrypted: i=1; AKwUvBzw9I1vLqXKK/8mvXyRWj6JNDEisGRAaDPpkMVDdMs0oJChSObliJMqYB0GmDUz4joHiVteCSAbb9uJZBY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5rCSE4Hp0+NcAbQQH8JRY2ZlCDc3QFVnaL7tKxjpo5U/DeD4o
+	UCmfF/CzLsSxLJRMAYamYniTx50wkWyD1vd6OU87lqfkIRkTE6nHwWqK
+X-Gm-Gg: AYBFou2sa76hJ6ITNPRwCbQBreyHQDikJPm0UFnwUg8z38JzPDwLsW0pR/n7ah5+EEL
+	snjkZuG2K7XE7d4kltAb2cXK2NNkKb5om17x/fP2W1sJa25DbF8kq5hd1nB58p6Vq/Sr+9PnIuU
+	QpY7ip3WXA7gmKoCfu6tcMqB4F2S6XLTENh/ViEUZem7EQjAApE8yQpCR64ibSnaaXAtKMOPfPn
+	L9kBFQDD1h2Q1LLCpBWAq2vtx6MK6T61Zs5MozzmdbMSGanJbD63qHDKGcSjD4KFmL1xQUnor0g
+	LKzj0y5qSYuq2LT52CeKqs+qSIqfdKvEhVP7vLju9ifHouriVawj9f7ac69O/exK+f8/mCPTbvJ
+	ptz+deaeezZkWN+rdl4k/wchS/t5+04GsmxwCnDu/KMI7W5l67VJCeONwP8Vz9+VSzf6nSk67iP
+	XaeVcK4g+h5JfDqxyA91jsWIKK3OVp65b08eJ+k+WsaUaSWqKBgcdj0NjbZ60LuDvBQ2Haj8sWk
+	9UMjHqlyzr7oLShlI1mOETTWysFVXmxow==
+X-Received: by 2002:a05:6122:29cd:b0:5dc:e6a8:16f0 with SMTP id 71dfb90a1353d-5de69890df5mr867787e0c.4.1791063565685;
+        Sat, 03 Oct 2026 14:39:25 -0700 (PDT)
+Received: from archlinux ([181.63.25.200])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da5ce773ecsm8537315e0c.1.2026.10.03.14.39.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 14:39:25 -0700 (PDT)
+Date: Sat, 3 Oct 2026 16:39:22 -0500
+From: Carlos Casadiego <cdcp206@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Liviu Stan <liviu.stan@analog.com>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, arnd@arndb.de
+Subject: Re: [PATCH v2] iio: temperature: ltc2983: pass leak detector type
+ explicitly
+Message-ID: <asFzGi6etTy1rseZ@archlinux>
+References: <20261002-iio-ltc2983-fix-string-compare-v2-1-b0a5ba847790@gmail.com>
+ <asFViTtGq3hQUrma@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 (1) · Medium: 1 (1) · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] Concurrent handlers can still corrupt the shared rx-offload
-  queue through the TX-completion path, which is the bug class the…
-- [Medium] In flexcan_irq() (drivers/net/can/flexcan/flexcan-core.c), the
-  per-line source's skb_irq_queue is only flushed when `handled` is set…
-- [Low] The patch has `Fixes: 8503a4b1a24d ("can: flexcan: add NXP
-  S32G2/S32G3 SoC support")`, so stable trees that carry S32G2 support…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it remains
-  after it.
-- [Medium] This problem wasn't introduced by this patch, but concurrent
-  S32G2 handlers still race on shared CAN state and statistics.
-
---
-
-can: flexcan: use one rx-offload source per IRQ line
-
-This patch adds an rx-offload source with can_rx_offload_add_source() for
-each extra FlexCAN IRQ line: bus off, error and the secondary mailbox line.
-flexcan_irq() picks the source from the IRQ number and passes it to the
-functions that queue skbs, so concurrent handlers on S32G2 no longer corrupt
-the shared rx-offload queue. flexcan_mailbox_read() now gets the private
-data through netdev_priv() instead of container_of().
-
-> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-> index f5d22c61503fa..2ef06ed0c7449 100644
-> --- a/drivers/net/can/flexcan/flexcan-core.c
-> +++ b/drivers/net/can/flexcan/flexcan-core.c
-
-[ ... ]
-
-> @@ -932,7 +934,7 @@ static void flexcan_irq_state(struct net_device *dev, u32 reg_esr)
->  	if (unlikely(new_state == CAN_STATE_BUS_OFF))
->  		can_bus_off(dev);
->  
-> -	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-> +	err = can_rx_offload_queue_timestamp(offload, skb, timestamp);
->  	if (err)
->  		dev->stats.rx_fifo_errors++;
->  }
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch.
-Concurrent S32G2 handlers still race on the shared CAN state here.
-
-With FLEXCAN_QUIRK_BROKEN_PERR_STATE, flexcan_irq_state() runs on every
-call on every line. It compares the new_state from its own ESR snapshot
-with priv->can.state, without a lock:
-
-	/* state hasn't changed */
-	if (likely(new_state == priv->can.state))
-		return;
-
-can_change_state() then does a plain priv->state = new_state.
-
-Can two CPUs see the same transition? If so, both would queue an error
-frame, both would bump can_stats and both would call can_bus_off().
-
-Could a handler with an older ESR snapshot replace a newer
-CAN_STATE_BUS_OFF with CAN_STATE_ERROR_WARNING?
-
-The BROKEN_PERR_STATE block at the end of flexcan_irq() has a similar
-problem. It calls flexcan_error_irq_enable() or flexcan_error_irq_disable()
-based on unlocked snapshots of last_state and priv->can.state. Both
-functions write a full CTRL value built from reg_ctrl_default. Can the last
-writer leave ERR_MSK out of step with the final state?
-
-The dev->stats and can_stats counters (tx_bytes, tx_packets, rx_errors,
-rx_fifo_errors, rx_dropped, bus_error) are also plain read-modify-write
-updates from several hardirq contexts, so increments can be lost.
-
-[ ... ]
-
-> @@ -1120,7 +1141,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
->  
->  		handled = IRQ_HANDLED;
->  		stats->tx_bytes +=
-> -			can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload, 0,
-> +			can_rx_offload_get_echo_skb_queue_timestamp(offload, 0,
->  								    reg_ctrl << 16, NULL);
->  		stats->tx_packets++;
->  
-
-[Severity: High]
-Can two handlers still race on the echo skb here?
-
-flexcan_open() requests flexcan_irq() on dev->irq, irq_boff, irq_err and
-irq_secondary_mb. Every call reads flexcan_read_reg_iflag_tx(). The TX
-iflag is cleared only after the echo skb has been taken:
-
-		flexcan_write64(priv, priv->tx_mask, &regs->iflag1);
-		netif_wake_queue(dev);
-
-So two handlers on different CPUs can both see the TX bit, and both go
-down this path:
-
-flexcan_irq()
-  can_rx_offload_get_echo_skb_queue_timestamp(offload, 0, ...)
-    __can_get_echo_skb(dev, 0, ...)
-
-__can_get_echo_skb() checks priv->echo_skb[idx] and clears the slot only
-later, with no lock or xchg. Both CPUs can therefore get the same skb.
-
-For a PACKET_LOOPBACK skb, each CPU adds it with __skb_queue_add_sort() to
-its own source's skb_irq_queue. can_rx_offload_move_to_skb_queue() later
-merges both into the shared queue->skb_queue. Would that link the same skb
-into one list twice, so that NAPI passes a freed skb to
-netif_receive_skb()?
-
-For an echo skb that is not PACKET_LOOPBACK, both CPUs would call
-dev_consume_skb_any() on it.
-
-There is a related interleaving. The late handler could pick up a new echo
-skb that flexcan_start_xmit() queued after the first handler's
-netif_wake_queue(). It would then write FLEXCAN_MB_CODE_TX_INACTIVE to
-tx_mb, aborting a transmission that was already reported as sent.
-
-The echo handling itself is older than this patch. However, the commit
-message says this fixes concurrent handlers corrupting the shared
-rx-offload queue. Should the TX completion handling (or the whole handler)
-be serialized across lines, rather than only splitting the staging queues?
-
-[ ... ]
-
-> @@ -1143,12 +1164,12 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
->  	if ((reg_esr & FLEXCAN_ESR_ERR_STATE) ||
->  	    (priv->devtype_data.quirks & (FLEXCAN_QUIRK_BROKEN_WERR_STATE |
->  					   FLEXCAN_QUIRK_BROKEN_PERR_STATE)))
-> -		flexcan_irq_state(dev, reg_esr);
-> +		flexcan_irq_state(dev, offload, reg_esr);
->  
-
-[ ... ]
-
-> @@ -1189,7 +1210,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
->  	}
->  
->  	if (handled)
-> -		can_rx_offload_irq_finish(&priv->offload);
-> +		can_rx_offload_irq_finish(offload);
->  
->  	return handled;
->  }
-
-[Severity: Medium]
-Can a state-change skb get stuck in a per-line source here?
-
-nxp_s32g2_devtype_data has FLEXCAN_QUIRK_BROKEN_PERR_STATE, so the
-flexcan_irq_state() call above runs on every call, whatever ESR contains.
-If new_state differs from priv->can.state, flexcan_irq_state() queues an
-error skb with can_rx_offload_queue_timestamp(offload, ...). It does this
-even when handled is still IRQ_NONE.
-
-handled can stay IRQ_NONE when a handler on another line has already acked
-all RX, TX and ESR interrupt bits. Two cases reach this path:
-
-  - a passive to warning/active transition, which raises no interrupt
-  - a concurrent handler that has not updated can.state yet
-
-Before this patch, the skb sat in priv->offload.skb_irq_queue, and the next
-handled interrupt on any line flushed it.
-
-Now flexcan_get_offload() sends it to offload_boff, offload_err or
-offload_secondary_mb. Only can_rx_offload_irq_finish() on that same source
-drains it, or can_rx_offload_del() purges it at close.
-
-On the bus-off or error line, could the state-change frame stay stuck for
-an arbitrarily long time? When it is finally merged, its stale timestamp
-would sort it against frames that were already delivered, so it would
-arrive out of order.
-
-can_rx_offload_irq_finish() already returns early when skb_irq_queue is
-empty. Would calling it unconditionally avoid this?
-
-[ ... ]
-
-> @@ -1381,6 +1402,15 @@ static void flexcan_ram_init(struct net_device *dev)
->  	priv->write(reg_ctrl2, &regs->ctrl2);
->  }
->  
-> +static int flexcan_rx_offload_add_source(struct flexcan_priv *priv,
-> +					 struct can_rx_offload *source)
-> +{
-> +	source->mb_first = priv->offload.mb_first;
-> +	source->mb_last = priv->offload.mb_last;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but it remains after it. Every
-extra source gets the full primary mailbox range here, and the RX loop in
-flexcan_irq() runs on every line:
-
-		while ((reg_iflag_rx = flexcan_read_reg_iflag_rx(priv))) {
-			...
-			ret = can_rx_offload_irq_offload_timestamp(offload,
-								   reg_iflag_rx);
-
-Nothing serializes flexcan_mailbox_read() between CPUs. The FlexCAN read
-sequence assumes a single reader:
-
-  - reading C/S locks the MB
-  - the ID and data are copied
-  - IFLAG is cleared
-  - reading the free running timer unlocks the MB, globally
-
-Suppose two handlers both have bit n in their IFLAG snapshot. Can both of
-them read MB n? The CODE stays RX_FULL after a read, so the second reader
-passes this check and delivers the frame a second time:
-
-		if ((code != FLEXCAN_MB_CODE_RX_FULL) &&
-		    (code != FLEXCAN_MB_CODE_RX_OVERRUN))
-			return NULL;
-
-Another CPU can read priv->read(&regs->timer) from flexcan_mailbox_read(),
-flexcan_irq_state() or flexcan_irq_bus_err(). Could that unlock the MB
-while this CPU is still copying it, so the hardware overwrites it mid-copy?
-
-Could the second reader's late clear
-
-	flexcan_write64(priv, FLEXCAN_IFLAG_MB(n), &regs->iflag1);
-
-wipe the IFLAG of a newer frame that arrived after the first reader
-unlocked the MB? Later scans would then miss that frame.
-
-The commit message defers this to a follow-up series ("All handlers still
-process the whole mailbox range"). Until then, the S32G2 support named in
-the Fixes: tag can deliver duplicated, torn or lost CAN frames.
-
-> +
-> +	return can_rx_offload_add_source(&priv->offload, source);
-
-[Severity: Low]
-can_rx_offload_add_source() only exists once these earlier patches in the
-series are applied:
-
-  can: rx-offload: move skb_queue and napi into struct can_rx_offload_queue
-  can: rx-offload: allow more than one receive source
-
-The fix also relies on two things from those patches: the per-source
-offload->queue linkage, and the locked merge in
-can_rx_offload_move_to_skb_queue().
-
-Neither of those patches has a Fixes: or Cc: stable tag. This commit has:
-
-  Fixes: 8503a4b1a24d ("can: flexcan: add NXP S32G2/S32G3 SoC support")
-
-If stable selects this patch only through the Fixes: tag, will the build
-fail? A hand backport could also leave out the merge logic that actually
-stops the corruption.
-
-Would it help to add Cc: stable@vger.kernel.org, with dependency notes for
-both rx-offload patches?
-
-> +}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002071203.1287650-1-ciprianmarian.costea%40oss.nxp.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <asFViTtGq3hQUrma@ashevche-desk.local>
+
+Thanks for the review.
+
+Noted on ABSOLUTE_ZERO_MILLICELSIUS for a follow-up change.
+
+Cc'ing Arnd as his patch overlaps with this one. I'll wait for the maintainers' preference on the two approaches.
+
+Thanks,
+Carlos
+
+En Sat, Oct 03, 2026 at 10:20:41PM +0300, Andy Shevchenko escribió:
+> On Fri, Oct 02, 2026 at 11:44:50AM -0500, Carlos Casadiego via B4 Relay wrote:
+> 
+> > __ltc2983_custom_sensor_new() uses propname both to select the firmware
+> > property to read and to determine whether the custom sensor is a leak
+> > detector.
+> > 
+> > Pass this information explicitly from the caller instead of deriving
+> > the sensor type from the firmware property name. This keeps propname
+> > limited to identifying the property and preserves the existing
+> > conversion behavior.
+> > 
+> > As a side effect, this also avoids the -Wstring-compare warning reported
+> > by the kernel test robot for callers where GCC can determine that the
+> > property name cannot match "adi,custom-leak-detector".
+> 
+> Reviewed-by: Andy Shevchenko <andy@kernel.org>
+> 
+> ...
+> 
+> > -			if ((index % 2) != 0 && !strcmp(propname, "adi,custom-leak-detector"))
+> > +			if ((index % 2) != 0 && is_leak_detector)
+> >  				temp = temp * 1000000 + 273150000;
+> 
+> A side note for the further changes: We have ABSOLUTE_ZERO_MILLICELSIUS
+> that can be used here.
+> 
+> ...
+> 
+> Since Arnd also submitted similar fix, it would be good to Cc him. And in
+> general, if there is a clash with the patches addressing same issue, Cc all
+> other authors.
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
