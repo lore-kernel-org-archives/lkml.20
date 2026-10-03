@@ -1,95 +1,170 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C705B400DE1;
-	Sat,  3 Oct 2026 09:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E0D4052A6;
+	Sat,  3 Oct 2026 09:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791021464; cv=none; b=QGFxP1LkbSYPkBVBPA7GEhyjp6rsH+FqGf6egl/eS8FzKUZ2ozuCrEPm3ZlJtPhyvoHlEyWO02wXfVJL0HV4N5i5nzpxhqeqLbJFjqLCb+nQf3R4kNnowM6umDL7djpHXJkJlDzwYoMK2TnaspNVBQkTkkuJ16IYVDMIjthWtqc=
+	t=1791021490; cv=none; b=JOkuZ/UZtZbzJg6rkj5WyLQt3DEMGQj2HYtX2kA9kCQPCkckgD0pvltM46mknxFERolhx7rOJaJlh3Sq4OzYPK/Hbfn8w1lFjLydm9Ju5CMaMFl9Z/amMm4NoEsX1Bkt5YhrYE2o91Fu8Cwu/V3AYdiqn6wgbR9Pb45nkJzNlOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791021464; c=relaxed/simple;
-	bh=6FcXyGndsLsN2Qm3ZMMOOr852wG7L9jBOlncq0DJvPU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r/X+ZEEPHbhm3VTZoIBblbiTVFeLHtOiV2O3gZ9bUpOepGKMlcEfnUuv4fJwlF1s+bEPnoip2QnqTZVC+rSQzNCgTLPNKYL2RAoLGBuGx0GjULPBz+0MVcDmOJg3KVcvrAbo1Fiv7joyqxPASqt1o6T6cy9zXydybJKMQmVRxgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=fzqBrxY6; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791021490; c=relaxed/simple;
+	bh=DHf3bcWhNx060EzuchW68p1C96V+s6DxBKUSERzbM3s=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iDvKt1uuHYFvLLs3FT1e14KjUvzuDyfIX0cWyt/TPZFKvnc401G89C/YErng5Q2DjItVM8iHpQRGdh2pxyAgmU24SWqd26cG6GmkjIp/+Z7P6qx3frAkm/u8sI4QYeOdnJq2xXe+pTa0pw24NGfs0jK3eCCp4laxAFZaL0FPKrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uQKnSwId; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yawyFyq7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tjRBVZ2s; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=C07mdI3l; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="fzqBrxY6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=lgUk64lzhxOZlU1FcjCchOOx5jvBKithIYkafyrFNRA=; t=1791021460;
-	x=1791626260; b=fzqBrxY6DzdLKTssJNsX7r9cAzhqrNamKNcyOt4nzR/Omt0SE02A1m+4ehQ7q
-	1N2homShmgd0q8jEIui3Nr+DuLEDVCShi1fIDj2KSX3wn+KkxFtZDFou8Ngzph64+gmkFnzevgCjA
-	74tcOnflaUr9m1D1tz+jrDBmOYqXAJ5ndua4l92Cz+nepR6HGrgPC1OQ4+rSAoPo3aP3Ra/SKdMjB
-	Idhkho6//XbnOoURpJcUrs06h3tOfysU2p2QunidpTE6FzZvgo7PZRRT58mM3T0MlSnsNufrXNpGy
-	vFghCnIyqVWFHFmWMgLRg6VNKwJQ6nViQ9tPSuNOC+Kbdfb0zw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xCwUn-00000003Ehv-2vZX; Sat, 03 Oct 2026 11:57:33 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xCwUn-00000002nSI-22oh; Sat, 03 Oct 2026 11:57:33 +0200
-Message-ID: <e3d9387cc5c461f99dd878c37ffe8c6d67128fd1.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: sh7785lcr: register the PCA9564 as I2C bus 0
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Yoshinori Sato <yoshinori.sato@nifty.com>, Rich Felker
- <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 03 Oct 2026 11:57:32 +0200
-In-Reply-To: <asDOl5bvtlbauh9x@gmail.com>
-References: <20261003082833.21511-1-kmehltretter@gmail.com>
-	 <a4dcd9e615dc4e3c98c00e75cdd0c7fdeef02254.camel@physik.fu-berlin.de>
-	 <e3c88969f18c493859f7c382db7ed2afeb15b4fa.camel@physik.fu-berlin.de>
-	 <asDOl5bvtlbauh9x@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uQKnSwId";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yawyFyq7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tjRBVZ2s";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C07mdI3l"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B20BC21D07;
+	Sat,  3 Oct 2026 09:57:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791021474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3jw3NAjRzC5Gw+nVkz++HnHQcU0jeL3LLF//BhZbiGw=;
+	b=uQKnSwIdHvizydSuYTw4sqbVvEzJ12oFmaftkZk5tQkCkzaGZJJ9Q1D+NWyLPkTBBd0lIw
+	LH+JZ/E8NRet2XJ6kWDsNEkd65hrI+66T+uygpYqB5CUzy6h4gHUIDYzkjX2bZqKhcLBZh
+	Q16QbzGjcJWw3omvHCfcgfUeJQ/C6kA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791021474;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3jw3NAjRzC5Gw+nVkz++HnHQcU0jeL3LLF//BhZbiGw=;
+	b=yawyFyq7pDCaFUsHZjNaanUz6d9ulsttX89vnT26IVkixTl1qkct4DTgnJz/lxey1OdAGj
+	YgMWJWCH92gC/IAQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791021470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3jw3NAjRzC5Gw+nVkz++HnHQcU0jeL3LLF//BhZbiGw=;
+	b=tjRBVZ2sL/WKWKZ3Hu7nMHqsAKlAK+CECThT3s3teAZkxpjJ6ugTYqkJqMaT6qKyQwZVGm
+	Msy1evqo5wchwisBLApOcqdMXzHOUjcrZeG5iV/w5GwTtpFmXgty92227rWtK++mSv2T9E
+	y+fI6LXOMacjNSvtqdsxT2VgK3MAmRs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791021470;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3jw3NAjRzC5Gw+nVkz++HnHQcU0jeL3LLF//BhZbiGw=;
+	b=C07mdI3lJHGc5BKwSJmGLNYBIfqtUoUFpgeKx961Jy1zYGSWfHoY8lQolSr3SjRltiaCSP
+	ICPywTf04ONudXAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3B26013712;
+	Sat,  3 Oct 2026 09:57:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id kMJSBJ7RwGoGTQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:57:50 +0000
+Date: Sat, 03 Oct 2026 11:57:49 +0200
+Message-ID: <874if3xg0y.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: tjdqudcks0424@naver.com
+Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: pcmtest: handle multiple wraps in random capture fill
+In-Reply-To: <20261002232824.808952-1-tjdqudcks0424@naver.com>
+References: <20261002232824.808952-1-tjdqudcks0424@naver.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=EUC-KR
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,naver.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,perex.cz,suse.com,vger.kernel.org];
+	FREEMAIL_TO(0.00)[naver.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
 
-On Sat, 2026-10-03 at 11:51 +0200, Karl Mehltretter wrote:
-> On Sat, Oct 03, 2026 at 11:38:43AM +0100, John Paul Adrian Glaubitz wrote=
-:
-> > > Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-> >=20
-> > I have to admit though I don't fully understand the description of this
-> > patch. Either I don't have enough coffee or it's not precise enough.
-> >=20
->=20
-> Thanks for testing and reviewing! I agree the changelog doesn't explain
-> why -1 is wrong and 0 is right for this board very clearly. I'll give it
-> a day or so to step back and submit a v2 with your tags and a better
-> changelog.
+On Sat, 03 Oct 2026 01:28:24 +0200,
+tjdqudcks0424@naver.com wrote:
+> 
+> From: 성병찬 <tjdqudcks0424@naver.com>
+> 
+> The random capture helpers assume that the data generated for one timer
+> tick wraps the DMA ring at most once. However, b_rw describes 200 ms of
+> audio because the timer runs at 5 Hz, so it can be several times larger
+> than a small ring.
+> 
+> For 48 kHz, S16_LE, four-channel capture with a 512-frame buffer, the DMA
+> ring is 4096 bytes while one tick generates 76800 bytes. After filling the
+> 4096-byte tail, the existing code issues a second 72704-byte write from the
+> ring base, writing 68608 bytes beyond the ring. Both interleaved and
+> non-interleaved capture are affected.
+> 
+> KASAN reports the first write into the adjacent free page as a
+> use-after-free in the random-byte generator. The underlying defect is an
+> out-of-bounds write from the live DMA ring, not a stale DMA allocation.
+> 
+> Split each random write repeatedly at the interleaved ring or per-channel
+> block boundary. Keep the hardware-pointer update exactly once after the
+> complete logical write.
+> 
+> The issue reproduced on three of three clean boots. With this change, the
+> same vulnerable geometry completed six times without a sanitizer finding.
+> Boundary, pattern-fill, no-timer, open/close, and module-reload controls
+> also completed normally.
+> 
+> snd-pcmtest is a test driver, and selecting random fill requires an
+> administrator-controlled module parameter. The written values come from the
+> kernel random generator; no privilege escalation or attacker-controlled
+> write primitive was demonstrated.
+> 
+> Fixes: 315a3d57c64c ("ALSA: Implement the new Virtual PCM Test Driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: OpenAI Codex
+> Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
 
-Thanks a lot! I'm glad it's not just that I had only one coffee today! ;-)
+The code change looks OK through a quick glance, but could you try to
+keep your From and Signed-off-by tag with Latin (at best ASCII)
+letters, so that other people can handle more easily?
 
-I will try to start looking at a few other patches this weekend. I'm not
-sure if I will be able to pick up all at once for v7.4, so some of them
-might end up in v7.5.
 
-Either way, thanks for all these fixes! I didn't even notice that accessing
-the hardware clock didn't work.
+thanks,
 
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Takashi
