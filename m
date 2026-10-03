@@ -1,87 +1,88 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA49635AC3B;
-	Sat,  3 Oct 2026 09:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BC51DF75B;
+	Sat,  3 Oct 2026 09:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018957; cv=none; b=i+F+o7D0dYU1iuvEoT8grsfIM0rAl1dXltIe0FWFTKdKj/hEw2sq8Qy0yaoq6U1imPfDPDyi/f1lq8YLbcfqHPlq/ugu8I3YusiK9psixUA3EgCTw+XeKYdLXG82WPAuWbvJb/86K107Qom0bBuwkBX0lDnpsovCK/8mCTnxerc=
+	t=1791019089; cv=none; b=iRJBj+uyjdGNNnaX2aW7bgPYMAF543q4P5M8gZC3ZbttpIWdMq25qJs19+lklZahooOIhIQgc3JhHZSn8PJsOrk6/SrobeDJVacYt6qippreeMvic44dnB57AgDhG3kKVE9X5wvmqQhJay5r9s4u1BYHWwLpNL9qr/DGBZj7AEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018957; c=relaxed/simple;
-	bh=CnoeupIy68H7jKHUDANBYnE/s3sNUkEDj2ifkLis788=;
+	s=arc-20240116; t=1791019089; c=relaxed/simple;
+	bh=Yi7gRouWiMK2ZIVXAcOMOJyvDWGT5VTwa57PBxkSXlM=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NrLyqZm5LqagQNLkeifr0S3jlom6iHv+q2yk5UgrJ5erJ/c7Q1g7OAzSCdU2CApTK7ZNh3vh7kXy2zrV8e0oxcWKfd1XtNTyQWGCGK/p/tyjVNF/Xua3DQwRSKx5ae3MsgkFUEBCRmu4Q9TcFvSaUF/IKlYAaPYMFLJSr7JOLvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VwX8EQ5T; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hb3miPzS; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=s2AFsxGX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=w/64bfQu; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version:Content-Type; b=uUPrhTTKApFVPEnQ+k1Hx7twbRgmBc6brgWSAmFoqDzIpoZbtw++sWrgDZ/6sLFAx714lPLGMiMWnwuGRCxUymJ28h1eNazrHcWQnZ+qZUWhF4MJIa0XiXE3kFq72LI4ZtrmHrfqoYAXsS+vttzXcl+yt+UOazweHKSoORe/J/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=U7G380CX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yOfxQT5C; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=aeNqO6FB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=snrEbHPN; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VwX8EQ5T";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hb3miPzS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="s2AFsxGX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="w/64bfQu"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U7G380CX";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yOfxQT5C";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aeNqO6FB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="snrEbHPN"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id AD7C91FECE;
-	Sat,  3 Oct 2026 09:15:43 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 09FE721B67;
+	Sat,  3 Oct 2026 09:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791018947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1791019082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
-	b=VwX8EQ5T/56zVpBjHSp1vdd5t2qEMGHR21lCc+9Wvkxz3FwLS2AW02QwqL/Tv3SFkVQyqt
-	WkGXUYrmDQl0OdVbz1rUvXWsZUHplOXveNW3hR6jw6KIN1hjm0db8kn1r8TEPxmeQh9+wM
-	egMQKwzHPBrRiGNJvG635Eg1hYJmGt8=
+	bh=BQbsbpZx7YMZ7tyixugFc4QCd1/TpXvvp9Ysf7an1c8=;
+	b=U7G380CXbIswGXqWfiq1EQvoCtfhXAM72vgXsDAJibodrYXXiZv87N25V6oHUfcbsePXW8
+	X6mQRGnCZmyqMMG9S0UH+1L0NGdDzpSZt/q0fOmAdHmr02KzFNpb+kqb3rTVcHRpZIBLoD
+	B09i+31l7ujRemaHNLhn2hs1nlRYGS4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791018947;
+	s=susede2_ed25519; t=1791019082;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
-	b=hb3miPzSTXv7/IBIOrEljhsMbDU1zz1uVPju+T/BvjXbsXfbQJ0nY6Exf0u555jXee0Z2R
-	HmDut1/un9qEfADQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=s2AFsxGX;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="w/64bfQu"
+	bh=BQbsbpZx7YMZ7tyixugFc4QCd1/TpXvvp9Ysf7an1c8=;
+	b=yOfxQT5CuQuOr5JqkHLehETKHyYx6ELV+qFLHseidRTisA2l2Wo2t6pubUcNMU6h7qIVPh
+	qkz/HnvSfjNcCjAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791018943; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1791019078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
-	b=s2AFsxGXNe30KZ/7kfSQ1z8N7qbiMumoWqQNT1Vvbon2W18YYDHLpxF2/7/RTusLl3SpzV
-	TbAMMaEBdljSkUJABXcVlessevjJXgaYwDxd7e8Sml9/cNt4rR0H3m+8nL99E9DTqNA19S
-	+M1H3L+CP4Uo2tTIv227x34pFRzAiS4=
+	bh=BQbsbpZx7YMZ7tyixugFc4QCd1/TpXvvp9Ysf7an1c8=;
+	b=aeNqO6FBFR/kXzt55vynS89EnWOQ00Zb+3zb4/5inFBXNPV8Kqt8RJ0yJUwNGmFaMnbtmP
+	bDDyMVMDQwPsaxz41S5Rn32Q+28T7H6yj1VQRlzsbbFayfBplhHoiRkQBNTfuKRH5mAQRP
+	SxVNorUGey8VPrAAeOsaKLkswQAh7jg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791018943;
+	s=susede2_ed25519; t=1791019078;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
-	b=w/64bfQu57n6asEwg6VgxFG2EQ3IhQgxJRyQnHAGX0Bk1onORWVw4V2v250aOyEYaFvo1m
-	h6+HYFjrv9/u4JAw==
+	bh=BQbsbpZx7YMZ7tyixugFc4QCd1/TpXvvp9Ysf7an1c8=;
+	b=snrEbHPNm71AyUOWF+xhNEr58fweTpdSv74+7WH1hStb2JVo9EmwrmOqOPb6Xjd5nMREg6
+	lY5uY9DLPu/BXKAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C8DA13712;
-	Sat,  3 Oct 2026 09:15:43 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A956313712;
+	Sat,  3 Oct 2026 09:17:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8nVODb/HwGr0IwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:15:43 +0000
-Date: Sat, 03 Oct 2026 11:15:42 +0200
-Message-ID: <87jynzxhz5.wl-tiwai@suse.de>
+	id uEz9H0XIwGrFJQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:17:57 +0000
+Date: Sat, 03 Oct 2026 11:17:57 +0200
+Message-ID: <87h5j3xhve.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Harin Lee <me@harin.net>
+To: med.jebabli@gmail.com
 Cc: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] ALSA: ctxfi: Fix memory leakage when clearing DAO input mappers
-In-Reply-To: <20261001144501.3050667-2-me@harin.net>
-References: <20261001144501.3050667-1-me@harin.net>
-	<20261001144501.3050667-2-me@harin.net>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/tas2781: Accept V1 calibration data without CRC
+In-Reply-To: <20261001-tas2781-v1-nocrc-v1-1-ff0c1032ce76@gmail.com>
+References: <20261001-tas2781-v1-nocrc-v1-1-ff0c1032ce76@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -90,50 +91,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.51 / 50.00];
+X-Spamd-Result: default: False [-1.80 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-0.998];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5]
-X-Spam-Score: -3.51
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_DN_SOME(0.00)[]
+X-Spam-Score: -1.80
 X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: AD7C91FECE
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Flag: NO
 
-On Thu, 01 Oct 2026 16:45:01 +0200,
-Harin Lee wrote:
+On Thu, 01 Oct 2026 12:24:42 +0200,
+Mohamed Yassine Jebabli via B4 Relay wrote:
 > 
-> Commit e576e7843c0d ("ALSA: ctxfi: Simplify dao_clear_{left,right}_input() functions")
-> centralized the DAO input mapper clearing logic in
-> dao_clear_input(), but omitted the kfree() calls.
+> From: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
 > 
-> It removes the mapper entries from the list and sets their pointers
-> to NULL without freeing the allocated array. This leaks memory each
-> time dao_clear_input() is called.
+> Some Lenovo BIOSes (e.g. Legion Pro 7 16IRX9H, SSID 17aa:38cd) store
+> valid V1 calibration data in the CALI_DATA EFI variable but leave the
+> TimeStamp and CRC fields zeroed. The driver rejects such data, so the
+> amplifiers always run with default parameters on these machines.
 > 
-> Store the base pointer of the allocation before clearing the mapper
-> entries and free the array after removing entries from the list.
+> The rejection was silent until
+> commit 4fe238513407 ("ALSA: hda/tas2781: Move and unified the
+> calibrated-data getting function for SPI and I2C into the tas2781_hda lib")
+> turned it into "V1 CRC error".
 > 
-> Fixes: e576e7843c0d ("ALSA: ctxfi: Simplify dao_clear_{left,right}_input() functions")
+> The stored values are consistent (R0 = 3.82/3.83 ohm, 1/R0 matching
+> within 1e-4), so accept V1 data when both TimeStamp and CRC are zero
+> and the first device entry is non-zero, and emit a warning.
+> 
+> Fixes: 5be27f1e3ec9 ("ALSA: hda/tas2781: Add tas2781 HDA driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Harin Lee <me@harin.net>
+> Signed-off-by: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
 
 Applied now.  Thanks.
 
