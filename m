@@ -1,157 +1,97 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C397227AC45
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:54:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790988863; cv=pass; b=ukRo2Sxpagcs91giHd3zZhFzJZN7Voz+du/3YMC+JuuAkLnslT6ldK6nk+YhmqUxc4CCOR66spn9+rXT8LC/3Vnl6niKPYpkbvxiJ2cYsR3F5BhZod663NVTFbIhF1M11qcyodCtFPmw2pATpEmfDN6yrDs54uWB5oBsWEFe9tY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790988863; c=relaxed/simple;
-	bh=ZVQBnQo/eFh06vorGcqF1KC/7SENgnUf6N9nm8JGWSg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A086E54B
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790989378; cv=none; b=R3VgWinegLgKvzhfgMEpcBLegnaCScQE1hTY5XIPJEF+lwHRkCaUJ+he8eMhI+tIQotmadfW2y6JMtaU1b8BRttLtL3h6mcSm+YZ1S1NsU4grWw3siJkiAGAJQkBU9dLl0PH3C+iuFPmZh71TnE9H75kJfutGb8zTpGLjelz970=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790989378; c=relaxed/simple;
+	bh=Kj5llcIY+svQvxZHTM+UqXM54Tt+P1GZ4LqrVWD43yI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BnBJGkbefk6SQEGupx7iLiyj5iJeJICHt2ad2CzsMfxP1wnH8TT81pbHv1h6zHnvs1sD1VhBIh4ZFmukBWiiMwyHwCx5Vub/aiT5UaTtWJY1o1qJDUeEohbNL7ebxOc5pUlYhPiRd+3/v3WvHfqBdzObk70ZD7wZApm9cYuvff4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aconHeI3; arc=pass smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=lGmaX1h5wHDA0HJgcAqAHj91t5e8cRG9MnAK0/D2IhgLRoiOE/AVtkx/q+MW95wUJL/OrhESM4GlhseAqVbqsCV99Hcj49M6SSjWrACz5Tm2sFH/6JgUJYNKZ9GoY0uLe59gH+MUA+7TOsD4tSnmePfsdqP5lgJPRjnkDeteeTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QuPCr6w1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aconHeI3"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so13015ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:54:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790988859; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RSpFzyCTqm7NW7vVPXfeDALTAUgoNeR/1IqRiN0/gk976s/l0Qc73Pf29donkVvniW
-         KgTQMnhv6fuS93CTk7fhQLyArsal2oplZfLXIKto1lY1MfLuVtT3g4DAEu2sB4/OdkYf
-         3wXrdnz6Tr5TwEJGcW93HPVBX+3IdkdFgRkvOmha9dqcwB9BNJkIyutwzuQYzUYHsigr
-         naboyynRUbxyzc3BOdn1BWYSe6lMlOurJmCFV8BCL/cFxIsRUsYs940wgY8zBYmk8J+E
-         O5PQ0j08829SxCzF7NET/JFTVQzdZAQbNtwgyKD8GQqUaloMMUN6Pbv3nuKB7ildiOWg
-         6RDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WEp8X+PRKs7nUSCeaHUChoo386upLZKNHaOGRHgrf60=;
-        fh=/j8eE+tZE0ymj30CRyKkhEcILycQvuMEc9wU3ZlL6bY=;
-        b=czRmLIr7c/QrovolPeI9y61oJuECp3M2xJ+NNzwskeAuvfSKzvYtC60GSMnxiHaJ4c
-         cVcHf19OEUb9jp7FaQNFNim+Pt8HVNhcgshgDtIwma01YQRlIA2g7bdXTSTUD7Q4rtb6
-         kEgJuWekmVg5uR+YQDPc6hu3WvvtVX4rSQngLQU3011bt32rsBKFxWXvw214FIQjDwKW
-         9Vwy+Ap8bZAQEZWGvdG5C3xw+9oFXRpqE+RU0GqIr5YxXgjCoh4yGbSHCNKEwRy+xSVm
-         OlYM840zYqQKebUTVsf+iscSVYOWojkLZTDp+iuZiSqi7MwIDh6MzFuumX8cmSiUUWl/
-         mveA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790988859; x=1791593659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WEp8X+PRKs7nUSCeaHUChoo386upLZKNHaOGRHgrf60=;
-        b=aconHeI3/hgLgqEsabadPOGMQikGcMYgxzJo1eATfENUCkwfHRnL5saJJvuJ8Xvq+6
-         GID3ZNFQScvFV0X7+n8DFVt1Gs5KQBN0gUPWVfR45sL3+PFD9Ywmllkxb+zmyewUdFZZ
-         ufR/10yGa6vWq67h+akc5q+Zl5joYXKbzB/Kl2cOCwZDAF1Y2iRGHOg4hfWJPEsL4IAG
-         /Vje/YmSiBrbdnI2T4qyNTFKN5YkUOGLRXFDY5yQnbmc/wr5mnqScgCMjOMWzD8XxZ+f
-         b5drWA1L8SbnUzA2UiYQQZWVUWx8NuYC/qmmbyME+NQMrlMRr362H02TuglD+bHF3ulD
-         jXOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790988859; x=1791593659;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WEp8X+PRKs7nUSCeaHUChoo386upLZKNHaOGRHgrf60=;
-        b=hAhb7+tEvGWAbKDi7GPOTFTXD4F7a/rSciN+XzgWcuBA6RrNO1dC+n/5y/AtwuYSMG
-         2e5afDCSXP8g4wFKxq0RAjA6403OJfep4g58XxKG7vL4W7ACB6j3IMz/+/Y1K2uC2IZJ
-         0XBdqjQ2wWJqRtze4KDDtftVb9taPEQl/YATWq/yywDTqS35/6Ia0zwNQUYoMqq626ck
-         oi+ZC0IECJabv7phGyGUSpaHgPjDUQMVGeB1PRPASDWF9Ceg+p+AgaDGcBH/ccYmJjHi
-         xFetJ1U1N4XL3BkO6OviigZNnOg2BWcxiKcm61F34IZmG/a3QRd5ByBuk2NcLTYQoBPM
-         z5Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBw9qUiFqE2TF6dpXByl0n9JIRibdZInOV5C8wav1wH5pT0TwkzYhgyzHV487hJ13PkJ8ElvjeRYECDim54=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDDAlkfVSa6/YBP7h5KrjEzVBVIGToMEGb0gCIhZsVC5QU/Qg5
-	4BsrzOwcH6W5gp4JgxYqpSTL5/lXB092JYFjEwlYvfiMyzg1q5yYikdEy8vjKxEMCwUUateRjSt
-	0wh694YGYPd5v2871IHhZf9XaKR8CoqcTcY/BSVvY
-X-Gm-Gg: AYBFou1XNwWnpUnKtzunXeUhzLgQMdwOfZ9AxZFBVoXcfW6W0c8QcvniWFF2xiR+WBm
-	/bk+rMrcNDTiI8I/IDULPrPpDRDeNDpRSZeX7K7CYshOj1qX6qW+54xNQKjEsApFK8pdKHVTShI
-	EZyA1hVn3WfbCscHPnmnXvSAvApht7kOPqmpHoMdcBlrY9bDDM3rYNSReyfQDG3mrWCjhMGrQGH
-	L/7vDBYN+aWCrGFztSpF+SeOqg16pJwMQYXN+K3ippxmWtpIaMdGsgW0qs1lg3jw98w5/bkxwUt
-	r4QE0pXYXeRvfbXtWdm9DegfNGALg/HTr2JBJ2t/S0i5cH903tGEWjouuFLiZR+xLND+lAzpqrZ
-	HcZGlt6zt7G7x5dqu7YzG0Gli3B3etOroKchN4XZVMSq2Ncub6UBZQg==
-X-Received: by 2002:a17:902:ce8e:b0:2dd:3a08:d47b with SMTP id
- d9443c01a7336-2e5339f93a4mr1143425ad.13.1790988858220; Fri, 02 Oct 2026
- 17:54:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QuPCr6w1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C8B1F000FF
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:02:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790989377;
+	bh=KnskPGPzkkcRKxtukZtrCYl1jV0R5UqGVxWuRH35Ffo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QuPCr6w1HX0Y5uROGUfGfp0ZdaEUz0rmaVB+cDIlLOK2bVQnGA/lgPbkvG5zn+Njk
+	 QbyaOYFxaIUkg/o/9NkZU9k4KLL+iDt9ayF3IbGNjmYxO7FH2w6HBl/67+r/qLJjhn
+	 rJW+TqSWsBTbDvFIm2lDAPgTXMaeTqbbhCMoYlcEkIg4rl4W09h2/LLjvcNHnRQlNN
+	 91DcEb1xHMxH4A45BB8RQ+s5a5ZT2IDrPTMAyBV1HcwemhUYZpgbz7byjnHOmxXZ0q
+	 WjTJdmUAgEAqc/wHgMJiFdmR5qcnTIKIm7GwViRfU6VzJ5LwVHPc4L845SdWrA8+M0
+	 +Xxqdefu3sicQ==
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3dcfe205so59318766b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 18:02:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzHi0UoPPuSJleEVLZ0vsdtK9CwgU09ef7mz/QDHLyvzuJZOwT7P5yNHmo7y9cxgpqRRHo3Yuc7mtDFK+c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUBhivs9rvbOs8ZjPCERD/Gf0K4YBZjaeRg7mbBxnPXsRBTTyh
+	27KS+jM7QPWorslrfhBnA8s+iCicH3c+Nf+IuSFIBlZlISUWHk/PGUbV84MvLxcVMXC//HNGRqq
+	cGbKuXL1Yx68bmrW5gjXu1Ao6ksBdiqQ=
+X-Received: by 2002:a17:907:c318:b0:c26:1649:47af with SMTP id
+ a640c23a62f3a-c2e4af5c551mr317488566b.37.1790989375844; Fri, 02 Oct 2026
+ 18:02:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
-In-Reply-To: <20261001-linux-mpnic-v1-0-6422ee74233a@gmail.com>
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-Date: Fri, 2 Oct 2026 17:54:06 -0700
-X-Gm-Features: AclHuK8ouJgcRlucOdN3eH5_YugyE8t5pnHL2laHJr6qeoqr1Ko3b7rLVQ6y5Y4
-Message-ID: <CAEAWyHfyamEKdRa6PAjEfffq2Xw1ByF_g_jpmr=Kup8UJQY7sg@mail.gmail.com>
-Subject: Re: [PATCH net-next 0/4] mpnic: add NAPI buffer depletion check
-To: Daniel Zahka <daniel.zahka@gmail.com>
-Cc: Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+References: <20261002043459.1695429-1-matthias.goergens@gmail.com>
+In-Reply-To: <20261002043459.1695429-1-matthias.goergens@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 3 Oct 2026 10:02:43 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd918+PN-x58fkLnyQN9CNz424+Kyx2jz4VgTsV1Xi0Q+Q@mail.gmail.com>
+X-Gm-Features: AclHuK8n1a72wNoEp9jnGeuKZpdcjCWFG_rAXUd07co_YGNL_QdYesrtbetQi10
+Message-ID: <CAKYAXd918+PN-x58fkLnyQN9CNz424+Kyx2jz4VgTsV1Xi0Q+Q@mail.gmail.com>
+Subject: Re: [PATCH v3 0/3] ntfs: fix the undo path of $MFT data extension
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, Baolin Liu <liubaolin@kylinos.cn>, ntfs@lists.linux.dev, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 10:35=E2=80=AFAM Daniel Zahka <daniel.zahka@gmail.co=
-m> wrote:
+On Fri, Oct 2, 2026 at 1:35=E2=80=AFPM Matthias Goergens
+<matthias.goergens@gmail.com> wrote:
 >
-> This series provides a buffer depletion check to unwedge Rx processing
-> when page pool allocations have failed. Patch 4 has a more detailed
-> description of the events that lead to the wedge, but the high level
-> idea is that when page pool allocations fail, the buffer descriptor ring
-> can run low, and when that happens the device will drop Rx packets and
-> not raise interrupts, which causes the NAPI event loop not to be
-> scheduled, so new buffers are not posted.
+> These fix two bugs in the undo path of
+> ntfs_mft_data_extend_allocation_nolock(): patch 1 fixes a use-after-free
+> of a pointer into the runlist across the truncation, and patch 3 makes
+> its $MFT runlist locking consistent.  Patch 2 adds the runlist merge
+> that patch 3 uses to keep the runlist of the new clusters for the undo.
 >
-> There are three setup patches for the depletion check:
+> The undo path only runs when something fails while $MFT grows, so I
+> tested it in QEMU by forcing each failure once with a debug patch, and
+> tested patch 2 in userspace against the merge code it changes.  The
+> debug patch, the test scripts, the volume images and the userspace test
+> are at
+> https://github.com/matthiasgoergens/linux/tree/reproducer/2026-10-02-ntfs=
+-mft-extend-undo-v3
 >
-> Patch 1: convert writes to BDQ ring head and tail to WRITE_ONCE(), so
-> the depletion check, which is not synchronized with the NAPI event loop,
-> can READ_ONCE() those same fields.
+> Changes in v3:
+> - Patch 3 frees the clusters from the runlist that ntfs_cluster_alloc()
+>   returned, using the merge from patch 2, which leaves that runlist
+>   intact, instead of copying the new runs with ntfs_mft_copy_tail() in
+>   undo_alloc (Hyunchul Lee).  The undo path no longer allocates.
+> - Patch 1 (patch 2 in v2) is unchanged and keeps Baolin Liu's
+>   Reviewed-by.  It now comes first, as it can be applied on its own.
+> - Rebased onto current ntfs-next.
 >
-> Patch 2: introduce the driver level service task that runs once per
-> second while the netif is running.
+> v2: https://lore.kernel.org/all/20260930033556.169300-1-matthias.goergens=
+@gmail.com/
+> v1: https://lore.kernel.org/all/20260927105706.3111333-1-matthias.goergen=
+s@gmail.com/
 >
-> Patch 3: set the minimum Rx buffers needed per packet based on page size
-> and max MTU.
+> Thanks,
+> Matthias
 >
-> With those in place, we have everything we need to watch the buffer ring
-> head and tail positions from the service task, compare posted buffers to
-> programmed Rx drop thresholds, and then force mpnic_poll() to run if
-> needed.
->
-> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
-> ---
-> Daniel Zahka (4):
->       eth: mpnic: use WRITE_ONCE() for BDQ head and tail updates
->       eth: mpnic: add a service task
->       eth: mpnic: set Rx buffer minimums using page size and mtu
->       eth: mpnic: add a NAPI depletion check
-
-For the series:
-Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
-
->
->  drivers/net/ethernet/meta/mpnic/mpnic.h        |  3 +++
->  drivers/net/ethernet/meta/mpnic/mpnic_init.c   | 13 ++++++---
->  drivers/net/ethernet/meta/mpnic/mpnic_netdev.c |  3 +++
->  drivers/net/ethernet/meta/mpnic/mpnic_pci.c    | 21 +++++++++++++++
->  drivers/net/ethernet/meta/mpnic/mpnic_txrx.c   | 37 ++++++++++++++++++++=
-+++---
->  drivers/net/ethernet/meta/mpnic/mpnic_txrx.h   |  7 +++++
->  6 files changed, 77 insertions(+), 7 deletions(-)
-> ---
-> base-commit: eb0c18404c8943356f4aa164e5db9067b79ea93c
-> change-id: 20260929-linux-mpnic-428998421ffc
->
-> Best regards,
-> --
-> Daniel Zahka <daniel.zahka@gmail.com>
->
->
+> Matthias Goergens (3):
+>   ntfs: do not use a stale runlist pointer when undoing $MFT extension
+>   ntfs: add a runlist merge that leaves the source runlist to the caller
+>   ntfs: balance the $MFT runlist lock in data extension error paths
+Applied them to #ntfs-next.
+Thanks!
