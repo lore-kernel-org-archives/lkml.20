@@ -1,56 +1,56 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FEF24DCF9
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A8223E33D
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790986917; cv=none; b=LCZu84Dc814+nsBieai9Fho0Fx0cl/HHYPpO0wCdzOo/rVFubNkEICuaWeoO+v5ZOxTaZNyJxEyLBjq19zIX8jUvjkRPK5E5n60KkffGcGZl36UFffNsN3QfYuznquW7wlVL/++mPj4YrECqtuTZhLDTrfJ9jZuIww5GqTPHWgA=
+	t=1790986917; cv=none; b=iHOFw3lKrYmFbo2EIu880TOYQGlQixith2a/A5t+Z80DI2haMKF1AM64wFsCpOQBJ+oLcoMb/GJxVuef4LosD8NBe8o3NHfHg4WiO2o+sW2n8t2lKPWZGJ3X8u/AV3vvvLw0m9eAKkVMAVYHTwAkdCngMniiyJlooiIRAL7r4sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790986917; c=relaxed/simple;
-	bh=3Q5bTHQS1L7nkQQYX39ccm8ys/WrKTII8WcrAVjjkTc=;
+	bh=6DbAoncHxnK0azOb1VY6m/Px0Gjjk+3ADgI/O3v3Y9Y=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=PIH0saWv5ljhpJFoluhiOVxGJuOp2Pnxgfbmp54ZK6IlGDVZIHeghHhuWCEu09ohozsu/Parr5r/Vx60MqHYfhJMhEynMVjtagg6pl+Rmyf3a4B7NGklLTKcHHS5yWvZa3DX4p8OgTW6/fYOkZVGHqLwIhwXrihtaFZ5RFaHQb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uboRVPMP; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=VYGt1ndZzkPLE81HC0LBX6WmcsybSmTm9SCblkwoA5i1z2ee6FMSNWx4JhRoi676o7OEOVX2RgwwCwOjZcdbto73wD0AKcl200eyeHI+A9oKhmxy/7xSPNAli2sIMK2H3oJV817bZAH0Rv+9nV7pHL7xP7pC39OsDK59XILVMB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aczeoNAJ; arc=none smtp.client-ip=209.85.216.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uboRVPMP"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cec4226c70so58705ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aczeoNAJ"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so3572a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790986912; x=1791591712; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790986910; x=1791591710; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Qp+JasK82C1RW+o2wrGx0jSXA4z4FWd0AFKo27jNBek=;
-        b=uboRVPMPT2ZuWAVlXgFqaQy2i7XcGHqfROngRPt9K4Qg8SKZo9hxOwcNqas7Qyjdjk
-         66ckuyTSGhxAv5kMWSIj68wK1f32wCcGBWz/XdHI1n9kMOGo0x+r538LCAhYiwczadiA
-         U5N+inXRrlK66UGmzDBkVLdXUiKgdOKinccu3qBL7lWYKAxCTvD1fRDXm7ptYqlFLEG8
-         Pv7gYY21Prhg4Fpl+jUfDBZM0h4CKcD0tKuVwvpMibdL/GeTqeoG7HKFeLysaNe6orU5
-         uNRDEpOLAqMggobjrN5TFtJKLzTAuCdvilMUipE1mbEFMajMfkCjiHiiV5ljuj28xME1
-         NJNQ==
+        bh=tCgjHn2mz/yCHbbXpM7X3kmHNH/eC22IJjKzJWGDoHY=;
+        b=aczeoNAJRY2bSFAdJKDS+WaVtzinEqUKNI2ZdR1R1cvfCbNr+WiDUaMWHkHRsVrzPQ
+         fYPylbj6Qpq5NpjI5mPPwQnJ18Mp+lW4CQCbo8kMyGLE55X7vNoc7V0gx9FSF16WTeMg
+         AKhfBt/VutFZvUOFs9fzuIq5Hoh7pzPXqHLf7jpMVcQnEJvQoIpqAFqXefegVeezdoMT
+         yNcIIaKbaWUfLhnAZN6xg8l6fvBO/JoLOTITla11e/RdKWQinlQ0TlRCX7nxqTph6ccf
+         reX+xz0LU0P6FEY1MYDfUQPtMJvn//O57yG6YwjvYuNJ8l49zlK1mWBRqYonsx7KAPXX
+         UH9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790986912; x=1791591712;
+        d=1e100.net; s=20260707; t=1790986910; x=1791591710;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Qp+JasK82C1RW+o2wrGx0jSXA4z4FWd0AFKo27jNBek=;
-        b=vVTEmlDoyW2nkO3qdqL3MdwBAF+F1s29V+cMehDQvrpepDtwQNwi+qslpE0oy2b8GO
-         Mx1DPlHM/csS7GeoOWEmhoiAdkLji6i/srPD5fo+eJ+OdBKA3WieHzz06nz85zyBCcuy
-         23S9gDdnlGEtGahvv0/flbpB4LPT0B22TS1T1BNtM2QwvpOVDwoVi2GyEcVWFygRfzyi
-         F28/a2g9T1MqSezVg3m0wqB+mLtsMZepE1RD/g988SZJc/iTDsp3dcJDfzPtt6goiSOI
-         LruCn+4Y7LivqEPQihQW72ERlny8KpoSqYpvP+1iGzLaksJYbYS7Kxovr6GIwsvcWkfZ
-         /9aA==
-X-Forwarded-Encrypted: i=1; AKwUvBysS4AYUVcgjurCOfVmYg0d3ZyoIionHOOYfhdUrjOjM9R+njJrCDSr41tpxnrQGsalBcYLQMsgftwIIwc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6v37bIzrRKQJDUCbg6CUxZ9bn3BrES9ZLZtVso7HR2o/IzvW9
-	z0yW/WeY665aRJuPTVC/TpdDemXy93BogvfYTWSRreA0kQ2w0gATX5bfEgwy5D1feSluBAOR5Oi
-	xhHaGbTAeIIXeWaivHFNmpA==
-X-Received: from plpv6.prod.google.com ([2002:a17:902:9a06:b0:2df:660d:f283])
+        bh=tCgjHn2mz/yCHbbXpM7X3kmHNH/eC22IJjKzJWGDoHY=;
+        b=vIQ4G39Dd4ABomFOHVbxd30K6vWl296Qq0FY+h18urlLprra2qZmJWtQA2CE9KauRY
+         LZGXy6raCj9c3/YM4VqPdyjm+uMTPLpiDgRSUvqbqm7ZWiUNsyl2fzE8j1MAoMvmFGJ6
+         D4qurT7u6sGxcyhYGSFtExZCw2owFuURqzJNYcw4ROqC+IB1SgK4FjUBzABarhL6hgdk
+         8RH79scET5C+5TnLQwBlKLHyyy4hr4RPD/FB6OJcPvs+6M+KglIny9xnTfxUt8jLWh1l
+         8UxvbT6LZfwDlmRN11AuifbcGxWqxF/pYocw7WDQtkxDDaBmqWux4QG6K8i5L46AsE5u
+         EBxA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6odbD7wOZBAayujMfG3t4I3dX/6AEZUGYm4qHAPQgIabOTpQfu1tueo9D7IfW+8rz1dgAJBuEOpvogkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAhKCJH1EMyFlVxjhFKDVavQUp7ME3KhtEg3dzG18k7t7RKf9r
+	7vZLqZOgqy5Tszee+N7IDLIt0Uhk+bL/zBFmLVpgeto2AFXxtux4ymXyQp8VqjIw6A3M5RAGA/s
+	yyf7Gcg8PWwa2ZSSgqUEGmg==
+X-Received: from pjbmv17.prod.google.com ([2002:a17:90b:1991:b0:3a6:f87a:f3e4])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:37c6:b0:2cf:8131:75e8 with SMTP id d9443c01a7336-2e49b4e29edmr36276715ad.13.1790986911618;
- Fri, 02 Oct 2026 17:21:51 -0700 (PDT)
-Date: Sat,  3 Oct 2026 00:21:22 +0000
+ 2002:a17:90b:33cc:b0:3a2:bb45:d37b with SMTP id 98e67ed59e1d1-3a6ceb00093mr2158482a91.25.1790986909781;
+ Fri, 02 Oct 2026 17:21:49 -0700 (PDT)
+Date: Sat,  3 Oct 2026 00:21:20 +0000
 In-Reply-To: <20261003002123.505555-1-jthoughton@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261003002123.505555-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003002123.505555-20-jthoughton@google.com>
-Subject: [PATCH v2 19/20 DO-NOT-MERGE] hugetlb_vmemmap: Add fault injection
- for in-place vmemmap PMD splits
+Message-ID: <20261003002123.505555-18-jthoughton@google.com>
+Subject: [PATCH v2 17/20 DO-NOT-MERGE] arm64: Implement try_populate_vmemmap_pmd
+ using AF trick
 From: James Houghton <jthoughton@google.com>
 To: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
 	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -76,128 +76,88 @@ Cc: Nikos Nikoleris <nikos.nikoleris@arm.com>, Linu Cherian <linu.cherian@arm.co
 	linux-mm@kvack.org
 Content-Type: text/plain; charset="UTF-8"
 
-Like try_update_vmemmap_pte(), try_populate_vmemmap_pmd() may fail,
-e.g. on arm64 when replacing the block mapping keeps racing with
-hardware access flag updates. HVO handles such failures by not
-optimizing the folio.
+This routine is to be used for updating in-use, leaf-level PMDs in the
+vmemmap without introducing a window where vmemmap accesses might fault.
 
-Add a fault-injection capability, fail_hugetlb_vmemmap_pmd, alongside
-fail_hugetlb_vmemmap_pte. When a fault is injected, the PMD split fails
-with -EAGAIN without touching the page tables.
+Implementing this on arm64 requires some care: use the same access flag
+trick that is used for vmemmap PTE updates. HAFT is not needed and the
+TLB flushing routine remains identical, as we are not overwriting a
+non-leaf PMD.
 
-It can be configured through debugfs or through the
-fail_hugetlb_vmemmap_pmd= boot option. Since vmemmap PMDs are only split
-once, the boot option is the most effective way to exercise this path.
+For systems that support BBML3, there is no need to use the AF
+trick.
 
-Assisted-by: LLM
 Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- .../fault-injection/fault-injection.rst       |  8 +++++---
- lib/Kconfig.debug                             |  4 ++--
- mm/hugetlb_vmemmap.c                          | 20 ++++++++++++++++++-
- 3 files changed, 26 insertions(+), 6 deletions(-)
+This patch is the main questionable piece of this "DO-NOT-MERGE" part of
+the series. It's unclear if the Arm ARM truly requires hardware
+implementations not to cache anything about AF=0 Block translations.
+---
+ arch/arm64/include/asm/pgalloc.h | 51 ++++++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/fault-injection/fault-injection.rst b/Documentation/fault-injection/fault-injection.rst
-index 403206645fa4..5cfabea811da 100644
---- a/Documentation/fault-injection/fault-injection.rst
-+++ b/Documentation/fault-injection/fault-injection.rst
-@@ -16,10 +16,11 @@ Available fault injection capabilities
- 
-   injects page allocation failures. (alloc_pages(), get_free_pages(), ...)
- 
--- fail_hugetlb_vmemmap_pte
-+- fail_hugetlb_vmemmap_pte, fail_hugetlb_vmemmap_pmd
- 
--  injects failures of the in-place vmemmap PTE remaps done by HugeTLB vmemmap
--  optimization. (try_update_vmemmap_pte())
-+  injects failures of the in-place vmemmap PTE remaps and PMD splits done by
-+  HugeTLB vmemmap optimization. (try_update_vmemmap_pte(),
-+  try_populate_vmemmap_pmd())
- 
- - fail_usercopy
- 
-@@ -269,6 +270,7 @@ use the boot option::
- 	failslab=
- 	fail_page_alloc=
- 	fail_hugetlb_vmemmap_pte=
-+	fail_hugetlb_vmemmap_pmd=
- 	fail_usercopy=
- 	fail_make_request=
- 	fail_futex=
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 96cd1f1da94a..7abda377c737 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2072,8 +2072,8 @@ config FAIL_HUGETLB_VMEMMAP
- 	help
- 	  Provide fault-injection capability for the in-place vmemmap page
- 	  table updates done by HugeTLB vmemmap optimization (HVO), i.e.
--	  try_update_vmemmap_pte(). This exercises the rollback and
--	  partially-optimized folio paths.
-+	  try_update_vmemmap_pte() and try_populate_vmemmap_pmd(). This
-+	  exercises the rollback and partially-optimized folio paths.
- 
- config FAULT_INJECTION_USERCOPY
- 	bool "Fault injection capability for usercopy functions"
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 9e0f52474bdb..f50880dd79a2 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -53,6 +53,7 @@ struct vmemmap_remap_walk {
- 
- #ifdef CONFIG_FAIL_HUGETLB_VMEMMAP
- static DECLARE_FAULT_ATTR(fail_hugetlb_vmemmap_pte);
-+static DECLARE_FAULT_ATTR(fail_hugetlb_vmemmap_pmd);
- 
- static int __init setup_fail_hugetlb_vmemmap_pte(char *str)
+diff --git a/arch/arm64/include/asm/pgalloc.h b/arch/arm64/include/asm/pgalloc.h
+index 0263329fb7b3..7e304f01ce6d 100644
+--- a/arch/arm64/include/asm/pgalloc.h
++++ b/arch/arm64/include/asm/pgalloc.h
+@@ -124,9 +124,54 @@ pmd_populate(struct mm_struct *mm, pmd_t *pmdp, pgtable_t ptep)
+ static inline int try_populate_vmemmap_pmd(unsigned long addr, pmd_t *pmdp,
+ 					   pte_t *pgtable)
  {
-@@ -60,11 +61,19 @@ static int __init setup_fail_hugetlb_vmemmap_pte(char *str)
- }
- __setup("fail_hugetlb_vmemmap_pte=", setup_fail_hugetlb_vmemmap_pte);
- 
-+static int __init setup_fail_hugetlb_vmemmap_pmd(char *str)
-+{
-+	return setup_fault_attr(&fail_hugetlb_vmemmap_pmd, str);
-+}
-+__setup("fail_hugetlb_vmemmap_pmd=", setup_fail_hugetlb_vmemmap_pmd);
+-	/* BBLM3 is required. Its presence has been checked. */
+-	pmd_populate_kernel(&init_mm, pmdp, pgtable);
+-	return 0;
++	const int max_attempts = 16;
++	int attempts = 0;
++	pmd_t old_pmd, new_pmd;
 +
- #ifdef CONFIG_FAULT_INJECTION_DEBUG_FS
- static int __init fail_hugetlb_vmemmap_debugfs(void)
- {
- 	fault_create_debugfs_attr("fail_hugetlb_vmemmap_pte", NULL,
- 				  &fail_hugetlb_vmemmap_pte);
-+	fault_create_debugfs_attr("fail_hugetlb_vmemmap_pmd", NULL,
-+				  &fail_hugetlb_vmemmap_pmd);
- 	return 0;
- }
- late_initcall(fail_hugetlb_vmemmap_debugfs);
-@@ -80,8 +89,17 @@ static int hvo_update_vmemmap_pte(unsigned long addr, pte_t *ptep, pte_t pte)
- 		return -EAGAIN;
- 	return try_update_vmemmap_pte(addr, ptep, pte);
- }
++	if (!system_supports_bbm_through_af())
++		return -EOPNOTSUPP;
 +
-+static int hvo_populate_vmemmap_pmd(unsigned long addr, pmd_t *pmdp,
-+				    pte_t *pgtable)
-+{
-+	if (should_fail(&fail_hugetlb_vmemmap_pmd, PMD_SIZE))
-+		return -EAGAIN;
-+	return try_populate_vmemmap_pmd(addr, pmdp, pgtable);
-+}
- #else
- #define hvo_update_vmemmap_pte		try_update_vmemmap_pte
-+#define hvo_populate_vmemmap_pmd	try_populate_vmemmap_pmd
- #endif /* CONFIG_FAIL_HUGETLB_VMEMMAP */
++	if (system_supports_bbml3()) {
++		/*
++		 * BBML3 allows block->table transitions if the PTEs underneath
++		 * do not conflict with existing, potentially cached
++		 * translations.
++		 */
++		pmd_populate_kernel(&init_mm, pmdp, pgtable);
++		return 0;
++	}
++
++	new_pmd = __pmd(__phys_to_pmd_val(__pa(pgtable)) |
++			PMD_TYPE_TABLE | PMD_TABLE_AF | PMD_TABLE_UXN);
++
++	old_pmd = pmdp_get(pmdp);
++
++	do {
++		if (WARN_ON_ONCE(!pmd_valid(old_pmd)))
++			return -EINVAL;
++
++		if (WARN_ON_ONCE(!pmd_leaf(old_pmd)))
++			return -EINVAL;
++
++		/* We should never get a contiguous PMD here. */
++		if (WARN_ON_ONCE(pmd_cont(old_pmd)))
++			return -EINVAL;
++
++		if (pmd_young(old_pmd)) {
++			/* __ptep_clear_young() returns the overwritten PTE */
++			old_pmd = pte_pmd(pte_mkold(__ptep_clear_young((pte_t *)pmdp)));
++
++			flush_tlb_kernel_range(addr, addr + PMD_SIZE);
++		}
++	/*
++	 * Translations without AF cannot be cached, so we can replace
++	 * them without BBM.
++	 */
++	} while (!try_cmpxchg_relaxed(&pmd_val(*pmdp), &pmd_val(old_pmd),
++				      pmd_val(new_pmd)) &&
++		 ++attempts < max_attempts);
++
++	return attempts == max_attempts ? -EAGAIN : 0;
+ }
  
- static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned long start,
-@@ -113,7 +131,7 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned long start,
- 	if (likely(pmd_leaf(*pmd))) {
- 		/* Make pte visible before pmd. See comment in pmd_install(). */
- 		smp_wmb();
--		ret = try_populate_vmemmap_pmd(start, pmd, pgtable);
-+		ret = hvo_populate_vmemmap_pmd(start, pmd, pgtable);
- 		if (ret)
- 			goto free;
- 
+ #endif
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
