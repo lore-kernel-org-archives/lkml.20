@@ -1,150 +1,565 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECFD175A6D
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791000770; cv=none; b=MZn46/yVZg/WPiym2oTRTYkC2k76HWmsKZ2l3lzbu7CcDFR9HbOP+kAoeVs9TnYW94YqNMy6p7xTdSu23r068KvxkGna9FxkOCbaYOdKKIp1BP+AQ07Yv+FYC9KJSW00lpSyobhH3R1famoUCvmDlhs1GGFZD3SCXoQOBmXS9Z8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791000770; c=relaxed/simple;
-	bh=dOIXqLzBtSxy2qJIrgonAcgd/FeiJxv/lEsDBeOpcYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R6vnFAtOEnmgoAoqik190PxlVAI5SwWjfwm35ZSsKkMIP40e/9pY4BzlPaI1L18QzrWshJob7arJa0eFoBEEgJRWps0e3bm65y0oud8WNS1swMpo0vb9YUzgPKGwc9l1mHtoASOclCd6atC1YdJu7uvCRFg+5ez/wxTu3z1DjsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MfPWsVw5; arc=none smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984692BEFF5
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791000816; cv=pass; b=MM/xJxJrmlFWyaGT7VvWexP6BCKHfABfQSEtoWrdFbjYqZYXcZTsKHXAwlD9k6dzMPhHvWE8VDpA2HWRggGQYQNULwDyc2amQnoffgLnzsSIMhMjT3d+ZvDFL/LKCm+h5UTwGaS6FhdQBHPE3Tv73TXv6B/tnkBY0ElXIEzTgGE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791000816; c=relaxed/simple;
+	bh=ArJIYT9PS952osYm0s+crb1tdeWCEb92/lCBjMz6BG4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CFVTGCUZK8lIWKYv1s3u/M3iD9+x/EruAxNYoFxp2foOKzsFT2Lb+5y++kge9hpcYOA8963ABEFAPReRjzI4AgY479zQs7rTDa14gYTXTDn6SA0wkw/tmda8qirs80Mm9JKhNEgJpr1SYPW3qKA95na/Ij1/AVXS4ctPpzE3pjw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=shQnxRoX; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MfPWsVw5"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53397325663so1874881cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:12:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="shQnxRoX"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so2312a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:13:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791000812; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WBDoExrZaanDgq0VarC2lLeXMK6+I3Q4vTexwzFdOE3LPJ4+R3BztKhqk4gB9XUWFU
+         PkCYKQ630MMTQqOlUuXY2cnfF3B5BPFpIvad33Z0c6QK/yZCKPlsfn7wHgKtqacAtt0U
+         VsQ74F43baEs7qHuXIgK899N5jCE9NCNjzLoAZ827MHuqTLofxzwDnxtzJv0Lv5P5A9F
+         mXMO3vkLTR07DB+EyG4We//ZtjGAVC3r+WjUKuXUJPXdL5Rg81qp9j8b9f6GS4HUNzGd
+         M8Hs/3WW6DrJNaD3MzSHUenZ5LPYLr2BlUA+e4MjGak+dQ9L3CZ4SNarjY8fu3mRS1qf
+         vPNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7Ie5QAjzsQT8aGFssdYiQrgQZPfEPZ2/bR922KyiVM8=;
+        fh=d4wYc2IaAVhnMLe+ZA1yU7ZYok4ni740MLPjqmJ5yT8=;
+        b=ikIxQIxlbSgeB4rei0Q/WKY53cZoYuy3mZDqNCmATtmPza+M+Ktv2ve35bxCqUypcp
+         jmxJKw2zCHuXC/loPCuQCqrWztxwrmHnIw4pL0jcJxDEW/9JyEDIyVBfeDfff8RXDZqv
+         q4pEgwQeNrgkRI+hJBFvd0h1vx3KhNN33JUhTRGG9lZzpbkiT5kogcUxO6yr2hxOVzVd
+         1xlJMhqBR8H93sAZJmCGpZzilu9HxvhsopX51UoMVDxc15Sczpb9918j8YCf1+ersSYJ
+         gPo6yJ+ystOFo151QmTfjcGzIO/CplHSeWMZnlrMo3miXWhuHmGiJhqvLi+DE4DYpj9N
+         u8EQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791000768; x=1791605568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cc2suPktwUV0lHyZwCLOmemG0HWTqvkRtCzdgjiCcCo=;
-        b=MfPWsVw552kdpSET7H05u7VK5wF8VaN5nFh/7wOKOzRwfkWzv6kQ7CQ58YH+xoyT6Y
-         o6ol6OVJ4dTCa2eqLB3AHkyCRG1n22kAP8cmbOURfGewAIDsri0G9Uxl0BKyoy8WVkVI
-         Wb6IEU8VpZQ07zOIJPQ+JXsYOCF3p7BN3XbxgdDaEoye4jlsdxs9XaizNKpO6iBrFh7P
-         x0YgMXqJv/zDWqhYkx2rOnkO4IMeWT0WMQI4x90WZyAl5FLOD7jfnO2f+aBsVS2Q8sK2
-         L18nbKp6Y/P7u6x/6sWSLEWGwyBoVSq+EMMGtuTQNEeoDCae1+MSODuEcOBzYArl9JNV
-         5oBA==
+        d=google.com; s=20251104; t=1791000812; x=1791605612; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7Ie5QAjzsQT8aGFssdYiQrgQZPfEPZ2/bR922KyiVM8=;
+        b=shQnxRoXH2dmQqkBLrlD5CKlQJekPeX86ZCEFtTl38hMtrpzYcriwrNQ2pK1PFRbdS
+         NllKZajqTI2FuqNae5t7HQIjRAM/dL9Da0XQfOAggs7t2lRELoyUwipMpERyBBTv46a5
+         PgUUY92L31Q4bSJ2VVbwRC67WxcCqArkezABJEEHT64FfGTHC7Cr0NT3hhY4dOkHzzVr
+         6N1iF/vMFkgN8YJFGWPmS/tKNLN+lSM3MWkTK2JUUg35Kxybnnoi3ggJoj7Z/1C6pX85
+         e0Oh19++bH+vidtL0vj5nu3trb1FJ3AzpKNA7i+PyMENXM/FgpUiBVL3eHyM6SRGeMGq
+         VoIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791000768; x=1791605568;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cc2suPktwUV0lHyZwCLOmemG0HWTqvkRtCzdgjiCcCo=;
-        b=hL4xfV6rRR9aMB8jZ9pzs8lX8EjWBm2HtwgGqnZOeeaFXPWXHgrnVMS4F50GC5sj6q
-         /6QqblvyMvBJJLbkAvbAlloXJsinf1EQNbZjV9ttUWp7v0wnQfT+ebbTJ03gntHV1Y3u
-         nJuMEHvpdzngGJrH2scPBW0TD9uvFD4/YQ1NWM7G1vshAObI1iOx/fI3It9dQDS1BbSo
-         L7Lq9hL9STTaOPvjIOW5KtW17HYs64u4q1hUhbU0BAaegDYCnDBQntapZzeWXHipLyYu
-         eJYTIn5PuacxPe3zpcUk1ugBaGTy6LPgYloCz0riBVeZ2UWLDU914aqmvyXJqcwLULj9
-         MJ5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwZuxU2oMMYYpEM3oh+yMudao5g1IR+9ketUaLajDN41bqtfh9+tUE3Pwd9GhVXXjPpouTQSWFh7t/j4yI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqcOld9RskjpkmwbZimx3chKPEBLOqTepcI5upFZGHMWGh7xGn
-	DEoN0efcuE11gYapJKAFGZziZAzSStx6nKv6+Ixs13KE3/Ty70H9w4o=
-X-Gm-Gg: AYBFou1jHwDDshP8mi2AK4+fY6o77vn3xFcjjOQ7LFIDkj+C0DyVV9BOM3HvYrIExSb
-	K9+KwtxiWmnp9ahepPCkrjXfJUwG7CpARCSy1sVekBQUu/AB2o5uxE+p2X7NOehJYTH3DMDKSoj
-	t4BLYnCWRNui1vNAMSkBkNCtl7X6WU/sa+IYQGUva5JXVzQY+xE7iudIOz58j8b/VAR1CTNs8dB
-	7wbqJsMsxWyfLaqHumzRBPHftOI1airCF5/NQIy+OtfYhNtKYG+4X5jF4m/793c7SZmUJSiUZL8
-	I6KSz7HdDVv+l1VVa9zVrxioQsP5jQP5Rz6nkkCdxiFZQ+PShiFM4H5r64EcZLfiWQc6brBRGHB
-	d7x+Tam4ETTKdEit32CNeNmGvrValUdLZ9UHh9W/8WtsH5QlY/qcJGENR4IxhCCDb/WWrC18lZ4
-	BoPfOy/xxJqZNA+cWzJtB28EA4NNlnyD5wrIn58T/iVq5G8xkIEI2Sxo4le/rowx69nLPmKBIw7
-	4iGublm4HfHsi77W1M6iYVzliMbP6jKTklFDH879NAkKUGZDKesfyur4XF1YbYpgvsPbgxujNr8
-	5t+KGu8hXV4rtPM1DmVgMuvcBSmd
-X-Received: by 2002:ac8:7e85:0:b0:531:172f:79e8 with SMTP id d75a77b69052e-53511f1965emr23644131cf.57.1791000767676;
-        Fri, 02 Oct 2026 21:12:47 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5b6d6sm42699391cf.9.2026.10.02.21.12.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 21:12:46 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH net] net: nixge: stop IRQ producers before draining DMA error tasklet
-Date: Sat,  3 Oct 2026 00:12:42 -0400
-Message-ID: <20261003041242.650599-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1791000812; x=1791605612;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7Ie5QAjzsQT8aGFssdYiQrgQZPfEPZ2/bR922KyiVM8=;
+        b=icsHu7oQ327iH+lU0CRmnHkTFfFm1bzYbEc9yzYNMk0s16yTPGgEHw+EWO9BW19uDQ
+         xeqTcuzBaPfvJH+0kiFhJ8K/muNh+9adMxB2OrZeCkVqNZezEfLIkC5v6Y0mKTwuPtOz
+         hrXfhI4jkX2kccrQDoLa7RWwKPW/NSiS79+7Sjxy6U2T9bApQLeetaKpcYN10TuYnH0H
+         0W6zrslLIWLCUUWJeG+fQjozvsQ0yEJwL/HIs0utFlBiqaHpRclztHHaqkYrVbi9apWX
+         kyvNtOn91Y5P8xLGuGBDQWLahSvuPyrMSWW3o7KZ0Cmo18TiXRyx4FojL5FhjLYK6hgc
+         SW3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxFw7DnwFvL90SftBkKWRwXIabH4pOwVVMVOHmYXd9XvN1DpsQGMJLpo8Xn6TASQ8je98S/Yn6zf8Gj0tU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0JIVquQy4ntGCG45LpsaxBl1LdWejFEaNdDLVnvy5x+U3oVFb
+	uyb95IltBSeAUjoT5n3uQr2PwT/n9l4mqsxEhmX8pyqnbhqfmrqeLid2kpPf7bU4Ungd2tKpEh4
+	e8q3ruwk1qhE41V7OCAkqAu/dY7fIq3O5xwArknJU
+X-Gm-Gg: AYBFou1fd4oaPQRyLUo97+gzrEVB0ZQ5GQyPs7eiMXShfXkmX32oxAdpHNiDpsVtpB2
+	kFuS/pZsYgZ3s3w1xKjJKu7eEDJbaDENzj9cBRpI5XcGZQk9CIk16U5X8htIGMxYXgWS78IncfH
+	vi5V7Xwtu72CSijT97X8Ofs3QE8xA0n8HzwsbjLFR/PkmIiU/9S23oZwAbmMovD+NBtqSOczaQE
+	WTxAyBu3VR89s2nMEwqbC/5GcdbCX83AAfz2J8bEFRGLf4gjIywMObPOID7QGZ4NWZM65mP9uLm
+	njORy2RrvoTQ5Co+6Oj9aDfgisyNN0ZeiFkEFfVXV4e23XQQTdZy
+X-Received: by 2002:aa7:d30f:0:b0:6ac:84a2:bdc7 with SMTP id
+ 4fb4d7f45d1cf-6afaf6af058mr13377a12.15.1791000810925; Fri, 02 Oct 2026
+ 21:13:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261002190018.696925-1-bjorn@kernel.org> <20261002190018.696925-4-bjorn@kernel.org>
+In-Reply-To: <20261002190018.696925-4-bjorn@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Fri, 2 Oct 2026 21:13:19 -0700
+X-Gm-Features: AclHuK9Gl9KMFgKRjsYy_SiHECkATkLonjp_0BvZEfQ5Bsd2sOFca7-m1cK4pXA
+Message-ID: <CAHS8izP1vXB9ro7coamL7MUvTJu0kWzej71T2o5y_GYpJzFB+w@mail.gmail.com>
+Subject: Re: [RFC net-next 03/15] net: Add memory provider capabilities
+To: =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+	Luigi Rizzo <lrizzo@google.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, 
+	bpf@vger.kernel.org, io-uring@vger.kernel.org, 
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, 
+	Alexander Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The TX and RX interrupt handlers can schedule dma_err_tasklet. Killing
-it before freeing the IRQs leaves a window for an interrupt handler to
-schedule it again, so the tasklet can access descriptors and TX skb
-state after nixge_stop() releases them.
+On Fri, Oct 2, 2026 at 12:01=E2=80=AFPM Bj=C3=B6rn T=C3=B6pel <bjorn@kernel=
+.org> wrote:
+>
+> The current memory providers, devmem and io_uring zero-copy RX, give
+> memory that the CPU cannot read. The core allows them only on queues
+> with header-data split on, a zero header-split threshold, and no XDP
+> program. AF_XDP needs a provider that the CPU can read and that
+> works with XDP.
+>
+> Add a capability field to the provider operations, with
+> MP_CAP_READABLE as the first flag. Apply the header-split and XDP
+> rules only to providers without it. A queue with an AF_XDP buffer
+> pool still rejects other providers, but it accepts the provider made
+> from that same pool.
+>
+> Provider memory can become free while a queue is restarted, and no
+> device event reports it. After a restart, and after a failed restart
+> is rolled back, schedule the queue's NAPI if the queue has a
+> provider, so the driver tries to refill.
+>
+> Signed-off-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+> ---
+>  Documentation/networking/netmem.rst     |  7 ++-
+>  include/net/page_pool/memory_provider.h | 11 +++++
+>  include/net/page_pool/types.h           |  7 +--
+>  net/core/dev.c                          |  4 +-
+>  net/core/netdev_rx_queue.c              | 57 ++++++++++++++++++++-----
+>  net/ethtool/rings.c                     | 18 +++-----
+>  net/xdp/xsk_buff_pool.c                 |  3 +-
+>  7 files changed, 78 insertions(+), 29 deletions(-)
+>
+> diff --git a/Documentation/networking/netmem.rst b/Documentation/networki=
+ng/netmem.rst
+> index 217869d1108d..aacd185843ac 100644
+> --- a/Documentation/networking/netmem.rst
+> +++ b/Documentation/networking/netmem.rst
+> @@ -48,8 +48,11 @@ Driver RX Requirements
+>     - PP_FLAG_DMA_SYNC_DEV: netmem dma addr is not necessarily dma-syncab=
+le
+>       by the driver. The driver must delegate the dma syncing to the page=
+_pool,
+>       which knows when dma-syncing is (or is not) appropriate.
+> -   - PP_FLAG_ALLOW_UNREADABLE_NETMEM. The driver must specify this flag =
+iff
+> -     tcp-data-split is enabled.
+> +   - PP_FLAG_ALLOW_UNREADABLE_NETMEM. This opts the page pool into the m=
+emory
+> +     provider configured on its RX queue. For a provider without
+> +     MP_CAP_READABLE, the driver must specify it only for a payload pool
+> +     with tcp-data-split enabled. A readable provider may also back a
+> +     regular or header pool.
 
-Keep the initial DMA channel stop while the completion IRQ handlers are
-still installed. Then free both IRQs to stop and synchronize the tasklet
-producers before draining error recovery.
+I kinda don't like this doc update. This flag was never meant to say
+'I support memory providers'. It's just that the existing memory
+providers are all unreadable so support-unreadable (headersplit) =3D=3D
+supports-memory-providers.
 
-A tasklet queued before the IRQs are freed can restart both channels.
-Stop them again after tasklet_kill() returns so error recovery cannot
-undo the final stop before the descriptors are released.
+The code should be updated such that if the memory provider is
+!MP_CAP_READABLE and driver doesn't support
+PP_FLAG_ALLOW_UNReADABLE_NETMEM, fail.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+If another limitation applies to the new provider, add it as a
+separate flag. The doc is accurate as-is I think.
 
-Fixes: 492caffa8a1a ("net: ethernet: nixge: Add support for National Instruments XGE netdev")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested nixge.o on net commit
-6dc989ea46b96ce170840174b4a38c4a387fb005 with x86_64 allyesconfig
-and allmodconfig, both with W=1. No hardware testing was performed.
+>
+>  5. The driver must not assume the netmem is readable and/or backed by pa=
+ges.
+>     The netmem returned by the page_pool may be unreadable, in which case
+> diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_p=
+ool/memory_provider.h
+> index 255ce4cfd975..d18ec079ffe2 100644
+> --- a/include/net/page_pool/memory_provider.h
+> +++ b/include/net/page_pool/memory_provider.h
+> @@ -9,6 +9,15 @@ struct netdev_rx_queue;
+>  struct netlink_ext_ack;
+>  struct sk_buff;
+>
+> +/**
+> + * enum mp_caps - memory provider capabilities
+> + * @MP_CAP_READABLE: The CPU can access provider buffers. They may back
+> + *     header and regular page pools, and XDP programs may run on them.
+> + */
+> +enum mp_caps {
+> +       MP_CAP_READABLE         =3D BIT(0),
+> +};
+> +
+>  struct memory_provider_ops {
+>         netmem_ref (*alloc_netmems)(struct page_pool *pool, gfp_t gfp);
+>         bool (*release_netmem)(struct page_pool *pool, netmem_ref netmem)=
+;
+> @@ -17,11 +26,13 @@ struct memory_provider_ops {
+>         int (*nl_fill)(void *mp_priv, struct sk_buff *rsp,
+>                        struct netdev_rx_queue *rxq);
+>         void (*uninstall)(void *mp_priv, struct netdev_rx_queue *rxq);
+> +       u32 caps;
+>  };
+>
+>  bool net_mp_niov_set_dma_addr(struct net_iov *niov, dma_addr_t addr);
+>  void net_mp_niov_set_page_pool(struct page_pool *pool, struct net_iov *n=
+iov);
+>  void net_mp_niov_clear_page_pool(struct net_iov *niov);
+> +bool netif_mp_lacks_cap(struct net_device *dev, u32 cap);
+>
+>  int netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
+>                       const struct pp_memory_provider_params *p,
+> diff --git a/include/net/page_pool/types.h b/include/net/page_pool/types.=
+h
+> index 03da138722f5..a96376613dda 100644
+> --- a/include/net/page_pool/types.h
+> +++ b/include/net/page_pool/types.h
+> @@ -22,9 +22,10 @@
+>                                         */
+>  #define PP_FLAG_SYSTEM_POOL    BIT(2) /* Global system page_pool */
+>
+> -/* Allow unreadable (net_iov backed) netmem in this page_pool. Drivers s=
+etting
+> - * this must be able to support unreadable netmem, where netmem_address(=
+) would
+> - * return NULL. This flag should not be set for header page_pools.
+> +/* Allow memory-provider (net_iov backed) netmem in this page_pool. Driv=
+ers
 
- drivers/net/ethernet/ni/nixge.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+Comment is slightly inaccurate. It implies memory-providers can
+only-even be net_iov backed. There is nothing wrong with a memory
+provider returning page-backed-netmems. Mke it something like:
 
-diff --git a/drivers/net/ethernet/ni/nixge.c b/drivers/net/ethernet/ni/nixge.c
-index 230d5ff99dd7..7bba6f8e64fe 100644
---- a/drivers/net/ethernet/ni/nixge.c
-+++ b/drivers/net/ethernet/ni/nixge.c
-@@ -920,6 +920,7 @@ static int nixge_stop(struct net_device *ndev)
- 		phy_disconnect(ndev->phydev);
- 	}
- 
-+	/* Stop DMA while the completion IRQ handlers are still installed. */
- 	cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
- 	nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
- 			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
-@@ -927,11 +928,20 @@ static int nixge_stop(struct net_device *ndev)
- 	nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
- 			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
- 
--	tasklet_kill(&priv->dma_err_tasklet);
--
-+	/* Remove both producers before draining the error tasklet. */
- 	free_irq(priv->tx_irq, ndev);
- 	free_irq(priv->rx_irq, ndev);
- 
-+	tasklet_kill(&priv->dma_err_tasklet);
-+
-+	/* Error recovery may have restarted DMA, so stop both channels again. */
-+	cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
-+	nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
-+			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
-+	cr = nixge_dma_read_reg(priv, XAXIDMA_TX_CR_OFFSET);
-+	nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
-+			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
-+
- 	nixge_hw_dma_bd_release(ndev);
- 
- 	return 0;
--- 
-2.53.0
+Allow unreadable memory-providers in this page_pool. Drivers that
+support this must support unreadable netmem...
 
+Have your pet LLM please go over the code for any instances in the
+code/comments where we assumed net_iov =3D=3D unreadable and fix those
+with checks.
+
+Here are the places my pet LLM thinks you missed:
+
+  ### Handled by the Series
+
+  =E2=80=A2 netmem_address(): Returns net_iov_address() instead of NULL for
+readable net_iovs.
+  =E2=80=A2 page_pool_is_unreadable() & netif_rxq_has_unreadable_mp(): Chec=
+k
+!(ops->caps & MP_CAP_READABLE).
+  =E2=80=A2 xdp_buff_add_frag(): Only sets XDP_FLAGS_FRAGS_UNREADABLE when
+!net_iov_is_readable(niov).
+
+  ### Missed by the Series (Feedback to Add)
+
+  1. xdp_build_skb_from_buff() (page head + readable net_iov frags):
+Only checks xdp_buff_has_netmem(xdp) (head buffer), and
+xdp_buff_add_frag() no longer sets XDP_FLAGS_FRAGS_UNREADABLE for
+readable net_iovs.
+  A packet with a page-backed head and NET_IOV_XSK frags won't be
+copied and will leak NET_IOV_XSK into an skb with skb->unreadable =3D 0.
+  2. skb_frag_address() & skb_frag_address_safe(): Still return NULL
+if !skb_frag_page(frag). Patch 11 added a duplicate xdp_frag_address()
+for 6 call sites, leaving other XDP frag readers (bpf_test_finish(),
+  driver multi-buffer XDP_TX like mlx5e_xdp_mpwqe_add_dseg()) broken.
+skb_frag_address() itself should use netmem_address().
+  3. __skb_fill_netmem_desc() & skb_dump(): Still treat all net_iovs
+as unreadable (skb->unreadable =3D true). Also, drivers that build skbs
+via skb_add_rx_frag_netmem() when !xdp_prog will attach NET_IOV_XSK
+  directly to skbs (which __get_netmem()` / `__put_netmem() don't refcount)=
+.
+  4. bnxt & bnge need_head_pool: Set rxr->need_head_pool =3D
+page_pool_is_unreadable(pool) to decide whether head_pool needs a
+separate struct page pool, then call page-only page_pool_alloc_frag()
+and
+  page_pool_free_va() on head_pool. Returning false from
+page_pool_is_unreadable() breaks them.
+  5. Drivers checking netmem_is_net_iov() as "unreadable":
+      =E2=80=A2 gve_rx_dqo.c:892, 953: Uses netmem_is_net_iov() to drop
+unsplit headers and skip copybreak; should check !netmem_address().
+      =E2=80=A2 en_rx.c:2282-2286: Uses netmem_is_net_iov() to drop unsplit
+headers; should check !netmem_address().
+      =E2=80=A2 en_main.c:5694-5705: Uses netif_rxq_has_unreadable_mp() to
+validate custom page size; should be netif_rxq_has_mp().
+      =E2=80=A2 idpf_txrx.c:3470-3479: Uses netmem_is_net_iov() and
+__netmem_to_page() in idpf_rx_hsplit_wa(); should use
+netmem_address().
+  6. Stale comments/docs:
+      =E2=80=A2 netmem.h:73-83: Comment on struct net_iov still says it is
+only for non-struct page memory and fixed PAGE_SIZE chunks.
+      =E2=80=A2 netmem.rst:27 & types.h:32: Still state tcp-data-split is
+unconditionally required and keep the PP_FLAG_ALLOW_UNREADABLE_NETMEM
+name for readable providers.
+
+> + * setting this must honor the provider's capabilities. Unless the provi=
+der has
+> + * MP_CAP_READABLE, netmem_address() returns NULL, and the flag must not=
+ be set
+> + * for a header page_pool.
+>   *
+
+That bit about header page_pool is good to add anyway.
+
+>   * If the driver sets PP_FLAG_ALLOW_UNREADABLE_NETMEM, it should also se=
+t
+>   * page_pool_params.slow.queue_idx.
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 5ac08da8b9d7..12b532c09a9c 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -10423,7 +10423,7 @@ int netif_xdp_propagate(struct net_device *dev, s=
+truct netdev_bpf *bpf)
+>                 return -EBUSY;
+>         }
+>
+> -       if (dev_get_min_mp_channel_count(dev)) {
+> +       if (netif_mp_lacks_cap(dev, MP_CAP_READABLE)) {
+
+Could use a name easier to read?
+
+if (!netif_all_mps_have_cap())
+
+>                 NL_SET_ERR_MSG(bpf->extack, "unable to propagate XDP to d=
+evice using memory provider");
+
+...using unreadable memory provider");
+
+>                 return -EBUSY;
+>         }
+> @@ -10499,7 +10499,7 @@ static int dev_xdp_install(struct net_device *dev=
+, enum bpf_xdp_mode mode,
+>                 return -EBUSY;
+>         }
+>
+> -       if (dev_get_min_mp_channel_count(dev)) {
+> +       if (netif_mp_lacks_cap(dev, MP_CAP_READABLE)) {
+>                 NL_SET_ERR_MSG(extack, "unable to install XDP to device u=
+sing memory provider");
+
+Same.
+
+>                 return -EBUSY;
+>         }
+> diff --git a/net/core/netdev_rx_queue.c b/net/core/netdev_rx_queue.c
+> index 00a7011eb4d5..610e31d1a717 100644
+> --- a/net/core/netdev_rx_queue.c
+> +++ b/net/core/netdev_rx_queue.c
+> @@ -82,8 +82,12 @@ __netif_get_rx_queue_lease(struct net_device **dev, un=
+signed int *rxq_idx,
+>  /* See also page_pool_is_unreadable() */
+>  bool netif_rxq_has_unreadable_mp(struct net_device *dev, unsigned int rx=
+q_idx)
+>  {
+> -       if (rxq_idx < dev->real_num_rx_queues)
+> -               return __netif_get_rx_queue(dev, rxq_idx)->mp_params.mp_o=
+ps;
+> +       const struct memory_provider_ops *ops;
+> +
+> +       if (rxq_idx < dev->real_num_rx_queues) {
+> +               ops =3D __netif_get_rx_queue(dev, rxq_idx)->mp_params.mp_=
+ops;
+> +               return ops && !(ops->caps & MP_CAP_READABLE);
+> +       }
+
+handle error case inside if() block please.
+
+>         return false;
+>  }
+>  EXPORT_SYMBOL(netif_rxq_has_unreadable_mp);
+> @@ -95,6 +99,32 @@ bool netif_rxq_has_mp(struct net_device *dev, unsigned=
+ int rxq_idx)
+>         return false;
+>  }
+>
+> +/* Return true if an installed memory provider lacks @cap. */
+> +bool netif_mp_lacks_cap(struct net_device *dev, u32 cap)
+> +{
+> +       const struct memory_provider_ops *ops;
+> +       int i;
+> +
+> +       netdev_assert_locked_ops_compat(dev);
+> +
+> +       for (i =3D dev->real_num_rx_queues - 1; i >=3D 0; i--) {
+> +               ops =3D dev->_rx[i].mp_params.mp_ops;
+> +               if (ops && (ops->caps & cap) !=3D cap)
+> +                       return true;
+> +       }
+> +
+> +       return false;
+> +}
+> +
+> +/* Provider memory may become available while the queue is replaced,
+> + * without a device event to report it.
+> + */
+> +static void netdev_rx_queue_kick(struct netdev_rx_queue *rxq)
+> +{
+> +       if (rxq->mp_params.mp_ops && rxq->napi)
+> +               napi_schedule(rxq->napi);
+> +}
+> +
+
+
+Honestly maybe open code this at the call site. It's confusing to have
+a hepler that doesn't mention mp only do something if the rx queue has
+an mp configured. Or maybe netdev_mp_rx_queue_kick().
+
+>  static int netdev_rx_queue_reconfig(struct net_device *dev,
+>                                     unsigned int rxq_idx,
+>                                     struct netdev_queue_config *qcfg_old,
+> @@ -142,6 +172,8 @@ static int netdev_rx_queue_reconfig(struct net_device=
+ *dev,
+>         }
+>
+>         qops->ndo_queue_mem_free(dev, old_mem);
+> +       if (netif_running(dev))
+> +               netdev_rx_queue_kick(rxq);
+>
+>         kvfree(old_mem);
+>         kvfree(new_mem);
+> @@ -165,6 +197,11 @@ static int netdev_rx_queue_reconfig(struct net_devic=
+e *dev,
+>
+>  err_free_new_queue_mem:
+>         qops->ndo_queue_mem_free(dev, new_mem);
+> +       /* Freeing the replacement can hand provider memory back to the o=
+ld
+> +        * queue, which still runs unless the rollback failed.
+> +        */
+> +       if (err !=3D -ENETDOWN && netif_running(dev))
+> +               netdev_rx_queue_kick(rxq);
+
+These kicks feel extremely error prone and hard to point where in the
+code we missed a necessary kick. Try to find something better to do.
+
+>
+>  err_free_old_mem:
+>         kvfree(old_mem);
+> @@ -189,6 +226,7 @@ static int __netif_mp_open_rxq(struct net_device *dev=
+, unsigned int rxq_idx,
+>                                struct netlink_ext_ack *extack)
+>  {
+>         const struct netdev_queue_mgmt_ops *qops =3D dev->queue_mgmt_ops;
+> +       u32 caps =3D p->mp_ops->caps;
+>         struct netdev_queue_config qcfg[2];
+>         struct netdev_rx_queue *rxq;
+>         int ret;
+> @@ -196,15 +234,13 @@ static int __netif_mp_open_rxq(struct net_device *d=
+ev, unsigned int rxq_idx,
+>         if (!qops)
+>                 return -EOPNOTSUPP;
+>
+> -       if (dev->cfg->hds_config !=3D ETHTOOL_TCP_DATA_SPLIT_ENABLED) {
+> -               NL_SET_ERR_MSG(extack, "tcp-data-split is disabled");
+> +       if ((dev->cfg->hds_config !=3D ETHTOOL_TCP_DATA_SPLIT_ENABLED ||
+> +            dev->cfg->hds_thresh) && !(caps & MP_CAP_READABLE)) {
+
+nit: This could use a helper mp_caps_readable() or something.
+
+> +               NL_SET_ERR_MSG(extack,
+> +                              "memory provider does not support current =
+tcp-data-split configuration");
+>                 return -EINVAL;
+>         }
+> -       if (dev->cfg->hds_thresh) {
+> -               NL_SET_ERR_MSG(extack, "hds-thresh is not zero");
+> -               return -EINVAL;
+> -       }
+> -       if (dev_xdp_prog_count(dev)) {
+> +       if (dev_xdp_prog_count(dev) && !(caps & MP_CAP_READABLE)) {
+>                 NL_SET_ERR_MSG(extack, "unable to custom memory provider =
+to device with XDP program attached");
+
+unable to use unreadable memory provider with XDP program attached maybe.
+
+>                 return -EEXIST;
+>         }
+> @@ -219,7 +255,8 @@ static int __netif_mp_open_rxq(struct net_device *dev=
+, unsigned int rxq_idx,
+>                 return -EEXIST;
+>         }
+>  #ifdef CONFIG_XDP_SOCKETS
+> -       if (rxq->pool) {
+> +       /* An AF_XDP pool owns the queue unless it is this provider. */
+> +       if (rxq->pool && rxq->pool !=3D p->mp_priv) {
+>                 NL_SET_ERR_MSG(extack, "designated queue already in use b=
+y AF_XDP");
+>                 return -EBUSY;
+>         }
+> diff --git a/net/ethtool/rings.c b/net/ethtool/rings.c
+> index e3810c0320e3..789d0e328b77 100644
+> --- a/net/ethtool/rings.c
+> +++ b/net/ethtool/rings.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0-only
+>
+>  #include <net/netdev_queues.h>
+> +#include <net/page_pool/memory_provider.h>
+>
+>  #include "common.h"
+>  #include "netlink.h"
+> @@ -258,17 +259,12 @@ ethnl_set_rings(struct ethnl_req_info *req_info, st=
+ruct genl_info *info)
+>                 return -EINVAL;
+>         }
+>
+> -       if (dev_get_min_mp_channel_count(dev)) {
+> -               if (kernel_ringparam.tcp_data_split !=3D
+> -                   ETHTOOL_TCP_DATA_SPLIT_ENABLED) {
+> -                       NL_SET_ERR_MSG(info->extack,
+> -                                      "can't disable tcp-data-split whil=
+e device has memory provider enabled");
+> -                       return -EINVAL;
+> -               } else if (kernel_ringparam.hds_thresh) {
+> -                       NL_SET_ERR_MSG(info->extack,
+> -                                      "can't set non-zero hds_thresh whi=
+le device is memory provider enabled");
+> -                       return -EINVAL;
+> -               }
+> +       if ((kernel_ringparam.tcp_data_split !=3D
+> +            ETHTOOL_TCP_DATA_SPLIT_ENABLED || kernel_ringparam.hds_thres=
+h) &&
+> +           netif_mp_lacks_cap(dev, MP_CAP_READABLE)) {
+> +               NL_SET_ERR_MSG(info->extack,
+> +                              "memory provider does not support requeste=
+d tcp-data-split configuration");
+> +               return -EINVAL;
+>         }
+>
+>         /* ensure new ring parameters are within limits */
+> diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+> index 9d2d94f1fb75..f01e1de7360e 100644
+> --- a/net/xdp/xsk_buff_pool.c
+> +++ b/net/xdp/xsk_buff_pool.c
+> @@ -2,6 +2,7 @@
+>
+>  #include <linux/netdevice.h>
+>  #include <net/netdev_lock.h>
+> +#include <net/page_pool/memory_provider.h>
+>  #include <net/xsk_buff_pool.h>
+>  #include <net/xdp_sock.h>
+>  #include <net/xdp_sock_drv.h>
+> @@ -235,7 +236,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+>                 goto err_unreg_pool;
+>         }
+>
+> -       if (dev_get_min_mp_channel_count(netdev)) {
+> +       if (netif_mp_lacks_cap(netdev, MP_CAP_READABLE)) {
+>                 err =3D -EBUSY;
+>                 goto err_unreg_pool;
+>         }
+> --
+> 2.55.0
+>
+
+
+--=20
+Thanks,
+Mina
