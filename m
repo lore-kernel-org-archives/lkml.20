@@ -1,41 +1,42 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CCA406269;
-	Sat,  3 Oct 2026 09:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F5D3B0AD6;
+	Sat,  3 Oct 2026 09:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791021582; cv=none; b=DIKDJFO+ovX8aRLbNTFMeODx2tuUeGw3zRyZ8pb9E7j4SeWQBg9BoMY6cax4iEr5WKkxQ7IIKWjreVK4kl9zdHDIyznUtT3j21L05N75C1nbwwFWgNDodmMYKJq5D64Ll6O4IkEJEPUSeJMV0T1wA0w7Hthie1MSZ1pZpofcjkU=
+	t=1791021581; cv=none; b=cBgMt+i+IYbiRK3KgMAhvdvyctdR+hKwvEqEN+LJHX0GJQmy2HhvJ6YtEXfj2nvPBF9CnY//hfbDoA1e9fngf4uXRlloC0e6E3Z6lZse2lCTOUUa28MC8g2PIaFfUV/6qJdaIeY5+C6jfAYLBXLWOTzp8da0msxyae9HLYne6OY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791021582; c=relaxed/simple;
-	bh=ZwRXrmC6y1uKJTvpy1i+MgfzLXcaKJo3CA1zUqJoFp8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=psw1Gl+AE88GGH1WQQvGDdp1JAUEOl0cEd6aAFwAgDYZa+oEuLJHQLqGiUOfAk6kT3DFQZgkpEe39yctSnWbzab+aIgOgiaac6nQ7p0CHejB1piVVtrgvl+XkgQzCY9Wu4tzKr2sjY/VufgPgAtYSI2uEerJwFIvo2VUx5fEE/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fQ7xmfrz; arc=none smtp.client-ip=220.197.31.4
+	s=arc-20240116; t=1791021581; c=relaxed/simple;
+	bh=xoqqc/e6RBc1ZqduwnWzbNUHv3mjvmDbFqpOTKYYhjQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=csZ7LdqAjcI2AmLc2EXxSVpwP6U2meCfHes8JLMSPC/N6y9d267QheOP056BBf4nuXtyfIQfT6h38r1Gj50zO+VETOtYkUG0khXc1exqI3aUPcz4zt/sOKTd28vnFYvSgxnwiuqQz8S8xKcDoBX9cr2uELD+3aYOXgo1KqOsyOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SCyKpqTS; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fQ7xmfrz"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SCyKpqTS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=p2
-	QR1NHjS8Y0nFlEjMCQ/odtZcWZYWfePfPOvyn8mG0=; b=fQ7xmfrzGySrNUJwjV
-	Dpf+pJhhEM0NBZDWMvlDPotnqfcdc8mfI0ztraI3yUtWqwZLRlwkL4MKQ+g1dmxL
-	S5jedZC3hcl2fiHNQKqkXzJySQoMCaHZBbDTldh6AOMwPW9mN5BbDRTYllEWZPrk
-	CMQRtuyetMxp6eRF7SDDkEcsM=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hM
+	+05E1a1mh/WwKjkgJQR1/fatfBwyc/hZAhxEXV5ac=; b=SCyKpqTS4lzBXhg49u
+	dsjRTbSCKLzcNtC1nBNh1krBsMb1mQUPvIqwDJfiLjKiCgylJc69lRrfqSe5X9yR
+	tqivRJcqh3xiam/3Cw7AhvZ48lx/roZO9Jj/N8dOW/JmOLQlqtUxsZPq3SIlJURU
+	D/lqRwAUNM3JEmNyyHkMxWndI=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgDX8L_o0cBqNGACCQ--.27866S2;
-	Sat, 03 Oct 2026 17:59:05 +0800 (CST)
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDHl2Dy0cBq4TNFCA--.53805S2;
+	Sat, 03 Oct 2026 17:59:15 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Andres Salomon <dilinger@queued.net>,
-	Paul Fox <pgf@laptop.org>,
-	platform-driver-x86@vger.kernel.org,
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Dan Carpenter <error27@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] platform/olpc: Reserve space for a string terminator
-Date: Sat,  3 Oct 2026 17:59:02 +0800
-Message-Id: <20261003095902.574873-1-yaojiale02@163.com>
+Cc: Jiale Yao <yaojiale02@163.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Subject: [PATCH] wifi: ath12k: Reserve space for a string terminator
+Date: Sat,  3 Oct 2026 17:59:13 +0800
+Message-Id: <20261003095913.575108-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -44,39 +45,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgDX8L_o0cBqNGACCQ--.27866S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFyUAF1kKF15try5Xr4xZwb_yoWkCwb_Wr
-	9YkFWxJ3y8Ar4qv3WrAFWfWrsFkw18XFykur1fta4fAryaq3ZYvrsY934avws8JFsrCrZr
-	Cw4xZFW3Cry3GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRufOwtUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQl5s2rA0enydwAA3Z
+X-CM-TRANSID:_____wDHl2Dy0cBq4TNFCA--.53805S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7XrWDWFy5GF1kWry5tF4kCrg_yoW8Jr4kp3
+	ykWw129Fy8ur17G3s5GFn3Za4FganxWry2gFWqv34ruFs5Zr1Fqr1YgFW8Wry8Ca98uF1j
+	9a1jkr1xZr95t3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pitEf5UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhN7tWrA0fMG-gAA3j
 
-ec_dbgfs_cmd_write() copies user input into a zero-initialized stack
-buffer and passes it to sscanf(). A write that fills the entire buffer
-overwrites its only terminator, so the subsequent parsing can read beyond
-the buffer.
+ath12k_write_htt_stats_type() accepts count == size, which fills the
+zero-initialized buffer without a terminating NUL. sscanf() then reads
+beyond the buffer.
 
-Limit the copy to leave room for the trailing NUL.
+Reject input that leaves no room for the trailing NUL.
 
-Fixes: 6cca83d498bd ("Platform: OLPC: move debugfs support from x86 EC driver")
+Fixes: 8c7a5031a6b0 ("wifi: ath12k: Fix buffer overflow in debugfs")
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/platform/olpc/olpc-ec.c | 2 +-
+ drivers/net/wireless/ath/ath12k/debugfs_htt_stats.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/olpc/olpc-ec.c b/drivers/platform/olpc/olpc-ec.c
-index 4a2d36f7331e..063f7e55c421 100644
---- a/drivers/platform/olpc/olpc-ec.c
-+++ b/drivers/platform/olpc/olpc-ec.c
-@@ -269,7 +269,7 @@ static ssize_t ec_dbgfs_cmd_write(struct file *file, const char __user *buf,
+diff --git a/drivers/net/wireless/ath/ath12k/debugfs_htt_stats.c b/drivers/net/wireless/ath/ath12k/debugfs_htt_stats.c
+index b772181a496e..f84f1828275a 100644
+--- a/drivers/net/wireless/ath/ath12k/debugfs_htt_stats.c
++++ b/drivers/net/wireless/ath/ath12k/debugfs_htt_stats.c
+@@ -6190,7 +6190,7 @@ static ssize_t ath12k_write_htt_stats_type(struct file *file,
+ 	const int size = 32;
+ 	int num_args;
  
- 	mutex_lock(&ec_dbgfs_lock);
+-	if (count > size)
++	if (count >= size)
+ 		return -EINVAL;
  
--	size = simple_write_to_buffer(cmdbuf, sizeof(cmdbuf), ppos, buf, size);
-+	size = simple_write_to_buffer(cmdbuf, sizeof(cmdbuf) - 1, ppos, buf, size);
- 
- 	m = sscanf(cmdbuf, "%x:%u %x %x %x %x %x", &ec_cmd_int[0],
- 			&ec_dbgfs_resp_bytes, &ec_cmd_int[1], &ec_cmd_int[2],
+ 	char *buf __free(kfree) = kzalloc(size, GFP_KERNEL);
 -- 
 2.34.1
 
