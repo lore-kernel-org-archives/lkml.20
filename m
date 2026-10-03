@@ -1,118 +1,80 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mta0.migadu.com (out-101.mta0.migadu.com [91.218.175.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46783769F8
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3213CF9C0
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791058040; cv=none; b=TUSivz9XbmWO7fsZXrfy0Ym/0efNjlYlcUsy0uk33gMqpz29vVmRS8jg7LAwYGwDxLROEdLeYM6GDBah1Br4zMIPjDn1NoiI2ZAGJQ88rnrDzHgBGHkyYXR4SOzIEdH+wzEP59ojXAjX+3o3cpNWJbrTXYKs5OWC0/4RH5jaCQs=
+	t=1791058257; cv=none; b=tpcztYRju7XTP3eCKw+4jTPQbBi8HdMe7P8NujsZH4+pgknSve+u97G0u+FCFBzhMEUHzAqDRBYPgJLCbINcj8Y5nUzg3esbOG7Th/VZaOL9OaBsx76WcykXh81i34vWdm/xKXgtWBvqDz5sqYuLs86tCPyslfOXQqu0YmIAv4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791058040; c=relaxed/simple;
-	bh=7JbPPMC9KEMGlful8kZbuXTUQyPP8BqdUCabjv3tsqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K+q9zL4aurFrmSz+lM74pDfypsT1MH524IuSPvtv7P774g3WXrpCDM86CHSh6qDff7ndnyojU92CzKWjuIRS/Qrg7I9LeZvvtH6ScEqW7S83SkigVyc7GIytcFo8yUxVYrvuyRr4X+c4onbjmqGTSarxTSABYczDV6IPrHMcTZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VWD8gNSl; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791058257; c=relaxed/simple;
+	bh=X4nxifD4XUHq1BKvjEXSQCHM0bDL1a7IaCs/n/9tm+k=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gHR2lXg61Ea/6A8HslUistyh8r9W5H+hLt1LejMhqRPAVG0oA69P4KTPh261LI3ouOClXBtmz+GxDEsPwWFt8EXTz9TkunElxwxypd1uylqhMKecDAS/dO6cd4WyKlrRm1dhKhgs9wZgHlN+zIt+tRGIKoDG1yxTcKbHnZiXjPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ugZX28XZ; arc=none smtp.client-ip=91.218.175.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VWD8gNSl"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so7135175e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:07:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791058037; x=1791662837; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H1zvj0uCRg+B5aiBl/n8A7h6RRgbM/5lvnwXxsY+iJY=;
-        b=VWD8gNSlyz6iAoxaQdCnMqlK0cfEKUdF8i+ApIJ0beBxkzY76aTI5kaPqIWeQPt6cl
-         9jp5KKtNcyHYpQGHJbWWNQWh3EYXMg1G6A74FNCJ6PDuLOtLvXmnAYesFqabe/1KeQRD
-         wi+dL8L6lgsXS5T8QQSp570+/MrTvRgBUYEHEYRWZ4KEcXep4Nj1liFOLZoh40m70Nkt
-         4RgCMOhXRDmWPdVnjTZfi8zXWYCigfcpPbt9FiqsfD6A/tmHTnjHxuTYM91GQ3TDuusg
-         GMq9RVJZWzr5cFeHdAwhsNUzSwnZzk6DxojnlekQb0hcd9rmxsfTWNeV9BojAZfcj0vS
-         joAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791058037; x=1791662837;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H1zvj0uCRg+B5aiBl/n8A7h6RRgbM/5lvnwXxsY+iJY=;
-        b=zCUIrUJmS5In/rKt/dEj3JNzMu6SRnpo25gMSSJs0ZkEtIvHeAxrxoSs/NOxvuT+0w
-         fmWJmyRh6Y40Q801PleS+orVejAltDEwBAry+20HryALwqRAmPjSPPehodCJU9ObbFvB
-         b7KPFk1LSDGsAtjZDvlaWdBGsyuBTmavEiLxNhnCgGdKLgmiPHxscXMF60vPscrG5UoO
-         uVeCPKOfeDg/ZPwntFq8wFlllwCmakBQXwGAOJN7hqHAiH+F1DuLFvqJ9cgLwIIiVAjp
-         giZu//ZC/pOSy1mIdsC5JHeXkFUgXr+28MQqD1DLMS3adwN3qcbuhRqlQYCGGQf86kev
-         YLrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCDUxXXeoDEHOd+IErXtC9XdY5ZaA0kf3fTAfcjnXhOaz5FEbloj3kt8g6tIULsMEm83tUnPq6S2SF8jU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwLb69ZVhAUkksao/tahK1CvLdxxGlSl7+dZJsqFhii8hU7+ZO
-	ZcFmi02WH0zyAlzw6RYIgIDAFhQ6tdy+uhW2A5sIlkQqJBTjd723XGFy
-X-Gm-Gg: AYBFou0FK2Hz9Fs16dCBJhjP5wt0HUy2QKeHh2kumm9OPeweWtSp848aD9AJ44rdl3L
-	ENlDnHUczrfNPIvcaH3xGKBIYEAcGoogI/geiOsamH+7xINs5ThU0xI3j7c1ag+lvAVah0DrRwR
-	Q9iDKZDLCMGySHAmDvNRKh5LHEygkqdasRYpuUsQgqdyt6+uD3VjepSC2JnDyv32ehATN7qUOfG
-	hQNrEq/Bt//YIfii/pylvvpButS4Ay3DADnPw83A0NxgqdtXHFnZiU1MZcXNbI4j0SMwSRtzjio
-	j0VOj3RLlCs8sLwLAXM4YJrPY90rIf+OgNwzkSSnS8jmdxGBuTBLk4ELiRvVgHaTInF+vVHXcs+
-	4+OmJBzJ+M7F4LrNoKzp95DIFMq3bvAPF7uGCEANtZzsbYznWtXdV/0oSNQJkuB36ku+ra+B15x
-	gCOV3pR4bJi3oqxZbdum56JYqDwryGy+1Rkz0YOyGY/453GinA2t5upoVvVMa+Nv/Fd4yZtE7jq
-	+3lOe7Te5fBUiZDkVQLbLMUj9vhFEJMBKbuHgx7VDfq+NounSYugRPRZ99XUcAAUq//afs61s6M
-	OylVRA==
-X-Received: by 2002:a05:600c:a41:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4a1680b9df0mr46578785e9.2.1791058036797;
-        Sat, 03 Oct 2026 13:07:16 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4c4sm209114545e9.2.2026.10.03.13.07.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 13:07:15 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org,
-	tiwai@suse.de
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-input@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/2] the Topping M62's vendor controls, on the component framework
-Date: Sun,  4 Oct 2026 01:07:13 +0500
-Message-ID: <20261003200713.50742-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261003184217.34671-1-mikhail.v.gavrilov@gmail.com>
-References: <20261003184217.34671-1-mikhail.v.gavrilov@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ugZX28XZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X4nxifD4XUHq1BKvjEXSQCHM0bDL1a7IaCs/n/9tm+k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791058252; v=1; x=1791663052;
+ b=ugZX28XZdjrD+11DUtJzRmcjR+J+D59CqMlQs7r2zxlS5wVmkPo11t26QHUKhJyrr9ndZ2nY
+ nU15ZpRteWBDBMHp10pAZ+gYTFpDuukq8lpirEPTGWuv3vuAylczeGw+3xlchS3p3yOBaBndXeQ
+ 5Owtz2zT5vgtpt6OcePeM97s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 7736264c25658130;
+	Sat, 03 Oct 2026 20:10:42 +0000
+X-Mizu-Trace-ID: 7736264c25658130
+X-Migadu-Flow: FLOW_OUT
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: sashiko <sashiko@lists.linux.dev>,  LKML <linux-kernel@vger.kernel.org>,
+  Chris Mason <mason@kernel.org>,  Kees Cook <kees@kernel.org>,  Jason
+ Gunthorpe <jgg@nvidia.com>,  Jakub Kicinski <kuba@kernel.org>
+Subject: Re: sashiko & pre-existing bugs
+In-Reply-To: <asA_b1s4iVx2_v-U@aschofie-mobl2.lan> (Alison Schofield's message
+	of "Fri, 2 Oct 2026 16:34:07 -0700")
+References: <7ia4se37qwvk.fsf@castle.c.googlers.com>
+	<asA_b1s4iVx2_v-U@aschofie-mobl2.lan>
+User-Agent: mu4e 1.12.15; emacs 30.2
+Date: Sat, 03 Oct 2026 20:10:37 +0000
+Message-ID: <7ia4jynyzgsi.fsf@castle.c.googlers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-A correction to the Tested section: "other firmware" is wrong. The
-card keeps its operating mode in the high byte of bcdDevice -- 01xx
-Mobile, 02xx Live Streaming, 03xx Pro Audio -- so the second card's
-1.45 is Mobile Mode, against Pro Audio Mode (3.27) on the first.
+Alison Schofield <alison.schofield@intel.com> writes:
 
-That also covers the one item the letter lists as not re-run for v8,
-Mobile Mode without a UCM profile. The second card ran in Mobile Mode
-throughout: its nine controls were created, it bound again in each of
-the fifty reload cycles, its own knob reported to its own card after
-the second suspend while the first card's knob left it alone before
-and after, and its cable pull ended in a clean rebind.
+> On Thu, Sep 17, 2026 at 11:30:23PM +0000, Roman Gushchin wrote:
+>> Hello,
+>> 
+>> as some of you might notice, a couple of days ago sashiko stopped to
+>> report preexisting bugs together with not-yet-introduced new issues.
+>> Instead, it started putting them into the database. All M: and R: in the
+>> current MAINTAINERS file have full access to corresponding bugs.
+>> 
+>> There is a new "Bugs" button in the top right corner which is the access
+>> to the database. You don't need to create an account, invent a password,
+>> etc. It's all stateless.
+>
+> Hi Roman,
+>
+> The access is not working for me for my linux-cxl and nvdimm.
+> I ask it to send the email link and nothing happens.
+>
+> Anything else needed here?
+>
 
-Two items from the "Not tested" list have been run since, on the
-first card, each time with all three of its snd-usb-audio interfaces
-unbound and the control interface bound again:
+Hi Alison,
 
-  - with the HID driver left bound: the component bound again on the
-    new card at once, all nineteen controls were back, and the
-    headphone volume was as before the unbind;
-  - with hid-topping unloaded first and loaded after the card had
-    registered: both components bound at the load, and the nine
-    controls appeared on the registered card. They start from the
-    driver's defaults, the headphone volume at 0: the restorers act
-    when the card appears, before these controls exist, so "alsactl
-    restore" has to be run again, and it brings the saved values
-    back.
+not really. There was a temporary outage with the email delivery,
+which I'm about to fix. Please, try again.
 
-No WARNING, BUG, KASAN, UBSAN, lockdep report or call trace in the
-kernel log over these runs.
-
--- 
-Thanks,
-Mikhail.
+Thanks
