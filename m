@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E1965192;
-	Sat,  3 Oct 2026 16:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CBC35CB7F;
+	Sat,  3 Oct 2026 16:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791045063; cv=none; b=jMaOM6sWyqodnh/K6OqkH4VE+8vvKD/kfenktubBPgwOpFuaLLlEbaaK2vVMh8dXam3WNPV2dMZhpPsZnlhwccChHRjeSyc8Z0EBqCFzqsT2a4GXswBF19dXelFJdXcEx1TegpVwPBIUSm40UrLfXoj7L1MsfGd3FWEkYzQe9Ys=
+	t=1791045084; cv=none; b=tR+DTJZYqvV4VZSR9bKA8mRpGNds034ImqKzUGuV0fTHWq9Ix28EJM7kX4axTOt1U3+nsce32uZRxja5Td4HNBfSrA68gwlgyLsSlpp9LnZGAv32/MZY9ympq5Y/rM89hbddOp93pOPlL+BM8GW6nytdXkmnvfyIQWytzotzFZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791045063; c=relaxed/simple;
-	bh=YPmEGG5Sd41sh89NUd8OuU1stTU5iv9Xe/NShG87Jyw=;
+	s=arc-20240116; t=1791045084; c=relaxed/simple;
+	bh=5e/KN/xUw7lArWbSdyarhZ1XThDnY18ob5T7lpmm0Lg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BRyMKJ94+1RA4SawtLIG3d1XgFBN/MgSJ+59LpKUNNr5cHpfghbaugwX/n1OxjimbPQiW3+P9ZglrasV61NONcOr/CZcnN5+itNwvVRKShubhmwsV2phNy8gQi3o6Qm+Erbk+WUgE5CWyyNphL6OxjsAFYEoDJZHNJLIYkkNeG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWsIA3tn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VMSX9g4I6zMcDk5zisKHYi10QqXMlwlcrUF3IcCZ52YmTJlHyhO/6tyIGxAgO/z3ck7s6QxGc13DA/qXzNZgBk2SufYNrBMUaJYe5+X3yBGANi8I9jNGcPmU2YlqnFnxX+s0or3vjYyvrn/RuPcAHyzgVhP/+Am8tV02giryBSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UL5f2GXc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWsIA3tn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE701F0089B;
-	Sat,  3 Oct 2026 16:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UL5f2GXc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9153D1F0089B;
+	Sat,  3 Oct 2026 16:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791045062;
-	bh=u83Npcs12V9xe5DFKbQG28qTCorDUyuwsdlQcZhBX4g=;
+	s=k20260515; t=1791045083;
+	bh=5e/KN/xUw7lArWbSdyarhZ1XThDnY18ob5T7lpmm0Lg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aWsIA3tnJ17x2NoLrot1atVKD0A3DktUxR8sptxqFjmK97um2Nor8qfSRkGzTHQHc
-	 m+M3aMqi1jZVUHIeMRCmkLk8LoJUAnH3Lw+JOLPIekoRqQMAiWw12S2bQcmS5cTz3b
-	 TF0W1xcYdsWtyvHPQeXhf73Iogexwv0ZM1eQbuyLz8bidnP9BNspfE0TiliLBWmKjf
-	 5qjsJpd9ZnuhDVYP8QFhYs+OhIaMBDEpjLEG+S+8r2H22S1jr5cKgbDAwE6Y1KoOhP
-	 n7PlL7wQszhxMKjxG+VZUDx3mAY3Oi2b8NcfT+oMz5PFCg7XLGVYk+KV4Ewt/LPzIy
-	 g1YLJtf0Il3NQ==
-Date: Sat, 3 Oct 2026 18:30:56 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] lib: Move SipHash into lib/crypto/
-Message-ID: <20261003163056.GB152469@quark>
-References: <20261002223708.39183-1-ebiggers@kernel.org>
- <asB7QVFMlgKgbje2@zx2c4.com>
- <019c709e-9513-44c1-bbb0-82cb16040709@app.fastmail.com>
+	b=UL5f2GXcsaUNO+Dla38WGrEPCA3dtkjUMAzxdJuDHF8S1eelSbizJcH4mKrykxXt8
+	 zqUlqcp4q0GxEwsxowjB+M0ber7JoEgoWMGs6nyyV7PtSkRi7cMDH6G7Mi7+GMcP8G
+	 Kei8bnTVVpahVpLfF8CrruSrc2aIQ/8VdPjPPnTDeZvv27maY/8JurP0q5BJPMKnWa
+	 EAOXeTmf/5TiXMIfG3zWJg+VdH80A62WQG9y92TGVid+k9bSM/oT4UTlzWneWzdxgi
+	 zHIh6osUjXjpsGm5BcCCv2m39/mzAICt+B1lyZAdTqI+bKl7rgFKBdre4lmBCxfRg9
+	 nm+ElMSU6d5OA==
+Date: Sat, 3 Oct 2026 17:31:18 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Ameer Hamza <ameer.hamza@truenas.com>
+Cc: rppt@kernel.org, peterz@infradead.org, akpm@linux-foundation.org, 
+	david@kernel.org, mingo@redhat.com, acme@kernel.org, namhyung@kernel.org, 
+	linux-mm@kvack.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev, stable@vger.kernel.org, 4ncienth@gmail.com, sashal@kernel.org, 
+	alexander.motin@truenas.com, caleb.stjohn@truenas.com
+Subject: Re: [REGRESSION] secretmem: SIGBUS on memfd_secret() pages while
+ perf record runs
+Message-ID: <asEtt6OIJmBww-0T@gremlin>
+References: <20261002175651.811343-1-ameer.hamza@truenas.com>
+ <asEllR7if-J3wteg@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,39 +47,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <019c709e-9513-44c1-bbb0-82cb16040709@app.fastmail.com>
+In-Reply-To: <asEllR7if-J3wteg@gremlin>
 
-On Sat, Oct 03, 2026 at 09:31:39AM +0200, Ard Biesheuvel wrote:
-> 
-> On Sat, 3 Oct 2026, at 05:49, Jason A. Donenfeld wrote:
-> > On Fri, Oct 02, 2026 at 03:37:08PM -0700, Eric Biggers wrote:
-> >> The addition of SipHash to lib/ predated the existence of the
-> >> lib/crypto/ directory.  Since it's a cryptographic algorithm, move it
-> >> from the top-level lib/ directory to lib/crypto/.
-> >> 
-> >> Specifically:
-> >> 
-> >> - Move both siphash.c and siphash_kunit.c.  Keep the header
-> >>   <linux/siphash.h> as-is for now.
-> >> 
-> >> - Keep the dedicated MAINTAINERS entry for SipHash.  Just update the
-> >>   file paths it references.
-> >
-> > Given that I'm also listed in the crypto section, I think we may as well
-> > delete the whole separate entry.
-> >
-> > The only downside of this change is that those hsiphash functions are,
-> > erm, a bit less than cryptographic-strength. But maybe such concerns
-> > don't really matter any more at this stage, and we might as well group
-> > it all in lib/crypto/ where it all belonged originally anyway.
-> >
-> > Acked-by: Jason A. Donenfeld <Jason@zx2c4.com>
-> >
-> 
-> Either works for me.
-> 
-> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Fix for perf sent at
+https://lore.kernel.org/linux-perf-users/20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org/
 
-Makes sense.  v2 removes the separate MAINTAINERS entry.
+I cc-d everybody on the thread also.
 
-- Eric
+--
+Cheers, Lorenzo
