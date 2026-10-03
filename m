@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890E231E824;
-	Sat,  3 Oct 2026 08:04:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFFA2E888C
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 08:08:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791014674; cv=none; b=rVI5u7pDwYuaeEDfBaXy0O3k6N6GI2juI1zk94ePvkoIKvRYdMK+FhEBUTZSb/TZWMehd30uemXLuwv8gjNA9La6rltpcRkM52DgQBDa3kssresJGpuCk9hDoDHZz6jhs5NGhWbY2kRTXzYaPAWbNE38xfwxqHpkg6yO4z9kxYs=
+	t=1791014914; cv=none; b=Ay/Fl4ZBL1zybg+LnbtNjgQZZE/zaZPW5twAmzFDpLO5c4PvD8lFugDzLjDDG6p3WvwYhNPJozdBFrfQnpERpy0vHbY+L2zOagt59Q3OljHd9SeddJlV6xuzmjDI1VynlCAtCqMUUoppBzAlgtrxoY7POcAugHbi+bhy+4xu3Tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791014674; c=relaxed/simple;
-	bh=yV/52dZBB0VP8mn25o4WNyT0wMzlQHS2a4xwydHAxI8=;
+	s=arc-20240116; t=1791014914; c=relaxed/simple;
+	bh=g/gJpQMc7hq9GzdGnCvx3aziRXZRmUvxhe5Cd4gYp80=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aOgQt/fBDaAbG5tcpOC1a1ZCoceIZge2jZQK5rB1de8ZAi/ujYX8oT3yXoUgxlj2clc4JMyGchtUPh2cEhD4fxOL8Lcr/3fPSf+E2ridknYiY7piuPvWECJsiFPJicWRYU176lDHSW5siuwBce8dyE+26Sb+eopFmsn1f9xSXlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGioztog; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ID1ZCOqdA0jZG0din/DjEYS8+6jyLD7I+/gBOmLkgbIGbNiBer99xh4mEg4IeEymltWd7p/vdtzQvU36aMVCNBbkIKSaDF8I7DG+Zi8jEs6YU2B63FqLXuhnb4AhORUuBZjbLrCWW1tS3+PPPAn5MkK6rpu5e05K6RsUF8cLEnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGdjLO7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGioztog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415811F0089B;
-	Sat,  3 Oct 2026 08:04:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGdjLO7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63ED1F0089B;
+	Sat,  3 Oct 2026 08:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791014673;
-	bh=XZ1ACE1iiEOWgp7+NtU6aPFkdBsKv+iKHALcIjSYOOI=;
+	s=k20260515; t=1791014913;
+	bh=PhCXWf+F0kKIImkvMzPZcVKqpKPzzmNfLTmAIwKhi5U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JGioztogeXvRuQANr3O6EblEFmnhMq/cfk4R+zBZ7mmMqJ6WjV1S4LSyRx8zonfuM
-	 SX5NOZeWDwA4ynSw9lYh8DzyDSjzPZQpXKMIc3SRtAdLKbJWtbDAewwCJ1BwzGSAt5
-	 k/wbSzi3cQuIf9ofHrBzAkLoScfp1WAdQE1bsEMnaed/4uPubDR6QrgYqJ5PnW+7SF
-	 RprAMopotlmIiH8/INHpzGgZsgseVHmlKBoJ17PUHqPrmN9dw2yYu6fnElZJm3drDT
-	 YpPk794DCCKAs0T9wXridN3r72p/L93oso82oTxJpleKZbCwTZC0llZK3aS4y0Xy+S
-	 8eLwU5at7RJXw==
-Date: Sat, 3 Oct 2026 10:04:28 +0200
+	b=AGdjLO7hHmOhRag0vBx5sQqVyd+RlVq7IP4+6qDwZUTfovA4AJYzpewdSSQWLKaeL
+	 IpOZLkyXTGTubJs/poT8lC0J3jf834xXHqPvi2yTe4mrrVQb+aUDnbYXxqp/iBRZRF
+	 9GrQAnbemBXcwcSvjxuP24IQdAhD2Ry4ZKmaOlw5LHCHi9m8eCSm4FT1KIi0BZbMmS
+	 F9i0XllekZXGkXH3ctDa4VU/kXVJfqR0uaterPWUAL0liqvHOJvF9LrGS9dLjib1Az
+	 CoUcT9A1vO6CMkL3lNKrm1ftiM9RydTWKVhVESuMstXqbA7GLdo41lX19+iDpddiOw
+	 FHSv/+XXGltpA==
+Date: Sat, 3 Oct 2026 10:08:27 +0200
 From: Mike Rapoport <rppt@kernel.org>
-To: Wandun <chenwandun1@gmail.com>
-Cc: robh@kernel.org, saravanak@kernel.org, m.szyprowski@samsung.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, akpm@linux-foundation.org
-Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
- memory
-Message-ID: <asC3DBvtlcO5AVsz@kernel.org>
-References: <20260920092852.614973-1-chenwandun1@gmail.com>
- <arJA6fOMetzoBhDH@kernel.org>
- <060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
+To: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: kexec@lists.infradead.org, Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	George Guo <guodongtai@kylinos.cn>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] kho: fix global scratch size calculation
+Message-ID: <asC3-4WNiTF3n7l1@kernel.org>
+References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,111 +47,217 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
+In-Reply-To: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
 
-On Tue, Sep 22, 2026 at 05:24:32PM +0800, Wandun wrote:
+On Tue, Sep 22, 2026 at 06:42:16PM +0530, Sourabh Jain wrote:
+> KHO calculates the global scratch size based on memblock-reserved kernel
+> memory. It passes NUMA_NO_NODE to memblock_reserved_kern_size() for
+> this calculation.
 > 
+> When memblock_reserved_kern_size() is called with NUMA_NO_NODE, it
+> counts both:
 > 
-> On 9/22/26 16:48, Mike Rapoport wrote:
-> > On Sun, Sep 20, 2026 at 05:28:47PM +0800, Wandun Chen wrote:
-> >> From: Wandun Chen <chenwandun@lixiang.com>
-> >>
-> >> This series fixes several error-handling issues in the reserved-memory
-> >> initialization paths.
-> >>
-> >> The first two patches fix cleanup of no-map regions after driver
-> >> initialization failure.
-> >>
-> >> Static reserved-memory nodes are reserved during the early DT scan but
-> >> initialized later. The third patch tags regions whose early reservation
-> >> succeeded, so the late scan can skip the nodes whose early reservation
-> >> failed.
-> >>
-> >> The last two patches reject overlapping static regions. Without
-> >> these checks, overlapping nodes can be initialized over the same
-> >> physical memory, result in data corrupt.
-> >>
-> >> Sashiko reported these issues in [1] [2] [3].
-> >>
-> >> [1] https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kernel.org
-> >> [2] https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org
-> >> [3] https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org
-> >>
-> >> v2 --> v3:
-> >> 1. Rework the mechanism that checks in the late scan whether the early
-> >>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
-> >>
-> >>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
-> >>    the early reservation of a static region succeeds and checked in the
-> >>    late scan.
-> > 
-> > Can we keep this local to of_reserved_mem please?
+> - memory reserved for a specific NUMA node
+> - memory reserved with NUMA_NO_NODE
 > 
-> Probably not. I do not see a way to keep this entirely local to
-> of_reserved_mem while handling the issue robustly.
+> KHO needs to distinguish between these two types of reservations.
+> When calculating the size of global scratch memory, KHO only needs to
+> account for reservations made with NUMA_NO_NODE. Reservations made for
+> a specific NUMA node must not be included in the global scratch size.
 > 
-> I previously implemented an approach in of_reserved_mem that records
-> static reserved-memory nodes whose early reservation failed in a local
-> array [1]. However, the early scan runs before paging_init(), so the array
-> cannot be dynamically expanded. If the number of failed nodes exceeds
-> the array size, some failures cannot be recorded and the issue remains,
-> and that is why Marek said "partial solution", although in practice
-> having that many failed nodes is unlikely.
+> Add memblock_reserved_size_nid() to calculate reserved memory for a
+> given reservation type and NUMA node. When NUMA_NO_NODE is passed, it
+> counts only memory reserved with NUMA_NO_NODE.
+> 
+> Use the new API for lowmem, global, and per-node KHO scratch size
+> calculations. For lowmem and global scratch, count only memory
+> reservations that were made with NUMA_NO_NODE. For per-node scratch,
+> count only memory reservations that were made with the corresponding
+> NUMA node ID.
+> 
+> Remove memblock_reserved_hugetlb_size() since it has the same
+> implementation as the new API and differs only in the memblock
+> reservation flag being checked. The new API handles both kernel and
+> HugeTLB reservations through its reservation type argument.
+> 
+> Define the new helper as a static function in the KHO implementation,
+> since it is only used by KHO and has no users outside
+> kernel/liveupdate/kexec_handover.c.
 
-Even before paging_init() there is memblock_alloc().
+I looked again and this feels like a band-aid to me.
 
-> To handle this robustly, the late scan needs a way to determine whether
-> the corresponding early reservation actually succeeded. Current approach
-> uses memblock to retain that state.
-
-I can't say I like the idea of keeping this state in memblock.
-This add flags and code to memblock to deal with corner cases of bad
-firmware that reports weird memory layouts, and once there is a flag in
-the common infrastructure, people tend to abuse it.
+I think we need to step back and rethink the order of the
+scratch/kho-bootmem sizing and consider how NUMA and lowmem are involved
+there.
  
+> On powerpc, the difference can be seen in the scratch_len values
+> reported by:
 > 
-> [1] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
+> cat /sys/kernel/debug/kho/out/scratch_len
 > 
+> Before this change, the global scratch allocation was 0x12000000
+> (288 MB):
 > 
-> Best regards,
-> Wandun
+> 0x1000000   (16 MB)
+> 0x12000000  (288 MB)  <- global allocation
+> 0x5000000   (80 MB)
 > 
-> >  
-> >>    Patches 4 and 5 are reworked to reject regions that overlap or are
-> >>    contained by an existing reservation. The code makes a little different
-> >>    from what was acked in v2, so the Acked-by tags for these patches are not
-> >>    carried over.
-> >>
-> >> 2. Reorder the patches: the two cleanup fixes in v2 now come first.
-> >>    In v3, the first patch now introduces the 'dynamic' distinction in
-> >>    fdt_init_reserved_mem_node(), which the following patche 3 build on,
-> >>    so the series reads more fluently.
-> >>
-> >> v1 --> v2:
-> >> 1. Rework failed-node tracking in patch 1: do not track zero-sized nodes,
-> >>    and keep a reserved_mem slot when tracking overflows.
-> >> 2. Reject static reserved regions overlapping existing no-map regions.
-> >> 3. Keep MEMBLOCK_NOMAP flag for static no-map regions when init failure.
-> >>
-> >>
-> >> Wandun Chen (5):
-> >>   of: reserved_mem: release dynamically allocated no-map region on init
-> >>     failure
-> >>   of: reserved_mem: retain static no-map memory on init failure
-> >>   of: reserved_mem: skip init for regions whose early reservation failed
-> >>   of: reserved_mem: reject static regions overlapping no-map memory
-> >>   of: reserved_mem: reject static mapped regions overlapping existing
-> >>     reservations
-> >>
-> >>  drivers/of/of_reserved_mem.c | 86 +++++++++++++++++++++++++-------
-> >>  include/linux/memblock.h     |  7 +++
-> >>  mm/memblock.c                | 95 ++++++++++++++++++++++++++++++++++++
-> >>  3 files changed, 170 insertions(+), 18 deletions(-)
-> >>
-> >> -- 
-> >> 2.43.0
-> >>
-> > 
+> After this change, the global scratch allocation is 0xd000000
+> (208 MB):
+> 
+> 0x1000000   (16 MB)
+> 0xd000000   (208 MB)  <- global allocation
+> 0x5000000   (80 MB)
+> 
+> The 80 MB difference is the per-node reservation that was previously
+> being included in the global allocation.
+> 
+> The same issue also affects lowmem scratch memory, but its impact is
+> limited because the lowmem scratch memory calculation is restricted to
+> the first 4G of memory. The changes also cover the lowmem scratch
+> memory case.
+> 
+> Cc: Alexander Graf <graf@amazon.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: George Guo <guodongtai@kylinos.cn>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+> Cc: Pratyush Yadav <pratyush@kernel.org>
+> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> ---
+>  include/linux/memblock.h           |  1 -
+>  kernel/liveupdate/kexec_handover.c | 49 ++++++++++++++++++++++--------
+>  mm/memblock.c                      | 22 --------------
+>  3 files changed, 37 insertions(+), 35 deletions(-)
+> 
+> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+> index d62db9e776cf..678fe466529a 100644
+> --- a/include/linux/memblock.h
+> +++ b/include/linux/memblock.h
+> @@ -487,7 +487,6 @@ static inline __init_memblock bool memblock_bottom_up(void)
+>  phys_addr_t memblock_phys_mem_size(void);
+>  phys_addr_t memblock_reserved_size(void);
+>  phys_addr_t memblock_reserved_kern_size(phys_addr_t limit, int nid);
+> -phys_addr_t memblock_reserved_hugetlb_size(phys_addr_t limit, int nid);
+>  unsigned long memblock_estimated_nr_free_pages(void);
+>  phys_addr_t memblock_start_of_DRAM(void);
+>  phys_addr_t memblock_end_of_DRAM(void);
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 7c4d86daf86d..dc809e1e768c 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -752,6 +752,31 @@ static int __init kho_parse_scratch_size(char *p)
+>  }
+>  early_param("kho_scratch", kho_parse_scratch_size);
+>  
+> +static phys_addr_t __init_memblock memblock_reserved_size_nid(phys_addr_t limit, int nid,
+> +							      enum memblock_flags region_type)
+> +{
+> +	struct memblock_region *r;
+> +	phys_addr_t total = 0;
+> +
+> +	for_each_reserved_mem_region(r) {
+> +		phys_addr_t size = r->size;
+> +
+> +		if (r->base > limit)
+> +			break;
+> +
+> +		if (r->base + r->size > limit)
+> +			size = limit - r->base;
+> +
+> +#ifdef CONFIG_NUMA
+> +		if (nid == memblock_get_region_node(r))
+> +#endif
+> +			if (r->flags & region_type)
+> +				total += size;
+> +	}
+> +
+> +	return total;
+> +}
+> +
+>  static void __init scratch_size_update(void)
+>  {
+>  	/*
+> @@ -762,17 +787,17 @@ static void __init scratch_size_update(void)
+>  	if (scratch_scale) {
+>  		phys_addr_t size;
+>  
+> -		size = memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
+> -						   NUMA_NO_NODE);
+> -		size -= memblock_reserved_hugetlb_size(ARCH_LOW_ADDRESS_LIMIT,
+> -						       NUMA_NO_NODE);
+> +		size = memblock_reserved_size_nid(ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NODE,
+> +						  MEMBLOCK_RSRV_KERN);
+> +		size -= memblock_reserved_size_nid(ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NODE,
+> +						   MEMBLOCK_RSRV_HUGETLB);
+>  		size = size * scratch_scale / 100;
+>  		scratch_size_lowmem = size;
+>  
+> -		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						   NUMA_NO_NODE);
+> -		size -= memblock_reserved_hugetlb_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						       NUMA_NO_NODE);
+> +		size = memblock_reserved_size_nid(MEMBLOCK_ALLOC_ANYWHERE, NUMA_NO_NODE,
+> +						  MEMBLOCK_RSRV_KERN);
+> +		size -= memblock_reserved_size_nid(MEMBLOCK_ALLOC_ANYWHERE, NUMA_NO_NODE,
+> +						   MEMBLOCK_RSRV_HUGETLB);
+>  		size = size * scratch_scale / 100 - scratch_size_lowmem;
+>  		scratch_size_global = size;
+>  	}
+> @@ -790,11 +815,11 @@ static phys_addr_t __init scratch_size_node(int nid)
+>  	phys_addr_t size;
+>  
+>  	if (scratch_scale) {
+> -		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						   nid);
+> +		size = memblock_reserved_size_nid(MEMBLOCK_ALLOC_ANYWHERE, nid,
+> +						  MEMBLOCK_RSRV_KERN);
+>  		/* Do not count HugeTLB pages. */
+> -		size -= memblock_reserved_hugetlb_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						       nid);
+> +		size -= memblock_reserved_size_nid(MEMBLOCK_ALLOC_ANYWHERE, nid,
+> +						   MEMBLOCK_RSRV_HUGETLB);
+>  		size = size * scratch_scale / 100;
+>  	} else {
+>  		size = scratch_size_pernode;
+> diff --git a/mm/memblock.c b/mm/memblock.c
+> index 021db49eb7fc..9da748e774ea 100644
+> --- a/mm/memblock.c
+> +++ b/mm/memblock.c
+> @@ -1900,28 +1900,6 @@ phys_addr_t __init_memblock memblock_reserved_size(void)
+>  	return memblock.reserved.total_size;
+>  }
+>  
+> -phys_addr_t __init_memblock memblock_reserved_hugetlb_size(phys_addr_t limit, int nid)
+> -{
+> -	struct memblock_region *r;
+> -	phys_addr_t total = 0;
+> -
+> -	for_each_reserved_mem_region(r) {
+> -		phys_addr_t size = r->size;
+> -
+> -		if (r->base > limit)
+> -			break;
+> -
+> -		if (r->base + r->size > limit)
+> -			size = limit - r->base;
+> -
+> -		if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
+> -			if (r->flags & MEMBLOCK_RSRV_HUGETLB)
+> -				total += size;
+> -	}
+> -
+> -	return total;
+> -}
+> -
+>  phys_addr_t __init_memblock memblock_reserved_kern_size(phys_addr_t limit, int nid)
+>  {
+>  	struct memblock_region *r;
+> -- 
+> 2.55.0
 > 
 
 -- 
