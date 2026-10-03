@@ -1,498 +1,210 @@
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7B44A4F00
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A37456E18
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062606; cv=none; b=uDPMCkZgh6fZLJhzwjb2g6VdIf6GhBzYNid5esBvCVpJiUiBjVSg8bJB3ZYGOfx4MCglVFirS0QSygB5H67+80wLoJJQey7U2jkr7/PmR6uG3674nnbhjhkJNfWuZ4bsxWwo5ztBQn9n1fydAhwzFR82OsZN5FEM3Ocig3hCcuU=
+	t=1791062644; cv=none; b=nWNzpEs9ZT6r0qIM9H6Rtewc/crPM3YV5ZyuvD3iCBzaubB34W6dRJ3gmyv+49WUAJLO9MlCg1SbuBeiZKLyzOL7aQgzgMuGq6vIhQXOQK9uIDgrWvEgP+54rQXJiAQCV73Tyh3CCL4TVlko+osOx+aeH7rUTThzD7lhsUm2Vvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062606; c=relaxed/simple;
-	bh=jMV8cgJDxEPGY0Ge+j+1w7LUuIYbV6z8Yuhe0nrl7DE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=VgjTVY6fjck3DzH2Tla3n57+JXadQSxJ944iqqGEOktxoGel+owIhk7upByZcm4bJCcb/75OyA/dazyGL5yUrK9FabanXSrl0IUnqOUTir74mXeV+EropXJTmgcdTOMGBrocsYs/x1vaOT18UcQaoaEqLIQp8ztjLN12DWYTGfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Cn8SRU/x; arc=none smtp.client-ip=209.85.208.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
+	s=arc-20240116; t=1791062644; c=relaxed/simple;
+	bh=CrLJ9dfj2c/eke013I/eMWWMagmxB1FlL5oP0Ukye+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1rIkhZ6Kt37wrI7jglj931k3AnR2d2Gb8yAbksKh9QCkIsAJ49SddUSJnsFOa0LbxpfNIwlHAjxDBaedoR1vRwfPug3O6UwbfqPACnR1WSVdO/OAWTdcExV8+03EWQFuUfi5/8Zq9Jj9qwoPx1jJ5+Kg34y+gt4LHRXB4CjaoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BYJzxRCV; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Cn8SRU/x"
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6aa47eed2c3so794817a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:23:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BYJzxRCV"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e2e0f3dd40so3843985ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:24:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791062596; x=1791667396; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G22V7xnwxmYg316SURjvKl+D8LO21QtdPNHOpoX1sic=;
-        b=Cn8SRU/xm1dqOPfB6LgCbfsdhBUdSh5MbGSYzTi3LpDdjQE3faU5P4qBe8RomnyzJz
-         mV38fAA7aqXAS+QQfWzpFdFVWl0F/xEb2AvVnCeySAWtVeaqcgvSJqp7v7d0aA/wdO6p
-         JzrhIF31m/mxmziflAfqIR8QjbVkP1nmTLfHb1DIN7uS1TWekh7d3FvwhS3vj3Dl9IOA
-         E5TILJl3Q9yC6Kefhk4aOfOR59BtilkP/PyhKWTKUhma0VIGuQ5MHzz/qrFhcauxN1XD
-         Bj+M7vb2J0oyhvIMjC+vzHF+szUVITT0GnLwYcP8vzxuJBWukPE1gChn2KqnoLU5EbYh
-         8TdQ==
+        d=gmail.com; s=20251104; t=1791062642; x=1791667442; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZhsjuLXqM5FY33Q4lIM5AbhdLxpQjvL/gIK2fygQkak=;
+        b=BYJzxRCVBYOaJFFmS2NGBWTA0X9Qqxz827ganjWr9dPNgtMc6IJRZERAENKsbc8opl
+         ZHgc0QdPbCGrwEPY6YgvuKREnaFiliMVw0ya4daxBZdBfpXPeV8xNKYGGW4Y18udiqfJ
+         XeWxbSxFgNl7k9HFnkp3k8LygMm9hVkuqsl5vZI+Q04uFwWJlEizmzKnCPM9nakxmN5v
+         EEklcmSbjSg4sZrWCCEeTZntjTYNEx1LJ6itZnu1gUlj71rqAZ3ST3vIw22JkA1/cGQy
+         jh4j7DhbZ6fHgIOhRcpEChDyMCr04eZaDNdpSl3N28EChvjnmOAUG/nZj2vZJl7rtEe8
+         y+VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791062596; x=1791667396;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791062642; x=1791667442;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G22V7xnwxmYg316SURjvKl+D8LO21QtdPNHOpoX1sic=;
-        b=YvbZtiT7nBcEOroKQiMYTBna5oOyQhTMHHE8GFbqcPrTjncCbwPbQKNJsmo2xn9yHD
-         3YAh3PICQe2FKJV9glwr8N1Q7xX2gft2i2bGHyeRH6O1P2ZUFgDIZ2qUcIVT/EbWXYka
-         HpKF2fDTaCFQfhjc+p00+jIZgOe9k2b/QAwtt6FYqDMc7p6HN5RtA768LlebksqZwr4T
-         PS6pp3eYRDrPnduduFPAHCXAqKp/I8Qa/nCbWS8y18BfVjuqx45lEMPlL7DFCtcznjt6
-         hQ9Z8FhCcI6/c3ArwsrPJlXKconZG37/rfqOmb6J0eHt8/iA5Pd9WBuGP4UD2BLVO41S
-         lhjA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3VsK5BbDaHeGsJpCv4nj+5iSA83J1aLKoRBM1fzqZWn70/7Jm9lgl868D6F8MZsnCHiwzI7fCQ/UbKkY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjUH8iK3KGUplJtupGYCSTjg1z5OFbk3J4HsQW1fW71l6kBzzN
-	ECMhE9Bv2YBUD4AIefFVm1UvJfAGu4t/NRASuHockx+0KFg8ayECReVeiy4RtdkgFYfrsdXk3J7
-	Y6EZwAg==
-X-Received: from edrm21.prod.google.com ([2002:aa7:d355:0:b0:6ae:152a:a437])
- (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:350a:b0:6ac:6318:ab1e
- with SMTP id 4fb4d7f45d1cf-6af9e334a3bmr5072182a12.24.1791062595665; Sat, 03
- Oct 2026 14:23:15 -0700 (PDT)
-Date: Sat,  3 Oct 2026 21:22:41 +0000
-In-Reply-To: <20261003212241.3432303-1-lrizzo@google.com>
+        bh=ZhsjuLXqM5FY33Q4lIM5AbhdLxpQjvL/gIK2fygQkak=;
+        b=qYwPgjKX/Ll56SGWyrteEtYFCVdZDYJlI4mhkwmc5jJBsfBdNznYGWFpvyih361ju5
+         yDtGJp3EB2CFsIKU5dCzulg7qK4VtWVw8M77e57/XkqYOnN63DZlTH0rELv+N/Xdu/CU
+         q1Oo2xT+Cp4a/x2+Eqo0ejXDU1Mkjuf4HYkcReMSntNw7n3arNhWJNs6Mpq+XeT/EEWF
+         xLnxbwjzi3K7rwwlTtcJj8TpFIeoGuw0wZpIHGpNyTVraSJqghwj35juItG5oHfoqz/x
+         x7i0LTV/3IO7umUfyzQqQXTah43P5DUl7tuO/r4kOYXW+SRxEyAWZvZF+fsL4+N1CUVJ
+         oSxg==
+X-Forwarded-Encrypted: i=1; AKwUvByyJ7rG7vfS8Wvon5hS8/GMNlcHTVftraNzHcNh6KGsobCifwMeNpYzCk99vRTQy0Przy8FElY8F4R1+GU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLNSriVVmrs+gINht4Sp9xAIElSco/Va0LySkpRU7brtyGq/AC
+	jaaxi76KX6H/7+x8RTwOqEvhgXaGq7XwPjOw36qKg3faPfFZPlmixHn3
+X-Gm-Gg: AYBFou1hq0D0iYZ+c4UcqMSYCTk77lFsQqVQO/yyJzQMmF77mEcltU6u2jRC30sSLz8
+	POjBYG2zMQp6TjvXBsMf4twTbtuGy2glYum/ZXaWqhfJ/C/izCyWByGPSESCJH4hAA11xDVtoW7
+	yDh07/e0ZqmP8rb5RFlQXusJLH35rOyK8gu3Wuw1UQ+0ma7ywPdYioH6tZkzq/ch3KRz8Q59ydT
+	Jwg/lkED5xtYa1kBlRpa/c3VrnPMgG9hExcoE2VPUYSEZcIL+kKjz0HXPNcjiPVb2wwbXMqgoKi
+	ItizpN5VtiUTzbu031rrZ+KyY/40M2R9S+Deh8MSQYYtF3t9EfbHjY63IOElHCM7+GgWKPqjIqT
+	7TIFmuCYqeJZzvpnFawQZ3Iwgx/DQ01Gbu+Qf1QKlsFhzCSJ0bhj9lGqroTlTkEfuYCv8VPWppv
+	A44X6G6o8GfZpIbeNHgWoyvcVfrRfXz8flU5/PPQnNsKySSfrKpDYNfYrAVdQOxhVZbBeI5kAmH
+	Vj3wjcGpHFSu/wymWCt0WuczbLVf/vq/i9NvMiOzUh+6WVPVCV6ckAt92E9WOgMeEM1Tsz9RGng
+	sPFR+d3R82WTi4O03jMuFA7Bgr9qg3FgJqjXqoJYugOPlV1G
+X-Received: by 2002:a17:903:384c:b0:2dd:ad74:ac2a with SMTP id d9443c01a7336-2e5105a57c4mr30118925ad.28.1791062642500;
+        Sat, 03 Oct 2026 14:24:02 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6d9a88sm18913265ad.53.2026.10.03.14.24.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 14:24:00 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-crypto@vger.kernel.org
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3] crypto: talitos: fix probe IRQ ordering
+Date: Sat,  3 Oct 2026 14:23:59 -0700
+Message-ID: <20261003212359.126745-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261003212241.3432303-1-lrizzo@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003212241.3432303-23-lrizzo@google.com>
-Subject: [RFC: DMA_PMD 22/22] iommu/dma: Add DMA_PMD statistics and debugfs
-From: Luigi Rizzo <lrizzo@google.com>
-To: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Luigi Rizzo <lrizzo@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-DMA_PMD pools fail silently. dma_pmd_pool_alloc() returns NULL for four
-distinct reasons - allocation backoff, the global DMA_PMD page ceiling, an
-PMD_ORDER allocation failure, and a split_page_compound() rejection - and
-every caller quietly falls back to a plain page, so a pool that has
-stopped pooling looks exactly like one that is working. The map path is no
-better: a buffer can be mapped individually because the domain has no
-usable IOVA window, because the domain has no 2MB page size, or because
-the PMD_ORDER page mapping itself failed, and none of that was observable
-either. The only symptom is a throughput loss with no counter to point at.
+The talitos interrupt handlers schedule priv->done_task[] via
+tasklet_schedule().  In probe(), talitos_probe_irq() ran before
+tasklet_init(), so an interrupt arriving during that window (a shared
+IRQ, or a completion pending from an earlier transmission) would
+schedule an uninitialized tasklet.
 
-Add a counter for each of those cases plus the number of 2M page mappings
-established and dropped, and export them, along with the existing per-pool
-statistics, through /sys/kernel/debug/dma_pmd/pools.
+Resolve the IRQ numbers before the tasklet_init() calls so the
+done_task[] selection can see the secondary IRQ, and only request the
+IRQs after the channel fifos are allocated and the device is
+initialized.  Every structure the handlers touch is then fully set up
+before interrupts are enabled.  This matches remove(), which frees the
+IRQs before killing the tasklets.
 
-The new counters are atomic64_t rather than being folded into the existing
-lock-protected statistics because their update sites cannot take
-pool->lock: dma_pmd_add_page() runs outside it, and the map slow path
-holds p2m->map_lock, so taking pool->lock there would invert the order
-against dma_pmd_domain_release().
-
-Also emit a one-shot warning on the first PMD_ORDER allocation failure.
-That request carries __GFP_NOWARN, so the page allocator says nothing, and
-this is the one failure mode that is worth a line in dmesg rather than a
-counter somebody has to know to look at.
-
-Signed-off-by: Luigi Rizzo <lrizzo@google.com>
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/iommu/dma-pmd-map.c  |  16 +++-
- drivers/iommu/dma-pmd-pool.c | 143 ++++++++++++++++++++++++++++++++---
- drivers/iommu/dma-pmd-priv.h |  43 ++++++++++-
- 3 files changed, 186 insertions(+), 16 deletions(-)
+ v3: reshuffle again to fix IRQs.
+ v2: reshuffle code to avoid NULL derefs
+ drivers/crypto/talitos.c | 48 ++++++++++++++++++++++------------------
+ 1 file changed, 26 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/iommu/dma-pmd-map.c b/drivers/iommu/dma-pmd-map.c
-index 76cb5d01cb1e8..46c6ab5c1b7de 100644
---- a/drivers/iommu/dma-pmd-map.c
-+++ b/drivers/iommu/dma-pmd-map.c
-@@ -468,8 +468,13 @@ dma_addr_t dma_pmd_dma_map_phys(struct device *dev, struct iommu_domain *domain,
- 		else
- 			ret = dma_pmd_window_assign(dev, domain, win);
+diff --git a/drivers/crypto/talitos.c b/drivers/crypto/talitos.c
+index 41a87d7c30a0..70f7ad9e09f9 100644
+--- a/drivers/crypto/talitos.c
++++ b/drivers/crypto/talitos.c
+@@ -3353,21 +3353,13 @@ static int talitos_probe_irq(struct platform_device *ofdev)
+ 	int err;
+ 	bool is_sec1 = has_ftr_sec1(priv);
  
--		if (ret)
-+		if (ret) {
-+			if (ret == -EOPNOTSUPP)
-+				atomic64_inc(&meta->pool->fallback_nopool);
-+			else
-+				atomic64_inc(&meta->pool->fallback_nowindow);
- 			return DMA_MAPPING_ERROR;
-+		}
- 		win_size = READ_ONCE(win->size);
+-	priv->irq[0] = platform_get_irq(ofdev, 0);
+-	if (priv->irq[0] < 0)
+-		return priv->irq[0];
+-
+ 	if (is_sec1) {
+ 		err = request_irq(priv->irq[0], talitos1_interrupt_4ch, 0,
+ 				  dev_driver_string(dev), priv);
+ 		goto primary_out;
  	}
  
-@@ -482,8 +487,10 @@ dma_addr_t dma_pmd_dma_map_phys(struct device *dev, struct iommu_domain *domain,
- 	 * device mask.
- 	 */
- 	if (unlikely(iova - win->base + size > win_size ||
--		     iova + size - 1 > min_not_zero(dma_mask, dev->bus_dma_limit)))
-+		     iova + size - 1 > min_not_zero(dma_mask, dev->bus_dma_limit))) {
-+		atomic64_inc(&meta->pool->fallback_nowindow);
- 		return DMA_MAPPING_ERROR;
-+	}
+-	priv->irq[1] = platform_get_irq_optional(ofdev, 1);
+-	if (priv->irq[1] == -EPROBE_DEFER)
+-		return priv->irq[1];
+-
+-	/* get the primary irq line */
++	/* single (or primary) irq line */
+ 	if (priv->irq[1] < 0) {
+ 		err = request_irq(priv->irq[0], talitos2_interrupt_4ch, 0,
+ 				  dev_driver_string(dev), priv);
+@@ -3379,13 +3371,11 @@ static int talitos_probe_irq(struct platform_device *ofdev)
+ 	if (err)
+ 		goto primary_out;
  
- 	domain_idx = win->domain_idx - DMA_PMD_IDX_FIRST;
- 	if (likely(test_bit(domain_idx, &meta->domains_mapped)))
-@@ -510,12 +517,15 @@ dma_addr_t dma_pmd_dma_map_phys(struct device *dev, struct iommu_domain *domain,
- 			 */
- 			smp_mb__before_atomic();
- 			set_bit(domain_idx, &meta->domains_mapped);
-+			atomic64_inc(&meta->pool->pmd_map_cnt);
- 		}
- 	}
- 	spin_unlock_irqrestore(&meta->map_lock, flags);
+-	/* get the secondary irq line */
++	/* secondary irq line */
+ 	err = request_irq(priv->irq[1], talitos2_interrupt_ch1_3, 0,
+ 			  dev_driver_string(dev), priv);
+-	if (err) {
++	if (err)
+ 		dev_err(dev, "failed to request secondary irq\n");
+-		priv->irq[1] = 0;
+-	}
  
--	if (unlikely(ret))
-+	if (unlikely(ret)) {
-+		atomic64_inc(&meta->pool->fallback_maperr);
- 		return DMA_MAPPING_ERROR;
-+	}
+ 	return err;
  
- 	return iova;
- }
-diff --git a/drivers/iommu/dma-pmd-pool.c b/drivers/iommu/dma-pmd-pool.c
-index d48c8e19741ab..a85aa550b500c 100644
---- a/drivers/iommu/dma-pmd-pool.c
-+++ b/drivers/iommu/dma-pmd-pool.c
-@@ -682,16 +682,21 @@ unsigned int dma_pmd_pools_forget_domain(int idx)
+@@ -3404,12 +3394,27 @@ static int talitos_probe(struct platform_device *ofdev)
+ 	struct device_node *np = ofdev->dev.of_node;
+ 	struct talitos_private *priv;
+ 	unsigned int num_channels;
++	void __iomem *reg;
+ 	int i, err;
+ 	int stride;
++	int irq0;
++	int irq1;
  
- 	mutex_lock(&dma_pmd_pools_lock);
- 	list_for_each_entry(pool, &dma_pmd_pools, node) {
-+		unsigned int n = 0;
+ 	if (of_property_read_u32(np, "fsl,num-channels", &num_channels))
+ 		return -EINVAL;
+ 
++	irq0 = platform_get_irq(ofdev, 0);
++	if (irq0 < 0)
++		return irq0;
 +
- 		spin_lock_irqsave(&pool->lock, flags);
- 		list_for_each_entry(meta, &pool->partial, list)
--			dropped += dma_pmd_forget_domain(meta, idx);
-+			n += dma_pmd_forget_domain(meta, idx);
- 		list_for_each_entry(meta, &pool->partial_dirty, list)
--			dropped += dma_pmd_forget_domain(meta, idx);
-+			n += dma_pmd_forget_domain(meta, idx);
- 		list_for_each_entry(meta, &pool->idle, list)
--			dropped += dma_pmd_forget_domain(meta, idx);
-+			n += dma_pmd_forget_domain(meta, idx);
- 		list_for_each_entry(meta, &pool->full, list)
--			dropped += dma_pmd_forget_domain(meta, idx);
-+			n += dma_pmd_forget_domain(meta, idx);
- 		spin_unlock_irqrestore(&pool->lock, flags);
++	irq1 = platform_get_irq_optional(ofdev, 1);
++	if (irq1 == -EPROBE_DEFER)
++		return irq1;
 +
-+		atomic64_add(n, &pool->domain_forget_cnt);
-+		dropped += n;
- 	}
- 	mutex_unlock(&dma_pmd_pools_lock);
++	reg = devm_platform_ioremap_resource(ofdev, 0);
++	if (IS_ERR(reg))
++		return PTR_ERR(reg);
++
+ 	priv = devm_kzalloc(dev, struct_size(priv, chan, num_channels), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+@@ -3425,12 +3430,7 @@ static int talitos_probe(struct platform_device *ofdev)
  
-@@ -843,8 +848,10 @@ static struct dma_pmd_meta *dma_pmd_add_page(struct dma_pmd_pool *pool,
- 	 * A high-order allocation is expensive when it fails, and under fragmentation
- 	 * it fails on every pool miss. For GFP_ATOMIC, back off briefly.
- 	 */
--	if (!can_block && time_before(jiffies, READ_ONCE(pool->next_alloc_attempt)))
-+	if (!can_block && time_before(jiffies, READ_ONCE(pool->next_alloc_attempt))) {
-+		atomic64_inc(&pool->fail_backoff);
- 		return NULL;
-+	}
+ 	spin_lock_init(&priv->reg_lock);
  
- 	/* Aggregate ceiling across every pool, independent of max_idle_pages. */
- 	if (atomic_long_inc_return(&dma_pmd_nr_pages) > READ_ONCE(dma_pmd_max_pages)) {
-@@ -852,6 +859,7 @@ static struct dma_pmd_meta *dma_pmd_add_page(struct dma_pmd_pool *pool,
- 		if (!can_block)
- 			WRITE_ONCE(pool->next_alloc_attempt,
- 				   jiffies + DIV_ROUND_UP(HZ, 100));
-+		atomic64_inc(&pool->fail_budget);
- 		return NULL;
+-	priv->reg = devm_platform_ioremap_resource(ofdev, 0);
+-	if (IS_ERR(priv->reg)) {
+-		dev_err(dev, "failed to of_iomap\n");
+-		err = PTR_ERR(priv->reg);
+-		goto err_out;
+-	}
++	priv->reg = reg;
+ 
+ 	/* get SEC version capabilities from device tree */
+ 	of_property_read_u32(np, "fsl,channel-fifo-len", &priv->chfifo_len);
+@@ -3481,9 +3481,8 @@ static int talitos_probe(struct platform_device *ofdev)
+ 		stride = TALITOS2_CH_STRIDE;
  	}
  
-@@ -890,6 +898,14 @@ static struct dma_pmd_meta *dma_pmd_add_page(struct dma_pmd_pool *pool,
- 		if (!can_block)
- 			WRITE_ONCE(pool->next_alloc_attempt,
- 				   jiffies + DIV_ROUND_UP(HZ, 100));
-+		atomic64_inc(&pool->fail_nomem);
-+		/*
-+		 * __GFP_NOWARN suppresses the page allocator's own report, so
-+		 * without this the pool can stop pooling entirely and look
-+		 * exactly like one that is working.
-+		 */
-+		pr_warn_once("dma_pmd: order-%u allocation failed for pool %p; further failures are counted in debugfs only\n",
-+			     PMD_ORDER, pool);
- 		return NULL;
+-	err = talitos_probe_irq(ofdev);
+-	if (err)
+-		goto err_out;
++	priv->irq[0] = irq0;
++	priv->irq[1] = irq1;
+ 
+ 	if (has_ftr_sec1(priv)) {
+ 		if (priv->num_channels == 1)
+@@ -3540,6 +3539,11 @@ static int talitos_probe(struct platform_device *ofdev)
+ 		goto err_out;
  	}
  
-@@ -922,6 +938,7 @@ static struct dma_pmd_meta *dma_pmd_add_page(struct dma_pmd_pool *pool,
- 			__free_pages(page, PMD_ORDER);
- 			atomic_long_dec(&dma_pmd_nr_pages);
- 		}
-+		atomic64_inc(&pool->fail_split);
- 		return NULL;
- 	}
- 
-@@ -1020,7 +1037,7 @@ static struct dma_pmd_meta *dma_pmd_pick_meta(struct dma_pmd_pool *pool, bool ze
- /* Extract up to @want available blocks from @meta under @pool->lock. */
- static unsigned long dma_pmd_take_blocks(struct dma_pmd_pool *pool,
- 					 struct dma_pmd_meta *meta,
--					 unsigned long want,
-+					 int target_nid, unsigned long want,
- 					 struct page **out, bool zero)
- {
- 	unsigned long base_pfn = dma_pmd_meta_to_pfn(meta);
-@@ -1040,6 +1057,8 @@ static unsigned long dma_pmd_take_blocks(struct dma_pmd_pool *pool,
- 		meta->nr_dirty = 0;
- 	}
- 	dma_pmd_place_meta(pool, meta);
-+	if (page_to_nid(pfn_to_page(base_pfn)) != target_nid)
-+		pool->numa_mismatch_cnt += used;
- 
- 	return got;
- }
-@@ -1075,13 +1094,18 @@ unsigned long dma_pmd_pool_alloc_bulk_node(struct dma_pmd_pool *pool, gfp_t gfp,
- {
- 	unsigned long allocated = 0, flags;
- 	bool should_scrub = false;
-+	int target_nid;
- 	bool zero;
- 
--	if (unlikely(!pool || pool->destroyed || !nr_pages ||
--		     (gfp & (__GFP_DMA | __GFP_DMA32 | __GFP_THISNODE |
--			     __GFP_ACCOUNT))))
-+	if (unlikely(!pool || pool->destroyed || !nr_pages))
-+		return 0;
++	/* enable interrupts once the channel fifos and tasklets are set up */
++	err = talitos_probe_irq(ofdev);
++	if (err)
++		goto err_out;
 +
-+	if (unlikely(gfp & (__GFP_DMA | __GFP_DMA32 | __GFP_THISNODE | __GFP_ACCOUNT))) {
-+		atomic64_inc(&pool->fail_gfp);
- 		return 0;
-+	}
- 
-+	target_nid = (nid == NUMA_NO_NODE) ? numa_mem_id() : nid;
- 	zero = want_init_on_alloc(gfp);
- 
- 	spin_lock_irqsave(&pool->lock, flags);
-@@ -1093,8 +1117,11 @@ unsigned long dma_pmd_pool_alloc_bulk_node(struct dma_pmd_pool *pool, gfp_t gfp,
- 			/* Fallback to a new allocation */
- 			spin_unlock_irqrestore(&pool->lock, flags);
- 			meta = dma_pmd_add_page(pool, gfp, nid, zero);
--			if (!meta)
-+			if (!meta) {
-+				if (!allocated)
-+					atomic64_inc(&pool->block_alloc_fail);
- 				goto out;
-+			}
- 			spin_lock_irqsave(&pool->lock, flags);
- 			pool->pmd_alloc_cnt++;
- 			list_add(&meta->list, &pool->partial);
-@@ -1102,7 +1129,7 @@ unsigned long dma_pmd_pool_alloc_bulk_node(struct dma_pmd_pool *pool, gfp_t gfp,
- 				should_scrub = true;
- 		}
- 
--		allocated += dma_pmd_take_blocks(pool, meta,
-+		allocated += dma_pmd_take_blocks(pool, meta, target_nid,
- 						 nr_pages - allocated,
- 						 &page_array[allocated], zero);
- 	}
-@@ -1366,6 +1393,91 @@ static unsigned long dma_pmd_shrink_scan(struct shrinker *shrink,
- 	return freed ?: SHRINK_STOP;
- }
- 
-+/*
-+ * One block of lines per pool, in /sys/kernel/debug/dma_pmd/pools.
-+ *
-+ * Pools that have seen no activity at all are skipped: two are created per
-+ * possible CPU and one per RX queue, so on a large machine the overwhelming
-+ * majority are idle and would bury the few that carry traffic. A pool that
-+ * tried and failed is never skipped - that is the case this file exists for.
-+ *
-+ * The u64 statistics are snapshotted under @pool->lock and printed after it is
-+ * dropped; the atomic64 ones are read locklessly, so a line is not a
-+ * consistent instant. That is fine for what this is used for - watching which
-+ * way a counter moves - and keeps the file off the locking hot path.
-+ *
-+ * The partial/full split is not reported: counting it means walking both lists
-+ * with @pool->lock held and interrupts off, which is unbounded in the number of
-+ * PMD pages a pool holds. "held" is derived from the got/put counters instead.
-+ */
-+static int dma_pmd_pools_show(struct seq_file *s, void *unused)
-+{
-+	unsigned int reservoir_nr = 0;
-+	struct dma_pmd_pool *pool;
-+	int nid;
-+
-+	for_each_node_state(nid, N_MEMORY)
-+		reservoir_nr += READ_ONCE(dma_pmd_reservoirs[nid].nr_pages);
-+
-+	seq_printf(s, "2m_pages %ld/%lu reservoir %u; pools with no activity are omitted\n",
-+		   atomic_long_read(&dma_pmd_nr_pages), dma_pmd_max_pages, reservoir_nr);
-+
-+	mutex_lock(&dma_pmd_pools_lock);
-+	list_for_each_entry(pool, &dma_pmd_pools, node) {
-+		u64 alloc_2m, free_2m, block_alloc, block_free, block_scrub;
-+		u64 block_fail, fail_gfp, numa_mismatch;
-+		unsigned int num_idle, max_idle;
-+		unsigned long flags;
-+
-+		block_fail = atomic64_read(&pool->block_alloc_fail);
-+		fail_gfp = atomic64_read(&pool->fail_gfp);
-+
-+		spin_lock_irqsave(&pool->lock, flags);
-+		alloc_2m = pool->pmd_alloc_cnt;
-+		free_2m = pool->pmd_free_cnt;
-+		block_alloc = pool->block_alloc_cnt;
-+		block_free = pool->block_free_cnt;
-+		block_scrub = pool->block_scrub_cnt;
-+		numa_mismatch = pool->numa_mismatch_cnt;
-+		num_idle = pool->num_idle_pages;
-+		max_idle = pool->max_idle_pages;
-+		spin_unlock_irqrestore(&pool->lock, flags);
-+
-+		/*
-+		 * A pool that acquired no PMD page is the one worth looking at,
-+		 * not the one to hide: it is indistinguishable from a healthy
-+		 * pool everywhere else, because its callers just fall back.
-+		 * Omit a pool only when nothing has ever happened to it, which
-+		 * is the idle-per-CPU case this filter exists for.
-+		 */
-+		if (!alloc_2m && !block_alloc && !block_fail && !fail_gfp)
-+			continue;
-+
-+		seq_printf(s, "pool %p order %u\n", pool, pool->order);
-+		seq_printf(s, "  2m_pages  got %llu put %llu held %llu idle %u/%u\n",
-+			   alloc_2m, free_2m, alloc_2m - free_2m, num_idle, max_idle);
-+		seq_printf(s, "  blocks    alloc %llu free %llu scrub %llu numa_mismatch %llu failed %llu gfp %llu\n",
-+			   block_alloc, block_free, block_scrub, numa_mismatch,
-+			   block_fail, fail_gfp);
-+		seq_printf(s, "  no_2m     backoff %lld budget %lld nomem %lld split %lld\n",
-+			   atomic64_read(&pool->fail_backoff),
-+			   atomic64_read(&pool->fail_budget),
-+			   atomic64_read(&pool->fail_nomem),
-+			   atomic64_read(&pool->fail_split));
-+		seq_printf(s, "  domains   mapped %lld forgotten %lld\n",
-+			   atomic64_read(&pool->pmd_map_cnt),
-+			   atomic64_read(&pool->domain_forget_cnt));
-+		seq_printf(s, "  per_buf   no_window %lld no_pool %lld map_err %lld\n",
-+			   atomic64_read(&pool->fallback_nowindow),
-+			   atomic64_read(&pool->fallback_nopool),
-+			   atomic64_read(&pool->fallback_maperr));
-+	}
-+	mutex_unlock(&dma_pmd_pools_lock);
-+
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(dma_pmd_pools);
-+
- static int __init dma_pmd_init(void)
- {
- 	struct shrinker *shrink;
-@@ -1377,7 +1489,7 @@ static int __init dma_pmd_init(void)
- 	}
- 
- 	/*
--	 * Hard ceiling on memory diverted from the buddy allocator into 2MB
-+	 * Hard ceiling on memory diverted from the buddy allocator into DMA_PMD
- 	 * pools, in PMD pages. One eighth of RAM is far above what the per-pool
- 	 * watermarks should ever reach; it exists to bound a pathological
- 	 * configuration (many queues, many CPUs, all pools at their high
-@@ -1403,6 +1515,13 @@ static int __init dma_pmd_init(void)
- 	if (!dma_pmd_wq)
- 		pr_warn("dma_pmd: no reclaim workqueue, falling back to system_wq\n");
- 
-+	/*
-+	 * No error handling and no dentry kept: this is built in and never
-+	 * unloaded, and the stubs are no-ops when debugfs is disabled.
-+	 */
-+	debugfs_create_file("pools", 0444, debugfs_create_dir("dma_pmd", NULL),
-+			    NULL, &dma_pmd_pools_fops);
-+
- 	shrink = shrinker_alloc(0, "dma_pmd");
- 	if (!shrink) {
- 		pr_warn("dma_pmd: shrinker registration failed\n");
-diff --git a/drivers/iommu/dma-pmd-priv.h b/drivers/iommu/dma-pmd-priv.h
-index 82a5c869aa216..b9bf48eb7f0f7 100644
---- a/drivers/iommu/dma-pmd-priv.h
-+++ b/drivers/iommu/dma-pmd-priv.h
-@@ -178,7 +178,8 @@ static inline unsigned int dma_pmd_meta_avail(const struct dma_pmd_meta *m)
-  * struct dma_pmd_pool - Pool managing PMD-backed blocks of a fixed order
-  *
-  * @lock:	Spinlock protecting @partial, @idle, @full, @num_idle_pages,
-- *		block bitmaps and the statistics counters
-+ *		the block bitmaps and the u64 statistics counters. The
-+ *		atomic64_t counters below are deliberately outside it.
-  * @order:	Block order managed by this pool (<= PMD_ORDER)
-  * @destroyed:	Set when dma_pmd_pool_destroy() has been called
-  * @partial:	List of partially used PMD pages with @nr_free > 0 (clean-only
-@@ -196,6 +197,7 @@ static inline unsigned int dma_pmd_meta_avail(const struct dma_pmd_meta *m)
-  * @block_alloc_cnt: Statistics counter of block allocations satisfied
-  * @block_free_cnt: Statistics counter of block frees recycled into pool
-  * @block_scrub_cnt: Statistics counter of dirty blocks zeroed by scrubber
-+ * @numa_mismatch_cnt: Block allocations satisfied from a non-target NUMA node
-  * @next_alloc_attempt: Do not attempt a new order-9 allocation before this time.
-  *		Damps repeated high-order GFP_ATOMIC failures under
-  *		fragmentation, which would otherwise be retried on every
-@@ -203,6 +205,26 @@ static inline unsigned int dma_pmd_meta_avail(const struct dma_pmd_meta *m)
-  * @refcount:	Reference count; held by pool creator and each active PMD page
-  * @node:	Node in the global dma_pmd_pools list
-  * @dead_node:	Node in dma_pmd_dead_pools once @refcount reaches 0
-+ * @fail_backoff: PMD page acquisitions skipped because @next_alloc_attempt was set
-+ * @fail_budget: PMD page acquisitions refused by global dma_pmd_max_pages
-+ * @fail_nomem: PMD page acquisitions that ran out of memory for the order-9
-+ *		allocation. Silent otherwise: the request carries __GFP_NOWARN
-+ *		so the page allocator says nothing.
-+ * @fail_split: split_page_compound() rejections
-+ * @block_alloc_fail: PMD page acquisitions that failed, making
-+ *		dma_pmd_pool_alloc() return NULL so the caller had to fall
-+ *		back to a plain page
-+ * @fail_gfp:	dma_pmd_pool_alloc() calls declined due to unsupported GFP
-+ *		flags (__GFP_DMA, __GFP_DMA32, __GFP_THISNODE, __GFP_ACCOUNT)
-+ * @pmd_map_cnt: PMD page mappings established across all domains
-+ * @fallback_nowindow: Buffers mapped individually because the domain has no
-+ *		usable IOVA window - no free range large enough, no free
-+ *		domain index, or a window the device cannot address
-+ * @fallback_nopool: Buffers mapped individually because the domain can never
-+ *		pool: direct isolation, or no PMD page size
-+ * @fallback_maperr: Buffers mapped individually because the PMD page mapping
-+ *		itself failed
-+ * @domain_forget_cnt: Cached mappings dropped by dma_pmd_domain_release()
-  */
- struct dma_pmd_pool {
- 	/* First cacheline: hot fields touched on block alloc and free. */
-@@ -222,12 +244,31 @@ struct dma_pmd_pool {
- 	u64			block_alloc_cnt;
- 	u64			block_free_cnt;
- 	u64			block_scrub_cnt;
-+	u64			numa_mismatch_cnt;
- 
- 	/* Cold. */
- 	unsigned long		next_alloc_attempt;
- 	struct kref		refcount;
- 	struct list_head	node;
- 	struct llist_node	dead_node;
-+
-+	/*
-+	 * Statistics updated without @lock. dma_pmd_add_page() runs outside
-+	 * it, and the map slow path holds @meta->map_lock - taking @lock there
-+	 * would invert the order against dma_pmd_domain_release(), which
-+	 * walks @lock then map_lock.
-+	 */
-+	atomic64_t		fail_backoff;
-+	atomic64_t		fail_budget;
-+	atomic64_t		fail_nomem;
-+	atomic64_t		fail_split;
-+	atomic64_t		block_alloc_fail;
-+	atomic64_t		fail_gfp;
-+	atomic64_t		pmd_map_cnt;
-+	atomic64_t		fallback_nowindow;
-+	atomic64_t		fallback_nopool;
-+	atomic64_t		fallback_maperr;
-+	atomic64_t		domain_forget_cnt;
- } ____cacheline_aligned;
- 
- extern unsigned long dma_pmd_meta_nframes;
+ 	/* register the RNG, if available */
+ 	if (hw_supports(dev, DESC_HDR_SEL0_RNG)) {
+ 		err = talitos_register_rng(dev);
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.56.0
 
