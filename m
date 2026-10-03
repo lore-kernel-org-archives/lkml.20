@@ -1,159 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-147.mta0.migadu.com [91.218.175.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F40C382283
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC9128D831
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791000156; cv=none; b=lHpFt3fqwhxqupZQn2A4bcoNfKOBrgp73rRaacrRQMF/Q2k2i4S5+OI2YQkYhVHWELD2ZA42QzqBteAkU/8NhPaI+eBglMAzcCwKEPHGHWaZrw45BTfleOCz6vHEKvNUGalCttMb3VbrkWLz3LmpcPC+OqaXGPUxdHu8+1gwo04=
+	t=1791000553; cv=none; b=EfK03ozA3Ph1a2hPzFNjyiWjmkiPqfBitT6W7mPUJ2JzK34WM62jvfn46Ds9sgaC5HCIN7+wktl1B6vHfZJW2ubSx38M9M9NbzHhXnIT5nCKESAzGsHaaua9Zc94TvR2J0kcWxJQ4ePmxlRuH+HGvyJqm0jkGgsbgEfGPQv4cFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791000156; c=relaxed/simple;
-	bh=DHf+N8sLAfAAiDtbstMHFBX0Xlx5TDyTO3nV1Op8V/8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UsvMF6NNDRBb4WX6SL0JWhT+OBJYKYr+V6HJ0jMOzKihGHzKP9tkOJ3zI5CE6W0re49jVN3yxWJm22D1FheHU5Ch2K5hqi13KxlIvOAP6lTRSXfmMPlYg1vVWp5cAxg9z9SGle0pHbGN8caYrJ/Z/CHVPAJWMbUQFisX+3wvT2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7KYmbsi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791000553; c=relaxed/simple;
+	bh=imDMpdjRhfzMYggRquormk+wJ7ZhIYD9996w+/U6pE0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FCVQsAU/1OzGN+gXsPTqvwekSsmzu5Pg3lCRgxANvdJU2MLkONs/EcpECbGTqz72v90uOs0e31lGVsfhd3gHxYQp641P7UQwcgZLJGtrRPqoUzH2nK29BSnKupU27CdAri+QLR+ApWALTQRePEc1c3mhSmFVcL17EposphsEWuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=dN4f7vKK; arc=none smtp.client-ip=91.218.175.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7KYmbsi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF8731F0089A
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791000154;
-	bh=2ShSmRUtxWEdg8PYGPavnsBraONwW1LV3c/s5yV1NCs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=n7KYmbsikhCRwDIsEDTjeuN6Zwp5d4UnP9SMGVQzLIZEz4qvkknXFTP6F7xnYkzx2
-	 LH90XwQ/O+DzlWJeDjwt/0PRFwP/0egrfoYq2YHSz//0WGzqutU2HXZnQKnmSlgBMJ
-	 wOG+ZD7/fpD2ZRthhiv3JGU6WM5vkBFQvSDBrIovn0MN/iXgy6Z/6DTQMhFP+d6v6w
-	 yokUdgl80oIErNZ6qAQ3WjY4L8EUR7iRzlNvmTHO5OcZ+4QW/EL2V9CqociQdlrdeV
-	 XXn146ME1kYjrV4ExORsZdEP0qeN9499rC75L43wgmrMlVGe9zPpZ9ej+YWyx1niv0
-	 I77qnsdfbPWJw==
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb8b78d6cso120815a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:02:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByE71DPsz3TtrApQJHdUVfmpPwYUsC45hFvY6FJCvJNsSMrv9Ah4Nbw1vuKCf9RHrHeETZpyhBASxl8LoM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTA8ACcwDODpPPkwgil7/i6EnKsWEwZOgwWaYGE1cW8shpOfOy
-	hJaYYOabCfrrzIRYUTqOrVQPY/SVP50A3Po/DdIHErikJS0OUOcviSN3VBv0jqx8UZUnyvHbEhs
-	Pub02DyzIea7pa+UJgfCn+Mxpi6KGn88=
-X-Received: by 2002:a05:6402:52c1:b0:6ae:550e:59ee with SMTP id
- 4fb4d7f45d1cf-6af9e30f5a0mr2805647a12.36.1791000153376; Fri, 02 Oct 2026
- 21:02:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="dN4f7vKK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=imDMpdjRhfzMYggRquormk+wJ7ZhIYD9996w+/U6pE0=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791000548; v=1; x=1791605348;
+ b=dN4f7vKK6PAyhOf5tCp7o7Sbbe/fjiQNK/al/b2zBQoeSla0KJ8vtj9ILCJ9IaoZjyiY4b8G
+ sdoywM2VqarVBziEseW6CFgi13sDdtJGKyGTi1LkVWmdGlHBmmRC+sOoGHjSsXmARut5kV6MCGD
+ 7d+pZxpRaT8tnoYViBeMVxxQ13/ASk1gdSaHvk2uQ77IrclpQnXX9487cdFtfzi7mppYouXX6pa
+ AP0uJlAermurqtaLcNS09PkAp89vjdHg9hKwAN9WveqsudPitgCaLfMnQtWy1HisxHm8BR9DBtI
+ z3K7N8KbiSg6XV/db/sqxVr+HsOZ5AQJ6+hjx9p36Wcog==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cd35fe1bf2e6af26;
+	Sat, 03 Oct 2026 04:08:58 +0000
+X-Mizu-Trace-ID: cd35fe1bf2e6af26
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 3 Oct 2026 12:08:55 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn,
+	si.yanteng@linux.dev, srcres258@furdevs.cn,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] docs/zh_TW: move magic-number to staging/
+Message-ID: <asB_10iFCIEhjYPi@wyuan.org>
+References: <20260929131020.266120-1-chenyou910331@gmail.com>
+ <20260929131020.266120-3-chenyou910331@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923012356.1058379-1-maobibo@loongson.cn>
-In-Reply-To: <20260923012356.1058379-1-maobibo@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 3 Oct 2026 12:02:21 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5+pFcSbjKzH-wHsOR2+07Q8D51S73DF6qCyUjdwMiHjA@mail.gmail.com>
-X-Gm-Features: AclHuK8QPrzkNUWV8LeYPocyeAeY7oS40yvBcmThzE45_K4ID_lbjWl7UEZ3Hfo
-Message-ID: <CAAhV-H5+pFcSbjKzH-wHsOR2+07Q8D51S73DF6qCyUjdwMiHjA@mail.gmail.com>
-Subject: Re: [PATCH] KVM: LoongArch: selftests: Enable HW PTW by auto
- detection method
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260929131020.266120-3-chenyou910331@gmail.com>
 
-Applied, thanks.
+On 2026-09-29 21:10:16 +0800, Chen-Yu Yeh <chenyou910331@gmail.com> wrote:
 
-Huacai
+> The English original moved from process/ to staging/ in
+> commit f9a4f4a0e1f5 ("Docs: Move magic-number from process to staging"),
+> but the translation stayed behind.  checktransupdate.py locates the
+> English original from the translation's path, so it currently reports:
+> 
+>   Cannot find the origin path for
+>   Documentation/translations/zh_TW/process/magic-number.rst
+> 
+> Move it to match the English layout.  zh_TW has no staging/ directory
+> yet, so add a staging/index.rst that follows the English one, listing
+> the documents not translated yet under TODOList as zh_CN does, and link
+> it from the top-level index in place of its TODOList entry.  The content
+> of magic-number.rst is unchanged.
+> 
+> Unlike most of the tree, this translation was kept in step for a while
+> by the English authors themselves: the 2022 series that removed stale
+> magic numbers edited the translations as well, and so did
+> commit dd8d4bc28ad7 ("net: remove ax25 and amateur radio (hamradio)
+> subsystem").  The one English change it lacks is
+> commit cdcfc029482a ("Documentation: Fix incorrect paths/magic in magic
+> numbers rst"), which went in after the move.  Use the move commit as the
+> baseline so that change is reported; checktransupdate.py will also list
+> dd8d4bc28ad7, which is already reflected here.
 
-On Wed, Sep 23, 2026 at 9:31=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrot=
-e:
->
-> Add HW PTW feature when VM is created. This feature is detected firstly,
-> enable it if it is available on host machine. With HW PTW feature enabled=
-,
-> refill exception will not happen and it is not necessary to set refill
-> exception entry.
->
-> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+Thanks for additional info ;-)
+
+> update to commit f9a4f4a0e1f5 ("Docs: Move magic-number from process to
+> staging")
+> 
+> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
+
+Reviewed-by: Weijie Yuan <wy@wyuan.org>
+
 > ---
->  .../selftests/kvm/include/loongarch/processor.h  |  3 +++
->  .../selftests/kvm/lib/loongarch/processor.c      | 16 ++++++++++++++--
->  2 files changed, 17 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/testing/selftests/kvm/include/loongarch/processor.h b/=
-tools/testing/selftests/kvm/include/loongarch/processor.h
-> index 0e59daa8024e..8d9fabdc89e3 100644
-> --- a/tools/testing/selftests/kvm/include/loongarch/processor.h
-> +++ b/tools/testing/selftests/kvm/include/loongarch/processor.h
-> @@ -79,6 +79,7 @@
->  #define  CPUCFG2_LASX                  BIT(7)
->  #define  CPUCFG2_LLFTP                 BIT(14)
->  #define  CPUCFG2_LLFTPREV              GENMASK(17, 15)
-> +#define  CPUCFG2_PTW                   BIT(24)
->
->  /* LoongArch Basic CSR registers */
->  #define LOONGARCH_CSR_CRMD             0x0 /* Current mode info */
-> @@ -128,6 +129,8 @@
->  #define LOONGARCH_CSR_PGD              0x1b
->  #define LOONGARCH_CSR_PWCTL0           0x1c
->  #define LOONGARCH_CSR_PWCTL1           0x1d
-> +#define  CSR_PWCTL1_PTW_SHIFT          24
-> +#define  CSR_PWCTL1_PTW                        BIT_ULL(CSR_PWCTL1_PTW_SH=
-IFT)
->  #define LOONGARCH_CSR_STLBPGSIZE       0x1e
->  #define LOONGARCH_CSR_CPUID            0x20
->  #define LOONGARCH_CSR_KS0              0x30
-> diff --git a/tools/testing/selftests/kvm/lib/loongarch/processor.c b/tool=
-s/testing/selftests/kvm/lib/loongarch/processor.c
-> index 47bbde3e205a..35e35c62759f 100644
-> --- a/tools/testing/selftests/kvm/lib/loongarch/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/loongarch/processor.c
-> @@ -282,6 +282,7 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->         unsigned int cfg;
->         unsigned long val;
->         struct kvm_vm *vm =3D vcpu->vm;
-> +       bool has_ptw =3D false;
->
->         switch (vm->mode) {
->         case VM_MODE_P36V47_16K:
-> @@ -300,6 +301,12 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->         ret =3D __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL,=
- KVM_LOONGARCH_VM_FEAT_LASX);
->         if (!ret)
->                 cfg |=3D CPUCFG2_LASX;
-> +       ret =3D __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL,=
- KVM_LOONGARCH_VM_FEAT_PTW);
-> +       if (!ret) {
-> +               cfg |=3D CPUCFG2_PTW;
-> +               has_ptw =3D true;
-> +       }
+>  Documentation/translations/zh_TW/index.rst    |  5 ++--
+>  .../translations/zh_TW/process/index.rst      |  5 ----
+>  .../translations/zh_TW/staging/index.rst      | 23 +++++++++++++++++++
+>  .../{process => staging}/magic-number.rst     |  0
+>  4 files changed, 26 insertions(+), 7 deletions(-)
+>  create mode 100644 Documentation/translations/zh_TW/staging/index.rst
+>  rename Documentation/translations/zh_TW/{process => staging}/magic-number.rst (100%)
+> 
+> diff --git a/Documentation/translations/zh_TW/index.rst b/Documentation/translations/zh_TW/index.rst
+> index fb86de03c423..1dddf5963864 100644
+> --- a/Documentation/translations/zh_TW/index.rst
+> +++ b/Documentation/translations/zh_TW/index.rst
+> @@ -112,9 +112,10 @@ TODOList:
+>  有幾份未分類的文檔似乎不適合放在文檔的其他部分，或者可能需要進行一些調整和/或
+>  轉換爲reStructureText格式，也有可能太舊。
+>  
+> -TODOList:
+> +.. toctree::
+> +   :maxdepth: 2
+>  
+> -* staging/index
+> +   staging/index
+>  
+>  術語表
+>  ------
+> diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
+> index 18653aa75d7d..de99156324df 100644
+> --- a/Documentation/translations/zh_TW/process/index.rst
+> +++ b/Documentation/translations/zh_TW/process/index.rst
+> @@ -113,11 +113,6 @@ TODOList:
+>  
+>  這裡是一些大多數開發者會感興趣的其他社群指南：
+>  
+> -.. toctree::
+> -   :maxdepth: 1
+> -
+> -   magic-number
+> -
+>  TODOList:
+>  
+>  * kernel-docs
+> diff --git a/Documentation/translations/zh_TW/staging/index.rst b/Documentation/translations/zh_TW/staging/index.rst
+> new file mode 100644
+> index 000000000000..556c63a17f9c
+> --- /dev/null
+> +++ b/Documentation/translations/zh_TW/staging/index.rst
+> @@ -0,0 +1,23 @@
+> +.. SPDX-License-Identifier: GPL-2.0
 > +
->         loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG2, cfg);
->         cfg =3D read_cpucfg(LOONGARCH_CPUCFG6);
->         loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG6, cfg);
-> @@ -338,6 +345,9 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->
->         /* PGD page shift and width */
->         val =3D (vm->page_shift + width * (vm->mmu.pgtable_levels - 1)) |=
- width << 6;
-> +       if (has_ptw)
-> +               val |=3D CSR_PWCTL1_PTW;
+> +.. include:: ../disclaimer-zh_TW.rst
 > +
->         loongarch_set_csr(vcpu, LOONGARCH_CSR_PWCTL1, val);
->         loongarch_set_csr(vcpu, LOONGARCH_CSR_PGDL, vm->mmu.pgd);
->
-> @@ -345,8 +355,10 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->          * Refill exception runs on real mode
->          * Entry address should be physical address
->          */
-> -       val =3D addr_gva2gpa(vm, (unsigned long)handle_tlb_refill);
-> -       loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
-> +       if (!has_ptw) {
-> +               val =3D addr_gva2gpa(vm, (unsigned long)handle_tlb_refill=
-);
-> +               loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
-> +       }
->
->         /*
->          * General exception runs on page-enabled mode
->
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> --
-> 2.39.3
->
+> +:Original: Documentation/staging/index.rst
+> +
+> +未分類文件
+> +==========
+> +
+> +.. toctree::
+> +   :maxdepth: 2
+> +
+> +   magic-number
+> +
+> +TODOList:
+> +
+> +* crc32
+> +* lzo
+> +* remoteproc
+> +* rpmsg
+> +* speculation
+> +* static-keys
+> +* xz
+> diff --git a/Documentation/translations/zh_TW/process/magic-number.rst b/Documentation/translations/zh_TW/staging/magic-number.rst
+> similarity index 100%
+> rename from Documentation/translations/zh_TW/process/magic-number.rst
+> rename to Documentation/translations/zh_TW/staging/magic-number.rst
+> -- 
+> 2.43.0
+> 
