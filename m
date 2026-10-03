@@ -1,150 +1,147 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4538838734D
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791049970; cv=pass; b=EGWrbvCmUwpQxCx5P3jGrqYlK4a6PtO0HGSNeBxzsMQg3L0ZdCQfllSv6TkC0uVN6cyI/YbQj9aiqDH9TlL4YR75ijD0dyuov/WG3jkDP0wkQPGJQ8HuDoTMuykaYWoWntE0lg07Ms3v6mpSuM4p3aTTqFbRjr+X2dC6Qj5EAYM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791049970; c=relaxed/simple;
-	bh=vxWtWY3HzhdcLD80hVcaFM9T8LFY9yejGPC1lkqa+7c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=faCKrCM3lGNcqQP2iV6cRbGSgufwMEwRC6Zx0nqFZ1Tz0yS55/Iz9Q90lh4CDIL/0ny1Lch2yUkJ8YGsKrZcWMDzx7s6bOlwwSWkC7x4SgM2def6d2kpMCJo6tYMA1G8257GLv83oC7XNiw8fLRLLRpvHabW3Rh55BIBfh6wWw8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fzwTksZ+; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B0A351C0B;
+	Sat,  3 Oct 2026 17:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791049988; cv=none; b=CQhbEEVIflMvZIL9aN6ySmQnUp00ZC3Qnv5TkH8FpW8rwxDr2C/Eaxz1/i0hbk2HGoSypuyH+CGUA78L2dtlwKuxWo+uTGMQ28ZIhlp9ZiM+EoIgIzfow+AiNAiGq1nA9FQCvUXz0Y3fsIdbzpPPPt0RvZJgUNC1yfkhTj4pcbY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791049988; c=relaxed/simple;
+	bh=GxbxeVZPcceHPAZqr6pN8+RQLGUjsX8ar4+WiLyAi7I=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=RucgUILH2Akt8sKGPMx57jt2CBfeMUu9ZxxJ2EQApCIF8lN3ZNjgjGnzjVuA/7VJtuu6BC8pvXPsMlftVJwHK4t8fc4kMHdOm/fSY8543JZYljvMT2znfxe0MT9IiAJV0lgknWkyRIugjCMKGfsNRAP0V5BkIeaXjpGftBKdy4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=BlmtEhYW; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=diPrgplY; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fzwTksZ+"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e320322edso97131166b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 10:52:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791049967; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Nke6XfMOgFd6RBMa7sMRhDoF1pSV9G4QXGcpD15qFuFLZh7tkca+yr8LQ8DVbcDeW3
-         pSekaU6/d61g2lVBySEgyq3dpwVzcF5thSxFOaUpYNIKVxzoSgekXm+xeVpP7Re7+8mc
-         1d9zhQ/x9A/kXiMym0Xc9P52NAVGM/o//xnqGw2Fo3g8jaqKmJskZCyr2zpbieosRVSp
-         fKTi/+7jbG45OvTu/jwCx7Q6CYNNx8ZjsdKCq77tuLT72wzKcvGvMDIIJopbvvwNsGnO
-         kN4rDCgo651XUKWhfjfRKR7y6PCBmLa0AkRSpyjObcCBIENzLVEBV+ru9MtIFAZ7qsE0
-         ipVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VN3txJe/MPJQiSdkFN0bcV+NWMy4D27bCjExhikemnU=;
-        fh=HPu+LtCx01HncrfGQc/NsKp59lajhOLgZ4IcPPGrNMI=;
-        b=ZodQVYgyxgN1g1vqG+GoruD7nIz4yZAm+lhOezwzcFXzB+81eBg/VXKeEc6asTxj45
-         6tBGdlyMt+gaF4F4EgCGBXVby9jFbXEqOYNINeGW/LtWCw4bwz8iByf/u+FCR++n7iSf
-         rZ/sdYQjm0EEyafQ1+KKe7jr4k8ELvy55CxrTJM5czGL7IkEInaozVzl3RsNQzZ4qXSq
-         c0gmUsnL5nBVTHF9Hnwzdp+T2V7TGvYuiTQ//JE5G9REEuFKAenXq1ycku+3x4twg1fa
-         UU4hV1pNd8AykL9cM7YuWIOzabtM2nI9t5QgRM9tG/qIY4z4NjZPMv5T9HGODO83Pc/Q
-         W7mA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791049967; x=1791654767; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VN3txJe/MPJQiSdkFN0bcV+NWMy4D27bCjExhikemnU=;
-        b=fzwTksZ+Dd6LsSoQwOkYoBKbqxJ98lyG6SZVlr4dLjyO1Uue7HPS9+hcANwv/TvhTk
-         4snPwaENRURr5uL7TSrnTk3ZooEUGDP8qkAYLZub8owa/IMNPixDsUIWFZZwTFz5ZBfi
-         BLN1mOkcn1dViHjbe1f9AHAlVofWhkq9Aj2/aoQ/ufIub7AMEXBRGmj31O8zT2ZwwEMi
-         Du0cpATZ1xsluq6GM48eXJ0RO4ehwTEVMcCnRQq17DFVD3z263utakI8ApdqkqLj8bgP
-         dsO+x+r+vY6KCUkRBZkuWgCxmJ/9IBG27YU5KqFUTZZBxD7he1Eg97GTL3xD7UaP5sDS
-         V6KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791049967; x=1791654767;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VN3txJe/MPJQiSdkFN0bcV+NWMy4D27bCjExhikemnU=;
-        b=aLMCg24cibJ2zvOpigUfYbhepKW7/F0UnWDLlwNPAV8s8aC0+cdG525tdKJ+bGfr1C
-         gBBHEAaZ0UWpwQNtuKHpkp6dsaO85pH8KuDjZ6uAow26tXrk+p1upHmMIf5P+xR9ffK1
-         UHCrMUpyR7fLLMsE4/oKg+oOLjHsKdVAhNNgYm+LvsdopFBMhcU3Az3ZQi/DFUt6ptvz
-         mTr4bdnv50bjS26wtA+4lz3Mqfo3K3eS+D/+GNkFhEjwtTSYs1oRu3hWXagl4bGLR8+I
-         nwJeodGZyFX3TPJisRkYU0xJQvuhohso+Y3hV0tQsRGHrbOTiyW9Mh6pN/BIzYTc7+Kr
-         3F4w==
-X-Forwarded-Encrypted: i=1; AKwUvBz6AJ3Hpx22VldmS5JCYYNf6f/kTpt7ANbuzbPNoIKVA6kuIcPTFvdaKLBmsPN2CxbfxukBQCgKfwSt8zU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6MTErrV3vS8MLGwqkibY9lRUP2jLOu0y326J4hSYG4+GGGudD
-	8Jmlzgo+PKiHHs8N6FPbB8vVN7/UwigvU1RyfsnkgJbFYIAXHiPpq3Rx4wxLnMi62/MQnfubavg
-	6F/liNOW7o92F9GFivzvkmUTUnBaqpPM=
-X-Gm-Gg: AYBFou2uYqbUqBuGjjRSPEjITw/tFdnIduVpMxgJnjGn1V250GCYsSsrJdaSnMs83EO
-	EO84CXLNgSfZcGLUQDTTMFyQiCqygpQ5xiLEloaDqn3Rht/eYnMX2f1jmNMl7N83ZbFRpQ9GhxT
-	jZA7gJr74ASGF076fzuJTSWARIJ5ax5Dw/sy5f/ZPCotKJflBN3kDVuFngLX+CZJhxVGNdBZvbv
-	URAyLLs/QY6V0EtzElJApVljwKcXnHJnBkcqu7Fmfk+5ITVdkLKacBV7SIipwP4EMaXJm4jHPJq
-	aL8kdMobcQsGx8AeIaoIadvsM16z99sD6IOTxovRHqoqTrT1NnaVgZWVEq6tLpyjDtHT08ULjmZ
-	b0S9b274opORdljYTqe+R/GbcR7w5i7hy7ACeZ+2TGo74PCY9mPVoWAS/xsqqTFFY4YzlZwpdOX
-	6i6ogcEESAxl/Jftpb1C3AWQhHMVp1q+njMa9emHiN
-X-Received: by 2002:a17:906:ba8f:b0:c2a:f1e7:d1ff with SMTP id
- a640c23a62f3a-c2e4a8fd869mr493909266b.4.1791049967157; Sat, 03 Oct 2026
- 10:52:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="BlmtEhYW";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="diPrgplY"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791049966; bh=Eke+zid+5Nzy32ms7wldV6x
+	oiQtBAWDv85gmlM+wM9I=; b=BlmtEhYWU3b+6k6NrQnZelER4Xfi+OTWCROSQtXq0+Ioe3oEoZ
+	G6iOcxZtXJIzblXIXh74dNMQJSM6lWWwuGGlrXltnp/Svoh/EX8jIwDMVXA+pj1ZOY2u9HRzNxx
+	6Xdg9ECn3XDnPwu7G/Moz2JyIvQEixyxACp0A5bu9bg9wzjfmxwFuH1bRC3j8S7aRNUk9ubhxGo
+	gE+IkdS6vjlARdMU1iE0eeMD1WQG3kEzECUsOzvFmAP2BUb4wUIQeH093ZAsKKdkmRB2s2OZPlA
+	16FhoWuqUbWoajuwcK0Lpp3XRXBQwzmzZNPbvBC4dvW94Hr0gZD3qF/uiOlI1Izd5Xg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791049966; bh=Eke+zid+5Nzy32ms7wldV6x
+	oiQtBAWDv85gmlM+wM9I=; b=diPrgplYzcpGpsVfSewDjxPhr1atiDvU5/tAmPDC/WJfY83Rsb
+	WCfbeM4sTjyee5eQBBn35L3vMEBhZ9AGWBBw==;
+Date: Sat, 03 Oct 2026 18:52:44 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: kunwu.chan@gmail.com
+CC: boqun@kernel.org, dave@stgolabs.net, frederic@kernel.org,
+ jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+ neeraj.upadhyay@kernel.org, paulmck@kernel.org, qiang.zhang@linux.dev,
+ rcu@vger.kernel.org, rostedt@goodmis.org, urezki@gmail.com
+Subject: Re: [PATCH v2] rcuscale: add srcua scale type
+In-Reply-To: <20261003161720.240855-1-kunwu.chan@gmail.com>
+Message-ID: <A3BA2086-5718-45BB-8B3E-35C1D2CA7B63@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003-gpio-mxc-cleanup-v1-0-dad728ce27f2@nxp.com> <20261003-gpio-mxc-cleanup-v1-5-dad728ce27f2@nxp.com>
-In-Reply-To: <20261003-gpio-mxc-cleanup-v1-5-dad728ce27f2@nxp.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 3 Oct 2026 20:52:10 +0300
-X-Gm-Features: AclHuK-UG3tTAL01WV2ZDjC5tjM6igwBQLvqa3RPpfuP_ptSFYX_iuwDV1YsoBk
-Message-ID: <CAHp75VdyMJUBv9Y-4vdAWp2f2JB0toX+y7hV_esXxtni0wXutw@mail.gmail.com>
-Subject: Re: [PATCH 5/9] gpio: mxc: use devres-managed PM runtime and dev_err_probe
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 3, 2026 at 3:09=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.com=
-> wrote:
-
-> Switch pm_runtime_get_noresume() and pm_runtime_enable() to their
-> devm-managed variants so that pm_runtime_put_noidle() and
-> pm_runtime_disable() are handled automatically by devres on both
-> probe failure and device unbind.
+On 3 October 2026 17:17:19 BST, Kunwu Chan <kunwu.chan@gmail.com> wrote:
+>Add support for scaling atomic SRCU grace periods using
+>srcu_read_lock_atomic()/srcu_read_unlock_atomic() and
+>synchronize_srcu_atomic().
 >
-> Remove the out_bgio goto label and replacing all error paths with
+>Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+>Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-replace
+1: why didn't u cc me
+2: why did you ommit my tag? I tend to review based on correctness, cuz idk pauls preferences, once I do I'll be a better rcu reviewer.
 
-> direct returns using dev_err_probe(), which provides better
-> diagnostic output and handles -EPROBE_DEFER.
+>---
+>Changes since v1:
+>- Rename srcu_atomic_ctlp to srcua and reuse srcu_ctlp for
+>  SRCU operations, as suggested by Paul.
+>- Reuse the existing SRCU cleanup and completed helpers by
+>  initializing srcu_ctlp in srcu_atomic_scale_init().
+>- Add .stats using srcu_scale_stats().
+>- Use "srcua" to match the existing "srcu" and "srcud" scale
+>  type names.
+>- Use synchronize_srcu_atomic() for both normal and expedited
+>  scale tests.
+>
+>v1: https://lore.kernel.org/all/20260927100359.3903688-1-kunwu.chan@gmail.com/
+>Tested with kvm.sh --torture rcuscale scale_type=srcua on x86_64 and
+>arm64, alongside gp_exp=1 and PROVE_LOCKING=y: no warnings or lockdep
+>splats.
+>---
+> kernel/rcu/rcuscale.c | 41 ++++++++++++++++++++++++++++++++++++++++-
+> 1 file changed, 40 insertions(+), 1 deletion(-)
+>
+>diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
+>index 1097ec15879c..b172882824ac 100644
+>--- a/kernel/rcu/rcuscale.c
+>+++ b/kernel/rcu/rcuscale.c
+>@@ -293,6 +293,44 @@ static struct rcu_scale_ops srcud_ops = {
+> 	.name		= "srcud"
+> };
+> 
+>+static struct srcu_struct srcua;
+>+
+>+static int srcu_scale_atomic_read_lock(void)
+>+{
+>+	return srcu_read_lock_atomic(srcu_ctlp);
+>+}
+>+
+>+static void srcu_scale_atomic_read_unlock(int idx)
+>+{
+>+	srcu_read_unlock_atomic(srcu_ctlp, idx);
+>+}
+>+
+>+static void srcu_scale_atomic_synchronize(void)
+>+{
+>+	synchronize_srcu_atomic(srcu_ctlp);
+>+}
+>+
+>+static void srcu_atomic_scale_init(void)
+>+{
+>+	srcu_ctlp = &srcua;
+>+	init_srcu_struct_atomic(srcu_ctlp);
+>+}
+>+
+>+static struct rcu_scale_ops srcua_ops = {
+>+	.ptype		= SRCU_FLAVOR,
+>+	.init		= srcu_atomic_scale_init,
+>+	.cleanup	= srcu_sync_scale_cleanup,
+>+	.readlock	= srcu_scale_atomic_read_lock,
+>+	.readunlock	= srcu_scale_atomic_read_unlock,
+>+	.get_gp_seq	= srcu_scale_completed,
+>+	.gp_diff	= rcu_seq_diff,
+>+	.exp_completed	= srcu_scale_completed,
+>+	.sync		= srcu_scale_atomic_synchronize,
+>+	.exp_sync	= srcu_scale_atomic_synchronize,
+>+	.stats		= srcu_scale_stats,
+>+	.name		= "srcua"
+>+};
+>+
+> #ifdef CONFIG_TASKS_RCU
+> 
+> /*
+>@@ -1110,7 +1148,8 @@ rcu_scale_init(void)
+> 	long i;
+> 	long j;
+> 	static struct rcu_scale_ops *scale_ops[] = {
+>-		&rcu_ops, &srcu_ops, &srcud_ops, TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
+>+		&rcu_ops, &srcu_ops, &srcua_ops, &srcud_ops,
+>+		TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
+> 	};
+> 
+> 	if (!torture_init_begin(scale_type, verbose))
+>
+>base-commit: d21906b0aa1e9573cdb5e7acaca44966b9d1dcd2
+>
 
-...
-
-> -       pm_runtime_get_noresume(&pdev->dev);
-> +       devm_pm_runtime_get_noresume(&pdev->dev);
->         pm_runtime_set_active(&pdev->dev);
-> -       pm_runtime_enable(&pdev->dev);
-> +       devm_pm_runtime_enable(&pdev->dev);
-
-Definitely not.  There is little point to using devm_*() if you don't
-check the return value.
-
-...
-
->         err =3D gpio_generic_chip_init(&port->gen_gc, &config);
->         if (err)
-> -               goto out_bgio;
-> +               return dev_err_probe(&pdev->dev, err, "Failed to init gpi=
-o chip\n");
-
->         err =3D devm_gpiochip_add_data(&pdev->dev, &port->gen_gc.gc, port=
-);
->         if (err)
-> -               goto out_bgio;
-> +               return dev_err_probe(&pdev->dev, err, "Failed to add gpio=
-chip data\n");
-
-These (and more) don't belong to the change =E2=80=94 split it to the
-logically isolated ones.
-One patch for dev_err_probe() and another for PM calls.
-
---=20
-With Best Regards,
-Andy Shevchenko
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
