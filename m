@@ -1,77 +1,76 @@
-Received: from mail-qk2-f38.google.com (mail-qk2-f38.google.com [74.125.230.230])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEFB23909F
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECFD175A6D
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791000652; cv=none; b=G/0HP9tWHwBPwfKkXKy+XHcxyRjvtuwa9qQtdK4tqnWERxLnSUV+d2JjqwgPULP6feiHQ31ahRh06H4OFK7QXNBCwCDj+14H8CZ9y7Mw7NAzhh0TstGPClmxllVPUpc+9657Ldy/ULTEKPRddEdPJ9ZvK7U9v1NG3vRw02IgtRw=
+	t=1791000770; cv=none; b=MZn46/yVZg/WPiym2oTRTYkC2k76HWmsKZ2l3lzbu7CcDFR9HbOP+kAoeVs9TnYW94YqNMy6p7xTdSu23r068KvxkGna9FxkOCbaYOdKKIp1BP+AQ07Yv+FYC9KJSW00lpSyobhH3R1famoUCvmDlhs1GGFZD3SCXoQOBmXS9Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791000652; c=relaxed/simple;
-	bh=Ub+6vjX4CwzO94wSmlNoiOA5uRtM5sEdsqQUOo8sE08=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PfmFjF86eXFOJaeHplGAewqc583vrkjGdP4RY3Uga2zEL+uVUPZEwEEuQiWRJCmIKJDHdAYSHz214PCt4dG9fQGqgCY2bwOElCxZRVEH7CaezC3KFV/MZuQjhFnhrdZVb5TQo8BHUOhQTl560jR+2kigWZBDdtArcvHeG46G22w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uplj0xxj; arc=none smtp.client-ip=74.125.230.230
+	s=arc-20240116; t=1791000770; c=relaxed/simple;
+	bh=dOIXqLzBtSxy2qJIrgonAcgd/FeiJxv/lEsDBeOpcYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R6vnFAtOEnmgoAoqik190PxlVAI5SwWjfwm35ZSsKkMIP40e/9pY4BzlPaI1L18QzrWshJob7arJa0eFoBEEgJRWps0e3bm65y0oud8WNS1swMpo0vb9YUzgPKGwc9l1mHtoASOclCd6atC1YdJu7uvCRFg+5ez/wxTu3z1DjsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MfPWsVw5; arc=none smtp.client-ip=209.85.160.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uplj0xxj"
-Received: by mail-qk2-f38.google.com with SMTP id d75a77b69052e-53394335c4cso2384721cf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:10:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MfPWsVw5"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53397325663so1874881cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:12:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791000648; x=1791605448; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791000768; x=1791605568; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eYVOFUxcrenhJA3xppslG6NmaKa0X7JLpJ2/fTHYC9E=;
-        b=Uplj0xxjRDhAsvssuzsCEZpPZW3N9lWOZjSXgvNPASBIwHoZT6ez8J+ARRzmZCpGwZ
-         TfB1t1lw5GOOO8QXscArXf5skcFmht9YUnGmpNmu+eX5Bpbq2V6QDddrKB/SdxWfMNgm
-         EPFEYqUoK6ho6Yi/BgOkQDbBLCxaJ2FK/yzXD0+9ka3cqEJZ26d0mulNTOb409rhZVV2
-         JfBkJ4szeFqDPRHHiMMeCynj9ID7Z3Uj4p34ddJO6gQDNqH2WX2yW9nKyeRyZojw9doQ
-         1yZu3Xk4O9IolctMgImoxgGEXc0lToyMDeSS9Rrt9WRElBELxE8ASYxUj9VbFTlswStq
-         2YKg==
+        bh=cc2suPktwUV0lHyZwCLOmemG0HWTqvkRtCzdgjiCcCo=;
+        b=MfPWsVw552kdpSET7H05u7VK5wF8VaN5nFh/7wOKOzRwfkWzv6kQ7CQ58YH+xoyT6Y
+         o6ol6OVJ4dTCa2eqLB3AHkyCRG1n22kAP8cmbOURfGewAIDsri0G9Uxl0BKyoy8WVkVI
+         Wb6IEU8VpZQ07zOIJPQ+JXsYOCF3p7BN3XbxgdDaEoye4jlsdxs9XaizNKpO6iBrFh7P
+         x0YgMXqJv/zDWqhYkx2rOnkO4IMeWT0WMQI4x90WZyAl5FLOD7jfnO2f+aBsVS2Q8sK2
+         L18nbKp6Y/P7u6x/6sWSLEWGwyBoVSq+EMMGtuTQNEeoDCae1+MSODuEcOBzYArl9JNV
+         5oBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791000648; x=1791605448;
+        d=1e100.net; s=20260707; t=1791000768; x=1791605568;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eYVOFUxcrenhJA3xppslG6NmaKa0X7JLpJ2/fTHYC9E=;
-        b=gNjWw9g/cjYqoemFIIA412Lbp8Zazv2HypmJMAQcTZTFB1duauCp/jtq55gkBksWgO
-         nCAYqJ1BtE46X2DT4oZXk5ndBsGQEcgnSEFxGIOOAtfWRQGeVzICb5irCs/omxW8ib/k
-         fzLSZ0EcrnnTqjJu8UdUiuNrskdvVdbi2pvqmyQ94eanykBXq/eOU1SDULWl7LJATbd8
-         8Pcz90kvFBeC4rzyTXDKxVU79AHVtGqg+0yIzDLxrZPVoWT/vO8ryCRJfdhv3HBFRFMz
-         B/1lTLEqj+wsnOk9EbdmVhcBnqTvtwQwu4aODFhsi8ZQa0vIndYarhwuMNcgPAkzczhz
-         jb9w==
-X-Forwarded-Encrypted: i=1; AKwUvBw8qRd6zLW6Z4+bDtHu27EY9/J0Pyb/U9ndxFMcIkZ4BP6v4Btj8JpEKhEYDWJ9P9kOr80OIaoNm6CHVEI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8yEz3J4z+nPUC6UogsNrW+vpBOtPZ1SPN338NT5nDfa2QIks6
-	1Hv5VkUy9bNGAdqP56vglPXoHrdBc5SkHrONe1xL/POrk/nk9gWIeLA=
-X-Gm-Gg: AYBFou2zP17B3hXxGkcHJeWMTM/fk8zIj2x6yVjD2xYBFx7rAU+zoaffdu3plmCPMc4
-	PQm5q0QStwDDnHEabCQ7ztLMpKgwiRqLhUes2LUB6oSiETSQIiiuiUjeC7Av9sunsnrsmvlZuJq
-	VLp8w1obHCvR6nL+zSWczvL/GgqyUX7KSDnAEahJDCQhHWtDmJP1ktk1E6UeNKM9KlKnoSg3vTo
-	7dEbb7xllUJHx2BD36NoItM/4TT844BbvG71+5E4elzKG5wnHvph+EnNZERhjq4qyVB2fJDYlF4
-	msLtnAJAMulHPLwazjZewaRs8mPm3vjmy6tJEH2AdNkk7TNLND+m8twBNT8K35zHmu9zvLRRIDx
-	q6Bdp2CErPYBIyiwbAjRjuHSWyBBWpd357GRdXPgVc2zbygw/DEXSymtHXaNdIRPFGQgYpbkxLc
-	b5DEhxSKBPgt9eT+FzKZw1kpUX4oz3u0My5idiVdiWgOt4SOecB011rjak+zblH11YmmKNgID8Z
-	flnSRFvNQn/IAfJ9dPp3Job7sesxQI6r9Mw++NPisQNfmvLzQQ9ceF8iCOr8VLPPteriinxBDJT
-	ez7ho8e9DOpgV1j1v7XS3QUURZ2i
-X-Received: by 2002:a05:622b:4d:10b0:533:2c5b:d668 with SMTP id d75a77b69052e-533cba67426mr63507651cf.30.1791000648550;
-        Fri, 02 Oct 2026 21:10:48 -0700 (PDT)
+        bh=cc2suPktwUV0lHyZwCLOmemG0HWTqvkRtCzdgjiCcCo=;
+        b=hL4xfV6rRR9aMB8jZ9pzs8lX8EjWBm2HtwgGqnZOeeaFXPWXHgrnVMS4F50GC5sj6q
+         /6QqblvyMvBJJLbkAvbAlloXJsinf1EQNbZjV9ttUWp7v0wnQfT+ebbTJ03gntHV1Y3u
+         nJuMEHvpdzngGJrH2scPBW0TD9uvFD4/YQ1NWM7G1vshAObI1iOx/fI3It9dQDS1BbSo
+         L7Lq9hL9STTaOPvjIOW5KtW17HYs64u4q1hUhbU0BAaegDYCnDBQntapZzeWXHipLyYu
+         eJYTIn5PuacxPe3zpcUk1ugBaGTy6LPgYloCz0riBVeZ2UWLDU914aqmvyXJqcwLULj9
+         MJ5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwZuxU2oMMYYpEM3oh+yMudao5g1IR+9ketUaLajDN41bqtfh9+tUE3Pwd9GhVXXjPpouTQSWFh7t/j4yI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqcOld9RskjpkmwbZimx3chKPEBLOqTepcI5upFZGHMWGh7xGn
+	DEoN0efcuE11gYapJKAFGZziZAzSStx6nKv6+Ixs13KE3/Ty70H9w4o=
+X-Gm-Gg: AYBFou1jHwDDshP8mi2AK4+fY6o77vn3xFcjjOQ7LFIDkj+C0DyVV9BOM3HvYrIExSb
+	K9+KwtxiWmnp9ahepPCkrjXfJUwG7CpARCSy1sVekBQUu/AB2o5uxE+p2X7NOehJYTH3DMDKSoj
+	t4BLYnCWRNui1vNAMSkBkNCtl7X6WU/sa+IYQGUva5JXVzQY+xE7iudIOz58j8b/VAR1CTNs8dB
+	7wbqJsMsxWyfLaqHumzRBPHftOI1airCF5/NQIy+OtfYhNtKYG+4X5jF4m/793c7SZmUJSiUZL8
+	I6KSz7HdDVv+l1VVa9zVrxioQsP5jQP5Rz6nkkCdxiFZQ+PShiFM4H5r64EcZLfiWQc6brBRGHB
+	d7x+Tam4ETTKdEit32CNeNmGvrValUdLZ9UHh9W/8WtsH5QlY/qcJGENR4IxhCCDb/WWrC18lZ4
+	BoPfOy/xxJqZNA+cWzJtB28EA4NNlnyD5wrIn58T/iVq5G8xkIEI2Sxo4le/rowx69nLPmKBIw7
+	4iGublm4HfHsi77W1M6iYVzliMbP6jKTklFDH879NAkKUGZDKesfyur4XF1YbYpgvsPbgxujNr8
+	5t+KGu8hXV4rtPM1DmVgMuvcBSmd
+X-Received: by 2002:ac8:7e85:0:b0:531:172f:79e8 with SMTP id d75a77b69052e-53511f1965emr23644131cf.57.1791000767676;
+        Fri, 02 Oct 2026 21:12:47 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533988343b5sm42782711cf.1.2026.10.02.21.10.46
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5b6d6sm42699391cf.9.2026.10.02.21.12.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 21:10:47 -0700 (PDT)
+        Fri, 02 Oct 2026 21:12:46 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Derek Fang <derek.fang@realtek.com>,
-	linux-sound@vger.kernel.org,
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] ASoC: codecs: rt5682s: disable jack detection work on shutdown
-Date: Sat,  3 Oct 2026 00:10:45 -0400
-Message-ID: <20261003041045.650207-1-mhun512@gmail.com>
+Subject: [PATCH net] net: nixge: stop IRQ producers before draining DMA error tasklet
+Date: Sat,  3 Oct 2026 00:12:42 -0400
+Message-ID: <20261003041242.650599-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,44 +80,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The jack detection and button check works can queue each other. The
-shutdown path cancels jack_detect_work first, but jd_check_work can
-queue it again after that cancellation returns. Canceling jd_check_work
-then leaves jack_detect_work pending or running while the device is
-reset and, on removal, its managed resources are released.
+The TX and RX interrupt handlers can schedule dma_err_tasklet. Killing
+it before freeing the IRQs leaves a window for an interrupt handler to
+schedule it again, so the tasklet can access descriptors and TX skb
+state after nixge_stop() releases them.
 
-Disable and drain both delayed works so neither callback can revive the
-other after its cancellation. The I2C remove callback uses the same
-shutdown path.
+Keep the initial DMA channel stop while the completion IRQ handlers are
+still installed. Then free both IRQs to stop and synchronize the tasklet
+producers before draining error recovery.
+
+A tasklet queued before the IRQs are freed can restart both channels.
+Stop them again after tasklet_kill() returns so error recovery cannot
+undo the final stop before the descriptors are released.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: c07ac3ee76e5 ("ASoC: rt5682s: Fix the wrong jack type detected")
-Cc: stable@vger.kernel.org # 6.10+
+Fixes: 492caffa8a1a ("net: ethernet: nixge: Add support for National Instruments XGE netdev")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- sound/soc/codecs/rt5682s.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Compile-tested nixge.o on net commit
+6dc989ea46b96ce170840174b4a38c4a387fb005 with x86_64 allyesconfig
+and allmodconfig, both with W=1. No hardware testing was performed.
 
-diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
-index 34997cfb465b..7a196fab623a 100644
---- a/sound/soc/codecs/rt5682s.c
-+++ b/sound/soc/codecs/rt5682s.c
-@@ -3294,8 +3294,8 @@ static void rt5682s_i2c_shutdown(struct i2c_client *client)
- 	struct rt5682s_priv *rt5682s = i2c_get_clientdata(client);
+ drivers/net/ethernet/ni/nixge.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/ni/nixge.c b/drivers/net/ethernet/ni/nixge.c
+index 230d5ff99dd7..7bba6f8e64fe 100644
+--- a/drivers/net/ethernet/ni/nixge.c
++++ b/drivers/net/ethernet/ni/nixge.c
+@@ -920,6 +920,7 @@ static int nixge_stop(struct net_device *ndev)
+ 		phy_disconnect(ndev->phydev);
+ 	}
  
- 	disable_irq(client->irq);
--	cancel_delayed_work_sync(&rt5682s->jack_detect_work);
--	cancel_delayed_work_sync(&rt5682s->jd_check_work);
-+	disable_delayed_work_sync(&rt5682s->jack_detect_work);
-+	disable_delayed_work_sync(&rt5682s->jd_check_work);
++	/* Stop DMA while the completion IRQ handlers are still installed. */
+ 	cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
+ 	nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
+ 			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
+@@ -927,11 +928,20 @@ static int nixge_stop(struct net_device *ndev)
+ 	nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
+ 			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
  
- 	rt5682s_reset(rt5682s);
- }
+-	tasklet_kill(&priv->dma_err_tasklet);
+-
++	/* Remove both producers before draining the error tasklet. */
+ 	free_irq(priv->tx_irq, ndev);
+ 	free_irq(priv->rx_irq, ndev);
+ 
++	tasklet_kill(&priv->dma_err_tasklet);
++
++	/* Error recovery may have restarted DMA, so stop both channels again. */
++	cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
++	nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
++			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
++	cr = nixge_dma_read_reg(priv, XAXIDMA_TX_CR_OFFSET);
++	nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
++			    cr & (~XAXIDMA_CR_RUNSTOP_MASK));
++
+ 	nixge_hw_dma_bd_release(ndev);
+ 
+ 	return 0;
 -- 
 2.53.0
 
