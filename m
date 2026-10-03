@@ -1,82 +1,127 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8B02931E1;
-	Sat,  3 Oct 2026 09:12:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C27936197E;
+	Sat,  3 Oct 2026 09:14:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018768; cv=none; b=mA7n8NB9IGallOjGdKs3cxnnadeKdbwXHuVMhsTzdQ3Wn5AYFeoEShm7OnA6jGbTnFnJZlm0CzLkMmlSteIFYL4tt0LOpQswnRBV34edXf+oUenNXTmAmY6MWq4mwioeFuOYXwKqtrD8LiOlpYDpcrAjx2OR07EtB61PC67XhKk=
+	t=1791018869; cv=none; b=MzdxhGVKie8YkKY2vwgTbtGjIkRmkMU/Fy4mYm5FWgbeRFHtMMsIEXofghvhonpvp4DTyWX+x0oNEOmK+yhjLIj0Y5VP758+Tfv2V3rYZqtmUFVfMCJzLaE1Kg5CJ/5cjHdWYfsMo5UlD1TdoN03CXyq9ikTTCiT83+atFRFSrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018768; c=relaxed/simple;
-	bh=vC8ddiyqywijrV/+4QU38Ua9tWhoJ4QrxcmYMUa2fqU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=htGQe2zahTas1FGdz+WAw9X9vqQUjRRm82I/CS0jTNC17FYuf3P2TxEfIdGSdwOwvh14YOAJCtuiGdMb7HoqcmQHuFENQDp7C7DtxEKrZXhQ5bmbhKtmE/34bi4c1jqDBm8jOH1zjaUvok2QnRMe2Wrf0eg7E6vU9yQwbnVyt4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lI4SfSPK; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791018869; c=relaxed/simple;
+	bh=Ssbthym35J11NlLiVFAsyqRowYu32o/p01e4+R+mq9o=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hXek/LYC9zB4iQnnbk1fkCuiCKApPCwT2gX5sabdrNnT/cssMrfqGIEPbD3VVGxFfdMiNeH0YlXvwuVTORNw9g/3WB6MHwSG4bcouP9m3YdDQJi2ctg2PT6bENali3jL68VEmXMcsRJCmMcVvByE5Gjze4hAHVCWBviT6jYPFc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fL1mlj3z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5OgXPDHp; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=u1YFZMwW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=0Az2a4fS; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lI4SfSPK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=vC8ddiyqywijrV/+4QU38Ua9tWhoJ4QrxcmYMUa2fqU=; b=l
-	I4SfSPKwB1B/hbSV81X4S0VnEN4yvCS3ZhWbNru1tLWhvB2wSUHUhr0ZIKCfrxZ+
-	nGydpzOmjypFoU3a1tBFi1s4BUWsuXZQYFglj/aCLDdSy/Oa1iVD/UdYZMLWxxFx
-	77XWWrQMuOTxEsCFyds2QHxS3z4ZYbSCi+TeGwITTg=
-Date: Sat, 3 Oct 2026 17:11:33 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Sergey Shtylyov" <s.shtylyov@omp.ru>
-Cc: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	"Paul Barker" <paul@pbarker.dev>,
-	"Andrew Lunn" <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Eric Dumazet" <edumazet@google.com>,
-	"Jakub Kicinski" <kuba@kernel.org>,
-	"Paolo Abeni" <pabeni@redhat.com>,
-	"Mitsuhiro Kimura" <mitsuhiro.kimura.kc@renesas.com>,
-	"Claudiu Beznea" <claudiu.beznea.uj@bp.renesas.com>,
-	netdev@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re:Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
-References: <20260927144741.1320558-1-yaojiale02@163.com>
- <20260927144741.1320558-7-yaojiale02@163.com>
- <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
- <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
- <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
-X-NTES-SC: AL_Qu2SA/yat04i5SafbekdmE8Uges8WcC0svki1YJUc+4GhzHBwiABbHpeBEnt4NmlFwSNnAm9ShFy8/5qb6BZLJONpcJRKovhDnNg6gWKzw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fL1mlj3z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5OgXPDHp";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="u1YFZMwW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0Az2a4fS"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3D6ED1FECE;
+	Sat,  3 Oct 2026 09:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791018861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
+	b=fL1mlj3zYgLTZPJR2uNJuM4A0/BuUH0fvF1mJs2UrKb1omlZx+MwJPZD0QKjMLjgoQGkjz
+	CPnpqd6lX9hndh3k4p7KP4mq3+Y3DRtG02QdmY0A9kXaKqIbfhEAOUaqm/AHaBEtN6l2H6
+	+V+G6ne1udOK9CtFmSLZE2DTj3a29LM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791018861;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
+	b=5OgXPDHpemU1OOxpTQPBHWpDaHvQomaxH0YiEge+zzbRtNzQtPv0eJD0wlXyNt2aW3mS0/
+	3lEJIm7ZM6jbkvCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791018857; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
+	b=u1YFZMwWLqMGA//6DybApihR3IaBKq+GGyFRl2BI24g/FztG66yjeBUzNc/gbZML5TcfrZ
+	rTIoXnr2sRDKhEDHSD4cdXNi8CZcOdIaK7qHluxggpcD5cn+WYDhoI1nEroMBO60jg32Ux
+	IJ4flAw2XUDHOjStNziSx2NXiOcVNCY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791018857;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
+	b=0Az2a4fS+oWbH48Pf/RIfyVJ9hBsUKo9ik+dEte8VW+IRF0U0ZCn8aQfN02Kg/z+ebd9dM
+	4xMS2AchrmP9LWCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E429913712;
+	Sat,  3 Oct 2026 09:14:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id E7CKLmjHwGrsIQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:14:16 +0000
+Date: Sat, 03 Oct 2026 11:14:16 +0200
+Message-ID: <87ld8fxi1j.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Eckhart Mohr <e.mohr@tuxedocomputers.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASRock NUC BOX-358H
+In-Reply-To: <20261001183403.103990-1-wse@tuxedocomputers.com>
+References: <20261001183403.103990-1-wse@tuxedocomputers.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <222db01f.1264.1a101087434.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jygvCgD3fxjFxsBq3EQHAA--.32561W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgWt52rAxsWEfAAA3Q
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.28 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-0.98)[-0.980];
+	NEURAL_HAM_SHORT(-0.20)[-0.975];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+X-Spam-Flag: NO
+X-Spam-Score: -3.28
+X-Spam-Level: 
 
-SGkgU2VyZ2V5LApBdCAyMDI2LTA5LTMwIDIzOjUwOjEzLCAiU2VyZ2V5IFNodHlseW92IiA8cy5z
-aHR5bHlvdkBvbXAucnU+IHdyb3RlOgo+T24gOS8zMC8yNiA0OjUzIEFNLCBqaWFsZSB5YW8gd3Jv
-dGU6Cj4KPlsuLi5dCj4KPj4gVGhhbmtzIGZvciB5b3VyIHJldmlldy4KPgo+ICAgVG9wLXBvc3Rp
-bmcgb24gdGhlIGtlcm5lbCBNTHMgaXMgYSBiYWQgaWRlYS4uLiA6LSkKPgo+PiBZb3UncmUgcmln
-aHQg4oCUIEknbGwgc3BsaXQgdGhpcyBpbnRvIHR3byBwYXRjaGVzOgo+PiBPbmUgcGF0Y2ggZm9y
-IHRoZSBJUlEvbmV0ZGV2IG9yZGVyaW5nIGlzc3VlLgo+PiBPbmUgcGF0Y2ggZm9yIHRoZSBydW50
-aW1lIFBNIHJlc3VtZSBmYWlsdXJlIGhhbmRsaW5nLgo+PiBJJ2xsIHVzZSAtLW5vLWdpdC1mYWxs
-YmFjayBuZXh0IHRpbWUsIHNvcnJ5IGZvciB0aGlzLgoKdjMgaW4gaHR0cHM6Ly9sb3JlLmtlcm5l
-bC5vcmcvYWxsLzIwMjYxMDAzMDg1OTQwLjQ5Mzk1MS03LXlhb2ppYWxlMDJAMTYzLmNvbS8KSXQg
-b25seSBhZGRyZXNzZXMgdGhlIElSUS9uZXRkZXYgdGVhcmRvd24gb3JkZXJpbmcgaXNzdWUuIFRo
-ZSBydW50aW1lClBNIHJlc3VtZSBmYWlsdXJlIGhhbmRsaW5nIGhhcyBiZWVuIGxlZnQgdW5jaGFu
-Z2VkLgoKSSBwbGFuIHRvIHN1Ym1pdCB0aGUgcnVudGltZSBQTSBmaXggc2VwYXJhdGVseSBhZnRl
-ciB0aGUgcGF0Y2ggYWJvdmUKaGFzIGJlZW4gYXBwbGllZCwgdG8gYXZvaWQgY29uZmxpY3RzIGJl
-dHdlZW4gdGhlIHR3byBjaGFuZ2VzLCBvciBhbnkKb3RoZXIgc3VnZ2VzdGlvbj8KCj4KPiAgIExv
-b2tpbmcgYXQgaXQgYWdhaW4sIGl0IHNlZW1zIGxpa2UgbXkgZGVhZCBlbWFpbCAoYW5kIHRoZSBv
-dGhlcnMgdGhhdAo+SSB0aG91Z2h0IHNob3VsZG4ndCBiZSB0aGVyZSkgd2VyZSBhZGRlZCBhcyBh
-IHJlc3VsdCBvZiB1c2luZyB0aGUgRml4ZXMKPnRhZ3MuCj4gICBIb3dldmVyLCBzcGVjaWZ5aW5n
-IC0tbm8tZ2l0LWZhbGxiYWNrIHNlZW1zIGEgZ29vZCBpZGVhIGdlbmVyYWxseS4uLiA6LSkKPgo+
-Wy4uLl0KPgo+TUJSLCBTZXJnZXkK
+On Thu, 01 Oct 2026 20:34:00 +0200,
+Werner Sembach wrote:
+> 
+> From: Eckhart Mohr <e.mohr@tuxedocomputers.com>
+> 
+> Fix headphone jack detection for some devices
+> 
+> Signed-off-by: Eckhart Mohr <e.mohr@tuxedocomputers.com>
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+
+Applied now.  Thanks.
+
+
+Takashi
