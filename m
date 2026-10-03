@@ -1,102 +1,281 @@
-Received: from mta1.migadu.com (out-159.mta1.migadu.com [95.215.58.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134C135F61A
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A783264DD;
+	Sat,  3 Oct 2026 14:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791037473; cv=none; b=DpGhURmBTq/98z84NY70lDZG3JjfWLISHKtvSaHUbUVx6/D1LizyLH+sfixNTD66YWH5fY4PdIZZyh0kOidtLHIceMMKSURdn9R/0yMx3KmyTiVQmGWRXbvwn8UHhHYa/L2S7au1lnfSdKFbCtJA8AOnTLai3vSPQdZaBv0WrM4=
+	t=1791037509; cv=none; b=cI6jbVChsKYli372vIB+wCczut/ynqnpK64bdQ44hQoxpqY0BpRn9XHO9W0HEjJXuSg+MIW8FFmEw6tdF9K3mDkG32Cxj02NIxeE4aBWQTfV/nbaIECxQ5zXmBQIL5fp1FEJUPFLujKI5l370353ygj48qc9keavBFTGfjZcgcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791037473; c=relaxed/simple;
-	bh=1pQTwGTEOYrVLPSMg1T+ZlkoNQLfO8VBMQicrt8OIYM=;
+	s=arc-20240116; t=1791037509; c=relaxed/simple;
+	bh=5p01jTBDDf0OrBUWmbz+2vVbxrtK9ueFIt9fQtbOgCQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fcC465eOpxys53xirSxXt0sYzoeEEy4UKOIeQFKt20cKtsIcrI96l9TWabZkGaU491LNiICHxR6Ch4owaDtNKH3FTMk991wlNvTZu4ARnZMPOBNww0ZN98xLX+dkmUEvxepaP5c8/DfuHLILbYjCXDRaiIW3Btl5x77oTY+Lhwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=aHGCwkEn; arc=none smtp.client-ip=95.215.58.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=frgGrcZDfv2LWpUicF2LbSTSOvnvoln57YIwTfV05jFgsv3YiaNe5rcWQZtcpBffKMVlGyan6fXfcLI3cDIDT4vvkN4w0Uk4udedSOuS21ThOIUF7nnEKsGQtiGxXvRMPDkdu315HRM3HQOPc62pGFMO0Js5zPcm5EmwiIhKv1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U5MZxtj0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="aHGCwkEn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1pQTwGTEOYrVLPSMg1T+ZlkoNQLfO8VBMQicrt8OIYM=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791037467; v=1; x=1791642267;
- b=aHGCwkEnjp2i0cyjUEtlLdsuQxe9hwd53wC7U2XIZjkwKOWdxk1/lIH7BPniOe+i/6WbSEYK
- jr8mTC780z+5yXpZp0egwcumtiWijPceqaJZgLDp6bBaPVg1z0cVXexuXrJCug5t336eCeRRj3K
- B9IT6yHMf+RYYji+0kN5MK+HaiVbxLX+K0+bdj0XNF2G7pWKMFLMcJhpzBa2lDvOeYWDRejKcNi
- KyLd1Acf2wmKaHnawmbRSS3MwnFeM6crSTWDWpTTfO4WFBzwHzzMiclc+Tf2bpizro8xHGsyUVa
- 0Xwfshxo5mGaqqILmqS+ARV/PC9OferOnZcoiPxS8hU4g==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 58b5df2f8a1b9a13;
-	Sat, 03 Oct 2026 14:24:27 +0000
-X-Mizu-Trace-ID: 58b5df2f8a1b9a13
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 3 Oct 2026 22:24:20 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Jiaming Ouyang <jiamingouyang13@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	alexs@kernel.org, corbet@lwn.net, Dongliang Mu <dzm91@hust.edu.cn>,
-	si.yanteng@linux.dev, skhan@linuxfoundation.org,
-	gregkh@linuxfoundation.org, rdunlap@infradead.org
-Subject: Re: [PATCH v3] docs/zh_CN: add Chinese translation for usb/ohci.rst
-Message-ID: <asEQFPeGY46qogz1@wyuan.org>
-References: <CAMnqnYy5Jt-DWtYrjdekr=M=NBvdW+tu340BLf=GXQv-qi2gQw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U5MZxtj0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA811F0089C;
+	Sat,  3 Oct 2026 14:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791037504;
+	bh=OStxCh6fDcyrpKUJLDDLqh7HC7mBFGIT1dAR3GKdF4A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U5MZxtj01Megkgki9VUtoR3nE6LqkCwnSZP+XxHAZUCJ715Cb+OmpmwLXpOaI/IR3
+	 F5OPyVar54h64ffr+Foyw0eU3K+eMntDcfoQjqNLDIzGvQcn2pahJBEvuOM/kY/yKN
+	 CPTLdcX7FzhFFrIUKcJBOV5EEsBx0lnbM9ouX15RWZOdvYo21sPP9bK5SXMRJGNgZ4
+	 xbr1p9ZLxHcWKICbUAkiUcA0nKsEAwVaP+wyjL/v51g9C+wf+holQn1aEiMRsW3rnl
+	 2/IIklB/6vYAJNs6AtkJi2AvsbBch8+csHi+40coRFeG2uomrGgDPTpw/mvh4SUT5b
+	 jOZGhdzze5clQ==
+Date: Sat, 3 Oct 2026 16:25:01 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dominique Belhachemi <db@domibel.de>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Maud Spierings <maud_spierings@murena.io>,
+	Graham Markall <hello@big-grey.co.uk>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v5 19/21] phy: starfive: Add jh7110-inno-hdmi-phy driver
+Message-ID: <asEQPf-oKbt_DSp3@parshuram>
+References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103245eucas1p1349d00810646fbf0149f1361534c23ac@eucas1p1.samsung.com>
+ <20260929-jh7110-clean-send-v5-19-82b4d8e3c6c7@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMnqnYy5Jt-DWtYrjdekr=M=NBvdW+tu340BLf=GXQv-qi2gQw@mail.gmail.com>
+In-Reply-To: <20260929-jh7110-clean-send-v5-19-82b4d8e3c6c7@samsung.com>
 
-On 2026-10-03 15:59:30 +0200, Jiaming Ouyang <jiamingouyang13@gmail.com> wrote:
-
-> Translate Documentation/usb/ohci.rst into Chinese Simplified.
+On 29-09-26, 12:31, Michal Wilczynski wrote:
+> Add the HDMI PHY driver for the StarFive JH7110.
 > 
-> The translation covers OHCI driver overview, hardware protocol
-> differences (OHCI vs UHCI), improvements since 2.4 kernel,
-> queueable interrupt transfers, and non-PCI support.
+> This driver binds to the starfive,jh7110-inno-hdmi-phy node and
+> gets its regmap from the parent. It has no dependencies on voutcrg, only
+> on its reference oscillator (xin24m), which breaks the probe-time
+> circular dependency.
 > 
-> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
+> This driver provides two main functions:
+>  - Clock Provider: It registers clk_ops to provide the variable pixel
+>    clock. The .set_rate operation configures the Pre-PLL registers
+>    (0x1a0+) based on the requested rate.
+> 
+>  - PHY Provider: It registers phy_ops for the controller. The .power_on
+>    op configures and enables the Post-PLL and other analog blocks (BIAS,
+>    LDO, Serializer, etc.).
+> 
+> The clock ops reach registers in the window shared with the HDMI
+> controller, and access to that window is gated by the controller's
+> system clock, which only the sibling controller driver holds. The clock
+> framework walks every registered clock regardless of which drivers have
+> bound, so deliberately do not implement .is_prepared, which lets the
+> framework fall back to the software prepare count, and return the cached
+> rate from .recalc_rate whenever the clock is not prepared. Without this,
+> clk_disable_unused() reads a PHY register with that clock gated and the
+> resulting stalled bus transaction wedges the CPU hard enough that it
+> stops responding to NMIs. It is reproducible by building the bridge
+> driver as a module so that the controller has not bound by then.
+> 
+> The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
+> with the PHY register block shifted by 0x100 because it sits behind the
+> HDMI controller in the shared register space. The pre-PLL programming
+> therefore comes from the common Innosilicon helpers; this driver adds
+> the JH7110 pixel clock table, the post-PLL and the analog configuration.
+> 
+> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 > ---
+>  drivers/phy/starfive/Kconfig                |  20 +
+>  drivers/phy/starfive/Makefile               |   1 +
+>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 582 ++++++++++++++++++++++++++++
+>  3 files changed, 603 insertions(+)
 > 
-> Changes in v3:
-> - Correct the docs list in index.rst
-> ---
+> diff --git a/drivers/phy/starfive/Kconfig b/drivers/phy/starfive/Kconfig
+> index d0cdd7cb4a13de22ff643c89a79d99cce57284d7..1da417ffbf224c13224e42a3ce322e3d0c272824 100644
+> --- a/drivers/phy/starfive/Kconfig
+> +++ b/drivers/phy/starfive/Kconfig
+> @@ -25,6 +25,26 @@ config PHY_STARFIVE_JH7110_DPHY_TX
+>  	  system. If M is selected, the module will be called
+>  	  phy-jh7110-dphy-tx.ko.
+>  
+> +config PHY_STARFIVE_JH7110_INNO_HDMI
+> +	tristate "Starfive JH7110 INNO HDMI PHY"
+> +	select PHY_INNO_HDMI
+> +	depends on COMMON_CLK
+> +	select GENERIC_PHY
+> +	help
+> +	  This option enables the driver for the analog HDMI PHY (Physical
+> +	  Layer) on the StarFive JH7110 SoC.
+> +
+> +	  This driver binds to a child node of the 'starfive,jh7110-hdmi-subsystem'
+> +	  parent driver and gets its register map from that parent.
+> +
+> +	  It is responsible for two main functions:
+> +	  1. PHY Provider: It provides standard PHY operations (.power_on,
+> +	     .power_off) for the HDMI controller (bridge) driver. This
+> +	     involves configuring the Post-PLL and analog TMDS blocks.
+> +	  2. Clock Provider: It registers as a clock provider to supply the
+> +	     variable pixel clock (hdmi_pclk) to the HDMI controller and
+> +	     the VOUT subsystem, which it generates using the Pre-PLL.
+> +
+>  config PHY_STARFIVE_JH7110_PCIE
+>  	tristate "Starfive JH7110 PCIE 2.0/USB 3.0 PHY support"
+>  	depends on HAS_IOMEM
+> diff --git a/drivers/phy/starfive/Makefile b/drivers/phy/starfive/Makefile
+> index eedc4a6fec156320c99ac0a0da609083b6a6a695..e7b13f00880b500f933f21b6037384d5c6884e3e 100644
+> --- a/drivers/phy/starfive/Makefile
+> +++ b/drivers/phy/starfive/Makefile
+> @@ -1,5 +1,6 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_RX)	+= phy-jh7110-dphy-rx.o
+>  obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_TX)	+= phy-jh7110-dphy-tx.o
+> +obj-$(CONFIG_PHY_STARFIVE_JH7110_INNO_HDMI)	+= phy-jh7110-inno-hdmi.o
+>  obj-$(CONFIG_PHY_STARFIVE_JH7110_PCIE)		+= phy-jh7110-pcie.o
+>  obj-$(CONFIG_PHY_STARFIVE_JH7110_USB)		+= phy-jh7110-usb.o
+> diff --git a/drivers/phy/starfive/phy-jh7110-inno-hdmi.c b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..cba6f3c3dae40bd982c062c8504438f51f3b30be
+> --- /dev/null
+> +++ b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
+> @@ -0,0 +1,582 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2017 Rockchip Electronics Co. Ltd.
+> + * Copyright (c) 2025 Samsung Electronics Co., Ltd.
+> + *
+> + * Author: Zheng Yang <zhengyang@rock-chips.com>
+> + * Author: Michal Wilczynski <m.wilczynski@samsung.com>
+> + *
+> + * The register layout and programming sequence derive from
+> + * drivers/phy/rockchip/phy-rockchip-inno-hdmi.c; the JH7110 places the
+> + * same Innosilicon PHY block at a 0x100 register offset.
+> + *
+> + * This driver handles the PHY portion of the StarFive Innosilicon HDMI IP,
+> + * which is part of a monolithic HDMI block. It provides the variable pixel
+> + * clock (from the Pre-PLL) and the PHY operations (for the Post-PLL/analog).
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/phy/inno-hdmi-phy.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/slab.h>
+> +
+> +/*
+> + * StarFive (JH7110) Innosilicon HDMI PHY Register Definitions
+> + */
+> +
+> +/* REG: 0x1aa */
+> +#define STF_INNO_POST_PLL_DIV_1		0x1aa
+> +#define STF_INNO_POST_PLL_POST_DIV_ENABLE	GENMASK(3, 2)
+> +#define STF_INNO_POST_PLL_REFCLK_SEL_TMDS	BIT(1)
+> +#define STF_INNO_POST_PLL_POWER_DOWN		BIT(0)
+> +
+> +/* REG: 0x1ab */
+> +#define STF_INNO_POST_PLL_DIV_2		0x1ab
+> +#define STF_INNO_POST_PLL_PRE_DIV(x)		FIELD_PREP(GENMASK(5, 0), x)
+> +#define STF_INNO_POST_PLL_FB_DIV_8(x)		FIELD_PREP(BIT(7), (x) >> 8)
+> +
+> +/* REG: 0x1ac */
+> +#define STF_INNO_POST_PLL_DIV_3		0x1ac
+> +#define STF_INNO_POST_PLL_FB_DIV_7_0(x)	FIELD_PREP(GENMASK(7, 0), x)
+> +
+> +/* REG: 0x1ad */
+> +#define STF_INNO_POST_PLL_DIV_4		0x1ad
+> +#define STF_INNO_POST_PLL_POST_DIV_MASK	GENMASK(1, 0)
+> +
+> +/* REG: 0x1af */
+> +#define STF_INNO_POST_PLL_LOCK_STATUS		0x1af
+> +#define STF_INNO_POST_PLL_LOCK		BIT(0)
+> +
+> +/* REG: 0x1b0 */
+> +#define STF_INNO_BIAS_CONTROL			0x1b0
+> +#define STF_INNO_BIAS_ENABLE			BIT(2)
+> +
+> +/* REG: 0x1b2 */
+> +#define STF_INNO_TMDS_CONTROL			0x1b2
+> +#define STF_INNO_TMDS_CLK_DRIVER_EN		BIT(3)
+> +#define STF_INNO_TMDS_D2_DRIVER_EN		BIT(2)
+> +#define STF_INNO_TMDS_D1_DRIVER_EN		BIT(1)
+> +#define STF_INNO_TMDS_D0_DRIVER_EN		BIT(0)
+> +#define STF_INNO_TMDS_DRIVER_ENABLE		(STF_INNO_TMDS_CLK_DRIVER_EN | \
+> +						 STF_INNO_TMDS_D2_DRIVER_EN | \
+> +						 STF_INNO_TMDS_D1_DRIVER_EN | \
+> +						 STF_INNO_TMDS_D0_DRIVER_EN)
+> +
+> +/* REG: 0x1b4 */
+> +#define STF_INNO_LDO_CONTROL			0x1b4
+> +#define STF_INNO_LDO_ENABLE			(BIT(2) | BIT(1) | BIT(0))
+> +
+> +/* REG: 0x1be */
+> +#define STF_INNO_SERIALIER_CONTROL		0x1be
+> +#define STF_INNO_SERIALIER_ENABLE		(BIT(6) | BIT(5) | BIT(4) | BIT(0))
+> +
+> +/* REG: 0x1cc */
+> +#define STF_INNO_RX_CONTROL			0x1cc
+> +#define STF_INNO_RX_ENABLE			(BIT(3) | BIT(2) | BIT(1) | BIT(0))
+> +
+> +/*
+> + * These tables are copied from the monolithic driver.
+> + * They match the Rockchip PHY driver tables.
+> + */
+> +
+> +struct post_pll_config {
+> +	unsigned long tmdsclock;
+> +	u8 prediv;
+> +	u16 fbdiv;
+> +	u8 postdiv;
+> +	u8 post_div_en;
+> +};
+> +
+> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
+> +	{ 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
 
-If you merely want to resend the patch to achieve the effect of a ping,
-then please change the title to [PATCH RESEND v3] or similar. And this
-is documented in our docs. But generally speaking, this is too early.
+lower case hex values, here and everywhere else please
 
-And I cannot apply this on the tip of Alex's docs-next now as well:
-
-$ b4 shazam https://lore.kernel.org/linux-doc/CAMnqnYy5Jt-DWtYrjdekr=M=NBvdW+tu340BLf=GXQv-qi2gQw@mail.gmail.com/
-Looking up CAMnqnYy5Jt-DWtYrjdekr=M=NBvdW+tu340BLf=GXQv-qi2gQw@mail.gmail.com
-Checking for newer revisions
-Grabbing search results from lore.kernel.org
-Analyzing 1 messages in the thread
-Looking for additional code-review trailers on lore.kernel.org
-Analyzing 23 code-review messages
-Checking attestation on all messages, may take a moment...
----
-  ✓ [PATCH v3] docs/zh_CN: add Chinese translation for usb/ohci.rst
-  ---
-  ✓ Signed: DKIM/gmail.com
----
-Total patches: 1
----
-Applying: docs/zh_CN: add Chinese translation for usb/ohci.rst
-Patch failed at 0001 docs/zh_CN: add Chinese translation for usb/ohci.rst
-error: git diff header lacks filename information when removing 1 leading pathname component at /Volumes/Linux/linux/.git/rebase-apply/patch:11
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-hint: When you have resolved this problem, run "git am --continue".
-hint: If you prefer to skip this patch, run "git am --skip" instead.
-hint: To restore the original branch and stop patching, run "git am --abort".
-hint: Disable this message with "git config set advice.mergeConflict false"
-
-If it's not on me, you might try git-send-email(1) or b4.
-
-Thanks.
+-- 
+~Vinod
