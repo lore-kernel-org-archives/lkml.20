@@ -1,63 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBAB8472
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 03:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523F316905
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 03:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790999249; cv=none; b=fLpUVut91R6lzLYatEoGF8OrxuFLc7HVZaCu6ooMbfGjIHy1KjcE8YczB3WGOSb+O25Rousaxuc6ZdGUhm2e2NDUajMKiaYC6qyLtuNM/NEmgCRKiSACxI6hDA3qEJ2vFsmptAwkpVzTyirTGOD333olvZeGsZ0v9Kk8wNs+RgE=
+	t=1790999353; cv=none; b=qDxaskoSGiiZxQb1xtN2EEqKG4FujSSqBFqZowXXpSlHzx6aNfvpf15PAYcBgA1VliuJoU/Wywn1EGkVm8hAZFV6DcS3Fi8xRLDkkgJNuz72hQv0N09RNniAcpafUFzVfKuEHaZwHLo7uvoEnwRue+are2mOxBnmHeS+tOb5sp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790999249; c=relaxed/simple;
-	bh=TVAzFKX0XuRuwKXcDTw5Hrj7j2dB+9u4UiSkz2l1fdI=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=RJ5FS7AZE5hNBF3HunZngT6jTeMlD/1geOWnCC6CjFdRIe4e5/oPBTMxlddQtgKEhCCF1fy3pa15hsPe11DkLf0of9YSsvvU1rFAhwjAvc4JnyUOfVFxOxjW3skyGyznII8WECHqrU2QA0/rYa3EQPRA7oyPyoJJcg24D4IrkIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXdeAe77; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790999353; c=relaxed/simple;
+	bh=RiFd/x4ob4XGPmjfMU8mx5CYpJ1plwMS3Baxsk/pST0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=noGYdQgrHIGCAiguJCfimq0GlSEIqjEjtZsXLcoLtNFJoEARrK4OIpVlcq9fhAgsHOBWYf8/0t+mM9FfX/tIAqVCZCFNqW6syuOGCbeImOWYzGpY1MVT1+sSSrwk3SpX1+Q8KPPCwcujV+xQJ4vR/E0GtSCLQNkaUEe3UfwCW7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nMalJ4SS; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXdeAe77"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060CD1F000FF;
-	Sat,  3 Oct 2026 03:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790999248;
-	bh=QTpk9BcUWiTfdpWQqYdMqMYdlt25XSC9yYvpwYJdD4s=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=HXdeAe776w7RI71QbMAZrdEKxinWmHre3/UIjXB5FvuCxcfumIpQyTiHr+aB5/Frf
-	 RcVSsOUuZeFt+agGLeOTUEyFFWXo4Ziil7WHeEd+lZ7ipwdgShi8IkQ6D2fHwkD7Qk
-	 GIQC37GgTkF3t8+RXBjdno1nqvc1r8S8EGmb7+h5HnebV4HH36O4WqbNdp/NKtTUWl
-	 bUqdYlzMb6SdZZR6H01d/6hfZnIwASg9RqJgdcKDOoRQKvZu1BQN1J1Ao6kd9ggRDE
-	 l+TjYRzXHLXvbc+cPcP1OgyPUEXAlGvu/hg00TEM+gxnKDskAMWazDyXG2pVOnVVKw
-	 xyB2jz7tPiXCQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F162A3924443;
-	Sat,  3 Oct 2026 03:47:27 +0000 (UTC)
-Subject: Re: [GIT PULL] probes: Fixes for v7.3-rc5
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261003092428.77fca44f8fa79bf95a1711c1@kernel.org>
-References: <20261003092428.77fca44f8fa79bf95a1711c1@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261003092428.77fca44f8fa79bf95a1711c1@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git probes-fixes-v7.3-rc5
-X-PR-Tracked-Commit-Id: 7a39c732a22ec4a369af9e19fbe3d666ec83eec4
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
-Message-Id: <179099924645.4128498.5181937937926480103.pr-tracker-bot@kernel.org>
-Date: Sat, 03 Oct 2026 03:47:26 +0000
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Leon Hwang <leon.hwang@linux.dev>, "Masami Hiramatsu (Google)" <mhiramat@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nMalJ4SS"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-533797e72e8so1004571cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 20:49:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790999351; x=1791604151; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zBUh/Tqq/D2AVY5T0bHA/kdjx2FRaXb1oddCR7mF7Q8=;
+        b=nMalJ4SSStLa1aDatdDLaWTFuE8wIoBwYKEcYLStAh/t5ptzKJdaOa/3svkbBdIklS
+         c5u3Q0kqVSa0hpakYiXKBtAnBGSnvAl0AfnzN1lHONKcRTRp6G8TI0WCHMZJFkZSOSmL
+         EaDTzER5iGjirBzni0WzV5piHykpN1aqWaW5rIrxWk2esSQxkP1mUkjk3OccM9dA8uEn
+         nD1qFOMP4A7COSeIleSH9fvw7QyjYi05Fll5xb+yrtyXAv/TcOJzYbJJ8Uuyslr/AeOs
+         PVOADm1kP7/zfjEO6DXTIZy3yLDoVWRd5nb1zbKILKdM8OgMpIzp8HYgNkLLB32A0LO9
+         CH4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790999351; x=1791604151;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zBUh/Tqq/D2AVY5T0bHA/kdjx2FRaXb1oddCR7mF7Q8=;
+        b=Jgkw7j7FJrHoBlA4minrR1Dmm4t3K2Z/IcTXhF5c5USMOeMftjSXBZFjcE2THeptHH
+         MAjtOqvgZSetd8mb4HakiINAp7nvqexeFqKNi+2KFqYXs5uQQvRY1/5GaP4durB1j40v
+         pT6IcLaJcZ8VxwmNiU0/CGqcDYnjg4mVnBb6gzB6F6yiSVtab8XVz44D9UujKBL2hpdN
+         jA0ug/saPVCzoMkaXJg799dHWQkXffAOBwQ3t2Np+XHOshrdW+e8NiuupGcQw8q4bB1y
+         bIPf8NEM9QoYYnnMUxG/5azafOsMUMfiGxhy16G2Vmrrtp2hURU151+3F7eRJvyPr4YV
+         gBkA==
+X-Forwarded-Encrypted: i=1; AKwUvBykMXu7cy62mZCV0lJT5UlSWIidfsqZO9pnhYwg7LdAwX0IE9F5jnbgNH32giCe58a8oHJwURr83qfWWok=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEw83CjkYiV/OiQduohZ85mDJX9tkqQoAxbWM9V1V18HgPobyq
+	DxyqTasorFLK77AV55DL9mSdGL74lynioCJ5+xIuKHSN+EaOzsA3Z2FNb4ThILk=
+X-Gm-Gg: AYBFou3IvaPyu59yHjWml4nQ/LsgCHc1Px9Hd8E2d4lhMGIw36S76ae2WhzEzHHDx8G
+	qrgq/y3+KROhYSoGFYExywAGqfNBWYC7lnxruV3HGGtJRe6OJNMDyEgnR3ireiL7kKFNL52LFpN
+	Lh7NNATXBJ0vXHMqu7HaMElunP367ekKBIyQ3a+Fek0TXXj/EltJeiOC2HHbDohGXSZckwRVkOF
+	uTQBQTSiW2nTtuDRSzFtgWw0qeDyzVE40JGOkR+DDnGLNjVGnGEt79l9h3oY4jSpGx2XTLiL6GN
+	YJCKAL3Na5HPe4SNCr8qbhlHp0l7G774UN3eOcrFeCnr5/75mjFFfnFfC/WJEZqMVwsSap6nev/
+	Eb9ssptUzybSzmUVKq7cMkUH7JK6QfsbpSmdkm8lr0O/hyopk3bqUQiTpvD7+Ke0HV5SFBe2VdR
+	kn/f5gVguI8z/m8ewWzaq9cBUhIAblOOM++8CSvMX3rf/j1SLIZTCb33h1LWYtMCu96YSH5Mpp8
+	fLkxb1lx2fSU2Hb/O0Q/FMGfYGlU1zTJ0dZutfC91tnJ+teUI1xWIOokY1W1BuYGP95bRs5d1/E
+	dU1UGQluAuE3trRvq1OCzKmu0MndRg==
+X-Received: by 2002:a05:622a:1481:b0:533:42e0:a1ee with SMTP id d75a77b69052e-53511e79842mr24892281cf.37.1790999350628;
+        Fri, 02 Oct 2026 20:49:10 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5339883034csm43209541cf.3.2026.10.02.20.49.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 20:49:09 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] usb: gadget: m66592-udc: Free the IRQ before unmapping registers
+Date: Fri,  2 Oct 2026 23:49:08 -0400
+Message-ID: <20261003034908.619696-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The pull request you sent on Sat, 3 Oct 2026 09:24:28 +0900:
+m66592_remove() unmaps the controller registers before removing its shared
+IRQ handler. Another device on the same IRQ can invoke m66592_irq() in
+that interval, and the handler reads and writes registers even when the
+controller has no enabled interrupt pending. CONFIG_DEBUG_SHIRQ can also
+invoke the handler from free_irq() after the mapping has gone away.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git probes-fixes-v7.3-rc5
+Shut down the sampling timer and mask the controller interrupt sources
+before unregistering the gadget. The timer can enable interrupts and
+invoke the gadget driver's disconnect callback, while gadget teardown
+clears the driver pointer and disables the controller's internal clocks.
+Then free the IRQ before unmapping the registers so the handler finishes
+while its MMIO mapping and private data are still valid.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-Thank you!
+Fixes: 4cf2503c6801 ("USB: m66592-udc: peripheral controller driver for M66592")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/usb/gadget/udc/m66592-udc.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/usb/gadget/udc/m66592-udc.c b/drivers/usb/gadget/udc/m66592-udc.c
+index d77c11c4eb38..773cd00fbf1d 100644
+--- a/drivers/usb/gadget/udc/m66592-udc.c
++++ b/drivers/usb/gadget/udc/m66592-udc.c
+@@ -1515,12 +1515,16 @@ static const struct usb_gadget_ops m66592_gadget_ops = {
+ static void m66592_remove(struct platform_device *pdev)
+ {
+ 	struct m66592		*m66592 = platform_get_drvdata(pdev);
+-
+-	usb_del_gadget_udc(&m66592->gadget);
++	unsigned long flags;
+ 
+ 	timer_shutdown_sync(&m66592->timer);
+-	iounmap(m66592->reg);
++	spin_lock_irqsave(&m66592->lock, flags);
++	m66592_write(m66592, 0, M66592_INTENB0);
++	spin_unlock_irqrestore(&m66592->lock, flags);
++
++	usb_del_gadget_udc(&m66592->gadget);
+ 	free_irq(platform_get_irq(pdev, 0), m66592);
++	iounmap(m66592->reg);
+ 	m66592_free_request(&m66592->ep[0].ep, m66592->ep0_req);
+ 	if (m66592->pdata->on_chip) {
+ 		clk_disable(m66592->clk);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.53.0
+
