@@ -1,152 +1,98 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFBC2BFC85
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE61A1A3A80;
+	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791058595; cv=none; b=lzoW7eZlSLoGRSsS1kLZ2gWHbU6NqgkIqu1XXo6xzlLcimlPCzhHe6gaba6DnvPvTe+dZPUgZrsvfBGw+8pwb7L/8mrjXsR50vLb+7dYXSVozzeYUs4POf86iwgx+FsOkCFswNlY/yvmgFyNGL1dbAVU2LDxqec4SDtIqF/z0fg=
+	t=1791058773; cv=none; b=Ok57vpyrHfFq/rHs+KhkEprR6ZIsr6C1W2BaPTgHDkT7I5kmrZxbn++zwGxY1IlFjSoZd6IYBqJQeXtvY0g2fPxY1PE+lpJy+kVPrPQzoMOQ1OJIlE34oKfDYy3bLraBrulOu8HkM50KRRBg0wtCJHASFu/u3Ey9KUDlHR7Oczc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791058595; c=relaxed/simple;
-	bh=SyKBO76ev2NriW6LktGJTb69Uo9mhcn47+zY2SXVJ5k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RKRtLHql5Pfy3SkVIS+DhtXSA3RpD9YfQKoGKKvnjQlZEhldrJrxskyXO+RFeFE+Wx6NsAH+4P8C0hZaiMClek3mcLi6s0Sjlh8Z4KqcjXAP+4R7XOn21ewOR448ySFBJ3kR/NJC6vZAzfjsYKAHBK63uIczkwCwlQAOEFAnxtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gr3qjM2S; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791058773; c=relaxed/simple;
+	bh=iBNPw4+S7wqe2ur9r2+G9UXaM8s1MByYaTEofVO10i8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Mk7NXsK8qlPtKqd04SdRdiD1J+KsWxerozFm4S9QUp438fQDVDdB5ghGUOw8B5WzfZSQtUcg4369Kp7CKh6TYzy89AxVaZd/22GxwUD3yVLdsA749V0wUhwplqrmTyB1sH+wqxsPypSjvg5ZxxK9YxiKk2CSc4HxFHOlfhVbQ3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/koQFUg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gr3qjM2S"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a16629a040so9234465e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:16:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791058593; x=1791663393; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xSJHmcS6fdALBnPJ5e4ZZCDQp3UfYu5aUPElGXfZW+Q=;
-        b=gr3qjM2SOXIDXZ4oyvPCqdDXnS8Q8BPOE8b6TG+GYQLwCmc+wWac51qM1JTRvgJQ/m
-         s8qdQAe8oZxD5NsPCq7TUxSt5wKxZ+nx5VMyA8Z2aBKboSnup2FOxdFnzVfIlAzd3Tnf
-         JaDv9u63AlarcYCQ7JZLp6e74T1d+nj+5ZBeacTXfDzMhrZ5yaoj6HDJPCl30Y6+1bha
-         tEf3/6tKZvEKgArhWqJ2SqSfsb3yYMiak5MFJvclKK2DrlTwZvzsP0aoBZMN0bZLGjAG
-         uykj6B8nWrfdMykWIFgdB2IGpMagMTrd9dVFemn/KxKp5l8tFjKbPLZWDWvIavPpyoc4
-         NXtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791058593; x=1791663393;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xSJHmcS6fdALBnPJ5e4ZZCDQp3UfYu5aUPElGXfZW+Q=;
-        b=JAydWq6ZC6nrykxsDXZZf8PHmG3z+LEKBSTJ3gvap55Qbp66TB5OG4YCsf3xEiXQ8Q
-         v0RUWYXPob5Q/qWeA/V2H2ZSmupCDvTeOweiAI3uQHOixxQB1TXSp0QbB/TurPExQPlA
-         8Rqln4Oy1qZh+N20tCHjDs8dcBaaGXtmPZNBXojVtoeuJRYrl5XZ7YcV8z4RiO0E1onc
-         qt9i/LOj+1onmPXqvlHP/gocgahm098rU3TPIEtFvP8sIaG3ZdWH/soStei455BPgEYe
-         VT0Z81QI7G10OOE8FSeMM1olZmqvUTVoXlNtD0GI9xE9B/pGcCOIFjldJN4j2c6IeVB8
-         3lOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHwFWpVn2rfAC2EM4itps7bew/dT9onIlcPolxHXw4ag9WAke2XArLnbMh3juaPzjhXagBMKnUgu5kbG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKGmRXvIISe8yvQGWRh7a6+UqN4p4viwj2qvxRhV04mLyH1wLN
-	JnieunEfKyLxPNVm4FcdU2g9Q+8oaunt5jawkd9EoYhgnPGyFVeEhYrijFUrs1RCc7I=
-X-Gm-Gg: AYBFou05z5lDlcmhJCLpKzLx2sOIReyJmwb4PodLPwpGKEP6HbUMbK8dpuqmKhwYmbO
-	HlJD2bG/oc5/gDAvNTNGCWNK+Od/sS4sDbeqzXJ1oArX2MvmRV8Vv97hzOXdcmKxgPM5NeX5ZaF
-	i16WjOaARPy7JQzILmnlVQfllMJm/Vsy7MlADvyiGiHVlW71LaYkf4cmIkYbUtL8ZnGlWEy4ZJJ
-	gy8T6lDsJ12At9CYwI5W50kawIeL7EVUmT2Izqt2lETWxxBg1kDgL1I8UCSPl2dT1ExMAxiZjM2
-	68HbpBxq2hHxS0+AMMXh97lsNy3/O7nihDX9c5dpY+cHIqJJIK8LRqJ81Aa1TIYt9sBvMdmq2CC
-	YfTtlz95aorUAPa5ineyE/xjSZs8zFPCDLRNxomWfwPs7u0kkE5cJ81rSR1wKE8Ji7DyQ1/GCL1
-	zfjTW02XN/XhUM9gbIkmoVcdptDjVFqcsQlO9jZkfU6WBWaeak4kriAAOnetEPYPNOCS7wdCcRj
-	/0=
-X-Received: by 2002:a05:600c:c1d7:10b0:4a0:4f6:3dc5 with SMTP id 5b1f17b1804b1-4a1680dd4f4mr34160075e9.7.1791058592594;
-        Sat, 03 Oct 2026 13:16:32 -0700 (PDT)
-Received: from Mac ([188.163.8.107])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16d6295f9sm51579145e9.14.2026.10.03.13.16.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 03 Oct 2026 13:16:32 -0700 (PDT)
-From: Andrii Pasichnyk <apasichnik9@gmail.com>
-To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
-	netdev@vger.kernel.org,
-	wireguard@lists.zx2c4.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Andrii Pasichnyk <apasichnik9@gmail.com>
-Subject: [PATCH net] wireguard: peer: free packets left on the per-peer queues on removal
-Date: Sat,  3 Oct 2026 23:16:25 +0300
-Message-ID: <20261003201625.4572-1-apasichnik9@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/koQFUg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 49662C2BCB9;
+	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791058773;
+	bh=iBNPw4+S7wqe2ur9r2+G9UXaM8s1MByYaTEofVO10i8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=j/koQFUgiv1AhJOtahMKyyjrnDbQIE1v4MEomF/aH/t0m740HkKxaET1KYO1Bd+ki
+	 kGDQN5KX8vkRw9mrrvHdzqvIHgsLke3hwFvSOfm/IrA7VhAkRpC/0ezkccbbZd3VHg
+	 MVzPLPkPEaBNnlliR1SQ+y++ca05l1K62WkWVyt+gtxqpdspN4sO3eOFtbDKdg8My+
+	 Q60WsClUlIlwf6AT/0UWlgtbkg9R37+CiXWmx0uqXaJuDIHrJXOOOHuAoygvDxNBf5
+	 UHjaGsF9QWH96daz1w+Ms7rKXKHKwKU47K/imtgsOP36Q+KXzkSTkQrOCzZWeTta2V
+	 zWdQLu4TbJTow==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22BDBCA5FDD;
+	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Subject: [PATCH 0/2] Add Altera timeout bridge driver
+Date: Sat, 03 Oct 2026 20:19:18 +0000
+Message-Id: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEZjwWoC/x3MQQqAIBBG4avErBswhcKuEi2k/moWWahFEN49a
+ fkt3nspIggi9dVLAbdEOXxBU1c0bc6vYJmLSSvdNkoZXuDSFcBJdhxXYjm5c9a0Rs3Q1lIJz4B
+ Fnn86jDl/3retxWQAAAA=
+X-Change-ID: 20261003-feature-timeout-ip-7a93630de299
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>, 
+ Vyacheslav Yurkov <uvv.mail@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791058772; l=1295;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=iBNPw4+S7wqe2ur9r2+G9UXaM8s1MByYaTEofVO10i8=;
+ b=8l2Csc7ezXuJVwxnNu8Y1LTcxSKxqxv38TBsQd9NhOdEMMLQDhfiNKOzCuCtyfGTj8G1wUSBR
+ Czdud9AosceAdMGj5vn51ekQOTZXVXvEfSoZHCbXsDdfZHebRhDy/+G
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
 
-peer_remove_after_dead() flushes the crypt workqueue and then disables
-the peer's NAPI. Once a disable is pending, __napi_poll() completes the
-instance after the poll returns even if it used its whole budget, so a
-peer removed while more than one budget of decrypted packets waits on
-rx_queue keeps the rest there. Each entry holds a keypair and a peer
-reference, so the peer is never released; the WARN_ON in rcu_release()
-that checks for leftovers is never reached either.
+This series adds support for the Altera timeout bridge IP. 
 
-Free whatever is left on both per-peer queues once nothing can feed them
-any more: receive entries are single packets, transmit entries lists.
+The timeout bridge connects an Avalon bus to the HPS and provides a
+downstream address space for devices implemented in the FPGA. The
+bridge also exposes status information and generates an interrupt when
+a timeout occurs.
 
-Reproduced with the WireGuard selftest VM (x86 KVM, 1 vCPU, net-next):
-remove a peer while a UDP flood keeps its receive queue busy, re-add it,
-repeat, then run the selftest's created/destroyed object check. Over
-2140 removals the unpatched kernel leaked a peer and its keypair 5
-times ("wg0: Peer 27: merely created"); with this patch, 0 times in
-another 2140.
+The driver registers the timeout bridge as a bus and allows child
+devices behind the bridge to be described as the child nodes in the
+device tree.
 
-Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
-Assisted-by: LLM
-Signed-off-by: Andrii Pasichnyk <apasichnik9@gmail.com>
+The latest bridge documentation (as of October 2026):
+https://docs.altera.com/r/docs/683609/26.1/quartus-prime-pro-edition-user-guide/axi-timeout-bridge-ip
+
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 ---
- drivers/net/wireguard/peer.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Vyacheslav Yurkov (2):
+      dt-bindings: bus: Add binding for Altera AXI Timeout Bridge
+      bus: add Altera timeout bridge driver
 
-diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
-index 1cb502a..3e08898 100644
---- a/drivers/net/wireguard/peer.c
-+++ b/drivers/net/wireguard/peer.c
-@@ -91,6 +91,25 @@ static void peer_make_dead(struct wg_peer *peer)
- 	/* The caller must now synchronize_net() for this to take effect. */
- }
- 
-+/* Each queue entry holds a keypair and a peer reference. Transmit entries
-+ * are lists of packets, receive entries single packets.
-+ */
-+static void peer_purge_queue(struct wg_peer *peer, struct prev_queue *queue,
-+			     bool lists)
-+{
-+	struct sk_buff *first;
-+
-+	while ((first = wg_prev_queue_peek(queue)) != NULL) {
-+		wg_prev_queue_drop_peeked(queue);
-+		wg_noise_keypair_put(PACKET_CB(first)->keypair, false);
-+		wg_peer_put(peer);
-+		if (lists)
-+			kfree_skb_list(first);
-+		else
-+			dev_kfree_skb(first);
-+	}
-+}
-+
- static void peer_remove_after_dead(struct wg_peer *peer)
- {
- 	WARN_ON(!peer->is_dead);
-@@ -122,6 +141,11 @@ static void peer_remove_after_dead(struct wg_peer *peer)
- 	 * here from process context.
- 	 */
- 	netif_napi_del(&peer->napi);
-+	/* A NAPI being disabled completes after at most one more poll, which
-+	 * may leave packets on rx_queue that still hold references.
-+	 */
-+	peer_purge_queue(peer, &peer->rx_queue, false);
-+	peer_purge_queue(peer, &peer->tx_queue, true);
- 
- 	/* Ensure any workstructs we own (like transmit_handshake_work or
- 	 * clear_peer_work) no longer are in use.
+ .../bindings/bus/altera-timeout-bridge.yaml        |  82 ++++++++
+ drivers/bus/Kconfig                                |  10 +
+ drivers/bus/Makefile                               |   1 +
+ drivers/bus/altera-timeout-bridge.c                | 219 +++++++++++++++++++++
+ 4 files changed, 312 insertions(+)
+---
+base-commit: a74306e2e676f9775457366fc047a660fbf02f26
+change-id: 20261003-feature-timeout-ip-7a93630de299
+
+Best regards,
 -- 
-2.53.0
+Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+
 
