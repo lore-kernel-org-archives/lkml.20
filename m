@@ -1,134 +1,292 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D923A235BE2
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 15:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC86448D03
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 15:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791042608; cv=none; b=BnzZrkrg0cgk1ZMYmbmfvERc+VTihm/RQdJM69NqIJE7yC5URoXw2XxvpFZbVzrlS7WwgvPH7qLJQnEINI272CJjs2y1ag85/gBxOebM0hcoQ70jOZT48YXcsusH8luVvMXnppQl1zHvPI/JSmFMkWT0VBsQpjATUL1PP6JtZPA=
+	t=1791042634; cv=none; b=QuXEq6bk9bCf7w4DM8jFrl16S4lDY4IQczfYMaX8KigvJNSgisiGfm5fvM23nZsw1LymyTZIWILDcmpEOsjsKXCGEYnTqcJYxQcZjrOrxQM9tQ+dBUa8Y4UNjsoWEBReFPYDxUqBT+If/BJETs9s4OJk+PED24t3Eyje6zF79wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791042608; c=relaxed/simple;
-	bh=qJaUF/w0W94fLDp+eth2i/oD+mT1LZ00w7+E9whiJJ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CKYJGjmYC9Bwc4zH3MTJrsmL7b2SzmSh4svnelEX9rnZAcyIjvzf64l6RmiyJOkZ6jkjXxyD+7zWjOuw3irooX65N02/M8hqV6mZ0u77u7nLQpYesJcUhWvyzWbRpT7TLXDCFtPdHX2KAexI4rfhnIffUUzMIXSwYf1sBzMA08I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BqcU+19X; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791042634; c=relaxed/simple;
+	bh=VCFZL8C7CskzounbxL3E1vIVFsfQTCnNmtrH/w2/R7g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rKNkAstFa5zk1Ue24Mdrgp/HFpKCPt3DYxXOTy9qayUoMH52N4V9B31gJVegA0ZZI9yPhIxjmvBxVj5hSbjAQoezuNJMqmuHlh0oJ+eEYduNkFns6+rTSfSCLM/0S5nT3PFFkqAZjGzMKNvoQYqrXEZfjM5KK8dLKsa4cIJRaVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O3KmMy1k; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BqcU+19X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791042605;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pJNvDGX6YiI/koTtXDXCLWPYjykCeclt5Rn2DoTl0tg=;
-	b=BqcU+19XJRIIDba2g8fLMsihzUGFan2t3avUrBgAusjOjODAblBegeidUFd39pZyYuPfvF
-	r5w3xlduZezxy2D67Pduswj2PXQmdWarun03TgfSOiOO823eUN9pomtg+sqSgXAh0rvdIB
-	D1qaLBKiKFr7/wY5UTpvuPKSvih5hkE=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-453-vbsObNjHMMey5sbZQAUSXQ-1; Sat, 03 Oct 2026 11:50:04 -0400
-X-MC-Unique: vbsObNjHMMey5sbZQAUSXQ-1
-X-Mimecast-MFC-AGG-ID: vbsObNjHMMey5sbZQAUSXQ_1791042604
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-869553205a7so4329467b3.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 08:50:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O3KmMy1k"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so6285455e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 08:50:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791042630; x=1791647430; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tLpRB5yATHQpX0YPaKzhPzon6/tpk2LiYbV0aGm14kM=;
+        b=O3KmMy1ktsfB2cPq0pFa/ayTgXXWwwknZSDwbw3Yerq8gtTtcnn0wxmop0hWKn7Ay9
+         UfXATnMgHBpTsxZXUsNKkfDHXEka3FyziVTOzLS3FTZu8XgJigKaD2saDBR5yLh70x7m
+         1GeyYAEwwJcHtfp3Gq9WuyOh7hpHU3R9d9iCznD7oLqd0daA/ElCR7p0FssH3xIZmu8K
+         HdVI7BmM/HrOyTzOFr7Tb2/TKfohVjRCimfoBeFaJ/comgFwkXZvLeJz8A/xdrQT89p8
+         avfPhptFpHAtySsl21OVBIIPvCpY6lqofGG7xXoDgfA9zO7k/pqc4/IF0LwfLFfA9NiO
+         kgZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791042604; x=1791647404;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pJNvDGX6YiI/koTtXDXCLWPYjykCeclt5Rn2DoTl0tg=;
-        b=DBOGI2jsxaYlhffGMkUTGFmcjx1GHjGfR8Ee7plO+kYThJZwT+kFc7hwzkQ2Wc9mzt
-         Mp4+YgVRBeWc+C6XHMjPDVX/oQOXb+YTF7LcPs3jTCYt/qoJePt5rsSRK4wz0xGyQLY/
-         jb4PEWAme5KH1IrDjJSIWhm176v2p17BgAijX6OBS+1ujgFQ9m7CdDkarTBYZv+Nu3H7
-         vnbv0GtvhnYAjZA2/fsgkfMu5Z7dJcXSGRSn0QN1wGpac9iSrVx6W3vXYB35a5qU0fQ+
-         G02mJbBxstwOQYrrSrru7qNeGXe4O5AkFR8Iq1xK6IRz1S/C9Fet1TIIFXywuopAAN5l
-         C7cg==
-X-Gm-Message-State: AFq9FYIoBoz0M0yP1J+/3so2ynkfhe4F4CIiYGP0gfPHsnHzv9ljxD4G
-	J02jOaFnFZL0URyb/9VwXaZHYEHVO7MdAwv1vXMKTFOhl0ayrEDOiHBksDP2HeRjlwcGAvH3Jfe
-	sWohRuT/snvKhmh8GI1zN9//iN83lJugwSUvZfRzFrtgolznw7NlTRuJLwmm8ujObEQ==
-X-Gm-Gg: AYBFou24CJ9srnhTCj1Lz2NRHi+jSmX7E2MpyHyaJTil/5Cdb3+EQL+hBfsuPk6hjhT
-	2Ra1ul4XbELDaQ2Of/FDr4dljrOhG/fpyxuqjQLJnQu8M1coxMzCWeaGkkzJ02YSjnasg/y2Ix1
-	MM37TdoWGEnD09121/3kkF+K7h/0wHcfGBgvnarP1Dqvd6tyuTTiZqjDWv4m63DlPCQVw4ieJcH
-	76YoQtlq771WWA9iL+oaWGkwa0G4RXvjhvOffXnkZ+hlUudKsn1RyKzZZuW+Z4XuaxA12mtxNR5
-	BEZV0Xjb840/BFCa+51X0rFYA4qWsSd900ELxwop/VaCs2lzfRflFGfoINi0KgqdqJiSWhIhQfU
-	ltbc=
-X-Received: by 2002:a05:690c:f15:b0:8a8:6a39:37e0 with SMTP id 00721157ae682-8ae39c0a963mr28210007b3.42.1791042603902;
-        Sat, 03 Oct 2026 08:50:03 -0700 (PDT)
-X-Received: by 2002:a05:690c:f15:b0:8a8:6a39:37e0 with SMTP id 00721157ae682-8ae39c0a963mr28209777b3.42.1791042603359;
-        Sat, 03 Oct 2026 08:50:03 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8aeaac82e1bsm5662017b3.34.2026.10.03.08.50.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 08:50:02 -0700 (PDT)
-Message-ID: <eea53e37-c000-41f9-adb7-6a95e61adfa9@redhat.com>
-Date: Sat, 3 Oct 2026 11:50:01 -0400
+        d=1e100.net; s=20260707; t=1791042630; x=1791647430;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tLpRB5yATHQpX0YPaKzhPzon6/tpk2LiYbV0aGm14kM=;
+        b=W1JtPMX4FDxzRQVjDHLQjrXqruGj2mumbIZ+smRGu1C1y61YlAFVTm4FouhDV0oIU+
+         VEcEiTLQLqwm2jF+IfcduDILpTE6DTE1Lc5i4jdbnGDvb521mlFgi7rYnZ1xMgLRBVxz
+         BtFbaOTnfZEpzfEyy/+O1tCuS7BR1MQu+SikEGUpkxVTk519QMVxjxa8IPqL7P5JITpw
+         /l1WxmtGG5AgNZYQtQRUFlX+7WENXahVRdC9LTk+I3WQKwxr2kbhdT1YYES5HuFSZdgZ
+         1C2wwLkxggYvXpo8DZ2phfKWXOf+aizOaAgLV9UMEu66wVRsKP81NkwHpRblEb0Rba9e
+         jAUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxgyjMe6hIkFeM2J3t+ex0BjJZ5BVpUwbNOnfdyzStm1KETwCIO6X0ufcVwIxU1IBbagI11FkJDzxEnOI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kH8tTkXUxjt1uIkkXIBJwizL8b1droyGC8bEucTX1/VSv0m+RJ
+	uQfuZtTOqKQlj4XzUPbyiTa8fMoyEj2YZIKrHy7MCJLTpu/ua+bxQZw0
+X-Gm-Gg: AYBFou1SvXbPgzEQrmGmyGOMZMVd+sdwyM4SxsuIYqMUbu1Ck/YFEI6NY0mgYS1dYtt
+	S8T7dGO7LACyss/16mDWfmV1IcWKtlU0LWpT719xU2RBV9fffg05GPfRKzwMMQIdWblnGA8ddpd
+	+WsHyHnKhAzrzWSe196tRgp/YQvDxAWmRKRvi6sIXwGpBJ9e55zpKYuhgVPOlsByQf3m/s+GCFB
+	RUfEnbGsYFiFpUtd07wUrJ7bfNhf9Hm9Tk++wdFxAZes0jEmG64i71lv9o79wPkqc+S4WO82o2I
+	Ql122kjULirKYj3h5KHOwNoI2czMMbpUwYosbokoVrg2fTSdFOhIT4fYalPjrlHxOsaM4hBlhds
+	n/sqOGMuh+k32YG3sFzP8D9WpwO4V8eAdGDvAXNrRItzjy7AAOZTgA3OwIC5gcepIRFXCOq6ANf
+	JIPqKD5Xf+fT+rUgkBS7sBYNR1RETToJj4M/G+Sj5HUjZFun3juDusKUT6g+xcq1Q3rDZTnOBDN
+	1MjxkrF4H9l+esBjkE9DdtwQ2MLc0Pvh7o994xXEFqxfRwjP52X6XG+4wotPtVwhzgMiSnlBvuP
+	MWPM
+X-Received: by 2002:a05:600c:3110:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a168069b91mr46835855e9.0.1791042630024;
+        Sat, 03 Oct 2026 08:50:30 -0700 (PDT)
+Received: from lap.lan (xdsl-31-165-251-31.adslplus.ch. [31.165.251.31])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fa61csm13483899f8f.17.2026.10.03.08.50.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 08:50:29 -0700 (PDT)
+From: =?UTF-8?q?Jo=C3=A3o=20Loureiro?= <joaofl@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>,
+	Frank Li <frank.li@nxp.com>,
+	Alexander Dahl <ada@thorsis.com>,
+	linux-serial@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Jo=C3=A3o=20Loureiro?= <joaofl@gmail.com>
+Subject: [PATCH v2] serial: fsl_lpuart: add support for GPIO-controlled modem lines
+Date: Sat,  3 Oct 2026 17:50:22 +0200
+Message-ID: <20261003155022.466971-1-joaofl@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 14/14] mm: thp: always enable mTHP support
-To: Lance Yang <lance.yang@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, david@kernel.org,
- baolin.wang@linux.alibaba.com, ziy@nvidia.com, corbet@lwn.net,
- tsbogend@alpha.franken.de, maddy@linux.ibm.com, mpe@ellerman.id.au,
- agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com, hca@linux.ibm.com,
- gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, hughd@google.com, dave.hansen@linux.intel.com,
- djbw@kernel.org, vishal.l.verma@intel.com, dave.jiang@intel.com,
- akpm@linux-foundation.org, yintirui@huawei.com, dev.jain@arm.com,
- usama.arif@linux.dev
-References: <752f528f0fed5cdc9de12b54260b0495d4e5a6cb.1789695931.git.luizcap@redhat.com>
- <20261003031301.48957-1-lance.yang@linux.dev>
-Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <20261003031301.48957-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+LPUART has no register bit to drive RTS to a chosen level: UARTMODIR only
+offers receiver-driven auto-RTS (RXRTSE) and RTS-during-transmit (TXRTSE).
+Consequently lpuart_set_mctrl() and lpuart32_set_mctrl() ignore TIOCM_RTS,
+and their get_mctrl() counterparts report a hardcoded
+TIOCM_CAR | TIOCM_DSR | TIOCM_CTS.
 
+That makes it impossible to talk to a peripheral which is driven by a
+software controlled RTS strobe and answers on CTS.  TIOCMBIS/TIOCMBIC
+silently do nothing, and because CTS always reads back as asserted, a
+userspace handshake that waits for CTS to follow RTS can never complete:
+de-asserting RTS and waiting for CTS to drop times out every time.  Boards
+that route the two pins to plain GPIOs cannot work around it either, since
+the driver never looks at rts-gpios/cts-gpios.
 
-On 10/2/26 11:13 PM, Lance Yang wrote:
-> 
-> On Thu, Sep 17, 2026 at 09:45:35PM -0400, Luiz Capitulino wrote:
->> If PMD-sized pages are not supported on an architecture (ie. the
->> arch implements arch_has_pmd_leaves() and it returns false) then the
->> current code disables all THP, including mTHP.
->>
->> This commit fixes this by allowing mTHP to be always enabled for all
->> archs. When PMD-sized pages are not supported, its sysfs entry won't be
->> created and their mapping will be disallowed at page-fault time.
->>
->> Similarly, this commit implements the following changes for shmem in
->> shmem_allowable_huge_orders():
->>
->> - Drop the pgtable_has_pmd_leaves() check so that mTHP sizes are
->>    considered
->> - Filter out PMD and PUD orders from allowable orders when
->>    PMD-sized pages are not supported by the CPU
-> 
-> Nit: "and PUD" can go.
-> 
-> David mentioned
-> 
-> "
-> There is no need to disable PUD-orders, as shmem does not support PUD-orders
-> (unlike DAX). So you can keep it simpler here.
-> "
-> 
-> in v4
-> 
-> https://lore.kernel.org/all/ff7bcd65-d444-4da1-890e-75504303ec3f@kernel.org/
+Wire the driver up to the serial_mctrl_gpio helpers, as imx.c and
+atmel_serial.c already do.  set_mctrl() forwards the state to
+mctrl_gpio_set(), and get_mctrl() runs the flags through mctrl_gpio_get()
+so that a described cts-gpios overrides the assumed-asserted default.
+Boards without such a description keep the previous behaviour.  Modem
+status interrupts are enabled from startup() and disabled from shutdown(),
+with a .enable_ms callback for the serial core.
 
-Yes, I changed the code and didn't update the changelog. Fixed now,
-thanks Lance.
+The same limitation was reported for an i.MX 8XLite board that needs RS-485
+with a GPIO RTS [1].  This change was developed and tested on an i.MX95
+board whose barcode scanner is driven over LPUART with a manual RTS strobe;
+with it, RTS toggles as requested and CTS is reported from the real pin.
 
-> 
-> Cheers, Lance
+[1] https://lore.kernel.org/all/20260210-rearview-hungrily-536a95fc3385@thorsis.com/
+
+Signed-off-by: João Loureiro <joaofl@gmail.com>
+---
+
+Notes:
+    Changes in v2:
+    - Resend: v1 (Message-ID <20260819144458.253967-1-joaofl@gmail.com>)
+      never reached the mailing lists, so it could not go through CI.
+    - Rebased onto tty-next; no functional changes.
+
+ drivers/tty/serial/Kconfig      |  1 +
+ drivers/tty/serial/fsl_lpuart.c | 35 +++++++++++++++++++++++++++++++--
+ 2 files changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
+index bf680d22199b..cbf6b44d8a3e 100644
+--- a/drivers/tty/serial/Kconfig
++++ b/drivers/tty/serial/Kconfig
+@@ -1316,6 +1316,7 @@ config SERIAL_FSL_LPUART
+ 	tristate "Freescale lpuart serial port support"
+ 	depends on HAS_DMA
+ 	select SERIAL_CORE
++	select SERIAL_MCTRL_GPIO if GPIOLIB
+ 	help
+ 	  Support for the on-chip lpuart on some Freescale SOCs.
+ 
+diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
+index c8575c965203..909253aab212 100644
+--- a/drivers/tty/serial/fsl_lpuart.c
++++ b/drivers/tty/serial/fsl_lpuart.c
+@@ -27,6 +27,8 @@
+ #include <linux/slab.h>
+ #include <linux/tty_flip.h>
+ 
++#include "serial_mctrl_gpio.h"
++
+ /* All registers are 8-bit width */
+ #define UARTBDH			0x00
+ #define UARTBDL			0x01
+@@ -291,6 +293,7 @@ struct lpuart_port {
+ 	bool			is_cs7; /* Set to true when character size is 7 */
+ 					/* and the parity is enabled		*/
+ 	bool			dma_idle_int;
++	struct mctrl_gpios	*gpios;
+ };
+ 
+ struct lpuart_soc_data {
+@@ -1528,6 +1531,7 @@ static int lpuart32_config_rs485(struct uart_port *port, struct ktermios *termio
+ 
+ static unsigned int lpuart_get_mctrl(struct uart_port *port)
+ {
++	struct lpuart_port *sport = container_of(port, struct lpuart_port, port);
+ 	unsigned int mctrl = 0;
+ 	u8 cr1;
+ 
+@@ -1535,11 +1539,12 @@ static unsigned int lpuart_get_mctrl(struct uart_port *port)
+ 	if (cr1 & UARTCR1_LOOPS)
+ 		mctrl |= TIOCM_LOOP;
+ 
+-	return mctrl;
++	return mctrl_gpio_get(sport->gpios, &mctrl);
+ }
+ 
+ static unsigned int lpuart32_get_mctrl(struct uart_port *port)
+ {
++	struct lpuart_port *sport = container_of(port, struct lpuart_port, port);
+ 	unsigned int mctrl = TIOCM_CAR | TIOCM_DSR | TIOCM_CTS;
+ 	u32 ctrl;
+ 
+@@ -1547,11 +1552,13 @@ static unsigned int lpuart32_get_mctrl(struct uart_port *port)
+ 	if (ctrl & UARTCTRL_LOOPS)
+ 		mctrl |= TIOCM_LOOP;
+ 
+-	return mctrl;
++	/* A cts-gpio, when present, overrides the assumed-asserted CTS above. */
++	return mctrl_gpio_get(sport->gpios, &mctrl);
+ }
+ 
+ static void lpuart_set_mctrl(struct uart_port *port, unsigned int mctrl)
+ {
++	struct lpuart_port *sport = container_of(port, struct lpuart_port, port);
+ 	u8 cr1;
+ 
+ 	cr1 = readb(port->membase + UARTCR1);
+@@ -1562,10 +1569,13 @@ static void lpuart_set_mctrl(struct uart_port *port, unsigned int mctrl)
+ 		cr1 |= UARTCR1_LOOPS;
+ 
+ 	writeb(cr1, port->membase + UARTCR1);
++
++	mctrl_gpio_set(sport->gpios, mctrl);
+ }
+ 
+ static void lpuart32_set_mctrl(struct uart_port *port, unsigned int mctrl)
+ {
++	struct lpuart_port *sport = container_of(port, struct lpuart_port, port);
+ 	u32 ctrl;
+ 
+ 	ctrl = lpuart32_read(port, UARTCTRL);
+@@ -1576,6 +1586,15 @@ static void lpuart32_set_mctrl(struct uart_port *port, unsigned int mctrl)
+ 		ctrl |= UARTCTRL_LOOPS;
+ 
+ 	lpuart32_write(port, ctrl, UARTCTRL);
++
++	mctrl_gpio_set(sport->gpios, mctrl);
++}
++
++static void lpuart_enable_ms(struct uart_port *port)
++{
++	struct lpuart_port *sport = container_of(port, struct lpuart_port, port);
++
++	mctrl_gpio_enable_ms(sport->gpios);
+ }
+ 
+ static void lpuart_break_ctl(struct uart_port *port, int break_state)
+@@ -1844,6 +1863,8 @@ static int lpuart_startup(struct uart_port *port)
+ 	lpuart_request_dma(sport);
+ 	lpuart_hw_setup(sport);
+ 
++	mctrl_gpio_enable_ms(sport->gpios);
++
+ 	return 0;
+ }
+ 
+@@ -1915,6 +1936,8 @@ static int lpuart32_startup(struct uart_port *port)
+ 	lpuart_request_dma(sport);
+ 	lpuart32_hw_setup(sport);
+ 
++	mctrl_gpio_enable_ms(sport->gpios);
++
+ 	return 0;
+ }
+ 
+@@ -1956,6 +1979,7 @@ static void lpuart_shutdown(struct uart_port *port)
+ 
+ 	uart_port_unlock_irqrestore(port, flags);
+ 
++	mctrl_gpio_disable_ms_sync(sport->gpios);
+ 	lpuart_dma_shutdown(sport);
+ }
+ 
+@@ -1990,6 +2014,7 @@ static void lpuart32_shutdown(struct uart_port *port)
+ 
+ 	uart_port_unlock_irqrestore(port, flags);
+ 
++	mctrl_gpio_disable_ms_sync(sport->gpios);
+ 	lpuart_dma_shutdown(sport);
+ }
+ 
+@@ -2441,6 +2466,7 @@ static const struct uart_ops lpuart_pops = {
+ 	.tx_empty	= lpuart_tx_empty,
+ 	.set_mctrl	= lpuart_set_mctrl,
+ 	.get_mctrl	= lpuart_get_mctrl,
++	.enable_ms	= lpuart_enable_ms,
+ 	.stop_tx	= lpuart_stop_tx,
+ 	.start_tx	= lpuart_start_tx,
+ 	.stop_rx	= lpuart_stop_rx,
+@@ -2466,6 +2492,7 @@ static const struct uart_ops lpuart32_pops = {
+ 	.tx_empty	= lpuart32_tx_empty,
+ 	.set_mctrl	= lpuart32_set_mctrl,
+ 	.get_mctrl	= lpuart32_get_mctrl,
++	.enable_ms	= lpuart_enable_ms,
+ 	.stop_tx	= lpuart32_stop_tx,
+ 	.start_tx	= lpuart32_start_tx,
+ 	.stop_rx	= lpuart32_stop_rx,
+@@ -2912,6 +2939,10 @@ static int lpuart_probe(struct platform_device *pdev)
+ 		sport->port.rs485_config = lpuart_config_rs485;
+ 	sport->port.rs485_supported = lpuart_rs485_supported;
+ 
++	sport->gpios = mctrl_gpio_init(&sport->port, 0);
++	if (IS_ERR(sport->gpios))
++		return PTR_ERR(sport->gpios);
++
+ 	sport->ipg_clk = devm_clk_get(&pdev->dev, "ipg");
+ 	if (IS_ERR(sport->ipg_clk)) {
+ 		ret = PTR_ERR(sport->ipg_clk);
+
+base-commit: c44a4925cdac02af781ebfae96df68a7bf3580b0
+-- 
+2.55.0
 
