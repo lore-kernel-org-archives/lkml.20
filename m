@@ -1,104 +1,166 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cvsmtppost23.nm.naver.com (cvsmtppost23.nm.naver.com [114.111.35.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8C93EFFCC
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E046231E858
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791023832; cv=none; b=XlbQsjDoXjpSmzTkiZxRJxUvhqvuCJZpP7WAwmIaxReKRkV//2jVNSAQXajq4d81B/3zj8SKwaOaqTI+ezDo5gexFL4g5avgOxnFo0idu74FrkpYxyICSs8DHqlpW/z/f/tS6FCIAzLN2pN93BDwA2UygTyNUin87SIy0XZbJrw=
+	t=1791023960; cv=none; b=S3S12jPqJNcnHhUt0RS9ktM4DyDFG3TQ8g+X15zcP1jqHRX2TcDT0m2rwnBjJFAU8gJzGMqDHAGqoM3iV30szI/acC7RJ58NiAXKmU7dQZyqAbSyqmpv6Zuh+ZGlOq3oKX1JVcRAFCHq/ui6fB/GWORwZCUQqfxFGls1Byrt1Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791023832; c=relaxed/simple;
-	bh=DrR8IdHrzyO6e1eneK+NgF4BitGzqFuc4bURmrXBluo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KoIqAC5Hqb7Cpby/xlExo3nJ+HfSXmyVrWyx7twoNw0bhVzVnyE4MpTCtmIuZhnC0VCijA2iOPMxQmKoPV5lY8nEXCxFfnU1FJugnyKy7A94Wx2QRu8AtBpmyQ/WNHyjxaXoHOwkLuhWth9ZX2C62au2UluU9naCesrmvXyVTv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4eb0b989f0eso546015b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 03:37:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791023828; x=1791628628;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nXiNBxCYyl3AED/Vs2sSXZl+E9Fcz7egSi78disaRcU=;
-        b=wpwvGnCgKgXcOK+AQnVTNx+5tlp9Vm4NHMHXqDNC0UQBe9xb5hGUE7XLiiTbnm3ALe
-         J89P241Bw0xlnfT5WbPrlIDkd0/0DfL5Rq0wf8B2cAKDq9tiFda8iArkaIxv/gqtiT1c
-         I9fMSwd0f8YCgu0s4Uf4g5vxDFQCQnr1K9btPsAGxqBFNu9M7IEBJPqRLKXSDorWXKlc
-         SP4S/0+gmuR5TXbnotcnSIdKl+oUKp6wh5DmYDiv4Q44eeL7HlTrPQe1CG+eNfkudDPv
-         kXs9zIXP1RFqnnfHt3/5ejSUnCarycfxbEIl5wlICJP3iyigcKgyFNyX9IhBOoK5DQnv
-         80CA==
-X-Gm-Message-State: AFuF++m+rfq09BsuRb8coHpKFkzXUsqEX+7UXruyUnH282zIfkGm9jpM
-	9Bqpm+xuvM9fmu8tgEBkCpafpU7UKk1WCdKMzrshOB94xqFgjQX5B4oNpr8rYTT0uxqAdn+HzR+
-	rS4EQFsOjb+1rDMfxhj1bdhPy+/FFFkIQXJ3ImaplYcvJgozotPI0y1unjw4=
+	s=arc-20240116; t=1791023960; c=relaxed/simple;
+	bh=ib+ao0AD8SW6XlrhQl2lXH1GzbVG5HubBKMs4hbDJ8w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fRyHkr30O4PXJA56UAdo9hGFBnTq15XmMUxJ+Lk7Dp4f4Qw6Q5REyO/eK7KrYHhsc3ioAYN5IEzJL+tnkbNBsuJcY+KVlyFBmrUQVPx7rt4qi95t949RaRdEhdk8TXN20MB9yulhxq6bO0rXb52g7EKDUUxRhBTr7hXA5PeqoaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=cmAOYUmW; arc=none smtp.client-ip=114.111.35.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="cmAOYUmW"
+Received: from cvsendbo008.nm ([10.112.24.37])
+  by cvsmtppost23.nm.naver.com with ESMTP id Q-CHICJJT3iloHF6jcQGfQ
+  for <linux-kernel@vger.kernel.org>;
+  Sat, 03 Oct 2026 10:19:03 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791022742; bh=ib+ao0AD8SW6XlrhQl2lXH1GzbVG5HubBKMs4hbDJ8w=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=cmAOYUmWvgtgUvvBV51uunnj6m91BdrzwAalztx0hKkNr+nKcRwmk3tFUSoL0TSxr
+	 E+TeEWo4AQ38GvnFfwwWGvaT4yiW9KxXF07e8JLAoBb0H0gZDXMR2x7oMd6kVsYZBT
+	 pCGJUsShdy15OtUD5R2LuoT7H0P9YOz1NzC28z8F9F/fFid90OvfldWZmAuGIulL2q
+	 oGCYymwRGah32VUhuuVwQTHEfMeAPflMQdiNXIntXPXaJu1YwgSbxjaCjvZw82nmBS
+	 WxXGnkhjp+YHRh4dlAwnRmMOPrtPByP6sRl5QHZmG37Hh1jRE2hBawutwGDy40752d
+	 JK5lvidNBVaDw==
+X-Session-ID: K-byLlITQeSpla7n2Rm6OQ
+X-Works-Send-Opt: OP+wpzGdjHmdKHFOMr39Ko3YKHm9jAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: AwblaxglFqJZ+HmZFAKm+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp002.nm.naver.com with ESMTP id K-byLlITQeSpla7n2Rm6OQ
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Sat, 03 Oct 2026 10:19:02 -0000
+From: tjdqudcks0424@naver.com
+To: Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ALSA: pcmtest: handle multiple wraps in random capture fill
+Date: Sat,  3 Oct 2026 19:18:54 +0900
+Message-ID: <20261003101854.1423146-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f86:b0:4d6:9133:cfed with SMTP id
- 5614622812f47-4f30c9a91ecmr6435240b6e.50.1791023828720; Sat, 03 Oct 2026
- 03:37:08 -0700 (PDT)
-Date: Sat, 03 Oct 2026 03:37:08 -0700
-In-Reply-To: <6a940044.1d9ded08.62e62.011a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0dad4.9ad129c8.3858c0.0012.GAE@google.com>
-Subject: Forwarded: [PATCH test v2] wifi: mac80211: acquire wiphy lock for
- unlisted sdata teardown
-From: syzbot <syzbot+e9cbd080a7801f06cf08@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+From: Sung Byeongchan <tjdqudcks0424@naver.com>
 
-***
+The random capture helpers assume that the data generated for one timer
+tick wraps the DMA ring at most once. However, b_rw describes 200 ms of
+audio because the timer runs at 5 Hz, so it can be several times larger
+than a small ring.
 
-Subject: [PATCH test v2] wifi: mac80211: acquire wiphy lock for unlisted sdata teardown
-Author: rajojha047@gmail.com
+For 48 kHz, S16_LE, four-channel capture with a 512-frame buffer, the DMA
+ring is 4096 bytes while one tick generates 76800 bytes. After filling the
+4096-byte tail, the existing code issues a second 72704-byte write from the
+ring base, writing 68608 bytes beyond the ring. Both interleaved and
+non-interleaved capture are affected.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+KASAN reports the first write into the adjacent free page as a
+use-after-free in the random-byte generator. The underlying defect is an
+out-of-bounds write from the live DMA ring, not a stale DMA allocation.
 
-diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
-index 5f0c482..175965f 100644
---- a/net/mac80211/iface.c
-+++ b/net/mac80211/iface.c
-@@ -931,7 +931,7 @@ static void ieee80211_teardown_sdata(struct ieee80211_sub_if_data *sdata)
-  * core when cfg80211 couldn't move it out of a network namespace that's being
-  * destroyed. Drop it from the interface list either way.
-  */
--static void ieee80211_unlist_sdata(struct ieee80211_sub_if_data *sdata)
-+static bool ieee80211_unlist_sdata(struct ieee80211_sub_if_data *sdata)
- {
- 	struct ieee80211_local *local = sdata->local;
- 	struct ieee80211_sub_if_data *iter;
-@@ -943,16 +943,25 @@ static void ieee80211_unlist_sdata(struct ieee80211_sub_if_data *sdata)
- 			continue;
- 		guard(mutex)(&local->iflist_mtx);
- 		list_del_rcu(&sdata->list);
--		return;
-+		return true;
- 	}
-+
-+	return false;
+Split each random write repeatedly at the interleaved ring or per-channel
+block boundary. Keep the hardware-pointer update exactly once after the
+complete logical write.
+
+The issue reproduced on three of three clean boots. With this change, the
+same vulnerable geometry completed six times without a sanitizer finding.
+Boundary, pattern-fill, no-timer, open/close, and module-reload controls
+also completed normally.
+
+snd-pcmtest is a test driver, and selecting random fill requires an
+administrator-controlled module parameter. The written values come from the
+kernel random generator; no privilege escalation or attacker-controlled
+write primitive was demonstrated.
+
+Fixes: 315a3d57c64c ("ALSA: Implement the new Virtual PCM Test Driver")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI Codex
+Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
+---
+Changes in v2:
+- Use an ASCII author name in the From and Signed-off-by fields, as
+  requested by Takashi.
+
+ sound/drivers/pcmtest.c | 42 +++++++++++++++++++----------------------
+ 1 file changed, 19 insertions(+), 23 deletions(-)
+
+diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
+index 5d5281e4deb7c..186e982d42e1a 100644
+--- a/sound/drivers/pcmtest.c
++++ b/sound/drivers/pcmtest.c
+@@ -280,39 +280,35 @@ static void fill_block_pattern(struct pcmtst_buf_iter *v_iter, struct snd_pcm_ru
+ 		fill_block_pattern_n(v_iter, runtime);
  }
  
- static void ieee80211_uninit(struct net_device *dev)
++static void fill_random_block(char *buf, size_t buf_size, size_t pos,
++			      size_t count)
++{
++	while (count) {
++		size_t chunk = min(count, buf_size - pos);
++
++		get_random_bytes(buf + pos, chunk);
++		count -= chunk;
++		pos = 0;
++	}
++}
++
+ static void fill_block_rand_n(struct pcmtst_buf_iter *v_iter, struct snd_pcm_runtime *runtime)
  {
- 	struct ieee80211_sub_if_data *sdata = IEEE80211_DEV_TO_SUB_IF(dev);
-+	struct wiphy *wiphy = sdata->local->hw.wiphy;
-+	bool unlisted = ieee80211_unlist_sdata(sdata);
-+
-+	if (unlisted)
-+		wiphy_lock(wiphy);
+ 	unsigned int channels = runtime->channels;
+-	// Remaining space in all channel buffers
+-	size_t bytes_remain = runtime->dma_bytes - v_iter->buf_pos;
++	size_t pos = v_iter->buf_pos / channels;
+ 	unsigned int i;
  
--	ieee80211_unlist_sdata(sdata);
- 	ieee80211_teardown_sdata(sdata);
-+
-+	if (unlisted)
-+		wiphy_unlock(wiphy);
+-	for (i = 0; i < channels; i++) {
+-		if (v_iter->b_rw <= bytes_remain) {
+-			//b_rw - count of bytes must be written for all channels at each timer tick
+-			get_random_bytes(runtime->dma_area + buf_pos_n(v_iter, channels, i),
+-					 v_iter->b_rw / channels);
+-		} else {
+-			// Write to the end of buffer and start from the beginning of it
+-			get_random_bytes(runtime->dma_area + buf_pos_n(v_iter, channels, i),
+-					 bytes_remain / channels);
+-			get_random_bytes(runtime->dma_area + v_iter->chan_block * i,
+-					 (v_iter->b_rw - bytes_remain) / channels);
+-		}
+-	}
++	for (i = 0; i < channels; i++)
++		fill_random_block(runtime->dma_area + v_iter->chan_block * i,
++				  v_iter->chan_block, pos,
++				  v_iter->b_rw / channels);
+ 	inc_buf_pos(v_iter, v_iter->b_rw, runtime->dma_bytes);
  }
  
- static int ieee80211_netdev_setup_tc(struct net_device *dev,
+ static void fill_block_rand_i(struct pcmtst_buf_iter *v_iter, struct snd_pcm_runtime *runtime)
+ {
+-	size_t in_cur_block = runtime->dma_bytes - v_iter->buf_pos;
+-
+-	if (v_iter->b_rw <= in_cur_block) {
+-		get_random_bytes(&runtime->dma_area[v_iter->buf_pos], v_iter->b_rw);
+-	} else {
+-		get_random_bytes(&runtime->dma_area[v_iter->buf_pos], in_cur_block);
+-		get_random_bytes(runtime->dma_area, v_iter->b_rw - in_cur_block);
+-	}
++	fill_random_block(runtime->dma_area, runtime->dma_bytes,
++			  v_iter->buf_pos, v_iter->b_rw);
+ 	inc_buf_pos(v_iter, v_iter->b_rw, runtime->dma_bytes);
+ }
+ 
+-- 
+2.43.0
+
