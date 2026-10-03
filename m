@@ -1,189 +1,338 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C483839B8
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B7F3F9264;
+	Sat,  3 Oct 2026 09:35:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791020108; cv=none; b=UEs0PRHb+x3N6vKNZND8HAPYGnQa6FDbPpl8l/0ATitJDhQTLCMZEql4Jlv8kDj8ssFBLAd9bvFQfytnmNX+c0JaKT82d7exe/+VwQrp2oZG+nX16y9TnTlXl+X/Sy6s/at05o0gJSo9ZGBGkedK4q67ks3qPE5GOTI6BJ/cros=
+	t=1791020160; cv=none; b=C4pua0Vnv+2GbjbDYsmNRmeXQ5xb7EXWiWatGlKG+CTxo5sdSpy7cy2tJboDJfnQ+MQyvzogfwJXLlAuvfnfUhXNxyvaydYJNQAyT7H8Z9aMWiXUb3R7FAzobT5g8xLLvugp0kDk1e5Wgk3n3MiAgKtq8YakbGwSDa19vfJiOtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791020108; c=relaxed/simple;
-	bh=sMtTL70sqBS6bZKU54CdL/36q23iIjnTETx6pZYzH5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L9cvSqh56MQh+nuyQJ5lgJjbQ1ReNKPKfkotstdpaH+0ncdJlY+fHrdp1AGXX6+swTgr5xh5x5t+Peu+Qy+Rc/QNu7+FMppEKpPQx/iYZUMiYNoLSKDoM+tHBWRin9wje9V38o5raM67z+MCLsmBbPZV/vbK6e+sXqVRSIjcKmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hY3mMQpG; arc=none smtp.client-ip=74.125.227.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791020160; c=relaxed/simple;
+	bh=euGgRr62l+jXN1ud+5CYZz90C6i6h78D5b6Ef/5RB+E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VYyNttdTB2K0s/UBMSOH8oHI+miLj3cUUAXhUCRxAuZOp0h6xErkOo6vnoEYk1xP8ZQxVWhsIDvfZ4yhY52NcKcjQ2N3ZS2RTXtrdFwQvVWzEt2unTs5EEPVS9/HhBivdE6qVC+i+0Afu5BG6YdqeEMgb5gjVqH/Dvfbb04gLQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNLu8Zam; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hY3mMQpG"
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2dd9bce707bso1258605ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:35:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791020104; x=1791624904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zWQSpGzLG7DWALbabuPoeKknlGH7FdAX1uCS5SSDZcY=;
-        b=hY3mMQpG7FmLiUZINjqfWHoG08M6zQGeP4vRc1awwlkF4WqnT3iuwfBO3VBWlepzKS
-         VkoiMNpXzT30bkM/NKdt+MsiniyZ/f+fOwLIMI5JijE9fEKhq5ZNaFLHH/FPYD4VNF0s
-         MBMqca7rWkb6IdsMMIQ398um0m0zcPDJxFwQ0jt1nE8kjutdPPsqVLxg99z6vuG6r+8A
-         grWfu6/psy2xiyk8/+I/GM3pBYXRACHipUZ+Y6CDi094PuWTShDEJ2e8kZfZTgV7RljI
-         VIER3S4j3cDS549gXB6s5bEVVQVVk1vTcLwnsbuRLQj59iFIOZs/U6LKvpV7Yzv7PMe/
-         rYzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791020104; x=1791624904;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zWQSpGzLG7DWALbabuPoeKknlGH7FdAX1uCS5SSDZcY=;
-        b=Tgb4/KxjfAG/d53zFzxdPFVR/mQaAe40lU2SaYsAVtXvas/QBpz0m4GrJw07gmSWn7
-         iLeLj4XgehwL5TOFueZxAAgEcMVQLIHsRl5td4E/UiELY94Gy7/AD4P1vbm2QlZxNR0t
-         fIsy6eDkZuEj0hToB6eNLfwU7YCTuLsUsAp/4Tkh5mDu1YHAJtffyj3vi1VqgxBhL56+
-         G49oJWZIT5SNj0f0l+oP9bVeDUcjTJQ3s1a3xz3inGo/Ac0bWTAVNZPfyAaBndOTzh3P
-         /LC8WhrfyXHA0g8wwje9iyY67brAMKikTbRYxdDEWDjnRO3Uyko4dzfVYomXmpn4zh5O
-         3X3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwUfyms6ALTUBULmZKWssZxL262zlO/KyvEAua2oWtF/V3FppappsY4fQJyFDDAQR9X1NPtT13W7uiiwls=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGg9CE9RgLchIxHpCQx+2e8GQiw8f7dShF5BgCSvLfHW5mZ1F0
-	PCToQTahDlm4gEty8PqmHugYMZVTheAi2B4Fisvg9/gLofkVnRu+Wzoj
-X-Gm-Gg: AYBFou1ipD7U2vhBQmAb+Skfjy1OHmDQqRFK+Fqn/tnMsOJb7l9WZkbYPVO1fMKTH/U
-	tJ1Vdp6ZU40sUlhgGInpMoGbQZdVbs9nXZUkGZFHgHu9H6aXpQlFkoaMyjfyRKZVBqrh2Qytdsc
-	i9WrEXRz+ppD8vP5A1VO02ADSmyuSqlrXC2rbkPDTZaFlwlPzdYkMDY87zTw81IoJj1/Xo6SGYS
-	Pmw8ND3HDHE2Zc1jXfMO4xZmPe0P2eav77DE+6VJwPhMBk38p+fWZkNdXoPW2c9uxiHRjpDDv/d
-	hXkE0BGQMhVnfj5zJUqYI6ceW//fQfa2zzQEUQfnKi+8DlbsMFJeqCFkizRHfrvUL7e7FCo9kvv
-	pC9InNXMIorhaXjnn+n23Ly0LU2+po+HCjGYDv76j6Sgifldufpz6vPnpY6lPtpDTgQ3RIJmNaU
-	brDuRxZqEEB29bjUkqcLRmbNOt2GOAkLrw6qFf/voPnCgyuY+oEnDqVhOadS+SsE5B
-X-Received: by 2002:a05:6a20:94ca:b0:3e0:b680:c3cd with SMTP id adf61e73a8af0-3e0bd2900d8mr5555662637.49.1791020104397;
-        Sat, 03 Oct 2026 02:35:04 -0700 (PDT)
-Received: from localhost ([129.227.235.110])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f739cba5sm1956261a12.28.2026.10.03.02.35.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 02:35:03 -0700 (PDT)
-From: Evanshenf <archwse@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>,
-	Qianhai Wu <wuqianhai@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Mingcong Bai <jeffbai@aosc.io>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Sui Jingfeng <suijingfeng@loongson.cn>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Evanshenf <archwse@gmail.com>
-Subject: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when clearing a BO
-Date: Sat,  3 Oct 2026 09:34:59 +0000
-Message-ID: <20261003093415.902f89244043-2-archwse@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNLu8Zam"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8FB1F0089B;
+	Sat,  3 Oct 2026 09:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791020156;
+	bh=P9h5jkFg9wPDKLALCrLAZac+jzb4KvaSwjrCb7YK1oY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XNLu8ZamK3vbN0Ze+udMM3lEPncLh3gXn6TfNHiSXU5kfvWXI8PRmOLrnotDOr+su
+	 5hyBxVB5pkVF+Yg4RGv3fQjrbox4tlQdnlu012zJP1RiNKgw/uv7Fy+pEcB34aLgat
+	 9FIob5lu2WIlvdJGdx7daQnTeJ0XyAcTMN95ylwVSpSIv9osq1g8EKL43BF2s3Ylio
+	 eplzZz69JXaoU0Pqg6zAPzs6pvkRNdiXQmTIacSlvw6VJmD18ANVEbSlQmBIni6NUA
+	 SksOq3+hdLfGNiIfH7ymP+iFh6FsDIafiiEBMtt+PkpcDwKGbHoBCTIC5OEjApRajL
+	 3f2uH6CRQ7o0Q==
+Date: Sat, 3 Oct 2026 11:35:44 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Falcon <thomas.falcon@intel.com>,
+	Alice Rogers <alice.mei.rogers@gmail.com>,
+	Changbin Du <changbin.du@huawei.com>,
+	Tengda Wu <wutengda@huaweicloud.com>, tanze <tanze@kylinos.cn>,
+	Athira Rajeev <atrajeev@linux.ibm.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v1 09/13] perf test: Add a test for the treport script
+Message-ID: <asDMcH6oLeO4ABTS@x2>
+References: <20261002182624.3259797-1-irogers@google.com>
+ <20261002182624.3259797-10-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002182624.3259797-10-irogers@google.com>
 
-lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and writes
-to lbo->kptr unconditionally. When the first mapping of a newly allocated
-buffer fails, kptr is still NULL and the subsequent memset accesses it.
+On Fri, Oct 02, 2026 at 11:26:18AM -0700, Ian Rogers wrote:
+> From: Alice Rogers <alice.mei.rogers@gmail.com>
+> 
+> Test launching treport through perf script, the error for a file that
+> isn't a perf.data file, drive the textual app headless checking the
+> profile matches one built without the UI and exercising the key
+> bindings, and that quitting while loading stops the background load.
 
-Return the mapping error without touching the buffer and propagate it
-from lsdc_gem_object_create(). Install the GEM object functions before
-clearing so that drm_gem_object_put() can release the buffer correctly
-on failure. Do not add the failed object to the tracking list or return
-an uncleared buffer to the caller.
++        tabs.active = "flame"
++        await pilot.pause()
++        await pilot.press("down", "down", "right", "enter", "escape", "up", "left")
++        await pilot.pause()
++        print("headless UI ok")
 
-Imported buffers still skip clearing, and successfully mapped buffers
-are cleared and unmapped as before.
+This is super great, testing a TUI app in 'perf test', well done.
 
-Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap(). Its
--EINVAL return reached userspace, the object was destroyed once, and
-no GEM handle was published. Normal create/map/zero/write/read/close
-cycles passed, with the tracked BO count and VRAM usage unchanged.
-
-AI assistance was used for the lifetime analysis, fix, fault-injection
-tools, build and test execution.
-
-Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Evanshenf <archwse@gmail.com>
----
- drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
- drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
- drivers/gpu/drm/loongson/lsdc_ttm.h |  2 +-
- 3 files changed, 17 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
-index 2fb0348..9eba4e1 100644
---- a/drivers/gpu/drm/loongson/lsdc_gem.c
-+++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-@@ -157,14 +157,18 @@ struct drm_gem_object *lsdc_gem_object_create(struct drm_device *ddev,
- 		return ERR_PTR(ret);
- 	}
+- Arnaldo
  
-+	gobj = &lbo->tbo.base;
-+	gobj->funcs = &lsdc_gem_object_funcs;
-+
- 	if (!sg) {
- 		/* VRAM is filled with random data */
--		lsdc_bo_clear(lbo);
-+		ret = lsdc_bo_clear(lbo);
-+		if (ret) {
-+			drm_gem_object_put(gobj);
-+			return ERR_PTR(ret);
-+		}
- 	}
- 
--	gobj = &lbo->tbo.base;
--	gobj->funcs = &lsdc_gem_object_funcs;
--
- 	/* tracking the BOs we created */
- 	mutex_lock(&ldev->gem.mutex);
- 	list_add_tail(&lbo->list, &ldev->gem.objects);
-diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongson/lsdc_ttm.c
-index 88536e2..7b30dea 100644
---- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-+++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-@@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
- 	ttm_bo_kunmap(&lbo->kmap);
- }
- 
--void lsdc_bo_clear(struct lsdc_bo *lbo)
-+int lsdc_bo_clear(struct lsdc_bo *lbo)
- {
--	lsdc_bo_kmap(lbo);
-+	int ret;
-+
-+	ret = lsdc_bo_kmap(lbo);
-+	if (ret)
-+		return ret;
- 
- 	if (lbo->is_iomem)
- 		memset_io((void __iomem *)lbo->kptr, 0, lbo->size);
-@@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
- 		memset(lbo->kptr, 0, lbo->size);
- 
- 	lsdc_bo_kunmap(lbo);
-+
-+	return 0;
- }
- 
- int lsdc_bo_evict_vram(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h b/drivers/gpu/drm/loongson/lsdc_ttm.h
-index 843e147..df47d9b 100644
---- a/drivers/gpu/drm/loongson/lsdc_ttm.h
-+++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
-@@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
- 
- int lsdc_bo_kmap(struct lsdc_bo *lbo);
- void lsdc_bo_kunmap(struct lsdc_bo *lbo);
--void lsdc_bo_clear(struct lsdc_bo *lbo);
-+int lsdc_bo_clear(struct lsdc_bo *lbo);
- 
- int lsdc_bo_evict_vram(struct drm_device *ddev);
- 
--- 
-2.43.0
-
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Alice Rogers <alice.mei.rogers@gmail.com>
+> Co-developed-by: Ian Rogers <irogers@google.com>
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/tests/shell/test_treport_python.sh | 247 ++++++++++++++++++
+>  1 file changed, 247 insertions(+)
+>  create mode 100755 tools/perf/tests/shell/test_treport_python.sh
+> 
+> diff --git a/tools/perf/tests/shell/test_treport_python.sh b/tools/perf/tests/shell/test_treport_python.sh
+> new file mode 100755
+> index 000000000000..155993b8be79
+> --- /dev/null
+> +++ b/tools/perf/tests/shell/test_treport_python.sh
+> @@ -0,0 +1,247 @@
+> +#!/bin/bash
+> +# perf script treport test
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +set -e
+> +
+> +shelldir=$(dirname "$0")
+> +# shellcheck source=lib/setup_python.sh
+> +. "${shelldir}"/lib/setup_python.sh
+> +
+> +if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
+> +	echo "Skipping test, perf python module not found"
+> +	exit 2
+> +fi
+> +
+> +if ! "$PYTHON" -c 'import textual' > /dev/null 2>&1; then
+> +	echo "Skipping test, python textual library not found"
+> +	exit 2
+> +fi
+> +
+> +err=0
+> +perfdata=
+> +output=
+> +badfile=
+> +
+> +cleanup() {
+> +	[ -n "${perfdata}" ] && rm -f "${perfdata}"*
+> +	rm -f "${output}" "${badfile}"
+> +	trap - EXIT TERM INT
+> +}
+> +
+> +trap_cleanup() {
+> +	echo "Unexpected signal in ${FUNCNAME[1]}"
+> +	cleanup
+> +	exit 1
+> +}
+> +trap trap_cleanup EXIT TERM INT
+> +
+> +perfdata=$(mktemp /tmp/__perf_treport_test.perf.data.XXXXX)
+> +output=$(mktemp /tmp/__perf_treport_test.output.XXXXX)
+> +badfile=$(mktemp /tmp/__perf_treport_test.bad.XXXXX)
+> +
+> +test_plumbing() {
+> +	echo "treport plumbing test"
+> +	# A missing input file should be reported by the script launched
+> +	# through perf script, this doesn't need a terminal.
+> +	if perf script treport -i "${perfdata}.missing" > "${output}" 2>&1; then
+> +		echo "treport plumbing test [Failed: missing file not an error]"
+> +		err=1
+> +		return
+> +	fi
+> +	if ! grep -q "not found" "${output}"; then
+> +		echo "treport plumbing test [Failed: script not launched]"
+> +		cat "${output}"
+> +		err=1
+> +		return
+> +	fi
+> +	echo "treport plumbing test [Success]"
+> +}
+> +
+> +test_bad_file() {
+> +	echo "treport bad file test"
+> +	echo "not a perf.data file" > "${badfile}"
+> +	# The app starts before the file is read, so the error is reported by
+> +	# the app exiting with a failure.
+> +	if ! "$PYTHON" - "${badfile}" > "${output}" 2>&1 <<'EOF'
+> +import asyncio
+> +import sys
+> +import treport
+> +
+> +async def run() -> None:
+> +    app = treport.ReportApp(sys.argv[1])
+> +    async with app.run_test(size=(120, 40)) as pilot:
+> +        for _ in range(100):
+> +            if app.return_code is not None:
+> +                break
+> +            await pilot.pause(0.1)
+> +    if app.return_code != 1:
+> +        raise RuntimeError(f"Unexpected return code {app.return_code}")
+> +    print("bad file ok")
+> +
+> +asyncio.run(run())
+> +EOF
+> +	then
+> +		echo "treport bad file test [Failed: exception]"
+> +		cat "${output}"
+> +		err=1
+> +		return
+> +	fi
+> +	if ! grep -q "bad file ok" "${output}"; then
+> +		echo "treport bad file test [Failed: unexpected output]"
+> +		cat "${output}"
+> +		err=1
+> +		return
+> +	fi
+> +	echo "treport bad file test [Success]"
+> +}
+> +
+> +record() {
+> +	# A software event with callchains that doesn't need privileges.
+> +	perf record -e task-clock -g -o "${perfdata}" -- perf test -w noploop \
+> +		> /dev/null 2>&1
+> +}
+> +
+> +test_headless_ui() {
+> +	echo "treport headless UI test"
+> +	# Drive the textual app without a terminal, check the profile shown
+> +	# matches one built without the UI and exercise the key bindings.
+> +	if ! "$PYTHON" - "${perfdata}" > "${output}" 2>&1 <<'EOF'
+> +import asyncio
+> +import sys
+> +import treport
+> +
+> +def labels(tree, tnode, out):
+> +    for child in tnode.children:
+> +        out.append(str(child.label))
+> +        if child.is_expanded:
+> +            labels(tree, child, out)
+> +    return out
+> +
+> +async def run() -> None:
+> +    expected = treport.ProfileBuilder()
+> +    expected.read(sys.argv[1])
+> +    if not expected.root.children:
+> +        raise RuntimeError("No samples in the profile")
+> +
+> +    # The app starts before the profile is built in a background thread.
+> +    app = treport.ReportApp(sys.argv[1])
+> +    async with app.run_test(size=(120, 40)) as pilot:
+> +        for _ in range(600):
+> +            if app.loaded:
+> +                break
+> +            await pilot.pause(0.1)
+> +        if not app.loaded:
+> +            raise RuntimeError("Timed out loading data")
+> +        await pilot.pause()
+> +        if app.sub_title.startswith("Loading") or "samples" not in app.sub_title:
+> +            raise RuntimeError(f"Unexpected sub-title: {app.sub_title}")
+> +        totals = {name: node.value for name, node in app.root.children.items()}
+> +        want = {name: node.value for name, node in expected.root.children.items()}
+> +        if totals != want:
+> +            raise RuntimeError(f"Profile {totals} differs from {want}")
+> +        tree = app.query_one(treport.ProfileTree)
+> +        shown = labels(tree, tree.root, [])
+> +        if not any("noploop" in label for label in shown):
+> +            raise RuntimeError(f"noploop not shown in: {shown}")
+> +        await pilot.press("down", "down", "enter", "up", "enter")
+> +        tabs = app.query_one(treport.TabbedContent)
+> +        tabs.active = "flame"
+> +        await pilot.pause()
+> +        await pilot.press("down", "down", "right", "enter", "escape", "up", "left")
+> +        await pilot.pause()
+> +        print("headless UI ok")
+> +
+> +asyncio.run(run())
+> +EOF
+> +	then
+> +		echo "treport headless UI test [Failed: exception]"
+> +		cat "${output}"
+> +		err=1
+> +		return
+> +	fi
+> +	if ! grep -q "headless UI ok" "${output}"; then
+> +		echo "treport headless UI test [Failed: unexpected output]"
+> +		cat "${output}"
+> +		err=1
+> +		return
+> +	fi
+> +	echo "treport headless UI test [Success]"
+> +}
+> +
+> +test_cancel() {
+> +	echo "treport cancel test"
+> +	# Quitting while loading should stop the background thread without a
+> +	# "processing failed" error from the session.
+> +	if ! "$PYTHON" - "${perfdata}" > "${output}" 2>&1 <<'EOF'
+> +import asyncio
+> +import sys
+> +import time
+> +import treport
+> +
+> +# Check for cancellation often and slow processing each sample so that the
+> +# load can't finish before it is cancelled.
+> +treport.ProfileBuilder.PROGRESS_INTERVAL = 1
+> +process_event = treport.ProfileBuilder.process_event
+> +
+> +def slow_process_event(self, sample) -> None:
+> +    time.sleep(0.001)
+> +    process_event(self, sample)
+> +
+> +treport.ProfileBuilder.process_event = slow_process_event
+> +
+> +async def run() -> None:
+> +    app = treport.ReportApp(sys.argv[1])
+> +    async with app.run_test(size=(120, 40)) as pilot:
+> +        for _ in range(100):
+> +            loading = app.loading
+> +            if loading is not None and loading.nr_samples > 0:
+> +                break
+> +            await pilot.pause(0.1)
+> +        if loading is None or app.loaded:
+> +            raise RuntimeError("Background load not in progress")
+> +        await pilot.press("ctrl+q")
+> +    for _ in range(100):
+> +        if app.loading is None:
+> +            break
+> +        time.sleep(0.1)
+> +    if app.loading is not None:
+> +        raise RuntimeError("Background load didn't stop")
+> +    if not loading.cancelled or app.loaded:
+> +        raise RuntimeError("Background load wasn't cancelled")
+> +    print("cancel ok")
+> +
+> +asyncio.run(run())
+> +EOF
+> +	then
+> +		echo "treport cancel test [Failed: exception]"
+> +		cat "${output}"
+> +		err=1
+> +		return
+> +	fi
+> +	if ! grep -q "cancel ok" "${output}" || grep -q "processing failed" "${output}"; then
+> +		echo "treport cancel test [Failed: unexpected output]"
+> +		cat "${output}"
+> +		err=1
+> +		return
+> +	fi
+> +	echo "treport cancel test [Success]"
+> +}
+> +
+> +test_plumbing
+> +test_bad_file
+> +
+> +if ! record; then
+> +	echo "Skipping remaining tests, failed to record samples"
+> +	if [ $err -eq 0 ]; then
+> +		err=2
+> +	fi
+> +	cleanup
+> +	exit $err
+> +fi
+> +
+> +test_headless_ui
+> +test_cancel
+> +
+> +cleanup
+> +exit $err
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
