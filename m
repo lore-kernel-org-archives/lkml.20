@@ -1,108 +1,83 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44F68311C1B
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75681AA797
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791001801; cv=none; b=TtUEAtEVFqugI4rUQKROLjWOati9lCl8j4xRTkVh4fzwvVPxim8kZbfBLHq6Yxm0BWnOIX7+CUfq6MPd0qB99+piRtvE/9OkwtTU7V0cA9HJyEcTFtNmx55EEdCc6KllMVOrv1md8BxeeLzlzkxqHj9rE8aW+f0hJkRWFYt2bEY=
+	t=1791002012; cv=none; b=jmXxCfW/6tI58b565x7/tEcCPGuMHAc/aILMz+hNMPvKPld6BNUtDlb7wf6wkzzBVI/02870+oUQwmgD8P5/Yd62xVnMkjY8wNe66y4NRAWlRfWHAs68ELQ1hEaz96YeHI5T6jeCZ5kAD+/Lq3I+Sv98/ZO08DpVIySZM+JXHso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791001801; c=relaxed/simple;
-	bh=HvgYTZ+hfvvwapZljLnzU5xbUPpFttewIzgXvs9pkds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NLdzKolTXFq8xFc33O1rfzSDOH/xmypUkPUMdCcvQzZ6Ss5ydP+fUd0ISyFIdKuN/wTJILmMMjIdypZnNyVljFjM6QfdaCVHabGXgV89g5wWoQTGtl3dvFcw8cdb9fgt8glzFCQTlv7m371fjSuCaePF2pIm4shXGs5R3tn0o7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HTtiil69; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HTtiil69"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 04E8F2F;
-	Fri,  2 Oct 2026 21:29:54 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 80B173F763;
-	Fri,  2 Oct 2026 21:29:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791001797; bh=HvgYTZ+hfvvwapZljLnzU5xbUPpFttewIzgXvs9pkds=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HTtiil69HdFL+qXPiOy7vJ3lQ7QcfpxDg8OabHAkkS0kE0md6EoKxMRH+h75XD3md
-	 Q0sqMxC32km8qRPcD0eEBuwwphkarEqJoYZ0GAq/aSY4J+Wzof7EUfXOssRCDa+F8U
-	 J4/nzznhK2dxOax7xvegTB2ebc+zS2lC9SIGnyAs=
-Date: Sat, 3 Oct 2026 05:29:53 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v13 02/14] coresight: etm4x: prohibit modifying
- cntr_val while session is enabled
-Message-ID: <asCEweXY4UIyqMas@e129823.arm.com>
-References: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
- <20261003-separate_etm_cfg_v2-v13-2-5d8a29aead95@arm.com>
- <20261003030639.BB3AA1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1791002012; c=relaxed/simple;
+	bh=Tip7luQdg8lcMdjVWKlKFSl7kQWY0i1g4tyNrbEzGhg=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=HW8WMMazSKLvN7l3vr8ttrtRBnYvYuNjqxicr6Jh/Cp5ayfSDIq/B63amc8avG0EdDQMc+7CIL0YxauIkYnQgurYmB8XXgoZsP8obYftfOmTfrooDDBrVFsfuZUWVVWOmwmWUZ+VsxYaUClGgzUA4kdmHrbLXILbBpg7s3Z+J8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28dafb8e1so183673b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 21:33:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791002009; x=1791606809;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OULXk60hzpDfovu0nVbj6/L+oh5KXRgHr04gu3IGI9E=;
+        b=1TJ3UpcWwgbu0rDFkwsKaEkH5MbnHYlEfhXMLKSFp3pHOiSBDvCRVraZCKafHVQEp+
+         QAi+XalLOYkbrUGZO3XaAEoGq2IZPzL0aU3K3v9lJ26Wa7/1jhauNlBOqeWm7sPk8rXk
+         DAzXxqv5b5mt4eWTRQaJSJ47WO+f/mjj9YyVqPzcZhfz3wKt71D66BiaS2TAVXui2Q3E
+         +lkGqOLHim03cUhd3fGwLN4luKYrL6WO+z1Tpkcga3qSnr75yda3hUU0q4Y83jGc3+L2
+         rDpVUDky9m7Gqpk0TgGvZ7dApCMlRJxMXph5Cjlq60X6gwKRY/PR9M7EtrTvZU1KYgm0
+         addQ==
+X-Gm-Message-State: AFuF++lTij2nT92TF3cW0KprzDwR4ohL8k1IdtZY86ZHQSUX+5fQI2jV
+	q/5FUy8FiZ236aBNvpWT0Lz/IwP+1oS2ra6SSJpxx6ZIeCXoLkWAvzoebtTtZX5+EOJn0Y7oO7d
+	/EFUVlyns65CWuHOJZcsHnss5bjCBI0XhipxzJh8qqsLmkTYRiDTHT2Q02gU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003030639.BB3AA1F00893@smtp.kernel.org>
+X-Received: by 2002:a05:6808:1828:b0:4c3:b290:cf55 with SMTP id
+ 5614622812f47-4f526a4f33emr4183826b6e.7.1791002009647; Fri, 02 Oct 2026
+ 21:33:29 -0700 (PDT)
+Date: Fri, 02 Oct 2026 21:33:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac08599.34119e79.2f92f3.000e.GAE@google.com>
+Subject: [syzbot] Monthly lsm report (Oct 2026)
+From: syzbot <syzbot+listc9328a48c11a8947def7@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Oct 03, 2026 at 03:06:39AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] coresight: TOCTOU race in cntr_val_store due to lockless mode check
-> --
-> 
-> commit da77274417a7a9a1e577464873f49041c777a7fc
-> Author: Yeoreum Yun <yeoreum.yun@arm.com>
-> 
-> coresight: etm4x: prohibit modifying cntr_val while session is enabled
-> 
-> This commit adds a check in cntr_val_store() to prevent modifying the
-> cntr_val configuration while a Coresight session is enabled. It returns
-> -EBUSY if the session is currently active.
-> 
-> > diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> > --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> > +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> > @@ -1615,6 +1615,9 @@ static ssize_t cntr_val_store(struct device *dev,
-> >  		return -EINVAL;
-> >  	if (val > ETM_CNTR_MAX_VAL)
-> >  		return -EINVAL;
-> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
-> > +	    coresight_get_mode(drvdata->csdev))
-> > +		return -EBUSY;
-> >  
-> >  	raw_spin_lock(&drvdata->spinlock);
-> 
-> [Severity: Medium]
-> Could this leave a race window before the state is modified?
-> 
-> Since the mode check is performed locklessly before acquiring
-> drvdata->spinlock, another process could enable the session concurrently. If
-> the session is enabled right after this check evaluates to false, but before
-> cntr_val_store() acquires the lock, the configuration update would be lost.
-> 
-> The concurrent enablement would set the mode and call etm4_enable_sysfs()
-> to program the hardware. If cntr_val_store() acquires the lock after this,
-> it updates the software state which is never flushed to hardware for the
-> active session, and will eventually be overwritten by the old hardware state
-> during session teardown.
-> 
-> Should the mode check be moved inside the spinlock critical section to
-> properly serialize with session enablement?
-> 
+Hello lsm maintainers/developers,
 
-The puprpose of this to prevent modification after *session* is fully
-enabled since the cntr_val is overwritten after disabled.
+This is a 31-day syzbot report for the lsm subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/lsm
 
-IOW, while enabling the cntr_val is not matter and this secnario
-couldn't be resolved by the locking -- it's matter who take the lock first
-while on concurrent contention between store vs enable also, it's
-pre-exist behavior.
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 4 issues are still open and 46 have already been fixed.
+There are also 2 low-priority issues.
 
-Since we don't expect user try to enable before it finishes to config.
-Therefore, this is ignorable. 
+Some of the still happening issues:
 
--- 
-Sincerely,
-Yeoreum Yun
+Ref Crashes Repro Title
+<1> 114     Yes   INFO: task hung in process_measurement (3)
+                  https://syzkaller.appspot.com/bug?extid=cb9e66807bcb882cd0c5
+<2> 49      Yes   INFO: task hung in ima_file_free (4)
+                  https://syzkaller.appspot.com/bug?extid=8036326eebe7d0140944
+<3> 6       Yes   kernel BUG in commit_creds (3)
+                  https://syzkaller.appspot.com/bug?extid=fa63184795283ac3f842
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
