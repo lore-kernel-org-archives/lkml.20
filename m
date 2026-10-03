@@ -1,147 +1,129 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B0A351C0B;
-	Sat,  3 Oct 2026 17:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791049988; cv=none; b=CQhbEEVIflMvZIL9aN6ySmQnUp00ZC3Qnv5TkH8FpW8rwxDr2C/Eaxz1/i0hbk2HGoSypuyH+CGUA78L2dtlwKuxWo+uTGMQ28ZIhlp9ZiM+EoIgIzfow+AiNAiGq1nA9FQCvUXz0Y3fsIdbzpPPPt0RvZJgUNC1yfkhTj4pcbY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791049988; c=relaxed/simple;
-	bh=GxbxeVZPcceHPAZqr6pN8+RQLGUjsX8ar4+WiLyAi7I=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=RucgUILH2Akt8sKGPMx57jt2CBfeMUu9ZxxJ2EQApCIF8lN3ZNjgjGnzjVuA/7VJtuu6BC8pvXPsMlftVJwHK4t8fc4kMHdOm/fSY8543JZYljvMT2znfxe0MT9IiAJV0lgknWkyRIugjCMKGfsNRAP0V5BkIeaXjpGftBKdy4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=BlmtEhYW; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=diPrgplY; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481C3351C0B
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791050105; cv=pass; b=Xre7wGOeb+EWDA3LYij5kOIloIY3uTxcvqLKESJhhp8+Cr6b+YM2+v7VyWMUYEFWxSOvCkqxZAnHh/PbG7jyz50p6PhteBN7PJfg17ESdpLu/kdsbmBL4xfyomlbZszORBLuY0QjiSujYerNdE6YfoMMZr8Eodk67Sz8PlEtetA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791050105; c=relaxed/simple;
+	bh=c+Mqd6Pqbqln8HeOp8rCuqd0Rbs7qUX/fnfxIBh4nMs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ddwSRNpAe7vDZzzHp2RUHgPkvyfg6/e8HXSGCbTqdBhQB6tkqHyeIPaYClDLFkHot1O3BUyy7oBDF3JQdLGMrz6VJ+eHVmAtf0+2men1CzxxjMJTXoCfj7wcOq+V5qR/2pFS92V9/C+FbfMF+nTr1yrH8oA0QE8z4nHEJlgbUo8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QUNSjoJ5; arc=pass smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="BlmtEhYW";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="diPrgplY"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791049966; bh=Eke+zid+5Nzy32ms7wldV6x
-	oiQtBAWDv85gmlM+wM9I=; b=BlmtEhYWU3b+6k6NrQnZelER4Xfi+OTWCROSQtXq0+Ioe3oEoZ
-	G6iOcxZtXJIzblXIXh74dNMQJSM6lWWwuGGlrXltnp/Svoh/EX8jIwDMVXA+pj1ZOY2u9HRzNxx
-	6Xdg9ECn3XDnPwu7G/Moz2JyIvQEixyxACp0A5bu9bg9wzjfmxwFuH1bRC3j8S7aRNUk9ubhxGo
-	gE+IkdS6vjlARdMU1iE0eeMD1WQG3kEzECUsOzvFmAP2BUb4wUIQeH093ZAsKKdkmRB2s2OZPlA
-	16FhoWuqUbWoajuwcK0Lpp3XRXBQwzmzZNPbvBC4dvW94Hr0gZD3qF/uiOlI1Izd5Xg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791049966; bh=Eke+zid+5Nzy32ms7wldV6x
-	oiQtBAWDv85gmlM+wM9I=; b=diPrgplYzcpGpsVfSewDjxPhr1atiDvU5/tAmPDC/WJfY83Rsb
-	WCfbeM4sTjyee5eQBBn35L3vMEBhZ9AGWBBw==;
-Date: Sat, 03 Oct 2026 18:52:44 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: kunwu.chan@gmail.com
-CC: boqun@kernel.org, dave@stgolabs.net, frederic@kernel.org,
- jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
- linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
- neeraj.upadhyay@kernel.org, paulmck@kernel.org, qiang.zhang@linux.dev,
- rcu@vger.kernel.org, rostedt@goodmis.org, urezki@gmail.com
-Subject: Re: [PATCH v2] rcuscale: add srcua scale type
-In-Reply-To: <20261003161720.240855-1-kunwu.chan@gmail.com>
-Message-ID: <A3BA2086-5718-45BB-8B3E-35C1D2CA7B63@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QUNSjoJ5"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3453dd0dso138480166b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 10:55:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791050102; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DEqMnUH+DzO8nFdH8o/tgt7PATMS5ZYhbzs9owN00wjinpYZ7i8qa/hUbuK7VFQgFE
+         02FGU29YwmOSXADPSnhp7LBgShiq5tZ7Pjp3FNjyhwngszGA6PCTWA4JeCu6PTLZalbs
+         kZnAccHnxuEZOpt/HW6v/1ct42Bzav2wCaokr9m+DnKKhjYXw2gBe5LYe1JE+YBugv4J
+         A+jCl9ec8AqMJvHCMBwVKUYxq8ljFps3KX7pJMmOK9pvVZ629kxPuXlTPMeQGrO+mykz
+         MP5JsVJ4ECDX9/4D7khPWftVe1f8bRr32LZNoAGnSxzWeltAwwZgC+3c8eYwnxvMSpyY
+         ICRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=c+Mqd6Pqbqln8HeOp8rCuqd0Rbs7qUX/fnfxIBh4nMs=;
+        fh=noIOFLcQLuU55rqlqiXFMXs57w/bP91fktTbzmFHg+c=;
+        b=GPn4ztjKSNI46p/kUfv4oS5X9Va6yzOgg/Gv2qFWAzMITMjpEiWHFRIKZ7HB50jGR2
+         +fcpzTmYGhY/v+nNmejcEkjLJVoFn7XOx1qxEsYlQ3m2SgtfoadQ+MjQv29ga/fx7Ywb
+         3t/3hp/QsRi1UEXUSEeMSqULKp2vPvhusSfpGaTj346TQ1I2GmuPpwdaSY6EcciLyv8C
+         APnEjkKAlNRua25JtZkqP3QfaqqWhAXYz2n1FaOL/+voItQPUx9R7jtmHY++Y46wu5RW
+         /TA8lyTxWpwmhDuiFmWEuK66KzNlBs5njYVeFH6196WZzPqSOd/cQa5IF91+j10a80ca
+         Jkbg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791050102; x=1791654902; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c+Mqd6Pqbqln8HeOp8rCuqd0Rbs7qUX/fnfxIBh4nMs=;
+        b=QUNSjoJ5rTHpZDcSbmTQXJ+uN8iopeFWfJtrlI+EYJM4YoZH2o5o+s3JWkzYS4pfYX
+         5Z/q2vwWjztTHavg93HZLte53diu4Iayxxmn6he3jEHAyFLT1GubAWtJsNnNzzJY0gjt
+         Bl0jGM771ATpXHP7CH+7VDE3UuUiDGK2BMd54NPLLjn9Gxch82MvnzhzfRmDXyXnc8f4
+         jq0JSpIsdUrhVGDgVxrMJP9fMdTu5iUp4QBaZ+4D0N9gQEwO7jAP5LG7g1BcMMySMiJ8
+         0J3WlW77tiluszif6RE6onBPIdGFHLHNaajsXZmKUXopWtG2wIqGMR3TpwVKvmF7lwF1
+         4WYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791050102; x=1791654902;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c+Mqd6Pqbqln8HeOp8rCuqd0Rbs7qUX/fnfxIBh4nMs=;
+        b=BI3jUO+XcUf44DMFXMIcnMiQd1EaJ3Kp7r42+JoVIJE/8AYlv5BsJ9u/kMCqWHvYzL
+         krW9oY0LbI1ROEuoNODAuFXipPuNgQ/abq2Jh0ww1eRJkM3ddCRq97XQi9pMAf1oOIDk
+         pc2XKZZhCEk70HHw/bw5NFanxqarGRk7RCaJbCNt3EV16rkba3Q4Fr5g/OljWfclUh2i
+         mzS/mbwvnTmW0MW81iMPzUQfAxHNZDPrO1plgXk+EatuyDrs3AuYqzfLjc2RmBDKOcG3
+         65LGaxfESEnlI/ciF/v8lQAgHIFjkoFY7p6Hp2Gn2HDrCOygJ8EaMEe8hY3DuDv5lV25
+         D+jA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjdRuM2O6KER58QJ6Kxm9Q3Q4+VCx8TiVYLjafJTeYdMY4TkvM9jo92DM0cvT10YbL+syvlZEe0hpVvEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kN+HbTLJzIozMjvgkBoJrsQyMFWXBmZpEseXopTsjhwDJb65fC
+	R3WkkpEE2mZFsf0DMZbEoHYVPZDfr6US9EmpscLmVaepw8Vo67kI+YpyDGUI3VA91KM4i7bCuzd
+	jenUHAoUP1H0rMTkqDXSKrjuR/wB7TLQ=
+X-Gm-Gg: AYBFou2sWGrZuMKrPcLJ9RXzvgkQHfEdm0lVMJjp1o7eGXS0jNXgrkfgaZ5ZerjitUA
+	iUPrbPN39lcqqg7YvVHhWSkHDpIWfEzmTyO9G9ICI/ro/PwzUOB3HHPBpTUk0O08OVi1QyflozB
+	gjfJKNgX8aSphvLfrOydVUAxHyVJWG0EgJtl80MT50aq84Qb6fJjBO4QjkHyg7dve0mhbMyxztF
+	LLWyBr3/KSKUF9b5CiF/IHMJgIaNEGbDglK75d9ikdKKRcduNmQfGfYP0l6LwdJT1tM3cKyUeq6
+	MA1e8EZq/0uW7ToiALG/yDESdZY+FgdmdenvgADpUDCNcQ3ODgV76DAiqm4iQLZ9TuKCQv2HZsk
+	rMTPqP2hack+0C4EubYOGN8VS/PJZMDBxakUI3hs4mGNCY2+zLAE0HTsZIKfyMs2EnR1HLtLz9M
+	CUsL4ukMktIHgHtQH+3qDDyOaqEZ4TpMxSiCttFH9iqMemJp0orrUg
+X-Received: by 2002:a17:907:7fa8:b0:c2e:4292:d26b with SMTP id
+ a640c23a62f3a-c2e4aac022dmr541503866b.17.1791050102486; Sat, 03 Oct 2026
+ 10:55:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+References: <20261003-gpio-mxc-cleanup-v1-0-dad728ce27f2@nxp.com> <20261003-gpio-mxc-cleanup-v1-6-dad728ce27f2@nxp.com>
+In-Reply-To: <20261003-gpio-mxc-cleanup-v1-6-dad728ce27f2@nxp.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 3 Oct 2026 20:54:25 +0300
+X-Gm-Features: AclHuK-Tnk4vGYGovhYsTrmL0EszXMNMJq3_DIUiup98Oar2sN_FwV71aRE1nR0
+Message-ID: <CAHp75VfcuHPQ3S4LD6OBAMvu=hiGdSU_pji9+8LAGXD=y4C=9A@mail.gmail.com>
+Subject: Re: [PATCH 6/9] gpio: mxc: use local dev variable and device_is_compatible()
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 3 October 2026 17:17:19 BST, Kunwu Chan <kunwu.chan@gmail.com> wrote:
->Add support for scaling atomic SRCU grace periods using
->srcu_read_lock_atomic()/srcu_read_unlock_atomic() and
->synchronize_srcu_atomic().
+On Sat, Oct 3, 2026 at 3:10=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.com=
+> wrote:
 >
->Suggested-by: Paul E. McKenney <paulmck@kernel.org>
->Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Introduce a local 'struct device *dev' variable to replace repeated
+> '&pdev->dev' dereferences throughout mxc_gpio_probe(), improving
+> readability.
+>
+> Switch from of_device_is_compatible(np, ...) to the device-model
+> device_is_compatible(dev, ...) API which works with both DT and ACPI
+> firmware backends. The 'np' variable is retained for
+> of_alias_get_id() which has no device-model equivalent.
+>
+> No functional change.
 
-1: why didn't u cc me
-2: why did you ommit my tag? I tend to review based on correctness, cuz idk pauls preferences, once I do I'll be a better rcu reviewer.
+> --- a/drivers/gpio/gpio-mxc.c
+> +++ b/drivers/gpio/gpio-mxc.c
+> @@ -428,17 +428,18 @@ static int mxc_gpio_probe(struct platform_device *p=
+dev)
 
->---
->Changes since v1:
->- Rename srcu_atomic_ctlp to srcua and reuse srcu_ctlp for
->  SRCU operations, as suggested by Paul.
->- Reuse the existing SRCU cleanup and completed helpers by
->  initializing srcu_ctlp in srcu_atomic_scale_init().
->- Add .stats using srcu_scale_stats().
->- Use "srcua" to match the existing "srcu" and "srcud" scale
->  type names.
->- Use synchronize_srcu_atomic() for both normal and expedited
->  scale tests.
->
->v1: https://lore.kernel.org/all/20260927100359.3903688-1-kunwu.chan@gmail.com/
->Tested with kvm.sh --torture rcuscale scale_type=srcua on x86_64 and
->arm64, alongside gp_exp=1 and PROVE_LOCKING=y: no warnings or lockdep
->splats.
->---
-> kernel/rcu/rcuscale.c | 41 ++++++++++++++++++++++++++++++++++++++++-
-> 1 file changed, 40 insertions(+), 1 deletion(-)
->
->diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
->index 1097ec15879c..b172882824ac 100644
->--- a/kernel/rcu/rcuscale.c
->+++ b/kernel/rcu/rcuscale.c
->@@ -293,6 +293,44 @@ static struct rcu_scale_ops srcud_ops = {
-> 	.name		= "srcud"
-> };
-> 
->+static struct srcu_struct srcua;
->+
->+static int srcu_scale_atomic_read_lock(void)
->+{
->+	return srcu_read_lock_atomic(srcu_ctlp);
->+}
->+
->+static void srcu_scale_atomic_read_unlock(int idx)
->+{
->+	srcu_read_unlock_atomic(srcu_ctlp, idx);
->+}
->+
->+static void srcu_scale_atomic_synchronize(void)
->+{
->+	synchronize_srcu_atomic(srcu_ctlp);
->+}
->+
->+static void srcu_atomic_scale_init(void)
->+{
->+	srcu_ctlp = &srcua;
->+	init_srcu_struct_atomic(srcu_ctlp);
->+}
->+
->+static struct rcu_scale_ops srcua_ops = {
->+	.ptype		= SRCU_FLAVOR,
->+	.init		= srcu_atomic_scale_init,
->+	.cleanup	= srcu_sync_scale_cleanup,
->+	.readlock	= srcu_scale_atomic_read_lock,
->+	.readunlock	= srcu_scale_atomic_read_unlock,
->+	.get_gp_seq	= srcu_scale_completed,
->+	.gp_diff	= rcu_seq_diff,
->+	.exp_completed	= srcu_scale_completed,
->+	.sync		= srcu_scale_atomic_synchronize,
->+	.exp_sync	= srcu_scale_atomic_synchronize,
->+	.stats		= srcu_scale_stats,
->+	.name		= "srcua"
->+};
->+
-> #ifdef CONFIG_TASKS_RCU
-> 
-> /*
->@@ -1110,7 +1148,8 @@ rcu_scale_init(void)
-> 	long i;
-> 	long j;
-> 	static struct rcu_scale_ops *scale_ops[] = {
->-		&rcu_ops, &srcu_ops, &srcud_ops, TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
->+		&rcu_ops, &srcu_ops, &srcua_ops, &srcud_ops,
->+		TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
-> 	};
-> 
-> 	if (!torture_init_begin(scale_type, verbose))
->
->base-commit: d21906b0aa1e9573cdb5e7acaca44966b9d1dcd2
->
+It seems you missed updating the headers (like switching from of.h to
+property.h). Other than that, it looks good.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+--=20
+With Best Regards,
+Andy Shevchenko
