@@ -1,169 +1,127 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533AF47F787
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A26355F47
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791046513; cv=none; b=SHDxUzH5tTdu2rR9pAOmwM+zj8pkO4D73xk6QXbNMEu5EVRyUIJzCjsvHjM1qZ2IkHa06eDdqTRCcNzkJFzSatgyAvirbCgWHSxnDVrb0dG/JNvYo2HAD3AfMa7tZMijEDgtzJBemU6d2jr5DjQO29YSzSWvG3u2BD9r3i8o1Os=
+	t=1791046695; cv=none; b=U4ZnRYx4j3piICJOfQBdB0CSQFg7jwY2xPkRkVV1dp5Y+vObZWd/Hbu7rJzCCGOMXqnnFE/5fgiZ7XzVXqmcwubbgLbFkrdMvpSY5XvMKP/m2FVAGZ4W38FNMCbcH58ooqdQUSjgTHOrHcsatp6XsWXd1yDuBrKbTYBAwI6jnTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791046513; c=relaxed/simple;
-	bh=X+JsHy9hcmmtZJVBa9Kkkln84dK+oOE5eRwAZnxmFJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nIeocJkSvw1HQXcqI0WKeueR+vCb+MlJ+hmrkw0yLDnI9udeTzLJ09WeatzZq1AZUvWjdoTbdVemB+bS7Umc/K5nst0LAItVdJN+gy8xdAUNLGwl//9lFbaZusKjUbxZXkHnQjBo9sq20DVvOpeWcYKZ08wlE25jYKasmcakC/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wpb5/xPa; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1791046695; c=relaxed/simple;
+	bh=tV68AEZfVUl2ePwMevpcFNFrGswYi8vmfdu1EZiJ9iU=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E/JsSS7TFLpQV+kAd1eLwmjXkXgQvG37UTYxWz2BgEWieXow6JyfyXtc8fSBpNgDfRlGEschco9QJVBEbnfRJhpUJHjQyeQLwaxNASE2zC8fIzKfAJ5t9iGCTf1ssBE1tp0d8W5c1Yw6zTfpGhRQ15tar1CwR1sj0S1jgFEdfOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EcSIiaBZ; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wpb5/xPa"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b1743e9c7so383728eec.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:55:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EcSIiaBZ"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a6f8525bfbso241198a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:58:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791046509; x=1791651309; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791046693; x=1791651493; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vfNONSg/6lEhGon/gJ7DMZGMT+W70fNRaOzKZcnrLmk=;
-        b=Wpb5/xPa8rjPsNtwJuOIGUdW1VZv1F1GswyijTEk3+u6K13k3G9zKd83uHTu8DNBQL
-         HlLpFC/tBuNizcPJdF5FFZPkJjbGDILUzZzOrSGX2S+GQyzZHP8N7YTlGuQywOL0hWP0
-         moN1QMSJmvpQOIsmpzPkyiQswObFuuE0BxL6huVI22vQdNMwnAeSXAfzx92jWdiLEgD/
-         vYUX2O3kjDfwyHc/zeLFn4PHTQ6NndBFrtRe55STFDEhy/qPTJEJKcYRwp9SQYue8vPd
-         Qz+FSHTPpobiUMTHs3dKKaYuaT32ljJOAn84e+tfqx0pqn3RSI9wZMjeJ+FbzjmGGVap
-         pBVQ==
+        bh=MLMhydZ/wyB/4hMugvVsF4Xnk66VRKTgxqNM58pVWT4=;
+        b=EcSIiaBZNQkOV5Q3S24HkwzJ55DoYFv5VXWOPk5GJv9BcRYW41F3TnwXkGPEYJZ1/i
+         HjJTNec5SaNr6xVqSF0xpf8BtnWtKCXLH79aXCahzUTBCV61Nlmklm6Ps+yku3WamTnq
+         SIXH/pgxwmcf5USpYreYTE+h3isy1XBC7WbLKHTgBYyezIG2P8pAUO6+ZHvOSC/CnNgO
+         iJtZ3cPH6sS8k1Pwd3MQ+knN8rDxyoiGoDKppK6Pklc2/gsRrGrLH6lLdiyaaXIo+SOL
+         iZIfLEoWIt4E28bXbykWcS7baEQUFHPP6+EhMinh2C+4k+v/AQnAPXOT1k9chewddYID
+         t6FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791046509; x=1791651309;
+        d=1e100.net; s=20260707; t=1791046693; x=1791651493;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vfNONSg/6lEhGon/gJ7DMZGMT+W70fNRaOzKZcnrLmk=;
-        b=JI5igUd1w+xADvFqEMl8NBGwySo/sU4IWemWruTVMZdvwcisxNbg2mQzWOs8E6YLUP
-         ZkwzwBiRjwURoGvFCFUJcvJ9x5IKrUXJ+icDEzLp5y1cbjHg/8tUeFhmYBPUziEGuTRH
-         NSyoPTezypI4a/2oqsvpROfg9gVltAakBFEZdt2twiy6LHVylc/E8FVVmJjubKyZc5Gr
-         H9mOSzZ95Vnznw45HKy/kU8iirX8VL3V+jUGMrIO/jBKcIS2DOeZ3ZZJ1zL03O4uKjG7
-         l7fNNCcEcwS1CqDG8wnAmHgEQYwPo4STGlOrT+1LnJUWfaaJib00bFwm08qHCp2Zv1ec
-         /yeg==
-X-Forwarded-Encrypted: i=1; AKwUvByjtCxlQVNZ6sql9fKm6bjF/cipDZebtVckBw+hLFmm/F0qx3wg/t12tYVIOCtXRvhnu34KB3g3ygc6PpI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6xL3JIBN789gSJ61ybvOg4+GBEgW1bfMvgMlN6oDmtOR6BSGR
-	TEJkZQl+izRPnJJVokgH5BmTNmFn71Hj7YA7iG8LiImgnKi9JoXy1t8j
-X-Gm-Gg: AYBFou0oAgHF7s48vyoLciVErRgeA7Y9KuNukyVHqbGqxmhhrXY0t7MzcI5KyDo26/T
-	zqSvsYsxX2o+oY29frgL9bx4kIzBOnmDQS9RMm+KnEAgrwHoZvIL2lCX/SuMSEMjMO/L8+hjSw9
-	0n5nQHpCgXR0zCNn2Ja26s17/CkkdkgSqzF2Csrirh0rRwo8yr0/hJq7PlEQwArR574jidqpryR
-	41M7ShQOGM8TMeojr8GqvMeXJ3abzJpwbNqBP44g8Eg7uTKOTPzc/ijy5do45y0DyG6q//7FJnM
-	xWGw1CMvXEAPn0Z2Flpa2OwpYXi4yTGa+uT0bi6A7NysF8q7Tn9MbwHC3YnLWTeBbkimqYKdGBi
-	AHDS83Y/mRmYzyDczQfN50WPTrROB2zJvPepjKc8iHfEYWWSZOk4JrHwJtcoS09PmjrN+eBFEOT
-	b8O380LHGuBZGaKXe9YEZ7OqrE1SjCsA/wPaKZUadrQ9yQY8gwZCIvSEzTtKTB4XXSWItOzvTMA
-	RPwh64SjLiAviDf4KOw5fh/gq6h
-X-Received: by 2002:a05:7022:304:b0:14a:51c8:e9f2 with SMTP id a92af1059eb24-14f5c2ef7bfmr11363603c88.31.1791046509232;
-        Sat, 03 Oct 2026 09:55:09 -0700 (PDT)
-Received: from kernel ([103.219.206.69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fa751693sm18671183c88.2.2026.10.03.09.55.05
+        bh=MLMhydZ/wyB/4hMugvVsF4Xnk66VRKTgxqNM58pVWT4=;
+        b=1L9Eu5ht0/eklRLu+02PSVruRxQUY141xivAFBykfTpHs8ctkolZhtFsF3XsJJETXl
+         miheM/CnAPAa9jbfxtg9/C3CdjbiHKseffuT4tUs1fG2Fdr31jUt0P7ktE9AbKLA+dr8
+         muNn8xBoNVKwcjrhIVe8KbYN8su6GvYiuiDtiXZQRBiXChfuPbcQzTm8wVbcXS6cWRip
+         FZXoAXrzYtjEkGyzz819mNT5QPGGWLh+39/42exVdTKcv6ezqgzbnDnbyic+bSd456oA
+         WKzRCxfI7sWI9rGlqptukCPL1cVnf4+DgiN3TqVI4y1nSLTl9+TLY5XXWIMOkckfn2yR
+         XD1g==
+X-Gm-Message-State: AFq9FYJTnQndvqYrWKlF1KWE4+6bXpVPvc0YqGsIhdQu3eODf+S4eXJS
+	GsP8ThUYwqWtUvu6TsWVMDyr2QdOVaXC9XuTx/Eu1y408O1WDjsSDyyl
+X-Gm-Gg: AYBFou0hibSYvc/Nl4f/Wr1aO/5GoJCD+YMEmIq+itCYfwGxIIbDz2SA13X5v1yYCyi
+	JHlLbmjTcah1cLpwxU6cwMKf2OUebARVVudq96vOfvOVWTX9V2TFgw2kCki1s1X7KtoIdhlqVuJ
+	s7CjHUuj4LMZd16l0+ci4hR/E0TbNSkIJiJS4CJFa07tJBSi6K7dah5j0LpsdpbFEpuzOM/Cmr/
+	dbC7BAEsk4iP30CUjlsb2qknrn0iR49E/tVRyTU5Eu1u0G9kx5xnFqMUyz6R2MjSTQDYQzmy7Ko
+	yvlzWc2UJuyBjUf1X+FbVqCHK9mY3B4m4A6Msg7qGHsXtZP6WNVKhkrx4WmohjgQmlq4hcsUR/1
+	3DE7dgwWkpTGvj1okUwPiryCrZSgcYJsNEVnKaA8hfn7n0OotyUcmWWNm1rbTAx8wEE4qy2hbaP
+	tHOebFuYXLxKFVrqxOjPsjQZhrZjdCprhM7yv75hq2KajDa97s6lkLO6oKfAaJ35t+2zG244Vcx
+	egEzX7t+DXznRDFnQ==
+X-Received: by 2002:a17:90b:4ac1:b0:3a0:22bd:6ef6 with SMTP id 98e67ed59e1d1-3a6ce64fb77mr3278447a91.2.1791046692966;
+        Sat, 03 Oct 2026 09:58:12 -0700 (PDT)
+Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7cd47csm3574222a91.17.2026.10.03.09.58.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 09:55:08 -0700 (PDT)
-Date: Sat, 3 Oct 2026 22:25:01 +0530
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Shuah Khan <skhan@linuxfoundation.org>, me@brighamcampbell.com,
-	jkoolstra@xs4all.nl, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization
- in xchacha decrypt
-Message-ID: <asEzZY2-PqUK0N-M@kernel>
-References: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
- <b937fca8-f436-47a5-988c-963fa1af6296@app.fastmail.com>
- <20261003085757.GA144870@quark>
- <ea68191f-86cf-44b1-a045-237b93a4953f@app.fastmail.com>
- <20261003163926.GC152469@quark>
+        Sat, 03 Oct 2026 09:58:12 -0700 (PDT)
+Message-ID: <6ac13424.00feb36c.a9616.9685@mx.google.com>
+X-Google-Original-Message-ID: <20261003165810.zgrm3r4jr76mkmq2@DESKTOP-1P5QNTF.>
+Date: Sun, 4 Oct 2026 01:58:10 +0900
+From: Kohei Ito <koheiito.dev@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-gpio@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>
+Subject: Re: [PATCH 3/3] sample: rust: Add GPIO consumer sample driver
+References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
+ <20260906-add-rust-gpio-consumer-v1-3-24d192f93760@gmail.com>
+ <CAMRc=Meei7Z1f1n0M_Hy1LdxG=NVhkFeEiT3=p5QVpw6BTv3EA@mail.gmail.com>
+ <6aa662d7.0ca013b1.1575e3.0a60@mx.google.com>
+ <DLENO35F39LL.2YNA66D9FCXYH@nvidia.com>
+ <CAMRc=McV2YKgbmnknLZTSGoSa_9eCHDiOLzuPPyPHHnj=vRuvw@mail.gmail.com>
+ <6ab12d24.a3d4836d.3b68e.d0f8@mx.google.com>
+ <CAMRc=MfZckBMT-4PEDxr-PjRbUPO4FY3OZw8ks3w+uoEyixbAQ@mail.gmail.com>
+ <DLLVT33ESJA5.1XE4J08AEZNMX@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261003163926.GC152469@quark>
+In-Reply-To: <DLLVT33ESJA5.1XE4J08AEZNMX@nvidia.com>
 
-On Sat, Oct 03, 2026 at 06:39:26PM +0200, Eric Biggers wrote:
-> On Sat, Oct 03, 2026 at 11:28:20AM +0200, Ard Biesheuvel wrote:
-> > 
-> > 
-> > On Sat, 3 Oct 2026, at 10:57, Eric Biggers wrote:
-> > > On Sat, Oct 03, 2026 at 09:34:21AM +0200, Ard Biesheuvel wrote:
-> > >> 
-> > >> 
-> > >> On Sat, 3 Oct 2026, at 08:08, Mohamad Raizudeen wrote:
-> > >> > The `__chacha20poly1305_decrypt` function does not zeroize the chacha
-> > >> > state, unlike its encrypt counterpart. The regular
-> > >> > `chacha20poly1305_decrypt` function handles this by manually calling
-> > >> > chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
-> > >> > the result directly without clearing the state.
-> > >> >
-> > >> > This leaves the derived chacha20 subkey on the stack after the function
-> > >> > returns. Fix this by storing the return value, calling
-> > >> > chacha_zeroize_state() and then returning the result, matching the
-> > >> > logic in `chacha20poly1305_decrypt`.
-> > >> >
-> > >> > Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction 
-> > >> > and selftest from Zinc")
-> > >> > Cc: stable@vger.kernel.org
-> > >> > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> > >> > ---
-> > >> >  lib/crypto/chacha20poly1305.c | 5 ++++-
-> > >> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > >> >
-> > >> > diff --git a/lib/crypto/chacha20poly1305.c 
-> > >> > b/lib/crypto/chacha20poly1305.c
-> > >> > index ea42a28f4ff7..03b14d272520 100644
-> > >> > --- a/lib/crypto/chacha20poly1305.c
-> > >> > +++ b/lib/crypto/chacha20poly1305.c
-> > >> > @@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 
-> > >> > *src, const size_t src_len,
-> > >> >  			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
-> > >> >  {
-> > >> >  	struct chacha_state chacha_state;
-> > >> > +	bool ret;
-> > >> > 
-> > >> >  	xchacha_init(&chacha_state, key, nonce);
-> > >> > -	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-> > >> > +	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-> > >> >  					  &chacha_state);
-> > >> > +	chacha_zeroize_state(&chacha_state);
-> > >> > +	return ret;
-> > >> >  }
-> > >> >  EXPORT_SYMBOL(xchacha20poly1305_decrypt);
-> > >> > 
-> > >> 
-> > >> Wouldn't it be better to move the existing call from chacha20poly1305_decrypt()
-> > >> to __chacha20poly1305_decrypt()?
-> > >
-> > > Since __chacha20poly1305_decrypt() has two return statements that would
-> > > need to be considered, I think this patch (which makes each
-> > > *chacha_init() clearly paired with chacha_zeroize_state()) is slightly
-> > > cleaner.
-> > >
-> > 
-> > Fair enough.
-> 
-> Actually, looking at the whole file, in the encryption case
-> __chacha20poly1305_encrypt() already "takes ownership" of the state and
-> handles zeroizing it.  So given that, I think it does make sense for
-> __chacha20poly1305_decrypt() to do the same thing, for consistency
-> between the encryption and decryption cases.
-> 
-> Mohamad, could you send out a v2 that does that?
-> 
-> Also, for the subject prefix, use: "lib/crypto: chacha20poly1305:"
-> 
-> Thanks!
-> 
-> - Eric
+Hi Bartosz, Alexandre,
 
-Hi Eric,
+Thank you for your advice.
 
-Sure, I will send the v2 soon.
+> >> The best approach I think is a combination of a Rust consumer driver and
+> >> a C kunit module dedicated to testing the consumer driver. This is
+> >> almost the same as `drivers/gpio/gpiolib-kunit.c`, except that instead
+> >> of directly exercising the GPIO consumer APIs, the module I'm suggesting
+> >> exercises them indirectly, through the Rust consumer driver.
+> >>
+> >
+> > Can't you just call a C function registering the platform device from unsafe
+> > rust?
+> 
+> You should be able to. It's a but laborious, but better than not having
+> tests at all, and acceptable as a temporary solution IMHO.
+> 
+> Of course an even better solution would be to provide a safe abstraction
+> for registering platform devices. :) I don't know exactly how much work
+> that would be, but there is already a `platform` module, so supposedly
+> we wouldn't be starting from absolute scratch.
 
-Thanks,
-Mohamad Raizudeen
+Sure. I'll explore the Rust kunit approach by directly calling C
+functions to register `platform_device` and `software_node` from unsafe
+Rust. I'll also drop the sample driver. I'll let you know if I face
+problems.
+
+Best regards,
+Kohei Ito
