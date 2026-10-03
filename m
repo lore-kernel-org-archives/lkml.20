@@ -1,74 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C29D43E4BA;
-	Sat,  3 Oct 2026 15:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3237535B63C;
+	Sat,  3 Oct 2026 15:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791041134; cv=none; b=SNhb3JqIyBOxsC7/t+zBDaibiaHVxRzhIooa4GS+jZTePjIkGRZmAHWgaRbwQEtd+GvsCY5E5FSxyVG6n/9u7am4GNGNPwN4VG1lIiiYhSZsCATn5Xsi2EYODWrCvgmeOJhLWjyxpxBC4M2e1OD8FKdw/CxWueHESUkZif6P9HA=
+	t=1791041245; cv=none; b=fwm3I1SNEM+L03KXBCB+b1r2ogk0/3yphxgvXzAfuxod96RprkoV3F3ICFpR1kQONjaKPYQuPxAMXy04kUbwQM0ZdEw0MXxG//4cacQR4MEK0GRwvODNbgyi5p3XjcmrvkOAJYp+5KS8NEKrtPEfB+Kp6Jsw4m2PGWHAkd7F5CI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791041134; c=relaxed/simple;
-	bh=r4HivBlm+xzm9Uix2a63PHDX85EH1fdhkqT5qYKJApk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZjkeI7GBnYllqQFem0212YpT3AXK/oAWvrSb8uCOFUIgb6mkl4ZCmkFR8YbXFGWp0yA+Hyd4vKjkoJSmRMOU3lf7C1fEN4aUH0BaeJGNni4UZdPYcsBhiea1GwZFEO58gRJfdeoIe/NrenJARXdWAx0OL7PuPUoDt9TpbXj3mDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVtyIJM8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791041245; c=relaxed/simple;
+	bh=uyopUVqZceOyKr4dw61Ai/PDYs0DgDRUXKKW5TsHp+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mGuPnkwluLD4GOwUt+DGGKqfjwsPtMCuzewzvPZgpaDTLEBOFE8QTliNw9uwNlwge3PAfkSosjTZA5uEZgIA2FUxs62xCDExZbJY6Ai2SOR5QGXQJ+77AT2NhSqsDbyQBp70vaTyaBrg2DzinaUQhEbt74TD5YTQ3r0pM8OW4Yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RzRlYgwr; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVtyIJM8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8C41F0089D;
-	Sat,  3 Oct 2026 15:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791041133;
-	bh=049uPGtYxN8IGOPOlZbVCBT70USK+uuKiYpF8itJ5Fc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=nVtyIJM8IjKyr3dA2F2MEBbVGv03WpB3+Lfv1JfvrIoWwpsExT9nicFOr7lyRzwn1
-	 N0kvYK0xtgdNMQuctFS8S6lEn6oUBQRXlCM7w4mmYnyq2Fc8s9pYs9DiiH7LiFkMC8
-	 aLjHG8ng+CveIfWp3Dh10Pk7xRm87SsdlolIKO3LB22uSn6RGxalbxck/FR+QxNqni
-	 PVev6S9Hfco5Lzh+WCRskUBLPSVoK1LlzJ2P2gQOnFdB/QVUL2VqQoLNjLM+9MvtBa
-	 HZyTSDXYY8aVLXZcTIlSV/LKMOvhfMAAt2LqDNFO9FzSN0XUGlGIj33QdyMgIefQH/
-	 OSXvdRZgXCcSg==
-From: Vinod Koul <vkoul@kernel.org>
-To: David Carlier <devnexen@gmail.com>
-Cc: neil.armstrong@linaro.org, qiang.yu@oss.qualcomm.com, mani@kernel.org, 
- konrad.dybcio@oss.qualcomm.com, krishna.chundru@oss.qualcomm.com, 
- linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260825225729.230493-1-devnexen@gmail.com>
-References: <20260825225729.230493-1-devnexen@gmail.com>
-Subject: Re: [PATCH 1/2] phy: qcom: qmp-pcie: Select MFD_SYSCON for the
- multi-PHY driver
-Message-Id: <179104113076.223537.8163260919027364085.b4-ty@kernel.org>
-Date: Sat, 03 Oct 2026 17:25:30 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RzRlYgwr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791041243; x=1822577243;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=uyopUVqZceOyKr4dw61Ai/PDYs0DgDRUXKKW5TsHp+4=;
+  b=RzRlYgwrgHGTCS5hBtpIiPmbIwX22QptaXiZ0rQb8cYkYDsm99jUxbtU
+   Fj/sTbbKe01eTHkRfMtJ9Y90jTiCOUEe7d8RyzokkQL5O3YkagrNuRyQX
+   +YNbs73BHR9Iix07VvEcxNIQKJon75K+QwiqpLDRdLMPmRkWhzLneejQv
+   AUAVRvrIZZiT4Kxi9Jhg8faGxB+973QMw7piBJyq0M7AkNYg70D2Ykarb
+   mITsZzYru8ko02Mh+yL0+8XISNNlocWYnoxlxs+MPrDSYKXRAu9SnoVU1
+   tEuLM/st0+VMNOwf5Y6BOBUpv309VEDYbmOY8MmwYHtlCvEZPCDTsbyCZ
+   Q==;
+X-CSE-ConnectionGUID: K9DJUHYBRq+jmAdIXSbLOw==
+X-CSE-MsgGUID: 2c4+/afqQ62aetj5tsG34A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="79338043"
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="79338043"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 08:27:23 -0700
+X-CSE-ConnectionGUID: X0ySsU+zR2mUPm2frMoLVA==
+X-CSE-MsgGUID: BkUa+ODwROejzliVQLambw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="276011389"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 08:27:20 -0700
+Date: Sat, 3 Oct 2026 18:27:17 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: Joshua Crofts <joshua.crofts1@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>, gregkh@linuxfoundation.org,
+	nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, linux@analog.com,
+	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, error27@gmail.com,
+	narcisaanamaria12@gmail.com
+Subject: Re: [PATCH 0/3] staging: iio: accel: adis16203: fix axis mapping and
+ cleanups
+Message-ID: <asEe1eE5-FQnnQhM@ashevche-desk.local>
+References: <20260929184900.39515-1-abdelnasserhussein11@gmail.com>
+ <20261002153302.5c64819d@jic23-hlaptop>
+ <CALoEA-z6Q3YyYZfLyRixk9dPy8mn+mmVJVUrjoCZb6T7FXcDSA@mail.gmail.com>
+ <CANpqX3Z5_RHPHFCCovZ1jXiQcYgkB5uJVzAKX02udzt2+KDcyw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANpqX3Z5_RHPHFCCovZ1jXiQcYgkB5uJVzAKX02udzt2+KDcyw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Sat, Oct 03, 2026 at 07:58:55AM +0300, Abdelnasser Hussein wrote:
 
-On Tue, 25 Aug 2026 23:57:28 +0100, David Carlier wrote:
-> The driver reads the active link mode through
-> syscon_regmap_lookup_by_phandle_args(). Without CONFIG_MFD_SYSCON the
-> stub returning -ENOTSUPP is compiled in instead, so probe fails for
-> every device and no PHY is ever registered.
-> 
-> Nothing in the build catches this: the driver still compiles, and arm64
-> defconfig happens to enable MFD_SYSCON through an unrelated select.
-> 
-> [...]
+...
 
-Applied, thanks!
+> However, the important thing for me is that I still learned a lot from
+> Joshua's and Andy's reviews on this patch.
 
-[1/2] phy: qcom: qmp-pcie: Select MFD_SYSCON for the multi-PHY driver
-      commit: 77a0e6ae5dec54fb6049e3ab88288bc40c81f9fd
-[2/2] phy: qcom: qmp-pcie: Check clock-output-names count in the multi-PHY driver
-      commit: fb0f0e0e9e5dace7a6d9cde289537980ad35db3d
+Yep, at least I don't consider that was wasted time for me. The learning
+effect, if it's delivered and accepted, has its own value.
 
-Best regards,
 -- 
-~Vinod
+With Best Regards,
+Andy Shevchenko
 
 
