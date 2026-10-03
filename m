@@ -1,128 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F263369D64
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A2B369D64;
+	Sat,  3 Oct 2026 14:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791039360; cv=none; b=l6uDVFHfk15Vc/zlnYtzJs369RgUnHqIMwfcGutDmqh6wFvHGcXEiLf7WzfP81J5ctnjZHhs6SKfA9ZoPpv/s+czbQ4eBJrRW369TSNVaZ0Kt5UFfSeG/poqN5DfsJP0oE+pLcwk1y1BLEd9INzkG7emrC03b8oHrSpKc96c6PU=
+	t=1791039433; cv=none; b=QzzunA66OW07FfXGBvZw64K7rbI68OGwuNW+1KzWB7Nm2WDlRV2xsBJ3teTnPHuAOETl7LkFMWtqPqO1JsHaUREHWy7rtmZYuyf/Omi/3GZb2wfrNr3YujpILVzXvKLPZ7SHv5atEiC6BK7q1CAPeewI/tAzznbFF+U9GWOBlWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791039360; c=relaxed/simple;
-	bh=iiq1yOvEgqw036N7/Kq2tzuG+oUtJ9zHzp3+n8iAJ/Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WxuPOFKvfjPHmDago0xfWQOFh8tTuy5Ex9sbOE4GjfLsyJXvOogQu0SHl4eVR0m/m0Zp6Tros3IRe2UWIn4oVC8KzGPrHsgigfpXMSzUWn0LQ3vUChYPMDBGgQLYmt1Y7WpN3KEKodo3y9rz8P1YHAIfvUGW156PfjVc/pz5IQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c7n5ggVK; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791039433; c=relaxed/simple;
+	bh=XJAJPZsTzwtQBhaqAFguLrHEk9AFoUCuUXuSAF+Tz0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tBbxtlMr6bNU81Qtlibt5mNRo9goDPVzF2B6C6K+FE2hihq9zM14OO6GACY9/Xti38pgPzzG1KVexua5/traO01qSN7hB6PAEDQj0gf4YpveCS575gY1Fg89uppbqtTizZLRRpBZgmpZUZBMkKpdbpxoeE6kIu354vCfH03dTn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cj6FDYmw; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c7n5ggVK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791039357;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TJ+CZ2ko8FayCrjASuAr19+3e2iBiy5YcdksjdcrxFA=;
-	b=c7n5ggVKYX1YGfCGZSAV7qbX4yULZlju2DHncdqulXCKAI4NxW0JAks8nhLNBC+5JKkskL
-	NLeIDLTQ4nB07VeleLJZ7daNYYKJyHZuGWnvUAoF/NRw3XIdH8iRYjSPkr6D8s0boHZKvT
-	a+0peDj9ofXaBsPOn9OuGssgNz1zcEA=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-215-OEF5G3eRNNaPSU3WLzSqaw-1; Sat, 03 Oct 2026 10:55:56 -0400
-X-MC-Unique: OEF5G3eRNNaPSU3WLzSqaw-1
-X-Mimecast-MFC-AGG-ID: OEF5G3eRNNaPSU3WLzSqaw_1791039356
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-532d420abc1so9972621cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:55:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791039356; x=1791644156;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TJ+CZ2ko8FayCrjASuAr19+3e2iBiy5YcdksjdcrxFA=;
-        b=VyIL+o1pckhS7dL01o6Gh7TIZodYgOeybIdBcWFs5z6cfuyQMkayJZyb1XMCfB1XTt
-         UgSS9Eh3GbuFTmx3CU5rtf5IxTONg2M79To23VWVLl8/GKWl9Ndj13NReoAuRE2JjgYK
-         pQh9PbCb1B/qxQD75fT4Kpu0hMaLDewmwBKFujfDefz3hhCDvQwPEmDriFwgBxnCo3W2
-         LJNTi1LcYYDCKorr+71WiGBL8x79FqaPEYtR6BQYNwr1Zxpl1TDvSCbK3HK0kYZHH8Rd
-         rZsyZrMdtrOLGn6fA2IjkvDydNKniTS0P8waOHezKlmOlwHcj+u5vhhTycZouiQRlxKF
-         zWcg==
-X-Forwarded-Encrypted: i=1; AKwUvBx8Z4KmqcYDNpH8Z4M4e3WmO+FNDZFe7KTqPzPvrxzQrV+qbhFEoYCH5apC+Nkte1TqL55u2v9kbwMr5Vg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPr17Xer7XU/6Xx6pYP8j+2Wc346WN0osq4lZxhggM5b+ja1lI
-	mioa/n7qXeuwUGVptd4HhUcZmr1vmxHjg0FF4zoa/P/JXYHJSFA4qzsqg7lwd3zEMvAaBDuv2k3
-	Xo89iQAyVAhcHTK2b05KN/9JZszloqFzb/ZrE57/UkNpEKfe7PLG6LXN6nTAl/boYtw==
-X-Gm-Gg: AYBFou2ngZpRbF9B4wFCS9zViElnG/KTBsVGn1fLepIyYG4Nac6U8cOKxPOKhxjsoIj
-	Rj/M4wfWQh2/DitFfWr8i6qzWtp15JL6ntiW8lWE1V65mwyQEPFE7O2utU59E2DsYEIsv1YsO1g
-	ed97/FVZMcm4EBw1/ZnZVWC3zYrkejQFt220RAnxwO8jHbFmmG4FdkHKCNdlRlO7r8LEt3CuVc4
-	V7OiHHucbMbN9L7GUMgjWnNdCuqyBOPrsGEFdzGsnlKDtGEbgZVKMTfzRJ87WYWFD67vz2FULCE
-	xPjbNAwBPS1T8HIN2zYM5J+vMFufQLVuoP6RwDklo9afhqFvcTBicualhozvxcyiFGKdGlHLPOx
-	giYI=
-X-Received: by 2002:a05:622a:1482:b0:533:96b4:8dd1 with SMTP id d75a77b69052e-53511e4e1femr44616701cf.26.1791039355707;
-        Sat, 03 Oct 2026 07:55:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:1482:b0:533:96b4:8dd1 with SMTP id d75a77b69052e-53511e4e1femr44616411cf.26.1791039355289;
-        Sat, 03 Oct 2026 07:55:55 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a5b6d6sm52871341cf.9.2026.10.03.07.55.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 07:55:54 -0700 (PDT)
-Message-ID: <4a52ea71-63f1-4b78-925a-233ccb4edc61@redhat.com>
-Date: Sat, 3 Oct 2026 10:55:53 -0400
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cj6FDYmw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791039431; x=1822575431;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XJAJPZsTzwtQBhaqAFguLrHEk9AFoUCuUXuSAF+Tz0w=;
+  b=cj6FDYmw72a3H1ODyqIjV5QtNtIGQPSD1MkhkGL4jbXN4kcvWwSfQnUt
+   PUm2Mfmqtmjem+TMeq3OTfKeQskg3hf45gQF7h5NJEzwHjwChDoej+3Sl
+   xOOxLAuPMffygvXPe6RPre32yYcEawJJOcuG4bhymmy3bNV8yJQiP6WIL
+   pX+sUDP6YDgaa+zZRbCnfw+Q1Q55fqk1wsuUIRGxzgdKtMQshh5JZRZcn
+   4XB2jTwjYIKZlGJ91JR++2kRBNicIrnEDL02j0WF+Iw5ZE56NTLWvlxyt
+   8ieUsfd8udwS+G4aLNDihwHrlDFq9d6iPuMj1wta6Pk8r07nHP1AbavNr
+   Q==;
+X-CSE-ConnectionGUID: 85baykz2TXKFbiyyIGaE0A==
+X-CSE-MsgGUID: lss8aEnWSX+EUt5ukOtUAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="108155444"
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="108155444"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 07:57:11 -0700
+X-CSE-ConnectionGUID: pP3DQNgkST+dQ8ePhkvpxA==
+X-CSE-MsgGUID: UqU2aB0ZSVqxaEY6KW1cAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="279709598"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 07:57:07 -0700
+Date: Sat, 3 Oct 2026 17:57:05 +0300
+From: "andriy.shevchenko@intel.com" <andriy.shevchenko@intel.com>
+To: Kanak Shilledar <Kanak.Shilledar@axis.com>
+Cc: "andy@kernel.org" <andy@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, Kernel <Kernel@axis.com>,
+	"macromorgan@hotmail.com" <macromorgan@hotmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"jean-baptiste.maneyrol@tdk.com" <jean-baptiste.maneyrol@tdk.com>,
+	"dlechner@baylibre.com" <dlechner@baylibre.com>,
+	"nuno.sa@analog.com" <nuno.sa@analog.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"jic23@kernel.org" <jic23@kernel.org>,
+	"marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>,
+	Henrik Grimler <Henrik.Grimler@axis.com>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>
+Subject: Re: [PATCH v5 6/6] iio: imu: inv_icm42607: Add accelerometer
+ calibbias support
+Message-ID: <asEXwfztOii1y17z@ashevche-desk.local>
+References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
+ <20261002-b4-inv_icm42370p-v5-6-c65281b745c9@axis.com>
+ <ar-vFLFy1JhquDga@ashevche-desk.local>
+ <6996d6084e7d346fda57b7995005d8eb6a583244.camel@axis.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 06/14] mm: debug_vm_pgtable: use
- pgtable_has_pmd_leaves()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- baolin.wang@linux.alibaba.com, ziy@nvidia.com, lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <e7edf7e42f88d361c177e1baa7e2138c193f0805.1789695931.git.luizcap@redhat.com>
- <fd486bd4-c166-4b46-8047-0a777b239d01@kernel.org>
-Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <fd486bd4-c166-4b46-8047-0a777b239d01@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6996d6084e7d346fda57b7995005d8eb6a583244.camel@axis.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Fri, Oct 02, 2026 at 02:03:56PM +0000, Kanak Shilledar wrote:
+> On Fri, 2026-10-02 at 16:18 +0300, Andy Shevchenko wrote:
+> > On Fri, Oct 02, 2026 at 01:54:30PM +0200, Kanak Shilledar wrote:
 
+...
 
-On 10/2/26 3:19 PM, David Hildenbrand (Arm) wrote:
-> On 9/18/26 03:45, Luiz Capitulino wrote:
->> debug_vm_pgtable calls has_transparent_hugepage() in multiple places to
->> check if PMD-sized pages are supported, use pgtable_has_pmd_leaves()
->> instead.
->>
->> Reviewed-by: Lance Yang <lance.yang@linux.dev>
->> Reviewed-by: Zi Yan <ziy@nvidia.com>
->> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
->> ---
+> > > +		offset = sign_extend32(((lo_val & 0xF0) << 4) |
+> > > hi_val, 11);
+
+> > > +		offset = sign_extend32(((hi_val & 0x0F) << 8) |
+> > > lo_val, 11);
+
+> > Why do we have hi/lo and not proper __le16 or __be16 type for that to
+> > begin with?
 > 
-> Best to mention in the description that there is no effective change as all
-> calls to has_transparent_hugepage() are predicated by CONFIG_TRANSPARENT_HUGEPAGE.
-
-OK, the new changelog reads:
-
-"""
-debug_vm_pgtable calls has_transparent_hugepage() in multiple places to
-check if PMD-sized pages are supported, use pgtable_has_pmd_leaves()
-instead.
-
-No functional change intended since the call happens under the
-CONFIG_TRANSPARENT_HUGEPAGE guard and when CONFIG_TRANSPARENT_HUGEPAGE=y
-both functions return the same value.
-"""
-
+> The reason for having hi/lo is because the actual offset values are
+> split between two registers, as described in the section 16.33 to
+> section 16.37 of the datasheet [1].
 > 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> MREG1 register     Contents
+> --------------     --------------------------------
+> OFFSET_USER4       X[11:8] | other bits
+> OFFSET_USER5       X[7:0]
+> 
+> OFFSET_USER6       Y[7:0]
+> OFFSET_USER7       Z[11:8] | Y[11:8]
+> 
+> OFFSET_USER8       Z[7:0]
+
+Oh, this is unfortunate.
+
+...
+
+> > Overall, the feeling is that this is cumbersome change and may be
+> > split to
+> > smaller and more isolated logical updates.
+> 
+> Do you have any advice on how to split this patch series?
+
+I have just generic recommendation: try to find all pieces that can be done
+before the main work, like renaming something, replacing, moving in the code
+and so on. I haven't deeply checked the code, my feelings purely based on my
+review experience and contribution that I made in the past decade or so.
+I truly believe it's possible to split.
+
+> [1] https://www.lcsc.com/product-detail/C5129967.html
+
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
