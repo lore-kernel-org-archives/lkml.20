@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330AC423E87;
-	Sat,  3 Oct 2026 12:55:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D834078C0;
+	Sat,  3 Oct 2026 12:55:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791032118; cv=none; b=MHrhaHa5oVoxGdKFrFkzFuoyC/O6jCE72z8nTaPN2gCaYIeN4RF7TVEMOkGbeHVxdjDTzyWY3RFNsJZ5iPdmbZm7U8XcTTXBKGHfUCp3AP7b3P1cM6L0EzktsL72tKr9L2om31afUEMSWUt1l2kn26782d6TBptiRbal+rKWCU8=
+	t=1791032118; cv=none; b=tBhzaxBe8FIxDXQBcNdfnQ66qknvowkqkYywCb5SBNi9N5/iaQ3r2R/Irs/DxkMp1PCmMDK1UnO0YlP4m/yDA+nzAUBdSyX5dSF6kbI/l8ifme9/4mFact8KHlk8U2QKZ8aUEiVLhB39IiMBzefaSnPj2imrCncm3PAED9l63Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791032118; c=relaxed/simple;
-	bh=wf2qnnNZyt63f6bgPwSW7gAoSrPCsJ0FRmCZEeRXJac=;
+	bh=EOPyvMSZRxnDNqNjVfmCFIB6tFu5PBXCTx9YZ7UZt2Y=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jtpBsCEHb69dAxIr3FSMYA1CjA2x8V9U1wDyof8Sc/5YMndORkdf2mdVqEqolQ34Y1RQvtcohWDtrjaDEuV2ctBq+5HWEnJhO0fEl4pGvyUmFEeQwaUrQoIFJyDFGzFTrYRlcAKBRGG8XKslk/iCAyW7+My9RFgizCP0r9HLeGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DhoT0l/o; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=aWo+K0tSWGUI5JqhaA5qc24vcu+dQ6CKd0d7IdeQoxSubv8VWqaS2HZUmQHPWWGFcf2rFwRTDwdsHR+Y7s+bEGJ9TuA3XNkvDXnx1ZG9Ft8vcJX3aJHTAwgSwNst2wtj0VEBTnaCrIkcFSXRCB+SbyiadbRjyta6UwycqUTlxQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T28+vyf8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DhoT0l/o"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A745AC4AF15;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T28+vyf8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 877D6C4AF13;
 	Sat,  3 Oct 2026 12:55:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791032117;
-	bh=wf2qnnNZyt63f6bgPwSW7gAoSrPCsJ0FRmCZEeRXJac=;
+	bh=EOPyvMSZRxnDNqNjVfmCFIB6tFu5PBXCTx9YZ7UZt2Y=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DhoT0l/oF7p4P+fPi7y6cIq/099YTs0IZ5ri/gSoMa4vgMBZT83mIqzhJQ9TkiET7
-	 UtHwwhya5Hnf3fOXZnbkDRl0LO+MSoV0wN1EYXy4WoRf4HNHUEM2ClWzqFOg+llI03
-	 38Tw4Tv4KwQr0R352B59Glrx3tkz/x9YwGOLTiRwNrHd/M7gnEXiMH++wBzVuVifyJ
-	 OlQclRSYi4bCJFkEpEftkS4JVUHwnpnub8YR3AUb0oLOiVdPvJt4ASDJfQWTbLSq9F
-	 pEuwA74nlyWXuQ+PyIrqVKCHlaaDyUyhCdW6M/kj0ksQ5LlYPXhoMMoHfiqrVMJuQA
-	 HZ9UWLbLIC64w==
+	b=T28+vyf8KVVZP8rtswtk4Jg7vVDFR+T15l/lms4IOBe6eoOEw0tl2c5MYKLqulRCt
+	 FI6zfw0noiJukvRRYmM1T4osbn1mmpwJpIPtttfR/VvTUm5A3lyrYeQm3cz05zYbTn
+	 FVBSFE+p4SMtCd6EMV0eThmy96GkDe0czHA/PC3VK1Db2/SYwPjbhM+bVuwiUp34bo
+	 PWYoTg47VQsalvbvVNs0hM8hIOZHJyFKCKoRFjf4ErcrhBtA7LEZ5oO1gLGcnb545L
+	 nchy9YwNIIi4mg8hd6J0oPtwwDRU0qCTSnYv5Kg47CghmagyQscEzAaovbzJ3c//ZH
+	 6SNJ16vWhMHxw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AEB6CA5FE9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 658B5CA5FDD;
 	Sat,  3 Oct 2026 12:55:17 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Sat, 03 Oct 2026 20:55:14 +0800
-Subject: [PATCH RFC v3 03/17] mm/memcg: add folio-based lruvec live helper
+Date: Sat, 03 Oct 2026 20:55:12 +0800
+Subject: [PATCH RFC v3 01/17] mm/memcontrol: allow update of LRU statistic
+ without holding LRU lock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-mglru-fg-v3-3-cbd4546a5bd9@tencent.com>
+Message-Id: <20261003-mglru-fg-v3-1-cbd4546a5bd9@tencent.com>
 References: <20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com>
 In-Reply-To: <20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com>
 To: linux-mm@kvack.org
@@ -73,11 +74,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
  Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791032114; l=1978;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791032114; l=3274;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=INmIp582Dn7nky+glPCA6hAuYR4TWw3FCmBj9GXz/2U=;
- b=oORF7caj8BINg9CX51BXlXyhC2/uK2Go8JqcZ2ZYKXWd/N359aK8Lru/BdtBdL6lwEvMpxDKH
- LCvoXtg1oVBCYBQEoSnSybH31YH1asP6qLVdIy5LT97H97HZA87X1Qp
+ bh=9tLEiGNi9USSHMYYGtp493/41jMBV+ZzxP5QyRryO8I=;
+ b=dUbgR00UmMyyhen+kf13sXnsSJBtB83rEJxMrZ/Cqzco3mX11fQqswokbvdGXgnGca6T1vS9v
+ CNa5c5F2lyCCJpErbbd0PrG33NcxXbQDDnKH8p5yeUYWl2ZFaa4QTY3
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -87,68 +88,85 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-Add a helper that resolves a stable lruvec for a folio under RCU
-without taking the lruvec lock.  It takes a folio directly so the
-lruvec lookup happens inside the RCU read-side critical section,
-which a lruvec-based interface cannot guarantee.
-
-No functional change.
+To enable moving file pages in folio_mark_accessed directly and lazily
+for MGLRU, allow updating the LRU statistic atomically without holding a
+lock. It may cause temporary counter underflow, which should be fine as
+we still follow final consistency of the counter, and it only serves as
+a factor for calculating the reclaim budget in vmscan. A little
+inaccuracy has no visible effect.
 
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- include/linux/memcontrol.h | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ include/linux/memcontrol.h | 6 +++---
+ include/linux/mm_inline.h  | 3 +--
+ mm/memcontrol.c            | 6 +++---
+ 3 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index bdc5dc925c1d..d0a9229e8cd7 100644
+index 74110a324f9e..bdc5dc925c1d 100644
 --- a/include/linux/memcontrol.h
 +++ b/include/linux/memcontrol.h
-@@ -1535,6 +1535,45 @@ static inline void lruvec_lock_irq(struct lruvec *lruvec)
- 	spin_lock_irq(&lruvec->lru_lock);
+@@ -106,7 +106,7 @@ struct mem_cgroup_per_node {
+ 
+ 	/* Written on every LRU update and on every reclaim iteration. */
+ 	__cacheline_group_begin_aligned(memcg_pn_write_hot);
+-	long			lru_zone_size[MAX_NR_ZONES][NR_LRU_LISTS];
++	atomic_long_t		lru_zone_size[MAX_NR_ZONES][NR_LRU_LISTS];
+ 	struct mem_cgroup_reclaim_iter	iter;
+ #ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
+ 	/* slab stats for nmi context */
+@@ -927,8 +927,8 @@ unsigned long mem_cgroup_get_zone_lru_size(const struct lruvec *lruvec,
+ 	const struct mem_cgroup_per_node *mz;
+ 
+ 	mz = container_of_const(lruvec, struct mem_cgroup_per_node, lruvec);
+-	val = READ_ONCE(mz->lru_zone_size[zone_idx][lru]);
+-	if (WARN_ON_ONCE(val < 0))
++	val = atomic_long_read(&mz->lru_zone_size[zone_idx][lru]);
++	if (val < 0)
+ 		return 0;
+ 
+ 	return val;
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index ab69b9930893..597f013c8e04 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -47,11 +47,10 @@ static __always_inline void __update_lru_size(struct lruvec *lruvec,
+ {
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 
+-	lockdep_assert_held(&lruvec->lru_lock);
+ 	WARN_ON_ONCE(nr_pages != (int)nr_pages);
+ 
+ 	mod_lruvec_state(lruvec, NR_LRU_BASE + lru, nr_pages);
+-	__mod_zone_page_state(&pgdat->node_zones[zid],
++	mod_zone_page_state(&pgdat->node_zones[zid],
+ 				NR_ZONE_LRU_BASE + lru, nr_pages);
  }
  
-+/**
-+ * folio_lruvec_live_get - get a live lruvec for a folio under RCU
-+ * @folio: the folio
-+ *
-+ * Computes @folio's lruvec and walks up to the nearest live ancestor
-+ * if the folio's memcg is dying.  Paired with folio_lruvec_live_put().
-+ * The result may be stale: RCU keeps it alive but does not pin @folio
-+ * to it.  That is fine as the counters are fixed up on reparenting.
-+ *
-+ * Return: the live lruvec, with rcu_read_lock held.
-+ */
-+static inline struct lruvec *folio_lruvec_live_get(struct folio *folio)
-+{
-+#ifdef CONFIG_MEMCG
-+	struct lruvec *lruvec;
-+	struct pglist_data *pgdat;
-+	struct mem_cgroup *memcg;
-+
-+	rcu_read_lock();
-+	lruvec = folio_lruvec(folio);
-+	pgdat = lruvec_pgdat(lruvec);
-+	memcg = lruvec_memcg(lruvec);
-+	while (unlikely(memcg && css_is_dying(&memcg->css))) {
-+		memcg = parent_mem_cgroup(memcg);
-+		lruvec = mem_cgroup_lruvec(memcg, pgdat);
-+	}
-+	return lruvec;
-+#else
-+	return folio_lruvec(folio);
-+#endif
-+}
-+
-+static inline void folio_lruvec_live_put(struct lruvec *lruvec)
-+{
-+#ifdef CONFIG_MEMCG
-+	rcu_read_unlock();
-+#endif
-+}
-+
- static inline struct lruvec *lruvec_live_lock_irq(struct lruvec *lruvec)
- {
- #ifdef CONFIG_MEMCG
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index aad0498a7bd6..2f712b5e17d4 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -1557,8 +1557,8 @@ struct lruvec *folio_lruvec_lock_irqsave(const struct folio *folio,
+  * @zid: zone id of the accounted pages
+  * @nr_pages: positive when adding or negative when removing
+  *
+- * This function must be called under lru_lock, just before a page is added
+- * to or just after a page is removed from an lru list.
++ * This function must be called when a page is added to or removed from
++ * an lru list. Caller need to protect the lruvec from being freed.
+  */
+ void mem_cgroup_update_lru_size(struct lruvec *lruvec, enum lru_list lru,
+ 				int zid, long nr_pages)
+@@ -1569,7 +1569,7 @@ void mem_cgroup_update_lru_size(struct lruvec *lruvec, enum lru_list lru,
+ 		return;
+ 
+ 	mz = container_of(lruvec, struct mem_cgroup_per_node, lruvec);
+-	mz->lru_zone_size[zid][lru] += nr_pages;
++	atomic_long_add(nr_pages, &mz->lru_zone_size[zid][lru]);
+ }
+ 
+ /**
 
 -- 
 2.55.0
