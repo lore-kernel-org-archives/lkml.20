@@ -1,138 +1,187 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC592368D4A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC64A38AC7E;
 	Sat,  3 Oct 2026 07:52:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791013977; cv=none; b=jVXjx6qg+h2IsMJuNz1tqkaM/28LgZActEj8T9G3iOCLZ/OAGlV2MUlrWUpUewO7R1IDm94utvMPEo+/auO4/cmDDHYgn0cJPGlBf+J4L6D/amSuV3guN0qtbInxj+BcA7uWkm5V5KZZqOCHHoO3H4ErWNpqIKEtTz95NwUg+UY=
+	t=1791013977; cv=none; b=m3952xnHfSLo+mVnAcR5Kse19yfjI7tub0cA+6hjByBoNABOy7tnGQLgbqkaXGWHJU/KoYXdCtQ2wBHdcVfDSPUmwTj+v8pNXzVr5QAAwdUPR3u/kk2fsTgyATzG3g+ZnYWIWvAwYbPJhlBccXV7reM6tUygo/qYvAs2OU/n6mQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791013977; c=relaxed/simple;
-	bh=yVcORQ/SI+eD6i2oz/HrJ6jHEXxTk376wKhfDONYQCI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IOevu1R5QxPxGjmBh117JGb5Fqmcr5v7FJyT2YWNPARgay/E1oT38UyVYSUQxqmc+ybyH3JBszlSa15uUofuEQsY+Lo3F7Tv6RX5H7rhfCIqI1sGUd3y03fZV4VxHWOcbsLLpK5GfJq13sbUr5jVYa1M/63LYnmH1uni0RvMTkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jDF/V3yi; arc=none smtp.client-ip=100.103.45.18
+	bh=KGClkuKaUup4lCgi0hiMD2W62qNnYOQ5xSa3Rbyi+3U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HYIDYnNbbvGyLstHxEZAy+zOFZyoucmpQNBJxLYY7RshbycRAE6f4GzxfLwQl98lXwfUk1Vzv7WFYE+amn1i68rbdVlp/BH6k+OLXBpHsFJHCRDR8aJUi53fArZQaYHfWSqMJoB1Ijpw9PauQcTwAOem5fw8EgVVuG+Lg3R8CqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2K+iLuW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jDF/V3yi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF231F0089C;
-	Sat,  3 Oct 2026 07:52:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2K+iLuW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18071F0089B;
+	Sat,  3 Oct 2026 07:52:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791013975;
-	bh=SsZuLX1m5zBOGB/eTfR7O04naF7e4Rh6urcz2t1OfiM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jDF/V3yiAeZqLJ+4mM5sdB7kaKvqMGPe6A/ImYmXxZOrgRDv8QMiZBdRhZpDltKtx
-	 jiVRJ4RszghdYNtE53sc4ScaSg54p3HdXfKyWldFehfLC3IULNt4la9zWSVhee6dgF
-	 jG8TlcLPKLHkg8OuKdNMRIq0uuB7WT/1AtZvCX9XktZjAIW72JfOGCMSmq/He36Yjj
-	 FQ3NuM4epnWm+pUuH5YRUrG4dpmjwldOC42i01Qz+/E4wg/5vB7JSnC73tNy5STWGN
-	 z2xx4WWpDgclVDjQ0Pul9CoXRPLgM8LFpHGdo0k8wgAm8ivd7ftbV99qnP39b/iWVo
-	 QoLi16kLuEdHQ==
-Date: Sat, 3 Oct 2026 09:52:52 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
-	yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
-	Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
-	venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
-	Mario.Limonciello@amd.com, Richard.Gong@amd.com,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/9] soundwire: amd: allocate sdw_amd_ctx pdev array
- dynamically
-Message-ID: <asC0VC--CaFMJ_ow@parshuram>
-References: <20260917090407.3828816-1-Vijendar.Mukunda@amd.com>
- <20260917090407.3828816-4-Vijendar.Mukunda@amd.com>
+	bh=7AfOVXhNr6aVAS93mjjDI1zHRc5gJSUYX5m1TeHMjbw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Q2K+iLuWCcu8LKT/4ysXhgkBg5FP6wqTzgptpjcxTgWntvdg9ueamNUoNl6x7AkzR
+	 /wQGMnXZQsEDxsQxHqw9HSuBCJUV+FoYqGQ8b8p4UIrYLxrNqmxcu/OZsKMSwSDnxU
+	 7jkgpcbbqHUlJQFduVVyzTRi243i8Ld+hyERnpuBIG2EevRiA9LLk42pwj3aR2e8OS
+	 neMNIRpU0+R7guQJH8q5Jb/CAtP+JjDLNMFQ6FCdvX9f6cSV7amln/Gb87XZmtxo/b
+	 K69nY01PbXciPx9SRNQpCYXQA7pem/95ZkzlLas5TdBRCSypNVTVxHzPcCFQt4heE4
+	 JHa24j7RiYpew==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v19 03/11] perf/hw_breakpoint: Add register_wide_hw_breakpoint_cpuslocked() API
+Date: Sat,  3 Oct 2026 16:52:49 +0900
+Message-ID: <179101396937.22872.545144610777427663.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179101393469.22872.5895666191299551553.stgit@devnote2>
+References: <179101393469.22872.5895666191299551553.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917090407.3828816-4-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 17-09-26, 14:32, Vijendar Mukunda wrote:
-> Replace the fixed-size pdev[AMD_ACP63_SDW_MAX_MANAGER_COUNT] member of
-> struct sdw_amd_ctx with a dynamically allocated pointer array. The array
-> is sized by max_manager_count via kcalloc() in sdw_amd_probe_controller()
-> and freed on all error paths and in sdw_amd_cleanup().
-> 
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> ---
->  drivers/soundwire/amd_init.c      | 12 ++++++++++++
->  include/linux/soundwire/sdw_amd.h |  2 +-
->  2 files changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/amd_init.c b/drivers/soundwire/amd_init.c
-> index 15d117172bdb..94d766b3f8af 100644
-> --- a/drivers/soundwire/amd_init.c
-> +++ b/drivers/soundwire/amd_init.c
-> @@ -62,6 +62,7 @@ static int sdw_amd_cleanup(struct sdw_amd_ctx *ctx)
->  			continue;
->  		platform_device_unregister(ctx->pdev[i]);
->  	}
-> +	kfree(ctx->pdev);
->  
->  	return 0;
->  }
-> @@ -116,8 +117,16 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->  
->  	ctx->count = count;
->  	ctx->link_mask = res->link_mask;
-> +
-> +	ctx->pdev = kcalloc(max_manager_count, sizeof(*ctx->pdev), GFP_KERNEL);
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-why not use managed api for this?
+Add register_wide_hw_breakpoint_cpuslocked() which registers a wide
+hardware breakpoint across all online CPUs while caller holds
+cpus_read_lock(). This allows callers who need to perform additional
+setup under cpus_read_lock() without releasing it to avoid races with
+CPU hotplug and without triggering recursive lockdep warnings.
 
-> +	if (!ctx->pdev) {
-> +		kfree(ctx);
-> +		return NULL;
-> +	}
-> +
->  	struct resource *sdw_res __free(kfree) = kzalloc_obj(*sdw_res);
->  	if (!sdw_res) {
-> +		kfree(ctx->pdev);
->  		kfree(ctx);
->  		return NULL;
->  	}
-> @@ -127,6 +136,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->  
->  	sdw_pdata = kcalloc(max_manager_count, sizeof(*sdw_pdata), GFP_KERNEL);
->  	if (!sdw_pdata) {
-> +		kfree(ctx->pdev);
->  		kfree(ctx);
->  		return NULL;
->  	}
-> @@ -134,6 +144,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->  	pdevinfo = kcalloc(max_manager_count, sizeof(*pdevinfo), GFP_KERNEL);
->  	if (!pdevinfo) {
->  		kfree(sdw_pdata);
-> +		kfree(ctx->pdev);
->  		kfree(ctx);
->  		return NULL;
->  	}
-> @@ -171,6 +182,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->  
->  	kfree(pdevinfo);
->  	kfree(sdw_pdata);
-> +	kfree(ctx->pdev);
->  	kfree(ctx);
->  	return NULL;
->  }
-> diff --git a/include/linux/soundwire/sdw_amd.h b/include/linux/soundwire/sdw_amd.h
-> index 40ba84c3b2cc..476de2c30389 100644
-> --- a/include/linux/soundwire/sdw_amd.h
-> +++ b/include/linux/soundwire/sdw_amd.h
-> @@ -139,7 +139,7 @@ struct sdw_amd_acpi_info {
->  struct sdw_amd_ctx {
->  	int count;
->  	u32 link_mask;
-> -	struct platform_device *pdev[AMD_ACP63_SDW_MAX_MANAGER_COUNT];
-> +	struct platform_device **pdev;
->  	struct sdw_peripherals *peripherals;
->  };
->  
-> -- 
-> 2.48.1
+Refactor register_wide_hw_breakpoint() as a wrapper around
+register_wide_hw_breakpoint_cpuslocked().
 
--- 
-~Vinod
+Assisted-by: LLM
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+ include/linux/hw_breakpoint.h |    9 +++++++++
+ kernel/events/hw_breakpoint.c |   38 ++++++++++++++++++++++++++++++++------
+ 2 files changed, 41 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/hw_breakpoint.h b/include/linux/hw_breakpoint.h
+index bf65c7fffd99..65efe55fef14 100644
+--- a/include/linux/hw_breakpoint.h
++++ b/include/linux/hw_breakpoint.h
+@@ -76,6 +76,11 @@ register_wide_hw_breakpoint_cpu(struct perf_event_attr *attr,
+ 				void *context,
+ 				int cpu);
+ 
++extern struct perf_event * __percpu *
++register_wide_hw_breakpoint_cpuslocked(struct perf_event_attr *attr,
++				       perf_overflow_handler_t triggered,
++				       void *context);
++
+ extern struct perf_event * __percpu *
+ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 			    perf_overflow_handler_t triggered,
+@@ -123,6 +128,10 @@ register_wide_hw_breakpoint_cpu(struct perf_event_attr *attr,
+ 				void *context,
+ 				int cpu)		{ return NULL; }
+ static inline struct perf_event * __percpu *
++register_wide_hw_breakpoint_cpuslocked(struct perf_event_attr *attr,
++				       perf_overflow_handler_t triggered,
++				       void *context)		{ return NULL; }
++static inline struct perf_event * __percpu *
+ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 			    perf_overflow_handler_t triggered,
+ 			    void *context)		{ return NULL; }
+diff --git a/kernel/events/hw_breakpoint.c b/kernel/events/hw_breakpoint.c
+index 69bfb17b87c4..5627ad97600a 100644
+--- a/kernel/events/hw_breakpoint.c
++++ b/kernel/events/hw_breakpoint.c
+@@ -832,27 +832,30 @@ void unregister_hw_breakpoint(struct perf_event *bp)
+ EXPORT_SYMBOL_GPL(unregister_hw_breakpoint);
+ 
+ /**
+- * register_wide_hw_breakpoint - register a wide breakpoint in the kernel
++ * register_wide_hw_breakpoint_cpuslocked - register a wide breakpoint with cpus locked
+  * @attr: breakpoint attributes
+  * @triggered: callback to trigger when we hit the breakpoint
+  * @context: context data could be used in the triggered callback
+  *
++ * Same as register_wide_hw_breakpoint(), but caller must hold cpus_read_lock().
++ *
+  * @return a set of per_cpu pointers to perf events
+  */
+ struct perf_event * __percpu *
+-register_wide_hw_breakpoint(struct perf_event_attr *attr,
+-			    perf_overflow_handler_t triggered,
+-			    void *context)
++register_wide_hw_breakpoint_cpuslocked(struct perf_event_attr *attr,
++				       perf_overflow_handler_t triggered,
++				       void *context)
+ {
+ 	struct perf_event * __percpu *cpu_events, *bp;
+ 	long err = 0;
+ 	int cpu;
+ 
++	lockdep_assert_cpus_held();
++
+ 	cpu_events = alloc_percpu(typeof(*cpu_events));
+ 	if (!cpu_events)
+ 		return ERR_PTR_PCPU(-ENOMEM);
+ 
+-	cpus_read_lock();
+ 	for_each_online_cpu(cpu) {
+ 		bp = perf_event_create_kernel_counter(attr, cpu, NULL,
+ 						      triggered, context);
+@@ -863,7 +866,6 @@ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 
+ 		per_cpu(*cpu_events, cpu) = bp;
+ 	}
+-	cpus_read_unlock();
+ 
+ 	if (likely(!err))
+ 		return cpu_events;
+@@ -871,6 +873,30 @@ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 	unregister_wide_hw_breakpoint(cpu_events);
+ 	return ERR_PTR_PCPU(err);
+ }
++EXPORT_SYMBOL_GPL(register_wide_hw_breakpoint_cpuslocked);
++
++/**
++ * register_wide_hw_breakpoint - register a wide breakpoint in the kernel
++ * @attr: breakpoint attributes
++ * @triggered: callback to trigger when we hit the breakpoint
++ * @context: context data could be used in the triggered callback
++ *
++ * @return a set of per_cpu pointers to perf events
++ */
++struct perf_event * __percpu *
++register_wide_hw_breakpoint(struct perf_event_attr *attr,
++			    perf_overflow_handler_t triggered,
++			    void *context)
++{
++	struct perf_event * __percpu *cpu_events;
++
++	cpus_read_lock();
++	cpu_events = register_wide_hw_breakpoint_cpuslocked(attr, triggered,
++							    context);
++	cpus_read_unlock();
++
++	return cpu_events;
++}
+ EXPORT_SYMBOL_GPL(register_wide_hw_breakpoint);
+ 
+ /**
+
