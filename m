@@ -1,63 +1,67 @@
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEC93537E5
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:22:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98C84915A0
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062570; cv=none; b=JWadEFk/qJUbThE2ymX1TEgUcW6mM56n13+w6sawMAXvTI4U7Vpn3rxdIy8erkusq/5URkN3YnvMvwBkLpVc0fc4vdUjJMnRN/S3VziQIRCXaRVpXZ/0Ij4VBAKCmeOy2LqvZALkjLjd4VIjh+ooIgOv8Q5F+s5xZbgdsDgo538=
+	t=1791062575; cv=none; b=uwMtbLecefHuNTtboyv1dzJmrD3blLmKndJ3ucJfMdzC9BSQ1s/py+1X3WZP6rhc/3DnIFF2N7p9aG56lc8qvG/7B6GlOfjF/z73xEbJzqRmZhXZn+xBXC0h6zJBunMNwa9t7YdNiGR86K+3B8HZz4kMW5D6roYbLUQhnl1Q6pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062570; c=relaxed/simple;
-	bh=Ue7ULJ5WY3bFakED6d/ARGtq7/M50CODLVb+2O2f6Yo=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=d8pfeRIpjwkDbMj0Pyf5DOCT9roGsGi0cEuOWoCmZd6Mk4FFF1JMXKlzwO61moVuGgLK8xZPnxTJY914MlUmkf3iPblf5ver00hSVLoJthRpN0LUX+GclLPjsqxscBDs5onuOBL2vCU6L+5qpOGVRa7+EKa4bASyVU9z1D//f5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BNOtlAbh; arc=none smtp.client-ip=209.85.208.71
+	s=arc-20240116; t=1791062575; c=relaxed/simple;
+	bh=C7ufT8KVq72MWzFJIoRk0UJZVOPIfdSL5MWcPH3Ufkc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=egZDxnH15SsegehgLU3mC6Iz+oGPNMaYvhj624lfnPYrIxF7AAysozXHpNVp+Mg/E/7f5/ifAf+Z7sNzhRPqNLrp0BKOzcCBz5xon3PaDs8s+XRAlXu2kh4nYcXIMY1Q9nX7Nu0kqJIo4m4MoEhlR8R4IcCB3XlZ8n5B8ynaFjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D5NVe3oA; arc=none smtp.client-ip=209.85.218.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BNOtlAbh"
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6aaff9e86b0so545576a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:22:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D5NVe3oA"
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c2e315271c1so88748566b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:22:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791062566; x=1791667366; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VE+LxnBIdWSDoOzHpOAVXErosSD4QsTFJ9TX/Oi0RT4=;
-        b=BNOtlAbhJ2+axpfljeW4WW0I/PFajuydGN3J6PhZP/nRoP3yaXWX3bC78mW68mjaOw
-         Wk5ywH4lbBEOxQj2IttmWMEGa3zBu6/RaakTYYrhIu4mncoNUUTJjtBZpQsrWKXPDjkv
-         l73zXTaPCwvrL173dWG/hW3s7weOubf2SbGMs5CPIZkdYhfVxSMFPnJMQ3BbY/gT2sOO
-         VWvSd9JO2ROCKGgnTRYhPnYMjKm1mg1PfNhOXBMJneAr5++4Wwavg3CUS9JFVOwAFRvx
-         AVyy08MMT5sb4EGuMsjCWmz9G94zFBIzkPgsKrHO0Rb/9/Ak570aTyqrLzm75JnpJh9U
-         hpOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791062566; x=1791667366;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791062571; x=1791667371; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VE+LxnBIdWSDoOzHpOAVXErosSD4QsTFJ9TX/Oi0RT4=;
-        b=BhsACx9krJ9ijCoyWWtp97xTgE0B2PlbEQ0qygHOLm/JUJVt7KkUNLrE1jwH0zcutH
-         rmy6AaiCo2uQEunGiU/B87Y2nl0CDXH35c4/n1jQNs+Dr3IzEL09xsE4egNHV7ijoD3r
-         Z5zDLLf7Q2Bzk6vXv2Vc6VvzpZw24XiTT7FSeCXWHNj/+KFV7vqY1YqcDU7vcm+Yi6JI
-         IWk60dNAH4vUMN5r9wY+zHScCAYbKbLNJ5dUXUw8mu2fZi6dB63TendPr+km88h8kbt2
-         OupGMGZgq5i73JN3RmWQ1Itjbc6T7nv2Ve5u97CHrNv+3f2OBalBfeZmqscltcjAAwNB
-         adWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZfOJqoWPGiyabjp77x6L2cr5ukRm/l5hH8MQfctXnO2TlFqQvX6xALS2Q36Hx/2q7tCd2ZwbQm365kpM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzrvqTbQTzqDNhIxAVrh6gh4HIPc6vo2a9FsCJXzGkApcQAZMD
-	9QTgozEETb6WqQhon0m+7TY518JIQ+KjIhJb8Wpa8u74BO1kkUIdfG0kSOxOyUQuF2bck7diUIJ
-	Pc56BNQ==
-X-Received: from ejbhk10.prod.google.com ([2002:a17:906:c9ca:b0:c2e:6b98:66f3])
- (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:3808:b0:6ac:8ef4:177d
- with SMTP id 4fb4d7f45d1cf-6af9e2d34f8mr5494442a12.20.1791062566061; Sat, 03
- Oct 2026 14:22:46 -0700 (PDT)
-Date: Sat,  3 Oct 2026 21:22:19 +0000
+        bh=sxA7oyLrSoVNihu+TTEed7Cv84XwkDi44oXKTt9irD0=;
+        b=D5NVe3oA3ByG2oKIeo7cXKXz/j7WZOplaiJ6JVMDaRjrTDsgw/Kxw0uNF7qtq+8ZKy
+         xbqUKQrbViL5kueCtvyHluGSIg32HS798Fy+KVHzeCOecP59wvd74/9G0iTdjZQiESJB
+         oB58b8n0s2Jnx4HgAExmDGaZ2I6UFJFVcHPX6uHw9lomgkED/6drutHNUIxOwy1b6y0D
+         9HzeqvLw6+hAqiqOiGypLPTP/WAAo1u4hU0DTUjtIsgLyQHzhP1erDxHgpC0i4IPcLlY
+         Qor1QYYWrz4LpsuIa92QedhU9cOzO33/W/HFLZPzL6cz1oomH8RsXh3SsS2d0axiBNgl
+         nq2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791062571; x=1791667371;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sxA7oyLrSoVNihu+TTEed7Cv84XwkDi44oXKTt9irD0=;
+        b=JnDU7ZJVtz1QMX7qRzbHqnYL67CHhKMglz2bhzqDXUVyNsFSW21iPAz/EG4RqRhi+4
+         biEkBKJcakFAFxD7Efgq0qtDEDS5xxRl03DafDtpisLATiCT7diPLk5tcGaC72VKYiVi
+         +TBWnDxYUoBGj7FhY7P/0AVq+6GZHJSUWOYOuAGPI+IfFKYRjw1ub1zZr70S6z61z7RL
+         RrxGsqvAwGiR+Cl2Nq64WLR9ltJEvPwu8C5gggF6mgE3f09d+Yz4f+VnBVSaV9Bp3rqD
+         rVSgXZk99tTB9XG1vArO8Bq1IK2FBK5hIwgtIkql4wTMnY43WOJ3d382xilG4Ip5DGcD
+         2VCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ/IXriTpZW39UCsAdFiNsbpvPg8cCIvXtuj+7f0nH7MQ1uBInxGDMAMdVYbD8XW3BrAwRlISObxtjkl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGfEY5PL5RPOiojLR2FgQH5MIcei8BbHptY8k6xOnGjgqEbb8Z
+	qIteI6g8iX/tjAxo0Y6Y4sFyNd4ZRv8jZVsjNwW/6uFweM5TmM48gYcoOAOCtRT/IuL7AnXB8g8
+	fLWSTvQ==
+X-Received: from ejcay23.prod.google.com ([2002:a17:907:9017:b0:c2d:d3a7:21fe])
+ (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:97d3:b0:c2e:3ed7:7db4
+ with SMTP id a640c23a62f3a-c2e6ed3f0fcmr244265366b.23.1791062569971; Sat, 03
+ Oct 2026 14:22:49 -0700 (PDT)
+Date: Sat,  3 Oct 2026 21:22:22 +0000
+In-Reply-To: <20261003212241.3432303-1-lrizzo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20261003212241.3432303-1-lrizzo@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003212241.3432303-1-lrizzo@google.com>
-Subject: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
+Message-ID: <20261003212241.3432303-4-lrizzo@google.com>
+Subject: [RFC: DMA_PMD 03/22] mm: Add split_page_compound()
 From: Luigi Rizzo <lrizzo@google.com>
 To: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
 	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
@@ -78,243 +82,285 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafae
 	linux-kernel@vger.kernel.org, Luigi Rizzo <lrizzo@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Here is a subsystem called DMA_PMD on which I would like feedback on
-architecture, possible enhancements, or kernel components that could be
-reused to avoid duplication.
+Add split_page_compound(), which splits an order-@old_order page into
+independently refcounted order-@new_order compound pages (or order-0
+pages when @new_order == 0). This is the high-order counterpart of
+split_page(), used by DMA_PMD pools to carve PMD pages into smaller
+compound blocks.
 
-I think it can be extremely useful for those affected by the HW/SW overhead
-of IOMMU (especially IOTLB thrashing, see [1]), or confidential computing,
-or preemptable VMs.
+All resulting pieces are returned frozen (refcount 0) so the caller can
+park them in a pool and publish each piece with page_ref_unfreeze(piece, 1)
+when handed out.
 
-The (not too exaggerated) pitch line is
+Also add a KUnit test suite (CONFIG_SPLIT_PAGE_COMPOUND_KUNIT_TEST) in
+mm/split_page_compound_kunit.c.
 
-DMA_PMD has the performance of identity, guarantees that only IO buffers
-can ever have active IOMMU or IOTLB mappings, removes the bounce buffer
-overhead in confidential computing and preemptable VMs, and integrates
-smoothly with existing kernel APIs.
-
-=== ARCHITECTURE
-
-DMA_PMD was initially designed to address IOTLB thrashing (details in [1]),
-but turned out to also resolve nicely the strict IOMMU overhead, and avoid
-the bounce buffer overhead in preemptible VMs and Confidential Computing.
-
-It works by combining several known techniques:
-
-- transparently feed allocators of device memory (skb_page_frag_refill(),
-  dma_alloc_attrs(), pagepool, ...) with DMA_PMD pages, i.e. physically
-  contiguous PMD_SIZE (2MB) pages mapped via PDE_SIZE IOMMU entries
-
-- heavy recycling of DMA_PMD pages (like pagepool) and lazy IOMMU unmapping
-  (like DMA-FQ), BUT:
-
-- like strict IOMMU (DMA), safely release memory back to the kernel only
-  after destroying all of its IOMMU mappings and a synchronous IOTLB flush
-
-- on allocation, DMA_PMD pages can be configured to be pinned in the host
-  (hence suitable for preemptible VMs) and/or unencrypted (hence suitable
-  for Confidential Computing), removing the need for bounce buffers
-
-- there are global and per-device optin /sys/device/.../dma_pmd_*
-  and /proc/sys/net/core/tx_enable_dma_pmd
-
-NIC drivers can typically use dma_pmd with no modifications for rings,
-tx buffers, rx buffers (if they use pagepool), and rx headers. For tx
-headers, almost all drivers need changes (see later patches in the series)
-to implement cheap bounce buffers and avoid individual 4K mappings.
-
-The series has the following main components:
-
-- a sparse array (similar to pageblock_flags) to quickly attach metadata
-  to a 2MB page without fiddling with the struct page. Cost is 128B per 2MB
-  page used as an IO buffer, totally negligible.
-
-- dma_pmd_pool, a replacement for alloc_pages() that can be instantiated
-  per-CPU or per receive queue. It handles the split of PMD_SIZE pages
-  into order-N blocks, handles dma_map and unmap, and aggressively recycles
-  entries. It is used to feed skb_page_frag_refill(), pagepool, and
-  receive buffers for drivers that do not use pagepool.
-  See [2] for "WHY NOT PAGEPOOL FOR TX AND EVERYTHING"
-
-- dma_pmd_arena, is another allocator backed by DMA_PMD pages and
-  is used exclusively as the backend for dma_alloc_attrs().
-  Used for longer-lived allocations (descriptor/completion rings,
-  rx and tx header buffers)
-
-- glue code to hook DMA_PMD into pagepool [2], skb_page_frag_refill(),
-  dma_alloc_attrs(), dma_map/unmap...
-
-- per-driver patches, where necessary (e.g. tx header buffers [3])
-
-=== PERFORMANCE BENEFITS
-
-Your mileage may vary. Enabling the IOMMU may have no throughput
-impact, until it does when some system components (bus, IOTLB, CPU)
-become overloaded.  Aside from throughput reduction, one interesting
-parameter is the effectiveness of the IOTLB. Here is a sample of SMMU
-performance counters for a large ARM system with 2x200G NICs doing
-bidirectional traffic:
-
-    === DMA-FQ MODE (total throughput ~440Gbps)
-    25,757,488      smmuv3_pmcg_*/event=0x80/   IOTLB lookups
-    16,634,941      smmuv3_pmcg_*/event=0x81/   IOTLB  misses
-
-    === DMA_PMD on top of strict DMA (total throughput ~745Gbps)
-    22,693,218      smmuv3_pmcg_*/event=0x80/   IOTLB lookups
-        30,536      smmuv3_pmcg_*/event=0x81/   IOTLB  misses
-    (not a mistake, also lookups went down despite the higher rate
-    because the tx side can use larger segments)
-
-The 2MB mappings made IOTLB misses almost non existent, because
-the working set is reduced by a factor of ~512.
-       
-Note, the code has more verbose comments than I would like.
-Several of them are there to avoid Sashiko getting confused and
-flagging false positives.
-
-=== NOTES
-
-[1] IOMMU IMPACT AND IOTLB THRASHING
-This is documented in more detail in Documentation/core-api/dma-pmd.rst
-but the compact version is below.
-
-There are three main costs involved with using the IOMMU:
-- CPU cost for dma map/unmap
-- CPU cost and latency for synchronous IOTLB flush (required for strong security)
-- IOTLB thrashing, shows up dramatically when the IO access pattern
-  exceeds the IOTLB size, and IOMMU page walks slow down bus activity
-  up to a point where we see over 30..60% throughput reduction just for
-  this reason.  Some relevant references
-
-  https://lore.kernel.org/all/4b42f2eb-dc29-153e-ace9-5584ea2e5070@redhat.com/
-  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10280580/
-
-Specifically, NICs access 4 or more pages per packet (descriptor queue,
-completion queue, rx or tx header, one or more buffers), with very little
-locality especially for data buffers and tx headers. Each queue has 1-4K
-entries, a fast NIC uses 16 or more queues per direction, so just the
-data buffers cover 32..128K pages. Using 4KB mappings makes the IOTLB
-ineffective, as shown by the performance counters shown earlier.
-
-[2] WHY NOT PAGEPOOL FOR TX AND EVERYTHING
-There is some overlap between pagepool and dma_pmd_pool in that both
-implement a cache, but pagepool is missing some important features:
-
-- pagepool does not handle splitting 2M pages in smaller chunks, or
-  the mappings. That would need to be implemented (and is what dma_pmd_pool does)
-
-- pagepool's provided pages cannot be cleanly managed by
-  get_page()/put_page(), which is what all the consumers of
-  skb_page_frag_refill(). Fixing that would require dozen of changes
-  with high risk of missing some paths.
-
-- even for the receive path, a provider for pagepool has more restrictions
-  than alloc_pages-supplied memory, so if I wanted to wrap dma_pmd_pool
-  as a provider I would have needed changes to the provider interface.
-
-- pagepool requires a device at allocation time, which is not known when
-  skb_page_frag_refill() runs, hence the IOMMU mappings cannot be handled
-  at allocation time.
-
-- page_pool_alloc_pages assumes a single NAPI consumer with BH disabled,
-  whereas skb_page_frag_refill() runs from a preemptive context.
-
-- and last not least, we need to handle the dma_alloc_attrs() allocations
-  which don't match pagepool API
-
-Of course all of the above could be modified, but the complexity
-would be similar to that of implementing dma_pmd_pool, and with a
-huge risk of breaking existing functionality or missing some path.
-
-[3] DRIVER CHANGES
-
-Most drivers need no change for rings, transmit buffers, or receive buffers
-(if they use pagepool). Tx headers are generally mapped on the fly and
-that is enough to trigger IOTLB thrashing, so most drivers need a small
-change to implement very cheap tx bounce buffers backed by DMA_PMD pages.
-
-We could avoid the bounce buffers using DMA_PMD for the skb->head region,
-but that memory is contiguous to skb_shinfo so it would be exposed to
-IO device access, which may be undesirable for security.
-
-Luigi Rizzo (22):
-  iommu/dma: introduce CONFIG_DMA_PMD and metadata table
-  iommu/dma: add DMA_PMD pool lifecycle and page recycle hook
-  mm: Add split_page_compound()
-  iommu/dma: add DMA_PMD pool block allocation
-  iommu/dma: Global cap and shrinker for DMA_PMD pool memory
-  iommu/dma: reserve a per-domain IOVA window for DMA_PMD pages
-  iommu/dma: release DMA_PMD domain mappings on domain teardown
-  iommu/dma: use per-domain IOVA window to map DMA_PMD memory
-  iommu/dma: Add DMA_PMD arena allocator
-  driver core: Add per-device dma_pmd_* sysfs attributes
-  dma-mapping: Use DMA_PMD arena for dma_alloc_attrs()
-  net/core: Use per-CPU DMA_PMD pools for skb_page_frag_refill()
-  net/core: Use DMA_PMD for page_pool memory
-  iommu/dma: Support decrypted and pinned DMA_PMD pages
-  iommu/dma: Add background page scrubber for DMA_PMD pools
-  iommu/dma: Add per-NUMA-node PMD page reservoir
-  net/gve: Use DMA_PMD memory for RX buffers
-  net/gve: Use DMA_PMD memory for tx header bounce buffers
-  net/mlx5e: Use DMA_PMD memory for tx header bounce buffers
-  net/idpf: Use DMA_PMD memory for tx header bounce buffers
-  net/bnxt: Use DMA_PMD memory for tx header bounce buffers
-  iommu/dma: Add DMA_PMD statistics and debugfs
-
- Documentation/core-api/dma-pmd.rst            |  320 ++++
- Documentation/core-api/index.rst              |    1 +
- drivers/base/core.c                           |   51 +
- drivers/iommu/Kconfig                         |   33 +
- drivers/iommu/Makefile                        |    3 +
- drivers/iommu/dma-iommu.c                     |   72 +-
- drivers/iommu/dma-iommu.h                     |    8 +
- drivers/iommu/dma-pmd-arena.c                 |  412 +++++
- drivers/iommu/dma-pmd-kunit.c                 |  225 +++
- drivers/iommu/dma-pmd-map.c                   |  531 ++++++
- drivers/iommu/dma-pmd-meta.c                  |  403 +++++
- drivers/iommu/dma-pmd-pool.c                  | 1538 +++++++++++++++++
- drivers/iommu/dma-pmd-priv.h                  |  385 +++++
- drivers/iommu/iommu.c                         |    2 +-
- drivers/net/ethernet/broadcom/bnxt/bnxt.c     |   45 +-
- drivers/net/ethernet/broadcom/bnxt/bnxt.h     |    2 +
- drivers/net/ethernet/google/gve/gve.h         |    5 +
- drivers/net/ethernet/google/gve/gve_main.c    |    5 +
- drivers/net/ethernet/google/gve/gve_rx.c      |   61 +-
- drivers/net/ethernet/google/gve/gve_tx.c      |   38 +-
- drivers/net/ethernet/google/gve/gve_tx_dqo.c  |   45 +-
- .../ethernet/intel/idpf/idpf_singleq_txrx.c   |    6 +-
- drivers/net/ethernet/intel/idpf/idpf_txrx.c   |   21 +-
- drivers/net/ethernet/intel/idpf/idpf_txrx.h   |   27 +-
- drivers/net/ethernet/mellanox/mlx5/core/en.h  |    2 +
- .../net/ethernet/mellanox/mlx5/core/en/txrx.h |    4 +-
- .../net/ethernet/mellanox/mlx5/core/en_main.c |   14 +
- .../net/ethernet/mellanox/mlx5/core/en_tx.c   |   28 +-
- include/linux/device.h                        |    5 +
- include/linux/dma-pmd.h                       |  198 +++
- include/linux/mm.h                            |    2 +
- include/net/libeth/tx.h                       |    5 +-
- include/net/page_pool/types.h                 |    3 +
- include/net/sock.h                            |    3 +
- kernel/dma/direct.c                           |    6 +-
- kernel/dma/mapping.c                          |   39 +-
- mm/Kconfig.debug                              |   11 +
- mm/Makefile                                   |    1 +
- mm/page_alloc.c                               |   89 +
- mm/split_page_compound_kunit.c                |  113 ++
- net/core/page_pool.c                          |   61 +-
- net/core/sock.c                               |   86 +-
- net/core/sysctl_net_core.c                    |    7 +
- 43 files changed, 4835 insertions(+), 81 deletions(-)
- create mode 100644 Documentation/core-api/dma-pmd.rst
- create mode 100644 drivers/iommu/dma-pmd-arena.c
- create mode 100644 drivers/iommu/dma-pmd-kunit.c
- create mode 100644 drivers/iommu/dma-pmd-map.c
- create mode 100644 drivers/iommu/dma-pmd-meta.c
- create mode 100644 drivers/iommu/dma-pmd-pool.c
- create mode 100644 drivers/iommu/dma-pmd-priv.h
- create mode 100644 include/linux/dma-pmd.h
+Signed-off-by: Luigi Rizzo <lrizzo@google.com>
+---
+ include/linux/mm.h             |   2 +
+ mm/Kconfig.debug               |  11 ++++
+ mm/Makefile                    |   1 +
+ mm/page_alloc.c                |  85 +++++++++++++++++++++++++
+ mm/split_page_compound_kunit.c | 113 +++++++++++++++++++++++++++++++++
+ 5 files changed, 212 insertions(+)
  create mode 100644 mm/split_page_compound_kunit.c
 
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index dd09c438fa23e..799a42005627f 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1985,6 +1985,8 @@ static inline struct folio *virt_to_folio(const void *x)
+ void __folio_put(struct folio *folio);
+ 
+ void split_page(struct page *page, unsigned int order);
++int split_page_compound(struct page *page, unsigned int old_order,
++			unsigned int new_order);
+ void folio_copy(struct folio *dst, struct folio *src);
+ int folio_mc_copy(struct folio *dst, struct folio *src);
+ 
+diff --git a/mm/Kconfig.debug b/mm/Kconfig.debug
+index 15dca19dd07da..e1a04671c3b0d 100644
+--- a/mm/Kconfig.debug
++++ b/mm/Kconfig.debug
+@@ -347,3 +347,14 @@ config MEM_ALLOC_PROFILING_DEBUG
+ 	help
+ 	  Adds warnings with helpful error messages for memory allocation
+ 	  profiling.
++
++config SPLIT_PAGE_COMPOUND_KUNIT_TEST
++	bool "KUnit test for split_page_compound() (built-in)" if !KUNIT_ALL_TESTS
++	depends on KUNIT=y
++	default KUNIT_ALL_TESTS
++	help
++	  Builds KUnit unit tests for split_page_compound() in mm/page_alloc.c,
++	  verifying compound splitting, sub-block freezing, and speculative
++	  reference handling.
++
++	  If unsure, say N.
+diff --git a/mm/Makefile b/mm/Makefile
+index e7245cb88c665..448c0f5f783f3 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -148,3 +148,4 @@ obj-$(CONFIG_EXECMEM) += execmem.o
+ obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
+ obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
+ obj-$(CONFIG_MEM_ALLOC_PROFILING) += alloc_tag.o
++obj-$(CONFIG_SPLIT_PAGE_COMPOUND_KUNIT_TEST) += split_page_compound_kunit.o
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index e8e9905cdea5b..a663ec81a588b 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3133,6 +3133,91 @@ void split_page(struct page *page, unsigned int order)
+ }
+ EXPORT_SYMBOL_GPL(split_page);
+ 
++/*
++ * split_page_compound() - split an order-@old_order page into compound pages
++ *			   of order @new_order
++ * @page: the page to split
++ * @old_order: the current order of @page
++ * @new_order: the order of the resulting pages
++ *
++ * Unlike split_page(), which produces order-0 pages, this produces
++ * 1 << (@old_order - @new_order) compound pages, each with its own head.
++ * @page must not be compound, and the caller must hold the only reference to
++ * it: the block is frozen while the new heads are built.
++ *
++ * All pieces (including @page at index 0) are returned frozen, with a zero
++ * refcount. Publish each piece with
++ * page_ref_unfreeze(piece, 1) before handing it out: its release store orders
++ * the compound layout built here against anyone who then observes the
++ * refcount. A relaxed set_page_count() would not, and on a weakly ordered
++ * machine a PFN walker could see a live refcount on a head whose layout is
++ * not visible yet.
++ *
++ * Memcg-charged pages are rejected: the accounting helpers assume a split
++ * produces order-0 pages and would mis-attribute the new compound heads.
++ *
++ * Return: 0 on success, -EINVAL if @page cannot be split or if @new_order is
++ * larger than @old_order, -EBUSY if anyone but the caller holds a reference
++ * to it.
++ */
++int split_page_compound(struct page *page, unsigned int old_order,
++			unsigned int new_order)
++{
++	unsigned int i, step = 1U << new_order, nr = 1U << old_order;
++
++	if (WARN_ON_ONCE(PageCompound(page) || !page_count(page)))
++		return -EINVAL;
++
++	if (WARN_ON_ONCE(new_order > old_order))
++		return -EINVAL;
++
++	if (WARN_ON_ONCE(memcg_kmem_online() && PageMemcgKmem(page)))
++		return -EINVAL;
++
++	/*
++	 * Shape the new compound pages while the block is frozen, which is
++	 * the order __alloc_pages_noprof() itself uses: prep_new_page()
++	 * builds the page with a zero refcount and the set_page_refcounted()
++	 * that follows is what makes it visible.
++	 *
++	 * Freezing stops a speculative PFN walker from resolving a compound
++	 * page that is only half built: get_page_unless_zero() fails for as
++	 * long as the layout below is being written. It does not order
++	 * against memory_failure(), which sets PG_hwpoison before taking any
++	 * reference, so the non-atomic __SetPageHead() below can still lose a
++	 * concurrent poison bit - exactly as it can for every other
++	 * prep_compound_page() caller, the page allocator included.
++	 *
++	 * A failed freeze is not a bug, it means someone holds a speculative
++	 * reference. Every PFN walker in the tree gates
++	 * get_page_unless_zero() on PageLRU, which a freshly allocated block
++	 * is not, so in practice only the hwpoison machinery gets here. Let
++	 * the caller fall back rather than warn: a machine running
++	 * panic_on_warn should not die of a condition the caller handles.
++	 */
++	if (!page_ref_freeze(page, 1))
++		return -EBUSY;
++
++	if (!new_order) {
++		/*
++		 * The subpages of a non-compound block are already
++		 * independent frozen pages, so only the bookkeeping applies.
++		 */
++		split_page_owner(page, old_order, 0);
++		pgalloc_tag_split(page_folio(page), old_order, 0);
++		split_page_memcg(page, old_order);
++		return 0;
++	}
++
++	split_page_owner(page, old_order, new_order);
++	pgalloc_tag_split(page_folio(page), old_order, new_order);
++
++	for (i = 0; i < nr; i += step)
++		prep_compound_page(page + i, new_order);
++
++	return 0;
++}
++
+ int __isolate_free_page(struct page *page, unsigned int order)
+ {
+ 	struct zone *zone = page_zone(page);
+diff --git a/mm/split_page_compound_kunit.c b/mm/split_page_compound_kunit.c
+new file mode 100644
+index 0000000000000..bb0ac908bbc1e
+--- /dev/null
++++ b/mm/split_page_compound_kunit.c
+@@ -0,0 +1,113 @@
++// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
++/*
++ * KUnit tests for split_page_compound().
++ */
++#include <kunit/test.h>
++#include <linux/gfp.h>
++#include <linux/mm.h>
++
++static void test_split_compound_pieces(struct kunit *test)
++{
++	const unsigned int old_order = 5, new_order = 2;
++	const unsigned int step = 1U << new_order;
++	const unsigned int nr = 1U << old_order;
++	struct page *page;
++	unsigned int i, j;
++	int ret;
++
++	page = alloc_pages(GFP_KERNEL, old_order);
++	KUNIT_ASSERT_NOT_NULL(test, page);
++	KUNIT_EXPECT_FALSE(test, PageCompound(page));
++
++	ret = split_page_compound(page, old_order, new_order);
++	if (ret)
++		__free_pages(page, old_order);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	for (i = 0; i < nr; i += step) {
++		struct page *sub = page + i;
++
++		/* All heads 0..N-1 are returned frozen (refcount 0). */
++		KUNIT_EXPECT_EQ(test, page_count(sub), 0);
++		KUNIT_EXPECT_TRUE(test, PageHead(sub));
++		KUNIT_EXPECT_EQ(test, compound_order(sub), new_order);
++
++		for (j = 1; j < step; j++) {
++			KUNIT_EXPECT_TRUE(test, PageTail(sub + j));
++			KUNIT_EXPECT_PTR_EQ(test, compound_head(sub + j), sub);
++		}
++
++		page_ref_unfreeze(sub, 1);
++
++		/* Tail get_page()/put_page() must operate on this piece's head. */
++		get_page(sub + 1);
++		KUNIT_EXPECT_EQ(test, page_count(sub), 2);
++		put_page(sub + 1);
++		KUNIT_EXPECT_EQ(test, page_count(sub), 1);
++	}
++
++	/* Each compound piece frees independently at new_order. */
++	for (i = 0; i < nr; i += step)
++		__free_pages(page + i, new_order);
++}
++
++static void test_split_order0_pieces(struct kunit *test)
++{
++	const unsigned int old_order = 3, nr = 1U << old_order;
++	struct page *page;
++	unsigned int i;
++	int ret;
++
++	page = alloc_pages(GFP_KERNEL, old_order);
++	KUNIT_ASSERT_NOT_NULL(test, page);
++
++	ret = split_page_compound(page, old_order, 0);
++	if (ret)
++		__free_pages(page, old_order);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	for (i = 0; i < nr; i++) {
++		struct page *sub = page + i;
++
++		KUNIT_EXPECT_FALSE(test, PageCompound(sub));
++		KUNIT_EXPECT_EQ(test, page_count(sub), 0);
++		page_ref_unfreeze(sub, 1);
++		__free_pages(sub, 0);
++	}
++}
++
++static void test_split_ebusy_extra_ref(struct kunit *test)
++{
++	const unsigned int old_order = 4;
++	const unsigned int new_order = 2;
++	struct page *page;
++	int ret;
++
++	page = alloc_pages(GFP_KERNEL, old_order);
++	KUNIT_ASSERT_NOT_NULL(test, page);
++
++	/* Simulate a concurrent speculative reference. */
++	get_page(page);
++	ret = split_page_compound(page, old_order, new_order);
++	KUNIT_EXPECT_EQ(test, ret, -EBUSY);
++	KUNIT_EXPECT_FALSE(test, PageCompound(page));
++
++	put_page(page);
++	__free_pages(page, old_order);
++}
++
++static struct kunit_case split_page_compound_test_cases[] = {
++	KUNIT_CASE(test_split_compound_pieces),
++	KUNIT_CASE(test_split_order0_pieces),
++	KUNIT_CASE(test_split_ebusy_extra_ref),
++	{}
++};
++
++static struct kunit_suite split_page_compound_test_suite = {
++	.name = "split_page_compound",
++	.test_cases = split_page_compound_test_cases,
++};
++
++kunit_test_suite(split_page_compound_test_suite);
++MODULE_DESCRIPTION("KUnit tests for split_page_compound()");
++MODULE_LICENSE("Dual BSD/GPL");
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
