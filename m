@@ -1,162 +1,72 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BDC3BBFC7
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA7E3A6F06
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:57:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791021395; cv=none; b=GwVtEPo8YXE8VifKw2mIJjc6FJf7Z7OJ81g033M/lVLr7M9uhsFHU7Rcq4Ax08JZaK7VwcSusz/+GGNC/ewzE2HEpSCMcA2R9dQiP6HcpGMfRQ5lfEkTl/AASb02p5PvUjbTwCei1y6Ri5e2oWIUc2i8mWZmDOq+3UIn/wMsm+E=
+	t=1791021427; cv=none; b=IojQn1AidOqXBzGoptbyXMkjiMVRXqg/HxCWEJpX/XN/aR1Tkv2YeQxHvCGlVRk2WwdQ9ygPbo96sLWg9Xl5gBuYpZcxKlRM5CSJRpo9lSKNj3JcJO6zUGd1O4eueQv1YaQQ/yQXHbw3R/xFvErgzGTTbi9ZM5EKoI4B/UsE4+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791021395; c=relaxed/simple;
-	bh=zvB+GmvA7E1buSEhhFQSNiQiS0Ky9ds8iZsA4bX14t4=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=bnewAGyEVlAHF0CcH67v+BT9XV9bVmz5fLezNjZeMuSEP0N0DOvw+KHvfNwtjdXPd3lG367OpGeDVwrrmcLPggsWpMp7KsaMgO+0SD3XJz+EGy/PDGeVf2Vt9GRfsKfPuKb4W/ERND9ueuuPutI+vuPn0Y6mz7y2AClzGv6Nx1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i7Jwexww; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=O6sE7ezt; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i7Jwexww";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="O6sE7ezt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791021392;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CFiXTFcRpKSwbR4iF//D20N/Ft4ckAh6KBeG1mHiTBA=;
-	b=i7Jwexww7amyCTkoYi0jIu66dckbwAm18A5XQDjg6ICKAu2OMZdoa739BPf5D35vt3hT3A
-	pkZJbugshtaIfTuiVEQbyrtOBSy8r97tRHseqk3xMoSLjeH97a9PpEH4Iy6ep6RewfGX9f
-	bQLeqf67cjO6uoW72j2QKD8Mlb5GkJI=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-237-7t3C2HhMOAKteaJSft3NcA-1; Sat, 03 Oct 2026 05:56:30 -0400
-X-MC-Unique: 7t3C2HhMOAKteaJSft3NcA-1
-X-Mimecast-MFC-AGG-ID: 7t3C2HhMOAKteaJSft3NcA_1791021389
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a022fee32fso4497645e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:56:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791021389; x=1791626189; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CFiXTFcRpKSwbR4iF//D20N/Ft4ckAh6KBeG1mHiTBA=;
-        b=O6sE7eztvXPCqRKwBKDlYIZPzBuBo9f27Zx4xFVCLG+tXG12FkTKBQuLs7qjnWKpR1
-         ImyO5J2B7Z6WDddQCxU1JZkVgDpR/U2XXolm8lcOSHdip3ejquV2dUFC62+zH/t5nAJV
-         GF5kB+ggs7/wcOq88bob++G2Dljh2douPEINiN1dcUKQc3rhzT3z4z/iMm37rAJAZYD+
-         O7tJd0O1l4sQPecCmV1AS7FUG/AHjrZ5aLhw9gw4OWPzlsHOuF5MRO0oRfMe346O1aLl
-         ecf5j3ct8J6G07XmhjJ2RcMTrduc5dBpvckvcYwLGdrhj7F2loxhIwoF7HmyCHTIP3+Z
-         0FAg==
+	s=arc-20240116; t=1791021427; c=relaxed/simple;
+	bh=EYXOm8OU0nCoDjsHRNDdxa3wCnac4SEMYsa49Yjw2hQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=B8CuqFd5eOzKdpbTwq3dtXganjG1lbXHJbrZAFkuxBlWCivHoUv3tI+U36SQgSoOBh+tqSpus+r4PLtXvxZI9l2LJuyY/FbpF2lSdujlF4IT88FyL7M+U5ljOAIW8oCRYlp5h1HQQPiHB/PFzYf/WDgnHsZAHf2lhvqrEo/qVpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so455548b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:57:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791021389; x=1791626189;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CFiXTFcRpKSwbR4iF//D20N/Ft4ckAh6KBeG1mHiTBA=;
-        b=Ag+2wze8paHukZ7tIIElAAmvLcOQt4XRFqckOvnCPEiZtPZKFM+LDu06dOrsuaXS7I
-         iTHdk3nux6CsOLC/tQHGadM7PTTLfZOQyDpfHppPb1r3dx/71YH5xAYA9GA3WLcEvdUX
-         dEbtYlD6ca+6ovrDpeFJ9r0GSe2xSxt+cFMr419WqljEyKj3gRfG1A3TwulHnB8pqrmZ
-         aQOKAtr6GYPAZXP1npQkylLrtLCXEBr3xD/WOkcGa19w7K8vNHgyFPc3bcj+R0Q7re7b
-         2ktK0KEiVnBlvY2oUsLOye0ZKRO7ZB2nJ8Xu3oARTUx/3L/+BMcWDyCjyiZWR2889eC/
-         QjaA==
-X-Forwarded-Encrypted: i=1; AKwUvByQkws/6yjA5ShJ6SnuxE2IlIA3HjMm76p2imv/+BP7ZRJn2aPUsMQmHvqH8OEpgWmhG8Z2fnREG/FM3cw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvofXcDPfFoADP3py5zIDTlBRNMP9SMJockr2IoJbENzF92CHs
-	cKs7xNUOIyx4xpx2Vi2aWuQ9xURwriqnvfGfKy1VPUjbduFaWKqiKMTlVswSgkVcZgBbQpZlUdV
-	/IPQkVE+FTHjaCHg8RXXkonFXceh5AoDI6SC5P0aT3NWWzjr9233eQewwxZ6sdgXF/pP4cHzGnR
-	3A
-X-Gm-Gg: AYBFou1ILt4FhthahhTFeHfMhfdGwNn+zr0IF18OUJp4q4HU90l5QXj2w77WnvY5VVF
-	qV4Iuea0y1W/oHaR7aicA/xPyLzl2VyLRuBRjLYwl7TjcaZ0F7t+3cdkWEc/8w9ctm3Dw4VZ1DN
-	PJPOTJmXyHGgdzAqN85JCFiWyW/sdefdIX5hpCI+TgBUvUuYydO2ize1xSK4fhUwuXRtHSvY49P
-	JR6XZc9rpEeX5GGwICnsCK9zVZO2VuPw7XGlVy/FHqT38FL4zWFyq8pKXWEO9DZXfH17l7lKoVY
-	0c5EA8cvFPGrFlJBeP0/VeKv/mddYRHCz+mFgvR3IWI+A8ACuS9Zon/MgLNKRmIMdHu5+/Bc5Rf
-	KLusNlHr0AQf/Ff8jz2n+NjOBq1FPVXSCiRbVU5w=
-X-Received: by 2002:a05:600c:3e07:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a027585dfemr89017985e9.12.1791021389112;
-        Sat, 03 Oct 2026 02:56:29 -0700 (PDT)
-X-Received: by 2002:a05:600c:3e07:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a027585dfemr89017735e9.12.1791021388657;
-        Sat, 03 Oct 2026 02:56:28 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2a00:e580:bf11:1:2666:d874:79e6:3214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0304407d2sm106558045e9.0.2026.10.03.02.56.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 02:56:28 -0700 (PDT)
-Date: Sat, 03 Oct 2026 11:56:23 +0200
-From: Ivan Vecera <ivecera@redhat.com>
-To: intel-wired-lan@osuosl.org, Petr Oros <poros@redhat.com>,
- netdev@vger.kernel.org
-CC: Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Henry Tieman <henry.w.tieman@intel.com>,
- Anirudh Venkataramanan <anirudh.venkataramanan@intel.com>,
- Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
- Jesse Brandeburg <jbrandeb@kernel.org>,
- Preethi Banala <preethi.banala@intel.com>,
- Kiran Patil <kiran.patil@intel.com>, Dan Nowlin <dan.nowlin@intel.com>,
- Stephen Hemminger <stephen@networkplumber.org>,
- intel-wired-lan@lists.osuosl.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Subject: Re: [PATCH iwl-net 10/10] ice: fix unsigned stat widths
-User-Agent: Thunderbird for Android
-In-Reply-To: <20261002130752.2597259-11-poros@redhat.com>
-References: <20261002130752.2597259-1-poros@redhat.com> <20261002130752.2597259-11-poros@redhat.com>
-Message-ID: <9235DF68-76D9-4B38-B8D9-BCFF3520E7D8@redhat.com>
+        d=1e100.net; s=20260707; t=1791021424; x=1791626224;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GzofMsg7bVh9IoRlAWNBZQOnn0OSea2oapj9qTB7ckk=;
+        b=JhHcvYMLGZxygot9lOwgytlp6UJ12tlW+SvGA9lKwmehQJTZPqNaaMo68cqA9RKDoD
+         mp5RO1czYXX4iXLi/gTeXatQu01iKVec9MCAAsbf+GqL7W2+0a1TXFHrCzeln4vC443b
+         EZJTPRc9WFp5dKretUoD3cPt1KRNGU96M59yLj2AKvo+d+HIRc9IGRv60wFXg8ipKjjb
+         1B3wYR1wgi4GnAM5SCVmiZsCIjiZplx+YDfeQxFEOMyssIpzFwLfJo0oPtNnZHV+0AAR
+         RmpFuBNLzd1icWX0DAsPbRr4pILqOuGFWFD0Nhd51dRrIzu5FZnLCXrbjEmJgLZfWUvC
+         ecNw==
+X-Forwarded-Encrypted: i=1; AKwUvBx3Bxv61zCbfloEbpX4kZ1TTZpLUoS5JHoSlahagt8/yIcQQXuaNeN9jRv6rgMbZ209i8DI840KfBu/ja4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtJ1CGf54MwPmthwbmrnYBCyKEVGJCfsggK1tYOkqpwUnnoRT1
+	L+3SPTeGZsf+1g3gs9ukq7iMeUOODGCLd70px3ji45ZFOU/QHG1ZAl801iXPM1n4Ub8dulUFuBl
+	A5HEzt/+8evfV79GrByOQrTRWqph3kZmCu/2eGgJcmFRaIIMyxCAWXrR0Vlc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6808:ec7:b0:4d6:92b3:5c8b with SMTP id
+ 5614622812f47-4f52bbc2bc3mr3889879b6e.65.1791021424393; Sat, 03 Oct 2026
+ 02:57:04 -0700 (PDT)
+Date: Sat, 03 Oct 2026 02:57:04 -0700
+In-Reply-To: <20261003091512.17099-1-adarshdas950@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac0d170.81dddff3.363068.0006.GAE@google.com>
+Subject: Re: [syzbot] [btrfs?] WARNING in btrfs_init_new_device
+From: syzbot <syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com>
+To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On October 2, 2026 3:07:52 PM GMT+02:00, Petr Oros <poros@redhat=2Ecom> wro=
-te:
->tx_restart, tx_busy, rx_buf_failed and rx_page_failed in struct ice_vsi
->are u32, but ice_update_vsi_ring_stats() fills them with sums of the
->64-bit per ring counters=2E The values are truncated and the ethtool
->statistics exported from them wrap at 2^32 while the ring counters keep
->counting=2E
->
->Make them u64 like tx_linearize next to them=2E
->
->i40e fixed the same truncation in commit 3b8428b84539 ("i40e: fix
->unsigned stat widths")=2E
->
->Fixes: fcea6f3da546 ("ice: Add stats and ethtool support")
->Assisted-by: LLM
->Signed-off-by: Petr Oros <poros@redhat=2Ecom>
->---
-> drivers/net/ethernet/intel/ice/ice=2Eh | 8 ++++----
-> 1 file changed, 4 insertions(+), 4 deletions(-)
->
->diff --git a/drivers/net/ethernet/intel/ice/ice=2Eh b/drivers/net/etherne=
-t/intel/ice/ice=2Eh
->index 6c596e5a315175=2E=2Ea985b81efbe2d6 100644
->--- a/drivers/net/ethernet/intel/ice/ice=2Eh
->+++ b/drivers/net/ethernet/intel/ice/ice=2Eh
->@@ -344,10 +344,10 @@ struct ice_vsi {
-> 	u64 tx_linearize;
-> 	DECLARE_BITMAP(state, ICE_VSI_STATE_NBITS);
-> 	unsigned int current_netdev_flags;
->-	u32 tx_restart;
->-	u32 tx_busy;
->-	u32 rx_buf_failed;
->-	u32 rx_page_failed;
->+	u64 tx_restart;
->+	u64 tx_busy;
->+	u64 rx_buf_failed;
->+	u64 rx_page_failed;
-> 	u16 num_q_vectors;
-> 	/* tell if only dynamic irq allocation is allowed */
-> 	bool irq_dyn_alloc;
+Hello,
 
-Reviewed-by: Ivan Vecera <ivecera@redhat=2Ecom>
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
+Reported-by: syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com
+Tested-by: syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         e767a4ea Merge tag 'probes-fixes-v7.3-rc5' of git://gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16925725580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
+dashboard link: https://syzkaller.appspot.com/bug?extid=3bf3e110b2d406b8166c
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10ea3bf5580000
+
+Note: testing is done by a robot and is best-effort only.
