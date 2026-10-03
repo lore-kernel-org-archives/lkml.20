@@ -1,235 +1,166 @@
-Received: from mta1.migadu.com (out-209.mta1.migadu.com [95.215.58.209])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A697272803
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E1C13AF2;
+	Sat,  3 Oct 2026 21:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063983; cv=none; b=n6b1+LboBFf6JMdPYaUgHGQxi3qXifPIgtZ6xKwzoP4hjL4U4JO+UqGn71++QrD8qsPf/iZC8pK6FHlnlLGsR/faei8QICvzD/d4/gkwnvJmPFNsHQYMEfpfTcky98DAeKf2pqWgmnncr2Id8/eOqJ+rx5YYIbM6K8zW66Rxa4c=
+	t=1791064164; cv=none; b=OwKNE4iAcQR77TD1Z3zVPdFM66hpqvoFfkuggPIZRPShpEGVkGC2eOXMThflJYAuYAVj2vCn0t+bidibZRfqXQt7k9bhWvloqtdw6xW9dAHN31Et7nzsNS0iWOAuM4MICBJv1mk2+ol0fcFJGkEfSVnsznI1uETv/HipvsInpO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063983; c=relaxed/simple;
-	bh=R2PnYisYJ0NyVPAFlfdhpen4Vsn/htjtFxxV0Y95zsU=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=CWy6XDUeALlIa6fdxVyee0Mzvf2lrenyILsSybrpRa8HqF4oZiqgwSy9HEkGkuFUjSsR9PYuJS6460NvZKNJRf2+DC8gP3D9Vh3ac24XqqsJI+4wq/77GnSwMuuL7IH3zWIMtV38BlcgGxFN8VPGkTInOr1ewMG9A33X01W+ahc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fsLsMSTa; arc=none smtp.client-ip=95.215.58.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791064164; c=relaxed/simple;
+	bh=4TG97MM+3gRs48QCT/rp3cfJxvQuycSAgP7Phi9j8sQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=k3+8WbDPGM/g4kMDu0hB6dPUNHrJq3ZJ50HS+oMw8h1z+Dm2zwbpu0vn2Gn/OJOhc4Nepm82l+R4IZbNhjA670GdTVnkuTpCr+gTDNYo9nzSV/96RajZ1vSXKOgCweh4CzIUeqOYxLcLsh2/OIqkvvD0IHgdPFTkH9UwGF3J0ZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=haMufA1n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fsLsMSTa"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R2PnYisYJ0NyVPAFlfdhpen4Vsn/htjtFxxV0Y95zsU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791063977; v=1; x=1791668777;
- b=fsLsMSTaIUHyhxOCEERcJJ/m6XTT3IsV3t9qKmONcHVy6V9fO25A+kgwWBpxAdtkw0Kk+GI8
- QAzt99zqopV57nvUDjMIsYy80MlUC+ZlPozX1cuzbPS/Gl+VTwZPchYeKMSZwGO8IbQVnOBeGCI
- VzSBNqIpLesa+ThLkjPnaEdo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 667c1a93a59ef06a;
-	Sat, 03 Oct 2026 21:46:17 +0000
-X-Mizu-Trace-ID: 667c1a93a59ef06a
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="haMufA1n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629121F0089B;
+	Sat,  3 Oct 2026 21:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791064163;
+	bh=bo70h+3LGgIRjJuSL+jQlrh0XcLtNjAdhKi74Dy7L/I=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=haMufA1nCwNhx4wUjRXR0a3mH0gHKdjUsxV5hcsYwiyAhu1RvjCXlUEyBOAxtmxVy
+	 5iXgcweMNssXO7k4lqSUDqUbQ4+HMVYg7u7srXTYD+ObJCenBKbEPLSZIcb+MkHr+G
+	 eUcSpFE2CiGdvlVnCfTwnxGgZATquzCinHuluqWY1QZtav5lKhy2cN2Re/1rb7fXqk
+	 5RhxLIR/rmHPsb0Dk9hTpWcBoJ3fP3UJyV/xwgeKS/2fGHzOi+BOcOEIqHhE7PydRM
+	 K3nXS9AaIN2y4bb33aNsX7yXQMDeDp9Y6SHvCteRotsTjbc1f9Q42T0eqIULxpKRTL
+	 VO06ISwt1ZKHA==
+Subject: Re: [PATCH net-next v2 1/2] amt: mark relay data as a UDP tunnel
+ packet before sending it
+From: netdev-bot+sashiko@kernel.org
+To: omar@blockcast.net
+Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
+ horms@kernel.org, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 03 Oct 2026 21:49:21 +0000
+Message-ID: <179106416186.434549.2202047416681649119@kernel.org>
+In-Reply-To: <20261002212458.34247-2-omar@blockcast.net>
+References: <20261002212458.34247-2-omar@blockcast.net>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 03 Oct 2026 21:46:17 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <dfd0ce2876857c40b4d3a6da38b2e704cb6a698d@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v7 0/6] wifi: rtw88: add RTL8723B/RTL8723BS
- support
-To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
- <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, luka.gejak@linux.dev
-In-Reply-To: <7bfa286e-50f5-4da7-a8df-0f7e743780b3@gmail.com>
-References: <20261002073845.31486-1-luka.gejak@linux.dev>
- <7bfa286e-50f5-4da7-a8df-0f7e743780b3@gmail.com>
 
-October 3, 2026 at 23:26, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mai=
-lto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821cer=
-fe2%40gmail.com%3E > wrote:
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
+Low priority / nit picks for your consideration:
 
->=20
->=20On 02/10/2026 10:38, Luka Gejak wrote:
->=20
->=20>=20
->=20> This is the second of two series adding support for the Realtek RTL=
-8723B
-> >  802.11n chipset and its RTL8723BS SDIO variant to rtw88. The prepara=
-tion
-> >  series has landed in rtw-next, so this series carries the chip regis=
-ter
-> >  definitions, the BB/RF/AGC tables, the chip driver, the SDIO bind an=
-d the
-> >  build glue.
-> >=20=20
->=20>  The first patch is the only shared-core change. It moves the CCK p=
-ower
-> >  detect setter out of rtw88xxa.c into phy.c as rtw_phy_cck_pd_set(), =
-so this
-> >  chip can use it without pulling in rtw88_88xxa. The six chip patches=
- apply
-> >  on top of it and can be read on their own.
-> >=20=20
->=20>  The driver supports:
-> >=20=20
->=20>  - RTL8723B / RTL8723BS, SDIO only
-> >  - 2.4 GHz 802.11n, HT20 and HT40
-> >  - one spatial stream
-> >  - station mode
-> >=20=20
->=20>  Only station mode has been validated. The common rtw88 core advert=
-ises AP
-> >  and IBSS for all chips, so those modes are advertised for RTL8723BS =
-as
-> >  well, but neither has been tested. An out-of-tree tester has reporte=
-d AP
-> >  mode associating without DHCP completing. The five additional SDIO I=
-Ds are
-> >  included for parity with the existing staging driver, and only the 0=
-xb723
-> >  device has been exercised.
-> >=20=20
->=20>  The chip driver requests:
-> >=20=20
->=20>  rtw88/rtw8723b_fw.bin
-> >=20=20
->=20>  This is the version 41 firmware extracted from the Realtek rtl8723=
-bs
-> >  vendor driver. It was submitted separately to linux-firmware with it=
-s
-> >  extraction provenance and carries Ping-Ke Shih's Reviewed-by. There =
-is no
-> >  known native rtw88 RTL8723B firmware.
-> >=20=20
->=20>  The implementation is based on the initial RTL8723B work by Michae=
-l
-> >  Straube:
-> >=20=20
->=20>  https://github.com/mistraube/rtw88/tree/rtl8723bs
-> >=20=20
->=20>  Michael's Co-developed-by and Signed-off-by tags are present on th=
-e three
-> >  chip-code patches containing code derived from that work.
-> >=20=20
->=20>  The known limitations are unchanged. Bluetooth coexistence depends=
- on the
-> >  BT firmware's status reports. During A2DP streaming those reports id=
-entify
-> >  a connected link but do not expose the active profile, so the WiFi
-> >  coexistence logic cannot make a correct traffic-aware decision. WiFi
-> >  throughput can fall sharply while audio remains smooth. This is docu=
-mented
-> >  rather than guessed around in the WiFi driver. The intermittent RTL8=
-723BS
-> >  firmware failure to leave LPS also remains, and instrumentation show=
-s a
-> >  firmware stall rather than a polling timeout that a longer budget wo=
-uld
-> >  fix.
-> >=20=20
->=20>  Testing
-> >  =3D=3D=3D=3D=3D=3D=3D
-> >=20=20
->=20>  The exact six-commit branch builds with W=3D1, with no new warning=
-s, and
-> >  links all rtw88 modules with real modpost. Sparse and smatch were ru=
-n over
-> >  the rtw88 directory. Sparse is clean. Smatch reports nothing in the =
-8723B
-> >  files, and its only output is an existing container_of static assert=
-ion
-> >  from include/net/neighbour.h while checking usb.c. checkpatch --stri=
-ct is
-> >  clean apart from the complex-macro report on TRANS_SEQ_END, which is=
- an
-> >  initializer macro that rtw8703b.c already defines in the same way, a=
-nd the
-> >  "does MAINTAINERS need updating" reminder on the file-adding patches=
-, which
-> >  the existing REALTEK WIRELESS DRIVER (rtw88) entry already answers w=
-ith its
-> >  F: line. git diff --check is clean and all six commits are GPG-signe=
-d.
-> >=20=20
->=20>  Hardware validation covered module identity, boot, scan,
-> >  authentication, association, WPA2 key negotiation and DHCP, TCP and =
-UDP
-> >  traffic in both directions, ten scans while connected, and twenty mo=
-dule
-> >  reload and reassociate cycles. dmesg is clean, with no warnings, no =
-errors
-> >  and no TX-report, H2C or leave-LPS messages. The extended soak added=
- six 30
-> >  second TCP runs, UDP saturation in both access categories with no lo=
-ss, a
-> >  2000 packet ping run with no loss, and three idle power save periods=
- with a
-> >  clean wake. The test machine provides only s2idle, so suspend and re=
-sume
-> >  are not covered.
-> >=20=20
->=20>  Changes in v7:
-> >  - dropped rtw8723b_sdio_restore_pad_ctrl() and its two remaining cal=
-l
-> >  sites. The register it adjusted is only written by
-> >  rtw_mac_pre_system_cfg(), which returns before that write for 8051
-> >  chips, so nothing in the driver sets the bits the function cleared a=
-nd
-> >  the hardware default already has them clear.
-> >  - rtw8723b_fill_txdesc_checksum() now uses fill_txdesc_checksum_comm=
-on()
-> >  from tx.h. The now unused linux/unaligned.h include is dropped.
-> >=20=20
->=20>  Luka Gejak (6):
-> >  wifi: rtw88: move the 88xxa CCK power detect setter to phy.c
-> >  wifi: rtw88: 8723b: add the RTL8723B register definitions
-> >  wifi: rtw88: 8723b: add the RTL8723B BB, RF and AGC tables
-> >  wifi: rtw88: 8723b: add the RTL8723B chip driver
-> >  wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
-> >  wifi: rtw88: 8723bs: enable building the RTL8723BS driver
-> >=20=20
->=20>  drivers/net/wireless/realtek/rtw88/Kconfig | 18 +
-> >  drivers/net/wireless/realtek/rtw88/Makefile | 6 +
-> >  drivers/net/wireless/realtek/rtw88/phy.c | 39 +
-> >  drivers/net/wireless/realtek/rtw88/phy.h | 1 +
-> >  drivers/net/wireless/realtek/rtw88/reg.h | 34 +
-> >  drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2550 +++++++++++++++=
-++
-> >  drivers/net/wireless/realtek/rtw88/rtw8723b.h | 14 +
-> >  .../wireless/realtek/rtw88/rtw8723b_table.c | 861 ++++++
-> >  .../wireless/realtek/rtw88/rtw8723b_table.h | 17 +
-> >  .../net/wireless/realtek/rtw88/rtw8723bs.c | 59 +
-> >  drivers/net/wireless/realtek/rtw88/rtw8812a.c | 2 +-
-> >  drivers/net/wireless/realtek/rtw88/rtw8821a.c | 2 +-
-> >  drivers/net/wireless/realtek/rtw88/rtw88xxa.c | 38 -
-> >  drivers/net/wireless/realtek/rtw88/rtw88xxa.h | 1 -
-> >  14 files changed, 3601 insertions(+), 41 deletions(-)
-> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
-> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
-> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table=
-.c
-> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table=
-.h
-> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723bs.c
-> >=20
->=20Looks good to me.
->=20
->=20Reviewed-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
->
+- [Low] The commit fixes a user-visible bug but has no Fixes: trailer.
 
-Hi Bitterblue,
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but fraglist GSO
+  skbs that reach the AMT relay unsegmented, the same situation the…
 
-Thanks for all of the support and help along the way.
-(And for the Reviewed-by tag.)
+--
 
-Best regards,
-Luka Gejak
+amt: mark relay data as a UDP tunnel packet before sending it
+
+This patch makes amt_send_multicast_data() call
+udp_tunnel_handle_offloads(skb, true), so GSO packets relayed with tx
+checksum offload enabled are marked as UDP tunnel packets. It also resets
+the mac header of the copied skb before recording the inner headers, so
+inner_mac_header lines up with the inner IP header.
+
+> Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Omar Ramadan <omar@blockcast.net>
+
+[Severity: Low]
+Should this have a Fixes: tag?
+
+The send path being fixed was added by commit cbc21dc1cfe9 ("amt: add data
+plane of amt interface"). That commit introduced amt_send_multicast_data()
+with skb_copy_expand(), skb_reset_inner_headers() and
+udp_tunnel_xmit_skb(), but no udp_tunnel_handle_offloads().
+
+Suggested trailer:
+
+Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+
+The notes say this was tested on net-next. Since it fixes packet loss
+that users can see, should it target net instead?
+
+> diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+> index 0277e4cac39bd..a8236d40c2e70 100644
+> --- a/drivers/net/amt.c
+> +++ b/drivers/net/amt.c
+> @@ -1078,7 +1078,17 @@ static void amt_send_multicast_data(struct amt_dev *amt,
+>  	if (!skb)
+>  		return;
+>  
+
+[Severity: High]
+This is a pre-existing issue, but it is closely related to this patch.
+Fraglist GSO skbs can reach the relay unsegmented in the same way, yet they
+never get to the new udp_tunnel_handle_offloads() call. The
+skb_copy_expand() just above rejects them first:
+
+net/core/skbuff.c:skb_copy_expand() {
+    ...
+	if (WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST))
+		return NULL;
+    ...
+}
+
+amt_link_setup() advertises fraglist GSO:
+
+	dev->features		|= NETIF_F_GSO_SOFTWARE;
+	dev->hw_features	|= NETIF_F_SG | NETIF_F_HW_CSUM;
+	dev->hw_features	|= NETIF_F_FRAGLIST | NETIF_F_RXCSUM;
+	dev->hw_features	|= NETIF_F_GSO_SOFTWARE;
+
+NETIF_F_GSO_SOFTWARE includes NETIF_F_GSO_FRAGLIST and
+NETIF_F_GSO_UDP_L4.
+
+Suppose the relay's ingress device has rx-gro-list enabled. For
+forwarded multicast there is no local socket, so udp_gro_receive() sets
+is_flist. The result is an skb with gso_type
+SKB_GSO_UDP_L4 | SKB_GSO_FRAGLIST and a frag_list.
+
+ipmr then forwards it to the amt vif. ipmr_prepare_xmit() only drops
+oversized skbs when DF is set, and the sender controls DF.
+
+Now suppose tx-checksumming and tx-scatter-gather-fraglist are enabled on
+amt. skb_gso_ok() then returns true, so validate_xmit_skb() leaves the skb
+unsegmented, and the path becomes:
+
+amt_dev_xmit()
+  amt_send_multicast_data()
+    skb_copy_expand()
+      WARN_ON_ONCE(... SKB_GSO_FRAGLIST)
+      return NULL
+
+The function then returns without any drop accounting. Once those
+non-default offloads are on, can ordinary remote multicast traffic trigger
+this WARN? With panic_on_warn, that would panic the relay.
+
+The notes list "a forwarded GRO packet as the GSO source" as untested.
+Would it make sense to also stop advertising NETIF_F_GSO_FRAGLIST and
+NETIF_F_FRAGLIST on amt? Another option is to segment or linearize
+fraglist skbs before the copy.
+
+> +	/* amt_dev_xmit() pulled the Ethernet header without moving the mac
+> +	 * header. The tunnelled payload has no link-layer header, so the
+> +	 * inner mac header must coincide with the inner IP header.
+> +	 */
+> +	skb_reset_mac_header(skb);
+>  	skb_reset_inner_headers(skb);
+> +	if (udp_tunnel_handle_offloads(skb, true)) {
+> +		kfree_skb(skb);
+> +		return;
+> +	}
+> +
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002212458.34247-1-omar%40blockcast.net
