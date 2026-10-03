@@ -1,56 +1,56 @@
 Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125DF23E33D
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F2925F99F
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790986906; cv=none; b=pwbc+3YuvvRRK7LafyuswSkox2BKlbH+Eeoc74C4yMAwI+RRhGzvG9qui+8y7mC7kCNricVXHOfnF+4NzodMNk/HsCZOpqB23iY54RrMsKSYU931H8Rj+Kkh8KpBNFkE7pi9S817mbMPOxhufG6up1chTKwpsJbMzB8TVG8hNSE=
+	t=1790986907; cv=none; b=uS+oeuos1HNeTNzICL4co/THvJrtQfBg/p05ptQ/77oEYYWlDMMkSY9AUu18TUAJUDrtFZpoZrpI4BQSjOO1SmJxAh33S613g17DedbK/rGTiFPdi1+DpqjJUEGMF00VjnnwfZbnHRNiYUSkp1IUMXTQBfkAkQOoBisUwYxOlgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790986906; c=relaxed/simple;
-	bh=8PJAcZeaOITXW1VjTKUESUTNU3qYUSdn38yinWJvZJc=;
+	s=arc-20240116; t=1790986907; c=relaxed/simple;
+	bh=aB+CvddGJuB9eJsNBAMmTjtXg5L3mbTikdJ7vVImzAw=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=F51hIAcU2RZpvRb3De0s/mHNc8nYZ89nFiIMgD1WXhqflfoWaUwaIyi3SBaOeGtl163KYRYKCz68qu5KeluWpJ+pMkzB9To7azS5etssKP2Jf0x4G7yyEKJDEqDcKD5+6xrixWrlw3q5ERlWW3QXllJAF9OoGYhevV8gF6DcLLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dkWBD3j2; arc=none smtp.client-ip=209.85.215.199
+	 To:Cc:Content-Type; b=jwCioqIbaaKI6nI0P5iopgXjoQwQWkE4mPt1CsJsTkVycG1dufJy0SOHouZuCmNGWGIRCNt0OwAMe7LVDuQhgy/qegiQG+nRkP5SwbFC62Jll5BqocFu6zpSgVxOecXLjwQnTgJpq0ghOZ6OVADyqKSB/MzsbBl/A4kvsTYRs6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ITNsR2/R; arc=none smtp.client-ip=209.85.215.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dkWBD3j2"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso142809a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ITNsR2/R"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc44d708055so171834a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790986903; x=1791591703; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790986904; x=1791591704; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=htfKz68Uuz6N9IF9mggRs6yYLkAuL8ZW2J7LXlHwfEI=;
-        b=dkWBD3j28RjiyO2uyFaNiXyoGOYh4stB5c3GKZn1A4v4a5R4cRrB9oYtlemt5Fsq2+
-         NZ2Qq6Atbmse1e7kWgsb0JHQlEJhYbjuxt4HOerDfvZI4Maqq2OXhNnwKa1o2C4LzdP9
-         Hv4X2DiGijHOwoGjZpPfZsuxHJNS/r6FL3nZXdme15qNYEP22SzzJANhCKd5WFL+X6Lu
-         bpYy/UmJhOXeKWiJzdkMJCzKlzpiKusIS9bG9YMGJVNWctlLl4FtWLLqt+xE+9g/abY+
-         GRRXclXgrE5HZrUVWcRYTzBZouGg/riVi8NSN24IDut9nb4N7CTHG1B9JCM0bPk9ZgrC
-         2kkg==
+        bh=kgJgaArgO+LTLU+v+0vmnZUyY2L/xXa/jijIgJz7koY=;
+        b=ITNsR2/RjheJTl66MUTnFH2M+7uwnS4BkhIBiBdbanSa+DDlrlgFHOn1W89d7oDRog
+         sJesu3Nfhy3915YfOrTfNLiDn2F7b6pVB4JO6QhUrB9dEoojw4a+CqmBA968IZHzF2hf
+         e35cYSqWWuGM35Sb/njZWwouaDmQ2t9l9Z6XxUW62+zt87jvPdZgTpyDze/9THiYOzu6
+         Odgap52J8JYji6h0UIfPgTPYqHF7GcjyITOR1OLNLpZLB5j2V1njQP9lvNMVp7cYub71
+         sCtTUERi1NifQ74136yXsuee828lxpFKwbTcgwL68ROl9JbYvm9Kl6EzaDRhtlYIyzqk
+         NX5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790986903; x=1791591703;
+        d=1e100.net; s=20260707; t=1790986904; x=1791591704;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=htfKz68Uuz6N9IF9mggRs6yYLkAuL8ZW2J7LXlHwfEI=;
-        b=z6Nv2Stbef2J4moVATtowz2q4+MsIbHtLSpq5kFKSNeX75rRpiOVp6FCLqJd9ZMrGT
-         Dvz47G8sV4S6rjHW0tniEJuWKAdoifVjJXCRBrY1uOcbbD23tSfROdJRuREWAlIApTm1
-         RZyjaNIFVPrNaY8lVsud1/DLOv269N1lFdogguhUME8syYehqcFDsxkOUtTEmgSkoXPu
-         G3PkkgJSp9XVHToMGxy7/hwV6p+Ry42UCesJvuYl30FVC0nZTOe2HfkzDZBlwl+dS3A4
-         6BKVpUhZCU0nNmNryweX8p4J8Sgf+of+VdhHa41zo2e9U5cVuyYHD5Fc8M7oZhUbYWf6
-         DjEw==
-X-Forwarded-Encrypted: i=1; AKwUvBw9P/1XK4501kXMGdAIpGYkw1Nh43LH21CWbFDhPQ7pHUg92IMeVvWgj66wXBjTn2mM6RIICSN3brHM1CA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4X9ptOEuCoLB5Vri6nRyxZsRwgEATFbDgjeyhDGrWBaId812u
-	UgZAnqIKKx3Ny70pAt7wKuLsHzzhsO54x3G2s76oKcF+leSYU813lgZdh5a8wnPw9VcP3rwvKKF
-	6ioTvGUeqDHKagQkUsK9Y+w==
-X-Received: from pgip23.prod.google.com ([2002:a63:c157:0:b0:cc7:6138:fe1b])
+        bh=kgJgaArgO+LTLU+v+0vmnZUyY2L/xXa/jijIgJz7koY=;
+        b=OYBD8PvT3YmbB0J4W6+HHly2iuoNUJLEIT/RfGYT4k0xxAp/JkUmOBwdmuLrcp9n4g
+         ng5MNB5oJO0rGSSkvyAkUPKoc0x7iS6EqYUsN2KIXzFfEBJQYoxWSEzCgnW5y9ygHHaP
+         dbF5voIaolXgXKucomWsUOQ5LVmzb+/S7jHNaQTIapk9ZNq3XvPML2lsvf9SrAJOjd7m
+         AL1xftZfNLx+XLv8d9iiP2+Tugz/Bb9ZqA+G8qOmYTNPRKDf6YfOz9VgJa5RNUNuqR+1
+         ZeBtrwek+j9puZgqECQykvxQ6DEVs+t0bcKaOiKRcD+VVSwz5nZJq+RWNrrM5MQnPQUk
+         Iw4g==
+X-Forwarded-Encrypted: i=1; AKwUvBxOPqmLS+WaRPntsub5tJyJ/mgS+J/3rI8W06QH3SWgS0YrPHuTnp5uUvYNpIBJciNPCltCVbiqXF+VrvU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQmjXLmVnnc+ykX+54OSjZ8s7dyYgAhOzUWyca2ebWAyPc65oj
+	Sqjoq9pNkmUXxNwlywKlh8uUbbEUudlYO2cz1m+qL3I+ZcvG0tYT+W/le9T0ZL+iPyBGz3x+n8k
+	VmYeO+J5EEJLOINbng8ntkA==
+X-Received: from pghs8.prod.google.com ([2002:a63:e808:0:b0:cca:5338:9514])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:1bc6:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3e0d68c7030mr953918637.9.1790986902363;
- Fri, 02 Oct 2026 17:21:42 -0700 (PDT)
-Date: Sat,  3 Oct 2026 00:21:12 +0000
+ 2002:a05:6a20:cfa8:b0:3de:4662:16f3 with SMTP id adf61e73a8af0-3e0d6b4a29bmr858218637.50.1790986904231;
+ Fri, 02 Oct 2026 17:21:44 -0700 (PDT)
+Date: Sat,  3 Oct 2026 00:21:14 +0000
 In-Reply-To: <20261003002123.505555-1-jthoughton@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261003002123.505555-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003002123.505555-10-jthoughton@google.com>
-Subject: [PATCH v2 09/20] hugetlb_vmemmap: Allow architectures to make HVO
- enablement boot-time only
+Message-ID: <20261003002123.505555-12-jthoughton@google.com>
+Subject: [PATCH v2 11/20] arm64: Add bbm_through_af capability
 From: James Houghton <jthoughton@google.com>
 To: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
 	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -76,108 +75,106 @@ Cc: Nikos Nikoleris <nikos.nikoleris@arm.com>, Linu Cherian <linu.cherian@arm.co
 	linux-mm@kvack.org
 Content-Type: text/plain; charset="UTF-8"
 
-arm64 needs all CPUs to support hardware updates of the access flag to
-safely update the vmemmap in place, and it will need to refuse to online
-CPUs that lack it, but only if HVO may be used. This only works if HVO
-cannot be dynamically enabled, otherwise incompatible CPUs may have
-already been onlined at enable time.
+HVO requires BBM Level 3 for the block -> table transitions when
+optimizing the vmemmap, and it requires hardware AF management to avoid
+taking page faults on the !AF translation that is installed as part of
+the RW table -> RO + new OA table transitions.
 
-Add CONFIG_ARCH_WANT_HUGETLB_VMEMMAP_RO_AFTER_INIT for architectures to
-select. When selected, vmemmap_optimize_enabled is __ro_after_init, so
-it can only be set with the hugetlb_free_vmemmap= kernel command line
-parameter, and the sysctl is made read-only.
+Call this requirement "BBM through AF"; i.e., all CPUs support BBM-less,
+in-place TTD updates. Model this as a system feature, as all CPUs must
+support it for the kernel to use it.
+
+It may seem odd to check for HVO support directly in bbm_through_af().
+If this weren't done, any system with mismatched HW AF will no longer be
+able to start late CPUs that are missing HW AF if all early CPUs have HW
+AF (and BBML3).
 
 Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- Documentation/admin-guide/sysctl/vm.rst |  3 +++
- fs/Kconfig                              |  3 ++-
- mm/Kconfig                              |  9 +++++++++
- mm/hugetlb_vmemmap.c                    | 17 +++++++++++++++--
- 4 files changed, 29 insertions(+), 3 deletions(-)
+ arch/arm64/include/asm/cpufeature.h |  5 +++++
+ arch/arm64/kernel/cpufeature.c      | 26 ++++++++++++++++++++++++++
+ arch/arm64/tools/cpucaps            |  1 +
+ 3 files changed, 32 insertions(+)
 
-diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
-index 5b318d17aa4b..d962d563cfd4 100644
---- a/Documentation/admin-guide/sysctl/vm.rst
-+++ b/Documentation/admin-guide/sysctl/vm.rst
-@@ -692,6 +692,9 @@ pages.  So, those surplus pages are still optimized until they are no longer
- in use.  You would need to wait for those surplus pages to be released before
- there are no optimized pages in the system.
- 
-+On some architectures, this knob is read-only, and HVO can only be enabled or
-+disabled with the hugetlb_free_vmemmap= kernel command line parameter.
-+
- 
- nr_hugepages_mempolicy
- ======================
-diff --git a/fs/Kconfig b/fs/Kconfig
-index 1454b7fe9641..4222db17ba02 100644
---- a/fs/Kconfig
-+++ b/fs/Kconfig
-@@ -267,7 +267,8 @@ config HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON
- 	help
- 	  The HugeTLB Vmemmap Optimization (HVO) defaults to off. Say Y here to
- 	  enable HVO by default. It can be disabled via hugetlb_free_vmemmap=off
--	  (boot command line) or hugetlb_optimize_vmemmap (sysctl).
-+	  (boot command line) or hugetlb_optimize_vmemmap (sysctl, if the
-+	  architecture allows changing it at runtime).
- endif # HUGETLBFS
- 
- config HUGETLB_PAGE
-diff --git a/mm/Kconfig b/mm/Kconfig
-index acefc994d9a8..ad313fddc9da 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -475,6 +475,15 @@ config ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
- config ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP
- 	bool
- 
-+#
-+# Select this config option from the architecture Kconfig if HugeTLB vmemmap
-+# optimization may only be enabled or disabled on the kernel command line, e.g.
-+# because the architecture configures the system at boot based on whether it
-+# is enabled. This makes the hugetlb_optimize_vmemmap sysctl read-only.
-+#
-+config ARCH_WANT_HUGETLB_VMEMMAP_RO_AFTER_INIT
-+	bool
-+
- config HAVE_MEMBLOCK_PHYS_MAP
- 	bool
- 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 817ce39d4cf3..de4148a8aabf 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -428,7 +428,20 @@ static int vmemmap_remap_alloc(const struct hstate *h, struct folio *folio,
- 	return ret;
+diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
+index 4f04ad82ea34..fbededd7b748 100644
+--- a/arch/arm64/include/asm/cpufeature.h
++++ b/arch/arm64/include/asm/cpufeature.h
+@@ -878,6 +878,11 @@ static inline bool system_supports_bbml3(void)
+ 	return alternative_has_cap_unlikely(ARM64_HAS_BBML3);
  }
  
--static bool vmemmap_optimize_enabled = IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON);
-+/*
-+ * Architectures selecting CONFIG_ARCH_WANT_HUGETLB_VMEMMAP_RO_AFTER_INIT rely on
-+ * HVO only being enabled or disabled on the kernel command line.
-+ */
-+#ifdef CONFIG_ARCH_WANT_HUGETLB_VMEMMAP_RO_AFTER_INIT
-+#define __vmemmap_optimize_enabled_attr	__ro_after_init
-+#define HUGETLB_VMEMMAP_SYSCTL_MODE	0444
-+#else
-+#define __vmemmap_optimize_enabled_attr
-+#define HUGETLB_VMEMMAP_SYSCTL_MODE	0644
-+#endif
++static inline bool system_supports_bbm_through_af(void)
++{
++	return alternative_has_cap_unlikely(ARM64_HAS_BBM_THROUGH_AF);
++}
 +
-+static bool vmemmap_optimize_enabled __vmemmap_optimize_enabled_attr =
-+	IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON);
- static int __init hugetlb_vmemmap_optimize_param(char *buf)
+ int do_emulate_mrs(struct pt_regs *regs, u32 sys_reg, u32 rt);
+ bool try_emulate_mrs(struct pt_regs *regs, u32 isn);
+ 
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 32102c3912fa..448d4ef085de 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -76,6 +76,7 @@
+ #include <linux/kasan.h>
+ #include <linux/percpu.h>
+ #include <linux/sched/isolation.h>
++#include <linux/hugetlb.h>
+ 
+ #include <asm/arm_pmuv3.h>
+ #include <asm/cpu.h>
+@@ -2193,6 +2194,25 @@ static bool has_bbml3(const struct arm64_cpu_capabilities *caps, int scope)
+ 	return cpu_supports_bbml3();
+ }
+ 
++static bool has_bbm_through_af(const struct arm64_cpu_capabilities *caps, int scope)
++{
++	/*
++	 * BBM-through-AF is only needed for HVO. If HVO is not in use, don't
++	 * penalize systems with mismatched support.
++	 */
++	if (!hugetlb_vmemmap_optimize_enabled()) {
++		BUILD_BUG_ON(!IS_ENABLED(CONFIG_ARCH_WANT_HUGETLB_VMEMMAP_RO_AFTER_INIT));
++		return false;
++	}
++
++	/*
++	 * We need BBML3 to support Block -> Table transitions without taking
++	 * faults, and we need HW AF support to support changing the OA without
++	 * taking faults.
++	 */
++	return cpu_supports_bbml3() && cpu_has_hw_af();
++}
++
+ static void cpu_enable_pan(const struct arm64_cpu_capabilities *__unused)
  {
- 	return kstrtobool(buf, &vmemmap_optimize_enabled);
-@@ -751,7 +764,7 @@ static const struct ctl_table hugetlb_vmemmap_sysctls[] = {
- 		.procname	= "hugetlb_optimize_vmemmap",
- 		.data		= &vmemmap_optimize_enabled,
- 		.maxlen		= sizeof(vmemmap_optimize_enabled),
--		.mode		= 0644,
-+		.mode		= HUGETLB_VMEMMAP_SYSCTL_MODE,
- 		.proc_handler	= proc_dobool,
+ 	/*
+@@ -3102,6 +3122,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
+ 		.type = ARM64_CPUCAP_EARLY_LOCAL_CPU_FEATURE,
+ 		.matches = has_bbml3,
  	},
- };
++	{
++		.desc = "BBM-less TTD updates via Access Flag",
++		.capability = ARM64_HAS_BBM_THROUGH_AF,
++		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
++		.matches = has_bbm_through_af,
++	},
+ 	{
+ 		.desc = "52-bit Virtual Addressing for KVM (LPA2)",
+ 		.capability = ARM64_HAS_LPA2,
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index 2775ba3359cf..25a84aa8a363 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -15,6 +15,7 @@ HAS_ADDRESS_AUTH_IMP_DEF
+ HAS_AMU_EXTN
+ HAS_ARMv8_4_TTL
+ HAS_BBML3
++HAS_BBM_THROUGH_AF
+ HAS_CACHE_DIC
+ HAS_CACHE_IDC
+ HAS_CNP
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
