@@ -1,316 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D53F34D4F9;
-	Sat,  3 Oct 2026 16:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5D7485515;
+	Sat,  3 Oct 2026 16:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791044830; cv=none; b=o822u2RocdRLc3ro+PHA4N/BlmzjqcoHs8IZv9ATfh8L5wXYZRLCh22Qn0rB68ysVlniooIp8kN1SvOrqXrCxZ4R0gltIK90FhxxpffOdx9uyyIUCKuYnmyjuKWQoeDS0VzzcnXU+VOesunGqc5oFShRrSp7XTEsDEkUcYdxNsM=
+	t=1791044964; cv=none; b=f0c7A9kAJHbU6/0+tipCedmr8ciA60cdYhUZJ2mdEuJtGytP++AR6gF2FJ08/zU5kN5zGWh+mm5aD+ZDuf4chvglcDA9YHTK1DYknbtLsD+jAoff6QGCZJCgz2f5SPMctE+m0X2wymrrHxxBQMBBlZFCaAYA6zOkNzUebUmlD7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791044830; c=relaxed/simple;
-	bh=VfCrO1pLydDrhtifp9zRhPI/jnHiuDO3xGPLCASpqC0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MzZsbhtDdhUzQaot8vIN3qdoud1CiI3AI9H0zanXrJudcbFVfzFyYdK4zJIBgYu8ga37765sXHW0cmeCJ7KPXDv91nSjmrBYr2kg6vzhg9spypK9TcGlgLT0dccy6vtafLsOhoJYmF5HHM2hYjsm3nJbJd34ivh41WkMAW3uUM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tBWwnuSI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791044964; c=relaxed/simple;
+	bh=NwM74oRXrPpti1G7Y2pyZK/qCEPbjPiylIVFE0vYADU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l27ERYxHaX2H+gtjT8WLx5YOQ9Wq0UZ4XBMD7Wy8eLQGuvFeiuvj+Dv7foQMVoJo4ac0BkoXHuK+wooGOCavOE7W+SGhe8SyWtKlfqGcRORlivJ47P2zksJ7oO3LKSdjLVIB0boamxRkegkOPOK+s1CI1+RrF8I5QSyuoKvbjdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoPe6oe0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tBWwnuSI"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1F276C2BCB9;
-	Sat,  3 Oct 2026 16:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791044830;
-	bh=VfCrO1pLydDrhtifp9zRhPI/jnHiuDO3xGPLCASpqC0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=tBWwnuSI/kfns0DrSQSM0LIENSeqxOwk0YV3wkK64b3zoZcPIugWRzYl+TShXaGr7
-	 i83eycop6yvbw52huogawtIBQmiAWbYmlp4fs18sZv/SEuENZe66cKOc423emcbmXB
-	 s7zplZJ5Vd/EVw63vtsKyqDiR7fjKy9UWGA4mHGhQV9SAjxuZ403klVbgDHOTv3B1P
-	 D+M4ePJbVWFysDEKbHHkfusaRintdm93jFNqaQOdxJA9ENPXJDNPXxj4r/foAyA1fN
-	 g+PGz4WAjc1EHZtcIRN1Xc4cnEkWqeU2Z1Y9mzzpl+qVBM5bsqSZNDVHrmzcp8hxkN
-	 zJyyvuVGRHVGw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C19CCA5FED;
-	Sat,  3 Oct 2026 16:27:10 +0000 (UTC)
-From: Lawrence Lin via B4 Relay <devnull+deduce.gmail.com@kernel.org>
-Date: Sat, 03 Oct 2026 11:27:10 -0500
-Subject: [PATCH] ftrace: Avoid quadratic symbol lookups in
- ftrace_module_enable()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoPe6oe0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC32A1F0089B;
+	Sat,  3 Oct 2026 16:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791044962;
+	bh=8G2+e0Us6mjX1OgDT9B9dMGeP6uvZKD2lijXaK951XE=;
+	h=From:To:Cc:Subject:Date;
+	b=YoPe6oe0KQ3fBRDP0mieDIEASTPFtgUJlLrFOfRboBzJgZ+uRAk9Y3T0Je6SJagzN
+	 HSCxBiAe2WV3/1LulmqVYpvM/eKnvmNfSW9lb30x4K/SyQheahp9Yy/GdsjQUgkLVm
+	 IAWZYG4Ayi7cyjHpiUVA+CtOqKL2YQkqBCj3fKqXwxf+/N13ZOfY1ZLYVLBk9WgyNv
+	 xTYQP81rvsBOft2zVqBBCIeTxctVVCRp11PZRNgJUbmN1eetd9JBny5HzPqvqiD8ZJ
+	 7hIQDQghlY52ndkML96Ak6cnPxiU4eVd4El0Ot0Ell5cN488UnHKpmk5PASLU7oAH1
+	 LkRID6HtEWztw==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH v2] lib: Move SipHash into lib/crypto/
+Date: Sat,  3 Oct 2026 18:28:27 +0200
+Message-ID: <20261003162827.155527-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-ftrace-mod-bsearch-v1-1-92e2fd2d80ff@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJKRaMVzEuSvmBIRHMDBoTw
- t2tsvwW721kUIHRtdhI8RaTZc4oTwWlMc4DWLps8s7XpXMV96vGBH4sHbeGqGnkUJ3jpQ6+AQL
- l8Kno5fOf3u6H7dVOSOvvRPv+BYB4eHF2AAAA
-X-Change-ID: 20261003-ftrace-mod-bsearch-534a86527ee5
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Petr Pavlu <petr.pavlu@suse.com>, linux-modules@vger.kernel.org, 
- Stanislaw Gruszka <stf_xl@wp.pl>, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, Lawrence Lin <deduce@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791044829; l=8694;
- i=deduce@gmail.com; s=default; h=from:subject:message-id;
- bh=VNnLgJUKJ7lFwhFtPA6FsMT52qOV2kVtmjhNwuYT/s8=;
- b=wvDOC5G4qKnZQ0Cra34A94gJ0jvk3ihF7MC1BfYbIznaE9dXPzf0gFoS0528q80WOovPMwTJu
- 4sgLAqR3dh2A3n1S20dmM+/pWZbIYozoQGsjY87Dm7/Aw7966u1lUhQ
-X-Developer-Key: i=deduce@gmail.com; a=ed25519;
- pk=Ws6hmG/zoco3lMoykbeaYjo9S7a6sDddQY8EALjp9cM=
-X-Endpoint-Received: by B4 Relay for deduce@gmail.com/default with
- auth_id=1106
-X-Original-From: Lawrence Lin <deduce@gmail.com>
-Reply-To: deduce@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Lawrence Lin <deduce@gmail.com>
+The addition of SipHash to lib/ predated the existence of the
+lib/crypto/ directory.  Since SipHash is a cryptographic algorithm, move
+it from the top-level lib/ directory to lib/crypto/.
 
-Since commit b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid
-adding weak function"), ftrace_module_enable() calls test_for_valid_rec()
-for every ftrace record of a module being loaded. test_for_valid_rec()
-resolves the record address with kallsyms_lookup(), and for a module
-address find_kallsyms_symbol() scans the whole symbol table of the module.
-Loading a module therefore costs O(records * symbols), all of it under
-ftrace_lock.
+(This does mean HalfSipHash comes with it too, as it's in the same
+files.  But lib/crypto/ still seems like the proper place for both.)
 
-For large drivers this dominates module load time. amdgpu.ko has 16821
-ftrace records and about 67000 defined symbols. On a Ryzen 3 3200U
-(x86_64, v7.2.5, amdgpu loaded from the initramfs), amdgpu finishes
-initializing 6.2 s into boot without this patch and 1.8 s with it, and
-the kernel part of boot reported by systemd-analyze drops from 6.87 s to
-2.47 s (four boots each). Loading radeon and nouveau, which have no
-hardware on that machine, goes from 170 ms to 87 ms and from 520 ms to
-145 ms. Commit 4099b98203d6 ("ftrace: Fix softlockup in
-ftrace_module_enable") already had to add a cond_resched() to this loop
-because of amdgpu.
+Specifically:
 
-Instead of one lookup per record, collect the addresses of the module's
-symbols once, using the same filters as find_kallsyms_symbol(), sort them
-into a temporary array, and binary search it for each record. A record is
-valid when the closest symbol at or below its address lies in the same
-module memory region and no more than FTRACE_MCOUNT_MAX_OFFSET below it,
-which is exactly what test_for_valid_rec() checks. If the array cannot be
-allocated, the per-record lookup is used as before.
+- Move both siphash.c and siphash_kunit.c.  Keep the header
+  <linux/siphash.h> as-is for now.
 
-An earlier attempt [1] sorted the module symbol table itself to speed up
-every lookup. Its review pointed out that livepatch relocations index into
-that table, that the sort is not stable for aliases, and that data
-symbols and weak functions need care. This change leaves the symbol table
-untouched and only compares addresses, applying the same filters as
-find_kallsyms_symbol(), so none of these apply.
+- Drop the dedicated MAINTAINERS entry for SipHash, as per the
+  suggestion from Jason
+  (https://lore.kernel.org/r/asB7QVFMlgKgbje2@zx2c4.com/).  The C files
+  now just fold up to the "CRYPTO LIBRARY" entry.  Add the header
+  explicitly, as it otherwise would be left unmaintained.
 
-[1] https://lore.kernel.org/all/20260327110005.16499-2-stf_xl@wp.pl/
+- Move the kconfig option that controls the KUnit test.  Put
+  "CRYPTO_LIB" in its name and update the prompt and help text to make
+  it consistent with the other crypto library test options.
 
-Fixes: b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid adding weak function")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Lawrence Lin <deduce@gmail.com>
+- Enable the KUnit test in lib/crypto/.kunitconfig.
+
+- Link to siphash.rst from the appropriate place in libcrypto-hash.rst.
+
+- Use obj-y instead of lib-y, for consistency with the fact that
+  currently lib/crypto/ doesn't use kbuild's support for library file
+  goals.  We could keep it as lib-y, but virtually every kernel needs
+  SipHash support anyway (with vsprintf, printk, IPv4, IPv6, etc.
+  depending on it) so there is no practical difference in this case.
+
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Acked-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
-Tested on x86_64 (Ryzen 3 3200U, amdgpu):
 
-- v7.2.5, with and without the patch, same config: the boot numbers
-  above, and an identical available_filter_functions (85769 entries,
-  16821 of them in amdgpu).
-- v7.3-rc5 with a debug build that runs test_for_valid_rec() and the new
-  check side by side for every record: 141 modules loaded at boot plus
-  the selftest modules, and no record on which the two disagree.
-- v7.3-rc5, with and without the patch: the ftrace selftests (159
-  passed, 0 failed, the same unresolved and xfail cases on both), all
-  eight livepatch selftests, samples/livepatch loaded, disabled and
-  unloaded, and FTRACE_STARTUP_TEST.
-- ftrace.o builds without warnings at W=1 for x86_64 (KALLSYMS_ALL=y
-  and =n, MODULES=n, LIVEPATCH=y), ppc64le, and arm64, which does not
-  define FTRACE_MCOUNT_MAX_OFFSET and keeps the existing path.
+This patch is targeting libcrypto-next
 
-Not tested: running on powerpc, the other architecture that defines
-FTRACE_MCOUNT_MAX_OFFSET, and building 32-bit powerpc (the cross
-toolchain used here could not enable the function tracer).
+v2: 
+   - Dropped the MAINTAINERS entry entirely
+   - Noted the consideration of HalfSipHash in the commit message
+   - Added Acked-by's
+   - Moved siphash.o line to proper alphabetic order and added a comment
+     similar to the blake2s.o one
+   - Tweaked the actual help text for the test kconfig entry as well, to
+     be consistent with the other options in the same menu
 
-This follows Petr's suggestion of a separate sorted array from the
-review of [1], kept local to ftrace. Stanislaw, Cc'd as the author of
-that series.
----
- kernel/trace/ftrace.c | 127 +++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 126 insertions(+), 1 deletion(-)
+ Documentation/crypto/libcrypto-hash.rst          |  5 +++++
+ MAINTAINERS                                      |  8 +-------
+ lib/Kconfig.debug                                | 11 -----------
+ lib/Makefile                                     |  2 +-
+ lib/crypto/.kunitconfig                          |  1 +
+ lib/crypto/Makefile                              |  6 ++++++
+ lib/{ => crypto}/siphash.c                       |  0
+ lib/crypto/tests/Kconfig                         |  9 +++++++++
+ lib/crypto/tests/Makefile                        |  1 +
+ lib/{ => crypto}/tests/siphash_kunit.c           |  0
+ lib/tests/Makefile                               |  1 -
+ tools/testing/selftests/bpf/progs/test_siphash.h |  2 +-
+ 12 files changed, 25 insertions(+), 21 deletions(-)
+ rename lib/{ => crypto}/siphash.c (100%)
+ rename lib/{ => crypto}/tests/siphash_kunit.c (100%)
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 673a54fdf392..36c97c605fb5 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -18,6 +18,7 @@
- #include <linux/clocksource.h>
- #include <linux/sched/task.h>
- #include <linux/kallsyms.h>
-+#include <linux/module_symbol.h>
- #include <linux/security.h>
- #include <linux/seq_file.h>
- #include <linux/tracefs.h>
-@@ -4385,6 +4386,109 @@ static int test_for_valid_rec(struct dyn_ftrace *rec)
- 	return 1;
- }
+diff --git a/Documentation/crypto/libcrypto-hash.rst b/Documentation/crypto/libcrypto-hash.rst
+index fa4c54236af6..d1e2d2ff06f4 100644
+--- a/Documentation/crypto/libcrypto-hash.rst
++++ b/Documentation/crypto/libcrypto-hash.rst
+@@ -80,6 +80,11 @@ SHA-3
  
-+#if defined(CONFIG_MODULES) && defined(CONFIG_KALLSYMS)
-+#define FTRACE_MOD_SYMS
-+/*
-+ * test_for_valid_rec() resolves an address with kallsyms_lookup(), which
-+ * scans the whole symbol table of a module. Calling it for every record of
-+ * a module being loaded costs O(records * symbols): several seconds for a
-+ * driver as large as amdgpu, all of it under ftrace_lock. Sort the symbol
-+ * addresses of the module once instead and binary search them. The module
-+ * symbol table itself is left untouched, as livepatch relies on its order.
-+ */
-+struct ftrace_mod_syms {
-+	unsigned long *addrs;
-+	unsigned int nr;
-+};
-+
-+static int ftrace_cmp_addr(const void *a, const void *b)
-+{
-+	unsigned long x = *(const unsigned long *)a;
-+	unsigned long y = *(const unsigned long *)b;
-+
-+	return x < y ? -1 : x > y;
-+}
-+
-+/* Collect the symbols find_kallsyms_symbol() would consider. */
-+static void ftrace_mod_syms_init(struct ftrace_mod_syms *syms,
-+				 struct module *mod)
-+{
-+	/* A coming module cannot have its kallsyms replaced under us. */
-+	struct mod_kallsyms *kallsyms = rcu_dereference_raw(mod->kallsyms);
-+	unsigned int i;
-+
-+	syms->nr = 0;
-+	syms->addrs = kvmalloc_array(kallsyms->num_symtab,
-+				     sizeof(*syms->addrs), GFP_KERNEL);
-+	if (!syms->addrs)
-+		return;
-+
-+	for (i = 1; i < kallsyms->num_symtab; i++) {
-+		const Elf_Sym *sym = &kallsyms->symtab[i];
-+		const char *name = kallsyms->strtab + sym->st_name;
-+
-+		if (sym->st_shndx == SHN_UNDEF || *name == '\0' ||
-+		    is_mapping_symbol(name))
-+			continue;
-+		syms->addrs[syms->nr++] = kallsyms_symbol_value(sym);
-+	}
-+
-+	sort(syms->addrs, syms->nr, sizeof(*syms->addrs), ftrace_cmp_addr, NULL);
-+}
-+
-+/* Same answer as test_for_valid_rec(), using the sorted addresses. */
-+static int test_for_valid_mod_rec(struct ftrace_mod_syms *syms,
-+				  struct module *mod, struct dyn_ftrace *rec)
-+{
-+	unsigned long ip = rec->ip, base, best;
-+	unsigned int lo = 0, hi = syms->nr, mid;
-+	struct module_memory *mod_mem = NULL;
-+
-+	if (!syms->addrs)
-+		return test_for_valid_rec(rec);
-+
-+	for_each_mod_mem_type(type) {
-+#ifndef CONFIG_KALLSYMS_ALL
-+		if (!mod_mem_type_is_text(type))
-+			continue;
-+#endif
-+		if (within_module_mem_type(ip, mod, type)) {
-+			mod_mem = &mod->mem[type];
-+			break;
-+		}
-+	}
-+	if (!mod_mem)
-+		goto invalid;
-+	base = (unsigned long)mod_mem->base;
-+
-+	/* Find the last symbol at or below ip. */
-+	while (lo < hi) {
-+		mid = lo + (hi - lo) / 2;
-+		if (syms->addrs[mid] <= ip)
-+			lo = mid + 1;
-+		else
-+			hi = mid;
-+	}
-+	if (!lo)
-+		goto invalid;
-+	best = syms->addrs[lo - 1];
-+
-+	/* Weak functions can cause invalid addresses */
-+	if (best < base || ip - best > FTRACE_MCOUNT_MAX_OFFSET)
-+		goto invalid;
-+	return 1;
-+
-+invalid:
-+	rec->flags |= FTRACE_FL_DISABLED;
-+	return 0;
-+}
-+
-+static void ftrace_mod_syms_free(struct ftrace_mod_syms *syms)
-+{
-+	kvfree(syms->addrs);
-+}
-+#endif
-+
- static struct workqueue_struct *ftrace_check_wq __initdata;
- static struct work_struct ftrace_check_work __initdata;
+ The SHA-3 API is documented in :ref:`sha3`.
  
-@@ -8010,11 +8114,30 @@ void ftrace_release_mod(struct module *mod)
- 	}
- }
- 
-+#ifndef FTRACE_MOD_SYMS
-+struct ftrace_mod_syms { };
++SipHash
++-------
 +
-+static inline void ftrace_mod_syms_init(struct ftrace_mod_syms *syms,
-+					struct module *mod) { }
++The SipHash API is documented in Documentation/security/siphash.rst.
 +
-+static inline int test_for_valid_mod_rec(struct ftrace_mod_syms *syms,
-+					 struct module *mod,
-+					 struct dyn_ftrace *rec)
-+{
-+	return test_for_valid_rec(rec);
-+}
+ SM3
+ ---
+ 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9dc69113f47a..f4d49df0774b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6980,6 +6980,7 @@ S:	Maintained
+ T:	git https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git libcrypto-next
+ T:	git https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git libcrypto-fixes
+ F:	Documentation/crypto/libcrypto*
++F:	include/linux/siphash.h
+ F:	lib/crypto/
+ F:	scripts/crypto/
+ 
+@@ -25113,13 +25114,6 @@ F:	drivers/gpio/gpio-siox.c
+ F:	drivers/siox/*
+ F:	include/trace/events/siox.h
+ 
+-SIPHASH PRF ROUTINES
+-M:	Jason A. Donenfeld <Jason@zx2c4.com>
+-S:	Maintained
+-F:	include/linux/siphash.h
+-F:	lib/siphash.c
+-F:	lib/tests/siphash_kunit.c
+-
+ SIS 190 ETHERNET DRIVER
+ M:	Francois Romieu <romieu@fr.zoreil.com>
+ L:	netdev@vger.kernel.org
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 134b15a44625..0f37a552318d 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -3075,17 +3075,6 @@ config HW_BREAKPOINT_KUNIT_TEST
+ 
+ source "lib/crypto/tests/Kconfig"
+ 
+-config SIPHASH_KUNIT_TEST
+-	tristate "Perform selftest on siphash functions" if !KUNIT_ALL_TESTS
+-	depends on KUNIT
+-	default KUNIT_ALL_TESTS
+-	help
+-	  Enable this option to test the kernel's siphash (<linux/siphash.h>) hash
+-	  functions on boot (or module load).
+-
+-	  This is intended to help people writing architecture-specific
+-	  optimized versions.  If unsure, say N.
+-
+ config USERCOPY_KUNIT_TEST
+ 	tristate "KUnit Test for user/kernel boundary protections"
+ 	depends on KUNIT
+diff --git a/lib/Makefile b/lib/Makefile
+index dfab958327c5..e1eb91d62a30 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -38,7 +38,7 @@ lib-y := ctype.o string.o vsprintf.o cmdline.o \
+ 	 maple_tree.o idr.o extable.o irq_regs.o argv_split.o \
+ 	 flex_proportions.o ratelimit.o \
+ 	 is_single_threaded.o plist.o decompress.o kobject_uevent.o \
+-	 earlycpio.o seq_buf.o siphash.o dec_and_lock.o \
++	 earlycpio.o seq_buf.o dec_and_lock.o \
+ 	 nmi_backtrace.o win_minmax.o memcat_p.o \
+ 	 buildid.o objpool.o iomem_copy.o sys_info.o
+ 
+diff --git a/lib/crypto/.kunitconfig b/lib/crypto/.kunitconfig
+index 60e0a77f9889..6f218cd2d0c3 100644
+--- a/lib/crypto/.kunitconfig
++++ b/lib/crypto/.kunitconfig
+@@ -19,4 +19,5 @@ CONFIG_CRYPTO_LIB_SHA1_KUNIT_TEST=y
+ CONFIG_CRYPTO_LIB_SHA256_KUNIT_TEST=y
+ CONFIG_CRYPTO_LIB_SHA512_KUNIT_TEST=y
+ CONFIG_CRYPTO_LIB_SHA3_KUNIT_TEST=y
++CONFIG_CRYPTO_LIB_SIPHASH_KUNIT_TEST=y
+ CONFIG_CRYPTO_LIB_SM3_KUNIT_TEST=y
+diff --git a/lib/crypto/Makefile b/lib/crypto/Makefile
+index d683b8520f55..832d170cab94 100644
+--- a/lib/crypto/Makefile
++++ b/lib/crypto/Makefile
+@@ -376,6 +376,12 @@ endif # CONFIG_CRYPTO_LIB_SHA3_ARCH
+ 
+ ################################################################################
+ 
++# SipHash support is always built-in because it's used by core components such
++# as printk (for pointer hashing) and networking.
++obj-y += siphash.o
 +
-+static inline void ftrace_mod_syms_free(struct ftrace_mod_syms *syms) { }
-+#endif
++################################################################################
 +
- void ftrace_module_enable(struct module *mod)
- {
-+	struct ftrace_mod_syms syms;
- 	struct dyn_ftrace *rec;
- 	struct ftrace_page *pg;
+ obj-$(CONFIG_CRYPTO_LIB_SM3) += libsm3.o
+ libsm3-y := sm3.o
+ ifeq ($(CONFIG_CRYPTO_LIB_SM3_ARCH),y)
+diff --git a/lib/siphash.c b/lib/crypto/siphash.c
+similarity index 100%
+rename from lib/siphash.c
+rename to lib/crypto/siphash.c
+diff --git a/lib/crypto/tests/Kconfig b/lib/crypto/tests/Kconfig
+index e121114624da..67026ef1e8f6 100644
+--- a/lib/crypto/tests/Kconfig
++++ b/lib/crypto/tests/Kconfig
+@@ -151,6 +151,15 @@ config CRYPTO_LIB_SHA3_KUNIT_TEST
+ 	  including SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128 and
+ 	  SHAKE256.
  
-+	ftrace_mod_syms_init(&syms, mod);
++config CRYPTO_LIB_SIPHASH_KUNIT_TEST
++	tristate "KUnit tests for SipHash" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	# SipHash support is always built-in, so there's no kconfig option for
++	# it that needs to be depended on here.
++	help
++	  KUnit tests for the SipHash cryptographically secure PRF.
 +
- 	mutex_lock(&ftrace_lock);
+ config CRYPTO_LIB_SM3_KUNIT_TEST
+ 	tristate "KUnit tests for SM3" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT && CRYPTO_LIB_SM3
+diff --git a/lib/crypto/tests/Makefile b/lib/crypto/tests/Makefile
+index c97c1d78784a..f639d76a8fb7 100644
+--- a/lib/crypto/tests/Makefile
++++ b/lib/crypto/tests/Makefile
+@@ -17,4 +17,5 @@ obj-$(CONFIG_CRYPTO_LIB_SHA1_KUNIT_TEST) += sha1_kunit.o
+ obj-$(CONFIG_CRYPTO_LIB_SHA256_KUNIT_TEST) += sha224_kunit.o sha256_kunit.o
+ obj-$(CONFIG_CRYPTO_LIB_SHA512_KUNIT_TEST) += sha384_kunit.o sha512_kunit.o
+ obj-$(CONFIG_CRYPTO_LIB_SHA3_KUNIT_TEST) += sha3_kunit.o
++obj-$(CONFIG_CRYPTO_LIB_SIPHASH_KUNIT_TEST) += siphash_kunit.o
+ obj-$(CONFIG_CRYPTO_LIB_SM3_KUNIT_TEST) += sm3_kunit.o
+diff --git a/lib/tests/siphash_kunit.c b/lib/crypto/tests/siphash_kunit.c
+similarity index 100%
+rename from lib/tests/siphash_kunit.c
+rename to lib/crypto/tests/siphash_kunit.c
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index 3cac3b63a752..1a3d39db268f 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -46,7 +46,6 @@ obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
+ obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
+ obj-$(CONFIG_SCANF_KUNIT_TEST) += scanf_kunit.o
+ obj-$(CONFIG_SEQ_BUF_KUNIT_TEST) += seq_buf_kunit.o
+-obj-$(CONFIG_SIPHASH_KUNIT_TEST) += siphash_kunit.o
+ obj-$(CONFIG_SLUB_KUNIT_TEST) += slub_kunit.o
+ obj-$(CONFIG_TEST_SORT) += test_sort.o
+ CFLAGS_stackinit_kunit.o += $(call cc-disable-warning, switch-unreachable)
+diff --git a/tools/testing/selftests/bpf/progs/test_siphash.h b/tools/testing/selftests/bpf/progs/test_siphash.h
+index 5d3a7ec36780..9a85670a9dea 100644
+--- a/tools/testing/selftests/bpf/progs/test_siphash.h
++++ b/tools/testing/selftests/bpf/progs/test_siphash.h
+@@ -22,7 +22,7 @@ static inline u64 rol64(u64 word, unsigned int shift)
+ #define SIPHASH_CONST_2 0x6c7967656e657261ULL
+ #define SIPHASH_CONST_3 0x7465646279746573ULL
  
- 	if (ftrace_disabled)
-@@ -8050,7 +8173,7 @@ void ftrace_module_enable(struct module *mod)
- 		cond_resched();
+-/* lib/siphash.c */
++/* lib/crypto/siphash.c */
+ #define SIPROUND SIPHASH_PERMUTATION(v0, v1, v2, v3)
  
- 		/* Weak functions should still be ignored */
--		if (!test_for_valid_rec(rec)) {
-+		if (!test_for_valid_mod_rec(&syms, mod, rec)) {
- 			/* Clear all other flags. Should not be enabled anyway */
- 			rec->flags = FTRACE_FL_DISABLED;
- 			continue;
-@@ -8087,6 +8210,8 @@ void ftrace_module_enable(struct module *mod)
-  out_unlock:
- 	mutex_unlock(&ftrace_lock);
- 
-+	ftrace_mod_syms_free(&syms);
-+
- 	process_cached_mods(mod->name);
- }
- 
+ #define PREAMBLE(len) \
 
----
-base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
-change-id: 20261003-ftrace-mod-bsearch-534a86527ee5
-
-Best regards,
---  
-Lawrence Lin <deduce@gmail.com>
-
+base-commit: da4d5933e30340766925480f9dd9f250c4355e24
+-- 
+2.56.0
 
