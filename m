@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B2B377550;
-	Sat,  3 Oct 2026 07:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD9931A55B;
+	Sat,  3 Oct 2026 07:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791012115; cv=none; b=GjyOExc954vlX5T0TrpUYfh2s388aShFbY8zBAqFXBOs8lhhSads/ioV+H2iZmPz3zcMeCaCT/3/u0GhNf6L/a+/5azeoM4qyKm+IJYBZpZUH9VHBUFvGRCucUjd2SVOLdXoG8Td9H60AWje53SJlbV10A07Ssg5RB4e1H9jSr4=
+	t=1791012249; cv=none; b=VQistmxb3OA7aSWyonh8ZJ+zrfkDcy6+N3ojQBd8QpSMTUlCTFMSywB7Vz7BCi99AFtxrLYOoX33fynLQnCgbjDG/Olfz0xLUqGdGHxwPSFJi5ATxEjZaGSNv2kFWKlkWgQjlH5V1o8MGwvkWydalv+HlrfIRwB6Igl3s9KrzIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791012115; c=relaxed/simple;
-	bh=WLaw8WNdTsVs/wqmgeBzRXibzeRyQgwXxQpiJCZIv+A=;
+	s=arc-20240116; t=1791012249; c=relaxed/simple;
+	bh=ls0ZO43+ma3iDStM+kFjd5qaNWsSy3CfIS/OqIMT+oQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=YqzXayvtZ0nDygflEDqm7l/QZ0OdFpdBmvFiEL2NsWArzg1YQIbW6YwIZPjgkazq0GEd0W5Py105eb6peSsv1bstM+usMP1vsznB9axJFQe38UB1tY/KONQi0yKl14gjdCkqQpv/8cdqwlccAgA1ixnGgrYcNACwQ2OTQYtgrL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boqFFFpY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=k67ERshBg4nGlqyCQI8w2g5vDf4zywXdLGYcYszLEEzwsWrE4golKsO7pOVi24oogQ6NbinO8FoEznGyTVUMT9WcXIfQYt+iee2g4ubhsl58vldh22ln/duCs+2WbvpxdH+1b0mqou91UWLj7o/Yfjg5VSeTO4RBVzK139ft/oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2E4KbC4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boqFFFpY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3991F0089B;
-	Sat,  3 Oct 2026 07:21:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2E4KbC4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6696E1F0089B;
+	Sat,  3 Oct 2026 07:24:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791012113;
-	bh=Xoc2jJkqxh0W1JpflqN0cFCgG8i+IFymj+idMxZoelg=;
+	s=k20260515; t=1791012247;
+	bh=qBQhcpU3YPW+HWB5pcDxjmSRN+TDMaWncOCUHprWPBw=;
 	h=Date:From:To:Cc:Subject;
-	b=boqFFFpYrdheYDq+BAfBc47tcGIE56gKYmwaUXjqUzJa3whInDoUwlhJVChsCamqi
-	 5CyFRVEV3w0BZGCqlUEVrcqZD0FU0MGIVHIT4bGVUPj7G0NMZ2LlVBIkBZNrigl2Oe
-	 D5wV3/KgXlHANqgpjMkOI4tGv1dHs8l0TyDafQqQD03/DFyJbAUkDW/jpow6Qha6XD
-	 JJxEPySjnF+FVlirMq2BclTauHUD11jVqit8mkWxRY2kozqP6XO/R85X3ea1MrueGk
-	 ejVheY/yyjlOqkIZR/kxcD1J0FFco+7BGxg7ATVxZHDWinJ696/RlWtXIQyLRTDa0e
-	 srdaOM1W+UmKg==
-Date: Sat, 3 Oct 2026 00:21:52 -0700
+	b=M2E4KbC4DsJGkedsGQASuMGBrsvXMXnl7nAXUmXIx4Pb/+T44JwGYWWkoPN/sJ8Pc
+	 DteCblJ5UXL6YjPVxuF0NMDMGbeujlNspdl29rDmYcf8wpMKXw+l9O2W9js+iURjUU
+	 vhT50OeFGhLr4nLZV4UYZYoVYr0PwDjDt/VVSSHKJ2QB81YET/2BOGqLPq16KnphyZ
+	 IEaAFiKt3rr2tcPe7+tPtuKCartysbyf+FS8RUy3S3lGeMcGn8DMurW2ENzHgY+w/K
+	 p7rKQoz1zPOa0FvJ1kxW4uMV6fVWM/r3AU88OJzPuvAQpLK6morxLo6Q1Ip5hPXeEj
+	 hfuzGmJIkWSfg==
+Date: Sat, 3 Oct 2026 00:24:06 -0700
 From: Drew Fustini <fustini@kernel.org>
-To: soc@kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>, Han Gao <gaohan@iscas.ac.cn>,
-	Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: [GIT PULL] RISC-V T-HEAD devicetree changes for v7.4
-Message-ID: <asCtEGcXwUoOHyMA@x1gen8.tail89d63.ts.net>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] clk: tenstorrent: Atlantis PRCM fixes for v7.4
+Message-ID: <asCtllTmVqc1ZDBK@x1gen8.tail89d63.ts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,38 +56,35 @@ The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
 are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux.git tags/thead-dt-for-v7.4
+  https://git.kernel.org/pub/scm/linux/kernel/git/tenstorrent/linux.git tags/tenstorrent-clk-for-v7.4
 
-for you to fetch changes up to 2414ca8f5a0cafdfdb2b5899fd173adc09b5adf1:
+for you to fetch changes up to c64b54ddb692c30b8fb139a2ead32eb4db7faef5:
 
-  MAINTAINERS: Move RISC-V T-Head SoC tree to kernel.org (2026-10-01 23:34:22 -0700)
-
-----------------------------------------------------------------
-T-HEAD device tree changes for v7.4
-
-Add the Milk-V Meles, a single board computer with the TH1520 SoC:
-- Document the board compatible alongside the BeagleV Ahead
-- Add the base device tree with UART0, eMMC, microSD, Gigabit Ethernet
-  and the PWM fan
-- Enable the AP6256 Wi-Fi module on SDIO1
-- Enable HDMI output through the DC8200 display controller and the
-  DW-HDMI transmitter
-
-Also update MAINTAINERS: move the T-Head SoC tree T: entry to kernel.org
+  MAINTAINERS: Update RISC-V Tenstorrent SoC entry (2026-09-29 12:06:41 -0700)
 
 ----------------------------------------------------------------
-Drew Fustini (1):
-      MAINTAINERS: Move RISC-V T-Head SoC tree to kernel.org
+clk: tenstorrent: Atlantis PRCM fixes for v7.4
 
-Han Gao (4):
-      dt-bindings: riscv: thead: add Milk-V Meles
-      riscv: dts: thead: add Milk-V Meles
-      riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
-      riscv: dts: thead: enable HDMI on Milk-V Meles
+Minor cleanups for the Atlantis PRCM driver:
+- Set the onecell .num before the first store into .hws[]
+- Only bump the shared gate refcount once the enable has taken effect
+- Use regmap_assign_bits() in the plain gate op
 
- Documentation/devicetree/bindings/riscv/thead.yaml |   6 +-
- MAINTAINERS                                        |   2 +-
- arch/riscv/boot/dts/thead/Makefile                 |   1 +
- arch/riscv/boot/dts/thead/th1520-milkv-meles.dts   | 346 +++++++++++++++++++++
- 4 files changed, 352 insertions(+), 3 deletions(-)
- create mode 100644 arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
+Also update MAINTAINERS: add Anirudh as M: and change T: to kernel.org
+
+----------------------------------------------------------------
+Aamir Ahmed (1):
+      clk: tenstorrent: Assign .num before accessing .hws
+
+Anirudh Srinivasan (1):
+      clk: tenstorrent: Fix refcount leak on shared gate clk enable failure
+
+Drew Fustini (Tenstorrent) (1):
+      MAINTAINERS: Update RISC-V Tenstorrent SoC entry
+
+Peng Fan (1):
+      clk: tenstorrent: use regmap_assign_bits() for conditional set/clear
+
+ MAINTAINERS                             |  5 +++--
+ drivers/clk/tenstorrent/atlantis-prcm.c | 35 +++++++++++++--------------------
+ 2 files changed, 17 insertions(+), 23 deletions(-)
