@@ -1,102 +1,126 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EEC44C659
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C111446AEF2;
+	Sat,  3 Oct 2026 16:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791043409; cv=none; b=stwEgth443nO4I4TPnB2HR7Fv1skr9wKfcFeZnSjg9WauwJvLtkp47dmPlmuyBeqcr+4077vIEh7NjH8msdyoIaOmKNs7e9eHvYvyZPlnL6yqCQ6F5ofUL1w+adlDg3CI8RfN+xwSXR6dMXYhcg0ytP9acsNVohLoCRwrUuk/TM=
+	t=1791043438; cv=none; b=gBP9iYaBZKYyI14sHlMaFWVHtghvt3578Kjz3gieCpWWLf6rhTX3EZgnT9yll67QS/I8oB6xzfyOsSuBUXBRlCc1HEckePwmMsS0HBzKi9pt0YiTn4cGOvaWl8P8Yp45n/t7mfyU4cEFPokQFZnmfwezYCbDx6aJTyjnCNRfd88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791043409; c=relaxed/simple;
-	bh=JI0soRYZ5BAD8dBXxZRnsimny2m9p9Nj9R3Oq+EjSJA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C9AAu7Vt5P9DfzVCbpRSb7fgPKgOiUSJGcnRdZWzNIPoQA1IM7vNB+L47QHSxZObYE7UZw0b7D52H3uMkl8RiOrKI4oTx6staqmV8NLMjV/d47fWuxjNLMMtuUhhPeb1EWp0UiaYg8hhT4pqmYEUzEvyqQhnC5/E++WfQcBpJd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=DLIlvahU; arc=none smtp.client-ip=209.85.222.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="DLIlvahU"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93e55db58cfso45037485a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:03:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxtx.org; s=google; t=1791043402; x=1791648202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KBadGkBMhFXmrhoE9hmsF6c0zFZFOIvfrbohBEExOc0=;
-        b=DLIlvahUwaLfiUTFf5++haZ0yy0UKVKrp6P+6bC3hdNzSaB4ibgN6A+txhBCXJ8YMt
-         enf3dIkhPDODQUo1GYvGYJlDJ/YTWjXVwLvjG/O9KhR8SYuvdNFaGDdg3ermyShuPKgs
-         MJkUY/IbQ5gIfW3Z76WZLSENh2MTW/Sy6A+OY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791043402; x=1791648202;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KBadGkBMhFXmrhoE9hmsF6c0zFZFOIvfrbohBEExOc0=;
-        b=SptaJV4ZsyjCMI0hhNafoZdooYiTxFbaIT+3qcNXVkngVWxYUKqresz43VYUGRVT5h
-         s7UWsYxZ/dwu/9GiUADvJJ9vs6LSTQcJG8FqkqxqO003FpJTaJaV9qSuXmEZQ0nt0m7N
-         YoHpj77wfuKiSoqVZXwt8frA4H5WAi3tOVJ1ASPSpRl6vp99KbWzShb5UdkOUdGJKA4F
-         KRP8Q6sY3YC6KQKFbp5TZSFSgbXD91CxKoDtA3C73q8W/OqwuyEO0CUSQ7evRunvf6YQ
-         plViVdOieQuEyTpkSNojDaQuV2lrwa0P8PtXGnFyptVUl24Qeu4m1mE4bGAxBEDvW9CF
-         /b8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxjMVdALt3/0nXAgi87hWejs0KJulGb6/DKfx4SGUkVok3WUfn63RvmFo97r5KW5IMBevP91LoTcW4XDxE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mY95gwh8XBEPo/stxUb+cRiIQzjy0fnVVhCdLnJFGVEQJqGDZM
-	d2ZJe+jw2aXzgaWr67okbesm67kxzTV9wZN8srQqGDcfXKcu+ABwtnbMbHppbZneaQ==
-X-Gm-Gg: AYBFou1zYYwweq3maRRW0acPo+2YmeDLzgb99WqEu/daCucqei2zSjQulpQnY9hK57y
-	RP2Lp0eXWptZNPYe2V7Ll8t0J5plm+RntIYsQnrGANgUhOlnGtD5PitgXVL0QykeKUOWeROlhPi
-	RsTsniXzI/Qc9O5qYkU1qM+L3XkxZ+bOGA9BL9X8hi/EFUMoTrlykxyI81AdGzATaQsIgba44SC
-	LIuQvsC6m1PZ3WnkKhHIeOMVKpNXcOaqxrEZ59MvWS2mAobYkm2G/ZC+SSUXxV5IgAdfwc1+lOi
-	99sXiF7CanGLpAxuEClEST87Tnj3oXX6EIYMEekU3pX/R6XbZSwv13yfQ6PWkiVTC4NlV9YmZlQ
-	G4USuCLQbtcwVKo2gwXVnB55wIgMYrwmdwXtqLrTxp6HzQuHrPYYJEWyp2AX2OvI3ID4ahiAWgE
-	9XuL+pBV9XKwxb4mOP4TvS8Kk3BcW5mqZMNMbho7mD2ufJcb1wrNv3VHq4rsqfKMRgWOJWlxq2b
-	y8OTK9qGKVOZY3g
-X-Received: by 2002:a05:620a:1a03:b0:93c:9e2a:ba08 with SMTP id af79cd13be357-93e510db69amr482479085a.63.1791043402243;
-        Sat, 03 Oct 2026 09:03:22 -0700 (PDT)
-Received: from fedora64.linuxtx.org ([98.97.107.167])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e4e7b2cb2sm266910885a.17.2026.10.03.09.03.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 09:03:21 -0700 (PDT)
-Sender: Justin Forbes <jmforbes@linuxtx.org>
-From: "Justin M. Forbes" <jforbes@fedoraproject.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: "Justin M. Forbes" <jforbes@fedoraproject.org>
-Subject: [PATCH] Allow hmac(sha512) for unpriviledged users
-Date: Sat,  3 Oct 2026 10:03:02 -0600
-Message-ID: <20261003160302.3000325-1-jforbes@fedoraproject.org>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1791043438; c=relaxed/simple;
+	bh=raScNH55YyHKO9o6R9zNWW+p8fAddrS2wh/1QF52HVQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=aPpxUEbsyeIOz8O6u3bTMl8Tkju1J1A7nLRQvTI/RUlZ3v4v2xiBWMjIoZHP8kpBlBG6NE5DWDA6V70GSrL8i+/bG3aINcXx92tL4GLiqKOQubK8tvtrFsyRZwFWSYZ0LLgpptuV0li/bRlIKEZkXIUgQEcQfNxsgWgjAFTFKPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Date: Sat, 03 Oct 2026 17:03:08 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Miguel Ojeda <ojeda@kernel.org>
+CC: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?ISO-8859-1?Q?Onur_=D6zkan?= <work@onurozkan.dev>,
+ Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
+ Christian Schrefl <chrisi.schrefl@gmail.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>, linux-arm-kernel@lists.infradead.org,
+ rust-for-linux@vger.kernel.org, llvm@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] ARM: rust: Enable Rust support for ARMv5TE
+In-Reply-To: <20261003093827.77857-1-kmehltretter@gmail.com>
+References: <20261003093827.77857-1-kmehltretter@gmail.com>
+Message-ID: <E4C8623E-CCCA-408F-A03E-1B2C7DFD0D75@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-By default users cannot run sha512hmac with the current set up. This
-is problematic because our kernel builds call this for FIPS compliance.
-Rather than have anyone turn off af_alg_restrict all together, let's
-allow a common use case.
+On 3 October 2026 10:38:25 BST, Karl Mehltretter <kmehltretter@gmail.com>
+wrote:
+>Rust is currently limited to ARMv7 on 32-bit ARM. This series extends
+>it to ARMv5TE.
+>
+>Linus Walleij asked for older ARM cores during review of the ARMv7
+>support [1]. Christian Schrefl tried ARMv5 with the armv5te-none-eabi
+>target at the time [2]. He hit missing core atomics, missing
+>__aeabi_mem* symbols and a floating-point helper reached from
+>pr_info!() formatting. None of these show up anymore. The kernel crate
+>now implements atomics through the C helpers, and the
+>armv5te-unknown-linux-gnueabi target used here keeps the Linux EABI.
+>
+>The only remaining problem was a link error. Pre-ARMv6 __arch_xchg()
+>has no 2-byte case, which the Rust Atomic<i16> helpers need. Patch 1
+>adds it the way the other pre-ARMv6 atomics work, with interrupts
+>disabled. Patch 2 enables Rust for ARMv5TE.
+>
+>Bradley Morgan's two-byte cmpxchg() emulation series [3] does not
+>overlap with this. Its ARMv6 part was dropped in v2 and it never
+>covered xchg() or pre-ARMv6.
 
-Signed-off-by: Justin M. Forbes <jforbes@fedoraproject.org>
----
- crypto/algif_hash.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On purpose! It'll be dead code after one of ards changes
 
-diff --git a/crypto/algif_hash.c b/crypto/algif_hash.c
-index 6e8b5fb82a7f..0d3ec5760de6 100644
---- a/crypto/algif_hash.c
-+++ b/crypto/algif_hash.c
-@@ -23,7 +23,7 @@ static const struct af_alg_allowlist_entry hash_allowlist[] = {
- 	{ "hmac(sha224)" }, /* iwd */
- 	{ "hmac(sha256)" }, /* iwd */
- 	{ "hmac(sha384)" }, /* iwd */
--	{ "hmac(sha512)" }, /* iwd, sha512hmac */
-+	{ "hmac(sha512)", AF_ALG_UNPRIVILEGED }, /* iwd, sha512hmac */
- 	{ "md4" }, /* iwd */
- 	{ "md5" }, /* iwd */
- 	{ "sha1", AF_ALG_UNPRIVILEGED }, /* iwd, iproute2 < 7.0 */
--- 
-2.55.0
+>
+>Tested on v7.3-rc1 with clang 22.1.8, rustc 1.99.0 and bindgen 0.73.2.
+>
+>- QEMU versatilepb (ARM926EJ-S). The Rust samples, all Rust KUnit
+>  suites and 355 doctests pass.
+>- Microchip SAM9X75 Curiosity board (ARM926EJ-S), at91_dt_defconfig
+>  without the ARMv4T AT91RM9200. The samples, all Rust KUnit suites and
+>  356 doctests pass. The Rust sample modules (rust_minimal, rust_print,
+>  rust_misc_device, rust_driver_faux) load and unload cleanly.
+>- Build test with every Rust driver, abstraction and sample that can be
+>  selected on ARMv5TE (rnull, binder, the two PHY drivers, cpufreq-dt,
+>  the DRM panic QR code). PWM_TH1520 is the exception. It uses a native
+>  u64 division, which does not link on 32-bit ARM.
+>
+>As a further test I ported the Atmel PWM driver to Rust and ran it next
+>to the C driver on the SAM9X75 board. The port is not part of this
+>series. The comparison found a prescaler bug in the C driver for
+>periods of 2^32 clock cycles or more [4].
+>
+>I plan to get a Raspberry Pi 1 Model B+ and then add ARMv6K support as
+>a separate patch.
+>
+>The ARMv7 enablement went in through Russell's patch system as
+>"ARM: 9441/1". Unless someone prefers another route I would submit
+>this series there after review.
+>
+>[1]
+>https://lore.kernel.org/rust-for-linux/CACRpkdYF0sVB2-qgy=GzETSR3+2sagVQPGdunDQDJrn8KqJorA@mail.gmail.com/
+>[2]
+>https://lore.kernel.org/rust-for-linux/b13d37bd-ec68-4713-94e5-e9ed4d6a6354@gmail.com/
+>[3]
+>https://lore.kernel.org/lkml/20260922173354.14404-1-brads@mainlining.org/
+>[4]
+>https://lore.kernel.org/linux-pwm/20261003083036.21584-1-kmehltretter@gmail.com/
+>
+>Karl Mehltretter (2):
+>  ARM: cmpxchg: support 2-byte xchg() on pre-ARMv6 CPUs
+>  ARM: rust: Enable Rust support for ARMv5TE
+>
+> Documentation/rust/arch-support.rst |  2 +-
+> arch/arm/Kconfig                    |  2 +-
+> arch/arm/Makefile                   |  4 ++++
+> arch/arm/include/asm/cmpxchg.h      | 14 +++++++++++---
+> 4 files changed, 17 insertions(+), 5 deletions(-)
+>
+>
+>base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+>
 
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
