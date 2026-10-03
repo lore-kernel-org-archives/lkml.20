@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FDA30C637;
-	Sat,  3 Oct 2026 07:57:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8CA30C637;
+	Sat,  3 Oct 2026 07:58:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791014225; cv=none; b=OEkWBRdrQIuPYpwgWM2VPAQRL2RwxwZzb1icHqtfP2DiAQeACfZgNikyexHZOFXt2L/rCrjUBCdrPqruC0/qB7+pZBYdePTEggpJ2HoDY9XaV1tmUFVS9qjx7QcaFNdd8O5fHohiviI1reXAiWsdlxe6xRYz8vsFznVwE3jbIy4=
+	t=1791014293; cv=none; b=e3U6NziTB7ZC0GhI+4wsM+AWnP9TF4pbTLnWBfgXZuXlwApyxZ5zJUN69rIH1hFfoxA8viKg673Obr53yimXpZXRM2o6fpPOo4hnqKAiGHp181H2rgOQ/SQXBwylL7nGuPuRtkY3gvyrbYSF5OBeQ6+nGCdaLLTfsNOizJNo/cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791014225; c=relaxed/simple;
-	bh=mkae5vUVwJiwLlAzjAngDXxuu1DFUlhtfhBA01XKhHc=;
+	s=arc-20240116; t=1791014293; c=relaxed/simple;
+	bh=puoH+QTT3MaZ8XLgWHQ9NrMdNDxG5dZSsMX2z93D/xM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DhZ6dPj7x0Ph6SLT4Rj+qi14St4Omyv7yF0msvIpKH53IKKaK1ou6Oxf2hoqOc9muZG1CgR8NZ643swGgMCgNlm9ovrvTurOYgRhVh8R3vy3WEMaNrlyVHfjPFy8wdB57wExWKBg5vku2kULa0HUKNtHhdLUCQHbTw0w0Vz/6ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TajqsWS7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZBwY4BkmxiEoP25ZUlN/Yc8fDtA1qPa60b7x1hdi8ggT4+E2dhVk3vEL0NdjO7aIaAZGoZLqc1b10S3ACZLsu8Rh8ldbASRgijzM4/4wHkzWr7Wg7uFcxoSbkjtIm60AuU/+97L76m9eNnZjaB/vo3C/RYSscjzUrMCHj0+Cgts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9sEqvP6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TajqsWS7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72181F0089B;
-	Sat,  3 Oct 2026 07:57:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9sEqvP6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CCE31F0089B;
+	Sat,  3 Oct 2026 07:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791014223;
-	bh=Z0WMiMIxCqAL5ti8PvjNtoyMiefDqHFyUEpLj5zAu2o=;
+	s=k20260515; t=1791014292;
+	bh=eExjwPjav3AtBbLKKQwm8S2T96CCl0YaClkxVcB7F64=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TajqsWS7kXsUEPfCysWqHsNgUWq40sanxL4xpo32MbO+CIKLG7zzaA+Je1K8Y3vST
-	 8XXpFEuTc9P34O7MA9+kEdFS6NAO1CtBcmzn+TO+H//+MhPwCzNWyb8Y1HxAa0ksK1
-	 8dO88lXFB5o4J/6yrN3I0i3GARA0R/UUmeg5FvfXxvtewThTlRN+200YURckSoX/3V
-	 Pb24yu54VHRmjtUsg+f8eRvE6HQ/hg0q41DEeGxYW2Mrcuua2Y6B52i5+JxklHJ8hp
-	 2LaxgxqQXxcqjxnI5PFZwRxDA7pn0cmqzE9ADP6Hn+UPssDN6NO7MicF9d43/LYNAK
-	 yj3p2UJPeSSoA==
-Date: Sat, 3 Oct 2026 09:56:59 +0200
+	b=F9sEqvP6Jt5cYmnf6zgi2P1pLqeEDqD1KaIHH1xYqMfSCoCFh2JrTQ3NygDviKtXi
+	 lLtOpTqIoULxDz/2cf9oKPukxkzFs/mhmfM8hUgoygTFF6cLpDRMtxMXvbCJFDZGL8
+	 Ip/btnqaKApx1osKrEV1P4eio0Ik66qXW7MJ5IcAB+emYLXhaIel6qjYf3azjr5wRT
+	 TdG/jvU2N91CmADcecIrE1D+AT+oLt9sIkJBQLkSb036QRVILif1C5CPmRYqRhWW3w
+	 7bFTwHfi8bhrhsJJu8jClCVLBHqT5cpUvdfX06uEFkfDXP91KBcPxF+yAKIHldv26M
+	 l6k/IdNiFfgtA==
+Date: Sat, 3 Oct 2026 09:58:08 +0200
 From: Vinod Koul <vkoul@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: lee@kernel.org, yung-chuan.liao@linux.intel.com,
-	pierre-louis.bossart@linux.dev, linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] soundwire: Add a helper function to indicate a
- device will detach
-Message-ID: <asC1SwHb4DZkJ4Pr@parshuram>
+To: Lee Jones <lee@kernel.org>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+	linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] Add SoundWire detach helper
+Message-ID: <asC1kM-aOjl0GYYx@parshuram>
 References: <20260831140157.1736905-1-ckeepax@opensource.cirrus.com>
- <20260831140157.1736905-2-ckeepax@opensource.cirrus.com>
+ <20260917105908.GI1605367@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,27 +45,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831140157.1736905-2-ckeepax@opensource.cirrus.com>
+In-Reply-To: <20260917105908.GI1605367@google.com>
 
-On 31-08-26, 15:01, Charles Keepax wrote:
-> SoundWire devices will sometimes need to reset themselves,
-> typical times might include when taking over the device to ensure
-> a consistent state or after downloading a firmware update to boot
-> into the new version. Often such a reset will also result in the
-> device detaching from the SoundWire bus, in this case the driver
-> has to be careful. Naively calling sdw_slave_wait_for_init()
-> after doing the reset could immediately succeed if the bus hasn't
-> seen the detach yet, causing the driver to proceed attempting
-> to communicate with the device whilst it is detached.
+On 17-09-26, 11:59, Lee Jones wrote:
+> On Mon, 31 Aug 2026, Charles Keepax wrote:
 > 
-> Add a helper function that a driver can call to indicate it is
-> about to initiate an action that will cause the device to detach
-> from the bus. This will reinit the completions in the peripheral
-> for device attach, ensuring that the next sdw_slave_wait_for_init()
-> will not complete before the detach has been seen by the core.
+> > Currently, if a SoundWire driver takes an action that causes the device
+> > to detach from the bus it needs to be careful. There will be a period of
+> > time until the detach is recognised by the core, if the driver
+> > immediately
+> > calls sdw_slave_wait_for_init() it is possible for that to complete
+> > before the detach has been recognised. Leaving the driver with a device
+> > that is potentially not ready for what follows.
+> > 
+> > To avoid this race add a new helper that drivers can use to inform the
+> > core the device will detach. This clears the enumeration completions
+> > ensuring that sdw_slave_wait_for_init() can't complete until the device
+> > re-attaches.
+> > 
+> > This is the third part of a longer series of moving these slave
+> > attach/deatach operations into the core:
+> > 
+> > https://lore.kernel.org/linux-sound/20260512103022.1154645-1-ckeepax@opensource.cirrus.com/
+> > https://lore.kernel.org/linux-sound/20260608102714.2503120-1-ckeepax@opensource.cirrus.com/
+> > 
+> > I have based this series off Vinod's soundwire tree as that probably
+> > makes sense for which tree to take it through.
 
-Acked-by: Vinod Koul <vkoul@kernel.org>
+...
 
+> I can take the set with a Soundwire Ack.
+
+Looks like there are dependency, you can ack the mfd parts or if it
+works pick both :-)
 
 -- 
 ~Vinod
