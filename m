@@ -1,95 +1,92 @@
-Received: from mta1.migadu.com (out-37.mta1.migadu.com [95.215.58.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EC137F33F
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 08:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B194739794B;
+	Sat,  3 Oct 2026 08:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791016030; cv=none; b=mzyM5wu0t48GljYJIQtrVLobBc2AK1ZrpGeBKGCbE5hAd/SmuvFL01Z8R6mLo/z1rQaKsvVRBoKUhctn9EMInh6iZrTey43TDy7Nhe5N1+Q8GdXXA0nkWElL9k7Da1l99gwunqOPi4uslTT5wmIXErlAcjaChwGqbcvYVPEF/Yo=
+	t=1791016089; cv=none; b=DIResVJzG/cirLgPW+rUc7qUoLeL63ib4Oy0hQxacBFbc8dPWcGniWAVQTXQ9xBUfhnKvQdDkuD1HW1y1/tDVsBd5ATHbnK7t9H6z8tnDnU32vO+zoE4tEqUtiNLGoS2W2QyqLMuqg6v2NFEQ/y9MKTFGXbXv4p70KyC6aO9EFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791016030; c=relaxed/simple;
-	bh=qTDcL7ZGZXpqyBImCymnV5HwYb1medCgU94t18ZKIYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H0NvhhFFiYWxrcExlZ+81E+9iZmoy/RAzzaxYuhCkO8B3cIopFXhzcDJfusjKMXABFzgH2JIJvd8L5KOFhQPKbXgoxTYCk0m3ff3XbklNJ6Jp/zxIqQb8gw5IQ3QZjt07eMstYteO3zt4lWWTyKp+s9GA+E2sHs4CvHQsCYhSgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ro55FjU9; arc=none smtp.client-ip=95.215.58.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ro55FjU9"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qTDcL7ZGZXpqyBImCymnV5HwYb1medCgU94t18ZKIYQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791016026; v=1; x=1791620826;
- b=Ro55FjU9eeo2D0bxe928BZCuk86eYPwp0remRwVEfjL0NlyNiE4s4ulIYkAixtuXqZL2bHsa
- C5WpIBwuwX8NKmOvjiYIHOkaDBbncws84vHuePqLEFtzNJC08iR9CWU9nWbs0aAF9mUsoDfmCB7
- RO2dMmIBMa9CdeufPMzClmK4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2a8746d844f124a8;
-	Sat, 03 Oct 2026 08:27:05 +0000
-X-Mizu-Trace-ID: 2a8746d844f124a8
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 3 Oct 2026 16:27:26 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Chen Yu <yu.c.chen@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-mips@vger.kernel.org,
-	loongarch@lists.linux.dev, driver-core@lists.linux.dev,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [RFC PATCH v3 09/13] x86/cpu/topology: Initialize sbm topology
- after topology parsing
-Message-ID: <asC8bgvYsVkkcVlO@three-body>
-References: <20261001192849.74788-1-kprateek.nayak@amd.com>
- <20261001192849.74788-10-kprateek.nayak@amd.com>
+	s=arc-20240116; t=1791016089; c=relaxed/simple;
+	bh=lYWVbje6Lz5GijKz4TzggP8PXNeBp8u2Gr3LoU4ss8Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=IF7L30ySfVOwxQ0rR4kSoHRJp6V9zE1LkpD1xQsLgn6WSzuQ5qKsTTR+7WU5C1rZeSOEEpaiqrzkl5MLBJqckBoQvmibuXuMdWtUBuBjZjF+vMkA6jZDXy8vH+3/UWlr4IdfwKGM7E+nRs30xgz7WHv708oYbLPcY1xZDhuMnPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 579958f0bf0411f19a56ed5b684f684d-20261003
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:ef3e13ca-9519-4320-a351-c46f51c3526b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:f13a8a3f086652b7c69e271cc16a10c7,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 579958f0bf0411f19a56ed5b684f684d-20261003
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1925729328; Sat, 03 Oct 2026 16:27:59 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: jarkko@kernel.org,
+	peterhuewe@gmx.de,
+	jgg@ziepe.ca,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>
+Subject: [PATCH 2/5] tpm: tpm_nsc: fix NULL pointer dereference on init failure
+Date: Sat,  3 Oct 2026 16:27:52 +0800
+Message-Id: <d5f0b38d6d6c17c01519c879d26448dbae388b0e.1791015549.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1791015549.git.xiaopei01@kylinos.cn>
+References: <cover.1791015549.git.xiaopei01@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001192849.74788-10-kprateek.nayak@amd.com>
+Content-Transfer-Encoding: 8bit
 
-Hello Prateek,
+tpm_nsc_remove() is used as the release callback of the hand-created
+platform device and dereferences the chip drvdata unconditionally.
+If init fails before tpmm_chip_alloc() (e.g. request_region() cannot
+claim the ports), the error path drops the last device reference and
+the release callback runs with chip == NULL, crashing module init.
 
-On Thu, Oct 01, 2026 at 07:28:45PM +0000, K Prateek Nayak wrote:
+Return early when the chip has not been created yet.
 
-[ snip ]
+Fixes: afb5abc262e9 ("tpm: two-phase chip management functions")
+Assisted-by: GLM-5.3
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+---
+ drivers/char/tpm/tpm_nsc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-> +static __init void init_sbm_topology(u32 max_apicid)
-> +{
-> +	u32 sbm_shift = x86_topo_system.dom_shifts[TOPO_DIE_DOMAIN] - 1;
+diff --git a/drivers/char/tpm/tpm_nsc.c b/drivers/char/tpm/tpm_nsc.c
+index 879ac88f5783..46a52dc99b14 100644
+--- a/drivers/char/tpm/tpm_nsc.c
++++ b/drivers/char/tpm/tpm_nsc.c
+@@ -259,7 +259,12 @@ static struct platform_device *pdev = NULL;
+ static void tpm_nsc_remove(struct device *dev)
+ {
+ 	struct tpm_chip *chip = dev_get_drvdata(dev);
+-	struct tpm_nsc_priv *priv = dev_get_drvdata(&chip->dev);
++	struct tpm_nsc_priv *priv;
++
++	if (!chip)
++		return;
++
++	priv = dev_get_drvdata(&chip->dev);
+ 
+ 	tpm_chip_unregister(chip);
+ 	release_region(priv->base, 2);
+-- 
+2.25.1
 
-As sashiko reported, and also mentioned here:
-https://lore.kernel.org/lkml/20260510155920.2587431-2-yu.c.chen@intel.com/
-Maybe x86_topo_system.dom_shifts[TOPO_DIE_DOMAIN - 1] ?
-
-> +	int num_sbm_instances, max_threads_per_instance;
-> +
-> +	/*
-> +	 * On Intel systems, memory controllers are present at TOPO_DIE_DOMAIN.
-> +	 * On newer AMD and Hygon systems, LLC is at TOPO_TILE_DOMAIN so use
-> +	 * that instead.
-> +	 */
-> +	if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD ||
-> +	    boot_cpu_data.x86_vendor == X86_VENDOR_HYGON)
-> +		sbm_shift = x86_topo_system.dom_shifts[TOPO_TILE_DOMAIN] - 1;
-
-Ditto.
-
-thanks,
-Chenyu
