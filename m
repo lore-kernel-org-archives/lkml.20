@@ -1,148 +1,115 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5473C12F585;
-	Sat,  3 Oct 2026 07:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF37337D131;
+	Sat,  3 Oct 2026 07:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791011269; cv=none; b=JUnIpQbLCPTFEduslmJJRtlBx6xYw7LS9PsLbHbQEziBRVLvmvJnEjYXrFStBuq2VYZgr6lnGbhCmpmOXNPgfbSFLJ1U1sAedgTVpnmzUA+F+CFJn1KBuaJZofsDxs5rZKzXCJNlPxQb/bYf8gGB6G0Wza0PaOpNfEqFDvxNvZI=
+	t=1791011675; cv=none; b=JDATAKVyJzpLPsMYdx5GlfURuQiFZpiGmnGDJkmhdFo4T+3xFQ7OwqgRybbA2g1ObLJ5fNKVGIVis7Zxj+rASrl3WpkJ35l0YbQVeI5+hxrI14mKFGvsfpH8OgXSlcSzt2V2wJUR18i6X1w/j7IbuqupnO7qQ18cktzphb/lFpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791011269; c=relaxed/simple;
-	bh=fcWSRwYqC7iDa1xgy0kg2U7wsZFZJLJk1a4HcvjWK5I=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IvCPUMegmHwzlNU/tAAFcN6KqatMHMAXjVlhrxbSn+1wXcj0yWZy3rdf2L/ballCCOuoX2etV/zNUuk3Zy/3WpDjZfe9D9tpJJhn5geUG7U35WP17ewVSiW3HBdUIXGchNsbdqGoXO2rp/Zy/je84TF2BKipAjGo6OjZKxsqAv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PPj0gM2R; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791011675; c=relaxed/simple;
+	bh=8So6ccZldy4L/KcTgwkLAjT7RYXgfaYjoD+/1AtBKIE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=F94S6vdXBpTFCX77/38/10QyCp45WUvFUEA8ItNM1pA+1+i29nIeXDd+WVrde+VUiMM0sCHC5wMC5KAEEH2jozbuefSm2vUGU6ZNAKvq8G28OJLcMFr3Wqe9g5L/5w13JuzJkdsLZu0P2dx8LUigK6VOl/dNcFdnlXC8FWUWDMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxjihH8Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PPj0gM2R"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 25B942F;
-	Sat,  3 Oct 2026 00:07:43 -0700 (PDT)
-Received: from [10.57.8.170] (unknown [10.57.8.170])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 163E63F85F;
-	Sat,  3 Oct 2026 00:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791011266; bh=fcWSRwYqC7iDa1xgy0kg2U7wsZFZJLJk1a4HcvjWK5I=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=PPj0gM2RRh21a27DM/q2/tyeKO0DsJnY3GH0PWCJS7UVYAEtbBp7Ez9b8ZaULD6Xj
-	 2dnwFTOkOPfgCECZeEJndniLsNWLRZQ+EHqxBlRJDHEgJ740NaFO9F3W9cUZE9u/PJ
-	 y52tz3Ck56R1gHYTC5TcmWjSuYfZE7m4ksWwojiM=
-Message-ID: <d7a398b3-5cbe-4a1c-bdd3-c1c5925dfc33@arm.com>
-Date: Sat, 3 Oct 2026 08:07:39 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxjihH8Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172F51F008A5;
+	Sat,  3 Oct 2026 07:14:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791011673;
+	bh=VwFWqOZ4pOlB2wwYmiolP3Sp+mnMbUJd9qfFhnZEqBQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=dxjihH8YhmXndBsHa6WSbRAOzLewMtMBx1Xzaab+9kNBnqpfpa8BrgAL5BTczKs8c
+	 1dD0V8rny1BGivt+v8X1H9/Dyv6pKjHyCD9A4+/6Ce55r+4PXoy9Zn1++MgOQm28gJ
+	 qPxxj4Hu5TwfMY0AkO46xVhXYAIoTBi9wmQo0GXxRTgFWEolepLY7ECM61PDHtNXxo
+	 xX5/GV+dvnurJiZGBGYGKa6YpNrs4gu+ZPTnXQ/IccZ1tDwTGEdRkcrUvE6cX/jHNS
+	 UoHflf5tpIpcz7MuyIGE9SSZsZzozb4yr4V212/v0Mu9lTeqOdD2HyRJW22T2Mxbye
+	 XcQmoy9HF3oLw==
+From: Drew Fustini <fustini@kernel.org>
+Date: Sat, 03 Oct 2026 00:12:28 -0700
+Subject: [PATCH v9 3/5] riscv_cbqri: Make RESCTRL_FS available on RISC-V
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 05/23] KVM: arm64: Track the type of VM in kvm_arch
-Content-Language: en-GB
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Marc Zyngier <maz@kernel.org>, Fuad Tabba <tabba@google.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
- catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
- jonathan.cameron@oss.qualcomm.com
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
- <20261001210703.1597150-6-suzuki.poulose@arm.com>
- <CA+EHjTxtatPyGcyvEyR129cqUiAYcO_cxRVtwZO0ckZsOnD7TA@mail.gmail.com>
- <86se2o2rbs.wl-maz@kernel.org>
- <CA+EHjTwHuJ0u_TTP46zNFKFmBP124XHHLUVhkAUSyfhe92=41w@mail.gmail.com>
- <86pkxs2npx.wl-maz@kernel.org>
- <CA+EHjTy4rb+6z0bqh7sPqACES0EDpURdeoyiFGmdw3p0PENcOQ@mail.gmail.com>
- <86o6dc2ka1.wl-maz@kernel.org> <83e79119-b331-4640-b2c7-cc8135d71c77@arm.com>
-In-Reply-To: <83e79119-b331-4640-b2c7-cc8135d71c77@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-dfustini-atl-sc-cbqri-dt-v9-3-52fd8be98dcf@kernel.org>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+In-Reply-To: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+To: Adrien Ricciardi <aricciardi@baylibre.com>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
+ Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
+ Chen Pei <cp0613@linux.alibaba.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
+ Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, 
+ guo.wenjia23@zte.com.cn, James Morse <james.morse@arm.com>, 
+ =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, 
+ Peter Newman <peternewman@google.com>, 
+ =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
+ Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Tony Luck <tony.luck@intel.com>, Vasudevan Srinivasan <vasu@rivosinc.com>, 
+ Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, 
+ yunhui cui <cuiyunhui@bytedance.com>, 
+ Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ x86@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1242; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=8So6ccZldy4L/KcTgwkLAjT7RYXgfaYjoD+/1AtBKIE=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWQdWB1m/+xdX4Fpjfi/8iOygeb+Am8F3b6pT+/0CqsXy
+ 0/9483SUcrCIMbFICumyLLpQ96FJV6hXxfMf7ENZg4rE8gQBi5OAZgIvwHDP6P1AkpcFYeafJh7
+ eRSnMqusK3hfxN/COr3ablVc4jGfKEaG7YnfjqsFzmL/ciOa87TaURmmpb4x3tJJJjuPLUrxZL3
+ NAgA=
+X-Developer-Key: i=fustini@kernel.org; a=openpgp;
+ fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-On 03/10/2026 06:53, Suzuki K Poulose wrote:
-> On 02/10/2026 16:29, Marc Zyngier wrote:
->> On Fri, 02 Oct 2026 15:37:00 +0100,
->> Fuad Tabba <tabba@google.com> wrote:
->>>
->>> Hi Marc,
->>>
->>> On Fri, 02 Oct 2026 15:15:06 +0100, Marc Zyngier <maz@kernel.org> wrote:
->>> [...]
->>>> Honestly, we introduce the flavor stuff to make it easy to match
->>>> things on a particular VM type in a readable way. So why isn't this
->>>> reading:
->>>>
->>>>          if (vcpu->kvm->arch.vm_flavor != VM_PROTECTED_PKVM)
->>>>                  return;
->>>
->>> I know this is a sketch, but just in case: that's inverted. The sync
->>> only applies to non-protected pKVM VMs (EL2 ignores it for protected
->>> ones), so it would be != VM_PKVM.
->>
->> See what I meant about this stuff being completely intractable? I
->> still have no idea what it means! ;-)
->>
-> 
-> Just to be clear: unprotected_pkvm() != (vm_flavor != VM_PROTECED_PKVM).
-> Rather, unprotected_pkvm => (vm_flavor == VM_PKVM).
-> 
-> And the code wanted to bail out early for !unprotected_pkvm(). We can
-> stick in "is_protected_kvm_enabled()" for unprotected_pkvm predicate
-> 
-> But, I can drop the helper and use the vm_flavor check.
+Enough CBQRI support is now present to enable ARCH_HAS_CPU_RESCTRL.
+Have RISCV_CBQRI select it so that RESCTRL_FS can be enabled on
+RISC-V, and default RISCV_CBQRI to y. RISCV_ISA_SSQOSID is default n,
+so this only affects kernels where the user has already opted into
+Ssqosid, and on those the CBQRI support is what makes the extension
+useful.
 
-FWIW: Here is the diff for the above change. If you are happy
-with the following, I could fold this in.
+This is a separate patch so that no commit makes RESCTRL_FS selectable
+before the resctrl glue it depends on exists. Enabling the resctrl
+filesystem itself stays a user choice under MISC_FILESYSTEMS.
 
+Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+Signed-off-by: Drew Fustini <fustini@kernel.org>
+---
+ drivers/resctrl/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 90547fbbc8ad7..bcec14c587119 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -772,7 +772,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
-                 kvm_call_hyp_nvhe(__pkvm_vcpu_put);
+diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
+index cac23d20124b..617b813b9808 100644
+--- a/drivers/resctrl/Kconfig
++++ b/drivers/resctrl/Kconfig
+@@ -33,6 +33,8 @@ config ARM64_MPAM_RESCTRL_FS
+ menuconfig RISCV_CBQRI
+ 	bool "RISC-V CBQRI support"
+ 	depends on RISCV && RISCV_ISA_SSQOSID
++	select ARCH_HAS_CPU_RESCTRL
++	default y
+ 	help
+ 	  Capacity and Bandwidth QoS Register Interface (CBQRI) support for
+ 	  RISC-V cache QoS resources. CBQRI exposes cache capacity
 
-                 /* __pkvm_vcpu_put implies a sync of the state */
--               if (kvm_vm_is_unprotected_pkvm(vcpu->kvm))
-+               if (vcpu->kvm->arch.vm_flavor == VM_PKVM)
-                         vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
-         }
-
-@@ -1006,7 +1006,7 @@ int kvm_arch_vcpu_run_pid_change(struct kvm_vcpu 
-*vcpu)
-
-         if (is_protected_kvm_enabled()) {
-                 /* Start with the vcpu in a dirty state */
--               if (kvm_vm_is_unprotected_pkvm(vcpu->kvm))
-+               if (vcpu->kvm->arch.vm_flavor == VM_PKVM)
-                         vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
-                 ret = pkvm_create_hyp_vm(kvm);
-                 if (ret)
-diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
-index 384c5d258c7f8..4e16e7d165515 100644
---- a/arch/arm64/kvm/handle_exit.c
-+++ b/arch/arm64/kvm/handle_exit.c
-@@ -490,7 +490,7 @@ static void handle_exit_pkvm_state(struct kvm_vcpu 
-*vcpu, int exception_index)
-  {
-         int exception_code = ARM_EXCEPTION_CODE(exception_index);
-
--       if (!kvm_vm_is_unprotected_pkvm(vcpu->kvm))
-+       if (!is_protected_kvm_enabled() || vcpu->kvm->arch.vm_flavor != 
-VM_PKVM)
-                 return;
-
-         /*
-
-
-
-Cheers
-Suzuki>
-> Cheers
-> Suzuki
-> 
->>     M.
->>
-> 
+-- 
+2.43.0
 
