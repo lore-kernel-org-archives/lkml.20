@@ -1,107 +1,120 @@
-Received: from mail-vs2-f11.google.com (mail-vs2-f11.google.com [74.125.227.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D836834D93C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70AE339362
 	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790990328; cv=none; b=i6njks7vFeNTblLMn5aGUx9aEnKmmr1fJ3ltc5R+cgSA3QkTD2Rb1l9NfgFZajCznfy4Ci9QWt7Fnzcep56nFvdvyHSZkTMxh39Z0Tkzh6ASdO17bM5iIR6D0l+5077K8pnHipiyuh1oXdQEuyA9dUkwpvQYdAHas4iQhWgyk3s=
+	t=1790990343; cv=none; b=u1cpOFvVhCB8brqV8KSx+0sZ3h++6srfQ/c9a3KOmngaE8KifF4z1QqkF9yxgOZBCUPxefK6fLL8CCQoPMuquyrcLLJ9EPqW/z8+Qr+F7Ij4NoUx/JAxgOb5V2rJXHxUREuDTT6VuZepuUip+tPevtiKa9Y7FEsIJtXN3bUV5Ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790990328; c=relaxed/simple;
-	bh=C1eYKJ5to7jp23Qb3KieYha41ikL6UcD0SPWNaLSb1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R2dlN1jhpQdTDDKyEu8gfrNPUdUV+ZG9nMmUrAo38xyWHycPuf1aRPtkU2TQ6jib6UyqCNiEps9UD+Da6ULL6Jc618P9Zzt2en22DXP89TKGSghDBV95Z1OVzdhnRIrKtIdIMi5SyvjnO27BlEPVfijp3OewT1cLvVNaHxtnlcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f6e23d2p; arc=none smtp.client-ip=74.125.227.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790990343; c=relaxed/simple;
+	bh=jKjBEU2G/u0mxvkAGPseny7iUpGj0X0Eo703/Mp1NfM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=RJct/mWFGGymrb39273wrr8wBGEEezilb18DzfapTXsuEA2iO3dUDzNJsfPM5yrrqoDJyYAMRIeY3m3l76XLDK3OgOyczNLGptHHBQKa0vbXInzxLoLBXH5pORsZ0rLotceutA8wNqHBN79GXe4yryFR4j170Z/MZqZPYrRMMIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ezBak8Tz; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f6e23d2p"
-Received: by mail-vs2-f11.google.com with SMTP id ada2fe7eead31-7c0dbb2176aso18858137.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 18:18:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790990309; x=1791595109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AEmSwYlG0qis3rm6ApjRG5M/pOaXn1ND3xSYcCNbo4Y=;
-        b=f6e23d2pjY6bfM7FIxB0gtbqeS0FXeWvOyEeaqunBLS44UXVW+Nn7asU+/m8+Jqx6S
-         aRlApDd2Vm2whui4AeAQQb/DwlV7VTegwaZHJ6OHhlEOKu0JTW1nlbnq5aKYQx2KSlyx
-         6n6LyWcXhJsPA+UNGBMS/0kVuvlWmXuMjjuwl8c4dC19c0eB6rh6GttikneqwQ2tREPS
-         fDyGOPJBz7BBQELsfdvZyvdcyce3zGKeb0aOf4eplBLuGdlzAnKIqfz9STmXeUuHkGxt
-         845ZxZBJ7v2GoNfC0hLDwrv7yYPDUUkzWmHpO6aJMHr25yIOoLnLCZ+PDM4nMGSHElhW
-         G3QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790990309; x=1791595109;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AEmSwYlG0qis3rm6ApjRG5M/pOaXn1ND3xSYcCNbo4Y=;
-        b=IcDc2X4ywDLZsFNBz5ac3Pv5I4z03IYPK4h3A8vWxlDdOVtfFXr0mQY3y3WPKi+XI4
-         n7tBUqKoC2f4mPmvY75qfpKo7IoMKdstYLHMKymw4mXrRwmKBeXPBqqsul454P4H7spt
-         tqBPAKSkli+2dV61Lej9BTulhssQ37n09SHVGjopDQgeGDup0YNtRb8Zc25IN0QDUjQw
-         lmRJvb8srx8eSQrCeLH5lA9K/fHz6iBb7qSEV9S+53RKUP1o4h44s69VEAO52Ah+Bt5q
-         ezniS5pqQLg5tusdwjsiYq+qlYha2gR0qZwZQFB4TyfDhZMf+IwDuOETH2f3w31gNI/B
-         tn/w==
-X-Forwarded-Encrypted: i=1; AKwUvBw/OfiQd4WFyDhEGx0I7qw6UXA89q4Mt4DfRJTvdkXANnNXVWsGjZFRL/sr+uYemGR/4S0Qkp8Dyhz/z0M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGpudUMggL375wTx6ms24ZKkqkjXE+AA5XERK+PJwcDJrLINMc
-	9NC+dGrat0zwvkYJWhuBMGdM3pgh5uFfJiUNl4/i55UBJC5I1IFbF+uX/tdtx9pbtzx7qw==
-X-Gm-Gg: AYBFou0ZEWGGK/DGmZTSYFSJyrj8aRzko1RhALRMu6PDvuqTTXe/YWT0JWnTBru5x6N
-	HF1tIR7zimYWdYMLzTqSdA1s2MGK3RIbEUtVVt7E/29sLp/Kl2J7kybS5LWaQCBAA5WAqzbq5gK
-	VzkvEDQ/4ODHzOkQ/bu4WUGqF9juB+ni8dAUFfHRWP7p1SjnLxuRy8qM88l3tnITL2w2zuAItq5
-	7WtntwrBiGuW0C64ylXN10W1uPsp9beCLM2uXNMrOTx4BzXOJrIInysnsWBlfqiBRHLRmF8ZHhE
-	J3qZ7/52RUtvhPUI5cDD0nETcIuesGHcxPHrMReYY9N3vZU3+PPdQonoWLxyk05gyzBPvcMjwDL
-	OVzrn6nReCp7tm2HoYZodSq4OYMFZwUh+czEN11ghvaH1con+25OT/HS049YfYKNChUnnb4gkH9
-	mb4oX4PgUeIqD74L++5yx+A4MZXF70p7X8uYhvNqK4XnHz7fojWZG3zLNsBWfgM0A1qKfP+eWZl
-	1P+tlBt
-X-Received: by 2002:a05:6102:162c:b0:7c0:30f3:cae4 with SMTP id ada2fe7eead31-7c0f468dcccmr1264666137.18.1790990309084;
-        Fri, 02 Oct 2026 18:18:29 -0700 (PDT)
-Received: from linuxmint.. ([2802:8010:9a20:9901:f66:d985:53fd:94be])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7c0fdc62625sm4148177137.1.2026.10.02.18.18.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 18:18:28 -0700 (PDT)
-From: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nehuen Lian Bova <nehuenlian.kernel@gmail.com>,
-	syzbot+5ad4fc9c8360b68e353f@syzkaller.appspotmail.com
-Subject: [PATCH] HID: magicmouse: fix null pointer dereference in magicmouse_event()
-Date: Fri,  2 Oct 2026 22:18:20 -0300
-Message-ID: <20261003011820.1295672-1-nehuenlian.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ezBak8Tz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=e1JP35jQXmCfGje61PA8ll7NFwaeQspGgbKgiQs9QZo=;
+	b=ezBak8Tzllh4oeuLVGJzY+yPkz3r6OSGFK+l+JMbtPtald2tWrlOZrCsDL72hU
+	jkxNzUvGnbnkssbI7axho8LtCBDJxsmX9sAc+lInb0B4lhffJYWdLuIjf7huwBC3
+	pZPzzCqixdYVQJSJc8tAsXL8SQYcU8DbI9c9jtw/M3re4=
+Message-ID: <eb7855e6-2972-42a7-ace0-e43dc4096677@163.com>
+Date: Sat, 3 Oct 2026 09:17:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] exfat: drain in-flight DIO before buffered writes
+To: Jiale Yao <yaojiale02@163.com>, Namjae Jeon <linkinjeon@kernel.org>,
+ Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, exfat@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260928085412.2221055-1-yaojiale02@163.com>
+ <20260928085412.2221055-4-yaojiale02@163.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <20260928085412.2221055-4-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wAHB7meV8Bq5ToiCQ--.39857S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCryDGw43Cw45XryxKF1rJFb_yoW5Jw18pr
+	Z8Kay5Gr92yrZ7WrnruF43W3WFk398J3y3urWxu3WDCryYyr4vgF18KFy2vF43JwsrGr42
+	qF4v9FykCryUCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRJkuxUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9wDIZmrAV6DPOgAA3x
 
-Add a guard clause to check if 'msc' is NULL before attempting
-to access its fields, preventing a general protection fault.
+On 9/28/26 4:54 PM, Jiale Yao wrote:
+> An asynchronous direct write can remain in flight after the inode lock is
+> released.  If a buffered write dirties page cache while the direct write
+> is still pending, the direct write's post-I/O invalidation can find the
+> dirty pages, report a page cache invalidation failure, and record -EIO in
+> the mapping error sequence.  A later fsync() therefore returns -EIO.
+> 
+> Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
+> in-flight DIO before buffered write fallback") fixed the same race in
+> ext4.  ExFAT does not drain in-flight DIO before either a regular buffered
+> write or the buffered fallback after iomap_dio_rw() returns -ENOTBLK or a
+> short write.
+> 
+> Wait for in-flight DIO before calling iomap_file_buffered_write() in both
+> paths.
+> 
+> A reproducer using concurrent AIO direct writes and buffered fallback
+> triggered the following warning and made a subsequent fsync() return
+> -EIO:
+> 
+>    Page cache invalidation failure on direct I/O.  Possible data corruption
+>    due to collision with buffered I/O!
+> 
+> Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
+> Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>   fs/exfat/file.c | 12 ++++++++++--
+>   1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+> index a2a9ee1a2004..28811210663f 100644
+> --- a/fs/exfat/file.c
+> +++ b/fs/exfat/file.c
+> @@ -807,6 +807,8 @@ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
+>   
+>   	iocb->ki_flags &= ~IOCB_DIRECT;
+>   
+> +	inode_dio_wait(file_inode(iocb->ki_filp));
+> +
+>   	written = iomap_file_buffered_write(iocb, from, &exfat_write_iomap_ops,
+>   			NULL, NULL);
+>   	if (written < 0)
+> @@ -889,11 +891,17 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+>   			goto unlock;
+>   	}
+>   
+> -	if (iocb->ki_flags & IOCB_DIRECT)
+> +	if (iocb->ki_flags & IOCB_DIRECT) {
+>   		ret = exfat_dio_write_iter(iocb, iter);
+> -	else
+> +	} else {
+> +		/*
+> +		 * Prevent concurrent direct I/O and buffered I/O to the same file
+> +		 * range. Wait for in-flight DIO to finish before dirtying pages.
+> +		 */
+> +		inode_dio_wait(inode);
+>   		ret = iomap_file_buffered_write(iocb, iter,
+>   				&exfat_write_iomap_ops, NULL, NULL);
+> +	}
+>   	if (ret < 0)
+>   		goto unlock;
+>   
 
-Fixes: b8d56ef91cc3 ("HID: magicmouse: Apple Magic Mouse 2 USB-C support")
-Reported-by: syzbot+5ad4fc9c8360b68e353f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5ad4fc9c8360b68e353f
-Signed-off-by: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
----
- drivers/hid/hid-magicmouse.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Also, if you don't mind, could you add inode_dio_wait() to 
+exfat_extend_valid_size() as well?
 
-diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
-index d637c0477379..85454250355f 100644
---- a/drivers/hid/hid-magicmouse.c
-+++ b/drivers/hid/hid-magicmouse.c
-@@ -553,6 +553,10 @@ static int magicmouse_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
- 	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
-+
-+	if (!msc)
-+		return 0;
-+
- 	if ((msc->input->id.product == USB_DEVICE_ID_APPLE_MAGICMOUSE2 ||
- 	     msc->input->id.product == USB_DEVICE_ID_APPLE_MAGICMOUSE2_USBC) &&
- 	    field->report->id == MOUSE2_REPORT_ID) {
--- 
-2.43.0
+Thanks.
 
