@@ -1,133 +1,92 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9B630C345;
-	Sat,  3 Oct 2026 00:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD953266B72
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790988211; cv=none; b=YfEmsxUIBQqYG/v3IQsYaQ936H5GzZHn6pbw8iuR856o5Ad+MD2j6f5GABlMTgnwc1PL/Jp1t2U1/3ZkbKRCNO0u5sYpTXdReurCP07kg5Y1ieNX4R1QVyqcFCy0lI7RCqoy13SQd/n941jkIzVkmmRMdhJgecBv+hkK6ffcn7E=
+	t=1790988316; cv=none; b=WqbxDpNgjBzVTJxlusu6CwNF73U9kNMF4uTWwHee9sip5RShQgAhj3GLybm+FyI2KoWr2HZdivh8ufsCARErGsWx3AjhzQxC6Wx52XkPAEqJPr/fp8zyXjT6YvC5IjOyAiKIqv4Q4aTIk6Xeh8crDAbqgD2K7WDqDln5upgheGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790988211; c=relaxed/simple;
-	bh=YpI7Smvzy4lSr2JMEL9riLGxv1n4IM35NDua6m7IAok=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=aYCPaenLLg7rMGh/c02x4GXER7NTVLaSyZKBb7fxHCqdnWUrnPiVHFRGTQgVvvXkUeq7aEewUY2YIYn2ryZEQEEUKgOt8pHQs+J+/g9LRG5SAm5vSjsqfg/61g3zT5haAfoC0EtksGzHkercHe32oodKMAhbc36x9nrtv8Ahd7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZgPQ9cNi; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=xhpor4Pn; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790988316; c=relaxed/simple;
+	bh=Km65y6j8OXz3zhnSmujtsXUAycl2EwJ7u+NwVjTVncU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UmDFwLtnutUj3ddSYqcBnIcD0Tqcdind4leDjD7dZ102s5/mz76xBmJoRwf5mzBSqhTJlpNWNzpsIoNt8j7FdcAhB2JAM0pOlxIILti11FNgnMCVrwkvpvJZwn6zc5f4VKpqKs9arf+46aVxcxBQv9dwmgCHNQeLir0M/L9mN7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=XhCEnh1E reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZgPQ9cNi";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="xhpor4Pn"
-Date: Sat, 03 Oct 2026 00:43:18 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790988200;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CxDx0T3KHMVGPmvCGNKZqnaAvxXK4sFCrHs2MyHNYRs=;
-	b=ZgPQ9cNi6C7SJ9YGY6E63XEd+J3iUORsfLhzuzN5gvP5v5RkkVsd3IUxgudQRv4P+xykPp
-	N1RecDjew8iD7Hg03mezmrKQuafl+mUwXHmZlSiCdeVknBmEy9drz3EvZQ3rHg3oYAyESN
-	/8rb70he97aOov8uaDij9tcXYzg1umCFxDP36uXdapfX7zgpNHtPQETJlGurTMcuZ/fO3E
-	xc2Udo8D8AQFwy0eutx+g0bq89+BbvyMX5n+aJQ1NTx2G8QAJOh7CeqnEBvIPDfX1Aen0T
-	tRBzXynBEIhE5DEUrAaWa8T45RN8G1Wh1EPgwY+XOBCfiZcLvVrSQujgS/jRxA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790988200;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CxDx0T3KHMVGPmvCGNKZqnaAvxXK4sFCrHs2MyHNYRs=;
-	b=xhpor4Pn3oeuws2nNsm5GbFcs10/U6RiMXs/u5rUyp2fWhFSyfQ9/+aRRDprbezGBKi0kd
-	TBUvaL2yaJg82RBg==
-From: "tip-bot2 for Kim Phillips" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/bugs] x86/bugs: Fix CONFIG_MITIGATION_RETPOLINE=n
- mitigation reporting
-Cc: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Kim Phillips <kim.phillips@amd.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260831210916.987152-1-kim.phillips@amd.com>
-References: <20260831210916.987152-1-kim.phillips@amd.com>
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="XhCEnh1E"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D67E040E00E8;
+	Sat,  3 Oct 2026 00:44:53 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id u6cfPEp_P3H2; Sat,  3 Oct 2026 00:44:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790988282; bh=BIRXiscMiC6WH7YL5koRp+cKjmId4UuCyYadpJEgPQI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XhCEnh1E4ogpyvWcLmiBQeqBne6HhpLeIw23Yl/KPhN5olyOlEIFg7gpASBe44ScH
+	 M2q+zEGuZdF4sslTJapRw2+vyIteoG3clZE61B7mbPcx7ocd15QnihlL0RrU3aXUs1
+	 GdUFked243VX8Cg2mBUtSvn/7yRbfc4AYe22ZSbIeFKChz/PeXp6yGqnSR0NfiT4xf
+	 GKcyVxkofreAzp+OAFBsgVoHVNAUbJbqaE5U8Sl2TA3jEz18Ue5UsHSdQfeiUA9jgK
+	 AxCA+rwkWpt/y+25qFqV/uDeL2+piQ5jHZnX2/dn+Kpkp2JCPNPf4KPDJVlI/5MEsZ
+	 nBhe2TeisFOluQImdy3khpmbJdRnSz1+T12T+AxYLV70GQ2XdlghUDkt4EOac2caNk
+	 jI7KZPUI2UUY9Q//A8lj9J1Co/FN1zFSjTU+MZ9RvEMTVfQEdobyFpLPnbO1eMRKvD
+	 unezsWo2MiFohw0oh5+2yC8zAQCc96cfnNkPakvQsODSeqZXt4Q+6oF6gU+gHuIrbh
+	 wiGJUV9Vy62L1KvlCXFmB4+62m9yS7znQC0xL+WT5fxD7ax2aTZCC7Z3D303FQeDU6
+	 exfV9wPcFhawCRnx4e4eIQ122/x6Oo4jLQ+6bxbcbkRS5hKDRoRDcQxvcLGIPcKL0/
+	 7+E557FOKz6z0q4mdXr5vhis=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 796A240E01CD;
+	Sat,  3 Oct 2026 00:44:36 +0000 (UTC)
+Date: Fri, 2 Oct 2026 17:44:33 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Rik van Riel <riel@surriel.com>
+Cc: Borislav Petkov <bp@kernel.org>, X86 <x86@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>, stable@kernel.org
+Subject: Re: [PATCH] x86/CPU/AMD: Fix AMD TLBI Erratum #1718
+Message-ID: <20261003004433.GBasBP8bFFG2bIFgUu@fat_crate.local>
+References: <20261002211617.1001617-1-bp@kernel.org>
+ <4746af392d093deb08101530be1c870f277a182b.camel@surriel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179098819861.3910103.4162467849995047468.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <4746af392d093deb08101530be1c870f277a182b.camel@surriel.com>
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the x86/bugs branch of tip:
+On Fri, Oct 02, 2026 at 08:31:30PM -0400, Rik van Riel wrote:
+> This same change fell out of my testing with
+> a reproducer earlier this year, so I know it
+> works, at least for the test case I have.
+>=20
+> I am surprised that it was good enough to be=C2=A0
+> a real workaround, but I'll take it ;)
 
-Commit-ID:     1847c80537891baead3975f3ca969233ff7b2a11
-Gitweb:        https://git.kernel.org/tip/1847c80537891baead3975f3ca969233ff7=
-b2a11
-Author:        Kim Phillips <kim.phillips@amd.com>
-AuthorDate:    Mon, 31 Aug 2026 16:09:16 -05:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Fri, 02 Oct 2026 15:48:29 -07:00
+Me too, but it really is - there's a good reason why :)
 
-x86/bugs: Fix CONFIG_MITIGATION_RETPOLINE=3Dn mitigation reporting
+But the most proper workaround is for everyone to update microcode anyway=
+ - it
+is released too, so we don't even need the sw fallback.
 
-When the kernel lacks retpoline support, spectre_v2_select_retpoline()
-emits
+> Tested-by: Rik van Riel <riel@surriel.com>
+> Reviewed-by: Rik van Riel <riel@surriel.com>
 
-  "Kernel not compiled with retpoline; no mitigation available!"
+Thanks, my plan is to queue it next week so that we have it in 7.3 and it
+percolates to stable.
 
-before returning SPECTRE_V2_NONE to its callers.  SPECTRE_V2_NONE is not
-the final answer, though: spectre_v2_update_mitigation() runs afterwards
-and can still upgrade the mitigation.
+--=20
+Regards/Gruss,
+    Boris.
 
-On an Intel CPU affected by RETBleed, built with
-
-  CONFIG_MITIGATION_IBRS_ENTRY=3Dy and
-  CONFIG_MITIGATION_RETPOLINE=3Dn,
-
-and booted with spectre_v2=3Dauto, retbleed_select_mitigation() picks
-RETBLEED_MITIGATION_IBRS, and spectre_v2_update_mitigation() then promotes
-SPECTRE_V2_NONE to SPECTRE_V2_IBRS.  The boot log claims no mitigation is
-available immediately before reporting
-
-  "Spectre V2 : Mitigation: IBRS",
-
-and sysfs reports the machine as mitigated.  The message is alarming and
-simply wrong.
-
-Drop "no mitigation available!" because the final mitigation state is printed
-afterwards in spectre_v2_update_mitigation() anyway.
-
-  [ bp: Drop CC:stable, massage commit message. ]
-
-Fixes: 480e803dacf8 ("x86/bugs: Restructure spectre_v2 mitigation")
-Suggested-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-Assisted-by: LLM
-Signed-off-by: Kim Phillips <kim.phillips@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-Link: https://patch.msgid.link/20260831210916.987152-1-kim.phillips@amd.com
----
- arch/x86/kernel/cpu/bugs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
-index 1b2381d..000ebee 100644
---- a/arch/x86/kernel/cpu/bugs.c
-+++ b/arch/x86/kernel/cpu/bugs.c
-@@ -1958,7 +1958,7 @@ early_param("spectre_v2", spectre_v2_parse_cmdline);
- static enum spectre_v2_mitigation __init spectre_v2_select_retpoline(void)
- {
- 	if (!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE)) {
--		pr_err("Kernel not compiled with retpoline; no mitigation available!");
-+		pr_err("Kernel not compiled with retpoline");
- 		return SPECTRE_V2_NONE;
- 	}
-=20
+https://people.kernel.org/tglx/notes-about-netiquette
