@@ -1,238 +1,231 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A93D3ACF0B;
-	Sat,  3 Oct 2026 09:10:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE81A38735E
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018629; cv=none; b=ZI9+HG5On0c25gLRjI+HVibr/dznOJit2wEUlJ68HH7TJ+/gy/Su1w4N5OBE4R0Ka1v+qqx34LUNb4+Gyne+k64J60CNwcucVb0KdY0KoyrPbEJEX5iG91T5n+hiiQjnGpXAS3Q2+YQrEZ8Hy0Eo/uRsBYIDS7P35xYLBWaL0WI=
+	t=1791018635; cv=none; b=bsRlFpJAgZ6H0zJ4oOtXiQau+sb03PxdpIn6S4ml6ArzBlyeVXckBp6ftMaqSb9fMA+5X1oZQse9KbrnVU/VwZikCy4m+FbGDBCZ1h6eqammYd5mkht+vVQizVfhWmQSwtTKuuWQ1qqQfOS72eRBvgCtEGV5KTubUCwTP1wUhpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018629; c=relaxed/simple;
-	bh=V3DDxben52YB+3AC4H3p4SJSHBjayiswKy/T0MPzYuY=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=kOfB7cjjfkEnum2aDX5d+hoUhPDYHNrjv2wWufUeYiNNj9pLpkbk/YKPIl0JDXlh2T9rqZmE6PfvNWrz+dZLoH/ldZ5x5VrSLWz4bRW2NMaWyGbxFYwEnSMIX5+PY+07B8cqW20mzaIn6ory6ZadUnlsBU59WnhSsW8UKZdJwh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KEmmfL2y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791018635; c=relaxed/simple;
+	bh=NzpDu4oOJoWhbaf0OdWBcbhBcOw46ih41GE+lUZTY64=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oiGit73Wk43d+fVlHocmuacRyAQsKcsUg9PvaGA4Pjvyri3dwZmcv8L6CvVl/AgV65252GlzDFUe6bBi4qEkHs6BD9A3OR/uetFDHGohpOEHL+ZZlHwFJVm2PDwd49bPy3koJ5+OsHZwbd0G7TPBYV79FRc7JtsROuQPRGxbDRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJn7R0YE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KEmmfL2y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB321F0089C;
-	Sat,  3 Oct 2026 09:10:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJn7R0YE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CFAF1F008A1
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:10:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791018624;
-	bh=40Q+BQhPV/7YJVdU18+bv68+lD9vaTDMHUJymM/7aLQ=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=KEmmfL2yy2NIQQxxXN88AR/pQ4ACMoBZPI+6rm01SsszkIvJEymsl8qJCC+8NSzyC
-	 p2D82uHCaip6GbOdLRn1IZKpXFfGGy4OqTElpvexQQ1RGDtKfmznUPqRXK5O853BZQ
-	 PfEUoBcuDJkWxFKcpNywycaNXnGD0vtp06HWvKFj0rwjptOHz6B/v9KAw6slR/tcz0
-	 fbJYK9cpbdENIGQJFEFw1AeuD4Lzlkqb6DyZpuxO04eIObbvCWN4w04PGDL1hwDM8l
-	 dzGB7LmjrwNyUb2/aYLfrGbSia3gsXMffdSXtwGCiv/7QQemEUJT9kJtqbEjUMU3HQ
-	 cX9FzSvKN3WeA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7D490198003A;
-	Sat,  3 Oct 2026 05:10:22 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Sat, 03 Oct 2026 05:10:22 -0400
-X-ME-Sender: <xms:fMbAaruZ1p-31pg-gMtQwhQWuzehRey1eUGN9eWRiyqGs2vNPVpoIw>
-    <xme:fMbAanRKcJpno_hJ9lbiRqrpAVrNVDhZoF349jxFfvGwkK6rPsjDcw1xtATfqRFOJ
-    0jEiSiRqcUuUGCf7bGP6OBKVmMRUFVBkbfRPFSNgOZJHTJxPMAX85Y>
-X-ME-Proxy-Cause: dmFkZTFmKcJLX6AWSkxpp210h4B+6lLradu3bnF4Q01CservSTw0v2jNi6VPk5jhgwelyw
-    5jjkZDZlZDrxnh2URU5j3djsIB+gLBfZqjhdGZ+m4Zjf8/+LpwZOYwiXqXEhuGBUDAEVt6
-    9NBV7vf3jExfvSSBmlb/NQnvcKN2sRghAAw82nxYZ3Quv+l86FbVe3P19cwahCCCzOCja3
-    6Y2CnyXVW/QWDT1lz7g2xapBrOu4HIrF0aHCgrQNVZvejgRCeWD1hRm8e43cmWWBb9De3C
-    VD/oS0BmbVwIJs0TbQNbSXNZPdf9Iy7ERRQgTgygSsmwZfwNoadpIf9rWGbBydKyQbmTES
-    4b7esYAuBHX7zZMxDcWhBx/EvulexwoBOlqscb9GuHFwTYHrLSwCBiBRNdAIgoDjKNz55m
-    GprJWXnd+mxMYJfTgaW66WzmUyIZWUd4ZibaXEX7FSUub9RDEGer3v3I0Lrg+EcR9D9QaA
-    CVgFojxP0gPZTVJdnSYP1CiKdBNFhnZMpF6gYdTr6MMu4mI2xrOtmGqpjW0QOjBVLeLDKa
-    ajVxZbjKP4BPv8wZqkTHNctSk2lOBr5LQ2UTFE5HqaW6PKx84h86aiO3TKjXEWc+rXgOOW
-    xH5EwxE776HhKnNOCj1zYNh3NPFm65stLONF9hSLTI9wA8+CE4Cpg74Exl+A
-X-ME-Proxy: <xmx:fsbAaqQ91dKPz1cAUJIEcPPINLOq604fWPMh-6RH3HSysU_M0dDXWg>
-    <xmx:fsbAan-nzifUTJGOrBk3-6pb7ZgwpOWo9ziQQAyNuStz4o2RJN-Y4w>
-    <xmx:fsbAajYtCLJlOqpcXEvZ66tr-XCaXO05dZ868E8xCucQQYA8SEj_Qw>
-    <xmx:fsbAagpKWgpSWG8-VDa4LRVCwEWFOZpBKMi4JElvsarjv7yEdIIyqg>
-    <xmx:fsbAavTFfGvmira1W7GbP-0RQBRPX53E92k3I6pbKGh5JFApjvPmwE84>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 40384F80090; Sat,  3 Oct 2026 05:10:20 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1791018633;
+	bh=P7rAoJ5/n/5WLlrNeuWTZVKjqQomeDXh9uQGosF+PF8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=mJn7R0YE7RRYZ5xM1pWVg2Ww0oaYZqSMVvwhzlNKriySlG+kPUjyAP9lQDosRc+SF
+	 bb73Eew3ySBjCTIWzwVIifDg7ECtpvcsxnSYBt1+joao+6OdJvptjUg1nycT1LV7M8
+	 thj1O6KHkRcvI7w4niiNn0MsTmCdrpAk0YbYnj3G8ZlizK5Rp102sS9Bow2o75jvbF
+	 9/q00GvDkfT0WLvR/tj/55Tn7V+VOYUwceiETdoBENFLvRj+8zIrx2XnZ/popteEHk
+	 +VDD1MVhDWFFURILLE33QqBEy4LFpVPoTZbtoF6oks3+xuA1CAm9rQ9+cJ57aDl1X3
+	 fO6TB+LjtAAiA==
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so368943a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:10:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBywej+JZxpY9blnfgSzXQwbT7ETEmxXkj894QTc8pME1y8f9VJjGNvSWBt8WWQ8SrXbWK9M7nGbZwqb+Sg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeBxGdfunYOI4v991P+cR4JB25kxnfNb76pFZtbRA996UNhOpN
+	r8JwiAWfT5+t5J6O9OkEV8j0xmj88hhvY+ONOvQ8wmReBwdnaGpZlHSp6kucaQtTmD6XXZDnzQY
+	Un8aaGGFzk0Cy6oFstWtzjDcAMJ0aad4=
+X-Received: by 2002:a05:6402:20cf:b0:6ac:8761:17a1 with SMTP id
+ 4fb4d7f45d1cf-6afada2737fmr1406190a12.36.1791018632180; Sat, 03 Oct 2026
+ 02:10:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 03 Oct 2026 11:10:00 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Bill Wendling" <morbo@google.com>
-Cc: "Linus Walleij" <linusw@kernel.org>, "Jeremy Kerr" <jk@ozlabs.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "Kees Cook" <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- codemender-patching+linux@google.com
-Message-Id: <05f1ea67-e6c1-4660-83a5-89550af259b9@app.fastmail.com>
-In-Reply-To: 
- <CAGG=3QXtYajLg-W21R=52FB151wbnAYr7a7rJMJL9krq0-fTyw@mail.gmail.com>
-References: <20260928063824.1386524-1-morbo@google.com>
- <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
- <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com>
- <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
- <CAD++jLnOm3ua7hom_L4YQwN5z81M17WmL_VGqx+-ugrAJ-6_Dg@mail.gmail.com>
- <7e847715-6bd5-4f69-a9a6-339788810fec@app.fastmail.com>
- <CAGG=3QWKEgeggp+OcVsS4QLOX1zxN23HHZp1SfHX0rQVA_7nDQ@mail.gmail.com>
- <4c92ca0e-c502-4a63-a2a2-bbf53db5e40f@app.fastmail.com>
- <CAGG=3QXtYajLg-W21R=52FB151wbnAYr7a7rJMJL9krq0-fTyw@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-Content-Type: text/plain; charset=utf-8
+References: <20260923060349.146780-1-lianyangyang@kylinos.cn>
+ <20260924075655.375632-1-lianyangyang@kylinos.cn> <CAAhV-H6C=AyS=1AejxxaG-Zri=2=AfMtPzXFxEvzpFdD1_AaAw@mail.gmail.com>
+ <1b9d2426-fe5c-4227-976d-65ceb812c93c@tsinghua.org.cn>
+In-Reply-To: <1b9d2426-fe5c-4227-976d-65ceb812c93c@tsinghua.org.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 3 Oct 2026 17:10:20 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H682iM2DydKK9+o7x93EapKRp=KQXnKQkoAK+yMeup44g@mail.gmail.com>
+X-Gm-Features: AclHuK_L8q7-wOQE3LQDFkCVmAOEnizg-0482hbNFAZFXKix-vkoovdVlxzV_Es
+Message-ID: <CAAhV-H682iM2DydKK9+o7x93EapKRp=KQXnKQkoAK+yMeup44g@mail.gmail.com>
+Subject: Re: [PATCH v2] LoongArch: kdump: add arch_crash_save_vmcoreinfo() support
+To: Dave Young <yangrr.2009@tsinghua.org.cn>
+Cc: Yangyang Lian <lianyangyang@kylinos.cn>, Andrew Morton <akpm@linux-foundation.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Dave Young <ruirui.yang@linux.dev>, WANG Xuerui <kernel@xen0n.name>, kexec@lists.infradead.org, 
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Haoran Jiang <jianghaoran@kylinos.cn>, Tao Cui <cuitao@kylinos.cn>, 
+	George Guo <guodongtai@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-
-
-On Sat, 3 Oct 2026, at 10:54, Bill Wendling wrote:
-> On Fri, Oct 2, 2026 at 6:52=E2=80=AFAM Ard Biesheuvel <ardb@kernel.org=
-> wrote:
->> On Fri, 2 Oct 2026, at 14:44, Bill Wendling wrote:
->> > On Fri, Oct 2, 2026 at 12:38=E2=80=AFAM Ard Biesheuvel <ardb@kernel=
-.org> wrote:
->> >> On Thu, 1 Oct 2026, at 23:24, Linus Walleij wrote:
->> >> > On Thu, Oct 1, 2026 at 10:05=E2=80=AFPM Bill Wendling <morbo@goo=
-gle.com> wrote:
->> >> >> On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@k=
-ernel.org> wrote:
->> >> >> > On Mon, Sep 28, 2026 at 9:22=E2=80=AFAM Bill Wendling <morbo@=
-google.com> wrote:
->> >> >> > > On Sun, Sep 27, 2026 at 11:38=E2=80=AFPM Bill Wendling <mor=
-bo@google.com> wrote:
->> >> >> > > >
->> >> >> > > > The 'data' pointer field in 'struct acpi_gpio_mapping' is=
- associated
->> >> >> > > > with the 'size' field, which represents the number of ele=
-ments of
->> >> >> > > > type 'struct acpi_gpio_params' allocated for 'data'.
->> >> >> > > >
->> >> >> > > > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
->> >> >> > > > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted=
-_by_ptr
->> >> >> > > > attribute.
->> >> >> > > >
->> >> >> > > > Analysis of allocation, assignment, and access points sho=
-ws that the
->> >> >> > > > pointer is never accessed before the count is set, which =
-guarantees that
->> >> >> > > > this annotation is safe and will not cause runtime panics=
- or
->> >> >> > > > false-positive bounds checks.
->> >> >> > > >
->> >> >> > > > Cc: codemender-patching+linux@google.com
->> >> >> > > > Assisted-by: LLM
->> >> >> > > > Signed-off-by: Bill Wendling <morbo@google.com>
->> >> >> > > > ---
->> >> >> > > >  include/linux/gpio/consumer.h | 2 +-
->> >> >> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
->> >> >> > > >
->> >> >> > > > diff --git a/include/linux/gpio/consumer.h b/include/linu=
-x/gpio/consumer.h
->> >> >> > > > index fceeefd5f893..2b80cf7aa7e7 100644
->> >> >> > > > --- a/include/linux/gpio/consumer.h
->> >> >> > > > +++ b/include/linux/gpio/consumer.h
->> >> >> > > > @@ -667,7 +667,7 @@ struct acpi_gpio_params {
->> >> >> > > >
->> >> >> > > >  struct acpi_gpio_mapping {
->> >> >> > > >         const char *name;
->> >> >> > > > -       const struct acpi_gpio_params *data;
->> >> >> > > > +       const struct acpi_gpio_params *data __counted_by_=
-ptr(size);
->> >> >> > > >         unsigned int size;
->> >> >> > > >
->> >> >> > > >  /* Ignore IoRestriction field */
->> >> >> > >
->> >> >> > > There's a problem with 'drivers/firmware/efi/libstub/Makefi=
-le'. Clang
->> >> >> > > needs a compiler flag to support the "__counted_by_ptr" att=
-ribute
->> >> >> > > referencing a field *after* the pointer, like in this patch=
-. However,
->> >> >> > > the Makefile blasts the flag away for x86 platforms. Below =
-is a hack
->> >> >> > > that copies the part of the top-level Makefile that adds th=
-e flag. I
->> >> >> > > don't think that's a good solution. The comment in the driv=
-er's
->> >> >> > > Makefile says that the stub code executes before the kernel=
- does,
->> >> >> > > which I assume is why a lot of the flags are blown away... =
-In any
->> >> >> > > event, I'm not sure how best to address this.
->> >> >> >
->> >> >> > But is this a problem with the current patch?
->> >> >> >
->> >> >> > Does libefistub use <linux/gpio/consumer.h> in any way, shape
->> >> >> > or form?
->> >> >> >
->> >> >> It's being #included transitively:
->> >> >>
->> >> >> In file included from drivers/firmware/efi/libstub/efi-stub-hel=
-per.c:12:
->> >> >> In file included from ./include/linux/efi.h:20:
->> >> >> In file included from ./include/linux/rtc.h:18:
->> >> >> In file included from ./include/linux/nvmem-provider.h:16:
->> >> >> ./include/linux/gpio/consumer.h:670:55: error: use of undeclared
->> >> >> identifier 'size'; did you
->> >> >>       mean 'ksize'?
->> >> >>   670 |         const struct acpi_gpio_params *data __counted_b=
-y_ptr(size);
->> >> >>       |                                                        =
-      ^~~~
->> >> >>       |                                                        =
-      ksize
->> >> >> ././include/linux/compiler_types.h:392:64: note: expanded from =
-macro
->> >> >> '__counted_by_ptr'
->> >> >>   392 | #define __counted_by_ptr(member)
->> >> >> __attribute__((__counted_by__(member)))
->> >> >>       |
->> >> >>        ^~~~~~
->> >> >> ./include/linux/slab.h:602:8: note: 'ksize' declared here
->> >> >>   602 | size_t ksize(const void *objp);
->> >> >>       |        ^
->> >> >
->> >> > Hm I see.
->> >> >
->> >> > Certainly Jeremy or Ard will have an idea about how to solve thi=
-s,
->> >> > so paging them in.
->> >> >
->> >>
->> >> libstub code never executes in the context of the kernel, but only=
- in
->> >> the context of the boot firmware. Generally, we disable instrument=
-ation
->> >> there that has a significant runtime component, basically because =
-we
->> >> cannot crash or panic the kernel before we have even booted it.
->> >>
->> >> Can we just #define __counted_by_ptr(...) to nothing when building
->> >> from that Makefile?
->> >>
->> > Doing it in the Makefile is tricky, because of how the "c_flags"
->> > variable is defined and used. I couldn't find a good way to do it.
->> > Instead, I inserted "#undef __counted_by{_ptr}" at the top of the
->> > affected files. It's gross. If there's a way I'm missing, please let
->> > me know.
->> >
->>
->> Does that even build?
+On Sat, Oct 3, 2026 at 4:25=E2=80=AFPM Dave Young <yangrr.2009@tsinghua.org=
+.cn> wrote:
 >
-> It did for me...
 >
-> Let me look into Sashiko's comments.
 >
+> On 9/28/26 10:28 PM, Huacai Chen wrote:
+> > Hi, Yangyang,
+> >
+> > On Thu, Sep 24, 2026 at 3:58=E2=80=AFPM Yangyang Lian <lianyangyang@kyl=
+inos.cn> wrote:
+> >>
+> >> Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
+> >> /proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
+> >> /proc/kcore as wellas /proc/vmcore.
+> >>
+> >> LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
+> >> arch-specific values are missing from the vmcoreinfo PT_NOTE. The
+> >> generic exporter in kernel/vmcore_info.c already provides
+> >> NUMBER(VMALLOC_START), but tools like crash cannot derive the module
+> >> and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
+>
+> current crash can get the kaslr offset from the _stext differ, so it just=
+ works, but maybe makedumpfile still need the vmcoreinfo export.
+>
+> >>
+> >> Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
+> >> space to 2GB") the vmalloc and module boundaries are no longer stable
+> >> across kernel versions either, so vmcoreinfo is the only reliable
+> >> source for them.
+> >>
+> >> Provide this function in a separate file that is built at the same tim=
+e
+> >> as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section t=
+o
+> >> Documentation/admin-guide/kdump/vmcoreinfo.rst.
+> >>
+> >> Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
+> >> Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
+> >> Tested-by: Tao Cui <cuitao@kylinos.cn>
+> >> Co-developed-by: George Guo <guodongtai@kylinos.cn>
+> >> Signed-off-by: George Guo <guodongtai@kylinos.cn>
+> >> Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
+> >> ---
+> >> V2 -> V1: Export VMEMMAP_END + 1 to make it an exclusive bound, matchi=
+ng
+> >>           what tools like makedumpfile expect.
+> >>           Add Tested-by tag from Tao Cui.
+> >>
+> >>  .../admin-guide/kdump/vmcoreinfo.rst          | 29 ++++++++++++++++++=
++
+> >>  arch/loongarch/kernel/Makefile                |  1 +
+> >>  arch/loongarch/kernel/vmcore_info.c           | 21 ++++++++++++++
+> >>  3 files changed, 51 insertions(+)
+> >>  create mode 100644 arch/loongarch/kernel/vmcore_info.c
+> >>
+> >> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Document=
+ation/admin-guide/kdump/vmcoreinfo.rst
+> >> index 7663c610fe90..2ff921232616 100644
+> >> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> >> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+> >> @@ -594,3 +594,32 @@ va_kernel_pa_offset
+> >>
+> >>  Indicates the offset between the kernel virtual and physical mappings=
+.
+> >>  Used to translate virtual to physical addresses.
+> >> +
+> >> +LOONGARCH64
+> >> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >> +
+> >> +VA_BITS
+> >> +-------
+> >> +
+> >> +The maximum number of bits for virtual addresses. Used to compute the
+> >> +virtual memory ranges.
+> >> +
+> >> +PHYS_OFFSET
+> >> +-----------
+> >> +
+> >> +Indicates the physical address of the start of memory. Used to transl=
+ate
+> >> +virtual to physical addresses.
+> >> +
+> >> +KERNELOFFSET
+> >> +------------
+> >> +
+> >> +The kernel randomization offset. Used to locate the kernel text in
+> >> +virtual memory. If KASLR is disabled, this value is zero.
+> >> +
+> >> +MODULES_VADDR|MODULES_END|VMALLOC_START|VMALLOC_END|VMEMMAP_START|VME=
+MMAP_END
+> >> +---------------------------------------------------------------------=
+--------
+> >> +
+> >> +Used to get the correct ranges:
+> >> +       MODULES_VADDR ~ MODULES_END-1 : Kernel module space.
+> >> +       VMALLOC_START ~ VMALLOC_END-1 : vmalloc() / ioremap() space.
+> >> +       VMEMMAP_START ~ VMEMMAP_END-1 : vmemmap region, used for struc=
+t page array.
+> >> diff --git a/arch/loongarch/kernel/Makefile b/arch/loongarch/kernel/Ma=
+kefile
+> >> index 001924877772..6260c15adaba 100644
+> >> --- a/arch/loongarch/kernel/Makefile
+> >> +++ b/arch/loongarch/kernel/Makefile
+> >> @@ -64,6 +64,7 @@ obj-$(CONFIG_RELOCATABLE)     +=3D relocate.o
+> >>  obj-$(CONFIG_KEXEC_CORE)       +=3D machine_kexec.o relocate_kernel.o
+> >>  obj-$(CONFIG_KEXEC_FILE)       +=3D machine_kexec_file.o kexec_efi.o =
+kexec_elf.o
+> >>  obj-$(CONFIG_CRASH_DUMP)       +=3D crash_dump.o
+> >> +obj-$(CONFIG_VMCORE_INFO)      +=3D vmcore_info.o
+> >>
+> >>  obj-$(CONFIG_UNWINDER_GUESS)   +=3D unwind_guess.o
+> >>  obj-$(CONFIG_UNWINDER_PROLOGUE) +=3D unwind_prologue.o
+> >> diff --git a/arch/loongarch/kernel/vmcore_info.c b/arch/loongarch/kern=
+el/vmcore_info.c
+> >> new file mode 100644
+> >> index 000000000000..fb703b716253
+> >> --- /dev/null
+> >> +++ b/arch/loongarch/kernel/vmcore_info.c
+> >> @@ -0,0 +1,21 @@
+> >> +// SPDX-License-Identifier: GPL-2.0
+> >> +
+> >> +#include <linux/vmcore_info.h>
+> >> +#include <asm/addrspace.h>
+> >> +#include <asm/pgtable.h>
+> >> +#include <asm/setup.h>
+> >> +
+> >> +void arch_crash_save_vmcoreinfo(void)
+> >> +{
+> >> +       VMCOREINFO_NUMBER(VA_BITS);
+> >> +       /* NUMBER(VMALLOC_START) is exported by the generic code */
+> >> +       vmcoreinfo_append_str("NUMBER(VMALLOC_END)=3D0x%lx\n", VMALLOC=
+_END);
+> >> +#ifdef CONFIG_64BIT
+> >> +       vmcoreinfo_append_str("NUMBER(MODULES_VADDR)=3D0x%lx\n", MODUL=
+ES_VADDR);
+> >> +       vmcoreinfo_append_str("NUMBER(MODULES_END)=3D0x%lx\n", MODULES=
+_END);
+> >> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_START)=3D0x%lx\n", (unsi=
+gned long)vmemmap);
+> >> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_END)=3D0x%lx\n", VMEMMAP=
+_END + 1);
+> >> +#endif
+> >> +       vmcoreinfo_append_str("NUMBER(PHYS_OFFSET)=3D0x%lx\n", PHYS_OF=
+FSET);
+> > I think it is also useful to export PAGE_OFFSET here.
+>
+> Hi Huacai,  if it is a fixed value or it can be derived from other known =
+values I'd suggest not to export.
+Hi, Dave. It is not completely a fixed value, and I found that RISC-V
+also exports PAGE_OFFSET.
 
-When you #undef __counted_by(), it is passed straight to the compiler
-rather than being turned into whichever __attribute__(()) it is supposed
-to resolve to by the preprocessor.
+Huacai
 
-Hence my surprise that it actually builds.
-
-In any case, this should be done in the Makefile or in a header, not in
-each individual C source file.
-
-
-
+>
+> >
+> > Huacai
+> >> +       vmcoreinfo_append_str("KERNELOFFSET=3D%lx\n", kaslr_offset());
+> >> +}
+> >> --
+> >> 2.25.1
+> >>
+> >>
+> >
+> >
+> >
+>
+>
