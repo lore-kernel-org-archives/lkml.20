@@ -1,74 +1,76 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC97F395D99
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 08:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1082798F8
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 08:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791016131; cv=none; b=DVkAsV5PUktrlx7IkNLdYgja0tnUg1VIE8dIG0qnFJgtzLgabFYpfTZqqyg9RLNxYfm0ln8g0KSlHqkpFxOLyiW5AlZ+ld+J9QI7M+fuANac8WXkhxMglCjW5YjO8VGw20gMrh6+R7C2dJ2KuASR459FG+CvpEsaNycF+nHc6tQ=
+	t=1791016256; cv=none; b=i6iIL+rODfggI2QrrrMF4oD8eDn3FvHb70HVU+AOtqUv29O/xT8P96RFgdAQ7uv6jQfgERFj8/qPabm97S/Kj+zNYyu7TYgY5YZKOVzgNJgi6/7aHbb0ZBx8405SzbvoLPTQ7nZU5Iw9KFS8QiWYB5DfSu241U4D57qgZ1o/8iA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791016131; c=relaxed/simple;
-	bh=HTPEmPCGYmkqZSgwlod58JbSJWkfi4nkOEYwzAfzU/M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n323JTSWSkF9tN/xs8huRS1a8CS9OC643tApNfY/7WZc6bqadt7AZvA488dfsg6u09dLOAcVw7Anrgh8Z/HLNkC3Ol0QMFBl419j5CzzRFlWB1XL4QXHoO1LOZ3kOnREJH7/BuVuzQjbDQyZm9MZxl2sx4KpydIUT9p6u0xPavg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2s2AwrX; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1791016256; c=relaxed/simple;
+	bh=TaMpx5R7b+d7k5ur0zpZMj1+E/mTzW5SZHjVmLYbKvs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YCvnm2jSGf4/XQhOA8homwQl5YQKXWcYQjkDALCPNXK3DCtRWfSBKoIHVEh2RZ4ShJbMEKRMLk9/rMHjyfVwRVJTrsjJmUplfSZZF46UMCa95zT6D1ZNi0VALGC7SRHSa99Gw2Z1Vih1A3x2QTJ5JJ+anMRkmWrKTwMH1GILSqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O69elUty; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2s2AwrX"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a16629a040so5673375e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 01:28:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O69elUty"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so4157085e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 01:30:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791016128; x=1791620928; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791016253; x=1791621053; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CgkLt2eJLsFwOY1HeC2FpkdUeH6OhVDWA9sxCZx56OU=;
-        b=V2s2AwrXE3qChXALPLP6LdN5Lkd7jnNw0Y1pchRFvuRGcgPAoiaqyI9uEIkjdqyc8k
-         uyqKlWyo4kC7KloA7YuMs2vw541JmRdC9K3w3rfCcg+L30ZrnzKgri8I98yjirZutCWY
-         TIVEsHPn4XFTi7C2ZEQA0Ud2pWNx2UJdVhERcTo3s3vY14DZFzEqfbH0ky34gw5rQYG4
-         leIfoQ3yIvS6d0DQN62dmAzypbnpsnQAWsedhuNvh8W+/YaT+cI66PXuOJGf/rC/byDP
-         UbwEQE+l9YE4i4yuMifS/ydDpnilP3Ubd2EoNnqweHij3xsUO+IE7XsGoQmmXoIG2w7m
-         KGTA==
+        bh=5XQ8GeFAuXLkcxtw6tW3UD4HNYETCz+1QlyPsmJftWg=;
+        b=O69elUtytd4CSjTvnS7VtIjD1Mx2NczBZ4U+dijD4RZKCG+n7m22snMKQ4Ke/DaFvn
+         O9HZURGbC0zvplzzhy9/iMFHSkdc5z+G7IPlGvc1tW2f6HBDvVq20iMJrP8iC5wpkGxI
+         JnPjVIf7xWrC/bYJ8K5zzgP3x4g1gD7PGDi47n1NDrk671O2W8GRdwZkiyAETyv41UqU
+         q/9d6mdBFpX8HDzQNYH3QxVIxMMqHbqwlSzK0ymcDBauzL5iE7IpWactwQMNEeEH+l3U
+         cU73VVYmR2P2pDeh0zZ0TFwTBSkKpqLdXBVV37nGNnb5tFPYF6wEk9ohPz3B2tc+Gdz7
+         /3Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791016128; x=1791620928;
+        d=1e100.net; s=20260707; t=1791016253; x=1791621053;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CgkLt2eJLsFwOY1HeC2FpkdUeH6OhVDWA9sxCZx56OU=;
-        b=x2zhw3GbLNJhkCw2qTQk/enWPasVduVMu59j7nkyKItjlKfnxQ+qUnArXhT/uRQjmY
-         2ITIOctKwYaKO2dArUOWY1goRUpK2FqG8igPqPHiR4wFsE9rwXKVAxG3KmDZOqkQa/6f
-         q6w91wOFPjPe67feirjHc7wBqpKbPPjNnoPpZQpEjI7F+VkOM2DSOKQ9PaxnhbuVjoxV
-         PYgSuImjhq+c9oJacc9MNN3aviclyHCvkMrwV52w9oU4C7o/qvysKAjd6+2i0pGCWcrj
-         wXDBPIgVSL9e5zAjFmvb5TllRV9v72GjwNYqsArpgZnHOQYbImhZDf845u3Sxyj/Z4Qy
-         HURQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaVBPV3zcnRoJhLPl31bi4hSCveIDgtfmUtZayo8RqhnpGlLmuc0orcZ6fa0bBhPLBRamzWx2dTm69GUA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mChzaGPV7k9TsZ6r0uhvUkg7QY0QtbhCyYVviopyWBQbI4PyO1
-	Nd+KSbaP4+ZO9IJMtQxlkYrDqA2+TmyL5aeKBSrkVqXW+Pb8Chh2RTGe
-X-Gm-Gg: AYBFou17wLDt8sO8tYX/F6SEjb5fud845qkIuRavgEMueZNWLtFxV4HwUJVQ2+MnP5N
-	pcIs0E8D5YVNwmEJZSQlFuJo/vH+PY65tz5DyEub/tTLULsvWE9dH99UQuVCxgWx1jcpRshuWXq
-	wiGZ4Hd5X3qvyKilrziBO3sOiE4/vFL9YRSG9gfGd2vvqH3/7adCMroArIwJmJykB/RaTDVeuPl
-	dbL3U5mbBYNrGKdTIEemhLIz8niT/JTVYykrKSwnYX2NSmRn15gxk+JKxKH8+pvTVrvpBxRZQyR
-	668yBgYgJt97mAI8r4+NzuGYNNiXfGFkW6sYP66q7cpizbM7ZExmjBe5W7FlQ2JxXUe61AHmct1
-	DOvMZGDcLO9ByHXckFElaWvQuVOQ9zGXSjw05u2COoKTW5vnP7sfoQgnIyTFFV3GmZV735YX53n
-	wPhKia/Y0uk7zAr2cCxLbW/BsFuE5jizsx18HNKhZqtqWXarX71C6oTZKd7T7vRI13m4OZ8UOhd
-	xhAcCUE/MDwj9eQMRN/+f8Aln2DxCrXYiQemD28WYB1ZLQ8/6rF31oYZ6Ry4Kz0Hawbd3gq2qPH
-	GTSXWcsdQU4SI1F3n+RqN6hm2CnxlHJY4aadeoxiVI1yC6X4tlxwwqYB1yfruY/5OFn0eYNOZyP
-	nv6Q=
-X-Received: by 2002:a05:600c:c091:b0:49f:cbf1:e77b with SMTP id 5b1f17b1804b1-4a1680dd2c0mr16619435e9.10.1791016127684;
-        Sat, 03 Oct 2026 01:28:47 -0700 (PDT)
+        bh=5XQ8GeFAuXLkcxtw6tW3UD4HNYETCz+1QlyPsmJftWg=;
+        b=lAoQFjGgEQhMpe/oKw4iu+PRfnI3uDHS5yLulqJnaqHpF5qhX4LoZhDJAtlxvt0wzm
+         ybP33SbT2QWXcUE58lOcfEhZLo0hZStKy/RQxmZgp/8YOvWbYK1SL8xi+IJDGH/N/YUD
+         Gj7ab46QBzVkXyr/dUzn4b97Zn/fj1DhJ+4BuZq4+fWJrD0JjFNbLW6/ynp+x1lXP3Zg
+         KFif7/TuH5PHA4yoqJeQxe+NjWv9HBIe1Rk8gGn+uCp0t4vVHeevAwx2pP4vbkj/xco/
+         wFyC1CW8KBbSb8DRlWL6eOHSD9k7dLhyQb9Ye9ioamvVxurgWdZ6YxmYE8nyLwktifgK
+         FLlg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5w6AtESdjkkeAQc6UjnY4SIZCf22UWvbw+DeBbP2YSiLoG0OYnbX4rZnj/LZTA0WBXhlY17yrQuxN1N0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lM+VBRX9VwYhLBAUCRaZh2jar0NAsigpxFvQBYwY0rcSuJAzRi
+	WeN5xWHKhrU99uYVHnr4JginYiqlpNceMlxhq2s/Von1WroYIdsV1T4k
+X-Gm-Gg: AYBFou0vZU20ZJTtZSQSexWrw6zA38LkWZn6wAL7jRSMsE7yxcMjmEB5U6pkdx0N2W1
+	7hM4XNICU7xkxhna1+J3TspUiXQXMdZ/6zLqtd8YpVl9D7aMQFvPkLT12cSh1fhr7vv0a8pi6UJ
+	fN1JodztBXNgtjA2Kj7CiAcY3VSfCvzCDXEkqcQqKFE+Tio4g4gztOSFFHOwMIo4K9sIQcTzfaW
+	3qsBU2aMIxlHnx+cGyfgWNdkrEhylv70+ZmxLIA1J78WPTaF5ixQOFGap6WxsdtyGxZXHkskw6W
+	GJwPfD05fK27Nf1Cg6zX6jtWnrdB5Y+RcemiQY5RQ4zK25dewqszYmpXESzTeksa3WnAp5qXGv7
+	qLiVmYSCqMF9m/C/SpHSlKFQYpIsJLci/1RBrSNwODR3aIunc8J1WYwYCJcz/+dZPVopKhSIwuv
+	BmH7RI9uoB3DxPZTGh+HT4Pq5V8HBRNAOp6Wbats62MKu8YHguF5wD6Bq6GwYnmBcDk3TyvMBEo
+	ceALTLwojMUHv6pDmOgEQZkEDt6xXYNOUNFtn2cJW3c2qpSwEwgOOFXr+7vrMgAGmT1Rd1Gyfqf
+	+6wCGtrYgSS0jXDTDP0R9dRMmpA7RbBhXnWEdqycul5VTEW48BueprER/DgJcLN2aEpvOVVuC9+
+	u+g==
+X-Received: by 2002:a05:600c:46d0:b0:49c:fa21:1c84 with SMTP id 5b1f17b1804b1-4a0275a28d5mr90096835e9.25.1791016253327;
+        Sat, 03 Oct 2026 01:30:53 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-b2e2-2001-c47f-5a89-3d9a-cd2d.310.pool.telefonica.de. [2a02:3100:b2e2:2001:c47f:5a89:3d9a:cd2d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fab11sm10937712f8f.16.2026.10.03.01.28.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0304407d2sm102442715e9.0.2026.10.03.01.30.51
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 03 Oct 2026 01:28:46 -0700 (PDT)
+        Sat, 03 Oct 2026 01:30:52 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Yoshinori Sato <yoshinori.sato@nifty.com>,
-	Rich Felker <dalias@libc.org>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-sh@vger.kernel.org,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-pwm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] sh: sh7785lcr: register the PCA9564 as I2C bus 0
-Date: Sat,  3 Oct 2026 10:28:33 +0200
-Message-Id: <20261003082833.21511-1-kmehltretter@gmail.com>
+Subject: [PATCH] pwm: atmel: Fix prescaler for periods of 2^32 clock cycles or more
+Date: Sat,  3 Oct 2026 10:30:35 +0200
+Message-Id: <20261003083036.21584-1-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -78,41 +80,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The R2025S/D board information is registered on I2C bus 0. Commit
-44454baa7ca7 ("i2c: Dynamically assign adapter id if it wasn't explictly
-specified") changed the PCA9564 platform driver to pass negative platform
-device IDs to the I2C core. The SH7785LCR device uses ID -1, so the core
-assigns it a dynamic bus number. Reserving bus 0 for the board information
-makes i2c-1 the first dynamic bus, and the RTC is never instantiated.
+atmel_pwm_calculate_cprd_and_pres() keeps the period in clock cycles in
+an unsigned long long but derives the prescaler from fls(cycles). fls()
+takes an unsigned int, so the upper 32 bits are ignored.
 
-Set the platform device ID to 0 so the adapter is registered as i2c-0 and
-the RTC board information matches it.
+On controllers that the driver configures with a 32-bit period register
+(SAM9X60, SAM9X7) a request of 2^32 clock cycles or more therefore gets
+prescaler 0 and a truncated CPRD. The request succeeds and sysfs
+reports the requested period.
 
-Fixes: 44454baa7ca7 ("i2c: Dynamically assign adapter id if it wasn't explictly specified")
+On a SAM9X75 (PWM clock 266.67 MHz) this affects periods from about
+16.1 s on. Requesting 20 s with a 10 s duty cycle
+
+  # echo 2 > /sys/class/pwm/pwmchip0/export
+  # echo 20000000000 > /sys/class/pwm/pwmchip0/pwm2/period
+  # echo 10000000000 > /sys/class/pwm/pwmchip0/pwm2/duty_cycle
+  # echo 1 > /sys/class/pwm/pwmchip0/pwm2/enable
+
+programs CPRE=0, CPRD=0x3de4355c and CDTY=0x9ef21aae. The channel runs
+with a period of 3.9 s, measured from the period end flag in PWM_ISR.
+With this duty cycle CDTY is above CPRD, so the output stays inactive
+and an LED on it stays dark.
+
+Use fls64() so that the prescaler is derived from the full 64-bit
+value. The driver then programs CPRE=1, CPRD=0x9ef21aae and
+CDTY=0x4f790d57. The measured period is 20.0 s and the LED is on for
+10 s of every 20 s.
+
+Controllers configured with a 16-bit period register are unaffected
+for all representable periods. Some out-of-range requests of 2^32 clock
+cycles or more were accepted and programmed with truncated values. They
+now fail with -EINVAL.
+
+The truncation was not reachable when it was introduced. The period
+was an unsigned int in nanoseconds then, which limits it to about
+4.29 s. Commit a9d887dc1c60 ("pwm: Convert period and duty cycle to
+u64") made longer periods possible.
+
+Fixes: 2101c878f767 ("pwm: atmel: Replace loop in prescale calculation by ad-hoc calculation")
+Fixes: a9d887dc1c60 ("pwm: Convert period and duty cycle to u64")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
 
-Tested with 29-bit and 32-bit kernels on a custom QEMU model of the
-SH7785LCR. Both registered the controller as i2c-0 and the R2025S/D as
-rtc0.
-Testing on real hardware is welcome.
+Notes:
+    Found while testing a Rust port of this driver on a SAM9X75 Curiosity
+    board. The port uses a 64-bit fls. Its registers differed from the C
+    driver for long periods.
+    
+    Tested on that board with a v7.3-rc5-based kernel built with clang
+    22.1.8. PC20 was routed to PWM2 (peripheral function C) in a local
+    device tree. The blue LED is on that pin.
+    
+    - Without the patch there are 23 period ends in 90 s, 3.88 s to 3.93 s
+      apart. The LED stays dark.
+    - With the patch the period ends are 19.98 s to 20.01 s apart. The LED
+      is on for 10 s of every 20 s.
+    
+    The SAM9X60 and SAM9X7 data sheets describe the channel counter as
+    16 bit. That does not match the hardware.
+    
+    - The 20.0 s result needs CPRD=0x9ef21aae. All 32 bits are used.
+    - Commit 0285827d546d ("pwm: atmel: Add support for controllers with
+      32 bit counters") says 32 bit.
+    - Microchip's Harmony PWM example for this board programs
+      CPRD=133333333.
+    
+    I will report the data sheet text to Microchip.
 
- arch/sh/boards/board-sh7785lcr.c | 2 +-
+ drivers/pwm/pwm-atmel.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/sh/boards/board-sh7785lcr.c b/arch/sh/boards/board-sh7785lcr.c
-index 25c4968f0d8b..b93423df582f 100644
---- a/arch/sh/boards/board-sh7785lcr.c
-+++ b/arch/sh/boards/board-sh7785lcr.c
-@@ -256,7 +256,7 @@ static struct i2c_pca9564_pf_platform_data i2c_platform_data = {
+diff --git a/drivers/pwm/pwm-atmel.c b/drivers/pwm/pwm-atmel.c
+index 86918523d821..574020d90a3b 100644
+--- a/drivers/pwm/pwm-atmel.c
++++ b/drivers/pwm/pwm-atmel.c
+@@ -195,7 +195,7 @@ static int atmel_pwm_calculate_cprd_and_pres(struct pwm_chip *chip,
+ 	 * So for each bit the number of clock cycles is wider divide the input
+ 	 * clock frequency by two using pres and shift cprd accordingly.
+ 	 */
+-	shift = fls(cycles) - atmel_pwm->data->cfg.period_bits;
++	shift = fls64(cycles) - atmel_pwm->data->cfg.period_bits;
  
- static struct platform_device i2c_device = {
- 	.name		= "i2c-pca-platform",
--	.id		= -1,
-+	.id		= 0,
- 	.dev		= {
- 		.platform_data	= &i2c_platform_data,
- 	},
+ 	if (shift > PWM_MAX_PRES) {
+ 		dev_err(pwmchip_parent(chip), "pres exceeds the maximum value\n");
+
+base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
 -- 
-2.53.0
+2.39.5 (Apple Git-154)
+
