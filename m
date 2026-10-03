@@ -1,131 +1,150 @@
-Received: from mail-lr2-f33.google.com (mail-lr2-f33.google.com [74.125.230.97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B3F352020
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.97
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791021251; cv=pass; b=n1LOvEDyAMmwxOdTF+5p7N06jAmM0xQNyrnf3h7KOGcAOLltVYB7QXAp18Sgq6Z+kFJDm8sKTdqrlugvqs2nQKFaReE4jLAhDyS3ZwxcHnjH376PYawqh7TIqg4AcVz3eheeBK2yYktJBzLPS7cX6AIkxwlfPVuChuBrxmzpaX4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791021251; c=relaxed/simple;
-	bh=CnE0JZcmqvEBiAZ90fg4GY2g6dG+y5C9xZqui1pBuJE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=axvFJjuGvyAjJKJTujhKHXK20zLEzTy5g9xHUeIVWsc2y7z9vGnaf3eYp0WyKXE8hMov5GnwCOZSdMNfQvR73IrczIRgDdh3UKyzpAXoP+LxbwRDyzJtC7SueKAd2XnqKkB+opge9Y7kGLHAv/E/5uofIn9PBHzmZm+5o35tBGk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S9RiiPhk; arc=pass smtp.client-ip=74.125.230.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DC437B00E;
+	Sat,  3 Oct 2026 09:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791021295; cv=none; b=izM7ASwcEqMLncpPw0WjAwW3gBfoypz8tCyfC02k6Lu6hl9texOuk9xPfyc6kuQFmDKfMBoSs6hgSFzKqEtAIANXBMzT+dnNyeTp+9a8ecLhRI7hxtQUgC6mLWcANe9F0JgECf5qGzY2J1lcvJCAgYie/FRVMk66ZPNP6+Qwk54=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791021295; c=relaxed/simple;
+	bh=n1Roo1hS/xbYYeM9rPswI7ldqnH4ow/4w/RxEGmMLn4=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qjHPl4jT+kI+rS0ckMcJ6Eu6x/T/GtKccb6xMwb3O0eaxpbOkch4zgJi1i//FtLA1W3tBEmAEGcspaRBbE1k7Ema5K3X+BVFk7fCWopsPvrJM+fduBhbe8BApcUnL19s4N1NRcTe6/zHFxZTRP53KCxTdqS1EI31Z3THJo6F1X4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=abOGKJQH; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xOhXuen7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uzOj1EDp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2lHA+78w; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S9RiiPhk"
-Received: by mail-lr2-f33.google.com with SMTP id 38308e7fff4ca-3a82b649db8so998601fa.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:54:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791021248; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eIk7lUJt6YUenUz7VE+zRd8M47LRrXIBO83vAE1jakZoI9gWHJVlo5KJLmIihfyIRK
-         X0iLRfHYLLD32R975B9aqa5DrtjOnXCB4DRc025eh9/AOd/MsIdbboZ0lBGqVbcz9vGE
-         /7xEW7dHSsy6RmxF2DoIHn72hQheZFyxPU1z/e5YaYut0IRlLVEEd+bCokfdK6jAP5vw
-         fsy1B5+SpU8l5ZvA4VqPwUqzFngqSBLcJGZCzBL3e5c4GY5eV5a7voSa23+9wXca1O5d
-         huntYcw3rvNlxWDh4YhLJDk/oiBuA+50yfEf9TJekzkwxkxP1SfquxqQZs+c688rBmA/
-         3ZzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=59m585tSdpKgbYDacI2/yAe8XjAbCmVed3datZmQvfs=;
-        fh=peZI+1r7gZ0C65mreRGNOL96mpaT80f5GzgcSDLlNB8=;
-        b=miQ560hvO35JQtDoSAK89EzlODCqd15xZgoLN9BYYIywyFxKFJgTalXb4H3ghgcw7N
-         KQn+yrdhZGQ4gBfQ46kMsYyQWF0fXhc36YHyNcaEBBqluGG9KPhgqby22AjEJYUCaCgp
-         93ZEdHxP4P1xDfEeCCk4vqQxHOIu23ChV/OsrmSbVt7Ca5A1Nu0XkuSbshs92cvBz8Xm
-         ZGr4vAf0cGdfe0x7sbgom839e1Guw75cILk0EXw8cPS3cTgM/WfoImm2fku9uy2m4UT0
-         OnwOp56wIKJ2JdmTGM+XoPz0vlOExCJJGHts87upGeZi5NVVbCx1E3VvmkrOpsljH3ZZ
-         NZBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791021248; x=1791626048; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=59m585tSdpKgbYDacI2/yAe8XjAbCmVed3datZmQvfs=;
-        b=S9RiiPhkA740TXlPgWhCO4ABWKPhDE5S3YYLbXzb6c3MK+CYUPGcyszhEG/Y+xKerW
-         WbIjdODwAzRVikfkSnslRFySZ0XMm41XDxg4z8skVc9xD4GDmS/3AOzgnqZZ/NA370As
-         9Z3JU+sV4jbXSPphUTZw4Dq+YDMbnzOdksYFlKXVRarLDi+NJ1+xCUpNHrZBj5W0Q+H7
-         o3H3Wn8g9Jx6gwfxRlZlUi6/oZ5V0RNqc3F8+fNhz0DR+wbiniwX6p2hWtZNuvCPzp+g
-         PSUaeBI8SbQbNAuan00BTF7GsnRnGPAlCUj1p5TjsSvRQaqlGZC6PDMbo535ydxHdv2N
-         2U8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791021248; x=1791626048;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=59m585tSdpKgbYDacI2/yAe8XjAbCmVed3datZmQvfs=;
-        b=b2nmPgjrsxRsmBWTnqttPl0uxVOs/3oQrxeHNDEOqBp8bG/5dxy1JIwfCsFxIvOSOu
-         A/pyoAuxLLnSvSD+v8b45OLOQ/2FFKLVgfjINq8u2w1APb8JPR6YlvOv8Au6Gd0/7M4I
-         Wr7q7o7B5w++pnbJjT/Ryxbf72l8+e0tJATn5nVS40QAiZ2g1gFfR9py7GyTqE683ixm
-         Mo44MnSWGDL1TZO5Nb109mnYoCuM4WEHhsCKqBS+OAwfjMIsYFCAMqBBJ4bms7XVLKWY
-         QgBzwz7OiLLVsBk+OAGyo/oEdkLs3nnmcji1tgGIFL/waM3omL6OlsqK+41AUEMmJ3A2
-         G5nw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4GYlNTeLum3P+fDDZbAjbiMsXmYGGYmW8pUZ9pl5gKVLCSk0zq0idSBFkwp4ieEwqizbd50C958nHA3s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmOkw4Q/lioumnRTdwJzYrGCZPDIoevMuZJqZYcYoB6LcZGmYk
-	XJcv5QSHmqN/i9z2ynwY6NOFPWAyXmNyCr5kyCovBe4Ctl2dws7ktaDp9pLLb3qMeyz2whMNvll
-	VxGdQqK5mXYZMPl2dEZFsi/sXoKinLB0=
-X-Gm-Gg: AYBFou1wtNdh7gyogmHD8mGf4qpswtqj4RDZMwzBGffKCY2VdH/tkS8iUFhF19iwG77
-	DBiUMTjOnai27Ib/yFW/9+NnIXqKshiWvPgPPtMw5IZZFRnDZcnvxqak+PvMduCP+ePA/TLjMmk
-	vi2c2vsXVHtUwgwajCvw6tvn8czQQzrWo8r2JAOw5yW92fXapm/a9XzTIrSqFPrMyeh0QzZDLWE
-	3sI/MC3dsgn6eYZ9LBGIEGA3yrFm+gSfwDgGr+bVPDQi4AmycuIzIrDfEXw8cyTYdqbBJiSdVfi
-	RezCDYUoKYzTheAWOw2/ura0kjMr0cmFyN3rx6felfBqji5vXBGRAUpm0ivS3Ih+WWWtzqAxmqv
-	Ai+m7/wCTZGlgoO+GRq3Eae/Y60xtuddwKmpaMA==
-X-Received: by 2002:a05:6512:a356:b0:5b8:ea1f:1225 with SMTP id
- 2adb3069b0e04-5bb9380e793mr1239589e87.1.1791021247487; Sat, 03 Oct 2026
- 02:54:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="abOGKJQH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xOhXuen7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uzOj1EDp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2lHA+78w"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7F9241FECE;
+	Sat,  3 Oct 2026 09:54:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791021287; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiR9WXB+aVGJ/YAqAMbw9jBO67B7we/1T5SgLkrHXis=;
+	b=abOGKJQH8YqBZBhmhHYBLnTFmApZs1YSK8gvOYEKOdKJjclsC9ysy1kkd+XmPkezNqTSad
+	FyFff9hZlT4bFobOsHfzrgLrf1iw7hseHqmcksW/bYaAaS9/UVq7Vae7Ooy1NhdCThGCTN
+	gytu/xcPJTcimHrk1utt3FQQ4BzmODs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791021287;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiR9WXB+aVGJ/YAqAMbw9jBO67B7we/1T5SgLkrHXis=;
+	b=xOhXuen7FVhFvmJ0UUaUk9AgKlnn0wZG8iVYV7wPYgYN55RLzdzkE1It5yDEjsE1RepMo4
+	dJSiwib8KWdGUFAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791021283; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiR9WXB+aVGJ/YAqAMbw9jBO67B7we/1T5SgLkrHXis=;
+	b=uzOj1EDplmXZXlBNMswFRxWkJ0bOTO7Ml6eA0iTZxzBZPaUXrc9A21/lerXxDvZ4x9drCX
+	ZL8ix+cz495HlBOZUhn6pz6RxR7mHG1G7TYt1K3YL72eICDOgr4jD03ZXqyhn5Fi/n/bRA
+	uLLlIK0d//WAQNFTsLK6dqD5OmlnjMI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791021283;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiR9WXB+aVGJ/YAqAMbw9jBO67B7we/1T5SgLkrHXis=;
+	b=2lHA+78wkiProkFpD5NY8C70QMe8AAs+9rZUDLo2tw4t7srEfw42CFiG0YJY98SoittxC1
+	aGv78TegiFQJY/Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 32A0213712;
+	Sat,  3 Oct 2026 09:54:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WHVdA+PQwGoTSgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:54:43 +0000
+Date: Sat, 03 Oct 2026 11:54:42 +0200
+Message-ID: <875wzjxg65.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Denis Yakovlev <mfthesun@vivaldi.net>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable headset mic on HONOR MagicBook Pro 16 2024
+In-Reply-To: <20261002221850.12443-1-mfthesun@vivaldi.net>
+References: <20261002221850.12443-1-mfthesun@vivaldi.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260929131020.266120-1-chenyou910331@gmail.com>
- <20260929131020.266120-2-chenyou910331@gmail.com> <ar_APS7UG25kXXYH@wyuan.org>
-In-Reply-To: <ar_APS7UG25kXXYH@wyuan.org>
-From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Date: Sat, 3 Oct 2026 17:53:55 +0800
-X-Gm-Features: AclHuK8TZRE0VVG543rmFerG4IkGYKm6eK50YeyZ_bRq_POnKgAP3J-x2u8ADoI
-Message-ID: <CAKspUhKypHhegcJJ1DokVhUqLCBE+VaQkX4cMw+tt2L2p1FgYw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] docs/zh_TW: move security-bugs to process/
-To: Weijie Yuan <wy@wyuan.org>
-Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn, si.yanteng@linux.dev, 
-	srcres258@furdevs.cn, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Fri, Oct 02, 2026 at 10:31:25PM +0800, Weijie Yuan wrote:
-> > The translation has only had mechanical changes since it was imported in
-> > 2021, and the English document did not change between that import and
-> > its move,
->
-> Hmm, is it? What does "mechanical changes" means? Does it mean small
-> changes like typos, format, and etc.?
+On Sat, 03 Oct 2026 00:18:50 +0200,
+Denis Yakovlev wrote:
+> 
+> The HONOR MagicBook Pro 16 2024 (DRA-XX, board M1020, ALC256, SSID
+> 1ee7:204e) has a combined 3.5 mm headphone/microphone jack. The BIOS
+> leaves the headset mic pin 0x19 at 0x411111f0, so the codec parser
+> builds no capture path for it, and it leaves the jack switch
+> (coefficient 0x45) in the TRS state, which cuts the microphone contact
+> off from the codec. A wired headset microphone therefore records
+> nothing.
+> 
+> Configure 0x19 as a headset microphone (0x03a1113c, "headset mic
+> without its own jack detect"), the same value already used for the
+> sibling M1020 board (HONOR MRB-XXX) and by the VAIO quirks, and chain
+> to the generic headset mode handler, which detects the CTIA/OMTP
+> headset type on every jack event and programs the jack switch
+> accordingly. Pin 0x1a is left untouched: there is no evidence that it
+> is wired on this board.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Denis Yakovlev <mfthesun@vivaldi.net>
+> ---
+> Tested on a HONOR MagicBook Pro 16 2024 (DRA-XX), Ubuntu 7.0.0-34, using
+> an out-of-tree build of this change, with wired Apple EarPods (CTIA): the
+> microphone records after several cold boots with the headset inserted and
+> after hot-plugging; without the change the analog capture is digital
+> silence. The headset type is detected as CTIA (coef 0x45 ends up at
+> 0xd489). The speakers (including the "Bass Speaker" control from the
+> speaker fix) and wired headphone playback still work. OMTP headsets were
+> not tested (no hardware).
 
-Yes -- changes that did not touch the translated text itself: the
-address updates in 2023, the tree-wide character conversion, and the
-path updates that came with the English move.
+This looks like a fix of the existing quirk.  Could you point to the
+commit via Fixes tag and resubmit with it?
 
-> Maybe I got it wrong, but I noticed that the current version has quite a
-> few new sections and additional content, though. Am I misunderstanding
-> something?
 
-Those all went in after the move. The window I meant is from the import
-(July 2021) to the move (March 2023), and the English file has no
-commits in it:
+thanks,
 
-  $ git log --oneline --since=2021-07-29 --until=2023-03-05 -- \
-        Documentation/admin-guide/security-bugs.rst
-  $
-
-The <N> commits since the move, including the new sections you noticed,
-are exactly what checktransupdate.py reports against the 44ac5abac86b
-baseline once this is applied. That is the point of the move: the
-backlog becomes visible instead of "Cannot find the origin path".
-
-I should have written "between the import and the move" more plainly;
-as it stands it is easy to read as "since the import".
-
-Thanks,
-Chen-Yu
+Takashi
