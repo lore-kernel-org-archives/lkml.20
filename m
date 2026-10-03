@@ -1,126 +1,135 @@
-Received: from mail-ed2-f27.google.com (mail-ed2-f27.google.com [74.125.228.91])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E7C28150F
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDE32472AF;
+	Sat,  3 Oct 2026 00:28:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790987266; cv=none; b=ugiChZXjN7lDvYE/yEnuPB9F6u0l4jfgDwS+5LlXwWns5VAiJjanlQq6O7t+ky1yWHSdRn+dfTsKkdpE+kqAYCavn+kmdvJC8eO5a70Lt9K+1nosAdcgSlF0SpC2q2gerSswMB1o7Bxb2hEf6DRUmu/52IvInggpycIQ5hc8IdY=
+	t=1790987300; cv=none; b=nBs07YYafGbibYYt4LnpXhGcTqXLQUN16ELYSRl+B6TXik5BprncBf5WjLAEo0BS+sqTvrnoDxZoikLl0TpfC5OpAKGThxh9uHLIyfKY6zgJqjO0254odwIAvvlImfGYPucD60eIU9IdzADSoSeWR/FxxBcr9XmVnn+W/J9C90A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790987266; c=relaxed/simple;
-	bh=/GXn4dQlSTFYkZKQfZ2Pd9kQ8BIokZtO0D7dCrKHVB4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AxkG4w4XQIPZNTzVwXl5lJMUx3gfPCs8liuNnEPdd5CrfAYfBk5F2dRyFakpWahEd+YTqDUIc7R6oXNEfpn1+Mo/WsmRyqkyM3DVCUEl/hzNYwAFSwGk5sN90yzfQN7CDpld95UHS+83IxxH5QdZKZ+NPTN5XKGz63fMpuZYao0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Z9LDNVPb; arc=none smtp.client-ip=74.125.228.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790987300; c=relaxed/simple;
+	bh=OcfGfSliasbeWdBaKqPQbcsHZyIN1kZ4/ldTFkM+RF0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Hx3BMTtAEdCRsvnWUy0CP/JtNzesIqenDCAcSWUxEnoanJjZIxwlWSXsHVxv386mRX5IQJ6mn006oVzwmjmzJ7nBJGgt3WV2Tc/ufj2iMaC5CDncBuYfYusiLCU0MUJ19syoogpePWlYovXSzKkdXqX3C19hRciL2NXURNbFhg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3UIX8iG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Z9LDNVPb"
-Received: by mail-ed2-f27.google.com with SMTP id 4fb4d7f45d1cf-6aa135d6e97so4616a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790987260; x=1791592060; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CyHDFt4DMiCfxal6/XACZnlAIAoB/klZYpEIKNjeAu0=;
-        b=Z9LDNVPbPYO6r6Bj9NcGj0IVwuhawZ2L+2ZncKvJTL6yoFjzf3VnJphPKxpXIbsNA1
-         wHOTru0FfMT88OJk1ZPqDUVg3IB6q7Mpu5vQ50VEoefVM2bobYCoaueWI3Yjzm16pj0N
-         LicDP38WQpJM4KZe7GZP334Hd+9ZLFOmZiTHg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790987260; x=1791592060;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CyHDFt4DMiCfxal6/XACZnlAIAoB/klZYpEIKNjeAu0=;
-        b=TYepnJ5k168lq2Y32+zLVdX6P11fho1+ql7jazyionaEmhCXpSufJoFHoJ7NFMQSJK
-         /xQ9Wc8F0K45GMdu8WaZWoKBFVTPt9XU0uMLHt7G0dMzhtge0ZIPujYPK6KCQ8wzkIgL
-         mp7kczymRopVFfXNK27xyUf1jnYGdDprxRq/C03uMIU471H/vHTUyHKP5v0uhb1iK/QN
-         e2GEZt26NYACXHPSm0mJavr2Ym88vsSjeTHX/LoiizaqOzVi5Y825hLI5UmnSFsDWB3j
-         4LLTt9DghwRFNP+XUxteDQRBtPJVuPFaV4NymDZWwvrxyrw+29snjYbgJ4AUU04U4/Zb
-         9oAQ==
-X-Forwarded-Encrypted: i=1; AKwUvByziU1G99Y3fX1ywFzwFmHNeXgcEEIfliCV2exRoczD/1qR4YQAy2rli3nzZ3C8QBHKUG++8B0QYZnPgXY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgJEHptoBtJaHVd2oP/LCU6kRJKAOYmbyvX9NWtySw33oF3v2L
-	GAKZ6owjyCF3hhTbJ42n3zUOAASC+RAaLz1Pg0V1xFcUkg7By8fEPUWQ3bvHT7lNyiEk39m11bP
-	vdjs=
-X-Gm-Gg: AYBFou0GT6egZFPCav/BnwyfE3M04onNdylNwDf50h91aGgeg683/wxIYtStoRyBPr1
-	rizrftDI8wbvFcIzUEQmNL3HpSZ0dpoVNGK+jI1MqVaWgumVSUUN6V7Xp4/77EhGt6MZYuVC/nu
-	ki6xVtp/QhKcyAF39NGuFtEJr419zI2Wo/XG+UHyDwQQXLtWElXTYwPrCFQYbVFvlSHUx23omvS
-	3q9Y0oiSyA8tLzDgSy6dpBZftLXW0xpI27eTMjRPoCWuyc8LxTN5KRqj3RoSpiEjg97PoxuyprM
-	myM+fLm2trPWa0UackGzpkLpjYdDs4drXnHivAFFtky1pDodkH75SQPIAEZgABoHOgb55n+sxKw
-	p07r5BnDce+q86BbR1B8m9W2uJMZqUCXXJMuYjuP+rw+AXrSiuMslIt/u/ApXhvrDL4K8wXi5mr
-	bUOapOwfanOpcanK3N45FKlcay8ezvTtGYKm8f5Qi5ioRKyqijNhZDXAaCvHVkTh+KnjFYvmLCR
-	k3eF8tofoXlZIdt49TaWuNWWlLuwhux6PSS6g==
-X-Received: by 2002:a17:907:1888:b0:c2e:4742:4c91 with SMTP id a640c23a62f3a-c2e4ae35f2amr335676166b.35.1790987259762;
-        Fri, 02 Oct 2026 17:27:39 -0700 (PDT)
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com. [74.125.225.97])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd05f64sm141947266b.22.2026.10.02.17.27.36
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 17:27:39 -0700 (PDT)
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b9d8056d2so3161f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:27:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBypDlK0pAj4dzu32v5DCiyPkogDLaK4KlyXEEvTYvWoyC4uD9ZxY8g7Hw+JCnK5SkKo7x6C4UboQarXOa8=@vger.kernel.org
-X-Received: by 2002:a05:6000:240e:b0:48c:455b:6625 with SMTP id
- ffacd0b85a97d-48c455b66e9mr3660895f8f.19.1790987255739; Fri, 02 Oct 2026
- 17:27:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3UIX8iG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACD21F000FF;
+	Sat,  3 Oct 2026 00:28:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790987298;
+	bh=l+IsL9f8haxtULqd9zYY+CEDTqzojCOVipoPz6PBOBg=;
+	h=Date:From:To:Cc:Subject;
+	b=P3UIX8iGiR3D6GFpsUdwcmdKy41x1QE9YR+uttABzrIBteuAc0Yoe5q+/N1zP2/ei
+	 63GExWNB7ix5yIpFg0Rh5RPP47zXwWSyzGhiKOAfN1JA8xS6HbD4+Kb3aR0xAuqZ4Z
+	 BkcajfcrR4MyTrCla1pwvb9IVUFVBNf8L3J+Kdtxvh284hAPW7l9HZKpMPdeCkLMmZ
+	 KvUpOk/dJYRN8+nJqzEvlAMr7tXO3rIHaOUqsKMnheKykjYdFfTHe0VRwTlWN6Hr9x
+	 yubmDcwOhLfQZp6jH7e1WTWBsaiBIDHfgGDcmgJPSkb381KWAPW9KBF5L/2UNefD5C
+	 dddReOVCpOl0Q==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 7F2C91AC57CE; Sat, 03 Oct 2026 01:28:15 +0100 (BST)
+Date: Sat, 3 Oct 2026 02:28:15 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Oct 2
+Message-ID: <asBMHy9MlhwfexNV@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929184729.2346769-1-briannorris@chromium.org> <20260929114714.2.Id0a3276d23d30e0b5fd4d6dca730be0f9d8fe018@changeid>
-In-Reply-To: <20260929114714.2.Id0a3276d23d30e0b5fd4d6dca730be0f9d8fe018@changeid>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 2 Oct 2026 17:27:23 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WPohx1seYHdw0Mi=5xh8XCWvh23ie03+ePXQgTixGzOw@mail.gmail.com>
-X-Gm-Features: AclHuK8j_7wUYw2uhi7CBehoDliA72XQiK-9p0LnmY5FpnefuRpK2XROhBPZAS0
-Message-ID: <CAD=FV=WPohx1seYHdw0Mi=5xh8XCWvh23ie03+ePXQgTixGzOw@mail.gmail.com>
-Subject: Re: [PATCH 2/5] PM: runtime: Avoid racy clock checks for autosuspend-retry
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Len Brown <lenb@kernel.org>, 
-	linux-kernel@vger.kernel.org, Pavel Machek <pavel@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OZMNTZnKR8I5rk4I"
+Content-Disposition: inline
 
-Hi,
 
-On Tue, Sep 29, 2026 at 11:47=E2=80=AFAM Brian Norris <briannorris@chromium=
-.org> wrote:
->
-> @@ -242,7 +242,12 @@ static inline bool pm_runtime_has_no_callbacks(struc=
-t device *dev)
->   */
->  static inline void pm_runtime_mark_last_busy(struct device *dev)
->  {
-> -       WRITE_ONCE(dev->power.last_busy, ktime_get_mono_fast_ns());
-> +       u64 now =3D ktime_get_mono_fast_ns();
-> +
-> +       if (now =3D=3D READ_ONCE(dev->power.last_busy))
-> +               now++;
-> +
-> +       WRITE_ONCE(dev->power.last_busy, now);
+--OZMNTZnKR8I5rk4I
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-While we definitely want to fix the problem identified in this patch,
-the proposed logic doesn't sit right with me. Let's say that
-'power.last_busy" starts out as a given value, let's say "1020". Now,
-while the clock hasn't ticked you call pm_runtime_mark_last_busy(). It
-detects that 1020 =3D=3D 1020 so it sets the time to 1021 so it's
-different. Now you call pm_runtime_mark_last_busy() again when the
-clock hasn't ticked. Now 1020 !=3D 1021, so it goes back to 1020. This
-could cause the whole heuristic to fail, can't it?
+Hi all,
 
-Maybe I'm just worrying about something that can't happen, but the
-logic still seems odd.
+Note that I will be travelling to LPC from 2nd-9th October, as a
+result -next releases will be at best spotty during that time.
 
-It felt to me like we could just have a "bool". We set it to false
-before we call runtime_suspend() and we check it after
-runtime_suspend() returns. If the bool is set then we know they called
-pm_runtime_mark_last_busy(). There shouldn't even be any weird
-problems with weakly ordered memory since this boolean should always
-be cleared, set, and checked in the same thread, right?
+Changes since 20261001:
 
--Doug
+The rust-timekeeping tree acquired a conflict with the rust tree.
+
+The imx-mxs tree acquired a conflict with the arm-soc tree.
+
+The omap tree acquired a conflict with the arm-soc tree.
+
+The net-next tree acquired a conflict with the net tree.
+
+The mlx5-next tree acquired a conflict with the rdma tree.
+
+The drm-rust tree acquired a conflict with the rust tree.
+
+The kvm-x86 tree acquired a conflict with the kvm-arm tree.
+
+The tty tree acquired a conflict with the tty.current tree.
+
+The starfive tree acquired a conflict with the stm32 tree.
+
+The bpf-next tree acquired a conflict with the pci-current tree.
+
+The bpf-next tree acquired a conflict with the kbuild tree.
+
+The kvm-arm tree acquired a conflict with the origin tree.
+
+The landlock tree acquired a conflict with the jc_docs tree.
+
+The landlock tree acquired a build failure, I used the version from
+next-20261001.
+
+The random tree lost it's build failure
+
+Non-merge commits (relative to Linus' tree): 12636
+ 13101 files changed, 836746 insertions(+), 315745 deletions(-)
+
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 431 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--OZMNTZnKR8I5rk4I
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasBMHAAKCRAv73Ows9A4
+iTFcAQCJ2zZ0zmZIIBoXQhMFkfycvovmrTj3f4lpyAeLXYDPjQD8DO3oLXdJk94w
+Qwi0A/Wklz4FhkVghTkVfJqwFQ1/twg=
+=mlWk
+-----END PGP SIGNATURE-----
+
+--OZMNTZnKR8I5rk4I--
