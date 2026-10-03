@@ -1,200 +1,181 @@
-Received: from gmmr-2.centrum.cz (gmmr-2.centrum.cz [46.255.227.203])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11023126.outbound.protection.outlook.com [40.107.201.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864E7243956;
-	Sat,  3 Oct 2026 19:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.255.227.203
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791055894; cv=none; b=Z7K2VH6HmAq/+3KHBxf8KaeNL9pfti67y/iKWp5C7RHoerq4XioxJzPFGfHj+AKkjC29hTlg2twrajYctNgbHtF1Fu34RrcRc7M/bGwDfGnwKBegn6I6trWNPtgJ1pD3B0g/3NguHW/bEAGxIT+s5+RFb0EBe0ahAuM9ZN3nJcc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791055894; c=relaxed/simple;
-	bh=C8O7C4mU/2FJCQaMZkUD+IgUBJeu99FdrfkdAWBHeI8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tuJQ7uShujvMKkRNCZcxb7U6AEk2O7NtPVaUMnq22+ujHUrBOyrQDu99h/Mvmgh11rVRqS9T7sLuhZ9ZwQb4Vr9fwrx1cgifGvOptSl4CxC7qN57AH84njkqPny5uc92QPuG0FCjcqyXml5xp2kg+Ux6/9cMeWEsUlN8V4gSveQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pobox.sk; spf=pass smtp.mailfrom=pobox.sk; dkim=pass (1024-bit key) header.d=pobox.sk header.i=@pobox.sk header.b=M7LlcNC3; arc=none smtp.client-ip=46.255.227.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pobox.sk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.sk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B633955EB;
+	Sat,  3 Oct 2026 19:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.126
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791056132; cv=fail; b=T2AXklBpkXn70RgTu0IjePbmGBwlRRSm8JDWdMkhV5Oa97Bd82dp6vpmavybJ+8UzWQ8HJaN0nzduByqmJrnEBWmSz2UgpLrHeHVheCNYV1fXRjccdaQ9uXabR+kZT9rVEoB3RJNoczSyy2e0zHTxTjpX+L2Hkdb8g09G6nPAHQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791056132; c=relaxed/simple;
+	bh=lkwRIHALe0yu+7U0y/MbxHLRUpx+DF6WhUJ6zDDsapA=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=UixjNmJTRqBdnx0a3oiZL21dRWXOgCE76QYU581UyqdtdRdPOW2QPqfUBTz55V7KpwNctTFnJiB9xryf3ml8FC1D5f9qIrMDPiScOjMT3tFEDg/UsSs+6PgUnRZb94Z0vdQL5CNbEQCywgASn5LWEIICaPFGRoQ9sqrYMakXYBc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net; spf=pass smtp.mailfrom=trailworks.io; dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b=NH5sNoQx; arc=fail smtp.client-ip=40.107.201.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailworks.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pobox.sk header.i=@pobox.sk header.b="M7LlcNC3"
-Received: from gmmr-2.centrum.cz (localhost [127.0.0.1])
-	by gmmr-2.centrum.cz (Postfix) with ESMTP id 1550020134C6;
-	Sat,  3 Oct 2026 21:30:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.sk; s=mail;
-	t=1791055812; bh=tMnLU9EVM3DULBNW62ELlMHdk3OwyhiBJKi1ZFqcJAE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=M7LlcNC3R3z+x5oK1sUzhsDccrUX/4I6QeE9Nm9aK0eOZ4XllIx1risZjzqI9EA6H
-	 IVSzwY+hg7Nmt3mxE37qKqOWvDxfuS+fcV2u3jtRdOczV5VJ/OG8NgNzFZxtXH5Gdn
-	 /+0A5FGLkwELDU7QBWVO0a2z/gTsdYiS915/fy6U=
-Received: from antispam61.centrum.cz (antispam61.cent [10.30.208.61])
-	by gmmr-2.centrum.cz (Postfix) with ESMTP id 133432012696;
-	Sat,  3 Oct 2026 21:30:12 +0200 (CEST)
-X-CSE-ConnectionGUID: zn3PPNedQAyIuaSXji+y4g==
-X-CSE-MsgGUID: 3fnxrRwIS7O5qkzFUfy1Cw==
-X-ThreatScanner-Verdict: Negative
-X-IPAS-Result: =?us-ascii?q?A2FgAgCaVsFq/0vj/y5agRKBR4JXgmGWS4EWimSSN4FqD?=
- =?us-ascii?q?wEBAQEBAQEBAQlRBAEBPgGBU4Jzjg0nNwYOAQIEAwIDAQEBAQEBAQEBAQELA?=
- =?us-ascii?q?QEGAQEBAQEBBgYBAoEdhglTjBoBhC0LAUYogSiDAoI6AQM3ul0zGgJl3H4WN?=
- =?us-ascii?q?RlmgWgBCxQBgTiNY3aDXYMqRIEVgTuBOHaECh+GXwSDLpVGSIEeA1ksAVUTD?=
- =?us-ascii?q?QoLBwWBZgM1EioVbjIdgSM+F4EHGwYFgR2BIIIWIxk2eoEJXoErKWABEBcnY?=
- =?us-ascii?q?oIHAoJUggACAUlBDgdFUwklRRJHJiIIEgkBExowC4EbODwJKEQXDBAYDUgRL?=
- =?us-ascii?q?DcVGQQ+bgeQUB6CXwFaNHwHOk1cQJJgk32fWgeEIYRznGkaM4FKljQDkm0Bm?=
- =?us-ascii?q?QikWoRpgX6CAE2DWlMZjj0Wz3t3PwcCBw8CkXM0gUwBAQ?=
-IronPort-PHdr: A9a23:vflTrBIRWW/nh1oEVNmcuOdhWUAX0o4c3iYr45Yqw4hDbr6kt8y7e
- hCEu7M11hSZDdqKo9t/yMPo8InYEVQa5piAtH1QOLdtbDQizegwoUkLLfXBN3fGKuX3ZTcxB
- sVIWQwt1Xi6NU9IBJS2PAWK8TW94jEIBxrwKxd+KPjrFY7OlcS30P2594HObwlSizewb7J/I
- A+qoQnPucUbgohvJ6Q1xxDUvnZGZuNayH9nKl6Ugxvy/Nq78oR58yRXtfIh9spAXrv/cq8lU
- 7FWDykoPn4s6sHzuhfNVQSA6mICX2sZjxREGwfK4g30UZf3qSv6q/Fy2DKGMs3sTLA7Qiqt4
- qF2QxL1kigHNjo58GbKisxsia9QvRysqwBjz4PSfYqYL+R1cL/DctwGRGpBRsdRWDJHAoOgd
- IsEEu4NMf9Fo4Xhu1cCqB2zDhSuCuzy0D9Fnn/407Mk3uo8Hw/I3wsuEN0BvnnPsNn4N70fX
- fyvwaXU0TnOae5d1zfn6IjPdxAsue+CXbV1ccXL0kkkCh3LjlKWqYzlJTyVy/8NvHaB7+F9U
- u+vl3Qrqx12ojipxscjkJTJhpkLxVDe7ih52IE1Ksa/SE90e9KkC5hQujicOoBrTcwsX3tmt
- zwmyr0ap5G7Zi4KxYw5yxPeZfKLbZaF7xbhWeqMLzl0mXxodryjixu98Uat1O3yWMaw3VtJo
- SdIjtbBuH4C2RDP68WKV+Vw8Em/1DuR0Q3Y9+JKIVgsmKfUKpMt2KA8m5oTvEjZACP6hkf7g
- LWUe0gk4uSk9ufqb7b8qpOBNoJ5iBvyPrkgl8G9G+g0LwgDUmyd9O+hzrPs51f5T69PjvAul
- 6nZt43VKtoDq66iBg9Vzp4j6xGiDze6yNgYnWcILFZCeB+fgIjpPkjCIOv9Dfejm1SgjStny
- +raMbL/BJXNMmLDkKrkfbpn90FdyRI/zdFZ551KFrEMOP3+V07ruNDGDhI0Mxa4z/j5BNh/z
- I8TW2KCDrecMKzIsF+I4uwvI/OLZI8QoDv9N+Ip5+LpjX8/mV8SZ7Sp3YAJZ3CiBflmO0KZb
- mHrgtYOC2sKpQk+QPTwiFKeST5Te2qyX6Uk6zE9E42pEJzORoa2j7Ocxiu7GIdZZmVYBVyUC
- 3fna52EW+sQaCKVOsJhjiYIVaSmS48n1RGhrhL6y6F5IerO4SAYrZXj28Ny5+zcjx0y7j90A
- 9yH026RV2F0gn8IRzgu0aBjpkx9yUmM3LNkg/xfFtxc+elFXRo5NZLE1ex1F8jyWh7dfteOU
- FumRtSmATcsTtM+2tMOYFhyG8+kjh/d2yqnGKEVl7OVC5wu6K7c3Gb+J9x7y3nY0KktlV4mQ
- tFANWG+nK5w6xDTB5LVk0Wej6uqcaUc3CjQ9GaM1GaPskBYUBRuXqXBQ38ffVDWoM/n5kPNU
- bCuE64rMghfxs6YLKtFdNnpgU9BRPf5N9TSe2SxlHyoChaS2ryMdJbqe3ka3CjFCEUIix0c/
- XWHNQg7Hiqvu23QAzJwG1zzf07i9/Fyp26+TkAu1QGFc1Vs2aKs9BANivLPA88Ui7YFvjox7
- ip1Blu50snNI8SPqhAnf6hGZ945plBd2jH3rQt4a6CnKql5zmIZdQR+oljjzV0jFsNcls4qp
- W4xwRBaMaWS10MHbDDOjsO4AaHeNmSnpEPnUKXRwFyLlY/Oos8y
-IronPort-Data: A9a23:/AB/zKxGDF3JMoQQBYJ6t+cqxyrEfRIJ4+MujC+fZmUNrF6WrkVRm
- DRODGqHM/zZNGP2etskOty0oEhVvJ6AyoNlHlFqrVhgHilAwSbn6XV1DatS0we6dJCroJdPt
- p1GAjX4BJlqCCea+lH1a+aJQUBUjcmgXqD7BPPPJhd/TAplTDZJoR94kobVuKYx6TSCK13L4
- 4yaT/H3Ygf/hWcsajlMscpvlTs21BjMkGJF1rABTa8T1LPuvyF9JI4SI6i3M0z5TuF8dsamR
- /zOxa2O5WjQ+REgELuNyt4XpWVXKlJ6FVHmZkt+A8BOsDAbzsAB+vpT2M4nVKtio27hc+ZZk
- 4wR6MPqGW/FCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- e4ecwg1SB2Pvsun4a+ycdluh4cycMa+aevzulk4pd3YJfkjBIvGX72TvZlT0TEsnN1LW/3MD
- yYbQWYxKk6dPlsVYAhRV89WcOSA3xETdxVE7k6So6o+/nPe1iRp17LqIJzOebRmQO0Mwx7H9
- zyYpzqR7hcyb9KZ2SC/7VOX2ciShCDpdr8cBeST6as/6LGU7ilJYPEMbnO9q/WRjESyHdRWL
- kF80jZosa809EW2VdTndwW/qnmU+AUfM/JMFO43wB2KyaeS7wXxLmwFSCNRLd8rrsk7QRQ02
- VKT2dDkHzpitPuSU3313rOVqy6ifDcUN2IGaDQfZRUK7sOlo4wpiB/LCNF5H8aIYsbdRW+2m
- W3X6nJk2PNM0KbnypmGwLwOuBr0zrChc+L/zl6/sr6Nhu+hWLOYWg==
-IronPort-HdrOrdr: A9a23:dykoJ6NHxuAIZcBcTtqjsMiBIKoaSvp037Dk7SxMoHtuA66lfq
- +V8sjzuSWftN9zYgBCpTnjAsi9qBrnnPYf3WB7B9iftWfd1VdAVLsD0bff
-X-Talos-CUID: =?us-ascii?q?9a23=3ACpyyrGh3M3SpwbaukftBAkPUYDJuYHuG9E/2LkO?=
- =?us-ascii?q?BIHdIVbSueV2Ru7I4nJ87?=
-X-Talos-MUID: 9a23:0kFdyQqh5uVzlmhtMJsez2psMtdy2buPMx8qzIwFqee5Oz0pECjI2Q==
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.27,138,1787004000"; 
-   d="scan'208";a="150796606"
-Received: from unknown (HELO gm-smtp10.centrum.cz) ([46.255.227.75])
-  by antispam61.centrum.cz with ESMTP; 03 Oct 2026 21:30:11 +0200
-Received: from blackbox.p10 (188-167-137-159.dynamic.chello.sk [188.167.137.159])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gm-smtp10.centrum.cz (Postfix) with ESMTPSA id 833031011FBE8;
-	Sat,  3 Oct 2026 21:30:11 +0200 (CEST)
-From: Tomas Tonhauser <t.tonhauser@pobox.sk>
-To: linux-wireless@vger.kernel.org
-Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-kernel@vger.kernel.org,
-	Tomas Tonhauser <t.tonhauser@pobox.sk>
-Subject: [RFC PATCH] wifi: ath9k: clear destination mask for non-aggregate frames
-Date: Sat,  3 Oct 2026 21:29:57 +0200
-Message-ID: <20261003192957.761090-1-t.tonhauser@pobox.sk>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b="NH5sNoQx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r7SmHwgh2Uo4SwYJ2NVLahsYpj54kR6fwdx/IpakAqzuWKnavBQ0KxsTRXF0OmBJ/sCu3rTURHkpuMztiYoBVjzclynZqfKQ+RVPqt7XTgayhMoAtZanOzHMs0C1ogKYhajLyDJyarK4cq82i1LduWQ/vaZqsx0AtBYAqD5vNrpaa35EsR+d04T6YqFCuJAWLSwgg9xBuj7wxVT15s7p5vbVXasgrJkCxKkME9qtHHqF2Fr8pO33eNfppf+QAtWymtiELGvgchlkEd5QVWwPzi4dmM97S151uhfFPMfSFJ9JxYSc7Ll22g0TPIxEAEHGrYRWPG8c+7+WvlCYLQnvew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=acwdDDgdzlplsPPveHz2f/H3thDUZtn3jfohH1efzK8=;
+ b=CwJBGglztssXgfx28Z/wMpx9sMkNMNcsvTwfdUGCNMBWc8Jfhw4ehBxY8gIMvbo5bPem5QUPEiLf+icK55Po57GOC2Dzbr64mO+ooWZZoP1BSvNIwl+hEoNB6tf/M8eXkznhtAhgBHQiQGk8UTxdSw3RaLDSKLaDQ27ZyiQrmziLi7qdsjA6nrRJcs9Tm0KvQx56JBARgyGZmlZPtuz3kse9Cckgg56lW26hQwCCL2acok8g+8S9LKvU3FJRRXjmEt8AkmtoQrK66fDH/aeFgXX8uIOfWPvd+Twq530UrKwl7oZqaCMQjMx3UIA+iB3xOA4oHqKpw88tPXUOTMoS8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=trailworks.io; dmarc=pass action=none
+ header.from=michaelburch.net; dkim=pass header.d=michaelburch.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=michaelburch.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=acwdDDgdzlplsPPveHz2f/H3thDUZtn3jfohH1efzK8=;
+ b=NH5sNoQxOGBqNE625OmE+WUrvHcmdVYsrt83fGqAIJ+xxvAsfFITMO30CQMhrUtk28p4rmxPOH9X7xke7ZG7srJYKLmKP1PAigqM+2ADbABEAVV6vecIk+7eqk8jYsyqkSM50d2IKoF9P53vlCBG79YwRmQqNQ5b2F66gYW/cJl4JnlERHHav7YJz6IPJzdHrHeM/oHJKKQAixTK+YWkLpbQyBeaVdgpoJSLfIboU6YXMOy08VX+dMotecqyngOiJixduFTRschdAUlwG8b+hcs1tw7+KGHpN01PjMTlxtKhhjDozluQ+wnBVC8hNkHxTXiyKW0KIENRgy5afRf/HQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=michaelburch.net;
+Received: from PH7PR01MB8123.prod.exchangelabs.com (2603:10b6:510:2a4::19) by
+ SJ2PR01MB8529.prod.exchangelabs.com (2603:10b6:a03:55b::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.20; Sat, 3 Oct 2026 19:35:27 +0000
+Received: from PH7PR01MB8123.prod.exchangelabs.com
+ ([fe80::da98:a31d:73b6:7930]) by PH7PR01MB8123.prod.exchangelabs.com
+ ([fe80::da98:a31d:73b6:7930%5]) with mapi id 15.21.0472.016; Sat, 3 Oct 2026
+ 19:35:27 +0000
+From: Michael Burch <me@michaelburch.net>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Shivam Rawat <shivrawa@qti.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/adreno: Leave the GPU RSC awake for system poweroff
+Date: Sat,  3 Oct 2026 14:35:17 -0500
+Message-ID: <20261003193518.13811-1-me@michaelburch.net>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SN7P220CA0028.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:806:123::33) To PH7PR01MB8123.prod.exchangelabs.com
+ (2603:10b6:510:2a4::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR01MB8123:EE_|SJ2PR01MB8529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37bb6ee5-1738-4a0d-9125-08df218579eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	JsretGg5Ls86qNpMsKDVdv7Wi8nrGTrEIdrprmLe+4pUqUsEjYGI0QLwvuY2C/Uy+0mk+3lnPrCg9gPYMBvWdKSQ0Gu4R6Ortcrz8CPmpUM5hQn2KQb0/lu45NxF4ajdr4KYpZT3uinxz5y302xOr/B9ts86iHbeE/dX3TI3XZHWri7imMhsS8MxaiuHRHH1wIa3AreYt/h0cmVAUhiABWQrAnzjW66jssdRkW9qYdIwm+SPWqDhmAlvoPfQ/ewIOb48zKLSMT562+Mm4aqFPI3YhK9t51nsbMtJWkbXm8TJ0mnnEF54vnjOcLYOZgJU1pB0qqTDqDH5yngnVHCQv/T4XpSWI1WI/QXQAYrl/OrtgqYcV5HOQelpAjqqDfsqbeSk3axyQDLbhDfEHJvHUTxUXDsA4sV7gjOZvyo4uq8kG0hlGF++zDA8s00cbDUC1Gy243YkWu8i2Vognx6eRE5yKAYR4Zd8ZmLwjCwa/7Of2tFjwzJvW2QaeNSDbc1rD2p6hC4dT52vNMYraHnzn0idCR1fQycFrYUPh8xlJMoXBjUTH76gThU9V/c1QycaFDAW2vsWsfwpdfnJtoAU3a+dZQyj/s7MUh3jZHxkcPQJnZOLDtLqvdPsfSP7pz4c814OIGZZL2i4WVwRHk+AFRBubzC1SzUebNGHhh4Sw1Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR01MB8123.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vTAmHG99wv0ugKLI+tdCCY+ueqm2XTmYyxH1iTxdbQ3slBTg257YBhXfg5Qr?=
+ =?us-ascii?Q?sl5crTktAZpyL7lSeeRknN0cm2UUdpyvB5vjicsd3AIYOgnOBA9qGoZaEKvx?=
+ =?us-ascii?Q?fU2RWkYc9nhYy/7Hrp87SBH0vYe10rH8dZyc6+paf7bGctxUzo+NBeWaArwe?=
+ =?us-ascii?Q?h7VNzXByBgOSyO5wQQc6YWDZ8Yw6ziBaDh+n+x3xM8smBFfYy6MR6qzmECqd?=
+ =?us-ascii?Q?Wv/ZK1F0pSmldnKS3vJTjwb7eSNFe8VjmrDjE6yJhU/mvUab0sU2nseo/SP5?=
+ =?us-ascii?Q?eOFqpQdp7pb8eUjY9dSKRqJbp15RaLd9qblErDRkgsa47+XoG6oNVtGnewDl?=
+ =?us-ascii?Q?tpB1zab8VOn/uo6SmKfmJH+RRDn6cx1uJBUHCNLR4qUU4hdS6DQ/Xc3s+ro3?=
+ =?us-ascii?Q?JNvW7c9mZYfgXLnegJmtLNGiEHeZv1XXYEc5mlezgprn97Jz75uA/ZvI+A5V?=
+ =?us-ascii?Q?V55160qNiaBeb+s601a/VCWacUHlG/1BAMqn+P7IxjXKvgv3ImPCHzvDjIHW?=
+ =?us-ascii?Q?MPhy3+Hf+/bFjwcW25dW63PmAIerit0QjJxxaXhRHu/1UbkjL8HE6imNXVas?=
+ =?us-ascii?Q?iY+VbR3AzfQypuxm9WVXEGXqvSpyJCXElsLc71MozdVPGmcisGbFKs53/x0O?=
+ =?us-ascii?Q?f7ObSG2eOwCP7QNEFQA8oBu1zKONRrvN6593mvsL9PXaMKGsyUQQMq4J3AfH?=
+ =?us-ascii?Q?kRy3EGohzeDUii2bApayGhNx5mqkPk3yXQMYLWsMd741DIUYklc8qfZqqVw+?=
+ =?us-ascii?Q?1Sn2VavQjP1P8PtwleKmL5mrVjwWu6cyF1/f0GEvv8yznPA2fEI3aRmuWgZ+?=
+ =?us-ascii?Q?bC0NWSd4+m+GR8OeT9xPU0ZDF8ZkpmsOG+2oc0zlp9E5fZXywbPLueAkBauO?=
+ =?us-ascii?Q?ofHsdYCxwSKboq0UdMnkRvtWICBE5sc9MIwEuo+O4Vq/PelT+VYdEN4Ov3/Z?=
+ =?us-ascii?Q?CF/UXKrvGuePsQ7jP3R5F2FEZNychEBunEXXwgGUaxWaxI4lKebyPLoAC4XO?=
+ =?us-ascii?Q?QtdFlepxAyFaZhmlRAOL9VTz++LrYbBca1Bp5EFK76vuZ4G7zEyZMzxaChWw?=
+ =?us-ascii?Q?Qwp7uWRHwHBee9wII3EytvmeKFwKkZjqlblUpjIZsxHUWJPxmR4PwLOOv/2A?=
+ =?us-ascii?Q?Vvm0k06eM3tMrrsGlttbwRwEFpupdyFO3CEdKyR5wPZl4kYqt2M1XgtJabdI?=
+ =?us-ascii?Q?ywdmo4lWWpfE1r7V6B5FkrDQE0Y9tfp952NBmFHu0xDqlK5SGHsYIf9pXlLC?=
+ =?us-ascii?Q?AVnf7/UH7GYdVKHcNSfxKkNDH4zoKreuwHkp+0mtD95VmjidPM3CYCsaQMcZ?=
+ =?us-ascii?Q?e36Zy3iIEZMrDbCfktn0Lp0lwJ5ewtFHUSQYddK4CUBqeaTTryD8NgzV/oxf?=
+ =?us-ascii?Q?lIrJGtakzy0LscGEI2D5Gz8e7gEl7xLflBY8HAKxMBkKLmoN47HspUev/+89?=
+ =?us-ascii?Q?+rEbjLZ8PNs3j4dasPQTprgPwJgvb9+qck55qyWEEWy8COaEqC/i7RW4lF+Q?=
+ =?us-ascii?Q?f2fntIeYsPuxO5wpYrnkfr6uurVdZ734rHn1WHFztDJGN9wMyxlGvScBXXH7?=
+ =?us-ascii?Q?Ihrr4iIi+4DNq+MWFuRnrg6Cim+Si0DbiTmNBe8s2Ilb8+BaK3wBN2vfDvlT?=
+ =?us-ascii?Q?aJOTSG8TIjgYrY+gmY/YjtblVKGKQDO4NQikXRZRUFD+tKe23h1jmeVk86wr?=
+ =?us-ascii?Q?qKH/byHei0hpM3uV4ywDnAw6FS+LZ+RLbPbKXHq7CtZEJvifFKrkPXljQRHe?=
+ =?us-ascii?Q?VBu+1Q/bJg=3D=3D?=
+X-OriginatorOrg: michaelburch.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37bb6ee5-1738-4a0d-9125-08df218579eb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR01MB8123.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2026 19:35:27.4535
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8256b244-08e6-4df2-b146-877069d9ce10
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jujpKFgJwbIQvkwOXe4Aj/Bh67HsJqxCNds+dh/KNov/2Gtuh/3CFp11+rZvuueQAQsC7MrOOF5i8HCBFuEhrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR01MB8529
 
-Frames to stations without an A-MPDU session (e.g. non-WMM/non-HT
-clients) use the non-aggregate path. If the hardware returns such a
-frame with ATH9K_TXERR_FILT, ath_tx_complete_buf() reports it to
-mac80211 as IEEE80211_TX_STAT_TX_FILTERED. For a station that is not
-in powersave, ieee80211_handle_filtered_frame() retries it once and
-drops it if it is filtered again.
+On X1E80100 (Dell XPS 13 9345), commit d9108bfdb746 ("drm/msm/a6xx: Fix
+stale rpmh votes after suspend") appears to turn poweroff into a reboot.
+It seems to happen when the GPU RSC/PDC is asleep at system off, i.e.
+when the GPU was idle before shutdown. Keeping the GPU awake until
+shutdown avoids it.
 
-The aggregate path re-queues filtered subframes on tid->retry_q and
-sets tid->clear_ps_filter, so they are retransmitted until they get
-through.
+Resume the GPU in adreno_shutdown() and skip the RSC sleep in the final
+stop. Suspend and runtime suspend are unchanged.
 
-The result is downlink loss to awake non-WMM stations, while WMM/HT
-stations on the same radio are unaffected. On a QCA9563 AP with
-ESP8266 clients this caused 20-45% ping loss, with two TXERR_FILT
-completions per lost frame and no XRETRY failures.
+Tested on X1E80100 only: poweroff and reboot on AC and battery, and
+deep suspend still drops the GPU votes.
 
-Set CLRDMASK on every non-aggregate frame. This restores the
-behaviour from before commit 5519541d5a5f ("ath9k: fix powersave
-frame filtering/buffering in AP mode") for the non-aggregate path
-only. The trade-off is that non-aggregate frames already queued in
-hardware when a station enters powersave may be sent to the sleeping
-station instead of being filtered.
-
-Assisted-by: LLM
-Signed-off-by: Tomas Tonhauser <t.tonhauser@pobox.sk>
+Fixes: d9108bfdb746 ("drm/msm/a6xx: Fix stale rpmh votes after suspend")
+Signed-off-by: Michael Burch <me@michaelburch.net>
 ---
-RFC: is this direction acceptable, or is one of the alternatives
-below preferred?
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 4 ++++
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 5 +++++
+ 2 files changed, 9 insertions(+)
 
-Setup: TP-Link EAP225 v3 (QCA9563, 2.4 GHz), OpenWrt 25.12.5,
-backports 6.18.26. Clients: ESP8266 running Tasmota, modem sleep
-disabled, associated without WMM (legacy rates).
-
-Ping from the AP to one client, 30 packets, 14 lost:
-
-  station "tx failed":             +14
-  station "tx retries":            +2
-  ath9k/xmit BE "TXERR Filtered":  +27
-  ath9k/xmit BE "MPDUs XRetried":  +0
-
-A second run: 12 lost, Filtered +28, XRetried +0.
-
-Ruled out:
- - Client powersave: PS_STA never set in debugfs station flags, and a
-   monitor capture showed no client frames with the PM bit set.
- - airtime_flags=0, aql_enable=0, nohwcrypt=1: no change.
- - RF: signal -50..-64 dBm; a WMM/HT client on the same radio has
-   0 tx failed out of ~10k frames; the same ESP8266 hardware behind
-   an ath10k AP has no loss.
-
-With the patch: 500 pings to each of five ESP8266 clients, 0 lost.
-
-Open question: what sets the destination mask for stations that are
-awake and never hit XRETRY? 5519541d5a5f removed an unconditional
-CLRDMASK commented "needed for crypto errors", so the hardware may
-set it in other cases too.
-
-Alternatives:
- 1. Set CLRDMASK only when the station is not sleeping.
- 2. Re-queue filtered non-aggregate frames in ath9k for awake
-    stations, like the aggregate path does.
- 3. Allow more than one software retry in
-    ieee80211_handle_filtered_frame() for awake stations.
-
-Related: 26a64259b702 ("ath9k: improve PS filter clearing and retry
-counting for A-MPDU"), 315c457ff123 ("ath9k: improve powersave
-filter handling").
-
-The driver analysis and write-up were done with help from an LLM.
-Tests / measurements were done by me.
-
- drivers/net/wireless/ath/ath9k/xmit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/ath9k/xmit.c b/drivers/net/wireless/ath/ath9k/xmit.c
-index 3413bb4906d4..913aa280ae2a 100644
---- a/drivers/net/wireless/ath/ath9k/xmit.c
-+++ b/drivers/net/wireless/ath/ath9k/xmit.c
-@@ -1432,7 +1432,7 @@ static void ath_tx_fill_desc(struct ath_softc *sc, struct ath_buf *bf,
- 			if (!sc->tx99_state)
- 				info.flags = ATH9K_TXDESC_INTREQ;
- 			if ((tx_info->flags & IEEE80211_TX_CTL_CLEAR_PS_FILT) ||
--			    txq == sc->tx.uapsdq)
-+			    txq == sc->tx.uapsdq || !aggr)
- 				info.flags |= ATH9K_TXDESC_CLRDMASK;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 6d49c51df1a2..42a96ff51e5e 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -645,6 +645,10 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
+ 	if (!test_and_clear_bit(GMU_STATUS_FW_START, &gmu->status))
+ 		return;
  
- 			if (tx_info->flags & IEEE80211_TX_CTL_NO_ACK)
++	/* Some platforms reboot instead of powering off if the GPU PDC is asleep */
++	if (system_state == SYSTEM_POWER_OFF || system_state == SYSTEM_HALT)
++		return;
++
+ 	if (adreno_is_a840(adreno_gpu))
+ 		bitmask = BIT(30);
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 05c77fe27e62..224ab3fd14bd 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -290,6 +290,11 @@ static void adreno_remove(struct platform_device *pdev)
+ 
+ static void adreno_shutdown(struct platform_device *pdev)
+ {
++	/* Resuming wakes the GMU RSC/PDC; the final stop then leaves it awake */
++	if (dev_to_gpu(&pdev->dev) &&
++	    (system_state == SYSTEM_POWER_OFF || system_state == SYSTEM_HALT))
++		pm_runtime_get_sync(&pdev->dev);
++
+ 	WARN_ON_ONCE(adreno_system_suspend(&pdev->dev));
+ }
+ 
+
+base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
 -- 
-2.43.0
+2.55.0
 
