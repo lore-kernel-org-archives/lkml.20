@@ -1,197 +1,330 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14B81A3A80
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80BE8345736;
+	Sat,  3 Oct 2026 01:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790991366; cv=none; b=PMzBkwSHdEmbN1Ku1YXphLigc3Yz6pduel+naANC4gkAuuj6Ce96s7O1tyhzXzITW91lPP4tKS2MBjAU85k/6pudaznN2njw0kzlQBMHMLgRCb2g+mwuzr5M9kW4fEwyEMxFjzNxosuoKogPOyMC6nwek2QQAaM6XkRJv8cIRBg=
+	t=1790991479; cv=none; b=LIVJ/HmZL34qIi8XOHkByZfkDvZosOOCwNJrHjasl9zggrLxD76G2WSBq8x5pTRhGo4kPt220D+T9tRmf6kFWpdH0DuuaDDxJw6Ko7FcKAEpM+JZVPpIFtc2PQc9q7f+wbvUpCYAF32UBeF8axctGo6x6x/GDhuQtLf0LYn+tXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790991366; c=relaxed/simple;
-	bh=kS+IMdw/zJVLAbeVBvaSXrpRl8fAJb1pSq2iXRg8Mp4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=SN/Ntbt2sOLjLeKJjYoRSSkDGhERx0eopWQiBQpcxmBFCop/qGp1PY1Y54L/pTrjYQ1fEmE1PePESTx0HdD3DQOmZcfRnurPCGah9jYshoqewRQdfy6bETRS90vTVCXIRgviN4vtTMWyxSRUj5X13s8l+kDxwmhiTwuiscsFq60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b38ea4c6acso34949b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 18:36:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790991363; x=1791596163;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9YZq8p0clnNKu9eLZZykt9E/56jKgTEN0eN3DxrL4oI=;
-        b=P88a/TNT/m6PkmXlV7zDOb7pp+eEFOnpnWRWZqCvPO84KQb6IuttMZGwoqepIAqw0a
-         I7EdpIHD3yziTLa5QRDizN8SnNEL21+CzA3KtDPVjBRweThBArqpWhw+LgVoOeNWNiuI
-         mEP7tIE+u1aXIgDPHatRLW/2YPtWhJP0L1ciaE5u7rA1cMWV8wG2v7+DLYpWJcr1CK49
-         RM3nELqM6cQCJRgOb6QyZXnMV4WSq43/pLU0dU66StOmeq7EMUQBBtClYAmD5D1o5X4V
-         gOQs49zgenJfus3wlFR/cuAzf6oRDmuHsAdThnJksApe057DN99oUdJW3EUaTAkDBBnj
-         cVXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygJdVK2YdrxRPH6o862JMwTXvKIs1I38w07Bf8MUIb4Zsvi6JIl8o6eNW7z2mTwMH65F96Nln+7a0nY6U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlj4F1G3r+rcwUM5IJFA9TPBa7gczgHfmwvwhC25hdtbrbumlQ
-	Xje2GHWxKgoUusTcMn9emmhi1SpqPHfjx/VPcKq30sA5SCbjC3TRpQIdjAtOyUAuOp9RRlutzuY
-	decdTp2J/ub4MmyJMV15ul304+W9GHQhktVY/INEGl++0dHcCzw/P+scYLko=
+	s=arc-20240116; t=1790991479; c=relaxed/simple;
+	bh=84/WBm2bfxy/qiqgOJ94kRblqGaPAeiZ5dsQOFk5Fo8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wr44LC4qouBVssw394jmwsX9qjPxrW3kpB3v5kE4/Yq9lOmVuobZkLzpta8f3n4sI/WC9FxaMqaAz7WhVvSVKLG6C4Uuvn6seW6DAohr7yKMqMCK8PxOCclSNdj1BWZ3L96esim9Wx5B6ZpIn3osoI5wu2PWaT9QmGq+/PJniJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=T8exwm1b; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="T8exwm1b"
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 9563A20B7166; Fri,  2 Oct 2026 18:37:03 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9563A20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790991423;
+	bh=dIsNG7vzXBwypXLHIbV3oWvQJWFy/c/UmukDbeF2YNw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=T8exwm1b6dmtORW1crx2KzLLofU6mgXn/wHgis9op6XD9/mLzAmyxWCUIg4C0+Kca
+	 AfjHI7xQj12eXpvpbO7cGB6I/Z4XyJtlOWJlGOuqZ8gvt/sC5YfXyStSDis3wSoGMa
+	 3Fvckjd80HQwOgCUfpiro5Kq6ZM5Avgw2creEgBM=
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: netdev@vger.kernel.org
+Cc: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Breno Leitao <leitao@debian.org>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Saurabh Sengar <ssengar@linux.microsoft.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: mana: reserve RX buffer headroom to fix forwarding performance
+Date: Fri,  2 Oct 2026 21:36:47 -0400
+Message-ID: <20261003013647.2051416-1-hamzamahfooz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1315:b0:4e6:76eb:b997 with SMTP id
- 5614622812f47-4f52a5776f4mr3361491b6e.62.1790991363655; Fri, 02 Oct 2026
- 18:36:03 -0700 (PDT)
-Date: Fri, 02 Oct 2026 18:36:03 -0700
-In-Reply-To: <20261002230311.102330-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac05c03.34119e79.2f92f3.000c.GAE@google.com>
-Subject: Re: [syzbot] [wireless?] KASAN: slab-use-after-free Read in tasklet_action_common
-From: syzbot <syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Commit 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
+instead of full pages to improve memory efficiency.") started handing
+out RX buffers with zero headroom so that two buffers fit into one page
+at the default MTU.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-INFO: task hung in ath9k_hif_usb_disconnect
+The MANA TX path, however, stores the per scatter-gather entry DMA
+mappings in `struct mana_skb_head` at skb->head, and mana_start_xmit()
+therefore calls skb_cow_head(skb, MANA_HEADROOM). The port advertises
+this requirement as ndev->needed_headroom = MANA_HEADROOM.
 
-INFO: task kworker/1:4:5768 blocked for more than 143 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/1:4     state:D stack:24512 pid:5768  tgid:5768  ppid:2      task_flags:0x4288060 flags:0x00080000
-Workqueue: usb_hub_wq hub_event
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
- __schedule_loop kernel/sched/core.c:7361 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7376
- schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
- do_wait_for_common kernel/sched/completion.c:100 [inline]
- __wait_for_common kernel/sched/completion.c:121 [inline]
- wait_for_common kernel/sched/completion.c:132 [inline]
- wait_for_completion+0x2ca/0x5e0 kernel/sched/completion.c:153
- ath9k_hif_usb_disconnect+0xb8/0x250 drivers/net/wireless/ath/ath9k/hif_usb.c:1419
- usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x444/0x560 drivers/base/bus.c:664
- device_del+0x524/0x8f0 drivers/base/core.c:3965
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
- usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+As a result every packet that is received and then forwarded out of a
+MANA port fails the skb_cow() in ip_forward() and gets reallocated and
+copied by pskb_expand_head(). This is invisible to a plain RX or TX
+workload, but it puts a full skb reallocation plus memcpy on the hot
+path of every single forwarded packet, which is exactly what a
+router/NVA workload does.
 
-Showing all locks held in the system:
-locks held by kworker/0:1/10: 4, on CPU#0:
- #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc900000f7c40 ((work_completion)(&fw_work->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc900000f7c40 ((work_completion)(&fw_work->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc900000f7c40 ((work_completion)(&fw_work->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc900000f7c40 ((work_completion)(&fw_work->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff8880b863bb20 (&rq->__lock){-.-.}-{2:2}, at: sched_submit_work kernel/sched/core.c:7319 [inline]
- #2: ffff8880b863bb20 (&rq->__lock){-.-.}-{2:2}, at: schedule+0x90/0x2b0 kernel/sched/core.c:7375
- #3: ffff8880b8624408 (psi_seq){-.-.}-{0:0}, at: psi_task_switch+0x57/0x7d0 kernel/sched/psi.c:933
-locks held by ksoftirqd/0/15: 2, last CPU#0:
- #0: ffff8880b863bb20 (&rq->__lock){-.-.}-{2:2}, at: finish_lock_switch kernel/sched/core.c:5261 [inline]
- #0: ffff8880b863bb20 (&rq->__lock){-.-.}-{2:2}, at: finish_task_switch+0x159/0xc60 kernel/sched/core.c:5382
- #1: ffff8880b8624408 (psi_seq){-.-.}-{0:0}, at: psi_task_switch+0x57/0x7d0 kernel/sched/psi.c:933
-locks held by khungtaskd/33: 1, last CPU#1:
- #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6871
-locks held by getty/5372: 2, on CPU#1:
- #0: ffff8880328b10a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
- #1: ffffc900032332e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
-locks held by kworker/1:4/5768: 5, on CPU#1:
- #0: ffff888022aaf540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff888022aaf540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff888022aaf540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff888022aaf540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc90003b9fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc90003b9fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc90003b9fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc90003b9fc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff88802a1b51d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #2: ffff88802a1b51d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
- #3: ffff88807bbca1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #3: ffff88807bbca1d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2341
- #4: ffff88807f7b41a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #4: ffff88807f7b41a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
- #4: ffff88807f7b41a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
+Restore the headroom. Note that reserving MANA_HEADROOM (232) is not
+enough: ip_forward() asks for LL_RESERVED_SPACE(dev), which rounds
+hard_header_len + needed_headroom up to HH_DATA_MOD and is 256 bytes on
+ethernet. Use LL_RESERVED_SPACE() directly so the value keeps tracking
+both constants. Also, since LL_RESERVED_SPACE() tracks MANA_HEADROOM,
+it grows with MAX_SKB_FRAGS and for MAX_SKB_FRAGS >= 19 it is greater
+than 256, so we have to account for that by using the headroom the RX
+queue actually uses (instead of assuming XDP_PACKET_HEADROOM) and
+turning MANA_XDP_MTU_MAX into MANA_XDP_MTU_MAX(ndev) (note that at the
+default CONFIG_MAX_SKB_FRAGS=17 they are equivalent).
 
-=============================================
+At the default MTU on a 4K page this means a buffer no longer fits twice
+into a page (SKB_DATA_ALIGN(1500 + MANA_RXBUF_PAD + 256) = 2112), so the
+frag-vs-single decision is now made by computing the real buffer size
+instead of comparing the MTU against PAGE_SIZE / 2. The page_pool
+fragment path is still used wherever at least two buffers genuinely fit,
+e.g. on 16K and 64K page sizes.
 
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 33 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
- nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
- trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
- __sys_info lib/sys_info.c:157 [inline]
- sys_info+0x135/0x170 lib/sys_info.c:165
- check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
- watchdog+0xfd7/0x1030 kernel/hung_task.c:561
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Sending NMI from CPU 1 to CPUs 0:
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:check_preemption_disabled+0x19/0xd0 lib/smp_processor_id.c:53
-Code: 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 55 41 57 41 56 53 65 8b 05 1b 4d ae 07 65 48 8b 0d eb 4c ae 07 85 c9 74 0c <5b> 41 5e 41 5f 5d c3 cc cc cc cc cc 9c 59 f7 c1 00 02 00 00 74 ea
-RSP: 0018:ffffc90000147bf8 EFLAGS: 00000006
-RAX: 0000000000000000 RBX: ffff88801e299f40 RCX: 8000000000000100
-RDX: 0000000000000000 RSI: ffffffff8e69f5c6 RDI: ffffffff8c6dad80
-RBP: dffffc0000000000 R08: ffffffff907a627f R09: 1ffffffff20f4c4f
-R10: dffffc0000000000 R11: fffffbfff20f4c50 R12: ffff8880b8624080
-R13: 0000000000000286 R14: ffff8880b8624088 R15: ffff88807c9cd158
-FS:  0000000000000000(0000) GS:ffff888124cc7000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f74059872c0 CR3: 000000000eb48000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- lockdep_recursion_finish kernel/locking/lockdep.c:470 [inline]
- lockdep_hardirqs_on_prepare+0x19f/0x270 kernel/locking/lockdep.c:4455
- trace_hardirqs_on+0x28/0x40 kernel/trace/trace_preemptirq.c:78
- __tasklet_schedule_common+0xc9/0x110 kernel/softirq.c:858
- tasklet_action_common+0x2d7/0x490 kernel/softirq.c:961
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- run_ksoftirqd+0x36/0x60 kernel/softirq.c:1099
- smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+Measured on an Azure VM with a MANA NIC acting as a forwarding NVA (UDP,
+1400 byte payload, 4 streams, 8 Gbps offered, only the forwarding
+node's kernel differs), 8 runs each, median:
 
+                  forwarded pps    throughput
+  before              272,830       3.06 Gbps
+  after               390,560       4.37 Gbps   (+43%)
 
-Tested on:
+perf on the forwarding node, same workload:
 
-commit:         ff47652a Merge tag 'cifs-fixes-7.3-rc6' of https://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=172edbf5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=23e5acac5c98285f
-dashboard link: https://syzkaller.appspot.com/bug?extid=e91dc13b1b37759b3d9f
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=137c1725580000
+                  memset_orig   __pi_memcpy   pskb_expand_head
+  before             10.07%         3.96%         present
+  after               0.94%         0.64%         gone
+
+Cc: stable@vger.kernel.org
+Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+---
+v2:
+- Fix the XDP headroom mismatch with CONFIG_MAX_SKB_FRAGS >= 19,
+  by passing rxq->headroom to xdp_prepare_buff().
+  mana_build_skb() then picks up the correct offset via
+  xdp->data - xdp->data_hard_start. Also, turn MANA_XDP_MTU_MAX
+  into MANA_XDP_MTU_MAX(ndev) to account for the headroom,
+  since it is no longer a constant. (Narcisa, Sashiko)
+- Use the new mana_single_rxbuf_per_page_forced() helper in
+  mana_set_priv_flags(). (Sashiko)
+- Trim the comment above mana_get_rxbuf_headroom() and drop the stale
+  "XDP headroom" wording from the comment above mana_get_rxbuf_cfg().
+  (Narcisa, Sashiko)
+---
+ .../net/ethernet/microsoft/mana/mana_bpf.c    |  8 +--
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 63 ++++++++++++++-----
+ .../ethernet/microsoft/mana/mana_ethtool.c    | 10 +--
+ include/net/mana/mana.h                       | 14 ++++-
+ 4 files changed, 68 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+index 5c9961ee9747..b27fd9b8c4f6 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+@@ -91,7 +91,7 @@ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
+ 		goto out;
+ 
+ 	xdp_init_buff(xdp, PAGE_SIZE, &rxq->xdp_rxq);
+-	xdp_prepare_buff(xdp, buf_va, XDP_PACKET_HEADROOM, pkt_len, true);
++	xdp_prepare_buff(xdp, buf_va, rxq->headroom, pkt_len, true);
+ 
+ 	act = bpf_prog_run_xdp(prog, xdp);
+ 
+@@ -183,9 +183,9 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 	if (!old_prog && !prog)
+ 		return 0;
+ 
+-	if (prog && ndev->mtu > MANA_XDP_MTU_MAX) {
++	if (prog && ndev->mtu > MANA_XDP_MTU_MAX(ndev)) {
+ 		netdev_err(ndev, "XDP: mtu:%u too large, mtu_max:%lu\n",
+-			   ndev->mtu, MANA_XDP_MTU_MAX);
++			   ndev->mtu, MANA_XDP_MTU_MAX(ndev));
+ 		NL_SET_ERR_MSG_MOD(extack, "XDP: mtu too large");
+ 
+ 		return -EOPNOTSUPP;
+@@ -238,7 +238,7 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 		bpf_prog_put(old_prog);
+ 
+ 	if (prog)
+-		ndev->max_mtu = min_t(unsigned int, MANA_XDP_MTU_MAX,
++		ndev->max_mtu = min_t(unsigned int, MANA_XDP_MTU_MAX(ndev),
+ 				      gc->adapter_mtu - ETH_HLEN);
+ 	else
+ 		ndev->max_mtu = gc->adapter_mtu - ETH_HLEN;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 591fb4191d90..a1fb06b23947 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -758,6 +758,44 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
+ 	return va;
+ }
+ 
++/* Reserve enough headroom to satisfy the skb_cow() in ip_forward() and avoid
++ * reallocation: the TX path keeps the SGE DMA mappings in struct mana_skb_head
++ * at skb->head, so the port advertises ndev->needed_headroom = MANA_HEADROOM.
++ */
++static u32 mana_get_rxbuf_headroom(struct mana_port_context *apc)
++{
++	if (mana_xdp_get(apc))
++		return mana_xdp_headroom(apc->ndev);
++
++	return LL_RESERVED_SPACE(apc->ndev);
++}
++
++static u32 mana_get_rxbuf_size(struct mana_port_context *apc, u32 mtu)
++{
++	u32 len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
++				 mana_get_rxbuf_headroom(apc));
++
++	return ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
++}
++
++/* Returns true when one RX buffer per page is already required by XDP or by
++ * the buffer size implied by the MTU, i.e. regardless of the
++ * MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF private flag.
++ */
++bool mana_single_rxbuf_per_page_forced(struct mana_port_context *apc, u32 mtu)
++{
++	/* For xdp make sure only one packet fits per page. */
++	if (mana_xdp_get(apc))
++		return true;
++
++	/* Only use the page_pool fragment path when at least two buffers,
++	 * including the headroom each of them has to reserve, actually fit
++	 * into one page. Otherwise the fragment path degenerates into one
++	 * buffer per page while still paying the fragment accounting cost.
++	 */
++	return PAGE_SIZE / mana_get_rxbuf_size(apc, mtu) < 2;
++}
++
+ static bool
+ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+ {
+@@ -770,32 +808,27 @@ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+ 	if (apc->priv_flags & BIT(MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF))
+ 		return true;
+ 
+-	/* For xdp and jumbo frames make sure only one packet fits per page. */
+-	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc))
+-		return true;
+-
+-	return false;
++	return mana_single_rxbuf_per_page_forced(apc, mtu);
+ }
+ 
+-/* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
++/* Get RX buffer's data size, alloc size, headroom and frag count based on MTU */
+ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 			       int mtu, u32 *datasize, u32 *alloc_size,
+ 			       u32 *headroom, u32 *frag_count)
+ {
+-	u32 len, buf_size;
++	u32 buf_size;
+ 
+ 	/* Calculate datasize first (consistent across all cases) */
+ 	*datasize = mtu + ETH_HLEN;
+ 
++	*headroom = mana_get_rxbuf_headroom(apc);
++
+ 	if (mana_use_single_rxbuf_per_page(apc, mtu)) {
+-		if (mana_xdp_get(apc)) {
+-			*headroom = XDP_PACKET_HEADROOM;
++		if (mana_xdp_get(apc))
+ 			*alloc_size = PAGE_SIZE;
+-		} else {
+-			*headroom = 0; /* no support for XDP */
++		else
+ 			*alloc_size = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
+ 						     *headroom);
+-		}
+ 
+ 		*frag_count = 1;
+ 
+@@ -809,11 +842,7 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 	}
+ 
+ 	/* Standard MTU case - optimize for multiple packets per page */
+-	*headroom = 0;
+-
+-	/* Calculate base buffer size needed */
+-	len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD + *headroom);
+-	buf_size = ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
++	buf_size = mana_get_rxbuf_size(apc, mtu);
+ 
+ 	/* Calculate how many packets can fit in a page */
+ 	*frag_count = PAGE_SIZE / buf_size;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+index ece7ff9cc409..33db79569d3b 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+@@ -815,12 +815,12 @@ static int mana_set_priv_flags(struct net_device *ndev, u32 priv_flags)
+ 		if (!apc->port_is_up)
+ 			return 0;
+ 
+-		/* If XDP is attached or MTU is jumbo, single-buffer-per-page
+-		 * is already forced regardless of this flag. Skip the
+-		 * expensive detach/attach cycle since nothing changes.
++		/* If XDP is attached or the MTU already forces one buffer per
++		 * page, single-buffer-per-page is used regardless of this
++		 * flag. Skip the expensive detach/attach cycle since nothing
++		 * changes.
+ 		 */
+-		if (ndev->mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 ||
+-		    mana_xdp_get(apc))
++		if (mana_single_rxbuf_per_page_forced(apc, ndev->mtu))
+ 			return 0;
+ 
+ 		/* Block RDMA from grabbing the vport during detach/attach */
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 83b7eff4646e..8c3dc9d0b299 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -377,7 +377,18 @@ struct mana_recv_buf_oob {
+ #define MANA_RXBUF_PAD (SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) \
+ 			+ ETH_HLEN)
+ 
+-#define MANA_XDP_MTU_MAX (PAGE_SIZE - MANA_RXBUF_PAD - XDP_PACKET_HEADROOM)
++/* Headroom an RX buffer has to reserve while XDP is attached: the XDP program
++ * needs XDP_PACKET_HEADROOM, and the TX path needs LL_RESERVED_SPACE() (see
++ * mana_get_rxbuf_headroom()). LL_RESERVED_SPACE() grows with MAX_SKB_FRAGS and
++ * exceeds XDP_PACKET_HEADROOM once CONFIG_MAX_SKB_FRAGS is 19 or more.
++ */
++static inline u32 mana_xdp_headroom(struct net_device *ndev)
++{
++	return max_t(u32, LL_RESERVED_SPACE(ndev), XDP_PACKET_HEADROOM);
++}
++
++#define MANA_XDP_MTU_MAX(ndev) \
++	(PAGE_SIZE - MANA_RXBUF_PAD - mana_xdp_headroom(ndev))
+ 
+ struct mana_rxq {
+ 	struct gdma_queue *gdma_rq;
+@@ -691,6 +702,7 @@ int mana_query_link_cfg(struct mana_port_context *apc);
+ int mana_set_bw_clamp(struct mana_port_context *apc, u32 speed,
+ 		      int enable_clamping);
+ void mana_query_phy_stats(struct mana_port_context *apc);
++bool mana_single_rxbuf_per_page_forced(struct mana_port_context *apc, u32 mtu);
+ int mana_pre_alloc_rxbufs(struct mana_port_context *apc, int mtu, int num_queues);
+ void mana_pre_dealloc_rxbufs(struct mana_port_context *apc);
+ void mana_unmap_skb(struct sk_buff *skb, struct mana_port_context *apc);
+-- 
+2.55.0
 
