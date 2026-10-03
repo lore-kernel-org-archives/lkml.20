@@ -1,202 +1,110 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-vs2-f37.google.com (mail-vs2-f37.google.com [74.125.227.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABEC388879
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 12:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791031939; cv=pass; b=eYxmJBdPoW944Jt7bt4i4Za95qrKqHO/LzvlSA2gCJ8eJJPxoHPy6uT8ZuAEXPym/Ozl5mO1vybp3Vk0jNZ1WdjPqyQrgEr+8HuOCbIlIEwndttZwk7H+CvQfeYBpipBHgEs56lOpNm/SDa3o6w1oq83DAMeUgsmEQHuztFFLzc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791031939; c=relaxed/simple;
-	bh=EMg0iZLqE1q5GwPhLKtP+vs+jdaQ+jYCv0GJbajIiKA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D45420469
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 12:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.37
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791031979; cv=none; b=jPEHdR6dnfbW5C0O6zzOkG9KVNgpLe+Zs+lYHugSANs4vv6SF90587gGkWdaNyAKJVM1tCILEUigasoEBAUFeJIsW61Shq7QlJh5UTpMWo6Ab+hqWVIwNRt6ai7dA9Zr8jBoOhy0APfJKz15O0t4vOu5if6A25oDPHYM+kx7K0k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791031979; c=relaxed/simple;
+	bh=v+jwntNOMYJdKRBzEK88YlkJTtdZozXA5YAwPWxDfdw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jzNOY/gLoPUb+71vHwsbCZBfTX6gXjO51McmJbiRilmuwVmUNjMQZwvsGon6i/yy7RRRsbkUDESzzBJKHGzcDCBuryfZ7Qmkd7UYMXMiqN0i1LZmAyB7op7Ld9JZNIH0/sKs1ElG+mSiNueVQfVKz+ksqvKurXHtSVQ8FitPDV4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kgazUr6K; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 To:Cc:Content-Type; b=gajtmw+vjrpvV41z3hGKJNxv6uJ62b8OhKYrs+eeoahbV6y413lb9xFx/XwoZTgvuFA555wRCMRR6Dhsno3T9WiVcdopx4GYErLFCLHFFEszpnrawAa9HBhr29dFGnbfxz2X2ZmsQ8Rw9wPJd+AmfWEJaAUomxQ8xS2dF/ukGn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kgazUr6K"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6af9befd04cso533270a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 05:52:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791031934; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Iw+SnTC6rV2n1sagkVZpYnxI1C2d+bFtFTvlEFU3tsGBCw2dkGt/5RI62hKrEJ7w90
-         zqTC0zGs5kKAOPJHnGkCTU/D7cxgO315yPl8ufLUYgNpzs/HtOY7pBUCe45j6ie465cA
-         mfVF6+WB8wONcMVy/RmeFWnwb8NA/zWIG5WVF1mekyZShr6EL/reR0eVK6YBhGVabcOF
-         rfRMpFgewLa+GH6v0iyY5S47BSMXeNOiGvZPOfjk+X+Wa5/8i1Cw8GzwFu38zM+9YCQP
-         Da4d7JNAx6Tkt0c0ypJPDD/0dYwbGwF+z3jcuvKp0x8lacikcpOXcYuYHvjAnGmK70jk
-         9Qqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jC4QXmzH8+Kbh78tKNullBc08DCcnSBR6lcMVv+hZK0=;
-        fh=zpkTReltVpUrNUT66zHKwVW/k3XeYs2wUr9X7ANxb44=;
-        b=EQJjUCNizNDQzllnXSIuvXbtFE4hMPxVv06jBHy36+k2qOja/+yHvl38xhSDBXvYPa
-         mXc7E8JQOiFcDlceOi0MWIYHtyeBc7fmGcQMjQp4LnHMe5IRQ5acrEZ1VV3YbwGeYE14
-         e0FaEcqnaA4rOjvVRpES9bMUfWtsRIEw9bZRrAM0Ary3WseYLVki8mCM5X0KK8Lr8N9y
-         yN3Sp6FVjnRWz96OkZ5Bdz95C1jAgztP6Qmvv5WxtmcJikd1N7Jfu62ChLZKeSENseRB
-         LyCR2fV3BBK/VxWQFvDBWRqE4GNMl2NZRs/0TXNiSw234FLLJNuEkiF63ox9vbjKV45T
-         nSmA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791031934; x=1791636734; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jC4QXmzH8+Kbh78tKNullBc08DCcnSBR6lcMVv+hZK0=;
-        b=kgazUr6KrvAYhpdpYLgaRVPwJ0GuFXh9eDKZzSqd+NR2KJyp2Licwbxz8/zjKoiohK
-         EtmjhZvbpuQWGKnpBg2vBFJfzWuubFyyGlsUZzRWKqv5cu7tEjSxq6KG+lHnjbcKnSLu
-         rxz1MFZ7F3Z6rGlSOyLONwcMexxlAMtmDqsLV7siiCDaZ3aL9gqAUs2rL+fvh05CjGUk
-         hPv0UMJ5qCH+1gC+1Dlw2LL1tqJODv9PF6gr5mHXoCt+6hxYLIBACNFKefJtct4rQMSL
-         Gjld6NmtJFeA70OXGKkC3Lb0AUwI4ahWfWECxYp2nyv0PpCraN/U9AIoS34tgpddOygW
-         wgVg==
+Received: by mail-vs2-f37.google.com with SMTP id 71dfb90a1353d-5cfe8de4f54so266612e0c.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 05:52:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791031934; x=1791636734;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jC4QXmzH8+Kbh78tKNullBc08DCcnSBR6lcMVv+hZK0=;
-        b=ko6Uu+DwD+WDL0h1Yv53r6p5SwcA4p0jJQgsRkjyyyTmvdKBkXAjeNCrC56DINJiF4
-         H9D2qsPregAex/n801qZYMAfjtcORXqqJQ92Vspg0srKEtTDLh8rbSASYK58cF37uscQ
-         4p/VJ7NeTYXIqt5ggY0oNErpWnU/LI7Gu9KI+ZFyI8SKcobm9GHT/HEy1MMptRA24sXy
-         PmJJT26KLuAytIQ5cLI6h061GFgC1HPnTA/M/T2bLQ0TC//hDxCJHg3t0962xtzcFXkv
-         SdoTPCqbXcp4kGWaASX/08dO2E5WgKuJCjh8BnvlPNN8KejQsc7dCelwlkXcLEZo9IGO
-         yplw==
-X-Forwarded-Encrypted: i=1; AKwUvBzD1nq3VJ4MmggjV/mZLYuoCfw8XlXWeu3YeZqc2+9GoNhFiUsXq3z6t3xAfnX6zXpnp1Y4mCmk3cOBfwU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOFlbtKvODGHV9rSWOkz3GjsBFvuwnr+nKnhRxA+ShkAgY9LaW
-	/4me3sT8i6v93363FYG5l3HoVtw6/AwuWkNu8bK2ZsOeKOxDk98CMZgT02NbuENLD1NRaUElqqW
-	V/OQ+UVH52Y+uJzlGeQWvlOi1MZTfjkY=
-X-Gm-Gg: AYBFou1U2eu5JEl4di0y9YiPn02MzlGfVlZOK0ihl3NpUTOM0Qycw1KC/K1MGAVVZpL
-	ePLKiPqzAYqIqjsTuV04KGzv0sne3O4aWVHOjuLF3UeQ6uVWrxpiLzkomKnov5BJ3QtTk/lxqnD
-	k1qk/YpbzBfdP4B4h88Km9pXvr3kv4FG9Gf5tnSIucPpQVvlGVf4rVlE07qu6aAtpGnYQ9KHmB7
-	TQfgxavwE6d1MDVia7MBBiXbZdrtgFPpHxzTbWDSyoKNw2Gwoyjb3Pg1LNPV9fCDI+wZE0+rIH1
-	tzpUS+U6sSFJ1XqyajsfRdhNtT0vZKoQzau7SsoUPS0G7I+Q7s1oNsnz0Q==
-X-Received: by 2002:a05:6402:438c:b0:6a9:ab6a:640f with SMTP id
- 4fb4d7f45d1cf-6afada27183mr1987242a12.37.1791031933759; Sat, 03 Oct 2026
- 05:52:13 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791031976; x=1791636776;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Wz/vUQeiU0meQrL5M8qbzU31TXMfocPVY9f/7xGtNm4=;
+        b=O1OJxnxE73PIFO0dZ6wrxj4T41LYV9HQh71Z2NVTewkTXAs+pW0Ol8VVYmUahbTnao
+         Oy9YV0lpFDvlWROSq8/Dz8E3CYm72B8A3S1rTwkOcYXFBH/ReUp1T30GDnzBBpVRiLnw
+         K+x/NO2f6n+bHw3qRIv2bebMV1DOUE184Ly9PyGiegnBZ205xJJz6riBad1+KfEMA6/P
+         hOOfLCCvCGLgvilLiLLlhdHh3aW8IWAiF2gbuSdm3B3QrA1WHG6rMhZ7pXDzjfdkHvcO
+         EGoXqUWaSPsL4Mya8AgKm0f76Kr+CWvXvspku25pPsjhS+V4uU8QkBMMFzatGjqgDnuG
+         Dyug==
+X-Forwarded-Encrypted: i=1; AKwUvBzzHqaKSe23bgckPKUQFKaiURAdm6FsNhVIfWYQQKAL3vs8lIlG9ammTxEid4LAlQcPQ4DUJ9NDbJTciqI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/Q+35SE7c7DxbvwAqOqS7URkiJzJ2a51AhCZV5JQEj9PRnFL6
+	IVY1tAdLuGDY//kHRnKWJF6mZtFZ6SXhiTDU9js6wj7MsRAREs2dyUYDreDDmb0QoQY=
+X-Gm-Gg: AYBFou1rkrxPkQ6MaDejjwz0SBt3UFzo0mZNdRhSmscw8ydel+p2Ieo45AkAS4U2PNA
+	xK8zO33x6hkC9ELwEjAEXyTFeB+h82ZRgmNZETPLB1sr2A5tsugtlPjnwc4wjbQxf3fEidb5kUA
+	l/aHPiEgzJA4wYv4ZsbmsS6TMV4eAobSQ0ghlyh6p77mTkNlZVfoXMRQ8767gZfhZs+oqtRW610
+	ouciZQjOyc6BJS/RIySjk0aSMElGNzzL3/gfFrJQ8kvIXNRoS5XXu0o8eXQ+nXoqMfvcxA/ibBM
+	FkPtjKhXDvGeCW4U5I9bf5oFrmORgBVb/m19Dxb5mUzNX08v1UuiLxcq06CxrOSEyMQ7T4zyy4r
+	TO2w+7rZZugLSRkRwiKGJ6AP3FB92byk8N/oNekbXdkgUagkd32hg4O3i/LrPUtdu7erGN4Ve41
+	DGfeAvAisgEkgog8LN3qkT+67x/f6PGWmaO/4nIqrIFtf2Yvg9qsl4vUv4pvFPAQZDcD5/Eudom
+	s9bxlyiCAv1DJUxEGOhQWgYC6W+vSi79ORvLkLSP/UylXo=
+X-Received: by 2002:a05:6122:8d5:b0:5cd:a394:eed7 with SMTP id 71dfb90a1353d-5dab28cb4ddmr2078964e0c.18.1791031976150;
+        Sat, 03 Oct 2026 05:52:56 -0700 (PDT)
+Received: from mail-vs2-f35.google.com (mail-vs2-f35.google.com. [74.125.227.35])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da61112784sm6893657e0c.6.2026.10.03.05.52.54
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 03 Oct 2026 05:52:55 -0700 (PDT)
+Received: by mail-vs2-f35.google.com with SMTP id ada2fe7eead31-7bf947fae49so173003137.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 05:52:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxAv6h2SkPtWmy9jG0dDn6/HttjwCrTxCfPFk0MLdu8rVRqC4vhv8O1jCIL7e/FbUbO4SLNEC1TXqyxb5U=@vger.kernel.org
+X-Received: by 2002:a05:6102:e0f:b0:7a9:f088:14ef with SMTP id
+ ada2fe7eead31-7c0f46870f9mr1638667137.13.1791031974398; Sat, 03 Oct 2026
+ 05:52:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002223746.3248726-1-neilb@ownmail.net> <20261002223746.3248726-4-neilb@ownmail.net>
-In-Reply-To: <20261002223746.3248726-4-neilb@ownmail.net>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 3 Oct 2026 14:52:02 +0200
-X-Gm-Features: AclHuK9ISQ-1vvQI-BXB_46po9ulhXoF9Pdu-FZttgWgTuI6ZQiJn9eAeFPCxrc
-Message-ID: <CAOQ4uxiBf+4EJak7r5440oHuvxd4FZKE=9Je13N8zTNNZCDJmQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ovl: provide private lockdep class for dentry->dep_map
-To: NeilBrown <neil@brown.name>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, 
-	"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, Jeff Layton <jlayton@kernel.org>, 
-	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org
+References: <20261003082833.21511-1-kmehltretter@gmail.com>
+ <a4dcd9e615dc4e3c98c00e75cdd0c7fdeef02254.camel@physik.fu-berlin.de>
+ <e3c88969f18c493859f7c382db7ed2afeb15b4fa.camel@physik.fu-berlin.de> <asDOl5bvtlbauh9x@gmail.com>
+In-Reply-To: <asDOl5bvtlbauh9x@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sat, 3 Oct 2026 14:52:43 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU+Z504HZ3N+oRjAKQWSPiNDVEtEX-wShV-FGbMg+kkYA@mail.gmail.com>
+X-Gm-Features: AclHuK__UZnxPIRNyiBJwMilVEAnpSvwJO3EcZnN4TsogOR7Tt7txkrTbZOyzBw
+Message-ID: <CAMuHMdU+Z504HZ3N+oRjAKQWSPiNDVEtEX-wShV-FGbMg+kkYA@mail.gmail.com>
+Subject: Re: [PATCH] sh: sh7785lcr: register the PCA9564 as I2C bus 0
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yoshinori Sato <yoshinori.sato@nifty.com>, 
+	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 3, 2026 at 12:42=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote=
-:
->
-> From: NeilBrown <neil@brown.name>
->
-> Now that d_alloc_parallel() locking is tracked by lockdep, ovl needs to
-> take care that it doesn't trigger on deliberate recursion into
-> subordinate filesystems.  As ovl can stack over itself, the use
-> of the per-file_system_type d_lookup_key is not enough.
->
-> So provide a .d_init() function to update the map as it already done for
-> i_rwsem and ovl_inode.lock.
->
-> Reported-and-tested-by: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@i=
-ntel.com>
-> Link: https://lore.kernel.org/all/e3772a51-eabc-4c31-b73d-f3187bf1b3b2@in=
-tel.com/
-> Fixes: 59492f9991dc ("VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP lo=
-ck.")
-> Signed-off-by: NeilBrown <neil@brown.name>
+Hi Karl,
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+On Sat, 3 Oct 2026 at 11:51, Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> On Sat, Oct 03, 2026 at 11:38:43AM +0100, John Paul Adrian Glaubitz wrote:
+> > > Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> >
+> > I have to admit though I don't fully understand the description of this
+> > patch. Either I don't have enough coffee or it's not precise enough.
+>
+> Thanks for testing and reviewing! I agree the changelog doesn't explain
+> why -1 is wrong and 0 is right for this board very clearly. I'll give it
+> a day or so to step back and submit a v2 with your tags and a better
+> changelog.
 
-> ---
->  fs/overlayfs/inode.c     |  1 -
->  fs/overlayfs/overlayfs.h |  2 ++
->  fs/overlayfs/super.c     | 19 +++++++++++++++++++
->  3 files changed, 21 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-> index 401cb8c75520..bf40198c8b8a 100644
-> --- a/fs/overlayfs/inode.c
-> +++ b/fs/overlayfs/inode.c
-> @@ -816,7 +816,6 @@ static const struct address_space_operations ovl_aops=
- =3D {
->   * - OVL_I(inode)->lock                        (ovl_inode_lock[1])
->   * - upper_mnt->mnt_sb->s_writers      (ovl_want_write[0])
->   */
-> -#define OVL_MAX_NESTING FILESYSTEM_MAX_STACK_DEPTH
->
->  static inline void ovl_lockdep_annotate_inode_mutex_key(struct inode *in=
-ode)
->  {
-> diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-> index e0d8c6152e9f..64cbe4c4bd3e 100644
-> --- a/fs/overlayfs/overlayfs.h
-> +++ b/fs/overlayfs/overlayfs.h
-> @@ -16,6 +16,8 @@
->  #undef pr_fmt
->  #define pr_fmt(fmt) "overlayfs: " fmt
->
-> +#define OVL_MAX_NESTING FILESYSTEM_MAX_STACK_DEPTH
-> +
->  enum ovl_path_type {
->         __OVL_PATH_UPPER        =3D (1 << 0),
->         __OVL_PATH_MERGE        =3D (1 << 1),
-> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> index e487597337e8..08147799e47c 100644
-> --- a/fs/overlayfs/super.c
-> +++ b/fs/overlayfs/super.c
-> @@ -163,10 +163,28 @@ static int ovl_dentry_weak_revalidate(struct dentry=
- *dentry, unsigned int flags)
->         return ovl_dentry_revalidate_common(dentry, flags, true);
->  }
->
-> +#ifdef CONFIG_LOCKDEP
-> +static int ovl_dentry_init(struct dentry *dentry)
-> +{
-> +       static struct lock_class_key ovl_d_lock_key[OVL_MAX_NESTING];
-> +       int depth =3D dentry->d_sb->s_stack_depth - 1;
-> +
-> +       if (WARN_ON_ONCE(depth < 0 || depth >=3D OVL_MAX_NESTING))
-> +               depth =3D 0;
-> +
-> +       lockdep_set_class(dentry, &ovl_d_lock_key[depth]);
-> +
-> +       return 0;
-> +}
-> +#else
-> +#define ovl_dentry_init NULL
-> +#endif
-> +
->  static const struct dentry_operations ovl_dentry_operations =3D {
->         .d_real =3D ovl_d_real,
->         .d_revalidate =3D ovl_dentry_revalidate,
->         .d_weak_revalidate =3D ovl_dentry_weak_revalidate,
-> +       .d_init =3D ovl_dentry_init,
->  };
->
->  #if IS_ENABLED(CONFIG_UNICODE)
-> @@ -176,6 +194,7 @@ static const struct dentry_operations ovl_dentry_ci_o=
-perations =3D {
->         .d_weak_revalidate =3D ovl_dentry_weak_revalidate,
->         .d_hash =3D generic_ci_d_hash,
->         .d_compare =3D generic_ci_d_compare,
-> +       .d_init =3D ovl_dentry_init,
->  };
->  #endif
->
-> --
-> 2.50.0.107.gf914562f5916.dirty
->
+Perhaps something like:
+
+Before commit 44454baa7ca7bb57 ("i2c: Dynamically assign adapter id if
+it wasn't explictly specified"), a negative ID was replaced by zero,
+and I2C bus zero was instantiated.  Since that commit, a negative ID
+is passed verbatim, instantiating an I2C bus with a dynamic number.
+As SH boards still use i2c_register_board_info(0, ...) to register I2C
+devices, they rely on the I2C bus being bus zero, causing registration to fail.
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
