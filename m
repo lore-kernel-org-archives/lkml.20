@@ -1,126 +1,123 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C111446AEF2;
-	Sat,  3 Oct 2026 16:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC6E478868
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791043438; cv=none; b=gBP9iYaBZKYyI14sHlMaFWVHtghvt3578Kjz3gieCpWWLf6rhTX3EZgnT9yll67QS/I8oB6xzfyOsSuBUXBRlCc1HEckePwmMsS0HBzKi9pt0YiTn4cGOvaWl8P8Yp45n/t7mfyU4cEFPokQFZnmfwezYCbDx6aJTyjnCNRfd88=
+	t=1791043821; cv=none; b=LJS48dBfhjGsynUk0hdFCdMmQ3eysUyJgmY8RDYKuSnN2CX1FlCiUkgXgS8KMNFIaTheo+eG0tyV+ekBvPbJnsnm2BB/N7OqM55JV78AqTOg56vlUnWXQnizRGR+0zrmrjXi1ADtxPmMSNIQg5BxzPS+iqHvDgiYxO8/ORx1tm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791043438; c=relaxed/simple;
-	bh=raScNH55YyHKO9o6R9zNWW+p8fAddrS2wh/1QF52HVQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=aPpxUEbsyeIOz8O6u3bTMl8Tkju1J1A7nLRQvTI/RUlZ3v4v2xiBWMjIoZHP8kpBlBG6NE5DWDA6V70GSrL8i+/bG3aINcXx92tL4GLiqKOQubK8tvtrFsyRZwFWSYZ0LLgpptuV0li/bRlIKEZkXIUgQEcQfNxsgWgjAFTFKPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Date: Sat, 03 Oct 2026 17:03:08 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Miguel Ojeda <ojeda@kernel.org>
-CC: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?ISO-8859-1?Q?Onur_=D6zkan?= <work@onurozkan.dev>,
- Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
- Christian Schrefl <chrisi.schrefl@gmail.com>,
- "Paul E . McKenney" <paulmck@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, linux-arm-kernel@lists.infradead.org,
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] ARM: rust: Enable Rust support for ARMv5TE
-In-Reply-To: <20261003093827.77857-1-kmehltretter@gmail.com>
-References: <20261003093827.77857-1-kmehltretter@gmail.com>
-Message-ID: <E4C8623E-CCCA-408F-A03E-1B2C7DFD0D75@mainlining.org>
+	s=arc-20240116; t=1791043821; c=relaxed/simple;
+	bh=qEcfC7+lBDdUI/1qR4OTk/G3nCA3uGTQJcqec/VzSIM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=ItgvDJR1QX5VxpvtYYRo6+q4j+2oypTv6IlKdvDS8TZHKsXoQjQQPumQ0LxWB3GUlt+5gQOMrhYZxbnVvRKEJ4JMv0zb3QT63AXEORMPt1JIG+HGzOP3e+PTv34K4ztz/cxHEadJUsrtkfZeN/Tg/rJt5CB4vS6ijV41PTA7X2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=PYpbtkz5; arc=none smtp.client-ip=34.2.90.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="PYpbtkz5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791043812; bh=cTlTE08P6zOTrMluqQHEdgkKFtrrhSvx/vcFnuhWH8o=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=PYpbtkz5yIO1/9sWcqgJWd1ePZCmep1gh0FiU2AcMeo+yTCQUzECf5+1AFhsejLhXtiP37ZQ2ycxZmNF0RyO0c8dQioR71EcbA6Ayp5iGT72xzjRN3nxDVahMt85wkcQBglXXzYcfdBi626E7N3qIjYwsp/F6C3Mrv5aS45hqciAGYlqX3jOv4dPaXwDjzU/i6ivzERsODOMszNIvZkWG9nm6iSalb2uHNwtmp2+oJ3kk5DJDf29Sz8TCQ8G9HRxgzT5DWuOKlSW/B4ycfUcc4ID/37EfTONXC2s3YuPbzjMa+uAuKeKrE9pQEXy732ahsEg7wGWNWar+SIqAfS1YA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791043812; bh=JZWiY/FvpMb2VJUCA7A0hXiZtMnm1dIrxKXl0RmVNvk=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=lyPb1SHYWBEEv/GHQIBTgrTwfg33e5qos3SRAl9KGNVV3cq2rbZMKZKRlFUQq0hp3gyPX5he6SysMOYwyPAOtUVbL0L7cdrwLPUYdKFzMgnW5AxMrI8XtLezpO72wCCNSof3PCyFogmpFdBJCJF7PeOPqu/+YW0ycJTS+gIQj7FI8nvDMVsJVUWVNo0ZWNdliu6w4/xtW8mnkNtlaFF3b3PFQSMyKGKaGXWDHAcbqULvXEwozrqD5i8vT2pb5i0fmUDDh6Lf1L2jG7TjN7595WcdLCXKXKMSGsqLmIcmSwnS9rBlmNuvmlQnT4Ru1uW7FIQfN5kq11UwA5qBUWcUSg==
+X-YMail-OSG: jMeK1CsVM1l9dE4ZuLeUvncsx9fgvP2iKdyYCuLgw7w3yt2o7VQFtxBT18XgYHj
+ wOOhcv1PGYbYrmVcw_t.BubWI21Z9xfI7N3lwLbI1WF22GA_FMgZ_9oVuDF7SDGeYaT5T6LINTua
+ 9Q3Q0KbIZrEs0bg5bwHhv5c8Rrgvlt1JrO2K4TEn4w0OSZ2bh2jUOIys01FC.UOcgC7dkmCALQhd
+ sGT.7ZFYeE8ZghYoDKoR5k04NfEjHA2ss1HhNzNRFq0Au9VdzuQKaVxKv.mHsLcRhOsXHuz27QOQ
+ tqpIsQHAghfuuFc2bSYXj3EWsM.DGgGHABzjYe0MWYHu4UC1aL.eqnTwB_IiO_xPoOPp_gyginbO
+ it8_PXweBGPN2G82MkDiYeBQTekcW2zHHLDy12yjY9vR.FbIdj0w3vHKnwNrgf4ee0Z5etk0k3ty
+ jATsTK4e._dFlGWT9_eVxa0op2PA76nomDzxChjVac.ypnoI17H7J9hi8lXUZE3r7tVrb3LJW56W
+ rEh3FGyBB05pmxd.L8OP.ocbQ.PKw2y22KttlPuhgGXkRAN0wmBCCRGUfJXKMdCXOYKl1vLXJXGY
+ R2Jb9YWRNPNxhJ3NYJLXpCZyq.kbEqXPpSZlMHo_ur_ARdHKUKHc7qP8NhNiruCSj07.ZOTjtJkG
+ EwlkqSDBLITU37sinu2NQmWPzCcUZkPfVcy_EreUMSGOXLqDccQlbgSLdW1e2lQAT1HHfnCOfniq
+ _Ko2QUh_hNUfE3tC4I5_TK6Oab0UFtk0U.dpNfajfQAxDHr0WPdeaq4gasvV0vAF0Swx6qUUvmge
+ 5M6wqeGR8lonenWWggGwmUPkmTst4i3cc5BNA7kaI3kgXtiTDcAPoD11VWbu0IbF80PBzcR3nSHj
+ nF0wiCHbf1q.7.rs8os_TKNw4hlsterj5H3T5NDv3oQkuVJ2enK7W_PQZiG8zCOXaNu5KQiTc6Xw
+ d490MI9_IVa2wwoleFE.KSfTG9rVLVXHn.AUt3p2dxzsFgIRZrM554PwUkMfhgNQPKUGahieSEAP
+ MBl4cbvP81xkk.GREDPdrpp0yrDj.wOkf6FffEat1zxJYeBYtike0l2SpvGmd0W4ft5lOvO8moss
+ 9y4mnSdW4a05teM7I6PnLn5JpYJjQMWFdH4dbflmfpi0IDtdoshOgdscG9Wd6GOF5pGUlRJu8wdl
+ 3lWkpsHyRuOybTLaTe0xATEWyYkKhq.rSL6EeSKJ8Nny8uMq9U2AJaMNc7d7HgkJgESCl_WVwsnc
+ F1nhIYumF_Vti0IoelS2qe4.TG8zkdaV_TVnC_XFC72GO4PT7Zh3kkhH7OqbTMMCBm6DoJyOm5I.
+ tRNO0lcc0ddQvpHWXndASf20rb3Aqo0BdyQGzXlvwz7MB4UDoL08aytruF7spFWM7K0Ijp9p4Q0f
+ 24GlPA_0_.Mk4ueuoVCcjJIbRJGFtsLW5N7I64hrY1A2y652a5zliOm_vvcu5EcbSZNZnW5lbJLE
+ W_5YXPPbPF5FjiO_jBVIjihsGnIlS6A.csOnkgS0PKmssGFIwt52l.EUwqzz8Y0XjOnBBu0qy8U9
+ 6o0Ee1Iv75UAWfHLs_9xl5xWg8BpUUqzzOWc3KvygxV2ebEbZ9bSoV_eEHOF1qU3QIVGE0dXmjb2
+ 4XNlUS0mOm103IX3hD9JvYC1mSh2Ng6lKYacm6YKqa29tjo0iBmx4zmGEt144GBxx6WG_vISKDBa
+ e5Y90rr59zMxmuxdB2lMtFwK4NWz7RUnBCsoa5kLwkO78mAo8kdbseQfd0fs6uF7Kv84oNlnN0VW
+ 50F..S2lyw.pqeANUsM1YN4QSFCV025Oj7zdyMAdR6RSwDIPIrVoOZtkquamraWBA5KAnL.fuQ8o
+ LIIgMYIG38EQvBZPOzG3m4.44PCCxNbO8d0vg_JUvbKWZZEx.aYD.I36a73QGHcDMbCmjufnrA1f
+ 0F61dZABt8hk_kxKhPeEk4gFWDp1TmJbWdZFNfmJ4tnX1ktbTvML2hffem8FeNtAW7x2P1XTT40d
+ AfbmRRkGn0e.gYcuPHXASlpEK1o.TkKCvlyUQpJ2PXED7
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: 6a1849ee-2cff-49fe-b546-8f7de5c879ce
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-101 with HTTP; Sat, 3 Oct 2026 16:10:12 +0000
+Received: from dip88.lsn.bf1.yahoo.com ([67.195.177.97])
+          by hello (SMTP) with SMTP ID d1c6d9a7cda80a7ad7051028df1df544;
+          Sat, 03 Oct 2026 16:10:06 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m.abubakar365@yahoo.com
+Subject: [PATCH v5 0/2] iio: pressure: add Sensirion SDP31 driver
+Date: Sat,  3 Oct 2026 21:09:47 +0500
+Message-ID: <20261003160949.4657-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
+References: <20261003160949.4657-1-m.abubakar365.ref@yahoo.com>
 
-On 3 October 2026 10:38:25 BST, Karl Mehltretter <kmehltretter@gmail.com>
-wrote:
->Rust is currently limited to ARMv7 on 32-bit ARM. This series extends
->it to ARMv5TE.
->
->Linus Walleij asked for older ARM cores during review of the ARMv7
->support [1]. Christian Schrefl tried ARMv5 with the armv5te-none-eabi
->target at the time [2]. He hit missing core atomics, missing
->__aeabi_mem* symbols and a floating-point helper reached from
->pr_info!() formatting. None of these show up anymore. The kernel crate
->now implements atomics through the C helpers, and the
->armv5te-unknown-linux-gnueabi target used here keeps the Linux EABI.
->
->The only remaining problem was a link error. Pre-ARMv6 __arch_xchg()
->has no 2-byte case, which the Rust Atomic<i16> helpers need. Patch 1
->adds it the way the other pre-ARMv6 atomics work, with interrupts
->disabled. Patch 2 enables Rust for ARMv5TE.
->
->Bradley Morgan's two-byte cmpxchg() emulation series [3] does not
->overlap with this. Its ARMv6 part was dropped in v2 and it never
->covered xchg() or pre-ARMv6.
+This series adds support for the Sensirion SDP3x family of differential
+pressure sensors (SDP31, SDP32 and SDP33), I2C devices that also report
+temperature.
 
-On purpose! It'll be dead code after one of ards changes
+The SDP3x uses a completely different I2C command protocol from the
+already supported SDP500, so extending the sdp500 driver does not make
+sense.
 
->
->Tested on v7.3-rc1 with clang 22.1.8, rustc 1.99.0 and bindgen 0.73.2.
->
->- QEMU versatilepb (ARM926EJ-S). The Rust samples, all Rust KUnit
->  suites and 355 doctests pass.
->- Microchip SAM9X75 Curiosity board (ARM926EJ-S), at91_dt_defconfig
->  without the ARMv4T AT91RM9200. The samples, all Rust KUnit suites and
->  356 doctests pass. The Rust sample modules (rust_minimal, rust_print,
->  rust_misc_device, rust_driver_faux) load and unload cleanly.
->- Build test with every Rust driver, abstraction and sample that can be
->  selected on ARMv5TE (rnull, binder, the two PHY drivers, cpufreq-dt,
->  the DRM panic QR code). PWM_TH1520 is the exception. It uses a native
->  u64 division, which does not link on 32-bit ARM.
->
->As a further test I ported the Atmel PWM driver to Rust and ran it next
->to the C driver on the SAM9X75 board. The port is not part of this
->series. The comparison found a prescaler bug in the C driver for
->periods of 2^32 clock cycles or more [4].
->
->I plan to get a Raspberry Pi 1 Model B+ and then add ARMv6K support as
->a separate patch.
->
->The ARMv7 enablement went in through Russell's patch system as
->"ARM: 9441/1". Unless someone prefers another route I would submit
->this series there after review.
->
->[1]
->https://lore.kernel.org/rust-for-linux/CACRpkdYF0sVB2-qgy=GzETSR3+2sagVQPGdunDQDJrn8KqJorA@mail.gmail.com/
->[2]
->https://lore.kernel.org/rust-for-linux/b13d37bd-ec68-4713-94e5-e9ed4d6a6354@gmail.com/
->[3]
->https://lore.kernel.org/lkml/20260922173354.14404-1-brads@mainlining.org/
->[4]
->https://lore.kernel.org/linux-pwm/20261003083036.21584-1-kmehltretter@gmail.com/
->
->Karl Mehltretter (2):
->  ARM: cmpxchg: support 2-byte xchg() on pre-ARMv6 CPUs
->  ARM: rust: Enable Rust support for ARMv5TE
->
-> Documentation/rust/arch-support.rst |  2 +-
-> arch/arm/Kconfig                    |  2 +-
-> arch/arm/Makefile                   |  4 ++++
-> arch/arm/include/asm/cmpxchg.h      | 14 +++++++++++---
-> 4 files changed, 17 insertions(+), 5 deletions(-)
->
->
->base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
->
+Patch 1 adds the device tree binding.
+Patch 2 adds the IIO driver, which exposes differential pressure and
+temperature channels and validates each measurement using the sensor's
+CRC-8 checksum. The SDP32 and SDP33 differ from the SDP31 only in range
+and use it as a fallback compatible; the scale factor is read from the
+sensor at runtime. Tested on an SDP31 wired to the I2C bus of a
+Raspberry Pi 4.
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Changes since v4:
+- dt-bindings: use sensirion,sdp31 as the fallback compatible for the
+  SDP32 and SDP33 instead of listing them as independent compatibles.
+- driver: match only sensirion,sdp31 and report the device as sdp31.
+- driver: include headers for everything used directly, drop redundant
+  casts and use KILO.
+- Add the Assisted-by tags, which were missing from earlier versions.
+
+v1: https://lore.kernel.org/linux-iio/20260919223650.13396-1-m.abubakar365@yahoo.com/
+v2: https://lore.kernel.org/linux-iio/20260920164533.31988-1-m.abubakar365@yahoo.com/
+v3: https://lore.kernel.org/linux-iio/20260926154118.5471-1-m.abubakar365@yahoo.com/
+v4: https://lore.kernel.org/linux-iio/20260928215422.3720-1-m.abubakar365@yahoo.com/
+
+Muhammad Abu Bakar (2):
+  dt-bindings: iio: pressure: add Sensirion SDP31
+  iio: pressure: add Sensirion SDP31 driver
+
+ .../iio/pressure/sensirion,sdp31.yaml         |  51 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/pressure/Kconfig                  |  11 +
+ drivers/iio/pressure/Makefile                 |   1 +
+ drivers/iio/pressure/sdp31.c                  | 244 ++++++++++++++++++
+ 5 files changed, 313 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+ create mode 100644 drivers/iio/pressure/sdp31.c
+
+-- 
+2.43.0
+
