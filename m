@@ -1,99 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC81B221FB4;
-	Sat,  3 Oct 2026 20:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03A1471D0C
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791058928; cv=none; b=nw3Vi6wScyYBPsb5A27lKxR+Ezrb/BFciF0lJvALV9/mMRYPvhAL/a/UyhMYO6TamQAOZsX3jc6h8Jd6bop4KBiG8AT/KTgm9l08SCo5Silgz2KGuHF4pulDSsjzVMycSlNbAfBGl1n4+inkinz7TlTHlZ6nKlrn0gHftlw5XHA=
+	t=1791058928; cv=none; b=qQPQj5ULfbutE3pmpqGQpNZmDoJVtt102jUJinTVOIZAOkPcUXR6qO8QXk49fsNL7RMvlHOSBAKThy8ujHYgXk/YfBqCrdTeqxZzmC/k230beneclepqc43tW5T1hkbretP6ZKyrtZB4bTW2GjlsIFtbDfOpmIVEnmGDNBMCQf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791058928; c=relaxed/simple;
-	bh=ed1lGsJ+1gqMPNVoWL3aELzqPoySA/fwsDpsdVzIxYk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ruOV65F5OMxmj7BNt1NXKQCAYkgnKAWAuBhSCsnlyAo4RVdJ/J4NAs6eEJWWj2FGRHNe2g+/bazBDLwHAPe6cPW4TEiGZ6W2r3WPP9RHYewSA1LRPdD3ddfuCYe2zYxKyEhNiG5JgXkOSskppqUZhMMVPNYsqhgSzrzPO0yFmp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=TOixXT7a; arc=none smtp.client-ip=100.103.45.18
+	bh=vHlNApf1n0eU2OktVinpI4zv/MZunnjQ95s6jli1xzM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nzH7rPR0pACnlwcdmGYjbqIALxEVC9Wk1101zO63puTfbJ4VBcQzlvV7dAmBEnUzOwOwdthERxj0J3k91mQFZxn+zL1INlRoG4OaG9IpzatPb2F5chAlpWy0zgOUvBzynQd9dDeEKjbFyoXrv9xXaRt/1oAcW0+BV9Px4lUjMuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E9CpxOpQ; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="TOixXT7a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E301F0089B;
-	Sat,  3 Oct 2026 20:22:05 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=TOixXT7a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1791058923;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Or+qA0Cnb+L7NO6L4PEfticloQh82qWV1cmacilxU10=;
-	b=TOixXT7aovNieDKA6F6Q8JkqhABbKyM85UnwRHzgqYR52NtSNbKsxH50Xtle+dDzwdz92b
-	llcuMEq9orWrSb9qmIUWZKYl84oV+DZjB76qLXufOw2Bos152bZ/NPVI2f+nZxpzU8VgH3
-	jXemBS1VmyiGHWNY+PFYz7L+Yp03ZOQ=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id e40e2a3a (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Sat, 3 Oct 2026 20:22:02 +0000 (UTC)
-Date: Sat, 3 Oct 2026 22:22:00 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-Cc: ebiggers@kernel.org, ardb@kernel.org, skhan@linuxfoundation.org,
-	me@brighamcampbell.com, jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization
- in xchacha decrypt
-Message-ID: <asFj6Nxf6fglYfor@zx2c4.com>
-References: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E9CpxOpQ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso6766795e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:22:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791058919; x=1791663719; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jdTRy1oUzdTMPfJnHsa0F48c4vY6O6GHObHAbcTX0Q8=;
+        b=E9CpxOpQvqdDyv5L3mchbAdOH00kUUYB8lcQJjG10gcp6tkpDTJacm0DgQWTRhLV0T
+         tAwTjRZwqcREb4depS7jx7wRB8pupFAd5/eWZlx+d1KO2N1OzFJk7d07pG36kIMRg3cw
+         MWFmEjYqSCc343DZ+IlEeGeifBDF7hKrk+hKO01txOXbMwydszp98Fcm052sbI6I4WXd
+         5UPZpXJRrm3S+XbzfdIGMSBuneyVb+5VXYi3rF+RBqdaRkJoVyEGifmF2Z67N/hq0UbE
+         33V4fUhOJlJAcxcL6qVPi9UUPtZECO/DS03hKW0gfQQrtCzcNfiHnOGjqJNLq5Hy6t5x
+         KvHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791058919; x=1791663719;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jdTRy1oUzdTMPfJnHsa0F48c4vY6O6GHObHAbcTX0Q8=;
+        b=dAsNWAq4VJVj4orvmekmf4yKUgQIUD5G6YbZc5rcocamQTvEF0eBi9bfYugFW7K7bk
+         a8e1C1fQgTOTqVtioEbeFeypbXM/c/pIqtpYqNBJ60X0TrNzpSsFAfUosDVn8dZIjMs2
+         fm21K9kwtRPYviWVtq7cYDBR30SwLop1bZSJ3uhyHyLYJh2tcGMFDbVAK932Vlz+9XJz
+         s5NPRu0+EEMYXHbfW5Qt2PHCQWHKOKxCbhjMX6G3tgydHsdHW6/NFdfxO7e/EKU1pQzb
+         gFzJoEpfeJiUgQEJTK66MiTEUtmTd93v9vOAwBX+SRpPeEkHIGAQUyakuW3LTeWKtquK
+         3amQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBlAGOlDy5T5JXQjsr8zMWVNvFh3oEYMsJ04Nq20o0clk8nrN94lYiWGalhxiywQAzzCaFLN6nyptcLpY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLp1gxHPhsqETEcrzuOpZ6Fcxg7fCBgw+xP6GjAjJz+BaL/Vdr
+	ix+17NTUjONu9onRJLKM78pmiTs1jj22idlopuDo8UCIeTsm+shR3Jx5
+X-Gm-Gg: AYBFou3ct075r01o+Qen1oUXBeG+YSvuTXUjwjoC56V+73NcYxBTkNoITi4Rl9PVmKy
+	Udfu1m7dLdR4lKTvRrzImrIqfRk0RiBzm5NVNUf8iH+5zDMwlUL6+2sZeYN485835p4a7YBVppY
+	qsBPEzBRinXQ8ZHQHvlpYlMCBYayI/Z6FfETYYFeva7JURBNPNE7unK3dewn+PEKDLpYHqNByAo
+	uzInpWukALuY3SGheCDCfcdEtIDBszoOKmiF/jxIqh43DTO8HtE1NshRt0jMNlZO4NGOyh4mqTL
+	bSm1AUIm9F4/myWQ+CuhJYk/6C3FRuGmfrQ3bxis5TOyuhiaAqZPljrC5w6430Fl/wXFtiEhrSl
+	zf63EEzXXJy190GfOqYfDyt1HI03THg/xHdUdKp9RoErT0o52pCucYP/7TvHD51Z1r0AyXqvikm
+	s+wpyMuJ9I7VPkCl1w9sOucZPbZ9F0DG5giII+sQJBvaMekglu54E6ieOcpIFM81SeGGQ79e3XZ
+	N0feg==
+X-Received: by 2002:a05:600c:608d:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4a02750fa51mr115371465e9.4.1791058918814;
+        Sat, 03 Oct 2026 13:21:58 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.11])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48b380facfesm15083316f8f.23.2026.10.03.13.21.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 13:21:58 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH v5 3/3] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded controller
+Date: Sat,  3 Oct 2026 22:21:43 +0200
+Message-ID: <20261003202143.4697-4-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003202143.4697-1-okerixx@gmail.com>
+References: <20261003202143.4697-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 11:38:26AM +0530, Mohamad Raizudeen wrote:
-> The `__chacha20poly1305_decrypt` function does not zeroize the chacha
-> state, unlike its encrypt counterpart. The regular
-> `chacha20poly1305_decrypt` function handles this by manually calling
-> chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
-> the result directly without clearing the state.
-> 
-> This leaves the derived chacha20 subkey on the stack after the function
-> returns. Fix this by storing the return value, calling
-> chacha_zeroize_state() and then returning the result, matching the
-> logic in `chacha20poly1305_decrypt`.
-> 
-> Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction and selftest from Zinc")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> ---
->  lib/crypto/chacha20poly1305.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/lib/crypto/chacha20poly1305.c b/lib/crypto/chacha20poly1305.c
-> index ea42a28f4ff7..03b14d272520 100644
-> --- a/lib/crypto/chacha20poly1305.c
-> +++ b/lib/crypto/chacha20poly1305.c
-> @@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 *src, const size_t src_len,
->  			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
->  {
->  	struct chacha_state chacha_state;
-> +	bool ret;
->  
->  	xchacha_init(&chacha_state, key, nonce);
-> -	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-> +	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
->  					  &chacha_state);
-> +	chacha_zeroize_state(&chacha_state);
-> +	return ret;
->  }
->  EXPORT_SYMBOL(xchacha20poly1305_decrypt);
+Describe the Compal embedded controller on I2C at address 0x70. It
+provides the board thermistors and the CPU fan speed, and drives the
+keyboard backlight. Its interrupt line is TLMM gpio66, falling edge, for
+which the file already carries a pin state.
 
-In my memory, the reason it's like this is because for WireGuard,
-xchapoly is just being used to encrypt a cookie value, which has no
-forward secrecy concerns at all. So it doesn't matter if it's left
-around on the stack.
+That state leaves the pin without a bias. gpio66 has no external pull
+and floats when the EC is not driving it, which shows up as a steady
+stream of spurious edges; the vendor ACPI tables describe the same pin
+as GpioInt(Edge, ActiveLow, Exclusive, PullUp). Enable the pull-up.
 
-Are there other use cases, though, where you think it might matter?
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts      | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Jason
+diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+index 769f195c99d9..bc840fd8e458 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+@@ -659,7 +659,15 @@ &i2c9 {
+ 
+ 	status = "okay";
+ 
+-	/* EC @ 0x70, irq = TLMM 66 */
++	embedded-controller@70 {
++		compatible = "lenovo,yoga-slim7x-gen11-ec";
++		reg = <0x70>;
++
++		interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
++
++		pinctrl-0 = <&ec_int_n_default>;
++		pinctrl-names = "default";
++	};
+ };
+ 
+ &lpass_vamacro {
+@@ -990,7 +998,7 @@ reset-n-pins {
+ 	ec_int_n_default: ec-int-n-state {
+ 		pins = "gpio66";
+ 		function = "gpio";
+-		bias-disable;
++		bias-pull-up;
+ 	};
+ 
+ 	kybd_default: kybd-default-state {
+-- 
+2.55.0
+
