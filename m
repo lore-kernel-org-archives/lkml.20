@@ -1,87 +1,43 @@
-Received: from mail-pj2-f37.google.com (mail-pj2-f37.google.com [74.125.227.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E4423D291
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB8948F01E
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791046254; cv=none; b=TZC/F82pLQTQ7BjNpgxjkglR/kEVzBVDViuOmFjQc2Prc8YEyRT7HVXGZttH7U9Hbq8v9vVmJD2xpCOugk5q6W9RGLdEcrpEEl5hGgJJMNNdxIQ0l0DqnWXa8I6fFd49bB7HEvY07NSNM0jFl17lgYYe68GHAcqaprjelHmYJCk=
+	t=1791046306; cv=none; b=lIgodH8Vbg0Tr+7OoY0OcX1RDwnsATZ33b6GlL1Qd5mdsgO/o99Pq1ET7789+qJqtj1Kv+LBnL0KXgUP1Gwvqn8Lk8ColawItfPzEqkQx4Jx+8vSpb25s0yrbIe98oF1N9SkkGZlniyjqQaDXnu2kANH08hi7KFlAkyuY2PWuWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791046254; c=relaxed/simple;
-	bh=rgmi8cN+SpzR1LZvYNcsfQI3YjDiUwkUJG5FRv+tXy8=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZaeBb0whch8Sk2cS5CmQ85XAUi0T9rS/OOxvD+wz2AbrYWuKyV4zKFPNxRkbRJdhQxfnetbbN0WP5Wl1p6ObehDsZH/DIl921n8FPSwAz5WQbcrEcHaxGFwA1NueAxV1LNAvhznslOUz32gnHuZLw740fJiMPj1ellGFeJpR5SQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jgw5qt2x; arc=none smtp.client-ip=74.125.227.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791046306; c=relaxed/simple;
+	bh=iN2dacuD2WXWVPe3pa7Hiwu4Q8mHr64UNBGkwL/Vsxo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N5nH4g91a9XGpApkjwHPawPkeB4R0Ik+TOp72dRhRAI66fHclLrmsc2QTjx6QZbUWoiu4w1XR73XG3nLWoH/C70y1DrfXpCDI7QfukjFIJeoAkZT2R1uBp233pgRlDmsE1iJyVWcfF7oJxdIc7/zNzoBiYX8cs+Xgiiio/5pLu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=NPj4ASj3; arc=none smtp.client-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jgw5qt2x"
-Received: by mail-pj2-f37.google.com with SMTP id d9443c01a7336-2e300fa474aso1926015ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:50:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791046252; x=1791651052; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o5nZhr5o/UkV60cwhqj+G+eK5fQZjsPv6PrbldXN5Gw=;
-        b=jgw5qt2xQtANLaCSCmRTBi2JHZLY5CA9UEC0EUZ296TrPmMkmXoJNDMn/hlQITYX3W
-         p3J0haqnVACBZngYnRd3ZjNJ3l1x8tTt71yB5L5DdvOlYDfdx0832kiO2o/qc1fvE1FH
-         aALBLxk1vGfl+4byTAiqsLbdqXizqH1L45pbF1gbI2hxr71yooL/gPz6x/wTz0P2jJ2G
-         ZW0hdEbtCJYyYy7j812Wka5gNOkP3clwR2iYdnnN+HqPy2q2jermruXXfD/a6hZT/EJM
-         cTs1ANU9y3hH4EyqPyXVb/RU512RIVz3Df80Dt3pfSfJY4MkUncP1ati19IKuR3HtOBC
-         wy3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791046252; x=1791651052;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o5nZhr5o/UkV60cwhqj+G+eK5fQZjsPv6PrbldXN5Gw=;
-        b=cchCqYCiRsVvjaWzOGmPnCVoRFeyfaKoU4ak19UaEdcdI/NhR+u3kVqQN5zmKMdIsd
-         eSr5WYMD9D844I5/sgEa6OryiTIyIsk1lytmQxofnnSYwIaCvdG0VSHmvPIc7JcjfpqB
-         E4586s7FPO0hPxdwFMv5XPijba7fzSrp9rjFq0PtbzvSuOGcg/IghNTpYwl/+7/05nO1
-         Pv0450tVjeVHKdBQPMHRrMC9zKM1UdPPejgF2czhnt5GN/iqpaLI1ySrbuZD/g4Wd4KR
-         Gz/GDEzzbtmVUrW1XYwoCrfcu6SSsUlFoPfh9mdFgZHAQ3ZyC/AiO7fESoe568T+zYus
-         NyaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBziUkZafg6+tWJVqkfq+BwymA5k2L6p7rJhM7NCLlV3ikJSSJwfFQWhTcF9mhcEdouSYNkIcTm+/PTz1wk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7DHl7fSrVozdnUG62iQsWs4halewgx6InbFEP3HrwkAZRjqVO
-	d7Bk3Z4jwd7tWW3dK1pTyqJezXXrqXdjrjNde9zNvUYJ+nSlWz1dfBMq
-X-Gm-Gg: AYBFou3NHqkabRkgzIMmeI7rAi/celTesx677YSs2k1X6qDPfx8mhFaAi/8nWL0flg5
-	8Ss0nfPSWBKeHiGI3TXcgO1iLZiiqbSKzCRFSK250uWZ4dc2RT2+C8ZtLAsCXBhJFuQREWzuJTL
-	FbHYbKmUFeNvHWnrkWUB81hB+9CQwHoUbSqCJISjuvcepFeovfxj/csYy7Z+S6WGrZy58iFR36d
-	qpMxAIMCJ1WBCjJJkB3c1tGOKANzmtghh7XOnDZe+Wqx9x7P8ikbQRu36vpkdqUIgGBPWX2YKqL
-	sck1o9CYYltgsaR/RKZEf2NXisEAVS4sMukFgEPTB3lx/9S0pOWnYSGoVLttRi7ysWxdBJcrKaf
-	0ypJW3oUaSdl/ZBXnxJ/I4aTfx02I4oO3xM15ym5f43QXXNB4EO3TQcNRphnyvFXBmNCDhr0VVj
-	7pB2A+rEI4h45MjbYx+qj85LKakP9GzAJG+gZZgdSTcQI3eTcovXvxCu4u8wDhmcshWKNqf/vqd
-	ivd63d9l7pMXwjNrA==
-X-Received: by 2002:a17:902:cec4:b0:2dd:ad73:c93a with SMTP id d9443c01a7336-2e49b60bfa4mr53807145ad.27.1791046252208;
-        Sat, 03 Oct 2026 09:50:52 -0700 (PDT)
-Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6d65bbsm18157495ad.54.2026.10.03.09.50.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 09:50:51 -0700 (PDT)
-Message-ID: <6ac1326b.0a67d0c9.2deb66.efb7@mx.google.com>
-X-Google-Original-Message-ID: <20261003165049.6hj23qszaetwiqu5@DESKTOP-1P5QNTF.>
-Date: Sun, 4 Oct 2026 01:50:49 +0900
-From: Kohei Ito <koheiito.dev@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 1/3] rust: gpio: add GPIO module with common definitions
-References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
- <20260906-add-rust-gpio-consumer-v1-1-24d192f93760@gmail.com>
- <CAD++jL=pZG1ddc+v3ebeTKe-ZTKOTh-L0uXshaZWqOqyuqAYxQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="NPj4ASj3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791046291; x=1791305491;
+	bh=jhnKxC1jfYQTIuTmaIFSI31CFkT8/+tMwqpFmimI1mE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=NPj4ASj3XEB0AC4FSjoNSNY4thPPfkhDBceN/B6WWS+OtBflPV1mvNX8MFPV4VWrJ
+	 GkSGEHVXJAlj863kX7PKt3+YeM/wbnItd53pFWe9wJrrvhLcW5llncYSe4ERPi+kO2
+	 p7MNtEO4eHGAVsLe3q/7l28e68457E8nhgNnpp5sVYNeMaeCWxaSvsXWhwamcRYQMY
+	 jdR2D8BWxlanXhb46a6pJgkqEBFU4aVU6ZKDv/7jG2NY/PzJ3mOrUzC/suFYCKdfpm
+	 mt+AAma/lVJL5I9QzILJvPtnP+WwNmtEXWwt9WDETHlRbbx2Gj2a0UBn0FrypYQpgW
+	 sKWGp2wa3lCTw==
+Date: Sat, 03 Oct 2026 16:51:24 +0000
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+From: Norman Herms <dockseed@proton.me>
+Cc: wens@kernel.org, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v5 3/8] clk: sunxi-ng: a733: Add PRCM CCU
+Message-ID: <IX5E2OTO5TApj5Vn4djIoBmcguIRvSNmVwcbXPiXUUGdVZr1NAJHSRomSnI2U5zgW9LWkNXJUpSIlkvHGCwlb1n6mYkGZoH4l1EOvNgua38=@proton.me>
+In-Reply-To: <DLVAHLGLB6W5.1X87X6JJ6MY5H@pigmoral.tech>
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech> <CAGb2v65q8w6NLzTtuMX3HZR98nAvR=Z4ODUCFZb5j3TgkDu_3Q@mail.gmail.com> <DLVAHLGLB6W5.1X87X6JJ6MY5H@pigmoral.tech>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: f0d0ad3ff4b1cce1df4b4fde15de0e8f3c9593c9
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,44 +45,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAD++jL=pZG1ddc+v3ebeTKe-ZTKOTh-L0uXshaZWqOqyuqAYxQ@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linus,
+Hi Junhui, ChenYu,
 
-thank you for your comments.
+> > The three bus dividers are secure by default, and either need to be tog=
+gled
+> > to non-secure by the bootloader, or (I'm guessing) the system is runnin=
+g
+> > without secure boot and the secure access bit isn't in effect.
+> >
+> > Please add a comment about this.
+>
+> Okay, I will add a comment explaining this.
 
-> > Add the top-level GPIO module with minimal common definitions. This
-> > module is the basis for future Rust GPIO extensions.
-> 
-> Describe what you want to enable by this patch.
-> 
-> - Enabling in-kernel Rust code to use things from the
->   GPIO subsystem? (It looks like so.)
-> 
-> - Writing GPIO drivers in rust? (It seems like not.)
+A data point for that comment, measured since my last reply. For the
+registers behind a security switch, ChenYu's guess holds on our boards.
+Two test BL31s, each clearing a switch again after
+sunxi_security_setup(), then reads and writes from U-Boot at
+non-secure EL2:
 
-This patch is the first step to enable in-kernel Rust code to use things
-from the GPIO subsystem. I'll clarify this in the commit message. The
-patch series does not add Rust GPIO provider APIs or Rust GPIO provider
-drivers, but it is intended to be the basis for them.
+- PRCM_SEC_SWITCH_REG bit 0 cleared (0x07010290 reads 0x6): r-ahb
+  reads 0x03000000 and r-apb1 0x04000000, the values EL3 reads, and a
+  write to r-apb0 (0 -> 1 -> 0) sticks.
 
-> > +/// Describes the raw GPIO level, i.e. the value of its physical line without regard for its
-> > +/// ACTIVE_LOW status.
-> > +#[derive(Clone, Copy, PartialEq, Eq)]
-> > +pub enum PhysicalLineLevel {
-> 
-> No thanks.
-> 
-> We want to hide the actual physical line level inside the
-> gpiolib (encapsulation).
-> 
-> We should not expose the physical line level at all
-> unless there is a consumer in the kernel that absolutely
-> needs this, and there is none.
+- CCMU_SEC_SWITCH_REG cleared to 0 (PLL, BUS and MBUS secure): PLL_PERI0,
+  AHB, APB0, APB1, TRACE, the AHB and MBUS master gating, NSI and MBUS
+  read the values EL3 reads. Writes to PLL_NPU pattern 0 and to TRACE
+  stick, and U-Boot's own write to the MBUS gate enable register
+  (0x4 -> 0x804) sticks.
 
-Sure. I have no need to use the physical line level right now, so I'll
-remove it and the related definitions.
+So on these non-fused parts (SID + 0xA0 =3D 0) the switch bits do not
+gate non-secure access, as the UM notes on these registers say for
+non-security mode. With secure boot enabled, the bootloader has to set
+them; we cannot test that.
 
-Best regards,
-Kohei Ito
+That narrows what I wrote earlier about secure filtering without the
+fuse: on our boards it applies to the registers the UM marks as fixed
+secure (S_TWD_BGR_REG), to CCMU_SEC_SWITCH_REG itself and to the SPC
+status words, not to the registers behind a switch. We tested a sample
+of each switch group, not every register.
+
+One board, AI agents (Claude) on my board as before, so a report, not
+a Tested-by.
+
+Thanks,
+Norman
