@@ -1,234 +1,215 @@
-Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93E71CAA6D
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:19:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913E71CAA6D;
+	Sat,  3 Oct 2026 04:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791001179; cv=none; b=KRz51j4JA4PSSA9eRvAB8LhTsxc1wYpL5v8O4h+2L9Sci+5ZYczE+x21XJk0r9HKPm3gKoyN85snBEKBlZiz7AbVwGz47+ZuLAWSwqWA+P7lB38R0YA+GQjyzw78wA/0MKusU8hESdbnXL/lgiaxIQTjuGFBXSTzWtCYvHyxgXs=
+	t=1791001187; cv=none; b=Sb8tICHSr8JebaKdMwwyEn+rGFLYsoEwCNT5SsnC6g0QWQ8HyAqKj3n1ICJHyLIjsB4N2jCIAQ6bVohtgUxt08QD3ooAL2ENrPOSeVjBaVMqbnKlte3AIMCCzPyZ/CsMnCV2u5ZQxpQo9U2gi2YzDyuxOqXttWrTsWv+2snwzz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791001179; c=relaxed/simple;
-	bh=DsplKi1Uiyu0yuMCqeZCzrK5XxacKXcgJmCBFbBifk0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L7Naa3H0gPLf6wUUkN+3zi1s5UGAUtQ8+FtwcqWuD/aY3kBn7uWva6U1tpMjdoa6MDRjanH2mcIzNNGGBmCy8eps3m3qmxCjm6cISI478+uaTuq6SgrtaGJWtSARwHAQy9H+zrFu2Ly4s+BtqpT+fOGit+9B0QAmZPgH3iFAHQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=khErUw62; arc=none smtp.client-ip=91.218.175.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	s=arc-20240116; t=1791001187; c=relaxed/simple;
+	bh=T4yQMbdEswaF/AAw940al1Hk+i8rF68HAXdhfEsemRA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VeqLWwOlfcvIZHSNCbtoNOavPNne1oxkz475Z2fR3nsFZVL+al5c0W1RVJzRYZJdlp9wdwQnqOYa9fGkFR1i7Wq0nVWXwHO05bf3K2NKlOBSc4E0kq1icerKwBwNDT4DEzqDtZwe/NpF6RTTuDXTHW5UsHY7MhpVayRMGdnjtA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PkJhhumO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="khErUw62"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DsplKi1Uiyu0yuMCqeZCzrK5XxacKXcgJmCBFbBifk0=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791001174; v=1; x=1791605974;
- b=khErUw62ahv3aNr/gKeZWXiBn4Vp8Lgyp7nUoM9EOH/uZL/TzujKoYLPGIN/dH8SJ1dtV2u0
- TGbMpbPiVcs66oCXp5QRTI4mFTpoEjxy5N/N6nusglnU43bvLTQfJfhPScCyNTsTPYTItymBzP7
- GWcEEckfU8XNHHcrj580viBUFGXw6SJTmcehoKBjBAIJJc18ejCMC1yLsfQld4hK1JMZYsE5TB8
- lA4NzxRxSCiDako960Y45s5WsSG4zFzicfSfMfg30aTVPZoVJ85f1X/oYDBsgh22A3+OxDLsmKB
- ee78WJvmJTeeD/Fgd6xyqtZeVq0XQTBijY6swM4+uRZ0A==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e06294bbecdb007b;
-	Sat, 03 Oct 2026 04:19:34 +0000
-X-Mizu-Trace-ID: e06294bbecdb007b
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 3 Oct 2026 12:19:30 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Chen-Yu Yeh <chenyou910331@gmail.com>
-Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn,
-	si.yanteng@linux.dev, srcres258@furdevs.cn,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] docs/zh_TW: move gdb-kernel-debugging to
- process/debugging/
-Message-ID: <asCCUliodZDQs8dw@wyuan.org>
-References: <20260929131020.266120-1-chenyou910331@gmail.com>
- <20260929131020.266120-4-chenyou910331@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PkJhhumO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EC57AC2BCF4;
+	Sat,  3 Oct 2026 04:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791001187;
+	bh=T4yQMbdEswaF/AAw940al1Hk+i8rF68HAXdhfEsemRA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=PkJhhumOdc96FihLQuOuWD2YA44e6VWtZyzGcD/eFeL9iHTp7m4Grf0tWzTU6vOKm
+	 K+YxjSnFzW7/PjXlTgp5Hw9lG78FYncbBe9jPYu210+73Ny0qKJ4tzv9CHDcK0wynU
+	 NCibYbn8Nk9TeqpBH1IkXZXfiAH1pqEJwbKleO6gJZoyDxqWNrKnIJRYiKQhZ/gkhu
+	 qzHtvxZAb9WjOSR/rPtAc9sBfnHTLktyTJ0AxvTQ+4mfoYFQywU8O6j/YjsHUV29mh
+	 zcUQv8ZjUcrA0SrquqoTeYFxMGrl3bT3lGas7QtiN5EQZikpXJgPaDq4+NUU6lJguC
+	 4kEno4ffLVyHg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE4C1CA5FC1;
+	Sat,  3 Oct 2026 04:19:46 +0000 (UTC)
+From: Ryan Leung via B4 Relay <devnull+untilscour.protonmail.com@kernel.org>
+Date: Sat, 03 Oct 2026 04:19:35 +0000
+Subject: [PATCH v5] wifi: mt76: mt7996: add thermal zone device
+ registration
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929131020.266120-4-chenyou910331@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-mt7996-thermal-zone-v5-1-d7cf8820d187@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAFaCwGoC/43NTW6DMBQE4KtEXscVz4B/suo9qiyM/SiOAka2g
+ 5Ii7l6TLhKpKMpypJlvZhIxOIzksJtJwMlF54cc6v2OmE4P30idzZmwgvFCMEb7JJTiNHUYen2
+ mP35AqsGiMA1YwSTJyzFg66539ev4l+OlOaFJK7U2OheTD7f77QRr7/XDBBSolFJx5KiUrD/H4
+ JMfeu3OH8b3ZL2Z2AOSUGxDLEM1L23bNK0CsQ2Vb0BlhjQqK4zlxiJsQtUzBNtQlSFltIBaS43
+ Q/oOWZfkFcdRSJqgBAAA=
+X-Change-ID: 20260722-mt7996-thermal-zone-a1de7cb1d728
+To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
+ Sean Wang <sean.wang@mediatek.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Ryan Leung <untilscour@protonmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791001188; l=5381;
+ i=untilscour@protonmail.com; s=20260906; h=from:subject:message-id;
+ bh=fkkK5Q5LKx/PoPRbymDj4AA3V5lC4TvI70nnngZ0TJE=;
+ b=NiXnAIPCa4RbcUpzl+gogZMMUs52wxm6zZTbsasWrvGS6hHkyby99jbKhm1oFuA7pXtf6km/D
+ 45lvHq07gfXBSvqz22ocoj6eLetFbenuwB400DtCiopE5bxiOltib0/
+X-Developer-Key: i=untilscour@protonmail.com; a=ed25519;
+ pk=eCaNcoQNRWYKZ9D7KbOGKvQVK2YFguJXZxglTtAR7Xk=
+X-Endpoint-Received: by B4 Relay for untilscour@protonmail.com/20260906
+ with auth_id=1011
+X-Original-From: Ryan Leung <untilscour@protonmail.com>
+Reply-To: untilscour@protonmail.com
 
-On 2026-09-29 21:10:17 +0800, Chen-Yu Yeh <chenyou910331@gmail.com> wrote:
+From: Ryan Leung <untilscour@protonmail.com>
 
-> The English original moved from dev-tools/ to process/debugging/ in
-> commit d5af79c05e93 ("Documentation: move dev-tools debugging files to
-> process/debugging/"), but the translation stayed behind.
-> checktransupdate.py locates the English original from the translation's
-> path, so it currently reports:
-> 
->   Cannot find the origin path for
->   Documentation/translations/zh_TW/dev-tools/gdb-kernel-debugging.rst
-> 
-> Move it to match the English layout, and fix the relative path of the
-> disclaimer include, which is now one level deeper.  zh_TW has no
-> process/debugging/ directory yet, so add an index.rst translated from
-> the English one, listing the guides not translated yet under TODOList,
-> and link it from process/index.rst in place of its TODOList entry.
-> 
-> The baseline needs a caveat.  The translation lacks
-> commit 6b219431037b ("docs/scripts/gdb: add necessary make scripts_gdb
-> step"), which went in before the move, but checktransupdate.py does not
-> follow renames and cannot report a change made at the old path.  Use the
-> move commit, the oldest baseline the tool can see, and record the
-> missing change here instead.  The tool will list
-> commit 09e1d93a421f ("scripts/gdb: update documentation for
-> lx_per_cpu"), which already edited this translation, together with the
-> one later change it really lacks, commit 7f7f468548ce ("Documentation:
-> Provide hints on how to debug Python GDB scripts").
-> 
-> For the new index.rst the tool will also list
-> commit a592a36e4937 ("Documentation: use a source-read extension for the
-> index link boilerplate"); that change only removes the index-link
-> boilerplate, which this translation does not carry.
+Register the mt7996 phy as a thermal zone sensor using
+thermal_of_zone_register() so that device tree thermal-zones
+nodes can reference the Wi-Fi chip as a temperature source. This
+allows the kernel thermal governor to control external cooling
+devices such as PWM fans based on Wi-Fi chip temperature.
 
-I actually think the script is getting in the way a bit. Its output is
-only meant to serve as a reference, not something that forces us to
-constantly worry about how the script behaves. For example, when the
-script cannot detect renames, wouldn't it be simpler to just update the
-translation as usual? But anyway,
+Registration is non-fatal: -ENODEV is returned when no
+thermal-sensors DT property references this device, which is the
+expected case on platforms without a thermal zone configured.
 
-> update to commit d5af79c05e93 ("Documentation: move dev-tools debugging
-> files to process/debugging/")
-> 
-> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
+Unregister the thermal zone together with the existing cooling device
+when the phy is torn down, and on the hwmon registration failure path
+in the same init routine, so neither is left registered against a phy
+that is about to be freed. Clear both pointers after unregistering,
+since this init-time failure path can now run before the normal
+teardown path also unregisters the same phy, and without clearing them,
+that second call would unregister already-freed objects.
 
-Reviewed-by: Weijie Yuan <wy@wyuan.org>
+Signed-off-by: Ryan Leung <untilscour@protonmail.com>
+---
+Changes in v5:
+- Use non-devm thermal_of_zone_register() / thermal_of_zone_unregister()
+  instead of devm: the zone's get_temp callback dereferences the phy, which
+  is freed before the parent device devres teardown would run anyway,
+  and the explicit teardown already needed for cdev makes devm redundant.
+- Link to v4: https://patch.msgid.link/20260811-mt7996-thermal-zone-v4-1-9ca715a8ae1f@protonmail.com
 
-> ---
->  .../translations/zh_TW/dev-tools/index.rst    |  1 -
->  .../debugging}/gdb-kernel-debugging.rst       |  2 +-
->  .../zh_TW/process/debugging/index.rst         | 70 +++++++++++++++++++
->  .../translations/zh_TW/process/index.rst      |  2 +-
->  4 files changed, 72 insertions(+), 3 deletions(-)
->  rename Documentation/translations/zh_TW/{dev-tools => process/debugging}/gdb-kernel-debugging.rst (99%)
->  create mode 100644 Documentation/translations/zh_TW/process/debugging/index.rst
-> 
-> diff --git a/Documentation/translations/zh_TW/dev-tools/index.rst b/Documentation/translations/zh_TW/dev-tools/index.rst
-> index 915449762d1a..fafebd092a3d 100644
-> --- a/Documentation/translations/zh_TW/dev-tools/index.rst
-> +++ b/Documentation/translations/zh_TW/dev-tools/index.rst
-> @@ -26,7 +26,6 @@ Documentation/translations/zh_TW/dev-tools/testing-overview.rst
->     sparse
->     gcov
->     kasan
-> -   gdb-kernel-debugging
->  
->  Todolist:
->  
-> diff --git a/Documentation/translations/zh_TW/dev-tools/gdb-kernel-debugging.rst b/Documentation/translations/zh_TW/process/debugging/gdb-kernel-debugging.rst
-> similarity index 99%
-> rename from Documentation/translations/zh_TW/dev-tools/gdb-kernel-debugging.rst
-> rename to Documentation/translations/zh_TW/process/debugging/gdb-kernel-debugging.rst
-> index 8faa87f26c6a..a9ca1156fea6 100644
-> --- a/Documentation/translations/zh_TW/dev-tools/gdb-kernel-debugging.rst
-> +++ b/Documentation/translations/zh_TW/process/debugging/gdb-kernel-debugging.rst
-> @@ -1,6 +1,6 @@
->  .. highlight:: none
->  
-> -.. include:: ../disclaimer-zh_TW.rst
-> +.. include:: ../../disclaimer-zh_TW.rst
->  
->  :Original: Documentation/process/debugging/gdb-kernel-debugging.rst
->  
-> diff --git a/Documentation/translations/zh_TW/process/debugging/index.rst b/Documentation/translations/zh_TW/process/debugging/index.rst
-> new file mode 100644
-> index 000000000000..4440aa6a97e2
-> --- /dev/null
-> +++ b/Documentation/translations/zh_TW/process/debugging/index.rst
-> @@ -0,0 +1,70 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +.. include:: ../../disclaimer-zh_TW.rst
-> +
-> +:Original: Documentation/process/debugging/index.rst
-> +
-> +============================
-> +給Linux核心開發者的除錯建議
-> +============================
-> +
-> +一般指南
-> +--------
-> +
-> +.. toctree::
-> +   :maxdepth: 1
-> +
-> +   gdb-kernel-debugging
-> +
-> +TODOList:
-> +
-> +* driver_development_debugging_guide
-> +* kgdb
-> +* userspace_debugging_guide
-> +
-> +特定子系統指南
-> +--------------
-> +
-> +TODOList:
-> +
-> +* media_specific_debugging_guide
-> +
-> +一般除錯建議
-> +============
-> +
-> +視問題而定，可用來追蹤問題、甚至用來確認問題是否真的存在的工具也各不相同。
-> +
-> +第一步，你必須先弄清楚要除錯的是哪一類問題。根據答案的不同，你的方法與
-> +工具選擇也可能有所不同。
-> +
-> +我是否需要在存取受限的情況下除錯？
-> +----------------------------------
-> +
-> +你對機器的存取是否受到限制，或是無法中斷正在進行的執行？
-> +
-> +在這種情況下，你的除錯能力取決於發行版所提供的核心內建的除錯支援。
-> +Documentation/process/debugging/userspace_debugging_guide.rst 簡要介紹了在
-> +這種情況下可用的各種除錯工具。在大多數情況下，你可以查看/boot目錄中的
-> +設定檔，來確認你的核心具備哪些功能。
-> +
-> +我是否擁有系統的root存取權限？
-> +------------------------------
-> +
-> +你能否輕易地替換有問題的模組，或安裝新的核心？
-> +
-> +若是如此，你可用的工具就多得多，相關工具請參見
-> +Documentation/process/debugging/driver_development_debugging_guide.rst 。
-> +
-> +時序是否是影響因素？
-> +--------------------
-> +
-> +重要的是弄清楚你要除錯的問題是穩定重現（也就是給定一組輸入時，總是得到
-> +相同的錯誤輸出），還是時有時無。如果問題時有時無，可能有某種時序因素在
-> +作用。如果在程式碼中插入延遲確實會改變其行為，那麼時序很可能就是其中一個
-> +因素。
-> +
-> +當時序確實會改變程式碼的執行結果時，用簡單的printk()來除錯可能行不通；
-> +類似的替代方案是使用trace_printk()，它會把除錯訊息記錄到追蹤檔案，而不是
-> +核心日誌。
-> +
-> +**Copyright** ©2024 : Collabora
-> diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
-> index de99156324df..bd638264bbe4 100644
-> --- a/Documentation/translations/zh_TW/process/index.rst
-> +++ b/Documentation/translations/zh_TW/process/index.rst
-> @@ -88,12 +88,12 @@ TODOList:
->  .. toctree::
->     :maxdepth: 1
->  
-> +   debugging/index
->     security-bugs
->     embargoed-hardware-issues
->  
->  TODOList:
->  
-> -* debugging/index
->  * handling-regressions
->  * threat-model
->  * cve
-> -- 
-> 2.43.0
-> 
+Changes in v4:
+- Clear phy->tzone/phy->cdev in mt7996_unregister_thermal() after
+  unregistering, making it idempotent.
+- Link to v3: https://patch.msgid.link/20260810-mt7996-thermal-zone-v3-1-ae9d7cd6cde1@protonmail.com
+
+Changes in v3:
+- Unwind cdev/tzone registration in mt7996_thermal_init() on hwmon registration failure.
+- Link to v2: https://patch.msgid.link/20260810-mt7996-thermal-zone-v2-1-563dfbbf9175@protonmail.com
+
+Changes in v2:
+- Take phy->dev->mt76.mutex around mt7996_mcu_get_temperature()
+- Unregister phy->tzone explicitly in mt7996_unregister_thermal() before the phy is freed
+- Link to v1: https://patch.msgid.link/20260722-mt7996-thermal-zone-v1-1-88896e6e9985@protonmail.com
+---
+ drivers/net/wireless/mediatek/mt76/mt7996/init.c   | 40 +++++++++++++++++++++-
+ drivers/net/wireless/mediatek/mt76/mt7996/mt7996.h |  1 +
+ 2 files changed, 40 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/init.c b/drivers/net/wireless/mediatek/mt76/mt7996/init.c
+index fb635a092584..007ac129ddc0 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/init.c
+@@ -234,17 +234,42 @@ static const struct thermal_cooling_device_ops mt7996_thermal_ops = {
+ 	.set_cur_state = mt7996_thermal_set_cur_throttle_state,
+ };
+ 
++static int mt7996_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
++{
++	struct mt7996_phy *phy = thermal_zone_device_priv(tz);
++	int val;
++
++	mutex_lock(&phy->dev->mt76.mutex);
++	val = mt7996_mcu_get_temperature(phy);
++	mutex_unlock(&phy->dev->mt76.mutex);
++	if (val < 0)
++		return val;
++
++	*temp = val * 1000;
++	return 0;
++}
++
++static const struct thermal_zone_device_ops mt7996_tz_ops = {
++	.get_temp = mt7996_thermal_get_temp,
++};
++
+ static void mt7996_unregister_thermal(struct mt7996_phy *phy)
+ {
+ 	struct wiphy *wiphy = phy->mt76->hw->wiphy;
+ 	char name[sizeof("cooling_deviceXXX")];
+ 
++	if (phy->tzone) {
++		thermal_of_zone_unregister(phy->tzone);
++		phy->tzone = NULL;
++	}
++
+ 	if (!phy->cdev)
+ 		return;
+ 
+ 	snprintf(name, sizeof(name), "cooling_device%d", phy->mt76->band_idx);
+ 	sysfs_remove_link(&wiphy->dev.kobj, name);
+ 	thermal_cooling_device_unregister(phy->cdev);
++	phy->cdev = NULL;
+ }
+ 
+ static int mt7996_thermal_init(struct mt7996_phy *phy)
+@@ -275,14 +300,27 @@ static int mt7996_thermal_init(struct mt7996_phy *phy)
+ 	phy->throttle_temp[MT7996_CRIT_TEMP_IDX] = MT7996_CRIT_TEMP;
+ 	phy->throttle_temp[MT7996_MAX_TEMP_IDX] = MT7996_MAX_TEMP;
+ 
++	phy->tzone = thermal_of_zone_register(phy->dev->mt76.dev,
++					      phy->mt76->band_idx, phy,
++					      &mt7996_tz_ops);
++	if (IS_ERR(phy->tzone)) {
++		if (PTR_ERR(phy->tzone) != -ENODEV)
++			dev_warn(phy->dev->mt76.dev,
++				 "failed to register thermal zone %d: %ld\n",
++				 phy->mt76->band_idx, PTR_ERR(phy->tzone));
++		phy->tzone = NULL;
++	}
++
+ 	if (!IS_REACHABLE(CONFIG_HWMON))
+ 		return 0;
+ 
+ 	hwmon = devm_hwmon_device_register_with_groups(&wiphy->dev, name, phy,
+ 						       mt7996_hwmon_groups);
+ 
+-	if (IS_ERR(hwmon))
++	if (IS_ERR(hwmon)) {
++		mt7996_unregister_thermal(phy);
+ 		return PTR_ERR(hwmon);
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mt7996.h b/drivers/net/wireless/mediatek/mt76/mt7996/mt7996.h
+index 2a0cdb56f822..39fa25a562e5 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/mt7996.h
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/mt7996.h
+@@ -372,6 +372,7 @@ struct mt7996_phy {
+ 
+ 	struct ieee80211_sband_iftype_data iftype[NUM_NL80211_BANDS][NUM_NL80211_IFTYPES];
+ 
++	struct thermal_zone_device *tzone;
+ 	struct thermal_cooling_device *cdev;
+ 	u8 cdev_state;
+ 	u8 throttle_state;
+
+---
+base-commit: f49defea7668d8c68ec19fa085ef3da6075561c7
+change-id: 20260722-mt7996-thermal-zone-a1de7cb1d728
+
+Best regards,
+--  
+Ryan Leung <untilscour@protonmail.com>
+
+
