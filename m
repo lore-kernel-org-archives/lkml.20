@@ -1,91 +1,97 @@
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5ABE348C5C
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 15:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9FC348C5C;
+	Sat,  3 Oct 2026 15:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791039958; cv=none; b=touXcMLK/B66pNP6HzIVPZEnA03LxZnpO1cn0Tt4sjADwNAorpsE15kmE5BNd4nmgrRp17FXxs7PuRDHFFv/zZkzvKxFY7W2mxe2FtkmSF4eonxJI51neY2HXH7OhtqTiECCrgdqc2NH+Q/P5B9ATYmaasKIuENzWuClQv/0Yyw=
+	t=1791039981; cv=none; b=tVojZ4gwNQ5rc3d/5WcKxDTyjHuECN2Mtvh0Bpca6lu2OcfmzWaChBSXmsW8iZYyCbCS2uOwUqBbDO7fXbmOyj+Ij4ikd3HZ7iSGr6wcg74v/6Uthk4ZkD+z2r9U92ADySQPnBiwaftrwpUyIPSnyiBB5gy3o2OW9T1AJnKi0Iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791039958; c=relaxed/simple;
-	bh=PLPFLfTkHiZ6Gx7z+NgvsssZ8RKOEn+Vn2kNApBR+go=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ol/Fw3nio4ow1adU/pZe7L3++VsukT8EsrK6PJhvs/+us35u68mRd+vk1DR/jVQrMSemiN/tRX6rtazZmltNLExZ5Mz22YZQkzTH1YCTETXG08Z0DpAsiVcua9IS3+SmkwNOVo03DA5q41WLFutHdSF+xPHH77WTqQ7Qpu0nbpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=I53wjgiR; arc=none smtp.client-ip=79.135.106.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791039981; c=relaxed/simple;
+	bh=5o2hSb+dIsoK1cdHidk+rJJOuCyrSJMCGHqn0emAoOw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W7z8QzwBo96WQyq5rMoFKMs2U8ux+umPbGcai/jUOxmUwWmTyvninqzlNBVlRzLliow8QqnCo1TBjslWf0LXN0bKLLogFa66EGx/Fbk7SZiJe7nmr1oJwoCAk9zuYcypueQXiTbMz0h459Ma40nioDavIbPrgjS0nRL0Y2kCS+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=h40Hjog1; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=xi/ksa+l; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="I53wjgiR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791039946; x=1791299146;
-	bh=PLPFLfTkHiZ6Gx7z+NgvsssZ8RKOEn+Vn2kNApBR+go=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=I53wjgiRtN2Zf3E00/oDjZu7I2kKSi0fP0e0+WI6gyHeErOIjgfs1bX/mHGk6/cMT
-	 cgCYI2EUCxtf0PgaQ2+7CRypNdK711PvqRpzXbiOP/eNl+OUlJOrbKwalkWWKuIQkP
-	 2Hizt97LgqZo9TcMgbXXyJjVXIjjR+pT5t+8uV+tUcsgCxFNo5DKW69Zw8FfKY72jT
-	 si0G4HuaXcVYRUBHN0nolP+U+VFmEKj72wWq5NnznNv/cVzZ2FwFItGzppDQ05q1QK
-	 uRXYvcjTmfyRW816I24WGMubeKelUsoTp0nD6kQmfWZoI7kmNrKRDBMwFwMwzzGdxx
-	 PF5832HmQ6pgQ==
-Date: Sat, 03 Oct 2026 15:05:39 +0000
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-From: Norman Herms <dockseed@proton.me>
-Cc: wens@kernel.org, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Yixun Lan <dlan@gentoo.org>
-Subject: Re: [PATCH v5 0/8] clk: sunxi-ng: Add support for Allwinner A733 CCU and PRCM
-Message-ID: <BZm0Br5_P98xkwslO2JLeCMSyqps8EfQzDnH1Ox34cpoxCpkznXDa4RUM40-b1WKuZ3w3Cy0LPBE31oL8T1nq1Z8iT9Z51wUJBRp3iQIn-Y=@proton.me>
-In-Reply-To: <DLVA17A4RRG7.2ECQKV3SJDAGI@pigmoral.tech>
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com> <DLVA17A4RRG7.2ECQKV3SJDAGI@pigmoral.tech>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: 012ea9b791ccfacd729444e4ea18d26359c9bbc6
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="h40Hjog1";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="xi/ksa+l"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1791039973; bh=8LSDfdcYIynoRuwr1M+Eb2h
+	ZTCy/Cp/bOMKkg6di9Vw=; b=h40Hjog1KIg9CGVufK/tohtGo7hZmCU7tqN1XegaCn91+6ZRwE
+	J+asYfrHf4dzX/5X8nw4kGbnHFyp6Mzy4LK6Jp3LKusuzSVxFM6/bYmHvaK64P55FXEC8KoUd4M
+	FX5Pv05LjyOvdP6a12DMhSFiOsHdFFok1qO1NjA6TluKprAFSDOcC9W1LP1l28W9aPfZNezNrxU
+	yjaxdDx5WPzRnMXGZuAk/jTAk2YjkGGaXVt8nx7g8NdiS0/R6pcgkXNcmwc/vf8x3oK0nYPGno4
+	xZBrYDX8jN2zZnP7n4ywDoxOSuR+yzf5WhqywOizC6BXS+QxopOCuDnxjM3zfR/NJAQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1791039973; bh=8LSDfdcYIynoRuwr1M+Eb2h
+	ZTCy/Cp/bOMKkg6di9Vw=; b=xi/ksa+l/mpo/aNrRUDdfBDPEinZoS1FZ/84UkkRrQNkZNsTww
+	i5hfFxRe2LO/jSR9JEWcD34IJZPRsCA+ozBA==;
+From: Piyush Raj Chouhan <pc1598@mainlining.org>
+To: srini@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: robin@snyders.xyz,
+	ekansh.gupta@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	andersson@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	Piyush Raj Chouhan <pc1598@mainlining.org>
+Subject: [PATCH v2 0/1] misc: fastrpc: Fix SMMU context fault on sensors PD
+Date: Sat,  3 Oct 2026 20:35:58 +0530
+Message-ID: <20261003150559.6926-1-pc1598@mainlining.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Junhui,
+Hi Srinivas, Greg,
 
-> Thanks for pointing this out. This is indeed something I had not
-> considered before. I will try enabling secure boot on my spare Cubie A7Z
-> board and test it on actual hardware.
+While bringing up the sensors DSP (SLPI) on Qualcomm SM8150 devices, we ran
+into an SMMU context fault whenever userspace (hexagonrpcd) tries to attach
+to the sensors protection domain (/dev/fastrpc-sdsp).
 
-First a correction to my earlier reply in this thread. I answered
-ChenYu's "presumably ... the secure/non-secure access bit isn't in
-effect" with "yes" and quoted the UM note that these registers are
-always non-secure in non-security mode. On our non-fused A7S boards
-(SID + 0xA0 =3D 0, also when read from EL3) that does not hold for every
-register. Read from EL3 with a test BL31, CCMU_SEC_SWITCH_REG is 0x7
-after BL31's security setup, S_TWD_BGR_REG is 0x1 and the SPC status
-registers are 0xffffffff, but from non-secure all of them read 0, and
-non-secure writes to the first two do not stick. So secure filtering
-is active on these parts even without the fuse.
+The issue comes down to fastrpc_get_args(): if the device tree defines a
+stream ID (sid) for the context bank, FastRPC allocates the message buffer
+through the SMMU using fastrpc_buf_alloc(). However, the sensors PD on SLPI
+firmware expects this buffer in physical shared memory from the remote heap,
+bypassing the context bank. Handing it an SMMU-mapped IOVA triggers an
+immediate fault:
 
-> For the PLL and AHB/APB bus clock controls, the user manual indicates
-> that the relevant security bits can be set by TF-A to allow the kernel
-> to access these registers. This also appears to be how this has
-> traditionally been handled on sunxi platforms. So I think we can do the
-> same in TF-A for the A733.
+  arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x1fffff000, fsynr=0x330001, cbfrsynra=0x5a1, cb=11
+  qcom_q6v5_pas 2400000.remoteproc: fatal error received: PDM: service 'sensor_process' crash
+  remoteproc remoteproc0: crash detected in slpi: type fatal error
 
-That is what the BL31 on our boards does: PRCM_SEC_SWITCH_REG |=3D 0x7
-and 0x7 to CCMU_SEC_SWITCH_REG at CCU + 0x1F00, as the vendor BL31
-does. From EL3 both read 0 before and 0x7 after. The 0x1F00 versus
-0x0F00 trap in the A733 TF-A port is in my first reply.
+This patch checks for SENSORS_PD and ensures its message buffer is always
+allocated from the remote heap, even when an SMMU sid is configured. Other
+workloads (compute, camera, audio) remain unaffected.
 
-> For bus_r_twd_clk, I will test whether the register is indeed always
-> secure. If it is, I think the clock can be removed from the kernel and
-> left enabled by its hardware reset value or by the boot firmware.
+After applying this fix:
+- hexagonrpcd attaches cleanly without crashing SLPI or dropping pipes.
+- SLPI remains up with zero SMMU faults.
+- Sensor queries over QRTR/SEE (service 400) succeed and stream live
+  accelerometer, gyro, and magnetometer data to userspace.
 
-On our non-fused boards it is already inaccessible from the non-secure
-side (reads 0, writes ignored). From EL3 it reads 0x1, the UM default,
-so the gate is open. Details are in my reply to ChenYu on patch 3/8,
-which crossed with yours.
+Tested on Xiaomi Redmi K20 Pro and OnePlus 7T Pro running 7.3-rc.
 
-Same boards and caveats as before: AI agents (Claude) on my boards, a
-report, not a Tested-by.
+Changes in v2:
+- Retain Robin Snyders as the original patch author, with Piyush Raj Chouhan
+  handling testing, downstream validation, and upstream submission.
+- Drop inline code comment in fastrpc.c to keep the patch clean and minimal.
 
 Thanks,
-Norman
+Piyush
+
+Robin Snyders (1):
+  misc: fastrpc: Allocate message buffer from remote heap for sensors PD
+
+ drivers/misc/fastrpc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+-- 
+2.55.0
