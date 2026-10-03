@@ -1,395 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A494B496917;
-	Sat,  3 Oct 2026 19:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E1C49BD86
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791057061; cv=none; b=oslLX6G1NpJVd+VhgPslND1BBg8gBj7yCdOtJ9zTZ6PTRJ5lBogdDr+J7TitGxwnwD0h9DIauUx7A8Sj8uCXHho0So9hkC0+IfsVGJuBKp/6KOosBo5z3kLLoZ2QgGbJkxnyWIIz5YPzFNTpLjeWn0tGRVoleoZuBqZRwSM0Qmg=
+	t=1791057067; cv=none; b=EKxczNCaw79Ef5xRjiJBpZtuaEe3xscjm5zlpY9JO9XThokvfDaT2KfKQ4N5YesXWr/LqcZ8ETbf+5ecQitDizbTzCrLgmuk6qHqyHWlu7Y2kfza7GUb39U2wRk1MltqrNkezLX1v1EGti04nQabGaRvwcAAhBxZOko3hIxdhCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791057061; c=relaxed/simple;
-	bh=TDxrqVro0M7jCHrK6kg9vD8bKbfswrrpR6+pTo2uGpg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=f4gK18M9AQrU/RiocTbkV32srj9CJfd2J2RWsbNPJTp5r23gIFJgal5VbbjtdENjnGbjGFYNHgldKH61eMq8LZ4iW0wABVvWwhosOShIOPxEvH/jG/xEzH4wWSwKETQjdkzRHqhZRePjYK7UZxzyWPiUGhCd/HLUW56e8Cl2ZxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aspq8pRA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791057067; c=relaxed/simple;
+	bh=7pBfjveomDnmzdvLDU2dmhnc89A87sIYXO91YioPoWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RX/lT+e53dF8O06rIPu4qh8IB7dZRoQ0fkd9Sd6eM4JQGD5W04Nkm6jbF7yeEZZFkXsmd2XA1YqRk36D9bbzYKF0MZ1nxApHAvhTpEEvb0mypb2FTQzQ6hVeoUbl+7P5ENC8AuChtgigOmVMdaHKgYGOyoELrZQ3r7Y+4UXBjK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7TsFJis; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aspq8pRA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAF6B1F0089B;
-	Sat,  3 Oct 2026 19:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791057059;
-	bh=zw7reVeo8t5Nhp9L4+IOqRGwkYZNaqNz4J9ptNFRxpQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Aspq8pRAOIrmZXBWWCvfNdxgm1mCNQqsT+rMoHwjl20XMWLNoKfutPGJcDF1TPS72
-	 dtG4JmGSvU0Vrdoh6q80HW3PfxXcUGbJ8eymGylGMwNUfwJX3TIukI+CSB8QbU8lId
-	 5/3ToTHbSCNWqiz8jFvaTmcqx5s7AQxkKhVFDLnO6OoTw2j4G8CGWencQxQ2/SX8cB
-	 J2/tGLTEOSL4voUheDN/vJFQRrJad9iBXmtXswZ+HYVvNIeKzaIG6IHN3JEVGNlT1R
-	 zgXiL1Aah52CIOxoPfOCCU0jZzdE4a/9SvW13qm4JBEw1DaQwevQL/NYqnSI+7l41S
-	 MWKNqqlSZIt9Q==
-Subject:
- Re: [PATCH net-next v2 6/6] enic: configure V2 VF receive mode over mailbox
-From: netdev-bot+sashiko@kernel.org
-To: satishkh@cisco.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, sebaddel@cisco.com
-Date: Sat, 03 Oct 2026 19:50:58 +0000
-Message-ID: <179105705830.434549.15753082776541886216@kernel.org>
-In-Reply-To:
- <20260929-b4-enic-sriov-v2-vf-receive-control-v2-6-5962c10061b2@cisco.com>
-References:
- <20260929-b4-enic-sriov-v2-vf-receive-control-v2-6-5962c10061b2@cisco.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7TsFJis"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso6691085e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:51:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791057064; x=1791661864; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GthwDRkP6iGq1qpE9Gwptow6c+M7A3HXNDwh7Y2Glb0=;
+        b=r7TsFJisSQnFR036Lx7A3Ji+tzCpGYhe36jSD/1CrNjzKkkUnhOFutTi0oZ8QDVvQA
+         SpENr3VGQuDmepT7B+/+FDgtGuckXgd57laUnrWsHoJKpieDiZwRUj8Ls5fJ4aLEcKGW
+         YzIUHlHQX1wR4R/TXUA1u7UYoK4QqnnJF6p2lKaoCJSr6wXJDL5GB+Dt3LcN6T/ZMYW7
+         s5HCD8nUFNxMb/bWeQsFcuvPLZDIHs0RA1PeeM26EaDI0TRsqaRxZtZoAys9h4AkLfas
+         Xr7fw01ohlN/mlEkPd8dRv47KHJy6ek2PwQCZLBLL775D6mYjpZd2vA9/Qh9QPi7KszP
+         RhCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791057064; x=1791661864;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GthwDRkP6iGq1qpE9Gwptow6c+M7A3HXNDwh7Y2Glb0=;
+        b=cFa5BGNo6EmRc4Y6/VUiIrr+nybDZaAPsD3GGQsxKjBM/0B7PIvokFPzIXcVy8hJ22
+         WxdSRFDJbZZydp1tIcS5J+EeL7TadCr/8nXd5EwgA/htQY0/6cxl3iEFElNwyKnQBuTs
+         I3jIE5ynJpbTs93sMgfi8oqBK9X9hIDKTPVju6m4a7AFfxYlUJvQqMhLHgJUkHobhmfA
+         xHtU8fHAY0FHZkmB6swtsNa8eWdaOOFYYhZltruut/XiiEDFVV2TMFK7q4WV8r1IbMyS
+         9jpTJsbFlYaDW7yS1FKHFxfxPh58reB+SPy9TP0XWewm4CbYSFdhWjxrwAoCFjm8Inuc
+         w35Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxHdJh3UHdm12TkzZNJYPNdE3iIwXId21tv0I3OKR4HcgRAqCbzPFI4aqNo+n6aMLXK1GKcuJnXS0mUv9Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lH15r036MBJneAl1Z6UbWb/QrjS8zdijSukWzZ6fA4SdtZuXx3
+	hHTVmOJfTOt3e+YyaERPC/OhIzQf/kH+64+QszERYs9zkmh57kb/rPRm
+X-Gm-Gg: AYBFou16YItyv1v7PIIPNw1B16fIcq5Dv/qq/E0K++T6e4FCXiHdut12YRi38YAWTEO
+	pCrH74hyMgrY76lyDKxJvfhbEiDTFroD73oJLDPTIxRwdtAumNpZGy9kRFmacSkiQiL/BUmE1Rr
+	Dhjkbzc+eg8jpwBM8pN1zMwvYJ9y7LaUmBsWlaqt+UvXVOPRij4AG1XyiAnzqfMBAHz8dJM0ejp
+	E29qpu8tJTRmkeP2E6SVpAB2Pa21zQYBTisu5by2/qvwoRkhE16/9zeK3EcIzkk2Q96qf8DmMC6
+	J27tNYDoBjaJb+4UjZTKqe2rd5N0KjeVhOGFyCNvvX8Xi8Gdwo9g6xpftuNu272mMgUwZ0kqvLi
+	FlaUY4FTFUvQdGgcUSc45WxFuhlZbwRtNU8LDyHQbeu9wpRoAM2TJDKoZUcHEoh0IQ7iWHzK/I/
+	9rCAyYyv0l1rmf0WfBJng/1i70cYUxCkpp+ZbOD+5FTNdWD9gSOWUMe0nFBKcYXy8wtTO/qG+M1
+	AcJfhwgpw3XQC1a4vbJI++H7jMD7NYW6jNPwA==
+X-Received: by 2002:a7b:cd8e:0:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-4a02758ff89mr75811725e9.19.1791057063698;
+        Sat, 03 Oct 2026 12:51:03 -0700 (PDT)
+Received: from [192.168.20.170] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280b2e3csm233621055e9.5.2026.10.03.12.50.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 03 Oct 2026 12:51:03 -0700 (PDT)
+Message-ID: <4ae83db6-768d-447e-b177-3ef5206267f9@gmail.com>
+Date: Sat, 3 Oct 2026 21:50:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 4 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] enic_open() and enic_set_vf_rx_mode() handle the same PF refusal
-  of a needed broad receive mode in opposite ways.
-- [Medium] For V2 VFs the patch stops syncing receive mode inside
-  enic_open(): enic_set_rx_mode() is now called only `if…
-- [Medium] If the whole ADD_DEL_MAC request is rejected, the batch's
-  DELETEs are left unrecovered.
-- [Medium] enic_vf_sync_mac_filters() misreads a transactional MAC-batch
-  result.
-- [Medium] In enic_set_vf_rx_mode(), broad_enable_needed is computed from
-  what was previously requested, not from what was applied: `(flags &…
-- [Low] The comment in the broad_enable_needed branch of
-  enic_set_vf_rx_mode() says the code will 'Retain any broad mode that…
-- [Low] enic_set_vf_rx_mode() runs from the global netdev_work item under
-  rtnl_lock(): enic has no ops lock, so netdev_lock_ops_compat() takes…
-
---
-
-enic: configure V2 VF receive mode over mailbox
-
-This patch adds an ndo_set_rx_mode_async callback for V2 VFs. The callback
-sends unicast/multicast exact-filter changes and packet-filter settings to
-the PF over the mailbox. For V2 VFs, enic_open() now programs only the
-packet filter and relies on the core async receive-mode path (scheduled
-explicitly after internal resets) to replay the address lists.
-
-> diff --git a/drivers/net/ethernet/cisco/enic/enic_main.c b/drivers/net/ethernet/cisco/enic/enic_main.c
-> index 2132bfa9c8d38..382bac6669bf3 100644
-> --- a/drivers/net/ethernet/cisco/enic/enic_main.c
-> +++ b/drivers/net/ethernet/cisco/enic/enic_main.c
-
-[ ... ]
-
-> +static int enic_vf_sync_mac_filters(struct enic *enic,
-> +				    struct netdev_hw_addr_list *uc,
-> +				    struct netdev_hw_addr_list *mc,
-> +				    bool install_uc, bool install_mc)
-> +{
-
-[ ... ]
-
-> +	/* The protocol carries all changed unicast and multicast addresses in
-> +	 * one request.  Besides matching the native ABI, this bounds time spent
-> +	 * in the RTNL-held asynchronous receive-mode callback to one MAC reply.
-> +	 */
-
-[Severity: Low]
-This isn't a bug, but does this comment describe the whole callback? The
-ADD_DEL_MAC part is bounded to one reply. Before calling this,
-enic_set_vf_rx_mode() can also send the broad_enable_needed SET_PKT_FILTER
-and the broad_withdrawal SET_PKT_FILTER. Each of those waits up to 3000 ms
-in enic_mbox_wait_reply().
-
-The callback runs from netdev_work_proc() with RTNL held through
-netdev_lock_ops_compat(). So one callback can hold RTNL across up to three
-mailbox round trips.
-
-Also, while PROMISC or ALLMULTI is requested, filter_needed is always true.
-Every receive-mode run then sends a SET_PKT_FILTER under RTNL.
-
-A timeout sets the reconnect flag, so later sends fail fast. The commit
-message also says completing all phases in one callback is deliberate.
-
-Could the comment say that the bound applies to the MAC request only?
-
-> +	err = enic_mbox_vf_add_del_macs(enic, macs, num_ops);
-> +	if (err)
-> +		goto free_ops;
-
-[Severity: Medium]
-What happens to the DELETEs in this batch if the PF rejects the whole
-ADD_DEL_MAC request?
-
-For a nonzero ret_major such as ENIC_MBOX_ERR_GENERIC, or an errno-style
-value, enic_mbox_vf_classify_reply() returns -EIO and leaves recovery at
-ENIC_MBOX_VF_REPLY_OK:
-
-    if (ret_major)
-        return -EIO;
-
-The SET_PKT_FILTER reply handler escalates this case to a reconnect, but
-the ADD_DEL_MAC handler does not. So enic_mbox_vf_add_del_macs() returns
--EIO without calling enic_mbox_vf_require_reconnect().
-
-This goto free_ops then skips the per-address loop below. That loop is the
-only place where a failed DELETE becomes a reconnect. The comment further
-down says:
-
-    A failed DELETE can leave hardware accepting an address no longer in
-    the requested list.  Registration is the fail-closed cleanup boundary.
-
-enic_set_vf_rx_mode() returns -EIO. The core retries at most
-NETIF_RX_MODE_RETRY_MAX times, and then netif_rx_mode_schedule_retry()
-prints "rx_mode retry limit reached, giving up".
-
-After that, can the removed address stay installed at the PF, still
-accepting traffic, until some unrelated receive-mode event?
-
-> +
-> +	for (i = 0; i < num_ops; i++) {
-> +		u16 flags = le16_to_cpu(macs[i].flags);
-> +		bool add = flags & ENIC_MAC_ADDR_FLAG_ADD;
-> +
-> +		if (flags & ENIC_MAC_ADDR_FLAG_SKIPPED) {
-> +			if (add)
-> +				retryable_add = true;
-> +			else
-> +				reconnect = true;
-> +			continue;
-> +		}
-
-[ ... ]
-
-> +	if (reconnect) {
-> +		enic_mbox_vf_require_reconnect(enic);
-> +		err = -EIO;
-> +	} else if (retryable_add) {
-> +		err = -EAGAIN;
-> +	} else if (permanent_add) {
-> +		err = -EACCES;
-> +	}
-
-[Severity: Medium]
-How does this classification behave when the PF permanently rejects one ADD
-and marks the rest of the batch as SKIPPED? enic_vf_station_addr_replace()
-documents that PF behaviour:
-
-    /* A policy-rejected ADD can be reported with all preceding DELETEs
-     * skipped. No operation changed state in that coherent result tuple.
-     */
-
-Here a SKIPPED DELETE sets reconnect. One stable policy denial then calls
-enic_mbox_vf_require_reconnect() and triggers a VF reset on every list
-change that includes a DELETE.
-
-The rejected ADD keeps sync_cnt == 0, so enic_vf_collect_mac_ops() sends it
-again in every batch. After the reset replay the batch contains only ADDs,
-and the valid ADDs come back SKIPPED. Because retryable_add is checked
-before permanent_add, the result is -EAGAIN rather than -EACCES.
-
-Does the core then retry the same batch until NETIF_RX_MODE_RETRY_MAX and
-give up, leaving none of the valid secondary addresses installed? That
-seems to contradict the commit message:
-
-    stable policy denials do not consume the retry budget
-
-The -EAGAIN/-EIO return also skips the final enic_vf_set_pkt_filter() in
-enic_set_vf_rx_mode(), so pending packet-filter changes are dropped too.
-
-[ ... ]
-
-> +static int enic_set_vf_rx_mode(struct net_device *netdev,
-> +			       struct netdev_hw_addr_list *uc,
-> +			       struct netdev_hw_addr_list *mc)
-> +{
-
-[ ... ]
-
-> +	filter_needed = !enic->vf_pkt_filter_valid ||
-> +			 enic->vf_pkt_filter_requested != flags ||
-> +			 (flags & broad_modes);
-> +	broad_enable_needed =
-> +		(!enic->vf_pkt_filter_valid && (flags & broad_modes)) ||
-> +		(flags & broad_modes & ~enic->vf_pkt_filter_requested);
-> +	broad_withdrawal = enic->vf_pkt_filter_valid &&
-> +		(enic->vf_pkt_filter_applied & broad_modes & ~flags);
-> +	if (broad_enable_needed) {
-> +		/* Establish newly required broad coverage before an independent
-> +		 * exact-address rejection can block it. Retain any broad mode that
-> +		 * is currently applied until its finite replacement is installed.
-> +		 */
-> +		prefilter_flags = flags;
-> +		if (enic->vf_pkt_filter_valid)
-> +			prefilter_flags |= enic->vf_pkt_filter_applied & broad_modes;
-> +		err = enic_vf_set_pkt_filter(enic, prefilter_flags,
-> +					     &applied_flags);
-> +		if (err)
-> +			return err;
-> +		target_filter_updated = prefilter_flags == flags;
-> +		enic_vf_report_pkt_filter_denial(netdev, flags, applied_flags);
-> +	}
-> +
-> +	if (broad_withdrawal) {
-> +		/* Withdraw stale broad acceptance before installing its finite
-> +		 * replacement. Complete both phases in this callback so a synchronous
-> +		 * receive-mode operation cannot return between them.
-> +		 */
-> +		err = enic_vf_set_pkt_filter(enic, flags, &applied_flags);
-
-[Severity: Low]
-This isn't a bug, but the broad_enable_needed comment above says the
-applied broad mode is kept until its finite replacement is installed.
-
-When broad_withdrawal is also true, this block runs right afterwards. That
-happens, for example, when UC goes from overflow back to finite while MC
-starts to overflow. The block then removes the retained mode before
-enic_vf_sync_mac_filters() installs the exact filters.
-
-The commit message and this comment describe the actual order. Should the
-earlier comment be updated? In this case the retained bit in
-prefilter_flags only costs an extra mailbox round trip.
-
-[ ... ]
-
-> +	err = enic_vf_sync_mac_filters(enic, uc, mc, !uc_overflow,
-> +				       !mc_overflow);
-> +	if (err == -EACCES) {
-
-[ ... ]
-
-> +	}
-> +	if (err)
-> +		return err;
-> +
-> +	if (!target_filter_updated && filter_needed) {
-> +		err = enic_vf_set_pkt_filter(enic, flags, &applied_flags);
-> +		if (err)
-> +			return err;
-
-[Severity: Medium]
-Can a denied broad mode stay unrequested after PF policy starts allowing
-it? broad_enable_needed is computed from vf_pkt_filter_requested, not from
-vf_pkt_filter_applied:
-
-    (flags & broad_modes & ~enic->vf_pkt_filter_requested);
-
-Once PROMISCUOUS or ALL_MULTICAST has been requested and withheld, the bit
-is set in vf_pkt_filter_requested, so later callbacks skip the early enable
-phase. The broad mode is then re-requested only by this final
-enic_vf_set_pkt_filter().
-
-If a finite-class ADD comes back SKIPPED (-EAGAIN), or the MAC request
-fails some other way, the "if (err) return err;" above returns before this
-call. Repeated failures can use up the core retry budget without the
-broad-mode request ever being sent again.
-
-That looks like the case the broad_enable_needed comment says the code
-prevents:
-
-    Establish newly required broad coverage before an independent
-    exact-address rejection can block it.
-
-[ ... ]
-
-> @@ -2331,9 +2703,38 @@ static int enic_open(struct net_device *netdev)
->  		enic_vf_station_addr_set(enic, netdev->dev_addr);
->  		enic_vf_station_sync_reset(enic);
->  		vf_mac_added = true;
-
-[ ... ]
-
-> +		if ((enic_vf_uc_needs_promisc(vf_uc_count) &&
-> +		     !(vf_filter_applied & CMD_PFILTER_PROMISCUOUS)) ||
-> +		    (vf_mc_count > ENIC_MULTICAST_PERFECT_FILTERS &&
-> +		     !(vf_filter_applied & CMD_PFILTER_ALL_MULTICAST))) {
-> +			netdev_err(netdev,
-> +				   "PF denied receive mode required by VF address lists\n");
-> +			err = -EACCES;
-> +			goto err_out_disable_wq;
-> +		}
-> +	}
-
-[Severity: High]
-Is it intended that enic_open() fails on a denial that
-enic_set_vf_rx_mode() accepts at runtime?
-
-Take 32 or more secondary UC addresses, or more than 32 MC addresses, with
-a PF policy that withholds PROMISCUOUS/ALL_MULTICAST (for example an
-untrusted VF). enic_set_vf_rx_mode() computes the same flags, but it:
-
-- only reports the denial with netdev_dbg() in
-  enic_vf_report_pkt_filter_denial()
-- stops installing new exact filters for the overflowing class
-- returns 0
-
-So the lists can grow past the limit while the interface is up, and the VF
-keeps running while silently dropping the extra traffic.
-
-Any later enic_open() with those lists then fails here with -EACCES. That
-includes an administrative down/up, _enic_change_mtu(), enic_reset() and
-enic_tx_hang_reset(). The reset workers only log the error:
-
-    err = enic_open(enic->netdev);
-    if (err)
-        netdev_err(enic->netdev,
-                   "Failed to reopen datapath after reset: %d\n", err);
-
-Does that leave the VF with IFF_UP set and the datapath closed until the
-address lists are shrunk? The commit message doesn't mention this new
-failure mode for open and reset.
-
->  
-> -	enic_set_rx_mode(netdev);
-> +	if (!enic_is_sriov_vf_v2(enic))
-> +		enic_set_rx_mode(netdev);
-
-[Severity: Medium]
-enic_set_rx_mode() is now skipped for V2 VFs. Every caller that calls
-enic_open() directly, bypassing __dev_open(), then has to schedule the
-async update itself. enic_reset() and enic_tx_hang_reset() do that below.
-Is _enic_change_mtu() missing the same call?
-
-enic_mtu_check()->schedule_work(&enic->change_mtu_work)
-  enic_change_mtu_work()
-    _enic_change_mtu()
-      enic_open()
-
-_enic_change_mtu() {
-    ...
-    if (running) {
-        err = enic_open(netdev);
-        if (err)
-            return err;
-    }
-    ...
-}
-
-Here enic_open() can take its reconnect branch (!admin_chan_up,
-!vf_registered or vf_mbox_reconnect_required). That branch is reachable
-after a failed reset handshake, because vf_mbox_reconnect_required stays
-set until a later external recovery event.
-
-That branch calls enic_reset_addr_lists() and re-registers, so the PF drops
-all VF-requested filters. Only the station address and the packet filter
-are then installed again.
-
-Would the secondary unicast and multicast filters then stay uninstalled
-until some unrelated address-list or flag change queues a receive-mode
-run?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929-b4-enic-sriov-v2-vf-receive-control-v2-0-5962c10061b2%40cisco.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as
+ critical
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+ Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>
+Cc: Stanislaw Pal <kuncy7@gmail.com>, Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+ Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
+ <e16cf23c-82aa-465b-81b2-6240f4a0f4d9@oss.qualcomm.com>
+ <f2ccd6b6-e5a2-4d36-a12c-124638c31280@gmail.com>
+ <66d48e1f-7bab-42f3-84db-ce794f2a2a89@oss.qualcomm.com>
+Content-Language: hu
+From: Gabor Juhos <j4g8y7@gmail.com>
+In-Reply-To: <66d48e1f-7bab-42f3-84db-ce794f2a2a89@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+2026. 10. 01. 18:15 keltezéssel, Konrad Dybcio írta:
+> On 9/24/26 1:33 PM, Gabor Juhos wrote:
+>> Hi Konrad,
+>>
+>> 2026. 09. 23. 15:32 keltezéssel, Konrad Dybcio írta:
+>>> On 9/18/26 11:27 AM, Gabor Juhos wrote:
+>>>> On IPQ5018, the APCS core clock feeds the CPUs. It can use
+>>>> different clocks as its parent, but during system boot it
+>>>> utilizes GPLL0.
+> 
+> [...]
+> 
+>>> At a glance, we have the CPUs consuming
+>>> &apcs_glb APCS_ALIAS0_CORE_CLK
+>>>
+>>> which takes XO/GPLL0/A53PLL as parents.
+>>>
+>>> GPLL0 is a child of GPLL0_MAIN, so this should never be gated in
+>>> practice. devlink and probe deferrals should make sure you always
+>>> get a valid clock handle for the cpufreq driver..
+>>
+>> Yes, the cpufreq driver gets a valid clock handle. However the hang happens
+>> early, when the 'apcs_alias0_core' clock is not registered yet. So CCF does not
+>> know that the clock (hence the CPU) is a consumer of GPLL0.
+> 
+> So is that the late_initcall kicking in early, disabling unused
+> clocks,
+
+No, disabling unused clocks happens much later.
+
+> or is there some other logic that ends up disabling the
+> GPLL?
+
+In the actual case, it is being disabled by runtime PM, which happens due to the
+pm_runtime_put() call in the 'ipq_cmn_pll' driver's probe function.
+
+Adding a WARN() into the clk_alpha_pll_disable() function results in this message:
+
+  WARNING: disabling 'gpll0_main', expect a system hang!!!
+  WARNING: at clk_alpha_pll_disable+0xd8/0x108, CPU#0: kworker/u8:0/11
+  Modules linked in:
+  CPU: 0 UID: 0 PID: 11 Comm: kworker/u8:0 Not tainted 7.3.0-rc1 #0 PREEMPT
+  Hardware name: TP-Link Archer AX55 v1 (DT)
+  Workqueue: pm pm_runtime_work
+  ...
+  Call trace:
+   clk_alpha_pll_disable+0xd8/0x108 (P)
+   clk_core_disable+0xec/0x278                 # gpll0_main
+   clk_core_disable+0x110/0x278                # gpll0
+   clk_core_disable+0x110/0x278                # pcnoc_bfdcd_clk_src
+   clk_core_disable+0x110/0x278                # pcnoc_clk_src
+   clk_core_disable+0x110/0x278                # gcc_cmn_blk_ahb_clk
+   clk_disable+0x38/0x60
+   pm_clk_suspend+0x120/0x170
+   pm_generic_runtime_suspend+0x34/0x58
+   __rpm_callback+0x50/0x200
+   rpm_callback+0x60/0x78
+   rpm_suspend+0xf4/0x5e8
+   pm_runtime_work+0xd4/0xe0
+   process_one_work+0x258/0x860
+   worker_thread+0x1c8/0x378
+   kthread+0x140/0x158
+   ret_from_fork+0x10/0x20
+
+However the problem is not specific to the ipq_cmn_pll driver. It is a race
+between probing different devices.
+
+For example, consider a simplified probe function of a driver:
+
+  static int ipq5018_gpll0_consumer_probe(struct platform_device *pdev)
+  {
+          struct clk *clk;
+
+          clk = devm_clk_get_enabled(&pdev->dev, "foo");
+          if (IS_ERR(clk))
+                  return PTR_ERR(clk);
+
+          return some_function();
+  }
+
+Then assume the followings:
+  - "foo" is a descendant clock of GPLL0
+  - the probe function runs before probing other devices, so the probed device
+    will be the first consumer of GPLL0
+  - some_function() returns with an error code
+
+The result will be the same hang. Due to the probe failure, devres disables the
+clock, but since the the device is the only consumer of GPLL0, it is getting
+disabled as well.
+
+Here is the repective WARN result:
+
+  WARNING: disabling 'gpll0_main', expect a system hang!!!
+  WARNING: at clk_alpha_pll_disable+0xd8/0xf8, CPU#1: swapper/0/1
+  Modules linked in:
+  CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1 #0 PREEMPT
+  Hardware name: TP-Link Archer AX55 v1 (DT)
+  ..
+  Call trace:
+   clk_alpha_pll_disable+0xd8/0xf8 (P)
+   clk_core_disable+0xdc/0x268
+   clk_disable+0x38/0x60
+   clk_disable_unprepare+0x18/0x38
+   devm_clk_release+0x2c/0x50
+   dr_node_release+0x24/0x38
+   release_nodes+0x78/0x118
+   devres_release_all+0x84/0xf0
+   device_unbind_cleanup+0x34/0x98
+   really_probe+0x190/0x3f0
+   __driver_probe_device+0x174/0x1e0
+   driver_probe_device+0xc4/0x130
+   __driver_attach+0x108/0x258
+   bus_for_each_dev+0x6c/0xb8
+   driver_attach+0x2c/0x40
+   bus_add_driver+0x128/0x258
+   driver_register+0x68/0x138
+   __platform_driver_register+0x30/0x48
+   ipq5018_gpll0_consumer_driver_init+0x2c/0x40
+   do_one_initcall+0x6c/0x548
+   kernel_init_freeable+0x264/0x388
+   kernel_init+0x34/0x1f0
+   ret_from_fork+0x10/0x20
+
+Maybe this helps to understand the problem.
+
+Regards,
+Gabor
