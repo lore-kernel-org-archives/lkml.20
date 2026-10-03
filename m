@@ -1,76 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E4B8472;
-	Sat,  3 Oct 2026 03:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575CB2BEFF5
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 03:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790999368; cv=none; b=PtMvP9bodPqdYkDp0EKtDtNskxoH94l9232lJ8/AysI/Ou3N2zCWp97ySHTnCwQGTdXSvvoXfjJnn8J/XqdOXbVsEixvep1riKx/oaWx4oa7ooeK/I+wp3A9dVDhca+tMq2xJCV4EyROLdoVVoGpLp+BViLmWL97vBzTm1CY6A8=
+	t=1790999422; cv=none; b=TvI9UCUuwwu3VDjCSaRmY+B3ZcxpzXc3u/DwXd9f1OV6++goQBXsa4zVMSSCZRJ/ldpkDsv+Mr3wCX8gEgMlhebobDzbOQ6ciigBu7V5e9i0HE/o2fxX+yQ9JTgwVSMX0HjWroYqEKqsUcHIywbhJvqBFIqT1Jf7K/RqdOVvGpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790999368; c=relaxed/simple;
-	bh=pye92iNL1QQFKBK7p0G2AYW3/lry2+c1DjuTD2qsOT0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o7F18ZCkDR2SsHBf5K1rSHcW/zYc5s85W+9WruGR49QIxlaKJ6A8IyrKQM0p5KZzd6ag9cVHPaSZxFtaID/S6o/eMjRRK4vkVAOJTjn+EEw4bEka/nP18aBVS8/9dnZIHqTopi0noHLNKDxDu947bQqj8H2e3J6ydTl1OZh60ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=Kv0KtzLP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790999422; c=relaxed/simple;
+	bh=lODAk/IUedJyfB07YrX7ahLPdEi6D5a1fF5vmhyUlus=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iPiFy+w6MaaNzPqVkoZ3OUIbIUUqOsChVfdFsN913KTwNkKDJfj/dCv2uuhAzaovcYG7jHQ37ujLXkNWFhUORxDBsh93PIxalRJHn4RVrRynAx5n2+mR8M5QA0uja/Yfm/aGFKIxoY4K+Jla17mfnh/yeNLUbSQODj3fcNaqd80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lwn9veqg; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="Kv0KtzLP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD6A1F000FF;
-	Sat,  3 Oct 2026 03:49:25 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=Kv0KtzLP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1790999363;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nag5b5Z42Rte5kJHTxcJ30GqXYSrNFjeBXnuRfPrDyc=;
-	b=Kv0KtzLPvGNjbdjM+cDqP0C4ZN9oWqG6Bw4nafvOA8rAPSpUrbHDMRRaBu/4+Fge1DK3a4
-	5ZGzXwiANgKGkaUfVZq9VsIgHrm+CtvqnSFSHQeOknR5jafWn8tql+KIdKD6NvVJ89Qty3
-	WKivg/wHYgYR3L5iOVFNaqryAYunp1E=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 397e1212 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Sat, 3 Oct 2026 03:49:23 +0000 (UTC)
-Date: Sat, 3 Oct 2026 05:49:21 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] lib: Move SipHash into lib/crypto/
-Message-ID: <asB7QVFMlgKgbje2@zx2c4.com>
-References: <20261002223708.39183-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lwn9veqg"
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so107474fac.1
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 20:50:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790999420; x=1791604220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4c95XUlHP2n9aXvysG24zI7/Pk1AYs6dQ+z9WolM1mw=;
+        b=Lwn9veqgQJz17Yk7UEg+ZI7Q5jZiAPy1i+ECejedepb4HnZv4p3PTFi3USivc2aMtY
+         P61KII9LEbAUCmLheVF1nCRGNyYeMSOPJS2nBgmm7EHQI+rkXCkRndxAYRROQG/iX84+
+         KSARHRGjHhUHP51hzZvFEIrgHpamjcuHbuQrXA33MaTtEjRRP4A4z3hsKdrimNW8QiVC
+         wRRV2lZlVlBVyFPL+uQy6eKMaGhNIrSeAbPrbCYPf6CQ8bXdCbx81KXHt/x58lPyOxJA
+         OEBVIpU5WKmj+GXKA1wcc7h1lF1DVW59KvZbnIP9iORsRjJOPcm8sQkfAcfR/aDhYSoq
+         NL4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790999420; x=1791604220;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4c95XUlHP2n9aXvysG24zI7/Pk1AYs6dQ+z9WolM1mw=;
+        b=1TIjZTb50Ku6sF6QZitm+dRpIPvTNR6745U5cQK08BfUXn0/vyDplQYE9QUT/bdVQ5
+         p5vF2x4lLSFlv3k6OO4KApwiQcso13D++BOQyR+zp590A1mezmG69YFglwpBgS4Cx8Cq
+         QWNSMKsF4AGyTDJ+VDMxuNai7uZp6FMkyL+j1EReAH1i3cN731zDLR5bE89ldNwrjoU3
+         NQIaMsMFP+S0f33oQJ0wpmdXutJStAHQi8ukT2FGFozjOVncLQ+//TF6MzWYxVd4ehMu
+         acB6oDw74hySENEjckseEHoBxsX/i4j5v3HppZtzxBrp87mSYEKDvXWmAGNcgNIqHHPz
+         BuqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCD0YTxrC2UWKSaR3cO0jWIGsW5DQJ/K0ExiyctRs+itpG14N6MfDfj5+hTr7rTTfapzjVl3czS0gI7nI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGgUhBFrG9XR6fotn7hVSw1cjq7p7QnoCzvfvDCA9eQ5PGrc+p
+	sTZMI35CgFpfYUoQAbr/gfRgra9dISuOeBGkRui4A9l13ChvT2M6AKlu
+X-Gm-Gg: AYBFou2+sApmpUbJnJ4TKKgGATns9Iqww+ycQEXJgsqXPajT3pI3Wkb6lQButYAELG1
+	hDz5W/MsDEMKdZfX6WmWJC+Br60AHcr4z55p5D4II5FprRZxjiV/0WPFHLOHO51dJuc6eQ7MlNv
+	VOf/x7cFrBgS5gyi4KEYREDeA+1LOEQxAWmAowwEIUJrI6gOQrUNO7yNQBsXRDAvRiUQKJDYE1n
+	pk4/BuDfjJc6dbSuOGsmXpdS7SlPiSVEou1pp9aEtzNU2ZgvdDuYPPeW6N2YpGCBu4mqc3W+zuj
+	N3mH923fXKvBP+f2nZTYqG04jyglRNDcnZZONLwof1e21bDmlQqV+1iUL37BZCs0L1DtnqAtc1N
+	zEPNtXJPRokeJphf9RxU+qmfhp0AS3N45Lt7tlSE4XSKEWquLPMuWl/E9yl7dG1FTZfgSAy+DiH
+	lm3eje1ykA1QYJfe1UvpnNpNHlW1tCij5mTSJpc8JfeL+X1YdQ7JJdXySiXtnb8YHJGpDQcAWuq
+	6U7CTtk9DM0l9bAVNtJxwsa/zE5+pbg+Rb7jzNLn3anNhkyPv5Hu4n+MlSTdUY=
+X-Received: by 2002:a05:6870:5b89:b0:48f:e107:3188 with SMTP id 586e51a60fabf-49e15df105emr4805815fac.40.1790999420063;
+        Fri, 02 Oct 2026 20:50:20 -0700 (PDT)
+Received: from DESKTOP-D4TFR33.tail0f6352.ts.net (cs244-86-dhcp.cs.colorado.edu. [128.138.244.86])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e16d6b450sm3498096fac.3.2026.10.02.20.50.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 20:50:19 -0700 (PDT)
+From: Yunpeng Tian <shionthanatos@gmail.com>
+To: tung.quang.nguyen@est.tech,
+	jmaloy@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	gmwgg05@gmail.com,
+	npczmd@qq.com,
+	xiao-yu.zhou@connect.polyu.hk,
+	jupmouse@gmail.com,
+	shionthanatos@gmail.com
+Subject: [PATCH net] tipc: bound the device MTU accepted for L2 bearers
+Date: Fri,  2 Oct 2026 20:50:18 -0700
+Message-ID: <20261003035018.397-1-shionthanatos@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261002223708.39183-1-ebiggers@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 03:37:08PM -0700, Eric Biggers wrote:
-> The addition of SipHash to lib/ predated the existence of the
-> lib/crypto/ directory.  Since it's a cryptographic algorithm, move it
-> from the top-level lib/ directory to lib/crypto/.
-> 
-> Specifically:
-> 
-> - Move both siphash.c and siphash_kunit.c.  Keep the header
->   <linux/siphash.h> as-is for now.
-> 
-> - Keep the dedicated MAINTAINERS entry for SipHash.  Just update the
->   file paths it references.
+struct tipc_bearer keeps the bearer MTU in a u32 while struct tipc_link
+keeps the link MTU in a u16.  tipc_enable_l2_media() and the
+NETDEV_CHANGEMTU notifier both do b->mtu = dev->mtu, tipc_link_create()
+assigns that into l->mtu, and tipc_link_set_queue_limits() divides by it:
 
-Given that I'm also listed in the crypto section, I think we may as well
-delete the whole separate entry.
+	int max_bulk = TIPC_MAX_PUBL / (l->mtu / ITEM_SIZE);
 
-The only downside of this change is that those hsiphash functions are,
-erm, a bit less than cryptographic-strength. But maybe such concerns
-don't really matter any more at this stage, and we might as well group
-it all in lib/crypto/ where it all belonged originally anyway.
+ITEM_SIZE is 20, so a device MTU of 65536 truncates to 0 and the
+division faults.
 
-Acked-by: Jason A. Donenfeld <Jason@zx2c4.com>
+tipc_mtu_bad() is the only check on either assignment and tests a lower
+bound only.  The truncation defeats even that: a device MTU of 65556
+passes it, yet the link comes out with l->mtu = 20, below the
+TIPC_MIN_BEARER_MTU the check exists to enforce, and tipc_link_mss()
+then evaluates 20 - INT_H_SIZE - EMSG_OVERHEAD as an int and stores it
+in the u32 tipc_link_entry::mtu.  Read back over TIPC_NL_LINK_GET, every
+device MTU above 65535 leaves the link with a wrong MTU: 20 at 65556,
+464 at 66000, 32768 at 98304.
 
-Jason
+The bound added in commit 9f29cd8a8e79 ("tipc: fix u16 MTU truncation in
+media and bearer MTU validation") applies to TIPC_NLA_PROP_MTU in
+tipc_nl_prop_policy, which covers TIPC_NL_MEDIA_SET and
+TIPC_NL_BEARER_SET.  A device MTU never passes through that policy.
+
+dummy sets max_mtu to 0, and dev_validate_mtu() applies its ceiling only
+when max_mtu is non-zero, so the device accepts 65536; a macvlan inherits
+max_mtu from its lower device,
+and two macvlans in bridge mode on one dummy carry each other's TIPC
+discovery frames, so the bearer reaches tipc_node_check_dest() and
+tipc_link_create() with b->mtu = 65536.  TIPC_NL_BEARER_ENABLE is
+GENL_UNS_ADMIN_PERM, so an unprivileged user can do this in a user
+namespace of their own, on a kernel that has TIPC loaded.
+
+  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:tipc_link_create (net/tipc/link.c:2531 net/tipc/link.c:520)
+  Call Trace:
+   <IRQ>
+   tipc_node_check_dest (net/tipc/node.c:1284)
+   tipc_disc_rcv (net/tipc/discover.c:252)
+   tipc_rcv (net/tipc/node.c:2134)
+   tipc_l2_rcv_msg (net/tipc/bearer.c:669)
+   __netif_receive_skb_one_core (net/core/dev.c:6216)
+   process_backlog (net/core/dev.c:6680)
+   __napi_poll (net/core/dev.c:7739)
+   net_rx_action (net/core/dev.c:7802)
+   handle_softirqs (kernel/softirq.c:622)
+   </IRQ>
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+Give tipc_mtu_bad() the matching upper bound, so the limit sits next to
+the existing minimum and one check covers both assignments.  A device
+MTU of 65535 is still accepted and the link still comes up, with the
+65532 that TIPC rounds it to.
+
+The u32 max_pkt fields became u16 mtu and advertised_mtu in commit
+ed193ece2649 ("tipc: simplify link mtu negotiation"), which also removed
+link_init_max_pkt(); that had clamped the bearer MTU to MAX_MSG_SIZE
+before it could reach this division.
+
+Fixes: ed193ece2649 ("tipc: simplify link mtu negotiation")
+Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
+Reported-by: Gongming Wang <gmwgg05@gmail.com>
+Reported-by: Mingda Zhang <npczmd@qq.com>
+Reported-by: Xiaoyu Zhou <xiao-yu.zhou@connect.polyu.hk>
+Reported-by: Qinrun Dai <jupmouse@gmail.com>
+Cc: stable@vger.kernel.org # v4.1
+Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
+---
+Reproduced on 7.2.0, with the net/tipc files byte-identical to mainline
+as of 2026-10-02, both as an unprivileged user and as root, 3 runs of 3
+at a device MTU of 65536.  At 131072 the low 16 bits are zero as well,
+but the two nodes never completed discovery here, so that case was not
+observed.  With the patch applied, 65536, 65555, 65556, 66000 and 98304
+are all refused by tipc_mtu_bad() and TIPC_NL_BEARER_ENABLE returns
+-EINVAL, while 65535 still brings the link up.
+
+ net/tipc/bearer.h |   14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+--- a/net/tipc/bearer.h
++++ b/net/tipc/bearer.h
+@@ -63,6 +63,13 @@
+ /* Minimum bearer MTU */
+ #define TIPC_MIN_BEARER_MTU	(MAX_H_SIZE + INT_H_SIZE)
+ 
++/* Maximum bearer MTU
++ *
++ * struct tipc_link stores the link MTU in a u16, so a larger bearer MTU would
++ * be truncated when a link is created on the bearer.
++ */
++#define TIPC_MAX_BEARER_MTU	U16_MAX
++
+ /* Identifiers for distinguishing between broadcast/multicast and replicast
+  */
+ #define TIPC_BROADCAST_SUPPORT  1
+@@ -254,12 +261,13 @@
+ 		tipc_clone_to_loopback(net, pkts);
+ }
+ 
+-/* check if device MTU is too low for tipc headers */
++/* check if device MTU is usable for tipc bearers */
+ static inline bool tipc_mtu_bad(struct net_device *dev)
+ {
+-	if (dev->mtu >= TIPC_MIN_BEARER_MTU)
++	if (dev->mtu >= TIPC_MIN_BEARER_MTU &&
++	    dev->mtu <= TIPC_MAX_BEARER_MTU)
+ 		return false;
+-	netdev_warn(dev, "MTU too low for tipc bearer\n");
++	netdev_warn(dev, "MTU not usable for tipc bearer\n");
+ 	return true;
+ }
+ 
