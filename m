@@ -1,273 +1,180 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3723783AE;
-	Sat,  3 Oct 2026 11:37:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A6141D127
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 11:37:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791027446; cv=none; b=Wum2M6xPwdJl7Dw5j7uR9GGvT7hHirgqB3yghXpfvmmKHzpoyGcuKyr9d1XUGfmuV1nRgL26YnM0insuEwmZTfGDsgqJLTiCedaEjfPbc8cjLovXvVhaeHDSft2o7p1jCRxzymKQAYolOz+ur9YyyuG/Z7VLyyCj6Zjh2evIqOQ=
+	t=1791027462; cv=none; b=etwHuBCAUQ79k3tP08ll3k60o38NTwQyJLemUNgc0ejBFeI8C/N0W30SVlA9bsb5xHk5ZLtv5c5JasHPLxy4vLQkWFDY/wk1B3g6Vwv1xXAGcqILkHaEaG2O/au6w7IYdNpjNe9HzWh9/zzM0teh43CjFpgiqKs4C6JdUbf6tEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791027446; c=relaxed/simple;
-	bh=fVaroThSD633dRfKOhbiu9YJs4xPvrbCl6ADa4ViO4c=;
+	s=arc-20240116; t=1791027462; c=relaxed/simple;
+	bh=StFkqrc5IqwFNUW4WadP/+g0tKHJ4pprOwhM4gaoVdc=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=aiLAbFTf8ah0JY9FAR60L83s9FL232WGOSzTXzWjVd58XHPw/NuAy5jJUBJGTkiJzerni1Mmmvkk2PqPohb7LzN8A7H1MfRYoWoFPImYyY45DKb/LQ7ejxilpdCHsLfPtiy+bg2iY9eo7RN8bqlAAVFEvtoWILwveCKJagApx+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KspxxLBo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=VsyCbUVBFAJq+Ra1caov1NtqmKDwaaBL1WvqlmVxcBRZBizFa6PSney/hHnvGoLz400tVRQCNdZa8EUJSxfzpdEy+FwbzIZfzd7Ve7keozvXgm3f215i8ZDrTZgBVNYNOhB3RaCJu8ot5IGO59T55fulCj18Wmvdhz3OJLEgwZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yhhgzm4k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KspxxLBo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8DC1F0089B;
-	Sat,  3 Oct 2026 11:37:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yhhgzm4k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FA41F0089B;
+	Sat,  3 Oct 2026 11:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791027444;
-	bh=eARKefJCmBEcUluMJgktEHkNXpDUyklGsDfmDVQVSlQ=;
+	s=korg; t=1791027461;
+	bh=CeEO0mDvkeajrqdtznZXeKNZkf81XM4vMOdqSxEuJ88=;
 	h=Date:From:To:Cc:Subject;
-	b=KspxxLBos5t4pdKDAQqN51KTyMyWSkE6nhZkpZv3zlYVvuwx0lmsgaTZd7Fg7oFlk
-	 Eqz8FkTnSm6aLtpvJjAlO0gu1/M3EPRnbzs00ByaQcePH7OsgUVX+LNSSsEzlykSvP
-	 zqvJK5hb2Q+j/lszt6gvtFUp6DxhAHowjfS7oF58=
-Date: Sat, 3 Oct 2026 13:37:21 +0200
+	b=yhhgzm4koz7St4LcrbFgeASfBNI87ybNUPSe66wnJ1/0Yc2PyhbEdL8ICmW+dmQ/K
+	 61GDJVlNHuxw4xCNVZ1xUui1IJ3WNhABZ2hYD92rZKtCnNCkc4OoNM9wWNIqqJpGjG
+	 ZPlD4DQqz5ElU4BEpP7Y5w1TpdXY6eeMx90nDi84=
+Date: Sat, 3 Oct 2026 13:37:38 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [GIT PULL] USB driver fixes for 7.3-rc6
-Message-ID: <asDo8cZTIkqu5jfo@kroah.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] Char/Misc/IIO driver driver updates for 7.3-rc6
+Message-ID: <asDpAk0A05UF8LLN@kroah.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
 
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
 
 are available in the Git repository at:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git tags/usb-7.3-rc6
+  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tags/tty-7.3-rc6
 
-for you to fetch changes up to a93862fa670a9c99fd9a24fb2ef69e4f948d9bd5:
+for you to fetch changes up to 6c95ca52f27855dd2fb74131c8d4e8325d2af7de:
 
-  Merge tag 'thunderbolt-for-v7.3-rc6' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/westeri/thunderbolt into usb-linus (2026-10-01 13:26:31 +0200)
+  tty: add missing driver flag kernel-doc colon (2026-10-02 11:15:22 +0200)
 
 ----------------------------------------------------------------
-USB/Thunderbolt fixes for 7.3-rc6
+TTY/Serial fixes for 7.3-rc6
 
-Here is a big set of USB and Thunderbolt driver fixes for 7.3-rc6.
-They were delayed on my side due to conference travel, not the fault of
-the submitters at all.  Included in here are:
-  - lots of small thunderbolt fixes for reported issues due to more
-    testing and devices and a few reverts as well based on that work
-  - more usb-serial device ids added
-  - usb-serial and cdc-acm driver hangup and other fixes
-  - dwc3 driver fixes for reported problems
-  - lots of usb gadget driver fixes as people again fuzz these drivers
-    and send in fixes, which is nice to finally see
-  - typec driver fixes for reported problems
-  - octeon-hcd driver fixes for reported problems
-  - more usb-storage quirks added
-  - other small USB driver bugs resolved for reported problems
+Here are some small tty/serial driver fixes for 7.3-rc6.  Nothing major
+here, just lots of small fixes for reported issues, some of them very
+long-standing:
+  - tty hangup fixes that have been there since the BKL days and kept
+    tripping people up over time.
+  - vt selection bugfix
+  - other vt bugfixes (memory leaks and screen update fixes)
+  - n_gsm bugfix
+  - qcom-geni serial driver bugfix
+  - 8250 serial driver bugfixes
+  - other tiny serial driver fixes
 
-All of these have been in linux-next without any reported issues
+All of these have been in linux-next, the last few only a few days but
+testing here seems solid (this pull request was generated on that tree)
 
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 ----------------------------------------------------------------
-Alan Stern (1):
-      USB: gadget: dummy-hcd: Fix wait for outstanding request completions
+Abel Vesa (1):
+      serial: qcom-geni: Fix unbalanced runtime PM resume for no_console_suspend
 
-Amit Sunil Dhamne (1):
-      usb: typec: tcpm: recover after failure to start the frs ams
+Arnd Bergmann (1):
+      serial: qcom-geni: avoid unused-function warning
 
-Carlo Szelinsky (1):
-      USB: serial: option: add Quectel EG060W
+Daniel Starke (1):
+      tty: n_gsm: fix missing modem controls after DLCI open in convergence layer type 2
 
-Daehyeon Ko (1):
-      thunderbolt: Reject oversized XDomain properties responses
-
-Fan Wu (3):
-      usb: typec: ucsi: glink: fix use-after-free of ucsi on remove
-      usb: cdns3: fix use-after-free in cdns3_gadget_exit()
-      usb: gadget: aspeed-vhub: cancel wake work on device removal
-
-Fedor Pchelkin (1):
-      thunderbolt: Fix NULL dereference in tb_remove_work()
-
-Greg Kroah-Hartman (5):
-      Merge tag 'thunderbolt-for-v7.3-rc3' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/westeri/thunderbolt into usb-linus
-      Merge tag 'usb-serial-7.3-rc3' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/johan/usb-serial into usb-linus
-      Merge tag 'usb-serial-7.3-rc4' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/johan/usb-serial into usb-linus
-      Revert "usb: dwc3: gadget: fix IRQ storm on invalid event buffer count"
-      Merge tag 'thunderbolt-for-v7.3-rc6' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/westeri/thunderbolt into usb-linus
+Fan Wu (2):
+      serial: 8250_bcm7271: fix use-after-free in brcmuart_remove()
+      tty: serial: max3100: shut down timer before freeing port
 
 Hui Peng (1):
-      usb: core: clear both ep_in and ep_out for non-ep0 control endpoints
+      vt: selection: Fix unsigned underflow and slab-out-of-bounds read in paste_selection()
 
-Ian Lin (2):
-      USB: serial: option: add Compal EXM-G1x support
-      USB: serial: option: add Compal EXC-T1 support
+Johan Hovold (11):
+      tty: abort break signalling on hangup
+      tty: tty_port: restore TTY_IO_ERROR on activation failure
+      tty: port: fix tty_port_tty_vhangup() race
+      serial: revert guards in uart_wait_modem_status()
+      serial: fix ioctl hangup race
+      serial: fix TIOCMIWAIT race
+      serial: abort TIOCMIWAIT on hangup
+      tty: amiserial: fix broken TIOCMIWAIT
+      tty: add break_wait kernel-doc
+      tty: fix saved termios reset race
+      tty: add missing driver flag kernel-doc colon
 
-Igor Paunovic (1):
-      usb: typec: tcpm: fix use-after-free of the kthread worker on port unregister
+John Ogness (1):
+      serial: 8250: Change console_msr_work to IRQ_WORK_LAZY
 
-Jameson Thies (1):
-      usb: typec: ucsi: displayport: Current CAM OOB index fixup
+Joshua Rogers (2):
+      tty: vcc: zero-initialize control packet in vcc_send_ctl()
+      tty: vcc: hold port lock when clearing tty pointer in vcc_cleanup
 
-Jiazi Liu (2):
-      usb: dwc3: gadget: fix IRQ storm on invalid event buffer count
-      usb: dwc3: gadget: fix IRQ storm on invalid event buffer count
+Kendall Willis (1):
+      serial: 8250_omap: fix wake irq cleared during suspend
 
-Jie Deng (1):
-      usb: cdns3: Fix NULL pointer dereference in cdns3_pci_probe
+Konrad Dybcio (1):
+      serial: qcom-geni: keep registered console runtime active
 
-Johan Hovold (8):
-      USB: serial: fix port tear down use-after-free
-      USB: serial: fix dynamic id driver deregistration race
-      USB: serial: fix driver deregistration order
-      USB: serial: use iterator for driver deregistration
-      USB: serial: fix ioctl hangup race
-      USB: cdc-acm: fix racy TIOCMIWAIT implementation
-      USB: serial: ssu100: fix baud rate overflow
-      USB: serial: quatech2: fix baud rate overflow
+Maciej W. Rozycki (1):
+      MAINTAINERS: Add self for the sb1250-duart serial driver
 
-Jérémy Carrat (1):
-      USB: serial: cp210x: add Corsair AX1500i Power Supply
+Mingyu Wang (1):
+      tty: vt: fix memory leak in vc_allocate()
 
-Kurt Lieber (1):
-      thunderbolt: Disable CL states for the Anker Prime TB5 dock
+Paul Mbewe (3):
+      serial: sc16is7xx: fix TX gap caused by kfifo circular buffer wrap-around
+      serial: sc16is7xx: refill TX FIFO below trigger using fresh TXLVL
+      serial: sc16is7xx: reduce TX refill rate with half-FIFO trigger
 
-Linkai Gong (1):
-      usb: typec: anx7411 - stop the IRQ before destroying the workqueue
+Rosen Penev (1):
+      tty: serial: mpc52xx_uart: move static declarations up.
 
-Liu Chao (1):
-      usb: gadget: f_uac1_legacy: validate bRequest index in generic_{set,get}_cmd
+Ruslan Valiyev (1):
+      serial: core: fix NULL pointer dereference in serial_core_unregister_port()
 
-Lovekesh Solanki (1):
-      usb: hub: use shorter 120ms post resume hold for SS root hubs
+Simon Gassner (1):
+      serial: tegra: don't clear the Tx FIFO on an Rx-only reset
 
-Marek Maslanka (1):
-      usb: typec: port-mapper: Only match USB4 port if host interface is available
+Viken Dadhaniya (2):
+      soc: qcom: geni-se: Correct QUP Core ICC vote constants
+      tty: serial: qcom_geni_serial: Keep console RX functional after deep idle
 
-Marian Rotariu (1):
-      usb: typec: tipd: don't send GAID when probe fails in APP mode
+Wentao Liang (3):
+      serial: ma35d1: Fix clock reference leak in ma35d1serial_probe()
+      kgdboc: Fix tty driver reference leak in configure_kgdboc()
+      serial: vt8500: Fix clock reference leak in vt8500_serial_probe()
 
-Mario Limonciello (1):
-      Revert "thunderbolt: Add quirk to reset host interface on DMA path teardown for AMD USB4 routers"
+Yi Yang (1):
+      vc_screen: reload vc pointer before if (ret) in vcs_write() to avoid UAF
 
-Mika Westerberg (4):
-      thunderbolt: Fix KASAN reported use-after-free when request is canceled
-      thunderbolt: Use separate lock class for each ring
-      Revert "thunderbolt: xdomain: Notify peers after enumeration"
-      thunderbolt: stream: Announce support for FMODE_NOWAIT
+Zizhi Wo (1):
+      vt: skip screen update for DEC alignment test on backgroup consoles
 
-Myeonghun Pak (5):
-      usb: chipidea: tegra: disable runtime PM on resume failure
-      usb: ohci-da8xx: disable controller wakeup on cleanup
-      usb: ohci-s3c2410: disable controller wakeup on removal
-      usb: ohci-spear: disable controller wakeup on removal
-      usb: ohci-st: disable controller wakeup on removal
-
-Orgad Shaneh (3):
-      usb: octeon-hcd: fix the FIFO-flush timeout computation
-      usb: octeon-hcd: fail the probe when the USB core does not respond
-      usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers
-
-Pannarat Wiriyaarritham (1):
-      usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro ANV15-41
-
-Prashanth K (1):
-      usb: typec: ucsi: Get the connector fwnode based on reg value
-
-Radhey Shyam Pandey (3):
-      usb: dwc3: am62: Fix runtime PM usage count leak on probe error path
-      usb: typec: tipd: fix uninitialized typec_partner_desc in tps6598x_connect()
-      usb: typec: tipd: fix uninitialized typec_partner_desc in cd321x_update_work()
-
-Runyu Xiao (1):
-      USB: dwc2: shut down wakeup timer before freeing HCD state
-
-Sebastian Sjoholm (1):
-      USB: serial: option: add Quectel RG660QB
-
-Sven Peter (6):
-      thunderbolt: Hold a router reference for each allocated HopID
-      thunderbolt: Make the DP tunnel activation callback mandatory
-      thunderbolt: Fix domain reference leak when DPRX read is canceled
-      thunderbolt: Don't access a DP tunnel after its DPRX read was canceled
-      thunderbolt: Mark discovered tunnels as active
-      thunderbolt: Tear down inactive DP tunnels when the domain is stopped
-
-Syed Labeeq Sajid Bukhari (1):
-      usb: storage: sierra_ms: reject short SWoC info transfers
-
-Takashi Iwai (1):
-      usb: gadget: midi2: Fix the jack descriptor array sizes
-
-Yuchao Zhang (2):
-      usb: gadget: f_fs: Fix NULL pointer dereference in FUNCTIONFS_ENDPOINT_DESC
-      USB: cdc-acm: skip URB restart in port_shutdown if disconnected
-
-Zhao Dongdong (1):
-      USB: serial: option: add support for SIMCom SIM8260C
-
- drivers/thunderbolt/ctl.c                   |  63 +++++++-------
- drivers/thunderbolt/domain.c                |  26 +-----
- drivers/thunderbolt/nhi.c                   |  31 ++-----
- drivers/thunderbolt/nhi.h                   |  21 +----
- drivers/thunderbolt/nhi_regs.h              |   4 -
- drivers/thunderbolt/pci.c                   |  23 -----
- drivers/thunderbolt/quirks.c                |   3 +
- drivers/thunderbolt/stream.c                |   3 +
- drivers/thunderbolt/switch.c                |   9 +-
- drivers/thunderbolt/tb.c                    |  37 +++++---
- drivers/thunderbolt/test.c                  |  58 ++++++++++---
- drivers/thunderbolt/tunnel.c                |  73 ++++++++++------
- drivers/thunderbolt/tunnel.h                |   8 +-
- drivers/thunderbolt/xdomain.c               |   5 +-
- drivers/usb/cdns3/cdns3-gadget.c            |   4 +
- drivers/usb/cdns3/cdns3-pci-wrap.c          |   5 ++
- drivers/usb/chipidea/ci_hdrc_tegra.c        |   4 +-
- drivers/usb/class/cdc-acm.c                 |  39 +++++----
- drivers/usb/class/cdc-acm.h                 |   1 -
- drivers/usb/core/hub.c                      |   7 +-
- drivers/usb/core/message.c                  |   8 +-
- drivers/usb/dwc2/hcd.c                      |   3 +-
- drivers/usb/dwc3/core.h                     |  19 +++++
- drivers/usb/dwc3/dwc3-am62.c                |   1 +
- drivers/usb/dwc3/ep0.c                      |   9 ++
- drivers/usb/dwc3/gadget.c                   | 108 +++++++++++++++++++++++-
- drivers/usb/gadget/function/f_fs.c          |  15 +++-
- drivers/usb/gadget/function/f_midi2.c       |   4 +-
- drivers/usb/gadget/function/f_uac1_legacy.c |   6 ++
- drivers/usb/gadget/udc/aspeed-vhub/core.c   |   4 +
- drivers/usb/gadget/udc/aspeed-vhub/dev.c    |   2 +-
- drivers/usb/gadget/udc/aspeed-vhub/hub.c    |   5 +-
- drivers/usb/gadget/udc/aspeed-vhub/vhub.h   |   1 +
- drivers/usb/gadget/udc/dummy_hcd.c          |   4 +
- drivers/usb/host/octeon-hcd.c               |  54 ++++++++++--
- drivers/usb/host/ohci-da8xx.c               |   2 +
- drivers/usb/host/ohci-s3c2410.c             |   1 +
- drivers/usb/host/ohci-spear.c               |   1 +
- drivers/usb/host/ohci-st.c                  |   1 +
- drivers/usb/serial/bus.c                    |   6 +-
- drivers/usb/serial/cp210x.c                 |   1 +
- drivers/usb/serial/generic.c                |  10 ++-
- drivers/usb/serial/option.c                 |  14 ++++
- drivers/usb/serial/quatech2.c               |  19 ++++-
- drivers/usb/serial/ssu100.c                 |  18 +++-
- drivers/usb/serial/usb-serial.c             | 126 ++++++++++++++++++++++------
- drivers/usb/serial/xr_serial.c              |  10 +--
- drivers/usb/storage/sierra_ms.c             |   7 ++
- drivers/usb/typec/anx7411.c                 |   5 +-
- drivers/usb/typec/port-mapper.c             |  21 ++++-
- drivers/usb/typec/tcpm/tcpm.c               |   6 +-
- drivers/usb/typec/tipd/core.c               |  11 +--
- drivers/usb/typec/ucsi/displayport.c        |   9 +-
- drivers/usb/typec/ucsi/ucsi.c               |  17 +++-
- drivers/usb/typec/ucsi/ucsi_acpi.c          |  34 ++++++++
- drivers/usb/typec/ucsi/ucsi_glink.c         |  15 +++-
- include/linux/thunderbolt.h                 |   3 +
- include/linux/usb/serial.h                  |   1 +
- 58 files changed, 726 insertions(+), 279 deletions(-)
+ MAINTAINERS                            |   5 +
+ drivers/staging/greybus/uart.c         |   3 +-
+ drivers/tty/amiserial.c                |   9 +-
+ drivers/tty/n_gsm.c                    |  47 ++-----
+ drivers/tty/serial/8250/8250_bcm7271.c |   2 +-
+ drivers/tty/serial/8250/8250_omap.c    |  15 ++-
+ drivers/tty/serial/8250/8250_port.c    |   2 +-
+ drivers/tty/serial/kgdboc.c            |   9 ++
+ drivers/tty/serial/ma35d1_serial.c     |   6 +-
+ drivers/tty/serial/max3100.c           |  13 +-
+ drivers/tty/serial/mpc52xx_uart.c      |   6 +-
+ drivers/tty/serial/qcom_geni_serial.c  | 229 ++++++++++++++++++---------------
+ drivers/tty/serial/sc16is7xx.c         |  53 ++++++--
+ drivers/tty/serial/serial-tegra.c      |  18 ++-
+ drivers/tty/serial/serial_core.c       |  76 ++++++++---
+ drivers/tty/serial/vt8500_serial.c     |   1 +
+ drivers/tty/tty_io.c                   |  54 +++++---
+ drivers/tty/tty_port.c                 |  91 ++++++++-----
+ drivers/tty/vcc.c                      |   5 +-
+ drivers/tty/vt/selection.c             |   4 +-
+ drivers/tty/vt/vc_screen.c             |  23 ++--
+ drivers/tty/vt/vt.c                    |   5 +-
+ drivers/usb/class/cdc-acm.c            |   2 +-
+ drivers/usb/serial/usb-serial.c        |   3 +-
+ include/linux/soc/qcom/geni-se.h       |  15 +--
+ include/linux/tty.h                    |   2 +
+ include/linux/tty_driver.h             |   6 +
+ include/linux/tty_port.h               |  22 +---
+ 28 files changed, 442 insertions(+), 284 deletions(-)
