@@ -1,127 +1,116 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A26355F47
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F1B44F566
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791046695; cv=none; b=U4ZnRYx4j3piICJOfQBdB0CSQFg7jwY2xPkRkVV1dp5Y+vObZWd/Hbu7rJzCCGOMXqnnFE/5fgiZ7XzVXqmcwubbgLbFkrdMvpSY5XvMKP/m2FVAGZ4W38FNMCbcH58ooqdQUSjgTHOrHcsatp6XsWXd1yDuBrKbTYBAwI6jnTA=
+	t=1791046961; cv=none; b=AyJv8/ZxosF3dnz8jNsrgrcZjeopm5PwxE0bPuUB0PmUH5rW7+I9jp2+30OdFYwxtiG/pcQmqgbUT1PH2nnDPRbaDJeNkZkWPdP0/y8hbYMcPoYZJb+2dCHsrNqTPY4681sflzbIMmB4jMzMYkUtjEHuPx79dewfPAKghn/S53Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791046695; c=relaxed/simple;
-	bh=tV68AEZfVUl2ePwMevpcFNFrGswYi8vmfdu1EZiJ9iU=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E/JsSS7TFLpQV+kAd1eLwmjXkXgQvG37UTYxWz2BgEWieXow6JyfyXtc8fSBpNgDfRlGEschco9QJVBEbnfRJhpUJHjQyeQLwaxNASE2zC8fIzKfAJ5t9iGCTf1ssBE1tp0d8W5c1Yw6zTfpGhRQ15tar1CwR1sj0S1jgFEdfOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EcSIiaBZ; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791046961; c=relaxed/simple;
+	bh=kLoV5W1FHSMCnQXJR94hBtpM1Iv97CLc5Gk+9EMFE3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Ptz+nD+iDPrKwv5fJmPlboQ8196Y4eHvMFJ6CVL8i1GCVoEla9yU+7cnz6mDx6WUf03IIUg6Eu69cs7pkDZykNsNVUbI3tXC6vZsgbpi+qaqN3zZNLRPb0dnjzDCuIkZoXr6Rcazs6KhOWt+01DXyPIKCufXM48PTqJ6S5hG1tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=oDxinKuH; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EcSIiaBZ"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a6f8525bfbso241198a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:58:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791046693; x=1791651493; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MLMhydZ/wyB/4hMugvVsF4Xnk66VRKTgxqNM58pVWT4=;
-        b=EcSIiaBZNQkOV5Q3S24HkwzJ55DoYFv5VXWOPk5GJv9BcRYW41F3TnwXkGPEYJZ1/i
-         HjJTNec5SaNr6xVqSF0xpf8BtnWtKCXLH79aXCahzUTBCV61Nlmklm6Ps+yku3WamTnq
-         SIXH/pgxwmcf5USpYreYTE+h3isy1XBC7WbLKHTgBYyezIG2P8pAUO6+ZHvOSC/CnNgO
-         iJtZ3cPH6sS8k1Pwd3MQ+knN8rDxyoiGoDKppK6Pklc2/gsRrGrLH6lLdiyaaXIo+SOL
-         iZIfLEoWIt4E28bXbykWcS7baEQUFHPP6+EhMinh2C+4k+v/AQnAPXOT1k9chewddYID
-         t6FA==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="oDxinKuH"
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 817013F1C7
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1791046950;
+	bh=kLoV5W1FHSMCnQXJR94hBtpM1Iv97CLc5Gk+9EMFE3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type;
+	b=oDxinKuHjSwh31QA9ULq54Z0Ka3ICwf6Mm+tdVnkM2VCtxgbrTphDAaxTtj3bHKvh
+	 78EgtWchmjblnTJmdW79O/x1M9TQ3JIbaHQH0vWmn4/rs8QPf19aJqM0y9HWHeLCFG
+	 FCxDNLRmZFMyy+WcJMGl5Ex528DbAArYEXbX3TTAp3GuTRH6jQq6zlPomY8wFBKo7/
+	 m4YNaGXO93hcs2fw4DtuZLeuPeCbAsYYUjAc/ILCXgnb+kGlkBOluIna7w2H+I3rEp
+	 QVWSEhhGFiXJlsUZtU3ot3pjM0eWFL6rsAS6/vbSbqYTbXVwUhBtpBqdh+tCO8VYTM
+	 ciIqkrOECxtRbx2ylA9aQfiM24gdlrdjS9YkmVOAO7h1GwHTPEssGD1TLBCTL7OVJR
+	 YO9R1Fm08M3lNhY78i/ajFG3yAv+q7OyG1222rlbJ9XBa8I7LnSgZyWsf6KlHeAZVX
+	 MiL5VN7es0oakI1vvnA3RKdzjCjC/Q7VS96sAMqomj6RUzs+SCWUYT1gbmr3cQj/Rp
+	 OpgmeZOeIThCglW9H9qOTtacdLCct0I1HwkSFwB3e05sJ8EG0j3pq6LpKQRMGJwC5W
+	 5oRfiii9TvMy47pN5PsZqMLXpOIGnQFRJyVdMlBdVsUSKqnQ5uIL2o+kC/slooAlKF
+	 Qa/d0vr/A+83MXyjwjwRYyrM=
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49febef74e3so6559135e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 10:02:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791046693; x=1791651493;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MLMhydZ/wyB/4hMugvVsF4Xnk66VRKTgxqNM58pVWT4=;
-        b=1L9Eu5ht0/eklRLu+02PSVruRxQUY141xivAFBykfTpHs8ctkolZhtFsF3XsJJETXl
-         miheM/CnAPAa9jbfxtg9/C3CdjbiHKseffuT4tUs1fG2Fdr31jUt0P7ktE9AbKLA+dr8
-         muNn8xBoNVKwcjrhIVe8KbYN8su6GvYiuiDtiXZQRBiXChfuPbcQzTm8wVbcXS6cWRip
-         FZXoAXrzYtjEkGyzz819mNT5QPGGWLh+39/42exVdTKcv6ezqgzbnDnbyic+bSd456oA
-         WKzRCxfI7sWI9rGlqptukCPL1cVnf4+DgiN3TqVI4y1nSLTl9+TLY5XXWIMOkckfn2yR
-         XD1g==
-X-Gm-Message-State: AFq9FYJTnQndvqYrWKlF1KWE4+6bXpVPvc0YqGsIhdQu3eODf+S4eXJS
-	GsP8ThUYwqWtUvu6TsWVMDyr2QdOVaXC9XuTx/Eu1y408O1WDjsSDyyl
-X-Gm-Gg: AYBFou0hibSYvc/Nl4f/Wr1aO/5GoJCD+YMEmIq+itCYfwGxIIbDz2SA13X5v1yYCyi
-	JHlLbmjTcah1cLpwxU6cwMKf2OUebARVVudq96vOfvOVWTX9V2TFgw2kCki1s1X7KtoIdhlqVuJ
-	s7CjHUuj4LMZd16l0+ci4hR/E0TbNSkIJiJS4CJFa07tJBSi6K7dah5j0LpsdpbFEpuzOM/Cmr/
-	dbC7BAEsk4iP30CUjlsb2qknrn0iR49E/tVRyTU5Eu1u0G9kx5xnFqMUyz6R2MjSTQDYQzmy7Ko
-	yvlzWc2UJuyBjUf1X+FbVqCHK9mY3B4m4A6Msg7qGHsXtZP6WNVKhkrx4WmohjgQmlq4hcsUR/1
-	3DE7dgwWkpTGvj1okUwPiryCrZSgcYJsNEVnKaA8hfn7n0OotyUcmWWNm1rbTAx8wEE4qy2hbaP
-	tHOebFuYXLxKFVrqxOjPsjQZhrZjdCprhM7yv75hq2KajDa97s6lkLO6oKfAaJ35t+2zG244Vcx
-	egEzX7t+DXznRDFnQ==
-X-Received: by 2002:a17:90b:4ac1:b0:3a0:22bd:6ef6 with SMTP id 98e67ed59e1d1-3a6ce64fb77mr3278447a91.2.1791046692966;
-        Sat, 03 Oct 2026 09:58:12 -0700 (PDT)
-Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7cd47csm3574222a91.17.2026.10.03.09.58.12
+        d=1e100.net; s=20260707; t=1791046950; x=1791651750;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kLoV5W1FHSMCnQXJR94hBtpM1Iv97CLc5Gk+9EMFE3c=;
+        b=OYek+g7ri5FO7/f9tQrKvNyuQDqXQIcxove7dsbVCLkB+gnPQNyXYSjN+BWnk7t0bf
+         IKVJp8tS/txWEAX4xh7UkAx70K7ueqcrL+tXC7JTam+ESfJm3fbxyjhG780LY6bJRP2J
+         KDmCae0fr/j57DM9L6e3LRZKlgML6T5Jj3pKHulVM09gMvZJZLOl1ibZO+A2dafIMUIz
+         Jq4DITHvbuP2kq//x+5uyVQ48fNnMPN5xMlFSQxW+eKJ+y6vvsmrw6Su/nxlaGcZDq+t
+         D5NRgGuh8/ssLWCSyglg6ACv8XCx0X+yiV/yCLnECYHR7Ek/sVxlNwY9RsNPeL5mERhL
+         ynfA==
+X-Forwarded-Encrypted: i=1; AKwUvBwf7vRlOQNszh3AhzcFO4kIrSs5xVW9mXMBayJKWwfR+QR6yZ0Xnmf6YmNw/lSNGV27SAGfaH7qO0MokHc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lK2addp9fgrEU6VoDPFyMkPm6mh99Zaeprf/66Fla8IcCMMBHJ
+	pW2yFVqlKbycmidY8JsqavCI1ij/RK1CCBMU90iBwBVzPs0LH/HCXKBReOjMsUcZ63u2e0EPyoo
+	gqpteSuQ8Av69CBtqX+eUtbIWBB9qE6mOpC76LUTtf0o++wCCRuzRMlfJzMrNEVhP3duXKNYM59
+	mHMXeGyg==
+X-Gm-Gg: AYBFou1bbiGTZiKQkllEGVYKORbyjloN/y/rqeHvWAKadsnup3fBAD0lstQXsLL23yE
+	SdiAcI//GNz64HMK9dNaMUsH97UtLNSsuhbc5Pa47tJB9F9hV76VsZwfoVY92LQmUp82JUrK5Pm
+	SZ2OZFxJVf9/d5trV2Hd8Kwv2ulnN0r3/44YTvCEajcgbum9ySTUVG7XL0TyIF4ZYbP/M2txBG9
+	i9xf0I62UiDKbThbh/MneBH7bLIeH43Re+EY8pC17Iw0mb2TQQ8Ubz3cIkLdqBwN6ktysQ0yd4I
+	Hlgn34vu33ykyo8Vx9Yx8rICxYstTscqFWfPTuVX0vfsihcC5R+J0Q5g0/XjMediuz4iu57zc7I
+	po56Lrnw=
+X-Received: by 2002:a05:600c:3e19:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-4a027534b98mr106170515e9.3.1791046950083;
+        Sat, 03 Oct 2026 10:02:30 -0700 (PDT)
+X-Received: by 2002:a05:600c:3e19:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-4a027534b98mr106170055e9.3.1791046949625;
+        Sat, 03 Oct 2026 10:02:29 -0700 (PDT)
+Received: from px13 ([2a06:5902:822:4600:184c:5422:d333:cf3f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02752aeb3sm192763715e9.0.2026.10.03.10.02.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 09:58:12 -0700 (PDT)
-Message-ID: <6ac13424.00feb36c.a9616.9685@mx.google.com>
-X-Google-Original-Message-ID: <20261003165810.zgrm3r4jr76mkmq2@DESKTOP-1P5QNTF.>
-Date: Sun, 4 Oct 2026 01:58:10 +0900
-From: Kohei Ito <koheiito.dev@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-gpio@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>
-Subject: Re: [PATCH 3/3] sample: rust: Add GPIO consumer sample driver
-References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
- <20260906-add-rust-gpio-consumer-v1-3-24d192f93760@gmail.com>
- <CAMRc=Meei7Z1f1n0M_Hy1LdxG=NVhkFeEiT3=p5QVpw6BTv3EA@mail.gmail.com>
- <6aa662d7.0ca013b1.1575e3.0a60@mx.google.com>
- <DLENO35F39LL.2YNA66D9FCXYH@nvidia.com>
- <CAMRc=McV2YKgbmnknLZTSGoSa_9eCHDiOLzuPPyPHHnj=vRuvw@mail.gmail.com>
- <6ab12d24.a3d4836d.3b68e.d0f8@mx.google.com>
- <CAMRc=MfZckBMT-4PEDxr-PjRbUPO4FY3OZw8ks3w+uoEyixbAQ@mail.gmail.com>
- <DLLVT33ESJA5.1XE4J08AEZNMX@nvidia.com>
+        Sat, 03 Oct 2026 10:02:29 -0700 (PDT)
+Date: Sat, 3 Oct 2026 18:02:27 +0100
+From: Chris Bainbridge <chris.bainbridge@canonical.com>
+To: Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Jason Miu <jasonmiu@google.com>, 
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>, Ran Xiaokai <ran.xiaokai@zte.com.cn>, 
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	linux-mm@kvack.org
+Subject: [BUG] KHO handover hangs when memmap reserves PMEM
+Message-ID: <asE0R_f2r2TL-3Sy@px13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DLLVT33ESJA5.1XE4J08AEZNMX@nvidia.com>
 
-Hi Bartosz, Alexandre,
+Hello,
 
-Thank you for your advice.
+I am reporting a regression in KHO handover.
 
-> >> The best approach I think is a combination of a Rust consumer driver and
-> >> a C kunit module dedicated to testing the consumer driver. This is
-> >> almost the same as `drivers/gpio/gpiolib-kunit.c`, except that instead
-> >> of directly exercising the GPIO consumer APIs, the module I'm suggesting
-> >> exercises them indirectly, through the Rust consumer driver.
-> >>
-> >
-> > Can't you just call a C function registering the platform device from unsafe
-> > rust?
-> 
-> You should be able to. It's a but laborious, but better than not having
-> tests at all, and acceptable as a temporary solution IMHO.
-> 
-> Of course an even better solution would be to provide a safe abstraction
-> for registering platform devices. :) I don't know exactly how much work
-> that would be, but there is already a `platform` module, so supposedly
-> we wouldn't be starting from absolute scratch.
+In the most recent Ubuntu 26.10 beta mini-ISO releases (2026-09-18 onwards),
+the first kernel reserves RAM for the downloaded ISO with a memmap directive
+such as memmap=<size>!4G, then kexecs a second kernel. On affected kernels, the
+first kernel reaches "kexec_core: Starting new kernel", but the second kernel
+produces no further output and QEMU spins at 100% CPU. On unaffected kernels,
+the second kernel starts and finds /dev/pmem0 with the expected "Persistent
+Memory (legacy)" range in /proc/iomem.
 
-Sure. I'll explore the Rust kunit approach by directly calling C
-functions to register `platform_device` and `software_node` from unsafe
-Rust. I'll also drop the sample driver. I'll let you know if I face
-problems.
+A source bisect identified 3f2ad90060f6 ("kho: adopt radix tree for preserved
+memory tracking") as the first bad commit; reverting it at the bisected
+revision restored the handover. The regression appears related to KHO metadata
+being accessed after the receiving kernel's memmap directive changes how the
+metadata's physical range is mapped.
 
-Best regards,
-Kohei Ito
+#regzbot introduced: 3f2ad90060f6
+
+I have an AI-generated candidate fix that changes 22 files. I have not attached
+or published it: although the AI did extensive verification on both x64 and
+arm64, I cannot review or explain the complete change, so I am not submitting
+it as a fix. If one of you thinks an unreviewed candidate would be useful for
+further analysis, please let me know.
