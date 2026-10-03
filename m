@@ -1,159 +1,121 @@
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D33C3438B2
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:20:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF1C3905EC;
+	Sat,  3 Oct 2026 10:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022808; cv=none; b=pdzhBz/b8+Gsa7+tfnz9chJd47ZS8/4kF5UU8Nrd9J5N+qI7a1NkEv8fezQqLKimn68Bu/IjfqWToggTUBkARYekIgLvXmnes9aiH603niFAJjx3ZCYGpxG2Nr12LsLbT27EdOnjcDU6/85b7N6YHNa2ZTzOoajxg2bHmkIYuIE=
+	t=1791022819; cv=none; b=VKOu++Wt9mVZ4656E6YMfQdkgZK3ll6mQdOZPi/DbXmnlja6wcEQ8xXfH6/0/jb4nJ3bPJolz8gh7D7KdyQEAJ9iWOt9NfwgZ9Rt8ps3MRv8Zxh58dhFO2r7qj76DZi5ngmmmf6C9XJ2jF4ibasUPWF5X6w91uwwm6RuSHAZLec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022808; c=relaxed/simple;
-	bh=kgmg6SoIB/3yUf8ADJjOq9BtOHqc5NPV6pK4yi3t5dk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=MzvZajBW/oMjnvHqYsuc2KaY0l/dDmJY7+rymcTyp59TI34lSAioYaDNM+uzTg31HI/8hH/SV3r2E4Ko+lgdAdVnqtjlQ6vyo8amZkrvmxa8chk6CDw7D6fxvLr/g7z/e1XOA4k6e4lCE/r6fTs1f4tEdsDQE+WY8O1Xs/9pFLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GJNikCHv; arc=none smtp.client-ip=74.125.227.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791022819; c=relaxed/simple;
+	bh=V48hnmGwm5Zxzh//0DXpviOCCNy2P9IUTo2RKpAvg8s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aCn7OvQ767KQ+qCx3XVJ2ism2NXExnd5KC0iLF0VJTYdOCaFOSqThdu7J9+PSG4XIhiLtqw8cfewTKy2QO0u1zXSjXXwIEidrlc+b8ZVlFHz3e4Qii8g0Gy32OeI/Zm34uNSBYYjTjx9rGHkx9bsfUKcU2ieeVuwNPFEbzjodMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pWfHVPKV; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GJNikCHv"
-Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3a51696a650so219022a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 03:20:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791022807; x=1791627607; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VRcw9YKb16RzMyTdR3AGPddXtl++CfcN70A3BsA75lk=;
-        b=GJNikCHvm/hgN4JYL/J5VdoFhDKnIsauSpAq10ZWfSNBcACmzoOe7oNx2+a0KDp2P5
-         0rejilcAKW2Nw3kUtNocBy/WFVPbJz7xwaLQ15rbgZqJgcFp5mP4S7TrDo1u6ApCb4Xl
-         6lmSXv1RWQ9nARipivTLHQxxWXEtdoM5NMbh95P4gc8KMUMPhFR1uQioK7RraL+HL0nR
-         cH+r1y3LThXHnoNQ0vfmS/0Y6tJibAcv5nSqFth949zQOdXTm784XTGRyYUMqBR0O5ew
-         t/QNdUySYUqy4mKcIYLfPdPzSe7ZlmbumnMX9ALYSHopMi25I2whRbfNVp6LfLGF70OD
-         O8rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791022807; x=1791627607;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VRcw9YKb16RzMyTdR3AGPddXtl++CfcN70A3BsA75lk=;
-        b=tpGjwhK8k/HgqPA3UvVa7dDc7XZmkdBTXKSziIgK8KvR1mK6/jcDj0g24tkNBWTZLc
-         zy19Yo59dufPPloqZkxruNcHdXJd1UgQs4yjJRCyWWJ1q9/aDSw0Epo5i5NdeqReMCmy
-         19dpm/Tx4Q2u9uV4Sh9hUNfg9PMloifjpOUTT4IjnGEP6nOBWqmoxY/K0wiOpa3DDTbu
-         gJBQkU65vG+RZI+kXpEq3Zcavc5V7GhU2DVdyO0BxL+ZBvhmRGelBDqbkhwUQDaoL1jt
-         jnuqytnUPtQ5ifdswrwA3oTOGEFhsquEsEbj+MM4TabYWxTKw1Fw5QowVT/XLV07hlvQ
-         RCYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwx4GMq8YG780/Vv8LnUGv79XNW+RM7BP5ImGfSMQkB/AUm5JplrOroUTqcyflj5SgNnomsH4Y3M3cPVpo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfbLXnZru8gZM56SWKfU1MG7797O3PY3rwnkmgQUQYOaK4yv9r
-	y9ze5lbZLIjYxjLSgLSRYojXS3wSpzwp+yPpPRwmc1bFeGiQspJWCvMZ
-X-Gm-Gg: AYBFou0kAaXMAtWpTXExriHWJmaMofXn1BCP74dFe6J8+YlFFeyJbwscY21VuvTZqhH
-	8qFmbshkkN/LsKkNJ4P/jnrNdLfw7St3w7aQvKtzWke9N+ivKkgeM/bmEZqBS6qYYpGn+zhDoTM
-	lmACkZhrLJLKdiuGY896KaVCxKGxuRyfky7gG35sstIvIs8+j0VWscec0YC6YzEe4U2RcaOis1K
-	jL1tGX2ul1HZZ5N5O8VeY4JdHw2/KZCBRkWcJcmF8w18zsZA0dnloMfDryqcyoqoDBMHScCqPX4
-	1Uy6E2mOU/65nI2m3bcAlWjrHPSg6v5xlqN/zeyHSyiXW8yAsFGZRM8poBIw3LzVoHrpoIwmBKO
-	Ni7Y7HdHBKa8AKlFHnvOlTRtLJLw5ckC18TZZ+8onsS7k9KE7K5p4o8vA+XdLhKubNTrT9dFInq
-	p3sttM5j4cuFDuS/yoHGv8zuvCBwmK5YPED23DtN4wluEeo8+FtLKK2jntmY9GIbOYh4NV93YFs
-	RDVsdiLv5BVUA==
-X-Received: by 2002:a17:90b:3b4f:b0:3a7:9413:cfae with SMTP id 98e67ed59e1d1-3a79413ddb8mr898253a91.42.1791022806861;
-        Sat, 03 Oct 2026 03:20:06 -0700 (PDT)
-Received: from ThinkPad ([240e:46d:7b20:7df:1ddc:2f29:f17a:97e4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e61386csm2539110a91.17.2026.10.03.03.20.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 03:20:06 -0700 (PDT)
-Date: Sat, 3 Oct 2026 18:19:50 +0800
-From: Qiling Zhu <kmatzkaczor244@gmail.com>
-To: Henrique de Moraes Holschuh <hmh@hmh.eng.br>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	"Derek J. Clark" <derekjohn.clark@gmail.com>, platform-driver-x86@vger.kernel.org, 
-	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: [BUG] thinkpad_acpi: intermittent boot hang in hotkey_poll_setup on
- ThinkPad X1 Carbon Gen 14
-Message-ID: <asDVVtAXt8YVbZ3C@ThinkPad>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pWfHVPKV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HX
+	ZZg6hcOZR13yuP5Pno2uBQWWVd5X5M6BD9+YK7sug=; b=pWfHVPKVqagQoYVFFt
+	3gsspefLzKQAfAughoECQZiPujV91ViV+LRHEZMLT+hvq80PRGl1Q8T370wsED1n
+	Z/hWADTi7VVfN/1JsRMXyOpY55hsBCMXCUIpM0j8gEykpQ/3hvl9O23lYmnq3vhT
+	OsocvjP5HZiJ1xwRxc2hyftdc=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3f8bC1sBqnrifCA--.20254S2;
+	Sat, 03 Oct 2026 18:19:47 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Baochen Qiang <quic_bqiang@quicinc.com>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] wifi: ath12k: validate MAC/PHY capability count before saving
+Date: Sat,  3 Oct 2026 18:19:43 +0800
+Message-Id: <20261003101944.596546-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f8bC1sBqnrifCA--.20254S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAry7WF47Gr18uF1xJw1DJrb_yoW5GFyxpF
+	43ZrnrtFWrJF47Ww4DJw4UJa4Fvws5Kw4fKFy7Ka4rW3Z5ArnrX3WFvFWjyFyrKws5WF1U
+	Kr4Iv3y0kFW5tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEubyLUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wOw6mrA1sPNzQAA3J
 
-Hi,
+Firmware supplies the hardware mode count and the PHY bitmap for each
+mode in the service-ready-ext event. ath12k_wmi_save_all_mac_phy_info()
+uses those bitmaps to populate svc_ext_info->mac_phy_info, but the
+destination is a fixed array of ATH12K_MAX_MAC_PHY_CAP elements.
 
-I am seeing an intermittent boot hang in thinkpad_acpi hotkey polling
-on a Lenovo ThinkPad X1 Carbon Gen 14 (machine type 21V8A028CD).
+If the total number of advertised PHY entries exceeds that limit, the
+loop writes beyond mac_phy_info and corrupts adjacent memory.
 
-I originally encountered this while testing linux-next kernels for an
-unrelated camera issue.
+ath12k_wmi_mac_phy_caps_parse() allocates the source array for
+tot_phy_id entries and rejects excess capability TLVs. However, if the
+event contains fewer capability TLVs than advertised, the remaining
+allocated entries stay zeroed and are saved as invalid PHY information.
 
-The problem has occurred with at least:
+After parsing the MAC/PHY capability TLVs, validate the destination
+capacity and reject an incomplete capability list before saving any
+entries.
 
-  next-20260928
-  next-20261002
+Fixes: 062ade23991e ("wifi: ath12k: parse and save hardware mode info from WMI_SERVICE_READY_EXT_EVENTID event for later use")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
-When it happens, boot stalls and many udev/modprobe tasks end up blocked
-in async_synchronize_cookie_domain(). One of the blocked tasks had the
-following relevant stack:
+---
 
-  hotkey_poll_setup [thinkpad_acpi]
-  hotkey_inputdev_open [thinkpad_acpi]
-  input_open_device
-  kbd_connect
-  ...
-  tpacpi_pdriver_probe [thinkpad_acpi]
-  ...
-  thinkpad_acpi_module_init [thinkpad_acpi]
+Changes in v2:
+- Refer to the service-ready-ext event.
+- Describe a short capability list as a correctness issue instead of a
+  source-buffer overrun.
+- Move the checks after MAC/PHY capability parsing and use '<' for the
+  reachable count mismatch.
 
-The failure is intermittent. The same kernel can sometimes boot
-successfully, while another boot hangs.
+diff --git a/drivers/net/wireless/ath/ath12k/wmi.c b/drivers/net/wireless/ath/ath12k/wmi.c
+index d5160af60e00..3e812c79a649 100644
+--- a/drivers/net/wireless/ath/ath12k/wmi.c
++++ b/drivers/net/wireless/ath/ath12k/wmi.c
+@@ -5050,6 +5050,7 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
+ 					u16 tag, u16 len,
+ 					const void *ptr, void *data)
+ {
++	struct ath12k_svc_ext_info *svc_ext_info = &ab->wmi_ab.svc_ext_info;
+ 	struct ath12k_wmi_pdev *wmi_handle = &ab->wmi_ab.wmi[0];
+ 	struct ath12k_wmi_svc_rdy_ext_parse *svc_rdy_ext = data;
+ 	int ret;
+@@ -5094,6 +5095,22 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
+ 				return ret;
+ 			}
+ 
++			if (svc_rdy_ext->tot_phy_id >
++			    ARRAY_SIZE(svc_ext_info->mac_phy_info)) {
++				ath12k_warn(ab, "too many PHY entries %u (max %zu)\n",
++					    svc_rdy_ext->tot_phy_id,
++					    ARRAY_SIZE(svc_ext_info->mac_phy_info));
++				return -EINVAL;
++			}
++
++			if (svc_rdy_ext->n_mac_phy_caps < svc_rdy_ext->tot_phy_id) {
++				ath12k_warn(ab,
++					    "not enough MAC/PHY caps %u, expected %u\n",
++					    svc_rdy_ext->n_mac_phy_caps,
++					    svc_rdy_ext->tot_phy_id);
++				return -EINVAL;
++			}
++
+ 			ath12k_wmi_save_all_mac_phy_info(ab, svc_rdy_ext);
+ 
+ 			svc_rdy_ext->mac_phy_done = true;
+-- 
+2.34.1
 
-I tested two workarounds:
-
-1. Blacklisting thinkpad_acpi allows the machine to boot normally.
-
-2. More importantly, keeping thinkpad_acpi enabled but building the
-   same kernel with only
-
-     # CONFIG_THINKPAD_ACPI_HOTKEY_POLL is not set
-
-   also makes boot reliable in my testing.
-
-For example, with next-20261002 I built two otherwise equivalent
-kernels:
-
-  CONFIG_THINKPAD_ACPI=m
-  CONFIG_THINKPAD_ACPI_HOTKEY_POLL=y
-
-and
-
-  CONFIG_THINKPAD_ACPI=m
-  # CONFIG_THINKPAD_ACPI_HOTKEY_POLL is not set
-
-The first configuration can intermittently hang during boot. With only
-HOTKEY_POLL disabled, the machine boots normally into KDE/Wayland and
-thinkpad_acpi is loaded:
-
-  thinkpad_acpi 196608 0
-
-The usual ThinkPad hotkeys I have tried also still appear to work
-normally with HOTKEY_POLL disabled.
-
-A normal Arch Linux 7.2.8-arch1-2 kernel boots reliably on the same
-machine.
-
-This therefore appears to be specifically related to the
-thinkpad_acpi hotkey polling path rather than thinkpad_acpi as a whole.
-
-The issue is intermittent, so I have not yet bisected it to a specific
-commit. I still have persistent journal logs from both successful and
-failed boots, and can provide complete task stacks or test additional
-debug patches if useful.
-
-Hardware:
-
-  Lenovo ThinkPad X1 Carbon Gen 14
-  Machine type: 21V8A028CD
-  Intel Core Ultra 7 356H / Panther Lake
-
-Thanks,
-Qiling Zhu
