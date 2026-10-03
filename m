@@ -1,213 +1,118 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D79316199;
-	Sat,  3 Oct 2026 20:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46783769F8
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791057781; cv=none; b=tmu8f2Jvdi55AAh7J2LnnH0Z2tdHExQY2Oq0imKzpcxktGKdqG7tihQPz+c2+Eeg1gxK6GI8zJqTfualub3nPUgCM6+ZTNDrp9knAq/NZAAl5TsMnZcplrory8Zo2zkfNv1ZJ0M1iyAtJpIAXnreuut+/gWuCTmFa7cmKG3QkXE=
+	t=1791058040; cv=none; b=TUSivz9XbmWO7fsZXrfy0Ym/0efNjlYlcUsy0uk33gMqpz29vVmRS8jg7LAwYGwDxLROEdLeYM6GDBah1Br4zMIPjDn1NoiI2ZAGJQ88rnrDzHgBGHkyYXR4SOzIEdH+wzEP59ojXAjX+3o3cpNWJbrTXYKs5OWC0/4RH5jaCQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791057781; c=relaxed/simple;
-	bh=c8RZlFZtWwmaML1poua5GS1WZz1umgtUQbubMOxhcUY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MQHhaLo9wBWiyvK4Qyq7KMj6a14CKTJ5YU3GMAFn7OIJlDLyhVkMAQc3UeJFrLZzokZjoVPP+Zmn4vUXhTFUVo9S2bsr7NSUmxo0kONoQyAfxw5vIpMpn1CwdcYHQqlCCvWBRa5G3902Q5mjMlt8mgInnbRKe7NLhB3qc6ezItY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=yEcSeKyl; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AKgSvfc6; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791058040; c=relaxed/simple;
+	bh=7JbPPMC9KEMGlful8kZbuXTUQyPP8BqdUCabjv3tsqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K+q9zL4aurFrmSz+lM74pDfypsT1MH524IuSPvtv7P774g3WXrpCDM86CHSh6qDff7ndnyojU92CzKWjuIRS/Qrg7I9LeZvvtH6ScEqW7S83SkigVyc7GIytcFo8yUxVYrvuyRr4X+c4onbjmqGTSarxTSABYczDV6IPrHMcTZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VWD8gNSl; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="yEcSeKyl";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AKgSvfc6"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hxxQn1dQsz8v2k;
-	Sat, 03 Oct 2026 22:02:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791057777;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zmmEBhtUWrufi3v470m/nUJa9MdiHukGQfG4wGww2uI=;
-	b=yEcSeKyljDZ7ZPpYnzXcF7PyGp5aR87Jxb9wzlNlMrBgpHDBgpdH9klQaMDPC4umPe6cRh
-	v2zN0s61ijFhSSyyKsKS4mjPZbH+BGr09/ZJTQCjL+rzy4SLOQC/S6pkEbwu5DuCPZZ8pt
-	a1XYZLadk3qzeFguxQgMXLwhjcAdN34RVuhzLn4aLEbJty4VV46evlOtFRDiBb+VmPUj2G
-	jeEJCxG8+XW2qu/Bnr24m6oXhmSLzGl/FHhk0PNDpdEiXTxR4jucUxGJeMrmDhq8aZuLqi
-	J1WaFuDKG2nBpearYdNUg6gMx6g8Ctp264lRX+V4yxbgLhWt1jhpO+j8uMUrjQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=AKgSvfc6;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <c038dbd9-7675-43a9-834c-915b6795dd50@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791057776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zmmEBhtUWrufi3v470m/nUJa9MdiHukGQfG4wGww2uI=;
-	b=AKgSvfc634RjySaSkVdmNZd03hZnmLh/L090Qk5f4np74mE0hiMAVt0c/mMRw5CCRKrPkN
-	nAbFmznEYW/mYYHKW3b0fR6SWdWWcp5JgzG8ciJbK57Ql1rehauWXhxqNGxna1ZP8gS6e2
-	F09OY4skqDPL5OJnnd6t7+RbmZ0S2tevC/ijEFRMpcIxy6LlTmVdIyX6Q76Vn1+QixljLA
-	Ynd7jc+L+ByWPDAazSQN6/03IfWxAiDWH7e5dgSeVodJ92mgb24eOhl0sS1vW1yqIcLFAM
-	HMhhlSD5A/PpzvM8Ef9lHsuzrDveilPj8wdZGUTTCM3Y3NADN23QuoHagcHvqA==
-Date: Sat, 3 Oct 2026 20:51:58 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VWD8gNSl"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so7135175e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:07:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791058037; x=1791662837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H1zvj0uCRg+B5aiBl/n8A7h6RRgbM/5lvnwXxsY+iJY=;
+        b=VWD8gNSlyz6iAoxaQdCnMqlK0cfEKUdF8i+ApIJ0beBxkzY76aTI5kaPqIWeQPt6cl
+         9jp5KKtNcyHYpQGHJbWWNQWh3EYXMg1G6A74FNCJ6PDuLOtLvXmnAYesFqabe/1KeQRD
+         wi+dL8L6lgsXS5T8QQSp570+/MrTvRgBUYEHEYRWZ4KEcXep4Nj1liFOLZoh40m70Nkt
+         4RgCMOhXRDmWPdVnjTZfi8zXWYCigfcpPbt9FiqsfD6A/tmHTnjHxuTYM91GQ3TDuusg
+         GMq9RVJZWzr5cFeHdAwhsNUzSwnZzk6DxojnlekQb0hcd9rmxsfTWNeV9BojAZfcj0vS
+         joAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791058037; x=1791662837;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H1zvj0uCRg+B5aiBl/n8A7h6RRgbM/5lvnwXxsY+iJY=;
+        b=zCUIrUJmS5In/rKt/dEj3JNzMu6SRnpo25gMSSJs0ZkEtIvHeAxrxoSs/NOxvuT+0w
+         fmWJmyRh6Y40Q801PleS+orVejAltDEwBAry+20HryALwqRAmPjSPPehodCJU9ObbFvB
+         b7KPFk1LSDGsAtjZDvlaWdBGsyuBTmavEiLxNhnCgGdKLgmiPHxscXMF60vPscrG5UoO
+         uVeCPKOfeDg/ZPwntFq8wFlllwCmakBQXwGAOJN7hqHAiH+F1DuLFvqJ9cgLwIIiVAjp
+         giZu//ZC/pOSy1mIdsC5JHeXkFUgXr+28MQqD1DLMS3adwN3qcbuhRqlQYCGGQf86kev
+         YLrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCDUxXXeoDEHOd+IErXtC9XdY5ZaA0kf3fTAfcjnXhOaz5FEbloj3kt8g6tIULsMEm83tUnPq6S2SF8jU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwLb69ZVhAUkksao/tahK1CvLdxxGlSl7+dZJsqFhii8hU7+ZO
+	ZcFmi02WH0zyAlzw6RYIgIDAFhQ6tdy+uhW2A5sIlkQqJBTjd723XGFy
+X-Gm-Gg: AYBFou0FK2Hz9Fs16dCBJhjP5wt0HUy2QKeHh2kumm9OPeweWtSp848aD9AJ44rdl3L
+	ENlDnHUczrfNPIvcaH3xGKBIYEAcGoogI/geiOsamH+7xINs5ThU0xI3j7c1ag+lvAVah0DrRwR
+	Q9iDKZDLCMGySHAmDvNRKh5LHEygkqdasRYpuUsQgqdyt6+uD3VjepSC2JnDyv32ehATN7qUOfG
+	hQNrEq/Bt//YIfii/pylvvpButS4Ay3DADnPw83A0NxgqdtXHFnZiU1MZcXNbI4j0SMwSRtzjio
+	j0VOj3RLlCs8sLwLAXM4YJrPY90rIf+OgNwzkSSnS8jmdxGBuTBLk4ELiRvVgHaTInF+vVHXcs+
+	4+OmJBzJ+M7F4LrNoKzp95DIFMq3bvAPF7uGCEANtZzsbYznWtXdV/0oSNQJkuB36ku+ra+B15x
+	gCOV3pR4bJi3oqxZbdum56JYqDwryGy+1Rkz0YOyGY/453GinA2t5upoVvVMa+Nv/Fd4yZtE7jq
+	+3lOe7Te5fBUiZDkVQLbLMUj9vhFEJMBKbuHgx7VDfq+NounSYugRPRZ99XUcAAUq//afs61s6M
+	OylVRA==
+X-Received: by 2002:a05:600c:a41:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4a1680b9df0mr46578785e9.2.1791058036797;
+        Sat, 03 Oct 2026 13:07:16 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4c4sm209114545e9.2.2026.10.03.13.07.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 13:07:15 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org,
+	tiwai@suse.de
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-input@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 0/2] the Topping M62's vendor controls, on the component framework
+Date: Sun,  4 Oct 2026 01:07:13 +0500
+Message-ID: <20261003200713.50742-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003184217.34671-1-mikhail.v.gavrilov@gmail.com>
+References: <20261003184217.34671-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/15] PCI: rcar-gen4: Check live link status in
- link_up()
-From: Marek Vasut <marek.vasut@mailbox.org>
-To: Koichiro Den <den@valinux.co.jp>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928165230.3397664-1-den@valinux.co.jp>
- <20260928165230.3397664-3-den@valinux.co.jp>
- <d675e0ba-10f3-4503-bc2e-61977f4a5875@mailbox.org>
-Content-Language: en-US
-In-Reply-To: <d675e0ba-10f3-4503-bc2e-61977f4a5875@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: mybyrt1d9kfougszuarkdfr5rdtg7m4z
-X-MBO-RS-ID: b901887ea3d6e6e77e3
-X-Rspamd-Queue-Id: 4hxxQn1dQsz8v2k
 
-On 10/3/26 8:29 PM, Marek Vasut wrote:
-> On 9/28/26 6:52 PM, Koichiro Den wrote:
->> rcar_gen4_pcie_link_up() checks link state using SMLH_LINK_UP and
->> RDLH_LINK_UP in PCIEINTSTS0. However, these bits do not reflect the live
->> link state. On an R-Car S4, after taking down the endpoint, a link-down
->> interrupt saw PCIEINTSTS0 = 0x20a000c5 with both bits still set. Even
->> after resetting the controller with the LTSSM back in Polling, they read
->> 0xa000c5, still set.
->>
->> As a result, dw_pcie_link_up() keeps reporting the link as up after it
->> has gone down. That defeats the check in dw_pcie_other_conf_map_bus(),
->> which is supposed to stop config accesses to downstream devices while
->> the link is down, so such accesses go out on the dead link and stall the
->> host. It also makes the callback useless for the link-down recovery
->> added later, which has to wait for the link to actually come back after
->> resetting the controller.
->>
->> Keep the APP link-up event check from Figure 104.5 of the R-Car S4
->> reference manual, but also require PORT_DEBUG1 to report the link up and
->> not in training. The callback then rejects a downed link even if the APP
->> link-up events remain latched.
->>
->> Clear the APP latches before enabling LTSSM to discard events from a
->> previous start, and only read them in .link_up(). RC startup uses
->> dw_pcie_wait_for_link() to poll the combined condition.
->>
->> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller 
->> support for host mode")
->> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> I apologize for the late reply.
-> 
-> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Tested-by: Marek Vasut <marek.vasut+renesas@mailbox.org> # R-Car V4H
-> 
-> Since next 20261002 now contains commit
-> 
-> f29719b5064c ("PCI: dwc: Align register macros with Synopsys 
-> documentation")
-> 
-> This will need the following slight adjustment:
-> 
-> "s@PCIE_PORT_DEBUG@PORT_LINK_DEBUG@g"
-> 
-> "
-> -       val = dw_pcie_readl_dbi(dw, PCIE_PORT_DEBUG1);
-> -       return (val & PCIE_PORT_DEBUG1_LINK_UP) &&
-> -              !(val & PCIE_PORT_DEBUG1_LINK_IN_TRAINING);
-> +       val = dw_pcie_readl_dbi(dw, PORT_LINK_DEBUG1);
-> +       return (val & PORT_LINK_DEBUG1_LINK_UP) &&
-> +              !(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING);
-> "
+A correction to the Tested section: "other firmware" is wrong. The
+card keeps its operating mode in the high byte of bcdDevice -- 01xx
+Mobile, 02xx Live Streaming, 03xx Pro Audio -- so the second card's
+1.45 is Mobile Mode, against Pro Audio Mode (3.27) on the first.
 
-A small nitpick, would the following change make sense to reduce 
-duplication a bit ?
+That also covers the one item the letter lists as not re-run for v8,
+Mobile Mode without a UCM profile. The second card ran in Mobile Mode
+throughout: its nine controls were created, it bound again in each of
+the fifty reload cycles, its own knob reported to its own card after
+the second suspend while the first card's knob left it alone before
+and after, and its cable pull ended in a clean rebind.
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware.c 
-b/drivers/pci/controller/dwc/pcie-designware.c
-index c726aa71c830c..52bdb1fcc2db2 100644
---- a/drivers/pci/controller/dwc/pcie-designware.c
-+++ b/drivers/pci/controller/dwc/pcie-designware.c
-@@ -817,17 +817,23 @@ int dw_pcie_wait_for_link(struct dw_pcie *pci)
-  }
-  EXPORT_SYMBOL_GPL(dw_pcie_wait_for_link);
+Two items from the "Not tested" list have been run since, on the
+first card, each time with all three of its snd-usb-audio interfaces
+unbound and the control interface bound again:
 
--bool dw_pcie_link_up(struct dw_pcie *pci)
-+bool dw_pcie_link_up_debug_check(struct dw_pcie *pci)
-  {
-         u32 val;
+  - with the HID driver left bound: the component bound again on the
+    new card at once, all nineteen controls were back, and the
+    headphone volume was as before the unbind;
+  - with hid-topping unloaded first and loaded after the card had
+    registered: both components bound at the load, and the nine
+    controls appeared on the registered card. They start from the
+    driver's defaults, the headphone volume at 0: the restorers act
+    when the card appears, before these controls exist, so "alsactl
+    restore" has to be run again, and it brings the saved values
+    back.
 
--       if (pci->ops && pci->ops->link_up)
--               return pci->ops->link_up(pci);
--
-         val = dw_pcie_readl_dbi(pci, PORT_LINK_DEBUG1);
-         return ((val & PORT_LINK_DEBUG1_LINK_UP) &&
-                 (!(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING)));
-  }
-+EXPORT_SYMBOL_GPL(dw_pcie_link_up_debug_check);
-+
-+bool dw_pcie_link_up(struct dw_pcie *pci)
-+{
-+       if (pci->ops && pci->ops->link_up)
-+               return pci->ops->link_up(pci);
-+
-+       return dw_pcie_link_up_debug_check(pci);
-+}
-  EXPORT_SYMBOL_GPL(dw_pcie_link_up);
+No WARNING, BUG, KASAN, UBSAN, lockdep report or call trace in the
+kernel log over these runs.
 
-  void dw_pcie_upconfig_setup(struct dw_pcie *pci)
-diff --git a/drivers/pci/controller/dwc/pcie-designware.h 
-b/drivers/pci/controller/dwc/pcie-designware.h
-index 4199324882800..2ce61709b58c2 100644
---- a/drivers/pci/controller/dwc/pcie-designware.h
-+++ b/drivers/pci/controller/dwc/pcie-designware.h
-@@ -618,6 +618,7 @@ int dw_pcie_write(void __iomem *addr, int size, u32 
-val);
-  u32 dw_pcie_read_dbi(struct dw_pcie *pci, u32 reg, size_t size);
-  void dw_pcie_write_dbi(struct dw_pcie *pci, u32 reg, size_t size, u32 
-val);
-  void dw_pcie_write_dbi2(struct dw_pcie *pci, u32 reg, size_t size, u32 
-val);
-+bool dw_pcie_link_up_debug_check(struct dw_pcie *pci);
-  bool dw_pcie_link_up(struct dw_pcie *pci);
-  void dw_pcie_upconfig_setup(struct dw_pcie *pci);
-  int dw_pcie_wait_for_link(struct dw_pcie *pci);
-diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c 
-b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index dbc0115885afc..b2ed1a329c418 100644
---- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-+++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -127,9 +127,7 @@ static bool rcar_gen4_pcie_link_up(struct dw_pcie *dw)
-                 return false;
-
-         /* The APP link-up events remain latched after the link goes 
-down. */
--       val = dw_pcie_readl_dbi(dw, PORT_LINK_DEBUG1);
--       return (val & PORT_LINK_DEBUG1_LINK_UP) &&
--              !(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING);
-+       return dw_pcie_link_up_debug_check(dw);
-  }
-
-  /*
+-- 
+Thanks,
+Mikhail.
