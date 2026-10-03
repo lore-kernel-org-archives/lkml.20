@@ -1,160 +1,109 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB9030E0D5
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC5A165F16;
+	Sat,  3 Oct 2026 14:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791036189; cv=none; b=XDi2bYXmt1l6BHPBQ9wx6nir+/1Y3UAhXwDokzyojuvUflJJWOquOAtslaSqb2Xljiuno/Tp8JNvACWTzx2xTG0s/SbaGCeGLgTVr1cPh8s6WhOxFjseBr89vQEEZhg+5pR6VHjpYAjcVSSd1dsENkVRQ6D1/5IPJulFXUs/usc=
+	t=1791036357; cv=none; b=dmMprNIw+vFAfwlLDB/ZYUXZmParPvy5TnwYHRFnGkHuzPOzDPYTa/vtSedLMgP3CZ+OzZ2cW9RwDhRATco7YRJ0cKbDh2ceKq3qatGbjgU273bvkBdaB7Jkbs4U855m2PBX6d4+8FosBBhuOUv8tC+Syt+Bq6Ysgep/ro1x+u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791036189; c=relaxed/simple;
-	bh=IBaxeDLan9/i0bQtOItAj+9uT9KYyqUuZvN8eMDm540=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B8+iLCE2xvSfxNBRcimI5xXrqOLD+GlT9hFUrhK9/sGJYq83ie56kP5HsFqeBs9SeLfV7FCCtI1WzLfu6+sWmUq6e9+Txw/+xSdP2Y3PuiIdKY5M7NGezcsEkF2XH4Lwn27FauKPelXQ5OWjtCKPrvzE/Arl/pGmPlkqc26RF40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EfB438OU; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791036357; c=relaxed/simple;
+	bh=O4/ofmeJgg+67X76gDsShfI5IuXctA66hP6BulUSL60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cOExrxS7+ALoXEeOH98AP9tOLg0bydpdCVQzsT1ll/SQMq78rfxtRxKiqM7hqpjJZiaLyN0DBymstX9fLOLF+ACDHR900SaKW7rCZHvjOWCy9B3VDw17tW2CjCsmdsM1B1EVfdFFOcbHnqPWzqlgKvfv2BId6SP4Oy5FunCUzvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eMIWFy9f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EfB438OU"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a7ae04fef9so3118a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:03:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791036187; x=1791640987; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gPVsfgAMqK+ywkK3KFf7cHbYjBolttDJpT9AUFHshgc=;
-        b=EfB438OUifNpHNbxY61YsBrgqIgtsF1p3uO2aYjabPLfOpkESCt/HNHvYQAJoCHbUd
-         qbcGj/mymzNVoCkAcqxuMspDPo5S4wauvm/x6dKXAFlK9LMuXtRfUS/zHNLHabxqkcnK
-         9EPTOIKbVV5vprFwxSdVc8P71YR+iOh6/XudpIsuTO93Ywnu5+w06BwpwEG5AtAlrP/a
-         velwJmAcZPM24l9NONRcg3NT1/r927yGaSt2P/QWvNwCCsHotRvKgDtRXFZ5KBlIWrLe
-         mCIfNYfqCy/9bKe3X3/MlXAqGCKlOrn86hTXlQniRzn3TPHYg1zvWW2KD+VHgcQI+J1E
-         Rr5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791036187; x=1791640987;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gPVsfgAMqK+ywkK3KFf7cHbYjBolttDJpT9AUFHshgc=;
-        b=uSylwAZzFhcyCLu1iQMovQtP5qsI/VBDZpBnKcbeoGUiKS+T7ZvXDpih96HZLDj96g
-         +W2vEeq3DYtvxxk5VwqL4Am12ws/pkfiZ5qqvM9keEoijgaPc4dPgN7eijtGgcDxqywg
-         rvf7ZF5X92lLIhjpL0oHii0yHZMAnFRp2C5RuBa2AZV+PbGIGATwLhgTD1JyBd3txaeK
-         4/XBnHoi1fZw2Q/EqbleZbumcuxUtQqJPkhO7DC2Jt5QfZrX/Qh/PPy5U5qBB/+a6MVW
-         g4NhK/7IRq3U327/TEn/ouBeyDDRZ4XW5r1ENiKI9kqCDiKtKSkVNAXVh8zIKtRGFuCX
-         OK9A==
-X-Forwarded-Encrypted: i=1; AKwUvBzE3Ij3Ui+lwX2cmCpcktGuIGGVNZk2MNd805q1CCq3O5R0OoBGn9iyzaAplzVbjji515urYfF4ORGTTiA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0jO1u44osgteQ4D6ZCs40yZAJ/BeNUXLo2FZFQDGVTgYsxkbh
-	ATjYVAZhAWkRGNye98BR46jKZ2hyvk7oIS2IvGw0iSBzlUby8HE9TIy4
-X-Gm-Gg: AYBFou0sDinJRpGCP5TsmQ9KG/kEvhtMD5pPyDGF964EY1mLvTEPC6C4x1VieTfWSI9
-	OR4ETPItA5bOSE1UlE05PRp05NTTuTW0185GWITo0BUYnaoFU610+fM4h4rLY/lINvAYsnJKqAd
-	kbPYMTAkHOFhXeMpmJ5W8z5aLL0KNXvOBaR1Cs/nuPb8KF3oYSoDoUL1WC71z34/B/uKpHwBick
-	jg8F88gM6YUW2y0D04DIZCnbmGzgzHKFdDENKea0PkZJCusNRs0JkWX39q6zV+qL/DwcutmvrHd
-	2UJa67NqqbxOkrZ+tmWpTv8TLmipNsdPM0KHqw9dEagCxeuG5WiobF/gn+HHHW03/SIwRE5xIt/
-	hG9x9a+Ktw7YrLFcV7I8Icy70RicNb1LOWyXAEplT0q9dzdOaYykFVBt6OnmolTvjTQsC/7iWG8
-	tZ8RyjRVDvV4zjgI++PbXP6wavBgEfixsQaFeoK1I5X+F/KaoDtN5QNX0fQOP1ffQDwSoVRodOB
-	eeNZW6BtU44lviokhzTKUO+
-X-Received: by 2002:a17:90a:2c84:b0:3a6:e61f:74a5 with SMTP id 98e67ed59e1d1-3a6e61fd172mr4976050a91.2.1791036187517;
-        Sat, 03 Oct 2026 07:03:07 -0700 (PDT)
-Received: from jfliu-sfa1411.. ([240e:36d:b08:2830:b0c8:a25a:ac61:38bc])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d6610a2sm3258882a91.6.2026.10.03.07.03.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 07:03:06 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: abelvesa@kernel.org,
-	andersson@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liujianfeng1994@gmail.com,
-	lumag@kernel.org,
-	quic_rjendra@quicinc.com,
-	sboyd@kernel.org
-Subject: Re: [PATCH] clk: qcom: dispcc-x1e80100: don't disable display PLLs in the unused-clock sweep
-Date: Sat,  3 Oct 2026 22:02:56 +0800
-Message-ID: <20261003140257.3790-1-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <801e79b4-f45c-4f23-8b8d-5ac301d77e9d@oss.qualcomm.com>
-References: <801e79b4-f45c-4f23-8b8d-5ac301d77e9d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eMIWFy9f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709091F0089B;
+	Sat,  3 Oct 2026 14:05:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791036355;
+	bh=O4/ofmeJgg+67X76gDsShfI5IuXctA66hP6BulUSL60=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eMIWFy9fv6bKGy05gkm71Ys9sueO+VWR5sbJEz2roL+duT0pZ6agxpE1Rkokv4KMa
+	 M/nh7soadwURUO7JfyWL5jsi6sL9dLsrXzcvBUbbptioMCDQXwVYhK+lWJi3IID0i3
+	 VzY2AVPspwj8UZ4+fgUApPFkypKgvk/shF9vSR7wRxgnIFN9Uq9ZjwdWv2jHRlhG65
+	 TmkWvHEKg84u2yiNYFbZ3/9wtZvhrGVk1DvhMQx+GRzS+pnavBEP+bgS1Du2BF5ryU
+	 yIKYA51aU3KyHf3yIdJvz8PohZVEeDxq22PledenH1eIcS3PYgOFlZrVupsYwrXb61
+	 QYYLnJ5u9iAbA==
+Message-ID: <6fb9e6cc-1f05-40bb-958b-5a1f538e17f2@kernel.org>
+Date: Sat, 3 Oct 2026 16:05:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Exynos850: Add ACPM node and enable cpufreq
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Thomas Turner <tturner@lineageos.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Konrad,
+On 29/09/2026 05:10, Alexey Klimov wrote:
+> The dependency for this series is:
+> https://lore.kernel.org/linux-samsung-soc/20260929-exynos850-acpm-firmware-support-v3-0-473a69fc8a3d@linaro.org/
 
-Thanks for the pointer! I gave Brian's series [1] a shot on a
-7.3-rc4 based tree with my pll0 patch reverted (the trivial
-conflict in the pmdomain hunk resolved by hand), and on this
-platform it does not solve the issue - it actually makes things
-worse.
 
-With the series applied, the unused-clock sweeps for the display
-providers fire at 1.4-1.5s, which lands *inside* the display
-bring-up sequence instead of before it:
+This means it cannot be merged and will wait a cycle. But then also why
+are you breaking users of this DTS? Applying the driver won't solve
+anything - DTS is in general supposed to work, even without driver
+changes. More over, commit msg should explain that.
 
-    [    1.381597] tcsrcc-x1e80100 1fc0000.clock-controller: clk: Disabling unused clocks
-    [    1.468038] qcom-edp-phy aec5a00.phy: clk: Disabling unused clocks
-    [    1.468194] dispcc-x1e80100 af00000.clock-controller: clk: Disabling unused clocks
-    [    1.807670] msm_dpu ae01000.display-controller: bound ae90000.displayport-controller (ops msm_dp_display_comp_ops [msm])
-    [    1.808271] msm_dpu ae01000.display-controller: bound aea0000.displayport-controller (ops msm_dp_display_comp_ops [msm])
-    [    1.810010] msm_dpu ae01000.display-controller: bound ae9a000.displayport-controller (ops msm_dp_display_comp_ops [msm])
-    [    1.860460] [drm:dpu_kms_hw_init:1168] dpu hardware revision:0x90020000
-    [    2.002334] msm_dpu ae01000.display-controller: [drm] fb0: msmdrmfb frame buffer device
-
-The reason is that the mdss device's probe returns early; the
-actual display bring-up happens later through the component
-framework (controllers binding at 1.8s, first modeset after
-that). The driver core only sees "probed", so sync_state fires
-before any of the display clocks have been claimed:
-
-  - tcsrcc's sweep at 1.381s disables tcsr_edp_clkref_en while
-    the eDP PHY is still mid-probe (the PHY is about to claim it
-    as its "ref" clock)
-  - the eDP PHY provider's own sweep at 1.468s disables its
-    link/pixel output clocks
-  - dispcc's sweep at 1.468s disables all of
-    disp_cc_mdss_dptx3_{aux,link,pixel0}*, whose consumer (the
-    DP controller) only binds at 1.8s
-  - disp_cc_pll0 is still swept at 1.468s, so the reset-relock
-    lottery from my patch's commit message remains as well
-
-The outcome is again a ~50% per-boot lottery, just with a
-different and harsher failure mode. In 2 out of 4 boots the eDP
-panel came up broken: the top third of the screen shows fine
-green/black striping and the lower two thirds stay black. On
-the broken boots the final clk_summary shows the whole eDP link
-clock chain disabled and unclaimed (disp_cc_mdss_dptx3_{aux,
-link,pixel0}*, tcsr_edp_clkref_en, and even the eDP PHY's own
-link/vco_div clocks), i.e. the bring-up failed right where the
-sweeps had just fired. On the good boots the same clocks are all
-claimed and enabled. The per-boot variable is simply whether the
-sweeps at 1.38-1.47s happen to land before or after the DP
-controller and the PHY claim their clocks.
-
-So for this class of problems - firmware handover state, where
-the hardware consumes clocks that the CCF does not know about
-yet, and whose drivers enable them later than probe() - sync_state
-trades the old race for a new one: the trigger ("all consumers
-probed") still precedes the moment the clocks actually get
-enabled, and the decision (enable_count == 0) still cannot see
-the firmware-provided state. The original relock lottery remains
-as well, since disp_cc_pll0 is still swept at 1.468s, before
-mdp_clk is first enabled at ~1.86s.
-
-I do think the series is valuable for the module / late-probe
-cases it targets, and I'm happy to help testing it further. But
-the pll0 fix still seems needed, not least because it can be
-backported to stable branches while the sync_state work lands.
-
-Full dmesg and clk_summary captures from both the good and broken
-boots are available on request.
-
-[1] https://lore.kernel.org/linux-arm-msm/20260626-clk-sync-state-v1-0-4156d8196dc8@redhat.com/
-
-Jianfeng
+Best regards,
+Krzysztof
