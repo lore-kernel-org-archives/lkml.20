@@ -1,103 +1,194 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D347F372661
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9832737FC;
+	Sat,  3 Oct 2026 20:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791060092; cv=none; b=tmxuNswWzEAzcbPjKVngTaprGZWl+rWz+ON6gplTx9a1QXm1ifuz+/GdyQ5mr98EnBbA1DQW+k7ZpnA0IJbRKTSoTkXbBrx3Ep1XQdNoD7AP22mEJawxhGpKAZ4vbuqWOarkxwRHiaJ/fvLauSMwFpLCHDz19R+0kNeO9bo/wgM=
+	t=1791060330; cv=none; b=BtqZs95jgtNPz8RY67Sj0dKD23p6TURVS1RLfPUtko9Add6DlQAQj6ts6diBIKFfXxLpE+tg5ixDdDxDZCteOlDBEo+0IxXnBl8bZQ2iqz6NCQqwv3FR1d8JRY+QQtDSJI7RBWN8QhqrnRzx3y7AcH6iADLMGGA3Rj3hKbdnjEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791060092; c=relaxed/simple;
-	bh=E6OYkIaqPnUxrvuUCIn54MgF/0vP3bL77kQ5vHowhhU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S2WaSyquu3Q4mH4ejzmHa1CYeBwd/R31AJQR+Y0hIhLfdxzhmv/7v3EgukcixN7w541LTyPIpIXcOIeBMaLtldiYBnSDOYA87SnWNmlay87C6sSrCUcOfSBH7iUNyx1H8p1qMJsZXhQ2bGL6RG+ojxC4Vrh6mRyhr6n31srxDW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E8DzpLQ4; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791060330; c=relaxed/simple;
+	bh=JenYKjlV6XIEvMSaZd7zEXK28c/Rlb8gWmrbqlqg4vs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NzPIbx4fE9f3c0t1U7gVddogFXv94MtNIqKSYhTpZmfCCwAhFv6lVg175Aktajwy6QE9cNNtJLVTAC/i6fbQtzIRYKsRZhczfog+jGVYwyCLZSaSgTvWdf2Lyq2oHWi3L01ZX6apOTuCJyYQYKRt6XHI5p3M+YdMesyKkBNpLmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZEj4F1n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E8DzpLQ4"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1626d6a6cso3759635e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:41:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791060089; x=1791664889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E6OYkIaqPnUxrvuUCIn54MgF/0vP3bL77kQ5vHowhhU=;
-        b=E8DzpLQ4BKQgvWvxXVaW+Gl43J2+DyddDb4+0WjX7UnbFdmicwyQpUxUM55+l3dldI
-         3GZh8oHjwVl9+KpzS82iw9oAWQyBxCX+iCGI57TekQ7gSQy6MaQygANQNVoArFpPdZkW
-         TliQljcE0KalYhmI1z3hy9K5hgiJTbNaBDhie+6ApvHQH7wRdUPk0pn+KJf0V+aTktrZ
-         ohzW47SHyhgqOqWD+stxeHN/qTc/+AuIwcXE6quFMYRNSrS4YcYmwlQNMb0ruRxEy81b
-         FvJ21qHTbrdUgHrBdf0FJFSHP/nk4vknaVOHX+zaaZ6MU4s88QP5IuldKI2lqhvJ0iS4
-         z7xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791060089; x=1791664889;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E6OYkIaqPnUxrvuUCIn54MgF/0vP3bL77kQ5vHowhhU=;
-        b=agESNsi4L4D3vyWgkzJ/ycccr466UuTEwyBhzkC8yztmC4AzZoF6kJc20m+KAQHUOY
-         +LsIhDNNSK1eEsxYqSCdl2SNfDUePkTlYVdCadRUFv7RLgpod4IcCItDss/SpTt6hWnJ
-         Ua1ZWuXyNP2zTFgN/NnZACPpkvYIDR30IOyFYtHiFsYXJxD6E70GPgOHkewg2J9XcTfI
-         D+2mXG9v01TC4kXCtTtBlm9ZS9LPXyhe3HHEgumEeFYI5ERibVS7G2ikNxXty44jU8vN
-         WvQ8L2AgJwaM475EFbygF7/EOHYy03EojRMrFId7/vgeRyGsdsaV6mqKksORuzadvy09
-         KeCA==
-X-Forwarded-Encrypted: i=1; AKwUvByjf015Fr9MZFXOIbNC5K8Lr7x9YHFyT1+hv03c7h3QXTQ31xZ4X4N/clfByIAQW4ltuIg4l+CSHPNooyw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGc/1jj7vPo5Mc5sek6nx0nkbvPVS38A4lPnlVVygrKGC1EJ72
-	F+DOruWTLuM+g7UobjXWuVULelUesAcqQr2Oza9FgPexKE28k/KRjHMm
-X-Gm-Gg: AYBFou3W4O3wTbnKkhFcAmPJJC2OxK0A6GXobzImmxIbVVLZ+LXsOoS7LHEhLmvgOmq
-	CdkrzO5+qnQpGYfWzPOlvD+MFjsPvn9kLhubeQQ+iD1dipda+5ipu9/0WMj1t4m1xNfOZsEBofX
-	RkvzFvp/IMK41Uzs6YTSjDlLS5wzkndA9UXmsYdDu6yzxGNxErGWN0L6RrP+WBDVsqppW7l/Eme
-	HUlprX3V4l37erhNJs5EOEHS6C57UrR1CDjuMBr4ToNveWqDC9qhdMUyht6OWPZfsqWaPL0UKUG
-	0+Dev5E6PtDNa+YUx3Wga8tmuXqltBYT7qeuhXAuOqt6gkhZBgBeNmw0y3en1J0+cyi46gdfVvU
-	UgxmF23fZwWWR43bUaAnxS7z2TfuxcHB6TxQS+qXClS5lDoWOHIFOIAHoyVfz/VHiMSjJvWJA6A
-	Jd/j8oS1VYVMO1Wt3f2BeikWDSTdMDCPwWSFYUfVJg4GldWabWiwUfvrDg8ArAsIzcQ3qGcrGN6
-	TE=
-X-Received: by 2002:a05:600c:6212:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-4a1680e9466mr44010265e9.10.1791060088970;
-        Sat, 03 Oct 2026 13:41:28 -0700 (PDT)
-Received: from Mac ([188.163.8.107])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm197124835e9.14.2026.10.03.13.41.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 03 Oct 2026 13:41:28 -0700 (PDT)
-From: Andrii Pasichnyk <apasichnik9@gmail.com>
-To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
-	netdev@vger.kernel.org,
-	wireguard@lists.zx2c4.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	netdev-bot+sinfo@kernel.org
-Subject: Re: [PATCH net] wireguard: peer: free packets left on the per-peer queues on removal
-Date: Sat,  3 Oct 2026 23:41:27 +0300
-Message-ID: <20261003204127.15139-1-apasichnik9@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179105878022.1402591.10615903497956533993@kernel.org>
-References: <20261003201625.4572-1-apasichnik9@gmail.com> <179105878022.1402591.10615903497956533993@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZEj4F1n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333BB1F0089B;
+	Sat,  3 Oct 2026 20:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791060329;
+	bh=X8iuOQXnVYYdSG0NuC0FpqYPqJ9aUVdctLVwjWuIw3s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OZEj4F1nQ7bdjYU+XZTkdEJ7/ssHip5lidQLNVWEi/QuA6awBDOVhvWhzQXm6yFj4
+	 eKotg0qzyzRTMIrQc4GaFLTN1IG6xzhob5Q7l6ys9J4THnxp1Rid4s3b+62yu3V7Zq
+	 5/kv8sJp35n9cpbZ5F9opovWevocGak0PMALOgcHIIOZ/zmullKw1j81ZRkbGHScO6
+	 c9oEPZeC/1yIBZ6Yv2C8ujWVbyvUIo99ndVuw+6hJjXEIKpmm/0hCgCO5X3bBNH63x
+	 jHELs+T79aqduVbESmXLEyYl7qMd5rPThx+TF0J5HF/PJQtqqUmyUQZVlPTgb9xi50
+	 lZCZLAfDvkq+g==
+Message-ID: <3ee91c92-4e3a-4bac-85cf-923f5d77ceff@kernel.org>
+Date: Sat, 3 Oct 2026 22:45:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+ <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
+ <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 3 Oct 2026 20:19:40 +0000 netdev-bot wrote:
-> - How the issue was discovered, e.g. hit in production, hit during
-> development, syzbot report, manual code inspection, LLM or static
-> analysis tool scan.
+On 03/10/2026 17:36, Michal Wilczynski wrote:
+> 
+> 
+> On 9/30/26 13:01, Krzysztof Kozlowski wrote:
+>> On 25/09/2026 23:05, Michal Wilczynski wrote:
+>>>>> +  clocks:
+>>>>> +    maxItems: 1
+>>>>> +    description: Reference oscillator.
+>>>>
+>>>> This barely counts as a resource, so usual question: no resources here?
+>>>> no MMIO? Even the user of this phy is the block itself.
+>>>>
+>>>> This makes me wonder if this should be a device node in the first place
+>>>> (instead folded into the parent).
+>>>
+>>> The PHY has no reg because the reg is shared with the controller and
+>>> owned by the parent - patch 9 lets the bridge take its regmap from
+>>> there.
+>>>
+>>> The user of the PHY is not only the block itself. It is the pixel clock
+>>> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
+>>> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
+>>> it is the only intended source for that clock. The parent has to be
+>>> assigned explicitly so the general PLL does not end up driving the pixel
+>>> clock, and so a DSI user does not reach the HDMI PHY clock generator.
+>>>
+>>> So it has to be its own node. The HDMI block has two independent
+>>
+>> I do not see the logic which lead to this conclusion. Pixel clock
+>> provider, so a clock controller, cannot be a user of a phy. Clock
+>> controller does not have a physical layer.
+> 
+> Sorry I think the wording was not perfect. I meant the PHY node is a
+> pixel clock provider. voutcrg consumes a clock not a PHY.
+> 
+> voutcrg: clock-controller@295c0000 {
+>          clocks = <&syscrg ...>, <&hdmi_phy>;
+>          clock-names = ...,"hdmitx0_pixelclk";
+> };
+> 
+> The consumer of the PHY is only the hdmi controller.
+> 
+> What matters for the node layout is where that clock goes. voutcrg is the
+> SoC display clock controller - it is not part of the HDMI block:
+> 
+> hdmi_phy -- pixel clock -> voutcrg
+>                               |
+>                               - pclk/mclk/bclk -> hdmi_controller
+>                               - pix0/pix1 -> dc8200
+> 
+> hdmi_phy and hdmi_controller are the same register block with one reg
+> owned by the parent. So if that block is described as a single node:
+> 
+> hdmi_node - pixel clock -> voutcrg
+>      ^                          |
+>      --- pclk/mclk/bclk --------
+> 
+> the node provides a clock to voutcrg and consumes three clocks from
+> voutcrg. That is a cycle in the device tree description.
 
-It was found by an LLM-assisted review of the peer removal path, while
-I was working on a WireGuard change for single-CPU systems; it was not
-hit in production. I then checked the mechanism by hand against
-__napi_poll() and the WireGuard history, and confirmed it with a stress
-test in the WireGuard selftest VM: remove a peer while a UDP flood keeps
-its receive queue busy, re-add it, repeat, then run the selftest's
-created/destroyed object check. Unpatched net-next leaked a peer and its
-keypair 5 times in 2140 removals; with the patch, 0 times in another
-2140.
+There is no cycle. Internal signals to the block are not represented in DT.
 
-Thanks,
-Andrii
+What you have is a driver problem and you create some sort of DT
+structure to solve that. DT purpose is NOT to solve your driver
+dependencies or circular connections.
+
+Best regards,
+Krzysztof
