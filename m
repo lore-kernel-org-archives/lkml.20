@@ -1,33 +1,42 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B131442B17;
-	Sat,  3 Oct 2026 15:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A4B2DECC2;
+	Sat,  3 Oct 2026 15:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791041420; cv=none; b=gE71rCgVq9AuPP1p797gC5v5a7GU9sW1nFurvNwHOJtK7TbP1x9ia4sopwPsLZiztARNFt6frEDj62n3t7HrQ2+3ShM4QGHqdvTpPJ/08iyhfoz0/BBYWQSgl3+Ag+azg8HG58lxRo0hUCqOmZMv9YO+xazD9LSXhY59Bl1Nezs=
+	t=1791041801; cv=none; b=AnqtaRX5KbOptvo+NIKLCJrCAJGx83dfr6r1hMA7i84+ud31YUdDl8A+bC/imdweQOcyX2Xcr1/BzTcyPB2FfRU6X5d2O6EbVsT7FjrITtJTNfPVTBBJ5PItSEM0978Mf4NPYNlJC6HNpiTfkQOO1M727+2iVZZb//AG9vZKMKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791041420; c=relaxed/simple;
-	bh=DqNzmiLqSRpWo/O9PN56Vgk4zOzq2vzIekil+azxtfs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Uy5Yxc/lwZ/pjCmubg+TUsyIp7deFUJgm+mZR8FulutT/3pHN1LLsoQZn3DPWpn4bFOWKbbIeESfMa5bmbgPo6f6+HDzRSW4weuTMbVJEokd64o3XQEWh5eqU6KEfsdF/PAbXZu/CDljophegGn+6HWMg7ozEl1Nhdre1TG2uoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VsluF5b6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791041801; c=relaxed/simple;
+	bh=R1SaWeYMMbeZGDSXBSN/rMNKOG6/CCkSASIw2cgwwEU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=dWL1H0u+2GtDah2FUF/scbMmzFYuWTU2h0tf65bm/DyvdxnusMKQ/JeDBKdnsRxuOOSYra4GdfbaRWAMQsVgCO6k/FQwsG9uejp91blp0PYfJW/ZU3/usMFNkHotTAhK8J96yVMpM+TWdkQ7buz8IKIIK9YkdniIo4GWrbJ9vW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=iyRdI8uv; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VsluF5b6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B511143D;
-	Sat,  3 Oct 2026 08:30:08 -0700 (PDT)
-Received: from [10.57.8.170] (unknown [10.57.8.170])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 78A283F86F;
-	Sat,  3 Oct 2026 08:30:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791041411; bh=DqNzmiLqSRpWo/O9PN56Vgk4zOzq2vzIekil+azxtfs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VsluF5b6kSrZ+AUV4dej8J3hVAA0bso9VTPuE066QFBnPImM3oadyvBD4Og9UtP29
-	 50yVKbbIbWEUm/fpCMSMFhuU/77J7B7JoUuvUqrzDggYJQOP30hz3/M2LO4o+uEVYK
-	 m0MI8bfOukYnTKVm+bkg7o+Z0KqJJtqTlD7KGh4M=
-Message-ID: <9873fb9d-6f32-46f6-bcac-6a52e293d011@arm.com>
-Date: Sat, 3 Oct 2026 16:30:04 +0100
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="iyRdI8uv"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261003153628euoutp012ff25533234c428be9ff26b1fae8bcaf~bDwR0T6ER1714317143euoutp01W;
+	Sat,  3 Oct 2026 15:36:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261003153628euoutp012ff25533234c428be9ff26b1fae8bcaf~bDwR0T6ER1714317143euoutp01W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791041788;
+	bh=cezTBuZnRU09BC5t/TXbbnr/2mOgRJXIrT1bA9nKYfk=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=iyRdI8uvT1VnyJT6tqgggenZI6nITXILkxQtf0XryX352UU+lQidWIGBUPATnmApl
+	 NqErh1NgfRSaacsdX3dVtsHcj+ObkGldlks/K3Pp/ACh4wuzlI3nw9I71uwYTuobcz
+	 MAqgn33qV3D/4uufZns8VtPAgjSZZJfnfsm8yK1Y=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261003153627eucas1p1f4cc5dc15e7a5dbebdfb26617afe1f56~bDwQpLxK00845508455eucas1p1j;
+	Sat,  3 Oct 2026 15:36:27 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261003153625eusmtip1ba5f07ce91f2ac9a6e0ffa2ce26ac1cb~bDwPATbZ22801128011eusmtip1E;
+	Sat,  3 Oct 2026 15:36:25 +0000 (GMT)
+Message-ID: <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+Date: Sat, 3 Oct 2026 17:36:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,99 +44,148 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 10/23] KVM: arm64: Add VM specific callback for S2 MMU
- operations
-Content-Language: en-GB
-To: Marc Zyngier <maz@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
- catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
- <20261001210703.1597150-11-suzuki.poulose@arm.com>
- <86ik3j2m5v.wl-maz@kernel.org>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <86ik3j2m5v.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
 Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261003153627eucas1p1f4cc5dc15e7a5dbebdfb26617afe1f56
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	<CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+	<20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+	<20260917-mutant-chamois-of-competence-46ca77@quoll>
+	<1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+	<6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
 
-On 03/10/2026 10:01, Marc Zyngier wrote:
-> On Thu, 01 Oct 2026 22:06:50 +0100,
-> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+
+
+On 9/30/26 13:01, Krzysztof Kozlowski wrote:
+> On 25/09/2026 23:05, Michal Wilczynski wrote:
+>>>> +  clocks:
+>>>> +    maxItems: 1
+>>>> +    description: Reference oscillator.
+>>>
+>>> This barely counts as a resource, so usual question: no resources here?
+>>> no MMIO? Even the user of this phy is the block itself.
+>>>
+>>> This makes me wonder if this should be a device node in the first place
+>>> (instead folded into the parent).
 >>
->> Add VM type specific S2 MMU operation backends which can be initialized per
->> VM flavor, to keep the handling cleaner.
+>> The PHY has no reg because the reg is shared with the controller and
+>> owned by the parent - patch 9 lets the bridge take its regmap from
+>> there.
 >>
->> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->> Tested-by: Gavin Shan <gshan@redhat.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->> Changes since v19:
->>   - Add a blank line in kvm_arch_flush_remote_tlbs()
-
-
->>   struct kvm_s2_mmu {
->>   	struct kvm_vmid vmid;
->>   
->> @@ -332,6 +345,8 @@ struct kvm_arch {
->>   	 */
->>   	u64 fgu[__NR_FGT_GROUP_IDS__];
->>   
->> +	const struct kvm_vm_s2_ops *vm_s2_ops;
->> +
+>> The user of the PHY is not only the block itself. It is the pixel clock
+>> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
+>> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
+>> it is the only intended source for that clock. The parent has to be
+>> assigned explicitly so the general PLL does not end up driving the pixel
+>> clock, and so a DSI user does not reach the HDMI PHY clock generator.
+>>
+>> So it has to be its own node. The HDMI block has two independent
 > 
-> If you're touching this patch, can you please move this pointer next
-> to the vcpu_ops pointer?
+> I do not see the logic which lead to this conclusion. Pixel clock
+> provider, so a clock controller, cannot be a user of a phy. Clock
+> controller does not have a physical layer.
 
-Sure, I will do that.
+Sorry I think the wording was not perfect. I meant the PHY node is a
+pixel clock provider. voutcrg consumes a clock not a PHY.
 
->> +
->> +static const struct kvm_vm_s2_ops protected_pkvm_vm_s2_ops = {
->> +	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
->> +	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
->> +	/*
->> +	 * Not supported for Protected VMs under pKVM
->> +	 * .vm_age_gfn
->> +	 * .vm_test_age_gfn
->> +	 * .vm_stage2_unmap_range
->> +	 */
+voutcrg: clock-controller@295c0000 {
+         clocks = <&syscrg ...>, <&hdmi_phy>;
+         clock-names = ...,"hdmitx0_pixelclk";
+};
+
+The consumer of the PHY is only the hdmi controller.
+
+What matters for the node layout is where that clock goes. voutcrg is the
+SoC display clock controller - it is not part of the HDMI block:
+
+hdmi_phy -- pixel clock -> voutcrg
+                              |
+                              - pclk/mclk/bclk -> hdmi_controller
+                              - pix0/pix1 -> dc8200
+
+hdmi_phy and hdmi_controller are the same register block with one reg
+owned by the parent. So if that block is described as a single node:
+
+hdmi_node - pixel clock -> voutcrg
+     ^                          |
+     --- pclk/mclk/bclk --------
+
+the node provides a clock to voutcrg and consumes three clocks from
+voutcrg. That is a cycle in the device tree description.
+
+Split in two there is no cycle: the PHY's only input is xin24m - the 24 MHz
+oscillator which gives a linear order - hdmi_phy, voutcrg, hdmi_controller.
+
 > 
-> I really think we should have *something* here that returns
-> "unsupported", and avoid NULL-checks in the dispatchers.
+> And really, I have no clue what hdmitx0_pixelclk and voutcrg are. I
+> could probably study the patches a lot to figure that out, but my review
+> queue has still 200 more, so I'll skip.
+> 
+> But nevertheless assigning clock parent of HDMI clock to PHY is
+> standard, most of the platforms have it, thus it is not a justification
+> for odd design.
 
-Ack
+Agreed and that is what this is - I followed RK3328, which uses the same
+Innosilicon IP and also describes it as two nodes:
+
+hdmi:    hdmi@ff3c0000   clocks = <&cru PCLK_HDMI>, ...
+hdmiphy: phy@ff430000    clocks = <&cru PCLK_HDMIPHY>, <&xin24m>,
+                                  <&cru DCLK_HDMIPHY>
+                         clock-output-names = "hdmi_phy";
+                         #clock-cells = <0>;
+                         #phy-cells = <0>;
+
+The only difference is reg: RK3328 has two register ranges, the JH7110 has
+one, so the parent owns it and the children have none.
 
 > 
->> +};
->> +
->> +static const struct kvm_vm_s2_ops pkvm_vm_s2_ops = {
->> +	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
->> +	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
->> +	.vm_age_gfn			= kvm_vm_age_gfn,
->> +	.vm_test_age_gfn		= kvm_vm_test_age_gfn,
->> +	.vm_stage2_unmap_range		= kvm_vm_stage2_unmap_range,
+>> functions with different clock inputs and one of them feeds back into
+>> the SoC clock tree. The PHY generates hdmitx0_pixelclk which voutcrg
+>> consumes the controller consumes pclk/mclk/bclk from voutcrg. Folded
+>> into one node that node is both a provider to and a consumer of
+>> voutcrg which is a cycle in the hardware description, not just in Linux.
 > 
-> and since we have this: can we get rid of the KVM_PGT_FN() hack?
-
-Ack, I will give it a go.
-
-
->> +#define KVM_VM_S2_OPS(flavor, ops)		\
->> +		[flavor] = ops
->> +static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
->> +	KVM_VM_S2_OPS(VM_VHE, &kvm_default_vm_s2_ops),
->> +	KVM_VM_S2_OPS(VM_NVHE, &kvm_default_vm_s2_ops),
->> +	KVM_VM_S2_OPS(VM_PKVM, &pkvm_vm_s2_ops),
->> +	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, &protected_pkvm_vm_s2_ops),
 > 
-> nit: move the '&' into the macro.
+> Best regards,
+> Krzysztof
+> 
 
-Ack.
-
-Suzuki
-
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
