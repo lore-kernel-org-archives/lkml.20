@@ -1,397 +1,190 @@
-Received: from cvsmtppost30.nm.naver.com (cvsmtppost30.nm.naver.com [114.111.35.113])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82B431E858
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC4B4137BF
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791024284; cv=none; b=eg4f+OybFrQsl9Hjoogd574YTIYQxgF53WcBRQ24UkXSbAs8ZajtPbBpMXR0KSaqro8lv1SmxXND46E6Er974VJCjSBzi8zbkEFVnO/QpnEIN4J8gJTdShk+/X5IrkMNoGPQ4s1STTqe6RQBtYvYUaTQCIYs0puOv/E+ehyz5jE=
+	t=1791024352; cv=none; b=BlRSD3Rgb9vk+SnqT8IgRo3Q7WfHXMtVWzJidG1m73Lmf/+hj/8XGuduJGbN3c8iodyb+e9fN73dbaS0BtYWvxNOa1PM0J8Q9utahJRvabDBKVYvSaZRhIUfJuG9iUzZiz3ntkh7ljcIPjMwgzm6oKpM52HTUoAEhgseqI0XRx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791024284; c=relaxed/simple;
-	bh=xeUVj+JguwyFpIm/e7gV9dOobYdgKn3rQ2yopGM28pw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UCw+0FjT4Sso4v5NzNTCw6FG7rQogE0H30Joah5WxTe70EsHFhmVyyIKi5jXDpBWDUdmLcpkkDnoM0FwQDIWqM78aAz4KQWLHKDFi+cf2RMZyKSdPMWcJsKwslG0wSvaurg39bEM5k7h1rqFe6DKAxFcYhTpAuRSLcMNf1MLcPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=OZ5yfCZ4; arc=none smtp.client-ip=114.111.35.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791024352; c=relaxed/simple;
+	bh=zN8NwfOwTEFS4HgV6P2aMwyRYwUoOzd9vCuBgwE1hmQ=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=fVERHSQXqwJubSfeENoRkpaRpbYySJMedvuwFzDEVfYe6T6393vwlXCTLN40BhZ06uSvEr/yDNIQwyRN6vIr6VhbVFOAVbdqvBwM4zim/t5FVjzoRwpM/1PCzwMMnBTgwOM1hpTgS0DrDal6eXtomI0dWhVLf/+OZREnLMQTj10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=YLqUkDSL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=yosQDK5z; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="OZ5yfCZ4"
-Received: from cvsendbo008.nm ([10.112.24.37])
-  by cvsmtppost30.nm.naver.com with ESMTP id 71BGdEYRQfW3eFAX99m+OA
-  for <linux-kernel@vger.kernel.org>;
-  Sat, 03 Oct 2026 10:34:33 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791023673; bh=xeUVj+JguwyFpIm/e7gV9dOobYdgKn3rQ2yopGM28pw=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=OZ5yfCZ4HFVrbdWG46WTj/mr5Lh3RA1+j7aWu4crsnBhbytZW4zFYJzmKjgcoTq+x
-	 nCmAYlZ+ikfiO110jcpsjdCW8lkahFBoCsaubMMtgGoM0xOhDGkaGHNJMT6dlg4tJ5
-	 puGGmcIgip1SGUPaCtVqEs5b8QSgDEYdR7HMfbfsyrBKR49xqWusP+BdltHXbpnqfx
-	 aKHV3I2wAovfeREi8yuE49TBQSFt2uKcxEb5cWmyj8F5QmhSYZktOlCCfPmPcuUXu1
-	 2maS+sN2IfNimBZ3MoMlaE4LRzmTXqxP4ZLL9RlrNCvZXkpyaRQJZ07QEuWWEdVBwK
-	 mK6GvpFvvYkTA==
-X-Session-ID: v66onAbzQBej-BFg7G2i+w
-X-Works-Send-Opt: O9RwpzGdjHmdKHFOMr39Ko3YKHmwKBmwFAbrFxKrKqEmjJkaBd9YKBmm
-X-Works-Smtp-Source: AZKlaxglFqJZ+HmZFqUw+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp007.nm.naver.com with ESMTP id v66onAbzQBej-BFg7G2i+w
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Sat, 03 Oct 2026 10:34:32 -0000
-From: tjdqudcks0424@naver.com
-To: Micah Morton <mortonm@chromium.org>,
-	Paul Moore <paul@paul-moore.com>,
-	linux-security-module@vger.kernel.org
-Cc: James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	Thomas Cedeno <thomascedeno@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: [PATCH 2/2] selftests/safesetid: test GID policy with mismatched real IDs
-Date: Sat,  3 Oct 2026 19:34:16 +0900
-Message-ID: <899af06e29dd599246082096e27edd51eda1fb27.1791023194.git.tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791023194.git.tjdqudcks0424@naver.com>
-References: <cover.1791023194.git.tjdqudcks0424@naver.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="YLqUkDSL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="yosQDK5z"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 89A53140009A
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:45:50 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Sat, 03 Oct 2026 06:45:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791024337;
+	 x=1791110737; bh=LbsAV9q1BJGs+RkHnrhLC9PjudY2w8K1olk814fYDss=; b=
+	YLqUkDSLnOO5W2+kr3uyDUJms2s0k1nxGPVMI587cpcNfbbJinuDNNKBZULzoO0k
+	VR43naVRki4CFgPaAWlo57/uuv0KbDiEohnV/ZcwfUwR0sNZMirQQDgdS1DhFxYO
+	v6DyvC99DtCCnCECQpVUujjesdTs15J5BUiSPxik6AmW9JpsEj6hXp3k2REeYf0h
+	Zai7P928NxVEiiXatDLohLMLCdbBgSQqQ0ryzyAGCM+AMHlTC+C+wpFG4bQC394j
+	4SHNYj0TefUA8SFu0EfiJYkbdjSVYFHBdlmTLem1M0yqdvSrpSO1qXm2oRKRonOR
+	nPrw/HpLL3NQ2SwfKMEGQQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791024337; x=
+	1791110737; bh=LbsAV9q1BJGs+RkHnrhLC9PjudY2w8K1olk814fYDss=; b=y
+	osQDK5zING56/JOqlIJng/59CIrDqlEUjX4E5aeGvmHoZcR0CQC5lnwLmQc3f2NW
+	Bh5aZilJtw+kppB/qC683hjzDcNmZrxyt00nplehAlHE58Icp4YqZTkd7eK9DbLz
+	DclJOLn6A1VDzCVB2Tf6sjbQfjFwlyVaaRhe1/xqphs2SKPqeKTerazVYGz97sEh
+	9JB1i0XrPp33wqyIfA8ZHsgoh5UfZJXbIft1j++dFtKhXpW13+1ngi0Uy6Gs/KE0
+	ZCO2pN0y2sDxii2JBv/NZQkmP1nwwsehkBhGGcuDob1xPCdBRBFFWSdbYr2YzOV6
+	Do+pLTuLtvp4oTxdRc1ew==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791024337; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:E9uNEk7fFQH2MtRlvOGcD5nXKnY6mlUFBqPDsaEVHQfkqQ1
+	pl5vvwUYaaupUC60oSHihylUHVwx/V3Avol7F/3Zons4xAtkGXwqwWo8XLdn1yXK
+	0rRG9wPmzIAetLUEr1Ik//7KnDx1H0ss9XwB+98O8RHJYP8yDth9V1x+/ghNEqQl
+	hXMMACZBOrLptY0j6JPj0XUDnnvi6MHQxKBvLgxuxPhWc6pvgXgInsnAhbdAoWOE
+	1z81TW3Lbg9XeYaCbyfhEM60llZ6hoCWGvevDBlSCfNz2XWA5GEiTSDUw7anUcix
+	AD4o3y4dtd0WzprhqM+Chp1kTgKqzpZ6omdVmpg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:j/98+heVyS4qQGyuupafB+vXRsAdPzNdRaTDbkxL6S0=:zN8NwfOwTEFS4HgV6P2aMwyRYwUoOzd9vCuBgwE1hmQ=;
+X-ME-Sender: <xms:yNzAav20WObJrSLISZBjIvttufyxI7bnGL10KJ_JWUGKW_LIHE-1Eg>
+    <xme:yNzAao4xK-H9_BLwiaqg6-0_45R0UmSND8EfeunishzlxayIIRm6BlAoS4h5G99tM
+    ZGf34psl_spsEbmAJBGbGdAawa4WGIXYktKBiyGfB0RJS5dJcZjI-5->
+X-ME-Proxy-Cause: dmFkZTEbg1jSKr1GfSmMC2AVkUcfFCIwA/48EoLzIZqsaRTiyliBq5GUXDoG8OlN3hWdR+
+    OEoCH1iWD3Q6XYpoN9n/8kZ9MPqWLGQ/udEmnZSbPkpNZh2+bu0kE5lQgc8rFMxqJsrqIR
+    gnlaHSqxSCzM3B5uSm2+4yJ26fS/OChfxe1+y2kn/yvPHuWFMeGzn7GPqgF688lRAEj8uJ
+    jIMXjAqn2DFn88jbkSGLfIAzF9I/9Yd73/Ns54OHAWmmelfD/6rDlG2nwLJWBekaldgcO9
+    59F0L2sSVceLXlQehYTRjBnUyER5PgS9zM1W3X9qKCQ3LtibKaf39+pv7TFSTWKPvbjPRA
+    jskfXeD4lBCzvwU12IUiMxxRL7xUuvoXjLytayh0P/q6Vgvvym+a/pAM9/YYU5ImasQxs5
+    RKoo1fIpbhwIqUc9nERpU9/218tv2aXj7QsdD7JV7iE1pgcbEtpqHgK54U90KeehazFHYN
+    MtxGIwg1SSu1eR8gYoc/jBOZXy3KOJX2lTDWuBM+3DPK6buGSidzxGDFOGuL0ZANPgK244
+    0s+cOyxFmJS8crMbyk3FZ0qmJ+Tq7cqIFej63zAgf5gwDI3YaHxNvFjLAMheDyduozNKtb
+    /iAQWSlkfDZB4yXU2nklwlVHw279+nx5FJrsV3j/NnxEgkk6/6OLFoeX/hpQ
+X-ME-Proxy: <xmx:zNzAaj-hnE1kKloc2GdI5cXKMNh49_ewuOBuO4HESOxIFSDq10WNLg>
+    <xmx:zNzAapXF7ojCayMW7GP0vGjlwIJvGHfnX7QQXdx1Rx0HotMyUxnD6g>
+    <xmx:zNzAakdm71pZpEMd-WXfK5EvQXu_s-HEu8ODynvx5d6O6fDWxX64vg>
+    <xmx:zNzAamU2ThcEE0shuuKm3lmiSGL7O8OK8ohY7MZap-XEWl8EoRFoDA>
+    <xmx:0dzAagZieGoLkWzHHGKjNvH3fbmD8fgX0zkJfeISpd65iWcq4O0wnSeJ>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 070D132A008A; Sat,  3 Oct 2026 06:45:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A-PcLBAcdglw
+Date: Sat, 03 Oct 2026 12:45:07 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "Russell King" <linux@armlinux.org.uk>, "Miguel Ojeda" <ojeda@kernel.org>
+Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ "Benno Lossin" <lossin@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Christian Schrefl" <chrisi.schrefl@gmail.com>,
+ "Bradley Morgan" <brads@mainlining.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ "Nathan Chancellor" <nathan@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>,
+ linux-arm-kernel@lists.infradead.org, rust-for-linux@vger.kernel.org,
+ llvm@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <33197b82-3eff-4c87-b370-c677ca31a02a@app.fastmail.com>
+In-Reply-To: <20261003093827.77857-3-kmehltretter@gmail.com>
+References: <20261003093827.77857-1-kmehltretter@gmail.com>
+ <20261003093827.77857-3-kmehltretter@gmail.com>
+Subject: Re: [PATCH 2/2] ARM: rust: Enable Rust support for ARMv5TE
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Sung Byeongchan <tjdqudcks0424@naver.com>
+On Sat, Oct 3, 2026, at 11:38, Karl Mehltretter wrote:
+> HAVE_RUST is currently selected for CPU_32v7 only. The
+> arm-unknown-linux-gnueabi target used for ARMv7 emits ARMv6
+> instructions (+v6), so it cannot be used for ARMv5. Use rustc's
+> built-in armv5te-unknown-linux-gnueabi target instead. It keeps the
+> Linux EABI (no short enums, unlike the -none-eabi targets) and is
+> soft-float and strict-align.
+>
+> Kernels that also contain ARMv4 or ARMv4T CPUs are built for the
+> lowest architecture and stay excluded. CPU_32v5 also covers the ARMv5T
+> ARM1020. C code is already built with -march=armv5te there, so Rust
+> matches.
 
-The existing test uses equal numeric UID and GID values, so it cannot
-distinguish which real ID SafeSetID uses as the source of a GID policy
-lookup.
+None of this makes sense to me: The target should not control
+the instruction set, that is what the -march= flag is needed for.
+Does that not get passed for Rust?
 
-Add isolated child-process cases with real UID 1000, real GID 2000 and a
-2000:2001 GID policy.  Verify that 2001 is allowed and 2002 is rejected
-for both setresgid() and setgroups().  Each child retains only CAP_SETGID
-in its permitted and effective sets, and pidfd polling bounds every case
-without timing the transition.
+If an ARMv7 kernel includes ARMv6 instructions, that is broken
+on ARMv8 CPUs that are lacking the CP15 barriers and swp style
+atomics, so that needs to be fixed.
 
-On an affected kernel, the forbidden transitions survive and make the
-test fail.  With the fix, SafeSetID terminates those children and the test
-passes.
+I don't see what part of rust would depend on ARMv5 instructions,
+it should just work on ARMv4T as well, though ARMv4 may be
+trickier because missing bx instructions etc.
 
-Assisted-by: OpenAI Codex
-Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
----
- MAINTAINERS                                   |   1 +
- tools/testing/selftests/safesetid/Makefile    |   4 +-
- .../safesetid/safesetid-gid-policy-test.c     | 252 ++++++++++++++++++
- .../safesetid/safesetid-gid-policy-test.sh    |  11 +
- 4 files changed, 266 insertions(+), 2 deletions(-)
- create mode 100644 tools/testing/selftests/safesetid/safesetid-gid-policy-test.c
- create mode 100755 tools/testing/selftests/safesetid/safesetid-gid-policy-test.sh
+> ==============================================
+> -``arm``        Maintained        ARMv7 Little Endian only.
+> +``arm``        Maintained        ARMv5TE and ARMv7, Little Endian only.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7235a92ff879b..68b355ad33e0f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24266,6 +24266,7 @@ M:	Micah Morton <mortonm@chromium.org>
- S:	Supported
- F:	Documentation/admin-guide/LSM/SafeSetID.rst
- F:	security/safesetid/
-+F:	tools/testing/selftests/safesetid/
- 
- SAMSUNG AUDIO (ASoC) DRIVERS
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
-diff --git a/tools/testing/selftests/safesetid/Makefile b/tools/testing/selftests/safesetid/Makefile
-index e815bbf2d0f4a..1a4a6630858c0 100644
---- a/tools/testing/selftests/safesetid/Makefile
-+++ b/tools/testing/selftests/safesetid/Makefile
-@@ -3,7 +3,7 @@
- CFLAGS = -Wall -O2
- LDLIBS = -lcap
- 
--TEST_PROGS := safesetid-test.sh
--TEST_GEN_FILES := safesetid-test
-+TEST_PROGS := safesetid-test.sh safesetid-gid-policy-test.sh
-+TEST_GEN_FILES := safesetid-test safesetid-gid-policy-test
- 
- include ../lib.mk
-diff --git a/tools/testing/selftests/safesetid/safesetid-gid-policy-test.c b/tools/testing/selftests/safesetid/safesetid-gid-policy-test.c
-new file mode 100644
-index 0000000000000..873d65627c494
---- /dev/null
-+++ b/tools/testing/selftests/safesetid/safesetid-gid-policy-test.c
-@@ -0,0 +1,252 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <grp.h>
-+#include <linux/capability.h>
-+#include <poll.h>
-+#include <signal.h>
-+#include <stdbool.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/capability.h>
-+#include <sys/prctl.h>
-+#include <sys/syscall.h>
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#define TEST_UID 1000
-+#define POLICY_GID 2000
-+#define ALLOWED_GID 2001
-+#define FORBIDDEN_GID 2002
-+
-+#define GID_POLICY_FILE \
-+	"/sys/kernel/security/safesetid/gid_allowlist_policy"
-+#define GID_POLICY "2000:2001\n"
-+
-+enum test_operation {
-+	OP_SETRESGID,
-+	OP_SETGROUPS,
-+};
-+
-+static int install_policy(void)
-+{
-+	FILE *policy;
-+	int ret = 0;
-+
-+	policy = fopen(GID_POLICY_FILE, "w");
-+	if (!policy) {
-+		perror("fopen gid policy");
-+		return -1;
-+	}
-+	if (fputs(GID_POLICY, policy) == EOF) {
-+		perror("write gid policy");
-+		ret = -1;
-+	}
-+	if (fclose(policy)) {
-+		perror("close gid policy");
-+		ret = -1;
-+	}
-+	return ret;
-+}
-+
-+static int retain_only_setgid(void)
-+{
-+	cap_value_t cap = CAP_SETGID;
-+	cap_t caps;
-+	int ret = -1;
-+
-+	caps = cap_get_proc();
-+	if (!caps) {
-+		perror("cap_get_proc");
-+		return -1;
-+	}
-+	if (cap_clear(caps) ||
-+	    cap_set_flag(caps, CAP_PERMITTED, 1, &cap, CAP_SET) ||
-+	    cap_set_flag(caps, CAP_EFFECTIVE, 1, &cap, CAP_SET) ||
-+	    cap_set_proc(caps)) {
-+		perror("retain CAP_SETGID");
-+		goto out;
-+	}
-+	ret = 0;
-+out:
-+	cap_free(caps);
-+	return ret;
-+}
-+
-+static int check_child_credentials(void)
-+{
-+	struct __user_cap_header_struct header = {
-+		.version = _LINUX_CAPABILITY_VERSION_3,
-+	};
-+	struct __user_cap_data_struct data[_LINUX_CAPABILITY_U32S_3] = {};
-+	uint64_t effective, permitted, inheritable;
-+	uid_t ruid, euid, suid;
-+	gid_t rgid, egid, sgid;
-+	gid_t groups[2];
-+	uint64_t expected = 1ULL << CAP_SETGID;
-+	int i, ngroups;
-+
-+	if (getresuid(&ruid, &euid, &suid) ||
-+	    getresgid(&rgid, &egid, &sgid)) {
-+		perror("getresuid/getresgid");
-+		return -1;
-+	}
-+	if (ruid != TEST_UID || euid != TEST_UID || suid != TEST_UID ||
-+	    rgid != POLICY_GID || egid != POLICY_GID || sgid != POLICY_GID) {
-+		fprintf(stderr, "unexpected child IDs\n");
-+		return -1;
-+	}
-+
-+	ngroups = getgroups(2, groups);
-+	if (ngroups != 1 || groups[0] != POLICY_GID) {
-+		fprintf(stderr, "unexpected initial supplementary groups\n");
-+		return -1;
-+	}
-+	if (syscall(SYS_capget, &header, data)) {
-+		perror("capget");
-+		return -1;
-+	}
-+	effective = data[0].effective | ((uint64_t)data[1].effective << 32);
-+	permitted = data[0].permitted | ((uint64_t)data[1].permitted << 32);
-+	inheritable = data[0].inheritable | ((uint64_t)data[1].inheritable << 32);
-+	if (effective != expected || permitted != expected || inheritable) {
-+		fprintf(stderr, "child does not hold only CAP_SETGID\n");
-+		return -1;
-+	}
-+	for (i = 0; i <= CAP_LAST_CAP; i++) {
-+		if (prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_IS_SET, i, 0, 0) != 0) {
-+			fprintf(stderr, "unexpected ambient capability %d\n", i);
-+			return -1;
-+		}
-+	}
-+	return 0;
-+}
-+
-+static int prepare_child(void)
-+{
-+	gid_t groups[] = { POLICY_GID };
-+
-+	if (setgroups(1, groups)) {
-+		perror("initial setgroups");
-+		return -1;
-+	}
-+	if (setresgid(POLICY_GID, POLICY_GID, POLICY_GID)) {
-+		perror("setresgid policy source");
-+		return -1;
-+	}
-+	if (prctl(PR_SET_KEEPCAPS, 1L)) {
-+		perror("PR_SET_KEEPCAPS");
-+		return -1;
-+	}
-+	if (setresuid(TEST_UID, TEST_UID, TEST_UID)) {
-+		perror("setresuid test user");
-+		return -1;
-+	}
-+	if (retain_only_setgid())
-+		return -1;
-+	return check_child_credentials();
-+}
-+
-+static void run_child(enum test_operation operation, gid_t target)
-+{
-+	gid_t groups[] = { target };
-+	int ret;
-+
-+	if (prepare_child())
-+		_exit(2);
-+
-+	if (operation == OP_SETRESGID)
-+		ret = setresgid(target, target, target);
-+	else
-+		ret = setgroups(1, groups);
-+
-+	if (ret) {
-+		fprintf(stderr, "%s(%u) returned %s\n",
-+			operation == OP_SETRESGID ? "setresgid" : "setgroups",
-+			target, strerror(errno));
-+		_exit(3);
-+	}
-+	_exit(0);
-+}
-+
-+static int run_case(const char *name, enum test_operation operation,
-+		    gid_t target, bool expect_kill)
-+{
-+	struct pollfd pollfd = {};
-+	int status;
-+	int pidfd;
-+	pid_t child;
-+
-+	child = fork();
-+	if (child < 0) {
-+		perror("fork");
-+		return -1;
-+	}
-+	if (!child)
-+		run_child(operation, target);
-+
-+	pidfd = syscall(SYS_pidfd_open, child, 0);
-+	if (pidfd < 0) {
-+		perror("pidfd_open");
-+		kill(child, SIGKILL);
-+		waitpid(child, &status, 0);
-+		return -1;
-+	}
-+	pollfd.fd = pidfd;
-+	pollfd.events = POLLIN;
-+	if (poll(&pollfd, 1, 5000) != 1) {
-+		kill(child, SIGKILL);
-+		waitpid(child, &status, 0);
-+		close(pidfd);
-+		fprintf(stderr, "not ok - %s (timeout)\n", name);
-+		return -1;
-+	}
-+	close(pidfd);
-+	if (waitpid(child, &status, 0) < 0) {
-+		perror("waitpid");
-+		return -1;
-+	}
-+
-+	if (expect_kill) {
-+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGKILL) {
-+			printf("ok - %s\n", name);
-+			return 0;
-+		}
-+		fprintf(stderr, "not ok - %s (forbidden transition survived)\n",
-+			name);
-+		return -1;
-+	}
-+
-+	if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
-+		printf("ok - %s\n", name);
-+		return 0;
-+	}
-+	fprintf(stderr, "not ok - %s (allowed transition failed)\n", name);
-+	return -1;
-+}
-+
-+int main(void)
-+{
-+	int failures = 0;
-+
-+	if (getuid()) {
-+		fprintf(stderr, "must be run as root\n");
-+		return 4;
-+	}
-+	if (install_policy())
-+		return 1;
-+
-+	failures += run_case("allowed GID transition", OP_SETRESGID,
-+			     ALLOWED_GID, false) != 0;
-+	failures += run_case("forbidden GID transition", OP_SETRESGID,
-+			     FORBIDDEN_GID, true) != 0;
-+	failures += run_case("allowed supplementary group", OP_SETGROUPS,
-+			     ALLOWED_GID, false) != 0;
-+	failures += run_case("forbidden supplementary group", OP_SETGROUPS,
-+			     FORBIDDEN_GID, true) != 0;
-+
-+	return failures ? 1 : 0;
-+}
-diff --git a/tools/testing/selftests/safesetid/safesetid-gid-policy-test.sh b/tools/testing/selftests/safesetid/safesetid-gid-policy-test.sh
-new file mode 100755
-index 0000000000000..7318ad3403121
---- /dev/null
-+++ b/tools/testing/selftests/safesetid/safesetid-gid-policy-test.sh
-@@ -0,0 +1,11 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+
-+ksft_skip=4
-+
-+if [ "$(id -u)" -ne 0 ]; then
-+	echo "safesetid-gid-policy-test: must be run as root" >&2
-+	exit "$ksft_skip"
-+fi
-+
-+exec ./safesetid-gid-policy-test
--- 
-2.43.0
+Here you exclude ARMv6K and ARMv8-A-aarch32...
 
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index ffbc7f386131..f6b14d9f0e1f 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -138,7 +138,7 @@ config ARM
+>  	select MMU_GATHER_RCU_TABLE_FREE if SMP && ARM_LPAE
+>  	select HAVE_REGS_AND_STACK_ACCESS_API
+>  	select HAVE_RSEQ
+> -	select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
+> +	select HAVE_RUST if CPU_LITTLE_ENDIAN && (CPU_32v7 || (CPU_32v5 && 
+> !CPU_32v4T && !CPU_32v4)) && !KASAN
+
+but here you allow it, so I think one of them should change,
+and you need to better explain what the dependency on !CPU_32v4T
+is about, and what happens for an ARMv6K-only kernel, compared
+to a combined ARMv6K+ARMv7-A one.
+
+>  KBUILD_AFLAGS	+=$(CFLAGS_ABI) $(AFLAGS_ISA) -Wa,$(arch-y) $(tune-y) 
+> -include $(srctree)/arch/arm/include/asm/unified.h -msoft-float
+> +ifdef CONFIG_CPU_32v5
+> +KBUILD_RUSTFLAGS += --target=armv5te-unknown-linux-gnueabi
+> +else
+>  KBUILD_RUSTFLAGS += --target=arm-unknown-linux-gnueabi
+> +endif
+
+This looks wrong, the choice between armv5 and armv7 should work
+the same way as the choice between armv6 and armv7/v8, if I read
+the rustc docs correctly, this should be using the target-cpu=
+argument on the generic arm-unknown-linux-gnueabi target.
+
+      Arnd
