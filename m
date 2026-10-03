@@ -1,246 +1,152 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9683E223DFF
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFBC2BFC85
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791058568; cv=none; b=h+yrcJ6oJnK5s4OErBQIyEh9hVmqu0ENAAEcMFVPKHsrdWUIWE0MGNccOCRKxH8G5AKfE5yerCzYBA2+EpW7WRxnxgVQIHznfHB/4CK8A7Rzu3YPptfkdFb6bwzfp1Bt8OBpvfiTQuzKNsgtUgLljEs7vJAh6RLZojIJkon4T/Y=
+	t=1791058595; cv=none; b=lzoW7eZlSLoGRSsS1kLZ2gWHbU6NqgkIqu1XXo6xzlLcimlPCzhHe6gaba6DnvPvTe+dZPUgZrsvfBGw+8pwb7L/8mrjXsR50vLb+7dYXSVozzeYUs4POf86iwgx+FsOkCFswNlY/yvmgFyNGL1dbAVU2LDxqec4SDtIqF/z0fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791058568; c=relaxed/simple;
-	bh=zARzY+mbFkmmVJGEXnywWuZe7acGYOvz22lzyFcBH68=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=aE8+zTzUy4O2yzmUz2vpr9QrR9I9u+FT33c8cLOl2l0r2AAmnoweznMPa4ZxCqiwtvoJL3PnEGZInjy+gz8C/nKfSAQBjWpCCasXu3b+qciO0n+/jgN5A3+mWR0dTPXoUP+TnOqHel+UuBEdHiTPocBMzCwTYdymtH9sw6P1TnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l8bLtjIW; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1791058595; c=relaxed/simple;
+	bh=SyKBO76ev2NriW6LktGJTb69Uo9mhcn47+zY2SXVJ5k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RKRtLHql5Pfy3SkVIS+DhtXSA3RpD9YfQKoGKKvnjQlZEhldrJrxskyXO+RFeFE+Wx6NsAH+4P8C0hZaiMClek3mcLi6s0Sjlh8Z4KqcjXAP+4R7XOn21ewOR448ySFBJ3kR/NJC6vZAzfjsYKAHBK63uIczkwCwlQAOEFAnxtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gr3qjM2S; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l8bLtjIW"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so549991eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:16:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gr3qjM2S"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a16629a040so9234465e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:16:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791058566; x=1791663366; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4GI2M8fx0qQ8NKt5KTWS/sQmhJi4Cfn2gB3eMUOApzA=;
-        b=l8bLtjIWyawWJLp4Zfi9Frazf4UL7NgQfvlQXw9Nox0cw9DngVbjpOVZKAxn8jRcpn
-         i7/azNCdXjMc1o85j32jT1NRuv8GWujDGe24XWMGe1SXLDaG0dWaNZp1FizqTNKQQ/mv
-         l/tiQteeosZjteBqM2TieopQVxVZU37Q6H4F3ZYp9YSN40QUglljziSjo6TGa4np374h
-         zJCfxFu3t/Yqs/c6EltlT1+H4BmHR3HRqZjRy52EknaIcQVaOK6ktjk0FgLarYq3s7F1
-         U5goNIVljeAXH/a1U5N7l7FisqZKu7H4XihR1yXktpG+zgKe3FRxS39RwKVozydodXTZ
-         SIvg==
+        d=gmail.com; s=20251104; t=1791058593; x=1791663393; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xSJHmcS6fdALBnPJ5e4ZZCDQp3UfYu5aUPElGXfZW+Q=;
+        b=gr3qjM2SOXIDXZ4oyvPCqdDXnS8Q8BPOE8b6TG+GYQLwCmc+wWac51qM1JTRvgJQ/m
+         s8qdQAe8oZxD5NsPCq7TUxSt5wKxZ+nx5VMyA8Z2aBKboSnup2FOxdFnzVfIlAzd3Tnf
+         JaDv9u63AlarcYCQ7JZLp6e74T1d+nj+5ZBeacTXfDzMhrZ5yaoj6HDJPCl30Y6+1bha
+         tEf3/6tKZvEKgArhWqJ2SqSfsb3yYMiak5MFJvclKK2DrlTwZvzsP0aoBZMN0bZLGjAG
+         uykj6B8nWrfdMykWIFgdB2IGpMagMTrd9dVFemn/KxKp5l8tFjKbPLZWDWvIavPpyoc4
+         NXtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791058566; x=1791663366;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4GI2M8fx0qQ8NKt5KTWS/sQmhJi4Cfn2gB3eMUOApzA=;
-        b=V0+PeBEY6uFGsQXInrWpcz72SMbb6C57rKBhosq6ovnn85Wu1YtCviJWXjwGesneFp
-         kZP/4HZafLLASY20rkoKg9oB78TsLhVFi0qApkNyUHeV/V5818zhoSTwI5hqLOTa95Gb
-         muveTyIgMU/Z892AW4txVdS8Idn43EH21+I1CoTDzqmBiY9DmaG7h8ky3lpo9pGHEaZL
-         tjqMqeNycBgxBYq0tLaPD4S4Azd7nFrVydY34yjdSsTBBG1+N0gftCysPyj32NuToSp8
-         8ShZLBnZ2enTWlMuyF6AC2MiKPPhkheODXjX3bfW8SSrrTJ8MxwhVk/c4+InzF3q+u49
-         vEbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxto1mxHDBDfi8gsSD8cUV7dKctkrHpEMc0gKXem3spI1wEp4EkzMOOoePi5Qbj1f+qtZncP7NJX9fFQso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvc5Lm56ExEI345NL7bj4TKFeoMeqLz07dVrsDLTBiW/yEJSsk
-	YeH9Mp3p/N+zUKTTk6jdhSTNJRr+c5+kEZB+eVU+njr8h81Zg47BUiJ+
-X-Gm-Gg: AYBFou1N43YgJoHpWRWLz73dkzbCEjRUu1e6q+7ebPiP3z48RK0Nd1nZNmK/4Y3jkcn
-	k3NzVb/NsFpJC3m11kTGENMi0IHCYNBumD+PO+DiMXBVvFGyuYZqOtqlhUfqZ1F7oWtphy8FJvE
-	UFboFCQa1DFM8xx2j9SEicuToIaZhVJqsEf+TM4no+1i2jkxt6ST9MSAFHoBO5CLS2IYaqHjAq9
-	m8sQsJ8W3Lsf4WrRhhGdH6K5nBVCUlZO08bQcK82N2DGYUMNLy5kiO9pisxFCao7IjUmS9wmZv6
-	t+Ry2T+KvCfCSCwcFklnqEIqsZourpYzzjrpv8gZCVuGVao5/d0i43x0Ut4Ep0FrmoxbJnQIc9h
-	NNKaaGoGUJ+e4XSm+vlBKYySewzXcBUR1VQIFC9OIh97MAl3qnUpeXrVjTUg7V2nBu7pB7IvSNg
-	F17/zxxRsP72q111MNjbO2xctOhVIy6egeuPABHTgCT38a/G0bpNElq9BSG6UxIwLdYL+wkSJa
-X-Received: by 2002:a05:693c:20cb:10b0:342:39f5:f9c5 with SMTP id 5a478bee46e88-34f150c0d72mr7165866eec.18.1791058565480;
-        Sat, 03 Oct 2026 13:16:05 -0700 (PDT)
-Received: from [127.0.1.1] ([2602:ffe4:407:363:fd57:5fed:bd71:7a74])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34f14f660f1sm17968682eec.13.2026.10.03.13.16.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 13:16:05 -0700 (PDT)
-From: vineash <vineash30640@gmail.com>
-To:
- peterz@infradead.org, mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
-Cc: kan.liang@linux.intel.com, mark.rutland@arm.com,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
- adrian.hunter@intel.com, james.clark@linaro.org,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- [PATCH] perf/core: Fix double put of the system-wide perf_ctx_data reference
-Date: Sun, 04 Oct 2026 04:15:26 +0800
-Message-ID: <179105852659.1844849.16381123619267169417@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1791058593; x=1791663393;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xSJHmcS6fdALBnPJ5e4ZZCDQp3UfYu5aUPElGXfZW+Q=;
+        b=JAydWq6ZC6nrykxsDXZZf8PHmG3z+LEKBSTJ3gvap55Qbp66TB5OG4YCsf3xEiXQ8Q
+         v0RUWYXPob5Q/qWeA/V2H2ZSmupCDvTeOweiAI3uQHOixxQB1TXSp0QbB/TurPExQPlA
+         8Rqln4Oy1qZh+N20tCHjDs8dcBaaGXtmPZNBXojVtoeuJRYrl5XZ7YcV8z4RiO0E1onc
+         qt9i/LOj+1onmPXqvlHP/gocgahm098rU3TPIEtFvP8sIaG3ZdWH/soStei455BPgEYe
+         VT0Z81QI7G10OOE8FSeMM1olZmqvUTVoXlNtD0GI9xE9B/pGcCOIFjldJN4j2c6IeVB8
+         3lOw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHwFWpVn2rfAC2EM4itps7bew/dT9onIlcPolxHXw4ag9WAke2XArLnbMh3juaPzjhXagBMKnUgu5kbG0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKGmRXvIISe8yvQGWRh7a6+UqN4p4viwj2qvxRhV04mLyH1wLN
+	JnieunEfKyLxPNVm4FcdU2g9Q+8oaunt5jawkd9EoYhgnPGyFVeEhYrijFUrs1RCc7I=
+X-Gm-Gg: AYBFou05z5lDlcmhJCLpKzLx2sOIReyJmwb4PodLPwpGKEP6HbUMbK8dpuqmKhwYmbO
+	HlJD2bG/oc5/gDAvNTNGCWNK+Od/sS4sDbeqzXJ1oArX2MvmRV8Vv97hzOXdcmKxgPM5NeX5ZaF
+	i16WjOaARPy7JQzILmnlVQfllMJm/Vsy7MlADvyiGiHVlW71LaYkf4cmIkYbUtL8ZnGlWEy4ZJJ
+	gy8T6lDsJ12At9CYwI5W50kawIeL7EVUmT2Izqt2lETWxxBg1kDgL1I8UCSPl2dT1ExMAxiZjM2
+	68HbpBxq2hHxS0+AMMXh97lsNy3/O7nihDX9c5dpY+cHIqJJIK8LRqJ81Aa1TIYt9sBvMdmq2CC
+	YfTtlz95aorUAPa5ineyE/xjSZs8zFPCDLRNxomWfwPs7u0kkE5cJ81rSR1wKE8Ji7DyQ1/GCL1
+	zfjTW02XN/XhUM9gbIkmoVcdptDjVFqcsQlO9jZkfU6WBWaeak4kriAAOnetEPYPNOCS7wdCcRj
+	/0=
+X-Received: by 2002:a05:600c:c1d7:10b0:4a0:4f6:3dc5 with SMTP id 5b1f17b1804b1-4a1680dd4f4mr34160075e9.7.1791058592594;
+        Sat, 03 Oct 2026 13:16:32 -0700 (PDT)
+Received: from Mac ([188.163.8.107])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16d6295f9sm51579145e9.14.2026.10.03.13.16.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 03 Oct 2026 13:16:32 -0700 (PDT)
+From: Andrii Pasichnyk <apasichnik9@gmail.com>
+To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
+	netdev@vger.kernel.org,
+	wireguard@lists.zx2c4.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Andrii Pasichnyk <apasichnik9@gmail.com>
+Subject: [PATCH net] wireguard: peer: free packets left on the per-peer queues on removal
+Date: Sat,  3 Oct 2026 23:16:25 +0300
+Message-ID: <20261003201625.4572-1-apasichnik9@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The reference on a task's perf_ctx_data that belongs to the system-wide
-events (cd->global) can be put twice. __detach_global_ctx_data() puts it
-when the last system-wide event goes away, and perf_event_exit_task()
-puts it again when the task exits. perf_event_exit_task() runs without
-global_ctx_data_rwsem and never clears cd->global, so nothing stops both
-paths from putting the same reference:
+peer_remove_after_dead() flushes the crypt workqueue and then disables
+the peer's NAPI. Once a disable is pending, __napi_poll() completes the
+instance after the poll returns even if it used its whole budget, so a
+peer removed while more than one budget of decrypted packets waits on
+rx_queue keeps the rest there. Each entry holds a keypair and a peer
+reference, so the peer is never released; the WARN_ON in rcu_release()
+that checks for leftovers is never reached either.
 
-  CPU0                               CPU1 (task T exiting)
-  __detach_global_ctx_data()
-    cd->global = 0;
-    detach_task_ctx_data(T)
-      refcount_dec_and_test() == true
-                                     perf_event_exit_task(T)
-                                       detach_task_ctx_data(T)
-                                         cd = T->perf_ctx_data;
-                                         // still set: underflow
-                                         refcount_dec_and_test()
-      try_cmpxchg(&T->perf_ctx_data,
-                  &cd, NULL)
+Free whatever is left on both per-peer queues once nothing can feed them
+any more: receive entries are single packets, transmit entries lists.
 
-This shows up as:
+Reproduced with the WireGuard selftest VM (x86 KVM, 1 vCPU, net-next):
+remove a peer while a UDP flood keeps its receive queue busy, re-add it,
+repeat, then run the selftest's created/destroyed object check. Over
+2140 removals the unpatched kernel leaked a peer and its keypair 5
+times ("wg0: Peer 27: merely created"); with this patch, 0 times in
+another 2140.
 
-  refcount_t: underflow; use-after-free.
-  WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xc9/0x120
-   detach_task_ctx_data+0x1db/0x4a0
-   do_exit+0x6a9/0x2bb0
-   do_group_exit+0xd3/0x2a0
-   get_signal+0x266a/0x26d0
-
-When the exit path puts first, the warning comes from
-__detach_global_ctx_data(), via perf_release() or via the error path of
-perf_event_open().
-
-An unprivileged user can open this window with the default
-perf_event_paranoid=2. For a CPU-wide event that requests a branch call
-stack, perf_event_alloc() calls attach_perf_ctx_data() before
-find_get_context() rejects the event with -EACCES, and the error path
-then runs detach_global_ctx_data().
-
-Treat the global reference as a one-shot token. Claim cd->global with
-xchg() in both __detach_global_ctx_data() and perf_event_exit_task(), and
-put the reference only if the claim succeeded. Also take the reference
-before setting cd->global in attach_global_ctx_data() and
-perf_event_alloc_task_data(). Otherwise the exit path could put a
-reference that has not been taken yet.
-
-perf_event_exit_task() no longer puts the reference of a non-global
-perf_ctx_data. That reference belongs to the per-task events, and they
-put it when they are freed.
-
-Fixes: 506e64e710ff ("perf: attach/detach PMU specific data")
-Assisted-by: Claude:claude-opus-5-5 syzkaller
-Signed-off-by: vineash <vineash30640@gmail.com>
+Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
+Assisted-by: LLM
+Signed-off-by: Andrii Pasichnyk <apasichnik9@gmail.com>
 ---
-Notes (not for the commit log):
+ drivers/net/wireguard/peer.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Found with syzkaller in a QEMU/KVM guest with "-cpu host" (Intel Xeon Gold
-5118 host). The guest has a vPMU but no LBR. The trigger works without LBR:
-for a counting event with PERF_SAMPLE_READ, intel_pmu_hw_config() skips the
-LBR setup, but x86_pmu_hw_config() has already set PERF_ATTACH_TASK_DATA
-because of PERF_SAMPLE_BRANCH_CALL_STACK.
-
-Tested on next-20261002 (x86_64, syzbot's upstream-apparmor-kasan config):
-- without this patch: the syzkaller reproducer (root) hit the underflow
-  in 2 of 2 runs (after 103 s and 288 s). A small reproducer running as
-  uid 65534 with perf_event_paranoid=2 hit it in 2 of 3 runs (after 333 s
-  and 376 s). The third run lasted 900 s and made ~2M perf_event_open()
-  calls without a hit.
-- with a debug patch that records the last decrement, the second put came
-  from do_exit() 0.49 ms after __detach_global_ctx_data() on another
-  task had put the same reference (old refcount 1).
-- with this patch: no warning in 7 runs per reproducer (3 x 15 min and
-  4 x 20 min). The unprivileged runs made 0.84-0.93M rejected
-  perf_event_open() calls each, ~6.2M in total.
-- not tested: hardware with real LBR call stacks, and kmemleak.
-
-Unrelated to the fix, but this is what opens the window for unprivileged
-users: attach_global_ctx_data() takes global_ctx_data_rwsem for write and
-allocates perf_ctx_data for every thread in the system before the
-perf_allow_cpu() check in find_get_context() rejects the event. It may be
-worth doing that check before perf_event_alloc() for CPU-wide events.
-
-A C reproducer is available on request.
-
- kernel/events/core.c | 39 +++++++++++++++++++++++++++------------
- 1 file changed, 27 insertions(+), 12 deletions(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a34ff4cb4..63122c3b8 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -5498,8 +5498,9 @@ attach_global_ctx_data(struct kmem_cache *ctx_cache)
- 				continue;
- 			cd = rcu_dereference(p->perf_ctx_data);
- 			if (cd && !cd->global) {
--				cd->global = 1;
--				if (!refcount_inc_not_zero(&cd->refcount))
-+				if (refcount_inc_not_zero(&cd->refcount))
-+					cd->global = 1;
-+				else
- 					cd = NULL;
- 			}
- 			if (!cd) {
-@@ -5569,19 +5570,33 @@ detach_task_ctx_data(struct task_struct *p)
- 		perf_free_ctx_data_rcu(cd);
+diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
+index 1cb502a..3e08898 100644
+--- a/drivers/net/wireguard/peer.c
++++ b/drivers/net/wireguard/peer.c
+@@ -91,6 +91,25 @@ static void peer_make_dead(struct wg_peer *peer)
+ 	/* The caller must now synchronize_net() for this to take effect. */
  }
  
-+/*
-+ * Drop the reference owned by the system-wide events, if @p still holds one.
-+ *
-+ * Both __detach_global_ctx_data() and perf_event_exit_task() may try to drop
-+ * it concurrently; claiming ->global with xchg() makes sure only one of them
-+ * does, otherwise the refcount is decremented twice.
++/* Each queue entry holds a keypair and a peer reference. Transmit entries
++ * are lists of packets, receive entries single packets.
 + */
-+static void detach_task_global_ctx_data(struct task_struct *p)
++static void peer_purge_queue(struct wg_peer *peer, struct prev_queue *queue,
++			     bool lists)
 +{
-+	struct perf_ctx_data *cd;
++	struct sk_buff *first;
 +
-+	scoped_guard (rcu) {
-+		cd = rcu_dereference(p->perf_ctx_data);
-+		if (!cd || !xchg(&cd->global, 0))
-+			return;
++	while ((first = wg_prev_queue_peek(queue)) != NULL) {
++		wg_prev_queue_drop_peeked(queue);
++		wg_noise_keypair_put(PACKET_CB(first)->keypair, false);
++		wg_peer_put(peer);
++		if (lists)
++			kfree_skb_list(first);
++		else
++			dev_kfree_skb(first);
 +	}
-+
-+	detach_task_ctx_data(p);
 +}
 +
- static void __detach_global_ctx_data(void)
+ static void peer_remove_after_dead(struct wg_peer *peer)
  {
- 	struct task_struct *g, *p;
--	struct perf_ctx_data *cd;
- 
- 	scoped_guard (rcu) {
--		for_each_process_thread(g, p) {
--			cd = rcu_dereference(p->perf_ctx_data);
--			if (cd && cd->global) {
--				cd->global = 0;
--				detach_task_ctx_data(p);
--			}
--		}
-+		for_each_process_thread(g, p)
-+			detach_task_global_ctx_data(p);
- 	}
- }
- 
-@@ -9459,8 +9474,8 @@ perf_event_alloc_task_data(struct task_struct *child,
- 		}
- 
- 		if (!cd->global) {
--			cd->global = 1;
- 			refcount_inc(&cd->refcount);
-+			cd->global = 1;
- 		}
- 	}
- 
-@@ -14901,7 +14916,7 @@ void perf_event_exit_task(struct task_struct *task)
- 	 * attach_global_ctx_data() will skip over this task, but otherwise
- 	 * attach_task_ctx_data() will observe PF_EXITING.
+ 	WARN_ON(!peer->is_dead);
+@@ -122,6 +141,11 @@ static void peer_remove_after_dead(struct wg_peer *peer)
+ 	 * here from process context.
  	 */
--	detach_task_ctx_data(task);
-+	detach_task_global_ctx_data(task);
- }
+ 	netif_napi_del(&peer->napi);
++	/* A NAPI being disabled completes after at most one more poll, which
++	 * may leave packets on rx_queue that still hold references.
++	 */
++	peer_purge_queue(peer, &peer->rx_queue, false);
++	peer_purge_queue(peer, &peer->tx_queue, true);
  
- /*
+ 	/* Ensure any workstructs we own (like transmit_handshake_work or
+ 	 * clear_peer_work) no longer are in use.
 -- 
-2.25.1
+2.53.0
 
