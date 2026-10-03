@@ -1,260 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AAB41B8CD
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 11:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C91023909F
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 11:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791027541; cv=none; b=eyP0A5N+DWQ9XZcOX3EllT51zvh93sonFXuWEnWR60WLKlf3VqIrcXdjpua4iyIsM8G0xMgKbk1ZvuKjNnl7f15UgxO31ajz45657HNHRD/feDNjmYAA7kpQusp6hVL5ein2Z09/LAkhwrbb9pgocKMN4gCfqy8WuNqsjfce+xo=
+	t=1791027862; cv=none; b=RNmUFvgte7snYLKj4rUAzZlVzhS2kjRM3ZKNWVYonVkheyLO5Z1tHWn7T9bgN4Fr8grCoM+WaTaaYbE2aPOMGuvZFP23MFNWz/ug1RgPkosibpOhebevJwBNfjPV1VtSw0qNX+exEEielwigQ17/QFpM76M/4pPR5zuABBNfZQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791027541; c=relaxed/simple;
-	bh=vWssrW3PmtTNushxXe/++u+6ApljzBnqzeveYNuloUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=iyhh5Se4Gg2X6sl+T5oyShQPnCmFi5SQBsES8WRDTkC8c3n8xZ4W+xx0V77vlmY9Yl+i1FnhmwOMxZKGYZbVcI4seYQor7gzImbXCJ0kNSO5kFoK08b3D9WpwAWC9Ra8C+XXdsbnJDcYLPNCp5TT5f2wmnZUhA0SSeNQML5/IFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O4Ct2NMD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791027862; c=relaxed/simple;
+	bh=SPJgS5kgGCdrjB21D2xL695GmuQTeeXXhSII78zybpk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hKnKLbMmNv6sjLUMf5mXC/P3iODmZWjX1OoO5sWQMS5dMG+LzAX4zIZ2ox6s9aZl+/dHPmmjQKpMLrqPMDy0+PmppciIchXjI9CHS+BU0Bj6NL3++Lna8USAIXct7gYg9iGBxJ0jzCA2hq59huSFGLHPBong3hlPYGrHFslMRlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AqdLBV7m; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O4Ct2NMD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688D41F0089B;
-	Sat,  3 Oct 2026 11:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791027539;
-	bh=4OnqpOYKzoZAgj5sdp3fqry1nbLm3FaSO/SUAOcLwBg=;
-	h=Date:From:To:Cc:Subject;
-	b=O4Ct2NMDN+oj1WZKk77O7KMkMEF7dSUYAan5z43/XYEQUiksHzg5dV83RhLD/OLl8
-	 9mQ8LqRtgRh9Dl70zMHJi1j1MbpoRZBoApBE42TiT1cbsB5uomFAENbCxpRwCg8oR4
-	 xbkf+HHUrWnt4r7cMFfoN5sFBwCEnuYpybfURKVA=
-Date: Sat, 3 Oct 2026 13:38:56 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Char/Misc/IIO driver driver updates for 7.3-rc6 - try 2
-Message-ID: <asDpUM4XCyJOh0-U@kroah.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AqdLBV7m"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so243528f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 04:44:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791027859; x=1791632659; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KZ4ULGKSm/cG8v6BlyRVVFCk/EzNYVJ7PtZl9aubdS0=;
+        b=AqdLBV7mvkXOFWnDCnWlGJM6r4b7uGu8N1BzdSMjp4H4TNDB10QGAbPlfGtdMfmqZp
+         x4rOu58J/9dVisvqsB9y3A4IcjdZO68vGBNYjXqYFbnty3CC5pnbpGramgJbTcSbLWuA
+         ZqWwR4p3V6pq5198QS/Bp1DSCYwMuzAYL5Kfebd4hidw/7oU65Y3Z5Bq6vnVCAgmOOer
+         b+fdONJehC9L9Yu+QWn5SwNav2CrEDMRO0W0Z2GYBlG1HCJxeMDumq6Slm/vBrOaDt/L
+         Yv5qmFEqSXZf7APDpySmYsqlLvsnX+Ik4GFqoM6SQh94d5hqHZ6aDdP2ahAKiAmPQ3eq
+         3bdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791027859; x=1791632659;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KZ4ULGKSm/cG8v6BlyRVVFCk/EzNYVJ7PtZl9aubdS0=;
+        b=LhdUkU6QSjMaBBFk7FJNXcrFV8ottuNgYk2KxJwlib7YgtrQjwZVtzVUYgVHgcbdEo
+         uqR0gpkR1NSd6Ugy1n0cJ9qmxzRlzpa2m6Ew0PGTO3IlqGytFG5dASvnS0vZOPdmh5Ex
+         M1rgnVZvb3sDoDLXv5ZhpQPKoD1bPyy9CgwLHCaAc8J0rfIJkWTw3Fpzd6PHEZfcsd/w
+         uUoQAeQHFsTOIOiWYMfMeUW36RHPaPmmSsl9p8+5x0H4cz20j8bv5eQVD9MgiylYwS2D
+         A3UDZU/ApxCd0KCluip3QmBO08jvSWPKBRnijt5GKo8qDyAmWFULNFvSrsW3RgohOTt5
+         NxoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwrh94fwRN3aZaymLw7kO1OW3sRerejQKc2pwB5ObSsDwBL+qWrF2u+mTah9fHjN9g0zfiLTnOziOcPgA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzYFt9QWDi9Bw2KeLoWZAS4fiXogxPh1plP4UUlABTh12M0fEr
+	btRgK1adK5v9ihQvgTChsYTC27oAladztZdtC6EATLvNbdhaQa4xpG4o
+X-Gm-Gg: AYBFou1eQlZUGIEysj59vU6JXhM5rVVMmWjS7QSZ8bROuBki0tEpAfAw2qbZdkUGT8H
+	Sc0KRP2BIjSyyJdKrRDcHcNU0D2Dk8KChFA64YhDO4jNttEAHDXVc8WgnP+wG04JTQt85/aaB0G
+	5alYDRd1paNRc6vKWMXKMyNRFgISVf1Hq25ti2fUNAtpe4qsGuezHZfIH7lVoBIZzi0D4uoxY66
+	R5u2pBHOxAgQm9ECfVeqdiUQ5xhESc9VMPFKyTym+PSx1b0Z8F3cCDtzZKNTqwin4opCvVjEguy
+	qmd1F2dy+1saBBBwNlKxxY8t81kbEc0sf0roigl028vrq+UPDCAP5z8mmF1slyuYzPlCyFN4t0E
+	It0ibQrVcZelhcYrpo4fGJ5AzrQQc5SXztmgCD/e5qvb8gAT5+8k6/4UF4pvSlwjRgMmH9cORJw
+	A6qtks6WLs3pCmOZw/LjdxsKfKQnv6eHGHFoomc1KoN7FSkKhPUvU0uAQKrNZ1KSC1xcI/Vx7PB
+	RdzXUZbhVyrhTWiZL1tVYvB
+X-Received: by 2002:a05:6000:400f:b0:486:f3db:e0f2 with SMTP id ffacd0b85a97d-48c47fc5fabmr3888867f8f.14.1791027859341;
+        Sat, 03 Oct 2026 04:44:19 -0700 (PDT)
+Received: from fedora ([2a06:5904:28f:7600:961a:ef3c:e30a:fb0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380fab11sm11982800f8f.16.2026.10.03.04.44.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 04:44:18 -0700 (PDT)
+Date: Sat, 3 Oct 2026 12:44:16 +0100
+From: Luca Hernandez <lucay202@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
+ around list pointers
+Message-ID: <asDqkCac9Si2EPEe@fedora>
+References: <20261002215746.81683-1-lucay202@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002215746.81683-1-lucay202@gmail.com>
 
-This time with the proper message.
-----------------------
+Hi Greg,
 
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+Please disregard this patch. I just realized you have previously 
+rejected similar parenthesis-removal cleanups in this subsystem. 
+Apologies for the noise.
 
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git tags/char-misc-7.3-rc6
-
-for you to fetch changes up to 8e242ada093af7d2ee82037f09c287fbc6f1e3f5:
-
-  Merge tag 'iio-fixes-late-7.3' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/jic23/iio into char-misc-linus (2026-10-01 14:57:00 +0200)
-
-----------------------------------------------------------------
-Char/Misc/IIO fixes for 7.3-rc6
-
-Here is a set of char/misc/iio and other small driver subsystem fixes
-for 7.3-rc6 that resolve a number of reported issues.  Included in here
-are:
-  - lots of small iio driver fixes for reported problems.
-  - interconnect driver revert to resolve a regression
-  - nitro_enclaves driver fix for a use-after-free
-  - binder driver fixes for reported problems (in both the rust and C
-    versions)
-
-All of these have been in linux-next with no reported issues
-
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-----------------------------------------------------------------
-Alice Ryhl (2):
-      rust_binder: cancel deferred work items in thread exit
-      rust_binder: reschedule node refcount update on thread exit
-
-Antoniu Miclaus (3):
-      iio: adc: ade9000: request interrupts after powering the device
-      iio: adc: ade9000: fix overlapping scan_index for current and voltage channels
-      iio: adc: ade9000: handle Phase C dip events in IRQ1 handler
-
-Arka Mondal (3):
-      iio: imu: adis16480: fix unprotected debugfs reads
-      iio: imu: adis16400: fix unprotected debugfs reads
-      iio: gyro: adis16136: fix unprotected debugfs reads
-
-Carlos Llamas (1):
-      rust_binderfs: add transaction_report feature entry
-
-Cong Nguyen (2):
-      iio: adc: max1363: sign-extend bipolar differential channel reads
-      iio: proximity: pulsedlight: fix iio_device left registered on PM setup failure
-
-Donggeun Yoo (1):
-      iio: proximity: vl53l0x-i2c: claim direct mode for raw reads
-
-Fabrice Gasnier (2):
-      iio: adc: stm32-adc: fix check on internal channel availability
-      iio: adc: stm32-adc: fix possible division by zero in processed channel
-
-Fan Wu (4):
-      iio: light: gp2ap020a00f: drain irq_work after free_irq
-      iio: adc: xilinx-xadc: free IRQ before cancelling the unmask worker on unbind
-      iio: trigger: cancel reenable_work before freeing trigger
-      iio: adc: ad_sigma_delta: fix use-after-free on unbind
-
-Felix Gu (2):
-      iio: adc: sun4i-gpadc-iio: drop underflowing pm_runtime_put() calls
-      iio: adc: sun4i-gpadc-iio: clean up on thermal zone registration failure
-
-Geert Uytterhoeven (1):
-      iio: frequency: adf4377: Fully initialize clk_init_data and clk_parent_data
-
-Greg Kroah-Hartman (3):
-      Merge tag 'iio-fixes-for-7.3a' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/jic23/iio into char-misc-linus
-      Merge tag 'icc-7.3-rc5' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/djakov/icc into char-misc-linus
-      Merge tag 'iio-fixes-late-7.3' of ssh://gitolite.kernel.org/pub/scm/linux/kernel/git/jic23/iio into char-misc-linus
-
-Hui Su (1):
-      iio: pressure: bmp280: fix out-of-bounds access in sampling frequency lookup
-
-Janani Sunil (1):
-      iio: adc: adi-axi-adc: Initialize state mutex
-
-Jean-Baptiste Maneyrol (1):
-      iio: inv_sensors: fix estimated value larger than interrupt timestamp
-
-Jiale Yao (1):
-      iio: accel: kxcjk-1013: reject duplicate event disable
-
-Jinseob Kim (1):
-      iio: buffer: serialize buffer teardown with mode claims
-
-Jonathan Cameron (1):
-      iio: buffer: Ensure bounce buffer used for unaligned case is zeroed.
-
-Laxman Acharya Padhya (1):
-      iio: proximity: aw96103: validate firmware data length
-
-Linmao Li (3):
-      iio: imu: inv_icm42607: propagate runtime suspend errors
-      iio: imu: inv_icm42607: restore runtime PM on system resume errors
-      iio: adc: ade9000: fix NULL pointer dereference in clkout registration
-
-Marc Zyngier (1):
-      Revert "interconnect: qcom: x1e80100: enable QoS configuration"
-
-Marcelo Schmitt (1):
-      iio: adc: ad7173: Fix digital filter configuration
-
-Marco Chen (1):
-      iio: health: max30102: fix NULL dereference in interrupt handler
-
-Matti Vaittinen (10):
-      iio: adc: rohm-bd79124: Fix rising alarm
-      iio: adc: rohm-bd79124: Fix channel initialization
-      iio: adc: rohm-bd79124: Fix GPIO mask check
-      iio: adc: rohm-bd79124: Catch regmap errors at measurement start/stop
-      iio: dac: rohm-bd79703: Do not allow writing SCALE
-      iio: pressure: rohm-bm1390: Return error when read fails
-      iio: light: rohm-bu27034: Fix error return
-      iio: accel: kionix-kx022a: Fix array boundary check
-      iio: light: rohm-bu27034: Fix infinite delay on error
-      iio: accel: kionix-kx022a: Prevent memory leak and fix state
-
-Michael Hennerich (1):
-      iio: buffer-dmaengine: fix sg entry iteration when building dma_vecs
-
-Peiyang He (1):
-      binderfs: fix UAF write in binder_add_device
-
-Pengpeng Hou (2):
-      iio: adc: aspeed: propagate reset deassert errors
-      iio: cdc: ad7150: fix OF matching and publish module aliases
-
-Runyu Xiao (1):
-      iio: admv1013: initialize callback mutex before registering notifier
-
-Salah Triki (5):
-      iio: accel: sca3000: fix frequency divider condition check
-      iio: frequency: admv1013: fix wrong channel field used in admv1013_read_raw()
-      iio: proximity: vcnl3020: fix ISR bitmask check in IRQ handler
-      iio: proximity: isl29501: Fix return type of isl29501_register_write
-      iio: adc: ad4030: fix invalid oversampling_ratio validation
-
-Slavin Liu (1):
-      iio: adc: pac1934: check ACPI label duplication
-
-Tomer Pomeranc (2):
-      binder: fix leaked fd fixups on TF_UPDATE_TXN supersede
-      binder: fix is_failure flag for superseded transaction cleanup
-
-Tuna Kılıç (1):
-      iio: dac: mcp47a1: Allow full-scale output
-
-Vladislav Leonov (2):
-      dt-bindings: iio: adc: rockchip-saradc: Group single-entries into an enum list
-      dt-bindings: iio: adc: rockchip-saradc: Fix RV1106 compatible
-
-Vladyslav Ivashchenko (1):
-      iio: adc: axp288: Add TS bias override for Haier HV103H
-
-Yuxiao Wang (1):
-      nitro_enclaves: fix use-after-free on SLOT_ALLOC failure
-
-Zhang Jie (1):
-      iio: proximity: sx9324: Correct proximity channel resolution
-
- .../bindings/iio/adc/rockchip-saradc.yaml          |  18 +-
- drivers/android/binder.c                           |   3 +-
- drivers/android/binder/node.rs                     |  20 +-
- drivers/android/binder/node/wrapper.rs             |  34 +-
- drivers/android/binder/rust_binderfs.c             |   8 +
- drivers/android/binder/thread.rs                   |   8 +-
- drivers/android/binderfs.c                         |   3 +-
- drivers/iio/accel/kionix-kx022a.c                  |  30 +-
- drivers/iio/accel/kxcjk-1013.c                     |   2 +-
- drivers/iio/accel/sca3000.c                        |   2 +-
- drivers/iio/adc/ad4030.c                           |  11 +-
- drivers/iio/adc/ad7173.c                           |   4 +-
- drivers/iio/adc/ad_sigma_delta.c                   |  31 +-
- drivers/iio/adc/ade9000.c                          |  36 +-
- drivers/iio/adc/adi-axi-adc.c                      |   4 +
- drivers/iio/adc/aspeed_adc.c                       |   4 +-
- drivers/iio/adc/axp288_adc.c                       |   8 +
- drivers/iio/adc/max1363.c                          |   8 +
- drivers/iio/adc/pac1934.c                          |   4 +
- drivers/iio/adc/rohm-bd79124.c                     |  20 +-
- drivers/iio/adc/stm32-adc.c                        |  47 +-
- drivers/iio/adc/sun4i-gpadc-iio.c                  |  10 +-
- drivers/iio/adc/xilinx-xadc-core.c                 |   9 +-
- drivers/iio/buffer/industrialio-buffer-dmaengine.c |  16 +-
- drivers/iio/cdc/ad7150.c                           |   8 +-
- .../iio/common/inv_sensors/inv_sensors_timestamp.c |  11 +-
- drivers/iio/dac/mcp47a1.c                          |   4 +-
- drivers/iio/dac/rohm-bd79703.c                     |   3 +
- drivers/iio/frequency/adf4377.c                    |   4 +-
- drivers/iio/frequency/admv1013.c                   |   9 +-
- drivers/iio/gyro/adis16136.c                       |   2 +-
- drivers/iio/health/max30102.c                      |  12 +-
- drivers/iio/imu/adis16400.c                        |   2 +-
- drivers/iio/imu/adis16480.c                        |   4 +-
- drivers/iio/imu/inv_icm42607/inv_icm42607_core.c   |  38 +-
- drivers/iio/industrialio-buffer.c                  |   7 +-
- drivers/iio/industrialio-trigger.c                 |   2 +
- drivers/iio/light/gp2ap020a00f.c                   |   2 +
- drivers/iio/light/rohm-bu27034.c                   |  62 +--
- drivers/iio/pressure/bmp280-core.c                 |   2 +-
- drivers/iio/pressure/rohm-bm1390.c                 |   2 +-
- drivers/iio/proximity/aw96103.c                    |  30 +-
- drivers/iio/proximity/isl29501.c                   |   2 +-
- drivers/iio/proximity/pulsedlight-lidar-lite-v2.c  |   4 +-
- drivers/iio/proximity/sx9324.c                     |   2 +-
- drivers/iio/proximity/vcnl3020.c                   |  24 +-
- drivers/iio/proximity/vl53l0x-i2c.c                |   3 +
- drivers/interconnect/qcom/x1e80100.c               | 485 ---------------------
- drivers/virt/nitro_enclaves/ne_misc_dev.c          |   1 +
- 49 files changed, 407 insertions(+), 658 deletions(-)
+Best,
+Luca
