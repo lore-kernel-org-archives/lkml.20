@@ -1,214 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9AB221F39;
-	Sat,  3 Oct 2026 21:18:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AE92882AB
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.64.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062312; cv=none; b=rHhsIHNgwgkwpdyQIdpeeot+y0XYTYwOpM0B7xUsRdmh498sZG6jpCrRuhMuKelt1jfas6/uoeW1tQZzw0JqDYuJWkx3/RK9IsWo6L/4KHjXVOWyzZ5w+9koclSZ4HWOna3inMz/R26zp11PqfZL2A9hd44d1nKktDIiDUIsnm0=
+	t=1791062422; cv=none; b=Z4vcHKxEX7GDxWgegFc59MyA88kvgGQDN68/EnebbuCZzNdtHRfJGG/h9ySSwuN4xw9n7Ajz9jbwxyYSLtY0gBg2iEQGcK2lJy7vDOq2a6eqldU0yCkPnIDhlykawRt/wTl5vUTfWG+yqriE+DPA/IHwbZ8iNWYCNNaKlJbCwjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062312; c=relaxed/simple;
-	bh=RlKDGGrVWfLqxn07Sgrd8UkIFjHMbd7p4BW5/kvZmmk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pDkRXZ2Um14NMMJrYOU2Wi2xcT7wePBP8+w7sDr1jBm6s57rJXCddMNJKpKmPNWPRLhVFRB5TYjCq3wVPBVETyAJAQuDn94b5/eArS3m6uAuz9cqEd1df6ljyszG9qExD4rveAcRSvDMP7zbQMLjQqQAbKvjg+LB5SQJo+W1v4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayNfcK1r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791062422; c=relaxed/simple;
+	bh=bf9Oy4BUCE+5tIQbM86aRox9pNnEGqkuBofz3Zoz83c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dozrBUbEgVOKmz2b+1yzb0R9VxczINqkNxQ30vOvSGqyqUzIB68CPDfdM67IfGmkOHlNoq+gg7gtHfPvBYUeev/oFhaLZjsinKQn6uS0Ys25JPsQ1v5al47lmIBdeTdpZQa6lHQfSCkb8WGX8mvb9EMCZWBzHiaUvXMRm4UCcmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=NRFZcNdS; arc=none smtp.client-ip=34.2.64.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayNfcK1r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE541F0089B;
-	Sat,  3 Oct 2026 21:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791062311;
-	bh=QFUWQ2qkbmbrXAMMVcxH3MVAzoCMw16GTny7iGm+v4M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ayNfcK1r97THljNL5bFI2fITox4aT3MAPzMUumOiObDNFdrv1UlbvUk94hi1vmetS
-	 3hkaJHTDr+ctf8BML31pJ9fixux3Q1jRHnxx7ELAVUDWA2gE9vcGL0+ZLTJOcV0ZRS
-	 4sn9x9mPpcQqeHgEa06Ttyok5jgMRJHw2udYiHWlhVw/5Mq8++Z69ics5qErbhLGVe
-	 cJTjVnYVZX3ymg9o2Hz1hT0iYPkXHYqGENM/nRTfq1RaCsJaEWwPKka3WdxuBftmJ1
-	 gidi5k/fqG1um8OpG0BvbIRLt65QGM9mJjOsikFp3m2NX6LLW9uZ7IouRF180pL9vF
-	 fY0vIRm6ajQdA==
-Message-ID: <eeb7c9d4-ed3e-4b94-a590-0fcff1998971@kernel.org>
-Date: Sat, 3 Oct 2026 23:18:27 +0200
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="NRFZcNdS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791062419; bh=yrmEhSQLlEG0ucgunfCQSW1C23MI635cvk0Jl+8/sTQ=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=NRFZcNdSzBtp/nfZmy2kaHYsx77j5tBfv+oRavzaogk/EMXxGsHVKmljYpykNAU1+VC8E7FC1+9x0TiPXbpf+Fam8BAdUKNuo5b0/u8BCqUQR1HLADEjL1oG9EjUWBlTKwHemX32FR8F+ta8VR7up8K1dvTIPVI9fFObr8UM/mFeSqiaETStn5rrwrK++Ssq8On6rwFhJUlmuuSkvEBn+H2Q2W/rhJnzzQbQhITg9t/5HbRSfqL6Aubnv6eXwkPHDGeJ2ywFn+onL0yfAoDgF/ODwEHM0uCIj6uEFTUAtKWf7Khp3w1YU4xVneO3TsK1u2naFHWdZnUrp1UcegIRSQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791062419; bh=yd89yWeabfBXt/YkKcGNZA7VNjdBP8ctf0Uvjrg1K27=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=OME95Cnn9zdfWNnHyn7ZKvOdoSQrwdgLpJsaiHpte5rnRLjHjiWpc+Vr5ssym2V2cWm0nYsnn/LoMrNvxeF0YFYT20QHcIfo/Adnabhf7XxxqtIYySG3i8xh6yi/zH702tqYVMb68qmsIfJRVFCN60D92tTErtJomPNMUhgH4tYlE53Ikmfnm29utRWKwuoM/UbuV/WlCd0LAnDhkUIX6WKdDWbsVqIDml2g/Fy/s9WKnfF4VtfDscwWvBF5unLBlvdLvSbuw7bG+c+bwiOrNwA79px76FOo2jWYKXx84HnyRKPnA7a+e53ukcq+w66RCqtMSRWkVBT9Mqy/RwQ7dw==
+X-YMail-OSG: GpNHSLIVM1kY6Zlo1PAip.jcrILvQttWOdrA4zB7vMcL4XTVY9x3i1wPTFeNIE6
+ 9VDsoAOT9OmVzLbWpQxk93ggWbzekW9PlGI81c7KuBe38Pe82ZHqgDz0sMHlksN9VqV3OzNYXlYZ
+ rnElfJeFhvnYUApCHOTNz7ZTMsvpeFR8063XhJVBPCTLOZ8vS3hlUlI4RGK0I0_yl4Qt3k6w7GK9
+ t4pw2.axYgV4i6rZQ3LLAHNDD2OlmCVncT9RBYcxLxyYmCy6NTM3YRVWrj0gOTW5athEMLVDNHb6
+ W6TYfGIfkM3w7cBQ77ZLlXfbZCmUaDFXj62NIKhFjHsfN55j8JxASu9_Lv0G1HnGqiBb8E3orqxf
+ IE9X52HVlNYjBLiBdq3GkWnMk7JKpBqc.9tr8kTXntLuBL_pDx46WfEbIqdobZRiaApn37upkNzV
+ b7Z6kDH0Gqul6CM2ERNZbvg_OtYi2ZS2XfPwWwEtfxO05n_VMVUCRtpYF_zSfpFkgF06QZ98LpQ.
+ KOOoc1rN8YlFx9X_H5Z2BzklFqhC4FfSupG4g.GP0TaW0xVnuCGc6uhTaeCiKsER1KyLPhBMDuRF
+ m9QGrlV2GeWVre9jaO.FYDHX3mnCk3SwvSudsqgxbRx8J9rzG.zTWH7rjBMONVPPTDX2x0MGE7lw
+ HEn.khqvlf3OGxlZNESpcmhLS1FDpTnqpYFPXbFE0EBkANNQpbbS6O440WxNt.w8tgFNUwV8gsWR
+ 7x0b0zNABqIYHsaa9ZXrvzMo.I.T2sPePtwohpukmlzKu3BJ0NVNMW_Dvfl7siO857H9km_wrzzE
+ lgALzdl41xqSIMGB8Y3aGn5l_yJM7ldHxHXfvd.038qbie9e1d7QuriizZTDrulKQH8k4BmI4iaG
+ vLcuJuyFWi4TLiw.QAtoLnp4xkonr.h0yW2DB5Prqrd6kLyNcperT64k4UO1iwJE0UjagFI2_7_U
+ eWNyMUYeQioC3CdNYu5S25K.CD88uaE_4zjJJVOEscXcoNYmKRVQoTHmH2v55r1EUazWbi_lpeNN
+ Nvc.jCilRucci6HNBHMURCBOi4F27rOmfm3685MrApR9NESG7r7r8IV9DVPvdJZ6wC7c1ILomriH
+ 2.kUId6UryarkqTAqyS9JxVIeTqNwcFSX3sVSS0k5rFo9S6mVhCCpiP4GDSFSU1S_DVjndyLV1FD
+ k460buE21poX1Plz7xiFJwGdMELk8iO3vKARjl0OgGWHrMo.uQZDqn1t.HXPh5tsh5ULuTAgd5h8
+ 5fBimPkViJQCsuotyZpC2Mf7nVLFJcSPyP8lox_vKcMpETSfjWnBuAbLLwJBPul2oWPGJL_h4yMO
+ _qFEFhPTbJV.ZMxOlnOsPMD2qA5uTWmqyKoGGxbrFiDaEDrK7AhL1LlMF36ynomCuh7NhNSVwPFx
+ Ttzcp4VBGzg1beyMykcatVaKQZWWoc1Q7kR0fN0nZITDoVfBP22ncGv93VTPKIFFglS3OWtd.bIQ
+ P6.CFJnRXsm4sZZqxs96h6XIiXGCeq0KqqPaPcnAY9oq7uRAsrKQEBjg7Dd1BMM1RzW10VMxA25z
+ GVjK0DbMYiNeZOuWALC_hpuop.b0znYoUUfJ5dNKob2f7FjZ8NL7X2roxGaMRV0cIEk7SsvwHj4M
+ 7wkNIylaSWt21_f.OtL_6XphFWCEyjwBXpXkaTK3N1z2p3CHVcfv6oqqZVuTxgd5GKWXXHO5vfw_
+ rz1RpeThLUqGLpqMXtTpMt6Xo5OUs88LuwAuUuC7JKsCM1Ef6QxUqv0MC1zliIFdLYHK2Hfrj6zm
+ xh5YfbxgWmUkCMpfoFRnxs1NoDS.kwIlASktcCp3a5uiumjf7n3ADRYA2R5TUcn2TIZLk.hJKjmD
+ IHdNJrvIJPkay_CtAq2nlN._l6jiLGX5pS7i5R1TQPILilK5bkpbVGEBZ9wGXg9Lh1cviIfDZz6o
+ bt.I6t6OU_U3UyD5kQ8Iinr6xXawGCdMN1KoQxF_0VknE5imTse9NsDA5DuNbKLetEDJPvtS.._.
+ zoUvh26vq
+X-Sonic-MF: <Capitain_Jack@yahoo.com>
+X-Sonic-ID: 9f9fd89c-768c-4308-9788-2b2a9f654e0f
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP; Sat, 3 Oct 2026 21:20:19 +0000
+Received: from dip28.lsn.bf1.yahoo.com ([67.195.177.37])
+          by hello (SMTP) with SMTP ID acd1a88dad1bf88c6a89949334e77d37;
+          Sat, 03 Oct 2026 21:20:15 +0000 (UTC)
+From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+To: jim.cromie@gmail.com
+Cc: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dave Airlie <airlied@redhat.com>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] nouveau: fix 3 null-ptr derefs
+Date: Sat,  3 Oct 2026 18:20:10 -0300
+Message-ID: <20261003212010.113714-1-Capitain_Jack@yahoo.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
+References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: bus: Add binding for Altera AXI Timeout
- Bridge
-To: V.Yurkov.EXT@bruker.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vyacheslav Yurkov <uvv.mail@gmail.com>
-References: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
- <20261003-feature-timeout-ip-v1-1-8837c311d571@bruker.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261003-feature-timeout-ip-v1-1-8837c311d571@bruker.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03/10/2026 22:19, Vyacheslav Yurkov via B4 Relay wrote:
-> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> 
-> Add a device tree binding for the Altera timeout bridge, which connects
-> an Avalon bus to the HPS and provides an address space for child
-> devices with a fall back to a simple bus.
-> 
-> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> ---
->  .../bindings/bus/altera-timeout-bridge.yaml        | 82 ++++++++++++++++++++++
+Hi Jim,
 
-Filename must match compatible and compatible has completely broken
-format. Please look at DT spec or any other examples how compatibles are
-created.
+I tested patches 1/3 and 2/3 on 7.3.0-rc1, with an RTX 3060 (GA106)
+passed through to a VM (vfio-pci). Patch 3/3 does not apply on 7.3-rc1
+(nvkm_gsp_gcx_ready() is not there yet), so it is untested here.
 
+Without firmware (the whole nvidia/ga106 folder removed and the
+initramfs rebuilt), nouveau reports acr, gr and sec2 "firmware
+unavailable", so there is no GR engine:
 
->  1 file changed, 82 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml b/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml
-> new file mode 100644
-> index 000000000000..b57a0966ba6e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml
-> @@ -0,0 +1,82 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/bus/altera-timeout-bridge.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Altera Timeout Bridge
-> +
-> +maintainers:
-> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> +
-> +description: |
-> +  Altera timeout bridge bus.
+- GETPARAM with NOUVEAU_GETPARAM_GRAPH_UNITS returns -ENODEV and logs
+  "GETPARAM_GRAPH_UNITS: no gr engine or func"; the desktop session
+  already reached that path at boot.
+- DRM_IOCTL_NOUVEAU_GET_ZCULL_INFO returns -ENOTTY.
 
-Useless description. You keep repeating the same.
+I also called both ioctls directly from a small test program on the
+render node. No oops anywhere: KWin composites, NVK declines the device
+and zink falls back to llvmpipe.
 
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: altera-timeout-bridge
-> +      - const: simple-bus
+With the firmware restored, GSP-RM 570.144 loads, there is no oops, and
+the card drives a Sony 3D TV in every HDMI 1.4 3D structure it declares,
+at 12 bpc.
 
-Why the fallback?
+On your worry about firmware: the most "damaging" thing in all of this
+testing was the TV getting stuck on a corrupted signal during an earlier
+no-firmware run, solved by power-cycling it and feeding it a proper
+signal. No GPU firmware is ever written, and the firmware files in the
+VM are disposable.
 
-Your commit msg is also useless here, you just wrote what you did, not why.
+The kernel logs, the test program and its output are here:
+https://github.com/danielcamposramos/sony-bravia-linux/tree/main/docs/upstream/nouveau-null-v3-test-2026-10-03
 
-I see no reason why generic "bus" like that should stay generic,
-although you have entire commit msg to explain why this is different or
-what is the versioning of this IP block.
+Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com> # 1/3 and 2/3, GA106
 
-Missing blank line.
+The test was run with an AI assistant doing the legwork under my
+direction; the results above are what I saw on the hardware.
 
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  ranges: true
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-parent
-> +  - ranges
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +patternProperties:
-
-This follows properties.
-
-> +  "^[a-zA-Z][a-zA-Z0-9,+._-]*@[0-9a-f]+$":
-> +    type: object
-> +    description: |
-> +      Device connected to the timeout bridge.
-> +
-> +    required:
-> +      - compatible
-> +      - reg
-> +
-> +    additionalProperties: true
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    intc: interrupt-controller {
-> +        interrupt-controller;
-> +        #interrupt-cells = <3>;
-> +    };
-
-Drop, irrelevant
-
-
-> +
-> +    timeout_bridge_hps@10000 {
-
-Really, this is the style you send? So the toolset - dt-check-style - or
-the Coding style mean nothing and you keep sending what you have in
-downstream.
-
-
-
-Best regards,
-Krzysztof
+Daniel
