@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581C330C177;
-	Sat,  3 Oct 2026 19:50:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987E54766B7;
+	Sat,  3 Oct 2026 19:50:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791057058; cv=none; b=CkHdN2zFXgIgWXIivuEmWyzulI9QhNwua8a9cspInHitP9y4dddWlkndew9Hh9aD6uqbbBIp5ACjOlmKvtg/rEusWT6zaesLdNj3NnUCH00Z8vW/GKigiBS3pOB/r2Y/eqwC3avthwxj6yYOXvJDyMwqbX3c9AznB6FD47VVtrs=
+	t=1791057060; cv=none; b=OG1s2kX/aVSw9/b4UIFl4Ew8DkRSPlzTh27uARC/5WlaTZwuCoKG9NvhCGKotmx5z+JQWc19dkQjYPo0IglHSJK38mmSQg8CMbERCrvtuoOm7QOu6rUP+ZxV7cQAeIwOpvMPmOdtB/RaMRSSXoJBEJECuLPmG0XEvK7FNxtV504=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791057058; c=relaxed/simple;
-	bh=SDGTkmDTsomO7ODQf1MVmiDtu2m9KKWqBeJHkoBgYUw=;
+	s=arc-20240116; t=1791057060; c=relaxed/simple;
+	bh=oPQsqm5L67MCj1T3+AgEB5+pAF8ITGySMLGyUHlrRzk=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=s0DsN24SUAHlVyC7SnSi06iNi6u8+LARXMR0lMAHrLk/r2/93nOh95O3kfxf9Sg64itvNFI+of8oLxIVpq4Xo/3BWVttQNqWxa98KulNAqYQn7cqoFH8A7uij7u3XP47TNCFcyycXJwrXFVpFgOab2yqxl8U7T7qK8+DFOFZ+dY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xs0tq8oR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=UFHegEToU6/QV0P/HpHdMt+ziGWYEuitXdaRPhr0nwXxNVMTQgVVY5/3dryXWSiSZ/jy/l1RE2FNI1LkO1G/1wSZ/+F5fSHlrB6XNXaSjMpJtiFk558jzDwfI4p7ScT2mtt3KiXtqYW4aL8E+Zhz2F1zxZBzbjWr5JxOYfO9Lmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PembsyDc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xs0tq8oR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE971F0089B;
-	Sat,  3 Oct 2026 19:50:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PembsyDc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 939E01F0089D;
+	Sat,  3 Oct 2026 19:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791057055;
-	bh=XmUDUJZDDBBQDZXAP9giOqJ9nfjXtpOgwq+pbQZBo+c=;
+	s=k20260515; t=1791057058;
+	bh=5cGkrI2m14RZ2wCIrSTI4qSekwfXdER0T63snKhbo14=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Xs0tq8oROOZ62jFb05YBJ2p+xKyD0VQVMHI0tGHBYMtbEwgRdX/4B7lxXGvl6Xvhf
-	 jzCHflb81yC+TjuLV7CkEj6o1lD25DectiAolFmUN+AZihEKjW7urVf1BdTmR0xduo
-	 tsI5FXtmfmR1syyr/ZrYPq6nt2MQqoWCfWxeiL5FVuuwXzXNsemBj79yQBQ+B/oI1S
-	 a+JVLqDLVm5OakX1cztU8T8EKQ20ni+uFW18IE929oUlITmz7eaKaI3M2P0MyZYw36
-	 ZG6IXyPpoCgsAWcXMwODeLC/MQBrWJC+jUDbh3BNHXqK+3HlGvFAR5sFnNj2P6KxqE
-	 ht3VCG0HSH9tw==
-Subject: Re: [PATCH net-next v2 3/6] enic: recover V2 VF mailbox when PF state
- is unknown
+	b=PembsyDcSQXgFNyjlzVRoMuG4d/2ew0vWVxVshimSeDHpoYkSxJEWeDP/4hjFWQJv
+	 iwOqXnb8j7KM+h9rRrUkh1AQhFJDx5Tp0Kgt6USuuOQT7saQx2DaxMQsx8kdSxEX6V
+	 LYPdOC08axG1nnqVC6F5wxHvXQMrAonUaqVfhdu2TvSVkiB4ldUJZJzhRyfAjxyWJH
+	 pJiHLYi23CLwOqnr6RiZuxnrZUWrCZMz5y1gbVouPEIdYoyZMty18c5h4gfQInbTb9
+	 M8AdwrekzGkNameVBqumXNu54I7htz3RKzLZEyAw7eSWhsXQxXdM5vB0z2ZhBgbINF
+	 Mk1FiUY5txD3A==
+Subject:
+ Re: [PATCH net-next v2 5/6] enic: manage V2 VF station and administrative MAC
 From: netdev-bot+sashiko@kernel.org
 To: satishkh@cisco.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, sebaddel@cisco.com
-Date: Sat, 03 Oct 2026 19:50:54 +0000
-Message-ID: <179105705474.434549.8884325756137736298@kernel.org>
+Date: Sat, 03 Oct 2026 19:50:57 +0000
+Message-ID: <179105705715.434549.4447540966056164842@kernel.org>
 In-Reply-To:
- <20260929-b4-enic-sriov-v2-vf-receive-control-v2-3-5962c10061b2@cisco.com>
+ <20260929-b4-enic-sriov-v2-vf-receive-control-v2-5-5962c10061b2@cisco.com>
 References:
- <20260929-b4-enic-sriov-v2-vf-receive-control-v2-3-5962c10061b2@cisco.com>
-X-sashiko-severity: High
+ <20260929-b4-enic-sriov-v2-vf-receive-control-v2-5-5962c10061b2@cisco.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,10 +49,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 11 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 6 · Low: 3
+Critical: 0 · High: 0 · Medium: 1 · Low: 3 (1)
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -60,435 +60,260 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] enic_reset() now has two new error exits, taken when
-  enic_dev_soft_reset() fails or when the newly added vnic_dev_init()…
-- [High] The patch adds vf_datapath_open so that "a failed internal reset
-  cannot stop it twice".
-- [Medium] The commit message says the timed-out DMA mapping is left "for
-  admin-channel teardown to reclaim safely".
-- [Medium] vf_mbox_recovery_active is a plain bool.
-- [Medium] vf_mbox_recovery_active stays true for the whole run of the
-  reset worker, including the time after enic_open() has committed…
-- [Medium] The patch makes several admin-RQ drop paths trigger full VF
-  recovery (RX quarantine, carrier off, sends disabled, a soft reset…
-- [Medium] The new V2 VF error exit in enic_open() (`goto
-  err_out_dev_disable`) runs after enic_dev_enable() has succeeded, when…
-- [Medium] The new vnic_dev_init() call in enic_reset() issues CMD_INIT,
-  or on older firmware CMD_INIT_v1 + CMD_GET_MAC_ADDR + CMD_ADDR_ADD,…
-- [Low] Concern: the patch has no Fixes: tag even though it fixes V2
-  mailbox behaviour introduced by commit 1f0c856b596337.
-- [Low] Concern: the commit message and comments assume a VF MAC/receive-
-  filter mailbox protocol and a station/filter replay that do not exist…
-- [Low] Concern: the new enic_reset_addr_lists() calls in enic_open() and
-  enic_admin_chan_reopen() run __dev_uc_unsync()/__dev_mc_unsync()…
+- [Medium] At this commit, enic_remove() runs
+  enic_vf_admin_mac_quiesce(), VF_UNREGISTER and…
+- [Low] At this commit, enic_vf_station_sync_reset() drops the core sync
+  reference for the uc entry that matches vf_station_addr only once.
+- [Low] The comment in enic_remove() says "VF_UNREGISTER is the protocol
+  teardown operation: the PF removes all VF-requested configuration,…
+- [Low] At this commit, a runtime station change does not reprogram an
+  old station address A that is still wanted as a secondary unicast…
+
+Pre-existing issues:
+- [Low] enic_reset_addr_lists() now holds netif_addr_lock_bh() only
+  around __dev_uc_unsync()/__dev_mc_unsync().
 
 --
 
-enic: recover V2 VF mailbox when PF state is unknown
+enic: manage V2 VF station and administrative MAC
 
-This patch adds recovery for the V2 VF mailbox after a lost or malformed
-reply. VF RX is quarantined until the admin channel has been rebuilt,
-re-registered and replayed at an open/reset boundary, and the channel is
-poisoned for good after a send-completion timeout. It also defers VF
-notification ACKs to a work item, moves the VF handshake ahead of
-enic_open() in the reset workers, calls vnic_dev_init() after soft reset
-for non-dynamic vNICs, and tracks whether the V2 datapath is open.
-
-> Assisted-by: LLM
-> Signed-off-by: Satish Kharat <satishkh@cisco.com>
-
-[Severity: Low]
-This isn't a bug, but there's no Fixes: tag, even though the patch changes
-V2 mailbox behaviour from commit 1f0c856b596337. The series reads as a
-continuation of the V2 mailbox bring-up with the PF side still dormant, so
-leaving it out may be fine for net-next. Was that intentional?
-
-> diff --git a/drivers/net/ethernet/cisco/enic/enic_admin.c b/drivers/net/ethernet/cisco/enic/enic_admin.c
-> index 61c82b48044d0..30c0a5c89a2d2 100644
-> --- a/drivers/net/ethernet/cisco/enic/enic_admin.c
-> +++ b/drivers/net/ethernet/cisco/enic/enic_admin.c
-
-[ ... ]
-
-> @@ -194,8 +203,10 @@ unsigned int enic_admin_rq_cq_service(struct enic *enic)
->  		rq_desc = desc;
->  		bwf = le16_to_cpu(rq_desc->bytes_written_flags);
->  		bytes_written = bwf & CQ_ENET_RQ_DESC_BYTES_WRITTEN_MASK;
-> -		if (bytes_written > buf->len)
-> +		if (bytes_written > buf->len) {
-> +			enic_admin_rx_lost(enic);
->  			goto next_desc;
-> +		}
-
-[Severity: Medium]
-Should the sender be checked before these drops trigger a full VF recovery?
-
-This path, and the TRUNCATED and missing FCS_OK paths just below it, call
-enic_admin_rx_lost() before rq_desc->vlan (the hardware-verified sender) is
-read.
-
-The same thing happens in two other places:
-
-  - Backlog overflow in enic_admin_msg_enqueue(). Every message counts
-    toward ENIC_ADMIN_MSG_MAX, even ones that are later dropped as non-PF.
-  - The short-message case in enic_mbox_recv_handler(), which calls
-    enic_mbox_vf_require_reconnect() before the
-    src_vnic_id == ENIC_MBOX_DST_PF check.
-
-The driver already treats non-PF senders on the VF admin RQ as spoofed. If
-the adapter delivers VF-to-VF admin messages, could another VF force this
-VF through repeated resets?
-
-One such message during re-registration also makes
-enic_admin_chan_reopen() return -EAGAIN. Since self-requeue is suppressed,
-the VF then stays quarantined.
-
-I couldn't confirm that firmware routes this kind of traffic. The later
-patches in the series don't add sender checks to these paths either.
-
-[ ... ]
+V2 VFs now manage the station MAC through a mailbox DEL+ADD replace
+request. The address is installed on open and removed on an ordinary
+stop. A delayed worker applies PF administrative MAC notifications, the
+admin MAC policy is re-read after every VF registration, and the worker
+is quiesced and rearmed around teardown and reset.
 
 > diff --git a/drivers/net/ethernet/cisco/enic/enic_main.c b/drivers/net/ethernet/cisco/enic/enic_main.c
-> index 9086e6dd558aa..28738bd14fa7c 100644
+> index 28738bd14fa7c..2132bfa9c8d38 100644
 > --- a/drivers/net/ethernet/cisco/enic/enic_main.c
 > +++ b/drivers/net/ethernet/cisco/enic/enic_main.c
 
 [ ... ]
 
-> @@ -1736,6 +1740,30 @@ static int enic_open(struct net_device *netdev)
+> @@ -1040,8 +1043,10 @@ void enic_reset_addr_lists(struct enic *enic)
+>  {
+>  	struct net_device *netdev = enic->netdev;
+>  
+> +	netif_addr_lock_bh(netdev);
+>  	__dev_uc_unsync(netdev, NULL);
+>  	__dev_mc_unsync(netdev, NULL);
+> +	netif_addr_unlock_bh(netdev);
+>  
+>  	enic->mc_count = 0;
+>  	enic->uc_count = 0;
+
+[Severity: Low]
+This is a pre-existing issue, and this patch did not introduce it. The
+baseline did both the unsync and the counter reset with no lock at all,
+so this change only narrows the window.
+
+The addr lock now covers only the two unsync calls. mc_count, uc_count
+and flags are still reset after netif_addr_unlock_bh().
+
+Devices that use the legacy ndo_set_rx_mode path update these counters
+under addr_list_lock only:
+
+enic_set_rx_mode()
+  __dev_uc_sync(netdev, enic_uc_sync, enic_uc_unsync);
+    enic_uc_sync()
+      enic->uc_count++;
+
+Can an rx_mode run between the unlock and the counter reset leave
+uc_count or mc_count out of step with the core sync state? If uc_count
+underflows, the ENIC_*_PERFECT_FILTERS limit check would no longer work.
+Could the counter resets move inside the locked section?
+
+For V2 VFs, the last patch in the series ("enic: configure V2 VF receive
+mode over mailbox") switches to ndo_set_rx_mode_async.
+netif_rx_mode_run() is serialized by RTNL, and so are the callers of
+enic_reset_addr_lists().
 
 [ ... ]
 
-> +	if (enic_is_sriov_vf_v2(enic) &&
-> +	    (!enic->admin_chan_up || !READ_ONCE(enic->vf_registered) ||
-> +	     READ_ONCE(enic->vf_mbox_reconnect_required))) {
-> +		/* Re-registration makes the PF discard the old VF-requested
-> +		 * filters.  Clear the netdev-core synchronization state so the
-> +		 * receive-mode callback replays the current address lists.
+> @@ -1072,6 +1532,52 @@ static int enic_set_mac_address_dynamic(struct net_device *netdev, void *p)
+
+[ ... ]
+
+> +		/* Keep the old software address visible until the complete station
+> +		 * replacement proves convergence.
 > +		 */
-
-[Severity: Low]
-This isn't a bug, but this comment and the commit message ("restore receive
-traffic after the station address and filters have been replayed") describe
-a VF MAC/receive-filter mailbox protocol and a station/filter replay that
-this patch doesn't contain yet.
-
-They arrive later in the series:
-
-  - "enic: validate V2 VF configuration replies"
-  - "enic: manage V2 VF station and administrative MAC"
-  - "enic: configure V2 VF receive mode over mailbox"
-
-Could the commit message say that it depends on those follow-ups?
-
-> +		enic_reset_addr_lists(enic);
-
-[Severity: Low]
-Does enic_reset_addr_lists() need netif_addr_lock_bh() here?
-
-It calls __dev_uc_unsync() and __dev_mc_unsync() without the address lock.
-Writers such as IPv6 MLD can change dev->mc under the address lock without
-holding RTNL. The new call in enic_admin_chan_reopen() has the same issue.
-
-This appears to be fixed later in the series, where enic_reset_addr_lists()
-wraps both calls in netif_addr_lock_bh().
-
-> +		if (enic->admin_chan_up)
-> +			enic_admin_channel_close(enic);
-> +		err = enic_admin_chan_reopen(enic);
+> +		err = enic_vf_station_addr_replace(enic, addr);
 > +		if (err)
 > +			return err;
+> +
+> +		enic_vf_station_sync_reset(enic);
+> +		err = enic_set_mac_addr(netdev, addr);
+> +		if (!err) {
+> +			enic_vf_station_addr_set(enic, addr);
+> +			enic_vf_station_sync_reset(enic);
+> +			enic_vf_admin_mac_cache_selected(enic, addr);
+> +		}
+> +
+> +		return err;
 > +	}
+
+[Severity: Low]
+At this commit, if the old station address A is also in the uc list as a
+secondary address, does anything reprogram A after the station moves?
+
+enic_vf_station_addr_replace() deletes A at the PF, and
+enic_vf_station_sync_reset() unsyncs A's core entry. No rx_mode update
+is scheduled afterwards, so A would not be added back as a secondary
+filter.
+
+The nonzero-policy path in enic_vf_admin_mac_work() has a similar gap:
+
+enic_vf_admin_mac_work() {
+    ...
+	} else if (enic->vf_station_addr_valid &&
+		   !ether_addr_equal(enic->vf_station_addr, selected)) {
+		mutated = true;
+		err = enic_vf_station_addr_del(enic);
+    ...
+	changed = !ether_addr_equal(enic->netdev->dev_addr, selected);
+	enic_vf_station_sync_reset(enic);
+    ...
+}
+
+enic_vf_station_addr_del() clears vf_station_addr_valid on success. The
+first enic_vf_station_sync_reset() then returns early, and a re-synced
+entry for A can keep sync_cnt=1 while the PF no longer has a filter for
+A.
+
+Could receive for A be lost until the next rx_mode event?
+
+The last patch in the series, "enic: configure V2 VF receive mode over
+mailbox", fixes this:
+
+  - It adds netif_rx_mode_schedule_update() here and after the admin-MAC
+    update in enic_vf_admin_mac_work().
+  - enic_vf_collect_mac_ops() skips the station address, so A has
+    sync_cnt==0 while it is the station.
+
+Would it make sense to schedule the rx_mode update in this patch too, so
+that intermediate commits don't have this behaviour?
 
 [ ... ]
 
-> @@ -1794,17 +1822,41 @@ static int enic_open(struct net_device *netdev)
->  		netdev_err(netdev, "Failed to enable device: %d\n", err);
->  		goto err_out_dev_enable;
->  	}
+> @@ -1807,6 +2314,25 @@ static int enic_open(struct net_device *netdev)
+>  	if (!enic_is_dynamic(enic) && !enic_is_sriov_vf(enic))
+>  		enic_dev_add_station_addr(enic);
+>  
 > +	if (enic_is_sriov_vf_v2(enic)) {
 
 [ ... ]
 
-> +		spin_unlock_bh(&enic->mbox_state_lock);
-> +		if (err) {
-> +			netdev_err(netdev,
-> +				   "MBOX state changed during VF datapath open\n");
-> +			goto err_out_dev_disable;
-> +		}
+> +		enic_vf_station_addr_set(enic, netdev->dev_addr);
+> +		enic_vf_station_sync_reset(enic);
+> +		vf_mac_added = true;
 > +	}
-
-[ ... ]
-
-> +err_out_dev_disable:
-> +	enic_dev_disable(enic);
->  err_out_dev_enable:
->  	for (i = 0; i < enic->rq_count; i++)
->  		napi_disable(&enic->napi[i]);
-
-[Severity: Medium]
-Is this unwind enough once enic_dev_enable() has succeeded?
-
-The existing error labels were written for failures before the device was
-enabled. By this point the RQs are enabled and filled, the WQs are enabled,
-and the adapter may already have written CQEs.
-
-The unwind disables the device and queues and calls vnic_rq_clean(). It
-doesn't do the vnic_cq_clean(), vnic_intr_clean() and vnic_wq_clean() calls
-that __enic_stop() does after a live enable.
-
-A later administrative enic_open() doesn't call
-enic_init_vnic_resources(). On that open, could NAPI process stale CQEs
-against the repositioned RQ ring? That could deliver buffers the device
-never wrote, or reach an unposted buffer whose os_buf is NULL.
-
-> @@ -1834,12 +1886,20 @@ static int enic_open(struct net_device *netdev)
->  }
->
->  /* rtnl lock is held, process context */
-> -static int enic_stop(struct net_device *netdev)
-> +static int __enic_stop(struct net_device *netdev, bool remove_vf_station)
-
-[ ... ]
-
-> +	if (enic_is_sriov_vf_v2(enic) && !enic->vf_datapath_open)
-> +		return 0;
-> +	(void)remove_vf_station;
-
-[ ... ]
-
-> @@ -1893,10 +1953,17 @@ static int enic_stop(struct net_device *netdev)
->  		vnic_cq_clean(&enic->cq[i]);
->  	for (i = 0; i < enic->intr_count; i++)
->  		vnic_intr_clean(&enic->intr[i]);
-> +	if (enic_is_sriov_vf_v2(enic))
-> +		enic->vf_datapath_open = false;
-
-[Severity: High]
-Does this cover the early return paths in __enic_stop()?
-
-The flag is only cleared here, on the last line. Earlier in the function,
-after napi_disable() has already run, there is:
-
-	for (i = 0; i < enic->wq_count; i++) {
-		err = vnic_wq_disable(&enic->wq[i].vwq);
-		if (err)
-			return err;
-	}
-
-The vnic_rq_disable() loop has the same shape. Both returns skip
-enic_free_intr() and leave vf_datapath_open set to true.
-
-enic_reset() and enic_tx_hang_reset() ignore the return value of
-__enic_stop() and go on to enic_open(). There, enic_request_intr() fails
-because the MSI-X vectors are still requested. enic_open() returns an error
-and vf_datapath_open is still true.
-
-A later ifdown then gets past the guard and calls napi_disable() again on
-NAPI instances that are already disabled. That spins forever under RTNL.
-
-A hung WQ in enic_tx_hang_reset() seems a likely way for vnic_wq_disable()
-to time out. The commit message says the tracking exists "so a failed
-internal reset cannot stop it twice". Is this path meant to be covered too?
-
-[ ... ]
-
-> @@ -2253,79 +2346,128 @@ static void enic_admin_chan_reopen(struct enic *enic)
-
-[ ... ]
-
->  static void enic_reset(struct work_struct *work)
->  {
->  	struct enic *enic = container_of(work, struct enic, reset);
-> +	bool vf_recovery = enic_is_sriov_vf_v2(enic);
-> +	int err;
->
->  	if (!netif_running(enic->netdev))
->  		return;
-> +	if (vf_recovery)
-> +		WRITE_ONCE(enic->vf_mbox_recovery_active, true);
->
->  	rtnl_lock();
-
-[Severity: Medium]
-Can vf_mbox_recovery_active actually suppress self-requeue when
-enic_reset() and enic_tx_hang_reset() are both queued?
-
-It's a plain bool. Both workers set it to true before rtnl_lock() and to
-false before rtnl_unlock().
-
-If both work items are queued, the first one to finish clears the flag
-while the second is still blocked on RTNL. The second worker then runs
-enic_admin_chan_reopen() with the flag false. Any mailbox fault during that
-handshake reaches:
-
-enic_mbox_vf_kick_recovery()
-	if (netif_running(enic->netdev) &&
-	    !READ_ONCE(enic->vf_mbox_recovery_active))
-		schedule_work(&enic->reset);
-
-That requeues the reset, which the commit message says shouldn't happen.
-
-There's a second gap. The check-then-schedule in
-enic_mbox_vf_kick_recovery() runs without a lock, and the worker only sets
-the flag after it has been dequeued. A fault in between can also requeue.
-
-Would a lock-protected state, or a counter tied to the reset work, hold up
-better here than a flag that is set on entry and cleared on exit?
-
-[ ... ]
-
-> +	__enic_stop(enic->netdev, false);
->  	if (enic_has_admin_chan(enic))
->  		enic_admin_channel_close(enic);
->
-> -	enic_stop(enic->netdev);
->  	if (enic_is_sriov_vf_v2(enic))
->  		enic_mbox_vf_link_state_reset(enic);
-> +	err = enic_dev_soft_reset(enic);
-> +	if (err)
-> +		goto reset_out;
-
-[Severity: High]
-Can these new error exits leave non-V2-VF devices with NAPI disabled while
-netif_running() is still true?
-
-By this point __enic_stop(enic->netdev, false) has disabled NAPI, freed the
-IRQs and destroyed the page pools. If enic_dev_soft_reset() or
-vnic_dev_init() fails, goto reset_out skips enic_open() for every ENIC
-device type.
-
-The double-stop guard added to __enic_stop() only covers V2 VFs:
-
-	if (enic_is_sriov_vf_v2(enic) && !enic->vf_datapath_open)
-		return 0;
-
-On a PF, a legacy VF or a dynamic vNIC, a later ifdown or unregister calls
-enic_stop()->__enic_stop()->napi_disable() on NAPI instances that are
-already disabled. napi_disable_locked() then loops forever, holding RTNL,
-waiting for NAPIF_STATE_SCHED / NAPIF_STATE_NPSVC to clear.
-
-Before this patch, enic_reset() ignored the result of enic_dev_soft_reset()
-and always called enic_open(). The reset is scheduled from
-enic_isr_msix_err() and enic_isr_legacy() on WQ/RQ errors. That is when a
-devcmd failure or an enic_dev_wait() timeout is most likely.
-
 > +
-> +	if (!enic_is_dynamic(enic)) {
-> +		err = vnic_dev_init(enic->vdev, 0);
+>  	enic_set_rx_mode(netdev);
 
-[Severity: Medium]
-Should this vnic_dev_init() call hold enic->devcmd_lock?
+[Severity: Low]
+enic_vf_station_sync_reset() drops the core sync reference for the
+station entry only once. At this commit V2 VFs still use
+enic_set_rx_mode(), which runs on the very next line, and enic_uc_sync()
+does not exclude vf_station_addr:
 
-vnic_dev_init() issues CMD_INIT through the shared devcmd registers (on
-older firmware, CMD_INIT_v1 + CMD_GET_MAC_ADDR + CMD_ADDR_ADD). At this
-point the netdev is registered and running.
+enic_uc_sync() {
+    ...
+	enic_dev_add_addr(enic, uc_addr);
+	enic->uc_count++;
+    ...
+}
 
-Other runtime devcmd users take the lock. That includes one reachable from
-ndo_get_stats64 without RTNL, for example by reading /proc/net/dev:
+Won't this re-sync the station entry right away?
 
-enic_dev_stats_dump()
-	spin_lock_bh(&enic->devcmd_lock);
-	err = vnic_dev_stats_dump(enic->vdev, vstats);
+If that uc entry is removed later, enic_uc_unsync() would call
+enic_dev_del_addr() for the station address. It is not clear whether
+that devcmd reaches the PF's address-keyed ledger for V2 VFs. The last
+patch says V2 VFs cannot program receive filters directly.
 
-If the two interleave, can one command's arguments overwrite the other's in
-the devcmd registers? The enic_dev_soft_reset() call just above was already
-unlocked, but this adds up to three more unserialized devcmds.
+The last patch in the series, "enic: configure V2 VF receive mode over
+mailbox", resolves this:
 
-> +		if (err) {
-> +			netdev_err(enic->netdev,
-> +				   "vNIC init after soft reset failed: %d\n",
-> +				   err);
-> +			goto reset_out;
-> +		}
-> +	}
-
-[ ... ]
-
-> +reset_out:
->  	/* Allow infiniband to fiddle with the device again */
->  	enic_set_api_busy(enic, false);
->
->  	call_netdevice_notifiers(NETDEV_REBOOT, enic->netdev);
->
-> +unlock:
-> +	if (vf_recovery)
-> +		WRITE_ONCE(enic->vf_mbox_recovery_active, false);
->  	rtnl_unlock();
->  }
-
-[Severity: Medium]
-What happens to a mailbox fault that arrives after enic_open() has
-committed but before this flag is cleared?
-
-Once enic_open() has cleared vf_rx_quarantined and turned carrier on, the
-worker still runs enic_set_api_busy(false) and
-call_netdevice_notifiers(NETDEV_REBOOT) with vf_mbox_recovery_active set.
-Take an admin RX fault in that window:
-
-enic_admin_rq_cq_service()
-  enic_admin_rx_lost()
-    enic_mbox_vf_require_reconnect()
-      enic_mbox_vf_kick_recovery()
-
-This quarantines RX, disables sends and turns carrier off. It then skips
-schedule_work() because the flag is still true.
-
-The worker clears the flag here and returns without checking for a fault
-after its commit point, so no reset gets scheduled. Wouldn't the VF then
-drop every received frame, with carrier off, until someone runs down/up by
-hand?
-
-The commit message describes that outcome for a failed recovery handshake,
-not a successful one.
+  - V2 VFs move to enic_set_vf_rx_mode() via ndo_set_rx_mode_async.
+  - enic_vf_collect_mac_ops() and enic_vf_addr_list_count() skip
+    vf_station_addr.
+  - enic_open() calls enic_set_rx_mode() only for non-V2 devices.
 
 [ ... ]
 
-> diff --git a/drivers/net/ethernet/cisco/enic/enic_mbox.c b/drivers/net/ethernet/cisco/enic/enic_mbox.c
-> index b8a18d9682b2f..30a5f6fda676d 100644
-> --- a/drivers/net/ethernet/cisco/enic/enic_mbox.c
-> +++ b/drivers/net/ethernet/cisco/enic/enic_mbox.c
-> @@ -149,7 +149,20 @@ static int enic_mbox_send_msg_id(struct enic *enic, u8 msg_type,
->  		 * or free the buffer: the device may still DMA from dma_addr.
->  		 * Mark the channel unusable so no further sends are attempted.
+> @@ -3542,9 +4106,13 @@ static void enic_remove(struct pci_dev *pdev)
+>  
+>  		/* Close the admin channel and unregister from the PF before
+>  		 * unregister_netdev() to prevent a late PF notification from
+> -		 * touching a netdev that is being torn down.
+> +		 * touching a netdev that is being torn down. VF_UNREGISTER is the
+> +		 * protocol teardown operation: the PF removes all VF-requested
+> +		 * configuration, including the station address, before replying.
 >  		 */
-> +		spin_lock_bh(&enic->mbox_state_lock);
->  		WRITE_ONCE(enic->mbox_send_disabled, true);
-> +		WRITE_ONCE(enic->mbox_tx_poisoned, true);
+
+[Severity: Low]
+The VF now relies on this contract to skip the station DEL_MAC on
+remove and on internal reset (__enic_stop(netdev, false)).
+
+The in-tree PF side doesn't do this yet. enic_mbox_pf_handle_unregister()
+only does:
+
+	enic->vf_state[vf_id].registered = false;
+
+and replies. enic_mbox_pf_process_msg() has no case for
+ENIC_MBOX_VF_ADD_DEL_MAC_REQUEST or ENIC_MBOX_PF_SET_ADMIN_MAC_ACK, so
+both fall through to -EOPNOTSUPP.
+
+This can't be reached today. enic_driver has no .sriov_configure, and
+the comment above enic_sriov_configure() says the V2 helpers are
+"defined but not yet wired". The earlier patch "enic: validate V2 VF
+configuration replies" also says PF-side MAC handling must be added
+before that callback is wired.
+
+Should this comment say it describes the PF protocol contract rather
+than the in-tree PF? That would remind the PF activation series to
+implement station cleanup in the unregister handler.
+
+>  		if (enic_is_sriov_vf_v2(enic)) {
+> +			enic_vf_admin_mac_quiesce(enic);
+> +
+>  			if (READ_ONCE(enic->vf_registered)) {
+>  				int unreg_err = enic_mbox_vf_unregister(enic);
 
 [Severity: Medium]
-Is the admin-channel teardown actually safe for this buffer?
+At this commit, enic_vf_admin_mac_quiesce(), VF_UNREGISTER and
+enic_admin_channel_close() all run while the netdev is still registered
+and attached, and RTNL is not held. Can a concurrent ndo_open undo this
+teardown?
 
-The commit message says the send-timeout path leaves "the timed-out DMA
-mapping for admin-channel teardown to reclaim safely". But
-enic_admin_channel_close() only warns when the queue disable fails, and
-then carries on:
+Under RTNL, enic_open() can see !admin_chan_up, !vf_registered or
+reconnect_required and reopen the channel:
 
-	err = vnic_wq_disable(&enic->admin_wq);
-	if (err)
-		netdev_warn(enic->netdev,
-			    "Failed to disable admin WQ: %d\n", err);
-	...
-	vnic_wq_clean(&enic->admin_wq, enic_admin_wq_buf_clean);
-	...
-	enic_admin_free_resources(enic);
+	if (enic->admin_chan_up)
+		enic_admin_channel_close(enic);
+	err = enic_admin_chan_reopen(enic);
 
-enic_admin_wq_buf_clean() calls dma_unmap_single() and kfree() on the
-buffer that this path deliberately kept alive. enic_admin_free_resources()
-then frees the ring.
+That path re-registers with the PF and then rearms the worker:
 
-In enic_reset() and enic_tx_hang_reset(), this close also runs before
-enic_dev_soft_reset() and enic_dev_hang_reset(), which are the operations
-that would fence the admin WQ.
+enic_open()
+  enic_admin_chan_reopen()
+    ... admin channel open, VF register ...
+    enic_vf_admin_mac_rearm()
+      enic->vf_admin_mac_work_enabled = true;
 
-Suppose vnic_wq_disable() also times out on a queue that already missed its
-completion. Can the device then still fetch the freed descriptor ring, or
-read a buffer that has been freed and reused?
+unregister_netdev() -> enic_stop() does not close the admin channel.
+Could the admin resources and the admin IRQ then outlive
+free_netdev()?
 
-The new comment in enic.h ("until reset/DMA fencing is proven") seems to
-concede that teardown doesn't prove the device has stopped.
+The last patch in the series, "enic: configure V2 VF receive mode over
+mailbox", closes this window:
 
-[ ... ]
+  - It adds rtnl_lock(); netif_device_detach(netdev); rtnl_unlock();
+    after the quiesce, so __dev_open() returns -ENODEV once the device
+    is detached.
+  - enic_admin_channel_close() quiesces the worker again at entry.
+
+Could the detach be moved into this patch so intermediate commits don't
+carry the race?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929-b4-enic-sriov-v2-vf-receive-control-v2-0-5962c10061b2%40cisco.com
