@@ -1,104 +1,125 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FE635C6A7
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3184835C6A7;
+	Sat,  3 Oct 2026 19:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791054683; cv=none; b=CV08Uz54+7mEoTefP60YA2tH2PbDRIAzieVX+QqiYcHDKPlkkjxq8KSREi1JqF6LkN4SelGMHVMpz/qaP25mjXyCuAsPK2DCavsAaZJ1jey7u2sWkpDt75EV9IURagAanpB2VpMNod6KM36NVrfeKkUz1EnfygulEIoMxj9QWcM=
+	t=1791054850; cv=none; b=BrDG6k/KSTEvUAmBiObhc1s73zqRWCkbY840Za1SN5TkPLltCszTsqS2yJ5RsfbzE5C0USyJtUDeRbPv3LstvSZgPViRIGbwnMg7qP1mLWzWvbuSITouLzuKzjJ5p0FySswEdmLU3N7/pEnlSBow1ewbeaie+uS6dy/RYLqI6q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791054683; c=relaxed/simple;
-	bh=fbyGV63fwXkPEJ1aVy/GDfNe2j2MUoamF77AMyyYKHI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u1sqfOe5MJMSOeRPfQSp2Xtw1vuLpExaGZUNrVVVNr0fR8By/ZMhnv3xmEXJEJzCHGveiU2kuUtSldcuTAeQUsOJdFQNRFnpm+G1V7ymZPRxnr05EOX3+woEC/7HBntH5bDkh8O8do04LQVlIV2r2MxnnU7aWv7ssIHRIynU7Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FG7I/IPz; arc=none smtp.client-ip=209.85.208.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791054850; c=relaxed/simple;
+	bh=KhgmOyAqjo/llGROourjFLvSd3sC7KcQpwY5Z6BnsCY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t9V+d6IYrpbMmvzUPyxOfCnL+EbReRi7okjfFuk0nDi8EAbAarzueh21v4uujdN7MqVlySp5/twh5Dr6TtSP7Gyw29e6Ri1N/Gn4VDAI5db6ILySRRjuTQlPw3/fg+ta99zKZYYiLEqkRK5P+qmAL+ESHY/Lam2CsCEp50+jms4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UyWyh7Gp; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FG7I/IPz"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a7858d3a20so7227511fa.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791054680; x=1791659480; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fbyGV63fwXkPEJ1aVy/GDfNe2j2MUoamF77AMyyYKHI=;
-        b=FG7I/IPzKBRQfk/7m3EhddmaK0x7zIuXBGUtP/LGHkyPe+iE6kEPkSPlroRP14HvgU
-         OiFmA8jhGlDs7qs1qurG2irhfWVI3j5KVRaHjHtmgzgOH6tYLykI8ZQFcNbPr/G3ir70
-         jbHu4SI3Y8KvjP62H3Cq0iAbZnF2EZ29vMfe0w5b8aNtO98L03tQYT4HIT0al5JQBPQ6
-         Qkl950HpQC89FASdTYY/vUAM7aV6DQFxjiBR2ZX8ac39GMqYWdR0j+ZUe0DWK4WCIJg8
-         XCj/cd4s7iPMv4zdtwD4jXvOJz52ExOpou1l0+cF/ZwcmBonLNXaXPqiU83FL9VT0YrD
-         DqPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791054680; x=1791659480;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fbyGV63fwXkPEJ1aVy/GDfNe2j2MUoamF77AMyyYKHI=;
-        b=twQiZRwc1N0E4j/inE+m0fH7S4Qj78i8Xa/gWqQ3A/QHQUejWi5NqmsJIx/P+LCKPF
-         /g7J1EHkl+0b1fJbbojhFtGClDMxuktLEXS3/VS/X3I9d9YzJBJrTqT+VCe8wi6DBI8C
-         oyK7hXtzzuCr1TslpYCmy7A9+qCXXNuTz+UhZHn6wmozyAJRGvP+cLaVnA9JSTb8xQGB
-         ynibef2Vc4NqTomvihmhdZ/tAzuqcFUUEcVYd+XsmJj5wvh+L8lBVMmQGpDbiQenxNCC
-         Ciw1T92QAb+PNXO0V89EXIDxQYC+9fTgwgvb/GQT0cplLFmXl/dEaEfwGymMsPlvx/Hl
-         sLtw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBROMUZ7SF+6oMiHMX7MsL1xYTHN67ZfJcxzX7NvzuXeC1LblUDP6xN0vE/IlGxVvyiE1SVMoJV1y927A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE80kMRGAdAoLDYzo1rR32AXc6EvNGA/yfti9mLJQn3v8NvvoU
-	Y05zIFvfWsTDCZ/cwTNqYL9hGHEEgQkH64hyhs/eIAItr4MMKq1mR+8s
-X-Gm-Gg: AYBFou3nFIxf4r4WMQ/jtrb5R+wCfFTINF8wPnmeeYsoLPaa4vR29hav/9nyJwZtJOE
-	tUBHUWB9jlFQ15IDyF3dHrDgYcyBXzbBt5ptcU+jy7wRl7zrHfRrtyfaPawQ/1oW3rG4REhyHad
-	T89X5E1t5ez6mXNAZdJk+xNip+Et5UbRK7J2aVCeM8I/CD5zEqqC5DEA9l68+66ecWIh/WC25/s
-	eDJOv47/aCeL7cwSYeUQ4BYk8Yv/zktaJ12kCMOSB6zJfvCfdWOC+g3yxjmd7zYa4wQzbHAz782
-	2A2fCfyjb60DYiGsFrG+mOKKp6AMK7ljnuet4YqmTtgzIIwxsewV8L9ZEBoQM1XgtZaB7Eu/pql
-	Jd9NYfX66d9/Ycza7Jlj9pASqz6WdHS/GCVy8VCEG4gJ7iB1swg9/WuFASG1SQP+j769xjeZ+kt
-	U0phNrH8zDyADo7gxRqikNpSPmIa+mMsuB9yiyr30/m7iu/h4vigXkCNzgL1odYs0ru3a13NFuP
-	6Bcga4iTH2/ZiXSMTVisxbk2ehEQ6FDWVEzyauftqSRrD0lTa6xYEVsVimXw/DPdGNtLw==
-X-Received: by 2002:a2e:b8cb:0:b0:3a7:8294:caac with SMTP id 38308e7fff4ca-3a97d7e9d13mr1971021fa.3.1791054679482;
-        Sat, 03 Oct 2026 12:11:19 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e2f826dsm23626371fa.8.2026.10.03.12.11.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 12:11:19 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v11 5/5] iio: pressure: dps310: assert the lock at runtime too
-Date: Sat,  3 Oct 2026 22:09:26 +0300
-Message-ID: <20261003191058.35287-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <ar9j0O7DdJ7O1DVk@ashevche-desk.local>
-References: <20261002072526.250081-1-zoone.rupert@gmail.com> <20261002072526.250081-6-zoone.rupert@gmail.com> <ar9j0O7DdJ7O1DVk@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UyWyh7Gp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791054849; x=1822590849;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KhgmOyAqjo/llGROourjFLvSd3sC7KcQpwY5Z6BnsCY=;
+  b=UyWyh7GpjeuS/czkNtHuHV/o5+XXTrLoxrX2WG3Vy9b4pQlsMpkqzksj
+   CpIzpNSUf/Qxq1NPQnqxD0xScclhG1Z0VAl4IyKDpjcvGpw4tDS9Ks5cZ
+   zTGhntIP1ERpo9pz8b+3dOOw1fgB6r0Xcquj/AxHXzPlhIj/ciTxiLdg9
+   bvce80Ag829x5YWCLQ4z6S87kVz/eevQ3+nTz5Ko5PerDLvAreSM+/H+s
+   8YWYzT/o7eXH1QrM2nSRDvzF69Jg/HDmWUjGp6ThUz5eCwuwlJCPILIln
+   py2F4Q6A49ZtRNE6Z9/Ui8NiSxYO4q/FSCoiITr7awZXS9NcWvh7JMjzI
+   A==;
+X-CSE-ConnectionGUID: m6fCXqXETteS2TAt7P4nMQ==
+X-CSE-MsgGUID: 5AQnYGEUSNyz+XOvwOmaqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90840975"
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="90840975"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:14:08 -0700
+X-CSE-ConnectionGUID: 5kjAKhlISJmucsEP+Z1HUw==
+X-CSE-MsgGUID: ddJqhZl7TPmfEZAML0iz8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="276562823"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:14:05 -0700
+Date: Sat, 3 Oct 2026 22:14:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] iio: pressure: add Sensirion SDP31 driver
+Message-ID: <asFT-mYqD9PKNKEQ@ashevche-desk.local>
+References: <20261003160949.4657-1-m.abubakar365@yahoo.com>
+ <20261003160949.4657-3-m.abubakar365@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003160949.4657-3-m.abubakar365@yahoo.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 02, 2026 at 10:57:04AM +0300, Andy Shevchenko wrote:
-> On Fri, Oct 02, 2026 at 10:25:26AM +0300, Rupesh Majhi wrote:
-> > __must_hold() is clang only and does nothing in GCC builds. Add
-> > lockdep_assert_held() next to each, so lockdep catches a missing lock
-> > too.
->
-> Suggested-by?
+On Sat, Oct 03, 2026 at 09:09:49PM +0500, Muhammad Abu Bakar wrote:
+> Add an IIO driver for the Sensirion SDP3x family of differential pressure
+> sensors (SDP31, SDP32 and SDP33). The devices are accessed over I2C and
+> report differential pressure and temperature. Each measurement is
+> validated using the sensor's CRC-8 checksum. The scale factor is read
+> from the sensor at runtime, so all three parts are supported.
+> 
+> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
 
-On v10 you said it wasn't really your suggestion, so I dropped it.
-Happy to add it back if you prefer.
+With the nit-picks addressed,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-> But we need to hear from Jonathan and others if they like these annotations in
-> a mere IIO driver.
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Claude:claude-opus-5-5
 
-Agreed. It stays the last patch in v12, so it can be dropped on its own.
+Assisted-by: LLM
+
+> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+
+...
+
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/crc8.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/errno.h>
+> +#include <linux/i2c.h>
+
+> +#include <linux/mod_devicetable.h>
+
+Not in the new code.
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/once.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/units.h>
+
+...
+
+> +static int sdp31_read_measurement(struct sdp31_data *data, s16 *pressure,
+> +				  s16 *temp)
+
+Better to split on logical boundary
+
+static int sdp31_read_measurement(struct sdp31_data *data,
+				  s16 *pressure, s16 *temp)
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
