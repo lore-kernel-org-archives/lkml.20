@@ -1,107 +1,141 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EB841F344
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 12:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791029954; cv=none; b=nYTNOeUII9smgYSyAh+amNYZRKvgrKrf7gHq0w3Y+2mYEqApvtsCAiL7FYwHJqQy+c1NcbtFPqJO1UInDZTLHW0ILbgErh0alPyKHv/vbElxIM9C7I9RqE67t83/CRdLLt/SzL+/AhXWd/oYDGqj5Bubx5sdVdJKORF6gXxl+R8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791029954; c=relaxed/simple;
-	bh=V0/7vUbzZ2WS3ekKYc+/9kx/XXTqOYvzaiHvHZHSBnk=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=iHNueW8/LhZQFhtwki4pGYAT9SW45rsBZ+Ka9CxqFUnEEumc7Qd9cfer+SVJwc5jBdXFmXlJHwdgtWMEoi3MZWRv7cQ1vQrp42TN/RVSdSbgmDjKMtdOhHDndYjAPRV7SHuSWmbheC1VxviX8dQTMnksKs5N3IHL/uHMJpKtirQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ya1uPvVe; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CE841D628
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 12:27:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791030454; cv=pass; b=J1dM92jtYIkPaSzjNBwzDxg69gELIKVVJvupHe1N58q8mqHOpVVY4+P7BfwZ4ESoSEvmMO9OxCUEkdfzrV45Qi4CEBvzlMeZsCbY5f3SmmMcqbkjfznjP8s55R09Msm7jADhAHhn2PJrI/epbSxj4UDgBijwEJ9QlTYgm3qpEzc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791030454; c=relaxed/simple;
+	bh=WRC2ZsAZuRhunv+s3RLF4cY+obMu9wORkIop+4QLO34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ENA5gHWoqfLLTpqxhs4d44QcgfT8qfCEqBnzBvHb/JeNuZAeQ1qxm+b4cQMr5CpAThYWxyzipWPQRnSh42sxxvVxDHwzrmyf99by+dqHKLi3hwCr8ZRzt/6eDTunBaVW6BUMxdRD3dWM4JO6s6F49jd4TglO4n41I5J0a/TPYYQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kjSNRv0y; arc=pass smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ya1uPvVe"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4aa02a269so166851a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 05:19:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kjSNRv0y"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b010e8c94so34405eec.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 05:27:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791030451; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TIjwX5iZHFGnlvUQenehw+E8zizMG5jz5444Bj2Sk8UBHpIAD1pFT+8sW74+LlERDs
+         PBMy7lBjjLDUxllk2KbOzhq6uFx+rfxaDPawbEjIAXCtY1piC9ETFXJ9r+8FbJ7aqs3X
+         FQEo4QBdL5BctQ2yqJx37t06ct92PS86QfEfZjg7zS7SF4yusMkYzySGduTbdtoeg/6+
+         KSmcPjyZhtIWQX6Z6UL9ycTHP7f/7Twmx2AzIaliuc3qF8hlkCCfOIgowwNdY7uJ852d
+         MaD0AKRhW+8qqQXBV2xsw/rc5hoWrGfpuLTDEV5IgAuNw6/cVEdVoVqMlw1tRu1KbPkz
+         I2sA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nciWRX1CeabRFxS/ww+D7OfrWzkB7f8+tgS0WiLuSww=;
+        fh=j+gbe51iuagLX+HMzhl54wA1Ckn9iVC7zp5nijVVOxI=;
+        b=QdKdwYFCnxwcbM4JNkBaD3xSAtc6R6u/UETHjCGwwo7ABZBbELKiXksVRluzobjCvN
+         xK1Hlzps3ReUdtRP2GfUyrLlAjCzUFPJimTioy9v4IoTTQRjtauO33oUsUiXtAONJuRE
+         h6S3GomFfLM6smHgcdQT+IHLPD5wFlEa7gwKU20vACYhEOZRlRn3+MCvkKpQ+b9tfiE+
+         snLMN+jwjK2oHBuHAQ6QSnrqgKsll6RzYnzETC5x4jSHHbHelaijqxAov5fY95siX8Zi
+         5yCq6D+KYvNt8wET+QFMKLJxC20Opw+FaZncE5S6r4XLP5jXEfCQubEOrkodHBfnR/ws
+         g07w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791029944; x=1791634744; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791030451; x=1791635251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=V0/7vUbzZ2WS3ekKYc+/9kx/XXTqOYvzaiHvHZHSBnk=;
-        b=Ya1uPvVeeM6n17IR0e8tR+Fjn4A7Tt8xHAj2K4RCLwhM/hfRH2CLdq5KVXsqQ+7+x3
-         Bjh71FLm+eHABWYeuAqtB8u41rC6u3Gv0BBngTOtNGGVVoYenWZdoIx3EaA3DW/NqxEm
-         r1BZUyVLORTMFFEYNnrQzZPkAX5SzAzBvz9lKEZ3dm47fm7OGnnuU6Pf8eBH/fTDejMv
-         npC3Z2mnofQdhE53ZvxxScLXy/4abR1ig/Pap4sIskWXMbYdPYLxYYrtmb8UwcnIJNTw
-         789AGnYTn0CFfvhsFtKtHWJVNh1VUA9JUAmfn7mEfHa9u0CqKMUz5YKq5/iDP7QXZpvj
-         C1RA==
+        bh=nciWRX1CeabRFxS/ww+D7OfrWzkB7f8+tgS0WiLuSww=;
+        b=kjSNRv0ybOUgtC77f6aGwITRN702J3l+Hqyl2QHaEz4kol/+imfE1dT0Yc8jftJV1e
+         RDwJpue6M/tIRgEJR3eu9jW/jHTRlgwnLXbkkGKRbCjXJJJJ81JWp8uhCJdUxYBWvu7a
+         eool3WFVRL8pmu2IbNUS/c2S2PZYyUzx5Z2kfyqr0BAvYN/f/zLhvtbja38+F11Z7mCr
+         9aWVbi9Yq0I3lUqf+qG5gKQDqnfc15VEqmj6vvRh2BwB68hcu5xtCYrTUC/20eOQNAjm
+         +58wN7o3GTdIXAN63+xW/1Xxz8kiNuGExFhPa1+QNyde5HqSHfdNCIsVpCCn8Fwf4hoo
+         p/HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791029944; x=1791634744;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1791030451; x=1791635251;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=V0/7vUbzZ2WS3ekKYc+/9kx/XXTqOYvzaiHvHZHSBnk=;
-        b=nMYa7UC6/MLMez0BNcM0wRZK9QBLIk1IjfBOH7NUREoaxx11BqoprnR6AkefAaDbkL
-         g3sf2yH2eyxpFxqNpcp0mJ36ikheOsBgnAXkO5ule+2gRwBSVe0/5ZWFXL3vpObma3ME
-         a1tDnwyJ6ypkio3/UCoaoQ/U+9xwncl75AQ+4xn5fDbwC0EXr4MR7a7qPITbXaAwo8BG
-         oYw/0ezSAX/QtyfKqhd4v6MNTrVSUq04oquIt6PfUFZZdsEIVlJGUpW0M0ZHYWxkFZfN
-         gHzfO2KvKi8QDrU2gNPu3putBiV8ThU/G778efGwZN9xCJTVJE7X8jBX3/A9IEQ8ePZS
-         iumQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXKLG7/tC4LuOPR8kUFT+XtuNBQfGf5ANUWEtozgb3sVtQTTejSD2J6baZuqds3URK7Hbhzut+hyz5xjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kH5TwaorEcIwBQKK6Q5Ahc/JKIZdhfR4fvS18Do9qNUcCIfHxC
-	E22YygZaZnKTEJxCeR5bPv3H2q605L1fANDCRTXAjXashjoqKpYYhu95
-X-Gm-Gg: AYBFou0mZbR9JWlOXPn42KETqootLVhdGyvMZKXk+farWWgyV2sv+PaFPzXGBROlUC8
-	x5lOy4HCki/Y+IAf6eg0jlXxUxazl8tX3UuJRNcylP9EExzU0qB72Y11gKIbZ7rPJtfPLRbxDzT
-	2L5Om/Y5WXD0VkYxb+6+weCA+hT7DTRXvpCt7ZGGYWbJCIxXrJiNDj1c9ehcD2ky9RcacV5NABL
-	rdY0W+ilcfQQF2lw3fC1ksLw1luAx/6rdX1m86Ei0/RoQJ6qADmsV5SIBw3HAeprRO2lUqGG1Lp
-	EvgklMad8BX67Lnger4w/LweG90sKHk2ezUD6yMFKErstWVKWsUGpFd/h8kJle6rlCWkKEpNt+I
-	i7ttI+Q9n5AlGyDWz9+hWijvXqmbWkdy+qE0JWsrI6MOEedHK5zoSgfYWgPB0V7fCmysN15Jm+y
-	WfEz0XhIjUqsRzolD7Hg2mmiGLtgUEfQvbbLxBM6APGLrG9QoCW7YvMkXPm15B36bA8YFB8qkAl
-	ZsHQoZRqA15zbNARCGLetUwqNZKybAItBfaJ65a0GkUOQaP5NcieLkmy2n2ovwV5a99CXvjNzqk
-	58o=
-X-Received: by 2002:a05:6a21:d89:b0:3dd:a197:7360 with SMTP id adf61e73a8af0-3e0d6d8ff80mr2052536637.57.1791029943830;
-        Sat, 03 Oct 2026 05:19:03 -0700 (PDT)
-Received: from localhost ([153.61.198.247])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cca561e9d1dsm1740373a12.6.2026.10.03.05.19.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 05:19:03 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 03 Oct 2026 12:19:02 +0000
-Message-Id: <DLV74KRI1SBL.MYZVQAB3N6QG@gmail.com>
-Cc: <abuehaze@amazon.com>, <acme@kernel.org>, <andrii@kernel.org>,
- <arighi@nvidia.com>, <arnd@arndb.de>, <bentiss@kernel.org>,
- <bpf@vger.kernel.org>, <changwoo@igalia.com>, <christian@heusel.eu>,
- <daniel@iogearbox.net>, <doebel@amazon.de>, <eddyz87@gmail.com>,
- <ihor.solodrai@linux.dev>, <irogers@google.com>,
- <jay.wang.upstream@gmail.com>, <jikos@kernel.org>, <jolsa@kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-input@vger.kernel.org>,
- <linux-kbuild@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-modules@vger.kernel.org>,
- <linux-perf-users@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux@weissschuh.net>, <martin.lau@linux.dev>,
- <mathieu.desnoyers@efficios.com>, <mcgrof@kernel.org>, <memxor@gmail.com>,
- <mhiramat@kernel.org>, <mpohlack@amazon.de>, <namhyung@kernel.org>,
- <nathan@kernel.org>, <nsc@kernel.org>, <ojeda@kernel.org>,
- <petr.pavlu@suse.com>, <qmo@kernel.org>, <rostedt@goodmis.org>,
- <rust-for-linux@vger.kernel.org>, <samitolvanen@google.com>,
- <sched-ext@lists.linux.dev>, <shuah@kernel.org>, <tj@kernel.org>,
- <void@manifault.com>, <wanjay@amazon.com>, <yonghong.song@linux.dev>
-Subject: Re: [PATCH bpf-next v4 00/12] bpf: make the vmlinux BTF an
- on-demand loadable module (CONFIG_DEBUG_INFO_BTF=m) to save ~5.4 MB memory
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Alan Maguire" <alan.maguire@oracle.com>
-In-Reply-To: <7fe71959-1c58-4b6f-9019-6f886683530e@oracle.com>
-References: <DLUZVHOLSN1B.115EUX4KJBEA3@gmail.com> <7fe71959-1c58-4b6f-9019-6f886683530e@oracle.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        bh=nciWRX1CeabRFxS/ww+D7OfrWzkB7f8+tgS0WiLuSww=;
+        b=NzHsjlaqTFedfh0uzuZVDygWNPv56KfJ/yCxMdsOcEnCye+uWj1Q9aMJQadrLFKVNe
+         RZN8Kv6ARztTFUSegcnM6qcBS7d1zgI6jheLqSmlE9fin2hUKVecInHMBku6bVEdBfpv
+         dr/ZFnC3zsTY9os1TTfs46JnAr2sQQ2zeDRMp/ppji0XGbMRJZQ97jzb6WTGdM7YC3m9
+         M8TFXtOnTniBziXqBR0q+oVm8SnPA1XOm3r61WB0FRiInL0vC90/IDG5tugfsI+J2WEY
+         /yfDbq/BRqLfRc2cmUhCxKtt4m5EVNwV00i5XNZ/Z31MgRyfZbv8QR1v3YCm9ASLUuvv
+         QhMw==
+X-Forwarded-Encrypted: i=1; AKwUvBw2THzSCMVXEfOtRE/CbRH8roAVHvu/U4GQdW2PHrURGRjvZKptXZqpJDCNCKpOVl8YXY53bwQ2ySmgQ30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUY0OqvdbBjs2GvKfFs8iOkejNucC47jnWcqdVl9+6m1ni2bd5
+	+tpmIKarJCuw+ytf+LpfqQk/8Y/SfV+1EOKIr0oGTO2iyAfMHtYhlWAk4XCPuymcaY7s6KEQ4t0
+	bWf3FYIGuQB/SoaVwXfVJkmpud+6djCI=
+X-Gm-Gg: AYBFou0TG/vSgbtgekj7nEQC9GH/2WM2aNzHYF5ge0vVkubPdxFvb7pQ63vtN0CWyau
+	VLoivyW4kNxkn3aPqujtXp8RZfAlSqN5Z+b+i8MrqzGaeXs0vCo2A6TUgS5pJJt6K0WgCZ9bjIf
+	BG9wL8k41bMT3/fBKpNBdrKq2ZGMxTY69aECyeTC3Ur5kMTsxeW5UYQ5ypEdgFsI0qrskykLtjn
+	UzVJUd/VSzM3OFVIZU/4MrW3LSrxbp+Cl50srfnG7qekLDohBtoblo7PsleDKhDMLnNREcW85Kl
+	DFXjMyb0M42f3yqyQsTGAJaHazkqJ+PMymfbYt6jjCDgeNoWBmk/RKheoSgZl6uN6KFSNuBIRhw
+	t+J7mx2PnzWrlM5aIh1vcR+KnWYfzBhlvbBzFftkubODz5tMuWYDO7+B8xDTxtPxfacUct75+iF
+	0e2drDLymHyB9aGZ/mueyEjhGCAV8IUzq8/G0lFq196x/+Qz0sBOk=
+X-Received: by 2002:a05:693c:8951:20b0:34c:15b5:b4e7 with SMTP id
+ 5a478bee46e88-34f1503d60cmr10692389eec.2.1791030451112; Sat, 03 Oct 2026
+ 05:27:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260902-kunit-v2-0-eda3ed6c00c5@garyguo.net>
+In-Reply-To: <20260902-kunit-v2-0-eda3ed6c00c5@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sat, 3 Oct 2026 14:27:17 +0200
+X-Gm-Features: AclHuK9DwEiR8riAHJ99e7wWWIvXaYD8TEoP937-DUXdEOHBiBspgOjN68JgAw8
+Message-ID: <CANiq72nAhupkFYjRxEvpaDw_CAFZaSSdDCKFjG-3r3PyouEs1Q@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] rust: doctest: unify with other kunit tests
+To: Gary Guo <gary@garyguo.net>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+	Rae Moar <raemoar63@gmail.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	kunit-dev@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 03, 2026 at 12:45 PM Alan Maguire <alan.maguire@oracle.com> wrote:
-> The only overall cost is if when we wind up using vmlinux BTF with the compressed
-> .BTF section, since we have to do a full vmlinux BTF allocation (on top of the
-> spac taken up by the compressed .BTF section) right? So slight penalty if vmlinux
-> is used, but big gain if not.
+On Thu, Sep 3, 2026 at 12:00=E2=80=AFAM Gary Guo <gary@garyguo.net> wrote:
+>
+> Currently in Rust, kunit tests are handled with `kunit_tests`, while the
+> doctests generate a lot `extern "C"` functions and invoke them through a
+> generated C wrapper.
+>
+> This is currently needed because of the special treatment of file name an=
+d
+> line numbers from doctests. Convert them to override `file!()` and
+> `line!()` macro instead, and use them inside `kunit_assert!`.
+>
+> With this it is possible to just generate `#[kunit_tests]` and `#[test]`
+> for doctests.
+>
+> David mentioned in [1] that this should route via the Rust tree.
+>
+> Link: https://lore.kernel.org/rust-for-linux/e30d16ec-f5a3-4cd8-9b25-96e0=
+dfa8b9d2@davidgow.net/ [1]
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-I think it can be copied compressed into vmalloc area and
-freed after decompress, so memory usage should be exactly the same.
+Applied to `rust-next` -- thanks everyone!
+
+    [ Removed spurious `///`-to-`//` change and adjusted `line!` to match.
+      Added a comment to match `file!`'s. Made `NOTE:` more precise. Reword=
+ed
+      to say it is only one doctest being updated. - Miguel ]
+
+    [ Removed generated file from `rust/.gitignore` and added it to
+      `scripts/remove-stale-files`. - Miguel ]
+
+Cheers,
+Miguel
