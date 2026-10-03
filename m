@@ -1,95 +1,102 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8FA13CF82
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 13:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0482931EE
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 13:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791032738; cv=none; b=CBwX3fYWfiqHrCQZxaKGQHHsN82aElYAnEXh0qgBJ7wd/rW8TQpqGFvIAC81JE9v/VDK2pZ13pu3ipt+WD+Dcd1ocl7pOTgltMk5jr/0MIsoWEPTQlYOFkMdoUExKFUiIxBtKUehbFT3tYCxbW59dfo90Q54dQRw+DPARml0EVY=
+	t=1791032997; cv=none; b=X5/vxgzsrhM3pvFguTGry0jlGLkO3oRx6xXOtUOWCzXAR+KOO/oB/JjW/LkVd6zLaHw3K/a8jRZT5/CyBmWgyhbsKxsuUIShXWnJgdgWhDe2pWVmrTS4qkjgQtG6n9oDZmPFkcujJ5pB8VVeTYHbGOEiZX34NaHqBvh/Zz5qayI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791032738; c=relaxed/simple;
-	bh=KMxCu1hB1PPPKRvBu8s7rQwT+lFZ7ZTQQ3a+EzPzevU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=kgvglN/FmI9j2gciWbZbQOVqsdOzHG6RJbznSOm59fGiwgbdC8AkeCTQKTL/iJ3iEvDbV8S7LvhTr3sHTvfNaDK3Qwrd0tSrLkIZk0eTS4oGmxMkAuJDjvS4I1UpFVDYL80bQJAmLeAlFjt2SdbCwLqqjMd6pLYSd+a0RGMKtwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so123779b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 06:05:36 -0700 (PDT)
+	s=arc-20240116; t=1791032997; c=relaxed/simple;
+	bh=Ptf6A1n3o14kQDPc7izKJkBkbCPXmLPjKGEOV3e56Zw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V14xWAvjTEIQOs65aqEDNEZcx9l9LJqbv7qy3ufbOUkt6Q7L27YUnf22VOkGGihkOjZur+deTRB9IR2EbjZdAVkIdd+W0xwwrpKNgXsXD4kTggoXI4v8ZVK+2myWD1wUH3cubnWQ1FpSZ5xbiu5QOOTkbsDbraJGbmhSzZukBBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jLVbwuQ1; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jLVbwuQ1"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b14db40daso105871eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 06:09:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791032993; x=1791637793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v/KkCnT8DcfgAjdsj7WLPc/noK/t0kZqJiLQcWJITrQ=;
+        b=jLVbwuQ1Sr0udwM4VC/k3Lbun+nz2kNekqxtH3XP9n19oIezzCNb3l/ZPhKPAPFWuB
+         uKtfr1qvj1mN3p2OEeIyPja0drFT+bxwcmQ1HhtFYXHf9z0UfmMyET9i3nHqkiiWrP8r
+         7mnnIKRiX7MOSv6HAQFxkNemMhpDjXbKxPQGX4jLGVRXRDkU/D3Z/Y0ekk4VfGgWK1db
+         FztfSZvs/4GN+95ClaawAP0cBV7bT+1rkBHa/HHtSj94dBwlurc1Ahlz/XLwYt5FKdRO
+         T4NI1cZD0yT+JNURG4ddhrLYVVcF+dEzN6mrTXcvfAljE7XJAvy/2rV7QfwIZ3jnY7qn
+         bx8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791032735; x=1791637535;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LA1UwbOFOb6MvjWoT1yb+WWsSx+lZTj9pwHI6EhTaM8=;
-        b=h3t/SGtDEy6tVyOA96yt4nqrPWVJCrGvQoICDI1FDrxn88MpxFSCWEHMHI2QF8r1My
-         ihymYxpGIhn0g9nyR3iWZM2J1E6Kz25FUrCxSoMSgBwoHh5+h6iva4d5yc5k9HSozHNx
-         GcsE5NuwMwy5zLNOxSS8hA7Z2DR44sZz3DCHG0RkM9xmXUYAxSQyODI0FC8y0fw1kF5P
-         MLdFFTdG99A1VRdat4oKLXzRVV7Y7Loa/B4v/qQhF/t7mGM4XDrUS4hUkr06MGRX2if3
-         kDEY+eYRyQJ4JydCsx+D7Y5eKPA9PBLnvzl5nYobtgEX/v/ohb+Xa84CcUGimeDHUfnZ
-         4TIA==
-X-Gm-Message-State: AFuF++mWwH1QtMrx2+YKDtr0Z1IdsMQ+tO/Hgu4IhVnxwcjpif1Ex5xk
-	Gc2f3uMJ3YHkAap4algGHR027v8Gbk7muAehhiDVLxh5Hj9L12LyGeBYRezo23EZVDU3SsOrQeE
-	NzJzM+bn6xTpsxQydRRpFzux/gaPjQUkObD4j2jWNKmvcD4pv4JDpgjW9R7U=
+        d=1e100.net; s=20260707; t=1791032993; x=1791637793;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v/KkCnT8DcfgAjdsj7WLPc/noK/t0kZqJiLQcWJITrQ=;
+        b=Jlj3Z7R9VSW9y5NiONmotgKUm8GBRMW5FWBpDDIa3sXwK2CGb1C0sIbAP44DvG6P7u
+         PXYcdSvcWwE/WvTR7s1wSqN2WQFON+gxYgn6pMr6xueungzG9u/nHW54jrhzizz9dopa
+         ku8nE/t5FDLliZjlumjXaMNiLL1ft3w7olQUx4AQArV6CQJvqllBYeN/rIPumSqcc6OG
+         RKrv8Mri8+GHShKOcdavPwX8pEU9Z/0SLx9RmnO+DGRVhY2vZrcrwddy4jEzzFRXjJRK
+         D7EFlpxOuT5Hod6EQGisRA7/doBMUk81niaqiuxFLutFhXbogUdQAmz57NFtWVtMDVHh
+         XK7A==
+X-Gm-Message-State: AFuF++mkUcH02vvBaWBKI+pPOac1XRjQ45dFZdhGcGtIXgPKNKLYEdV3
+	Z41RSdPMuxZOd0i9bT7Y46PHpRnu2g2fCmvDTM/tRE5oJLH9uoCNixmf
+X-Gm-Gg: AYBFou1y3x7re01GbUrdUXL/w+edT852Pp1i8/EF/pN5mQjuGoPLgZoOsce0l1u5q1V
+	R0blGRP2AFAM3oLXg0uIdTzXjdc+oBkVEl/nnms8K21I6L/cX69YYdVJmywtbhGZF9ohO1FtfBZ
+	bCYwvo2fgnilgpSGdFWecJAcSlDquv1pX8sENdp8De+b3NQOEJpdULiWszcItM5gK2ui86iB84C
+	x8mZNDmQJr/xjoB/rWhTf0ddWkkTfFzuLqgucG76o/PmMuPXnH5iU59qPbOD7aDQUxtKzmPeLsg
+	vj9Id8n5z+lkmfuh+OmTi1zyRjmI+goT4QkRPcL39FxhWBYD8B4/eIzwdeUmsdjCZoTpS6ourF4
+	tcDtHFjm6PSUjUmt7d2Tcu/xFrQWhBvYG/aq8bwL2v3Sm7CKEwv4KNwVLiueNrnXrG444r9CDl0
+	FkRM+GVBZ7WswizEuYVZ4cE9SQFzlDSbg2byXp4qgQEPGpN4L/PQXIm30MrrqJokn8GuVPAjUom
+	IFn5SS8heRreSN1FLk=
+X-Received: by 2002:a05:7022:1203:b0:14e:4317:597b with SMTP id a92af1059eb24-14f5bef5549mr6059964c88.18.1791032993088;
+        Sat, 03 Oct 2026 06:09:53 -0700 (PDT)
+Received: from localhost.localdomain ([103.170.55.70])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fc39a7d1sm5769868c88.3.2026.10.03.06.09.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 06:09:52 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: linux-nvme@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	hare@suse.de
+Subject: Re: [PATCH] nvme: auth: validate DHCHAP secret before stopping authentication
+Date: Sat,  3 Oct 2026 13:09:12 +0000
+Message-ID: <20261003130912.2410-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <0602191a-81ce-4f8a-90d0-b47ba2bc36ac@suse.de>
+References: <0602191a-81ce-4f8a-90d0-b47ba2bc36ac@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:130a:b0:4c3:b6cb:da37 with SMTP id
- 5614622812f47-4f52a784935mr4568256b6e.35.1791032735572; Sat, 03 Oct 2026
- 06:05:35 -0700 (PDT)
-Date: Sat, 03 Oct 2026 06:05:35 -0700
-In-Reply-To: <6abeecdc.7503fbd6.2d3f6.0010.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0fd9f.9ad129c8.3858c0.0016.GAE@google.com>
-Subject: Forwarded: [PATCH v1] Testing for a slub out of bounds and uaf
-From: syzbot <syzbot+46bbbe175b7eea8036b8@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Hi Hannes,
 
-***
+Yes, I agree that stopping the currently running authentication when the admin requests a new one is intentional.
 
-Subject: [PATCH v1] Testing for a slub out of bounds and uaf
-Author: nsvatoslav515@gmail.com
+The issue I was pointing out is slightly different: if the new key is invalid, we never actually get to the point where the new authentication can be started again. "nvme_auth_stop()" has already stopped the existing authentication, and the parser returns an error before the restart path is reached.
 
-#syz test
+So the question is whether writing an invalid replacement key should leave the previous authentication stopped, or whether the key should first be parsed/validated and only then replace the existing authentication state.
 
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- fs/ecryptfs/keystore.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+If the intended semantics are that an invalid key write should not disturb an already running authentication, then moving the validation before "nvme_auth_stop()" would make the operation effectively transactional:
 
-diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
-index 51651314b7a6..256b7e317ea8 100644
---- a/fs/ecryptfs/keystore.c
-+++ b/fs/ecryptfs/keystore.c
-@@ -738,6 +738,20 @@ ecryptfs_write_tag_70_packet(char *dest, size_t *remaining_bytes,
- 		goto out_free_unlock;
- 	}
- 
-+	struct user_key_payload *ukp = user_key_payload_locked(auth_tok_key);
-+		if (!ukp || ukp->datalen < sizeof(struct ecryptfs_auth_tok)) {
-+			printk(KERN_ERR "Error key payload too small\n");
-+			rc = -EINVAL;
-+			goto out_free_unlock;
-+		}
-+
-+	if (s->auth_tok->token.password.session_key_encryption_key_bytes >
-+			sizeof(s->auth_tok->token.password.session_key_encryption_key)) {
-+		printk(KERN_ERR "Error FNEK key size too large\n");
-+		rc = -EINVAL;
-+		goto out_free_unlock;
-+	}
-+
- 	md5(s->auth_tok->token.password.session_key_encryption_key,
- 	    s->auth_tok->token.password.session_key_encryption_key_bytes,
- 	    s->hash);
--- 
-2.47.3
+validate new key
+    -> error: leave existing authentication unchanged
+    -> success: stop old authentication and start with new key
 
+If, however, the intended semantics are that any attempted replacement stops the existing authentication even when the replacement is invalid, then I agree that the current behaviour is intentional and the patch doesn't fix a bug.
+
+My concern was specifically the former behaviour, rather than "nvme_auth_stop()" itself.
+
+Cheers,
+Sreeraj
