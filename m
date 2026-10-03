@@ -1,121 +1,297 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AF82C15BB
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1911830C177;
+	Sat,  3 Oct 2026 19:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791054111; cv=none; b=oZ1rJQ6pbxe41dBV/KU4zglI2l6afaDR1CyDdy/k7lCUlWbYjt+Seoq/Feo1ZjjCaMNJuISsc3KzkvTYZ29Nu2qccGwXb/9RpUO0LyQnH/C97pHfou1lvnLZNEPborf0/jt5fakhogTJxOGVFrcXqJmCWr2iYrnIlTvPEdsMcCI=
+	t=1791054224; cv=none; b=cOdx0kGFXbope8dCSOpgushvs07PxIVpJTsUTWdanMxzn6OmcFjBvDgliya3ETDUtvesAUZnTafBt9C92isE4qw2Cvxtfwh9mA24ClKNgFunyXXnc6wbPWQRNSmaJis1w+TBRcf/bu4MXWbmoCjAOU5uNS7zcpeg1P7TuPyZxFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791054111; c=relaxed/simple;
-	bh=48MhTw9wDTWEKEZw4bUxBTpp1TwSf7rxa59pL1W+mKg=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=kn5QrZ4eQk8m8MhtUPMXBIhqc9VrzMP8hwmIr0fHbzxZDSEdeZ8zDswzDA6VRrjSZvGPjgFl6INdUHykOa7wYfElpzQvFMQ7fIFBvxvtu/En8kH8qAppWoXVy2h/EOODQVbGxnjXiAj+I9te9syYcHHUhsv6Q3XHpuSn9fXvr+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r1hWPjWe; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791054224; c=relaxed/simple;
+	bh=ob0yorwkLKz8aKiSlx+uaiCrDE9CiqMaVN5DDAZ6MUo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NllWL0Bmfxtyk8wmQ28jki2UHtJ7ok7y6ivv76Z25/AQeMcEeoSVwKu8TiBMPcej7drtAx6CvVSLLGADYGUsdFP7ehnuowIxqYrws9SzKQdC6wl5xS2CLAerXFCjxAJeNt9CuwkYh7p1YmSfXJKPH5CZegI/UVSjziulH3YcJrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ke3vjD7Q; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r1hWPjWe"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-671563fb8beso483453d50.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:01:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791054109; x=1791658909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sXTMSYgeBEoDskD3IWbphONoA+AtnWoFnnYeCTTaSZw=;
-        b=r1hWPjWegVV4xj+/IzTFcfoEwodLN/AlnoV/WfRmbA4Q5/6QclO9YxhXJUtX8FtJzI
-         ysKSEX+wCY2WN+0MD1q43RgVSJbXJV8NydVIVuT/Mfk5jw3iivnwIVPHBkbsO+iFxfbi
-         D6UdepomsJAnRsb2qC23dboqum5I/hN/5CkrTfPtqAFdWL3h6st/BW79NNVYmhWGlte2
-         +cl+q2kD7HzyBofED7DBTCurxhoQaL/twpdRpijPnYnBYGrqssKexs5ArRs5fF6nU8XK
-         7w4s5KJmB7jmE+2AaB8J3mRhCXtv/OrQBOM5gXFK/fvsvn/VIbnGQr4NSZbPRypSVh92
-         Om6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791054109; x=1791658909;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sXTMSYgeBEoDskD3IWbphONoA+AtnWoFnnYeCTTaSZw=;
-        b=U7FZIrXcX+oybwsuNxXCLWhsNWvvX+TG6fXb/h/6sNWySzAB+1pRSP2drmLuZwEB1M
-         6TfxcLprHO+6dKsX56HLbf3P4X3Dy1ifjL3+es6o/cn2oGgPjLEdQdiQzBbqXKM5vO6i
-         muBkVu5cxoEjuS+U/P4696zNl77vXbj7OijPLPcZBGFA08tLpRl5oUawTFIqvfif0DjZ
-         e35zWcMku70eP3WgK1ovSPUdvlwbays6TZO7yZYtj/jJ0tGdhjNDtXRsyk8LH3N9yYep
-         4x6iOgA3kw0jxVSRNmd2TVtMlkMtFT0tFnjAEVQAfVB8ayTkau/E3IQ1Di7LcckD6MXQ
-         GD+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxeh3gQH9usMBBU4Lz89rJ+7gfcLkoJxFab2yN2xyCMADqzMupBf2FZUAcZajZuN6gV5zTMVmwjhyaMp6k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+Kr9nnUhAzztYJ9TdZTnF4FGoPfdZcB7DCZNb7jw/gd+WR0RV
-	lIlIIIuFlJGRppp3kxmrXIhVR+2UctjJy4AGQ9rcN526lDdlRJIi/W+W
-X-Gm-Gg: AYBFou03wq01/ujraWvXxow+rqTU0ImtLc/dlYiqBQoCj06egni5Ew4X8es4zCLLm4t
-	apLQjjvLW/ODIa7Vvhw9vQYxFJ6tmkEEaErRtZ7PulCss6W5pYI7kvZ7OrAOmydRGXe5QWjluii
-	f9Wwvi8kgon2378FWzVEWj3z7Oa3kVtRniG6roIEkoP5uf/6XH6C48144R+c3BPnpfCdlTdcBLL
-	VJf7SVow8xh4djq30CRwU98Stpu6OhD5/9hU/W0mXpyph0ANd2Vsngb9BuAi8iggCDbPH/oSzFN
-	w55GAju9CJu+hhh8eS6okelb0PXXQDi3DT6MlQJ+u8ef8rS9ZGLrBe6pInqivNIZr8HnFaowOwt
-	Zdixgf328eN2IQQxHp7qRif5vVvrMaYeGAjn5ROONYnHfXLTwaGldmIKbakr+bZZj0jDT0ULqd3
-	IrDHLzHjr4izFUxsEALGTL/oL64k+/ttI9Wz1HchU7vZpum1gedycSOn3w96EdE/36vBdXwI4Sp
-	2Hvn4z4paQMuikYNVFCFITnV/gg+nVNZu4kcejCIJw6nnFp0UKC
-X-Received: by 2002:a53:ac8f:0:b0:677:ae5f:927f with SMTP id 956f58d0204a3-677ae5f941dmr2335560d50.106.1791054109124;
-        Sat, 03 Oct 2026 12:01:49 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1bf368esm906480d50.20.2026.10.03.12.01.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 12:01:48 -0700 (PDT)
-Date: Sat, 03 Oct 2026 15:01:48 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>, 
- netdev@vger.kernel.org
-Cc: Martin Varghese <martin.varghese@nokia.com>, 
- Willem de Bruijn <willemb@google.com>, 
- Alice Mikityanska <alice.kernel@fastmail.im>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- linux-kernel@vger.kernel.org, 
- Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-Message-ID: <willemdebruijn.kernel.d7c5ac3be7fc@gmail.com>
-In-Reply-To: <20261002153039.462663-1-yanhaishuang@cmss.chinamobile.com>
-References: <20261002153039.462663-1-yanhaishuang@cmss.chinamobile.com>
-Subject: Re: [PATCH net] bareudp: set the inner protocol to the protocol of
- the packet
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ke3vjD7Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791054222; x=1822590222;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ob0yorwkLKz8aKiSlx+uaiCrDE9CiqMaVN5DDAZ6MUo=;
+  b=ke3vjD7Qi6cBuTRafYhNEcpV2AydROknOEnCe34QXfKjqwKljPWR1GLU
+   tcLLSLjUUd/iyaSA38wMSy8dfcu7fv6El4Vq6rdIyN0zmPtuiSqFTbu64
+   2eJgwK+6VY9B9n2gh3tklIumLEDr42sLblKByPYp9WFQ7b2SpD8rWz3gK
+   SFqtJbHBOhCjxyis1WU5Bng2XPbEvD1P4dDWibzqM3oiaeBkKClFTvcor
+   oaHa6o88YSoVo8CDvrm337N1H4TBf2cNvMv3M574mLDwKRy9W0CCezadf
+   omXbbF8mgqEobrgMSlAIJiob3ByVyC6H7xKK+35dPoqfAUG2W17slKD/h
+   w==;
+X-CSE-ConnectionGUID: VWfvSY5KQVKbXLOix2teeA==
+X-CSE-MsgGUID: jZHNir1kQ96L+J38wvZ7aw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90917684"
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="90917684"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:03:41 -0700
+X-CSE-ConnectionGUID: 9uhu5KoGRguT7ZxPOcfTpA==
+X-CSE-MsgGUID: CkmXiU1iQkCHf3k899Fvhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="279771010"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:03:39 -0700
+Date: Sat, 3 Oct 2026 22:03:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Liu Yufei <lyf98405@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: proximity: Add driver for Vishay VCNL36829
+Message-ID: <asFRiC-RniYbQAKH@ashevche-desk.local>
+References: <20261003050453.413700-1-lyf98405@gmail.com>
+ <20261003050453.413700-3-lyf98405@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003050453.413700-3-lyf98405@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Haishuang Yan wrote:
-> bareudp_xmit_skb() sets the inner protocol of the skb to the configured
-> ethertype, and bareudp6_xmit_skb() does not set it at all. The inner
-> protocol is used by skb_udp_tunnel_segment() to segment the inner packet
-> when GSO has to be done in software, for instance when the lower device
-> does not offload the checksum.
+On Sat, Oct 03, 2026 at 01:04:53PM +0800, Liu Yufei wrote:
+
+> Add an IIO driver for the Vishay VCNL36829 proximity sensor with
+> integrated VCSEL, connected over I2C.
 > 
-> With multiproto, an IPv4 device also carries IPv6, so the IPv6 header
-> is parsed as an IPv4 one. With IPv6 underlay, the inner protocol is
-> whatever the skb had before. In both cases segmentation fails and the
-> packets are dropped. With veth tx checksum offload disabled, iperf3 TCP
-> over bareudp gets about 10 Mbit/s with thousands of retransmits instead
-> of about 700 Mbit/s for IPv6 over IPv4 and for both families over IPv6,
-> while IPv4 over IPv4 works.
-
-(not for this fix patch)
-
-optionally tools/testing/selftests/net/bareudp.sh could run a stream
-test besides/alongside the ping test, to exercise this path (with
-segmentation offload disabled).
-
-> At this point skb->protocol is the protocol of the inner packet, which
-> bareudp_xmit() has already checked against the configuration, so use it
-> on both paths.
+> At probe the driver enables the vdd and vddio supplies, waits for the
+> sensor to power up, checks the device ID, configures the VCSEL current
+> and photodiodes, and turns the proximity engine on. The sensor is put
+> back into shutdown when the device is removed.
 > 
-> Fixes: 571912c69f0e ("net: UDP tunnel encapsulation module for tunnelling different protocols like MPLS, IP, NSH etc.")
-> Fixes: 4b5f67232d95 ("net: Special handling for IP & MPLS.")
-> Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+> The following attributes are exposed:
+>   - in_proximity0_raw
+>   - in_proximity_integration_time
+>   - in_proximity_integration_time_available
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+> The datasheet is available at:
+> https://www.vishay.com/docs/80580/vcnl36829um.pdf
+
+Make it a Datasheet: tag.
+
+> Assisted-by: Claude:claude-opus-5-5 checkpatch dtschema
+
+Assisted-by: LLM
+
+...
+
+> +#include <linux/i2c.h>
+
+> +#include <linux/mod_devicetable.h>
+
+In the new code we rely on the bus header to provide the ID definitions.
+
+> +#include <linux/iio/iio.h>
+> +#include <linux/regmap.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/delay.h>
+
+Keep it sorted, also follow the IWYU principle.
+
+...
+
+> +struct vcnl36829_data {
+> +	struct i2c_client *client;
+> +	struct regmap *regmap;
+
+One can be derived through the other, no need to keep client here.
+
+> +};
+> +
+> +static const struct regmap_config vcnl36829_regmap_config = {
+> +	.name = "vcnl36829_regmap",
+> +	.reg_bits = 8,
+> +	.val_bits = 16,
+> +	.max_register = VCNL36829_DEV_ID,
+> +	.val_format_endian = REGMAP_ENDIAN_LITTLE,
+
+No cache?
+
+> +};
+
+...
+
+> +static int vcnl36829_write_raw(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan, int val,
+> +			       int val2, long mask)
+> +{
+> +	struct vcnl36829_data *data = iio_priv(indio_dev);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		if (val != 0)
+> +			return -EINVAL;
+> +		if (val2 >= 25 && val2 <= 375 && val2 % 25 == 0)
+> +			return regmap_update_bits(data->regmap,
+> +					VCNL36829_PS_CONF2,
+> +					VCNL36829_PS_IT_MSK,
+> +					FIELD_PREP(VCNL36829_PS_IT_MSK, val2 / 25));
+
+Compiler might utilise some specific assembler instructions on some CPUs
+to do % and / at once. To make it happen we can hint compiler with locating
+these two operations next to each other. Also use standard pattern to check
+for an error first and correct indentation.
+
+		int ival = val2 / 25;
+		int fval = val2 % 25;
+		...
+		if (val != 0)
+			return -EINVAL;
+		if (ival < 1 && ival > 15)
+			return -EINVAL;
+		if (fval != 0)
+			return -EINVAL;
+
+		return regmap_update_bits(data->regmap, VCNL36829_PS_CONF2,
+					  VCNL36829_PS_IT_MSK,
+					  FIELD_PREP(VCNL36829_PS_IT_MSK, ival));
+
+> +		return -EINVAL;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static int vcnl36829_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct vcnl36829_data *data;
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+> +
+> +	int ret;
+> +	unsigned int reg;
+
+No blank lines in the definition block, also keep it in reversed xmas tree
+order.
+
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return dev_err_probe(dev, -EOPNOTSUPP,
+> +				     "I2C adapter doesn't support plain I2C\n");
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &vcnl36829_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap),
+> +				     "Regmap setup failed\n");
+> +
+> +	data = iio_priv(indio_dev);
+
+> +	i2c_set_clientdata(client, indio_dev);
+
+Is this being used?
+
+> +	data->client = client;
+> +	data->regmap = regmap;
+> +
+> +	indio_dev->name = "vcnl36829";
+> +	indio_dev->info = &vcnl36829_info;
+> +	indio_dev->channels = vcnl36829_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(vcnl36829_channels);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable vdd\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "vddio");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable vddio\n");
+
+The following sleep needs a comment with a reference to the specific section
+and/or table in the datasheet.
+
+> +	fsleep(3000);
+
+3 * USEC_PER_MSEC
+
+(will require time.h to be included)
+
+
+> +	ret = regmap_read(regmap, VCNL36829_DEV_ID, &reg);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read device ID\n");
+> +	if ((reg & 0xFF) != VCNL36829_DEV_ID_VAL)
+
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "Unknown device ID 0x%x\n", reg);
+
+Don't we simply warn and continue in this case?
+
+> +	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF2,
+> +				 VCNL36829_PS_IT_MSK,
+> +				 FIELD_PREP(VCNL36829_PS_IT_MSK, VCNL36829_PS_INT_TIME_25));
+> +	if (ret)
+
+> +		return dev_err_probe(dev, ret,
+> +				     "Could not configure PS_IT\n");
+
+It's perfectly a single line.
+
+> +
+> +	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF3,
+> +				 VCNL36829_PS_CURRENT_EN_MSK |
+> +				 VCNL36829_PS_CURRENT_MSK |
+> +				 VCNL36829_PD1_EN_MSK |
+> +				 VCNL36829_PD2_EN_MSK |
+> +				 VCNL36829_PD3_EN_MSK,
+> +				 FIELD_PREP(VCNL36829_PS_CURRENT_EN_MSK, 1) |
+> +				 FIELD_PREP(VCNL36829_PS_CURRENT_MSK, VCNL36829_PS_CURRENT_18MA) |
+> +				 FIELD_PREP(VCNL36829_PD1_EN_MSK, 1) |
+> +				 FIELD_PREP(VCNL36829_PD2_EN_MSK, 1) |
+> +				 FIELD_PREP(VCNL36829_PD3_EN_MSK, 1));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Could not configure VCSEL/PD\n");
+> +
+> +	ret = regmap_write(regmap, VCNL36829_PS_CONF5, VCNL36829_PS_CONF5_INIT);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Could not set PS_CONF5\n");
+> +
+> +	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF1,
+> +				 VCNL36829_PS_ON_MSK | VCNL36829_PS_SD_MSK,
+> +				 FIELD_PREP(VCNL36829_PS_ON_MSK, 1) |
+> +				 FIELD_PREP(VCNL36829_PS_SD_MSK, 0));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Could not set initial config\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, vcnl36829_shutdown_action, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
