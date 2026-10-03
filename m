@@ -1,40 +1,54 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CA11D63E4
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F1B2E5B02;
+	Sat,  3 Oct 2026 21:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063230; cv=none; b=eBoSAmAtWiP2QmenKw6PXuNT1Vi0OGIJFL/P+psYQyyZKflA5+xFS3BpWLO6JrL5KX36fBH+ANMnMz+XLJQXbuiSAOuQhGO0aWv7MiDxBiiUlR3Vvtq9yVxROzuquW762IBIxGQ9SKBa9+roCGO2gJKyg3Yz0VnMc9pggMGn+iw=
+	t=1791063283; cv=none; b=tGZNdSG6kgIBNtoHQnGbb30OT4dzDl05Eht9ldlwaqHMTfM7/puYJkzqgmse/oYS8b/3PdrHaMrHUiBbEVzTkCPD7yRgG7kP7V7BcORytIwLKJX0oEcgE8ug94ybVFh7mf4NyBVz/96PsIxJh5R9VDGfvgDsNLPa23WUIMdBnug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063230; c=relaxed/simple;
-	bh=kDXqnGMv+3/dGk6DPxEqeXvBQLgvyQU5ZWM8ZzjXf08=;
+	s=arc-20240116; t=1791063283; c=relaxed/simple;
+	bh=v2wkpbnJSVfATnhgeONgSDa62a3bELLGSq+xO6aN2OQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RBD2eeA7dmAEPSJMXzMxu5VQ9Q86kJoiFkln0pwQ6qul748et4/Vd5uBTMhYtqIH4kZO5IJYoMyuZEptzqy/ATs6J/5l2jcgOICDYQ7vXlct0LkQ/hzJg+OP9METFwYAX5enjmluU415h73pzr2qFAt9V9Eckr+1Jxh0DIIN0Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=OpnIRgT1; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=TkC8NmdYDRRIZaOkBkKUnwv3X4zeo9tCbbWkT64MQ2X2EWM3lbxUGiuWtPf/F4YJmZx/ol2aqVq8vyzuhq7iK9Ia5PcM6NfxffEy/dCojew5wvbJt2jK+KtL/526fi+u2q6PQjrhFzcXHfRMO06XSOMAPqsJDP0PtSCoW3MJZXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=TZtdaHHT; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=giMdF1OH; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="OpnIRgT1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791063221;
-	bh=kDXqnGMv+3/dGk6DPxEqeXvBQLgvyQU5ZWM8ZzjXf08=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OpnIRgT17QQtur0E7ZQ1+4nbWFI2gwCemx/0KapAoxCvcfbqCtyXKndD4Y+fQ/EM4
-	 SqhioB0vXIvFRNbrKcA0akg79VEJVi6YYscqU1hSEo3YXe4L/RHhabOeEzRRi7Ln9i
-	 SSh1J8rjqKFZf/dDdmtSXDdNjZE/UwDH0smNer4XqntGgxKFm8IE6xzEgk3EeVzHAh
-	 yZGuZF7ayBD43yRIH2gtEJc9jjtZ9y16CZZR9A04TYETZJCc90911F5G3rAO3U0DN+
-	 Bgfn6E9GoboB1gZGX+Oqt9rLkjryemH9M9FvyJ27hT1DtEIMtNPG7c/uZvjHnqzRMN
-	 +cXR9cJyjrgLA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="TZtdaHHT";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="giMdF1OH"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0716617E022A;
-	Sat, 03 Oct 2026 23:33:40 +0200 (CEST)
-Message-ID: <3c0dc77b-b692-498e-aed6-aa97d827b2f4@collabora.com>
-Date: Sun, 4 Oct 2026 00:33:40 +0300
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hxzSZ6FrhzMlQg;
+	Sat, 03 Oct 2026 23:34:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791063278;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JsfgHb7ulzk4k9dY5hRDo2OMjswVPbj1J5spakfPYuM=;
+	b=TZtdaHHT5XT1FJRszeKMinIqci9J1NkCeD/N9AsOyRZKUVbCitm79uivkRj7357GE6RP9n
+	DFLuh0+GFamlSRNSx94L/NqSmKuvubukAED+oHxIeBFclW22kENEC15l8Dki2OhXBpv+oD
+	7N5e9BAk2FIGH1WBjyNXFtSZPYjG1HponakHiV06u929T4slabi2VSJkH2YK/mxUsyTwy5
+	YiV1oJYbqDqcyCZvxaoZKmT9Nx3G/vUvvFWBaaX9IAgAKHkp5XuvYkVI/8G90uwVXCSJrD
+	dKkqb4l/80X9iWpc4eC0FNcJZiaanVhgxDZGAVlrEjmdQ+29TlWvZ9FgMiGIKw==
+Message-ID: <5828adca-ccf3-4680-84d6-964321a2e0c7@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791063277;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JsfgHb7ulzk4k9dY5hRDo2OMjswVPbj1J5spakfPYuM=;
+	b=giMdF1OHJeF6yhY4ZirSzVyjAcHKgMx64UGhmvbYkSBfN8Zmqg7OkUk7AAtFN4fDuKXXgc
+	r96b2Z0ZAyJM4NlW33ru3FYuSWGrjQS2R6EyVRgp6gZYRNCB0+BCjCnVCB2Zmq7NFEtqAZ
+	pbffUtb912lBmnThsrE7T8qdQ644pjI5IyNhkOG51i/Ha75DPJZF5GfBEtXMKFYN/+6JsZ
+	vceHIYBi2+a/br1sF3+iXgrUWvEywVhxp89OtxhkUO+jsbeb4rqNQUcZd+xlWsH2D91stR
+	h7yMf4YoFEuKrRsVc5TC7NwmsjrVK8Z0s2IXjCI8i+gfASIy8nnvCxkUBuhXsA==
+Date: Sat, 3 Oct 2026 23:34:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,50 +56,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] phy: hdmi: Add optional FRL TxFFE config options
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, kernel@collabora.com,
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-References: <20260901-hdptx-ffe-v2-0-3a5922c76fc5@collabora.com>
- <20260901-hdptx-ffe-v2-1-3a5922c76fc5@collabora.com>
- <asFoBih6P7Cr6Ute@parshuram>
+Subject: Re: [PATCH v2 06/15] PCI: rcar-gen4: Assert resets when Gen5 PHY
+ initialization fails
+To: Koichiro Den <den@valinux.co.jp>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-7-den@valinux.co.jp>
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <asFoBih6P7Cr6Ute@parshuram>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260928165230.3397664-7-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: 77x8weoxogqgphm6d63qzuuo7ckb3jaz
+X-MBO-RS-ID: 37f80b4baeea21761d0
 
-Hi Vinod,
-
-On 10/3/26 11:39 PM, Vinod Koul wrote:
-> On 01-09-26, 22:55, Cristian Ciocaltea wrote:
->> During HDMI 2.1 FRL link training, the source and sink can negotiate a
->> Transmitter Feed-Forward Equalization (TxFFE) level to improve the
->> signal quality.  Starting from zero, the source may increment the TxFFE
->> level up to a maximum agreed during the LTS3 stage if the sink keeps
->> reporting FLT failures.  TxFFE adjustment is optional and only attempted
->> when both the source and the connected sink support it.
->>
->> Since the existing HDMI PHY configuration API covers the FRL rate/lane
->> selection only, provide the following fields to the frl sub-struct of
->> phy_configure_opts_hdmi:
->>
->> * ffe_level: the TxFFE level to apply, only meaningful when
->>   set_ffe_level is set.
->>
->> * set_ffe_level: a 1-bit flag that changes the semantics of the
->>   phy_configure() call, i.e. when set, the PHY driver must apply the new
->>   ffe_level and ignore the other frl related fields.
+On 9/28/26 6:52 PM, Koichiro Den wrote:
+> common_init() enables the clocks and deasserts the power and
+> Application/Local resets before phy_init(). If phy_init() fails, the
+> error path only disables the clocks, leaving those resets deasserted.
 > 
-> The ffe_level 0 implies it is disabled, so why should we use a flag for
-> this? Rather use if value valid (non zero) logic to apply..?
+> Assert both resets before disabling the clocks to unwind the completed
+> common initialization.
+> 
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+> Changes in v2:
+>    - New patch. Place the fix(?) before the initialization refactoring.
+> 
+> Marek, I looked through v1-v5 of your X5H series, but I'm not yet sure,
+> was there a specific reason to leave resets deasserted when phy_init()
+> fails? If not, this fixes the unwind before the restructuring in the
+> following patches.
+I agree, this change is correct, and should have a Fixes: tag .
 
-That's not quite possible because level 0 is valid (and the default) according
-to HDMI 2.1 spec. The source is expected to reset TxFFE to default whenever a
-new FRL rate is set, hence the API shall be conformant. 
+Fixes: 3283c4db6009 ("PCI: rcar-gen4: Add support for R-Car X5H PCIe4")
 
-Regards,
-Cristian
+Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+
+Thank you for spotting this !
