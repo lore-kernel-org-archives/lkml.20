@@ -1,114 +1,95 @@
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36B07400DE1;
-	Sat,  3 Oct 2026 10:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.135
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CEE41442D;
+	Sat,  3 Oct 2026 10:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022219; cv=none; b=bWT/ZVKIk8LRy0sLOnp3sDn3stVklmS6UgE8Mmr9RNQhAbifJ4Uge32y/iSZZ6f8S8+ZXN8fED3+oMGA8k17XNqYfK2JgjNsPMnKL+xpHQl8CqOeGdbYm2dAqggNM9AiBjTwmdWr0/YDgBAA912CvF8snXiDCZxvg4I/AV9x7Wo=
+	t=1791022245; cv=none; b=fBDa151Pngogp1X7QfOlIpBRuQEFLe6T/992u35hhAH0otFnUnLsYWckvmTKe7YeEwXK5gwMNhl2CuJiMD1HpjbJV4jFkXCncduix/cp5o/M2I9w0AO5cAST/8YERFC/lEtOcm9USH1Z6d99xrjoAAGXLsvrXp5AreoqJCMqpss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022219; c=relaxed/simple;
-	bh=31WdfSjCWnB/HGcobwieMsmopL0/q4Qyr3sHHctciOU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cYVuDcqbXWtSooPri8X7sUa5n7shGGn6bJWf1OOk7cQ39he5HOlolTh7qwvMtifJTmSSliGHp2zbMUVAvoRzEJGNUdXiMKA5vxAXHKz+Z1oBmibaHIa47rZOGJF06gQTVwDxJA0ZeSbyKiCBkuQERPhZJtleF/SHpqRdyq/VmIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=xbcJr4tE; arc=none smtp.client-ip=111.22.67.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1791022245; c=relaxed/simple;
+	bh=H4piNk7LYmRM6sh8EcC11GJZCJ3ItfW6aN3ztQuOQOY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=XPFw+718R/Gq1v3MStiTGeRh75+U1iATUIg3Vp9Xp6ZvFgX9250kx6IGfUqCrTCjmnJF2a1DY1i+tpPCeoTptEDTfzCM2qmiYcyAnuF44ZtdTI9QASN/102dJb1bsvh4mQI3coqzXI4LGCRT8NymwsS7a0Z6SPGJmziGd/jCN9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PoFprmmv; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="xbcJr4tE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=xbcJr4tEF3VrGvJDfQwlsuDoUC/n4Ro6Gzckgzg4PJfCsPFmRsoWp605c3zh/z3c+9sv5LG/DRCAA
-	 6zHsQuF5fxJYIJeAGM35kE7WLKtOoO4soROv5x8ybzxIuzs+6pvJIt4+uE3ucVpWQNekOePKIUgzS2
-	 0dsFm95Y8Ut+jHFw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ac0d47f12a-9bbb1;
-	Sat, 03 Oct 2026 18:10:08 +0800 (CST)
-X-RM-TRANSID:2ee76ac0d47f12a-9bbb1
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[112.22.250.209])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ac0d4698ac-609a1;
-	Sat, 03 Oct 2026 18:10:08 +0800 (CST)
-X-RM-TRANSID:2ee46ac0d4698ac-609a1
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: Alice Mikityanska <alice.kernel@fastmail.im>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-Subject: [PATCH net-next v2 1/2] bareudp: Enable BIG TCP packets
-Date: Sat,  3 Oct 2026 18:09:38 +0800
-Message-ID: <20261003100939.468181-2-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261003100939.468181-1-yanhaishuang@cmss.chinamobile.com>
-References: <20261003100939.468181-1-yanhaishuang@cmss.chinamobile.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PoFprmmv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=H4piNk7LYmRM6sh8EcC11GJZCJ3ItfW6aN3ztQuOQOY=; b=P
+	oFprmmvwu9vJ+eKHY6PH/tFT8Yb7LG+fczg13BySK6Nt4efV0uy6+tgrkThdNglH
+	nvw6oZjF1INCmg7v2JAC318UZZ+fQm+8RGdEqzuV0dYtHNBkRz/mW1o45wAR3zlw
+	YgopQioryuf2Lfb9faR5PT48wql2g4QJ24AcdDNujE=
+Date: Sat, 3 Oct 2026 18:09:58 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
+Cc: "Frank Li" <Frank.li@oss.nxp.com>, "Vinod Koul" <vkoul@kernel.org>,
+	"Frank Li" <Frank.Li@kernel.org>,
+	"Michal Simek" <michal.simek@amd.com>,
+	"Hyun Kwon" <hyun.kwon@xilinx.com>, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH 3/3] dmaengine: xilinx: dpdma: Reserve space for a
+ string terminator
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20261001210021.GQ944070@killaraus.ideasonboard.com>
+References: <20260926121250.3258285-1-yaojiale02@163.com>
+ <20260926121250.3258285-4-yaojiale02@163.com>
+ <20260926143415.GA764757@killaraus.ideasonboard.com>
+ <ar7Hj-BQW7xPtjaC@lizhi-Precision-Tower-5810>
+ <20261001210021.GQ944070@killaraus.ideasonboard.com>
+X-NTES-SC: AL_Qu2SA/yZvUki7imcYOkdmE8Uges8WcC0svki1YJUc+4GhzHBwiABbHpeBEnt4NmlFwSNnAm9ShFy8/5qb6BZFaVVU2ewdjadkXA/7HvZFQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <7d6a7daa.140b.1a1013df0a8.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:jygvCgD3n1V31MBqK0cHAA--.63684W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRYdV2rA1HYUSwAA3G
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Commit f3d0f753f066 ("vxlan: Enable BIG TCP packets") and commit
-03ebe91b0f61 ("geneve: Enable BIG TCP packets") allowed BIG TCP on vxlan
-and geneve, after the preceding patches of that series made the common
-UDP tunnel transmit path handle GSO packets larger than 64KB.
-
-bareudp transmits through the same helpers, udp_tunnel_handle_offloads()
-followed by udp_tunnel_xmit_skb() or udp_tunnel6_xmit_skb(), and does
-not fill in any length field itself. Bump tso_max_size up to
-GSO_MAX_SIZE so that the admin can use BIG TCP with bareudp too.
-
-The default gso_max_size and gso_ipv4_max_size stay at 64KB, so nothing
-changes unless they are raised explicitly.
-
-iperf3 TCP over bareudp (ethertype ipv4, IPv4 outer) between two netns
-connected by veth, MTU 1600 on veth, 3 runs of 20 seconds each. This
-was measured in a QEMU TCG guest, so only the relative numbers are
-meaningful:
-
-  gso_max_size/gso_ipv4_max_size 65536:
-    4380.6, 4404.2, 4354.5 Mbit/s, average 4379.8 Mbit/s
-
-  gso_max_size/gso_ipv4_max_size 196608:
-    5509.4, 5454.7, 5497.4 Mbit/s, average 5487.2 Mbit/s (+25%)
-
-With 196608, about 90k to 100k packets larger than 64KB were
-transmitted on the bareudp device per run, none with 65536. Without
-this patch, setting gso_max_size to 196608 is rejected.
-
-Assisted-by: LLM
-Acked-by: Alice Mikityanska <alice.kernel@fastmail.im>
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
----
- drivers/net/bareudp.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/bareudp.c b/drivers/net/bareudp.c
-index c3b5ed52d877..fcc33e302b9c 100644
---- a/drivers/net/bareudp.c
-+++ b/drivers/net/bareudp.c
-@@ -589,6 +589,7 @@ static void bareudp_setup(struct net_device *dev)
- 	dev->max_mtu = IP_MAX_MTU - BAREUDP_BASE_HLEN;
- 	dev->type = ARPHRD_NONE;
- 	netif_keep_dst(dev);
-+	netif_set_tso_max_size(dev, GSO_MAX_SIZE);
- 	dev->priv_flags |= IFF_NO_QUEUE;
- 	dev->lltx = true;
- 	dev->flags = IFF_POINTOPOINT | IFF_NOARP | IFF_MULTICAST;
--- 
-2.43.0
-
-
-
+QXQgMjAyNi0xMC0wMiAwNTowMDoyMSwgIkxhdXJlbnQgUGluY2hhcnQiIDxsYXVyZW50LnBpbmNo
+YXJ0QGlkZWFzb25ib2FyZC5jb20+IHdyb3RlOgo+T24gVGh1LCBPY3QgMDEsIDIwMjYgYXQgMDQ6
+NTA6MjNQTSAtMDQwMCwgRnJhbmsgTGkgd3JvdGU6Cj4+IE9uIFNhdCwgU2VwIDI2LCAyMDI2IGF0
+IDA1OjM0OjE1UE0gKzAzMDAsIExhdXJlbnQgUGluY2hhcnQgd3JvdGU6Cj4+ID4gT24gU2F0LCBT
+ZXAgMjYsIDIwMjYgYXQgMDg6MTI6NTBQTSArMDgwMCwgSmlhbGUgWWFvIHdyb3RlOgo+PiA+ID4g
+eGlsaW54X2RwZG1hX2RlYnVnZnNfd3JpdGUoKSBhbGxvY2F0ZXMgYSBidWZmZXIgb2Ygc2l6ZSBi
+eXRlcywgYW5kCj4+ID4gPiBzdHJuY3B5X2Zyb21fdXNlcigpIGNhbiBmaWxsIGl0IHdpdGhvdXQg
+YSB0ZXJtaW5hdGluZyBOVUwgd2hlbiB0aGUgaW5wdXQKPj4gPiA+IGhhcyBubyBOVUwgaW4gdGhl
+IGNvcGllZCByYW5nZS4gc3Ryc2VwKCkgYW5kIHN0cmNhc2VjbXAoKSB0aGVuIHJlYWQKPj4gPiA+
+IGJleW9uZCB0aGUgYnVmZmVyLgo+PiA+Cj4+ID4gc3RybmNweSgpIGhhcyBsb25nIGJlZW4gY29u
+c2lkZXJlZCB1bnNhZmUsIGFuZCBoYXMgZmluYWxseSBiZWVuIHJlbW92ZWQKPj4gPiBmcm9tIHRo
+ZSBrZXJuZWwgaW4gdjcuMi4gQSBiZXR0ZXIgZml4IHdvdWxkIGJlIHRvIHNpbWlsYXJseSByZXBs
+YWNlCj4+ID4gc3RybmNweV9mcm9tX3VzZXIoKSB3aXRoIGEgc2FmZSBlcXVpdmFsZW50Lgo+PiAK
+Pj4gRG8geW91IG1lYW5zIHVzZSBzdHJuZHVwX3VzZXIoKT8KPgo+SSB3YXMgdGhpbmtpbmcgYWJv
+dXQgYWRkaW5nIGEgc3Ryc2NweV91c2VyKCksIGJ1dCBhIGR1cCB2ZXJzaW9uIGNvdWxkCj5wb3Nz
+aWJseSBiZSBpbnRlcmVzdGluZyB0b28gaWYgdGhlcmUgYXJlIGVub3VnaCB1c2VycyB0aGF0IGNh
+bGwKPmtbem1dYWxsb2MgKyBzdHJuY3B5X2Zyb21fdXNlci4KClRoYW5rcyBmb3IgYWxsIHJldmll
+d3MsIGhvdyBhYm91dCB0aGlzIG9uZT8KaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYx
+MDAzMDk1OTIyLjU3NTM1MC0xLXlhb2ppYWxlMDJAMTYzLmNvbS8KPgo+PiA+ID4gQWxsb2NhdGUg
+YW4gZXh0cmEgYnl0ZSBhbmQga2VlcCB0aGF0IGJ5dGUgemVyby1pbml0aWFsaXplZCwgc28gdGhl
+IGlucHV0Cj4+ID4gPiBjb3BpZWQgcmVtYWlucyB1bmNoYW5nZWQgYW5kIHRoZSBidWZmZXIgaXMg
+YWx3YXlzIHRlcm1pbmF0ZWQuCj4+ID4gPgo+PiA+ID4gRml4ZXM6IDFkMjIwNDM1Y2FiMyAoImRt
+YWVuZ2luZTogeGlsaW54OiBkcGRtYTogQWRkIGRlYnVnZnMgc3VwcG9ydCIpCj4+ID4gPiBTaWdu
+ZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gPiA+IC0tLQo+PiA+
+ID4gIGRyaXZlcnMvZG1hL3hpbGlueC94aWxpbnhfZHBkbWEuYyB8IDIgKy0KPj4gPiA+ICAxIGZp
+bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPj4gPiA+Cj4+ID4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEveGlsaW54L3hpbGlueF9kcGRtYS5jIGIvZHJpdmVycy9k
+bWEveGlsaW54L3hpbGlueF9kcGRtYS5jCj4+ID4gPiBpbmRleCBkOWEzNTQyYzQ1MzEuLmI2MWVm
+MzA2MmQ4NCAxMDA2NDQKPj4gPiA+IC0tLSBhL2RyaXZlcnMvZG1hL3hpbGlueC94aWxpbnhfZHBk
+bWEuYwo+PiA+ID4gKysrIGIvZHJpdmVycy9kbWEveGlsaW54L3hpbGlueF9kcGRtYS5jCj4+ID4g
+PiBAQCAtNDEwLDcgKzQxMCw3IEBAIHN0YXRpYyBzc2l6ZV90IHhpbGlueF9kcGRtYV9kZWJ1Z2Zz
+X3dyaXRlKHN0cnVjdCBmaWxlICpmLAo+PiA+ID4gIAlpZiAoZHBkbWFfZGVidWdmcy50ZXN0Y2Fz
+ZSAhPSBEUERNQV9UQ19OT05FKQo+PiA+ID4gIAkJcmV0dXJuIC1FQlVTWTsKPj4gPiA+Cj4+ID4g
+PiAtCWtlcm5fYnVmZiA9IGt6YWxsb2Moc2l6ZSwgR0ZQX0tFUk5FTCk7Cj4+ID4gPiArCWtlcm5f
+YnVmZiA9IGt6YWxsb2Moc2l6ZSArIDEsIEdGUF9LRVJORUwpOwo+PiA+ID4gIAlpZiAoIWtlcm5f
+YnVmZikKPj4gPiA+ICAJCXJldHVybiAtRU5PTUVNOwo+PiA+ID4gIAlrZXJuX2J1ZmZfc3RhcnQg
+PSBrZXJuX2J1ZmY7Cj4KPi0tIAo+UmVnYXJkcywKPgo+TGF1cmVudCBQaW5jaGFydAo=
