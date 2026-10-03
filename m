@@ -1,132 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-162.mta1.migadu.com [95.215.58.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0616A272803;
-	Sat,  3 Oct 2026 04:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDA7368D7E
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:51:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791003062; cv=none; b=urdcfsJ73LuGbZONcWGhd0EWRiZPhAcoBu5lc7drotHxzToKldS+H3rx8BjOVRFajlC8XG9AHm3WDREsz6DYEwSMGbNWoRKTicwZ/x3j+hfUt/V1bjVHgFi8GFngoJdvm5Xm234M73b1kKrZTO2ogQ3VEq4VF9eNlXNaPzEn3K8=
+	t=1791003076; cv=none; b=MW02FJvylkFN16Y2TXWRgVsnKjTiQTqz1s49GKgHWqeD1/LoN5WBKyvySh2jQTcJTcgGCVjIdGeKtfboEtpW64OmOI9DTjjfffQQxmJRXo3kybZWX8AI9PnbuuUWadVTXg20ujNK7r22dJHorFlUbtnjngZoJCA/I8IOVLASg8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791003062; c=relaxed/simple;
-	bh=0V5dpx7bgV70Jzf0mFlBUkoH8Sc5YzrBjrMfMQS5vZ8=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=s8ho8uW925mv1AN0znVzrjp8bimM9tW/G5pKcz9eCOE5ORNAtWnwqY7mXmqeWszabwhhFeHEjwqNlaSyBALzGk1gdMbp9eiAlbXbf2/zc9ZW7gQ9Xx6HTdEXFzXDta++yOxsRESJTaSVe4QhOOx+j51jrxPi/yEFxErNlgszjK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBbDo+0V reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791003076; c=relaxed/simple;
+	bh=KStmg3oUIs79dLjDmEcrn67rRHE9TtqILVt3qo4t9Ho=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fAUM5FtlvCXMds3TY3ygsgybohaCpZuBdnNySIXSfSZ+1aTOiQNDpYRGXTFOBFBdRydeYzxVNufQc7H1o/7jjrTUCsdKC5GaMr31H1qfifDVDC3ck92+8Sl/sk0vod6/FisDSt14VfjVD9EMoRrmPQ+E57n+IZerEEEBubQSSOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=Vwh6B4zA; arc=none smtp.client-ip=95.215.58.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBbDo+0V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C5D01F000FF;
-	Sat,  3 Oct 2026 04:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791003060;
-	bh=Rms+lxZF9z8Sb3tW2DEtvUlSOL076vw/3UOncHYJUyg=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=fBbDo+0Vp4sT7OTMptP7l22LYB8DFYOrcLK/vYkPvZcJ+1tLNSluFTSR8w5+CU7OO
-	 Z/P7q8xJZx9Ch9v4WxoYtayQIgWA1AR8hJI5cuckv1hd5CplgURaEej1xWJ0XeQ/Kp
-	 RcMEF1gZP26pSpyQ3zX7vx6/xGv9y7Tc0zFbU1DHxrnrYboDuubDlX9iG/CrcoY4gH
-	 +na8jpApp3q3WKCeHmywE5SnL3/CqIslhYvfH1FiZ75goNYT3GTK/edaL/NnwGRcAj
-	 weC4lyRd3I8t3uNlZDjbgMSpTgoaGx6hemN7CdiEOGOBxFFyLSWSt9FfFbQNPaQLdM
-	 K/M/wyhoP2/LQ==
-Content-Type: multipart/mixed; boundary="===============1261292974183120383=="
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="Vwh6B4zA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KStmg3oUIs79dLjDmEcrn67rRHE9TtqILVt3qo4t9Ho=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791003071; v=1; x=1791607871;
+ b=Vwh6B4zAkHYtBgWy7fI10xtxELwdWNl6YdO2SwdLISnHsUnkWsWA2o/BARAgBDKGST0J/sF2
+ qSfsaMC1ajS9ES8NE/xy37e2F/7HAuNaD7jcS8TnWeYcAUbejQzZQoMdOo/0e7cKR10LQpgWiQb
+ zq28kk1oMstxHQbXhvHylR5eteDRl2a2rO6u/PLnIBxJydzzwS+U/M4eSbPERpLUZiw795H3iPQ
+ ILjEAh7iK2PJ4KYw2UBLox5JdiFgFc0ZsUc2q/Al1vAR87ctPGFDRQJ8OJ12D2SM/HI4MrFpXGr
+ Y98UMBTi5M/e7KH6T2MyuWJdkNQ9Kxiv33PWO6pim2qnw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1e664f4bf254e273;
+	Sat, 03 Oct 2026 04:51:11 +0000
+X-Mizu-Trace-ID: 1e664f4bf254e273
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 3 Oct 2026 12:51:06 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: corbet@lwn.net, alexs@kernel.org, dzm91@hust.edu.cn,
+	si.yanteng@linux.dev, srcres258@furdevs.cn,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] docs/zh_TW: mark translations outside the maintained
+ set
+Message-ID: <asCJurHmDhvDG_Gj@wyuan.org>
+References: <20260929131142.266819-1-chenyou910331@gmail.com>
+ <20260929131142.266819-3-chenyou910331@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <d56cb11faf507e24e879644226fdd67d0191840f3ed43153577f5f6ae6854236@mail.kernel.org>
-In-Reply-To: <20261003035921.1918874-3-kees@kernel.org>
-References: <20261003035921.1918874-3-kees@kernel.org>
-Subject: Re: [PATCH v4 03/11] seq_buf: Copy what fits when seq_buf_puts() and seq_buf_putmem() overflow
-From: bot+bpf-ci@kernel.org
-To: kees@kernel.org,morbo@google.com
-Cc: kees@kernel.org,willy@infradead.org,akpm@linux-foundation.org,andriy.shevchenko@linux.intel.com,david@davidgow.net,pmladek@suse.com,shuvampandey1@gmail.com,rostedt@goodmis.org,corbet@lwn.net,senozhatsky@chromium.org,gnoack@google.com,mic@digikod.net,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,jikos@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,chleroy@kernel.org,u.kleine-koenig@baylibre.com,maddy@linux.ibm.com,mpe@ellerman.id.au,npiggin@gmail.com,sbhat@linux.ibm.com,blum@kernel.org,alison.schofield@intel.com,dave.jiang@intel.com,gregkh@linuxfoundation.org,lgs201920130244@gmail.com,iweiny@kernel.org,u.kleine-koenig@pengutronix.de,vishal.l.verma@intel.com,rdunlap@infradead.org,skhan@linuxfoundation.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-security-module@vger.kernel.org,linux-trace-k
- ernel@vger.kernel.org,linuxppc-dev@lists.ozlabs.org,nvdimm@lists.linux.dev,linux-doc@vger.kernel.org,linux-hardening@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat,  3 Oct 2026 04:50:58 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929131142.266819-3-chenyou910331@gmail.com>
 
---===============1261292974183120383==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On 2026-09-29 21:11:39 +0800, Chen-Yu Yeh <chenyou910331@gmail.com> wrote:
 
-> seq_buf: Copy what fits when seq_buf_puts() and seq_buf_putmem() overflow
+> As agreed in the zh_TW scope discussion, include the notice added in the
+> previous patch in every translation that nobody keeps in sync.
+> 
+> The rule is per file rather than per directory: a translation carries
+> the notice unless it is looked after.  Today the looked-after set is
+> process/, which the recent process series brought up to date, less the
+> two files that have moved into process/ since and are already
+> marked.  Everything else is marked, index pages included: they carry
+> translated prose and fall behind like any other page, and a notice on an
+> area's index tells readers what to expect of the whole area.  A file
+> drops the notice once someone brings it up to date and takes it on.
+> 
+> Left alone are index.rst, disclaimer-zh_TW.rst and glossary.rst, which
+> do not translate an English document, and the notice itself.
+> 
+> arch/index.rst and dev-tools/sparse.rst have no disclaimer include to
+> sit next to -- the former never had one, the latter still uses the old
+> plain-text header -- so the notice goes at the top of those two files.
+> filesystems/sysfs.txt is not touched: Sphinx does not read .txt sources,
+> so an include there would never be processed.
 
-TL;DR: seq_buf_puts() now copies a partial string on overflow, which may break
-lpfc_rx_monitor_report(), which relies on whole-record drops. Debugfs output
-could then end in a truncated record followed by a duplicate.
+Well explained!
 
-> diff --git a/lib/seq_buf.c b/lib/seq_buf.c
-> index 35a5964370b4..60e9eadb3ef7 100644
-> --- a/lib/seq_buf.c
-> +++ b/lib/seq_buf.c
+> Link: https://lore.kernel.org/linux-doc/CAKspUhJAbCWoxgh2eq8R5g_MiNK=oXgKPUWqGOpHh0w1-Fv74A@mail.gmail.com/
+> Link: https://lore.kernel.org/linux-doc/aqFPBQxq5asHzvtn@wyuan.org/
+> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 
-[ ... ]
+Acked-by: Weijie Yuan <wy@wyuan.org>
+or
+Reviewed-by: Weijie Yuan <wy@wyuan.org>
 
-> @@ -194,6 +196,11 @@ int seq_buf_puts(struct seq_buf *s, const char *str)
->  		s->len += len - 1;
->  		return 0;
->  	}
-> +	/* Copy what fits, so the buffer never holds stale bytes */
-> +	if (s->len < s->size) {
-> +		strscpy(s->buffer + s->len, str, s->size - s->len);
-> +		s->len = s->size;
-> +	}
->  	seq_buf_set_overflow(s);
->  	return -1;
->  }
-
-Can this break callers that rely on seq_buf_puts() dropping a string whole
-when it does not fit?
-
-lpfc_rx_monitor_report() in drivers/scsi/lpfc/lpfc_sli.c was converted to
-seq_buf in 22d4cbf6f750 ("scsi: lpfc: Replace strlcat() with seq_buf in
-lpfc_rx_monitor_report()"), and that changelog says seq_buf_puts() "appends
-it only when it fits whole, so the output keeps ending at the last complete
-record".  The code still documents this:
-
-	/*
-	 * Drop a record whole if it does not fit, without
-	 * consuming its ring entry.
-	 */
-	scnprintf(tmp, sizeof(tmp), "%03d:\t%-16llu...", ...);
-
-	if (seq_buf_puts(&s, tmp) < 0)
-		break;
-
-With this patch, a record that does not fit is now copied up to
-buf[buf_len - 2] and NUL-terminated at buf[buf_len - 1] before the loop
-breaks.
-
-lpfc_rx_monitor_read() then returns strlen(buffer) bytes through
-simple_read_from_buffer(), so the debugfs output ends in a truncated record
-with no newline.
-
-Since the loop breaks before *head_idx is advanced, the same ring entry is
-printed again in full at the start of the next read, so the reader sees a
-partial copy followed by a duplicate.
-
-Both the old strlcat() code ("if ((strlen(buf) + strlen(tmp)) >= buf_len)
-break;") and the seq_buf version before this patch dropped the record whole.
-
-Getting there needs the 800 rows to average more than about 128 bytes in the
-128 * LPFC_MAX_RXMONITOR_ENTRY buffer, which can happen when the u64/u32
-counters (cmf_info, max_read_cnt, avg_io_latency, timer_utilization, ...)
-are wider than their %-8/%-16 columns.
-
-The commit message does not mention auditing seq_buf_puts() callers that
-rely on the old semantics, and nothing later in the series changes lpfc.
-
-Would it make sense to have lpfc_rx_monitor_report() check
-strlen(tmp) < seq_buf_buffer_left(&s) before calling seq_buf_puts()?
-
-The other callers I checked (setup_trace_event(), the usbhid name building,
-the partition pp_buf users, string_stream_get_string(), dynevent_str_add()
-and the hist command builders) either treat overflow as an error or used
-strlcat() before, which also copied a partial string.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/37096036516
---===============1261292974183120383==--
+Thanks.
