@@ -1,99 +1,193 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA823B9D97;
-	Sat,  3 Oct 2026 09:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B91B3BED5F;
+	Sat,  3 Oct 2026 09:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791019313; cv=none; b=tDmDxt5WWV2irIrY1iqwNC5+EBWQ0oJklut4jTxfxKePvmbMesSCNus898vpFznZBvQBJXRmI/a9KPc1kpDCumRGI2G6xReaWia/uKabeY+Uw9DPQU+ZrJMqzE7rzypbZi+kBKX3V7llJ0EWot+Mu/MlBWSS3wfJAsn1/ls/4/U=
+	t=1791019363; cv=none; b=fd5yh3zeXNvb2TKK9eXZgqPaCrAVfXXcFW9yDqCVf6Jy0kWJiISjyVw/A1xVrPzQPIYiYri5aWYxmsn6RQhP0YvxauVgFN6FI8i2ZOKlVq+bWoYexu3n9j+WxHVtfxEPvssKwPUGZVByZa4SdOd4hCzJ71AZTn8LgcmFGUNkAbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791019313; c=relaxed/simple;
-	bh=P+WYJazsFhLKmSqczxPf/ms0L8fgL0loTd1fpuQ1uQk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H7e4DJuDiaZUEZDcxNv79If4OGa0Nh17k6VhSc1yDH14XXyE9DDq31WDcq9hdS1UHrCJ9lONBHGz8Dm4+50pHPDbTRNZIDV1mtOC1OV0HW7nOmBnehgHaco8s3cX94OmpD7jxIPN1N0ofO/WBggC2eIVEW8eziBlXTCJJ9EtVYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NbGJkTcV; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791019363; c=relaxed/simple;
+	bh=TF27ZLneeG9cgfK7XGN2merjaga8WF3G4Qh7s93x+fY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mt/8mdVbugH0dcE78CH3Qjg9TiGhSsRRT2ZOPfWptVLExux59Yog9ZtAwBGCGTfsGp1KjEd4/hyCYqC52SVYuxrPbhKzV2FVFA9gk6gTS1t6LpkM1b01Wu72EQm1S3pi5LVTHzTWfAZiLWU15CFXDpmoN5GaTo7HsYnQyIs3Xxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=my52R8VS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=y0e4ZY/x; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=o0qnjyBd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tKiNhQPy; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NbGJkTcV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AF
-	ojHjA+4FDN4JhFb5+uFEMCc+xZ9O93LXDyh2k/6GM=; b=NbGJkTcVNbx9d34ixE
-	FIMoN7zt/+04JJqHuln4jZqRxm6xwFd41lIBUgKlbaVfCrefiJc5D8PgIEQ2Qvk7
-	Rb84NX0YrHwe/wvCYoIsu6cCkZwR0A9nCWJ1q9lorRETwhArejV7XgCADevC2uCU
-	rTIei32CLCWzd07tRBnM6YyJY=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3n1YCycBqC7WjCQ--.62376S2;
-	Sat, 03 Oct 2026 17:21:07 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Kalle Valo <kvalo@qca.qualcomm.com>,
-	Michal Kazior <michal.kazior@tieto.com>,
-	Shashidhar Lakkavalli <slakkavalli@datto.com>,
-	Bhagavathi Perumal S <bperumal@codeaurora.org>,
-	Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
-	Govindaraj Saminathan <quic_gsamin@quicinc.com>,
-	Sriram R <quic_srirrama@quicinc.com>,
-	Carl Huang <quic_cjhuang@quicinc.com>,
-	Vasanthakumar Thiagarajan <quic_vthiagar@quicinc.com>,
-	Wen Gong <quic_wgong@quicinc.com>,
-	Ramya Gnanasekar <quic_rgnanase@quicinc.com>,
-	linux-wireless@vger.kernel.org,
-	ath10k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH v2 0/5] wifi: ath: avoid IDR mutation while iterating
-Date: Sat,  3 Oct 2026 17:20:57 +0800
-Message-Id: <20261003092104.520135-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="my52R8VS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y0e4ZY/x";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="o0qnjyBd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tKiNhQPy"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 046611FECE;
+	Sat,  3 Oct 2026 09:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791019353; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4CEGk7PrMceY9JeyothIm/f0yHByMW+ulWmkh/YcGW0=;
+	b=my52R8VSIc8jiRLCwxnGDMah/d0WwzVDvjzRTIJTlK9GAFKAvrqTQ67aGfZbZ8GORxGkEt
+	pBWBC/ecjvRjMDmS45a0Z+Zj/V3ytzTX3W6pbhLcTBFi7tRhHKh/zf1Q4FmwSgtd9CJRSq
+	MLRVo2Ffd4xTt3Tiu45K2trgd7Qqtwc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791019353;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4CEGk7PrMceY9JeyothIm/f0yHByMW+ulWmkh/YcGW0=;
+	b=y0e4ZY/x/TijHmgs32hn1KqyWePaDtRh3o0dbqpSmUr3s4aLjjUDCu93NADdtVSKZtTWqN
+	bE11BeY0SlMNLwAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791019349; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4CEGk7PrMceY9JeyothIm/f0yHByMW+ulWmkh/YcGW0=;
+	b=o0qnjyBdc81rS3mR5z80q6HVqgP3FC+xtHgJzjReQt5TLk9IxCelCFG1xofvS2Okrva/jO
+	XngN2vy3wUWWpqEigs5U1Re04z2VWQ4syhsN2WoGbsdeF9EJBG50Y4SalCIAmAO8ecsSi4
+	dbv3Oiy4GjgAgi6vbux8kP3IVSYmIlE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791019349;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4CEGk7PrMceY9JeyothIm/f0yHByMW+ulWmkh/YcGW0=;
+	b=tKiNhQPy6pFKT6VAQEePtpoOWhJQJNWWwMrNGF15zCU3LCOT0rgsqjT46Ob8jSm+06t6En
+	YNjsNdqTI68AtECw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E974413712;
+	Sat,  3 Oct 2026 09:22:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7r3OLlPJwGodKgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:22:27 +0000
+Date: Sat, 03 Oct 2026 11:22:27 +0200
+Message-ID: <87fqynxhnw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?ISO-8859-2?Q?Povi=B9er?= <povik+lin@cutebit.org>,	Liam Girdwood
+ <lgirdwood@gmail.com>,	Mark Brown <broonie@kernel.org>,	Rob Herring
+ <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
+ <conor+dt@kernel.org>,	Sven Peter <sven@kernel.org>,	Janne Grunau
+ <j@jannau.net>,	Neal Gompa <neal@gompa.dev>,	David Rhodes
+ <david.rhodes@cirrus.com>,	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Ulf
+ Hansson <ulfh@kernel.org>,	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,	Lars-Peter Clausen
+ <lars@metafoo.de>,	Vinod Koul <vkoul@kernel.org>,	Matthias Brugger
+ <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Shenghao Ding
+ <shenghao-ding@ti.com>,	Kevin Lu <kevin-lu@ti.com>,	Baojun Xu
+ <baojun.xu@ti.com>,	Sen Wang <sen@ti.com>,	James Schulman
+ <james.schulman@cirrus.com>,	asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org,	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,	linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com,	linux-mediatek@lists.infradead.org,	Hector
+ Martin <marcan@marcan.st>
+Subject: Re: [PATCH 08/28] ALSA: control: Add kcontrol callbacks for lock/unlock
+In-Reply-To: <87wlrzxp7v.wl-tiwai@suse.de>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+	<20260920-macaudio-v1-8-741cc20a74e5@gmail.com>
+	<878q4k2xl0.wl-tiwai@suse.de>
+	<u9VW29vaRPGENsSTq9RHUg@gmail.com>
+	<87wlrzxp7v.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n1YCycBqC7WjCQ--.62376S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJrWxAw4kuF1kKryUKrW3KFg_yoW8WFyDpF
-	4fu3Wa9F1xZrsrtr1fJw4xJFyrWan3CF1YgrZrCa4ruF4rCF1rtF1Yq3WfXFyUAFWxG3W2
-	93yUtr1fCr92y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piY9akUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgQ+eGrAyQShsQAA37
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[34];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[lin,dt];
+	FREEMAIL_TO(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[cutebit.org,gmail.com,kernel.org,jannau.net,gompa.dev,cirrus.com,opensource.cirrus.com,perex.cz,suse.com,linaro.org,intel.com,metafoo.de,collabora.com,ti.com,lists.linux.dev,vger.kernel.org,lists.infradead.org,marcan.st];
+	R_RATELIMIT(0.00)[to_ip_from(RLf66hkhxcz6y1w5afddqk81z3)];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
 
-The ath10k, ath11k, and ath12k cleanup paths walk an IDR while removing
-the current entry. idr_for_each() retains radix-tree iterator state across
-the callback, so that removal can invalidate the walk.
+On Sat, 03 Oct 2026 08:39:16 +0200,
+Takashi Iwai wrote:
+> 
+> On Sat, 03 Oct 2026 03:34:07 +0200,
+> James Calligeros wrote:
+> > 
+> > On Tuesday, 29 September 2026 7:52:59 pm Australian Eastern Standard Time 
+> > Takashi Iwai wrote:
+> > > On Sun, 20 Sep 2026 06:53:47 +0200,
+> > > 
+> > > James Calligeros wrote:
+> > > > From: Hector Martin <marcan@marcan.st>
+> > > > 
+> > > > This allows drivers to implement policy around locking/unlocking
+> > > > controls, such as enforcing that a group of controls may only be locked
+> > > > by the same process/file, and taking actions when the controls
+> > > > lock/unlock (such as granting special access on lock and resetting
+> > > > values on unlock).
+> > > > 
+> > > > This is, in particular, useful to implement volume safety controls, such
+> > > > that only a particular process (that locks controls and completes a
+> > > > handshake) may increase volumes above a given safe limit. It also allows
+> > > > the volume to be automatically lowered if that process dies (which will
+> > > > trigger an implicit unlock).
+> > > > 
+> > > > Signed-off-by: Hector Martin <marcan@marcan.st>
+> > > > Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> > > 
+> > > This doesn't sound like a good approach to me, and this looks rather
+> > > irrelevant with the purpose of the series.
+> > 
+> > I'm not sure what you mean by it being irrelevant. A significant portion
+> > of the machine driver is dedicated to implementing safety interlocks based
+> > on the functionality added via this patch. It would be impossible to prevent
+> > badly-behaving users{,pace} from defeating the safety guarantees made by
+> > speakersafetyd (and thus permanently damaging the machine) without giving
+> > speakersafetd exclusive ownership over the safety interlock kcontrol.
+> 
+> Improving the lock/unlock itself can be an interesting idea (but we
+> should do in a different way instead of blindly extending each kernel
+> control ops).  OTOH, the whole implementation of the driver and the
+> feature depending on that stuff sounds rather fragile.
 
-Use idr_for_each_entry() in each cleanup path. It performs a fresh
-idr_get_next() lookup for every iteration, allowing the current entry to
-be removed safely before its skb is released. Keeping the existing locked
-removal helpers also ensures that a concurrent TX completion cannot find
-an IDR entry which points to an already freed skb.
+Also, if you want a locking by user-space, how about to simply provide
+a boolean control element for locking, instead of extending the whole
+API and infrastructure?  The control can be taken exclusively for a
+process, and the driver just blocks the operations from others while
+the flag is set via that kcontrol.
 
-Changes in v2:
-- Rework the ath11k and ath12k pending management TX cleanup patches to
-  remove each IDR entry before freeing its skb, as pointed out by
-  Rameshkumar and Jeff.
-- Use idr_for_each_entry() for the pending cleanup callers instead of
-  leaving freed skb pointers in the IDR until idr_destroy().
 
-Jiale Yao (5):
-  wifi: ath10k: avoid IDR mutation during TX cleanup
-  wifi: ath11k: avoid IDR mutation during pending mgmt TX cleanup
-  wifi: ath11k: avoid IDR mutation during vif mgmt TX cleanup
-  wifi: ath12k: avoid IDR mutation during pending mgmt TX cleanup
-  wifi: ath12k: avoid IDR mutation during vif mgmt TX cleanup
-
- drivers/net/wireless/ath/ath10k/htt_tx.c |  7 ++++-
- drivers/net/wireless/ath/ath11k/core.c   |  3 +--
- drivers/net/wireless/ath/ath11k/mac.c    | 33 ++++++++++++------------
- drivers/net/wireless/ath/ath11k/mac.h    |  2 +-
- drivers/net/wireless/ath/ath12k/core.c   |  3 +--
- drivers/net/wireless/ath/ath12k/mac.c    | 33 ++++++++++++------------
- drivers/net/wireless/ath/ath12k/mac.h    |  2 +-
- 7 files changed, 44 insertions(+), 39 deletions(-)
-
--- 
-2.34.1
-
+Takashi
