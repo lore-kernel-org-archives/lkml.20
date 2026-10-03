@@ -1,120 +1,161 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AE92882AB
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:20:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.64.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E022882AB;
+	Sat,  3 Oct 2026 21:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062422; cv=none; b=Z4vcHKxEX7GDxWgegFc59MyA88kvgGQDN68/EnebbuCZzNdtHRfJGG/h9ySSwuN4xw9n7Ajz9jbwxyYSLtY0gBg2iEQGcK2lJy7vDOq2a6eqldU0yCkPnIDhlykawRt/wTl5vUTfWG+yqriE+DPA/IHwbZ8iNWYCNNaKlJbCwjU=
+	t=1791062471; cv=none; b=BPoxBc7tFV07pWQGpaI0Z2id35pGSyLMEJJw0DDvU0MRnUexa4gmpZQjb32T3PucVq3X42IV74MSauJsGcfxm16Py1UEMgAglm/gcUlO/osoEzHi8WzuovAxG2Nh9DuSvitVLlgKQXj5lbWGuC012rEFN5s8HLnaQ9ECnNndah8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062422; c=relaxed/simple;
-	bh=bf9Oy4BUCE+5tIQbM86aRox9pNnEGqkuBofz3Zoz83c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dozrBUbEgVOKmz2b+1yzb0R9VxczINqkNxQ30vOvSGqyqUzIB68CPDfdM67IfGmkOHlNoq+gg7gtHfPvBYUeev/oFhaLZjsinKQn6uS0Ys25JPsQ1v5al47lmIBdeTdpZQa6lHQfSCkb8WGX8mvb9EMCZWBzHiaUvXMRm4UCcmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=NRFZcNdS; arc=none smtp.client-ip=34.2.64.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791062471; c=relaxed/simple;
+	bh=4oY/ipzEWPb9kxkqSvfCZ8BeCfwEdNXPdM8jqm29JRg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VvOqbMYqN9D9R1mA8TWhxd99Q6xl7apj7dhF3FGmaVBRYk7lu9LsEp6XPTTJJDCpmsGDfTMCZ7hZA7PSvQPkQOceCIUdlwGVfvjFX+Bs0ty8h93EWIQh89gR3tde7smOQPzHWi2VM84u9Y5VhApxjCopJrB984s06ZCV+lRIBSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XlPYTYkK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="NRFZcNdS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791062419; bh=yrmEhSQLlEG0ucgunfCQSW1C23MI635cvk0Jl+8/sTQ=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=NRFZcNdSzBtp/nfZmy2kaHYsx77j5tBfv+oRavzaogk/EMXxGsHVKmljYpykNAU1+VC8E7FC1+9x0TiPXbpf+Fam8BAdUKNuo5b0/u8BCqUQR1HLADEjL1oG9EjUWBlTKwHemX32FR8F+ta8VR7up8K1dvTIPVI9fFObr8UM/mFeSqiaETStn5rrwrK++Ssq8On6rwFhJUlmuuSkvEBn+H2Q2W/rhJnzzQbQhITg9t/5HbRSfqL6Aubnv6eXwkPHDGeJ2ywFn+onL0yfAoDgF/ODwEHM0uCIj6uEFTUAtKWf7Khp3w1YU4xVneO3TsK1u2naFHWdZnUrp1UcegIRSQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791062419; bh=yd89yWeabfBXt/YkKcGNZA7VNjdBP8ctf0Uvjrg1K27=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=OME95Cnn9zdfWNnHyn7ZKvOdoSQrwdgLpJsaiHpte5rnRLjHjiWpc+Vr5ssym2V2cWm0nYsnn/LoMrNvxeF0YFYT20QHcIfo/Adnabhf7XxxqtIYySG3i8xh6yi/zH702tqYVMb68qmsIfJRVFCN60D92tTErtJomPNMUhgH4tYlE53Ikmfnm29utRWKwuoM/UbuV/WlCd0LAnDhkUIX6WKdDWbsVqIDml2g/Fy/s9WKnfF4VtfDscwWvBF5unLBlvdLvSbuw7bG+c+bwiOrNwA79px76FOo2jWYKXx84HnyRKPnA7a+e53ukcq+w66RCqtMSRWkVBT9Mqy/RwQ7dw==
-X-YMail-OSG: GpNHSLIVM1kY6Zlo1PAip.jcrILvQttWOdrA4zB7vMcL4XTVY9x3i1wPTFeNIE6
- 9VDsoAOT9OmVzLbWpQxk93ggWbzekW9PlGI81c7KuBe38Pe82ZHqgDz0sMHlksN9VqV3OzNYXlYZ
- rnElfJeFhvnYUApCHOTNz7ZTMsvpeFR8063XhJVBPCTLOZ8vS3hlUlI4RGK0I0_yl4Qt3k6w7GK9
- t4pw2.axYgV4i6rZQ3LLAHNDD2OlmCVncT9RBYcxLxyYmCy6NTM3YRVWrj0gOTW5athEMLVDNHb6
- W6TYfGIfkM3w7cBQ77ZLlXfbZCmUaDFXj62NIKhFjHsfN55j8JxASu9_Lv0G1HnGqiBb8E3orqxf
- IE9X52HVlNYjBLiBdq3GkWnMk7JKpBqc.9tr8kTXntLuBL_pDx46WfEbIqdobZRiaApn37upkNzV
- b7Z6kDH0Gqul6CM2ERNZbvg_OtYi2ZS2XfPwWwEtfxO05n_VMVUCRtpYF_zSfpFkgF06QZ98LpQ.
- KOOoc1rN8YlFx9X_H5Z2BzklFqhC4FfSupG4g.GP0TaW0xVnuCGc6uhTaeCiKsER1KyLPhBMDuRF
- m9QGrlV2GeWVre9jaO.FYDHX3mnCk3SwvSudsqgxbRx8J9rzG.zTWH7rjBMONVPPTDX2x0MGE7lw
- HEn.khqvlf3OGxlZNESpcmhLS1FDpTnqpYFPXbFE0EBkANNQpbbS6O440WxNt.w8tgFNUwV8gsWR
- 7x0b0zNABqIYHsaa9ZXrvzMo.I.T2sPePtwohpukmlzKu3BJ0NVNMW_Dvfl7siO857H9km_wrzzE
- lgALzdl41xqSIMGB8Y3aGn5l_yJM7ldHxHXfvd.038qbie9e1d7QuriizZTDrulKQH8k4BmI4iaG
- vLcuJuyFWi4TLiw.QAtoLnp4xkonr.h0yW2DB5Prqrd6kLyNcperT64k4UO1iwJE0UjagFI2_7_U
- eWNyMUYeQioC3CdNYu5S25K.CD88uaE_4zjJJVOEscXcoNYmKRVQoTHmH2v55r1EUazWbi_lpeNN
- Nvc.jCilRucci6HNBHMURCBOi4F27rOmfm3685MrApR9NESG7r7r8IV9DVPvdJZ6wC7c1ILomriH
- 2.kUId6UryarkqTAqyS9JxVIeTqNwcFSX3sVSS0k5rFo9S6mVhCCpiP4GDSFSU1S_DVjndyLV1FD
- k460buE21poX1Plz7xiFJwGdMELk8iO3vKARjl0OgGWHrMo.uQZDqn1t.HXPh5tsh5ULuTAgd5h8
- 5fBimPkViJQCsuotyZpC2Mf7nVLFJcSPyP8lox_vKcMpETSfjWnBuAbLLwJBPul2oWPGJL_h4yMO
- _qFEFhPTbJV.ZMxOlnOsPMD2qA5uTWmqyKoGGxbrFiDaEDrK7AhL1LlMF36ynomCuh7NhNSVwPFx
- Ttzcp4VBGzg1beyMykcatVaKQZWWoc1Q7kR0fN0nZITDoVfBP22ncGv93VTPKIFFglS3OWtd.bIQ
- P6.CFJnRXsm4sZZqxs96h6XIiXGCeq0KqqPaPcnAY9oq7uRAsrKQEBjg7Dd1BMM1RzW10VMxA25z
- GVjK0DbMYiNeZOuWALC_hpuop.b0znYoUUfJ5dNKob2f7FjZ8NL7X2roxGaMRV0cIEk7SsvwHj4M
- 7wkNIylaSWt21_f.OtL_6XphFWCEyjwBXpXkaTK3N1z2p3CHVcfv6oqqZVuTxgd5GKWXXHO5vfw_
- rz1RpeThLUqGLpqMXtTpMt6Xo5OUs88LuwAuUuC7JKsCM1Ef6QxUqv0MC1zliIFdLYHK2Hfrj6zm
- xh5YfbxgWmUkCMpfoFRnxs1NoDS.kwIlASktcCp3a5uiumjf7n3ADRYA2R5TUcn2TIZLk.hJKjmD
- IHdNJrvIJPkay_CtAq2nlN._l6jiLGX5pS7i5R1TQPILilK5bkpbVGEBZ9wGXg9Lh1cviIfDZz6o
- bt.I6t6OU_U3UyD5kQ8Iinr6xXawGCdMN1KoQxF_0VknE5imTse9NsDA5DuNbKLetEDJPvtS.._.
- zoUvh26vq
-X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 9f9fd89c-768c-4308-9788-2b2a9f654e0f
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP; Sat, 3 Oct 2026 21:20:19 +0000
-Received: from dip28.lsn.bf1.yahoo.com ([67.195.177.37])
-          by hello (SMTP) with SMTP ID acd1a88dad1bf88c6a89949334e77d37;
-          Sat, 03 Oct 2026 21:20:15 +0000 (UTC)
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: jim.cromie@gmail.com
-Cc: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dave Airlie <airlied@redhat.com>,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] nouveau: fix 3 null-ptr derefs
-Date: Sat,  3 Oct 2026 18:20:10 -0300
-Message-ID: <20261003212010.113714-1-Capitain_Jack@yahoo.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
-References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XlPYTYkK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651F21F0089B;
+	Sat,  3 Oct 2026 21:21:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791062470;
+	bh=siJn7d87j+EL2TuyYsogClY+jOSJ9pZF1HmE5ZN+loU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XlPYTYkKpePrAZ1FsmcLp+MWdxhkb/esUprCzEHZ/EXwuWen12+dDB4/fBBMcYYeX
+	 o47ctuQgCfEIbvZwsWCIsK1OM0emM8YcWMD54hPUrRXrgGca51Up0Obzq95WLQZbjo
+	 YFy4nDVoUlscVm91IaMeTFJoVzoYNRPK3Ljcnbi+YI6pJA7HGdmZXn08SIRZixnXYR
+	 FzY4VXmM/X+VBsb/Lo+Nh8cCEiOt6POPLyUcdphLKWZW8311Zm0BEQxpdg1Zehmb8V
+	 fVaxdKYwyaqg3RxrAd5XFmQfJx0Ppa69+Ck+KdydbjqkLXP8CZZav8ReDfRDiFJLEG
+	 LWHv21DhLIgvg==
+Subject: Re: [PATCH net v3] net: phy: qcom: at803x: Apply IPQ5018 analog
+ settings at probe
+From: netdev-bot+sashiko@kernel.org
+To: yongzhao.derek@gmail.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, george.moussalem@outlook.com,
+ hzyitc@outlook.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 03 Oct 2026 21:21:08 +0000
+Message-ID: <179106246893.434549.12601361985639254046@kernel.org>
+In-Reply-To: <20261002210408.730-1-yongzhao.derek@gmail.com>
+References: <20261002210408.730-1-yongzhao.derek@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Jim,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-I tested patches 1/3 and 2/3 on 7.3.0-rc1, with an RTX 3060 (GA106)
-passed through to a VM (vfio-pci). Patch 3/3 does not apply on 7.3-rc1
-(nvkm_gsp_gcx_ready() is not there yet), so it is untested here.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Without firmware (the whole nvidia/ga106 folder removed and the
-initramfs rebuilt), nouveau reports acr, gr and sec2 "firmware
-unavailable", so there is no GR engine:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-- GETPARAM with NOUVEAU_GETPARAM_GRAPH_UNITS returns -ENODEV and logs
-  "GETPARAM_GRAPH_UNITS: no gr engine or func"; the desktop session
-  already reached that path at boot.
-- DRM_IOCTL_NOUVEAU_GET_ZCULL_INFO returns -ENOTTY.
+- [Medium] ipq5018_probe() (drivers/net/phy/qcom/at803x.c) calls
+  reset_control_reset(priv->rst) at line 1135.
 
-I also called both ioctls directly from a small test program on the
-render node. No oops anywhere: KWin composites, NVK declines the device
-and zink falls back to llvmpipe.
+--
 
-With the firmware restored, GSP-RM 570.144 loads, there is no oops, and
-the card drives a Sony 3D TV in every HDMI 1.4 3D structure it declares,
-at 12 bpc.
+net: phy: qcom: at803x: Apply IPQ5018 analog settings at probe
 
-On your worry about firmware: the most "damaging" thing in all of this
-testing was the TV getting stuck on a corrupted signal during an earlier
-no-firmware run, solved by power-cycling it and feeding it a proper
-signal. No GPU firmware is ever written, and the firmware files in the
-VM are disposable.
+This commit moves the IPQ5018 internal GE PHY analog settings into a
+helper, ipq5018_analog_init(), that both config_init() and probe call.
+Probe now applies the settings right after it pulses the PHY reset, then
+restarts autonegotiation, so the PHY no longer negotiates with the
+reset-default analog settings until the MAC attaches. The helper also
+returns MDIO errors now instead of ignoring them.
 
-The kernel logs, the test program and its output are here:
-https://github.com/danielcamposramos/sony-bravia-linux/tree/main/docs/upstream/nouveau-null-v3-test-2026-10-03
+> diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
+> index cacbadf1f4841..09105f1e37379 100644
+> --- a/drivers/net/phy/qcom/at803x.c
+> +++ b/drivers/net/phy/qcom/at803x.c
 
-Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com> # 1/3 and 2/3, GA106
+[ ... ]
 
-The test was run with an AI assistant doing the legwork under my
-direction; the results above are what I saw on the hardware.
+> @@ -1111,6 +1138,21 @@ static int ipq5018_probe(struct phy_device *phydev)
+>  
+>  	phydev->priv = priv;
+>  
+> +	/*
+> +	 * The PHY starts autonegotiation as soon as it leaves reset. Apply the
+> +	 * analog settings now instead of waiting for config_init() at attach
+> +	 * time, and restart autonegotiation so that it uses them.
+> +	 */
+> +	ret = ipq5018_analog_init(phydev);
 
-Daniel
+[Severity: Medium]
+
+Is the GE PHY ready for these debug and MMD register accesses this soon
+after the reset?
+
+Earlier in ipq5018_probe(), reset_control_reset(priv->rst) pulses the
+reset. That call ends up in qcom_reset():
+
+drivers/clk/qcom/reset.c:qcom_reset() {
+	rcdev->ops->assert(rcdev, id);
+	fsleep(rst->reset_map[id].udelay ?: 1); /* use 1 us as default */
+
+	rcdev->ops->deassert(rcdev, id);
+	return 0;
+}
+
+The GCC entry sets no udelay. It covers several GE PHY sub-block resets
+at once, including the DSP reset:
+
+drivers/clk/qcom/gcc-ipq5018.c:
+	[GCC_GEPHY_MISC_ARES] = { 0x56004, .bitmask = GENMASK(3, 0) },
+
+So nothing waits after deassert before ipq5018_analog_init() runs.
+Before this patch, the first analog access happened in config_init().
+On the tested board that was about 39 s after the reset.
+
+The patch notes say the vendor SDK waits 200 ms after every Ethernet
+reset. If the PHY needs that kind of settle time after ARES deassert,
+could the PHY's own init lose or overwrite the probe-time LDO_EFUSE,
+DAC_FILTER, EEE, MSE, MDAC and EDAC writes? The PHY would then still
+negotiate with reset defaults, which is the failure this patch is meant
+to fix.
+
+ipq5018_analog_init() also reads ANA_DAC_FILTER and writes the value
+back:
+
+	val = at803x_debug_reg_read(phydev, IPQ5018_PHY_DEBUG_ANA_DAC_FILTER);
+	...
+	ret = at803x_debug_reg_write(phydev, IPQ5018_PHY_DEBUG_ANA_DAC_FILTER,
+				     val);
+
+If the read returns a transient value this early, that value gets
+written back. Wouldn't config_init() later re-read the wrong value and
+keep it when it rewrites LDO_EFUSE, instead of correcting it?
+
+MDIO transactions don't fail while the target block is busy, so the new
+error checks would not catch either case.
+
+The patch notes already ask whether a minimum delay or a readiness check
+is needed after ARES is deasserted. Would it make sense to add one after
+reset_control_reset() and before ipq5018_analog_init()?
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to apply analog settings\n");
+> +
+> +	ret = genphy_restart_aneg(phydev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to restart autonegotiation\n");
+> +
+>  	return 0;
+>  }
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002210408.730-1-yongzhao.derek%40gmail.com
