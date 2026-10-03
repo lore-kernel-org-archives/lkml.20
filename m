@@ -1,145 +1,361 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09540282F10;
-	Sat,  3 Oct 2026 09:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9963ACF14;
+	Sat,  3 Oct 2026 09:01:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018062; cv=none; b=U5RfcI+9ixfCMhkMgbQP25eG2o6rFoDQ44OTxVghS3pm8xVQI0t7ZgQeptcLRLC2y/61JMWnpqxGSElMg4Xx11jFjosSrnSngveG6rluD4QSepseBGcUz/fBIqeI88nWFiYbF2MOB4H2aAIsMHR7eBZ1fnX6dv2o68/UBGdJZ0Y=
+	t=1791018065; cv=none; b=jIHQ4/OwaA3lmHq7fsjS8mIC/gZfmHKBCxOZsKr3D3JSuDlxzjNmLc4VOp9xfxsNaw7V1tndldfPQv3QQSUJea1ubYUT2LZR/G3vWjet7GQkqmAsb90hp5fy474A3q1KAnwqvkQeSvJ72GrHkdTR6fwdmiZBoQ4ZBaeYYn8hBgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018062; c=relaxed/simple;
-	bh=gCJ2Y+9Ii/0oTuh9JHBvzNRrME8urp7sA9q8osHRJFo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Raf7XYrzJEyFGLomfgyL54QrrxoeUW4C3KQ4uZvG6Ft6Wj1j8/YquumyaoQc+flG9C7mcaQ9aGxZ0Q6LEPcNul2cjkp2KZkGBoHRH1VT3iiA+RVkZ/y8iw61oNTmTej3jjMYxEUGjnO37xQzv4o7WW21f8pCxZKdSwgCF5Pwo2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DhHs4oAh; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791018065; c=relaxed/simple;
+	bh=wpq1jWmpUv5+EGh26shmJIK+WW+W70wVExmkUFGSrjk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SAESbdFh/eAt1r9EN3WinJI4XK+QIhORnoDp2q0MSLfQbgalPZVOMKlTTd6DO52VtYPmE8SaJ0JtEwcX/2IdU7yWfvWnUalFSiKBGWoaXj4iLfUnKWvb0Os0PdzGS2wanTMadMI3nDxCul9YdkYYO/20EFsjuM2wLqsggMTQyTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYut5R3d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DhHs4oAh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=o6
-	pbr0MqsE4xJG+7dGbFGQ+GBFL8J44m8Mgor8rfGAs=; b=DhHs4oAhoswv88W1lb
-	V6zRjcseS5vfj2tMJvN326VftaZ9zpZSFz9IhzMhuhf+sK18hKlmYzSfWU5HpKvo
-	kr2pJ6JNxGk6s1jE0Vu5CQbcQXjwr9jp1HNO+mXqhhvA/JNw01TOkZ1LuV8U6Wll
-	3TLNy/6DzT/DxOiKzM2t0GGQA=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXP4b_w8BqInaGCg--.62290S8;
-	Sat, 03 Oct 2026 16:59:57 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Paul Barker <paul@pbarker.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	netdev@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 6/7] net: ravb: release managed IRQs before freeing netdev
-Date: Sat,  3 Oct 2026 16:59:37 +0800
-Message-Id: <20261003085940.493951-7-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261003085940.493951-1-yaojiale02@163.com>
-References: <20261003085940.493951-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYut5R3d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A601F0089B;
+	Sat,  3 Oct 2026 09:01:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791018063;
+	bh=yoAqEY9vtcmb40M8S9BOEzK/PKedZBtE/JXBMgBsAII=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aYut5R3dleDqge6qyzbSHfNKYeWDbTCx+tfI+HI4XdfYDvB9DzonY2nzMKAfHw64M
+	 NsYBCEGPa2/ItGDTyWcUotvjWKAbNyucnRvEuQAp/4m8P9SOm9ClLU62GtuwFTDHFc
+	 ZUCO10I2mal3jYPWoUsSoQqZm8U7GJL/QqkwDcNbbojTkxKaysBZrm7qmd+qY96c3X
+	 8KCwLM/VVV0Tx6Z/0DXNP6qKL8/TPojc4qdETN2b1UtPYwCpTKeSlRjQ6+GITewlAJ
+	 gdSovnt9yAZasIy4aa75rYmYkch/E17iaB23coW+DlCwOYd0MdgAaLp47et7Fqbtic
+	 Mouc9mTsZCYyQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xCvc5-0000000GUbs-1Jyr;
+	Sat, 03 Oct 2026 09:01:01 +0000
+Date: Sat, 03 Oct 2026 10:01:00 +0100
+Message-ID: <86ik3j2m5v.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v21 10/23] KVM: arm64: Add VM specific callback for S2 MMU operations
+In-Reply-To: <20261001210703.1597150-11-suzuki.poulose@arm.com>
+References: <20261001210703.1597150-1-suzuki.poulose@arm.com>
+	<20261001210703.1597150-11-suzuki.poulose@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDXP4b_w8BqInaGCg--.62290S8
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF15Cw4kXr1rJry5uFyrCrg_yoW5Xw43p3
-	95Aa98Wr1ktrn7Xan7tw4kZ3Wru3W8Ka45GFWUtayfAwnIyrWDXr1FgF1jqF48GFWkA3yY
-	gayjy3y8u3WUu37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pibo7iUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ3+OWrAxA1F0wAA3y
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-ravb_remove() frees the netdev before devres releases the managed IRQs.
-The handlers use the netdev as their data pointer, so an interrupt during
-that window can access freed memory. Probe error paths have the same
-ordering problem.
+On Thu, 01 Oct 2026 22:06:50 +0100,
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> 
+> Add VM type specific S2 MMU operation backends which can be initialized per
+> VM flavor, to keep the handling cleaner.
+> 
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> Tested-by: Gavin Shan <gshan@redhat.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> Changes since v19:
+>  - Add a blank line in kvm_arch_flush_remote_tlbs()
+> ---
+>  arch/arm64/include/asm/kvm_host.h |  15 ++++
+>  arch/arm64/kvm/mmu.c              | 138 +++++++++++++++++++++++++-----
+>  2 files changed, 132 insertions(+), 21 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 9e1fa00d96f7c..f01df02dabfe1 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -155,6 +155,19 @@ struct kvm_vcpu_ops {
+>  	void (*vcpu_put)(struct kvm_vcpu *vcpu);
+>  };
+>  
+> +struct kvm_gfn_range;
+> +
+> +struct kvm_vm_s2_ops {
+> +	bool (*vm_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
+> +	bool (*vm_test_age_gfn)(struct kvm *kvm, struct kvm_gfn_range *range);
+> +	int (*vm_flush_remote_tlbs)(struct kvm *kvm);
+> +	int (*vm_flush_remote_tlbs_range)(struct kvm *kvm, gfn_t gfn,
+> +					  u64 nr_pages);
+> +	void (*vm_stage2_unmap_range)(struct kvm_s2_mmu *mmu,
+> +				      phys_addr_t start, u64 size,
+> +				      bool may_block);
+> +};
+> +
+>  struct kvm_s2_mmu {
+>  	struct kvm_vmid vmid;
+>  
+> @@ -332,6 +345,8 @@ struct kvm_arch {
+>  	 */
+>  	u64 fgu[__NR_FGT_GROUP_IDS__];
+>  
+> +	const struct kvm_vm_s2_ops *vm_s2_ops;
+> +
 
-Keep the netdev manually managed and place only the IRQ resources in a
-dedicated devres group. Release the group after unregistering the netdev
-and before freeing it, and release it on probe failures as well. This
-keeps the existing runtime PM error handling unchanged.
+If you're touching this patch, can you please move this pointer next
+to the vcpu_ops pointer?
 
-This issue was found by a static analysis method used in our research.
+>  	/*
+>  	 * Stage 2 paging state for VMs with nested S2 using a virtual
+>  	 * VMID.
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 365e2a12c2348..92cdbeb44807e 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -37,6 +37,8 @@ static unsigned long __ro_after_init io_map_base;
+>  
+>  #define KVM_PGT_FN(fn)		(!is_protected_kvm_enabled() ? fn : p ## fn)
+>  
+> +static int kvm_vm_init_vm_s2_ops(struct kvm *kvm);
+> +
+>  static phys_addr_t __stage2_range_addr_end(phys_addr_t addr, phys_addr_t end,
+>  					   phys_addr_t size)
+>  {
+> @@ -166,6 +168,18 @@ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
+>  	return memslot->dirty_bitmap && !(memslot->flags & KVM_MEM_READONLY);
+>  }
+>  
+> +static int pkvm_flush_remote_tlbs(struct kvm *kvm)
+> +{
+> +	kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
+> +	return 0;
+> +}
+> +
+> +static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
+> +{
+> +	kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
+> +	return 0;
+> +}
+> +
+>  /**
+>   * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
+>   * @kvm:	pointer to kvm structure.
+> @@ -174,26 +188,37 @@ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
+>   */
+>  int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
+>  {
+> -	if (is_protected_kvm_enabled())
+> -		kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
+> -	else
+> -		kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
+> -	return 0;
+> +	if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
+> +		return 1;
+> +
+> +	return kvm->arch.vm_s2_ops->vm_flush_remote_tlbs(kvm);
+> +}
+> +
+> +static int pkvm_flush_remote_tlbs_range(struct kvm *kvm,
+> +					gfn_t gfn, u64 nr_pages)
+> +{
+> +	return pkvm_flush_remote_tlbs(kvm);
+>  }
+>  
+> -int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+> -				      gfn_t gfn, u64 nr_pages)
+> +static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
+> +					 gfn_t gfn, u64 nr_pages)
+>  {
+>  	u64 size = nr_pages << PAGE_SHIFT;
+>  	u64 addr = gfn << PAGE_SHIFT;
+>  
+> -	if (is_protected_kvm_enabled())
+> -		kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
+> -	else
+> -		kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
+> +	kvm_tlb_flush_vmid_range(&kvm->arch.mmu, addr, size);
+>  	return 0;
+>  }
+>  
+> +int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+> +				     gfn_t gfn, u64 nr_pages)
+> +{
+> +	if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range)
+> +		return 1;
+> +
+> +	return kvm->arch.vm_s2_ops->vm_flush_remote_tlbs_range(kvm, gfn, nr_pages);
+> +}
+> +
+>  static void *stage2_memcache_zalloc_page(void *arg)
+>  {
+>  	struct kvm_mmu_memory_cache *mc = arg;
+> @@ -337,13 +362,20 @@ static void __unmap_stage2_range(struct kvm_s2_mmu *mmu, phys_addr_t start, u64
+>  				   may_block));
+>  }
+>  
+> +static void kvm_vm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
+> +				      phys_addr_t start,
+> +				      u64 size, bool may_block)
+> +{
+> +	__unmap_stage2_range(mmu, start, size, may_block);
+> +}
+> +
+>  void kvm_stage2_unmap_range(struct kvm_s2_mmu *mmu, phys_addr_t start,
+>  			    u64 size, bool may_block)
+>  {
+> -	if (kvm_vm_is_protected(kvm_s2_mmu_to_kvm(mmu)))
+> -		return;
+> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+>  
+> -	__unmap_stage2_range(mmu, start, size, may_block);
+> +	if (kvm->arch.vm_s2_ops->vm_stage2_unmap_range)
+> +		kvm->arch.vm_s2_ops->vm_stage2_unmap_range(mmu, start, size, may_block);
+>  }
+>  
+>  void kvm_stage2_flush_range(struct kvm_s2_mmu *mmu, phys_addr_t addr, phys_addr_t end)
+> @@ -983,6 +1015,12 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
+>  	int cpu, err;
+>  	struct kvm_pgtable *pgt;
+>  
+> +	/* Initialize the VM ops for the VM instance for the first time */
+> +	if (mmu == &kvm->arch.mmu) {
+> +		err = kvm_vm_init_vm_s2_ops(kvm);
+> +		if (err)
+> +			return err;
+> +	}
+>  	/*
+>  	 * If we already have our page tables in place, and that the
+>  	 * MMU context is the canonical one, we have a bug somewhere,
+> @@ -2447,34 +2485,46 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+>  	return false;
+>  }
+>  
+> -bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+> +static bool kvm_vm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+>  {
+>  	u64 size = (range->end - range->start) << PAGE_SHIFT;
+>  
+> -	if (!kvm->arch.mmu.pgt || kvm_vm_is_protected(kvm))
+> -		return false;
+> -
+>  	return KVM_PGT_FN(kvm_pgtable_stage2_test_clear_young)(kvm->arch.mmu.pgt,
+>  						   range->start << PAGE_SHIFT,
+>  						   size, true);
+> +}
+> +
+> +bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+> +{
+> +	if (!kvm->arch.mmu.pgt || !kvm->arch.vm_s2_ops->vm_age_gfn)
+> +		return false;
+> +
+> +	return kvm->arch.vm_s2_ops->vm_age_gfn(kvm, range);
+>  	/*
+>  	 * TODO: Handle nested_mmu structures here using the reverse mapping in
+>  	 * a later version of patch series.
+>  	 */
+>  }
+>  
+> -bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+> +static bool kvm_vm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+>  {
+>  	u64 size = (range->end - range->start) << PAGE_SHIFT;
+>  
+> -	if (!kvm->arch.mmu.pgt || kvm_vm_is_protected(kvm))
+> -		return false;
+>  
+>  	return KVM_PGT_FN(kvm_pgtable_stage2_test_clear_young)(kvm->arch.mmu.pgt,
+>  						   range->start << PAGE_SHIFT,
+>  						   size, false);
+>  }
+>  
+> +bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
+> +{
+> +
+> +	if (!kvm->arch.mmu.pgt || !kvm->arch.vm_s2_ops->vm_test_age_gfn)
+> +		return false;
+> +
+> +	return kvm->arch.vm_s2_ops->vm_test_age_gfn(kvm, range);
+> +}
+> +
+>  phys_addr_t kvm_mmu_get_httbr(void)
+>  {
+>  	return __pa(hyp_pgtable->pgd);
+> @@ -2796,3 +2846,49 @@ void kvm_toggle_cache(struct kvm_vcpu *vcpu, bool was_enabled)
+>  
+>  	trace_kvm_toggle_cache(*vcpu_pc(vcpu), was_enabled, now_enabled);
+>  }
+> +
+> +static const struct kvm_vm_s2_ops protected_pkvm_vm_s2_ops = {
+> +	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
+> +	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
+> +	/*
+> +	 * Not supported for Protected VMs under pKVM
+> +	 * .vm_age_gfn
+> +	 * .vm_test_age_gfn
+> +	 * .vm_stage2_unmap_range
+> +	 */
 
-Fixes: 32f012b8c01c ("net: ravb: Move getting/requesting IRQs in the probe() method")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/net/ethernet/renesas/ravb_main.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+I really think we should have *something* here that returns
+"unsupported", and avoid NULL-checks in the dispatchers.
 
-diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index ea1c7e536791..ab4703888778 100644
---- a/drivers/net/ethernet/renesas/ravb_main.c
-+++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -2963,28 +2963,35 @@ static int ravb_probe(struct platform_device *pdev)
- 		priv->num_rx_ring[RAVB_NC] = NC_RX_RING_SIZE;
- 	}
- 
-+	if (!devres_open_group(&pdev->dev, priv, GFP_KERNEL)) {
-+		error = -ENOMEM;
-+		goto out_reset_assert;
-+	}
-+
- 	error = ravb_setup_irqs(priv);
- 	if (error)
--		goto out_reset_assert;
-+		goto out_release_irq_group;
-+
-+	devres_close_group(&pdev->dev, priv);
- 
- 	priv->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(priv->clk)) {
- 		error = PTR_ERR(priv->clk);
--		goto out_reset_assert;
-+		goto out_release_irq_group;
- 	}
- 
- 	if (info->gptp_ref_clk) {
- 		priv->gptp_clk = devm_clk_get(&pdev->dev, "gptp");
- 		if (IS_ERR(priv->gptp_clk)) {
- 			error = PTR_ERR(priv->gptp_clk);
--			goto out_reset_assert;
-+			goto out_release_irq_group;
- 		}
- 	}
- 
- 	priv->refclk = devm_clk_get_optional(&pdev->dev, "refclk");
- 	if (IS_ERR(priv->refclk)) {
- 		error = PTR_ERR(priv->refclk);
--		goto out_reset_assert;
-+		goto out_release_irq_group;
- 	}
- 	clk_prepare(priv->refclk);
- 
-@@ -3124,6 +3131,8 @@ static int ravb_probe(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	clk_unprepare(priv->refclk);
-+out_release_irq_group:
-+	devres_release_group(&pdev->dev, priv);
- out_reset_assert:
- 	reset_control_assert(rstc);
- out_free_netdev:
-@@ -3144,6 +3153,7 @@ static void ravb_remove(struct platform_device *pdev)
- 		return;
- 
- 	unregister_netdev(ndev);
-+	devres_release_group(dev, priv);
- 	if (info->nc_queues)
- 		netif_napi_del(&priv->napi[RAVB_NC]);
- 	netif_napi_del(&priv->napi[RAVB_BE]);
+> +};
+> +
+> +static const struct kvm_vm_s2_ops pkvm_vm_s2_ops = {
+> +	.vm_flush_remote_tlbs		= pkvm_flush_remote_tlbs,
+> +	.vm_flush_remote_tlbs_range	= pkvm_flush_remote_tlbs_range,
+> +	.vm_age_gfn			= kvm_vm_age_gfn,
+> +	.vm_test_age_gfn		= kvm_vm_test_age_gfn,
+> +	.vm_stage2_unmap_range		= kvm_vm_stage2_unmap_range,
+
+and since we have this: can we get rid of the KVM_PGT_FN() hack?
+
+> +};
+> +
+> +static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
+> +	.vm_flush_remote_tlbs		= kvm_vm_flush_remote_tlbs,
+> +	.vm_flush_remote_tlbs_range	= kvm_vm_flush_remote_tlbs_range,
+> +	.vm_age_gfn			= kvm_vm_age_gfn,
+> +	.vm_test_age_gfn		= kvm_vm_test_age_gfn,
+> +	.vm_stage2_unmap_range		= kvm_vm_stage2_unmap_range,
+> +};
+> +
+> +#define KVM_VM_S2_OPS(flavor, ops)		\
+> +		[flavor] = ops
+> +static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
+> +	KVM_VM_S2_OPS(VM_VHE, &kvm_default_vm_s2_ops),
+> +	KVM_VM_S2_OPS(VM_NVHE, &kvm_default_vm_s2_ops),
+> +	KVM_VM_S2_OPS(VM_PKVM, &pkvm_vm_s2_ops),
+> +	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, &protected_pkvm_vm_s2_ops),
+
+nit: move the '&' into the macro.
+
+Thanks,
+
+	M.
+
 -- 
-2.34.1
-
+Without deviation from the norm, progress is not possible.
