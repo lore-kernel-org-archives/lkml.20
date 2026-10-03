@@ -1,109 +1,121 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0270D336885
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DB86311C32
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791007287; cv=none; b=ENkjDOeysM3c3hCVVzCqJVUVKXG0R3N2Ms6SbhxyJptNQzQbtu9ms43mLgoXrJLAVRzRby+JyVwHSetrgsP4zTU9aAa7o4fwvupb7zEFQMynF4iXhIs7QWKY/gLv/+JBUebKx8LqgPNKpLgpvZveGdYIyRyP1q34vP25uaULu5o=
+	t=1791007674; cv=none; b=kNX3cfAWPxPBZf6LiHdSp34Acb/p1f7oQa5nKLjzBNhutY1juoem0Ex+NtSUg1fvZ9MPb1v/N8VE9ULfkKsIaSrPW1uVgAqhtE94Bhxc4ITZm+pskl0oWR3sdld4L64g/xU2xHbliFniptN3//LwzpFKyE51mBmoMLHbqGU1UmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791007287; c=relaxed/simple;
-	bh=5FTgXyL9BULj5lhTXYZDDcLq5U4s54BYzrLcU3W/o3Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iEKZGeOV3uw0WCIq1LCTtlIHcna5pAP3IIzZ7FBzn++cBrFgU+LKOJXm9CtNmlMcfXu3/BRw0AiZ6hlLQ8vFyb5KytHtRBcfAGwCHV5x6Lpb6k3RWrwA9981ZyRxOj16GFIKljDJi9uf6EVHxmLRkMuCfevHX6efpfIyMWas7/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d4d558d8beef11f19a56ed5b684f684d-20261003
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_LOWREP, SRC_LOWREP
-	SA_TRUSTED, SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS
-	DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF
-	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:92ae08c4-4d6a-4787-a2ba-b2990e617779,IP:10,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:10
-X-CID-INFO: VERSION:1.3.19,REQID:92ae08c4-4d6a-4787-a2ba-b2990e617779,IP:10,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:10
-X-CID-META: VersionHash:7db8b62,CLOUDID:3b80404b1ba5e3dc0a63d755c756d944,BulkI
-	D:261003140113NO7ATH1I,BulkQuantity:0,SF:17|19|38|66|78|101|102|127|850|86
-	5|898,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:ni
-	l,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE
-	:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d4d558d8beef11f19a56ed5b684f684d-20261003
-X-User: lienze@kylinos.cn
-Received: from localhost.localdomain [(175.169.70.242)] by mailgw.kylinos.cn
-	(envelope-from <lienze@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 649705112; Sat, 03 Oct 2026 14:01:10 +0800
-From: Enze Li <lienze@kylinos.cn>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	sj@kernel.org
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	enze.li@gmx.com,
-	Enze Li <lienze@kylinos.cn>,
-	Joe Perches <joe@perches.com>
-Subject: [PATCH v2 1/2] MAINTAINERS: cover all hugetlb headers under HUGETLB SUBSYSTEM
-Date: Sat,  3 Oct 2026 14:00:28 +0800
-Message-Id: <20261003060029.2152489-1-lienze@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791007674; c=relaxed/simple;
+	bh=wa4AOlE/1uBwYq+kAPl6VeapNdrQNjEjASltYH2rCe4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=clbFE9Y+ZFBmsNPYT1g8hs/9v/bcbwcNDnDbuqMV6tVbmJ/sb+6S4EiU4k8d5F4OkRnvkxYtnNRLVpEEZWECm1g85IsfjRy5TUKMy+ubk+9hU9MNhe6m26JSkxrtd43wgCkvvBdl1JndSMVeIIoXFEc62qzNemmgOPCTmgNC/CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cKtNs0Ad; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cKtNs0Ad"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EC6E72F;
+	Fri,  2 Oct 2026 23:07:48 -0700 (PDT)
+Received: from [10.57.8.170] (unknown [10.57.8.170])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 083CD3F763;
+	Fri,  2 Oct 2026 23:07:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791007672; bh=wa4AOlE/1uBwYq+kAPl6VeapNdrQNjEjASltYH2rCe4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cKtNs0Ad+gPzljAYfBw3MY8W50cx+46/M1zvmGn4FNCRcFRoJGGsIjbi97XNkrpL/
+	 TdIj29XCbK5Zi3bYlIgkm1XVxAAo3J8Q0Dm0qeJNVx7+hxO8kiGff/M7uJGgtrbQav
+	 EQCkJy/sz4j8VaS7pTcdFjNm0Hb0tk0iIHenhGBI=
+Message-ID: <beae08c7-798b-4314-8335-5303af23d513@arm.com>
+Date: Sat, 3 Oct 2026 07:07:42 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v13 01/14] coresight: etm4x: read-back TRCSEQSTR at
+ disabling and prohibit modifying seq_state while enabling.
+Content-Language: en-GB
+To: Yeoreum Yun <yeoreum.yun@arm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+References: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
+ <20261003-separate_etm_cfg_v2-v13-1-5d8a29aead95@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261003-separate_etm_cfg_v2-v13-1-5d8a29aead95@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The HUGETLB SUBSYSTEM F: entries list include/linux/hugetlb.h
-explicitly, but other hugetlb headers are not covered, so
-get_maintainer.pl does not attribute them to the hugetlb maintainers.
+Hi Levi
 
-Enumerating headers by hand is also fragile: any header not listed (such
-as hugetlb_cgroup.h) falls outside the subsystem.  Joe Perches suggested
-using a glob F: entry, which covers all current and future hugetlb
-headers in one line and avoids the gap.
 
-Suggested-by: Joe Perches <joe@perches.com>
-Signed-off-by: Enze Li <lienze@kylinos.cn>
----
-Changes in v2:
-- Adopt the glob pattern "F: include/linux/hugetlb*" as suggested by
-  Joe Perches.
-- Drop the Acked-by: tags from Muchun Song and David Hildenbrand, since
-  the patch content changed.
+Please run checkpatch on your submissions.
 
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The subject is too long, I have changed that to :
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fc95062c7e38..5c38da7090db 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12097,7 +12097,7 @@ F:	Documentation/admin-guide/mm/hugetlbpage.rst
- F:	Documentation/mm/hugetlbfs_reserv.rst
- F:	Documentation/mm/vmemmap_dedup.rst
- F:	fs/hugetlbfs/
--F:	include/linux/hugetlb.h
-+F:	include/linux/hugetlb*
- F:	include/linux/vmemmap-optimization.h
- F:	include/trace/events/hugetlbfs.h
- F:	mm/hugetlb.c
+coresight: etm4x: Prohibit TRCSEQSTR modifications while tracing enabled
 
-base-commit: 763ad0211c7b587344f03bc4d1299810aeb736f4
--- 
-2.25.1
+On 03/10/2026 03:52, Yeoreum Yun wrote:
+> TRCSEQSTR can be changed by the ETM while a session is active. Its value
+> therefore needs to be preserved when a sysfs session is disabled so that
+> users can read the current sequence state after the session ends.
+> 
+> This means that any changes made to TRCSEQSTR while the sysfs-session is active
+
+Please stick to 75 spaces. I have fixed this up.
+
+Cheers
+Suzuki
+
+> would be lost when the session is disabled.
+
+> 
+> Copy the TRCSEQSTR value when disabling a sysfs session, and prohibit
+> modifying seq_state while the session is active.
+> 
+> Suggested-by: Mike Leach <mike.leach@arm.com>
+> Reviewed-by: Mike Leach <mike.leach@arm.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-etm4x-core.c  | 4 ++++
+>   drivers/hwtracing/coresight/coresight-etm4x-sysfs.c | 2 ++
+>   2 files changed, 6 insertions(+)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> index 2247ad55d444..9ca03a5913a3 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> @@ -1073,6 +1073,10 @@ static void etm4_disable_hw(struct etmv4_drvdata *drvdata)
+>   			etm4x_relaxed_read32(csa, TRCCNTVRn(i));
+>   	}
+>   
+> +	/* read back the sequence state */
+> +	if (drvdata->nrseqstate)
+> +		config->seq_state = etm4x_relaxed_read32(csa, TRCSEQSTR);
+> +
+>   	coresight_disclaim_device_unlocked(csdev);
+>   	etm4_cs_lock(drvdata, csa);
+>   
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> index cc6cdd3ae29d..4945d577ceab 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> @@ -1435,6 +1435,8 @@ static ssize_t seq_state_store(struct device *dev,
+>   
+>   	if (kstrtoul(buf, 16, &val))
+>   		return -EINVAL;
+> +	if (IS_ERR_OR_NULL(drvdata->csdev) || coresight_get_mode(drvdata->csdev))
+> +		return -EBUSY;
+>   	if (val >= drvdata->nrseqstate)
+>   		return -EINVAL;
+>   
+> 
 
