@@ -1,127 +1,105 @@
-Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C22E2E736F
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332083290C9
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790989935; cv=none; b=vChVWalNtdzrzOfGgyslp8L0BP94HmIJVunKBzYbjB9B+5TFOjltR2n5hQfuZEUi/TzdEfRIL9GxmsQFaNzYYBgS219ylDDK0daKs9zxiaU8aVlz+pUDK/8CbjzdQz78RxCZmw+61rSxg+0VHBZS6NW3u5xH30UfXijDV3WTYPk=
+	t=1790989952; cv=none; b=uGUpgz9YbrirY47nwhvRH2IHeQmf49vA6PXTRFQt3qaNyefsO/7Tci+P6z/dmCycPzHcUlJ8ixP3wroMg8ibAP8AnyNELYxdaxYX9sEzKqQtsimWTyhs4YmgFTU+uP85yqULgEGlvg/gN53R9HfJE+KfuIgKWE9K/OlfLnYZAGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790989935; c=relaxed/simple;
-	bh=ijkPffjazmoEalsiCm8siJSxQyEa9EfYXWnMK6Ecc7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=ojLEpWLw9KSCeUYt/UycgSJ/kSp1wjeQiz+xAnjTefIURHpwmwlTFYkluYfq+2+YSTSSS6hlwX5R4kw7Vo0cXTF6ffhmMVu5jn7DFatjSFcLJHsE9D+d8syKGeCw5UkfbqmOAJPYaepXqcKGRSUSA7soZkCbJSzDct0weCuWBm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=95.215.58.191
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id c080e56c016d6bad;
-	Sat, 03 Oct 2026 01:11:59 +0000
-X-Mizu-Trace-ID: c080e56c016d6bad
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <hebaoquan@kylinos.cn>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	hannes@cmpxchg.org,
-	nphamcs@gmail.com,
-	tj@kernel.org,
-	mkoutny@suse.com,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	muchun.song@linux.dev,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	linux-kernel@vger.kernel.org,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH 6/6] mm, swap: drop a refused xswap backend run directly
-Date: Sat,  3 Oct 2026 09:11:11 +0800
-Message-ID: <20261003011111.1003090-7-hebaoquan@kylinos.cn>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261003011111.1003090-1-hebaoquan@kylinos.cn>
-References: <20261003011111.1003090-1-hebaoquan@kylinos.cn>
+	s=arc-20240116; t=1790989952; c=relaxed/simple;
+	bh=B4JkUi9my2d9U4NwA9n6bMZyhByBHhozgf11BX091ds=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z9fTVliMU8toRP9DGTmzT5SY0YuHm04BpPsG9pz/40RhySfMkD/uut1zfBp62p50RxVD5xEpXyv6zE7M1bF0ECaqXXdCAELqraCEUQYlcnZiG+MzDWnaoV2vzqaPKki71fuTTmHz/derAFLUtkwoOuvYZZouElG8FTF7MHTN8Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ED6lssCM; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ED6lssCM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=yYGDYGipIPKpCp7ZOn9wro1eUA2lYhqQ2yXsDOAsYaM=;
+	b=ED6lssCM4oK2Tt3de/JOs7BTXyQ+tGpn5Z/DsVeJtVjMunzd4rdpCSb9y3XFMz
+	s1/dFJc66XRoiQFlf1/bKkQy/+rsUY29DRpk4DS50zxMQQIYXBk2sv4Dz7MTiNyI
+	T9u3z+anbQqB7ioiSL4hZ2WUIYKefKwC9X5MtU51h0obI=
+Message-ID: <59056131-e3bd-4003-8c30-0a356cf0bd82@163.com>
+Date: Sat, 3 Oct 2026 09:11:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/5] exfat: fix valid_size handling and locking
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yuezhang.Mo@sony.com, chenxiaosong@chenxiaosong.com, dxdt@dev.snart.me,
+ hyc.lee@gmail.com, liubaolin12138@163.com, sj1557.seo@samsung.com,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20260927080305.831641-1-chizhiling@163.com>
+ <CAKYAXd8u2iLQ5aO6XR7vFojB3=9Jcmk7nK1mbzAk=Tza_UoYJA@mail.gmail.com>
+ <24c5c9ea-1bfe-44a8-81ad-c2b1588e0a63@163.com>
+ <CAKYAXd9Z7opATEpHtyTp+cbzsYS_+Ym621fBHHbY1OZw=Hzt2w@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd9Z7opATEpHtyTp+cbzsYS_+Ym621fBHHbY1OZw=Hzt2w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAXLh0nVsBqWoBUCA--.30796S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7urWkAF4DurykWrWxGw1DAwb_yoW8KFW5pa
+	yFk3W5GFW5J340yrs293W8Xa4Ygwn3Xr17Wr98t3yUArn09F1avry7K3y093y5tws7Kw4j
+	vr4vq397Xw1DJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UeMKtUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9wtqCGrAViu9aQAA3d
 
-On a refused charge, xswap_backend_alloc() gave the physical run back
-with __xswap_backend_unlink(), which finds the run through the reverse
-mapping. That mapping is not installed yet at this point, so it
-recognised nothing and freed nothing: every refused charge leaked the
-run and tripped a VM_WARN_ON_ONCE().
+On 10/3/26 7:42 AM, Namjae Jeon wrote:
+> On Thu, Oct 1, 2026 at 11:53 AM Chi Zhiling <chizhiling@163.com> wrote:
+>>
+>> On 9/30/26 6:01 PM, Namjae Jeon wrote:
+>>> On Sun, Sep 27, 2026 at 5:04 PM Chi Zhiling <chizhiling@163.com> wrote:
+>>>>
+>>>> From: Chi Zhiling <chizhiling@kylinos.cn>
+>>>>
+>>>> valid_size marks the on-disk up-to-date region of an exFAT file. It is
+>>>> advanced from the write path, from read/zeroing completion, and via
+>>>> truncate, while it is read without i_rwsem from ->iomap_begin and from bio
+>>>> completion context. This series fixes several races and stale-data windows
+>>>> that follow from that split ownership.
+>>>>
+>>>> Patches 1-2 are self-contained fixes: an append write may be moved to EOF
+>>>> by generic_write_checks(), so valid_size must be advanced using the
+>>>> recalculated position; and exfat_zero_new_range() must mark non-uptodate
+>>>> pages dirty so the whole page is written back.
+>>>>
+>>>> Patches 3-4 are prerequisites for patch 5: truncate now holds the
+>>>> invalidate lock so it is mutually exclusive with mmap writes, and
+>>>> valid_size/zeroed_size become atomic so they can be read safely outside
+>>>> i_rwsem. Patch 5 then takes exfat_page_mkwrite() out from under i_rwsem,
+>>>> since blocking on the inode lock under mmap_lock could deadlock and its
+>>>> VM_FAULT_RETRY result is not honored, and advances valid_size under the
+>>>> folio lock to keep the page cache and valid_size consistent.
+>>>>
+>>>> Link: https://lore.kernel.org/exfat/10029d6f-13cc-4d17-a2f9-b093a8339dde@163.com/T/#t
+>>>>
+>>>> Chi Zhiling (5):
+>>>>     exfat: advance valid_size to EOF for append writes
+>>>>     exfat: dirty all new pages when extending valid_size
+>>>>     exfat: hold the invalidate lock while truncating
+>>>>     exfat: make valid_size and zeroed_size atomic
+>>>>     exfat: use folio lock to protect valid_size
+>>> Could you check the review comments from Sashiko ?
+>>>
+>>> https://sashiko.dev/#/patchset/20260927080305.831641-1-chizhiling%40163.com
+>>
+>> Okay, I’ll take a close look at this review comment.
+>>
+>> I also noticed that the comment mentions that concurrent DIO and page
+>> faults may lead to data corruption. I believe this is a long-standing
+>> issue, and I don’t currently have a good way to fix it.
+> Okay, I'll take a look at that. Will you send v2 patchset soon?
+> Thanks!
 
-Drop the run directly instead; the caller holds it and nothing points
-at it yet.
+Okay
 
-Seen with a cgroup at memory.swap.max: the backend held 48663 pages
-while memory.swap.current was 0.
 
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
----
- mm/swapfile.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 419d19f3b98c..0f841616d27e 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -3302,6 +3302,39 @@ static void xswap_free_phys_slot(struct swap_info_struct *si,
- 	swap_cluster_unlock(ci);
- }
- 
-+/*
-+ * Give a run of backend slots back. Nothing points at them yet, so there is
-+ * no reverse mapping to look up and no record to clear.
-+ */
-+static void xswap_drop_phys_slots(swp_entry_t phys, unsigned int nr)
-+{
-+	struct swap_info_struct *psi = swap_type_to_info(swp_type(phys));
-+	unsigned long poff = swp_offset(phys);
-+	struct swap_cluster_info *pci;
-+	unsigned int i;
-+
-+	if (!psi)
-+		return;
-+
-+	pci = swap_cluster_lock(psi, poff);
-+	if (!pci)
-+		return;
-+
-+	VM_WARN_ON(pci->count < nr);
-+	pci->count -= nr;
-+	for (i = 0; i < nr; i++)
-+		__swap_table_set(pci, (poff + i) % SWAPFILE_CLUSTER,
-+				 null_to_swp_tb());
-+
-+	if (!pci->count)
-+		free_cluster(psi, pci);
-+	else
-+		partial_free_cluster(psi, pci);
-+	swap_cluster_unlock(pci);
-+
-+	swap_range_free(psi, poff, nr);
-+}
-+
- /*
-  * An xswap slot being freed may still own a physical slot. Drop it, or the
-  * physical space and its reverse mapping leak. Caller holds the xswap
-@@ -4697,7 +4730,7 @@ swp_entry_t xswap_backend_alloc(swp_entry_t entry, unsigned int order,
- 		swap_cluster_unlock(ci);
- 	}
- 	if (mem_cgroup_swap_charge(id, nr)) {
--		__xswap_backend_unlink(entry, phys, order);
-+		xswap_drop_phys_slots(phys, nr);
- 		return (swp_entry_t){};
- 	}
- 
--- 
-2.54.0
 
