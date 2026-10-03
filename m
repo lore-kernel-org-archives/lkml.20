@@ -1,104 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB4937E5DB;
-	Sat,  3 Oct 2026 07:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B2B377550;
+	Sat,  3 Oct 2026 07:21:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791011952; cv=none; b=NHGnjhm40f0+u8Wa6K65fhREfud02SvLHNUOPLyd1jtxRw8TodqTTr6x0EJE03ms5b6ro7RX66Cuwl59+bmekX6gz8atGg2q5+6o37U6zpM4Mvo09LzayRZNi2uHq+Q+SrqOZFz9Elv1xi9h9RMXgZw4S4ZlPt8RJh/11c8ghvY=
+	t=1791012115; cv=none; b=GjyOExc954vlX5T0TrpUYfh2s388aShFbY8zBAqFXBOs8lhhSads/ioV+H2iZmPz3zcMeCaCT/3/u0GhNf6L/a+/5azeoM4qyKm+IJYBZpZUH9VHBUFvGRCucUjd2SVOLdXoG8Td9H60AWje53SJlbV10A07Ssg5RB4e1H9jSr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791011952; c=relaxed/simple;
-	bh=XOR15HJMuhOU7rchj1oZfMyLgji64tblsTWwSmI8G2M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NxcazWFlRH/KsP90HrJREZP3SJShp4IQ40WmWCgwNpboSnfGzTZFPtkaRleDbWAAOozeZ6tcbMaYimhiakPqUkbs6rvg45KrFEM+evk71CnmlMAiwyLJ/rqIIVpEBzqN7IcfrhQY/p4njPkbVvgEltzLjFfw09W+wzDmG+fczZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VXpX1kQO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791012115; c=relaxed/simple;
+	bh=WLaw8WNdTsVs/wqmgeBzRXibzeRyQgwXxQpiJCZIv+A=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=YqzXayvtZ0nDygflEDqm7l/QZ0OdFpdBmvFiEL2NsWArzg1YQIbW6YwIZPjgkazq0GEd0W5Py105eb6peSsv1bstM+usMP1vsznB9axJFQe38UB1tY/KONQi0yKl14gjdCkqQpv/8cdqwlccAgA1ixnGgrYcNACwQ2OTQYtgrL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boqFFFpY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VXpX1kQO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF22E1F0089C;
-	Sat,  3 Oct 2026 07:19:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boqFFFpY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3991F0089B;
+	Sat,  3 Oct 2026 07:21:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791011951;
-	bh=WO8SoAYmR/PnOcHnhHmzwFDxcKmkbBVhDCS7aQ71nbo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VXpX1kQOv2qNzHz71CTAhhjoJr+INqHci4fhsdHPjnrc+e6vN2Hc/xM1jOhIp6032
-	 xUKbayXkNbQ8YVP68UWVVeu9L5DvOi8mszp27D8sCmDO6pcHHmizL8EqgZH/pS+YoC
-	 Aozm6HXblMJHsEUsUlleTd1iNMssd3jQLGPJqL72uDa1GEdeYzHHvLB44VLC4gQz4y
-	 fXtHHuWDFedIvvYcvBrfxvNNssJHgjwKGghZLWt1qjH4W5odxldfwXNnZtEYOpq+hu
-	 6nEVIUNJjT/xQdEqAVGEtm3a0xbKvqGnKmRKPMzafowbEm0RB/mImMpbRM4lwZaeRI
-	 NIWCDkZdnV//w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 4/5] dt-bindings: riscv: Add binding for CBQRI
- controllers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261003-dfustini-atl-sc-cbqri-dt-v9-4-52fd8be98dcf@kernel.org>
-References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
- <20261003-dfustini-atl-sc-cbqri-dt-v9-4-52fd8be98dcf@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 07:19:10 +0000
-Message-Id: <20261003071910.DF22E1F0089C@smtp.kernel.org>
+	s=k20260515; t=1791012113;
+	bh=Xoc2jJkqxh0W1JpflqN0cFCgG8i+IFymj+idMxZoelg=;
+	h=Date:From:To:Cc:Subject;
+	b=boqFFFpYrdheYDq+BAfBc47tcGIE56gKYmwaUXjqUzJa3whInDoUwlhJVChsCamqi
+	 5CyFRVEV3w0BZGCqlUEVrcqZD0FU0MGIVHIT4bGVUPj7G0NMZ2LlVBIkBZNrigl2Oe
+	 D5wV3/KgXlHANqgpjMkOI4tGv1dHs8l0TyDafQqQD03/DFyJbAUkDW/jpow6Qha6XD
+	 JJxEPySjnF+FVlirMq2BclTauHUD11jVqit8mkWxRY2kozqP6XO/R85X3ea1MrueGk
+	 ejVheY/yyjlOqkIZR/kxcD1J0FFco+7BGxg7ATVxZHDWinJ696/RlWtXIQyLRTDa0e
+	 srdaOM1W+UmKg==
+Date: Sat, 3 Oct 2026 00:21:52 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: soc@kernel.org
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>, Han Gao <gaohan@iscas.ac.cn>,
+	Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+Subject: [GIT PULL] RISC-V T-HEAD devicetree changes for v7.4
+Message-ID: <asCtEGcXwUoOHyMA@x1gen8.tail89d63.ts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: riscv: cbqri properties unconditionally required ag=
-ainst intent
---
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-commit 5dcd168e7171a1ca9e65e913bdb55cea23dc0357
-Author: Drew Fustini <fustini@kernel.org>
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-dt-bindings: riscv: Add binding for CBQRI controllers
+are available in the Git repository at:
 
-This commit introduces the device tree binding for RISC-V Capacity and Band=
-width
-QoS Register Interface (CBQRI) controllers. The binding covers capacity and
-bandwidth controllers, including properties for resource-control IDs,
-monitoring-counter IDs, and cache phandles.
+  https://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux.git tags/thead-dt-for-v7.4
 
-> diff --git a/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml b/D=
-ocumentation/devicetree/bindings/riscv/riscv,cbqri.yaml
-> new file mode 100644
-> index 0000000000000..0924758ebdde6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
-> @@ -0,0 +1,97 @@
+for you to fetch changes up to 2414ca8f5a0cafdfdb2b5899fd173adc09b5adf1:
 
-[ ... ]
+  MAINTAINERS: Move RISC-V T-Head SoC tree to kernel.org (2026-10-01 23:34:22 -0700)
 
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: riscv,cbqri-capacity-controller
-> +    then:
-> +      required:
-> +        - riscv,cbqri-rcid
-> +        - riscv,cbqri-cache
+----------------------------------------------------------------
+T-HEAD device tree changes for v7.4
 
-[Severity: Medium]
-Does this code introduce a regression by unconditionally requiring these
-properties for all capacity controllers?
+Add the Milk-V Meles, a single board computer with the TH1520 SoC:
+- Document the board compatible alongside the BeagleV Ahead
+- Add the base device tree with UART0, eMMC, microSD, Gigabit Ethernet
+  and the PWM fan
+- Enable the AP6256 Wi-Fi module on SDIO1
+- Enable HDMI output through the DC8200 display controller and the
+  DW-HDMI transmitter
 
-The commit message explicitly describes the riscv,cbqri-cache phandle as
-optional.
+Also update MAINTAINERS: move the T-Head SoC tree T: entry to kernel.org
 
-Additionally, the binding description notes a controller may implement only
-monitoring without allocation capabilities, meaning it would lack RCIDs for
-allocation operations.
+----------------------------------------------------------------
+Drew Fustini (1):
+      MAINTAINERS: Move RISC-V T-Head SoC tree to kernel.org
 
-Because the allOf block rigidly requires both properties for any
-riscv,cbqri-capacity-controller, this appears to contradict the hardware
-flexibility and will cause schema validation to fail for valid device trees
-describing monitoring-only or non-CPU-cache capacity controllers.
+Han Gao (4):
+      dt-bindings: riscv: thead: add Milk-V Meles
+      riscv: dts: thead: add Milk-V Meles
+      riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
+      riscv: dts: thead: enable HDMI on Milk-V Meles
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-dfustini-a=
-tl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org?part=3D4
+ Documentation/devicetree/bindings/riscv/thead.yaml |   6 +-
+ MAINTAINERS                                        |   2 +-
+ arch/riscv/boot/dts/thead/Makefile                 |   1 +
+ arch/riscv/boot/dts/thead/th1520-milkv-meles.dts   | 346 +++++++++++++++++++++
+ 4 files changed, 352 insertions(+), 3 deletions(-)
+ create mode 100644 arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
