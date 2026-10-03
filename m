@@ -1,224 +1,235 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8220738E8AC
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5522882AB;
+	Sat,  3 Oct 2026 21:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791060923; cv=none; b=gqh7RNudPDTlL0rdLDUblBfZsEw/3PcLuNGEeKYHc8vSYqhTFPQVBZFBVuKwwrweBsbarmwiHm1tlOc7GWzJuxDsly4mJemQs2kr1urJobf2A1W8b3Hsz708UcgsIb/eY/Vgt/zFI9g2Alecw4wh2L71ON4KIFNfEaXfKp3rXWk=
+	t=1791061366; cv=none; b=T8PQrUq7m6hwsUgbe4ZlVj8R2y/P/G/s086OrcBGO9NCKTnViPoA439nlhhRi+lq9Yo+nVyql/jYKZUWgXFE8f/Sjt8MxSZ93KifRYtQW+o9lHXDGBJxedL/lXJRET4qcjxbRRsW1IPQ7XDFzkVg7KoSMwjRJKrTbJXzKYI3Dws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791060923; c=relaxed/simple;
-	bh=ik7SfSihSd7srhBjbKZLRLCC+5A0g+MU1oxC+qFg0bs=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=b68fBbYgOAjvPEZSrxfu8sS33P6S7PEMEhK++yHRpTrPNbe0ds0aAO+Nx1eRYqslHCqtfJRSbtcYLpcH+wkS3W6fJaM6n4durr4ER+p8qSysviEEdmaESnSK5/71tdyNjj52B4eiVU4qDcU4dx5DxKitD29lFB9tgfcUSpHmff4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Ky8EfLvX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=S7fsTYLj; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1791061366; c=relaxed/simple;
+	bh=MdkNDKFMwo0en7/phjMbXSaPZqxK8TFbLzKbBZzESuY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hkfWC+pQt+mh3vHnlbX23Ot3tQ70WMuVBHyjD+U5HaUmUH+bqpqaZjeGwnaxBwyb06u0hB+8j/3vLYRWqaJkxydqn/Eoo87nwVNIEioQgCmkTNfDu37U4b8YHbRaqH6FxXwumKqZqN27QLJ7L6LC5gN6g7iJEpnbVLsI1Pa2ehI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=RwkyW6Xo; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Ky8EfLvX";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="S7fsTYLj"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5EC601400087
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:55:20 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sat, 03 Oct 2026 16:55:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791060907;
-	 x=1791147307; bh=OfNciX7Kzw3HdRiwwkOeKUPFQ5qprTv16kcShTgN2+k=; b=
-	Ky8EfLvXf0aC70x9f/nMD3WXA+ORYs4sALykdU2/byvq1nv0BBPHigAlpyAP/IqT
-	4t4a7B77kJO33ETFg577Mcm1C64uJsiFhrOptkCHBDnhPOfOea06xKJxjoslPhny
-	NU+6qCa4F9+i9LzVBCvpV59SwtCK0r6xZhlgkxCmxYytfqSon6hMPRqBlfGRttq2
-	ErA4CulWUqFIR9sVNSk7cbv3os5GA3YemXOoMUiynnz3wdDzkfhE1tNXhzBkSDEP
-	UgVbe+Yjvd0RpNOs4wuAcJXeyT6DUbaTOG0NHShsqP1wM7fExvHLA8M7iUXHdb4I
-	5s2KK8dHRxOOXT4edsnK2Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791060907; x=
-	1791147307; bh=OfNciX7Kzw3HdRiwwkOeKUPFQ5qprTv16kcShTgN2+k=; b=S
-	7fsTYLjnnNjAFIpV9EYHI9P4fZ8SL2NOH5xYHEmAezgIIrMGOKSjeIEgCvU0ro5k
-	ceV6IEcXiw3jha2BPJwisPBO39rUSdXGa6M2nMqQldGF8uGfextNKsuROszwTUoi
-	dVoDDQtAanLiF2lgALIhV9qoh4Y1Nj693i+Iy/rZQ4uiWe0iCrdysGCbXJwT3uEk
-	K9SgzUGGWaJnBfNREMdKTKQ2jTiDyG5TZ+1GwhSKU+QO7sTNOPUeW6XE9lSmRic2
-	ZB0UV7XHXfPXeP7bKDxJdci4fks4pKwTV3+elT9JJUnYlZ+mAkbqRhWJwqr2Sbfd
-	9RYX0/1QQFWUk6TU4f93A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791060907; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:eUR6jUQRpg4aOZ4vurm41TYGmVa6R/dCFakUqcx93JxwlYp
-	bMJPKy1OULO6JCtEYg98cPqLCFmJRBQTGT0mrvpw2U2j21/pCF6/gQ1ag32Faf4C
-	uONmpjjOB5S1GH40UWHsnpP4aTj6gIbbPH2BGlRFwhmOauPBe0nid59Lx1f+4nj4
-	hiXTjAgXBe4T/tY0O275vTyXN4oOa20l8ZhqnrwNkh8P4rMBdSYjdI7esEVwgnx1
-	2o8s+j4D4Q0F+QVO53CptmVZ6WtQjTCcYP655aqbyEnYvz9xfUcln2GJqiZlzmUk
-	hCad0NYFZ+rXU+NspA7Mng7gn3odej7luy+qPbA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:GyCnERTPxeQJXOVuBs4/3L4C1Z0l5VIWw1a73NTjPwk=:ik7SfSihSd7srhBjbKZLRLCC+5A0g+MU1oxC+qFg0bs=;
-X-ME-Sender: <xms:omvBauSuhQ9ggYy7989JCPhwB6R-s7ru-2oqUNtMJuJlcqt_drIV_w>
-    <xme:omvBaukiy4RtVekt9T-yEl6ngW4FNAbq5hY6x1nS_MzUEkZ1LH80gpQuVS5z-rJEX
-    ulZRvyDbtuqhWHFaQe7TrOO57-ZhP9pUGdvaab0E4BfIb_JVAVZETU>
-X-ME-Proxy-Cause: dmFkZTGqH8D9AZ6i468pJhQ4wce95TqgvWhQCyTKZkCG4CrneDArON+7/8DMt2wEyyJ7OD
-    D3pMjg1tDeDiOgWCeMuJ1436+gm3Us7QCtRXM6sLINq66msbS3UsULBA6yhM3Q7fnWFHb9
-    N5i6fPBFDRCnd8M6jh7BeeFKr1WvING5wnczFTvlr12bejiGMrRnKq53guQRIJkf3sfbjv
-    Z6jLx8VvQdtwlxix5W09SkU/bLFM4BeUQtlfLuAMzxVNy5goDBeDFqLs+0GzF2OMA8rTuq
-    pDDPsid/yCcdhRBdYsMj/XKICHStxjoecO5Cc2TN0apwn1EEF8TUtps7HjyOJF5nWWRihe
-    gVmvANIo9weSefu3A7KOOmck9frk3x8YsjLZgPBi9/KGkAXyFujXcKWPK4Unqqdd88F7uE
-    RT4uzvp4dgWgsIH3Lc527rWyvdTGQrPBFj9ElH8RMnr9rezUz8kRcoy4WRqyBQw7PHhf0R
-    O/HnmN4GzSW2Vn+VZv8titcAqBOuzlm25EA++2DeUln4VezeM63EY3qv9jKkic+gi79V5L
-    T9wnwnzwtwVWc1/hztNmYbR64lDrBjl28EO7whK3Jh+QtkjBOcEwtBqTgYHy3f2nElM2B7
-    oDxzOh1bkURtFbvfuCi4lXdUvZcxDFZHq8rGh/s5qOmE90PtoBkSSnz06A6Q
-X-ME-Proxy: <xmx:p2vBai5fGbqic6xOPaGn7iuoMwyr8WkQ1Cax7uQWG-mDOJl1L4hGoQ>
-    <xmx:p2vBalheBCeok7JKOnC49lqszB57hW1aDK4w7eAEsISLrtf5t71UdA>
-    <xmx:p2vBak6jJP8_83eqUPlZg8VIIEIwR3qWHMvFYiy4QW3RvKIccFM1bQ>
-    <xmx:p2vBamB8QStobUsUf2LgrNhs1Sb_6kP3ctE7Ya2atwurpH18c7Oz-A>
-    <xmx:q2vBajK4fHg2k9GM_8swAZyfBQok5fZlrrX7qFBzzNoZQWYPACbz5o8N>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AEE9032A008A; Sat,  3 Oct 2026 16:54:58 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="RwkyW6Xo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=ZvFijynfxs8ibqtQRQGuVugKLLDc2R9fdiy9rm9cFaM=; b=RwkyW6XofBJdVZysxBB+Mym5Hg
+	AkMzsaF2mKZcGF9zo92CRZ7I7WslecfPMQb/4vs/5lqiFUrh0djgMFI+5EcIoMV6hEWNx/pbThxPW
+	qIyLLEBz3uCJykBkIM9yCOaL3595HIipFquPGi3DceGotUqg3ujoqWYCMUHbaa5G//hnYK3m0wmpw
+	cy+9pLbev8zeCcFaPGlfruDrTxVy29XdSI1kVfGytlNNUOIqLERCmfpa2M6WkJYx+/CnVpkclApLo
+	UbpMh9JZF5TCJwVEiTVrqxyPbSsmPbqWZfOME2gJ2UXXC9TZhLSJ+MBvLb2HYG7HVBTryAylb3FnI
+	BAwOTuCg==;
+Received: from [151.115.150.205] (port=53992 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xD6sU-0000000GjZq-2vGZ;
+	Sat, 03 Oct 2026 23:02:38 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Hannes Reinecke <hare@suse.de>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+Cc: linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF
+Date: Sat,  3 Oct 2026 21:01:55 +0000
+Message-ID: <20261003210154.2453077-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A-PcLBAcdglw
-Date: Sat, 03 Oct 2026 22:54:28 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
-Cc: "Russell King" <linux@armlinux.org.uk>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "Linus Walleij" <linusw@kernel.org>,
- "Christian Schrefl" <chrisi.schrefl@gmail.com>,
- "Bradley Morgan" <brads@mainlining.org>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>,
- linux-arm-kernel@lists.infradead.org, rust-for-linux@vger.kernel.org,
- llvm@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <3436fcef-a052-4261-afb5-677b0bbf28c2@app.fastmail.com>
-In-Reply-To: <asEzZ1wOQ_MbgEsk@gmail.com>
-References: <20261003093827.77857-1-kmehltretter@gmail.com>
- <20261003093827.77857-3-kmehltretter@gmail.com>
- <33197b82-3eff-4c87-b370-c677ca31a02a@app.fastmail.com>
- <asEzZ1wOQ_MbgEsk@gmail.com>
-Subject: Re: [PATCH 2/2] ARM: rust: Enable Rust support for ARMv5TE
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Sat, Oct 3, 2026, at 19:07, Karl Mehltretter wrote:
-> On Sat, Oct 03, 2026 at 12:45:07PM +0100, Arnd Bergmann wrote:
->>
->> > Kernels that also contain ARMv4 or ARMv4T CPUs are built for the
->> > lowest architecture and stay excluded. CPU_32v5 also covers the ARMv5T
->> > ARM1020. C code is already built with -march=armv5te there, so Rust
->> > matches.
->> 
->> None of this makes sense to me: The target should not control
->> the instruction set, that is what the -march= flag is needed for.
->> Does that not get passed for Rust?
->
-> No. arch/arm/Makefile only passes --target=arm-unknown-linux-gnueabi,
-> no CPU or feature flags. That target has "+v6" built in, so Rust code
-> in an ARMv7 kernel is built as ARMv6 today.
+A REPLY AUTH_SEND command can derive a dhchap_skey key while a
+concurrent AUTH_RECEIVE command observing this REPLY state executes
+the failure path and frees that key. The REPLY command then continues
+and writes into freed memory, causing a use-after-free. KASAN reports
+it as:
 
-How do you build ARMv7-A rust code in user space? If the default is
-ARMv6, doesn't that rule out things like thumb2, vfpv3 and sensible
-(inlined) atomics?
+  BUG: KASAN: slab-use-after-free in __sha256_final
+  Write of size 4 at addr ffff88800359c540
+  ...
+  nvmet_auth_sq_free (drivers/nvme/target/auth.c:237)
+  nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:621)
 
-In the kernel, we don't normally allow neon code, but it sounds like
-we may need to make rust depend on !CONFIG_THUMB2_KERNEL, as that
-may be problematic when linking with v6 code.
+Add a mutex to each submission queue to serialize authentication
+commands and timeout handling. Unlock the mutex before completing
+requests and ignore outdated timeout callbacks. Limit timeout delays
+to prevent immediate expiry on 32-bit kernels.
 
-> I tried the generic target with CPU flags (libcore for versatile on
-> v7.3-rc1, rustc 1.99.0, CPU arch from the build attributes of core.o):
->
->   --target=arm-unknown-linux-gnueabi
->       ARMv6, uses uxtb/uxth/sxth/rev
->   --target=arm-unknown-linux-gnueabi -Ctarget-cpu=arm926ej-s
->       still ARMv6
->   --target=arm-unknown-linux-gnueabi -Ctarget-cpu=arm926ej-s
+Fixes: 7a277c37d352 ("nvmet-auth: Diffie-Hellman key exchange support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ drivers/nvme/target/auth.c             |  1 +
+ drivers/nvme/target/fabrics-cmd-auth.c | 32 ++++++++++++++++++++++----
+ drivers/nvme/target/nvmet.h            |  2 ++
+ 3 files changed, 31 insertions(+), 4 deletions(-)
 
-Ok, so I guess this is more like -mtune= in clang and gcc?
+diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
+index a55319b..1680e5e 100644
+--- a/drivers/nvme/target/auth.c
++++ b/drivers/nvme/target/auth.c
+@@ -229,6 +229,7 @@ out_unlock:
+ 
+ void nvmet_auth_sq_free(struct nvmet_sq *sq)
+ {
++	sq->auth_expiry_active = false;
+ 	cancel_delayed_work(&sq->auth_expired_work);
+ 	kfree(sq->dhchap_c1);
+ 	sq->dhchap_c1 = NULL;
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index dccdb55..f30c253 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -6,6 +6,7 @@
+  */
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ #include <linux/blkdev.h>
++#include <linux/jiffies.h>
+ #include <linux/random.h>
+ #include <linux/nvme-auth.h>
+ #include <crypto/kpp.h>
+@@ -17,16 +18,27 @@ static void nvmet_auth_expired_work(struct work_struct *work)
+ 	struct nvmet_sq *sq = container_of(to_delayed_work(work),
+ 			struct nvmet_sq, auth_expired_work);
+ 
++	mutex_lock(&sq->auth_lock);
++	/* A command may have cancelled or rearmed this timeout. */
++	if (!sq->auth_expiry_active ||
++	    delayed_work_pending(&sq->auth_expired_work))
++		goto out_unlock;
++	sq->auth_expiry_active = false;
++
+ 	pr_debug("%s: ctrl %d qid %d transaction %u expired, resetting\n",
+ 		 __func__, sq->ctrl->cntlid, sq->qid, sq->dhchap_tid);
+ 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
+ 	sq->dhchap_tid = -1;
++out_unlock:
++	mutex_unlock(&sq->auth_lock);
+ }
+ 
+ void nvmet_auth_sq_init(struct nvmet_sq *sq)
+ {
+ 	/* Initialize in-band authentication */
++	mutex_init(&sq->auth_lock);
+ 	INIT_DELAYED_WORK(&sq->auth_expired_work, nvmet_auth_expired_work);
++	sq->auth_expiry_active = false;
+ 	sq->authenticated = false;
+ 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
+ }
+@@ -256,6 +268,8 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 	u16 status = 0;
+ 	u8 dhchap_status;
+ 
++	mutex_lock(&req->sq->auth_lock);
++
+ 	if (req->cmd->auth_send.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
+ 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		req->error_loc =
+@@ -281,8 +295,10 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 			offsetof(struct nvmf_auth_send_command, tl);
+ 		goto done;
+ 	}
+-	if (!nvmet_check_transfer_len(req, tl)) {
++	if (unlikely(tl != req->transfer_len)) {
+ 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, tl);
++		mutex_unlock(&req->sq->auth_lock);
++		nvmet_check_transfer_len(req, tl);
+ 		return;
+ 	}
+ 
+@@ -406,10 +422,12 @@ done:
+ 			 status, req->error_loc);
+ 	if (req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_SUCCESS2 &&
+ 	    req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_FAILURE2) {
+-		unsigned long auth_expire_secs = ctrl->kato ? ctrl->kato : 120;
++		unsigned long auth_expire = min_t(u64, MAX_JIFFY_OFFSET,
++			(u64)(ctrl->kato ? ctrl->kato : 120) * HZ);
+ 
++		req->sq->auth_expiry_active = true;
+ 		mod_delayed_work(system_percpu_wq, &req->sq->auth_expired_work,
+-				 auth_expire_secs * HZ);
++				 auth_expire);
+ 		goto complete;
+ 	}
+ 	/* Final states, clear up variables */
+@@ -418,6 +436,7 @@ done:
+ 		nvmet_ctrl_fatal_error(ctrl);
+ 
+ complete:
++	mutex_unlock(&req->sq->auth_lock);
+ 	nvmet_req_complete(req, status);
+ }
+ 
+@@ -536,6 +555,8 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 	u32 al;
+ 	u16 status = 0;
+ 
++	mutex_lock(&req->sq->auth_lock);
++
+ 	if (req->cmd->auth_receive.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
+ 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		req->error_loc =
+@@ -561,8 +582,10 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 			offsetof(struct nvmf_auth_receive_command, al);
+ 		goto done;
+ 	}
+-	if (!nvmet_check_transfer_len(req, al)) {
++	if (unlikely(al != req->transfer_len)) {
+ 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, al);
++		mutex_unlock(&req->sq->auth_lock);
++		nvmet_check_transfer_len(req, al);
+ 		return;
+ 	}
+ 
+@@ -621,5 +644,6 @@ done:
+ 		nvmet_auth_sq_free(req->sq);
+ 		nvmet_ctrl_fatal_error(ctrl);
+ 	}
++	mutex_unlock(&req->sq->auth_lock);
+ 	nvmet_req_complete(req, status);
+ }
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index 162e2fd..2032db3 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -161,8 +161,10 @@ struct nvmet_sq {
+ 	u32			sqhd;
+ 	bool			sqhd_disabled;
+ #ifdef CONFIG_NVME_TARGET_AUTH
++	struct mutex		auth_lock;
+ 	bool			authenticated;
+ 	struct delayed_work	auth_expired_work;
++	bool			auth_expiry_active;
+ 	u16			dhchap_tid;
+ 	u8			sc_c;
+ 	u8			dhchap_status;
+-- 
+2.47.3
 
->  -Ctarget-feature=-v6
->      ARMv5TE, but every rustc call warns
->      "unstable feature specified for `-Ctarget-feature`: `v6`"
-...
-> So -Ctarget-cpu can add features but does not remove the +v6. The
-> generic target also declares 64-bit atomics, armv5te and armv4t only
-> 32 bit. Below ARMv6 I only see the separate targets.
-
-Maybe this should be "+v7-a" instead of "-v6" to allow allow the
-compiler to use all ARMv7-A features instead? It would be surprising
-if they added 32-bit Arm support to Rust without a way to target what
-is in almost every single chip and Linux distro today.
-
->> I don't see what part of rust would depend on ARMv5 instructions,
->> it should just work on ARMv4T as well, though ARMv4 may be
->> trickier because missing bx instructions etc.
->
-> Agreed. !CPU_32v4T only came from the armv5te target, which emits clz
-> and blx. With the armv4t target it can go. ARMv4 has no rustc target.
-
-Ok, makes sense.
-
->> This looks wrong, the choice between armv5 and armv7 should work
->> the same way as the choice between armv6 and armv7/v8, if I read
->> the rustc docs correctly, this should be using the target-cpu=
->> argument on the generic arm-unknown-linux-gnueabi target.
->
-> There is no choice between ARMv6 and ARMv7 today. Both get the generic
-> target without flags and so ARMv6 code. And target-cpu= on the generic
-> target does not get below ARMv6, see the table above. That is why I
-> used a separate target for ARMv5.
->
-> For a v2 of this I would
->
-> - pick the rustc target next to the -march lines: armv4t for
->   CPU_32v4T, armv5te for CPU_32v5, the generic one from ARMv6K upwards
-> - select HAVE_RUST for everything except CPU_32v4 and plain CPU_V6
-
-I would leave out CPU_V7M as well, it's not worth trying to
-support, and likely going away soon. It's probably not supported
-by rust either, as this requires building with -march=armv7 or
--march=armv7-m and is definitely incompatible with -march=armv7-a
-and -march=armv6k.
-
-> - make arch-support.rst say the same
->
-> I have this running in QEMU on v7.3-rc1 with
-> - sx1 (OMAP310, ARM925T, ARMv4T), omap1_defconfig
-> - versatilepb (ARM926EJ-S), versatile_defconfig
-> - raspi0 (ARM1176), bcm2835_defconfig without ARCH_MULTI_V7
->
-> Would that be ok for you?
-
-Yes, sounds fine to me, though I would still hope to get native
-ARMv7-A support in place of "build for v6 and hope for the best"
-approach eventually. 
-
-      Arnd
