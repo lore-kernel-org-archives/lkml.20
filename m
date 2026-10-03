@@ -1,127 +1,175 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C27936197E;
-	Sat,  3 Oct 2026 09:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AA03ADB99
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018869; cv=none; b=MzdxhGVKie8YkKY2vwgTbtGjIkRmkMU/Fy4mYm5FWgbeRFHtMMsIEXofghvhonpvp4DTyWX+x0oNEOmK+yhjLIj0Y5VP758+Tfv2V3rYZqtmUFVfMCJzLaE1Kg5CJ/5cjHdWYfsMo5UlD1TdoN03CXyq9ikTTCiT83+atFRFSrc=
+	t=1791018905; cv=none; b=fiI1cs+BBhxwg+N3AQlAOzcloKkhEexXpv1RDtO+2GerRzCdxSj+Rn3cy2owRWf2RrGeNk9fq/DgvNkktZJICcWkofLRtEAW78LZJIqFOVb+xczD4ZENEGPjcdjSs1pw7PcUivOU8an0JNp3CXBY/UidOE7HREg7NGzNKcqy/mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018869; c=relaxed/simple;
-	bh=Ssbthym35J11NlLiVFAsyqRowYu32o/p01e4+R+mq9o=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hXek/LYC9zB4iQnnbk1fkCuiCKApPCwT2gX5sabdrNnT/cssMrfqGIEPbD3VVGxFfdMiNeH0YlXvwuVTORNw9g/3WB6MHwSG4bcouP9m3YdDQJi2ctg2PT6bENali3jL68VEmXMcsRJCmMcVvByE5Gjze4hAHVCWBviT6jYPFc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fL1mlj3z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5OgXPDHp; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=u1YFZMwW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=0Az2a4fS; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791018905; c=relaxed/simple;
+	bh=rP9RNg9VVmVKDqjlIhXyymS0DyeJ4N2kWy3XBRaq6DI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=My1gjTnSDU/P4U5h+D4q4goWdFLbF0vHuj3goWSceePAlJZ9Szm+IY494pSZv3BEcVYaLMw3Pp/5s8tBszVRiVVxcUhpoSndBu4hQeHEBclxetXTuzLjrd7i4M1eeVC/R6Ml4/KrXA10SJyBHQdDRkTUJSfUtbA7Vhy+3rpDDj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bstz7Dpo; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fL1mlj3z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5OgXPDHp";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="u1YFZMwW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0Az2a4fS"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3D6ED1FECE;
-	Sat,  3 Oct 2026 09:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791018861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
-	b=fL1mlj3zYgLTZPJR2uNJuM4A0/BuUH0fvF1mJs2UrKb1omlZx+MwJPZD0QKjMLjgoQGkjz
-	CPnpqd6lX9hndh3k4p7KP4mq3+Y3DRtG02QdmY0A9kXaKqIbfhEAOUaqm/AHaBEtN6l2H6
-	+V+G6ne1udOK9CtFmSLZE2DTj3a29LM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791018861;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
-	b=5OgXPDHpemU1OOxpTQPBHWpDaHvQomaxH0YiEge+zzbRtNzQtPv0eJD0wlXyNt2aW3mS0/
-	3lEJIm7ZM6jbkvCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791018857; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
-	b=u1YFZMwWLqMGA//6DybApihR3IaBKq+GGyFRl2BI24g/FztG66yjeBUzNc/gbZML5TcfrZ
-	rTIoXnr2sRDKhEDHSD4cdXNi8CZcOdIaK7qHluxggpcD5cn+WYDhoI1nEroMBO60jg32Ux
-	IJ4flAw2XUDHOjStNziSx2NXiOcVNCY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791018857;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Khne2AmZKrAqNnfUZBI5euzaCrjHmVJdRxL1HqZuYkM=;
-	b=0Az2a4fS+oWbH48Pf/RIfyVJ9hBsUKo9ik+dEte8VW+IRF0U0ZCn8aQfN02Kg/z+ebd9dM
-	4xMS2AchrmP9LWCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E429913712;
-	Sat,  3 Oct 2026 09:14:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id E7CKLmjHwGrsIQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:14:16 +0000
-Date: Sat, 03 Oct 2026 11:14:16 +0200
-Message-ID: <87ld8fxi1j.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Eckhart Mohr <e.mohr@tuxedocomputers.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASRock NUC BOX-358H
-In-Reply-To: <20261001183403.103990-1-wse@tuxedocomputers.com>
-References: <20261001183403.103990-1-wse@tuxedocomputers.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bstz7Dpo"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso130578f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:15:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791018902; x=1791623702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IWrQtgnBBrtxYpdGid+lEFP8Z5fa4mnFJvTHl2+VUDc=;
+        b=Bstz7DpooO5uerNBptHAf7KqjxxySQWjVxB8WCxnEr1YSZ1S4MqIhtJiHrCLocv7td
+         fRXJLAR4wWTVF27Hnip/1NM//SFQoQKbs+xiNDtgxolVkIcw1mEkMLA5ISLkfATAruQa
+         BSGiJqbX66d9v8Ar5tTqq+dans4J3OOepBvkn+RfJ1S+pwupunlPcdCFBHR+QvMXdv5K
+         bzkBTF6egtNZQ45bc8Nqylr1UPyzeYaO7vMywaxpedswydnzpMCgd1yyczgECmkt2XUs
+         KRyKfZp0rP0YNBgEpjqydFtNBs7C/WvwJMwKCNpJdse68gc9TyUkzT26uyzth9dh3ep6
+         5SfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791018902; x=1791623702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IWrQtgnBBrtxYpdGid+lEFP8Z5fa4mnFJvTHl2+VUDc=;
+        b=fW07p1suWlmrWheL95hB4d0R9s3bL2nFSEqPZcRBUYpT+mKiUtVAtu8zdR3K927M5U
+         KvyxzXDN1XQzLXSOW5e/GAKQpfM/xcs0jj1NJKlZ8mAtnSuZrVmER6C2LJYeLode9eWf
+         YJz/UjERNpYZdLxI2jsntgqw66CB988Ovlg/I8NqaOg2K/4dar/ecJv53D5ZmllwIPTs
+         TYjD1gc901MP2F1bPqb36pmU2Ae2VLS9x+fRn34MuUmwZT8MeqtepOay6mQ1qpC+ALVL
+         QEIZy4DggagJDVzzgQisZAWNwcnNit5A+vSN640xFwqoBo8N1i+Aob5hO8TU1kEV8tOo
+         FsRw==
+X-Forwarded-Encrypted: i=1; AKwUvBzUMX7wXDTAejU+B9Z8SkEDBVsuN1nT02Ry/Zd8QJobUB961BDj2zvnrMvQj0hFeRnG22zcsuE+BShgYCQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvEscZFrfh8/bPGRratDre+YXYv1fF9KwlbsgNjTpjiosNs7vD
+	xAdkoGNvdb7fkZfDnf3xvMQfU4OM85i6nveIeV76Pu1oldk5Qh+vHDQj
+X-Gm-Gg: AYBFou3NqjCDirJp+7M4vX+FQ7cbCpyFK3bi0TRcZm+VoOALgTAt9dZjeBHlW4FyV+X
+	UC1V7R0f/O3wXDqxxsKi6yD6XbBL3W1whw6BjmJCtJWluIfIfvy29Oh3UeiBLbGb5UNVMtp81jC
+	p1ingOorJA+M/cAsGICoo6gdR46RTJV03pvGyF0g6WBUt+GeVZww5A+nTGetdRXfyf58nikFuP6
+	lZgKRZBUZplHxufOdNVt0ZrWRpHQQ8zDJqMAg8oa0ln25bdLI+VSDXB/KE2eWn2fcVHJRIRVjf8
+	MAONntKlB7HnMJCSKzqUpRlTAnbqVf+D+tuiLuUZsEwGtiwubtLyX6y4lyiM6VxQZnkuvSmsbCR
+	vgESyZO+4uSBqQOemCLp3SxGexpEmwAP2kZr3WBm2cWE0fMvQ/H7wsqkyWDSj3ZUyB7wX0xSrna
+	wb6ehhMug74OVLh2LtKlOis/4k3HVS1ahpX1bf8ywq6QMDto0r7ctV0UUIVyO+nDSxG4EyQHoBK
+	V4SN+4gnV0=
+X-Received: by 2002:a05:6000:230c:b0:488:7f1d:2728 with SMTP id ffacd0b85a97d-48c47fe497fmr3047875f8f.30.1791018901393;
+        Sat, 03 Oct 2026 02:15:01 -0700 (PDT)
+Received: from FranzSP11.fritz.box ([31.31.60.25])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8ab4sm10549817f8f.35.2026.10.03.02.14.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 02:15:00 -0700 (PDT)
+From: Franz <franzelfranzel@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] power: sequencing: qcom-wcn: power off WLAN at probe
+Date: Sat,  3 Oct 2026 11:14:51 +0200
+Message-ID: <20261003091451.4727-1-franzelfranzel@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAPjyS8dY0Q_o3XmFjuKZZsjhzhoSNL+ZGJtw5cQt8HiV3sUtxA@mail.gmail.com>
+References: <CAPjyS8dY0Q_o3XmFjuKZZsjhzhoSNL+ZGJtw5cQt8HiV3sUtxA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.28 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-0.98)[-0.980];
-	NEURAL_HAM_SHORT(-0.20)[-0.975];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -3.28
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 01 Oct 2026 20:34:00 +0200,
-Werner Sembach wrote:
-> 
-> From: Eckhart Mohr <e.mohr@tuxedocomputers.com>
-> 
-> Fix headphone jack detection for some devices
-> 
-> Signed-off-by: Eckhart Mohr <e.mohr@tuxedocomputers.com>
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+The WLAN enable GPIO is requested with GPIOD_ASIS and then kept at its
+current level, so that a WLAN module left powered on by the firmware is
+not switched off. The FIXME explains why: toggling it would take the
+PCIe link down, and the controller driver could not recover from that.
 
-Applied now.  Thanks.
+That reasoning held while the PCIe link was trained before the
+sequencer probed. Since commit b921aa3f8dec ("PCI/pwrctrl: Switch to
+pwrctrl create, power on/off, destroy APIs"), qcom_pcie_host_init()
+powers the endpoint through pwrctrl before it starts link training, and
+defers until the pwrctrl driver is bound. That driver cannot bind
+before this sequencer has probed. Power-on therefore always comes
+before link training, and keeping the firmware state is now harmful.
 
+On the Microsoft Surface Pro 11 (X1E80100), the WCN7850 sits on a
+PCIe port without a PERST# GPIO. While pci-pwrctrl-pwrseq is not yet
+bound, the host init is deferred about ten times, and each attempt
+powers the PHY and controller back down. The later power-on only sets
+a GPIO that is already high, so the chip is never reset and the link
+never comes up:
 
-Takashi
+  qcom-pcie 1c08000.pcie: Device found, but not active
+
+The endpoint is not enumerated and ath12k never probes. Bluetooth on
+the same chip fails too ("QCA Failed to send TLV segment (-110)").
+
+Request the GPIO as GPIOD_OUT_LOW. The chip is then off when the
+sequencer probes, and pwrctrl powers it up cleanly right before link
+training. Drop the FIXME and the code that preserved the firmware
+state.
+
+Tested on a Surface Pro 11:
+ - b921aa3f8dec plus a one-line version of this change: endpoint
+   enumerated at 2.4 s, ath12k and Bluetooth working.
+ - next-20260929 plus this patch: "PCIe Gen.3 x2 link up" at 3.4 s,
+   ath12k and Bluetooth working, Wi-Fi connected.
+Without the change, neither kernel enumerates the endpoint.
+
+The culprit was found by bisecting v6.17..v7.1, with the DTB and
+.config held constant.
+
+Fixes: b921aa3f8dec ("PCI/pwrctrl: Switch to pwrctrl create, power on/off, destroy APIs")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Closes: https://lore.kernel.org/all/CAPjyS8dY0Q_o3XmFjuKZZsjhzhoSNL+ZGJtw5cQt8HiV3sUtxA@mail.gmail.com/
+Signed-off-by: Franz <franzelfranzel@gmail.com>
+---
+ drivers/power/sequencing/pwrseq-qcom-wcn.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
+
+diff --git a/drivers/power/sequencing/pwrseq-qcom-wcn.c b/drivers/power/sequencing/pwrseq-qcom-wcn.c
+index 7f88a29b2..636dd7e63 100644
+--- a/drivers/power/sequencing/pwrseq-qcom-wcn.c
++++ b/drivers/power/sequencing/pwrseq-qcom-wcn.c
+@@ -526,15 +526,8 @@ static int pwrseq_qcom_wcn_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->bt_gpio),
+ 				     "Failed to get the Bluetooth enable GPIO\n");
+ 
+-	/*
+-	 * FIXME: This should actually be GPIOD_OUT_LOW, but doing so would
+-	 * cause the WLAN power to be toggled, resulting in PCIe link down.
+-	 * Since the PCIe controller driver is not handling link down currently,
+-	 * the device becomes unusable. So we need to keep this workaround until
+-	 * the link down handling is implemented in the controller driver.
+-	 */
+ 	ctx->wlan_gpio = devm_gpiod_get_optional(dev, "wlan-enable",
+-						 GPIOD_ASIS);
++						 GPIOD_OUT_LOW);
+ 	if (IS_ERR(ctx->wlan_gpio))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->wlan_gpio),
+ 				     "Failed to get the WLAN enable GPIO\n");
+@@ -545,13 +538,6 @@ static int pwrseq_qcom_wcn_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->xo_clk_gpio),
+ 				     "Failed to get the XO_CLK GPIO\n");
+ 
+-	/*
+-	 * Set direction to output but keep the current value in order to not
+-	 * disable the WLAN module accidentally if it's already powered on.
+-	 */
+-	gpiod_direction_output(ctx->wlan_gpio,
+-			       gpiod_get_value_cansleep(ctx->wlan_gpio));
+-
+ 	ctx->clk = devm_clk_get_optional(dev, NULL);
+ 	if (IS_ERR(ctx->clk))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->clk),
+
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+-- 
+2.56.0
+
