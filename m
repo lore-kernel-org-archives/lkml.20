@@ -1,206 +1,157 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F5B3655F3;
-	Sat,  3 Oct 2026 14:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9748F41A76F;
+	Sat,  3 Oct 2026 14:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791039177; cv=none; b=WdYmdBSKt2fdu8n5S2Py44NRmq1ILLuZTRG+pzZ5nQ/7xWw3ljEVtFY7WawaXE35pzzHDgtca228ausuxajulvPJ9jEo7g+2A36yFwbFssqviAjXnEbTklPvxQ63jVUK8Osdg6ZGoP049CbrDpM4f+vrwAc0JK4VamER4eZDBIE=
+	t=1791039216; cv=none; b=OIyv+uBDpdOJztmMWER7hrw572NTNr/73BP7ZtX2KcdQs5piMCmYZprM4nPz0xStEaCb6g+aQFy7OkHsbkB871DweFo/Fz6Q0uAnrNVIK81RM3Q+/6sAOezVcSw7Aj5jOZoN4HcIiq006uPIkN93XSSZY61zr0HzjuRoLYbMpps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791039177; c=relaxed/simple;
-	bh=WjedVfcJVU/MQt7k/NT42LV+0N9QCiM5k6UX3eo1nlY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A+st+A5UYY7T6CSu8eyn7ITUnVPgnNsed7z335Ot/6fNixQUQCfmaTh/sEvNympD+PCHnmg+Os/b8+hWphzv/GaI5N7dDodLMLEogtKKW/R8jajNYqupH2EogVfOtl7MzmzH8JWpd+prRNUnW5V4SFFr/WyfhCL3ibca2zuoWgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YScjAeTp; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791039216; c=relaxed/simple;
+	bh=lPPRuJSXZ04HyzQza9o8U1gXfmMmV67weXtXZvd53kg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PMwBzm9OGxBFpXoc1isEKvgvHRZrmSfmDvqKKzqmHcOtybR1BB4mQOhixUDAQpyAxvMAnWSx8zth/E6KSrAEra8pwRfLtJZy1m1lAnQtMSAKRpqNM5XgUubOM7U+viPtClOJDKa5Rh8AloLUHPwsM8F5AK34VcyYAn96vC00q4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cLtAPnfQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YScjAeTp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791039176; x=1822575176;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=WjedVfcJVU/MQt7k/NT42LV+0N9QCiM5k6UX3eo1nlY=;
-  b=YScjAeTpEx/y96r4DB9trvKuQnn+pdGOrIGk+Ndvbahhpzok2e4KDMY5
-   N/SWleCaahKsAe2A+54FrWk2Ws22R7aSnuvD2hi6B7WpGh1D7LpySPr+a
-   +TUmgI4BybthZQAPb8gLpuy6bIJgg5kGwIv7irFtU8OC+9g5sccSk83k7
-   KKJa24rs+9S9Imd36IiyBm4rgFWBhjVOOoInqxSLGM37k4Pv9C+2Hvjb3
-   PzFF6JVlognhnIp5NhqCALZZcXmgXp2nJVFy96aO8OXjsIieYJ0mVtGar
-   QUkPFUMpXpKMbltdX2jA2S5g/DeoPokn/CZPp2XlbZ8XtwnyqWDq1T7z0
-   Q==;
-X-CSE-ConnectionGUID: 4cACApzpQhajr8pIWFyMrQ==
-X-CSE-MsgGUID: jx9aQSYNS5q1zLlUlGCxoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="113558219"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="113558219"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 07:52:55 -0700
-X-CSE-ConnectionGUID: Jbe3JksrQ+e5M1GxtJoa9Q==
-X-CSE-MsgGUID: ixJJ03mXROu58hsuGioCOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="276532289"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 07:52:50 -0700
-Date: Sat, 3 Oct 2026 17:52:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
- new header
-Message-ID: <asEWwIfO0LB27wj9@ashevche-desk.local>
-References: <aqlpoBJJXfZgsMxT@parshuram>
- <aqlwRkNcs_UqKjWs@parshuram>
- <aql6u3T0nnSVr-FC@SMW015318>
- <aqws8pN2rfS9-dCC@parshuram>
- <aqz1-OzFobOROuBw@nsa>
- <aq18_TMNs4EJzgZO@parshuram>
- <arDtEB0na9DxDWAS@nsa>
- <arFXc0LqEpgWSS6m@SMW015318>
- <ar-Il2qP_Qms3Qw1@nsa>
- <ar-13p3a7ENGfMOF@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cLtAPnfQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230A01F0089B;
+	Sat,  3 Oct 2026 14:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791039214;
+	bh=l6e5SFKNalWkFlh1k64I5ENSGoQuN42StaikJNmYu/8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cLtAPnfQRzeVvQpcgjqON68hdJlGOOtb+HQOBeqRbacGFSAFTRUITk0/wliohlVT7
+	 c7KIJlOZaonbgsobntYRapJmnt7vDZj8REwnScMH18aDGTJFC+v5mryxXGy0/krzba
+	 2MeIQ0DzDoaZlAFt7rj4rTJY8pZI4SZ/4F5OpsqSSChAziFmJiMMDbqsDPzDeHGsCt
+	 6Pa9/6rKR5n1Wr84E4vJqusAP8YVeGAqSNDr2o4Txhl0Jip5KJDLyLGN7+gRvg+0Am
+	 VXTr/V2jvauKeV+X4+nE2LCKp75mS0+GUWrbdlta3TyjCoSN/ZB6JjWPra7sd+xV1W
+	 PeiT91ayiDD3Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xD17D-0000000GYMi-3OEA;
+	Sat, 03 Oct 2026 14:53:31 +0000
+Date: Sat, 03 Oct 2026 15:53:31 +0100
+Message-ID: <86ece63kes.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Yize Wang <wangyize7@huawei.com>
+Cc: <kvmarm@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>,
+	<catalin.marinas@arm.com>,
+	<will@kernel.org>,
+	<fuad.tabba@linux.dev>,
+	<joey.gouly@arm.com>,
+	<seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>,
+	<yuzenghui@huawei.com>,
+	<mark.rutland@arm.com>,
+	<zhengchuan@huawei.com>,
+	<jiangjiacheng@huawei.com>,
+	<yize_w1110@163.com>
+Subject: Re: [PATCH 0/2] Batch register access for live migration optimization
+In-Reply-To: <f70c6fe3-e3c5-4912-b4bb-8a418fec4346@huawei.com>
+References: <20260918081930.4014735-1-wangyize7@huawei.com>
+	<861paq69te.wl-maz@kernel.org>
+	<f70c6fe3-e3c5-4912-b4bb-8a418fec4346@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ar-13p3a7ENGfMOF@SMW015318>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: wangyize7@huawei.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, zhengchuan@huawei.com, jiangjiacheng@huawei.com, yize_w1110@163.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Fri, Oct 02, 2026 at 08:47:10AM -0500, Frank Li wrote:
-> On Fri, Oct 02, 2026 at 11:43:17AM +0100, Nuno Sá wrote:
-> > On Mon, Sep 21, 2026 at 11:12:35AM -0500, Frank Li wrote:
-> > > On Mon, Sep 21, 2026 at 09:53:49AM +0100, Nuno Sá wrote:
-> > > > On Fri, Sep 18, 2026 at 11:33:41PM +0530, Vinod Koul wrote:
-> > > > > On 18-09-26, 09:39, Nuno Sá wrote:
-> > > > > > On Thu, Sep 17, 2026 at 11:39:54PM +0530, Vinod Koul wrote:
-> > > > > > > On 15-09-26, 12:04, Frank Li wrote:
-> > > > > > > > On Tue, Sep 15, 2026 at 09:50:22PM +0530, Vinod Koul wrote:
-> > > > > > > > > On 15-09-26, 21:22, Vinod Koul wrote:
+On Sun, 20 Sep 2026 10:15:25 +0100,
+Yize Wang <wangyize7@huawei.com> wrote:
+>=20
+> =E5=9C=A8 2026/9/18 20:08, Marc Zyngier =E5=86=99=E9=81=93:
+> > On Fri, 18 Sep 2026 09:18:13 +0100,
+> > Yize Wang<wangyize7@huawei.com> wrote:
+> >> This series adds batch register access support to KVM/arm64 to reduce
+> >> syscall overhead during VM live migration.
+> >>=20
+> >> Currently, QEMU issues one ioctl per register when saving/restoring VG=
+IC
+> >> state. On large VM configurations this means tens of thousands of sysc=
+alls,
+> >> where lock acquisition and context switch overhead dominates migration
+> >> downtime. Thus, we provide a batch register method to allow userspace
+> >> read/write multiple distributor and redistributor registers in a singl=
+e call.
+> >> In this way, we can significantly reduce syscalls and migration downti=
+me.
+> >>=20
+> >> Test the VM migration time under pressure conditions.
+> >> The VM specifications for migration are as follows:
+> >> - VM use 4-K page;
+> >> - the number of VCPU is 160;
+> >> - the total memory is 320Gigabit;
+> >> - use 'Redis SET-benchmark' to pressurize VM;
+> >>=20
+> >> Performance results (3-run average, ms):
+> >>      | Metric              | Without patch | With patch | Improvement |
+> >>      |---------------------|---------------|------------|-------------|
+> >>      | Migration downtime  |        536    |     321    |     40%     |
+> >>      | Source (total)      |        344    |     230    |     33%     |
+> >>      |   - VGIC put        |        158    |      40    |     75%     |
+> >>      |   - VGIC get        |        120    |      19    |     84%     |
+> >>      | Destination (total) |        192    |      91    |     53%     |
+> >>      |   - VGIC put        |        132    |      27    |     80%     |
+> >>=20
+> >> Yize Wang (2):
+> >>    KVM: arm64: Add batch group constant and data structure to UAPI hea=
+der
+> >>    KVM: arm64: Add VGIC v3 batch register access implementation
+> > Questions:
+> >=20
+> > - Why only the MMIO registers?
+> >=20
+> > - Why not the sysregs?
+> >=20
+> > - Why only the GIC?
+> >=20
+> > - Why not all of the state?
+> >=20
+> > - Where is the corresponding userspace code?
+> >=20
+> > More importantly, since this is about batching system calls:
+> >=20
+> > - Why can't this be done with io_uring instead?
+> >=20
+> > 	M.
+>=20
+>=20
+> Hi, Marc! Thank you for the review.
+>=20
+> =C2=A0 These patches focus on optimizing GICv3 register access during live
+> migration. We found that there are a large number of locks (kvm->lock,
+> vcpus, config_lock) in the GIC, these lock operations wil cost large
+> time waste. The batches of sysreg for vcpu optimization will come in
+> follow as a separate series. And let me address these questions one by
+> one.
 
-...
+All these locks should be non-blocking by the time you save anything
+related to the GIC, because:
 
-> > > > > > > > > > > Traditional naming would be
-> > > > > > > > > > > dma/engine/provider.h
-> > > > > > > > > > > dma/engine/consumer.h
-> > > > > > > > > >
-> > > > > > > > > > consumer and provider and good names.. I would retain the full dmaengine
-> > > > > > > > > > everywhere please. dma causes confusion already!
-> > > > > > > > >
-> > > > > > > > > Thinking about it again, drivers/dma/dmaengine.h should be the provider
-> > > > > > > >
-> > > > > > > > There some dmaengine code outside drivers/dma directory, like
-> > > > > > > > drivers/crypto/ccp/ccp-dmaengine.c
-> > > > > > >
-> > > > > > > They chose to be outside, their choice... They need to be updated as
-> > > > > > > well to point to ../../dma/dmaengine.h :-)
-> > > > > >
-> > > > > > I tend to agree with Andy but anyways. I feel this is going a bit out of
-> > > > > > scope now. So what we have now in the series is:
-> > > > > >
-> > > > > >
-> > > > > > - include/linux/dmaengine.h (without enum dma_slave_buswidth)
-> > > > > > - include/linux/dma/types.h (with enum dma_slave_buswidth and new
-> > > > > >   dma_buswidth_t type) - A future one would be dma_cap_mask_t and we could
-> > > > > >   drop bitmap.h from dmaengine.h
-> > > > > > - include/linux/dma/widthmask.h - The new bitmap based API for bus_width
-> > > > > >
-> > > > > > I kind like the separation (and the whole point was to avoid bitmap.h in
-> > > > > > the main dmaengine.h API) but tbh I'm not sure if a consumer driver
-> > > > > > will ever use dma/widthmask.h without needing the consumer API. But
-> > > > > > to sum things up, what do you suggest for vÛE?
-> > > > > >
-> > > > > > * include/linux/dmaengine.h as the consumer API and includes the new
-> > > > > > the widthmask API
-> > > > > > * provider/private goes to drivers/dma/dmaengine.h and just includes
-> > > > > > include/linux/dmaengine.h as the starting point?
-> > > > > >
-> > > > > > Let me know how do you want things for v5
-> > > > >
-> > > > > Yes lets talk about dma_slave_buswidth, it is client type. This is
-> > > > > configured by users to set the width of peripheral.
-> > > > > So this needs to be in the include/linux/dmaengine.h
-> > > > >
-> > > >
-> > > > Agreed! But providers also need to set the allowed bus mask. And I'm
-> > > > just not sure they need to include/consume all of the consumer API.
-> > > > Also, it's common to allow the provider API to be widely used throughout
-> > > > the kernel (but I agree that could be even harder to get done - if we
-> > > > want to make some stuff really private - but I guess that could be done
-> > > > in a second step or more incrementally). We do also have some subfolders
-> > > > in `drivers/dma` which means we'll need the odd "../dmaengine.h" relative
-> > > > include which I do not love tbh (on top of the crypto stuff).
-> > > >
-> > > > I really think something like the below would be more appropriate (if we
-> > > > just want the provider/consumer API without further splitting like the
-> > > > types.h and widthmak.h in this version):
-> > > >
-> > > > include/linux/dmaengine.h - provider API (as of today)
-> > > > include/linux/dmaengine-consumer.h
-> > > >
-> > > > But anyways, if you or Frank do not object in the next few days, I'll
-> > > > take the above approach suggested by Vinod:
-> > > >
-> > > > drivers/dma/dmaengine.h - provider
-> > > > include/linux/dmaengine.h - consumer
-> > >
-> > > It think it is fine.
-> >
-> > So I was aboutto start on this again and I just realized
-> > drivers/dma/dmaengine.h already exists today so nothing to do on this
-> > series.
-> 
-> I just find it and start some cleanup/move work.
-> 
-> > I mean I could remove the consumer include on the dmaengine
-> > drivers that I'm touching but not really on scope and super important
-> > IMO. So, for the consumer side, should I just go to the first approach
-> > where all the bus_width API goes into include/linux/dmaengine.h or
-> > should I keep:
-> >
-> > include/linux/engine/types.h
-> > include/linux/engine/widthmask.h
-> >
-> > And have a better separation on the consumer side? Or maybe changing
-> > s/engine/consumer/ on the above paths?
-> 
-> I go through v3 thread, Andy just said split to new type.h, but not have
-> provided reason.
-> 
-> I am planning move provide API and data structure to driver/dma/dmaengine.h
-> 
-> include/linux/dmaengine.h will keep consume only defination and API.
-> 
-> why still need types.h?
+- none of the vcpu can be running
 
-The idea was to rectify the messed up dependencies. Without split of types we
-will need to have bitmap.h (IIRC the initial idea of the split was that) only
-where it's indeed required. Besides bitmap.h there are might be more headers
-that "include half of the world" which should be avoided in every header file.
+- this must be a single threaded operation
 
--- 
-With Best Regards,
-Andy Shevchenko
+So if you are seeing anything contended, this is either the sign of a
+bad KVM bug, or an indication that you are violating the above
+requirements.
 
+	M.
 
+--=20
+Without deviation from the norm, progress is not possible.
