@@ -1,184 +1,56 @@
-Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4213644F569
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 20:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791059253; cv=none; b=gcPLLjg++gH61abfaZJDR5oebWB68cRCkTTO39NEG5hlXIrQwWFod5UICeTDq3AttYORkx5pYbEzZF7DZKIUWKQkxaqEnkZFZUCRHNanykghu7zDaLP/F5Jgvf7TYwXHu2pKndAQgC+lcS0WgQ3H8q/Ca7st12SToROZ32lkl1M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791059253; c=relaxed/simple;
-	bh=qw1YGHR5szNuGFQTU6mwuicpfah1VyNrKo4cH5Yu2Nk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gd9gD5KIgS8sOIrox37QVALQJfKk58TGynRaMgdbhh8kWYlQDhAX/5Is3f4LGFEqwmaLrM9Ss3o8IUndnljLwV8fdatgGZgTjvH4mvOCt5Yh1p5vkzYJxqATRCXmnmaG6ue1VPVn4h3d6NsH+FCM9AgXyrjdrK1v7ZeVwmgGxTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L8ENKLnb; arc=none smtp.client-ip=74.125.224.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954BF2F260C;
+	Sat,  3 Oct 2026 20:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791059748; cv=pass; b=FJFTzk8ANdFpXunLFNzP/s96Cy0ERPkUZ0PC0OKnVHgUgazrYhfAbzs9FM6oiiQfzRliZJRUx/OuvjEQaCsX3fG2kWu3EOGBmJ99QZlLjIB8ThgkCvC3W3nw9e/FKtHEX2VYPUA8bb3O9ZZ7z0dXN92zq6e0kdO7ZCIdxhm0gzw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791059748; c=relaxed/simple;
+	bh=GiCgBUtgy+E5D7f673fbwf2jKfppEXPOAp8LyoaOecA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rxaxVWkFS9YCTFPWTw4uNUa6ovH2/jAqvIpf1AIf01CIst7Atv4rK9AQwdWvWmMKEtralxfeem5dnqlW3V1siNVuFbiGBwpItL7UjICULQ34kDQaLz1yvw0R70eSoaPJlt7hs6CamEYXqxT6OEAXkctVNREB2aAksiKP7Hjsci4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=YsDuOndV; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L8ENKLnb"
-Received: by mail-yx2-f5.google.com with SMTP id 00721157ae682-8ae946560ceso587957b3.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 13:27:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791059251; x=1791664051; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wdO1qiLDUurZfNdh4Bo7wDLkgu1IWEB9hS1GOH9sv2Y=;
-        b=L8ENKLnbg9oEmVM1+46ZUXf+m/1rcVzicad3mkku5kEfpkklNoN8Srl7Ak2lZq/weZ
-         +dMQQQ8nGLh9nOEchTZ8D7Byu3n5MEZPklZxM8lxLkh44zxwHrM0Wj9sDzpur0CG7vom
-         kVeWN93uzhC7EHXCXF2YqzAtv2jjB9WQY5oRPnXh3xT72eGOQlonhd2v+RGNykt1q/xM
-         gzVB0dtzY5A4zmVPkerbKZ8ZePc7lj+2Inf6aOGUsHXdZivG6CRkKUEbblbs4hBRc0cB
-         wp5J+ol6MOxySccz5fgwV+7VuJtHJmw8HXmFDr/MbfWVw5eAYEEZfmpXhiN3ANdne5Tz
-         of6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791059251; x=1791664051;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wdO1qiLDUurZfNdh4Bo7wDLkgu1IWEB9hS1GOH9sv2Y=;
-        b=gAFggzHTXopWacKD73XOnu7eRjDL/UsbXhB5dWAX4CzUjgbtBm1FhXBNF2A/ldjd+W
-         MRDgixMcHQNeBoWmlyC2U3tMApnnwfEIpu9kxN5NHRPbfAxQqGUKbjJgXxURdgUYWUGF
-         XOMb8VIIiBmp/+K/Kcfi2e4nlMWs6Kn3DWyDJ9fmCayUxRW5ngF0432vjUNQzcFWJz25
-         iuwGmsBSFMjclfcCL5q51EfXWht+Ygfq0Qs3vjFj3LrDBcnzjzZY8z+TCkv42mwNVIzI
-         /HzQiH8hjqr5ABPrPIKt8s8rPhEXolwVH5/tFi9Li4SvG7G4/Fs6cSljJzGzKrsO4nzU
-         hrkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzNpyLWQHxMSoXBJTC6LBa9NEh6mpBlRiQ/Bs4sKDOj3Dm+WZ3bz3Bp2R5FQU64dHYPVPpQQYwwMLIRBUI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtnjAyTMVM9rnxu0tSqmK33Q1X5UuLyE4P7Gw6O6VYgNGl2PBl
-	PJ+gj48PVSCQAAmpwRopoKk1yetfPrN9SrAfVEWX49qLr/fedUf99I+1n9ryX+f32w==
-X-Gm-Gg: AYBFou2nddsXkxGLk2wix5YDyyLPsBMBv9Ue5kmnVgbyaHoG3+goSGfzvYlw18FQf0q
-	wTY+ozyhvPefSfzJ+UPW7645NDHNKeD9es73oqCfcS48fmaLGQZ+a9gk8S6nikxTr/TAXD/unwJ
-	GVZVqtFq3DfaKyaRKlUvHVOb85jHLNXuR5VIY39W5KmTNnXmsL5FDK+QjvsxnumIr+q7xp5QN+D
-	keLLNhGn5vjdyjpQ6u9CRI3Czq20No9zvrWZJkG4XmL6JB9Lf1EU+zIMWzyLtuNG63jr25rQZyA
-	FmXT1UeWWot5rqh+fuPWwpWlMK7+jYMaLsNkrv1/MY74LXemjqKaXSX+ySSJo4AomZ7p9LWb3KT
-	hHgBDx0KxKPv/cGEUe66rPvQ207OJKsJ5+mI7tAXr1l2aXGx7OO3ep4+sE3TJhAwmA3nHZKc5sP
-	Lfg2jaCOfHJoI8qKlelK4Y7YSnB1yn2vk7GVSNa3f/zEnwqdefqC9bqNJO7NGnttPl5Z2gGJ3Lr
-	ePD73eBuFaKayDXJFwCwA0cpAMXFtEOttLuvOa0Ng==
-X-Received: by 2002:a05:690c:ec4:b0:8a8:93e9:3824 with SMTP id 00721157ae682-8ae95ad61e8mr14431447b3.62.1791059251099;
-        Sat, 03 Oct 2026 13:27:31 -0700 (PDT)
-Received: from localhost.localdomain ([2600:1700:4577:1050:550f:9551:5468:60f1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33fe81fdsm23389887b3.47.2026.10.03.13.27.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 03 Oct 2026 13:27:30 -0700 (PDT)
-From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	SJ Park <sj@kernel.org>
-Cc: Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Bijan Tabatabai <bijan311@gmail.com>,
-	Ajay Joshi <ajayjoshi@micron.com>,
-	Honggyu Kim <honggyu.kim@sk.com>,
-	Yunjeong Mun <yunjeong.mun@sk.com>,
-	Akinobu Mita <akinobu.mita@gmail.com>,
-	Lian Wang <lianux.mm@gmail.com>,
-	Kunwu Chan <kunwu.chan@linux.dev>
-Subject: [PATCH] mm/damon: add damos_node_eligible_mem_bp tracepoint
-Date: Sat,  3 Oct 2026 13:27:27 -0700
-Message-ID: <20261003202727.3673-1-ravis.opensrc@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="YsDuOndV"
+ARC-Seal: i=1; a=rsa-sha256; t=1791059717; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=PCNYxd8HGbJRCVSIgdCcSI9+lzgSJl13n1bJ0/D1O+kVZLm+g0G7ry09fbUMDtUQzyfc3JhU4CG6Lm5XuRIq+wlaO6u40iwkgOlE1aJdG5pSDBSe6z8OMYp21qDIdXYbCg2IMAqvv2FtqVZwRB/cyXPj+LQXlp6opGSoZ+FcMmU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1791059717; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=GiCgBUtgy+E5D7f673fbwf2jKfppEXPOAp8LyoaOecA=; 
+	b=i3W9kmuVs6OO1CuISoAiCxDIYNFZXbT9sJGTd0GlBua7PChO8jz3xERKFP4cI35jBPnsleehqit3sc9NJZJqFm9FkqSvMb1uMU3NrFxL/RFgXacYd3/E5k3RKZjX2qat0YGmrvGZ827Z3tYVOgEaKmyUj9AZfrotvVJUPVuz2x8=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791059717;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=GiCgBUtgy+E5D7f673fbwf2jKfppEXPOAp8LyoaOecA=;
+	b=YsDuOndVzH3E18i2CITMdo4mv+n/IffWTZYbwOIngM/1RGhJkN+uQrpJCP8fqwA8
+	OuiGCz1TN7EbwSi53jqx/1qzc98TD7IjgQcUYtG6QVaWZVBBJNUd4IfQXS8pRKRuP3e
+	O1KQRNwbbvA0RvecXdTu2e+zZS7AYvoNPYuoMDzs=
+Received: by smtp.zoho.eu with SMTPS id 1791059716369342.6028882372773;
+	Sat, 3 Oct 2026 22:35:16 +0200 (CEST)
+From: Igor Velkov <iav@iav.lv>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Lukas Wunner <lukas@wunner.de>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: phy: postpone PHY interrupts during sleep with MAC-managed PM
+Date: Sat, 03 Oct 2026 23:35:09 +0300
+Message-ID: <20261003233509.cc-rafael.257220@iav.lv>
+In-Reply-To: <20261002043548.1302145-1-iav@iav.lv>
+References: <20261002043548.1302145-1-iav@iav.lv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add a tracepoint for DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP quota goal
-evaluation.  The tracepoint fires once per quota-score computation when
-the goal metric is DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP, exposing
-context_idx, scheme_idx, nid, target_value, and current_value.
-current_value is reported as the quota tuning sees it, after the goal's
-complement setting is applied.
-
-The DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP metric expresses node memory
-occupancy as basis points of eligible bytes.  This information is not
-exposed through any existing external interface (perf stat, /proc, or
-sysfs), so the tracepoint is the only way for userspace to observe the
-target and current eligible-memory basis point values at quota-scoring
-time.
-
-Link: https://lore.kernel.org/linux-mm/20260428030520.701-1-ravis.opensrc@gmail.com/
-Signed-off-by: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
----
- include/trace/events/damon.h | 31 +++++++++++++++++++++++++++++++
- mm/damon/core.c              | 16 ++++++++++++++++
- 2 files changed, 47 insertions(+)
-
-diff --git a/include/trace/events/damon.h b/include/trace/events/damon.h
-index 8851727ae162..2c7249cc7c88 100644
---- a/include/trace/events/damon.h
-+++ b/include/trace/events/damon.h
-@@ -74,6 +74,37 @@ TRACE_EVENT(damos_esz,
- 			__entry->esz)
- );
- 
-+/* Per-tick DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP goal evaluation. */
-+TRACE_EVENT(damos_node_eligible_mem_bp,
-+
-+	TP_PROTO(unsigned int context_idx, unsigned int scheme_idx,
-+		int nid,
-+		unsigned long target_value, unsigned long current_value),
-+
-+	TP_ARGS(context_idx, scheme_idx, nid, target_value, current_value),
-+
-+	TP_STRUCT__entry(
-+		__field(unsigned int, context_idx)
-+		__field(unsigned int, scheme_idx)
-+		__field(int, nid)
-+		__field(unsigned long, target_value)
-+		__field(unsigned long, current_value)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->context_idx = context_idx;
-+		__entry->scheme_idx = scheme_idx;
-+		__entry->nid = nid;
-+		__entry->target_value = target_value;
-+		__entry->current_value = current_value;
-+	),
-+
-+	TP_printk("ctx_idx=%u scheme_idx=%u nid=%d target_value=%lu current_value=%lu",
-+			__entry->context_idx, __entry->scheme_idx,
-+			__entry->nid,
-+			__entry->target_value, __entry->current_value)
-+);
-+
- TRACE_EVENT_CONDITION(damos_before_apply,
- 
- 	TP_PROTO(unsigned int context_idx, unsigned int scheme_idx,
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b63e60ef8990..6ddd15dc4f55 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3294,6 +3294,22 @@ static unsigned long damos_quota_score(struct damon_ctx *c, struct damos *s)
- 		highest_score = max(highest_score,
- 				mult_frac(goal->current_value, 10000,
- 					goal->target_value));
-+
-+		if (goal->metric == DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP &&
-+		    trace_damos_node_eligible_mem_bp_enabled()) {
-+			unsigned int cidx = 0, sidx = 0;
-+			struct damos *siter;
-+
-+			damon_for_each_scheme(siter, c) {
-+				if (siter == s)
-+					break;
-+				sidx++;
-+			}
-+			trace_damos_node_eligible_mem_bp(cidx, sidx,
-+					goal->nid,
-+					goal->target_value,
-+					goal->current_value);
-+		}
- 	}
- 
- 	return highest_score;
-
-base-commit: 763ad0211c7b587344f03bc4d1299810aeb736f4
--- 
-2.54.0 (Apple Git-157)
-
+Adding Rafael, who acked 1758bde2e4aa from the Fixes: tag; I missed him in Cc.
