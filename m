@@ -1,24 +1,24 @@
-Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
+Received: from mta0.migadu.com (out-143.mta0.migadu.com [91.218.175.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CDD2472AF
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C8218A93F
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790987592; cv=none; b=HS0r9PK8YcTqLv8kt2nUOhzLj/GpcAH3PvddmZHoZtTcAf9fLuYLMZhLvKuFtkn1r5FpA3NEr9oZgP4zn7vyjtlmpuy1OXt6VCBrxX8hooSv5XdclX5BB6/kmeCYZ3fgSaMi33r+zYsp/zIV1iCn2HrptmnxLzaRrgzv1TbCP5A=
+	t=1790987597; cv=none; b=u3UzuELg5S7qc0yzYl9tfjJMlQP4NCe7AY+LPqEjmfpaRqEbUV549UrESFUFiaW7LdNCcfm/7yna0TQM+zGXPj1qic3tHukymxnDFchI2XB6qVQLfZYOD95r0wborhzVNyJW//9SM7Bqt383NxQjKAcii3DhRynMiAWmCohSJgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790987592; c=relaxed/simple;
-	bh=scBy+ZeJJp+p+NOaLTBfNjfwa2sjNU7WyDNaGTT0jbM=;
+	s=arc-20240116; t=1790987597; c=relaxed/simple;
+	bh=2LWjOPseG+1Z9sJTNqjqfxZdDuqoL9fHy8UQwayK63c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=Y6UCxXMcLntAkhMacYJZRo02PA8qgQ8aCkY7cs/y5CuT5JgZnU1vn06pJQ4Q7oS3/7HJPGjIuXXPhRT+KQ67EG5V4xJM6CmK78QboYxpZJ3fJ9xUOcg2rpVVah8zy/sWIKFjTb2TWG6uZPdlMtKTPTNO8kUo4zDaldLe3qBX0Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.139
+	 MIME-Version:Content-type; b=ZWjz/89dxH4MvY2MpbsS0POnkgbKzBHc6pzyDsng1pqdkAChsF7Z+KBKCkBgns5l8d0VJUye/BKfYuG+K+E97zy0+ijbRA23nsdzJEFZCwz7dkXfkyNCXeQFI4F+LE5qJOM/qownt/g6JKo4B0dYTQ+M0zJnKEw7EKLgWj28OTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.143
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 9c8d0751a056c750;
-	Sat, 03 Oct 2026 00:33:04 +0000
-X-Mizu-Trace-ID: 9c8d0751a056c750
+Received: by mta12.migadu.com with ESMTPS id 3b95ecdd6348a054;
+	Sat, 03 Oct 2026 00:33:10 +0000
+X-Mizu-Trace-ID: 3b95ecdd6348a054
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -38,9 +38,9 @@ Cc: akpm@linux-foundation.org,
 	kunwu.chan@gmail.com,
 	klarasmodin@gmail.com,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v4 11/14] mm, swap: do not give an xswap slot to a cgroup that cannot zswap
-Date: Sat,  3 Oct 2026 08:31:33 +0800
-Message-ID: <20261003003136.750633-12-hebaoquan@kylinos.cn>
+Subject: [PATCH v4 12/14] mm, swap: widen swap_info_struct max/pages to unsigned long
+Date: Sat,  3 Oct 2026 08:31:34 +0800
+Message-ID: <20261003003136.750633-13-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261003003136.750633-1-hebaoquan@kylinos.cn>
 References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
@@ -53,144 +53,200 @@ MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-An xswap slot holds only a zswap-backed page: it reserves no storage of
-its own. A cgroup that cannot take another zswap page still gets an
-xswap slot on swapout, but zswap refuses the page, so the slot cannot
-hold it.
+si->max and si->pages are unsigned int. This limits a swap device to
+16 TB with 4 KB pages. read_swap_header() need to clamp the size to that
+limit, and xswap_create() has the same clamp.
 
-Skip xswap devices during allocation when the folio's cgroup cannot
-zswap, and allocate from a physical swap device instead. That routes the
-folio to a device that can store it, and avoids taking an xswap slot
-that zswap will not fill.
-
-The test is obj_cgroup_may_zswap(), which is false both when
-memory.zswap.max is 0 in the hierarchy and when the hierarchy is already
-at that limit. So the routing follows how full the pool is, and not only
-how the cgroup is configured; it is stricter than zswap_store(), which
-stores anyway if its shrink found nothing to free.
+Change both fields to unsigned long. The clamp in read_swap_header() is
+removed. The clamp in xswap_create() becomes a limit on the number of
+clusters instead: a cluster index is an unsigned int, so the device can
+hold at most UINT_MAX clusters. swapfile_maximum_size still limits how
+much a swap area can address.
 
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- mm/swapfile.c | 47 ++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 40 insertions(+), 7 deletions(-)
+ include/linux/swap.h |  4 ++--
+ mm/swapfile.c        | 57 +++++++++++++++++++++-----------------------
+ 2 files changed, 29 insertions(+), 32 deletions(-)
 
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 12cdc00f78f9..c56adbbcfd3b 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -240,7 +240,7 @@ struct swap_info_struct {
+ 	signed short	prio;		/* swap priority of this type */
+ 	struct plist_node list;		/* entry in swap_active_head */
+ 	signed char	type;		/* strange name for an index */
+-	unsigned int	max;		/* size of this swap device */
++	unsigned long	max;		/* size of this swap device */
+ 	struct swap_cluster_info *cluster_info; /* array, one entry per cluster */
+ #ifdef CONFIG_XSWAP
+ 	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for cluster_info */
+@@ -255,7 +255,7 @@ struct swap_info_struct {
+ 					/* list of cluster that contains at least one free slot */
+ 	struct list_head frag_clusters[SWAP_NR_ORDERS];
+ 					/* list of cluster that are fragmented or contented */
+-	unsigned int pages;		/* total of usable pages of swap */
++	unsigned long pages;		/* total of usable pages of swap */
+ 	atomic_long_t inuse_pages;	/* number of those currently in use */
+ 	struct swap_sequential_cluster *global_cluster; /* Use one global cluster for rotating device */
+ 	spinlock_t global_cluster_lock;	/* Serialize usage of global cluster */
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 8c8e99ea403e..818b5a147b73 100644
+index 818b5a147b73..f823cebb7937 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -204,6 +204,8 @@ static DEFINE_SPINLOCK(swap_lock);
- static unsigned int nr_swapfiles;
- atomic_long_t nr_swap_pages;
- atomic_t nr_real_swapfiles;
-+/* Active xswap devices, as in nr_real_swapfiles. */
-+static atomic_t nr_xswap_files;
- /*
-  * Some modules use swappable objects and may try to swap them out under
-  * memory pressure (via the shrinker). Before doing so, they may wish to
-@@ -1385,7 +1387,9 @@ static void del_from_avail_list(struct swap_info_struct *si, bool swapoff)
- 		lockdep_assert_held(&si->lock);
- 		si->flags &= ~SWP_WRITEOK;
- 		/* Count active devices, not merely those on the avail list. */
--		if (!(si->flags & SWP_XSWAP))
-+		if (si->flags & SWP_XSWAP)
-+			atomic_sub(1, &nr_xswap_files);
-+		else
- 			atomic_sub(1, &nr_real_swapfiles);
- 		atomic_long_or(SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
- 	} else {
-@@ -1444,8 +1448,12 @@ static void add_to_avail_list(struct swap_info_struct *si, bool swapon)
- 	}
- 
- 	plist_add(&si->avail_list, &swap_avail_head);
--	if (swapon && !(si->flags & SWP_XSWAP))
--		atomic_add(1, &nr_real_swapfiles);
-+	if (swapon) {
-+		if (si->flags & SWP_XSWAP)
-+			atomic_add(1, &nr_xswap_files);
-+		else
-+			atomic_add(1, &nr_real_swapfiles);
-+	}
- 
- skip:
- 	spin_unlock(&swap_avail_lock);
-@@ -1543,7 +1551,7 @@ static bool get_swap_device_info(struct swap_info_struct *si)
-  * Fast path try to get swap entries with specified order from current
-  * CPU's swap entry pool (a cluster).
-  */
--static bool swap_alloc_fast(struct folio *folio)
-+static bool swap_alloc_fast(struct folio *folio, bool may_zswap)
- {
- 	unsigned int order = folio_order(folio);
- 	struct swap_cluster_info *ci;
-@@ -1564,6 +1572,11 @@ static bool swap_alloc_fast(struct folio *folio)
- 		rcu_read_unlock();
- 		return false;
- 	}
-+	if (!may_zswap && (si->flags & SWP_XSWAP)) {
-+		put_swap_device(si);
-+		rcu_read_unlock();
-+		return false;
-+	}
- 
- 	ci = swap_cluster_lock(si, offset);
- 	if (cluster_is_usable(ci, order)) {
-@@ -1580,13 +1593,19 @@ static bool swap_alloc_fast(struct folio *folio)
+@@ -541,10 +541,10 @@ static inline unsigned int cluster_index(struct swap_info_struct *si,
+ 	return ci - si->cluster_info;
  }
  
- /* Rotate the device and switch to a new cluster */
--static void swap_alloc_slow(struct folio *folio)
-+static void swap_alloc_slow(struct folio *folio, bool may_zswap)
+-static inline unsigned int cluster_offset(struct swap_info_struct *si,
+-					  struct swap_cluster_info *ci)
++static inline unsigned long cluster_offset(struct swap_info_struct *si,
++					   struct swap_cluster_info *ci)
  {
- 	struct swap_info_struct *si, *next;
+-	return cluster_index(si, ci) * SWAPFILE_CLUSTER;
++	return (unsigned long)cluster_index(si, ci) * SWAPFILE_CLUSTER;
+ }
  
- 	spin_lock(&swap_avail_lock);
- start_over:
- 	plist_for_each_entry_safe(si, next, &swap_avail_head, avail_list) {
-+		/*
-+		 * Do not rotate a skipped device: the walk follows the
-+		 * rotation and would spin forever.
-+		 */
-+		if (!may_zswap && (si->flags & SWP_XSWAP))
-+			continue;
- 		/* Rotate the device and switch to a new cluster */
- 		plist_requeue(&si->avail_list, &swap_avail_head);
- 		spin_unlock(&swap_avail_lock);
-@@ -1925,10 +1944,24 @@ int folio_alloc_swap(struct folio *folio)
+ static void swap_cluster_free_table_folio_rcu_cb(struct rcu_head *head)
+@@ -948,7 +948,7 @@ static int swap_cluster_setup_bad_slot(struct swap_info_struct *si,
+ 
+ 	/* si->max may got shrunk by swap swap_activate() */
+ 	if (offset >= si->max && !mask) {
+-		pr_debug("Ignoring bad slot %u (max: %u)\n", offset, si->max);
++		pr_debug("Ignoring bad slot %u (max: %lu)\n", offset, si->max);
+ 		return 0;
+ 	}
+ 	/*
+@@ -1114,11 +1114,12 @@ static bool __swap_cluster_alloc_entries(struct swap_info_struct *si,
+ }
+ 
+ /* Try use a new cluster for current CPU and allocate from it. */
+-static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
+-					    struct swap_cluster_info *ci,
+-					    struct folio *folio, unsigned long offset)
++static unsigned long alloc_swap_scan_cluster(struct swap_info_struct *si,
++					     struct swap_cluster_info *ci,
++					     struct folio *folio,
++					     unsigned long offset)
  {
+-	unsigned int next = SWAP_ENTRY_INVALID, found = SWAP_ENTRY_INVALID;
++	unsigned long next = SWAP_ENTRY_INVALID, found = SWAP_ENTRY_INVALID;
+ 	unsigned long start = ALIGN_DOWN(offset, SWAPFILE_CLUSTER);
+ 	unsigned int order = likely(folio) ? folio_order(folio) : 0;
+ 	unsigned long end = start + SWAPFILE_CLUSTER;
+@@ -1169,12 +1170,12 @@ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
+ 	return found;
+ }
+ 
+-static unsigned int alloc_swap_scan_list(struct swap_info_struct *si,
+-					 struct list_head *list,
+-					 struct folio *folio,
+-					 bool scan_all)
++static unsigned long alloc_swap_scan_list(struct swap_info_struct *si,
++					  struct list_head *list,
++					  struct folio *folio,
++					  bool scan_all)
+ {
+-	unsigned int found = SWAP_ENTRY_INVALID;
++	unsigned long found = SWAP_ENTRY_INVALID;
+ 
+ 	do {
+ 		struct swap_cluster_info *ci = isolate_lock_cluster(si, list);
+@@ -1261,7 +1262,7 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ {
+ 	struct swap_cluster_info *ci;
+ 	unsigned int order = likely(folio) ? folio_order(folio) : 0;
+-	unsigned int offset = SWAP_ENTRY_INVALID, found = SWAP_ENTRY_INVALID;
++	unsigned long offset = SWAP_ENTRY_INVALID, found = SWAP_ENTRY_INVALID;
+ 
+ 	/*
+ 	 * Swapfile is not block device so unable
+@@ -1556,7 +1557,7 @@ static bool swap_alloc_fast(struct folio *folio, bool may_zswap)
  	unsigned int order = folio_order(folio);
- 	unsigned int size = 1 << order;
-+	struct obj_cgroup *objcg;
-+	/* True unless the gate below finds an xswap device to route away from. */
-+	bool may_zswap = true;
+ 	struct swap_cluster_info *ci;
+ 	struct swap_info_struct *si;
+-	unsigned int offset;
++	unsigned long offset;
  
- 	VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
- 	VM_BUG_ON_FOLIO(!folio_test_uptodate(folio), folio);
+ 	/*
+ 	 * Once allocated, swap_info_struct will never be completely freed,
+@@ -3010,8 +3011,8 @@ static int unuse_mm(struct mm_struct *mm, unsigned int type)
+  * Return 0 if there are no inuse entries after prev till end of
+  * the map.
+  */
+-static unsigned int find_next_to_unuse(struct swap_info_struct *si,
+-					unsigned int prev)
++static unsigned long find_next_to_unuse(struct swap_info_struct *si,
++					unsigned long prev)
+ {
+ 	struct swap_cluster_info *ci;
+ 	unsigned long i, cluster_end, end;
+@@ -3081,7 +3082,7 @@ static int try_to_unuse(unsigned int type)
+ 	struct swap_info_struct *si = swap_info[type];
+ 	struct folio *folio;
+ 	swp_entry_t entry;
+-	unsigned int i;
++	unsigned long i;
  
-+	/*
-+	 * A folio that zswap will not take must not get an xswap slot. With
-+	 * no xswap device to route away from, skip the lookup.
-+	 */
-+	if (atomic_read(&nr_xswap_files)) {
-+		objcg = get_obj_cgroup_from_folio(folio);
-+		may_zswap = !objcg || obj_cgroup_may_zswap(objcg);
-+		if (objcg)
-+			obj_cgroup_put(objcg);
-+	}
-+
- 	if (order) {
- 		/*
- 		 * Reject large allocation when THP_SWAP is disabled. Check below
-@@ -1949,8 +1982,8 @@ int folio_alloc_swap(struct folio *folio)
+ 	if (!swap_usage_in_pages(si))
+ 		goto success;
+@@ -3950,12 +3951,8 @@ static unsigned long read_swap_header(struct swap_info_struct *si,
+ 		pr_warn("Truncating oversized swap area, only using %luk out of %luk\n",
+ 			K(maxpages), K(last_page));
+ 	}
+-	if (maxpages > last_page) {
++	if (maxpages > last_page)
+ 		maxpages = last_page + 1;
+-		/* p->max is an unsigned int: don't overflow it */
+-		if ((unsigned int)maxpages == 0)
+-			maxpages = UINT_MAX;
+-	}
  
- again:
- 	local_lock(&percpu_swap_cluster.lock);
--	if (!swap_alloc_fast(folio))
--		swap_alloc_slow(folio);
-+	if (!swap_alloc_fast(folio, may_zswap))
-+		swap_alloc_slow(folio, may_zswap);
- 	local_unlock(&percpu_swap_cluster.lock);
+ 	if (!maxpages)
+ 		return 0;
+@@ -4550,9 +4547,9 @@ static int xswap_create(int prio)
  
- 	if (!order && unlikely(!folio_test_swapcache(folio))) {
+ 	ram = totalram_pages();
+ 	maxpages = min_t(unsigned long, ram * 2, swapfile_maximum_size);
+-	/* si->max is an unsigned int: don't overflow it. */
+-	if (maxpages > UINT_MAX)
+-		maxpages = UINT_MAX;
++	/* A cluster index is an unsigned int, so cap the cluster count. */
++	if (maxpages / SWAPFILE_CLUSTER > UINT_MAX)
++		maxpages = (unsigned long)UINT_MAX * SWAPFILE_CLUSTER;
+ 	/* Cluster-aligned, so no cluster holds a slot past si->max. */
+ 	if (maxpages > SWAPFILE_CLUSTER)
+ 		maxpages = rounddown(maxpages, SWAPFILE_CLUSTER);
+@@ -4585,8 +4582,8 @@ static int xswap_create(int prio)
+ 	si->avail_list.prio = -si->prio;
+ 	/* si->swap_file stays NULL: this is a file-less device */
+ 	enable_swap_info(si);
+-	pr_info("xswap: adding extendable swap type %d (prio %d, %u pages, max %lu)\n",
+-		si->type, prio, si->pages, maxpages);
++	pr_info("xswap: adding extendable swap type %d (prio %d, %lu pages)\n",
++		si->type, prio, si->pages);
+ 	mutex_unlock(&swapon_mutex);
+ 	atomic_inc(&proc_poll_event);
+ 	wake_up_interruptible(&proc_poll_wait);
+@@ -4739,7 +4736,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ 		goto bad_swap_unlock_inode;
+ 	}
+ 	if (si->pages != si->max - 1) {
+-		pr_err("swap:%u != (max:%u - 1)\n", si->pages, si->max);
++		pr_err("swap:%lu != (max:%lu - 1)\n", si->pages, si->max);
+ 		error = -EINVAL;
+ 		goto bad_swap_unlock_inode;
+ 	}
+@@ -4830,7 +4827,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ 	/* Sets SWP_WRITEOK, resurrect the percpu ref, expose the swap device */
+ 	enable_swap_info(si);
+ 
+-	pr_info("Adding %uk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
++	pr_info("Adding %luk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
+ 		K(si->pages), name->name, si->prio, nr_extents,
+ 		K((unsigned long long)span),
+ 		(si->flags & SWP_SOLIDSTATE) ? "SS" : "",
 -- 
 2.54.0
 
