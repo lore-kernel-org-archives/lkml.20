@@ -1,147 +1,136 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE6339023A
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4A138F92A
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791048151; cv=none; b=qpiXOoNe9+no+jay9X8optc1vIpHHE0mm3MlTEQ6oLbkKGZFW0HVFG8vGO0JCRYk9q4+HmycaoRNKcj79epa7tGOACn0uDnXk0ZtmheMU5AyIo3OfVofXcuDNgVhVjdZ0MHapB3UIE4/VoZJ194zb4fka2bq997z2R+6m+5zAnY=
+	t=1791048265; cv=none; b=f1hXkvDNU+g/t0pcLZdp+6RfxSR9RIy/Do5T3ALjpidTqALBqs5SRycwMaNwxzMPAbzIXITfSuU5F10sq3G2YywKMAzrqtmqvJ5NBWTaucrQH6c4EVQLTzsQr6XW9LY5dlV7CqiXdi/UPYv8PGfdqRzb6MJRJTGoVqw2OqCSPNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791048151; c=relaxed/simple;
-	bh=SInxWx3tkrmyHp0bwB6l/yKqRIt1o4L0IWu1/WASAbc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HqKeemQiwNKuuD0Ws3vRQvHl8jw86Dqj6d69tOjTvopqJlJwUB77EoHEyCPE9QEhaE/GXYEnntHUifkai1wPmlBiXv3EUmehry86uWQyCEg0WnTAzEEHlO+oHh5EKK5vvxWfoV9KS8Kgd/hcbJwQwC8v7QFHQ53x/0UbsgeZsKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NIr8rQLI; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1791048265; c=relaxed/simple;
+	bh=s2Ss/x948Y93uzsFgTiimFn4QGTk+GR3g2Spav0zjfw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NQDa8ykhcG5GmtndmTb/CFejGI3QJefvKHPTCZTQ0TZqaBRWcgZovoRM/RtkCBy1aSXciEPDU8TGTYrWBMsc0lz53Dyx4jzA7rLrHHezYq/3wDbfq/wIff+vnj1Sp3l8dhRqhMB4mYVjWTJW5zNLsCwsW4EUMhfDofenj5GmOvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IE4+Hv85; arc=none smtp.client-ip=209.85.218.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NIr8rQLI"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a166199820so1931835e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 10:22:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IE4+Hv85"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c1670dad7a8so118673966b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 10:24:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791048146; x=1791652946; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nTRjVXony/HFc+7g3Thxno/weq0zK7fY6ESErYGxU0w=;
-        b=NIr8rQLIakfGnzb922K02mQGdhSVJ25kg4jiDrsvGDNYErwGb9yTBVS1b9XtM9hQEr
-         wleJdfbcN3ug6gaLyB2LzIagzIBbRG+OBeoK2xsYZYR87ipAoyKfCexdpOKdWHhaRbyp
-         JrJBlg6YKYRXvJ3GnHQKOpWl7lqDbR9U+G96sZAF2kOaXanG0Z2CAA/BYl1gCo+9jLpp
-         jQtZ4KN/kIvZGtFn7+MIRYA9ZhyIWmCx9PDC9rLPQu1MSve+HDszpFKCo+//ZJOpg4Ye
-         4u7ofLagV+NQdtH5/Tcs4nkIEj0bV9CRTWB/WzjW8VQ/9rTJYePSLlOiMTC/bmiXwUcw
-         Nesw==
+        d=gmail.com; s=20251104; t=1791048262; x=1791653062; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5aEM4qdj9p9V8Y8pWjk1UcQVcLLXmG3YTCLxCb/8ly4=;
+        b=IE4+Hv85flgTsL+AOLqNM6KSX18Mp9PfSJb3ZM532dOhAuOsmbw0g9Jwfqy5qa7jY2
+         S8Cn8fuXqPe5hwaVp8oXgcofGo9vQBGoMUCTnta/ST+UjqHWBviWJ5Lc4EGuSMhrOy5L
+         sxLrjrfz0OoX+AMs8eCpYD1MSSEoCazzAZtW7wqR4VpB8tj9rnAQMWUuTYNAeHK+Hb2V
+         TL3zbHjwM7xCJE4EOn10LP+d4jxB7eyb4G+AkAYtZhHifuGodhSDpJHIMNmSK4jXwbyv
+         BPPOCBpJOgcG1xaCOvt4Re7JIYMpvC/LO11p+zP5jCR0ClXNQi+6haTLQnk3LUicmvKm
+         JLWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791048146; x=1791652946;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nTRjVXony/HFc+7g3Thxno/weq0zK7fY6ESErYGxU0w=;
-        b=0QT2iSEtP52rE55jhFYv6mfI3n4auFdgd6lk4r/mifi+hXmNdl7aEMr7+f0Q1a5WWK
-         dK8lpgSl3Zn7aIPhPmU3Qj1S2zHkBagTVyrDQ1YgDJalWIfXrScqA2C3a68roQYg9W+T
-         8GHdla9rUorxQjUSNcfAUEZ/gfYGrxdg6nhBT42CeaS2ysGAV4QYzTfeDAVdDv/TQea3
-         9Tl0Oo/Jj+En4ZgfIb6nJpVEVTQg2CsbfaZnevDjCGcdQUueXEsOAF5Icc1aLI6NVKtK
-         88Mj2M0uQVGzUtIiaAPRhpP66h1EVLRo7SbPUwUOGwCLGGr/VUBdehF8lcCZvwQJjknU
-         y9+A==
-X-Forwarded-Encrypted: i=1; AKwUvByajpgDqgOVwfNyKADrlrN/1nV7+KLfHUvR7SsvvoJ6mcCwecBs3QAniixCoVyL4AI1TmsUYPJuNABaqBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdiAK37tlECZMTvpkua4huibjvB3yKe6jjoHBkW79PrUKd/edH
-	tm5Co/YyIZ4QrW88jVCxXP2lwwssqcemo5XfkshR3sariOYDlUgSjNBj
-X-Gm-Gg: AYBFou1BsIvA3PcyQoOLH4jxdh5qLb0zumLHwJjoVYzdUKS4DPgK68CLOPVoQcT+08W
-	P11sui3LAbZhNACEqCHPT826Bmcl9U4YaBPuRrCmbLvEsrRuW5CR+O9EqDvjBS/XeQdvPTL4y2t
-	0ZvjLUYi2VHuvScR3mPoqUNX9lJ7dIoCZGDqSTBQ7l6o3DFxQm0lSMakdKLR7GP9T+6psRJ5VIB
-	vZvtDNAPBA9PTvtHwgekSL200l7HhaI/ypSgnmr0ZOUuXOyZBeGRomE3nMATxo/kK2skm5KkoyY
-	09sTMnsouwzBQzDdy7jiStwLAgYYEa5b0nss/gUh0nsQq17rk9DYj5V0C1BtZlgyL48Sb4bT3Ph
-	uFweHmJ/wIHh1m85FjcO/FE/w49krB4XZ5F5whL6cecnKHpQHU+BjToGvKHva2M6ULQpzthWcJD
-	Qd9jwzVz9rqvAEshB+wiPL80GEZcXCW8E+S4L2QT3/lS+IGjyQMC+dj+7MgFeW140pVwqH0CxQ9
-	zaFkZVlGX/wncK14UjLf8EvZNlBHTfBiuM=
-X-Received: by 2002:a05:600c:190c:b0:49f:fe89:efca with SMTP id 5b1f17b1804b1-4a165f934a3mr72638835e9.19.1791048145671;
-        Sat, 03 Oct 2026 10:22:25 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8c4asm14387423f8f.37.2026.10.03.10.22.25
+        d=1e100.net; s=20260707; t=1791048262; x=1791653062;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5aEM4qdj9p9V8Y8pWjk1UcQVcLLXmG3YTCLxCb/8ly4=;
+        b=OQSlP0g/EHlUVOH7O7+L6KFdkiHsgho5JuJqqjZTIAlkv0YCnR4BiCw6gpB6v/x3nE
+         /w/EHYMiILpucuVB9n0Gxl8zyaucb97Zcd9N+HYKV/TSN4j2c/IZxDztjZP7pHEejVKd
+         s5ZLAQN5SB/6jgPQ8GjFvcWChRgbDb3K/qVaPCqmt5nkidCYHr0l4KwP+1DGwhotnhg0
+         Ym6aJuj52wsBicG1n2S8EJ65K47Cb5OCfZRVz0UFBSV0/Q24KGtb5Wch/lxejuyIeShJ
+         qrDhTsBLMcwOa1uD1w+kygUangzHvqMNsjztPAh1uPu1x3XaoP9WGWy8FZgI2GEe0d6q
+         N08Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzoYEEQyHjUqpR2br2qJfs0F8uGn+6Q/EdN2uVjayoZzH7kCWzvZE+CspF7za26aHapAeGRjUPySMJ9ldA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEM2GBhkRYI+FNKzphdF88lvS3wUaYG3xN6fQT1km+TJLyGmy5
+	hfCAeGIr6b95J2Bqex6wMGYWBHV7UHndW3mX+Dl+wDedrk4Acg00A+gJ
+X-Gm-Gg: AYBFou2qsyrhXc+/oc/a1+5kxM5kmQ6J+aPm6bgHtNXaXYcFwj2Szhj4d9M3VgUZdyc
+	aFgBWl1OvNKy/CCxoO+M0jxKPmLTZR2mIn4XiJZD5SVxvVldIoN0evZ2IunHR8TSIcC3w2kbHC2
+	/0Gh4kh9IeF37hdUeAaw/Q6snUIx+HNQwexpDAptW9YII1EyyMmO02TrR1WcvflsAjkvTobhxn5
+	KbavTu3fjb+smdWDzWlUq56q0rgZvyQbHPM0eIYZVtryV1qrIMyxpdhhbMugNJGzzmYYnUBzngm
+	lqeSRw221/EJB+Qvy8XX95xknLTyM3wAvywupS50DStCLJaNjoXYuj621/CwO3uC8ysV9dKILAM
+	zIFkslQPlbPt9olJHY4lCo55CVSLZeUg4KJ0TpDND5WQ7WIuq6J+WHJs0PQ9NgwxnWdOnhhrlGI
+	hgolnpCxWwNYSvVIqkXUxgkCCe9rYEG4IBSsacnj50QqU5di3TJ1RDherV4ZEjffRjMn2y8WEID
+	3WETcPR68bCo7kFYaVUiTF/cC1IbhnhDPds5GJA6Vq4LRcx2WOPLWo8
+X-Received: by 2002:a17:907:97d3:b0:c29:45f6:6a0b with SMTP id a640c23a62f3a-c2e6edba366mr222307866b.34.1791048261810;
+        Sat, 03 Oct 2026 10:24:21 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:801:793:68fd:7995:7ccd:ec2b:6712])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf87430sm211407666b.64.2026.10.03.10.24.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 10:22:25 -0700 (PDT)
-Date: Sat, 3 Oct 2026 18:22:24 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Babanpreet Singh <bbnpreetsingh@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Andrew Morton
- <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
-Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
-Message-ID: <20261003182224.2171b574@pumpkin>
-In-Reply-To: <20261002012141.7-1-bbnpreetsingh@gmail.com>
-References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Sat, 03 Oct 2026 10:24:21 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	John Crispin <john@phrozen.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 0/3] net: dsa: qca8k: fix MDIO error handling
+Date: Sat,  3 Oct 2026 19:24:01 +0200
+Message-ID: <20261003172405.342-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.45.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri,  2 Oct 2026 01:21:41 +0000
-Babanpreet Singh <bbnpreetsingh@gmail.com> wrote:
+This series fixes qca8k MDIO error-handling bugs found by code
+inspection and the Sashiko review of v1 [1]. I am not aware of reports
+of actual MDIO failures, so v3 targets net-next without Fixes tags, as
+Andrew requested [2].
 
-> KCSAN reports pid_alive() reading task->thread_pid while it gets cleared
-> under tasklist_lock. The check only cares about NULL, so READ_ONCE() and
-> WRITE_ONCE() are enough.
+The patches propagate register and PHY access errors, skip MASTER_EN
+cleanup after a failed page select, invalidate the uncertain page cache,
+and return management Ethernet busy-wait errors so MDIO fallback can run.
+They apply directly to net-next; the separate qca8k MTU series depends on
+the write-error propagation provided here.
 
-I just looked at change_pid() - isn't it completely broken?
-__change_pid() uses hlist_del_rcu() to remove the item from a list.
-IIUC this leaves the 'next' pointer valid to allow for concurrent readers.
-I thought that had to stay valid until the end of the rcu period.
-But the following attach_pid() adds the item to another list.
-I think that means that a concurrent reader can switch lists and thus
-fail to find an item.
-This could be (mostly) mitigated by using the 'nulls' variant which
-lets the reading code detect the crossed lists and rescan.
+Testing: the base and each patch build with W=1 for arm64
+(drivers/net/dsa/qca, net/dsa, drivers/net/phy/qcom). A userspace model
+compiles the driver's own MDIO functions against a simulated paged
+switch and a scripted management Ethernet responder, with phylib's
+read-modify-write helper as a consumer. Fault injection leaves 15 failing
+cases on the base, 10 after patch 1, seven after patch 2, and none after
+patch 3. These are model tests, not kernel selftests or hardware error
+injection.
 
-(I've not checked the history...)
+A Redmi AX5400 (RA74, IPQ5018 + QCA8337) passed connectivity checks
+with a 6.18.52 OpenWrt backport of v2 after boot, reboot, one cold boot,
+link re-initialization and MTU changes. Its switch PHYs are on the SoC
+MDIO bus and it has no CPU port 0. This covers normal register access
+through page selection; the internal MDIO master and management
+Ethernet paths remain tested only in the model.
 
-David
+v3:
+- Target net-next and drop the Fixes: tags as requested [2]. Historical
+  commits are identified in the commit messages instead.
+- Order local variable declarations in reverse Christmas tree order in
+  the functions the series touches [3]. No other code change.
+
+Previous versions:
+v2 [4], v1 [5].
+
+[1] https://lore.kernel.org/netdev/179054715863.3145.10179961093285192493@kernel.org/
+[2] https://lore.kernel.org/netdev/12875133-1659-4507-a007-c3cfa425ec76@lunn.ch/
+[3] https://lore.kernel.org/netdev/f7889e9e-8ca8-47b1-b902-c31e7c016858@lunn.ch/
+[4] https://lore.kernel.org/netdev/20260928220629.238-1-yongzhao.derek@gmail.com/
+[5] https://lore.kernel.org/netdev/20260923215748.1336-1-yongzhao.derek@gmail.com/
+
+Yongzhao Chen (3):
+  net: dsa: qca8k: propagate MDIO errors
+  net: dsa: qca8k: do not clear MASTER_EN after a failed page select
+  net: dsa: qca8k: fail mgmt Ethernet MDIO access on busy wait errors
+
+ drivers/net/dsa/qca/qca8k-8xxx.c | 68 +++++++++++++++++++-------------
+ 1 file changed, 40 insertions(+), 28 deletions(-)
 
 
-> 
-> Reported-by: syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=c382ee653fd70f5cf1bb
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
-> ---
-> Compile tested only (gcc W=1 and the KCSAN instrumentation diff); I
-> could not reproduce the race in QEMU.
-> 
->  include/linux/pid.h | 2 +-
->  kernel/pid.c        | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/pid.h b/include/linux/pid.h
-> index ddaef0bbc8ba3..05a0084dc9537 100644
-> --- a/include/linux/pid.h
-> +++ b/include/linux/pid.h
-> @@ -264,7 +264,7 @@ static inline pid_t task_tgid_nr(struct task_struct *tsk)
->   */
->  static inline int pid_alive(const struct task_struct *p)
->  {
-> -	return p->thread_pid != NULL;
-> +	return READ_ONCE(p->thread_pid) != NULL;
->  }
->  
->  static inline pid_t task_pgrp_nr_ns(struct task_struct *tsk, struct pid_namespace *ns)
-> diff --git a/kernel/pid.c b/kernel/pid.c
-> index 95b8ccfa82690..adf7216067684 100644
-> --- a/kernel/pid.c
-> +++ b/kernel/pid.c
-> @@ -411,7 +411,7 @@ static void __change_pid(struct pid **pids, struct task_struct *task,
->  	pid = *pid_ptr;
->  
->  	hlist_del_rcu(&task->pid_links[type]);
-> -	*pid_ptr = new;
-> +	WRITE_ONCE(*pid_ptr, new);
->  
->  	for (tmp = PIDTYPE_MAX; --tmp >= 0; )
->  		if (pid_has_task(pid, tmp))
-> 
-> base-commit: ed14a591175bb5f56c2936b082cffb9e4b935e6d
-
+base-commit: cfb7793d1bc0f7d90571611979654cf1b3886b29
+-- 
+2.43.0
