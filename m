@@ -1,62 +1,80 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF422264CA;
-	Sat,  3 Oct 2026 19:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C58481236
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 19:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791057008; cv=none; b=A5Qq8G6Yg/u7f2NSbzQrbsFAFDroNQW1hdsukeow2HUy2FW6LbKN3YHtgGTQHozurypvq1t5UgIJRR9Brk4nvDybdZGNxfFJ6INuF9jw3XoRjx600O/o6a50rSABLtDIN1jNvdwXNDBmc2fHb7PuZSkYeYClaLDqZpJQYopn4KY=
+	t=1791057019; cv=none; b=H9PZLn7XD43TzEIdF+fZD5r3F/tbA+ISA4MqSlex4QAbrYn+EPLRJa94Pdxj5Qy9OjuChpetJYdDD0U4xDUVYvsUZQXjzpW+rR1QicrXd5xjvNJOnXEEOXeTfI1gD4H8LHumx3OS3YEiXByYnTbB0Ix+sBogF7T6tvAR0ELTPVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791057008; c=relaxed/simple;
-	bh=KH8i/ZfQZWXW8Q11XsLH/3rlI5B80iU6c+KdE5CCJTM=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=RsRNsi39r3/QSwQsLLjJo/n0+ARAozzo8q4Lc5GvfQW6/5KWzZQ7gPIMF/Oyd/sJnFw3HLefH7nNu/k9MDSb9vwRK1PVriJxj+jH5AgsxtlvcNeyS6xDLu8tBDbzXwlb7S/pr2sQO0R5mZzHpeOuT1jTtWdg0HHJGMpLLwdftLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=l0kJYJAc; arc=none smtp.client-ip=43.163.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791057019; c=relaxed/simple;
+	bh=eeV3CiqVqLEdOwuQRHoVaunyWI6kSVjOdbtx1bppoXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mg3dI1E7itQO5CY/VqNcnHvsk9K62alyprSlyK9Dc7Z07NTvYYSh/S6ZwVCwFn/DIqS2nOpkOrEw/Q4qKTRMtz/QaCCSePMdXz5oijXwpKMqPPTqfKvX1ZUPwxha9TwqIxT0reNzLt0LhQtaHvZd8QUQdTKmJaHT/hvESjyGciI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJmKk69L; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="l0kJYJAc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791056997; bh=CZ8jJNMTWXkD7Ie07zhV8nbM/XJJgkE75+/x/XRuIpk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l0kJYJAcqWRCc0gls4wLRyiobFrqIhZcT7LL5k9Wzsnoy1cQM5tQPaNtrmJF/VFpg
-	 5uToPNGh3dcW8UUnsx+ZrH10HV3rbGG0ZROvyCg4N3nig5MQ7/mcchsC55jEyERLRp
-	 beRTtjfJvCQHFAgtnYaUe9BeiD6AEEQ09XfxrQgw=
-Received: from AERO17.taila7786d.ts.net ([112.43.117.189])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id B9D93CB0; Sun, 04 Oct 2026 03:46:29 +0800
-X-QQ-mid: xmsmtpt1791056794tn6zlrqep
-Message-ID: <tencent_73544BE6EEA3044EC0C299F463FE82462A09@qq.com>
-X-QQ-XMAILINFO: OIJV+wUmQOUAarNY/SNUs9s0PWMFLrttcOMPIqeoUYIBG/86/282ChsllCvB0r
-	 hJ+Nf2HBj50wqq65vEtalVhYbhlOBdW1veTYsRcB5k24yKpP9oaTxF/pLhbXdZRhMtdZBt6VDPOR
-	 q624/24n1gAU0GKasvOx344v05RMQIMRcP8x7/jeFMQTWcRmqmGrdQFO56jxcC7RYP6xq31sEVFc
-	 BVbIirT7RaAlD1qyawhafDDExBN3TeilxegGL4WX9TLL/Futs7fX0mCOEvskOQBLEwJmzaxtWTEk
-	 LKYSi2Bz8e9nPXyUphCebtMFsUobL4RyC0neAMVW0zGxu2HTYh42xUQsfMiAmO7Lzt/wUuaKxU7B
-	 HIF9Jks2abkXY4NWpNf5sGs5UlvkE5blsmOxNlu20DJhqZKsPDDKjUZp4vzs2cOdFsHgtlFlaQYN
-	 QQXlQZSvmP6zn3KIwV2C5H8CIuIoEeN5THd5NqBL0ZlCsmWpgxA4LUoXpZT5X8xNur4nVbbQGjUa
-	 7V40XT0ziI6HjFflf5DG9Kwf+K2qER3GGh1y2XOGNZXObswXmrrHir1+1VScdzt2ewHrEEmZMIfx
-	 JdrxHKb+8dgCvoy7Qqrn6R5ruxdkt46r48F2AzmNktYGjJVnUt9IHl55ebUbdATeHNWHxM8eYy4v
-	 Q8sKo6a01zOKlOofVPucHwWdOMVRvYnqARFj/RJp+TK+cBibYahZvN1jYPL9kdRcBAZh6TpBmVwI
-	 J4rMDt5axGLeQ4fOf9L/UGOEXTRJPgn2TrqVzdhvgiy7J7tzW3zcUT9UW+xCo+w+aSzEJa4mP81a
-	 Jy3N5hioiA0I3ovMpVZ/oHNnkkmGf7hwTBVKXlpK/QD/zWqSagPHQ8hYmQNFqIgbk/bXgfqiGjpr
-	 QFYCgMZ80DCAcx5t47oqVuXJQ+SB4dTp+cCEG1gpPNrK0U+cEsGqF5USiiXnFdun8U0nESvOZDcE
-	 Y6WSQdu4UY+QKBd0senfis6QaEWMRc1CXZvnsR6pF8zD513AhnbMddHOHWbBhfwRv2d6WumgO3e4
-	 eyvki8TZapmPkfTfBR6swNd4bJrCWP/3dyx74xPQ==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Pufan Jin <2254650260@qq.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] dt-bindings: soc: xilinx: Add EBDEE EdgeBoard FZ3A
-Date: Sun,  4 Oct 2026 03:46:24 +0800
-X-OQ-MSGID: <20261003194625.936288-3-2254650260@qq.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261003194625.936288-1-2254650260@qq.com>
-References: <20261003194625.936288-1-2254650260@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJmKk69L"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba42966d5fso397672e87.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 12:50:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791057016; x=1791661816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2xA2NLj6ds9nMunLFHFPpvFZmRFdu7AG9PlEOdmxqkM=;
+        b=lJmKk69LRIJ85rXdJwFQ3y6XDaIgHGod56sCfNmWn30exlxNi61mAi9gusmZK7lOtE
+         aYHvu+Ypps0c6ytsTzVyONePavNIOLZs4DOsGgQWSZOuH87VFSBZTwEAvYyhULADlxS8
+         trtDmc0cdS6D8eQbTdDscfpFEDur3Z2nF2Cj9Z9WISByHYHHo3Da4VU+LV+rrdsEYt2H
+         bj4etLNzwYHMIz+vAxUcjLyi4vH4prDBD4QdYws65BlSCf1JAkrdOSdh1KlIzo4Opi+b
+         ty7Bso4oSwiV528uJxDBti/AGlZbDKD3m365pTPC0gE2bhDmmpmjIzp523chtA92ePPz
+         zuwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791057016; x=1791661816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2xA2NLj6ds9nMunLFHFPpvFZmRFdu7AG9PlEOdmxqkM=;
+        b=c6o53Xg+RBsecmpP+5M0aDGK8mJ06GRYTBgP05dKzWbv6owuNUc3k6DCFWkgl/v5/R
+         pS5T3yRA2/r7VFGsh3hmkaerUaWx0IbxNdVyMn7ewDA7xGvNPFO6fsl3lewlEQATsOgF
+         zLGLvkZJ5sy+8+kNXRw178/Cp8n9Rcou42AhXn/UTbbAtZMr5FA7sWSkcGLvjvLoDLZk
+         VO1tSUIMMToV1spvwEMe2wCS/tgGTYpbVcCjMm2x9dRA01gq4Z935EjUHisceNo+kXle
+         tQUdIF7hV84SEH1+ap3eYpztcvEwCpgJoz/WGlH0ISl4iltBZsB1Rjc1bELpSovA1HEy
+         u25g==
+X-Forwarded-Encrypted: i=1; AKwUvBxBZ6DccDHEaiWl6rO0nuBRuAVMQJMd0kA6hcdYIa892D1vqEDIL4lfcALi1giPmR+qtmsaMjxzHB1spHo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIV/fHpXdy4GmOXskDGZ6NzxJOerw+TvIGk53wrHfJhMHrhsTi5
+	GIIAWDw/zl2JZNJYYH251bBwwJroiY39AkfdlMaGC25Ky8+YONWi68Wq
+X-Gm-Gg: AYBFou0wtP+ScVE/MND64BT8iw3djvSDOZMZ9nMf7roy8sClPdrS83w+5jA2C1pvlMO
+	QixieYyI//sEqjG4DK7HmQkJ7M7o3+gg2w24RU92Kouw3RL1RGz9iEyp72nio/wu4b0Y13uhyoX
+	zczCKo+I6PuRRNbJ7Eg/KNWoL0yJB4uAJhdfBXgAYUmMtG71uKfguYC3MYAb8FfxUdKJ52MkiD+
+	RvtXaF1drvaMaes1reRj0qaHDiPn1/jeu3L/up/l/ZBDdmqKeYZbW6wB/QEABGkEnFQhEx+fgFN
+	d3sZjFIG2Lg6SV1mjIFg2c1NCExlVwZNUzLpinSbd05c3WzgMeMlPoTaGreUDXcwqmh9CRvL7/V
+	EsbSf1da8IqHAe8QD9euFeOepQOLwVTMf7mcSDdAbLkYor2V1hI01LYimgQwz2nQENw+KHS99x7
+	W7eEXKGSGZdPpJnSuvyM49sUdT0eBJpojd5VVglJKQNEyB7REL5E+KEjCdmMT5mHuT3wVNl4aPP
+	f2xhbvf6abGCHbUciEK5xH6ZuNa0t6bGFyu6qlOeH0F6PgsQPXM0fx7k0SOEoggmHqnjPo=
+X-Received: by 2002:a05:6512:340f:b0:5b8:f333:db97 with SMTP id 2adb3069b0e04-5bb86e73f99mr2404170e87.0.1791057015678;
+        Sat, 03 Oct 2026 12:50:15 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c7abdbfsm1762608e87.65.2026.10.03.12.50.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 12:50:15 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	Bill Wendling <morbo@google.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	Rupesh Majhi <zoone.rupert@gmail.com>
+Subject: [PATCH v12 0/5] iio: pressure: dps310: hardware FIFO support
+Date: Sat,  3 Oct 2026 22:50:06 +0300
+Message-ID: <20261003195012.92948-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,25 +83,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the EBDEE EdgeBoard FZ3A compatible for the ZynqMP board.
+Rest of FIFO series, on iio/togreg which has 1-6 and 10 of v8.
 
-Signed-off-by: Pufan Jin <2254650260@qq.com>
----
- Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Since v11:
+ - patch 1: blank line, Reviewed-by Andy
+ - patch 2: guard() in postenable, setup moved to a helper that kfree()s
+   on error, scoped_guard() in fifo_work, loop counters in the for,
+   ternary on one line, two comments trimmed. The first loop in
+   fifo_drain keeps cnt outside, it is used after the loop.
+ - patch 3: signature wrapped
+ - patch 4: drain comment and commit message trimmed
+ - patch 5: Suggested-by Andy back, assert in the new helper too, still
+   optional
 
-diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-index c9f99e0df..ead3a3c34 100644
---- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-+++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-@@ -46,6 +46,7 @@ properties:
- 
-       - items:
-           - enum:
-+              - ebdee,edgeboard-fz3a
-               - xlnx,zynqmp-zc1751
-           - const: xlnx,zynqmp
- 
+Pressure overflow fix is now at v4:
+https://lore.kernel.org/linux-iio/20261003185716.32732-1-zoone.rupert@gmail.com/
+Patches 1 and 5 conflict trivially with it. I can rebase on whichever
+goes in first.
+
+Retested on DPS310 with BeagleBone Black. Lockdep run under QEMU.
+
+v11: https://lore.kernel.org/linux-iio/20261002072526.250081-1-zoone.rupert@gmail.com/
+
+Rupesh Majhi (5):
+  iio: pressure: dps310: use devm_mutex_init()
+  iio: pressure: dps310: read buffered samples from the hardware FIFO
+  iio: pressure: dps310: derive the drain interval from the watermark
+  iio: pressure: dps310: implement .hwfifo_flush_to_buffer()
+  iio: pressure: dps310: assert the lock at runtime too
+
+ drivers/iio/pressure/dps310.c | 441 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 430 insertions(+), 11 deletions(-)
+
+
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
 -- 
-2.55.0
+2.43.0
 
