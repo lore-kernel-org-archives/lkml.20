@@ -1,172 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285D33AEB4E;
-	Sat,  3 Oct 2026 23:00:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882EB3515CF;
+	Sat,  3 Oct 2026 23:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791068444; cv=none; b=TJJR4B7WS8MfxYxDuufyHZUvOgkbYeFazYYon8O96N9jQd689dc7WdfsTCPeNwzRXpT5pIA+Ny3ahBkMPrXwN7O0JWuMU+aGv+1B/Wh6zhFXIy/aIrxH7byAimxe9R2s8M+uMMFAjbX+W//qi3IuCPMppTt2bN1DnjsPNBKCyxA=
+	t=1791068742; cv=none; b=pX8quyo+IprWef4YG5a3I0LpwFrapRw1/w56AmYn8pv4A80YjTlsAjPZrGC56RF9wr/w5zT2Vndv4xNie4e7cK1//SqiwgSUnRxB/VL9kK93BGeYOkP7Zd11uIW6XrH3JAHepCPfOt1hlkqctZc2an+3EsHvO4zr9hE/S6YjZ1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791068444; c=relaxed/simple;
-	bh=ozr1pGct8sZ1e3ofHQUeVlWgvWZlxwMC+u7f/qxjDCU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jnZXcYG6NCkwN5stTLrlkPEAK06BdLGQ1gE+ZT7IFtWNx0A0cCgXxssa+Z2w5zBblkelXPtSRkVKAqzG7eK9DbAORy7QSH++5Q4UBXXzpW6YzathO1zyoPJXggeOgBf7jeqISMmqToUIz/ViE7d2l0MeggiMnaPCykPM+uCE6zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3pURTVS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791068742; c=relaxed/simple;
+	bh=2gsRRtMv2Z4FqxHe/61bLUyhh3qkJGX/eKsWJFWpMFA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HZrhHPSC78l0iI4QN0BxJFsmyv02eBlcq1lY2Di0OtmxXk/slsaeJmw3olYRftEUoHKykDUr9mVeVbaU8BWYWlTz2Z3u5PWboJEf7z0HkNPS8E4/u7qCh0KQ+oWvJAdak5hw5hHsAveDGI/QtzgmRY+nW+ngn8fEJx6uMarp/e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwRAgnL8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3pURTVS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833951F0089D;
-	Sat,  3 Oct 2026 23:00:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwRAgnL8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F381F0089B;
+	Sat,  3 Oct 2026 23:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791068442;
-	bh=wuhkYdIAkqjbbctqV5SZo/cc5Kw50f5heZOpqZaFFBc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=l3pURTVSRJnmaW0HQev5l2uXXgOiZXqU0uyuwj5Nn/LeGjIeYmTNbtf+cdb6AcoVR
-	 WTgsWz64vJKQPXA3s1CRcT2auOT/8oSHwaI15TgKk2AbZP1F31sCmDxCK6rvKQ+n+q
-	 VFsYrH8mfRez69eH3nKurhkppsi2XGh0aEs1DJwq+MeVcnwe/2lKENL6lMm4DLX6an
-	 t3nXvorcAg6PeKfQFQCz7OnOz2xziuRIjMSruvQgtIbnRX45+Bj9sJePwSmwlgZasJ
-	 x67+AK2rL38vF0ut9CynY3YdW6/aA7o+C6D5iNhauvlSbzYbRBIkk2380lFU1fG0Q3
-	 z071tvq01wlAw==
-Subject: Re: [PATCH can-next 7/7] can: peak_usb: Add support of loopback mode
- to the PCAN-USB FD family
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: mailhol@kernel.org, s.grosjean@peak-system.fr, kernel@pengutronix.de,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Sat, 03 Oct 2026 23:00:42 +0000
-Message-ID: <179106844209.1406898.13531220510046899289@kernel.org>
-In-Reply-To: <20261002-peak_usb_enhancements-v1-7-50e965755c06@pengutronix.de>
-References: <20261002-peak_usb_enhancements-v1-7-50e965755c06@pengutronix.de>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791068741;
+	bh=qao+pMIXUl/3i+MsEDsveP1/Me4CRSfOmI5CYiqCK+A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MwRAgnL8lAyCUXMe36JHwaAodmcSouJYauA3IM8z14WIPK+DfnG/cELmPbQvl67sS
+	 qapc24g8S7xAsl7wCQNvqZ+k4sqdAgB2j7noay3+L2KFERFhTmz0Ngp1yX8yA7F04a
+	 W4bKCzAh87bwZ7GwILqRTPTeBQ3ecoj5I/RYOZui62pJVySnNsQKRBCH2EC9uepham
+	 DSZ1SaOrONw1vEBn3fdIpGS9RTVQ1saYWm5YWdYV1R9mfvmGIhGvuH0sovCbEEpbB4
+	 x84xGRl4fnXz0W9L+7abCaL+YAMrRAEFN/hXbXWR6ctRbLAKvjGmqinRDLm9qAlXv6
+	 9FUOXDzN8iJOw==
+Date: Sun, 4 Oct 2026 00:05:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Drew Fustini <fustini@kernel.org>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 4/5] dt-bindings: riscv: Add binding for CBQRI
+ controllers
+Message-ID: <20261004-fender-oink-1646de550f3b@spud>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-4-52fd8be98dcf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9U6MfxL1eoZMWu+O"
+Content-Disposition: inline
+In-Reply-To: <20261003-dfustini-atl-sc-cbqri-dt-v9-4-52fd8be98dcf@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+--9U6MfxL1eoZMWu+O
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Low priority / nit picks for your consideration:
-
-- [Low] The patch adds CAN_CTRLMODE_LOOPBACK to the static
-  .ctrlmode_supported of all four FD-family adapters: pcan_usb_fd,…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but a malicious or
-  faulty USB device that presents itself as a single-channel PCAN-USB FD…
-
---
-
-can: peak_usb: Add support of loopback mode to the PCAN-USB FD family
-
-This commit adds CAN_CTRLMODE_LOOPBACK to the supported modes of the
-PCAN-USB FD, PCAN-Chip USB, PCAN-USB Pro FD and PCAN-USB X6 adapters. When
-loopback is on, pcan_usb_fd_encode_msg() sets PUCAN_MSG_LOOPED_BACK and
-PUCAN_MSG_SELF_RECEIVE in the uCAN TX message flags. This follows the
-peak_pciefd driver, but local echo still comes from USB write completions.
-
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> index 9081f30e3d356..59debe009f922 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-> @@ -934,6 +934,12 @@ static int pcan_usb_fd_encode_msg(struct peak_usb_device *dev,
->  	if (dev->can.ctrlmode & CAN_CTRLMODE_ONE_SHOT)
->  		tx_msg_flags |= PUCAN_MSG_SINGLE_SHOT;
->  
-> +	/* Request controller loopback and mark the frame as self-received,
-> +	 * matching the behavior of the peak_pciefd driver.
-> +	 */
-> +	if (dev->can.ctrlmode & CAN_CTRLMODE_LOOPBACK)
-> +		tx_msg_flags |= PUCAN_MSG_LOOPED_BACK | PUCAN_MSG_SELF_RECEIVE;
+On Sat, Oct 03, 2026 at 12:12:29AM -0700, Drew Fustini wrote:
+> Document the device tree binding for RISC-V CBQRI capacity and bandwidth
+> controllers. Each controller is named by a device-specific compatible
+> followed by the generic compatible. The binding also describes the
+> common riscv,cbqri-rcid and riscv,cbqri-mcid properties, and the
+> optional riscv,cbqri-cache phandle that links a capacity controller to
+> the cache whose capacity it allocates.
+>=20
+> Assisted-by: LLM
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+>  .../devicetree/bindings/riscv/riscv,cbqri.yaml     | 97 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 98 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml b/D=
+ocumentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+> new file mode 100644
+> index 000000000000..0924758ebdde
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+> @@ -0,0 +1,97 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/riscv/riscv,cbqri.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  	tx_msg->flags = cpu_to_le16(tx_msg_flags);
->  	tx_msg->channel_dlc = PUCAN_MSG_CHANNEL_DLC(dev->ctrl_idx, dlc);
->  	memcpy(tx_msg->d, cfd->data, cfd->len);
-> @@ -1263,7 +1269,8 @@ const struct peak_usb_adapter pcan_usb_fd = {
->  	.name = "PCAN-USB FD",
->  	.device_id = PCAN_USBFD_PRODUCT_ID,
->  	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
-> -	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-> +	.ctrlmode_supported = CAN_CTRLMODE_LOOPBACK |
-> +			      CAN_CTRLMODE_LISTENONLY |
->  			      CAN_CTRLMODE_3_SAMPLES |
->  			      CAN_CTRLMODE_ONE_SHOT |
->  			      CAN_CTRLMODE_BERR_REPORTING |
+> +title: RISC-V Capacity and Bandwidth QoS Register Interface (CBQRI) cont=
+roller
+> +
+> +description: |
+> +  The RISC-V CBQRI specification defines capacity-controller and
+> +  bandwidth-controller register blocks that allocate cache capacity and =
+memory
+> +  bandwidth to resource-control IDs (RCIDs) and monitor usage per
+> +  monitoring-counter ID (MCID):
+> +  https://github.com/riscv-non-isa/riscv-cbqri/blob/main/riscv-cbqri.pdf
+> +
+> +  Allocation and monitoring share one register block, and a controller m=
+ay
+> +  implement either or both. A driver discovers which at runtime from the
+> +  capabilities register, so the compatible names only the controller typ=
+e. It
+> +  does not distinguish allocation-only, monitoring-only or combined
+> +  controllers, and no property declares monitoring support.
+> +
+> +maintainers:
+> +  - Drew Fustini <fustini@kernel.org>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - tenstorrent,ascalon-shared-cache-controller
+> +          - const: riscv,cbqri-capacity-controller
+> +      - items:
+> +          - {}
+> +          - const: riscv,cbqri-bandwidth-controller
 
-[Severity: Low]
-Does every firmware revision of these adapters support loopback?
+I think I lead you up the garden path here actually, it needs to be
+"- not: {}", "- {}" permits anything.
 
-LOOPBACK is added statically here, and also in pcan_usb_chip,
-pcan_usb_pro_fd and pcan_usb_x6. All the new mode does is set
-PUCAN_MSG_LOOPED_BACK | PUCAN_MSG_SELF_RECEIVE in pcan_usb_fd_encode_msg().
-The host does not program any controller mode, and
-pcan_usb_fd_decode_canmsg() never reads these flags. Whether the mode works
-is therefore up to the firmware.
+--9U6MfxL1eoZMWu+O
+Content-Type: application/pgp-signature; name=signature.asc
 
-pcan_usb_fd_init() already gates modes that depend on the firmware:
+-----BEGIN PGP SIGNATURE-----
 
-	if (fw_info->fw_version[0] >= 2) {
-		/* firmware >= 2.x supports ISO/non-ISO switching */
-		dev->can.ctrlmode_supported |= CAN_CTRLMODE_FD_NON_ISO;
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasGKOwAKCRB4tDGHoIJi
+0rh3AQC9sn2b3xtbezq/LLuqtE017LIOfCkf9Vkinzo7mFnwOwD7Bl1MMdeB57Aj
+9puacBsqArtCXFVPNVGPEdBW+bcqtgE=
+=Hv6j
+-----END PGP SIGNATURE-----
 
-If a firmware revision ignored these TX flags, "ip link set canX type can
-loopback on" would be accepted but would do nothing.
-
-This may well be fine. ONE_SHOT is already advertised statically, and it
-is also just a uCAN TX flag (PUCAN_MSG_SINGLE_SHOT). The non-FD driver's
-pcan_usb_init() does gate LOOPBACK on device_rev >= 41, but it gates
-ONE_SHOT the same way, so that comparison may not apply here. The commit
-message also says all USB-to-CAN FD interfaces support this mode.
-
-Is there any FD firmware version that should be excluded here?
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can a
-single-channel adapter cause a NULL pointer dereference in the bulk-IN
-decode path?
-
-PCAN-USB FD and PCAN-Chip USB use ctrl_count = PCAN_USBFD_CHANNEL_COUNT
-(1). struct pcan_usb_fd_if, however, has dev[PCAN_USB_MAX_CHANNEL] (2).
-pcan_usb_fd_init() only fills the slot of the controller being registered:
-
-	pdev->usb_if->dev[dev->ctrl_idx] = dev;
-
-On those adapters, usb_if->dev[1] stays NULL.
-
-Before dereferencing, pcan_usb_fd_decode_canmsg() only checks the channel
-against the array size:
-
-	if (pucan_msg_get_channel(rm) >= ARRAY_SIZE(usb_if->dev))
-		return -ENOMEM;
-
-	dev = usb_if->dev[pucan_msg_get_channel(rm)];
-	netdev = dev->netdev;
-
-A faulty or malicious device could send a PUCAN_MSG_CAN_RX record with
-channel 1. That record passes this check, and the code then dereferences
-NULL in URB completion context.
-
-pcan_usb_fd_decode_status() and pcan_usb_fd_decode_overrun() use the same
-pattern, for PUCAN_MSG_STATUS and PCAN_UFD_MSG_OVERRUN records.
-
-pcan_usb_fd_decode_error() already handles this case. The guard came in
-with "can: peak_usb: Add bus error reporting for the PCAN-USB FD family",
-but it was added only to this decoder:
-
-	/* Guard against bogus channel 1 reports from single-channel adapters.
-	 * Treat the entire URB as invalid in that case.
-	 */
-	dev = usb_if->dev[pucan_ermsg_get_channel(er)];
-	if (!dev)
-		return -EINVAL;
-
-Should the CAN_RX, STATUS and OVERRUN decoders get the same NULL check?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002-peak_usb_enhancements-v1-0-50e965755c06%40pengutronix.de
+--9U6MfxL1eoZMWu+O--
