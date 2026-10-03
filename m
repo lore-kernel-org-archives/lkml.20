@@ -1,124 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CF53B7760;
-	Sat,  3 Oct 2026 23:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188BC39F17F;
+	Sat,  3 Oct 2026 23:17:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791069209; cv=none; b=ZjudlClWORKMrezxtg+yXoItL1qpsSko7Mnc0/sZUxAryGmmlkH28QNxRsSqD3gy0Ww2/MKj9ocC9gCXz5mmkZrKIkFGVt9CTMDYuImGPU2FBlB+/N972SGQ36APiyBIxZJ6EjqjofzEYuHc1LPRxumKQzkFnspo6cVTtL4osYw=
+	t=1791069451; cv=none; b=MMyu4BY77Z+ZYbjWUeziZ6wn8Ffz6xYoUiobqFLyctAj+hR4NwTRKh/AP6gSnHjzn49yYrnLj105uDjpwiR8NePCBidfbupG+2Awbuhn8UqmjKPCAugdjRO7lBl+3t9DoXzTE/49mibCmkfSYftuAUdqcS3oe1lALJ1T+xTU6SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791069209; c=relaxed/simple;
-	bh=m6x+QohLazM6n94oET/vCQjOeBmkfLjMD8HPJd8IU5g=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ED7KF/Sq75hstkUSOC44GUAJ1awEddSsKbze/iEdsvxezMvxyTMYiUifpZmKTjyG5sm9zHDvy6HjjjAksqkVPLuCJ5RS17iBBcoIfhoYYif9/3t0QGzTTy5oltKrRoRpFu7NSlQyMFPho7jWfZhei+sTifQV0Y2pGbZwKLYZ7hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aSkUnWZ1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791069451; c=relaxed/simple;
+	bh=CWHKXXC5uOb9xIAN4f41S4t5Zw/bnluVTKZw0ImQJQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HKvTterX0tlRWkJaJNxS9ROPiHG2EaPWGoRu+8UfIu+veE89RPmCFV6qsGW1OJ9PcQ7cpERNycws4yfi9fo2aSBjUe9CBFAk3BI8xjJETsWC2mXsnjk19VsCzLpYVHK7pScD8ui2o+LBohA4Q2OkdrZt1ksD2bTIjjHfszlRY9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=A5FTc9pm; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aSkUnWZ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D24F1F0089C;
-	Sat,  3 Oct 2026 23:13:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791069208;
-	bh=MmC3HEgkDX9MlcGsgiuH35IWs/E9FDG/g8OR9C7T9KA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aSkUnWZ1SNAbpwLsB3KU5uD7pViDv+bcq49TV6pIyPiLmShD03VIblVl9lx44Y1Kz
-	 TUaKFJMhqCQ9mF+4//XPjxe//UmrlXVRJDbvu1UZyaxQk9HpoB64cdM/3dHj+F+Pak
-	 Igbw2AzRYzdGg+9bnkzaEZtNLWRBhRyCo+cnrkGAdnn22cE5dGLUwaaRr4Gliz7b4R
-	 Bu0m9tqvCl06mTKVdEgZu3ayBWZRW/9gK/L/dLb0Vof+YltrBSuheo3oBO0etQ2Lep
-	 NDSdqd/UTcJ4w/qz0IyCU2Y/qHss7Teu5kcW+TiduXXDrVjxgkqTiSPmkCtVO9TNsl
-	 XXEYTNpj1ZCAg==
-Subject: Re: [PATCH net-next v5 7/7] net: skb: isolate skb data area
- allocations into a separate bucket
-From: netdev-bot+sashiko@kernel.org
-To: kees@kernel.org
-Cc: vbabka@kernel.org, harry@kernel.org, akpm@linux-foundation.org,
- hao.li@linux.dev, cl@gentwo.org, rientjes@google.com,
- roman.gushchin@linux.dev, linux-mm@kvack.org, pfalcato@suse.de,
- kuniyu@google.com, linux-hardening@vger.kernel.org, davem@davemloft.net,
- hannes@cmpxchg.org, mhocko@kernel.org, shakeel.butt@linux.dev,
- muchun.song@linux.dev, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kerneljasonxing@gmail.com,
- willemb@google.com, almasrymina@google.com, bjorn@kernel.org,
- jiayuan.chen@linux.dev, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Sat, 03 Oct 2026 23:13:26 +0000
-Message-ID: <179106920612.434549.10910954892692956019@kernel.org>
-In-Reply-To: <20261002231132.1646573-7-kees@kernel.org>
-References: <20261002231132.1646573-7-kees@kernel.org>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="A5FTc9pm"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id F1B2040E02A8;
+	Sat,  3 Oct 2026 23:17:25 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id bs3J1h_PiT5z; Sat,  3 Oct 2026 23:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791069435; bh=mdkHnY29Sj9s2VkTeuMkQJj722InSALx4gPP9TGUIfw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=A5FTc9pmrS9B6iDTAnay4NYcmOCcUExdeL0ySHr9xS/8lIuIFRGmxEbYm4z14c1ft
+	 MGKzZouOFv29mlQk5f81zEu8ZuPL9nR4xMecLbrRA2UWlBCTlB5i9EmTqKqr3lrxMC
+	 p0D7q2VQq/P5LaNP0ALMUDmIJv+GVwb1Bar53R9roHOF1pSp9szdWr2jwHLjHMW+9l
+	 Q9bikLhg7IefwqYp85TVI2QZUZu5Z8D38ENjANabmZ9RfzjNlF0ERmM7pNuV5vyUn/
+	 qfQO2y6v0pwmBj4brSbEdlrPcVpCfZmSv7Uw119NKYpSlCcJIbG/d2wGcQc+i1GKz8
+	 qzxZfdhzyYTLEwcThYRKkYROIhPLYoJZsw3heAWeHVCNqIQWOVhTPw1ZTqGyar8VwJ
+	 KtBUMP/PIeP5OaudEZhxwLdf9v024lrn18990B71Q2ogRGahq8TEI/BjvhhJCWiXdc
+	 30iAJ4avVNZGbC2C26acJLYkJBgXpUEZ/0qeJoQsWDthGXMaU+3iIkRGt9gnBwHXct
+	 bJIgUp7i4PKmcNj7+ZHsC5KXC9telK0ynt/FOCHVXL4olqqbOp9NZWQf+NLuaYQ3Yt
+	 8GynOlFhxCWs/JdbSb7orW+FQbqzrNq+006xwUgxsvQWs65RLWegTrR1Cs/pS1Cm+W
+	 mCplcyrHikZrxgV8pk7T0diA=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2393740E021A;
+	Sat,  3 Oct 2026 23:17:10 +0000 (UTC)
+Date: Sat, 3 Oct 2026 16:17:06 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Adrian Schlegel <me@adrianschlegel.com>
+Cc: tony.luck@intel.com, x86@kernel.org, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] x86/mce: Do not treat cache hierarchy errors as
+ memory errors
+Message-ID: <20261003231706.GDasGM8vjstliIosnK@fat_crate.local>
+References: <20260927151904.30524-1-me@adrianschlegel.com>
+ <20261003222012.19685-1-me@adrianschlegel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261003222012.19685-1-me@adrianschlegel.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Sun, Oct 04, 2026 at 12:20:12AM +0200, Adrian Schlegel wrote:
+> On Intel and Zhaoxin, mce_is_memory_error() returns true not only for memory controller errors but also for cache hierarchy errors (MCACOD 000F 0001 RRRR TTLL) and generic cache hierarchy errors (000F 0000 0000 11LL). The cache hierarchy checks were added in commit fa92c5869426 ("x86, mce: Support memory error recovery for both UCNA and Deferred error in machine_check_poll") for uncorrected errors. All callers of mce_is_memory_error() expect it to report memory errors only, as its name says.
+> 
 
-Low priority / nit picks for your consideration:
+$ cat /tmp/new | ./scripts/checkpatch.pl 
+WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#14: 
+On Intel and Zhaoxin, mce_is_memory_error() returns true not only for memory controller errors but also for cache hierarchy errors (MCACOD 000F 0001 RRRR TTLL) and generic cache hierarchy errors (000F 0000 0000 11LL). The cache hierarchy checks were added in commit fa92c5869426 ("x86, mce: Support memory error recovery for both UCNA and Deferred error in machine_check_poll") for uncorrected errors. All callers of mce_is_memory_error() expect it to report memory errors only, as its name says.
 
-- [Low] The block comment above kmalloc_reserve() in net/core/skbuff.c
-  (line 603) still says "kmalloc_reserve is a wrapper around…
+total: 0 errors, 1 warnings, 23 lines checked
 
---
+NOTE: For some of the reported defects, checkpatch may be able to
+      mechanically convert to the typical style using --fix or --fix-inplace.
 
-net: skb: isolate skb data area allocations into a separate bucket
+"[PATCH v2] x86/mce: Do not treat cache hierarchy errors as memory" has style problems, please review.
 
-This patch moves skb data area allocations in kmalloc_reserve() and
-kmalloc_pfmemalloc() off the general kmalloc caches and onto a dedicated
-kmem_buckets set named "skb_data". The set is created in skb_init() with
-both the normal and the accounted kmalloc types, so GFP_KERNEL_ACCOUNT
-users such as AF_UNIX are isolated as well.
+NOTE: If any of the errors are false positives, please report
+      them to the maintainer, see CHECKPATCH in MAINTAINERS.
 
-Link: https://github.com/google/security-research/blob/master/pocs/linux/kernelctf/CVE-2023-4207_lts_cos_mitigation_2/docs/exploit.md [0]
 
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 4aea06d5167d1..a83689661fc28 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
+do a
 
-[ ... ]
+git log arch/x86/kernel/cpu/mce/core.c
 
-> @@ -593,7 +595,8 @@ static void *kmalloc_pfmemalloc(size_t obj_size, gfp_t flags, int node)
->  	if (!obj_size)
->  		return kmem_cache_alloc_node(net_hotdata.skb_small_head_cache,
->  					     flags, node);
-> -	return kmalloc_node_track_caller(obj_size, flags, node);
-> +	return kmem_buckets_alloc_node_track_caller(skb_data_buckets, obj_size,
-> +						    flags, node);
->  }
->  
->  /*
+to get inspired about how patches should look like.
 
-[Severity: Low]
-This isn't a bug, but the block comment that follows here, above
-kmalloc_reserve() in net/core/skbuff.c, still says:
+Also:
 
- * kmalloc_reserve is a wrapper around kmalloc_node_track_caller that tells
- * the caller if emergency pfmemalloc reserves are being used. ...
+https://docs.kernel.org/process/submitting-patches.html
 
-After this patch, neither kmalloc_reserve() nor kmalloc_pfmemalloc() calls
-kmalloc_node_track_caller(). Both now use
-kmem_buckets_alloc_node_track_caller(skb_data_buckets, ...).
+and
 
-Should the comment be updated to name the bucket allocator? As it stands,
-it points readers at the general kmalloc caches instead of the skb_data
-caches.
+https://docs.kernel.org/process/maintainer-tip.html
 
-> @@ -634,7 +637,7 @@ static void *kmalloc_reserve(unsigned int *size, gfp_t flags, int node,
->  	 * Try a regular allocation, when that fails and we're not entitled
->  	 * to the reserves, fail.
->  	 */
-> -	obj = kmalloc_node_track_caller(obj_size,
-> +	obj = kmem_buckets_alloc_node_track_caller(skb_data_buckets, obj_size,
->  					flags | __GFP_NOMEMALLOC | __GFP_NOWARN,
->  					node);
->  	if (likely(obj))
-
-[ ... ]
+Thx.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002231120.late.500-kees%40kernel.org
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
