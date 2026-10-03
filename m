@@ -1,152 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712F039524B;
-	Sat,  3 Oct 2026 08:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240D237755A;
+	Sat,  3 Oct 2026 08:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791015158; cv=none; b=FLUiSDYGsb63rxEJmfKv+tl5xcMXODUy08z5r8ythkIwbj5dA6omZktKcvDui09bw8RVfoT6Eons70cF2i3tbKAE6YI7IOAymj/25PJhOdQZUN+ZQXmr7rvGEVCv8vj3xLgg3viVwaB3lJQQwRKk1godm25KP/gzXPo/jnaRuaU=
+	t=1791015487; cv=none; b=C/NeCwvIy36V+XAX8g6W4Le1FDDPlRS9cGkjdFg2xWrQZn+Z3Cdc4sw4gpW2jjKkO/vk7gEUgjQGm7GLQCikRnssYEgqvO0Gg7PpAZ4UMSzDFO/04fIHwYYzE/V4WvDeogIs97X+Kykt0X1UTFOuULliuQViHLUo2cXOp7XCgT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791015158; c=relaxed/simple;
-	bh=iGa02tqk4ue4xUw/jme9qpVIWtqMaoy2fS1PW8GKLdA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MmGTyXLm929X9olxC9UtZKngtQBQ/De7iNwoyX/SeXgFPZJrdgP82MYoFNQj1m0VNZtINiP9qJEW19c1INKce6PlFRz/Hfu6PEGLLuHu5Fnu6Xkvq05fgOFv0qWhyssgnliy5rReUu0mXLirZcWgsuOjSbbhgGkp3OhaO/pxxhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aU4SRVYt; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791015487; c=relaxed/simple;
+	bh=iYEijlYJUq45EPagJHUGz5EOXlOCJfE005wikZ4dd6Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d8ZXIpD2MFnzcYlwghmNySLXSfFO5MqWbCGjxehboZDZ8uU8OR0oi0gzwkw3lXvGG35/nMcmJfQWQZSDruFJVblxSpNKuCaWGSgr6GJHeHQ4QAuugpV6xVbRarWo4Mg0k4cO2bPqCm8IQoqtEYw5exCpK+ZQSY9y23bPBQBkTwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nO2HMdYe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aU4SRVYt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=zB
-	p34BSzNZJG9C0k9dpuokC4arHuG3WIpAi9HRZC8pc=; b=aU4SRVYtu9Gy7KTu5U
-	lOfAXmNYUPrf3T2CWfG1cJnaWKYpsNzpgRKHekBfGi645RuuIEreZagGubfP0Gub
-	DWIcOURjMNmIxGsEgNpwS4WpYKttBjofPKYrRuo4F7kQIW8b7NmMUEk4wzdlsbHo
-	cz7TJJhE788yS/cle+DtOW680=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3P1yfuMBqYnCaCQ--.60360S2;
-	Sat, 03 Oct 2026 16:11:12 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maxime Ripard <mripard@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] drm/msm/hdmi: handle runtime resume failure during power on
-Date: Sat,  3 Oct 2026 16:11:03 +0800
-Message-Id: <20261003081109.432470-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nO2HMdYe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1F51F0089B;
+	Sat,  3 Oct 2026 08:18:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791015485;
+	bh=uLnpVDJwR4zTl6t5ZRAY9LTHy6Hp4z9k/l8/nZsaDSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nO2HMdYekz4PwzKqmZw0wGG6ygcQgXKG6SKpAJ7f9jE/q1549ahPXyPVKRqMqkifi
+	 xoMxymU2S6ZBgs6tX0s29+AO6y6ChGZz60TeIsgYCuC15E1Il4QXgUR+ydSt1wjFEm
+	 TmOByPlem8PstxKdy53OiWKSBB+5Nvf9XhU2icZiyJvtdCwM0VGhFixHtiqJPUpo3i
+	 uizaqSCKJAzMy03l4qzWulZWU6AqGx9wT4rbcZAwzCRv9lWFQoQOKn00q3XDlFLHUg
+	 bqNuLVF4gXJ1tK5t7dVsx3q8UCda5OF8FsbhGnepN633jGXNwUcST03vfAtM+iMX2r
+	 jElpVniEmQ41w==
+Date: Sat, 3 Oct 2026 10:18:02 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+	peter.ujfalusi@linux.intel.com, linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] soundwire: bus: Don't unassign dev_num before
+ unregistering device
+Message-ID: <asC6OuTRgQg86jMk@parshuram>
+References: <20260925154216.3520136-1-ckeepax@opensource.cirrus.com>
+ <20260925154216.3520136-2-ckeepax@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P1yfuMBqYnCaCQ--.60360S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuF4Dtw4xWryrKw4rtF4rAFb_yoW5WF4xpr
-	ZFg3s09r4kZF47G39rAr4kZFnIk3929ay5J34xKw1Fv3WIvFn0qFn5Ar10qF1rAFyDXF13
-	tF18JF15Ga47AFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi5CzXUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AAhW2rAuKBSngAA30
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925154216.3520136-2-ckeepax@opensource.cirrus.com>
 
-msm_hdmi_power_on() ignores runtime resume failures, and
-atomic_pre_enable then records the bridge as powered and accesses HDMI
-registers. The later disable path also drops a runtime PM reference
-that was not acquired.
+On 25-09-26, 16:42, Charles Keepax wrote:
+> Don't mark dev_num as unassigned until after the driver remove has
+> been called. The driver may want to communicate with the device
+> as part of the driver remove operation, so the dev_num should
+> remain assigned until that has completed. This requires moving from
+> device_unregister() to manually calling device_del() and device_put()
+> to ensure that the slave struct isn't freed too early.
+> 
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+> 
+> Changes since v1:
+>  - Split device_unregister into device_del and put_device
+> 
+>  drivers/soundwire/bus.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+> index aeaae5a57c89d..1488b6540844c 100644
+> --- a/drivers/soundwire/bus.c
+> +++ b/drivers/soundwire/bus.c
+> @@ -175,8 +175,9 @@ static int sdw_delete_slave(struct device *dev, void *data)
+>  
+>  	sdw_slave_debugfs_exit(slave);
+>  
+> -	mutex_lock(&bus->bus_lock);
+> +	device_del(dev);
+>  
+> +	mutex_lock(&bus->bus_lock);
+>  	if (slave->dev_num) { /* clear dev_num if assigned */
+>  		clear_bit(slave->dev_num, bus->assigned);
+>  		if (bus->ops && bus->ops->put_device_num)
+> @@ -185,7 +186,8 @@ static int sdw_delete_slave(struct device *dev, void *data)
+>  	list_del_init(&slave->node);
+>  	mutex_unlock(&bus->bus_lock);
+>  
+> -	device_unregister(dev);
+> +	put_device(dev);
 
-Return the resume error to atomic_pre_enable, unwind the PHY resources,
-and stop the enable sequence without setting power_on. Also honor
-errors from the preceding PHY resource enable operation so the unwind
-is only used after successful acquisition.
+if we are doing this I would add code comments on why we split. We
+invoke device_register so the expectation is that we always call
+device_unregister. I understand this is being done but this needs to be
+well documented here
 
-Fixes: 81aa83419706 ("drm/msm/hdmi: switch to pm_runtime_resume_and_get()")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 157f19bd90b4..7d88657be047 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -13,14 +13,16 @@
- #include "msm_kms.h"
- #include "hdmi.h"
- 
--static void msm_hdmi_power_on(struct drm_bridge *bridge)
-+static int msm_hdmi_power_on(struct drm_bridge *bridge)
- {
- 	struct drm_device *dev = bridge->dev;
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
- 	int ret;
- 
--	pm_runtime_resume_and_get(&hdmi->pdev->dev);
-+	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
-+	if (ret < 0)
-+		return ret;
- 
- 	if (hdmi->extp_clk) {
- 		DBG("pixclock: %lu", hdmi->pixclock);
-@@ -32,6 +34,8 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 		if (ret)
- 			DRM_DEV_ERROR(dev->dev, "failed to enable extp clk: %d\n", ret);
- 	}
-+
-+	return 0;
- }
- 
- static void power_off(struct drm_bridge *bridge)
-@@ -276,6 +280,7 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	struct drm_connector *connector;
- 	struct drm_connector_state *conn_state;
- 	struct drm_crtc_state *crtc_state;
-+	int ret;
- 
- 	DBG("power up");
- 
-@@ -289,8 +294,16 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 
- 	mutex_lock(&hdmi->state_mutex);
- 	if (!hdmi->power_on) {
--		msm_hdmi_phy_resource_enable(phy);
--		msm_hdmi_power_on(bridge);
-+		ret = msm_hdmi_phy_resource_enable(phy);
-+		if (ret)
-+			goto unlock;
-+
-+		ret = msm_hdmi_power_on(bridge);
-+		if (ret) {
-+			msm_hdmi_phy_resource_disable(phy);
-+			goto unlock;
-+		}
-+
- 		hdmi->power_on = true;
- 	}
- 	mutex_unlock(&hdmi->state_mutex);
-@@ -306,6 +319,11 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 
- 	if (hdmi->hdcp_ctrl)
- 		msm_hdmi_hdcp_on(hdmi->hdcp_ctrl);
-+
-+	return;
-+
-+unlock:
-+	mutex_unlock(&hdmi->state_mutex);
- }
- 
- static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
 -- 
-2.34.1
-
+~Vinod
