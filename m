@@ -1,39 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F9230C637
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 07:59:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAB63909A4
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 07:59:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791014375; cv=none; b=TYB7vyD73CKDSV30ELq1YkURBmDyCc7Y8MXgSDmZgYLOppAY0cCU1YUWxVRIdqkwEwZcnlOdzx0tKXEknEC/EX3U76/+wGz2I3jWXochWw94/xtJLt18NZI0NhwiLvGl+CUb8XUNZM2Hgey02V/r4b3J30Ec/38n9Dqx2PUXHlA=
+	t=1791014381; cv=none; b=CBxS9DEWxWhJ1OoHY/e1p/Pbkjk/Qr/Duclvuc5FXKYr9MW65twHV5qaGzZUpAHw0MR6kijluc4badqw1Rln8ch6o9iGDrGKKoq3kDiSCZ27Nj+eaqg9vUmEsQkNyZLsLdJ5so5yAU9jtlLMN6ULxsWb0w6eQw89Yx8WaEiNRtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791014375; c=relaxed/simple;
-	bh=PjA7LQ1H6tcm62uZtZ2OcoUNmMdD+Ih726AkDyq4D5g=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=AYY3H5VAzpaPXYcLcK5oAL1WSudVcfBWcc3GD6LDIlsuaZDpDL87iDtyJlnEPqkiP0NJX2bVLoy5OsqakhuoqjFTtDUvaGDrLrYW4WbRHO4JYooK2cJ80yhfD67xafoFrStAMDnpYIGI/tEdrSiiLXVVaPqE/mm2n+489ONDNgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFCW37jK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791014381; c=relaxed/simple;
+	bh=RP+TlQuIj6uY0UIDbGiKpiJ7SsK7H9gZbfNBG7uhMBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AkvakMRQOW32hvypVpJI7+RDc+NWSCygFcDVRjTuMF2IWze84EwT3DA7xX8zUtuvjkOpCFWNqI8PvV1F3jHjyG5xxntYOx+A4yGKdy87EOa1BzzdE9hrZ9D7QIAfBJKZIyvQeV4qa4mvPQAeFY3yjzGPqQcFTXp0msbnkzJqhGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxaGWxF3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFCW37jK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B221F0089B;
-	Sat,  3 Oct 2026 07:59:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxaGWxF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4E41F0089C;
+	Sat,  3 Oct 2026 07:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791014373;
-	bh=9EIcFLb+YrmmNcWC6f1tYu0S89BRAVqNIn6jBHgd39U=;
-	h=Date:From:To:Cc:Subject;
-	b=HFCW37jKJJtcHIUxrbs0X+9Qjq4hYtBrZuxuFklUWqDtNqH+V55rlxgK/uOtjMtlX
-	 Eodwo3IMYyg6m6yhQ4PQzN4AfP8E25tvfJ6O7DD8GNcpKSJ5sR04lCWPkpcqi8Gibn
-	 +PQFH9Da6QFnMmn1ubGibV5gwOu/6f5esCGLBXFTk+spev9lV/S7z9CZQ3ylk+sXnh
-	 oMWeX5QQwILSZEP77FIZeESNbQ9ZGvfsKf+vT7VnROvLL0YxGSB57ZaWYFEUmep5t0
-	 9xVOknypMZ/r6eqX0M/714DJK6eYKXtENOPOSBZ6pXs4XuxVcZtAqeYZJ9918L2ELb
-	 FNfTKfBPleRHw==
-Date: Sat, 3 Oct 2026 08:59:28 +0100
-From: Will Deacon <will@kernel.org>
-To: torvalds@linux-foundation.org
-Cc: catalin.marinas@arm.com, mark.rutland@arm.com, maz@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel-team@android.com
-Subject: [GIT PULL] arm64 fixes for -rc6
-Message-ID: <asC14CHKGoRQLv6n@willie-the-truck>
+	s=k20260515; t=1791014379;
+	bh=q9kqnwZJAXRfho77Yt6ZBil51mcAO7in4pebx6oB4fI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RxaGWxF3L4YTsdWVZArvggDDeEJeU5k2/xlxIc3gGpz9W2LTy5PnXLsH5+kmuA34l
+	 k8k51YV/fJQ4zDkpUft0AkWeshphy5QyCqQfcNbiUSKgGpciheKBpVzcofbgs97eE+
+	 wrOA+at67oZyPaecBMS1VaV3N/LOSsqgz2V6KBGkG3g4Ovu6kMPODYpET/eI9SE27J
+	 qSflSFBiZUZIj5pjUMyuBrQaWTon+QBk3OhV4WDI/09aTJJ+EEuygjRW4EYljdZ278
+	 U9nho+HEBe2izjuNJGGYvx0UqAnGrAKxpPaS9uwbTu330E801mo+wf4ghP1FOIUDDd
+	 yf8LCtugigeuw==
+Date: Sat, 3 Oct 2026 09:59:32 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: kexec@lists.infradead.org, Aditya Gupta <adityag@linux.ibm.com>,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mahesh Salgaonkar <mahesh@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shivang Upadhyay <shivangu@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v1 1/2] kho: check scratch vs CMA alignment at runtime
+Message-ID: <asC15ISMMbHMwnHi@kernel.org>
+References: <20260928083226.107807-1-sourabhjain@linux.ibm.com>
+ <20260928083226.107807-2-sourabhjain@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,68 +57,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260928083226.107807-2-sourabhjain@linux.ibm.com>
 
-Hi Linus,
+Hi,
 
-Please pull these arm64 fixes for -rc6. Half of it is broken hardware
-(AMU counters and TLB invalidation) and the other half is broken
-software (frequency scaling and signals). So it seems as though we're
-all as bad as each other.
+On Mon, Sep 28, 2026 at 02:02:25PM +0530, Sourabh Jain wrote:
+> KHO requires the scratch alignment to be at least CMA_MIN_ALIGNMENT_BYTES,
+> and this is currently enforced with a static_assert().
+> 
+> That assertion breaks the build on powerpc once CONFIG_KEXEC_HANDOVER is
+> enabled together with CONFIG_TRANSPARENT_HUGEPAGE or CONFIG_HUGETLB_PAGE:
+> 
+>     kernel/liveupdate/kexec_handover.c:49:39: error: expression in static assertion is not constant
+>        49 | static_assert(SCRATCH_ALIGNMENT_BYTES >= CMA_MIN_ALIGNMENT_BYTES);
+>     ./include/linux/build_bug.h:80:56: note: in definition of macro '__static_assert'
+>        80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+>           |                                                        ^~~~
+>     kernel/liveupdate/kexec_handover.c:49:1: note: in expansion of macro 'static_assert'
+>        49 | static_assert(SCRATCH_ALIGNMENT_BYTES >= CMA_MIN_ALIGNMENT_BYTES);
+> 
+> CMA_MIN_ALIGNMENT_BYTES depends on pageblock_order, which is not a
+> compile-time constant with certain configs, such as
+> CONFIG_HUGETLB_PAGE_SIZE_VARIABLE on powerpc. The next patch in this
+> series enables KHO on powerpc, so the alignment must be checked at
+> runtime instead.
+> 
+> Replace the static_assert() with a runtime check at the start of
+> kho_reserve_scratch(), before any scratch memory is reserved. If the
+> scratch alignment is smaller than the CMA minimum alignment, warn once
+> and disable KHO rather than continue with a misaligned reservation.
 
-The AMU workaround is a little noisy, as it refactors an existing
-workaround so that it can more easily be applied to additional CPUs.
+Can we keep static_assert() for everything !powerpc please? 
+Like something along these lines:
 
-See you next week,
+#ifndef CONFIG_HUGETLB_PAGE_SIZE_VARIABLE
+#define check_scratch_alignment static_assert(...)
+#else
+static inline bool check_scratch_alignment()
+{
+...
+}
+#endif
 
-Will
+ 
+> Cc: Aditya Gupta <adityag@linux.ibm.com>
+> Cc: Alexander Graf <graf@amazon.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Baoquan He <baoquan.he@linux.dev>
+> Cc: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+> Cc: Hari Bathini <hbathini@linux.ibm.com>
+> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+> Cc: Mahesh Salgaonkar <mahesh@linux.ibm.com>
+> Cc: Michael Ellerman <mpe@ellerman.id.au>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Nicholas Piggin <npiggin@gmail.com>
+> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+> Cc: Pratyush Yadav <pratyush@kernel.org>
+> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Cc: Shivang Upadhyay <shivangu@linux.ibm.com>
+> Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linuxppc-dev@lists.ozlabs.org
+> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> ---
+>  kernel/liveupdate/kexec_handover.c | 23 +++++++++++++++--------
+>  1 file changed, 15 insertions(+), 8 deletions(-)
+> 
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 7c4d86daf86d..dc76dd6b74da 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -39,15 +39,7 @@
+>  #include "../kexec_internal.h"
+>  #include "kexec_handover_internal.h"
+>  
+> -/*
+> - * This is the minimal alignment required by deferred struct page init.
+> - * deferred_init_memmap_chunk frees memory to the buddy allocator, which looks
+> - * at the neighboring pages (up to MAX_PAGE_ORDER) to merge them.
+> - * If KHO scratch is not aligned to that value, buddy can access uninitialized
+> - * struct pages, which can cause a crash.
+> - */
+>  #define SCRATCH_ALIGNMENT_BYTES (PAGE_SIZE * MAX_ORDER_NR_PAGES)
+> -static_assert(SCRATCH_ALIGNMENT_BYTES >= CMA_MIN_ALIGNMENT_BYTES);
+>  
+>  /* The magic token for preserved pages */
+>  #define KHO_PAGE_MAGIC 0x4b484f50U /* ASCII for 'KHOP' */
+> @@ -836,6 +828,21 @@ static void __init kho_reserve_scratch(void)
+>  	if (!kho_enable)
+>  		return;
+>  
+> +	/*
+> +	 * This is the minimal alignment required by deferred struct page init.
+> +	 * deferred_init_memmap_chunk frees memory to the buddy allocator, which looks
+> +	 * at the neighboring pages (up to MAX_PAGE_ORDER) to merge them.
+> +	 * If KHO scratch is not aligned to that value, buddy can access uninitialized
+> +	 * struct pages, which can cause a crash.
+> +	 */
+> +	if (WARN_ON_ONCE(SCRATCH_ALIGNMENT_BYTES < CMA_MIN_ALIGNMENT_BYTES)) {
+> +		pr_err("scratch alignment %lu < CMA minimum %lu, disabling\n",
+> +		       (unsigned long)SCRATCH_ALIGNMENT_BYTES,
+> +		       (unsigned long)CMA_MIN_ALIGNMENT_BYTES);
+> +		kho_enable = false;
+> +		return;
+> +	}
+> +
+>  	scratch_size_update();
+>  
+>  	/* FIXME: deal with node hot-plug/remove */
+> -- 
+> 2.55.0
+> 
 
---->8
-
-The following changes since commit 2bc6b218717b9d08f466f88209251d54bc09b207:
-
-  arm64/boot: Disable trapping of PMZR_EL0 writes to EL2 (2026-09-23 12:34:30 +0000)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git tags/arm64-fixes
-
-for you to fetch changes up to e060d9069b49fe55f38057dfe592068014652671:
-
-  arm64/fpsimd: signal: Forbid non-streaming SVE payload on SME-only systems (2026-10-01 15:45:23 +0000)
-
-----------------------------------------------------------------
-arm64 fixes for -rc6
-
-- Fix handling of CPU erratum #2645198 when batching pte updates
-
-- Fix truncation of CPU frequency calculation by using 64-bit arithmetic
-  in arch_freq_get_on_cpu()
-
-- Work around AMU erratum #3821522 on Cortex-A725
-
-- Fix panic when trying to restore an SVE sigframe on a CPU that only
-  supports SME
-
-----------------------------------------------------------------
-Andrea Parri (1):
-      arm64: mm: Fix the break-before-make flush range for erratum 2645198
-
-Beata Michalska (2):
-      arm64: errata: Factor out broken AMU const counter cap
-      arm64: errata: Add Cortex-A725 erratum 3821522 workaround
-
-Mark Rutland (1):
-      arm64/fpsimd: signal: Forbid non-streaming SVE payload on SME-only systems
-
-Oleg Keri (1):
-      arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
-
- Documentation/arch/arm64/silicon-errata.rst |  2 ++
- arch/arm64/Kconfig                          | 30 +++++++++++++++++++++++++
- arch/arm64/kernel/cpu_errata.c              | 24 +++++++++++++++-----
- arch/arm64/kernel/cpufeature.c              |  2 +-
- arch/arm64/kernel/signal.c                  | 34 +++++++++++++++++------------
- arch/arm64/kernel/topology.c                | 22 +++++++++----------
- arch/arm64/mm/mmu.c                         |  2 +-
- arch/arm64/tools/cpucaps                    |  2 +-
- 8 files changed, 84 insertions(+), 34 deletions(-)
+-- 
+Sincerely yours,
+Mike.
