@@ -1,266 +1,384 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011063.outbound.protection.outlook.com [40.93.194.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3B62F3632
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790988659; cv=none; b=eMuV/rWDPErcC0HUvWtK7qW1vuv9EF1V0cdbVvgH0BzV2XDwkd6GbndzcYxu7CfWCkAJnif7dkgsM0yDK1LfnJ2ebZ54IJFQXT9psxlQZ50cBIADyKKlwx/QP0JCdL+xRvSzL0VKRqi06mRaDGhYKvBG3fgC2Bp5KFMynkPAesY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790988659; c=relaxed/simple;
-	bh=fHvmDL9Rg8az1wjENxOyw+dnD1gJ5gazjd6XWh7FwO4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=I9YMHwbHqppdZPFNEEYR/EqOIZt9sOdOap75N2OW63LWSJ+MqrxkyHLwL/hIqWda6zq+OYO+89avEwSmXtelaDLtxa/sfc0igNTYce84BRa3CW9NLcMAnvJqXFYTZto0N8abyCIj1td+pdnWc2peHBdS40vrQikWXYOeLhxTYI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Yxca4qjA; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0388565192;
+	Sat,  3 Oct 2026 00:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790988657; cv=fail; b=NjRbyX8/WvsurIyBMhG0LYOI4eEqpgiZqDDjayyO1TWniQaRCYuJvxJcETfJcZsNS0NNBg9k6avc5cjZ4CG+0su5iAHLMe7/9M/TfeReNWdoTjVqRQuj3rYVX/vvFVvriDD2+1bd+zLqr4Hc39vc4YPAlBuDbqaXbKh4Pnl7Lqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790988657; c=relaxed/simple;
+	bh=oLP3wAM0QaJyq37zx5g3R9x7yeBx8EwmfQFvu8tf+fQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=OVcP3OupRIVFry5lLPTeiCCgYopE1MX8tbynujdcoZY8WjBtuFNGYVjURnYQL9foEsf1sFYYz1eqt0npXLJkaW1HXg4RLhaTaUoFCkpXX/DSB2VWHOYESJUfOJD+6P/KlimtMf98zqfHi2/VsV9eYvQv11eGtfqh3UA1+x9f370=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fbZoUFyh; arc=fail smtp.client-ip=40.93.194.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Yxca4qjA"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d3b445a84fso5385ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:50:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790988654; x=1791593454; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uhiZmVtW9NaeDOXqJJN58cJlU9iYxcpc0LuITj+6LgU=;
-        b=Yxca4qjAaI2twGmy4uijY+rLdxqDwa6ba06Dp6zINchIDQqOy3Loxen1J+2TfSO85J
-         UWLKE4xQmYRklXCpVy8RCMC8DvNGZDgWIskF9Vlk/rpMm2jE4efd/1GjotOvVU9gdKTk
-         FlzNplGdM6Yuqy03byCjN+uTS6/W4K2M8I5KajEG/KiqCQXrJQfy1Uq4hckBLbSehgTs
-         pHkzhIHHZiQw6nCKHkwnNdECWsG61mjAorntBWbzmJYi4UBh/6uj4dnkQlIaaSR83cv2
-         PWM7T9DVtVBRYN0kqZf1Cq4sbaG57nqq5A3zPiOE9LrUmoC21OZeVuXtFvjhP5Z4xBWZ
-         OrMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790988654; x=1791593454;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uhiZmVtW9NaeDOXqJJN58cJlU9iYxcpc0LuITj+6LgU=;
-        b=xLCebxuEEF7FDZabxcdT2/Wl1vM3K+Ayug4p4xIinNXUcZvLte8Ovmz6TMdeztqzXk
-         mbHBTCv+n/DQOJaKsZa9kRCIQQ+TGBy9Xn2H/cn05kMkqk/8R3u6RQVkNwb8jLB7wFQO
-         jeNgJUT4/jwinWkv3z2gkW3OGgriZSroc8DstubGtk7Ke4sGwJm/Jgrq9/gaEDZT+CNu
-         iiPvG1TygnqippwDFNG3QXjIwWI/Xpx0O5ePQ/Qw+/fOd97OE94tMXl/gNY+LPyCZtUw
-         FZ7o40g9MqjogOnCrEqm0wXOFpypIenSIyAOvEupJnx9cCsgVcex0SwbqqRbxZVzSQGZ
-         5nCg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPwvgRvP8MTT0yj15TCSQSyBvRJ0d2wGeOKHXvuhDKBWrjZRWNbuYJRSROP1HQLuaUW450Bjr/0hfMs/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4+duhXYkBZ7rx8PEXk4DCQ4m3xQyn0Yi797ifTgVu33K8rqzM
-	49j4fYoUGhEP/VRJrthlp8NkfpabC4qBKihz2jaYb5Z7nyWgDRp4Umm1gjDvbdI6Dw==
-X-Gm-Gg: AYBFou2ukzmMPCdP10mmlcTRztcxf3+oiXbWx8OAmOdjwySTrekVZ4BCw4+DB6U2GsW
-	xfZJZ7mlEjyzqxntpXszysSOodAhCDDnh0p9uLGf+ie+rLzD2A9YAsaHY30ynZPw8B0OJc67q8z
-	2WMS2OU2OGF6d3mjTmGPgFLHHFZWsEu2qYKaoNga5kO9Nly7c9uXcYoCj0Vt88xfOZzfXq2qoeZ
-	PdpfWy8d3sA4yGFdEaaAm8//sK/FzSrxFUMSMMlSruRo/bTSyy/gQLeqYk6BWN5KJpaiTzcQ5nS
-	ushZuulrUX+1zZDoKKD5pkGxNoWnUTEXTSqXkMET7UFsv63zI8t8m45ufMXU4ksJnFPi/tXv3bv
-	p4CJb0Jq/fGSZf2xMsl04pp5T4z/VmGc/T1EdZxbRQlaGPp7qvk1Imm1mj3r+agXIabnTPhR9Pj
-	8HbhiaRGSIqJ4BrG19bSV6+W2lAPsgjhHotZmrDmBjkZiQjNYc/fRR374CG/wwoMeVHrBxp5I72
-	NFwjM83k5miggLXMfSoSzH5Y3lUPaOVBtO2vhVCb5MWOpjkoGm9EgogCetGNw/gSrcK7FS7iXV7
-	x3/pA3psXI3VawIN0g8EGhBdU1PPmI/pB+jOLhVR4wJ4lpwMhz51Is4BBiaCmEjxddi+ogL4cA6
-	uDdKVTRJixSYynEk=
-X-Received: by 2002:a17:903:2312:b0:2e2:dfb8:8184 with SMTP id d9443c01a7336-2e5339613f9mr1485685ad.11.1790988652992;
-        Fri, 02 Oct 2026 17:50:52 -0700 (PDT)
-Received: from [2a00:79e0:2eb4:9:b188:21e:8df9:36e4] ([2a00:79e0:2eb4:9:b188:21e:8df9:36e4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d661ef5sm781639a91.5.2026.10.02.17.50.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 17:50:52 -0700 (PDT)
-Date: Fri, 2 Oct 2026 17:50:51 -0700 (PDT)
-From: David Rientjes <rientjes@google.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-cc: Andrew Morton <akpm@linux-foundation.org>, 
-    Christoph Lameter <cl@gentwo.org>, Vlastimil Babka <vbabka@kernel.org>, 
-    Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org, 
-    linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: Re: [patch v4] mm: vmstat_kunit: add synthetic benchmark for vm
- stats
-In-Reply-To: <e72f2134-94d8-41c8-a859-b12357222d95@kernel.org>
-Message-ID: <915d8d8d-1813-3585-9cfb-acb536188a1e@google.com>
-References: <cfc1edae-8aaa-8fd0-95de-af3d4774c6dd@google.com> <e72f2134-94d8-41c8-a859-b12357222d95@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fbZoUFyh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cTdMxwVsyQahp8TKXStjOXAQg8jb5lSQqUPYHWGtWuNXR5bKo5dfJbzpJRKdrEIT8lKFl2w0ne7kdlOj756iME+7gttraaI25uDMFcZVZRldqnwAex8UnWHH1wThYQOoGHdknhBc7GPWmtu8hX8sq3D0DOItl5Y25Gresofxq5QGO2ndRrL5Xb2YkeR4VoRZgNIm4BISDEeeWcf7bWIcqFJ5ILIUJpaTN7/0dcnAt+8Lq9Dwa9v2UydqZG9yF/tFV+994srUIWAU/gxXKzKAQ/8+6RhRAkAEW2nJqBWmNx4xBPvwsAiYfdJk9bEZBy4xZXaW9rfAZH/YSsAK5sNDMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C0rA21nyr+/R45+iLsqYv6BDhTxA70BxAEc53F8ZQrU=;
+ b=fEeoFdEaGxrNQfuUqAqp6OXQ2T7xE4GeWef0uJd+3bvBUnBQ0zWkBPkTUwtIWClWctp0DgcVoFheZN3hm5vtjaL+utSx5SY/qRAunezs0yi1jRkCqgawNEey3nD1O/nYVAl/7pvVNAa7IaK4D4CBFjJvMllk7Lo9/dCNUfSfSfVOkmk5QpLcoFaWVXjQTY+Z7mIsbj0M2K9b0u/7HGsZ7FrWVl8qLdHy3ubrxsU0BWtrgJXWGFznMN3EVNhab2P9wdhFjnkHRhmc/csng3dwgkQo6tAw3dCX1U2KZtFjbCleVlJa4axnvI6p6/x6W0Lqz/yZp1c39QYRtkXqgX86Ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C0rA21nyr+/R45+iLsqYv6BDhTxA70BxAEc53F8ZQrU=;
+ b=fbZoUFyhZfdYf/muSXX3q9YjR/N9caY9SlJ15o2GMpbXHjLPKKQw1lb86CN3s0JPZSHcNNhPE3FXvMiGPYpevAEa36I1R8cXIthY5caMEf7lX6SazGSuzeZLnYvielCJqf/hKVGcrrZ1aI8gZb3Rf906Kb1nf0mfyLJSCSskEG1aBYbumF6dtIrmkVrrbizWGO13mTOnRkjHYMS/DgEyet1FIACp247rKGMAAKY6yRpq5KbZdwtTSFDLiVuA3Ysi0S9aoJ04Cp6NSgzRvti2QVwhmBXxVBbS+rbMmAxwFIutG1tuXJ6ZqV2dEIajPZQBQYPEVeLYbE3KF2v1mZBsGQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY5PR12MB6479.namprd12.prod.outlook.com (2603:10b6:930:34::17)
+ by CH3PR12MB8755.namprd12.prod.outlook.com (2603:10b6:610:17e::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Sat, 3 Oct
+ 2026 00:50:41 +0000
+Received: from CY5PR12MB6479.namprd12.prod.outlook.com
+ ([fe80::229a:704f:1349:5056]) by CY5PR12MB6479.namprd12.prod.outlook.com
+ ([fe80::229a:704f:1349:5056%4]) with mapi id 15.21.0472.015; Sat, 3 Oct 2026
+ 00:50:41 +0000
+Message-ID: <fe301e2c-504b-42dd-954e-a133a54aa0ce@nvidia.com>
+Date: Fri, 2 Oct 2026 20:50:39 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] softirq: Preserve interrupt context during IRQ exit
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Boqun Feng <boqun@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, Bradley Morgan <brads@mainlining.org>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev
+References: <20260930191432.62760-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20260930191432.62760-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR05CA0057.namprd05.prod.outlook.com
+ (2603:10b6:208:236::26) To CY5PR12MB6479.namprd12.prod.outlook.com
+ (2603:10b6:930:34::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6479:EE_|CH3PR12MB8755:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab51deb8-5b29-41cb-71e9-08df20e8593b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|366016|1800799024|376014|10067099003|56012099006|5023799004|6133799003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	TC7E60qeBeu1zDZ6zt6ylsywlEVDkJW2dSdUrb+LnWfrYjHtI0OFQ1VothDn0YIBuki3+YuUqJrKexlG81RQPQqtHiFDWHzvtuG00Me9E/0ju0N2+1SW+HTn3+TCHF93VytqWMqq2/1TLt3NRm7g7S1qiDNMnZYT+Y0rnKun6ZLoROQkDjd+MSjTOnbsyklGYSY+ltDSEGlc9/y1/XAy+s+81KecX8FSCg7OWvLu9s9YKyIaVCbnJMtAurlW1hRYJLhM4TKrtzQzkz9n6L9BWB9oT2bE0acvEVzQLpkiOPK+XHf0n6VcchM6Bbz30Xj/mCg7WjZKv/YygBm+7kBp5RAqvmO3rlbyqOFEMclPCVkpfpEDndTixPzPXRm0YOILMorrUA91CCayNAPNjlil0b35drQCPdwpOI8wkrW2QawHPsmKp8tc1DROSRzqVAYq/Mtdz0qNAoucwY+GgdnS2fWyGXrWzxNNOPtHPzyNBl9RbP3xv8RIkpOWQCExgLPd9W1rD4AUWo6AD8610vYxz1ByQLaiV0QA70UrmeU6ISLxvL6UW4u3GWUP5Z+Bu0yge2Mpen8/CRLxYv5tIo0O2SM4DGU7xl3RwFQqMsFPz6eLxEFJ/4CE4u32ZZgWIeTNud0+NrM15O/l3rvCbvNWmSELErHsKNzCbx2NEcrSwGI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6479.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(5023799004)(6133799003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dlo0QVF4bnVOZGlHUkhENGtSSGFzS3pzL0JocHpZRUxDU0lCTXBUVFMxN3d0?=
+ =?utf-8?B?dm5TYmVmSGpFeThZay9KaXM0eWJkTkdIVHBlMHM1dXp6OGFMMHkwWnNUTXkx?=
+ =?utf-8?B?NGlqeHo0ZHp5SGtQTmh4bHVuR1hhOVNmMGxOazF6SkNrUUZOV2UxUVhWNnhh?=
+ =?utf-8?B?K3IwS3BLVFVkdWpHaS9kQ0RoN3gzYmxWcDVWTWNQWUhpd3hYWWlZM3Uxektm?=
+ =?utf-8?B?SC9mb21xd0gxZ2VNd1NZQmR6WWc5K0hlYTZ5RzVYY3dzVGc2Sjd3ZnFCelpn?=
+ =?utf-8?B?ejh2M1JzaDIxbjRHL1c5cUJEenhvcndqNzRDeHF0SlRhTGNBNXhRWFUzNXUv?=
+ =?utf-8?B?SG1CZU1xMWhxZzlVT1Q2bWlJR1FxNElzSkJjSWtEUEtwdndueERFOE9vT241?=
+ =?utf-8?B?SFpmak5yMnExMFV1SURrTDhjd2t4ZmcyVWJGNCtYUURQWjRZTk1wcnNzdHNN?=
+ =?utf-8?B?NUpEZFZ3M0FGVGpCc0NWTHJDLytsMHJiazRxdHdvVUF0dGZWM2cwenhVaExW?=
+ =?utf-8?B?Z091NURLYWdpd013R1ZHZUZsVHVKMWt6c0oxejgvK0ROeE90ME9RbDJzbFRo?=
+ =?utf-8?B?UEE4SGhvam00d1dYbk1XbnFEbGxzcXRwNlpPeDk0VGMwbzZTd0ZxekdHLzFU?=
+ =?utf-8?B?TE53NE12WExNSS9zaUdYdFlWaGh1MFNCSUZZVmJTY21PRnpieG5qcXRPc0Jo?=
+ =?utf-8?B?djh3cUNPMUxnUkhvVTVGNXJrbVVJdUtuNi9kMGx0M1hwK0NQZjdXUU5iNUJ6?=
+ =?utf-8?B?ZEdQYytrVnF6VXlFbFVTTkcxZnFJYUorM1NwQlVzaGNTVkROR0xjSmdoMEpG?=
+ =?utf-8?B?aDBZUEpKekNmR0srS1RBUzFHU1hoS2NEMzNVeHY0RG9kUHpIVWFsMzZ4bU52?=
+ =?utf-8?B?VFRRcHdkaHFBZDhRYThLU0RPYzhINjdackZtUTFveG1TRmRnMEdPTTNMb3R6?=
+ =?utf-8?B?YngwcHVKeEZ5T3czTm5vOGNTdlBKUVhNTE45K3E3NktXRFBid0hGY0N1RGRM?=
+ =?utf-8?B?MzdLTVhrOGdPOUQ3c0hPdTRjVU5jWVFydXIrcXdOcnNwaFl3ekNaU2Ziclor?=
+ =?utf-8?B?YXFLOStvd3JQWi93c0VEcDZ4Q3VkL2N6bHlMeVlRUEM2ZmoxY1JTcm1KS0lS?=
+ =?utf-8?B?RzBhS3IraDlZQ2NEWkhUM0VTaStsYUk0eTl4RHBRUGNRTGEvOUhCTE1PV3hS?=
+ =?utf-8?B?Yk1FNUpJVWlBNG1RcXZmbExNSGlhVmZFSGl0WkcwTzZZWCt2eHUwUEM1bzdr?=
+ =?utf-8?B?YnlHTWtEb3MvSnFNaVZSMlBwcW9tZWp2ZTVEcVQzNnJFWW1lTWNoR0srRzJh?=
+ =?utf-8?B?SHZqOE1WSTUxRFEvSmFVcGNZbUdIZVAxUHVwVUV1Q01XMVZ6M2JpdWNZcVNJ?=
+ =?utf-8?B?NjVlOGVHVzJxS24rVFhMME9lQUZCSDd4dW5FbWd4WDY2TzhJMEZrVENyYkdK?=
+ =?utf-8?B?WkdGUUs1M0FHZ21NZ0pDZ0tnSVlreTE0eC9RbExrMm9XSXZLSld3Kzh0aC9B?=
+ =?utf-8?B?c1hHaXNDUFUzNzRnVW1VaWlTQ2JLbm9iWG5mZW1IcmJuSXJXZnUwQzhMR1g2?=
+ =?utf-8?B?U0JKQ2F0SnFXNVQ1SlBZMzF5VlVueHp4V3VaV1FOSlczRFpDZlBTZDBCUDhN?=
+ =?utf-8?B?MlpMTW82UmtHQlE4eG9wOHd5b2s4a3FYZnY0b2daZDAyNmprZXZZVytQc1l0?=
+ =?utf-8?B?Y3dhSmVtdkkwaGo5cXJOb2FiY3Z4ZHR0aEoweWYyVmFOckJEN1hZVTFyeHkx?=
+ =?utf-8?B?WDNkNTJ5VEhBUW8zaFlYVGJKbkVsL0RiREVMR2JtNGZKcFhtekI3Q2lMV3NH?=
+ =?utf-8?B?U0hIMS9UdUcvRytNUTVjVXZZaFh5d3dVRkxMbVB6Y0dGK0VQVEttcWVQRUli?=
+ =?utf-8?B?NWN3dHhKaEg0MENxd2NTTjV3NmVCVlVyZHZXT3AvYXNuZmw4WE5YYTJBYTV2?=
+ =?utf-8?B?TnFEVnFiWjVGSk9yQUFHSE9NbWllMEVHMmczdUh5MHFjRW5MQTVKbnRwdE9O?=
+ =?utf-8?B?cmxFbzNmcVB1eVp4djRNdXVHYTRHbUVhOVZvOHlUN3FtT0VXdzVRQXRuM3NW?=
+ =?utf-8?B?QjMrcFBDZml6bk5ZUzAvMTQ2emltak1KVnNselN1bEQvdXZpR1c4ZG1oUlFC?=
+ =?utf-8?B?SXdCdFVvUzRlWmtjMW9id09GMGZFa2dpRk85aS81eitKV3BZMnVxdkt3TEM5?=
+ =?utf-8?B?VzRFMWIwOHFmb1hzelh4UWFzajFMb1J6SVNubEQ3R21TTnZUcDVrVC82UWs1?=
+ =?utf-8?B?UnJyV3FYTnZ0MTBNMzhndGttQ3ZUNDJmbDV5NU9YWXRhM2Z2SzZPdXpleVpW?=
+ =?utf-8?B?ZmdQSkFYeksya0U1SWNyL0pPd3pIcDRTYWZMSXNVV2J4S3EzekhpQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab51deb8-5b29-41cb-71e9-08df20e8593b
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6479.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2026 00:50:41.2949
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mmoOlnpDHPs3YuJm7kaiUEISncS+ZsCbmfLYVkXs7x8xGxreaqJ7KfXEKU4AgTHIQYsDAeXlPH5Y++CnTe5h7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8755
 
-On Mon, 28 Sep 2026, David Hildenbrand (Arm) wrote:
 
-> On 9/18/26 22:39, David Rientjes wrote:
-> > From: Christoph Lameter <cl@gentwo.org>
-> > 
-> > Add a synthetic benchmark that can be used to measure performance of VM
-> > statistics.  This is used to analyze any improvements or regressions in
-> > functions that are frequently used in hot code paths.
-> > 
-> > The test is run by KUnit or doing modprobe vmstat_kunit directly.
-> > 
-> > Sample output:
-> >  KTAP version 1
-> >  1..1
-> >  KTAP version 1
-> >  # Subtest: vmstat
-> >  # module: vmstat_kunit
-> >       1..3
-> >       # vmstat_test_inc_dec_zone_page_state: 10000 ops: inc_zone_page_state -> 8 cycles (4 ns/op), dec_zone_page_state -> 9 cycles (4 ns/op)
-> >       ok 1 vmstat_test_inc_dec_zone_page_state
-> >       # vmstat_test_interleaved_zone_page_state: 10000 ops: inc/dec pair -> 17 cycles (8 ns/op)
-> >       ok 2 vmstat_test_interleaved_zone_page_state
-> >       # vmstat_test_count_vm_event: 10000 ops: count_vm_event -> 4 cycles (2 ns/op)
-> >       ok 3 vmstat_test_count_vm_event
-> >  # vmstat: pass:3 fail:0 skip:0 total:3
-> >  # Totals: pass:3 fail:0 skip:0 total:3
-> >  ok 1 vmstat
-> > 
-> > Assisted-by: Gemini:gemini-3.8-flash
-> > Signed-off-by: Christoph Lameter <cl@gentwo.org>
-> > Signed-off-by: David Rientjes <rientjes@google.com>
-> > ---
-> > v4:
-> >  - included sample output in the commit description
-> >  - switched to NR_MLOCK which is display only so no side effects
-> >  - remove unnecessary "rem" variable
-> > 
-> > Once we're happy with this change, I'll apply the same treatment to the
-> > proposed pgalloc and slab tests.
-> > 
-> >  MAINTAINERS             |   1 +
-> >  mm/Kconfig              |  11 +++
-> >  mm/Makefile             |   1 +
-> >  mm/tests/vmstat_kunit.c | 157 ++++++++++++++++++++++++++++++++++++++++
-> >  4 files changed, 170 insertions(+)
-> >  create mode 100644 mm/tests/vmstat_kunit.c
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 3b2eb2a7a89a..de09076d91b9 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -17161,6 +17161,7 @@ F:	mm/ptdump.c
-> >  F:	mm/sparse-vmemmap.c
-> >  F:	mm/sparse.c
-> >  F:	mm/sparse.h
-> > +F:	mm/tests/vmstat_kunit.c
-> >  F:	mm/util.c
-> >  F:	mm/vmpressure.c
-> >  F:	mm/vmstat.c
-> > diff --git a/mm/Kconfig b/mm/Kconfig
-> > index 604c58199acb..2d021fb5ace6 100644
-> > --- a/mm/Kconfig
-> > +++ b/mm/Kconfig
-> > @@ -1511,6 +1511,17 @@ config LAZY_MMU_MODE_KUNIT_TEST
-> >  
-> >  	  If unsure, say N.
-> >  
-> > +config VMSTAT_KUNIT_TEST
-> > +	tristate "KUnit test for VM statistics" if !KUNIT_ALL_TESTS
-> > +	depends on KUNIT
-> > +	default KUNIT_ALL_TESTS
-> > +	help
-> > +	  Enable this option to test and benchmark the performance of VM
-> > +	  statistics updates (zone page state and VM event counters), which
-> > +	  are used frequently in hot memory management code paths.
-> > +
-> > +	  If unsure, say N.
-> > +
-> >  source "mm/damon/Kconfig"
-> >  
-> >  endmenu
-> > diff --git a/mm/Makefile b/mm/Makefile
-> > index e7245cb88c66..3d4f2c43b8d3 100644
-> > --- a/mm/Makefile
-> > +++ b/mm/Makefile
-> > @@ -147,4 +147,5 @@ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
-> >  obj-$(CONFIG_EXECMEM) += execmem.o
-> >  obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
-> >  obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
-> > +obj-$(CONFIG_VMSTAT_KUNIT_TEST) += tests/vmstat_kunit.o
-> >  obj-$(CONFIG_MEM_ALLOC_PROFILING) += alloc_tag.o
-> > diff --git a/mm/tests/vmstat_kunit.c b/mm/tests/vmstat_kunit.c
-> > new file mode 100644
-> > index 000000000000..899c957091d1
-> > --- /dev/null
-> > +++ b/mm/tests/vmstat_kunit.c
-> > @@ -0,0 +1,157 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/*
-> > + * KUnit synthetic performance benchmark for VM statistics.
-> > + *
-> > + * (C) 2009 Linux Foundation, Christoph Lameter <cl@gentwo.org>
-> > + * (C) 2026 Google LLC, David Rientjes <rientjes@google.com>
-> > + */
-> > +#include <kunit/test.h>
-> > +#include <linux/mm.h>
-> > +#include <linux/vmstat.h>
-> > +#include <linux/timex.h>
-> > +#include <linux/ktime.h>
-> > +#include <linux/math64.h>
-> > +
-> > +#define TEST_COUNT 10000
-> > +
-> > +static void vmstat_test_free_page(void *arg)
-> > +{
-> > +	__free_page((struct page *)arg);
-> > +}
-> > +
-> > +/*
-> > + * Test 1: Sequential inc_zone_page_state() followed by dec_zone_page_state().
-> > + * Net change to zone counters is 0.
-> > + */
-> > +static void vmstat_test_inc_dec_zone_page_state(struct kunit *test)
-> > +{
-> > +	struct page *page;
-> > +	cycles_t time1, time2, time;
-> > +	u64 t1_ns, t2_ns;
-> > +	u64 inc_cycles, dec_cycles;
-> > +	u64 inc_ns, dec_ns;
-> > +	unsigned int i;
-> > +
-> > +	page = alloc_page(GFP_KERNEL);
-> > +	KUNIT_ASSERT_NOT_NULL(test, page);
-> > +	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, vmstat_test_free_page, page), 0);
-> > +
-> > +	/* Benchmark inc_zone_page_state() */
-> > +	time1 = get_cycles();
-> > +	t1_ns = ktime_get_ns();
-> > +	for (i = 0; i < TEST_COUNT; i++)
-> > +		inc_zone_page_state(page, NR_MLOCK);
+
+On 9/30/2026 3:14 PM, Karl Mehltretter wrote:
+> On the return from interrupt path, __irq_exit_rcu() removes
+> HARDIRQ_OFFSET from the preemption counter at the very top of the
+> function. Everything after that reports the current context as task
+> instead of hard interrupt. The code in the function itself, such as
+> invoke_softirq(), is aware of this and does not rely on the counter.
+> Everything else which derives the context from preempt_count gets it
+> wrong in that window:
 > 
-> Just curious, could some compiler optimizations here change the picture, and
-> doing the average would not actually be representative? Not sure if a barrier()
-> would reliably avoid that.
+>   - ftrace, perf and the ring buffer record task context and use the
+>     task recursion and context slots.
+>   - KCSAN attributes the accesses to the interrupted task, KMSAN uses
+>     and changes its state. KCOV and the printk caller id see a task.
+>   - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
+>     interrupt context to avoid interfering with PI when the interrupted
+>     task is blocked on a lock. That check does not reject calls made in
+>     this window. BPF programs attached to sched_waking or sched_wakeup
+>     can reach it through kmalloc_nolock().
+>   - An oops kills the interrupted task instead of ending in "Fatal
+>     exception in interrupt".
 > 
-> Maybe not relevant today, but I do wonder if we should take care that it stays
-> that way.
+> Tracing and the sanitizers see the wrong context in this window. No
+> failure caused by this misclassification is known. The early removal of
+> HARDIRQ_OFFSET predates git. lockdep is not affected because
+> lockdep_hardirq_exit() is the last operation in irq_exit().
 > 
-> Applies to all cases below where we loop.
-> This looks much cleaner to me, thanks!
+> Keep HARDIRQ_OFFSET until right before tick_irq_exit(), which needs
+> in_hardirq() to be false for the outermost interrupt. Softirq handlers
+> must not run with HARDIRQ_OFFSET set, so softirq_handle_begin() replaces
+> it with SOFTIRQ_OFFSET and softirq_handle_end() reverts that, each in a
+> single raw preempt_count update. The raw operations keep the preemption
+> disable location recorded by irq_enter_rcu(), and lockdep is updated by
+> hand. softirq_handle_begin() detects the case with in_hardirq() because
+> __do_softirq() is reached through the stack switch in
+> do_softirq_own_stack() and cannot take an argument.
 > 
+> The checks run before HARDIRQ_OFFSET is removed. !in_interrupt() becomes
+> irq_count() == HARDIRQ_OFFSET, as in irq_enter_rcu(). The timer thread
+> check becomes (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET. It does
+> not test softirq_count(): the timer thread must also wake when the
+> interrupt hit softirq processing or a section with BHs disabled.
+> A softirq raised in the timer thread wakeup is handled by the timer
+> thread, which handles all pending softirqs.
+> 
+> A softirq raised from a tracepoint on the final preempt_count_sub()
+> waits for the next interrupt exit and can trigger NOHZ tick-stop
+> warnings meanwhile. That is not the normal path and does not justify a
+> check on every interrupt exit. A tracepoint on tick_irq_exit() already
+> behaves the same way.
+> 
+> The number of preempt_count updates and the interrupt time accounting
+> are unchanged. The preemptoff tracer now reports the interrupt and the
+> softirq processing on top of it as one section, and function graph with
+> nofuncgraph-irqs also skips the interrupt exit work, including the
+> __do_softirq() frame.
+> 
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> ---
+> 
+> Notes:
+>     Changes in v5:
+>     - Timer thread wakeup: merge the NMI test into the hardirq test,
+>       (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET (Sebastian).
+>     - Add Sebastian's Reviewed-by, given on v4.
+>     - Rebase on v7.3-rc5. The two touched files are unchanged since rc4.
+>     
+>     Testing: v5 differs from v4 by that one expression. Both forms agree
+>     for all 2^32 preempt_count values and at the real site on every IRQ
+>     exit in four QEMU boots (arm64, arm32; plain and threadirqs; 1.1M
+>     evaluations). gcc 15 emits one conditional branch less on x86-64,
+>     arm64 and arm32; clang 22 on arm64, and 16 bytes less on x86-64. On
+>     v7.3-rc5, base against v5 in QEMU on arm64 (virt, SMP, lockdep) and
+>     arm32 (versatilepb, lockdep): boot and stress, nothing on v5 that the
+>     base does not show.
+>     
+>     v4: https://lore.kernel.org/r/20260926143505.66024-1-kmehltretter@gmail.com
+> 
+>  Documentation/core-api/entry.rst | 16 +++++---
+>  kernel/softirq.c                 | 65 ++++++++++++++++++++++++++------
+>  2 files changed, 63 insertions(+), 18 deletions(-)
+> 
+> diff --git a/Documentation/core-api/entry.rst b/Documentation/core-api/entry.rst
+> index 79fdaed954d9..ff3df997b151 100644
+> --- a/Documentation/core-api/entry.rst
+> +++ b/Documentation/core-api/entry.rst
+> @@ -197,8 +197,9 @@ return true, handles NOHZ tick state and interrupt time accounting. This
+>  means that up to the point where irq_enter_rcu() is invoked in_hardirq()
+>  returns false.
+>  
+> -irq_exit_rcu() handles interrupt time accounting, undoes the preemption
+> -count update and eventually handles soft interrupts and NOHZ tick state.
+> +irq_exit_rcu() handles interrupt time accounting, handles soft interrupts if
+> +possible, undoes the preemption count update and finally handles the NOHZ tick
+> +state.
+>  
+>  In theory, the preemption count could be updated in irqentry_enter(). In
+>  practice, deferring this update to irq_enter_rcu() allows the preemption-count
+> @@ -207,10 +208,13 @@ irqentry_exit(), which are described in the next paragraph. The only downside
+>  is that the early entry code up to irq_enter_rcu() must be aware that the
+>  preemption count has not yet been updated with the HARDIRQ_OFFSET state.
+>  
+> -Note that irq_exit_rcu() must remove HARDIRQ_OFFSET from the preemption count
+> -before it handles soft interrupts, whose handlers must run in BH context rather
+> -than irq-disabled context. In addition, irqentry_exit() might schedule, which
+> -also requires that HARDIRQ_OFFSET has been removed from the preemption count.
+> +Note that soft interrupt handlers must run in BH context rather than in hard
+> +interrupt context. irq_exit_rcu() therefore replaces HARDIRQ_OFFSET with
+> +SOFTIRQ_OFFSET in the preemption count while it handles soft interrupts and
+> +puts HARDIRQ_OFFSET back afterwards, so that the remaining interrupt exit work
+> +is still attributed to the interrupt. HARDIRQ_OFFSET is removed before
+> +irq_exit_rcu() returns because irqentry_exit() might schedule, which requires
+> +that HARDIRQ_OFFSET has been removed from the preemption count.
+>  
+>  Even though interrupt handlers are expected to run with local interrupts
+>  disabled, interrupt nesting is common from an entry/exit perspective. For
+> diff --git a/kernel/softirq.c b/kernel/softirq.c
+> index 5d02c36c40e3..288e9e37b806 100644
+> --- a/kernel/softirq.c
+> +++ b/kernel/softirq.c
+> @@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
+>  	local_irq_enable();
+>  }
+>  
+> -static inline void softirq_handle_begin(void) { }
+> -static inline void softirq_handle_end(void) { }
+> +static inline bool softirq_handle_begin(void) { return false; }
+> +static inline void softirq_handle_end(bool from_irq_exit) { }
+>  
+>  static inline bool should_wake_ksoftirqd(void)
+>  {
+> @@ -481,15 +481,40 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
+>  }
+>  EXPORT_SYMBOL(__local_bh_enable_ip);
+>  
+> -static inline void softirq_handle_begin(void)
+> +static inline bool softirq_handle_begin(void)
+>  {
+> -	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+> +	bool from_irq_exit = in_hardirq();
+> +
+> +	if (!from_irq_exit) {
+> +		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+> +		return false;
+> +	}
+> +
+> +	/*
+> +	 * Only reached from irq_exit(), with HARDIRQ_OFFSET still set.
+> +	 * Replace it with SOFTIRQ_OFFSET before handle_softirqs() enables
+> +	 * interrupts. Use the raw operation to preserve the preemption
+> +	 * disable location recorded by irq_enter_rcu(), and update lockdep
+> +	 * directly.
+> +	 */
+> +	__preempt_count_sub(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
+> +	lockdep_softirqs_off(_RET_IP_);
+> +	WARN_ON_ONCE(irq_count() != SOFTIRQ_OFFSET);
+> +
+> +	return true;
+>  }
+>  
+> -static inline void softirq_handle_end(void)
+> +static inline void softirq_handle_end(bool from_irq_exit)
+>  {
+> -	__local_bh_enable(SOFTIRQ_OFFSET);
+> -	WARN_ON_ONCE(in_interrupt());
+> +	if (!from_irq_exit) {
+> +		__local_bh_enable(SOFTIRQ_OFFSET);
+> +		WARN_ON_ONCE(in_interrupt());
+> +		return;
+> +	}
+> +
+> +	lockdep_softirqs_on(_RET_IP_);
+> +	__preempt_count_add(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
+> +	WARN_ON_ONCE(irq_count() != HARDIRQ_OFFSET);
+>  }
+>  
+>  static inline void ksoftirqd_run_begin(void)
+> @@ -605,6 +630,7 @@ static void handle_softirqs(bool ksirqd)
+>  	unsigned long old_flags = current->flags;
+>  	int max_restart = MAX_SOFTIRQ_RESTART;
+>  	struct softirq_action *h;
+> +	bool from_irq_exit;
+>  	bool in_hardirq;
+>  	__u32 pending;
+>  	int softirq_bit;
+> @@ -618,7 +644,7 @@ static void handle_softirqs(bool ksirqd)
+>  
+>  	pending = local_softirq_pending();
+>  
+> -	softirq_handle_begin();
+> +	from_irq_exit = softirq_handle_begin();
+>  	in_hardirq = lockdep_softirq_start();
+>  	account_softirq_enter(current);
+>  
+> @@ -670,7 +696,7 @@ static void handle_softirqs(bool ksirqd)
+>  
+>  	account_softirq_exit(current);
+>  	lockdep_softirq_end(in_hardirq);
+> -	softirq_handle_end();
+> +	softirq_handle_end(from_irq_exit);
+>  	current_restore_flags(old_flags, PF_MEMALLOC);
+>  }
+>  
+> @@ -748,8 +774,12 @@ static inline void __irq_exit_rcu(void)
+>  	lockdep_assert_irqs_disabled();
+>  #endif
+>  	account_hardirq_exit(current);
+> -	preempt_count_sub(HARDIRQ_OFFSET);
+> -	if (!in_interrupt() && local_softirq_pending()) {
+> +
+> +	/*
+> +	 * HARDIRQ_OFFSET is still set. Only the outermost interrupt handles
+> +	 * softirqs, and only if it did not hit a softirq or BH disabled section.
+> +	 */
+> +	if (irq_count() == HARDIRQ_OFFSET && local_softirq_pending()) {
+>  		/*
+>  		 * If we left hrtimers unarmed, make sure to arm them now,
+>  		 * before enabling interrupts to run softirq.
+> @@ -758,10 +788,21 @@ static inline void __irq_exit_rcu(void)
+>  		invoke_softirq();
+>  	}
+>  
+> +	/*
+> +	 * Wake the timer thread even if the interrupt hit a softirq or a
+> +	 * section with BHs disabled. Only nested interrupts and NMIs are
+> +	 * excluded.
+> +	 */
+>  	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
+> -	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
+> +	    local_timers_pending_force_th() &&
+> +	    (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET)
 
-Thanks all for the feedback, answering all three emails here.
+Heh, I reviewed the v4 and started typing the same comment as Sebastian's only
+to realize its already changed to what I was also about to suggest, so great! :)
 
-Andrew's questions are spot on and his assumptions are correct.  This is
-the first of three tests previously posted that measure the execution
-times of critical mm functions.  This is the simplest of the tests, the
-others are for lots of concurrent allocations through the page allocator
-and through the slab allocator.
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
 
-It's anticipated to be used by developers to measure the impact of any
-core changes that would end up causing workload performance issues since
-things like vmstats, page allocations, and slab allocations are all hot
-paths.  It could also be used to detect regressions over time, from
-kernel version to kernel version, independent of development use cases.
-So it could certainly be wired up to the kernel test robot.
+thanks,
+-- 
+Joel Fernandes
 
-We've carried this internally in our own test suite since Christoph
-posted them back in 2009 :)  We can build with the tests enabled to
-measure the impact of any changes in these areas.
-
-The "pass:3" is an artifact of moving this test to kunit, the tests
-themselves will not fail and we're only interested in the ns/op.
-
-DavidH: I don't think the compiler can fold or merge the loop bodies, the
-compiler shouldn't be able to see through the call to the exported symbol
-and actually needs to call it 10,000 times :)  I don't think barrier()
-adds anything.
-
-I should make this test depend on CONFIG_VM_EVENT_COUNTERS, however,
-otherwise that loop is going to be pretty fast.
-
-If there aren't any concerns, I'll send out a v5 with that change.
