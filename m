@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F01E2D9EED;
-	Sat,  3 Oct 2026 21:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C4433ADAC
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062069; cv=none; b=MIpuYasCJTYupR9EXEWRNfRM8+mbcGbL5JAFzFMxX3LRYZ0AKNm6h7r4jVhvp+H2PH7KiFZbY9zN3asqEQ4KbxarmtiVBQp9dtXjPnZefh9kaFne702uB+Pwk/JHjpl5+xjGhsyS6Bg9WrS1EREOidpuR9uYufviKvfA6gQDONY=
+	t=1791062137; cv=none; b=AJM5oor4VLZd5j04vwpBR5LD98X0dQrt+P41HyLbZXdq+00bARQune6GJZLgNVSlIKry3o5v/58cDYYL7ysdH15KiU7yxpgVXj5vgParevmPWzmwpOFi+U2UfQU5o5NALGucsJ3q125fjd5qEs820ZQaASrukPT8S52ro65yQJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062069; c=relaxed/simple;
-	bh=Ub6LEqQ4rwROJxo1Ho2ypYv2xJ8fH5wFK0rmijLukJQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jOg3DgH3DXpfXk+ND24tc6/m4G1p6lt1JL35c6umJyFS+olGsdbTby6DWD23FXlUKav76kcoSRgY4tu0o0qLZ6eBsa2ecwATO2YfTJNe6NIBG8UJpblpjQKBZ7KW0ruA4dCSvRI6DSlNJLt6Twei8Dvm1lOGbkqis2ibHi7xNKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogVon9PF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791062137; c=relaxed/simple;
+	bh=0Lvbe0PHv15siHr1sAjoZPt1TQ2XSgsh2kXVNemT7U8=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=sO2U3ktr3Qio/pvmtJU7en6u1hk+yd8T3AtSyKEdv9KuS8+IQmRT9PQaHKbFYUi2t8taEUSfPIwROQL6MljNPzgK+mXgJyVK815p/4klYZSmoNTy1Pp5e7FoHYySHhLjhyGCfF+9/mMpPgw8Y9pADx/fQ02D6dYKWvjvJelQkhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nF8XL0pP; arc=none smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogVon9PF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7EE1F0089C;
-	Sat,  3 Oct 2026 21:14:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791062068;
-	bh=aLAwFt+Tq7GlMEaX8/iY40Albs91lRxQ0vr6oR4axkM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ogVon9PFyFUIsL8EIoHmsBudo4/a+aUMF13pz34KBgNJmPGFnzQ3uVJd3z7a//tC6
-	 iMDGDVTOdiZzFtHPfWBfW1YEAPDJalWnDXSzu6uqvOdD1G0ZD57kBb0V36cPbuVxOn
-	 s32og7QCJQREY/IEGkREZmVLGdFQGgQslVKn8euPOBRpgfAMPB8kxS9MBxa1/VY1WD
-	 X9edRwlM3CbzysfELEuSr+o4MS+pPOYiF4umpDQGRa3KYWbrjzqq2yqR7fkM6XkTIj
-	 VJNpmwiiVm05qUwpukoAAMiDCADIRDe9jA2+vc8BZo6h1u5qOIwwjlHqEjpdqn+t+2
-	 dGKeyfDNRjbmA==
-Message-ID: <387c02a6-1298-44a7-952e-47d1d8535541@kernel.org>
-Date: Sat, 3 Oct 2026 23:14:23 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nF8XL0pP"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bb7848fdf7so431448e87.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:15:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791062134; x=1791666934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sYdrKmlcH/gFo4xN8pAi8w6DeNulYqQ/HX5EWjKFQ5k=;
+        b=nF8XL0pPlhJYKWyg5aN8nwjYl8p9kX0kygezC1OdtSrIsMyV5CmYDqi4hwpB50V/LR
+         LC0MsCixCh73vA0hfLcCRyc1rw7ZS9WaEZ9Ei9iW8HVUjAPG8OoFhv1g2NP3MOi9PkZQ
+         W6RN0/xoeLvJLnYxRlNS6FnZiAvsDcjw0kheywbFAYOLH6EtagAl2ZH5tixj8Djs1WO2
+         AvdB6Jy8qr/mvRCqJwBulRSYWIC2tG7w6zeituaHsjh0VljXmK91+P2qnqF6f3tJRWzE
+         id03vEWvUtCn892EVLlYw6LGGTvrvTKal6ooeFFN3qu0QT3yaMX5TL3IS/vCs+GPRrUF
+         xkEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791062134; x=1791666934;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sYdrKmlcH/gFo4xN8pAi8w6DeNulYqQ/HX5EWjKFQ5k=;
+        b=zPdeDjGLHaNuk5cxp9HVGFk8CDJDuLezoj1ofAWsvWt6EpCZ1jrYrrO2I+9JKFZVeG
+         S/iA9ub9idyHkJYmfLPi1asT0pwBFD0Y62pSe9fNhNYQajFpGTH3/XkWe6b7h6HcNTEH
+         FmT6r1Hg8JC51ZMMCypPsj+ktNAD9m9FF3HhHWqxr9+E7NKIIbqgqkA+GKRKENW7FGvz
+         7Jy+8NbL3jLhlD124gmR+5q1+w9K2TwmvwIGqxb0U0j+4WfVAK/bG3gkRptHvBqfTvyc
+         95tfIuaSJtHxuYS8kLl1B/dovuH4jtQD20BnBNj/OQZytKOZst8Sg9QzWtjIWjdT+Qy7
+         ZuVA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7d+RLT6nVF6YepKqt4j6uJAvfGSLX2oAENMKeZvX1F5ANzNOOP09JES7TutffbB+FrsmJ8QkaMmL2L5s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5UL0IFe5FZDzF0zbpjbXi93wPU907VyWwAyunkJTujlSWNJgg
+	AGLVPV0Lo11AnGWYAS2xPzRg4Bof/+umnr6OPicT2Ohw+A9JV3V/fcUF
+X-Gm-Gg: AYBFou1YPS+QZMA4blp4LFlkO8BSPCdJ4Yjx4BJPMh5aXYDqAcPvy4lLNES8bMiApkM
+	U+EkJeB9pwQhWpikXZP9PCtYqDoEoR728o8xggut7NMhcim4SWwn4qQSBysYx/MLoRCHjgJ/Twq
+	dlnEVIY27BTIwrOe8Go1Q6l117EQlsqDgGAp/mcRzBDwYfKIYMAE11xJuEntwgMSwHWoy++N4yP
+	gBq97JlbkzQpc2/l8LEZMOXTLtRhhxFwmdsn13uZY1b5GaziVSFOD8hc9A8+zsClCaKU2V8YrLc
+	N2WqrljXYVYWv0RjH0BHdPusdnpCOGwDgo5RFTWpL6YZ7ecqUMDEahAk/yzBSiSTz8Sp3nqNTOG
+	6bzxJZJoD/CUgK62epIgmNvjrAbSQ/C1kurVV0t69tmlQEMJl0bKmrjtvL4Xx8VBX1aXmlnqJtZ
+	C7JYuRGgOSQte0DJmQoInM+4JAd5B3b8Umlmk8ljtSVdTfPdkLi8ergHIFuMSBSDyIZzLuilTHR
+	cH6rbBRoAcc5rtRarKtm+iBwASGUYuyCXmBrHfxytEOQD4BEAeOOCtMPA==
+X-Received: by 2002:a05:6512:61c4:10b0:5b9:6603:d45f with SMTP id 2adb3069b0e04-5bcb546bf56mr840472e87.55.1791062134218;
+        Sat, 03 Oct 2026 14:15:34 -0700 (PDT)
+Received: from [192.168.1.152] (95-27-153-35.broadband.corbina.ru. [95.27.153.35])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c79dac1sm1820978e87.47.2026.10.03.14.15.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 03 Oct 2026 14:15:33 -0700 (PDT)
+Message-ID: <cee107e7-b747-488a-bc80-e0d99e9238ee@gmail.com>
+Date: Sun, 4 Oct 2026 00:15:28 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,70 +70,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: Add EBDEE vendor prefix
-To: Pufan Jin <2254650260@qq.com>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261003194625.936288-1-2254650260@qq.com>
- <tencent_E21E2A584AF8EE0505C2C0809838621C8209@qq.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <tencent_E21E2A584AF8EE0505C2C0809838621C8209@qq.com>
-Content-Type: text/plain; charset=UTF-8
+To: dmitry.baryshkov@oss.qualcomm.com
+Cc: abhinav.kumar@linux.dev, airlied@gmail.com, akhilpo@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ jesszhan0024@gmail.com, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lumag@kernel.org, marijn.suijten@somainline.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch
+References: <20260930-adreno-progress-v2-3-3882f0fcd7b4@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/3] drm/msm/a5xx: Add hangcheck progress detection
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <goppennick2004@gmail.com>
+In-Reply-To: <20260930-adreno-progress-v2-3-3882f0fcd7b4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/10/2026 21:46, Pufan Jin wrote:
-> Shanghai Xin'yI Electronics Technology Co., Ltd. (EBDEE) manufactures
-> the EdgeBoard series of embedded compute cards, including Zynq
-> UltraScale+ based designs.
-> 
+Didn't solved hangs on sdm660, but I think that it isn't related to 
+this. However I've managed to get a command stream from hang_rd. How can 
+I share it?
 
-What does EBDEE mean? What is the company website?
-
-Best regards,
-Krzysztof
