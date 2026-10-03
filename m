@@ -1,87 +1,99 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145A73AD503
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 11:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6E73B059C
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 11:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791025614; cv=none; b=NmtBlWYdacP5fmJdiU54bMDJn6Tikqn56Re4/VV/MkAVoN91s2RaNEJwtkgx1+mOuHLxK//otKt9efnNPAve76JalCQRgS4euasp9Jndgm1/en6lk8GJ2Ih1PZPyngNIB6gsK2zBtNLNNFOLBdRPPxXpq/uRpZBiWv9X54+zwf0=
+	t=1791025631; cv=none; b=plcN14rOp9XYr+KGGajanULfj4WmKzHHSch/ecLp3cmYfmJ/jKo1+Nft+Iyny+1EO8dC29kqYEkzdBdRulZv9IPFy52sH59ujxPtqFpayWWrFPt69yY7Ma5R/IPx3h9ggMSgw8HqyCiXMRxVUAphTYapGB06dcrGYk0WU8o9Dag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791025614; c=relaxed/simple;
-	bh=ESTstycR0LenaKPzzd7Dskp71flpwtKKA3pqEIkHP6c=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=NERqIutnBivF3BanpaWuIPsPqmO+UJ7xYF7UP356CsujYhhh7cxIF12ielXJS4NqWzm97kLEW0KfFGOQ7lX6rjUHoQPzcLIlvYjFhyxxirVBSFannZIxUrwm0yhtDit9S68oi5KIUvbT6+4Odp911psLbRkydppn49ShIQQ8OGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28dafb8e1so34048b6e.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 04:06:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791025612; x=1791630412;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FYk4vttSF+KFf16mLMub9M7cacxhHvZ57D35DNFHl7c=;
-        b=mI6Mq5NLDySlyPLmSEmLlto8uYlZ3HABBqyhLe/wJu6FTgT18cstJ6P+EC52TWRmI/
-         AMo8WEGCjhnX9ktrFhf42Srt8cWJpYQO5eWj66Kv8zqPxBU6aXtWCkcwrtQU8wjN4/AE
-         yqPyNRaRLmlZNC5Uh2G0pDriBGVNnH7qSHT52sYHt/Ax+6puWnEYDyiKVvz5GGTfRhFV
-         OT4brXp7LtkHj1omDAtFYaERGARy9QdJvU03FLqJcHbD5estriDJg8gb8FlGuIffMAJ5
-         1DtOxXIsOWhwufoLcYmXu+FfVVPqre9ulNLq4ezL4d+rxWwvigH3V3RsBqvJA/I3okGY
-         9omQ==
-X-Gm-Message-State: AFuF++k41JOZSpIokca8Ntz6WogF/4vf9vl8kysDWjkWIJGT8Yt+eYn9
-	FyZhHlh5YWJRQJ1ZrkQmjKOGnHLGl20cqipkmZBiwUn8jv8JKVVDGj/qAMojiE7m/f9OHAMUpDT
-	0aH3iEwJAoyPTP3c1GYlkB10LxpHBDHC7AHfwqmcdarnehj2HIPLjCAxuvjU=
+	s=arc-20240116; t=1791025631; c=relaxed/simple;
+	bh=hWDUZARlq4vDyxL8gZNwQrCt52jPkXr50aadlzHM8aU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s6g4Xl8GClCXupT8ThR7psqpqkL2weUSgwSOaYLZ+JZGvSzf1gu4G5fO0I3Y5+RkWNsu4WbTy+yu4p++m4bTJ8+ZBnsNjtEe1epsEzwmxL+2PoqLSIVKQrN2Nb/J8hof3kbLBf1iYpZ9vdpBEUBrRVizARk210DxlyfiRVnw0nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SldABLOt; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SldABLOt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791025628;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NaIBcD/hC1GVFenfbiP3xESvJltZa3E3pEsPaq2E8qE=;
+	b=SldABLOtvNc2YXSREIMhlGQtBY8ijALoehqRGOdRq9hdrEubouSiBWbMmSfWbzpxrVaJEw
+	wiKnOjXaYu3cbnzD1KKKOfSpNrZABUxD7Qn8lrly64SdKHqyPVLXqpVCHEWqM+bNkOwXIo
+	4mQ5RDQhn61RlLFY9HhltYAWdWSxiCY=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-138--AaLEvuzMzehhK0TrTqqCA-1; Sat,
+ 03 Oct 2026 07:07:04 -0400
+X-MC-Unique: -AaLEvuzMzehhK0TrTqqCA-1
+X-Mimecast-MFC-AGG-ID: -AaLEvuzMzehhK0TrTqqCA_1791025623
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0CC0C1828B4A;
+	Sat,  3 Oct 2026 11:07:03 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 4121F1800576;
+	Sat,  3 Oct 2026 11:07:00 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Sat,  3 Oct 2026 13:07:02 +0200 (CEST)
+Date: Sat, 3 Oct 2026 13:06:59 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Aviv Vaknin <vaknins33@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	Bradley Morgan <brads@mainlining.org>, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] pid_namespace: make zap_pid_ns_processes() freezable
+Message-ID: <asDh0zBHEIWdto5x@redhat.com>
+References: <20261002202820.3433318-1-vaknins33@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1387:b0:4d6:92b3:5c8c with SMTP id
- 5614622812f47-4f52bbce3ecmr5599767b6e.66.1791025612013; Sat, 03 Oct 2026
- 04:06:52 -0700 (PDT)
-Date: Sat, 03 Oct 2026 04:06:51 -0700
-In-Reply-To: <6abeecdc.7503fbd6.2d3f6.0010.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac0e1cb.34119e79.2f92f3.0013.GAE@google.com>
-Subject: Forwarded: [PATCH v1] Testing for a slub out of bounds
-From: syzbot <syzbot+46bbbe175b7eea8036b8@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002202820.3433318-1-vaknins33@gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On 10/02, Aviv Vaknin wrote:
+>
+> --- a/kernel/exit.c
+> +++ b/kernel/exit.c
+> @@ -1751,7 +1751,7 @@ static long do_wait(struct wait_opts *wo)
+>  	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
+>  
+>  	do {
+> -		set_current_state(TASK_INTERRUPTIBLE);
+> +		set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
+>  		retval = __do_wait(wo);
+>  		if (retval != -ERESTARTSYS)
+>  			break;
+> diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
+> index 8bc9edb40..127a5fd23 100644
+> --- a/kernel/pid_namespace.c
+> +++ b/kernel/pid_namespace.c
+> @@ -269,7 +269,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+>  	 * free_pid() will awaken this task.
+>  	 */
+>  	for (;;) {
+> -		set_current_state(TASK_INTERRUPTIBLE);
+> +		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+>  		if (pid_ns->pid_allocated == init_pids)
+>  			break;
+>  		schedule();
 
-***
+Thanks Aviv,
 
-Subject: [PATCH v1] Testing for a slub out of bounds
-Author: nsvatoslav515@gmail.com
-
-#syz test
-
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- fs/ecryptfs/keystore.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
-index 51651314b7a6..bd3e025899f7 100644
---- a/fs/ecryptfs/keystore.c
-+++ b/fs/ecryptfs/keystore.c
-@@ -737,6 +737,12 @@ ecryptfs_write_tag_70_packet(char *dest, size_t *remaining_bytes,
- 		       "password tokens\n", __func__);
- 		goto out_free_unlock;
- 	}
-+	if (s->auth_tok->token.password.session_key_encryption_key_bytes >
-+			sizeof(s->auth_tok->token.password.session_key_encryption_key)) {
-+		printk(KERN_ERR "Error FNEK key size too large\n");
-+		rc = -EINVAL;
-+		goto out_free_unlock;
-+	}
- 
- 	md5(s->auth_tok->token.password.session_key_encryption_key,
- 	    s->auth_tok->token.password.session_key_encryption_key_bytes,
--- 
-2.47.3
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 
