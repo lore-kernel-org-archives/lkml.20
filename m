@@ -1,105 +1,95 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B283C35B63C
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289591C695
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:38:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791009146; cv=none; b=C6NcXoOtv6DWOX80i7O77nsPx0KUSXY4q7BJQEbxH6hOC/xWm6leG5RqILBJrzdbYxH713K6NbB8TDu2GVZT+18ritoduif9OgubkeduXSYftpT/GCQCdbSKlsUWWEU0mBud0HfVAvUUE/ZRj1oD58fhlZJzyTdlHie+8jJ2yj4=
+	t=1791009487; cv=none; b=Ej7V2U5IxWk8V05Vr4ZhSrFy+u2I4/y88YkHWtpziBUIia7Fa4hPCGXoJvsf9QTdC7nXYXNj6y2bQE4uBD6V/yAKAkCeOVp/j+QKG5IKMbbOFHyR9wEzlCGy9Bz3Fr76tY3Q9wLyhq5/QW6FiaVfAey3xmraqYwjrWr7Q1LuvWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791009146; c=relaxed/simple;
-	bh=VuiMGsvrxoxHYIMjTtEAMKJLNMC58E+oDp1FFjB26XU=;
+	s=arc-20240116; t=1791009487; c=relaxed/simple;
+	bh=w2CHf/Ruyl0ieMWiVy7QleNiafjxfD+l+EFZ1XXXNB8=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=dyAB5+YPK9KLyhRkb6RY1+RHqA57NSetwksESYDkKQb3An4hlxWwKkG0lCvGJqXXedQyycbWBFCQ9fYpVc7QjQdFjw70uUWDCdVLdarTPHdmrAWRmmCQuowcW6A/bkSnuScafSRYsKO4HdeE6sc5+6JuQpcViBmwdlHtOOe6OO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DL3guCmC; arc=none smtp.client-ip=74.125.227.168
+	 References:MIME-Version; b=RTBVv+RrZEcVhXjDctZgewopeJLXj5kWV5rP2HNyrpNB97xNshmtgJSt5pDM4SS/Vch1MGkCneu/TA2uRpMoRW4fqDzgBtHBUukSytfWvIYLA6zXXESPY/wo1zBpzzfkQv8enXlmGZojdgvdhrO7lhkiz1HylcAjwoOjmOywEXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ir4gbnxE; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DL3guCmC"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0d31bda43so77540a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 23:32:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ir4gbnxE"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c3304784so48116a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 23:38:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791009144; x=1791613944; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791009484; x=1791614284; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:references:in-reply-to:to
          :from:subject:cc:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vr5KVZoPR0cul9dM0w9bT4mgxCHNEHDqUMfTuf7KfX8=;
-        b=DL3guCmCAoGGad5fqQhT+5W2N60ezuvD94VtFpob8EDuN/9oZNMQlKHDpKAkIFeIqv
-         cOYuDc2THo5GGGolhJh0u08uEpd/a0aW2pVhSbGM+DGfgBTDKm22DxkQ6LX2FkKiM7yS
-         jJV/jTe/NGZqAqIfD6TfS+NvtBajMlBp4v/HObTFUIzWKLyviiMPwG3ZAouqLj26zAwG
-         ZcJjzfa+1isefTBiR26J43dKgCqETQBDF8CPhVZde99KZyOFaecA23+M4lrbFKXIXN/C
-         dkTOqRKnWejNq/nzi8KHvYZV7R7OXmRw9eMk5898z5VOh6iUMuXoiZABMloEUTphOZXz
-         PHIg==
+        bh=rn5qy1uct3HxkhX0TLP/tcAeQOQET/L/4W2RbNiSgQ4=;
+        b=ir4gbnxEYnj8MisDdoh2wYz7JDHlJTCmhf8medao28SMIzq4NAWkf0ReXrErcyRePu
+         KYL62hbQCDuBRabP53yqOzo21q9Z1Qu3JS02vsmrsF8lbmufMc4VpPVBKi79MTCXIo33
+         8wUcc7BS5tppb1lzOCyUW7Pbd4tZpmLBF0s9MhdUEdgZxxOIoFlh8nRqh77cIJ+d1Kom
+         XVc+9Py5vO/ZY7NNBhTjHYlKbzBd2zgUgxGmrTTjIPGnpaerNNgFmzGLOupGDtJvz9op
+         e7c8gqGeTkF4yGlIJr6T4txba4hezFKH+14YeDOtMxg+o3hzr8eeMmp1c+W9zjWzOzVO
+         MJ1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791009144; x=1791613944;
+        d=1e100.net; s=20260707; t=1791009484; x=1791614284;
         h=mime-version:content-transfer-encoding:references:in-reply-to:to
          :from:subject:cc:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vr5KVZoPR0cul9dM0w9bT4mgxCHNEHDqUMfTuf7KfX8=;
-        b=xfDxlwYlRb/cPxOOLCh3IS2U6MtxSduN2m5YNYgfQd1lKZBtw+cCnezsGZFR8JSz8g
-         S6Xh/AKzTUVfg5VUJq0JBc+/J3NKoDfuUbklLq/7h67WsFEjfKLcBEYjJ33amnHfDDy/
-         TEiTqQO5rp3TIHMykj3+N+SwzgRvXsFLxjLBDEcpx5pSNE2zAmaMAUKDtLQqEj1p/HbM
-         xFJgfLh+6ED9ARxxIIl5ZSsX0ItriIGBSws64K6POjKq0r9qFBqFNXUh/ue6Jjvx1CEI
-         77aJSgsepE9f/9ZwPc7AOLvJ8av8POF/V6d+PUiXdp9He1Tab9E64dQfNbWCeAFDZ+Wp
-         3YWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTCegMYw/L0e42hw28v7MgcL/KK6w5a6qFMW0GHf6aavnkyzy3BYWNzODkPeDohVL1LIe6iyFji3qaTh4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjI2MpFDlYsfwoS0neRq4hcFdHJBbRtWZEE2M0qp7whrFL3uiW
-	MvgWfapH9/jpXgt7CRq+TljNwyyGL75S9iUjWqbugIcrEBGDeuTzVtOd
-X-Gm-Gg: AYBFou19Fmj3ki7jRnzZ20ziq3G6WKmbnI4POKtrZHdCBSOv1hNlQgMwFfKuNOLW1dQ
-	D5qKbiSjoEtKuhXSj4gv0jJWVEl0Bh5ob53fPpkiyo5A+JaofQx6jRq5UWjQjuvxjBO7yk3mhNC
-	PvK4YyjMYJBPjahlEP30cr00aF9lsiGiutKZDlnWL2WwbiVwlUqttzw+vRMtlsWGww3Uc2ePXht
-	S6HJLmumcdariYKKmqLatGTmwmqnEnxb6fARA+z1bt6kmnMOsbUQV2ThIO1aPLKY4thulNQb4F3
-	si5XlzIzyoinNhWLgrhwCqvY7Tn2ub9+/kteJHpA/R/xnhLLz8AVXlNOotHMGGK4WBvgF0tn+4S
-	17U2zAh+fqsOVUQLScdzYHtHkUvS5tYvAZbUmdK4mIBPr3KTt1k4KC/lWSRjv6SdcfO5YOQxgs7
-	lKvzJ2abMmeAiW6d5FSEti1nK6ee18pzyOqHrwBDi1gLFVp3SW8muUNQL7ZOPxSf7zjYJvZPgY7
-	GoxxNr3uKWtsVKUZePFXv3wFOyoiqbFlw5s5zXm3aN27aHo8lAprBc98+WqhN9BC21IRanUFsou
-	Cz65NjFZc/ZLkQ==
-X-Received: by 2002:a17:90a:1650:b0:3a0:7261:d58e with SMTP id 98e67ed59e1d1-3a6e622a50cmr2049092a91.22.1791009143685;
-        Fri, 02 Oct 2026 23:32:23 -0700 (PDT)
+        bh=rn5qy1uct3HxkhX0TLP/tcAeQOQET/L/4W2RbNiSgQ4=;
+        b=zU/t6a6dWLEuOJcrMgz/74E2UmFYUpHhbvD1hcw+FlITF7Uu++/qSnyYxEqz0RxYki
+         rG6zuqfqXdeL6q6AZlZGTIBKAtaqQ30EJWaMSo9jrKFpJZZl8oyRKRdCOANw3ViwzdrM
+         6oJeyE7prfDPfAViYiKTuNV1tNx/SmDNJ0Y1wU4hAnpoMFgWa66U/M7fomY143koEuaA
+         NNyJRJMVkRjXXNmoZaVYwWaWwRskPOo1uvMcdNpN9wcJOWeC7Vcp/ljvU6Kp4QnlR6fk
+         aj1gtPfQ5Gw2ccSUTPdkNKni/nitJvMw2H/UH2LMNZzc6T+XKMje9aO/es4UvJxhEI1F
+         BO3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwY9lMvhmmrnndh1fT7HkKGabUGYvQKlLSZNc7w3jDysjPGGnYkZiiyDYswfDP08oU5ZRogN71mFse/efo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOn7jRJDlfKB8Gr+xSeOCPNu3PYMfBjKpvVl8Dt65RDP/NiFtu
+	QthGK+8bLTQHjgpizGRtHsSeuNhogifp9yv/wGk23ZplNOej4Ebf4R5K
+X-Gm-Gg: AYBFou1Nnn4cJ3O9uBXNOSRwm/ahJqv+B8J+8jSycJLq7JTSMAInYzEePquzLDVU86j
+	zjjgS5isbXzMDdJLNMLp10gBBvtoNO2oaftYEVEHHhf92+OQBN3fahWDKjef/tzaogf7Blo0fZG
+	EzAP7YInu3sesXcPNMCF9nWYnUjexZwuwxDrAEp/QsuPuGjlHZCn8dxdav9gNmJPHeRTB1j3/QH
+	EO9ncj7dK9HLjrvKh3za3hDOz8nSg+TTDy4Obmh36i9qEjYSnLu1cP/Ds3e+xcQXQmE0RCwStBw
+	COUqhniP4AferHXJuiowLjf+OcfV7U+w/f8htd+HhbZBLe7d9lepelCYQPw8KMQsFGbc40rLcEt
+	UiPMr1Q1URbrFfTcYRDqpR0TwV1WVyCC5Au/CndtoNHsQRGdHMsqfXyQOYC1C/2+I4NyYHgrhS8
+	k9as/1O2TPX+vo3gvyiPrzgCYwRRljAgvbvaooE8CotnIp557Lag/WOKy5qXe7TrdIoY7e/mR7A
+	nJfegjztjgFxKbpd8shdBF8P+L8/5IkK+owhv42Ne5oHDBiZ9jm2Xzyd5quJiEvu6D+VbWpqkoA
+	Ico=
+X-Received: by 2002:a05:6a20:7495:b0:3e0:b778:d988 with SMTP id adf61e73a8af0-3e0bd4bff2bmr4998287637.83.1791009484332;
+        Fri, 02 Oct 2026 23:38:04 -0700 (PDT)
 Received: from localhost ([153.61.198.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d6b5c3dsm1823004a91.13.2026.10.02.23.32.21
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f7370db1sm1809155a12.17.2026.10.02.23.38.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 23:32:22 -0700 (PDT)
+        Fri, 02 Oct 2026 23:38:03 -0700 (PDT)
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 03 Oct 2026 06:32:21 +0000
-Message-Id: <DLUZR540Z45R.3RTC4COS2IW2V@gmail.com>
-Cc: "Jonathan Corbet" <corbet@lwn.net>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Gow" <david@davidgow.net>, "Petr
- Mladek" <pmladek@suse.com>, "Sergey Senozhatsky"
- <senozhatsky@chromium.org>, "Shuvam Pandey" <shuvampandey1@gmail.com>,
- "Steven Rostedt" <rostedt@goodmis.org>, =?utf-8?q?G=C3=BCnther_Noack?=
- <gnoack@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, "Andy Shevchenko"
- <andriy.shevchenko@linux.intel.com>, "Masami Hiramatsu"
- <mhiramat@kernel.org>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Jiri Kosina" <jikos@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, "Christophe Leroy (CS GROUP)"
- <chleroy@kernel.org>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>, "Madhavan Srinivasan"
- <maddy@linux.ibm.com>, "Michael Ellerman" <mpe@ellerman.id.au>, "Nicholas
- Piggin" <npiggin@gmail.com>, "Shivaprasad G Bhat" <sbhat@linux.ibm.com>,
- "Thorsten Blum" <blum@kernel.org>, "Alison Schofield"
- <alison.schofield@intel.com>, "Dave Jiang" <dave.jiang@intel.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Guangshuo Li"
- <lgs201920130244@gmail.com>, "Ira Weiny" <iweiny@kernel.org>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, "Vishal
- Verma" <vishal.l.verma@intel.com>, "Randy Dunlap" <rdunlap@infradead.org>,
- "Shuah Khan" <skhan@linuxfoundation.org>, <linux-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
- <linux-trace-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
- <nvdimm@lists.linux.dev>, <linux-doc@vger.kernel.org>,
- <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH v4 00/11] seq_buf: Add seq_buf_strlen()
+Date: Sat, 03 Oct 2026 06:38:02 +0000
+Message-Id: <DLUZVHOLSN1B.115EUX4KJBEA3@gmail.com>
+Cc: <alan.maguire@oracle.com>, <martin.lau@linux.dev>,
+ <yonghong.song@linux.dev>, <jolsa@kernel.org>, <qmo@kernel.org>,
+ <nathan@kernel.org>, <nsc@kernel.org>, <linux-kbuild@vger.kernel.org>,
+ <linux@weissschuh.net>, <christian@heusel.eu>, <mcgrof@kernel.org>,
+ <petr.pavlu@suse.com>, <samitolvanen@google.com>,
+ <linux-modules@vger.kernel.org>, <rostedt@goodmis.org>,
+ <mhiramat@kernel.org>, <mathieu.desnoyers@efficios.com>,
+ <linux-trace-kernel@vger.kernel.org>, <acme@kernel.org>,
+ <namhyung@kernel.org>, <irogers@google.com>,
+ <linux-perf-users@vger.kernel.org>, <jikos@kernel.org>,
+ <bentiss@kernel.org>, <linux-input@vger.kernel.org>, <tj@kernel.org>,
+ <void@manifault.com>, <arighi@nvidia.com>, <changwoo@igalia.com>,
+ <sched-ext@lists.linux.dev>, <shuah@kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <ojeda@kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <arnd@arndb.de>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <abuehaze@amazon.com>, <doebel@amazon.de>, <mpohlack@amazon.de>,
+ <jay.wang.upstream@gmail.com>
+Subject: Re: [PATCH bpf-next v4 00/12] bpf: make the vmlinux BTF an
+ on-demand loadable module (CONFIG_DEBUG_INFO_BTF=m) to save ~5.4 MB memory
 From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Kees Cook" <kees@kernel.org>, "Bill Wendling" <morbo@google.com>
-In-Reply-To: <20261003035906.too.263-kees@kernel.org>
-References: <20261003035906.too.263-kees@kernel.org>
+To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Jay Wang"
+ <wanjay@amazon.com>, <bpf@vger.kernel.org>, <daniel@iogearbox.net>,
+ <andrii@kernel.org>, <eddyz87@gmail.com>, <memxor@gmail.com>
+In-Reply-To: <44315425-c505-46fe-8379-f19d78ff3abb@linux.dev>
+References: <596bfb65-db2d-413b-8039-c921031b50fd@linux.dev> <20261002073422.14253-1-wanjay@amazon.com> <44315425-c505-46fe-8379-f19d78ff3abb@linux.dev>
 X-Mailer: mkdraft (claude review draft; edit before sending)
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -109,9 +99,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Fri, Oct 02, 2026 at 08:59 PM Kees Cook <kees@kernel.org> wrote:
->   seq_buf: Add seq_buf_terminate()
->   bpf: Remove dead newline stripping from format_disasm_line()
+On Fri, Oct 02, 2026 at 01:58 PM Ihor Solodrai <ihor.solodrai@linux.dev> wrote:
+>      Keep zstd-compressed blob in the kernel image and decompress and
+>      parse it synchronously on first use.
 
-For bpf bits:
-Acked-by: Alexei Starovoitov <ast@kernel.org>
+imo this is the only one of the three worth considering.
