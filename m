@@ -1,170 +1,88 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E9D34D382
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:02:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.97
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791021727; cv=pass; b=Wj+WWmZV2laF9Q4bh3VKKw/KMPfvZcRdZx+Oc65QitjLgvHKADhcMktEPCzdYb5XKF2hpxTHI4eoKt47IFR7toNzaIFXixgykmhbyz9JxTc3h+zI+G68L+6Cilov/WWa6Y9+Tnr76ws3cFvDdEZbuOCdy+QvjW5E3g6kj67tM1Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791021727; c=relaxed/simple;
-	bh=YsfGWbRhqS8xM7Mt1x4IfeUEEr5EkkjPx1tBWKpgz+s=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E719175A7B
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:02:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791021770; cv=none; b=Y4siudKPWqVjzQd2w8IJ/9hrZXQxN5/iavXpX6sXvRW/RTJMB1SrvzO6PikrQ7xSVrpu4tAtAPH3byppniWGmZSbB6iTmrBwnG7G+dZLgqtdv4ZsMQXosSTW+u8Gp8gmj4OlsjtgFErCFKqAqPb5kHLBR5VTpSpXv+B6kY5WCSo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791021770; c=relaxed/simple;
+	bh=txJhP3xHU6aHEZHW65/OvHMokn7SJcUz8M8GFBsYKGk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J+P3WDXWNwS+NeApCrEJKbKXILUNZzth10CKxQghD3qtTpYxBjAel2VSks0pxiJdLxKPYo7Kd4FPrewZw2Mb5NW3NNTKhZYNpRE5DDaqFfU6jLMv0w9hk5ZZptzYRbZt5FYTbdFhd/V6HjbsxGkJn9soxagfkaPTSdbO/whN2qQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=uDW63teZ; arc=pass smtp.client-ip=74.125.225.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	 To:Cc:Content-Type; b=WTjBhvLFbIbiZ8O4H5LFTdDi4JCsP7GY0QI7oKe0pDzJHZwweGyRh4XNonHBDoWf3zNIAR4TNQkjTU6bumqzHKkTmNvWMABC6K86Ojx4gY7DYadLoF7avi56R72GAf8rlodn0/EAaa3/rVWv4Q/8v9yyC/VU/nkSbV2/FaBz5qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cbPkUkr0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="uDW63teZ"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b0fc598f8so121723f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 03:02:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791021724; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Jm+2/Ps5bSAlMG4meI9kz0zA651CIXcqrpZsPCCCl+8z5bFKu80lJblTppJRKLDhDX
-         bmXu+myeGBwWj/fWbTFimnGNyXEnRzNySrjISDeTSJP+M6lm/VBEzVjiv/4+Rhd/63qb
-         v562VNr3XzerTxav4j0ac9xA5KyLsEtJMMLKJmFv0HozrNJgU0Xr12ZkjUquUas9liVb
-         cva54iovgdpkzqcHxuLe7rDviQMiAFEvaE7LQGMlMI/q+mnAubfErmHCH0w42WUn1x15
-         vKfqcpnvfipAN0cSGVhR+ldlaupW/RQIzgMaTAZ2J3Zc9HJgwn6XyvNkRzIu92LhiCp3
-         Zncg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MP8Sqa2CEbzPapCdfasmIP+eBvUM/xKkRDsl2sHLpvE=;
-        fh=eGd4za0B5gDmDdSW4uJpBcP859mFMSS6Lemq8ujwEoU=;
-        b=bK45lPMlSPaCkf6h3ROxt0fRrT4QMe+hX5J50lmThNESrIBVrW96QbUDbdi7CYJrM+
-         1mNz4IxeqI8O5AOgWOXLis8Jsn+1Z/UPKKzTsYE1v+UpyT4zhQJ29IK4iEp3tPzKGP5f
-         CPirm0FN9vPbHwDFBuVzJoE330P3l/PPyzPHea4UuX+Ae2Gn678OV6vae3rdKP49/bJ1
-         dYofvOO2idOKkY5b/ZHXicf/3PqETuy7E0NFCxjDFa1g0jsj/HSG3oeo9Fxh2a4Vd+Fa
-         V6oRpAs3ZqOx3FG3xr+7yLvNzAxRPWP/tL/hCkclWXzphqw8gbEeu2alAdSfMBIspwnx
-         A82w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1791021724; x=1791626524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MP8Sqa2CEbzPapCdfasmIP+eBvUM/xKkRDsl2sHLpvE=;
-        b=uDW63teZBt4Slha+5k0hfBGgMP2J09fY2f380Bt3ouYrtSHxNOWccaZttKxvuyjtSX
-         rnV5aXtcRQ23xZOh7ncmdcxUiI0fCO7dTxupgFJNlK3eD+m/EsdMZLApfvVPjmoLmUv7
-         j1c4eM2d5o8LNbZb8wvl9Pg8FDNczvdUmNZpoKZyHR84w+zyH7bneIGWs7nIdG3F9WAl
-         mkjXK1hjwpbnk6GHWrMev7yWOSn8zCG3K5knUU8tjUt4Zy30gXv2zW3uOfKE3rYFHd8C
-         zF04PqWqrifjsF+YSz2jStiZ8GRgcpXYXb+jLO4haQc0SFq9aKZHAfo8ivl7Q2HObLOg
-         foTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791021724; x=1791626524;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MP8Sqa2CEbzPapCdfasmIP+eBvUM/xKkRDsl2sHLpvE=;
-        b=jbJhtGuizmJT8rJaHWijb0m60tSieE8YOzB4J4vCz7DbKQKMPASsoiez3KYu2ZlyX8
-         ogiCbE+CQ0YMBuXkjnTifTCbHECqL/JrAe0bzIqvRT7fpLQLZSeLjul1f/oLicJgR0YU
-         BWGQ2qMOdyKbwRB1d1/6kOA8S+RIokppVBZl9kQBokA0eLCvLpXSuiFoCG+JYwaynmpX
-         mRBZvmUTuuSW3e2HXA+WqjGfcxVBsSd4TXUodewMAYXRUkCac8hBWcfDLV4lnRcNNaiM
-         kbwUOFGcwJpvmxqgkC+/dw2jQ6hlDr6LSfU8cXrx2v0ec/CDdRu92Rvvc2fS/Yd9cx0U
-         da4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw52rIkEw3np6I1l/IT/gUzSo0ahRsz1oEzmZ+GCmIM6NVg3WjBbPGvQfmxcfZhVq8jcCb6W/+JGvNhRW4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYsO37V+5y5MOQq5jq/RAwUSJmnern3ybtiMUlpfcPS0trGPyC
-	2uNz6Uw73nqE6ZDWBB9KHm4wOW9AaaCA3ZmhfvFENtaV1Et5KDfcyEco5xvL0BO6HijVmoFgH5P
-	95mDVJ2bQUt6Oyc2A/D48Sx9ZusjNAJuXdMuBnAjsUA==
-X-Gm-Gg: AYBFou1hgh0Ak8/gTYFcSuWtNbCRasWiR2keV/MfUwQbT0OhpHQ3CZ73GtEv8MhR6nf
-	uyO6hgtMaEN3WA3cR/iQra5Xv137mWR9c3jMsJxQUkdNCeANsXhiBJac77Pdi4T8vqn28Gi1ZSU
-	Ei+cdOfuC673goqnWpYApU+vLrwCwMrGLaRnWOc+ehOxYHue29+1dRIF36eKfjjgySd9Y344W8v
-	/0neeWZM1Ibzhho70LToXshUC9gD0Vq84p7UHzcXQ9a20+ZZJx6ivytbSq0I4ExOjxLwvzjfQuz
-	IWaxS6/V5xJPUpmXC02G2lx2JMq/TPPdjN+qIseBCWMMpMsmwP42PiMCgqkl2KtzcmL5NWbI/LU
-	vksCfXcxDlG3pB9jOMxp+UMzFe6n3thH+baQzhf4OH1iICmzX0bMqKEjplJxz9TfwTZCYpC7x6f
-	8=
-X-Received: by 2002:a05:6000:1846:b0:48b:1bf:ffb1 with SMTP id
- ffacd0b85a97d-48b12775c61mr10366149f8f.54.1791021723743; Sat, 03 Oct 2026
- 03:02:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cbPkUkr0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BD91F0089F
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:02:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791021768;
+	bh=CINEjaQKfqAZPwBrbQreJnxCjhJLGPy7LWkHQXklSnc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cbPkUkr0XYdE8+ZIbbi9i8lK+HB0OiP8AJesP7l7WyFTmGTfx4iCKDdGwVmpcmD1N
+	 X1Skp9yjZcBCLYCtJLeKa8LYM0g2fGrbOYibnOJknCeVgTkeyINLpLntZp9JaWbdo3
+	 B3ba2/41L1iwhr0yb/xu1x6Qwz0Fn6tAXVCo6MMuWZGvLL82QO+Bx9bySCTcF7ohJr
+	 gNaVEp2LZTRUUo8nnL5cxND358VxyvVcVrm+TN4amJxV0SF91qZOHOrZ66aYQIwZz+
+	 FE38duc0emlzkCXJ64loBzj31lr6plLL50ka/4Dw58spqN7J3ZfQ5qviZ3vtzOTaHO
+	 G9zajQX4zVl/A==
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93e58478119so21109185a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 03:02:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxTsN7iRykPz5tfU5ivgq3k3voKjshTS9pOy3j+t2pcyADQ2m7tfiMGLzgK9+TL2TiLmi2bOJ1Yf0nKU78=@vger.kernel.org
+X-Gm-Message-State: AFuF++njvl0t1x+X2PF1MdB9xvDQKj0QjQEjGiAPskoWmMrjpMyhLU5C
+	MuuVLS5UnUkDo2Wm5I4FwcHSDQOp0BGWAxdAMGEUAPlqTsTfCW6/CZFQLCllzz2xd14T2wsKXjn
+	MsLR94gItUbQ4Yl2/VQFPEEsS7R0CEZ0=
+X-Received: by 2002:a05:620a:414a:b0:93c:677c:778d with SMTP id
+ af79cd13be357-93e510b2f5amr326716885a.59.1791021768309; Sat, 03 Oct 2026
+ 03:02:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814114507.583424-1-jinyu.tang@linux.dev> <20260814114507.583424-4-jinyu.tang@linux.dev>
-In-Reply-To: <20260814114507.583424-4-jinyu.tang@linux.dev>
-From: Anup Patel <anup@brainfault.org>
-Date: Sat, 3 Oct 2026 15:31:52 +0530
-X-Gm-Features: AclHuK-r6E6EOJLR4dsLSLuGmbe9Jaf0ZQFpEhYpdE-Qre9_eJHe2jf_2nwa2RI
-Message-ID: <CAAhSdy3D+4Oh9mD+MFP8RwoeTDB855ZQoGRgjEnYJQwRH4K4=g@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] KVM: selftests: Enable pre_fault_memory_test for RISC-V
-To: Jinyu Tang <jinyu.tang@linux.dev>
-Cc: Anup Patel <apatel@ventanamicro.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Andrew Jones <andrew.jones@oss.qualcomm.com>, Conor Dooley <conor.dooley@microchip.com>, 
-	Yong-Xuan Wang <yongxuan.wang@sifive.com>, Nutty Liu <nutty.liu@hotmail.com>, 
-	Jinyu Tang <tjytimi@163.com>
+References: <20261003090430.91664-1-jiangwenxiaomi@gmail.com>
+In-Reply-To: <20261003090430.91664-1-jiangwenxiaomi@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sat, 3 Oct 2026 18:02:37 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
+X-Gm-Features: AclHuK8clB5bMzNPhaWHp9TdGXPrszsdDwE5fUfbLLA9dhcHefwAYdXz5_pN5jU
+Message-ID: <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
+Subject: Re: [PATCH] mm/vmalloc: bail out early on invalid page_shift in __vmap_pages_range_noflush()
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: akpm@linux-foundation.org, urezki@gmail.com, dev.jain@arm.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Wen Jiang <jiangwen6@xiaomi.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 14, 2026 at 5:16=E2=80=AFPM Jinyu Tang <jinyu.tang@linux.dev> w=
-rote:
+On Sat, Oct 3, 2026 at 5:05=E2=80=AFPM Wen Jiang <jiangwenxiaomi@gmail.com>=
+ wrote:
 >
-> RISC-V now supports KVM_PRE_FAULT_MEMORY, so include the generic
-> pre_fault_memory_test in the RISC-V KVM selftest build.
+> __vmap_pages_range_noflush() currently only warns when page_shift is
+> smaller than PAGE_SHIFT, then continues with the invalid shift. Return
+> -EINVAL instead so the bogus argument is caught immediately.
 >
-> The test uses PAGE_SIZE from the architecture processor header. Define
-> the normal 4K RISC-V selftest page size so the generic test can build
-> for RISC-V.
->
-> Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
-> Signed-off-by: Jinyu Tang <jinyu.tang@linux.dev>
+> Suggested-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
 
-LGTM.
+I have checked this carefully and confirmed that this is a correct cleanup.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+However, when I applied your patch, I noticed that the author and
+Signed-off-by do not match.
 
-Queued this patch for Linux-7.4
+Author: Wen Jiang <jiangwenxiaomi@gmail.com>
+Date:   Sat Oct 3 17:04:30 2026 +0800
 
-Thanks,
-Anup
+    mm/vmalloc: bail out early on invalid page_shift in
+__vmap_pages_range_noflush()
+    ...
+    Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
 
 
-> ---
-> v1 -> v2:
-> - Drop the per-test guest_modes_append_default() call from
->   pre_fault_memory_test.c.  RISC-V already initializes supported and
->   default guest modes from kvm_selftest_arch_init(), which is called by
->   the common kvm_selftest_init() constructor, as suggested by Sean.
->
->  tools/testing/selftests/kvm/Makefile.kvm              | 1 +
->  tools/testing/selftests/kvm/include/riscv/processor.h | 3 +++
->  2 files changed, 4 insertions(+)
->
-> diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/sel=
-ftests/kvm/Makefile.kvm
-> index 6fc34e9bf8e1..ac64ac92fd4b 100644
-> --- a/tools/testing/selftests/kvm/Makefile.kvm
-> +++ b/tools/testing/selftests/kvm/Makefile.kvm
-> @@ -225,6 +225,7 @@ TEST_GEN_PROGS_riscv +=3D coalesced_io_test
->  TEST_GEN_PROGS_riscv +=3D dirty_log_perf_test
->  TEST_GEN_PROGS_riscv +=3D get-reg-list
->  TEST_GEN_PROGS_riscv +=3D mmu_stress_test
-> +TEST_GEN_PROGS_riscv +=3D pre_fault_memory_test
->  TEST_GEN_PROGS_riscv +=3D rseq_test
->  TEST_GEN_PROGS_riscv +=3D steal_time
->
-> diff --git a/tools/testing/selftests/kvm/include/riscv/processor.h b/tool=
-s/testing/selftests/kvm/include/riscv/processor.h
-> index abde3c71c891..70487c8ed155 100644
-> --- a/tools/testing/selftests/kvm/include/riscv/processor.h
-> +++ b/tools/testing/selftests/kvm/include/riscv/processor.h
-> @@ -12,6 +12,9 @@
->  #include <asm/vdso/processor.h>
->  #include "kvm_util.h"
->
-> +#define PAGE_SHIFT             12
-> +#define PAGE_SIZE              BIT_ULL(PAGE_SHIFT)
-> +
->  #define INSN_OPCODE_MASK       0x007c
->  #define INSN_OPCODE_SHIFT      2
->  #define INSN_OPCODE_SYSTEM     28
-> --
-> 2.43.0
+So please send a v2 to fix this, and feel free to include:
+
+Reviewed-by: Barry Song <baohua@kernel.org>
+
+Best Regards
+Barry
