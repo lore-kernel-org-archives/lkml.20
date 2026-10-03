@@ -1,162 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-sv1.saltyming.net (smtp-sv1.saltyming.net [152.53.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFAB35C6A7;
-	Sat,  3 Oct 2026 23:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC27328B7F
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 23:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=152.53.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791071030; cv=none; b=OM/ucPencWGW6zjINht/lJRkdWPAKbMMZMPxtW/3FRQHc88FnJHRbjGDqI+uCLpB6Fn1w0QbtdillL4B3vhJ7BPEjSiOUatxF/d6ft9qLmuB1Qqw4i+9fDgpEVDgU881Lxt/4bldlxD7UExEyWcitp0B1x6kfrCs0B+RYnDJpT4=
+	t=1791071174; cv=none; b=av5cmPhsXfy4wKeMPG3WAA8XxKiafL5Hoch7G0XsUi8mqdjhL5OaQg3twh5A7xwEh/HXTZ5KK64hjkUlTsqX1+Dvn0foxQE0juv1V3+/MKLW0baz4+jgKrAE30F8lxlnADaywL7SdVekgsd9U84cQiq3ZL4xJebjr+feTv1g2Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791071030; c=relaxed/simple;
-	bh=++jILewXeH+uM8D4Er1T0KxKekggMp2VKJnhakIgdSo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NLonYnfaKJY0x4WkKwbLMNFZwqht0Hd7iURmZvfrZjQO0x7Z02U1EYyToGdRngpYcpBIh87sk+KbOku6h6nXVQ6Titf9Maj7syiJG4fBU9P9CKNPJdZHYPMKIbEBUf5mA0ht3Z7XoPRWjsE8dKRu3bjkbwcN7sm7aSShbbyANsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNa2jicx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791071174; c=relaxed/simple;
+	bh=Lvz1PyjwJQERfaYv9AJvA8gTUNMg9ATqkFpmOeN17C4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G9awxrS/eDBm5EEpAWIgCzFwwLxyF1PjoRndzg7OvZOr2v0nIYYFBFwvPIkw4ys6RztFn4stwXFZbZA7fn2kklCbVdaBgVz5GjVdXe7VreSKYGfjzS3ARjZJ6z7MfdMD3jUpln9zVkFzXIdSuOBtHwbbdkxaWqv+jz08p5PBvmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=saltyming.net; spf=pass smtp.mailfrom=saltyming.net; dkim=pass (2048-bit key) header.d=saltyming.net header.i=@saltyming.net header.b=mAK/lIkw; arc=none smtp.client-ip=152.53.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=saltyming.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=saltyming.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNa2jicx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D907F1F0089B;
-	Sat,  3 Oct 2026 23:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791071028;
-	bh=uTv9yoJbE0xTNs6DWcPqmboZIaZvOw132vaZKufaDPo=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=WNa2jicxV8Fh3rqNiaUWuqf9fsJpC3cU0PeFGwLfMnCNG3SNd0B6smfAejpEDYI7M
-	 UZRf+dDhzFlyMniWGaUFUvMgCfmtm5sWpzTsybQBwYO26b1X3hjgGi36W3Ca25rNgj
-	 VeTtr/CImItQZgwgErYW61MVHqCKaMzQQVlD0yYn0re0KLai3tkMgfVnVoj0EcQdVT
-	 935MnPorCe4CWLFBFh21JQ/4+BuwQup0VXYK9Y/zhlrCqH2GBCBM3IE91fEjMqeubP
-	 35yUpqkhjUQl97S5STmWfhLixQBfPRda/6YyD28JicK3AxH1cmAKDJAbP9qt1tbEDb
-	 akgDDdGD+bo5A==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 989DECE39A4; Sat,  3 Oct 2026 16:43:48 -0700 (PDT)
-Date: Sat, 3 Oct 2026 16:43:48 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: kunwu.chan@gmail.com, boqun@kernel.org, dave@stgolabs.net,
-	frederic@kernel.org, jiangshanlai@gmail.com, joelagnelf@nvidia.com,
-	josh@joshtriplett.org, linux-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, neeraj.upadhyay@kernel.org,
-	qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
-	urezki@gmail.com
-Subject: Re: [PATCH v2] rcuscale: add srcua scale type
-Message-ID: <463c8f04-e08b-49b7-b16f-e65def841cb6@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261003161720.240855-1-kunwu.chan@gmail.com>
- <A3BA2086-5718-45BB-8B3E-35C1D2CA7B63@mainlining.org>
+	dkim=pass (2048-bit key) header.d=saltyming.net header.i=@saltyming.net header.b="mAK/lIkw"
+DKIM-Signature: v=1; a=rsa-sha256; s=saltyming-dkim-202512; d=saltyming.net; c=relaxed/relaxed;
+	h=MIME-Version:Message-ID:Date:Subject:To:From:Content-Type; t=1791071171;
+	x=1791675971; bh=hxN7kjCEhLnn1+Ezysc3TnjEFzT6AYEfF7E3Sz1y6Gg=; b=mAK/lIkwvg
+	HbihK5ndNYC0Dnun5wgob+aSh1VMWIN0DSt2EtaIkcRPFwikq5t1hRUiw7/v8nuu+di0lFyHcc3
+	341T/wSaVaWoxY08bhFyhp+Cwi9/K5dunvQ07JnjvUgrAPWKHlAVpj6ScMa5i6jat9ub5spad0s
+	qdMF3WHwaFANLcIQ0mdqEtMgoHU1j8S1S1PfjoQVYbtuJSXS4qvBnJ0oxDe5OreWvLA8/i4anfu
+	j/0dJKiAEQuW8B8ZXdA090DQNOHzdWmDv5TzMNUwlpJwaWA1PG56wh6XZ10m5nSq48HZca8VV+C
+	q9vNumQu9gIz1MoSk9elNtzPnnfJBTPg==;
+Received: by smtp-sv1.saltyming.net (SaltyMail) with ESMTPSA
+	(version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256)
+	(No client certificate requested)
+	id 22317927-9a40-44ed-84fa-c7953340a0d6
+	for <linux-kernel@vger.kernel.org>; Sat, 3 Oct 2026 23:45:31 +0000
+X-Virus-Status: Clean
+X-Security-Tags: spf_none, dkim_none, dmarc_fail, dmarc_quarantine, arc_none, av_clean, ham
+From: Hamin Sung <hamin@saltyming.net>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: nouveau@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	linux-kernel@vger.kernel.org,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Aaron Kling <webgeek1234@gmail.com>,
+	Hamin Sung <hamin@saltyming.net>
+Subject: [RFC PATCH 1/2] drm/nouveau/pmu/gt215: add graphics engine load counters
+Date: Sun,  4 Oct 2026 08:45:20 +0900
+Message-ID: <20261003234520.69573-1-hamin@saltyming.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003223420.77993-1-hamin@saltyming.net>
+References: <20261003223420.77993-1-hamin@saltyming.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <A3BA2086-5718-45BB-8B3E-35C1D2CA7B63@mainlining.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 06:52:44PM +0100, Bradley Morgan wrote:
-> On 3 October 2026 17:17:19 BST, Kunwu Chan <kunwu.chan@gmail.com> wrote:
-> >Add support for scaling atomic SRCU grace periods using
-> >srcu_read_lock_atomic()/srcu_read_unlock_atomic() and
-> >synchronize_srcu_atomic().
-> >
-> >Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> >Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> 
-> 1: why didn't u cc me
-> 2: why did you ommit my tag? I tend to review based on correctness, cuz idk pauls preferences, once I do I'll be a better rcu reviewer.
+The PDAEMON in GT215, GT216, GT218 and MCP89 has idle counters that
+count PMU clock cycles depending on the state of a selected set of
+engine idle signals.  Nothing in nouveau uses them on these GPUs;
+gk20a_devfreq.c drives the same counter block on Tegra.
 
-Take it easy, Bradley.
+Add nvkm_pmu_perfmon_init() and nvkm_pmu_perfmon_read() and implement
+them for these GPUs: one counter counts every cycle, a second one the
+cycles during which the graphics engine is not idle, and reading returns
+and clears both.  The counters are only programmed once
+nvkm_pmu_perfmon_init() is called, so nothing changes for existing
+users.
 
-Many in the Linux kernel community consider it polite to drop a tag
-from (or, as in this case, avoid adding a tag to) a patch that changed
-significantly.  On the CC issue, you did find the patch the first time
-without him CCing you.  ;-)
+The next patch uses them to select performance levels through devfreq.
 
-Kunwu did nothing wrong here.
+Link: https://envytools.readthedocs.io/en/latest/hw/pm/pdaemon/counter.html
+Assisted-by: Claude:claude-opus-5-5 sparse # max effort
+Assisted-by: Claude:claude-fable-5-1 # max effort, review
+Signed-off-by: Hamin Sung <hamin@saltyming.net>
+---
+Sorry for the duplicate copies of the cover letter, and of the two
+nouveau fixes I sent with it: my mail server delivered each of them
+twice to most recipients.
 
-							Thanx, Paul
+ .../gpu/drm/nouveau/include/nvkm/subdev/pmu.h |  2 +
+ .../gpu/drm/nouveau/nvkm/subdev/pmu/base.c    | 29 ++++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c   | 40 +++++++++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/pmu/priv.h    |  5 +++
+ 4 files changed, 76 insertions(+)
 
-> >---
-> >Changes since v1:
-> >- Rename srcu_atomic_ctlp to srcua and reuse srcu_ctlp for
-> >  SRCU operations, as suggested by Paul.
-> >- Reuse the existing SRCU cleanup and completed helpers by
-> >  initializing srcu_ctlp in srcu_atomic_scale_init().
-> >- Add .stats using srcu_scale_stats().
-> >- Use "srcua" to match the existing "srcu" and "srcud" scale
-> >  type names.
-> >- Use synchronize_srcu_atomic() for both normal and expedited
-> >  scale tests.
-> >
-> >v1: https://lore.kernel.org/all/20260927100359.3903688-1-kunwu.chan@gmail.com/
-> >Tested with kvm.sh --torture rcuscale scale_type=srcua on x86_64 and
-> >arm64, alongside gp_exp=1 and PROVE_LOCKING=y: no warnings or lockdep
-> >splats.
-> >---
-> > kernel/rcu/rcuscale.c | 41 ++++++++++++++++++++++++++++++++++++++++-
-> > 1 file changed, 40 insertions(+), 1 deletion(-)
-> >
-> >diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
-> >index 1097ec15879c..b172882824ac 100644
-> >--- a/kernel/rcu/rcuscale.c
-> >+++ b/kernel/rcu/rcuscale.c
-> >@@ -293,6 +293,44 @@ static struct rcu_scale_ops srcud_ops = {
-> > 	.name		= "srcud"
-> > };
-> > 
-> >+static struct srcu_struct srcua;
-> >+
-> >+static int srcu_scale_atomic_read_lock(void)
-> >+{
-> >+	return srcu_read_lock_atomic(srcu_ctlp);
-> >+}
-> >+
-> >+static void srcu_scale_atomic_read_unlock(int idx)
-> >+{
-> >+	srcu_read_unlock_atomic(srcu_ctlp, idx);
-> >+}
-> >+
-> >+static void srcu_scale_atomic_synchronize(void)
-> >+{
-> >+	synchronize_srcu_atomic(srcu_ctlp);
-> >+}
-> >+
-> >+static void srcu_atomic_scale_init(void)
-> >+{
-> >+	srcu_ctlp = &srcua;
-> >+	init_srcu_struct_atomic(srcu_ctlp);
-> >+}
-> >+
-> >+static struct rcu_scale_ops srcua_ops = {
-> >+	.ptype		= SRCU_FLAVOR,
-> >+	.init		= srcu_atomic_scale_init,
-> >+	.cleanup	= srcu_sync_scale_cleanup,
-> >+	.readlock	= srcu_scale_atomic_read_lock,
-> >+	.readunlock	= srcu_scale_atomic_read_unlock,
-> >+	.get_gp_seq	= srcu_scale_completed,
-> >+	.gp_diff	= rcu_seq_diff,
-> >+	.exp_completed	= srcu_scale_completed,
-> >+	.sync		= srcu_scale_atomic_synchronize,
-> >+	.exp_sync	= srcu_scale_atomic_synchronize,
-> >+	.stats		= srcu_scale_stats,
-> >+	.name		= "srcua"
-> >+};
-> >+
-> > #ifdef CONFIG_TASKS_RCU
-> > 
-> > /*
-> >@@ -1110,7 +1148,8 @@ rcu_scale_init(void)
-> > 	long i;
-> > 	long j;
-> > 	static struct rcu_scale_ops *scale_ops[] = {
-> >-		&rcu_ops, &srcu_ops, &srcud_ops, TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
-> >+		&rcu_ops, &srcu_ops, &srcua_ops, &srcud_ops,
-> >+		TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
-> > 	};
-> > 
-> > 	if (!torture_init_begin(scale_type, verbose))
-> >
-> >base-commit: d21906b0aa1e9573cdb5e7acaca44966b9d1dcd2
-> >
-> 
-> --- Thanks!
-> "I'm not a very positive person" - Linus torvalds
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
+index f57a3a5a288d..de844e69a5e6 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
+@@ -39,6 +39,8 @@ int nvkm_pmu_send(struct nvkm_pmu *, u32 reply[2], u32 process,
+ 		  u32 message, u32 data0, u32 data1);
+ void nvkm_pmu_pgob(struct nvkm_pmu *, bool enable);
+ bool nvkm_pmu_fan_controlled(struct nvkm_device *);
++int nvkm_pmu_perfmon_init(struct nvkm_pmu *pmu);
++int nvkm_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total);
+ 
+ int gt215_pmu_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pmu **);
+ int gf100_pmu_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pmu **);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
+index e556b1905702..fb51db6a2ca3 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
+@@ -51,6 +51,35 @@ nvkm_pmu_pgob(struct nvkm_pmu *pmu, bool enable)
+ 		pmu->func->pgob(pmu, enable);
+ }
+ 
++/*
++ * Set up the PMU counters that nvkm_pmu_perfmon_read() samples.  PMU
++ * initialisation resets the PMU, so this has to be repeated after resume.
++ */
++int
++nvkm_pmu_perfmon_init(struct nvkm_pmu *pmu)
++{
++	if (!pmu || !pmu->func->perfmon.init)
++		return -ENODEV;
++
++	pmu->func->perfmon.init(pmu);
++	return 0;
++}
++
++/*
++ * Return the number of PMU clock cycles that passed, and how many of them the
++ * graphics engine was busy for, since the previous call or since
++ * nvkm_pmu_perfmon_init(), and restart counting.
++ */
++int
++nvkm_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total)
++{
++	if (!pmu || !pmu->func->perfmon.read)
++		return -ENODEV;
++
++	pmu->func->perfmon.read(pmu, busy, total);
++	return 0;
++}
++
+ static void
+ nvkm_pmu_recv(struct work_struct *work)
+ {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
+index 32cee21ed858..37310a8ebe81 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
+@@ -260,6 +260,44 @@ gt215_pmu_init(struct nvkm_pmu *pmu)
+ 	return 0;
+ }
+ 
++/*
++ * PDAEMON idle counters.  Each one has a mask of engine idle signals at
++ * 0x10a504, a cycle count at 0x10a508 (bit 31 clears it) and a mode at
++ * 0x10a50c: bit 0 counts cycles in which all masked signals are set, bit 1
++ * cycles in which they are all clear, and both together count every cycle.
++ * Idle signal bit 0 is the graphics engine.
++ */
++#define GT215_PMU_COUNTER_TOTAL 0
++#define GT215_PMU_COUNTER_GR    1
++
++static void
++gt215_pmu_perfmon_init(struct nvkm_pmu *pmu)
++{
++	struct nvkm_device *device = pmu->subdev.device;
++
++	nvkm_wr32(device, 0x10a504 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x00000000);
++	nvkm_wr32(device, 0x10a50c + GT215_PMU_COUNTER_TOTAL * 0x10, 0x00000003);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x80000000);
++
++	nvkm_wr32(device, 0x10a504 + GT215_PMU_COUNTER_GR * 0x10, 0x00000001);
++	nvkm_wr32(device, 0x10a50c + GT215_PMU_COUNTER_GR * 0x10, 0x00000002);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10, 0x80000000);
++}
++
++static void
++gt215_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total)
++{
++	struct nvkm_device *device = pmu->subdev.device;
++
++	*busy = nvkm_rd32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10);
++	*total = nvkm_rd32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10, 0x80000000);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x80000000);
++
++	*busy &= 0x7fffffff;
++	*total &= 0x7fffffff;
++}
++
+ const struct nvkm_falcon_func
+ gt215_pmu_flcn = {
+ };
+@@ -278,6 +316,8 @@ gt215_pmu = {
+ 	.intr = gt215_pmu_intr,
+ 	.send = gt215_pmu_send,
+ 	.recv = gt215_pmu_recv,
++	.perfmon.init = gt215_pmu_perfmon_init,
++	.perfmon.read = gt215_pmu_perfmon_read,
+ };
+ 
+ static const struct nvkm_pmu_fwif
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
+index 2d0a8fa6f196..880a7785589a 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
+@@ -30,6 +30,11 @@ struct nvkm_pmu_func {
+ 	void (*recv)(struct nvkm_pmu *);
+ 	int (*initmsg)(struct nvkm_pmu *);
+ 	void (*pgob)(struct nvkm_pmu *, bool);
++
++	struct {
++		void (*init)(struct nvkm_pmu *pmu);
++		void (*read)(struct nvkm_pmu *pmu, u32 *busy, u32 *total);
++	} perfmon;
+ };
+ 
+ extern const struct nvkm_falcon_func gt215_pmu_flcn;
+-- 
+2.55.0
+
+
