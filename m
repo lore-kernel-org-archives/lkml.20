@@ -1,218 +1,142 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f37.google.com (mail-qk2-f37.google.com [74.125.230.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F9D49552B;
-	Sat,  3 Oct 2026 21:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB257238166
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063010; cv=none; b=eJJzhXA3w5IrG7enxQ9UNmkDr5aDVuZW32xW4JzGKceLzbXXTmokvYSrvtPNYmbDTCPZwroim6fByNbmlquK79RoprKN9mTNOFarAzI3G+0N5gkMNjKtqLyWDoEf/QUiDSPPhr3KuW6sv3ybYsfeLCHUrYFV1Lr6SHeX7C2PAck=
+	t=1791063115; cv=none; b=ObBcy7OSzJNYW+hfU/hgeiqDpuJSCprpb5V+1lzqvq9Cygbhgc1fdSNPNPfh2N7VXYVnp28KEAi0S0p338fDG75amN5S7oCghsk9syqLen+N5Tma/2DxT0NZPTK4+yB4O25RKbnaJxDBKaHCW7vsIH73CduW7dwOccgaCY5X72Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063010; c=relaxed/simple;
-	bh=D8x8axyFP8hKFCMfmt2XmWeJmTJTn183MyVucMGFPXc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M6+EuTVf9G/v/doU1rdL50spzi6NHdj6c/hJFnDlW3oZ2BryDl+eePvvV4oTITD2Sf9WY2fJvTWcFLULYvLR2oG1O9iFmKVkYAQslctzfDY72QYm5dn2YQwL4Q+zF8tM4ZeqIiG6GyXEUP6TBKFO7r2QQMBQcn8M2Ahu7Z8XBmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FXm96tWC; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791063115; c=relaxed/simple;
+	bh=3IGIouzNerHBwDt2XZKFq7EhkZ7ohljzRYzr3vY2Skg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cHU7hEqhA6RdtNtYl8ZYFQ90RjB/G8p4FcDfBrTN9YWLmr0528Rajc1gqMv93CnDVfE2ubS25CnW+aAA3y3dKYLByyBv12MAbVf03YTKBvOc23pIx2FZVj5JKQToAZ1ByXjINoULhwOcgwvQfAQDJnJgTX16dpm8qlQCuomQ47c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cO1qEDJF; arc=none smtp.client-ip=74.125.230.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FXm96tWC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791063009; x=1822599009;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=D8x8axyFP8hKFCMfmt2XmWeJmTJTn183MyVucMGFPXc=;
-  b=FXm96tWCPW3zHcOm8NDnvgdF2XSltjJwaC/38mQQt7FjDQQ53XlmmNc8
-   I4+57XQVt9hLXNo1uNFgNqwKK7aDHdsB+T6aoeaf7sYlzCs/11OGzCA2e
-   O6aa+wqwdIr8LC9OAtXDYcL5tVt6u46tBlD2T/ZoMVlZWNYyopNY4wI7A
-   5mwROAvSeCoFlQiZNdnAN3fF33TmkPIteq4fBpFirR0NA3CvitzWVRLLo
-   dHTwkzI+Gri/fU2uEKpdvpxGZGPy7mIecjYNhBALn3mMUc/gKFS0anV4S
-   Ew6LQ9IU7ToyyF725tfrajT7QF1iGDpcHkjqCOPcznV0tBo82KELrnwZM
-   w==;
-X-CSE-ConnectionGUID: ixVRk/ugTZ2bAp+9dt4kUg==
-X-CSE-MsgGUID: DBn2xDk+SwC2BRAdm8Y2cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90818175"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="90818175"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 14:30:09 -0700
-X-CSE-ConnectionGUID: 884xvonTRIqeU9tyOSMARA==
-X-CSE-MsgGUID: 1sNEDaDcRQqRF48yLzmY7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="279754011"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.88])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 14:30:06 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 49AD711FA5B;
-	Sun, 04 Oct 2026 00:30:05 +0300 (EEST)
-Date: Sun, 4 Oct 2026 00:30:05 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cO1qEDJF"
+Received: by mail-qk2-f37.google.com with SMTP id af79cd13be357-93d9310b207so50963785a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:31:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791063112; x=1791667912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EF7nOMoHU/lXOBcLECCEmjeD1XvCzGTt0zKSXYTVC24=;
+        b=cO1qEDJFBTZ8RbLpwOuMh1JIxExF3V/qbsYRFXR2/n08qpclkWkRrTLPcxGWazDYz0
+         lmPavltJ24kckZOQvfDpvpFbw3jJTZ3IjYRBmPwuB/f6hn2yTvMLARJt0EJ+Ni2Hts3E
+         ZoiLepzyGXD4wxrNtG1Stqh/FqwAiIe4Ed5JKqNDkSMmN+2tfRLqyk8vY/sdlC0kXz63
+         qN6mFCSQsjbxgWUnjJV4QIxEtqK/QnmdohT56jgA2b+rZUN0Mu64VAS30YKWh+aBD2JO
+         uVlZ4VRsxumD8LPedX3+ZOeoZxkMGvHcYVZ8GYMAD5RAwYEDGAZzaOhePQSyizuDLnIq
+         KyKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791063112; x=1791667912;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EF7nOMoHU/lXOBcLECCEmjeD1XvCzGTt0zKSXYTVC24=;
+        b=f04MrVle25nUTHf2YiiRHVrZ7tCham4kEbMg4sLd3HPUruhEIxN4qj9HzUuILvUy3+
+         g49R0+HVon4hriVvC+1XvH5dZyHrqig7Z4/LzEL+etYdjKAYkuNaziwaLbJYO557s/lN
+         2y2b+/VfO+6CcaXbBeGVRm4yCivHBQJQlkBJoI5Yvf7zQfDv3VjgOVjonwX5s892uhVH
+         AsPMZM/ktdt/B3JX+IcKfI5W3xthpuiGDyOhondzGYl2BhY5O6WNw9FRM+jUFl52sIfq
+         gYNtJmtnFZJbAwvLuToBGfNVqinjHmMMLED3CGH8AIEqAKogtB3Ar6GAVTKOM4DZsRdC
+         k4HQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMy9ASHoNVls9rKtq3H9HIUmfIdraa5snEQD8rpUpBilkkbchQzjZha+1G0BYyofksI+MrL2VFDS1McTA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mF1ZsmcCUtpx5k7RcV06fKB2IH7sqJidX+SYviHr8sN2KS5H30
+	YT/wC8kyCTSQ7ABeZSa4IZbAaAn9N0QKWMt9QStoI0UmB91O7lp/lTDf
+X-Gm-Gg: AYBFou2d9Kkrk8oQ1AR0rtrBWW/mHlmZAca6ndKgeFqQUrEdpzaIjkvLOlFz/pDlBEG
+	1JvuTTzlTMLaxEmMctSwZctSxaBMmUxKFpdBGfVfNdtJm2d/tTrh6M3mJzSlPBvH/C2B9hNdbqd
+	xV3h/NyOvArFNzHG3EhVCh4J3EQ0ybb2DWvKKipXEBA+99qKpSda/qXcXL40iCEDi2mIa2xqoNg
+	jozT9qBY4lhF3qEKgUbKb1+fp2TaPxOuAtL3v6HfYQ03R0McB3Gt3od6I91wr9z9OQy83ykRt4Q
+	YHFA8Cqc6ZiRpgcSBKlbIXNyGf1IT5apbKHdn1UzGBgMRtLCI5j+NSDJn1UFE1jVRlbPmMlTZsx
+	hN+ljLt0FoYMJb9tyJCw/+BQ/2FURipGEJOhW6pFSWVW50fb7UO3Q1w0PYmzk1Ev9tfKnewT4Dn
+	sXluhGiExc+Lcjj6OgYvnE3hgmz5nV3aw9LnA6QVVejp53CIlsN+sjbj/5ZwVpPzlAoL1Emkdq/
+	jD2PD+07SS9m3bBR4aXiVJk0DKboVQLzItFQOHkf9M71UpfncaZg/h9rsCcm/XGxGmFo9huIU44
+	+73qUwd5ahd2pZvao3eTZyAFLAwBlcv7vC5zP7WoMWdiHkVS
+X-Received: by 2002:a05:620a:6190:b0:93b:f402:a204 with SMTP id af79cd13be357-93cf1787c37mr1300849285a.51.1791063112470;
+        Sat, 03 Oct 2026 14:31:52 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca2c96f4sm526896985a.43.2026.10.03.14.31.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 14:31:52 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-serial@vger.kernel.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH v4 2/2] staging: media: atomisp: Remove dbg_level and
- dbg_func module parameters
-Message-ID: <asFz3bcfdOOYG953@kekkonen.localdomain>
-References: <20260721163533.15888-1-prajvalchaudhari733@gmail.com>
- <20260721163533.15888-3-prajvalchaudhari733@gmail.com>
+	Jiri Slaby <jirislaby@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org (open list:LINUX FOR POWERPC (32-BIT AND 64-BIT)),
+	linux-kernel@vger.kernel.org (open list:TTY LAYER AND SERIAL DRIVERS)
+Subject: [PATCH v3] serial: hvc: use modern IRQ acquisition API
+Date: Sat,  3 Oct 2026 14:31:48 -0700
+Message-ID: <20261003213148.137206-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721163533.15888-3-prajvalchaudhari733@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Prajval,
+Use platform_get_irq_optional() to be able to handle potential
+-EPROBE_DEFER and other errors. Move it earlier to avoid having to call
+kfree() on the global array.
 
-On Tue, Jul 21, 2026 at 10:05:32PM +0530, Prajval Chaudhary wrote:
-> Remove the 'dbg_level' and 'dbg_func' module parameters to align the
-> driver's debug facility with standard Linux kernel APIs (printk/vprintk).
-> 
-> The internal logic relying on custom debug parameters has been updated
-> so that message logging and function tracing no longer depend on exposed
-> userspace module parameters.
-> 
-> Signed-off-by: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-> ---
->  drivers/staging/media/atomisp/pci/atomisp_common.h   |  2 --
->  .../staging/media/atomisp/pci/atomisp_compat_css20.c | 12 +++---------
->  drivers/staging/media/atomisp/pci/atomisp_v4l2.c     |  7 -------
->  .../pci/runtime/debug/interface/ia_css_debug.h       |  7 +++----
->  .../atomisp/pci/runtime/debug/src/ia_css_debug.c     |  4 ++--
->  5 files changed, 8 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_common.h b/drivers/staging/media/atomisp/pci/atomisp_common.h
-> index 7c6c0124ff72..aa230c3708dd 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_common.h
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_common.h
-> @@ -20,8 +20,6 @@
->  
->  #include "ia_css.h"
->  
-> -extern int dbg_level;
-> -extern int dbg_func;
->  extern const int pad_w;
->  extern const int pad_h;
->  
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-> index ea49ebe2da5c..647f6e7e2455 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-> @@ -784,7 +784,7 @@ int atomisp_css_load_firmware(struct atomisp_device *isp)
->  	isp->css_env.isp_css_env.hw_access_env.load = atomisp_css2_hw_load;
->  	isp->css_env.isp_css_env.hw_access_env.store = atomisp_css2_hw_store;
->  
-> -	__set_css_print_env(isp, dbg_func);
-> +	__set_css_print_env(isp, 1);
->  
->  	isp->css_env.isp_css_env.print_env.error_print = atomisp_vprintk;
->  
-> @@ -3372,18 +3372,12 @@ void atomisp_css_set_isp_config_applied_frame(struct atomisp_sub_device *asd,
->  
->  int atomisp_get_css_dbgfunc(void)
->  {
-> -	return dbg_func;
-> +	return 1;
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v3: resend.
+ v2: move call earlier to avoid failure to reprobe.
+ drivers/tty/hvc/hvc_opal.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Maybe you could switch to similar v4l2 macros?
-
->  }
->  
->  int atomisp_set_css_dbgfunc(struct atomisp_device *isp, int opt)
->  {
-> -	int ret;
-> -
-> -	ret = __set_css_print_env(isp, opt);
-> -	if (ret == 0)
-> -		dbg_func = opt;
-> -
-> -	return ret;
-> +	return __set_css_print_env(isp, opt);
->  }
->  
->  void atomisp_en_dz_capt_pipe(struct atomisp_sub_device *asd, bool enable)
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> index d117fea2860c..55b3d4d3d6ad 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> @@ -45,15 +45,8 @@
->  #define CSTATE_EXIT_LATENCY_C1  1
->  
->  /* cross component debug message flag */
-> -int dbg_level;
-> -module_param(dbg_level, int, 0644);
-> -MODULE_PARM_DESC(dbg_level, "debug message level (default:0)");
->  
->  /* log function switch */
-> -int dbg_func = 1;
-> -module_param(dbg_func, int, 0644);
-> -MODULE_PARM_DESC(dbg_func,
-> -		 "log function switch non/printk (default:printk)");
->  
->  /*
->   * Set to 16x16 since this is the amount of lines and pixels the sensor
-> diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h b/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h
-> index 2d0e906530af..029adbdca945 100644
-> --- a/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h
-> +++ b/drivers/staging/media/atomisp/pci/runtime/debug/interface/ia_css_debug.h
-> @@ -8,7 +8,7 @@
->  #define _IA_CSS_DEBUG_H_
->  
->  /*! \file */
-> -
-> +#include <linux/printk.h>
->  #include <type_support.h>
->  #include <linux/stdarg.h>
->  #include <linux/bits.h>
-> @@ -39,7 +39,6 @@
->  #define IA_CSS_DEBUG_INFO    9
->  
->  /* Global variable which controls the verbosity levels of the debug tracing */
-> -extern int dbg_level;
->  
->  /*! @brief Enum defining the different isp parameters to dump.
->   *  Values can be combined to dump a combination of sets.
-> @@ -125,8 +124,8 @@ static inline void __printf(2, 0) ia_css_debug_vdtrace(unsigned int level,
->  						       const char *fmt,
->  						       va_list args)
->  {
-> -	if (dbg_level >= level)
-> -		sh_css_vprint(fmt, args);
-> +	if (level <= IA_CSS_DEBUG_WARNING)
-> +		vprintk(fmt, args);
->  }
->  
->  __printf(2, 3) void ia_css_debug_dtrace(unsigned int level,
-> diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-> index 5113aa5973f3..86b2cca2f441 100644
-> --- a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-> +++ b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-> @@ -135,13 +135,13 @@ void ia_css_debug_dtrace(unsigned int level, const char *fmt, ...)
->  
->  void ia_css_debug_set_dtrace_level(const unsigned int trace_level)
->  {
-> -	dbg_level = trace_level;
-> +	/* Trace level is now controlled dynamically via Linux kernel dynamic debug facility */
->  	return;
->  }
->  
->  unsigned int ia_css_debug_get_dtrace_level(void)
->  {
-> -	return dbg_level;
-> +	return 0;
->  }
->  
->  static const char *debug_stream_format2str(const enum atomisp_input_format
-
+diff --git a/drivers/tty/hvc/hvc_opal.c b/drivers/tty/hvc/hvc_opal.c
+index 402da9e7c534..fb9a566ca213 100644
+--- a/drivers/tty/hvc/hvc_opal.c
++++ b/drivers/tty/hvc/hvc_opal.c
+@@ -13,7 +13,6 @@
+ #include <linux/slab.h>
+ #include <linux/console.h>
+ #include <linux/of.h>
+-#include <linux/of_irq.h>
+ #include <linux/platform_device.h>
+ #include <linux/export.h>
+ #include <linux/interrupt.h>
+@@ -157,8 +156,9 @@ static int hvc_opal_probe(struct platform_device *dev)
+ 	struct hvc_struct *hp;
+ 	struct hvc_opal_priv *pv;
+ 	hv_protocol_t proto;
+-	unsigned int termno, irq, boot = 0;
++	unsigned int termno, boot = 0;
+ 	const __be32 *reg;
++	int irq;
+ 
+ 	if (of_device_is_compatible(dev->dev.of_node, "ibm,opal-console-raw")) {
+ 		proto = HV_PROTOCOL_RAW;
+@@ -176,6 +176,10 @@ static int hvc_opal_probe(struct platform_device *dev)
+ 	reg = of_get_property(dev->dev.of_node, "reg", NULL);
+ 	termno = reg ? be32_to_cpup(reg) : 0;
+ 
++	irq = platform_get_irq_optional(dev, 0);
++	if (irq == -EPROBE_DEFER)
++		return irq;
++
+ 	/* Is it our boot one ? */
+ 	if (hvc_opal_privs[termno] == &hvc_opal_boot_priv) {
+ 		pv = hvc_opal_privs[termno];
+@@ -209,8 +213,7 @@ static int hvc_opal_probe(struct platform_device *dev)
+ 		dev->dev.of_node,
+ 		boot ? " (boot console)" : "");
+ 
+-	irq = irq_of_parse_and_map(dev->dev.of_node, 0);
+-	if (!irq) {
++	if (irq < 0) {
+ 		pr_info("hvc%d: No interrupts property, using OPAL event\n",
+ 				termno);
+ 		irq = opal_event_request(ilog2(OPAL_EVENT_CONSOLE_INPUT));
 -- 
-Regards,
+2.56.0
 
-Sakari Ailus
