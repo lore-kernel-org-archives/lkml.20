@@ -1,108 +1,106 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF996242D65;
-	Sat,  3 Oct 2026 06:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 908A92609FD
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791010412; cv=none; b=J4VObAnwgIV5XTha1PUKiagR582msm4ym4JOyXnNOSs0pJhIrpiKMm+g4hsCqokBXQ8GBNmik7X/wFdG0TORNHoMTcblmpYo13jM2mhY39RxszQsTmwN4cMueNeFysSwHgHctkKX6kdVpWyzN93WkYQLQG5D2+/BOAZ092O7zFk=
+	t=1791010608; cv=none; b=twfvkvuLcTXqsXqjSATjxr7N1OorHVpDxF6bl9A3wA9DpkaMk3PdcEzEpK+2aaNj5MtUWTAFjuXmA8hwJAsNHu1hB6dzWHD+kJRgwFCjSC+giTHezQgZRFxml3M0076W0wPe6csOfnzs/edimfpOd2j559sUdMruxxmCb1vxRM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791010412; c=relaxed/simple;
-	bh=bXha1EY6nXZ/AZjy7rx+mVa/APqVcRw/2VuVAvUIhYw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fXMWHtLv1/TZkdqkIirKjBNZnlISOeXNQQHhgEWy5aLTYnONEn+y4WtCTUMB70gtUaFFPQ3JZGBGbN8E2+9JlS9OFgwQg422pr01HOf9qipzF/upRDdhD0mQiGtqOJDvhf0fAyuKRX2PadCxWIzLX2X5rvCZn8eOoy+P8m60DKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=dPuGswNJ; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791010608; c=relaxed/simple;
+	bh=yGRTJM11lPHqEAQCmI16d80x3sFjPSlkt3Eyi59eG50=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rMq+qC/y5HF5UXXM+IFCaUlM2SduM3MEZZEGQGcYIT25gOlBq5czyQMwVPgg28WVZTSIqegTRW/lERma4eniPgah9JNsbO7Uz8Qw/Yen/26UVEBk8UY2STIJ38iJ/SvIJzqsyEnxRXziSmo7DXsUUDPTX4eoYFCxxcoGOVVXjMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ONuKuNci; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="dPuGswNJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=o7vN1OvZy3wNyqGmBfQfsd9NUHv/OmOZdpb3tKj+Fms=; t=1791010408;
-	x=1791615208; b=dPuGswNJ7JsDbSwSz11o9rgorqIe1u0ZKm0NKsiIyNMw4AwIVsVxvHNzRJOM/
-	ALXUB/t5PhPiTiC34llOyxf0o6W0DNe7eIZrHMPFVf5oY7k44FCAjs2bH1t6GuyADfgHncR5IagkJ
-	m6vkwZRu0B0CdGLc2kAOX8vUxMbGCOuvyFCvqynQ4WF5aTBwCaifsg7LYmws2+4RWgzeHDM61fcFc
-	w+akAGQV5hLMWV51t5Jplxd4W31ixgRiij752lfR3KU/YRibyjE8CIKyVBr6VS4WYUjvuxMnKPqgj
-	FRqZo3iy+jjp6C3j2GAKOc5SXf92S4egnmf+nZocPX9/A4PIJg==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xCtcV-00000002hYR-1eb2; Sat, 03 Oct 2026 08:53:19 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xCtcV-00000001y8h-0ifD; Sat, 03 Oct 2026 08:53:19 +0200
-Message-ID: <f1e0019607971c4719f96f32af2b948a071501e7.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
- them
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
- <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 03 Oct 2026 08:53:18 +0200
-In-Reply-To: <asAk-lpM0rBnQTT3@gmail.com>
-References: <20260927191359.6144-1-kmehltretter@gmail.com>
-	 <3bd32eaf159db61ed1d423e1d52a869b3689c682.camel@physik.fu-berlin.de>
-	 <asAk-lpM0rBnQTT3@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ONuKuNci"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78DDE2F;
+	Fri,  2 Oct 2026 23:56:42 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 68FA63F763;
+	Fri,  2 Oct 2026 23:56:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791010605; bh=yGRTJM11lPHqEAQCmI16d80x3sFjPSlkt3Eyi59eG50=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ONuKuNcizlGzNYDJFxNVPzOBceTDLx5lM2xdJ7qmFsTpy8Mo1er8c27FcBXGv6+1Y
+	 lXgWh5atiJ4MXFXvhiMr0ZZfHV+z/5aAvEX5JR3rJRl4/7HuQoIoYzcUqn5FmTjZnB
+	 g2OFkozb5o6buo6bc+QZFm7kD50V1XPK2Gj0hSls=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Leo Yan <leo.yan@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH RESEND v13 00/14] fix several inconsistencies with sysfs configuration in etmX
+Date: Sat,  3 Oct 2026 07:56:34 +0100
+Message-ID: <179101052919.1709951.18400347613609410532.b4-ty@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
+References: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On Fri, 2026-10-02 at 23:58 +0200, Karl Mehltretter wrote:
-> thanks for testing. A cold reboot is not needed. The reported object was
-> allocated by usb_get_configuration(), so this warning is unrelated to the
-> INTC patch.
+On Sat, 03 Oct 2026 03:52:12 +0100, Yeoreum Yun wrote:
+> The current ETMx configuration via sysfs can lead to the following
+> inconsistencies:
+> 
+>   - If a configuration is modified via sysfs while a perf session is
+>     active, the running configuration may differ between before
+>     a sched-out and after a subsequent sched-in.
+> 
+> [...]
 
-OK, so how do I reproduce the INTC issue?
+I have fixed up minor checkpatch warnings and subjects.
 
-> I sent a fix for the USB R8A66597 bug and copied you:
->=20
-> https://lore.kernel.org/r/20261002213225.27834-1-kmehltretter@gmail.com/
+Applied to coresight next, thanks!
 
-Let me check.
+[01/14] coresight: etm4x: read-back TRCSEQSTR at disabling and prohibit modifying seq_state while enabling.
+        https://git.kernel.org/coresight/c/a373952d86cf
+[02/14] coresight: etm4x: prohibit modifying cntr_val while session is enabled
+        https://git.kernel.org/coresight/c/76b21c25a5f7
+[03/14] coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
+        https://git.kernel.org/coresight/c/88eaf963853d
+[04/14] coresight: etm4x: fix inconsistencies with sysfs configuration
+        https://git.kernel.org/coresight/c/b2131cff7224
+[05/14] coresight: etm3x: fix inconsistencies with sysfs configuration
+        https://git.kernel.org/coresight/c/950cca5352b0
+[06/14] coresight: etm3x: remove redundant cpu online check on etm_enable_sysfs()
+        https://git.kernel.org/coresight/c/4f7701c1f0d0
+[07/14] coresight: etm4x: introduce struct etm4_caps
+        https://git.kernel.org/coresight/c/a2cee9814137
+[08/14] coresight: etm4x: exclude ss_status from drvdata->config
+        https://git.kernel.org/coresight/c/b5022acaee3b
+[09/14] coresight: etm4x: remove s_ex_level from config
+        https://git.kernel.org/coresight/c/d6fbf353e35d
+[10/14] coresight: etm4x: rename local config as curr_config referring drvdata->curr_config
+        https://git.kernel.org/coresight/c/f5e6bb291eca
+[11/14] coresight: etm4x: rename drvdata->config to sysfs_config
+        https://git.kernel.org/coresight/c/30f946375269
+[12/14] coresight: etm3x: introduce struct etm_caps
+        https://git.kernel.org/coresight/c/7cadafd5a12e
+[13/14] coresight: etm3x: rename local config as curr_config referring drvdata->curr_config
+        https://git.kernel.org/coresight/c/da1ffcf6bb43
+[14/14] coresight: etm3x: rename drvdata->config to sysfs_config
+        https://git.kernel.org/coresight/c/3663b4e9875b
 
-> > Are you sure your patch actually fixes this problem?
-> >=20
-> > Or do I maybe need a cold reboot?
->=20
-> A cold reboot is not needed.
->=20
-> The INTC allocation remains live after boot, so SLUB does not necessarily
-> check its redzone automatically. To check it explicitly after boot, run:
->=20
->   echo 1 > /sys/kernel/slab/kmalloc-32/validate
-
-So, running the validation should trigger the INTC issue on an unpatched ke=
-rnel?
-
-> Could you please test once with only the USB patch and once with both
-> patches, using slub_debug=3DFZPU and running that command after each boot=
-?
-
-I'll test the USB patch first and see if that fixes the issue when booting
-with slub_debug=3DFZPU. Then test the INTC issue with the command above.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Best regards,
+-- 
+Suzuki K Poulose <suzuki.poulose@arm.com>
