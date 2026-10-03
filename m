@@ -1,133 +1,122 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A073AEF45;
-	Sat,  3 Oct 2026 22:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791067515; cv=none; b=gON947QdjuPuU2zGXsYPF21cOiGZUF+wWISRoUsSBD1FJBj/ZXr1dWxyWTRAShgwZEU+LMODly4dS6sRbMNfU5KqRjM+Z7eYKxUWGU4h8NAwd1KfsbbAmMh7DYlE0PyKM5y25l9tl98NLGdFmoXP4wc5pgaNYfAEqezEiJLDXPE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791067515; c=relaxed/simple;
-	bh=W21SRaEwpj9rNXOhq+Ty48iMmU1uKpvKeWtWaSSd1JM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=bR9s/8S8Hd7D9keLFi6OXHvF9fI6mclT5+W+Azyuh98MyH74vfpYjz+9KQprVuKTz/dFsQZMtmHPxQhIj0StJ5yN1Xa+YxRzmtaFwPOaqAtww88OSFFPBJO57WLh7aFtyMvRBuegolFTaz+UTuMvDb/4o5ZyckuS43rCpF2pf3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RLbFDHwu; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FB337F8DD;
+	Sat,  3 Oct 2026 22:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791068028; cv=pass; b=jw8EQUMijQhLm0YawOSG9OfR/5zYEc//RwaDLCtUDjepla+XtR8jGvytj7TzTmADi+5bn5IXAUb2pGp56v+zEVistGUZPijgMQj6Tfj7Su9PZDiDS/IHqyRNQE7vZ32/ktshex4EjyUoUDBCe887ruuM78jRJTYRyZ1CDFuHpAY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791068028; c=relaxed/simple;
+	bh=dAUEjOag55YRGYpffHiw6WsfcMBQaN9R/cdnkzLtA+s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=psqBu8xfIIwMU+z4uMNaXna1FxbNexejTgG6a7CX4rpgZO8tIr+M0aIXddu7ONpC9mmh9r0k+GCCo1RTRaoYOkcsu90WsIxmhocT2Z51OatrGPsdZEdFpLu93Xg2KWJNWVuVSCPDriGH8YWH+mVilx/O7CNZxItlqGbT2GsZC08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=XWBBxxCa; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RLbFDHwu"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261003224508euoutp02c41c30b489eaee9363e860f2478d6027~bJmji_WXc2979329793euoutp02u;
-	Sat,  3 Oct 2026 22:45:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261003224508euoutp02c41c30b489eaee9363e860f2478d6027~bJmji_WXc2979329793euoutp02u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791067508;
-	bh=vFhGMCg6Ji/JXdFQ3B6wXXIZQgQ9xvpb3HvqRmvxgSk=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=RLbFDHwuh3NRChlB5DbAnpf5fbQ/9VI4LqGu4llTjFUiXPQ562rniZUJozx7F6f0C
-	 O998yLIejmOOpMfO2undeRdQGMIbbwvHHW6qvrglXgdLXRekz3Vq8zAZ0mrAGgSxG4
-	 yLsO68CPN7a6ZuBi2t//4zMj/AdCV8fhYFGTexlA=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261003224507eucas1p200ece20a05f4aac2eeb0180f041df0fe~bJmigAu1f3080530805eucas1p2D;
-	Sat,  3 Oct 2026 22:45:07 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261003224505eusmtip1f6ac4f841c43fd74cce4c31cdfba487f~bJmg3wbbL2072920729eusmtip1D;
-	Sat,  3 Oct 2026 22:45:05 +0000 (GMT)
-Message-ID: <9c5913c0-11c8-4db8-844b-ea2ef29bf5db@samsung.com>
-Date: Sun, 4 Oct 2026 00:45:05 +0200
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="XWBBxxCa"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1ADD62021F9;
+	Sun, 04 Oct 2026 00:53:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791068024;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MIoXFaj7CalDN7WvVtGy5u2G1Z8ClV6T1Wb2Df9aUtQ=;
+	b=XWBBxxCaK/mHHKiIhQM0IdNmbn5cQ2qRgxRzseQPwVUmG9rBgGVfR2eG2gOJsBN0XL6Uhu
+	SwLQcBiuJRwzGo//jpskgaVT6I2OXQzEZA2nyE+UH0vTNG/v6Lr6V/bTC+ygh1sXd1xTgp
+	XBAEB0V7F/RE8IIbYMjkttWz0/Qv4IgAtr9toz8Lg8dJKY+a3YWsnQz0zTOpNuFwuJpcgZ
+	t2d8aXWfMfsrT3V38Labu6O9OpiuBCBqNoOtYY8+HX6XYqPNwXP5Iz/k4804gu90bAz4Av
+	TQPnf6LX0ZdobykBlk1ZUtre+wlqRMkrZNhzjnN88e0GZVi6DDp9iFbdOYshzw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791068024; a=rsa-sha256;
+	cv=none;
+	b=LoPADx8fBmU1lnBzsm2BmI929azi4Xx8+q6pDkmvspOQpPDyX8lFER/sicTyi1u3BmYm+3
+	far+3mnX0uUsUdka+Agf/cTO9H+yWaFqxWltnVWtbtRQgP7cVFBsCYoRocffXOubHfKlL8
+	426AwfyOrSG6CNF8miaDqDqkMiNDL61bkLLbAXO1c46nj0yjEdoNsKndefkXdy98dY01DQ
+	kFhH4rEk3feSy2BFtxYB5OTRR6gRYlfJsvZERBU6oEpzA32G/X/aNPjc/GGZ065VWNsHsI
+	qMZkjQREV6uhDsev2Be6mO3OG56aOQKSJiW0W6+LCVMiCbf7nRYS2bGm053RlQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791068024;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MIoXFaj7CalDN7WvVtGy5u2G1Z8ClV6T1Wb2Df9aUtQ=;
+	b=FAvtuLpHxNoYsS5FN5d/nNxcr/Pb8wUGsdzpfRqTnXb/Cwtdft+VQI+p6mtXexdvwU+xRg
+	HV1HD9EoV6OCqYM2ZvYyD2pY4oo+kVrA0kGeUUs6Nu4dUicTN+ndJIj/ggfERnhoCbD4pL
+	MOST/jVLUOWo5JuXp/I8CET1/QCzw2oCj/Jcb0SBpX1WZnL0v+hLQW5j1EATBXVC8XhzjO
+	mDKVN/v4+WPJpfa+8eYNyTTxnHUNy/CodsxKEti/dVZFWAWncvIW4aAnBtF+sv8nCsgCpL
+	Yrt8oJoWbIoI2zk7DH6bm/CQaXT2i+Rn6wkwWs+9LzIJWvXMyaCitz1rH/5KXg==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xD8bv-0047md-2g;
+	Sun, 04 Oct 2026 00:53:43 +0200
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 8EE475B93A3;
+	Sat, 03 Oct 2026 22:53:43 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sun, 04 Oct 2026 00:53:10 +0200
+Subject: [PATCH can-next 01/10] can: gs_usb: remove unused define
+ GS_CAN_MODE_NORMAL
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 9/9] MAINTAINERS: add an entry for the LZ4
- compression library
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers
-	<ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
-	<justinstitt@google.com>, Russell King <linux@armlinux.org.uk>, Thomas
-	Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley"
-	<James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, Heiko
-	Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander
-	Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
-	<borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Thomas
-	Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>, Sergey
-	Senozhatsky <senozhatsky@chromium.org>, Jens Axboe <axboe@kernel.dk>, Andrew
-	Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-block@vger.kernel.org, Yann Collet
-	<yann.collet.73@gmail.com>, Nick Terrell <terrelln@meta.com>, Gao Xiang
-	<xiang@kernel.org>, Chao Yu <chao@kernel.org>, Jaegeuk Kim
-	<jaegeuk@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, Phillip
-	Lougher <phillip@squashfs.org.uk>, Sungguk <sungguk.na@samsung.com>, Jaehoon
-	Chung <jh80.chung@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
-	linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
-	linux-crypto@vger.kernel.org
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260925213926.GA1903@quark>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261003224507eucas1p200ece20a05f4aac2eeb0180f041df0fe
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260925113507eucas1p2ddb94f2077b679426aa86dd1d492eaf3
-X-EPHeader: CA
-X-CMS-RootMailID: 20260925113507eucas1p2ddb94f2077b679426aa86dd1d492eaf3
-References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
-	<CGME20260925113507eucas1p2ddb94f2077b679426aa86dd1d492eaf3@eucas1p2.samsung.com>
-	<20260925-lz4-vendor-upstream-v1-9-1c7ffbe21c4b@samsung.com>
-	<20260925213926.GA1903@quark>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261004-gs_usb-cleanups-and-fixes-v1-1-7b4b06244a77@pengutronix.de>
+References: <20261004-gs_usb-cleanups-and-fixes-v1-0-7b4b06244a77@pengutronix.de>
+In-Reply-To: <20261004-gs_usb-cleanups-and-fixes-v1-0-7b4b06244a77@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=758; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=dAUEjOag55YRGYpffHiw6WsfcMBQaN9R/cdnkzLtA+s=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsg62J79mYf7zN8gtVzZ/ua7k9UP31O9osm94krO2mumH
+ V7srolTOkpZGMS4GGTFFFmW/jihKBDoUNr7MmESzBxWJpAhDFycAjCRkiSG/6kWNy1PCVTf0Lrx
+ eelv9cqq9G0KHCYv9N/d8jZ+UDhpWRLDT8a9bxnY1cO5pS8WHNGwF6qufLB2jwd3x/eCOWtWaK4
+ LYQMA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
+The value GS_CAN_MODE_NORMAL was part of the initial commit
+d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices") of
+the gs_usb driver, but never used. Remove it.
 
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/usb/gs_usb.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-On 9/25/26 23:39, Eric Biggers wrote:
-> On Fri, Sep 25, 2026 at 01:27:39PM +0200, Michal Wilczynski wrote:
->> lib/lz4/ has never had one: get_maintainer.pl returns only the LKML
->> fallback for every file in it, including include/linux/lz4.h, which eight
->> subsystems build against.
->>
->> This matters more now than it did. With the previous patches lib/lz4 is
->> vendored upstream sources, and someone has to bump them to new upstream
->> releases and decide what the kernel-side glue may do. I am willing to do
->> that, so add myself as its maintainer.
->>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  MAINTAINERS | 6 ++++++
->>  1 file changed, 6 insertions(+)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index cc3cae2e378b34aeb705cef654c720ca9f2ba223..989e1b5fab21432dd7042d1e60c4bbad85beb925 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -15606,6 +15606,12 @@ S:	Supported
->>  F:	drivers/net/pcs/pcs-lynx.c
->>  F:	include/linux/pcs-lynx.h
->>  
->> +LZ4 COMPRESSION LIBRARY
->> +M:	Michal Wilczynski <m.wilczynski@samsung.com>
->> +S:	Maintained
->> +F:	include/linux/lz4.h
->> +F:	lib/lz4/
->> +
-> 
-> Should this entry cover lib/decompress_unlz4.c and
-> include/linux/decompress/unlz4.h as well?
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index 3b9b2f104d86..bfb3780e1163 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -127,7 +127,6 @@ struct gs_device_config {
+ 	__le32 hw_version;
+ } __packed;
+ 
+-#define GS_CAN_MODE_NORMAL 0
+ #define GS_CAN_MODE_LISTEN_ONLY BIT(0)
+ #define GS_CAN_MODE_LOOP_BACK BIT(1)
+ #define GS_CAN_MODE_TRIPLE_SAMPLE BIT(2)
 
-Yes I'll add both in v2.
-Thanks a lot for looking at the series as a whole.
-
-> 
-> - Eric
-> 
-
-Best regards,
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.53.0
+
