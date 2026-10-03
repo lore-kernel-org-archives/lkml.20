@@ -1,109 +1,107 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B06233947
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC83351C2F
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791037779; cv=none; b=ftrlF8pXxRG/Lvkoc0NaY0BegMu49Q1rHUmbhKtQFUecg4PrZsuiS0F/cxiyxcXWA5fTR/OBsU76t8BgWclCqeNbumTv3lu4xIhlk3fZohQCvbVzhA0EBBtla4KAX91+X3sxKa0PtNqUNqw1wYCjYf5xnQV6GEQMn8ATca3nDN4=
+	t=1791037794; cv=none; b=OOnSJSffCGGXeLs5SkXOW2OHbX5AgZGAQNVihts7eD7+CnuGGySyEv5OvadMitn/mTdwkIPexLk2DBcZp21NFHhGp8BmVRCJWOOGIk1yd9/z8zQ18DkDtjMCCAC7I3Go8jGPlznDJ7JCj6zrF84MSpe5NLMpKXiH2DVVCr4HuAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791037779; c=relaxed/simple;
-	bh=x3qtrMaxlZV2XUClNz2Bf0GRdSf2AbVR9vfZ5ZvZwjs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B7RFFAKbru39aWJgVg1bvyPTdrAQsOFxKNtwQ3/cy6gmWk53xGR1T8ZEa7vauSVN5kmo44MlfMerayyJlZlgV5US2kuOwVX189UoumhK182rio6y+ScOHQVFEU1iPhKOC+dAqv4fMTaq00WROtR7HJwc/uMpJxC7UWgDviNwG5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HTvw0Nrl; arc=none smtp.client-ip=74.125.225.138
+	s=arc-20240116; t=1791037794; c=relaxed/simple;
+	bh=0FDlgE8/WtKxquJ1GTctYIuuqUHSqOHXaOawd/W2wAY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jaNe9khNrVp87VUg8Z8lX0yYcdwTwTFK2q0VREYX6cHLd27Hfq9/ze2XAL1bgAFoM9Aa6/nmbfQPP4PiE0L0KbNUzYeGm51z782zwhJ5gP4WxsZvYxom3uqzGg8CDq7sIDsATtYai3SB5dfz7BniMkshIWOrUYFvUPgmxpnmRjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DfRVTunU; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HTvw0Nrl"
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-4a165f4fb8bso3837045e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:29:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DfRVTunU"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffe281cb1so4245655e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:29:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791037775; x=1791642575; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zgc4T+XlrOyjsjU4zUHkky5gQ77fpbAgvSWADqVH9dU=;
-        b=HTvw0NrlpAcSvBc2iGuZiDZSSTf+1toLZS2koGXU/GNbizTWI0AOXRyvoQ7KZCwmj7
-         jxR1wHEeokPn/LIEQeEeP4tIsJau9nBrGKSB9PSI6I+U+nWYb+f0GNXf4L6BOjuSDT8n
-         vJ18irQ/eIUluRWQWqBQM+yH8aS7Rm+WhwLPzye3fSn7ALjho+5PnwCyAeIrTS/F/V1j
-         h63IzTyPLZRJIP0yZMTt+LePEXuv98PfK3i8bGJnJaiAsPKScD30K8kSVg/MgC0h/rVy
-         mYAAiN+jtCerlQ6WF7Qy7R5M7Pw9uvhDEMf0NOB1VDEw8L8f7g41AT9uck39MHAn8fIH
-         aHIg==
+        d=gmail.com; s=20251104; t=1791037791; x=1791642591; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5Nh4xYcLHpPWPglzT1Rb9TR1ScNizAo9fpmTf/BkSqU=;
+        b=DfRVTunU9jbFEsqPT9kqur/9LUCxYqIC+cipGl1i2VS8mMiqkJSoQUrdrA4NYvYU1F
+         i5yqhKQBaDUnT6qZmuLwxlfrps9z2NNB/Hdl41KPPHWvE2HNvKAW15itrkWMckQtckOg
+         ESuy/bZmn9SSge4YdhSFTpilIczq21qJSYMN0VhVdO4sLjx7112gOGUWV1GoyRItZqfn
+         FUZnvi9uX5E50UP1/cIXtLqwIxIE5Hs7mGkwjA4UptForWelIRe9wGNegybDXpI6ls+6
+         mhgSiNy1FbIthXXp48buPfw1UoEYPlTCsu3OKx9lf2IqqNUN0GYbMXqRQO+TyS7arerY
+         6Kxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791037775; x=1791642575;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zgc4T+XlrOyjsjU4zUHkky5gQ77fpbAgvSWADqVH9dU=;
-        b=OZOTrAbZQkO25JMnhNEMX21GvlVDNy8RFAJxirzxYnUdCaIitLf/esy+OZPi06D+jC
-         bQxC70psl9LnDwhg+SZSR8zYZxjY3BXVQZljnL2jGrPX797nFo4hPn77pQNX40x0H2gJ
-         LnZcspFnCb+AiMwdPJ162UHsr/mrQ+hDScl1Kaz9UX6+YhqK+xTEC9m4xQjHHIHF5aG8
-         RA1Brz4b9lMwNH6EBSqQX4nEHIC3sQ4kJ31beRLMSC3+jaM5r51IZZRlXm/VCKAX5wm7
-         il0JhpC6Syphps9U7Gw7pFR8+afSWPdSat4nwoSbYTMZTuOmryfpEoA/gnYoosA6TXdx
-         /4TA==
-X-Forwarded-Encrypted: i=1; AKwUvBwT7CwMB5Bt6oHpA2f9L/3EwF221/syRMjuxG+LxsAKcTD6F4JRqs9TrsZyh1AnudNO1/qec91oG7M3lvE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOHGu/nOrJQiZe9E520xlLaSMAfFzKBJHga/KwRB543KiB01Ph
-	uLCRra8qEJOa3A2YVZ1pE+taUirGfK8jKGMAdEVacNtwH4ZJ100FJG8k
-X-Gm-Gg: AYBFou0SWqacuatZ0/AoxkDzZaj+cjbXzifUNmCQsh74A1IFnBEXRTP+7vPu93eGNUd
-	B03ZSx0eQ/AKZFncrEZRuDChgGNoZNBZLeFRAnWV48wQup0SyZDn5RK9jBsiiAZzNAM6M4ae+T1
-	ZJTzocEyfXZXfnIkqBV4cbDrVO3oH/F9UAipHFLYihdYVGhqbdBGpmc7KjaT4FFjluEQgdv5HuC
-	kjaIi3r1I4dzAx56jW2tSr3CqvuoNgdKpctDDteRLCo6GKDpcN/I/sN0C2MAQfy+63tAMcdGoAp
-	3+cexlW4YVeXKr3zMbHa0xwaKu2UK1+SvB4EN7Ijv1CZUb44hLyM59+nk+m9BBBXkbaFfY4dJEU
-	5OC/jCC4PllB+/MetPzId5soXcMtyjkBiG2EQxuWwLlXDum0c1uHAlS1rQhIWNZR/xeiGiHGInt
-	7q6p5EFNgTvC049KZxVJE46VM1g96s818YRUv/9eXs6qgoHt3qoRrNbHX8haNRJ3GcQXin7vsb4
-	7q3KARqAoM5ffQ=
-X-Received: by 2002:a05:600c:4e42:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-4a027586525mr106946445e9.15.1791037775418;
-        Sat, 03 Oct 2026 07:29:35 -0700 (PDT)
-Received: from serhat-ubuntu.home ([212.253.192.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394c937csm102612345e9.1.2026.10.03.07.29.33
+        d=1e100.net; s=20260707; t=1791037791; x=1791642591;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5Nh4xYcLHpPWPglzT1Rb9TR1ScNizAo9fpmTf/BkSqU=;
+        b=bbmUQpZFSwlgitpSqgOsP3GzvwewDbN8xxSUqU8ZnkHSe1xrRdf63DB0O/t1rc7VIJ
+         AX97hzamcRZKlLKNX5aB/hussQtKYHNnnCAprpc7qPo8vNmxg+v4Akftrz6EXfzodA2S
+         /EIH2PIsbWzEomipJNZNbykQsrWDuUJNmBg5mhs+xijflSR7NMbQZDhj6NT8x5+vYUNI
+         +5Mx3AjbWluOHmttHIBMn00CwoV1Qqr3gSCjZN4xew67wlYjhAKQzhRGGSrB4ZaxItUs
+         ZS62yiBu7x71apxmJVnhxxhOwkMH8iC6pCoTC3H9NR0e+GT0mesqgcUFZEuVshQeqFvy
+         IPJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzIEZ20Io59W2EUQ9IPXWbqUKD1t806ibO4f21TNazzT68eeinO0XJ+1/L+c233b7YweeEVJhuWC8EVyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGbwLd1pQclQF2ObLgLxjzJiz2io7PYGT8udda1dtvILZ4szW5
+	RP2yk105ZxOm3pJDEhfnOoEZoarnjtTKS2Pd/NxGSxZuXgcPjZFGLD5/
+X-Gm-Gg: AYBFou2FQzzstSrHaW9b56LDeDXUPAkjLvF7kSECY1u+aP3ZdJf0pKYeONh85lEeLPe
+	Z68v4mTO19iFIdjiM2ZMbqMUfNsq2JPu4fBRVG+j9xDfvQoMmv4KPBFjGNpUuQVMRBmf+801ncd
+	dTGpOb62kPq74AqndXX5c8U4E1qFxBSCUz0HkOchPZ0JFFbo21Wo7xx3cHmZ0FUo5dGONxwEkQs
+	p416eJVYqr2/xAh7U+HgYWQjeX0ch+0j5+0CCbh3J/Bfbne5Ax4VS+S3zrRQEydXdRNknu7HYa5
+	ALpf/FQArZA3kKWJ1BNeOhCPv9Y8WoErarxrzyKaJdppCqjlrti4jL4Rk+XeL/rbIJIRH25ZxUS
+	qyWpvefmAkpc9/TCvquLhBHIhmI+06I0vcqVaipG0TuS4gBjFV0TyxQ+80BT5E0wXqo4OKqFuux
+	YCP5K31xbdTtL4QWSaOYTtLx0e8yYCKnPvWlMP9eb5Zqudw2mjCobg39met+o+U0iMPDuRoih4W
+	x4xbjU3faVfsCLTAKkH4Ck0sCZ+ccPtwqM5rR627QBvcBDP/R/IyqdjnqlYsMAqs1D3vg20bTya
+	DZHD0Jg1JuFLIG29/pBUrgMJGnvzkiHwb2iM3SwDK7JkkVikTmg/tTZ6ewM1eljALF3DSuuA+5c
+	=
+X-Received: by 2002:a05:600c:c162:b0:4a0:1b77:db0 with SMTP id 5b1f17b1804b1-4a0276b86b5mr102814875e9.35.1791037791041;
+        Sat, 03 Oct 2026 07:29:51 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b2e2-2001-c47f-5a89-3d9a-cd2d.310.pool.telefonica.de. [2a02:3100:b2e2:2001:c47f:5a89:3d9a:cd2d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a030326132sm146494905e9.0.2026.10.03.07.29.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 07:29:34 -0700 (PDT)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: israel.a.cepeda.lopez@intel.com,
-	hansg@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: sakari.ailus@linux.intel.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: [PATCH] usb: misc: usbio: Handle negative error code from usb_control_msg()
-Date: Sat,  3 Oct 2026 17:28:38 +0300
-Message-ID: <20261003142838.19019-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sat, 03 Oct 2026 07:29:50 -0700 (PDT)
+Date: Sat, 3 Oct 2026 16:29:48 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Siddharth Vadapalli <s-vadapalli@ti.com>, 
+	Roger Quadros <rogerq@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Keerthy <j-keerthy@ti.com>, 
+	Kevin Hao <haokexin@gmail.com>, Alexander Sverdlin <alex@sverdlin.org>, 
+	Arnd Bergmann <arnd@arndb.de>, linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 0/2] net: cpsw: fix failed-probe cleanup
+Message-ID: <asEQ9o6etFua8Hof@gmail.com>
+References: <cover.1791035789.git.kmehltretter@gmail.com>
+ <179103680648.1402591.2581152276872666183@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179103680648.1402591.2581152276872666183@kernel.org>
 
-The sizeof(*cpkt) is unsigned, so comparing "ret < sizeof(*cpkt)" promotes
-"ret" to unsigned and negative error codes from usb_control_msg() are
-not caught. Cast the sizeof to int so the error handling works.
+On Sat, Oct 03, 2026 at 02:13:26PM +0100, netdev-bot+sinfo@kernel.org wrote:
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
 
-Fixes: 121a0f839dbb ("usb: misc: Add Intel USBIO bridge driver")
-Assisted-by: LLM
-Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
----
-found by smatch:
-- drivers/usb/misc/usbio.c:187 usbio_ctrl_msg() warn: error code type promoted to positive: 'ret'
+The rx_mode_work lifetime issue was found during an LLM-assisted review
+of the 6.12.112-rc1 stable series.
 
- drivers/usb/misc/usbio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewing the same probe error path in dual-EMAC mode then exposed the
+older secondary-netdev cleanup bug.
 
-diff --git a/drivers/usb/misc/usbio.c b/drivers/usb/misc/usbio.c
-index fe093e7760d5..3f73f7c3d68a 100644
---- a/drivers/usb/misc/usbio.c
-+++ b/drivers/usb/misc/usbio.c
-@@ -184,7 +184,7 @@ static int usbio_ctrl_msg(struct usbio_device *usbio, u8 type, u8 cmd,
- 	dev_dbg(usbio->dev, "control in %d hdr %*phN data %*phN\n", ret,
- 		(int)sizeof(*cpkt), cpkt, (int)cpkt->len, cpkt->data);
- 
--	if (ret < sizeof(*cpkt)) {
-+	if (ret < (int)sizeof(*cpkt)) {
- 		dev_err(usbio->dev, "USB control in failed: %d\n", ret);
- 		return (ret < 0) ? ret : -EPROTO;
- 	}
--- 
-2.53.0
-
+Thanks,
+Karl
