@@ -1,127 +1,235 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mta1.migadu.com (out-209.mta1.migadu.com [95.215.58.209])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE8D3815E6
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A697272803
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 21:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791063924; cv=none; b=khKRfYkVi1UKk1V9IDza73ERXBpSTZCX8VUJfAapGl2FlwDjeCLfa/xv9jL/PRCIaXqaBm09+LEvxL6K7HJBRKu4KhlwfdvkeMPMOSS+Fzf2+GLGnUSQKVPMe+X0HfOgS79Lbxv08AKiydmdHDGxH5UiG+UAZJiaBNhltFLcIBU=
+	t=1791063983; cv=none; b=n6b1+LboBFf6JMdPYaUgHGQxi3qXifPIgtZ6xKwzoP4hjL4U4JO+UqGn71++QrD8qsPf/iZC8pK6FHlnlLGsR/faei8QICvzD/d4/gkwnvJmPFNsHQYMEfpfTcky98DAeKf2pqWgmnncr2Id8/eOqJ+rx5YYIbM6K8zW66Rxa4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791063924; c=relaxed/simple;
-	bh=h2y5ekLFmu6lTIqptxUqfe1ov4xut9/IMYr639ap5Zc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qf1X7/4tVno82SRhVigAXI6G/N49VZe2BVPACQt9AmMAd705b107JRP1wU+N3NBGHWS+DENTFwAFqU7SilAUNQBYJyhRS1R0ufGD+zH1rdc3qSoo8pPyvCeidlYT1fCE+2cR3F08vmyyXqY+Cy1/1A1hU9gTRrb08rCn/EkmZHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P/waC3bV; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791063983; c=relaxed/simple;
+	bh=R2PnYisYJ0NyVPAFlfdhpen4Vsn/htjtFxxV0Y95zsU=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=CWy6XDUeALlIa6fdxVyee0Mzvf2lrenyILsSybrpRa8HqF4oZiqgwSy9HEkGkuFUjSsR9PYuJS6460NvZKNJRf2+DC8gP3D9Vh3ac24XqqsJI+4wq/77GnSwMuuL7IH3zWIMtV38BlcgGxFN8VPGkTInOr1ewMG9A33X01W+ahc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fsLsMSTa; arc=none smtp.client-ip=95.215.58.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P/waC3bV"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5bb54bd5076so339257e87.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 14:45:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791063920; x=1791668720; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MAmnXAdXxOh3z0LoSvp9bSH7NOEWelIN6hCn50zbh8g=;
-        b=P/waC3bVUH73V4RgSrC2x0rrySeFftK2FnBJCtiW1V/jDT2aqTsiNLFhJzQOpRDbCT
-         Zd01KHvD/6YJPzb+4+axz7QkFRCLb0I/8xx3/x1HPoUQEgHUhUgHCAc8VF+XVXTPqDD3
-         GwBAYoYJwmD7+vX0+OOXTLlAtgeVTo2YmkvDJQluleYAAhpxOtE1FEkmsewBG1hSr0ch
-         7x3OAT1bhys/LBJ1JuO4TkFPDpFWNKJoIRC0+83LSQ+t2KQgi57fhJQAtkoEVc/SOnG4
-         OXQr1InBba0mM4geZuEGG7QwEB2rGzomq0iNjpit3QN6KHptGbTcy7X0vsnq6aLCqEyO
-         /6yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791063920; x=1791668720;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MAmnXAdXxOh3z0LoSvp9bSH7NOEWelIN6hCn50zbh8g=;
-        b=Ipc54Btqqk0VrCJhTZBqqBJZhMOPUSfd/zGTch8MNmAOOkCiZTv3qDuqzxjRjHjJbq
-         56iiU90JHVhXNDwzRdvAqaBL01cOLP4pDYn04oA/9AiGnBartxkEduRowhukhUnuYnLr
-         WPwgj7gAWIneyVOLOLuNTJmfl4jISfZGIMNRv9E+7RnV8tIA2oQb2b+G2knLsfwwBd8q
-         K4GBsWZhLJ7/9KmN9NX/e310hJlpD87aMRTTfDF0g8m5BvUj83K7AcSiLlx+jL0U9lDl
-         IUAcRk3PKdfC0/uEwyhEMpkttByOKWdilh76sICcvhH8DTq4rreW/cKFrQvhJdnKMD/o
-         O7Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWdTiFkPfaMbXgGzKfhFmqPjxH6K/LS4JDBr+SZ5zYhIJ5LvsgDqSy5+RHUAuA16DOWd0Ht18kg8yZB88=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxKgnD/Ul6sVFPOk4kx2tRI4FkC+f+XMweG9uaiLkCOFCqu+jO
-	Hq6Hz0IqsDfK0FmMGxG1fR/bTh5Vv7pDllP9n2tKLJtmtV4sMpGla/yA3+XlC5kN
-X-Gm-Gg: AYBFou29clavBJj7rJMeSx49rUd3KRBepHOHkVNn7dqzwSk2LvODUfDAMp7a5jA1L5g
-	wAJDE4+yhkZDStEuFVpU77XlZ8dAU0+0zQOExNxW16gFO1A4RRXtvJFk0ReZGCKQVrnaOwXwsWY
-	8yMXIbLNX3yvy+isqxAqolMV4HZ2CR694MjY+dorfgabY8uqP4/fnL5uuslSvFYitAMKslH5mK3
-	HdWs9sO4hl2Lun0cGPAx2GmJuCFTVYL22UrIdShh+Fr5b/Pg84jlr6xX0Jf9+F4ZKvEGsSSJ5Nt
-	SCyPfIk/qang5aJqmykeOA2HhNqB9gkT0pwZC6rNIpvOLxOcX8YOdJtErZH/yjRNpcOiZ6wJzIz
-	TTh3ZocLgCSfj+3VV9J4ENkwYANxV7td9VPzCBVrKk0+Yt0Y89BAnQVDxi9h/DpSgWL57amWXHp
-	S3uALFdbplNNm+JcFCAW9tHE5YaB3bbpTs/2TwGx16ddLFFU7n3uAXF1ik+Qw2NIzRUMlW4KIFS
-	sNEOwYW0xnZX/rT4UB7VyKb+/dlEah8IovgywxIgEXw4WXvGE2i3QYcpqUaK7qmWgFbIg==
-X-Received: by 2002:ac2:4984:0:b0:5b6:1a7c:1f with SMTP id 2adb3069b0e04-5bb9bb22272mr1993059e87.34.1791063920290;
-        Sat, 03 Oct 2026 14:45:20 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c719110sm1859789e87.2.2026.10.03.14.45.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 14:45:19 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rupesh Majhi <zoone.rupert@gmail.com>
-Subject: [PATCH] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on mutex helpers
-Date: Sun,  4 Oct 2026 00:45:16 +0300
-Message-ID: <20261003214516.128573-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fsLsMSTa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=R2PnYisYJ0NyVPAFlfdhpen4Vsn/htjtFxxV0Y95zsU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791063977; v=1; x=1791668777;
+ b=fsLsMSTaIUHyhxOCEERcJJ/m6XTT3IsV3t9qKmONcHVy6V9fO25A+kgwWBpxAdtkw0Kk+GI8
+ QAzt99zqopV57nvUDjMIsYy80MlUC+ZlPozX1cuzbPS/Gl+VTwZPchYeKMSZwGO8IbQVnOBeGCI
+ VzSBNqIpLesa+ThLkjPnaEdo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 667c1a93a59ef06a;
+	Sat, 03 Oct 2026 21:46:17 +0000
+X-Mizu-Trace-ID: 667c1a93a59ef06a
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Sat, 03 Oct 2026 21:46:17 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <dfd0ce2876857c40b4d3a6da38b2e704cb6a698d@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v7 0/6] wifi: rtw88: add RTL8723B/RTL8723BS
+ support
+To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, luka.gejak@linux.dev
+In-Reply-To: <7bfa286e-50f5-4da7-a8df-0f7e743780b3@gmail.com>
+References: <20261002073845.31486-1-luka.gejak@linux.dev>
+ <7bfa286e-50f5-4da7-a8df-0f7e743780b3@gmail.com>
 
-The __acquires() and __releases() on adc5_gen3_mutex_lock() and
-adc5_gen3_mutex_unlock() name adc, a local declared in the body. With
-context analysis enabled for this file, the build fails:
+October 3, 2026 at 23:26, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mai=
+lto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821cer=
+fe2%40gmail.com%3E > wrote:
 
-  error: use of undeclared identifier 'adc'
 
-The lock and unlock are split across these two helpers for the ADC_TM
-driver, so mark them __context_unsafe() instead.
+>=20
+>=20On 02/10/2026 10:38, Luka Gejak wrote:
+>=20
+>=20>=20
+>=20> This is the second of two series adding support for the Realtek RTL=
+8723B
+> >  802.11n chipset and its RTL8723BS SDIO variant to rtw88. The prepara=
+tion
+> >  series has landed in rtw-next, so this series carries the chip regis=
+ter
+> >  definitions, the BB/RF/AGC tables, the chip driver, the SDIO bind an=
+d the
+> >  build glue.
+> >=20=20
+>=20>  The first patch is the only shared-core change. It moves the CCK p=
+ower
+> >  detect setter out of rtw88xxa.c into phy.c as rtw_phy_cck_pd_set(), =
+so this
+> >  chip can use it without pulling in rtw88_88xxa. The six chip patches=
+ apply
+> >  on top of it and can be read on their own.
+> >=20=20
+>=20>  The driver supports:
+> >=20=20
+>=20>  - RTL8723B / RTL8723BS, SDIO only
+> >  - 2.4 GHz 802.11n, HT20 and HT40
+> >  - one spatial stream
+> >  - station mode
+> >=20=20
+>=20>  Only station mode has been validated. The common rtw88 core advert=
+ises AP
+> >  and IBSS for all chips, so those modes are advertised for RTL8723BS =
+as
+> >  well, but neither has been tested. An out-of-tree tester has reporte=
+d AP
+> >  mode associating without DHCP completing. The five additional SDIO I=
+Ds are
+> >  included for parity with the existing staging driver, and only the 0=
+xb723
+> >  device has been exercised.
+> >=20=20
+>=20>  The chip driver requests:
+> >=20=20
+>=20>  rtw88/rtw8723b_fw.bin
+> >=20=20
+>=20>  This is the version 41 firmware extracted from the Realtek rtl8723=
+bs
+> >  vendor driver. It was submitted separately to linux-firmware with it=
+s
+> >  extraction provenance and carries Ping-Ke Shih's Reviewed-by. There =
+is no
+> >  known native rtw88 RTL8723B firmware.
+> >=20=20
+>=20>  The implementation is based on the initial RTL8723B work by Michae=
+l
+> >  Straube:
+> >=20=20
+>=20>  https://github.com/mistraube/rtw88/tree/rtl8723bs
+> >=20=20
+>=20>  Michael's Co-developed-by and Signed-off-by tags are present on th=
+e three
+> >  chip-code patches containing code derived from that work.
+> >=20=20
+>=20>  The known limitations are unchanged. Bluetooth coexistence depends=
+ on the
+> >  BT firmware's status reports. During A2DP streaming those reports id=
+entify
+> >  a connected link but do not expose the active profile, so the WiFi
+> >  coexistence logic cannot make a correct traffic-aware decision. WiFi
+> >  throughput can fall sharply while audio remains smooth. This is docu=
+mented
+> >  rather than guessed around in the WiFi driver. The intermittent RTL8=
+723BS
+> >  firmware failure to leave LPS also remains, and instrumentation show=
+s a
+> >  firmware stall rather than a polling timeout that a longer budget wo=
+uld
+> >  fix.
+> >=20=20
+>=20>  Testing
+> >  =3D=3D=3D=3D=3D=3D=3D
+> >=20=20
+>=20>  The exact six-commit branch builds with W=3D1, with no new warning=
+s, and
+> >  links all rtw88 modules with real modpost. Sparse and smatch were ru=
+n over
+> >  the rtw88 directory. Sparse is clean. Smatch reports nothing in the =
+8723B
+> >  files, and its only output is an existing container_of static assert=
+ion
+> >  from include/net/neighbour.h while checking usb.c. checkpatch --stri=
+ct is
+> >  clean apart from the complex-macro report on TRANS_SEQ_END, which is=
+ an
+> >  initializer macro that rtw8703b.c already defines in the same way, a=
+nd the
+> >  "does MAINTAINERS need updating" reminder on the file-adding patches=
+, which
+> >  the existing REALTEK WIRELESS DRIVER (rtw88) entry already answers w=
+ith its
+> >  F: line. git diff --check is clean and all six commits are GPG-signe=
+d.
+> >=20=20
+>=20>  Hardware validation covered module identity, boot, scan,
+> >  authentication, association, WPA2 key negotiation and DHCP, TCP and =
+UDP
+> >  traffic in both directions, ten scans while connected, and twenty mo=
+dule
+> >  reload and reassociate cycles. dmesg is clean, with no warnings, no =
+errors
+> >  and no TX-report, H2C or leave-LPS messages. The extended soak added=
+ six 30
+> >  second TCP runs, UDP saturation in both access categories with no lo=
+ss, a
+> >  2000 packet ping run with no loss, and three idle power save periods=
+ with a
+> >  clean wake. The test machine provides only s2idle, so suspend and re=
+sume
+> >  are not covered.
+> >=20=20
+>=20>  Changes in v7:
+> >  - dropped rtw8723b_sdio_restore_pad_ctrl() and its two remaining cal=
+l
+> >  sites. The register it adjusted is only written by
+> >  rtw_mac_pre_system_cfg(), which returns before that write for 8051
+> >  chips, so nothing in the driver sets the bits the function cleared a=
+nd
+> >  the hardware default already has them clear.
+> >  - rtw8723b_fill_txdesc_checksum() now uses fill_txdesc_checksum_comm=
+on()
+> >  from tx.h. The now unused linux/unaligned.h include is dropped.
+> >=20=20
+>=20>  Luka Gejak (6):
+> >  wifi: rtw88: move the 88xxa CCK power detect setter to phy.c
+> >  wifi: rtw88: 8723b: add the RTL8723B register definitions
+> >  wifi: rtw88: 8723b: add the RTL8723B BB, RF and AGC tables
+> >  wifi: rtw88: 8723b: add the RTL8723B chip driver
+> >  wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
+> >  wifi: rtw88: 8723bs: enable building the RTL8723BS driver
+> >=20=20
+>=20>  drivers/net/wireless/realtek/rtw88/Kconfig | 18 +
+> >  drivers/net/wireless/realtek/rtw88/Makefile | 6 +
+> >  drivers/net/wireless/realtek/rtw88/phy.c | 39 +
+> >  drivers/net/wireless/realtek/rtw88/phy.h | 1 +
+> >  drivers/net/wireless/realtek/rtw88/reg.h | 34 +
+> >  drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2550 +++++++++++++++=
+++
+> >  drivers/net/wireless/realtek/rtw88/rtw8723b.h | 14 +
+> >  .../wireless/realtek/rtw88/rtw8723b_table.c | 861 ++++++
+> >  .../wireless/realtek/rtw88/rtw8723b_table.h | 17 +
+> >  .../net/wireless/realtek/rtw88/rtw8723bs.c | 59 +
+> >  drivers/net/wireless/realtek/rtw88/rtw8812a.c | 2 +-
+> >  drivers/net/wireless/realtek/rtw88/rtw8821a.c | 2 +-
+> >  drivers/net/wireless/realtek/rtw88/rtw88xxa.c | 38 -
+> >  drivers/net/wireless/realtek/rtw88/rtw88xxa.h | 1 -
+> >  14 files changed, 3601 insertions(+), 41 deletions(-)
+> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
+> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table=
+.c
+> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table=
+.h
+> >  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723bs.c
+> >=20
+>=20Looks good to me.
+>=20
+>=20Reviewed-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+>
 
-Fixes: baff45179e90 ("iio: adc: Add support for QCOM PMIC5 Gen3 ADC")
-Assisted-by: LLM
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
----
-Found by building with CONTEXT_ANALYSIS_qcom-spmi-adc5-gen3.o=y, which the
-driver does not set today. Build tested only, no hardware here.
+Hi Bitterblue,
 
- drivers/iio/adc/qcom-spmi-adc5-gen3.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks for all of the support and help along the way.
+(And for the Reviewed-by tag.)
 
-diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-index c68c6c5f6aca..6a3cabedf4e8 100644
---- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-+++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-@@ -663,7 +663,7 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
- }
- 
- void adc5_gen3_mutex_lock(struct device *dev)
--	__acquires(&adc->lock)
-+	__context_unsafe(/* returns with adc->lock held */)
- {
- 	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
- 	struct adc5_chip *adc = iio_priv(indio_dev);
-@@ -673,7 +673,7 @@ void adc5_gen3_mutex_lock(struct device *dev)
- EXPORT_SYMBOL_NS_GPL(adc5_gen3_mutex_lock, "QCOM_SPMI_ADC5_GEN3");
- 
- void adc5_gen3_mutex_unlock(struct device *dev)
--	__releases(&adc->lock)
-+	__context_unsafe(/* releases adc->lock */)
- {
- 	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
- 	struct adc5_chip *adc = iio_priv(indio_dev);
-
-base-commit: 04434a1d0f311d76b1f15fa987918b471a0b8c6a
--- 
-2.43.0
-
+Best regards,
+Luka Gejak
