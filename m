@@ -1,56 +1,56 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3207721FF2A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FE8233947
 	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790986897; cv=none; b=sHfI1/mFbiCnN9pI51mMy0GFwa5sfptPCk4/Yom38Tck50jQchsv1zmuchT5V9D0NcwfiGwZLOQFs9DPN1pOCSKv35WcFJC4wQV6gVUiSQQGvNYJy4z9GbaYRWz3OqsOfF26V3GeBRKWT7OPLOd+EBWVmxiA6YH351F5P4gM0L0=
+	t=1790986898; cv=none; b=aQXMOv36mMeFcA42SaFDjIalTP9ZdoHyrO/t+jdGZIojtvWbIoujJX4lr7vAxBNyxcCWVO86+1bKKQ+izNwyVmwp/JNeK5nqxJIR97wA0NdUDsi14PjFyOXdnkP9gNEK/+/Qek7BTGrp2QKMBUJC5meMB2tw3O9K3RcnbC3KzeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790986897; c=relaxed/simple;
-	bh=OnsPqfPdFb0S9hczwQ+jtEKE5MrNkwyZVltV/Gehw1Q=;
+	s=arc-20240116; t=1790986898; c=relaxed/simple;
+	bh=HqTCHRDMdpFru6x9hsQW1qGs5PJb7+vxMhaZ/3Sktos=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Uil2v6+8tsChXnPrMFGPcs9xCbGVHsVtYPofqS+Jyw2chbr9lMDswaDcvUNRFBZKXuBy+eDer/vo47497CLLl9UJlxWP0P/p582zTMHckc90QcnGYPDpVUqlKb78XtZ5ksEdaXFLyKoisPmeryuLAulmec71cidhxdvORQoR7PI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MxCpM+OH; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=G6yCarI6N4URKxsKSRSkhkJFeeepXI85hcH+PVbOURzPwL1Kj6F2HRlWeLhGsJ2hZtuGjQAjfVN4GK+ezm0XhtPMISg7h900CmTOxvSyUABLz1icVUuLwvioV+9YisUy6LVa2duWwLZwRGaAdu95nC3ok2rndBEeWpC9+QtPnY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fso26Zsc; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MxCpM+OH"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso361947a91.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fso26Zsc"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8868ad2ed1cso135b3a.0
         for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790986895; x=1791591695; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790986896; x=1791591696; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2ZAZ5JKeK6vnKji79QsGpXUoqDaDTR7rYrRqlCcRuaw=;
-        b=MxCpM+OHUib7uZNwNEX+lBnx8m4LIWKMy6zkavO4bm1c7ErZdeG/FL6TLrsTuJU+tx
-         D4APVPlCh0eLUgtemGJBgxsaXYPHD9x7UdX8CYSyQnem3BU6Ivs//AQDCbSlFOfO5D5v
-         Jm5ADIGxbpv4bOh+pA6S5XffZ/Do054Jao4BOgpo0wdgD+2udfljkCZ7fWv1OUHZSBF9
-         ewLA2TfiXbaWzIEFj8uVYXszzHCHECigBPtswJPgcJ5Q+EN/ADpVq4S9Z7ay5jt42gMD
-         yunICEusbcQFkgWNZ5Dz3P0HV1Zdx/C0OW3HDuFW565QQYBRg7BhDWH2dSniUbJT+69D
-         AR9A==
+        bh=jojM/RXyQILqjqfcPpQ8uAxcOK5eNU0AKu35ZovnhAc=;
+        b=Fso26ZscZdqeDW6RA7hmM5ssMTltOj6aCMo9/pF4CA8qL/w58rv1GE2mvUUbQIcJ1+
+         8hgHqvG84gCGHojR4l/SK9HegEMUk/IKVGRSSsTvdSpaEAebUDWItet+QTucA7K6qLmz
+         3mqD1bW4VD+FlMCKEPT827nzRMcvSiyCk4kLX5ldUiqVyZQ7SLLU9P16/xYnDJIXHrrS
+         lb+/MyRQ5eEEXUEj/AvNElEhkNBZ3wJfTTUyVfyLonJsirfSArqw6VVbvAeR5KkX313e
+         /3TTqu0zW8wgzUUdvUU9U2U29y5u6QM5Jjpa3V4MBGn+0UrcTjLPC4KqxmWZYzV9gnRk
+         L5Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790986895; x=1791591695;
+        d=1e100.net; s=20260707; t=1790986896; x=1791591696;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2ZAZ5JKeK6vnKji79QsGpXUoqDaDTR7rYrRqlCcRuaw=;
-        b=eiTs6ZjlOUeSW3t6uXja2e28USefADAz84u6n0T6o88i11ddznNm49fpXuZ+vtcKpq
-         gTyD78vPbPvu4Jii3GeqFr7KpRDuuXkg69MnkbZ4FXMb//ekIS+zF4PJibhJ9EvQdVgg
-         Bxd17F/MoDjJHgkM01HkM+DmoSlnfTfJgiCGwwfz8hRetYm09N0/YUBA9K1Er0BluRe/
-         RPk3hgAiKosDm8Cpu4XNz5j2Z0R0I/zl5QlmMjUwh+TWt9X2cp67YQ+iy63omj2j3ZFA
-         eNLhCDHfjbkxto00M4gZDjTYQXYZkiqJpS0QdShuLxqvBm7L0wsD5CgnW+JTRAYk6Kei
-         nHCA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/2bpYWe466Q4twKYF3oOoLetSZKdjRVZidV6hqjmorLCbLDUrtPgNrgEeW3gO/FZ8PS2tkL1YIyRGsuY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJP2Y6MWm19yxZ+HrfqOLSL+xgLhrC+MxnAGw5Co+5AN9V9/ZkI
-	KPIyNJNVOVOAIIWmjk7IsbHoWAEAA/5X0lv4WxZ+DTbF+vO+yDrqvyyAhouk0g29h49alZkhlYf
-	XLEQG/aCGMdCe763q/OYiTg==
-X-Received: from pjbpv1.prod.google.com ([2002:a17:90b:3c81:b0:3a6:f669:2f33])
+        bh=jojM/RXyQILqjqfcPpQ8uAxcOK5eNU0AKu35ZovnhAc=;
+        b=rCWQmxElws7HJUHl6gcNwDwq+5yR8+LbqS00O5a+cNeDizzB1HGwL+oFA9TuAEXWGD
+         5sFar7RRUeI/nz5sk1K238l23ekFD6TqtYEMSW83vTgKgz4161TdOTpuvIdXlK/4V02c
+         k+8h3f3mPZ4LZZPwDGYfrl4CopJXaaR1Po5IMEghULDBtV9OQnVolim2Mg46pngyyxlw
+         d9HQcd7zG0HtgeHjBZHeQMwALKxtLWIaRCn6JnMYISnvgeTt8ZnnG596OpghsmrYCJ6u
+         XIyxBCJyo8Lsi/pHJ6Qr6L9pkEHl8RhGzgzfU7ECxISUL9fQxr2pWM2Mtj3F+1UgzV59
+         UJEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwWlPWwXdd6v0Eu/kqfF0kIEJ/FPSHhePgS6TMfu9qKZx/mtqTSwDhKU28kCfeWSpV7KIlis1lOwYQvZt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ln+f6Pk3Qtj8FP23HENqfHv4M4afK8oL3V4jAFFzoUZf0gGXg4
+	V7IDtvmFJjqR00hLJOA0i2n8tYNUaZEn8GXFQwq77qtI/fSxIBOQ8VrqUCVFdUgf3ArSX7rKahZ
+	qImkqeJD20syLWk9qPS8Xyg==
+X-Received: from pfbdk13.prod.google.com ([2002:a05:6a00:488d:b0:887:522a:478b])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:268f:b0:3a4:e735:b3a3 with SMTP id 98e67ed59e1d1-3a6cec8cd26mr2396583a91.40.1790986895284;
- Fri, 02 Oct 2026 17:21:35 -0700 (PDT)
-Date: Sat,  3 Oct 2026 00:21:04 +0000
+ 2002:a05:6a00:ac0f:b0:880:57cd:c32b with SMTP id d2e1a72fcca58-88af6659219mr3895203b3a.21.1790986896172;
+ Fri, 02 Oct 2026 17:21:36 -0700 (PDT)
+Date: Sat,  3 Oct 2026 00:21:05 +0000
 In-Reply-To: <20261003002123.505555-1-jthoughton@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261003002123.505555-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003002123.505555-2-jthoughton@google.com>
-Subject: [PATCH v2 01/20] hugetlb: Don't restore vmemmap of non-HVOed folios
- on bulk restore error
+Message-ID: <20261003002123.505555-3-jthoughton@google.com>
+Subject: [PATCH v2 02/20] arm64/pgtable: Clear AF with LDCLR on supported systems
 From: James Houghton <jthoughton@google.com>
 To: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
 	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -76,60 +75,49 @@ Cc: Nikos Nikoleris <nikos.nikoleris@arm.com>, Linu Cherian <linu.cherian@arm.co
 	linux-mm@kvack.org
 Content-Type: text/plain; charset="UTF-8"
 
-When hugetlb_vmemmap_restore_folios() fails, it stops processing the
-list, so folio_list may still contain folios that were never vmemmap
-optimized, e.g. because HVO failed when they were allocated. Their
-hugetlb flag has already been cleared by remove_hugetlb_folio().
+Replace the cmpxchg loop with atomic64_fetch_andnot_relaxed, which, on
+systems with LSE atomics, should end up as LDCLR.
 
-If no folios could be restored, bulk_vmemmap_restore_error() then calls
-hugetlb_vmemmap_restore_folio() on every folio left on folio_list,
-including those, which trips the !folio_test_hugetlb() check in
-__hugetlb_vmemmap_restore_folio():
+This is somewhat overdue. In recent versions of the architecture, if a
+system supports FEAT_LSE, forward progress guarantees for exclusive
+monitors and cmpxchg loops are relaxed.
 
-  page dumped because: VM_WARN_ON_ONCE_FOLIO(!folio_test_hugetlb(folio))
-  WARNING: mm/hugetlb_vmemmap.c:503 at __hugetlb_vmemmap_restore_folio+0x270/0x300
-  ...
-   __hugetlb_vmemmap_restore_folio+0x270/0x300 (P)
-   hugetlb_vmemmap_restore_folio+0x1c/0x30
-   update_and_free_pages_bulk+0x2c0/0x368
-   __nr_hugepages_store_common+0x2e8/0x3f0
+Mechanically, I would love to write test_and_clear_bit_relaxed(), but no
+such function exists (test_and_clear_bit() has full ordering, which is
+also undesirable). Implementing test_and_clear_bit_relaxed() properly is
+a pretty large change; use atomic64 instead, as pte_t contains a u64.
 
-Otherwise this is benign: the restore is a no-op returning success for
-non-optimized folios, which are then freed as intended.
-
-Skip the restore for folios that are not vmemmap optimized; they can be
-freed right away.
-
-This is very unlikely to happen without fault injection, as it requires
-both HVO and a subsequent vmemmap restore to fail.
-
-Fixes: cfb8c75099db ("hugetlb: perform vmemmap restoration on a list of pages")
-Assisted-by: LLM
 Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- mm/hugetlb.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ arch/arm64/include/asm/pgtable.h | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index a1b51251103b..4dac7ed1df57 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1613,9 +1613,14 @@ static void bulk_vmemmap_restore_error(struct hstate *h,
- 		 * page is made a surplus page and removed from the list.
- 		 * If are able to restore vmemmap and free one hugetlb page, we
- 		 * quit processing the list to retry the bulk operation.
-+		 *
-+		 * Folios whose vmemmap was never optimized (e.g. because HVO
-+		 * failed when they were allocated) can be freed right away;
-+		 * remove_hugetlb_folio() has already cleared their hugetlb flag.
- 		 */
- 		list_for_each_entry_safe(folio, t_folio, folio_list, lru)
--			if (hugetlb_vmemmap_restore_folio(h, folio)) {
-+			if (folio_test_hugetlb_vmemmap_optimized(folio) &&
-+			    hugetlb_vmemmap_restore_folio(h, folio)) {
- 				list_del(&folio->lru);
- 				spin_lock_irq(&hugetlb_lock);
- 				add_hugetlb_folio(h, folio, true);
+diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+index 763c5a411d64..e47c3d010715 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -1252,17 +1252,11 @@ static inline void __pte_clear(struct mm_struct *mm,
+ static inline bool __ptep_test_and_clear_young(struct vm_area_struct *vma,
+ 		unsigned long address, pte_t *ptep)
+ {
+-	pte_t old_pte, pte;
++	atomic64_t *pteval = (atomic64_t *)&pte_val(*ptep);
++	s64 af_mask = PTE_AF;
+ 
+-	pte = __ptep_get(ptep);
+-	do {
+-		old_pte = pte;
+-		pte = pte_mkold(pte);
+-		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
+-					       pte_val(old_pte), pte_val(pte));
+-	} while (pte_val(pte) != pte_val(old_pte));
+-
+-	return pte_young(pte);
++	/* Atomically clear PTE_AF, checking that it was set before. */
++	return af_mask & atomic64_fetch_andnot_relaxed(af_mask, pteval);
+ }
+ 
+ static inline bool __ptep_clear_flush_young(struct vm_area_struct *vma,
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
