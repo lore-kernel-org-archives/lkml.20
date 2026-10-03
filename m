@@ -1,136 +1,136 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2393271EB
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FB918CC13;
+	Sat,  3 Oct 2026 01:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790990848; cv=none; b=aYT1VNm9+w9CmUvF0r7x9U96R8CRhuB0eBOOi8/nwNraAZmNZq1wvzt1QESYLrwGjcjcCVhC9krVGX7jwVQnnD3vN8cm1xnFqmFVrs0Fh1RXnzIvR+HWVseMJ8gqlrD88iIcpTZv7Emiu39TiGpFV/3KbpBQxWabDvf/s8rn1Is=
+	t=1790990973; cv=none; b=fGWRG21KV7cHY21s1CcWbv48ko7RTdYuwSqTbOzu0kA9Ie9z+XGN8lu/gMBcYhjVPUX+DI+aCaElxCbkVEU0Ys42dHAGihDFJ7NHnLdDvVvcFHAt2QZL7U2hTcZajd6GFO2a1ioGt+Zyhqk+6GHZlgDVOi0Ijd2rOHF9ArXii/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790990848; c=relaxed/simple;
-	bh=sAvpzAz2NZN5YAKhznAkiQ3ghITlK/H3MC0boz/bWb4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eKvxJTzqeb4hJcjf9FhV8r2VgkkugeJUhZzQSzU29inPEe/3RgBV7zzpFv6lIV5i9RdWpNGOvRamYWxOtowoj62YdiRNvWix7dwjGBM0IGOnwjGzvb5lLw6thBj/3+7UbPWUlwoPGznAkxITeQTpfcX5nCqyV1GcnrDjEgOldMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=ossystems.com.br; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=ossystems.com.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3510b42f4e3so190692eec.2
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 18:27:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790990843; x=1791595643;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=luvk4RSDKwxoXOLtb/naS+7NpP4AkbeMINi5BwnyOQg=;
-        b=ygGgWKORKBe2UGAVxFOJ53z4Ipm6bmbOLeLhry9vl9zJkk19LKf3uUdM37c22Bj3Rs
-         wwOZW4I5ct/7gnUbLXUqZXaZCFfCbLKQ5XmjL4wxMPmP45kUC9tw7XVmg+e0yiVhy/pj
-         gv1cjoUNXDOuK27Lprz3Ns/DoNEYKJE76Dwm2dCJ8QhR9laFZdGVD6V1PVJBHs8h78c2
-         bCZHGbGCE+h42RNemN+yX0A3V9YfTqyBKIB18B/EEk/Dqz3ydQKo0TBZdW0HGu5rociv
-         F4dCLM+xQQYoQ/JUv0f6wi5OdUbSEuS0y1e9U+p2ss5eCqJFM6oCDhziJ5vPRIZDx6zZ
-         H/xA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4yDWSujHVYrk1q+zxhJw+ZBIbv/EAmtTmmQniebH+VsxZETE3nBseyzhEmkcRwJiM4VxEtd3xjZjLnBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJ1k/I5n2Qhtyj88ERKKOi661lrK8OgjlkqsC7UoOJf08jalBR
-	q+wPNzodTfBmCpUbGoIgfdayTz5+hMH/pntsZHaUM0YyJ8GlqWwclSqV
-X-Gm-Gg: AYBFou1qWTS8/IqOxPsOG03k0uqGkJvokufs+jLZaRtzGoMhmFqHnRWJxUUwCsF6kl6
-	ckVmU7NDxXD2eYWB83cM/vIPhBIrg4hLWDbWHgeDWLDdKn+xig4Oo9++VdJBgLU6tziQe3rXVIB
-	XsGq4CPJ6ZpPbNA2so7KllNOVnOyklBF9autzjUg6077gGqq4UdcKpgJd00W+8Xu3nsa91Rgo4J
-	YdA+PFqseXLkZ+GMYXdf5Pt/JamUedYs+IgKvERUmi2BZNd4YVSt2ejN6PcZN8HzDalfVU+7eN9
-	ibp/pv0l++DCUurjldujU6cPx6kFmf0P/omiyIyRsHWyxO/3t5loKwR3ivyE1iq4BPAJl0Y2h2E
-	0p3aL6UnP1EzulISLepUguUbCvak/qhLMty2JH/YVfEhJKf8NOvCLr0+AxbaRTpTWNjzjey8bzE
-	Lg+arnuz4tpegqfxP0TaHgxifUGVW4h24tipCZ1LLbGvHLtScM+rEAcuRQ49tglU6gDyhDeCCo8
-	N09AeZI0meL3uOLUmLWREKHnjVCCy0JbhzeY598StQk1j/RDn/l6vk6yZFet/Tcglp5nUebmmfx
-	oP0y8C7F3bd4vutjd2lmbSQfBAa4Kl6Q/13oHjsL7D1X
-X-Received: by 2002:a05:7022:f51a:b0:151:cba2:effc with SMTP id a92af1059eb24-151cba2f2ffmr1217637c88.30.1790990843319;
-        Fri, 02 Oct 2026 18:27:23 -0700 (PDT)
-Received: from localhost ([201.89.183.74])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fcec9a95sm1116843c88.15.2026.10.02.18.27.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 18:27:22 -0700 (PDT)
-From: Otavio Salvador <otavio@ossystems.com.br>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Otavio Salvador <otavio@ossystems.com.br>
-Subject: [PATCH 2/2] ARM: dts: sun8i-r40: Add SID node and THS calibration
-Date: Fri,  2 Oct 2026 22:25:36 -0300
-Message-ID: <20261003012534.418820-5-otavio@ossystems.com.br>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261003012534.418820-3-otavio@ossystems.com.br>
-References: <20261003012534.418820-3-otavio@ossystems.com.br>
+	s=arc-20240116; t=1790990973; c=relaxed/simple;
+	bh=5+JHqbwMJ77q/d+iE6uonyUeicoopURct3y6nxTVLlU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GJ2zjz5JvBVVwLJijplSa0T21tl5wI7AaFgAGAb/v4jr4Xm7BtPR9zOaKEJG2Nw1kxwjOR2PVDX/Z93hdalL4na/8jSxh0cHEBPJC7/Rw4CwhrZCuplWljvWNOHZkE1f0XU9btpxqrjexmu2prPdhw2gttEveILI4suEtm27DiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXQhQLfY; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXQhQLfY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2AEA6C2BCF4;
+	Sat,  3 Oct 2026 01:29:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790990973;
+	bh=5+JHqbwMJ77q/d+iE6uonyUeicoopURct3y6nxTVLlU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=JXQhQLfYyXuW1W7ihxdr7s+DD/8mWmfoh9Er6Idc+lIo34ZcT30mwRpupbrv9bM3+
+	 2VONCJm6vv+iGmFcySNgN8+gMXF54Rl7aZkHeX1PmFwV9CspAGdh9rMskv7/tLnOi6
+	 AfmP6EVWknBbWyKGVhYoGib8oAQlHZuhSkun+ieGQS7buLDDqrYH0KHfiodUWh3o2R
+	 TVsjD+lD8f8Dg6+baQhlm1RAf2S9fYUaAf8i2biX4fFpVHdTATEUwUH7Zi07p8MhOj
+	 Ypw+S8gd/KgcrOR+2f6CGqtkWSu02BdNrxxgHZy/Y6Ip7TxRzTkumQ/zbUx0oR7Kc8
+	 2erN0ui6Jmjqg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04E0FCA5FE3;
+	Sat,  3 Oct 2026 01:29:33 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Fri, 02 Oct 2026 22:29:32 -0300
+Subject: [PATCH] power: supply: qcom_smbx: set the charge enable after
+ software control
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261002-qcom-smbx-enable-order-v1-1-7df92bd809db@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJW5LSeBXjgpZBx0irM2hIC
+ Hen6PIt/l9BSZgUzs0KQl9WLrnCnhpI9z7fCHmoBmect8Y4fKcyoU5xQcp9fBIWGUgwWN+F0Lb
+ d6DzU+CU08vIbX65/6yc+KM3HDbZtBx/XLcV6AAAA
+X-Change-ID: 20261002-qcom-smbx-enable-order-816788337f26
+To: Casey Connolly <casey.connolly@linaro.org>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: Robin Snyders <robin@snyders.xyz>, David Heidelberg <david@ixit.cz>, 
+ phone-devel@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790990971; l=2731;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=KF/MJVvh/TX0FU51WaZ1SUC1yakDAzVQ6C7beULA/UI=;
+ b=l5oD2SkijJfDZhB9ybMIQSXgbIlnwBVRejdsrj36b5XFz1cfy43ct74UAces2MqLqa/OT0LS9
+ 6qqirKakBFvC8D3viGO/N5tGXO2WfCmREh6GDnZu5R0ykEPNrgyoiLS
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-Without the calibration cell, the THS driver leaves the sensor
-calibration registers at their reset value (0x800) and the reported
-temperatures drift from the real die temperature by a chip-dependent
-offset.
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-Add the SID node at 0x01c1b000 and wire the thermal sensor to its
-factory calibration at eFuse offset 0x40, one 16-bit word for each of
-the two sensors.
+The init sequence sets CHARGING_ENABLE_CMD before CHGR_CFG2 selects
+software control of the charge enable.
 
-The R40 user manual gives the size of the thermal sensor key (32 bits)
-but not its offset. The vendor SDK key map names 0x48 "thermal_sensor",
-but that word is zero on all the boards checked. On an A40i running the
-Boardcon vendor kernel, the THS_0_1_CDATA register holds exactly the
-eFuse word at 0x40 (0x08780875), which confirms the location.
+The Motorola Moto X4's bootloader leaves the charger watchdog armed to
+disable charging when it bites, which it does after a few minutes in
+fastboot. Charging then stays disabled in the next boot until the cable
+is replugged. Setting the command after CHGR_CFG2 re-enables it.
 
-Tested on two Boardcon EMA40i (A40i) boards: THS_0_1_CDATA now holds
-the eFuse word at 0x40 of each chip (0x082d0822 and 0x083d0838) instead
-of the reset value 0x08000800.
-
-Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
+Fixes: 8648aeb5d7b7 ("power: supply: add Qualcomm PMI8998 SMB2 Charger driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
- arch/arm/boot/dts/allwinner/sun8i-r40.dtsi | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+Tested on a Motorola Moto X4 (XT1900-6, SDM630 with PM660) with the
+sdm660-mainline 7.2.3 tree. After the bootloader's charger watchdog had
+bitten, in a boot without this driver or after three to five minutes in
+fastboot, the charger stayed in DISABLE_CHARGE without this patch. With
+it, charging resumed with no cable replug: 0.7 A into the battery at
+89%. Other boards are untested.
 
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi b/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-index f0ed802a9d08e..c7c9cad695ca4 100644
---- a/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-+++ b/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-@@ -485,6 +485,18 @@ ohci1: usb@1c19400 {
- 			status = "disabled";
- 		};
- 
-+		sid: efuse@1c1b000 {
-+			compatible = "allwinner,sun8i-r40-sid",
-+				     "allwinner,sun50i-a64-sid";
-+			reg = <0x01c1b000 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			ths_calibration: thermal-sensor-calibration@40 {
-+				reg = <0x40 0x4>;
-+			};
-+		};
-+
- 		ehci2: usb@1c1c000 {
- 			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
- 			reg = <0x01c1c000 0x100>;
-@@ -832,7 +844,8 @@ ths: thermal-sensor@1c24c00 {
- 			clock-names = "bus", "mod";
- 			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
- 			resets = <&ccu RST_BUS_THS>;
--			/* TODO: add nvmem-cells for calibration */
-+			nvmem-cells = <&ths_calibration>;
-+			nvmem-cell-names = "calibration";
- 			#thermal-sensor-cells = <1>;
- 		};
- 
--- 
-2.55.0
+Robin Snyders' pending SMB5 series renames smb_init_seq[], so whichever
+of the two lands second needs a trivial rebase. Applies unchanged to
+next-20261001.
+---
+ drivers/power/supply/qcom_smbx.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
+index f5557b8cc92a..8c6b7c46b85f 100644
+--- a/drivers/power/supply/qcom_smbx.c
++++ b/drivers/power/supply/qcom_smbx.c
+@@ -819,11 +819,7 @@ static const struct smb_init_register smb_init_seq[] = {
+ 	  .mask = SOC_LT_CHG_RECHARGE_THRESH_SEL_BIT |
+ 		  VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT,
+ 	  .val = VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT },
+-	/* Enable charging */
+ 	{ .addr = USBIN_OPTIONS_1_CFG, .mask = HVDCP_EN_BIT, .val = 0 },
+-	{ .addr = CHARGING_ENABLE_CMD,
+-	  .mask = CHARGING_ENABLE_CMD_BIT,
+-	  .val = CHARGING_ENABLE_CMD_BIT },
+ 	/*
+ 	 * Match downstream defaults
+ 	 * CHG_EN_SRC_BIT - charger enable is controlled by software
+@@ -844,6 +840,13 @@ static const struct smb_init_register smb_init_seq[] = {
+ 		  AUTO_RECHG_BIT | EN_ANALOG_DROP_IN_VBATT_BIT |
+ 		  CHARGER_INHIBIT_BIT,
+ 	  .val = CHARGER_INHIBIT_BIT },
++	/*
++	 * Set the enable command only once CHGR_CFG2 has selected software
++	 * control, or a charger its watchdog has disabled stays disabled.
++	 */
++	{ .addr = CHARGING_ENABLE_CMD,
++	  .mask = CHARGING_ENABLE_CMD_BIT,
++	  .val = CHARGING_ENABLE_CMD_BIT },
+ 	/* STAT pin software override, match downstream. Parallel charging? */
+ 	{ .addr = STAT_CFG,
+ 	  .mask = STAT_SW_OVERRIDE_CFG_BIT,
+
+---
+base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+change-id: 20261002-qcom-smbx-enable-order-816788337f26
+
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
+
 
