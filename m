@@ -1,34 +1,34 @@
 Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F5C4973A8;
-	Sat,  3 Oct 2026 20:01:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7B6346FB3;
+	Sat,  3 Oct 2026 20:01:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791057702; cv=none; b=b66nAF7NrhHC1O1gtzkeDKvL7BkIJUiBxZLKVMvaojOtvIVPflG/ItcRlfBlylKompr/uPQaw3cnklpv1kJc/VUYvJ/1M7PaDWHMqcwKjN+mo3LTPkDCol1f4gyHTkuiThCXe3NQUu0BQGguxu3BG3eEV2SFry0Ojkc40Fh8hiA=
+	t=1791057704; cv=none; b=cIGizokDHHy42pV7pw6hDh3H09agdhimlUeRbq7MMQJplTSuC4GDW0MUHlW1otFLIdBjob9k9c1ecpi63fYUWV34pdQfwMDv7omsHrlGCCc64z6HhUrfEvyILj7s3Zf4jGU7a30dJJvOi6QyhCsQSTboAyLNZ7Qpjbs1Q5QDi7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791057702; c=relaxed/simple;
-	bh=atpECOG+sM9hDZ2fjFr7LCR6ql8ndRwWg1AtG9+9U34=;
+	s=arc-20240116; t=1791057704; c=relaxed/simple;
+	bh=YU3NR0bo15npDt2Jb0BuPnt639T+tk2DaxLl545IF1g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hGEPJXfG1hUuA+MTC0K2JgQKYx+kRJQbFb/7pLHay0umu3oBJwOC71d8P/urRvtG5Kaax8gMdK8rgiZ3k+ab99Iu1C0gzsO0QH9YftrVXk+jGOUDt5dsz3OYfEb8EHY2hdlDZp3KquOi0K+pBG1WiVM4Pe2wCGfC+4FWJVXdFEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=s3y7zaA/; arc=none smtp.client-ip=139.162.184.125
+	 MIME-Version:Content-Type; b=F8H/y8yVPAeKOeoDFo0aMzPD6WxkcjZJF1gIN8lJyOSZcSVAOQJQACMQOA/AZo99BUZyzc66HEjXccramLOFdS3gW++e0u9aQfdeL5lLU71uZtkcqhtGR8GEBgIwS9RybbXLdFTKslE8XBSvDwIwlrl5hzTgjn2p6j5M/ME04Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=oUuDmln3; arc=none smtp.client-ip=139.162.184.125
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="s3y7zaA/"
+	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="oUuDmln3"
 From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
-	s=mail; t=1791057695;
+	s=mail; t=1791057698;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ujjA/EfqFrllDMkLjfG6+3nwCZQypQgUzS75H0VKhkU=;
-	b=s3y7zaA/vOa/6nJn9RV1/S648MlfyLxv6NYSbtwk56kRlvGiddXt6T4G8FGyk/cDSkwh3r
-	3w70x96Kjew76d2ZtIsu6Zr6+zQdiASBIgvvRG5/F8EvxvhK1wzVHx0A4FQ90cPAms3P2h
-	KZJCA0SFLK5aozVZ+TwtuDNKCBtrP3w2aNMLr9iWJjy3dL4v+Mh6qRocsMQLTqYnwFqxZi
-	vxo/xeTgHZjOaBPPNaEFCI/9UeNBevdDVKBXe94vDT604KmuyR1V/jIsLH/1VLT44toa7c
-	7xOEzQjFm1Tf6HR99gmDrS6izV+UxHRdTgYsZzuLZ3InJgD40n7BWHuf0i9QpQ==
+	bh=fDQY7iuVWorvARYB/kxbcDCgmHiMd48YCWb9KH3HF1U=;
+	b=oUuDmln3hJLxmPeIVjLm1YxXDtxmICcQ/c4C0hKxW6ACLEyjeDMMe8ZHGcTHsOD3Jd2THt
+	qFs7gYco51kfVj98/wHh6sN8nRvvUwdhfnw4KuQE530DNs+pSuu6zejxpqlUfkOV/spdpk
+	t5sXucYqBCQoknZPtCQkP/FUpTtVLh0jF+o5kEUok7EhL63UFaUIueWYzEnNpdNQRzZydg
+	Wkk8qEivD7zK4tuZaFyKkzlMr5Hvwk6Xpf3FZgmLYXYowFZ8rS4AvPHjxsrF5o19IGmsjv
+	lISDVPP2VreDdW38qZzTVr5UvXDO/CWajpG5PiJZTZYXHDpOoBZ39OKTUPs6UQ==
 To: Boris Brezillon <boris.brezillon@collabora.com>,
 	Steven Price <steven.price@arm.com>,
 	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
@@ -43,9 +43,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-Subject: [PATCH 1/3] dt-bindings: gpu: mali-bifrost: Add the MT8188 MFGCFG phandle
-Date: Sat,  3 Oct 2026 22:01:30 +0200
-Message-ID: <20261003200132.866240-2-michal@nozomi.space>
+Subject: [PATCH 3/3] arm64: dts: mediatek: mt8188: Add the MFGCFG phandle to the GPU
+Date: Sat,  3 Oct 2026 22:01:32 +0200
+Message-ID: <20261003200132.866240-4-michal@nozomi.space>
 In-Reply-To: <20261003200132.866240-1-michal@nozomi.space>
 References: <20261003200132.866240-1-michal@nozomi.space>
 Precedence: bulk
@@ -57,57 +57,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On MT8188 the GPU timestamp counter only counts once a register in the
-MFG configuration block routes the SoC system timer to it, and the
-setting is lost whenever the GPU power domain is turned off. The GPU
-driver has to restore it on every power-up, so it needs a reference to
-that block.
-
-Add an optional mediatek,mfgcfg phandle. Allow it on MT8370 as well,
-which shares the GPU and the MFG block with MT8188 and its GPU node in
-mt8188.dtsi. It is optional so that existing devicetrees stay valid;
-without it the timestamp counter reads zero, as before.
+The GPU driver needs the MFG configuration block to enable the GPU
+timestamp counter, which otherwise reads zero.
 
 Signed-off-by: Michał Kopeć <michal@nozomi.space>
 ---
- .../bindings/gpu/arm,mali-bifrost.yaml          | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ arch/arm64/boot/dts/mediatek/mt8188.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-index 9db9f84ad964b..08c1c22a270cb 100644
---- a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-@@ -122,6 +122,12 @@ properties:
-   nvmem-cells:
-     maxItems: 1
- 
-+  mediatek,mfgcfg:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the MFG configuration block, which routes the SoC system
-+      timer to the GPU timestamp counter.
-+
- required:
-   - compatible
-   - reg
-@@ -226,6 +232,17 @@ allOf:
-       required:
-         - power-domains
-         - power-domain-names
-+  - if:
-+      properties:
-+        compatible:
-+          not:
-+            contains:
-+              enum:
-+                - mediatek,mt8188-mali
-+                - mediatek,mt8370-mali
-+    then:
-+      properties:
-+        mediatek,mfgcfg: false
-   - if:
-       properties:
-         compatible:
+diff --git a/arch/arm64/boot/dts/mediatek/mt8188.dtsi b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+index 14a320f0c70cb..b4be89bf55bf7 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8188.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+@@ -2266,6 +2266,7 @@ gpu: gpu@13000000 {
+ 				     <GIC_SPI 382 IRQ_TYPE_LEVEL_HIGH 0>,
+ 				     <GIC_SPI 381 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			interrupt-names = "job", "mmu", "gpu";
++			mediatek,mfgcfg = <&mfgcfg>;
+ 			nvmem-cells = <&gpu_speedbin>;
+ 			nvmem-cell-names = "speed-bin";
+ 			operating-points-v2 = <&gpu_opp_table>;
 -- 
 2.55.0
 
