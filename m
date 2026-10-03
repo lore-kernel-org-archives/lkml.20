@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6631742E424;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732F542E8DC;
 	Sat,  3 Oct 2026 12:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791032118; cv=none; b=jSrlF88zO885Xch9oktLt0hku+tta53giDdP0SoFB66ma6rKiDHuIzLOMpP8888UXFRKEVNPRtxktX8/xRGI7v5w/TJSRtMJiRZEuAHh4gtuKF1KMUj7Tc4FJe06W3q0hpiUW7j7n+7PWNApQBIF4KF2UbxH46bnljW/keJeirk=
+	t=1791032118; cv=none; b=RYtcMJYec8s6pFjc1Pu0uXsqo9c1EuzDiEOU7xxpbg2buvu89CHpfFWGt+vpJKNZnS19EMGHysVVThfMC8pKdXEb9JsPtLpKsj78rHjdfjCZ5BrATYzH6zUNDXeYOkjtEUH7+KFPj5qxVXlEOCWVcW2d7FxVf7Mvv0sghN9e3lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791032118; c=relaxed/simple;
-	bh=ZRD/kCcVuHZQDqg5mbhpmJKk0TiU6XWkItSIbwi+L9g=;
+	bh=K30RUNtm7JgZ0IAIyV4BUzwhlm+WKo7/cDEPpJsCsKs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=onlJ/WUR6OUxhRC2kTLTE9j1owAVeoiIbtd4gdmjMUo9ayxJh9lTRkrK+LCBjobObKeaEiKmOWP4lN5DGaZ9fR0I/rIqvORrlUu81H1laporSoIkgw9sLcIEpRCsjsE60z6uzVrlr5rEaz8s2vQA06mCuxbYqBN+Vkr5+WK1cGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STOPC0bI; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Tmoo4P8ST089qiqBlP2AFYfFkXekfDxZrsPCmUlchjGdugWlhrsE+7+MLpYbazZGV2vK4Fn772cmTDNFQSvMvWNxaRDA1cTa2mEeCSYIBdMlLPai4wxlLxWTptfkmaIq2paFWD4A23X6cBres2+FcMrsCpbBQWA42HcwBZxkdh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZAkgYd9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STOPC0bI"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DDEDAC2BCF4;
-	Sat,  3 Oct 2026 12:55:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZAkgYd9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0EDF7C4AF49;
+	Sat,  3 Oct 2026 12:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791032118;
-	bh=ZRD/kCcVuHZQDqg5mbhpmJKk0TiU6XWkItSIbwi+L9g=;
+	bh=K30RUNtm7JgZ0IAIyV4BUzwhlm+WKo7/cDEPpJsCsKs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=STOPC0bIo8KvfjMj38NAT+6+V4NJMtF2C5eRyGeaNQXEL/3NQwh+Xw0dhShmxzvoE
-	 UmDy2yFt+SqdKuEzqDoAEa6TJuUSMTr1KUirT9PLh30RAjI7KsLdMtybhgUovMDwFs
-	 sfb0tUODeR2IGdS6QkDOzB+rvoq/eHGPOS2Q4Qe4dCcClotE3sDqboaPs7oRd38s5a
-	 G18RnOAcLJ/DucVVFC7Jm1nxuZNU4PVfpytGLYOa70hAgPLz4U0kUb0qMvy57BC56u
-	 Wkt3+4DF88jIPBNFTu8AGPqAQr2e/mA49GfZbNb9K3stPZwVUhe43acQ6NCFcY82HY
-	 PAjtMkSgLAgZw==
+	b=SZAkgYd9fKJ/0lh7RwndXBT+mcQZJoRhGiEtq5FnZ2CXV5OfIcQY1C+bYg5rTo0EA
+	 fe4Z5hoROkTfsKBbDNYEaaPmROFbrpW7UtrRLtgVOeYAGdc6PqNb0WhL/355PeRDiO
+	 7k9huOQiM6sz2ENsvkczSFD2ZM66PA0sMkQRxnusAQPo5wQ1qpEgX3bWPL0UL+We1P
+	 M8zZEmbuo7mUpnmiIFKXv+IGF8jBjvUnXUPr2+Og8fdiEfJR8NxafQFhrQq8i8YWNJ
+	 nMUHw/Vls1nXPltdUmk3vUkXDdEzWwnQDvbwClN16K6D/8BzA/L5P3amCkeWAKipRa
+	 6Maor1HM0G0Ng==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C96C2CA5FC1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE375CA5FE7;
 	Sat,  3 Oct 2026 12:55:17 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Sat, 03 Oct 2026 20:55:17 +0800
-Subject: [PATCH RFC v3 06/17] mm/mglru: move add/del LRU size accounting
- out of lru_gen_update_size()
+Date: Sat, 03 Oct 2026 20:55:19 +0800
+Subject: [PATCH RFC v3 08/17] mm/smap: convert to LRU refs based operations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-mglru-fg-v3-6-cbd4546a5bd9@tencent.com>
+Message-Id: <20261003-mglru-fg-v3-8-cbd4546a5bd9@tencent.com>
 References: <20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com>
 In-Reply-To: <20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com>
 To: linux-mm@kvack.org
@@ -74,11 +73,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
  Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791032114; l=3145;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791032114; l=2654;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=tydNlIbKPUEe7cYecg10FArqCQ2eP0NAEruvw3Q2wpM=;
- b=29E0XoaWedMYGtUli3qfltJ82WB5gIidfNyKqjhWucGKtVtddDxkcWSajQ6lP4h6eJ1aACRYe
- Q2ORcIkUCnMAxCVNHc9SHpjpX9MwulBiriTjKcijWby2MItha4beY10
+ bh=nuK8uOQmpPnofoe0v9EyWL4yCrnyg1Rjaf3cQdxe1xc=;
+ b=NS5bTh6n8B+W+SrXrzpsBrr1CXUWVgcXbd2TSkM3KL0JHjP//ZWh70MKjjzSPgrUIfEQiidXe
+ oyCu8QZ1vCSAcbURY4g36r8PsN1wfCYPPtAYyH5NctSvDafU24/QZJe
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -88,89 +87,77 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-Pure code shuffle, no behavior change.  lru_gen_update_size() now only
-updates the per-generation counters plus the promotion move; the
-addition and deletion active/inactive accounting move to
-lru_gen_add_folio() and lru_gen_del_folio(), which know the generation
-and can apply the active-window test directly.
+For MGLRU, switch smap to use the folio refs count API so smap will
+report all folio with referenced count >= 1 as "Referenced". Current
+smap checking PG_referenced is causing folios to flick between
+referenced and not-reference status, because for both MGLRU and
+active/inactive LRU, PG_referenced may got cleared on second access.
+(Increase of LRU referenced times count for MGLRU, and movig to active
+list active/inactive all clears that bit).
 
-The unevictable case is untouched: unevictable folios never enter
-lru_gen_add_folio() and keep being accounted by lruvec_add_folio() as
-before.
+After this, we will have a more reliable and useful reading for MGLRU
+after the FG change. The behavior is basically identical to what we had
+before the series. And there is no behavior change for classical LRU.
 
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- include/linux/mm_inline.h | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ fs/proc/task_mmu.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-index a3a302e22a47..48a945c2cbaf 100644
---- a/include/linux/mm_inline.h
-+++ b/include/linux/mm_inline.h
-@@ -298,21 +298,9 @@ static inline void lru_gen_update_size(struct lruvec *lruvec, struct folio *foli
- 	if (new_gen >= 0)
- 		atomic_long_add(delta, &lrugen->nr_pages[new_gen][type][zone]);
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 44147ba0b899..79daaf757412 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -857,6 +857,22 @@ static void smaps_page_accumulate(struct mem_size_stats *mss,
+ 	}
+ }
  
--	/* addition */
--	if (old_gen < 0) {
--		if (lru_gen_is_active(lruvec, new_gen))
--			lru += LRU_ACTIVE;
--		__update_lru_size(lruvec, lru, zone, delta);
-+	/* return now if not a promotion */
-+	if (old_gen < 0 || new_gen < 0)
- 		return;
--	}
--
--	/* deletion */
--	if (new_gen < 0) {
--		if (lru_gen_is_active(lruvec, old_gen))
--			lru += LRU_ACTIVE;
--		__update_lru_size(lruvec, lru, zone, -delta);
--		return;
--	}
- 
- 	/* promotion */
- 	if (!lru_gen_is_active(lruvec, old_gen) && lru_gen_is_active(lruvec, new_gen)) {
-@@ -366,6 +354,8 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
- 	int gen = folio_lru_gen(folio);
- 	int type = folio_is_file_lru(folio);
- 	int zone = folio_zonenum(folio);
-+	int delta = folio_nr_pages(folio);
-+	enum lru_list lru = type * LRU_INACTIVE_FILE;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 
- 	BUILD_BUG_ON(BIT(LRU_GEN_WIDTH - 1) != MAX_NR_GENS);
-@@ -381,6 +371,10 @@ static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio,
- 	set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK | BIT(PG_active), flags);
- 
- 	lru_gen_update_size(lruvec, folio, -1, gen);
-+	if (lru_gen_is_active(lruvec, gen))
-+		lru += LRU_ACTIVE;
-+	__update_lru_size(lruvec, lru, zone, delta);
++static bool smap_check_folio_referenced(struct folio *folio)
++{
++	if (lru_gen_enabled())
++		return folio_lru_refs(folio);
++	else
++		return folio_test_referenced(folio);
++}
 +
- 	/* for folio_rotate_reclaimable() */
- 	if (reclaiming)
- 		list_add_tail(&folio->lru, &lrugen->folios[gen][type][zone]);
-@@ -394,6 +388,9 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
- {
- 	unsigned long flags;
- 	int gen = folio_lru_gen(folio);
-+	int zone = folio_zonenum(folio);
-+	int delta = folio_nr_pages(folio);
-+	enum lru_list lru = folio_is_file_lru(folio) * LRU_INACTIVE_FILE;
++static void smap_clear_folio_referenced(struct folio *folio)
++{
++	if (lru_gen_enabled())
++		folio_set_lru_refs(folio, 0);
++	else
++		folio_clear_referenced(folio);
++}
++
+ static void smaps_account(struct mem_size_stats *mss, struct page *page,
+ 		bool compound, bool young, bool dirty, bool locked,
+ 		bool present)
+@@ -883,7 +899,7 @@ static void smaps_account(struct mem_size_stats *mss, struct page *page,
  
- 	if (gen < 0)
- 		return false;
-@@ -407,6 +404,9 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
- 	gen = ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
+ 	mss->resident += size;
+ 	/* Accumulate the size in pages that have been accessed. */
+-	if (young || folio_test_young(folio) || folio_test_referenced(folio))
++	if (young || folio_test_young(folio) || smap_check_folio_referenced(folio))
+ 		mss->referenced += size;
  
- 	lru_gen_update_size(lruvec, folio, gen, -1);
-+	if (lru_gen_is_active(lruvec, gen))
-+		lru += LRU_ACTIVE;
-+	__update_lru_size(lruvec, lru, zone, -delta);
- 	list_del(&folio->lru);
- 
- 	return true;
+ 	/*
+@@ -1680,7 +1696,7 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
+ 		/* Clear accessed and referenced bits. */
+ 		pmdp_test_and_clear_young(vma, addr, pmd);
+ 		folio_test_clear_young(folio);
+-		folio_clear_referenced(folio);
++		smap_clear_folio_referenced(folio);
+ out:
+ 		spin_unlock(ptl);
+ 		return 0;
+@@ -1709,7 +1725,7 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
+ 		/* Clear accessed and referenced bits. */
+ 		ptep_test_and_clear_young(vma, addr, pte);
+ 		folio_test_clear_young(folio);
+-		folio_clear_referenced(folio);
++		smap_clear_folio_referenced(folio);
+ 	}
+ 	pte_unmap_unlock(pte - 1, ptl);
+ 	cond_resched();
 
 -- 
 2.55.0
