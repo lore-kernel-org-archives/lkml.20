@@ -1,42 +1,42 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF1C3905EC;
-	Sat,  3 Oct 2026 10:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23CE392806;
+	Sat,  3 Oct 2026 10:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022819; cv=none; b=VKOu++Wt9mVZ4656E6YMfQdkgZK3ll6mQdOZPi/DbXmnlja6wcEQ8xXfH6/0/jb4nJ3bPJolz8gh7D7KdyQEAJ9iWOt9NfwgZ9Rt8ps3MRv8Zxh58dhFO2r7qj76DZi5ngmmmf6C9XJ2jF4ibasUPWF5X6w91uwwm6RuSHAZLec=
+	t=1791022841; cv=none; b=tcCZbbxOHDA9yONFnSvaQJFx3Z2aNcyvD/06n88YWhpU9I3JemxK8kNkMnOgX698GKOa/fgbW07ilHP79R1a90k2gIge7q1M62tIltQ30AgtFPutmjzSHL+hoxNTE/Y75Kdpx/QwaU5U+tfz2WMJwRg3vUOtWvsCnSltJON47BE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022819; c=relaxed/simple;
-	bh=V48hnmGwm5Zxzh//0DXpviOCCNy2P9IUTo2RKpAvg8s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aCn7OvQ767KQ+qCx3XVJ2ism2NXExnd5KC0iLF0VJTYdOCaFOSqThdu7J9+PSG4XIhiLtqw8cfewTKy2QO0u1zXSjXXwIEidrlc+b8ZVlFHz3e4Qii8g0Gy32OeI/Zm34uNSBYYjTjx9rGHkx9bsfUKcU2ieeVuwNPFEbzjodMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pWfHVPKV; arc=none smtp.client-ip=220.197.31.2
+	s=arc-20240116; t=1791022841; c=relaxed/simple;
+	bh=8C7vQGzDAjMbJIRvSMyXStnmuB9XlKvuAI6DxaKGsUI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=X6qKWAwWQEjf3f1depBzmX1OaX1aIlAkA0RR4YBdCq4TzyAtlCG6XGWlhydbjoXTH+VL7JeD5lRf4RppbyB70RVIeE5EfgvXyqbpy0obv1Rgs6e0LwW0GWsFdGjSMG89pFJgl8XGjqOkkKZy71BH0a9Rgm3hrGflOwqr1DGsGWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AnFbkQsZ; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pWfHVPKV"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AnFbkQsZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HX
-	ZZg6hcOZR13yuP5Pno2uBQWWVd5X5M6BD9+YK7sug=; b=pWfHVPKVqagQoYVFFt
-	3gsspefLzKQAfAughoECQZiPujV91ViV+LRHEZMLT+hvq80PRGl1Q8T370wsED1n
-	Z/hWADTi7VVfN/1JsRMXyOpY55hsBCMXCUIpM0j8gEykpQ/3hvl9O23lYmnq3vhT
-	OsocvjP5HZiJ1xwRxc2hyftdc=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3f8bC1sBqnrifCA--.20254S2;
-	Sat, 03 Oct 2026 18:19:47 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	Baochen Qiang <quic_bqiang@quicinc.com>,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] wifi: ath12k: validate MAC/PHY capability count before saving
-Date: Sat,  3 Oct 2026 18:19:43 +0800
-Message-Id: <20261003101944.596546-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Dw
+	QtR9NCNMdLIsCy0oeANhOBd/Rz++LDVaFmsqW6IJc=; b=AnFbkQsZat/ekUmOLE
+	99lysrzE97g5grp0QuVzz30S2Gryk99L7Gt5wZ/eCd4DLKk9nqSuRmdKDasfmx+I
+	POIiYkRdWBcgtMaLkCGXhk4kW5qKvFJPtRySah8mb9w8+PAm2aDYbu3MT0TVZ0W7
+	dkz3EdWQUfT2ilmuMremXWJiI=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgDXpxjF1sBqMjkECQ--.28727S2;
+	Sat, 03 Oct 2026 18:19:50 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com
+Subject: [PATCH] md: drain active_io before clearing pers on stop
+Date: Sat,  3 Oct 2026 18:19:48 +0800
+Message-Id: <20261003101948.1690687-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,78 +44,186 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f8bC1sBqnrifCA--.20254S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAry7WF47Gr18uF1xJw1DJrb_yoW5GFyxpF
-	43ZrnrtFWrJF47Ww4DJw4UJa4Fvws5Kw4fKFy7Ka4rW3Z5ArnrX3WFvFWjyFyrKws5WF1U
-	Kr4Iv3y0kFW5tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEubyLUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wOw6mrA1sPNzQAA3J
+X-CM-TRANSID:PCgvCgDXpxjF1sBqMjkECQ--.28727S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gw4xGFWUXw4DAFWrJF1fJFb_yoW7ZF15p3
+	y8tFZ8tr4DJ3y3ta1UJa4kWa45Xwn7KFWDtrZrW3yak3W3trs5GF1Fgw1UAryqkas5uw1D
+	tws8Wa1UCF1UWFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jY89tUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3QexYGrA1sdQUAAA3w
 
-Firmware supplies the hardware mode count and the PHY bitmap for each
-mode in the service-ready-ext event. ath12k_wmi_save_all_mac_phy_info()
-uses those bitmaps to populate svc_ext_info->mac_phy_info, but the
-destination is a fixed array of ATH12K_MAX_MAC_PHY_CAP elements.
+From: Li Youhong <liyouhong@kylinos.cn>
 
-If the total number of advertised PHY entries exceeds that limit, the
-loop writes beyond mac_phy_info and corrupts adjacent memory.
+STOP_ARRAY clears mddev->pers while a direct bio can already be in
+md_handle_request(). fork() shares the block-device file, so openers
+stays 1 and the stop is allowed, and sync_blockdev() does not wait for
+O_DIRECT. The bio passes the pers check in md_submit_bio(), then pers
+is cleared and md_handle_request() dereferences pers->make_request.
 
-ath12k_wmi_mac_phy_caps_parse() allocates the source array for
-tot_phy_id entries and rejects excess capability TLVs. However, if the
-event contains fewer capability TLVs than advertised, the remaining
-allocated entries stay zeroed and are saved as invalid PHY information.
+Suspend the array before __md_stop() so percpu_ref_kill(active_io) makes
+later tryget_live fail and the wait runs until every make_request holder
+has dropped the ref. The suspend taken here is resumed after pers is
+cleared, which wakes bios blocked in md_handle_request(). They see
+pers == NULL and complete with bio_io_error(). dm-raid already holds
+its own suspend across md_stop() and that path is unchanged.
 
-After parsing the MAC/PHY capability TLVs, validate the destination
-capacity and reject an incomplete capability list before saving any
-entries.
+reconfig_mutex is dropped around mddev_suspend() and mddev_resume().
+stop_draining is set across that window so mddev_lock() returns
+-EBUSY.
 
-Fixes: 062ade23991e ("wifi: ath12k: parse and save hardware mode info from WMI_SERVICE_READY_EXT_EVENTID event for later use")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-
+Reported-by: syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=89a9ab2a134d092fffae
+Fixes: 409c57f38017 ("md: enable suspend/resume of md devices.")
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
+ drivers/md/md.c | 62 ++++++++++++++++++++++++++++++++++++++++++++++---
+ drivers/md/md.h |  7 ++++++
+ 2 files changed, 66 insertions(+), 3 deletions(-)
 
-Changes in v2:
-- Refer to the service-ready-ext event.
-- Describe a short capability list as a correctness issue instead of a
-  source-buffer overrun.
-- Move the checks after MAC/PHY capability parsing and use '<' for the
-  reachable count mismatch.
-
-diff --git a/drivers/net/wireless/ath/ath12k/wmi.c b/drivers/net/wireless/ath/ath12k/wmi.c
-index d5160af60e00..3e812c79a649 100644
---- a/drivers/net/wireless/ath/ath12k/wmi.c
-+++ b/drivers/net/wireless/ath/ath12k/wmi.c
-@@ -5050,6 +5050,7 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
- 					u16 tag, u16 len,
- 					const void *ptr, void *data)
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..85158a99277f 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -395,6 +395,8 @@ static bool is_suspended(struct mddev *mddev, struct bio *bio)
+ 
+ bool md_handle_request(struct mddev *mddev, struct bio *bio)
  {
-+	struct ath12k_svc_ext_info *svc_ext_info = &ab->wmi_ab.svc_ext_info;
- 	struct ath12k_wmi_pdev *wmi_handle = &ab->wmi_ab.wmi[0];
- 	struct ath12k_wmi_svc_rdy_ext_parse *svc_rdy_ext = data;
- 	int ret;
-@@ -5094,6 +5095,22 @@ static int ath12k_wmi_svc_rdy_ext_parse(struct ath12k_base *ab,
- 				return ret;
++	struct md_personality *pers;
++
+ check_suspended:
+ 	if (unlikely(md_cloned_bio(mddev, bio))) {
+ 		/*
+@@ -402,6 +404,12 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
+ 		 * active_io reference, so percpu_ref_get() is safe here.
+ 		 */
+ 		percpu_ref_get(&mddev->active_io);
++		pers = READ_ONCE(mddev->pers);
++		if (!pers) {
++			percpu_ref_put(&mddev->active_io);
++			bio_io_error(bio);
++			return true;
++		}
+ 	} else {
+ 		if (is_suspended(mddev, bio)) {
+ 			/* Bail out if REQ_NOWAIT is set for the bio */
+@@ -409,14 +417,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
+ 				bio_wouldblock_error(bio);
+ 				return true;
  			}
+-			wait_event(mddev->sb_wait, !is_suspended(mddev, bio));
++			wait_event(mddev->sb_wait, !is_suspended(mddev, bio) ||
++				   !READ_ONCE(mddev->pers));
++		}
++		pers = READ_ONCE(mddev->pers);
++		if (!pers) {
++			bio_io_error(bio);
++			return true;
+ 		}
+ 		if (!percpu_ref_tryget_live(&mddev->active_io))
+ 			goto check_suspended;
+ 	}
+-	if (!mddev->pers->make_request(mddev, bio)) {
++	if (!pers->make_request(mddev, bio)) {
+ 		percpu_ref_put(&mddev->active_io);
+-		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
++		if (mddev_is_dm(mddev) && pers->prepare_suspend)
+ 			return false;
+ 		goto check_suspended;
+ 	}
+@@ -7097,6 +7111,32 @@ static void __md_stop(struct mddev *mddev)
+ 	clear_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
+ }
  
-+			if (svc_rdy_ext->tot_phy_id >
-+			    ARRAY_SIZE(svc_ext_info->mac_phy_info)) {
-+				ath12k_warn(ab, "too many PHY entries %u (max %zu)\n",
-+					    svc_rdy_ext->tot_phy_id,
-+					    ARRAY_SIZE(svc_ext_info->mac_phy_info));
-+				return -EINVAL;
-+			}
++/* Drop reconfig_mutex around suspend so in-flight IO can update the superblock. */
++static int md_suspend_for_stop(struct mddev *mddev, bool interruptible)
++{
++	int err;
 +
-+			if (svc_rdy_ext->n_mac_phy_caps < svc_rdy_ext->tot_phy_id) {
-+				ath12k_warn(ab,
-+					    "not enough MAC/PHY caps %u, expected %u\n",
-+					    svc_rdy_ext->n_mac_phy_caps,
-+					    svc_rdy_ext->tot_phy_id);
-+				return -EINVAL;
-+			}
++	lockdep_assert_held(&mddev->reconfig_mutex);
 +
- 			ath12k_wmi_save_all_mac_phy_info(ab, svc_rdy_ext);
++	WRITE_ONCE(mddev->stop_draining, 1);
++	mutex_unlock(&mddev->reconfig_mutex);
++	err = mddev_suspend(mddev, interruptible);
++	mddev_lock_nointr(mddev);
++	WRITE_ONCE(mddev->stop_draining, 0);
++	return err;
++}
++
++static void md_resume_for_stop(struct mddev *mddev)
++{
++	lockdep_assert_held(&mddev->reconfig_mutex);
++
++	WRITE_ONCE(mddev->stop_draining, 1);
++	mutex_unlock(&mddev->reconfig_mutex);
++	__mddev_resume(mddev, false);
++	mddev_lock_nointr(mddev);
++	WRITE_ONCE(mddev->stop_draining, 0);
++}
++
+ void md_stop(struct mddev *mddev)
+ {
+ 	lockdep_assert_held(&mddev->reconfig_mutex);
+@@ -7164,6 +7204,8 @@ static int do_md_stop(struct mddev *mddev, int mode)
+ 	struct gendisk *disk = mddev->gendisk;
+ 	struct md_rdev *rdev;
+ 	int did_freeze = 0;
++	int err = 0;
++	int resume = 0;
  
- 			svc_rdy_ext->mac_phy_done = true;
+ 	if (!test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
+ 		did_freeze = 1;
+@@ -7181,6 +7223,18 @@ static int do_md_stop(struct mddev *mddev, int mode)
+ 		}
+ 		return -EBUSY;
+ 	}
++
++	if (mddev->pers) {
++		err = md_suspend_for_stop(mddev, true);
++		if (err) {
++			if (did_freeze) {
++				clear_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
++				set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
++			}
++			return err;
++		}
++		resume = 1;
++	}
+ 	if (mddev->pers) {
+ 		if (!md_is_rdwr(mddev))
+ 			set_disk_ro(disk, 0);
+@@ -7205,6 +7259,8 @@ static int do_md_stop(struct mddev *mddev, int mode)
+ 		if (!md_is_rdwr(mddev))
+ 			mddev->ro = MD_RDWR;
+ 	}
++	if (resume)
++		md_resume_for_stop(mddev);
+ 	/*
+ 	 * Free resources if final stop
+ 	 */
+diff --git a/drivers/md/md.h b/drivers/md/md.h
+index b6d2e8929a0f..745f0c57f669 100644
+--- a/drivers/md/md.h
++++ b/drivers/md/md.h
+@@ -414,6 +414,8 @@ struct mddev {
+ 	unsigned long			sb_flags;
+ 
+ 	int				suspended;
++	/* Set while do_md_stop() has dropped reconfig_mutex to drain IO. */
++	int				stop_draining;
+ 	struct mutex			suspend_mutex;
+ 	struct percpu_ref		active_io;
+ 	int				ro;
+@@ -719,6 +721,11 @@ static inline int __must_check mddev_lock(struct mddev *mddev)
+ 		ret = -ENODEV;
+ 		mutex_unlock(&mddev->reconfig_mutex);
+ 	}
++	/* do_md_stop() is waiting for active_io with the mutex dropped. */
++	if (!ret && READ_ONCE(mddev->stop_draining)) {
++		ret = -EBUSY;
++		mutex_unlock(&mddev->reconfig_mutex);
++	}
+ 
+ 	return ret;
+ }
 -- 
-2.34.1
+2.25.1
 
