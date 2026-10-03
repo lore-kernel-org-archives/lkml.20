@@ -1,202 +1,319 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74C848EC66
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1524908CF;
+	Sat,  3 Oct 2026 16:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791045544; cv=none; b=UszItcd4n4GjXUL5m96QmCN+3kK6GzNf/Gw056cKsO/LdW5U/zcUbTCvv7ZOpK50xUJS6mp6P9ks4eCFYrIkolSTjk6aKmIOHG6/SEc50ie/qJJYYYOf6XdGef0LI0xMe//4ER3Av4rjbwaAKBWW3Yfr8g1Y1r96AotC72zfkEA=
+	t=1791045550; cv=none; b=gTE9M0UbfqlTvayeELLWKudRyajFbjSnE9wJAzciWJYufv06EB03QU6HO+gmRnbbHLMp0nGyDXnZMonMixtp6KfPvvlaj9StDVgrv/8Lqn+mUplUSKIDKnsqStaNwHkS3ZqUol5qQrFR0Hg9T7uwbyK0jk/mKpmbyDx7+ttLPCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791045544; c=relaxed/simple;
-	bh=ydoEav6Bpml1kMo8KwImm+Q4rq504FcGaY9Lm+dCJe0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JwsMYFaOWfMosOr4Opu26YyW/2u1bhGq30snpBy7OZsF5T0I4HycoBOA3OhKntKmtIUJMCiolgMSf4HkeZWec8Zqn2QjdI7aeFgOjZVGK7m9gi9XaJI6Qo42KT3pg5A/r23AeYRFSHPfDlbdOKrKGH8nDYGo4SXFl0gNRntGaCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nz7SKVR/; arc=none smtp.client-ip=74.125.231.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791045550; c=relaxed/simple;
+	bh=HTYbod2OP3AjRPEv6Ph886TsUDFUWldGDo6PKBX7Wqs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=l8RuLuLyGXA9AAl5gzYbbvOiEsfY7Oxs2QsSw7r9qBXSZow28QIt7ufjP2rDGuucY5gUJfVe86hr/rbNBpLXVYKMH3dJyl2lkTy8AfrD0azgzHPak9BgcbsjGc0S1+V3Y00ekMzzyyTI9UMG7PnpxbWne4rPC5rwbn2N5nCtycg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XlbF7x+A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nz7SKVR/"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-81be5042c51so970568a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:39:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791045541; x=1791650341; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TKJeZ90AHzCg5KqCt7ePHWHr6buLXihZVRjmawQi7xU=;
-        b=nz7SKVR/8DayxrdPisWcsts6nQU13pwOLDUYEOCQWRKy+Lu04Uag+6+9JJiR5alAnp
-         DeXDPTvRUSiCjRFZwBIKo8kY543NOtlhvEzJa9DqST8pxsMrBcCnMj9bTiwwdIMNdUIn
-         d8CuYQjFgJXhPaLkiOtFuzdz/tqmLFUqT8KsQA74UJqltmK4kJT4sskStkxd+iPzkAxl
-         KMPurTJLc3L1gX6G6d0Y0mr3mr+0slDDTDDRUsdgkL8YYpVXi+TOqzpP0zGN+jeZMdyc
-         vC0k2mGDF0DN0nGecL/dlK+1AJ3mdbrbuDJLWdr3EsfCorKY1eGhLsjCBdtolgjxrg3L
-         1b6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791045541; x=1791650341;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TKJeZ90AHzCg5KqCt7ePHWHr6buLXihZVRjmawQi7xU=;
-        b=C7LpK6DvTrozs20olK8mT9VIT9uYKzHvyxKIduvSePsoD6F0P8MiHGTUzSoKgOUatg
-         U0SpcmCnww1SLrqH4hpVx64wGWgloIHHERHnvTa/RjixNbV4jSPpuArmRJJCMRVXFvfL
-         R02EDwYdCN6NMLDT1wobs6jooNsRfD0n7GSyAPzXzLMr4sWiPIB6Z7OnHR6Tpmc8DPkL
-         mZLblKHHl7JuOZNHhIg6RB4QGYUJDt4A3cHa9Ll47hWBjaqv+q1aOe8uEHYDT7TYdufE
-         cjoWTSW/qO/CHegOkWNbxxRuNSKy4D+6jTFCcgXwquVO/R4jzZoozu0Hgrsv9THTufAV
-         4iBQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXwSE06kbBWEv88GrfrWJvJYCFNKZ8TqKZ6MLnudRb7oK7eYZ1GHi0ej3mp+/ilNO/GbN4vBXD/MFFn/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX4eSjZtfyDOR67k6tSlAW7xzPaQgvbHdy8Pe01QyxY+ndy5Uj
-	o6gVFWEZ8LVkdP6V7IkhJjii8lHpDMSu5fnem4LnioMT7DSiqXirAmfW
-X-Gm-Gg: AYBFou1m2SquoNRTrPK9w8fbEVFU1zTb2CnRuZkYsW7RI5pvc3syW1U7SCq+ALeIrzC
-	kOrBwZzAWdaNeFwaWjhaJqCBUcLzSYRT0wSwvSjMAkbPPWiC9ZxFrrCu1Aub6D4xgkZUCAklbf7
-	eeD8VaOa6E8yFJ0n9wpgUEU/0u6XewQedv9nn7BXxVMIyrYqUDeC1PV1n2LOTCtV2/cqJJ/t3mN
-	vVDnRtB6MZK9WJAZk2Cw2O52hQH2SY/c2PARBJ7X93omNHdw6UWwDiGK2h6Zcv1zRH1KGIr5Y6+
-	vAF/OdQA29TD3JYRTpoCutCdT1pYx1guxmyO7kesC93v4gDZ5YxBD7UdG8Oz61q5SKNFUt+xymJ
-	6zDi3ffsyunujoX0Wst8najJlkv8D+gubAdm7yeBT9TDzl23WLvJZzv0aNAbJ0wGGUmTSjH2Uzd
-	tpBPTRmzw/OpI9qJuTJN7ZfY6jgENX22/qwWtpOLrO8F405BJVG5QB7nnNqTN56Bs=
-X-Received: by 2002:a05:6830:438d:b0:80c:d34f:5f63 with SMTP id 46e09a7af769-82283671cc3mr6660679a34.28.1791045541448;
-        Sat, 03 Oct 2026 09:39:01 -0700 (PDT)
-Received: from beelink.. ([187.14.126.14])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8227aa6cdf1sm6723839a34.26.2026.10.03.09.38.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 09:39:00 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: maaz.mombasawala@broadcom.com,
-	zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	dri-devel@lists.freedesktop.org,
-	christian.koenig@amd.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the PRIME core
-Date: Sat,  3 Oct 2026 13:38:50 -0300
-Message-ID: <20261003163851.2257947-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <DLUS51Y9OLMS.UQR4UY71TFUP@broadcom.com>
-References: <DLUS51Y9OLMS.UQR4UY71TFUP@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XlbF7x+A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECEDC1F0089B;
+	Sat,  3 Oct 2026 16:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791045548;
+	bh=zqpk9MXgaX25nS5Ys5rO6UCVR/iTsHvR4Kg11ITNpTs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=XlbF7x+AF5fxK95SLx8EO/qqAYH7hiq/jlVD3oMyUCD91daS/5Vhb4XQykoYRFpCk
+	 HQE35clU8U8NmShkKGPOXXm3eJPcfSvwPleniFKD8fDK7SvlFUB3e6Rl1vMsCh98T8
+	 kGCMqOra9qryvd6pdZE1zBg9ReOf2oQQqkPSkE1A3H94q6wOs+3UaZvxOwUvsRoRGb
+	 XhbfbRd5AOawGf6Szb0NtGri8Zv0xvWnbnjJwkt8cex+QAjzFjhdy8V1YZ+8IY0uEU
+	 OXRuRGCM2hG2rWorbs3M1Hxb637UoVW5vfdAf98NWETqN503qvGiWoWjw2QQki7XpK
+	 xojR0fsvrnoGw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Sat, 03 Oct 2026 17:32:48 +0100
+Subject: [PATCH v4 17/38] scsi: sg: convert mmap hook to mmap_prepare and
+ rework
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-17-a1f052500fd7@kernel.org>
+References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5937; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=HTYbod2OP3AjRPEv6Ph886TsUDFUWldGDo6PKBX7Wqs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIO6mke6ptQZhP0qDaRs9HKqf7345bgPyLNm67IKN9S2
+ W+bYRfZUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgImEezP8L5EUPXB5ps3ju/wX
+ JnDtif2tcjEyKOzRxeInCn5501/apDIy/HNJWjr3/SFbtYP+4oZ8mzaHebSe4Pf6OieHX5a1idO
+ OCQA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi Maaz,
+Move from the deprecated mmap hook to the new mmap_prepare hook.
 
-Thanks for testing.
+We are mapping kernel pages here, so use the discontiguous kernel mapping
+mmap action to do so.
 
-I think the reason you could not reproduce is that the original PoC
-opens two fds to the same vmwgfx render node.  When the importer
-and exporter are the same device, drm_gem_prime_import_dev() hits
-the drm_gem_is_prime_exported_dma_buf() check (drm_prime.c:976):
-it sees dma_buf->ops == drm_gem_prime_dmabuf_ops && obj->dev == dev,
-and returns dma_buf->priv directly without attaching or mapping —
-so drm_gem_unmap_dma_buf() is never reached and the kfree never fires.
+Unwind the rather confusing loop and instead map as many pages as we can at
+one time.
 
-To hit the invalid-free, the PRIME import must go through a
-different DRM device (e.g. virtio-gpu) so the full attachment
-map/unmap path is taken.  In addition, the BO must be bound to a GB
-surface before the import, so that vmw_ttm_map_dma() runs and
-caches vsgt.sgt = &vmw_tt->sgt (the embedded member).  Without the
-bind, the TTM is not DMA-mapped and get_sg_table falls through to
-drm_prime_pages_to_sg(), which allocates a fresh table — no bug.
+Note that we do not need to pay attention to rsv_schp->k_use_sg here, as
+the pages are populated for the length of the buffer at
+rsv_schp->page_order granularity as compound pages.
 
-With an updated PoC that uses a second GPU for import and binds the
-BO first, I was able to reproduce on mainline 7.3-rc4 (6edd14dd67d7):
+The discontiguous kernel page mapping logic handles the compound pages for
+us.
 
-  BUG: KASAN: invalid-free in drm_gem_unmap_dma_buf+0x6b/0x80
-  Free of addr ffff888103c34e60 by task poc_mm04_attack/242
+sfp->mmap_called keeps the buffer stable for us. As before it is never
+cleared, so a failed mmap also leaves it set.
 
-  CPU: 2 UID: 65534 PID: 242 Comm: poc_mm04_attack Not tainted
-       7.3.0-rc4-g6edd14dd67d7-dirty #8 PREEMPT(lazy)
-  Call Trace:
-   <TASK>
-   kasan_report_invalid_free+0xb8/0xe0
-   check_slab_allocation+0xf5/0x100
-   kfree+0x163/0x510
-   drm_gem_unmap_dma_buf+0x6b/0x80
-   dma_buf_unmap_attachment_unlocked+0x72/0xc0
-   drm_gem_prime_import_dev+0x1f5/0x260
-   virtgpu_gem_prime_import+0x328/0x580
-   drm_gem_prime_fd_to_handle+0x116/0x370
-   drm_ioctl+0x3d4/0x790
+We also remove some useless vma, vma->vm_file NULL checks - these will
+always be non-NULL if you reached the mmap hook logic.
 
-  Allocated by task 242:
-   vmw_ttm_tt_create+0x4c/0x130
-   ttm_tt_create+0xca/0x190
-   ttm_bo_handle_move_mem+0xea/0x270
-   vmw_bo_create+0x248/0x3c0
-   vmw_gem_object_create_ioctl+0xa1/0x1a0
+We retain log output for consistency, but change what's output on page
+mapping to indicate that sg_discontig_get() does the work now.
 
-  The buggy address belongs to the cache kmalloc-192 of size 192
-  The buggy address is located 96 bytes inside of
-   160-byte region [ffff888103c34e00, ffff888103c34ea0)
+Note that we drop the VMA_IO_BIT flag for the VMA here. It was never
+necessary as we invoke alloc_pages() which gives us refcounted folios that
+are fine for GUP to access (VMA_IO_BIT would prevent that).
 
-Setup:
-  - QEMU with -device vmware-svga -device virtio-gpu-pci
-  - Kernel: 7.3-rc4, KASAN, CONFIG_DRM_VMWGFX=y
-  - Three local-only changes to make vmwgfx probe on QEMU:
-    1. pitchlock error return bypassed (hardware capability
-       check, not security-relevant — VMware real passes it)
-    2. SVGA_CAP_GBOBJECTS forced (QEMU does not advertise it;
-       VMware real does)
-    3. max_mob_pages/max_mob_size forced to 256 MB (QEMU
-       returns 0; VMware real provides real values)
-    None of these touch the PRIME export/import path or the
-    sg_table ownership code.
-  - DMA map mode: vmw_dma_map_populate (line in boot log:
-    "DMA map mode: Caching DMA mappings")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ drivers/scsi/sg.c | 115 ++++++++++++++++++++++++------------------------------
+ 1 file changed, 51 insertions(+), 64 deletions(-)
 
-Steps (runs as uid 65534):
-  1. DRM_VMW_ALLOC_DMABUF(262144) on vmwgfx renderD128
-  2. DRM_IOCTL_PRIME_HANDLE_TO_FD
-  3. DRM_VMW_GB_SURFACE_CREATE 256x256
-  4. EXECBUF BIND_GB_SURFACE(sid, mobid=handle)
-     -> vmw_ttm_bind -> vmw_ttm_map_dma
-     -> sets vsgt.sgt = &vmw_tt->sgt  (embedded, vmw_dma_map_populate)
-  5. DRM_IOCTL_PRIME_FD_TO_HANDLE on virtio-gpu renderD129
-     -> dma_buf_map_attachment -> drm_gem_map_dma_buf
-        -> vmw_gem_object_get_sg_table returns &vmw_tt->sgt
-     -> virtgpu_gem_prime_import_sg_table fails with -ENODEV
-        (no blob resource support in this QEMU config)
-     -> error cleanup: dma_buf_unmap_attachment_unlocked
-        -> drm_gem_unmap_dma_buf: sg_free_table + kfree(&vmw_tt->sgt)
-     => KASAN: invalid-free (interior pointer of vmw_ttm_tt)
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 5408f002e6c0..3f9e08725602 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -1212,85 +1212,72 @@ sg_fasync(int fd, struct file *filp, int mode)
+ 	return fasync_helper(fd, filp, mode, &sfp->async_qp);
+ }
+ 
+-static vm_fault_t
+-sg_vma_fault(struct vm_fault *vmf)
++static int sg_discontig_init(void *vm_private_data, void **private)
+ {
+-	struct vm_area_struct *vma = vmf->vma;
+-	Sg_fd *sfp;
+-	unsigned long offset, len, sa;
+-	Sg_scatter_hold *rsv_schp;
+-	int k, length;
+-
+-	if ((NULL == vma) || (!(sfp = (Sg_fd *) vma->vm_private_data)))
+-		return VM_FAULT_SIGBUS;
+-	rsv_schp = &sfp->reserve;
+-	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= rsv_schp->bufflen)
+-		return VM_FAULT_SIGBUS;
+-	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
+-				      "sg_vma_fault: offset=%lu, scatg=%d\n",
+-				      offset, rsv_schp->k_use_sg));
+-	sa = vma->vm_start;
+-	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
+-	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
+-		len = vma->vm_end - sa;
+-		len = (len < length) ? len : length;
+-		if (offset < len) {
+-			struct page *page = rsv_schp->pages[k] + (offset >> PAGE_SHIFT);
+-			get_page(page);	/* increment page count */
+-			vmf->page = page;
+-			return 0; /* success */
+-		}
+-		sa += len;
+-		offset -= len;
++	const unsigned long req_sz = (unsigned long)*private;
++	Sg_fd *sfp = vm_private_data;
++	Sg_scatter_hold *rsv_schp = &sfp->reserve;
++	int err = 0;
++
++	mutex_lock(&sfp->f_mutex);
++	if (req_sz > rsv_schp->bufflen) {
++		err = -ENOMEM;	/* cannot map more than reserved buffer */
++		goto out;
++	}
++	sfp->mmap_called = 1; /* Prevents changes to buffer size. */
++out:
++	mutex_unlock(&sfp->f_mutex);
++	return err;
++}
++
++static int
++sg_discontig_get(struct discontig_kernel_page_state *state)
++{
++	Sg_fd *sfp = state->vm_private_data;
++	Sg_scatter_hold *rsv_schp = &sfp->reserve;
++	const unsigned int order = rsv_schp->page_order;
++	const pgoff_t nr_pages = state->nr_pages_mapped;
++
++	if (nr_pages >= (rsv_schp->bufflen >> PAGE_SHIFT)) {
++		discontig_kernel_map_abort(state);
++		return 0;
+ 	}
+ 
+-	return VM_FAULT_SIGBUS;
++	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
++				      "%s: offset=%lu, scatg=%d\n", __func__,
++				      nr_pages << PAGE_SHIFT, rsv_schp->k_use_sg));
++
++	discontig_kernel_map_page(state, rsv_schp->pages[nr_pages >> order]);
++	return 0;
+ }
+ 
+-static const struct vm_operations_struct sg_mmap_vm_ops = {
+-	.fault = sg_vma_fault,
++static const struct discontig_kernel_page_ops sg_discontig_ops = {
++	.init = sg_discontig_init,
++	.get = sg_discontig_get,
+ };
+ 
+ static int
+-sg_mmap(struct file *filp, struct vm_area_struct *vma)
++sg_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	Sg_fd *sfp;
+-	unsigned long req_sz, len, sa;
+-	Sg_scatter_hold *rsv_schp;
+-	int k, length;
+-	int ret = 0;
++	Sg_fd *sfp = desc->file->private_data;
++	const unsigned long req_sz = vma_desc_size(desc);
+ 
+-	if ((!filp) || (!vma) || (!(sfp = (Sg_fd *) filp->private_data)))
++	if (!sfp)
+ 		return -ENXIO;
+-	req_sz = vma->vm_end - vma->vm_start;
++
+ 	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
+ 				      "sg_mmap starting, vm_start=%p, len=%d\n",
+-				      (void *) vma->vm_start, (int) req_sz));
+-	if (vma->vm_pgoff)
++				      (void *) desc->start, (int) req_sz));
++
++	if (desc->pgoff)
+ 		return -EINVAL;	/* want no offset */
+-	rsv_schp = &sfp->reserve;
+-	mutex_lock(&sfp->f_mutex);
+-	if (req_sz > rsv_schp->bufflen) {
+-		ret = -ENOMEM;	/* cannot map more than reserved buffer */
+-		goto out;
+-	}
+ 
+-	sa = vma->vm_start;
+-	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
+-	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
+-		len = vma->vm_end - sa;
+-		len = (len < length) ? len : length;
+-		sa += len;
+-	}
++	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
++	desc->private_data = sfp;
+ 
+-	sfp->mmap_called = 1;
+-	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
+-	vma->vm_private_data = sfp;
+-	vma->vm_ops = &sg_mmap_vm_ops;
+-out:
+-	mutex_unlock(&sfp->f_mutex);
+-	return ret;
++	mmap_action_map_discontig_kernel_pages(desc, (void *)req_sz,
++					       &sg_discontig_ops);
++	return 0;
+ }
+ 
+ static void
+@@ -1415,7 +1402,7 @@ static const struct file_operations sg_fops = {
+ 	.unlocked_ioctl = sg_ioctl,
+ 	.compat_ioctl = compat_ptr_ioctl,
+ 	.open = sg_open,
+-	.mmap = sg_mmap,
++	.mmap_prepare = sg_mmap_prepare,
+ 	.release = sg_release,
+ 	.fasync = sg_fasync,
+ };
 
-I also found a second, related bug in the same function.  When
-testing without the GBOBJECTS/MOB patches (i.e. vanilla QEMU where
-BOs go to VRAM only), vmw_gem_object_get_sg_table() does
-container_of(bo->ttm, ...) without checking that bo->ttm is
-non-NULL.  Without MOB, the BO stays in VRAM and no TTM TT is
-ever allocated, so bo->ttm is NULL and the dereference faults:
+-- 
+2.55.0
 
-  BUG: KASAN: null-ptr-deref in vmw_gem_object_get_sg_table+0x2f/0xa0
-  Read of size 8 at addr 0000000000000088 by task poc_sgtable/330
-
-  CPU: 0 UID: 0 PID: 330 Comm: poc_sgtable Not tainted
-       7.3.0-rc4-g6edd14dd67d7-dirty #7 PREEMPT(lazy)
-  Call Trace:
-   vmw_gem_object_get_sg_table+0x2f/0xa0
-   drm_gem_map_dma_buf+0x79/0x120
-   dma_buf_map_attachment+0xc1/0x4f0
-   drm_gem_prime_import_dev+0xe0/0x260
-   virtgpu_gem_prime_import+0x328/0x580
-   drm_gem_prime_fd_to_handle+0x116/0x370
-
-  Steps:
-    1. DRM_IOCTL_MODE_CREATE_DUMB on vmwgfx (64x64x32)
-    2. DRM_IOCTL_PRIME_HANDLE_TO_FD
-    3. DRM_IOCTL_PRIME_FD_TO_HANDLE on virtio-gpu
-    -> NULL pointer dereference at offset 0x88
-
-I have both PoC sources and the full KASAN/dmesg logs ready.
-Regarding Zack's request for igt tests: I have not written those
-yet but plan to include them with v2.
-
-Would you like me to send v2 as two patches (1/2 NULL-check,
-2/2 embedded sg_table fix) in this same thread, or do you prefer
-the NULL-deref fix as a separate submission?
-
-thanks,
-Aldo
