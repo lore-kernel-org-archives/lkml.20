@@ -1,120 +1,103 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5991388879;
-	Sat,  3 Oct 2026 08:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF8C33ADAC
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 08:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791015044; cv=none; b=WN1cyrkdjCc/1pq7zEKyF4QPE0PIv92LW2GaanLIUFMdSg1d18Ei/qx8mq6w9UU1BUeoBzXHHzrs8xCa2EK68HY7lu8EunxvT9kn1ceEjw1d1RVbuUxF6sBhG7RUALwXmJBtAON4TiorglZlNF5jC/1WiJ0NJpQvzgAlgww7TA8=
+	t=1791015068; cv=none; b=secKMQt1wcQ1ONAaw34MzJ/CY6YQedAdCxWuVw/nqQt07xHGnQbjPZDybhxoGj6GLo05E9PjCVs92Xcjq34ma5AWWIAWHoteSb7VX3jPY37eahltafUV5AayHEJECUs2Qk++TUfPJ2Ukovug/30XbGNgpn87zJ3eLNBfFpM9egQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791015044; c=relaxed/simple;
-	bh=bHYsIw/dFMZd67xDXednIJJk/jJrG1YKUdKOH+xHTrQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dNNOqdTUmIPwYZDShMRCaXjznIe7yFwTaypWM/XYU6xGQ/PDJdmyBaeLDuR08mn4dCC5JxNFjOeHv1miR45NSKyIfwSSPa2GKYzz+ztMmKwH4O9m8qloiTNiMzhnLpPiD9pft8wBYAsj+ohwPby3I1a7sw20qImsM/HOMm8L+5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=e3zwIBPd; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="e3zwIBPd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Fz
-	qlwKVaG5F2Cl/Blfh3aivHLdgARdebIfadlDcrE98=; b=e3zwIBPd9Z/fHXL28y
-	RQCsxrifvMrkOOeSKsZ52Okx7FIKv6yzDUlQ48I6OHD83emduTJG6O+fbJDRt7Cx
-	CnZ0wiOMhn/5KZM0ralQnMawbWNDsiqlaU+FT+lNN4opT6FZV68QdFiv1WM5AiHn
-	uxVOw4rWFBYnx3NBfxJSi6800=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgD3qHRLuMBqTxqBCg--.60808S2;
-	Sat, 03 Oct 2026 16:09:48 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Sean Paul <sean@poorly.run>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] drm/msm/a6xx: handle runtime resume failures
-Date: Sat,  3 Oct 2026 16:09:45 +0800
-Message-Id: <20261003080945.431091-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1791015068; c=relaxed/simple;
+	bh=wtwQ6JzEMapAlW6zEvQWmul06EKyW5l8OOrIKIXFqHg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D7bP4w8wtz0W7xvwvacTQFQllqvggrkbVXr8GUOWBiJtWB78v1s1FGg4Gc61ZnItv6ghsN5shh66Tt+ZDziBfH4A7VgECVE2JOPIHoIhmeht3+pS5wvuKzC61beyFY4gW1z0kUZst+/MHwfGq3zIPEi2qfReNHWmc6EU+xQl3Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so4083285e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 01:11:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791015065; x=1791619865;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8UOj4UBtpSDtB1u/mynjbblWtbQNRWQi1yFF6YRu1C8=;
+        b=EiX5il+tQZtFJAGCxIk62l+o/HpY1msKwTUrjXxGSDJsu8eL9wLjIeO9kKoxWBmlG9
+         dp5Rgu1RL79TbmZw44o0kDbzHbMELwuQfwlPpcRTAO1+oh2azDIhzbxLF/O4KXfkQgtu
+         qDPAkt/bsnKVcyVUhHgYM/xWi9qNuzgxlj2yY3TUM/AzMH1aTIY5FhJ6YJm4F0jgwBjX
+         jg8rDOuTPVMkbN7jlrppsczSAEL3EzkYtylIdyYySi4MjWckFUj7IOXI8zYmKm77WaDf
+         5n4ZP2V1Wudr5AXryzVykvpdm6AO1263Xsuxmb8X4YjjhtpylxQCorcmhr9XLehPPfua
+         ZjMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzaTDLopFQ4M35MU/HDfXrScSRJVoyaNTUidtG5hHt0l63r3xBJ+W9yYbz6GrBGiLJPpZIeH8a8MKsErC0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYBE0ukIln3voqIKCWIW7tliGhF/VLmfEDv8nsjbnjEUIRCQ7S
+	sLOZ8mzB7Rg1MG2V/xthSYTzF/stE+Pwceg8E/hmGEUAOCt21DP/no8z
+X-Gm-Gg: AYBFou1Z1xRVmEGftKvgkMEpvm/8gXWuARxF1QHsYS0pfFIL90/rIOhzJX/h+XgDXkd
+	IIwrxx8GFjFtIDbLeIF0JJka4PEj5s1CXSZc3T+cNZjmWD932irvnMv+Hw2eX8zzsZKhsTTwpN3
+	Yz8utjjndOSAD/sOGM8qeFuF/u+qbUe3tXwr9iMOBmK3zoo77BH3KgC4izZcmIzI5XzDKg4uc4d
+	6z9ZZpQdL1wUOr3dFHlSdq9OjymiOo5VWYopJ0vDQlOFZgr7gX0wdapWobn7hG7zbcxQOOXc94b
+	oLCByqDZdCTwwzxhmGqFm7XmfttVtejDPOZWvHeHZPbADdzrAq+pWZJoKuqdYC3Bjkr5dkTa+qU
+	rskLq9wv1CqKpfuzDA8gnK/RmtyKGmzIsYezv3BypgjIZUdzEEO8hCInZcLR1kLvQ1B2x6mZE8y
+	oJ1VVVb6C3dubHdKerM1pmiL2epuHrPdF5TlIrT1Sn6FdEWyDJYVmWHhx3aFB47NNRQ0fFbstj2
+	fUU0SJXsm4V+D08mrh+BUK9n31R
+X-Received: by 2002:a05:600c:a011:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-4a02756716amr80264645e9.10.1791015064857;
+        Sat, 03 Oct 2026 01:11:04 -0700 (PDT)
+Received: from [192.168.1.135] ([84.68.183.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253e7esm10140636f8f.0.2026.10.03.01.11.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 03 Oct 2026 01:11:04 -0700 (PDT)
+Message-ID: <b3ed6eb7-2d32-436f-a984-45366389d0da@linux.com>
+Date: Sat, 3 Oct 2026 09:11:03 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgD3qHRLuMBqTxqBCg--.60808S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF15KFW3Ww43Gw4DGw45ZFb_yoW8ZF1Upr
-	Z5Xa1ftr48Cw1agws5AF48ZFy3C3yrWay7Z3sFg3s5ZF15AF1UtF1FyryaqF95ZFZ7AF13
-	tF4UJ3y7Cr1Ykw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi3fQiUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wwMRmrAuExQFAAA3z
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: mmc: amlogic,meson-gx-mmc: document
+ the T7 pipeline clock
+To: Rob Herring <robh@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>,
+ Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260905153234.133217-1-tanure@linux.com>
+ <20260905153234.133217-2-tanure@linux.com>
+ <20260916203701.GA1463751-robh@kernel.org>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <20260916203701.GA1463751-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-a6xx_pm_resume() ignores failures while resuming the GMU device and GX
-power domain, then continues enabling clocks and initializing hardware.
-The common error path also drops both runtime PM references even when
-either acquisition failed.
+On 16/09/2026 21:37, Rob Herring wrote:
+> On Sat, Sep 05, 2026 at 04:32:31PM +0100, Lucas Tanure wrote:
+>> The SD/eMMC controllers of the T7 SoC are physically far from the
+>> NIC_MATRIX bus fabric, so the hardware design inserts a pipeline stage
+>> in the middle of the bus path to help timing closure. This stage is fed
+>> by its own gate clock and, when that clock is disabled, a controller
+>> that starts a DMA transfer can never complete it.
+>>
+>> Allow a fourth clock entry, named "pipeline", and require it for the
+>> amlogic,t7-mmc compatible. The other controllers of this family keep
+>> the existing three clocks.
+> 
+> Did the SD controller not work without this clock? If it did, then this
+> is an ABI break which is evident by the current warning in linux-next.
+> 
+> Rob
+Yes, the SD controller doesn't work with this clock, so I don't think is 
+a ABI break, as the current code doesn't work and the board crashes a lot.
+And a few patches got merged from my work, so I will resubmit a new 
+series for this.
 
-Check each resume operation and unwind only the references acquired
-before the failure.
-
-Fixes: 5a903a44a984 ("drm/msm/a6xx: Introduce GMU wrapper support")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 081e79ea4652..aa785f197aa0 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2188,8 +2188,13 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
- 	/* Set the core clock and bus bw, having VDD scaling in mind */
- 	dev_pm_opp_set_opp(&gpu->pdev->dev, opp);
- 
--	pm_runtime_resume_and_get(gmu->dev);
--	pm_runtime_resume_and_get(gmu->gxpd);
-+	ret = pm_runtime_resume_and_get(gmu->dev);
-+	if (ret < 0)
-+		goto err_clear_opp;
-+
-+	ret = pm_runtime_resume_and_get(gmu->gxpd);
-+	if (ret < 0)
-+		goto err_put_gmu;
- 
- 	ret = clk_bulk_prepare_enable(gpu->nr_clocks, gpu->grp_clks);
- 	if (ret)
-@@ -2204,14 +2209,16 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
- 	if (adreno_is_a619_holi(adreno_gpu))
- 		a6xx_sptprac_enable(gmu);
- 
--	/* If anything goes south, tear the GPU down piece by piece.. */
--	if (ret) {
-+	goto out_unlock;
-+
- err_bulk_clk:
--		pm_runtime_put(gmu->gxpd);
--		pm_runtime_put(gmu->dev);
--		dev_pm_opp_set_opp(&gpu->pdev->dev, NULL);
--	}
-+	pm_runtime_put(gmu->gxpd);
-+err_put_gmu:
-+	pm_runtime_put(gmu->dev);
-+err_clear_opp:
-+	dev_pm_opp_set_opp(&gpu->pdev->dev, NULL);
- err_set_opp:
-+out_unlock:
- 	mutex_unlock(&a6xx_gpu->gmu.lock);
- 
- 	if (!ret) {
--- 
-2.34.1
-
+Thanks
+Lucas
