@@ -1,139 +1,116 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E61C41A76F
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85F8361656
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 14:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791039312; cv=none; b=gbsH4Grik7NJFnaEbiul6OnycjkhIvARYmYkYbYfS0TzdHklTWoVT95yYHyFAnPQyMcuQR/2nddIGemRamXZBLsA9aJXRmDN17NZj/2ZDK/rZPv6jbQGwaUrzOrtesLBdKHxB+42035tG4zd89+oh3T/9GtFmrZw5ibn+aEOzoY=
+	t=1791039352; cv=none; b=nWpJ+QDXzS9KApDBEHVNu9jNSQ6E2VLQK2xelkxaBLNP6uX8Gc5hB/qn/yi34aFfpiZ8XoolV9q/3V2sgaoO7j7tmb05mp1NVgfr8MGZGEBx4DJuUSSU+nL/fbJaistyR7EbPh5X19NsRRdJkRWbYAltFLwm5krV+FVymon5dNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791039312; c=relaxed/simple;
-	bh=zYjqs0mSP0nxnqKUq+M5ZXqgpYFJblQIKXJk7DJEU8c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CAQRpKlhEjnuNxArEpb67vzvJWqUmlktci2+t60r/XKmbbXwjcD717qQM6+k51TvcD0GYtZTPcqY2r/8PtKzB/pI9g32C9mOkJmkKkGtx/AE2slss7KdXjHmxN1Xj2DRGvR+fBuV7Z46Ay2s3z1v9kTGTMI7t/CTu7cx/VBOwHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BVdfenim; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791039352; c=relaxed/simple;
+	bh=WArJ0ScyxSii9H7PaRiQMtAEomtM/1fqi9qP13gY+Fw=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nXuWJXUTMQp6l0W7zhXch/g4Ob0te+h3XGrKemvTYfZNVB5+V7/mts4RhSCYaklbYp4CH9yfba182Dvdwu3q29XwHUa1aMBcXEL3wK6rHO/Bp+Sz59qQuCbBmzwIrGFulBbXvko8fbCJMJc9zMMhVg2GB1bU/u2EiipYzlzB3lQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/q6Aa8z; arc=none smtp.client-ip=74.125.228.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BVdfenim"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791039309;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F7a1SctiCKt2b+Nd5jqZyQ8jpoLFtlfz4f9NN/1vqWo=;
-	b=BVdfenimWC4BsKJzavxdBhqdLo7674ObpYaJixXWzSa5VtYgrGzgNeORBP2FgaepLeQztJ
-	f7X4dcDYMg2MJKaQY/9zaomellIHw3G2BQtfT1m8PD2Kt/m2UhyJXOWgpNrSgq6BLrHf4H
-	sBOn7PdC4MqJ2aqy5d0qcGVMcTTupnw=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-553-3OFrJuEUMBmYRGZPsDCVhw-1; Sat, 03 Oct 2026 10:55:08 -0400
-X-MC-Unique: 3OFrJuEUMBmYRGZPsDCVhw-1
-X-Mimecast-MFC-AGG-ID: 3OFrJuEUMBmYRGZPsDCVhw_1791039307
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ca9b53afaso88382485a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:55:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/q6Aa8z"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3453dd0dso125372866b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 07:55:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791039349; x=1791644149; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o+Aejwp62NAjE670ErqLzn8fectXSGBwtu7EOzdsFnY=;
+        b=h/q6Aa8zL3NcPwkVgFAOFpWWoHQ8DTSnzUcLfq70dZxZnsSeWLoHeZnju9wAXx+O8/
+         ZF8radJ2ZnC8vFOfuVY4dFb0ytlaVYj2/fWaEm1NHJRGAVW7od2sh/Gs8mo9KrAQa1r3
+         HyKjo9ZwiTlvDgKyB0U2UwJuxD7mriOrVB65H7vhphap9PtH4yZwKLGbqdzoQsPv3jhw
+         W8ZMrnRil+NC1rUjWloc05Dnogoi5CDF3ykNUANGSuua84ZmB5NU8qcg9/PaEHFVROsI
+         TRVaHyVyObbodtSXSaZ1OpdjY5bs6OFm5n/Rv2pAy1sS33Xx1hsQzIzZ67BCizdO6el6
+         IPpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791039307; x=1791644107;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F7a1SctiCKt2b+Nd5jqZyQ8jpoLFtlfz4f9NN/1vqWo=;
-        b=K2v/jR1eDKgalzilKRylFHBmXNZYb8DGi/7goHM0GKsy+iQkFExPq+5fY+fAo/wKEF
-         S0m/46O7IF/qTt1pBa4FVw+hq/eKsn237xegP/LQkukn34FQGP2d8j1884HZz0dUE19A
-         O7nYlMBQLwqKT1lF2MC2HJ1gveGj5oYo2dqYYmUGmhpJTL64dxtTqlPVNsIdflGz0yRW
-         mHeRo3IrQaVRPVpCBiWVNHbYkqBeN7ztBVTKefhLH6FAcy7BfNL4f+BqvZ6+DTohmraN
-         wNoW+icgpqBJea8yce9wrUrjrU8l82/d5117LOQ081CLgVhGNu35cvFmplRnKa7NaqPb
-         flrw==
-X-Forwarded-Encrypted: i=1; AKwUvBxoP+4w4OSQHiwn/Wnb4QuHdwH2VzuTUMNIiRQeodzf/r+smlcj3odE30TOqpEvt1Urta6mwd3p8sobtHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFAeVkX4pOS3V3SN7LpLo5NghuChkBOUtu4dgIFe1qOQcEXq0/
-	JEcYeYtQK8lfaf7EEzDRviEZ5u/+sWYZnRlSYLGOy5zYr3Yzcqonrvtj1VeIehJv8+P5ATfoBVp
-	Q8wqwwnfOOZrNcCnM0F9LIUrjhMX6xB6JbLM7DWoz+VJ0zyq80mjXqO5+Vl+S0WtP5Q==
-X-Gm-Gg: AYBFou1NWWl4rjPT9GXx+oFIG2WiY5Wt9qxKDPtx/q3b0w3cj3ubNvycRI/MLWXiGFw
-	8ogesSOGjGM9xH3fO3iYBZzavSOKae9Z7CankJvS8JYz+izSRG3EFXSPu9znWFWpJK6omVajnyj
-	7hLJUjxqoZSfGu3aZaGphjOXnHWwx9AjfY9MrOhx6y9QPApA6cumwxlVLvEmX+X/5cHKD9XbSzv
-	YShlDSsxvDvfGPQDLheyBGM5xYbSoZydrzNhoVqdazph2wyn/nSJCloBYtcNwAXUBuIX5lGzuvO
-	t8YVARqU/BqRRl64mjKyO5MEnIDyZCb4jV03Crkhl/NbBe2kgckRvooA3KsIlbgJOBQKRFavmJ3
-	YZ3Y=
-X-Received: by 2002:a05:620a:7119:b0:93c:6e7d:da68 with SMTP id af79cd13be357-93ce7a9d9e9mr1074797085a.3.1791039307578;
-        Sat, 03 Oct 2026 07:55:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:7119:b0:93c:6e7d:da68 with SMTP id af79cd13be357-93ce7a9d9e9mr1074792885a.3.1791039307088;
-        Sat, 03 Oct 2026 07:55:07 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a4312sm469801385a.10.2026.10.03.07.55.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 07:55:06 -0700 (PDT)
-Message-ID: <12f22fd4-d137-4c7d-9ca4-38b0099f14f9@redhat.com>
-Date: Sat, 3 Oct 2026 10:55:05 -0400
+        d=1e100.net; s=20260707; t=1791039349; x=1791644149;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o+Aejwp62NAjE670ErqLzn8fectXSGBwtu7EOzdsFnY=;
+        b=Ig2xZE1J4GAREev9O4odSZkwXdqFqaRM6YVSDhzRAk4K1ueCFuoI1zDrk6NUOIiUzv
+         j7mi2evfLF4kBEMiEc16CFwd0sezKFh5BJBKRCvxbwrg+4odvC+/pbo1pw7epFBrxEhs
+         qtpzgsll5RfTIYS7YOe/cBSMa55jzTxgs19zzgmMAAZRmeNes/Xh/fGxEu/Jo17OUtLl
+         tPEOUrVhDdCeGjy4KoGN4bgmwhQGJtBU8vSOwSvHlRsZ4M1hL91lsBbw9EktGNzHi/tv
+         xSpIyXNqvKmPafNHftGMh5XS9NMOE3V6Cvf08xJXkhrx8BbFPwkMB8iOeQaJ+/oXqUcC
+         sA7A==
+X-Forwarded-Encrypted: i=1; AKwUvBz83US16hpqDChIlBRqZ+mAJO3brCoXdGx/w/nhAh4SmsFTNbpuJnpvaOgKbRR7kQfrt0MyKV+qGYmvH+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIow+qV+4xq/y1ZFXX/N49nxbDzG7UAe3wyO5nHV8mM5NxmgLh
+	KylDU5+ZD3LEvjF5SeZ0esKqS9i7ENJRKCO5OMwO/PmFPeMpo4uRStHx
+X-Gm-Gg: AYBFou1kbsaW8zQDOP99Av/qdNadpTiWCfNcXCjehBWKNkdEuECBhsrCgzD1dq2EJJL
+	LNzk63IL/YIZ3VHLgJUBEIlaJcYRHFys5Cmieu5hU4YQDDxyu43lKNj1QklKuQlZL/TUkoPjCSL
+	1iiKNCblSgA83ZXhyfQuvj2iBj3CuzqWKJWSre8QJz8GdpPbsvD+KLdaaA20y3ACTVCPKE/tNiz
+	KR2fUe+oKsS3APY1/FCCKrr90Fc9S/pE/irHGFW+9G3bNROxii3qmHNZlBVO4iWc+eZthe9WqjK
+	2JCJJZCDiWUprkvTFVhRf2vDP95I8FFCVfpSAnxNRO1xrT6WFAUyKsmLUC4Xj7+0LwRTswexzjE
+	yHa45LeFzhlJ6qt/liSSDh0+yxe3D0MXWzU1+5lNGVJdTi8KnuEnvjYqPSY1qxZWQEbRaWZHZOr
+	9vsu8SPfoW8brKuelFCHakZVu0fKBKSa4MUhIvgNvSNjxAzpg=
+X-Received: by 2002:a17:907:7fa8:b0:c2e:4292:d26b with SMTP id a640c23a62f3a-c2e4aac022dmr509937366b.17.1791039348809;
+        Sat, 03 Oct 2026 07:55:48 -0700 (PDT)
+Received: from pc636 ([2001:9b1:d5a0:a500::800])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd26bf8sm198418566b.35.2026.10.03.07.55.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 07:55:48 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
+Date: Sat, 3 Oct 2026 16:55:45 +0200
+To: Barry Song <baohua@kernel.org>, Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
+	urezki@gmail.com, dev.jain@arm.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Wen Jiang <jiangwen6@xiaomi.com>
+Subject: Re: [PATCH] mm/vmalloc: bail out early on invalid page_shift in
+ __vmap_pages_range_noflush()
+Message-ID: <asEXcVSK1XL-tIa3@pc636>
+References: <20261003090430.91664-1-jiangwenxiaomi@gmail.com>
+ <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/14] drivers: dax: use pgtable_has_pmd_leaves()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- baolin.wang@linux.alibaba.com, ziy@nvidia.com, lance.yang@linux.dev
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <700b622814a2b294083f9066631f655cf61c3070.1789695931.git.luizcap@redhat.com>
- <388b396c-2dca-492d-8873-c9c672ac30f2@kernel.org>
-Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <388b396c-2dca-492d-8873-c9c672ac30f2@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
 
-
-
-On 10/2/26 3:15 PM, David Hildenbrand (Arm) wrote:
-> On 9/18/26 03:45, Luiz Capitulino wrote:
->> dax_align_valid() uses has_transparent_hugepage() to check if PMD-sized
->> pages are supported, use pgtable_has_pmd_leaves() instead.
->>
->> Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
->> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
->> ---
->>   drivers/dax/dax-private.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/dax/dax-private.h b/drivers/dax/dax-private.h
->> index 607a53a91f58..18a6295aa766 100644
->> --- a/drivers/dax/dax-private.h
->> +++ b/drivers/dax/dax-private.h
->> @@ -121,7 +121,7 @@ static inline bool dax_align_valid(unsigned long align)
->>   {
->>   	if (align == PUD_SIZE && IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
->>   		return true;
->> -	if (align == PMD_SIZE && has_transparent_hugepage())
->> +	if (align == PMD_SIZE && pgtable_has_pmd_leaves())
->>   		return true;
->>   	if (align == PAGE_SIZE)
->>   		return true;
+On Sat, Oct 03, 2026 at 06:02:37PM +0800, Barry Song wrote:
+> On Sat, Oct 3, 2026 at 5:05 PM Wen Jiang <jiangwenxiaomi@gmail.com> wrote:
+> >
+> > __vmap_pages_range_noflush() currently only warns when page_shift is
+> > smaller than PAGE_SHIFT, then continues with the invalid shift. Return
+> > -EINVAL instead so the bogus argument is caught immediately.
+> >
+> > Suggested-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
 > 
-> The main part why we don't see any change is that dax_align_valid() is wrapped
-> in the #ifdef CONFIG_TRANSPARENT_HUGEPAGE today.
+> I have checked this carefully and confirmed that this is a correct cleanup.
 > 
-> Might we worth spelling that out in the patch description.
+> However, when I applied your patch, I noticed that the author and
+> Signed-off-by do not match.
+> 
+> Author: Wen Jiang <jiangwenxiaomi@gmail.com>
+> Date:   Sat Oct 3 17:04:30 2026 +0800
+> 
+>     mm/vmalloc: bail out early on invalid page_shift in
+> __vmap_pages_range_noflush()
+>     ...
+>     Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> 
+> 
+> So please send a v2 to fix this, and feel free to include:
+> 
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> 
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 
-OK, the new changelog reads:
-
-"""
-dax_align_valid() uses has_transparent_hugepage() to check if PMD-sized
-pages are supported, use pgtable_has_pmd_leaves() instead.
-
-No functional change intended since the call happens under the
-CONFIG_TRANSPARENT_HUGEPAGE guard and when CONFIG_TRANSPARENT_HUGEPAGE=y
-both functions return the same value.
-"""
-
+--
+Uladzislau Rezki
