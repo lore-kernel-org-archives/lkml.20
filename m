@@ -1,175 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6043382CB;
-	Sat,  3 Oct 2026 15:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2591D1A6817
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 15:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791041824; cv=none; b=isuWTrJ1o1wsPSCnOB6zytupWc39lz7KZlc1RxHKrkZmFEQ2Ag3unAZKeVQTsEp+PAASlr9xNtR0YwgbJnsTusNKzIJi67aZUlVPeveVi0tlGjyXfiT2oyPnd1gXDl/96+1RhsP7JabA1gu2JilhmQ6m9+CtqwAFK1shq3HE2PE=
+	t=1791042173; cv=none; b=gYDsBVPzS3xJgGBjrm/pfWgoIjmr9CnBAJGU69iTfT28Lu5jUkQ/bI8LcGFbpADLOqZk5eV/OPNWxLTn54wSqAni2ggKQpi13ZvpIPb0S5PidMJWpjOKhCsbpe8l4wYD4OmvR5UKw5FmIw/F5ZsNb7le17ZU+moIGl684Tzf1Bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791041824; c=relaxed/simple;
-	bh=P+t00OnuGzY0L5xQoewWtaL++U09V2T+k7ZFg5Yjqtw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MYawimNwemrA+12vCe5vyDK20k589bhE/cJLjd0shihvbwqd4kcVo3vAek/h2aK7F+uoEl68iEtfA0c/P3V4/CccUQTnQ7eDgcYijV42X95OkgE0sMysCRzj6K/E6krIPSHm/aZYYRx7xkd8HlwWDR1045ig0rntYqkbAPeL8wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ExrrNucL; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791042173; c=relaxed/simple;
+	bh=T6FVsSqBb/G+/WihgvUHbT4c+3rlTjbQNT00GZLQ+EQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mKiU17loI/+z0YY/ig23n1K+jjG/R3ucXyNubQjf+YJnQjO4mQWcyqBYpPR3Bg+DTLGSKIMX+anbMUixdBPzXMmAU7VD1HSgxKTvcrEbeAaNI7NCD7EGvJJUE7C9/IVv249SaduNFqJyKnsG7ocRpEEAfayRDT4ScwX2LRn4ojU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DDgjgpqy; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ExrrNucL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791041822; x=1822577822;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=P+t00OnuGzY0L5xQoewWtaL++U09V2T+k7ZFg5Yjqtw=;
-  b=ExrrNucLni4m92ol4u70gyaDESoMNQnLJU/jVg9EbVQPQX6WEpCOArlr
-   NMGKkfMHr0nfveNHgnf39/R0S5Wx5iLHY+U1nCyjuk1GlL6G7jfBFbM0I
-   Kr3hWAqlTC4o99GfnMculhZe4HmiJF+oyKX3kvnJq0PW3mEmavU+p5+Uq
-   u+po83QT3eiULr6Eox6S728SGHVCpiamLLiQCjQdYSfcW9klKnjM6I6Nl
-   cSlCz+mQpSAGne1LL4BewCHwuiosmP72lo1sZgw9TQI/0zGz+aJGajfau
-   64H51VPYf0IhtnnqO59Ko6Lkd8MVnpYgvBFxtNSM5lbII2+0URlvhd7K1
-   Q==;
-X-CSE-ConnectionGUID: SRg+GF7ETY2DtksNRrNEsw==
-X-CSE-MsgGUID: kxMVpemcQxGSgALBi43yRA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="79338284"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="79338284"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 08:37:01 -0700
-X-CSE-ConnectionGUID: RYv1bP9xS7udNAN9jt62PQ==
-X-CSE-MsgGUID: 2T49n9CQQDWkG0afqOemkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="280207548"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 08:36:51 -0700
-Date: Sat, 3 Oct 2026 18:36:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Bill Wendling <morbo@google.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>,
-	Shuvam Pandey <shuvampandey1@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
-	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jiri Kosina <jikos@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
-	Thorsten Blum <blum@kernel.org>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	nvdimm@lists.linux.dev, linux-doc@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v4 05/11] seq_buf: Add seq_buf_strlen()
-Message-ID: <asEhEe0Urb5Wx7yi@ashevche-desk.local>
-References: <20261003035906.too.263-kees@kernel.org>
- <20261003035921.1918874-5-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DDgjgpqy"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2579B1A1101;
+	Sat,  3 Oct 2026 15:42:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E9F80604FF;
+	Sat,  3 Oct 2026 15:42:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 229461032827F;
+	Sat,  3 Oct 2026 17:42:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791042160; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=KZyZDLnfwvO5kk2IUmjVxda6yTo4+rC+T/RbkzEatd0=;
+	b=DDgjgpqyyVsAVzp23/SzSFOH8X0fG8JmMnd5s1lBmutM+/7B1C/A2n55Hb7Geb4mo1XCxq
+	guOW1s0Q/AAeEJ0Vj1T2pzPBbzUIjSudnyJ1/Me+nr6zHQQD8QpsetCImQRsEwHkl8DKks
+	su1EDRuvWdzQ/JjGGvx3srUsZ0OIrYspT7Jo4y/APJNohhSPgRDLgMTzC28dcslznvd4nC
+	zCufdMUGo7/io0D0nmnDoyY1MyTtu2jhUG94u0/DAl1F65YqIdos0wMFY3lDqqRGfpkRFt
+	sB70zarHOyPnGN9bYw5v2UEIpKvf1s1yTBoSJM74vI81MQMSmUb8CngGrzeCig==
+Message-ID: <54177bb2-9fd4-4639-959a-2126f4ab4b04@bootlin.com>
+Date: Sat, 3 Oct 2026 17:42:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003035921.1918874-5-kees@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v6 3/5] net: stmmac: Rename double VLAN references to
+ svlan
+To: netdev-bot+sashiko@kernel.org, ovidiu.panait.rb@renesas.com
+Cc: recv.jo@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ joabreu@synopsys.com, jun.ann.lai@intel.com, yi.fang.gan@intel.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260928203441.34876-4-ovidiu.panait.rb@renesas.com>
+ <179093026338.434549.16397575185437884627@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <179093026338.434549.16397575185437884627@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 02, 2026 at 08:59:10PM -0700, Kees Cook wrote:
-> Several strlcat() call sites being converted to seq_buf need behavior
-> seq_buf doesn't currently provide. The return from seq_buf_used() is
-> not the length of the string in a seq_buf. Once the buffer is full or
-> has overflowed it returns the buffer size, which counts the byte that
-> seq_buf_str() replaces with the NUL, so a caller that needs the string
-> and its length has to call seq_buf_str() and then walk the string with
-> strlen().
+
+
+On 10/2/26 10:37, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
 > 
-> Move the termination out of seq_buf_str() into a helper that returns
-> where it put the NUL, and add seq_buf_strlen(), which terminates the
-> buffer in the same way and returns that offset.
+> Low priority / nit picks for your consideration:
 > 
-> As discussed in review, don't add WARN_ON() for seq_buf_strlen() and
-> drop it from seq_buf_str().
+> - [Low] The self-test renamed to "SVLAN Filtering (perf)"
+>   (stmmac_test_svlanfilt_perfect), and likewise…
+
+[...]
+
 > 
-> Add tests comparing seq_buf_strlen() against strlen() of seq_buf_str()
-> for empty, appended, truncated, exactly full, and overflowed buffers,
-> checking that seq_buf_strlen() alone terminates a full buffer, and
-> checking that a zero-sized seq_buf reports an empty string from both
-> accessors without touching the buffer.
-> 
-> Tests passed under qemu on ARCH=x86_64 with GCC 16.2.0 and CONFIG_KASAN=y,
-> and on big-endian ARCH=s390 with GCC s390x-linux-gnu 16.2.0.
+> This patch renames the test but keeps it in this state, and the
+> remaining patches in the series do not touch the selftests. Should
+> these two "(perf)" tests be reworked or dropped?
 
-...
+FWIW I'm ok with dropping the test. It's still in the history, and
+if anyone is interested in bringing the VLAN perfect filter one day,
+they can bring the tests back too.
 
->  static inline const char *seq_buf_str(struct seq_buf *s)
->  {
-> -	if (WARN_ON(s->size == 0))
-> +	if (s->size == 0)
->  		return "";
->  
-> -	if (seq_buf_buffer_left(s))
-> -		s->buffer[s->len] = 0;
-> -	else
-> -		s->buffer[s->size - 1] = 0;
-> +	__seq_buf_terminate(s);
->  
->  	return s->buffer;
->  }
-
-Looking at this again, can't it be rewritten now using _strlen()?
-
-	if (seq_buf_strlen(s))
-		return s->buffer;
-
-	return "";
-
-?
-
-...
-
-> +static inline size_t seq_buf_strlen(struct seq_buf *s)
-> +{
-> +	if (s->size == 0)
-> +		return 0;
-> +
-> +	return __seq_buf_terminate(s);
-> +}
-
-(Left for the context to the above.)
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Maxime
 
