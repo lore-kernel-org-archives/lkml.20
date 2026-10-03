@@ -1,103 +1,138 @@
-Received: from cvsmtppost38.nm.naver.com (cvsmtppost38.nm.naver.com [114.111.35.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F781F91F6
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 02:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CE73218E91
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 02:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790994271; cv=none; b=fWAfPLQxKFAj5tz+1p1KbFz77fI1mXXfnrZk+WIgxRCFiaWJay4nNmu4hwXzMW/Tijq2QNm+jKOdmig4Mozc/w5iloW0dwA6k7+d6n61Rn3Wm/p48pRn2SBZbqXcPYUaMPTar3Vt2RQ8sF3vvXOklSAZPTKQS9nRti94zPvMtUM=
+	t=1790994626; cv=none; b=j2ihWb0FhaqgJI1SoMs4pySjUqV0EjNNUXV3BKlSi+8CsUBYTBWVb3mrq65vOM3ovRfea8SGM9/ck39I4wXHKPDaHGBG7tIT2FTjoU4Rmq+7TKRLUAxPHLLJ/s8kbl2J46VzkU+P+Y6ho/tQBVWlEMJIrO4wdbe3O0Vsth5eRwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790994271; c=relaxed/simple;
-	bh=D9PsPk0gFlO9GPGaOGATZQ1D1CCazUzS3Cj41Y4mEF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R6m03TuOYKPp+yF6eym5YNsTgwZtfrslaM5WufGAgkr0DIqch2MDuwhyxh7qn1XykmURGngA1Ik+Qhknkz9NaiwLVnTmxlIcB+ej7JT99w1OpP8KHR/vqH196iTWXKswE5qBOfbZtbk5+uPlpw3k3U1nY1iYI5ir/JxbARfxAms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=vxv1fU+V; arc=none smtp.client-ip=114.111.35.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1790994626; c=relaxed/simple;
+	bh=bOZ8zCdpPujZhaWmDqARnL6IPmO6aZcDhybIp53bYX8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NgAIE75xTHHJLRR+aTksLyNW5VAuJgpsTnZV3Ny2NUP0TmyFrRSf9npaNI8lsj7Mk6ZDpEgUztd2tnK7Cjx5zL5f+doM1PVP22JQV5cENfZx+BNjz+4Yf6tZPl+nCebHW+E5X8xdf7pxcHH4b4yg3Agh48GHF7itm0rA0BZMBSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BmutJxP9; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="vxv1fU+V"
-Received: from cvsendbo030.nm ([10.112.20.49])
-  by cvsmtppost38.nm.naver.com with ESMTP id ZeIdRGbFTz24RVXBU3YFqQ
-  for <linux-kernel@vger.kernel.org>;
-  Sat, 03 Oct 2026 02:24:27 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1790994267; bh=D9PsPk0gFlO9GPGaOGATZQ1D1CCazUzS3Cj41Y4mEF4=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=vxv1fU+VzK7CdzB9+WGbCfeafTfUZpYsTitsHZlXQjXSTMcNEUwO3smYZ9gV9poY8
-	 VfJENcyq09C0fau8WJhX+fGb4sZYhr27fUkbaWDAot/a654QVsE86+JQgxoY+lPOSb
-	 HNL+cTIXr2DbAR43k5dogXW9q8ERLlqZwjAmd7G5k7YRqMgrxd7nFuVcUasd0mgVQD
-	 mu00rpZW2vHKX6b76tX5YXcy0ba24R99jaZscDQrBahyXbh37vNQT1xFWOOFTmnzPv
-	 tSIa9CeLzn/CHiAmwIpxns5/FLwT+ECOGYUf5OlZBw9PCgEHRaJcwJLk5m32bShVoQ
-	 hfZclx3aBD/5g==
-X-Session-ID: FHq34ZsPRCuc3hsR6l3now
-X-Works-Send-Opt: Os+wpzGdjHmdKHFOMr39Ko3YKHmljAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: gdbraxglFqJZ+HmrFo2w+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp005.nm.naver.com with ESMTP id FHq34ZsPRCuc3hsR6l3now
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Sat, 03 Oct 2026 02:24:26 -0000
-From: tjdqudcks0424@naver.com
-To: brads@mainlining.org
-Cc: akpm@linux-foundation.org,
-	bsingharora@gmail.com,
-	cyyzero16@gmail.com,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	shuah@kernel.org,
-	xu.xin@linux.dev
-Subject: Re: [PATCH v3 2/2] selftests: acct: test taskstats listener netns routing
-Date: Sat,  3 Oct 2026 11:24:18 +0900
-Message-ID: <20261003022418.1004081-1-tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <98826F7B-9448-4585-89CA-55590AE29280@mainlining.org>
-References: <20261002105614.195370-3-tjdqudcks0424@naver.com> <98826F7B-9448-4585-89CA-55590AE29280@mainlining.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BmutJxP9"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 108D72F;
+	Fri,  2 Oct 2026 19:30:21 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 99F9C3F763;
+	Fri,  2 Oct 2026 19:30:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790994624; bh=bOZ8zCdpPujZhaWmDqARnL6IPmO6aZcDhybIp53bYX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BmutJxP9pK9fwDpfn/EZVE2MJbnoAb5YcW2R7T4JLVuYNzopInBGNz8KXYT7GvgX/
+	 bHvIVhR2liGBK7G0tzaz2CZ/cWNmLdS5jClfsTgn6rJaSSNatI9ykXEztniJrdn44h
+	 XW9xzmR1UE10zDzLOFABlzxNepf/q+Fyly+bb3zk=
+Date: Sat, 3 Oct 2026 03:30:21 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v13 04/14] coresight: etm4x: fix inconsistencies with
+ sysfs configuration
+Message-ID: <asBovdmuZRDF5r8c@e129823.arm.com>
+References: <20261002-separate_etm_cfg_v2-v13-0-fe429d8d96fb@arm.com>
+ <20261002-separate_etm_cfg_v2-v13-4-fe429d8d96fb@arm.com>
+ <20261003013347.0E07E1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261003013347.0E07E1F00899@smtp.kernel.org>
 
-From: 성병찬 <tjdqudcks0424@naver.com>
+On Sat, Oct 03, 2026 at 01:33:46AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] coresight: etm4x: data race in etm4_disable_sysfs() due to missing spinlock
+> - [Medium] coresight: etm4x: resource leak when disabling sysfs tracing on an offline CPU
+> --
+> 
+> commit 431ca53aed38063c4c77184079a32f5fbbb5b69b
+> Author: Yeoreum Yun <yeoreum.yun@arm.com>
+> 
+> coresight: etm4x: fix inconsistencies with sysfs configuration
+> 
+> This commit separates the configuration into curr_config and config to prevent
+> inconsistencies when modifying via sysfs during an active perf session. It
+> also removes the lock/unlock from the sysfs enable/disable path and
+> startup/dying_cpu, except when accessing config fields.
+> 
+> > diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> > --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> > +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> > @@ -1090,8 +1097,9 @@ static void etm4_disable_sysfs_smp_call(void *info)
+> >  
+> >  	etm4_disable_hw(drvdata);
+> >  
+> > +	cscfg_csdev_disable_active_config(drvdata->csdev);
+> > +
+> >  	drvdata->csdev->path = NULL;
+> > -	coresight_set_mode(drvdata->csdev, CS_MODE_DISABLED);
+> >  }
+> 
+> [ ... ]
+> 
+> > @@ -1144,9 +1153,19 @@ static void etm4_disable_sysfs(struct coresight_device *csdev)
+> >  	smp_call_function_single(drvdata->cpu, etm4_disable_sysfs_smp_call,
+> >  				 drvdata, 1);
+> 
+> [Severity: Medium]
+> If smp_call_function_single() fails (for instance, if the target CPU is
+> offline), it will return -ENXIO and bypass the callback entirely.
+> Since cscfg_csdev_disable_active_config() was moved into the SMP callback
+> etm4_disable_sysfs_smp_call(), does this mean we could permanently leak the
+> active configuration when the CPU is offline? This could leave the module
+> reference count (active_cnt) leaked and active_cscfg_ctxt dangling.
 
-Hi Bradley,
+This is totally wrong. since sysfs seesion is disabled before *offline*
+by coresight_dying_cpu().
 
-Thank you for testing the series and for the detailed feedback.
+> >  
+> > -	raw_spin_unlock(&drvdata->spinlock);
+> > +	/*
+> > +	 * Userspace may read ss_status and cntr_val through sysfs after
+> > +	 * the sysfs-session has been disabled.
+> > +	 */
+> > +	for (i = 0; i < drvdata->nr_ss_cmp; i++)
+> > +		config->ss_status[i] = curr_config->ss_status[i];
+> >  
+> > -	cscfg_csdev_disable_active_config(csdev);
+> > +	for (i = 0; i < drvdata->nr_cntr; i++)
+> > +		config->cntr_val[i] = curr_config->cntr_val[i];
+> > +
+> > +	config->seq_state = curr_config->seq_state;
+> 
+> [Severity: Medium]
+> Is it safe to copy curr_config to config here without holding the
+> drvdata->spinlock?
+> 
+> Sysfs writers (like reset_store()) and readers (like cntr_val_show()) do
+> not check if the device is currently in CS_MODE_SYSFS; they rely solely on
+> the spinlock for synchronization.
+> 
+> Could this create a data race where concurrent sysfs operations are
+> overwritten by this lockless loop, corrupting the sysfs-exposed state?
 
-I reproduced the repeated-run problem and found that the test was rejecting
-valid unsolicited exit notifications after the first one.  The kernel uses
-an increasing per-CPU nlmsg_seq for these notifications; run 1 used sequence
-zero, while later runs used nonzero sequences that receive_victim() silently
-discarded.  The normal init_net listener therefore appeared silent for the
-same userspace reason even though unicast succeeded.
+It's okay since the ss_status's purpose is to clear the PENDING and
+STATUS bit otherwise, RES and RO field.
 
-The test now distinguishes matched, unmatched, expected-no-record, poll
-timeout, deadline expiry, malformed, receive-error, socket-error, and
-suspected-drop outcomes.  It reports receive counters and per-socket
-/proc/net/netlink diagnostics, including Drops.  I also made registration,
-victim exit, deregistration, close, and reap ordering explicit, added bounded
-cooperative cleanup, and made closed-pipe cleanup SIGPIPE-safe.
+> 
+> > +
+> > +	coresight_set_mode(drvdata->csdev, CS_MODE_DISABLED);
+> >  
+> >  	/*
+> >  	 * we only release trace IDs when resetting sysfs.
+> 
+> -- 
+> Sashiko AI review � https://sashiko.dev/#/patchset/20261002-separate_etm_cfg_v2-v13-0-fe429d8d96fb@arm.com?part=4
 
-I ran the same test binary 20 times back-to-back on one vulnerable boot.
-Every run delivered the exact victim record to the colliding unprivileged
-init_net socket instead of the child-netns registrar, while the normal
-administrator and negative controls behaved as expected.  I then ran it 20
-times back-to-back on each of two fixed boots; all 40 runs passed.  After
-four induced failure modes, the post-failure recovery test passed 10/10.
-
-I also repeated the validation on current mainline: the vulnerable kernel
-reproduced 10/10, two fixed boots passed 20/20 each, and post-failure
-recovery passed 10/10.
-
-I added comments documenting the socket-private namespace lifetime and the
-intentional all-CPU listener sweep during socket destruction.
-
-I will send v4 as a separate series after allowing time for review.
-
-Thanks,
-Sung Byeongchan
+-- 
+Sincerely,
+Yeoreum Yun
