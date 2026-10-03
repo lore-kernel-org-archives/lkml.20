@@ -1,196 +1,249 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8D22E736F
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 13:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2207C3161A2;
+	Sat,  3 Oct 2026 13:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791034504; cv=none; b=lKRRPt2VkLMkIkQZqUQBnuP4BV8xcM/qkMyn0hn/3FbBN1JOQqVtGhr03hM3rQEJs4sxK3O4aUChEJWrG+eQh/zlB+9sJe8GamnB01TDaRz6ElfaKf6hazBf0X/0T9QehkD40LFhM7W7taq8GXSGTcc4j0G1h5T5sb+An1EaBdg=
+	t=1791034564; cv=none; b=HstYMjDIDcRNxWeACcb8AEufykfrlhksBfaOGsFsf5K3FfVzpZ7jY15/eNLaRg3VI88b1dgWNeMT2trMJ/i3rEHI7yKu7/lmkQWRH4q7sPeKK8Fi0Kry5hjExJD/iw1XVRe9vqmLHmZELbN+P0qavF59jhbg7Z4BeYEjJfCGdls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791034504; c=relaxed/simple;
-	bh=C1SoZRWMm9QQUHCO+0Fst8MvFhjfBGxqT/CM1AD9+KE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X5q4n/zqje2TOCC1r3p4htKsdHvU6u1t2DzOz8F63iO9vonppcmJ8hjEkfmQSSo7Pcfa9k5kJ71mn13g8Xy0+qZTshH/AL3vXSr26mVWPMrhPl+qUJ5K58OkJ5nLZA2s7gS94JR+8kD1+auimtNdXR/rxpCPNNWINk8lrnkHYj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=PVn1TM0/; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1791034564; c=relaxed/simple;
+	bh=D1IMWS4NlvyL61u7PsL/Rjlj9/tibH7i19YT51ooD/U=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=otFSjqQiI52JsLTY4F34w/Qt6MWh+fbH+K+0JJVoBiAx9x/6niZPcVS9wbM8q13otIn4TebnJZAIe1E3acs2/v52rp4pqff4jiqXHsiYs0Pdy/yULJ2JHdOo5pOSBHhpIpGI5Hb6usB5j5Gj6qM6feoaXjdfX+fDRWC8mqgfgcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NrQSwNCl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="PVn1TM0/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1791034499; x=1791639299; i=wahrenst@gmx.net;
-	bh=C1SoZRWMm9QQUHCO+0Fst8MvFhjfBGxqT/CM1AD9+KE=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=PVn1TM0/Ly2o/hEC7x7tFBYeLASVMQA/xh24oxJE2xjzqO/Q2IQpwQjmjPdvYS6K
-	 LpdJgWz1IRQoCMLx1d/ZASUYo1Ax/ZedcCPqwq4I9OqwofayjLQQsvSxCZO4OunXn
-	 Oj5rF8ZjxpmMvco7KLNy3GZfYHPVSB/dS0mpswrs6UAww3vDY/B5Ai2RPsw+J2XZx
-	 1Uv5CSP6bSh85jG5gIs5gnapWfD2RPJCOcTvpO6LedGVkXY/pm7Pcow5bPjhhp5C7
-	 rEZa5qmsiTlETMNRcGAnm2Ppao8fPKq5K5J1jwm++myIT3YSMm/szG73I1NPH00o+
-	 9j+4RFgsEyqIloRvFw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1McpJq-1weULp0bvW-00hEDZ; Sat, 03
- Oct 2026 15:34:59 +0200
-Message-ID: <c8688475-32a4-43d2-8cbe-936cca079e53@gmx.net>
-Date: Sat, 3 Oct 2026 15:34:58 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NrQSwNCl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A0A61F0089B;
+	Sat,  3 Oct 2026 13:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791034562;
+	bh=N9bLhJAaRjLMHJ2t1wQDqGKkxSiNRw7nnJkH9dboKPU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NrQSwNClP9761Mfc0eYOTkVt5deD6fkPk1mKMn0gXFBN87YlItrIuA8/dXP53BSBh
+	 1Uitf20tSGnhoNEpjS5KXi5KjWOWfQEQnGvnh+jmTRmP2lfD7uGHBe7vwzO3MhXDpB
+	 SnBIOq4C+fPZe7dj/BMldDAkaMxgGc0xJI+f0WIzZFVv0Lw7F/k7ElTc1ZgKn8d+Be
+	 rYVTlr8g/Hge2v2Tssx3MH71WOGnC64OCAiSM8MEAxcWuV6XY23ipFygrsJrHWlHhM
+	 CGjqjxdXPn0DvktgHd/JNYh9G0+/Re35AlP7NnoSVpse1dvGsF9h2pwN7bDafviCHe
+	 xJfx8erlGMlUA==
+Subject: Re: [PATCH net-next v4 1/4] net: phy: microchip_t1s: fix collision
+ detection on PLCA status change
+From: netdev-bot+sashiko@kernel.org
+To: parthiban.veerasooran@microchip.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com
+Date: Sat, 03 Oct 2026 13:36:01 +0000
+Message-ID: <179103456181.434549.13678740418494545404@kernel.org>
+In-Reply-To: <20260929125928.611784-2-parthiban.veerasooran@microchip.com>
+References: <20260929125928.611784-2-parthiban.veerasooran@microchip.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [2/2] firmware: raspberrypi: Clean up local formatting
-To: Markus Elfring <Markus.Elfring@web.de>,
- Triet Hoang <triet.hoang.dev@gmail.com>,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- bcm-kernel-feedback-list@broadcom.com,
- Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20260919034840.28593-3-triet.hoang.dev@gmail.com>
- <ce9aae9e-bb67-430e-9e2e-83b27265f489@web.de>
- <ef540a61-22d2-475c-a5bb-a7df8b44ee19@gmx.net>
- <16e2af34-9db3-4167-b6ef-1b3751fec7be@web.de>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <16e2af34-9db3-4167-b6ef-1b3751fec7be@web.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:RtghGzBA9Lk7LWV11cypSs1vrhT/YwPqiU8Lw33SMdGf4T3kDVz
- +u0dhwuB9YSCUuHKOqKX6jAhnAELSF80E1TZNjkTgsXQ4LIP9PohdEew7/fOcSzD534qGgI
- jo9EjcCCTSw69+GbbvuP/FRaf1cAAMDMHd+/g1u8qlOC6rzFDWG4M45Bv/OrZL9lRyWDtqQ
- iIooeuDmDImVNP7j97u6A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ULoRsjC7Tj0=;kPSXdtdhNJ1c6FXa/hHGv+VVMr8
- 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
- lb0/PDIxRkMHgFUn9FaSeCl/HA==
 
-Hi Markus,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Am 03.10.26 um 13:17 schrieb Markus Elfring:
->>>> Add=C2=A0a=C2=A0blank=C2=A0line=C2=A0after=C2=A0the=C2=A0local=C2=A0v=
-ariable=C2=A0declaration=C2=A0in
->>>> response_callback()=C2=A0and=C2=A0fix=C2=A0the=C2=A0indentation=C2=A0=
-of=C2=A0the=C2=A0UINT_MAX=C2=A0return=C2=A0in
->>>> rpi_firmware_clk_get_max_rate().
->>> =E2=80=A6
->>>
->>> See=C2=A0also:
->>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tre=
-e/Documentation/process/submitting-patches.rst?h=3Dv7.3-rc4#n88
->> sorry=C2=A0but=C2=A0I=C2=A0didn't=C2=A0get.=C2=A0What's=C2=A0the=C2=A0p=
-roblem=C2=A0about=C2=A0the=C2=A0commit=C2=A0message?
-> =E2=80=9C=E2=80=A6 and fix =E2=80=A6=E2=80=9D
->
->
-> I imagine that another known advice can eventually be taken better into =
-account.
->
-> =E2=80=9C=E2=80=A6 Solve only one problem per patch. =E2=80=A6=E2=80=9D
-thanks for clarifying. The link pointed to a different line.
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-Best regards
->
-> Regards,
-> Markus
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] The collision-detect (CDEN) setting is chosen from a software
+  copy of the PLCA enable state (priv->plca_enabled), not from the PHY's…
+- [Low] [Baseline decision: false.
+- [Low] [Baseline decision: false.
+
+--
+
+net: phy: microchip_t1s: fix collision detection on PLCA status change
+
+This patch makes the collision detection enable bit (CDEN) follow
+autonomous PLCA/CSMA-CD transitions. It adds a PLCA status change
+interrupt and a resync in read_status(), and it takes the PRSCTL1
+fallback bit into account. It also adds a probe routine that allocates
+a per-PHY mutex and a cached plca_enabled value, and it treats
+plca_cfg->enabled as tri-state.
+
+> diff --git a/drivers/net/phy/microchip_t1s.c b/drivers/net/phy/microchip_t1s.c
+> index 73c23d311d72a..5ce0304bf0952 100644
+> --- a/drivers/net/phy/microchip_t1s.c
+> +++ b/drivers/net/phy/microchip_t1s.c
+
+[ ... ]
+
+> @@ -430,6 +469,57 @@ static int lan867x_revd0_link_active_selection(struct phy_device *phydev,
+
+[ ... ]
+
+> +static int lan86xx_update_cden(struct phy_device *phydev)
+> +{
+> +	struct lan86xx_priv *priv = phydev->priv;
+> +	struct phy_plca_status plca_st;
+> +	int fallback, ret;
+> +	u16 cden;
+> +
+> +	fallback = lan86xx_fallback_to_csmacd(phydev);
+> +	if (fallback < 0)
+> +		return fallback;
+> +
+> +	ret = genphy_c45_plca_get_status(phydev, &plca_st);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* PLCA disabled                          -> CDEN enabled
+> +	 * PLCA enabled + BEACON                  -> CDEN disabled
+> +	 * PLCA enabled + no BEACON + fallback    -> CDEN enabled
+> +	 * PLCA enabled + no BEACON + no fallback -> CDEN disabled
+> +	 */
+> +	if (!priv->plca_enabled)
+> +		cden = COL_DET_ENABLE;
+> +	else if (plca_st.pst)
+> +		cden = COL_DET_DISABLE;
+> +	else if (fallback)
+> +		cden = COL_DET_ENABLE;
+> +	else
+> +		cden = COL_DET_DISABLE;
+
+[Severity: Medium]
+Can priv->plca_enabled get out of sync with the PLCA_CTRL0 enable bit in
+the hardware? This decision uses the cached copy. read_status(),
+config_intr() and the PSTC handler all rewrite CDEN from it, so a
+mismatch gets written back on every poll.
+
+The copy is only updated in lan86xx_plca_set_cfg(), and only after
+genphy_c45_plca_set_cfg() fully succeeds. When enabled == 0, the generic
+helper clears PLCA_EN first and then does more MDIO accesses that can
+fail:
+
+drivers/net/phy/phy-c45.c:genphy_c45_plca_set_cfg() {
+    ...
+	if (plca_cfg->enabled == 0) {
+		ret = phy_clear_bits_mmd(phydev, MDIO_MMD_VEND2,
+					 MDIO_OATC14_PLCA_CTRL0,
+					 MDIO_OATC14_PLCA_EN);
+    ...
+		ret = phy_write_mmd(phydev, MDIO_MMD_VEND2,
+				    MDIO_OATC14_PLCA_CTRL1, val);
+
+		if (ret < 0)
+			return ret;
+    ...
+}
+
+If one of the later writes fails, PLCA is off in the hardware but
+plca_enabled is still 1.
+
+A PHY reset while the driver stays bound has the same effect. For MACs
+that connect the PHY in ndo_open and have a reset GPIO or reset
+controller, ifdown goes through:
+
+drivers/net/phy/phy_device.c:phy_detach() {
+    ...
+	/* Assert the reset signal */
+	phy_device_reset(phydev, 1);
+    ...
+}
+
+A resume after the PHY lost power has the same effect. PLCA_CTRL0 goes
+back to its default, but priv is devm-allocated at probe, so it keeps
+plca_enabled = 1. lan867x_revc_config_init() does not touch PLCA_CTRL0.
+
+In both cases this function sees plca_enabled = 1 and pst = 0. If
+PRSCTL1 bit 10 (fallback) is clear, it writes COL_DET_DISABLE while the
+PHY is actually running CSMA/CD. That is the situation the commit
+message says it fixes.
+
+The opposite can happen at probe. lan86xx_probe() zero-allocates priv
+without reading PLCA_CTRL0. If PLCA is already enabled in the hardware
+(for example, a module reload with no reset line), read_status() forces
+CDEN on in PLCA mode, even though genphy_c45_plca_get_cfg() reports PLCA
+as enabled.
+
+The same logic is still there at the end of the series. Would it be
+more robust for lan86xx_update_cden() to read the PLCA_CTRL0 enable bit
+directly, instead of using the cached value?
+
+> +
+> +	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_COL_DET_CTRL0,
+> +			      COL_DET_CTRL0_ENABLE_BIT_MASK, cden);
+> +}
+
+[ ... ]
+
+> @@ -458,14 +552,18 @@ static int lan86xx_plca_set_cfg(struct phy_device *phydev,
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (plca_cfg->enabled)
+> -		return phy_modify_mmd(phydev, MDIO_MMD_VEND2,
+> -				      LAN86XX_REG_COL_DET_CTRL0,
+> -				      COL_DET_CTRL0_ENABLE_BIT_MASK,
+> -				      COL_DET_DISABLE);
+> +	if (plca_cfg->enabled != -1)
+> +		priv->plca_enabled = plca_cfg->enabled;
+
+[Severity: Low]
+This isn't a bug, but priv->plca_enabled is written here under
+phydev->lock only. lan86xx_config_intr() reads it through
+lan86xx_update_cden() under cden_lock only.
+
+In practice, the ethtool path (rtnl or the netdev instance lock) and
+the config_intr() callers that reach lan86xx_update_cden() are
+serialized. Also, the locked lan86xx_update_cden() call below writes
+CDEN last using the new value.
+
+Would it be cleaner to do this store inside the cden_lock section, so
+that the lock covers both the cached state and the register update?
+
+>  
+> -	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_COL_DET_CTRL0,
+> -			      COL_DET_CTRL0_ENABLE_BIT_MASK, COL_DET_ENABLE);
+> +	if (plca_cfg->enabled != -1) {
+> +		mutex_lock(&priv->cden_lock);
+> +		ret = lan86xx_update_cden(phydev);
+> +		mutex_unlock(&priv->cden_lock);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[Severity: Low]
+The commit message says:
+
+    Rev.D0 is handled separately (follow-on patch).
+
+At this commit, though, LAN867X Rev.D0 also uses lan86xx_plca_set_cfg(),
+and this block calls lan86xx_update_cden() for it too. The Rev.D0 entry
+in microchip_t1s_driver[] also gets .probe = lan86xx_probe in this
+patch.
+
+Rev.D0 has no read_status, config_intr or handle_interrupt at this
+point. Enabling PLCA while pst reads 0 and the PRSCTL1 fallback bit is
+set would therefore leave CDEN enabled after PLCA comes up. Is that
+expected for this intermediate commit?
+
+The follow-on patch, "net: phy: microchip_t1s: fix collision detection
+for LAN867X Rev.D0", adds an early return for PHY_ID_LAN867X_REVD0
+before the CDEN update, so this only affects bisection.
+
+Rev.D0 does need .probe here, because the shared setter now dereferences
+phydev->priv. Could the commit message mention this Rev.D0 change?
+
+> +
+> +	return 0;
+>  }
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929125928.611784-1-parthiban.veerasooran%40microchip.com
