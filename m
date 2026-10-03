@@ -1,101 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F40450F2;
-	Sat,  3 Oct 2026 04:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8182330569F
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 04:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791002043; cv=none; b=KnCERuzadMNQu5B5GQ/4ShdFtM8O9SW5HzSsZT5tpT+HiIvoWx9n0NrTao2ksWUQedy09OwF9HJh6yKzYbIe7y+8Et8x8oWv4zgBSOLa1uE3nS3K5DQJcucsy8L1B4MGnpj3xZhLA086QRhK53mPSIN5g7blE9D4gkq4IEVmgDo=
+	t=1791002052; cv=none; b=AjmzbIHNqVu+yUXTZvVRd384jRu5AemlUSBIC210qo6n4jLNbPUltAG+f7QkaOHozd/v4DRJKGjjYpjYBAyetfe8xNCuJTdrmOrf90T6+X+zeKpFnMnb9aw09xWiB63kZDOStoV5EhbswDAftB8VnO3O5aD6eTQY0crs0upwTs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791002043; c=relaxed/simple;
-	bh=zGsMMCFnuZoFawv7/XTqHVMWITtkX2O6G8xrb12kjxs=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=CnE0kVGkNNBTUtK5EWrW/xJEH42blNe62YWDLfMHsFRLhnPXpzX8rskK1tHXMUMe3rNWaNHqmF6xwDwuaTGce6yCi9nFOf4+6A4RNuAc/kB4iQs2s3bIE0KI8N2RfGLeWomfqksiLdL+Iw/KVGOGH69+sTNzkQIEpY5Cg9GVQ7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CMZBO/0C reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791002052; c=relaxed/simple;
+	bh=xbY/oD13/EkW8E8ahqA/imAPxNMGFwHqFmJ3d+CVls4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D7h6PuquE6Y5cXKy9Yisua1WaaBJyFFx7ZdQpJ0UScWhFX1dQrKfMWHtZq3G001bmhUl8gNRy2ERgIBwqX3OCoWEYkJ10b/TYcXzQ+UW3HawP+z0sMN3IKWkF+m6w/XS473wYr3Bw0vULv/DxNjW4of/nTeaGeSnLuqJpfKxBq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PCe+OnIg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CMZBO/0C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2089C1F000FF;
-	Sat,  3 Oct 2026 04:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791002041;
-	bh=T5WqpPkABYIUr+bdw9uNCeIvTTslukdoECjwAYUP7k8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=CMZBO/0C5xeumMuL3ncSkFagppcPpT5dOBjyZc+U25dEpLF/06r0ZRaHPXYDLuqD6
-	 SNcQRLrq+gVgrsRiZKbdWdUuby/voNjj10L7uz5SMzAVj3vpKVOtP/p6BjKY5bgDGa
-	 mKbfI1DXTb4RaywucblX8VTCk2IVBVBv32LzbGlrHmPLImUMnup8WdULwUFxyR7b3S
-	 xU4XPlOThF3RXjVJfDS3SprBoad763bLCItuU1Wu1M6MngY1qY3pbifawvQrozhrgG
-	 Dzz5fuCF0GcT9b6O5AIJJsItZDm/UXZINp0EBqrWEbp2sT4jVzKo5EYUNgCqDGWxqH
-	 8sGRvF90o/fvg==
-Content-Type: multipart/mixed; boundary="===============0675329118283778615=="
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PCe+OnIg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7BBC92F;
+	Fri,  2 Oct 2026 21:34:06 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 401073F763;
+	Fri,  2 Oct 2026 21:34:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791002049; bh=xbY/oD13/EkW8E8ahqA/imAPxNMGFwHqFmJ3d+CVls4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PCe+OnIgnqlkqYjebROj81OOas39Cl8iWPBl7sjm18BF3w5ihKOaWvehssK08Cpgm
+	 EdWqfWtL5Ci9GVs6vgv/9XUk0i/GE0e4CmAn4DfUTcOKu/dOWnG1KuKKI4e8jASaaf
+	 rIMQZ7d0AZGyKX5oRBvBUALVaNdBeEkVOXOkKLlo=
+Date: Sat, 3 Oct 2026 05:34:07 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH RESEND v13 03/14] coresight: etm3x: prohibit modifying
+ cntr_val and reset while session is enabled
+Message-ID: <asCFv0aaUectdMPY@e129823.arm.com>
+References: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
+ <20261003-separate_etm_cfg_v2-v13-3-5d8a29aead95@arm.com>
+ <20261003030639.07A511F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <f3b5a05404cc45b59981e869a0203ed07497f6f6942e6d72cee63b37612b7cda@mail.kernel.org>
-In-Reply-To: <20261003035921.1918874-8-kees@kernel.org>
-References: <20261003035921.1918874-8-kees@kernel.org>
-Subject: Re: [PATCH v4 08/11] seq_buf: Add seq_buf_init_append()
-From: bot+bpf-ci@kernel.org
-To: kees@kernel.org,morbo@google.com
-Cc: kees@kernel.org,willy@infradead.org,akpm@linux-foundation.org,andriy.shevchenko@linux.intel.com,david@davidgow.net,pmladek@suse.com,shuvampandey1@gmail.com,rostedt@goodmis.org,corbet@lwn.net,senozhatsky@chromium.org,gnoack@google.com,mic@digikod.net,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,jikos@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,chleroy@kernel.org,u.kleine-koenig@baylibre.com,maddy@linux.ibm.com,mpe@ellerman.id.au,npiggin@gmail.com,sbhat@linux.ibm.com,blum@kernel.org,alison.schofield@intel.com,dave.jiang@intel.com,gregkh@linuxfoundation.org,lgs201920130244@gmail.com,iweiny@kernel.org,u.kleine-koenig@pengutronix.de,vishal.l.verma@intel.com,rdunlap@infradead.org,skhan@linuxfoundation.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-security-module@vger.kernel.org,linux-trace-k
- ernel@vger.kernel.org,linuxppc-dev@lists.ozlabs.org,nvdimm@lists.linux.dev,linux-doc@vger.kernel.org,linux-hardening@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat,  3 Oct 2026 04:33:59 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003030639.07A511F000FF@smtp.kernel.org>
 
---===============0675329118283778615==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sat, Oct 03, 2026 at 03:06:38AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] coresight: etm3x: TOCTOU race in reset_store() allows trace ID release during active session
+> --
+> 
+> commit e2e191629dd66da8998d4646f82c1d5c193cb283
+> Author: Yeoreum Yun <yeoreum.yun@arm.com>
+> 
+> coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
+>     
+> This commit adds checks to prohibit modifying cntr_val and calling reset while
+> a trace session is enabled by returning -EBUSY.
+> 
+> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > index b3c67e96a82a4..cdb70a4382eb8 100644
+> > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> > @@ -75,6 +75,10 @@ static ssize_t reset_store(struct device *dev,
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> > +	    coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> > +
+> >  	if (val) {
+> >  		spin_lock(&drvdata->spinlock);
+> 
+> [Severity: High]
+> Does this code introduce a Time-of-Check to Time-of-Use (TOCTOU) race?
+> 
+> Since coresight_get_mode() is checked outside drvdata->spinlock, a concurrent
+> sysfs write to enable_source could start a trace session (allocating a trace
+> ID and starting the hardware tracer) immediately after the mode check passes.
+> 
+> Once reset_store() acquires the spinlock, it will unconditionally zero the
+> sysfs configuration and call etm_release_trace_id().
+> 
+> Releasing the trace ID while the hardware tracer is actively emitting packets
+> returns the ID to the global pool. Another source might subsequently allocate
+> the same trace ID, leading to collisions at the CoreSight sink and
+> unrecoverable trace data corruption. This structural race condition appears
+> to remain unfixed through the end of the patch series.
 
-> seq_buf: Add seq_buf_init_append()
+The root cause of this, etm3's trace_id could be allocated via
+trace_id_show() and this scenario is also possible while on concurrent
+contention between reset vs enable -- reset take lock first, after
+coresight path allocate trace_id and waiting the lock.
 
-TL;DR: Commit message only: it says seq_buf_init() sets the buffer size to 0
-via seq_buf_clear(), but it resets the length, not the size. The code is not
-reported as buggy.
+IOW, this is known issue but we don't take it seriously since
+we don't expect user try to enable before it finishes to config.
+Therefore, this is ignorable this this round. Might it much better to
+remove the trace_id_show() interface.
 
-> seq_buf: Add seq_buf_init_append()
->
-> Several strlcat() call sites being converted to seq_buf need behavior
-> seq_buf doesn't currently provide. The normal seq_buf_init() always
-> sets the new buffer size to 0 via seq_buf_clear(). Code migrating from
-> strlcat(buf, ...), which appends to whatever buf already contains,
-> can't use seq_buf_init() without discarding that existing content. Add
-> seq_buf_init_append(), which preserves the existing contents and positions
-> the seq_buf to append after it. A buffer with no NUL within its size
-> starts out overflowed, as strlcat() treats it as already truncated.
-> Add KUnit tests for behavior coverage.
->
-> Tests passed under qemu on ARCH=x86_64 with GCC 16.2.0 and CONFIG_KASAN=y,
-> and on big-endian ARCH=s390 with GCC s390x-linux-gnu 16.2.0.
->
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Co-developed-by: Kees Cook <kees@kernel.org>
-> Signed-off-by: Kees Cook <kees@kernel.org>
+> 
+> >  		memset(config, 0, sizeof(struct etm_config));
+> 
+> [ ... ]
+> 
+> > @@ -744,6 +748,9 @@ static ssize_t cntr_val_store(struct device *dev,
+> >  	ret = kstrtoul(buf, 16, &val);
+> >  	if (ret)
+> >  		return ret;
+> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> > +	    coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> >  
+> >  	spin_lock(&drvdata->spinlock);
+> 
+> [Severity: High]
+> Could the same TOCTOU race pattern apply here as well?
+> 
+> If a trace session is concurrently enabled right after the mode check, the
+> counter value could be modified while the session is active, resulting in a
+> lost sysfs write.
 
-This isn't a bug in the code, but is the changelog accurate when it says
-seq_buf_init() "always sets the new buffer size to 0 via seq_buf_clear()"?
+The puprpose of this to prevent modification after *session* is fully
+enabled since the cntr_val is overwritten after disabled.
 
-seq_buf_init() stores the size it was given in s->size, and seq_buf_clear()
-leaves s->size alone.  It only resets the length and terminates the first
-byte:
+IOW, while enabling the cntr_val is not matter and this secnario
+couldn't be resolved by the locking -- it's matter who take the lock first
+while on concurrent contention between store vs enable also, it's
+pre-exist behavior.
 
-    static inline void seq_buf_clear(struct seq_buf *s)
-    {
-    	s->len = 0;
-    	if (s->size)
-    		s->buffer[0] = '\0';
-    }
+Since we don't expect user try to enable before it finishes to config.
+Therefore, this is ignorable.
 
-Should the sentence say that seq_buf_init() always sets the length (s->len)
-to 0 via seq_buf_clear(), rather than the buffer size?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/37096036516
---===============0675329118283778615==--
+-- 
+Sincerely,
+Yeoreum Yun
