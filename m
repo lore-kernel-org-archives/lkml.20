@@ -1,295 +1,298 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4982BEFEE;
-	Sat,  3 Oct 2026 07:51:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F85B30C637;
+	Sat,  3 Oct 2026 07:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791013907; cv=none; b=kWW+KU9qZXcGh8Esde+Z1vF8MZfdpoGxmy6h9FW8p+V/Rs8HXECsLPCq5msuOC08ZJ5XDk/ItDoYYkLCZ8IpWNqtRUitkJJwmn/AVHGdrbb6KNs+fgglUySIZ0/TnkdCoX14v3c6Rjp2JkNRSSNvYFqxejd2yQVdz3AhYEjTn54=
+	t=1791013943; cv=none; b=b56J1XUtBulSIndtIVRPGPw+7BVyXrfwu9bY8fHiEIOCJXWQ60jWRQRCOjwXFPugWUFszI/bSwfeyrhI53FtxKClS7iwUmUpC3gu5U/YgVc4TniqykN0mUVBeSEyz3zeJwKi4dQf+4EnXGDaVjuGXxrGTtxhDbQ1czPzISAtsQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791013907; c=relaxed/simple;
-	bh=915f/KTB/0IDOtu+i34K6Kv6BCtwZWLhJ4JjXuVfq/g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z7SQsWVjUSDd0TdKQXCqNlyrJ1ePMnc/mJI4s2Lb+MeUdzD6NX/rSuUu4z0V9PGjqnA/8XywG8Ml6/VuJcYl17IHFQX1j/TM6aE0Z/mi2ENuPxTwPgj1znSN1KtWU3XGQtYZa2Q77DgYMwma/ZWqNJaGb6vI4GJnpVXcJw8cTPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=nlxGkYNW; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791013943; c=relaxed/simple;
+	bh=qXs4ec8X7Jfr6FWfIeJLnc91+vorrQOmDL5fnzQmckI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=H2kUhDvLQLbjrFKYfyFx0f2ikdzlNJGvX0n6rVhTGPhi+skrwEhIOz6iWUu9igAX6BBf0wrSaQ7FEoZMJ1PMfCDBhlE6CqnhKbc7SyFTSREqlaLw/1dKTTOmTwtdMulQy6vVTcJYXHccUVJNcqgAvINwxN4HadIx1UQuQ6Vzl1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViPVH8iA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="nlxGkYNW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=pkSkd0gz3K0uXbc8+oZdyjkkYDQv0/easJRst8PwuKA=; t=1791013904;
-	x=1791618704; b=nlxGkYNWLdc+YX7gYaEmJBnHjSuR1Dw6wMDgCn3RDmUyMcCZqp6CiJaZq7FVL
-	mXhX9WNETnugZqnWZNycXdx0AiDk13VcxFmDk0KmSlJ8K+0H8i5QJugBDmCHxk4U0TJiICOIHOWZO
-	prcD8651uDHQ6ygowo6kBprNkWAbyb+XuZNzaggZHa9YhZp59LRdpXc+3qz1SNCtNonPM0kE6oceW
-	16tLi4kmaihhz4JOVfBNrcg2YhWMaHl5scv2kf7Oh1kQ6KbcCSnnaGqRWhRzhZCAV9BZpJPwU4KYe
-	f3/fcF0QhhcoE7giX3fPj45mg77wMakwk1w7DCv+6qwo0QbEOw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xCuX0-00000002u1t-0SHF; Sat, 03 Oct 2026 09:51:42 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xCuWz-00000002Hyv-3XoG; Sat, 03 Oct 2026 09:51:42 +0200
-Message-ID: <0e3121169e89eef9c84dfcabaa864a24a44e2760.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
- them
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
-	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
-Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 03 Oct 2026 09:51:41 +0200
-In-Reply-To: <20260927191359.6144-1-kmehltretter@gmail.com>
-References: <20260927191359.6144-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViPVH8iA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEF121F0089B;
+	Sat,  3 Oct 2026 07:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791013941;
+	bh=vjFrJpzYgVYdQEAC7rqv0Md0+2oI3F/1nmUN6CCu+HE=;
+	h=From:To:Cc:Subject:Date;
+	b=ViPVH8iAayq5hguo0W99C1okDHgeYRAXrZ/3Gnf3rBALtKZ7yq+Q6pnVvXVZCWAwN
+	 6+yuoDJz5IMEcyFiuiETn0ZQZqZ9u5ctv8fFxyiC35sh4CVmBbPQGnMH0xDpyFmd8Z
+	 4iVUplMCb4PDclu+gzEBARE8f9Y2SaGeVgRUlG88biem81I5gVk2wkDlMwjzVO9y/z
+	 /L3DrRC8icsbpbab/hO5GJxP3fvBYubVzufk49r/g219V1Hs8iVjQEWu7yBpCxjrhC
+	 p90APTCvuXVivoPLvx+IjReQhnjxOJt1JuZ3Td/pi7TGS/0NGpHQV3Gpx9751aaOVJ
+	 VMDk6PIdfhBNg==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v19 00/11] tracing: wprobe: x86: Add wprobe for watchpoint
+Date: Sat,  3 Oct 2026 16:52:14 +0900
+Message-ID: <179101393469.22872.5895666191299551553.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-09-27 at 21:13 +0200, Karl Mehltretter wrote:
-> register_intc_controller() sorts d->prio and d->sense right after
-> allocating them, with hw->nr_prio_regs and hw->nr_sense_regs as the
-> element count. The lists hold hw->nr_vectors entries and are only
-> filled later, by intc_register_irq().
->=20
-> On SH7785, sh7785-irq0123 and sh7785-irq4567 have four vectors but the
-> SoC's eleven priority registers, so sort() swaps 88 bytes in a 32 byte
-> kmalloc object at boot. slub_debug=3DFZPU reports "Right Redzone
-> overwritten" in kmalloc-32, and v6.5 and v6.6 panic in
-> __kmem_cache_alloc_node() while registering sh7785-irq0123.
->=20
-> Found with a custom QEMU model of the SH7785LCR. On it, v6.4
-> sh7785lcr_defconfig boots with SLAB, the defconfig default before v6.5,
-> and hangs before the console is up when built with SLUB.
->=20
-> Sort the lists once all vectors are registered, with the number of
-> entries that were added.
->=20
-> Fixes: b59f9f9775e6 ("sh: intc: optimize intc IRQ lookup")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->=20
-> Notes:
->     Testing, all in QEMU on a custom SH7785LCR model, not on hardware:
->     - v6.5 and v6.6 sh7785lcr_defconfig hang before the console is up
->       (gcc 8 and gcc 14). With slub_debug=3DFZPU they boot and validating
->       kmalloc-32 reports "Right Redzone overwritten" after the object
->       holding the entries of sh7785-irq4567. With this patch they boot
->       and the report is gone.
->     - v6.4 sh7785lcr_defconfig (SLAB) boots. The same v6.4 built with SLU=
-B
->       hangs, reports the overflow with slub_debug=3DFZPU, and boots with
->       this patch.
->     - Current mainline boots with or without the patch, but reports the
->       overflow with slub_debug=3DFZPU unless patched.
->     Testing on real hardware is welcome.
->=20
->  drivers/sh/intc/core.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/sh/intc/core.c b/drivers/sh/intc/core.c
-> index aa68fe190865d..ffbe60234eefc 100644
-> --- a/drivers/sh/intc/core.c
-> +++ b/drivers/sh/intc/core.c
-> @@ -275,9 +275,6 @@ int __init register_intc_controller(struct intc_desc =
-*desc)
->  			k +=3D save_reg(d, k, hw->prio_regs[i].set_reg, smp);
->  			k +=3D save_reg(d, k, hw->prio_regs[i].clr_reg, smp);
->  		}
-> -
-> -		sort(d->prio, hw->nr_prio_regs, sizeof(*d->prio),
-> -		     intc_handle_int_cmp, NULL);
->  	}
-> =20
->  	if (hw->sense_regs) {
-> @@ -287,9 +284,6 @@ int __init register_intc_controller(struct intc_desc =
-*desc)
-> =20
->  		for (i =3D 0; i < hw->nr_sense_regs; i++)
->  			k +=3D save_reg(d, k, hw->sense_regs[i].reg, 0);
-> -
-> -		sort(d->sense, hw->nr_sense_regs, sizeof(*d->sense),
-> -		     intc_handle_int_cmp, NULL);
->  	}
-> =20
->  	if (hw->subgroups)
-> @@ -357,6 +351,11 @@ int __init register_intc_controller(struct intc_desc=
- *desc)
->  		}
->  	}
-> =20
-> +	sort(d->prio, d->nr_prio, sizeof(*d->prio),
-> +	     intc_handle_int_cmp, NULL);
-> +	sort(d->sense, d->nr_sense, sizeof(*d->sense),
-> +	     intc_handle_int_cmp, NULL);
-> +
->  	intc_subgroup_init(desc, d);
-> =20
->  	/* enable bits matching force_enable after registering irqs */
+Hi,
 
-Without the patch, a memory leak is reported when booting with slub_debug=
-=3DFZPU
-triggering a validation manually after boot:
+Here is the 19th version of the series for adding new wprobe (watch probe)
+which provides memory access tracing event. Moreover, this can be used
+via event trigger. Thus it can trace memory access on dynamically
+allocated objects too.
+The previous version (v17) is here (It seems v18 failed to send the patch.):
 
-root@tirpitz:~> echo 1 > /sys/kernel/slab/kmalloc-32/validate
-[  181.568000] [Right Redzone overwritten] 0x810245c0-0x810245c3 @offset=3D=
-1472. First byte 0x0 instead of 0xcc
-[  181.568000] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-[  181.568000] BUG kmalloc-32 (Not tainted): Object corrupt
-[  181.568000] ------------------------------------------------------------=
------------------
-[  181.568000]=20
-[  181.568000] Slab 0x9ff20480 objects=3D32 used=3D32 fp=3D0x00000000 flags=
-=3D0x40000000(section=3D16|zone=3D0)
-[  181.568000] Object 0x810245a0 @offset=3D1440 fp=3D0x00000000
-[  181.568000]=20
-[  181.568000] Redzone  81024580: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
- cc cc  ................
-[  181.568000] Redzone  81024590: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
- cc cc  ................
-[  181.568000] Object   810245a0: 1a 00 00 00 8c 78 06 06 1c 00 00 00 88 78=
- 06 06  .....x.......x..
-[  181.568000] Object   810245b0: 1e 00 00 00 84 78 06 06 10 00 00 00 80 78=
- 06 06  .....x.......x..
-[  181.568000] Redzone  810245c0: 00 00 00 00                              =
-        ....
-[  181.568000] Padding  810245f4: 00 00 00 00 5a 5a 5a 5a 5a 5a 5a 5a      =
-        ....ZZZZZZZZ
-[  181.568000] Disabling lock debugging due to kernel taint
-[  181.568000] ------------[ cut here ]------------
-[  181.568000] WARNING: mm/slub.c:1257 at object_err+0x46/0x158, CPU#0: bas=
-h/970
-[  181.568000] Modules linked in:
-[  181.568000]=20
-[  181.568000] CPU: 0 UID: 0 PID: 970 Comm: bash Tainted: G    B           =
-    7.3.0-rc5-00341-gf6dfa8891d61 #7 PREEMPT=20
-[  181.568000] Tainted: [B]=3DBAD_PAGE
-[  181.568000] PC is at object_err+0x46/0x158
-[  181.568000] PR is at object_err+0x46/0x158
-[  181.568000] PC  : 80004e3a SP  : 86051dcc SR  : 400081f1 TEA : c0000010
-[  181.568000] R0  : 00000020 R1  : 8074959c R2  : 00000000 R3  : 00000020
-[  181.568000] R4  : 806becb0 R5  : fa69f078 R6  : 00000000 R7  : 00000000
-[  181.568000] R8  : 810023e0 R9  : 810245a0 R10 : 00000054 R11 : 80004d48
-[  181.568000] R12 : 0000808f R13 : 80004bd4 R14 : 86051dcc
-[  181.568000] MACH: 00000038 MACL: 0002bfa8 GBR : 2957b860 PR  : 80004e3a
-[  181.568000]=20
-[  181.568000] Call trace:
-[  181.568000]  [<800ff726>] check_bytes_and_report+0xa2/0xfc
-[  181.568000]  [<800ff7e8>] check_object+0x68/0x204
-[  181.568000]  [<800ff684>] check_bytes_and_report+0x0/0xfc
-[  181.568000]  [<800ffafe>] validate_slab+0xbe/0xf4
-[  181.568000]  [<800ffc12>] validate_slab_cache+0xde/0x114
-[  181.568000]  [<800ffa40>] validate_slab+0x0/0xf4
-[  181.568000]  [<800ffc7e>] validate_store+0x36/0x48
-[  181.568000]  [<800fcd82>] slab_attr_store+0x1a/0x22
-[  181.568000]  [<80185fcc>] sysfs_kf_write+0x3c/0x58
-[  181.568000]  [<80185670>] kernfs_fop_write_iter+0xe6/0x136
-[  181.568000]  [<801188b8>] vfs_write+0xd0/0x138
-[  181.568000]  [<80118a56>] ksys_write+0x62/0xbc
-[  181.568000]  [<80118aba>] sys_write+0xa/0x18
-[  181.568000]  [<80118ab0>] sys_write+0x0/0x18
-[  181.568000]  [<8001025a>] syscall_call+0x18/0x1e
-[  181.568000]=20
-[  181.568000] ---[ end trace 0000000000000000 ]---
-[  181.568000] FIX kmalloc-32: Restoring Right Redzone 0x810245c0-0x810245c=
-3=3D0xcc
-[  181.568000] [Object padding overwritten] 0x810245f4-0x810245f7 @offset=
-=3D1524. First byte 0x0 instead of 0x5a
-[  181.568000] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-[  181.568000] BUG kmalloc-32 (Tainted: G    B   W          ): Object corru=
-pt
-[  181.568000] ------------------------------------------------------------=
------------------
-[  181.568000]=20
-[  181.568000] Slab 0x9ff20480 objects=3D32 used=3D32 fp=3D0x00000000 flags=
-=3D0x40000000(section=3D16|zone=3D0)
-[  181.568000] Object 0x810245a0 @offset=3D1440 fp=3D0x00000000
-[  181.568000]=20
-[  181.568000] Redzone  81024580: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
- cc cc  ................
-[  181.568000] Redzone  81024590: cc cc cc cc cc cc cc cc cc cc cc cc cc cc=
- cc cc  ................
-[  181.568000] Object   810245a0: 1a 00 00 00 8c 78 06 06 1c 00 00 00 88 78=
- 06 06  .....x.......x..
-[  181.568000] Object   810245b0: 1e 00 00 00 84 78 06 06 10 00 00 00 80 78=
- 06 06  .....x.......x..
-[  181.568000] Redzone  810245c0: cc cc cc cc                              =
-        ....
-[  181.568000] Padding  810245f4: 00 00 00 00 5a 5a 5a 5a 5a 5a 5a 5a      =
-        ....ZZZZZZZZ
-[  181.568000] ------------[ cut here ]------------
-[  181.568000] WARNING: mm/slub.c:1257 at object_err+0x46/0x158, CPU#0: bas=
-h/970
-[  181.568000] Modules linked in:
-[  181.568000]=20
-[  181.568000] CPU: 0 UID: 0 PID: 970 Comm: bash Tainted: G    B   W       =
-    7.3.0-rc5-00341-gf6dfa8891d61 #7 PREEMPT=20
-[  181.568000] Tainted: [B]=3DBAD_PAGE, [W]=3DWARN
-[  181.568000] PC is at object_err+0x46/0x158
-[  181.568000] PR is at object_err+0x46/0x158
-[  181.568000] PC  : 80004e3a SP  : 86051dcc SR  : 400081f1 TEA : c0000010
-[  181.568000] R0  : 00000220 R1  : 8074959c R2  : 00000000 R3  : 00000220
-[  181.568000] R4  : 00000005 R5  : 00000001 R6  : 00000000 R7  : 00000000
-[  181.568000] R8  : 810023e0 R9  : 810245a0 R10 : 00000054 R11 : 80004d48
-[  181.568000] R12 : 0000808f R13 : 80004bd4 R14 : 86051dcc
-[  181.568000] MACH: 00000038 MACL: 0002bfa8 GBR : 2957b860 PR  : 80004e3a
-[  181.568000]=20
-[  181.568000] Call trace:
-[  181.568000]  [<800ff726>] check_bytes_and_report+0xa2/0xfc
-[  181.568000]  [<800ff8ce>] check_object+0x14e/0x204
-[  181.568000]  [<800ff684>] check_bytes_and_report+0x0/0xfc
-[  181.568000]  [<800ffafe>] validate_slab+0xbe/0xf4
-[  181.568000]  [<800ffc12>] validate_slab_cache+0xde/0x114
-[  181.568000]  [<800ffa40>] validate_slab+0x0/0xf4
-[  181.568000]  [<800ffc7e>] validate_store+0x36/0x48
-[  181.568000]  [<800fcd82>] slab_attr_store+0x1a/0x22
-[  181.568000]  [<80185fcc>] sysfs_kf_write+0x3c/0x58
-[  181.568000]  [<80185670>] kernfs_fop_write_iter+0xe6/0x136
-[  181.568000]  [<801188b8>] vfs_write+0xd0/0x138
-[  181.568000]  [<80118a56>] ksys_write+0x62/0xbc
-[  181.568000]  [<80118aba>] sys_write+0xa/0x18
-[  181.568000]  [<80118ab0>] sys_write+0x0/0x18
-[  181.568000]  [<8001025a>] syscall_call+0x18/0x1e
-[  181.568000]=20
-[  181.568000] ---[ end trace 0000000000000000 ]---
-[  181.568000] FIX kmalloc-32: Restoring Object padding 0x810245f4-0x810245=
-f7=3D0x5a
-root@tirpitz:~>
+  https://lore.kernel.org/all/179005108298.388919.4535333252892590932.stgit@devnote2/
 
-With the patch applied, no leak is reported after validation:
+v19 is just rebased on the latest probes/for-next branch.
+In the version 18:
+- Dropped MCE related fix because it is merged in -tip tree.
+- Dropped the patches related to making DR7 updates NMI-safe (and the
+  associated KVM guest debug register isolation patch) because wprobe
+  itself does not support updating DR7 in NMI context (wprobe explicitly
+  rejects execution in NMI context via in_nmi()). Those patches are still
+  valid for KGDB, but not related to wprobe.
+- Addressed review comments from Sashiko bot on wprobe triggers, selftests,
+  and BTF struct offset resolution:
+  - Add register_wide_hw_breakpoint_cpuslocked() API to hw_breakpoint and
+    use it under cpus_read_lock() in __register_trace_wprobe() to avoid
+    both the CPU hotplug race and lockdep recursive locking warnings.
+  - Added early check for in_nmi() in wprobe_trigger() before acquiring
+    tw->lock to avoid deadlock if interrupted by an NMI.
+  - Always evaluate __wprobe_count_func() under tw->lock in
+    wprobe_trigger() to eliminate the TOCTOU race for counted triggers.
+  - Added "set_wprobe:<wprobe-event>":README requirement to wprobe trigger
+    selftests so they are gracefully skipped if CONFIG_WPROBE_TRIGGERS=n.
+  - Added clear_trace in trigger-wprobe-hotplug.tc after taking CPU offline
+    to avoid falsely matching events logged prior to offlining.
+  - In get_offset_of_field(), clarified that the containing structure/union
+    type is checked for kflag (renamed mtype to container with comments) and
+    verified that the resolved bit offset is byte-aligned.
+- Updated all "Assisted-by:" tags across all commits to "Assisted-by: LLM".
 
-root@tirpitz:~> echo 1 > /sys/kernel/slab/kmalloc-32/validate
-root@tirpitz:~>=20
+Detailed changes are here.
 
-Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Changes in v18:
+ - Drop patch "x86/mce: Fix hardware debug register corruption on task migration"
+ - Drop patch "perf/x86, KVM: Prevent host debug register leak into guest OS on NMI".
+ - Drop patch "x86/hw_breakpoints: Make DR7 updates NMI safe".
+ - Update "Assisted-by:" tags across all commits to "Assisted-by: LLM".
+[01/11]
+ - Drop perf_guest_in_guest() check and cpu_dr7_seq sequence loop
+   since wprobe does not support updating DR7 in NMI context.
+[03/11]
+ - Add register_wide_hw_breakpoint_cpuslocked() API.
+[08/11]
+ - Use register_wide_hw_breakpoint_cpuslocked() under cpus_read_lock()
+   in __register_trace_wprobe() to avoid CPU hotplug race and lockdep
+   recursive locking warnings.
+ - Return early on in_nmi() in wprobe_trigger() before taking tw->lock
+   to prevent NMI deadlock.
+ - Always evaluate __wprobe_count_func() under tw->lock in
+   wprobe_trigger() to fix TOCTOU race for counted triggers.
+ - Drop redundant in_nmi() check from __wprobe_count_func().
+ - Defer data->count decrement to wprobe_trigger() under tw->lock after
+   successful hardware update to avoid consuming count on missed triggers
+   and prevent counter underflow.
+[09/11]
+ - Add "set_wprobe:<wprobe-event>":README to requires line in wprobe trigger
+   tests so they are skipped if CONFIG_WPROBE_TRIGGERS is disabled.
+ - Clear trace buffer after taking CPU offline in trigger-wprobe-hotplug.tc
+   to avoid matching watchpoint events logged prior to offlining.
+[10/11]
+ - Add "set_wprobe:<wprobe-event>":README to requires line in
+   trigger-wprobe-btf-typecast.tc so the test is skipped if
+   CONFIG_WPROBE_TRIGGERS is disabled.
+[11/11]
+ - In get_offset_of_field(), rename mtype to container and document that
+   it represents the containing structure/union type (handling anonymous
+   structures/unions) rather than member's own type.
+ - In get_offset_of_field(), verify bit offset is byte-aligned before
+   returning byte offset.
+ - Add "set_wprobe:<wprobe-event>":README to requires line in
+   trigger-wprobe-btf-offset.tc so the test is skipped if
+   CONFIG_WPROBE_TRIGGERS is disabled.
 
-Adrian
+Public branch
+-------------
+I will push this branch as topic/wprobe-v2 to my tree so that it
+can be easily tested.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+https://git.kernel.org/pub/scm/linux/kernel/git/mhiramat/linux.git/log/?h=topic/wprobe-v2
+
+This is based on linux-trace tree's linux-trace/probes/fixes.
+
+Usage
+-----
+
+The basic usage of this wprobe is similar to other probes;
+
+  w:[GRP/][EVENT] [r|w|rw]@<ADDRESS|SYMBOL[+|-OFFS]>[:LEN] [FETCHARGS]
+
+This defines a new wprobe event. For example, to trace jiffies update,
+you can do;
+
+ echo 'w:my_jiffies w@jiffies:8 value=+0($addr)' >> dynamic_events
+ echo 1 > events/wprobes/my_jiffies/enable
+
+Moreover, this can be combined with event trigger to trace the memory
+access on slab objects. The trigger syntax is;
+
+  set_wprobe:WPROBE_EVENT:FIELD[+|-OFFSET][:COUNT] [if FILTER]
+  clear_wprobe:WPROBE_EVENT[:FIELD[+|-OFFSET][:COUNT]] [if FILTER]
+
+set_wprobe sets WPROBE_EVENT's watch address on FIELD[+|-OFFSET].
+clear_wprobe clears WPROBE_EVENT's watch address if it is set to
+FIELD[+|-OFFSET]. If FIELD is omitted, forcibly clear the watch address
+when trigger event is hit.
+
+For example, trace the first 8 byte of the dentry data structure passed
+to do_truncate() until it is deleted by dentry_kill().
+(Note: all tracefs setup uses '>>' so that it does not kick do_truncate())
+
+  # echo 'w:watch rw@-1:8 address=$addr value=+0($addr)' > dynamic_events
+
+  # echo 'f:truncate do_truncate dentry=$arg2' >> dynamic_events
+  # echo 'set_wprobe:watch:dentry' >> events/fprobes/truncate/trigger
+
+  # echo 'f:dentry_kill dentry_kill dentry=$arg1' >> dynamic_events
+  # echo 'clear_wprobe:watch:dentry' >> events/fprobes/dentry_kill/trigger
+
+  # echo 1 >> events/fprobes/truncate/enable
+  # echo 1 >> events/fprobes/dentry_kill/enable
+
+  # echo aaa > /tmp/hoge
+  # echo bbb > /tmp/hoge
+  # echo ccc > /tmp/hoge
+  # rm /tmp/hoge
+
+Then, the trace data will show;
+
+ # tracer: nop
+ #
+ # entries-in-buffer/entries-written: 32/32   #P:8
+ #
+ #                                _-----=> irqs-off/BH-disabled
+ #                               / _----=> need-resched
+ #                              | / _---=> hardirq/softirq
+ #                              || / _--=> preempt-depth
+ #                              ||| / _-=> migrate-disable
+ #                              |||| /     delay
+ #           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+ #              | |         |   |||||     |         |
+               sh-107     [004] ...1.     9.990418: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004ad6618
+               sh-107     [004] ...1.     9.990914: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b3de78
+               sh-107     [004] ...1.     9.993175: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049ddd40
+               sh-107     [004] .....     9.995198: truncate: (do_truncate+0x4/0x120) dentry=0xffff8880048083a8
+               sh-107     [004] ...1.     9.995389: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db998
+               sh-107     [004] ..Zff     9.997503: watch: (lookup_fast+0xaa/0x150) address=0xffff8880048083a8 value=0x8200080
+               sh-107     [004] ..Zff     9.997509: watch: (path_openat+0x211/0xda0) address=0xffff8880048083a8 value=0x8200080
+               sh-107     [004] ..Zff     9.997514: watch: (path_openat+0xa56/0xda0) address=0xffff8880048083a8 value=0x8200080
+               sh-107     [004] ..Zff     9.997518: watch: (path_openat+0xae2/0xda0) address=0xffff8880048083a8 value=0x8200080
+               sh-107     [004] .....     9.997521: truncate: (do_truncate+0x4/0x120) dentry=0xffff8880048083a8
+               sh-107     [004] ...1.     9.997582: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004808270
+               sh-107     [004] ...1.     9.999365: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db728
+               sh-107     [004] ...1.     9.999388: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b1c000
+               rm-113     [005] ..Zff    10.000965: watch: (lookup_fast+0xaa/0x150) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.000971: watch: (path_lookupat+0x97/0x1e0) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.000984: watch: (lookup_fast+0xaa/0x150) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.000988: watch: (path_lookupat+0x97/0x1e0) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.001010: watch: (lookup_one_qstr_excl+0x28/0x140) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.001014: watch: (lookup_one_qstr_excl+0xd1/0x140) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.001018: watch: (may_delete_dentry+0x1c/0x200) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.001021: watch: (may_delete_dentry+0x195/0x200) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] ..Zff    10.001031: watch: (vfs_unlink+0x5e/0x260) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] d.Z..    10.001067: watch: (d_make_discardable+0x1b/0x40) address=0xffff8880048083a8 value=0x8200080
+               rm-113     [005] d.Z..    10.001071: watch: (d_make_discardable+0x29/0x40) address=0xffff8880048083a8 value=0x200080
+               rm-113     [005] ...1.    10.001072: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880048083a8
+               rm-113     [005] ...1.    10.001218: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880048083a8
+               sh-107     [004] ...1.    10.001416: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db110
+               sh-107     [004] ...1.    10.001444: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff8880049db248
+               sh-107     [004] ...1.    10.001500: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004ad6618
+               sh-107     [004] ...1.    10.002067: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b41e78
+               sh-107     [004] ...1.    10.904920: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004b41e78
+               sh-107     [004] ...1.    10.905129: dentry_kill: (dentry_kill+0x0/0x2c0) dentry=0xffff888004ad6618
+
+
+Thank you,
+
+---
+base-commit: 06e0d3b89da12f24ed5ed434acc8e2cb504f5e4f
+
+Jinchao Wang (1):
+      x86/hw_breakpoints: Add arch_modify_local_hw_breakpoint_addr() API
+
+Masami Hiramatsu (Google) (10):
+      HWBP: Add modify_local_hw_breakpoint_addr() API
+      perf/hw_breakpoint: Add register_wide_hw_breakpoint_cpuslocked() API
+      tracing/wprobe: Add wprobe (watchpoint probe) trace event support
+      x86: hw_breakpoint: Add a kconfig to clarify when a breakpoint fires
+      selftests: tracing: Add a basic testcase for wprobe
+      selftests: tracing: Add syntax testcase for wprobe
+      tracing/wprobe: Add set_wprobe and clear_wprobe event triggers
+      selftests: tracing: Add wprobe trigger testcases
+      tracing/wprobe: Support BTF typecast in fetchargs
+      tracing/wprobe: Support BTF struct offset resolution in set_wprobe trigger
+
+
+ Documentation/trace/index.rst                      |    1 
+ Documentation/trace/wprobetrace.rst                |  200 ++
+ arch/Kconfig                                       |   18 
+ arch/x86/Kconfig                                   |    2 
+ arch/x86/include/asm/hw_breakpoint.h               |    2 
+ arch/x86/kernel/hw_breakpoint.c                    |   51 +
+ include/linux/hw_breakpoint.h                      |   15 
+ include/linux/trace_events.h                       |    3 
+ kernel/events/hw_breakpoint.c                      |   86 +
+ kernel/trace/Kconfig                               |   24 
+ kernel/trace/Makefile                              |    1 
+ kernel/trace/trace.c                               |    9 
+ kernel/trace/trace.h                               |    6 
+ kernel/trace/trace_events_trigger.c                |    2 
+ kernel/trace/trace_probe.c                         |   36 
+ kernel/trace/trace_probe.h                         |   22 
+ kernel/trace/trace_wprobe.c                        | 1707 ++++++++++++++++++++
+ tools/testing/selftests/ftrace/config              |    3 
+ .../ftrace/test.d/dynevent/add_remove_wprobe.tc    |   66 +
+ .../test.d/dynevent/wprobes_syntax_errors.tc       |   23 
+ .../test.d/trigger/trigger-wprobe-btf-offset.tc    |   85 +
+ .../test.d/trigger/trigger-wprobe-btf-typecast.tc  |   85 +
+ .../test.d/trigger/trigger-wprobe-hotplug.tc       |  153 ++
+ .../test.d/trigger/trigger-wprobe-syntax-errors.tc |   37 
+ .../ftrace/test.d/trigger/trigger-wprobe.tc        |  107 +
+ 25 files changed, 2731 insertions(+), 13 deletions(-)
+ create mode 100644 Documentation/trace/wprobetrace.rst
+ create mode 100644 kernel/trace/trace_wprobe.c
+ create mode 100644 tools/testing/selftests/ftrace/test.d/dynevent/add_remove_wprobe.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/dynevent/wprobes_syntax_errors.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/trigger/trigger-wprobe-btf-offset.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/trigger/trigger-wprobe-btf-typecast.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/trigger/trigger-wprobe-hotplug.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/trigger/trigger-wprobe-syntax-errors.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/trigger/trigger-wprobe.tc
+
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
