@@ -1,97 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-159.mta1.migadu.com [95.215.58.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A086E54B
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC772DECA3
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790989378; cv=none; b=R3VgWinegLgKvzhfgMEpcBLegnaCScQE1hTY5XIPJEF+lwHRkCaUJ+he8eMhI+tIQotmadfW2y6JMtaU1b8BRttLtL3h6mcSm+YZ1S1NsU4grWw3siJkiAGAJQkBU9dLl0PH3C+iuFPmZh71TnE9H75kJfutGb8zTpGLjelz970=
+	t=1790989882; cv=none; b=iJFi4h1edDzINIUE1v8spP58gCGB+dfdJ7qHJ/i9VIqwSSW1MKA9DX2lkvoK1lcGlAL36TbqAXR+qw1zSbueioTygZbjkDV++mRWg1lAm5dLKgPpDPlOWEbFjtqLbk18SzkrwsBR0f2L8MPPenPUt9DgoueiqnEVz8osOGXpkdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790989378; c=relaxed/simple;
-	bh=Kj5llcIY+svQvxZHTM+UqXM54Tt+P1GZ4LqrVWD43yI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lGmaX1h5wHDA0HJgcAqAHj91t5e8cRG9MnAK0/D2IhgLRoiOE/AVtkx/q+MW95wUJL/OrhESM4GlhseAqVbqsCV99Hcj49M6SSjWrACz5Tm2sFH/6JgUJYNKZ9GoY0uLe59gH+MUA+7TOsD4tSnmePfsdqP5lgJPRjnkDeteeTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QuPCr6w1; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QuPCr6w1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C8B1F000FF
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:02:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790989377;
-	bh=KnskPGPzkkcRKxtukZtrCYl1jV0R5UqGVxWuRH35Ffo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QuPCr6w1HX0Y5uROGUfGfp0ZdaEUz0rmaVB+cDIlLOK2bVQnGA/lgPbkvG5zn+Njk
-	 QbyaOYFxaIUkg/o/9NkZU9k4KLL+iDt9ayF3IbGNjmYxO7FH2w6HBl/67+r/qLJjhn
-	 rJW+TqSWsBTbDvFIm2lDAPgTXMaeTqbbhCMoYlcEkIg4rl4W09h2/LLjvcNHnRQlNN
-	 91DcEb1xHMxH4A45BB8RQ+s5a5ZT2IDrPTMAyBV1HcwemhUYZpgbz7byjnHOmxXZ0q
-	 WjTJdmUAgEAqc/wHgMJiFdmR5qcnTIKIm7GwViRfU6VzJ5LwVHPc4L845SdWrA8+M0
-	 +Xxqdefu3sicQ==
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3dcfe205so59318766b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 18:02:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzHi0UoPPuSJleEVLZ0vsdtK9CwgU09ef7mz/QDHLyvzuJZOwT7P5yNHmo7y9cxgpqRRHo3Yuc7mtDFK+c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUBhivs9rvbOs8ZjPCERD/Gf0K4YBZjaeRg7mbBxnPXsRBTTyh
-	27KS+jM7QPWorslrfhBnA8s+iCicH3c+Nf+IuSFIBlZlISUWHk/PGUbV84MvLxcVMXC//HNGRqq
-	cGbKuXL1Yx68bmrW5gjXu1Ao6ksBdiqQ=
-X-Received: by 2002:a17:907:c318:b0:c26:1649:47af with SMTP id
- a640c23a62f3a-c2e4af5c551mr317488566b.37.1790989375844; Fri, 02 Oct 2026
- 18:02:55 -0700 (PDT)
+	s=arc-20240116; t=1790989882; c=relaxed/simple;
+	bh=6fSEH29DJgrKtB5LxtK+k3nzQ8DQ9d1V36qE0c3QBC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=H4FOn8Vtr8CGQn+kJfTXBcFQeneH5nxpbPuUeLeXB1kITi5c3rpCDBcU0109cXTUZYMnBFdLugZVShtaqnryisJb8yjxjTh6l9nbcZIKWcWZX+PC6dSDqlzuQwS3LJ7PvgcLS47fhXFtKMGK6LwAgm7+DBNlFC8gLGOv3qfveRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=95.215.58.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 2a5d2434c84c6a24;
+	Sat, 03 Oct 2026 01:11:16 +0000
+X-Mizu-Trace-ID: 2a5d2434c84c6a24
+X-Migadu-Flow: FLOW_OUT
+From: Baoquan He <hebaoquan@kylinos.cn>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	hannes@cmpxchg.org,
+	nphamcs@gmail.com,
+	tj@kernel.org,
+	mkoutny@suse.com,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	linux-kernel@vger.kernel.org,
+	Baoquan He <hebaoquan@kylinos.cn>
+Subject: [PATCH 0/6] mm, swap: charge xswap for physical backing (xswap phase III)
+Date: Sat,  3 Oct 2026 09:11:05 +0800
+Message-ID: <20261003011111.1003090-1-hebaoquan@kylinos.cn>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002043459.1695429-1-matthias.goergens@gmail.com>
-In-Reply-To: <20261002043459.1695429-1-matthias.goergens@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 3 Oct 2026 10:02:43 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd918+PN-x58fkLnyQN9CNz424+Kyx2jz4VgTsV1Xi0Q+Q@mail.gmail.com>
-X-Gm-Features: AclHuK8n1a72wNoEp9jnGeuKZpdcjCWFG_rAXUd07co_YGNL_QdYesrtbetQi10
-Message-ID: <CAKYAXd918+PN-x58fkLnyQN9CNz424+Kyx2jz4VgTsV1Xi0Q+Q@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] ntfs: fix the undo path of $MFT data extension
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, Baolin Liu <liubaolin@kylinos.cn>, ntfs@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 2, 2026 at 1:35=E2=80=AFPM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> These fix two bugs in the undo path of
-> ntfs_mft_data_extend_allocation_nolock(): patch 1 fixes a use-after-free
-> of a pointer into the runlist across the truncation, and patch 3 makes
-> its $MFT runlist locking consistent.  Patch 2 adds the runlist merge
-> that patch 3 uses to keep the runlist of the new clusters for the undo.
->
-> The undo path only runs when something fails while $MFT grows, so I
-> tested it in QEMU by forcing each failure once with a debug patch, and
-> tested patch 2 in userspace against the merge code it changes.  The
-> debug patch, the test scripts, the volume images and the userspace test
-> are at
-> https://github.com/matthiasgoergens/linux/tree/reproducer/2026-10-02-ntfs=
--mft-extend-undo-v3
->
-> Changes in v3:
-> - Patch 3 frees the clusters from the runlist that ntfs_cluster_alloc()
->   returned, using the merge from patch 2, which leaves that runlist
->   intact, instead of copying the new runs with ntfs_mft_copy_tail() in
->   undo_alloc (Hyunchul Lee).  The undo path no longer allocates.
-> - Patch 1 (patch 2 in v2) is unchanged and keeps Baolin Liu's
->   Reviewed-by.  It now comes first, as it can be applied on its own.
-> - Rebased onto current ntfs-next.
->
-> v2: https://lore.kernel.org/all/20260930033556.169300-1-matthias.goergens=
-@gmail.com/
-> v1: https://lore.kernel.org/all/20260927105706.3111333-1-matthias.goergen=
-s@gmail.com/
->
-> Thanks,
-> Matthias
->
-> Matthias Goergens (3):
->   ntfs: do not use a stale runlist pointer when undoing $MFT extension
->   ntfs: add a runlist merge that leaves the source runlist to the caller
->   ntfs: balance the $MFT runlist lock in data extension error paths
-Applied them to #ntfs-next.
-Thanks!
+An xswap entry reserves no swap space: its page is in zswap, which costs
+memory, not disk. It was still charged against memcg->swap at allocation,
+so memory.swap.current counted pages that never reached a disk, and a
+cgroup with memory.swap.max at 0 could not reclaim its anon memory at all.
+
+The charge belongs where the backing is taken. Record the owner at
+allocation; charge only when the entry takes a backend slot, and release
+the charge with the slot.
+
+Phase III of three, posted separately because the charging semantics are
+still under discussion. This series makes memory.swap.current count only
+the pages that hold a backend slot; it used to count every swap entry, and
+an entry always held a slot until xswap separated the two.
+
+Design notes
+------------
+
+Patch 1 splits __mem_cgroup_try_charge_swap() into get / charge / record /
+uncharge / put, with no behaviour change, so the record and the charge can
+happen at different times. The owner is a private ID, not a pinned memcg:
+an ID is what the swap table holds, and the uncharge path resolves it back
+under RCU. Patch 4 stops mem_cgroup_get_nr_swap_pages() from gating on the
+physical margin for a cgroup that can zswap.
+
+The patches
+-----------
+
+ 1 split the swap memcg charge helpers
+ 2 do not charge zswap-backed xswap entries
+ 3 charge an xswap entry when it gets physical backing
+ 4 don't gate xswap on the physical swap free count
+ 5 do not retake the cluster lock when uncharging an xswap slot
+ 6 drop a refused xswap backend run directly
+
+5 and 6 fix bugs in 3: a spinlock taken twice, and a refused run given back
+through a reverse mapping that is not installed yet.
+
+Testing
+-------
+
+qemu KVM guest, 8G RAM, xswap.max=10G, zram as the backend. memhog faults
+<total_gb> of anon, fills it with a fixed pattern, and holds it. The
+invariant through all of it:
+
+    memory.swap.current / 4096  ==  backend Used / 4
+
+Both count pages holding a backend slot, so over-charge, under-charge and a
+missed uncharge all show up here.
+
+  # echo 1 > /sys/module/zswap/parameters/enabled
+  # echo 100 > /sys/kernel/mm/xswap/create
+  # mkswap /dev/zram0; swapon -p 0 /dev/zram0
+  # mkdir -p /sys/fs/cgroup/xswap_limit
+  # echo 2G > .../memory.max; echo max > .../memory.swap.max
+  # echo max > .../memory.zswap.max
+  # ( echo $BASHPID > .../cgroup.procs
+  #   exec env MEMHOG_FILL=pattern numactl --cpunodebind=0 ./memhog 4 600 ) &
+
+With zswap on nothing reaches the backend and nothing is charged. With
+zswap off the two sides agree (526429 == 526429). memory.swap.max is
+enforced at the backend: at 0, a device-less cgroup is killed, but with an
+xswap device the pages go to zswap, cost no swap space, and reclaim keeps
+making progress. Destroying the device returns the charge and the backend
+Used with it, workload alive, over ten cycles. Also exercised: the same
+invariant on an ordinary swap device with no xswap device.
+
+Changelog
+=========
+RFC -> v1:
+
+- Taken out of the RFC as a series of its own. The direction for charging
+  is still under discussion, and the writeback series should not wait on
+  it.
+
+Baoquan He (2):
+  mm, swap: do not retake the cluster lock when uncharging an xswap slot
+  mm, swap: drop a refused xswap backend run directly
+
+Nhat Pham (4):
+  mm, swap: split the swap memcg charge helpers
+  mm, swap: do not charge zswap-backed xswap entries
+  mm, swap: charge an xswap entry when it gets physical backing
+  mm, swap: don't gate xswap on the physical swap free count
+
+ .../admin-guide/cgroup-v1/memcg_test.rst      |   2 +-
+ include/linux/memcontrol.h                    |   6 +
+ include/linux/swap.h                          |  66 ++++++-
+ mm/memcontrol-v1.c                            |   3 +-
+ mm/memcontrol.c                               | 164 +++++++++++++-----
+ mm/swapfile.c                                 | 138 ++++++++++++++-
+ 6 files changed, 318 insertions(+), 61 deletions(-)
+
+
+base-commit: 456d37694d1e05a1b9ddbd1e493bcd6cf2016b4f
+-- 
+2.54.0
+
