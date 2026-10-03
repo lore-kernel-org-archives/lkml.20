@@ -1,193 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A7F489FDD;
-	Sat,  3 Oct 2026 16:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810E849F136
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 16:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791045634; cv=none; b=UGk4NcYJW3JWKRvohM0yJw6TVRsetzwx6VL951L9KRvosZm/Jip9UgD1d3MBBHhpR73Pm1vAe8g/AIdwMYQhDS3Eo0CVSz2Z5LWnRfvnhwnhZLTXYz+K+fUnhC+oXU3CNOEi/iMnzwaWM0GayUgu0IoM1KR4If5ZLX8VLuR75uA=
+	t=1791045639; cv=none; b=A6CNz8mKyHgAfwdwuhx9dxL1lSsWYOzyxB4q3OKRkZM6tQdQPCowQ2ivlKMDoi0n4NosfjiEnTiu5BFx0JaXJXB5la9lIYiBTUBhst587WIJ1kJMGKlGwBMmtaXslzK8rIeGIYy/Gbk2skb/E10mSXMOewVDD3gA3dLjOpTC+Iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791045634; c=relaxed/simple;
-	bh=joQXUjvjM3OjL+Ta6QEJ1w5g7Vsv4M79ot1AULAZKpk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lP8aQURAXZJADA6oKjU5OE3a2dUjIdY5iFCkTEB+892GJOIbgHpYBrip1F6opa/v8xu1ZoW4q//oJrI+BcI2NvwUZFFjKeGsfAGX9sffyUJtvDlHurGV36S7b0+h4q/N9hN3GC7knhbKFTwOWilpn2LXUQ3KcqWhteWsM+w2m7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MzEw4ieF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791045639; c=relaxed/simple;
+	bh=XCtwfy+HsyCBzUEJZQGsfEPf1/p+pFFaeKMa/muG3zw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A8CjMiF+C19SAvK3ZM/pac8PB48Kzye/IEgkRRe83EWzGKgS7dHqrLxTA5O2awRIasfRoXeIoj6xtzoH9+9lW7X2/iW4lUQSFjaKgAnO/l/39gOSC6TE4u3Hd9uSISsEEa7qN2I5vbEvFGyrhRX9nCb85tL8XQoxU2+7/Kpr6fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZGysHo+; arc=none smtp.client-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MzEw4ieF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557FE1F0089B;
-	Sat,  3 Oct 2026 16:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791045633;
-	bh=GfRJzELhUA3zmjv637fDp+tblD+oWrGBxslIXX4F7cw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MzEw4ieFr11M5xHt2StEg6ORuVCD4VqADro6fX5jY4Ta3/+dMmpHToQqa+TKOvHpb
-	 IPMFcq6S5OlnoYGqd3tbx+zczcLOwZ049eISw3ZbGqinvJ8vB8TIJGSH+89hLlIyuu
-	 GCrEkGdm8lminJ7UdcjQx2rHVh67gDPTW89nGvvEVK3rMD2O+y61f7DyKG+EBBGv+9
-	 zNYh7D7+yvaw5+NF90qj3Wv17VO1v4AOYerCJx6Q4MN5gWC4inUQq3kshfEyJtFUv/
-	 iYdkzvnAfDCraTTT++jWofvtKAF0IvVBTVyyBbsZejJe3ay7nMmyB10uba1kwfaht9
-	 P/kq77Leo4ktg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 03 Oct 2026 17:32:52 +0100
-Subject: [PATCH v4 21/38] uprobes: remove VM_IO, set VM_MIXEDMAP for mapped
- kernel pages
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZGysHo+"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15354aa70e8so1060031c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 09:40:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791045636; x=1791650436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T1SycGCsAYEA1OfPrGG/qg1fDqfdjLPEyIDB48vQpa8=;
+        b=LZGysHo+pajBaNfnXd3MFHIJcpVszuZHaiCkXV9OnKtKnyqBpF6ajRuc5IEZFuTElE
+         BtAxS47pSCNoTaCffXqBDHtRFM67d5S9Ek23XaDMaA3WnX9X7kml7/aucylb0+c59sD3
+         EuKE9Nkllo7UsnIoYrVKIGqX+acQRvDquVCPlyHNmBnz1A7bpTJBN1RAdHIOIwwMnmH0
+         DBxVnbjemVS6yXls0H+N9NHCw6BZzc4uiAQxHS7qV2yk0uj71PVgk62r/4VIQj3/Lg3J
+         8Fyb9a2WtwO1Ynz5VMlVXmBigswClUIeifkI2m0NNiSXXVmcIoJmWjvJ32Bq06Xdi5av
+         KaUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791045636; x=1791650436;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T1SycGCsAYEA1OfPrGG/qg1fDqfdjLPEyIDB48vQpa8=;
+        b=xQ8ZtW6MO1srw/1O1wo9kqwYBE1i3yKu11deVjcHh4pbijoAHW69yrPMaZYmFgbLF9
+         EIA435NARY8+bjD+MIWJDiG6f9nbOFqL+Oq8XcDm7FjDWok932RTspyPEpTq8713+wyl
+         kWreKHHPUGQQJ5e/jpQL7msVIrROhetmn73f89rlSxvqI04VBzs/enN40ak5Kg+wIseq
+         oq6vI7Kh2cS7kyzojo/caygiM3imEkDHAjrXObFp3Nj5oqMjxr/StTbxY8yYIuMillEb
+         4SeUPm6EXO8mD08+wrAW3bSZvvam2em3Nim2QhgLayQMdYilbLCCIgd5VmYZB4j8AMKT
+         exuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBydmEfKEwCPsou109aguUFoT3dlvLl6wUNo9otjLuRjouWrFL6j79tJ1coAYxSrDNrNrUt9M+/oReCMIUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5Gl8t4ZB0HS0WtsByg2tR47eT4SNfClM15aISvbyKhsVWrT4O
+	a30spCVDz3ckz+iCrYX5JV7eQ6ZJ83A0Gvh24PvGXo1O9t1TiKyPDBbs
+X-Gm-Gg: AYBFou2yGr7bKTaSYvfvS0B22BMuvesS9kgTxfT79Y01zMmPpOipP4Z0fc076XKkRNV
+	SP7Oxb6uLEvVRN3XV17LewMrGyKRVWWRVVUjaIuFJCX2Nz5mqS/Dk2/esUbfVzs1UINGb1fzry7
+	BWq7X8xuZ5RcqkMHURmfC5eYwSRxFH2itqg3jLSAJXbUc5hafQlMIc/2uhSIRvpU01hNjdcSp5s
+	XR5z7gnK1C4C1VMZkyAz+6rcKEDo0or+JA9PeYMeQY7gjeC6ZBUiq7TzYKAPg3CZHc362TgfdSy
+	fxropGY2+gknl99tnBVp1CO/nuatV69ox3vr2ooHilTpHMOCCpEpjmwe0O+P0lfHnqnw4Hddbop
+	dM9CTly1jGZxi+TVLSYvAcjBy4vfDeN/U+M3l8ReakdSFmrT9go/ZemsyL5Om4+pgjzesbt5fLb
+	TIe5g6z7sw6IlRXq/xpz9l8hsL6wzyDCyYQqaKlOUTpuVLr6axL8AiBfRhL7grKwg/K0YI5mkuQ
+	Nao4RrT
+X-Received: by 2002:a05:701b:4253:10b0:148:306c:971 with SMTP id a92af1059eb24-151c3aa07dbmr4520821c88.22.1791045636270;
+        Sat, 03 Oct 2026 09:40:36 -0700 (PDT)
+Received: from Vibhor-ThinkPad ([2401:4900:8833:f3a7:6702:207d:bfc:f0f6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fa751693sm18483744c88.2.2026.10.03.09.40.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 09:40:35 -0700 (PDT)
+From: Vibhor Goel <vibhor1102@gmail.com>
+To: rafael@kernel.org
+Cc: lenb@kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ACPI: dock: Retry probing battery docks after hotplug
+Date: Sat,  3 Oct 2026 22:10:19 +0530
+Message-ID: <20261003164019.11195-1-vibhor1102@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-21-a1f052500fd7@kernel.org>
-References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
-In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2070; i=ljs@kernel.org;
- h=from:subject:message-id; bh=joQXUjvjM3OjL+Ta6QEJ1w5g7Vsv4M79ot1AULAZKpk=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIO6mnpVu/bE3Fl5sa7KacdG3OWXlVbcOqVV+eyO1eK7
- 2YF5n1421HKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJSN9jZPhZf5i391D042MR
- MUZhsy7sc1b9yPr2Xruu0dtrt2b2HvVjZDi1/1bGz761fdtPvhNmnZ/7f+37frOIO3sa56ibMKs
- 4+bEDAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
+On a ThinkPad T480 booted with the removable battery absent, reinserting
+that battery can leave BAT1 missing from /sys/class/power_supply even
+after firmware sends an ACPI add notification.
 
-Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this is
-the appropriate flag to set for those.
+The battery dock platform device already exists, but its driver did not
+bind while the battery was absent. During hotplug, acpi_bus_scan()
+updates the ACPI device and attempts to attach it on the ACPI bus.
+acpi_create_platform_device() does not create another platform device
+because the existing physical node is still associated with the ACPI
+device. Consequently, the existing platform device remains unbound.
 
-This provides the semantics required - no VMA merging is permitted, but
-does not prevent GUP.
+Retry probing the battery dock platform device after hotplug_dock_devices()
+has refreshed the ACPI state. Restrict this to battery docks. If the
+platform device is already bound, device_initial_probe() leaves that
+binding in place.
 
-However this has no meaningful impact as these are refcounted and thus can
-be GUPed.
-
-A previous commit already prevented __mm_populate() from being invoked on
-XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is no
-longer required.
-
-Both VMAs set a VMA name, so always_dump_vma() returns true before
-vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
-in core dump behaviour.
-
-Change this for both the core xol_add_vma() function and the x86-specific
-get_uprobe_trampoline() function.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Vibhor Goel <vibhor1102@gmail.com>
 ---
- arch/x86/kernel/uprobes.c | 2 +-
- kernel/events/uprobes.c   | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Tested on a dual-battery ThinkPad T480 with an aftermarket external pack.
 
-diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-index 65a2de82ecd2..0f60c0d076b6 100644
---- a/arch/x86/kernel/uprobes.c
-+++ b/arch/x86/kernel/uprobes.c
-@@ -715,7 +715,7 @@ static struct vm_area_struct *get_uprobe_trampoline(struct mm_struct *mm, unsign
- 
- 	*new_mapping = true;
- 	return _install_special_mapping(mm, vaddr, PAGE_SIZE,
--				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_IO,
-+				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_MIXEDMAP,
- 				&tramp_mapping);
- }
- 
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 7709ea882477..b89cc5cee002 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -1726,8 +1726,8 @@ static int xol_add_vma(struct mm_struct *mm, struct xol_area *area)
- 	}
- 
- 	vma = _install_special_mapping(mm, area->vaddr, PAGE_SIZE,
--				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|VM_IO|
--				VM_SEALED_SYSMAP,
-+				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|
-+				VM_MIXEDMAP|VM_SEALED_SYSMAP,
- 				&xol_mapping);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
+On Fedora 7.2.8-200.fc44.x86_64, tracing showed the firmware add
+notification, a successful ACPI rescan, and no attachment attempt for the
+existing dock.0 platform device. A subsequent manual bind registered BAT1.
 
+On patched upstream v7.2.8, booting with BAT1 absent and then triggering a
+firmware add notification automatically called device_initial_probe(),
+bound acpi-battery and registered BAT1. UPower detected the battery too.
+Removal and reinsertion after binding also worked, without a second driver
+probe. Both captures completed without trace-buffer loss.
+
+Physical reinsertion initially produced no add notification on this pack;
+toggling charger mains while leaving the battery untouched triggered one.
+This patch addresses Linux handling after that notification. The initial
+notification behavior is outside its scope.
+
+The baseline and patched kernels differ in configuration and Fedora
+patches. The traces identify the missing attachment operation and show the
+new call resolving it; this was not a same-source unpatched comparison.
+
+Built the kernel and all 221 configured modules, booted with Secure Boot
+enabled, and tested on the physical laptop. The patch was developed with
+AI assistance and reviewed and tested by me.
+
+ drivers/acpi/dock.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/acpi/dock.c b/drivers/acpi/dock.c
+index d7f3a8912..748df19d9 100644
+--- a/drivers/acpi/dock.c
++++ b/drivers/acpi/dock.c
+@@ -445,6 +445,14 @@ int dock_notify(struct acpi_device *adev, u32 event)
+ 				break;
+ 			}
+ 			hotplug_dock_devices(ds, event);
++			/*
++			 * The dock platform device already exists when an empty battery
++			 * bay becomes occupied, but its driver may not have bound while
++			 * the battery was absent.  Retry after the ACPI scan updates its
++			 * status, since the scan only attaches the ACPI device.
++			 */
++			if (ds->flags & DOCK_IS_BAT)
++				device_initial_probe(&ds->dock_device->dev);
+ 			complete_dock(ds);
+ 			dock_event(ds, event, DOCK_EVENT);
+ 			acpi_evaluate_lck(ds->handle, 1);
 -- 
 2.55.0
 
