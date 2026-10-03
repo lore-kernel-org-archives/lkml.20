@@ -1,42 +1,47 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 892D1331EBC
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 02:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91DB2222A9;
+	Sat,  3 Oct 2026 02:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790992973; cv=none; b=OBrt8A6xSSmlFH/PyZiOqHwqaU/6Lki1sYy+HQ6HzpoX11fGMB2VJuDSfZzcYbHN2MC/DfDGvuxFYOjZuyx/oNvD4C2qvEErbaBvQVqzPH3MLOW9prN+1r3AY1P3WKrjSpGx6GcrGCfYRUAlIvov52EoUiCGoi0JV+h86C76Y+s=
+	t=1790993044; cv=none; b=ZqdvK6SYQUKnmOa07XWRGwJY1vsTCscnhedVJKulsZhfuzRD2Racm5cRAqP0VUqr8ptaw+NuAXfUswZNQ7KHZ+zbt3F1Zxo1xo0uONKRgBg/p8Y3su/CEU09FU7cE7kYK4DWbAKi8pOSisj6J0sH1qjB1Hu4nppPINKNU+sStKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790992973; c=relaxed/simple;
-	bh=v0bCbpETNJ7e5aGDatYBGDhLK4Wf9/XQ9Lj6zd6xRAk=;
+	s=arc-20240116; t=1790993044; c=relaxed/simple;
+	bh=v7QDdZVdCAhWypiGQR4nLMB2kbizBhlhlNcDflDVCUM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qzE/ZKWdFxEDhKk/AMv3aOBjtuxBLDcXU7iqlQFgWs8DOZz0YMv46FI6m/GGKuYN/7TWq89IG/UsaRXmhYaTbup1tmdY1mp0tObTHJDAMwJUQAXtk1xdbGyM4mfiYCnfhern8yiaWWqF9F/blHOiIQPLSgvseUpLg0vAiPyeGqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xcocyq/w; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ttbO7v6aOjOWOv5fvE5IIOBNdQn2VeCgi3/qlPxTcvBqew118iE40/QsgAiL/QJqmtjJrv9uRyp3dT1Wjv2Bg+yi5EBOxJuJ0IHfK0J03vwDSrHaDc5UtbQH+occCl1UVzu8FqN7u3MdjrEYCRgu0BQW/J3J2Zv9LV7UtbpLpRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bl0Bqyky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xcocyq/w"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 118532F;
-	Fri,  2 Oct 2026 19:02:46 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 95CD43F85F;
-	Fri,  2 Oct 2026 19:02:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790992969; bh=v0bCbpETNJ7e5aGDatYBGDhLK4Wf9/XQ9Lj6zd6xRAk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xcocyq/wYL+AaITh//C+S7x+SgRmYJM/Ng3YBRA3hQ37T59BBQmQpWXwY4C3ab9FJ
-	 /Gng9GWrKXVTSqF8Ovf22HA+J8f1Xhtw/I/i1VryLOIC18DV7taYExJioBZNHkwATV
-	 ie14zJcMHkZsrObg0CpfN/6QSNht3XCa8GPKn+lQ=
-Date: Sat, 3 Oct 2026 03:02:45 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v13 03/14] coresight: etm3x: prohibit modifying cntr_val
- and reset while session is enabled
-Message-ID: <asBiRRFAxGLEsSGC@e129823.arm.com>
-References: <20261002-separate_etm_cfg_v2-v13-0-fe429d8d96fb@arm.com>
- <20261002-separate_etm_cfg_v2-v13-3-fe429d8d96fb@arm.com>
- <20261003013343.64B201F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bl0Bqyky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560E31F000FF;
+	Sat,  3 Oct 2026 02:04:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790993043;
+	bh=QFwjWSfS4UzWfviIUGkyHadIu4D0jlZhwWB3B2Ln5RA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bl0BqykyEA9wf/Pkq6WwEgj5A+Ohu24fTeS172pL+eZNWL4Krn0LCNRURDW1vt0sE
+	 zsd/jRbRy6L0R0NZ5RrtPkfNid9huzje1HMX+rryizg1s1i6pGyfbEMJN0C/cEjO3s
+	 ccQHj6IiIpzc4S4PjVnyjSAi3Vd+Ng7Sbm0rSk/May+7IeDncckxxHKiOKSgco8V6H
+	 F135UcgKhHST8e1UmKU0U+yV6sWc3LXbzBt+KPALC4zoUHAS0592eoIhM5FnZFvrZR
+	 0SVaAVCIIxXGzlu/XhTezZbabYZGO7jkal/PhO42gJWIpdqy0y9oFu1Fr/HBQ8mtXG
+	 h2AClc4kEt8kg==
+Date: Fri, 2 Oct 2026 19:04:03 -0700
+From: Kees Cook <kees@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bill Wendling <morbo@google.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>, nikitash.mariiaw@gmail.com,
+	Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 08/11] seq_buf: Add seq_buf_init_append()
+Message-ID: <20261003015946.554434-kees@kernel.org>
+References: <20260930235231.out.387-kees@kernel.org>
+ <20260930235247.157921-8-kees@kernel.org>
+ <ar9bRGk_TpWq9-zl@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,88 +50,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261003013343.64B201F000FF@smtp.kernel.org>
+In-Reply-To: <ar9bRGk_TpWq9-zl@ashevche-desk.local>
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] coresight: TOCTOU race in sysfs configuration modifications
-> --
-> 
-> commit 58a68349c3bcb900219eaabae6561553d37341df
-> Author: Yeoreum Yun <yeoreum.yun@arm.com>
-> 
-> coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
-> 
-> This commit prevents modifying cntr_val and resetting the state when the
-> trace session is enabled. It does so by checking the coresight mode before
-> proceeding with modifications in sysfs store functions.
-> 
-> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > index b3c67e96a82a4..cdb70a4382eb8 100644
-> > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > @@ -75,6 +75,10 @@ static ssize_t reset_store(struct device *dev,
-> >  	if (ret)
-> >  		return ret;
-> >  
-> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
-> > +	    coresight_get_mode(drvdata->csdev))
-> > +		return -EBUSY;
-> > +
-> >  	if (val) {
-> >  		spin_lock(&drvdata->spinlock);
-> 
-> [Severity: High]
-> Does this code introduce a TOCTOU race condition?
-> 
-> The coresight_get_mode() check is evaluated outside the drvdata->spinlock
-> that serializes hardware and state changes.
-> 
-> If a concurrent thread writes to the sysfs reset attribute while another
-> thread enables the trace session via enable_source, couldn't the sysfs store
-> function's check pass just before the session enablement code takes the
-> mode (via coresight_take_mode()) without holding the spinlock?
-> 
-> The sysfs store would then acquire the spinlock, clear the config, and
-> release the trace ID while the session is actively building its path and
-> starting up.
-> 
-> This could corrupt the trace configuration, allow a trace session to start
-> with a zeroed-out configuration, and prematurely release the actively
-> assigned trace ID, causing trace ID conflicts.
-> 
-> This issue was verified to remain unfixed in the final state of the patch
-> series (commit 45def19b707827632be083676fa86077f5bc1585).
-> 
-> >  		memset(config, 0, sizeof(struct etm_config));
+On Fri, Oct 02, 2026 at 10:20:36AM +0300, Andy Shevchenko wrote:
+> Hmm... And if this becomes a size? Shouldn't we set the overflow immediately
+> if the existing buffer contains a garbage or has non-NUL-terminated content?
 
-This is known issue and it's pre-exist one. but we don't expect
-user enabling session before *reset* is returned to user.
+Yes, good point. For v4 I'll have a buffer with no NUL within its size
+start out overflowed.
 
-So this is ignorable.
-
-> 
-> > @@ -744,6 +748,9 @@ static ssize_t cntr_val_store(struct device *dev,
-> >  	ret = kstrtoul(buf, 16, &val);
-> >  	if (ret)
-> >  		return ret;
-> > +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
-> > +	    coresight_get_mode(drvdata->csdev))
-> > +		return -EBUSY;
-> >  
-> >  	spin_lock(&drvdata->spinlock);
-> 
-> [Severity: High]
-> Similarly, does this safety check fail to guard concurrent updates
-> to cntr_val?
-> 
-> The check is performed outside the spinlock, creating the same race window
-> where cntr_val could be updated while the session is being enabled.
-> 
-> >  	config->cntr_val[config->cntr_idx] = val;
-
-As I said another thread and the same above. also the the separation
-of config will relax this problem.
+-Kees
 
 -- 
-Sincerely,
-Yeoreum Yun
+Kees Cook
