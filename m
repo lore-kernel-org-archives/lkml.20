@@ -1,24 +1,24 @@
-Received: from mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CDA31A807
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661712E7F3A
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 01:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790989924; cv=none; b=VTYzsHZLfAa/cXoz5hbrarOynfq/YpH6u+l4hvaSf14RyAzcImwZzygzg9S1RvCPvl3qcdE3sqHx/Cl/gMFktu2G2p6N8TOPdCuKnNa3kQ9QN0Cd8jpueNk8GAWbTFPd6czj9iTjZX7tmiAYvfhVLzkgo8MLepivczKd16N26vo=
+	t=1790989935; cv=none; b=gIkEvkR6zofJB4HAeEA9HoSWWozNE8TSJPDRn0z36ZanC5b8RJYt+6BgMJ4jjdhuulnBkt/xVsLobgO6gLxHWywbwzPNIo0S1YJdXannUlpXoXmrO9RFPwYSPQQ8VBQ6qKd3qixc7dvo90lTYZAz/eeqrqu8YUxhf+05TXHel80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790989924; c=relaxed/simple;
-	bh=H/kxfuZYo3F3EB/2s7exEyWzDhZo3+ebQXbFQZzLBKw=;
+	s=arc-20240116; t=1790989935; c=relaxed/simple;
+	bh=Bh9GZJqa6QKL6+fmXkwb6LfuZrhG/VHeRdP+HDYrw0s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=ocXAvl73hGPX/mgx6oqGSZzspwprqvlUe8g1/8DcC8+qYsEcT3rya0qzVOSIVt5tNgIYGhHlet4tORWjemzgu7torz6cvLbuz02VdEen0dm9xe6ngGMZ2/ySffFS4CRI38BR75Zd1hvufhBQmb3vQNU2SGrmF7yDjN2qahoplZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=95.215.58.181
+	 MIME-Version:Content-type; b=dMcMBVuEkX/BpGsKyK5waXMutkrCwJSNJ69I3pbGykGm9iLq3woYlqQ+O0P3kkLjioYCKYseKLJbMQybYYViUoVzq1ClTkVWHzH2DttyTDLbnM+7gHov/HjDDaa+52T4wYZsVbmWSGjp7MHayklzFr2zQ2+MmDGavRrgwkxTtCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.96
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id d479558952a2d234;
-	Sat, 03 Oct 2026 01:11:45 +0000
-X-Mizu-Trace-ID: d479558952a2d234
+Received: by mta12.migadu.com with ESMTPS id 7a2a3e67e205a4ec;
+	Sat, 03 Oct 2026 01:11:54 +0000
+X-Mizu-Trace-ID: 7a2a3e67e205a4ec
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -37,9 +37,9 @@ Cc: akpm@linux-foundation.org,
 	youngjun.park@lge.com,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH 4/6] mm, swap: don't gate xswap on the physical swap free count
-Date: Sat,  3 Oct 2026 09:11:09 +0800
-Message-ID: <20261003011111.1003090-5-hebaoquan@kylinos.cn>
+Subject: [PATCH 5/6] mm, swap: do not retake the cluster lock when uncharging an xswap slot
+Date: Sat,  3 Oct 2026 09:11:10 +0800
+Message-ID: <20261003011111.1003090-6-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261003011111.1003090-1-hebaoquan@kylinos.cn>
 References: <20261003011111.1003090-1-hebaoquan@kylinos.cn>
@@ -52,141 +52,60 @@ MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-From: Nhat Pham <nphamcs@gmail.com>
+xswap_release_slot_backend() runs with ci->lock held. Its callers free
+the slots of a cluster they have locked. It called
+xswap_backend_uncharge() to give the swap charge back, and that takes
+the same cluster lock again to read the owner out of the swap table.
 
-An xswap entry is charged only when it gets physical backing, so a
-zswap-capable memcg can keep swapping out through xswap even when its
-physical swap margin is zero.  mem_cgroup_get_nr_swap_pages() would
-otherwise starve anon reclaim with memory.swap.max set to 0.
+A spinlock is not recursive, so it spins forever. The swapin path hangs
+on it:
 
-Return PAGE_COUNTER_MAX when an xswap device is active, zswap is on,
-and the memcg allows zswap.  Track active xswap devices in nr_xswap_files,
-mirroring nr_real_swapfiles.
+  do_swap_page
+    folio_free_swap
+      swap_cache_del_folio
+        __swap_cluster_free_entries
+          xswap_release_slot_backend
+            xswap_backend_uncharge      <- spins here
 
-Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+Read the owner from ci directly instead. The lock is already held, and
+the cgroup id is still in the swap table at this point: the loop clears
+it after this call.
+
+xswap_backend_uncharge() stays for xswap_backend_free(), which runs
+without the cluster lock.
+
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- include/linux/memcontrol.h |  4 ++--
- include/linux/swap.h       |  6 ++++++
- mm/memcontrol.c            | 31 ++++++++++++++++++++++++-------
- mm/swapfile.c              |  2 +-
- 4 files changed, 33 insertions(+), 10 deletions(-)
+ mm/swapfile.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index b9072a3c9a2a..be335128806f 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -1944,7 +1944,7 @@ static inline void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
- 
- #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
- bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
--bool mem_cgroup_may_zswap(struct mem_cgroup *memcg, bool may_flush);
-+bool mem_cgroup_may_zswap(const struct mem_cgroup *memcg, bool may_flush);
- void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
- void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size);
- bool mem_cgroup_zswap_writeback_enabled(const struct mem_cgroup *memcg);
-@@ -1954,7 +1954,7 @@ static inline bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
- 	return true;
- }
- 
--static inline bool mem_cgroup_may_zswap(struct mem_cgroup *memcg, bool may_flush)
-+static inline bool mem_cgroup_may_zswap(const struct mem_cgroup *memcg, bool may_flush)
- {
- 	return true;
- }
-diff --git a/include/linux/swap.h b/include/linux/swap.h
-index 745606f23e62..ebcbb92849b7 100644
---- a/include/linux/swap.h
-+++ b/include/linux/swap.h
-@@ -390,6 +390,12 @@ void free_pages_and_swap_cache(struct encoded_page **, int);
- /* linux/mm/swapfile.c */
- extern atomic_long_t nr_swap_pages;
- extern atomic_t nr_real_swapfiles;
-+extern atomic_t nr_xswap_files;
-+
-+static inline bool xswap_enabled(void)
-+{
-+	return atomic_read(&nr_xswap_files) > 0;
-+}
- extern long total_swap_pages;
- extern atomic_t nr_rotate_swap;
- 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index ba13d2a1ead5..2ca39f64c4db 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -6126,8 +6126,20 @@ void __mem_cgroup_swap_put(unsigned short id, unsigned int nr_pages)
- 
- long mem_cgroup_get_nr_swap_pages(const struct mem_cgroup *memcg)
- {
--	long nr_swap_pages = get_nr_swap_pages();
-+	long nr_swap_pages;
- 
-+	/*
-+	 * xswap charges physical backing, not allocation, so virtual swap is
-+	 * unbounded for a zswap-capable memcg and the swap.max walk below
-+	 * would starve anon reclaim.  swap.max is still enforced when the
-+	 * backing is charged.
-+	 */
-+	if (xswap_enabled() && zswap_is_enabled() &&
-+	    (mem_cgroup_disabled() || do_memsw_account() ||
-+	     mem_cgroup_may_zswap(memcg, false)))
-+		return PAGE_COUNTER_MAX;
-+
-+	nr_swap_pages = get_nr_swap_pages();
- 	if (!mem_cgroup_disabled() && !do_memsw_account())
- 		nr_swap_pages = min(nr_swap_pages, page_counter_margin(&memcg->swap));
- 
-@@ -6333,13 +6345,15 @@ static struct cftype swap_files[] = {
-  * spending cycles on compression when there is already no room left
-  * or zswap is disabled altogether somewhere in the hierarchy.
-  */
--bool mem_cgroup_may_zswap(struct mem_cgroup *memcg, bool may_flush)
-+bool mem_cgroup_may_zswap(const struct mem_cgroup *memcg, bool may_flush)
- {
-+	const struct mem_cgroup *pos;
-+
- 	if (!cgroup_subsys_on_dfl(memory_cgrp_subsys))
- 		return true;
- 
--	for (; !mem_cgroup_is_root(memcg); memcg = parent_mem_cgroup(memcg)) {
--		unsigned long max = READ_ONCE(memcg->zswap_max);
-+	for (pos = memcg; !mem_cgroup_is_root(pos); pos = parent_mem_cgroup(pos)) {
-+		unsigned long max = READ_ONCE(pos->zswap_max);
- 		unsigned long pages;
- 
- 		if (max == PAGE_COUNTER_MAX)
-@@ -6347,10 +6361,13 @@ bool mem_cgroup_may_zswap(struct mem_cgroup *memcg, bool may_flush)
- 		if (max == 0)
- 			return false;
- 
--		/* Force flush to get accurate stats for charging */
-+		/*
-+		 * Force flush to get accurate stats for charging. The flush
-+		 * only reads the counters, but takes the memcg mutable.
-+		 */
- 		if (may_flush)
--			__mem_cgroup_flush_stats(memcg, true);
--		pages = memcg_page_state(memcg, MEMCG_ZSWAP_B) / PAGE_SIZE;
-+			__mem_cgroup_flush_stats((struct mem_cgroup *)pos, true);
-+		pages = memcg_page_state(pos, MEMCG_ZSWAP_B) / PAGE_SIZE;
- 		if (pages >= max)
- 			return false;
- 	}
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 86ab4a86857a..a3d4561566eb 100644
+index a3d4561566eb..419d19f3b98c 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -284,7 +284,7 @@ static unsigned int nr_swapfiles;
- atomic_long_t nr_swap_pages;
- atomic_t nr_real_swapfiles;
- /* Active xswap devices, as in nr_real_swapfiles. */
--static atomic_t nr_xswap_files;
-+atomic_t nr_xswap_files;
+@@ -3313,6 +3313,7 @@ static void xswap_release_slot_backend(struct swap_info_struct *si,
+ {
+ 	swp_entry_t entry = swp_entry(si->type, cluster_offset(si, ci) + slot);
+ 	struct swap_info_struct *psi;
++	unsigned short id = xswap_entry_id(ci, slot);
+ 	swp_entry_t phys = { .val = ci->xs_table[slot] };
+ 
+ 	WRITE_ONCE(ci->xs_table[slot], 0);
+@@ -3321,7 +3322,13 @@ static void xswap_release_slot_backend(struct swap_info_struct *si,
+ 	if (psi)
+ 		xswap_free_phys_slot(psi, entry, phys);
+ 
+-	xswap_backend_uncharge(entry, 1);
++	/*
++	 * ci->lock is held here, so read the owner out of the swap table
++	 * directly. xswap_backend_uncharge() would take the same lock
++	 * again, and a spinlock is not recursive.
++	 */
++	if (id)
++		mem_cgroup_swap_uncharge(id, 1);
+ }
+ 
  /*
-  * Some modules use swappable objects and may try to swap them out under
-  * memory pressure (via the shrinker). Before doing so, they may wish to
 -- 
 2.54.0
 
