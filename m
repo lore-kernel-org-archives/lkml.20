@@ -1,56 +1,56 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3947266B72
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D58B24DCF9
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 00:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790986900; cv=none; b=Bi1vi1d4cEcORj5oszNqSAg1Hpr5/dnE7Sm8P2ZOInpAvW8S/nfUzfpk7WgT/CD8vIuWcvmegstXJqU9HxlN6vK8EIRcl3lz0yVxMNAYiEZmv+D1wx5s+4cMVpZrsWpY4KJ4T4rgNEJZmPAwCCOsXyJKq/HKtR4DmBqydlr+yt4=
+	t=1790986904; cv=none; b=CU1agz1z91m9nVX3NWyaEfUnjkb0mJCb1XBz2osSAl+UY8aNKqwWwJZS7ft7RnUSBsxFWyRhyaiDRlFsucTqN6jAdGKYto80GPulMfWcrtQoZZbfk38vtVMdBTXTWq6LTpNGa9fXAcI+KQrAL/+Mpblj6DKGnZPkycefMPa4AxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790986900; c=relaxed/simple;
-	bh=1/ewaisXSE4tzMRC5qUH85WxcWpKsis0WsFblBgykWc=;
+	s=arc-20240116; t=1790986904; c=relaxed/simple;
+	bh=mjHOAY0WjXq8RedHE7fU8Anci6chvoW+Cy8msbtc86g=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=rYOC7tBqN0vnaTDv+RC+BvW/2rqK+MXtOF8R+UAdOPmRum3CsMRFWXqkvZvKjwksQd31gDHVOLNEPNt3f6E7UDP2ATAM9u37Z+Qj2PikG9fermFAwP2LWuS2EAFggGFunZGmfJc89pOHzUIxrVh3u1JQH+9F+2t/01Qc+zqnEIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kQmSxHeT; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=YB7GPTv2JtoJdwQbWPfSO0oNaK8QXqMUnKhpB/zhxDUR0dj52ZS9VhEtzFe0hhOw8L4l1U88ioIMahOh1doM0y5Nm0IydX6Mjv+NUb1JRe/h5JLYfQ45KueShfUW4hsDpPb79DXCNpV8fDLAqKUAC27tcb93NmxC1BFPCcvAYLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Q6BWJPtc; arc=none smtp.client-ip=209.85.216.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kQmSxHeT"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso161786a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Q6BWJPtc"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39aee9b4cf2so106788a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 02 Oct 2026 17:21:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790986898; x=1791591698; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790986901; x=1791591701; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+SHdCJPwxJseGLQVvNpBndLozFHVWi7DqdUkRWyPzrM=;
-        b=kQmSxHeTdYmDJd0MZ+qTWj3TnHhgTEzHE40QDoAxdSqeMEywenWF0JfIClbPuhV09B
-         OosjMMTl6OquU5icaeqFE0u7i7jrFMWZdH1xuJesf97XBMmR5eqEDsx1CWDLsz77plze
-         n3GtB4A4XwhkSvL/0il8RSSs/IHYp8SZ1WF/ij4xsA0puhQHNBRaPxKL1URwkg80cWrk
-         M1uynOz5QQY+6zBGxmci9W+sXYEUoqWqiYQ0PY8rImzwlyQAYyu3lewg7pGqWC52iUP3
-         r4ZK7astyBtwn9SV4zFC1zHs5e02dIeLuAiNOqmBvMNwI+dv+Ab6ztPRKtMAJT78AdS9
-         It9g==
+        bh=f6sUnq9x/HmG0ptNu1GvY9h8+SRbclY/ESrYb+ZqWXI=;
+        b=Q6BWJPtcklvRXHx80NdbL74WnxyYXUzSzEQMjOnZnh14jmh6WEE4IdYjqG81g/nzHX
+         RSlJaSfzLLQ/WMi8HUUxoxxrM661m1ieBAGe07VpXAs+QPzJDdZM8d/0YrNZYi9+hdKn
+         7Hz+c4gRbJiE2uPtFJTglpE2twY2+ts9r33g5m85S8jTA6N18jV3xeSdZQdZ6hIbo35B
+         BZNE9WWsFHOookhalU2uMyM+OhmG3Mh/0dgYV1sWhnFG3tR7g9b2jBZsDIh/UOm/Kodc
+         7VaPFxKGl2RHXVXWkqEFpYYEilxwkOk0H/LAlXsyKdzfUuwG9NdfdWlR05EYAYc2c3q5
+         hQgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790986898; x=1791591698;
+        d=1e100.net; s=20260707; t=1790986901; x=1791591701;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+SHdCJPwxJseGLQVvNpBndLozFHVWi7DqdUkRWyPzrM=;
-        b=iK02fzI5ckhGzSezkZ8kwuzHRYRa1uqOhjez0YcEY3uHgYFp0n8Z8p1LLqCteTrmpF
-         BGZN5iGmyJ2bS+vZ1iESL7M9zp2bSIBwQYNh0MIKnwykSvYORSBuQKshwuUpFidjMqbq
-         wACQdyhZL8ddmiBufmm+ZZQzRT4q/WuR0qNDYkBY0TstojkqtPW2FptA+STQWLigYby0
-         EiFUy4pqxKRkFA3rT0bwbPpIr4IapqkxUZGEwGfTbyeKUB0ZnQuwuotegzqtSsR5qkh4
-         9rqIYEx73dAthlrs68khClpuH6Ry0XxUW43E96WSkYNcA/jqA0//REFte/yFFpSj/c18
-         oM2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzDbbU44msU1jVJYcBvD07yw1SiZ8GZUvgSSazJ6HOWEMcdaRSkl3Fam2K+Hv90awnU42OEHX//Dum1XSA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoS5IVi97v76dj+NKpj9weT6Q3ht5PhhnXKy195F9DehXYwp61
-	77Z2Khj85eDsHQrq7Kb9po+VFMYA6D3fZESKMzBQZtEwzqrcuYTo2TE85tKTTes4XIT4by66bCE
-	ZXEhbwX6VGI+dit2S0Sn78g==
-X-Received: from pfbf1.prod.google.com ([2002:a05:6a00:ad81:b0:88b:18fd:b97c])
+        bh=f6sUnq9x/HmG0ptNu1GvY9h8+SRbclY/ESrYb+ZqWXI=;
+        b=CvjqGFAJ1y742XfSfXl90H/vC++mpvDB+2WhDKig3yf+6uGgYFf8moct00WmLGHRqI
+         KVkNYchlgFKgXigsP5vIfC1+RDwHVogr/Tsi4DOdLQWi9r/uxbCcHvf6C6bafOJ3J3Xc
+         t/8COpTgNZ6Uiy+9gYS7OCd2Ojo7KqSpo2z6uQ/RskID0fGm0wPPyNkfwMoPGKcQtly9
+         HZuH3YQF93bMqeTN1jnZWVTlJp745KXlV1MVumLMC9U+hzPlgsp8r3EzoMMsFDe/s1re
+         ukaNROFPF0ceTTb82LSIN2aZzDGO52KqFJspab+CRqyyxxTdl9SZEGI6ZU63iSs5M82K
+         wOMw==
+X-Forwarded-Encrypted: i=1; AKwUvByFSN+Tgyvrj0ZUxfiRs0hhIh13JoxcTa1yo0UE2/DJ99QiC6/zAE71zXfoMZ+8/HlzDAgH+q3tCSuNZBQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKi7/BQr5XuyvCcjsopc9SBRiEqmdL98CAdKBCeFBI46rBxXk9H
+	PeYz5/WGOyfKRPBpZEvZq/rA9Oau6dE8Phvczb0pNcjfLPW8i8DO3vnrMkYqqcAtKTeSMu5j57c
+	1TyWqNxzwApkUvAwR1WnYow==
+X-Received: from pjbie11.prod.google.com ([2002:a17:90b:400b:b0:3a6:fc34:663f])
  (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:3308:b0:886:cae0:fa28 with SMTP id d2e1a72fcca58-88c64645740mr768676b3a.40.1790986897754;
- Fri, 02 Oct 2026 17:21:37 -0700 (PDT)
-Date: Sat,  3 Oct 2026 00:21:07 +0000
+ 2002:a17:90b:548f:b0:3a0:2662:815a with SMTP id 98e67ed59e1d1-3a6ce827284mr4162203a91.43.1790986900455;
+ Fri, 02 Oct 2026 17:21:40 -0700 (PDT)
+Date: Sat,  3 Oct 2026 00:21:10 +0000
 In-Reply-To: <20261003002123.505555-1-jthoughton@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261003002123.505555-1-jthoughton@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261003002123.505555-5-jthoughton@google.com>
-Subject: [PATCH v2 04/20] hugetlb_vmemmap: Leave pages partially HVOed upon
- restore failure
+Message-ID: <20261003002123.505555-8-jthoughton@google.com>
+Subject: [PATCH v2 07/20] hugetlb_vmemmap: Disable HVO sysctl if arch doesn't
+ support HVO
 From: James Houghton <jthoughton@google.com>
 To: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
 	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -76,149 +76,47 @@ Cc: Nikos Nikoleris <nikos.nikoleris@arm.com>, Linu Cherian <linu.cherian@arm.co
 	linux-mm@kvack.org
 Content-Type: text/plain; charset="UTF-8"
 
-Right now it is assumed that the restore routine in vmemmap_remap_free()
-will not fail; that is, if we fail to fully optimize a folio, it is
-assumed that restoring the folio to its pre-HVO state is guaranteed to
-succeed.
+Do not create the vm.hugetlb_optimize_vmemmap sysctl when the
+architecture lacks support. This serves only to avoid confusion for
+users.
 
-Although vmemmap restoration may never fail in practice, properly handle
-such failure cases now. This will leave folios in a partially HVOed
-state. In a follow-up patch, failure certainly becomes possible.
-
-In the event we end up with partially-HVOed folios, make sure to:
-  1. Leave the HVO page flag in place.
-  2. Free any unused vmemmap pages.
-
-Always pass the vmemmap_tail page to the restore routine to avoid
-leaking the non-optimized vmemmap pages for a partially HVOed page.
+arm64 support for HVO is conditional on certain hardware features being
+enabled for all online CPUs. By the time hugetlb_vmemmap_init() runs,
+all secondary CPUs will have started, and the system feature set will
+have stabilized, including HVO-through-BBM, which
+arch_hugetlb_vmemmap_optimization_supported() checks for.
 
 Signed-off-by: James Houghton <jthoughton@google.com>
 ---
- mm/hugetlb_vmemmap.c | 49 ++++++++++++++++++++++++++++++++++----------
- 1 file changed, 38 insertions(+), 11 deletions(-)
+ mm/hugetlb_vmemmap.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 1a2645c382ba..90db4d069ff6 100644
+index 8596a462fee6..817ce39d4cf3 100644
 --- a/mm/hugetlb_vmemmap.c
 +++ b/mm/hugetlb_vmemmap.c
-@@ -235,12 +235,15 @@ static void vmemmap_restore_pte(pte_t *pte, unsigned long addr,
- {
- 	struct page *src = pte_page(ptep_get(pte)), *dst;
+@@ -763,6 +763,21 @@ static int __init hugetlb_vmemmap_init(void)
+ 	/* HUGETLB_VMEMMAP_RESERVE_SIZE should cover all used struct pages */
+ 	BUILD_BUG_ON(__NR_USED_SUBPAGE > HUGETLB_VMEMMAP_RESERVE_PAGES);
  
-+	if (WARN_ON_ONCE(!walk->vmemmap_tail))
-+		return;
-+
- 	/*
--	 * When rolling back vmemmap_remap_free(), keep the copied head page
-+	 * When restoring a partially-HVOed page, keep the copied head page
- 	 * mapping and restore only PTEs currently pointing at the shared tail
- 	 * page.
- 	 */
--	if (walk->vmemmap_tail && walk->vmemmap_tail != src)
-+	if (walk->vmemmap_tail != src)
- 		return;
- 
- 	VM_WARN_ON_ONCE(PageHead((const struct page *)addr));
-@@ -276,6 +279,7 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
- 	return vmemmap_remap_range(start, end, &walk);
- }
- 
-+#define VMEMMAP_REMAP_INCOMPLETE 1
- /**
-  * vmemmap_remap_free - remap the vmemmap virtual address range [@start, @end)
-  *			to use @vmemmap_head/tail, then free vmemmap which
-@@ -290,7 +294,8 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
-  *		responsibility to free pages.
-  * @flags:	modifications to vmemmap_remap_walk flags
-  *
-- * Return: %0 on success, negative error code otherwise.
-+ * Return: %0 on success, VMEMMAP_REMAP_INCOMPLETE if the page is incompletely
-+ *         optimized, negative error code otherwise.
-  */
- static int vmemmap_remap_free(unsigned long start, unsigned long end,
- 			      struct page *vmemmap_head,
-@@ -325,7 +330,8 @@ static int vmemmap_remap_free(unsigned long start, unsigned long end,
- 		.flags		= 0,
- 	};
- 
--	vmemmap_remap_range(start, end, &walk);
-+	if (vmemmap_remap_range(start, end, &walk))
-+		return VMEMMAP_REMAP_INCOMPLETE;
- 
- 	return ret;
- }
-@@ -358,6 +364,8 @@ static int alloc_vmemmap_page_list(unsigned long start, unsigned long end,
-  * vmemmap_remap_alloc - remap the vmemmap virtual address range [@start, end)
-  *			 to the page which is from the @vmemmap_pages
-  *			 respectively.
-+ * @h:		the hstate for the folio whose vmemmap is getting remapped
-+ * @folio:	the folio whose vmemmap is getting remapped
-  * @start:	start address of the vmemmap virtual address range that we want
-  *		to remap.
-  * @end:	end address of the vmemmap virtual address range that we want to
-@@ -366,20 +374,35 @@ static int alloc_vmemmap_page_list(unsigned long start, unsigned long end,
-  *
-  * Return: %0 on success, negative error code otherwise.
-  */
--static int vmemmap_remap_alloc(unsigned long start, unsigned long end,
-+static int vmemmap_remap_alloc(const struct hstate *h, struct folio *folio,
-+			       unsigned long start, unsigned long end,
- 			       unsigned long flags)
- {
- 	LIST_HEAD(vmemmap_pages);
--	struct vmemmap_remap_walk walk = {
-+	struct vmemmap_remap_walk walk;
-+	struct page *vmemmap_tail;
-+	int ret;
-+
-+	vmemmap_tail = vmemmap_shared_tail_page(h->order, folio_zone(folio));
-+	if (WARN_ON_ONCE(!vmemmap_tail))
-+		return -ENOMEM;
-+
-+	if (alloc_vmemmap_page_list(start, end, &vmemmap_pages))
-+		return -ENOMEM;
-+
-+	walk = (struct vmemmap_remap_walk) {
- 		.remap_pte	= vmemmap_restore_pte,
-+		.vmemmap_tail	= vmemmap_tail,
- 		.vmemmap_pages	= &vmemmap_pages,
- 		.flags		= flags,
- 	};
- 
--	if (alloc_vmemmap_page_list(start, end, &vmemmap_pages))
--		return -ENOMEM;
-+	ret = vmemmap_remap_range(start, end, &walk);
- 
--	return vmemmap_remap_range(start, end, &walk);
-+	/* Not all pages may have been consumed */
-+	free_vmemmap_page_list(&vmemmap_pages);
-+
-+	return ret;
- }
- 
- static bool vmemmap_optimize_enabled = IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON);
-@@ -412,7 +435,7 @@ static int __hugetlb_vmemmap_restore_folio(const struct hstate *h,
- 	 * When a HugeTLB page is freed to the buddy allocator, previously
- 	 * discarded vmemmap pages must be allocated and remapping.
- 	 */
--	ret = vmemmap_remap_alloc(vmemmap_start, vmemmap_end, flags);
-+	ret = vmemmap_remap_alloc(h, folio, vmemmap_start, vmemmap_end, flags);
- 	if (!ret)
- 		folio_clear_hugetlb_vmemmap_optimized(folio);
- 
-@@ -545,7 +568,11 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
- 				 vmemmap_head, vmemmap_tail,
- 				 vmemmap_pages, flags);
- out:
--	if (ret)
 +	/*
-+	 * If ret == VMEMMAP_REMAP_INCOMPLETE, the folio might be partially
-+	 * HVOed. Leave the HVO page folio flag in place.
++	 * Architectures that need to probe CPU support for HVO have done
++	 * such probing now. arch_hugetlb_vmemmap_optimization_supported()
++	 * will return the correct value.
 +	 */
-+	if (ret < 0)
- 		folio_clear_hugetlb_vmemmap_optimized(folio);
- 
- 	return ret;
++	if (!arch_hugetlb_vmemmap_optimization_supported()) {
++		if (vmemmap_optimize_enabled)
++			pr_info("vmemmap optimization not supported by hardware\n");
++		/*
++		 * Return early to avoid setting up the hugetlb vmemmap
++		 * sysctls; HVO is not usable.
++		 */
++		return 0;
++	}
++
+ 	for_each_hstate(h) {
+ 		if (hugetlb_vmemmap_optimizable(h)) {
+ 			register_sysctl_init("vm", hugetlb_vmemmap_sysctls);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
