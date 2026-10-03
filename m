@@ -1,153 +1,109 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1077397E86
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791019177; cv=pass; b=YfVZjUygUrDSWlXKse/PKlx+6t2jOWBObv/5y86I++jfi+Wsl3CA3Z0tM3lubthXR8ZtaIQkfLmllqe0Tr6C/e+OZ66v/uIOEh2lrHkaIxNl8SEgOfo12oGxW170pxemANTOavCbmOumk67r7R0UD4fofWvKz5Q1Vli0sGtDwIg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791019177; c=relaxed/simple;
-	bh=HYD+ToqudDpuaRtSe0fMMsQ+LH+7S828nt4GohMs2Uc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cDJjds2x2anlMgceJlZlatjYBApsA6lpAVCKiyRHB7T+e7gFPoYyIstQytqoyD3rAQ/+91Bm+l00ZYrsLsbBW1cKu/84CmLw4CjtaPxuI8R/sE7QIkVJXLv+N5h777bntDDKoiPUBrWy6u5FfkW39A0L4kkuxUgMsLDk/JBehPY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=sIJDf/JN; arc=pass smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="sIJDf/JN"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso198273f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:19:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791019173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OIXuQZO+uXuMHRht6dbp06xlAdMKFsIUPUV4Hu4T25T8pPsRjNwp0XN4bufrlbIXU+
-         3fZEIIdTw9NfYHaEcIzpEu1i+or7VckmOIcT2IpDUdRvXUkif8jIHl0qPOUCvD/Zrnbv
-         NlaKZ1pyoGhptyxkH3MmZB/kMTyu88+QS+G/6wn4C9vcqQojnqQKuwyxfxMnBQucyYp+
-         VCvBm1ujAvCkt/ZYzNHYUkb63e3SUbWubzAifG9WgIl3hL0zgdIztV7kiDoyp4PMyigO
-         NKB7yjVbnGrLUod2FQfRAFiq/HwYv8izy7d1ZecPOrjykDn99+7f78fnC3o+y9pJ3NmT
-         r70A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RCYMl+WZz2TETrAyEjwYvYxJTxXlvc4VUXVoz9zxqJk=;
-        fh=8C5ErMcnOu2FSTZC1Rz8Z/thiDDvsUbOov1V4oAhewU=;
-        b=fe1ugXUU1cY5OoDSrXAV4md8wsNxDWjiIQ4l6ZHQ7KNKGfNe0PNI5Hge6vrzxKcHG9
-         iTABWIwh+F6YUI9qEpf+Guv6r1uQ/6Hgk142lWJj63/cFMMLs+k6xfg3QDLjbpNVqzz7
-         6p4bIMVOOULvArj6sodsNKit3y7rY5yqTAqTHirQLwBYNQ6LwYs6TmqnAaGLUJeYD/PB
-         990JZF8Tk8qLHEvdwHz0Bp8OvPBQQJWPonJ90K2crivSMfBv4I6tsauWtBTBxitfVHuF
-         h/xfN/MffCpHNAzlK4Tb4CvulxK9+61VBk7KqP+TzDGBC+NDuqqr+cLXpD6LZ86OqCrO
-         VnIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1791019173; x=1791623973; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RCYMl+WZz2TETrAyEjwYvYxJTxXlvc4VUXVoz9zxqJk=;
-        b=sIJDf/JN2j3oYORqZOoEvgOeOyoUm4bRRGleo60KbKkfWR5BVcvHftxTiXIRGnMBvj
-         T/VNxI4VZUk7OHxKrK0mywli3aZDmCSY+QPSjHoXN2nEQEXBSbqcFtOnITem/rnxt9MW
-         WaQUks5L5Bd6L0RrvatO7bOVYIPGdnlNpa2hEvMD6F8V6eahA00jQgtDyRgDdQvtmIIJ
-         xWOHf+Br98QOFxzaxfNmE3aKfLRJ2AD1wNgkV3bmkaTcmPNZ07r856O9Ql33YaLU1aNS
-         S9CjVW047HUol1ZS6oQNvPwP38RG1AW058/OKB6m8GB05bvSLUz0oquGpcsupkezbPOe
-         HSAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791019173; x=1791623973;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RCYMl+WZz2TETrAyEjwYvYxJTxXlvc4VUXVoz9zxqJk=;
-        b=a7ZN3+jBbFkNuz/ubB0QHhYpq/FDOch4+BYyPhWcwi5/eL4wVXaO0yYf38mzij/KDC
-         rZ4XYLwd1h7vjQYAUhKiryS97jjmGcJm1A331SI2DBGw36Ifaz8JIr2sTCre/Qg9TNdU
-         OEC3cqUU6YoO8oNSv9vbW8mF2ZBwmT7DQn0yDl+C9QqV+fCfwabUZ+UfHy7BM2KGWMQt
-         1JpNEVIXIuPvi8BsoL7hGdXz0shTNU+la7srtDspAU+ZVwTCKFtMNIw+6sgUUhyyL9w7
-         cY0QS7O+ZTLaQCyWMtKD7qRQ6ihkt0kj5XYTHylmomYcAd0Y2Hi13gyUDT9kN9EhYs1m
-         2B3A==
-X-Forwarded-Encrypted: i=1; AKwUvBy9/Bp5rMHJ5jgUw68VOHjhmDGOp4NXdK6e0u8hd65obNTXQzuqSOSfeyojjye5uOMHAoTyXp54ry/naTg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKb7f3iC8v528uI7XffIyUUjMXITfonAF6UURRdT52xDheEBN16
-	/0fg9H0pWIGPfqWuLwtGtTGIG49mfFfaxaFhn5WZVsDdc/kLH0iLmphZ4W67kSCy1i8CU7NLJLV
-	K7EbOccx5ygOuTasJZmG+889PJzvF+ia5QhllNOQ9gw==
-X-Gm-Gg: AYBFou0sBzyTkwLQLjCM5rxPK1P9/dq0d4MfZan7jn1saHqaq7YFWImnz19IoJjUjm7
-	yBtHWf1mTfZlOA8SifBA0/A3j4kwUttZss+hNCXMB/GFP9JOGggqMwrYgpN+XSqJpYRUt2SfCQP
-	IfpVrEfXDNVaQ//l3dYzW2sLNuWtC+AmQwCH+6WLIe91QP2cn4HixvgEh+lWidCaBWbXR7kw5qY
-	Jsg14GeVK9n8Wp53X1pMJH7WRZVh80Wp2IbAtYM3r0N0xgw5sL3khI+2fhSC7oOlA6rM9TG/0X4
-	EBPCdvYTaSegng/FGKBv1OqLt/fIbFfnEw0aARVk10KTfhHldQX+dPZ7KI+fBV0Aj/QXEzA0x2R
-	o1evmWdShntdAR4GX/VbrOeN22/R2IKyYlthxG8x8peQ0rf7CUx9nWYa5u6TAxFnin+1qEkf6Me
-	U=
-X-Received: by 2002:a05:6000:2289:b0:488:8546:d0b2 with SMTP id
- ffacd0b85a97d-48c48023a32mr2361761f8f.51.1791019172398; Sat, 03 Oct 2026
- 02:19:32 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2964C1E8826
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791019260; cv=none; b=robnaNA14f4bmJGsuobjVxVdx98vKS23xHTdCNL2yMbupu6xRTqyI9Y77JSeGQlszVq83kueMZGs59JaYM+J73hjk9hBiKyYEdO/iT9HP4Fh1vs198pyu/9wfSKIv7h+r3A/XbEuWSYOyK21gRgQdfCWk+PiHgZ/9vScoEZy7BM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791019260; c=relaxed/simple;
+	bh=8nzK7FWrvXme97dinAHRx7Qpo9jfl6gKHt3KyAQSYQE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=syB3UwIopXp2Hum4eWbPn/oTudnzcOUBWFC8WjVxMHpd2V5nKtGk5GNKbdCU4fjn8uWV6/5rwNfjQZJSOf7h5VsL+c0F7q1FUswWb0IX6YyXaYGq/SSyI2oauemjc6aF5h5ot3uuIJObcJf2npC/gQT+Hu18Zc1Ougi82W8J3a8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ba06c0acbf0b11f19a56ed5b684f684d-20261003
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:8127941a-d752-4195-b007-7e73e10d6730,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:41afba2d285984cabde8621f902502be,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ba06c0acbf0b11f19a56ed5b684f684d-20261003
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 999042638; Sat, 03 Oct 2026 17:20:51 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH] ntfs: record an error when the ACL xattr undo fails
+Date: Sat,  3 Oct 2026 17:20:47 +0800
+Message-Id: <20261003092047.208064-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814123541.593613-1-jinyu.tang@linux.dev>
-In-Reply-To: <20260814123541.593613-1-jinyu.tang@linux.dev>
-From: Anup Patel <anup@brainfault.org>
-Date: Sat, 3 Oct 2026 14:49:19 +0530
-X-Gm-Features: AclHuK_Z0ksFSJd3YPpKJCJ3vTWpyr047A-VUpiGpFpHWBI599qCSz9eVjsltbU
-Message-ID: <CAAhSdy2TuVK==x2Ewj_yNhG=MkYx+Lrha8aPFA=ROociaG7dGw@mail.gmail.com>
-Subject: Re: [PATCH] KVM: riscv: Avoid redundant interrupt check for pending timers
-To: Jinyu Tang <jinyu.tang@linux.dev>
-Cc: Anup Patel <apatel@ventanamicro.com>, Atish Patra <atish.patra@linux.dev>, kvm@vger.kernel.org, 
-	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Nutty Liu <nutty.liu@hotmail.com>, Jinyu Tang <tjytimi@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 6:06=E2=80=AFPM Jinyu Tang <jinyu.tang@linux.dev> w=
-rote:
->
-> kvm_vcpu_check_block() calls kvm_arch_vcpu_runnable() before
-> checking whether a timer is pending. On RISC-V, kvm_arch_vcpu_runnable()
-> already checks all pending guest interrupts through
-> kvm_riscv_vcpu_has_interrupts(vcpu, -1UL), including IRQ_VS_TIMER.
->
-> Drop the repeated IRQ_VS_TIMER pending-interrupt check from
-> kvm_riscv_vcpu_timer_pending() and keep the helper focused on the timer
-> deadline state. If the timer becomes pending after the runnable check,
-> the timer path still injects IRQ_VS_TIMER and kicks the vCPU through the
-> normal wakeup path.
->
-> Signed-off-by: Jinyu Tang <jinyu.tang@linux.dev>
+ntfs_set_acl_ex() commits the new ACL xattr before it rewrites the WSL
+mode EA, and removes it again when that rewrite fails.  The removal is
+best-effort: its result is discarded and the EA paths record no error
+state, so when the removal fails too, the new, typically more
+permissive, ACL is left on disk while i_mode, the mode EA and the
+cached ACL keep the old values.  Once the stale xattr is loaded again -
+after a remount, or when the cached ACL is discarded - a chmod 0640 ->
+0777 that reported failure leaves the file accessible to the relaxed
+ACL while stat() still reports 0640.
 
-LGTM.
+Check the removal and record the failure: NVolSetErrors(), which the
+next persistence point persists as VOLUME_IS_DIRTY, and a log message
+the errors= policy acts on.  The flag cannot be written to disk here
+directly: the target inode's mrec_lock is held and the $Volume
+mrec_lock cannot be nested under it.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/ea.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-Queued this patch for Linux-7.4
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index b4fcfbe2da4c..3940ee9c685c 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -1084,8 +1084,24 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ 		mutex_lock(&NTFS_I(inode)->mrec_lock);
+ 		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
+ 		if (err) {
+-			ntfs_set_ea(inode, name, name_len, NULL, 0,
+-				    XATTR_REPLACE, NULL);
++			int undo_err = ntfs_set_ea(inode, name, name_len,
++					NULL, 0, XATTR_REPLACE, NULL);
++
++			if (undo_err) {
++				/*
++				 * The ACL xattr is committed already, so a
++				 * failed removal leaves the new, typically
++				 * more permissive, ACL on disk while i_mode,
++				 * the mode EA and the cached ACL keep the
++				 * old values.  Record the error: the next
++				 * persistence point persists it as
++				 * VOLUME_IS_DIRTY.  Run chkdsk.
++				 */
++				NVolSetErrors(NTFS_I(inode)->vol);
++				ntfs_error(inode->i_sb,
++					   "Failed to undo the ACL xattr: %d",
++					   undo_err);
++			}
+ 			mutex_unlock(&NTFS_I(inode)->mrec_lock);
+ 			inode->i_mode = old_mode;
+ 			goto out;
+-- 
+2.25.1
 
-Thanks,
-Anup
-
-
-> ---
->  arch/riscv/kvm/vcpu_timer.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->
-> diff --git a/arch/riscv/kvm/vcpu_timer.c b/arch/riscv/kvm/vcpu_timer.c
-> index ae53133c7ab0..0e01bd793772 100644
-> --- a/arch/riscv/kvm/vcpu_timer.c
-> +++ b/arch/riscv/kvm/vcpu_timer.c
-> @@ -132,11 +132,7 @@ bool kvm_riscv_vcpu_timer_pending(struct kvm_vcpu *v=
-cpu)
->         struct kvm_vcpu_timer *t =3D &vcpu->arch.timer;
->         struct kvm_guest_timer *gt =3D &vcpu->kvm->arch.timer;
->
-> -       if (!kvm_riscv_delta_cycles2ns(t->next_cycles, gt, t) ||
-> -           kvm_riscv_vcpu_has_interrupts(vcpu, 1UL << IRQ_VS_TIMER))
-> -               return true;
-> -       else
-> -               return false;
-> +       return !kvm_riscv_delta_cycles2ns(t->next_cycles, gt, t);
->  }
->
->  static void kvm_riscv_vcpu_timer_blocking(struct kvm_vcpu *vcpu)
-> --
-> 2.43.0
->
