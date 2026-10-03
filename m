@@ -1,138 +1,117 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E6A3AE704
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 11:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791025926; cv=pass; b=Ppj1bHH9LQBZJJCAHf8jvcAJHJepfIhejIiEJ+L+JkNHU3bImNGrtPGw4ls5v2GqMufZxOnh+gozTaNLoJsgiOO8BT4SqNnRvjLjeDIFPmdHQ4uDwylzY5hosMlEwdkmZcl+1sFoVNPEpsdPCQwx2WIs5r6tV+T+RXhzSLXivU0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791025926; c=relaxed/simple;
-	bh=rLgxAjUxQiSdL6QzfFYoFCwEhfYuwxFVk8+D/cQg3Os=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IHRe8RBxuljNFB3OBNHrIBlD8uwUUEFuKCAS21e+OID3j91l3RIIMLMy6n5QEv8qoCAbigTmvSuDgJMol0U0pH5GiO8eAGdzrTffjzEs1zIuUzazy9zyactI44m9Fli60fv0KCb/cSOsqmXOVCOu+ZnrDL8UuAH4tfKxAJ2NT0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F+4vk1OE; arc=pass smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2A8395DAA
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 11:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.196
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791026157; cv=none; b=n7rWl4f/5h+wXcgJ6S8KlFUU3G6GxtXVzaiOfcyukp5u61LtImw2bbBhmDhkjcQOHjDYHudOyzw8OoMNWm1bgOiZ8Z9GDZW1U/MgtX+NXsod2kNn4wiZWkaVIghs44caLokECUBIwbq+UQba6bsn3Sx7RIw3kUWbjis/4lfirRQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791026157; c=relaxed/simple;
+	bh=7xxXDcUde6EpFAuOg1k05rK7RmlUKHgkwvpPXJYnI1I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eUYdMaWX2R8xRB5aZ7TSk9XryZ23UpDX9Jl/25CZOv65f7fHwyKhFysdlMxUjH194WWS9tF6K/WHv5WNmEwFwiVpcyAMPREWd4J8g0FTEE89tYy+y4Gv2v1ZXl5hTatV+nAvEDbtnmRxNn3B/2pG61Fc6CajguabGNsuTVp++sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=quTUAk4u; arc=none smtp.client-ip=95.215.58.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F+4vk1OE"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e4a341d177so2345205ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 04:12:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791025924; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SgIwE1wGuHNPb3qTZWZsGrHuGZw9bboBsoWUk4mP0cz2xUyiuCWLf3KJDIobZlq057
-         l6KHsjFocE2Gbp8ZIxXKOypAN39phcqV3jKXraUF1MP9ybO+sU7XM6bcKDtme0+Dvtcl
-         VEE/EGo5S/5WxwWo64NzjcTT1YKTZ20zSXAFFqr2EgPvH3zXTr0oy0/Ko2UMMLcGISlf
-         Lobqn76XhXVZTsummhrO74BBj2t+xlqvjfAQcuoW/LgwYB46bsN3EbjPjvUyX6vuVp/s
-         Q48gunaIgc+3Er8KTFuUgEzs7tH+DN++yH8my2WVXaD5U55uBO9Fe/n6sOSVRDNnArLF
-         ewvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ZOkPI3tXRwTtIn8qocSrw0Y1LMVW42C4jrO7SmDiYa4=;
-        fh=JNba+Wg7Zu9icl1JL4Cclwbo3qNRBudKafvGK2MiJIA=;
-        b=NQp9NFN8PYV7ckCiplsfSxEEsdAX1PkdVHKUtmPIZOyDbWF2Dkjtojh0EjTmgzuDgQ
-         2vaVm9JMkVwtSInBY8qeRSVxQLrHp5rPmEZUQ90gQ25X4JAWMeMSlPkXNPpO0thlHyzR
-         6sojpxno/iSs0yNUFzjLAq/4k1+soZdQb1Aa1aocSfetSl00+dlrypHXpGXhSK/Khq6L
-         DI5/yNULADjmv79PVVeW62VzgUCxDVgDo6XLyVTav0KvBeOVhZIxtB738Fxoxuo4GD9u
-         5tLAY16MdE8MIZfinLZn1m6P4e1c1R5ZDkJrkMvwy8DrWaqMYSFAe8yW35yNgIsm2I2Z
-         kbxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791025924; x=1791630724; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZOkPI3tXRwTtIn8qocSrw0Y1LMVW42C4jrO7SmDiYa4=;
-        b=F+4vk1OEuO9TVU08gykFc9++gSdfE7fGmjpGD+LsXNUdNzr50lJ9naeormHtDMm95E
-         Ime8CafGVXmVfsiyACyTtEsV6uig/SaIzSRY0LHeHXk6+lWg/aPICn2iHWekbguQ7Rg0
-         Ww0RHS7Fb8OcmDC2vg1EV1NbssItwd0NZKvkb493+aUZIfEqexbdkUQUkKV8+0vqw01l
-         euaIxNYx9hhQYt/pcsgMc8UTOBX3XL87MN3WfmTsnc/cfIbnMNRMrSUqlUJvZec+SyhY
-         skA2fQjII32ZLII+lSoc9mn7iBcu+Z5C39oXhTdI0/843do8i6xvHipAF0K3EPwBoCJv
-         7+tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791025924; x=1791630724;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZOkPI3tXRwTtIn8qocSrw0Y1LMVW42C4jrO7SmDiYa4=;
-        b=Tf+/0avEg+HoriksVKcJIaO2QIXbjbatTSobOsjeYZEL9Tb3cqzXHxQXO9lFEeucfc
-         uinncGpdzaj896hYyysS0uMBb7lNNWvnH1UbcXwh9Z3PkYYAAxfwpcZ7Ep0qPs0ZPYY6
-         hDaFImRI/Tw0Jnp44M+v0AvKz73mzMu0XySCFhBP7VmBgtw9d6XlvqiBLmtxBqWTSPX3
-         R2n2AKevOyIehalYNdz2RUtFakIkrGRS56zvnM025UL4+4Uwk3/9sSnOVjDfjmIz+Tzs
-         jzw7EGC/Z7qQud+H9TGBy90CZgO1ffprj9GSpdGa3PTH8wGwc8pTa1wK1UyFvdF/tGLd
-         uDIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZPZb+/AzuK8XBK7NyTb72+QFa+OHujmG4rkVkwsWR95UGReoTTqqLu+gko4wIeBCmIfoGRKOS7LG1CoA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5kzcVGNqqNY3vbdw2pEYTnpAC7kiRcrvcGDgOxp6Ww9MwQxNB
-	If8ErExd5kUP6VlzVM6VldHx8nuMKfygXpOUxwzEHgYaL0bZHkOPre/VSDt54gLZrSqSmCep0Gd
-	efIdAVadjh/yh6oJUQSFsYQXGvDavTyDpNbfm
-X-Gm-Gg: AYBFou0CH+Q1xZ/GcknJhyvx2lvUBZw37MRy68RYi1QG9vTZv5JpldQBGjrAmOTx3cu
-	c3EwkO2Lwq6vkitFQMdtT/CT7HTtkc9bI2FCeXEaB1QcJOP8ZRuJPNsVjApxbpMfNpOqFa4yv2l
-	gevEo0HaYks6TstaFMXXe78L3VNq6E/pAfnX26+DPOIP5q8jOym7b4tFxgImWSRaRq9R4Lwmq/F
-	E+h4Yg+tir+/jRkIQJuo4GRNRRJVC7gvB0WLYXQN37vvPBPJF3pYPr9H20gcPsYv1adPnFwSDGJ
-	P7IJhN4loOEnIO5XmOIOrKC2Hc0ozf64qKhGOVKJD9ZjS3Kf1Bo9nl8ayyRaCyIBVzKrjLwSRM5
-	LM5RNxiD+QLt3+hrbIWKJH1tIiqRu9tlpn45ljTSg79heqg4LtAbFY8VS8wqwFjhLc5sViOAp+m
-	/XkKHd0rKla3iw+YE9WFdcwWztPQ==
-X-Received: by 2002:a17:903:2406:b0:2d6:ff5f:eeda with SMTP id
- d9443c01a7336-2e4ea0db41amr21785615ad.6.1791025923705; Sat, 03 Oct 2026
- 04:12:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="quTUAk4u"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7xxXDcUde6EpFAuOg1k05rK7RmlUKHgkwvpPXJYnI1I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791026152; v=1; x=1791630952;
+ b=quTUAk4u0A0/ZTCGmoTM3imkOFWrmeHBDhiuSxvFq3RQZTtLa9tpMT4xd8Xqtf9PpguOfx19
+ nSasY/VUFRa+2znvt72XDLaZ/XlwJT2qt1f24EwcMLXqNkAXEk6Xb91cuFwPXz5ohZCNEF5M/Cn
+ oxoYKPrJrwPCvcqjzjlxUruA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 3f83462abb89ba21;
+	Sat, 03 Oct 2026 11:15:51 +0000
+X-Mizu-Trace-ID: 3f83462abb89ba21
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f3f0a7a2-9a91-4cb6-8cc2-4e5b0b914a1f@linux.dev>
+Date: Sat, 3 Oct 2026 19:15:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811041934.7609-1-phucduc.bui@gmail.com> <ar_fLAeFU4rmrwiH@willie-the-truck>
- <CAABR9nGqwTGcrr6bKsV5+0GYwkQoP0s_Tu6aTJrhJJW_ZRqFYg@mail.gmail.com> <asCyI2_CNSoDJy1w@willie-the-truck>
-In-Reply-To: <asCyI2_CNSoDJy1w@willie-the-truck>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Sat, 3 Oct 2026 18:11:52 +0700
-X-Gm-Features: AclHuK9Zi1mA9PZ0oSISuDkDrpCS_y9Tgcj6SbSA32DMxp-Ws9T5eeG0iizhVxU
-Message-ID: <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
-Subject: Re: [PATCH] perf/arm-smmuv3: Propagate errors from optional IRQ lookup
-To: Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v3 0/3] block: Introduce a BPF-based I/O scheduler
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
+References: <20261003042748.33795-1-kaitao.cheng@linux.dev>
+ <DLV3OID9H5E8.2W0GIOP8FHJRN@gmail.com>
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <DLV3OID9H5E8.2W0GIOP8FHJRN@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Will,
+在 2026/10/3 17:36, Alexei Starovoitov 写道:
+> On Sat, Oct 03, 2026 at 12:27 PM Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+>> PFQ gives us a concrete policy to explore how well the UFQ interface
+>> supports more involved scheduling decisions and to guide further work on
+>> the framework. It has not yet been used in production, and further testing
+>> and workload evaluation are needed.
+> 
+> Third version in six months and still not a single number.
+> v2 got replies from the bots only.
+> Without a solid use case there is no point in polishing this.
 
-> > > Not sure about this. If it's optional, why should we bail the probe if
-> > > we don't manage to get an irq? Surely it's better to continue without
-> > > the interrupt in that case?
-> > >
-> >
-> > platform_get_irq_optional() returns -ENXIO when no IRQ is available.
-> > Other negative return values indicate errors, including -EPROBE_DEFER.
-> > In the case of -EPROBE_DEFER, we should propagate the error so that
-> > the probe can be retried later.
->
-> Thanks, The -EPROBE_DEFER case seems more compelling, so perhaps we should
-> check for the expliitly (because it won't fail the probe altogether)?
->
+Thank you very much for your review. This is a fairly large patch series,
+and I have gone through several iterations because I was concerned that
+my approach might not align with the community's expectations. I wanted
+to get feedback early so that any architectural issues could be corrected
+promptly. I am not seeking inclusion at this stage; I posted the series
+for discussion. When I started developing this project, I wasn't entirely
+sure it would work either, so I have been writing and testing as I go, haha!
 
-The idea of the _optional getters is that only the "not present" case
-is turned into a special value (-ENXIO here, NULL for
-devm_clk_get_optional()), while real errors are still reported to the
-caller.
+I have actually run some fio tests locally. Initially, moving the I/O
+scheduling policy into BPF caused a substantial performance regression.
+After three iterations, however, the current implementation can match
+the performance of native schedulers such as mq-deadline.
 
-Besides -EPROBE_DEFER, platform_get_irq_optional() can return other
-negative error values depending on how the IRQ is obtained. These
-indicate an actual error rather than the IRQ simply being absent.
-Ignoring them would leave the device running without its interrupt
-and no indication of what went wrong.
+It also performs comparably to the none scheduler on slower SSDs, but
+there is still a substantial performance gap on fast NVMe devices. My
+analysis suggests that this is because the none scheduler can frequently
+bypass ordering in the ctx queues and issue requests directly to the
+driver (see blk_mq_try_issue_directly). I'll try to optimize it further.
 
-So I'd rather keep:
+I am also exploring and testing real-world use cases, which is why I
+developed PFQ in the third patch. Next, I plan to evaluate PFQ with
+foreground/background applications and with co-located containerized
+online services and batch workloads. I may be able to share the results
+in the next iteration.
 
------------------------------------------------------
-irq = platform_get_irq_optional(pdev, 0);
-if (irq < 0 && irq != -ENXIO)
-        return irq;
------------------------------------------------------
+>> In particular, I would appreciate suggestions on the boundary between the
+>> UFQ framework and BPF policies, the struct_ops interface, and request
+>> ownership and fallback handling.
+> 
+> One global ufq_ops for all disks is not the best shape.
+> I'd do it like bpf_qdisc.
 
-and continue without the IRQ only for -ENXIO. This is also the usual
-pattern for platform_get_irq_optional() users.
+Good suggestion. I'll give it a try. Thanks!
 
-Best regards,
-Phuc
+> The ownership is the bigger problem.
+> The request sits in ctx->rq_lists and in a bpf map at the same time
+> and the kernel relies on the prog to keep the two in sync.
+> The prog holds rq->ref. rq holds q_usage_counter until
+> __blk_mq_free_request(). One request that the prog didn't return
+> from dispatch_req or left in a map and blk_mq_freeze_queue() waits
+> forever.
+> sched_ext has a watchdog that kicks the bpf scheduler out.
+> Something like that is necessary here too.
+
+When the BPF scheduler leaks an rq reference, system I/O does indeed stall.
+However, because the requests are also kept in ctx->rq_lists, everything
+returns to normal once the BPF scheduler exits. A watchdog that kicks the
+BPF scheduler out is necessary, and it's also something I was planning to
+implement. Thank you very much!
+
+-- 
+Thanks
+Kaitao Cheng
+
