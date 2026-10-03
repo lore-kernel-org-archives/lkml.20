@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E18357D07;
-	Sat,  3 Oct 2026 15:25:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4201943DEDF
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 15:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791041118; cv=none; b=rRhH3HPdCY6tnmcaEBcvTUAr95gHigpCk4/70JBbyOabuJmuNjPhQW+dc1Cm/u9/B0IQTnuD5d/qkSGs9QdWBCjhOnERhGpo/8Jkms70HnHqAzB5Xd3x3ZM+orfj/4WmfqCaiBrr2r11I7n1r2TcjDDIT2+7KOa/iF1Nnl1svfQ=
+	t=1791041121; cv=none; b=D4pU44JKZ1yLLHKB2Uf4oZzbtyn0IiV5612maSFFrT2S55UaN1MSLksP65xG1yJ8aT6GGCCqkzYwpAr/94WjukA7+QxxyHMs6CjpOrV8zoTnf3dCg/n3Kf4KAQ4TGynSP8p41/C7nl053CiQvpQwzFrG2yi5mrYB13frbtb4sMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791041118; c=relaxed/simple;
-	bh=sDoFKaoyWRCwJKFiSvqolIPlwHWZdVZVcgzRP0Lxawo=;
+	s=arc-20240116; t=1791041121; c=relaxed/simple;
+	bh=nVTeKTRzwJeNV7j40u0xXS5IwjGrjaN1WEjX/Ql5KfA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FzJ38ruE0orkLjAE5YkEjOZIlQoJMrxzrsO5capD7ewEV7UFLoJTgsIeB95bQeAJ8sAsImCzbeY3E0PysMQe95u71qI4eEnScO0Fq/sF4+jDAvo9e5NEpKxF4vR5kqNHuqzVeSh0JyeCkZSmAbg9tfMZ/P0yGGVHZExxrfOJeuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAoqDat+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tQbEZugPKVPa6HhbAIuFke6f9Mc0LtJRH3LlfEf1y9MVrUY6P+Bmx7zeAcWvlDgAEfkMLVgU6AljZOpSWC6x8aUhk88TFjB307XdkuJvo6JQR8LmxTZHUU2s3FLZ+GTrv8I4ec+GtD8hvwyM5doAEKjqFnYg00BnkluN3eU5WG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxpJPO9Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAoqDat+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8701F0089B;
-	Sat,  3 Oct 2026 15:25:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxpJPO9Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042F71F0089C;
+	Sat,  3 Oct 2026 15:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791041117;
-	bh=MX9aB6PwQHsHsiY0tEeijH0+CAtN1fEbIer9DwvycAc=;
+	s=k20260515; t=1791041120;
+	bh=DiX5YW6EBF7WudDBAa3mCh5+8hepxsK5EmgVDcVUaHs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=aAoqDat+Q89oO/U4XsYvv+6iolQlUiVFN2uAyCGDz9O8O5zeNf0bG9/M5BtZVfbRA
-	 y9vpNHqOqXKntCf5ly5efU77IKcGAPsbjCnJ5AOySwX32MWJ2Hlj2tRrwCGSGS0rfE
-	 6e8aEXzKDNQlyvmteKbXFUNUFx2vorFfutyKmDWOZF7Q/ypTCubxFVRgwpidjfqBAD
-	 qUIOWvYgBu0kDXgJBNTLILGsXLSqcFL+4nOrAztAnmhMVwO1z19zfE2GzlVCWteRzW
-	 HKfz+COj3lDOhi/JAF7BaVJTZhKP0FCWFlOfNSeiTAKShGexJvyGWqfyXlFOpwjGc3
-	 939xtt+1OLawQ==
+	b=KxpJPO9Qmv2UgUpdX5duGVS+kcrJcLxiLByfXnXLACZpzcadShH9Ab148O92g8LYx
+	 3n4IWgPohS6M+beqz1UK5gL6Aykjda4JVWuRBu2mIyJ9ytS1ru2a0M5+mTtQTXERv8
+	 rto/2CSxMpZD8UbhRJvRq0yZ/RpjBLcOPpo2hQr0WGHROIpDGCRREEiRVaEr/7q1X/
+	 xYu7XQW3+gxpqgYjlefdOoafEgWwLkMeHZIkVX0xgCyE9dNdvZhNB2Zhx9z3bprTTf
+	 CvtwmoFlkp3jrcXTLJVk+sxgANh1xV803u9i68pbUHOASGA6CYrK2ZtOu9LNN77Sz6
+	 Vh2/3utiS3vmA==
 From: Vinod Koul <vkoul@kernel.org>
-To: peter.griffin@linaro.org, andre.draszik@linaro.org, 
- tudor.ambarus@linaro.org, p.zabel@pengutronix.de, neil.armstrong@linaro.org, 
- RD Babiera <rdbabiera@google.com>
-Cc: badhri@google.com, nkapron@google.com, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260925222959.3607769-2-rdbabiera@google.com>
-References: <20260925222959.3607769-2-rdbabiera@google.com>
-Subject: Re: [PATCH v8] phy: Add USB3 PHY support to Google Tensor SoC USB
- PHY driver
-Message-Id: <179104111428.223537.9712692661355161326.b4-ty@kernel.org>
-Date: Sat, 03 Oct 2026 17:25:14 +0200
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Jason Yang <jason98166@gmail.com>
+Cc: Heiko Stuebner <heiko.stuebner@cherry.de>, 
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260821-dcphy-rpm-v1-v1-1-a7db728b2539@gmail.com>
+References: <20260821-dcphy-rpm-v1-v1-1-a7db728b2539@gmail.com>
+Subject: Re: [PATCH] phy: rockchip-samsung-dcphy: Enable runtime PM at PHY
+ core level
+Message-Id: <179104111766.223537.14780886695955286078.b4-ty@kernel.org>
+Date: Sat, 03 Oct 2026 17:25:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,21 +51,20 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Fri, 25 Sep 2026 22:30:00 +0000, RD Babiera wrote:
-> Add USB3 PHY support for the Google Tensor G5 USB PHY driver.
-> This patch adds functionality for the usb3_tca register, usb3 clock,
-> and usb3 reset as defined in google,lga-usb-phy.yaml. Kconfig now lists
-> USB SuperSpeed support.
-> 
-> Refactor the probe sequence to initialize the USB2 and USB3 PHYs, and then
-> initialize clocks and resets for both PHYs afterwards.
+On Fri, 21 Aug 2026 19:44:19 +0800, Jason Yang wrote:
+> phy_create() only enables runtime PM on the new PHY device if the parent
+> already has it enabled, and this driver enables it afterwards. The PHY
+> device therefore never gets runtime PM, and phy_pm_runtime_get_sync()
+> returns -ENOTSUPP for every phy_init() and phy_power_on(). The block is
+> still resumed today, but only through the supplier link fw_devlink builds
+> from the phys phandle, which fw_devlink=off and =permissive do not.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] phy: Add USB3 PHY support to Google Tensor SoC USB PHY driver
-      commit: 8c2b331e6327ead44e72e347ce405c21dd781a99
+[1/1] phy: rockchip-samsung-dcphy: Enable runtime PM at PHY core level
+      commit: 261e84f9278f4373970471ad71479df20d82ed4c
 
 Best regards,
 -- 
