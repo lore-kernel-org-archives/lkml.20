@@ -1,117 +1,141 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C88391E5B
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 09:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA49635AC3B;
+	Sat,  3 Oct 2026 09:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018945; cv=none; b=GQjj4arspOxuzHVYVwwD5db9qtH8KnpgJWRxoERTPh6oJB1TljCFlgMkVgTfAHh4LduDRgV4l5sQzpcbGPlx+NGwZjp4XgywynjAq10Hu7AFtGDgG1IhLnPxJ7HRpZmCukWVs4lHhDe/YPjLdXOZRd93SsvC2Ag2lE5GDZ/4hDM=
+	t=1791018957; cv=none; b=i+F+o7D0dYU1iuvEoT8grsfIM0rAl1dXltIe0FWFTKdKj/hEw2sq8Qy0yaoq6U1imPfDPDyi/f1lq8YLbcfqHPlq/ugu8I3YusiK9psixUA3EgCTw+XeKYdLXG82WPAuWbvJb/86K107Qom0bBuwkBX0lDnpsovCK/8mCTnxerc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018945; c=relaxed/simple;
-	bh=5Amsj13Ypf+VNbZXqe2Aip4i68WKcfoJI3MkINWORYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rE4xI1W0CKPaIXzmOMHtslJDO/1AS5gxI5a37OHAphUsoeS7pZJMPp1ZKPVZBxibwGlm/9/9N2bBQ96jb1FwV3ldNRtuHkGbLuv+DJycIhB1DC8cPwyCFExygIB67Zn8lr/MhWKYfmhHsullMgZNHD4nD85rK2pfYvDKj/7Lc/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KuoQv8oS; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791018957; c=relaxed/simple;
+	bh=CnoeupIy68H7jKHUDANBYnE/s3sNUkEDj2ifkLis788=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NrLyqZm5LqagQNLkeifr0S3jlom6iHv+q2yk5UgrJ5erJ/c7Q1g7OAzSCdU2CApTK7ZNh3vh7kXy2zrV8e0oxcWKfd1XtNTyQWGCGK/p/tyjVNF/Xua3DQwRSKx5ae3MsgkFUEBCRmu4Q9TcFvSaUF/IKlYAaPYMFLJSr7JOLvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VwX8EQ5T; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hb3miPzS; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=s2AFsxGX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=w/64bfQu; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KuoQv8oS"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so94365f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 02:15:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791018941; x=1791623741; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EL7Wt7gCvxigatArl4vYdYfYVLxu4uqJTJstEATQ4Rk=;
-        b=KuoQv8oSidVn5GsKfTxOq11yuq8ZhuV1nwJ00BuiMrqVHuHD1G4mWS6cvwiPJZptEO
-         qzQTTAd5cFrF9MAjvoKNOZgS/K7TmSUfDhVbHrUnstp6T/Igou1ATf/lwUaEo+3SDbHa
-         xcO1wuUr8NvjE/9MubWS0sVij+uXZMQt/WJW0IBfvJjgGZVSJYs2C90rnyGDA9GnDLU6
-         o6aQKSZukNOsEP4cMqNUN3NSeu2+blA76zvg1NVhAnIadlgmgEiB3j+D5vDDX4VcdBYX
-         5TmZC69xKbWzQlxIpHWhzn2cjifKY3oN1yXXaM23Iy/EOa0ii+XZ58duPNkfFCshk5r+
-         sdpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791018941; x=1791623741;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EL7Wt7gCvxigatArl4vYdYfYVLxu4uqJTJstEATQ4Rk=;
-        b=mESZrbZ/NVNw+oAB5HzcK3+q2eOqovaac6vGB1BzddvHAynIJ7T7b5Z+nqdVsN4+dg
-         2cPl4qQKnSvXNsBN/yNFrWkdECxezhE2K3iiyJdSSr9ECuUJ/AhSMjhugutKxD9ACK3c
-         bi1tC4+0+6GLWbTly6JM2YQJwR9N0/QYPnD+TSafYLcs5+cMscokY4rkws8sHHYhyXr1
-         I74lD2jXnRowDVG1/Y0CkJ3HTMoBtTIOeEee9iQbfdv4YcMVpGheY2ft7o9raVW9aBbT
-         nK4HSb2V8aQXPBArD11HMeSVyKYY/yqjRO485pfxU8buSbt2eJVe1C19IL9lo70Snuxi
-         705w==
-X-Forwarded-Encrypted: i=1; AKwUvByx4VaKK7lIUbjJaq4SyPm2UZhs7y1f3lMhqfBEaDQkV3ZMLdZntWIrm15zOKBBMI2Kb06un22t9+noL3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/tT+p+M8h2G/YzDTJYE1Rzjfm4ekIk4tzIs/AZRhXl81QPNbf
-	f1FEVuCub9F6Zp7Ed41MZq97F/qYsRrSHN5cpt9aNGaoHVTpKsYvvzAm
-X-Gm-Gg: AYBFou3IoFyOB9WaXlif8Xz7U1EwmXtO6H/5kiIM2dbMbD1JaXRGT7vKkvXIUJ/kjTN
-	yLZDbOKWfrwUEqrydfFNfcTNp0oltILo70UZo3fFj6gyw9/ttBs5CMns3wZzX1PmSYz+q2cU2vo
-	evsg7r7HLcps6R2yHZDfljUNRNMTPo2aK/+wFDeg3ChQmVaJvfHeQCnj8WmQlEgw9xVIxoWLEqQ
-	mN6VOO2xrVRDzPixZotxOgQ9xyjJU/qxYFvk28BL5kikipKFd7/pL/a2UIkWcWhUR4uNwzJQthZ
-	WQzV5vHyNuxBM1y4U8FuBzmq/+mqAd5ENX+pOuJpK6swqAiuP54pbJQwZKJLsRG+R+jnLNoRb7E
-	B5MNJJjzdxUO337uLrvfYtU/MOXEgztrsZ8LBImcBIquVuNDF3BzYvHvZIZGUczAKW9cT/SG59H
-	39fusng3foNs4o2MZ3yCf+r+Ju6FT0w3SmRpj/LfVMg+eDEfye0KVAcLKW98j7paLarDdRzieQD
-	qclykAfuqc=
-X-Received: by 2002:a05:6000:2c0a:b0:48b:7179:59da with SMTP id ffacd0b85a97d-48b71795ad8mr8328190f8f.1.1791018941391;
-        Sat, 03 Oct 2026 02:15:41 -0700 (PDT)
-Received: from FranzSP11.fritz.box ([31.31.60.25])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253dc9sm11336161f8f.3.2026.10.03.02.15.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 02:15:40 -0700 (PDT)
-From: Franz <franzelfranzel@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Abel Vesa <abelvesa@kernel.org>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VwX8EQ5T";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hb3miPzS";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="s2AFsxGX";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="w/64bfQu"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id AD7C91FECE;
+	Sat,  3 Oct 2026 09:15:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791018947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
+	b=VwX8EQ5T/56zVpBjHSp1vdd5t2qEMGHR21lCc+9Wvkxz3FwLS2AW02QwqL/Tv3SFkVQyqt
+	WkGXUYrmDQl0OdVbz1rUvXWsZUHplOXveNW3hR6jw6KIN1hjm0db8kn1r8TEPxmeQh9+wM
+	egMQKwzHPBrRiGNJvG635Eg1hYJmGt8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791018947;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
+	b=hb3miPzSTXv7/IBIOrEljhsMbDU1zz1uVPju+T/BvjXbsXfbQJ0nY6Exf0u555jXee0Z2R
+	HmDut1/un9qEfADQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=s2AFsxGX;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="w/64bfQu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791018943; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
+	b=s2AFsxGXNe30KZ/7kfSQ1z8N7qbiMumoWqQNT1Vvbon2W18YYDHLpxF2/7/RTusLl3SpzV
+	TbAMMaEBdljSkUJABXcVlessevjJXgaYwDxd7e8Sml9/cNt4rR0H3m+8nL99E9DTqNA19S
+	+M1H3L+CP4Uo2tTIv227x34pFRzAiS4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791018943;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gFLCpurLLtyjX13vW1bx1QmkkJEK517zWagV5t4gg5s=;
+	b=w/64bfQu57n6asEwg6VgxFG2EQ3IhQgxJRyQnHAGX0Bk1onORWVw4V2v250aOyEYaFvo1m
+	h6+HYFjrv9/u4JAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C8DA13712;
+	Sat,  3 Oct 2026 09:15:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 8nVODb/HwGr0IwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 03 Oct 2026 09:15:43 +0000
+Date: Sat, 03 Oct 2026 11:15:42 +0200
+Message-ID: <87jynzxhz5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Harin Lee <me@harin.net>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 3/3] arm64: dts: qcom: x1-microsoft-denali: disable WCN7850 hardware rfkill
-Date: Sat,  3 Oct 2026 11:15:09 +0200
-Message-ID: <20261003091509.4822-4-franzelfranzel@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261003091509.4822-1-franzelfranzel@gmail.com>
-References: <20261003091509.4822-1-franzelfranzel@gmail.com>
+Subject: Re: [PATCH 1/1] ALSA: ctxfi: Fix memory leakage when clearing DAO input mappers
+In-Reply-To: <20261001144501.3050667-2-me@harin.net>
+References: <20261001144501.3050667-1-me@harin.net>
+	<20261001144501.3050667-2-me@harin.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5]
+X-Spam-Score: -3.51
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: AD7C91FECE
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-The WCN7850 hardware rfkill input reads as "radio off" on the Surface
-Pro 11, which keeps Wi-Fi hard-blocked. Mark it as unusable.
+On Thu, 01 Oct 2026 16:45:01 +0200,
+Harin Lee wrote:
+> 
+> Commit e576e7843c0d ("ALSA: ctxfi: Simplify dao_clear_{left,right}_input() functions")
+> centralized the DAO input mapper clearing logic in
+> dao_clear_input(), but omitted the kfree() calls.
+> 
+> It removes the mapper entries from the list and sets their pointers
+> to NULL without freeing the allocated array. This leaks memory each
+> time dao_clear_input() is called.
+> 
+> Store the base pointer of the allocation before clearing the mapper
+> entries and free the array after removing entries from the list.
+> 
+> Fixes: e576e7843c0d ("ALSA: ctxfi: Simplify dao_clear_{left,right}_input() functions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Harin Lee <me@harin.net>
 
-Tested by adding the property to the installed DTB with fdtput, on
-next-20260929 with the matching ath12k change.
+Applied now.  Thanks.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Franz <franzelfranzel@gmail.com>
----
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-index a71c29762..36592b8ed 100644
---- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-@@ -1009,6 +1009,8 @@ wifi@0 {
- 		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
- 		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
- 		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
-+
-+		disable-rfkill;
- 	};
- };
- 
--- 
-2.56.0
-
+Takashi
