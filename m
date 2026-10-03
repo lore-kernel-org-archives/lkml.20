@@ -1,129 +1,149 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C917733B6C4;
-	Sat,  3 Oct 2026 19:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B0933B6C4;
+	Sat,  3 Oct 2026 19:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791055597; cv=none; b=E/fbhK5boorsggPsgclzQSm6lMx+HaUxTMCk0XCOv/PsS6KVuYnrnRf1iRdE+/QVGKT3i7PWCHulF1dQLwK77kVfoTqXe6G34lMs7hNNzy/rldKA8Xd8K5t/C4DsojgrL67hV9eFTjkdzEIAfjnJH1n1RcKGmfNRxcUW1OvMfYo=
+	t=1791055618; cv=none; b=NE9WZEDDt//LNKjWXKx9ZOBXL278vN6wiQU2F4YTDp6BMuvYx5gWwnNmBm0wSfTCZ0+4BHXyFUQEedaU/EyIeRfii35wMACjpRyS+klIinemrOJ+z3LP+241bjdPqMHiyFmRet1Cw4ALms8+v0ZrBRuSQcKLbpaANSg37V9iQdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791055597; c=relaxed/simple;
-	bh=ne4DE2Kbps8U9ue9LceVqg74lnohRogFSoEolKYwoRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=q6rdu8PHckYjtu+aXOPUW1V/oCgz8ZBPfD42xMKNwxJ1Gc7f2HODYQYW2NuT0VIqLgzB/lwSSRPQ4eWtHnTn1M3WrVvRfDZwuD1Uy6CSbmzY+JE9+xkoYbf3sXxv2wYcCk+NumsZMqFbrCHaI/sfihLmTfCmfBrE+QLyn6N2ng4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=CyscC9hv; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791055618; c=relaxed/simple;
+	bh=xV6d1koFfM5m9rdRyW20nsERICuE43hApgH+Tu8v7gk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E9v3wDoiZX7H9kAy3CXSgcE1lyiiB7FHWQh+WsGqzi/JmmJnELE2L/aMaeK0htNSYDdxXLxPo7wWoMebnAEEv03FH/4wZrHQY78+FGOAKbIhpHzq0scGveUjAGloXefPBblYg3XJodWIxJS2LA6bLB0B4AuquGu4+steGLQoJ5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lyOvRaeb; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="CyscC9hv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=DUnsrRI8Dm7GcYsyfjeM01fsNT7D1vSKGaEorMuk4N8=; b=CyscC9hvPlLWkMjMLoa/3Fqn1F
-	vOS3RTmIhxCKUrz9YFFAf1gCC9ktt3RB57J9UYUq79sis5iDkynwRynPsjutUg+WYi7LruqdAAlDT
-	FszsEriA2qdwm+F0+QCCsszGCJFRfhh/Xf3ECHinHDl0J1+SfrTVWI/elAEuqlSsQFRYTwDO1kCDs
-	0SVosPwbsG+7HijrOAT9wKWL0n5lJqukVORPpyWKTioAMRv8saoRGhNenCdt2RT5ymGU/A0Vm6ltq
-	vooAlq6sPj3O5yvgN8KUgpYtKk1wxK70Ngc5jKTI63WmPXgHXA2aCUy0H4WpEIAnr3Hf2QmFGuCH7
-	chTFSRIQ==;
-Received: from [151.115.150.205] (port=58646 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xD5NQ-0000000FAnS-3ZFO;
-	Sat, 03 Oct 2026 21:26:28 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	Jon Maloy <jmaloy@redhat.com>
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] tipc: fix use-after-free in netns teardown
-Date: Sat,  3 Oct 2026 19:25:31 +0000
-Message-ID: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lyOvRaeb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791055617; x=1822591617;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xV6d1koFfM5m9rdRyW20nsERICuE43hApgH+Tu8v7gk=;
+  b=lyOvRaeb2dyLUW509d2ppPlsa03GVAHPsklJhvYyUau7YJP6o3KPN5v1
+   ZHia1TbP0WBD0npypvnVJaaFf3DIXOs7wF1xd16eTEuIPcOfE17l34hIy
+   idRk4fpicLN4RlFbAs9OwKyy0aLJzqaBXT6Kzio7mTyi1L3C0mgDBFFzO
+   9LoaxWOex/iB662hUyiD8OpGCGqJu4K9jK5V7hHGV1GRRfcWI8fr+b0Za
+   D2qf5vxYVhKz8hVnNY7hnvx+SBWgJswT9aFfR3VSyY3LK5S+7GPu+fUHa
+   9+eTfMDScFUBXwuT8BdHsBomOGEwttX/mwvtszOvXLU0dKoZoxXEwcZtd
+   A==;
+X-CSE-ConnectionGUID: U/gEmS9dSguctwurId61WQ==
+X-CSE-MsgGUID: 6eTVygivTMKdwfsuYk0mvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90841252"
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="90841252"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:26:57 -0700
+X-CSE-ConnectionGUID: KJOYt0q3TcWARKt3cehjoA==
+X-CSE-MsgGUID: 1dVDB0a4Rz65JZJk6zfCkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
+   d="scan'208";a="281216667"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:26:53 -0700
+Date: Sat, 3 Oct 2026 22:26:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jyoti Bhayana <jbhayana@google.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH] iio: common: scmi_sensors: fix truncating 64-bit
+ divisions
+Message-ID: <asFW-3IPAgFIDViV@ashevche-desk.local>
+References: <20261003055602.145118-1-kapoorarnav43@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003055602.145118-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-conn_put() decreases the reference count of a connection, and when it
-reaches zero, tipc_conn_kref_release() removes the connection from
-conn_idr and frees it. Removing the entry is protected by idr_lock,
-but decreasing the count is not.
+On Sat, Oct 03, 2026 at 11:25:55AM +0530, Arnav Kapoor wrote:
+> do_div() divides a 64-bit dividend by a 32-bit divisor: the divisor is
+> stored in a uint32_t on all architectures. The driver passes 64-bit
+> divisors to it in several places, so they are silently truncated:
+> 
+> - scmi_iio_set_odr_val() divides by uHz, which exceeds 32 bits for
+>   sampling frequencies above ~4294 Hz.
+> - convert_ns_to_freq() divides by interval_ns, which exceeds 32 bits
+>   for update intervals of ~4.29 s and above. If its low 32 bits happen
+>   to be zero, this is a division by zero.
+> - scmi_iio_get_odr_val(), scmi_iio_convert_interval_to_ns(),
+>   scmi_iio_sensor_update_cb() and scmi_iio_get_raw_available() divide
+>   by int_pow(10, n), which returns u64 and exceeds 32 bits for n >= 10.
+>   The SCMI exponent fields allow values down to -16.
+> 
+> Truncation results in wrong sampling frequency, timestamp and
+> raw_available values being reported to userspace.
+> 
+> Use div64_u64() and div64_u64_rem(), which take a 64-bit divisor.
 
-During netns dismantle, it may happen that a connection gets its count
-dropped to zero by conn_put() while tipc_topsrv_stop() still holds the
-lock idr_lock. tipc_topsrv_stop() calls conn_get() on that connection
-whose count is already zero, and then releases idr_lock.
-tipc_conn_kref_release() can then free the connection before
-tipc_conn_close() uses it. KASAN reports the UAF as:
+> Fixes: f774117c96f9 ("iio/scmi: Adding support for IIO SCMI Based Sensors")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202606040245.XfmRpBhA-lkp@intel.com/
+> Assisted-by: Claude:claude-opus-5-5 coccinelle
 
-  BUG: KASAN: slab-use-after-free in tipc_conn_close (net/tipc/topsrv.c:158)
-  Read of size 8 at addr ff1100000cf4f408 by task kworker/u16:3/70
+Assisted-by: LLM coccinelle
 
-Stop accepting connections before walking conn_idr. Use
-kref_get_unless_zero() to avoid taking references when the count is zero.
-Retry from the first entry, releasing idr_lock and calling cond_resched()
-between iterations so pending work can finish.
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 
-Fixes: 667eeab4999e ("tipc: Fix use-after-free in tipc_conn_close().")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- net/tipc/topsrv.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+...
 
-diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-index af530c9ed8402..9ab2349f71190 100644
---- a/net/tipc/topsrv.c
-+++ b/net/tipc/topsrv.c
-@@ -700,16 +700,23 @@ static void tipc_topsrv_stop(struct net *net)
- 	struct tipc_conn *con;
- 	int id;
- 
-+	write_lock_bh(&lsock->sk->sk_callback_lock);
-+	lsock->sk->sk_user_data = NULL;
-+	write_unlock_bh(&lsock->sk->sk_callback_lock);
-+	cancel_work_sync(&srv->awork);
-+
- 	spin_lock_bh(&srv->idr_lock);
--	for (id = 0; srv->idr_in_use; id++) {
--		con = idr_find(&srv->conn_idr, id);
-+	for (id = 0; srv->idr_in_use; id = 0) {
-+		con = idr_get_next(&srv->conn_idr, &id);
-+		if (con && !kref_get_unless_zero(&con->kref))
-+			con = NULL;
-+		spin_unlock_bh(&srv->idr_lock);
- 		if (con) {
--			conn_get(con);
--			spin_unlock_bh(&srv->idr_lock);
- 			tipc_conn_close(con);
- 			conn_put(con);
--			spin_lock_bh(&srv->idr_lock);
- 		}
-+		cond_resched();
-+		spin_lock_bh(&srv->idr_lock);
- 	}
- 	__module_get(lsock->ops->owner);
- 	__module_get(lsock->sk->sk_prot_creator->owner);
+>  		tstamp_scale = sensor->sensor_info->tstamp_scale + 9;
+>  		if (tstamp_scale < 0) {
+> -			do_div(time, int_pow(10, abs(tstamp_scale)));
+> -			time_ns = time;
+> +			time_ns = div64_u64(time,
+> +					    int_pow(10, abs(tstamp_scale)));
+
+It's fine to have 82 character single line in this case.
+
+>  		} else {
+>  			time_ns = time * int_pow(10, tstamp_scale);
+>  		}
+
+...
+
+>  static void convert_ns_to_freq(u64 interval_ns, u64 *hz, u64 *uhz)
+>  {
+> -	u64 rem, freq;
+> +	u64 rem;
+>  
+> -	freq = NSEC_PER_SEC;
+
+Yeah... (see below)
+
+> -	rem = do_div(freq, interval_ns);
+> -	*hz = freq;
+> -	*uhz = rem * 1000000UL;
+> -	do_div(*uhz, interval_ns);
+> +	*hz = div64_u64_rem(NSEC_PER_SEC, interval_ns, &rem);
+
+I would expect to see this be a frequency unit to help with left side of the
+equation
+
+	*hz = div64_u64_rem(HZ_PER_GHZ, interval_ns, &rem);
+
+> +	*uhz = div64_u64(rem * 1000000UL, interval_ns);
+
+And MICROHZ_PER_HZ here respectively.
+
+>  }
+
 -- 
-2.47.3
+With Best Regards,
+Andy Shevchenko
+
 
