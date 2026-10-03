@@ -1,160 +1,80 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806D93BB116
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32948412BF1
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791022364; cv=none; b=nugmXyzP6URHRBAUr45hRinP1Jdq0WVYL5hYdFfjESjBsZCq0ZUT2I+o4aVVWdOOiTpN3mvOiZ11KeJpXRWrRn6m/RLAEmJ7WXc1cxwY5wWo9NgqTCV0lBXXTyEnlKt7XjTWjtNhwysZsV3A0D8+NdKXX98cnyx0MFmiycYsHNI=
+	t=1791022394; cv=none; b=UISV6dSnGol5XPnz1gD6snKTYAwipUBHuRbs26WV6xzY35B8bAEMBX2i0J/feVRzZ4VvU7012R7NmAkxl+WBDGdWS73ZNR3NMnHc0E/66x+3NxaOv+ZRywmeVX83MnHZ8AvbwnopYy2s7T2eKUecUMKw+riW0q8mp47yb3zXSGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791022364; c=relaxed/simple;
-	bh=Em/8Q4T5WVyJTc8ied0AfMAXsr9lQ4Pf+YUf8+Llc58=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=H/UGSqsXUpPk6DZWfnlA406VA/Sszr3f5W4t8JgTdDGKrx2UNJ0yvaXPFY0Z0Ba/5/bwsQ8x8YVFlViqkIA/EKFMbQ6Pm9wEpZXh5rzX5S1la850EYDxNyLrNyQxohWWhueFaB5VbBaQaGkcaaa2Q5bw9VSa1HW1wbZhsTxtjZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=la2K0wct; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=B7PQMvx8; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="la2K0wct";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="B7PQMvx8"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 9995FEC0388
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:12:42 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sat, 03 Oct 2026 06:12:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791022349;
-	 x=1791108749; bh=TsvOMud2kpRikmVD2T66+I1gHy71FYtl6qh7nZPWTPo=; b=
-	la2K0wctqo4WPWtHG6E63XtnuP0GoueJk3Nikxp0TPFctyYg965XZpnmz2POBM29
-	pT9IbmN/2lXX2ROzM7iGsuz9Y3Xndty6lrUgMuiVvKrvISzXMiF53qoQfVp/Lbtn
-	yEgfkFWepUtJLYRf8KCJ1WPpElY88RHcyI0y7POO7qm8XlLQOs7bo1iGNCQWdD4y
-	D0bytlW8GNVpL9OXcf8DtvVemjjtsoG1PO/Pwxi/99PO2VrYJSUkkKs5cU2thA/c
-	xZeP7HL0T49zaI4wWR2EFrdXe76hdMW1HOIQfWAlqbAYIVMALS+rKLwof5DQHne9
-	AHEDcxoFoPtInaKicT0QkQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791022349; x=
-	1791108749; bh=TsvOMud2kpRikmVD2T66+I1gHy71FYtl6qh7nZPWTPo=; b=B
-	7PQMvx8GalMYv1Z2fbl/GxHYK/LGCs1NhEvC/uZ63bCaIi92gDP/Z9lV/gGtPiCj
-	l8cDsWVFitayuJxoKGpYDPmrTJqFY2l1naEfooXa9UupBgAvcTpUJ/9kCLqK1go/
-	gL0ypnLC9GJLiniJKWAjTDqdjTH6fivg7ACd1bIGkLR4igyOolBrFQUG9ra01lOd
-	jTutnU8jCBjsRKMHcEn3ewy8SNI9AkoRcPWR2+1yePEXl95X0EIKfhq4vk4WqHO6
-	jHb0t7cy5YIHeedSp+cHSLdnfWJBsHm2tNfnQds2RhoUgMR+6XxRbuHPU27nBktQ
-	tTx48+MaZz+sj9ZTnMkVQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791022349; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:UPiBie/Ldveoc69uH+GSEecBVujSZwk73CkpSRa7QGaeede
-	q4TpWgVtzWNtAo6BHBA/n6pmwOabrTsoSt5d0uhMleAgMos+JQARSzzLy6ZqSJAh
-	ZfyQiuzt+eCHY+U3YzYU2oKBurusbPdlshes+zp8wIDgR4E1iUTmbZwqW84+Qs47
-	z8ziSupEcb4CdeeFm5a4itAZ2ZZSjx9k+vmWdZhU0OOgotHCUGYnOSmeHRzsz4Wg
-	l4aKzc+6L8ASn6kgxWTGBcYLTaMrd7j04jNkniFmeJZdKoSGUgrNcHRgCIH52vuy
-	QJ8hnHhXf740qzD9HCLNCpEsJ1/iwN9Fd7MJTnQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:bSBg07AyJDh8nIznW2E0BJ7e3SFvW04lYLBX16wcRdI=:Em/8Q4T5WVyJTc8ied0AfMAXsr9lQ4Pf+YUf8+Llc58=;
-X-ME-Sender: <xms:BNXAakND3vmOHS6r9JSvgH3WBKf8Vx9cwbv1VeB9Eo3RwF7Ry_I4YA>
-    <xme:BNXAalypYwt55h3-1htHlDvRcabtYW3afDfKcYR7S81Zg2SbOp_CQMbNFfRFjx7HI
-    VDMnQmElqjJOYbVnBLaYKiyhgDa5JtYzwDc154kirSvV1qcwvaEnLeW>
-X-ME-Proxy-Cause: dmFkZTFBB7hs3NcjUVHct1drZuqXiA1pIQAz979fbY6M5ydA53D5Io4XIec8GFXHnKC3ih
-    0j9MGHsCNmtSvpdgGYBm5WA//Rdnq/6SfTFJT7Fxjye7NOKWuVepnxsBeMpXqIzqLv5YjL
-    63Cpqug36HSavId07c3mtDDRfIUkA7OiECcQNefT7QvV5aZPdvMiIE02vP/AifaPn9zGgO
-    NPfzVvSmsnHVAJGfbQHPswy219nFHprFzN+2QyEin65K9AMUi9mLMWQWFwEZbYIHybUewD
-    8nZwWDFzo7e1lWdrFA0yknag0sNYATtaSqc63mdkJ1Oh32G327MSBwFKBRvsBL5OjheKRA
-    shkRUJ+qQNqdYL54mTKI+865Up5tehCG1YK4JKPX1lIeQ/EVSTTj7IAWIAoY70Egs9tB8t
-    zs4qWTWdSw2Q10l2Lqb5J0QbdiOXHihiQJBNQCs+LCjXcIuVLN9Teti1EKRil8ZHIpilsr
-    scKeuJv3e8kZT8DbTL0m8+BNHuUZEBjgUYxpeYqLZn+cdXeG42J7mcuvKknCGe5sEnVLnE
-    YfkRegqaQBYlnnOvYHme+pXvzeAFtJByO/MAWiEJ60IGj6HEmMvj5fz+0JoMd8YsUmMZFC
-    JjHA+Z8G6tCgboe5Svw4ubdWibYjiC/axV+qkQ7e5yKghCORCeW0zXndvUPg
-X-ME-Proxy: <xmx:CdXAatScP8RgrbtbNEcyop2hU8vbiMQ7Lu8dOi2HKE5aicrsP454Qw>
-    <xmx:CdXAaugx8tC2WMIsQEL8dk-HJOK_29OjgecI1a6i5j3KPwVKHtjiUQ>
-    <xmx:CdXAahbWR6WER36AkqZy_oh7Ca_y4FMyyGaPPR_QQXGVHaE8g1t95g>
-    <xmx:CdXAavXsyFNWArcDud0ELs0v5qj1PvLSNGc1jQ4KXLGzkEk_mQnqMQ>
-    <xmx:DdXAan8zml3uyKc9IBaqckjec0I-LwvAjmiL6Dfcrr4kkCVOz-gfiWjX>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id BFEB832A008A; Sat,  3 Oct 2026 06:12:20 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1791022394; c=relaxed/simple;
+	bh=o+NrExyU0PGE5uVgCn51Td+mcO+fQZ1NdnsiQWPDPA0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=EEH8CriGyEre6Sq7ZpQgkjE4o0SpQET6xQ0czDMz2Av6CmpU/hHzmO9m/QtakIF73p8gWzJo7keOqjx7TcTaZIBDHQFFuIZFpF9XImV2qu/Yio0DE3NAky12BIlAlizzNbAvdPoKfnvh5cpnf7rK//cd+475u4MrFIiusBCcmv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso473532b6e.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 03:13:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791022392; x=1791627192;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hcIoAdm4vtlLOz98FNXDID2HNTW++21QgkzhcamXHLo=;
+        b=dwl3Cz4wwriW8Lss5A09C14Ue2k1xant90NIyydVPV+r43fIqdgeGOGB2f/84vFUj3
+         C50fXNPMo8FFxq8qE5cAFedK0stzszTelo3Hmfn4Rzw0hsvpVd7e8+cNRR3T7RqUGV9I
+         MgseGG9SdK67Eq8mBrIXDdQroi9ZwtYm0Xl6IldgmLnLUFJzbZ7boYec246pE+sfg4t3
+         xYFLif5W7SjtYrFG6L4ECmppsPl0X3OuY2ohVTXTyEgYTc0tmEu3UvgjjXgsHQyqXoxR
+         pcmonyVCfrXIcipdKB3MTCGdz1WD6BdORVKzzRalfUkzXxxLd9Q6gAn7TQ91RxyHkK8n
+         03NA==
+X-Gm-Message-State: AFuF++n+QBv9TpXXwqHFMPDDJeLT4OkFd23594Xh/4laYsf24cFtHFXr
+	yaKuOA9eHnSTAIt9qie4Xqm+/uZb5MBkPoIS2Q9qS8aSUfOrShxoaCu8iVTA2s7M3jImLsrdvHG
+	NmPif2hYEZVoFXK1LxnELlllbS1eGX+ohdsFULA8DjbGj6mv1iWgcBufGMg4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A3bqS_zWz5jN
-Date: Sat, 03 Oct 2026 12:12:00 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>,
- "Russell King" <linux@armlinux.org.uk>, "Miguel Ojeda" <ojeda@kernel.org>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "Linus Walleij" <linusw@kernel.org>,
- "Christian Schrefl" <chrisi.schrefl@gmail.com>,
- "Bradley Morgan" <brads@mainlining.org>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>,
- linux-arm-kernel@lists.infradead.org, rust-for-linux@vger.kernel.org,
- llvm@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Krzysztof Kozlowski" <krzk@kernel.org>
-Message-Id: <1682542c-b5c7-4031-9d8b-7ba1d0a3ee19@app.fastmail.com>
-In-Reply-To: <20261003093827.77857-2-kmehltretter@gmail.com>
-References: <20261003093827.77857-1-kmehltretter@gmail.com>
- <20261003093827.77857-2-kmehltretter@gmail.com>
-Subject: Re: [PATCH 1/2] ARM: cmpxchg: support 2-byte xchg() on pre-ARMv6 CPUs
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:1815:b0:4f5:1202:9d56 with SMTP id
+ 5614622812f47-4f67b742cf3mr2343431b6e.55.1791022392268; Sat, 03 Oct 2026
+ 03:13:12 -0700 (PDT)
+Date: Sat, 03 Oct 2026 03:13:12 -0700
+In-Reply-To: <6a940044.1d9ded08.62e62.011a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac0d538.81dddff3.363068.0007.GAE@google.com>
+Subject: Forwarded: [PATCH test] wifi: mac80211: acquire wiphy lock in ieee80211_uninit()
+From: syzbot <syzbot+e9cbd080a7801f06cf08@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Oct 3, 2026, at 11:38, Karl Mehltretter wrote:
-> Pre-ARMv6 CPUs have no halfword swp, so __arch_xchg() only handles 1-
-> and 4-byte exchanges there and turns any other size into a link error
-> via __bad_xchg().
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Note that 16-bit atomics are only in ARMv6K (1136r1, 1176),
-not ARMv6 (1136r0). 
+***
 
-> No C code needs a 16-bit xchg() on these CPUs, but the Rust atomic
-> helpers in rust/helpers/atomic_ext.c provide xchg() for Atomic<i16>
-> unconditionally, so building with CONFIG_RUST=y for ARMv5 fails:
->
->   ld.lld: error: undefined symbol: __bad_xchg
->   >>> referenced by helpers.c
->   >>>               rust/helpers/helpers.o:(rust_helper_atomic_i16_xchg)
->
-> Implement the 2-byte case with interrupts disabled, as the pre-ARMv6
-> atomic_t operations already do. This is safe because SMP requires
-> ARMv6K or later.
+Subject: [PATCH test] wifi: mac80211: acquire wiphy lock in ieee80211_uninit()
+Author: rajojha047@gmail.com
 
-This was previously impossible because you could have ARMv6 kernels
-with SMP enabled, but now that Krzysztof has merged my series to
-remove OMAP2 and i.MX6, this should work.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-If anyone wants to backport this to older kernels, they would
-also require d70242427110 ("ARM: rework ARM11 CPU selection logic").
-
-Otherwise, this looks good,
-
-Acked-by: Arnd Bergmann <arnd@arndb.de>
-
-    Arnd
+diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
+index 842bfb4a7cb6..c011e40eb351 100644
+--- a/net/mac80211/iface.c
++++ b/net/mac80211/iface.c
+@@ -950,9 +950,13 @@ static void ieee80211_unlist_sdata(struct ieee80211_sub_if_data *sdata)
+ static void ieee80211_uninit(struct net_device *dev)
+ {
+ 	struct ieee80211_sub_if_data *sdata = IEEE80211_DEV_TO_SUB_IF(dev);
++	struct wiphy *wiphy = sdata->local->hw.wiphy;
+ 
+ 	ieee80211_unlist_sdata(sdata);
++
++	wiphy_lock(wiphy);
+ 	ieee80211_teardown_sdata(sdata);
++	wiphy_unlock(wiphy);
+ }
+ 
+ static int ieee80211_netdev_setup_tc(struct net_device *dev,
