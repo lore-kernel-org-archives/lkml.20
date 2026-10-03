@@ -1,106 +1,159 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 908A92609FD
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F48733DEC2
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 06:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791010608; cv=none; b=twfvkvuLcTXqsXqjSATjxr7N1OorHVpDxF6bl9A3wA9DpkaMk3PdcEzEpK+2aaNj5MtUWTAFjuXmA8hwJAsNHu1hB6dzWHD+kJRgwFCjSC+giTHezQgZRFxml3M0076W0wPe6csOfnzs/edimfpOd2j559sUdMruxxmCb1vxRM4=
+	t=1791010639; cv=none; b=tJaO85cW6rnkaiUK0vHzjk5pB8WhZZBtc+S8A9UN/Upbvwk59okTDty8KBoeyyOQnmCkEQ6Dvewd6rFZ8Muwl08oTf4ZmDdA0qt0TbfKlBgGFbeBxwY9knd487rDy3LYOhtlb2TrnpLePLyY7vy4zvqxvc1zTRHMMminnAm60fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791010608; c=relaxed/simple;
-	bh=yGRTJM11lPHqEAQCmI16d80x3sFjPSlkt3Eyi59eG50=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rMq+qC/y5HF5UXXM+IFCaUlM2SduM3MEZZEGQGcYIT25gOlBq5czyQMwVPgg28WVZTSIqegTRW/lERma4eniPgah9JNsbO7Uz8Qw/Yen/26UVEBk8UY2STIJ38iJ/SvIJzqsyEnxRXziSmo7DXsUUDPTX4eoYFCxxcoGOVVXjMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ONuKuNci; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791010639; c=relaxed/simple;
+	bh=qAjh3bfwDAvjQn/H8WWXm9R9SMLHj6n2zlRKEO0SzGo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=X5480v6OgnQajfx/qVlsEgdYK2aqm5cfnas4WK6ncyJz/sMknAo3rSMlBGa+UWNYwZv9P9DmSDpVku0bjdYTYCdocqiy1lSN/TylsA2I3xExvOwcEXqDYpa+6W54Jv7kYw42ZMhRh9Z+fevSDeOhlHnJulDsFwiupF9rX7B+BMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s+c0TbYx; arc=none smtp.client-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ONuKuNci"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78DDE2F;
-	Fri,  2 Oct 2026 23:56:42 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 68FA63F763;
-	Fri,  2 Oct 2026 23:56:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791010605; bh=yGRTJM11lPHqEAQCmI16d80x3sFjPSlkt3Eyi59eG50=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ONuKuNcizlGzNYDJFxNVPzOBceTDLx5lM2xdJ7qmFsTpy8Mo1er8c27FcBXGv6+1Y
-	 lXgWh5atiJ4MXFXvhiMr0ZZfHV+z/5aAvEX5JR3rJRl4/7HuQoIoYzcUqn5FmTjZnB
-	 g2OFkozb5o6buo6bc+QZFm7kD50V1XPK2Gj0hSls=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Leo Yan <leo.yan@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	coresight@lists.linaro.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s+c0TbYx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qAjh3bfwDAvjQn/H8WWXm9R9SMLHj6n2zlRKEO0SzGo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791010634; v=1; x=1791615434;
+ b=s+c0TbYx8ANQL7IKl00ojtA4/6jHRoxaEMUg37BO5RRxZ7Re4qSw+K49OncJg56qVq/8skvv
+ w475h4DcGt83aP/cuKfiY/xrp6gLdzEOhmbditnmWZtvo/rz3s8teoROTz/Ges/aNN/tnZrJgL+
+ tMWUo00nfCUeTxNOvwM92bsY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1a5d39d0f43f4466;
+	Sat, 03 Oct 2026 06:57:14 +0000
+X-Mizu-Trace-ID: 1a5d39d0f43f4466
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>
+Cc: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH RESEND v13 00/14] fix several inconsistencies with sysfs configuration in etmX
-Date: Sat,  3 Oct 2026 07:56:34 +0100
-Message-ID: <179101052919.1709951.18400347613609410532.b4-ty@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
-References: <20261003-separate_etm_cfg_v2-v13-0-5d8a29aead95@arm.com>
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	mark.rutland@arm.com,
+	steven.price@arm.com,
+	vdonnefort@google.com,
+	qperret@google.com,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v4 00/18] KVM: arm64: Confine protected VM vCPU state to EL2
+Date: Sat,  3 Oct 2026 07:57:13 +0100
+Message-Id: <20261003065713.3872839-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <179095643711.351883.2924159912626438826.b4-ty@b4>
+References: <20261001135711.1640520-1-fuad.tabba@linux.dev> <179095643711.351883.2924159912626438826.b4-ty@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+Hi Marc,
 
-On Sat, 03 Oct 2026 03:52:12 +0100, Yeoreum Yun wrote:
-> The current ETMx configuration via sysfs can lead to the following
-> inconsistencies:
-> 
->   - If a configuration is modified via sysfs while a perf session is
->     active, the running configuration may differ between before
->     a sched-out and after a subsequent sched-in.
-> 
-> [...]
+On Fri, 02 Oct 2026 16:55:26 +0100, Marc Zyngier <maz@kernel.org> wrote:
 
-I have fixed up minor checkpatch warnings and subjects.
+[...]
 
-Applied to coresight next, thanks!
+> Given how busy this merge window is, there were plenty of conflicts, most
+> of them with your own patches. Please have a look at the way I resolved
+> them and let me know if anything is on the bogus side of wrong...
 
-[01/14] coresight: etm4x: read-back TRCSEQSTR at disabling and prohibit modifying seq_state while enabling.
-        https://git.kernel.org/coresight/c/a373952d86cf
-[02/14] coresight: etm4x: prohibit modifying cntr_val while session is enabled
-        https://git.kernel.org/coresight/c/76b21c25a5f7
-[03/14] coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
-        https://git.kernel.org/coresight/c/88eaf963853d
-[04/14] coresight: etm4x: fix inconsistencies with sysfs configuration
-        https://git.kernel.org/coresight/c/b2131cff7224
-[05/14] coresight: etm3x: fix inconsistencies with sysfs configuration
-        https://git.kernel.org/coresight/c/950cca5352b0
-[06/14] coresight: etm3x: remove redundant cpu online check on etm_enable_sysfs()
-        https://git.kernel.org/coresight/c/4f7701c1f0d0
-[07/14] coresight: etm4x: introduce struct etm4_caps
-        https://git.kernel.org/coresight/c/a2cee9814137
-[08/14] coresight: etm4x: exclude ss_status from drvdata->config
-        https://git.kernel.org/coresight/c/b5022acaee3b
-[09/14] coresight: etm4x: remove s_ex_level from config
-        https://git.kernel.org/coresight/c/d6fbf353e35d
-[10/14] coresight: etm4x: rename local config as curr_config referring drvdata->curr_config
-        https://git.kernel.org/coresight/c/f5e6bb291eca
-[11/14] coresight: etm4x: rename drvdata->config to sysfs_config
-        https://git.kernel.org/coresight/c/30f946375269
-[12/14] coresight: etm3x: introduce struct etm_caps
-        https://git.kernel.org/coresight/c/7cadafd5a12e
-[13/14] coresight: etm3x: rename local config as curr_config referring drvdata->curr_config
-        https://git.kernel.org/coresight/c/da1ffcf6bb43
-[14/14] coresight: etm3x: rename drvdata->config to sysfs_config
-        https://git.kernel.org/coresight/c/3663b4e9875b
+Thanks for taking these, and for sorting out the conflicts. Most of the
+resolution matches mine, but two things in the pkvm-state merge are off:
 
-Best regards,
--- 
-Suzuki K Poulose <suzuki.poulose@arm.com>
+- In __kvm_vcpu_run(), the !host_vcpu and SVCR bail-outs still return
+  -EINVAL. Patch 10 changed them to ARM_EXCEPTION_IL, since the host
+  reads bit 31 of -EINVAL as a pending SError.
+
+- In __kvm_adjust_pc(), the pin path uses kern_hyp_va() on the __kern
+  pointer, which sparse flags. It needs kern_hyp_va_host().
+
+The diff below fixes both. It also drops the set_bit()s in
+pkvm_init_features_from_host() that kvm_pkvm_vcpu_allowed_features()
+already does, and realigns the esr_dabt_is_cm() line. Could you fold it
+into the merge resolution?
+
+With it applied on next, I booted protected and non-protected guests,
+ran CPU hotplug in both, and ran the pKVM selftest (from my tree), all
+passing.
+
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index c709a6ff7448b..1018c36ec39d1 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -244,7 +244,7 @@ static void handle_pvm_entry_dabt(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 
+ 	/* Handle PC increment on MMIO, or on a CMO the host skipped */
+ 	pc_update = vcpu_get_flag(host_vcpu, INCREMENT_PC) &&
+-		(vcpu->mmio_needed || esr_dabt_is_cm(kvm_vcpu_get_esr(vcpu)));
++		    (vcpu->mmio_needed || esr_dabt_is_cm(kvm_vcpu_get_esr(vcpu)));
+ 	if (pc_update) {
+ 		vcpu_clear_flag(vcpu, PC_UPDATE_REQ);
+ 		kvm_incr_pc(vcpu);
+@@ -914,7 +914,7 @@ DEFINE_KVM_HOST_HCALL(int, __kvm_vcpu_run, struct kvm_vcpu __kern *, vcpu)
+ 
+ 	host_vcpu = __get_host_hyp_vcpus(kern_hyp_va_host(vcpu), &hyp_vcpu);
+ 	if (!host_vcpu)
+-		return -EINVAL;
++		return ret;
+ 
+ 	if (unlikely(hyp_vcpu)) {
+ 		/*
+@@ -924,7 +924,7 @@ DEFINE_KVM_HOST_HCALL(int, __kvm_vcpu_run, struct kvm_vcpu __kern *, vcpu)
+ 		 * is misbehaving.
+ 		 */
+ 		if (unlikely(system_supports_sme() && read_sysreg_s(SYS_SVCR)))
+-			return -EINVAL;
++			return ret;
+ 
+ 		/*
+ 		 * ON has a single writer, pkvm_reset_vcpu() on this CPU, so
+@@ -1122,7 +1122,7 @@ DEFINE_KVM_HOST_HCALL(void, __kvm_adjust_pc,
+ 	 * for memory the host isn't sharing, a bad pointer, so the request
+ 	 * is dropped.
+ 	 */
+-	host_vcpu = kern_hyp_va(vcpu);
++	host_vcpu = kern_hyp_va_host(vcpu);
+ 	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
+ 		return;
+ 
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index 03dbe1bf9fa90..f88ad9dc91191 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -413,20 +413,6 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
+ 
+ 	kvm_pkvm_vcpu_allowed_features(kvm, allowed_features);
+ 
+-	set_bit(KVM_ARM_VCPU_PSCI_0_2, allowed_features);
+-
+-	if (kvm_pkvm_ext_allowed(kvm, KVM_CAP_ARM_PMU_V3))
+-		set_bit(KVM_ARM_VCPU_PMU_V3, allowed_features);
+-
+-	if (kvm_pkvm_ext_allowed(kvm, KVM_CAP_ARM_PTRAUTH_ADDRESS))
+-		set_bit(KVM_ARM_VCPU_PTRAUTH_ADDRESS, allowed_features);
+-
+-	if (kvm_pkvm_ext_allowed(kvm, KVM_CAP_ARM_PTRAUTH_GENERIC))
+-		set_bit(KVM_ARM_VCPU_PTRAUTH_GENERIC, allowed_features);
+-
+-	if (kvm_pkvm_ext_allowed(kvm, KVM_CAP_ARM_SVE))
+-		set_bit(KVM_ARM_VCPU_SVE, allowed_features);
+-
+ 	bitmap_and(kvm->arch.vcpu_features, host_kvm->arch.vcpu_features,
+ 		   allowed_features, KVM_VCPU_MAX_FEATURES);
+ out:
+
+Cheers,
+/fuad
