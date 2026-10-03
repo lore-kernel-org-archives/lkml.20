@@ -1,240 +1,197 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89ECB34D93C
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791049314; cv=none; b=OAVvXImqM+tiUOCQm4gwxDMri9+cwQvO2jWYoI/OYPc6d7rwz9LdPhWm/RWh5t+e/giATVBrKNmkuXtlsXAkX+79BLgupeyUNDrCewBgW6DhrYUlZrNRHFsC5auZEyF8Y2iyrBOPiikzDVaE9Gfb6NO6FrGRX+eaJ/fvG5otyY8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791049314; c=relaxed/simple;
-	bh=gVIiukMQBR/UKae1V6qy2f2ccgJvs6E6sqWh2SgqJrI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LTRUr2tGm2SdME3sB1P9Vc6NyewqvxMzyBh8AHzM35tkdPZAvk0GvH0viDEUh3xjTzf9GucKy7xMUft/9JRcCK8+/YoX5LZFffFTf5Qg7UpSNP1m1A6eQ6gx1yeKmvQr/zwBKKDYxj2j5EsyQDJhSKBYX2hJsEJ61QMqEUn2mAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qBmAT/Yt; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D849638F954
+	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 17:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791049338; cv=pass; b=JRIEgtjOf6Afq6lDqOqjAZfehkAGBaQI/b5zgsc9GxSe8FUoJWZ8TfQ0Ypn6eZwtaIu9TDmpLzG00LVmpEknTTqJx8gAa8BVo1RFoJYgFQB2Xc/MvXDJPToZ32BtycFRje25UwNfdzqhC4A7ZFZnWeGZV0kiXkFzPnFUtQb4FuY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791049338; c=relaxed/simple;
+	bh=N5fbkltW7ZPmNluYPIoQJuzlfwoaYBrbM7dscA21fgI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VOmWuwW2dNp85PvkdkAcWBlIcOZIjmdzcO1E45Z7vQOgnVVK+Q2OpUn0klDLn97aznCnBDKOLZKirXmdJUQQ43ITXN8qXATTd7c+CVIjDkAsqmMFxOr3fpCnHyZkoI5OLJ9fZD3nlvwElhN5tyDi7KEh5HSJJLuLnZBWfz4CuuY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lHzIOSHC; arc=pass smtp.client-ip=74.125.228.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qBmAT/Yt"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso6327255e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 10:41:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lHzIOSHC"
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e01f5c0aeso98598566b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 10:42:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791049335; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XfRYVkn3ym9aNzZccGXdurpveo4sNuoXNtufGiNuTpEpawqvNSE3neCMD2iBL3YQyO
+         mjAGqS8qoERthgtthINKV/YdgTPMGOOCNJuDkE7nNxnpqCmzwBx4cjVpWmRT0OcMZ/2k
+         nHvE88ZTEwRqAT1zwp/+2VSon9HaQkhs74PPCa56n5vh8JOfcmYSzAiSyEeUHi3P1jdR
+         h2iW+gF9CUw7Mtgg8tR8jgiH+2B7PKTnEK1Rc5QIkMLCTjL8J8FO0k5FtnCXGrGyZ+H1
+         pru9D9XwUXP10jZEQm3ju0UoMQ5U+LOZEMvXrXGrY2ljQvg7XMPDfFZJgRBH0Dr+faJL
+         nRxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wb0uZA3G4W3HP4zsAOWx40esmjqDsaAyOseskYQ6rWw=;
+        fh=mwb5Rvrzxf0XHlzns+dH0plwVoe9fhqUCkl2JmbeWLg=;
+        b=a2G4HskWZ5VkYhutGPQHNkQdc0P96Pz/ozNvSEUcF+UGFbsCOQ2wtoKnCe8f1nU/vd
+         p7hWHpM5wNzMmAjuGWYzY1mG7VMVgUKPsXAQ5OG7hL2AKPhXKaTUtfiadUEqpiP5zxex
+         V0XUXywoUmaGTzMz1W+t7u2428fYADXV1iJP96T66hJlNLKLTQJJ2lRLqD6aHT6nqMMF
+         P6hkHGC8XSfd7GmXSxhwCtxlan18gzWbjYka1LVzXDLiBUw897zHwtUYynJUhFJRZpyl
+         W7DZGl9ICQlDVZdUbXra4vJxf+pU3ueWg/W+YE0lJXcEbAwnlTtWlBbBKGwgANP5rmaT
+         2BDw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791049311; x=1791654111; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791049335; x=1791654135; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Z77SESQVvKzIOx1JBvsEbMeEzNyqGqnMV+3z84Kkkog=;
-        b=qBmAT/YtSvi7KzQ7ua+VR0mvOogqw9+LloYLSTznYTKRHb2W5QQIwR7fv3tYLjxFyP
-         Yn0va2/Trp/9mqy6FX/tD98CO1b+n2aBLVJ4q3wgbmq26vWMVvcpDbMbRHMZWg9fyJHH
-         o5DYWCaOSWDauCXU0BlN6DmLiIm+4b+7hiLcf36EAIrMPGqaqGqL4VqhF2XMGvLj6z2S
-         xvlQmEXoWQEcMMdPEyZydqb4Snlk4nfjfKrx/XcVP9AIzb5HiuMwwFIkMvadb9ZIavc5
-         rvHXgmv1XvCzENkR6sHPQJ4LRktPrzZSkBq10Evn7df3FTsg/rmmU33ZpGz7uYSI0Lne
-         7c4g==
+        bh=wb0uZA3G4W3HP4zsAOWx40esmjqDsaAyOseskYQ6rWw=;
+        b=lHzIOSHCAaFU2lNp042dgOs+jDGyzL8k1Vzk3XHc/nnKBrbreMytiXo4/f5wFcaOeN
+         wBTPES41ICAukY+OE+CioV0LIg3hm6p8KFHHh9EyvbxRJlJ3TVC0EHapRgIFzuTiBvIf
+         Zzm/WVLC6ZbFWjCgIM7h+LkjDU1tnz4LNk35/8CfGOf955wLy3/IDnAyUPfpOaCRIpMn
+         L0VaF3E5OGPIXa7XEFlCvhzEjIYmY3ZsCafR0aWZZHMZ92/ha8OaS9kRSyyU13Wslq9A
+         HJJ+Qg7f0XBIPCVBIlGsX2yjEWilT5YlZUyrVBIHQGD/+9dwBwQ/JYmtQ4z5rftgEkXr
+         690A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791049311; x=1791654111;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791049335; x=1791654135;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z77SESQVvKzIOx1JBvsEbMeEzNyqGqnMV+3z84Kkkog=;
-        b=a2LMljQALKFOhzMh+t3UOQH0KM5O0gOW+z1VrCepyecgUurBDZ82AVSK+zUUoWHGs2
-         xImYA29VTc88YHr6cYsdd0wuSvMBpHiRB0fv9+S+sQzDf8PxIYWPttjcHQcQIGe5ZFYd
-         J7LQZUwC/ai4pLg+nunISf5nPu0X3lnZeVOJje3lM0FUMOHCq5kqXbVWTb/2wTIqONRA
-         +ZUg/07Ouow7hMhU6LMOJUxtMqz7s0wljUPZTZRd7CxhmA1GGaUEd/iC4fHWrvp0vTh1
-         eLy2P2Ao1kuHskeYX+5J02z+zlJ/Cm5A2AQeeWqrYKjD6AOpgvwbfSJJl0LH/coUFmHT
-         o8cg==
-X-Forwarded-Encrypted: i=1; AKwUvBxsNz0pDIuuTjngGIa/AS/6SSID3qdLpIAFNuV0phLqKeBGGc+XWt7DVq5d8U89IUI/W2axGJvwfJJuyvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7dusYmNjVxlsEMvLHMFNjaV5GKsiqzJsoAmuat72ZGjz2l70Y
-	OksgDNQPsgnjNEK0B2PaEMx1ZZwWSU0+UkJ0xPO+KCTu3/M1MIj0jw6d
-X-Gm-Gg: AYBFou02DXeXatfHW96MMqVsOm7e6I4+km5iQauAxF15WSQZIW/shBro32+MAPHME7h
-	Lc82prW6JiYKy0olm/+NMg1mrQLis0kWEYOzMQI7Er20eqxlvn7T3qUGTH19CZ2hb+yW4wHGX1D
-	4xp/bsuTdM75OWbBngQDWkkM+6z0PdfRsbeRA9ew+AwbZgrJb/+ZZgZTQTMIydrHooE5NybrywR
-	srRsogd0zcJaoABRMBLD9f2iI7pLFHwIm/OP4gC/5JXUZ21dxivwfUSKHUAxC9ag8jWXo1gKHqI
-	vK6jRvWTlDtIls1UtlZYHY0+3SvN/hNvKAhQGUDLzKslTgFu3nEQdzoCqmHPsiemGSeqkY+uxxN
-	k5wBIzmRzHAVMmacp+aYnyabQJG/m92yfdyYep0FnQUBD+9ntJ433wqSorxyrysQgp2O4yPgN5E
-	uZTLrZX63QFRAEMtYGDwXvE4WE6dyRXczMslB23sBzZe+P6fHXrg8av1aS6ifRV/4B9FFimJ8dO
-	mun8RV/QZrZsVRDyQ5oZ/EFK2WuXsLdvZE=
-X-Received: by 2002:a05:600c:8b77:b0:4a0:1365:8559 with SMTP id 5b1f17b1804b1-4a0275663d6mr89538915e9.11.1791049310749;
-        Sat, 03 Oct 2026 10:41:50 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bfafasm198130905e9.8.2026.10.03.10.41.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 10:41:50 -0700 (PDT)
-Date: Sat, 3 Oct 2026 18:41:49 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Jonathan Cameron
- <jic23@kernel.org>, Liviu Stan <liviu.stan@analog.com>, Arnd Bergmann
- <arnd@arndb.de>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko
- <andy@kernel.org>, Joshua Crofts <joshua.crofts1@gmail.com>, "Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Shi Hao
- <i.shihao.999@gmail.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: temperature: ltc2983: avoid -Wstring-compare
- warning
-Message-ID: <20261003184149.6f29424f@pumpkin>
-In-Reply-To: <20261002124902.3703019-1-arnd@kernel.org>
-References: <20261002124902.3703019-1-arnd@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=wb0uZA3G4W3HP4zsAOWx40esmjqDsaAyOseskYQ6rWw=;
+        b=JFMqhYJ5DA3/9ioa0QJgA6ZlfOPjSSwNINZYkaMDn0YHWkn2mlAP0fHJbXm4GTAlf6
+         ph1/sSoXxvxujAxqjeUufAmaszEKDgJIwgditc37pDFK8SuG4yGtA/XaQIGfcAMRzGEG
+         9HxSWJb+kr2LxnZvbxvkeq0ytvDmIG+NKCfoR+jSsdu+DJ8dJsEv1wQcwNC+wXzTBn/0
+         jEk2+6sSZIZ4C8pY+3WgDyjo6LhgYKOdk+MHNa0s4B4DKx7CrObTxIfO2aKdnAPJFVd1
+         S5ZwZ9+ehr9tT3lJnSX0ACCQt0JgAyvJEfF5Z2hZjuqgCkkdKehL0F/ednbwGms6bEZJ
+         fQqg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2v7oCNgpXDrg+QBRBMgpyZ72bHtnI+n3LvTP4MATIU+a6oVqy4Vxy5kB160SmgYZ6MJf/nj2WHHOBaeE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrTgdufWZvDQB/9+seiHxDHZswyTCp2uRT4TfwddUGAgvjBBdd
+	jARmrl8cc9KqxWoY9DZro6dBka89FmwiOvqJUhXyRaRnerIjCUa6WFXXoG2gE19AyMa41J1qHCK
+	Ji58kh75i+rDbZY78qf9CNN5xV/uqoU0=
+X-Gm-Gg: AYBFou1giMY3GEBRUwRcyjtk2Vwckw2PjGVCTtUYgsxeQT+SvGq0QCuFoqn1sFaC9GD
+	ZEuJ6lKjIGw1ST5IYQ/BNXwdCod6asIbQQ00t9usO8G5T50V3RYqTsm8EmCcDIEqqnrjkM5Wemp
+	pcqdhH8n4KpHEttR4gh6jlFv8w0Skv9qUNTyu8CJuuBg98CrOeUoe9t/OztGhELGQJZmoQHfKOQ
+	8fMA/ntVSL/52HLNwpyQ8YQR3K+CO0TWcycA2PX05N6zr17M2/ZJpRdLAvW0FRZ7G5LTUNIA/Vf
+	S4lYyFxnYbPTJ/1fzformFNSQ+c3RoTUV59J3MljzQWqepN3dIetBCzZAXtQNhhCgEUOBypYx4Q
+	GX8/TJq2QNCd0r4YEdJNZ01cD/aTx4qjBENuvGico36YVku204FfWCavpLoEai5AK6S0kcUPnwl
+	iMUbWVCGmtjtHrCuJNGEbUulnct6ytch55+sSkUYXtMg==
+X-Received: by 2002:a17:907:3e93:b0:c26:1649:47ab with SMTP id
+ a640c23a62f3a-c2e4af30556mr531245666b.33.1791049334807; Sat, 03 Oct 2026
+ 10:42:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20261003-gpio-mxc-cleanup-v1-0-dad728ce27f2@nxp.com> <20261003-gpio-mxc-cleanup-v1-2-dad728ce27f2@nxp.com>
+In-Reply-To: <20261003-gpio-mxc-cleanup-v1-2-dad728ce27f2@nxp.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 3 Oct 2026 20:41:38 +0300
+X-Gm-Features: AclHuK-YbJvYMQ90snp8Z-brjwfCdtteRLBnw6C84XXIIOdG-WKJaroDt_HV2CY
+Message-ID: <CAHp75VcDrc0a+79HuUVQw77ALVywxag5hXrzjg8mZ7vALZ99Uw@mail.gmail.com>
+Subject: Re: [PATCH 2/9] gpio: mxc: fix wakeup_pads bit operations for correctness
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri,  2 Oct 2026 14:48:51 +0200
-Arnd Bergmann <arnd@kernel.org> wrote:
+On Sat, Oct 3, 2026 at 3:09=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.com=
+> wrote:
 
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> When __ltc2983_custom_sensor_new() is inlined into a caller, gcc notices
-> that the string compare can never succeed and warns about this being a
-> possible mistake:
+> Replace the open-coded BIT() / mask operations with the atomic
+> set_bit() / clear_bit() / test_bit() API. Atomic variants are required
+> because gpio_set_wake_irq() can be called concurrently for different
+> pins on the same port - irq_set_irq_wake() only holds the per-IRQ
+> descriptor lock, not a per-port lock, so concurrent modification of
+> different bits in wakeup_pads is possible.
+>
+> However wakeup_pads field is typed as u32 but accessed via set_bit() /
+> clear_bit() / test_bit() which operate on unsigned long pointers. On
+> 64-bit platforms this causes an 8-byte read-modify-write on a 4-byte
+> field, corrupting the adjacent is_pad_wakeup field.
+>
+> Change wakeup_pads from u32 to unsigned long to match the bitops API
+> width requirements.
+>
+> Also fix the disable path to only clear the wakeup_pads bit when
+> disable_irq_wake() succeeds, matching the enable path which already
+> checks the return value. Previously, a failed disable_irq_wake() would
+> still clear the bit, causing the driver to lose track of the wakeup
+> source.
 
-That function looks like it should be marked __noinline_for_bloat :-)
+The above is too verbose, try to squeeze it to the point.
 
-Although doing a strcmp() like that is just silly.
+> Also fix a latent signed-shift bug: the old (1 << i) expression in
+> mxc_gpio_set_pad_wakeup() has implementation-defined behavior when
+> i =3D=3D 31, since 1 is a signed int.
 
-David
+Too many words for a simple (non-critical) update.
 
->=20
-> In function '__ltc2983_custom_sensor_new',
->     inlined from 'ltc2983_thermistor_new' at drivers/iio/temperature/ltc2=
-983.c:1079:24:
-> drivers/iio/temperature/ltc2983.c:559:29: error: 'strcmp' of a string of =
-length 24 and an array of size 22 evaluates to nonzero [-Werror=3Dstring-co=
-mpare]
->   559 |    if ((index % 2) !=3D 0 && !strcmp(propname, "adi,custom-leak-d=
-etector"))
->       |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~~~~~~
->=20
-> This is a false positive warning as the code always works correctly,
-> though the strcmp() is a somewhat elaborate way of identifying the caller.
->=20
-> Rework this by replacing both the strcmp() and the is_steinhart flag with
-> the sensor->type that is always available anyway and identifies with
-> code path gets taken.
->=20
-> Fixes: 3dd0c048409e ("iio: temperature: ltc2983: Add support for ADT7604")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/iio/temperature/ltc2983.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/=
-ltc2983.c
-> index 6655453c9abf..efad747c9e8d 100644
-> --- a/drivers/iio/temperature/ltc2983.c
-> +++ b/drivers/iio/temperature/ltc2983.c
-> @@ -482,11 +482,12 @@ static int __ltc2983_chan_custom_sensor_assign(stru=
-ct ltc2983_data *st,
-> =20
->  static struct ltc2983_custom_sensor *
->  __ltc2983_custom_sensor_new(struct ltc2983_data *st, const struct fwnode=
-_handle *fn,
-> -			    const char *propname, const bool is_steinhart,
-> +			    const char *propname, int type,
->  			    const u32 resolution, const bool has_signed)
->  {
->  	struct ltc2983_custom_sensor *new_custom;
->  	struct device *dev =3D &st->spi->dev;
-> +	bool is_steinhart =3D type =3D=3D LTC2983_SENSOR_THERMISTOR_STEINHART;
->  	/*
->  	 * For custom steinhart, the full u32 is taken. For all the others
->  	 * the MSB is discarded.
-> @@ -556,7 +557,7 @@ __ltc2983_custom_sensor_new(struct ltc2983_data *st, =
-const struct fwnode_handle
->  			 * to =C2=B5K so __convert_to_raw() produces the correct hardware
->  			 * encoding: P + 273.15 K.
->  			 */
-> -			if ((index % 2) !=3D 0 && !strcmp(propname, "adi,custom-leak-detector=
-"))
-> +			if ((index % 2) !=3D 0 && type =3D=3D LTC2983_SENSOR_LEAK_DETECTOR)
->  				temp =3D temp * 1000000 + 273150000;
-> =20
->  			if ((index % 2) !=3D 0)
-> @@ -846,7 +847,8 @@ ltc2983_thermocouple_new(const struct fwnode_handle *=
-child, struct ltc2983_data
->  		const char *propname =3D "adi,custom-thermocouple";
-> =20
->  		thermo->custom =3D __ltc2983_custom_sensor_new(st, child,
-> -							     propname, false,
-> +							     propname,
-> +							     sensor->type,
->  							     16384, true);
->  		if (IS_ERR(thermo->custom))
->  			return ERR_CAST(thermo->custom);
-> @@ -961,7 +963,8 @@ ltc2983_rtd_new(const struct fwnode_handle *child, st=
-ruct ltc2983_data *st,
->  	if (sensor->type =3D=3D LTC2983_SENSOR_RTD_CUSTOM) {
->  		rtd->custom =3D __ltc2983_custom_sensor_new(st, child,
->  							  "adi,custom-rtd",
-> -							  false, 2048, false);
-> +							  sensor->type,
-> +							  2048, false);
->  		if (IS_ERR(rtd->custom))
->  			return ERR_CAST(rtd->custom);
->  	}
-> @@ -1066,11 +1069,9 @@ ltc2983_thermistor_new(const struct fwnode_handle =
-*child, struct ltc2983_data *s
-> =20
->  	/* check custom sensor */
->  	if (sensor->type >=3D LTC2983_SENSOR_THERMISTOR_STEINHART) {
-> -		bool steinhart =3D false;
->  		const char *propname;
-> =20
->  		if (sensor->type =3D=3D LTC2983_SENSOR_THERMISTOR_STEINHART) {
-> -			steinhart =3D true;
->  			propname =3D "adi,custom-steinhart";
->  		} else {
->  			propname =3D "adi,custom-thermistor";
-> @@ -1078,7 +1079,7 @@ ltc2983_thermistor_new(const struct fwnode_handle *=
-child, struct ltc2983_data *s
-> =20
->  		thermistor->custom =3D __ltc2983_custom_sensor_new(st, child,
->  								 propname,
-> -								 steinhart,
-> +								 sensor->type,
->  								 64, false);
->  		if (IS_ERR(thermistor->custom))
->  			return ERR_CAST(thermistor->custom);
-> @@ -1195,7 +1196,7 @@ ltc2983_copper_trace_new(const struct fwnode_handle=
- *child, struct ltc2983_data
->  						 "adi,custom-copper-trace is required for >1 ohm copper trace\n");
-> =20
->  		ct->custom =3D __ltc2983_custom_sensor_new(st, child, "adi,custom-copp=
-er-trace",
-> -							 false, 2048, false);
-> +							 sensor->type, 2048, false);
->  		if (IS_ERR(ct->custom))
->  			return ERR_CAST(ct->custom);
-> =20
-> @@ -1286,7 +1287,7 @@ ltc2983_leak_detector_new(const struct fwnode_handl=
-e *child, struct ltc2983_data
->  					 "adi,custom-leak-detector is required for leak detectors\n");
-> =20
->  	ld->custom =3D __ltc2983_custom_sensor_new(st, child, "adi,custom-leak-=
-detector",
-> -						 false, 16, false);
-> +						 sensor->type, 16, false);
->  	if (IS_ERR(ld->custom))
->  		return ERR_CAST(ld->custom);
-> =20
-> @@ -1499,7 +1500,8 @@ static struct ltc2983_sensor *ltc2983_temp_new(stru=
-ct fwnode_handle *child,
->  					 sensor->chan);
-> =20
->  	temp->custom =3D __ltc2983_custom_sensor_new(st, child, "adi,custom-tem=
-p",
-> -						   false, 4096, true);
-> +						   sensor->type,
-> +						   4096, true);
->  	if (IS_ERR(temp->custom))
->  		return ERR_CAST(temp->custom);
-> =20
+...
 
+>  struct mxc_gpio_port {
+>         u32 both_edges;
+>         struct mxc_gpio_reg_saved gpio_saved_reg;
+>         bool power_off;
+> -       u32 wakeup_pads;
+> +       unsigned long wakeup_pads;
+>         bool is_pad_wakeup;
+>         u32 pad_type[32];
+>         const struct mxc_gpio_hwdata *hwdata;
+
+While at it, run `pahole` and update the arrangement (of the members
+you touched here) accordingly.
+
+...
+
+> static int gpio_set_wake_irq(struct irq_data *d, u32 enable)
+
+>                         ret =3D enable_irq_wake(port->irq_high);
+>                 else
+>                         ret =3D enable_irq_wake(port->irq);
+> -               port->wakeup_pads |=3D BIT(gpio_idx);
+> +               if (!ret)
+> +                       set_bit(gpio_idx, &port->wakeup_pads);
+>         } else {
+>                 if (port->irq_high && (gpio_idx >=3D 16))
+>                         ret =3D disable_irq_wake(port->irq_high);
+>                 else
+>                         ret =3D disable_irq_wake(port->irq);
+> -               port->wakeup_pads &=3D ~BIT(gpio_idx);
+> +               if (!ret)
+> +                       clear_bit(gpio_idx, &port->wakeup_pads);
+>         }
+>
+>         return ret;
+
+Instead do the following after the if (enable) {} else {} block, namely
+
+  if (ret)
+    return ret;
+
+  assign_bit(..., enable)
+  return 0;
+
+...
+
+>  static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool ena=
+ble)
+
+>         for (i =3D 0; i < 32; i++) {
+> -               if ((port->wakeup_pads & (1 << i))) {
+> +               if (test_bit(i, &port->wakeup_pads)) {
+
+Instead just start using for_each_set_bits() from bitops.h.
+
+>                         type =3D port->pad_type[i];
+>                         if (enable)
+>                                 config =3D pad_type_map[type];
+
+--=20
+With Best Regards,
+Andy Shevchenko
