@@ -1,208 +1,79 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24AE41BA9B
-	for <linux-kernel@vger.kernel.org>; Sat,  3 Oct 2026 10:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538AF41D631;
+	Sat,  3 Oct 2026 10:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791023453; cv=none; b=Zu0bRvgD5g89Z8aVvcFWAl6XDM6wz2W9CpZ6kTGjm+vyQ2KMAeUqkpIr0MJrhx6et/ftq4yqm4CFFmU9KxpVL60MQFqRJL0909XEapjQW8a33pCnF9DqOznRXxqI2Iqc6Pw0+Ppdrc2XTpkDvO88ZjUsabHfeeVoPCBqYrcIGIw=
+	t=1791023489; cv=none; b=GCQ0lxT9tBoaVb+wD/PSat9g4SPJWVd/vKn3dgfP/BGa+MjcSBlBxpOHPmSLCHuZn6c7rdQmOKccO7t+dFkTYizjq81iGoFwQkQ3EvERwmomaq8z4YJF75QdIbksNYz98tGEYlq62KtCgHZ7iVuM78qalCfNJg/YM8sRRPv5VuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791023453; c=relaxed/simple;
-	bh=XefGRV1Ivy9Vn3v4XVAWXgp92Aj87qW/BcgvaHZIrAc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lpU7mp49ERh7eOiVAQduazATETfwzhAUKoIiYsf6M8Pl6D7jHxFPqMa5na3Nu3gKsTrKjZKxZSYcFSuboS1d5Q9Y8EKoWoqD4YBfUYCZ1j3nlXZMy2Jg6tW48yMHzb333vHuZ92rCx2pFzLLi7HURC7OC+nZK2E6M+P5Z1ebMlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lkEWykT3; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791023489; c=relaxed/simple;
+	bh=ygUoJLCQKFWKOx+5CSMmis9wmbifBrGa+KU1TJomdPY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rYx3CGATF8Ey92F8+BHEobUvbnReWVpZvJM0qgfSRAc5aK6/h3Lv5rpeccD2iUqv6EFOlNsJEpySqpNXIVtHR4+fSRWWchn18cDhcptqD/r5E7baYiWLq0wEBjJU6qpNpCKhLeBZLwrDkYQTGUyd9etzPe7/fieqJQqfzWfuBM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jJubNwg8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lkEWykT3"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a49623b865so138672a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 03:30:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791023443; x=1791628243; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vrMFpIv7WRJdTe5fhZ+AXxpLaL+kTtS4G30LmhtwQyM=;
-        b=lkEWykT3NqfI87OaxFYRE5lmqShmyAXYkju8M95ii/Dq9X6bEuqh8nS1tfRklWbqqh
-         +smQxXhxJmp2EMDeDVOXEq0XuuuBX04BgFl35e7fF1E0+n21BrEwyO06XSglnzKHsngd
-         DY+YFB96UKsrPXgC1ejOzfTqNATJzWTTcDJQ0kWsOvccMLjAe7L5DQdIixuqu0nS2/+B
-         nOK9RNe2BPB8V5MBFGWrLqEFRxiZ3ZGnE4c3NsaA7HAxYUu1xxsTaHitk4usd2/eKkAy
-         vFyTCVGGWaexOvq5qdb8+mG4TZLphSIsskyzRRn5p0faBj2CjeQwkXx6Xf1amlwydPHP
-         TtRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791023443; x=1791628243;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vrMFpIv7WRJdTe5fhZ+AXxpLaL+kTtS4G30LmhtwQyM=;
-        b=IxBw94cDlkfEjmqwtjRtcmnaS/2FPIrN2m6/PjBa6yvmQlMkD72bgf2efgOcodhLEN
-         798RBwlaWedMB1ZwTKXhliGsq3UZ8dvbAja6Dj0aiJDL5r4nDrs70d4c7L6hWWAhW7y8
-         yNiIDc3ikCRJzohIr3e5EpHnPkRJ72VopZ4vAQljyGCz32woJC5WI+uZqbZaMlHxxHnC
-         nycPgeoegr0V9F+NIwWuvxMt18xzFiFgOe3To6sy6V5gpuR9RBtjUWUIz/phO2l2YUGZ
-         lmJt3LuZ/ITGHD27TaKh9cL5bVoUA4BW3Zxup2PZCllN5q6PHdXK9PQLSgLlKeYpeX1G
-         FXZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxifBFuUn3Py8tTQO53mtUKCqtZOrBdPlJTKhGcoYGx0t0gGSWdAHkaMVzmLWw0dav5xVRaN9ZIw9JWlFc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaLQq2RAHONyuJDs4MA00z5/579+H7XnAfd1ekQaFRtkx/BIIL
-	simxVc/tZhdOnN9YkrDgT+K5sAidRYBthteW6KNTl88fG0f+jF3s4HE=
-X-Gm-Gg: AYBFou0uzODwhiTg4xi7GvNlsKLwKs97/oCyiqPuuhd5xOhYCs/97gllILrMqravim2
-	DrttY/hK2sQZGoWOApdH+QDI18wIbEGNueebA63uyp4H0menjtMPd1hbHY31IuEHMOET5HhlqZi
-	AGlpqmLJ/2/MPjpvFvJH0hQRAj4Rls1fPteyPLGlXEkJ9ypIl9a0TQsN1/ZnRezgKoTl85ePER6
-	cwFlpkinAwP8t/sb0wPeDTNMMmGmcX0nFjcD+RB+MUtZbA2rWDdIKpUpTKyN5gNEvxEWGLy03Ig
-	mHEy7kbmqXwRtJfeqS2Tn8T6GzAfr1Cg7CcF7uLwXexpXJRkDMemd+sqxhABHch/SDfgcE6rbVN
-	mJtvsbe8Fny6h3wE5b3N4MGl52fqz4pMfwdaa1lWuhUxaVchjZaTtIM+1J6apiRFTh4T8wgNkN6
-	o4LDUw08tPXJprEV/sY7D2dJoByHNV+MilLiW/W78jpGIhMy3VyAGX4o/JDKOArPFLDq1H/HFoj
-	Ie76FxwgS4SHLpLYQD8I8+j
-X-Received: by 2002:a17:90a:ec86:b0:3a0:d75c:239f with SMTP id 98e67ed59e1d1-3a78717d98dmr1420413a91.11.1791023442881;
-        Sat, 03 Oct 2026 03:30:42 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a709a4e80bsm2121961a91.4.2026.10.03.03.30.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 03:30:42 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: akpm@linux-foundation.org,
-	rppt@kernel.org
-Cc: peterx@redhat.com,
-	surenb@google.com,
-	aarcange@redhat.com,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	kas@kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH v4 2/2] selftests/mm: add tests for UFFDIO_MOVE of a uffd-protected swap entry
-Date: Sat,  3 Oct 2026 19:30:30 +0900
-Message-ID: <20261003103030.63380-3-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261003103030.63380-1-donggeunyoo.kernel@gmail.com>
-References: <20261003103030.63380-1-donggeunyoo.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jJubNwg8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F7FC1F0089B;
+	Sat,  3 Oct 2026 10:31:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791023476;
+	bh=JD1KrrdpLVmHcYg9pYizr+EY3Jnx/IklgTtkuzFE98c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jJubNwg8UjkFZDFCgXganeVccWeCUC64B+nvX/QJCoMYXCR46IeLHcDEoC9WXNkcA
+	 5ruXH4DMtVtjhNA3d7Uv9pKe+IwqKHYmShLEdJJbzIpK4vuV9dVpZIJ60E6msg+z9i
+	 4ti2IfPt7tuWzkUfzzC3uOvSCdCs+N7Wy58NOZc9wgMz5chltNhTn0TZzkalwkJPMG
+	 XYVBwyjFfZ1ZdXt14iY8a8VKJi/DAPbLmvDeLBF1DvlcoMfWEqbZ45BNIbuT/5yazm
+	 nRU/EDsrSmIva7nHl/5b7LeLaGnBwdw1GGhmcVLS3nQJaKo9nu1Q/zcaFKDoywybDy
+	 to4My81OLjUmQ==
+Date: Sat, 3 Oct 2026 03:31:15 -0700
+From: Kees Cook <kees@kernel.org>
+To: bot+bpf-ci@kernel.org
+Cc: morbo@google.com, willy@infradead.org, akpm@linux-foundation.org,
+	andriy.shevchenko@linux.intel.com, david@davidgow.net,
+	pmladek@suse.com, shuvampandey1@gmail.com, rostedt@goodmis.org,
+	corbet@lwn.net, senozhatsky@chromium.org, gnoack@google.com,
+	mic@digikod.net, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, jikos@kernel.org, ast@kernel.org,
+	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+	ihor.solodrai@linux.dev, chleroy@kernel.org,
+	u.kleine-koenig@baylibre.com, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, sbhat@linux.ibm.com,
+	blum@kernel.org, alison.schofield@intel.com, dave.jiang@intel.com,
+	gregkh@linuxfoundation.org, lgs201920130244@gmail.com,
+	iweiny@kernel.org, u.kleine-koenig@pengutronix.de,
+	vishal.l.verma@intel.com, rdunlap@infradead.org,
+	skhan@linuxfoundation.org, linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+	linux-trace-k@lists.ozlabs.org, ernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, nvdimm@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org,
+	martin.lau@kernel.org, mason@kernel.org
+Subject: Re: [PATCH v4 08/11] seq_buf: Add seq_buf_init_append()
+Message-ID: <20261003103059.9e0b86-kees@kernel.org>
+References: <20261003035921.1918874-8-kees@kernel.org>
+ <f3b5a05404cc45b59981e869a0203ed07497f6f6942e6d72cee63b37612b7cda@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f3b5a05404cc45b59981e869a0203ed07497f6f6942e6d72cee63b37612b7cda@mail.kernel.org>
 
-Move a swapped-out page out of a write-protected or RWP-protected area into
-a destination registered for missing faults only, and read pagemap bit 57
-at the destination.  The destination was never protected, so the bit must
-be clear.
+On Sat, Oct 03, 2026 at 04:33:59AM +0000, bot+bpf-ci@kernel.org wrote:
+> This isn't a bug in the code, but is the changelog accurate when it says
+> seq_buf_init() "always sets the new buffer size to 0 via seq_buf_clear()"?
 
-Assisted-by: LLM
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
- tools/testing/selftests/mm/uffd-unit-tests.c | 84 ++++++++++++++++++++
- 1 file changed, 84 insertions(+)
+Yeah, fair. It's not worded clearly. I've fixed the wording for v5
+to say seq_buf_init() 'empties the buffer (sets its "len" to 0) via
+seq_buf_clear()'.
 
-diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-index ef9b3956bdcfd..97484c82f24e1 100644
---- a/tools/testing/selftests/mm/uffd-unit-tests.c
-+++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-@@ -2037,6 +2037,75 @@ static void uffd_move_pmd_split_test(uffd_global_test_opts_t *gopts, uffd_test_a
- 			      uffd_move_pmd_handle_fault);
- }
- 
-+/*
-+ * Moving a swapped-out page out of a write-protected or RWP-protected area
-+ * must not carry the uffd bit into a destination registered for missing
-+ * faults only: such a bit is never cleared afterwards, so pagemap keeps
-+ * reporting the page as uffd-tracked.
-+ *
-+ * Needs a swap device; skipped if MADV_PAGEOUT cannot evict the page.
-+ */
-+static void uffd_move_swap_test_common(uffd_global_test_opts_t *gopts,
-+				       bool rwp)
-+{
-+	unsigned long page_size = gopts->page_size;
-+	struct uffdio_move move = {
-+		.dst = (unsigned long)gopts->area_dst,
-+		.src = (unsigned long)gopts->area_src,
-+		.len = page_size,
-+	};
-+	int pagemap_fd = pagemap_open();
-+
-+	if (rwp) {
-+		if (uffd_register_rwp(gopts->uffd, gopts->area_src, page_size))
-+			err("register src failure");
-+		rwprotect_range(gopts->uffd, (unsigned long)gopts->area_src,
-+				page_size, true);
-+	} else {
-+		if (uffd_register(gopts->uffd, gopts->area_src, page_size,
-+				  false, true, false))
-+			err("register src failure");
-+		wp_range(gopts->uffd, (unsigned long)gopts->area_src,
-+			 page_size, true);
-+	}
-+	if (uffd_register(gopts->uffd, gopts->area_dst, page_size,
-+			  true, false, false))
-+		err("register dst failure");
-+
-+	if (madvise(gopts->area_src, page_size, MADV_PAGEOUT))
-+		err("MADV_PAGEOUT");
-+	if (!pagemap_is_swapped(pagemap_fd, gopts->area_src)) {
-+		uffd_test_skip("MADV_PAGEOUT did not swap the page; is swap enabled?");
-+		goto out;
-+	}
-+
-+	if (ioctl(gopts->uffd, UFFDIO_MOVE, &move)) {
-+		uffd_test_fail("UFFDIO_MOVE failed: %s", strerror(errno));
-+		goto out;
-+	}
-+
-+	if (pagemap_get_entry(pagemap_fd, gopts->area_dst) & PM_UFFD_WP)
-+		uffd_test_fail("uffd bit moved into an area registered for missing faults only");
-+	else
-+		uffd_test_pass();
-+out:
-+	close(pagemap_fd);
-+	uffd_unregister(gopts->uffd, gopts->area_src, page_size);
-+	uffd_unregister(gopts->uffd, gopts->area_dst, page_size);
-+}
-+
-+static void uffd_move_swap_wp_test(uffd_global_test_opts_t *gopts,
-+				   uffd_test_args_t *targs)
-+{
-+	uffd_move_swap_test_common(gopts, false);
-+}
-+
-+static void uffd_move_swap_rwp_test(uffd_global_test_opts_t *gopts,
-+				    uffd_test_args_t *targs)
-+{
-+	uffd_move_swap_test_common(gopts, true);
-+}
-+
- static bool
- uffdio_verify_results(const char *name, int ret, int error, long result)
- {
-@@ -2359,6 +2428,21 @@ uffd_test_case_t uffd_tests[] = {
- 		.uffd_feature_required = UFFD_FEATURE_MOVE,
- 		.test_case_ops = &uffd_move_test_pmd_case_ops,
- 	},
-+	{
-+		.name = "move-swap-wp",
-+		.uffd_fn = uffd_move_swap_wp_test,
-+		.mem_targets = MEM_ANON,
-+		.uffd_feature_required = UFFD_FEATURE_MOVE |
-+		UFFD_FEATURE_PAGEFAULT_FLAG_WP,
-+		.test_case_ops = &uffd_move_test_case_ops,
-+	},
-+	{
-+		.name = "move-swap-rwp",
-+		.uffd_fn = uffd_move_swap_rwp_test,
-+		.mem_targets = MEM_ANON,
-+		.uffd_feature_required = UFFD_FEATURE_MOVE | UFFD_FEATURE_RWP,
-+		.test_case_ops = &uffd_move_test_case_ops,
-+	},
- 	{
- 		.name = "wp-fork",
- 		.uffd_fn = uffd_wp_fork_test,
+-Kees
+
 -- 
-2.53.0
-
+Kees Cook
