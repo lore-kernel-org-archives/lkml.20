@@ -1,79 +1,53 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8F3405C2F
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06E4347532;
+	Sun,  4 Oct 2026 11:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791112537; cv=none; b=XQ0Y9lyI/10ikYCi1bXhZwO3BmEn/Y613JmJrYv5yOAyMciI/7SMpLlMWtec8mRUSLF8Cv090hgGEFGUGIe94yqOAdqM3AEJGDCAdDe53FkrtBJKKnWixOsJ8fctzEJYEW8GFtV6NkSycFLkGo6iPnexvtNgQuq1FvhPmoQU03E=
+	t=1791112565; cv=none; b=t0EbTB6bWi2i98XPXffPSr3xw6XJsvqPYrakAnnAnoDgUc54eY1hd0rtJETA+qYwNC8AQLGmjsO6cKKtJXLEPY/W2uOrCVvLZrelhu8cTmHGYrsgSH3WMKIF1T5qIFhNmYmwKz1HWMidklkTeLEQZvFvhbNhHXtbsN5fStAfGhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791112537; c=relaxed/simple;
-	bh=5souf5P8cdCDKNKE8Vfd9AYxuOtIE3Hf7UU1MdVziio=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dq0AujPseTV77+x+3C1JyhphqbTt+UcHavrRNWJ0U7NMScQvmi5k8Yy3bYqXtBju/+RVoEyh87ctD4ITyJa6CS34GSbRwq1HcWAiCM+dryDEAGmjXt30vnk0yVleDlqw/WG2LcTMFaiy7WQu1zoWHPv4LgHgqDNq+LZJ5pV7hcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o4fii7NG; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791112565; c=relaxed/simple;
+	bh=Tjc3sDrrfnV/Awa6+Nx549H1v7BSIdq/DFLvusJJ/g8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ipU8WkXcS1gtMiTBuS0plnQ/1IZRoXRaLiovi2rbN672QCvkZpnkuhG0SM+iXS5//qAQAPHWMpisZmLrcuX++Pt6WdpM040bnC7bTg3SfA4vw0YM9PoscYmDkltDCKwhvuad81KrQAHqSn+s58Ec4FVoabc06Q682O/QfUVVCbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=eSVenpYS; arc=none smtp.client-ip=82.76.27.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o4fii7NG"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso604863a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 04:15:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791112535; x=1791717335; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Tsx+aDb2dwCtUhjqNMOb40F6ukqlNEoo0x6nqwwDid0=;
-        b=o4fii7NGfBvUvDI/+fVjIoC9oPfR3VhAO4DFVri39Kd1n6gF5/6YfJJO7gZ0dtRthp
-         x/bQ12tMNPP8f4KVMS+2DHVHHY9Y37L7bsdHp+CsS6tsXEF9TOfDThE5HaovGPCmtn0T
-         Da/+/jsASYv2s7gt9q7xGRehXeA/X7QL3Ve7leZMH5zyhQNvLcFFjDCj+fdJ2DjsNd3w
-         2LAIeak/P/5gbwFN77gZ2z6M6QRWb3R/Dc5+6TsMlZIyekmOpDsBCjeo93yB7Wkjokzr
-         2scGZrKu+EdiSBX0C+Ri4bxe0rWBAI44vKM9t2ki029kIebOQWcL/1d3exNTDOcwywPs
-         OfyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791112535; x=1791717335;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tsx+aDb2dwCtUhjqNMOb40F6ukqlNEoo0x6nqwwDid0=;
-        b=SrGTmq6wt307YWQs7COXz0i1GCx/UyU0pm7WRfWhxr1abyJw6RWEbXmZAf2ppjDuHb
-         IHvmLuZyCgPjcWDHrsNNng9E8HfM3QsDEXSb1CLJOf7yQ3eKM+BWbyJkfah1rZBNQ/nv
-         pt66KNFaZBF6Ivsco7RyWKg5e+8cdG7X9sbmc6QFKjF3y/Dwqb8/HLcc9udKapD9Q7Ut
-         ZGBqyNQ9K67xUvwBysQjP8+ObGjN+kQ3fqTi9gxyHa+G0RC+tHvGrOcc8QaZMfbsa2np
-         Cx3nu9/THJj9tD40vwYnoAo8a+lD3e14hpzr03283SStya4g23ARxoUCduH8l/P4PU+x
-         5irA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5iZ78fEOlOXmPzIrYYZ8aaTnXCmrERxFMBo18M2NqHptVwy8RbpUsBfitihkwBl3PUtoR+jgE8ERX9/I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwHfIhFEMtdqQLMaPh+zlKS9OPJZyGWvCR4U5gXSnHvmq7zHS7
-	kBZApSAD/oXnkWKDMulpyNSbf5v793B87mr/eEBRI4nkNjfwVz6aRM0d
-X-Gm-Gg: AYBFou1WEJgDHG5+uixZiLiOwaTjPE6Zi1ceEKwqKT41sNNhpmgbWsBQEXZ6RD7pPCo
-	DLQ49o53ArS4wjbCJbADlS1QBubX9VPg607nF0ITWtAGOMsZOo6ucDDSZEWVNhBJbA7y2u42wlx
-	MlIuHBwRfCDU4eQcNhtxas4nxaCOzJzxVORyhP3nidvWV1Rt1zr7et20/SZxBy9yfnsT6b5QKXI
-	gA6jBz7dlxhWM+09cWR+7CErKDgpDqHVjsTF+laWkHrOviR0eqxNaVye6M1A23ySktftyEs2rQ6
-	tkA30J44rIpYxjCYrGk3PiSZ7wqxdGS5i2JbdEdxmyIYx8GNIqpKJJ7BRWc0bIOq9uijLWQlzI+
-	zB0Yc8J1mp4F0orGJGcjjc3CgrDJoe34MaGmeG4HHiQPN1oQwPXsNfGC6AWaFRQip8hlyJM7p1Y
-	+V7mInjGL014wQQwZsSekNBD4xn1eEKVRKUR1rZMsON9mRuSzRsnr8L7iFkmLS4/hrmvMSOiEv6
-	Lh8utv4eWxPUVeoBc3xul0=
-X-Received: by 2002:a17:90b:3949:b0:3a4:7d7c:1866 with SMTP id 98e67ed59e1d1-3a787775e3cmr3455592a91.61.1791112534791;
-        Sun, 04 Oct 2026 04:15:34 -0700 (PDT)
-Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f73556efsm2776007a12.9.2026.10.04.04.15.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 04:15:34 -0700 (PDT)
-From: Jinmo Yang <jinmo44.yang@gmail.com>
-To: ping.cheng@wacom.com,
-	jason.gerecke@wacom.com,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jinmo Yang <jinmo44.yang@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/1] HID: wacom: serialize mode changes with device removal
-Date: Sun,  4 Oct 2026 20:13:26 +0900
-Message-ID: <20261004111353.118025-2-jinmo44.yang@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261004111353.118025-1-jinmo44.yang@gmail.com>
-References: <20261004111353.118025-1-jinmo44.yang@gmail.com>
+	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="eSVenpYS"
+Received: from MAILGW-BIG.big.vtj.corp.irix.systems (localhost [127.0.0.1])
+	by vtj.irix.systems (Proxmox) with ESMTP id EB11C1033E;
+	Sun, 04 Oct 2026 14:16:01 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:from:from:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=sig1; bh=Lt4goGLH0Kta1yOw1oxH
+	saCZ9Yc/40nWRnFA2qzPMLk=; b=eSVenpYSRTQm560xk3N3+PV7fRyXjMHr2B7L
+	hOXSQnLdrd6P4oIkR9BDVaxVM0fdKY/cam+2Y+fpNVzJTImCC7v18qB7xVwyOArh
+	Q1nF4Nt1/Y7EpvbiCqMqtR5S2U12y5AHLTUTMzsAK5uLDGnD2+EhA7q/A4WDR5tl
+	sryeraMGkpC2ScZm/pssNk+UtlxTf6DNjylzbT/4aLPdAoJwjW5pL3uFM0m3M9u2
+	NcMW1K9UF1yQYg9c0uO4mqdXzn8Y5wHyaQwLsDhSRNKP/r/TQy2FZgc5qYBblIRe
+	zND9DaUNiiRZtIwYEN4O2m0CMYjDO3owxvDbG7duRxRKAJudNw==
+Received: from VTJ-MX.corp.irix.systems (unknown [10.57.36.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by vtj.irix.systems (Proxmox) with ESMTPS id 5096810412;
+	Sun, 04 Oct 2026 14:16:01 +0300 (EEST)
+Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 4 Oct 2026 14:16:01 +0300
+From: Andrei-Alexandru Bleortu <me@andrei-z.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+CC: <linux-kernel@vger.kernel.org>, <linux-wireless@vger.kernel.org>, Felix
+ Fietkau <nbd@nbd.name>
+Subject: [PATCH wireless-next 1/2] wifi: mac80211: notify driver on airtime weight changes
+Date: Sun, 4 Oct 2026 14:14:49 +0300
+Message-ID: <f1c38f69fbc43dde6be805ef140837bd201187a3.1791111135.git.me@andrei-z.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1791111135.1.git.me@andrei-z.com>
+References: <cover.1791111135.1.git.me@andrei-z.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,147 +55,172 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-wacom_mode_change_work() takes both siblings' struct wacom out of
-wacom_shared and tears down and rebuilds them, holding no reference to
-either. wacom_remove() cancels only the work owned by the device being
-removed, so a worker owned by the other sibling keeps using this device
-after its remove callback returns, and hid_device_remove() then frees
-struct wacom along with the driver's devres group.
+From: Felix Fietkau <nbd@nbd.name>
 
-Reproduced under KASAN on hid.git master (fe2ec83746e5) with a uhid
-reproducer that binds a sibling pair, sends a mode-change report and then
-closes one sibling's descriptor, 10 boots out of 10:
+Add a new sta_set_airtime_weight driver op so drivers can program the
+airtime fairness weight into hardware. The op is called when the weight
+is updated via sta_apply_parameters, and on station upload if a
+non-default weight is already set.
 
-  BUG: KASAN: slab-use-after-free in wacom_parse_and_register+0x4fa8/0x58e0
-  Read of size 8 at addr ffff88800be431f8 by task kworker/0:2/75
-  Workqueue: events wacom_mode_change_work
-   wacom_parse_and_register+0x4fa8/0x58e0
-   wacom_mode_change_work+0x333/0x7e0
-   process_one_work+0xa3b/0x19b0
-  Allocated by task 11:  devm_kmalloc <- wacom_probe
-  Freed by task 82:      devres_release_group <- hid_device_remove,
-                         under uhid_char_release <- __x64_sys_close
-
-The same object is also written: wacom_feature_mapping() stores
-features->touch_max into it, four bytes at a fixed offset, with the value
-taken from a feature report. Closing one sibling's /dev/uhid descriptor is
-all it takes, with no privilege, and a reference on the hid_device would
-not help: struct wacom is devm_kzalloc() on &hdev->dev.
-
-Serialize mode-change workers with wacom_remove() using a driver-wide
-mutex, cancelling the device's own work first so that a worker blocked on
-the mutex cannot deadlock removal. wacom_add_shared_data() registers its
-devres action inside the group wacom_parse_and_register() opens, so
-wacom_remove() clears this device's shared pen or touch pointer under the
-mutex and no later worker can pick it up.
-
-The worker also snapshots both shared pointers and returns on a NULL
-wacom_wac.shared, because releasing the first sibling's devres can drop
-the last reference to the shared data.
-
-Fixes: 4082da80f46a ("HID: wacom: generic: add mode change touch key")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
 ---
-Applies to hid.git master (fe2ec83746e5). It does not apply to for-next;
-see the cover letter.
+ include/net/mac80211.h    |  5 +++++
+ net/mac80211/cfg.c        |  6 +++++-
+ net/mac80211/driver-ops.c |  4 ++++
+ net/mac80211/driver-ops.h | 19 +++++++++++++++++++
+ net/mac80211/sta_info.c   |  7 ++++++-
+ net/mac80211/trace.h      | 27 +++++++++++++++++++++++++++
+ 6 files changed, 66 insertions(+), 2 deletions(-)
 
- drivers/hid/wacom_sys.c | 36 +++++++++++++++++++++++++++---------
- 1 file changed, 27 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index 40770affdbde..ecd7b38b1418 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -764,6 +764,7 @@ struct wacom_hdev_data {
+diff --git a/include/net/mac80211.h b/include/net/mac80211.h
+index cb9f8e14b3..aab98d92ee 100644
+--- a/include/net/mac80211.h
++++ b/include/net/mac80211.h
+@@ -4694,6 +4694,8 @@ struct ieee80211_prep_tx_info {
+  * @set_sar_specs: Update the SAR (TX power) settings.
+  * @sta_set_decap_offload: Called to notify the driver when a station is allowed
+  *	to use rx decapsulation offload
++ * @sta_set_airtime_weight: Called to notify the driver of a change to a
++ *	station's airtime fairness weight, so it can be programmed in hardware.
+  * @add_twt_setup: Update hw with TWT agreement parameters received from the peer.
+  *	This callback allows the hw to check if requested parameters
+  *	are supported and if there is enough room for a new agreement.
+@@ -5108,6 +5110,9 @@ struct ieee80211_ops {
+ 	void (*sta_set_decap_offload)(struct ieee80211_hw *hw,
+ 				      struct ieee80211_vif *vif,
+ 				      struct ieee80211_sta *sta, bool enabled);
++	void (*sta_set_airtime_weight)(struct ieee80211_hw *hw,
++				       struct ieee80211_vif *vif,
++				       struct ieee80211_sta *sta, u16 weight);
+ 	void (*add_twt_setup)(struct ieee80211_hw *hw,
+ 			      struct ieee80211_sta *sta,
+ 			      struct ieee80211_twt_setup *twt);
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index bd1a857c81..28f99a8f8a 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -2616,8 +2616,12 @@ static int sta_apply_parameters(struct ieee80211_local *local,
+ 	if (ieee80211_vif_is_mesh(&sdata->vif))
+ 		sta_apply_mesh_params(local, sta, params);
  
- static LIST_HEAD(wacom_udev_list);
- static DEFINE_MUTEX(wacom_udev_list_lock);
-+static DEFINE_MUTEX(wacom_mode_change_lock);
+-	if (params->airtime_weight)
++	if (params->airtime_weight) {
+ 		sta->airtime_weight = params->airtime_weight;
++		if (sta->uploaded)
++			drv_sta_set_airtime_weight(local, sdata, &sta->sta,
++						   sta->airtime_weight);
++	}
  
- static bool wacom_are_sibling(struct hid_device *hdev,
- 		struct hid_device *sibling)
-@@ -2783,22 +2784,32 @@ static void wacom_remote_work(struct work_struct *work)
- static void wacom_mode_change_work(struct work_struct *work)
- {
- 	struct wacom *wacom = container_of(work, struct wacom, mode_change_work);
--	struct wacom_shared *shared = wacom->wacom_wac.shared;
-+	struct wacom_shared *shared;
-+	struct hid_device *pen;
-+	struct hid_device *touch;
- 	struct wacom *wacom1 = NULL;
- 	struct wacom *wacom2 = NULL;
--	bool is_direct = wacom->wacom_wac.is_direct_mode;
-+	bool is_direct;
- 	int error = 0;
- 
--	if (shared->pen) {
--		wacom1 = hid_get_drvdata(shared->pen);
-+	mutex_lock(&wacom_mode_change_lock);
-+	shared = wacom->wacom_wac.shared;
-+	if (!shared)
-+		goto out;
-+	pen = shared->pen;
-+	touch = shared->touch;
-+	is_direct = wacom->wacom_wac.is_direct_mode;
-+
-+	if (pen) {
-+		wacom1 = hid_get_drvdata(pen);
- 		wacom_release_resources(wacom1);
- 		hid_hw_stop(wacom1->hdev);
- 		wacom1->wacom_wac.has_mode_change = true;
- 		wacom1->wacom_wac.is_direct_mode = is_direct;
- 	}
- 
--	if (shared->touch) {
--		wacom2 = hid_get_drvdata(shared->touch);
-+	if (touch) {
-+		wacom2 = hid_get_drvdata(touch);
- 		wacom_release_resources(wacom2);
- 		hid_hw_stop(wacom2->hdev);
- 		wacom2->wacom_wac.has_mode_change = true;
-@@ -2808,16 +2819,17 @@ static void wacom_mode_change_work(struct work_struct *work)
- 	if (wacom1) {
- 		error = wacom_parse_and_register(wacom1, false);
- 		if (error)
--			return;
-+			goto out;
- 	}
- 
- 	if (wacom2) {
- 		error = wacom_parse_and_register(wacom2, false);
- 		if (error)
--			return;
-+			goto out;
- 	}
- 
--	return;
-+out:
-+	mutex_unlock(&wacom_mode_change_lock);
+ 	if (params->nmi_mac) {
+ 		struct ieee80211_sub_if_data *nmi =
+diff --git a/net/mac80211/driver-ops.c b/net/mac80211/driver-ops.c
+index 49753b73ab..083c265175 100644
+--- a/net/mac80211/driver-ops.c
++++ b/net/mac80211/driver-ops.c
+@@ -157,6 +157,10 @@ int drv_sta_state(struct ieee80211_local *local,
+ 			sta->uploaded = true;
+ 			if (rcu_access_pointer(sta->sta.rates))
+ 				drv_sta_rate_tbl_update(local, sdata, &sta->sta);
++			if (sta->airtime_weight != IEEE80211_DEFAULT_AIRTIME_WEIGHT)
++				drv_sta_set_airtime_weight(local, sdata,
++							   &sta->sta,
++							   sta->airtime_weight);
+ 		}
+ 	} else if (old_state == IEEE80211_STA_ASSOC &&
+ 		   new_state == IEEE80211_STA_AUTH) {
+diff --git a/net/mac80211/driver-ops.h b/net/mac80211/driver-ops.h
+index f1c0b87fdd..bd5c9d1edc 100644
+--- a/net/mac80211/driver-ops.h
++++ b/net/mac80211/driver-ops.h
+@@ -1633,6 +1633,25 @@ static inline void drv_sta_set_decap_offload(struct ieee80211_local *local,
+ 	trace_drv_return_void(local);
  }
  
- static int wacom_probe(struct hid_device *hdev,
-@@ -2916,6 +2928,10 @@ static void wacom_remove(struct hid_device *hdev)
- 	cancel_work_sync(&wacom->battery_work);
- 	cancel_work_sync(&wacom->remote_work);
- 	cancel_work_sync(&wacom->mode_change_work);
++static inline void drv_sta_set_airtime_weight(struct ieee80211_local *local,
++					      struct ieee80211_sub_if_data *sdata,
++					      struct ieee80211_sta *sta,
++					      u16 weight)
++{
++	sdata = get_bss_sdata(sdata);
 +
-+	/* A sibling's mode-change work can also access this device. */
-+	mutex_lock(&wacom_mode_change_lock);
++	might_sleep();
++	lockdep_assert_wiphy(local->hw.wiphy);
++	if (!check_sdata_in_driver(sdata))
++		return;
 +
- 	timer_delete_sync(&wacom->idleprox_timer);
- 	if (hdev->bus == BUS_BLUETOOTH)
- 		device_remove_file(&hdev->dev, &dev_attr_speed);
-@@ -2925,6 +2941,8 @@ static void wacom_remove(struct hid_device *hdev)
++	trace_drv_sta_set_airtime_weight(local, sdata, sta, weight);
++	if (local->ops->sta_set_airtime_weight)
++		local->ops->sta_set_airtime_weight(&local->hw, &sdata->vif, sta,
++						   weight);
++	trace_drv_return_void(local);
++}
++
+ static inline void drv_add_twt_setup(struct ieee80211_local *local,
+ 				     struct ieee80211_sub_if_data *sdata,
+ 				     struct ieee80211_sta *sta,
+diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
+index e81cd15519..2ce3ef905f 100644
+--- a/net/mac80211/sta_info.c
++++ b/net/mac80211/sta_info.c
+@@ -872,8 +872,13 @@ static int sta_info_insert_drv_state(struct ieee80211_local *local,
+ 		 * Drivers using legacy sta_add/sta_remove callbacks only
+ 		 * get uploaded set to true after sta_add is called.
+ 		 */
+-		if (!local->ops->sta_add)
++		if (!local->ops->sta_add) {
+ 			sta->uploaded = true;
++			if (sta->airtime_weight != IEEE80211_DEFAULT_AIRTIME_WEIGHT)
++				drv_sta_set_airtime_weight(local, sdata,
++							   &sta->sta,
++							   sta->airtime_weight);
++		}
+ 		return 0;
+ 	}
  
- 	if (wacom->wacom_wac.features.type != REMOTE)
- 		wacom_release_resources(wacom);
-+
-+	mutex_unlock(&wacom_mode_change_lock);
- }
+diff --git a/net/mac80211/trace.h b/net/mac80211/trace.h
+index 562a4964af..3ae7e78de7 100644
+--- a/net/mac80211/trace.h
++++ b/net/mac80211/trace.h
+@@ -2462,6 +2462,33 @@ DEFINE_EVENT(sta_flag_evt, drv_sta_set_decap_offload,
+ 	TP_ARGS(local, sdata, sta, enabled)
+ );
  
- static int wacom_resume(struct hid_device *hdev)
++TRACE_EVENT(drv_sta_set_airtime_weight,
++	TP_PROTO(struct ieee80211_local *local,
++		 struct ieee80211_sub_if_data *sdata,
++		 struct ieee80211_sta *sta, u16 weight),
++
++	TP_ARGS(local, sdata, sta, weight),
++
++	TP_STRUCT__entry(
++		LOCAL_ENTRY
++		VIF_ENTRY
++		STA_ENTRY
++		__field(u16, weight)
++	),
++
++	TP_fast_assign(
++		LOCAL_ASSIGN;
++		VIF_ASSIGN;
++		STA_ASSIGN;
++		__entry->weight = weight;
++	),
++
++	TP_printk(
++		LOCAL_PR_FMT  VIF_PR_FMT  STA_PR_FMT " weight:%u",
++		LOCAL_PR_ARG, VIF_PR_ARG, STA_PR_ARG, __entry->weight
++	)
++);
++
+ TRACE_EVENT(drv_add_twt_setup,
+ 	TP_PROTO(struct ieee80211_local *local,
+ 		 struct ieee80211_sta *sta,
 -- 
-2.53.0
+2.47.3
+
 
