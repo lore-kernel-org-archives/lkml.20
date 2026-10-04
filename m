@@ -1,174 +1,121 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBB943A7E9
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791122298; cv=pass; b=l7brT20plAclyGgLxvC1gzv2IsdfsTWcuhFsUf5fpzBAv9OTun9yrZ+bnOzoS97ujT/G7FlEITeMwLX2ZpkboPZfUfUc9yIl8Sb7NJuzVL/vMYEwkJe7pS9Ljf1wQ9JaqfDhJZ+nRdqesvJ2nEgzmFu+TFn7SbMl0B5bvwVodUg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791122298; c=relaxed/simple;
-	bh=WEaQ6XiqVtg2tmigVy5JhaPpL6oItqqeQ0+x0LG+yaI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VcUUh2SKArCsP8IVss1D6TBezY42QEoDsBlEdXmBm1qtlZM5bBxxAXp9s3aM9kpoNUUfcKN70V96flk7a9n6ZZrz3781R4ESuMImAGzEKROo/cMr1/UOod5ER+AmBnX+nimQGUnTVfEP5aqAtdEu8Vba+e2VHUGsXF8hUU3l4qQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tiH6Tam3; arc=pass smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0623E212FAD
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 14:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791122420; cv=none; b=QvHa8gxjr93xY635shqAkfSweabK9j6cZU6ZdD+NJcYeRvXVRfxIG3aTSCgB+OeHdk7HnrF6cBFXlgXsCCF4s2M0lYtKUM+elQWC3BYd7p4b2bsO0RJ1Xs7OY/c4hjXidzreVvQC/3zpuCr7iO5fiIuBQdgr9KeK+32UMw35vFk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791122420; c=relaxed/simple;
+	bh=M7G/69YDl6UxRKlMCZubwH5wKehLjiqi6b/OWSUeyIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z0S6u01tGKCYFWsPnrJ5gfmHO2m/P1XiqT63UldgXxFl/ygvQn3gKm+g6zRuOjSbvdVOQdu/yyvK/9d1kebZDMhJ8kUWUdYNrmFHjODyoproFqRDiQd6oo93ihrNU13o8WLJATF+oIW4VDemK1qtoGu/sRsl9LNxmRyt6CtDbkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=a/juIQiu; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tiH6Tam3"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8aecf8568b6so4868157b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:58:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791122296; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KcaoWr7aFqPFm93iZyPVmoHshMU3Yl34TNx1Ore84WTj61+6HpwzM1MrZNCGl+QvWq
-         SsxIaNawrUX9XCTyQC2i6TRwlbMWb0ETHcbP6ZFwtcFnpd+W64LPmRUCmUi80LehBylj
-         Y2T/nuT/XGVTtmUDwt3DoV3YyqsmBdXiNfH9nlkPYwpmzUuKKZxFhKX86OXTzf60XZ1b
-         IJjn2o0l/Rmm/zchF3nr+Hw5IzU5K3wTeym3MuXxzGPPlXBlE5jJ6I6emFTwzmj0+fos
-         tHAirsafWioxCyIPsAqYqCv8tfoipFhOiKf3EGQ/VWhx97EP48LNjlDLEDYA6yLf9aOu
-         xMAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
-        fh=83TVoZsZu/Wh9JHsO00MOLh0+T5fPrmc3M/rA5+PXNY=;
-        b=UihRSmtPRFKuxI/k/YxV42s/8vE+ol2D1BfR4jwtBP9hlf8KwMhvh6lAsjzUedAPAA
-         ncYsGNDlrnTaFUNLO8ElBeqbKSRx9kBJl/FmLp3FsGZ61Uy3fUFcJf36USLTLtGc26l8
-         e2O+RJl5qWj3xll+tO76+VtVyifalqcty+AG7ZlnwsFSkMQF9+RHOT6W7unPORSPCwb1
-         QT2yc25kruHqbUCztojc4bVKghsvT7/2UnyyhO1uW637/ofwuEPLE4DfyMiPjBeYdIws
-         A9jMqae3WL6hJsp4b9F411cl6KPEarG5JigrMLsyjJOYzEV3FxD1WLGeTp7EGSfgIpj1
-         rynA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="a/juIQiu"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso9079045e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 07:00:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791122296; x=1791727096; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
-        b=tiH6Tam3uTd2FiXGSp4cxy7BQT2SyfuRaZ2ny0fStEJfjXUAfxIDYl47qa3HDFdivA
-         7ptVHFPAq0PEDn6+SxhA+luVp46kSo+f+m86prEP/wUCnjmL5nS0GZY1DNx5EdmIMKoy
-         dUTTItSPg3XFyhJca9mxAl2hSH4xLIN+/RwupcrP8r+k1Asmuc17I6Y3O/eJ/r5cmObt
-         P3ai1msSZCVD/MhY4AfciVOn72dvDsR2VZb2o8Gus4wOlwv5UI62ft2xOoNbJN4ILCK9
-         KowIRK5QzV1LmRwSqx2t0niwkcmMoJqsmlE4XT5bH+ODeig7tDD0UPn0+IE9arsW+VPE
-         FIkg==
+        d=blockcast.net; s=google; t=1791122417; x=1791727217; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M7G/69YDl6UxRKlMCZubwH5wKehLjiqi6b/OWSUeyIE=;
+        b=a/juIQiu1iPkaqkVtGjm6kutc1d12T4Cow3imMH8s+i8AGaUdYSdFrFI3C7qTaRek2
+         vxCCcbqXGVqNOJdZnBr7HLl8w4o3mghMe67WvmSAc+VbNSz/OFM2RUWyhon60g4eT/7U
+         sOzO3XSnM97QwbnVbiot4zASn3EvUlSTNf2yDhX1MllEC3yCceyWKKkUQgCBWPiHuthf
+         1O8m9iVrokWaGg1YHvv3/Od6c0LewAqfxNPw2Pwvnsrww9WqzU+QxtfEiNF8U5yMI6M5
+         jCaxdHC45WP3oR4PQTK73SHEsGYFCMU/XF0fE3GlqTGV/dOL9GGtGLtOv8JyKpyk+6JD
+         whLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791122296; x=1791727096;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
-        b=USKFuKfqIK5btPKbVGsBRUmAEiFgwzyKtGFS96agyqUSUu9YMmlys/FO+IZ5qDGy2B
-         S/F/uAPTmjK5uoWjq2he/Wl0rSCE8RThazGtdqD8aMMjURIe4WgKNIX8BySjPT9zm0HF
-         tL0V/xhsynvm5iP5Ddt9H6v0XPTqkN0vRfZ5TePUIHOoYSa5thUoKU/kUF8tWgcHQzta
-         8uouzkg3yIAPCC03BtUZ3jw8ef83ngOaaRdr1ws3zy3k1YBAVEm9uyJ+AJneroFWzoVa
-         ylIgWZWauGzU6P1oZA69fymgfjQHRmKOHFlrvmYR0E5y2PJ1ZdIA/KLa2+xLfr2DcCfU
-         qyrw==
-X-Forwarded-Encrypted: i=1; AKwUvBzT9tMMs/QyrIfiY4NBd3OlDJrfMSRcqi9vXOyUl4Yp0YKSvYYAYsPu+bbcJQAjSwc2jU9Ps/OBCftO1xY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJx98hOxbQIChH3u1x3/F6sBOG1JQG6IJc5iEShEMwdmGiKYq0a
-	go08n7859L/jzK0a9mDoiaOuWcmCHuN6E3RaqVCvq8JNn3FiKjZL8X8WhC92pOKRBZ8EGgsfgZ+
-	EpPmGk2/Hul6VZjSNYVxT4cXIXRlxZ7ZWNvziIfSiGLaCrBStuyv3Kzc=
-X-Gm-Gg: AYBFou0C/6QieSjgHxGLbd76sWaiJV0hePC2ZtqLRXcPyebuSrAjK0eaKyJvuECQ4Tp
-	09HfDnd7B2D3KuzH3A2gnQnR74TwSFTI+zMpfNS4k4W3AMqwUEcjB1O2DiuansNyplPv/RRf7Vp
-	aydCEMkS6UeR65LMCvQko1Di3ozELq89MLhJIQ8N9oU9DBTMPngnP0AL2lqnUoebaTwYUi+YmqR
-	p2gyHturDHUMIJzhfasNiXeeCBHLyh5pS6jlTAZSEZ/FAf0l5QOUojjRzmN+rT3OPkkbU8YI1zR
-	BfhxGu75tqO9lc+CQyJbwmkS/nnbSeV7nGXBDIvSXiYcLz+qvecQhCPy7kitmEgO
-X-Received: by 2002:a05:690c:c3ec:b0:8ac:b167:4877 with SMTP id
- 00721157ae682-8ae39bbdff2mr22844037b3.36.1791122295720; Sun, 04 Oct 2026
- 06:58:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791122417; x=1791727217;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M7G/69YDl6UxRKlMCZubwH5wKehLjiqi6b/OWSUeyIE=;
+        b=p09btSUSseGm3ikktJ+TRFAcwWbljzbT2jYKT+HgqtPkrxll1ixQG9/NpUTmaUFArn
+         +P8kO9fWDjLS14qBrMGURck/gyTpe7pPKcSNjjm5RI0ZaQzUmmRPYBMg//Sn4jn6cyI6
+         Mup6NuGP0BOIuzZTsvrh9W9DkNKlz0clhSYX5UPmfWrg0Birjz0rf7EtEO4zncZRlK0N
+         WxQodMCSycjU6XEzm8pIAbqFdLEIFMntQZ5Irfh/u32zKZW1nr0W5pJZ65oguLKi1Lj2
+         SfzxvTJ1cnZdA7r02ceoDl4+1cPc9/vtH4b5Gu62fx5I2XsASnapFWlMWk5rb0I8zi21
+         MRaw==
+X-Forwarded-Encrypted: i=1; AKwUvByGjsLwe/nAIhQhuuztFtBFErksX0LudEZ1Qkm4g8QhKzhZrtdKdrncGF/kprTru0+bDgsCztOJ0qN6NLg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyX/5JJGRitVP5cckJY2puoxHK6ozL2VQw6xzOlvHsXjOUgd5g
+	lw6QYXGgAccnN4vmLIFIzar6+uSwComgFJDHzteJvuFbgs2OQYradrPFoNU9ayby3e0=
+X-Gm-Gg: AYBFou2Ra9T7AHQdmfbjtk+ZS+Q7/LVcQ7Cjr4R20UXo8MquTuZLRMA+PyTIaTmJPet
+	PaHn6xewFp9xqKBaKlzEPq73GsMNaV6klX4KcATQUze7crScF3GQoTPbl/w1L37EEShvhwQ5DDf
+	vbnmrO2Tt0qKP6DTDLFirCIsmxC3YvoaoVHj7OmaNE74TimaQxC/eNnxYB28O47L1ujetqILloW
+	EJtz3eMFB8aNrOazBxNerBrC/jXgqtf8eR3qGXgQc8oYcmylyWMk6TwbDjjwo+qRuJTFpwara1x
+	ix6LA2mj+VyStacIQZOSXnwi4aMhvaKjVjiwrW7jU/IAsznxKmL89qO0ElTLuYG3RKzoaENLvf+
+	RzftJFlmtiFQeCG4aihDH+oEGb9cKl6v1RguSadOjFuVa5W9XZgoNsgNOqOHDEwfkUpx5/U6NFD
+	Z1wSICNLQTv1bVGKeEpzEqWOa1CRIpafgIil4OgtlnQACrFD+vzOeeMCalAQP+C2za8iFLiX4Cs
+	nrBfX+CfBikv4zlI7/GUryo4L3LSrLjfbOnpN9YY6503ywY2SXqp8R7QUt3IxwxuWwCVshQ93Qq
+X-Received: by 2002:a05:600d:864b:20b0:49f:fbad:29be with SMTP id 5b1f17b1804b1-4a0276afda9mr95240495e9.34.1791122416978;
+        Sun, 04 Oct 2026 07:00:16 -0700 (PDT)
+Received: from localhost.localdomain ([197.51.72.2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8ab4sm17450227f8f.35.2026.10.04.07.00.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 04 Oct 2026 07:00:14 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: netdev-bot+sashiko@kernel.org
+Cc: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] selftests: net: add an amt test for UDP_SEGMENT through the relay
+Date: Sun,  4 Oct 2026 17:00:06 +0300
+Message-ID: <20261004140006.93394-1-omar@blockcast.net>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <179106416321.434549.5874142465613964174@kernel.org>
+References: <20261002212458.34247-1-omar@blockcast.net> <20261002212458.34247-3-omar@blockcast.net> <179106416321.434549.5874142465613964174@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
- <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
- <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com> <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
-In-Reply-To: <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Sun, 4 Oct 2026 21:58:04 +0800
-X-Gm-Features: AclHuK9hzkrn0hz5wdouvmEqGC_OxpKSvbDPHUzvFuTecXtty7kAzmgPFKXJfPw
-Message-ID: <CABymUCMGT32A5gE+a3u7=-3scH_Nu7Amb22-FRfWiNrcEOnAgw@mail.gmail.com>
-Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel configurations
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-10=E6=9C=881=E6=97=A5=E5=91=A8=E5=9B=9B 03:43=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Wed, Sep 30, 2026 at 09:52:48PM +0800, Jun Nie wrote:
-> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
-=B9=B49=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:05=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > >
-> > > On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
-> > > > Some devices treat two independent physical DSI panels as a single
-> > > > logical panel from the CRTC's perspective. However, two separate DS=
-I
-> > > > hosts are still required to drive the panels individually.
-> > > >
-> > > > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
-> > > > allows a panel driver to inform the DSI host that it is part of a
-> > > > dual-panel setup, enabling the host to coordinate both physical
-> > > > displays as one.
-> > > >
-> > > > This change does not force individual panel driver to manage
-> > > > system-level display topology if the driver does not intended to
-> > > > support dual panel topology. Only the driver that set the flag to
-> > > > true need to take care of panel topology.
-> > > >
-> > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > > ---
-> > > >  include/drm/drm_mipi_dsi.h | 2 ++
-> > > >  1 file changed, 2 insertions(+)
-> > >
-> > > Do you have a single MIPI DSI device, or are there two independent MI=
-PI
-> > > DSI devices? In the latter case, the flag is wrongly placed.
-> >
-> > Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
-> > mipi device
-> > to notify host they are one of dual panels, so that horizontal
-> > configuration(width)
-> > in mipi host can be handled correctly. Where do you suggest to put this=
- flag?
-> > Thanks!
->
-> Into the msm DSI structures. We already have several Qualcomm-specific
-> flags. I'm thinking from the 'generic device' point of view. The
-> 'dual_panel' doesn't mean anything if the device has more than two DSI
-> hosts. You need to specify which hosts are mapped to L or R channels, etc=
-.
+On Sat, Oct 3, 2026, Sashiko wrote:
+> What happens here if one of the sniffers has already died?
 
-How about to add below 3 members regarding multiple physical panels in
-single logic panel. We have h*v panels in a panel wall. The index start fro=
-m
-0 when we iterate panel from left to right of the top array of panel wall. =
-In
-XR case, we have num_panel_h =3D 2;  num_panel_v =3D 1; and
-panel_index =3D 0 for left channel, panel_index =3D 1 for right channel. Th=
-e
-original framebuffer is divided into width/num_panel_h and
-height/num_panel_v for each panel's DSI link.
+Agreed, that is a real hole. A sniffer that finishes normally always
+prints its report and exits 0, so v3 waits for each capture on its own
+and fails the case if either one exits nonzero. A tx-on UDP_SEGMENT
+case in which no GSO skb reaches the driver now fails instead of
+skipping.
 
-u32 num_panel_h;
-u32 num_panel_v;
-u32 panel_index;
+> Should GRXD be passed to check_err, or should the commit message be
+> reworded to match what is actually checked?
 
->
-> --
-> With best wishes
-> Dmitry
+Fixed: v3 checks amtg rx_dropped, and the changelog mentions the plain
+datagram cases.
+
+> The busywait return value is also ignored here and in run_burst():
+
+Fixed in run_burst(): a helper that never prints READY fails the case.
+wait_tunnel() still ignores it on purpose, since a missed READY only
+costs one of the 40 tries, and probe.out is now removed before each
+try, so a stale READY cannot match.
+
+> Can this multiplication wrap before the total > MAX_DGRAM check runs?
+
+Fixed: main() now rejects sizes that would overflow the buffer or the
+seen[] array, for both send and recv.
+
+> Should that be reported as a failure instead, given that this is the
+> data path the test is meant to cover?
+
+Yes. A tunnel that never comes up is now a FAIL, not a SKIP.
+
+pw-bot: cr
