@@ -1,139 +1,160 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E829B212542
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791119888; cv=pass; b=C4pjlwW+zbQXPAw+icCTPsGoQKCRk6wVY/cpTrxr/0srLSrcUKgr7YRtTEI5O82wDyCkyWFcfBoEHLrDNOdp0G/CzNoPBLR+8yfw/A26sAEQKGLC7z/veunv9UQBXQ55Y+NtplXUgEtLXwotFefeRLXiDMceWDy3x/4SWbM2KvM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791119888; c=relaxed/simple;
-	bh=kYFPIdi5qIwk5fFvla5ev9INmB4S2FDhesXe326Sjh8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qu2uqDrU+/qKFX0txRIIkpVtff6RP3UvURPI7eCDyExTsICPrFdat5vk/GptZk7M1Wnek5cl0RRk0ZTe/s8JOZd6U3H2LPZZHq4HyJL6RsBfJfLhF1ZUKJmXKbyVB8XDpXmhbkKIpirz2GyoV+TH1vhTlZTHEnhta03YdtggVI4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=ewifg35h; arc=pass smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94BF21A453
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791119903; cv=none; b=szyiILBfSkCKM6N9fBOWRmyHi89bclIVi1hcQ6WvmObOED3Vc/siMxwHV98uMzIzRw/4ymnZLz9ps1E0Et6UnUOaq3b/ALQW42hRmTeg1kk8rhMjuDKiFTuwkGk8BwF2ZdbrXO43jXl3esIViWiUk5hvbDix4M1u17ScmMErGdA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791119903; c=relaxed/simple;
+	bh=z6rFrkhq8w0RyZKav4VCDTJcQaUJhW5zOfT4ozFYGzs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pF4nmMiXTrJB0YxIHhjhD4kG/QBlzcmYDU3Z2+lAFhtLmWyJHaGG5mssPVzEzWGDMMbgnjxr0aLDiYmCmuzleYh5+loILjwfv+ShZwYN0ab2cDRzLd4SyzO4l7HBMylwnfoDAkJlPJSeU0a/ePLgXc6rw8boxzdot++HYrlyYYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=OSux0YaK; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="ewifg35h"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-86aecf49833so118909b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:18:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791119885; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RS86l+ELs/AwJjL64Eaa4uGnkhC3crnscZetmO/Ws4vxrC8PGllIsDuanLB6ww5+qv
-         sl5H4dYmiSAzRJOiupSNox8jCdd84OPTgb53HAXj6nIubKqezup3r7Hw83EkKAfTi6+s
-         a5By4RsP6UtNJDj6tHdTG7g5YbofxPMarvkKw3KbiTXGEAkaU5oqCq4U2EIYQLzcHp5m
-         lhgguJisMkJNIQKodf6y6DJNYydYPh0OwJZg04iBJmJl4QDut274SOfMBG12H3zJfz7+
-         WP3v4SThuOmhpl05L6nEBnBrHSsGdgwxfQSrIm+eczCwzKdzaqwHNykSPbBFqN7BdGVE
-         Z3cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iqK29hcraqSjkwKPoayt4W5plvnH9pNitz/JPZ6I+94=;
-        fh=0U5NN56bOlGVSTKSP+OmqVnFWlaHE2FU4GadgQZ2ygI=;
-        b=o7f7Q0+jcNn3tKhq/cWikStd8QXKMi+/9jyDD0cPpEwH7BpcrGcYUedri2tuyVnpSG
-         th+NXl5pRqm2JTSDM9Hocj6VSfZaIV/iw91YVwYVTe0YfFYixGrnV2fsaSh4lU3RHIYA
-         gMBwQLfYZbft/bnffscvAIMeXM+gU2hwpe8bzMjfitAGRUTPcPi2dGlemn/xOBgazXTj
-         WV7sWQb+cmCAPBNVz4oGgdzPaXgLhSIpxF75sIoPZjMYa2gz6gCGIk02Pz0u+hOf1a5G
-         THj5K6Q6BmgFxAqKL/ZpSRqdYA5wvK0ncFNS7YhASX2m/uunAgzx89JZZfCnAJqNDVgn
-         dx+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="OSux0YaK"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so6045185e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:18:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1791119885; x=1791724685; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1791119900; x=1791724700; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=iqK29hcraqSjkwKPoayt4W5plvnH9pNitz/JPZ6I+94=;
-        b=ewifg35hKNmJo7++/l6XBeGLxab3+vtVPZngOj+k5KRUjKjiq8Z8+GJs9qmVkSTsrc
-         ifyXUqwSftzmJzFTgA/W/VlRQEM5ncCLeRv0/8yV/GlzfjLKnXsXVwp2vwIyfnoa44y6
-         oYHnPfGHs9PpROzwgyHINRGGZJKHky4TxXmeEKNRbdq2mU37cfKRpz2Q+CBfW1BDUzo3
-         wy+gIbvlRDWJQ35xharx0Qwwk0j51+dZbFvmljKQXDDToBUWxGbpJum5imAtoRAwlbeY
-         MF+0nXQNJocCXY9CFKvl9CEx50parfa35sbNYugCRSvU1M2uFw5waw4/Hv1/tP1ykCN/
-         2kdQ==
+        bh=z6rFrkhq8w0RyZKav4VCDTJcQaUJhW5zOfT4ozFYGzs=;
+        b=OSux0YaKMQPqEWpd/pVzVPELPTbxTWpxqpxof1osuUkMV5pdTPv60Rr3scGDzYPTcs
+         xPJY/4uwFiU9390NUEB6ZgDcijpUo74zJzNyQ8owWWOV+6Ayd9fNMeP8OZ30UyPNGnts
+         pegaSdDBKAbMB468ZkRlp0VoLPc8yWEAquXiHwtejkwLkXYTYklowXpxn5qXClYcuWgM
+         74OypZhrkGMq2mdjosE+gyZ4Srh11JHyODYLqjrU2gF99QUodWBxFolTZ8JeQgl/gnGF
+         BkBupu8R7tbD09KVjhOsdV+d9lWvCfbL8jVhaH1fNRgjsNFUUgb5xm83Lzwdf0+DL7Co
+         Cwnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791119885; x=1791724685;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791119900; x=1791724700;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iqK29hcraqSjkwKPoayt4W5plvnH9pNitz/JPZ6I+94=;
-        b=F0SYZx7Y4Wq3/RddTQMswM6S7VV6cP/wMSs1HX05T/hbDba0ThOO59PYzaJ3OAHtOT
-         spBBMqFKkuBgfj/wrjn2xFzEpM5IJuydt9n7mz+lnKtcK/mGu/t90NKTE5XyiCV9wTbG
-         MG/yApegXbrPNrsQbC74jPq5mWxy9dRjNhoRICQj03YC431kyaK8rGYQ2zuRtiNY05lN
-         WfQdIOycpzPRgSuaU6wpXSoQxyCOh8ACqWmujd/oKL0jpeoOdphfDMVc9/wBN8dota2G
-         Mdt3DQaqq4Inglb9D8z/n9PbK8E22bpzBxhSNMBl8FwTr+NeoAoWLCQqU/J3zTZafWay
-         Hlcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwzx+ucyK1tSWPOFXNIHQr3BcmT+pSsjny5bRQMofxdT/BRtmPWg962XYYPKre97hAc+faG8ur/h5x+yqw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mft19Kqo+3x55/yOu/taJ2ag+ZZLdtTMVh8uBJelg9qtlVUQT4
-	e6YlxFqL2dWWOddTnPshGePg0zRTlT7v9Xc4jiUyu9M0q/zmzsV4MvgBw3oY5vxNLHfw56hasnk
-	E0/qn/D+W4BfTB4KbUDmpDNLdEhXVEUA00KOYifwQ
-X-Gm-Gg: AYBFou2bVtaj6q2fR9w5/EKl/QYw2bDBnVOJ76x2I3pDygVEw0lkx6rq8rvESn9TwnB
-	M2Uqoz1lXpWa0dWco7m8PzUk/7wRvOyL0IKVV8aR5MNEajC1VJjAmMeAIihFhKRMnNwZA4u9tTP
-	MkOP5yl2kgHG1KUaahoPSQ5D893VDKkWMdHO0o40JK7i6+fwQC2i5ywn4v5Rlyum+ZfFTcIlIF+
-	iSI7kCMsxi2PeahjBrR6tjIFjTyZJuhUv6lGX1nGg+0oaxX1qd1mSUlEwYCYn+0aoNzMJZVYZQ0
-	LzP8ql4c+jSmiQp3lj8cvx/+ww1mav5/UK5jf3jp435TdWjKevUHragXxsI+ryV6hb9t7+oN/Kx
-	EcDZ46eurcNM=
-X-Received: by 2002:a05:6a00:a0f:b0:880:7f48:5f07 with SMTP id
- d2e1a72fcca58-887fb5cadf3mr7829367b3a.6.1791119885275; Sun, 04 Oct 2026
- 06:18:05 -0700 (PDT)
+        bh=z6rFrkhq8w0RyZKav4VCDTJcQaUJhW5zOfT4ozFYGzs=;
+        b=r0bbHtWVwFAR55/MluvDwqiFiB/0tYZz0Qvc3qMsnTT1nJ9J+jOyxTzRAEG6eAiuwK
+         c+flrsoEpzu/fq+PMoXFWRyc9g4xZGFO9/uXRXKMc18pXA6tFMjTvVShwa/g9UwJ7FhC
+         GbxcTNwQIrZuA6NdOg7o9GGOV8GJ6RR57kqnuXrKRQe645bfQZcnSI43xqUkjmpNV2vi
+         LCqt6Xcx1yKniw9qjzx6I6L9c+OBbeFmYeuKYbrbGHSpbbmYdiVnfAIfOEkGX+2TvMol
+         89gAPQ/lFtvSlUZZtPGFcYTFQa8DV/Lr6GBsc8WWlL3D/DG4du+jQL/EbpryB2jbPQRf
+         7w6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwLkV712EHl+7P4JLjSRfRbpG8esLy1PMC35QRUydnjGsT6WKRgzTdkJzo7D/XmHKb28aA19ZfPJJsrZAI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ7OTLgYXSjrK3wx7wyk0T2mxCWBdYi62jAP1Y/XR4CG+w6K5T
+	C4hcHerL/JvVm5Ym/Mn1e638heHYxU4j0Eh6IHNVFDoh+t6BmzvouIAQ1iiu81/qbt0=
+X-Gm-Gg: AYBFou1xdfX+BFpw6iaLAcXHVdm5MvqgQm+CcVYTsciQuN56B8LSeQTeRCyTeOi9/3g
+	xv6deGbCAXASpEcbCZN+Q7Ol5DSrzEu82euWgFEGlc1/vsIeowDHwMK2Kv34dUUXVPy4moLQ0uk
+	9bIHvsQkJUb9zh69l7Lmp8MRgeQVgu6PPxFdtG2GvEaEGGIkW0mh7nScEY4OQkdHze0c8XB/n4L
+	dbJvQgiSZvUi/c8dyFnncCKe+XCxHZYpimh/PXl4ROMBNH/8efrwyTHj0xFzRYKOXCfsBFakm5K
+	bjmK76qyiwfxqnRi+Opc6p/A59ILx66SyFa0xDGYVpBrMH5LnqPL/8JOTPlkdvdi3KtVo7nwarl
+	/DFhnlsR4hqjcD+MdLPWgENnySahvqrkT4dFNKOqQYy2KizTz4uS40W2Xnxa/FLUUr51qK2iOTD
+	ULn3tfd18+Y7ar+cRZeVDXWAS/8i6z7yvj3fa1lbDtKM/lr9YwJt2rq1mivgvSNwiQRJRoldCSz
+	Jh7FlObcPXssRQ7WZz2IdW4rAk3VPth+ERGgcV0glElElQ=
+X-Received: by 2002:a05:600c:8b2a:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4a0276ad704mr166262085e9.27.1791119899862;
+        Sun, 04 Oct 2026 06:18:19 -0700 (PDT)
+Received: from [10.1.39.236] (90-181-163-241.rco.o2.cz. [90.181.163.241])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4cfsm222293665e9.1.2026.10.04.06.18.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 06:18:19 -0700 (PDT)
+Message-ID: <c9b5b9ffef594023e25e174cf9936e0b74575e87.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vcodec: Initialize context lock before
+ firmware setup
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen	
+ <andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>, 
+	stable@vger.kernel.org
+Date: Sun, 04 Oct 2026 15:18:17 +0200
+In-Reply-To: <20261004123920.1251165-1-runyu.xiao@seu.edu.cn>
+References: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn>
+	 <8ea77a207f6f99d4f20610670e5f88fc56df3faa.camel@ndufresne.ca>
+	 <20261004123920.1251165-1-runyu.xiao@seu.edu.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-waE4nCMfjxRVoMMu6WzC"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703122548.1623981-2-rrobaina@redhat.com> <alaO+HZ7qJ1Iv9SP@madcap2.tricolour.ca>
-In-Reply-To: <alaO+HZ7qJ1Iv9SP@madcap2.tricolour.ca>
-From: Paul Moore <paul@paul-moore.com>
-Date: Sun, 4 Oct 2026 09:17:53 -0400
-X-Gm-Features: AclHuK93CXILhWqVoyyCiJV7kNi7hXkohGtKrcJ5HI3-Ast7QrPAddVZAM79UGo
-Message-ID: <CAHC9VhSosDsvCZyq0yY3Y61r5Od52WJecqcEjrT7XGkpyBi-xQ@mail.gmail.com>
-Subject: Re: [PATCH v2] audit: add FSOPEN record to log filesystem name
-To: Richard Guy Briggs <rgb@redhat.com>
-Cc: Ricardo Robaina <rrobaina@redhat.com>, audit@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	eparis@redhat.com, viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz
+
+
+--=-waE4nCMfjxRVoMMu6WzC
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 14, 2026 at 3:33=E2=80=AFPM Richard Guy Briggs <rgb@redhat.com>=
- wrote:
-> On 2026-07-03 09:25, Ricardo Robaina wrote:
-> > Modern mount tools (util-linux >=3D 2.39.1) use the new mount API
-> > (fsopen, fsconfig, fsmount, move_mount) instead of the legacy mount(2)
-> > syscall. The generic SYSCALL audit record logs the fsopen syscall but
-> > does not capture the filesystem name string, creating an audit gap for
-> > filesystem mount operations.
-> >
-> > Add an FSOPEN auxiliary record that logs the dereferenced filesystem
-> > name string passed to fsopen(2).
-> >
-> >   type=3DSYSCALL ... : arch=3Dx86_64 syscall=3Dfsopen ... a1=3DFSOPEN_C=
-LOEXEC
-> >   type=3DFSOPEN  ... : fs_name=3D"tmpfs"
-> >
-> > Link: https://github.com/linux-audit/audit-kernel/issues/152
-> > Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
->
-> Reviewed-by: Richard Guy Briggs <rgb@redhat.com>
->
-> > ---
-> > Changes in v2:
-> > - Better placement of audit_log_fsopen() call to avoid UAF.
-> >
-> >  fs/fsopen.c                |  3 +++
-> >  include/linux/audit.h      | 10 ++++++++++
-> >  include/uapi/linux/audit.h |  1 +
-> >  kernel/auditsc.c           | 13 +++++++++++++
-> >  4 files changed, 27 insertions(+)
+Le dimanche 04 octobre 2026 =C3=A0 20:39 +0800, Runyu Xiao a =C3=A9crit=C2=
+=A0:
+> Hi Nicolas,
+>=20
+> On Sun, 4 Oct 2026 07:17:43 -0400, Nicolas Dufresne wrote:
+>=20
+> > The very first place the lock will be taken is in _open() and that cann=
+ot
+> > happen before video_register_device(), which is kept last. Please
+> > demonstrate what the issue you are suggesting if you'd like to see this
+> > merged.
+>=20
+> The normal encoder open path is as you describe. On VPU-backed systems,
+> firmware setup registers the encoder reset callback before dev_ctx_lock i=
+s
+> initialized. A timeout on the shared VPU while another client is active
+> queues reset work, which invokes registered callbacks. If that work runs
+> before spin_lock_init(), the callback takes the uninitialized lock. The
+> context list is initialized but empty during probe, so I cannot claim lis=
+t
+> corruption or a user-visible failure. With CONFIG_DEBUG_SPINLOCK, the
+> zeroed lock fails the magic check.
 
-My apologies, this patch fell between the cracks, but it looks good to me.
+Then please make a v2 that includes the mention of the encoder path, and th=
+at
+includes the debug output when CONFIG_DEBUG_SPINLOCK in your message. That =
+will
+show that you actually tested it. Its extra effort, but please understand t=
+hat I
+receive dozen of hypothetical fixes (sometimes multiple time the same fix m=
+ade
+by LLM users that may or may not follow the list).
 
-As this patch touches both the audit and VFS code, I've merged this
-via a topic branch in the audit tree, topic-7.3-audit_fsopen.  The
-branch will remain static and it will be included in the audit/next
-branch as well as the audit PR for the upcoming merge window.
+cheers,
+Nicolas
 
---=20
-paul-moore.com
+>=20
+> Thanks,
+> Runyu
+
+--=-waE4nCMfjxRVoMMu6WzC
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasJSGQAKCRDZQZRRKWBy
+9JhWAQDGSUaLmIY5JdJTgW6/78Eu5NkYiG8DJqlOcA7s9ZIXSQD/f+kiZ+H1prGg
+XPDSh3pwtV56tX31Q+YhZqlKkIWGzgA=
+=gqBD
+-----END PGP SIGNATURE-----
+
+--=-waE4nCMfjxRVoMMu6WzC--
