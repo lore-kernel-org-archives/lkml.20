@@ -1,81 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B984756B5;
-	Sun,  4 Oct 2026 17:53:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B0B246778;
+	Sun,  4 Oct 2026 17:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791136423; cv=none; b=mPGBWbTB1LPJM58S0ZLXZMBc2hnkBxCaAQ/JK5ZDqd+oi58YVR/+4G9DcYIdnlEWSFTi/raz3i5icf+/pSZ8KbH3lsSThhg+M97Vwupb+XP1wrD/3/+fqhewRhsprN9xblO1801DzQMi2KMTyMXDye22jLaHd/5ZXGZuh0Pqr8w=
+	t=1791136453; cv=none; b=oePsOQ8ohnp0dt7aJc80ju5g7JDs7rdqLPCr2ZnB59JoIq8owLXt/SsilD8XWqbjntcIOY8G03JS/jBbvWBzEz3+rif/Ivbk93WP6vVQOSZxf4sS/Jr/b4oh7yqrigg0V+UseWABloOiLInLCR5xFT1IJjAWy3KtBoJ4Vt1Ylag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791136423; c=relaxed/simple;
-	bh=yl8WttfpIX38MosSJb3rVSyrB67EpdYSZFKFMwwpgFs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LmETJJ7fpZ79SbmJVl5H4YEhJ8ccxZIbuifQLx8M53B963KHeq2kduHbyukH3/TFs96agoIQV5WVXQnc0wurfZTZo3XRt834f3nyV0UsqjzmapV12yyqbNvEaNnW6FQOUh4tQSbqYdbSknxVJ62y6aGE8u307TKdwNrrM4kVdEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QoiadJJT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791136453; c=relaxed/simple;
+	bh=bIpBpwSDMTaU8BXN8CxrzjQJkRxgkHLzToHm5hjgwr4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DMi2v6gftCMqXvh77ixnf34Wj+DtcBDl/mGmBzStHYUdIdqUH/uBM36iRd1/fnAX+YrHSan/3AXw1GOlAOorT7va2rX+Uq5YTB2iqotF0WU7r4i7FMVY9/jjttCf95M28JP5lHBB1x+lcHEsjue0w1AGhfVuaCF2+J0TUhp+QVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLwf4tyy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QoiadJJT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1167B1F000FF;
-	Sun,  4 Oct 2026 17:53:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLwf4tyy"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9FEA41F000FF;
+	Sun,  4 Oct 2026 17:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791136416;
-	bh=dW2d3LGbBGSadjanQBD6Rhc29aMig4rkrP/cDF4hCPM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=QoiadJJTHbytHLLUgcMMJDU2oFapVhRXRlzl12k8kd8u1xmwsp91V3Vv5KdQJ8/8n
-	 SRnfB2A4IIMfYR5JpyY29iU+f88a4kaHKDpHr3HlX+Y/2Kdh/cEUvZFKyDjeQp+9sR
-	 fdXwZkKRN5on7IdkIwshDYEf/pgjqQW6kScfNW/Yk3BT4/s0+KDfaEPd8WKRNmZTkn
-	 K3NccYEeufnFJV7FH2iw27/6wrnSQPDhBnGg9gmyv2S6+421Jkv8hqxUWvc+lTzBjn
-	 w8rCq9In5zLZUrPSnFVq5PLTJPIxBMhg3QqnjJDetBIE2lvyL1LhuWZr5G5+6XRRhl
-	 JkK1N+yfcGN7A==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Chris Bainbridge <chris.bainbridge@canonical.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Mike Rapoport <rppt@kernel.org>,
-  Pasha Tatashin <pasha.tatashin@soleen.com>,  Jason Miu
- <jasonmiu@google.com>,  Alexander Graf <graf@amazon.com>,  Ran Xiaokai
- <ran.xiaokai@zte.com.cn>,  regressions@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  kexec@lists.infradead.org,
-  linux-mm@kvack.org,  =?utf-8?B?TWljaGHFgiBDxYJhcGnFhHNraQ==?=
- <mclapinski@google.com>
-Subject: Re: [BUG] KHO handover hangs when memmap reserves PMEM
-In-Reply-To: <asJc1GIBbCJ26akS@px13> (Chris Bainbridge's message of "Sun, 4
-	Oct 2026 16:09:00 +0100")
-References: <asE0R_f2r2TL-3Sy@px13> <2vxzcxtplh4i.fsf@kernel.org>
-	<asJc1GIBbCJ26akS@px13>
-Date: Sun, 04 Oct 2026 19:53:32 +0200
-Message-ID: <2vxzzewtjqsj.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=k20260515; t=1791136450;
+	bh=s1bBFTOMd9m2tkNcN4VP+RVchshr8UAmNsEx4KkZNLw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eLwf4tyyd5mGT72nG216gHgHkhDJTrhCEqosXbfVBHKoq6I6LlE+HnqZuL7B+8hVo
+	 KQYFklWS7GJOzqGqiHU1gtS1dYMkG6m5G9MC0Ghwl8SDqPPnspr8F9cbOmEEgkpdZk
+	 5tVRxk6zlPlmg6x8tLGLqT9g9yo0pSRBSjMctzT830MNAreqE5qIdp9J7Ydm+Ncl/5
+	 8BmqwrvE/I56whU7mbMDyZ78a9RuqBtKC9fqi7EzmQSfenwBhk+Bzl9sBQq0SsxE9/
+	 YyET9k4u+cpvWDqTE6N8kvjEjWKRyTNdG8bDVx31cfkMdUvK/Dd8mcgyp0bq0M+mxU
+	 G7X3tvobYE6uQ==
+Date: Sun, 4 Oct 2026 20:54:06 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: keyrings@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: Re: [RFC PATCH 0/2] keys: Address lookup_user_key() mutability
+Message-ID: <asKSvjz2YLZhFI4t@kernel.org>
+References: <20260924055521.1981957-1-jarkko@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924055521.1981957-1-jarkko@kernel.org>
 
-On Sun, Oct 04 2026, Chris Bainbridge wrote:
+On Thu, Sep 24, 2026 at 08:55:16AM +0300, Jarkko Sakkinen wrote:
+> The main objective in these patches is to remove to unneeded mutability
+> from key look ups. It does harm and brings no value so it is pretty obvious
+> to me that addressing this harmful behaviour is what we should do.
+> 
+> I based the first patch on what Jann suggested in [1]. Nothing too clever here
+> and I'm ofc open for further suggestions.
+> 
+> [1] https://lore.kernel.org/keyrings/CAG48ez0XjVSR=M--UBauTm8sJuc+ZbhKzaPa3a6wrSVHyoKevw@mail.gmail.com/
+> 
+> Jarkko Sakkinen (2):
+>   keys: Return user session keyring on lookup
+>   keys: Reject keyring creation with overridden credentials
+> 
+>  Documentation/security/keys/core.rst |  7 ++-
+>  security/keys/process_keys.c         | 65 +++++++++++++++-------------
+>  2 files changed, 40 insertions(+), 32 deletions(-)
+> 
+> --
+> 2.47.3
+> 
 
-> On Sun, Oct 04, 2026 at 03:39:25PM +0200, Pratyush Yadav wrote:
->> 
->> Just to confirm, the first kernel boots without memmap= right?
->
-> Yes.
->
->> I think the main problem is that the radix tree pages can be anywhere in
->> memory. So on the first kernel, they can land in an area that the second
->> kernel's memmap= reserves. So kho_memory_init() might end up using
->> memory that memmap= reserved. I'm not sure why exactly the next kernel
->> doesn't produce any output, but IIRC memmap= memory is not mapped to the
->> direct map, so accessing those pages likely causes a page fault.
->
-> That's correct, kho_memory_init() page faults. It happens before the
-> serial console is available, so there is no output.
+So.. should I move forward to with non-RFC v2?
 
-Yeah, then I think you need an extra kexec with KHO off to enable
-memmap=. Or I guess hot-unplug the memory you'd like to memmap= early on
-first boot, which should make sure no radix tree pages land there.
+Note that some tags (e.g., Fixes) are missing simply because this is RFC.
 
-Apart from that, I don't have any good ideas to properly solve this
-problem.
-
--- 
-Regards,
-Pratyush Yadav
+Br, Jarkko
