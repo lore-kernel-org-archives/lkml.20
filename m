@@ -1,96 +1,88 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CA93F1066;
-	Sun,  4 Oct 2026 07:57:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3623B42FE
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:58:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791100651; cv=none; b=Xz5Uy7TlV0FrYUfpeq8MQzpMBnKNZ10VTSSkuYw/vYWccUpIcbq12OrnZ1LK0UG/1jSh8NqcnGj099IZRydU+T+EC/Z5FeK7TXRAEy7t/yLMBJz7M+fEqk2NOBVrw27lLRSMITqd5IFS4khH9JO9vZe+0ySFfMy05BZfBHBgDcA=
+	t=1791100744; cv=none; b=oRoHkRyZ9mXu1gIQxGFhznh2iRAbFyqBm8QxEOcHY5d1NGazAGtPrhEpZdFAhAkd/yesIXHwd+c8O0x3secv1Anp5aznCsnf4aL+dOjFbRNSN3mSZ+fAWRBRmsgk43Rq9b47doumDjtIJXLVG8jCQNwNpur+VJQuMYkEeqfLKcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791100651; c=relaxed/simple;
-	bh=cWRUSCajbfvHJSbiVni+phIDP8PbtxGCI9qcqyjZAT0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GCiUhe8EqxmqPF5XWCzE7Qksj++zidznYoERn8d+HiKrTe63LyXpDG4JpMw3WWVXdVuwkStW/vt+986ZbVUEfNJ/3GLg7ufpKK3mH+MA/daiih0qC2QPbQHjzcgDsZGI06asLhbrHA07sRsjdjvhZsfZJ1T3wpEmpRFaOl9LFjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=BNXcJi7e; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791100744; c=relaxed/simple;
+	bh=f2Fey+C1PK7Emdehb4zZxUkxvKmDRetMu/uNNJrLzrY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fgzPCX8le1tcG/lF753hy24VDcNR8mEjWVFbBqFRgkfAMcBOvH92i+myYnbBJoSd69uZDFlJTnSi3hhzSdDm2nXk2zAyz2Vg1LdjVAW47mKBjKHfi7cgbUVnvsPMbhWDWUpbJh1giLdHySN+GyGbEv/LLKRATg1YL67CUQZ/tes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NDaZ905V; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="BNXcJi7e"
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id EE7CC160989;
-	Sun,  4 Oct 2026 07:57:21 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id E2B9320026;
-	Sun,  4 Oct 2026 07:57:17 +0000 (UTC)
-Date: Sun, 4 Oct 2026 03:57:14 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Gabriele Monaco <gmonaco@redhat.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Masami Hiramatsu
- <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>, Nam Cao
- <namcao@linutronix.de>, K Prateek Nayak <kprateek.nayak@amd.com>, Alexei
- Starovoitov <alexei.starovoitov@gmail.com>, Wen Yang <wen.yang@linux.dev>,
- Tobias Schaffner <tobias.schaffner@siemens.com>, Viktor Malik
- <vmalik@redhat.com>
-Subject: Re: [PATCH v2 01/15] sched: Add task enqueue/dequeue trace points
-Message-ID: <20261004035714.18140850@fedora>
-In-Reply-To: <20261002191842.GA1259248@noisy.programming.kicks-ass.net>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
-	<20261001152042.124445-2-gmonaco@redhat.com>
-	<20261001154934.GT88198@noisy.programming.kicks-ass.net>
-	<d75888885e2c94c1bc717faa864f609c43db874f.camel@redhat.com>
-	<20261002102939.GB2823843@noisy.programming.kicks-ass.net>
-	<56972260b9221128d7aaf5bb60f90611ec9d7235.camel@redhat.com>
-	<20261002191842.GA1259248@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NDaZ905V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=x+
+	4CcQbjc5GSfjR7kAuyxIH37Pw3Rts15DYS0j73zAU=; b=NDaZ905VA+ChKGZ0HH
+	PuPTkAuZ2EyQlXE0aIuuOca0fwCu9mnqSzo0YxrN9lSLLcg/rB609jVN9DGYvLPB
+	hra+ZIqBRsoWTaoB4b+dz/fzkR40KxdcM4H+TLCC52d+NuAlBirHChTwdQaw3voG
+	1/gQx5VjQoFA7wT8slvUgxYts=
+Received: from wang-MACHR-WX9.. (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXSncFB8JqFH4bCw--.28785S2;
+	Sun, 04 Oct 2026 15:57:58 +0800 (CST)
+From: Wang Wensheng <wsw9603@163.com>
+To: pmladek@suse.com,
+	rostedt@goodmis.org,
+	john.ogness@linutronix.de,
+	senozhatsky@chromium.org,
+	d-tatianin@yandex-team.ru,
+	linux-kernel@vger.kernel.org
+Cc: wsw9603@163.com
+Subject: [PATCH] printk_ringbuffer: Fix space_used() when blk_lpos->next overflows
+Date: Sun,  4 Oct 2026 15:57:55 +0800
+Message-ID: <20261004075755.363989-1-wsw9603@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: ydicuos4fb8ico3fiuf17rk1zwchge4k
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: E2B9320026
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19XabwMwepFqKiJmq/gk8SU/BbFu1jBaT8=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cWRUSCajbfvHJSbiVni+phIDP8PbtxGCI9qcqyjZAT0=; b=BNXcJi7eZMssjzjWSmOxCD++e5gz7Tu0t7TgS/ZdRHX+T8XQmpEpl4kDuuUFmRlfxMDdYwbq840yVjyoADMLSu36lc/N6f0fGd+XSgCb+KoPZY0AlChDcH9P7hnijAla8FihrKkv6cGzxO6HTEBUJ1iqwom1FIEk5OOuijYrelQ=
-X-HE-Tag: 1791100637-569589
-X-HE-Meta: U2FsdGVkX18KyVQqFbsby1yYXb8vvGjrjnxJSWYTGFO8IBjY77l2VVOFHsMWOT4ePOoPmF91Zq6w/5/d7fSXzaMS89DHDJ/0HWfRb1giTYIlR3pzYSAWfkDbrj9gEuXNrBkFtPmv/Oc5EALV+yjtLdxxWD/xfcv44gOX44B8PNM/4HwJrN0N+IGXeCCyxVtllAa3qaMqU/4wQFiNW0V5nzW+iu4MA6LyIMvgXJBcRFGM1P/seLSC8ZzWfbrIg5slPXyuuWdc2DhVZ0MyHKdQ1Fya7CuSAJta9jdfWQNdCZZyCVfXalKJuaz/mj0OilflAL0rwbVbEcTPxG1yLLdSNMtugvharFXNSHT9Iu8Ftq172oREAjAnDbzslhZNSzzXMauvkUU6y+CymlhTf4rQdg==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgDXSncFB8JqFH4bCw--.28785S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uF1kZFy3uF43KF17uw43GFg_yoW8XF4fpa
+	1FgF45ArZ2vF10qw43WrWIqw15J3ZrZa4kGr4YvrySyr1IqF1Iv34DKr10qF15Kr95J3y3
+	XFZYvFWDt3WDZrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRIkshUUUUU=
+X-CM-SenderInfo: pzvzmliqt6il2tof0z/xtbC3QYOFmrCBwZtJgAA3h
 
-On Fri, 2 Oct 2026 21:18:42 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
+Since commit 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data
+blocks around") blk_lpos is treated as not wrapped when blk_lpos->next
+overflows to the start of data_ring. We use the indices of blk_lpos->next
+and blk_lpos->start to calculate the size of the data_block. This computes
+zero minus a small positive value, resulting in underflow and an
+unexpectedly large value. Simply using the original lpos with wrap-counts
+solves the problem.
 
-> So personally I have 0 interest or use for html. Mail is text, code is
-> text, we use a text editor (neovim is my current poison of choice).
-> Nowhere is there html. So then having to look at rst is just crap. rst
-> gets in the way of actually reading the thing. All down-sides, no
-> up-sides.
+Fixes: 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data blocks around")
+Signed-off-by: Wang Wensheng <wsw9603@163.com>
+---
+ kernel/printk/printk_ringbuffer.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-This is specifically your opinion. I really liked text files, but I have
-fallen to the dark side and found reading the Documentation directory
-from docs.kernel.org so much nicer than reading the text files directly.
+diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
+index d38e7c2f6887..46a79ec0940a 100644
+--- a/kernel/printk/printk_ringbuffer.c
++++ b/kernel/printk/printk_ringbuffer.c
+@@ -1237,11 +1237,9 @@ static unsigned int space_used(struct prb_data_ring *data_ring,
+ 	if (BLK_DATALESS(blk_lpos))
+ 		return 0;
+ 
+-	if (!is_blk_wrapped(data_ring, blk_lpos->begin, blk_lpos->next)) {
+-		/* Data block does not wrap. */
+-		return (DATA_INDEX(data_ring, blk_lpos->next) -
+-			DATA_INDEX(data_ring, blk_lpos->begin));
+-	}
++	/* Data block does not wrap. */
++	if (!is_blk_wrapped(data_ring, blk_lpos->begin, blk_lpos->next))
++		return blk_lpos->next - blk_lpos->begin;
+ 
+ 	/*
+ 	 * For wrapping data blocks, the trailing (wasted) space is
+-- 
+2.43.0
 
-I think most people feel the same.
-
-As for Cc'ing entire patches, if I get a patch series Cc'd to me in my
-inbox and there's one or two patches that are supposed to be for me, I
-ignore the entire thing. I'm not going to waste my time trying to
-figure out why I was Cc'd, unless it is obvious in the cover letter.
-Which in most cases it is not.
-
-If I get Cc'd on one patch in a series and I want to see the entire
-thing, lore is beautiful. If you don't want to look at a web page then
-b4 is your friend. But since there's maintainers that want everything,
-I'm constantly Cc'd for 23 patches where I need to see one. Hence, I
-hit delete on the entire thing and will not ever see what I was Cc'd
-for. Why should I waste my time on that? The burden is much higher to
-read 23 patches to find the one you are looking for than when wanting
-to see all patches to open a web browser or just using b4. And no,
-seldom is the subject line obvious to why I was Cc'd. I have to
-actually read what files each patch touches to figure out if it's
-applicable to me or not. I've done that too many times and don't have
-the time to waste on that anymore.
-
--- Steve
