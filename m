@@ -1,49 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426F9422E2E;
-	Sun,  4 Oct 2026 10:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6737742317C
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791109324; cv=none; b=HajCWaBE5atqEmCvXutt8xQzFOjuuUXpIw/BxkOuh0gnhPBBDOgiDEKtcAJpNwUvCVJhKw5lnLzIChfSE0zwr8E6lSCOaxrWvlfbPxpMqnu9sORiMc5pC/MdZw9otElTCSLt6Bo60+ey+YEeN6akBkekvcM7aXcOoFqMA7146v8=
+	t=1791109327; cv=none; b=c6lXNh4wJvYI3OiCldWw4Ii9RyciOOclK9CQzl+/UjmYvltjhozHjnZCIicYXDsGgmSnIGMUTdA0RJXNHk7Bv5HlIwmaMrwm6hTerooBen9GvMaITaggG2ql3i8r7NrbTB2vWvCCO0qV9FKFcOQ1Copu7v9KM7oxrpJnRcWxa2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791109324; c=relaxed/simple;
-	bh=KZCQUQiaZwg6ZmeAyl/myHyBodlYjQsPSLWPHFyfrME=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NK/LJ6DD1RutKwdWUmgO7pRfRyu70578ycq/zgyOzovcVRngXqZXDp1iwfKTIH+r3TgQ5f9kX/4MQYH7FTLy/5G6WIZ+cSVoo45258hhYVf9m1Fh3JFsFHyaNWcW//c4Ad41B+D/tcRPAxY04Rk7mYtwHW3RyTKSTO4I4kTXisk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VSJJDVc/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791109327; c=relaxed/simple;
+	bh=FcdlSDzdUHeLk7zXnkTujjlaMpIZtJvTAJ0MR99MbXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aZQ0Y7/cgOg7PojZUf4Zp3FrFToW7rzOYplqPbhBB5v9b/cHJZRcJ9lPtZT9Q0MUDQfIBwkLoP5qhudFW84rYKXbdcoefTUTY4R0c7maN1+6H8nCgBmtDT858W41b9NsiY+gMt9yGde39KI4OBRihtJjUAu3KfpKK5LT+PEQIDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J5jpUf5r; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VSJJDVc/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F4F1F000FF;
-	Sun,  4 Oct 2026 10:21:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791109322;
-	bh=zdVwvWflK4HzU9POCQX3np41vKj9G8KAxKS9S1qLZs8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VSJJDVc/3vXShjO0NSIYjIwn5FR7lP7ljQ2v2EWLvmFnzOl7tra4OD6hZjE5dX80j
-	 3/I+LMlfxqzs5seNr8Jrr46FJ8I8HYj5fQOm/+drxA61fBD4FNKro12WGL5rMAMxv1
-	 3/fP4YYcASB9PCq62Gd+j3LvylOy5BbSb0if71vf4stleb7kf51FGF7GAnFzVuHjiK
-	 wpiAmbENfEc/uTJvrasJfG6DCRkkHH2bDgVP3U6kTDxTtLN07uqRrm8hA6J1bavN1f
-	 ZsOFOkXpr9A+hqbPKNayqhe3X+XpxVs5lnLAKviYoF9tnS5Kcoo0XWHgD5DVSscCcn
-	 M19zT1pfWyMhA==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v10 6/9] perf report: Add --progress option
-Date: Sun,  4 Oct 2026 12:21:30 +0200
-Message-ID: <20261004102133.26392-7-acme@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261004102133.26392-1-acme@kernel.org>
-References: <20261004102133.26392-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J5jpUf5r"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afd5b1678so429844f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:22:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791109323; x=1791714123; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n9juvpA1LuSjQjypWT3wpnGjBUsPRSPUA2tivnHQSsM=;
+        b=J5jpUf5rCKzabzf5JO1ylTiC1p6WkF3ifTg0xWi40u4ttY8QQ9NoEQlJ/VX6xahzjF
+         dRAq6FwUW929qiLmL+e2dzKDJ0VsBiJY1YE1LrOhJb6RKHNQ/SUUnqocCQ3ACPh8hd8V
+         bqm5+oG5cU38PFXoJuKvI9AThFPkwKerTxr8zqmTd97NNyHarmPj/j8Y4uiwy543sSqr
+         8LBhMcZTHViHchcV4R9wtxiZaC2hiVwOb0+uEk6YsrCw78KQp5WSmsc4OxaXsc5ewSAn
+         nH2EW3b1V2vWj+J4h1yy10v6AbnVof6+TxNCWJjH/gUJWgSH705UelLaU5fDwHWa20zA
+         JgiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791109323; x=1791714123;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n9juvpA1LuSjQjypWT3wpnGjBUsPRSPUA2tivnHQSsM=;
+        b=ySyMsmEIY5lkrKLgheWbM5nvCZzusF9hiD8HVqhc3hAF3HQmK3EcyuZwxgPSboKkUW
+         Bd3UT2Csx5sWUH3Z1el+wBZhcG/8EMmQT2fjEtgEqTN28YhBrLbF69ZT322vsk/hksQR
+         z0Tz4Vpr2iC6dK1s2r4if8G3QO2G3Zllsgs/6VxXDCaQZUCUdLkb2TkFJqzF9dx5mxk0
+         2yHexVp0LNIA0A8Yo9Wrd+2pzfUxN+7JpB5IcgR1Mw55otcLi/EPm0dcPa6eC9uyS+/A
+         2CVu1hFJujyKgdeGrpLt1GpfJ49eV7ScTWodk0utR6nN/Xgd0vCQvmVsiCUN3KazwaSr
+         PAeQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNVO+BZiAQeoUD1qErjeHhw5ihsf2/9dR1+2cKcFWYyIPNJujSplSvTc4spiynbLeD8tCmhKUPTrGPoZ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqmXkOobp8G/DkfZw6+Oa97j8vc8h93MDwByP3lYlLu4HnntBJ
+	7AyN6NIeIMIGlX/4dbyjkXf8Mxxp+MzBb+eO3/lWTGPpWJWlPRW30K8C
+X-Gm-Gg: AYBFou2orSn+9VFWuw5bWhBrm+MSfIC8gwn/mW6Zydqfx5uqRihltEomrn9VFXpXsqO
+	GmO8CXebCEptsu2mptJdKfGDAw6KxMAJVt1l2fjVzdOJ7uUQccPG4UkORNhPeew5lXGngmmPdpS
+	IBi78O2qxDkCw6XXITuY2d3SaRBC6HVlNOEZat2rLbjWTAs18E4PPMX54jjT806ks7ML/gkwTdL
+	XhNkUkfu+UmZN34bSX0RZeSasNMBYeH95y9IvVlF0Lha8PKsDOnFL+f9kHDrEEaXVSgOUqzuZBi
+	iSZ2dqcuUZ0ogIyg/FRREDWRD6jwH0ToIY4wIm1UoPXFQ3ln/hgjAZDSOT3xWitMIgCGGDIJE8y
+	qWy+/glzX6UitrymHrRullFZQDPmX5rIEy/CX6qfd5oWxSN4L4NJ+FO3gZWquS/1MfZb/J1oxEY
+	J1Lboq4YsnkWXfw0ZtcVdnuiRQ6Uon6jkS0DK4hUzciCQ+e0PKW0Gg5ZvT4nRfYkZw1zDRN43gj
+	SyZC1Lj0eV6IwxvtoK58FtJHp4gSvJi5vUaY3VPhxovPx9YFEKSvPrfwA6Kgi5+XDX95ecufLGW
+	2MM1NYJ6
+X-Received: by 2002:a05:6000:108d:b0:487:27f6:a4d3 with SMTP id ffacd0b85a97d-48b1274ec77mr9525780f8f.35.1791109322990;
+        Sun, 04 Oct 2026 03:22:02 -0700 (PDT)
+Received: from pablo-macbook.tabby-carp.ts.net (128.red-88-19-81.staticip.rima-tde.net. [88.19.81.128])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f07cdsm17101811f8f.10.2026.10.04.03.22.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 04 Oct 2026 03:22:02 -0700 (PDT)
+From: Pablo del Arco <pablodelarco1@gmail.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: monaco: Add EL2 overlay for monaco-arduino-monza
+Date: Sun,  4 Oct 2026 12:18:49 +0200
+Message-ID: <20261004101849.34191-1-pablodelarco1@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,369 +80,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+Build an EL2 combined DTB for the Arduino VENTUNO Q (monaco-arduino-monza)
+from the base DTB and monaco-el2.dtbo, as monaco-evk-el2.dtb already does
+for the Monaco EVK.
 
-Processing a large session with stdio output gives no feedback about
-which phase perf is in or how far along it is: ui_progress updates are
-only shown by the TUI.  Add --progress, installing a stdio backend
-(ui/stdio/progress.c) that prints the phase title, percentage and
-counts:
+The board boots under Gunyah by default. This DTB lets it run Linux at EL2
+with KVM when the boot firmware is set up for that.
 
-  Processing events... [ 42.3%] 317M / 746M
-
-Phases can be nested, so the backend tracks the ones started to
-complete the right one on ui_progress__finish(); that requires
-init()/finish() pairs, fixed in ordered-events.c and the pipe and
-directory event processing.
-
-With a pager both stdout and stderr lead to it, so isatty(stderr)
-turns false and the updates end up printed one per line in the
-pager's output: use /dev/tty in that case, so that the updates keep
-updating in place, untouched by the pager.
-
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Signed-off-by: Pablo del Arco <pablodelarco1@gmail.com>
 ---
- tools/perf/Documentation/perf-report.txt |  14 ++
- tools/perf/builtin-report.c              |   6 +
- tools/perf/ui/Build                      |   1 +
- tools/perf/ui/progress.h                 |   2 +
- tools/perf/ui/stdio/progress.c           | 170 +++++++++++++++++++++++
- tools/perf/util/ordered-events.c         |  16 ++-
- tools/perf/util/session.c                |  12 +-
- 7 files changed, 214 insertions(+), 7 deletions(-)
- create mode 100644 tools/perf/ui/stdio/progress.c
+Build tested with CHECK_DTBS=y on top of qcom for-next. Not boot tested at EL2,
+the board ships boot firmware set up for Gunyah.
 
-diff --git a/tools/perf/Documentation/perf-report.txt b/tools/perf/Documentation/perf-report.txt
-index 3718ebd297ce0673..a7429a30ec28f903 100644
---- a/tools/perf/Documentation/perf-report.txt
-+++ b/tools/perf/Documentation/perf-report.txt
-@@ -29,6 +29,20 @@ OPTIONS
- --quiet::
- 	Do not show any warnings or messages.  (Suppress -v)
+ arch/arm64/boot/dts/qcom/Makefile | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e0..859586cdc 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -68,6 +68,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-lenovo-thinkpad-t14s-gen7-lcd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
++
++monaco-arduino-monza-el2-dtbs	:= monaco-arduino-monza.dtb monaco-el2.dtbo
++
++dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-ac-evk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk.dtb
  
-+--progress::
-+	Show progress for each of the processing phases, printing the
-+	percentage done and the current/total counts: the first phase
-+	counts the bytes of the perf.data file processed so far, the
-+	merge and sort phases count hist entries, e.g.:
-+
-+	Processing events... [ 42.3%] 4G / 10G
-+	Merging related events... [  7.1%] 1024 / 14387
-+	Sorting events for output... [ 98.2%] 14132 / 14387
-+
-+	It is a no-op when using the TUI or GTK browsers, that already
-+	present progress information, or when --quiet is used, that asks
-+	for no messages at all.
-+
- -n::
- --show-nr-samples::
- 	Show the number of samples for each symbol
-diff --git a/tools/perf/builtin-report.c b/tools/perf/builtin-report.c
-index 57225bc87731d074..81e13fb8194976c9 100644
---- a/tools/perf/builtin-report.c
-+++ b/tools/perf/builtin-report.c
-@@ -87,6 +87,7 @@ struct report {
- 	bool			use_gtk;
- #endif
- 	bool			use_stdio;
-+	bool			progress;
- 	bool			show_full_info;
- 	bool			show_threads;
- 	bool			inverted_callchain;
-@@ -1384,6 +1385,8 @@ int cmd_report(int argc, const char **argv)
- 		    "Use the stdio interface"),
- 	OPT_BOOLEAN(0, "weights", &symbol_conf.annotate_weight,
- 			"Show or hide weight columns in annotation. Default show if non-zero."),
-+	OPT_BOOLEAN(0, "progress", &report.progress,
-+		    "Show progress while processing the perf.data file"),
- 	OPT_BOOLEAN(0, "header", &report.header, "Show data header."),
- 	OPT_BOOLEAN(0, "header-only", &report.header_only,
- 		    "Show only data header."),
-@@ -1790,6 +1793,9 @@ int cmd_report(int argc, const char **argv)
- 	else
- 		use_browser = 0;
- 
-+	if (report.progress && !quiet && use_browser == 0)
-+		stdio_progress__init();
-+
- 	if (report.data_type && use_browser == 1) {
- 		symbol_conf.annotate_data_member = true;
- 		symbol_conf.annotate_data_sample = true;
-diff --git a/tools/perf/ui/Build b/tools/perf/ui/Build
-index 6005f813c9e3990c..a7b1740d51c80f23 100644
---- a/tools/perf/ui/Build
-+++ b/tools/perf/ui/Build
-@@ -4,6 +4,7 @@ perf-ui-y += progress.o
- perf-ui-y += util.o
- perf-ui-y += hist.o
- perf-ui-y += stdio/hist.o
-+perf-ui-y += stdio/progress.o
- 
- CFLAGS_setup.o += -DLIBDIR="BUILD_STR($(LIBDIR))"
- 
-diff --git a/tools/perf/ui/progress.h b/tools/perf/ui/progress.h
-index 4f52c37b2f099a82..03f1a8bb260ba076 100644
---- a/tools/perf/ui/progress.h
-+++ b/tools/perf/ui/progress.h
-@@ -23,6 +23,8 @@ void __ui_progress__init(struct ui_progress *p, u64 total,
- 
- void ui_progress__update(struct ui_progress *p, u64 adv);
- 
-+void stdio_progress__init(void);
-+
- struct ui_progress_ops {
- 	void (*init)(struct ui_progress *p);
- 	void (*update)(struct ui_progress *p);
-diff --git a/tools/perf/ui/stdio/progress.c b/tools/perf/ui/stdio/progress.c
-new file mode 100644
-index 0000000000000000..57f615c455b0ca7d
---- /dev/null
-+++ b/tools/perf/ui/stdio/progress.c
-@@ -0,0 +1,170 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Progress feedback for the stdio (non-TUI/GTK) case, enabled with
-+ * 'perf report --progress'.
-+ */
-+#include <inttypes.h>
-+#include <stdio.h>
-+#include <unistd.h>
-+#include <linux/kernel.h>
-+#include <subcmd/pager.h>
-+#include "../../util/debug.h"
-+#include "../../util/units.h"
-+#include "../progress.h"
-+
-+/*
-+ * Phases can be nested, so keep track of the ones started so far to be
-+ * able to complete the right one on ui_progress__finish(), which gets
-+ * no arguments.
-+ */
-+#define STDIO_PROGRESS__MAX_DEPTH 8
-+
-+struct stdio_progress_phase {
-+	struct ui_progress	*p;
-+	u64			last_printed;
-+	size_t			last_len;
-+};
-+
-+static struct stdio_progress_phase stdio_progress__stack[STDIO_PROGRESS__MAX_DEPTH];
-+static int stdio_progress__depth;
-+static FILE *stdio_progress__out;
-+static bool stdio_progress__is_tty;
-+/* Phases that didn't fit on the stack are not shown. */
-+static int stdio_progress__dropped;
-+
-+static void stdio_progress__print_phase(struct stdio_progress_phase *phase,
-+					u64 curr)
-+{
-+	struct ui_progress *p = phase->p;
-+	char buf_cur[20], buf_tot[20], buf[128];
-+	double percent = p->total ? 100.0 * (double)curr / (double)p->total : 0.0;
-+	size_t len;
-+
-+	/*
-+	 * Only the completion line shows 100.0%: a 99.99% progress would round
-+	 * up to it and look like a duplicate at finish time.
-+	 */
-+	if (curr < p->total && percent > 99.9)
-+		percent = 99.9;
-+
-+	if (p->size) {
-+		unit_number__scnprintf(buf_cur, sizeof(buf_cur), curr);
-+		unit_number__scnprintf(buf_tot, sizeof(buf_tot), p->total);
-+		len = scnprintf(buf, sizeof(buf), "%s [%5.1f%%] %s / %s",
-+				p->title, percent, buf_cur, buf_tot);
-+	} else {
-+		len = scnprintf(buf, sizeof(buf), "%s [%5.1f%%] %" PRIu64 " / %" PRIu64,
-+				p->title, percent, curr, p->total);
-+	}
-+
-+	if (!stdio_progress__is_tty) {
-+		fprintf(stdio_progress__out, "%s\n", buf);
-+		goto out;
-+	}
-+
-+	/* Pad to the length of the previous line to erase its leftovers. */
-+	fprintf(stdio_progress__out, "\r%s%*s", buf,
-+		(int)(len < phase->last_len ? phase->last_len - len : 0), "");
-+	phase->last_len = len;
-+out:
-+	phase->last_printed = curr;
-+	fflush(stdio_progress__out);
-+}
-+
-+static void __stdio_progress__init(struct ui_progress *p)
-+{
-+	/* The default step is meant for the TUI bar, use 1% steps for stdio. */
-+	p->next = p->step = p->total / 100 ?: 1;
-+
-+	if (stdio_progress__depth == STDIO_PROGRESS__MAX_DEPTH) {
-+		/*
-+		 * Out of room: don't start this phase, its finish() is
-+		 * swallowed and its updates ignored below.
-+		 */
-+		pr_warning("progress phases nested deeper than %d, not showing progress for %s\n",
-+			   STDIO_PROGRESS__MAX_DEPTH, p->title);
-+		stdio_progress__dropped++;
-+		return;
-+	}
-+
-+	/* Start a nested phase in a line of its own. */
-+	if (stdio_progress__depth && stdio_progress__is_tty)
-+		fputc('\n', stdio_progress__out);
-+
-+	stdio_progress__stack[stdio_progress__depth++] =
-+		(struct stdio_progress_phase) {
-+			.p = p,
-+			.last_printed = 0,
-+			.last_len = 0,
-+		};
-+
-+	stdio_progress__print_phase(&stdio_progress__stack[stdio_progress__depth - 1],
-+				    p->curr);
-+}
-+
-+static void stdio_progress__update(struct ui_progress *p)
-+{
-+	/*
-+	 * An update that doesn't match the innermost phase means something
-+	 * is out of sync: print nothing rather than another phase's
-+	 * numbers, or read past the stack.
-+	 */
-+	if (!stdio_progress__depth ||
-+	    stdio_progress__stack[stdio_progress__depth - 1].p != p)
-+		return;
-+
-+	stdio_progress__print_phase(&stdio_progress__stack[stdio_progress__depth - 1],
-+				    p->curr);
-+}
-+
-+static void stdio_progress__finish(void)
-+{
-+	struct stdio_progress_phase *phase;
-+
-+	/*
-+	 * Being the innermost phase, its finish() comes first: swallow it, or
-+	 * it would complete the phase that encloses it.
-+	 */
-+	if (stdio_progress__dropped) {
-+		stdio_progress__dropped--;
-+		return;
-+	}
-+
-+	if (!stdio_progress__depth)
-+		return;
-+
-+	phase = &stdio_progress__stack[--stdio_progress__depth];
-+
-+	/*
-+	 * The last line may have stopped short of the total, close this phase
-+	 * showing it as complete unless that was already printed.
-+	 */
-+	if (phase->last_printed != phase->p->total)
-+		stdio_progress__print_phase(phase, phase->p->total);
-+
-+	phase->last_printed	= 0;
-+	phase->last_len		= 0;
-+
-+	if (stdio_progress__is_tty)
-+		fputc('\n', stdio_progress__out);
-+
-+	fflush(stdio_progress__out);
-+}
-+
-+static struct ui_progress_ops stdio_progress__ops = {
-+	.init	= __stdio_progress__init,
-+	.update	= stdio_progress__update,
-+	.finish	= stdio_progress__finish,
-+};
-+
-+void stdio_progress__init(void)
-+{
-+	if (pager_in_use()) {
-+		/* stderr leads to the pager, the updates go to the terminal. */
-+		stdio_progress__out = fopen("/dev/tty", "w");
-+	}
-+	if (!stdio_progress__out)
-+		stdio_progress__out = stderr;
-+	stdio_progress__is_tty = isatty(fileno(stdio_progress__out)) == 1;
-+	ui_progress__ops = &stdio_progress__ops;
-+}
-diff --git a/tools/perf/util/ordered-events.c b/tools/perf/util/ordered-events.c
-index a5857f9f5af2d3de..54c85663e733be4d 100644
---- a/tools/perf/util/ordered-events.c
-+++ b/tools/perf/util/ordered-events.c
-@@ -237,14 +237,16 @@ static int do_flush(struct ordered_events *oe, bool show_progress)
- 		ui_progress__init(&prog, oe->nr_events, "Processing time ordered events...");
- 
- 	list_for_each_entry_safe(iter, tmp, head, list) {
--		if (session_done())
--			return 0;
-+		if (session_done()) {
-+			ret = 0;
-+			goto out_progress;
-+		}
- 
- 		if (iter->timestamp > limit)
- 			break;
- 		ret = oe->deliver(oe, iter);
- 		if (ret < 0)
--			return ret;
-+			goto out_progress;
- 
- 		ordered_events__delete(oe, iter);
- 		oe->last_flush = iter->timestamp;
-@@ -258,10 +260,16 @@ static int do_flush(struct ordered_events *oe, bool show_progress)
- 	else if (last_ts <= limit)
- 		oe->last = list_entry(head->prev, struct ordered_event, list);
- 
-+	ret = 0;
-+out_progress:
-+	/*
-+	 * Always pair ui_progress__init() with ui_progress__finish(), the
-+	 * stdio backend tracks the phases on a stack.
-+	 */
- 	if (show_progress)
- 		ui_progress__finish();
- 
--	return 0;
-+	return ret;
- }
- 
- static int __ordered_events__flush(struct ordered_events *oe, enum oe_flush how,
-diff --git a/tools/perf/util/session.c b/tools/perf/util/session.c
-index 7fea9e72726c936c..c4b4c7fb3b864589 100644
---- a/tools/perf/util/session.c
-+++ b/tools/perf/util/session.c
-@@ -3253,8 +3253,12 @@ static int __perf_session__process_pipe_events(struct perf_session *session)
- 	cur_size = sizeof(union perf_event);
- 
- 	buf = malloc(cur_size);
--	if (!buf)
--		return -errno;
-+	if (!buf) {
-+		err = -errno;
-+		if (update_prog)
-+			ui_progress__finish();
-+		return err;
-+	}
- 	ordered_events__set_copy_on_queue(oe, true);
- more:
- 	event = buf;
-@@ -3753,8 +3757,10 @@ static int __perf_session__process_dir_events(struct perf_session *session)
- 	}
- 
- 	rd = calloc(nr_readers, sizeof(struct reader));
--	if (!rd)
-+	if (!rd) {
-+		ui_progress__finish();
- 		return -ENOMEM;
-+	}
- 
- 	rd[0] = (struct reader) {
- 		.fd		 = perf_data__fd(session->data),
 -- 
-2.55.0
+2.43.0
 
