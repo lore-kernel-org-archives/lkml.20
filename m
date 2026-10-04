@@ -1,94 +1,73 @@
 Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDFF330D25
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 19:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95D247142E
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 19:21:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791141504; cv=none; b=uESjQVYBQh5yOXk6u2se7i0Prwc10MfJuun6bGOEVyqAeA6RsnTRrfawuZ8jM0GBI3k0p+22jUwwX5cCSIoHx/KUGo6oAzFrOlQFKeQcyIzBbVjRnfnMCcXFGCSt3q2nqPHkGUxFUX3a/e7qsMJlAIf8VyqMpUkrq55DWWVZwcw=
+	t=1791141689; cv=none; b=HFzvXa36FuOjtk+dUnON6VUHO3GH2zF/Uwui5nnfUVuSeM63t8R0nC4EUwEOY/rnhkyfrNQGBpj8jglUiCsG61RuJj7eGEBZ/zv9h/7wsW2P6FE1MlNCJYhQIY9kOsZGP4essGYPVxafyCLqWfkP6b1+rkT2Yvq18i7O8582n+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791141504; c=relaxed/simple;
-	bh=cxqvPvmP5LEKCuOrQcNT+FDABIRF0pkCGT0tYhdiTXE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uZiK9Gx8HpV028qwkvo4mSeNqvSaadX0P6SekI1WaVLOnbdPu/sB1NS4EVTGKPsDqFHfh5HbzOof4IoC+Fsn7YUyMbXecIVEANLhkRRU38aRglak9fXOwXWb8roXshHQ/DlUbj/l4Wm9sT0671j+2hhqIA/KdM8ekjhR+OegKTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3pUI4+v; arc=none smtp.client-ip=74.125.225.97
+	s=arc-20240116; t=1791141689; c=relaxed/simple;
+	bh=YCAodK/FAz1rIBCK4IS9rFfjuQJLSzopv/TZu5DO01Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=grshacashvYDKaQrAE5JtRNXELX9DGUC/rL6IIKt5p4UdZVk/B7VyRg0UxofXCF5aXFreXV5fymobWm8L9+rw2e067t0ebA2lI2YHbSiBnVTqCgZZfbb9DwLLM18f/bHd1WyJLnJZ2I446TBzvO2QwJD75n2yPoczRDfXW1/t3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=skYjMbMw; arc=none smtp.client-ip=74.125.225.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3pUI4+v"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b02f47696so141693f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 12:18:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="skYjMbMw"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b9d8056d2so551001f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 12:21:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791141501; x=1791746301; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cPTMVIIAJFn9U/eu7HQEBuEphGxHwxWPSlT9dvO4lqU=;
-        b=m3pUI4+vtvXlwQQ0prQwLq01IAmQ8fmp2mggHNRBhGAiIsGmoRgOZcbKFvToxZPUyI
-         sHbu2g+6yzTceF8Wp1eHAa/+4klY8uk/5W9VATtIHFrkmfRCpXEEjvebsrhZZd1QTyT1
-         TBh1JG2CuC9fE01Ic+80bu7WETTe4d5fneZpQmd5WVYgDtUqU7tRQ+Pd4etAtxYeRSqF
-         ZDiwV50tRYY+9yhfJmsvbZL3VVeeZsJI4QELIpofmo1nFx8zBQtGmMBdDS5bPiUO+BUO
-         EixWplPNN/v/arDaBg2hVw2p6eFsqfzvDSVEdb7Kmxs3HBdNhnnPJhvYdgwh1npO45YT
-         w6Hg==
+        d=gmail.com; s=20251104; t=1791141686; x=1791746486; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xSQsqc7OQj6X9qWeXJjPEqGWCcpu1RKTa9c8Z4J+GXA=;
+        b=skYjMbMwqCXyBd5CLkGJhtX95csnZ7htu9vL2tWD4ZgwTTpVLzb9PUS2TxwWy60N5H
+         /mmDjPwtan6Y1oYks4i1d1hcb9yrx6S8aWG0dkYHfxzntzzV9MDuHo8gfzBR7n7v1x50
+         6MQbSCebDK07QIdoBDbLk85lLLjVJamet7snD2FARbHlR7RY2RADhjb9g6+XaKW8hUNv
+         X2XtpsyZsP093PUTMkL7Scc+MHLZHO6OCkXTAZX7CETQ4Xu5BqNcMbATokQcSXV+3csb
+         t8z+luiUiIIrNoFsyuVkbTTvsf+T5ld+4jCERXYeZfZWCZcVwwJ3NbFSZ/5bebbph1Cl
+         u3Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791141501; x=1791746301;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cPTMVIIAJFn9U/eu7HQEBuEphGxHwxWPSlT9dvO4lqU=;
-        b=AU4M7m7r4rGvjlGOglkwO4aBOSTCTLQQEsI5EGF83zO2J8RhXXGmFuHg9848SfKMVv
-         iYqL9TZcxrX2ZCd0XZRuu69YxLSHT00x+T+gH9/eziOVuM5JJ2R1mKmkqaiWC4ngOiZz
-         rKF/gBfPeoU5B2eVdMdW2ebXzRRvZVxpN0aJ846pgvpbGiVm3gpybsKspjAPaMhoCDY8
-         YZmbFU0RJFUatqVuOoAH/qv1pf3rXRPOUDs1waGNl5itAGzkggQ8kxdtDAY2zDJQpiGi
-         6wyebnp0NVkyx0X/xjx3eNFqR5CJ4+u4QwYPh5bBB31Yyt/oUVgISAclQfJrNwGDY/HI
-         kH0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwyhMQ5QnRpogEsVZyfpf3lBgUDZGDdgL4rRKkj4XQPCXdCGgpW1tT6xxfxPXg0QtEECSgXUJTDT0nWfPU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLin+LWOE5Pnws/3NicdWVZBqc2CrlUeo9zVb1VemGmHcmdxdf
-	XH2XGhphnHltooYTtAtUD1a2+RNI9VlJBYOZp1hARgQKoHGkWxfVtO0s
-X-Gm-Gg: AYBFou0oczLKWSTBjEItuvBcP2fgrP3teHT2AHj9upmcsv9bKpxIPKn7DUXfoTVy8Uq
-	dmsEVSJtRJfmymN30IoVIVahM2c3w59LCCn4HFNMe0xIC7mwYpHL9YPzMSQrHHqkKQ3ixEqfgi+
-	9WHHmndOoCyMo4x/WqaMRmQ6WB2QeCXqdSINLoySeOzLyxvO5WG6dDXHdgsB7aqbh5kMdApgT19
-	TXhq392ofM4Ny9TZwiOksTEDQz5T2T5t1UmFWwy136N9vZVsJvyESlP7+ymPJ/F9h9LQ8uM6Dzw
-	Vqjt4burFsDDn8WltMJs/lNWruKpRqTz4Qh+ifxKbqPm1HF2y5j2M5ILyIkXmFiL/V+bAyRPrku
-	X2LZDCnyvw/JfPM3gyPATDPVud1UB0n5to2K75AdOMLqtniaJDvllzx1AgTrGP5kVbjeg1Z9CHx
-	KjzUMUta5qdqxO6BVlwRaNx/AnxC7JkBtTvyEokpr5G1eMbiGJL4Jsz/ozibNw8gf39HDjtRU9B
-	z3aRvCBhQNdkcb++duw
-X-Received: by 2002:a05:600c:46d5:b0:4a0:1ca8:70e2 with SMTP id 5b1f17b1804b1-4a02751fa7fmr143583805e9.1.1791141501458;
-        Sun, 04 Oct 2026 12:18:21 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276fa954sm279357515e9.3.2026.10.04.12.18.18
+        d=1e100.net; s=20260707; t=1791141686; x=1791746486;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xSQsqc7OQj6X9qWeXJjPEqGWCcpu1RKTa9c8Z4J+GXA=;
+        b=OrLLYWkQk0626W5f5sBrafeVQILuugEm+OBcDlG6Xbnqw+0H0u7/IAhULG9N7hxfsj
+         CO5G2WOIZ11Pq44D90ccKxMQMWk5BvzcQELM6u5CBHKLpfr6bDSpmKgteaabmFfIriT6
+         1GPSeDX9gcXxncwgRBmZeG93bIVBA2zf7EmRXWDtQZ2LWY7bsHhR3xcCr1hE68Mwzs4H
+         72NxIYV5aqZ43oGA4jFFxyIiY6RIMbCnBOGKpPH5H/lkXf79EUXk90p/2vSTfOICqUzX
+         Y8al1gIOUYQHi80wyCvz7K0bcNO8zzoBEZEwwE+VAlbxOI0KrxAJ+j+DKWDzbPWd0pW4
+         j8sA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfBWefIhnlAej7DS4ExOkhYa69ll0gvWfCTK2WhxVPaTHO8WTDMsiGVa46BmYly1dwxrYDq72UptN8TSk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRN3QdVa3EWJlqdO81AymEMJ+HG9HVJxAJ/c+HdyvCQX7ppFQv
+	Eo0qkIia3uh5NAa9ZF3ydseHKxUU/Ci5Plrpn7n7pAcNlDTES4YnnyP/
+X-Gm-Gg: AYBFou3D9IV9vPIJW3FMUukM34smwhuQklkyVsVUmUfxAzeAuT0eJILmUJ7zbukvYB0
+	KXCcntvAFyClGGfXF2eOnwno8FE8TK1MwK0vp03Bz5JzelStnnsR7Nf2O8/ebAgD2bjr2LMUzS0
+	fz1IwYDNKmNB1HrfaJz60x/0aGV5QpBNpA2YKQDwOw3Tu46O5GXM0GOAWpMpCBIQYD9IYLLZsGl
+	kcPhRNCBtMPo1nHe6xOzLby+ansNNDQvckH7mDbGYBfBSP6c+vSvzQwZwB5uh4/pTg9nCgxDgD4
+	c2M4HtAMLhf3o+sxdAPm1qXIvHcYrkQBB7SpNrDmoBFDxRYZJ7BtFGq5UYqerzyq60id/t9vTFv
+	7BwQ3JmoCpTvjXapyu/j7roZ3aAx2lC2um56yTFBYH5HKX8vr6loQAEd2Cl01/B5dkiuHSIzupL
+	rFW3CXocMDwd9O67JtAsCzLmrF1VuK1waZpymlcgGRLxVIFTMziYkVwKBLfkHKsQsiJEOQFjFZq
+	tIw6YBg3iYp3eSXC6xnpYdpq5NSWRyCLP6inOy2ldixl0H5lHz8UuTp5wlMFmch5lTZiOO9Hbzf
+	y5/G
+X-Received: by 2002:a5d:5f05:0:b0:48a:f592:fb63 with SMTP id ffacd0b85a97d-48b126f5423mr15762115f8f.1.1791141685838;
+        Sun, 04 Oct 2026 12:21:25 -0700 (PDT)
+Received: from jjj-x570pro4 ([2a01:e0a:9d5:4a60:d60f:fd1a:fad6:a587])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104e07sm18771733f8f.31.2026.10.04.12.21.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 12:18:21 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: vincent.guittot@linaro.org
-Cc: arighi@nvidia.com,
-	bsegall@google.com,
-	changwoo@igalia.com,
-	christian.loehle@arm.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
+        Sun, 04 Oct 2026 12:21:25 -0700 (PDT)
+From: Justin Bacle <justin.bacle@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	lukasz.luba@arm.com,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	pierre.gondois@arm.com,
-	qyousef@layalina.io,
-	rafael@kernel.org,
-	rostedt@goodmis.org,
-	sched-ext@lists.linux.dev,
-	sshegde@linux.ibm.com,
-	tj@kernel.org,
-	void@manifault.com,
-	vschneid@redhat.com
-Subject: Re: [PATCH 05/18 v2] sched/eevdf: Add min slice check when selecting CPU
-Date: Sun,  4 Oct 2026 22:18:17 +0300
-Message-ID: <20261004191817.20225-1-kayracizmeci@gmail.com>
+	Justin Bacle <justin.bacle@gmail.com>
+Subject: [PATCH v2] ALSA: usb-audio: add sample-rate quirk for Yamaha 01V96i
+Date: Sun,  4 Oct 2026 21:20:50 +0200
+Message-ID: <20261004192102.59312-1-justin.bacle@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002154415.2270586-6-vincent.guittot@linaro.org>
-References: <20261002154415.2270586-6-vincent.guittot@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,84 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a new level for selecting CPU when select_task_rq_fair() fails to find
-an idle CPU. This last level will compare the slice to select a CPU where
-the task could run 1st.
-This helps a waking task to select a CPU where a longer slice runs
-instead of one where a task with the same or shorter slice already run.
+The Yamaha 01V96i exposes its audio streaming interfaces as
+vendor-specific USB class 0xff and ships no class-specific endpoint
+descriptor.  parse_uac_endpoint_attributes() therefore returns no
+attributes for the device, and without UAC_EP_CS_ATTR_SAMPLE_RATE the
+driver never issues the SET_CUR sampling-frequency request the hardware
+needs to start its USB audio stream.  The playback and capture PCMs are
+reported as RUNNING and their pointers advance, but the mixer passes no
+audio in either direction.
 
-There's a typo. 'run'
+The vendor (Yamaha Steinberg) driver on Windows sends this request at
+startup; the generic driver does not.  Add the 01V96i to
+snd_usb_audioformat_attributes_quirk() to force the attribute on, so the
+stream is initialised the same way.
 
-> @@ -8771,10 +8771,11 @@ static int select_idle_smt(struct task_struct *p, struct sched_domain *sd, int t
->   * comparing the average scan cost (tracked in sd->avg_scan_cost) against the
->   * average idle time for this rq (as found in rq->avg_idle).
->   */
-> -static int select_idle_cpu(struct task_struct *p, struct sched_domain *sd, bool has_idle_core, int target)
-> +static int select_idle_cpu(struct task_struct *p, struct sched_domain *sd, bool has_idle_core, int *best)
->  {
->  	struct cpumask *cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
-> -	int i, cpu, idle_cpu = -1, nr = INT_MAX;
-> +	int i, cpu, idle_cpu = -1, slice_cpu = -1, target = *best, nr = INT_MAX;
-> +	unsigned long task_slice;
->  
->  	if (sched_feat(SIS_UTIL) && sd->shared) {
->  		/*
-> @@ -8795,6 +8796,8 @@ static int select_idle_cpu(struct task_struct *p, struct sched_domain *sd, bool
->  	if (!cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr))
->  		return -1;
->  
-> +	task_slice = p->se.slice;
-> +
->  	if (static_branch_unlikely(&sched_cluster_active)) {
->  		struct sched_group *sg = sd->groups;
->  
-> @@ -8814,6 +8817,10 @@ static int select_idle_cpu(struct task_struct *p, struct sched_domain *sd, bool
->  					if ((unsigned int)idle_cpu < nr_cpumask_bits)
->  						return idle_cpu;
->  				}
-> +
-> +				if (slice_cpu == -1 &&
-> +				    task_slice < get_rq_min_slice(cpu_rq(cpu)))
-> +					slice_cpu = cpu;
->  			}
->  			cpumask_andnot(cpus, cpus, sched_group_span(sg));
->  		}
-> @@ -8832,11 +8839,18 @@ static int select_idle_cpu(struct task_struct *p, struct sched_domain *sd, bool
->  			if ((unsigned int)idle_cpu < nr_cpumask_bits)
->  				break;
->  		}
-> +
-> +		if (slice_cpu == -1 &&
-> +		    task_slice < get_rq_min_slice(cpu_rq(cpu)))
-> +			slice_cpu = cpu;
->  	}
->  
->  	if (has_idle_core)
->  		set_idle_cores(target, false);
->  
-> +	if (slice_cpu != -1)
-> +		*best = slice_cpu;
-> +
->  	return idle_cpu;
->  }
+Confirmed against a usbmon capture of the Windows vendor driver: SET_CUR
+CS_SAMPLING_FREQ_CONTROL to endpoints 0x07 and 0x86 is the only
+non-standard control transfer it issues that completes successfully.
 
+Verified on a mainline 7.2.9 kernel with a loopback test: playing a
+440 Hz tone on USB channels 1/2 and recording USB channels 9/10 returns
+the tone unchanged at 44100, 48000, 88200 and 96000 Hz.
 
-Also,
+Tested-by: Justin Bacle <justin.bacle@gmail.com>
+Signed-off-by: Justin Bacle <justin.bacle@gmail.com>
+---
+Changes in v2:
+- Describe the change and its verification.
 
-Scene:
+ sound/usb/quirks.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Let's say that in our domain there are 8 CPU's and has_idle_core is false. And nr equals 4.
-And sched_cluster_active is true. select_idle_cpu() enters the for_each_cpu_wrap block
-and the else branch. Because nr decrases each time, and if there are not any idle_cpu's
-even if we found any slice_cpu it's not set to best. We just leave the loop after checking 3 CPU's.
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 6176acc04..9a5ea295e 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2332,6 +2332,21 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
+ 					  int stream)
+ {
+ 	switch (chip->usb_id) {
++	case USB_ID(0x0499, 0x5500): /* Yamaha 01V96i */
++		/*
++		 * The 01V96i declares its audio streaming interfaces as
++		 * vendor-specific (class 0xff) and provides no class-specific
++		 * endpoint descriptor.  parse_uac_endpoint_attributes() therefore
++		 * returns no attributes, and the driver never issues the SET_CUR
++		 * sampling-frequency request the hardware needs to engage its USB
++		 * stream: playback and capture PCMs report RUNNING, but the desk
++		 * passes no audio.
++		 *
++		 * Force the attribute on so the stream is initialised the same way
++		 * the Windows driver does it.
++		 */
++		fp->attributes |= UAC_EP_CS_ATTR_SAMPLE_RATE;
++		break;
+ 	case USB_ID(0x0a92, 0x0053): /* AudioTrak Optoplay */
+ 		/* Optoplay sets the sample rate attribute although
+ 		 * it seems not supporting it in fact.
+-- 
+2.53.0
 
-The same thing a bit differently happens below on the main loop too.
-
-But I don't think is more important than typos. Typos is the reason we're here. They are the or nevermind.
-This is a joke btw. (that, destroyed my masterpiece and created a new one. Saying a joke is a joke because it is,
-is one thing while saying a joke is a joke as a joke is one thing. I wanna go on with this but it'll be to long. :<)
-
-I could be getting something wrong tho. (No one is perfect, but I'm not perfect at all so ya know.)
-
-Thanks,
-Kayra
