@@ -1,217 +1,149 @@
-Received: from mail-vs2-f36.google.com (mail-vs2-f36.google.com [74.125.227.36])
+Received: from mail-qk2-f37.google.com (mail-qk2-f37.google.com [74.125.230.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBF343F8C6
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.36
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791116389; cv=none; b=I97y87mECZE9LmGMpzZvFth+qYAZwEH7mMzJUwg6BRQWzUE6h8T9EwKWLOgHh8Sc7oFahF1g+odcuomTfC/0+FsCVz5E5l1slmXt54ITlf1hlhIyGdLJ2YHjVu80MaHm5YCi7dv1PgM2g0UrbzZI1J/7LAvZd9ClxZiRcUyFZ6Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791116389; c=relaxed/simple;
-	bh=FsKnLSE/pW8xRGPlzKiDk5/W7dq7hM9JvQWcRfmVQpg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lG5XbInLiTwiE6bgZdbFC0Prbus3qAJYYhlh2GnAby3p6qWphB6YSmJOb/KFdRPMk0QoqzlcSRWlktervd/OwfXlAtBsYoIvx4/UT0mKlFEy6p2bdUl78sJY19yu7yXTnrAGW1+PFWypaegNmoS5rwPMz5vStjlDAdHAy73eqzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C9W004Mw; arc=none smtp.client-ip=74.125.227.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96521199920
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.229
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791116561; cv=pass; b=lLx/j3TonS2uJ6wQfowSBoOSv8eqHYBLyaZWsIOMj6/b5DotN8pfJU1nI17TOAGq2KgiMDRt0BxfuIpvrN61MEGYNtfmGk8lH+tMtxkrkgEYKz+gkbVQorh1JIXcTv+4jXpX8bxNPkDIilou3dqzQcuCqIDn03FN2szyrqWEWR8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791116561; c=relaxed/simple;
+	bh=x+uHHtoltat7u8MXTqDYPaAi9h39HOLYBDpqzqJ1pOY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dQMQSaobqhyYr1NpsndoKK1sv6w/yTfF+xBLbovlXqAObTBnp4BH5E9Pg9DPxlOaZUWWofL4rPSi6PcSotw7M2Z8F8oUyWYRih2yAjWpZueU4ywBLeFS+dBpilBQ6lv3MImWFcYOiRjVph/sMwwC6TIhsoxvIWq9LJld2z2Py6M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qh5mfiaD; arc=pass smtp.client-ip=74.125.230.229
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9W004Mw"
-Received: by mail-vs2-f36.google.com with SMTP id 71dfb90a1353d-5d79bed1d00so247759e0c.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:19:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qh5mfiaD"
+Received: by mail-qk2-f37.google.com with SMTP id af79cd13be357-93d9310b207so81233385a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:22:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791116559; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZDCwps3fLOrc1vzOnJZ2MvtUcNFvGVWRw7hzBI0N5lc4R3tVZwk7FSnt4NwEZopZHe
+         tQEuHPS8kLXhfJL+T8fn0sx7xudt9ZCi44CgU5NPkmsxfBqBZEv9faNUNmfXtMHrqVV2
+         4F9Di5HIXYDjlrHA7b84XvD2tBbdA/Wq/vctC9LBM0u2Ui1cP58TspVBGFTAGrqiljMa
+         xm4Ar3mEBUPyALiaUd0JxUgjrCQjx3PT8HFLHgDjsmLXhtjEbSPYl1hmwGum0//GnCfR
+         v68BBdNevzvoimXq8bVe1BWJjilYe3VExRGmvSLaV+UNslTIG+cI83rSDKg+bYInEqET
+         KE6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9ZYjx+1r5vp0THNJehBxeMIT4m4dt14EorNdO1/i8AY=;
+        fh=XjRYihseJjZgHFJUaNir1EbFyJDU8Ga3sz/BgddYsyE=;
+        b=h9xX9GnRjjnj+kedzyMYp1rbgIs1qvwZgm69B5CjO+/AVixZSpj3/GFCLjTDWciAHL
+         7x83WPj86X41+LAEiFNOM0AopMKb56GGM5JlYnDW7wEgZy+UzCYJxZoMkwOjo8ulmDEs
+         Ax4yNjr8Lx+piCzS73GHp+csgegv6cDZmdZ7Fvx+IwVZ4O5Th91t9MQ/S9USOw0+yJvQ
+         1vBeMWevW9rRU1Sw0UwKsgOuFpTC9xTLFiRUN56Q0ZW3TJrrTUsV2EZ0yVlrbw0pKx6k
+         5s8Ku2i2LKCMa5zKHaGYWzYuoIGlra8QcfXockTwrwy6x9NWD9g+R2mwjVkYXXkAo0aD
+         NEtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791116385; x=1791721185; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z/CoubgPTdFpizEolPCPsMjR+glD3shZDgbgtoJ9Xu4=;
-        b=C9W004MwP5b5LHk23LhwkkZHxrjWpLqTK1VuvCIMQ6QWc2NsRa2IzMDGsc255Xv1FP
-         bqWScFyMCAynJXr2CiubP338XBXG8poxbdePOXZIEFe89Mx9XLksLAh4GMrDtdi8crXi
-         KiDNK3xtsjA6Wru9bNwPkgdnuDFUo0AodtZmW23EhF5Fi/2jdUo+LxT2NYVINnYNJIyT
-         NjxHQDd3+M2hg1CDCQi3vF/0yqMuPnX4KNSd0VjulH1aAKWXZa40jCWqa0bM5UV6hC3O
-         MAidfrJukrrIlTVy1JKm3z8unVRkXKQ4JztoacUIBEtZh23h3UP9zqc//th55C0edtq2
-         GMmQ==
+        d=gmail.com; s=20251104; t=1791116559; x=1791721359; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9ZYjx+1r5vp0THNJehBxeMIT4m4dt14EorNdO1/i8AY=;
+        b=Qh5mfiaDcqtxEX/KZtpynwRFQmrG0zBJEOeNnEuCR+t7DZE9LVGpj+1eNNH94tJRkx
+         RXXjm/abYMuhx4nKtovXx/zyOEEtr3v+Udc8WAi0NhdbBvE/la+ekTzNDsuUXcCWNPs5
+         da0LXPOYhYSJCiDzaBwpZgi/aPi2rF8tIR/rwajwxUUO5EnrLxIt5DLfhIR2TzkbMs5p
+         u1DFyPhproPqhclvIwelV7LrtQ1/SS8WWKOPYGsRbo9YcN6LFh5GcYaiSxRyK5gVpPu4
+         EEppiKX5d4bauzbOYsYgiXOdBCXyw9WHxz2mSQ38IuQAWnSQHdw5MQLc8+ajuS36WYRI
+         iHBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791116385; x=1791721185;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z/CoubgPTdFpizEolPCPsMjR+glD3shZDgbgtoJ9Xu4=;
-        b=A5NXJSzEMFvXymlZRa2IoGwaf8gQtRq4n640L/W7Y+9DRa1yfVA464bSjkaAPyHefE
-         T8kKf3eFnwLAGAWHt5wgFrNDpDG4CRmRYejRYuEqgJ5hf+uxExqgzSEH1dZzb3cX2xML
-         rUMjwsTFSUoICVELrfrg15ccVvY4ZFvI2S/7DKiqdLZ0ZRaJmRL2Mci8Hyzx9lt2nkvU
-         SpltlUeiEhPIPToRtGnMRdd9JekAwWCSI4pljYb1UE8yJWtI5jaELlsVFg8dMuDho4bO
-         jcxCdUC/4H5EcVBDk4Am+rSaPkMt5O0hcfCvIQSNnCRkVRUJUP93ewr3AwBHStdDJ2Ud
-         s1Og==
-X-Forwarded-Encrypted: i=1; AKwUvBy/+NU319Y5wIZjquUgNTTwt0T7eVAWlodRaFIIB2qe6+xCxfZyjVOfiUJBSQp3I0CVBCUCINaGH3JEgiI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI70stg3ZCRQJQyayvfB09eFBbx0XkhDqqF61xNRNJb4JN7Pl54
-	7tnZ/dLTJdVnLbQAw6r349xtpyQocUuupuruuOimTQSnBijUaHT+RC8t
-X-Gm-Gg: AYBFou39O2rD95KOtY95CIECXtncfEbXknSnBsE6h20kiqQS+ElbYl0zKoRWt5vvFZD
-	ulVwCd3Q280p3dMEAIahW8Roe6CA35KUzr0fVrRlrJPzAam6aYC1gs27By1LUaOGxjffc3zNljy
-	96fV7q9Ytuvgyq6RqENrfWUVAbKkZIrMUyUaCalYJXZZalcPtvokeWPjzbHuCzoZMTlGJkGQFMC
-	mDe1nElwdwgePJxrxKEjND53H9NqIFELG3w2iCN2p0/R9eyuC2fBgXXOHiPjx4IQ29B8uTonLv4
-	brTsHOgz8L1OG9wNVjJCBvUs+cKV9RPq+zkKeK1WyzqEEC4vQDMyl0vtgbhmUpVxdXoPD1Dq6th
-	UYXZBULiDFv8DB0O19WBcQcbBCOJB+h4weySWVxHtSH2rl+FnBKJjuY3AjobCKAhNxMsInsTIw4
-	93QfDxju8Vz7KVAQAwGWcm8h48JYPM2c9O1YQdZwcwOyleO2cFy+rz6K8cnlQiVeKQh9wy/UpsR
-	521x86bapLxabviDMB/ykXFXOCo0SanruVONtQqqkZp+jzh1mQyUOlXdA==
-X-Received: by 2002:a05:6102:80a5:b0:7c1:c1fa:f3e9 with SMTP id ada2fe7eead31-7c1c1fafb0dmr1213988137.22.1791116384857;
-        Sun, 04 Oct 2026 05:19:44 -0700 (PDT)
-Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a800:a625:1d37:6d7:739d:9d6d])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98b2f115fc9sm7780464241.10.2026.10.04.05.19.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 05:19:43 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: sean@mess.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fabio Estevam <festevam@nabladev.com>
-Subject: [PATCH v3 2/2] media: rc: Add keymap for Ruwido Z3 RC-34 remote
-Date: Sun,  4 Oct 2026 09:19:31 -0300
-Message-ID: <20261004121931.6746-2-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261004121931.6746-1-festevam@gmail.com>
-References: <20261004121931.6746-1-festevam@gmail.com>
+        d=1e100.net; s=20260707; t=1791116559; x=1791721359;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9ZYjx+1r5vp0THNJehBxeMIT4m4dt14EorNdO1/i8AY=;
+        b=o9iZiK3Tph+brCcfBTNJaBmWbU2gIJvbivdifYSUCgJEKI8ZWSj9EkfRnrprOcKZw0
+         TC7RK7wk5nsufWqSaJZLJt8wnn8HT37bTDix7jf24G8Atja7hJToLcUucV3MQ9mnIUVy
+         v2Zz5ckmyE+9WNvZOnAWJPPsNtdjY1Q6lO+/WL9TFN+OKnYe9fy74sDmC5gg1DuzTCZN
+         xkiVJ+jn+3NZEpcDCUNcTmvDMsMmGD5fLRXB3K8V3cwn8QDgXyYbi/plQo3vrcvxL2mN
+         P664xeNfBTaE0ZxdSyGV9tV1Xu0H3sKWkvnT0l9l1Uf+aCynaibui98eiOPmmr3FG9Fp
+         i/wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwDOhIJ8aUNBGpWAyoz68RZcVygqhFmgtf8nnY70SVFsJiKrbl/khYN3K9O45A73npmJYmnwxhYifkhkcQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nI469Knn5+Za+I/KC0xxPG/7DT8YHqGehf5Y1bi7LuEFHDFHyo
+	zr5274ddJ/4tR9bDIF2ouonsZr+N2+OQ+URT4r1pmYnM0AktH8Kj0iDdDW6W8p5a1ysVIZcqBMw
+	xPTY+WpsQlAnBxVf0/U3+6y/2cIre9Hg=
+X-Gm-Gg: AYBFou0c/As6qWeOZIzScAnXDsmnkKy+t4K56ChW6jFh4dKffRvOPBYrmJ6rED0TzuK
+	KS/jmDF1PmO9qSplI1EB61+b2okMpeq/VIX1II/01jCsRkAY0BRJ625+8sBCGHptTlieQB+xKfr
+	xCyQzlEiVme02lAxXB23vczx53vBPDunebU75OHAv7CDyhQESJAlcZUiOfpJsZcRwBCkOL5Flro
+	e+2JnE1rj9qwaBeKXT+OmW9UmSWCDLNSSOpv0Ta4zzmGdkEZB3/uHxqrx4gb9u0IcMwKQiq72Je
+	/GQBnKqICFWx5n1q9GRbEN7ePMCGq8YyklmlD6rK5tZbpO08f1kva9GvUlWNRsqKD008
+X-Received: by 2002:a05:620a:43a5:b0:936:df48:d507 with SMTP id
+ af79cd13be357-93ce94ed6e2mr1355623985a.18.1791116559566; Sun, 04 Oct 2026
+ 05:22:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004120526.2728564-1-zxyan0222@gmail.com> <179111571610.1402591.377888819234151971@kernel.org>
+In-Reply-To: <179111571610.1402591.377888819234151971@kernel.org>
+From: zhu xin <zxyan0222@gmail.com>
+Date: Sun, 4 Oct 2026 20:22:27 +0800
+X-Gm-Features: AclHuK9jrfPfFj8M3GL_Owa_kw9zKNkIad5XcOnkNjdlIpwCoWA_TR7BFvZBUXw
+Message-ID: <CAP7veTLPuO6QfS89b0VuKSBYDmQkgQtPO94KEhVtjNTNLoYNdQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v7 0/3] net: stmmac: dwxgmac2: timestamp
+ interrupt support + Agilex5 fix
+To: netdev-bot+sinfo@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, richardcochran@gmail.com, 
+	maxime.chevallier@bootlin.com, muhammad.nazim.amirul.nazle.asmade@altera.com, 
+	rohan.g.thomas@altera.com, netdev@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Fabio Estevam <festevam@nabladev.com>
+On Sun, Oct 4, 2026 at 8:08=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
 
-Add keymap for the Ruwido Z3 RC-34 remote control.
+- How discovered: Patch 1 and Patch 2 were found by code inspection
+  during review.  Patch 3 was found during development testing on a
+  local DWXGMAC2 board: the PTP clock advertised the aux snapshot
+  channels and PTP_EXTTS_REQUEST succeeded, but no PTP_CLOCK_EXTTS
+  event ever arrived - inspection then showed the XGMAC hwif pointed
+  at the generic stmmac_ptp ops, which read the dwmac4 offset instead
+  of the XGMAC register.
 
-Signed-off-by: Fabio Estevam <festevam@nabladev.com>
----
-Changes since v2:
-- None.
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+>
 
-Changes since v1:
-- Use RC_PROTO_NECX. (Sean)
-- Use media prefix in the Subject.
+- Actually triggered: the EXTTS failure of Patch 3 was hit on real
+  hardware as described above.  The races fixed by Patch 1 and the
+  OOB index of Patch 2 were found by inspection and have not been
+  observed in isolation.
 
- drivers/media/rc/keymaps/Makefile             |  1 +
- .../media/rc/keymaps/rc-nec-ruwido-z3-rc34.c  | 80 +++++++++++++++++++
- include/media/rc-map.h                        |  1 +
- 3 files changed, 82 insertions(+)
- create mode 100644 drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+>
 
-diff --git a/drivers/media/rc/keymaps/Makefile b/drivers/media/rc/keymaps/Makefile
-index 38b84e34b225..525d203c0a94 100644
---- a/drivers/media/rc/keymaps/Makefile
-+++ b/drivers/media/rc/keymaps/Makefile
-@@ -86,6 +86,7 @@ obj-$(CONFIG_RC_MAP) += \
- 			rc-msi-tvanywhere-plus.o \
- 			rc-mygica-utv3.o \
- 			rc-nebula.o \
-+			rc-nec-ruwido-z3-rc34.o \
- 			rc-nec-terratec-cinergy-xs.o \
- 			rc-norwood.o \
- 			rc-npgtech.o \
-diff --git a/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
-new file mode 100644
-index 000000000000..8a090772446d
---- /dev/null
-+++ b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+//
-+// Keytable for the Ruwido Z3 RC-34 remote
-+
-+#include <media/rc-map.h>
-+#include <linux/module.h>
-+
-+static struct rc_map_table nec_ruwido_z3_rc34[] = {
-+	/* Ruwido Z3 RC-34, NECX address 0xe310 */
-+	{ 0xe3100f, KEY_POWER },
-+	{ 0xe31016, KEY_MENU },
-+	{ 0xe3100a, KEY_UP },
-+	{ 0xe3100b, KEY_DOWN },
-+	{ 0xe3100d, KEY_LEFT },
-+	{ 0xe3100c, KEY_RIGHT },
-+	{ 0xe31019, KEY_OK },
-+	{ 0xe3106a, KEY_BACK },
-+	{ 0xe31033, KEY_INFO },
-+	{ 0xe31066, KEY_DISPLAYTOGGLE },
-+	{ 0xe3101a, KEY_VOLUMEUP },
-+	{ 0xe31010, KEY_VOLUMEDOWN },
-+	{ 0xe31013, KEY_MUTE },
-+	{ 0xe31032, KEY_CHANNELUP },
-+	{ 0xe31031, KEY_CHANNELDOWN },
-+	{ 0xe31069, KEY_HP },
-+	{ 0xe31000, KEY_NUMERIC_1 },
-+	{ 0xe31001, KEY_NUMERIC_2 },
-+	{ 0xe31002, KEY_NUMERIC_3 },
-+	{ 0xe31003, KEY_NUMERIC_4 },
-+	{ 0xe31004, KEY_NUMERIC_5 },
-+	{ 0xe31005, KEY_NUMERIC_6 },
-+	{ 0xe31006, KEY_NUMERIC_7 },
-+	{ 0xe31007, KEY_NUMERIC_8 },
-+	{ 0xe31008, KEY_NUMERIC_9 },
-+	{ 0xe31030, KEY_NUMERIC_0 },
-+	{ 0xe31065, KEY_RED },
-+	{ 0xe31063, KEY_GREEN },
-+	{ 0xe31064, KEY_YELLOW },
-+	{ 0xe3106b, KEY_OPTION },
-+	{ 0xe31050, KEY_PLAY },
-+	{ 0xe31057, KEY_REWIND },
-+	{ 0xe31058, KEY_FASTFORWARD },
-+	{ 0xe31060, KEY_PROG1 },
-+	{ 0xe31061, KEY_PROG2 },
-+	{ 0xe31062, KEY_PROG3 },
-+
-+	/* RC-34 remote volume keys */
-+	{ 0x3506, KEY_VOLUMEUP },
-+	{ 0x3507, KEY_VOLUMEDOWN },
-+
-+	/* McIntosh HR070 remote volume keys */
-+	{ 0xca5542, KEY_VOLUMEUP },
-+	{ 0xca5543, KEY_VOLUMEDOWN },
-+};
-+
-+static struct rc_map_list nec_ruwido_z3_rc34_map = {
-+	.map = {
-+		.scan     = nec_ruwido_z3_rc34,
-+		.size     = ARRAY_SIZE(nec_ruwido_z3_rc34),
-+		.rc_proto = RC_PROTO_NECX,
-+		.name     = RC_MAP_NEC_RUWIDO_Z3_RC34,
-+	}
-+};
-+
-+static int __init init_rc_map_nec_ruwido_z3_rc34(void)
-+{
-+	return rc_map_register(&nec_ruwido_z3_rc34_map);
-+}
-+
-+static void __exit exit_rc_map_nec_ruwido_z3_rc34(void)
-+{
-+	rc_map_unregister(&nec_ruwido_z3_rc34_map);
-+}
-+
-+module_init(init_rc_map_nec_ruwido_z3_rc34)
-+module_exit(exit_rc_map_nec_ruwido_z3_rc34)
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Fabio Estevam <festevam@gmail.com>");
-+MODULE_DESCRIPTION("Ruwido Z3 RC-34 remote keytable");
-diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-index f167c37179c8..290919a7247e 100644
---- a/include/media/rc-map.h
-+++ b/include/media/rc-map.h
-@@ -289,6 +289,7 @@ struct rc_map *rc_map_get(const char *name);
- #define RC_MAP_MSI_TVANYWHERE_PLUS       "rc-msi-tvanywhere-plus"
- #define RC_MAP_MYGICA_UTV3               "rc-mygica-utv3"
- #define RC_MAP_NEBULA                    "rc-nebula"
-+#define RC_MAP_NEC_RUWIDO_Z3_RC34        "rc-nec-ruwido-z3-rc34"
- #define RC_MAP_NEC_TERRATEC_CINERGY_XS   "rc-nec-terratec-cinergy-xs"
- #define RC_MAP_NORWOOD                   "rc-norwood"
- #define RC_MAP_NPGTECH                   "rc-npgtech"
--- 
-2.43.0
+- Tested on: local DWXGMAC2 hardware (not Agilex5), for the Patch EXTTS
+  issue and basic PTP operation. Agilex5 has not been tested locally.
 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
