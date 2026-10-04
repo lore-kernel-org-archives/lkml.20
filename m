@@ -1,307 +1,181 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from sg-3-41.ptr.tlmpb.com (sg-3-41.ptr.tlmpb.com [101.45.255.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A36139D6DD
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841293BD22E
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:52:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791129111; cv=none; b=FLSbquSxmZxX2NopnT0ZBbErPk5rz7gVe3o9HH0TUEOhyYSAs2ElntvW/bkLql6poZG4nKyYA/YlsEsGxCaUMb06m7/cnm4dnW5/Fx6vfEXHPwHNye0eql3u8IPVjiYKuZHTrWHnVjmQvMafQ3ZYMCZDFafG4jqAnD9KDKlUCBM=
+	t=1791129133; cv=none; b=X4aGB1ND485duv6LxV7vFVreP5ulknAlDZdwkNkE8KcbwmLC55IN6db9Tu5RwfphaeAIB8bXuxawSBzcU9WOD7ePq+lKCG+iH47QEIMOJXyG3XDGkWp1e2xrqcvTPdo0VJZgPCHFecVgtqL0df0Q8q1MQtT3gxvx60KRPBb7e8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791129111; c=relaxed/simple;
-	bh=Is/vmCTEVS8LhULx4GLf0QLWowK1BBWeGlcSwDzadno=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=TjJ0G5Y0tQVu5VhTMEEHOcrRwqsRGoOvnznaNB1gBJgrKvtqEmRocUnbuwjxrJYw8E+jsMAiEuMI/b6Z/MUwFbZoNwBXuSB++ZEVkGwGBc7mylrOYRrGkoqf07v69eaPevywIr83ubkw6llORi5Dwm0fJulQgI03V0a3ipsa6qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PSkq/tme; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791129133; c=relaxed/simple;
+	bh=JYfSDbevSyklrFpxJ/wTrpgYy/neyqm9a6uWSluHa+U=;
+	h=Content-Type:Subject:To:Cc:From:Mime-Version:References:Date:
+	 Message-Id:In-Reply-To; b=h7VCme+UVpQXdLJjbnPjRohEbXULfS/Dfd9BUBQ+hhxIHhjFkyBtCKmyQbh+SR39mk51ZDKF968nTWYX08EsFT7CtZRZYBjwvPh8yAKLZj6MVCdKGWVE9aAODdfMGysUrEs3cmbMr+KgVq9DkmWjYQS59yBXdjo2tJ0tcRpyjpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=L3Ao1wLJ; arc=none smtp.client-ip=101.45.255.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PSkq/tme"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b00a0ac65so436089f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:51:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791129108; x=1791733908; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NM5YFNeJZiuDBiTJqEC+MHW61fR6/JMTqJRMvt7EHp0=;
-        b=PSkq/tme5g+tZuDguKPAFtaaGw2XL71KaQutVmKq5LxMaYXBWIsAkAw2VYPFuxvn4N
-         GKYlT73Ywy/eTQMra/6p5qjsflmaQyhYw3xYnjN/OQJcuUOGwejOWqVtF3u058145/sr
-         wA8Ngry4ngZ6xiWm14QEUNXOfwUT7pR21FWzV9YZFZwUDPHl5+lWf5Rt5meFLnKqJPVs
-         1JUV6JxqAkBpWb+6haEk+SVQReIydbL+Oc65Mfv/yJm8W+cps4iDDnX0z0ZMLVS0/XxS
-         jmeA7JhtjhBjO9TJ4ei2sbypj3gYrQitdfx8//UgU6kedfrDg4ijN1NnS9mt7iLzhR6m
-         SHeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791129108; x=1791733908;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NM5YFNeJZiuDBiTJqEC+MHW61fR6/JMTqJRMvt7EHp0=;
-        b=mYwbTz2Ywwz8qH2Uw5ByuecNoS/hfWJWxEoyDwv4zN/vxGl+KHoih+jzE8/nbT3qiL
-         VGLFOybm6Thf2cPNTawFwV3ePjndiw2k2ec2y/yva5aSASh+SR8LXmPOjzrHPvOtI3ja
-         XHc40QV7jZ/J09m2woxzCV3QXOgX9AdCPpkLqkmoRBT9uR5L01DjYUfis7PBp7kwkGM3
-         nyecSHveIjAbMIb8VYxFGZS3q9sALMcyE4jZgZHBKlRuK7iO4+kMOBq21F/5VCie2r2h
-         LBow0FcU7Ap88a0fPVApOFQ/NleqWBtflPqFhpJjMm3VQ07588OrmlHT1NJt0G8+t2B5
-         HEtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxh54O2u96bcIUr6z3ERofRfocQ7Y0JyETVqLpSyuX6nBbGTHkNUnlHuAdPBmbrRDZNSx0134kKgGGXkSo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7gZEUH9K9PaEomDRutV4JYKpZVuwjhl6iPvHPlHFRUdqQp0vc
-	HKlIbXhOdNXfSen5r3y/Oz2/4muE1i4KErMifwQpJCSatxNyDK0xHjoaBDsrkouHNzs=
-X-Gm-Gg: AYBFou3w5Wc2hBhNDKYh04Tu/Ty+c8ttgvypd0hUGSk3p3XWieEQG7SKg2rXM/WXYhL
-	Ua8TqbR2GsVRs5jAh+wqGM92Vq0jnbrNt9m0/E9aFBaQKlkCeQ6PDRRGCfvmc9Pl7l/Hgrznvhp
-	/LXNst/d84MsifXPMnK4weBBoj9s8gGgDe8Crvqa7bsAQIjROu5YXiAbQNaRRwjs0TTYpJb8O3q
-	eXl6QBgrfWLtoxptVUs4FDEA9dktf4k8wEaglZazDzECRQYItICLjM3mk5gLui7B6y7ZbjDmp2b
-	AkjzRkIKKQoqt5H1PuHZgw0pzoV4ZDj/bZPxK44DyJ4thTP8smp/JJ3Ww0Sx06CfvQXbvDZoHdv
-	OUmrx4OYcUHzMG9IZa4eUAK+kjAYu00Uey9LvxPsWBdrC61loezhP78pg1nrnOtChSK2BfgcPTU
-	7gOHyIW0JYCf2s/wrFx84s7mHXOVa4zxs2n0bSK0G70qxgCcBiwfkEfmCBcaIAMFzyaESB2UtJS
-	8JhO10n
-X-Received: by 2002:a5d:59c3:0:b0:48c:5785:9b5f with SMTP id ffacd0b85a97d-48c5785a189mr3692503f8f.38.1791129107541;
-        Sun, 04 Oct 2026 08:51:47 -0700 (PDT)
-Received: from [172.20.10.3] ([37.169.53.153])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f0613sm21532685f8f.13.2026.10.04.08.51.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 04 Oct 2026 08:51:47 -0700 (PDT)
-Message-ID: <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
-Date: Sun, 4 Oct 2026 17:51:44 +0200
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="L3Ao1wLJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791129083;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=N0IBTDh9NOUscIgRtt+2unFn8HLJ72nJ0CB0mU61Q9Q=;
+ b=L3Ao1wLJioIMwWdagYezGOv0RneyqwjZ6HcbRdW7BH26SPOTD8YYQmD2iC9Te2Fm7ZZtOt
+ EQCtIz6Nt0drrbBZ7bCSD3Z+y1R4se8Hb6B7HPdYZuX5z5TythzmgYVZO6+QGyn0lbuMQ9
+ fRJ9MWqYeqg+UUZN1WzzvwhuDJw2IEs0xxWU/HLJfp5rh2vJQ8fM4muwO5ZlEY0VToSwaj
+ SBfSWVOv9OYRGUmMM+oeIyrtY0C1ATPga3LOVKfmpC2K7ywj7GuH2o1fYIqY/uHr9gW/uR
+ v4g5lbCMfo/mQsaujV8lupc/wRsuhrCQPcrYT2Zs2GTUQhZbWbqj8pUIVVCeFA==
+Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+To: "Zhihao Cheng" <chengzhihao1@huawei.com>, <song@kernel.org>, 
+	<magiclinan@didiglobal.com>, <xiao@kernel.org>, <eadavis@sina.com>, 
+	<abd.masalkhi@gmail.com>, "yu kuai" <yukuai@fygo.io>
+Cc: <linux-kernel@vger.kernel.org>, <yangerkun@huawei.com>, 
+	<yi.zhang@huawei.com>, 
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>
+From: "yu kuai" <yukuai@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics panel support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <20260727-spotted-winged-mantis-7aa1ce@quoll>
- <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
- <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
- <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
- <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
- <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
- <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
- <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260922030538.1634904-1-chengzhihao1@huawei.com>
+Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Sun, 04 Oct 2026 15:51:22 +0000
+Reply-To: yukuai@fygo.io
+Date: Sun, 4 Oct 2026 23:51:18 +0800
+Message-Id: <f02cbef7-4a8b-440b-894d-af91df7bdf76@fygo.io>
+In-Reply-To: <20260922030538.1634904-1-chengzhihao1@huawei.com>
+X-Lms-Return-Path: <lba+26ac275fa+7e1b2c+vger.kernel.org+yukuai@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
 
-On 10/1/26 02:43, Dmitry Baryshkov wrote:
-> On Wed, Sep 30, 2026 at 09:18:55PM +0200, Neil Armstrong wrote:
->> On 9/30/26 21:04, Dmitry Baryshkov wrote:
->>> On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
->>>> On 9/30/26 09:44, Linus Walleij wrote:
->>>>> On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>>
->>>>>> This entire binding seems like stitching two devices together, which
->>>>>> might be fine (I don't even remember this stuff... two months old) or
->>>>>> might be artificial grouping of separate devices.
->>>>>
->>>>> I think that's a good point and fair pushback.
->>>>>
->>>>> Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
->>>>> https://www.youtube.com/watch?v=6tNGW8PoSzw
->>>>>
->>>>> The current binding does not reflect the physical topology of the
->>>>> actual device, and the bindings need improvements. I have a feeling
->>>>> there is one display controller with two physical panels.
->>>>
->>>> No there's really 2 controller and 2 separate panels, but they are not
->>>> classic panel, they are a pair of panels+lens which are in front of
->>>> the eyes which forms a single "image" for the brain, so they are
->>>> technically a single display and requires to be hard synchronized.
->>>
->>> Yes. However this approach makes it impossible to share the code between
->>> the double-panel drivers and single-panel drivers. I think, that the
->>> panel driver should still reference a single glass+DDIC, while letting
->>> the DSI host driver to handle the bifurcation.
->>
->> Yes, and no, it must really be considered as a "single panel driven by 2 identical controllers",
->> and even this is really purely software implementation issue.
-> 
-> [...]
-> 
-> 
->>>> Describing both panels into separate nodes would only be possible
->>>> if we described a "VR display complex" nodes linked to both panels
->>>> but this would probably be solved by actually describing the "display"
->>>> linked to a DDIC controller and is out of subject for this serie,
->>>> and can be added later when we properly define things.
->>>
->>> I like the VR complex idea. In the end, you have two modes which you
->>> most likely might want to support:
->>> - L+R, having double-width CRTC scanning over a double-width framebuffer
->>> - Mx2, having a single-width CRTC and a single-width framebuffer
->>>     displaying the same picture to both eyes. I can imaging that knowing
->>>     about L+R might be an explicit opt-in feature of the DRM interface.
->>>
->>
->> This makes no sense to support both modes, and this will never be used,
->> and anyway this is purely software implementation.
->>
->> We're defining bindings here, describing the real reality, not hypothetical
->> situation that will never happen.
-> 
-> Let's ignore software issues. On the hardware side, you have two
-> distinct DSI panels, each having its own set of controls, own DSI link
-> and own backlight control.
-> 
+Hi,
 
-OK so let's see the problem in another angle, if we had 2 DS links 2 physical
-controllers, 2 physically distinct panels but forms an unique display.
+=E5=9C=A8 2026/9/22 11:05, Zhihao Cheng =E5=86=99=E9=81=93:
+> Concurrent processes md_stop and IO submitting could trigger a
+> null-ptr-deref of 'mddev->private':
+>
+>   BUG: kernel NULL pointer dereference, address: 0000000000000070
+>   RIP: 0010:_wait_barrier+0x2f/0x250
+>   Call Trace:
+>    raid1_make_request+0x150/0xf50
+>    md_handle_request+0x104/0x530
+>    md_submit_bio+0x76/0x130
+>    submit_bio+0xdd/0x250
+>    submit_bio_wait+0x1f/0x40
+>    __blkdev_direct_IO_simple+0x1f6/0x370
+>    blkdev_write_iter+0x3b2/0x520
+>    ksys_write+0x7d/0x190
+>
+>                P1
+>    fd =3D open(/dev/md0, O_RDWR)
+> 	                      P2 (forked from P1, fd' <=3D fd)
+>    write(fd)
+>     submit_bio
+>      md_handle_request
+>       raid1_make_request
+>        raid1_write_request
+>                                    ioctl(fd, STOP_ARRAY)
+> 		                   mddev_set_closing_and_sync_blockdev
+> 				   // check passed, mddev->openers =3D 1,
+> 				   // because md_open() is only called
+> 				   // once in P1->open
+> 				   do_md_stop
+> 				    __md_stop
+> 				     mddev->private =3D NULL
+>
+>         conf =3D mddev->private // NULL
+>          wait_barrier(conf, sector) // null-ptr-deref !
+>
+> It is a common problem for raid0/1/10/5, and __md_stop could be triggered
+> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
+> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
+> The caller array_state_store() is guaranteed by the check
+> mddev_set_closing_and_sync_blockdev(mddev, 0), we just need to remove
+> the check '!md_is_rdwr'. For example, someone open /dev/mdx, write
+> something and close /dev/mdx, it won't trigger the problem, all dirty
+> pages can be flushed before mddev->openers decrement.
+> The caller dm_table_destroy() is guaranteed being invoked with device
+> suspended, so raid_dtr() could keep using mddev_lock_nointr().
+> Besides, fail the submitting IO in md_handle_request() if the
+> 'mddev->pers' becomes NULL.
+>
+> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=3D22202=
+0
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D3fe892ea5fc292e1353f
+> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> ---
+>   v1->v2:
+>    1. Add 'mddev->pers !=3D NULL' check before make_request
+>    2. Delete dm-raid caller(->dtr) modifications
+>    3. Move memalloc_noio_restore after mddev_unlock_and_resume
+>   v2->v3:
+>    1. Remove modifications in array_state_store()
+>    2. update commit msg
+>   v3->v4:
+>    1. Remove '!md_is_rdwr' check from array_state_store()
+>    2. update commit msg
+>   v4->v5:
+>    1. Skip checking '!md_is_rdwr' only for inactive case
+>   drivers/md/md.c | 17 ++++++++++++++++-
+>   1 file changed, 16 insertions(+), 1 deletion(-)
 
-Describing it in separate distincts nodes is wrong since it doesn't reflect
-that it's an unified display, so either we define :
-- a "combined-display" bridge defined as:
-   - a separate top node in / like connectors with a graph from the DSI links to each panel
-   - a DSI subnode with 2 panels as subnode, port graph from both dsi to both sub-panels
-- a "R63455" panel bindings with 2 subpanels as Linus shared in https://lore.kernel.org/all/CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com/
+This patch is missed because it's not in patchwork. :(
 
-I think it would be interesting to have the "combined-display", with a connector-like node,
-which will do all the split-dsi dual-panel logic for us and leave use implementing simple panel
-drivers.
+Applied to md-7.4
 
-The outline would be:
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 680b34a63cb3..02798f2dbf0e 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct b=
+io *bio)
+>   		if (!percpu_ref_tryget_live(&mddev->active_io))
+>   			goto check_suspended;
+>   	}
+> +	if (!mddev->pers) {
+> +		/*
+> +		 * The __md_stop() sets 'mddev->private' to NULL during
+> +		 * the IO submitting, check 'mddev->pers' before the IO
+> +		 * being processed by specific driver to avoid the
+> +		 * null-ptr-deref of 'mddev-><member>'. The check is
+> +		 * safe because the IO has got the 'mddev->active_io'
+> +		 * reference, and all __md_stop() callers will wait for
+> +		 * the reference to be zero.
+> +		 */
+> +		bio_io_error(bio);
+> +		percpu_ref_put(&mddev->active_io);
+> +		return true;
+> +	}
+>   	if (!mddev->pers->make_request(mddev, bio)) {
+>   		percpu_ref_put(&mddev->active_io);
+>   		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+> @@ -4670,7 +4684,7 @@ array_state_store(struct mddev *mddev, const char *=
+buf, size_t len)
+>   	case readonly:
+>   	case inactive:
+>   	case read_auto:
+> -		if (!mddev->pers || !md_is_rdwr(mddev))
+> +		if (!mddev->pers || (st !=3D inactive && !md_is_rdwr(mddev)))
+>   			break;
+>   		/* write sysfs will not open mddev and opener should be 0 */
+>   		err =3D mddev_set_closing_and_sync_blockdev(mddev, 0);
+> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+>   	case HOT_REMOVE_DISK:
+>   	case SET_BITMAP_FILE:
+>   	case SET_ARRAY_INFO:
+> +	case STOP_ARRAY:
+>   		return true;
+>   	default:
+>   		return false;
 
-=====><=======================================
-/ {
-
-	xr-display {
-		compatible = "combined-display";
-
-		ports {
-			port@0 {
-				combined_dsi0: endpoint {
-					remote-endpoint = <&dsi0_out>;
-				};
-			};
-			port@1 {
-				combined_dsi1: endpoint {
-					remote-endpoint = <&dsi1_out>;
-				};
-			};
-			port@2 {
-				combined_panel0: endpoint {
-					remote-endpoint = <&r63455_right_in>;
-				};
-			};
-			port@3 {
-				combined_panel1: endpoint {
-					remote-endpoint = <&r63455_left_in>;
-				};
-			};
-		};
-	};
-};
-
-&mdss_dsi0 {
-         vdda-supply = <&vreg_l3i_1p2>;
-         status = "okay";
-
-         qcom,dual-dsi-mode;
-         qcom,master-dsi;
-
-         panel_right: panel@0 {
-             compatible = "sharp,ls026b3sa06", "synaptic
-
-	     	reset-gpios = <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>>;
-
-             	pos-supply = <&vpos_right>;
-             	neg-supply = <&vneg_right>;
-            	backlight-supply = <&backlight_right>;
-
-             	vdda-supply = <&vreg_l12b_1p8>;
-
-		port {
-			r63455_right_in: endpoint {
-                         	remote-endpoint = <&combined_panel0>;
-                     	};
-		};
-	};
-};
-
-&mdss_dsi0_out {
-	remote-endpoint = <&combined_dsi0>;
-
-	data-lanes = <0 1 2 3>;
-};
-
-
-&mdss_dsi1 {
-         vdda-supply = <&vreg_l3i_1p2>;
-         status = "okay";
-
-         qcom,dual-dsi-mode;
-
-         panel_left: panel@0 {
-             compatible = "sharp,ls026b3sa06", "synaptic
-
-	     	reset-gpios = <&pm8550_gpios 19 GPIO_ACTIVE_HIGH>>;
-
-             	pos-supply = <&vpos_left>;
-             	neg-supply = <&vneg_left>;
-            	backlight-supply = <&backlight_left>;
-
-             	vdda-supply = <&vreg_l12b_1p8>;
-
-		port {
-			r63455_left_in: endpoint {
-                         	remote-endpoint = <&combined_panel1>;
-                     	};
-		};
-	};
-};
-
-&mdss_dsi1_out {
-	remote-endpoint = <&combined_dsi1>;
-
-	data-lanes = <0 1 2 3>;
-};
-=====><=======================================
-
-So this would solve all the similar use-cases.
-
-We can even add the "xr-display" compatible with "combined-fallback" plus some
-properties to define how the panels are physically placed.
-
-Neil
+--=20
+Thanks,
+Kuai
