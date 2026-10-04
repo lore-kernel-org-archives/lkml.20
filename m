@@ -1,186 +1,193 @@
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0274756BC
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 19:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B142747FB03;
+	Sun,  4 Oct 2026 19:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791143447; cv=none; b=Pi4x4/zOL4cRpF5eASwoMiuB5YHA8oaxlaVGJ5VQ3K80e6KOoH/Je5Cz/ag76r94OlGhBlctD75DbsVFQQSsdyn7p7jU8+qj6vE6Qv7BVQnUzWgab46957zhWKKyDzrmyjQ+dfboF42Ykwmn/urLxFuO43uU3hfMlANnEE59rOY=
+	t=1791143461; cv=none; b=f+3vpaTNHyDoLA20hDayOxQCzsx0b9EUiFfgb5gA3t1D34pnJBnWvSeCM713UShYMRjdF328c5OPBZEsN12BWdSHeUl86wsktvW/GnuoxLKFcTaJZNxMKuhfNN16N7x/vViVBMAC+tQBTDKi6nVChvSN/XM7m6pe/xnYCrkRMPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791143447; c=relaxed/simple;
-	bh=SHw9kMnxKKwhY3CM5Kg8GrEdHVMXUmjxOrNJxpjRzB0=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ugx9gjmftKkNPHFTZGVd1rWGWLUdZAoKRn6W0z117PpzPr+QNZV0x3X7zBq1M1ZGVURSIgqCj/6j90sDVltD9PYMeJHKRzc/jeb79WNkTGJQUyqvb51dhj1ybyFF6zdBpq7VLUWeoLYgRliwtDYX7iYDsl1lUNSZOUzk78J5ZNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--danielmentz.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R4zQKPeS; arc=none smtp.client-ip=74.125.82.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--danielmentz.bounces.google.com
+	s=arc-20240116; t=1791143461; c=relaxed/simple;
+	bh=9+lboIMu86IHuKDIB4AmMWUtDL1j6V6/Jd2xiyAw/6g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PrSE0nnzyP1zVpqChrKC5+JNqao4Bl1lBo6ozCBzQyM5r1u5BN8i15B/fqa++9rstV3venEGaBOnuu8iRNAD5QaBxrrvSf2C1ldC9E3Yor7Z2+cXeyX8ocTZQ7mUNGvGHgwrY8JR/uW0vVRkPfvXS3/L6xCx95RVK/SfvHAUVkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AdjfB4CW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R4zQKPeS"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1855082eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 12:50:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791143445; x=1791748245; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/0+8/7+L8DONYJQ3fWVSioDtnywAJwCJWEJlOMQxkV4=;
-        b=R4zQKPeSdzuWlMTLi4kbQvc2NJlK1X0aNpHZ0QyGlopngIfDtlCaZ2JNN/A33Y/Gv2
-         Qid2dXDaEkqi3R8vcJ9KMb1RFbIMVgI8TI++Mw1fbKptkfhRej8xYNWZZe88DWKh78Tu
-         KqjBXLo5GyziKuhRBW7p2YhecQle8L/Cc54Es8p19wGPKcGpuFSMWtazBGetACwYvcQx
-         +fYvKGuf3FLF0llmYP2cxshiGS2aPgM8MjOSVdGkksuyMItmvZ8oIOIaKL2ZWj0GlNJg
-         RlSDcCwxOkkNZ6NKcIw8w9HW+dfksBIpnYAA5kexLenBqL6f9zE2pvTNrhvK0VU5dI5z
-         /OnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791143445; x=1791748245;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/0+8/7+L8DONYJQ3fWVSioDtnywAJwCJWEJlOMQxkV4=;
-        b=nwsftEPUYrtGsWpYPrpNsng/DQdAyPUA5MaePBLdjRa6kd90ytA0dFiYO1V4DNf0Le
-         eHfbskVd8Yh3Wj/ffcFyea6OxmTm55Vl42ZqCcmQmkVWoamFubE4RGGmgazvTtPcHTTu
-         jnPHNIC1C+dhzfaGJUTZKiN/sDGCYtCgDaEV7d5jZCrnAC6oWoQc/OIAnOxEBhyQrstG
-         MLnULNUlNZYlumNFu/VV5I0TLskutUIcEmPqYZxnDadz59+EdFTjuBqmzjoki2odWMU3
-         symmvSaqtfDWM3dpO8y/exZR3Ui6UTxMzBy+zOf4Wuwx4HCkcMRxvLZxhfkiUui+7L8H
-         7yTQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEekq2koSSREs8xlAvrfJpN7mejWMVicL4lqPMwEQJAGBJIKHwbsrFbSCy6wk6XCcik/8hUnSq/nm10is=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ7HCpjcUp4rHMVJlJBXokFkbWtMGsKJrMugWcROswkSz3bqbv
-	My8PW+m2hexzSVirv5Z+Uaa4/oQ5qJj+ovw2cFQxc1268MyT7fKIVaE12hyAmr9YTFP9SzX3IDE
-	UEpXRsAW+eUMWkrktXel0v3zTHg==
-X-Received: from dlbti5.prod.google.com ([2002:a05:7022:1b05:b0:159:4114:9dd])
- (user=danielmentz job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:f90b:b0:149:c766:3629 with SMTP id a92af1059eb24-14f5c5e9661mr13770215c88.23.1791143444306;
- Sun, 04 Oct 2026 12:50:44 -0700 (PDT)
-Date: Sun,  4 Oct 2026 19:50:27 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AdjfB4CW"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 44A54C4AF13;
+	Sun,  4 Oct 2026 19:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791143461;
+	bh=9+lboIMu86IHuKDIB4AmMWUtDL1j6V6/Jd2xiyAw/6g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=AdjfB4CWpz3vvF23r02cn7cCelbDMF/34vJ/XTMqCTN5O9uwRZouD0aDQvsB/LRs2
+	 qtpjXJoJ4PuIHAhidBreTntiprbllUB+4lz4vdecp2fxWAzwmTeRLYy3up3ROiLq36
+	 66DmVEI6W2HEdrtuDMYA6idH8Th0uvpJYyEgZDkh9fq5t3oVfbWhMSTHP/jm3wOodq
+	 S1CRHIGbvxX/rgGtBqlz1eNu4QDvUW0Of6JOkYs8tdTtvYgp0/jeQJ+gvqpHhly6/j
+	 ef4aJi/2RnP0DNXjAlpBN41Z+uy+diftHIXYcxhxAFsf4ZXz41gUXNlYMcwuBDhIpY
+	 79N8F1QGK98xw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FA60CA5FEC;
+	Sun,  4 Oct 2026 19:51:01 +0000 (UTC)
+From: Lawrence Lin via B4 Relay <devnull+deduce.gmail.com@kernel.org>
+Date: Sun, 04 Oct 2026 14:51:00 -0500
+Subject: [PATCH v2 1/2] module: Add module_kallsyms_on_each_addr()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261004195027.227748-1-danielmentz@google.com>
-Subject: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
- SMMU-originated accesses
-From: Daniel Mentz <danielmentz@google.com>
-To: iommu@lists.linux.dev
-Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, 
-	nicolinc@nvidia.com, smostafa@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	dawei.li@linux.dev, jgg@ziepe.ca, praan@google.com, 
-	Daniel Mentz <danielmentz@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261004-ftrace-mod-bsearch-v2-1-c1de73e72e73@gmail.com>
+References: <20261004-ftrace-mod-bsearch-v2-0-c1de73e72e73@gmail.com>
+In-Reply-To: <20261004-ftrace-mod-bsearch-v2-0-c1de73e72e73@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>
+Cc: Aaron Tomlin <atomlin@atomlin.com>, Stanislaw Gruszka <stf_xl@wp.pl>, 
+ David Laight <david.laight.linux@gmail.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, Lawrence Lin <deduce@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791143460; l=4432;
+ i=deduce@gmail.com; s=default; h=from:subject:message-id;
+ bh=k9sVJtA4GmO4insrdVQIsMOHURF52X3DDft+AQtZiU0=;
+ b=cQGCT24hVcy765hus5EhJrrhotjF27h0usQPeS0UBItv3lt2+2iuXfw8/YuN6wxfWXWNh90Oy
+ VlibwCFvldXDjPqAUkHMkXdOglwq5UyKZ9SGkXc6jTb/Jy/K11fwXQO
+X-Developer-Key: i=deduce@gmail.com; a=ed25519;
+ pk=Ws6hmG/zoco3lMoykbeaYjo9S7a6sDddQY8EALjp9cM=
+X-Endpoint-Received: by B4 Relay for deduce@gmail.com/default with
+ auth_id=1106
+X-Original-From: Lawrence Lin <deduce@gmail.com>
+Reply-To: deduce@gmail.com
 
-The SMMU specification defines several types of SMMU-originated memory
-accesses, including Stage 1 and Stage 2 translation table walks, stream
-table accesses (L1STD and STE fetches), CD table accesses (L1CD and CD
-fetches), and queue accesses (CMDQ fetch, EVENTQ write, PRIQ write).
+From: Lawrence Lin <deduce@gmail.com>
 
-While the memory attributes used for Stage 1 and Stage 2 translation
-table walks are configured in io-pgtable-arm based on whether the SMMU
-is coherent (ARM_SMMU_FEAT_COHERENCY), the attributes for stream tables,
-CD tables, and queues are currently hardcoded to Inner Shareable,
-Write-Back.
+ftrace needs the addresses of the symbols of a module while the module is
+still being loaded: ftrace_module_init() runs before complete_formation(),
+while the module is MODULE_STATE_UNFORMED, and
+module_kallsyms_on_each_symbol() skips unformed modules. It also needs
+exactly the symbols that find_kallsyms_symbol() may resolve an address
+to, so that it agrees with kallsyms_lookup().
 
-On non-coherent systems, however, memory for stream tables, CD tables,
-and queues is allocated via dma_alloc_coherent() /
-dmam_alloc_coherent(), which provides CPU mappings with Normal
-Non-Cacheable attributes. Having a non-coherent SMMU access these
-buffers with Inner Shareable, Write-Back attributes results in
-mismatched memory attributes between the CPU and the SMMU.
+Factor the symbol filter of find_kallsyms_symbol() into is_lookup_symbol()
+and add module_kallsyms_on_each_addr(), which calls a function with the
+address of each such symbol of a given module. Like find_kallsyms_symbol(),
+it reads mod->kallsyms under RCU, which add_kallsyms() has set up by then.
 
-Configure the memory attributes for tables and queues in
-arm_smmu_device_reset() and arm_smmu_make_cdtable_ste() based on
-ARM_SMMU_FEAT_COHERENCY, matching the attributes used for translation
-table walks:
+No functional change to find_kallsyms_symbol().
 
-- In SMMU_CR1, use Outer Shareable, Non-Cacheable for non-coherent
-  SMMUs, while retaining Inner Shareable, Write-Back for coherent SMMUs.
-  This applies to stream table accesses as well as queue accesses (CMDQ
-  fetch, EVENTQ write, PRIQ write).
-- In STE.{S1CIR, S1COR, S1CSH}, use Outer Shareable, Non-Cacheable for
-  non-coherent SMMUs, while retaining Inner Shareable, Write-Back
-  Read-Allocate for coherent SMMUs. This applies to CD table accesses.
-
-Assisted-by: LLM
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-Signed-off-by: Daniel Mentz <danielmentz@google.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Lawrence Lin <deduce@gmail.com>
 ---
-Changes in v2:
-- Rename local variables 'cache' and 'sh' to 'cr1_cache' and 'cr1_sh' in
-  arm_smmu_device_reset() (Nicolin, Will)
-- Collect Reviewed-by from Nicolin
-- Link to v1: https://lore.kernel.org/linux-iommu/20260929032229.3532247-1-danielmentz@google.com/
+ include/linux/module.h   | 10 ++++++++++
+ kernel/module/kallsyms.c | 44 +++++++++++++++++++++++++++++++++++---------
+ 2 files changed, 45 insertions(+), 9 deletions(-)
 
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 37 +++++++++++++++------
- 1 file changed, 27 insertions(+), 10 deletions(-)
+diff --git a/include/linux/module.h b/include/linux/module.h
+index 96cc98568eea..8b1c06d1118c 100644
+--- a/include/linux/module.h
++++ b/include/linux/module.h
+@@ -971,6 +971,10 @@ unsigned long module_kallsyms_lookup_name(const char *name);
+ 
+ unsigned long find_kallsyms_symbol_value(struct module *mod, const char *name);
+ 
++void module_kallsyms_on_each_addr(struct module *mod,
++				  void (*fn)(void *, unsigned long),
++				  void *data);
++
+ #else	/* CONFIG_MODULES && CONFIG_KALLSYMS */
+ 
+ static inline int module_kallsyms_on_each_symbol(const char *modname,
+@@ -1014,6 +1018,12 @@ static inline unsigned long find_kallsyms_symbol_value(struct module *mod,
+ 	return 0;
+ }
+ 
++static inline void module_kallsyms_on_each_addr(struct module *mod,
++						void (*fn)(void *, unsigned long),
++						void *data)
++{
++}
++
+ #endif  /* CONFIG_MODULES && CONFIG_KALLSYMS */
+ 
+ /* Define __free(module_put) macro for struct module *. */
+diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
+index f23126d804b2..bccee4b8294c 100644
+--- a/kernel/module/kallsyms.c
++++ b/kernel/module/kallsyms.c
+@@ -246,6 +246,18 @@ static const char *kallsyms_symbol_name(struct mod_kallsyms *kallsyms, unsigned
+ 	return kallsyms->strtab + kallsyms->symtab[symnum].st_name;
+ }
+ 
++/*
++ * Whether find_kallsyms_symbol() may resolve an address to symbol @symnum.
++ * Unnamed symbols are ignored: they're uninformative and inserted at a whim.
++ */
++static bool is_lookup_symbol(struct mod_kallsyms *kallsyms, unsigned int symnum)
++{
++	const char *name = kallsyms_symbol_name(kallsyms, symnum);
++
++	return kallsyms->symtab[symnum].st_shndx != SHN_UNDEF &&
++	       *name != '\0' && !is_mapping_symbol(name);
++}
++
+ /*
+  * Given a module and address, find the corresponding symbol and return its name
+  * while providing its size and offset if needed.
+@@ -286,15 +298,7 @@ static const char *find_kallsyms_symbol(struct module *mod,
+ 		const Elf_Sym *sym = &kallsyms->symtab[i];
+ 		unsigned long thisval = kallsyms_symbol_value(sym);
+ 
+-		if (sym->st_shndx == SHN_UNDEF)
+-			continue;
+-
+-		/*
+-		 * We ignore unnamed symbols: they're uninformative
+-		 * and inserted at a whim.
+-		 */
+-		if (*kallsyms_symbol_name(kallsyms, i) == '\0' ||
+-		    is_mapping_symbol(kallsyms_symbol_name(kallsyms, i)))
++		if (!is_lookup_symbol(kallsyms, i))
+ 			continue;
+ 
+ 		if (thisval <= addr && thisval > bestval) {
+@@ -458,6 +462,28 @@ unsigned long find_kallsyms_symbol_value(struct module *mod, const char *name)
+ 	return __find_kallsyms_symbol_value(mod, name);
+ }
+ 
++/*
++ * Call @fn with the address of each symbol of @mod that find_kallsyms_symbol()
++ * may resolve an address to. Unlike module_kallsyms_on_each_symbol(), this
++ * also works while @mod is still being loaded.
++ */
++void module_kallsyms_on_each_addr(struct module *mod,
++				  void (*fn)(void *, unsigned long),
++				  void *data)
++{
++	struct mod_kallsyms *kallsyms;
++	unsigned int i;
++
++	guard(rcu)();
++	kallsyms = rcu_dereference(mod->kallsyms);
++
++	/* ELF starts real symbols at 1. */
++	for (i = 1; i < kallsyms->num_symtab; i++) {
++		if (is_lookup_symbol(kallsyms, i))
++			fn(data, kallsyms_symbol_value(&kallsyms->symtab[i]));
++	}
++}
++
+ int module_kallsyms_on_each_symbol(const char *modname,
+ 				   int (*fn)(void *, const char *, unsigned long),
+ 				   void *data)
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 34e916ea339f..02cc6fb83461 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -1905,6 +1905,15 @@ void arm_smmu_make_cdtable_ste(struct arm_smmu_ste *target,
- {
- 	struct arm_smmu_ctx_desc_cfg *cd_table = &master->cd_table;
- 	struct arm_smmu_device *smmu = master->smmu;
-+	u64 s1c, s1csh;
-+
-+	if (smmu->features & ARM_SMMU_FEAT_COHERENCY) {
-+		s1c = STRTAB_STE_1_S1C_CACHE_WBRA;
-+		s1csh = ARM_SMMU_SH_ISH;
-+	} else {
-+		s1c = STRTAB_STE_1_S1C_CACHE_NC;
-+		s1csh = ARM_SMMU_SH_OSH;
-+	}
- 
- 	memset(target, 0, sizeof(*target));
- 	target->data[0] = cpu_to_le64(
-@@ -1916,9 +1925,9 @@ void arm_smmu_make_cdtable_ste(struct arm_smmu_ste *target,
- 
- 	target->data[1] = cpu_to_le64(
- 		FIELD_PREP(STRTAB_STE_1_S1DSS, s1dss) |
--		FIELD_PREP(STRTAB_STE_1_S1CIR, STRTAB_STE_1_S1C_CACHE_WBRA) |
--		FIELD_PREP(STRTAB_STE_1_S1COR, STRTAB_STE_1_S1C_CACHE_WBRA) |
--		FIELD_PREP(STRTAB_STE_1_S1CSH, ARM_SMMU_SH_ISH) |
-+		FIELD_PREP(STRTAB_STE_1_S1CIR, s1c) |
-+		FIELD_PREP(STRTAB_STE_1_S1COR, s1c) |
-+		FIELD_PREP(STRTAB_STE_1_S1CSH, s1csh) |
- 		((smmu->features & ARM_SMMU_FEAT_STALLS &&
- 		  !master->stall_enabled) ?
- 			 STRTAB_STE_1_S1STALLD :
-@@ -5102,7 +5111,7 @@ static void arm_smmu_write_strtab(struct arm_smmu_device *smmu)
- static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
- {
- 	int ret;
--	u32 reg, enables;
-+	u32 reg, enables, cr1_cache, cr1_sh;
- 
- 	/* Clear CR0 and sync (disables SMMU and queue processing) */
- 	reg = readl_relaxed(smmu->base + ARM_SMMU_CR0);
-@@ -5116,12 +5125,20 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
- 		return ret;
- 
- 	/* CR1 (table and queue memory attributes) */
--	reg = FIELD_PREP(CR1_TABLE_SH, ARM_SMMU_SH_ISH) |
--	      FIELD_PREP(CR1_TABLE_OC, CR1_CACHE_WB) |
--	      FIELD_PREP(CR1_TABLE_IC, CR1_CACHE_WB) |
--	      FIELD_PREP(CR1_QUEUE_SH, ARM_SMMU_SH_ISH) |
--	      FIELD_PREP(CR1_QUEUE_OC, CR1_CACHE_WB) |
--	      FIELD_PREP(CR1_QUEUE_IC, CR1_CACHE_WB);
-+	if (smmu->features & ARM_SMMU_FEAT_COHERENCY) {
-+		cr1_cache = CR1_CACHE_WB;
-+		cr1_sh = ARM_SMMU_SH_ISH;
-+	} else {
-+		cr1_cache = CR1_CACHE_NC;
-+		cr1_sh = ARM_SMMU_SH_OSH;
-+	}
-+
-+	reg = FIELD_PREP(CR1_TABLE_SH, cr1_sh) |
-+	      FIELD_PREP(CR1_TABLE_OC, cr1_cache) |
-+	      FIELD_PREP(CR1_TABLE_IC, cr1_cache) |
-+	      FIELD_PREP(CR1_QUEUE_SH, cr1_sh) |
-+	      FIELD_PREP(CR1_QUEUE_OC, cr1_cache) |
-+	      FIELD_PREP(CR1_QUEUE_IC, cr1_cache);
- 	writel_relaxed(reg, smmu->base + ARM_SMMU_CR1);
- 
- 	/* CR2 (random crap) */
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.55.0
+
 
