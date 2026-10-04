@@ -1,73 +1,78 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930D4455619;
-	Sun,  4 Oct 2026 14:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393E244F566;
+	Sun,  4 Oct 2026 14:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791125128; cv=none; b=VtUKHI7htjs73F2fVsy8qW9UvCsfn9CGj0akmPgwjU9FasFx64P0WVRvGvg7mCkL458hf2Y/WdN4/37G7VJ4A6+GJQt5iRR8SvJjvFCYss1iti9nBnTqDkvZn/hv+1oxJ6JfYBFqTbLKrhLJ2XWPDYgcrU0e51AN3d48UeyzcbE=
+	t=1791125173; cv=none; b=Jkc+1VcjR3dZ50CEkT+XlaGZIULOaGk06/OImaLlCOHJofEbYOx4uO083Y/HjTSWsR7A1EZLNr7D+PEIef4nLMy4qXdLkmgbBbshsm634sS7TOo65hM+2MqrTJFNm4OqSha6D6Prjna/H2yx2QpkShPast4lyomGOizB9WmVffE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791125128; c=relaxed/simple;
-	bh=b5HU/UHLmrAopsEUI7DjH+Rr21xBEqf7j1jORuMJ7dk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F9oL7wmtxm69/tu8S2XnXa+TlcUxNc0FURvJv/PQqTOhJcJiwub151Z1PBjyqxbfqGYovU88boCj+9r8VC/2vP3e6irz8sAvNHbfnXcWllGgDlFUW9tfQzX1y1rj2EhYiJuPPvK0781CvQPq5RMjlNGFfiXZwmRI53H7gwWNtsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=OTkmtRNA; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791125173; c=relaxed/simple;
+	bh=wvwz/du1Hh4yJYVTJsrFrUzkB/WG3sl+qJrrbGrAsXs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=piS17bTwr6jGGcjfg+dvJICGozoL3x6Qie5fdxOevFwcZeCeT8mVkuW/fO96GVnYoq622oSlDlqXmoxmIQtGZbnOyMwIvhjcFMaq4QzPT4UAQfDzdI6f6TKGtVhhlVH3iptmOF+dy6xUvJqy3IeTqGuFCOYIaXjbUwGHmIAEAwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1Cu3lbZH; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="OTkmtRNA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=zx/CoOu1HuzQ3qCq3whgDNdU4gkodPjsS56YvVj7h6M=; b=OTkmtRNAr0ev+xyLTHe7Rz0TTQ
-	qgokJtdM6VBLXR3D0gzlhOi7y4Kaztl0ZUYhL1dtsgzLhPLNWadasfB5l5EBtg2JdDaDJxge+Dw/J
-	ScL/Zvq38f3OeFWMDrNHEiKCN0wxYaiuFwPHA6NCtqKBtw/iZcsdLs0vSrv23xdxv65c=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xDNSk-008tXn-Re; Sun, 04 Oct 2026 16:45:14 +0200
-Date: Sun, 4 Oct 2026 16:45:14 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH net-next v19 5/6] net: dsa: mxl862xx: recover switch
- stuck in MCUboot rescue mode
-Message-ID: <35da2f04-0797-49c0-9926-62eeda9798e3@lunn.ch>
-References: <cover.1791035885.git.daniel@makrotopia.org>
- <dd243fa0df46b0cee4caf155b0388ea1702853ba.1791035885.git.daniel@makrotopia.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1Cu3lbZH"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 67D2B4E41161;
+	Sun,  4 Oct 2026 14:46:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C39A8604FE;
+	Sun,  4 Oct 2026 14:46:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DF59B1032817F;
+	Sun,  4 Oct 2026 16:46:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791125167; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=wvwz/du1Hh4yJYVTJsrFrUzkB/WG3sl+qJrrbGrAsXs=;
+	b=1Cu3lbZHjiWkRSd+TjrFlF2qWsg5n70COQSDOhAATO+Y58CSy8RQn3v4q5mLbj3HUSeH6e
+	7s4G7hmoAVYucyeXh+ZMBzeQidiojWmG2ifr4cvBEcXAaPOuI0yIKUrF23kWm342FDxiFB
+	/NIDy23OhgGuUfEENtw73uFuq9EMFtvH2krUy09f5cFdVjc3MRkmkmjX3cuykQZpMbnmvA
+	El/FsJMxt1WZppA6rnsf95OcRryTjdG3Y2ZQLjj5dI7Q5jE7iXqQjAT+Q8HToLQ1OfQe8l
+	uZjNs5w3+BHz3OqzHHkCqWWmeIUShXtHR8ms60omwm2GgpzoBhzIlhLk43bpOw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Adi Prasan <itsadi2409@gmail.com>
+Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,
+  linux-wpan@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] net: mac802154: fix race between slave_close() and
+ in-flight async tx
+In-Reply-To: <20261002144827.3479-1-itsadi2409@gmail.com> (Adi Prasan's
+	message of "Fri, 2 Oct 2026 14:48:27 +0000")
+References: <87ik3tn1nn.fsf@bootlin.com>
+	<20261002144827.3479-1-itsadi2409@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sun, 04 Oct 2026 16:46:04 +0200
+Message-ID: <875wzhle1f.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dd243fa0df46b0cee4caf155b0388ea1702853ba.1791035885.git.daniel@makrotopia.org>
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, Oct 03, 2026 at 04:53:34PM +0100, Daniel Golle wrote:
-> A broken or interrupted firmware image, or the sticky rescue bit, keeps
-> the switch in its MCUboot loader, which exposes only the clause-22 SMDIO
-> download interface. The clause-45 firmware API never comes up there, so
-> an ordinary probe would spend its whole timeout on a mailbox nothing
-> answers before failing.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+On 02/10/2026 at 14:48:27 GMT, Adi Prasan <itsadi2409@gmail.com> wrote:
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> netif_stop_queue() prevents new packets from being sent to the driver,
+> but it does not wait for a transmission that is already in progress.
+>
+> drv_xmit_async() can still be running on another CPU when
+> mac802154_slave_close() calls drv_stop(). Stopping the queue only
+> prevents new transmissions; it does not synchronize with an already
+> running tx operation.
+>
+> This was checked against mac802154_hwsim as well. hwsim_hw_xmit() is
+> synchronous, while hwsim_hw_stop() only sets a flag, so there is no
+> pending work or locking in the driver that needs to be synchronized.
+>
+> The race is in the core between stopping the queue and an in-flight
+> tx operation. The fix therefore belongs in the common mac802154 code,
+> using the same handling already used by ieee802154_suspend(): hold and
+> synchronize the queue around ieee802154_stop_device().
+>
+> Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
 
-    Andrew
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
