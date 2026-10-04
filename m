@@ -1,66 +1,57 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137334A8FD7;
-	Sun,  4 Oct 2026 21:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A232874E6
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791148924; cv=none; b=qvXJXSwS2zjCNdYaKO8eXMObIsr5YgQhOMcLF7Qj57rk4j6NOG5akZS7/8IBGKS0VnBLMSUG5kMSbQTOJ+6sdgHqZPVXMH0Mg68QOH4bcxMC/Avy+S2FQhLV1Ow3GK1CnguCW4snioJvqFGK3z9oUkXnNzsbDIUB8rGPtAQhRT4=
+	t=1791148970; cv=none; b=kx237tdnIzeK83b2snlXCpgH0M2WjAj4BZAmt61arCrWAvJHCaKRDqt2/ytsJ/WaKfzC5AbBUbAVRT7Pv4gBVIDcwZTmRRnytsBaROLIpNfIzT3whOChRdfnGtsO1cW3fAaXgfpLC/LUUSUrHNOHiOL893ao7S4bftJXBrNvGRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791148924; c=relaxed/simple;
-	bh=ZZUr2+umJzdSVriIYIyQr6rMBME1tWhOMTyAgyqV5HI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oUNb9tVTlpK2uksQkVpPe3sSm3kKSEqvPOCXjzaaaTNacmuTo5OGEY5WGUnt5NFGUlxIvqA1LFWNawVNbCiwRLaExrQ1NXbzqA6Hj2B2dEIncz0OZagK5fo8N9JbMV+AmzpN5btmYD5Hl6TAscfYWq6jR2eCb7lS0y5P2U/4FqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=OERElRgK; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1791148970; c=relaxed/simple;
+	bh=WmWYV2k7FqhwmLYzxQ1/5AjtdXrLIU9ft5LFmuWJHGU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=jODefwvPGVYUygND3y/5DzVvE0Y4+lC7JqfTJde/uKYaD7KYycXwEEGA7WUHxOlFtdLDHjUQ+ae8Ly2/w0tJazRl16SOAmM77QNXg/iE9emSv2EDF2+So627GnxGNlXtRi4goizig89131ftCNL930h3EDE+K3IHu2mCmdOD5c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rTXxDP/4; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="OERElRgK"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5775340E015B;
-	Sun,  4 Oct 2026 21:21:59 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 5OJwn_BmlW23; Sun,  4 Oct 2026 21:21:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791148908; bh=FVeBxV3npQhGFjd3cFphrrfxu61g0yoUdtS4oHH6rZ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OERElRgKK6gtkWWOo+K4+GMnCersfdUlQm+1L0vPIjEhTv+MCfX4edU8Zt2nymUSz
-	 1jHn1zY5YQXGvUFsETIG6ipvl5c+KA+MLyF2uQ+wnRBjQWWML1KwdzCbP3ap2GY0Tw
-	 2N1cqe9YCVqUtrrMQ58CwPd1mxKhOQi5u0XXyHJFEdcuc+kKFuxYFmTtBJp5zostnk
-	 EJvMbRBCHGu7Mwtrw/dcAb9YcrJplgCwONsj2CzWTr1b092uTKHCEhWm6OLQ23wqx+
-	 KFreX4bbI3ZteCBluDZKHp6UjylnZYH/nqKV8bfPltIuop9nPaY73yQg3adUDZk62y
-	 uJch4X8Jnt8fe0jhivKuxMYEiNcT5144XISF9XKEjRF+spqJft1Vb+tQ1cUzCeJncI
-	 Gab3TgOtGdPGC9nb0sd4avZIqaKzX+jK+T+7KRUFULEtXxJE3adpW90sXwbvkvgn3W
-	 6N690BoNgE404Paxi6N564DikidG/3TdzEBbzH+FoCGCWnzZf2eBJB1j8CiVS9OsP3
-	 1kk9P7aTbQszbcf3JiEx+xAI/ynzwBi2S+1jNECoSQmz9rm2TjMiIjatj2yUrznWdV
-	 FGkMOjJokT7L2+I6ofWmL0YbO4+mvAa4Q0fvwCmI83G8kXMPuVNuadroeIlqrQ3vdA
-	 EjHY+Frg8Nh4AJk02iARaYac=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DF11F40E01B4;
-	Sun,  4 Oct 2026 21:21:33 +0000 (UTC)
-Date: Sun, 4 Oct 2026 14:21:29 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Tony Luck <tony.luck@intel.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
-	Borislav Petkov <bp@suse.de>
-Subject: Re: [PATCH v4 2/9] EDAC/aspeed: Free the interrupt before the
- mem_ctl_info on remove
-Message-ID: <20261004212129.GBasLDWZyMyVNXIKmq@fat_crate.local>
-References: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
- <20260930-edac-v4-2-c2e526f3ed79@aspeedtech.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rTXxDP/4"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B72471A113A;
+	Sun,  4 Oct 2026 21:22:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 88600604FE;
+	Sun,  4 Oct 2026 21:22:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 60E1410328384;
+	Sun,  4 Oct 2026 23:22:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791148966; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=WmWYV2k7FqhwmLYzxQ1/5AjtdXrLIU9ft5LFmuWJHGU=;
+	b=rTXxDP/4cfRx+uJwv0cpboAYbzMtPt7OkQCiMndnI+f3I8/NzhH9sGnGuxCghbQyGJKpne
+	19QEoOvreRwwBk55kvsRIQlWgQfiZQIcL/3n69SrojNtuZjegjmQD/TSDoEliQJGZqRXCf
+	3PMbhlMwqjqiewKJZ5wU0ujYxhE841i1H3Wr6TvFZzqg09Jxs9IRf0q/1lKJCu6BzbQgui
+	8wFUuctckV4GOj3e7lPkEIr2NlCmHD2ORXN4Wo0rNCBqzWMuuw0u0Vx8MIAUjS4nVCl8Sg
+	VkLDj7K2nK5SBWsOF4ldsKFX2VMYllOLDEdOLYnXapeYhdRWM3ZVR+ftv/qWFA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: "Richard Weinberger" <richard@nod.at>,  "Takahiro Kuwano"
+ <takahiro.kuwano@infineon.com>,  "Pratyush Yadav" <pratyush@kernel.org>,
+  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Michael Walle"
+ <mwalle@kernel.org>,  sashiko-reviews@lists.linux.dev,
+  linux-mtd@lists.infradead.org,  "Steam Lin" <STLin2@winbond.com>,
+  "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 06/15] mtd: spi-nor: Fix WRSR with ODTR chips
+In-Reply-To: <20261002123432.42F6E1F00893@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Fri, 02 Oct 2026 12:34:31
+	+0000")
+References: <20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com>
+	<20261002-winbond-master-spi-nor-w35t-v1-6-a22a2f95c26e@bootlin.com>
+	<20261002123432.42F6E1F00893@smtp.kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sun, 04 Oct 2026 23:22:41 +0200
+Message-ID: <87tsn1i2ji.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,84 +59,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930-edac-v4-2-c2e526f3ed79@aspeedtech.com>
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 30, 2026 at 01:15:00PM +0800, Ryan Chen wrote:
-> The ECC interrupt is devm-managed, so it is only released after .remove()
-> has returned, and masking the controller does not wait for a handler
-> already running on another CPU. edac_mc_free() can therefore free the
-> mem_ctl_info the handler uses as its context while it is still running.
-> 
-> Fix the ordering and synchronise by freeing the interrupt prior to
-> releasing related memory.
-> 
-> Fixes: 9b7e6242ee4e ("EDAC, aspeed: Add an Aspeed AST2500 EDAC driver")
-> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
-> 
-> ---
-> Changes in v4:
-> - Drop the Cc: stable tag.
-> 
-> Changes in v2:
-> - New patch.
-> ---
->  drivers/edac/aspeed_edac.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
-> index 83d60414f89a..e05ebed5c2f2 100644
-> --- a/drivers/edac/aspeed_edac.c
-> +++ b/drivers/edac/aspeed_edac.c
-> @@ -359,11 +359,16 @@ static int aspeed_probe(struct platform_device *pdev)
->  static void aspeed_remove(struct platform_device *pdev)
->  {
->  	struct mem_ctl_info *mci;
-> +	int irq;
->  
->  	/* disable interrupts */
->  	regmap_update_bits(aspeed_regmap, ASPEED_MCR_INTR_CTRL,
->  			   ASPEED_MCR_INTR_CTRL_ENABLE, 0);
->  
-> +	irq = platform_get_irq(pdev, 0);
-> +	WARN_ON(irq < 0);
-> +	devm_free_irq(&pdev->dev, irq, platform_get_drvdata(pdev));
+On 02/10/2026 at 12:34:31 GMT, sashiko-bot@kernel.org wrote:
 
-A couple of things come to mind when looking at this:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] mtd: spi-nor: state leak in spi_nor_write_sr_ll() due to
+> missing WEL cleanup
 
-- if you have to do platform_get_irq(), then something in the design of this
-  driver is missing. Perhaps a private structure:
+I don't think we care. If the chip fails here, we probably have a bus
+issue. Write Enable guards very little anyway.
 
-  struct mem_ctl_info.pvt_info
+> - [High] mtd: spi-nor: 16-bit status register writes erroneously
+> rejected in 8-8-8 DTR mode
 
-  which contains driver-specific stuff like the irq number and so on. Look at
-  the other EDAC drivers for examples.
+Not a problem with octal DTR chips: there is no "write sr1 and sr2
+opcode".
 
-- then, what is the point of this being a devm-managed IRQ if you have to
-  explicitly free it?
+I will disregard these two comments, unless someone asks me to take care
+of them.
 
-  By that logic, you might as well use the normal IRQ registration stuff.
-
-  But then looking at the other EDAC drivers, they all do devm_request_irq()
-  but only the DMC-520 one does free_irq().
-
-  So that would mean that either all the other EDAC drivers need such a fix.
-  And they would all need proper auditing to make sure when they disable IRQs,
-  all IRQ handlers running have finished.
-
-  Or, their hw can handle that and IRQs firing at driver remove time is not an
-  issue...
-
-  Sounds to me like I need to do a EDAC subsystem TODO for all the driver
-  owners to go read and check...
-
-So I'm presuming this is Sashiko reporting an issue and you're addressing it.
-Or is it a real issue that someone hits?
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Miqu=C3=A8l
