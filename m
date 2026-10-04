@@ -1,131 +1,182 @@
-Received: from send288.i.mail.ru (send288.i.mail.ru [95.163.59.127])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011051.outbound.protection.outlook.com [52.101.57.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BB2359A90;
-	Sun,  4 Oct 2026 15:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.163.59.127
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791128030; cv=none; b=n/VOICDMe7Yzm6CK/6SYyVna6ETtKGP8rzjtU1fImA/snjrlmu4RZ+iFo/p/F+1hJ8wajTcLdcisg1f0xJS1MHaelxikk+NKbNlJ9OgiKFvcTEx432b4Qt3+SQr3+dF14Yt3fwulhOYVEjc2xsuia/Xvq/mqUFK9JOwnrbYb/TY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791128030; c=relaxed/simple;
-	bh=1+Dg/pOJxmvxiZ3oanwyQsd1dS7R9tnvuCPy/GkF4GA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52579B672;
+	Sun,  4 Oct 2026 15:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791128032; cv=fail; b=ljify1337DOFWUuBJhmxw3B3CiQUbhfG5SnT5pmu92lMiXHwtph0/xgpC6wypUfpNBy10+uPNj4sAdKVj8PnuMA61Gjb4NsWuniqU6Mm/CZu6jXgWTF7oUDPDUn4/9v5PFRFpShR6epqLGpQ73pjBZH9K+Y5IEB/5PeWEDR01MI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791128032; c=relaxed/simple;
+	bh=9gVwmCwTq7nR6z9L8msaFYlEIXdDcUNWhZVQWfhhUHw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UFmbhtvHo3h5ZtL6ZfQe3R0goZ3AEOG/Eb/ghlav1UGdwbDyIqf1CQ7O3u3oACft8guxvBjaPw7B4AZCqazM5hO1T3eyz2iWZ9g7O7BoEWjrfpF+EZVcDpdPlxIwIQ5GlT4qEX2e3x5prIycACM7P+XuhkvV++MTAmGyIkD4UaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru; spf=pass smtp.mailfrom=mail.ru; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=k3QiXpBd; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=h19betpm; arc=none smtp.client-ip=95.163.59.127
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
+	 Content-Type:MIME-Version; b=txqDepxJn4oGeYBXucoyM9/vffpCFYsQH/pNgvbY3idAGjbYoV5rBjk5XNhfgrmwXcdW5U4FzHi3Utiu5oXJTbYEwvMCCQ6ouZ+i4qch9lm5qgDtk89LapOJqI4Oo3LPY7MQD0jLrcgc0VfP0FSvBAHzVa69WpyXDN99uXAaQyw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=curH4aGj; arc=fail smtp.client-ip=52.101.57.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="k3QiXpBd";
-	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="h19betpm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
-	s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive:X-Cloud-Ids;
-	bh=Kj2Q+sFXAaAnYe0up0vGPZ6BVxDgFo6inMTsXEk6pLY=; t=1791128025; x=1791218025; 
-	b=k3QiXpBdL9L4T7giWNivuiSiPzw/zyvacPTWsu3HaL9dVCdGNrFS/P/T3cO6DEYqRT1aaoHF4M5
-	fGSxTfy90h7kWKAhnZ26iF5AdKHpNsAC6vJSd57gzo3Bb/Oef7sHWz/c1w3BJS98PUGs30jsLA8cD
-	bC4StDzyEfK8cvFYRYhKGdfYDJ1JdK12MEMvNLmvIB1S+tmO7jHaLHWWMlyjiVab9yVDRDfPc65zi
-	RoSlIf3EPI0ALLGecabX0Bjipm5ERT0SD0aASOi/+N5I3vnCp/Cw4SQLQgGroIgOtqw2GRl3B6zo4
-	4UErSvNiTDZ6Ker6F9cqjZTP6tIHzbtWHO0Q==;
-Received: from [10.113.139.187] (port=38388 helo=send81.i.mail.ru)
-	by exim-fallback-6df9d4c65f-6lgvw with esmtp (envelope-from <misha.zavertkin@mail.ru>)
-	id 1xDODc-000000005OZ-2CPy; Sun, 04 Oct 2026 18:33:40 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
-	s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
-	X-Cloud-Ids:Disposition-Notification-To;
-	bh=Kj2Q+sFXAaAnYe0up0vGPZ6BVxDgFo6inMTsXEk6pLY=; t=1791128020; x=1791218020; 
-	b=h19betpm4FySVfAgtQaag6Fl29pR9a2DmMJnwcOsAjygs4i33Hi5QpTI72kYnrg37Y36K5YPNFU
-	20uAJbVfAZoZUQQyHNKWzjdT8hgBXL7SbLcnJ8OFzBC98AVPvRKc1uw3/rhaAIny1BEmB7+ANpfLE
-	a6l9/R9ZM7/jdi9/ERO4pmpqv1u2N0yyGACXch2hpb4hlMWLBV+Q7i0LewTr10tvrJVcAhVmqRsVx
-	JAzznsYx7+9NGD5wpyvqwDtmbhBW8Lfsd7kx8Of0igMtIhpmvCwZXTAl98EhbL7YcyVkdJFyqdHoW
-	zNdDkA+E+qCGV2bSzAymRYYaoIR61gTojsEw==;
-Received: by exim-smtp-5bd9c49696-bmqdg with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
-	id 1xDODQ-00000000X5s-28yx; Sun, 04 Oct 2026 18:33:29 +0300
-From: Michael Zavertkin <misha.zavertkin@mail.ru>
-To: linux-i2c@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Zavertkin <misha.zavertkin@mail.ru>
-Subject: [PATCH 2/2] dt-bindings: i2c: rtl9300: add pinctrl
-Date: Sun,  4 Oct 2026 22:32:35 +0700
-Message-ID: <0cd1f9b98511c55a375ab82b121fe256916b87e2.1791127538.git.misha.zavertkin@mail.ru>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1791127538.git.misha.zavertkin@mail.ru>
-References: <cover.1791127538.git.misha.zavertkin@mail.ru>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="curH4aGj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OnZGeZOh0Ut6Rg89dBf+IexHclvo/INaVjNgfipp3V5zk5ujgHYjq9E3PI55NEFyEuaSw9eHQ+AZnN0wcoyQGKEudrbJ+IqvJdHOJj7b9Man6IJpJihEIzK91lA1XBc9CPQdDzF1nOuue7HRDyadMZM8t2VOR5WbzmOMjjQH1dgL16DyXcDa8nS3VeIaPYaqlphHgxizJorinizGZu3d8JjV6/gWNkzhL3WEqlzyjWE1thUU1996mSbWoLaUxkRseGbuuT5PjqMIroqQMag7kkmi6X6GVJKLOFg+fr+DqG6aGwhjxO4qS7aaI8dLgj8sJREocWclNsSa7OERRUAS/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9gVwmCwTq7nR6z9L8msaFYlEIXdDcUNWhZVQWfhhUHw=;
+ b=xbYPh3FGkZvTjjG/0O2NVG6Caatcq3IjormBd3DK70+YPmWXr2YzLeNedDXBN9EAI0WxirJ+pEJh/HHDa5lkUHh/jF8k0RlRBgDjsnKyfiSVwrmud6JYEuuFzznk5+UgRprACurx/V1tv+etrYZCm80hFdLfoi0NGmQKT3A5vjQlWdrW2g0BHrE1IqxzPebbM9QEQYg78ViafnDEx2AfJoxxeFbGLBbkT334gz2PdFkAM+QD+9br6HlE+XK3r8fSFl1BV8vp+2TQ+LiOYOB9y/eFzrmA4FnAS/UADBTVqhqDf1rBxEglaWNuYapcZ035NV0Tw48Ded4xb0f6FYbJTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9gVwmCwTq7nR6z9L8msaFYlEIXdDcUNWhZVQWfhhUHw=;
+ b=curH4aGj1wBhZ0M6MCDP/BakiLkGCUNX65oQFdGwRfb+Zczd2qjj7AlFL6evl4Xdc8sD4cXHNiBEHLz5cQP3OTL0SVuHbdJLvot2jle6qWoFyvJPopsLBsstu+i14y8n3xpmPQPt/viWfE4JbIgp9nFQldczh4OPYFPgRZoF3DBo4IjZi9GNU4kmuuB5SocnvwoedX5VBk77aCm51ZNIM+TU0LRMfs6lVX//P1U4uUBWsT+zH8LRb0qHijI8svsbmedvZkxDjtVuipKWP9PgrY5aHlw4RjyW3XYLsjT5mvkO5ycQKJ2gQD/80TMtvFQYC1cNnoMIRKgXBp1eJXjRfg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS7PR12MB6120.namprd12.prod.outlook.com (2603:10b6:8:98::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.18; Sun, 4 Oct 2026 15:33:46 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0472.016; Sun, 4 Oct 2026
+ 15:33:45 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-pwm@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Ola Chr. Vaage" <ola.christoffer.vage@scoutdi.com>
+Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
+Date: Mon, 05 Oct 2026 00:33:14 +0900
+Message-ID: <oG8AGa5CQQi_5H_Ter5mEA@nvidia.com>
+In-Reply-To: <ar9vT4FY3QxEvRZH@monoceros>
+References:
+ <cover.1789741839.git.u.kleine-koenig@baylibre.com> <arzjXtZj0hIf5iZU@orome>
+ <ar9vT4FY3QxEvRZH@monoceros>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: FR4P281CA0224.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::14) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailru-Src: smtp
-X-7564579A: 646B95376F6C166E
-X-77F55803: 4F1203BC0FB41BD916CE66F793C04802C937705057FAC64C8D095010D03BA95E00894C459B0CD1B9C0D2B691D61249AE7A388D641E84891FCA857CEC9940C89A61BFB344AEEE8BF308E1323863CD3BC3
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE72E4E5201E1C2E308EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637DEEC83A7CF8598608638F802B75D45FF914D58D5BE9E6BC1A93B80C6DEB9DEE97C6FB206A91F05B27935B1CABBCDF5BF2E070BE324C7D3C45D781E9EED398090BB0A4F435E46E6718B35066C979671628AA50765F7900637F924B32C592EA89F389733CBF5DBD5E9D5E8D9A59859A8B6FF43116A1C2F940DCC7F00164DA146DA6F5DAA56C3B73B237318B6A418E8EAB8090A508E0FED6299176DF2183F8FC7C0BF77E1FFDBD4BA85CD04E86FAF290E2DB606B96278B59C421DD303D21008E29813377AFFFEAFD269A417C69337E82CC2E827F84554CEF50127C277FBC8AE2E8BA83251EDC214901ED5E8D9A59859A8B6753C3A5E0A5AB5B7089D37D7C0E48F6C5571747095F342E88FB05168BE4CE3AF
-X-C1DE0DAB: 0D63561A33F958A51DE1FD318F50973D5002B1117B3ED696E3327B04C8B0B4144A0A47EBA01A636A823CB91A9FED034534781492E4B8EEAD5DF1C2DF01CE7211C79554A2A72441328621D336A7BC284946AD531847A6065A535571D14F44ED41
-X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE191716CD42B3DD1D34C77DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659B7AA2CAD798B2477ECB3F903222E30FB5BDF483BC98E9433FE868A726225468710DEAFCD2EC19842B8341EE9D5BE9A0AD5A82FB10B0727CEC11916FD745A984D644A146FDC5ACD1052EE4E5D9E54FDA427302E973F6434AB8511FE41C8941D68F571C199C4BE91E79E69A34BD5DD98C9F0A6D2C91ED28CB6
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4Zrk3igikrdHlWGLFSMbYFIZdOphDQ8QPJMA=
-X-Mailru-Sender: FD65D7C492470CAEE010D97EE9FDA1EF30A43CBF52B51200A4C2FF93DD6D44FAFBEE072C978D3699665B2B62676F92C7F767ED260C4F5E398B67290C0B8F2C0D0ACA136676B1AD1C82BADC8C81B40964835B6B713A4867D9C77752E0C033A69E3453F38A29522196
-X-Mras: Ok
-X-Mailru-Src: fallback
-X-7564579A: B8F34718100C35BD
-X-77F55803: 6242723A09DB00B400464DA02507E70B0546FCE11372492E55863E2B7114EDB0049FFFDB7839CE9E920F40F1183B4710B205C9BACD9E5B032D5B7D26EB7E2AAEB7F9DE3B8DE5A35DB2C51EA428EF7ABA
-X-7FA49CB5: 0D63561A33F958A5BD9631BF0D162C665002B1117B3ED69693F36BA8B8AB64158E3074072ED0045E02ED4CEA229C1FA827C277FBC8AE2E8B54F520D093A0DF28
-X-87b9d050: 1
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+OYcBso8Zm+oliTz8oZwnDrFsY77LZRcHyw5ht0smWrfSeTW5FiI8avd9v29gUBslpLaIlvAR6h4id02YH9mgeCTAyYoNlVO8a/xwH01AMJknzm8p7tOIojE=
-X-Mailru-MI: 20000000020000000000000800
-X-Mras: Ok
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS7PR12MB6120:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e8eda05-ca4e-4d41-7a98-08df222ce0ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	2y2I8lyWmV9WbBBhdb3yhT0y2YQWMkFWFRMDgf/RTyaMSTbkUzuiUQHySNhBhJRZSoNNDpJ+lYsaw2FF+QlfUSrXwR+xI3DLyOqc9/W8O5bDp5ThLb2LD8j6ljNdYvPaF4X+alcIiOJ4hY1esH92YvDmLUipUiXZsuXBfQpguwy9fpLZnjtaBleTrzD0h5Grno9/f64Ran/RoFaSfq22yENxWAQJf8/7n7a4HJpE96p+1gvizlMJp0mFCvDlT9pUyEoPNmufOi4nQR+5/BqVbcSe6MJvCQcG0Naz4/OkLM/ke6jFDuqCXMvizE0J+/widOlj0nrtsMzzBEugh0xcGvTZ8xl9O9yOrg521HBQwBx8jtygRABtObdVJkROOc7zQN0s1ZBfa1I8mnyYuyo428Q3tzpdlq9HoZloauTVmNC7PRwgBwyaDPseTYUKW3QrpfW4d9lUZT/Km3o9flttuD6TIxxLyyWWG7DFBIOV6cc675/qWRCpngyfjeIBKn+V1cdgk9Qv0mqJsp2HTq2ibQriNBFW2+U/+Cdkv5pD89iFbYblX9WfZhQJ/N+m7VSCmnLz+/oBxoS4USKW8ErwVvZDLm1ykL6ZLeCFzUpDtkHGzrdNWJTZC/+vUpd0p85jYHDtQJ0iySDpS9qcid//USEPuSrnbfyuKeswrH8TH74=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N1RLb1ZPMlRzL3cxSE9leWZibTFIdkZTUFdnaW8rYTNGVVRPUzlHY2Q2M0wr?=
+ =?utf-8?B?amJJcUZkZktSc3VrTXZCZ2RMcTJLcDBmOWpwcUptYk1WODZMYWIwaGdRRHdE?=
+ =?utf-8?B?dU5ZZW9TRHh1OGRya0hjdnZRcVh0RUpzM3phUHVJYmRnU2hadFJDUXUzc2dT?=
+ =?utf-8?B?RVR4UWhKT1ptU1NIdkNvZGFFb2JBS2ZFdFRPWHRXdmNtQi9QVDhGUVdkS1Vm?=
+ =?utf-8?B?bXE2YXVNQlZaSVVrZHJGSy9RUktDRXZZKy85dDFHZVUzYzZuT3JSODFxcndx?=
+ =?utf-8?B?ODJNUHFsYU5uMWZoQWZkTFdyWkRtWG43bjlQbXEwVXNYditDZFVtWVkrNWJi?=
+ =?utf-8?B?eis2bHBZUVdoZG9Mc3ZYS3k2czJvbFJvVWRReE14MW5XNjlkSjVXdiswQ2xW?=
+ =?utf-8?B?YldFR2NqK1UydDBKUGVNdHJSbFF6c25IRUtIdU1JR0VUUlV3elY3akoxWmV1?=
+ =?utf-8?B?N3Y5V3FZYWl0SUdMZ1VodHQreGtjc1VzZEtxTHlkQ3JBaVRJb1RvbVlBTlcy?=
+ =?utf-8?B?SkVqYWt6b2Q0TGcxQXUxb3dOc2ZmYlU3ZUQvYTZyZmg2a3UzdHNOcmNPazNN?=
+ =?utf-8?B?WTNKVjFuMElCUFdKdktDNk9QbEErbTNaWGFucXhsYkJvMmVsMHRWRmoweGFY?=
+ =?utf-8?B?QlJvMHE2K1JWcVRBbGdqMHJFQk90SXZVTUZlSDZZdkVObWlLOEl2Tkc5WkYy?=
+ =?utf-8?B?TnlVTlJaZWxsWkM5aHpla3V1cVBzd0VyTGs3d0lSaFNkbzdBNGQxL3ozY0pl?=
+ =?utf-8?B?M1pMbGFQN3UzVjdCUFE1dUxBclM5ejVCOUUzeTdRbThvVUVwSVlBcnlKVzIy?=
+ =?utf-8?B?eXJ3OXJkbDUxVU9rZ0xLUmNaVjNna0puSkhXQXMrNzhXbUxyZzhNZUlGc0JP?=
+ =?utf-8?B?T2UvcGtOUDNENytvUHowaVlaMzZiOVdrUjdpcWdkUmlUVDRkbkFrTGlvbllk?=
+ =?utf-8?B?SUFrYkJmbmsyazJHcU5MRmFqQy9EZFJxWHJ3bytpNkxsTStlTVowSlZ4YjVO?=
+ =?utf-8?B?VHJVWnMxaGhyem5peHJxcjZMci9odVExekpTdFhxc3BGb3Y5SlRuL0JGMXM2?=
+ =?utf-8?B?VExodGVUdVBiL2JDOUQveGRmZHlhQlpUYnRLN29jYi9TcEtQRE9KNWV6QkZW?=
+ =?utf-8?B?M3FUMmdMWEZVUzBybEI4bWpXcmJHb2tlWWx1bU9paUVhUE5lbUwrZm5WeE0y?=
+ =?utf-8?B?RVJpbURYY2RzUDlRNGxZbXBQdGtPSVI4bkl2MUl6Z1RzUjhEVEw3emtWWDZ5?=
+ =?utf-8?B?OStiV1QzdmdkT0dTTnJ3azJBNnJabytMU1Ruek9VMFYrLzJOdWpjRWZtK01Q?=
+ =?utf-8?B?RnQvUVRLb1UrM2I5ZHA2QlpKa1JVSEFFclNMVGFrUFZwdGMrWmZ0WGJnR0N3?=
+ =?utf-8?B?ZGlCbHNMcmxvL3d4N3pJSVErWEN1eFhIb0RoaHlQbHl2L2l5cCtScVQyek5r?=
+ =?utf-8?B?eU0vMmVJdTVRWlNleEpKTGNjeDh0RDdEakxweWlOVlZ3YmlEdE5POWxSSWsw?=
+ =?utf-8?B?TFpEZE9vbEtmK3EraFk2STU3bml1dzhkWTA3U0xXcWN6cGN1aHVpMzM0bGVa?=
+ =?utf-8?B?RFczbENrMDNZQ2tQd3VvelVJSlVGV1BEay91bVl4TUlwS0NxMVVuNVZuVVdo?=
+ =?utf-8?B?MEFVbUQzbmtadHVSOVNFczFJc2UxSWM0dzA2ZXpPZ1ZpNTZGd3pkQjNDMktW?=
+ =?utf-8?B?bGRUR2xDdUpMSXFtakVVQS95WGlQYXlpZFRJNEplZnE3WkplWDJlL2NTYmdX?=
+ =?utf-8?B?c3o0bFF0eDVMQ0ZUZ0V0Mms3ZFpGWXBGRGNlR29xdERhWExkSUxMd3B5VVpX?=
+ =?utf-8?B?R1E5RlAxd0xtS0tpR0tIQi9HZ2VDVWRoNVVHWnNtRy80cXRUYVBtYkx0ZFlr?=
+ =?utf-8?B?OVI4alJMRlZUSXhSdmNDRFJQeGswTHFDcFFRSUxKYSs3R2VKSjcwd2lLS2VH?=
+ =?utf-8?B?dThQRmpjSWNvMW9tTnc0VGFlVmxvTUorZVgreDhMYmdSTlg5OTNiQVpIUXZs?=
+ =?utf-8?B?eEloajhGTE1CbUhRK0ZRSTlsTGU2U1VRTXcwOXBMQ0Z1ejdBS2lHY3RMNlJ0?=
+ =?utf-8?B?UHdIQWpFc1ZRMVpLVjFnN2F5R2pJME44ejY1Zm1sbEQ3SklFNm1wcXlWUjhZ?=
+ =?utf-8?B?eTZIRlRQa2xwdzFIL1JQbnNGenMwZlVZWmx3eDB3L2Z6eTdpVlFCSXZ3MkZp?=
+ =?utf-8?B?ZCtmVmFGVG9BT1A5dURrYllZeHVTK3l5YnpRSjE1UnNRZVg0TktZVm8wUllT?=
+ =?utf-8?B?dFRlSGM1NmJLVFIxTUpGUndoWXpoUzZXL0poSWhLQkVlVTJkWDdncEVKdHRl?=
+ =?utf-8?B?RnZZZWpRaTE4RUhhRVJVMWkveDB4WUlKaTNPcWVKcG1Yamw5dVZiZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e8eda05-ca4e-4d41-7a98-08df222ce0ba
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 15:33:45.6878
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nRjqpUa/nMzyZBPpzpKA8nTk/asRkFHndcGdFt7sNU++SN6TBA25ZxJ8IZrHpZn4uCIL9Y7rnNBRUxjc1scnzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6120
 
-For RTL9607C driver used to configure IO_MODE register. This register is
-global and is a scope of pinctrl driver (either pinctrl-single or WIP
-driver for SoC).
+On Friday, October 2, 2026 5:51=E2=80=AFPM Uwe Kleine-K=C3=B6nig wrote:
+> Hello Thierry,
+>=20
+> On Wed, Sep 30, 2026 at 12:29:42PM +0200, Thierry Reding wrote:
+> > On Wed, Sep 30, 2026 at 11:54:03AM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> > > On Tue, Sep 22, 2026 at 12:07:26PM +0200, Thierry Reding wrote:
+> > > > On Mon, Sep 21, 2026 at 04:26:03PM +0200, Uwe Kleine-K=C3=B6nig wro=
+te:
+> > > > > As long as .apply() also hardcodes TEGRA_PWM_DEPTH, it's IMO fine=
+ that
+> > > > > .get_state() does so, too.
+> > > >=20
+> > > > Okay, fair enough.
+> > >=20
+> > > Is that an Ack then?
+> >=20
+> > I've been thinking about this some more and I don't know if it really
+> > makes sense to keep hard-coding TEGRA_PWM_DEPTH.
+>=20
+> Full ack, ideally this implementation gap would be closed. Compared to
+> implementing .get_state() I don't feel confident to do that without
+> testing though. (Though I could make the driver return an error code if
+> the register setting doesn't match.)
+>=20
+> > If only .apply() uses it, then it's mostly fine, I suppose, because we
+> > don't care what the current (or initial) state is/was. So we either
+> > don't use the device or we overwrite it with a custom set of values.
+>=20
+> I don't agree here. If the TEGRA_PWM_DEPTH setting is different in
+> hardware than the driver assumes, I'd say .apply() being wrong is worse
+> than .get_state() being wrong. So I'd either go with .get_state() as it
+> is now, or rely on someone with hardware to correct the depth setting
+> first.
+>=20
+> Best regards
+> Uwe
 
-Drop realtek,scl requirement for that SoC and require pinctrl instead.
+My state of mind when posting the Tegra264 support series was that the=20
+driver -- for the time being -- intentionally relies on the DEPTH=20
+register being at reset value. As such I think it's fine to rely on that=20
+everywhere for now. Once we add support for setting the register at=20
+runtime, I think it makes sense to update all code paths at that time.
 
-Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
----
- .../devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml       | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+(Of course, I had intended to follow up with those patches sooner, but=20
+..)
 
-diff --git a/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml b/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml
-index 5873cfdc5b3e..ad143509aa42 100644
---- a/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml
-@@ -57,6 +57,10 @@ properties:
-   clocks:
-     maxItems: 1
- 
-+  pinctrl-0: true
-+
-+  pinctrl-names: true
-+
- patternProperties:
-   '^i2c@[0-9ab]$':
-     $ref: /schemas/i2c/i2c-controller.yaml
-@@ -94,8 +98,9 @@ allOf:
-             const: realtek,rtl9607-i2c
-     then:
-       required:
--        - realtek,scl
-         - clocks
-+        - pinctrl-0
-+        - pinctrl-names
- 
- required:
-   - compatible
--- 
-2.54.0
+Mikko
+
+
 
