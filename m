@@ -1,122 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBC942317C;
-	Sun,  4 Oct 2026 10:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2745E418A39;
+	Sun,  4 Oct 2026 10:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791109812; cv=none; b=bg+BNLuH9RsYjj6wqtTlXsjrKG0ZjJGEABB/ir2L11230ShgJwxkpW7NGXQLoJFFtI1M7zYFUnaiTDPyVQ3A/nFvmltDR5enDJ6qO4a407dGrFTbR4VZiIgC5n2dbyLxN3cgG4auot6V00zlLeBthgo/e4+38SOPuPxAFtYUKrY=
+	t=1791109909; cv=none; b=l1s6LYwLSyPO/BqifJSjtqvNxJTP2hj7SPnY0HgEDsm0nmswFo0Z7D9DR6DpN+PlOhLdALE4Dr+9V8G18HFTJdWd//G4VmYDPNjD295iZZti1IKNwogn62Ric2lwmrZ9TpwbB4hAs0Unikt7l3dwQLceSYII612XCNLWvk/Z6qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791109812; c=relaxed/simple;
-	bh=wJaNWkVld6Ks8AC26u+wJzWqIBrvt36+SuQFJrZuVzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qLlx2UuHSuPS7S7kZ64CodjW8kTQD6lEOBi/ZMHDDFlhEE0aooH/KzqeepuaG9B93oEqSWO7AUxKAlDxtBxd7xzV++ZSwkjPnYEk1mrMjkUilRLgfFLiM53/syrteH18hVz0CGrRJHBrtPhTpijvxgDK6cmpaKyMQZBQ1SnXe+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zzxv8ih4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791109909; c=relaxed/simple;
+	bh=LzP4K+Hy+lrpGtA2alfOBHAKktLOo62uHwqvAHYYIc8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qUwbAz2YfDUJEy4zkc3GfyYh1eRYZ46k6jxnR2IeYa2mKuKe10xoYQEvk6IIWupIl66zvhoQIDOKlcN+kz7xRhU8+nlHxXO/aVjtGdbIBy/Wvv15ppD2VYdu1BF5Q9vP+KiTa59RoP+sy1WR48DR5ZJHkdZvqGZ4Ju+Inq4jaMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=N6Kgbwwe; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zzxv8ih4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD59C1F000FF;
-	Sun,  4 Oct 2026 10:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791109810;
-	bh=I2x892nKWbX8P8xN3nv9dt1weX4c1HjNkPJ2oEbT0ck=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zzxv8ih49AvX+SnbrJm3ZaygtWBEkeztBB5ijB3CngcGNuvEwqaPAJD2oKPCdk7Tr
-	 tuP97N05/lhf53cvr4AIGlzcRA6FG67St1LIn8czDMnk8FMNsQyBQvACPS49xflCbN
-	 CoYssiDSI5KhqwQKcuADy8AnS1UAK0tEGerGNxrtJ3f53DkEw/PXZ8c4fT66cFmaMj
-	 riUjGZhxehxqPY3eNbgtNf0N1TOR18q0dBxGryg8RkoujnMn2YAfLIy1spKVx39Crb
-	 AvDeqaRr+0EhFqQek9SPltcoefP5H2o/MM+gQ8Qm8DLqfDefqee75ASE4RW/qkXw3Z
-	 v7Ji38FCPQwCw==
-Received: from johan by theta with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xDJTj-000000005Zr-13gx;
-	Sun, 04 Oct 2026 12:29:59 +0200
-Date: Sun, 4 Oct 2026 12:29:59 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: gregkh@linuxfoundation.org, rafael.j.wysocki@intel.com,
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@kernel.org
-Subject: Re: [PATCH] usb: core: don't set drvdata to NULL in
- usb_unbind_interface()
-Message-ID: <asIqp3h0xMdX-rYm@hovoldconsulting.com>
-References: <20261002145455.3392703-1-dakr@kernel.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="N6Kgbwwe"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4feb7a9b1;
+	Sun, 4 Oct 2026 18:31:41 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Haren Myneni <haren@linux.ibm.com>,
+	Rick Lindsley <ricklind@linux.ibm.com>,
+	Nick Child <nnac123@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH net] net: ibmvnic: defer close from reset allocation failure
+Date: Sun,  4 Oct 2026 18:31:31 +0800
+Message-Id: <20261004103131.1205618-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002145455.3392703-1-dakr@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa106782b4b03a1kunmbc768e8c338b56
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTB5PVkJKTUsfGktDQh5DGVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=N6Kgbwwe2tF8Qar+ypwMokXB7CfsMi6TyJUqbGTK/OVplPwJHccEzmd+g6rltyM+w3EkkhhdbL3KColHbnOoyA+tjQAGaK6tmMZYyk0sl9XgTyVkZzvJyXyoaiZBcaXiaUs/DIDTRJoAtWE4hdF1JbveRkNXIzOCKr70u7AsLsU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=O+46VD+H9Rar1sjoDBo4y4zvWHDRInLA900zopAROnE=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, Oct 02, 2026 at 04:52:49PM +0200, Danilo Krummrich wrote:
-> usb_unbind_interface() serves as the remove() callback of struct
-> usb_driver and calls usb_set_intfdata(intf, NULL) to clear the bus
-> device private data pointer.
-> 
-> However, the driver core code already sets the bus device private data
-> pointer to NULL in device_unbind_cleanup() *after* devres_release_all(),
-> which makes the call redundant.
-> 
-> In addition, it can create unexpected NULL pointer dereference scenarios
-> when drivers use managed APIs.
-> 
-> 	int probe(struct usb_interface *intf,
-> 		  const struct usb_device_id *id)
-> 	{
-> 		struct data *data;
-> 		int ret;
-> 
-> 		data = devm_kzalloc(&intf->dev, sizeof(*data), GFP_KERNEL);
-> 		if (!data)
-> 			return -ENOMEM;
-> 
-> 		ret = devm_device_add_group(&intf->dev, &foo_attr_group);
-> 		if (ret)
-> 			return ret;
-> 
-> 		...
-> 	}
-> 
-> 	ssize_t foo_value_show(struct device *dev, struct device_attribute *attr,
-> 			       char *buf)
-> 	{
-> 		struct usb_interface *intf = to_usb_interface(dev);
-> 		struct data *data = usb_get_intfdata(intf);
-> 
-> 		/* Potential NULL pointer dereference */
-> 		return sysfs_emit(buf, "%u\n", data->value);
-> 	}
-> 
-> Nothing prevents usb_unbind_interface() to race with foo_value_show()
-> and set usb_set_intfdata(intf, NULL).
+ibmvnic_reset() can be called by the CRQ tasklet. If allocating the
+reset work item fails, it currently calls ibmvnic_close() after
+dropping rwi_lock, but ibmvnic_close() reaches napi_disable() and
+other sleepable teardown paths.
 
-Fortunately, we don't seem to have any USB drivers that use these devres
-interfaces. (There is one recent USB HID driver, but it uses static
-driver data (!) and clears the driver data pointer itself on unbind...).
+Defer the close to a work item and keep the work within the adapter
+lifetime. Track removal separately from the visible adapter state so
+ibmvnic_close() cannot make removal look active again after remove()
+has begun. Check that monotonic flag while scheduling reset and
+delayed reset work, and drain all work before releasing the adapter.
 
-> Besides that, the Rust driver core code manages a driver's bus device
-> private data and destroys it in device_unbind_cleanup().
-> 
-> If usb_unbind_interface() sets the pointer to NULL prematurely, the Rust
-> driver core code sees NULL, and hence skips the destructor of the bus
-> device private data, which leaks all its resources.
-> 
-> Thus, drop usb_set_intfdata(intf, NULL) from usb_unbind_interface() and
-> move it to usb_driver_release_interface(), which manually calls the
-> remove() callback of struct usb_driver, and hence can't rely on the
-> driver core.
+Use complete_all() for probe_done because the reset and close workers
+may wait for probe completion concurrently.
 
-I believe you need to drop the usb_set_intfdata() in the
-usb_probe_interface() error path as well.
+The issue was identified by code inspection. No runtime reproduction or
+real hardware testing is available.
 
-> Cc: stable@kernel.org
-> Fixes: a995fe1a3aa7 ("rust: driver: drop device private data post unbind")
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Fixes: ed651a10875f ("ibmvnic: Updated reset handling")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/net/ethernet/ibm/ibmvnic.c | 54 ++++++++++++++++++++++++------
+ drivers/net/ethernet/ibm/ibmvnic.h |  2 ++
+ 2 files changed, 45 insertions(+), 11 deletions(-)
 
-With the above fixed you can add my:
-
-Reviewed-by: Johan Hovold <johan@kernel.org>
-
-Johan
+diff --git a/drivers/net/ethernet/ibm/ibmvnic.c b/drivers/net/ethernet/ibm/ibmvnic.c
+index 5a510eed33..4da3fd7ce0 100644
+--- a/drivers/net/ethernet/ibm/ibmvnic.c
++++ b/drivers/net/ethernet/ibm/ibmvnic.c
+@@ -2152,6 +2152,26 @@ static int ibmvnic_close(struct net_device *netdev)
+ 	return rc;
+ }
+ 
++static void ibmvnic_close_work(struct work_struct *work)
++{
++	struct ibmvnic_adapter *adapter = container_of(work,
++							struct ibmvnic_adapter,
++							ibmvnic_close_work);
++	unsigned long flags;
++	bool removing;
++
++	/* The close path can sleep, so run it outside the CRQ tasklet. */
++	wait_for_completion(&adapter->probe_done);
++	rtnl_lock();
++	spin_lock_irqsave(&adapter->rwi_lock, flags);
++	removing = adapter->removing;
++	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
++
++	if (!removing)
++		ibmvnic_close(adapter->netdev);
++	rtnl_unlock();
++}
++
+ /**
+  * get_hdr_lens - fills list of L2/L3/L4 hdr lens
+  * @hdr_field: bitfield determining needed headers
+@@ -3229,9 +3249,12 @@ static void __ibmvnic_reset(struct work_struct *work)
+ 	if (adapter->state == VNIC_PROBING &&
+ 	    !wait_for_completion_timeout(&adapter->probe_done, timeout)) {
+ 		dev_err(dev, "Reset thread timed out on probe");
+-		queue_delayed_work(system_long_wq,
+-				   &adapter->ibmvnic_delayed_reset,
+-				   IBMVNIC_RESET_DELAY);
++		spin_lock_irqsave(&adapter->rwi_lock, flags);
++		if (!adapter->removing)
++			queue_delayed_work(system_long_wq,
++					   &adapter->ibmvnic_delayed_reset,
++					   IBMVNIC_RESET_DELAY);
++		spin_unlock_irqrestore(&adapter->rwi_lock, flags);
+ 		return;
+ 	}
+ 
+@@ -3265,7 +3288,7 @@ static void __ibmvnic_reset(struct work_struct *work)
+ 	 */
+ 	need_reset = false;
+ 	spin_lock(&adapter->rwi_lock);
+-	if (!list_empty(&adapter->rwi_list)) {
++	if (!adapter->removing && !list_empty(&adapter->rwi_list)) {
+ 		if (test_and_set_bit_lock(0, &adapter->resetting)) {
+ 			queue_delayed_work(system_long_wq,
+ 					   &adapter->ibmvnic_delayed_reset,
+@@ -3422,7 +3445,8 @@ static int ibmvnic_reset(struct ibmvnic_adapter *adapter,
+ 	 * a failover reset scheduled, we will detect and drop the
+ 	 * duplicate reset when walking the ->rwi_list below.
+ 	 */
+-	if (adapter->state == VNIC_REMOVING ||
++	if (adapter->removing ||
++	    adapter->state == VNIC_REMOVING ||
+ 	    adapter->state == VNIC_REMOVED ||
+ 	    (adapter->failover_pending && reason != VNIC_RESET_FAILOVER)) {
+ 		ret = EBUSY;
+@@ -3458,11 +3482,11 @@ static int ibmvnic_reset(struct ibmvnic_adapter *adapter,
+ 
+ 	ret = 0;
+ err:
+-	/* ibmvnic_close() below can block, so drop the lock first */
+-	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
+-
+ 	if (ret == ENOMEM)
+-		ibmvnic_close(netdev);
++		queue_work(system_long_wq, &adapter->ibmvnic_close_work);
++
++	/* ibmvnic_close() can block, so defer it out of atomic context. */
++	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
+ 
+ 	return -ret;
+ }
+@@ -6466,6 +6490,7 @@ static int ibmvnic_probe(struct vio_dev *dev, const struct vio_device_id *id)
+ 	SET_NETDEV_DEV(netdev, &dev->dev);
+ 
+ 	INIT_WORK(&adapter->ibmvnic_reset, __ibmvnic_reset);
++	INIT_WORK(&adapter->ibmvnic_close_work, ibmvnic_close_work);
+ 	INIT_DELAYED_WORK(&adapter->ibmvnic_delayed_reset,
+ 			  __ibmvnic_delayed_reset);
+ 	INIT_LIST_HEAD(&adapter->rwi_list);
+@@ -6568,7 +6593,8 @@ static int ibmvnic_probe(struct vio_dev *dev, const struct vio_device_id *id)
+ 		goto cpu_notif_add_failed;
+ 	}
+ 
+-	complete(&adapter->probe_done);
++	complete_all(&adapter->probe_done);
++	flush_work(&adapter->ibmvnic_close_work);
+ 
+ 	return 0;
+ 
+@@ -6591,10 +6617,14 @@ static int ibmvnic_probe(struct vio_dev *dev, const struct vio_device_id *id)
+ 	/* cleanup worker thread after releasing CRQ so we don't get
+ 	 * transport events (i.e new work items for the worker thread).
+ 	 */
++	spin_lock_irqsave(&adapter->rwi_lock, flags);
++	adapter->removing = true;
+ 	adapter->state = VNIC_REMOVING;
+-	complete(&adapter->probe_done);
++	spin_unlock_irqrestore(&adapter->rwi_lock, flags);
++	complete_all(&adapter->probe_done);
+ 	flush_work(&adapter->ibmvnic_reset);
+ 	flush_delayed_work(&adapter->ibmvnic_delayed_reset);
++	flush_work(&adapter->ibmvnic_close_work);
+ 
+ 	flush_reset_queue(adapter);
+ 
+@@ -6620,6 +6650,7 @@ static void ibmvnic_remove(struct vio_dev *dev)
+ 	 * from the flush_work() below, can make progress.
+ 	 */
+ 	spin_lock(&adapter->rwi_lock);
++	adapter->removing = true;
+ 	adapter->state = VNIC_REMOVING;
+ 	spin_unlock(&adapter->rwi_lock);
+ 
+@@ -6629,6 +6660,7 @@ static void ibmvnic_remove(struct vio_dev *dev)
+ 
+ 	flush_work(&adapter->ibmvnic_reset);
+ 	flush_delayed_work(&adapter->ibmvnic_delayed_reset);
++	flush_work(&adapter->ibmvnic_close_work);
+ 
+ 	rtnl_lock();
+ 	unregister_netdevice(netdev);
+diff --git a/drivers/net/ethernet/ibm/ibmvnic.h b/drivers/net/ethernet/ibm/ibmvnic.h
+index 480dc58707..d8c8a6d230 100644
+--- a/drivers/net/ethernet/ibm/ibmvnic.h
++++ b/drivers/net/ethernet/ibm/ibmvnic.h
+@@ -1045,6 +1045,7 @@ struct ibmvnic_adapter {
+ 
+ 	struct tasklet_struct tasklet;
+ 	enum vnic_state state;
++	bool removing;
+ 	/* Used for serialization of state field. When taking both state
+ 	 * and rwi locks, take state lock first.
+ 	 */
+@@ -1056,6 +1057,7 @@ struct ibmvnic_adapter {
+ 	 */
+ 	spinlock_t rwi_lock;
+ 	struct work_struct ibmvnic_reset;
++	struct work_struct ibmvnic_close_work;
+ 	struct delayed_work ibmvnic_delayed_reset;
+ 	unsigned long resetting;
+ 	/* last device reset time */
+-- 
+2.34.1
