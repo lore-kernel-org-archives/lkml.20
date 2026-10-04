@@ -1,123 +1,97 @@
-Received: from mail-qk2-f37.google.com (mail-qk2-f37.google.com [74.125.230.229])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5B232B12C
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 04:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B73A32B12C
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 04:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791088334; cv=none; b=Xhu5ToGzMO2klQjE1KLd1PuUf9HACc++AYH6J76YLMsCQ3sx6DxbzupzUpRuSJK2WFqRZ5Jher56383M1aVjVQMY2GKgRPXdxA8YLqLyjV//vN+mM3VmMfdUqNQHpai7d0oWDp/G7WTJyb3gv/hseTk5LS6w85DxfE8mNwl/F2s=
+	t=1791088422; cv=none; b=KkYOnXbL0XrW+5KA38p+3JPCxc+ahZ1xHV1YFI/VlmVJvGVCSjcL8stYgCt2dKzTjWdIzf0Fr/+aNPKaK5AjD7cmr9j+onh9jYBY1jQ0qAC4pfv5D9rrQJAyh5NW9TZBl8cF8zW/5p9ZFVPN4zGTAxWafT3isXrfvZcyuRMO+2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791088334; c=relaxed/simple;
-	bh=9erteH596wXutvyZZZYexewCpFU1dXOiHruQ4j7BF+4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=syvcaZwC4mvF8DTp121NE/p0JoNdswjGW9AkMGlrd8TnPvLoygJOAJQ+hl8+hbaopwoKXzanIhq5jAj41gw405sTbZuwtXcypV9q7T8D1GGLka3OLhBzsQtSFr+rKI9g+MwJW91H4+yZK/IFnvd60rcWM4e9WG3pfVu1gIE1UKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tlf/3oHG; arc=none smtp.client-ip=74.125.230.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tlf/3oHG"
-Received: by mail-qk2-f37.google.com with SMTP id d75a77b69052e-53514007236so6852511cf.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 21:32:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791088332; x=1791693132; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RqM21WrlpOyZNVMgtLzt66M+0MPhsreG+St4PF2KtwM=;
-        b=Tlf/3oHGC+2Mx2oK9bNIcvR90Q/AV4+yKVmPqJ+DY4YfexL8QMar/BvnqsNmn2pp6J
-         FnfYtUcQgCxhegTYJttWXtxB+rZ8Fu67toV+8vc3XD+oT5ustTPpm9LdYcXo10cLfdtw
-         Af5MsSiynCG8aXSvP5EZGCg6q3wiu3Gur5Ow6He5Zr4s9PjYRYnhsl9mJxwgz0+U/apx
-         VKEBwGLzxQyY0r9H9KRrBPgH65jlfIcLrpz+bO175s82cPo5cPPd44kXDJyrLKzr8Cqc
-         scldm/vsFWZ5LjUSsR/cXLN0OC/YDd6mqgSzOdvou7KDkXItKk+X/z3TCfLomBCecP2A
-         KTdw==
+	s=arc-20240116; t=1791088422; c=relaxed/simple;
+	bh=1GDbIu7PE2AjKB9yS/1ZXtbOoN8q8/dNL6RxZ3LffCk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rUTHJFLLJM8HEZfGPkQHT6fF9Meeaz4h3fzi6/8liZWZ2QBjebOu6v/khSQTRCuDFU50jm3PuZ1g7V7+JID6wUz2fgD3AS4V4/B7O9oIZ492M2mB90rf8lGSAhNtVy+eIgeZ7nwxgewuuTX0Xza4Ph4UVlr5ENcMB0Zy+Kdp5Mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ea4c979030so1541912b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 21:33:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791088332; x=1791693132;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RqM21WrlpOyZNVMgtLzt66M+0MPhsreG+St4PF2KtwM=;
-        b=Ty9TZhMboVQa5LCJrTjI7atTZ23EetX8rGyPZujnJVqw5XKbWmqF8EXV1L5uf59q3P
-         Dug4+NyHgiwc4/B3BCYjPDnmIx+2YapZMLclRfkE5epylwOcMFQIj0sZ11DegD78ARgj
-         AZzyuPnHhMj1kxZf+PV3asq9rNE9iOVFyDrj61oQDUjS1F3+Ws2q5srBuwWznUXD0InK
-         5NKOxAPIVMVA3lWM5SZbaweAdLlFwOXggG9s3d3bPpm/q7CR3ahAhRU7sOFnPsXXaj7r
-         0AM4qCRM17SAWuBa+5I7uZYDtRyHk2mJ6JWbH0LfE6/Xy3YHxFy8YP1yqYiXdJApcW3M
-         H7yQ==
-X-Gm-Message-State: AFuF++kCh7rH0vXb9unJLfG7SL8BDwmbxEkxI0lV5Zshncp6gnEKkQL3
-	fbIp3HyvWP+z0YzQAZHRZDW+q1Zi4cTGyWrxpK1jt8UsF4JDdjcQ3i4=
-X-Gm-Gg: AYBFou3pmqaNAeAZP5YEOsMVK2aWrj9LbIGZSoONk8ez+q/GE91/vsmBWjEdLT85qou
-	xzwtT0ygPRGafRWJCmF9L8RnyO/kYsj9nye2UNQpTobZ5afYRW5oXVlsceaTpCCcBKIgQPbyfh4
-	bniOQOTC+viO0Erlny7eKu/ALTBelF8Ih12FxYEk4tRAfblfkqnuVZTtMGqoOKA43OnGVOi3leH
-	NTvMHDuy/O5GmzkuDq2oK3QO5FErn29BuEh9eimyGXKPfL+6oOVG7G77WTN8V9z1r5WgCXmILh3
-	q04AA07JLGkqZggkG8CCDgfm598HNmRwRvMJJ3dPbilDtPi3tBKGODmN4NU0wFUgKglFS2eXwGk
-	dbi+TAAUFU+n8mG9X11DvKBTJM6ZaDLxxUTYLjQb9lDB2t4s53LLW6ocCD0uZ3RQFqct8wZkZWD
-	/s8fwWNkTtIZ7r8IzIPKZZn/Sc90LZ7iJtVUIb25ul0Vv+7jr8X775DMpmX04AKJdR0u1PQ08T5
-	3T+2KpYKlj4x7kuKaVucWqnTInvmh5HTA0iQRA0pBtJ6hwVzq2e8IFCDUCUMCderp8Ha4+z2P+k
-	W4zlkpK7Yy0+B6DQ9kOYzVT+ESS4
-X-Received: by 2002:ac8:5d8b:0:b0:533:9607:f136 with SMTP id d75a77b69052e-533d96a6439mr126598771cf.25.1791088331728;
-        Sat, 03 Oct 2026 21:32:11 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398d59747sm67134111cf.31.2026.10.03.21.32.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 21:32:10 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: myungjoo.ham@samsung.com,
-	cw00.choi@samsung.com
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	ae878000@gmail.com
-Subject: [PATCH] extcon: int3496: cancel ID work before releasing dependencies
-Date: Sun,  4 Oct 2026 00:32:05 -0400
-Message-ID: <20261004043205.1135625-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1791088420; x=1791693220;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PKJCTUIEtBlhRM4dNTsrpV8kt9lM1iUiJh0EwaNyx80=;
+        b=oTbC4wY43vpVkf/0swmHDCXDAEdvMiT36VCBfhGYHuK/jfxxJDMmQCbnE4VMfI+nIK
+         rHkQOXZwbPacQYgdXJYwLug6ejEIJeHnboQVR4cQKWSIm7dUpKzKk81whm76bHIFuk94
+         /3SCXxRMzRXnRwFcpyoxIkL0jh+kug7t3Q2dNtJWa64igEiYrNYBke3l5riESM8CA9fu
+         3zSLQXPwluKpwDUaI5hb5+SK83+hQVoFjoLiOBjQZvalYvov4nEr/NTIesCnyAnJnvGj
+         STjVFg/alZZdYWVVuxjVrkOpnxKBz267FEdGufUA3OvF4yILxDlOPdA2BRXmJMMZu1Z2
+         lN7Q==
+X-Gm-Message-State: AFuF++nbfUkC0SbKYiGYGYyi6ik8HTwdOq3ejwcebCqlNhqjg0G4WDzz
+	xZPNLFoJn+YH/tv8c5ToBK41ug+X1dSniufEthUBYVeIl6HKOlaAkXQFqm/HjVuvX2818iHDJpr
+	qoLSgkOGOBDbaZ31yDkHL8q64ZnwB0sW98vBPIfM/jYqV7GtsDJ/MfJ41tDc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1a0a:b0:4cb:f21c:a79e with SMTP id
+ 5614622812f47-4f52a77893bmr6779562b6e.38.1791088420438; Sat, 03 Oct 2026
+ 21:33:40 -0700 (PDT)
+Date: Sat, 03 Oct 2026 21:33:40 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac1d724.34119e79.2f92f3.001c.GAE@google.com>
+Subject: [syzbot] Monthly mmc report (Oct 2026)
+From: syzbot <syzbot+list47ee4443aeac8f86ebca@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, ulf.hansson@linaro.org
+Content-Type: text/plain; charset="UTF-8"
 
-The managed delayed-work cancellation is registered before the GPIO,
-regulator, and extcon resources used by the work. Devres can release
-those resources while queued work still runs.
+Hello mmc maintainers/developers,
 
-Register work cancellation after its dependencies but before the IRQ
-that schedules it. Cleanup then frees the IRQ, cancels the work, and
-releases the dependent resources.
+This is a 31-day syzbot report for the mmc subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/mmc
 
-The teardown ordering issue was found by static analysis.
+During the period, 2 new issues were detected and 0 were fixed.
+In total, 13 issues are still open.
+There is also 1 low-priority issue.
 
-Fixes: f94a5becabf4 ("extconn: Clean-up few drivers by using managed work init")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Some of the still happening issues:
+
+Ref  Crashes Repro Title
+<1>  865     No    INFO: task hung in mmc_stop_host
+                   https://syzkaller.appspot.com/bug?extid=d0688023306aea3aefdc
+<2>  401     No    INFO: task hung in sdio_reset
+                   https://syzkaller.appspot.com/bug?extid=e8678cd3d8b65d1f2c74
+<3>  354     No    WARNING: suspicious RCU usage in cancel_delayed_work_sync
+                   https://syzkaller.appspot.com/bug?extid=9c1988bc953fca2086a3
+<4>  193     No    INFO: task hung in mmc_go_idle
+                   https://syzkaller.appspot.com/bug?extid=bb55e8118af00556efa2
+<5>  128     No    WARNING: suspicious RCU usage in mmc_free_host
+                   https://syzkaller.appspot.com/bug?extid=0d22039ef0915696ad4b
+<6>  80      No    INFO: task hung in mmc_io_rw_direct_host
+                   https://syzkaller.appspot.com/bug?extid=fd993974345f022e97f2
+<7>  69      No    INFO: task hung in mmc_send_if_cond_pcie
+                   https://syzkaller.appspot.com/bug?extid=30341f17551668478919
+<8>  65      Yes   WARNING: ODEBUG bug in vub300_disconnect
+                   https://syzkaller.appspot.com/bug?extid=f4a0159ce6802a0a4774
+<9>  63      No    INFO: task hung in mmc_send_io_op_cond
+                   https://syzkaller.appspot.com/bug?extid=15adedb55f72fa957b00
+<10> 41      No    WARNING in mmc_free_host
+                   https://syzkaller.appspot.com/bug?extid=82a0a7de6d84867d030e
+
 ---
- drivers/extcon/extcon-intel-int3496.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/extcon/extcon-intel-int3496.c b/drivers/extcon/extcon-intel-int3496.c
-index 7d16d5b7d58f..13c585d978f2 100644
---- a/drivers/extcon/extcon-intel-int3496.c
-+++ b/drivers/extcon/extcon-intel-int3496.c
-@@ -130,10 +130,6 @@ static int int3496_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	data->dev = dev;
--	ret = devm_delayed_work_autocancel(dev, &data->work, int3496_do_usb_id);
--	if (ret)
--		return ret;
--
- 	data->gpio_usb_id =
- 		devm_gpiod_get(dev, "id", GPIOD_IN | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
- 	if (IS_ERR(data->gpio_usb_id)) {
-@@ -169,6 +165,10 @@ static int int3496_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	ret = devm_delayed_work_autocancel(dev, &data->work, int3496_do_usb_id);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(dev, data->usb_id_irq,
- 					NULL, int3496_thread_isr,
- 					IRQF_SHARED | IRQF_ONESHOT |
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
