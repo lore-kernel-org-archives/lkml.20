@@ -1,299 +1,315 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022125.outbound.protection.outlook.com [52.101.101.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2DB38AC75;
-	Sun,  4 Oct 2026 12:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.125
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791118182; cv=fail; b=L7xXxq4qGz7wahXKaA9wubTGNYZzpo8ed3/raelmsZrp/VliBUYqRa3lQA1OpL/l0kSr/KEkwo69WMA/8GZhaNm2rsNKdDuagpYXPonrNjrC0S/hncFkHpZddJE+k6WdpCo5zRGEOK5zn6w2g5SwP2eober1Oup3lhQ1cQMZpIM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791118182; c=relaxed/simple;
-	bh=/MxzpFaeOs3PSt2rr4DjmpQydVbR9sriXGneVvctdnU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=IPjXJz44P+u6QBBeAYMDmKELQiO6UBAE1L8n/TNtX/QxCjvZiL39Lo8iIpif9sWG1BF2JUrVMULdymNlwPHleDqqB//YfazTOND25IHIGHR5sgIUHmVgFnz49i6KPylWfFXwiV096e4a4XzMpiJPztTPZ2J0LI8R7RmnlyCj/xQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qX93kueeH/3pvQoeWKseqetjw7evzyURfK6glC1u0sV0rAcW9uI+JNZI8sGmcWfaLJvkbXbUYDInUNdOHGNaBVLbhERtsgG4rzbTX0Y6CuNrftyMJz0u5uKb4XFu/txwa7Tr/UJNaDno0QPvKZ17Gm3OQLiCvId66FbBuN2G1YWb8SezKDeKC1y1dd0G9Ox27JPXzmpSgRYhogg+xdPdi1QmNdVT2SmRk2Gcobw8fEODKbBZut403Y3EavKl81HMai1FEKQC/tODo35RaO9/1fJ/H4m2OG1Z4SDqWarlxTrBvmwKCVgJFFfflD1AzkNkICgSJDWvMWBoIsKoTeAvHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=kTgEC1BFhVNK6joMSZBXKnut/IsvXhYXxlOCBiJQ0/g=;
- b=Ns6Xl7H5/rwOTLzR//02vbTjeV8Dm+A93pMMXyq5UzOnTubEvoWzsQKPTRhzlUPKFn0z20zC0XYCZ8YArmX+MURHkq87b+xNgd+JY7aoMyBgTG548koUEzAKaJubyDIHJ+8nwuAAMwfc+M9MlYH738T40e1wLJjj1pQ2sQET+WN7GfmM767miEY2/zzRgpPQZ4FxMSg3AXUfJDQDcdlCSWqJXQj05cSYzKp0iPSkijzuK/FqricbPIfVOwhLMBcDTfcn5kP0e49S6N1YO5qb0eG/j/CKVEZLOIaqeYfXzo3l7yXNNtMVAL6QxvEQBGDc38YjouR0nxF9ae/Cv7MPkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO0P123MB4009.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:183::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 12:49:37 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0472.016; Sun, 4 Oct 2026
- 12:49:36 +0000
-Date: Sun, 4 Oct 2026 08:49:34 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, linux-modules@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] module: Add stubs.c for CONFIG_MODULES=n
- module_put_and_kthread_exit()
-Message-ID: <6kffereanrivmycrw6nnrks2sect26i5mnrdq2un7lvpurk5ap@kybf7dhhr6by>
-References: <20261002-module-stubs-v2-1-a0d8c6ad1738@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261002-module-stubs-v2-1-a0d8c6ad1738@suse.com>
-X-ClientProxiedBy: VIUP296CA0063.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:337::17) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2AE2FC00D;
+	Sun,  4 Oct 2026 12:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791118235; cv=none; b=A1gqI5ClLscQBSmw1o5g9ooXOsGXFF8VZgEd6SfVbjIhu+8/+3BaEIZ9z6iLqr/4eUwxU4pG5ZylPnT11BNMlEGAH+doBnKZxeZTfIyHzeOlwqK83fb/0a/wSZSPg/cYG5dHiLl3XqA7jpGG/JX5XbdYtzVLNlpZ/5nGC1pDN3E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791118235; c=relaxed/simple;
+	bh=gvg/uEuunYBpFGP+kj5DUE33VrET+PTZAyQnN4cLGr4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZFTNZqGJQosvX0WS9mmXNhAb/qSUAQtXDepqy6dlANgH+HwdnhadjmWT0ffYijvvEvQLYFUNJsvd5JQEF0zRK9H0REIbO8tTeXYYvYazwYVVKqwuiMs8KHaJYw2djGxpSQXKN4Q5RF8JuPZOVNkesKmrt/v3umzW6misBtx0z7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ttKVHQ8M; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ttKVHQ8M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4981F000FF;
+	Sun,  4 Oct 2026 12:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791118233;
+	bh=3ZtGmx15jwharaXgISQPu3qx8gouZaTHhMJZp2J8OuU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ttKVHQ8MJkCTUhjQ5o1HgalBMsSny5703FqddDwf7MgN2RrsHP6OWR1RKpunrSu4S
+	 dbQvGT3bydCcrYlgq3oEXw/x2jIQn85+RusouQIxth+NwADkbLdvu+Zvg08H9Asbrf
+	 cZ/1jFdwhbU/PxuLOeuXtgiry66IStfglcI1oWTQ=
+Date: Sun, 4 Oct 2026 14:50:29 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: sparclinux@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>, linux-kernel@vger.kernel.org,
+	Jiri Slaby <jirislaby@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH 7/7] hvc: add an M3000 firmware console backend
+Message-ID: <2026100415-impromptu-sultry-ce6b@gregkh>
+References: <20261002161515.932316-1-linmag7@gmail.com>
+ <20261002161515.932316-8-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB4009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e8108ed-bb35-4de1-1644-08df2215f25b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|5023799004|6133799003|10067099003|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	zusiqtbucAja4GtrvSg0yww4e1nARDNnY7cVFNV3VR+cntIszxgcaH/v3p9NSWJxh57z8Ds7b0UpqDWVlBKcjH3SCyM5deRwZdq5PuliExYBBn5UPojLZJXLjBrngAKJiZzwf6EohviAQbzFG7bDZj0UXdp0YcMd0Y3yLI+bFf9FPGlqQkQDgWJgQAkuym3SyhWfdxP22ZPit6Lbs45QkN7lqFpwsp/r7EbYf9G5gc/Ft2lL7U1CNetMOPu6Y1YxJEZhCUAlJMhlTynbeZynXVwkAxU93d9vqL8sNbnJc3jB/5RIGPmwOQjBQCT7PnTg/XNWtzu6gacr3c7LgI6tpXvQExUK8KhJz2ED1AjcdjhxA5RkOi99fbabErNJL6imWMnzvEyLSv96I6RcAU1orlHpVD1/zY054ml5Pnzkh08u2FifLqkyvjkayYX6V6VUh/MMhj3OgVZNQl1/VsgtOxlQWDPVANzFj5WSLOVgLic/2BGguf4r6t4OFnpm64m6BPpMz9DKKDjQ7aO72IvusxbdkqFvAbVBuvhDfsDSoysiD0jEr7Azocv+V9OowwoVV6qReuWq7n7zGOu920jss9JSYsmhDSFjKwog4a2/Eac=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(5023799004)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RjdIc1IvUURHQTBuVWE4MmxtOFJFQm5Pb25BeFhFQklWNmg3QzM2ZldEMDJo?=
- =?utf-8?B?akJ2Tlo5NzJTUHlCdWcrTzRPeGxOSkV5bmlmQnNBQTN6WWUrUW13UUtkcGlk?=
- =?utf-8?B?K0EveTRRdDdvK0MreEFudXVTWXV1Yityc0FpdkVUTHRsN3dRbkdPTW5VaVhL?=
- =?utf-8?B?WHRFeEdiZWNTWDd2bEJ6RXZ4NU1hT1lOTkMrL0s4SVJISXRxaFNvblp5K0RU?=
- =?utf-8?B?b2xKOWxaTlYxOSs3STdBNGlrUWJCd1pBZ05nRnJ6bmc4UnVCc1NlbFdWS05w?=
- =?utf-8?B?SWJ3VWl6OHlMWTJLT2dXYzgycGtkV3pncitNdmV3VE9GbWhvMkEvREFuZXc0?=
- =?utf-8?B?YlhjbzFITm51TlQ2N01XVXlqdGZMUFdrV014Rm9RaEdYR3JuaThjcXhzZEdp?=
- =?utf-8?B?Q0lHS1I2RERMRmhXUHVVVFJHcmJGK3AxZUxNbTlDSE5qQWN3VGRNOHZTVDA1?=
- =?utf-8?B?b1FGdGdaVWhWWDJEZWdzMHRXTE0wWTM0eDNLYWIyV1gzbXpTMzRVYUliaXIr?=
- =?utf-8?B?eEh6Zm9oT1VvVVQrQUtTQThrbDJSUkFCdHpxOExHZk0rWEtueTE4OG4rSVM3?=
- =?utf-8?B?QmczOVVGcmRhMGt5OWdna2NRSlhUU25pVkYrYVM1dm8rREh4czFKejFiZnRo?=
- =?utf-8?B?QlMyMjZFTFhjUEZ5ZVNGVDgyUGNZb3NCbFBpR1VobzJOdzlldGpZRDE5RlN0?=
- =?utf-8?B?bzdEYXNORVZsY0NLV0JTS1VpUWpsS1NxbEZHMGJtZEw3KzFhZFBWNS83QXJG?=
- =?utf-8?B?L0pOV0l6dTNkS2JPdlZGZ0tUTzdDc1JXMnBldnNja3A4ZXVOQ01mbmJYT0lR?=
- =?utf-8?B?Y3F6dXdCQzg1VUl3OE5yV05vdXhoY1ROdjVSeElTZUduMGIvVW1xWE8rZHpm?=
- =?utf-8?B?djFHWEQ2dFUzejg1cksvSWp2aCs0SEF3RVprZklRZWRHeERhRVh0a1hXbkZM?=
- =?utf-8?B?RXErdkRudHZJUHVyZUlVdkxhWjBQYWRETzlwOFl3TTZTcnVLWlpiY2tiRFd6?=
- =?utf-8?B?TG5MWW9YSkN5WitHQzRSQTI4NmwvT0dlaEJjQnhCQW5qYmRtYzBjYzFPaGpw?=
- =?utf-8?B?cGtKNGN1VnJlNXpudy9sTitkZE5Oc1k3YXkrenV4Z1ZKbEJtY3hNSDlpZWFW?=
- =?utf-8?B?TUhJbFVCTTFidFhqbExwcFNXTlMwbUJrMW5sempCd2hnbFJjQU5CZEt3S0xs?=
- =?utf-8?B?Qnpaa1B0a0JkNVExKzdKVkZXQjBJN0dHbnFSK0hiNW1YY2pvcStFc2lrMnQ0?=
- =?utf-8?B?MytXcGRIaE55NkJ2RVJmZW5iNE9tSFdZR1lnWXYyN0JmUXlHY1diaTVIUTdW?=
- =?utf-8?B?ckRoSm51aG5wU1prNmtKQnp2WEhsTWxXYlhBQmNPODhJUWsvWTViZVpDdEJT?=
- =?utf-8?B?L01oODZNcWUzQUtHM25GaVFzajUyU2RiUnB3K0UybCswcjhMc1dobzFFblRD?=
- =?utf-8?B?SmFmWi8yNEVOdjlxQmNlbkR3dnVaT2N4dWFBY05EcGQ3cWQ1Ry9zZk5HY1Nz?=
- =?utf-8?B?YUgrTmRoSGF6a0cvVlB1RGpDVU1JaDAweStHQWZRYTRRYVZjbFZPYjRkUWRl?=
- =?utf-8?B?ODBoMTEzRUFoWkc2MXgvdmY5NGhTRi8vZGFRWWJSdDNGa0ZKTzZ6cEJVZi9X?=
- =?utf-8?B?QkUySmp1QWxwOU9CL3p0S3dNalNld2o1cnZ6aEtNU2tINTBqbURiYmR5bzdk?=
- =?utf-8?B?dTJWRGJHdUJNcnVLYWxrQXN5MUZpSzVQcUgzL2xMcGdmRmc5d09BWVRub0Z5?=
- =?utf-8?B?Z2lHSG9rdENGVjJtN29iOUhwdzNxenZQVElmTlhWRWpWQ0JvUmlpMld6ankz?=
- =?utf-8?B?UE1yNGordkdCUXRvbUtib1UzUUorUjNLSGlHZkgxbW8rSERCa1ZWSjJFdHpx?=
- =?utf-8?B?Y2ZLTGgrUkZtSlI0K2xqN1kveTdWelZWbkFwTVl5blpGdDNIN0IvSFNYWU9N?=
- =?utf-8?B?djIxNVVaQXNtUXBjZXB6NTIzU3IxekRkNW1GRURjT0dIOHducm56WUlxVnd0?=
- =?utf-8?B?Ky9NNUhjaXZOb3AzL2xEb0xoMndPVGo3ZkhKSG1mNWlVWFg5ZFUwaEtRSEpD?=
- =?utf-8?B?Z0NIRnUxY05JSUYvMUVFUUlWanN0Z1BFay94Z1hTckFDbWNqZDZFNVBaeGFq?=
- =?utf-8?B?Y0x1dWxzVzJXbXpDb3pJQmIxaWJTOVdUV1BtRUFqRFJ3N1JvQ3M3cE9pdTNp?=
- =?utf-8?B?WGtxODM0V1cxOWN4NmRRV3NFbjZqYlJ5NWc4aVgxUzZ4Ykk5d0lwZDJjdVpp?=
- =?utf-8?B?aVpkeHJONy9sSUcvcTdBT0VXTW5DWUZHL0M2R3FpNTZSak1xbEVTMmh1d3k1?=
- =?utf-8?B?VFJhU0VFNU9tc0I2ZWtkemE5REpjTDk4aTNwcytzTFFDS3BOVW9Gdz09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e8108ed-bb35-4de1-1644-08df2215f25b
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 12:49:36.7936
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yTp2IJPEGa5CZPZvF1/PR+jYV6iKMHwwU9V2hAiXr46eSqJuW7bobfaqNn38yeQd1FOsNCDj3oOHK+g9Zlvkxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB4009
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002161515.932316-8-linmag7@gmail.com>
 
-On Fri, Oct 02, 2026 at 10:40:38AM +0200, Petr Pavlu wrote:
-> Module-related stubs for CONFIG_MODULES=n can normally live in
-> linux/module.h. This works well when the stub does nothing or simply
-> returns a constant. However, some non-module implementations may be more
-> expensive, either because they have a real implementation or because they
-> require additional dependencies to be pulled into linux/module.h. This
-> header appears in roughly 15k #include directives across the kernel, so it
-> should avoid bringing in unnecessary definitions.
+On Fri, Oct 02, 2026 at 06:14:29PM +0200, Magnus Lindholm wrote:
+> Provide hvc0 through the IKKAKU Open Firmware pseudo-console, validating
+> model and console properties before matching. Serialize firmware calls,
+> keep the bounce buffer in locked mappings and poll input each open tick.
 > 
-> Specifically, linux/module.h defines module_put_and_kthread_exit() as an
-> alias for kthread_exit() when CONFIG_MODULES=n. That in turn requires
-> linux/kthread.h, even though linux/module.h otherwise has no need for it.
-> Note that linux/module.h currently doesn't include linux/kthread.h and
-> requires its users to pick it up through other paths, which is itself not
-> quite right.
+> Keep output buffers const and bound no-progress retries because HVC
+> retries EAGAIN indefinitely. A stalled firmware call remains unbounded.
+> Use the existing SPARC p1275 interface and HVC output contract.
 > 
-> Introduce kernel/module/stubs.c to hold such stubs, built only for
-> CONFIG_MODULES=n. This mirrors kernel/time/posix-stubs.c, which is used for
-> CONFIG_POSIX_TIMERS=n.
-> 
-> Define module_put_and_kthread_exit() in both CONFIG_MODULES configurations
-> to call __module_put_and_kthread_exit() and add a CONFIG_MODULES=n
-> implementation of that function to kernel/module/stubs.c. Since
-> __module_put_and_kthread_exit() is now implemented even when
-> CONFIG_MODULES=n, remove the corresponding '#ifdef CONFIG_MODULES' from the
-> noreturn_deny BPF list.
-> 
-> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+> Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 > ---
-> kernel/module/stubs.c should also be used for add_taint_module() [1] in the
-> future.
+>  MAINTAINERS                 |   6 ++
+>  drivers/tty/hvc/Kconfig     |  10 +++
+>  drivers/tty/hvc/Makefile    |   2 +
+>  drivers/tty/hvc/hvc_m3000.c | 167 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 185 insertions(+)
+>  create mode 100644 drivers/tty/hvc/hvc_m3000.c
 > 
-> [1] https://lore.kernel.org/linux-modules/a79a6a06-cc48-4036-882d-95e9b4cc01cf@suse.com/
-> ---
-> Changes in v2:
-> - Remove the unnecessary include of internal.h in stubs.c.
-> - Remove the unnecessary EXPORT_SYMBOL(__module_put_and_kthread_exit) in
->   stubs.c.
-> - Link to v1: https://patch.msgid.link/20260922-module-stubs-v1-1-abe465a24879@suse.com
-> ---
->  include/linux/module.h | 9 +++------
->  kernel/Makefile        | 2 +-
->  kernel/bpf/verifier.c  | 2 --
->  kernel/module/Makefile | 4 ++++
->  kernel/module/main.c   | 1 +
->  kernel/module/stubs.c  | 9 +++++++++
->  6 files changed, 18 insertions(+), 9 deletions(-)
-> 
-> diff --git a/include/linux/module.h b/include/linux/module.h
-> index 96cc98568eea..4c7bd7f9f889 100644
-> --- a/include/linux/module.h
-> +++ b/include/linux/module.h
-> @@ -658,10 +658,6 @@ static inline bool within_module(unsigned long addr, const struct module *mod)
->  /* Search for module by name: must be in a RCU critical section. */
->  struct module *find_module(const char *name);
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..5bc9b1cabd0a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -10728,6 +10728,12 @@ L:	platform-driver-x86@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/platform/x86/fujitsu-laptop.c
 >  
-> -extern void __noreturn __module_put_and_kthread_exit(struct module *mod,
-> -			long code);
-> -#define module_put_and_kthread_exit(code) __module_put_and_kthread_exit(THIS_MODULE, code)
-> -
->  #ifdef CONFIG_MODULE_UNLOAD
->  int module_refcount(struct module *mod);
->  void __symbol_put(const char *symbol);
-> @@ -850,8 +846,6 @@ static inline int unregister_module_notifier(struct notifier_block *nb)
->  	return 0;
->  }
->  
-> -#define module_put_and_kthread_exit(code) kthread_exit(code)
-> -
->  static inline void print_modules(void)
->  {
->  }
-> @@ -879,6 +873,9 @@ static inline void module_for_each_mod(int(*func)(struct module *mod, void *data
->  }
->  #endif /* CONFIG_MODULES */
->  
-> +void __noreturn __module_put_and_kthread_exit(struct module *mod, long code);
-> +#define module_put_and_kthread_exit(code) __module_put_and_kthread_exit(THIS_MODULE, code)
+> +FUJITSU M3000 FIRMWARE CONSOLE
+> +M:	Magnus Lindholm <linmag7@gmail.com>
+> +L:	linux-serial@vger.kernel.org
+> +S:	Maintained
+> +F:	drivers/tty/hvc/hvc_m3000.c
 > +
->  #ifdef CONFIG_SYSFS
->  extern struct kset *module_kset;
->  extern const struct kobj_type module_ktype;
-> diff --git a/kernel/Makefile b/kernel/Makefile
-> index 1e1a31673577..08a94594975d 100644
-> --- a/kernel/Makefile
-> +++ b/kernel/Makefile
-> @@ -58,7 +58,7 @@ obj-y += liveupdate/
->  obj-y += dma/
->  obj-y += entry/
->  obj-y += unwind/
-> -obj-$(CONFIG_MODULES) += module/
-> +obj-y += module/
->  
->  obj-$(CONFIG_KCMP) += kcmp.o
->  obj-$(CONFIG_FREEZER) += freezer.o
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index 72a3f5998dd2..be70f10e4968 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -20417,9 +20417,7 @@ BTF_ID(func, __ia32_sys_exit_group)
->  BTF_ID(func, __kunit_abort)
->  BTF_ID(func, kunit_try_catch_throw)
->  #endif
-> -#ifdef CONFIG_MODULES
->  BTF_ID(func, __module_put_and_kthread_exit)
-> -#endif
->  #ifdef CONFIG_X86_64
->  BTF_ID(func, __x64_sys_exit)
->  BTF_ID(func, __x64_sys_exit_group)
-> diff --git a/kernel/module/Makefile b/kernel/module/Makefile
-> index 50ffcc413b54..72fd2972eacf 100644
-> --- a/kernel/module/Makefile
-> +++ b/kernel/module/Makefile
-> @@ -7,6 +7,7 @@
->  # and produce insane amounts of uninteresting coverage.
->  KCOV_INSTRUMENT_main.o := n
->  
-> +ifeq ($(CONFIG_MODULES),y)
->  obj-y += main.o
->  obj-y += strict_rwx.o
->  obj-y += kmod.o
-> @@ -23,3 +24,6 @@ obj-$(CONFIG_KGDB_KDB) += kdb.o
->  obj-$(CONFIG_MODVERSIONS) += version.o
->  obj-$(CONFIG_MODULE_UNLOAD_TAINT_TRACKING) += tracking.o
->  obj-$(CONFIG_MODULE_STATS) += stats.o
-> +else
-> +obj-y += stubs.o
-> +endif
-> diff --git a/kernel/module/main.c b/kernel/module/main.c
-> index d0e1e0bd2ad0..a8bf803afa81 100644
-> --- a/kernel/module/main.c
-> +++ b/kernel/module/main.c
-> @@ -60,6 +60,7 @@
->  #include <linux/codetag.h>
->  #include <linux/debugfs.h>
->  #include <linux/execmem.h>
-> +#include <linux/kthread.h>
->  #include <uapi/linux/module.h>
->  #include "internal.h"
->  
-> diff --git a/kernel/module/stubs.c b/kernel/module/stubs.c
+>  FUJITSU TABLET EXTRAS
+>  M:	Robert Gerlach <khnz@gmx.de>
+>  L:	platform-driver-x86@vger.kernel.org
+> diff --git a/drivers/tty/hvc/Kconfig b/drivers/tty/hvc/Kconfig
+> index 5866195de26a..0feb7ec98f4f 100644
+> --- a/drivers/tty/hvc/Kconfig
+> +++ b/drivers/tty/hvc/Kconfig
+> @@ -134,3 +134,13 @@ config HVCS
+>  	  will depend on arch specific APIs exported from hvcserver.ko
+>  	  which will also be compiled when this driver is built as a
+>  	  module.
+> +
+> +config HVC_M3000
+> +	bool "M3000 firmware pseudo-console"
+> +	depends on SPARC64_VII
+> +	select HVC_DRIVER
+> +	help
+> +	  Provide hvc0 using Open Firmware stdin/stdout on IKKAKU only.
+> +	  Input is polled; no native UART registers are accessed.
+> +	  Firmware calls are serialized and use a locked-image bounce buffer.
+> +	  Say Y to use the M3000 firmware pseudo-console as hvc0.
+> diff --git a/drivers/tty/hvc/Makefile b/drivers/tty/hvc/Makefile
+> index 98880e357941..5b0277deb7c9 100644
+> --- a/drivers/tty/hvc/Makefile
+> +++ b/drivers/tty/hvc/Makefile
+> @@ -11,3 +11,5 @@ obj-$(CONFIG_HVC_IUCV)		+= hvc_iucv.o
+>  obj-$(CONFIG_HVC_UDBG)		+= hvc_udbg.o
+>  obj-$(CONFIG_HVC_RISCV_SBI)	+= hvc_riscv_sbi.o
+>  obj-$(CONFIG_HVCS)		+= hvcs.o
+> +
+> +obj-$(CONFIG_HVC_M3000) += hvc_m3000.o
+
+No need for a blank line, right?  And why no tab used here?
+
+> diff --git a/drivers/tty/hvc/hvc_m3000.c b/drivers/tty/hvc/hvc_m3000.c
 > new file mode 100644
-> index 000000000000..1385c87e8169
+> index 000000000000..0ef4c888a6a2
 > --- /dev/null
-> +++ b/kernel/module/stubs.c
-> @@ -0,0 +1,9 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +++ b/drivers/tty/hvc/hvc_m3000.c
+> @@ -0,0 +1,167 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/* Experimental M3000 Open Firmware pseudo-console backend. */
+
+What will make it not "experimental"?
+
+And no copyright?
+
+
+
+> +#include <linux/console.h>
+> +#include <linux/err.h>
+> +#include <linux/init.h>
+> +#include <linux/irqflags.h>
+> +#include <linux/string.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/timer.h>
+> +#include <asm/oplib.h>
+> +#include <asm/spitfire.h>
+> +#include "hvc_console.h"
 > +
-> +#include <linux/kthread.h>
-> +#include <linux/module.h>
+> +#define M3000_WRITE_ATTEMPTS 8
+
+why 8?
+
 > +
-> +void __noreturn __module_put_and_kthread_exit(struct module *mod, long code)
+> +static int m3000_stdin;
+> +static bool m3000_ready;
+> +/* Keep firmware buffers within the locked kernel image mappings. */
+> +static u8 m3000_buffer[256];
+> +static DEFINE_RAW_SPINLOCK(m3000_buffer_lock);
+> +static struct timer_list m3000_poll_timer;
+> +static bool m3000_poll_active;
+
+Shouldn't these be in a structure attached to the console somewhere?
+Otherwise you have limited yourself to just one of these.
+
+> +
+> +/*
+> + * HVC's idle backoff can exceed the firmware input FIFO's capacity.
+> + * Wake its worker each tick while open; keep PROM calls out of the timer.
+> + */
+> +static void m3000_poll_tick(struct timer_list *timer)
 > +{
-> +	kthread_exit(code);
+> +	if (!READ_ONCE(m3000_poll_active))
+> +		return;
+
+Why are you accessing m3000_poll_active like this in an attempt to not
+use a real lock?  Are you _sure_ a bool will work this way properly?
+
+> +	hvc_kick();
+> +	mod_timer(&m3000_poll_timer, jiffies + 1);
 > +}
-> 
-> ---
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> change-id: 20260918-module-stubs-dccefe41dace
+> +
+> +static int m3000_open(struct hvc_struct *hp, int data)
+> +{
+> +	WRITE_ONCE(m3000_poll_active, true);
+> +	mod_timer(&m3000_poll_timer, jiffies + 1);
+> +	return 0;
+> +}
+> +
+> +static void m3000_close(struct hvc_struct *hp, int data)
+> +{
+> +	WRITE_ONCE(m3000_poll_active, false);
+> +	timer_delete_sync(&m3000_poll_timer);
+> +}
+> +
+> +static ssize_t m3000_io(u8 *in, const u8 *out, size_t count)
+> +{
+> +	unsigned long args[7], flags;
+> +	bool input = in != NULL;
+> +	int ret;
+> +
+> +	if (!count)
+> +		return 0;
+> +	count = min_t(size_t, count, input ? 1 : sizeof(m3000_buffer));
 
-Hi Petr,
+No need for min_t(), why not just min()?
 
-I noticed your response to Sashiko [1].
+> +	/* Serialize the bounce buffer; p1275 separately serializes firmware. */
+> +	raw_spin_lock_irqsave(&m3000_buffer_lock, flags);
 
-I agree. Marking the stub function with "__used __retain" in
-kernel/module/stubs.c (e.g. as per "#define __bpf_kfunc __used __retain
-__noclone noinline") should be sufficient. Thank you.
+why is this a "raw" spinlock?
 
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+> +	if (!input)
+> +		memcpy(m3000_buffer, out, count);
+> +	args[0] = (unsigned long)(input ? "read" : "write");
 
-[1]: https://lore.kernel.org/sashiko-reviews/c166a29c-14f4-44ee-81ac-d79c82175fc8@suse.com/
+A string being cast to an unsigned long?  Are you _sure_?
 
-Kind regards,
--- 
-Aaron Tomlin
+> +	args[1] = 3;
+> +	args[2] = 1;
+> +	args[3] = (unsigned int)(input ? m3000_stdin : prom_stdout);
+> +	args[4] = (unsigned long)m3000_buffer;
+> +	args[5] = count;
+> +	args[6] = (unsigned long)-1;
+> +	p1275_cmd_direct(args);
+> +	ret = (int)args[6];
+> +	if (ret > 0 && ret <= count && input)
+> +		memcpy(in, m3000_buffer, ret);
+> +	raw_spin_unlock_irqrestore(&m3000_buffer_lock, flags);
+> +	if (ret == -2 || ret == 0)
+> +		return input ? 0 : -EAGAIN;
+> +	if (ret < 0 || ret > count)
+> +		return -EIO;
+> +	return ret;
+> +}
+> +
+> +static ssize_t m3000_get(u32 termno, u8 *buf, size_t count)
+> +{
+> +	return m3000_io(buf, NULL, count);
+> +}
+> +
+> +static ssize_t m3000_put(u32 termno, const u8 *buf, size_t count)
+> +{
+> +	ssize_t ret;
+> +	int attempt;
+> +
+> +	/*
+> +	 * HVC retries -EAGAIN forever, so drop this chunk without logging when
+> +	 * the no-progress budget expires. This cannot bound a stalled firmware
+> +	 * call or lock acquisition.
+> +	 */
+> +	for (attempt = 0; attempt < M3000_WRITE_ATTEMPTS; attempt++) {
+> +		ret = m3000_io(NULL, buf, count);
+> +		if (ret != -EAGAIN)
+> +			return ret;
+> +		cpu_relax();
+> +	}
+> +	return -EIO;
+> +}
+> +
+> +static const struct hv_ops m3000_ops = {
+> +	.get_chars = m3000_get,
+> +	.put_chars = m3000_put,
+> +	.notifier_add = m3000_open,
+> +	.notifier_del = m3000_close,
+> +	.notifier_hangup = m3000_close,
+> +};
+> +
+> +static bool __init m3000_property_matches(phandle node, const char *prop,
+> +					 const char *expected)
+> +{
+> +	char value[64];
+> +	int len;
+> +
+> +	len = prom_getproperty(node, prop, value, sizeof(value) - 1);
+> +	if (len <= 0)
+> +		return false;
+> +	value[len] = '\0';
+> +	return !strcmp(value, expected);
+> +}
+> +
+> +static int __init m3000_console_init(void)
+> +{
+> +	phandle node;
+> +	int ret;
+> +
+> +	if (tlb_type != sparc64_vii)
+> +		return -ENODEV;
+> +	if (!m3000_property_matches(prom_finddevice("/"), "model", "IKKAKU"))
+> +		return -ENODEV;
+> +	m3000_stdin = prom_getint(prom_chosen_node, "stdin");
+> +	if (!m3000_stdin || m3000_stdin == -1 || !prom_stdout || prom_stdout == -1)
+> +		return -ENODEV;
+> +	node = prom_inst2pkg(prom_stdout);
+> +	if (!m3000_property_matches(node, "name", "pseudo-console"))
+> +		return -ENODEV;
+> +	node = prom_inst2pkg(m3000_stdin);
+> +	if (!m3000_property_matches(node, "name", "pseudo-console"))
+> +		return -ENODEV;
+> +	ret = hvc_instantiate(0, 0, &m3000_ops);
+> +	if (ret < 0)
+> +		return ret;
+> +	m3000_ready = true;
+> +	return 0;
+> +}
+> +console_initcall(m3000_console_init);
+> +
+> +static int __init m3000_tty_init(void)
+> +{
+> +	struct hvc_struct *hp;
+> +
+> +	if (!m3000_ready)
+> +		return -ENODEV;
+> +	timer_setup(&m3000_poll_timer, m3000_poll_tick, 0);
+> +	hp = hvc_alloc(0, 0, &m3000_ops, sizeof(m3000_buffer));
+> +	if (IS_ERR(hp))
+> +		return PTR_ERR(hp);
+> +	hp->ws.ws_row = 24;
+> +	hp->ws.ws_col = 80;
+> +	pr_info("M3000: firmware-backed hvc0 tty ready (serialized, polled input)\n");
+
+When drivers work properly, they are quiet.
+
+thanks,
+
+greg k-h
