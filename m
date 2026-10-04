@@ -1,158 +1,242 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD1438E8B1
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791107787; cv=none; b=TsKqbaOZc49L4ZNAR5bKkPCGIlAdXnEwaWR/hTZmRuOOYbY7WOybqGMKCG9mB2xIPZS/lVopELY+vZbqCfparJk6KzqLB7+xOAeCWHmtcJQglAtSOuarTpJfO6Qhegv+HYVpvfzd3AxtW26ZAVEut3RCC2fesQFZbnYjBjwz6y0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791107787; c=relaxed/simple;
-	bh=5JlpBxYD40ztw40lbBmQXZ5uTOaCMTIyeOq/marxx8U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FL0sDNTem2w6c9N94o27U1TI1rVFt+fwxa0h/H8cRATQ/nFbpAb3YEw786NCk0mjxEUqbuDFPzoXD8TrOj7X118ToifIMdnbes4JSPOYdTyDLbojP+ejxMww+PAwjLjVQ/3Y8NlRzRu0/kh9nSSM3EvYVTZtwuCtSaZBbrTGCz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOWFDKOa; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082E83B14B4
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791108281; cv=pass; b=YWKotkKcqpod8zrn4OwpJsOlFSHYax18K3NtZnw4XRYW3RDfa5TXdw4LwALDnGr41tN4dnZtSAwHGn67y4SCUJzmP2UdKdnk0jwbv9eYojGcHd7tquIYT7/0IxMiFvAtB4NOZOFhrLlDYzrlekOT77PRdmob7UB7M9K3yH6kM48=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791108281; c=relaxed/simple;
+	bh=EBHJJwH5oOGoEiowKEcXjSeW4zCfzR8fzqJl8Snvci0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QL3ulpQY30Nw8AmCyQY439v3d5xWk0xnzcNBZAEccVcFfxXaS4gNyCvGO7wpmaufh3Dif99qbjB6Yq7jAWJvLHFEwF0v+c8ViI20xXhKcToivErwC/6H59nGG38yzUwtVSEJorc0Wj8nOZRZjgqiST8nCTt+IweqrqYnnNPw7oA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ekx5YJ4Y; arc=pass smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOWFDKOa"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8686f46e4adso462428b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:56:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ekx5YJ4Y"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so1483518a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:04:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791108276; cv=none;
+        d=google.com; s=arc-20260327;
+        b=anCrZjYLM+HiSkH+xB4ECfz2NOfXB7xZqJi1NUXfQXLlKXX1DBJPwsCipJt47NSjja
+         r3etVrn7bKKq67gPnCqcurmVCQJbWwJmvRz2UCxNF/B6TdQei4Ylu6EpskcuhQVFFbnm
+         JOFvl2s4BmMpHCTuK3OnEwdGHdBPVCFX8CfmUlrzdZzXXvDneIhbG6hxedzeNKA+m76r
+         E6mGMFlMDcUyOo99eJP0PA3yn5g3fnwWRqD5zYezW3dNipvSXVr+IMYJL0dh92Oe89NE
+         y4oKK3ZXBtn6bv+b52ICZxkSv6onCOia4Hv1GZlGCVrk5oVsURd2VRuweICjV7E6zRuU
+         bVwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ihe+WnKzwT1Q+F2TK/d50qmjYhl6srofLOFbWpQYooU=;
+        fh=r95qMDSi1rjzzTFRgEthuiwa9PmQTofBtWLG9kWTrKY=;
+        b=DKxdfHek6Jf8mcZLU6BXA+nNVa6CAnBRnYyvT8dAydKquu5sGruesRXXXwDAWW74ag
+         4bWqzxAXUZeISEyGX829/YWLKFhe2SZ/I5mK7RxF6H+dAxNf9KvHeB3EI2k0w6ZACjRU
+         Qp9V/UTOyh8GrA3cf1t2A5ScKtPKCzHwDkN7L21daKA1O+i2zetlAmUieKf9SzmFpdWV
+         NaqLkCUih/5G6LJ8FrvPF+fBx1Ud36GVaWFZpwZRLeG7HD9WPf4HypNCvPJAqrhvROIw
+         Gb0wX1TOs0ZkPEHLm/AosDdyvqsEevPXq4pocxLRcuASRHrP1Wz3KlDMCZ44524tdnTl
+         dYwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791107785; x=1791712585; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6SCB/3AIaM5xEYyIzslZamlr+QZIK+RG4HQ9PeozLAY=;
-        b=QOWFDKOa7O5eYIpmdgRd5NknduMiFbRlHyrJAEZh/ZgNYR7VIygZIw/iFuqOSlpJjW
-         NZP4ABTogemy/JlpVpsqlmbeOuG2i9+ddu8mYg2b7ElmkfA1hyXT1OtXQA34SO1f/cGl
-         8DpdNRokyIV4G/5OIwoCKMkd1j9APdmrWi2ih7xI6iVkIjylOFOSP0sMWsxpWw5XrHp2
-         izq6E1LHbyaMiT1cRdr2+9Pi5C1NxkDtzw5JkkMedO6bAx0vFsc09OHxfIkNxL0Znlpa
-         WaoXxjIvNgSa4TZHJ4CaW/v8/Dd9zNaIbVjGwxrJXuT4kf6LPaHnunISBlCLrRCQlzSX
-         GVOQ==
+        d=gmail.com; s=20251104; t=1791108276; x=1791713076; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ihe+WnKzwT1Q+F2TK/d50qmjYhl6srofLOFbWpQYooU=;
+        b=ekx5YJ4YnCSaVlPJwjoSlH/BUvvQpyOPBG/xyAFerz/WZGXgVtfD0KK6jLSKpwyWCn
+         0h6M8R9oUzvjmh4q2ngFm0uMaDFdq5y37w1NzkOFZSP0SRcTseQBKnqxzm7TGA39G50y
+         MNYAEpvfzpNQHFPqUBGVZE1QKrG4OPJAHnPu8MTwb/RjZNACsTvTHUlvTC2+T5qj8UgI
+         eVgdhoSb+kgePtq8lgfsD1CiUJWxJqSjG33yVYydr8EsF5t8eSvdkv6ZImoAXuZM5tKh
+         maRf1yMST7PWfT5aG5NKr4MCpLXZywhV+wogu2rZrbPf2RKW/KZlDQimX5eJ0+Z5ZgGo
+         H7RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791107785; x=1791712585;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6SCB/3AIaM5xEYyIzslZamlr+QZIK+RG4HQ9PeozLAY=;
-        b=YqF2pra26HF6/Vb4sT4DM+ZrWz8XrocrU1frOKEqiNci1QKQu5dSlBaDR3M7Qtt4GL
-         /MMPb2EbEL63JhQBMXfAZ65IeGH0tI5h1uZtMR8bqysfm/8ezC2yUoAdMXEE4lDJV7YQ
-         1LzzuQtCW1aMhClKUqGR/8R8L7/BNbNRT0f8I2pVePHT/vaFKfox4d/BCL/+naqNboM4
-         83EnIf1N9VX3IEgxYrvqpydPaSZqdX/XDzSAerFZnkJ+zBpi+QWodQ80od9IFBBMlPOW
-         ZyLop54wC60Xo38wJdYrAzeZraMKvWlSrRLcLWo5mBYxDKOzT8v0HUDX3GME6b1a96zz
-         vzJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxxJcFYmBSDOY3WoohvSRQDp7bz2wDsVVU/mC17igMXSoU47W1uu9Q1o7F9vYCNXvYv2SqXc6lYChOcABI=@vger.kernel.org
-X-Gm-Message-State: AFuF++miq7ednnf2ie9XQwbEzyk5mfinMpRgfqIKdVKjZIebYbVimCCL
-	srY2AZXSsxRwZL/OIEpHmKCYGNF+qjpKLrNXYrU0t5YBRpNL5CLftyju
-X-Gm-Gg: AYBFou10HjBikxefOZIwkFdwkeYY6T8VOpE0Nd9GJC1rb5LHlpfDL9s8GKQPtzYZrfs
-	eo4MJsmly+RqhVwElTXC9FgG8jP0zFSL7S43D8ALKSj10y6Kh4V2R1b2VW+VwPkKhS9z8/41lEb
-	v/on3+NnKXwsniwlwpDPr3HFHIzvLLLMcN52GFzJ1oygINn20x44UpZSsB70Dg+7EhNMqyxd50K
-	ZnheWEeB0yt4cDs8g+kj/+mYdOkQe0umax4gMIJQeGQ29pfjI8BIBXVkLjqT4UIg61BL5mA+ZuR
-	42eiWC0DxEarhaU8UhykSRYvblWCsf8k3mmbTaZC3A+l+BS3lXD1TQfZqEgWtbB2MF/PM0mko5v
-	hYX4pPg8TvA9Cssyw1aBCPkpAZ95zmcwrjg7Fo40MrXPTCxpLcoyGgzQYluuBbUvEHWfeIFXsXh
-	89P8FuESxUeZgdJtVA8skgob0Wd2a7ZpDhH7bF5/io2f49bx7S8vjhvOlrhz6H6X5nL76vnf8td
-	Y2hGMhQdpkGRBvlC5ilo7V7Lg6W27Dpt4OqorQc9Kz/mAaeEra57ECZMsF1jsUVw+BV6DdqAKiD
-	eewA/wBLmrEc8vCDnnpjYhMLh7jGZwRaTTkm0xTYhPJHkg1xRwspZfOkGT0=
-X-Received: by 2002:a05:6a00:1bc7:b0:880:ee58:2768 with SMTP id d2e1a72fcca58-88af8b3f3c3mr6115341b3a.56.1791107784970;
-        Sun, 04 Oct 2026 02:56:24 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c3a39f6sm2418175b3a.28.2026.10.04.02.56.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 02:56:24 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: Baolin Liu <liubaolin12138@163.com>,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/4] ntfs: do not give a contiguous cluster allocation a second run
-Date: Sun,  4 Oct 2026 17:56:08 +0800
-Message-ID: <d839fd6fce07e1303ae8627739d6db361e50bf07.1791107674.git.matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1791107674.git.matthias.goergens@gmail.com>
-References: <cover.1791107674.git.matthias.goergens@gmail.com>
+        d=1e100.net; s=20260707; t=1791108276; x=1791713076;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ihe+WnKzwT1Q+F2TK/d50qmjYhl6srofLOFbWpQYooU=;
+        b=J9MCxtS4NX+MsKQXJVYY/19EeYBhKHcRl1e4s8QS/0Kmy1fcn2HEOMjfOc1RDa2xx+
+         6oO/aEDz6tAhve2DhZwN7Ytf9YRELOZd/IPLrDYXtwk5OPk2wgsPCk3eaa4DV9/ZA47E
+         UJ299IuKjOGXXyqosbsCEZTZlyw+xUtk/Iv5dzhlK356dXpkdwGeWIFEeFH7S4JOfxFP
+         +/vxWkjGtjytpazs9sTn5SKuEevkAfwHFyUgYgkZcSxVLeOIcoEudCqxDr0wyONDlIru
+         2+MetpStp7tGxuK64h6rXpbYYpuRtlANMtN32wmFhJyQuVXE4qVDUCxTPFVsiij9QM4Y
+         SSPA==
+X-Forwarded-Encrypted: i=1; AKwUvBzupLKrvarYWbe+LeX85jjz2NjJR8eyppmAo3x/hMeGZHp37p611dnJRKdiQHdQaloSw9zcr+KQ82xIXgg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeq/FpvS2NVyI+eU02vrrLLG3MIlcQG68Ec3HZXRV22N/CjA4R
+	7IaQkiANWn9aEJl645uq3wEf97h7PUJoV8AwjxWcSuHZd5HExX8tWDE6FsRKwvC+VdKyocGCGCI
+	kQzp1b5CZaLMftITE4ihQ2g2pCYD3KSOnpYR0
+X-Gm-Gg: AYBFou33GYNXBf1OjH+uCh3/XQyHF9Bvsrkl1UFR3vY+CTXExygvVlTIJCYvE3r5w0x
+	e8NimJfYjPZEZlAvJdBgZp5Xf2pT9PikNrJxLgTKFy7wlk5KSMlqfmPG1xI+wVzWWSRna7yxWMK
+	PZJ9hgxnzVIB3DfN5DDTS/dyQide3TOiS23sLpGgjt8j/TfGjxmmR9OHNpx2pbkGJMkniOcfDZ8
+	f4r2MwXFBh52kAGf4G1AP3Pz3YB1xQo3WxZr4v/HXf0VBUZeLuRMyclF5p7Qmv4qaIOY4mXDE9F
+	2Sl5wZQlhYSnoysFxyMKMRixMt8HO8E9ViUhcJOLicFaqxiOsLCmcB70GhIdgNhPuIiTMqgRUj2
+	Iskg+WHr2oKeryunW24S5yUJhrNdniD5v3b1vMVP0a1F2uJVHO26R
+X-Received: by 2002:a05:6402:46cf:b0:6aa:f0e:a168 with SMTP id
+ 4fb4d7f45d1cf-6afad8f072fmr3352298a12.21.1791108276228; Sun, 04 Oct 2026
+ 03:04:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260927005821.8369-1-kaloz@kernel.org>
+In-Reply-To: <20260927005821.8369-1-kaloz@kernel.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 4 Oct 2026 12:04:24 +0200
+X-Gm-Features: AclHuK87PxQTIKtKGJkhA0-iX0j0bWwmt5flwQrpgs4LwD_VD1XKqUH-YVG12O8
+Message-ID: <CA+=Fv5SPfwUVExqExM_cX9yWGa3M1zBo057koD3VRZXVd3DCrQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] sparc32: SMP futexes, casa and idiv emulation
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ntfs_attr_map_cluster() asks ntfs_cluster_alloc() for contiguous
-clusters and merges the whole result into the runlist, but reports only
-its first run, so its callers zero only that run.  Within a bitmap page
-the allocator keeps such a request to one run, because a cluster in use
-ends it.  The zone search can also move on without testing the clusters
-after the run, though: it skips a bitmap page that has no free clusters,
-it goes from the end of the zone to the start of pass 2, and once every
-zone has been searched it shrinks the MFT zone by half and goes on at
-its new end.  After each of these jumps the first cluster tested is
-still taken as the next one of the run, and if it is free it starts a
-second run elsewhere on the volume.
+Hi Imre,
 
-fallocate() over a hole then leaves the clusters of that second run
-holding whatever they held before: on a nearly full volume, 16 of 20
-fallocated clusters read back a deleted file's data, in each of the
-three cases.
+On Sun, Sep 27, 2026 at 2:59=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrote=
+:
+>
+> sun4m has no compare-and-swap instruction and casa is optional on
+> LEON, so SMP sparc32 has had no futexes, and user code on those CPUs
+> has no CAS to build locks from.
+>
+> Patch 1 implements the futex atomic ops in atomic32.c and drops the
+> !(SPARC32 && SMP) dependency of FUTEX. A LEON part that implements
+> casa, found by a boot-time probe, runs casa on the user word; other
+> CPUs take the __atomic_hash spinlocks.
+>
+> Patch 2 completes user casa from illegal_instruction on CPUs without
+> it, through patch 1's futex_atomic_cmpxchg_inatomic(), so emulated
+> casa and the futex ops serialize on the same lock. It is atomic
+> against itself and against the futex ops, not against a plain store
+> to the same word, so a C library using it has to do its atomic stores
+> with casa too.
+>
+> Patch 3 completes udiv, sdiv and their -cc forms from the same
+> do_illegal_instruction() dispatch: SuperSPARC and SuperSPARC-II trap
+> those when the {Y, rs1} dividend has significant bits above bit 51,
+> which gcc -mcpu=3Dv8 output, including libgcc's __udivdi3, can produce.
+> It shares patch 2's windowed-operand helpers and the dispatch block,
+> which is why it comes last.
+>
+> Patch 1 comes first because patch 2 is built on it. On its own it
+> races nothing: without patch 2, user casa on these CPUs is SIGILL.
+>
+> Magnus Lindholm has an independent RFC covering the same ground from
+> a different ABI: "[RFC PATCH 0/5] sparc32: kernel assisted
+> compare-and-swap, and futex on SMP" (patchwork sparclinux, Message-Id
+> 20260923201830.865553-1-linmag7@gmail.com), with a companion glibc
+> series (patchwork glibc, Message-Id
+> 20260924064228.867909-1-linmag7@gmail.com). That RFC adds a new
+> software trap, ta 0x11 (trap type 0x91), extending David Miller's
+> 2016 CAS-trap prototype at ta 0x23 rather than completing it, so
+> userspace has to be rebuilt to call it. This series instead
+> completes the casa opcode itself, so a binary already emitting casa
+> (gcc -mcpu=3Dleon3 or -mcpu=3Dv9 output, or a C library that encodes it
+> as a .word) runs unmodified on a CPU without hardware casa, with no
+> new trap number and no libc rebuild. Happy to share the futex and
+> do_illegal_instruction() plumbing with whichever ABI lands.
+>
+> Andreas: do LEON3FT parts want the GRLIB-TN-0010/0011 "nop; .balignl
+> 16" alignment before the casa word here, or is the plain encoding as
+> posted fine for them?
+>
+> Notes, not for the log:
+>
+> - checkpatch on patch 1: "Lines should not end with a '('" is the
+>   __asm__ __volatile__( idiom of uaccess_32.h; the -ENOSYS warning is
+>   the futex API's return for an unknown op, as on every architecture.
+>   "does MAINTAINERS need updating?" on patches 2 and 3 is covered by
+>   the F: arch/sparc/ entry.
+> - On qemu's SS-20 with two SuperSPARCs and the casa emulation alone,
+>   futex() returns ENOSYS and musl's mutex, PI mutex and robust mutex
+>   tests fail. With patches 1 and 2 they pass, as does a PI lock
+>   contended between user casa and FUTEX_LOCK_PI/FUTEX_UNLOCK_PI on
+>   both CPUs.
+> - The casa branch of the futex ops has not run on LEON hardware. The
+>   probe runs on LEON only; its fixup path, which a LEON without casa
+>   takes, has run only in a test kernel that forced the probe on
+>   qemu's SS-20.
+> - The divide emulation has run on no CPU that traps it. No sparc32
+>   model in qemu raises the trap, and no SuperSPARC or SuperSPARC-II
+>   was available for this series; it is exercised only by build and
+>   link.
+>
+> Imre Kaloz (3):
+>   sparc32: support futexes on SMP
+>   sparc32: emulate casa on V8 CPUs
+>   sparc32: emulate integer divide taken as illegal_instruction
+>
+>  arch/sparc/include/asm/futex_32.h |   6 +-
+>  arch/sparc/kernel/Makefile        |   2 +
+>  arch/sparc/kernel/cas_emu_32.c    | 117 +++++++++++++++++++++++++++
+>  arch/sparc/kernel/div_emu_32.c    | 127 ++++++++++++++++++++++++++++++
+>  arch/sparc/kernel/entry.h         |   2 +
+>  arch/sparc/kernel/traps_32.c      |  23 +++++-
+>  arch/sparc/kernel/unimp_32.h      |  71 +++++++++++++++++
+>  arch/sparc/lib/atomic32.c         | 122 ++++++++++++++++++++++++++++
+>  init/Kconfig                      |   1 -
+>  9 files changed, 468 insertions(+), 3 deletions(-)
+>  create mode 100644 arch/sparc/kernel/cas_emu_32.c
+>  create mode 100644 arch/sparc/kernel/div_emu_32.c
+>  create mode 100644 arch/sparc/kernel/unimp_32.h
+>
+>
+> base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+> --
+> 2.47.3
+>
 
-Delayed allocation gets a second run without punching any holes: filling
-the same volume with write() reaches the last case when the MFT zone is
-shrunk.  The allocator then takes only the first run off the
-dirty-cluster count, and after the fill statfs() reported no free space
-while 939 clusters were still free, until the next mount.
+I'm following up on this series after some more testing, overall:
+very nice series, this lets us run modern linux user-space on
+sparc32 hardware again, with minimal changes to glibc, which I
+believe is in line with what Zanella responded on the glibc mailing
+list: get the support on the kernel first, and glibc can catch up
+transparently.
 
-Before setting the bit of a cluster for a contiguous request, check that
-the cluster comes right after the run, and return the run as it is if
-not; no bit has to be cleared.  ntfs_attr_map_cluster() already handles
-a short run, which a cluster in use produces in the same way: its
-callers ask again for the rest.
+This replaces my own CAS/futex v3 series entirely:
+  https://lore.kernel.org/sparclinux/20260923201830.865553-1-linmag7@gmail.=
+com/
+As well as my previous fix for UDIV/SDIV:
+  https://lore.kernel.org/sparclinux/20260924205646.870950-1-linmag7@gmail.=
+com/
 
-Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
-Link: https://lore.kernel.org/all/CAKYAXd-agPFvDj2-HvjP3SLtG7AxkqUeNPqYyrLt-BN7fT8w6g@mail.gmail.com/
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
-New in v3, after Namjae Jeon's question on v2 2/3.  Patch 2's early
-return for the run from the hint stays: without it the restarted search
-would read the bitmap until it found a free cluster just to return the
-run, and if there was none it would fail the whole request with ENOSPC.
+This series is altogether a better solution for getting sparc32 userland
+up and running properly.
 
-The other contiguous callers are the attribute list allocations, which
-free a result that is not one run of the full length, and
-ntfs_write_cb() in compress.c, which writes the whole compression block
-from the first cluster without looking at the length.  That was already
-wrong for a short run before this patch and is not changed here.
+One thing worth mentioning for anyone testing this: a stock sparc32
+glibc build (mine, with its own kernel-trap fallback) does not just
+lose a feature on this kernel, it hard-crashes - cas32() falls
+through its HWCAP dispatch to a fatal abort the moment anything
+needs a real compare-and-swap, which in practice means every
+threaded program, including sshd's own connection handling.
+Confirmed this the hard way on real hardware.
 
-contig-paths.c and its guest init script init-paths in
-https://github.com/matthiasgoergens/linux/tree/reproducer/2026-10-04-ntfs-nearfull-v3
-set up each case; the README there has the results.
----
- fs/ntfs/lcnalloc.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+The glibc fix this needs in return is smaller than my CAS/futex
+series ever was, once the kernel completes casa
+unconditionally, cas32() collapses to one unconditional casa
+instruction, with the whole HWCAP dispatch, the kernel-trap
+fallback, and the fatal path deleted outright. Built and tested that
+reduced patch against a real portage glibc build.
 
-diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-index c58e689fb585..3ebcac4c2864 100644
---- a/fs/ntfs/lcnalloc.c
-+++ b/fs/ntfs/lcnalloc.c
-@@ -375,6 +375,16 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
- 				has_guess = 1;
- 				continue;
- 			}
-+			/*
-+			 * A contiguous request gets a single run.  The scan can
-+			 * move on without testing the clusters after the run
-+			 * (past a bitmap page that is full, to pass 2 or to
-+			 * another zone), so return the run when this cluster
-+			 * does not follow it.
-+			 */
-+			if (is_contig && rlpos &&
-+			    lcn + bmp_pos != prev_lcn + prev_run_len)
-+				goto out;
- 			/*
- 			 * Allocate more memory if needed, including space for
- 			 * the terminator element.
--- 
-2.56.0
+Tested on a real SPARCstation 20, on both a HyperSPARC and a real
+dual SuperSPARC-II module, so the udiv erratum genuinely traps:
 
+ - casa and SMP futex (plain and PI) all work correctly
+ - 8-thread pthread_mutex contention, 1.6M locked increments,
+   zero lost, on both CPUs
+ - userspace casa-based locking and FUTEX_LOCK_PI/UNLOCK_PI
+   correctly serialize on the same lock word under contention
+ - udiv/sdiv: 10/10 correct, including the saturation boundary in
+   both directions, INT64_MIN / -1, divide-by-zero -> SIGFPE, and
+   udivcc condition codes
+
+Individual Tested-by tags follow on each patch. Thanks for doing
+this.
+
+Magnus
