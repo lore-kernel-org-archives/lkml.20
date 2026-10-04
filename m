@@ -1,362 +1,112 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D1643BDCF
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791115061; cv=none; b=I6SagKZcBJsWKGk9CYSRuAXxuzi3GozFwTVNB0lEswk6jfzqBYSuwqpBHGpkJ/tOmyU4dFzt1yZW0HlXL7WjFj4ZKeEwUVSnuKLZLLZzKVOgiluBNogHGMo/E2XcXaRYwUwD16SeDZpKAgC+yhK6ki5ZPnHFlO26HFEZzKnK4+8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791115061; c=relaxed/simple;
-	bh=SwWyKS4FsL6rdMp5zncN4hwBvGyxXjS81sU/gDydeOo=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=niST9nD6vVYtfztXZRxd0FjQEegK1wWwe/43T/AO0Ebtu4GxWREh3a2fPua98+ka2jIA/xdMqJnlxVzpC6iWYmqWw07gitgwYNZ9ySBpG5McZ9KUZ+yjjA5hKLR2oILFtc8qiqgZCyFf3nq6jd0udLS2T36NKvOYWNNHWNKbGTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=m62diTSC; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF0C43BDBD
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791115152; cv=pass; b=GZPqI/ckv1P7A6UDqk73ZuO5h72GqlC7hCo7HSGGfpDqWKLma2xvXW2WuBb4pCYr6eaGLPtCvuMg5Cq8APOsTtqq8PolgdbJl1aXCBXBfsZALGcwh+Ixqi+fbNrH6XPxrLXRp8dcUr+axiRtmUEO3WSPNvdpol4fa0oK7p3Qx/Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791115152; c=relaxed/simple;
+	bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iLfbbR5R5WN0LKD7xSJE7PWPy0WkU9t/+lZ4eqmQF4Dz+j5E+4QrLqKfFIlbCpsLy2CALmJwYS1p53Uw8BS+vfXAvK6hQ1otC39t86r1YxZt6dHjfg2b+kqBYp7R3m9NoRiewU99uDrG6PfWl6DyNdbXCHN6EZw1u+6iY5AqPGg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VqMLGH3p; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="m62diTSC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791115048; bh=A36RwizXdrSY81sjXeH9sR9dHuZWRlxt3wfTvw/E5zQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m62diTSCBXljNsxKuj1ok5NodxXdpbZbKwCJ6qpPDStdJqEzU/OjCDl8EmMHPXSh4
-	 m3nDzs2vN+HRl/MGAOI8/ZIg0HmDkrKEeFs3ieCszWam2h5CdYbI797bJjCqac2f4m
-	 ODC/FqsU4UsAgZDpf/k3b1q+/dC5rVAtoe99AF48=
-Received: from xiuos ([2001:da8:201:1175:6e92:bfff:fe3b:37c3])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id E4D020DE; Sun, 04 Oct 2026 19:57:13 +0800
-X-QQ-mid: xmsmtpt1791115046tmoal5zka
-Message-ID: <tencent_ED730B6C7A1FCF7E8C5BA1E836D75257620A@qq.com>
-X-QQ-XMAILINFO: Nmi7QDhNlk4s8xMxzKSBBdDOij71isr01+MZCNSq/jO7hytSuo5tDaiuXKnVRZ
-	 QFRa1FNZjxvDcA1zF1D3/IXkfylWVGskx/hUZwQq3PBMX9EBSi1u4npAuiRwlq3iIfCvpIzIS6lv
-	 YmJIeluZd6KJP2c8MpSR2cxtdo75PFo/EaLtVyuOPfBl6BT9LLkuVn6xAjKSpJo/wd1VHF19H1a+
-	 k6U8JC1dvYosVZfYC0UYT3lPRT0HiwcClq/upJnWoQEew9IQmoDGayH/vFclSv1vJJBX0U/Jf6II
-	 pDEvJeJ312y2T6CkuLghrJGriXUrdKXz6Ge7aTrR6MKmDkfx8+KIAtLrG6bqmVrACV5XDgqZQe2e
-	 oECVvaYIpl1CsGlUz+a+RqB0y9cTBzs9uw+2KmLsEb68Ri1OLq5JmeMBE0e4DZfCtJPWif/B48HR
-	 sV61T6sR69KxXfDpu6LZKGKUs1ScCoi4kvZQ2DM9ce3W3GyxtBGwqdyDzBHpcHtEuqjfhJRFZ7VL
-	 O8tqppB6l+wWdoOGQs7GzKXK9jAzAlNLzjBkCdaGJ1AhLd4Knqk4vYNsRtVciPL0IbRlWpdEjOqV
-	 WrEuQb7n4IvR5tgqbZ4ZWE9Prhy49cnGRFb/OO7NeUIqxrs48bAZtYJjnV37hzBG20HtozIX6Ol9
-	 EwxnykfmCNi2MDZsXeuShCB8EcnW9EJFwpeSLo37DWQntY1PdpvJXxacIp48AERYLQyrU+9TWxLL
-	 BTUWkUJD7QNpC30X2i8PVdnDooz8ol9FuVe0SMOTxD+xqDpBY2WMOHM6CQAurmp7KNY+gvWlyyPc
-	 uVWW+bn2oxYvi4bqkwwFPn2bY8iwG455PVEpWl6LUhtVDF1BN2zSnmj3k5QyeAwSjBlhuWcHvJJD
-	 4HUlD/8P2AUDNpdAVwb3gdZ3TO1iDg2RsqmH2t2cfFT9Ft/vxn1BCHW+xNTpE+R9LtkSP2kQeFKm
-	 ogyBwrJ+osOgKSLNmITlZq0+7TrIci5bf9nG3sMgnzgp9PB/fQpnJ6dlJbTZjJiLP86bKwOsyPgs
-	 0eFlmXrJfUJlgXMnf/6RdUVvRYu/BgelKG9GfvwBipWmk6OChwk5T8R4nQ3sKsyqpWhI6JaxmU3x
-	 4amXUuLiTMgx5G6av0jVIfHumKIiaurbxtuzjLGT7qSrl5qDGi08x8eTZnjqvtZvQvValvkCAUaR
-	 ZRhK18pX90XvCif+m8Psp7s8VN
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Anlai Lu <agicy@qq.com>
-To: Jean-Philippe Brucker <jpb@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	virtualization@lists.linux.dev,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Anlai Lu <agicy@qq.com>
-Subject: [PATCH 6/6] iommu/virtio: batch the mapping replay on domain attach
-Date: Sun,  4 Oct 2026 11:57:09 +0000
-X-OQ-MSGID: <20261004115709.3181856-6-agicy@qq.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <tencent_85AC6E749F6A912B7BB9FF360F8ECB3F5C09@qq.com>
-References: <tencent_85AC6E749F6A912B7BB9FF360F8ECB3F5C09@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VqMLGH3p"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba42966d5fso693589e87.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 04:59:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791115149; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Cwak8R4nhQYBh3fKSfK766hmCnU8XD0bjK9w5F1XoohnuOKfFvXORgk2qjwMDz0sQA
+         f72K3meLW1z2tW5T8B2JoQDeQjD2LjXs84l6nuCE8E8FbkjEYLdfQHzPADopbUxOuIb9
+         lZr2+VgyYts+QcnayybcYaL1KhRf8nSMmAmDiJX2Y9UDoQOF/WBQ7uxkgoWvlmdEImOv
+         uw/sjvbi9iL84KbGzCWkNgiMdHCILz/hPnXjNUWftoaitLpgpaJU93cpXzWvaTmiki8K
+         Av7zqaH9PDXZddXs24+gTixyVZcCgFxNKSepgyP+eR96Hl986vG0WjuMgiKoL8Ie/DdZ
+         u16g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
+        fh=3CQwUfxDhXh1y+I4DXSDd7L7jjqIaiJFYp/SPB1X8C0=;
+        b=FpFngD2VxIc7icfd+fR3o3flejwxaSDAjOwW9uinxVHhh44uFlbrRpzfBkQ26OS7Oc
+         CAKSW2K9kQKnDEKDOBnvihzXn6MF0X6Mobt9sQ9lc34Z5H5ejc4KrPbv+iIEv8uaF7qI
+         jhLe9ehzOTCu/rK3+npDyS0Er7iDCvkLagPE7JTvea2j6OR305UXtyq6qFKfp0ZLpFhX
+         kh67jQ6Dku20VeBnQbd27zr1ICTQqUAD4Z7pBELPp6QBufOhJE0cm7lBUoiQgUcqUmmw
+         bqo5punpEjaWvdIrFvXUcnKRzFmdCX0N65+M2easxyPa+lJkAUZllyms23sWCawV1CB/
+         DArA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791115149; x=1791719949; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
+        b=VqMLGH3pwV5hY7J2/iWBbwzoGS6jiCnk7KAk6ke0Y5Pbrt6TuydcD9N4g2hrXLiZeH
+         nfqcTfyvgbmZBqPRYMm1CrrLcaIfG7CkPST1xEi4FPj1oeTPUkYeJu/O5Zgm6sw7oHXO
+         KF3o+/3OSdPKbPOmCaRirw+/mfU4t87U+nIUcSGRHpM/cToqQHKsl7Dkh6MsqYt89gEj
+         RBMvD9gosXW83TSojA1gmJ+AUPGq2lQ4g+HWct0/fzC0fm9DXy7lE/t+n+Mq1xnDFZjr
+         E0pWQZzloJ5S74WqosP0opk/LVMUy6mA9UQlPVnIIuZfghh0N4ByKelCKkoYTomRoR4/
+         /ygg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791115149; x=1791719949;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
+        b=SikqeFz4a8oESTzBEMyN4cdyn7VC85AaAw9teCzkDo8qjoEj1BrY4fN+xOH2CTyZ9V
+         m/0/Cgbc9ytqTECl0hbsHPLeikZvj16KWQIY6s/ZjCOB3HuIYd+iFTw1/D7Psl+csm6i
+         2u+6JY4875WhS0ZFio1yd/BJfNae0QQAt5+plVAiW+HBb/SsoCaWHPz31/VdOnDXqJ68
+         NqeD2Vfde9o5gYL8Dul02BVyKGD9/BdjF6WqQZNuQWXsHThrktpweE8njZagfyykCvk6
+         tJjpkfhfLCNnKNTrawJTN0umBqR/WLM7LNq1PhG62KfK42SQeVEIjH1ik/FoTJMVlZIF
+         7nWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzI0X4NoqPDXc/Ns5snAeLBgLHuDuhvYWb+Vl3DzKpZycCGSxpVXkKb/qFPHVtNpBtfO+IdLEGDCoxEsBY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtV94+Xrp4ZA3Kb7kDk1ffOQ00MJilsFWATOp95rn0x1qJdCeu
+	00Vqiynb/u6/+dOozj7zyJQ+4fpja5oEa17FAqv+7kYM25MzHZYcVlkuow1Xfh0+GmeFs6G0Vi5
+	FBW1t9DYaTgVl2d3q8nVJ9SeM+aT/aCw=
+X-Gm-Gg: AYBFou16hf6MYyw/ZrvJNX/KyKcuTVl3P6vwzIWcf6YzF4UQC1kwM2/84b5SqOj1jLI
+	yACLPyZ06BcGzBzGb5850Z72p7QQUEPYXRXcuHBkZ4P2EDjirzns4mgW987POoJ/kKRfSM6qkwC
+	/tWPRG5t6CajCuteOEb2aWg5C5r2oEtVkgKkwF9xwefxcdMFvxCrOzbxqWxdUNVaNeJKfNoZAWX
+	wq0fjzFpe5AGIaw+lxzcgmU1UILrYw/vdODjjBK7fneoeRRhGROBgHpe4oOaJtcX4tHPIjqlRPm
+	iXeeS00VXK7+1jQ3LhVDcvh6Mc27+GBlfHPCL6XL5KTPCZH2u5kfsiEoPA==
+X-Received: by 2002:a05:6512:3c84:b0:5bc:b8d8:d766 with SMTP id
+ 2adb3069b0e04-5bcb8d8d985mr953656e87.16.1791115148823; Sun, 04 Oct 2026
+ 04:59:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
+ <20261003-qcom-smbx-chg-state-change-v1-1-fffaef446932@gmail.com> <20261004-jovial-fancy-ammonite-f9fd1d@quoll>
+In-Reply-To: <20261004-jovial-fancy-ammonite-f9fd1d@quoll>
+From: Fabricio Akio <fabricioakio@gmail.com>
+Date: Sun, 4 Oct 2026 08:58:31 -0300
+X-Gm-Features: AclHuK8XfUMsTrUjezp37dJXnfrGVlkqDXrTvYsOblQTNjNZvnfYIKp_Sma2dwU
+Message-ID: <CANxzQdE8tmPLweN+gfs4DdpFJXpL7ruiyk1cwNA41TL8NbefCQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: power: supply: qcom,pmi8998-charger: add chg-state-change
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Casey Connolly <casey.connolly@linaro.org>, Sebastian Reichel <sre@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Robin Snyders <robin@snyders.xyz>, 
+	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+	Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 
-viommu_replay_mappings() sent every mapping of a domain to the device
-with a synchronous request, holding mappings_lock - and with it
-interrupts - across the whole walk, so the IRQ-off window grew with the
-number of mappings: 233 ms for 8192 4K mappings, 29 s for a million.
+On Sun, Oct 04, 2026 at 10:06:52AM +0200, Krzysztof Kozlowski wrote:
+> On Sat, Oct 03, 2026 at 04:45:21PM -0300, Fabricio Akio wrote:
+> > The charger raises an interrupt when its charging state changes. Allow
+>
+> Each of the ones mentioned in the binding?
 
-Queue them instead and wait once. One mapping per mappings_lock section,
-so that a full virtqueue - the only wait in there - bounds a single lock
-hold rather than the whole walk; the walk is a single pass, because the
-endpoint was published before it (a mapping inserted while it runs is
-queued by map_pages() itself) and a mapping removed meanwhile has its
-UNMAP queued in the section that removed it. The requests carry the
-device's errno back - the first error it reported - so a rejected replay
-fails the attach with the device's own status, and a device that goes
-away fails it with -ENODEV rather than reporting a replay that never
-happened; a duplicate MAP, which a replay can legitimately produce, is
-answered S_INVAL - the spec says a duplicate MAP SHOULD be rejected and
-MUST NOT change the existing mapping - and is not treated as a rejection.
-A rejected MAP on the map path is still ignored, as before.
-
-Measured, N=8192 4K mappings: max IRQ-off window 233.7 ms -> 1.4-2.5 ms,
-and no longer growing with N (1.4-2.5 ms from N=64 to 32768, against
-3.6/45/233 ms on the unpatched driver); attach ioctl 218.9/249.0 ->
-50.3/48.8 ms (48-67 ms across runs); viommu_send_req_sync() calls 8193 ->
-1; the device receives exactly the same MAPs (8244).
-
-Signed-off-by: Anlai Lu <agicy@qq.com>
----
- drivers/iommu/virtio-iommu.c | 149 +++++++++++++++++++++++++++--------
- 1 file changed, 117 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/iommu/virtio-iommu.c b/drivers/iommu/virtio-iommu.c
-index 4e578d4255f6..7b883f59221f 100644
---- a/drivers/iommu/virtio-iommu.c
-+++ b/drivers/iommu/virtio-iommu.c
-@@ -73,6 +73,19 @@ struct viommu_mapping {
- 	struct viommu_request		*unmap_req;
- };
- 
-+/* Where a queued request reports a rejection, or NULL */
-+struct viommu_req_status {
-+	bool				*rejected;
-+	/*
-+	 * Errno to treat as success: a replayed MAP can be a duplicate,
-+	 * which the spec says the device SHOULD reject with S_INVAL and
-+	 * MUST NOT change the existing mapping.
-+	 */
-+	int				ignore_errno;
-+	/* The first error the device reported, for the caller to return */
-+	int				err;
-+};
-+
- struct viommu_domain {
- 	struct iommu_domain		domain;
- 	struct viommu_dev		*viommu;
-@@ -104,6 +117,8 @@ struct viommu_request {
- 	void				*writeback;
- 	unsigned int			write_offset;
- 	unsigned int			len;
-+	/* Where to report a failure of this request, or NULL */
-+	struct viommu_req_status	*status;
- 	char				buf[] __counted_by(len);
- };
- 
-@@ -144,6 +159,19 @@ static bool viommu_domain_has_endpoint(struct viommu_domain *vdomain)
- 	return has;
- }
- 
-+/* Same, for callers that do not hold request_lock */
-+static bool viommu_device_alive(struct viommu_dev *viommu)
-+{
-+	unsigned long flags;
-+	bool live;
-+
-+	spin_lock_irqsave(&viommu->request_lock, flags);
-+	live = viommu_device_live(viommu);
-+	spin_unlock_irqrestore(&viommu->request_lock, flags);
-+
-+	return live;
-+}
-+
- static int viommu_get_req_errno(void *buf, size_t len)
- {
- 	struct virtio_iommu_req_tail *tail = buf + len - sizeof(*tail);
-@@ -216,6 +244,16 @@ static int __viommu_sync_req(struct viommu_dev *viommu)
- 			viommu_set_req_status(req->buf, req->len,
- 					      VIRTIO_IOMMU_S_IOERR);
- 
-+		if (req->status) {
-+			int err = viommu_get_req_errno(req->buf, req->len);
-+
-+			if (err && err != req->status->ignore_errno) {
-+				*req->status->rejected = true;
-+				if (!req->status->err)
-+					req->status->err = err;
-+			}
-+		}
-+
- 		write_len = req->len - req->write_offset;
- 		if (req->writeback && len == write_len)
- 			memcpy(req->writeback, req->buf + req->write_offset,
-@@ -286,6 +324,7 @@ static int __viommu_queue_req(struct viommu_dev *viommu,
-  * @buf: pointer to the request buffer
-  * @len: length of the request buffer
-  * @writeback: copy data back to the buffer when the request completes.
-+ * @status: where to report a rejection of this request, or NULL
-  *
-  * Allocate a request object, fill it and queue it.  When @writeback is true,
-  * data written by the device, including the request status, is copied into
-@@ -295,7 +334,7 @@ static int __viommu_queue_req(struct viommu_dev *viommu,
-  * Return 0 if the request was successfully added to the queue.
-  */
- static int __viommu_add_req(struct viommu_dev *viommu, void *buf, size_t len,
--			    bool writeback)
-+			    bool writeback, struct viommu_req_status *status)
- {
- 	int ret;
- 	off_t write_offset;
-@@ -312,6 +351,7 @@ static int __viommu_add_req(struct viommu_dev *viommu, void *buf, size_t len,
- 		return -ENOMEM;
- 
- 	req->len = len;
-+	req->status = status;
- 	if (writeback) {
- 		req->writeback = buf + write_offset;
- 		req->write_offset = write_offset;
-@@ -325,13 +365,14 @@ static int __viommu_add_req(struct viommu_dev *viommu, void *buf, size_t len,
- 	return ret;
- }
- 
--static int viommu_add_req(struct viommu_dev *viommu, void *buf, size_t len)
-+static int viommu_add_req(struct viommu_dev *viommu, void *buf, size_t len,
-+			  struct viommu_req_status *status)
- {
- 	int ret;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&viommu->request_lock, flags);
--	ret = __viommu_add_req(viommu, buf, len, false);
-+	ret = __viommu_add_req(viommu, buf, len, false, status);
- 	if (ret)
- 		dev_dbg(viommu->dev, "could not add request: %d\n", ret);
- 	spin_unlock_irqrestore(&viommu->request_lock, flags);
-@@ -354,6 +395,7 @@ static int viommu_queue_prealloc_req(struct viommu_dev *viommu,
- 
- 	spin_lock_irqsave(&viommu->request_lock, flags);
- 	req->len = len;
-+	req->status = NULL;
- 	req->writeback = NULL;
- 	memcpy(req->buf, buf, write_offset);
- 	ret = __viommu_queue_req(viommu, req, write_offset);
-@@ -374,7 +416,7 @@ static int viommu_send_req_sync(struct viommu_dev *viommu, void *buf,
- 
- 	spin_lock_irqsave(&viommu->request_lock, flags);
- 
--	ret = __viommu_add_req(viommu, buf, len, true);
-+	ret = __viommu_add_req(viommu, buf, len, true, NULL);
- 	if (ret) {
- 		dev_dbg(viommu->dev, "could not add request (%d)\n", ret);
- 		goto out_unlock;
-@@ -462,7 +504,7 @@ static int viommu_add_mapping(struct viommu_domain *vdomain, u64 iova, u64 end,
- 			.flags		= cpu_to_le32(flags),
- 		};
- 
--		ret = viommu_add_req(vdomain->viommu, &map, sizeof(map));
-+		ret = viommu_add_req(vdomain->viommu, &map, sizeof(map), NULL);
- 		if (ret) {
- 			interval_tree_remove(&mapping->iova, &vdomain->mappings);
- 			spin_unlock_irqrestore(&vdomain->mappings_lock, irqflags);
-@@ -656,23 +698,57 @@ static int viommu_domain_map_identity(struct viommu_endpoint *vdev,
- }
- 
- /*
-- * viommu_replay_mappings - re-send MAP requests
-+ * viommu_replay_mappings - send every mapping of the domain again
-  *
-- * When reattaching a domain that was previously detached from all endpoints,
-- * mappings were deleted from the device. Re-create the mappings available in
-- * the internal tree.
-+ * Used when reattaching a domain that was previously detached from all
-+ * endpoints: the device dropped its copy then (it frees a domain together with
-+ * its last endpoint).
-+ *
-+ * The device is not waited for between mappings: they are all queued, one per
-+ * mappings_lock section, and waited for once at the end.  A full virtqueue is
-+ * the only wait in the loop, so it bounds a single lock hold rather than the
-+ * whole walk.  A mapping that was sent concurrently is harmless: the spec says
-+ * a duplicate MAP SHOULD be rejected with S_INVAL and MUST NOT change the
-+ * existing mapping, and the replay treats that rejection as success.
-+ *
-+ * A rejected MAP is reported by returning an error, which fails the attach: the
-+ * domain would be missing a mapping its driver believes in.  Nothing else is
-+ * done about it.
-  */
- static int viommu_replay_mappings(struct viommu_domain *vdomain)
- {
--	int ret = 0;
-+	bool rejected = false;
-+	struct viommu_req_status status = {
-+		.rejected	= &rejected,
-+		.ignore_errno	= -EINVAL,
-+	};
- 	unsigned long flags;
--	struct viommu_mapping *mapping;
--	struct interval_tree_node *node;
--	struct virtio_iommu_req_map map;
-+	int ret = 0;
-+	struct interval_tree_node *node = NULL;
-+
-+	/*
-+	 * A single pass is enough: the endpoint was published before this ran,
-+	 * so a mapping inserted while the walk progresses is queued by
-+	 * map_pages() itself, and one inserted before it is in the tree when
-+	 * the walk starts.  A mapping removed meanwhile is simply not there any
-+	 * more, and its UNMAP was queued in the same section that removed it,
-+	 * so it cannot end up after a MAP this walk sends.
-+	 */
-+	u64 next_iova = 0;
-+	bool done = false;
-+
-+	while (!done) {
-+		struct viommu_mapping *mapping;
-+		struct virtio_iommu_req_map map;
-+
-+		spin_lock_irqsave(&vdomain->mappings_lock, flags);
-+		node = interval_tree_iter_first(&vdomain->mappings, next_iova,
-+						-1UL);
-+		if (!node) {
-+			spin_unlock_irqrestore(&vdomain->mappings_lock, flags);
-+			break;
-+		}
- 
--	spin_lock_irqsave(&vdomain->mappings_lock, flags);
--	node = interval_tree_iter_first(&vdomain->mappings, 0, -1UL);
--	while (node) {
- 		mapping = container_of(node, struct viommu_mapping, iova);
- 		map = (struct virtio_iommu_req_map) {
- 			.head.type	= VIRTIO_IOMMU_T_MAP,
-@@ -682,26 +758,35 @@ static int viommu_replay_mappings(struct viommu_domain *vdomain)
- 			.phys_start	= cpu_to_le64(mapping->paddr),
- 			.flags		= cpu_to_le32(mapping->flags),
- 		};
-+		ret = viommu_add_req(vdomain->viommu, &map, sizeof(map), &status);
- 
--		ret = viommu_send_req_sync(vdomain->viommu, &map, sizeof(map));
--		if (ret) {
--			/*
--			 * The endpoint was published before this walk, so a
--			 * map_pages() racing it can have sent the same MAP
--			 * already: the spec says a duplicate MAP SHOULD be
--			 * rejected with S_INVAL, and the device MUST NOT
--			 * change the existing mapping.
--			 */
--			if (ret != -EINVAL)
--				break;
--			ret = 0;
--		}
-+		if (mapping->iova.last == ULONG_MAX)
-+			done = true;
-+		else
-+			next_iova = mapping->iova.last + 1;
-+		spin_unlock_irqrestore(&vdomain->mappings_lock, flags);
- 
--		node = interval_tree_iter_next(node, 0, -1UL);
-+		if (ret)
-+			break;
- 	}
--	spin_unlock_irqrestore(&vdomain->mappings_lock, flags);
- 
--	return ret;
-+	/* Wait for all of them outside the lock: this is the batched drain */
-+	viommu_sync_req(vdomain->viommu);
-+
-+	/*
-+	 * A device that went away did not take anything: the status pointers of
-+	 * the requests still queued are on this frame, so report it here rather
-+	 * than pretending the replay delivered the mappings.
-+	 */
-+	if (!viommu_device_alive(vdomain->viommu))
-+		return -ENODEV;
-+
-+	/* The queueing failure, or what the device said */
-+	if (ret)
-+		return ret;
-+
-+	/* Report what the device said, like the synchronous replay did */
-+	return rejected ? (status.err ?: -EIO) : 0;
- }
- 
- static int viommu_add_resv_mem(struct viommu_endpoint *vdev,
--- 
-2.55.0
-
+Yes, both. PMI8998 and PM660 have it as interrupt 1 of the charger
+peripheral at 0x1000, as the downstream msm-pmi8998.dtsi and
+msm-pm660.dtsi describe.
