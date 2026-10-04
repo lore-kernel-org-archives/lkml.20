@@ -1,171 +1,120 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E81B43BDA6
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 14:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBC33612F1;
+	Sun,  4 Oct 2026 14:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791123787; cv=none; b=Qh4ZGON459N0bBfPpPOQF8PzFQrTaRPsOj2ehFvcLJkQIXEaI8l7vnv0wn9G+ZrYkJ4Ww2LlmmOunDE279hE6I9hGpDm05pmQoBvszh6XjN+JU896sRU1rtavFlpn5H1CZHDEMQ92WG6FytN/p6SOBvNKBOT49psibTbifPT9pA=
+	t=1791124003; cv=none; b=IxG4DUKVJgvw9hymEu4FCcxazOzoroJ1HRLE78dTJ6RvALDtOG38m+CMIS+LLFidFBFc/775hncidKMBI2Of3XgDvdmo1VfYTkeenbJ/DX8LRNMWoMPkgDWeCUwtibYknb/IsoPPljmIOeAsQws9xPkeYns4guD663awdsmw/eM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791123787; c=relaxed/simple;
-	bh=D5oJblw1Mk2D0oXCU0ZAWnjEkCSIw80thnwcJYQpFIw=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NLAlEcWlfBjbXnCpYBGvCXvw3QXQp+oFWe/wINmApJwXCGlha+xUcObMPD674q7MFeP8iSKZPPW074jqx74Zao7lPAPJMZIc+cfpnZP6rLDFWXbiyu0sqCvZswWDq1kmQEH9l2Nfzy70N3HONakiFTwMURWS/qtLgzEU2oZoCfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nrJoZmMO; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791124003; c=relaxed/simple;
+	bh=mYyoKmz7PztwvOgGfWP9fwPEmOF10/H8tStniHmi9zg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YnZLB3RKw+h4arj6PYJd6ZnSnhIlkDKAu5zqC26QsBNfNn4Mi1bycy1n8DsH9P75bL1tDjrqRJgBwe+U8m+hVhmWSRywpp8EAEZ4YqxjKmyMXiwb5CsCyE1F2oMk+Ofqnu3ScjCbwNZHW/fYe2DdknCDM3BnJ2/aAPlefyhUrTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXpfFZiK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nrJoZmMO"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2e4a2f00beso175440566b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 07:23:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791123783; x=1791728583; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0Iap1AsRv1qyz87XD+IHHgucFbHNuqIM/DFpF+PMZW0=;
-        b=nrJoZmMOp45M0+Bsh4itLHainNHp8yq9lyofsgw2RgO+t9UI8Ip5Lp5TWrizmbNSUq
-         MpHyo9tbhuIhqevdbukMXUIbifvHlgmdof1A201V9fI+hv0hgHxvy0Bam/b3JH/MWm/H
-         pp73sSpuOHFtgECWUsisvlxGrLQDDbTnz3fXM613jFJGKuz4MkPe+Nz0V+gC5YU9kXVi
-         lcfPWIaK/ALejNBzHXISEw3iOPaB/oD8GnRT4U0VgRiL6vnkEO1gYIhKuGin7B0E2KYV
-         AjI04+CcTU6Gc4r5fXE1Qowq3MOEh+q56BSNV46zGfQZDAKZmha39JHsjbmAVWzqTJQP
-         mXUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791123783; x=1791728583;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Iap1AsRv1qyz87XD+IHHgucFbHNuqIM/DFpF+PMZW0=;
-        b=Me19M9vujmO+K8kOP7mYUVoMVay+5f5I+DRM46ViivhUVxWGbm0Va4ePKAZ7kuoRiC
-         SAWvyLHDnA5tzoB/FE996jOoPVmhz3cHUG1cyDCCcSsPlAbKSDh2TGSdgtCSGy8EmeSJ
-         Qamzjr6msopk0wTPa1Bb0yywHjRMP34aqXcTnsoBiShST7mP2EXoAc0Qrf+gLFuD0Ywi
-         iGAQ/8g4TTulldHgV8VeaFLui9Z9KdL8fEiu8ZIFBBpg46bJF5BQOjeoKQePLE1fhHUG
-         JTLQGI7t+gbgjfz8CVOENFu4QsBsAKyGr1eW9SWSQet8Se1GoJu2PcWQ6utYGlVweTDa
-         LKpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymEstRtekf/ybgb7BNd21NNDBttNfxFgCcCQJCV+iYuOYcF59JY46ssPfVptlDJ46DkiCk+3cRgt0Bn+o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlcF44aCesS+WOi2vyLv/26O0T2bOVawPdX40XiJtsGWauSfeN
-	xCNhN5gul68pXEoNPLNYrhtPex3oNTJxo+PLXke/Xvp0U0U/bHBlc1irgmIawEzFyFY=
-X-Gm-Gg: AYBFou1WwWQpkTkm7jx70jsfGR/F9u//VgKIEeV36+M5FgHINBnunzAxrrInuMKnSr4
-	xokKKznXJtNyhseDgRN31RLAbnpvfJu2fd+3Jd3tieTzyatl1RQzpQo5nD65pKbQaBeyW8rhgNL
-	8XRDADwZYp2U8cAhOyQKQgu7UAohdQFZOfa81AfohA6X+gwcvPHsx+EB7aLZ7nIfoAEpXsgufIp
-	AJ7tJdHMlXhvi3POWSDxsRPBbC+FNzaRhJnczZtT1p6C65psT+DmtLg1JJyAZY8op0a+jSVjf8w
-	aKVznnFhFQsximuE8dlazRnnab610LCToXwy9pgwb3KyDcS0GjLlBbssVHxpbDjTSFnoYSBMuCw
-	tYcYdCT7uU8d564zoHNLauuOj0Seutgtq8FsIdn4tnXQqW+CdaPosSvMQIi+yM7zENmECElp1ug
-	bOC1sKCm+6vzE2KvAyLK5pARG7iqO16D+JmhwcFow7/RPlA0ze2UFWb1d5qzDlPQ==
-X-Received: by 2002:a17:907:980f:b0:c1c:4a80:30c4 with SMTP id a640c23a62f3a-c2e4aac126fmr651934466b.11.1791123782696;
-        Sun, 04 Oct 2026 07:23:02 -0700 (PDT)
-Received: from RuiTian-14 ([2a09:bac5:303d:28c::41:135])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd0457bsm294393366b.15.2026.10.04.07.23.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 07:23:01 -0700 (PDT)
-From: jiamingouyang13@gmail.com
-To: alexs@kernel.org,
-	si.yanteng@linux.dev,
-	dzm91@hust.edu.cn,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wy@wyuan.org
-Subject: [PATCH RESEND v3] docs/zh_CN: add Chinese translation for usb/ohci.rst
-Date: Sun,  4 Oct 2026 16:22:53 +0200
-Message-ID: <20261004142255.25723-1-jiamingouyang13@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXpfFZiK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 386A2C2BCB9;
+	Sun,  4 Oct 2026 14:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791124003;
+	bh=mYyoKmz7PztwvOgGfWP9fwPEmOF10/H8tStniHmi9zg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=IXpfFZiKL8j2UdAi1xu906FLfp7BAu0jvj/zX2pLxiB4PwdR3KbIckdPUjNDFdpbI
+	 zTVj13J0j+xVuA0a5KFv86ZWnUlKD5sQvFxtMnAFV8tY5yVpcP9uPPeqOMc4RxpV8O
+	 QOI4ElDqbI+X2AvLzMOzhcwA7zBHO7sbrIGaTT5HQkATp77AKp6XcOnvnsh5ywfMBT
+	 r3svFxx0sIcd7hU0YSLEiBqL6gzjh6pZPku74+IkldMygKx694lNcFFG47nT+t2UxD
+	 x3O0RAqRqxuXNef4iHCiaOH/BCdK+DAXDkJdUYQ3l07op6T5y8yejw0A9qrj57YWwd
+	 IwCJE7Uw5cqdA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1442ACA5FEF;
+	Sun,  4 Oct 2026 14:26:43 +0000 (UTC)
+From: Matt Layher via B4 Relay <devnull+mdlayher.gmail.com@kernel.org>
+Date: Sun, 04 Oct 2026 10:26:27 -0400
+Subject: [PATCH] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX
+ X570-E GAMING
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTvJtEKJXsW4qHWAYQFNpzUkh
+ LtTdfkW/++gnIQV7s0OiT+isi4V5tJAmPwyMsq7GixZZ4ha9FoUOeDW9cQYYsE1ZnT26qzxA/U
+ 3gtrGxINsv+/j+beW18whf2dwHCcRgOQSeQAAAA==
+X-Change-ID: 20261004-asus-ec-x570e-cpu-opt-623621af0790
+To: Eugene Shalygin <eugene.shalygin@gmail.com>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Layher <mdlayher@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791124002; l=2211;
+ i=mdlayher@gmail.com; s=linuxdev; h=from:subject:message-id;
+ bh=HEHb7pz+5CIVTAUXjsxnncxE0oQGAoREpSaAebUx9AQ=;
+ b=lH+GY7hQhCIRrlVSwJEabDbMMuuSttNbGlGKto0goC43sa7ced/zA6BldftpntEozBMDear3u
+ 374btCATaKDBmZqbkFcVxUwTjxw+zVZyahe44B4ZuLzAzq5fosBTLGC
+X-Developer-Key: i=mdlayher@gmail.com; a=ed25519;
+ pk=jO44g3WNw2T0EoKPeB+RUgDmyrZpA5Pmr830ITlwhaA=
+X-Endpoint-Received: by B4 Relay for mdlayher@gmail.com/linuxdev with
+ auth_id=1109
+X-Original-From: Matt Layher <mdlayher@gmail.com>
+Reply-To: mdlayher@gmail.com
 
-From: Jiaming Ouyang <jiamingouyang13@gmail.com>
+From: Matt Layher <mdlayher@gmail.com>
 
-Translate Documentation/usb/ohci.rst into Chinese Simplified.
+Enable the CPU_Opt fan sensor for ROG STRIX X570-E GAMING.
 
-The translation covers OHCI driver overview, hardware protocol
-differences (OHCI vs UHCI), improvements since 2.4 kernel,
-queueable interrupt transfers, and non-PCI support.
+The board has a CPU_OPT fan header, and its UEFI hardware monitor shows a
+fan connected to it spinning at about 2000 RPM, but the driver does not
+expose the sensor and the board's NCT6798D does not report it either.
 
-Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
+Reading the EC directly through ec_sys on this board (BIOS 4408), the
+CPU_Opt register used by the rest of the AMD 500 series family (bank 0,
+0xb0) returns 0x0580, 1408 RPM under the operating system's fan curve,
+while the chipset fan register at 0xb4 returns 0, matching what the
+driver already reports for that fan.
+
+Assisted-by: LLM sparse
+Signed-off-by: Matt Layher <mdlayher@gmail.com>
 ---
+An LLM coding assistant did most of the work on this patch: it found the
+missing sensor while auditing this machine's monitoring, compared the
+driver's board table with the BIOS hardware monitor, worked out which EC
+register to read, and drafted the change and this changelog. I
+reviewed both, and every test below ran on my own machines.
 
-Changes in v3:
-- Correct the docs list in index.rst
+Testing:
+- Runtime: the same one-line change applied to the driver in v6.18.54,
+  loaded on the board in place of the stock module; CPU_Opt read
+  1454-1463 RPM and the chipset fan 0.
+- Build: hwmon-next with W=1 and sparse (C=1), no warnings;
+  checkpatch --strict reports no errors, warnings or checks.
 ---
+ drivers/hwmon/asus-ec-sensors.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Sending this resend because last send is broken.
----
- .../translations/zh_CN/usb/index.rst          |  2 +-
- Documentation/translations/zh_CN/usb/ohci.rst | 38 +++++++++++++++++++
- 2 files changed, 39 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/translations/zh_CN/usb/ohci.rst
-
-diff --git a/Documentation/translations/zh_CN/usb/index.rst b/Documentation/translations/zh_CN/usb/index.rst
-index df99814c6497..c96eacf13e11 100644
---- a/Documentation/translations/zh_CN/usb/index.rst
-+++ b/Documentation/translations/zh_CN/usb/index.rst
-@@ -32,6 +32,7 @@ USB 支持
-     chipidea
-     dwc3
-     ehci
-+    ohci
-     usbmon
+diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
+index 19f423e45ce5..8261ddd00653 100644
+--- a/drivers/hwmon/asus-ec-sensors.c
++++ b/drivers/hwmon/asus-ec-sensors.c
+@@ -721,7 +721,7 @@ static const struct ec_board_info board_info_strix_x470_i_gaming = {
  
- 待翻译文档：
-@@ -49,7 +50,6 @@ USB 支持
- * mass-storage
- * misc_usbsevseg
- * mtouchusb
--* ohci
- * raw-gadget
- * usbip_protocol
- * usb-serial
-diff --git a/Documentation/translations/zh_CN/usb/ohci.rst b/Documentation/translations/zh_CN/usb/ohci.rst
-new file mode 100644
-index 000000000000..5e36831bf370
---- /dev/null
-+++ b/Documentation/translations/zh_CN/usb/ohci.rst
-@@ -0,0 +1,38 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+:Original: Documentation/usb/ohci.rst
-+
-+:翻译: 欧阳家铭 Jiaming Ouyang <jiamingouyang13@gmail.com>
-+
-+========
-+OHCI驱动
-+========
-+
-+2002年8月23日
-+
-+“OHCI-HCD”驱动程序是一个USB主机控制器程序（HCD），它源自2.4内核系列中的“usb-ohci”
-+驱动程序。“usb-ohci”代码主要由 Roman Weissgaerber <weissg@vienna.at>编写但也获
-+得了来自David Brownell <dbrownell@users.sourceforge.net>，Linus Torvalds
-+和Gregory P. Smith的支持。
-+
-+它支持“开放主机控制器接口”（OHCI），该接口标准化了用于与USB 1.1主机控制器通信的
-+硬件寄存器协议。“与英特尔早期的“通用主机控制器接口”（UHCI）相比，它将更多只能功能
-+注入到硬件中。除英特尔和威盛之外的其他供应商的USB1.1控制器通常使用OHCI。
-+
-+自2.4内核以来的更改包括
-+
-+         - 提高了健壮性; 修复了错误; 减少了开销
-+         - 支持更新和简化的usbcore API
-+         - 中断传输可以更大，并且可以排队
-+         - 通过使用上层“hcd”框架，减少代码量
-+         - 支持一些非PCI的OHCI实现
-+         - ... 以及更多
-+
-+“OHCI-hcd”驱动程序处理所有USB 1.1传输类型。所有类型的传输都可以排队。在“usb-ohci”
-+中也是如此，但中断传输除外。以前，使用一帧的周期会因为IRQ处理的开销而导致数据丢
-+失的风险。当中断传输排队时，可以通过确保硬件在操作系统处理相关IRQ时始终有传输需要
-+处理，来最大限度的降低这些风险。
-+
-+- David Brownell
-+  <dbrownell@users.sourceforge.net>
-+
--- 
-2.53.0
+ static const struct ec_board_info board_info_strix_x570_e_gaming = {
+ 	.sensors = SENSOR_SET_TEMP_CHIPSET_CPU_MB |
+-		SENSOR_TEMP_T_SENSOR |
++		SENSOR_TEMP_T_SENSOR | SENSOR_FAN_CPU_OPT |
+ 		SENSOR_FAN_CHIPSET | SENSOR_CURR_CPU |
+ 		SENSOR_IN_CPU_CORE,
+ 	.mutex_path = ASUS_HW_ACCESS_MUTEX_ASMX,
+
+---
+base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
+change-id: 20261004-asus-ec-x570e-cpu-opt-623621af0790
+
+Best regards,
+--  
+Matt Layher <mdlayher@gmail.com>
+
 
