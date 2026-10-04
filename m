@@ -1,181 +1,142 @@
-Received: from sg-3-41.ptr.tlmpb.com (sg-3-41.ptr.tlmpb.com [101.45.255.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841293BD22E
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F822F60CC;
+	Sun,  4 Oct 2026 15:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791129133; cv=none; b=X4aGB1ND485duv6LxV7vFVreP5ulknAlDZdwkNkE8KcbwmLC55IN6db9Tu5RwfphaeAIB8bXuxawSBzcU9WOD7ePq+lKCG+iH47QEIMOJXyG3XDGkWp1e2xrqcvTPdo0VJZgPCHFecVgtqL0df0Q8q1MQtT3gxvx60KRPBb7e8c=
+	t=1791129208; cv=none; b=lZtaWB6Zp+bxYuxflqrnOEnlJTLbZQnmpgKbCld7sfRsuJal8pj+fKRgArvKJ1/6/6dhOy0VpLgB1f17kv3+zO7AszEm7daDx8CDv9kGzNiEhPaReUsyHK0EvfLQgMVn8fstg0u1recrqeem1UuJC/1P9D5AP8T4XJXGZNKxB/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791129133; c=relaxed/simple;
-	bh=JYfSDbevSyklrFpxJ/wTrpgYy/neyqm9a6uWSluHa+U=;
-	h=Content-Type:Subject:To:Cc:From:Mime-Version:References:Date:
-	 Message-Id:In-Reply-To; b=h7VCme+UVpQXdLJjbnPjRohEbXULfS/Dfd9BUBQ+hhxIHhjFkyBtCKmyQbh+SR39mk51ZDKF968nTWYX08EsFT7CtZRZYBjwvPh8yAKLZj6MVCdKGWVE9aAODdfMGysUrEs3cmbMr+KgVq9DkmWjYQS59yBXdjo2tJ0tcRpyjpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=L3Ao1wLJ; arc=none smtp.client-ip=101.45.255.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1791129208; c=relaxed/simple;
+	bh=lv1tuIGYGldphto25KVS1nVNoKz+O4guecPc91FwUq8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZEFsKoHi/v1bpIfBOxmS4xBOQWaaX32buCc/0o2URskMXEZP3ElC+3YQfcvf8gT6YjnCqNQD7uoCFkrpNbu7L6hzh0j5+I7GSbB2nRCE0I51T8bABvpulAiYH6abK5DiC10ZbtlUC80lKtnMXbBXzIXwG1pn+yLLg+FMdidBPqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a/rhd/M+; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="L3Ao1wLJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791129083;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=N0IBTDh9NOUscIgRtt+2unFn8HLJ72nJ0CB0mU61Q9Q=;
- b=L3Ao1wLJioIMwWdagYezGOv0RneyqwjZ6HcbRdW7BH26SPOTD8YYQmD2iC9Te2Fm7ZZtOt
- EQCtIz6Nt0drrbBZ7bCSD3Z+y1R4se8Hb6B7HPdYZuX5z5TythzmgYVZO6+QGyn0lbuMQ9
- fRJ9MWqYeqg+UUZN1WzzvwhuDJw2IEs0xxWU/HLJfp5rh2vJQ8fM4muwO5ZlEY0VToSwaj
- SBfSWVOv9OYRGUmMM+oeIyrtY0C1ATPga3LOVKfmpC2K7ywj7GuH2o1fYIqY/uHr9gW/uR
- v4g5lbCMfo/mQsaujV8lupc/wRsuhrCQPcrYT2Zs2GTUQhZbWbqj8pUIVVCeFA==
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [PATCH v5] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Mozilla Thunderbird
-To: "Zhihao Cheng" <chengzhihao1@huawei.com>, <song@kernel.org>, 
-	<magiclinan@didiglobal.com>, <xiao@kernel.org>, <eadavis@sina.com>, 
-	<abd.masalkhi@gmail.com>, "yu kuai" <yukuai@fygo.io>
-Cc: <linux-kernel@vger.kernel.org>, <yangerkun@huawei.com>, 
-	<yi.zhang@huawei.com>, 
-	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>
-From: "yu kuai" <yukuai@fygo.io>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a/rhd/M+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791129205; x=1822665205;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lv1tuIGYGldphto25KVS1nVNoKz+O4guecPc91FwUq8=;
+  b=a/rhd/M+HNhyj7UGj4+jyBY4CpPsxLeTN/XKLSYpdSLMpdr4d5kugj1l
+   fAf1zNW7MuI6RXVHwyAgcg0b/f94pzOw/SJkytwwlHiPFJZGw9HeA2QS7
+   bPS1jf14N+9K3nyDWUiai0W53NeiWNJ1VegNe0CBBtFa2MZhTV2onlM9X
+   88MA1CdmjbOX2D9VSEW9/RG4PoVCtP81+ypn3CV8yCfuG7akvcA9QSqKv
+   4maMcLKifI1kDfWEorJxl7JzA3N4hPTQACblGq9rofCKi7nOGTzW/zAne
+   F1hhrg3vXH9iXspA3JydVGtZ0OHTa0A0YMgtw6WH2LpPozWq2LixruGPK
+   Q==;
+X-CSE-ConnectionGUID: R/5P0wIPTKeHbxZGDXb/Tw==
+X-CSE-MsgGUID: hPVCoSMdS0+TN9Te4Q+JGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="95627949"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="95627949"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 08:53:23 -0700
+X-CSE-ConnectionGUID: oEBoJPlCQ2G9hBPfsJYkmw==
+X-CSE-MsgGUID: tlqqacLyQbeHvEGJeU3+Tw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="314637099"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 04 Oct 2026 08:53:19 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDOWa-00000000UqT-0uUY;
+	Sun, 04 Oct 2026 15:53:16 +0000
+Date: Sun, 4 Oct 2026 23:52:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Birger Koblitz <mail@birger-koblitz.de>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>, Eric Dumazet <edumazet@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, Jianhui Xu <neuromoments@gmail.com>,
+	Birger Koblitz <mail@birger-koblitz.de>
+Subject: Re: [PATCH net-next v16 13/13] ax88796b: Add support for AX88772D,
+ AX88179A and AX88279
+Message-ID: <202610042301.MlmvbRpS-lkp@intel.com>
+References: <20261004-ax88179a-v16-13-2a9ae4e68f7b@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922030538.1634904-1-chengzhihao1@huawei.com>
-Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Sun, 04 Oct 2026 15:51:22 +0000
-Reply-To: yukuai@fygo.io
-Date: Sun, 4 Oct 2026 23:51:18 +0800
-Message-Id: <f02cbef7-4a8b-440b-894d-af91df7bdf76@fygo.io>
-In-Reply-To: <20260922030538.1634904-1-chengzhihao1@huawei.com>
-X-Lms-Return-Path: <lba+26ac275fa+7e1b2c+vger.kernel.org+yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004-ax88179a-v16-13-2a9ae4e68f7b@birger-koblitz.de>
 
-Hi,
+Hi Birger,
 
-=E5=9C=A8 2026/9/22 11:05, Zhihao Cheng =E5=86=99=E9=81=93:
-> Concurrent processes md_stop and IO submitting could trigger a
-> null-ptr-deref of 'mddev->private':
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000070
->   RIP: 0010:_wait_barrier+0x2f/0x250
->   Call Trace:
->    raid1_make_request+0x150/0xf50
->    md_handle_request+0x104/0x530
->    md_submit_bio+0x76/0x130
->    submit_bio+0xdd/0x250
->    submit_bio_wait+0x1f/0x40
->    __blkdev_direct_IO_simple+0x1f6/0x370
->    blkdev_write_iter+0x3b2/0x520
->    ksys_write+0x7d/0x190
->
->                P1
->    fd =3D open(/dev/md0, O_RDWR)
-> 	                      P2 (forked from P1, fd' <=3D fd)
->    write(fd)
->     submit_bio
->      md_handle_request
->       raid1_make_request
->        raid1_write_request
->                                    ioctl(fd, STOP_ARRAY)
-> 		                   mddev_set_closing_and_sync_blockdev
-> 				   // check passed, mddev->openers =3D 1,
-> 				   // because md_open() is only called
-> 				   // once in P1->open
-> 				   do_md_stop
-> 				    __md_stop
-> 				     mddev->private =3D NULL
->
->         conf =3D mddev->private // NULL
->          wait_barrier(conf, sector) // null-ptr-deref !
->
-> It is a common problem for raid0/1/10/5, and __md_stop could be triggered
-> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
-> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
-> The caller array_state_store() is guaranteed by the check
-> mddev_set_closing_and_sync_blockdev(mddev, 0), we just need to remove
-> the check '!md_is_rdwr'. For example, someone open /dev/mdx, write
-> something and close /dev/mdx, it won't trigger the problem, all dirty
-> pages can be flushed before mddev->openers decrement.
-> The caller dm_table_destroy() is guaranteed being invoked with device
-> suspended, so raid_dtr() could keep using mddev_lock_nointr().
-> Besides, fail the submitting IO in md_handle_request() if the
-> 'mddev->pers' becomes NULL.
->
-> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=3D22202=
-0
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D3fe892ea5fc292e1353f
-> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> ---
->   v1->v2:
->    1. Add 'mddev->pers !=3D NULL' check before make_request
->    2. Delete dm-raid caller(->dtr) modifications
->    3. Move memalloc_noio_restore after mddev_unlock_and_resume
->   v2->v3:
->    1. Remove modifications in array_state_store()
->    2. update commit msg
->   v3->v4:
->    1. Remove '!md_is_rdwr' check from array_state_store()
->    2. update commit msg
->   v4->v5:
->    1. Skip checking '!md_is_rdwr' only for inactive case
->   drivers/md/md.c | 17 ++++++++++++++++-
->   1 file changed, 16 insertions(+), 1 deletion(-)
+kernel test robot noticed the following build warnings:
 
-This patch is missed because it's not in patchwork. :(
+[auto build test WARNING on 071876fd50482a68603a9460d80dd6dd58827ee1]
 
-Applied to md-7.4
+url:    https://github.com/intel-lab-lkp/linux/commits/Birger-Koblitz/phylink-Add-phylink_mac_interrupt/20261004-073905
+base:   071876fd50482a68603a9460d80dd6dd58827ee1
+patch link:    https://lore.kernel.org/r/20261004-ax88179a-v16-13-2a9ae4e68f7b%40birger-koblitz.de
+patch subject: [PATCH net-next v16 13/13] ax88796b: Add support for AX88772D, AX88179A and AX88279
+config: m68k-defconfig (https://download.01.org/0day-ci/archive/20261004/202610042301.MlmvbRpS-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261004/202610042301.MlmvbRpS-lkp@intel.com/reproduce)
 
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 680b34a63cb3..02798f2dbf0e 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct b=
-io *bio)
->   		if (!percpu_ref_tryget_live(&mddev->active_io))
->   			goto check_suspended;
->   	}
-> +	if (!mddev->pers) {
-> +		/*
-> +		 * The __md_stop() sets 'mddev->private' to NULL during
-> +		 * the IO submitting, check 'mddev->pers' before the IO
-> +		 * being processed by specific driver to avoid the
-> +		 * null-ptr-deref of 'mddev-><member>'. The check is
-> +		 * safe because the IO has got the 'mddev->active_io'
-> +		 * reference, and all __md_stop() callers will wait for
-> +		 * the reference to be zero.
-> +		 */
-> +		bio_io_error(bio);
-> +		percpu_ref_put(&mddev->active_io);
-> +		return true;
-> +	}
->   	if (!mddev->pers->make_request(mddev, bio)) {
->   		percpu_ref_put(&mddev->active_io);
->   		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
-> @@ -4670,7 +4684,7 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   	case readonly:
->   	case inactive:
->   	case read_auto:
-> -		if (!mddev->pers || !md_is_rdwr(mddev))
-> +		if (!mddev->pers || (st !=3D inactive && !md_is_rdwr(mddev)))
->   			break;
->   		/* write sysfs will not open mddev and opener should be 0 */
->   		err =3D mddev_set_closing_and_sync_blockdev(mddev, 0);
-> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
->   	case HOT_REMOVE_DISK:
->   	case SET_BITMAP_FILE:
->   	case SET_ARRAY_INFO:
-> +	case STOP_ARRAY:
->   		return true;
->   	default:
->   		return false;
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610042301.MlmvbRpS-lkp@intel.com/
 
---=20
-Thanks,
-Kuai
+All warnings (new ones prefixed by >>):
+
+   In file included from include/linux/kasan-checks.h:5,
+                    from include/asm-generic/rwonce.h:26,
+                    from ./arch/m68k/include/generated/asm/rwonce.h:1,
+                    from include/linux/compiler.h:369,
+                    from include/linux/array_size.h:5,
+                    from include/linux/kernel.h:16,
+                    from drivers/net/phy/ax88796b.c:6:
+   drivers/net/phy/ax88796b.c: In function 'asix_ax88772D_get_features':
+>> drivers/net/phy/ax88796b.c:217:42: warning: unused variable 'mask' [-Wunused-variable]
+     217 |         __ETHTOOL_DECLARE_LINK_MODE_MASK(mask) = {};
+         |                                          ^~~~
+   include/linux/types.h:10:23: note: in definition of macro 'DECLARE_BITMAP'
+      10 |         unsigned long name[BITS_TO_LONGS(bits)]
+         |                       ^~~~
+   drivers/net/phy/ax88796b.c:217:9: note: in expansion of macro '__ETHTOOL_DECLARE_LINK_MODE_MASK'
+     217 |         __ETHTOOL_DECLARE_LINK_MODE_MASK(mask) = {};
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/mask +217 drivers/net/phy/ax88796b.c
+
+   213	
+   214	static int asix_ax88772D_get_features(struct phy_device *phydev)
+   215	{
+   216		int ret;
+ > 217		__ETHTOOL_DECLARE_LINK_MODE_MASK(mask) = {};
+   218	
+   219		/* MDIO_DEVS1/2 empty, so set mmds_present bits to allow reading abilities */
+   220		phydev->c45_ids.mmds_present |= MDIO_DEVS_PMAPMD | MDIO_DEVS_AN;
+   221	
+   222		ret = genphy_read_abilities(phydev);
+   223		if (ret < 0)
+   224			return ret;
+   225	
+   226		/* AX88772D does not support reported 1000baseT mode */
+   227		linkmode_clear_bit(ETHTOOL_LINK_MODE_1000baseT_Full_BIT, phydev->supported);
+   228	
+   229		return 0;
+   230	}
+   231	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
