@@ -1,138 +1,79 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2z4y-a138.jellyfish.systems (out-2z4y-a138.jellyfish.systems [198.54.127.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73034A7C90;
-	Sun,  4 Oct 2026 20:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726944A5C2C
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 20:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791146820; cv=none; b=VGOCNxljga/8WSeqpC/49qdUWHqKAO72AJWd3QkwmFc5v60y9jkFl2h8RAY4x+LUKkXxCHAtly+KQ5JFxEki1lmlfcJoBoxmXNsA/A07YXQRoY5Gc2llK7Do6KTk2ewhoiUGVpW2AYC0/HXvMCVnTo14N9yNd4jededmvpFLQoI=
+	t=1791146827; cv=none; b=qceWW7kseYe3AztrtzoHYtxppys+Baz0OAdXTl7vUxns7LRLHYMtSW3Alrj0EJvnXHuNZyhPiBmLXteRB2qDAL9GVdybGT97JunEIrBA3kizJlC6IEeptAD2Tbg7BoT9DrdSkwP8DFxPYe3sFXGJYnJUWhfKdzFYx+RpFzh9R+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791146820; c=relaxed/simple;
-	bh=wUIP60ReUng2toh7xrANlc05gxl0Ni0XDP3WkJdt+dk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FEQmRDQEBBgyQTkCJqiH04ijhYiEzopsgYkVTiy199E5DXH9o3VhfSXBuZO5AGykNj+25ZnqKVRoN8j/iU2wmOayqb9GygooDM4t1vpyhR0nYCvHkB6ojRrUxQM83wd9IYP62FwZPUagsRziXUIYMNUCOVe5wiQWIA2ygWH3mzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A6VOebVN; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791146827; c=relaxed/simple;
+	bh=lKqfRHN/A2qQhJm+vzgWtlyumbcMBD4PpqjWW0zJLRM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d640jLURH/i36rkJ9l3Ob+KHtcq6wumjajyngYhp304waDXTnHHxaBfHSavmYeQQEww7Oe/yJGN8fHiEmKCDLx6SlWsFDtsi8cSzKc+38/U4dPwbCIkXBtRg7IbfzPxjiUQGmjK/GkGwfm0uynorTuSm9vrMii5d6eqbS5iQxjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org; spf=pass smtp.mailfrom=firmwaredesign.org; dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b=Fn5K+bJm; arc=none smtp.client-ip=198.54.127.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firmwaredesign.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A6VOebVN"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0446C4E41168;
-	Sun,  4 Oct 2026 20:46:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C58B3604FE;
-	Sun,  4 Oct 2026 20:46:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3E6661032820F;
-	Sun,  4 Oct 2026 22:46:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791146815; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
-	b=A6VOebVNjDlnkxLhmL0E3QTdnjmAbZ1/upC3qI/K+qBTvGg1CDBKmCqWdW03bm9DRqEd+k
-	9jl1fMbJxIE9+lmjR2yhoMejcH/YpKYZ6IWH6e/NBD/q00evPj7xVpf/6VULIaDBBKAUy0
-	06r7+AQvaxr5xdMUzBp5WiU4vjR4HHKAfVyYKXQxmllN8yhtNTKAhafa+GApsfwTlaiDuA
-	Xw/8fnbMdqmshvOt1wpHXCS+XTojvtghdyaNPSPNMFwfh00kH8MSynAeymjDUY7HjmAAEL
-	3lPz05kh+LP1wPqsN/zQ3jGd+c3QwT3qCIEDOZBgQPWE4G1O80VAqb6R/m+pRA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Sun, 04 Oct 2026 22:45:31 +0200
-Subject: [PATCH v8 7/7] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
- clock-names
+	dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b="Fn5K+bJm"
+Received: from mail.privateemail.com (unknown [98.240.242.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hyZMC5Pstz8sWQ;
+	Sun, 04 Oct 2026 20:47:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=firmwaredesign.org;
+	s=privateemail; t=1791146824;
+	bh=lKqfRHN/A2qQhJm+vzgWtlyumbcMBD4PpqjWW0zJLRM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Fn5K+bJmTu2T108hfG5SXpuTssMP0H8Q7k0sKXk7pQkK9y+ipF2i7jan4PNGvLX12
+	 cWW27GLMdwe2ztHzdDmOlXeBb4hK1nsQK1AnV5Nc0P2PnjZVFsiF+Q23DsHvnHDor3
+	 X7zxCu8Ue7mRydDEnaokLVRUS24JKJgtCy7v8ae5QwJGW5uC+KhgWl/TkS9JrcYpgE
+	 jEvdFwLLxIIKtTqC8eqZmMbGzm0pmkIbPsIZhWgeFPAwYFFK0SWV8V9XwbuY/gWWeB
+	 e6CpjN1UxLlAGxC455t5AsXv5FVmH/Jm5ZRHndnDcks3oJwgWBe/n8EavJIbPFAkvO
+	 MhFAv1Nmet5pQ==
+From: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	marinela.selseth@firmwaredesign.org
+Subject: Re: [PATCH] staging: rtl8723bs: remove dead antenna diversity infrastructure (FAT/SWAT)
+Date: Sun,  4 Oct 2026 15:46:54 -0500
+Message-ID: <20261004204654.5153-1-marinela.selseth@firmwaredesign.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026100304-entomb-collector-9004@gregkh>
+References: <2026100304-entomb-collector-9004@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-perso-ma35d1-upstream-clk-v8-7-e1a106a128c0@bootlin.com>
-References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
-In-Reply-To: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: marinela.selseth@firmwaredesign.org
 
-The clock controller takes its two crystal oscillator inputs from the
-board: HXT and LXT. The LXT crystal is not described at all: add the
-fixed clock node for it and reference both inputs from the clock
-controller node, with their respective clock-names.
+Hi Greg,
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
----
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
- 3 files changed, 14 insertions(+), 1 deletion(-)
+Thank you for the review.
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-index d7670afb0a63..7752e85734ac 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index 8f3cb18d39b6..5c65f1fe5da9 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..9a341c2b1397 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
- 			compatible = "nuvoton,ma35d1-clk";
- 			reg = <0x00000000 0x40460200 0x0 0x100>;
- 			#clock-cells = <1>;
--			clocks = <&clk_hxt>;
-+			clocks = <&clk_hxt>, <&clk_lxt>;
-+			clock-names = "hxt", "lxt";
- 		};
- 
- 		pinctrl: pinctrl@40040000 {
+Regarding the "deep analysis" phrasing: I apologize for the loose and
+exaggerated wording in the description. For this cleanup, I did manual
+code tracking via grep to isolate the unwritten members.
+I will simplify this wording in a v2 commit.
 
--- 
-2.55.0
+Regarding testing on real hardware to see if the rtw_read32() dummy
+read can be dropped: I do not have access to a physical RTL8723BS
+SDIO card on my local architecture. This commit has been verified
+through static source exploration and compilation checks only.
 
+Because clearing low-level register reads without an active hardware
+test loop risks breaking chip initialization timing or clearing
+hardware latch states, I opted to preserve the dummy read out of an
+abundance of caution for stability.
+
+In case someone in the community with access to the real hardware is
+able to test dropping this register read, I can then remove the line,
+or they can.
+
+Best regards,
+Marinela Selseth
