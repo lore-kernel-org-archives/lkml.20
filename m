@@ -1,200 +1,117 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012067.outbound.protection.outlook.com [40.107.200.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-44.ptr.tlmpb.com (sg-3-44.ptr.tlmpb.com [101.45.255.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3371223DFF;
-	Sun,  4 Oct 2026 03:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791085805; cv=fail; b=NgnHuTp0cBfwu5Z24fdh9x+Sa0LYdpx+R1p+3+AdP6SR81y5E09ty4a7H3XV/ovCKt1/b0fXjj5jp76IsHAj32AYZenZ/rJDBiPoiG86SN0yA6/6tWHwFzGotIZAPOjVXE1D+I3Sq5gpsebepRgPn/HlChp/nvZ8n+nkaM2Z/AA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791085805; c=relaxed/simple;
-	bh=ZM02TPQ6IsiW6B9EpWtNVPlsmNoV7Mkrks6Hk28/neU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Culp4xU3pew3lUSvo6bnEHRHDZBVlvTUexOVI4T0h0v5b2/03iIuty3RpEOPGHAeaGMI9Hqf18w7/51HBa58sL+ID4XYKnxTmsfBZr93AzP57+p4KLtMWCpUMmBEqBHy1rz3BXPB2R7O/w53KCYfH2/iatWXEeYPZAkY9YsIqzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=l9y1h6YR; arc=fail smtp.client-ip=40.107.200.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6F11DDC38
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 03:53:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791086001; cv=none; b=TkmT6eTntxHSiU8RyCmMeNhujn7VdoBeDINlFQrX1wKir4q5auEroOYVgeWMZhtJAfFgqIzqT/1SlPMmR21946gg/cowUzYK4odYc3pTiSDD2Ik4/SvveEaC0lAz8BxEhV41fpEE7Nor2LdVWNgfH3iJ9M0SyK4haxBOa0I/ZZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791086001; c=relaxed/simple;
+	bh=Ep7IT0ck+xBa0P5klyVmk1emoi8mxIzON6nalVuIwYs=;
+	h=In-Reply-To:Cc:From:Message-Id:References:Date:To:Subject:
+	 Mime-Version:Content-Type; b=oCPKmvT1sr8cQJNABrtodpgyr19gbSJXXSnoBOOdnab5PahMtbJhbd+dG58S/COMoe9ynsUdap4AE8ahuA7s0oCv//Jv8Wzf9q71lMCV7Bsj+KQC8joSYYlo2SJolesLMBM3Qb3SblNo4UgI+ijOOS4Oqt5h8HgdP2U7kJOlL7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=oIt9bvdP; arc=none smtp.client-ip=101.45.255.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="l9y1h6YR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iCyUEegaIeonU1mdNyOlyeRDqcp8hijrSpwiPwPYeM6kzcA+WbKOIy0rt1dK8T4/Jm3d9jaCVA4SJCrlP/R3MsS0B2qM3XmiSTk6XGexKOKZlHzElhQSnj0aSD4LZDGQuMuAP6PYDKXNUUBdzf2UOFf1LXlgT6ACelLCg8kEQf9rVhA1XLdG83vG1idxbhD1BM0y9LoJyL/oqfuwl3CkOrcBjyx1oVStNnbGLDSfljkYvHs8aIsFbkzVIM0fnfMuEaSpxZcnMsAQVdGNIoe6f4l4zcJEKuxUz0F86HIdFrj8/JHPkd+BprL8dxkAjKLzUgOMQfp1gGzG+nOwNroidQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mj6vdXAAWEBUSc4lx15P0WbjU1Sb6uBeDU+52oSbo7U=;
- b=hv4pTUx+r5Lvv8V+Zl41fRyq7vabUV4stL/n+0/hHwpnmnmhT1T5lVSK9vDHTEaLhZ2AxCUKpqR2O2vJXIMODHChAxwP2Nzf+18BovjXmqKoDvY3rpT+Ia6l+UHG7GirwZFnXRpDBpe45DSHZN+GhL7V5kizRfCtlvTCL0DaiuCJ+kY1iT7ONoauUN/jPxoRSSUW0vg6wuk9RF2clUPlQBxLtqyXeUF+aQihRtmeBXCeLAZYrRYYIuJcK92LRwa9vBueWZaqgjoZ1U3jIxF2pP283AcwPFa91szkpUDWeBuHqiojy5HNbU746kGas6fw2nEPM7KrlshlEizhxFyf5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mj6vdXAAWEBUSc4lx15P0WbjU1Sb6uBeDU+52oSbo7U=;
- b=l9y1h6YReyPcajrlTHB+LkPfAVIUuqZIcy86gb3ah6PXyyX3y5CeIfJ7ZBBevLo6q2WKtck1ZAorHq8TWs50G/O2zE2iXua3YgBKetZ5lgk3WLxQMNh356mTk2EtKO5QrL70J9W48SMi6o7dvHCdULzpvgURGdZNbni0aOt8o8+3VwRL9Y0xswLqlQMUaOHUc9ykJN3DE8k7v4ojdLqfLBqc5T4McBkvWsafyLxzffGfdxmnglcpPOuPG5SGrYfFiotRACKWyGIkJ48Vm+R3UzcOR+gky7vENll1ffm1T3OJ40+84cWHOQHmvW8vdHbC4YV7R0BcjamF3OssO5j/bw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- SJ0PR12MB8114.namprd12.prod.outlook.com (2603:10b6:a03:4e8::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Sun, 4 Oct
- 2026 03:49:58 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0472.015; Sun, 4 Oct 2026
- 03:49:57 +0000
-Message-ID: <0d7af613-e18a-4746-8ec2-0138227fccaa@nvidia.com>
-Date: Sun, 4 Oct 2026 05:49:52 +0200
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="oIt9bvdP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791085944;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=iYuotfuky80by1yRYN0ON0JErjNwp79Y3Ap8BM7muK0=;
+ b=oIt9bvdPnThgpn+eRS+M3eHgdDl78wGqEiL9RuSUNMTdHvpu5AlD46Pz6KsGadW1QzWbsr
+ XHnlnuPadx9kouDwrzZIrZFmRyqZvbWPqIOyw138Nx9f5c7WUkdZagc3dde5gZ9CQrZ85a
+ itvNwax7D4TXcwuYWrAX1oTzwEWWPw9Gn+U4DuGXXcWhfI9/AKYUYZYvoYFp3mv6fW63Mf
+ IOsIGQa4L/4sLd0Soph8vbnag5ueJXvhz9/dEI+VTb6Yd4qtOKg5qkGApc7yOxryFQ42hF
+ 3lODlbFbSSK81wqWKDv5c9Rcpue4EhcV3hCNbcc8bFRg0RgieHQsJZWyPRBw6w==
+Reply-To: yukuai@fygo.io
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu: nova-core: fix warning with NOVA_CORE_SELFTESTS
- disabled
-To: Alexandre Courbot <acourbot@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel test robot <lkp@intel.com>
-References: <20261004-nova-int-fixup-v1-1-9e4bce097f94@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20261004-nova-int-fixup-v1-1-9e4bce097f94@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0203.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::6) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+In-Reply-To: <20260924171345.75894-1-ngocthang2710.1999@gmail.com>
+Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Artur Paszkiewicz" <artur.paszkiewicz@intel.com>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com>
+From: "yu kuai" <yukuai@fygo.io>
+Message-Id: <7a163544-d165-4d1a-9161-df82bced61b7@fygo.io>
+References: <20260924171345.75894-1-ngocthang2710.1999@gmail.com>
+Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Sun, 04 Oct 2026 03:52:23 +0000
+Date: Sun, 4 Oct 2026 11:52:20 +0800
+X-Lms-Return-Path: <lba+26ac1cd78+97bcf1+vger.kernel.org+yukuai@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
+To: "Nguyen Ngoc Thang" <ngocthang2710.1999@gmail.com>, 
+	"Song Liu" <song@kernel.org>, "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH] md: take reconfig_mutex when enabling PPL on an inactive array
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SJ0PR12MB8114:EE_
-X-MS-Office365-Filtering-Correlation-Id: 962e0215-4647-4b0f-539f-08df21ca8ec1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10067099003|56012099006|18002099003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	wpHzBre/2RmQ6fA+tn6wFnUZ+rsfEM5LWQiE4yXX3wIpmqkJY/GVS6KOF1ITeX1Z42xcSt0oa7K2n3Jg4NJHs4gJx+pboY01gYXoD7HY+ar7nFlYB3uMfM9rBJ/5inI+VGnT9vPbo5jWR6BAibdU7xP1GA2NskNaqgHLOe/njVrAOP7Vavi29M8280m7zkXRsPWlOGPRFcj6AO/UnU/J7yHQGSWfNgWVXuWlkPDKWN9JxvV/Wb9Th6u7MRk9Z9h2c9jib4l7mFmQTVL8R6Rb7eXNi0/BuBNfhtPs49rTjIKPXDEJN9BTV9ik2ayZIkm0QzVpHaMGD8nbd/cXQI4pxkV7A3rxOG4YJ1kKIyBgx0/AaqTctI+vrc7UrasAFgopEFctfTFxJ0aLosrELx2PO6vJuBItAaholq4Y2nTKDLauRctRsZsu1ySzzT3eaB5xvt5CfuJUbnsWHPP+phDBr8lqXWwGeij/fScGxJrSnbx5+XOXUYdyjchIYMeZE03q6s5JVRjNsOagOx9Nzbqm6g1DxfxNjSCdRGl0vOgYpb2/Bii9ODg2H2xr3gAlJEplUKtUsCaTPNQLeLYNUmdgUSQ0FCVElbBY+JqkMvPZtwo3Xld1OW/omzJYWZQ5F6MGCt5zXoyzyq1DyKYU4bFsC7NCSmXnz1Iw1PrKX90DX9I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z0cvMjhOMW9PeXA2NnM4dUtXbnYzdjNDYmpXNnZZZnNrTVNzb1p2UERLQjBa?=
- =?utf-8?B?K0ZZdDdKY1IwN0ZMR1hFamN6bUk2bjF0RHhJaVlJZ2pwcEJST3VGeVlnWVdX?=
- =?utf-8?B?ZTVKS1hET09FcnU0cGxZYWFzanp1V1ZHK2lNa1VQTjVxeVlrSVQzTzcycWI3?=
- =?utf-8?B?VERrTWJZUEJoTHovN29GQytQVU8xTU9pUXdYK1VtQWVPTXVJeWhtRjFUZ1pG?=
- =?utf-8?B?aW0zNHFEZXdvaW00Q1lwd2VDdkQwTDE3YnhjZjYzVFdwdWZpcFBaUlUxU3lY?=
- =?utf-8?B?aUNJZlY3Y3ZRZ1Z5TDJ5YzF3OHJ6NVZERXBDY3pEa3EzYkk2NGV5RSs2UEds?=
- =?utf-8?B?VWVJam5OS0MvYnh0SmNqQUVzeXA4NTNVN3cvWGExSExKVExKZTVXYWoyM2F3?=
- =?utf-8?B?S3h0MEZvK0NwWWxNZWV5WnQ3Z1R0Z0czNnZyekQ4WWREREE3UW8vNTVzNjBM?=
- =?utf-8?B?TThHc1ZiZ05MQnJ0NGpoOFlFTlI2dVFxNUtUU1ZmdExSRmFPdFJ3bTl4Zmxm?=
- =?utf-8?B?SlprVWZIYmVIZzZsRDYyV0YyeWV4WnNHRkZ6dmVBb0Y5SGRTRURZTDRUcFJy?=
- =?utf-8?B?SGJKdEdjcEFIbU1VTGNWVzhGcDkwV2ZFbkhtYnAveXdjNHU2ZE9hb0x4WmND?=
- =?utf-8?B?Rkp0L0NlejMveE9TNW1UVTh5RkowbzRzSjdqbWVyZDE3UGgyL0pRSlQ5VFlj?=
- =?utf-8?B?ZkRQREpZYW9DT3o0K2tJWUpsaU5tT05BcVVQK3cxbHpORDJHMDI1OTBYVElu?=
- =?utf-8?B?Snl6ajNDand2UjUwbUNaRGI3c1ZCSGtUZkpQZ09FWDQ0QllncUNQTzlodU5W?=
- =?utf-8?B?UG5FZWh2WkI5cU41R1M3Yzc5aHcxNmxtU1ZKdXJYRnNlY1NRc3FrY25WbE5j?=
- =?utf-8?B?US9MaWFFc09UM251M09CTk1JU2VtbWEyN2duYnhYL3lRdlM1aXJONGpSTG1m?=
- =?utf-8?B?Sjhwb1V6c1VaZkVpNXAyb3BuK2ZwRUgya0dDUC9KMmQ1M1NtOCtOck93d3lm?=
- =?utf-8?B?WTl0NCtnc3E2U1lESFN1VnV2NHp2UWVabGJncFpIam5XUEdXVzU1eGJzVTF1?=
- =?utf-8?B?TVhaNUtyaDZJQWFoUVBVTzR1RGFSeHBTMWZaemllMWYwbCtrMnpoaVM4VDVB?=
- =?utf-8?B?bzB1MklMTU9lZXROTTN5RWxXZXI1NENlQkl0U3c0ZDhNNnF6VDY0b1hDa1BF?=
- =?utf-8?B?OGk2ZFVGZFo5VndXSDd6TWhkUjVGMDhjVWprNDV0M1ZBeFlBaUlzK0lYbnBV?=
- =?utf-8?B?aTZHSHhDR2NSZzV2dTBUYWFJNWRHNjhtSzB2MTJaU1h4U1pidlRPdkhaZmZ4?=
- =?utf-8?B?aWRtTUhOeldzRmVXOWZpMkl6K2tUbUJwRTJsZWNsYVJjc3VqTFh5T1ByQmxr?=
- =?utf-8?B?bGhKNlRBdklvQ044bE91VnZZQ3dxOTJscHQyYU00RW5FYURLQlRwblROaHJZ?=
- =?utf-8?B?eHFZcThWakRqSGpkQnQ0VTlpbzdtK3N6dXlsaWV3YjhySzFzYnBKajlLSjNy?=
- =?utf-8?B?Z3JUSXYrcHd4RmtWRjBRRnZabHBOYWFWM1UwRDVuNjFPOVN0MnRoZzZnNGh1?=
- =?utf-8?B?VWpHdFZkSzAyRW9XMXphbmNBajlkOWhmenFkS3JiTmU0eWxyRnZhMkxyN0VT?=
- =?utf-8?B?Zmd0SVhlM1o3akN2anB0RnJXYTVJSFVnamxxK0JFZGV0YkNETWJJUGtKSEd4?=
- =?utf-8?B?d0VDaFhQQTRxMi9KZERHMGwxcU8rWEtUbkVFc25Fc0hyc205OWhqck5USnBI?=
- =?utf-8?B?YlJta29pMVVkR2F1Z0dYa1NyU1BHL1VnSndMVEp0dXNlak9MWVNOTEovZnpI?=
- =?utf-8?B?Z2p5TFBGenZTUjQ5ZFVrNGk1UDJTTDVOV0NWSzM2eGx2U2hJdklOZjZoSXE4?=
- =?utf-8?B?ejlweWZydTB3L1dNNmluQ2dUMlhZM1JUYUtaekllTHU0a2ljS0RsSEF3WEIv?=
- =?utf-8?B?K0gxWGtBTUFFUVovUzVjUkxvTTRxQ055ZTFGc0QraGdXek1td0JUUXQ4ZmJP?=
- =?utf-8?B?bmE1eUEyMDhvdWQ1SXRxUjg1L2dNU3FLVkx6Vkt0V0cxVFFOYmdzRkt2WkNz?=
- =?utf-8?B?Q2pwMzQrM0VUWEhmV2lyY1lyM3h1ZC9mWlBsWVRwMlE1RmNFTTdWeXRPM3Er?=
- =?utf-8?B?SCt6d083OStVamJoajZHK3BteUFSalIrVkNJcS9jVGNZeUpMbmZNbUVER1J3?=
- =?utf-8?B?WmVxcmlWTyt3NWtxdjVCNjVmTVpUWEtzZVpIemtLcEZpQi9xUFhHamlZUkxn?=
- =?utf-8?B?S3hCVmxNamhhN09jcUNIaUJuRWlzTStBbVk2RUl0ZUw3aU45WTlqK3hIU3JW?=
- =?utf-8?B?azhSR2hNYTdxMkZGRDllUGtoZDMxNDRDRzdzNzRtWnVoMTBWQ215QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 962e0215-4647-4b0f-539f-08df21ca8ec1
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 03:49:57.4562
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BFhRNkSLLMOXqLRqC0nhoqhNhqP4l4L6vOnlTQCvFjylAOg6PeuE1QJaCdfcKr2fInbanBMvWZVRWMtBPfrxMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8114
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/4/26 3:00 AM, Alexandre Courbot wrote:
-> A module-wide new import becomes unused if the `NOVA_CORE_SELFTESTS`
-> config option is disabled:
-> 
->     warning: unused import: `Spec`
->       --> ../drivers/gpu/nova-core/driver.rs:29:9
->        |
->     29 |         Spec, //
->        |         ^^^^
->        |
-> 
-> Fix this by fully qualifying the unique use of `Spec` when the tests are
-> enabled.
-> 
-> Fixes: 9cb3f5d56e81 ("gpu: nova-core: add an interrupt delivery self-test")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202610031630.JOlyp48X-lkp@intel.com/
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+=E5=9C=A8 2026/9/25 1:13, Nguyen Ngoc Thang =E5=86=99=E9=81=93:
+
+> consistency_policy_store() sets MD_HAS_PPL for an external-metadata array
+> that is not running yet, without holding reconfig_mutex.  But ->pers is
+> only assigned after pers->run() returns, so "not running" also covers an
+> md_run() that is in progress under the lock.
+>
+> If the write lands inside raid5_run() after log_init() has decided not to
+> set up PPL, or after a failed ppl_init_log() has cleared the flag, the
+> flag ends up set with conf->log_private still NULL.  The next idle pass
+> of raid5d() then does:
+>
+>    raid5d() -> handle_active_stripes() -> log_flush_stripe_to_raid()
+>      -> ppl_write_stripe_run()
+>
+> and dereferences the NULL ppl_conf:
+>
+>    Oops: general protection fault, probably for non-canonical address 0xd=
+ffffc0000000002
+>    KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+>    RIP: 0010:ppl_write_stripe_run+0x60/0x1320 drivers/md/raid5-ppl.c:538
+>
+> Take reconfig_mutex around the update and refuse it with -EBUSY once the
+> array is running, in which case ->change_consistency_policy() is the
+> right interface.
+>
+> Fixes: 664aed04446c ("md: add sysfs entries for PPL")
+> Reported-by:syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
+> Closes:https://syzkaller.appspot.com/bug?extid=3D75d7e96ad03ac2dbbd9f
+> Signed-off-by: Nguyen Ngoc Thang<ngocthang2710.1999@gmail.com>
 > ---
->  drivers/gpu/nova-core/driver.rs | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
+> Notes:
+>
+> This differs from the NULL check in ppl_write_stripe_run() that is being
+> patch-tested on the syzbot page: that hides the symptom but leaves
+> MD_HAS_PPL inconsistent with conf->log_private for the other PPL entry
+> points.  md_attr_store() has not taken reconfig_mutex for every store sin=
+ce
+> 6791875e2e53, so the store has to take it itself.
+>
+> Testing (QEMU, KASAN, x86_64): one loop assembles raid5/external/ram0 whi=
+le
+> a second loop keeps writing "ppl" to consistency_policy.  Without a delay=
+ the
+> window is only a few microseconds, so I used a debug-only patch in
+> raid5_run() (clear MD_HAS_PPL and mdelay(50) before log_init()) that is n=
+ot
+> part of this submission.
+>    - without the fix: the syzbot oops on the first assembly,
+>      ppl_write_stripe_run+0x5d in md0_raid5;
+>    - with the fix and the same delay: 100/100 assemblies, no KASAN report=
+.
+> The unmodified syz repro only ended with -ENOSPC ("PPL space too small") =
+in
+> my setup.
+>
+>   drivers/md/md.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+Applied to md-7.4
 
-Reviewed-by: John Hubbard <jhubbard@nvidia.com>
-
-
-thanks,
--- 
-John Hubbard
-
-> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-> index d195fd2bcf8c..560a70c4f5a7 100644
-> --- a/drivers/gpu/nova-core/driver.rs
-> +++ b/drivers/gpu/nova-core/driver.rs
-> @@ -24,10 +24,7 @@
->  
->  use crate::{
->      api::NovaCoreApi,
-> -    gpu::{
-> -        Gpu,
-> -        Spec, //
-> -    }, //
-> +    gpu::Gpu, //
->  };
->  
->  /// Counter for generating unique auxiliary device IDs.
-> @@ -121,7 +118,7 @@ fn probe<'bound>(
->              // Run self-tests that do not depend on the `Gpu` instance.
->              #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
->              _: {
-> -                let spec = Spec::new(pdev.as_ref(), bar)?;
-> +                let spec = crate::gpu::Spec::new(pdev.as_ref(), bar)?;
->  
->                  // We must wait for GFW_BOOT completion before doing any significant setup on
->                  // the GPU.
-> 
-> ---
-> base-commit: df718311a84188e26d499301c3921e4c392d557e
-> change-id: 20261004-nova-int-fixup-4593b4d61084
-> 
-> Best regards,
-> --  
-> Alexandre Courbot <acourbot@nvidia.com>
-
-
-
+--=20
+Thanks,
+Kuai
