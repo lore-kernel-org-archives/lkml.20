@@ -1,49 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D027471416;
-	Sun,  4 Oct 2026 17:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697B63BED66
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791135049; cv=none; b=YDHrr3gIK1a934dVJQZ+tJzL6iYPZrfIUJoTs8xP1+8vvl7ycj3BOGVRMVol9EQsjl6TVkWMnH9AqNHaItd6TqdUEUARdrLwLTU4Os80vC9so77lonlsQsomllUwI8LhsBT+rpX1h3pnDU55fuK35xOQCwjTYid7ZhZt4D9w8UA=
+	t=1791135208; cv=none; b=qEdKxCm/tG/YT3candn74OfLWbWbLWzyTNbc9d2EP3Z3hOTL+irMnUcN64b17LG4S9hrlf6RfuP97ZPkEEdDQk8vwctuvtEwUDYfLfSYmqDyR7gr1ng5a2wliFvAIkP2chUhMdBx42JbmQudnouIkvRHj1JZ+5lytwlMPjLnS1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791135049; c=relaxed/simple;
-	bh=VqHxztFNCQm8ABM/FA5xlCVwXWpkcwt9nSdBMTNjzOs=;
+	s=arc-20240116; t=1791135208; c=relaxed/simple;
+	bh=eCJ/xgGOZpf3QBfsJ28uBGeOBNwffgZsfhRIp63slgw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oxwPUxNoi0c5iSN0NeOAzhWOmEu9tJYWmJSCuYbTi7JdMUnYMfBFcFJXDyLE8cNO72LW7jC9OrEjdTTqbuXFPjS0nHPDEuWjVd2Y7yx1meG/jKiaqd8rhxo+WrFbuvejwGuZn8mGmt2Zio14MRQPZtibdqyCvNcmJ/c6XO38px0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MR0+TpbA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AyHIUMOzbtqmCxymQxyX7/jXJ6wHC7pAL1ak+Q/C/TuUA/ssTIcBBx00xfrwNOMZxBjTF1vw1QB+pDg+XNwBPHLx47jrDWtlKn3HEXb7IIba/MAfZdhriwdgCsSiG9nUBTnHqcCM4a/KbRhYpAVSKm2pcEEXy8bYjZ3y266uhgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnFurfGL; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MR0+TpbA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06B51F00893;
-	Sun,  4 Oct 2026 17:30:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791135046;
-	bh=wO21KOou+XydjY7N/GyLFlM/I9mtLVnu9UKvHU3zFH8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MR0+TpbA2JY63Rq6Z+1b6XNfVb5xAxEQHoTalQGmBi+5ZTe8fBpGefhWCK5NQucmb
-	 pCtO08+DSxiRu4tO3eLfrlcNtIfPVpGy7o4WVhtCCY0BHYXbDy0DseEXitJfEmHpCG
-	 Qi6eJw4LQjpYb456z0mb6Gw1eQGCBf4zP1Ff5PkPRTBbwr7GDTukUDs3G6NeM5fNSE
-	 qnBq6ilzyn6MqAl+IRzzyXvhxS5Lbc9K/NLSCSBrObmimP4qmQ0E0gbhgWxNTlCI25
-	 Nmi8SzkkVgPk0KcWv3Cacxj8MTgss+jSTxtRx3HA6x/+TWeAR7mWhw/N1ZKJs/MoQ5
-	 nLYYIQlaGlNBA==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v11 9/9] perf test: Add false_sharing workload exhibiting cross-CPU false sharing
-Date: Sun,  4 Oct 2026 19:30:00 +0200
-Message-ID: <20261004173000.2863935-10-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261004173000.2863935-1-acme@kernel.org>
-References: <20261004173000.2863935-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnFurfGL"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3510b42f4e3so1013313eec.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:33:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791135206; x=1791740006; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eCJ/xgGOZpf3QBfsJ28uBGeOBNwffgZsfhRIp63slgw=;
+        b=MnFurfGLZdm1wwOVkmkg+BTyflG0y6kD4pqWYCy8ExSjhsnevDG/6gW6w3RDYrG8JJ
+         4Y0NYFiwCW+/jNePXjKKkDZ9KJkGEJugkQe22jg3SCdNouJxL9SMnlQ+kt/so+9cMnpv
+         /LRW5DUEEh8bCPwnAYjBlTrSIXLQK+MDSchNl6kV/IjZEAAQsO3t+T9MQ9Oc8o5qfXiz
+         6DHYJWMwCDBWv7/dFe0kyecclvQAPQVTRhuxu6Dd5+1Tx6ZvsCYKuHpbw0ZpI0AWJ3Bu
+         JGVbnCpfSXREfWoRtLXD7hhkcX+WEJIo+1X76K5XYLx50nALyPV0pvXeHdyB77akztnT
+         EBqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791135206; x=1791740006;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eCJ/xgGOZpf3QBfsJ28uBGeOBNwffgZsfhRIp63slgw=;
+        b=fAPyIA27BtN4Mgo3+aSgsqfE58dlfHcOevtkwXp+6N5zreIm4d3HRsGjYvCPmwuc0V
+         jSNAKmzezqb9QjD3V8J2XadX+1URbx0tJs6I3bE48fbTqJE4xJcjspMQItlPEJtJT07Y
+         U0+ouQy0XjlB7M2eSAaIG/Z+ypWFObgShXh141YlKlJC1Zcjq3ey35iquShmuzKanF96
+         6u9VMA944aH962PMtZdTOQmvlLijyuwXNAIIj+yeit2TtpZflDRq+NqIkSfmyqyLmTKW
+         xt7SUAighUz/I70aYjEibCutP+oYgVq/EkOWNAkH99OWYkJd0aXhv7m8GX/Ut1kQpzl9
+         MkZg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5Fui8AtIk8JzQdoAtmgkgtJVJM7yuZcWmLhgW74BD3sn0j1YQR+/AfRZe4Oc5vTyXPgyrru8P+cv+DDY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUhQ9Vxq34sMu7XD1JeODwdwRovlU38DEY2IE2N22wFQyYbYDG
+	T2ONik5lVkNw0r/s6bUMN2CUY6vxaLA7d/UuUiDXtwdBmA5SlVfTBDSRf9AV2rxI
+X-Gm-Gg: AYBFou0lV+BO0CfMn/D1XwY2sIdq4w9wT6KCyHw5suG9+Wdevgw/Ze8QiKeq34QdBMB
+	AqAVKpNuC18YmpszKkqOpdGQgCZ/wupLQEX1ORTmsH7SiVoLnFFwlKNwUCvfudJ71wcfGC7rLZJ
+	X45Zfr5oISfJM7DstboDUogpdJDm3j48BLIt/eQKf5q230dX9kQx2ktFI8h9frJQkT7kdoVG1rj
+	x6hz4uFy/JM6lWOwP28IkWcBLlZlbusntdsQmSNyOXkloaJTjmPq4Z7iGwd+UoAJgbwvw323tpo
+	IdZiMB9EjCoR1eZatdYrjn0ytzDKoKfJtZ3bW3J0B8o4qzahEGBvFzQkUHjpFpcv5ASWShJdSei
+	xrh+hCdZtNRx100b+/aor35SX0tN/A/q0TmObUFMYXkG4pn9m47GcvL78xQq4k6RBS/8y2j3d8c
+	7PKK+Tps8cNrm5llDSOE929btoN43Bs1inp0JGDMzM0D5zAflgb1/b8eTWk7KreXOeOg4GLsF/N
+	4rcKFi1sNouexTQgEW/Mw==
+X-Received: by 2002:a05:7301:786:b0:351:3106:4a33 with SMTP id 5a478bee46e88-35131065510mr305442eec.10.1791135206515;
+        Sun, 04 Oct 2026 10:33:26 -0700 (PDT)
+Received: from umang-Inspiron-3501 ([2401:4900:1f3b:8187:3c41:9181:ca6a:23ec])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127021d1esm6966533eec.4.2026.10.04.10.33.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 10:33:26 -0700 (PDT)
+From: Umang Pokhriyal <umangpokhriyall@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] tap: report IFF_DETACH_QUEUE in TUNGETIFF
+Date: Sun,  4 Oct 2026 23:02:23 +0530
+Message-ID: <20261004173224.33809-1-umangpokhriyall@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179087539624.434549.6585301310404315341@kernel.org>
+References: <179087539624.434549.6585301310404315341@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,446 +84,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+On Thu, Oct 01, 2026 at 05:23:16PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Medium]
+> Can this break a read-modify-write of TUNGETIFF and TUNSETIFF on a
+> detached queue?
 
-Add a 'perf test -w false_sharing' workload that hammers one shared
-struct from several CPUs, shaped as a TCP connection: a read-mostly
-identity (five-tuple) shares a cacheline with per-packet rx counters
-(the false-sharing line), a second line has packet-path private tx and
-congestion control counters, and a third the connection config.
+Yes. tap accepts TUNSETIFF on a bound fd and tun does not, so only tap
+has this round trip. v2 will ignore IFF_DETACH_QUEUE in TUNSETIFF.
 
-The packet path runs in the main thread and up to four lookup threads
-sum the five-tuple and pull the config, reading one volatile shared
-instance directly so the accesses are PC-relative and resolvable by the
-data type profiler.
+> [Severity: Low]
+> If it is meant as feature parity for net-next, could the commit message
+> say so instead of calling it a bug?
 
-Data type profiling of the workload with cacheline info:
+It is meant as parity with tun for net-next. v2 will say so.
 
-  $ perf mem record -- perf test -r5 -w false_sharing
-  [ perf record: Woken up 19 times to write data ]
-  [ perf record: Captured and wrote 5.612 MB perf.data (72454 samples) ]
-  $ perf report -s type,typecln -H --group --stdio
-  # Total Lost Samples: 0
-  #
-  # Samples: 72K of events 'cpu/mem-loads,ldlat=30/P, cpu/mem-stores/P'
-  # Event count (approx.): 1261814616
-  #
-  #            Overhead  Data Type / Data Type Cacheline
-  # ...................  ...............................
-  #
-      88.99%  35.88%     struct net_conn
-         56.43%  17.50%     struct net_conn: cache-line 0
-         32.55%   0.00%     struct net_conn: cache-line 2
-          0.01%  18.38%     struct net_conn: cache-line 1
-      10.08%  63.03%     (unknown)
-         10.08%  63.03%     (unknown): cache-line 0
-       0.82%   0.13%     int
-          0.82%   0.13%     int: cache-line 0
-       0.01%   0.02%     struct folio
-          0.01%   0.02%     struct folio: cache-line 0
-       0.01%   0.03%     Elf64_Addr
-          0.01%   0.03%     Elf64_Addr: cache-line 0
-       0.01%   0.03%     struct sched_entity
-          0.01%   0.03%     struct sched_entity: cache-line 1
-          0.00%   0.00%     struct sched_entity: cache-line 4
-          0.00%   0.00%     struct sched_entity: cache-line 2
-          0.00%   0.00%     struct sched_entity: cache-line 3
-          0.00%   0.00%     struct sched_entity: cache-line 0
-       0.01%   0.00%     struct task_group
-          0.01%   0.00%     struct task_group: cache-line 4
-          0.00%   0.00%     struct task_group: cache-line 5
-       0.00%   0.00%     struct css_rstat_cpu
-          0.00%   0.00%     struct css_rstat_cpu: cache-line 0
-  $ perf report -s type,typecln,typeoff -H --group --stdio
-  # Total Lost Samples: 0
-  #
-  # Samples: 72K of events 'cpu/mem-loads,ldlat=30/P, cpu/mem-stores/P'
-  # Event count (approx.): 1261814616
-  #
-  #               Overhead  Data Type / Data Type Cacheline / Data Type Offset
-  # ......................  ..................................................
-  #
-      88.99%  35.88%        struct net_conn
-         56.43%  17.50%        struct net_conn: cache-line 0
-             9.81%   0.00%        struct net_conn +0xa (dport)
-             9.54%   0.00%        struct net_conn +0x8 (sport)
-             9.53%   0.00%        struct net_conn +0xc (state)
-             9.48%   0.00%        struct net_conn +0xd (protocol)
-             9.27%   0.00%        struct net_conn +0x4 (daddr)
-             8.79%   0.00%        struct net_conn +0 (saddr)
-             0.00%  12.08%        struct net_conn +0x10 (bytes_rx)
-             0.00%   1.71%        struct net_conn +0x18 (packets_rx)
-             0.00%   2.80%        struct net_conn +0x20 (rx_queue)
-             0.00%   0.91%        struct net_conn +0x3c (last_ack)
-         32.55%   0.00%        struct net_conn: cache-line 2
-             5.70%   0.00%        struct net_conn +0x83 (rcv_wscale)
-             5.46%   0.00%        struct net_conn +0x84 (keepalive_int)
-             5.43%   0.00%        struct net_conn +0x82 (snd_wscale)
-             5.39%   0.00%        struct net_conn +0x80 (mss)
-             5.34%   0.00%        struct net_conn +0x88 (mark)
-             5.23%   0.00%        struct net_conn +0x8c (priority)
-          0.01%  18.38%        struct net_conn: cache-line 1
-             0.01%   0.05%        struct net_conn +0x5c (retrans)
-             0.00%   4.83%        struct net_conn +0x40 (bytes_tx)
-             0.00%  10.63%        struct net_conn +0x48 (packets_tx)
-             0.00%   1.54%        struct net_conn +0x58 (rtt_us)
-             0.00%   1.07%        struct net_conn +0x50 (cwnd)
-             0.00%   0.25%        struct net_conn +0x54 (ssthresh)
-      10.08%  63.03%        (unknown)
-         10.08%  63.03%        (unknown): cache-line 0
-            10.08%  63.03%        (unknown)
-       0.82%   0.13%        int
-          0.82%   0.13%        int: cache-line 0
-             0.82%   0.13%        int +0 (no field)
-       0.01%   0.02%        struct folio
-          0.01%   0.02%        struct folio: cache-line 0
-             0.01%   0.00%        struct folio +0 (flags.f)
-             0.00%   0.01%        struct folio +0x34 (_refcount.counter)
-             0.00%   0.00%        struct folio +0x18 (mapping)
-
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/tests/builtin-test.c               |   1 +
- tools/perf/tests/shell/data_type_profiling.sh |   9 +-
- tools/perf/tests/tests.h                      |   1 +
- tools/perf/tests/workloads/Build              |   2 +
- tools/perf/tests/workloads/false_sharing.c    | 251 ++++++++++++++++++
- 5 files changed, 262 insertions(+), 2 deletions(-)
- create mode 100644 tools/perf/tests/workloads/false_sharing.c
-
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index d2f594921e25bda9..98134b1c74cf80f4 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -175,6 +175,7 @@ static struct test_workload *workloads[] = {
- 	&workload__context_switch_loop,
- 	&workload__deterministic,
- 	&workload__callchain,
-+	&workload__false_sharing,
- 
- #ifdef HAVE_RUST_SUPPORT
- 	&workload__code_with_type,
-diff --git a/tools/perf/tests/shell/data_type_profiling.sh b/tools/perf/tests/shell/data_type_profiling.sh
-index a916c410274aa888..57203e0e5f857540 100755
---- a/tools/perf/tests/shell/data_type_profiling.sh
-+++ b/tools/perf/tests/shell/data_type_profiling.sh
-@@ -8,8 +8,8 @@ set -e
- # data type profiling manifestation
- 
- # Values in testtypes and testprogs should match
--testtypes=("# data-type: struct Buf" "# data-type: struct buf")
--testprogs=("perf test -w code_with_type" "perf test -w datasym")
-+testtypes=("# data-type: struct Buf" "# data-type: struct buf" "# data-type: struct net_conn")
-+testprogs=("perf test -w code_with_type" "perf test -w datasym" "perf test -w false_sharing")
- 
- err=0
- perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-@@ -59,6 +59,9 @@ test_basic_annotate() {
- 
-     "xC")
-     index=1 ;;
-+
-+    "xFS")
-+    index=2 ;;
-   esac
- 
-   # Under 'set -e' a bare failing command aborts the script through the EXIT
-@@ -114,6 +117,8 @@ test_basic_annotate Basic Rust
- test_basic_annotate Pipe Rust
- test_basic_annotate Basic C
- test_basic_annotate Pipe C
-+test_basic_annotate Basic FS
-+test_basic_annotate Pipe FS
- 
- cleanup
- exit $err
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index 9c96f33483d14356..f379620069d34f3a 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -250,6 +250,7 @@ DECLARE_WORKLOAD(jitdump);
- DECLARE_WORKLOAD(context_switch_loop);
- DECLARE_WORKLOAD(deterministic);
- DECLARE_WORKLOAD(callchain);
-+DECLARE_WORKLOAD(false_sharing);
- 
- #ifdef HAVE_RUST_SUPPORT
- DECLARE_WORKLOAD(code_with_type);
-diff --git a/tools/perf/tests/workloads/Build b/tools/perf/tests/workloads/Build
-index 048e371eb63e3164..18fceddccb56c013 100644
---- a/tools/perf/tests/workloads/Build
-+++ b/tools/perf/tests/workloads/Build
-@@ -14,6 +14,7 @@ perf-test-y += jitdump.o
- perf-test-y += context_switch_loop.o
- perf-test-y += deterministic.o
- perf-test-y += callchain.o
-+perf-test-y += false_sharing.o
- 
- ifeq ($(CONFIG_RUST_SUPPORT),y)
-     perf-test-y += code_with_type.o
-@@ -29,3 +30,4 @@ CFLAGS_inlineloop.o       = -g -O2
- CFLAGS_deterministic.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_named_threads.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
- CFLAGS_callchain.o        = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-+CFLAGS_false_sharing.o    = -g -O0 -fno-inline -U_FORTIFY_SOURCE
-diff --git a/tools/perf/tests/workloads/false_sharing.c b/tools/perf/tests/workloads/false_sharing.c
-new file mode 100644
-index 0000000000000000..e949bb36646a97a5
---- /dev/null
-+++ b/tools/perf/tests/workloads/false_sharing.c
-@@ -0,0 +1,251 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * False-sharing demo for data type profiling, shaped as a TCP
-+ * connection: a read-mostly identity shares a cacheline with per-packet
-+ * rx counters (the false-sharing line), a second line has packet-path
-+ * private tx and congestion control counters, and a third the connection
-+ * config.
-+ *
-+ * 'perf mem record' of this workload followed by 'perf report -s type'
-+ * (see tests/shell/data_type_profiling.sh) resolves the accesses to
-+ * struct net_conn members, showing the rx counters and the read-mostly
-+ * identity sharing cacheline 0.
-+ */
-+#include <pthread.h>
-+#include <sched.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <signal.h>
-+#include <unistd.h>
-+#include <linux/compiler.h>
-+#include "../tests.h"
-+
-+struct net_conn {
-+	/* cacheline 0: identity (read-mostly) + rx counters (per packet) */
-+	uint32_t	saddr;		/*   0 */
-+	uint32_t	daddr;		/*   4 */
-+	uint16_t	sport;		/*   8 */
-+	uint16_t	dport;		/*  10 */
-+	uint8_t		state;		/*  12: 1 == ESTABLISHED */
-+	uint8_t		protocol;	/*  13: 6 == TCP */
-+	uint16_t	__pad0;		/*  14 */
-+	uint64_t	bytes_rx;	/*  16: every packet */
-+	uint64_t	packets_rx;	/*  24: every packet */
-+	uint32_t	rx_queue;	/*  32: backlog depth, fluctuates */
-+	uint8_t		__pad1[24];	/*  36..59 */
-+	uint32_t	last_ack;	/*  60: written per ACK */
-+	/* cacheline 1: tx + congestion control (packet-path private) */
-+	uint64_t	bytes_tx;	/*  64: every packet */
-+	uint64_t	packets_tx;	/*  72: every packet */
-+	uint32_t	cwnd;		/*  80: on every ACK */
-+	uint32_t	ssthresh;	/*  84: on loss */
-+	uint32_t	rtt_us;		/*  88: on every ACK */
-+	uint32_t	retrans;	/*  92: on timeout */
-+	uint32_t	__pad2[8];	/*  96..127 */
-+	/* cacheline 2: config, set at setup, read by everybody */
-+	uint16_t	mss;		/* 128 */
-+	uint8_t		snd_wscale;	/* 130 */
-+	uint8_t		rcv_wscale;	/* 131 */
-+	uint32_t	keepalive_int;	/* 132 */
-+	uint32_t	mark;		/* 136: firewall mark */
-+	uint32_t	priority;	/* 140: traffic class */
-+	uint32_t	__pad3[12];	/* 144..191 */
-+} __attribute__((aligned(64)));
-+
-+/* Volatile so every iteration really loads and stores. */
-+static volatile struct net_conn conn;
-+/* Keeps the reader checksums alive after the threads join. */
-+static volatile unsigned long fs_sink;
-+
-+static volatile sig_atomic_t done;
-+
-+/*
-+ * One cacheline each: sum before cpu, or the implicit padding after cpu
-+ * pushes the struct past 64 bytes, and aligning it to a cacheline then
-+ * rounds it up to 128.
-+ */
-+struct fs_reader {
-+	pthread_t	thread;
-+	unsigned long	sum;
-+	int		cpu;
-+	char		__pad[64 - sizeof(pthread_t) - sizeof(unsigned long) - sizeof(int)];
-+} __attribute__((aligned(64)));
-+
-+static void sighandler(int sig __maybe_unused)
-+{
-+	done = 1;
-+}
-+
-+static void pin_to_cpu(int cpu)
-+{
-+	cpu_set_t set;
-+
-+	/* There may be no second CPU in a restricted cpuset. */
-+	if (cpu < 0)
-+		return;
-+
-+	CPU_ZERO(&set);
-+	CPU_SET(cpu, &set);
-+	/* Best effort: in a restricted cpuset this fails and the thread runs unpinned. */
-+	pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
-+}
-+
-+/*
-+ * Connection lookup, as a load balancer or 'ss' scrape would do it: the
-+ * reads go straight to the global, this file is built -O0 and a local
-+ * pointer would be reloaded from a stack slot, a form the data type
-+ * resolver does not track.
-+ */
-+static void *reader_fn(void *arg)
-+{
-+	struct fs_reader *r = arg;
-+	unsigned long sum = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-reader");
-+	pin_to_cpu(r->cpu);
-+
-+	while (!done) {
-+		sum += conn.saddr + conn.daddr + conn.sport + conn.dport +
-+		       conn.state + conn.protocol;
-+		sum += conn.mss + conn.snd_wscale + conn.rcv_wscale +
-+		       conn.keepalive_int + conn.mark + conn.priority;
-+	}
-+	r->sum = sum;
-+	return NULL;
-+}
-+
-+static int false_sharing(int argc, const char **argv)
-+{
-+	double sec = 2.0;
-+	int nreaders = 0, nr_allowed = 0, err = 1;
-+	int *allowed = NULL, nallowed = 0;
-+	cpu_set_t set;
-+	int nr_mask_bits = sizeof(set) * 8 < CPU_SETSIZE ? sizeof(set) * 8 : CPU_SETSIZE;
-+	struct fs_reader *readers = NULL;
-+	int i, writer_cpu;
-+	unsigned long n = 0;
-+
-+	pthread_setname_np(pthread_self(), "fs-writer");
-+	if (argc > 0)
-+		sec = atof(argv[0]);
-+	if (!(sec > 0.0)) {
-+		fprintf(stderr, "Error: seconds (%f) must be > 0\n", sec);
-+		return 1;
-+	}
-+	if (argc > 1)
-+		nreaders = atoi(argv[1]);
-+
-+	/*
-+	 * A connection that just got established: identity and config fixed
-+	 * from here on, counters at zero.
-+	 */
-+	conn.saddr = 0x0a000001;	/* 10.0.0.1 */
-+	conn.daddr = 0x0a000002;	/* 10.0.0.2 */
-+	conn.sport = 54321;
-+	conn.dport = 443;
-+	conn.state = 1;			/* ESTABLISHED */
-+	conn.protocol = 6;		/* TCP */
-+	conn.mss = 1448;
-+	conn.snd_wscale = 7;
-+	conn.rcv_wscale = 7;
-+	conn.keepalive_int = 7200;
-+	conn.cwnd = 10;
-+	conn.ssthresh = 65535;
-+	conn.rtt_us = 50;
-+
-+	/*
-+	 * Pin against the allowed set, restricted cpusets still spread the threads.
-+	 * The whole mask is looked at, not the CPU count: the count can be lower
-+	 * than the highest ID in it, as when a cpuset allows only high numbered
-+	 * CPUs, and then no allowed CPU would be found at all.
-+	 */
-+	if (sched_getaffinity(0, sizeof(set), &set) == 0) {
-+		for (i = 0; i < nr_mask_bits; i++) {
-+			if (!CPU_ISSET(i, &set))
-+				continue;
-+			nr_allowed++;
-+		}
-+		allowed = malloc(nr_allowed * sizeof(int));
-+		if (allowed == NULL) {
-+			fprintf(stderr, "Error: malloc failed for CPU list\n");
-+			return 1;
-+		}
-+		for (i = 0; i < nr_mask_bits; i++) {
-+			if (CPU_ISSET(i, &set))
-+				allowed[nallowed++] = i;
-+		}
-+	}
-+	if (nreaders <= 0) {
-+		/* By default leave one CPU for the packet path, up to 4 readers. */
-+		nreaders = nallowed > 1 ? nallowed - 1 : 1;
-+		if (nreaders > 4)
-+			nreaders = 4;
-+	}
-+
-+	signal(SIGINT, sighandler);
-+	signal(SIGALRM, sighandler);
-+
-+	readers = calloc(nreaders, sizeof(*readers));
-+	if (readers == NULL) {
-+		fprintf(stderr, "Error: calloc failed for %d readers\n", nreaders);
-+		goto out;
-+	}
-+	for (i = 0; i < nreaders; i++) {
-+		int cpu = nallowed > 1 ? allowed[(i + 1) % nallowed] : -1;
-+
-+		readers[i].cpu = cpu;
-+		if (pthread_create(&readers[i].thread, NULL, reader_fn, &readers[i])) {
-+			fprintf(stderr, "Error: failed to create reader %d\n", i);
-+			done = 1; // Ensure started threads terminate.
-+			nreaders = i;
-+			goto out_join;
-+		}
-+	}
-+	writer_cpu = nallowed > 0 ? allowed[0] : -1;
-+	if (nallowed == 1)
-+		fprintf(stderr, "Warning: single CPU allowed, no cross-CPU traffic expected\n");
-+	if (writer_cpu >= 0)
-+		pin_to_cpu(writer_cpu);
-+
-+	/*
-+	 * The packet path: receive, acknowledge, transmit, repeat; every 64th
-+	 * packet simulates a loss so ssthresh/retrans get sampled too.
-+	 */
-+	if (sec < 1.0) {
-+		useconds_t usecs = (useconds_t)(sec * 1000000.0);
-+
-+		ualarm(usecs > 0 ? usecs : 1, 0);
-+	} else
-+		alarm((unsigned int)sec);
-+	while (!done) {
-+		conn.bytes_rx += conn.mss;
-+		conn.packets_rx++;
-+		conn.rx_queue = (uint32_t)(n & 0x3f);
-+		conn.last_ack = (uint32_t)n;
-+		conn.bytes_tx += conn.mss;
-+		conn.packets_tx++;
-+		conn.cwnd = 10 + (n & 15);
-+		conn.rtt_us = 50 + (n & 7);
-+		if ((n & 63) == 0) {
-+			conn.ssthresh = conn.cwnd / 2;
-+			conn.retrans++;
-+		}
-+		n++;
-+	}
-+	err = 0;
-+out_join:
-+	for (i = 0; i < nreaders; i++) {
-+		if (readers[i].thread) {
-+			pthread_join(readers[i].thread, /*retval=*/NULL);
-+			fs_sink += readers[i].sum;
-+		}
-+	}
-+	fs_sink += (unsigned long)(conn.bytes_rx + conn.bytes_tx + n);
-+	free(readers);
-+out:
-+	free(allowed);
-+	return err;
-+}
-+
-+DEFINE_WORKLOAD(false_sharing);
--- 
-2.55.0
-
+pw-bot: cr
