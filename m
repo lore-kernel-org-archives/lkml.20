@@ -1,84 +1,72 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0009241D22D
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 14:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DDA37EFE4
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 14:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791124760; cv=none; b=WcqbTwySKeuqB78IDpyFteFkcsUFf/8H3lj+JTOY832//FK/+hKQnKt3ia7mOk9L3b5XbNPz+7hjD13ui9u2xMq8vLvBo196xFTJwCkLID6mQkQ/SNeM14u8uHFhUw0IqbD0d+w4yv7zTCrOxebeE0fnjpCPuUOVDCa/ajwHwTI=
+	t=1791124804; cv=none; b=SQikXUeJuMEhSveiXAgPwAC2DnO9banIszIZ8XAkx9GR8JqxT9uF40a3GgONKT9hihuswEuIrhXcUGZjU4ARfyQeVoEhwu7rpcuHk9dQwFTcG5ojX/bJ+SOaSfO1MDKiYT4ixEXd4c6BEz3AVHL/g/bHb9IXGItMUb6VNz9FIhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791124760; c=relaxed/simple;
-	bh=c+J67sV7H0tGHh+E+PgpmCiLdKxICybIqqLFNJrokbA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=al3EXZLXn/9b10vUWemOML6g92IWw2g9arI06728RvP1oNI1F6xTmum/+UkwbMqEJx3HSjRUNGbBTGAC2Pjzhu9OaLQPLtRfi53izzUm6dXssKbzr3kJOI8PL0csbVgMtSveqBcrE8NWIpe1YnyZYeTIk+JFP3X+Yf5P9m+83NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SpUpXCtv; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SpUpXCtv"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb65437so411003a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 07:39:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791124758; x=1791729558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c+J67sV7H0tGHh+E+PgpmCiLdKxICybIqqLFNJrokbA=;
-        b=SpUpXCtvjQP6jk9dw70vIY29bx7K2ZCTemoYQ9fedUVMvQYtsVWME2gAKgi+sGGTk4
-         XCpkkUMTbYy6J2SvqgWH7XqZpfEKsr07fdQaMvecuwZCJ6rSrZfjgmbJz72PS4EWeCPu
-         VHcw1T/LI5WFU2tesfT+z6f8Sr1wDeCBVzJkII5J9GOorZcAnA9D2w6/xKhxRUJ8yskq
-         m4T8vKkbeAuoZTsTC4Pa+CAn5Z5EinKYfaGqSOYUVXNW9tBJgcjKZLa9WER4KouWX4A1
-         EybFCvqflRy6NvOu3HR7EgIijYQRImyDyLMPwE9FZ7oO+gadn5Uy6PeYIv7zXzs9OpUL
-         5taA==
+	s=arc-20240116; t=1791124804; c=relaxed/simple;
+	bh=RWbuqTsrjZU3e08tAm3UtL/plK4TD1xBA97VH8vwILo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=WoI4wvjTMDPaehAszCMl9+lND70k7Wu+iXYE2sTef6skvw2BKvd7dlZWc0UYS3ycBKTvOuIb/b8ED5R+rg+PQDjdIK1ORGe1zDLk4MZWXUZD1Ic5Jp5WADjRLvhxHmYzPozIozCN+JfUJFC+E7OdhrTyhSupRsCS3KODBXSiSUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8233f34d21eso1455031a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 07:40:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791124758; x=1791729558;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c+J67sV7H0tGHh+E+PgpmCiLdKxICybIqqLFNJrokbA=;
-        b=L/p0gv/jeI7xdO3j5qC1wktVPm5CF2GLb70lu2rmJ93wufC/X7Eav9aM4nH6LbPupH
-         1OyfYzCw8MLwOaiQongj7Y/D3Y/1nU9ib9nGdu0iA6sPlnPUxSwzpJHbnbTdZx0iSlkt
-         LzyyprivVCmHb3ytO6Eqin7Hu7pF0O27ksV5fg0dTYXb6RoYH9Yls4DHpHvp9KHhwW9Z
-         AYX1lqEpRKykCwt61YNtny3Fyf3GS7wSo0IesV2UpryxBup0y1AqRYYDZyIvLfVeiJl4
-         V7rsZUPnvhOhds+gm9IlMahwISg/h2DtgkqvinoP4/K2+ktsIHaBUC8XqtK7k41Z5Lew
-         D+0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzAxNMu2pEQre3a85lnWBm1mcFJAYnKFWHdc25f7TjlG8wYDAhzHxWOKACiCTyu/zktnA3xSNNcloWwt1A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6mxuQMrTT272Gz59Zid7x2Vwyl1ixkKF5pek0lcNOu18hax8O
-	3mriAQDX009Qr7h9iRzZOMpWfApVQ9cJte9cVXOQbkMo7t0bA/wsz8HI
-X-Gm-Gg: AYBFou2PSbvaG3NDzhrfUCbEiwKmkCtpbgF0npiG0iagQvW3nFJeGiLsribxhLJUby6
-	NIQfOEBp2NK3ZzVOZYpGd3rv3UbOeMLCgFwgGaw/f5+bK8QbT4J9xAijd6kFkYA1nvVLDneP0bs
-	ZtyhFTH0/w0VRKoZdupvcbFRLBQ38wpuLVN6swiURduL16iWCR/WF0cS0DKmRLGVYDge3G7lw/Q
-	iH4nCb6emnW2fKrAEOqGkWH11ijAUxIrO8fvqapqOe6tUo1mavpxC1lfe2//u5eQQKa2T5hHNvS
-	fHjmVHfVMIqXZYTIZqziAxMql4CI6C0sHeIQF0gSNayH0vjxdC9GbrjcuVxAho06tCH11ZfLSVP
-	I042sP3+HiPc2sgqKbEjC5glpoMKjz0sgtNOYtug7ozBoT5dKIcRNNWtKQmA4QtKtqIwRZx1vzS
-	UTAayKv/1P1sklnoC2jAb/3QP43T6HwrOR2JZ+OVbxa5NZFujyDk1D8aDDu+EtFuG3RQis1w==
-X-Received: by 2002:a17:90a:c49:b0:3a0:e4ce:31fd with SMTP id 98e67ed59e1d1-3a6df937606mr4060767a91.10.1791124758244;
-        Sun, 04 Oct 2026 07:39:18 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45f:e6::17:34f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e497230sm6896714a91.11.2026.10.04.07.39.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 07:39:17 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: syzbot+ac020fbb657e00356ca2@syzkaller.appspotmail.com
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [media?] general protection fault in friio_streaming_ctrl
-Date: Sun,  4 Oct 2026 21:39:14 +0700
-Message-ID: <20261004143914.120601-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ac21b16.34119e79.2f92f3.0020.GAE@google.com>
-References: <6ac21b16.34119e79.2f92f3.0020.GAE@google.com>
+        d=1e100.net; s=20260707; t=1791124802; x=1791729602;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hErthXyN5xbSqFZjTlEhJ/2hSf71CKE/a6NDbQLbLNk=;
+        b=Qqri2K8BiHgAwhtccXzHlzjwayiVd2N1i0sEIxLKTxN1/dy99k+J/BkeLkHLHom+pN
+         2QuqA8YlzrvUhW65uzw6wEtl1b0Fj8iBNhKWBh4QyAH194tB62ahAITHW+nRPJIZWdyB
+         Jj6w5Zm7MLbJlPvuqemySxs0EL6m7w46FQbUQXrmpCXtULMJP5V1u0rXyp6DJ2C0ooKM
+         tEpxk5McQDV2wXbhSzC7LPsfwmIUQVtjb69H9kD+WKkdjIoSESsDOVbJcbVgGDBlpgB3
+         lvp2dJ8KhRpxQW96gk6J6AtfXyveM4eRQzrNbgEliR0DY6HsiGLaDJZfE6e52BC4YKTF
+         NT6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByTjtER+x/LDqtqRuw3elMxvo3q8MQK91LBnx2mBgtVW1mX7hAncybx6m5VMJdSWzrQ7IeSew0BGJiue9E=@vger.kernel.org
+X-Gm-Message-State: AFuF++naSoduFnIDVgc6/nTb/DTgPRGlM5JC32I4VabR4/Wg+xWe6TAO
+	iSxEwo3M7X5koehEYWLlum7gaUTmpAfEeFIXBrvy6/j/eFneukkinRKMX8LIYvC86WJKWNwhnfz
+	Yp6HnFjy1Gtteq85lBTgd4GrPwbktWn6KhXISMvkrLOmO5rPxn0VWrlMmbsg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1998:b0:4d6:48c4:a811 with SMTP id
+ 5614622812f47-4f52644528dmr9289819b6e.5.1791124802233; Sun, 04 Oct 2026
+ 07:40:02 -0700 (PDT)
+Date: Sun, 04 Oct 2026 07:40:02 -0700
+In-Reply-To: <20261004141152.18373-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac26542.9ad129c8.3858c0.002d.GAE@google.com>
+Subject: Re: [syzbot] [media?] general protection fault in friio_streaming_ctrl
+From: syzbot <syzbot+ac020fbb657e00356ca2@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-#syz dup: general protection fault in mxl111sf_ep6_streaming_ctrl
+Hello,
 
-Same dvb-usb-v2 core race: start_feed() runs before frontend_init() and
-passes a NULL adap->fe[0] to ->streaming_ctrl(). Fix:
-https://lore.kernel.org/all/20260927061102.47451-1-ngocthang2710.1999@gmail.com/
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+
+Reported-by: syzbot+ac020fbb657e00356ca2@syzkaller.appspotmail.com
+Tested-by: syzbot+ac020fbb657e00356ca2@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         6addb4f3 Merge tag 'edac_urgent_for_v7.3_rc6' of git:/..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11519ec9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=23e5acac5c98285f
+dashboard link: https://syzkaller.appspot.com/bug?extid=ac020fbb657e00356ca2
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=11f5fb15580000
+
+Note: testing is done by a robot and is best-effort only.
