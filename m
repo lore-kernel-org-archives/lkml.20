@@ -1,156 +1,63 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8B34AA013
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0274400DFC;
+	Sun,  4 Oct 2026 21:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791149087; cv=none; b=vEq2CTCRL1X0PLbWZoX9fo3Lz53R2WawRdl5Z50fTqSTFQUAIiUOfcL0qYXC6xggwj7wFPwbXi6w2FKR0QZ9ImP+Fkq/XrEk/Reb0XMUOktTXdIE0rC4LEeYI1v1fAL9/Ww4XVStMxjLdwiMLM6ORn5nxlfLuT1BvH3kSXkkeMQ=
+	t=1791149114; cv=none; b=QuUyyzSvwYv/2tbFlQsq1Cl8t5h+i/p1I4UdKFPpRhIOor66RRjuc6nzD+PoTGsS3kL1LwRQc8+KzcgLWIgT9/1gM4WBwOzEdtpapyxOrB1sdImD44+E9sRqpTlSDzmEIUOyT9SNY06VP14EcVoqh/oBwDpq4+Y4hUY4iX5V0aI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791149087; c=relaxed/simple;
-	bh=9hCcjqOT46xAP7xaIdc0Z4fk9Wd1Z9HkTA12fTdiRn8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uAIt62bG0S8T5JPIRj+nAIP8O16am7Ymd/02qVgxGZqZJpVjSCEFU6of9ODtzUDl89b0WhXuP6GyKlEyhWANKLnVdYDapQdUcdjlPVcf384cNlzyy1DGqqHzmX+sjdiAhptjb5r+t6A8407y0uJ6TlAE5xx/VV89Xs8G6opPHXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BhxsxrQs; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791149114; c=relaxed/simple;
+	bh=3emqJDnLbVrxMhQ6gvY69xZy2sU0IH1VxqwIV0thVJk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p6JfU7SY6PCcDC1NyHLYS3L59xAa35NTy5bxlT3LIxiSpBZYF6k1o552sMSYxCk8OBiRGogy6hszlnI4w0IJ16wxtN4oTD16fNfbWry/q6pZezuCNoxBjlh12nVtPf7z0n+Sf7zCo2MAmG0cDQoOOQvJPyYS08TOOSUBDiC/eds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ZDqGbDM9; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BhxsxrQs"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48bbb06e746so441364f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 14:24:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791149083; x=1791753883; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1iTQTid8V/cmqf8L65z4iELp7ouOSYsaWQ30R10Lt58=;
-        b=BhxsxrQsyF4jlJd29+D9OP1vZV4eqt4xrC5NiT82mwg1NvMuLWC6eS0hVRDVaSEglJ
-         QEHBHBiZMp5wkb8uFSPAFWvmp7sfGqX0TTkQZ4tet4NJwSbTLfTliPaELg6mi7P00ooZ
-         j+oSddjMc89E99LIQ2Yw0iyS+rCPUEepVC6jz3p0BOdvP8LRsXdoNWyyxUURn01G11dp
-         7QehuLQdK24uNWctiTSHCCjtO5VRheqjdgMVMdUp/ZKRCKOYRHd9FTCrx7YQV9pfiSO2
-         odhSm1m00N8spa3Afz8vELj5O3f4+4cHXRQHv2fXG+iThZRzBzc7VUv7M92Trs/JdwNn
-         Hs/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791149083; x=1791753883;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1iTQTid8V/cmqf8L65z4iELp7ouOSYsaWQ30R10Lt58=;
-        b=uOzja+No2tpPNweCSLZ1eMWBkx1eBzDkazXKiwwyr+h/R0AEj5gUGfv6Q6SeIK0Hwn
-         FcFzeL+/oOiHJvSVRooS87dCndfZM7eBKa8RNCPr4XgOF7TX7UriVuc/Bxr0uyVNFrOh
-         U2nfi+Qd1YfCcl66/Z8YaEdQWyhs1GSlJNVi5S9Hj26JnkyiLTsCbDFR3T8CZ02WZ2qy
-         MiredCiURmfxv82xMN/lTnxf+eIFecg+YnpNPbywVyaXus8eUXTin3feTX8gyPPszPxi
-         DzQl16P5F+6Cyu7GAYYYcBhTKqeMQ0XO064wuWyZheyJhlg+sqFSts3q6UF8FD9E7Zt7
-         2LWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzv5PaHukGGxUJyLvgdApSaBFYXaIS8B1Zr/Be3v92FbQgOUF02e7KlJjrvlEGoI591+4/OVbrh2lfCAhk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJi8CcyjPeivqh/ujxh08LqCu8jLpbvOKaIHA2cL+BYDAyeq1s1
-	Xu9Qrn/5P/pfBJ1IiiexbkJf2TN50sNAFqIYfyUNCvh+jyNheoOZNTBU
-X-Gm-Gg: AYBFou2v6j0gB8hJD2ikq+ifNyIEGDCgbAT1d2rOGnnlo95f+pnodO1kw+vJCo+1WdD
-	LzOSessfsWqJALZBa0PonJs2kBL8N/X9w/GV/cf2QUaR2I1O7p4POSe+9230/0yE4IWBqVWQS3A
-	97Hz6+247wU2UjiwH28zbpD7ynzqeA0FmXCz2tUMldFU6Z+9SPI1sT0bwJPCpqgD85SET1MytQo
-	T0W4DeNcJE91VfA9XywJy08ec9294yFKI2PdqqJHzXNGgzDrfT9TQy5wEj+c58SmTSiQlOnNf+M
-	BT/NxHIbha/Aeb9BrGfV5x00dlNSy2VudLIwDJgpeEeAW90DyjsEy6Pq2jiumHzay6oDh4N33rV
-	/WujhWVbkjJVVZMqWQFNhJpGh0LTe0VfJBBDAENIc7NrL4dOs6/9CVUeGDYN2q711nSEdIFFt1A
-	y4DNsq8vtnUBJZZLbeZYwFJBxD4HY8snzxM/zmCTR5cVPiANNot7EAdV7D7BeS45spNbOZRXHNw
-	lR8oMkZtd+gxGHOy0cfs8TF6EItrpKIiSR5hf2UOOTDZMQLyw==
-X-Received: by 2002:a05:6000:2912:b0:48b:ec8:b0d8 with SMTP id ffacd0b85a97d-48c47fe556dmr8699999f8f.32.1791149083490;
-        Sun, 04 Oct 2026 14:24:43 -0700 (PDT)
-Received: from andreayoga.localdomain ([195.122.200.174])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104417sm20407354f8f.27.2026.10.04.14.24.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 14:24:43 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	netfilter-devel@vger.kernel.org
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Bernhard Thaler <bernhard.thaler@wvnet.at>,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH nf v2 2/2] netfilter: br_netfilter: clear stale VLAN tag on refragmented packets
-Date: Sun,  4 Oct 2026 23:24:28 +0200
-Message-ID: <20261004212429.3648-3-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261004212429.3648-1-parri.andrea@gmail.com>
-References: <20261004212429.3648-1-parri.andrea@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ZDqGbDM9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=btCphvORn7Yyjc6QJYh3aTW+dRLKuqQVoUZI59S7zOg=; b=ZDqGbDM9Oax/oK7ECksMSNnfQo
+	w1rQiT/npPF3JvokNixujHMAGG5uz73gPZ0A56TkwTW4WaBFmLROyOlwRh1uC1gRYH+iLU9nUYVwO
+	9DRAjwl2Xrq1Hbzhkd5KvtT3f3uU8+shqIxBeLYm+lf6oEqVS8wzgePkt9z0jzFgTkNU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xDThe-008wa0-98; Sun, 04 Oct 2026 23:25:02 +0200
+Date: Sun, 4 Oct 2026 23:25:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Pufan Jin <2254650260@qq.com>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: zynqmp: Add EBDEE EdgeBoard FZ3A development
+ board
+Message-ID: <fb944e1e-2386-4e5e-a2f8-8c0ccf66362f@lunn.ch>
+References: <20261003194625.936288-1-2254650260@qq.com>
+ <tencent_06FFBD8580099835137D0C541050057B4906@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_06FFBD8580099835137D0C541050057B4906@qq.com>
 
-Bridged packets that conntrack reassembles and br_netfilter refragments
-can leave a port that is an untagged member of their VLAN with all but
-the first fragment still carrying the ingress VLAN tag.
+> +&gem3 {
+> +	clocks = <&lpd_lsbus>, <&zynqmp_clk GEM3_REF>,
+> +		 <&zynqmp_clk GEM3_TX>, <&zynqmp_clk GEM3_RX>,
+> +		 <&zynqmp_clk GEM_TSU>;
+> +	phy-mode = "rgmii-id";
+> +	status = "okay";
+> +};
 
-With bridge-nf-filter-vlan-tagged enabled, conntrack defrag keeps the
-original fragments on the frag_list of the reassembled skb, and each of
-them keeps the tag it had on ingress. br_handle_vlan() only strips the
-tag of the head skb. When that skb is not cloned, ip_do_fragment() and
-ip6_fragment() send the frag_list skbs as the fragments, and
-br_nf_push_frag_xmit() only ever sets a tag.
+No MDIO bus? No phy-handle?
 
-This was triggered with a reproducer that sends fragmented IPv4 and
-IPv6 packets in VLAN 10 to a port that is untagged in VLAN 10, through
-a static FDB entry. The first fragment of each packet left untagged and
-the others left tagged:
-
-  ... ethertype 802.1Q (0x8100), length 1514: vlan 10, p 0,
-      ethertype IPv6 (0x86dd), fd00:10::1 > fd00:10::4:
-      frag (1448|1448)
-
-IPv6 became affected when commit efb6de9b4ba0 ("netfilter: bridge:
-forward IPv6 fragmented packets") added IPv6 refragmentation.
-
-IPv4 has been affected since commit 7885198861fc ("bridge: Implement
-vlan ingress/egress policy with PVID.") made the bridge strip the tag on
-untagged egress, when IPv4 defragmentation retained fragments on
-frag_list. Commit 14fe22e33462 ("Revert "ipv4: use skb coalescing in
-defragmentation"") later restored unconditional frag_list reuse.
-
-Clear the tag when no tag was saved, as nf_ct_bridge_frag_restore()
-does on the nf_conntrack_bridge path.
-
-Fixes: efb6de9b4ba0 ("netfilter: bridge: forward IPv6 fragmented packets")
-Fixes: 7885198861fc ("bridge: Implement vlan ingress/egress policy with PVID.")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
- net/bridge/br_netfilter_hooks.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
-index fe8d2910dae21..2519c3820fb00 100644
---- a/net/bridge/br_netfilter_hooks.c
-+++ b/net/bridge/br_netfilter_hooks.c
-@@ -795,8 +795,12 @@ static int br_nf_push_frag_xmit(struct net *net, struct sock *sk, struct sk_buff
- 		return 0;
- 	}
- 
--	if (data->vlan_proto)
-+	if (data->vlan_proto) {
- 		__vlan_hwaccel_put_tag(skb, data->vlan_proto, data->vlan_tci);
-+	} else if (skb_vlan_tag_present(skb)) {
-+		/* Fragments reused from frag_list keep their ingress tag. */
-+		__vlan_hwaccel_clear_tag(skb);
-+	}
- 
- 	skb_copy_to_linear_data_offset(skb, -data->size, data->mac, data->size);
- 	__skb_push(skb, data->encap_size);
--- 
-2.53.0
-
+   Andrew
