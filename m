@@ -1,163 +1,292 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46AC349CD6
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 06:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED33235E1D5
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 06:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791093743; cv=none; b=Y9F8E2uW4W65r++ey2gdmmQr2piG37iAPXGs+98ZT18Sl2bP3kRkarjLHGE125ubYBmn7b323VEirWDB7zoaSIGvys75B2uO0V3i0FOdwYBgIehCH92RdFYkl8BgQjeOkPTxECse4Dv+QFsiJgiHV5JAYR3t0O9J8ODUy9f5iaI=
+	t=1791093881; cv=none; b=sXS1RMENJyq+YjDdstmu0JOL1isv+mHMPbzlkAdV4gidZ/06pNNGNRBUL9OmDX7YxWmJBUbZYu2/6RRoTXy6KSPlxzatS0lfyUBMEzU2K8BXT6aL8PWk45gyftufKpF/tXCc2UkcPadcHrsR1Sx+7prdVklamiY1civT2Eg8TRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791093743; c=relaxed/simple;
-	bh=MrZM1fuqy59R1SiQ//tw2gC/QW3wBRMI9xhn7nRK87s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fVLMuFMOPhovn/bL2R68J4pZriemhGNopT1x6KFH5MO+4eVnDcj0kki0vDmbP5ce3yLQOSwCz7tqfKKbsfgL8lZ/favFkSup9m8McpnmXiUb8pMY56hlKxxtyh7OFlIhBlu/YNCQ2gwjP7MzjmeWoEpAaJHRq2uIPWIG2kDgZrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hq8txJ/2; arc=none smtp.client-ip=74.125.229.12
+	s=arc-20240116; t=1791093881; c=relaxed/simple;
+	bh=InItdihPvue7KhBnmJaCghTk7rJnuaesPMmkASkU+Ns=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Zb49Xqu8gj0lBQi5G2gGlax+7oj8slRUHHHzJHVJwEBkWnFFFhdMF6vx0XgGk8sHrxQgR6Nzwyp+h5Lt0oWNtFHJCSoOrZAyxPsx6SiZQc2ExqDqW3JJrDvEj/uAaYwvkWYk3g7H5QoIHh0MFlMpATUoVUe9c8vNKkALEoAwwKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f409bsxB; arc=none smtp.client-ip=74.125.228.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hq8txJ/2"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-3396cec93b6so849967eec.3
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 23:02:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f409bsxB"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc74520b20bso117737a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 23:04:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791093740; x=1791698540; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zw3spXruW5eAr/BaWFnAydpO0+AS612TDMLy0c5P4Rg=;
-        b=Hq8txJ/29AGnohleRIX/g6+wcywCzjrNZlUIqVR2sZnQrdtBTO+YwgA2KyKFDPk7j9
-         kkyVfO7CPdu8edwxhdixs3O+NN/VY8su9Bh3E7GTqQrwAC66HkI71bjwNAGUCAqfGE9x
-         j+BI25sEK1ccGivZM2wSCYuOLUpxskHrJoyPpxYu0BAJmCQXHlKLXdw0c0Fhc0qp8H8w
-         xTdQKit92YQ8EZGZ0C9TeafNxrZOwe4kw3b2XXirwytBdEJt2vpmapuVnZhyfoEDsfCH
-         BVeakReLGN0TqjAtH4fBoZ3n/6ESstvOowqLo+7DFU/VdFch6341GDtRNXKZc6tVzxFV
-         MLsg==
+        d=gmail.com; s=20251104; t=1791093879; x=1791698679; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=h7PcSBlvnmt+J9sgVvOc70qdQQS5yk/hCyycOuso3QM=;
+        b=f409bsxBsaN14U69FKzmosurASx1rtTl7WxPfkJIRumGT7+Xo/NygTqHWW2JQbWYgV
+         b6SB7MBSJHvA883dGMoKMn37mXKlqsLiBeVAUxmvD1RMThB4Gx9c4yQ7kH/6/afQ1UJs
+         afJz2IRbh4i2uLouCQnSLi6zC/Isz2jX1x9R7N71NlCoV1M4UVawH8V3U/Sm4l+HiJkQ
+         R4V3337M5fUq1fx1uOjpn2fQaevgV+OZQnxHNBeT0soNiVKyylrMKVLvG/btGe/unrue
+         Bf/LTkCLnFJCEDBfl8/rgulYZZXZZEBx567Vv3M9l2cpqv5nGQQVTX7+b300zIo59A5+
+         Eo5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791093740; x=1791698540;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zw3spXruW5eAr/BaWFnAydpO0+AS612TDMLy0c5P4Rg=;
-        b=OW7I/F8L6Ujnt2IoJ92LmVhq6UGQVjVzhw2TjXlppg7SMzwjKeVYVuny5efX3nq6NJ
-         em5s+v7lKnDWXLUREAPDWy9GY8+89mPUVhLKXm4/MmQxDEPD4r2ZAQTTxh+ohGMC78i8
-         Utq174uJzwIbkvLXnnKPs3ex6RzbfAx7gyoMu321zGKdtptXdUT8JPVseCXO0l/lUQi7
-         07CuSfmwiMGy6QwV9EptkYOkBJJP5pgImpXQ2RVVGXABxzw5jUECu5xCi/chIt7MR7A4
-         4rYUg9xYdJmeYIfca0NGDSLZvPi0sqIhVu+gMXS9BP1pAaXGq8M5WpAM3KmstLgeB5Km
-         MXGA==
-X-Forwarded-Encrypted: i=1; AKwUvByi4o6JXTE8RWB+cS+gsMDUOSmU4DLB25ksbkAsmh+cU8fZt7fzx5WVY6VPWwnn8xDGE4p64xoeDBKRQhw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXqAavoCx22I1XPFIJqy+9R5dK/t/VbCxOVlXN80gbXoJYx3tj
-	RAiGcNG8kNx7+OwgrAxGv3P7NZ/SAfMvrkHsZtzZIEfi0SaqzB1lOpsQ
-X-Gm-Gg: AYBFou0t+89BYCMUATIi0w8YWBBFRxSsk9Ve2c4Nha1r3U9DB8Pw6RnBHYmX/wfO+pv
-	xReyzTV3Mk15lcEaJ4bk1i+xKGSJ2yRFdS+hFwe2nt3MhKFtP4t7gut1N+XCwRt6yPsod9TVpDo
-	GZfnbcvOBA+IY32bMEL8QeNvSYDPaHwu73th3A7uze9JXvFmAGxLbVLF8TZKRdz07e9jEkN0TgN
-	gFr6rxXPiTBXS7DhElLhVnA5pJaGCCiM+OJ2LyQ6uFI5r1gHOBdrVmR2/Ftg4LunNkE8x7x/gxT
-	d4gCofaurMiFVqcK/An5xGPo0MPibuhThZAgDeB6GSO6gkaTiiGUrK1Md6Szvqabpl+K7iPl+ml
-	XLDdFphzXtBpUbILGD1K8gW8fEMTdTvcMGRbvqEHd83VGxEtIEb6+CvHrdK2R/sjJl9u51wqReK
-	5d1G432Y21TAa27W4kUkS5DFCObqrTjHxqYG7W72Okvjg8keYPJ2QO3iwrXeKrdM0IdTxWlo/JR
-	+O5Qd4RZRuD6H3La1dRqbM=
-X-Received: by 2002:a05:7022:b88e:b0:14a:fe37:cdf0 with SMTP id a92af1059eb24-14f5d5b661bmr9362314c88.45.1791093739832;
-        Sat, 03 Oct 2026 23:02:19 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.132.231])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35128156e6esm1952256eec.20.2026.10.03.23.02.13
+        d=1e100.net; s=20260707; t=1791093879; x=1791698679;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h7PcSBlvnmt+J9sgVvOc70qdQQS5yk/hCyycOuso3QM=;
+        b=gUlllPIJEcy7XTv0y3pSmnlQww7KpeLAMR9qslnV/uqzZdKSy++BaF6X5B1WwdLKcD
+         1pFiiTSgi3Ecji/VwvwX4frsR7N0sWFHOcKws40oQ4hVlvwCh3cG1fdpTRYx1eD/VI0C
+         fyVQUHR40GTeUH0jFtYhVjT0CZf69/4YxoHQbbaSuZn5ROcGhcz39XwMI/bc1PELuRTb
+         HIVDLurQZ7/zi4SJkuyV8Z99zm+xIS5Ph59KmzY48g0efwHQ6ZOlZtbxc2ikOtauAVRp
+         JJl0c54vpX+NTNuGxit/WiYEp5UDCuHfekDTpYajUjT0awm90hp35IWLFAeecud1tty5
+         6i3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwyBdkGTIzh6mBkFPzTyAO2QOPmiR/2gO/w5IWW5/YcdYHKE4cRkQJct6z8H3XbnpUYhWZIei+uaQvUgF4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfZGQfSH5ecPYnHCJvJNQqCnLDDgZzhzI3yQYmltBeSavcHDY6
+	vyP7/Jvk6RPtJ4+tVuLA2biOuIM7g5ucSR9z3eUPSvA4MUMZQmOUaCQZIthecDBv
+X-Gm-Gg: AYBFou1pvBDwg6RjjHYfQz5/ZJMHWkYVfcueIP+Bi5J/MIccfkw6pe98t/w+eGp0Z34
+	/crPHg3KKjlsAdAZyisRFz3TxME4SzZnLBJcPsZb4EGwb3PPwbM+1dLxEguAvaYHCplpeBus6L2
+	NrV8j2c0MgDY194Q/n2fALUksNNODCoyo3ctDDgiXUBnkv2YZyS5mx5ZkS1/VE8SWk15uNR4Qhv
+	JZCr8zj0cFCIriAUsKpDAbsnZhQyodRUgktn+8hvGsi9qTY8w2qQ0huz/ZB3mc6uNGEngL9urWZ
+	DTc7a+/UnpKLXmNZRFC9qyF2jYPVuNZOhb7pKwR8llZuCD3FsnK0l5y+ga1QDks7kUT+U7Rm6nN
+	H+5ZxN9vMW9rXlFYyUDsnqlUmJseepPcwdvaP8NiZfnLJecWayqZ9pERKKgFS+oNIqQhJPnaNk5
+	DN7SYyKeAjJI4GN//hXb99QFlnVhxmS+ZDFgf7Bo344YCDkOu0vOEVg1uyUyGSIYt4aZkg/3nT4
+	/V2If7LOozpQKHAXH+l5PdQ+85Y7xihC+x9TzNwmuz4ddEOqdP7kGtPXkppzxY9hZRmgbkgDojx
+	+oVVpDvP53j9sf3PgqSqEaRAaQsE+YzwGp0ALyrAqSrpSfU=
+X-Received: by 2002:a17:90b:6c7:b0:3a0:cca0:4a8c with SMTP id 98e67ed59e1d1-3a6ce97d00bmr4270747a91.7.1791093879144;
+        Sat, 03 Oct 2026 23:04:39 -0700 (PDT)
+Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d4a869esm5844094a91.2.2026.10.03.23.04.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 23:02:19 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>
-Cc: linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Hannes Reinecke <hare@suse.de>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+270624bb31d478afe62e@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] md/raid5: set conf->mddev before the first setup_conf() error path
-Date: Sun,  4 Oct 2026 11:32:03 +0530
-Message-ID: <20261004060203.1379-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+        Sat, 03 Oct 2026 23:04:38 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Subject: [PATCH v2 00/21] Add speaker and headset jack support for Apple
+ Silicon Macs
+Date: Sun, 04 Oct 2026 16:03:27 +1000
+Message-Id: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WNQQ6CMBBFr0JmbU1bikRX3sOwqNMBxgglLRAN6
+ d0FNHH5kvffXyBSYIpwyRYINHNk36+gDxlga/uGBLuVQUt9kmdViM6inRx7keeo0NS5NM7Cqg+
+ Ban7tqVv15TjdH4Tjtt+MluPow3v/mtXm/bJa/rOzElKURiFqaUtDxbXpLD+P6DuoUkofFNBi6
+ LIAAAA=
+X-Change-ID: 20260915-macaudio-33c1c4f304da
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Calligeros <jcalligeros99@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>, 
+ Sasha Finkelstein <k@chaosmail.tech>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8568;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=InItdihPvue7KhBnmJaCghTk7rJnuaesPMmkASkU+Ns=;
+ b=kA0DAAoW1DYy0VH3eWAByyZiAGrB7GejxJ/BY+XQc5ki3nai1coeDKk54HL6FwSs+x8HSeZoG
+ oiRBAAWCgA5FiEEsIISSJsyBtmPFHm91DYy0VH3eWAFAmrB7GcbFIAAAAAABAAObWFudTIsMi41
+ KzEuMTIsMywyAAoJENQ2MtFR93lgTzcA/07o9jzZVCe7oiVoo4GLoAlryGIXkgrMlK/oeh3ub7r
+ aAP41EmVnhb+0m1VzqLvSeTfgVll3CIMzOx5GM9pqdyrvBw==
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-free_conf() starts with log_exit(), which falls through to
-raid5_has_ppl() when conf->log is NULL:
+Hi folks,
 
-	static inline void log_exit(struct r5conf *conf)
-	{
-		if (conf->log)
-			r5l_exit_log(conf);
-		else if (raid5_has_ppl(conf))
-			ppl_exit_log(conf);
-	}
+This series adds the machine driver and related bindings for the
+primary audio subsystem on Apple Silicon Macs. The macaudio
+machine driver is based on an RFC sent many years ago
+by Martin Povišer[1]. 
 
-raid5_has_ppl() reads conf->mddev->flags. setup_conf() only assigns
-conf->mddev after bioset_init(), but five of its error paths -- the
-pending_data, alloc_thread_groups(), conf->disks, extra_page and
-bioset_init() failures -- jump to "abort:" before that, and abort: calls
-free_conf(). conf comes from kzalloc, so conf->mddev is still NULL and
-free_conf() dereferences it:
+The driver uses the DPCM model to dynamically
+glue a backend DAI (combination of MCA ports and codecs) to a
+frontend PCM. While this theoretically allows us to route any
+backend to any frontend, this is not used in practice; the "Primary"
+frontend is always used for the headset codec and the "Secondary"
+is always used for the speakers.
 
-	BUG: KASAN: null-ptr-deref in raid5_has_ppl drivers/md/raid5-log.h:54 [inline]
-	BUG: KASAN: null-ptr-deref in log_exit drivers/md/raid5-log.h:128 [inline]
-	BUG: KASAN: null-ptr-deref in free_conf+0x81/0x5d0 drivers/md/raid5.c:7549
-	Read of size 8 at addr 0000000000000028 by task syz.3.20/5681
-	Call Trace:
-	 <TASK>
-	 free_conf+0x81/0x5d0 drivers/md/raid5.c:7549
-	 setup_conf+0x1720/0x2ad0 drivers/md/raid5.c:7885
-	 raid5_run+0x8cc/0x2560 drivers/md/raid5.c:8129
-	 md_run+0xc3d/0x1cd0 drivers/md/md.c:6779
-	 do_md_run+0x35/0x720 drivers/md/md.c:6880
-	 array_state_store+0x958/0xe90 drivers/md/md.c:-1
-	 </TASK>
+The audio subsystem on Apple Silicon Macs is rather complicated and
+the speaker arrangement is highly variable; some machines have a
+single mono woofer while others pull together multiple woofers
+and tweeters into a single stereo pair. Every machine also includes
+a headset jack, and some also have their own builtin microphones which
+are handled by a separate coprocessor with its own driver.
 
-The faulting address is offsetof(struct mddev, flags).
+Many functions which are handled by firmware on other platforms
+must be handled by the kernel or by userspace. Most notably, speaker
+protection is handled by speakersafetyd[2], a userspace daemon.
+Speaker protection is handled in userspace due to the expensive
+floating point calculations and amount of per-machine configuration
+data required.
 
-conf->mddev is a back pointer that is constant for the lifetime of the
-conf and does not depend on anything computed in between, so assign it
-as soon as the conf is allocated. Nothing between the allocation and the
-old assignment reads conf->mddev -- alloc_thread_groups() takes the conf
-but never looks at its mddev, and the rdev_for_each() loop walks the
-mddev argument directly.
+The machine driver facilitates this by exposing a capture
+PCM from which the voltage and current across each speaker's voice
+coil can be read. Given that there are absolutely no hardware or
+firmware level failsafes preventing permanent damage to the fragile
+speakers found on these machines, the driver also implements a
+failsafe that will significantly attenuate and lock the gains
+of every connected speaker unless speakersafetyd is running.
 
-All five paths are allocation failures, so this needs memory pressure or
-fault injection to hit, which is how syzbot found it.
+Version 2 of this series drops numerous fixes and semi-related
+patches that are not strictly necessary for the machine driver
+to function correctly. These will be resubmitted at a later date.
 
-Reported-by: syzbot+270624bb31d478afe62e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=270624bb31d478afe62e
-Fixes: ff875738edd4 ("raid5: separate header for log functions")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Adding the required Devicetree updates for M3 series devices would
+have bloated this series to an unreasonable size as they are still
+missing most prerequisite hardware nodes. They will be added in a
+future series.
+
+Regards,
+James
+
+[1] https://lore.kernel.org/asahi/20220606191910.16580-1-povik+lin@cutebit.org/
+[2] https://github.com/AsahiLinux/speakersafetyd
+
 ---
- drivers/md/raid5.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Changes in v2:
+- Drop patches that are only tangentially related (will be submitted
+  later)
+- Drop wildcard-matching API for kctls
+- Relabel J473 sound model to Mac mini
+- Align Devicetree changes with upstream bindings
+- Relax Cirrus CS42L42 required properties to keep DT style checker happy
+- Define missing properties in CS42L{42,84} bindings
+- Fix mistyped DT properties
+- Improve macaudio DT binding description
+- Drop generic fallback compatible for apple,macaudio
+- Drop now-redundant descriptions from other compatibles
+- Constrain DAI link link-name property with an enum of valid values
+- Drop MCA node from macaudio binding example
+- Fix heading comment style in macaudio
+- Drop obsolete module parameter
+- Replace string functions with safer variants
+- Replace dropped wildcard API with searching for full kctl name
+- Rework idle props parsing to better surface errors/invalid Devicetree entries
+- Add additional locking to backend setup
+- Take controls_rwsem when safety functions are called from workqueues
+- Replace all mutex{,un}lock calls with guard/scoped_guard
+- Fix incorrect amp gain value for j37x config struct
+- static const-ify all config structs
+- Cancel control lock update workqueue on teardown
+- Drop unused DAPM widget
+- Fix commented-out safe volume calculations
+- Drop speaker lock kcontrol ownership checks and related core API extension
+- Link to v1: https://patch.msgid.link/20260920-macaudio-v1-0-741cc20a74e5@gmail.com
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index b91545ce090d..f98d3bdd3484 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7675,6 +7675,9 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	if (conf == NULL)
- 		goto abort;
- 
-+	/* free_conf() dereferences this, so set it before the first goto */
-+	conf->mddev = mddev;
-+
- #if PAGE_SIZE != DEFAULT_STRIPE_SIZE
- 	conf->stripe_size = DEFAULT_STRIPE_SIZE;
- 	conf->stripe_shift = ilog2(DEFAULT_STRIPE_SIZE) - 9;
-@@ -7743,7 +7746,6 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	ret = bioset_init(&conf->bio_split, BIO_POOL_SIZE, 0, 0);
- 	if (ret)
- 		goto abort;
--	conf->mddev = mddev;
- 
- 	ret = -ENOMEM;
- 	conf->stripe_hashtbl = kzalloc(PAGE_SIZE, GFP_KERNEL);
--- 
-2.55.0.windows.5
+To: David Rhodes <david.rhodes@cirrus.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: Martin Povišer <povik+lin@cutebit.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Shenghao Ding <shenghao-ding@ti.com>
+To: Kevin Lu <kevin-lu@ti.com>
+To: Baojun Xu <baojun.xu@ti.com>
+To: Sen Wang <sen@ti.com>
+To: Sven Peter <sven@kernel.org>
+To: Janne Grunau <j@jannau.net>
+To: Neal Gompa <neal@gompa.dev>
+Cc: asahi@lists.linux.dev
+Cc: linux-sound@vger.kernel.org
+Cc: patches@opensource.cirrus.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-mediatek@lists.infradead.org
+
+---
+James Calligeros (16):
+      ASoC: dt-bindings: cs42l84: Document sound-name-prefix property
+      ASoC: dt-bindings: cs42l42: Do not require chip power supplies
+      ASoC: dt-bindings: cs42l42: Document #sound-dai-cells property
+      ASoC: dt-bindings: cs42l42: Document sound-name-prefix property
+      arm64: dts: apple: t8103-j274: Add speaker/headset jack nodes
+      arm64: dts: apple: t8103-j313: Add speaker/headset jack nodes
+      arm64: dts: apple: t8103-j293: Add speaker/headset jack nodes
+      arm64: dts: apple: t8103-j45x: Add headset jack nodes
+      arm64: dts: apple: t8112-j413: Add speaker/headset jack nodes
+      arm64: dts: apple: t8112-j415: Add speaker/headset jack nodes
+      arm64: dts: apple: t8112-j473: Add speaker/headset jack nodes
+      arm64: dts: apple: t8112-j493: Add speaker/headset jack nodes
+      arm64: dts: apple: t600x-j31x: Add speaker/headset jack nodes
+      arm64: dts: apple: t600x-j375: Add speaker/headset jack nodes
+      arm64: dts: apple: t602x-j41x: Add speaker/headset jack nodes
+      arm64: dts: apple: t602x-j47x: Add speaker/headset jack nodes
+
+Martin Povišer (5):
+      ASoC: dt-bindings: Add binding for Apple Silicon Mac audio
+      ASoC: ops: Introduce 'snd_soc_deactivate_kctl'
+      ASoC: ops: Introduce 'soc_set_enum_kctl'
+      ASoC: card: Let 'fixup_controls' return errors
+      ASoC: apple: Add macaudio machine driver
+
+ .../bindings/sound/apple,macaudio.yaml   |  210 +++
+ .../bindings/sound/cirrus,cs42l42.yaml   |   11 +-
+ .../bindings/sound/cirrus,cs42l84.yaml   |    3 +
+ .../arm64/boot/dts/apple/t6000-j314s.dts |    5 +
+ .../arm64/boot/dts/apple/t6000-j316s.dts |    5 +
+ .../arm64/boot/dts/apple/t6001-j314c.dts |    5 +
+ .../arm64/boot/dts/apple/t6001-j316c.dts |    5 +
+ .../arm64/boot/dts/apple/t6001-j375c.dts |    5 +
+ .../arm64/boot/dts/apple/t6002-j375d.dts |    5 +
+ .../boot/dts/apple/t600x-j314-j316.dtsi  |  135 ++
+ .../arm64/boot/dts/apple/t600x-j375.dtsi |   65 +
+ .../arm64/boot/dts/apple/t6020-j414s.dts |    5 +
+ .../arm64/boot/dts/apple/t6020-j416s.dts |    5 +
+ .../arm64/boot/dts/apple/t6020-j474s.dts |    5 +
+ .../arm64/boot/dts/apple/t6021-j414c.dts |    5 +
+ .../arm64/boot/dts/apple/t6021-j416c.dts |    5 +
+ .../arm64/boot/dts/apple/t6021-j475c.dts |    5 +
+ .../arm64/boot/dts/apple/t6022-j475d.dts |    5 +
+ .../boot/dts/apple/t602x-j414-j416.dtsi  |   35 +
+ .../boot/dts/apple/t602x-j474-j475.dtsi  |   10 +
+ arch/arm64/boot/dts/apple/t8103-j274.dts |   67 +
+ arch/arm64/boot/dts/apple/t8103-j293.dts |  111 ++
+ arch/arm64/boot/dts/apple/t8103-j313.dts |   82 ++
+ arch/arm64/boot/dts/apple/t8103-j456.dts |   38 +
+ arch/arm64/boot/dts/apple/t8103-j457.dts |   38 +
+ arch/arm64/boot/dts/apple/t8112-j413.dts |  108 ++
+ arch/arm64/boot/dts/apple/t8112-j415.dts |  132 ++
+ arch/arm64/boot/dts/apple/t8112-j473.dts |   62 +
+ arch/arm64/boot/dts/apple/t8112-j493.dts |  108 ++
+ include/sound/soc-card.h                 |    2 +-
+ include/sound/soc.h                      |    6 +-
+ sound/soc/apple/Kconfig                  |   18 +
+ sound/soc/apple/Makefile                 |    4 +
+ sound/soc/apple/macaudio.c               | 1699 +++++++++++++++++++++++++
+ .../soc/mediatek/mt8188/mt8188-mt6359.c  |    4 +-
+ sound/soc/soc-card.c                     |   12 +-
+ sound/soc/soc-core.c                     |    5 +-
+ sound/soc/soc-ops.c                      |  103 ++
+ 38 files changed, 3121 insertions(+), 12 deletions(-)
+---
+base-commit: 74612d0b448fe745e80cda87fe49ac3c102ccc1f
+change-id: 20260915-macaudio-33c1c4f304da
+
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
 
