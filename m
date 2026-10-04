@@ -1,219 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60319360EF0;
-	Sun,  4 Oct 2026 10:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBECA134CCF
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791108695; cv=none; b=kSn9jpGx6xzrCq4QAbPk5pi5flbqn1jwQgpGXmx2XQ83aTOoXueqz8bZJ313aeyBHLEnNgf/LwZinFQsLgr046n1Tq/t1sbwW2wEz08r6XRmxIw6Q/Hks819B1gmvBEbqRsisXRhN5Cghcy6Ytp5C9ckwxfJ4vq5W+3QJZ99WjY=
+	t=1791108746; cv=none; b=rDdTOfb9qN72LjpwfbN+FbTGL4pTbphJ6SThnAB//v5wYEquKsZQrwFkAQdTdzAEvadO7ynZo46C6q0z1bXIteQYvtaq3RmgPOz8rCiD0P3ThKQOTXafSSPi5xJUpOFaDXrIObYz+dlRlVzSo9+GhIDOUHAivyj09yxs+qXKAzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791108695; c=relaxed/simple;
-	bh=btjxOFBncYcxeFTQHEr93pMLtej9EhJUaEBzY4YpKfc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ePa+k9I5uHc5ZnkgqsI9XJ6CduBQ2DC9w8L8Qh+HvXRgJxN2w1bkFRx9I6LjjlSwHXQl9UwEkllyUT5kXxdupwOFJ76x2L2mViB9bqirm96zJQ9zErLlrHj/EmVVLuyUJ1LngkZLjdVEgkB3VOBODNw9+Nq40AJIIkpYJQANoiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BHXXpBnV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791108746; c=relaxed/simple;
+	bh=ZUlbH9F0GG0U9GdQojoxCWZZQEvgOKPGO2rP6vSpaQA=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=KTFXb7cXJo+YncVSLr+/mVqIoe1y73U3nYVAt2OhBVFzZqBxd9VBQYzB2AkKCvnc8Uqjtk3UsKVXrWwii8V8IAfvaSMn0/zGv6CVnlVY4B8dNw38PwA+WToCz3jFdvAJC7jmMD1qJgpY2H5DCn6oLQoHKePcw0RnYQxDMCRppuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=WwJR9uXH; arc=none smtp.client-ip=212.27.42.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BHXXpBnV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CC51F000FF;
-	Sun,  4 Oct 2026 10:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791108694;
-	bh=CkSaGWts0W4FuW/tGrCciXI8NMI5AFPyJYFUhRRfSWY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BHXXpBnV4T4M2ffN2oYCNvYAIwO9HQDmS3AjdA/56LPsmbvxoUrZWasOo5KQTvvr9
-	 zKW/5w/vdH12cMqIz1eG/IHP3cvnijatqlmz2O5leHG8v5PlU66GCb71Kvqs9rhcUM
-	 9EzfQr7a2KJ6UEP3RyUwKU2w1l8OxeuTX7ZMEws9UqBbtbv82DlvqPXjUHnSm/HbXS
-	 Z9KZXPfRsgvMeGmbeD9TfZx305wekzVCCReErQLgaKErUZrya0Ny5giHoyuYIXFx63
-	 Bj8JQXxZgu0dEh1MJZgk49dS6RRUvD7xksf7wjkBlcW5f4MbGW7XmfrAw8B8Pi/UQ6
-	 vQWh9wj3mkpFg==
-Subject:
- Re: [PATCH net-next v2 2/2] selftests: net: big_tcp_tunnels: Cover bareudp
-From: netdev-bot+sashiko@kernel.org
-To: yanhaishuang@cmss.chinamobile.com
-Cc: netdev@vger.kernel.org, alice.kernel@fastmail.im, daniel@iogearbox.net,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 10:11:32 +0000
-Message-ID: <179110869274.434549.7292617532752243045@kernel.org>
-In-Reply-To: <20261003100939.468181-3-yanhaishuang@cmss.chinamobile.com>
-References: <20261003100939.468181-3-yanhaishuang@cmss.chinamobile.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="WwJR9uXH"
+Received: from [IPV6:2a02:842a:8223:5500:5b20:512c:83d4:ba0a] (unknown [IPv6:2a02:842a:8223:5500:5b20:512c:83d4:ba0a])
+	(Authenticated sender: julien.robin28@free.fr)
+	by smtp5-g21.free.fr (Postfix) with ESMTPSA id C77EE5FFAF;
+	Sun,  4 Oct 2026 12:12:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1791108735;
+	bh=ZUlbH9F0GG0U9GdQojoxCWZZQEvgOKPGO2rP6vSpaQA=;
+	h=Date:To:Cc:From:Subject:From;
+	b=WwJR9uXH/n3vZEpYKqlNzDe003NvEW8mSsTCbTffD87Hw+PG8AtiUJAyCcNnXNfH8
+	 jUCW3ytnPc1Ng5zdEOhv0kgNk1LnZbEu/5bXGvGLylR3F0J87mPl6ooJBUeKgYQRH0
+	 qeaDDLahEHOVP6+7LG+/sC47KgdmS+ifMYiPnD6Gk353mpU5Vvr+nUcYtfZFgLqozx
+	 24BcW20UtzdDN/Qn5STNOs0x+Fbimp+Rf5Lg6DkakIoBuA60gVwdHXEKESBH/rt7NT
+	 AjYgB984qJa/xQhH1vfUADtyXulWXp8TrbbmF8pfiaJCZv0KiASWmPwEv9jbjXHbNr
+	 O9UA8YMQdJQbA==
+Message-ID: <f921c2ca-e083-41ad-90a9-e54816427a50@free.fr>
+Date: Sun, 4 Oct 2026 12:12:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+From: Julien ROBIN <julien.robin28@free.fr>
+Subject: [PATCH v2 RESEND] x86/pci-dma: swiotlb: Fix a regression since 5.19.0
+ about iommu=soft kernel parameter
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+The following patch fixes a regression introduced since linux-5.19.0 about
+kernel parameter "iommu=soft" which, according to kernel-parameters.txt,
+is expected to enable the use of software bounce buffering (SWIOTLB) and to
+prevent the usage of an available hardware IOMMU.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 2
+Since linux-5.19.0 however, iommu=soft doesn't prevent anymore the usage of
+hardware IOMMU implementations, and at least when an AMD GART IOMMU is
+available, SWIOTLB even gets disabled by "amd_gart_64.c" despite the
+iommu=soft parameter.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The issue is fixed by adding an "x86_soft_iommu_only" variable which is set
+when the iommu=soft parameter is found and processed.
+If the variable is set, hardware IOMMU detection and allocation is skipped,
+as these detection and allocation functions could overwrite both
+x86_init.iommu.iommu_init and x86_platform.iommu_shutdown for later
+initialization and shutdown of these hardware IOMMU implementations.
 
-- [High] Seven of the twelve new bareudp test cases cannot pass, so
-  tools/testing/selftests/net/big_tcp_tunnels.sh now always fails.
-- [Low] Comments in tools/testing/selftests/net/big_tcp_tunnels.sh do not
-  match the new coverage.
-- [Low] The return status of the new bareudp setup commands is never
-  checked.
+When the iommu=soft parameter isn't provided however, the behavior of the
+kernel is left untouched by this patch.
 
---
+Patch applies from 5.19.0 to 6.19.0, based on mainline as of 2026-02-12.
+Successfully tested this fix with iommu=soft parameter on linux-6.1.163 and
+linux-6.19.0 on a Gigabyte 990FXA-UD3 based computer.
 
-selftests: net: big_tcp_tunnels: Cover bareudp
+Tested the fix and iommu=soft parameter on linux-6.19 on these 4 machines:
+ - Gigabyte 990FXA-UD3 motherboard based computer (AMD FX9590 CPU)
+ - Asus TUF B550-PLUS motherboard based computer (AMD Ryzen 5 3700X CPU)
+ - HP Victus 16-s1034nf / 8C9C laptop (AMD Ryzen 5 8645HS CPU)
+ - Asus X550JK laptop (Intel Core i5-4200H CPU)
 
-This patch adds bareudp to the tunnel types tested by big_tcp_tunnels.sh.
-The bareudp devices run in external mode with ethertype ipv4 multiproto. A
-tc tunnel_key action on egress supplies the tunnel metadata, and the device
-MTU is lowered to leave room for the IPv6 and UDP headers.
+On the 1st, this successfully disables AMD GART IOMMU and enables SWIOTLB.
+On the 2nd, this allows disabling AMD-Vi but SWIOTLB was already enabled.
+Same for the 3rd one.
+On the 4th, there was no hardware IOMMU enabled, and SWIOTLB was already
+enabled too: no resulting change for this laptop.
 
-> diff --git a/tools/testing/selftests/net/big_tcp_tunnels.sh b/tools/testing/selftests/net/big_tcp_tunnels.sh
-> index cc0875e52fb9..cf38377f576b 100755
-> --- a/tools/testing/selftests/net/big_tcp_tunnels.sh
-> +++ b/tools/testing/selftests/net/big_tcp_tunnels.sh
-> @@ -53,6 +53,16 @@ setup() {
->  	DEFAULT_TCP_MIN_TSO_SEGS=$(ip netns exec "$CLIENT_NS" sysctl -n net.ipv4.tcp_min_tso_segs)
->  }
->  
-> +# bareudp only works in external mode: attach the tunnel metadata to all
-> +# packets sent through the device. Its MTU does not account for the
-> +# encapsulation either, so leave room for IPv6 and UDP headers.
-> +setup_bareudp() {
-> +	ip -netns "$1" link set "$2" mtu 1452
-> +	tc -netns "$1" qdisc add dev "$2" clsact
-> +	tc -netns "$1" filter add dev "$2" egress matchall \
-> +		action tunnel_key set src_ip "$3" dst_ip "$4" id 0 ttl 64
-> +}
+Signed-off-by: Julien ROBIN <julien.robin28@free.fr>
+---
+Changes since v1:
+ - Added static keyword to 'x86_soft_iommu_only' (only used locally).
+---
+ arch/x86/kernel/pci-dma.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-[Severity: Low]
-Should failures from these commands be passed back to the caller?
-setup_bareudp() ignores the exit status of ip link set, tc qdisc add and tc
-filter add. The same is true of the ip link add ... type bareudp ...
-multiproto calls in setup_tunnel().
-
-The exit status of setup_tunnel() comes from its last command:
-
-    ip netns exec "$SERVER_NS" ethtool -K link1 tx-checksumming "$3" > /dev/null
-
-As a result, setup_tunnel ... || exit "$?" never sees these failures. The
-new tc -V check only shows that the tc binary exists. It does not show that
-matchall or tunnel_key work.
-
-Without the tunnel_key filter, bareudp_xmit() drops every packet:
-
-drivers/net/bareudp.c:bareudp_xmit() {
-    ...
-	info = skb_tunnel_info(skb);
-	if (unlikely(!info || !(info->mode & IP_TUNNEL_INFO_TX))) {
-		err = -EINVAL;
-		goto tx_error;
-	}
-    ...
-}
-
-The test then reports a packet-count FAIL rather than a SKIP or a clear
-setup error. The vxlan and geneve setup ignores errors in the same way.
-
-> @@ -64,26 +74,42 @@ setup_tunnel() {
-
-[ ... ]
-
-> +	bareudp)
-> +		ip -netns "$CLIENT_NS" link add tun0 type bareudp \
-> +			dstport 6635 ethertype ipv4 multiproto
-> +		setup_bareudp "$CLIENT_NS" tun0 "$CLIENT_IP" "$SERVER_IP"
-> +		;;
-> +	esac
-
-[Severity: High]
-Can the bareudp cases that use IPv6, inner or outer, with csum offload off
-pass in this configuration?
-
-With tx-checksumming off on link0, every encapsulated GSO skb is segmented
-in software by skb_udp_tunnel_segment(). That function chooses the inner
-handler based on skb->inner_protocol:
-
-net/ipv4/udp_offload.c:skb_udp_tunnel_segment() {
-    ...
-	case ENCAP_TYPE_ETHER:
-		protocol = skb->inner_protocol;
-		gso_inner_segment = skb_mac_gso_segment;
-    ...
-}
-
-On the IPv4 underlay, bareudp_xmit_skb() always stores the configured
-ethertype. It does this even for IPv6 inner traffic in multiproto mode:
-
-drivers/net/bareudp.c:bareudp_xmit_skb() {
-    ...
-	skb_set_inner_protocol(skb, bareudp->ethertype);
-    ...
-}
-
-The IPv6 header is then handed to inet_gso_segment(). There, iph->ihl * 4
-reads the low nibble of the first IPv6 byte, and the ihl < sizeof(*iph)
-check fails.
-
-On the IPv6 underlay, bareudp6_xmit_skb() never sets inner_protocol. The
-field stays 0, so skb_mac_gso_segment() fails:
-
-net/core/gso.c:skb_mac_gso_segment() {
-    ...
-	__be16 type = skb_network_protocol(skb, &vlan_depth);
-
-	if (unlikely(!type))
-		return ERR_PTR(-EINVAL);
-    ...
-}
-
-In both cases validate_xmit_skb() drops the GSO skbs. The bigtcp iptables
-counter on tun1 stays below packets_threshold, and do_test ... || exit "$?"
-stops the run at the first such case: bareudp, tun_family 4,
-traffic_family 6, csum off.
-
-vxlan and geneve are not affected because they set inner_protocol to
-ETH_P_TEB.
-
-This driver behaviour is older than this series. The previous patch,
-"bareudp: Enable BIG TCP packets", only raises tso_max_size and does not
-change it. As a result, the commit message goal to "run the same checks
-over bareudp as for vxlan and geneve" cannot be met as written.
-
-Could the bareudp inner_protocol handling be fixed first? That would mean
-setting it from the actual inner protocol, and also setting it on the IPv6
-path. Alternatively, the bareudp combinations could be limited to the
-cases that work.
-
-[ ... ]
-
-> @@ -205,7 +236,7 @@ fi
->  WORKDIR=$(mktemp -d)
->  trap cleanup EXIT
->  setup
-> -for tunnel in vxlan geneve; do
-> +for tunnel in vxlan geneve bareudp; do
-
-[Severity: Low]
-This isn't a bug, but the comment at the top of the file still reads:
-
-# Testing for IPv4 and IPv6 BIG TCP over VXLAN and GENEVE tunnels.
-
-Should it mention bareudp now?
-
-The comment in do_test() is also out of date:
-
-	# packet to veth. Check BIG TCP packets inside the VXLAN tunnel to verify
-
-That branch runs for every tunnel type. The wording was already wrong once
-geneve was added, and adding bareudp makes it more misleading.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003100939.468181-1-yanhaishuang%40cmss.chinamobile.com
+diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+index 75cf8f6ae8cd..c3dad499cd27 100644
+--- a/arch/x86/kernel/pci-dma.c
++++ b/arch/x86/kernel/pci-dma.c
+@@ -34,6 +34,7 @@ int force_iommu __read_mostly = 0;
+ int iommu_merge __read_mostly = 0;
+ 
+ int no_iommu __read_mostly;
++static int x86_soft_iommu_only __read_mostly;
+ /* Set this to 1 if there is a HW IOMMU in the system */
+ int iommu_detected __read_mostly = 0;
+ 
+@@ -100,9 +101,15 @@ void __init pci_iommu_alloc(void)
+ 		return;
+ 	}
+ 	pci_swiotlb_detect();
+-	gart_iommu_hole_init();
+-	amd_iommu_detect();
+-	detect_intel_iommu();
++
++	if (x86_soft_iommu_only)
++		pr_info("PCI-DMA: skipping hardware IOMMU detection and allocation\n");
++	else {
++		gart_iommu_hole_init();
++		amd_iommu_detect();
++		detect_intel_iommu();
++	}
++
+ 	swiotlb_init(x86_swiotlb_enable, x86_swiotlb_flags);
+ }
+ 
+@@ -149,8 +156,10 @@ static __init int iommu_setup(char *p)
+ 			return 1;
+ 		}
+ #ifdef CONFIG_SWIOTLB
+-		if (!strncmp(p, "soft", 4))
++		if (!strncmp(p, "soft", 4)) {
+ 			x86_swiotlb_enable = true;
++			x86_soft_iommu_only = 1;
++		}
+ #endif
+ 		if (!strncmp(p, "pt", 2))
+ 			iommu_set_default_passthrough(true);
