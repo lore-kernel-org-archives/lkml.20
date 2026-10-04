@@ -1,49 +1,59 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC54235F161;
-	Sun,  4 Oct 2026 08:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDE735F161;
+	Sun,  4 Oct 2026 08:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791102532; cv=none; b=Q4fHHROtUhkpkKrRmrvLw+xBQXVkJbPPCnQGz95YVIyVYLduVG0nq1t4rBJDpdEi/zIKVd6SfPJyqR7tV53xRrgAGh9M5SvsmDnNOc+KyRvWUxshJGuVPyRTAtDsk4ynUao4oWF4O0kuUf00kTN62dTOOfW0sfK6OMkKUO786lc=
+	t=1791102539; cv=none; b=Li1Mkdov30Ikk0IEMqW/9xG2ktsBrd+7V2jp4gS1Qy6uK6Lrhsn2T09FtJ4I4Dh07kgQZ1yHqVaaPm7o1QM4B0kLgUoSLzBQPSfThQ1K1fs14jDzhAR9odfxPHsIP8gJ6Mhq+YcZaNvOB1hMbBPuyQb9jkKFHjRPZWthS4dQNCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791102532; c=relaxed/simple;
-	bh=hj5R5jF5CRnw0juE1ALnPF3mWFQ78K4oiIdBkUbQCNg=;
+	s=arc-20240116; t=1791102539; c=relaxed/simple;
+	bh=DyCCifF2eiKxtMwZn3NsN9SFtXdsEgn5WFJ0W/q6EQc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S7OwNoaSpzOsUM04d2qN+u1n0i9uLt7XzcxEpu4gpkjB04WYVQ4Zwp4ZfZOXo5vvRw9l+MMYY7BBh4QuNEjON9eNLm7PaN9Okelr8R1s84dMLXxQ39dNMutrN9Jnc8f8f3f0bFAooLgqxE/vEOtdWibPlBzVSzTyYdyS6aOjYuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gUN9v8np; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=S1i0i/LrSUlXi1wHx74QU/r6SsVMOPohP54cZdnwMtpkZCXm8dR/PchZnskAgMpjnAFuyvW880SZu6ICV2RtcQzfDCPfyUoXS3k34mggf0SJ7AkCeSX6whYj6LipfrN4aV5zST8BiB5wcObKtXsex6haftTCoXwc6z1m3IgXLW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UWmeuxQS; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gUN9v8np"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB4351691;
-	Sun,  4 Oct 2026 01:28:46 -0700 (PDT)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 193E23F763;
-	Sun,  4 Oct 2026 01:28:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791102530; bh=hj5R5jF5CRnw0juE1ALnPF3mWFQ78K4oiIdBkUbQCNg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gUN9v8npEC8SGO/RxSEmPQC2sQGykfXJWkXlgSQ+H7NiZbD0DzaRZSWGXs/Kefaxw
-	 MFOUX7n+Ch06tPJP7ok5LKxzwd10SDr574CtBNocbU0H2zPxgrfKe5t1Supdr64YTm
-	 Fmzxqj8c40492Nh0Y9p1Oh57ilLUP1lFrjXm7Nj4=
-Date: Sun, 4 Oct 2026 09:28:34 +0100
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, jic23@kernel.org, elif.topuz@arm.com,
-	lukasz.luba@arm.com, philip.radford@arm.com, david@kernel.org,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v12 06/25] firmware: arm_scmi: Add basic Telemetry support
-Message-ID: <asIOI0C2IrurrLlj@pluto>
-References: <20260920091928.2014972-1-cristian.marussi@arm.com>
- <20260920091928.2014972-7-cristian.marussi@arm.com>
- <20260928130134.000019ff@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UWmeuxQS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791102538; x=1822638538;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DyCCifF2eiKxtMwZn3NsN9SFtXdsEgn5WFJ0W/q6EQc=;
+  b=UWmeuxQS7aMl3pQTKDUJYDKVCmkqySZwx+/7/KqubrFaPnbETk+HQX2v
+   9cH5lgeC0jCOF6LKSH6t2nlVdEIVUPNSIl+FPTVfx+8FG5C+ijy6D3HAN
+   DtAZ9X4mcznnZU6fvqtqAa+oKBg3H9n68Si7bNTApQXyVlo38BcBOOqbw
+   5di3ODuAxjpg7beRqeEd0yNbuKpKHAZR9wyAV+Q+xTFbrRRHOT3Y0IJmk
+   ie1nK/8ftdUXTConNvwCRe7wXvMwUcHQk9H404q0FLLunzPZKMHmwDV7P
+   ZAvae3eEq12VECpWEA2JetdgH4UtjTJQdbJjpT9CaMUpP4Qp3n/sL3j2u
+   Q==;
+X-CSE-ConnectionGUID: +lG1GezLTLyyhktY1LtYNg==
+X-CSE-MsgGUID: Fif7R31gSySbfd31QehOww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="94512817"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="94512817"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:28:57 -0700
+X-CSE-ConnectionGUID: DcY6GtM5SUOYXxFLfucUnQ==
+X-CSE-MsgGUID: 50LicehBRae5O+HoCGWcrw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="274689930"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:28:55 -0700
+Date: Sun, 4 Oct 2026 11:28:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Junjie Cao <junjie.cao@linux.dev>
+Cc: brgl@kernel.org, linusw@kernel.org, ptyser@xes-inc.com,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 3/5] gpio: Move Intel PCH type of GPIO drivers to the
+ intel subfolder
+Message-ID: <asIORD7gXY3VJ__Z@ashevche-desk.local>
+References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
+ <20260925160913.1648565-4-andriy.shevchenko@linux.intel.com>
+ <20261004054809.24211-1-junjie.cao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,27 +62,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928130134.000019ff@oss.qualcomm.com>
+In-Reply-To: <20261004054809.24211-1-junjie.cao@linux.dev>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Sep 28, 2026 at 01:01:34PM -0700, Jonathan Cameron wrote:
-> On Sun, 20 Sep 2026 10:19:09 +0100
-> Cristian Marussi <cristian.marussi@arm.com> wrote:
+On Sun, Oct 04, 2026 at 05:48:09AM +0000, Junjie Cao wrote:
+
+> One small note: moving GPIO_ICH under "if PCI"
+> also excludes its existing COMPILE_TEST &&
+> HAS_IOPORT path when PCI=n.
 > 
-> > Add SCMIv4.0 Telemetry basic support to enable initialization and resources
-> > enumeration: add all the telemetry messages definitions and parsing logic
-> > but only a few simple state gathering protocol operations.
-> > 
+> I checked that gpio-ich.o builds with W=1 in that
+> configuration before the move. Could we keep
+> GPIO_ICH outside the PCI conditional to preserve
+> that coverage?
 
-Hi Jonathan, David
+For what purpose? Yes, it might compile with PCI=n, but it makes no functional
+sense. Note, that currently Kconfig puts (mistakenly!) this driver as memory
+mapped GPIO driver, which is true, but not the whole picture. This is part of
+MFD driver, that is solely PCI and never been anything else. My series rectifies
+(or, if you wish, clarifies) this.
 
-so I posted v13 which was under work since a while trying to address
-more Sashiko issues and I included some of your feedback too, BUT still
-I have NOT split this patch in smaller easier chunks to easy reviewing,
-since I did not want to change too much the shape of the series for my
-beloved non-human reviewer for this iteration :P
+Also note, that having compile test enabled on PCI devices with PCI=n may lead
+to build issues as PCI doesn't have full set of stubs (yet?). It's not directly
+related to _this_ driver, but MFD parent one might be the case.
 
-...but I will certainly split in v14 this patch and the next (both well
-over 1k lines as of now) while addressing more of your feedback.
+But, of course, it's not a big deal to add " || COMPILE_TEST" to that "if PCI".
+I will consider doing that if we move forward with this series at all. Currently
+there is no consensus on what to do with some drivers.
 
-Thanks,
-Cristian
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
