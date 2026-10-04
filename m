@@ -1,210 +1,106 @@
-Received: from mta1.migadu.com (out-158.mta1.migadu.com [95.215.58.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403FF15746F
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 08:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AC915746F;
+	Sun,  4 Oct 2026 08:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791101968; cv=none; b=hR/9KIAGAOC9G18lyLAH0rwbHfdZJDpIYgrc8607PAnlFlc46DjJHa8dCPlM2iIZeli4MGwCBIhhKmEbZ7bciEA56spKsyuK4ZgKhZ6Sn/Hw/znrMK4p4XzoC9SAKBdusfeyTG8Wu3j1AhHNetXvrnujBqlGiOe8X9AkWsaZaaA=
+	t=1791102019; cv=none; b=DxOWCqqlzFqlIQy93GqNvNJggvpzwpgUtQPs1o7EHC5ikPvrIvsbMhAmX1Rb7TrswNjvQ98v+8s/oybEKnLStdYzCFaqIL1bYDbx2vgWzvFuTSM0twnVusgwjbhhV/afbiUdwjk6A97phN/Il3nHIZIuN/96SfT1imH6tjB72S0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791101968; c=relaxed/simple;
-	bh=N1P1P3jMKJo9ggmNihU/EA7zpJLYlMm+cg9cdHhLxxg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=c/c91nXwXjnVLhVM2oKN6eb31YDGlHZVJCBqOirMTqV9yqtn09J/Hs3rfTO43/tUU+xHrpmpPchVs9XbkEXRpjZ40JAEsLA+6EiRih6OFhkFuabZfRCaAv82c6ino0a+i0hW9joNoGSGc89VQ2EXCySch5saSDlUTgtbC5kv7Ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o2rBWC/S; arc=none smtp.client-ip=95.215.58.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791102019; c=relaxed/simple;
+	bh=Vsapf1kOW/cI9QN5gkodmygcncjVMEcCl0pgkMZ+c6o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ayKmmuDpljvnzplSmROT292s5DBnvTXk6LCpprcqdvm7yOmAuEXGEgH9hFh/gRLBZi96JkojYzpdS6yWERVLDznf1vyUzlE1we9o/vbShTzUSxlhmf+rdWZIH7unZl5Rov2gd0vVYP+/VjbxIlODOwpuTLnmZZ5izTtfE8eEx5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cOqi+lIo; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o2rBWC/S"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=N1P1P3jMKJo9ggmNihU/EA7zpJLYlMm+cg9cdHhLxxg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791101963; v=1; x=1791706763;
- b=o2rBWC/SDVjK7JddP7bOJWlREDAr3IkA4FsCyfKM73m/XoBLGBSgEZqJEVwliuhxaLgKNE0G
- GXZFzmMeXAN0/em2cjxGkcChj5bMuI0BU/VBYZig02vHSzEyZCGY37lI1OhqlcI6knhWnAppRUE
- kN7HAmpyWkh9/6BBMVpDSPoo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e992c55305e9727b;
-	Sun, 04 Oct 2026 08:19:22 +0000
-X-Mizu-Trace-ID: e992c55305e9727b
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: usama.arif@linux.dev
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org,
-	ying.huang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	nico.pache@linux.dev,
-	liam@infradead.org,
-	ryan.roberts@arm.com,
-	vbabka@kernel.org,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com
-Subject: Re: [PATCH v8 26/30] mm: handle PMD swap entries in UFFDIO_MOVE
-Date: Sun,  4 Oct 2026 16:19:17 +0800
-Message-ID: <20261004081917.20111-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261002095503.3585565-27-usama.arif@linux.dev>
-References: <20261002095503.3585565-27-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cOqi+lIo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791102018; x=1822638018;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Vsapf1kOW/cI9QN5gkodmygcncjVMEcCl0pgkMZ+c6o=;
+  b=cOqi+lIoMaZ4gQanRzZN3A86CHhZa2Gk3OSrswT5GHCE2nMEa9rh+cHt
+   B93XJQxpnKB50jL5ERKib43WYfoIaiVt+G2fpvzYx2QSicjrjitK+x9mS
+   Y6CaxSUZaRvK6YaYtvjdT8VXHFqM+/4v7mrNCkl6AovjsuUUiDSwoNV+p
+   p3vJ95DXSeJyArPPsy+TRJP4Ng8dW2j6uvKuq9JuqFYIhe+BGgga9uUv8
+   u5PBbLPzy42UCbFDjeGb08HL0Z3YXgVYajQ5ztwsIKfNkg8LNnnJchB+q
+   n/6b2PNswAX+7IRO946GDLnL5dbs+1zcnCAyIvv0A5B8Bz+vy6wf7WWfH
+   w==;
+X-CSE-ConnectionGUID: Ua+Cn44VQ72rIb7nUZt/kA==
+X-CSE-MsgGUID: 2tqrwRTYRrGiVgH2rkTJqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90933882"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="90933882"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:20:17 -0700
+X-CSE-ConnectionGUID: mS7bUlfMT5OvaOsG9B1xPA==
+X-CSE-MsgGUID: wVilO/PZSoukuvlhmKYWsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="274688316"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:20:16 -0700
+Date: Sun, 4 Oct 2026 11:20:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: Adrian Ng <adrianhoyin.ng@altera.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] gpio: realtek-otto: Handle errors from optional IRQ
+ lookup
+Message-ID: <asIMPd-Kat3Zo978@ashevche-desk.local>
+References: <20260814043028.12548-1-phucduc.bui@gmail.com>
+ <aro6C_SWBGF44z5E@black.igk.intel.com>
+ <CAABR9nEmXm2UwOWHDR2=A_62LuFxjgN4En=8Jcn2r_on0XmROA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAABR9nEmXm2UwOWHDR2=A_62LuFxjgN4En=8Jcn2r_on0XmROA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hey Usama,
+On Sun, Oct 04, 2026 at 08:08:18AM +0700, Bui Duc Phuc wrote:
 
-On Fri, Oct 02, 2026 at 02:52:40AM -0700, Usama Arif wrote:
-[...]
->+static int move_swap_pmd(struct mm_struct *mm, struct vm_area_struct *dst_vma,
->+			 unsigned long dst_addr, unsigned long src_addr,
->+			 pmd_t *dst_pmd, pmd_t *src_pmd,
->+			 pmd_t orig_dst_pmd, pmd_t orig_src_pmd,
->+			 spinlock_t *dst_ptl, spinlock_t *src_ptl,
->+			 struct folio *src_folio, swp_entry_t entry)
->+{
-[...]
->+
->+	moved_pmd = pmdp_huge_get_and_clear(mm, src_addr, src_pmd);
->+	if (pgtable_supports_soft_dirty())
->+		moved_pmd = pmd_swp_mksoft_dirty(moved_pmd);
-
-Shouldn't we clear the source UFFD marker here?
-
-	moved_pmd = pmd_swp_clear_uffd(moved_pmd);
-
-just like move_swap_pte(), no?
-
->+	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
->+	if (userfaultfd_rwp(dst_vma))
->+		moved_pmd = pmd_swp_mkuffd(moved_pmd);
->+	set_pmd_at(mm, dst_addr, dst_pmd, moved_pmd);
-
-static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
-			 unsigned long dst_addr, unsigned long src_addr,
-			 pte_t *dst_pte, pte_t *src_pte,
-			 pte_t orig_dst_pte, pte_t orig_src_pte,
-			 pmd_t *dst_pmd, pmd_t dst_pmdval,
-			 spinlock_t *dst_ptl, spinlock_t *src_ptl,
-			 struct folio *src_folio,
-			 struct swap_info_struct *si, swp_entry_t entry)
-{
 ...
-	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
-...
-	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
-	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
-	if (userfaultfd_rwp(dst_vma))
-		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
-	set_pte_at(mm, dst_addr, dst_pte, orig_src_pte);
-...
-}
 
-Suppose the source is an exclusive swap PMD carrying a UFFD-WP marker, and
-the destination is an empty hole registered for synchronous UFFD-WP without
-RWP. We haven't write-protected the destination, but a successful whole-PMD
-MOVE carries the source's UFFD-WP marker into it.
+> Thank you for pointing me to the discussion.
 
-On swap-in, that marker is restored in the present PMD, leaving it
-write-protected. The write fault then reaches
-handle_userfault(vmf, VM_UFFD_WP), even though we never write-protected
-the destination ...
+> > Have you read the discussion [1]?
+> > It would be better to make platform_get_irq_optional() to be actually optional.
+> >
+> > [1]: https://lore.kernel.org/lkml/20220212201631.12648-1-s.shtylyov@omp.ru/
+> 
+> However, Regardless of how the API might be redesigned in the future
+> to return 0
+> or negative error codes, the fundamental requirement at the driver
+> level remains
+> the same: real errors must be propagated properly.
+> 
+> This patch isn't concerned with the API style discussion, but rather
+> with ensuring
+> that driver probe doesn't silently swallow genuine errors like ⁠-EPROBE_DEFER⁠.
+> Proper error reporting is necessary under any reasonable API design.
 
-That would be quite a surprise for userspace, and could leave the writer
-stuck if the unexpected WP event goes unhandled :)
+Yes, but doing specific error handling is usually not a good idea as it adds
+ambiguity. Like -EINVAL was used to check if the device property is present or
+not at the time of trying to parse it. This was specifically clarified in the
+documentation [2]. This is just an example of why the checking over a certain
+error code is not good.
 
-vm_fault_t do_huge_pmd_swap_page(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-...
-	bool exclusive, stable_writes, rwp_restore = false;
-	bool write = vmf->flags & FAULT_FLAG_WRITE;
-...
-	pmd = folio_mk_pmd(folio, vma->vm_page_prot);
-...
-	if (pmd_swp_uffd(vmf->orig_pmd))
-		pmd = pmd_mkuffd(pmd);
-	if (pmd_swp_uffd(vmf->orig_pmd) && userfaultfd_rwp(vma)) {
-		pmd = pmd_modify(pmd, PAGE_NONE);
-		rwp_restore = true;
-	}
-...
-	if (exclusive) {
-		if (!rwp_restore && (vma->vm_flags & VM_WRITE) &&
-		    !userfaultfd_huge_pmd_wp(vma, pmd) &&
-		    !pmd_needs_soft_dirty_wp(vma, pmd)) {
-			pmd = pmd_mkwrite(pmd, vma);
-			if (write)
-				pmd = pmd_mkdirty(pmd);
-		}
-		rmap_flags |= RMAP_EXCLUSIVE;
-	}
-...
-	vmf->orig_pmd = pmd;
-...
-	if (write && !pmd_write(pmd) && !rwp_restore) {
-		vm_fault_t wp_ret = wp_huge_pmd(vmf);
-...
-	}
-...
-}
+[2]: 70fa0c308aa2 ("device property: Document how to check for the property presence")
 
-vm_fault_t wp_huge_pmd(struct vm_fault *vmf)
-{
-	struct vm_area_struct *vma = vmf->vma;
-	const bool unshare = vmf->flags & FAULT_FLAG_UNSHARE;
-...
-	if (vma_is_anonymous(vma)) {
-		if (likely(!unshare) &&
-		    userfaultfd_huge_pmd_wp(vma, vmf->orig_pmd)) {
-			if (userfaultfd_wp_async(vmf->vma))
-				goto split;
-			return handle_userfault(vmf, VM_UFFD_WP);
-		}
-		return do_huge_pmd_wp_page(vmf);
-	}
-...
-}
+-- 
+With Best Regards,
+Andy Shevchenko
 
-So, clearing the source UFFD-WP marker before the destination RWP check
-would match the PTE helper and keep the RWP re-arm :)
 
-Am I missing something?
-
->+	src_pgtable = pgtable_trans_huge_withdraw(mm, src_pmd);
->+	pgtable_trans_huge_deposit(mm, dst_pmd, src_pgtable);
->+
->+	double_pt_unlock(dst_ptl, src_ptl);
->+	return 0;
->+}
->+#endif /* CONFIG_THP_SWAP */
->+
-
-[...]
-
-Cheers, Lance
