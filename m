@@ -1,139 +1,110 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A546236E498;
-	Sun,  4 Oct 2026 15:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C383C10A0
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791128703; cv=none; b=S5UOx+kU0w0EJQam+N13XkPagZQdpGfrqOTDADDZ86Sqd+LuI8LON0FFvyJuCy5ghMmcCMig7DQlyXb4o/qtTd/mg1eEcu1HH25EzoX8fzHglTGy3eFmkDb0j1Cr9MRkEJHWLQbxPx1pkxRsifhWBPoC6366qMvjcLFZeDMNmRo=
+	t=1791128737; cv=none; b=mb7ZD+rxbCb/vhHAyil7kuV+wO022M2liI30oy66YvInGdRdR1Ef8sohheJozJlV8PbIQzp8n3NP9vGHWdXzcfiTpkBm/utUycv8MMbApkcO45uCk5XeFccuq7GSmmV1Sr+UPF4QiB6PYWDhLiE+NtOZAtKxlsUh3ASQJL5s1MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791128703; c=relaxed/simple;
-	bh=6VExMatIpNaJGFvg0DCb2B+ps2eCBCtSzNT7we71dIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LmEhFULe7lx2yHNWyPfLARTqNAHLM2Pdk7ughVSV1uCmH03gTZh1NI2CNp/L48uT/iqTgpUd8pizjFQOnCmBav0WSWSWIiEIV7pDV9IdbUbWoxPOntwBBxOelxZP9eLvx2slWJB1qPUBWPG9HlkEx025zTe7e4TiZz2DCQpgh7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=IlQhKE7N reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1791128737; c=relaxed/simple;
+	bh=JJ5PatwUf4+x5mD73Hv8f080y8YoRVgQwuJkNNfdR2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZA4lKhBipW5CCl4OlAp4fzzwNvwr/XhZpJlt4Jd+IVC5zhLLPUPIa7ac1UHhpV14CTq47pu8IjyTwTRtm6Z+odc2KfIX6gfscHcquKVdODUhSZzMOjUKaRh7alqBseq5M8+EW0Ggl9E2VwnPeU/WBcHBO05nqpC9uiSHUvF3XLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PCnZyeyS; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="IlQhKE7N"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B97BA40E01B4;
-	Sun,  4 Oct 2026 15:44:57 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 4yVDCcEjaToe; Sun,  4 Oct 2026 15:44:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791128687; bh=BAFSbCkTz3nxD5ued70ACeS8eONsJiVPIwxaE2QsvxI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IlQhKE7NqzscRABDcEzeyhmIzVq8MC8yvIQMrUrW53Q274J9L6B6knzmuW3pZ38pu
-	 8859asSzPvZgqVTUqvEKQ7URvKv6XPxLhj/mz38ttmoBecy4/zSGju+2Nz5qUJXe8f
-	 i4XdMMZvyKRoegpj8PCnC4sCAZ/hSM4K4l+vK19kitcroBeqBaNZcRS7rE+5qQ/qca
-	 VZr05vjYM1ZBcKva9g4FrxhOohNWmBh4aoCdOaz0cU32v2YtzZr+E4UuBTpe1f1CRq
-	 8YuWoD4ygMImRagaZRB+yUeuvUVITW40dz1rbODO24jHjDr8bx9oqzOJuXo5wzgq4v
-	 ZVwudH79v3GwjLBpJ564Z+M5/pLCB8KPlEQiU+wImeLEgFodG8hP4KvpXApv+Tk7Bb
-	 zVapcRNpftOAVRs9Zfqk3I2MasL7vTJt6tpoFJ6pi+0cyY+HI/m2ew264MX2BqPwKk
-	 EimAPxc6scGfSgMCqX6VQhuYhQlum+NpDsRsWDFcnfNVUCv+v1g5kNpKABb+CI3fLQ
-	 4BmHkaNv/H8DJJOR5hVwTP2SMlM9Soq0OwYsywaa4QNyu8DZ6Kqppu8Pj0rqH92SCe
-	 z+6rbxF3bZfQ4sUS1wZDRwXwHBnPjQtA5svqoEs+kZxWLb1luKZEMQqdAwm8J14wgv
-	 Urk+o8xX3u7QaRfdocHT72CM=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D2FE340E015B;
-	Sun,  4 Oct 2026 15:44:32 +0000 (UTC)
-Date: Sun, 4 Oct 2026 08:44:28 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-kernel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 7/7] PCI/quirks: Avoid certain address on Genoa systems
-Message-ID: <20261004154428.GAasJ0XCWdso81YdwH@fat_crate.local>
-References: <20261002113319.6652-1-ilpo.jarvinen@linux.intel.com>
- <20261002113319.6652-8-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PCnZyeyS"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so3743205e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:45:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791128731; x=1791733531; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cWjKgA1ht9vd7gcEh0QJP7aH/UymJT1EXVYifgzXx/4=;
+        b=PCnZyeySB3RFsYezf45VSoZj/PgX0Ol13DPHxK2goT0AoTDHwcXNerRApDPy3KRe5b
+         RGN9WgAbYUXci7AAAHMvFwS5yEJ1osSeMeCYSDo04DLPtzgcwrDyA3cGx1lgbtKmnQPo
+         8ohvjlvCHYiABfp6RZc/6eIpqMNxrJfTskusTc+6U426IPKEQtK8SIQYFaTmOkMoQW/h
+         fz0tFnN34a30bGuVbIa1TC+/p1U8rLCYsJl/xhX7hm70owyaD8wvou2kFogECKKo8OCC
+         07bWHK/ibe23Mms8Lr9Sa4wh7GrN0WGXMqZ+L52GSi3SSLNqVR42qCzYrH6DeKEOLrQM
+         4ERw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791128731; x=1791733531;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cWjKgA1ht9vd7gcEh0QJP7aH/UymJT1EXVYifgzXx/4=;
+        b=MLwdtDTxmtbh+q94y+KraAKs74t8y+J2ggVMRrfaX3twnIx8dg4s8DL32LrurKbteS
+         KwGSAhNvA16ve0RZcrEduA1hNpD5ICvyiKoIqx0xmM+IGPsJtoBtC0sk4M6QNFUurhO+
+         nCOVqA1Yf2LjSyd8aivrZW9NuvImVVImDLpxEEB0uDFkxvzsW44HjYxE8V9Jo6mdYCzT
+         wl6NAb8Jk+CBnVeird0eHlu05audC6WbAPMloaQdpfS/pj3VjSfLy6xPrJlMQuYvlb0p
+         eb5JaipmFVnMd8VdAQMfKdaNudS0Qhv8at3MUcCaM+40yzL/+Zp1HIKhfPL1pfMY1oLW
+         E3Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1suYXgHVrqUqpr/b2tJi72ZslW8xUPAJzTJT1WeHKDU2x5V7Awa6tiKvKsEMXj2HNLhjZw/odjDPhtzc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpoT6gKoVqWbmRY3xF+azmZDGdF1cl46ojh4al5hOrCMglMn/s
+	Xs+Ol9w9O6CzQY2+JBzPLNClqj/7b9+OaSCaawQ3D8ZFTZ34TpEN26k7
+X-Gm-Gg: AYBFou0WPtw17EyExcxKWBeTg6Or9ifeXjtn89XLHz3x6YmIH7nCtlwxw1S9g7UkQ+Y
+	3c5y0n96TdoWpXmcCa8rdV77TbjxMdhZRPw+vYevgEduLPwObTH5m6RYBecZKJOv1kUr8Q8qH8f
+	oCrDBW2oM7XoSpjQMDfok3PGwEBcdpEzN60pOn/dHgI8ZIYf3TPDx2RZqXwqH8QhmNFKCCDLuE9
+	acBVu4gMpBYoZNHbVK6R8yVew9g73bqCkjXd1BKWGYCAqLQMz808GBZ7DdLbu3MDoPOrA5n3cYp
+	98+1HlVUxdea/TYWywOAMvo9uY+JignkmzynM4I59k1CHXmieWMqcXHdWCz+chBJiR1DPVrRlCC
+	e9bSK83fTTfSmYS5EdQiPCbq0jVv/xeRoQe8zOktcpA6hDTp745i5eJT5exdHamUgxlzlEDutW1
+	7u2Gojr8m/rGHdKYSf4MTa1AwnBrM5K/Ikkbpgt1DvwchdSt/iOWymHnHYY+llVKWKB5naMoRlW
+	rkZeBGiXyxMrrHGzWY=
+X-Received: by 2002:a05:600c:3e19:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-4a027534b98mr143954955e9.3.1791128730435;
+        Sun, 04 Oct 2026 08:45:30 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394ca0f0sm168639935e9.1.2026.10.04.08.45.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 08:45:29 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Ion Agorria <ion@agorria.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/9] ARM: tegra: lg-x3: Add newly supported devices and fixes
+Date: Sun,  4 Oct 2026 18:44:47 +0300
+Message-ID: <20261004154456.145362-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261002113319.6652-8-ilpo.jarvinen@linux.intel.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 02:33:15PM +0300, Ilpo J=C3=A4rvinen wrote:
-> While testing the resource placement changes, tests hit a case where
-> igb fails to probe when BAR 0 is placed at 0x9c000000:
->=20
->    90000000-9cffffff : PCI Bus 0000:a0
->   -  90000000-902fffff : PCI Bus 0000:a1
->   -    90000000-900fffff : 0000:a1:00.0
->   -      90000000-900fffff : igb
->   -    90100000-901fffff : 0000:a1:00.0
->   -    90200000-90203fff : 0000:a1:00.0
->   -      90200000-90203fff : igb
->   +  9be00000-9c0fffff : PCI Bus 0000:a1
->   +    9be00000-9befffff : 0000:a1:00.0
->   +    9bf00000-9bf03fff : 0000:a1:00.0
->   +    9c000000-9c0fffff : 0000:a1:00.0
->      9c100000-9c17ffff : amd_iommu
->      9c180000-9c1803ff : IOAPIC 8
->=20
->   -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) [size=
-=3D1M]
->   -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) [size=
-=3D16K]
->   -       Expansion ROM at 90100000 [disabled] [size=3D1M]
->   +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) [size=
-=3D1M]
->   +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) [size=
-=3D16K]
->   +       Expansion ROM at 9be00000 [disabled] [size=3D1M]
->=20
-> igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
-> ------------[ cut here ]------------
-> igb: Failed to read reg 0x18!
-> WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at igb_rd32.cold=
-+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
-> ...
->  igb_get_invariants_82575+0xff/0xf00 [igb]
->  igb_probe+0x3c8/0x1190 [igb]
->  local_pci_probe+0x3b/0x80
->=20
-> It turns out there is a 64kB iomem black hole at 9c000000 that returns
+Add nodes for recently supported device (ALS, LED controllers, haptics)
+along with minor tweaks and fixups.
 
-Can we please debug that "It turns out" thing and try to find out what re=
-ally
-is going on here.
+---
+Changes in v2:
+- added USB configuration update commit
+- added p895 power LED trigger update commit
+---
 
-Can you pls explain what your machine looks like so that we can try to
-reproduce it and see what's going on?
+Svyatoslav Ryhel (9):
+  ARM: tegra: lg-x3: Adjust WiFi node
+  ARM: tegra: lg-x3: Remove pinctrl-* properties duplication
+  ARM: tegra: lg-x3: Lower supported suspend mode
+  ARM: tegra: lg-x3: Add light sensor node
+  ARM: tegra: lg-x3: Add flash LEDs controller node
+  ARM: tegra: lg-x3: Add haptic engine node
+  ARM: tegra: lg-x3: Add backlight LED controller node
+  ARM: tegra: lg-x3: Update USB configuration
+  ARM: tegra: p895: Update power LED trigger
 
-Does it have latest BIOS, microcode, etc etc? If it doesn't, can you upgr=
-ade
-and try again?
+ arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |   5 +-
+ arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |   7 +-
+ arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 125 ++++++++++++++++++-
+ 3 files changed, 127 insertions(+), 10 deletions(-)
 
-I guess dmesg, hwinfo, kernel .config would be good starters, privately i=
-s
-fine too.
+-- 
+2.53.0
 
-Thx.
-
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
