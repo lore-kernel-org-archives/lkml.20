@@ -1,67 +1,62 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010019.outbound.protection.outlook.com [52.101.46.19])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021095.outbound.protection.outlook.com [52.101.95.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023923CB2F0
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB563B9952
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.95
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791131709; cv=fail; b=Igq7HtPdzExtQzPjvOvsE3+i0e0s4nHCYedE6tyOtL3pkrODO4lJXxKYip8AD3x6d5hibvAFB1vhydMPcKSYYz8C1o/RG0QsvU/E3rqGlvXUy29/UMVuqW4/Q3HAbrRfQlx1AtpAU7a8UApJzfFr46lX3ynomArSOrEGv23SCXs=
+	t=1791131779; cv=fail; b=GUQpp3AmqdDtTg8x8SsKRknYlI3pnphFHby2T38y7ucCYR7aMZfcIO+sYVWXznp4JIMjyYyBM4/bpUh2kD096jrOoPtTi/Z6+ww+7VsLBzxKf/XIjo6O90Yl54TpIzDSk6Wv+fhBlQkG54oEtyZSKtsAxnn8ARZt6KDWhdEHom4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791131709; c=relaxed/simple;
-	bh=GOAjdFuKdBSdsldN5WGys2fRZHUMjGjYFFr78HPNUQE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=F5FiqiMoTB6W8w1iknDMah2A5RWqjepGYLpy4zI0wr4OHYf1+x4NpjK2Xro53AzHDJAvb7XmlsOnS1XZz0wDqMJMBz910oqPmqWHeEMWSVp+OyLkizIgN7su5czUh+EV43lFMrNQ4C87mTBL8/B8ndyBE1cw42pzoqe1z4mdzRc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YUeP7fTu; arc=fail smtp.client-ip=52.101.46.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YUeP7fTu"
+	s=arc-20240116; t=1791131779; c=relaxed/simple;
+	bh=zyPplqC2CMEbI+Aq1Zm+jR0VtIsAR8jHBOIDm/QDXmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PSYnJTSmI7wdRjITp/kT5w0hWLsakPeeD9/GKwCP0+K8dBaT7XP4Ox8R2YxFIl98i6rxiDml+/cNU13jcLUD5HGf760AMkGgzQyc0BfCFYv9Uw6gnIY6odqv5pLLqwftG7kcdibvKWbXsGzPNi33TlSLgBXoCa69FqMonnhDW/M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hT/xvkO/L8Yr7M8ClaQH6NZwTl1fZmHQEi0ErIPMt1UTBK2IcMwfZymJ3JJACmSsMjMvX8Nd9Apr4BOL0bmwYdyiu4hjuzTnWMR2GzPTvwAYNyHRnbewBbP7S+LjBX62l+prc+MiFXRk0lPG2AXXuwS7dBqFfidDmvOOEEjfWagVehZg7VGj9zsGV6X6wQnEmIdIv+Fl8YIvKMXDQkzkwpFetw3e+TxrlpsAidv9xdI86Z10jqpBHarAUA4IqdeunCwT8098OkYN/5jN5sR1gWeJo5uNGgWmUoumy8NWidViu+lDot+NXLFLMpf04+Dx7BNDM4zXHmXEU0rj+in/Jw==
+ b=ppGKG23nkyACzyxayFTn5WGWkvJ5idIA5ff6XCY7w8dcjbYDOTLqZHSQX0mQeHpCf5nlCiUN0V+kMjgqgbkXpmpsuRqRzOSxy4wMU4pQxbLaE9EV8Sn5JMNKTOkwxabVZmGbfnsOKCYiUVjOMBTR207vQZutP2T9GgarTiyL0eY55wZpN8k0xT2AXqVsQtZBZuVqzM1CtEIvaYDAEbxjglE8cgf7vFXaQU5dEdq717AI8P8GOR7vqi4kQbx0cAndMj+q97apyqGeOOjb/QKj8ATo1uD6d0jyZqpJwkrZP+Z3Jh0u6HA78LhMpA1Sk34XRkUKVijkm/Fd+sVQ0A1Z0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5YgX2AoQaapIat7rVM8bSTabZ6dH/M92RBQDHYFs5nw=;
- b=ZzzdCAQy3XwdBoc5DT7C5UbVFpYovUQat2MladTxvDV/aLPvX0s2suGxOJX7LucC8jfq5IODL7DVXFC7NMYQSUC5ieys+fV5dZUZYGIzg7rEhwmpNKoqlS6UDH8CkVESWaXVtanK+JWnmrGJFkieCnBQqBycRfTgBgPAXV0x81MWqpbxp3vOm+V8qXpGVkwlUhGvpBmCwxPa4YyQWspAVglZgGZYJ0tawZaLwPV5kh40rDDHHH1qFS79sbZkzRwaPRHCTMdptP1fhgsX1LsxIkgBo+NzYWQMyq5NCwWAb/Q6QW5MEFM3xH81QHn2DsSAeTngDWnsOs/FRY0we+g9Og==
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=GZU5RxFOpUCKVvkP05OyUpayxAM/FxZmuYBZQ30CwE4=;
+ b=lcUrgOnpfDctlL4nHBiQyVgBJw0rHwZ82D2zSrIjsnG1JGwqqZP/b7moQP1bnmooUkYh1syWnx5+0e6J8xb32mCMOl9bxJks4krTHfewDE6KpioJXgzsZfSV6PatlG1csXe77Mm0UHNDLRKGUtUkEQPxaf2uZX6W7I0nvVuiAcT6/S+nqvQs5BCbIw/SO8vJO/03w40ecZoeglfvbUB7sdE/+X7ibxcA7Ne4rbGX9RAoiDxUvtbuxd1R0BSEfREM8ufJraRUwDQU+Z410vmAjDYsCRF3nRGGJjewpkBIZzCeRomSAWyKqpffZeHhSAmHzhCZVMf7xhZWb3v1wb9WKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5YgX2AoQaapIat7rVM8bSTabZ6dH/M92RBQDHYFs5nw=;
- b=YUeP7fTumXJrXgl673cZKDcQLZ+efyJp2kgxKXPNyyEkUvOBVoOvMGOKWFI6YKLArTAFG5jD26GDo4gBnSp000cCnUt6bUUm47Jg+WSOCZHxm2+b+eakZOWsuJ3euha9pkdq+rutXcvwJGXQJs/iDZibxtuSr/51lF2r2YSmFhEjp0Q6KoKUBVMBz4u61nhitcJdrzVSDvpGGLT1UmpcgiyJ/YshPbXKz54XgP79YcOQ/3ga0ZgLSI0JtJc+vCEGq76lOlgMoXeaV0X2sA9XEgy1bi5Brpw78lwq/FNMZFkU7Mp9FKx4keSYBCDMdg8Ma7Gc2r7VpgKwEyG9r7jEWw==
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by IA1PR12MB8357.namprd12.prod.outlook.com
- (2603:10b6:208:3ff::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Sun, 4 Oct
- 2026 16:35:04 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0472.016; Sun, 4 Oct 2026
- 16:35:04 +0000
-Date: Sun, 4 Oct 2026 13:35:01 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Will Deacon <will@kernel.org>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, robin.murphy@arm.com,
-	joro@8bytes.org, praan@google.com, kevin.tian@intel.com,
-	smostafa@google.com, linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	jamien@nvidia.com, kas@kernel.org
-Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <20261004163501.GB4064@nvidia.com>
-References: <cover.1788130528.git.nicolinc@nvidia.com>
- <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
- <asJTsw-oWDlSqNa3@willie-the-truck>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asJTsw-oWDlSqNa3@willie-the-truck>
-X-ClientProxiedBy: VI1PR04CA0116.eurprd04.prod.outlook.com
- (2603:10a6:803:f0::14) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO6P123MB6439.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2a4::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
+ 2026 16:36:13 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0472.016; Sun, 4 Oct 2026
+ 16:36:13 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: akpm@linux-foundation.org,
+	lance.yang@linux.dev,
+	mhiramat@kernel.org,
+	pmladek@suse.com
+Cc: linux-kernel@vger.kernel.org,
+	david.laight.linux@gmail.com,
+	brads@mainlining.org,
+	atomlin@atomlin.com,
+	neelx@suse.com,
+	sean@ashe.io,
+	chjohnst@gmail.com,
+	steve@abita.co,
+	mproche@gmail.com,
+	nick.lange@gmail.com
+Subject: [PATCH v11 0/2] hung_task: Improve warning budget handling and task reporting
+Date: Sun,  4 Oct 2026 12:36:08 -0400
+Message-ID: <20261004163610.413506-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VI1P191CA0011.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:800:1ba::19) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,110 +64,256 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA1PR12MB8357:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60515a4a-9d2c-49b7-fbf8-08df223571b1
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO6P123MB6439:EE_
+X-MS-Office365-Filtering-Correlation-Id: 610ae0f1-2f24-43f9-5111-08df22359a4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|18002099003|22082099003|4143699003|6133799003|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|6133799003|18002099003|10067099003|3023799007|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	gKvg0zPyupSW5xGMT+DH5XlgqTxyHrZVyffjpUkfUjrMvZJO15yqmDNZkauWdHm724clahM58P/sY7ZB+SgwWtpLMbcgSDjDPG2AcX7hSx1NpY0FNTLlmaOuesaNO+/4dApeXBlG93V5sr78lmbk08llcm/z5xblfYDD/6ip29Kput8v++SBSUcYE5yCsihBpNe4craGCHWdAc2N0A5Cc3lLvmflV5YFTqzqJqNs8nVooLFLAVGO3HIJ6lWZh1iJhYHdhFqmLDicClmHofVzSVoq2V/MPRO0c+bD3YIBFjCULfrrQt1ES5otFeB6xB48SovM4kxHHFFgJFnpf872GWQYctpUD8IzGn6WQJRhY8s6gFmngFIkvmRY3i688BTgszT0smQIBwx/cXDEJAooAsTwa8ZyU92Q7lZMnqLXLBX16d9y0i0F5ZdBUeA0gG/Q6h1eKwDk+aRt8m4yk1WYacbqlbU+9Dtjo8tpCNUMHu/Fj0ROspewjIqGRJpAwgtS6NEFKv1QpK7u4gBmkR08jXMpA9uZY0sXQ8x4KglXbLICAw/zDl8HoFWRjaguEPcujuPBFztSANdSr0zN91Brx1fTzcU5YJNRTM7GeMUHqu0fo1F5jyEFOEKgrA4IDCtw2wuh1lRS7i8hzumLjWdbIGPgzl3PE96akYXmELexX6Y=
+	d0RMHtbsFCRFrRVVLI+I5nOi2l02cVp8w1y9jVzVzefkAvmhnpZxwd4K9WW7IOp5/+H28VWDx3U6cDZqSe26IuhQXxU5s0JYSICVsOGZAOhsHzd2RZRNhytuWM3RlpnPp54kpJkHcf+FQDYxCCOo4lHiOFT7roKgGowaOrMser2CvNCya5+E/ZjZd6cvQoJggokwrUwLiOA4EYrsUOBnSyqko+OG0d2dSL+y/dH/TDHkbG+BApQsgUnP//d53/7kiOqFge7dOqchmi5o8LFqAxDkmeWoeCoyzUDAHGMmkz1CCiho+zhFnjCbkDpueWCpDLkHG8rE/21ZbyZJVVrBBKEedyAMWS9AJ3+xSRFz8oVd+R6dahg/ipPfE9V5teCJL4jLIQtxCXfc9GvDXmIK/8ZaqolbvpfG4timfQyE8uJjV193E63dhAy/PEelZk6hET09HCR0cAsZXi/K/mVE1JvcqTRXJ0QBvjJEWJPvm+XZy/SPJ7Ag8H6+4EVFjdhkFCC+bXINbQ3eCNgoJGRpyZLKX+IUe2KwlLHyB3vFxld6MfDRQU79t6FwAEEvuQivWBIZSdNrpYb6/cIetHqeFzsobtzmHeKrx9sRNGmJdQv3LpdUwnS3uMzoZF2P52689XkZWWQ4gPRmZXuAD9+moyuYHMUTspfWlarvbOqDz5E=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(18002099003)(22082099003)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(10067099003)(3023799007)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/s3Nf6Mu712YleWEsbzTPHZch2pacxmoQoXJRquDASqkzclwzYNvCChU65IA?=
- =?us-ascii?Q?gRUvt/x5ezcYk3oqrXsI7q9xe9ktUoLgp+k7G2cmtysW0/l8QMBzTnpEG9aX?=
- =?us-ascii?Q?PHUBdelEJb/z9l/VoflDWGkVVkbTFyJADTXkx+WMbbgFmTJEGRyvk2TMYMak?=
- =?us-ascii?Q?VKlzk6+RHZCHHy5W5k5DZ3s9CbDZqypra4DT7vMqWEyupK2xvqDtx+ES1kTo?=
- =?us-ascii?Q?wwivBVVcX4RSfxppVoABNN336dgHseQzH8YBZUrcHMtV4OPSf06+8nhxTOAI?=
- =?us-ascii?Q?o1lS9BYDKW3FKmaQqycnxvWRkVaeu5mkTL94G+4rxrczHGO5Hckl+KiXoBCo?=
- =?us-ascii?Q?fKIKFPo/4bH6nLLR5d2qAXXjYrEKTe5+RV0s+WyNvwBBZ1k9TQ3BnCQsRSjn?=
- =?us-ascii?Q?n00hV4t3qv5tgQeNmWa/tuYlWyix1uUrStuF2IeIP1pyGqMd+RjV2VgW3zHc?=
- =?us-ascii?Q?qX8Nz17Nk/T+auN2IMfg82FwDyxj+iJP1Fkd9xMvqwv1/iJPTjOksqpP1L91?=
- =?us-ascii?Q?0j0U6V1qNISUccL2nzebFYAvk+DYMde+wEiMKpnXR5gwOzLpzwMbrY0Y7/XT?=
- =?us-ascii?Q?uPEyj0HyMudqoU+imtQ3FUn0sSoZECB3vZysL6BNyeNlcFOnOy88c0NeDUQO?=
- =?us-ascii?Q?g8YfMCUstXZWCSvATHoP0+5sSRaqadrOeY5+q0VsgaiDz9cQidCXofdZYimG?=
- =?us-ascii?Q?qZrsQCodie8+E5AkhD+4mUmMXTHl12MajzBeXOf3ZJS3KsXsQzOrNSXqvPmy?=
- =?us-ascii?Q?Be+kNC6rKdDZ6UTSAvbfzgOnoF1Onn7Pg+4QmwQc3RkJYlF8hju2WjPgVorD?=
- =?us-ascii?Q?iH1r78koLcLgcYEu8BEXCILJpbYUwu7pgwyY+tmvRM8RcXllF/fT1OGwols6?=
- =?us-ascii?Q?PBwRiCmyXAjqEdTnv6IvUkszwLC0snqjNlsBt36/PkJclUrSA+Beu0HeZtF/?=
- =?us-ascii?Q?RMUkQiYpg3O9NeBjqwDV7q6pvEps9m6rnGLOPGY3cWWO17vhP/pXeO5SH3hr?=
- =?us-ascii?Q?KfB1rlBOOvbIMp86AuIyXIQgVxn/W6zKbjebyoCvS5+cWkpk8ENW489wy3oD?=
- =?us-ascii?Q?b2wQARJeeee3fw5vPLU8wSag05Vml2i17ZMsb9TrzMb1PgpbMjkQD6mVA8M9?=
- =?us-ascii?Q?2XRyPZES01M5KL/a/psf3YORw1yIMJkcfqwElOJffdbbLJwZlMX4YQnY+9kZ?=
- =?us-ascii?Q?lUixfHkSuDm125ZE3ul2MBEdboCcSIRSOWDcjtAkwbsCLohz2mJqlaCdC0CY?=
- =?us-ascii?Q?Yoa8zlFfP9TvG8CoDqQ43lJRW6soHVzkbgMDWzOV9UPpizvIDxaKjQ8LS87Q?=
- =?us-ascii?Q?pZnD9tpgsgd6JNkaA2xUeLSGF/RQJiW3Ql5qgKs3Kdtq4dqt93xdq90+5lbx?=
- =?us-ascii?Q?KTDJHYcUjLqtb0D56ed3uXMW6ZZ6kVBQIpbNmeORXmNf9GoAXI0fy44xyYXE?=
- =?us-ascii?Q?yjYMIpF8zxXYOYQ5jbLJIhGfcOANBhH1PH/bXtkv5NSYgIil8D50vkHo5Ibq?=
- =?us-ascii?Q?3L3/lN1gP7cjdyqllcSDQjMcTDUBfuYP9Jzh6XrLJfvGlNgjqpgFwbyg/H7T?=
- =?us-ascii?Q?eEc07p7KfyNxRTVhO0mqNMPKS4rEfqlREDnBLsrhI9qAEiSvL5P+dvnsb+zE?=
- =?us-ascii?Q?5L0k0xFP38FL3l9KLk/YIgWTFP+nBuAFd75R+rHrpBMDr/R5gkixpgv2Dral?=
- =?us-ascii?Q?MclXlnbOW/kPK1/nI2UbbxbqNqZV1hA1EDYOJKuGBudnmuCb?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60515a4a-9d2c-49b7-fbf8-08df223571b1
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+	=?us-ascii?Q?NpsLBOMNQS6DGAWD7yUoFWSDoQye57xMhDm26qje9p9DSt4MULKnNkoE/Adl?=
+ =?us-ascii?Q?D/+OMXYk/qeo5MrCoQ83XPJ//Uq9Vxb8Ara3O5WQ66fq+Lp/WEJg4MCsA1Yt?=
+ =?us-ascii?Q?4HHy0L+p/9VmhGlyFpvUMLQ3UdG1UnIzRM9zt/afUXAY8APuYYkdM6eBXYu2?=
+ =?us-ascii?Q?DkzG7R1xsBD49fAdBUlJbfX+bU5O0ar9D98M3VNOfl60QJXsv4l16vperrF2?=
+ =?us-ascii?Q?2LDxGXsQAiUFMiZUjEMf83J7LUQEFK0IBVxk2qwigs5Bxl58Lc03FG3D4cBj?=
+ =?us-ascii?Q?s7MhP2n/baYneoQkl+fmx+FkXtSBAyImR6gVRAmJwxlPdJ3zXak0eST/zIUY?=
+ =?us-ascii?Q?1VXoCj7IbJM4xbHhQv7/ifu+1tRAJ2PRHnC8zjSdo5iIqzfcT68aYq+4z0e3?=
+ =?us-ascii?Q?whaz6WEevZngjDI9fi626U/T9CyPr2Y7vuFLaQEy3/GDP+ba5JAJMngjPHei?=
+ =?us-ascii?Q?GJ8x3ulbtgSqmYGCAzHuciiyCH0nzg/XPQHr/kpDM/c9VJqSFcIw80JLuSlt?=
+ =?us-ascii?Q?RnAnQILMLLDPAIatsMKm5dTAtNkZnZOaDPnLWmhWKMfZppHtVfq2yOXu//ph?=
+ =?us-ascii?Q?tbHmWLIAOGiIOM9qKwBKtxtDgJ20exoxRVBTmds+mZ7KfKMUqqL0KUKsqenM?=
+ =?us-ascii?Q?L1AHHbjoC+vMvKMfuZnS4z2Yx9vcT6ltjXQzgOTxGClOiXYiuRXdeY1DZ6er?=
+ =?us-ascii?Q?bc9q9pBIHLOnUXFBghx3758ATzBug47LbVtp5Y0wSBrYzEJRyr6RchZedrSq?=
+ =?us-ascii?Q?I1Oe1YIQS8BCL5YKd6XGY6JV/B3ppPWnX9Uwhb6FUGo2/+LEtSSq28tJD+NX?=
+ =?us-ascii?Q?Czze7OC4wvwT5AYTJhI+WySed0PBZuSa56LJrjDAwQRVtGwVquVESnD+tVaO?=
+ =?us-ascii?Q?P1Lwa2TxWQkkqckliP4FjEUI15WJZ4xwWsEaAQdGOGExad5G/+OOqqeCKupH?=
+ =?us-ascii?Q?ml9GEERlWyHbcC/kK2xGuMzeYvzwod2WdqSBPrV9y3yW5vyFpR80jxzeHekW?=
+ =?us-ascii?Q?9hTROR2zA9m3Vgi4xDyswyGlKr1NGPFJY+KDYfSCclqHmW1CGgYJxrbioR4J?=
+ =?us-ascii?Q?Rz2zFaFUvLiv0gQWLOrbh3PpJOpcQAq716lSmUqzCFqCXK0FYk5Mw17hAX2m?=
+ =?us-ascii?Q?1sXWF/zHlIrLR3RzGZ7c7ah5duDngTc6sTW5JL6VcwIVhURbMJ+f7E9HqE5F?=
+ =?us-ascii?Q?ifC6OMxHm3yEaTmp0uQ4rogNmSOTDHEf71SVP0qtvUZ8Cb3S9Hv1lYuQkvLk?=
+ =?us-ascii?Q?gQbJdgQBqDfPQHWaO55b2hM3SYTqxo5exmMlYtS+OJs/G6+T4JWqadjMAbie?=
+ =?us-ascii?Q?DZl0/YV/KxbGU8rqdteqh5TurzB9gtfZqvQ2AyE5kA7cFvWVBsCq/Kx/8/L8?=
+ =?us-ascii?Q?nc2NWkVQNGEphKIydLIN9Uxa/0r0AQEICBaclwCwMkMyNnb265DOZU7T1znP?=
+ =?us-ascii?Q?grEa52REJHSpzXRHcnLUcli7DZHmGoR/rGCllaLk/MDwdMz2Rd+IEVERSIQv?=
+ =?us-ascii?Q?/CWqNEQh8O5yggoQyv9nRv9QsR8KeWzjRlvVyxfb8ILJS3N9xrefk/Uah683?=
+ =?us-ascii?Q?GaUSd5dBOXBcJIujaokyX+lMj6Afvtput45C3DJ7K6PVLR84E80bNlD7PSNG?=
+ =?us-ascii?Q?66a6z/cDtN37Q+Gk17v4Gb6RYtwtGBpOymFG04awflZ0lDxQRZujOzqI4RaL?=
+ =?us-ascii?Q?niWGMdRUyAWXS44FFhDLAKct9qDhaei2BHQYvEPQr6V1K5Q5gVjhFMwcgKAN?=
+ =?us-ascii?Q?IzaPPpfy4w=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 610ae0f1-2f24-43f9-5111-08df22359a4d
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 16:35:04.6781
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 16:36:12.9241
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RlNUO5CZlPeW3vjMeCj1zQ6uALyBuagxyA/0XAFixbEdTCwoqU0Vk/gx7xQvG4oq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8357
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9NDyLwPOCqiE15iHfJZhFk7XxxICS9jjqdUe1Fq3NKPQKYQK81b3KBdFKJim9Nzqbee3jzP8QmY2Rc7g4AL3PQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P123MB6439
 
-On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
-> >  drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
-> >  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  21 ++
-> >  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kdump.c | 229 ++++++++++++++++++
-> 
-> Please don't put this here. The live update / handover stuff is going to
-> need very similar logic (see the RFC from Pranjal) and I don't fancy
-> having to rename or resplit this file when that comes along.
+The hung_task watchdog detects tasks stuck in TASK_UNINTERRUPTIBLE (D)
+state for longer than CONFIG_DEFAULT_HUNG_TASK_TIMEOUT seconds. To prevent
+log spam during system spikes, sysctl_hung_task_warnings enforces a budget
+on the number of logged warnings.
 
-Ah, I was thinking we'd put most of that stuff in here, but a kexec
-name would probably be nicer.
+However, the current implementation has two major limitations:
 
-> > + * Note:
-> > + *  - Adoption only starts on an SMMU that the crashed kernel left enabled, as a
-> > + *    disabled SMMU (CR0_SMMUEN=0) could hold meaningless register values.
-> > + *  - Values read from the crashed kernel's registers get structural validation
-> > + *    only (format, size, span, alignment, and ID range); the physical addresses
-> > + *    are not vetted, as the kdump kernel has no record of which pages held the
-> > + *    tables.
-> 
-> Can we at least check that they don't point at the kdump region?
+    1. Permanent exhaustion of warning budget
 
-I don't think it is necessary, I  was on the fence about all this
-exisitng validation even in the first place.
+       sysctl_hung_task_warnings is decremented directly when printing
+       warnings. Once this budget hits zero, no further warnings are
+       reported until an administrator manually updates the sysctl value or
+       reboots the system. Consequently, a single temporary hang episode
+       permanently blinds the kernel watchdog to any subsequent hung tasks
+       after system recovery.
 
-Is there any easy way to do it?
- 
-> > + *  - A structural inconsistency at adoption time tosses the entire adoption and
-> > + *    makes the SMMU fall back to a full reset blocking in-flight DMAs.
-> > + *  - L2 stream tables are adopted lazily at master-inserting time, to bound the
-> > + *    peak memory use against a corrupted L1 table; any lazy L2 adoption failure
-> > + *    rejects that device alone, as its blast radius is bounded to the bus.
-> > + *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
-> > + *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
-> > + *    the real hardware. Callers of these functions are responsible for gating
-> > + *    ARM_SMMU_FEAT_COHERENCY once during the probe.
-> 
-> This is an artificial restriction and not one that I'm wild about for kdump:
-> we should be able to support this for non-coherent SMMUs as well. Is there
-> anything more to it than using MEMREMAP_WC in that case?
- 
-I've forgotten why it ended up like this, it was some complication
-that seemed hard.. MEMREMAP_WC is not the same attribute dma coherent
-would have used, I'm not sure we have the right stuff to be able to
-flush any write combining buffer? I'm nervous about that at least.
+    2. Total log suppression when budget is exhausted
 
-Remember this is not just reading it but it has to operate like this
-after the fact. In handover you wanted to use the dma cohernent
-preservation.
+       Once the warning budget reaches zero, hung_task_info() completely
+       suppresses all output, including the basic single-line alert. While
+       suppressing verbose stack dumps and lock debugging is desirable to
+       prevent dmesg flooding, hiding basic task alerts leaves
+       administrators entirely unaware that tasks are hanging.
 
-So, I think this restriction is mostly a lack of the right MEMREMAP
-flag? It is not insovlable just work outside the scope of this series.
+This patch series resolves both limitations by decoupling the configured
+warning limit from the active runtime budget, automatically resetting the
+budget upon system recovery or sysctl updates, and emitting a single
+aggregate summary line when hung tasks are detected under an exhausted
+warning budget.
 
-Jason
+Patch 1 separates the configured sysctl hung_task_warnings from the runtime
+budget, making khungtaskd the sole owner of runtime budget updates. The budget
+is reloaded directly when a scan finds zero hung tasks, or via an atomic reset
+request published on sysctl write.
+
+Patch 2 prevents dmesg flooding during system-wide hangs by keeping non-panic
+per-task stack dumps budgeted, while providing ongoing visibility by logging a
+single aggregate summary line at the end of each scan iteration when the
+warning budget is exhausted.
+
+Changes since v10:
+
+ - Guarded the suppression notice in hung_task_info() with
+   !hung_task_call_panic so suppression messages are not emitted for tasks
+   dumped while panicking, and simplified the log message to state details
+   are suppressed until the budget is reset
+
+ - Added Reviewed-by: tag from Bradley Morgan <brads@mainlining.org>
+
+ - Linked to v10: https://lore.kernel.org/lkml/20260829145321.18423-1-atomlin@atomlin.com/
+
+Changes since v9:
+
+ - Renamed hung_task_warnings_printed to hung_task_warnings_budget and
+   added top-level comments distinguishing between the configured sysctl
+   limit and the runtime remaining budget (Petr Mladek)
+
+ - Used atomic_xchg_acquire() when checking reset_hung_task_warnings in
+   check_hung_uninterruptible_tasks() for explicit acquire/release barrier
+   symmetry with the sysctl handler (Petr Mladek, Lance Yang)
+
+ - Refined the suppression message in hung_task_info() to explicitly
+   reflect that details remain suppressed until the budget is reset or a
+   panic is triggered (Lance Yang)
+
+ - Clarified commit descriptions regarding khungtaskd single-writer budget
+   ownership and panic diagnostic retention (Lance Yang)
+
+ - Added Reviewed-by: tag from Petr Mladek
+
+ - Linked to v9: https://lore.kernel.org/lkml/20260814135718.494513-1-atomlin@atomlin.com/
+
+Changes since v8:
+
+ - Resolved a concurrent sysctl write race condition on
+   hung_task_warnings_printed by making khungtaskd the sole owner of
+   runtime budget updates. Introduced an atomic flag set via sysctl write
+   and picked up locklessly by khungtaskd at the start of a scan iteration
+   (Lance Yang)
+
+ - Restored per-task header logging back inside the warning budget check in
+   hung_task_info() to prevent dmesg ring buffer saturation and console
+   lock contention during mass hung task events (Lance Yang)
+
+ - Added a single aggregate scan summary line printed at the end of each
+   watchdog scan when hung tasks are detected and the warning budget is
+   exhausted (Lance Yang)
+
+ - Linked to v8: https://lore.kernel.org/lkml/20260804202050.262427-1-atomlin@atomlin.com/
+
+Changes since v7:
+
+ - Consolidated the commit message of each patch (Lance Yang)
+
+ - Linked to v7: https://lore.kernel.org/lkml/20260804155406.254810-1-atomlin@atomlin.com/
+
+Changes since v6:
+
+ - Restructured the series in a new direction. Introduced an internal
+   counter (hung_task_warnings_printed) decoupled from
+   sysctl_hung_task_warnings. The warning budget automatically resets to
+   the configured limit once a check interval completes with zero hung
+   tasks detected, or when modified via sysctl (Petr Mladek)
+
+ - Ensured the single-line blocked hung task message is always printed even
+   after the warning budget reaches zero. Now budget enforcement is
+   restricted solely to suppressing verbose diagnostics (Petr Mladek)
+
+ - Refined the description of sysctl hung_task_warnings (Lance Yang)
+
+ - Removed field hung_task_reported from struct task_struct
+
+ - Removed the CONFIG_DETECT_HUNG_TASK_BLOCKER integration and
+   hung_task_blockers[] used to track memory addresses of blocker locks
+   across check intervals
+
+ - Removed the skip_show_task logic and dmesg log suppression messages
+
+ - Removed tracking variables (warnings_decremented and
+   hung_task_has_active) and the dmesg recovery notice printed when
+   clearing the blocker array
+
+ - Linked to v6: https://lore.kernel.org/lkml/20260719161305.428947-1-atomlin@atomlin.com/
+
+Changes since v5:
+
+ - Skipped hung_task_info() and sys_info() for tasks already reported in
+   previous rounds to avoid log spam
+
+ - Linked to v5: https://lore.kernel.org/lkml/20260712202100.123934-1-atomlin@atomlin.com/
+
+Changes since v4:
+
+ - Replaced the stack-local hashmap implementation with a persistent
+   array (Petr Mladek)
+
+ - Persistently track blocker addresses across scan intervals. Suppress
+   warning reports and keep the sysctl_hung_task_warnings budget intact
+   if the blocker is already tracked in the array (Petr Mladek)
+
+ - Reset the warnings budget and clear the blocker array when the hang
+   resolves (Petr Mladek)
+
+ - Output a recovery message to the kernel ring buffer upon hang
+   resolution
+
+ - Linked to v4: https://lore.kernel.org/lkml/20260627205733.90983-1-atomlin@atomlin.com/
+
+Changes since v3:
+
+ - Deduct from the global budget if printing a full stack trace
+
+ - Pivoted from heuristic Wait Channel hashing to deterministic
+   blocker address hashing via CONFIG_DETECT_HUNG_TASK_BLOCKER
+
+ - Replaced the hung_task_reported bit-field with a standalone u8 byte.
+   Move hung_task_reported into an existing structural alignment hole
+   within task_struct following blocked_lock, resulting in zero overall
+   memory footprint increase and optimal cacheline grouping
+
+ - Linked to v3: https://lore.kernel.org/lkml/20260621213756.43225-1-atomlin@atomlin.com/
+
+Changes since v2:
+
+ - Replaced the per-round cache flush with a task_struct bit-field for
+   persistent cross-scan tracking, mitigating delayed budget exhaustion
+
+ - Abandoned exact-stack hashing in favour of Wait Channel hashing
+
+ - Transitioned from jhash() to hash_long() to optimise single-pointer
+   hashing, and relocated the hash map to the local stack
+
+ - Linked to v2: https://lore.kernel.org/lkml/20260620013559.1537893-1-atomlin@atomlin.com/
+
+Changes since v1:
+
+ - Preserve "INFO:" headers for all hung tasks; suppress only the stack
+   dumps for duplicates (Masami Hiramatsu)
+
+ - Print a clear notification when a trace is explicitly suppressed
+
+ - Add #ifdef CONFIG_STACKTRACE guards to prevent Kconfig build errors
+
+ - Optimise overhead by unwinding the stack only if a warning is
+   actually going to be printed
+
+ - Linked to v1: https://lore.kernel.org/lkml/20260617184841.1447955-1-atomlin@atomlin.com/
+
+Aaron Tomlin (2):
+  hung_task: Reset warning budget when problem gets resolved
+  hung_task: Log summary line when warning budget is exhausted
+
+ Documentation/admin-guide/sysctl/kernel.rst |  5 +-
+ kernel/hung_task.c                          | 55 +++++++++++++++++----
+ 2 files changed, 49 insertions(+), 11 deletions(-)
+
+-- 
+2.55.0
+
