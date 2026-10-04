@@ -1,200 +1,420 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2856F3B8412;
-	Sun,  4 Oct 2026 19:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76FE3B8412;
+	Sun,  4 Oct 2026 19:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791142049; cv=none; b=OpYTeQLmSlu9GqEEYUoLaNwhs9nxvUS/SjNuO3kv+J8I5Atvw9PnS3/+7AGBBe8G/MfLG/TThrhITOvzZUNemWFAj3JYeSP3oqUE5xTCV+Etl104/FNEGqXGpd5sXYEwxtIY6mBphrrCqCPLR4y1yY756Zi8fKxbPR6WHVZUx2I=
+	t=1791142119; cv=none; b=bN3T+ZH8Ec6IHiNIZFyPM6in+20MEOLLU0VMbjegyNwaC+NYyjLeZXJm+Klii1zF0E6ckE78kdWlZVaMLMmX8o7exub3+vF6VvqxjYQERNvi70993c9EU6m7g3H+UhFomPQJfQFPEAUeu8BcKMsWIWGewzvixdu0glINKgqXsIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791142049; c=relaxed/simple;
-	bh=fo+kfVYTqykxYEMEyS3xEUOKLVhZpn1Y+X3krlOdjOg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Dtrl1b7/gFXZu5uQ3hjvI+ZnHqtSgI3uf8LwVSNXIuCZFvoZJhRBkNe7b4GZzxr2w2bAfO3Eccy56vGXqpprkMbj07tvXtt5mXU/j7FZV4obYc6ROjtc8hwxAd68sc2vN9+Ez/uBcZeUDAYSpTbABOhOihDKiRSu4gx+qH2ul6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0Oxj1jf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791142119; c=relaxed/simple;
+	bh=WOzFYMQgBn6NuD7qPJBAx8BNr2WHhTvIzt1d9VnzpMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZwhY6NyMKXe2niD0+RqzwK+SZ1Lcd0xd52myCQIatyZ+lIAjqLR0FjnbmZmuPd5llDCz1tWRMmGolDEoQ84DVVnH/GMHb6zfvTF+v8sL/yZ0kbhxmprLWDLwKinHyU2iCIyRUzJDETWjqo/myM2Iu5AGrV5srwrkqG3NZK2pRM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=epomakwP; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0Oxj1jf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B2111F000FF;
-	Sun,  4 Oct 2026 19:27:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791142044;
-	bh=pEsCEEIlhAlv1c9hPn4LM6ZCnsREWSEF/BB4zwo6m68=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=J0Oxj1jftlGKWLqKvWK13t6GANkD7kxE/UY92OQnlrdNweIefajnxDtcNo/3/2TsM
-	 EXinakPh5lBnOmOwgWWhKHtIeCg49fxY/aZVVdXuH9qB0u2D6n0QNbOAkL/oPDYNMi
-	 t8wQih1mSao7DoSBxv8IpksGf9uFYmn3jHWlCmndRVlRALtGCEQOwfhXtP3jU+1mRU
-	 k5osoOVdlWX4it5UA4YDoiG+1TjB515h7mbW2+S2P52fwvymT/44/JyE0esMUgQgMN
-	 4gN9NcQAuOLm4Z4DZ1WQfpHOxtauSJXIxEa5lOhfPq51M/KhjCayNYDVbxT8TzhgIT
-	 gXOnilWPtPHgg==
-Subject: Re: [PATCH] tipc: fix use-after-free in netns teardown
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Sun, 04 Oct 2026 19:27:23 +0000
-Message-ID: <179114204389.434549.3724053905057286143@kernel.org>
-In-Reply-To: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261003192530.2414682-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="epomakwP"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791142115;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=S/2mHRq1YnKSq5qIVNC8TG033cW6gYZpUgcQ1SmyEXo=;
+	b=epomakwPsfrTUIYKZkGy06w4X6Fc0P0QKMOXhrBfB87XB5QRzTBcI4Xzy0MymvoBzI0Hmf
+	mZMqXOz80H9ai8rSsaLsCklbiMFnrQ4nggSM98gBH5b/0J2cv52q29pIP7DwbVRboPc6jU
+	xhevna5IL4lN2aob+jKG7bq5FtAZX+Q=
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>,
+	linux-crypto@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH v3] lib/crypto: sparc/aes-xts: Add optimization using the AES opcodes
+Date: Sun,  4 Oct 2026 21:28:12 +0200
+Message-ID: <20261004192812.4145406-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Implement aes_xts_encrypt_arch() and aes_xts_decrypt_arch() with the AES
+opcodes, for AES-128 and AES-256, two blocks per iteration. AES-192,
+which IEEE 1619 does not specify, and data that is not 8-byte aligned
+are left to the generic code.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+The tweak is kept as little-endian words, so that multiplying it by x is
+a 128-bit shift done with addcc and the VIS3 addxc. A little-endian
+store and an ordinary load through a stack slot give it in the byte
+order of the data, and the slot is cleared on return. The routines open
+a register window, as %g4-%g6 belong to the kernel.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+With that, xts-aes-lib no longer has to be kept off SPARC. Register it
+there again, with the priority x86 and RISC-V use, so that it also
+outranks an xts(ecb-aes-sparc64) instance (priority 300).
 
-- [Medium] Because the teardown loop in tipc_topsrv_stop() always
-  restarts at the lowest IDR id (line 709, `id = 0`), it can block on…
+On a T7-1 (M7), MiB/s unless noted:
 
-Pre-existing issues:
-- [High] Netns teardown can hit a NULL pointer dereference on a kernel-
-  subscription connection.
+                               xts(ecb-aes-sparc64)  xts-aes-lib
+  AF_ALG, 64 KiB, AES-128                     415         1092
+  AF_ALG, 64 KiB, AES-256                     390          936
+  dm-crypt on brd, AES-256:
+    sequential read                          1399         2559
+    sequential write                         1472         3480
+    4 KiB write latency, QD1 (us)            40.6         32.7
 
---
+dm-crypt now matches aes-cbc-essiv on the same ramdisk.
 
-tipc: fix use-after-free in netns teardown
+On a T4-1, AF_ALG AES-256 goes from 238 to 544 MiB/s, and AES-128
+from 252 to 616.
 
-Before walking conn_idr, this patch makes tipc_topsrv_stop() clear the
-listener's sk_user_data and cancel the accept work. The idr_find() plus
-conn_get() lookup is replaced with idr_get_next() plus
-kref_get_unless_zero(). The walk now restarts from id 0 on every pass and
-calls cond_resched() between passes.
+Tested with CONFIG_CRYPTO_SELFTESTS_FULL, and against OpenSSL over
+random keys, tweaks and lengths, on both machines.
 
-> diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-> index af530c9ed8402..9ab2349f71190 100644
-> --- a/net/tipc/topsrv.c
-> +++ b/net/tipc/topsrv.c
-> @@ -700,16 +700,23 @@ static void tipc_topsrv_stop(struct net *net)
->  	struct tipc_conn *con;
->  	int id;
->  
-> +	write_lock_bh(&lsock->sk->sk_callback_lock);
-> +	lsock->sk->sk_user_data = NULL;
-> +	write_unlock_bh(&lsock->sk->sk_callback_lock);
-> +	cancel_work_sync(&srv->awork);
-> +
->  	spin_lock_bh(&srv->idr_lock);
-> -	for (id = 0; srv->idr_in_use; id++) {
-> -		con = idr_find(&srv->conn_idr, id);
-> +	for (id = 0; srv->idr_in_use; id = 0) {
-> +		con = idr_get_next(&srv->conn_idr, &id);
+Link: https://github.com/sparclinux/issues/issues/106
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+v3:
+- One macro for the four XTS routines, as in the RISC-V and x86 code
+  (Eric). The object file is the same as with v2.
 
-[Severity: Medium]
+v2:
+- Rebased on libcrypto-next, on top of 572af6872e52 ("crypto: aes - Fix
+  undesired override of some optimized AES modes"), and register
+  xts-aes-lib on SPARC again
+- Give it the priority x86 and RISC-V use
+- Drop Fixes:, Closes: -> Link:
+- Commit message compares with the xts template only
 
-Can restarting from id 0 on every pass livelock the teardown?
+QEMU does not have the SPARC crypto opcodes yet. That is being discussed
+on qemu-devel [1] and tracked in sparclinux#77 [2].
 
-rcv_wq is an ordered workqueue:
+[1] https://lists.gnu.org/archive/html/qemu-devel/2026-09/msg09494.html
+[2] https://github.com/sparclinux/issues/issues/77
 
-tipc_topsrv_work_start()
-    s->rcv_wq = alloc_ordered_workqueue("tipc_rcv", 0);
+v2: https://lore.kernel.org/all/20261002072110.1221579-1-stian@itx.no/
+v1: https://lore.kernel.org/all/20260929211218.4194135-1-stian@itx.no/
 
-Take a lower-id connection A whose rwork is queued behind the running
-rwork of a higher-id connection B. The loop closes A, but the reference
-held by A's queued rwork keeps A in conn_idr. On every later pass
-idr_get_next() returns A again, so the loop never reaches B.
+ arch/sparc/include/asm/opcodes.h |   6 ++
+ crypto/aes.c                     |   9 +-
+ lib/crypto/sparc/aes.h           |  75 ++++++++++++++
+ lib/crypto/sparc/aes_asm.S       | 165 +++++++++++++++++++++++++++++++
+ 4 files changed, 248 insertions(+), 7 deletions(-)
 
-tipc_conn_recv_work() keeps running while B is connected and requests
-keep arriving:
-
-    while (connected(con)) {
-        if (tipc_conn_rcv_from_sock(con))
-            break;
-    ...
-
-The cond_resched() here gives up the CPU. A's work still cannot run on
-the ordered queue until B's worker returns. If B's receive queue never
-empties, idr_in_use never reaches 0 and cleanup_net() spins.
-
-The old loop advanced with id++. It would have cleared CF_CONNECTED on B,
-which ends B's worker.
-
-Local peers probably cannot keep this going. The listener is bound with
-TIPC_NODE_SCOPE, and local user sockets hold a reference on the netns.
-
-Remote peers are another matter. tipc_net_ops is registered before
-tipc_topsrv_net_ops, so the bearers are still up when tipc_topsrv_stop()
-runs. The TIPC_LISTEN branch of tipc_sk_filter_connect() has no scope
-check. A remote node that knows the listener's port id might be able to
-connect and keep sending TIPC_SUB_CANCEL requests. That precondition has
-not been confirmed.
-
-Would it work to first walk forward through all entries, using
-idr_get_next() from id + 1 and closing each one? The loop could then
-retry from 0 only for the entries still waiting on asynchronous release.
-
-> +		if (con && !kref_get_unless_zero(&con->kref))
-> +			con = NULL;
-> +		spin_unlock_bh(&srv->idr_lock);
->  		if (con) {
-> -			conn_get(con);
-> -			spin_unlock_bh(&srv->idr_lock);
->  			tipc_conn_close(con);
-
-[Severity: High]
-
-This is a pre-existing issue, but can this call to tipc_conn_close()
-dereference a NULL con->sock?
-
-tipc_topsrv_kern_subscr() creates conn_idr entries that have no socket:
-
-    con = tipc_conn_alloc(tipc_topsrv(net), NULL);
-
-tipc_conn_close() dereferences the socket before it tests CF_CONNECTED:
-
-    static void tipc_conn_close(struct tipc_conn *con)
-    {
-        struct sock *sk = con->sock->sk;
-
-Other code in this file already allows for a NULL sock.
-tipc_conn_kref_release() checks if (con->sock). tipc_conn_send_to_sock()
-only calls tipc_conn_close() inside its if (con->sock) branch.
-
-Here is a possible sequence:
-
-1. tipc_topsrv_queue_evt() takes a reference on a kernel subscription
-   connection K through tipc_conn_lookup(). It then queues K->swork on
-   send_wq.
-
-2. Before that work runs, the group socket is closed:
-   tipc_release()->tipc_group_delete()->tipc_topsrv_kern_unsubscr().
-   This clears CF_CONNECTED and drops two references. K stays in
-   conn_idr, held only by the swork reference.
-
-3. cleanup_net()->tipc_topsrv_exit_net()->tipc_topsrv_stop() runs.
-   cancel_work_sync(&srv->awork) does not drain send_wq. idr_get_next()
-   returns K, kref_get_unless_zero() succeeds, and tipc_conn_close(K)
-   dereferences NULL.
-
-The old idr_find() plus conn_get() loop had the same exposure. The new
-loop retries until idr_in_use reaches 0, so any socketless entry still in
-conn_idr is now guaranteed to reach tipc_conn_close() at least once.
-
-This loop is being rewritten anyway. Could it skip tipc_conn_close() when
-con->sock is NULL? Alternatively, tipc_conn_close() could check
-con->sock before using it.
-
->  			conn_put(con);
-> -			spin_lock_bh(&srv->idr_lock);
->  		}
-> +		cond_resched();
-> +		spin_lock_bh(&srv->idr_lock);
->  	}
-
-[ ... ]
-
+diff --git a/arch/sparc/include/asm/opcodes.h b/arch/sparc/include/asm/opcodes.h
+index ebfda6eb49b26..f1cb1a26be8fc 100644
+--- a/arch/sparc/include/asm/opcodes.h
++++ b/arch/sparc/include/asm/opcodes.h
+@@ -96,5 +96,11 @@
+ 	.word	0xbbb02303;
+ #define MOVXTOD_G7_F62		\
+ 	.word	0xbfb02307;
++#define MOVXTOD_L4_F56		\
++	.word	0xb3b02314;
++#define MOVXTOD_L5_F58		\
++	.word	0xb7b02315;
++#define ADDXC_L1_L1_L1		\
++	.word	0xa3b44231;
+ 
+ #endif /* _SPARC_ASM_OPCODES_H */
+diff --git a/crypto/aes.c b/crypto/aes.c
+index 73f3aa856be4e..9508a975d8eaf 100644
+--- a/crypto/aes.c
++++ b/crypto/aes.c
+@@ -702,17 +702,12 @@ static struct skcipher_alg skcipher_algs[] = {
+ 		.decrypt = crypto_aes_xctr_crypt,
+ 	},
+ #endif
+-	/*
+-	 * Don't register library-based "xts(aes)" on architectures where it
+-	 * might block a "better" implementation from being instantiated via the
+-	 * "xts" template.  This exclusion is temporary and will go away when
+-	 * the library AES-XTS is optimized for SPARC.
+-	 */
+-#if IS_ENABLED(CONFIG_CRYPTO_XTS) && !IS_ENABLED(CONFIG_SPARC)
++#if IS_ENABLED(CONFIG_CRYPTO_XTS)
+ 	{
+ 		.base.cra_name = "xts(aes)",
+ 		.base.cra_driver_name = "xts-aes-lib",
+ 		.base.cra_priority = (IS_ENABLED(CONFIG_RISCV) ||
++				      IS_ENABLED(CONFIG_SPARC) ||
+ 				      IS_ENABLED(CONFIG_X86)) ? 500 : 110,
+ 		.base.cra_blocksize = AES_BLOCK_SIZE,
+ 		.base.cra_ctxsize = sizeof(struct aes_xts_key),
+diff --git a/lib/crypto/sparc/aes.h b/lib/crypto/sparc/aes.h
+index e354aa507ee07..e1a060cf49539 100644
+--- a/lib/crypto/sparc/aes.h
++++ b/lib/crypto/sparc/aes.h
+@@ -133,6 +133,81 @@ static void aes_decrypt_arch(const struct aes_key *key,
+ 	}
+ }
+ 
++#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
++void aes_sparc64_xts_encrypt_128(const u64 *key, const u64 *input, u64 *output,
++				 size_t len, u64 tweak[2]);
++void aes_sparc64_xts_encrypt_256(const u64 *key, const u64 *input, u64 *output,
++				 size_t len, u64 tweak[2]);
++void aes_sparc64_xts_decrypt_128(const u64 *key_end, const u64 *input,
++				 u64 *output, size_t len, u64 tweak[2]);
++void aes_sparc64_xts_decrypt_256(const u64 *key_end, const u64 *input,
++				 u64 *output, size_t len, u64 tweak[2]);
++
++/* len is always a positive multiple of AES_BLOCK_SIZE here. */
++static __always_inline bool
++aes_xts_crypt_sparc64(u8 *dst, const u8 *src, size_t len,
++		      u8 tweak[AES_BLOCK_SIZE],
++		      const struct aes_xts_key *key, bool cont, bool enc)
++{
++	const struct aes_key *k = &key->main_key;
++	const u64 *rk = k->k.sparc_rndkeys;
++	const u64 *rk_end = rk + 2 * (k->nrounds + 1);
++	const u64 *in = (const u64 *)src;
++	u64 *out = (u64 *)dst;
++	u64 t[2];
++
++	/* The assembly code has no AES-192 and needs 8-byte aligned data. */
++	if (!static_branch_likely(&have_aes_opcodes) ||
++	    k->len == AES_KEYSIZE_192 ||
++	    !IS_ALIGNED((uintptr_t)dst | (uintptr_t)src, 8))
++		return false;
++
++	if (cont)
++		memcpy(t, tweak, sizeof(t));
++	else
++		aes_encrypt_arch(&key->tweak_key, (u8 *)t, tweak);
++
++	if (k->len == AES_KEYSIZE_128) {
++		if (enc) {
++			aes_sparc64_load_encrypt_keys_128(rk);
++			aes_sparc64_xts_encrypt_128(rk, in, out, len, t);
++		} else {
++			aes_sparc64_load_decrypt_keys_128(rk);
++			aes_sparc64_xts_decrypt_128(rk_end, in, out, len, t);
++		}
++	} else {
++		if (enc) {
++			aes_sparc64_load_encrypt_keys_256(rk);
++			aes_sparc64_xts_encrypt_256(rk, in, out, len, t);
++		} else {
++			aes_sparc64_load_decrypt_keys_256(rk);
++			aes_sparc64_xts_decrypt_256(rk_end, in, out, len, t);
++		}
++	}
++	fprs_write(0);
++
++	memcpy(tweak, t, sizeof(t));
++	memzero_explicit(t, sizeof(t));
++	return true;
++}
++
++#define aes_xts_encrypt_arch aes_xts_encrypt_arch
++static bool aes_xts_encrypt_arch(u8 *dst, const u8 *src, size_t len,
++				 u8 tweak[AES_BLOCK_SIZE],
++				 const struct aes_xts_key *key, bool cont)
++{
++	return aes_xts_crypt_sparc64(dst, src, len, tweak, key, cont, true);
++}
++
++#define aes_xts_decrypt_arch aes_xts_decrypt_arch
++static bool aes_xts_decrypt_arch(u8 *dst, const u8 *src, size_t len,
++				 u8 tweak[AES_BLOCK_SIZE],
++				 const struct aes_xts_key *key, bool cont)
++{
++	return aes_xts_crypt_sparc64(dst, src, len, tweak, key, cont, false);
++}
++#endif /* CONFIG_CRYPTO_LIB_AES_XTS */
++
+ #define aes_mod_init_arch aes_mod_init_arch
+ static void aes_mod_init_arch(void)
+ {
+diff --git a/lib/crypto/sparc/aes_asm.S b/lib/crypto/sparc/aes_asm.S
+index f291174a72a1d..fd90b129972fb 100644
+--- a/lib/crypto/sparc/aes_asm.S
++++ b/lib/crypto/sparc/aes_asm.S
+@@ -2,6 +2,7 @@
+ #include <linux/linkage.h>
+ #include <asm/opcodes.h>
+ #include <asm/visasm.h>
++#include <asm/asi.h>
+ 
+ #define ENCRYPT_TWO_ROUNDS(KEY_BASE, I0, I1, T0, T1) \
+ 	AES_EROUND01(KEY_BASE +  0, I0, I1, T0) \
+@@ -1541,3 +1542,167 @@ ENTRY(aes_sparc64_ctr_crypt_256)
+ 	retl
+ 	 stx		%g7, [%o4 + 0x08]
+ ENDPROC(aes_sparc64_ctr_crypt_256)
++
++#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
++	/* XTS.  The tweak is kept in %l0/%l1 as little-endian words, so that
++	 * multiplying it by x is a 128-bit shift.  XTS_TWEAK_BE stores it to
++	 * a stack slot little-endian and reloads it big-endian, the byte order
++	 * of the data.  The slot is cleared before returning.
++	 *
++	 * A register window is needed because %g4-%g6 belong to the kernel.
++	 * %l6 points at the slot and %l7 holds 8: an access with an immediate
++	 * ASI cannot also take an immediate offset.
++	 */
++
++#define XTS_DOUBLE							\
++	srax		%l1, 63, %l2;					\
++	and		%l2, 0x87, %l2;					\
++	addcc		%l0, %l0, %l0;					\
++	ADDXC_L1_L1_L1						\
++	xor		%l0, %l2, %l0;
++
++#define XTS_TWEAK_BE(A, B)						\
++	stxa		%l0, [%l6] ASI_PL;				\
++	stxa		%l1, [%l6 + %l7] ASI_PL;			\
++	ldx		[%l6 + 0x00], A;				\
++	ldx		[%l6 + 0x08], B;
++
++	/* %i0=key (encrypt) or &key[key_len] (decrypt), %i1=input,
++	 * %i2=output, %i3=len, %i4=tweak
++	 */
++.macro	__aes_xts_crypt	enc, keylen
++	save		%sp, -192, %sp
++.if \keylen == 256
++.if \enc
++	mov		%i0, %o0
++.else
++	sub		%i0, 0xf0, %o0
++.endif
++.endif
++	mov		8, %l7
++	add		%sp, 2047 + 176, %l6
++	ldxa		[%i4] ASI_PL, %l0
++	ldxa		[%i4 + %l7] ASI_PL, %l1
++.if \enc
++	ldx		[%i0 + 0x00], %g1
++	subcc		%i3, 0x10, %i3
++	be,pn		%xcc, 10f
++	 ldx		[%i0 + 0x08], %g2
++.else
++	ldx		[%i0 - 0x10], %g1
++	subcc		%i3, 0x10, %i3
++	be,pn		%xcc, 10f
++	 ldx		[%i0 - 0x08], %g2
++.endif
++1:	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	XTS_TWEAK_BE(%l4, %l5)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++	ldx		[%i1 + 0x10], %o5
++	xor		%o5, %l4, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F4
++	ldx		[%i1 + 0x18], %o5
++	xor		%o5, %l5, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F6
++.if \enc && \keylen == 128
++	ENCRYPT_128_2(8, 0, 2, 4, 6, 56, 58, 60, 62)
++.elseif \enc
++	ENCRYPT_256_2(8, 0, 2, 4, 6)
++.elseif \keylen == 128
++	DECRYPT_128_2(8, 0, 2, 4, 6, 56, 58, 60, 62)
++.else
++	DECRYPT_256_2(8, 0, 2, 4, 6)
++.endif
++	MOVXTOD_G3_F60
++	MOVXTOD_G7_F62
++	MOVXTOD_L4_F56
++	MOVXTOD_L5_F58
++	fxor		%f0, %f60, %f0
++	fxor		%f2, %f62, %f2
++	fxor		%f4, %f56, %f4
++	fxor		%f6, %f58, %f6
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++	std		%f4, [%i2 + 0x10]
++	std		%f6, [%i2 + 0x18]
++	subcc		%i3, 0x20, %i3
++	add		%i1, 0x20, %i1
++	brgz		%i3, 1b
++	 add		%i2, 0x20, %i2
++	brlz,pt		%i3, 11f
++	 nop
++10:
++.if \enc && \keylen == 256
++	ldd		[%o0 + 0xd0], %f56
++	ldd		[%o0 + 0xd8], %f58
++	ldd		[%o0 + 0xe0], %f60
++	ldd		[%o0 + 0xe8], %f62
++.elseif \keylen == 256
++	ldd		[%o0 + 0x18], %f56
++	ldd		[%o0 + 0x10], %f58
++	ldd		[%o0 + 0x08], %f60
++	ldd		[%o0 + 0x00], %f62
++.endif
++	XTS_TWEAK_BE(%g3, %g7)
++	XTS_DOUBLE
++	ldx		[%i1 + 0x00], %o5
++	xor		%o5, %g3, %o5
++	xor		%o5, %g1, %o5
++	MOVXTOD_O5_F0
++	ldx		[%i1 + 0x08], %o5
++	xor		%o5, %g7, %o5
++	xor		%o5, %g2, %o5
++	MOVXTOD_O5_F2
++.if \enc && \keylen == 128
++	ENCRYPT_128(8, 0, 2, 4, 6)
++.elseif \enc
++	ENCRYPT_256(8, 0, 2, 4, 6)
++.elseif \keylen == 128
++	DECRYPT_128(8, 0, 2, 4, 6)
++.else
++	DECRYPT_256(8, 0, 2, 4, 6)
++.endif
++	MOVXTOD_G3_F4
++	MOVXTOD_G7_F6
++	fxor		%f0, %f4, %f0
++	fxor		%f2, %f6, %f2
++	std		%f0, [%i2 + 0x00]
++	std		%f2, [%i2 + 0x08]
++11:	stxa		%l0, [%i4] ASI_PL
++	stxa		%l1, [%i4 + %l7] ASI_PL
++	stx		%g0, [%l6 + 0x00]
++	stx		%g0, [%l6 + 0x08]
++	ret
++	 restore
++.endm
++
++	.align		32
++ENTRY(aes_sparc64_xts_encrypt_128)
++	__aes_xts_crypt	1, 128
++ENDPROC(aes_sparc64_xts_encrypt_128)
++
++	.align		32
++ENTRY(aes_sparc64_xts_encrypt_256)
++	__aes_xts_crypt	1, 256
++ENDPROC(aes_sparc64_xts_encrypt_256)
++
++	.align		32
++ENTRY(aes_sparc64_xts_decrypt_128)
++	__aes_xts_crypt	0, 128
++ENDPROC(aes_sparc64_xts_decrypt_128)
++
++	.align		32
++ENTRY(aes_sparc64_xts_decrypt_256)
++	__aes_xts_crypt	0, 256
++ENDPROC(aes_sparc64_xts_decrypt_256)
++#endif /* CONFIG_CRYPTO_LIB_AES_XTS */
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003192530.2414682-2-Jeremy.Jean%40oss.cyber.gouv.fr
+2.43.0
+
