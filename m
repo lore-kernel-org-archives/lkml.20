@@ -1,96 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE16D41442F;
-	Sun,  4 Oct 2026 08:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D067361DA6;
+	Sun,  4 Oct 2026 08:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791103520; cv=none; b=ifpL9A1Y7vi7agaBn3avb5RDOJa2qNdMP/gCQCJbEZ05AF+y6bZj5Cm2waExFwbmCrJR/FYdM7bU6Ug4R3cuY8TDb2DfOUUus23ZBAWK8Dt8EIKQU6e1yFry/dEzYZo88+/kemMqgr0IUJ4qJuqVr+0+L5KXu/LQw0pHamNiNCs=
+	t=1791103574; cv=none; b=nFO609r7PORx7jgLJMNvMxfzsvWgxYka6JBIjZOyyUttDbq+lxsZl7+4Dh9UkGtdqAt4ONhwBsra6yO4DlCEBkmxlbqHLsZjKySjAs2BTdn6Hs56ib+toUvwr0lRpz+rvpg8hMPeuaiNzhfHjh1O13JnsOrfWFceLfj28kIDLQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791103520; c=relaxed/simple;
-	bh=M2+1n/Et7nEdx2QhvFqH/JrUMuhz223DfjvwVDJTSSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JPQnCj2vUwNX6ljCYpGu9Eum/9q1tTDHANg9gzJRwEfVco9MPwzB2P9ai6tEE8J4yA1d/qj55hAA0YdmUTLVaFg1QD0ncjnElEL3namiODCSfiA5/BRqyVoMg8jkdDoLnuwhyQbobeYL9tVq6TL6meANyaybpYCBSKpdwUTOWj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GZYL6ljQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791103574; c=relaxed/simple;
+	bh=J9YwRGN77IP7yEemTbECWtPG2Dn+Y0IApsw/KTpB0a4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=IHdkq1u/28K4/Hzyt39/YotXRkxZvuotWrtOCk6BM1YRCcQOq3EfNdTWz7mxkls0r8jYhecq06MA6ZDkEkmojHgTysW8oCajLaEtI8HsFwH57teKEfbHquCyBNXbVrmUmQu184I3+phw70VyaESOiUBVJuFYb2j9JF3visq5mII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tFmnwn6N; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GZYL6ljQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E621F000FF;
-	Sun,  4 Oct 2026 08:45:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791103518;
-	bh=mWtZc0bjjl64xaANXigV+9F0Zg1QFWUdNiNWNiWvNto=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GZYL6ljQie/p6P3XjvuAqOTszsXJz0/4NmqMGLHgFUkl6eUusjXheNkOk0TEpslfh
-	 JAkOnL4DRM4wpjzDMk8SLZiZjzMXpRu1J+MdZ0n4p3ci1FtFaDAkvqJRjBEchsi5Cu
-	 ybJ8iRy9gCfwSsI9jFgeLe5ErKoKtR354m35+UW8igrAefAGO+7rCr/R3g1wTZeR46
-	 ZBDCZFWKz+rnZbafxP55dxaRYgrZzpaMMy6RKYLPa/eYexZMgboIc8MjAQeEZk3Ucb
-	 4hxiqVXKKxFhid6v8IrOQJrpqgR9kV+m9eE18hXr2/QbEcILBTg9t4xriL/XkF7mam
-	 pMaHqZmEHDCXA==
-Date: Sun, 4 Oct 2026 09:45:13 +0100
-From: Will Deacon <will@kernel.org>
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf/arm-smmuv3: Propagate errors from optional IRQ
- lookup
-Message-ID: <asISGdljsG86gUwb@willie-the-truck>
-References: <20260811041934.7609-1-phucduc.bui@gmail.com>
- <ar_fLAeFU4rmrwiH@willie-the-truck>
- <CAABR9nGqwTGcrr6bKsV5+0GYwkQoP0s_Tu6aTJrhJJW_ZRqFYg@mail.gmail.com>
- <asCyI2_CNSoDJy1w@willie-the-truck>
- <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tFmnwn6N"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D71B51A1123;
+	Sun,  4 Oct 2026 08:46:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D64E604FE;
+	Sun,  4 Oct 2026 08:46:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0541010328327;
+	Sun,  4 Oct 2026 10:46:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791103567; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1v4gg6Lg7/4vOGj6jcBOLXQD+EJYylJZpyS7RIrs0bo=;
+	b=tFmnwn6N3Gib/a3wqA+S0uJ0cF1/y25XjZRVSQJKI5jOHS/b6OyLrgxZIlbDXJUYEw89q6
+	H/qr0TV0BkibHAhB4HSCAM4ExnETSiw1Gbb2G5oBIWoX+C1YgPE0v0EUO1rqIWhJzlYsKL
+	67eP+ntzFERFgVumTAZPF6CUEPmRWDOXUM8u1hpNrBGplv1LWGs2+wXzELuqbXGzVhJTN2
+	WIUUFK3fROFeI9SwvTvl2HzLcAgmXL0GSh/w68z4szVJvrjhwkff6ASpkFKKI15oJKkqWz
+	NoyKDAZhhsshTayqKoVoyTg+U6jLcInjCm5qZT+B/RBPUzHZWgEIPGBRNTUDjg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 04 Oct 2026 10:45:58 +0200
+Message-Id: <DLVX7ZLU4GOM.1WCL74N0U7PUP@bootlin.com>
+Cc: <stable@vger.kernel.org>
+To: "Jiale Yao" <yaojiale02@163.com>, "Conor Dooley"
+ <conor.dooley@microchip.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Russell King" <linux@armlinux.org.uk>, "Nicolas Ferre"
+ <nicolas.ferre@microchip.com>, "Soren Brinkmann"
+ <soren.brinkmann@xilinx.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH net v3 1/7] net: macb: manage the netdev lifetime with
+ devres
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261003085940.493951-1-yaojiale02@163.com>
+ <20261003085940.493951-2-yaojiale02@163.com>
+In-Reply-To: <20261003085940.493951-2-yaojiale02@163.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, Oct 03, 2026 at 06:11:52PM +0700, Bui Duc Phuc wrote:
-> Hi Will,
-> 
-> > > > Not sure about this. If it's optional, why should we bail the probe if
-> > > > we don't manage to get an irq? Surely it's better to continue without
-> > > > the interrupt in that case?
-> > > >
-> > >
-> > > platform_get_irq_optional() returns -ENXIO when no IRQ is available.
-> > > Other negative return values indicate errors, including -EPROBE_DEFER.
-> > > In the case of -EPROBE_DEFER, we should propagate the error so that
-> > > the probe can be retried later.
-> >
-> > Thanks, The -EPROBE_DEFER case seems more compelling, so perhaps we should
-> > check for the expliitly (because it won't fail the probe altogether)?
-> >
-> 
-> The idea of the _optional getters is that only the "not present" case
-> is turned into a special value (-ENXIO here, NULL for
-> devm_clk_get_optional()), while real errors are still reported to the
-> caller.
-> 
-> Besides -EPROBE_DEFER, platform_get_irq_optional() can return other
-> negative error values depending on how the IRQ is obtained. These
-> indicate an actual error rather than the IRQ simply being absent.
-> Ignoring them would leave the device running without its interrupt
-> and no indication of what went wrong.
+Hello Jiale,
+
+Those LLM bugs are code churn, that's why you are seeing pushback.
+Please don't ignore the pushback. For example on V2 you got asked to
+reply to an automated message, which you didn't do.
+
+https://lore.kernel.org/netdev/20260927153020.5311dba6@kernel.org/
+
+On Sat Oct 3, 2026 at 10:59 AM CEST, Jiale Yao wrote:
+> macb_remove() frees the netdev while its managed IRQs are only
+> released after the remove callback returns. An interrupt in that window
+> can dereference the freed netdev or queue data.
+
+Please indicate how an interrupt could land in that window.
+Thinking about it for a brief instant, I cannot think of one.
+
+> Allocate the netdev with devres as well. Since the IRQs are registered
+> later, devres releases them before freeing the netdev and closes the
+> lifetime gap.
 >
-> 
-> So I'd rather keep:
-> 
-> -----------------------------------------------------
-> irq = platform_get_irq_optional(pdev, 0);
-> if (irq < 0 && irq != -ENXIO)
->         return irq;
-> -----------------------------------------------------
-> 
-> and continue without the IRQ only for -ENXIO. This is also the usual
-> pattern for platform_get_irq_optional() users.
+> This issue was found by a static analysis method used in our research.
+>
+> Fixes: 0a4acf08ea62 ("net: macb: Use devm_request_irq()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/net/ethernet/cadence/macb_main.c | 17 +++++++----------
+>  1 file changed, 7 insertions(+), 10 deletions(-)
 
-Sorry, but how is failing the probe possibly better than continuing without
-the optional interrupt? Add a diagnostic if you like, but aborting the probe
-feels completely unnecessary to me.
+Reviewed-by: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
 
-Will
+I still give my Rb because the patch is valid. The wasted time is on net
+maintainers though; they'll decide if they want it or not.
+
+For this MACB patch, it could land in net-next as I don't see a
+practical bug here (in light of the recent pushback about the # of
+fixes in net).
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
