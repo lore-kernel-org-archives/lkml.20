@@ -1,130 +1,138 @@
-Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8198346F48D
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 20:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.233
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791147438; cv=pass; b=T/HKNKL3MZSRZApDxaVQU9AzB/X4o9tI+cH8RNAwjOZPdFA9rakppSxYYCT8FFT0UtxfgrqcuIUptfNdZsSuy1xmG4pa9MuLjKiLSLVrtCrmqixc1hFpUxLTIVex0JT2LnVrO3EolLaHBoO9PhnFQNe6WzNCwNp5dTsyYHkIEdk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791147438; c=relaxed/simple;
-	bh=l2DWYrMPEPkpCBeEGbcDPTrkRXyWOflPOtrsbcHJFDg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VfeBZSfRp4t1l3NQAW0UfAVwHq/bXpRKT70mYe3wSqVJ+L7OxTLq0nbq9u/MOumHPVm4F8uQtvlFEi0uvdp1sfe09GvcmmpEPXty2fOhJu106JQYoIVyJUeXOZqLYEy4OcQ1XIg/o4i9tPwJKvnI/wkwX6o5ezNPO7dNXlo48OU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OwSY2Q7t; arc=pass smtp.client-ip=74.125.231.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D633F65EA;
+	Sun,  4 Oct 2026 20:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791147544; cv=none; b=NSQ8g86GSVtDNmGptVB0z1iSh53SK2OxcoJj4k76PAIr+An5XwTaQMY6tA7JS5LzceJA4knhVc89TkI6pLVuAso26gkGelEat2yS3DXdaaBOIzFtZnsPgZazMs0V06lnpaI+0O23sR7oXKz06K7mZA7ok69WRQSM3zWy7HzIRZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791147544; c=relaxed/simple;
+	bh=eQsgQYdHnnL3VJecUGS4MAkSXP6VNzWsrHw6fiRz7MU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=imIQ7Q6X5ZxzAOmRPkzjaAjC2j4Rs9hzq9BzFoSapV3Ut2xtbffu+i1Yo8QwFj/tYz0r7FTNGuMeLhNIKncac4QEfr275f4rgElQjGKCrXLMCJulVbm5ygBqcxiOBe5P34/No9VMwfRVlHEdWGltkycakr015GAHzxHmrpeUfGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FGN/etFs; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OwSY2Q7t"
-Received: by mail-oi2-f41.google.com with SMTP id 5614622812f47-4f74e4f3d3fso534828b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 13:57:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791147436; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ihzq2diB25XG0CsdUQ99BtDZY4is5+Fj3hSUmCBjbIP0FOAFpDsL2WPgVSb5OhXcHh
-         2s+oy/wsybl70YjmPDUJMssBslMv4fNouzQVcRNFPTZy9n5FWotUCLsPsm/TwS7XMuux
-         WPttDrjL8iBtzJSx4CYyxOHhMjpJyhO5Ho4pny0oH00YoasE8Lr06UrIWFApZ/QoaYyR
-         JB+r3E8Ne8UYPOWYWt+WQl74/xRILJMwoSAOOKd0gdFNYE7QPpSMsKdqHpoKiLy4lJzQ
-         tL5OrR5Fw6LA1bffhlGeUycUm6iK6SMkNI7W/FGUb2IX3/JNpdmfk+4a4rfWldDiMAdq
-         UXQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+gAZp/BShGctoAlT0g/webMwCwP75rSNvd4mdkXsmm0=;
-        fh=b4JgFkFf4EZ3w5p73AlDwvH2MdHe1mzfsuqVXAwjiK0=;
-        b=JBbI9j97S0GvJYJMk4A5ENW3gxRumeoL0s9SOlPt8tfj3qqm26iYfP8K2niJq1igYb
-         d9huHSHgZy8+rDSvZZ/cnwuWlCkCydU1l3AGIIEzMpKnGub17s4Vj8+5ImjkqqRJ1GvV
-         VfQCZ8yFpHxhzLZCvLj7871rVeztCX8PS9bVCbP7Q4y70/i3QUuGbH+zGXIxssotas9A
-         NPHv3vGoO2cVOefjZojAojJ3zdYbwA7bOGAjrNE3CN1aRrCgPOkwcw890eeWtm98DjiI
-         txgNbaZK6yVe9D/sHtJnMbcpfJW/KjBAr79qXs1fg7IdUkFFZ0gUMNqQ73hh6g9Alk1M
-         lxiA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791147436; x=1791752236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+gAZp/BShGctoAlT0g/webMwCwP75rSNvd4mdkXsmm0=;
-        b=OwSY2Q7t/sSi5iPYIqUh98yNRWyIyoOWQLXQTSCdLZJh5WDAvnvmA5DLr0icwRuxe3
-         xiX9j8I48Py1zP5pyb33kXcrV8h/a1c9FjKUErKombh4qmmRPODUHuGHlSS3za2Lvj2Q
-         IChGacpuG54vi3GYWdNfjWXjjTpJjRcuhuc1yXh0EWk2dpEy1WHzh5SrhHPuOIGLpDUO
-         8j1ifdtGekNQRIerjB20uf5DbdQxVUBREqOh8cDP9mCHa+0g4BTDewlwoEnGvo7vTncO
-         pdHevkvPNDcGLBcdLuflzKaGefK3xPDufJ2+jsuaLVniqdMjQ3vGMc+uhQyvTmXNNfXl
-         5pfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791147436; x=1791752236;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+gAZp/BShGctoAlT0g/webMwCwP75rSNvd4mdkXsmm0=;
-        b=cMksvKRyFHMB7yOVEI011b7WTsXuhUZlXsQ8bsSo6BDYFMGNnnVimIEevTQMZOFbWi
-         cL4YF/HvaCg/zLBLu/ZwMV4M+QDvy8qYZPkfWMeS/vK075h9vzVHuUFA/ZyPMt+0p25S
-         3tozxLfbMdW9wsvjfG19u/ms7voiysdhQzF7xWnnM696Sp7X8uxmIMYYazSzlK6boK7j
-         j0jKoiJpa0M42VtMO/2ZDkxuy/Vo+icBLk9fXm2ZLE0NjKG0r1qfV93ougADvHmuMAuy
-         nyvwduBrvwPAFulzUlHNODAle2DOpm6+/UhyPJmDNPjZdXb3w58FvHoER5lauliTHCmt
-         Eypw==
-X-Forwarded-Encrypted: i=1; AKwUvByTs8kaVz/igNXXifRSpV/q5sOjphgJrGbyOQvDOXzJ5B7TrZfoKKH+NV+VPu6Pa0gbP9FHfxmIWl9KSHA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfqY8gLUJihAXECDCY2w1JhprzcIrYeqM4mBYeTx3gI8aS/1TV
-	aWp2enkIvlv5RgPxDNlB8iqOObD8b8MJ7PdFZVQsg7hTVGVEP+NQ3UQGcLF/42QzXTruQ4N8BVi
-	8RsOXXRgSPUG3D3PN+us9ug9n6tL71Ng=
-X-Gm-Gg: AYBFou2ggBmcH7TOFzG04Ur8cLwwZg1wQ5eVK+/N/s32HLq/V4FJ7ZWn/2f2PRN+UPP
-	rdUf+71uJbFLKf/m+Ho6drfnUV/9A9IwbdBMJb+hz+LuvIac0ECuYwH2OrSsI46p8zFKYuwgc44
-	xhol9yXKuLTwudH5HT70mawf2hmXaqE0PK1+a57rkyCOXkU5UFqFjdXuII2AIMkbva3GjQZy/cl
-	duw9zf4MpDQDNJPSjWNn+P0iwoTe/5jTqyGyE5vBvmMxt31U5hPzNg3hKHAGoyp8X4hRMKB4hvK
-	S1WO5xs+BhLcz9aLtyI5zoXwyg7Z472KHQvubmHAtET5BlTT9q79zmN1baQ0iIjA9ZKAsktqPS5
-	WXbFbf+tDrA==
-X-Received: by 2002:a05:6808:14d3:b0:4cb:26a3:a0dc with SMTP id
- 5614622812f47-4f529a0c087mr8651948b6e.20.1791147436337; Sun, 04 Oct 2026
- 13:57:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FGN/etFs"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 34E6E1A1134;
+	Sun,  4 Oct 2026 20:58:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EBE57604FE;
+	Sun,  4 Oct 2026 20:58:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1989E1032820F;
+	Sun,  4 Oct 2026 22:58:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791147537; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=jM6fCgMzlrh3EWJKc1X+4QJ1+TyZKSQffV+aGGr36KY=;
+	b=FGN/etFsNicQkwc2Ng7T0X4rN7HYvMj2fTVXXMnfELUCfl4IhdTkNd7SFwlWk5F1qcN7aD
+	J3DQ8UTrVIagIX/QB7I7HHFQi1goueoTBFG9aMaVIKIziZr1QH1BDapG+ln6oSCrK2bBOb
+	9cjbwUA3p+uQmCKNixLCtzgzWHW7Om+LXQxSf1TmuEUvlrg+FuLGufWM6i3UG0c8EqS9YD
+	ziPlqAKqS7PZXkp/y+MtKjFhZpbsCVe4Zw8Eab1OkZTW4UZdOHuv8r5ldHWmaTAffhlpv0
+	QZeyESje0WfG4MTJhKqYCJnPz5rfylaQb8e4Qn+AhhHW4IfZzDCJRrnZQX+x4Q==
+Message-ID: <d1ae6c21-72a9-4bc7-aaaf-9051d0f6b1b0@bootlin.com>
+Date: Sun, 4 Oct 2026 22:58:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004184246.1260426-1-mmyangfl@gmail.com> <8a9ec69b-0823-48b1-aac1-f40cb4713f23@lunn.ch>
-In-Reply-To: <8a9ec69b-0823-48b1-aac1-f40cb4713f23@lunn.ch>
-From: David Yang <mmyangfl@gmail.com>
-Date: Mon, 5 Oct 2026 04:56:40 +0800
-X-Gm-Features: AclHuK-Gqsq1sWsTwqtU_9nAXJD_m0-GFmjnDbkG-2Q4w2Mrh_J-t9h4WYXOnMc
-Message-ID: <CAAXyoMP_8Pa3XpTdTttTP2HgQOrVqT-_P-vK-M1qJNi79Ed6RQ@mail.gmail.com>
-Subject: Re: [PATCH net-next] net: phy: motorcomm: Add cable test support for
- internal YT861x PHYs
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Frank <Frank.Sae@motor-comm.com>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 6/6] arm64: dts: amlogic: t7: khadas-vim4: enable the
+ ethernet port
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-7-tanure@linux.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261004144046.391444-7-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 5, 2026 at 4:17=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Mon, Oct 05, 2026 at 02:42:43AM +0800, David Yang wrote:
-> > The YT921x switches integrate GbE PHYs of the YT861x family (PHY ID
-> > 0x01e04281) on the switch-internal MDIO bus exposed by the yt921x DSA
-> > driver. Without a specific driver they bind to the generic PHY driver
-> > and lack the cable diagnostic facility. Add a driver entry for them
-> > with cable test support.
->
-> Since this does two different things, it should be two patches.
->
-> Does the cable test code apply to other devices this driver drive?
+Hi Lucas,
 
-I don't have other devices to test with.
+On 10/4/26 16:40, Lucas Tanure wrote:
+> The board carries a Realtek RTL8211F gigabit PHY on the external
+> management bus, connected to the MAC over RGMII.
+> 
+> Enable the controller, hand it the ethernet pins and point it at the
+> PHY. The clock delays RGMII needs are supplied by the MAC rather than
+> the PHY: 2ns on transmit and 2000ps on receive, the values the vendor
+> kernel programs.
+> 
+> The PHY interrupt output is wired to GPIOH_6, so describe it and let
+> link changes be reported instead of polled. The PHY reset pin is driven
+> by an RC network on the board, not by the SoC, so there is no reset line
+> to describe.
+> 
+> Tested at 930Mbit/s sustained receive over a minute, with no MAC error
+> counters moving in either direction.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 28 +++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> index 0fa83362b417..5d0365ddde72 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> @@ -14,6 +14,7 @@ / {
+>  	compatible = "khadas,vim4", "amlogic,a311d2", "amlogic,t7";
+>  
+>  	aliases {
+> +		ethernet0 = &ethmac;
+>  		serial0 = &uart_a;
+>  		mmc0 = &sd_emmc_c;
+>  		mmc1 = &sd_emmc_b;
+> @@ -256,6 +257,33 @@ xtal: xtal-clk {
+>  	};
+>  };
+>  
+> +&ethmac {
+> +	status = "okay";
+> +	pinctrl-0 = <&eth_pins>, <&eth_rgmii_pins>;
+> +	pinctrl-names = "default";
+> +
+> +	/*
+> +	 * The RGMII clock delays are added by the MAC, so the PHY is
+> +	 * asked for the mode that adds none.
+> +	 */
+> +	phy-mode = "rgmii";
 
-> > @@ -18,7 +19,9 @@
-> >  #define PHY_ID_YT8522                0x4f51e928
-> >  #define PHY_ID_YT8531                0x4f51e91b
-> >  #define PHY_ID_YT8531S               0x4f51e91a
-> > +#define PHY_ID_INT861X               0x01e04281
->
-> Is this the ID of the switch itself? It does not match the pattern.
+In devicetree, "rgmii" means that the delays are inserted at the hardware
+level, i.e. with longer PCB traces for the clock. With the above comment,
+this is therefore wrong.
 
-It's live captured from the system. By the way the serdes PCS does
-show something matching the pattern 0x4f51e899.
+As a rule of thumb, "phy-mode = rgmii" is almost always wrong.
 
-> >  #define PHY_ID_YT8821                0x4f51ea19
->
->         Andrew
+The right behaviour here is to represent the HW as it is, that is to say
+pass phy-mode = "rgmii-id"; delays are internal. In DT we don't say who
+inserts the delays (MAC or PHY), that's for the drive to figure out.
+
+If the MAC inserts the delays, then it needs to fixup the mode passed to the PHY so that
+they follow this doc :
+
+https://www.kernel.org/doc/html/v7.2/networking/phy.html#rg-mii-electrical-interface-considerations
+
+Maxime
+
