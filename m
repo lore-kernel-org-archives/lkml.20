@@ -1,263 +1,98 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E004C35F5EA
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799C619AD90
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791097884; cv=none; b=t9zRe+iLydpqh6EE70IG+YYCBAu7hHXgDwXYy/Hy4EJldwOOzRX/QRQaTUbfZZ0/BVBewjoi5SXl2HLFVc6q7lROQPkhbPmpRSZnU+HMnN5Hid4r2RrUXa3ynac4DGtpFwvv1651ut80nS++PX5ZNhHjaqJ0ZtAZj9XYoUyNBLg=
+	t=1791098080; cv=none; b=MQyJFCCDrjr/Cf1nUUmlqPFdrAsigPVS3ExIoHkSE0ccDe/IL7gpu3LB6nyRzP3BH/ifCoQ9tD7Y6uufW0dtWQStsEl3509KU2Kj0tEjhuzu0SfUnnqf4i1oSFwk8QZOAmKeqAAH5bEBPFWbfS85OuHhxQ2xYtoRmHRn0gikNbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791097884; c=relaxed/simple;
-	bh=lLLDfF/AamNmWwJC2yvJCvQe71O8cjuMC3ddkYxWWGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=stSqmcuDXGEMcOtEGdO5V9foTz63dXZp8up0tSWFtyABQ+BNEU3TspMWCQ0+tgUYL6tcakNMyncY/RO8Taw8jXgPEVs5vmoIFUPusiU7+P9KQy48ArZZ5oQv4g8czYCPDYC9UYS4ssX9d6useoKJRhcoATjAssC7H4GWOOrLzlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/xsRRo1; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791098080; c=relaxed/simple;
+	bh=MiVGJpuUzXu1NMw1IGIa5iuBIj0kbgFmcxq3QLtfIJg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rto/07f0BHtATW5OF36H7+v4dgV3KTVHzOXRBVHfH1/PmSn/8JdssGKBpbsJ6ofBptIgIex4Opt7c5+qVCRfk1bGEQ/DWrLvG33jG8wfej9TfL4pbCnqd/MMV61U/M4HGDCLvBvlSrC3biA0gsLywO3D32W83ukO7Xks79qLk9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OStH2/lx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/xsRRo1"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so291161f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 00:11:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791097881; x=1791702681; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2D6QjoTaBCt2jh1EB0BpFFMcn92myTfBG8HvdrcaiOM=;
-        b=b/xsRRo1WTYd/U8RkR1MkYfT9ez3NURzRe+H3EEoBIPXaH7oYDYnnZSpdWk9pJEq1O
-         qA94kQkEe1sGbieWQjK9HC4QVrd8dV1R/DPEs4xss5wPkFbdQI+ZYognAsE+0vbsdmf5
-         zQU1KfxScrn3XZ4RjbHAEl7T8RotV+GIy4Y1/pG5yuUN/PWcTYwOziiqCZulHdc8zMVS
-         ziYqGnixF+lqf46xSNNPbL3pjugBXNsP3KM7mYdmXHA48HzxCnTm/zZBT3DgHBZbRet1
-         E8ox7h0lANadHqTmBb4LSi37iJn3TpeUOSiWChqaKaCZjNPydIFGqxRurP+V0YuykJEs
-         drKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791097881; x=1791702681;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2D6QjoTaBCt2jh1EB0BpFFMcn92myTfBG8HvdrcaiOM=;
-        b=VLiXzvB77uNax/p9b9bmIv19yDdFBKeS2kX0OzcrbZs2y2nbfwJd0U9OKESPOs5ONe
-         hwM8GOJNpit4HREL3J9x15cW94x5AgEONQjwzpajN/yRihWTGdUFeWY3Lr8MKjEZrywH
-         5UNDmFMneLXiRdk9ysJj/RAL7dcsiuGXuSgssCo8Hb5Iz43zaJwlfrJYtYuY4dN42TUh
-         BDLEuO+oPZgLgQ2XslN0MHuWi8m9bucIXSARyJy5HFDVpsgc8XrPNv0cwMZ+zvMD21eX
-         Gkf9crDmcmLMhFaHd2iohKujE+PT41Ekl6bBFLymG05hk2WJPKE2PcR53rvt9eKAjuxQ
-         MX8A==
-X-Forwarded-Encrypted: i=1; AKwUvBzgtfuu7Jd5hHn8vBcNLGLH9F1Mx0JomfuRJxlkljsTg+eYXFPAyCZr8fdCnT2zMsQH1V40dV3V09h9H54=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlQWZBA9rwMTzn4+NXsE9nwjbhT8YNVl9WULRoxMjypmMMu7KW
-	wq2Il/NwVkCi+Tr+64OIuxWHmbrx3kNfUsPv2r/HaQZsBZXGaCjXTqQ=
-X-Gm-Gg: AYBFou0CKEu2nRmjkM1qCyeKDwmW9dKuzRFZATNTA8FEyDUVATQJEQHz8LavvbmdbHj
-	tXnJHCegp+3dZYbPx5/T++gxqKpRp+3oEfkmKzmOTDXolL/nYq+GgWH3+KTY/UROIYYHxPFZihm
-	JuSJsGw5UroGpx0WlxxtlItjO3C/shCuEuPYRREocxw7O+xkfF+gomqvbocHdpfSe1XN2bId83d
-	EB7SgD0FLMcgNuz0wmuVcYfw+c1ooVoMq5BO5iXe7o9Jb37G5nbCvFfdgZTQpnR6FAdw/5qlP9h
-	lAmbtNulgJVDIflmHV6pVuQ6alsbxKriUMyowEzFlQ1ZrN9CxuvkD28fVLqRCCea84kL9wJobmN
-	ITrknhe8568YZVkpYrCxIuLyRPIpWPpN4OjH4aBvY7cBB7G2tOsIYOnhZAAKj18KB3dINnB+vQr
-	lWTo+QrhA22UQCpJUNJHu0K78Yg/HyuZNKOnLOtJtwN/appu/hJ+uG6wBclYCpYZoKPsM4U/oTP
-	tdvvOUJrZb9wtwNyzyWiR4GXrMWaGOii92laORfNU6YDiXi2dBUBN2787pj88Tu
-X-Received: by 2002:a05:6000:1846:b0:48b:1bf:ffb1 with SMTP id ffacd0b85a97d-48b12775c61mr14876646f8f.54.1791097880928;
-        Sun, 04 Oct 2026 00:11:20 -0700 (PDT)
-Received: from yoga.fritz.box (p200300f3cf01bb00103cf82222a83fe3.dip0.t-ipconnect.de. [2003:f3:cf01:bb00:103c:f822:22a8:3fe3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8c4asm18004720f8f.37.2026.10.04.00.11.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 00:11:20 -0700 (PDT)
-From: Georg Wenzel <g.wenzel@gmail.com>
-To: tiwai@suse.de
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Georg Wenzel <g.wenzel@gmail.com>
-Subject: [PATCH v2] ALSA: hda/tas2781: Enable bass speakers support
-Date: Sun,  4 Oct 2026 09:12:00 +0200
-Message-ID: <20261004071202.89116-1-g.wenzel@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87cxtw2y8b.wl-tiwai@suse.de>
-References: <87cxtw2y8b.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OStH2/lx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BAC91F0089D
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:14:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791098079;
+	bh=1NP5uIuhYLbhcM2uz1aoanTRWECoG3FcknJPg8EgHx8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OStH2/lxzhyDirYchL7nUiNlvjGnqsO5rT/TJbdqlXZPixerivaOmIXyDhhYqV5Bd
+	 DveuymYcjxf38xYeJAydBUBj7COrEHB5EY/isuh4Zllib//y67/J/759xrBaWR5A1A
+	 i8sekO81GdjYqXps1HzdLAI6twTs6IVNxXhfOkHCxBW4MNnKO96cAhFjGLeTrysLVu
+	 ZEQTeOLSnmf0ouVJdlmKTKdiVHtLhLqAI4z4niI1kKmkJzPIm8fRseb75I/ve0j6CD
+	 M2t0gzcC1JJbzkxuAKtH86G5VWl8hR0VsGcpqRj6YiAFnBGKRWCdK0CONfjc+SROoc
+	 9WxaqAN6ksPvQ==
+Received: by mail-oa2-f13.google.com with SMTP id 586e51a60fabf-466ccdd7695so158232fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 00:14:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxoj/qV/15BZ/xwKPVEZVJia1IyzLIkWk09EnRaRGg8Ccyc6R3B0d4XSmgzKRjeZij72q0MgoHdtBaUkNo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCMYpqjRT0AoQu1hOMF4LMmviMFq+xdkBb6lYqLtAK256JYIQd
+	JbCsuqoosqsJvffKe5z+ByUSa0qmJEDIqShP2iVRsTDBGae5FG0Mroz9xw80Hkvxpe2fQwPEwM5
+	pb6g2+26H+fVi+Nocn/EweUP5FkqEQ04=
+X-Received: by 2002:a05:6871:520f:b0:48f:e0e5:a1d3 with SMTP id
+ 586e51a60fabf-49e15ed2fddmr5903566fac.40.1791098078440; Sun, 04 Oct 2026
+ 00:14:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261003-tls-fix-sk-kcsan-err-v2-0-e939a2ebdd56@proton.me> <20261003-tls-fix-sk-kcsan-err-v2-2-e939a2ebdd56@proton.me>
+In-Reply-To: <20261003-tls-fix-sk-kcsan-err-v2-2-e939a2ebdd56@proton.me>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Sun, 4 Oct 2026 09:14:27 +0200
+X-Gmail-Original-Message-ID: <CAL4WiirzoFX6W01xKK4uAiQ+BzecwidVDH8uB9f3cPsiVV_iww@mail.gmail.com>
+X-Gm-Features: AclHuK9W8DDTR-B8tQjMNP0pR-aQh83-yiuA0tUmfDsx6xga3FUayfeLkAZfL3o
+Message-ID: <CAL4WiirzoFX6W01xKK4uAiQ+BzecwidVDH8uB9f3cPsiVV_iww@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 2/2] net: annotate lockless writes to sk->sk_err
+To: quanyeyang@proton.me
+Cc: John Fastabend <john.fastabend@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Sabrina Dubroca <sd@queasysnail.net>, "David S. Miller" <davem@davemloft.net>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Configure the driver to correctly initialize and enable the bass speakers
-on devices utilizing the TAS2781 amplifier. Without this change, only the
-tweeters or main speakers are active, leading to thin audio output.
+Le dim. 4 oct. 2026 =C3=A0 06:44, Quanye Yang via B4 Relay
+<devnull+quanyeyang.proton.me@kernel.org> a =C3=A9crit :
+>
+> From: Quanye Yang <quanyeyang@proton.me>
+>
+> do_recvmmsg() and getsockopt(SO_ERROR) clear sk_err with xchg()
+> without the socket lock. TCP, MPTCP and kTLS already peek the same
+> field with READ_ONCE() or consume it via sock_error().
+>
+> sock_dequeue_err_skb() still uses plain stores. tcp_recvmsg() can
+> call it via MSG_ERRQUEUE before lock_sock(), so those writes race
+> with the annotated readers and with sock_error(). The same unmarked
+> stores exist in strp_abort_strp() and sk_psock_report_error(), which
+> run on the TCP/TLS socket.
+>
+> Annotate those writers with WRITE_ONCE(). No extra ordering is
+> needed; this does not change who wins when ICMP error-queue entries
+> overwrite sk_err.
+>
+> Link: https://lore.kernel.org/netdev/3d9d442f-f168-43da-87b0-010ad5a78365=
+@redhat.com/
+> Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+> ---
+>  include/linux/skmsg.h     | 2 +-
+>  net/core/skbuff.c         | 5 +++--
+>  net/strparser/strparser.c | 2 +-
+>  3 files changed, 5 insertions(+), 4 deletions(-)
 
-Set up the required register sequences and routing to ensure the bass
-channels are properly powered and mixed into the audio stream.
+Has this patch changed between V1 and V2 ?
 
-Signed-off-by: Georg Wenzel <g.wenzel@gmail.com>
----
-v2:
-  - Rebased onto sound/for-next (Takashi Iwai).
-  - Removed non-ASCII characters in comments (Takashi Iwai).
-  
- include/sound/tas2781.h                       | 12 +++
- .../hda/codecs/side-codecs/tas2781_hda_i2c.c  | 98 +++++++++++++++++++
- 2 files changed, 110 insertions(+)
+You are supposed to carry the Acked-by and Reviewed-by tags collected
+during prior iterations.
 
-diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
-index b763da613769..ccc0142fbad5 100644
---- a/include/sound/tas2781.h
-+++ b/include/sound/tas2781.h
-@@ -91,6 +91,18 @@
- /* prm_TE_1_Beta1 */
- #define TAS2563_TE_DT_REG		TASDEVICE_REG(0x00, 0x0f, 0x70)
- 
-+/* TAS2563 ASI (Audio Serial Interface) Register Definitions */
-+#define TAS2563_ASI_CFG_REG			TASDEVICE_REG(0x00, 0x00, 0x06)
-+#define TAS2563_ASI_SR_REG			TASDEVICE_REG(0x00, 0x00, 0x07)
-+#define TAS2563_ASI_FS_REG			TASDEVICE_REG(0x00, 0x00, 0x08)
-+#define TAS2563_ASI_DA_REG			TASDEVICE_REG(0x00, 0x00, 0x0a)
-+#define TAS2563_ASI_TDM_REG			TASDEVICE_REG(0x00, 0x00, 0x0b)
-+#define TAS2563_ASI_DL_REG			TASDEVICE_REG(0x00, 0x00, 0x0c)
-+#define TAS2563_ASI_SLOT_REG		TASDEVICE_REG(0x00, 0x00, 0x30)
-+
-+/* TAS2563 ASI Apply Register (triggers configuration update) */
-+#define TAS2563_ASI_APPLY_REG			TASDEVICE_REG(0x00, 0x00, 0x02)
-+
- #define TAS2781_PRM_INT_MASK_REG	TASDEVICE_REG(0x00, 0x00, 0x3b)
- #define TAS2781_PRM_CLK_CFG_REG		TASDEVICE_REG(0x00, 0x00, 0x5c)
- #define TAS2781_PRM_RSVD_REG		TASDEVICE_REG(0x00, 0x01, 0x19)
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-index 5e5f46c9fb6b..cef33159eba4 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-@@ -46,6 +46,83 @@
- #define TAS2563_CAL_TLIM		TASDEVICE_REG(0, 0x10, 0x14)
- #define TAS2563_CAL_R0			TASDEVICE_REG(0, 0x0f, 0x34)
- 
-+/*
-+ * TAS2563 Post-Firmware ASI Configuration.
-+ *
-+ * The DSP firmware loading can overwrite the ASI (Audio Serial Interface)
-+ * registers that configure the I2S/TDM audio path to the amplifier.
-+ * This function re-applies the correct ASI configuration after firmware load,
-+ * matching the reference initialization sequence used by the vendor script:
-+ *   - Software reset
-+ *   - ASI_CFG  = 0x09 (I2S mode, master/slave config)
-+ *   - ASI_SR   = 0x02 (sample rate divider for 48 kHz)
-+ *   - ASI_DA   = 0xf1 (data alignment / slot assignment)
-+ *   - ASI_TDM  = 0x02 (TDM mode select)
-+ *   - ASI_DL   = 0x00 (delay line off)
-+ *   - ASI_SLOT = 0x99 (slot enable mask for 2-channel stereo)
-+ *   - CHNL_0   = 0x02 (channel mapping)
-+ *   - ASI_FS   = 0x1e or 0x2e (frame sync, device-specific: bit4 selects
-+ *                which of the two devices is the "primary" for FS generation)
-+ *   - ASI_APPLY= 0x00 (trigger configuration update)
-+ */
-+static void tas2563_post_fw_init(struct tasdevice_priv *tas_priv)
-+{
-+	int i, ret;
-+
-+	dev_info(tas_priv->dev, "%s: ndev=%d, chip_id=%d\n",
-+		 __func__, tas_priv->ndev, tas_priv->chip_id);
-+
-+	for (i = 0; i < tas_priv->ndev; i++) {
-+		struct tasdevice *tasdev = &tas_priv->tasdevice[i];
-+		u8 fs_val;
-+
-+		dev_info(tas_priv->dev,
-+			 "%s: device[%d] dev_addr=0x%02x\n",
-+			 __func__, i, tasdev->dev_addr);
-+
-+		/* Step 1: Software reset (matches script: 0x01 = 0x01) */
-+		ret = tasdevice_dev_write(tas_priv, i, TASDEVICE_REG_SWRESET,
-+					  TASDEVICE_REG_SWRESET_RESET);
-+		dev_info(tas_priv->dev,
-+			 "%s: chn=%d SWRESET ret=%d\n", __func__, i, ret);
-+		usleep_range(1000, 2000);
-+
-+		/* Step 2: ASI configuration registers */
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_CFG_REG, 0x09);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_CFG=0x09 ret=%d\n", __func__, i, ret);
-+
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_SR_REG, 0x02);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_SR=0x02 ret=%d\n", __func__, i, ret);
-+
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_DA_REG, 0xf1);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_DA=0xf1 ret=%d\n", __func__, i, ret);
-+
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_TDM_REG, 0x02);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_TDM=0x02 ret=%d\n", __func__, i, ret);
-+
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_DL_REG, 0x00);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_DL=0x00 ret=%d\n", __func__, i, ret);
-+
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_SLOT_REG, 0x99);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_SLOT=0x99 ret=%d\n", __func__, i, ret);
-+
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2781_PRM_CHNL_0_REG, 0x02);
-+		dev_info(tas_priv->dev, "%s: chn=%d CHNL_0=0x02 ret=%d\n", __func__, i, ret);
-+
-+		/* Step 3: Device-specific frame sync (0x1e for dev0, 0x2e for dev1) */
-+		fs_val = 0x1e | ((i & 0x01) << 4);
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_FS_REG, fs_val);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_FS=0x%02x ret=%d\n",
-+				__func__, i, fs_val, ret);
-+
-+		/* Step 4: Apply ASI configuration */
-+		ret = tasdevice_dev_write(tas_priv, i, TAS2563_ASI_APPLY_REG, 0x00);
-+		dev_info(tas_priv->dev, "%s: chn=%d ASI_APPLY ret=%d\n", __func__, i, ret);
-+
-+		usleep_range(1000, 2000);
-+	}
-+}
-+
- enum device_chip_id {
- 	HDA_TAS2563,
- 	HDA_TAS2770,
-@@ -172,6 +249,13 @@ static void tas2781_hda_playback_hook(struct device *dev, int action)
- 		pm_runtime_get_sync(dev);
- 		scoped_guard(mutex, &tas_hda->priv->codec_lock) {
- 			tasdevice_tuning_switch(tas_hda->priv, 0, false);
-+			/* Re-apply ASI configuration for TAS2563 after
-+			 * tuning switch - DSP firmware loading can
-+			 * overwrite ASI registers.
-+			 */
-+			if (tas_hda->priv->chip_id == TAS2563)
-+				tas2563_post_fw_init(tas_hda->priv);
-+
- 			tas_hda->priv->playback_started = true;
- 		}
- 		break;
-@@ -475,6 +559,12 @@ static void tasdevice_dspfw_init(void *context)
- 			tas_priv->rcabin.init_profile_id,
- 			TASDEVICE_BIN_BLK_PRE_POWER_UP);
- 
-+	/* Apply ASI configuration for TAS2563 after firmware load.
-+	 * DSP firmware loading can overwrite ASI registers.
-+	 */
-+	if (tas_hda->priv->chip_id == TAS2563)
-+		tas2563_post_fw_init(tas_hda->priv);
-+
- 	/* If calibrated data occurs error, dsp will still works with default
- 	 * calibrated data inside algo.
- 	 */
-@@ -659,6 +749,7 @@ static int tas2781_hda_i2c_probe(struct i2c_client *clt)
- 		 */
- 		device_name = "INT8866";
- 		hda_priv->hda_chip_id = HDA_TAS2563;
-+		tas_hda->priv->chip_id = TAS2563;
- 		hda_priv->save_calibration = tas2563_save_calibration;
- 		tas_hda->priv->global_addr = TAS2563_GLOBAL_ADDR;
- 	} else if (strstarts(dev_name(&clt->dev), "i2c-TXNW5825")) {
-@@ -782,6 +873,13 @@ static int tas2781_system_resume(struct device *dev)
- 			tas_hda->priv->rcabin.init_profile_id,
- 			TASDEVICE_BIN_BLK_PRE_POWER_UP);
- 
-+	/* Re-apply ASI configuration for TAS2563 after system sleep
-+	 * resume — amplifiers may lose their register state during
-+	 * suspend-to-ram or suspend-to-disk regardless of playback state.
-+	 */
-+	if (tas_hda->priv->chip_id == TAS2563)
-+		tas2563_post_fw_init(tas_hda->priv);
-+
- 	if (tas_hda->priv->playback_started)
- 		tasdevice_tuning_switch(tas_hda->priv, 0, false);
- 
--- 
-2.55.0
+Please help reviewers, they need to recover their precious time.
 
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+
+Thank you.
