@@ -1,205 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87688476CFF;
-	Sun,  4 Oct 2026 17:22:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134559; cv=none; b=iAFcR2L/aiZo6fCvvvkrAsH+kQ94/00rBEm2WPOr9IRk8NGCembR2OohSxLf61H2jXlsA1wff37DILFN00kn602l/Y5u5FzUHeajSjmCtHAvKqzRCfTsgFw84uuN2bt6vuXA7GqQrwFfeH8Dm0/WYkLINeOL/R9vm2JpffZ9xKw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791134559; c=relaxed/simple;
-	bh=n9wlJRG1lZU7OIST8vkT34hSLuA8r9FUXk8yobl1cIg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rdBsgGvoyUVeswGbnZkkHqs80PG9lfT+lfjk8lfTAxYLaQmuxxh9wOTfLW4BqU68LLjuB1zN6WZCligiYBOfh74XvlrcjsWbvtmU+s1sOTGeZxtg8ElEwMyn6SQ/IF5goh1SaNhhLnc2R0Si7cAFF+YEu67wE6HAYNrZ7aj0UMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X+EU4n+C; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307C646F494
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791134587; cv=pass; b=EiG3NzHxEdncnGm6su5iA78pe5etsG497Zvqd0bOV/gY1mEhrbZMmSMnF8C1A4ycNvuI6F2DJ9QV+h51HobH4vWzYhplhaHJxiLT5G7yE8oWaMrGOYdNjkUsh2GXOcj34wsK6GsKgxx9CVD6S0dotmH7+/bG+VM6CG7tKHASlA0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791134587; c=relaxed/simple;
+	bh=5YwE6gm7wg0FWDw+d5L2a31cmRORmzOWrTnpytOvhqM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZrvXstifSgtM3RR4aR/DOdTB6Z5dXKA9sO8l9+OatAPlIJyBHJXAdTHfLuajx8w92O4LTAXNWr2wWWvVxic7wFujsFd+im0jOnY+X27okYbS3vjYrBrG6NyjrzlnuvXabTqAEyzumU1sqyL+vJpGd0l0bDUnEVW0jhgByqGdRdE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ev/NnSUV; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X+EU4n+C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7B51F00893;
-	Sun,  4 Oct 2026 17:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791134557;
-	bh=r7UYAqzYebzMBiZey0sYATeG+yRUiJqegUoGVO5ayyA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=X+EU4n+C/847vm+BHyhPf5kZcflOWxPiGibRub8AKHdE9Ai5cNIaId2v5olGR0LpJ
-	 RG1OW2PtJGoQ0YVZ9A37diiGsOjKka7upPIIlPaJTjTTu461+gpuCncWtl7MU2wRzR
-	 +Zk05veG9pmW4CKWirYRp/NaQrExL8buwNDl8mnxSroEWBcUCsLOJv6LmO9L9i817o
-	 veiIg33gBgTtVrj6aXND0NbKK61Knx5+FO3txsYsw4HpDtoyv/JSDS9rVHNKXX28Yu
-	 b/gwG0XtUJiFRhJUP7erq5CpnA/T/wFYqxekvhSQQeeZu8wtoBEtwIKxv7kAON7ZmQ
-	 t2axYJzoQgUJg==
-Subject: Re: [PATCH 16/16 net-next v3] ipv4: make CONFIG_IPV4 boolean
-From: netdev-bot+sashiko@kernel.org
-To: fmancera@suse.de
-Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
- johannes@sipsolutions.net, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 17:22:36 +0000
-Message-ID: <179113455655.434549.6974473678038348969@kernel.org>
-In-Reply-To: <20260930135334.4739-17-fmancera@suse.de>
-References: <20260930135334.4739-17-fmancera@suse.de>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ev/NnSUV"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5337fa12431so181421cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:23:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791134583; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YQ6DuHM90D20LTWnwTP6mL/w+LqJdIUJp6LXhiwpqTGK2HeEGeGF1p+ldrF9HvxKJW
+         +Dc8JIDKCVTVM+6iEX3yA7zKVGZXc44ihB0KzLfe6UXENqj1VRyYjMp3vsS6Y+VvIZ8i
+         yXh6thaOjijLSblzAsKnZD+8eN5GnXV6L5VedT4LZtNuQA3RT+k+CIEafQJetLSpNdzd
+         0rtHa2/AzITU/seFUFfYx+k6Dc26H0uYHPxe1hee3476zsR/sjqwrMmSmCkRR9ggx6YL
+         qvhnxbqCZb4RLGYzRNPRYP0a6fbgVAeo1i5aHhTnCgj6vDKHkp9lCcqAT9xLEQfsjB3w
+         A7Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bqiCaT+6hB/MlQ3EgaRNQmjR57IQALnN7KoYl50i5vw=;
+        fh=LolB6BNZUa7haLRGhaBsF97RpdeK0prQFVhX6Ae2Y0o=;
+        b=dEe78/X8EsDepIJGXpLlxvUeuJJd44YooAEDwtB6y2pRwbEOiDxcROzwmQv2Wshn5j
+         BZ4z5dO15TmEWceR1b4h8KnbxZ/ahsH2Rz0x5ZV1++Ms/W1WmfQXDlqJzXoZYdmfcOFe
+         8uj9+mXolHB6xIwV1LK1vbuiwdmdZVbwn6cQCHuJypYBpNhLKKIa9/OsD/8t887j1tBz
+         t9E8zQZO+7pQe58CAuL8HfjAEqOWbEidWGa1TEBsb/mwkSYt8bcCWUmH5RiidWUgDrKb
+         8efbPNaXl7lnuo4tW90NBPEfCinlaSEnuIu5x5Ocf94roYV8ncil/wcSDByfN1tkapjw
+         23zw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791134583; x=1791739383; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bqiCaT+6hB/MlQ3EgaRNQmjR57IQALnN7KoYl50i5vw=;
+        b=ev/NnSUViOZ+ATajuN/BHEOpjCgrxKI1nt1o2XQCuN5h7KpRGDTtqS2IKJN37vT8R6
+         IbuBrgwBCixnrX5DYs5zuSpVaN0v5SBvJXggFwQVQeKiRmVp7c0/zqEuo+mf9hQYE+ap
+         XREirLdhnpqRqpG6A+D5jtBOZgfp+zeKZylZAZ4yJTfDpftaH0fV8uU4OqxMdwqT+x/O
+         aKbyGDnO34Q8OmZXgttyU3B7s5pjk9WcC2we5ktK5gynifeEucE6Om6Sq6OSysMfD75o
+         AjLX4rLLg4//L2FGOrssLIPqc+S2KZ2Y7d9tVn4emORbQv0AmSNSfDGfDi5GXB6+4Vjj
+         Ym5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791134583; x=1791739383;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bqiCaT+6hB/MlQ3EgaRNQmjR57IQALnN7KoYl50i5vw=;
+        b=Tn2l1OxjKihgHZCcC8QoYxKizWyaz9iMlmcypz8+dCcpqPW1pNOEGr//Z4gjpd0izC
+         0dKo08XqsAak09+awjIYdNXy9IkxE6waNKEteZlfqF80cF9DwMybMbwNfZFP8ygtmEkJ
+         RAUYVvUovwOvnxhbO+0Ag+qNYicbsWBm1vGgWZh7DaFxaWlTdg7F3M0afIorY+Lovev/
+         dVw9LY9JeJYhoIOnAa0v0zARCONRo/eLFdsFBpGiCgSAKh2GWg0DyEigFEj8ylrg121c
+         UzmZmDl7JGK81jiO6bslzGS1sxSFjC3e0VSjiqeX+8O/xmOjckgkgdPhTIhCoV6BkcC3
+         lvEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxr3boBHpzBHJDK6t1tx/RbTGdfw58PNTQlJW9rnOYXCD4yK8SXPi1F0cP0beA1if57Yaxkt4imnU0g/1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7m8l6/dQt2oeZttb+r1AMnFh63PRkLHOMLMw3U4cEvS7GS7QZ
+	YsCU3sQh7a4Eck+EZ9p3CRX/IQjuCjdvfuTgpPpkR5Qbz7Q5dBetlUFS2bmykPaHuUIxOHw4QW/
+	8p8B170Lk9NjiBALZGcQVJsecdrydQVDwAMF81nG8
+X-Gm-Gg: AYBFou3CkGPdM9e/rzm6rUY+QV5HLh/WaieHLThYroxXYLh/VJ/fET/ezP79+RBDB9P
+	dryvFwVBlj4o5no2paRq3AqsgeDCwaDwmuo3phlZjc+6dr4te5fbzhGJ+MG2Y0rnShRd2N+/ny+
+	NzY4MfzUAcmJyJwsndUSEZQLyzCrhV/ZdiQewebeTl1TQtKzu1peAE5/wnGvQ+4un3brYqL1Q45
+	NGIMgnyHpJu3+yaOR8ytQ1uP9uAV5ENJMAn1Jz2Ztsmc5Sul3QOwZFLb47WjGXLfca+owySmJU+
+	0qD+aXDtbJgVjHCbg0wJzotlpXNPddg0By7kgHVNiPekifNVzNbbCu/GfMzTuW+xTUI=
+X-Received: by 2002:ac8:574c:0:b0:531:475:4ce6 with SMTP id
+ d75a77b69052e-535131b2b85mr16362481cf.9.1791134581910; Sun, 04 Oct 2026
+ 10:23:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
+ <20261003-b4-mmap-prepare-vma-flag-sanify-v4-12-a1f052500fd7@kernel.org>
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-12-a1f052500fd7@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sun, 4 Oct 2026 10:22:50 -0700
+X-Gm-Features: AclHuK9b8f-m7wgF2pmH0VTlVxkwioKHBPR714nLjuu-GaXS_Vt3fJyAlsba0Do
+Message-ID: <CAJuCfpH8GeLKqFtfC_a5i08dQ2ZyyROSrYqYP6Btq03xbF_nXA@mail.gmail.com>
+Subject: Re: [PATCH v4 12/38] ALSA: pcm: use vm_insert_page() to map PCM
+ status page
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+	Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+	fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Sat, Oct 3, 2026 at 6:37=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> There's no need to keep a fault handler around for this, instead map on
+> mmap.
+>
+> While we're here, rename area to vma to be consistent.
+>
+> This correctly makes the mapping a mixed map mapping.
+>
+> This works towards establishing the invariant that only PFN mapped or mix=
+ed
+> map mappings may clear the VM_MAYWRITE flag. The status page mapping clea=
+rs
+> VM_MAYWRITE, so it must not be mm-managed; the control page mapping remai=
+ns
+> writable and is left fault-based.
+>
+> The assumption is made that the struct pcm_mmap_status structure is at mo=
+st
+> a page in size, which is asserted as a build bug.
+>
+> This is safe to assume, as the size of the structure is 56 bytes at most.
+>
+> Acked-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [High] ipv4: exposing CONFIG_IPV4 without BROKEN guard silently drops
-  Netfilter
-- [Medium] Making CONFIG_IPV4 user-selectable makes an s390 configuration
-  reachable that does not link.
-- [Low] Now that IPV4 can be disabled, several IPv4-only prompts in
-  net/ipv4/Kconfig stay visible and settable with IPV4=n, because they…
-
---
-
-ipv4: make CONFIG_IPV4 boolean
-
-This commit changes CONFIG_IPV4 from a hidden def_bool y into a bool
-prompt that users can see. The prompt appears when IPV6 is enabled and
-defaults to INET, which makes an IPv6-only kernel build possible.
-
-> diff --git a/net/ipv4/Kconfig b/net/ipv4/Kconfig
-> index 51bf05d9770c5..c7d36cfa4a1d2 100644
-> --- a/net/ipv4/Kconfig
-> +++ b/net/ipv4/Kconfig
-> @@ -3,7 +3,15 @@
->  # IP configuration
->  #
->  config IPV4
-> -	def_bool y
-> +	bool "The IPv4 protocol" if IPV6
-
-[Severity: High]
-With IPV4=n, does this silently turn off all of netfilter, including
-the IPv6 firewall?
-
-Earlier patches in this series made both netfilter menus depend on
-IPV4:
-
-net/netfilter/Kconfig:
-menu "Core Netfilter Configuration"
-	depends on INET && IPV4 && NETFILTER
-
-net/ipv6/netfilter/Kconfig:
-menu "IPv6: Netfilter Configuration"
-	depends on INET && IPV6 && NETFILTER && IPV4
-
-Take INET=y, IPV6=y and NETFILTER=y, then answer N to the new prompt.
-Kconfig then drops every symbol under both menus without any warning.
-That includes NF_CONNTRACK, NF_TABLES, IP6_NF_IPTABLES, IP6_NF_FILTER
-and the rest. The help text only says the result is an IPv6-only
-system. Nothing tells the user that the firewall went with it.
-
-The resulting kernel has no packet filtering at all. That is likely
-the opposite of what someone building an IPv6-only host wants, and it
-seems more serious than a missing feature in a minimal build.
-
-I see from the note after the commit message that this is meant to
-provide a minimal build and that follow-ups will fill the gaps. Until
-netfilter works without IPv4, should the prompt stay hidden behind
-something like "depends on BROKEN" or "depends on EXPERT"? Or should
-the help text at least warn that netfilter, including ip6tables and
-nf_tables, is unavailable with IPV4=n?
-
-[Severity: Medium]
-Does this make an s390 configuration reachable that fails to link?
-
-In drivers/s390/net/Kconfig, QETH needs IP_MULTICAST, but nothing in its
-dependencies requires IPV4, and IP_MULTICAST itself does not depend on
-IPV4:
-
-config QETH
-	def_tristate y
-	prompt "Gigabit Ethernet device support"
-	depends on CCW && NETDEVICES && IP_MULTICAST && QDIO && ETHERNET
-
-QETH_L3 is also def_tristate y and depends only on QETH.
-
-qeth_l3_main.c calls the inetaddr notifier helpers with no CONFIG_IPV4
-guard:
-
-drivers/s390/net/qeth_l3_main.c:qeth_l3_register_notifiers() {
-	...
-	rc = register_inetaddr_notifier(&qeth_l3_ip_notifier);
-	...
-		unregister_inetaddr_notifier(&qeth_l3_ip_notifier);
-	...
-}
-
-qeth_l3_unregister_notifiers() calls unregister_inetaddr_notifier() as
-well.
-
-Both helpers are defined only in net/ipv4/devinet.c. That file is built
-only under obj-$(CONFIG_IPV4), and include/linux/inetdevice.h has no
-stub for the !CONFIG_IPV4 case.
-
-Take INET=y, IPV6=y, IPV4=n, with QETH and QETH_L3 left at their
-defaults. Would that give an undefined reference at vmlinux link time
-when QETH_L3=y, or at modpost when QETH_L3=m?
-
-Other drivers in this effort got a "depends on IPV4 || !INET" guard, for
-example IXGBE_IPSEC, MLX5_CORE, SFC, STMMAC_ETH, PPTP and IWLWIFI.
-Should QETH or QETH_L3 get the same guard? Or should the notifier calls
-be guarded in the code instead?
-
-> +	default INET
-> +	help
-> +	  Support for IP version 4 (IPv4).
+> ---
+>  sound/core/pcm_native.c | 38 +++++++++++++-------------------------
+>  1 file changed, 13 insertions(+), 25 deletions(-)
+>
+> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> index 62324282fcae..c98fb3df14f3 100644
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -3760,39 +3760,27 @@ static __poll_t snd_pcm_poll(struct file *file, p=
+oll_table *wait)
+>  /*
+>   * mmap status record
+>   */
+> -static vm_fault_t snd_pcm_mmap_status_fault(struct vm_fault *vmf)
+> +static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, stru=
+ct file *file,
+> +                              struct vm_area_struct *vma)
+>  {
+> -       struct snd_pcm_substream *substream =3D vmf->vma->vm_private_data=
+;
+> +       const unsigned long size =3D vma->vm_end - vma->vm_start;
+>         struct snd_pcm_runtime *runtime;
+> -
+> -       if (substream =3D=3D NULL)
+> -               return VM_FAULT_SIGBUS;
+> -       runtime =3D substream->runtime;
+> -       vmf->page =3D virt_to_page(runtime->status);
+> -       get_page(vmf->page);
+> -       return 0;
+> -}
+> +       struct page *page;
+>
+> -static const struct vm_operations_struct snd_pcm_vm_ops_status =3D
+> -{
+> -       .fault =3D        snd_pcm_mmap_status_fault,
+> -};
+> +       BUILD_BUG_ON(sizeof(struct snd_pcm_mmap_status) > PAGE_SIZE);
+>
+> -static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, stru=
+ct file *file,
+> -                              struct vm_area_struct *area)
+> -{
+> -       long size;
+> -       if (!(area->vm_flags & VM_READ))
+> +       if (!(vma->vm_flags & VM_READ))
+>                 return -EINVAL;
+> -       size =3D area->vm_end - area->vm_start;
+> -       if (size !=3D PAGE_ALIGN(sizeof(struct snd_pcm_mmap_status)))
+> +       if (size !=3D PAGE_SIZE)
+>                 return -EINVAL;
+> -       area->vm_ops =3D &snd_pcm_vm_ops_status;
+> -       area->vm_private_data =3D substream;
+> -       vm_flags_mod(area, VM_DONTEXPAND | VM_DONTDUMP,
 > +
-> +	  Disabling this option compiles the kernel networking stack without
-> +	  IPv4 support, resulting in a IPv6-only system.
-> +
-> +	  If unsure, say Y.
->  
->  config IP_MULTICAST
->  	bool "IP: multicasting"
-
-[Severity: Low]
-This isn't a bug, but now that IPV4 can be disabled, should the
-IPv4-only prompts in net/ipv4/Kconfig also depend on IPV4?
-
-None of these depend on IPV4, so users can still see and set them with
-IPV4=n:
-
-  IP_MULTICAST ("IP: multicasting")
-  IP_ADVANCED_ROUTER ("IP: advanced router")
-  IP_FIB_TRIE_STATS, IP_ROUTE_MULTIPATH and IP_ROUTE_VERBOSE, which
-  depend only on IP_ADVANCED_ROUTER
-  NET_IPGRE_DEMUX ("IP: GRE demultiplexer")
-
-Most of the code behind these options is in route.o, igmp.o,
-fib_frontend.o, fib_semantics.o and fib_trie.o. net/ipv4/Makefile builds
-those files only under CONFIG_IPV4:
-
-obj-$(CONFIG_IPV4) += route.o ip_input.o ip_fragment.o ip_forward.o ip_options.o \
-
-In af_inet.c, the CONFIG_IP_MULTICAST IGMP registration sits inside
-inet4_init(), which is only called under IS_ENABLED(CONFIG_IPV4). Every
-in-tree user of NET_IPGRE_DEMUX (NET_IPGRE, PPTP, IPV6_GRE) already
-depends on IPV4.
-
-IP_MULTIPLE_TABLES, IP_PNP, NET_IPIP and IP_MROUTE already have
-"depends on IPV4", so these options may simply have been missed.
-
-With IPV4=n, menuconfig still offers these routing and multicast
-options, they have no effect, and they are not nested under the new
-IPV4 prompt. Would adding "depends on IPV4", or wrapping the block in
-"if IPV4", make this consistent?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930135334.4739-1-fmancera%40suse.de
+> +       vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP,
+>                      VM_WRITE | VM_MAYWRITE);
+> +       vma->vm_page_prot =3D vm_get_page_prot(vma->vm_flags);
+>
+> -       return 0;
+> +       runtime =3D substream->runtime;
+> +       page =3D virt_to_page(runtime->status);
+> +       return vm_insert_page(vma, vma->vm_start, page);
+>  }
+>
+>  /*
+>
+> --
+> 2.55.0
+>
