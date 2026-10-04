@@ -1,48 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AA92F0661
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 08:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD502F0661;
+	Sun,  4 Oct 2026 08:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791103196; cv=none; b=CDttB6Jw2dmL6bqiBx6cGPYoePGYp/5A+aAmrPbsoRonM2rSlzzjlZdQVyC/sm+XcMYbkhv+/oOfpy/maFbwoenppbbhH9UEUPtIb8NdfmVphfgrg/rVtOrY1lBXXPvCaZTL4XEk7cEXNedVQLG6ALJ3QIPXTpOAUZT3OQzaAgs=
+	t=1791103232; cv=none; b=Voo0gG2bS1BaAABFsbLm6DRntzVOP2hsp/WVpDPE/nCwurF0loY30IT/ub8Hn6IJHslbU5BRe3l+EWCr4rsmo2ogMo8qVxxWhmkmypwkzejIpCed/jTVK5t64+gu5PMLA1HSn2pzw1txwknRowXsMUqTYKgMzGDz1rVURncbEB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791103196; c=relaxed/simple;
-	bh=kCfUMFjyszMsMvqCb1urqEXaDE/NE4H7gMvkkO+N9LI=;
+	s=arc-20240116; t=1791103232; c=relaxed/simple;
+	bh=XNntfym4tCch+zSlU8Wn7sbDuve181DhutZT19j5h7I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=spNyKM7VAANXhjVtbr5xi7OYxuI+zc5UYihSDVOuRXmpSy3E2WerbonRK3EasVDoV7qC9xcWvbBb6nSpAe6WXduHrLFhNrYPfucNT4vk/opf1PLjD0m3qiAACMjxE7g85lL6WkXV+LPRN1GrasK65sI64FIe8bVpY7MiVfemIKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GFNi2Cqt; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CuKEqbeAU3SltxLTVTdQ6/wMwpgz55qhXRUgFJusTnW9TvoAGw3Aqi5Tl3QJOrfQiW+bR5LFutNFGsbJJ8X55BERBFT/GtPCgWrN0bkKysWQFl28gaVMf31Xn+iKMG7iz5pR96fqB1oTFeZ697Cw2hK49EAvFCwy20eNPSPodLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y7zpUmmj; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GFNi2Cqt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4021F000FF;
-	Sun,  4 Oct 2026 08:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791103195;
-	bh=ysCMt+UvNQ2q2GhknBwwA0WGWvISGRLv9Pa410wYVKk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GFNi2Cqtkhy/RaU9rmxwM7iBW6xCm/wn7jq7nL2pckn4VRSfyIn14WyJpeZd2Mzn0
-	 TCJ1w0NekhZRt31aGzOpaFAmXkgMQZ41bYRmI54G1NDjwWuW2l+1byLkKjmQ31tm76
-	 yCbJIM4s7kMOyo/g6eg3DS+SJBTs81RZ/NmrIoFEmHn+xgt0XtprMt7CGWuA4VLXYw
-	 L5jJqIZFqWN/9HUIfOi/AbuxzPQGmAwOQebUeQsC+uJQa18ublxFRHtEyT6s4+VghR
-	 BMRgiqWzV8wRf8eBa/58taSjwFOn/e1Feg8MzYutW90JB9jwiAd1k1QEcM/1g/Y5Of
-	 2rWTh9G625YMA==
-Date: Sun, 4 Oct 2026 09:39:49 +0100
-From: Will Deacon <will@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64/boot: Don't set PMUv3p9 FGT2 bits without PMUv3
-Message-ID: <asIQ1ZwUjkmNJbRP@willie-the-truck>
-References: <20260930121212.3101361-1-fuad.tabba@linux.dev>
- <ar-xtsSOqwWK9jWQ@willie-the-truck>
- <CA+EHjTzT+2M40GfyxHp6p6OugjoA2BRSkbFK-PMeLGz+qCUM9w@mail.gmail.com>
- <ar-5CnttybD-1ojM@willie-the-truck>
- <ar_E5HUSTxMSRZhL@arm.com>
- <CA+EHjTzemfoX9e8Ppw+AcuUpNND_CipLCUM9xgid1eYXmV=jzg@mail.gmail.com>
- <ar_QOXqCYTGargBe@arm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y7zpUmmj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791103231; x=1822639231;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XNntfym4tCch+zSlU8Wn7sbDuve181DhutZT19j5h7I=;
+  b=Y7zpUmmjfqtUVn5TsnJV4Chr/+jbg+vM/z2ksmMUshRNZ6RyjTDtu7ZM
+   pGetPD8BSaykzUUfeqqyVhIBiBC8MP95JLtTlCc8hBbj7s0XxdPfGoisj
+   wTgTRQq9aFR11RrhaBZnNXW+FWczv2P8lKcrnWoKaK0KkDVQOyVDBH9TJ
+   aellP0P7MWNEX5/8YAtDTIAOfDDdNZIpCxXQtHugXRa88LQIhhclPbiMC
+   gUq4Il91ZU5800RbblQLpQ0seqkTBFpiQobuJdQO+TRWVsCdG3oVE4OuG
+   EKHa8XN3ZwLN1ojD/+NSe6wy54s31sgvH5V+RINaTgMQJKdOH3akS9wlI
+   w==;
+X-CSE-ConnectionGUID: UZBghlimRR++LJ6D6N1rAA==
+X-CSE-MsgGUID: MucGCTefRlODUiSOyS0Xpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="94288894"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="94288894"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:40:30 -0700
+X-CSE-ConnectionGUID: qydToNTrQPqRlmYbYybmGA==
+X-CSE-MsgGUID: nhZ5LfQITjK4WMGO/v6k8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="302814897"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:40:28 -0700
+Date: Sun, 4 Oct 2026 11:40:26 +0300
+From: Andriy Shevchenko <andriy.shevchenko@intel.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Karol Wrona <k.wrona@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v2] iio: ssp: Serialize watchdog timer state changes
+Message-ID: <asIQ-lnNBk8isPa0@ashevche-desk.local>
+References: <arzdLtzXQ4cvObrL@ashevche-desk.local>
+ <20261004053927.1139035-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,43 +66,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ar_QOXqCYTGargBe@arm.com>
+In-Reply-To: <20261004053927.1139035-1-runyu.xiao@seu.edu.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 02, 2026 at 04:39:37PM +0100, Catalin Marinas wrote:
-> On Fri, Oct 02, 2026 at 04:24:06PM +0100, Fuad Tabba wrote:
-> > On Fri, Oct 02, 2026 at 03:51:16PM +0100, Catalin Marinas wrote:
-> > > I couldn't figure out the #8 either. I wonder whether it's more readable
-> > > as (untested):
-> > >
-> > >     sub    x1, x1, #ID_AA64DFR0_EL1_PMUVer_V3P9
-> > >     cmp    x1, #(ID_AA64DFR0_EL1_PMUVer_IMP_DEF - ID_AA64DFR0_EL1_PMUVer_V3P9)
-> > >     b.hs    .Lskip_pmuv3p9_\@    // Skip unless V3P9 <= PMUVer < IMP_DEF
-> > 
-> > This looks correct to me.
-> > 
-> > That said, if readability is the goal, I think the plainest is two
-> > compares and two branches. It's one more instruction, but this runs
-> > once at boot:
-> > 
-> >       cmp     x1, #ID_AA64DFR0_EL1_PMUVer_IMP_DEF
-> >       b.eq    .Lskip_pmuv3p9_\@
-> >       cmp     x1, #ID_AA64DFR0_EL1_PMUVer_V3P9
-> >       b.lt    .Lskip_pmuv3p9_\@
-> > 
-> > I used ccmp to match __init_el2_debug in the same file, which does the
-> > same NI/IMP_DEF check with a raw #4, as does reset_pmuserenr_el0 in
-> > assembler.h (and hyp-entry.S uses the same pattern for HVC64/HVC32).
+On Sun, Oct 04, 2026 at 01:39:27PM +0800, Runyu Xiao wrote:
+> The SSP watchdog timer rearms itself from its callback, but the driver uses
+> timer_delete_sync() when the last sensor is disabled and during suspend.
+> Those operations do not prevent a concurrent enable or callback from
+> rearming the timer after deletion. The final remove path also used
+> timer_delete_sync(), which does not permanently prevent rearming before the
+> device state is released.
 > 
-> I'll leave it to Will. My preference is whatever is more readable, no
-> need to optimise another cycle or two here.
+> Protect watchdog state and the enable reference count with wdt_lock. The
+> timer callback rearms only while the timer is enabled, and synchronous
+> deletion drains an in-flight callback. Use timer_shutdown_sync() for final
+> removal so later rearm attempts are rejected permanently.
+> 
+> A refresh work item can call ssp_sync_available_sensors() and
+> ssp_enable_sensor() during suspend. If the enable count is zero when
+> suspend checks it, that work can otherwise start the watchdog after the
+> suspend stop. Track the suspended state under wdt_lock. Sensor enables may
+> update the count without restarting the timer. Stop the watchdog before
+> sending the suspend command, and restart it only after resume succeeds or
+> suspend fails.
+> 
+> Cancel watchdog work after releasing wdt_lock because reset work can wait
+> for the threaded IRQ handler, which may synchronously wait for refresh work
+> that enables sensors. Remove MFD children before destroying the locks;
+> IIO child teardown can disable an active sensor.
 
-Now that Fuad's put me right and given that we already use ccmp in
-__init_el2_debug, I think consistency is probably the winner so I'll queue
-this as-is.
+General rule of thumb is to defer a new version until the discussion is settled
+down in the previous round(s).
 
-I wonder if it would be worth having some #defines for some of the common
-conditions, so we could avoid having the bare immediates each time in
-future? (obviously, that would be a separate cleanup rather than part of
-this fix).
+...
 
-Will
+> struct ssp_data {
+
+>  	struct spi_device *spi;
+>  	const struct ssp_sensorhub_info *sensorhub_info;
+>  	struct timer_list wdt_timer;
+> +	struct mutex wdt_lock; /* protects watchdog timer state */
+> +	bool wdt_enabled;
+> +	bool wdt_suspended;
+>  	struct work_struct work_wdt;
+>  	struct delayed_work work_refresh;
+
+Same Q here, can you reduce the gap by 4 bytes by rearranging the new members?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
