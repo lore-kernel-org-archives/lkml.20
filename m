@@ -1,187 +1,121 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010066.outbound.protection.outlook.com [52.101.229.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0ED130F81A;
-	Sun,  4 Oct 2026 17:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791135640; cv=none; b=Pa+LAX+h1D5+C24oOHgvFZ0ox3PXD9OVHAsv916jCUm0k8QVyYGdaa69vsqCrvXhi9mztajMrpnieMxWqo0dS+/IaMpXpaBwqo73b7BRSNtDT9YWblUrIe4by4xb3baQAfaxhot2NzzMnQQxu140Kz+3E+XjVmAxqEK5lc79g6U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791135640; c=relaxed/simple;
-	bh=VW/+iyExdc+2iOAd3j+QXgnO+Z0VCLUK6ieivCfSYYQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ALKWU10ntJFwT9Jtl8A9bssPGaIBNGjdmSxV/T1WFeT3m9VUk/0WfWx8HaKYljOA34f8TguSnsvgTW9bQKTmae3ktPL6oxLSlWnVZAQq5ogSf/YDJZT3UuRMj2jC3dyHJgw10EHFNaYD6XDKz9oAgkJ8s+NRy8EKGkwfOvOVOVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=OrsEMiBJ; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9E43EC2E3
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791135700; cv=fail; b=emnAnUBHJdAOet4Ysp/qOTtXLBg2v+4JGxsslcD9m1hPuU7tBXaq294vMqPyYM0KEqmraxmeXaujHS3X6SCfxVqdhbmkmOzi5U8V1QrL6tMSMt46x/iuwl4LLv9m6/nAz9dPDaiTvrTVZRRqjOR6SOR0P8vT8UEdXfw7pe14Kco=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791135700; c=relaxed/simple;
+	bh=zFRQyGsFbgR5LANnjLF7+G/xFckaqP/iz0uvnfEItuI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NVkdw5sBlnROMLK2DBX0m8H39C57O/dnw21ir/KUN7Xco9o9g6+YLx3i0S8XepeqoB1va5Wv3sXB1guewxeJSm1zU06+PqBM9G8Z2suljIyOouknTd9maLHZLgcH8xgj/BTbp/vs1pwT79j49oNvkIiHB91YEwbpkrfAIkg0z68=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=V7xUUCL8; arc=fail smtp.client-ip=52.101.229.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="OrsEMiBJ"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 3275AD194D;
-	Sun,  4 Oct 2026 20:40:34 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 3275AD194D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791135635;
-	bh=gTMT6C5QDJwCOceUbT3/x7Kgr+Smbc4+5/9YsDmNC8k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=OrsEMiBJ9caoLyJTqbGOdAgDw/qtTr81cKHnTThx5IPHDjwCKJNrnN3MzFiekMeCP
-	 KCrRu8S54s7RKmuwrVTacWxRh3C4/coBXzi5dfVRqPmJsRd/FV/pYhBK41GcOZ/QAi
-	 IkgtayE+ugosjtV7HG2DyRlq5k2bZ3D3r8kifp3vuv2D9yTHf3AU840Aw2hGUa6tHj
-	 8lZRJ3faJd88Rj6G+zrvEkaeHPKYmWDQQQ3355UNCDRddyU2D0RxKtTzZn6veYZo2y
-	 s9tjRMCZ33ggtyj8Jxt6uPmQ25sYt9LyHSXkyppDYeFoR8Bfj2GcFJD1WYaW8EpNWo
-	 uV2CGw86wzRcA==
-Message-ID: <9f281f3c922c1b64a7a74a91e178990c798840e7.camel@rendec.net>
-Subject: Re: [PATCH v2 3/8] irqchip/al-fic: keep the device_node instead of
- a cached name string
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Talel Shenhar <talel@amazon.com>, Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 13:40:32 -0400
-In-Reply-To: <20260927080637.27285-4-farbere@amazon.com>
-References: <20260927080637.27285-1-farbere@amazon.com>
-	 <20260927080637.27285-4-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="V7xUUCL8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UtVm/uC+Vu0XyEwGWMy3rxp8tl/N6eTYJFJh5iKmcaw9mQHvLuwiUbbAvt5XiwznOP5VV1VWJugbgny541kXBHv8RLx4s4te7dSLP06faWFaGh9hVPvrzqlPneguzD37aRCViyP339D/WkOJqtgMAo3kn2WZqb3CImp2Y5xKvxg5MdQouCD/yIBz2tLHhtUaXodwSgBkndnKK0CY/IuIxDsyUakZGh0gCrGcc5N2zq9CjQPVIVIg1vMs4qvvsOuoS8ojxabByyaNtOQgp3yOkSKjqe8RLrCbgc2NJCj51UFZzFJkrE0XVzpkOFSeUTtiuzmRVMjQmGi9x3AFJOaAUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xj0Lec4+TyrBoEmKl6lokXca6TJFECTOfTDc0HhPAIA=;
+ b=dpEkFLRKTh4q/XWj6iSYS2hkf7B406JtW+mhkEccLlpTPEuUlvDqPVRpqNkAuo6zygH+qc0D4DvTjevh+YlFCx3yCc2D8T9dPfxC2QY8Gu2LHXHybwSx0I9Za8rvnducamjyMPTqtycE21l7mT2dbNbLvQp+XKFXCCKyfQl1WbW0gLDYziEKxR/htc/3plnbSV2HgvRCAAkNjqSAac8k4Yda4jwB19tNwP9oIv8Fy9MVS83Zu1X3Fbx0jRoMFpjbXply+dWINMKL7lJlOQzH0a5UUBwVVRhcp7tJkw0jsxTrtepQuYUt2dojgU7knfFt2SzFrjch8SACNYShfQVYWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=kernel.org smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xj0Lec4+TyrBoEmKl6lokXca6TJFECTOfTDc0HhPAIA=;
+ b=V7xUUCL8lOzAXq4X6GPtOYas7u0FxoAeUvNDHJ6TjMuaCOh8euVLix+YnMeAEp1PgwCEhkubxl0rqdlgpl7PddhGHGme70b6fP6auJtZR/B7hr286poh1UbVZBsKMBpn9CkdUokanECDZUMyhRhMNlKIRysWQrEz04YL2Si6y/c=
+Received: from TY4P301CA0095.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:37a::17)
+ by TYCPR01MB8343.jpnprd01.prod.outlook.com (2603:1096:400:152::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
+ 2026 17:41:34 +0000
+Received: from TY2PEPF00005622.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37a:cafe::20) by TY4P301CA0095.outlook.office365.com
+ (2603:1096:405:37a::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun, 4
+ Oct 2026 17:41:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ TY2PEPF00005622.mail.protection.outlook.com (10.167.240.53) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Sun, 4 Oct 2026 17:41:34 +0000
+Received: from demon-pc (unknown [10.226.92.36])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 96748300024E;
+	Mon,  5 Oct 2026 02:41:32 +0900 (JST)
+From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Subject: [PATCH v2 0/3] MTU3 MFD improvements
+Date: Sun,  4 Oct 2026 20:40:21 +0300
+Message-ID: <20261004174024.502949-1-cosmin-gabriel.tanislav.xa@renesas.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF00005622:EE_|TYCPR01MB8343:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 837658bb-44e2-4e7a-49a3-08df223ebbaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	SGpiiASgRg1367u6EY4gx+xmxO1ZNVZFG6gt5n3KgobrX+f4CzbZj7zDBMO81rHSxkcTNtarwPUuX0101RcAByo6v5O9AVTIuVl3IiEwvdd10X0Po7euiUFCfNqi/Ei4zn0VaGfRbg9f5SUcin7xDD5SIFG5/6PFN9zVhtW1Mv9paFVHi/pA88EV2V2K5qDrfJMDPrHeGK95vwRggMintGblyjKaR0mfvEs47eKwZTi6Rit7X8QjnwL9WoX+dyJvee+qVginWvCVe7hwy9mDClQ+C0bpuL6Wy1qkExj4pS0A0F4TXBNgi77fOeAmUhGJXFlmjCUaAD4gnGuRdS4QF6bFnEHHeaxdpvRC8JWFbnxniopihVnF3KuL5vpLqWRUMmHltdYe2cXtUEguWjxU5GYY7Rk4H6N97CI+EeVnrEoGSbSp7gFiAEtYkyqKta46iXAIf9XME2O+7y5XN/WjRC+blGSVzLt08npecrMcskeXQASazDsNhqA9LaPNrMyjwky4VzjRXxtwcTzXbqDeSYRADi/hr37WiYKnwGW3eUHEMpRpXx26dN/wO5VNZCuEt8yT8aOpZLv4cFgef3SR+2KivZHs7ROYO75kH1dIUZy5WrRUp7W+mXJecAAdb7K48iRGNQO8y3KsOcU0OM8yE3YzCpS7ws9CfdWHgNZ+Gjt0bVi72rQLiU9nZnDJpciohdr1Lq6BfECxBlAshV84Hg==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zXgF5fvP67OnnqWfg++HlnnSLLb/Jyu49kG5Ia5l7WI1sJIcHGN6GGTW/uHOkUlAZJdZbzLQZdatHFd6dk6cMVTyttc1X4/Op3qB3C1RQoPa0iXl3PTv8O/OSAwPTfZ3B3LzhyYI2+ldivK0yiJISBcB9nj3aT6mw2LGigQP/9dXJ2oDQzxMA9UkzEILBofxpsJgCixcWC8j7SIPTqPaA+Va4pDQ40ws0PKL0vOkHAOhobxwPVZXQfS75ujNRbOoLXpVe0i0kicirbNbK4hJBnoBVTzNzzFrZKb19ySjjwWxAfrmBA0GxyvBAKi+zYReMfFAFlrJEOHr8igZQuJ4aPLG3jnsQ85uKvRYZWOj5cceW0RZnS7UODECmVfjRKvgotwll0C7UBkjHNOONWYpE1liWk496JFnlhp8Pa72AIkYRUneDsR3mN7HePx3EHC3
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 17:41:34.1209
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 837658bb-44e2-4e7a-49a3-08df223ebbaa
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF00005622.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8343
 
-On Sun, 2026-09-27 at 08:06 +0000, Eliav Farber wrote:
-> struct al_fic cached a "const char *name" that al_fic_wire_init() receive=
-d
-> as a separate argument and set from node->name. That string was never own=
-ed
-> by the driver: it aliased storage inside the device_node and stayed valid
-> only as long as the node did, yet nothing in the struct held the node to
-> express that dependency. Keep the device_node in the struct instead: it
-> holds the owning object rather than a bare pointer into it, lets each sit=
-e
-> derive the name on demand, and gives the driver the node it needs in the
-> next change, which requests the parent interrupt by the node's full_name.
+This series does some code quality improvements to the MTU3 MFD driver,
+and enables runtime PM to allow simplifications in the sub-drivers by
+relying on PM domains rather than open-coding clock handling.
 
-That makes sense. But keeping a pointer to the whole structure instead
-of aliasing a pointer inside the structure makes no additional
-guarantees w.r.t. the lifetime of that structure, it just makes the
-intention more obvious.
+V2:
+ * capitalize subject after prefix
+ * switch struct rz_mtu3_priv retrieval to a back-pointer stored in
+   struct rz_mtu3_channel::priv
+ * remove struct rz_mtu3::priv_data as it is unused now
 
-What prevents the "struct device_node" from going away after the init
-function returns?=C2=A0It cannot go away before it returns because the init
-function is called as desc->irq_init_cb() from of_irq_init(), while
-holding a reference to the node. I *think* the assumption that it can
-never go away (even after the init function returns) is correct because
-the code in of_irq_init() seems to deliberately "leak" a reference to
-the node. But this is not documented anywhere. So perhaps it's worth
-calling it out at least in the commit message.
+Cosmin Tanislav (3):
+  mfd: rz-mtu3: Do not use struct rz_mtu3_channel::dev
+  mfd: rz-mtu3: Reuse shared_reg_update_bit() in start_stop_ch()
+  mfd: rz-mtu3: Enable runtime PM
 
-Rob, you're a maintainer for drivers/of/irq.c and it looks like you
-merged most (or all?) of the recent patches to it. Perhaps you can help
-us and explain how this is supposed to work?
+ drivers/mfd/rz-mtu3.c       | 70 +++++++++++++------------------------
+ include/linux/mfd/rz-mtu3.h |  7 ++--
+ 2 files changed, 29 insertions(+), 48 deletions(-)
 
-> The irqchip callback that has no device_node in scope now prints the
-> instance with %pOF, which formats the node on demand, and the name argume=
-nt
-> threaded through al_fic_wire_init() goes away.
->=20
-> irq_alloc_domain_generic_chips() keeps the pointer it is given, so it now
-> uses node->full_name. This changes the generic chip name from the bare
-> node name (e.g. "interrupt-controller") to the full node name including
-> its unit address (e.g. "interrupt-controller@fd8a8500"), which keeps
-> instances that share a bare name distinguishable.
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> v2: new patch. Keep the device_node in struct al_fic instead of a cached
-> =C2=A0=C2=A0=C2=A0 name string that aliased node storage. Introduced here=
- so the struct
-> =C2=A0=C2=A0=C2=A0 holds the node before the next patch requests the pare=
-nt interrupt by
-> =C2=A0=C2=A0=C2=A0 node->full_name, keeping every commit buildable on its=
- own.
->=20
-> =C2=A0drivers/irqchip/irq-al-fic.c | 13 +++++--------
-> =C2=A01 file changed, 5 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index 760bd08dcff4..c7cc2631caf8 100644
-> --- a/drivers/irqchip/irq-al-fic.c
-> +++ b/drivers/irqchip/irq-al-fic.c
-> @@ -36,7 +36,7 @@ enum al_fic_state {
-> =C2=A0struct al_fic {
-> =C2=A0	void __iomem *base;
-> =C2=A0	struct irq_domain *domain;
-> -	const char *name;
-> +	struct device_node *node;
-> =C2=A0	unsigned int parent_irq;
-> =C2=A0	enum al_fic_state state;
-> =C2=A0};
-> @@ -89,7 +89,7 @@ static int al_fic_irq_set_type(struct irq_data *data, u=
-nsigned int flow_type)
-> =C2=A0	if (fic->state =3D=3D AL_FIC_UNCONFIGURED) {
-> =C2=A0		al_fic_set_trigger(fic, gc, new_state);
-> =C2=A0	} else if (fic->state !=3D new_state) {
-> -		pr_debug("fic %s state already configured to %d\n", fic->name, fic->st=
-ate);
-> +		pr_debug("fic %pOF state already configured to %d\n", fic->node, fic->=
-state);
-> =C2=A0		return -EINVAL;
-> =C2=A0	}
-> =C2=A0	return 0;
-> @@ -142,7 +142,7 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0
-> =C2=A0	ret =3D irq_alloc_domain_generic_chips(fic->domain,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 NR_FIC_IRQS,
-> -					=C2=A0=C2=A0=C2=A0=C2=A0 1, fic->name,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 1, fic->node->full_name,
+-- 
+2.55.0
 
-nit: should this use of_node_full_name() instead? Not that fic->node
-can be null, but if there is an accessor, why not use it?
-
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 handle_level_irq,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 0, 0, IRQ_GC_INIT_MASK_CACHE);
-> =C2=A0	if (ret) {
-> @@ -175,9 +175,8 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0
-> =C2=A0/*
-> =C2=A0 * al_fic_wire_init() - initialize and configure fic in wire mode
-> - * @of_node: optional pointer to interrupt controller's device tree node=
-.
-> + * @node: pointer to the interrupt controller's device tree node
-> =C2=A0 * @base: mmio to fic register
-> - * @name: name of the fic
-> =C2=A0 * @parent_irq: interrupt of parent
-> =C2=A0 *
-> =C2=A0 * This API will configure the fic hardware to work in wire mode.
-> @@ -187,7 +186,6 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0 */
-> =C2=A0static struct al_fic *al_fic_wire_init(struct device_node *node,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void __iomem *base,
-> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *name,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int parent_irq)
-> =C2=A0{
-> =C2=A0	struct al_fic *fic;
-> @@ -200,7 +198,7 @@ static struct al_fic *al_fic_wire_init(struct device_=
-node *node,
-> =C2=A0
-> =C2=A0	fic->base =3D base;
-> =C2=A0	fic->parent_irq =3D parent_irq;
-> -	fic->name =3D name;
-> +	fic->node =3D node;
-> =C2=A0
-> =C2=A0	/* mask out all interrupts */
-> =C2=A0	writel_relaxed(0xFFFFFFFF, fic->base + AL_FIC_MASK);
-> @@ -254,7 +252,6 @@ static int __init al_fic_init_dt(struct device_node *=
-node,
-> =C2=A0
-> =C2=A0	fic =3D al_fic_wire_init(node,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 base,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 node->name,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parent_irq);
-> =C2=A0	if (IS_ERR(fic)) {
-> =C2=A0		pr_err("%pOF: fail to initialize irqchip (%lu)\n",
