@@ -1,251 +1,360 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7A9223708;
-	Sun,  4 Oct 2026 17:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC843FF8A5
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134214; cv=pass; b=H59JQ/D9GY2cdMO2nFHX6RRAofo3ZPY9P4jDIlrSQeSbyZqoCiQ4XgPv9zd4NRzabxGXQuh7cevO3TnSw3I9Ca8VKA7W2CfSEPHhOLj+IfI54FtsisLnf57o7qNEsiSA/2WT5eJDcjB0oNuDJTRXCD2fdVZFzkre0O4abLgw+1I=
+	t=1791134312; cv=pass; b=p/pAV4d+T1O7txOxerdqHrxPi0ls/XboY2/lAK9pmMt3WjSyf9915Xn1Rn/lwGpMsfTpKQWLvObwO10ra13hmX1MVR1wqysaGj6LKmD5X73woVE7RsWqbShtu5DFGgkMX5x7v2xxKVIRGmFWdozLXAao/u3AI5TfaLWIoHLRNYU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791134214; c=relaxed/simple;
-	bh=9uM8fw6m2guR7cSseDbThebh8yDVb+s/YIo7WspHacA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=csY6no8m8T+U2HoNB/QrQq5AmVhol59yJjK310KDUBoRMaWMH0+zLNAAGUhUDiABaMP6SoeMegHme8cQ2ohbNOjdg7IMWy1BafsGfN3E3HvhpPiLYMstDWC19t/LJ96cncz2OKAIUrK0auT7+5zid9U9KFX5Pd61wP0pN1UNkew=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=ecBacQsK; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	s=arc-20240116; t=1791134312; c=relaxed/simple;
+	bh=Og6qpLhWHly4IoZcNfYZyEY8s5xN9sYAkBks0QnUI28=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YcMXumWo/9KfP/kAaQ5D+77k9q6pYt9hMehz+/saqQDRdV/bmPtnJQfn+81nkVZpO/CzrOurqDeS4xaURg6pjwyDOtFOiqh2CEft7eMVctdcyPFrR1kPNutoRJhPmRhed6NWNmAWJSVNzSB8u9/sTwbkjYQ5hO0o9a6j6jV50CE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MWtcfNLQ; arc=pass smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="ecBacQsK"
-Received: from [192.168.1.195] (unknown [IPv6:2a02:ed04:3581:1::d001])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pav@iki.fi)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hyThQ29mwz49Q38;
-	Sun, 04 Oct 2026 20:16:38 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1791134199;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=auIRK6r389J6WMqNZPbjgoq3erqxe5KMzzpW35kMKj8=;
-	b=ecBacQsKhUp8toa6CXne65mNKdKbsXRZResdWtCWnJBclGn2KB2BrNRadYwA7+6C5w+bmK
-	QiEJKwUgNclWG/PoarppDpubnScH9J0SPFPnjkvnjSmkRQETkSLgRLCl41KA86NF7E61ts
-	SDYHl83Wad4MVv4O7z+AaQbRM57JTKxLOlhy4XgiNeJbGNCATwL0vcmsJK92tezCtHOgLr
-	qcosI6dnv29COGsfMWJBpkBJq1TiMsDfATt5CK+ukquAZVSCWuGj4DpQX4h+ewkv36Wqbp
-	0wcte2T429IS1pXv2ZrPEp85Z5BP8uhoaGdczY6avPpU7iaRFA0C+TGg2AH3FA==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1791134199;
-	b=uleoP+y3fcrlb2l3Sua7YPLqwf34qFQdF0PtNRnDqqjOZigAxgp+YzyIP9cWg0nP9u/mz1
-	vh2fHAgY3vVpLqBgPeulEgIQol9k/OjE66uWbYEysGOSXAQaeuIXCj4zw9HigCcIBKSLOs
-	1mTLrzjtPMoFhL0FL5FsmMi/X0D7jt9hjUbngM/NOAtU1BYuV7NuBYAvE+xios3JWAAaLu
-	M9lsIHF3DAjr4XwxsdSb6gUAChLBVEJKX/OrQjPxf53DPZphmf8ifXWYnzotJ1Rac1iZSY
-	Twu8l7S/OdD5sBguNchNOaRbw8xFW+LNdX6Xfs68rKPkiap6Xw+Hl7bRvFKhIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1791134199;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=auIRK6r389J6WMqNZPbjgoq3erqxe5KMzzpW35kMKj8=;
-	b=FpFMFQl7impP/8Ljxjed+a6rDXXfYnJ13MGnfWpnw6QuYVsqr76SGxtGqMFZmYKaorPSbR
-	vyVJqKvDRDl6rYppnde6Lt+2RAizJW8JOUSjT8lB7nJPVaVTqOd+vdSr/NTM3N1Xhz0LLq
-	IhyYnZkN7G0QcdqbgnoD4lS5dBCte6zYwdZD26vmVMuRThDiHSJbe9cDAZAwAq/blYDphx
-	bE4Zn+uDm/mBT+wGCM1lha6aIRvYAu2Xb3ktbDXD+DG/AE7VYN2IPuU2znGEcWvuGzWesv
-	Wy810zJ4T/36tCuIYz/cArekeWGVe/dgmiGWuEwWVAkqpXyqo5Jw4kL9efgBcQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
-Message-ID: <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
-Subject: Re: [PATCH] Bluetooth: ISO: Serialize concurrent connect calls
-From: Pauli Virtanen <pav@iki.fi>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>, Marcel Holtmann
- <marcel@holtmann.org>,  Luiz Augusto von Dentz	 <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Sun, 04 Oct 2026 20:16:36 +0300
-In-Reply-To: <20261004162458.3968546-1-nicoyip.dev@gmail.com>
-References: <20261004162458.3968546-1-nicoyip.dev@gmail.com>
-Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
- keydata=mQINBGX+qmEBEACt7O4iYRbX80B2OV+LbX06Mj1Wd67SVWwq2sAlI+6fK1YWbFu5jOWFy
- ShFCRGmwyzNvkVpK7cu/XOOhwt2URcy6DY3zhmd5gChz/t/NDHGBTezCh8rSO9DsIl1w9nNEbghUl
- cYmEvIhQjHH3vv2HCOKxSZES/6NXkskByXtkPVP8prHPNl1FHIO0JVVL7/psmWFP/eeB66eAcwIgd
- aUeWsA9+/AwcjqJV2pa1kblWjfZZw4TxrBgCB72dC7FAYs94ebUmNg3dyv8PQq63EnC8TAUTyph+M
- cnQiCPz6chp7XHVQdeaxSfcCEsOJaHlS+CtdUHiGYxN4mewPm5JwM1C7PW6QBPIpx6XFvtvMfG+Ny
- +AZ/jZtXxHmrGEJ5sz5YfqucDV8bMcNgnbFzFWxvVklafpP80O/4VkEZ8Og09kvDBdB6MAhr71b3O
- n+dE0S83rEiJs4v64/CG8FQ8B9K2p9HE55Iu3AyovR6jKajAi/iMKR/x4KoSq9Jgj9ZI3g86voWxM
- 4735WC8h7vnhFSA8qKRhsbvlNlMplPjq0f9kVLg9cyNzRQBVrNcH6zGMhkMqbSvCTR5I1kY4SfU4f
- QqRF1Ai5f9Q9D8ExKb6fy7ct8aDUZ69Ms9N+XmqEL8C3+AAYod1XaXk9/hdTQ1Dhb51VPXAMWTICB
- dXi5z7be6KALQARAQABtCZQYXVsaSBWaXJ0YW5lbiA8cGF1bGkudmlydGFuZW5AaWtpLmZpPokCWg
- QTAQgARAIbAwUJEswDAAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBGrOSfUCZNEJOswAnOS
- aCbhLOrBPBQJl/qsDAhkBAAoJEOSaCbhLOrBPB/oP/1j6A7hlzheRhqcj+6sk+OgZZ+5eX7mBomyr
- 76G+m/3RhPGlKbDxKTWtBZaIDKg2c0Q6yC1TegtxQ2EUD4kk7wKoHKj8dKbR29uS3OvURQR1guCo2
- /5kzQQVxQwhIoMdHJYF0aYNQgdA+ZJL09lDz+JC89xvup3spxbKYc9Iq6vxVLbVbjF9Uv/ncAC4Bs
- g1MQoMowhKsxwN5VlUdjqPZ6uGebZyC+gX6YWUHpPWcHQ1TxCD8TtqTbFU3Ltd3AYl7d8ygMNBEe3
- T7DV2GjBI06Xqdhydhz2G5bWPM0JSodNDE/m6MrmoKSEG0xTNkH2w3TWWD4o1snte9406az0YOwkk
- xDq9LxEVoeg6POceQG9UdcsKiiAJQXu/I0iUprkybRUkUj+3oTJQECcdfL1QtkuJBh+IParSF14/j
- Xojwnf7tE5rm7QvMWWSiSRewro1vaXjgGyhKNyJ+HCCgp5mw+ch7KaDHtg0fG48yJgKNpjkzGWfLQ
- BNXqtd8VYn1mCM3YM7qdtf9bsgjQqpvFiAh7jYGrhYr7geRjary1hTc8WwrxAxaxGvo4xZ1XYps3u
- ayy5dGHdiddk5KJ4iMTLSLH3Rucl19966COQeCwDvFMjkNZx5ExHshWCV5W7+xX/2nIkKUfwXRKfK
- dsVTL03FG0YvY/8A98EMbvlf4TnpyyaytBtQYXVsaSBWaXJ0YW5lbiA8cGF2QGlraS5maT6JAlcEE
- wEIAEEWIQRqzkn1AmTRCTrMAJzkmgm4SzqwTwUCZf6qYQIbAwUJEswDAAULCQgHAgIiAgYVCgkICw
- IEFgIDAQIeBwIXgAAKCRDkmgm4SzqwTxYZD/9hfC+CaihOESMcTKHoK9JLkO34YC0t8u3JAyetIz3
- Z9ek42FU8fpf58vbpKUIR6POdiANmKLjeBlT0D3mHW2ta90O1s711NlA1yaaoUw7s4RJb09W2Votb
- G02pDu2qhupD1GNpufArm3mOcYDJt0Rhh9DkTR2WQ9SzfnfzapjxmRQtMzkrH0GWX5OPv368IzfbJ
- S1fw79TXmRx/DqyHg+7/bvqeA3ZFCnuC/HQST72ncuQA9wFbrg3ZVOPAjqrjesEOFFL4RSaT0JasS
- XdcxCbAu9WNrHbtRZu2jo7n4UkQ7F133zKH4B0SD5IclLgK6Zc92gnHylGEPtOFpij/zCRdZw20VH
- xrPO4eI5Za4iRpnKhCbL85zHE0f8pDaBLD9L56UuTVdRvB6cKncL4T6JmTR6wbH+J+s4L3OLjsyx2
- LfEcVEh+xFsW87YQgVY7Mm1q+O94P2soUqjU3KslSxgbX5BghY2yDcDMNlfnZ3SdeRNbssgT28PAk
- 5q9AmX/5YyNbexOCyYKZ9TLcAJJ1QLrHGoZaAIaR72K/kmVxy0oqdtAkvCQw4j2DCQDR0lQXsH2bl
- WTSfNIdSZd4pMxXHFF5iQbh+uReDc8rISNOFMAZcIMd+9jRNCbyGcoFiLa52yNGOLo7Im+CIlmZEt
- bzyGkKh2h8XdrYhtDjw9LmrprPQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MWtcfNLQ"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-533202fe429so245551cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:18:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791134307; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pbdG/Ld/VGzVg5hoZKYgR4XP5kyhIQi/IuX854u/p1NMqndAj6phT18tJC0beumMxa
+         FZZM601yZV8qTUqsChBl7Wp8LKid7/PntUtnRJyWNo5zeB7L7dZjYCAQzojaP1EvRMz3
+         kxNXkIeMPa6qgM8eZB3NHmXc3qRxW8K8jeGoaetzIuM8gOiogtCg/8UWNxsl2H1ErucF
+         LLgCiM7faENW0nWEEBfKPXjlKDE6DHBSY0HJJ9KWSUBait0BPaf5fWRKQEi6zIsH4+rn
+         kdyYkVokZmQJUOt5xLnRV0s55afwRlt62pdl2pl1roGM0/MCdksfRnsV1l22Grs9wFtf
+         y55w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QinBTGgc4+2Xq3VgxIpbr+CWC5UMzdARKszuxAv87KA=;
+        fh=iX2XS4Fn5/bc1vB7+16fCgFnc84FwaZR74PZqw9KuQU=;
+        b=TepLdkhcnlkpa9e4ZcUwUfSWt3GNx96mzSciB07C9EIVWAw6J2rhkTZMMwErzNpsLb
+         8LfMKe58a62Lwyvewm2OPddf2r3vBCUuK3nq10h0QgkLSDwvhhxr7rPTEVgQSG3ko49D
+         GAbrL8qoq1yNQ+4sDjXJNrJ5CXB+4Utb6tqiNVuRZYvBH7/oywSDTtGPsma5sdOAPPRE
+         51feUVM0gw724raYS8fxBm0jQTda5RT5rsWhSHyPwlBOGTFEIroLR8zMKopwG7dz1hIR
+         z0CkqEr938AFw24x0Z3eZbxe/MOlS2QsXEl5tm+WEOEEf+YgeIJPA7m4b9grCsiBeX05
+         R2Cg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791134307; x=1791739107; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QinBTGgc4+2Xq3VgxIpbr+CWC5UMzdARKszuxAv87KA=;
+        b=MWtcfNLQFZXBvmcGbKTnCCr2JQDdcYwDgN4llE2ZN1Ft5v9D5Z3BEHfzVWV9jZYRz+
+         jSzJMMdF5hRo7ZZJl4wyKrrTDOMBGXmTOi85FCKXoPWodygea0UK65duRRqpMh57Lc/Q
+         P8G2lpPYIpYq3hLWEtmlbx6uNMxt6Bg/FoRgUdr2St1fedM5Ytj4yb8K6B072NeLQEwy
+         Wnw005evZQGKbFtJOEfJrHMqmLe9o+j3Uo4+rgcrGhIEWnc/fGwxFO8G4nJukcaOKIr/
+         EhfyfNero7mbgvCi/VpqlwQ8s+Qf44SRfQwcwQ3mkHaK19gHT8MZc5HpzMpuQby6dIAS
+         mTtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791134307; x=1791739107;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QinBTGgc4+2Xq3VgxIpbr+CWC5UMzdARKszuxAv87KA=;
+        b=nMcATYGZsTkWhKTE60JfLB6cWR6OKNmC7XkzTwF6YOiL+r0Op4M7Hw4G3AsAHrp587
+         w/W9IMXlSxLdh3nSIpavmu9Wq+v3v2kDlC8Cdx2BJ8x8OnP3w4WjyLeranMCT/npNGGP
+         iZ5QLvE/AkxUDw9oi0MIgPbm9QJLUJhAEcZK/x7r/Z3mgThFaw/FGSYZ2zU5bwukt9gd
+         h9RL9e6deLibhAt0J4Nr4TN2RFhOQv1ut3TqP0jVX3cPPt44Al9olNgJJMyWiDqrvcxT
+         2c5IcGttp3KLkIntpw2hOUC1zsLV9HF02uYdjaf+fQ4FasobxR1Q5jzlr2iLV0+XfnsQ
+         50zQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXCuChIZIzR/rAyZN/qjADHM3isb4AxzPyZcR6647zuqi7CZircD8hev2qT/f2IP8+sK9y6iTtbulr2Yw=@vger.kernel.org
+X-Gm-Message-State: AFuF++khCPOoNprBIqFZayDX40GGWCDIt9kl5ljOgZZsoqIbJCcjDIwd
+	If9p2R70kIzy2Df7I8NWvGZqMSAD1dYVV/BE3zgjhHBOdPY1ljiKbi7nKedj6IGf+OLRuSYND2d
+	1OIl16SdUMRZNLYz1pcd58hbg3olfotab5bNdZVeg
+X-Gm-Gg: AYBFou1xF6ehM9Rfj3hy+QBMzXtT/it0f/emWpN6hiydtrYJXhrwmpOKgs8XV/pCLin
+	omnjQMPYPlnVy2n/3Vfa4JDue/TaeMr/EVl5keGVgcsjGnDpHapzJrjrUCCZ3pJGEMlQqUa5jH/
+	2gr0hw8JszgB54GL34+WxFbVt+k6VdFAgQDP6h8Sel5rIuxt7Xovf53vpP3qRwrmPK9Ug9ZX+Nm
+	SkT7SuPCPw8q+ZhrARUoU2NgCe7bYsxNEpXnC66Nz0tznFLt31XDIWLjt5FpUZcRIailcw+60X6
+	UBh9b6EMSFrZ16a8ijARLQttEN48SfrC20+tanjJKTxDbwSB4F5IZQUw
+X-Received: by 2002:a05:622a:1b91:b0:531:34b9:2532 with SMTP id
+ d75a77b69052e-535146ce3e1mr16649101cf.4.1791134306600; Sun, 04 Oct 2026
+ 10:18:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
+ <20261003-b4-mmap-prepare-vma-flag-sanify-v4-9-a1f052500fd7@kernel.org>
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-9-a1f052500fd7@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sun, 4 Oct 2026 10:18:15 -0700
+X-Gm-Features: AclHuK_AcqqolMBhSGAldWSHQHOOTkitmvHnvL2po1Vgiun02DenXRmiOZ3VQUs
+Message-ID: <CAJuCfpFkfK4gvBPVoSiSdKs_3LR-0-dw_08BVxs-NqCvQK0-Mg@mail.gmail.com>
+Subject: Re: [PATCH v4 09/38] drivers/usb/mon: update to use mmap_prepare +
+ map kernel pages
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+	Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+	fuse-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Sat, Oct 3, 2026 at 6:36=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> Replace the deprecated .mmap hook with its replacement .mmap_prepare. As
+> part of this change, additionally take the approach of mapping pages upon
+> mmap rather than providing a fault handler.
+>
+> The page span cannot be mutated when an mmap mapping is in place, so this
+> is safe to do in advance (the MON_IOCT_RING_SIZE ioctl operation exits
+> -EBUSY if it's attempted, gated by the rp->mmap_active reference count).
+>
+> Utilise the newly introduced mmap_action_map_discontig_kernel_pages() to =
+do
+> this, which allows for iteration over pages in mon_bin_discontig_get().
+>
+> mon_bin_discontig_init() increments the rp->mmap_active reference count t=
+o
+> stabilise page spans. Should an error arise the core unmaps the VMA and
+> mon_bin_vma_close() drops the reference again.
+>
+> The vm_ops->close hook implemented in mon_bin_vma_close() will ensure
+> correct reference count arithmetic upon unmap (with mon_bin_vma_open()
+> accounting for splitting).
+>
+> The existing semantics are all retained, including not mapping past the
+> range of available pages, with a SIGBUS being raised in a userland proces=
+s
+> that attempts to access past this point.
+>
+> Ultimately insert_page() is invoked to insert each page, which increments
+> the reference count on each mapped page. This mimics what was being done
+> previously, only we pre-map the entire range rather than doing so on
+> demand.
+>
+> The existing fault handler did nothing that required demand paging, and w=
+as
+> presumably implemented this way for historical reasons.
+>
+> One behavioural difference: pages are no longer faulted in on demand, so =
+a
+> page discarded with MADV_DONTNEED is not repopulated and a subsequent
+> access raises SIGBUS, as with other pre-populated kernel mappings.
+>
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-ma, 2026-10-05 kello 00:24 +0800, Chengfeng Ye kirjoitti:
-> iso_sock_connect() checks the socket state before taking the socket lock
-> and drops the lock again before setting up a connection. Two callers can
-> both pass the admission check while the socket is open or bound.
->=20
-> Caller A can copy its destination for route selection, then caller B can
-> replace the socket destination before A binds or connects the CIS. A
-> then uses B's destination with the route selected for its own request.
-> B can also proceed after A attaches a connection and sets BT_CONNECT.
-> For deferred BIS setup, B can bind a second BIS and overwrite
-> iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
-> back-pointer stranded. Concurrent CIS connects can likewise replace the
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-Memory safety probably should be enforced somewhat down the calls,
-likely __iso_chan_add() should reject adding a different iso_conn to sk
-if it already has one, since that looks like it leaks the
-iso_conn_hold() reference and the back pointer association.
 
-> socket's connection. Later teardown only detaches the current connection,
-> so a callback on the old connection can race with socket release and
-> access a freed socket.
->=20
-> KASAN reported:
->=20
->   BUG: KASAN: slab-use-after-free in iso_sock_hold+0xf7/0x1b0
->   Call Trace:
->    iso_sock_hold+0xf7/0x1b0
->    iso_conn_del+0x7b/0x1d0
->    iso_connect_cfm+0x186/0x16a0
->    hci_conn_failed+0x154/0x280
->    hci_abort_conn_sync+0x3dc/0x7d0
->    hci_cmd_sync_work+0x173/0x300
->=20
->   Allocated by task 121:
->    sk_alloc+0x2b/0x6d0
->    bt_sock_alloc+0x29/0x370
->    iso_sock_alloc.constprop.0+0x19/0x300
->    iso_sock_create+0x94/0x100
->=20
->   Freed by task 121:
->    kfree+0x121/0x3c0
->    __sk_destruct+0x42b/0x540
->    iso_sock_release+0x29d/0x340
->    __sock_release+0xa1/0x260
->=20
-> Check admission under the socket lock and mark the connect operation in
-> progress before publishing its destination. Keep that flag set across
-> route lookup and connection setup, rejecting another connect with
-> -EBADFD before it can change the destination or attach a connection.
-> Clear the flag after either helper returns, including on failure, so a
-> failed setup can be retried.
->=20
-> A separate flag is needed because the socket lock must be released before
-> acquiring the HCI device lock, while BT_CONNECT requires an attached
-> connection. Keep the existing state transitions and the deferred CIS
-> completion through iso_sock_recvmsg().
->=20
-> Fixes: ccf74f2390d6 ("Bluetooth: Add BTPROTO_ISO socket type")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GPT-6 Astra
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 > ---
->  net/bluetooth/iso.c | 32 ++++++++++++++++++++++----------
->  1 file changed, 22 insertions(+), 10 deletions(-)
->=20
-> diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-> index 7657c2a0abbf..8113367c796e 100644
-> --- a/net/bluetooth/iso.c
-> +++ b/net/bluetooth/iso.c
-> @@ -61,6 +61,7 @@ enum {
->  	BT_SK_BIG_SYNC,
->  	BT_SK_PA_SYNC,
->  	BT_SK_KILLED,
-> +	BT_SK_CONNECTING,
->  };
-> =20
->  struct iso_pinfo {
-> @@ -1269,17 +1270,26 @@ static int iso_sock_connect(struct socket *sock, =
-struct sockaddr_unsized *addr,
->  	    addr->sa_family !=3D AF_BLUETOOTH)
->  		return -EINVAL;
-> =20
-> -	if (sk->sk_state !=3D BT_OPEN && sk->sk_state !=3D BT_BOUND)
-> -		return -EBADFD;
-> +	lock_sock(sk);
-> =20
-> -	if (sk->sk_type !=3D SOCK_SEQPACKET)
-> -		return -EINVAL;
-> +	if ((sk->sk_state !=3D BT_OPEN && sk->sk_state !=3D BT_BOUND) ||
-> +	    test_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags)) {
-> +		err =3D -EBADFD;
-> +		goto done;
-> +	}
-> +
-> +	if (sk->sk_type !=3D SOCK_SEQPACKET) {
-> +		err =3D -EINVAL;
-> +		goto done;
-> +	}
-> =20
->  	/* Check if the address type is of LE type */
-> -	if (!bdaddr_type_is_le(sa->iso_bdaddr_type))
-> -		return -EINVAL;
-> +	if (!bdaddr_type_is_le(sa->iso_bdaddr_type)) {
-> +		err =3D -EINVAL;
-> +		goto done;
-> +	}
-> =20
-> -	lock_sock(sk);
-> +	set_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
-> =20
->  	bacpy(&iso_pi(sk)->dst, &sa->iso_bdaddr);
->  	iso_pi(sk)->dst_type =3D sa->iso_bdaddr_type;
-> @@ -1291,16 +1301,18 @@ static int iso_sock_connect(struct socket *sock, =
-struct sockaddr_unsized *addr,
->  	else
->  		err =3D iso_connect_bis(sk);
-> =20
-> -	if (err)
-> -		return err;
-> -
->  	lock_sock(sk);
-> =20
-> +	clear_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
-> +	if (err)
-> +		goto done;
-> +
->  	if (!test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) {
->  		err =3D bt_sock_wait_state(sk, BT_CONNECTED,
->  					 sock_sndtimeo(sk, flags & O_NONBLOCK));
->  	}
-> =20
-> +done:
->  	release_sock(sk);
->  	return err;
+>  drivers/usb/mon/mon_bin.c | 82 ++++++++++++++++++++++++++++++-----------=
+------
+>  1 file changed, 53 insertions(+), 29 deletions(-)
+>
+> diff --git a/drivers/usb/mon/mon_bin.c b/drivers/usb/mon/mon_bin.c
+> index 687f6a8981f3..9d00b21a8153 100644
+> --- a/drivers/usb/mon/mon_bin.c
+> +++ b/drivers/usb/mon/mon_bin.c
+> @@ -1219,6 +1219,15 @@ mon_bin_poll(struct file *file, struct poll_table_=
+struct *wait)
+>         return mask;
 >  }
-
---=20
-Pauli Virtanen
+>
+> +static void __mon_bin_vma_open(struct mon_reader_bin *rp)
+> +{
+> +       unsigned long flags;
+> +
+> +       spin_lock_irqsave(&rp->b_lock, flags);
+> +       rp->mmap_active++;
+> +       spin_unlock_irqrestore(&rp->b_lock, flags);
+> +}
+> +
+>  /*
+>   * open and close: just keep track of how many times the device is
+>   * mapped, to use the proper memory allocation function.
+> @@ -1226,64 +1235,79 @@ mon_bin_poll(struct file *file, struct poll_table=
+_struct *wait)
+>  static void mon_bin_vma_open(struct vm_area_struct *vma)
+>  {
+>         struct mon_reader_bin *rp =3D vma->vm_private_data;
+> -       unsigned long flags;
+>
+> -       spin_lock_irqsave(&rp->b_lock, flags);
+> -       rp->mmap_active++;
+> -       spin_unlock_irqrestore(&rp->b_lock, flags);
+> +       __mon_bin_vma_open(rp);
+>  }
+>
+> -static void mon_bin_vma_close(struct vm_area_struct *vma)
+> +static void __mon_bin_vma_close(struct mon_reader_bin *rp)
+>  {
+>         unsigned long flags;
+>
+> -       struct mon_reader_bin *rp =3D vma->vm_private_data;
+>         spin_lock_irqsave(&rp->b_lock, flags);
+>         rp->mmap_active--;
+>         spin_unlock_irqrestore(&rp->b_lock, flags);
+>  }
+>
+> -/*
+> - * Map ring pages to user space.
+> - */
+> -static vm_fault_t mon_bin_vma_fault(struct vm_fault *vmf)
+> +static void mon_bin_vma_close(struct vm_area_struct *vma)
+>  {
+> -       struct mon_reader_bin *rp =3D vmf->vma->vm_private_data;
+> +       struct mon_reader_bin *rp =3D vma->vm_private_data;
+> +
+> +       __mon_bin_vma_close(rp);
+> +}
+> +
+> +static const struct vm_operations_struct mon_bin_vm_ops =3D {
+> +       .open =3D     mon_bin_vma_open,
+> +       .close =3D    mon_bin_vma_close,
+> +};
+> +
+> +static int mon_bin_discontig_init(void *vm_private_data, void **private)
+> +{
+> +       struct mon_reader_bin *rp =3D vm_private_data;
+> +
+> +       /* Dropped by mon_bin_vma_close() on unmap, including on error. *=
+/
+> +       __mon_bin_vma_open(rp);
+> +       return 0;
+> +}
+> +
+> +static int mon_bin_discontig_get(struct discontig_kernel_page_state *sta=
+te)
+> +{
+> +       struct mon_reader_bin *rp =3D state->vm_private_data;
+>         unsigned long offset, chunk_idx;
+> -       struct page *pageptr;
+>         unsigned long flags;
+>
+>         spin_lock_irqsave(&rp->b_lock, flags);
+> -       offset =3D vmf->pgoff << PAGE_SHIFT;
+> +
+> +       offset =3D state->pgoff << PAGE_SHIFT;
+>         if (offset >=3D rp->b_size) {
+>                 spin_unlock_irqrestore(&rp->b_lock, flags);
+> -               return VM_FAULT_SIGBUS;
+> +               discontig_kernel_map_abort(state);
+> +               return 0;
+>         }
+>         chunk_idx =3D offset / CHUNK_SIZE;
+> -       pageptr =3D rp->b_vec[chunk_idx].pg;
+> -       get_page(pageptr);
+> -       vmf->page =3D pageptr;
+> +       discontig_kernel_map_page(state, rp->b_vec[chunk_idx].pg);
+> +
+>         spin_unlock_irqrestore(&rp->b_lock, flags);
+>         return 0;
+>  }
+>
+> -static const struct vm_operations_struct mon_bin_vm_ops =3D {
+> -       .open =3D     mon_bin_vma_open,
+> -       .close =3D    mon_bin_vma_close,
+> -       .fault =3D    mon_bin_vma_fault,
+> +static const struct discontig_kernel_page_ops mon_discontig_ops =3D {
+> +       .init =3D mon_bin_discontig_init,
+> +       .get =3D mon_bin_discontig_get,
+>  };
+>
+> -static int mon_bin_mmap(struct file *filp, struct vm_area_struct *vma)
+> +static int mon_bin_mmap_prepare(struct vm_area_desc *desc)
+>  {
+> -       /* don't do anything here: "fault" will set up page table entries=
+ */
+> -       vma->vm_ops =3D &mon_bin_vm_ops;
+> +       const struct file *filp =3D desc->file;
+>
+> -       if (vma->vm_flags & VM_WRITE)
+> +       if (vma_desc_test(desc, VMA_WRITE_BIT))
+>                 return -EPERM;
+>
+> -       vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP, VM_MAYWRITE);
+> -       vma->vm_private_data =3D filp->private_data;
+> -       mon_bin_vma_open(vma);
+> +       desc->vm_ops =3D &mon_bin_vm_ops;
+> +       vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
+> +       vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
+> +       desc->private_data =3D filp->private_data;
+> +
+> +       mmap_action_map_discontig_kernel_pages(desc, NULL, &mon_discontig=
+_ops);
+>         return 0;
+>  }
+>
+> @@ -1298,7 +1322,7 @@ static const struct file_operations mon_fops_binary=
+ =3D {
+>         .compat_ioctl =3D mon_bin_compat_ioctl,
+>  #endif
+>         .release =3D      mon_bin_release,
+> -       .mmap =3D         mon_bin_mmap,
+> +       .mmap_prepare =3D mon_bin_mmap_prepare,
+>  };
+>
+>  static int mon_bin_wait_event(struct file *file, struct mon_reader_bin *=
+rp)
+>
+> --
+> 2.55.0
+>
