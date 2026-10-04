@@ -1,127 +1,563 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-43.ptr.tlmpb.com (sg-3-43.ptr.tlmpb.com [101.45.255.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361CF3B6367;
-	Sun,  4 Oct 2026 15:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E6F3BB69A
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791128415; cv=none; b=g00u0Db3Pf9jtkQrG4uvfayT3uwFxOc+VmcGN4I9P9klck1alqiPcyQEv2ITHW5Q98b3qvqtqP23m6bhvdjzHdWjViMqEE3h+qDKJooFYsKjqS7BTAgIEWVK8JgAo1dX6mu15U79J7pYtBhT7xQPypHzG5pWm03sNYC2qps/PIk=
+	t=1791128421; cv=none; b=VT4qrVy7OBPAD8UGRcskBD5qjsYwdm9YpCqs37kfSvTik+c5/nP1zXUy7dvZurpyYXrWHvNEOi+f+bOxCl9CJszI3u5plWJ+rtnSwLcBn7de7ALQ+cVamLM8AaWu+yDm6zxcbBWRbSPT/6Ln4eowMWBwPaIt+LXc+weKGFDms5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791128415; c=relaxed/simple;
-	bh=lei9XIb4M52i6TBsv4VscPx1kB1vzfi2NNHv46kjUpo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UZPk7jpjOBhKA1abx+1n7SRaMxouCmDHhbhrMV2Pe5T0bF6eC6vZutIJ3M1kxsC1Xg+xSk7RPs4UjkzQwJ3vAx28EwY5+0BNFmIF53dYL6Aca4JyrO3bABuKG1RIgc0KpdrXeAMV75Eo2QE55DuO261FbApwu3uXmLkwUrfhcIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=KRK3Aa8s; arc=none smtp.client-ip=188.68.63.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1791128421; c=relaxed/simple;
+	bh=6P2oKRzYsvf6B2KQAoajwmPX7cFBM9tvUALms8jkt2U=;
+	h=Cc:Date:Message-Id:In-Reply-To:Mime-Version:References:To:From:
+	 Subject:Content-Type; b=XVwOY8BFR7AGzRGgd9QnOfLcP53BvAbNIrWnAjQx3QvXPsuDiy7RJP7wWAUt/XeHiiOWITm44wistVj+OG55KoOb62Xngkqqz5kRTVh6j3vnYir1tsPz9dSNyNYdWud5O2op1zlLaS2xNjJOhmeKsrShjrAds5/9k9xzVcPJ1hI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=VOJwCxqk; arc=none smtp.client-ip=101.45.255.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="KRK3Aa8s"
-Received: from mors-relay8204.netcup.net (localhost [127.0.0.1])
-	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4hyRKf2tLPz8g5c;
-	Sun,  4 Oct 2026 15:30:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791127814;
-	bh=lei9XIb4M52i6TBsv4VscPx1kB1vzfi2NNHv46kjUpo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KRK3Aa8sRYbCbCq1G1XvwlHbNsBbfAmvSK/1YXrBPWGCoBG9JitEnWCXcKYSm9SN1
-	 lmeUIULdxyMWENfMpfKildMGAWRFt5ywzdVSzPXos/8qs2CDvrxmzqJfqCNGADuYuO
-	 1klsc5Xs6sHKger7S8q6wArDck5YKHV0ncftPQErmu/BZ+vofehyRhSEJMTKdcKzDT
-	 DNaN0H7jOZNgb6xRif1mkCO7tCQmG7fXuoWuXR/xMkAKjMWFqsn02hSETv/Q9xJJCG
-	 gcAo0P7FjvET9xwtrrNvO3bi5lWprYreIqZJDG4KoZpKpgf6CC5hYjbAk+yCsQEkQ1
-	 LHI67EPIbKV2w==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4hyRK82NCQz8fFB;
-	Sun,  4 Oct 2026 15:29:48 +0000 (UTC)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hyRK72G8Rz8svb;
-	Sun,  4 Oct 2026 17:29:46 +0200 (CEST)
-Received: from [10.200.136.123] (unknown [213.235.133.113])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 7E7485F9B7;
-	Sun,  4 Oct 2026 17:29:41 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 213.235.133.113) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[10.200.136.123]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <22e0563e-afcd-44f5-9d87-f0b2a637038e@leemhuis.info>
-Date: Sun, 4 Oct 2026 17:29:39 +0200
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="VOJwCxqk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791128363;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=vEF98Eyd0YqynZgeuWq2IQxAnde4pwBEnQ3eL2iGu/Y=;
+ b=VOJwCxqkSPiRK2sWSsk9OKnSTlkqI4BqvilIFGAucY83cP6Ah8noA6wuTqS0RTtiURTv0M
+ P9uPazo0CoV5qLXrFedVS18iirGu+C2P7EE+w6xxc4qS4fyi3tV0WpRGwWFSnghM2LRj3E
+ ppfKITFvhjoWjnccRCCKYloZiPDHdlM6RWwRrhB6uueAenRwfoEcKFlEnhk6GdOBLay4fl
+ 9u7avi8OIgpLOIIhsQkVMj2OBqsXTRAxJolLJlRdwlh90Wd3WzYIj7F5gWd4MfCtlD7swN
+ XpXAymVD98iiGaXSiWu4Yn5ZqJAy5nVJaYruWY3v/Rz6HVB3aOzDbdeCzq5wKg==
+Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Youhong" <liyouhong@kylinos.cn>, 
+	<syzbot+68e1f51046d68329940f@syzkaller.appspotmail.com>, 
+	"Yu Kuai" <yukuai3@huawei.com>
+Date: Sun, 4 Oct 2026 23:39:18 +0800
+Message-Id: <e2021b06-898b-45f3-ac89-32c4de57f966@fygo.io>
+In-Reply-To: <20261002065642.1726950-1-dayou5941@163.com>
+User-Agent: Mozilla Thunderbird
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: PCI: failed link retraining quirk costs 1 s per empty AMD
- Promontory 21 port
-To: Tomasz Bojanowski <tomasz@bojanowski.me>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andreas Wild <andiwild@gmail.com>, linux-kernel@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260923191357.7410-1-tomasz@bojanowski.me>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260923191357.7410-1-tomasz@bojanowski.me>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+References: <20261002065642.1726950-1-dayou5941@163.com>
+X-Lms-Return-Path: <lba+26ac2732a+4e980e+vger.kernel.org+yukuai@fygo.io>
+To: "Li Youhong" <dayou5941@163.com>, <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Sun, 04 Oct 2026 15:39:22 +0000
+X-Original-From: yu kuai <yukuai@fygo.io>
+Reply-To: yukuai@fygo.io
+Subject: Re: [PATCH v4] md: remove legacy async del_gendisk
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179112778259.802426.18123040059643894221@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 7E7485F9B7
-X-NC-CID: Q44MKV0GqKUBMV2sqV18DJ4/uqgfKdP/CLwerjGyDH1lO/S8ENY=
 
-On 9/23/26 21:13, Tomasz Bojanowski wrote:
-> 
-> On an AMD AM5 desktop the pcie_failed_link_retrain() quirk fires on
-> two empty downstream ports of the chipset switch and adds 2 s to every
-> boot.  This seems to be a different case from the one addressed by
-> "PCI: Skip Target Speed quirk on clamped ports with no link" [1]: here
-> the Target Link Speed is not clamped, so that patch does not return
-> early and the LBMS branch is taken instead.
+Hi,
 
-Hmm, nobody replied afaics (or did I miss something), so it seems nobody
-has an idea what's wrong here. So I guess you need to perform a git
-bisection.
+=E5=9C=A8 2026/10/2 14:56, Li Youhong =E5=86=99=E9=81=93:
+> From: Li Youhong <liyouhong@kylinos.cn>
+>
+> md_alloc() is called from md_probe() while blk_probe_dev() still holds
+> major_names_lock. It flushes md_misc_wq only to wait for the previous
+> mddev_delayed_delete() to finish.
+>
+> md_misc_wq also runs sync_work (md_start_sync), which takes
+> reconfig_mutex. On the other path, md_ioctl() already holds
+> reconfig_mutex when md_import_device() opens a bdev and takes
+> major_names_lock.
+>
+> Flushing md_misc_wq under major_names_lock therefore creates a lockdep
+> cycle:
+>
+>    major_names_lock -> md_misc_wq -> reconfig_mutex -> major_names_lock
+>
+> legacy_async_del_gendisk has been in tree long enough that the async
+> path can be removed. del_gendisk is done synchronously from
+> mddev_unlock() after dropping reconfig_mutex, and the last kobject_put()
+> runs from mddev_put() after dropping all_mddevs_lock. del_work and the
+> flush in md_alloc() are then unnecessary.
+>
+> mdadm 4.5+ is required.
+>
+> Reported-by: syzbot+68e1f51046d68329940f@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D68e1f51046d68329940f
+> Fixes: e804ac780e2f ("md: fix and update workqueue usage")
+> Suggested-by: Yu Kuai <yukuai3@huawei.com>
+> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+> ---
+> v4:
+> - Unlink a dying mddev from all_mddevs before dropping all_mddevs_lock,
+>    so a concurrent md_alloc() does not match it and return -EEXIST.
+>    Iterators still leave the current node linked until the next node is
+>    pinned, then unlink the previous one.
+> - v3: link: https://lore.kernel.org/linux-raid/20260924081552.2564214-1-d=
+ayou5941@163.com/
+>
+> v3:
+> - md_seq_show() returns without flushing when mddev_get() fails. v is
+>    still the iterator, and dropping all_mddevs_lock there lets a
+>    concurrent last put free it before seq_next().
+> - md_notify_reboot() and md_exit() defer complete_delete until the
+>    iterator has moved on. list_for_each_entry_safe() caches the next
+>    mddev before the unlock, and a concurrent last put can free it.
+> - v2: link: https://lore.kernel.org/linux-raid/20260922021533.2935172-1-d=
+ayou5941@163.com/
+>
+> v2:
+> - Drop legacy_async_del_gendisk, del_work, mddev_delayed_delete(),
+>    and the flush in md_alloc().
+> - del_gendisk is synchronous: mddev_unlock() after dropping reconfig_mute=
+x,
+>    and the last kobject_put() from mddev_put() after dropping all_mddevs_=
+lock.
+> - __mddev_put() returns whether the caller must complete_delete after
+>    dropping all_mddevs_lock. md_seq_show() stashes last-put mddev in
+>    seq->private and complete_delete after the iterator has moved on.
+>    md_notify_reboot() does the same with a local pending pointer.
+>    md_exit() does the same with a local pending pointer.
+> - v1: link: https://lore.kernel.org/linux-raid/20260915083354.1603416-1-d=
+ayou5941@163.com/
+>
+> ---
+>   drivers/md/md.c | 204 +++++++++++++++++++++++++++++-------------------
+>   drivers/md/md.h |   2 -
+>   2 files changed, 122 insertions(+), 84 deletions(-)
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 680b34a63cb3..a03e2354e800 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -87,7 +87,7 @@ static DECLARE_WAIT_QUEUE_HEAD(resync_wait);
+>  =20
+>   /*
+>    * This workqueue is used for sync_work to register new sync_thread, an=
+d for
+> - * del_work to remove rdev, and for event_work that is only set by dm-ra=
+id.
+> + * event_work that is only set by dm-raid.
+>    *
+>    * Noted that sync_work will grab reconfig_mutex, hence never flush thi=
+s
+>    * workqueue whith reconfig_mutex grabbed.
+> @@ -338,7 +338,6 @@ static int start_readonly;
+>    * so all the races disappear.
+>    */
+>   static bool create_on_open =3D true;
+> -static bool legacy_async_del_gendisk =3D true;
+>   static bool check_new_feature =3D true;
+>  =20
+>   /*
+> @@ -633,40 +632,73 @@ static inline struct mddev *mddev_get(struct mddev =
+*mddev)
+>   	return mddev;
+>   }
+>  =20
+> -static void mddev_delayed_delete(struct work_struct *ws);
+> +static void mddev_delete_gendisk(struct mddev *mddev)
+> +{
+> +	/*
+> +	 * Call del_gendisk after releasing reconfig_mutex to avoid
+> +	 * deadlock (e.g. del_gendisk under the lock while a sysfs
+> +	 * access waits for the lock).
+> +	 * MD_DELETED is only used for md raid, set in do_md_stop().
+> +	 * dm-raid uses md_stop and does not need MD_DELETED.
+> +	 */
+> +	if (!test_bit(MD_DELETED, &mddev->flags) ||
+> +	    test_and_set_bit(MD_DO_DELETE, &mddev->flags))
+> +		return;
+> +
+> +	kobject_del(&mddev->kobj);
+> +	del_gendisk(mddev->gendisk);
+> +}
+> +
+> +static void mddev_complete_delete(struct mddev *mddev)
+> +{
+> +	mddev_delete_gendisk(mddev);
+> +	kobject_put(&mddev->kobj);
+> +}
+> +
+> +/* all_mddevs_lock held. Drop the mddev before releasing the lock. */
+> +static void mddev_unlist(struct mddev *mddev)
+> +{
+> +	lockdep_assert_held(&all_mddevs_lock);
+> +
+> +	if (!list_empty(&mddev->all_mddevs))
+> +		list_del_init(&mddev->all_mddevs);
+> +}
+>  =20
+> -static void __mddev_put(struct mddev *mddev)
+> +static bool __mddev_put(struct mddev *mddev)
+>   {
+>   	if (mddev->raid_disks || !list_empty(&mddev->disks) ||
+>   	    mddev->ctime || mddev->hold_active)
+> -		return;
+> +		return false;
+>  =20
+>   	/*
+>   	 * If array is freed by stopping array, MD_DELETED is set by
+> -	 * do_md_stop(), MD_DELETED is still set here in case mddev is freed
+> +	 * do_md_stop(). Still set it here in case mddev is freed
+>   	 * directly by closing a mddev that is created by create_on_open.
+>   	 */
+>   	set_bit(MD_DELETED, &mddev->flags);
+> -	/*
+> -	 * Call queue_work inside the spinlock so that flush_workqueue() after
+> -	 * mddev_find will succeed in waiting for the work to be done.
+> -	 */
+> -	queue_work(md_misc_wq, &mddev->del_work);
+> +	return true;
+>   }
+>  =20
+> -static void mddev_put_locked(struct mddev *mddev)
+> +static bool mddev_put_locked(struct mddev *mddev)
+>   {
+>   	if (atomic_dec_and_test(&mddev->active))
+> -		__mddev_put(mddev);
+> +		return __mddev_put(mddev);
+> +	return false;
+>   }
+>  =20
+>   void mddev_put(struct mddev *mddev)
+>   {
+> +	bool complete_delete;
+> +
+>   	if (!atomic_dec_and_lock(&mddev->active, &all_mddevs_lock))
+>   		return;
+>  =20
+> -	__mddev_put(mddev);
+> +	complete_delete =3D __mddev_put(mddev);
+> +	if (complete_delete)
+> +		mddev_unlist(mddev);
+>   	spin_unlock(&all_mddevs_lock);
+> +	if (complete_delete)
+> +		mddev_complete_delete(mddev);
+>   }
+>  =20
+>   static void md_safemode_timeout(struct timer_list *t);
+> @@ -794,7 +826,6 @@ int mddev_init(struct mddev *mddev)
+>   	mddev->level =3D LEVEL_NONE;
+>  =20
+>   	INIT_WORK(&mddev->sync_work, md_start_sync);
+> -	INIT_WORK(&mddev->del_work, mddev_delayed_delete);
+>  =20
+>   	return 0;
+>  =20
+> @@ -903,7 +934,7 @@ static struct mddev *mddev_alloc(dev_t unit)
+>   static void mddev_free(struct mddev *mddev)
+>   {
+>   	spin_lock(&all_mddevs_lock);
+> -	list_del(&mddev->all_mddevs);
+> +	mddev_unlist(mddev);
+>   	spin_unlock(&all_mddevs_lock);
+>  =20
+>   	mddev_destroy(mddev);
+> @@ -969,21 +1000,7 @@ void mddev_unlock(struct mddev *mddev)
+>   		export_rdev(rdev);
+>   	}
+>  =20
+> -	if (!legacy_async_del_gendisk) {
+> -		/*
+> -		 * Call del_gendisk after release reconfig_mutex to avoid
+> -		 * deadlock (e.g. call del_gendisk under the lock and an
+> -		 * access to sysfs files waits the lock)
+> -		 * And MD_DELETED is only used for md raid which is set in
+> -		 * do_md_stop. dm raid only uses md_stop to stop. So dm raid
+> -		 * doesn't need to check MD_DELETED when getting reconfig lock
+> -		 */
+> -		if (test_bit(MD_DELETED, &mddev->flags) &&
+> -		    !test_and_set_bit(MD_DO_DELETE, &mddev->flags)) {
+> -			kobject_del(&mddev->kobj);
+> -			del_gendisk(mddev->gendisk);
+> -		}
+> -	}
+> +	mddev_delete_gendisk(mddev);
 
-Ciao, Thorsten
-> Hardware: MSI MAG B850M MORTAR WIFI (MS-7E61), BIOS 1.A68 09/07/2026,
-> AMD Promontory 21 switch, downstream ports [1022:43f5].  Nothing is
-> connected behind 06:00.0 or 06:08.0.
-> 
-> Seen on Fedora kernels 7.2.5, 7.2.6 and 7.2.7 (33 boots, every time).
-> The same two messages were already present on openSUSE 7.1.x kernels
-> on this machine in July, so this is not new in 7.2.
-> 
->   [    0.248171] pci 0000:06:00.0: broken device, retraining non-functional downstream link at 2.5GT/s
->   [    1.248035] pci 0000:06:00.0: retraining failed
->   [    1.248972] pci 0000:06:08.0: broken device, retraining non-functional downstream link at 2.5GT/s
->   [    2.248036] pci 0000:06:08.0: retraining failed
-> 
-> Port state after boot (06:08.0 is the same except Width x2 in LnkCap):
-> 
->   LnkCap:  Port #0, Speed 16GT/s, Width x4, ASPM L1, Exit Latency L1 <32us
->   LnkSta:  Speed 2.5GT/s, Width x1
->            TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
->   SltCap:  AttnBtn- PwrCtrl- MRL- AttnInd- PwrInd- HotPlug- Surprise-
->   LnkCtl2: Target Link Speed: 16GT/s
-> 
-> Since the message is printed, DLLLA was clear and pcie_lbms_seen() was
-> true when the quirk ran from pci_device_add(), before bwctrl is bound,
-> so the LBMS bit itself must have been set on a port with nothing behind
-> it.  The kerneldoc above the quirk expects both bits to be clear on an
-> unconnected port, which this chipset does not seem to honour.
-> BWMgmt- after boot is expected, as bwctrl clears LBMS when it binds.
-> 
-> Each port then waits PCIE_LINK_RETRAIN_TIMEOUT_MS before the error path
-> restores the original 16GT/s target.  With this chipset used on many
-> AM5 boards, other systems may well lose 1 s per empty chipset port too.
-> 
-> Let me know if any other information would be useful.
-> 
-> [1] https://lore.kernel.org/all/20260801201244.4421-1-andiwild@gmail.com/
-> 
-> Thanks,
-> Tomasz Bojanowski
+I think this should be the only place to do del_gendisk(), and mddev should=
+ be
+removed from the global list after del_gendisk immediately. I do see why yo=
+u're
+doing this separately when all mddev reference is dropped.
 
+>   }
+>   EXPORT_SYMBOL_GPL(mddev_unlock);
+>  =20
+> @@ -6174,13 +6191,10 @@ static void md_kobj_release(struct kobject *ko)
+>   {
+>   	struct mddev *mddev =3D container_of(ko, struct mddev, kobj);
+>  =20
+> -	if (legacy_async_del_gendisk) {
+> -		if (mddev->sysfs_state)
+> -			sysfs_put(mddev->sysfs_state);
+> -		if (mddev->sysfs_level)
+> -			sysfs_put(mddev->sysfs_level);
+> -		del_gendisk(mddev->gendisk);
+> -	}
+> +	if (mddev->sysfs_state)
+> +		sysfs_put(mddev->sysfs_state);
+> +	if (mddev->sysfs_level)
+> +		sysfs_put(mddev->sysfs_level);
+>   	put_disk(mddev->gendisk);
+>   }
+>  =20
+> @@ -6293,13 +6307,6 @@ void mddev_update_io_opt(struct mddev *mddev, unsi=
+gned int nr_stripes)
+>   }
+>   EXPORT_SYMBOL_GPL(mddev_update_io_opt);
+>  =20
+> -static void mddev_delayed_delete(struct work_struct *ws)
+> -{
+> -	struct mddev *mddev =3D container_of(ws, struct mddev, del_work);
+> -
+> -	kobject_put(&mddev->kobj);
+> -}
+> -
+>   void md_init_stacking_limits(struct queue_limits *lim)
+>   {
+>   	blk_set_stacking_limits(lim);
+> @@ -6327,12 +6334,6 @@ struct mddev *md_alloc(dev_t dev, char *name)
+>   	int unit;
+>   	int error;
+>  =20
+> -	/*
+> -	 * Wait for any previous instance of this device to be completely
+> -	 * removed (mddev_delayed_delete).
+> -	 */
+> -	flush_workqueue(md_misc_wq);
+> -
+>   	mutex_lock(&disks_mutex);
+>   	mddev =3D mddev_alloc(dev);
+>   	if (IS_ERR(mddev)) {
+> @@ -6422,9 +6423,6 @@ static int md_alloc_and_put(dev_t dev, char *name)
+>   {
+>   	struct mddev *mddev =3D md_alloc(dev, name);
+>  =20
+> -	if (legacy_async_del_gendisk)
+> -		pr_warn("md: async del_gendisk mode will be removed in future, please =
+upgrade to mdadm-4.5+\n");
+> -
+>   	if (IS_ERR(mddev))
+>   		return PTR_ERR(mddev);
+>   	mddev_put(mddev);
+> @@ -6979,21 +6977,10 @@ static void md_clean(struct mddev *mddev)
+>   	mddev->level =3D LEVEL_NONE;
+>   	mddev->clevel[0] =3D 0;
+>  =20
+> -	/*
+> -	 * For legacy_async_del_gendisk mode, it can stop the array in the
+> -	 * middle of assembling it, then it still can access the array. So
+> -	 * it needs to clear MD_CLOSING. If not legacy_async_del_gendisk,
+> -	 * it can't open the array again after stopping it. So it doesn't
+> -	 * clear MD_CLOSING.
+> -	 */
+> -	if (legacy_async_del_gendisk && mddev->hold_active) {
+> -		clear_bit(MD_CLOSING, &mddev->flags);
+> -	} else {
+> -		/* if UNTIL_STOP is set, it's cleared here */
+> -		mddev->hold_active =3D 0;
+> -		/* Don't clear MD_CLOSING, or mddev can be opened again. */
+> -		mddev->flags &=3D BIT_ULL_MASK(MD_CLOSING);
+> -	}
+> +	/* if UNTIL_STOP is set, it's cleared here */
+> +	mddev->hold_active =3D 0;
+> +	/* Don't clear MD_CLOSING, or mddev can be opened again. */
+> +	mddev->flags &=3D BIT_ULL_MASK(MD_CLOSING);
+>   	mddev->sb_flags =3D 0;
+>   	mddev->ro =3D MD_RDWR;
+>   	mddev->metadata_type[0] =3D 0;
+> @@ -7222,8 +7209,7 @@ static int do_md_stop(struct mddev *mddev, int mode=
+)
+>  =20
+>   		export_array(mddev);
+>   		md_clean(mddev);
+> -		if (!legacy_async_del_gendisk)
+> -			set_bit(MD_DELETED, &mddev->flags);
+> +		set_bit(MD_DELETED, &mddev->flags);
+>   	}
+>   	md_new_event();
+>   	sysfs_notify_dirent_safe(mddev->sysfs_state);
+> @@ -8977,10 +8963,32 @@ static int status_resync(struct seq_file *seq, st=
+ruct mddev *mddev)
+>   	return 1;
+>   }
+>  =20
+> +/*
+> + * seq_file walks all_mddevs with the lock held across next().  Last put
+> + * cannot complete_delete in show() or the current list node is freed
+> + * before next().  Stash it in seq->private and delete after the iterato=
+r
+> + * has moved on: the next show() pins the new current first, stop()
+> + * handles the last one.
+> + */
+> +static void md_seq_flush_delete(struct seq_file *seq)
+> +{
+> +	struct mddev *mddev =3D seq->private;
+> +
+> +	if (!mddev)
+> +		return;
+> +
+> +	seq->private =3D NULL;
+> +	mddev_unlist(mddev);
+> +	spin_unlock(&all_mddevs_lock);
+> +	mddev_complete_delete(mddev);
+> +	spin_lock(&all_mddevs_lock);
+> +}
+> +
+>   static void *md_seq_start(struct seq_file *seq, loff_t *pos)
+>   	__acquires(&all_mddevs_lock)
+>   {
+>   	seq->poll_event =3D atomic_read(&md_event_count);
+> +	seq->private =3D NULL;
+>   	spin_lock(&all_mddevs_lock);
+>  =20
+>   	return seq_list_start_head(&all_mddevs, *pos);
+> @@ -8994,7 +9002,14 @@ static void *md_seq_next(struct seq_file *seq, voi=
+d *v, loff_t *pos)
+>   static void md_seq_stop(struct seq_file *seq, void *v)
+>   	__releases(&all_mddevs_lock)
+>   {
+> +	struct mddev *mddev =3D seq->private;
+> +
+> +	seq->private =3D NULL;
+> +	if (mddev)
+> +		mddev_unlist(mddev);
+>   	spin_unlock(&all_mddevs_lock);
+> +	if (mddev)
+> +		mddev_complete_delete(mddev);
+>   }
+>  =20
+>   static void md_bitmap_status(struct seq_file *seq, struct mddev *mddev)
+> @@ -9044,6 +9059,9 @@ static int md_seq_show(struct seq_file *seq, void *=
+v)
+>   	if (!mddev_get(mddev))
+>   		return 0;
+>  =20
+> +	/* Previous node is no longer the iterator; delete it if we last-put it=
+. */
+> +	md_seq_flush_delete(seq);
+> +
+>   	spin_unlock(&all_mddevs_lock);
+>  =20
+>   	/* prevent bitmap to be freed after checking */
+> @@ -9130,7 +9148,8 @@ static int md_seq_show(struct seq_file *seq, void *=
+v)
+>   	if (mddev =3D=3D list_last_entry(&all_mddevs, struct mddev, all_mddevs=
+))
+>   		status_unused(seq);
+>  =20
+> -	mddev_put_locked(mddev);
+> +	if (mddev_put_locked(mddev))
+> +		seq->private =3D mddev;
+>   	return 0;
+>   }
+>  =20
+> @@ -10714,13 +10733,21 @@ EXPORT_SYMBOL_GPL(rdev_clear_badblocks);
+>   static int md_notify_reboot(struct notifier_block *this,
+>   			    unsigned long code, void *x)
+>   {
+> -	struct mddev *mddev;
+> +	struct mddev *mddev, *pending =3D NULL;
+> +	bool complete_delete;
+>  =20
+>   	spin_lock(&all_mddevs_lock);
+>   	list_for_each_entry(mddev, &all_mddevs, all_mddevs) {
+>   		if (!mddev_get(mddev))
+>   			continue;
+> +
+> +		if (pending)
+> +			mddev_unlist(pending);
+>   		spin_unlock(&all_mddevs_lock);
+> +		if (pending) {
+> +			mddev_complete_delete(pending);
+> +			pending =3D NULL;
+> +		}
+>   		if (mddev_trylock(mddev)) {
+>   			if (mddev->pers)
+>   				__md_stop_writes(mddev);
+> @@ -10729,9 +10756,15 @@ static int md_notify_reboot(struct notifier_bloc=
+k *this,
+>   			mddev_unlock(mddev);
+>   		}
+>   		spin_lock(&all_mddevs_lock);
+> -		mddev_put_locked(mddev);
+> +		complete_delete =3D mddev_put_locked(mddev);
+> +		if (complete_delete)
+> +			pending =3D mddev;
+>   	}
+> +	if (pending)
+> +		mddev_unlist(pending);
+>   	spin_unlock(&all_mddevs_lock);
+> +	if (pending)
+> +		mddev_complete_delete(pending);
+>  =20
+>   	return NOTIFY_DONE;
+>   }
+> @@ -11054,7 +11087,8 @@ void md_autostart_arrays(int part)
+>  =20
+>   static __exit void md_exit(void)
+>   {
+> -	struct mddev *mddev;
+> +	struct mddev *mddev, *pending =3D NULL;
+> +	bool complete_delete;
+>   	int delay =3D 1;
+>  =20
+>   	unregister_blkdev(MD_MAJOR,"md");
+> @@ -11078,19 +11112,26 @@ static __exit void md_exit(void)
+>   	list_for_each_entry(mddev, &all_mddevs, all_mddevs) {
+>   		if (!mddev_get(mddev))
+>   			continue;
+> +		if (pending)
+> +			mddev_unlist(pending);
+>   		spin_unlock(&all_mddevs_lock);
+> +		if (pending) {
+> +			mddev_complete_delete(pending);
+> +			pending =3D NULL;
+> +		}
+>   		export_array(mddev);
+>   		mddev->ctime =3D 0;
+>   		mddev->hold_active =3D 0;
+> -		/*
+> -		 * As the mddev is now fully clear, mddev_put will schedule
+> -		 * the mddev for destruction by a workqueue, and the
+> -		 * destroy_workqueue() below will wait for that to complete.
+> -		 */
+>   		spin_lock(&all_mddevs_lock);
+> -		mddev_put_locked(mddev);
+> +		complete_delete =3D mddev_put_locked(mddev);
+> +		if (complete_delete)
+> +			pending =3D mddev;
+>   	}
+> +	if (pending)
+> +		mddev_unlist(pending);
+>   	spin_unlock(&all_mddevs_lock);
+> +	if (pending)
+> +		mddev_complete_delete(pending);
+>  =20
+>   	destroy_workqueue(md_misc_wq);
+>   	md_bitmap_exit();
+> @@ -11112,7 +11153,6 @@ module_param_call(start_ro, set_ro, get_ro, NULL,=
+ S_IRUSR|S_IWUSR);
+>   module_param(start_dirty_degraded, int, S_IRUGO|S_IWUSR);
+>   module_param_call(new_array, add_named_array, NULL, NULL, S_IWUSR);
+>   module_param(create_on_open, bool, S_IRUSR|S_IWUSR);
+> -module_param(legacy_async_del_gendisk, bool, 0600);
+>   module_param(check_new_feature, bool, 0600);
+>  =20
+>   MODULE_LICENSE("GPL");
+> diff --git a/drivers/md/md.h b/drivers/md/md.h
+> index b6d2e8929a0f..16a236bd37ce 100644
+> --- a/drivers/md/md.h
+> +++ b/drivers/md/md.h
+> @@ -549,8 +549,6 @@ struct mddev {
+>   	struct kernfs_node		*sysfs_degraded;	/*handle for 'degraded' */
+>   	struct kernfs_node		*sysfs_level;		/*handle for 'level' */
+>  =20
+> -	/* used for delayed sysfs removal */
+> -	struct work_struct del_work;
+>   	/* used for register new sync thread */
+>   	struct work_struct sync_work;
+>  =20
+
+--=20
+Thanks,
+Kuai
