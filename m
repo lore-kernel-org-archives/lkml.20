@@ -1,125 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A2E3A1B5;
-	Sun,  4 Oct 2026 06:09:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D1A32B12C
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 06:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791094164; cv=none; b=iIBrZ1+eABnHt+FTv1E2be0bf1w7NdkBYkfHdd/aDT81uRZiPT/9lCpEx79gpwPukm8MaDv4iKeNfqzG1GHMUJuJDGnFfz6t7T+fGGrAO5DrVE/qasj8+XzRtLU+bWLqvAONGqhjfd1nSSNRucKt0lrMyxvZtPw8ng1+GX/Bui0=
+	t=1791094223; cv=none; b=OLY+UqJLwGNO21oXoUX1EWVmMe5oDpiNCYMR20/WJeV++wxPQ9LHmfCA/s6pirT3Pl0LxuKtlBPcbH9rbSQc8FZO7LGxmilcPnyM9lL7aQd52dj3VxuQHlEfd0f8WmXu9CYc6kaoleh4ElKTpPlco336ruD/M+mCc4rgeuuLvJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791094164; c=relaxed/simple;
-	bh=O6a5GD560vAX33Ar+emmCzvLoVAprIoEHkr06ZJgLlg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cjbp1OPYWx35TjCR4jlFTH3E2Xnr6ewTC6EqlQoNuKHnsP5KJRRFG7piDT7vfYJSUIrX8HaxWXzivtDVfGAWEQQ21pokhdN3TueBRnYjA5SuUylkI0BeYLtUT2ogvf/HV7UjMA1t3UuhODl1BSYj/nQ2iMVCNCPvabCJoYNrHCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JFNRDWk7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791094223; c=relaxed/simple;
+	bh=6sxk2tww2VGXolVUOhPmyMP57/cl+QMiVkRCX1JnBUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=awmE5t1FX04ulEvr+ntb7GgGmmmERpcWLrO+9rsPPyq+/B3xsbB60gRMR0u3+jcHR/Z8jX9Vy9L72EYc6ywPXrz7BHn34sI2y+WHIiS32BDlMJje6S5QiXv8J/afAsFTioN0P04hhR/HypcWuuQGyUYJuFOQNAvi73Yw18vkfxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LzdXsyS9; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JFNRDWk7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64EA31F000FF;
-	Sun,  4 Oct 2026 06:09:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791094162;
-	bh=EVbh1l7mNCsDih/vczI2UHe85J45dzFKTW/M+SXfY6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JFNRDWk7ypo/9FZnK+elI1DWPVSqaDp42sZt9lLyE3G8lpQgmoIVuP/z2s8L7/lwR
-	 DmgHezusB3m5SZuSkWJWNVqIbsWumbq9s10C0GiwV351UFoKnhNJpOnr1glWSBbcOR
-	 j820s/QftF5OLlK+OylzNRCfZOAla5NhMIVqEYUA=
-Date: Sun, 4 Oct 2026 08:09:20 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Golden Stickwood <Stickwood_Jr@hotmail.com>
-Cc: "mika.westerberg@linux.intel.com" <mika.westerberg@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Sanath S <sanath.s@amd.com>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH] thunderbolt: Preserve pre-boot PCIe tunnels for active
- storage devices
-Message-ID: <2026100403-twice-paparazzi-7a07@gregkh>
-References: <BN8PR19MB275472A84381924206F01AE0FD882@BN8PR19MB2754.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LzdXsyS9"
+Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7cadbe09dso244760a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 23:10:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791094221; x=1791699021; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=04hTsdUrWnp+GI0S5nrnWDa1XwZ/YzaTtTKcCpafa/Y=;
+        b=LzdXsyS9o88xBdwO0v6kzYptf122oXFWS9NhKUcgLDhkaiqjFSyg0WPc7L200u0eKM
+         guxa8aTajuBwLVnu1Jt20R8UP4L/Bum54+TpN69o6QbSNsjshPVSVwqPGN9bzANqplND
+         OzTnXa3Jp/eWTt4TKBw2uRZWqTAMDaXs8VrWanTF69Spq2T9xQfMKC6hUwUnvtIYlWsx
+         uYJeXwpIjwAeBv9FZzS2Wo4VtQ9UiX/fBNNVQ0ofX5wIJo5HNVS6OL1tiY6gBBxQsrfR
+         ot4ilusGUQfndrrtUxMxEPYiG4sHdpjcpLosim4ZHF6aSlrCpMjpuVCz2MQzCq5xBGmE
+         B7GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791094221; x=1791699021;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=04hTsdUrWnp+GI0S5nrnWDa1XwZ/YzaTtTKcCpafa/Y=;
+        b=UCzt9mMs91E6/vghQ/0Yd5MBcmbx5ezYq7Oq0SXJkQGcHRH1rkf4pyLX5CXfEQcqeG
+         FwUmJU7opktpJo67JcdAKlFWtmWqyquaIf7yQZz+llgCxxWSAIQDChs8j/h8YIg/eqaG
+         0pkAk4Vd8MTaGIoyjKVVZBpxz4rKE3CWeX1ygnQ/ZXULMyHUtO7GHiaL734zfs8VgjiG
+         SW1Fqw2WRwuOewW1mwobRSSF4jIml6GktEbVlUe1HQWhDtNZKYO0P3DE0pNXUByMJLVG
+         gX0DWv/sFnmpTesJKlCAP/AxZ5bNhdrFSK/uimbIacDTcLom1LTcwADxTrc13HvPqVHn
+         +vYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOTkZo4brXgjGl9Gsgxzfg9S0doEh65SDZ8wULShDdCOVv7HADFDK+7XBkMI1PDpJT8rP+PNylUGhWOJI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6kcfMkokQV3tSHpghW0s3jUnvLS/EPkGddXxX0Vdj10XmuaPo
+	/uf3lQ7VwYkZ3BmqwEdoiC73G4Bsts/WMFMZyyacLy99NLer8oQxZq5d
+X-Gm-Gg: AYBFou3jtJyeK4txOkE0P0gS/Gd7JWnu1jNoKh6V64dFXviIAJq3Xm0HamFpJEloc50
+	XP9djKJe6jt5JE7ZJL06WPcFIQNM2E2zsX5T0yVUWbork3hTTr3kip7Zto9K7Ce78bEXsCmyyKt
+	uAaq8TUYWhdEHLWQao6geoGSdN1N7bm8iriYGgisZwMkDNgnWV/ze0GOgGZOK7gSH28dCjUvmoW
+	fTvzcIjCsr+Yto+n5u4o9is9nctQ9siNCtOXkWKJiFQ5Y/Hdogl4HE4IAnj4z1XbN0roeAyXIAl
+	nEcvyvW3WfNZiAvjrS9hwQi6cUC6zlCaSKxmGCyaqDWjw+cK5J9hX5PGlOq1YeZeQZ5CK76CDZp
+	KweaBZRsos3nQ0vSK9h2HCkvd7ddc2KGcB6gNsBoR799Zsuiq0sBARmRpgc42Xi/0kpJhzgsYb4
+	a9VpPBf+qfMPp3edYacqhB3Z5Biu0tSTK25WhnG4oMxjiUgErop0BS7upATqMhII3TrXUvyd64C
+	R6DOG5TQqAdD45T8AI6lWv/cWiFde/5Gda29g5Mmc/G+6kwueofccqLZHHbPil22aDtD3Wp
+X-Received: by 2002:a05:6a00:8d5:b0:880:f278:6b0b with SMTP id d2e1a72fcca58-88af3cc62bcmr6165889b3a.4.1791094221281;
+        Sat, 03 Oct 2026 23:10:21 -0700 (PDT)
+Received: from codespaces-2362ac.ktkhmpmw22vebpok31ngjx2qsb.ix.internal.cloudapp.net ([23.97.62.112])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0b8f5b79sm2427955b3a.15.2026.10.03.23.10.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 23:10:20 -0700 (PDT)
+From: Seongjae Jeong <jsjlee1020@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: yi.sun@unisoc.com,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Seongjae Jeong <jsjlee1020@gmail.com>
+Subject: [PATCH] f2fs: skip further SIT updates for already invalidated blocks
+Date: Sun,  4 Oct 2026 06:10:07 +0000
+Message-ID: <20261004061007.7433-1-jsjlee1020@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <BN8PR19MB275472A84381924206F01AE0FD882@BN8PR19MB2754.namprd19.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 06:45:14PM +0000, Golden Stickwood wrote:
-> In Linux 6.8+, commits 0fc70886569c ("thunderbolt: Reset USB4 v2 host
-> router") and 59a54c5f3dbd ("thunderbolt: Reset topology created by the boot
-> firmware") enabled default host router resetting (host_reset = true).
-> 
-> On systems where the UEFI firmware created a PCIe tunnel to an external
-> storage device (such as an NVMe drive hosting the root filesystem),
-> issuing nhi_reset() in nhi_probe() on USB4 v2 or calling tb_switch_reset()
-> in tb_start() on USB4 v1 abruptly tears down the physical PCIe tunnel while
-> the kernel or initramfs is booting. This leaves downstream NVMe devices
-> inaccessible (-ENODEV), triggers pciehp removal races, and results in a
-> kernel panic or dracut boot timeout.
-> 
-> The Thunderbolt driver already contains infrastructure to handle boot
-> devices: tb_discover_tunnels() traverses existing PCIe tunnels, marks
-> the upstream switches as sw->boot = true, and tb_scan_finalize_switch()
-> authorizes them. However, unconditional host_reset and discover = false
-> short-circuits this entire mechanism.
-> 
-> Fix this regression cleanly by:
-> 1. Adding nhi_has_active_storage() in drivers/thunderbolt/nhi.c to walk
->    sibling PCIe bridges using pci_walk_bus() and specifically verify the
->    presence of PCI_BASE_CLASS_STORAGE devices (e.g. NVMe SSDs) before
->    issuing REG_RESET_HRR.
-> 2. In tb_start(), checking if the host router has an active PCIe downstream
->    adapter enabled by firmware before resetting. If active PCIe boot tunnels
->    or downstream storage devices are present, keep discover = true, skip
->    destructive resets, and allow tb_discover_tunnels() to adopt and
->    authorize the boot device.
-> 
-> Hardware Verification & Telemetry:
-> - Platform A: Intel Core Ultra 9 275HX (Arrow Lake-HX) with Meteor Lake-P
->   Thunderbolt 4 NHI [8086:7ec2] + ASMedia ASM2464PD (PCIe Gen 4 x4) +
->   WD_BLACK SN7100 2TB NVMe SSD. Confirmed zero AER errors, zero IOMMU
->   page faults, and Host Memory Buffer (HMB) 64 MiB cleanly established.
-> - Platform B: AMD Hawk Point USB4 Host Router [1022:1502] (ASUS Zenbook 14
->   UM3406HA, Launchpad LP #2159575). Boot succeeds cleanly without link drop.
-> - Platform C: Intel Core Ultra (Dell Latitude 5550, Launchpad LP #2078573).
-> 
-> Fixes: 0fc70886569c ("thunderbolt: Reset USB4 v2 host router")
-> Fixes: 59a54c5f3dbd ("thunderbolt: Reset topology created by the boot firmware")
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2167764
-> Cc: stable@vger.kernel.org # 6.8+
-> Signed-off-by: StickwoodJr <stickwood_jr@hotmail.com>
-> ---
->  drivers/thunderbolt/nhi.c | 54 ++++++++++++++++++++++++++++++++++++++-
->  drivers/thunderbolt/tb.c  | 24 ++++++++++++++++++++--
->  2 files changed, 75 insertions(+), 3 deletions(-)
-> 
+When update_sit_entry_for_release() encounters a block whose bit is
+already cleared in cur_valid_map, it reports the inconsistency and
+corrects se->valid_blocks and del. However, it still proceeds with
+the discard bitmap and checkpoint accounting updates.
 
-Hi,
+This can clear the discard bit unnecessarily and incorrectly decrement
+the segment and section ckpt_valid_blocks counters when the block is
+not marked in ckpt_valid_map.
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+Continue to the next block after correcting se->valid_blocks and del,
+so that an already invalidated block does not trigger further discard
+bitmap or checkpoint counter updates.
 
-You are receiving this message because of the following common error(s)
-as indicated below:
+Fixes: 81ffbd224e5f ("f2fs: update_sit_entry_for_release() supports consecutive blocks.")
+Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+---
+ fs/f2fs/segment.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 51858f64e43e..fc2f0fd8e318 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -2560,7 +2560,10 @@ static int update_sit_entry_for_release(struct f2fs_sb_info *sbi, struct seg_ent
+ 			f2fs_bug_on(sbi, 1);
+ 			se->valid_blocks++;
+ 			del += 1;
+-		} else if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
++			continue;
++		}
++
++		if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+ 			/*
+ 			 * If checkpoints are off, we must not reuse data that
+ 			 * was used in the previous checkpoint. If it was used
+-- 
+2.53.0
 
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
