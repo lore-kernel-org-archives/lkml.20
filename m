@@ -1,72 +1,89 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02356448BBB
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BD4475346
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791149899; cv=none; b=V++xNsvLplFeaI0jo/StqYfWhtMJ+vGeuR8E6eRurZTP3z+rkZCvCQ1IxNjB3ix4io0yZh0ETg9q0TuJksWI0yww8Qp1GsAJqamJULYyKSxThGHvq2MtJNvsr3RzfBsyARWSp3NeqLPEwcSVnSdzWoKLNgvXxKq5i05JqBcZchs=
+	t=1791150190; cv=none; b=F22dtTpiSXP6l8P3eNjt6b55iSrI3Pz3iqMmp53R5UpRU1L4dvWzYKCMhIxjtZA8NOOMiWSeoniqx8wyffThWLsCjEGzsp4NuW886wy2OY1DlidCN+oSchEa9dRWP1YEeJSoWbu+HN/iInqnQQx/fgWNW2d24pVpguOLujdyZgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791149899; c=relaxed/simple;
-	bh=EIDKNMktdL0LGz2pcFHCC0gOYw/pv87lPZRCv+H+IMQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k/bFemgmWpkTVjhLWk9u/c6g0aAF/0tmCq3Y4JHXxba/cM9U+zOOtoxazGSFir0CK5x/sKqEeREB2YAliO8Ld+N8PyBdJrcmdJcw4tC7LstNibZs1wAhC159Xx1nAHgpFY091+sVVjVuoZND7501k050t4ge16MQIO268P6MFBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VKw8pJ/D; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1791150190; c=relaxed/simple;
+	bh=ONQ3/fm+VvJcbR2hGlWWmoJvTQ4LkcEql3G60OArTd8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SLQVOVgDTpbKY6Ab4OO3DD5V+CDTIslQXVSODveMOBiYGh1TpIJPpgPV0tUVKcK4D8XsPddQcbDvH/wIhs0QqiyUF783d9AqZcv9AGvJBTCvlJzsO/eo6SLpY9FoAx4cWh+IAeMgjUw7Nnfh+Ezw2oZba6aGZRFKiV3SWty3P7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tw05ZvwO; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VKw8pJ/D"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so11226015e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 14:38:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tw05ZvwO"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c5358fc28so429371f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 14:43:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791149894; x=1791754694; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DG6Ijqzx5tZCBpjwT37tlUEZBO9Ju0fncZQV6F7YmY0=;
-        b=VKw8pJ/DPhyxn2viHcWLxCwopNjffhs8RZV1/hULlU7iifHuNjQBoZhTPtjK0N4weW
-         iD6FKRPOVaP3tUYwqP3ncjIWd3DEAAOKU4O12vux421ViBMSu1e7L23ijHRWDYiFMYz3
-         QlqKmsbrOCxz7qrJ+0VEjIi1l1gS0WoF5PwDaOnfaqpcMwhiQ3iuD793H02auSVAG+jO
-         BcVGTBM23uYz1lQ09yBeeiuw1gWeH6S+LeYjfQiDi5Rq7tWpbIH9/nhNOjOT8q4Ipnxz
-         crGXvVYdh0vTHwKd8qsUMR13/uMgLx/A/g9n+hspwYT/tSaX2VY++uaS4zED7H8gchFD
-         jHEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791149894; x=1791754694;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791150185; x=1791754985; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DG6Ijqzx5tZCBpjwT37tlUEZBO9Ju0fncZQV6F7YmY0=;
-        b=m7p99kpH2h+I5muD0whGhMZjkMXONTLftkHtrlejW2trl3VZMS+DtCoyqLgiYBZGaw
-         DdHq6JTIIFkXaR0NwmJwnuYOFzDrhLvsqgJiamw4v4EM90RCM3A/regqEVtIB9YAS2AY
-         oD61Dm6dp+ZKhlLQbA/TDuQUlkQR01N2vw+f1oiAkwjUCOzMrkZq43iX/G3+d/AIKbvR
-         an5Aj/oediVACq38zlX6JHEfASa32J48wG1NOocLtGJkZdP5GizlzWJ1qtqU5QSmdkM7
-         VL7Rr4szHgz30xol4nonqin1KBOGSuqfpI1y9K2Zv8cd4gO+B4Fj/SmTENHeyjyj5Cwu
-         JNvg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5he9E+LkonkIg4tcScU7ewpXJA2dVA3ra45PDYhqotR6+X2DhvspBS47h+IIayqHUM64x7JzC3H52iNQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUFO5Oh+poGG6FNFF69jmTPVO8JsLiQ2L3zWxhxQbEHLNWdOdo
-	+9xQzzCnpDtvFUxHQE+a0IyG3EEx01G1xDHtiKwKIx+myDw+q68HgDL68/9sEV7jpsiQhw==
-X-Gm-Gg: AYBFou0s215lc7Noh0BP/M5Bes3VG1l7IIl2NpLEO/2aDs5jRWc2c1SwOjl/KBTZ/gY
-	dilUdCEgyH2LoTOxo/6WSxlcxKUO6BL8ZsBTovjvcUo9Cpor5EGtUeqxjmxpNhW6F+m8SGFPz6Z
-	5Ijq5hdKK2GnSN6Fmjfa3X1iKSohpfSIzv7yiNcLWhP6h4+DCYgq+AhiyzNkqSWhwBmGfY5u9uK
-	NgAZUVYE56hW81HLBi2fqy8cti1aIeVAj5e2qgoGMb942uAd8915uB1GHbgw7/eJgWzTK8YEnih
-	4ca/2IdVrtv5L5JSpgtr5+dtJAn9rt6VW116XXREwKR3aUV+kO6nxWPBne/kbZuQy8NGfUZXZPt
-	/T0k5Im1y933INzFA6ctm7VEkwi6kM8hmJOCUPLJ0Z4tjK9s8BMZnqKJIqWfY9/XNglGb4ra14+
-	1iqNaLq3zXUOxFn0ZdB7LKoOJL7kgNxhzINSDCQ78nj5HSYcrQFPRF/XLPa3GZwvGjY9F7RNgga
-	YMk/2wno1VkbvyEd7sX9ZEt0brsQkRGN4gp6lpNKHcTqAHnIVtKRPdkhYdXui/28030wNrIreSH
-	+mH8c1w=
-X-Received: by 2002:a05:600c:3b14:b0:4a0:1c10:12b9 with SMTP id 5b1f17b1804b1-4a1680fda81mr92920855e9.32.1791149894375;
-        Sun, 04 Oct 2026 14:38:14 -0700 (PDT)
-Received: from voyt-laptop-dell.fritz.box ([2001:9e8:bd42:1800:7f8f:d400:b97d:31ee])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8c4asm22189320f8f.37.2026.10.04.14.38.13
+        bh=44L+w1lo0aEfL1hM5su/VJjhXTZhdo5HD8XfCtpMzH4=;
+        b=Tw05ZvwOODV1gx+0jiHCKped/cJPi82G8/unjkIEmDya/VLQZKaBXscApMH/ZHbGBc
+         HrfqA+4hy+nXSBpR/NBvRa71qLYUzVBXZiJOKB9QujsOG13gJo3O0RvPBA7LHLh4UHY8
+         59kiD3YQrCjUlAIX+NYoozOqpc9Ll5oLHIzngtxwbhkVaZJtekABeZXchxpJvbvncP+Z
+         Tw5sfa4MRj5drP6/+hRFjUHznlyeLzMc+1NAtBDRx+MVDUVmFrJCdn7dtVFj5X1dTvJC
+         rwk4/io0813IUk9ESbIa9EL1i/WtkIt99av2M94TNqDoOUhYvVLuTmmiSEROhO9kivzg
+         no2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791150185; x=1791754985;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=44L+w1lo0aEfL1hM5su/VJjhXTZhdo5HD8XfCtpMzH4=;
+        b=1mKuVBJ3yi+Vmfzfw7GtZ/EL/8aVi5A4BKDV4COS2aWMfSUkq+uzm8IEncEeixI0oZ
+         b6fhsjoY5gvUpKs2bG2wN0KjLpr2tVNikc73F0CbqBmR0rXc0brJLRxhcFBKNXNTBH12
+         1Q9ANnBnTdr3i8E/ehkFQVRycceFWbLkHvRwHhomhjh/rvqNA5FtEvu7t/xO1UJ7eN3e
+         MpLUtCwLGel+wKIE61QM5NMNTh+efpvgOkTOIPGLx/YuiaqRuxGIWl+aJfDIvwnxrOjz
+         +dJErL2GWLpmGXi2zjlf6Zkkff6KsvoIkMU2Ao0rm4BdF8QDg7Rh1O+kBguXVYy5A7eZ
+         uP3A==
+X-Forwarded-Encrypted: i=1; AKwUvBxcmRca5TB+lXVnHEcBhOnSy1mZywbp/jqlAmXdnhYRZLq+s8VIRLA0cAsXJHvupTkXz8HWcRJTArPuQdY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZTMbBAiao0QbwJ6s6vD1i33hCpAwx4qyPpCr4bCL/K7mqi/hz
+	9Co4IznsaROcy071VJUjfUpCyCPyvxghhuYpzBwJVkiQFZTCP/SUvZP/
+X-Gm-Gg: AYBFou05Uxz56hyp7+iHB2Fx7ixtphRTvPQg+e7gL0mrNJr8nwSUHjhPZz8QYng+apz
+	0fZoegAfvNJjmcPly7zOivLU0MD2i2mnPx2AHyKT5i6e1UaaMfs4IvxNE3mZlf9pZGAmo6Sr8AQ
+	juoh1QPXN6JqTQO+gyMmU+2U5Mtj6bmPOLlKUqktWM4LJYya5QGlZL5Jf0OWOV2/cKDZJRo8Q7q
+	y7Gw8EQoG8p3v1UuK/9itaJGxq6LGjXyoiRn1IWqcdnp4p+yT+Nmo1mhpaE2xIK+/1E20IUmpzQ
+	cbXswn4Jl2/APQ1t9tJvaFlaQNHfOXaOYWcD8Gb1KlsAh9sP1o9/IY40eCgjzg5J0d+PNBgF19M
+	0BNu5sK+FE+AihC5+NkqU40Y6a9U2VCLv1yphAwvQ+j3+pU36Sr2Sw/nqw5LvR6u2q+5vnlMRQh
+	6pMteNbSmZ5tlFzXpuCppdy2DiY0G9k7eiORZysExuxXvIbxKWWe5QnazQsirs9yA4Xvi0teFPa
+	6bOXOvBFsDNtQrOOPCiKtY00JEDuXbVN09lXxY02wN+B2rEsCiV/LdNvToq
+X-Received: by 2002:a05:6000:491b:b0:487:834:9307 with SMTP id ffacd0b85a97d-48c48023772mr8504789f8f.50.1791150185325;
+        Sun, 04 Oct 2026 14:43:05 -0700 (PDT)
+Received: from andreayoga.localdomain ([195.122.200.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104e07sm19331801f8f.31.2026.10.04.14.43.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 14:38:13 -0700 (PDT)
-From: Dmitry Voytik <voytikd@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dmitry Voytik <voytikd@gmail.com>
-Subject: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
-Date: Sun,  4 Oct 2026 23:37:55 +0200
-Message-ID: <20261004213755.554191-1-voytikd@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 04 Oct 2026 14:43:04 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	netfilter-devel@vger.kernel.org,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Bernhard Thaler <bernhard.thaler@wvnet.at>,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH nf v2 0/2] netfilter: preserve bridge egress VLAN tags
+Date: Sun,  4 Oct 2026 23:42:51 +0200
+Message-ID: <20261004214253.5432-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179114935323.1402591.1020652042294576959@kernel.org>
+References: <20261004212429.3648-1-parri.andrea@gmail.com> <179114935323.1402591.1020652042294576959@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,44 +92,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =y,
-and always is =m.
+On Sun, Oct 04, 2026 at 09:29:13PM +0000, netdev-bot+sinfo@kernel.org wrote:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-The issues can be reproduced with the following steps:
-	make mrproper
-	make defconfig
-	./scripts/config \
-	  -e WATCHDOG_CORE \
-	  -e WATCHDOG_PRETIMEOUT_GOV \
-	  -e WATCHDOG_PRETIMEOUT_GOV_SEL \
-	  --refresh
-	make olddefconfig
-	make mod2yesconfig
+The issue fixed by the first patch was found by an LLM-assisted scan of
+br_netfilter. The issue fixed by the second patch was reported by the
+Sashiko AI review of v1 [1]. I then confirmed both with a reproducer
+under virtme-ng; the reproduced symptoms are described in each commit
+message.
 
-	grep '=m$' .config
-returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
-	CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=m
+[1] https://lore.kernel.org/all/179084999520.434549.4764913674478855382@kernel.org/
 
-"make menuconfig" doesn't let it to be switched from =m to =y either.
-
-Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
----
- drivers/watchdog/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index f7d0a0c2c0ef..712ebfa1c99c 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -92,7 +92,7 @@ config WATCHDOG_PRETIMEOUT_GOV
- config WATCHDOG_PRETIMEOUT_GOV_SEL
- 	tristate
- 	depends on WATCHDOG_PRETIMEOUT_GOV
--	default m
-+	default WATCHDOG_CORE
- 	select WATCHDOG_PRETIMEOUT_GOV_PANIC if \
- 		WATCHDOG_PRETIMEOUT_GOV_NOOP=n && WATCHDOG_PRETIMEOUT_GOV_DUMP=n
- 
--- 
-2.55.0
-
+Thanks,
+  Andrea
