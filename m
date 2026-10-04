@@ -1,64 +1,64 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A713C5837
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681333C3BED
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791130000; cv=none; b=uYTq12Qqc2fu3AXJqODeQybSj3agBzeGC0hN1f5L5G0HLUXtxe4mAev8+B0iNXdaiOM+9Ny6kC7fqcmcJVlumXuSAUn36n+KgXo18RdpOKDUO6QihLCP+hhq6zzq2P8gLcz7BQJ3H7hmni3PNk+g0ZkFwFEyQesZ/vKBGN9WuWY=
+	t=1791130008; cv=none; b=F59vj0x98dc9Dw7rPuSpC3hEctxvJjygGjA/tlcM/5AkIoU3OLFEM40S0+q0xxSUX69KOsbNV4MU+mBhNrSSFDS1Odeah1w+RvMo86sCt9szne41gtYFkXXP4gVtwQYl52HrYtqaUdGy0n4G2/dDPYXrlXFKSjsKoC7XMeqRLYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791130000; c=relaxed/simple;
-	bh=hh90W4IQmVXtfx/MrEKy9LK3PvzdqnLrG1VF1+Qn5PE=;
+	s=arc-20240116; t=1791130008; c=relaxed/simple;
+	bh=VooV3JwsW9yXVHw6azs8gPGTYXD8vRYlcI8YH6GPU/E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DtR6RIVD3aAAF56n6IS9H2rpPOE/kZD3hpmcfvNwRUBDWyEtgtwRswT1nGO6jy11UXQzJ1COTvON2YwC4TyJCJ0WhFeicZLQOdjjLT29b3C1aO+7qCqW3iPMRAaut1FkMJyvxu/nOznQlRVjdfVqdFcLW7g9EsEug4PgFXdkUzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQbiYTw2; arc=none smtp.client-ip=74.125.228.39
+	 MIME-Version; b=J+gxU291AdJZAqxwL3BJUSZLzhnKlQwVcp+9aD2kjblhR6lKJH1wOfov2GEf5N1/1/oqTMFtRlaNW1N2yd86RQ5bdBgLtM49pOgrYvCFWCYipr71LoKoy5L75JBnsiISNGgv2zURejTt2zROcUPhNi6Nhe/cNThfCNC9Bw1I8oA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eRmFsXSe; arc=none smtp.client-ip=74.125.228.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQbiYTw2"
-Received: by mail-pz2-f39.google.com with SMTP id d2e1a72fcca58-8807e5b8fa9so513993b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:06:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eRmFsXSe"
+Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-886ce63c1c5so188750b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:06:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791129997; x=1791734797; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791130005; x=1791734805; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kmrTTeUZ0Xt4uI6HGA9fNDSizEM0m8lFI6R0dD7fUlI=;
-        b=KQbiYTw2e80PFrMIF371gf1pMFPDBM6XQH5P5dtSlL1IcFipzFyDLrYGcMclP4b2js
-         bdXd7swB7CeFkPcIX8FHNfZVaY1onq0Cn/U2x3zz9AMqUXd/GZ4xJ5B7TOqX5+muggDl
-         N7ErPzANdnMXJY88Hou7AgCQmzceO8Jide4eya1vBIEPcPRvz85wPCERm5ol5ZmSwV/S
-         gN75Zt1h46FSgMqj++4F100hflbicLlzsgcGW2lktjk7Yr6Brya0rlUht2j6zqdGJNQ3
-         HFFnl0z+A2DfKwA8B4KxmfmMVx9zEFFFJbhfjyeutRrmrST5JLOuuQGovOKoNFium5/g
-         Nqew==
+        bh=zmSanoQANogxt1xJb6FXY7g5PjS88j7pCYVrEOwfDRQ=;
+        b=eRmFsXSeDNPfsKGiEAF9vJbjaXRVSpXOkEgslKh64oPN1051qj2FQ5+7PgdEoyXcGS
+         dCkIFWleaMrbZAM62AhZMSnE2UleofWPlRyXghVZp+I0TXwcGyNantRXdcriXk0vlD5r
+         u/yKN5OuwwuACGb37fUN+07HPgVAf6ZHzRUGOfD+UWv3vHiWh8U9Ahws5kRIAjyn28Qb
+         bP6xFwPYLk1Yd/wSkrpeehKH8Kt1OnAKq8kfZvXEudU5ZOPFAEnmtt3g2i+yLE6tphdj
+         hvHn/LJIPdmvxWxL/ceSGeNZO+Ay/2dBy37ny4vKH3l3ugLPeFQwNqOS7Q+556JWEHY6
+         MmIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791129997; x=1791734797;
+        d=1e100.net; s=20260707; t=1791130005; x=1791734805;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kmrTTeUZ0Xt4uI6HGA9fNDSizEM0m8lFI6R0dD7fUlI=;
-        b=kwbc+K+xzhZ2l7jQa4C8UEEPqRBrB4BZQpH7fYzPqyurbKTZyQsPRpujGRif7deOCI
-         ZPFXO271kSwSccmk922fTZJvbL+YsKuUVGF7LfHvb0pH+MN0zcOPH0ztfeo5zAsMbpEL
-         yCpT3JD6HrOpl1o8B6pUu2vYwleXV3wMqeGVI2YdIm5/hFeKIEyHtMQ2y6Mf8SNv6rnj
-         iN2UChSUjVAocW3JIvq4f3V/mypvJ5qaxgwsInoBArHqA4gIe4oLlhuQaLBpHPJUbd+r
-         IsycjkR5QbgI1bSoE6Jz2Ic/VDHqHpirr2XYdvDeFFf1/++FkfnNEjngr+8kEezzJ5Jc
-         eheA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIKgs69G8QI9GMRfNve+H/S6t9y/OwOzdohwTYEEd0l+rAvnJyrVvkxMBl857TrDKluFiKCcC1P9qA96E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRBk6+/347Xsvv/CJVQt11ckPZNS4/DWzwi9ebiF5rl4Xo3wkJ
-	0OTXbOPTbWDX534COCPQwh4TQr2wbu13t9jkGE10zWcVcAHe0j3tqPOMNFuJ8mgxFtc=
-X-Gm-Gg: AYBFou2iBrS97Z838Pyu/pMP7dzm1IWGWBstuupDGz6EV/jsFb06OUOgqkROdtfXNDh
-	QmjGeeuBy5fkh4XOH80uEAxH0/PFmfMNpXqtfd+E4O4lWQn5bGhhhtLPPYnI0tC7AgPs9jRSwy0
-	CbieZZEof9hXsJvV2pfMIoCJY9cKXtbBFq2GT2mBsM2Cjg7TBG8+blM6oTtBm9SgJi0idUgyTsI
-	8yTiECDQF9+r9kNgT5NLciKl+m6mfvBa4zhy8oY7gMmlW6jk2X1GNywqy6jsNaEgGN3A2CwzPXd
-	Blve9GC1fCT9IZRKFp0e+xkRUSaUWJu4Kc7LnYS2QrpsiTsgjBuCWYTC8HCmJcviy/VnxaynkfT
-	RvqCmAC/oOYKHyTKquZl76vjfjs7SP2zQ23t0ous9bKUjtye/cRpacflqDz8dfglxM0eCLDYCRh
-	1drT8E0w0fSvYyTtMkC+19jrjoIM9VPZPn8FK9bBQ4ahJ/posanhFWif2wu3GRArPnuxRO6VJuj
-	50LYtQGuVGFGuPI6IZ51pslz3E+r58MtqAZ
-X-Received: by 2002:a05:6a00:1403:b0:878:34d7:6977 with SMTP id d2e1a72fcca58-88af655e794mr8119304b3a.37.1791129997349;
-        Sun, 04 Oct 2026 09:06:37 -0700 (PDT)
+        bh=zmSanoQANogxt1xJb6FXY7g5PjS88j7pCYVrEOwfDRQ=;
+        b=OXPhz9LfAATiardnPLJyOVjgW/8RcPA0v7gXAZhT4d8Cd5O6a2s6cguXBw4ZSJOOSZ
+         hQx4V1141WyeyksJaoU0eT9puD/gHonh0ExJGgUbjDMJ19BSYxrAkixOb8wmcY+XiYk7
+         rWDD9Klib3xG1VgoleAfOjlsddlH51DFBKreh1BBbc9DkjFcu/+a13vfpGXTccVQtfMi
+         wiJeKVneZWP7y9WUvvDgEyK3jNCX0V0nl/7vYDkW+SDST2tUQUbGPPWzzMSzNhy3H+ZJ
+         GuJX30fQKgLljrG/wgnQjEOGdlmN/YX2ogoWGYK/V+eFc5PdsD/5BZGZRBMZ+765QqtV
+         uDSA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8iZFFPYSS8+t0UYnN1JuILF/LihIrHXFcDh0q9qdPp4CcM3AoPwqlUlKMlaAJGEeVTVIvhkuY9wqgUUg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwNzQ5CeRq+xPoJ4ZqIXP4NjnrYU0kv5HL2T5rRbX0FqFC145w
+	eG0fXvLBAn7Kj10oOaoT/730tErshBK5aLtk7UbljmuLXGTzPtGSoWCXOfHG7RiBHwY=
+X-Gm-Gg: AYBFou2yLX7hAx5YiptcLqTsRTEDMhk3Ll/1gLnpw69nf+ueGGKMTvAt+mNWsoD2wZx
+	0YNfRD8x/lbDM1sMhih2SOoxxFNdGR+7vUwZxvHXTxMXfk8APrCP26Pn+N/FHrD3Nir5uvGn9KH
+	xZK3rtZjLy5mqlJ7FXWaPy2mjMY8Dn2xjRcn+AOsLVEoBKNeBd4jtXrxJKOX2VKZK48o6kk2nl1
+	l8ku3QJIy8Qfb1fW7xfV32KZcAprbOKXOVwWxyQGqyRtMo8G/KLs5++SL41zEgVQ4eGaiFmt4d5
+	mR18i1oHlv1t1Bvf/LWP5YW0DxtknPVDaIExZzyXkOdEr7xNUKg4ywkwk6gtRxL10zWK5Jc3h7J
+	slVJjYJbNcM5w2pQi8ZkswiqpIBfuwnanar2YeNAk6RF1s8VJCaZgBHBfl1UN8T2tQvVQRMm3/0
+	kK7YiEchcnSYg7Ifa/qZZWnrhuaj7ZREZOOP9AqALqruG+bLhEaIuDRsEaeB4cvY8IQqTpe6ZNx
+	Ta1UnaeHx41b8UW+rJvQ6IGcQ==
+X-Received: by 2002:a05:6a00:138f:b0:883:96f0:da3b with SMTP id d2e1a72fcca58-88af6658e79mr6949737b3a.22.1791130005403;
+        Sun, 04 Oct 2026 09:06:45 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0d247930sm2637789b3a.54.2026.10.04.09.06.33
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0d247930sm2637789b3a.54.2026.10.04.09.06.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 09:06:36 -0700 (PDT)
+        Sun, 04 Oct 2026 09:06:45 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -70,9 +70,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Russell King <linux@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v5 1/6] net: dsa: motorcomm: Hoist type casting helper into chip.h
-Date: Mon,  5 Oct 2026 00:06:15 +0800
-Message-ID: <20261004160622.948037-2-mmyangfl@gmail.com>
+Subject: [PATCH net-next v5 3/6] net: dsa: motorcomm: Split MIB buffers
+Date: Mon,  5 Oct 2026 00:06:17 +0800
+Message-ID: <20261004160622.948037-4-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261004160622.948037-1-mmyangfl@gmail.com>
 References: <20261004160622.948037-1-mmyangfl@gmail.com>
@@ -84,689 +84,351 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rename and move dsa_to_yt921x_priv() and yt921x_priv_to_device() to
-chip.h so all files use one definition.
+With MIB improvement introduced later, struct yt921x_priv will be over
+20 KiB which is not very good for a single kmalloc(). Dynamically
+allocate the MIB structures to reduce the size of struct yt921x_priv
+(and adjust polling work lifecycle), and do not waste memory on dummy
+ports.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/net/dsa/motorcomm/chip.c     | 127 +++++++++++++--------------
- drivers/net/dsa/motorcomm/chip.h     |   2 +
- drivers/net/dsa/motorcomm/leds.c     |   7 +-
- drivers/net/dsa/motorcomm/mdio_bus.c |  10 +--
- drivers/net/dsa/motorcomm/pcs-921x.c |   8 +-
- 5 files changed, 74 insertions(+), 80 deletions(-)
+ drivers/net/dsa/motorcomm/chip.c | 124 ++++++++++++++++++++++++-------
+ drivers/net/dsa/motorcomm/chip.h |  20 +++--
+ 2 files changed, 112 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 3ff2de383157..2c0f53cb2b8e 100644
+index 690ee0eb5192..8341d4d1c784 100644
 --- a/drivers/net/dsa/motorcomm/chip.c
 +++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -171,9 +171,6 @@ struct yt921x_reg_mdio {
- 
- /* TODO: SPI/I2C */
- 
--#define to_yt921x_priv(_ds) container_of_const(_ds, struct yt921x_priv, ds)
--#define to_device(priv) ((priv)->ds.dev)
--
- static u32 ethaddr_hi4_to_u32(const unsigned char *addr)
+@@ -270,10 +270,13 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
  {
- 	return (addr[0] << 24) | (addr[1] << 16) | (addr[2] << 8) | addr[3];
-@@ -271,8 +268,8 @@ static const struct yt921x_reg_ops yt921x_reg_ops_mdio = {
- /* Read and handle overflow of 32bit MIBs. MIB buffer must be zeroed before. */
- static int yt921x_read_mib(struct yt921x_priv *priv, int port)
- {
-+	struct device *dev = yt921x_priv_to_device(priv);
+ 	struct device *dev = yt921x_priv_to_device(priv);
  	struct yt921x_port *pp = &priv->ports[port];
--	struct device *dev = to_device(priv);
- 	struct yt921x_mib *mib = &pp->mib;
+-	struct yt921x_mib_stats *mib = &pp->mib;
++	struct yt921x_mib *pm = pp->mib;
++	struct yt921x_mib_stats *mib;
  	int res = 0;
  
-@@ -364,7 +361,7 @@ yt921x_dsa_get_strings(struct dsa_switch *ds, int port, u32 stringset,
- static void
- yt921x_dsa_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data)
+-	/* Reading of yt921x_port::mib is not protected by a lock and it's vain
++	mib = &pm->stats;
++
++	/* Reading of yt921x_mib_stats is not protected by a lock and it's vain
+ 	 * to keep its consistency, since we have to read registers one by one
+ 	 * and there is no way to make a snapshot of MIB stats.
+ 	 *
+@@ -310,11 +313,11 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
+ 		WRITE_ONCE(*valp, val);
+ 	}
+ 
+-	pp->rx_frames = mib->rx_64byte + mib->rx_65_127byte +
++	pm->rx_frames = mib->rx_64byte + mib->rx_65_127byte +
+ 			mib->rx_128_255byte + mib->rx_256_511byte +
+ 			mib->rx_512_1023byte + mib->rx_1024_1518byte +
+ 			mib->rx_jumbo;
+-	pp->tx_frames = mib->tx_64byte + mib->tx_65_127byte +
++	pm->tx_frames = mib->tx_64byte + mib->tx_65_127byte +
+ 			mib->tx_128_255byte + mib->tx_256_511byte +
+ 			mib->tx_512_1023byte + mib->tx_1024_1518byte +
+ 			mib->tx_jumbo;
+@@ -327,8 +330,9 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
+ 
+ static void yt921x_mib_poll(struct work_struct *work)
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+-	struct yt921x_port *pp = container_of_const(work, struct yt921x_port,
+-						    mib_read.work);
++	struct yt921x_mib *pm = container_of_const(work, struct yt921x_mib,
++						   work.work);
++	struct yt921x_port *pp = pm->port;
+ 	unsigned long delay = YT921X_STATS_INTERVAL_JIFFIES;
+ 	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
+ 	int port = pp->index;
+@@ -340,7 +344,7 @@ static void yt921x_mib_poll(struct work_struct *work)
+ 	if (res)
+ 		delay *= 4;
+ 
+-	schedule_delayed_work(&pp->mib_read, delay);
++	schedule_delayed_work(&pm->work, delay);
+ }
+ 
+ static void
+@@ -363,9 +367,14 @@ yt921x_dsa_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data)
+ {
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
  	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *mib = &pp->mib;
+-	struct yt921x_mib_stats *mib = &pp->mib;
++	struct yt921x_mib *pm = pp->mib;
++	struct yt921x_mib_stats *mib;
  	size_t j;
-@@ -406,7 +403,7 @@ static void
- yt921x_dsa_get_eth_mac_stats(struct dsa_switch *ds, int port,
- 			     struct ethtool_eth_mac_stats *mac_stats)
+ 
++	if (!pm)
++		return;
++	mib = &pm->stats;
++
+ 	mutex_lock(&priv->reg_lock);
+ 	yt921x_mib_read(priv, port);
+ 	mutex_unlock(&priv->reg_lock);
+@@ -405,16 +414,21 @@ yt921x_dsa_get_eth_mac_stats(struct dsa_switch *ds, int port,
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
  	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *mib = &pp->mib;
+-	struct yt921x_mib_stats *mib = &pp->mib;
++	struct yt921x_mib *pm = pp->mib;
++	struct yt921x_mib_stats *mib;
++
++	if (!pm)
++		return;
++	mib = &pm->stats;
  
-@@ -442,7 +439,7 @@ static void
- yt921x_dsa_get_eth_ctrl_stats(struct dsa_switch *ds, int port,
- 			      struct ethtool_eth_ctrl_stats *ctrl_stats)
+ 	mutex_lock(&priv->reg_lock);
+ 	yt921x_mib_read(priv, port);
+ 	mutex_unlock(&priv->reg_lock);
+ 
+-	mac_stats->FramesTransmittedOK = pp->tx_frames;
++	mac_stats->FramesTransmittedOK = pm->tx_frames;
+ 	mac_stats->SingleCollisionFrames = mib->tx_single_collisions;
+ 	mac_stats->MultipleCollisionFrames = mib->tx_multiple_collisions;
+-	mac_stats->FramesReceivedOK = pp->rx_frames;
++	mac_stats->FramesReceivedOK = pm->rx_frames;
+ 	mac_stats->FrameCheckSequenceErrors = mib->rx_crc_errors;
+ 	mac_stats->AlignmentErrors = mib->rx_alignment_errors;
+ 	mac_stats->OctetsTransmittedOK = mib->tx_good_bytes;
+@@ -441,7 +455,12 @@ yt921x_dsa_get_eth_ctrl_stats(struct dsa_switch *ds, int port,
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
  	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *mib = &pp->mib;
+-	struct yt921x_mib_stats *mib = &pp->mib;
++	struct yt921x_mib *pm = pp->mib;
++	struct yt921x_mib_stats *mib;
++
++	if (!pm)
++		return;
++	mib = &pm->stats;
  
-@@ -471,7 +468,7 @@ yt921x_dsa_get_rmon_stats(struct dsa_switch *ds, int port,
- 			  struct ethtool_rmon_stats *rmon_stats,
- 			  const struct ethtool_rmon_hist_range **ranges)
+ 	mutex_lock(&priv->reg_lock);
+ 	yt921x_mib_read(priv, port);
+@@ -470,7 +489,12 @@ yt921x_dsa_get_rmon_stats(struct dsa_switch *ds, int port,
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
  	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *mib = &pp->mib;
+-	struct yt921x_mib_stats *mib = &pp->mib;
++	struct yt921x_mib *pm = pp->mib;
++	struct yt921x_mib_stats *mib;
++
++	if (!pm)
++		return;
++	mib = &pm->stats;
  
-@@ -507,7 +504,7 @@ static void
- yt921x_dsa_get_stats64(struct dsa_switch *ds, int port,
- 		       struct rtnl_link_stats64 *stats)
+ 	mutex_lock(&priv->reg_lock);
+ 	yt921x_mib_read(priv, port);
+@@ -506,7 +530,12 @@ yt921x_dsa_get_stats64(struct dsa_switch *ds, int port,
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
  	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *mib = &pp->mib;
+-	struct yt921x_mib_stats *mib = &pp->mib;
++	struct yt921x_mib *pm = pp->mib;
++	struct yt921x_mib_stats *mib;
++
++	if (!pm)
++		return;
++	mib = &pm->stats;
  
-@@ -543,7 +540,7 @@ static void
- yt921x_dsa_get_pause_stats(struct dsa_switch *ds, int port,
- 			   struct ethtool_pause_stats *pause_stats)
+ 	stats->rx_length_errors = mib->rx_undersize_errors +
+ 				  mib->rx_fragment_errors;
+@@ -522,8 +551,8 @@ yt921x_dsa_get_stats64(struct dsa_switch *ds, int port,
+ 	/* stats->tx_heartbeat_errors */
+ 	stats->tx_window_errors = mib->tx_late_collisions;
+ 
+-	stats->rx_packets = pp->rx_frames;
+-	stats->tx_packets = pp->tx_frames;
++	stats->rx_packets = pm->rx_frames;
++	stats->tx_packets = pm->tx_frames;
+ 	stats->rx_bytes = mib->rx_good_bytes - ETH_FCS_LEN * stats->rx_packets;
+ 	stats->tx_bytes = mib->tx_good_bytes - ETH_FCS_LEN * stats->tx_packets;
+ 	stats->rx_errors = stats->rx_length_errors + stats->rx_over_errors +
+@@ -542,7 +571,12 @@ yt921x_dsa_get_pause_stats(struct dsa_switch *ds, int port,
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
  	struct yt921x_port *pp = &priv->ports[port];
- 	struct yt921x_mib *mib = &pp->mib;
- 
-@@ -598,7 +595,7 @@ yt921x_set_eee(struct yt921x_priv *priv, int port, struct ethtool_keee *e)
- static int
- yt921x_dsa_set_mac_eee(struct dsa_switch *ds, int port, struct ethtool_keee *e)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
+-	struct yt921x_mib_stats *mib = &pp->mib;
++	struct yt921x_mib *pm = pp->mib;
++	struct yt921x_mib_stats *mib;
++
++	if (!pm)
++		return;
++	mib = &pm->stats;
  
  	mutex_lock(&priv->reg_lock);
-@@ -622,7 +619,7 @@ yt921x_dsa_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
- 	 * maximum after reset
- 	 */
- 
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	struct dsa_port *dp = dsa_to_port(ds, port);
- 	int frame_size;
- 	int res;
-@@ -697,7 +694,7 @@ yt921x_marker_tfm(struct yt921x_marker *marker, u64 rate, u64 burst,
+ 	yt921x_mib_read(priv, port);
+@@ -3649,11 +3683,14 @@ yt921x_phylink_mac_link_down(struct phylink_config *config, unsigned int mode,
  {
- 	const int C = flags & YT921X_MARKER_PKT_MODE ? YT921X_TOKEN_PKT_C :
- 		      YT921X_TOKEN_BYTE_C;
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct yt921x_marker m;
- 	u64 burst_est;
- 	u64 burst_sug;
-@@ -873,8 +870,8 @@ yt921x_meter_config(struct yt921x_priv *priv, unsigned int id,
- 
- static void yt921x_dsa_port_policer_del(struct dsa_switch *ds, int port)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
--	struct device *dev = to_device(priv);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
+ 	struct dsa_port *dp = dsa_phylink_to_port(config);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
++	struct yt921x_mib *pm;
+ 	int port = dp->index;
  	int res;
+ 
+ 	/* No need to sync; port control block is hold until device remove */
+-	cancel_delayed_work(&priv->ports[port].mib_read);
++	pm = priv->ports[port].mib;
++	if (pm)
++		cancel_delayed_work(&pm->work);
  
  	mutex_lock(&priv->reg_lock);
-@@ -891,7 +888,7 @@ yt921x_dsa_port_policer_add(struct dsa_switch *ds, int port,
- 			    const struct flow_action_police *police,
- 			    struct netlink_ext_ack *extack)
+ 	res = yt921x_port_down(priv, port);
+@@ -3672,6 +3709,7 @@ yt921x_phylink_mac_link_up(struct phylink_config *config,
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	struct yt921x_marker marker;
- 	u32 ctrl;
- 	int res;
-@@ -921,7 +918,7 @@ static int
- yt921x_dsa_port_setup_tc_tbf_port(struct dsa_switch *ds, int port,
- 				  const struct tc_tbf_qopt_offload *qopt)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	struct netlink_ext_ack *extack = qopt->extack;
- 	u32 ctrls[2];
- 	int res;
-@@ -1970,7 +1967,7 @@ static int
- yt921x_dsa_cls_flower_del(struct dsa_switch *ds, int port,
- 			  struct flow_cls_offload *cls, bool ingress)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+ 	struct dsa_port *dp = dsa_phylink_to_port(config);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
++	struct yt921x_mib *pm;
+ 	int port = dp->index;
  	int res;
  
- 	mutex_lock(&priv->reg_lock);
-@@ -1985,7 +1982,7 @@ yt921x_dsa_cls_flower_add(struct dsa_switch *ds, int port,
- 			  struct flow_cls_offload *cls, bool ingress)
- {
- 	struct netlink_ext_ack *extack = cls->common.extack;
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	struct yt921x_acl_rule_ext ruleext;
- 	int res;
+@@ -3684,7 +3722,9 @@ yt921x_phylink_mac_link_up(struct phylink_config *config,
+ 		dev_err(dp->ds->dev, "Failed to %s port %d: %i\n", "bring up",
+ 			port, res);
  
-@@ -2056,8 +2053,8 @@ static void
- yt921x_dsa_port_mirror_del(struct dsa_switch *ds, int port,
- 			   struct dsa_mall_mirror_tc_entry *mirror)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
--	struct device *dev = to_device(priv);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	int res;
+-	schedule_delayed_work(&priv->ports[port].mib_read, 0);
++	pm = priv->ports[port].mib;
++	if (pm)
++		schedule_delayed_work(&pm->work, 0);
+ }
  
- 	mutex_lock(&priv->reg_lock);
-@@ -2074,7 +2071,7 @@ yt921x_dsa_port_mirror_add(struct dsa_switch *ds, int port,
- 			   struct dsa_mall_mirror_tc_entry *mirror,
- 			   bool ingress, struct netlink_ext_ack *extack)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -2143,7 +2140,7 @@ static int yt921x_lag_set(struct yt921x_priv *priv, u8 index, u16 ports_mask)
- static int
- yt921x_dsa_port_lag_leave(struct dsa_switch *ds, int port, struct dsa_lag lag)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	struct dsa_port *dp;
- 	u32 ctrl;
- 	int res;
-@@ -2206,7 +2203,7 @@ yt921x_dsa_port_lag_join(struct dsa_switch *ds, int port, struct dsa_lag lag,
- 			 struct netdev_lag_upper_info *info,
- 			 struct netlink_ext_ack *extack)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	struct dsa_port *dp;
- 	bool unique_lag;
- 	unsigned int i;
-@@ -2269,7 +2266,7 @@ yt921x_dsa_port_lag_join(struct dsa_switch *ds, int port, struct dsa_lag lag,
- 
- static int yt921x_fdb_wait(struct yt921x_priv *priv, u32 *valp)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	u32 val = YT921X_FDB_RESULT_DONE;
- 	int res;
- 
-@@ -2338,7 +2335,7 @@ static int
- yt921x_fdb_read(struct yt921x_priv *priv, unsigned char *addr, u16 *vidp,
- 		u16 *ports_maskp, u16 *indexp, u8 *statusp)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	u16 index;
- 	u32 data0;
- 	u32 data1;
-@@ -2629,7 +2626,7 @@ static int
- yt921x_dsa_port_fdb_dump(struct dsa_switch *ds, int port,
- 			 dsa_fdb_dump_cb_t *cb, void *data)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -2644,8 +2641,8 @@ yt921x_dsa_port_fdb_dump(struct dsa_switch *ds, int port,
- 
- static void yt921x_dsa_port_fast_age(struct dsa_switch *ds, int port)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
--	struct device *dev = to_device(priv);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -2660,7 +2657,7 @@ static void yt921x_dsa_port_fast_age(struct dsa_switch *ds, int port)
- static int
- yt921x_dsa_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u32 ctrl;
- 	int res;
- 
-@@ -2678,7 +2675,7 @@ static int
- yt921x_dsa_port_fdb_del(struct dsa_switch *ds, int port,
- 			const unsigned char *addr, u16 vid, struct dsa_db db)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -2692,7 +2689,7 @@ static int
- yt921x_dsa_port_fdb_add(struct dsa_switch *ds, int port,
- 			const unsigned char *addr, u16 vid, struct dsa_db db)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -2707,7 +2704,7 @@ yt921x_dsa_port_mdb_del(struct dsa_switch *ds, int port,
- 			const struct switchdev_obj_port_mdb *mdb,
- 			struct dsa_db db)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	const unsigned char *addr = mdb->addr;
- 	u16 vid = mdb->vid;
- 	int res;
-@@ -2724,7 +2721,7 @@ yt921x_dsa_port_mdb_add(struct dsa_switch *ds, int port,
- 			const struct switchdev_obj_port_mdb *mdb,
- 			struct dsa_db db)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	const unsigned char *addr = mdb->addr;
- 	u16 vid = mdb->vid;
- 	int res;
-@@ -2889,7 +2886,7 @@ yt921x_dsa_port_vlan_filtering(struct dsa_switch *ds, int port,
- 			       bool vlan_filtering,
- 			       struct netlink_ext_ack *extack)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
- 
- 	if (dsa_is_cpu_port(ds, port))
-@@ -2906,7 +2903,7 @@ static int
- yt921x_dsa_port_vlan_del(struct dsa_switch *ds, int port,
- 			 const struct switchdev_obj_port_vlan *vlan)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u16 vid = vlan->vid;
- 	u16 pvid;
- 	int res;
-@@ -2940,7 +2937,7 @@ yt921x_dsa_port_vlan_add(struct dsa_switch *ds, int port,
- 			 const struct switchdev_obj_port_vlan *vlan,
- 			 struct netlink_ext_ack *extack)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u16 vid = vlan->vid;
- 	u16 pvid;
- 	int res;
-@@ -3185,7 +3182,7 @@ yt921x_dsa_port_bridge_flags(struct dsa_switch *ds, int port,
- 			     struct switchdev_brport_flags flags,
- 			     struct netlink_ext_ack *extack)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
- 
- 	if (dsa_is_cpu_port(ds, port))
-@@ -3202,8 +3199,8 @@ static void
- yt921x_dsa_port_bridge_leave(struct dsa_switch *ds, int port,
- 			     struct dsa_bridge bridge)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
--	struct device *dev = to_device(priv);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	int res;
- 
- 	if (dsa_is_cpu_port(ds, port))
-@@ -3223,7 +3220,7 @@ yt921x_dsa_port_bridge_join(struct dsa_switch *ds, int port,
- 			    struct dsa_bridge bridge, bool *tx_fwd_offload,
- 			    struct netlink_ext_ack *extack)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u16 ports_mask;
- 	int res;
- 
-@@ -3244,7 +3241,7 @@ static int
- yt921x_dsa_port_mst_state_set(struct dsa_switch *ds, int port,
- 			      const struct switchdev_mst_state *st)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u32 mask;
- 	u32 ctrl;
- 	int res;
-@@ -3278,7 +3275,7 @@ static int
- yt921x_dsa_vlan_msti_set(struct dsa_switch *ds, struct dsa_bridge bridge,
- 			 const struct switchdev_vlan_msti *msti)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u32 masks[2];
- 	u32 ctrls[2];
- 	int res;
-@@ -3304,9 +3301,9 @@ yt921x_dsa_vlan_msti_set(struct dsa_switch *ds, struct dsa_bridge bridge,
  static void
- yt921x_dsa_port_stp_state_set(struct dsa_switch *ds, int port, u8 state)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
+@@ -3798,16 +3838,52 @@ yt921x_dsa_get_tag_protocol(struct dsa_switch *ds, int port,
+ 	return DSA_TAG_PROTO_YT921X;
+ }
+ 
++static void yt921x_dsa_port_teardown(struct dsa_switch *ds, int port)
++{
 +	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct dsa_port *dp = dsa_to_port(ds, port);
--	struct device *dev = to_device(priv);
- 	bool learning;
- 	u32 mask;
- 	u32 ctrl;
-@@ -3356,7 +3353,7 @@ yt921x_dsa_port_stp_state_set(struct dsa_switch *ds, int port, u8 state)
- static int __maybe_unused
- yt921x_dsa_port_get_default_prio(struct dsa_switch *ds, int port)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u32 val;
- 	int res;
- 
-@@ -3373,7 +3370,7 @@ yt921x_dsa_port_get_default_prio(struct dsa_switch *ds, int port)
- static int __maybe_unused
- yt921x_dsa_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u32 mask;
- 	u32 ctrl;
- 	int res;
-@@ -3399,7 +3396,7 @@ static int __maybe_unused
- yt921x_dsa_port_get_apptrust(struct dsa_switch *ds, int port, u8 *sel,
- 			     int *nselp)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u8 appprios[2][2] = {};
- 	int nsel;
- 	u32 val;
-@@ -3433,8 +3430,8 @@ static int __maybe_unused
- yt921x_dsa_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
- 			     int nsel)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
--	struct device *dev = to_device(priv);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	u32 ctrl;
- 	int res;
- 
-@@ -3574,9 +3571,9 @@ static int
- yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
- 		   phy_interface_t interface)
- {
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	const struct yt921x_info *info = priv->info;
- 	struct yt921x_port *pp = &priv->ports[port];
--	struct device *dev = to_device(priv);
- 	u32 mask;
- 	int res;
- 
-@@ -3628,7 +3625,7 @@ yt921x_phylink_mac_select_pcs(struct phylink_config *config,
- 			      phy_interface_t interface)
- {
- 	struct dsa_port *dp = dsa_phylink_to_port(config);
--	struct yt921x_priv *priv = to_yt921x_priv(dp->ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
- 	const struct yt921x_info *info = priv->info;
- 	int port = dp->index;
- 
-@@ -3651,7 +3648,7 @@ yt921x_phylink_mac_link_down(struct phylink_config *config, unsigned int mode,
- 			     phy_interface_t interface)
- {
- 	struct dsa_port *dp = dsa_phylink_to_port(config);
--	struct yt921x_priv *priv = to_yt921x_priv(dp->ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
- 	int port = dp->index;
- 	int res;
- 
-@@ -3674,7 +3671,7 @@ yt921x_phylink_mac_link_up(struct phylink_config *config,
- 			   bool tx_pause, bool rx_pause)
- {
- 	struct dsa_port *dp = dsa_phylink_to_port(config);
--	struct yt921x_priv *priv = to_yt921x_priv(dp->ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
- 	int port = dp->index;
- 	int res;
- 
-@@ -3695,7 +3692,7 @@ yt921x_phylink_mac_config(struct phylink_config *config, unsigned int mode,
- 			  const struct phylink_link_state *state)
- {
- 	struct dsa_port *dp = dsa_phylink_to_port(config);
--	struct yt921x_priv *priv = to_yt921x_priv(dp->ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
- 	int port = dp->index;
- 	int res;
- 
-@@ -3712,7 +3709,7 @@ static void
- yt921x_dsa_phylink_get_caps(struct dsa_switch *ds, int port,
- 			    struct phylink_config *config)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	const struct yt921x_info *info = priv->info;
- 
- 	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
-@@ -3803,7 +3800,7 @@ yt921x_dsa_get_tag_protocol(struct dsa_switch *ds, int port,
- 
++	struct yt921x_port *pp = &priv->ports[port];
++	struct yt921x_mib *pm = pp->mib;
++
++	/* get_stats64() might not be synchronized with port_teardown(), hold
++	 * the MIB block till the device teardown
++	 */
++	if (pm)
++		disable_delayed_work_sync(&pm->work);
++}
++
  static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
  {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
++	struct yt921x_port *pp = &priv->ports[port];
++	const struct yt921x_info *info = priv->info;
++	struct device *dev = yt921x_priv_to_device(priv);
++	struct yt921x_mib *pm = pp->mib;
  	int res;
  
++	if (!pm && (BIT(port) & yt921x_info_ports_mask(info))) {
++		pm = devm_kzalloc(dev, sizeof(*pm), GFP_KERNEL);
++		if (!pm)
++			return -ENOMEM;
++		pp->mib = pm;
++
++		pm->port = pp;
++		INIT_DELAYED_WORK(&pm->work, yt921x_mib_poll);
++		/* Start disabled, so that the enable below always pairs with
++		 * either this disable or the one from a previous teardown
++		 */
++		disable_delayed_work_sync(&pm->work);
++	}
++
  	mutex_lock(&priv->reg_lock);
-@@ -3817,7 +3814,7 @@ static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
- static int __maybe_unused
- yt921x_dsa_port_get_dscp_prio(struct dsa_switch *ds, int port, u8 dscp)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u32 val;
- 	int res;
+ 	res = yt921x_port_setup(priv, port);
+ 	mutex_unlock(&priv->reg_lock);
++	if (res)
++		return res;
  
-@@ -3834,7 +3831,7 @@ yt921x_dsa_port_get_dscp_prio(struct dsa_switch *ds, int port, u8 dscp)
- static int __maybe_unused
- yt921x_dsa_port_del_dscp_prio(struct dsa_switch *ds, int port, u8 dscp, u8 prio)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	u32 val;
- 	int res;
+-	return res;
++	if (pm)
++		enable_delayed_work(&pm->work);
++
++	return 0;
+ }
  
-@@ -3859,7 +3856,7 @@ yt921x_dsa_port_del_dscp_prio(struct dsa_switch *ds, int port, u8 dscp, u8 prio)
- static int __maybe_unused
- yt921x_dsa_port_add_dscp_prio(struct dsa_switch *ds, int port, u8 dscp, u8 prio)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	int res;
+ /* Not "port" - DSCP mapping is global */
+@@ -4382,6 +4458,7 @@ static const struct dsa_switch_ops yt921x_dsa_switch_ops = {
+ 	/* port */
+ 	.get_tag_protocol	= yt921x_dsa_get_tag_protocol,
+ 	.phylink_get_caps	= yt921x_dsa_phylink_get_caps,
++	.port_teardown		= yt921x_dsa_port_teardown,
+ 	.port_setup		= yt921x_dsa_port_setup,
+ #if IS_ENABLED(CONFIG_DCB)
+ 	/* dscp */
+@@ -4411,12 +4488,6 @@ static void yt921x_mdio_remove(struct mdio_device *mdiodev)
+ 	if (!priv)
+ 		return;
  
- 	if (prio >= YT921X_PRIO_NUM)
-@@ -3920,7 +3917,7 @@ static int yt921x_edata_read(struct yt921x_priv *priv, u8 addr, u8 *valp)
- static void yt921x_dsa_teardown(struct dsa_switch *ds)
- {
- #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+-	for (size_t i = ARRAY_SIZE(priv->ports); i-- > 0; ) {
+-		struct yt921x_port *pp = &priv->ports[i];
+-
+-		disable_delayed_work_sync(&pp->mib_read);
+-	}
+-
+ 	dsa_unregister_switch(&priv->ds);
  
- 	yt921x_leds_remove(priv);
- #endif
-@@ -3928,7 +3925,7 @@ static void yt921x_dsa_teardown(struct dsa_switch *ds)
+ 	for (unsigned int i = 0; i < ARRAY_SIZE(priv->acl_blks); i++) {
+@@ -4464,7 +4535,6 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
+ 		struct yt921x_port *pp = &priv->ports[i];
  
- static int yt921x_chip_detect(struct yt921x_priv *priv)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	const struct yt921x_info *info;
- 	u8 extmode;
- 	u32 chipid;
-@@ -3995,7 +3992,7 @@ static int yt921x_chip_detect(struct yt921x_priv *priv)
+ 		pp->index = i;
+-		INIT_DELAYED_WORK(&pp->mib_read, yt921x_mib_poll);
+ 	}
  
- static int yt921x_chip_reset(struct yt921x_priv *priv)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	u16 eth_p_tag;
- 	u32 val;
- 	int res;
-@@ -4243,8 +4240,8 @@ static int yt921x_chip_setup(struct yt921x_priv *priv)
- 
- static int yt921x_dsa_setup(struct dsa_switch *ds)
- {
--	struct yt921x_priv *priv = to_yt921x_priv(ds);
--	struct device *dev = to_device(priv);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct device_node *np = dev->of_node;
- 	struct device_node *child;
- 	unsigned long mask;
+ 	ds = &priv->ds;
 diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index 28e4f26f9cc4..9c34fb704bf8 100644
+index c1b24b6d1d97..d1764b635630 100644
 --- a/drivers/net/dsa/motorcomm/chip.h
 +++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -984,8 +984,10 @@ struct yt921x_priv {
- 	struct yt921x_acl_blk *acl_blks[YT921X_ACL_BLK_NUM];
+@@ -885,6 +885,15 @@ struct yt921x_mib_stats {
+ 	u64 tx_oam;
  };
  
-+#define dsa_to_yt921x_priv(_ds) container_of_const(_ds, struct yt921x_priv, ds)
- #define yt921x_port_to_priv(pp) \
- 	container_of_const((pp), struct yt921x_priv, ports[(pp)->index])
-+#define yt921x_priv_to_device(priv) ((priv)->ds.dev)
++struct yt921x_mib {
++	struct yt921x_port *port;
++
++	struct delayed_work work;
++	struct yt921x_mib_stats stats;
++	u64 rx_frames;
++	u64 tx_frames;
++};
++
+ struct yt921x_acl_entry {
+ 	u32 key[2];
+ 	u32 mask[2];
+@@ -917,11 +926,6 @@ struct yt921x_port {
+ 	/* BR_ISOLATED */
+ 	bool isolated:1;
  
- static inline int ethtool_speed_to_yt921x(int speed)
- {
-diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm/leds.c
-index 6613fe3b0471..79a4659b3a53 100644
---- a/drivers/net/dsa/motorcomm/leds.c
-+++ b/drivers/net/dsa/motorcomm/leds.c
-@@ -12,7 +12,6 @@
- #define to_yt921x_led(led_cdev) \
- 	container_of_const((led_cdev), struct yt921x_led, cdev)
- #define to_yt921x_port(led) ((led)->port)
--#define to_device(priv) ((priv)->ds.dev)
- 
- static u32 yt921x_led_regaddr(struct yt921x_priv *priv, int port, int group)
- {
-@@ -413,8 +412,8 @@ static int
- yt921x_led_setup(struct yt921x_priv *priv, int port,
- 		 struct fwnode_handle *fwnode)
- {
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct yt921x_port *pp = &priv->ports[port];
--	struct device *dev = to_device(priv);
- 	struct led_init_data init_data;
- 	struct led_classdev *led_cdev;
- 	char name[LED_MAX_NAME_SIZE];
-@@ -568,8 +567,8 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 
- static void yt921x_leds_remove_port(struct yt921x_priv *priv, int port)
- {
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct yt921x_port *pp = &priv->ports[port];
--	struct device *dev = to_device(priv);
- 
- 	for (int group = 0; group < YT921X_LED_GROUP_NUM; group++) {
- 		struct yt921x_led *led = pp->leds[group];
-@@ -587,7 +586,7 @@ static void yt921x_leds_remove_port(struct yt921x_priv *priv, int port)
- 
- static int yt921x_leds_setup_port(struct yt921x_priv *priv, int port)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct dsa_switch *ds = &priv->ds;
- 	struct device_node *leds_np;
- 	struct dsa_port *dp;
-diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
-index 1a3f3cc68275..dd6c52f37bbf 100644
---- a/drivers/net/dsa/motorcomm/mdio_bus.c
-+++ b/drivers/net/dsa/motorcomm/mdio_bus.c
-@@ -9,8 +9,6 @@
- #include "mdio_bus.h"
- #include "smi.h"
- 
--#define to_device(priv) ((priv)->ds.dev)
+-	struct delayed_work mib_read;
+-	struct yt921x_mib_stats mib;
+-	u64 rx_frames;
+-	u64 tx_frames;
 -
- static int yt921x_intif_wait(struct yt921x_priv *priv)
- {
- 	u32 val = 0;
-@@ -21,7 +19,7 @@ static int yt921x_intif_wait(struct yt921x_priv *priv)
+ #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
+ 	unsigned char led_duty;
+ 	unsigned short led_cycle;
+@@ -932,6 +936,7 @@ struct yt921x_port {
+ 	struct yt921x_led *leds[YT921X_LED_GROUP_NUM];
+ #endif
  
- int yt921x_intif_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	u32 mask;
- 	u32 ctrl;
- 	u32 val;
-@@ -145,7 +143,7 @@ yt921x_mbus_int_write(struct mii_bus *mbus, int port, int reg, u16 data)
++	struct yt921x_mib *mib;
+ 	struct phylink_pcs pcs;
+ };
  
- int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct mii_bus *mbus;
- 	int res;
+@@ -955,6 +960,11 @@ struct yt921x_info {
+ 	u16 serdes_mask;
+ };
  
-@@ -181,7 +179,7 @@ static int yt921x_extif_wait(struct yt921x_priv *priv)
- static int
- yt921x_extif_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	u32 mask;
- 	u32 ctrl;
- 	u32 val;
-@@ -275,7 +273,7 @@ yt921x_mbus_ext_write(struct mii_bus *mbus, int port, int reg, u16 data)
- 
- int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp)
- {
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	struct mii_bus *mbus;
- 	int res;
- 
-diff --git a/drivers/net/dsa/motorcomm/pcs-921x.c b/drivers/net/dsa/motorcomm/pcs-921x.c
-index 47467d803e13..e942b61d8eb2 100644
---- a/drivers/net/dsa/motorcomm/pcs-921x.c
-+++ b/drivers/net/dsa/motorcomm/pcs-921x.c
-@@ -8,8 +8,6 @@
- #include "pcs.h"
- #include "smi.h"
- 
--#define to_device(priv) ((priv)->ds.dev)
--
- static int
- yt921x_serdes_config(struct yt921x_priv *priv, int port, unsigned int neg_mode,
- 		     phy_interface_t interface,
-@@ -116,7 +114,7 @@ yt921x_phylink_pcs_get_state(struct phylink_pcs *pcs, unsigned int neg_mode,
- {
- 	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
- 	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	int port = pp->index;
- 	u16 bmsr;
- 	u16 lpa;
-@@ -155,7 +153,7 @@ static void yt921x_phylink_pcs_an_restart(struct phylink_pcs *pcs)
- {
- 	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
- 	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	int port = pp->index;
- 	u16 val;
- 	int res;
-@@ -181,7 +179,7 @@ static void yt921x_phylink_pcs_disable(struct phylink_pcs *pcs)
- {
- 	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
- 	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
--	struct device *dev = to_device(priv);
-+	struct device *dev = yt921x_priv_to_device(priv);
- 	int port = pp->index;
- 	int res;
++static inline u16 yt921x_info_ports_mask(const struct yt921x_info *info)
++{
++	return info->internal_mask | info->xmii_mask | info->serdes_mask;
++}
++
+ struct yt921x_priv {
+ 	struct dsa_switch ds;
  
 -- 
 2.53.0
