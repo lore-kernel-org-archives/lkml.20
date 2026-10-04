@@ -1,294 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14ED247ECF9;
-	Sun,  4 Oct 2026 18:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD7F4766BF
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791137196; cv=none; b=E7cHt6caCSBfw3574K2OjHx/6r0OrOKrHRjoXGxwMg/qXQqoELnpJvRA/FI76dmol4KbvzcdksFS690I0iBYWQbAKWmzWN2W/N7UYPjEahr302CPt+lyNxPGNWdUxQhcpLgFgYDjsMrIh8miz6bRTievDiLinredfQlu4H2KW60=
+	t=1791137207; cv=none; b=idaGx9IfrJPqWfEQhcRsKe2yjPLz57y/ijT1WSEFNrGZ8AtB1H4Q8cxpaTMyK7F3CeeqoHVJNDYv8l34ol2myhCzLyUS8pyN8wl/YFfyJrrs5eHDVvemrqC99dXjHQkxgxhiWWZ0oK4hnydjxTf2eX+U6PGvTzszzGrJTO/tSIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791137196; c=relaxed/simple;
-	bh=txKpiZj/vFaH3TyDauuUkNKayFxBlAtwL6eqxCEGI40=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZED/LPl1l8HGaeLpG1yU43rH4V+hOaeZS/xQBHgZyx3FNMSuN66nn7PbBY5oWRCeQdl24P6xvRDOkBnOsj0uV3ptI7piyFVYFGul429pDdbbdmfEWL/bNokvtpWaCuYzQGbfpBh0dtuNPBjGTIC5P45PFvKaSJNnCRqj+hM4bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I2WnkAn6; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791137207; c=relaxed/simple;
+	bh=J+rAe8YaV0xE6ynsuCf8y2AgnV7iwVIBFQVqkbHSmcU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aq028hhTd60wiPg8VjGV8ZGq4bqLfat46BWQYPbClLOL+8eBsjGodAGTgbER2TToYKWTfTAKZcfwC6Pi31fNPwMYNd8BXDPqirVTe3j2AJ6I4LhIsf7b/cNJjGCdZiTZ2Rn1Efv6m8uxR0li/26KITuSgfDgyKhbqvhDsMVXQHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iTn1sU2F; arc=none smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I2WnkAn6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791137192; x=1822673192;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=txKpiZj/vFaH3TyDauuUkNKayFxBlAtwL6eqxCEGI40=;
-  b=I2WnkAn6XqMjJeolRDWcDRqCl31o9p7dy0C+2S/L0QOgNoEaAPODrHJo
-   p9pcZGwbz+z4Flbavdghs95tFk2fwFr6WSQlNEvuwa3HLsWSHlKLdJJ5y
-   fM5piT3Q2jz6KVrZCKaXziMpiQDvnZ3eCi4eaY/rHvo09VdCVjnHTd2J0
-   pFUaWFC+cjX3MSHYJaX/xFjp/QrD+sQdVZ1yV4Bm7+smsrl3qg6Oy7qaI
-   fHDmrlrtUPgHbhVZ0r6ltqFrEBTpuAX6JjrfpsYObXSsQK6pq/uaZL8jH
-   VX2XPVafUwD9GTM4ESv8Yx7WAep5Ecac5J5CpD4n8CJpjNFoCxLWU8eWq
-   Q==;
-X-CSE-ConnectionGUID: uvkgnXerT/iSGXIy3X69ig==
-X-CSE-MsgGUID: TtUvMQ4gROSQON3uN5S4Jw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="90851607"
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="90851607"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 11:06:31 -0700
-X-CSE-ConnectionGUID: F/pVaMaBTWKDdKfLZr7Mmg==
-X-CSE-MsgGUID: umG+elnYTu2Tf+LBMwQPlA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="304601979"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 04 Oct 2026 11:06:26 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xDQbP-00000000Uxh-2gjf;
-	Sun, 04 Oct 2026 18:06:23 +0000
-Date: Mon, 5 Oct 2026 02:06:14 +0800
-From: kernel test robot <lkp@intel.com>
-To: Birger Koblitz <mail@birger-koblitz.de>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>, Eric Dumazet <edumazet@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-	Jianhui Xu <neuromoments@gmail.com>,
-	Birger Koblitz <mail@birger-koblitz.de>
-Subject: Re: [PATCH net-next v16 04/13] ax88179_178a: Add HW support for
- AX179A-based chips
-Message-ID: <202610050104.tjRXtbIC-lkp@intel.com>
-References: <20261004-ax88179a-v16-4-2a9ae4e68f7b@birger-koblitz.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iTn1sU2F"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-482f6351831so451470f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791137202; x=1791742002; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CeVyw0XFTEgDWZ2YAol6WHysCU6w9ObR3PQ8hHYNkL4=;
+        b=iTn1sU2FG+AeaKQFCaZnQXTA7ahgpiGRlNcJY07y5WXJ7ONHksiIW/72dLZEKa19CQ
+         63hQak5WvwLTQRoMTEKUBL1Pa8Yjdqn5hTVxiKLHwPxQHxQmuPhgSwbEnlGBN0omRthe
+         frbwhqryNgDRRnaZm4sXC8k7kOD0yV9yxq8eTEjK2ji5P5gdJ4FcIm6cKjNzNXCHaAUx
+         0EduLgP1xsnYLE3DxCHJII7Z7BlRvx14QAHs/Ol+VBar6DgI50BcvOJi80bjLwbN+q1J
+         Ygj8TEH7JarECTpniXAmHTahNp65N3JBn1u9GIcNx2lmO8jIO7erRPyA75PpUyCom1jC
+         EDmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791137202; x=1791742002;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CeVyw0XFTEgDWZ2YAol6WHysCU6w9ObR3PQ8hHYNkL4=;
+        b=Q2N26KD+6HanJYOq7L9UvhYNDnGwlOh1uZX9A+2YezGQ0mgNmcqHER3Dnd8Igt2mcO
+         XA/FFdAUwwZJSVyAxPupD2xI9uGOw8kjUhpBSM6WE74BLIMfKwquy68hO4nw8S0mKD9+
+         SRtzn0jKmKiwClnwf+RBfV1gwhV6g/glpm0M8q79W0714u61HifmBMXFGPzZ4NdwCfHq
+         qbYZ8QAru0HjqZlIyYPYVL27q8QSI2JV0Ole437a9ouB/uoW5e1TRxQD/u7hxtgawqkh
+         isNSIKenzIFZiDsipZ1QlVbGuOGmLx0uWXutqe9T2Gmp7mRju7p2ZQQS/p0KT0PamTdO
+         VwjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZw/52eFOrAq90Mn9dRcbELVJTg1CaNbfziGhaxss0dsY8IsBhMfvOhQPgiWXd9xal9IewK5m3ZsOA0UE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kx6zvf+MRlfksUOTyqLa6hx6Ywq/bJuXyfJJHTSvOSaYBbTFVp
+	4p98oN5sVDQEtc/lYr9thMyxaajm8E9mI0yDJGzPPjFmReCwS4fRcJoK
+X-Gm-Gg: AYBFou2JM9x77jnyPG3U5iOhAXp5huQxEVD8CDviMTCGSa3sWjGIjpsuLuS71qfYMYN
+	AIkPyyhDnBLlQfvF8uOD6ThAVHxE93VFs8uy/o7I5sMNZvE07UiuXOy96lO+4JZRZFk5vn+yN/X
+	+/4LMGpLtLC1KCvTZK7wLpy8bQHvSlknBxk3jqSGOZulT/5VCW3JyckqLmmkADeOpBvfB+Gwe0r
+	GvjJfU+JtdT5YG7+sZ+bfYJMT95jxlSx2/PCF65Lv/rXBc0SFNHt2EGZ7sOjslnsBT3AMkQO0A0
+	hK/6LHHzijP6PjzPDan1ZyzHQDh8XN3hTVNk1AgcEsWp5slKYThr8KYEoi2A4JEngkvZjvRN2y2
+	gBcGfcpqK3uSxdnY0/6ofHwuq0elLnlXRk83JMNKTJrZFmBvsptO7L0rM6Xa1RDTKq/OU4z0NHs
+	Wx5GCmr3JDVuq7eJbfdrEMpe8Cz5mYenCHso5pdq0NEWUXumdcoTcWKJG4fVKEHT8hOUhq1mVaW
+	yVqyPChy47Bi4eFrAp28NwKKEkDCRE0MueySnIw0LOA3ORCGYaISrhhccacdZ2DzGOX9OmtcqN5
+	6l36TJi8U432bRzTuZFx/RUPmE/gD4XtTtIa5BMOq0RVemMdrB/hZDYLVfWKA3nt88dltX8iRas
+	y4w==
+X-Received: by 2002:a05:600c:8b6a:b0:4a0:2391:6529 with SMTP id 5b1f17b1804b1-4a02757f1e4mr134280115e9.29.1791137197310;
+        Sun, 04 Oct 2026 11:06:37 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a190-7401-a90c-9d77-a1b8-e6a2.310.pool.telefonica.de. [2a02:3100:a190:7401:a90c:9d77:a1b8:e6a2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a02752aeb3sm283644635e9.0.2026.10.04.11.06.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 04 Oct 2026 11:06:36 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Jan Kara <jack@suse.cz>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ext4: return an error when a journal block is not mapped
+Date: Sun,  4 Oct 2026 20:06:29 +0200
+Message-Id: <20261004180629.27213-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004-ax88179a-v16-4-2a9ae4e68f7b@birger-koblitz.de>
+Content-Transfer-Encoding: 8bit
 
-Hi Birger,
+If the internal journal inode contains a hole, ext4_map_blocks() returns
+0. ext4_journal_bmap() logs "journal bmap failed" and aborts the
+journal, but also returns 0 and leaves *block unchanged.
 
-kernel test robot noticed the following build warnings:
+jbd2_journal_bmap() takes that as success and uses the unchanged logical
+journal block number as a physical filesystem block number. Journal I/O
+can then overwrite filesystem blocks outside the journal despite the
+abort.
 
-[auto build test WARNING on 071876fd50482a68603a9460d80dd6dd58827ee1]
+Return -EFSCORRUPTED for a hole, matching the error passed to
+jbd2_journal_abort(). Keep propagating negative mapping errors.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Birger-Koblitz/phylink-Add-phylink_mac_interrupt/20261004-073905
-base:   071876fd50482a68603a9460d80dd6dd58827ee1
-patch link:    https://lore.kernel.org/r/20261004-ax88179a-v16-4-2a9ae4e68f7b%40birger-koblitz.de
-patch subject: [PATCH net-next v16 04/13] ax88179_178a: Add HW support for AX179A-based chips
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20261005/202610050104.tjRXtbIC-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 5f609f950d2e80addf5566623013db68394334db)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261005/202610050104.tjRXtbIC-lkp@intel.com/reproduce)
+Fixes: 62913ae96de7 ("ext4, jbd2: add an optimized bmap for the journal inode")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Found with an experimental clang that warns when a function returns 0
+right after reporting a failure.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610050104.tjRXtbIC-lkp@intel.com/
+Recorded QEMU A/B testing used x86_64 kernels and a 1 KiB-block image
+with a hole in the journal inode starting at logical block 40. The
+unpatched kernel overwrote filesystem block 40, a reserved GDT block.
+With the patch, none of the marker blocks changed. There were three
+runs per kernel.
 
-All warnings (new ones prefixed by >>):
+Both kernels logged the mapping failure and journal abort:
 
->> drivers/net/usb/ax88179a_devices.c:783:24: warning: shift count >= width of type [-Wshift-count-overflow]
-     783 |         tx_desc |= FIELD_PREP(AX179A_TX_DESC_MSS, (u64)skb_shinfo(skb)->gso_size);
-         |                    ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/usb/ax88179_lib.h:251:29: note: expanded from macro 'AX179A_TX_DESC_MSS'
-     251 | #define AX179A_TX_DESC_MSS              GENMASK(46, 32)
-         |                                         ^
-   include/linux/bits.h:51:24: note: expanded from macro 'GENMASK'
-      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
-         |                                 ^
-   include/linux/bits.h:48:20: note: expanded from macro 'GENMASK_TYPE'
-      48 |              (type_max(t) << (l) &                              \
-         |                           ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:702:22: note: expanded from macro 'compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:690:23: note: expanded from macro '_compiletime_assert'
-     690 |         __compiletime_assert(condition, msg, prefix, suffix)
-         |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:682:9: note: expanded from macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
->> drivers/net/usb/ax88179a_devices.c:783:24: warning: shift count >= width of type [-Wshift-count-overflow]
-     783 |         tx_desc |= FIELD_PREP(AX179A_TX_DESC_MSS, (u64)skb_shinfo(skb)->gso_size);
-         |                    ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/usb/ax88179_lib.h:251:29: note: expanded from macro 'AX179A_TX_DESC_MSS'
-     251 | #define AX179A_TX_DESC_MSS              GENMASK(46, 32)
-         |                                         ^
-   include/linux/bits.h:51:24: note: expanded from macro 'GENMASK'
-      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
-         |                                 ^
-   include/linux/bits.h:49:20: note: expanded from macro 'GENMASK_TYPE'
-      49 |               type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
-         |                           ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:702:22: note: expanded from macro 'compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:690:23: note: expanded from macro '_compiletime_assert'
-     690 |         __compiletime_assert(condition, msg, prefix, suffix)
-         |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:682:9: note: expanded from macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
->> drivers/net/usb/ax88179a_devices.c:783:24: warning: shift count >= width of type [-Wshift-count-overflow]
-     783 |         tx_desc |= FIELD_PREP(AX179A_TX_DESC_MSS, (u64)skb_shinfo(skb)->gso_size);
-         |                    ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/usb/ax88179_lib.h:251:29: note: expanded from macro 'AX179A_TX_DESC_MSS'
-     251 | #define AX179A_TX_DESC_MSS              GENMASK(46, 32)
-         |                                         ^
-   include/linux/bits.h:51:24: note: expanded from macro 'GENMASK'
-      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
-         |                                 ^
-   include/linux/bits.h:48:20: note: expanded from macro 'GENMASK_TYPE'
-      48 |              (type_max(t) << (l) &                              \
-         |                           ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:702:22: note: expanded from macro 'compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:690:23: note: expanded from macro '_compiletime_assert'
-     690 |         __compiletime_assert(condition, msg, prefix, suffix)
-         |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:682:9: note: expanded from macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
->> drivers/net/usb/ax88179a_devices.c:783:24: warning: shift count >= width of type [-Wshift-count-overflow]
-     783 |         tx_desc |= FIELD_PREP(AX179A_TX_DESC_MSS, (u64)skb_shinfo(skb)->gso_size);
-         |                    ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/usb/ax88179_lib.h:251:29: note: expanded from macro 'AX179A_TX_DESC_MSS'
-     251 | #define AX179A_TX_DESC_MSS              GENMASK(46, 32)
-         |                                         ^
-   include/linux/bits.h:51:24: note: expanded from macro 'GENMASK'
-      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
-         |                                 ^
-   include/linux/bits.h:49:20: note: expanded from macro 'GENMASK_TYPE'
-      49 |               type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
-         |                           ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:702:22: note: expanded from macro 'compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:690:23: note: expanded from macro '_compiletime_assert'
-     690 |         __compiletime_assert(condition, msg, prefix, suffix)
-         |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:682:9: note: expanded from macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
->> drivers/net/usb/ax88179a_devices.c:783:24: warning: shift count >= width of type [-Wshift-count-overflow]
-     783 |         tx_desc |= FIELD_PREP(AX179A_TX_DESC_MSS, (u64)skb_shinfo(skb)->gso_size);
-         |                    ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/usb/ax88179_lib.h:251:29: note: expanded from macro 'AX179A_TX_DESC_MSS'
-     251 | #define AX179A_TX_DESC_MSS              GENMASK(46, 32)
-         |                                         ^
-   include/linux/bits.h:51:24: note: expanded from macro 'GENMASK'
-      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
-         |                                 ^
-   include/linux/bits.h:48:20: note: expanded from macro 'GENMASK_TYPE'
-      48 |              (type_max(t) << (l) &                              \
-         |                           ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:702:22: note: expanded from macro 'compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:690:23: note: expanded from macro '_compiletime_assert'
-     690 |         __compiletime_assert(condition, msg, prefix, suffix)
-         |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:682:9: note: expanded from macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
->> drivers/net/usb/ax88179a_devices.c:783:24: warning: shift count >= width of type [-Wshift-count-overflow]
-     783 |         tx_desc |= FIELD_PREP(AX179A_TX_DESC_MSS, (u64)skb_shinfo(skb)->gso_size);
-         |                    ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/usb/ax88179_lib.h:251:29: note: expanded from macro 'AX179A_TX_DESC_MSS'
-     251 | #define AX179A_TX_DESC_MSS              GENMASK(46, 32)
-         |                                         ^
-   include/linux/bits.h:51:24: note: expanded from macro 'GENMASK'
-      51 | #define GENMASK(h, l)           GENMASK_TYPE(unsigned long, h, l)
-         |                                 ^
-   include/linux/bits.h:49:20: note: expanded from macro 'GENMASK_TYPE'
-      49 |               type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
-         |                           ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:702:22: note: expanded from macro 'compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:690:23: note: expanded from macro '_compiletime_assert'
-     690 |         __compiletime_assert(condition, msg, prefix, suffix)
-         |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:682:9: note: expanded from macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
-   6 warnings generated.
+  EXT4-fs (vda): journal bmap failed: block 40 ret 0
+  Aborting journal on device vda-8.
 
+ fs/ext4/super.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-vim +783 drivers/net/usb/ax88179a_devices.c
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index bca0dc87d0b7..3e7dabe45153 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -5967,7 +5967,7 @@ static int ext4_journal_bmap(journal_t *journal, sector_t *block)
+ 			 "journal bmap failed: block %llu ret %d\n",
+ 			 *block, ret);
+ 		jbd2_journal_abort(journal, ret ? ret : -EFSCORRUPTED);
+-		return ret;
++		return ret ? ret : -EFSCORRUPTED;
+ 	}
+ 	*block = map.m_pblk;
+ 	return 0;
 
-   770	
-   771	static struct sk_buff *ax88179a_tx_fixup(struct usbnet *dev, struct sk_buff *skb, gfp_t flags)
-   772	{
-   773		u64 tx_desc = skb->len & AX179A_TX_DESC_LEN_MASK;
-   774		int frame_size = dev->maxpacket;
-   775		struct sk_buff *ax_skb;
-   776		u64 *tx_desc_ptr;
-   777		int padding_size;
-   778		int headroom;
-   779		int tailroom;
-   780		u16 tci = 0;
-   781	
-   782		/* TSO MSS */
- > 783		tx_desc |= FIELD_PREP(AX179A_TX_DESC_MSS, (u64)skb_shinfo(skb)->gso_size);
-   784	
-   785		headroom = (skb->len + sizeof(tx_desc)) % 8;
-   786		padding_size = headroom ? 8 - headroom : 0;
-   787	
-   788		if (((skb->len + sizeof(tx_desc) + padding_size) % frame_size) == 0) {
-   789			padding_size += 8;
-   790			tx_desc |= AX179A_TX_DESC_DROP_PADD;
-   791		}
-   792	
-   793		if ((dev->net->features & NETIF_F_HW_VLAN_CTAG_TX) && (vlan_get_tag(skb, &tci) >= 0)) {
-   794			tx_desc |= AX179A_TX_DESC_VLAN;
-   795			tx_desc |= FIELD_PREP(AX179A_TX_DESC_VLAN_ID, (u64)tci);
-   796		}
-   797	
-   798		if (!dev->can_dma_sg && (dev->net->features & NETIF_F_SG) && skb_linearize(skb)) {
-   799			dev_kfree_skb_any(skb);
-   800			return NULL;
-   801		}
-   802	
-   803		headroom = skb_headroom(skb);
-   804		tailroom = skb_tailroom(skb);
-   805	
-   806		if (!(headroom >= sizeof(tx_desc) && tailroom >= padding_size)) {
-   807			ax_skb = skb_copy_expand(skb, sizeof(tx_desc), padding_size, flags);
-   808			dev_kfree_skb_any(skb);
-   809			skb = ax_skb;
-   810			if (!skb)
-   811				return NULL;
-   812		}
-   813		if (padding_size != 0)
-   814			skb_put_zero(skb, padding_size);
-   815		/* Copy TX header */
-   816		tx_desc_ptr = skb_push(skb, sizeof(tx_desc));
-   817		put_unaligned_le64(tx_desc, tx_desc_ptr);
-   818	
-   819		usbnet_set_skb_tx_stats(skb, 1, 0);
-   820	
-   821		return skb;
-   822	}
-   823	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
+-- 
+2.53.0
