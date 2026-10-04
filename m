@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F4B3CE0A7;
-	Sun,  4 Oct 2026 17:22:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379A6471416;
+	Sun,  4 Oct 2026 17:22:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134550; cv=none; b=KRFRS+O/8A8Hub+N9ggNcEccZtMI7nkmSgyyEYyTQsdpZPO52QZWcqiTP/RxBCYLw81saARnx6y70HnZDfaW/vcmGqElPNUByj1BBDo4n4JserUoa3qucFW5J559lVw2VO8u86/+pgKj5G2wj+DGlQlg2iCkZM9VNaT69uG23RA=
+	t=1791134552; cv=none; b=tOBdRdM3yFE4LO2OffSXgfAisWIgrBI8uhTR9YhZhxT33IsMfHxmyp9kbS4Lxosm4nwkGNSzeRtBKSwUA49fyHWUCgup1nQC/NuNefIqrxsaDRwzia/ThmWej7XLf4sBKTrw+S/oNwsU3xVJVtSVwFE2H6ABSCexzHXE3EsOti4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791134550; c=relaxed/simple;
-	bh=sOjIy8vMcvdUVTr2Rm5CJ/+C732zG6WL4Zm3oBqdVcQ=;
+	s=arc-20240116; t=1791134552; c=relaxed/simple;
+	bh=y4U9sdqSX+SLCuphJSOPDyoLN+z8g/18/bdkc0CU+0I=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Nof3rgEXD2GsL+f9aw2UM3fXWz2W3mKzni0EsgEBUF4v+yEkuN57b+SuhWm2n3A8IvSqVDahBFKTJ77KbsC9ixAFEum9pfJefogB6OHFEL98iJB7pUbwA8Hms4sT9EchEBQsCHKllFR04aX6R3SB5SxEe9vDPrxAEK8lYD3P8bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEzkomZG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=hdGc2y4ZqHvbtMP83tMpDm6MsA/LPNvdGDzGLBjOZMPM/zrpY7Vs5RHqZUSUm04Pfig36kXPhnPrC4/H4mOnFF8q4j+5PWw5MflVc8+GtZMcLzErTra3aHEMCxxpr+maxbANCfwVgQDvPlI5wnqqrNWhOyl7Z+eXrnd11qls4B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ib8N+P52; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEzkomZG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545251F00893;
-	Sun,  4 Oct 2026 17:22:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ib8N+P52"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7861F000FF;
+	Sun,  4 Oct 2026 17:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791134548;
-	bh=Ox5PicThKcTKUH1oAfZmNYAoTGVYCoNsV39Vcm0+seg=;
+	s=k20260515; t=1791134551;
+	bh=LWs0IUeZgaWXavRPwPbOu8D++xZzQdiH6/SUvFQVmnY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WEzkomZGrQgqyeNOexm4UlJPGl1tUrx8YjOPPBbcSiJLKwznLF1hLKpcKLLLyxeDH
-	 +x5UZonp1blmLYdv7it/br4r6nphh9gV5B+uM6/U400LoHF6W3iuTB9rvbK0IqsjOm
-	 2VUMfu+5b4Whbze8DaHy37dcNbIlny2PCaWxwKrWn7NBZOzY17+XaxKszr/37WMFK9
-	 3Pl2zLyRlMS9nPhhQcnkoggtZc2eyombbYUthaZybwd1TQfh7qhp9KRh9SD64M/aGy
-	 SAR07uecgHsFesYrPW28NgcLonWemnr2tDbm4xtuUrpf0YDl4pr1Bw+D8lUGZw8i0E
-	 n7y7r2NF75IkA==
-Subject: Re: [PATCH 03/16 net-next v3] net: inet: relocate ip_generic_getfrag
- and guard IPv4 socket logic
+	b=ib8N+P52mCayHObolwmiBuVkkETv3jgXQe2175L8iBotjHlx0I81BIWs+NrW+WEcl
+	 /PCNFxr/KaVvgRJ//v8V/59DoSQvRmIUaTRaaXHr/kO6P0aXbY7pYDpaEH3NmICFk7
+	 R3fotKFHgBf7W5fAz/5VDUIDuCN9ByZihfksoIr2N3bBQ564/kd4YHNlMpR/puOHWY
+	 0l8Ti/ZB7kfsiQQqIX+wIvLcdaad18LtviaQjG1wLto9eP337gsVixCQz8hTd/TnpW
+	 9bT75/I2jbuTjHH+hu5GssZCsT3CgZHnDrV5IG/zIVvjAjRnGfWDuDgLf4+iuBK614
+	 +NMICCWROPtqw==
+Subject: Re: [PATCH 05/16 net-next v3] ipv4: raw: split IPv4 specific logic
+ into raw_ipv4.c
 From: netdev-bot+sashiko@kernel.org
 To: fmancera@suse.de
 Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org,
  pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
  johannes@sipsolutions.net, linux-wireless@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 17:22:27 +0000
-Message-ID: <179113454791.434549.11395243650100357877@kernel.org>
-In-Reply-To: <20260930135334.4739-4-fmancera@suse.de>
-References: <20260930135334.4739-4-fmancera@suse.de>
-X-sashiko-severity: Critical
+Date: Sun, 04 Oct 2026 17:22:30 +0000
+Message-ID: <179113455008.434549.12574408611696347699@kernel.org>
+In-Reply-To: <20260930135334.4739-6-fmancera@suse.de>
+References: <20260930135334.4739-6-fmancera@suse.de>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,289 +48,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 1 · High: 0 · Medium: 1 · Low: 3
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Critical] This patch makes inet_init() skip inet4_init() when
-  CONFIG_IPV4=n.
-- [Medium] When CONFIG_IPV4=n, inet_gso_segment() now always returns
-  ERR_PTR(-EPROTONOSUPPORT).
-- [Low] The commit message does not describe the boot-time init
-  restructuring, which changes behaviour on every kernel because…
-- [Low] Baseline decision: false (resolved later in the series).
-- [Low] Baseline decision: false (resolved later in the series).
+- [Low] The IPv4-only `struct raw_frag_vec` is left behind in
+  net/ipv4/raw.c (line 72) and a second, identical copy is added in…
+- [Low] The new file net/ipv4/raw_ipv4.c uses
+  `EXPORT_SYMBOL_GPL(raw_v4_match);` at line 61 but does not include…
 
 --
 
-net: inet: relocate ip_generic_getfrag and guard IPv4 socket logic
+ipv4: raw: split IPv4 specific logic into raw_ipv4.c
 
-This patch moves ip_generic_getfrag() from ip_output.c to af_inet.c and
-adds CONFIG_IPV4 guards in af_inet.c for IPv4 ioctls, protocol
-registration, bind, release and GSO. It splits inet_init() into
-inet4_init() and inet4_late_init() so the IPv4-only parts can be skipped.
-It also rejects IPv4-mapped IPv6 addresses in __inet6_bind() and
-__ip6_datagram_connect() when IPv4 is disabled.
+This commit moves the IPv4-specific RAW socket code (packet matching,
+input/output processing, ICMP filtering and the AF_INET raw_prot) from
+net/ipv4/raw.c into a new net/ipv4/raw_ipv4.c. The new file is built only
+when CONFIG_IPV4 is enabled. raw_diag.c now wraps raw_v4_match() in an
+IS_ENABLED(CONFIG_IPV4) check.
 
-> diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-> index d9421ac38d78c..a9d46a178f9ab 100644
-> --- a/net/ipv4/af_inet.c
-> +++ b/net/ipv4/af_inet.c
+> diff --git a/net/ipv4/raw_ipv4.c b/net/ipv4/raw_ipv4.c
+> new file mode 100644
+> index 0000000000000..0419026683b08
+> --- /dev/null
+> +++ b/net/ipv4/raw_ipv4.c
+> @@ -0,0 +1,884 @@
 
 [ ... ]
 
-> @@ -1371,6 +1412,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
->  	int ihl;
->  	int id;
->  
-> +	if (!IS_ENABLED(CONFIG_IPV4))
-> +		return ERR_PTR(-EPROTONOSUPPORT);
+> +#include <asm/ioctls.h>
+> +#include <linux/igmp.h>
+> +#include <linux/mroute.h>
+> +#include <linux/netfilter.h>
+> +#include <linux/sockios.h>
+> +#include <linux/stddef.h>
+> +#include <linux/types.h>
+> +#include <linux/compat.h>
+> +#include <net/icmp.h>
+> +#include <net/ip.h>
+> +#include <net/raw.h>
+> +#include <net/sock.h>
+> +#include <net/udp.h>
+> +#include <net/xfrm.h>
 > +
->  	skb_reset_network_header(skb);
->  	nhoff = skb_network_header(skb) - skb_mac_header(skb);
->  	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
+> +struct raw_frag_vec {
+> +	struct msghdr *msg;
+> +	union {
+> +		struct icmphdr icmph;
+> +		char c[1];
+> +	} hdr;
+> +	int hlen;
+> +};
 
-[Severity: Medium]
+[Severity: Low]
+This isn't a bug, but should the original copy of struct raw_frag_vec be
+removed from net/ipv4/raw.c? After this patch, raw.c still contains:
 
-With CONFIG_IPV4=n, this rejects all IPv4 GSO. However, ipv4_offload_init()
-still registers the IPv4 GRO callbacks without any guard:
+net/ipv4/raw.c:
+struct raw_frag_vec {
+	struct msghdr *msg;
+	union {
+		struct icmphdr icmph;
+		char c[1];
+	} hdr;
+	int hlen;
+};
 
-	net_hotdata.ip_packet_offload = (struct packet_offload) {
-		.type = cpu_to_be16(ETH_P_IP),
-		.callbacks = {
-			.gso_segment = inet_gso_segment,
-			.gro_receive = inet_gro_receive,
-			.gro_complete = inet_gro_complete,
-		},
-	};
+All of its users (raw_probe_proto_opt(), raw_getfrag() and raw_sendmsg())
+are now in raw_ipv4.c, so nothing in raw.c uses it.
 
-An IPv6-only kernel can still forward IPv4 frames at L2, for example
-through a bridge, OVS, tc redirect, VXLAN/Geneve over an IPv6 underlay, or
-ip4ip6 via ip4ip6_gso_segment(). In that case IPv4 TCP/UDP traffic still
-gets GRO-merged. TSO skbs from tap, virtio and packet sockets are also
-still accepted.
+Can the raw.c copy be dropped as part of the move? That would leave a single
+definition of this IPv4-only structure.
 
-If the egress device needs software GSO, are these packets dropped?
-
-validate_xmit_skb()
-  skb_gso_segment()
-    skb_mac_gso_segment()
-      inet_gso_segment()
-        return ERR_PTR(-EPROTONOSUPPORT);
-
-The guard seems to be needed only because ip_send_check() is out of line
-in ip_output.c. Would moving ip_send_check() into shared code avoid this?
-
-This is still present at the end of the series. The commit message also
-doesn't mention the GSO change.
-
-[ ... ]
-
-> @@ -1959,6 +2001,45 @@ static int __init inet_init(void)
->  
->  	ip_init();
->  
-> +	return 0;
-
-[ ... ]
-
-> +static int __init inet_init(void)
+> +
+> +bool raw_v4_match(struct net *net, const struct sock *sk, unsigned short num,
+> +		  __be32 raddr, __be32 laddr, int dif, int sdif)
 > +{
-> +	int rc;
-> +
-> +	sock_skb_cb_check_size(sizeof(struct inet_skb_parm));
-> +
-> +	if (IS_ENABLED(CONFIG_IPV4)) {
-> +		rc = inet4_init();
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-
-[Severity: Critical]
-
-With CONFIG_IPV4=n, is the inet_peer slab cache ever created?
-
-The only way to reach ip_init() is through inet4_init(). ip_init() is also
-the only caller of inet_initpeers():
-
-net/ipv4/ip_output.c:ip_init() {
-	ip_rt_init();
-	inet_initpeers();
-	...
-}
-
-inet_initpeers() is the only place that sets peer_cachep:
-
-net/ipv4/inetpeer.c:inet_initpeers() {
-	...
-	peer_cachep = KMEM_CACHE(inet_peer, SLAB_HWCACHE_ALIGN | SLAB_PANIC);
-}
-
-inetpeer.o is built as obj-y and IPv6 still uses it. For example, a remote
-host that sends a UDP datagram to a closed IPv6 port ends up here:
-
-icmpv6_send()
-  icmp6_send()
-    icmpv6_xrlim_allow()
-      inet_getpeer_v6(net->ipv6.peers, &fl6->daddr)
-        inet_getpeer()
-          kmem_cache_alloc(peer_cachep, GFP_ATOMIC)
-
-On a lookup miss, peer_cachep is NULL at this point. Would that cause a
-NULL pointer dereference in softirq context?
-
-ip6_forward() redirect handling and ndisc_send_redirect() reach the same
-allocation through inet_getpeer_v6().
-
-CONFIG_IPV4 is still def_bool y at this commit. The problem remains at the
-end of the series, where the final patch makes CONFIG_IPV4 selectable.
-Should inet_initpeers() be moved out of the IPv4-only init path?
-
->  	/* Initialise per-cpu ipv4 mibs */
->  	if (init_ipv4_mibs())
->  		panic("%s: Cannot init ipv4 mibs\n", __func__);
-> @@ -1980,35 +2061,20 @@ static int __init inet_init(void)
->  	if (icmp_init() < 0)
->  		panic("Failed to create the ICMP control socket.\n");
->  
-> -	/*
-> -	 *	Initialise the multicast router
-> -	 */
-> -#if defined(CONFIG_IP_MROUTE)
-> -	if (ip_mr_init())
-> -		pr_crit("%s: Cannot init ipv4 mroute\n", __func__);
-> -#endif
-> -
->  	if (init_inet_pernet_ops())
->  		pr_crit("%s: Cannot init ipv4 inet pernet ops\n", __func__);
->  
-> -	ipv4_proc_init();
-> -
-> -	ipfrag_init();
-> +#ifdef CONFIG_PROC_FS
-> +	if (ip_misc_proc_init())
-> +		pr_crit("%s: Cannot init ipv4 misc proc\n", __func__);
-> +#endif
-
-[Severity: Low]
-
-ip_misc_proc_init() now runs even when CONFIG_IPV4=n. In that
-configuration, net->ipv4.fqdir (set up through ipfrag_init()) and
-net->ipv4.devconf_all (set up by devinet) are never initialized.
-
-Would reading /proc/net/sockstat or /proc/net/snmp make sockstat_seq_show()
-or snmp_seq_show_ipstats() dereference NULL?
-
-This looks resolved later in the series. The patch "tcp: move protocol
-agnostic TCP functions out of tcp_ipv4.c" wraps two things in
-IS_ENABLED(CONFIG_IPV4):
-
-- the FRAG line in sockstat_seq_show()
-- the snmp_seq_show_ipstats(), icmp_put() and icmpmsg_put() calls in
-  snmp_seq_show()
-
-netstat_seq_show() only reads net->mib counters, which init_ipv4_mibs()
-always allocates. Since CONFIG_IPV4 is def_bool y at this commit, the
-intermediate state can't be reached.
-
->  
-> -	dev_add_pack(&ip_packet_type);
-> +	if (IS_ENABLED(CONFIG_IPV4))
-> +		inet4_late_init();
->  
 
 [ ... ]
 
-> @@ -2028,12 +2094,8 @@ static int __init ipv4_proc_init(void)
->  		goto out_udp;
->  	if (ping_proc_init())
->  		goto out_ping;
-> -	if (ip_misc_proc_init())
-> -		goto out_misc;
->  out:
->  	return rc;
-> -out_misc:
-> -	ping_proc_exit();
->  out_ping:
->  	udp4_proc_exit();
->  out_udp:
+> +	return raw_sk_bound_dev_eq(net, READ_ONCE(sk->sk_bound_dev_if),
+> +				   dif, sdif);
+> +}
+> +EXPORT_SYMBOL_GPL(raw_v4_match);
 
 [Severity: Low]
+Should raw_ipv4.c include <linux/export.h>? It uses
+EXPORT_SYMBOL_GPL(raw_v4_match), but <linux/export.h> is not in its
+include list. raw.c includes that header directly for
+EXPORT_SYMBOL_GPL(raw_v4_hashinfo).
 
-This isn't a bug, but the commit message doesn't describe the init
-restructuring. That restructuring changes behaviour on default kernels,
-since CONFIG_IPV4 is def_bool y at this commit.
+With W=2, check_missing_include_linux_export_h() in scripts/misc-check
+would warn:
 
-ip_mr_init() calls register_pernet_subsys(&ipmr_net_ops). It now runs after
-init_inet_pernet_ops() and ip_misc_proc_init() instead of before them. This
-changes the pernet init order and the reverse exit order.
+  net/ipv4/raw_ipv4.c: warning: EXPORT_SYMBOL() is used, but #include <linux/export.h> is missing
 
-ip_misc_proc_init() has also moved out of ipv4_proc_init():
-
-- it now runs before the raw, tcp4, udp4 and ping proc registrations
-- it runs even if those registrations fail
-- if it fails, it only prints pr_crit() and no longer unwinds the ping,
-  udp4, tcp4 and raw proc entries
-
-The message also doesn't mention the new guards in inet_gso_segment(),
-around ip_mc_drop_socket() in inet_release(), and in
-inet_sk_reselect_saddr().
-
-There is also a typo in the commit message:
-
-    This patch moves the generic ip_generec_getfrag() from ip_output.c to
-    af_inet.c.
-
-ip_generec_getfrag() should be ip_generic_getfrag().
-
-Could the commit message be updated to cover these changes?
+The file still compiles, because the header is pulled in indirectly.
 
 [ ... ]
-
-> diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-> index 191c9733ff9fa..079d1951405b9 100644
-> --- a/net/ipv6/datagram.c
-> +++ b/net/ipv6/datagram.c
-
-[ ... ]
-
-> @@ -186,7 +186,7 @@ int __ip6_datagram_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  	if (addr_type & IPV6_ADDR_MAPPED) {
->  		struct sockaddr_in sin;
->  
-> -		if (ipv6_only_sock(sk)) {
-> +		if (!IS_ENABLED(CONFIG_IPV4) || ipv6_only_sock(sk)) {
->  			err = -ENETUNREACH;
->  			goto out;
->  		}
-
-[Severity: Low]
-
-The v4-mapped rejection here and in __inet6_bind() doesn't cover
-tcp_v6_connect()->tcp_v4_connect() or udpv6_sendmsg()->udp_sendmsg(). With
-CONFIG_IPV4=n, can those paths still be reached at this commit?
-
-This looks handled later in the series. "tcp: move protocol agnostic TCP
-functions out of tcp_ipv4.c" adds this to tcp_v6_connect():
-
-	if (!IS_ENABLED(CONFIG_IPV4) || ipv6_only_sock(sk))
-		return -ENETUNREACH;
-
-The same patch also guards tcp_v6_conn_request(), tcp_v6_syn_recv_sock()
-and tcp_v6_do_rcv().
-
-The UDP split later in the series guards the v4-mapped paths in
-udpv6_sendmsg(), udp_v6_push_pending_frames() and udp6_hash4(). CONFIG_IPV4
-can't be disabled until the final patch, so no intermediate state is
-affected.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930135334.4739-1-fmancera%40suse.de
