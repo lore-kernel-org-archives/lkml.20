@@ -1,70 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D0B3B14BB;
-	Sun,  4 Oct 2026 21:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A985140B119;
+	Sun,  4 Oct 2026 21:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791149356; cv=none; b=t6WGoucs+ZdvWvDOz95HbTE4QtM5wpxFYGVCO7XiI73ucA7CU0Xra+yOuQ+atjcLq6vMTigWXk0ageePgjYQUGw2we8ALU2GoR+ffzqL9e2aaAn3C7CaMB7xL7fMaSEuedlayatIlCALR8mO5KehZgAtRgGT8+YYhRS186RGjYM=
+	t=1791149392; cv=none; b=Gf6+SnTtueKFiAS97D1kkQJmCMadfBohHOGT4NEexFAzmKU8mZBg/X+eg0FQSyyBee1ZFjo5FN2Q0nculodVeNdBWK+2L76X7oIglZLwj5Eft585zCre8Bfuo/aN2KJp2Y8D6gVlyndX7pPEN/UwWO3geQ+Mokiof4uupyivyrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791149356; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VXDzqvrnvOVzpRWJFImbMKYIw89kx3TM8ttfdrBHAaSGVsb7rYsv032Ns+iOZAyZRZigNIAbSXrQeKvFzU9feCK8JOhR2QbqNH1frgeeHH0BWAMzwvT9cBy8IO4w2ZPCbwsxyW5rZk5jDmXI9hzdpkK2IxYgMR/FAI4VL/hoUXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hp29ENO9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791149392; c=relaxed/simple;
+	bh=TYe4rW4o2vqZO6QkMGQLiHW6+NnADcGNTuGib3Ov7yw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tEPHjq6SraE2ThpggHkDX9fm+sw0tbRsU2b1nnGFGCKJeI+SNNazGT52mFR+nxdyP2GGH1K6Rf8vcTozCc1XBLL8Z35RYrSnpgDV+00kw+JaGDsQ5BaWmWNOmxrX8yfXoL+S5th0rmK1oQSnneMm1qUU6bEauf5Clfd7YlOPK6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=jdBvLkhe; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hp29ENO9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20961F000FF;
-	Sun,  4 Oct 2026 21:29:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791149354;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hp29ENO9c/wkhvfCZBKU9cp8njryNaAc/sbYO91Jws8yX1WfNrP1GpqXFnEcGwT1Y
-	 0TshX1qr3CFNTlzXySL+rAvVwRZVT6NpOs2uU4/k5bVYRoaFOlcMgtpXAyUkpPwsPg
-	 FaXP3ZAE38GTNCT8OiJ2Xoq8huein8RWt4fBece87G4lw323OXfIPhJUJduiC9XnjD
-	 3KXUyuv5DCRLhDuhfH6y9rNDbLl/SGbJf8MnkgEPXTi7ZWN0+rYNLq6MnFeN7DiF5n
-	 qWZ2KwrvQmZtMDLtp+DjSYMmx+x6XByHla+Tauv1hGsBaYkqKu5x68AULUe3Iz0VHo
-	 YDdpTjl5p9jXQ==
-From: netdev-bot+sinfo@kernel.org
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- netfilter-devel@vger.kernel.org, Phil Sutter <phil@nwl.cc>,
- Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Bernhard Thaler <bernhard.thaler@wvnet.at>,
- coreteam@netfilter.org, bridge@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf v2 0/2] netfilter: preserve bridge egress VLAN tags
-Date: Sun, 04 Oct 2026 21:29:13 +0000
-Message-ID: <179114935323.1402591.1020652042294576959@kernel.org>
-In-Reply-To: <20261004212429.3648-1-parri.andrea@gmail.com>
-References: <20261004212429.3648-1-parri.andrea@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="jdBvLkhe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=YodB7Djkxkxsr6YA3Pc28UrEIZmZxedLSYMQiXw1jHw=; b=jdBvLkheJCjQHxedaKjTcsbT0U
+	RQSYlVyl7JVVq1OIUY0LwRal1qRyHtvkJE8DEXyL+XRuaIv4k4ffzjCYjEkqgnDQJamDCvlS/HU4s
+	pZQoSFX9saFWVJMROoXQw+uIJrBbLqpS3GR1h9kjrDWivFPWCnSwedidqFbk2ASYVm2k=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xDTmB-008wcB-Nh; Sun, 04 Oct 2026 23:29:43 +0200
+Date: Sun, 4 Oct 2026 23:29:43 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Pufan Jin <2254650260@qq.com>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] arm64: zynqmp: Add support for EBDEE EdgeBoard FZ3A
+Message-ID: <f1e7750f-7057-4430-9783-83dc8a8a2e23@lunn.ch>
+References: <tencent_E9086080313181C5F806E5543C9638DC270A@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_E9086080313181C5F806E5543C9638DC270A@qq.com>
 
-Hi!
+On Sun, Oct 04, 2026 at 03:46:22AM +0800, Pufan Jin wrote:
+> The EBDEE EdgeBoard FZ3A is a development board built around the MYIR
+> MYS-CZU3EG SoM, based on the Xilinx Zynq UltraScale+ XCZU3EG.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+What exactly are you describing here. The SoM or the carrier board?
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Generally, there is a dtsi for the SoM, and a dts for the carrier
+board which includes the SoM .dtsi file.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+      Andrew
