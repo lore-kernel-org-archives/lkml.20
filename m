@@ -1,282 +1,224 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF4972602
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 04:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791089299; cv=fail; b=IXbdysUH3Hwib/4yZf9OBF7ZZTYtx3iAqK/UXpZz+GtOmzK3i2wLhWlRQz5XA5rV8HNSWW7thOsYQoJfhBW1lElmhcivCl8Ux8F16PMrMLlRG3BJ27voS2AUgfO0V8LL/gGjuYt27uMRDT+HsDB+5Dc4rDpeAl2nPeIpWprqt2I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791089299; c=relaxed/simple;
-	bh=lFeksZEm75k3Nx9TX3W7Z4VWkepwrWHuloYtp6w/zh4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=sFhtqnDrwldN9FIwXDy855IE4opya2bY3xDjwf0ei8lAC9aKQMsBVXoCivii2mb4L4Y8JDx0hjQuKlHx17dsG8mK0L+Q8Y1MuHTLDpc6ORUCtD9oLnBZG08sQId1c+G+7a91S5GojL2zOoV04zRXBiokspZuqpJS2kf8fKfl6Q8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kHhVD+EA; arc=fail smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7891E47CC;
+	Sun,  4 Oct 2026 04:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791089866; cv=none; b=BCXp5EBAPPJ/y90gE1PAiC94zl1NM05hkOaVJzycSdhdHXF6TwgrO9JxsGpC/uWwAAXkJLq81CnYwNaDPxeFixOT24YwIK/Pa+oSPiFqPc6GgX7uubuOha8h93sSqsamzBpD0x1Bh3OgTPCuPqGliDOtrRvXYJir8HJ3PnQrfQY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791089866; c=relaxed/simple;
+	bh=Q+Uo68P+lhj5UfkFd8WODPbN3xmadHKb2kEfoFD3NLo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Zomg+kWIkrtYhkiSNR/AGFQGOHtlXVdKWbY3l2vm2eoJbcS2FlG7OJ9wxVKxELXJ/eZA5J5lV1VTvVCpQeVkAT1nRoixG8dhs3o65oDxae114ILc/uG17r7hbNZlKM+24lh7QpgAcqn6p0h8d7fwfVnNBjEPn4ht6htAl/TUYe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxXuqca2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kHhVD+EA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791089297; x=1822625297;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=lFeksZEm75k3Nx9TX3W7Z4VWkepwrWHuloYtp6w/zh4=;
-  b=kHhVD+EAfKO1x2r+PX+SBMjwpuHLqORHfERvtyU6RWJxjIqo5ZhWnQk7
-   cSfHJXWFWcT2isw7KOyYN9bJfrTkY94RNOSD6WlKOZzGryYh7YYkxH16w
-   M5AqKRpmNwCNmiaBCYF3sc1sFP3yi9OEYLnB9PYcZHYtNx7UIOgLdz/Pr
-   LibK06WtX7zv3EFR4/4ney+P1pbh09rcTfgw0b7DXtfu2GvFG1i8dcDaz
-   Hdyh30Y+HIpsnaatpIyRJ+o89IC5HgUI9NwNdmlAjDgAwTTlvzHBM2EEv
-   rn9U0PuAXOzaiCp3SIO7hmK6X9yewXkKoUIY2Jz80lPv0wNLYlRKSAXx+
-   A==;
-X-CSE-ConnectionGUID: 9XawJSyKQ3e5LRyAnz5aow==
-X-CSE-MsgGUID: 3wq5djCJRROxAAbQkfLGvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="108174029"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="108174029"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 21:48:17 -0700
-X-CSE-ConnectionGUID: n+TGhYtrR1KUkl2FhHqf0w==
-X-CSE-MsgGUID: v1cnRTMeQoa3c3Qr/TPjxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="276620791"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 21:48:16 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 3 Oct 2026 21:48:16 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Sat, 3 Oct 2026 21:48:16 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.12)
- by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 3 Oct 2026 21:48:15 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f7wp6XqCBWFpIiKxxLnD6JVH8cuoP0gEUq73Wgw7cyc4IHePlPnzTwIUONbVt+82Dnag8SLprC+Fafr5nmNUKH33nmslmtNtRbobMCimHrQsxnZYsg56oaQPwFSIIW34H0CpIB05z9Tf9btUCXXdECXO9tl2Rl31/PcC2jNRD+ie2dSNKqF8nbaxosN1cSwFrshrCxnPBUqReGSQwGB+ablP/hrt7kGP+jDfYcyXngCR7L9Ny5eiIB0f+4HCVvmUfrhBCKWZTqNOHHTrculfD3VBUbZ9wkCBaenRL3rluSWALIRkL5AXknjMYy1EhhzpXGklHUmUxnEyb9+b2R/6rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xFGZG80hGP4kgEjhb6Nuy3V5nkCxSN7U2OmXrbfCL+A=;
- b=DMclIocyrHxD7J7maEWwJIMLb/UNjGIF+BCVP0KUnMJuYmMVf/fdTBL62pFl7U4ph2VpHey9NIkgmWOocmXSFNFA3k92hPdDHoRBt3xh5I9Cx5dA6+D8BvTIYVV7VfseSTAciVZc6j4UCOszjKX6STfETwpJfPp/ojEQiT61LjdHAZ0IEFks/ZSJ3LTLMuGlI2RBLIkhLyjX9hHi7wjEiCh5a98qfS1cUb4RPCutmr5boicpG4vn4+YGOKhL4fO6TF8SozFiKmMpMN/wJsEMKfnJmscEt9YmvD2wbV35pf0+LQOegRPW6AlOlfWceSoeU+b7+j8emEA/+lI+jLQ9vA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- IA0PR11MB7789.namprd11.prod.outlook.com (2603:10b6:208:400::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Sun, 4 Oct
- 2026 04:48:07 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0472.015; Sun, 4 Oct 2026
- 04:48:06 +0000
-Date: Sun, 4 Oct 2026 12:34:58 +0800
-From: Chen Yu <yu.c.chen@intel.com>
-To: Reinette Chatre <reinette.chatre@intel.com>
-CC: <tony.luck@intel.com>, <tglx@kernel.org>, <bp@alien8.de>,
-	<mingo@redhat.com>, <dave.hansen@linux.intel.com>, <hpa@zytor.com>,
-	<fenghuay@nvidia.com>, <babu.moger@amd.com>, <hongyu.ning@intel.com>,
-	<chen.yu@linux.dev>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
-	"Hongyu Ning" <hongyu.ning@linux.intel.com>
-Subject: Re: [PATCH v8 5/9] x86/resctrl: Parse ACPI CMRC table
-Message-ID: <asHXcgv80IIA1TzL@chenyu-dev>
-References: <cover.1789705667.git.yu.c.chen@intel.com>
- <51bf1ffbd3a6efe53dc457f32b0863cc6aff0e3f.1789705667.git.yu.c.chen@intel.com>
- <fcab8cf3-b5d6-4d67-86d6-b8d9f9092fbf@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <fcab8cf3-b5d6-4d67-86d6-b8d9f9092fbf@intel.com>
-X-ClientProxiedBy: TP0P295CA0050.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::6)
- To DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxXuqca2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197091F000FF;
+	Sun,  4 Oct 2026 04:57:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791089864;
+	bh=jqPp+qIXD1dd5/GTvZtypfi8cpUovFkg6nolTGVJjHQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dxXuqca2Noggs731vdDCyUmzRxEohjC+Oy8JVf8YmaryyxmA81lv1AsQtXEW5iJnX
+	 kthZdzFi4H0Zy2CvrusLuaMNnLc1jYYzMRKeawl+FWT/4FdecaQVvll74EiTAkRqTx
+	 X//ajnRnM+45SzgwxWxcqZPxidF5hsf8CRwiArLUN+PdJ6VaT0apgORUVU6y2s6p+d
+	 iiGR5G+1YCq5zlKJINkqFr0nfolXLLoUBTIEhctmyIs7al8SgM395v9EKoNmTObiUG
+	 OSw1miiuHI0rWG1W/lV/GuNacj/DuRPihEhQdyEUd+2fma512Rvn2SbrNfpCQG3sVn
+	 ngLGpnRbPERGQ==
+Subject:
+ Re: [PATCH net] vhost/vsock: trim nonlinear SKBs to declared payload length
+From: netdev-bot+sashiko@kernel.org
+To: 4ncienth@gmail.com
+Cc: stefanha@redhat.com, sgarzare@redhat.com, mst@redhat.com,
+ jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
+ kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Sun, 04 Oct 2026 04:57:43 +0000
+Message-ID: <179108986364.434549.5339286904514687491@kernel.org>
+In-Reply-To: <20260930044147.3818241-1-4ncienth@gmail.com>
+References: <20260930044147.3818241-1-4ncienth@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|IA0PR11MB7789:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9c6a375-1f04-4202-8fdf-08df21d2ae30
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|56012099006|22082099003|18002099003|10067099003|6133799003|4143699003|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info: XaGQozTVt2sU861IRxvHX7ZNT/A49LAYYT4mhkNrFsukHnWiLa1WtfEJwpk2UrEckSI9sbQMqAeYOGdTpQvVeLzuXjYawROkLQUdwnoiF8+dqYOMavhyBlVwJHUtx79gAPmjIYBt/6v205XO7z0utLnTN5dkdwBO2QacmK8aIelKg2cy2Rbpj78uVW4fCg+d7HDDm+otMccMUB6nCEdrF7yr5npRt/XbclfDl9gwfmgw83aQ+M1orBYXJnGnjOefjbv3hChdPb5zvtueUqV1OeL/NpGhbP2+nJMGFI/0R7brqZDO3IEeN3+VBvGLHRyKbptGWzMCaiSFVvHKhlS5nWTRXX/ZHUpze05nCJUxLWZTf6Fi41gpxETTQWDdtuICloGrBCTuL5tEWBsZpOoh9oaPal3VMxdj7NkesOTSwrbU3ECLwdZR2nMBZovDkr0R2zTHiTpWKt/AQi2S5iM7yBpKXjPvEYRx7f4KAbdgC/s2zKdzZ49OnBavD/RRvujFqPpqx5TQfJKalXhxJ0jhYbqDS0/B7iDCrYJpNqmGFce2NYElOlF4jmf2nRzoUjSsXpxNJhhMRQObfVfPNMUrbAd77NzUpHMCiAoNezbxzf5vTYb3UCxvWyIR0xa4tIbh0qq18mC2vrDBNPofoq91lcB8xB+U9gTAdrOt3tXmUyE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(56012099006)(22082099003)(18002099003)(10067099003)(6133799003)(4143699003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?H0QZ9jys6USQ6oRnJU0o7DfK15Ycr/oV2Q59dDNQftJLXNl8VMlnR+S47ISA?=
- =?us-ascii?Q?NeWlduYgqa88bTLA2SbnrbT6wItcqno2AZQUwVR3r7AROxHCBCp1TELmXJ0/?=
- =?us-ascii?Q?yca8Unva6Zx6uiuOACaKZ9+k4rpQNAy3wTZcSrJrxHqi7iy9FFcWkGFv9QaP?=
- =?us-ascii?Q?AgAtNC9TzKbkRyXMhLEmXrRLpOHq7TWFAOddUI9gXvfP8aRMjJxAm56Gs1Lu?=
- =?us-ascii?Q?j4mgzdZwp7nMFJWgP+n6FII0manemTJDbgX70xbLFHhnrt6dZZlhneE5xjJW?=
- =?us-ascii?Q?XKi1ewQIGcphMAFEZSIC8uuNnz8OfLGoNcFGnONFtZ2QclomC3h95DV58Hkx?=
- =?us-ascii?Q?7jyaIvDlkPTLs30xJSDMQp0BRvbyH/R7AsS0i7WbiZxiH1QBhGrzJQW06wOC?=
- =?us-ascii?Q?YOXtct3y7GW/n7f5D0trRLSalSyWjof0CHayz39sAiuGzHjE5484TNv2rzwm?=
- =?us-ascii?Q?JBqiSV9N1seABp5Z+K8sA+7zHZzpMRBuW9Zq8W+d0Kg3F19iIIkZ4nunW77U?=
- =?us-ascii?Q?zfjruOF2F6E2stjUXw47+R7KWu+tHDXUbDNcnj7wVpPoNH7UALl+IDhTmQti?=
- =?us-ascii?Q?0pIW1Uy2OJP1MLxAVgsYmuFM2z5+z+oHup57odvkxKGdNPMCPThXKSKojnQ+?=
- =?us-ascii?Q?91ZxGcfLOWqWA+BSHRDvTIHVUo5g6HTd790t9KgyJPX0xMrZYkrZ/UmAZs9C?=
- =?us-ascii?Q?P5rMIhfEq9RLe0vh4WrwmPfeAveMpt7WAoxe8wvQPYyu9JCaYGoKMs+QnWtX?=
- =?us-ascii?Q?CH0DTpFSpHXH7OaZ60rhB7UTz3OQgQa1xM8nxLfkjpCfRjF2gUjBV51dBuYd?=
- =?us-ascii?Q?/An3enhr67wusdSS+tXMffcH9n4RLaGIA1z/NGHq58I6em2EJ9t0/bwUcePc?=
- =?us-ascii?Q?Wiiiar/N8xWtB0e61ukPSgCPe9U/1RCSWmeScwPJQ6hbMtbFw6woTq3lGH0U?=
- =?us-ascii?Q?rhMUT5dEYQgl5cq2WgOyh+5EI6jJwjqTolUcy6jqjVpK9+NSYq6hyRUFKn3r?=
- =?us-ascii?Q?FSjVDll87KJS5+c+WCHve4cZwmm0YTo0FVFTAF3lnY3Bh1PHMaDkJQYSy1aa?=
- =?us-ascii?Q?CFRxTy5wgFBTzTNJlzXBH7f5ImJ0yr4+wnev5tiDk/GjWq8h+DO3z0bgnFmz?=
- =?us-ascii?Q?udVdQkZDlluto7Q9aHQtBUC0HZbAc+VQwnORASpFiCO5Op7XhQKW3kEFIzlu?=
- =?us-ascii?Q?glhzaD+iaOhjI0i611T7p96UHsiDrKpL7ilVgUTGiH7qSoiY1eoSM/aJpC0F?=
- =?us-ascii?Q?PHIPxK1eKQMvBqIaqQnuJmt+yqEd62trmuObPpjes1qkToRkWbkIOkU1aRVm?=
- =?us-ascii?Q?dFV2iysMgqMprQOabI4W9iyS1kwQ2PM/VbwLtAFe+Iag0n8NxaGzi0HfMXqy?=
- =?us-ascii?Q?wXofKiZOvDKPALuX7SnFGyfQbrtUjP0kSHMGdI58kyLM2fPT6cOi6Ycb+KlS?=
- =?us-ascii?Q?cBnGDTer/AVCQZpjwrGmxrGdvJo3VI9gTtrfYcZPu0zDpDjm+zuwqNO6RGIY?=
- =?us-ascii?Q?oun+y2tMWLkd90zc4DHbnoWdg34ZynY5ZgajGcylOyrmx4W3/lI3ieK3xjnN?=
- =?us-ascii?Q?ujbLQE5/ncyH/LXYg38wBg7x9e0pWLUQOYhgclin5Icch7UqW9/zDCDBnq6x?=
- =?us-ascii?Q?ZGVzlrYQOlub1mOliNqsekcxLlmm0D1KaOF52vxAlbk6ts6IhfdbRboMtn4y?=
- =?us-ascii?Q?miP8wPekkaQ2nwvyMA5kerz3lOCxkTnFjuGD2UF6udL/g4MGSOg69xA8Fduy?=
- =?us-ascii?Q?rjQbKgM6VQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: YM20YffzxZ8v2cE0PfobDqmGp2vr57GgeF2uu0d3NxDNbXQwACy5kEsoHFFjxJC6L6ZT9cs7HEyCYVPfZ+p3MvSl18YjYAkdW+X1F1AqPU6sP2pBAMp4dvmGbrKS/SRS2pshnlChWxM2SbCHGfz94wAKyo4gHy7UVrJKeY9Bdi6bvQK+PHtyKfvv2v6yGK70iOY1EJqgY2XyS0PgbNRsDqPJJgzrYOIh1Lc9+XYxwTg2EmmUpV66gEFBuDKK0G44m6e5vQSPSFDyRB8MP+UX67xMCpu6DxpazWsy3PCYTtj5gqKvFFJcCJa7tyIZToV38vcTAYn1U1pmNqGYNSD72A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9c6a375-1f04-4202-8fdf-08df21d2ae30
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 04:48:06.2435
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GSy02ororwKJVmsCob2/w5rDcEkix/zVlMt2J8M8BNukWCjYVi5o0zXjrNX7NHsptgsjqtB/Ej65Wlk+l2BagA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7789
-X-OriginatorOrg: intel.com
 
-Hi Reinette,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On Mon, Sep 28, 2026 at 02:46:32PM -0700, Reinette Chatre wrote:
-> Hi Chenyu,
-> 
-> On 9/17/26 9:50 PM, Chen Yu wrote:
-> > diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-> > index 8f6edcdcfd87..9a32ed418c33 100644
-> > --- a/arch/x86/include/asm/resctrl.h
-> > +++ b/arch/x86/include/asm/resctrl.h
-> > @@ -49,6 +49,8 @@ DECLARE_STATIC_KEY_FALSE(rdt_enable_key);
-> >  DECLARE_STATIC_KEY_FALSE(rdt_alloc_enable_key);
-> >  DECLARE_STATIC_KEY_FALSE(rdt_mon_enable_key);
-> >  
-> > +unsigned int erdt_get_scale(void);
-> > +
-> 
-> Adding this prototype to asm header file seems out of place. One needs to look
-> at later patches to learn this is because of upcoming use in
-> resctrl_arch_round_mon_val(). Beyond that, resctrl_arch_round_mon_val() also
-> later needs erdt_cpu_has() that even more looks like the wrong thing to do
-> when it comes to the asm header file.
-> 
-> resctrl_arch_round_mon_val() is used in two places, during system initialization
-> and when user space updates resctrl_rmid_realloc_threshold via a write to
-> "max_threshold_occupancy". Neither is a hot path requiring this to be inline
-> code. 
-> 
-> Aiming to keep resctrl_arch_round_mon_val() as an inline function is causing this
-> ERDT support to be unnecessarily fragmented. Could you please add a preparatory
-> patch that moves resctrl_arch_round_mon_val() to a c file and add its prototype
-> to include/linux/resctrl.h? This means that a change to MPAM driver is also needed
-> that I do not expect objection against. To make this easier it would help to
-> place the stub among the more stable resctrl_arch_* calls in MPAM driver.
->
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-Got it, thanks for providing this detailed information. Let me make this change.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> >  static inline bool resctrl_arch_alloc_capable(void)
-> >  {
-> >  	return rdt_alloc_capable;
-> > diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
-> > index 249ba547d7c8..a8a7417c2f82 100644
-> > --- a/arch/x86/kernel/cpu/resctrl/erdt.c
-> > +++ b/arch/x86/kernel/cpu/resctrl/erdt.c
-> > @@ -23,6 +23,7 @@ static LIST_HEAD(domain_info_list);
-> >  static bool erdt_enabled;
-> >  
-> >  #define ERDT_VALID_VERSION		1
-> > +#define CMRC_SUPPORTED_INDEX_FN		1
-> >  #define RMDD_FLAG_CPU_L3_DOMAIN		BIT(0)
-> >  
-> >  /* Bitmask of valid sub-tables found in the first RMDD, used to ensure all RMDDs match. */
-> > @@ -37,11 +38,26 @@ static u16 first_rmdd_domain_id;
-> >   */
-> >  static unsigned int erdt_max_rmid;
-> >  
-> > +/*
-> > + * Used only by the limbo handler to round resctrl_rmid_realloc_threshold.
-> 
-> This implies erdt_scale is used by limbo handler but limbo handler only uses
-> resctrl_rmid_realloc_threshold directly, no?
-> 
+- [High] The fix is incomplete.
+- [Medium] On 32-bit hosts, the check `payload_len + sizeof(*hdr) > len`
+  in vhost_vsock_alloc_skb() (drivers/vhost/vsock.c:404) can wrap, and…
 
-Right, limbo handler only uses resctrl_rmid_realloc_threshold, which is
-rounded by legacy/erdt_get_scale(). Let me revise this comment.
+--
 
-> > + * resctrl_rmid_realloc_threshold is a single global value, and
-> > + * resctrl_arch_round_mon_val() takes no domain argument, so a single scale has
-> > + * to be derived from the per-domain cmrc->up_scale. max() is chosen because the
-> 
-> This does not sound right. Using the fact that a function does not take an argument as
-> a motivation just makes one wonder why the function cannot just be changed?
-> 
-> "resctrl_rmid_realloc_threshold is a single global value" is accurate and the reason
-> why it needs to stay that way is because it is exposed to user space as such. That
-> was done before RDT introduced per domain scaling. If keeping it a global is ok for
-> ERDT then please highlight this, otherwise resctrl needs an enhancement.
-> 
+vhost/vsock: trim nonlinear SKBs to declared payload length
 
-It is OK for ERDT to use the global scale factor, let me revise the
-commit log as well as the comment.
+This commit changes virtio_vsock_skb_put() so that a nonlinear skb is
+trimmed with pskb_trim() to the payload length declared in hdr->len.
+Previously only skb->len was adjusted. The zero-payload early return in
+vhost_vsock_alloc_skb() now comes after the helper call, so zero-length
+packets are trimmed as well.
 
-> Apart from above it looks like introduction of erdt_scale and erdt_get_scale() would
-> benefit from a separate commit. The comment above clearly notes its complexity but
-> there is no mention of it in changelog. 
->
+> diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+> index abed1fbcf66cc..fa59456abda97 100644
+> --- a/drivers/vhost/vsock.c
+> +++ b/drivers/vhost/vsock.c
+> @@ -400,10 +400,6 @@ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
+>  
+>  	payload_len = le32_to_cpu(hdr->len);
+>  
+> -	/* No payload */
+> -	if (!payload_len)
+> -		return skb;
+> -
+>  	/* The pkt is too big or the length in the header is invalid */
+>  	if (payload_len + sizeof(*hdr) > len) {
 
-OK, let me split this change into a new patch and add a corresponding description
-in the commit log as well.
+[Severity: Medium]
+Can this check wrap on 32-bit hosts? payload_len is a size_t that comes
+from the guest-controlled hdr->len. A value from 0xFFFFFFD4 to 0xFFFFFFFF
+makes payload_len + sizeof(*hdr) wrap to 0..43. Since len is at least
+VIRTIO_VSOCK_SKB_HEADROOM, the check always passes.
 
-> > + * rounding is a floor: a larger scale yields a slightly lower threshold, i.e. an
-> > + * RMID has to drop to a slightly lower occupancy before it is reused.
-> > + */
+Before this patch, the nonlinear branch set skb->len to that huge value.
+skb_copy_datagram_from_iter() then skipped every fragment and returned
+-EFAULT without a warning.
+
+With the new virtio_vsock_skb_put(), skb->len is set to skb->data_len.
+pskb_trim(skb, huge) then does nothing, because len < skb->len is false.
+The skb reaches this call with headlen 0 and a negative int length (for
+example -32):
+
+vhost_vsock_alloc_skb()
+    skb_copy_datagram_from_iter(skb, 0, &iov_iter, payload_len)
+
+In the frag loop of skb_copy_datagram_from_iter(), this evaluates
+0 > -32 and fires:
+
+    WARN_ON(start > offset + len);
+
+copy_page_from_iter() is then called with bytes = (size_t)-32, which
+trips the check in page_copy_sane():
+
+    if (WARN_ON(n > v || v > page_size(head)))
+
+Neither warning is a once-only warning. A guest that posts TX descriptors
+larger than about 32.5 KiB with such hdr->len values would get two host
+WARN splats per packet. With panic_on_warn set, it would panic the host.
+
+The guest-side virtio_transport_rx_work() already uses an overflow-safe
+form of this check. Would it make sense to use it here as well?
+
+    if (unlikely(payload_len > len - sizeof(*hdr))) {
 
 [ ... ]
 
-> > +static __init int cmrc_init(struct acpi_subtbl_hdr_16 *subtbl,
-> > +			    struct erdt_domain_info *domain_info)
-> 
-> Same comment as for cacd_init().
->
+> diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+> index f91704731057e..31358683e23e3 100644
+> --- a/include/linux/virtio_vsock.h
+> +++ b/include/linux/virtio_vsock.h
+> @@ -51,10 +51,13 @@ static inline void virtio_vsock_skb_put(struct sk_buff *skb, u32 len)
+>  {
+>  	DEBUG_NET_WARN_ON_ONCE(skb->len);
+>  
+> -	if (skb_is_nonlinear(skb))
+> -		skb->len = len;
+> -	else
+> +	if (skb_is_nonlinear(skb)) {
+> +		skb->len = skb->data_len;
+> +		if (WARN_ON_ONCE(pskb_trim(skb, len)))
+> +			return;
+> +	} else {
+>  		skb_put(skb, len);
+> +	}
+>  }
 
-OK, will convert the return value to bool.
+[Severity: High]
+Does this fully fix the retention described in the commit message?
+vhost_vsock_alloc_skb() still sizes the skb from iov_length(), not from
+hdr->len:
 
-> >  static inline struct acpi_subtbl_hdr_16 *rmdd_subtbl(struct acpi_erdt_rmdd *rmdd)
-> >  {
-> >  	return (void *)rmdd + sizeof(*rmdd);
-> > @@ -170,6 +230,19 @@ static __init bool parse_rmdd_table(struct acpi_subtbl_hdr_16 *rmdd_hdr)
-> >  
-> >  			subtbl_mask |= BIT(ACPI_ERDT_TYPE_CACD);
-> >  			break;
-> > +		case ACPI_ERDT_TYPE_CMRC:
-> > +			/*
-> > +			 * Only one CMRC is supported per domain as there is no
-> > +			 * method to distinguish different CMRCs within a domain.
-> > +			 */
-> 
-> Please note how this comment style is different from comment used to describe parsing
-> of other RMDD sub-tables (before or after "case"). Please stick one style and use it
-> consistently.
->
+    skb = virtio_vsock_alloc_skb(len, GFP_KERNEL);
 
-OK, it is one single-line comment above the case, the other a multi-line block inside the
-case body. I'll standardize them for consistency.
+The trim here only frees memory when the whole payload fits in the head
+tailroom. Two cases seem to remain open.
 
-thanks,
-Chenyu
+The first case is the linear path. virtio_vsock_alloc_skb() gives any
+descriptor up to about 32448 bytes a linear head of the full descriptor
+size:
+
+    if (size <= SKB_WITH_OVERHEAD(PAGE_SIZE << PAGE_ALLOC_COSTLY_ORDER))
+            return virtio_vsock_alloc_linear_skb(size, mask);
+
+The else branch above still just calls skb_put(skb, len). A zero or small
+payload therefore keeps the whole ~32 KiB head.
+
+The second case is the nonlinear path with a payload larger than the head
+tailroom. That is a few hundred bytes; the 960-byte truesize in the commit
+message suggests about 340. ___pskb_trim() shortens frag[0] and unrefs
+only the frags after it:
+
+    skb_frag_size_set(&skb_shinfo(skb)->frags[i++], len - offset);
+
+    drop_pages:
+    skb_shinfo(skb)->nr_frags = i;
+
+    for (; i < nfrags; i++)
+            skb_frag_unref(skb, i);
+
+The order-3 page behind frag[0] stays pinned. skb_condense() then returns
+early, so truesize is not recomputed:
+
+    if (skb->data_len > skb->end - skb->tail ||
+        skb_cloned(skb) || !skb_frags_readable(skb))
+            return;
+
+virtio_transport_inc_rx_pkt() charges only hdr->len plus this per-skb
+overhead:
+
+    u64 skb_overhead = (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
+
+For a 256 KiB buf_alloc, that admits about 455 skbs.
+
+The merge and collapse paths don't seem to reclaim these skbs either:
+
+- virtio_transport_can_collapse() refuses any skb with
+  VIRTIO_VSOCK_SEQ_EOM set, and the guest controls hdr->flags.
+- The GOOD_COPY_LEN merge in virtio_transport_recv_enqueue() skips
+  nonlinear skbs, payloads over 128 bytes, and any skb after an EOM skb.
+- Collapse only runs once queue_len reaches queue_max.
+
+So one socket could still pin roughly 455 x ~33 KiB, about 15 MB.
+Meanwhile buf_used stays at zero (linear, zero payload, EOM) or about
+155 KB (nonlinear, 341-byte payloads). A guest can repeat this across
+connections.
+
+The commit message says:
+
+  "Set skb->len to the fragment length before calling pskb_trim(), then
+  trim to the declared payload length.  This releases unused fragments
+  and lets skb_condense() reduce truesize."
+
+Is that accurate for nonlinear skbs whose payload is larger than the head
+tailroom?
+
+Would it work better to read and validate hdr->len first and then allocate
+payload_len + VIRTIO_VSOCK_SKB_HEADROOM? Copying into a right-sized skb,
+or charging the memory actually retained, are other options.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930044147.3818241-1-4ncienth%40gmail.com
