@@ -1,182 +1,296 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80264119E0
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 06:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791094038; cv=none; b=OLEgFkaLBh0eKB+HfZFTeuhDPhHxIk6CM+JoiFLjglA31hUW0m6esmKzisJBn943Uh+uTAxVaXb6ETJ9a+/SNGCDhSsJ7s+9PhLw992Zx9hI/jLRg85+taE1ABAuxIOJAJ2FIx++edlXELoZXrFlYfChxMx3Er24uF/I2EXe3rA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791094038; c=relaxed/simple;
-	bh=j+2mD3Lw4/MJvYfFqphn19jd5ntuiOHqc4m1K2MPqJs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CFcyIXJpq+tqhTO/f/TSKVnhHIFCkyhGN4HujvOgyp3AJXsnJW8e+atD1/nExAjqfwGZ/9+IhNhGZoovp6dP1EXhV0RSuSkFpWuwF35I+fQV3+WFrB81SN/Osn8beJ/eM3Owtkxp5adA2mFfDccB6de86lIXZ4g2OSroYuTAIzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hzPnLf1U; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D883F99E3;
+	Sun,  4 Oct 2026 06:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791094052; cv=fail; b=lwlBJxHpcfSfg1zj7vY7xaX9gNF0CdWzFGXi9/DLWHYmaboyc5jHX7MpcY6NzCXglzfvmgu3UG4yq+7t1gZuXcL1USOhJkerInPtLk8xNlEE0BUTrdRmWzD/YjJqbjvOmceckW9/lDbsrZ/MusL7if8h6bFQRqy6i7JDbkJaxr0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791094052; c=relaxed/simple;
+	bh=V3hIvfC9pDRR3A9USSLcd83OkAuQM485ajLwIV7pt80=;
+	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nIcACJ9ETyltqma3tTAnErbZRu/GUVj6ysiBA4FBmIS3kcUtBodA09RRKDFUbaJ+cO4hNZNxYpEIoW2GTZx1QSRMv+PmWBebnxByClM5hFSrJ8B0IefywJIbtygahS5SVvdDg5faBiK6FoZQeFOy7Aya+RcvbhT3rZRd6EJEPM0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JxGZZvwd; arc=fail smtp.client-ip=52.101.85.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hzPnLf1U"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-381b831d535so614420a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 23:07:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791094036; x=1791698836; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uzaFTmYz+CkkadaQPdQFMgjPkjJonjXtWn2mskY5OKw=;
-        b=hzPnLf1UAeUQh+tNxlKZP7VWMSTVYs4PhOeEg71KFKO7EHGgiAQW+tdBeBAZlXUbs+
-         oQ6tst3fjTyiEYeAggWwkN9h3XbCw2g9WCsZ2IdqW+4ja3vPaCRcYVJ/Xdw1UnsB3y6f
-         xmq68vLR1g0r1yr5ggJNZp8Xn+IGa31F22CU8mYe6gL2C8OFg+5HEwQ+7HJ715EXk+wC
-         +sPRkpP9GaV5GTpQSeHYS3hli9/6WLoKA/RulhXx4g6xIILtbLGMjCSZN7afk73Ojm1V
-         e8uLE9beH571ytRuULxMOwWKWp8+ZSRUF8nb6jCNHV1NknDD8Wf06BQNYSk6O2Vli4A/
-         a55Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791094036; x=1791698836;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uzaFTmYz+CkkadaQPdQFMgjPkjJonjXtWn2mskY5OKw=;
-        b=0PXRH9BbqkTApk99brcshZSfglkaDcbAdb0mpyYrMsfVBTdIQeCvfP351YXDMPmrBt
-         +vAMr6DCkbuQpeURQvUioNcItWMmeKoGHEQeVcLy9JrR/8KdgSfLJqk0ncT+quC5PGq4
-         OflkgpBHzlFbVMMVgLBnPNfVMMm/B+HxVeiNy1psIK23wGQWg+X2pcnxtx9Pt5DbtMaY
-         k8+fgAP4p6R0VqE9dkXpX0wbxKAl/b3a2J4QYC8DScQSdcJ+uDJg8SHrSkAKwPLqGZtv
-         eCy7zYvnTC2u8N8cm2rCdOT3Zfwzv7GIGJFCdm+XSAV2oCvoSRXBxMe0rdXLUwiCY3MQ
-         UaOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ7dnSgueH8BxL4YvKkT/2wWBhtfqdu4rTQMirOw9QUf5rbwPVpb0jf73JEbn9gR21bznKk40N6pJzpqI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKAy4dQHePaaIOYU/TDUM4gYheVD6+hb98fgx8J72at9KDEMS2
-	1AS+q3Yv8oCKwcxCWpU6EXj9ZkbIDzQr4RGOiftRwtq1FK6xgIraSBbMlMlIxg4c
-X-Gm-Gg: AYBFou0zN5QATbP+ycrYzPmRyv03NF8m03Nqz3afQHT9fckhhotgpaoxG2S+YLzvgYT
-	8+lUe884o1hSMNCc/70KQrIt5dkJizrgMNa3zgGKqQjrTqxyDbTJ0sZUMB2Wahjm2z6TqPlCCSu
-	xi6/8K/1chjTBNnsbxT40X2bpR9uTps52lP17VV7It42hs66yPOe/sNcAOtRGyRpHAd5El57qwA
-	wz2Ptv7JZggrC5gvZsh26m0vRIERb7fq7hBCE61ICHTNboYrlAR0V7JQ9I/Ttz4ddpGM3R5qHmB
-	JryXRBFhi68qCdGnMJ9Wf21WExbjdoDOlj5j1rDgAzdbFzsPEnD0d81EHrD8g+IyCzzpuUN23cP
-	a7gKTLN8ReCH2WxWYV9KBzAxuOFnTP3mhqNuJF7twVsJd8V5Ithig0ss351AIRqr+horGYJhlI1
-	ngrijAN1YgderU4zKHUUTcG5BXWu3oq9aAfMjWCE8M905CWL9diV6JGQUMLM6GztQER/rPKt9H4
-	qNP81WP1Dew39TtPGyz/4XUZ3mAvJwewpyR0NV/be0SEFciirMHKrSEQXO1SPMo7vdhHuElf3gf
-	/N6r+xIBwk+siVHwzvoOA7D0PjjT+VyV4zmhyNvDd/7HN84=
-X-Received: by 2002:a17:90a:c2cc:b0:3a4:e89a:21bf with SMTP id 98e67ed59e1d1-3a7873db396mr2837779a91.39.1791094036003;
-        Sat, 03 Oct 2026 23:07:16 -0700 (PDT)
-Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d4a869esm5844094a91.2.2026.10.03.23.07.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 23:07:15 -0700 (PDT)
-From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 04 Oct 2026 16:03:48 +1000
-Subject: [PATCH v2 21/21] arm64: dts: apple: t602x-j47x: Add
- speaker/headset jack nodes
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JxGZZvwd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mINPm42JSiOxuDc76AgoBPnPwnZgmaaIFkipphe9y9xpEdF+0cdRjK233/ZW/Un9d7SPSW2aUr/M7k/0LyP+fPy8AemB8i8erlchGliSeWdBXiX46QmhvIVtP3x3gWQ8PTg4+Ngd85y10cwWuB1JLq6GDdd0Z9/ixy5jTkyFZjRXtXwVNd3XGZ28OgvmnI5GdRcRMTrVuJaiTu0vOMbGTJt7loCvPdSX7j/DZSOCTkM7L+A/PfyOx+irK54cI3WLhFOId6anYFgsR9amOTZl4BmqrRGlHAjXoUqBbaRBhTdacX2H9qnL7SqOhpUZmLWBljhYRrLCA4hMZDrJWFPAwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O7WwI66qa1gjJPr/Eb02AlmIcUtlZAJ3LqcMunHFrBY=;
+ b=OascesSaWdN2StTN8KnpKrWgmz7pg0+atLlt/ymbDAEcn3zyMzw8NWCYsEpwLRoqCXuQ05KD/Gz93O23wATin0C2XQHqlYvAHayriItJD+SV9iddbNxrQWbfd5l5lW89CPJ30iVTpblVWVUYLV7wJs50YpSHD580IqNebg+kOnrX4E4ikBnSknWIuauj7QoFBJeo5x1BtO7MQUKi5mPzwV5JlPGRxUxcfevTb3KQnaZycakAoIcPKnrAiIecDhyq7/SSw6S1WNKtOw2M/ZH72WGR1ZL4kY+4wRYcS6DYtvmUpZ074FzxALFMWKP1+zV+fSN4SqvOR2tA0yhFXP8iCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O7WwI66qa1gjJPr/Eb02AlmIcUtlZAJ3LqcMunHFrBY=;
+ b=JxGZZvwdNA7IcX91keu2M/w55C7bZNEx1jnkA6v//w/oKy+WzoKhHyo8iAfH/HI+UjhGKdgRqnlkaRTR/BmsGoxhLQjTBp9K6otNOe7KxZnXxQQCqwY4Jw/zLv/TlSDRdvWJL5Fv4RUTf50iha80/Z/uTyy1CTzJ2giSczCf2OWHEb3en8YDe843ND131psWDyjN1oH9XOXaxfagOA8UkJmmLs5hKM+8EkqBZ1A9wIJb9Rob8R4yEHUjGo0PiFGFC/Kwiv4S4pD2Bet4vKmbbQ5b5cn+ipVBFeiSrpLw7ebMGw7JnWcjRTUjAJ8amVR3Wimzg2ivekfXwCOGHCgL1Q==
+Received: from CH2PR12CA0008.namprd12.prod.outlook.com (2603:10b6:610:57::18)
+ by DM6PR12MB4233.namprd12.prod.outlook.com (2603:10b6:5:210::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
+ 2026 06:07:25 +0000
+Received: from CH2PEPF000166C1.namprd04.prod.outlook.com
+ (2603:10b6:610:57:cafe::40) by CH2PR12CA0008.outlook.office365.com
+ (2603:10b6:610:57::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun, 4
+ Oct 2026 06:07:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ CH2PEPF000166C1.mail.protection.outlook.com (10.167.252.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Sun, 4 Oct 2026 06:07:24 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sat, 3 Oct
+ 2026 23:07:20 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sat, 3 Oct 2026 23:07:20 -0700
+Received: from inno-x280 (10.127.8.13) by mail.nvidia.com (10.126.190.181)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Sat, 3 Oct 2026 23:07:13 -0700
+Date: Sun, 4 Oct 2026 08:07:11 +0200
+From: Zhi Wang <zhiw@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+CC: <rust-for-linux@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <aliceryhl@google.com>,
+	<bhelgaas@google.com>, <kwilczynski@kernel.org>, <ojeda@kernel.org>,
+	<boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+	<markus.probst@posteo.de>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+	<ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+	<targupta@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+	<acourbot@nvidia.com>, <jhubbard@nvidia.com>, <zhiwang@kernel.org>,
+	<jgg@nvidia.com>, <alex@shazbot.org>, Peter Colberg <peter@colberg.org>
+Subject: Re: [PATCH v3 07/10] rust: pci: add typed SR-IOV PF registration
+ data
+Message-ID: <20261004080711.011f0ce6@inno-x280>
+In-Reply-To: <DLSPDU29TZ0B.1O7PTVMMYQSHS@kernel.org>
+References: <cover.1790705494.git.zhiw@nvidia.com>
+	<9fa15232fb869a562973454d9d21a5287b3da080.1790759932.git.zhiw@nvidia.com>
+	<DLSPDU29TZ0B.1O7PTVMMYQSHS@kernel.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-macaudio-v2-21-7b47ed6335a8@gmail.com>
-References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
-In-Reply-To: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- James Calligeros <jcalligeros99@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>
-Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
- patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2504;
- i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=j+2mD3Lw4/MJvYfFqphn19jd5ntuiOHqc4m1K2MPqJs=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFkH3+Rf2a8aUrExzb1QOepzh8zJfDu2xPAy/q8rvjbJZ
- 8xfeqK1YyILgxgXg6WYIsuGJiGP2UZsN/tFKvfCzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
- RjrGOkYMXJwCMNW/tzAyTH/13rXH33uWx1NR3gB53XwtpaUvo/kPyArq3Wd/sm35NEaGnR6/n6y
- /xiJSZzNZ7uVUVp0VBRsfaWW1plgdP7/06ZMTLAA=
-X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
- fpr=B08212489B3206D98F1479BDD43632D151F77960
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166C1:EE_|DM6PR12MB4233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f2453c6-faf2-4d99-0257-08df21ddc2dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|82310400026|23010399003|5023799004|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	iLtVqEfx1Oa85snL+DNTSXYnvOvouB8PL1WpyqJk1h7ZfB5vsufVx4nUtTZriEmG1h1g2jX0vvaZgMiNNsJgzpwVFIdpYoliuU73Md9UgHHFuKf3n1MI2OrYvu5EmpBBMy7/EFyaRRT9dhdSqXNpdusvP7E+F8Fs4VDh5xUy7vWRHVgMtQkRzjqFl58phKe4eceTRgQEnN6J/JgFIq3StI2qRKyxk6Dn9XvdNSNMidrv8tKEOTQEhjKE2hrL6WzFmpgN2CYEd9gHw7kskYvZLNB5ExAT9hAZ+xOyNn7abKCxmDf38uNAOUKDb3yq/K/9w1+Ux9U4WTEXYhoE/dZgHtCv247HlOUFTTPodtWvYZisaJVNVDDu2VqlC02WESqMUPJFKtY5wfoMLAqGFDfP+U7xVCEgyY4DvEK73up6N5Qd6dMxiiln6FEogWhJOEGERyqLjMmv1YrSihr5NGd6RhtPt1cMagn9OirgEbSqQCjTouI/qf2aKCFmv3zKFMJ7MbYOsO2lV7+NYkcVeQx8vHJOy8STg26uq8mmtPaXm8TLFqHK2+DA1xy4PJj5MvjQOg+yw21BLYOGwcACZZsSvE+L9JDNgFTykkPiz82FrzpkZUnme5/hqPUOLYt2vS+Z3oB3iASTpgT8MDPLfT3S9YrCwnzrgROwVzGx1zuuVnMdN9SBwtQRIy+E2zWnCaPbe//+4qQD1RumBcgmWEf9AQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(82310400026)(23010399003)(5023799004)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cfePem38zmqUHG7Weu/uGF/UChHAXYbI0/GlDDeDx1VMeJsQI/OwTi5C7CRIvo88RFYMMhTpED/gFiBtXGRfL2qN8LiX0/croYl66M13OD/xbidZHEW9Q/Hj5Y8NLzI1GaQNu5YCL8OgsYFaEvyzQvdd2Ur+Z3JmsBebzb1VTTUVvTiFRI1GuVqAR0d+KIeKUJLu2buJTJSQHsc1VopxzBgrAy1m2LksrLr7PHBfmalKzuwgpba/TZ+ffAV7ESsTolw26xwfFegNJJ71jxp8Qnq5kQvSjHeWWL9wji1TJJEx9k6pVJ2byf4K32PyqYJoKQ7FAXAfenFdzjSpS8QqDZdqfC1QIG7q98n/F/bj/LAYDSUCtJyc9R+62Gp+d0RKHXsnxTjjkV67HzAqg5zoi3kZDw4SX72gn70r9dMlh09DQ1Q0a+ntxafZcpw4I48e
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 06:07:24.9143
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f2453c6-faf2-4d99-0257-08df21ddc2dd
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF000166C1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4233
 
-The M2 Pro/Max/Ultra Mac mini and Mac Studio integrate Apple-specific
-variants of the TI TAS2764 and Cirrus CS42L42. Add these nodes and
-advertise them to the machine driver via the sound node.
+On Wed, 30 Sep 2026 15:59:27 +0200
+"Danilo Krummrich" <dakr@kernel.org> wrote:
 
-Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
----
- .../arm64/boot/dts/apple/t6020-j474s.dts |  5 +++++
- .../arm64/boot/dts/apple/t6021-j475c.dts |  5 +++++
- .../arm64/boot/dts/apple/t6022-j475d.dts |  5 +++++
- .../boot/dts/apple/t602x-j474-j475.dtsi  | 10 ++++++++++
- 4 files changed, 25 insertions(+)
+> On Wed Sep 30, 2026 at 12:18 PM CEST, Zhi Wang wrote:
+> > diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+> > index 1599b3a613d7..8782e9b06e64 100644
+> > --- a/rust/kernel/pci.rs
+> > +++ b/rust/kernel/pci.rs
+> > @@ -51,6 +51,8 @@
+> >      Extended,
+> >      Normal, //
+> >  };
+> > +#[cfg(CONFIG_PCI_IOV)]
+> > +pub use self::iov::VfRegistration;
+> >  pub use self::irq::{
+> >      IrqType,
+> >      IrqTypes,
+> > @@ -331,6 +333,9 @@ fn probe<'bound>(
+> >      /// operations to gracefully tear down the device.
+> >      ///
+> >      /// Otherwise, release operations for driver resources should
+> > be performed in `Drop`.
+> > +    ///
+> > +    /// For a PF with enabled VFs, `VfRegistration` disables
+> > SR-IOV when it is dropped. This
+> > +    /// callback must leave resources accessed by VF drivers
+> > available until then.
+> 
+> I don't think we need this comment, neither this callback (which I
+> plan to remove anyway) nor T::Data::drop() can remove resources that
+> can still be accessed by VF drivers in the first place.
+> 
 
-diff --git a/arch/arm64/boot/dts/apple/t6020-j474s.dts b/arch/arm64/boot/dts/apple/t6020-j474s.dts
-index e3c2635d84fa..7b4c4ef471be 100644
---- a/arch/arm64/boot/dts/apple/t6020-j474s.dts
-+++ b/arch/arm64/boot/dts/apple/t6020-j474s.dts
-@@ -46,4 +46,9 @@ &pcie0 {
- 			<0x300 &pcie0_dart_3 1 1>;
- };
- 
-+&sound {
-+	compatible = "apple,j474-macaudio", "apple,j473-macaudio";
-+	model = "Mac mini J473";
-+};
-+
- #include "hwmon-mini.dtsi"
-diff --git a/arch/arm64/boot/dts/apple/t6021-j475c.dts b/arch/arm64/boot/dts/apple/t6021-j475c.dts
-index 9fe17f1f7f59..f8f776f9eb1e 100644
---- a/arch/arm64/boot/dts/apple/t6021-j475c.dts
-+++ b/arch/arm64/boot/dts/apple/t6021-j475c.dts
-@@ -36,4 +36,9 @@ &pcie0_dart_1 {
- 	status = "okay";
- };
- 
-+&sound {
-+	compatible = "apple,j475-macaudio", "apple,j375-macaudio";
-+	model = "Mac Studio J475";
-+};
-+
- #include "hwmon-fan-dual.dtsi"
-diff --git a/arch/arm64/boot/dts/apple/t6022-j475d.dts b/arch/arm64/boot/dts/apple/t6022-j475d.dts
-index 32938a3bf96a..153899f1569b 100644
---- a/arch/arm64/boot/dts/apple/t6022-j475d.dts
-+++ b/arch/arm64/boot/dts/apple/t6022-j475d.dts
-@@ -73,3 +73,8 @@ &bluetooth0 {
- 	compatible = "pci14e4,5f72";
- 	brcm,board-type = "apple,canary";
- };
-+
-+&sound {
-+	compatible = "apple,j475-macaudio", "apple,j375-macaudio";
-+	model = "Mac Studio J475";
-+};
-diff --git a/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi b/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi
-index 926bb4ab77af..7f1faefcf9bb 100644
---- a/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi
-+++ b/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi
-@@ -36,3 +36,13 @@ &hpm2 {
- &hpm3 {
- 	interrupts = <44 IRQ_TYPE_LEVEL_LOW>;
- };
-+
-+&speaker {
-+	interrupts-extended = <&pinctrl_ap 58 IRQ_TYPE_LEVEL_LOW>;
-+	shutdown-gpios = <&pinctrl_ap 57 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&jack_codec {
-+	interrupts-extended = <&pinctrl_ap 59 IRQ_TYPE_LEVEL_LOW>;
-+	reset-gpios = <&pinctrl_nub 8 GPIO_ACTIVE_HIGH>;
-+};
+I see. 
 
--- 
-2.55.0
+> You could have something like Mutex<Option<_>> of course, but that
+> would be intentional then.
+> 
+
+Got it. Will proceed in the next re-spin.
+
+> > != 0 {
+> > +                // SAFETY: This initializer runs during PF
+> > probing, and no VFs are enabled.
+> > +                if !unsafe {
+> > (*pdev.as_raw()).vf_registration_data_rust }.is_null() {
+> > +                    return Err(EBUSY);
+> > +                }
+> 
+> Those two checks can go into the first _: block, no?
+> 
+
+Nice idea. Thanks for the suggestion.
+
+> > +
+> > +                // SAFETY: The data is initialized and pinned, the
+> > slot is unoccupied, and
+> > +                // no VF can access it yet. No fallible work
+> > follows publication.
+> > +                unsafe {
+> > +                    (*pdev.as_raw()).vf_registration_data_rust =
+
+<snip>
+
+> > +    ///
+> > +    /// The data lifetime must be hidden behind a higher-ranked
+> > closure independently of the
+> > +    /// reference lifetime, or `F` must be covariant in its
+> > encoded lifetime.
+> > +    unsafe fn vf_registration_data_pinned<F: ForLt +
+> > 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
+> > +        if !self.is_virtfn() {
+> > +            return Err(ENODEV);
+> > +        }
+> 
+> We don't want to exclude PF drivers to access this. Have a look at
+> drivers/gpu/nova-core/api.rs, it makes sense for the PF driver to
+> provide a helper API around this.
+
+Got it. I will add a helper for the PF driver to access this.
+
+> 
+> > +        // SAFETY: This bound VF uses the `physfn` union field.
+> > PCI retains its PF until
+> > +        // VF removal completes, and the PF keeps the registration
+> > installed until then.
+> > +        let ptr = unsafe {
+> > +            let pf = (*self.as_raw()).__bindgen_anon_1.physfn;
+> > +            (*pf).vf_registration_data_rust
+> > +        };
+> > +
+> > +        if ptr.is_null() {
+> > +            return Err(ENOENT);
+> 
+> Maybe ENODEV?
+> 
+> > +        }
+> > +
+> > +        // SAFETY: The registration keeps its data installed until
+> > VF removal completes,
+> > +        // including when probe initialization rolls back.
+> > +        // `ptr` points to a `VfRegistrationData` whose first
+> > field is a `TypeId`.
+> > +        let type_id = unsafe { ptr.cast::<TypeId>().read() };
+> > +        if type_id != TypeId::of::<F>() {
+> > +            return Err(EINVAL);
+> > +        }
+> > +
+> > +        // SAFETY: TypeId check confirms the stored type matches
+> > `F`. The data
+> > +        // is pinned inside the PF's driver data struct. Lifetime
+> > shortening
+> > +        // from the PF's binding scope to `'_` is
+> > layout-compatible.
+> > +        let data_ptr = unsafe {
+> > +            let vfrd = ptr.cast::<VfRegistrationData<'_, F>>();
+> > +            &raw const (*vfrd).data
+> > +        };
+> > +
+> > +        // SAFETY: `data` is structurally pinned inside
+> > `VfRegistrationData`.
+> > +        Ok(unsafe { Pin::new_unchecked(&*data_ptr) })
+> > +    }
+> > +
+> > +    /// Access the VF registration data through a closure with an
+> > HRTB lifetime.
+> > +    ///
+> > +    /// `F` is the [`ForLt`](trait@ForLt) encoding of the data
+> > type. Returns
+> > +    /// [`ENODEV`] if this is not a VF, [`ENOENT`] if no data was
+> > registered,
+> > +    /// or [`EINVAL`] if `F` does not match the type registered by
+> > the PF.
+> > +    ///
+> > +    /// The reference is borrowed from this VF, while the
+> > registration data's lifetime remains
+> > +    /// abstract so the closure cannot store shorter-lived
+> > references in invariant data.
+> > +    pub fn vf_registration_data_with<'this, F: ForLt + 'static, R>(
+> > +        &'this self,
+> > +        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
+> > +    ) -> Result<R> {
+> > +        // SAFETY: The closure is higher-ranked over the data
+> > lifetime, independently of `'this`.
+> > +        // It cannot insert shorter-lived references, and the
+> > outer borrow cannot outlive this VF.
+> > +        let pinned = unsafe {
+> > self.vf_registration_data_pinned::<F>()? };
+> > +        Ok(f(pinned))
+> > +    }
+> > +
+> > +    /// Returns a pinned reference to the VF registration data.
+> > +    ///
+> > +    /// Available only when `F` implements
+> > [`CovariantForLt`](trait@crate::types::CovariantForLt),
+> > +    /// guaranteeing that shortening the PF data lifetime is sound.
+> > +    ///
+> > +    /// For non-covariant types, use
+> > [`Self::vf_registration_data_with()`].
+> > +    ///
+> > +    /// It returns the same errors as
+> > [`Self::vf_registration_data_with()`].
+> > +    pub fn vf_registration_data<F: CovariantForLt +
+> > 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
+> > +        // SAFETY: `CovariantForLt` permits shortening the encoded
+> > lifetime to this borrow.
+> > +        unsafe { self.vf_registration_data_pinned::<F>() }
+> > +    }
+> > +}
+> > -- 
+> > 2.53.0
+> 
 
