@@ -1,142 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DEB4718F2;
-	Sun,  4 Oct 2026 17:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46688471CE0
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134553; cv=none; b=uwkw6fkRNZTCQFul3+B3GoIaAMNxWIn7OgZU1Rq9wUrfdQhugiEm5qPN13ZYEMnKtALS4Vjqr/78svSNbqwonSk6l8U7fW3825Ya0O0VnjrHGXCNS4qwt+MvO8HdyLpUo8346sMANFoUs1hw5nZ8hYEn7ekgTt8dS+ytNYSOryU=
+	t=1791134554; cv=none; b=iT3lgcRyihnSwAedcU65ygb3cU/usjNoSGOUbiUBb/slkRZo2JxIyIw2Qe9PIeqW6ChVA/R9FfOWV2F5ZiNPvFimpobfgbJkBcBDL3UDEdz+aF1J4ePIe5h4lY4BE4j0KvLwo0eBOwGHsRK0nv/bO1aao21BMxnBhLuvZKg6DTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791134553; c=relaxed/simple;
-	bh=ZyjyuexdIVYN+vwBoT4V1u0YW7hGbGGAp8yKBz+Agd4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CHUBb29R1cMPghqxFvGKIdlpNt+ZLh50mGbg858nqLnnqr88BACzDMU7a1mjzP9vA/J4o2Qi3Zsw6yWkG/DweR7Zvmh+LBEn4R62QQrfjURQyNiCNGm3+sFEfgq1IB5vj1n4pZh31VYd9Lz4h5h5CbQQoVG2JlMx5OVwcM3F/sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hp426FrR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791134554; c=relaxed/simple;
+	bh=GLlt1YeRuUW5WlbWRWsA3akMoS6gmz8sfeOQOa8Ko08=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sig8f12lfS8z1Jf+EXF0JHS/0Y30eo9O746hiVOKxYS+H8s2lmFH4DduIny6Nfd6itC4h4wy+cI0JfBwfs0DVIJk3UwPzTvfOfeu66sorZmAjfKc2/okfzeUBm7PL0rpFKBS2HI6dT4iqOjIwEklH6NQ2UFUwo87MjFTl3gN8to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gx5OR6Ld; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hp426FrR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4701F00893;
-	Sun,  4 Oct 2026 17:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791134552;
-	bh=UrzyhIwxbo19PHzKX5XarHFz+2yT8oAbmmMsKKCFlO0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Hp426FrR4wqENgOesIwBXA/EBgA4d9L5hSOHaw/g+DghQ55+nOxmr6HrOKfyIYui6
-	 aNTJFNXf2sORF+5rzWgyl6n4bBpyBdzMlo4EmabfqaLJr1/knGicNYO9s1r4iV0t1u
-	 W80ncwIInR6CZltO1JRhkcXjNz5e5vRmblAKIRLiqxP5JPnM59gjsv4QZSecDyeBnS
-	 HOwN3HNN2b+Il0BVJF00k/OpQhP6/zh0mnHnpFkcK+sbhuPD+xGcPp181eLw1oDp5q
-	 4NlYdZxaPbztkMMeOpKU8/QIJW3TlUZHvOMnh2dUgs+EyhDVdluLh010UKm9LGm9P0
-	 Y8VfqdDfjNdgA==
-Subject: Re: [PATCH 06/16 net-next v3] ipv4: udp: split IPv4 specific logic
- into udp_ipv4.c
-From: netdev-bot+sashiko@kernel.org
-To: fmancera@suse.de
-Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
- johannes@sipsolutions.net, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 17:22:31 +0000
-Message-ID: <179113455115.434549.17562988532168582470@kernel.org>
-In-Reply-To: <20260930135334.4739-7-fmancera@suse.de>
-References: <20260930135334.4739-7-fmancera@suse.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gx5OR6Ld"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso455844a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:22:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791134551; x=1791739351; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f7rAIIfQRjf/DZlHIopzmqG8GHaCqWeari8L74hauSs=;
+        b=gx5OR6LdXal6Bfjj6sXUow1ZhAiZYscrkMQVlRlz+pi5zHgvTnLQk+PddsAAvcFodQ
+         hndYH/yTZsGlMy7ZL4jXDYurh0izwA1p7xKy3SOCFswuuIv/TQv8FCM2q4s68wFBxTyT
+         ZTb4ChRTWOrkoZIYuMVO0u8ESz929lyLX3pvD5BPXXcjUaQJsTjk+7V2N7geW8nNK4MO
+         HvG8PAUx4rxYAMqjC5tk6/30sZX+Px02PrTZ0WM0Pdp7q3O4IRDuMv5XptTVRFtqRgn6
+         sKhLVYYJuaQCsc+deBVx554oLIb3M0rNvtAFr/3gbJ0aKc1SMoaoQHRCosMOmXRsVfpE
+         geVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791134551; x=1791739351;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f7rAIIfQRjf/DZlHIopzmqG8GHaCqWeari8L74hauSs=;
+        b=gDRS10q74eVzcskdWGqCdseoze5IvBuWztJrkQkUfCg8hX1u41Rl2ieEBXuVYoFoYY
+         Qc53NjJtSNgKtu+8Wdx5F57VQPQOXgDUfjYYoDtkPDhbvJN1qA+FnJUq1KXNDiyazzI0
+         5Gt/Fpkp5VRpRsZ/ZgO4cCJqQF5SGhuYjhLZb5zuJcORmU1zo+eWc1pw+0D4dF7ua1MB
+         wB9NNr0maxC4+b07/3ur6gApuab5NBDlXLTCYXe8iaQ9798f8zUWNccFwXiy4TorFdek
+         +kVGaW4fZ+rE88SZeE/UJk0qbNlcb1n/ViJbg67paoQOpRluV6wFkTDY13hV0TFSHM6u
+         X14A==
+X-Forwarded-Encrypted: i=1; AKwUvBx5oFxgVob4hSB5jXdyyTQXOT+PIdCLfAheUR3xW/OeDr3FuXq8IglOJlS8ElgREWYZKg2WgCMc8q9qKXs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0yfaCHJABYUZ2EDQktDDAJgo8h0uaDK7hgiSUx1YHyJUbgSwB
+	/DN0M3WfHGqZ4A5uNYQ37tFkR0kDLgFMwYLeziU7UYOX71MM611igC4TYw2dZAMdk/M=
+X-Gm-Gg: AYBFou0FUZSD0PH8JooBIyJvRi5eY8tstlTrm6zvX0uAdnSXYTZ+8Xu87S1ndSOtKRk
+	vdZpJtX5IQzzT0YaRLU6WAuumH/lTTRhvM0qGshatX5I/ShQJqjldBv0Vw49Q1zEjzZVXKz8dh5
+	Jws6DzWbAzYaTtb+ZHAwvT1zito0ed5sCGkOemiywma7hI2pkTHzb/npZvNuVxoiEgxJ7TVfIz1
+	8WewrPuNDdop19a36hfXtXc4Hbd35a1xBDhOZmXmu/A2E9xWrNOAfpCZ2V3bpgfu0WO8BwN418R
+	cUrnOLxnGDdUeQ7Qi/fOKk6Z/WxEjs+s/4IRu/TaWgDB80yJhPgFjgfB3ORfyRevd4otf3Fc57K
+	JWLPPzgocnCtcZmRUGFOlRtv3GvKACTfdaaWexscgrXU0gZtQg5EO6i0HOlfWP5Fya/M2ky5nem
+	PMkw6U3dTqKhtALqosTpXstdYXA657BkEYgMSeSk8QAo1NP1T6M0aJjvueaqVwaF4oLOEQlKGgL
+	85lWh76/2TqUA==
+X-Received: by 2002:a17:90b:4d:b0:3a4:aee8:76ef with SMTP id 98e67ed59e1d1-3a78717db57mr4586561a91.21.1791134551329;
+        Sun, 04 Oct 2026 10:22:31 -0700 (PDT)
+Received: from SonYoungWon.skbroadband ([121.125.40.90])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dd4bd483sm5847677a91.4.2026.10.04.10.22.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 10:22:30 -0700 (PDT)
+From: Youngwon Son <yoson5375@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Youngwon Son <yoson5375@gmail.com>
+Subject: [PATCH] arm64: dts: rockchip: Enable the NPU on ODROID-M2
+Date: Mon,  5 Oct 2026 02:21:15 +0900
+Message-ID: <20261004172115.5105-1-yoson5375@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Enable the NPU cores and their IOMMUs on the ODROID-M2 and wire up
+the vdd_npu_s0 regulator.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+As the regulator is now controlled through the NPU power domain,
+remove regulator-always-on. regulator-boot-on is not needed either,
+since the RK8602 state can be read back.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Tested with the rocket driver and Mesa Teflon (MobileNet V1).
 
-- [Medium] When CONFIG_IPV4=n, udp4_gro_complete()
-  (net/ipv4/udp_offload.c) returns -EAFNOSUPPORT for every merged IPv4…
+Signed-off-by: Youngwon Son <yoson5375@gmail.com>
+---
+ .../boot/dts/rockchip/rk3588s-odroid-m2.dts   | 36 +++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
 
---
-
-ipv4: udp: split IPv4 specific logic into udp_ipv4.c
-
-This commit moves the IPv4-specific UDP socket code out of udp.c and into
-a new file, udp_ipv4.c. That covers lookup, input/output, multicast
-delivery and the AF_INET udp_prot. The new file is built only when
-CONFIG_IPV4 is enabled. Callers in af_inet.c, udp_bpf.c, udp_offload.c and
-ipv6/udp.c get IS_ENABLED(CONFIG_IPV4) guards.
-
-> diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
-> index cf07c3c6611a2..bea037d6b4eb7 100644
-> --- a/net/ipv4/udp_offload.c
-> +++ b/net/ipv4/udp_offload.c
-> @@ -958,6 +958,9 @@ INDIRECT_CALLABLE_SCOPE int udp4_gro_complete(struct sk_buff *skb, int nhoff)
->  	const struct iphdr *iph = (struct iphdr *)(skb->data + offset);
->  	struct udphdr *uh = (struct udphdr *)(skb->data + nhoff);
->
-> +	if (!IS_ENABLED(CONFIG_IPV4))
-> +		return -EAFNOSUPPORT;
-> +
-
-[Severity: Medium]
-With CONFIG_IPV4=n, can this make every merged IPv4 UDP GRO packet get
-dropped silently?
-
-The IPv4 GRO offloads are still registered when IPv4 is disabled.
-ipv4_offload_init() in af_inet.c still calls udpv4_offload_init() and
-dev_add_offload(&net_hotdata.ip_packet_offload) with no guard. So
-inet_gro_receive()->udp4_gro_receive()->udp_gro_receive() still runs for
-IPv4 UDP packets.
-
-The socket lookup there ends up in the new __udp4_lib_lookup() stub,
-which returns NULL. Even so, udp_gro_receive() still aggregates:
-
-	if (skb->dev->features & NETIF_F_GRO_FRAGLIST)
-		NAPI_GRO_CB(skb)->is_flist = sk ? !udp_test_bit(GRO_ENABLED, sk) : 1;
-
-	if ((!sk && (skb->dev->features & NETIF_F_GRO_UDP_FWD)) ||
-	    (sk && udp_test_bit(GRO_ENABLED, sk)) || NAPI_GRO_CB(skb)->is_flist)
-		return call_gro_receive(udp_gro_receive_segment, head, skb);
-
-At flush time, gro_complete()->inet_gro_complete()->udp4_gro_complete()
-now returns -EAFNOSUPPORT, and gro_complete() in net/core/gro.c frees
-the whole aggregate:
-
-	if (err) {
-		WARN_ON(&ptype->list == head);
-		kfree_skb(skb);
-		return;
-	}
-
-The WARN_ON doesn't fire because a ptype was found, so all segments are
-lost with no warning. This would affect an IPv6-only kernel that bridges
-or forwards IPv4 UDP with NETIF_F_GRO_UDP_FWD or NETIF_F_GRO_FRAGLIST
-enabled on the ingress device. Inner IPv4 carried in IPv6 tunnels would
-be hit too.
-
-The fraglist branch and the udp_gro_complete() path don't need IPv4
-socket state. The only IPv4-only dependency looks like the
-udp4_lib_lookup_skb reference. Would it work to stub or skip only the
-lookup, for example with a NULL-returning udp4_lib_lookup_skb when
-CONFIG_IPV4=n, and keep the rest of udp4_gro_complete()? Or should IPv4
-UDP GRO receive also be disabled in that configuration, so packets
-aren't aggregated only to be dropped at completion?
-
-The later patch in the series, "ipv4: make CONFIG_IPV4 boolean", makes
-this configuration selectable. udp4_gro_complete() and
-ipv4_offload_init() are unchanged at the end of the series.
-
->  	/* do fraglist only if there is no outer UDP encap (or we already processed it) */
->  	if (NAPI_GRO_CB(skb)->is_flist && !NAPI_GRO_CB(skb)->encap_mark) {
->  		udp_set_len(uh, skb->len - nhoff);
-
-[ ... ]
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
+index 4e98fa3349..ea4d86a588 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
+@@ -320,8 +320,6 @@ vdd_npu_s0: regulator@42 {
+ 		reg = <0x42>;
+ 		fcs,suspend-voltage-selector = <1>;
+ 		regulator-name = "vdd_npu_s0";
+-		regulator-always-on;
+-		regulator-boot-on;
+ 		regulator-min-microvolt = <550000>;
+ 		regulator-max-microvolt = <950000>;
+ 		regulator-ramp-delay = <2300>;
+@@ -441,6 +439,10 @@ &pd_gpu {
+ 	domain-supply = <&vdd_gpu_s0>;
+ };
+ 
++&pd_npu {
++	domain-supply = <&vdd_npu_s0>;
++};
++
+ &pinctrl {
+ 	hdmi {
+ 		hdmi0_tx_on_h: hdmi0-tx-on-h {
+@@ -514,6 +516,36 @@ &pwm0 {
+ 	status = "okay";
+ };
+ 
++&rknn_core_0 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_core_1 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_core_2 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_mmu_0 {
++	status = "okay";
++};
++
++&rknn_mmu_1 {
++	status = "okay";
++};
++
++&rknn_mmu_2 {
++	status = "okay";
++};
++
+ &saradc {
+ 	vref-supply = <&vcca_1v8_s0>;
+ 	status = "okay";
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930135334.4739-1-fmancera%40suse.de
+2.43.0
+
