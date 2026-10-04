@@ -1,162 +1,95 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA923F39E2;
-	Sun,  4 Oct 2026 18:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9577B3F39E2;
+	Sun,  4 Oct 2026 18:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791139806; cv=none; b=gBHUtoP3mzbIhMQutrPe6sQMYvJ++iQD+dOTkaOTh1TBtoA8gGQ6Rck7dExLNtAFTfvLx4yDEH78B0PobaEet+GWdUdMcJ0RFFV18JuIE0uT1PNK4jNd7WxvXaunhXVmlF3957ETzUAyLjg0TL0hZIwXGcHNz7TOjyXmBVfXV7Y=
+	t=1791139832; cv=none; b=b6ZzyCR1bjHUZQVX79GfvVLKaMR9VgmJ030Yfnv6T1e5vxwwiWSa0SUFxrIhanNoe2WIfCZe4TTxDOBsIH1sVkShciKTs/Wi6wud0OnioT71RmgzXA/e+VRP5a+O17JNajMDFHOlqxs9eQ2UieyInysm3EywmPlhTJO5sEfgYaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791139806; c=relaxed/simple;
-	bh=O4aKhDBfknhVZhb4ii6YfAOZ8M7M5CSZB5P9em7YZS0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Bb5fsMVbkl/pBX6eLGprMdMqEdHjYmvtFuv/sNvrm7MFHqhUi0sdw4visac6c6RKk9KfQ2zr8WtAB9x1Vb1Et+Vy5peO5ZXPYchMzOiZ/CxNoB9h2GKAuvFmA1HTgp2j5ijNMUSY//f5XIJV36Gc7oLHqkQXVtDuxewD7DAYexU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KYn2L462; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=LEcSbsRW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lxNKHYVd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jGYVH6Gl; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791139832; c=relaxed/simple;
+	bh=X9/o782vWzVabCQMJ0PTl+M2J7G9le8630Tw3+gOuPE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lk5yZyk3OudxL0DrIsBE8zxp1qWOADTRHQX78FSVbB5Xml58FlFNiBvxrvPciHWRmjb5bC7Evhz6YSH9yDhyEml0xXUgwt9ZKKksOawGHkC4vNw4nCp+txUkLpAWFxtSos5oFXaYo3X8I5RUzwRYjXQR7WV6qci1K7uqs9vId5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=D+AUPKgL; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KYn2L462";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LEcSbsRW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lxNKHYVd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jGYVH6Gl"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 927D01F38E;
-	Sun,  4 Oct 2026 18:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791139798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="D+AUPKgL"
+Message-ID: <20ca329f09a274b28beba7aaa1d919e3b81d61c7.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791139828;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0FMHvEZI6bIX+cEHjkIlTp9IChuHackaQd04yJ9HA/o=;
-	b=KYn2L462BkAvaaktyj4dzxXkp2Vpr5WxQFR5V5RFdeKgFVE/kvgtQTjMs6f4iy/YeLMeAI
-	7fjBmKLE9IJPLsAEjHlkzhcraKW2qLlJ/AeNew+dh3EBQ/28lctBwreuAXq9QUD0GXHUE2
-	t+VA+uTDjd/VtrojNdFxS0ACR5cIm98=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791139798;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0FMHvEZI6bIX+cEHjkIlTp9IChuHackaQd04yJ9HA/o=;
-	b=LEcSbsRWoVruih9D2sSIP/F2GSx7yRspskWy4xPrJW8e6haXTeEVftCNzLPjdHFWimuelx
-	h/qWsK3YtAiO3/Aw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=lxNKHYVd;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jGYVH6Gl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791139794; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0FMHvEZI6bIX+cEHjkIlTp9IChuHackaQd04yJ9HA/o=;
-	b=lxNKHYVdh8fpQBq6Mp0L18Y8I9MkKPFhTm1ycAM3GueRvaQyS9r1yCI0KTWwxYzu1k3A0+
-	TQMbrXFM8hUhJbrWiauD5vVX+xsoqBLvKb+DC+sai803QGex9Og756Q+9HVjg8Cd0rlOAy
-	putVENqQrToMONCad9g185eR9SVKrqQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791139794;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0FMHvEZI6bIX+cEHjkIlTp9IChuHackaQd04yJ9HA/o=;
-	b=jGYVH6GlmBdTHrOzl3il7//GMhpdaXEzYd1OXsSMoq48XIkTDuILx6Uzl5EROETxjAeOe1
-	5X+JlvENmmXVanCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 32DBB133CF;
-	Sun,  4 Oct 2026 18:49:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1ciCAtKfwmoiagAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 04 Oct 2026 18:49:54 +0000
-Date: Sun, 04 Oct 2026 20:49:38 +0200
-Message-ID: <87y0cdgv25.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Steven Kendall <skend@chromium.org>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ALSA: hda/cs8409: Fix for Dell Cirrus audio jack detect
-In-Reply-To: <CAB1bpFDsVLApsW6nYOyLQYx83o9NpDrpKwoK_4KdoCV=GeWv=g@mail.gmail.com>
-References: <20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61@chromium.org>
-	<87fqzan7jp.wl-tiwai@suse.de>
-	<875x05lkfl.wl-tiwai@suse.de>
-	<CAB1bpFDsVLApsW6nYOyLQYx83o9NpDrpKwoK_4KdoCV=GeWv=g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	bh=X9/o782vWzVabCQMJ0PTl+M2J7G9le8630Tw3+gOuPE=;
+	b=D+AUPKgL3UHtlckJhNLhGys9CH1xFMNASFRBoq7KH/wwaRCg6KZDJOdEF6gBJr2ERRvbuQ
+	mJlZ3NvVXqt1YyoCtJT8+qKVd9oZ13h9PHJl/Nq3SieOQPu58nR0FT+at8OI8UOx72433x
+	8GqmgsNohwhLTFCczadwyrCjR52Du7U=
+Subject: Re: [PATCH v2] lib/crypto: sparc/aes-xts: Add optimization using
+ the AES opcodes
+From: Stian Halseth <stian@itx.no>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel
+ <ardb@kernel.org>,  Herbert Xu <herbert@gondor.apana.org.au>, "David S.
+ Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>,
+ linux-crypto@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Date: Sun, 04 Oct 2026 20:50:25 +0200
+In-Reply-To: <20261004180208.GD1906@quark>
+References: <20261002072110.1221579-1-stian@itx.no>
+	 <20261004180208.GD1906@quark>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-rhk+bWrrDw2T4T9ZCpTa"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 927D01F38E
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.995];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[sashiko.dev:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
-X-Spam-Level: 
-
-On Mon, 21 Sep 2026 23:00:28 +0200,
-Steven Kendall wrote:
-> 
-> > > The code change looks acceptable, but the patch description gives too
-> > > little information.
-> > >
-> > > And, should we apply it unconditionally all models with this code?
-> 
-> I've submitted a v4 that only applies the delay to this specific model
-> I've observed the issue on.
-> 
-> > ... also please check sashiko's review
-> >   https://sashiko.dev/#/patchset/20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61%40chromium.org
-> >
-> > They aren't always correct but often give good hints.
-> 
-> I looked over the AI feedback and I'm not sure what the best action to
-> take is. It seemed like it was kind of a broad criticism of delayed
-> work in general, which already exists in the same file. Now that the
-> patch only applies to one machine and I've tested on that one machine
-> I'm more confident in the fix but I'm open to doing additional
-> testing. Or if there's some tooling I should be using to make the
-> abstract "timing issues" more observable I would love to learn more
-> about that too.
-
-The review to v4 showed about only the usage of cancel_work_*(),
-and the suggestion sounds reasonable.  Those new cancel_work_*()
-should be put before disabling i2c.
-
-BTW, at the remove patch, maybe better to use disable_work*() variant
-than cancel_work*().  The existing code is old and they were before
-disable_*() was introduced (so they should be replaced, too).
+MIME-Version: 1.0
 
 
-thanks,
+--=-rhk+bWrrDw2T4T9ZCpTa
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Takashi
+
+
+On Sun, 2026-10-04 at 20:02 +0200, Eric Biggers wrote:
+> On Fri, Oct 02, 2026 at 09:21:10AM +0200, Stian Halseth wrote:
+> > +#if IS_ENABLED(CONFIG_CRYPTO_LIB_AES_XTS)
+> > +ENTRY(aes_sparc64_xts_encrypt_128)
+> [...]
+> > +ENTRY(aes_sparc64_xts_encrypt_256)
+> [...]
+> > +ENTRY(aes_sparc64_xts_decrypt_128)
+> [...]
+> > +ENTRY(aes_sparc64_xts_decrypt_256)
+>=20
+> These four functions are almost identical.=A0 They should each just
+> invoke
+> a macro that expands to different code only in the parts that are
+> actually different, like what the __aes_xts_crypt macro in
+> lib/crypto/riscv/aes-riscv64-zvkned-zvbb-zvkg.S or the _aes_xts_crypt
+> macro in lib/crypto/x86/aes-aesni.S do.
+>=20
+> This will generate the same object file with way fewer lines of
+> source.
+
+Thanks, reworking, testing, and sending a v3.
+
+/Stian
+
+--=-rhk+bWrrDw2T4T9ZCpTa
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCasKf8gAKCRDoeAEuJe36
+VmA/AQCodVt8Jc6r8ZQthPXWzMzL+uPhPqrs1F2/nFymxHXD6gEAz2CW0o2eSrjR
+argnbL7hkowPnUp+zhr1vXG8g1nSdQ8=
+=CrAr
+-----END PGP SIGNATURE-----
+
+--=-rhk+bWrrDw2T4T9ZCpTa--
