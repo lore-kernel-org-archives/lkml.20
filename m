@@ -1,86 +1,67 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013011.outbound.protection.outlook.com [52.101.72.11])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010033.outbound.protection.outlook.com [52.101.193.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E601922FD;
-	Sun,  4 Oct 2026 00:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECA2352001;
+	Sun,  4 Oct 2026 01:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.33
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791075570; cv=fail; b=HRi/PXQunV4uYK2/UgOU2Ak8Q0uAeJBWBJy8l9QMcUMnhgO+hUS8412QDoKn03S35b7D2E4Az0dDNXMrqs+VzCjUTLMAxZmKs79FDSTJmMhAe8hFeAFGSpw6UOaXzQa6cki9bO9kx1zYR5nhgEEb+I1akDvWx3CKsGVxQUEQaLc=
+	t=1791075672; cv=fail; b=NR6SyVJBnQbRYJWSki5ahIVQsXBr868511yI7rYOmXUlxi9Cf6TepeAgJ96H8GMX/GmN5pstbbctvLtlMGLn/d2bGj5W5RONzFHIi8+gKtnFol8mesNsHvP8PKAgKFNArl5OVsLCms7pw4HK3kHny2LazLIrW/IOJdFv3+9U6tA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791075570; c=relaxed/simple;
-	bh=gxUdWvEobBaCH9LJHM/0E4HnKZRoagG4pxREcMdhwu8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=DkREyQU36eWaojl2cyafXxDT1KvS0pDr+QNpcGdILNZ6cergaCYupuL8j9pugjj44ozDxQIc+xvwitLQOt7F+Ni/zMglr3FbaapJYZsTygiyGRKkM50TQiO0IfTCMrVafcccogAblPLHZH+hBZHbEC8zl3/3s19WMxsoJnhWL8w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PNaPW3E/ reason="signature verification failed"; arc=fail smtp.client-ip=52.101.72.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1791075672; c=relaxed/simple;
+	bh=V3Q0wENh2o2ey8DiYTIimqvtuo42rjLZpI3yYZeU94U=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=H0tRwVdnpavNMN+2Z0u0ub4xk7IOeLz38lTbbM30lkhFOj9gjbtje8QwZzVAdOBep39MaXDvqnnGhWSh5Sn5qQc8nrGJ82HvF9CTMpsEV3vW2YU8cdaUAL0K/svVckFE2p7a9mLIVjTlK2Esxdx1BH8YlNDZeiAH+likUOpCB38=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XKtR2OWe; arc=fail smtp.client-ip=52.101.193.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PNaPW3E/"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XKtR2OWe"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d62zmW4RobrHsVpe3cG7L7IoZeaftdQwxfIBtOsnewOVlh1iLounIQcBmD0ukj8n29r1v1Go3Fkv8JUOR/m0zbjlNHG91rUVmrM2ra7efcHuQQD7iHipGVgDs5FO3/GWZmrka5z1vc7AZdEN4PcLNTsAXqqVx3N84tdgdwXsi3csNbIr0EM6SpKKpHGB37uS9DrBHsVwEZQJWZx0DcpV57djQH1yrJ2q9RRePpi0EK3OGD1eeVBf41Axej44YuNCav+k6phae9gZD2LTKUgJnNL9HyIsSx47bTTFzSTAlkp9yn0Senjf1EdclmXyiU+sVPqVaeuuidBXEJT6LcRZRA==
+ b=t1bJaTLcWWx/WqjHjVCkNY2QW23Ue0Vw4NpPHiuJM5a+tUcyQ32YruVW6X/6LK3RguaKTpml0CyoJMKq7gXyLAGlkIBlRQ/BfpZFL2vx+/c3FkY7rYCM/u/FyBt+tCoDYnhyP9WYUkaAWpN+ungCI5ZUr+9A15PNtXAOFCAp3mED9Zf9mpshBvfGg2Zqqk4GPW7zU4xXn+JZ/ll0FkwDPsTx4cMg7S0KgqmHVGT2t85MGAKTEh1ryXa2aCmSY23eUqnFQbmjWaFcNY9aIsK90vIxjqDgXO6VNpY46Lj/n/VK6tG37QwEj71XeSivPHES7gABK4WyZrqpI+uUQ89nlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Icl2wYAb1h4y/FTIRrKJRtDo7nD5+O20nuzr9ef3Wyg=;
- b=KAETRnGmyIv8ezWLOjZ5xcZwhVSoA7o4QRRJTseKTzL+/936jODYSJiJiHKaaMBxChBbYPrHuf7Cmi09VvTHNkvID8TB6mLx6qk0i3n/4IxCKYrcBde/hDen1SQkvwxWYum44zw+cCLfG3REgNcJ9ISeFvu2DiXe4PnUv/hq5mfz0RJwONFO28tmwXb0V+Z0pRpiPAvDk8rl6KgyWFCUH/h+Y0y88RVz9NVQXeBmpDAI4dykkttVcpALL59SZEgmxfCMMXxJgqWR/qDxF3o7h1bg5K9WsSU+7veryo+fpIPt5a33vL8e82ciOCgyi//ZC8CY665aixgt1WJOh4ugOA==
+ bh=MQzQ941oaFPl6LTxnedIisOmyjiYXk4ngUIMWFBN0Ak=;
+ b=sDIDCJFqlsDK7V5vgzw8heSMmuGHIijgElkMN/iXcifVKwozJEInFfyatxVmKCAlXm52ubKkCNNIlj9eKNZ+LCZq9upwEwgdhSIgBQXFQRBfk202TLFYNqTV2m93L8/mRO2cSh+tizJwjmoidZZ7AFV55P5lbuwNO/7eXY3zedF+VJ5mCD1kzHLRlyedZPx8i08QeflAs93A8njdxoRbEKivQu48uD5Lxymp51RuGMJEkECDA3nmD4RCXJjs/qEcXxqxa1+w6BhXZ0hOQQ/QAPPZPrgcRQgpJ3IxNkQB7vvXU1SOuhBqVY1OxsbUQEK4OhzGMrz+Be2DoaTQqjP8cw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Icl2wYAb1h4y/FTIRrKJRtDo7nD5+O20nuzr9ef3Wyg=;
- b=PNaPW3E/MU9tGWcFV52VdH61RC/BHx5YKdtqZtIA/1GX78X/WUdtrqoo8GWOSIb7sh6+jeI00CFh6GjqQeBad6b7xpsSu9ZZT+9Ta0SiPbL+kevsFE84wMis8/CaV9tpi1YHPgxwuhPwj1PvI95ooZAr7R9AJWjOhtgoKQiiE0eM1mNdH4MVMUvwqqRNxwJgh0M6a2XxTb4yUvb6l/yL/MlwThrRLHbEqagodM5kaXE4d35M3I6jx6flbsuhpnR3KeSiEcpnux477WOk4uLS9fxtAcgxzIUHUuk3orpOd7eXZB97quqA4/YOsmfNWB3Ia4fj822K4EaUHYC9kRolgw==
+ bh=MQzQ941oaFPl6LTxnedIisOmyjiYXk4ngUIMWFBN0Ak=;
+ b=XKtR2OWeGVRxT/2TXA7nXBVVeXD/iss1wj47pJ0v9bWTcuL5mNwrhnt6bJ2G/F7uge31bFz7pep+46goi88J6MlgkCjdGU7fos9hPoW844cTHm0eBLdZaMuh7PV5e5NkYB3UU1+gJUbh2cChng7i75XRF89qH+NxiQEw7KzO74Sci7GuoDlKDGeoFYXmCpcibzoP1q3nOExEead+sKl1KTyF6XTBeDj8oTwNmPh7pBK1mGrpYmZnG1V/YAruQZdToy52HmG49JScIMij+B0uM3y1uZXqxrSZ9htuNrTaTmCzBoYnAi7YWDni6pN/LCrcmQvypQkTutOIysK08E6SWA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI7PR04MB118002.eurprd04.prod.outlook.com (2603:10a6:290:108::19) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by BY5PR12MB4289.namprd12.prod.outlook.com (2603:10b6:a03:204::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 00:59:25 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0472.016; Sun, 4 Oct 2026
- 00:59:25 +0000
-Date: Sat, 3 Oct 2026 19:59:13 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
- new header
-Message-ID: <asGk4fj_HQ5HupB4@SMW015318>
-References: <aqlwRkNcs_UqKjWs@parshuram>
- <aql6u3T0nnSVr-FC@SMW015318>
- <aqws8pN2rfS9-dCC@parshuram>
- <aqz1-OzFobOROuBw@nsa>
- <aq18_TMNs4EJzgZO@parshuram>
- <arDtEB0na9DxDWAS@nsa>
- <arFXc0LqEpgWSS6m@SMW015318>
- <ar-Il2qP_Qms3Qw1@nsa>
- <ar-13p3a7ENGfMOF@SMW015318>
- <asEWwIfO0LB27wj9@ashevche-desk.local>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asEWwIfO0LB27wj9@ashevche-desk.local>
-X-ClientProxiedBy: CY5PR22CA0010.namprd22.prod.outlook.com
- (2603:10b6:930:16::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Sun, 4 Oct
+ 2026 01:01:04 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Sun, 4 Oct 2026
+ 01:01:03 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Sun, 04 Oct 2026 10:00:49 +0900
+Subject: [PATCH] gpu: nova-core: fix warning with NOVA_CORE_SELFTESTS
+ disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261004-nova-int-fixup-v1-1-9e4bce097f94@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ5AMBAAvyJ7tklRgq+IA7VYh5IWkUj/bnGcT
+ GZu8OSYPNTRDY5O9rxagSSOwMydnQh5EIZUpUWilEa7nh2y3XHk69hQ51XW60FcqUGizZGIb9i
+ 0P/ujX8js7wVCeAD+3cpgcgAAAA==
+X-Change-ID: 20261004-nova-int-fixup-4593b4d61084
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ John Hubbard <jhubbard@nvidia.com>
+Cc: nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCP286CA0116.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::8) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,185 +69,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI7PR04MB118002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d1018aa-a804-4469-1f22-08df21b2bbc4
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|BY5PR12MB4289:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3402f7c-e865-4e67-9127-08df21b2f6ab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|376014|7416014|23010399003|10067099003|56012099006|11063799006|4143699003|5023799004|22082099003|18002099003;
+	BCL:0;ARA:13230040|10070799003|376014|366016|1800799024|23010399003|10067099003|56012099006|11063799006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	npmlbMe4gB8nBBs0aZ7eDBP3xBBktt7p+Ar0FIgqAbH3AkxqULXaL57SWm0kK9jRmhF3Jg2rE1FhEhN0uZrpowvbYv5X9WumzN+ahU3hkRq0X3yh9YizTjRflfph1ghXms3cCTH0jxQmuyKHVnunKFI5FNlLSvVbhaHtKSq1UfQzlHX+AsFlNrxrTV59PAVXyKbW/cxOb9AJXlu/uC9SrxmFr1hehyqZiGf27ydSrxFZEVVO8pv8wEM9u7rP/8U29k5pVvADzQ6dNqYC35h5We5hKHO9hlqado/TzUUWoDwxjTQfjHygHlL2LFNxs4oKSkO1CdwvjmfLtuhyuuLXlCwzRaP9x5jS5zWerLfvurvKGKQuBqI+C2W/G7bI1ubUJaVMiS/c2SXrXZai3Jo+roKWHxL0ovqgwxxOskzx5F2CDkq6IbOJmFjyAKjiC2B2ESGHY3FU3ez2TTJ1abnD/JnW2PZjm7P1vmRtCP1aYdna9qgwvql52EGJrYSkv2zaGgd27idtMOPjZ1PpLu5fd22mhyb3pFZaOw6uj4k8FBUSIdHK7l/bcetL320XI+zZ1en45JEyhS1APD6sZ7Etp7/m8MnYNjFwbIyuf9R/04Amt3u0SQ8aNHPo42WyfG7cgPahBoFewlGZTec3JKD6x5/0gukI7/sGDnm8U8YJSjg=
+	vdPhijtgK3/9PBQVYefNMlzjWFkoHhslIdJ6CZJBX04UFPgC9qYqxn8aLyCFSzT/VBsr0S+J+yTnmdNxSt4F7U/9CVdvZ+9weps4jy2NE3Otwh+lPTTxqlnCYo9wkzir3d4Z1r9ZjLk6dWFMuniqK549jWmY/V64kBAkHAMO1586Ct/bUI6pi9/BjUfob/Q2g4zKgHzaf4Lwbbxfm5nmeSKPUSr0GsC+pVwih5WjOTzYxG1IJiw4r2XxP6M+Fx2XsXsTvf+TJj5+VMMAW3lgiF4k6nYZ9CUN9cA7PdFTrl5WGNek/dVTEotQohLvy7hWe/N6jDYTvEwt72m4bLNuQ1gx6843IMHUvFynjcMM07AOiDVhPPtEPHenp11xxWV/R5v185XoDbCqahwAiM6/CF+lgpdGrKMrJRNvvu7X6BXb1RK3mlHHII71ybRT6fMDP9XkOMiYl6DOcy0bs2Z/FZPCk9oRYD8aawluEt7bgMQ6/AOtd7iBssOXX5V025Kf7jlBtFbS8+O8TKWvMV/9hlzFyrLl8jCH1nus8jcehv0PLgavsfYzxhXYuoUDYYI6N4DFpTqiwzrCpIQUr/wjEPgMiaBrZgLN2bhS9xoYS3XV86oJgOnmNy8MMyS1JcucstdJgVs1H/WHW/zSLftynJdjLdwp64ZYB8b8wgslniY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(376014)(7416014)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(366016)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?wew4rF8Za7hToSXBLFWyyGA9/ScFw3twyIEYODStxxbWgcOPZoytQONLAE?=
- =?iso-8859-1?Q?prEmJmAzrCuJdDHRtuS27sVcIcKsEHrp6U71412N1DSAS8PTcEfhkGhbUz?=
- =?iso-8859-1?Q?fieJj6MQYzotk0SfffAyZVOxBbPLSAmJVFPPhrgU0z7THmYJCt5Z0hm4pb?=
- =?iso-8859-1?Q?pUmKvJole49bqj1YAvKMMp84TSPf1oS/TEXrQ4U1VmftLyfPfnlwh3RIzM?=
- =?iso-8859-1?Q?KmvknfMQ0mCRjQwPsWsQqqfyJfOpR+p9RK0roW71rSfe6zvH+GWHTnR0Fm?=
- =?iso-8859-1?Q?EXeDuBjFD9xYOFnh0JlwuAWg8cBGjG0FUXh/fCVGZxIQoaqHFgeTRsQlMk?=
- =?iso-8859-1?Q?j+8Gapl3LBwr/iUrpC611apO9kuK78yzBwaBzAj3w0vajgCdy2cDQv8pqG?=
- =?iso-8859-1?Q?oZHIbEd/3SjKTUNKDVi0BrPwpv2+0QCaNo26OmCn9jQPSoBkWyGrG4E5y+?=
- =?iso-8859-1?Q?fb9LznrHTuV4LDQ+Sf5vIvbvMUo252PcD4ao+RW9ZeeDH5d5hvBGG86KJT?=
- =?iso-8859-1?Q?uiBF3K6fNkDpLIDeuKdbtfSAIuhNzGH0CtY+9DalTxMGhHnnWgsunjP+4X?=
- =?iso-8859-1?Q?B2fkukp90MWPBtJ1/niQHfrG/fTIOVHxnV9makOdMxn3AUBlN3rngQ1Cxx?=
- =?iso-8859-1?Q?M5zl1c0tdL3YcbG95lZwH43VvAUqY4szx2eaRkdYqUf/EZnBX9vYiPMfR4?=
- =?iso-8859-1?Q?4NTjXXYSygfQGqYJpVAcrlpqycYVLJi6xDZGvPkKg78A4glr16dAhDOZoW?=
- =?iso-8859-1?Q?/w1Su5z+yFhfjvoy9rzeP/BIwGfWV+elcf61bisuL1h/UD5j+t9FFL7nz2?=
- =?iso-8859-1?Q?/h/J6pFy8sLHUm23LPH92HWkBadsCV+O0qRFAXqkXnhKljmouhtNHkfNRP?=
- =?iso-8859-1?Q?ad6ZsX6gev73gtJPTE9CXt1BGsVGPmfmXv23DMfzKCHq7NzrT/BwoceA9b?=
- =?iso-8859-1?Q?SLEGXd3ew0YpnK6KPuq3Tld2vt+cSLXPJffzAowsD6GP6EajFItls+dFu6?=
- =?iso-8859-1?Q?nsc2oufZJJE1gj1vPVoEqs13C1vZeRjOL0R9LQnXFJ9pzD8tJ/w4vk7iHq?=
- =?iso-8859-1?Q?/3W3x0rn+Q56lL4w7GRsI0xgqIl/4SlDe2c27vh5djP3akqnqjXAm17NTA?=
- =?iso-8859-1?Q?ACDY8/NHG/gvO+RC781ga6zl1QKtJJIpQ+3uitODOVvX0RjLL0DzjCNHQf?=
- =?iso-8859-1?Q?xuheJP+Xxq8js4sCp93wYxgZ8Vwwi/9smzYRcttzkYLP5AQUULPpfDa8Xo?=
- =?iso-8859-1?Q?ZgMoR+fZAp3d7j6UHTswhiXZEy4TMRS0MiNRiJfDlvh7s3xlPxNegqymmH?=
- =?iso-8859-1?Q?NzJG5R/vCnozea89gACJufmfMXfZTAqupa25IJa9w0nJwzbjpvUQpTjUSQ?=
- =?iso-8859-1?Q?qvYIdNbVlOvtXxr5SfBNXf+aiGjw9jZSyLHPkhcKue/XbdguLC3pa2KBox?=
- =?iso-8859-1?Q?++cXPNuN3uDxjEoo+zcmoKZzyo86wUzn7x4A2kFiGreLp92grarJJNvJJj?=
- =?iso-8859-1?Q?D2Djk/C7jvT10MQxzqajtDMA9SSfZZ8MjKn9PwqTn4NNYREHbOg3DitrWt?=
- =?iso-8859-1?Q?zcAcnTcpbe8B8ohdoMDtDRtbJ9fpGHo92vYCMGh+E0pbSNn6IE8FMaBeHK?=
- =?iso-8859-1?Q?ly+nYJGBeTAIUL3X4aHQds05uNY3OI25qfZ4SOpOVlieqsVL8O6CxVSzRR?=
- =?iso-8859-1?Q?scwFdq8YmOUTtCkSAdAapQXkTaX1xx9Qz8fRmQ8bfsKdyfYNsjSQlbh8yX?=
- =?iso-8859-1?Q?mYwWSAxvNwaLyM+8F3oXGGJqoc6EW75m9oEOA/4oXpZUa7SLwOahxkY+Zd?=
- =?iso-8859-1?Q?qzYCXZ8hUNXx8yg+C350rlMs9TkKbD5cQrMTP7JYssEY25PAcbPG?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d1018aa-a804-4469-1f22-08df21b2bbc4
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+	=?utf-8?B?RWVCVjFFNlVINTN2aVBJQldzTzFWc3Q1Qnp4eVJGOGlnKzZ6VnQ1UzNyK1Ur?=
+ =?utf-8?B?TDQwVUpSdjh1ejlLZ2pRVWVvVlRKcStiKzNTZGhmK05Sdk9pd0dMY0dST2wy?=
+ =?utf-8?B?QzBoK3V2c0JWTUVqUmRoQTIybkhvQng2S00reXl1Vld6ZTBCODlUN2JJTlpZ?=
+ =?utf-8?B?UktQdWVvNGFVL1R5YTVWdzJVTm9PVXF4ZCtMTWVuUCtyWU1zSEVGbDFHSi9L?=
+ =?utf-8?B?TEl1V3BuVUcvZ2JwOEEzNXlpWVJCUHBmWTZIMjY4bFludDgxSzFBaXdrZ0F2?=
+ =?utf-8?B?RDdvVi81L0RQVlhISkl2RlRROURXcUtwY3JOeFp4YlhhYmpobU9RM2NFYXVx?=
+ =?utf-8?B?R05VNlNLR0pTYzNFakIxMkVNUHZtV2NtSVE5dC82N3pDT2MxbUZnWU9MeUpF?=
+ =?utf-8?B?VElPeWpEc0taZ1E2VjM1ZGl1SFFmelY1U2psdEhKVXNVOFRFTzhHaFdnOEhx?=
+ =?utf-8?B?M00rM3lPTjBKRmhybWxkYk5iaHdMc1RjN1Ezd1RrSG5YeXRjMTV0VWJpZllI?=
+ =?utf-8?B?b0xYc29WY3JvNU04ZlIzNmlyYXFTUHd4ZC9QOG4xSTRJVkhWUWIvOE9qeXdR?=
+ =?utf-8?B?VWROMWJsUUFsd2tERS9zdSthQWU0U0paZjk5QWV0VzM0SXhyKzBrWmpGdnl2?=
+ =?utf-8?B?ZkY4cGR1dWE2cVJ1aysxaEV6M2JPcXFRU2dMZGNrdWllMUI0T1d4dEhMclJu?=
+ =?utf-8?B?a3c0bjlKbGlXdDBMNktYSFNyM3U2OUR6dFIvamZuWHhyRzgzeDVxOXJHZU9E?=
+ =?utf-8?B?T0R4bHM0eEhHNDNwWHRTWnNRczJaSEttVWV1ZENPbFVjVkNPRHNjbVdTdnFJ?=
+ =?utf-8?B?M2dmZ1FsMDdnQjQ5WGU4TnQveWR2ZnZTOC9PTmE3L1F0dWRCKytVTEgzalV2?=
+ =?utf-8?B?bCs1S2EzMW9yc3pSK0xMNUdTNGFOUEF4WmhRWEFGSFhJYjdmb1dkbnI4WE5Y?=
+ =?utf-8?B?TnJLcGpmcnc4eVRGY3FKcEVrS1lOVEN6L2FCL0UrNGdwM2xRd1hyS0JLVlBw?=
+ =?utf-8?B?bytwMkJSVlRoOEpPMmc3c1JOSDNsdVBYaW9objQ1L0Y1eFcxNnUvUksvZ0Rs?=
+ =?utf-8?B?QzE4TmtKdC8xNy84VmhGWU9vTHdoVWl2QzMxbU5JTzJta1h0YzRTMk9ZUmNI?=
+ =?utf-8?B?N2hZSkc2MGlrRDB0R2xGU1ZIUm5rTDdGblA3TWxGb1ZJWlllOEcxUnJ3ZFp2?=
+ =?utf-8?B?cmZZZWtLam0xMkxiMkd6bURQdzl4YTNYdXhMZXp2MTNJcmgza1RDanZQdkls?=
+ =?utf-8?B?OWtKMlJNK0xhNnplbm4ybVZqV0NHTlgrcUs1V2ZrZU8zbFpHOVg0R3R3N3kz?=
+ =?utf-8?B?ZndseHBLVy9MOTgvUWJHWkRpQVRrMWxSMHlyTFdFUkc3SVlhVXFIc2R6Zlpp?=
+ =?utf-8?B?QjB3K21NK0JFOUs5RnNDV0ZxYWlHbklaWVh2dDFYVHQrUXBqL2YwZXpuZ0d3?=
+ =?utf-8?B?OGMxOHJGc2JUVU1lQ0tzMWowYW01OE85eTNLVnBYbW1Wd2cxSlNqWEFndzBu?=
+ =?utf-8?B?UXExODRqc2xpVkcraHpuMDRLdWtTaWtYVk9SdHhPdHlibWdvYi95TGZucjB1?=
+ =?utf-8?B?Z2FFTGw0aGJnYXlFWUM0L21xRVJiOFpuR2lqUE1zZm1iekVtVTdaT25sOUdk?=
+ =?utf-8?B?cEQ5bWJuM3VvOGVDT2I2eC9qcjIxbTc4M3RMckNJZm1XUGRaOEtOWGtiNlBL?=
+ =?utf-8?B?MkdTRW04b1Azb2ZXclRDTzFTSmRtRVpPb0FvSlVJTXp6bDZmazU0QzU4aHdz?=
+ =?utf-8?B?MnNDUG5ZV2JSbThFa2pJUmp1cE53akkybHZWOXBiclY0Zmk1MW1wU2RZWmtL?=
+ =?utf-8?B?WDJPVGdDVDBkWmloSFRQRlNmUFN1Zm9PR1M2eVhIU0dNOGIxQW5qSXNZUlY3?=
+ =?utf-8?B?WEx3ZSthOEpnVjk2WUo4NXRXa01CUXZaai9zckNpSmxYSnp1RE1iTDhNZ1A0?=
+ =?utf-8?B?UWpEREhPZ0hpTlpxbHdoQTgxYnJ0Y1NEVnUvVWNyWFpoaHNwRXdQMW4xNXAy?=
+ =?utf-8?B?QTNCTEFvOUdtakx1YThGZFM5ZTRkL0lBb1RuYzkvU2tuK3o4L0pVZDdPbi9K?=
+ =?utf-8?B?Wmg1REt1SWxQcDF6Ym4yWW02ZiszRUNoVnBaR0ZPME5XZXcwWmpkQUM1RmN5?=
+ =?utf-8?B?N2FoQTloS3dmaHZVdm9EQjNtTnBZVDNXRzM5RDNlTWxBb2JhT1VBVWF6YzJm?=
+ =?utf-8?B?OVV5Z0Q4T2FqNzEwYzYzZTNrTmIwYVJIL2xxNGhod09pR3hBbWJJbkhzWW1z?=
+ =?utf-8?B?OFREc3lOcGFjN0M2RkFibk5kRFhRRzR3R2lDbVA5czlDU25xcjJ2OHpBbGNk?=
+ =?utf-8?B?a1pLQTRRZEh5dU5acHRhWUQrc2NDdVVvTFJxTXV1ZWFRQVpWNDZBckZPdkNP?=
+ =?utf-8?Q?uwLXlFwMKg1VdwofE2YW6/eZTmWf2IoElkVIexg/jfKUa?=
+X-MS-Exchange-AntiSpam-MessageData-1: wtdU7V4hQ/DgPA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3402f7c-e865-4e67-9127-08df21b2f6ab
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 00:59:25.1242
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 01:01:03.8584
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aS0LbejlVEi5ONiDtxkw9vNNXum/0pZ+l/AOPJ+lkYO3bJne+tDQshpakN4r+IWKc9ROFc0TO4n+Yc+ITZcbx9eTbTzmV/YCWXVIurd0DKyy4hZkE0Fi+z3S9zATuAvU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI7PR04MB118002
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dwc2MHSGd8MwGQn2HqehhphqI2qkgF38rJnFgJz3xP4QIUxEsaCPLFmJXxWmsE8xlbIccvDFJnS4C5g7ln3+JQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4289
 
-On Sat, Oct 03, 2026 at 05:52:48PM +0300, Andy Shevchenko wrote:
-> On Fri, Oct 02, 2026 at 08:47:10AM -0500, Frank Li wrote:
-> > On Fri, Oct 02, 2026 at 11:43:17AM +0100, Nuno Sá wrote:
-> > > On Mon, Sep 21, 2026 at 11:12:35AM -0500, Frank Li wrote:
-> > > > On Mon, Sep 21, 2026 at 09:53:49AM +0100, Nuno Sá wrote:
-> > > > > On Fri, Sep 18, 2026 at 11:33:41PM +0530, Vinod Koul wrote:
-> > > > > > On 18-09-26, 09:39, Nuno Sá wrote:
-> > > > > > > On Thu, Sep 17, 2026 at 11:39:54PM +0530, Vinod Koul wrote:
-> > > > > > > > On 15-09-26, 12:04, Frank Li wrote:
-> > > > > > > > > On Tue, Sep 15, 2026 at 09:50:22PM +0530, Vinod Koul wrote:
-> > > > > > > > > > On 15-09-26, 21:22, Vinod Koul wrote:
->
-> ...
->
-> > > > > > > > > > > > Traditional naming would be
-> > > > > > > > > > > > dma/engine/provider.h
-> > > > > > > > > > > > dma/engine/consumer.h
-> > > > > > > > > > >
-> > > > > > > > > > > consumer and provider and good names.. I would retain the full dmaengine
-> > > > > > > > > > > everywhere please. dma causes confusion already!
-> > > > > > > > > >
-> > > > > > > > > > Thinking about it again, drivers/dma/dmaengine.h should be the provider
-> > > > > > > > >
-> > > > > > > > > There some dmaengine code outside drivers/dma directory, like
-> > > > > > > > > drivers/crypto/ccp/ccp-dmaengine.c
-> > > > > > > >
-> > > > > > > > They chose to be outside, their choice... They need to be updated as
-> > > > > > > > well to point to ../../dma/dmaengine.h :-)
-> > > > > > >
-> > > > > > > I tend to agree with Andy but anyways. I feel this is going a bit out of
-> > > > > > > scope now. So what we have now in the series is:
-> > > > > > >
-> > > > > > >
-> > > > > > > - include/linux/dmaengine.h (without enum dma_slave_buswidth)
-> > > > > > > - include/linux/dma/types.h (with enum dma_slave_buswidth and new
-> > > > > > >   dma_buswidth_t type) - A future one would be dma_cap_mask_t and we could
-> > > > > > >   drop bitmap.h from dmaengine.h
-> > > > > > > - include/linux/dma/widthmask.h - The new bitmap based API for bus_width
-> > > > > > >
-> > > > > > > I kind like the separation (and the whole point was to avoid bitmap.h in
-> > > > > > > the main dmaengine.h API) but tbh I'm not sure if a consumer driver
-> > > > > > > will ever use dma/widthmask.h without needing the consumer API. But
-> > > > > > > to sum things up, what do you suggest for vÛE?
-> > > > > > >
-> > > > > > > * include/linux/dmaengine.h as the consumer API and includes the new
-> > > > > > > the widthmask API
-> > > > > > > * provider/private goes to drivers/dma/dmaengine.h and just includes
-> > > > > > > include/linux/dmaengine.h as the starting point?
-> > > > > > >
-> > > > > > > Let me know how do you want things for v5
-> > > > > >
-> > > > > > Yes lets talk about dma_slave_buswidth, it is client type. This is
-> > > > > > configured by users to set the width of peripheral.
-> > > > > > So this needs to be in the include/linux/dmaengine.h
-> > > > > >
-> > > > >
-> > > > > Agreed! But providers also need to set the allowed bus mask. And I'm
-> > > > > just not sure they need to include/consume all of the consumer API.
-> > > > > Also, it's common to allow the provider API to be widely used throughout
-> > > > > the kernel (but I agree that could be even harder to get done - if we
-> > > > > want to make some stuff really private - but I guess that could be done
-> > > > > in a second step or more incrementally). We do also have some subfolders
-> > > > > in `drivers/dma` which means we'll need the odd "../dmaengine.h" relative
-> > > > > include which I do not love tbh (on top of the crypto stuff).
-> > > > >
-> > > > > I really think something like the below would be more appropriate (if we
-> > > > > just want the provider/consumer API without further splitting like the
-> > > > > types.h and widthmak.h in this version):
-> > > > >
-> > > > > include/linux/dmaengine.h - provider API (as of today)
-> > > > > include/linux/dmaengine-consumer.h
-> > > > >
-> > > > > But anyways, if you or Frank do not object in the next few days, I'll
-> > > > > take the above approach suggested by Vinod:
-> > > > >
-> > > > > drivers/dma/dmaengine.h - provider
-> > > > > include/linux/dmaengine.h - consumer
-> > > >
-> > > > It think it is fine.
-> > >
-> > > So I was aboutto start on this again and I just realized
-> > > drivers/dma/dmaengine.h already exists today so nothing to do on this
-> > > series.
-> >
-> > I just find it and start some cleanup/move work.
-> >
-> > > I mean I could remove the consumer include on the dmaengine
-> > > drivers that I'm touching but not really on scope and super important
-> > > IMO. So, for the consumer side, should I just go to the first approach
-> > > where all the bus_width API goes into include/linux/dmaengine.h or
-> > > should I keep:
-> > >
-> > > include/linux/engine/types.h
-> > > include/linux/engine/widthmask.h
-> > >
-> > > And have a better separation on the consumer side? Or maybe changing
-> > > s/engine/consumer/ on the above paths?
-> >
-> > I go through v3 thread, Andy just said split to new type.h, but not have
-> > provided reason.
-> >
-> > I am planning move provide API and data structure to driver/dma/dmaengine.h
-> >
-> > include/linux/dmaengine.h will keep consume only defination and API.
-> >
-> > why still need types.h?
->
-> The idea was to rectify the messed up dependencies. Without split of types we
-> will need to have bitmap.h (IIRC the initial idea of the split was that) only
+A module-wide new import becomes unused if the `NOVA_CORE_SELFTESTS`
+config option is disabled:
 
-There are already include bitmap.h, and use
+    warning: unused import: `Spec`
+      --> ../drivers/gpu/nova-core/driver.rs:29:9
+       |
+    29 |         Spec, //
+       |         ^^^^
+       |
 
-typedef struct { DECLARE_BITMAP(bits, DMA_TX_TYPE_END); } dma_cap_mask_t;
+Fix this by fully qualifying the unique use of `Spec` when the tests are
+enabled.
 
-Suppose all DMA Engine consumer will use it to do some check. So I think
-needn't split it as indivial version.
+Fixes: 9cb3f5d56e81 ("gpu: nova-core: add an interrupt delivery self-test")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610031630.JOlyp48X-lkp@intel.com/
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+ drivers/gpu/nova-core/driver.rs | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-Frank
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index d195fd2bcf8c..560a70c4f5a7 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -24,10 +24,7 @@
+ 
+ use crate::{
+     api::NovaCoreApi,
+-    gpu::{
+-        Gpu,
+-        Spec, //
+-    }, //
++    gpu::Gpu, //
+ };
+ 
+ /// Counter for generating unique auxiliary device IDs.
+@@ -121,7 +118,7 @@ fn probe<'bound>(
+             // Run self-tests that do not depend on the `Gpu` instance.
+             #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+             _: {
+-                let spec = Spec::new(pdev.as_ref(), bar)?;
++                let spec = crate::gpu::Spec::new(pdev.as_ref(), bar)?;
+ 
+                 // We must wait for GFW_BOOT completion before doing any significant setup on
+                 // the GPU.
 
-> where it's indeed required. Besides bitmap.h there are might be more headers
-> that "include half of the world" which should be avoided in every header file.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+---
+base-commit: df718311a84188e26d499301c3921e4c392d557e
+change-id: 20261004-nova-int-fixup-4593b4d61084
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
+
