@@ -1,193 +1,279 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF5F1990A7
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 05:19:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F653A1B5;
+	Sun,  4 Oct 2026 05:22:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791091178; cv=none; b=fCz4tb9cdTcYM8vG0yJ5tqeZk8tf8WDYXqSW0VGy4SMpYrKAEhi0f9XysoG3crpFqpl2r3XmDVBaXqKg8PkGDj3Vha3rqwCSPM0ThgT76XEDhiOju87fVmW1fyafqMnABC2BAOxLT38OoHuFfpAw1WfUDAUR5Sv7rIqgRpI24xk=
+	t=1791091349; cv=none; b=Vvbv0PfyiDtBd8In1xtu5KQg3UL5gRj9Bd+JGZLIvekp71kb5kXQGyieiaZOk88SPh+lk16EtMGCpMimzF7EJmdHELtHIOTUzcDLnr1x2bokKLbOI5Yb8BOPZzIJ1DZj8N7RJ/u9bGqIkwQqSewz86FCvVQifqlfwknlIw8+/gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791091178; c=relaxed/simple;
-	bh=v5kumIhHbooVZld8KDR9rDAofLM2FcxXbLNFfLzX0qk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fi9YPH3tGrf8nHjDfAei/ZAq9aorPccJ0uAxFQrtROczC7N4tSzckkvXiZvW6RpmXdfx1CFkZv896wlGVySr5/5VXKCgPiNcz9XdmCB52/GqkNdoZLJ4PhNDDjmiwbM4V9Uy7e+OttEOXq4a9GdF30r+LjzfqPC4z1OPavqv9lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j/4dCk6e; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791091349; c=relaxed/simple;
+	bh=B/MSL//zhiKLAEpq4hA5MO5s6LQMX2bzSD9HF9K4irw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=M+LAS9vlj1+Z1lUjE8eozjcu9/Dg8n0GSkxXln5jOATR3oKhnqYYBAIm8g0QG1bhf8q/7g8ZGbi7ppBPDvu54AblMzyRrVhbKn1NicjskveTpkYGoDuJZMiNadd2dyLt7I5ZJZId1vt7vWNYXSPKghQR1heCLvYR1EnBufLeMYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXSapPqB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j/4dCk6e"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-351224e684dso498625eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 22:19:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791091176; x=1791695976; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b1bncc+l1XtOKFTC71CmsTDedtb/IE0KuKezygnmB3M=;
-        b=j/4dCk6eCp/yKc56z4huCoNstXX9KudqE77Scbto09krQVfKDH2V6LMvTuTM0YzAZz
-         XPM1yvgrdM77UcAEiF+EOUIvHICzVtRmbp2nTV/fd8FKRnZbbmck9SeD533YutPiStoJ
-         tHgQVSzScod9Do8/8FecV2AB0U9R2bj0z7sPap9itKacFSmOZOuEwvnIyh2sVQpyMHbv
-         32E05YrINklNMM0M8/ClOeNIgj14i4xvajPkPs0/VWRtR3P9s/cml7E7D21nMXkYMh8x
-         V5Ohnq+CLHYpKdn/1iqX3gGt53hI0yMpHpJAH8MSYFCiZ934vWbNFj+BVx/GW+6ViHNS
-         mYEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791091176; x=1791695976;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b1bncc+l1XtOKFTC71CmsTDedtb/IE0KuKezygnmB3M=;
-        b=bibbLH7usH4OBic+3VVe2papK8+n889ejSUpAYZGANfPQFmNKqNn01+q7Z1rap9MgZ
-         5VvhPOE848Nqou5w5D+HJAndpd/XZIjNxP+p48aeei5krStTobb/cTzB1IR0HcX2Nn5Q
-         6YOiS1JjWRRSRLfcPnWyqNMZZl077TSfaMY5xXtTiN7Ja5lLVWbZqsh+sAveSDkjdS37
-         I7lyLUYrE5V2vu+amoZ7hzHBnmGI+wNeIxQtkL8umqPSXnGsygcCefcG4ACJlL1u1eyX
-         NVpdku0GHQB4Dp+638LpnLePeP9QH0B0hzk+tqWohfeX5dFZ1WxDK6NN81XdD31rilDh
-         WAwA==
-X-Forwarded-Encrypted: i=1; AKwUvBz99/ekSUWWCuY/3GfEWbSBYfytPrRQnYhQtQJC+hoHEu8uAymq7jalbk0rplhQ1arV8+dx785GGU+xWhM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndrUXuKh5VMdOVJSsSPL7GUlJxYk8HvMp4Fgzs/g2wJsjqN5vH
-	NKdAFiXpBqd9s0GWsuoYeL10lLhbyGpdfYWhrk89bnwzuu/83lU8CmQb
-X-Gm-Gg: AYBFou1QwSbSCHtomS43FC+w1om53VLbRhmEEc/bepkK5BxnYaGiSt50EABVkiPKqO7
-	mYXfe1lMguIPUVYS0SqZHUFHwLA5KItgVQINWZI8NyS4LzF1FM5+Ohg39kp4T6rkWs4rp7PMDgE
-	jM/cGR5ptW+0in6eyniXT0y7QyZaDkCZ1UXfYgzgJd1+w+qgoPsJ7SWW66LnuULob0oxyyKhKS/
-	4CJcMOuFgA8yDlXlDWy5BblAmCS6xGqOLhfghCaDSL1aCWuyO4GBEgLvg8FhZh8mXmBQOzDhGWK
-	4yTFFr6boVP+fSI8LGqIdCTRcgVsAm0JYQOI0m6NoELRUaJVUFfRFHcpplSfIO9/uQ8AMtfiB5X
-	FSuf3LQOorOvkwRp5CvPYJwgIN9Oh5tsGDXK3H/DvowHOJ4tGJ5d7uwvj8t1RCBpQ5DagnX7p+Y
-	LC0HWxVOk7O0fiOBkGxaQCtzqZtWHGQO1Ak2v28Okt2mwOVyP0poHsbIVEDCftmxI32B7N5pZND
-	yh5t6PYCt+P08jXQocexQkaQyPpCrb80A==
-X-Received: by 2002:a05:701b:2406:b0:143:46a6:b01f with SMTP id a92af1059eb24-151c36c4ddfmr5288938c88.31.1791091175592;
-        Sat, 03 Oct 2026 22:19:35 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.132.231])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fc872e43sm10699591c88.7.2026.10.03.22.19.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 22:19:35 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Alexander Aring <aahringo@redhat.com>,
-	David Teigland <teigland@redhat.com>
-Cc: gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+da6dc573ce5e6624f505@syzkaller.appspotmail.com
-Subject: [PATCH v2] dlm: don't publish a lkb in ls_lkbxa before it has an rsb
-Date: Sun,  4 Oct 2026 10:49:12 +0530
-Message-ID: <20261004051912.1045-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20260909112108.2281-1-yogeshgaur.83@gmail.com>
-References: <20260909112108.2281-1-yogeshgaur.83@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXSapPqB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42A01F000FF;
+	Sun,  4 Oct 2026 05:22:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791091347;
+	bh=YkYw579dmCP/OW8cBpO24TIOyF4rtApoF4Uc+p+Gn+Y=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KXSapPqBqCmX23LS4KhdkfTPLHTxFqdLCk6lCVT2/cvV/UIF8JF2v2ArEeJB+Esam
+	 m4zwRjQOksrJ93EljNWn2PvbEWLklRXuoYnm3Wi437y2Y2WFPG8h50qMD7749wPqSB
+	 s6vJxkKs7NH+bELgmr9obGx0D/ZU5jeKh5fJ6DSAJBpc+tvkMcGc31sY5Dpx68cV53
+	 3CJZlI9bUCSPP8EqTleMEMEi31rVNhNbxwLFG5yZalj88yAYb+I/dLomHfHsv7W9gg
+	 InAll+klajYy5g32LBw1bboJ9RATZn+MwpdQvEiNM67LkTP3TBWhKN2EaYohjKnRdT
+	 cufHwtQZy87jw==
+Subject: Re: [PATCH net v3 1/2] xfrm: iptfs: track independent drop deadlines
+From: netdev-bot+sashiko@kernel.org
+To: roshaen09@gmail.com
+Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com,
+ herbert@gondor.apana.org.au, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, chopps@labn.net,
+ linux-kernel@vger.kernel.org, lilly@aronleigh.au, shubham@octane.security,
+ gio@octane.security, robert@octane.security, paolo@octane.security,
+ stable@vger.kernel.org
+Date: Sun, 04 Oct 2026 05:22:26 +0000
+Message-ID: <179109134634.434549.13083312620990703023@kernel.org>
+In-Reply-To: <20260930050307.1978654-2-roshaen09@gmail.com>
+References: <20260930050307.1978654-2-roshaen09@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-_create_lkb() puts a new lkb into ls_lkbxa straight away, which is also
-what assigns its lkb_id, but the lkb only gets an rsb later, when
-request_lock(), receive_request(), dlm_recover_master_copy() or
-dlm_debug_add_lkb() call attach_lkb(). In between, find_lkb() hands the
-lkb out with lkb_resource still NULL, and its callers go straight for
-the rsb:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-	r = lkb->lkb_resource;
+Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
 
-	hold_rsb(r);
-	lock_rsb(r);
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-For the userspace API the lkid is simply whatever was written to the
-misc device, so a lkid can be aimed at a lkb that another thread is
-still building, and hold_rsb() reads res_flags off NULL:
+- [Medium] iptfs_reset_drop_timer() now calls hrtimer_start()
+  unconditionally every time any queued state changes.
 
-  BUG: KASAN: null-ptr-deref in rsb_flag fs/dlm/dlm_internal.h:386 [inline]
-  BUG: KASAN: null-ptr-deref in hold_rsb fs/dlm/lock.c:334 [inline]
-  BUG: KASAN: null-ptr-deref in unlock_lock fs/dlm/lock.c:3333 [inline]
-  BUG: KASAN: null-ptr-deref in dlm_user_unlock+0x2ab/0x690 fs/dlm/lock.c:5956
-  Read of size 8 at addr 0000000000000050 by task syz.3.570/7893
-   rsb_flag fs/dlm/dlm_internal.h:386 [inline]
-   hold_rsb fs/dlm/lock.c:334 [inline]
-   unlock_lock fs/dlm/lock.c:3333 [inline]
-   dlm_user_unlock+0x2ab/0x690 fs/dlm/lock.c:5956
-   device_user_unlock+0x1ca/0x260 fs/dlm/user.c:321
-   device_write+0x905/0xed0 fs/dlm/user.c:590
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is in the
+  code the patch touches and relies on.
+- [High] This problem wasn't introduced by this patch, but it is serious.
 
-Make it impossible for ls_lkbxa to hold a lkb without an rsb instead of
-filtering such lkbs in find_lkb(). _create_lkb() now only reserves the
-lkb_id, by passing a NULL entry to xa_alloc(), so xa_load() returns NULL
-for it; attach_lkb() stores the lkb once lkb_resource is set. All four
-attach_lkb() callers hold the rsb lock, and nothing takes an rsb lock
-under ls_lkbxa_lock, so taking it there adds no new lock ordering.
+--
 
-An lkb that never gets an rsb is still released by __put_lkb(), whose
-xa_erase() frees the reserved id as before, and detach_lkb() already
-copes with a NULL lkb_resource. The lkb_id is still assigned at create
-time, so it is available to tracing and to the caller as before.
+xfrm: iptfs: track independent drop deadlines
 
-The xa_for_each() walks in lockspace.c skip reserved entries. For
-lockspace_busy() that means an lkb still between create and attach no
-longer makes the lockspace busy. That is the same as the request
-arriving just after the check, which can already happen; the caller
-holds a lockspace reference, which remove_lockspace() waits for.
+This patch records an absolute drop deadline for an in-progress IP-TFS
+reassembly. It adds iptfs_reset_drop_timer(), which arms the shared
+drop_timer for the earlier of the reassembly deadline and the reorder
+window slot 0 deadline. On expiry, iptfs_drop_timer() now drops only the
+state whose own deadline has passed and rearms for anything that remains.
 
-The unchecked r = lkb->lkb_resource goes back to the original DLM
-import, but an untrusted lkid only became possible once the userspace
-device interface was added, so that is the tag below.
+Link: https://lore.kernel.org/netdev/20260824072851.301644-3-lilly@aronleigh.au/
+Link: https://lore.kernel.org/netdev/apaRiWQn54Pr9hpm@secunet.com/
 
-Fixes: 597d0cae0f99 ("[DLM] dlm: user locks")
-Reported-by: syzbot+da6dc573ce5e6624f505@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=da6dc573ce5e6624f505
-Suggested-by: Alexander Aring <aahringo@redhat.com>
-Assisted-by: LLM
+> diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+> index 6920940a35b49..e538cc98e2572 100644
+> --- a/net/xfrm/xfrm_iptfs.c
+> +++ b/net/xfrm/xfrm_iptfs.c
 
----
-v2: Following review, stop ls_lkbxa from ever holding
-    a lkb without an rsb, rather than filtering such lkbs in find_lkb().
-    _create_lkb() now only reserves the id; attach_lkb() publishes the
-    lkb. Subject changed to match.
-v1: https://lore.kernel.org/all/20260909112108.2281-1-yogeshgaur.83@gmail.com/
+[ ... ]
 
-Not runtime-tested; syzbot has no reproducer for this report. Built
-with W=1.
+> @@ -703,15 +705,38 @@ static void iptfs_complete_inner_skb(struct xfrm_state *x, struct sk_buff *skb)
+>  	}
+>  }
+>  
+> +/* Arm the shared timer for the earliest reassembly or reorder deadline. */
+> +static void iptfs_reset_drop_timer(struct xfrm_iptfs_data *xtfs)
+> +{
+> +	u64 expires = 0;
+> +	u64 now;
+> +
+> +	assert_spin_locked(&xtfs->drop_lock);
+> +
+> +	if (xtfs->ra_newskb)
+> +		expires = xtfs->ra_drop_time;
+> +	if (xtfs->w_savedlen &&
+> +	    (!expires || xtfs->w_saved[0].drop_time < expires))
+> +		expires = xtfs->w_saved[0].drop_time;
+> +	if (!expires) {
+> +		hrtimer_try_to_cancel(&xtfs->drop_timer);
+> +		return;
+> +	}
+> +
+> +	now = ktime_get_raw_fast_ns();
+> +	hrtimer_start(&xtfs->drop_timer, expires > now ? expires - now : 0,
+> +		      IPTFS_HRTIMER_MODE);
 
----
- fs/dlm/lock.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+[Severity: Medium]
+Can an overdue deadline keep getting pushed back here?
 
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index 2609e4fdeba8..2b7f3ff94310 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -1488,10 +1488,22 @@ void free_inactive_rsb(struct dlm_rsb *r)
- /* Attaching/detaching lkb's from rsb's is for rsb reference counting.
-    The rsb must exist as long as any lkb's for it do. */
- 
-+/*
-+ * An lkb only becomes visible to find_lkb() here, once it has an rsb.
-+ * _create_lkb() just reserves its lkb_id in ls_lkbxa.
-+ */
- static void attach_lkb(struct dlm_rsb *r, struct dlm_lkb *lkb)
- {
-+	struct dlm_ls *ls = r->res_ls;
-+	void *old;
-+
- 	hold_rsb(r);
- 	lkb->lkb_resource = r;
-+
-+	write_lock_bh(&ls->ls_lkbxa_lock);
-+	old = xa_store(&ls->ls_lkbxa, lkb->lkb_id, lkb, GFP_ATOMIC);
-+	write_unlock_bh(&ls->ls_lkbxa_lock);
-+	WARN_ON_ONCE(old);
- }
- 
- static void detach_lkb(struct dlm_lkb *lkb)
-@@ -1525,8 +1537,9 @@ static int _create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret,
- 	INIT_LIST_HEAD(&lkb->lkb_ownqueue);
- 	INIT_LIST_HEAD(&lkb->lkb_rsb_lookup);
- 
-+	/* reserve the id only, attach_lkb() publishes the lkb */
- 	write_lock_bh(&ls->ls_lkbxa_lock);
--	rv = xa_alloc(&ls->ls_lkbxa, &lkb->lkb_id, lkb, limit, GFP_ATOMIC);
-+	rv = xa_alloc(&ls->ls_lkbxa, &lkb->lkb_id, NULL, limit, GFP_ATOMIC);
- 	write_unlock_bh(&ls->ls_lkbxa_lock);
- 
- 	if (rv < 0) {
+hrtimer_start() is now called every time, so it replaces any expiry that
+is already queued. Once the earliest deadline has passed, the timer is
+restarted with a relative delay of 0.
+
+IPTFS_HRTIMER_MODE is HRTIMER_MODE_REL_SOFT. On CONFIG_TIME_LOW_RES
+builds (m68k, parisc, csky), hrtimer_update_lowres() adds one jiffy to
+every relative expiry:
+
+kernel/time/hrtimer.c:hrtimer_update_lowres() {
+    ...
+	timer->is_rel = mode & HRTIMER_MODE_REL;
+	if (timer->is_rel)
+		tim = ktime_add_safe(tim, hrtimer_resolution);
+    ...
+}
+
+So each call after the deadline moves expiry to now + 1 jiffy. The reset
+runs in these places:
+
+- for each new most-future reorder packet, via
+  iptfs_set_window_drop_times()
+- for each reassembly start, in __input_process_payload() and
+  iptfs_reassem_cont()
+- for each reassembly completion or abort, via __iptfs_reassem_done()
+
+Say the expected sequence is missing and these events arrive more often
+than once per jiffy. Would the overdue timer then never fire?
+
+If so, the saved packets and the overdue reassembly would wait until
+traffic pauses or the window fills. At that point
+__reorder_future_shifts() forces progress, which can take up to
+reorder_win_size arrivals (up to 65535).
+
+The old code only started the timer when !hrtimer_is_queued(), so it
+never replaced a queued expiry.
+
+> +}
+> +
+
+[ ... ]
+
+> @@ -1162,12 +1190,9 @@ static bool __input_process_payload(struct xfrm_state *x, u32 data,
+>  
+>  			xtfs->ra_newskb = skb;
+>  			xtfs->ra_wantseq = seq + 1;
+> -			if (!hrtimer_is_queued(&xtfs->drop_timer)) {
+> -				/* softirq blocked lest the timer fire and interrupt us */
+> -				hrtimer_start(&xtfs->drop_timer,
+> -					      xtfs->drop_time_ns,
+> -					      IPTFS_HRTIMER_MODE);
+> -			}
+> +			xtfs->ra_drop_time = ktime_get_raw_fast_ns() +
+> +					     xtfs->drop_time_ns;
+> +			iptfs_reset_drop_timer(xtfs);
+>  
+>  			spin_unlock(&xtfs->drop_lock);
+>  
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch. Can
+xtfs->ra_newskb be overwritten here while another reassembly is still
+in progress?
+
+For a single SA, iptfs_input_ordered() looks like it can run on two CPUs
+at once. The timer path takes the flushed packets under drop_lock and
+processes them after releasing it:
+
+iptfs_drop_timer()
+    spin_lock(&xtfs->drop_lock)
+    __reorder_drop()
+    spin_unlock(&xtfs->drop_lock)
+    iptfs_input_ordered()
+
+iptfs_input() does the same with the in-order packets returned by
+iptfs_input_reorder(). Nothing else serialises the two paths:
+
+- xfrm_input() has already released x->lock before calling
+  xfrm_inner_mode_input().
+- drop_timer is not pinned, so get_target_base() can move it to another
+  CPU via get_nohz_timer_target().
+
+iptfs_input_ordered() checks ra_newskb and ra_runtlen without holding
+the lock. It takes drop_lock only around iptfs_reassem_cont():
+
+	if (blkoff || xtfs->ra_runtlen || xtfs->ra_newskb) {
+		spin_lock(&xtfs->drop_lock);
+
+Take the timer on CPU1 flushing seq N+2, which starts a fragmented inner
+packet, and advancing w_wantseq to N+3. At the same time, CPU0 receives
+and processes N+3:
+
+CPU1                                CPU0
+iptfs_drop_timer()
+  iptfs_input_ordered(N+2)          iptfs_input_ordered(N+3)
+                                      sees ra_newskb == NULL,
+                                      iptfs_reassem_cont() drops
+                                      the continuation
+    __input_process_payload()         __input_process_payload()
+      xtfs->ra_newskb = skbA;           xtfs->ra_newskb = skbB;
+
+Is skbA leaked in this case? Nothing ever frees it or times it out. Also,
+ra_wantseq and ra_drop_time would now describe the wrong packet.
+
+The later patch in this series, "xfrm: iptfs: hold a device reference
+while packets are queued", adds netdev_hold() for ra_newskb. With that
+patch, the leaked skb would also hold a net_device reference and block
+unregistration of that device.
+
+[ ... ]
+
+> @@ -1363,13 +1388,6 @@ static u32 __reorder_drop(struct xfrm_iptfs_data *xtfs, struct list_head *list)
+>  		__vec_shift(xtfs, count);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but this patch edits
+__reorder_drop(). iptfs_reset_drop_timer() also now bases the timer on
+w_saved[0].drop_time. Is the window layout that __reorder_drop() leaves
+behind correct when the walk stops early?
+
+The rest of the reorder code assumes w_saved[i] holds sequence
+w_wantseq + 1 + i. __reorder_future_fits() uses index = distance - 1.
+__reorder_this() shifts by count + 1 so that the new wantseq's own empty
+slot is discarded:
+
+	/* Shift handled slots plus final empty slot into slot 0. */
+	__vec_shift(xtfs, count + 1);
+
+__reorder_drop() increments w_wantseq and walks slots 0..k-1. It stops at
+empty slot k if that slot's drop_time is still in the future:
+
+		for (; s < se && !s->skb; s++) {
+			if (s->drop_time > now)
+				goto outerdone;
+		}
+
+It then adds k to w_wantseq, so the new wantseq is the sequence held in
+slot k. However, it shifts by only count.
+
+Doesn't that leave the empty wantseq slot at w_saved[0], with every saved
+skb one slot too high?
+
+For example, start with w_wantseq=10 and
+w_saved=[skb11(T1), empty(T2), skb13(T2)]:
+
+  timer fires at T1: w_wantseq=11, skb11 sent, walk stops at slot 1,
+    count=1, w_wantseq=12, w_saved=[empty(T2), skb13]
+  seq 12 arrives: __reorder_this() sets w_wantseq=13, count=0, shifts
+    by 1, w_saved=[skb13] (now in the seq 14 position)
+  seq 14 arrives: __reorder_future_fits() computes index 0, finds skb13
+    there and frees seq 14 as a "dup of a future"
+
+skb13 is then held until T2 (1s by default). If nothing arrives before
+T2, __reorder_drop() sends skb13 with count=2 and sets w_wantseq=15. A
+later seq 14 is then discarded by iptfs_input_reorder() as a past packet.
+
+The later patch "xfrm: iptfs: hold a device reference while packets are
+queued" does not change this logic either.
+
 -- 
-2.55.0.windows.5
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930050307.1978654-1-roshaen09%40gmail.com
