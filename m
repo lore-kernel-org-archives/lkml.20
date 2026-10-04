@@ -1,68 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F462BE034;
-	Sun,  4 Oct 2026 07:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E62626AC5
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791097463; cv=none; b=bxa1CjM6ObwLSSRqKVOu2mRulVQYeayl4HMovxjD+SaJR+yHw4m3mVkRpIKE5ToXcuCGPaf1nMTB9UwZ4mky/YjvT395MszquWSgzv+7KbJh5m1ZmHp+G9KUc0OwY/McE09oU9tTbypnpb9B7NXBIMEMZCno7TMFp9o/lNp0WDg=
+	t=1791097642; cv=none; b=q+X2lLdAg9NCvQqY6czr060l5sAs3SDntc3nhSOdt68hCCKy99F+Y+U32Rh8RvrX+zjE2ML2Gw5BcKAAoQVCU0tg9bZunTrQEwbKjAEwczr03uCawB4x6MeE5oTQ5PPMBXGZb6NwFG3erjgm6oZ40joNsL9wsLcqFRkmjQUn4Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791097463; c=relaxed/simple;
-	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hi9FKRGCE6gy3E/bXH7f6d4PjbaNjXK9+5gQ+1gPQjAAvGPbaUKlcbNPCoKzT87hlSborXk4E6OOS6HBpXpSsKBDxK19J7kNpLukW2PjyXjBWyODL5adMrnkPeQ5eDHeZ6tBf7BB5PDVfmo+wjRm4n4I9JJFn/4AvZF3neImpac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=is6j0xil; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791097642; c=relaxed/simple;
+	bh=DK2eifcovet8h/SmwwScHQv3176cktcJee8HEgGjHIM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=akT87aWZLx0kszeQhBuFKsxfEwnT/uDW+R+AAymdk1HQZOwkxB8kusQqaZVwfZ5jjB2AksswBX1FY/E789017Xganh49FTBcvmlCqIP3/n7cHxOzGE0Llt+uoiEU+/JqYUz8zynSBY6f4Jkr97GbVVc6VDSaTBetMXyrGdlze50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lNxJb7az; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="is6j0xil"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55A01F000FF;
-	Sun,  4 Oct 2026 07:04:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791097461;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=is6j0xilXhR4ypqsKJsBM9X5lO6Qm7OUlcfEeJmeAXo0J/ruHrmYoexYJ1Z9w2nu/
-	 zx7rj/yqLYTth3bUYmx8tXowSYP4aFFokyhdyMbgMI9mXNRUkrq65/0QQtSLBLJiVS
-	 kByIRa6Z3baBMCYMvIlx7lRkIrVU7W8pKaf48a63aHAMnJgTHiV/Ya+86c8H1NH3vd
-	 L2n9Eame+UJcugO5y/H0JhTS2asC9wlHbHxGP2Mnz4LUpBkF/O1MRdWwHCOExUZIRy
-	 +YOg8aG+A8wmQ36PoqmboPnoIwMnTMSrci4sAWPZ6VuIi/mjHG1vGq3PdY52e9kNBL
-	 UwatJhLYGqoaQ==
-From: netdev-bot+sinfo@kernel.org
-To: Sagi Maimon <maimon.sagi@gmail.com>
-Cc: netdev@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
- suraj.gupta2@amd.com, radhey.shyam.pandey@amd.com, michal.simek@amd.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- robert.hancock@calian.com, sean.anderson@linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH net v5] net: axienet: do not report TX completions as NAPI work
-Date: Sun, 04 Oct 2026 07:04:20 +0000
-Message-ID: <179109746015.1402591.14131579685594488279@kernel.org>
-In-Reply-To: <20261004065930.1004953-1-maimon.sagi@gmail.com>
-References: <20261004065930.1004953-1-maimon.sagi@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lNxJb7az"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Eo
+	fF1pUuYM/8yrp9ow9pXLzzi6rmvkTnwrMZgD5i4Rg=; b=lNxJb7aznl4moU1bzv
+	TMujjpXjDIHD4cPzlgP2m7sd107SWELxVddVM5jE/5KruR5kE8CVn89LjuG0HwaC
+	eyYKXCly9Hf6B59icr602oHUZv3J0ubQG2LBSwJIl2hWYjymDNvBB8E0OtK8dbEP
+	ZWVYgn9oSzQwCwsWV860uEq7Y=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDXv8vw+sFqXKtkCQ--.30279S2;
+	Sun, 04 Oct 2026 15:06:25 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Gang He <ghe@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH v2] ocfs2: validate filecheck inode slots
+Date: Sun,  4 Oct 2026 15:06:21 +0800
+Message-Id: <20261004070621.1514598-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXv8vw+sFqXKtkCQ--.30279S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3XF4xWFyfAry8WrWfuryxAFb_yoW7Cr4DpF
+	yYvryagrW8JFyxuas7try2qw1Skw1UG347GrsIy34Yvrn0yFyqkF95J347WFyrKry8Xw12
+	ga15urW7WayxuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEqg47UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xEGQGrB+vHmmQAA3n
 
-Hi!
+The online filecheck path reads inodes with
+ocfs2_filecheck_validate_inode_block() instead of
+ocfs2_validate_inode_block(). It does not check the slot fields used by
+ocfs2_get_system_file_inode() to index slot-local system inodes.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+A corrupted dinode can set OCFS2_ORPHANED_FL or
+OCFS2_DIO_ORPHANED_FL while carrying an out-of-range orphan slot. An
+out-of-range i_suballoc_slot can also bypass the normal validator through
+the filecheck path. These values can later cause an out-of-bounds access
+when used as slot indices.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Share predicate helpers between the normal and filecheck validators so
+both paths enforce the same bounds while retaining their own logging and
+error handling. Reject invalid slots in the repair path as well, since the
+correct slot cannot be recovered.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+This was reproduced on Linux 7.3-rc4 in an x86_64 QEMU guest with KASAN.
+Online filecheck of a corrupted inode reported a slab-out-of-bounds read
+in ocfs2_evict_inode(), reached from ocfs2_filecheck_attr_store().
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Fixes: d56a8f32e4c6 ("ocfs2: check/fix inode block for online file check")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+
+Notes:
+    Changes in v2:
+    - Extract the slot validity conditions from ocfs2_validate_inode_block()
+      into predicates shared with the filecheck paths.
+    - Keep logging and error handling local to each validator.
+    - Fix the Fixes tag and include the KASAN reproduction information.
+
+ fs/ocfs2/inode.c | 68 +++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 62 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 180107a11046..e5a7e53fffe5 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -249,6 +249,33 @@ static int ocfs2_dinode_has_extents(struct ocfs2_dinode *di)
+ 	return 1;
+ }
+ 
++static int
++ocfs2_dinode_has_invalid_suballoc_slot(struct super_block *sb,
++				       struct ocfs2_dinode *di)
++{
++	u16 slot = le16_to_cpu(di->i_suballoc_slot);
++
++	return slot != (u16)OCFS2_INVALID_SLOT &&
++	       slot >= OCFS2_SB(sb)->max_slots;
++}
++
++static int
++ocfs2_dinode_has_invalid_orphan_slot(struct super_block *sb,
++				     struct ocfs2_dinode *di)
++{
++	return (le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
++	       le16_to_cpu(di->i_orphaned_slot) >= OCFS2_SB(sb)->max_slots;
++}
++
++static int
++ocfs2_dinode_has_invalid_dio_orphan_slot(struct super_block *sb,
++					 struct ocfs2_dinode *di)
++{
++	return (le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
++	       le16_to_cpu(di->i_dio_orphaned_slot) >=
++	       OCFS2_SB(sb)->max_slots;
++}
++
+ /*
+  * here's how inodes get read from disk:
+  * iget5_locked -> find_actor -> OCFS2_FIND_ACTOR
+@@ -1520,24 +1547,21 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 		goto bail;
+ 	}
+ 
+-	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+-	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
++	if (ocfs2_dinode_has_invalid_suballoc_slot(sb, di)) {
+ 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
+ 				 (unsigned long long)bh->b_blocknr,
+ 				 le16_to_cpu(di->i_suballoc_slot));
+ 		goto bail;
+ 	}
+ 
+-	if ((le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
+-	    le16_to_cpu(di->i_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
++	if (ocfs2_dinode_has_invalid_orphan_slot(sb, di)) {
+ 		rc = ocfs2_error(sb, "Invalid dinode %llu: orphaned slot %u\n",
+ 				 (unsigned long long)bh->b_blocknr,
+ 				 le16_to_cpu(di->i_orphaned_slot));
+ 		goto bail;
+ 	}
+ 
+-	if ((le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
+-	    le16_to_cpu(di->i_dio_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
++	if (ocfs2_dinode_has_invalid_dio_orphan_slot(sb, di)) {
+ 		rc = ocfs2_error(sb, "Invalid dinode %llu: DIO orphaned slot %u\n",
+ 				 (unsigned long long)bh->b_blocknr,
+ 				 le16_to_cpu(di->i_dio_orphaned_slot));
+@@ -1835,6 +1859,33 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+ 		goto bail;
+ 	}
+ 
++	if (ocfs2_dinode_has_invalid_suballoc_slot(sb, di)) {
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: suballoc slot %u\n",
++		     (unsigned long long)bh->b_blocknr,
++		     le16_to_cpu(di->i_suballoc_slot));
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
++	}
++
++	if (ocfs2_dinode_has_invalid_orphan_slot(sb, di)) {
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: orphaned slot %u\n",
++		     (unsigned long long)bh->b_blocknr,
++		     le16_to_cpu(di->i_orphaned_slot));
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
++	}
++
++	if (ocfs2_dinode_has_invalid_dio_orphan_slot(sb, di)) {
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: DIO orphaned slot %u\n",
++		     (unsigned long long)bh->b_blocknr,
++		     le16_to_cpu(di->i_dio_orphaned_slot));
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
++	}
++
+ 	if (ocfs2_dinode_has_size_without_clusters(sb, di)) {
+ 		if (S_ISDIR(le16_to_cpu(di->i_mode)))
+ 			mlog(ML_ERROR,
+@@ -1893,6 +1944,11 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
+ 		return -OCFS2_FILECHECK_ERR_VALIDFLAG;
+ 	}
+ 
++	if (ocfs2_dinode_has_invalid_suballoc_slot(sb, di) ||
++	    ocfs2_dinode_has_invalid_orphan_slot(sb, di) ||
++	    ocfs2_dinode_has_invalid_dio_orphan_slot(sb, di))
++		return -OCFS2_FILECHECK_ERR_INVALIDINO;
++
+ 	if (le64_to_cpu(di->i_blkno) != bh->b_blocknr) {
+ 		di->i_blkno = cpu_to_le64(bh->b_blocknr);
+ 		changed = 1;
+-- 
+2.34.1
+
