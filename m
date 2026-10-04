@@ -1,313 +1,328 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8393B418342;
-	Sun,  4 Oct 2026 09:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791104594; cv=none; b=coscG5CYof/17DLbKhA1qvumHZ48+AH6Udj0x8C/hCYDc1FRB2DHphDwQbzLaFwQ9f79Mi5X3Pu5ZSPwf937m7UyhOx8ZtSictbDqCP8IyzkKeynAGK15TsKSDTZVKrwjb2TJEz+XW8EUetJ4vyjngQNEliaBRTu2/PH7BqT6Jc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791104594; c=relaxed/simple;
-	bh=UiqMAjyp10FHl+89HZ71lBqlz5fX8fQd7q8QEgeWWP8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lcyG5CKCA8Iv0RJMi9GnWdQgtJMzgQ2QQG8SYSMz0Z5GjlG0ksb59uss522GSl0AzhaJ8ilHXAssOg/2RWLCsnxyzNf65g9ajO+ZfcTQS0ClLqr1UppjI2zQHqMfRjODIA5fpFZUJOfqSJ2MDBJ348giysqo52rmnrSiUeys8uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ieQXcmZC; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D992E888C
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:05:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791104723; cv=pass; b=c/gjP0FKxQlB8eQabBRQFRsBZKcbaHmZPHbOhsxK+eaRTeJAoTlsAalds/MgnObNTqSJ/q/c7dfEKYnRDETXRiNgHgKJGf+t6ovl+l89ddEdYSZmSBGHDFPX95QOSAX2taN6CJw+W9H/rp+GL5Drbr2tRu2NAf00nzDWKh1/KQw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791104723; c=relaxed/simple;
+	bh=Md3eVMFMNjS4x/y9MdWU2A1HQjTNlRJ8suqFtL2iTGo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S2uH0MN/8n/E2YkDoK4HV57OS7Y9MN6TpsnQvmkLmNZTNuU6vWmCPeBr4Ao9Ru3chcC+3+3pugvA3YgHmCdf+uBqKW3enUYtKgC2bNRMbzBqatJZ2+ghkv0cJv81VE34k70dvAJnKFuRbg/tDsPv1R8AWkxGc5OGmHSkXgKnH2U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J0VQYSoZ; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ieQXcmZC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D0B1F000FF;
-	Sun,  4 Oct 2026 09:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791104592;
-	bh=1csFcv/zpdL1/3QwbyMxAX3rqrDvcTCz439BrEOVy5U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ieQXcmZCAl0ggJfCcKBLG+qyUQro0U7XDR/gmIOrPR4IZgaXLCic5SAJzZzlb55gY
-	 TC30DiSej/PpYUKCnDJ6nalpuXy+QrABiW+4VfkNTpqeqCj6C8McGnmLoQHDIVtY1m
-	 MVZ/mek5SxgYyXpFwdh0mW9jnrz+fU8uB8oY5sUAp/8/3jurInGnbMVPj90vS9Z6YS
-	 1yAwbxwUB9aH2NVHXF/gXjrcNZmGxHScG2xs+5bQkmaUtyd1asLkAzOtsIqwUCyd9M
-	 NiByJLnT5c9Z1lbH/Is/uv+b00OCVMAcXJNvjDPtI6J9bDxC/9zDbwbKV5rPa+ljmj
-	 f0hHnGiTGgeAQ==
-Subject:
- Re: [PATCH net v3 7/7] net: sxgbe: manage IRQ data lifetimes with devres
-From: netdev-bot+sashiko@kernel.org
-To: yaojiale02@163.com
-Cc: theo.lebrun@bootlin.com, conor.dooley@microchip.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
- shenjian15@huawei.com, shaojijie@huawei.com, niklas.soderlund@ragnatech.se,
- paul@pbarker.dev, bh74.an@samsung.com, linux@armlinux.org.uk,
- soren.brinkmann@xilinx.com, nicolas.ferre@microchip.com,
- fabio.estevam@freescale.com, arnd@arndb.de, dingtianhong@huawei.com,
- zhangfei.gao@linaro.org, xuejiancheng@hisilicon.com, lidongpo@hisilicon.com,
- s.shtylyov@omp.ru, claudiu.beznea.uj@bp.renesas.com, vipul.pandya@samsung.com,
- siva.kallam@samsung.com, ks.giri@samsung.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org
-Date: Sun, 04 Oct 2026 09:03:10 +0000
-Message-ID: <179110459004.434549.4831686330572550768@kernel.org>
-In-Reply-To: <20261003085940.493951-8-yaojiale02@163.com>
-References: <20261003085940.493951-8-yaojiale02@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J0VQYSoZ"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a9bd4db6ccso1037223a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:05:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791104719; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Tm5EOfgQh0du0EP5y24/vBaAsM3cM/rcBOAFwqfZKfrB48a0I4OqYmdzQpxeCRA3Oj
+         X7TMLmkqhINhuPWIt84OEcOaCHjZ56GBNRFo3sXZzhZFmV8wC8ogrOjnn0hcIn8zAiBq
+         50sejjhOt2Qh7dE4JdsG0mhmL82JeqDds5JuchKmh0lZPn8LOr5Mcs2Af+VqbAScZZ3N
+         VLT2D6EqDsmumEpLV0Q3sgeYmihzer/+jtCC8JpeX+f8kLauToCRTxyevdEC7Fg298jI
+         g/RLOkjYsQVZpnoR07luRbO9mVGdzFKA6zEkn93yaQn2tqcA88qEHqbqUYBTgGRX7aq2
+         uuuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WHZw58du1+z3AjNtEPV+ML/gwcbQQio5oIr/dAa76uU=;
+        fh=toILed/BBNyj09StKxeJGAiOix0Pg8XHyiTPa602XTI=;
+        b=YTVT/q1DQ2AC0y1Ad8N51Jx8MBmEZeM9QEJxUeIZ78cxeBEbFk9fq19IS00im9cRa8
+         qX/juETSL9eRkVu92zvqblIh08zxnGB94Ix3vg0PMbjtsdvuHg/JMvhGnU+bmq7YjfyK
+         MAQ2pfEJVO37gcH3FjPS8C/hS1G8hnUFQ8h1IE5e6u9w/bG6Y81Y9R3Ip4PT5RzMZMmm
+         LdYoIrUuv8HwWtKPAWtt1xli+pmfKfdhMYQ2y5YHpzxzAXTgbD1qID3FzjgDf+tTW0fP
+         R/2hUiIbKh0Yg7ACWb0ijomDKpfsRBFrjbCMgVCVXJQO6d/YC1A7wU+G+SVRRw8AabOV
+         ApOw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791104719; x=1791709519; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WHZw58du1+z3AjNtEPV+ML/gwcbQQio5oIr/dAa76uU=;
+        b=J0VQYSoZ3rWc/FAzQU3TllIzYQeBPaWCoR6VfyWr2Js6mpCQoBlD2YFOoRx8h5aoPx
+         nrKJQ4JGh1vuSMCtoUB4MlrSwlD22j5AvjStM57Ghu6JHAPyYm1RI88SVH3m0l+PvtHi
+         SJ8ZFujyKkqbVaAkr3DEFC5ebxiS/5J+oolDN3XGi24P83qUqCaFk6AIoAXqH7BOslAV
+         lrMa4W9kWZ9NEVsWNruW7yTCGnWgW24QIBxqvJGwaiqd82WB4uRbYLN0H5y++6KHXcKn
+         JXcwawGoBSvwvktYCfAOFsGLlo3c7NWK/HsDGeQIiNy0fW1wJe7azd/pFPj5tIdJg4Yy
+         MsKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791104719; x=1791709519;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WHZw58du1+z3AjNtEPV+ML/gwcbQQio5oIr/dAa76uU=;
+        b=xMxT/odFK1LyqleeMlX5ddPAJhKiwTjCyJoUcc6BJbsPsNmF2B5YDdyY9hhZj3ghMp
+         ii/JM4gO2dl4Y3rtIufRK3kvE9pxHizpvjrJqRwRbqKnVKi7aZu5+t3hANirNJ7U+/Vc
+         3jETuYuIdxa41XFDZyehuNA4/B4qoob7uz3R2S6tgWb2QyOZqLN0llGD+mlh5nGbOMWQ
+         F3OMzgF1ZR/fPuqzs+dsmUvDapH7VH7+edNome3EdDwNAuWgh+SnX2T/eObeh3YomKSN
+         UE/k5Un0E6FhPIUlpVRsbEarAY8KFLgT63NNPWOuZhsEoxu5E35RX2gina6alnDiXcdz
+         3y1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxY/ZY+kBaz+vQG/yMLMzojRlO16iYBsR7AZx1ETkt10/5VBaOZ9UWpJOiddTiOY+ZUFjwM/ysa3V7Z3V4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLG53+7a/9XXdM2Dm6xX9YJvz/LoJ3NYQm/y5fxPUPHeiLplXPT
+	PRDycPZZopuYw0/tSHilsKXGS2uYmq7HhjdxSUI0Gxxg7Wob/8nHd3UerwaVIv9PX3EDuLIYwoM
+	Lk6xBB3CbhatGhvF9MDaPfF3zlu6+erm+w7Jg
+X-Gm-Gg: AYBFou0luvim4sni0CtTiLq9J34qTLTj9bx2gAdFdkATV+Okdoq1A0R4LHEsEhRz1QW
+	N+SkRmqJstMY+PV7ugddEK6QMTEnacuR0OVTqChq2S72H+f8WzFS2vvMo/8nGSuKRMM3XAEx50t
+	dTZxK1nqyrZ//FSLz0RvT/hzPOm0f3FD2BQSyOpj6w8oOtLq6TDmuTe0LFOVXY9p7AKKyhj0zqu
+	b7zO6sZvlc80J70aVm1hOsrcgKEQosFox6v0g10imjL7ySAeR1v6+lam1xrT3DUSeTgpgj6R6tt
+	7uEdOujIz9h21CHOwk/ozN3gc9SArU0CurZ60NBBHd4dET0rgrSyE243bzK4jq11YMCN/jsKTPi
+	hlefZLgQRnpUUE74OxvIOAYgS2NhvC7/v/e/NlYtFqw==
+X-Received: by 2002:a05:6402:4020:b0:6aa:9fd4:35fb with SMTP id
+ 4fb4d7f45d1cf-6afad8cd8f0mr4371450a12.8.1791104718721; Sun, 04 Oct 2026
+ 02:05:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260927005821.8369-1-kaloz@kernel.org> <20260927005821.8369-4-kaloz@kernel.org>
+In-Reply-To: <20260927005821.8369-4-kaloz@kernel.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 4 Oct 2026 11:05:07 +0200
+X-Gm-Features: AclHuK-DCkXdzly_4kVOkpuer8jTshhCLwSKLrwW6TM9YcPaLvNihMwHwTNI6u8
+Message-ID: <CA+=Fv5RBuL-DP-P1k-+c_CahtEB4h=2dkg2Y9D=X6vd_AMsF0w@mail.gmail.com>
+Subject: Re: [PATCH 3/3] sparc32: emulate integer divide taken as illegal_instruction
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Imre,
 
-Critical: 0 · High: 1 (2) · Medium: 0 (2) · Low: 0 (1)
+On Sun, Sep 27, 2026 at 2:59=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrote=
+:
+>
+> SuperSPARC and SuperSPARC-II implement a 52-bit by 32-bit integer divide
+> and raise illegal_instruction for udiv and sdiv when the 64-bit dividend
+> {Y, rs1} has significant bits above bit 51, as the SuperSPARC II
+> Addendum documents, so whether a divide traps depends on its operands.
+> gcc emits udiv under -mcpu=3Dv8, including in libgcc's __udivdi3, so
+> 64-bit division in user code on these CPUs dies with SIGILL.
+>
+> Complete udiv and sdiv, and their -cc forms, from
+> do_illegal_instruction(), sharing the windowed-operand helpers with the
+> casa emulation. A CPU that executes the instruction never reaches the
+> handler, nor does a kernel-mode illegal instruction. A fault reading a
+> windowed operand raises SIGSEGV, as the casa emulation does. On overflow
+> the quotient saturates to 0xffffffff for udiv and to 0x7fffffff or
+> 0x80000000 for sdiv, and the -cc forms set V, as the architecture
+> specifies.
+>
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> ---
+>  arch/sparc/kernel/Makefile     |   1 +
+>  arch/sparc/kernel/div_emu_32.c | 127 +++++++++++++++++++++++++++++++++
+>  arch/sparc/kernel/entry.h      |   1 +
+>  arch/sparc/kernel/traps_32.c   |   3 +
+>  4 files changed, 132 insertions(+)
+>  create mode 100644 arch/sparc/kernel/div_emu_32.c
+>
+> diff --git a/arch/sparc/kernel/Makefile b/arch/sparc/kernel/Makefile
+> index fbea79a4ab58..43e15b46b8dd 100644
+> --- a/arch/sparc/kernel/Makefile
+> +++ b/arch/sparc/kernel/Makefile
+> @@ -41,6 +41,7 @@ obj-$(CONFIG_SPARC32)   +=3D systbls_32.o
+>  obj-y                   +=3D time_$(BITS).o
+>  obj-$(CONFIG_SPARC32)   +=3D windows.o
+>  obj-$(CONFIG_SPARC32)   +=3D cas_emu_32.o
+> +obj-$(CONFIG_SPARC32)   +=3D div_emu_32.o
+>  obj-y                   +=3D cpu.o
+>  obj-$(CONFIG_SPARC32)   +=3D devices.o
+>  obj-y                   +=3D ptrace_$(BITS).o
+> diff --git a/arch/sparc/kernel/div_emu_32.c b/arch/sparc/kernel/div_emu_3=
+2.c
+> new file mode 100644
+> index 000000000000..208b4071a525
+> --- /dev/null
+> +++ b/arch/sparc/kernel/div_emu_32.c
+> @@ -0,0 +1,127 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
+> + *
+> + * SuperSPARC and SuperSPARC-II implement a 52-bit by 32-bit integer div=
+ide
+> + * and raise illegal_instruction for udiv and sdiv when the dividend {Y,=
+ rs1}
+> + * has significant bits above bit 51. Complete those divides here.
+> + *
+> + * Format 3 (op =3D 2), op3 0x0e udiv, 0x0f sdiv, plus 0x10 for the form=
+s that
+> + * set %icc. {Y, rs1} / rs2 saturates on overflow and leaves Y alone.
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/sched/signal.h>
+> +#include <linux/uaccess.h>
+> +#include <asm/ptrace.h>
+> +#include <asm/psr.h>
+> +
+> +#include "entry.h"
+> +#include "unimp_32.h"
+> +
+> +int try_emulate_div(struct pt_regs *regs, unsigned int insn)
+> +{
+> +       unsigned int op3, rd, rs1, rs2;
+> +       unsigned long r1, r2, result =3D 0;
+> +       int fault =3D 0, is_signed, cc, ovf =3D 0;
+> +
+> +       if ((insn >> 30) !=3D 2)
+> +               return 0;
+> +       op3 =3D (insn >> 19) & 0x3f;
+> +       switch (op3) {
+> +       case 0x0e: case 0x0f: case 0x1e: case 0x1f:
+> +               break;
+> +       default:
+> +               return 0;
+> +       }
+> +       is_signed =3D op3 & 0x01;
+> +       cc =3D op3 & 0x10;
+> +
+> +       rd =3D (insn >> 25) & 0x1f;
+> +       rs1 =3D (insn >> 14) & 0x1f;
+> +       rs2 =3D (insn & (1 << 13)) ? 0 : (insn & 0x1f);
+> +
+> +       unimp_flush_windows(rs1, rs2, rd);
+> +
+> +       r1 =3D unimp_get_reg(rs1, regs, &fault);
+> +       if (insn & (1 << 13)) {                 /* i =3D=3D 1: sign-exten=
+ded simm13 */
+> +               long simm =3D insn & 0x1fff;
+> +
+> +               if (simm & 0x1000)
+> +                       simm |=3D ~0x1fffL;
+> +               r2 =3D (unsigned long)simm;
+> +       } else {
+> +               r2 =3D unimp_get_reg(rs2, regs, &fault);
+> +       }
+> +       if (fault) {
+> +               /* A windowed operand could not be read from the user sta=
+ck. */
+> +               send_sig_fault(SIGSEGV, SEGV_MAPERR,
+> +                              (void __user *)regs->u_regs[UREG_FP], curr=
+ent);
+> +               return 1;
+> +       }
+> +
+> +       if ((unsigned int)r2 =3D=3D 0) {
+> +               send_sig_fault(SIGFPE, FPE_INTDIV,
+> +                              (void __user *)regs->pc, current);
+> +               return 1;
+> +       }
+> +       if (is_signed) {
+> +               long long num =3D ((long long)(int)regs->y << 32) |
+> +                               (unsigned int)r1;
+> +
+> +               /*
+> +                * INT64_MIN / -1 is undefined in C; the quotient is +2^6=
+3,
+> +                * a positive overflow.
+> +                */
+> +               if (num =3D=3D LLONG_MIN && (int)r2 =3D=3D -1) {
+> +                       result =3D 0x7fffffff;
+> +                       ovf =3D 1;
+> +               } else {
+> +                       long long q =3D num / (int)r2;
+> +
+> +                       if (q > 2147483647LL) {
+> +                               result =3D 0x7fffffff;
+> +                               ovf =3D 1;
+> +                       } else if (q < -2147483647LL - 1) {
+> +                               result =3D 0x80000000;
+> +                               ovf =3D 1;
+> +                       } else {
+> +                               result =3D (unsigned long)(unsigned int)q=
+;
+> +                       }
+> +               }
+> +       } else {
+> +               unsigned long long num =3D
+> +                       ((unsigned long long)(unsigned int)regs->y << 32)=
+ |
+> +                       (unsigned int)r1;
+> +               unsigned long long q =3D num / (unsigned int)r2;
+> +
+> +               if (q > 0xffffffffULL) {
+> +                       result =3D 0xffffffff;
+> +                       ovf =3D 1;
+> +               } else {
+> +                       result =3D (unsigned long)(unsigned int)q;
+> +               }
+> +       }
+> +
+> +       if (unimp_put_reg(rd, result, regs)) {
+> +               send_sig_fault(SIGSEGV, SEGV_MAPERR,
+> +                              (void __user *)regs->u_regs[UREG_FP], curr=
+ent);
+> +               return 1;
+> +       }
+> +
+> +       if (cc) {
+> +               unsigned long psr =3D regs->psr & ~PSR_ICC;
+> +
+> +               if (result & 0x80000000)
+> +                       psr |=3D PSR_N;
+> +               if (result =3D=3D 0)
+> +                       psr |=3D PSR_Z;
+> +               if (ovf)
+> +                       psr |=3D PSR_V;
+> +               regs->psr =3D psr;
+> +       }
+> +
+> +       regs->pc =3D regs->npc;
+> +       regs->npc +=3D 4;
+> +       return 1;
+> +}
+> diff --git a/arch/sparc/kernel/entry.h b/arch/sparc/kernel/entry.h
+> index 2eb2b0be90df..4911cfd07d60 100644
+> --- a/arch/sparc/kernel/entry.h
+> +++ b/arch/sparc/kernel/entry.h
+> @@ -15,6 +15,7 @@ void do_hw_interrupt(struct pt_regs *regs, unsigned lon=
+g type);
+>  void do_illegal_instruction(struct pt_regs *regs, unsigned long pc,
+>                              unsigned long npc, unsigned long psr);
+>  int try_emulate_casa(struct pt_regs *regs, unsigned int insn);
+> +int try_emulate_div(struct pt_regs *regs, unsigned int insn);
+>
+>  void do_priv_instruction(struct pt_regs *regs, unsigned long pc,
+>                           unsigned long npc, unsigned long psr);
+> diff --git a/arch/sparc/kernel/traps_32.c b/arch/sparc/kernel/traps_32.c
+> index 69851b19766a..f9050dee0f1c 100644
+> --- a/arch/sparc/kernel/traps_32.c
+> +++ b/arch/sparc/kernel/traps_32.c
+> @@ -131,6 +131,9 @@ void do_illegal_instruction(struct pt_regs *regs, uns=
+igned long pc, unsigned lon
+>         if (!get_user(insn, (unsigned int __user *)pc)) {
+>                 if (try_emulate_casa(regs, insn))
+>                         return;
+> +               /* SuperSPARC traps divides wider than 52 bits. */
+> +               if (try_emulate_div(regs, insn))
+> +                       return;
+>         }
+>
+>         send_sig_fault(SIGILL, ILL_ILLOPC, (void __user *)pc, current);
+> --
+> 2.47.3
+>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I guess I already responded to this before, but I've now had some
+more time to do proper testing of this full series, I've tested
+this on a real dual SuperSPARC-II SPARCstation 20, which genuinely
+traps on this condition. Checked UDIV/SDIV across the overflow-
+saturation boundary in both directions, including INT64_MIN / -1
+(the one case easy to get backwards), a zero divisor combined with
+an erratum-triggering dividend (correctly raises SIGFPE), and
+UDIVCC's condition codes for both a zero and a nonzero quotient.
+10/10 correct, matching the V8 semantics my own already-upstream
+divide-emulation patch targets.
 
-- [High] The fix does not close the bug class its commit message
-  describes: IRQ handlers can still run against freed memory in the…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but any re-open of
-  the interface fails, and the MTU-change path can then wedge rtnl.
-- [High] This problem wasn't introduced by this patch, but the EEE
-  control timer can be re-armed after sxgbe_release() cancels it, and…
-- [Medium] This problem wasn't introduced by this patch, but
-  sxgbe_platform_probe() only allocates plat_dat when pdev->dev.of_node…
-- [Medium] This problem wasn't introduced by this patch, but
-  sxgbe_drv_probe() calls register_netdev(), which makes the interface…
-- [Low] This problem wasn't introduced by this patch, but init_tx_ring()
-  allocates tx_ring->tx_skbuff_dma and tx_ring->tx_skbuff with…
-
---
-
-net: sxgbe: manage IRQ data lifetimes with devres
-
-This commit switches the netdev and priv->hw allocations in the sxgbe
-driver to devres. They are then released after the devm-managed IRQs
-requested in sxgbe_open(). The goal is to close a window where an
-interrupt arriving after sxgbe_drv_remove() could dereference freed
-memory.
-
-> diff --git a/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c b/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c
-> index 70cf3619555f9..ada851477302e 100644
-> --- a/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c
-> +++ b/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c
-
-[ ... ]
-
-> @@ -2069,8 +2069,8 @@ struct sxgbe_priv_data *sxgbe_drv_probe(struct device *device,
->  	int ret;
->  	u8 queue_num;
->  
-> -	ndev = alloc_etherdev_mqs(sizeof(struct sxgbe_priv_data),
-> -				  SXGBE_TX_QUEUES, SXGBE_RX_QUEUES);
-> +	ndev = devm_alloc_etherdev_mqs(device, sizeof(struct sxgbe_priv_data),
-> +				       SXGBE_TX_QUEUES, SXGBE_RX_QUEUES);
->  	if (!ndev)
->  		return NULL;
->  
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but can priv->plat be NULL
-in sxgbe_drv_probe()?
-
-sxgbe_platform_probe() only allocates plat_dat when pdev->dev.of_node is
-set, but it always passes plat_dat to sxgbe_drv_probe():
-
-	priv = sxgbe_drv_probe(&(pdev->dev), plat_dat, addr);
-
-If a platform device without an OF node gets bound, either by name
-("sam_sxgbeeth") or through driver_override, sxgbe_drv_probe()
-dereferences the NULL pointer here:
-
-	if (!priv->plat->riwt_off) {
-
-[ ... ]
-
-> @@ -2191,11 +2191,7 @@ struct sxgbe_priv_data *sxgbe_drv_probe(struct device *device,
->  	clk_put(priv->sxgbe_clk);
->  error_napi_del:
->  	netif_napi_del(&priv->napi);
-> -error_free_hw:
-> -	kfree(priv->hw);
-> -error_free_netdev:
-> -	free_netdev(ndev);
-> -
-> +error_return:
->  	return NULL;
->  }
-
-[Severity: Medium]
-This is a pre-existing issue, but is the netdev published before its
-IRQ numbers are set?
-
-sxgbe_drv_probe() calls register_netdev() and returns. Only after that
-does sxgbe_platform_probe() fill in the IRQ numbers:
-
-	priv = sxgbe_drv_probe(&(pdev->dev), plat_dat, addr);
-	...
-	priv->irq  = irq_of_parse_and_map(node, 0);
-
-The txq/rxq structures come from devm_kmalloc() and are not zeroed. If
-udev or NetworkManager calls dev_open() in that window, sxgbe_open()
-runs with priv->irq == 0, or with uninitialized txq[i]->irq_no and
-rxq[i]->irq_no values.
-
-> @@ -2229,10 +2225,6 @@ void sxgbe_drv_remove(struct net_device *ndev)
->  	clk_put(priv->sxgbe_clk);
->  
->  	netif_napi_del(&priv->napi);
-> -
-> -	kfree(priv->hw);
-> -
-> -	free_netdev(ndev);
->  }
-
-[Severity: High]
-Does this fully close the window described in the commit message? The
-netdev and priv->hw now outlive the IRQs. However, the IRQs themselves
-stay live after the interface is closed.
-
-sxgbe_open() requests the common, LPI, per-TX and per-RX IRQs with
-devm_request_irq(priv->device, ...). Neither sxgbe_release() nor the
-sxgbe_open() error path frees, masks or synchronizes them.
-
-unregister_netdev() in sxgbe_drv_remove() runs sxgbe_release(), which
-does:
-
-	priv->hw->dma->stop_tx(priv->ioaddr, SXGBE_TX_QUEUES);
-	...
-	free_dma_desc_resources(priv);
-	...
-	clk_disable_unprepare(priv->sxgbe_clk);
-
-It never writes SXGBE_DMA_CHA_INT_ENABLE_REG and never frees the IRQs.
-The handlers stay registered until devres teardown after remove
-returns. The same state exists after every ifdown and every
-sxgbe_change_mtu().
-
-In that window, sxgbe_tx_interrupt() has no interface-up check:
-
-	if (unlikely((status & tx_hard_error)))
-		sxgbe_restart_tx_queue(priv, txq->queue_no);
-
-and sxgbe_restart_tx_queue() does:
-
-	tx_free_ring_skbufs(tx_ring);
-	...
-	priv->hw->dma->start_tx_queue(priv->ioaddr, queue_num);
-	...
-	netif_tx_wake_queue(dev_txq);
-
-Can tx_free_ring_skbufs() race with dma_free_tx_skbufs() and
-free_tx_ring() in close? That could unmap and free the same skbs twice,
-or read freed dma_tx descriptors through get_tx_len().
-
-Can start_tx_queue() set SXGBE_TX_ENABLE again on a channel whose
-descriptor base still points at the ring freed with
-dma_free_coherent()? The device could then DMA into reallocated memory.
-
-The trigger might not need a stray error. SXGBE_DMA_ENA_INT includes
-SXGBE_DMA_INT_ENA_TSE, and sxgbe_tx_dma_int_status() maps
-SXGBE_DMA_INT_STATUS_TPS to tx_hard_error. If the hardware sets TPS on
-a software stop, the stop_tx() calls in sxgbe_drv_remove() and
-sxgbe_release() could raise the very interrupt that restarts TX DMA.
-That hardware behaviour can't be confirmed from the code alone.
-
-All three handlers also access CSRs through priv->ioaddr after
-clk_disable_unprepare(). The common and LPI lines are IRQF_SHARED. So
-another device on the line, or the extra CONFIG_DEBUG_SHIRQ call in
-free_irq() during devres teardown, can run them while the clock is
-gated.
-
-Would it be better to mask the channel interrupts and free the IRQs in
-ndo_stop, before freeing the rings and gating the clock? This could use
-request_irq()/free_irq() or devm_free_irq(). That alone would also fix
-the netdev/priv->hw use-after-free, so it would replace the devres
-ordering here rather than build on it.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can the EEE control
-timer still be armed when devres frees the netdev that contains it?
-
-sxgbe_release() cancels the timer first. It then calls phy_stop() and
-phy_disconnect(), which can sleep, and only later calls napi_disable():
-
-	if (priv->eee_enabled)
-		timer_delete_sync(&priv->eee_ctrl_timer);
-	...
-	napi_disable(&priv->napi);
-
-A NAPI poll in that gap, sxgbe_poll()->sxgbe_tx_all_clean(), can re-arm
-the timer:
-
-	if ((priv->eee_enabled) && (!priv->tx_path_in_lpi_mode)) {
-		sxgbe_enable_eee_mode(priv);
-		mod_timer(&priv->eee_ctrl_timer, SXGBE_LPI_TIMER(eee_timer));
-	}
-
-sxgbe_eee_ctrl_timer() re-arms itself on every expiry, and nothing on
-the close or remove path deletes it again.
-
-After close, the timer writes MAC registers with the clock gated. After
-remove, the timer_list sits in netdev private memory that devres has
-freed, so the next expiry is a use-after-free. After module unload, it
-runs freed module text.
-
-[Severity: High]
-This is a pre-existing issue, but does every re-open of the interface
-fail because the IRQs from the previous sxgbe_open() are never freed?
-
-Consider a second sxgbe_open(), from ifdown/ifup or from
-sxgbe_change_mtu() on a running interface (which calls sxgbe_release()
-and then sxgbe_open()):
-
-- The IRQF_SHARED common and LPI requests succeed and add duplicate
-  actions with the same dev_id.
-
-- The first per-TX-queue request is exclusive (flags 0). It fails with
-  -EBUSY in __setup_irq() because the earlier action is still
-  installed:
-
-	ret = devm_request_irq(priv->device,
-			       (priv->txq[queue_num])->irq_no,
-			       sxgbe_tx_interrupt, 0,
-			       dev->name, priv->txq[queue_num]);
-
-- init_error frees the rings, disconnects the PHY and disables the
-  clock. The duplicate shared actions are left in place.
-
-After an MTU change on a running interface, the device stays IFF_UP
-with NAPI disabled and the rings freed. A later ifdown, or
-unregister_netdev() in sxgbe_drv_remove(), runs sxgbe_release() again.
-
-Would that second napi_disable() spin forever in napi_disable_locked()
-while rtnl is held, since NAPIF_STATE_SCHED is already set? Even if it
-returned, free_dma_desc_resources() would free the coherent rings and
-the rx_skbuff arrays a second time.
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but init_tx_ring() allocates
-tx_ring->tx_skbuff_dma and tx_ring->tx_skbuff with devm_kcalloc() on
-every ndo_open:
-
-	tx_ring->tx_skbuff_dma = devm_kcalloc(dev, tx_rsize,
-					      sizeof(dma_addr_t), GFP_KERNEL);
-	...
-	tx_ring->tx_skbuff = devm_kcalloc(dev, tx_rsize,
-					  sizeof(struct sk_buff *), GFP_KERNEL);
-
-free_tx_ring() only releases the coherent ring:
-
-	dma_free_coherent(dev, tx_rsize * sizeof(struct sxgbe_tx_norm_desc),
-			  tx_ring->dma_tx, tx_ring->dma_tx_phy);
-
-Does each open attempt, including the failing re-opens above, leave
-another pair of arrays attached to the device until unbind?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003085940.493951-2-yaojiale02%40163.com
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
