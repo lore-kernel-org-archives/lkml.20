@@ -1,180 +1,273 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FA23921F6
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 22:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670EF13CF82;
+	Sun,  4 Oct 2026 22:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791152012; cv=none; b=fvEgS8wT+6NGkAy8B1ncIVPXe5IJ5H5An9lvHemvS9FdcYUn0gAPJWCdTFefEAcVfVc6UG29giL9J3ebt6OOpl43+WdHlKlm73OAZVGVYsxIdz5KUGjKsuLOJoiXwtWQF7DW9RClCpNcz1I+L/iuKOpD4fy7gJtPVaSKEnadnl0=
+	t=1791152140; cv=none; b=DFRG3wjliT3cXeZEhR32NYIU4fv5Zd3HisoApQnQtIvpmmmiKQoOPznsQXnZgqVi3U6GMp8m3frDxzf1gEfSoT41hx8b4sp2I3rKncV6tFBIqUHFsX2L+pIix0IUVyQKKXtm7jt1dPR8Jup/f3eg69FxprBPV6FsThHT/zSD4Dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791152012; c=relaxed/simple;
-	bh=Se8Ax4+TIBiCq3yGIY0Rj1lMt8PKeNTEx1PQrZt26lc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VHBUjHuDSfno/QFlMFnJb+OW/oQtpcIKZFZIjC0JAZ0RZaAEbL3sa1Z4dRR4dKJb01MhmzOA48WnhhKj9MAScggHT8A/odrK26G3z2UjPnwX7vnWWrTO5Kig17BbjP3KotII2GXAFXaNsK/OsqcV/c1hcdmQ7WF823VRlU3eDHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VJyGsCJm; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791152140; c=relaxed/simple;
+	bh=35EEexwvsk1l3odmqC/OL5FDZhrSDKxD/d3/MbCWehU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gm52O+WbZ+Qg0Emu+U/88c3FuQv5k+Vuew5KuR4oXjrOUtEFh5kWLzFCOGCCD6i+T5N5Za3xTfw9+aTStia4onZNmyRIJ1ggQqK0ifyHCztXGdx3sep3R0NYHdXYqEZ9KDxzaE183y2hgmzuiW+BWQFOs14EozWoiGoqrigF9t0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dqb4EH1a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VJyGsCJm"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-35118a5991dso608258eec.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 15:13:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791152009; x=1791756809; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qol00xKd0T0+apHbVQX4zHawmYMyVklpl08y4ubxCGE=;
-        b=VJyGsCJmAY/BCKN4B0x3Dq7iQEg416pRnlTbpTNiPacNbpgBANQLItH9DvA6G3DAMe
-         BD/nG061rQ0IwDvo1rynA9YedxI2QrciTeN9g9vL04JNPlVwXx/whUn08JEUgxKJs4Yd
-         L8g5y6/sAi2QUhJ/odf3HxxupJtC+KH+M8pdZKP7t75O/399dj2dxlT9qE+tCbaffGoO
-         ObYTFkmZZd/FRFUPNem9yJY3IQUYzNnQXvXQT7WY0c1hQfHEdOWkcIcqKhs8toQ7o0Ez
-         Uu2dbVNRby1qkQ95cZc8jqRt6TBRhu9ma6rUeoULKbLAq/FXtaVRYXfJkcgR17k1wI1Q
-         /96A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791152009; x=1791756809;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qol00xKd0T0+apHbVQX4zHawmYMyVklpl08y4ubxCGE=;
-        b=gZyIdd3BpwOfq+kBL0NjmUdUXU0oZhsEwX2axZjf/afLO+ySd84/eK62TDvoPwcILy
-         YqtVRvneIG1SGS4s67ws4RtCH9Rp+28g+iAOPf4eEcs11UIaAi7CYqLe5xxXywDgE3uA
-         tDEuQXR3o1CfsFX6hgfOL5sAWVfnzact0HJLbo7pf6nmyQftqF7UnSGby+dy5QCLkX52
-         tv62H0710PGtjvjPBs5Qieh5Vu4KCv5rFDIIX6aFwFSEKibGjDwQRqFgFWb4jO/glbJr
-         0I0hlL881yaiy2i8qR9rBeXCBnaeBthGMzoXh4HFA6qdlYp3s0LqDImErwrGmHodfVJo
-         ImDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzCNJEKV5t/KP5xQZYdhLanOwRk2n8gI0q443bC+sbmgGTNk2DLN+1u3fQyZZzqTZrVe8OKTI3KA3iTsLU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2NWyh13dehhu+nFbq56mxGG8URPeGiViSAi6azslmVl0xnHk8
-	qiHnSVd1XAisPY4ICnTOaJV/zPALZufWcTeghE3ZnHMmpCD7d1PQtq6Z
-X-Gm-Gg: AYBFou27aJ7oyoTXp68bupp2GcS6qOzSbU/vEX6xgJMYChuKru78iXRSmrZEskg4X/3
-	i4Dq2dUud8d6JhB+yyoIzTwu7RHTpqiEOEA1026y+JrqVQCRE89BRlxm2H1ZNLXpi+pYAA9aAPD
-	nWaHax/oIBcj2TKi2qv4/J3wNZhQbX487pgCsLwjs/7ygQ7Ve/g+jbVrMkmzTlbFGVmbucz5au/
-	V2isGgw9s8TvQlhUDQ7D/vxNQmg4CGORO0ccqjDhBibG5hQffJVH2K/cEoSie7//ixz4/JGWhKk
-	3uDMB7nCNwxNHbfGKRjdALLp149wDvqQq+QGZ93v9UztlQPBk0GHM19ZmWnxAEj49OvFGM2g/R5
-	TDyTF3DTXaUIBdFQ0qzGfLPztyManlIZD8Wcve0Xl7M4pMPT4oUVS9m0ddY9OINuD56tShGPNV5
-	kdDe4cW3G8qkVKupM/Ujcpdp9T8zybjOn5Mo95ZtoM7sMTCBnIijv8XQT7buYI2zXe9fTda7ai8
-	ZILkKtDI8FaC0Vikfchu+MBpaq8bmt89g/6hqT05a7wVPbLG2+Zl9Xh6ZVzfWZifQBNX//CvseA
-	iLOdrALViYtli1stND/+OROMdFfmCDIGJe+FuU/nFFokKt6Z
-X-Received: by 2002:a05:7301:782:b0:351:1e72:735d with SMTP id 5a478bee46e88-3511e7277b6mr5112361eec.19.1791152009426;
-        Sun, 04 Oct 2026 15:13:29 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512718a18esm8976988eec.17.2026.10.04.15.13.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 15:13:28 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-rtc@vger.kernel.org
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3] rtc: stmp3xxx: use devm_platform_ioremap_resource()
-Date: Sun,  4 Oct 2026 15:13:27 -0700
-Message-ID: <20261004221327.416323-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dqb4EH1a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFC21F000FF;
+	Sun,  4 Oct 2026 22:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791152139;
+	bh=Szuc6VYTZ1Mhv2sQBIokhfD9CAHddVmZ2m3utthK21E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Dqb4EH1ahv2Dq+gRsg3RLQ08KQC4ndjU1TkT9qHR3Y6rjT+EWEX09OGVkzqBlqc2C
+	 kGVakqrl3bFhNJNhesh//cylIX1vMTNKxKbU4I4KcnH4J934jQa/YmxS+KMo2/6cm8
+	 yeI5ujrWCNuD/MENgjz6vUJx2RUGue+Yd8NhzzaGAad8464IuiRQ0njIwZA7nHyHrW
+	 BVzxhmZ+DnnHi2pUGkLH6/EzEquFIvHtk9U7Utzst2xRKcxvtpdSUfle8O0DkvcahE
+	 9cEStjUYy8g1jXNp1AYTt1CbSQVeJ7tuojplBT8C864QlVHNLJ301XKLniqHCYLKd6
+	 s6i7XlQftRsRg==
+Subject: Re: [PATCH net-next v2] dt-bindings: net: Convert HiSilicon hns-dsaf
+ to DT schema
+From: netdev-bot+sashiko@kernel.org
+To: robh@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ shenjian15@huawei.com, shaojijie@huawei.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 04 Oct 2026 22:15:37 +0000
+Message-ID: <179115213771.434549.6434616017051204695@kernel.org>
+In-Reply-To: <20260930201919.76465-2-robh@kernel.org>
+References: <20260930201919.76465-2-robh@kernel.org>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Replace the open-coded platform_get_resource() plus devm_ioremap()
-sequence with a single devm_platform_ioremap_resource() call, which folds
-the resource lookup and mapping into one step and returns an ERR_PTR on
-failure, checked with IS_ERR() and propagated via PTR_ERR().
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-Move the mapping ahead of the devm_kzalloc() so that an error or deferred
-probe is handled before the rtc_data allocation, avoiding needless work.
+Critical: 0 · High: 0 · Medium: 2 · Low: 4
 
-The fsl,stmp3xxx-rtc nodes in imx23.dtsi (reg = <0x8005c000 0x2000>) and
-imx28.dtsi (reg = <0x80056000 0x2000>) each provide a single
-non-overlapping IORESOURCE_MEM window, so the region reservation now
-performed by devm_platform_ioremap_resource() introduces no conflict.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Keep the alarm IRQ in a local, as it is only used in probe, and fail
-probe on a platform_get_irq() error instead of passing it to
-devm_request_irq(). Drop the open-coded error messages, as
-devm_platform_ioremap_resource() and devm_request_irq() already
-report failures.
+- [Medium] The conversion drops the two leading legacy 'reg' regions
+  (sub-control and SerDes) that the old binding documented as the…
+- [Medium] The top-level 'required' list in hisilicon,hns-dsaf-v1.yaml
+  leaves out 'desc-num' and 'buf-size', although the deleted text…
+- [Low] The patch deletes
+  Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt, but…
+- [Low] The deleted text binding had the buf-size and desc-num ranges
+  swapped ('buf-size: ... should be 16-1024', 'desc-num: ... should be…
+- [Low] The concern says that 'mc-mac-mask' with only 'maxItems: 6'
+  accepts 1–5 bytes, while hns_mac_get_info() needs exactly ETH_ALEN (6)…
+- [Low] reg and reg-names use 'minItems: 1' for every 'mode'.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v3: fix compilation.
- v2: add platform_get_irq error check
- drivers/rtc/rtc-stmp3xxx.c | 35 ++++++++++++++---------------------
- 1 file changed, 14 insertions(+), 21 deletions(-)
+--
 
-diff --git a/drivers/rtc/rtc-stmp3xxx.c b/drivers/rtc/rtc-stmp3xxx.c
-index 7afcd14aeee5..9ddb4c0e39c5 100644
---- a/drivers/rtc/rtc-stmp3xxx.c
-+++ b/drivers/rtc/rtc-stmp3xxx.c
-@@ -56,7 +56,6 @@
- struct stmp3xxx_rtc_data {
- 	struct rtc_device *rtc;
- 	void __iomem *io;
--	int irq_alarm;
- };
- 
- #if IS_ENABLED(CONFIG_STMP3XXX_RTC_WATCHDOG)
-@@ -245,29 +244,26 @@ static void stmp3xxx_rtc_remove(struct platform_device *pdev)
- static int stmp3xxx_rtc_probe(struct platform_device *pdev)
- {
- 	struct stmp3xxx_rtc_data *rtc_data;
--	struct resource *r;
-+	void __iomem *io;
- 	u32 rtc_stat;
- 	u32 pers0_set, pers0_clr;
- 	u32 crystalfreq = 0;
-+	int irq_alarm;
- 	int err;
- 
-+	irq_alarm = platform_get_irq(pdev, 0);
-+	if (irq_alarm < 0)
-+		return irq_alarm;
-+
-+	io = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(io))
-+		return PTR_ERR(io);
-+
- 	rtc_data = devm_kzalloc(&pdev->dev, sizeof(*rtc_data), GFP_KERNEL);
- 	if (!rtc_data)
- 		return -ENOMEM;
- 
--	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (!r) {
--		dev_err(&pdev->dev, "failed to get resource\n");
--		return -ENXIO;
--	}
--
--	rtc_data->io = devm_ioremap(&pdev->dev, r->start, resource_size(r));
--	if (!rtc_data->io) {
--		dev_err(&pdev->dev, "ioremap failed\n");
--		return -EIO;
--	}
--
--	rtc_data->irq_alarm = platform_get_irq(pdev, 0);
-+	rtc_data->io = io;
- 
- 	rtc_stat = readl(rtc_data->io + STMP3XXX_RTC_STAT);
- 	if (!(rtc_stat & STMP3XXX_RTC_STAT_RTC_PRESENT)) {
-@@ -354,13 +350,10 @@ static int stmp3xxx_rtc_probe(struct platform_device *pdev)
- 	if (IS_ERR(rtc_data->rtc))
- 		return PTR_ERR(rtc_data->rtc);
- 
--	err = devm_request_irq(&pdev->dev, rtc_data->irq_alarm,
--			stmp3xxx_rtc_interrupt, 0, "RTC alarm", &pdev->dev);
--	if (err) {
--		dev_err(&pdev->dev, "Cannot claim IRQ%d\n",
--			rtc_data->irq_alarm);
-+	err = devm_request_irq(&pdev->dev, irq_alarm, stmp3xxx_rtc_interrupt,
-+			       0, "RTC alarm", &pdev->dev);
-+	if (err)
- 		return err;
--	}
- 
- 	rtc_data->rtc->ops = &stmp3xxx_rtc_ops;
- 	rtc_data->rtc->range_max = U32_MAX;
+dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
+
+This commit converts the HiSilicon hns-dsaf text binding to a YAML DT
+schema. It drops the unused top-level phy-handle property and documents
+the previously undocumented media-type port property.
+
+> diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+> new file mode 100644
+> index 0000000000000..36251b45abeb9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+
+[ ... ]
+
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description:
+> +          PPE register base and size
+> +      - description:
+> +          DSA Fabric base register and size (not required for single-port mode)
+> +
+> +  reg-names:
+> +    minItems: 1
+> +    items:
+> +      - const: ppe-base
+> +      - const: dsaf-base
+
+[Severity: Low]
+minItems: 1 applies to every mode here. Would the schema accept a node
+with mode = "6port-16rss" and only reg-names = "ppe-base"?
+
+The description says dsaf-base may only be left out in single-port mode.
+hns_dsaf_get_cfg() skips it only when HNS_DSAF_IS_DEBUG() is true, which
+means dsaf_mode == DSAF_MODE_DISABLE_SP:
+
+	if (!HNS_DSAF_IS_DEBUG(dsaf_dev)) {
+		res = platform_get_resource_byname(pdev, IORESOURCE_MEM,
+						   "dsaf-base");
+		if (!res) {
+			res = platform_get_resource(pdev, IORESOURCE_MEM,
+						    res_idx);
+			...
+		}
+		dsaf_dev->io_base = devm_ioremap_resource(&pdev->dev, res);
+
+When subctrl-syscon is used, res_idx is still 0 at this point. The
+fallback therefore picks the ppe-base region again, and
+devm_ioremap_resource() fails with -EBUSY.
+
+Could an if/then on mode require two reg and reg-names entries for
+2port-64vf, 6port-16rss and 6port-16vf?
+
+[ ... ]
+
+> +  buf-size:
+> +    description: RX buffer size (bytes)
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [512, 1024, 2048, 4096]
+> +
+> +  desc-num:
+> +    description: number of descriptors in TX and RX queue
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 16
+> +    maximum: 1024
+
+[Severity: Low]
+This isn't a bug, but these ranges are the reverse of what the deleted
+text binding said:
+
+- buf-size: rx buffer size, should be 16-1024.
+- desc-num: number of description in TX and RX queue, should be 512, 1024, 2048 or 4096.
+
+The new constraints match the driver. hns_dsaf_get_cfg() checks desc-num
+against HNS_DSAF_MIN_DESC_CNT and HNS_DSAF_MAX_DESC_CNT, and it checks
+buf-size through hns_rcb_buf_size2type().
+
+The only related note is "Add constraints for buf-size and desc-num" in
+the v2 changelog, and that text is dropped when the patch is applied.
+Could the commit message say that the old text had these ranges swapped?
+
+[ ... ]
+
+> +      mc-mac-mask:
+> +        description: multicast MAC address mask
+> +        $ref: /schemas/types.yaml#/definitions/uint8-array
+> +        maxItems: 6
+
+[Severity: Low]
+hns_mac_get_info() needs exactly ETH_ALEN bytes for this property. With
+any other length it falls back to the broadcast mask:
+
+	if (fwnode_property_read_u8_array(mac_cb->fw_port, "mc-mac-mask",
+					  mac_cb->mc_mask, ETH_ALEN)) {
+		dev_warn(mac_cb->dev,
+			 "no mc-mac-mask property, set to default value.\n");
+		eth_broadcast_addr(mac_cb->mc_mask);
+	}
+
+Does maxItems: 6 on its own reject a mask shorter than 6 bytes? If the
+dtschema fixups set minItems equal to maxItems here, this is already
+fine. If they don't, is an explicit minItems: 6 needed?
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - mode
+
+[Severity: Medium]
+Should subctrl-syscon be in this list now?
+
+The old binding allowed two leading reg regions, for sub-control and
+SerDes, as an alternative to subctrl-syscon. This conversion drops those
+regions, so reg can now only describe ppe-base and dsaf-base.
+
+The OF path in hns_dsaf_get_cfg() still uses the old layout when the
+phandle is missing:
+
+	np_temp = of_parse_phandle(np, "subctrl-syscon", 0);
+	syscon = syscon_node_to_regmap(np_temp);
+	of_node_put(np_temp);
+	if (IS_ERR_OR_NULL(syscon)) {
+		res = platform_get_resource(pdev, IORESOURCE_MEM,
+					    res_idx++);
+		...
+		dsaf_dev->sc_base = devm_ioremap_resource(&pdev->dev,
+							  res);
+		...
+		res = platform_get_resource(pdev, IORESOURCE_MEM,
+					    res_idx++);
+		...
+		dsaf_dev->sds_base = devm_ioremap_resource(&pdev->dev,
+							   res);
+
+Under the new schema reg[0] is ppe-base, so the lookup by name that
+follows requests the same region a second time:
+
+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "ppe-base");
+	...
+	dsaf_dev->ppe_base = devm_ioremap_resource(&pdev->dev, res);
+
+That call fails with -EBUSY. In single-port mode, where only ppe-base is
+present, probe fails even earlier with "serdes-ctrl info is needed!".
+
+So a node without subctrl-syscon passes dt_binding_check but can never
+probe. The in-tree hip06 and hip07 dtsi files already set
+subctrl-syscon, so requiring it would not break them.
+
+Also, the narrowing of reg appears only in the v2 changelog ("Drop
+erroneous 1st 2 'reg' entries") and not in the commit body. Could the
+body mention it, as it does for the phy-handle and media-type changes?
+
+[Severity: Medium]
+The deleted text binding listed buf-size and desc-num under "Required
+properties". hns_dsaf_get_cfg() fails probe if either one is missing:
+
+	ret = device_property_read_u32(dsaf_dev->dev, "desc-num", &desc_num);
+	if (ret < 0 || desc_num < HNS_DSAF_MIN_DESC_CNT ||
+	    desc_num > HNS_DSAF_MAX_DESC_CNT) {
+		...
+		return -EINVAL;
+	}
+	...
+	ret = device_property_read_u32(dsaf_dev->dev, "buf-size", &buf_size);
+	if (ret < 0) {
+		...
+		return ret;
+	}
+
+Should desc-num and buf-size be added to this list as well?
+
+[ ... ]
+
+> diff --git a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt b/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+> deleted file mode 100644
+> index 8ee4b1cedae80..0000000000000
+> --- a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+> +++ /dev/null
+
+[Severity: Low]
+The ae-handle description in
+Documentation/devicetree/bindings/net/hisilicon-hns-nic.txt still points
+to this file:
+
+- ae-handle: accelerator engine handle for hns,
+  specifies a reference to the associating hardware driver node.
+  see Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+
+Should it point to hisilicon,hns-dsaf-v1.yaml instead?
+
+[ ... ]
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930201919.76465-2-robh%40kernel.org
