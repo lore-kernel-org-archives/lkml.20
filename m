@@ -1,81 +1,66 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from send288.i.mail.ru (send288.i.mail.ru [95.163.59.127])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FE137C0EC
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9966C334C3D;
+	Sun,  4 Oct 2026 15:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.163.59.127
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791128762; cv=none; b=uv7975Yi98atnBkmPIe9Sv15zM2bkgk4KZpbXC+SKbbHti1wKZq4TYNXvMzsPUV3RStxdZscz5p0J7Id7eDlPV12T0nhAQPQ4j1m7StVSybZmlh2ZttU2Hzwp85jfp+y9Z/1epFwcJAClzAmhIMX5EAovgUPJATVUN4YlhpNZ/g=
+	t=1791128920; cv=none; b=ocye/KcvrhO1NRsMnq0moxspcZ0eE/yKjNGQ2szecqR/1BuRTJ6klKYz8sIxf+NgmNHycjcvsDODI4sA2g/S56PGndCLZ2cBs8o1NEmwb3UaiaJTG64JIM/91ewDGv9u5wA2WxpW0m0c0cBR78D722EHLMLDOT4JYbf+sTZW9RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791128762; c=relaxed/simple;
-	bh=hJce8KkqJxPTE3J7Vzepo/98v8LFPJybkOZQxttxP38=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HFghotVWffllzrOHvPyKJcMZtKGKq67SbdyK3BEQDrkNXF0XmJRMJWRqT/y/FA7j/5twXZJrgq4vsndjPhSH539H73bb2P/ahEtRzhlBMGdCFzWk5RFBR/Xe8O0VPchgM7VYELRsUqlDhnZSOHEtDhzyM0A5iZBBQcJfMJoMKXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R+8PdtuU; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791128920; c=relaxed/simple;
+	bh=Q98Ob/et0Ad5ThdzlalK0d5SbwqbtC0m1flyFqDf3tU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=glCGHMRHLzkGQl3uMZKCzSn3KKNhyNpMZM8eb6oqAcof12Y1OSUsz0lPRKZFAOVygIX/faYiEWnGSDhNGw3pDLbxhYcYGn0gwdPQwUlv1C8FRM3PeMSYGZ2lVigJwlddJ9N+I7xCeU04asTYYxl9X7UlyIQzdVbfcSPTbujAmt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru; spf=pass smtp.mailfrom=mail.ru; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=npeLtRjx; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=vJo9pSpO; arc=none smtp.client-ip=95.163.59.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R+8PdtuU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a11603310fso10135585e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:45:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791128747; x=1791733547; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DzRrET+2CK6J9+3R0nvrRXkHdDyhShxAssXo4w7Y3Wk=;
-        b=R+8PdtuU4eRegHubGNz3nu6vE9W54fpV+9otvoIpf3QhScV51kaLZpH5Yrm/zjiDzB
-         2Wq3VqDsZG4GZdE2R8OK5XdHsHvnJ8EMuDz9BlHaVIkfE3COJ3N6hxpx1hQeNc2qr3HR
-         XDFOfxzY89sZSazW+l3gZoXzrSMGDPhjIU5EfTKoHaZc/rHIXGEBJ6IrGZ514QBxMYve
-         WKrnY8+eivjV+oJQlBbhuZMdgTQQjeWf43nHcYkamNOlhyHD7T7F7L6Xa6CB74UiwKqW
-         c1ZHYTQzuvOemdZnk2pzZmXPBbDPu6JkGqFzt3U4bMMH0s6iv5ZoDDheeKG3X9+pYzm3
-         sJzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791128747; x=1791733547;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DzRrET+2CK6J9+3R0nvrRXkHdDyhShxAssXo4w7Y3Wk=;
-        b=waPWJ1VeoIwKnJczpC2K7e4pdjSnRT8QA0K/TEAicgbVPBoaviezeEva3O38DyVYWH
-         nf0vO2C7786rEIKZ6SwmKZ/DCKV06SQ8MSZouxh19amYJbmci9FWoN5CUY38O+7qHRQE
-         wUByDSX4euoinDhAkQ+r2qn2/Jh8yVOvfSQYAlf4O4J72yZrrekiCngxXv6m+Sw5WmCJ
-         8V2iUlQATChPVT/2+3HzfBz3vy+ftPf55tzquX54Dz3nbdlDRf2lqPr6uHlEVG+Ig2zU
-         Jh2RdeDnwvWG2mWyJypmfbE/OfWz2IxjOeI676vXmPp/kOHDG7gIeSluf7x8TDhveNnj
-         5q1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwdOkjm42FzwRiyvH4reQ0MGLS9r57O9OuOZQuyiH5DWYQvJFYXZHA6E1MI7PJfkQhSu+Xvx6DOkq5AlRU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcwNj661c3+On5/db1FjCylP20YqbvGtPfwVIfvX6bn/zV63Cb
-	n1Q70OMnfxc4wVcI/DBoiKNAAu0HSYX0XhK4gRiDOKgKbYVu3k09rZni
-X-Gm-Gg: AYBFou06Eri1mieDZraHuiZ3A66sHkduzUxtNR3DkFio2qd1VRw3P1ONgKWdFidyki1
-	1aprsj6YYVCZAfzM3Qqln12wWtYX1JU5d6Zk3EljnQ59B4FI0Axs4lhUJ3YSVOcIDVgk4g9cbME
-	Pgh5AEmo7s7CdYJnrjkuD48i86F4mb0PH1UbNgYTzZjO1D18VOejVTXtioA5zy7j+5+jfMg1gur
-	XRRH0KPXKVO77Zvj/dL02epYKNvSoMImfgE4wBNZ+oJ23/+URNDlL9UQ3bzZwP/yGpRBrBOz9km
-	iqW71oORv8hRrrlUdTQxjGQ1VYgQ1W6sGnCHiIgnnjtoOSHTd8X1QG9ObWjD72tfzZzVhzYPFf7
-	+HxvieFYIlh66UjvE1wOEN7InPi9rMwp1g5V/7OQMb6OrtUrdNhBhdclQq0CwgsrA1vJVhb+HqU
-	6dlgAChABzMk582Oh+o2suGMHzwLXoPHjRimwiwg0Xo24JPwKwrY/LSpXhjI1hsnYyruBikTAXO
-	Qq6zyiVvrUlNkJx87k=
-X-Received: by 2002:a05:600c:a011:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-4a0275107e2mr139184455e9.1.1791128747297;
-        Sun, 04 Oct 2026 08:45:47 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394ca0f0sm168639935e9.1.2026.10.04.08.45.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 08:45:46 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="npeLtRjx";
+	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="vJo9pSpO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+	s=mail4; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:
+	To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive:X-Cloud-Ids;
+	bh=mB90G5H+eGeqxMX1ZBd2kKxnWNEIT8sYLRoBasATiMw=; t=1791128916; x=1791218916; 
+	b=npeLtRjxF9o3miyD5tvH4hitQHTtCh+0GmECmbChm53jqSalEaHYPq6mxsi3buf7Gj4c5nZjq47
+	RGl6sf52UM0mRyZvNYyWVU2o50TJqodiGo6j/sGkJzMEG/KLgzPNNzmePxqa+EwANQ5UJfbSKvQN5
+	4sQ7hBDttuQmHBCuVVvIHpiRwREEfBy/FMGUu1URVPwYlqoGEUJe85benACTHMKBCC7LDOFhcOM+s
+	XQHeG5OICIpf3cBG5tpCevCWtEbO1CK8ny3OkR8RtD9sXy2ykpc94Ol2dWIzRQZ5tYgiAKXF0oP2b
+	Gz2R12/1Eyd+tfr+j0YXJi1KQzh6DLsogmHw==;
+Received: from [10.113.70.127] (port=34956 helo=send243.i.mail.ru)
+	by exim-fallback-canary-30-5f5f5797b7-sjhwp with esmtp (envelope-from <misha.zavertkin@mail.ru>)
+	id 1xDODK-00000000EbX-3zUr; Sun, 04 Oct 2026 18:33:23 +0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+	s=mail4; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:
+	To:From:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
+	X-Cloud-Ids:Disposition-Notification-To;
+	bh=mB90G5H+eGeqxMX1ZBd2kKxnWNEIT8sYLRoBasATiMw=; t=1791128002; x=1791218002; 
+	b=vJo9pSpOnY2m/vYu3Q6ZyBuyb9KvLtJ1Q7HWnRivbqYeQCA52uITKFFhpNm01i+8Y2LbsBubWLR
+	7j2W4j9D1Q47X3lFyEWRhuaQEHmU7b4TnaNqy0AbupmdMdTIX81erNRUneWxUHkO+9TNNYMLg+66I
+	SZRbWxhSy7qKWNpzAtFQfjtNoeJvG/hf6Zu97+ehiv1BbsGE1/QrPCoTfw2BcNeloPQz+c4UFgSa8
+	yTTXIlZhCINR+NO2V/u6HiQECgWO+GriSf0YbHEta6SnVxtx9jnwfpc3RUOW8vMu+AZZHXgvIlm9b
+	zSBvmTxyY8MWLiXEydlTLXyy4x5GGu4N8o7Q==;
+Received: by exim-smtp-canary-30-7bd8444d88-2gbk7 with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
+	id 1xDOD9-00000000PBz-0Xh1; Sun, 04 Oct 2026 18:33:11 +0300
+From: Michael Zavertkin <misha.zavertkin@mail.ru>
+To: linux-i2c@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Ion Agorria <ion@agorria.com>
-Cc: devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 8/9] ARM: tegra: lg-x3: Update USB configuration
-Date: Sun,  4 Oct 2026 18:44:55 +0300
-Message-ID: <20261004154456.145362-9-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261004154456.145362-1-clamor95@gmail.com>
-References: <20261004154456.145362-1-clamor95@gmail.com>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: [PATCH 0/2] i2c: rtl9300: remove IO_MODE configuration
+Date: Sun,  4 Oct 2026 22:32:33 +0700
+Message-ID: <cover.1791127538.git.misha.zavertkin@mail.ru>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,51 +68,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailru-Src: smtp
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD916CE66F793C04802C937705057FAC64C8D095010D03BA95E00894C459B0CD1B9E75B5B493919319E06104296DCCA83D203A58B56A10BFA1FC28C821639F114AEF82D89A8CF7DB8F5
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE789805A6418246A1AEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB553375669FBB6EE09702D42792CFA01CAF86D7B1085DA90028991B7B932B26F09BF67B538EEF46B7454FC60B9742502CCDD46D0DEDCF5861DED71B2F389733CBF5DBD5E9D5E8D9A59859A8B699DB8DEEBFCC4B66CC7F00164DA146DA6F5DAA56C3B73B237318B6A418E8EAB8090A508E0FED6299176DF2183F8FC7C06526C9B1F5BC626BCD04E86FAF290E2DB606B96278B59C421DD303D21008E29813377AFFFEAFD269A417C69337E82CC2E827F84554CEF50127C277FBC8AE2E8BA83251EDC214901ED5E8D9A59859A8B6104AF9A031C589D7089D37D7C0E48F6C5571747095F342E88FB05168BE4CE3AF
+X-C1DE0DAB: 0D63561A33F958A5EFE4809F597D63A15002B1117B3ED6968851931A9796B66DF09842853758E9E5823CB91A9FED034534781492E4B8EEAD619183A7BD6BC6F1F36E2E0160E5C55395B8A2A0B6518DF68C46860778A80D54AF47762AB4810619
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F9677DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659243F0C7AC694BC8FCD8B58DAF003AF8FA4B141E193EA3E3F8E0F9DDF096DE02937192837DAA70EBEB8341EE9D5BE9A0AC71548C1A69F2F49442C5154916628D7998682C8811A4AFF52EE4E5D9E54FDA427302E973F6434AB8511FE41C8941D68F571C199C4BE91E79E69A34BD5DD98C9F0A6D2C91ED28CB6
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4ZrlAo0bq3TDyw5v+G6YiroYwPBU2Rt8bj1Q=
+X-Mailru-Sender: FD65D7C492470CAEE010D97EE9FDA1EF30A43CBF52B51200D77739F4E260083E5A2229DB1BE3CD3932A72BBB8BE3169CF767ED260C4F5E398B67290C0B8F2C0D0ACA136676B1AD1C82BADC8C81B40964835B6B713A4867D9C77752E0C033A69E3453F38A29522196
+X-Mras: Ok
+X-Mailru-Src: fallback
+X-7564579A: B8F34718100C35BD
+X-77F55803: 6242723A09DB00B400464DA02507E70B0546FCE11372492E55863E2B7114EDB0049FFFDB7839CE9E920F40F1183B47102B473EABEA2527F4EEFED01033B76AC4039D4C6DD5D7D878D020F7FCB975CFC3
+X-7FA49CB5: 0D63561A33F958A50F1B27CD8912D05D5002B1117B3ED69608B10F07AB9A4E21F4374DBC560C873002ED4CEA229C1FA827C277FBC8AE2E8B54F520D093A0DF28
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+OYcBso8Zm+oliTz8oZwnDrFsY77LZRcHyw5ht0smWrfSeTW5FiI8avd9v29gUBslpLaIlvAR6h4id02YH9mgeCTAyYoNlVO8a/xwH01AMJkn9snoPBmFZWo=
+X-Mailru-MI: 20000080020000000000000800
+X-Mras: Ok
 
-Update USB controller configuration and link it to MUIC.
+i2c driver for RTL9607C used to configure IO_MODE register. The register
+is global and responsible for configuring SoC pins, therefore it should
+belong to pinctrl driver.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+SoC-specific pinctrl driver is WIP (waiting for these patches in OpenWRT),
+but pinctrl-single could be used instead.
+
+Remove scl configuration (used only to modify IO_MODE register) and
+reflect these changes in Documentation.
+
+Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
 ---
- arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+Michael Zavertkin (2):
+  i2c: rtl9300: remove IO_MODE configuration
+  dt-bindings: i2c: rtl9300: add pinctrl
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-index 2dbef0185a0b8..e334473b7635a 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-@@ -1215,6 +1215,11 @@ muic_to_charger: endpoint@0 {
- 					reg = <0>;
- 					remote-endpoint = <&charger_input>;
- 				};
-+
-+				muic_to_usb: endpoint@1 {
-+					reg = <1>;
-+					remote-endpoint = <&usb_input>;
-+				};
- 			};
- 		};
- 
-@@ -1788,7 +1793,19 @@ usb@7d000000 {
- 		compatible = "nvidia,tegra30-udc";
- 		status = "okay";
- 		dr_mode = "otg";
--		extcon = <&max14526>, <&max14526>;
-+
-+		hnp-disable;
-+		srp-disable;
-+		adp-disable;
-+
-+		usb-role-switch;
-+		extcon = <&max14526>, <&max14526>; /* vbus, id */
-+
-+		port {
-+			usb_input: endpoint {
-+				remote-endpoint = <&muic_to_usb>;
-+			};
-+		};
- 	};
- 
- 	usb-phy@7d000000 {
+ .../devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml |  7 ++++++-
+ drivers/i2c/busses/i2c-rtl9300.c                     | 12 +++---------
+ 2 files changed, 9 insertions(+), 10 deletions(-)
+
 -- 
-2.53.0
+2.54.0
 
