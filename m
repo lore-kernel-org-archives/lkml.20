@@ -1,78 +1,222 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D9A2BE034;
-	Sun,  4 Oct 2026 09:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F038B40961B
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791104960; cv=none; b=MblgMMLSuEvMHaL2gC1xRr59QFW27C4kFi1lmnmYmODI58No0JIDGWmlnaL4etN9lbjmpbXRSuRQh/nqsH5ptFtjgldnfrY27Ov+g2NvuFzbcJnCXxIVD7eeIPaGrNhMbKBdjdNDsQh8P/jdvxaB5AJko6tfw0z/QzzGpTa8uUU=
+	t=1791105036; cv=none; b=CD5HkSinj5T2hiXfrEZqbMSqwCwmz1RppurU3tzPJ7MnAk12MwXuKZqCHhPeiS+PVmy3ho84W4YNeq4q9kCDkAjYL6n4kQADoDKS93bPnBwfrKZJ12d2lIa+v5GvlUuv9EnVmyLhweQz0mFwsIbEm83WbuG92SjL8Y9rxmW9+f4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791104960; c=relaxed/simple;
-	bh=m3+Muw9xdsKZTlVAFncABHSx/jWeDBFS8lhuxCl+VSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V/F1mL6yAYQdwn2p9ffWeLN7dnM9RTm4D7ELvS+sKOPhnGRck2m3teT0wtQf8GOve2gll5D9XABYpQYw0xnLCcarJ3t/07y2mE/fBv+R77i20osBJArLPA4V6rGLQo+Vr4S+tYB14nT6IP6a2Fvh/B8CU/G9ZHzz4qayGCFdF10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=FQ4B7c38; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791105036; c=relaxed/simple;
+	bh=z094i4HwymZDFDjVYu2c8pz9wi8tggyQHLFBSq9quEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VqO1gd2SNdv12FpzzLRVCKLq8+f3vJA1E9W/3iX1VcVw5kKOHZ+cQiiiw88w2oEvQcVWGnpnipkNjm5sPZF25GiraYnPzr9AqHoYmzqxqvAGSKoj15imqFpH3Rk3Fba8SF0EZJKLmqbHNOru0WC27NohhxFbOpqsGv69atSDSvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cjwPhKZw; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="FQ4B7c38"
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 7F7FF1C3EFC;
-	Sun,  4 Oct 2026 09:09:16 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 04A4D2F;
-	Sun,  4 Oct 2026 09:09:10 +0000 (UTC)
-Date: Sun, 4 Oct 2026 05:09:04 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Lawrence Lin via B4 Relay <devnull+deduce.gmail.com@kernel.org>
-Cc: deduce@gmail.com, Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Petr Pavlu <petr.pavlu@suse.com>, linux-modules@vger.kernel.org, Stanislaw
- Gruszka <stf_xl@wp.pl>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] ftrace: Avoid quadratic symbol lookups in
- ftrace_module_enable()
-Message-ID: <20261004050904.06a5ecab@fedora>
-In-Reply-To: <20261003-ftrace-mod-bsearch-v1-1-92e2fd2d80ff@gmail.com>
-References: <20261003-ftrace-mod-bsearch-v1-1-92e2fd2d80ff@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cjwPhKZw"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-88aea027391so340388b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:10:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791105034; x=1791709834; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hn1knN0Ne9g7tVudusR3tVlb1NSZVYCjpb+Hy/EfMyI=;
+        b=cjwPhKZw2mciqtvJ8nkhvM/ctEjWCTYOFNCVfOoDpkIn1ZWv1oTRn+oKqO5PicFEo7
+         ptGc5OWFGp6vwriDGmHN05ZhVsfy1v7BZkzc3vT9w63mt9Y8aFk8p7tDKhimgokvq1Vc
+         6lFQOFWo9hmpIOUNgzq1YzZ9b4YGp1nmDJ1OEishjrMIjsLixZ6ow2Fw9lOLq7FLChAA
+         nLlxLipccql7gqwQhbnnTONJck9jUHXf6eFRJd5e94Faj6hF6YY7UksacWQc80NByUUH
+         yFKkyMy96e1LmPJ9nKorH+oJRQnl01GL41V9xLg0zjgANDw2tB73r8Yl4azs6eMthbdf
+         aCYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791105034; x=1791709834;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hn1knN0Ne9g7tVudusR3tVlb1NSZVYCjpb+Hy/EfMyI=;
+        b=YKT0XBRh8f7CpDmJrIUOoHL7TSPDwvMRmDEpSd9mo5jYv8oEJeYa7wB1DXzannrep+
+         Fmbxr8wT5Yyo8fY/QN4CNDYzeollvdU8Kf0uOR7ekHy3OBsIHPPUGh73R/2brbB+gCl9
+         elzgbyeuknM2cDMRcOls4fsd3PUU/OlE+k/j/DGHT4K8i1RJZHu7RZGaob6nFjCNJTId
+         wjz9i6NVlvT8F0/xlH21WqEAWO1FGUYxvi2I/9f5uthqdZV1eE7HBNHD21n5A3zV5o8b
+         tDYJPj/hTqplhmoxe2W0LQScUyA1bV3CgFUwhxjyK1MVBwCoQx/I4aDM9T4jO0ZJ30mi
+         baSg==
+X-Forwarded-Encrypted: i=1; AKwUvBy3XUQs3z4emYnTbvxfYrDP+XbbWuAaL1tv5F9ND6MiVFBmmTdQjGoplBcvN55A9Q4l2/vl3APw4vo7+yI=@vger.kernel.org
+X-Gm-Message-State: AFuF++le15rG1+p17Nm8p+3/6UUfly4xMzYnrM9/EA7eLrkNghzoXrXL
+	UiP1r/ID30lwk5MzW9ogvkGvr3zyDCgwwDl2sxqM/dibzo1WBNYn8bA4
+X-Gm-Gg: AYBFou2NG2Wg2g0X/NkX/6mnz1F4TBcpShXI3tiPvG5z/ZhN5OjoGu9F7hOH/Dx3o8H
+	oKqwownRgP8DKJ0lKOws5e0Zd8nvHNIypsAlEhKu6x81LeCj+Dne0mnSPuNDqOrSAc3uShwCw29
+	qaiaUP+fyq7QAniQwn/f9Faz2Taf0mDgFDYgRDR+W3UR+EI0WkubsUJzLItMxIxSKobPnrcADkr
+	PiYE74FJwU/uruCmMrXhimHenKOm/XdQBXJOVUB3pWYd/33fNoDyDkTsk4PV9qvh+VS3J6Y6hgx
+	mJGJ3pUeguk7dgtd3C4DEvcFPgIDkGuPZwdQS42IZHWiTtt3EDNpTfXDtdptBhTJbgu8qH1p1zu
+	MVPcnzaPjRw6tP/m8J6MDmvV5MfC6S/xq7P3QAY/qV4xRWuQkubt0oOLWrfCxJ2agpT9p87tuyo
+	/GVEzih3j6ieNXSQdqV2jgwdfnzUVyvNhzCqDEU4NHkBAYLkpQ+XYv4d7Zul/ejWgI3MFN
+X-Received: by 2002:a05:6a00:14d0:b0:88b:af3d:2891 with SMTP id d2e1a72fcca58-88c628fca60mr3777134b3a.22.1791105033760;
+        Sun, 04 Oct 2026 02:10:33 -0700 (PDT)
+Received: from gmail.com ([185.220.238.43])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0ca7c6b7sm2374693b3a.44.2026.10.04.02.10.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 02:10:32 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Gregory Price <gourry@gourry.net>,
+	David Rientjes <rientjes@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Bijan Tabatabai <bijan311@gmail.com>,
+	Ajay Joshi <ajayjoshi@micron.com>,
+	Honggyu Kim <honggyu.kim@sk.com>,
+	Yunjeong Mun <yunjeong.mun@sk.com>,
+	Akinobu Mita <akinobu.mita@gmail.com>,
+	Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [RFC PATCH v3 2/9] mm/damon/core: replace the access report buffer with per-context rings
+Date: Sun,  4 Oct 2026 17:10:21 +0800
+Message-ID: <20261004091023.630362-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261003-damon-perf-rfc-v3-send-2026-10-03-v3-2-0f00417b41bc@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 04A4D2F
-X-Stat-Signature: m81cmqzreg8pfymuirdqsgoyryw8zqcz
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+VFOVb5c40zQRx0NDKTb8yjxVareGzTFI=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=bvNjCPW87QjBuKCrWM9oVuVOnsojI94Ko33jmK4OTFI=; b=FQ4B7c38H3XrdRsSHhYUUWdbqbBTZz3W6qFvEEJPMshrhzhqFltofiv2OS9n8oQyADs4dF2SVZx9Qg+e8egWuZ34p+W9mP4uFZ02KWtFA8Zs4rCF7qQa3LcHZo6Ptbt4TfXVfOql/fKy59WyPcNiHqzl51Aikotucr5spcomrq4=
-X-HE-Tag: 1791104950-341484
-X-HE-Meta: U2FsdGVkX19qD9uqcO2x5VYtOa5WEvoyCKTSfcCZWJ7rv0aMW5eK9mw3LOSfh9evpSPFBWS/zo+m7yramWDNSYyYMS/JMePwmm0clOKPMcklhNvd3o/RwA8DgkXtW52WCsyvvcS2RitLAUM4sXyPBqYHCMPcTNW6Td+0vd830AOKpnQckxSNN5jemqo3o3ixwNWuYLJNen0PTbr2XkZDBFsAmCGnGF2qiwwhIMy1rBXKIq/KZo8tHpc5gIdfadrUANCkxSstzaD6+ew0wIoJvLp6EjtaTR6Sy6/EoHaLG+yOBL/ix0mX8JYk37FDEA8uOkwIrsMtckKS2Yt+LNAzLnKVeXd9JvjDJO5zIrdDqvBf23mRgU3U4Q==
+Content-Transfer-Encoding: 8bit
 
-On Sat, 03 Oct 2026 11:27:10 -0500
-Lawrence Lin via B4 Relay <devnull+deduce.gmail.com@kernel.org> wrote:
+On Sat, 03 Oct 2026 14:07:55 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail.com> wrote:
 
-> From: Lawrence Lin <deduce@gmail.com>
-> 
-> Since commit b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid
-> adding weak function"), ftrace_module_enable() calls test_for_valid_rec()
-> for every ftrace record of a module being loaded. test_for_valid_rec()
-> resolves the record address with kallsyms_lookup(), and for a module
-> address find_kallsyms_symbol() scans the whole symbol table of the module.
-> Loading a module therefore costs O(records * symbols), all of it under
-> ftrace_lock.
+[...]
+>  
+> @@ -2519,30 +2662,107 @@ int damos_walk(struct damon_ctx *ctx, struct damos_walk_control *control)
+>   * damon_report_access() - Report identified access events to DAMON.
+>   * @report:	The reporting access information.
+>   *
+> - * Report access events to DAMON.
+> + * Report access events to DAMON via a per-context per-CPU SPSC lockless ring
+> + * (ctx->perf_rings).  Producer is the local CPU (typically NMI from a
+> + * hardware-sampling backend); consumer is the kdamond drain in
+> + * kdamond_check_reported_accesses().
+> + *
+> + * The destination ring is selected by this_cpu_ptr(), i.e. by the CPU calling
+> + * this function, not by @report->cpu, which is sample metadata used by the
+> + * drain-side filter.  The two coincide for a sample delivered by an interrupt
+> + * on the CPU that produced it.
+> + *
+> + * A backend whose PMU writes a record stream into a memory buffer instead of
+> + * raising a per-sample interrupt, or one reading a device counter table, must
+> + * therefore decode CPU N's buffer on CPU N -- for example by queueing per-CPU
+> + * work with queue_work_on() -- rather than calling this function in a loop
+> + * from one thread.  A single-thread loop puts every report in that thread's
+> + * ring, which caps machine-wide capacity at DAMON_REPORT_RING_SIZE - 1
+> + * reports per drain regardless of the number of producing CPUs, and does not
+> + * satisfy the single-producer invariant if the thread can migrate.
+> + *
+> + * Context: any (NMI-safe).  An NMI nesting on top of a process-context
+> + * producer on the same CPU would otherwise stomp the same entries[head]
+> + * slot; the busy guard detects and drops in that case.
+>   *
+> - * Context: May sleep.
+> + * If the ring is full, the sample is dropped and the per-CPU ring-full
+> + * counter incremented; a busy-guard drop increments the busy-drop counter.
+>   *
+> - * NOTE: we may be able to implement this as a lockless queue, and allow any
+> - * context.  As the overhead is unknown, and region-based DAMON logics would
+> - * guarantee the reports would be not made that frequently, let's start with
+> - * this simple implementation.
+> + * Return: true if the report was queued, false if it was dropped.  A producer
+> + * holding a single report may ignore this.  A producer decoding a batch out
+> + * of a hardware buffer should stop on false and leave the remainder in that
+> + * buffer for the next round, since a report released from the buffer but not
+> + * queued here is not delivered.
+>   */
+> -void damon_report_access(struct damon_access_report *report)
+> +bool damon_report_access(struct damon_access_report *report)
+>  {
+> -	struct damon_access_report *dst;
+> +	/*
+> +	 * Only perf-event reports (probe_idx >= 1) have a ring to feed: the
+> +	 * global page_fault ring this dispatch also fed has been removed.
+> +	 * A probe_idx == DAMON_PROBE_IDX_NONE report has nowhere to go and is
+> +	 * dropped here rather than at each caller.
+> +	 */
+> +	struct damon_report_ring *ring;
+> +	cpumask_t *pending;
+> +	int __percpu *busy_pcpu;
+> +	unsigned int head, next;
+> +	int busy;
+> +	bool queued = false;
+> +	struct damon_ctx *pctx = report->ctx;
+> +
+> +	if (report->probe_idx == DAMON_PROBE_IDX_NONE)
+> +		return false;
+>  
+> -	/* silently fail for races */
+> -	if (!mutex_trylock(&damon_access_reports_lock))
+> -		return;
+> -	dst = &damon_access_reports[damon_access_reports_len++];
+> -	/* just drop all existing reports in favor of simplicity. */
+> -	if (damon_access_reports_len == DAMON_ACCESS_REPORTS_CAP)
+> -		damon_access_reports_len = 0;
+> -	*dst = *report;
+> -	dst->report_jiffies = jiffies;
+> -	mutex_unlock(&damon_access_reports_lock);
+> +	/*
+> +	 * A perf report must carry its owning ctx (set by the overflow handler)
+> +	 * and that ctx must have an allocated per-ctx perf ring.  If either is
+> +	 * missing (e.g. an overflow racing teardown after the ring was freed, or
+> +	 * a report raised before the ring was allocated), drop the sample rather
+> +	 * than touch NULL/freed storage.
+> +	 */
+> +	if (!pctx || !pctx->perf_rings || !pctx->perf_ring_busy)
+> +		return false;
+> +
+> +	/* Pin to a CPU so the SPSC invariant holds for preemptible callers. */
+> +	preempt_disable();
+> +	busy_pcpu = pctx->perf_ring_busy;
+> +	busy = this_cpu_inc_return(*busy_pcpu);
+> +	if (busy != 1) {
+> +		/* NMI nested on a process-context producer; drop. */
+> +		this_cpu_inc(damon_report_busy_drop_perf);
+> +		goto out;
+> +	}
+> +
+> +	ring = this_cpu_ptr(pctx->perf_rings);
+> +	pending = &pctx->perf_pending;
+> +	head = ring->head;
+> +	next = (head + 1) & DAMON_REPORT_RING_MASK;
+> +
+> +	if (next == READ_ONCE(ring->tail)) {
+> +		this_cpu_inc(damon_report_ring_full_perf);
+> +		goto out;
+> +	}
+> +
 
-Honestly, I think we can revert commit b39181f7c690.
+Hi Ravi,
+ 
+I noticed that ring overflow drops reports and updates an
+internal counter.
 
-Since commit ef378c3b823385 ("scripts/sorttable: Zero out weak
-functions in mcount_loc table"), I believe that commit has become
-obsolete. I just kept it because I didn't want to add regressions.
+Since hardware sampling is used as an access observation source,
+could userspace get any indication that reports were lost during
+an aggregation window?
 
-It would be interesting if it actually triggers (finds something). If
-it doesn't, then I think we should just remove that code instead of
-adding more complexity to it.
+Without such visibility, users cannot distinguish an aggregation
+result affected by report loss from one collected without loss.
+This may make it difficult to evaluate the reliability of the
+observed access information.
 
--- Steve
+Thanks,
+Kunwu
+
+[...]
+
+Sent using hkml (https://github.com/sjp38/hackermail)
